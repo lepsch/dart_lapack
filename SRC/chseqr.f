@@ -87,7 +87,7 @@
 
          // ==== Quick return in case of invalid argument. ====
 
-         CALL XERBLA( 'CHSEQR', -INFO )
+         xerbla('CHSEQR', -INFO );
          RETURN
 
       } else if ( N.EQ.0 ) {
@@ -100,7 +100,7 @@
 
          // ==== Quick return in case of a workspace query ====
 
-         CALL CLAQR0( WANTT, WANTZ, N, ILO, IHI, H, LDH, W, ILO, IHI, Z, LDZ, WORK, LWORK, INFO )
+         claqr0(WANTT, WANTZ, N, ILO, IHI, H, LDH, W, ILO, IHI, Z, LDZ, WORK, LWORK, INFO );
          // ==== Ensure reported workspace size is backward-compatible with
          // .    previous LAPACK versions. ====
          WORK( 1 ) = CMPLX( MAX( REAL( WORK( 1 ) ), REAL( MAX( 1, N ) ) ), RZERO )
@@ -131,12 +131,12 @@
          // ==== CLAQR0 for big matrices; CLAHQR for small ones ====
 
          if ( N.GT.NMIN ) {
-            CALL CLAQR0( WANTT, WANTZ, N, ILO, IHI, H, LDH, W, ILO, IHI, Z, LDZ, WORK, LWORK, INFO )
+            claqr0(WANTT, WANTZ, N, ILO, IHI, H, LDH, W, ILO, IHI, Z, LDZ, WORK, LWORK, INFO );
          } else {
 
             // ==== Small matrix ====
 
-            CALL CLAHQR( WANTT, WANTZ, N, ILO, IHI, H, LDH, W, ILO, IHI, Z, LDZ, INFO )
+            clahqr(WANTT, WANTZ, N, ILO, IHI, H, LDH, W, ILO, IHI, Z, LDZ, INFO );
 
             if ( INFO.GT.0 ) {
 
@@ -150,7 +150,7 @@
                   // ==== Larger matrices have enough subdiagonal scratch
                   // .    space to call CLAQR0 directly. ====
 
-                  CALL CLAQR0( WANTT, WANTZ, N, ILO, KBOT, H, LDH, W, ILO, IHI, Z, LDZ, WORK, LWORK, INFO )
+                  claqr0(WANTT, WANTZ, N, ILO, KBOT, H, LDH, W, ILO, IHI, Z, LDZ, WORK, LWORK, INFO );
 
                } else {
 
@@ -159,9 +159,9 @@
                   // .    tiny matrices must be copied into a larger
                   // .    array before calling CLAQR0. ====
 
-                  CALL CLACPY( 'A', N, N, H, LDH, HL, NL )
+                  clacpy('A', N, N, H, LDH, HL, NL );
                   HL( N+1, N ) = ZERO
-                  CALL CLASET( 'A', NL, NL-N, ZERO, ZERO, HL( 1, N+1 ), NL )                   CALL CLAQR0( WANTT, WANTZ, NL, ILO, KBOT, HL, NL, W, ILO, IHI, Z, LDZ, WORKL, NL, INFO )                   IF( WANTT .OR. INFO.NE.0 ) CALL CLACPY( 'A', N, N, HL, NL, H, LDH )
+                  claset('A', NL, NL-N, ZERO, ZERO, HL( 1, N+1 ), NL )                   CALL CLAQR0( WANTT, WANTZ, NL, ILO, KBOT, HL, NL, W, ILO, IHI, Z, LDZ, WORKL, NL, INFO )                   IF( WANTT .OR. INFO.NE.0 ) CALL CLACPY( 'A', N, N, HL, NL, H, LDH );
                }
             }
          }

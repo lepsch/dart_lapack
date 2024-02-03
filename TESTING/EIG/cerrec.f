@@ -61,58 +61,58 @@
 
       SRNAMT = 'CTRSYL'
       INFOT = 1
-      CALL CTRSYL( 'X', 'N', 1, 0, 0, A, 1, B, 1, C, 1, SCALE, INFO )
-      CALL CHKXER( 'CTRSYL', INFOT, NOUT, LERR, OK )
+      ctrsyl('X', 'N', 1, 0, 0, A, 1, B, 1, C, 1, SCALE, INFO );
+      chkxer('CTRSYL', INFOT, NOUT, LERR, OK );
       INFOT = 2
-      CALL CTRSYL( 'N', 'X', 1, 0, 0, A, 1, B, 1, C, 1, SCALE, INFO )
-      CALL CHKXER( 'CTRSYL', INFOT, NOUT, LERR, OK )
+      ctrsyl('N', 'X', 1, 0, 0, A, 1, B, 1, C, 1, SCALE, INFO );
+      chkxer('CTRSYL', INFOT, NOUT, LERR, OK );
       INFOT = 3
-      CALL CTRSYL( 'N', 'N', 0, 0, 0, A, 1, B, 1, C, 1, SCALE, INFO )
-      CALL CHKXER( 'CTRSYL', INFOT, NOUT, LERR, OK )
+      ctrsyl('N', 'N', 0, 0, 0, A, 1, B, 1, C, 1, SCALE, INFO );
+      chkxer('CTRSYL', INFOT, NOUT, LERR, OK );
       INFOT = 4
-      CALL CTRSYL( 'N', 'N', 1, -1, 0, A, 1, B, 1, C, 1, SCALE, INFO )
-      CALL CHKXER( 'CTRSYL', INFOT, NOUT, LERR, OK )
+      ctrsyl('N', 'N', 1, -1, 0, A, 1, B, 1, C, 1, SCALE, INFO );
+      chkxer('CTRSYL', INFOT, NOUT, LERR, OK );
       INFOT = 5
-      CALL CTRSYL( 'N', 'N', 1, 0, -1, A, 1, B, 1, C, 1, SCALE, INFO )
-      CALL CHKXER( 'CTRSYL', INFOT, NOUT, LERR, OK )
+      ctrsyl('N', 'N', 1, 0, -1, A, 1, B, 1, C, 1, SCALE, INFO );
+      chkxer('CTRSYL', INFOT, NOUT, LERR, OK );
       INFOT = 7
-      CALL CTRSYL( 'N', 'N', 1, 2, 0, A, 1, B, 1, C, 2, SCALE, INFO )
-      CALL CHKXER( 'CTRSYL', INFOT, NOUT, LERR, OK )
+      ctrsyl('N', 'N', 1, 2, 0, A, 1, B, 1, C, 2, SCALE, INFO );
+      chkxer('CTRSYL', INFOT, NOUT, LERR, OK );
       INFOT = 9
-      CALL CTRSYL( 'N', 'N', 1, 0, 2, A, 1, B, 1, C, 1, SCALE, INFO )
-      CALL CHKXER( 'CTRSYL', INFOT, NOUT, LERR, OK )
+      ctrsyl('N', 'N', 1, 0, 2, A, 1, B, 1, C, 1, SCALE, INFO );
+      chkxer('CTRSYL', INFOT, NOUT, LERR, OK );
       INFOT = 11
-      CALL CTRSYL( 'N', 'N', 1, 2, 0, A, 2, B, 1, C, 1, SCALE, INFO )
-      CALL CHKXER( 'CTRSYL', INFOT, NOUT, LERR, OK )
+      ctrsyl('N', 'N', 1, 2, 0, A, 2, B, 1, C, 1, SCALE, INFO );
+      chkxer('CTRSYL', INFOT, NOUT, LERR, OK );
       NT = NT + 8
 
       // Test CTRSYL3
 
       SRNAMT = 'CTRSYL3'
       INFOT = 1
-      CALL CTRSYL3( 'X', 'N', 1, 0, 0, A, 1, B, 1, C, 1, SCALE, SWORK, NMAX, INFO )
-      CALL CHKXER( 'CTRSYL3', INFOT, NOUT, LERR, OK )
+      ctrsyl3('X', 'N', 1, 0, 0, A, 1, B, 1, C, 1, SCALE, SWORK, NMAX, INFO );
+      chkxer('CTRSYL3', INFOT, NOUT, LERR, OK );
       INFOT = 2
-      CALL CTRSYL3( 'N', 'X', 1, 0, 0, A, 1, B, 1, C, 1, SCALE, SWORK, NMAX, INFO )
-      CALL CHKXER( 'CTRSYL3', INFOT, NOUT, LERR, OK )
+      ctrsyl3('N', 'X', 1, 0, 0, A, 1, B, 1, C, 1, SCALE, SWORK, NMAX, INFO );
+      chkxer('CTRSYL3', INFOT, NOUT, LERR, OK );
       INFOT = 3
-      CALL CTRSYL3( 'N', 'N', 0, 0, 0, A, 1, B, 1, C, 1, SCALE, SWORK, NMAX, INFO )
-      CALL CHKXER( 'CTRSYL3', INFOT, NOUT, LERR, OK )
+      ctrsyl3('N', 'N', 0, 0, 0, A, 1, B, 1, C, 1, SCALE, SWORK, NMAX, INFO );
+      chkxer('CTRSYL3', INFOT, NOUT, LERR, OK );
       INFOT = 4
-      CALL CTRSYL3( 'N', 'N', 1, -1, 0, A, 1, B, 1, C, 1, SCALE, SWORK, NMAX, INFO )
-      CALL CHKXER( 'CTRSYL3', INFOT, NOUT, LERR, OK )
+      ctrsyl3('N', 'N', 1, -1, 0, A, 1, B, 1, C, 1, SCALE, SWORK, NMAX, INFO );
+      chkxer('CTRSYL3', INFOT, NOUT, LERR, OK );
       INFOT = 5
-      CALL CTRSYL3( 'N', 'N', 1, 0, -1, A, 1, B, 1, C, 1, SCALE, SWORK, NMAX, INFO )
-      CALL CHKXER( 'CTRSYL3', INFOT, NOUT, LERR, OK )
+      ctrsyl3('N', 'N', 1, 0, -1, A, 1, B, 1, C, 1, SCALE, SWORK, NMAX, INFO );
+      chkxer('CTRSYL3', INFOT, NOUT, LERR, OK );
       INFOT = 7
-      CALL CTRSYL3( 'N', 'N', 1, 2, 0, A, 1, B, 1, C, 2, SCALE, SWORK, NMAX, INFO )
-      CALL CHKXER( 'CTRSYL3', INFOT, NOUT, LERR, OK )
+      ctrsyl3('N', 'N', 1, 2, 0, A, 1, B, 1, C, 2, SCALE, SWORK, NMAX, INFO );
+      chkxer('CTRSYL3', INFOT, NOUT, LERR, OK );
       INFOT = 9
-      CALL CTRSYL3( 'N', 'N', 1, 0, 2, A, 1, B, 1, C, 1, SCALE, SWORK, NMAX, INFO )
-      CALL CHKXER( 'CTRSYL3', INFOT, NOUT, LERR, OK )
+      ctrsyl3('N', 'N', 1, 0, 2, A, 1, B, 1, C, 1, SCALE, SWORK, NMAX, INFO );
+      chkxer('CTRSYL3', INFOT, NOUT, LERR, OK );
       INFOT = 11
-      CALL CTRSYL3( 'N', 'N', 1, 2, 0, A, 2, B, 1, C, 1, SCALE, SWORK, NMAX, INFO )
-      CALL CHKXER( 'CTRSYL3', INFOT, NOUT, LERR, OK )
+      ctrsyl3('N', 'N', 1, 2, 0, A, 2, B, 1, C, 1, SCALE, SWORK, NMAX, INFO );
+      chkxer('CTRSYL3', INFOT, NOUT, LERR, OK );
       NT = NT + 8
 
       // Test CTREXC
@@ -121,68 +121,68 @@
       IFST = 1
       ILST = 1
       INFOT = 1
-      CALL CTREXC( 'X', 1, A, 1, B, 1, IFST, ILST, INFO )
-      CALL CHKXER( 'CTREXC', INFOT, NOUT, LERR, OK )
+      ctrexc('X', 1, A, 1, B, 1, IFST, ILST, INFO );
+      chkxer('CTREXC', INFOT, NOUT, LERR, OK );
       INFOT = 2
-      CALL CTREXC( 'N', -1, A, 1, B, 1, IFST, ILST, INFO )
-      CALL CHKXER( 'CTREXC', INFOT, NOUT, LERR, OK )
+      ctrexc('N', -1, A, 1, B, 1, IFST, ILST, INFO );
+      chkxer('CTREXC', INFOT, NOUT, LERR, OK );
       INFOT = 4
       ILST = 2
-      CALL CTREXC( 'N', 2, A, 1, B, 1, IFST, ILST, INFO )
-      CALL CHKXER( 'CTREXC', INFOT, NOUT, LERR, OK )
+      ctrexc('N', 2, A, 1, B, 1, IFST, ILST, INFO );
+      chkxer('CTREXC', INFOT, NOUT, LERR, OK );
       INFOT = 6
-      CALL CTREXC( 'V', 2, A, 2, B, 1, IFST, ILST, INFO )
-      CALL CHKXER( 'CTREXC', INFOT, NOUT, LERR, OK )
+      ctrexc('V', 2, A, 2, B, 1, IFST, ILST, INFO );
+      chkxer('CTREXC', INFOT, NOUT, LERR, OK );
       INFOT = 7
       IFST = 0
       ILST = 1
-      CALL CTREXC( 'V', 1, A, 1, B, 1, IFST, ILST, INFO )
-      CALL CHKXER( 'CTREXC', INFOT, NOUT, LERR, OK )
+      ctrexc('V', 1, A, 1, B, 1, IFST, ILST, INFO );
+      chkxer('CTREXC', INFOT, NOUT, LERR, OK );
       INFOT = 7
       IFST = 2
-      CALL CTREXC( 'V', 1, A, 1, B, 1, IFST, ILST, INFO )
-      CALL CHKXER( 'CTREXC', INFOT, NOUT, LERR, OK )
+      ctrexc('V', 1, A, 1, B, 1, IFST, ILST, INFO );
+      chkxer('CTREXC', INFOT, NOUT, LERR, OK );
       INFOT = 8
       IFST = 1
       ILST = 0
-      CALL CTREXC( 'V', 1, A, 1, B, 1, IFST, ILST, INFO )
-      CALL CHKXER( 'CTREXC', INFOT, NOUT, LERR, OK )
+      ctrexc('V', 1, A, 1, B, 1, IFST, ILST, INFO );
+      chkxer('CTREXC', INFOT, NOUT, LERR, OK );
       INFOT = 8
       ILST = 2
-      CALL CTREXC( 'V', 1, A, 1, B, 1, IFST, ILST, INFO )
-      CALL CHKXER( 'CTREXC', INFOT, NOUT, LERR, OK )
+      ctrexc('V', 1, A, 1, B, 1, IFST, ILST, INFO );
+      chkxer('CTREXC', INFOT, NOUT, LERR, OK );
       NT = NT + 8
 
       // Test CTRSNA
 
       SRNAMT = 'CTRSNA'
       INFOT = 1
-      CALL CTRSNA( 'X', 'A', SEL, 0, A, 1, B, 1, C, 1, S, SEP, 1, M, WORK, 1, RW, INFO )
-      CALL CHKXER( 'CTRSNA', INFOT, NOUT, LERR, OK )
+      ctrsna('X', 'A', SEL, 0, A, 1, B, 1, C, 1, S, SEP, 1, M, WORK, 1, RW, INFO );
+      chkxer('CTRSNA', INFOT, NOUT, LERR, OK );
       INFOT = 2
-      CALL CTRSNA( 'B', 'X', SEL, 0, A, 1, B, 1, C, 1, S, SEP, 1, M, WORK, 1, RW, INFO )
-      CALL CHKXER( 'CTRSNA', INFOT, NOUT, LERR, OK )
+      ctrsna('B', 'X', SEL, 0, A, 1, B, 1, C, 1, S, SEP, 1, M, WORK, 1, RW, INFO );
+      chkxer('CTRSNA', INFOT, NOUT, LERR, OK );
       INFOT = 4
-      CALL CTRSNA( 'B', 'A', SEL, -1, A, 1, B, 1, C, 1, S, SEP, 1, M, WORK, 1, RW, INFO )
-      CALL CHKXER( 'CTRSNA', INFOT, NOUT, LERR, OK )
+      ctrsna('B', 'A', SEL, -1, A, 1, B, 1, C, 1, S, SEP, 1, M, WORK, 1, RW, INFO );
+      chkxer('CTRSNA', INFOT, NOUT, LERR, OK );
       INFOT = 6
-      CALL CTRSNA( 'V', 'A', SEL, 2, A, 1, B, 1, C, 1, S, SEP, 2, M, WORK, 2, RW, INFO )
-      CALL CHKXER( 'CTRSNA', INFOT, NOUT, LERR, OK )
+      ctrsna('V', 'A', SEL, 2, A, 1, B, 1, C, 1, S, SEP, 2, M, WORK, 2, RW, INFO );
+      chkxer('CTRSNA', INFOT, NOUT, LERR, OK );
       INFOT = 8
-      CALL CTRSNA( 'B', 'A', SEL, 2, A, 2, B, 1, C, 2, S, SEP, 2, M, WORK, 2, RW, INFO )
-      CALL CHKXER( 'CTRSNA', INFOT, NOUT, LERR, OK )
+      ctrsna('B', 'A', SEL, 2, A, 2, B, 1, C, 2, S, SEP, 2, M, WORK, 2, RW, INFO );
+      chkxer('CTRSNA', INFOT, NOUT, LERR, OK );
       INFOT = 10
-      CALL CTRSNA( 'B', 'A', SEL, 2, A, 2, B, 2, C, 1, S, SEP, 2, M, WORK, 2, RW, INFO )
-      CALL CHKXER( 'CTRSNA', INFOT, NOUT, LERR, OK )
+      ctrsna('B', 'A', SEL, 2, A, 2, B, 2, C, 1, S, SEP, 2, M, WORK, 2, RW, INFO );
+      chkxer('CTRSNA', INFOT, NOUT, LERR, OK );
       INFOT = 13
-      CALL CTRSNA( 'B', 'A', SEL, 1, A, 1, B, 1, C, 1, S, SEP, 0, M, WORK, 1, RW, INFO )
-      CALL CHKXER( 'CTRSNA', INFOT, NOUT, LERR, OK )
+      ctrsna('B', 'A', SEL, 1, A, 1, B, 1, C, 1, S, SEP, 0, M, WORK, 1, RW, INFO );
+      chkxer('CTRSNA', INFOT, NOUT, LERR, OK );
       INFOT = 13
-      CALL CTRSNA( 'B', 'S', SEL, 2, A, 2, B, 2, C, 2, S, SEP, 1, M, WORK, 1, RW, INFO )
-      CALL CHKXER( 'CTRSNA', INFOT, NOUT, LERR, OK )
+      ctrsna('B', 'S', SEL, 2, A, 2, B, 2, C, 2, S, SEP, 1, M, WORK, 1, RW, INFO );
+      chkxer('CTRSNA', INFOT, NOUT, LERR, OK );
       INFOT = 16
-      CALL CTRSNA( 'B', 'A', SEL, 2, A, 2, B, 2, C, 2, S, SEP, 2, M, WORK, 1, RW, INFO )
-      CALL CHKXER( 'CTRSNA', INFOT, NOUT, LERR, OK )
+      ctrsna('B', 'A', SEL, 2, A, 2, B, 2, C, 2, S, SEP, 2, M, WORK, 1, RW, INFO );
+      chkxer('CTRSNA', INFOT, NOUT, LERR, OK );
       NT = NT + 9
 
       // Test CTRSEN
@@ -190,29 +190,29 @@
       SEL( 1 ) = .FALSE.
       SRNAMT = 'CTRSEN'
       INFOT = 1
-      CALL CTRSEN( 'X', 'N', SEL, 0, A, 1, B, 1, X, M, S( 1 ), SEP( 1 ), WORK, 1, INFO )
-      CALL CHKXER( 'CTRSEN', INFOT, NOUT, LERR, OK )
+      ctrsen('X', 'N', SEL, 0, A, 1, B, 1, X, M, S( 1 ), SEP( 1 ), WORK, 1, INFO );
+      chkxer('CTRSEN', INFOT, NOUT, LERR, OK );
       INFOT = 2
-      CALL CTRSEN( 'N', 'X', SEL, 0, A, 1, B, 1, X, M, S( 1 ), SEP( 1 ), WORK, 1, INFO )
-      CALL CHKXER( 'CTRSEN', INFOT, NOUT, LERR, OK )
+      ctrsen('N', 'X', SEL, 0, A, 1, B, 1, X, M, S( 1 ), SEP( 1 ), WORK, 1, INFO );
+      chkxer('CTRSEN', INFOT, NOUT, LERR, OK );
       INFOT = 4
-      CALL CTRSEN( 'N', 'N', SEL, -1, A, 1, B, 1, X, M, S( 1 ), SEP( 1 ), WORK, 1, INFO )
-      CALL CHKXER( 'CTRSEN', INFOT, NOUT, LERR, OK )
+      ctrsen('N', 'N', SEL, -1, A, 1, B, 1, X, M, S( 1 ), SEP( 1 ), WORK, 1, INFO );
+      chkxer('CTRSEN', INFOT, NOUT, LERR, OK );
       INFOT = 6
-      CALL CTRSEN( 'N', 'N', SEL, 2, A, 1, B, 1, X, M, S( 1 ), SEP( 1 ), WORK, 2, INFO )
-      CALL CHKXER( 'CTRSEN', INFOT, NOUT, LERR, OK )
+      ctrsen('N', 'N', SEL, 2, A, 1, B, 1, X, M, S( 1 ), SEP( 1 ), WORK, 2, INFO );
+      chkxer('CTRSEN', INFOT, NOUT, LERR, OK );
       INFOT = 8
-      CALL CTRSEN( 'N', 'V', SEL, 2, A, 2, B, 1, X, M, S( 1 ), SEP( 1 ), WORK, 1, INFO )
-      CALL CHKXER( 'CTRSEN', INFOT, NOUT, LERR, OK )
+      ctrsen('N', 'V', SEL, 2, A, 2, B, 1, X, M, S( 1 ), SEP( 1 ), WORK, 1, INFO );
+      chkxer('CTRSEN', INFOT, NOUT, LERR, OK );
       INFOT = 14
-      CALL CTRSEN( 'N', 'V', SEL, 2, A, 2, B, 2, X, M, S( 1 ), SEP( 1 ), WORK, 0, INFO )
-      CALL CHKXER( 'CTRSEN', INFOT, NOUT, LERR, OK )
+      ctrsen('N', 'V', SEL, 2, A, 2, B, 2, X, M, S( 1 ), SEP( 1 ), WORK, 0, INFO );
+      chkxer('CTRSEN', INFOT, NOUT, LERR, OK );
       INFOT = 14
-      CALL CTRSEN( 'E', 'V', SEL, 3, A, 3, B, 3, X, M, S( 1 ), SEP( 1 ), WORK, 1, INFO )
-      CALL CHKXER( 'CTRSEN', INFOT, NOUT, LERR, OK )
+      ctrsen('E', 'V', SEL, 3, A, 3, B, 3, X, M, S( 1 ), SEP( 1 ), WORK, 1, INFO );
+      chkxer('CTRSEN', INFOT, NOUT, LERR, OK );
       INFOT = 14
-      CALL CTRSEN( 'V', 'V', SEL, 3, A, 3, B, 3, X, M, S( 1 ), SEP( 1 ), WORK, 3, INFO )
-      CALL CHKXER( 'CTRSEN', INFOT, NOUT, LERR, OK )
+      ctrsen('V', 'V', SEL, 3, A, 3, B, 3, X, M, S( 1 ), SEP( 1 ), WORK, 3, INFO );
+      chkxer('CTRSEN', INFOT, NOUT, LERR, OK );
       NT = NT + 8
 
       // Print a summary line.

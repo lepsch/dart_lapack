@@ -63,22 +63,22 @@
 
          SRNAMT = 'CGEQP3'
          INFOT = 1
-         CALL CGEQP3( -1, 0, A, 1, IP, TAU, W, LW, RW, INFO )
-         CALL CHKXER( 'CGEQP3', INFOT, NOUT, LERR, OK )
+         cgeqp3(-1, 0, A, 1, IP, TAU, W, LW, RW, INFO );
+         chkxer('CGEQP3', INFOT, NOUT, LERR, OK );
          INFOT = 2
-         CALL CGEQP3( 1, -1, A, 1, IP, TAU, W, LW, RW, INFO )
-         CALL CHKXER( 'CGEQP3', INFOT, NOUT, LERR, OK )
+         cgeqp3(1, -1, A, 1, IP, TAU, W, LW, RW, INFO );
+         chkxer('CGEQP3', INFOT, NOUT, LERR, OK );
          INFOT = 4
-         CALL CGEQP3( 2, 3, A, 1, IP, TAU, W, LW, RW, INFO )
-         CALL CHKXER( 'CGEQP3', INFOT, NOUT, LERR, OK )
+         cgeqp3(2, 3, A, 1, IP, TAU, W, LW, RW, INFO );
+         chkxer('CGEQP3', INFOT, NOUT, LERR, OK );
          INFOT = 8
-         CALL CGEQP3( 2, 2, A, 2, IP, TAU, W, LW-10, RW, INFO )
-         CALL CHKXER( 'CGEQP3', INFOT, NOUT, LERR, OK )
+         cgeqp3(2, 2, A, 2, IP, TAU, W, LW-10, RW, INFO );
+         chkxer('CGEQP3', INFOT, NOUT, LERR, OK );
       }
 
       // Print a summary line.
 
-      CALL ALAESM( PATH, OK, NOUT )
+      alaesm(PATH, OK, NOUT );
 
       RETURN
 

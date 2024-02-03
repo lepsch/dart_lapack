@@ -54,8 +54,8 @@
 
       // Test the error exits
 
-      CALL XLAENV( 1, 0 )
-      CALL XLAENV( 2, 0 )
+      xlaenv(1, 0 );
+      xlaenv(2, 0 );
       IF( TSTERR ) CALL SERRTSQR( PATH, NOUT )
       INFOT = 0
 
@@ -71,14 +71,14 @@
               if (MIN(M,N).NE.0) {
               DO INB = 1, NNB
                 MB = NBVAL( INB )
-                  CALL XLAENV( 1, MB )
+                  xlaenv(1, MB );
                   DO IMB = 1, NNB
                     NB = NBVAL( IMB )
-                    CALL XLAENV( 2, NB )
+                    xlaenv(2, NB );
 
                   // Test SGEQR and SGEMQR
 
-                    CALL STSQR01('TS', M, N, MB, NB, RESULT )
+                    stsqr01('TS', M, N, MB, NB, RESULT );
 
                   // Print information about the tests that did not
                   // pass the threshold.
@@ -108,14 +108,14 @@
             if (MIN(M,N).NE.0) {
               DO INB = 1, NNB
                 MB = NBVAL( INB )
-                  CALL XLAENV( 1, MB )
+                  xlaenv(1, MB );
                   DO IMB = 1, NNB
                     NB = NBVAL( IMB )
-                    CALL XLAENV( 2, NB )
+                    xlaenv(2, NB );
 
                   // Test SGEQR and SGEMQR
 
-                    CALL STSQR01('SW', M, N, MB, NB, RESULT )
+                    stsqr01('SW', M, N, MB, NB, RESULT );
 
                   // Print information about the tests that did not
                   // pass the threshold.
@@ -135,7 +135,7 @@
 
       // Print a summary of the results.
 
-      CALL ALASUM( PATH, NOUT, NFAIL, NRUN, NERRS )
+      alasum(PATH, NOUT, NFAIL, NRUN, NERRS );
 
  9999 FORMAT( 'TS: M=', I5, ', N=', I5, ', MB=', I5, ', NB=', I5,' test(', I2, ')=', G12.5 )
  9998 FORMAT( 'SW: M=', I5, ', N=', I5, ', MB=', I5, ', NB=', I5,' test(', I2, ')=', G12.5 )

@@ -95,7 +95,7 @@
 
             // Set up parameters with ZLATB4.
 
-            CALL ZLATB4( PATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, COND, DIST )
+            zlatb4(PATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, COND, DIST );
 
             ZEROT = IMAT.GE.8 .AND. IMAT.LE.10
             if ( IMAT.LE.6 ) {
@@ -104,12 +104,12 @@
                // known condition number in lower triangular band storage.
 
                SRNAMT = 'ZLATMS'
-               CALL ZLATMS( N, N, DIST, ISEED, TYPE, RWORK, MODE, COND, ANORM, KL, KU, 'B', A, 2, WORK, INFO )
+               zlatms(N, N, DIST, ISEED, TYPE, RWORK, MODE, COND, ANORM, KL, KU, 'B', A, 2, WORK, INFO );
 
                // Check the error code from ZLATMS.
 
                if ( INFO.NE.0 ) {
-                  CALL ALAERH( PATH, 'ZLATMS', INFO, 0, ' ', N, N, KL, KU, -1, IMAT, NFAIL, NERRS, NOUT )
+                  alaerh(PATH, 'ZLATMS', INFO, 0, ' ', N, N, KL, KU, -1, IMAT, NFAIL, NERRS, NOUT );
                   GO TO 110
                }
                IZERO = 0
@@ -132,8 +132,8 @@
 
                   // Let E be complex, D real, with values from [-1,1].
 
-                  CALL DLARNV( 2, ISEED, N, D )
-                  CALL ZLARNV( 2, ISEED, N-1, E )
+                  dlarnv(2, ISEED, N, D );
+                  zlarnv(2, ISEED, N-1, E );
 
                   // Make the tridiagonal matrix diagonally dominant.
 
@@ -151,8 +151,8 @@
 
                   IX = IDAMAX( N, D, 1 )
                   DMAX = D( IX )
-                  CALL DSCAL( N, ANORM / DMAX, D, 1 )
-                  CALL ZDSCAL( N-1, ANORM / DMAX, E, 1 )
+                  dscal(N, ANORM / DMAX, D, 1 );
+                  zdscal(N-1, ANORM / DMAX, E, 1 );
 
                } else if ( IZERO.GT.0 ) {
 
@@ -205,19 +205,19 @@
                }
             }
 
-            CALL DCOPY( N, D, 1, D( N+1 ), 1 )
+            dcopy(N, D, 1, D( N+1 ), 1 );
             IF( N.GT.1 ) CALL ZCOPY( N-1, E, 1, E( N+1 ), 1 )
 
 *+    TEST 1
             // Factor A as L*D*L' and compute the ratio
                // norm(L*D*L' - A) / (n * norm(A) * EPS )
 
-            CALL ZPTTRF( N, D( N+1 ), E( N+1 ), INFO )
+            zpttrf(N, D( N+1 ), E( N+1 ), INFO );
 
             // Check error code from ZPTTRF.
 
             if ( INFO.NE.IZERO ) {
-               CALL ALAERH( PATH, 'ZPTTRF', INFO, IZERO, ' ', N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT )
+               alaerh(PATH, 'ZPTTRF', INFO, IZERO, ' ', N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
                GO TO 110
             }
 
@@ -226,7 +226,7 @@
                GO TO 100
             }
 
-            CALL ZPTT01( N, D, E, D( N+1 ), E( N+1 ), WORK, RESULT( 1 ) )
+            zptt01(N, D, E, D( N+1 ), E( N+1 ), WORK, RESULT( 1 ) );
 
             // Print the test ratio if greater than or equal to THRESH.
 
@@ -252,7 +252,7 @@
                   X( J ) = ZERO
    40          CONTINUE
                X( I ) = ONE
-               CALL ZPTTRS( 'Lower', N, 1, D( N+1 ), E( N+1 ), X, LDA, INFO )
+               zpttrs('Lower', N, 1, D( N+1 ), E( N+1 ), X, LDA, INFO );
                AINVNM = MAX( AINVNM, DZASUM( N, X, 1 ) )
    50       CONTINUE
             RCONDC = ONE / MAX( ONE, ANORM*AINVNM )
@@ -264,7 +264,7 @@
 
                IX = 1
                DO 60 J = 1, NRHS
-                  CALL ZLARNV( 2, ISEED, N, XACT( IX ) )
+                  zlarnv(2, ISEED, N, XACT( IX ) );
                   IX = IX + LDA
    60          CONTINUE
 
@@ -276,37 +276,37 @@
 
                // Set the right hand side.
 
-                  CALL ZLAPTM( UPLO, N, NRHS, ONE, D, E, XACT, LDA, ZERO, B, LDA )
+                  zlaptm(UPLO, N, NRHS, ONE, D, E, XACT, LDA, ZERO, B, LDA );
 
 *+    TEST 2
                // Solve A*x = b and compute the residual.
 
-                  CALL ZLACPY( 'Full', N, NRHS, B, LDA, X, LDA )
-                  CALL ZPTTRS( UPLO, N, NRHS, D( N+1 ), E( N+1 ), X, LDA, INFO )
+                  zlacpy('Full', N, NRHS, B, LDA, X, LDA );
+                  zpttrs(UPLO, N, NRHS, D( N+1 ), E( N+1 ), X, LDA, INFO );
 
                // Check error code from ZPTTRS.
 
                   IF( INFO.NE.0 ) CALL ALAERH( PATH, 'ZPTTRS', INFO, 0, UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT )
 
-                  CALL ZLACPY( 'Full', N, NRHS, B, LDA, WORK, LDA )
-                  CALL ZPTT02( UPLO, N, NRHS, D, E, X, LDA, WORK, LDA, RESULT( 2 ) )
+                  zlacpy('Full', N, NRHS, B, LDA, WORK, LDA );
+                  zptt02(UPLO, N, NRHS, D, E, X, LDA, WORK, LDA, RESULT( 2 ) );
 
 *+    TEST 3
                // Check solution from generated exact solution.
 
-                  CALL ZGET04( N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 3 ) )
+                  zget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 3 ) );
 
 *+    TESTS 4, 5, and 6
                // Use iterative refinement to improve the solution.
 
                   SRNAMT = 'ZPTRFS'
-                  CALL ZPTRFS( UPLO, N, NRHS, D, E, D( N+1 ), E( N+1 ), B, LDA, X, LDA, RWORK, RWORK( NRHS+1 ), WORK, RWORK( 2*NRHS+1 ), INFO )
+                  zptrfs(UPLO, N, NRHS, D, E, D( N+1 ), E( N+1 ), B, LDA, X, LDA, RWORK, RWORK( NRHS+1 ), WORK, RWORK( 2*NRHS+1 ), INFO );
 
                // Check error code from ZPTRFS.
 
                   IF( INFO.NE.0 ) CALL ALAERH( PATH, 'ZPTRFS', INFO, 0, UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT )
 
-                  CALL ZGET04( N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 4 ) )                   CALL ZPTT05( N, NRHS, D, E, B, LDA, X, LDA, XACT, LDA, RWORK, RWORK( NRHS+1 ), RESULT( 5 ) )
+                  zget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 4 ) )                   CALL ZPTT05( N, NRHS, D, E, B, LDA, X, LDA, XACT, LDA, RWORK, RWORK( NRHS+1 ), RESULT( 5 ) );
 
                // Print information about the tests that did not pass the
                // threshold.
@@ -328,7 +328,7 @@
 
   100       CONTINUE
             SRNAMT = 'ZPTCON'
-            CALL ZPTCON( N, D( N+1 ), E( N+1 ), ANORM, RCOND, RWORK, INFO )
+            zptcon(N, D( N+1 ), E( N+1 ), ANORM, RCOND, RWORK, INFO );
 
             // Check error code from ZPTCON.
 
@@ -349,7 +349,7 @@
 
       // Print a summary of the results.
 
-      CALL ALASUM( PATH, NOUT, NFAIL, NRUN, NERRS )
+      alasum(PATH, NOUT, NFAIL, NRUN, NERRS );
 
  9999 FORMAT( ' N =', I5, ', type ', I2, ', test ', I2, ', ratio = ', G12.5 )
  9998 FORMAT( ' UPLO = ''', A1, ''', N =', I5, ', NRHS =', I3, ', type ', I2, ', test ', I2, ', ratio = ', G12.5 )

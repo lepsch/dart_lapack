@@ -50,7 +50,7 @@
          INFO = -4
       }
       if ( INFO .NE. 0 ) {
-         CALL XERBLA( 'DSYEQUB', -INFO )
+         xerbla('DSYEQUB', -INFO );
          RETURN
       }
 
@@ -132,7 +132,7 @@
          DO I = N+1, 2*N
             WORK( I ) = S( I-N ) * WORK( I-N ) - AVG
          END DO
-         CALL DLASSQ( N, WORK( N+1 ), 1, SCALE, SUMSQ )
+         dlassq(N, WORK( N+1 ), 1, SCALE, SUMSQ );
          STD = SCALE * SQRT( SUMSQ / N )
 
          IF ( STD .LT. TOL * AVG ) GOTO 999

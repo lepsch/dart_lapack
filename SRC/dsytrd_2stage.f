@@ -70,7 +70,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'DSYTRD_2STAGE', -INFO )
+         xerbla('DSYTRD_2STAGE', -INFO );
          RETURN
       } else if ( LQUERY ) {
          RETURN
@@ -89,14 +89,14 @@
       LWRK  = LWORK-LDAB*N
       ABPOS = 1
       WPOS  = ABPOS + LDAB*N
-      CALL DSYTRD_SY2SB( UPLO, N, KD, A, LDA, WORK( ABPOS ), LDAB, TAU, WORK( WPOS ), LWRK, INFO )
+      dsytrd_sy2sb(UPLO, N, KD, A, LDA, WORK( ABPOS ), LDAB, TAU, WORK( WPOS ), LWRK, INFO );
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'DSYTRD_SY2SB', -INFO )
+         xerbla('DSYTRD_SY2SB', -INFO );
          RETURN
       }
-      CALL DSYTRD_SB2ST( 'Y', VECT, UPLO, N, KD, WORK( ABPOS ), LDAB, D, E, HOUS2, LHOUS2, WORK( WPOS ), LWRK, INFO )
+      dsytrd_sb2st('Y', VECT, UPLO, N, KD, WORK( ABPOS ), LDAB, D, E, HOUS2, LHOUS2, WORK( WPOS ), LWRK, INFO );
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'DSYTRD_SB2ST', -INFO )
+         xerbla('DSYTRD_SB2ST', -INFO );
          RETURN
       }
 

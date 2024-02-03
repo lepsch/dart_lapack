@@ -58,7 +58,7 @@
          INFO = -6
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'ZPTEQR', -INFO )
+         xerbla('ZPTEQR', -INFO );
          RETURN
       }
 
@@ -74,7 +74,7 @@
 
       // Call DPTTRF to factor the matrix.
 
-      CALL DPTTRF( N, D, E, INFO )
+      dpttrf(N, D, E, INFO );
       IF( INFO.NE.0 ) RETURN
       DO 10 I = 1, N
          D( I ) = SQRT( D( I ) )
@@ -91,7 +91,7 @@
       } else {
          NRU = 0
       }
-      CALL ZBDSQR( 'Lower', N, 0, NRU, 0, D, E, VT, 1, Z, LDZ, C, 1, WORK, INFO )
+      zbdsqr('Lower', N, 0, NRU, 0, D, E, VT, 1, Z, LDZ, C, 1, WORK, INFO );
 
       // Square the singular values.
 

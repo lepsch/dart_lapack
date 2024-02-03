@@ -106,12 +106,12 @@
                   IWORK( I ) = 0
    20          CONTINUE
                if ( IMODE.EQ.1 ) {
-                  CALL SLASET( 'Full', M, N, ZERO, ZERO, COPYA, LDA )
+                  slaset('Full', M, N, ZERO, ZERO, COPYA, LDA );
                   DO 30 I = 1, MNMIN
                      S( I ) = ZERO
    30             CONTINUE
                } else {
-                  CALL SLATMS( M, N, 'Uniform', ISEED, 'Nonsymm', S, MODE, ONE / EPS, ONE, M, N, 'No packing', COPYA, LDA, WORK, INFO )
+                  slatms(M, N, 'Uniform', ISEED, 'Nonsymm', S, MODE, ONE / EPS, ONE, M, N, 'No packing', COPYA, LDA, WORK, INFO );
                   if ( IMODE.GE.4 ) {
                      if ( IMODE.EQ.4 ) {
                         ILOW = 1
@@ -130,7 +130,7 @@
                         IWORK( I ) = 1
    40                CONTINUE
                   }
-                  CALL SLAORD( 'Decreasing', MNMIN, S, 1 )
+                  slaord('Decreasing', MNMIN, S, 1 );
                }
 
                DO 60 INB = 1, NNB
@@ -138,15 +138,15 @@
                   // Do for each pair of values (NB,NX) in NBVAL and NXVAL.
 
                   NB = NBVAL( INB )
-                  CALL XLAENV( 1, NB )
+                  xlaenv(1, NB );
                   NX = NXVAL( INB )
-                  CALL XLAENV( 3, NX )
+                  xlaenv(3, NX );
 
                   // Get a working copy of COPYA into A and a copy of
                   // vector IWORK.
 
-                  CALL SLACPY( 'All', M, N, COPYA, LDA, A, LDA )
-                  CALL ICOPY( N, IWORK( 1 ), 1, IWORK( N+1 ), 1 )
+                  slacpy('All', M, N, COPYA, LDA, A, LDA );
+                  icopy(N, IWORK( 1 ), 1, IWORK( N+1 ), 1 );
 
                   // Compute the QR factorization with pivoting of A
 
@@ -155,7 +155,7 @@
                   // Compute the QP3 factorization of A
 
                   SRNAMT = 'SGEQP3'
-                  CALL SGEQP3( M, N, A, LDA, IWORK( N+1 ), TAU, WORK, LW, INFO )
+                  sgeqp3(M, N, A, LDA, IWORK( N+1 ), TAU, WORK, LW, INFO );
 
                   // Compute norm(svd(a) - svd(r))
 
@@ -187,7 +187,7 @@
 
       // Print a summary of the results.
 
-      CALL ALASUM( PATH, NOUT, NFAIL, NRUN, NERRS )
+      alasum(PATH, NOUT, NFAIL, NRUN, NERRS );
 
  9999 FORMAT( 1X, A, ' M =', I5, ', N =', I5, ', NB =', I4, ', type ', I2, ', test ', I2, ', ratio =', G12.5 )
 

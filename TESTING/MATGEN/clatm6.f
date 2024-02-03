@@ -62,7 +62,7 @@
 
       // Form X and Y
 
-      CALL CLACPY( 'F', N, N, B, LDA, Y, LDY )
+      clacpy('F', N, N, B, LDA, Y, LDY );
       Y( 3, 1 ) = -CONJG( WY )
       Y( 4, 1 ) = CONJG( WY )
       Y( 5, 1 ) = -CONJG( WY )
@@ -70,7 +70,7 @@
       Y( 4, 2 ) = CONJG( WY )
       Y( 5, 2 ) = -CONJG( WY )
 
-      CALL CLACPY( 'F', N, N, B, LDA, X, LDX )
+      clacpy('F', N, N, B, LDA, X, LDX );
       X( 1, 3 ) = -WX
       X( 1, 4 ) = -WX
       X( 1, 5 ) = WX
@@ -97,12 +97,12 @@
 
       S( 1 ) = RONE / SQRT( ( RONE+THREE*CABS( WY )*CABS( WY ) ) / ( RONE+CABS( A( 1, 1 ) )*CABS( A( 1, 1 ) ) ) )       S( 2 ) = RONE / SQRT( ( RONE+THREE*CABS( WY )*CABS( WY ) ) / ( RONE+CABS( A( 2, 2 ) )*CABS( A( 2, 2 ) ) ) )       S( 3 ) = RONE / SQRT( ( RONE+TWO*CABS( WX )*CABS( WX ) ) / ( RONE+CABS( A( 3, 3 ) )*CABS( A( 3, 3 ) ) ) )       S( 4 ) = RONE / SQRT( ( RONE+TWO*CABS( WX )*CABS( WX ) ) / ( RONE+CABS( A( 4, 4 ) )*CABS( A( 4, 4 ) ) ) )       S( 5 ) = RONE / SQRT( ( RONE+TWO*CABS( WX )*CABS( WX ) ) / ( RONE+CABS( A( 5, 5 ) )*CABS( A( 5, 5 ) ) ) )
 
-      CALL CLAKF2( 1, 4, A, LDA, A( 2, 2 ), B, B( 2, 2 ), Z, 8 )
-      CALL CGESVD( 'N', 'N', 8, 8, Z, 8, RWORK, WORK, 1, WORK( 2 ), 1, WORK( 3 ), 24, RWORK( 9 ), INFO )
+      clakf2(1, 4, A, LDA, A( 2, 2 ), B, B( 2, 2 ), Z, 8 );
+      cgesvd('N', 'N', 8, 8, Z, 8, RWORK, WORK, 1, WORK( 2 ), 1, WORK( 3 ), 24, RWORK( 9 ), INFO );
       DIF( 1 ) = RWORK( 8 )
 
-      CALL CLAKF2( 4, 1, A, LDA, A( 5, 5 ), B, B( 5, 5 ), Z, 8 )
-      CALL CGESVD( 'N', 'N', 8, 8, Z, 8, RWORK, WORK, 1, WORK( 2 ), 1, WORK( 3 ), 24, RWORK( 9 ), INFO )
+      clakf2(4, 1, A, LDA, A( 5, 5 ), B, B( 5, 5 ), Z, 8 );
+      cgesvd('N', 'N', 8, 8, Z, 8, RWORK, WORK, 1, WORK( 2 ), 1, WORK( 3 ), 24, RWORK( 9 ), INFO );
       DIF( 5 ) = RWORK( 8 )
 
       RETURN

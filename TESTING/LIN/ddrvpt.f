@@ -92,7 +92,7 @@
 
             // Set up parameters with DLATB4.
 
-            CALL DLATB4( PATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, COND, DIST )
+            dlatb4(PATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, COND, DIST );
 
             ZEROT = IMAT.GE.8 .AND. IMAT.LE.10
             if ( IMAT.LE.6 ) {
@@ -101,12 +101,12 @@
                // known condition number in lower triangular band storage.
 
                SRNAMT = 'DLATMS'
-               CALL DLATMS( N, N, DIST, ISEED, TYPE, RWORK, MODE, COND, ANORM, KL, KU, 'B', A, 2, WORK, INFO )
+               dlatms(N, N, DIST, ISEED, TYPE, RWORK, MODE, COND, ANORM, KL, KU, 'B', A, 2, WORK, INFO );
 
                // Check the error code from DLATMS.
 
                if ( INFO.NE.0 ) {
-                  CALL ALAERH( PATH, 'DLATMS', INFO, 0, ' ', N, N, KL, KU, -1, IMAT, NFAIL, NERRS, NOUT )
+                  alaerh(PATH, 'DLATMS', INFO, 0, ' ', N, N, KL, KU, -1, IMAT, NFAIL, NERRS, NOUT );
                   GO TO 110
                }
                IZERO = 0
@@ -129,8 +129,8 @@
 
                   // Let D and E have values from [-1,1].
 
-                  CALL DLARNV( 2, ISEED, N, D )
-                  CALL DLARNV( 2, ISEED, N-1, E )
+                  dlarnv(2, ISEED, N, D );
+                  dlarnv(2, ISEED, N-1, E );
 
                   // Make the tridiagonal matrix diagonally dominant.
 
@@ -148,7 +148,7 @@
 
                   IX = IDAMAX( N, D, 1 )
                   DMAX = D( IX )
-                  CALL DSCAL( N, ANORM / DMAX, D, 1 )
+                  dscal(N, ANORM / DMAX, D, 1 );
                   IF( N.GT.1 ) CALL DSCAL( N-1, ANORM / DMAX, E, 1 )
 
                } else if ( IZERO.GT.0 ) {
@@ -206,13 +206,13 @@
 
             IX = 1
             DO 40 J = 1, NRHS
-               CALL DLARNV( 2, ISEED, N, XACT( IX ) )
+               dlarnv(2, ISEED, N, XACT( IX ) );
                IX = IX + LDA
    40       CONTINUE
 
             // Set the right hand side.
 
-            CALL DLAPTM( N, NRHS, ONE, D, E, XACT, LDA, ZERO, B, LDA )
+            dlaptm(N, NRHS, ONE, D, E, XACT, LDA, ZERO, B, LDA );
 
             DO 100 IFACT = 1, 2
                if ( IFACT.EQ.1 ) {
@@ -234,12 +234,12 @@
 
                   ANORM = DLANST( '1', N, D, E )
 
-                  CALL DCOPY( N, D, 1, D( N+1 ), 1 )
+                  dcopy(N, D, 1, D( N+1 ), 1 );
                   IF( N.GT.1 ) CALL DCOPY( N-1, E, 1, E( N+1 ), 1 )
 
                   // Factor the matrix A.
 
-                  CALL DPTTRF( N, D( N+1 ), E( N+1 ), INFO )
+                  dpttrf(N, D( N+1 ), E( N+1 ), INFO );
 
                   // Use DPTTRS to solve for one column at a time of
                   // inv(A), computing the maximum column sum as we go.
@@ -250,7 +250,7 @@
                         X( J ) = ZERO
    50                CONTINUE
                      X( I ) = ONE
-                     CALL DPTTRS( N, 1, D( N+1 ), E( N+1 ), X, LDA, INFO )
+                     dpttrs(N, 1, D( N+1 ), E( N+1 ), X, LDA, INFO );
                      AINVNM = MAX( AINVNM, DASUM( N, X, 1 ) )
    60             CONTINUE
 
@@ -267,14 +267,14 @@
 
                   // --- Test DPTSV --
 
-                  CALL DCOPY( N, D, 1, D( N+1 ), 1 )
+                  dcopy(N, D, 1, D( N+1 ), 1 );
                   IF( N.GT.1 ) CALL DCOPY( N-1, E, 1, E( N+1 ), 1 )
-                  CALL DLACPY( 'Full', N, NRHS, B, LDA, X, LDA )
+                  dlacpy('Full', N, NRHS, B, LDA, X, LDA );
 
                   // Factor A as L*D*L' and solve the system A*X = B.
 
                   SRNAMT = 'DPTSV '
-                  CALL DPTSV( N, NRHS, D( N+1 ), E( N+1 ), X, LDA, INFO )
+                  dptsv(N, NRHS, D( N+1 ), E( N+1 ), X, LDA, INFO );
 
                   // Check error code from DPTSV .
 
@@ -285,16 +285,16 @@
                      // Check the factorization by computing the ratio
                         // norm(L*D*L' - A) / (n * norm(A) * EPS )
 
-                     CALL DPTT01( N, D, E, D( N+1 ), E( N+1 ), WORK, RESULT( 1 ) )
+                     dptt01(N, D, E, D( N+1 ), E( N+1 ), WORK, RESULT( 1 ) );
 
                      // Compute the residual in the solution.
 
-                     CALL DLACPY( 'Full', N, NRHS, B, LDA, WORK, LDA )
-                     CALL DPTT02( N, NRHS, D, E, X, LDA, WORK, LDA, RESULT( 2 ) )
+                     dlacpy('Full', N, NRHS, B, LDA, WORK, LDA );
+                     dptt02(N, NRHS, D, E, X, LDA, WORK, LDA, RESULT( 2 ) );
 
                      // Check solution from generated exact solution.
 
-                     CALL DGET04( N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 3 ) )
+                     dget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 3 ) );
                      NT = 3
                   }
 
@@ -323,13 +323,13 @@
                   IF( N.GT.0 ) D( N+N ) = ZERO
                }
 
-               CALL DLASET( 'Full', N, NRHS, ZERO, ZERO, X, LDA )
+               dlaset('Full', N, NRHS, ZERO, ZERO, X, LDA );
 
                // Solve the system and compute the condition number and
                // error bounds using DPTSVX.
 
                SRNAMT = 'DPTSVX'
-               CALL DPTSVX( FACT, N, NRHS, D, E, D( N+1 ), E( N+1 ), B, LDA, X, LDA, RCOND, RWORK, RWORK( NRHS+1 ), WORK, INFO )
+               dptsvx(FACT, N, NRHS, D, E, D( N+1 ), E( N+1 ), B, LDA, X, LDA, RCOND, RWORK, RWORK( NRHS+1 ), WORK, INFO );
 
                // Check the error code from DPTSVX.
 
@@ -341,23 +341,23 @@
                         // norm(L*D*L' - A) / (n * norm(A) * EPS )
 
                      K1 = 1
-                     CALL DPTT01( N, D, E, D( N+1 ), E( N+1 ), WORK, RESULT( 1 ) )
+                     dptt01(N, D, E, D( N+1 ), E( N+1 ), WORK, RESULT( 1 ) );
                   } else {
                      K1 = 2
                   }
 
                   // Compute the residual in the solution.
 
-                  CALL DLACPY( 'Full', N, NRHS, B, LDA, WORK, LDA )
-                  CALL DPTT02( N, NRHS, D, E, X, LDA, WORK, LDA, RESULT( 2 ) )
+                  dlacpy('Full', N, NRHS, B, LDA, WORK, LDA );
+                  dptt02(N, NRHS, D, E, X, LDA, WORK, LDA, RESULT( 2 ) );
 
                   // Check solution from generated exact solution.
 
-                  CALL DGET04( N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 3 ) )
+                  dget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 3 ) );
 
                   // Check error bounds from iterative refinement.
 
-                  CALL DPTT05( N, NRHS, D, E, B, LDA, X, LDA, XACT, LDA, RWORK, RWORK( NRHS+1 ), RESULT( 4 ) )
+                  dptt05(N, NRHS, D, E, B, LDA, X, LDA, XACT, LDA, RWORK, RWORK( NRHS+1 ), RESULT( 4 ) );
                } else {
                   K1 = 6
                }
@@ -382,7 +382,7 @@
 
       // Print a summary of the results.
 
-      CALL ALASVM( PATH, NOUT, NFAIL, NRUN, NERRS )
+      alasvm(PATH, NOUT, NFAIL, NRUN, NERRS );
 
  9999 FORMAT( 1X, A, ', N =', I5, ', type ', I2, ', test ', I2, ', ratio = ', G12.5 )
  9998 FORMAT( 1X, A, ', FACT=''', A1, ''', N =', I5, ', type ', I2, ', test ', I2, ', ratio = ', G12.5 )

@@ -69,7 +69,7 @@
          INFO = -16
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'CGBBRD', -INFO )
+         xerbla('CGBBRD', -INFO );
          RETURN
       }
 
@@ -144,7 +144,7 @@
                      // generate plane rotation to annihilate a(i+ml-1,i)
                      // within the band, and apply rotation from the left
 
-                     CALL CLARTG( AB( KU+ML-1, I ), AB( KU+ML, I ), RWORK( I+ML-1 ), WORK( I+ML-1 ), RA )
+                     clartg(AB( KU+ML-1, I ), AB( KU+ML, I ), RWORK( I+ML-1 ), WORK( I+ML-1 ), RA );
                      AB( KU+ML-1, I ) = RA
                      IF( I.LT.N ) CALL CROT( MIN( KU+ML-2, N-I ), AB( KU+ML-2, I+1 ), LDAB-1, AB( KU+ML-1, I+1 ), LDAB-1, RWORK( I+ML-1 ), WORK( I+ML-1 ) )
                   }
@@ -157,7 +157,7 @@
                   // accumulate product of plane rotations in Q
 
                   DO 20 J = J1, J2, KB1
-                     CALL CROT( M, Q( 1, J-1 ), 1, Q( 1, J ), 1, RWORK( J ), CONJG( WORK( J ) ) )
+                     crot(M, Q( 1, J-1 ), 1, Q( 1, J ), 1, RWORK( J ), CONJG( WORK( J ) ) );
    20             CONTINUE
                }
 
@@ -166,7 +166,7 @@
                   // apply plane rotations to C
 
                   DO 30 J = J1, J2, KB1
-                     CALL CROT( NCC, C( J-1, 1 ), LDC, C( J, 1 ), LDC, RWORK( J ), WORK( J ) )
+                     crot(NCC, C( J-1, 1 ), LDC, C( J, 1 ), LDC, RWORK( J ), WORK( J ) );
    30             CONTINUE
                }
 
@@ -209,9 +209,9 @@
                      // generate plane rotation to annihilate a(i,i+mu-1)
                      // within the band, and apply rotation from the right
 
-                     CALL CLARTG( AB( KU-MU+3, I+MU-2 ), AB( KU-MU+2, I+MU-1 ), RWORK( I+MU-1 ), WORK( I+MU-1 ), RA )
+                     clartg(AB( KU-MU+3, I+MU-2 ), AB( KU-MU+2, I+MU-1 ), RWORK( I+MU-1 ), WORK( I+MU-1 ), RA );
                      AB( KU-MU+3, I+MU-2 ) = RA
-                     CALL CROT( MIN( KL+MU-2, M-I ), AB( KU-MU+4, I+MU-2 ), 1, AB( KU-MU+3, I+MU-1 ), 1, RWORK( I+MU-1 ), WORK( I+MU-1 ) )
+                     crot(MIN( KL+MU-2, M-I ), AB( KU-MU+4, I+MU-2 ), 1, AB( KU-MU+3, I+MU-1 ), 1, RWORK( I+MU-1 ), WORK( I+MU-1 ) );
                   }
                   NR = NR + 1
                   J1 = J1 - KB1
@@ -222,7 +222,7 @@
                   // accumulate product of plane rotations in P**H
 
                   DO 60 J = J1, J2, KB1
-                     CALL CROT( N, PT( J+KUN-1, 1 ), LDPT, PT( J+KUN, 1 ), LDPT, RWORK( J+KUN ), CONJG( WORK( J+KUN ) ) )
+                     crot(N, PT( J+KUN-1, 1 ), LDPT, PT( J+KUN, 1 ), LDPT, RWORK( J+KUN ), CONJG( WORK( J+KUN ) ) );
    60             CONTINUE
                }
 
@@ -261,7 +261,7 @@
          // elements on subdiagonal elements
 
          DO 100 I = 1, MIN( M-1, N )
-            CALL CLARTG( AB( 1, I ), AB( 2, I ), RC, RS, RA )
+            clartg(AB( 1, I ), AB( 2, I ), RC, RS, RA );
             AB( 1, I ) = RA
             if ( I.LT.N ) {
                AB( 2, I ) = RS*AB( 1, I+1 )
@@ -281,7 +281,7 @@
 
             RB = AB( KU, M+1 )
             DO 110 I = M, 1, -1
-               CALL CLARTG( AB( KU+1, I ), RB, RC, RS, RA )
+               clartg(AB( KU+1, I ), RB, RC, RS, RA );
                AB( KU+1, I ) = RA
                if ( I.GT.1 ) {
                   RB = -CONJG( RS )*AB( KU, I )

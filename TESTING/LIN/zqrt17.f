@@ -47,12 +47,12 @@
          NROWS = N
          NCOLS = M
       } else {
-         CALL XERBLA( 'ZQRT17', 1 )
+         xerbla('ZQRT17', 1 );
          RETURN
       }
 
       if ( LWORK.LT.NCOLS*NRHS ) {
-         CALL XERBLA( 'ZQRT17', 13 )
+         xerbla('ZQRT17', 13 );
          RETURN
       }
 
@@ -64,17 +64,17 @@
 
       // compute residual and scale it
 
-      CALL ZLACPY( 'All', NROWS, NRHS, B, LDB, C, LDB )
-      CALL ZGEMM( TRANS, 'No transpose', NROWS, NRHS, NCOLS, DCMPLX( -ONE ), A, LDA, X, LDX, DCMPLX( ONE ), C, LDB )
+      zlacpy('All', NROWS, NRHS, B, LDB, C, LDB );
+      zgemm(TRANS, 'No transpose', NROWS, NRHS, NCOLS, DCMPLX( -ONE ), A, LDA, X, LDX, DCMPLX( ONE ), C, LDB );
       NORMRS = ZLANGE( 'Max', NROWS, NRHS, C, LDB, RWORK )
       if ( NORMRS.GT.SMLNUM ) {
          ISCL = 1
-         CALL ZLASCL( 'General', 0, 0, NORMRS, ONE, NROWS, NRHS, C, LDB, INFO )
+         zlascl('General', 0, 0, NORMRS, ONE, NROWS, NRHS, C, LDB, INFO );
       }
 
       // compute R**H * op(A)
 
-      CALL ZGEMM( 'Conjugate transpose', TRANS, NRHS, NCOLS, NROWS, DCMPLX( ONE ), C, LDB, A, LDA, DCMPLX( ZERO ), WORK, NRHS )
+      zgemm('Conjugate transpose', TRANS, NRHS, NCOLS, NROWS, DCMPLX( ONE ), C, LDB, A, LDA, DCMPLX( ZERO ), WORK, NRHS );
 
       // compute and properly scale error
 

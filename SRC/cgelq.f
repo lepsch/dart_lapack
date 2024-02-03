@@ -124,7 +124,7 @@
         }
       }
       if ( INFO.NE.0 ) {
-        CALL XERBLA( 'CGELQ', -INFO )
+        xerbla('CGELQ', -INFO );
         RETURN
       } else if ( LQUERY ) {
         RETURN
@@ -139,9 +139,9 @@
       // The LQ Decomposition
 
       if ( ( N.LE.M ) .OR. ( NB.LE.M ) .OR. ( NB.GE.N ) ) {
-        CALL CGELQT( M, N, MB, A, LDA, T( 6 ), MB, WORK, INFO )
+        cgelqt(M, N, MB, A, LDA, T( 6 ), MB, WORK, INFO );
       } else {
-        CALL CLASWLQ( M, N, MB, NB, A, LDA, T( 6 ), MB, WORK, LWORK, INFO )
+        claswlq(M, N, MB, NB, A, LDA, T( 6 ), MB, WORK, LWORK, INFO );
       }
 
       WORK( 1 ) = SROUNDUP_LWORK( LWREQ )

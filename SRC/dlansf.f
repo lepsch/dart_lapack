@@ -567,34 +567,34 @@
                if ( ILU.EQ.0 ) {
                   // A is upper
                   DO J = 0, K - 3
-                     CALL DLASSQ( K-J-2, A( K+J+1+J*LDA ), 1, SCALE, S )
+                     dlassq(K-J-2, A( K+J+1+J*LDA ), 1, SCALE, S );
                      // L at A(k,0)
                   END DO
                   DO J = 0, K - 1
-                     CALL DLASSQ( K+J-1, A( 0+J*LDA ), 1, SCALE, S )
+                     dlassq(K+J-1, A( 0+J*LDA ), 1, SCALE, S );
                      // trap U at A(0,0)
                   END DO
                   S = S + S
                   // double s for the off diagonal elements
-                  CALL DLASSQ( K-1, A( K ), LDA+1, SCALE, S )
+                  dlassq(K-1, A( K ), LDA+1, SCALE, S );
                   // tri L at A(k,0)
-                  CALL DLASSQ( K, A( K-1 ), LDA+1, SCALE, S )
+                  dlassq(K, A( K-1 ), LDA+1, SCALE, S );
                   // tri U at A(k-1,0)
                } else {
                   // ilu=1 & A is lower
                   DO J = 0, K - 1
-                     CALL DLASSQ( N-J-1, A( J+1+J*LDA ), 1, SCALE, S )
+                     dlassq(N-J-1, A( J+1+J*LDA ), 1, SCALE, S );
                      // trap L at A(0,0)
                   END DO
                   DO J = 0, K - 2
-                     CALL DLASSQ( J, A( 0+( 1+J )*LDA ), 1, SCALE, S )
+                     dlassq(J, A( 0+( 1+J )*LDA ), 1, SCALE, S );
                      // U at A(0,1)
                   END DO
                   S = S + S
                   // double s for the off diagonal elements
-                  CALL DLASSQ( K, A( 0 ), LDA+1, SCALE, S )
+                  dlassq(K, A( 0 ), LDA+1, SCALE, S );
                   // tri L at A(0,0)
-                  CALL DLASSQ( K-1, A( 0+LDA ), LDA+1, SCALE, S )
+                  dlassq(K-1, A( 0+LDA ), LDA+1, SCALE, S );
                   // tri U at A(0,1)
                }
             } else {
@@ -602,42 +602,42 @@
                if ( ILU.EQ.0 ) {
                   // A**T is upper
                   DO J = 1, K - 2
-                     CALL DLASSQ( J, A( 0+( K+J )*LDA ), 1, SCALE, S )
+                     dlassq(J, A( 0+( K+J )*LDA ), 1, SCALE, S );
                      // U at A(0,k)
                   END DO
                   DO J = 0, K - 2
-                     CALL DLASSQ( K, A( 0+J*LDA ), 1, SCALE, S )
+                     dlassq(K, A( 0+J*LDA ), 1, SCALE, S );
                      // k by k-1 rect. at A(0,0)
                   END DO
                   DO J = 0, K - 2
-                     CALL DLASSQ( K-J-1, A( J+1+( J+K-1 )*LDA ), 1, SCALE, S )
+                     dlassq(K-J-1, A( J+1+( J+K-1 )*LDA ), 1, SCALE, S );
                      // L at A(0,k-1)
                   END DO
                   S = S + S
                   // double s for the off diagonal elements
-                  CALL DLASSQ( K-1, A( 0+K*LDA ), LDA+1, SCALE, S )
+                  dlassq(K-1, A( 0+K*LDA ), LDA+1, SCALE, S );
                   // tri U at A(0,k)
-                  CALL DLASSQ( K, A( 0+( K-1 )*LDA ), LDA+1, SCALE, S )
+                  dlassq(K, A( 0+( K-1 )*LDA ), LDA+1, SCALE, S );
                   // tri L at A(0,k-1)
                } else {
                   // A**T is lower
                   DO J = 1, K - 1
-                     CALL DLASSQ( J, A( 0+J*LDA ), 1, SCALE, S )
+                     dlassq(J, A( 0+J*LDA ), 1, SCALE, S );
                      // U at A(0,0)
                   END DO
                   DO J = K, N - 1
-                     CALL DLASSQ( K, A( 0+J*LDA ), 1, SCALE, S )
+                     dlassq(K, A( 0+J*LDA ), 1, SCALE, S );
                      // k by k-1 rect. at A(0,k)
                   END DO
                   DO J = 0, K - 3
-                     CALL DLASSQ( K-J-2, A( J+2+J*LDA ), 1, SCALE, S )
+                     dlassq(K-J-2, A( J+2+J*LDA ), 1, SCALE, S );
                      // L at A(1,0)
                   END DO
                   S = S + S
                   // double s for the off diagonal elements
-                  CALL DLASSQ( K, A( 0 ), LDA+1, SCALE, S )
+                  dlassq(K, A( 0 ), LDA+1, SCALE, S );
                   // tri U at A(0,0)
-                  CALL DLASSQ( K-1, A( 1 ), LDA+1, SCALE, S )
+                  dlassq(K-1, A( 1 ), LDA+1, SCALE, S );
                   // tri L at A(1,0)
                }
             }
@@ -648,34 +648,34 @@
                if ( ILU.EQ.0 ) {
                   // A is upper
                   DO J = 0, K - 2
-                     CALL DLASSQ( K-J-1, A( K+J+2+J*LDA ), 1, SCALE, S )
+                     dlassq(K-J-1, A( K+J+2+J*LDA ), 1, SCALE, S );
                      // L at A(k+1,0)
                   END DO
                   DO J = 0, K - 1
-                     CALL DLASSQ( K+J, A( 0+J*LDA ), 1, SCALE, S )
+                     dlassq(K+J, A( 0+J*LDA ), 1, SCALE, S );
                      // trap U at A(0,0)
                   END DO
                   S = S + S
                   // double s for the off diagonal elements
-                  CALL DLASSQ( K, A( K+1 ), LDA+1, SCALE, S )
+                  dlassq(K, A( K+1 ), LDA+1, SCALE, S );
                   // tri L at A(k+1,0)
-                  CALL DLASSQ( K, A( K ), LDA+1, SCALE, S )
+                  dlassq(K, A( K ), LDA+1, SCALE, S );
                   // tri U at A(k,0)
                } else {
                   // ilu=1 & A is lower
                   DO J = 0, K - 1
-                     CALL DLASSQ( N-J-1, A( J+2+J*LDA ), 1, SCALE, S )
+                     dlassq(N-J-1, A( J+2+J*LDA ), 1, SCALE, S );
                      // trap L at A(1,0)
                   END DO
                   DO J = 1, K - 1
-                     CALL DLASSQ( J, A( 0+J*LDA ), 1, SCALE, S )
+                     dlassq(J, A( 0+J*LDA ), 1, SCALE, S );
                      // U at A(0,0)
                   END DO
                   S = S + S
                   // double s for the off diagonal elements
-                  CALL DLASSQ( K, A( 1 ), LDA+1, SCALE, S )
+                  dlassq(K, A( 1 ), LDA+1, SCALE, S );
                   // tri L at A(1,0)
-                  CALL DLASSQ( K, A( 0 ), LDA+1, SCALE, S )
+                  dlassq(K, A( 0 ), LDA+1, SCALE, S );
                   // tri U at A(0,0)
                }
             } else {
@@ -683,42 +683,42 @@
                if ( ILU.EQ.0 ) {
                   // A**T is upper
                   DO J = 1, K - 1
-                     CALL DLASSQ( J, A( 0+( K+1+J )*LDA ), 1, SCALE, S )
+                     dlassq(J, A( 0+( K+1+J )*LDA ), 1, SCALE, S );
                      // U at A(0,k+1)
                   END DO
                   DO J = 0, K - 1
-                     CALL DLASSQ( K, A( 0+J*LDA ), 1, SCALE, S )
+                     dlassq(K, A( 0+J*LDA ), 1, SCALE, S );
                      // k by k rect. at A(0,0)
                   END DO
                   DO J = 0, K - 2
-                     CALL DLASSQ( K-J-1, A( J+1+( J+K )*LDA ), 1, SCALE, S )
+                     dlassq(K-J-1, A( J+1+( J+K )*LDA ), 1, SCALE, S );
                      // L at A(0,k)
                   END DO
                   S = S + S
                   // double s for the off diagonal elements
-                  CALL DLASSQ( K, A( 0+( K+1 )*LDA ), LDA+1, SCALE, S )
+                  dlassq(K, A( 0+( K+1 )*LDA ), LDA+1, SCALE, S );
                   // tri U at A(0,k+1)
-                  CALL DLASSQ( K, A( 0+K*LDA ), LDA+1, SCALE, S )
+                  dlassq(K, A( 0+K*LDA ), LDA+1, SCALE, S );
                   // tri L at A(0,k)
                } else {
                   // A**T is lower
                   DO J = 1, K - 1
-                     CALL DLASSQ( J, A( 0+( J+1 )*LDA ), 1, SCALE, S )
+                     dlassq(J, A( 0+( J+1 )*LDA ), 1, SCALE, S );
                      // U at A(0,1)
                   END DO
                   DO J = K + 1, N
-                     CALL DLASSQ( K, A( 0+J*LDA ), 1, SCALE, S )
+                     dlassq(K, A( 0+J*LDA ), 1, SCALE, S );
                      // k by k rect. at A(0,k+1)
                   END DO
                   DO J = 0, K - 2
-                     CALL DLASSQ( K-J-1, A( J+1+J*LDA ), 1, SCALE, S )
+                     dlassq(K-J-1, A( J+1+J*LDA ), 1, SCALE, S );
                      // L at A(0,0)
                   END DO
                   S = S + S
                   // double s for the off diagonal elements
-                  CALL DLASSQ( K, A( LDA ), LDA+1, SCALE, S )
+                  dlassq(K, A( LDA ), LDA+1, SCALE, S );
                   // tri L at A(0,1)
-                  CALL DLASSQ( K, A( 0 ), LDA+1, SCALE, S )
+                  dlassq(K, A( 0 ), LDA+1, SCALE, S );
                   // tri U at A(0,0)
                }
             }

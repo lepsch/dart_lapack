@@ -92,7 +92,7 @@
 
       // Report values of parameters.
 
-      CALL ILAVER( VERS_MAJOR, VERS_MINOR, VERS_PATCH )
+      ilaver(VERS_MAJOR, VERS_MINOR, VERS_PATCH );
       WRITE( NOUT, FMT = 9994 ) VERS_MAJOR, VERS_MINOR, VERS_PATCH
 
       // Read the values of M
@@ -318,16 +318,16 @@
          // GE:  general matrices
 
          NTYPES = 11
-         CALL ALAREQ( PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT )
+         alareq(PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT );
 
          if ( TSTCHK ) {
-            CALL DCHKGE( DOTYPE, NM, MVAL, NN, NVAL, NNB2, NBVAL2, NNS, NSVAL, THRESH, TSTERR, LDA, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), WORK, RWORK, IWORK, NOUT )
+            dchkge(DOTYPE, NM, MVAL, NN, NVAL, NNB2, NBVAL2, NNS, NSVAL, THRESH, TSTERR, LDA, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), WORK, RWORK, IWORK, NOUT );
          } else {
             WRITE( NOUT, FMT = 9989 )PATH
          }
 
          if ( TSTDRV ) {
-            CALL DDRVGE( DOTYPE, NN, NVAL, NRHS, THRESH, TSTERR, LDA, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), B( 1, 4 ), S, WORK, RWORK, IWORK, NOUT )
+            ddrvge(DOTYPE, NN, NVAL, NRHS, THRESH, TSTERR, LDA, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), B( 1, 4 ), S, WORK, RWORK, IWORK, NOUT );
          } else {
             WRITE( NOUT, FMT = 9988 )PATH
          }
@@ -339,16 +339,16 @@
          LA = ( 2*KDMAX+1 )*NMAX
          LAFAC = ( 3*KDMAX+1 )*NMAX
          NTYPES = 8
-         CALL ALAREQ( PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT )
+         alareq(PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT );
 
          if ( TSTCHK ) {
-            CALL DCHKGB( DOTYPE, NM, MVAL, NN, NVAL, NNB2, NBVAL2, NNS, NSVAL, THRESH, TSTERR, A( 1, 1 ), LA, A( 1, 3 ), LAFAC, B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), WORK, RWORK, IWORK, NOUT )
+            dchkgb(DOTYPE, NM, MVAL, NN, NVAL, NNB2, NBVAL2, NNS, NSVAL, THRESH, TSTERR, A( 1, 1 ), LA, A( 1, 3 ), LAFAC, B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), WORK, RWORK, IWORK, NOUT );
          } else {
             WRITE( NOUT, FMT = 9989 )PATH
          }
 
          if ( TSTDRV ) {
-            CALL DDRVGB( DOTYPE, NN, NVAL, NRHS, THRESH, TSTERR, A( 1, 1 ), LA, A( 1, 3 ), LAFAC, A( 1, 6 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), B( 1, 4 ), S, WORK, RWORK, IWORK, NOUT )
+            ddrvgb(DOTYPE, NN, NVAL, NRHS, THRESH, TSTERR, A( 1, 1 ), LA, A( 1, 3 ), LAFAC, A( 1, 6 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), B( 1, 4 ), S, WORK, RWORK, IWORK, NOUT );
          } else {
             WRITE( NOUT, FMT = 9988 )PATH
          }
@@ -358,16 +358,16 @@
          // GT:  general tridiagonal matrices
 
          NTYPES = 12
-         CALL ALAREQ( PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT )
+         alareq(PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT );
 
          if ( TSTCHK ) {
-            CALL DCHKGT( DOTYPE, NN, NVAL, NNS, NSVAL, THRESH, TSTERR, A( 1, 1 ), A( 1, 2 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), WORK, RWORK, IWORK, NOUT )
+            dchkgt(DOTYPE, NN, NVAL, NNS, NSVAL, THRESH, TSTERR, A( 1, 1 ), A( 1, 2 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), WORK, RWORK, IWORK, NOUT );
          } else {
             WRITE( NOUT, FMT = 9989 )PATH
          }
 
          if ( TSTDRV ) {
-            CALL DDRVGT( DOTYPE, NN, NVAL, NRHS, THRESH, TSTERR, A( 1, 1 ), A( 1, 2 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), WORK, RWORK, IWORK, NOUT )
+            ddrvgt(DOTYPE, NN, NVAL, NRHS, THRESH, TSTERR, A( 1, 1 ), A( 1, 2 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), WORK, RWORK, IWORK, NOUT );
          } else {
             WRITE( NOUT, FMT = 9988 )PATH
          }
@@ -377,16 +377,16 @@
          // PO:  positive definite matrices
 
          NTYPES = 9
-         CALL ALAREQ( PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT )
+         alareq(PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT );
 
          if ( TSTCHK ) {
-            CALL DCHKPO( DOTYPE, NN, NVAL, NNB2, NBVAL2, NNS, NSVAL, THRESH, TSTERR, LDA, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), WORK, RWORK, IWORK, NOUT )
+            dchkpo(DOTYPE, NN, NVAL, NNB2, NBVAL2, NNS, NSVAL, THRESH, TSTERR, LDA, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), WORK, RWORK, IWORK, NOUT );
          } else {
             WRITE( NOUT, FMT = 9989 )PATH
          }
 
          if ( TSTDRV ) {
-            CALL DDRVPO( DOTYPE, NN, NVAL, NRHS, THRESH, TSTERR, LDA, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), B( 1, 4 ), S, WORK, RWORK, IWORK, NOUT )
+            ddrvpo(DOTYPE, NN, NVAL, NRHS, THRESH, TSTERR, LDA, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), B( 1, 4 ), S, WORK, RWORK, IWORK, NOUT );
          } else {
             WRITE( NOUT, FMT = 9988 )PATH
          }
@@ -397,10 +397,10 @@
 
          NTYPES = 9
 
-         CALL ALAREQ( PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT )
+         alareq(PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT );
 
          if ( TSTCHK ) {
-            CALL DCHKPS( DOTYPE, NN, NVAL, NNB2, NBVAL2, NRANK, RANKVAL, THRESH, TSTERR, LDA, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), PIV, WORK, RWORK, NOUT )
+            dchkps(DOTYPE, NN, NVAL, NNB2, NBVAL2, NRANK, RANKVAL, THRESH, TSTERR, LDA, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), PIV, WORK, RWORK, NOUT );
          } else {
             WRITE( NOUT, FMT = 9989 )PATH
          }
@@ -410,16 +410,16 @@
          // PP:  positive definite packed matrices
 
          NTYPES = 9
-         CALL ALAREQ( PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT )
+         alareq(PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT );
 
          if ( TSTCHK ) {
-            CALL DCHKPP( DOTYPE, NN, NVAL, NNS, NSVAL, THRESH, TSTERR, LDA, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), WORK, RWORK, IWORK, NOUT )
+            dchkpp(DOTYPE, NN, NVAL, NNS, NSVAL, THRESH, TSTERR, LDA, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), WORK, RWORK, IWORK, NOUT );
          } else {
             WRITE( NOUT, FMT = 9989 )PATH
          }
 
          if ( TSTDRV ) {
-            CALL DDRVPP( DOTYPE, NN, NVAL, NRHS, THRESH, TSTERR, LDA, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), B( 1, 4 ), S, WORK, RWORK, IWORK, NOUT )
+            ddrvpp(DOTYPE, NN, NVAL, NRHS, THRESH, TSTERR, LDA, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), B( 1, 4 ), S, WORK, RWORK, IWORK, NOUT );
          } else {
             WRITE( NOUT, FMT = 9988 )PATH
          }
@@ -429,16 +429,16 @@
          // PB:  positive definite banded matrices
 
          NTYPES = 8
-         CALL ALAREQ( PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT )
+         alareq(PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT );
 
          if ( TSTCHK ) {
-            CALL DCHKPB( DOTYPE, NN, NVAL, NNB2, NBVAL2, NNS, NSVAL, THRESH, TSTERR, LDA, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), WORK, RWORK, IWORK, NOUT )
+            dchkpb(DOTYPE, NN, NVAL, NNB2, NBVAL2, NNS, NSVAL, THRESH, TSTERR, LDA, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), WORK, RWORK, IWORK, NOUT );
          } else {
             WRITE( NOUT, FMT = 9989 )PATH
          }
 
          if ( TSTDRV ) {
-            CALL DDRVPB( DOTYPE, NN, NVAL, NRHS, THRESH, TSTERR, LDA, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), B( 1, 4 ), S, WORK, RWORK, IWORK, NOUT )
+            ddrvpb(DOTYPE, NN, NVAL, NRHS, THRESH, TSTERR, LDA, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), B( 1, 4 ), S, WORK, RWORK, IWORK, NOUT );
          } else {
             WRITE( NOUT, FMT = 9988 )PATH
          }
@@ -448,16 +448,16 @@
          // PT:  positive definite tridiagonal matrices
 
          NTYPES = 12
-         CALL ALAREQ( PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT )
+         alareq(PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT );
 
          if ( TSTCHK ) {
-            CALL DCHKPT( DOTYPE, NN, NVAL, NNS, NSVAL, THRESH, TSTERR, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), WORK, RWORK, NOUT )
+            dchkpt(DOTYPE, NN, NVAL, NNS, NSVAL, THRESH, TSTERR, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), WORK, RWORK, NOUT );
          } else {
             WRITE( NOUT, FMT = 9989 )PATH
          }
 
          if ( TSTDRV ) {
-            CALL DDRVPT( DOTYPE, NN, NVAL, NRHS, THRESH, TSTERR, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), WORK, RWORK, NOUT )
+            ddrvpt(DOTYPE, NN, NVAL, NRHS, THRESH, TSTERR, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), WORK, RWORK, NOUT );
          } else {
             WRITE( NOUT, FMT = 9988 )PATH
          }
@@ -468,16 +468,16 @@
               // with partial (Bunch-Kaufman) pivoting algorithm
 
          NTYPES = 10
-         CALL ALAREQ( PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT )
+         alareq(PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT );
 
          if ( TSTCHK ) {
-            CALL DCHKSY( DOTYPE, NN, NVAL, NNB2, NBVAL2, NNS, NSVAL, THRESH, TSTERR, LDA, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), WORK, RWORK, IWORK, NOUT )
+            dchksy(DOTYPE, NN, NVAL, NNB2, NBVAL2, NNS, NSVAL, THRESH, TSTERR, LDA, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), WORK, RWORK, IWORK, NOUT );
          } else {
             WRITE( NOUT, FMT = 9989 )PATH
          }
 
          if ( TSTDRV ) {
-            CALL DDRVSY( DOTYPE, NN, NVAL, NRHS, THRESH, TSTERR, LDA, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), WORK, RWORK, IWORK, NOUT )
+            ddrvsy(DOTYPE, NN, NVAL, NRHS, THRESH, TSTERR, LDA, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), WORK, RWORK, IWORK, NOUT );
          } else {
             WRITE( NOUT, FMT = 9988 )PATH
          }
@@ -488,16 +488,16 @@
               // with bounded Bunch-Kaufman (rook) pivoting algorithm
 
          NTYPES = 10
-         CALL ALAREQ( PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT )
+         alareq(PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT );
 
          if ( TSTCHK ) {
-            CALL DCHKSY_ROOK(DOTYPE, NN, NVAL, NNB2, NBVAL2, NNS, NSVAL, THRESH, TSTERR, LDA, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), WORK, RWORK, IWORK, NOUT )
+            dchksy_rook(DOTYPE, NN, NVAL, NNB2, NBVAL2, NNS, NSVAL, THRESH, TSTERR, LDA, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), WORK, RWORK, IWORK, NOUT );
          } else {
             WRITE( NOUT, FMT = 9989 )PATH
          }
 
          if ( TSTDRV ) {
-            CALL DDRVSY_ROOK( DOTYPE, NN, NVAL, NRHS, THRESH, TSTERR, LDA, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), WORK, RWORK, IWORK, NOUT )
+            ddrvsy_rook(DOTYPE, NN, NVAL, NRHS, THRESH, TSTERR, LDA, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), WORK, RWORK, IWORK, NOUT );
          } else {
             WRITE( NOUT, FMT = 9988 )PATH
          }
@@ -509,16 +509,16 @@
               // different matrix storage format than SR path version.
 
          NTYPES = 10
-         CALL ALAREQ( PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT )
+         alareq(PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT );
 
          if ( TSTCHK ) {
-            CALL DCHKSY_RK( DOTYPE, NN, NVAL, NNB2, NBVAL2, NNS, NSVAL, THRESH, TSTERR, LDA, A( 1, 1 ), A( 1, 2 ), E, A( 1, 3 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), WORK, RWORK, IWORK, NOUT )
+            dchksy_rk(DOTYPE, NN, NVAL, NNB2, NBVAL2, NNS, NSVAL, THRESH, TSTERR, LDA, A( 1, 1 ), A( 1, 2 ), E, A( 1, 3 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), WORK, RWORK, IWORK, NOUT );
          } else {
             WRITE( NOUT, FMT = 9989 )PATH
          }
 
          if ( TSTDRV ) {
-            CALL DDRVSY_RK( DOTYPE, NN, NVAL, NRHS, THRESH, TSTERR, LDA, A( 1, 1 ), A( 1, 2 ), E, A( 1, 3 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), WORK, RWORK, IWORK, NOUT )
+            ddrvsy_rk(DOTYPE, NN, NVAL, NRHS, THRESH, TSTERR, LDA, A( 1, 1 ), A( 1, 2 ), E, A( 1, 3 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), WORK, RWORK, IWORK, NOUT );
          } else {
             WRITE( NOUT, FMT = 9988 )PATH
          }
@@ -529,16 +529,16 @@
               // with partial (Aasen's) pivoting algorithm
 
          NTYPES = 10
-         CALL ALAREQ( PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT )
+         alareq(PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT );
 
          if ( TSTCHK ) {
-            CALL DCHKSY_AA( DOTYPE, NN, NVAL, NNB2, NBVAL2, NNS, NSVAL, THRESH, TSTERR, LDA, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), WORK, RWORK, IWORK, NOUT )
+            dchksy_aa(DOTYPE, NN, NVAL, NNB2, NBVAL2, NNS, NSVAL, THRESH, TSTERR, LDA, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), WORK, RWORK, IWORK, NOUT );
          } else {
             WRITE( NOUT, FMT = 9989 )PATH
          }
 
          if ( TSTDRV ) {
-            CALL DDRVSY_AA( DOTYPE, NN, NVAL, NRHS, THRESH, TSTERR, LDA, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), WORK, RWORK, IWORK, NOUT )
+            ddrvsy_aa(DOTYPE, NN, NVAL, NRHS, THRESH, TSTERR, LDA, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), WORK, RWORK, IWORK, NOUT );
          } else {
             WRITE( NOUT, FMT = 9988 )PATH
          }
@@ -550,16 +550,16 @@
               // with partial (Aasen's) pivoting algorithm
 
          NTYPES = 10
-         CALL ALAREQ( PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT )
+         alareq(PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT );
 
          if ( TSTCHK ) {
-            CALL DCHKSY_AA_2STAGE( DOTYPE, NN, NVAL, NNB2, NBVAL2, NNS, NSVAL, THRESH, TSTERR, LDA, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), WORK, RWORK, IWORK, NOUT )
+            dchksy_aa_2stage(DOTYPE, NN, NVAL, NNB2, NBVAL2, NNS, NSVAL, THRESH, TSTERR, LDA, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), WORK, RWORK, IWORK, NOUT );
          } else {
             WRITE( NOUT, FMT = 9989 )PATH
          }
 
          if ( TSTDRV ) {
-            CALL DDRVSY_AA_2STAGE( DOTYPE, NN, NVAL, NRHS, THRESH, TSTERR, LDA, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), WORK, RWORK, IWORK, NOUT )
+            ddrvsy_aa_2stage(DOTYPE, NN, NVAL, NRHS, THRESH, TSTERR, LDA, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), WORK, RWORK, IWORK, NOUT );
          } else {
             WRITE( NOUT, FMT = 9988 )PATH
          }
@@ -571,16 +571,16 @@
               // with partial (Bunch-Kaufman) pivoting algorithm
 
          NTYPES = 10
-         CALL ALAREQ( PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT )
+         alareq(PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT );
 
          if ( TSTCHK ) {
-            CALL DCHKSP( DOTYPE, NN, NVAL, NNS, NSVAL, THRESH, TSTERR, LDA, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), WORK, RWORK, IWORK, NOUT )
+            dchksp(DOTYPE, NN, NVAL, NNS, NSVAL, THRESH, TSTERR, LDA, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), WORK, RWORK, IWORK, NOUT );
          } else {
             WRITE( NOUT, FMT = 9989 )PATH
          }
 
          if ( TSTDRV ) {
-            CALL DDRVSP( DOTYPE, NN, NVAL, NRHS, THRESH, TSTERR, LDA, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), WORK, RWORK, IWORK, NOUT )
+            ddrvsp(DOTYPE, NN, NVAL, NRHS, THRESH, TSTERR, LDA, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), WORK, RWORK, IWORK, NOUT );
          } else {
             WRITE( NOUT, FMT = 9988 )PATH
          }
@@ -590,10 +590,10 @@
          // TR:  triangular matrices
 
          NTYPES = 18
-         CALL ALAREQ( PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT )
+         alareq(PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT );
 
          if ( TSTCHK ) {
-            CALL DCHKTR( DOTYPE, NN, NVAL, NNB2, NBVAL2, NNS, NSVAL, THRESH, TSTERR, LDA, A( 1, 1 ), A( 1, 2 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), WORK, RWORK, IWORK, NOUT )
+            dchktr(DOTYPE, NN, NVAL, NNB2, NBVAL2, NNS, NSVAL, THRESH, TSTERR, LDA, A( 1, 1 ), A( 1, 2 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), WORK, RWORK, IWORK, NOUT );
          } else {
             WRITE( NOUT, FMT = 9989 )PATH
          }
@@ -603,10 +603,10 @@
          // TP:  triangular packed matrices
 
          NTYPES = 18
-         CALL ALAREQ( PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT )
+         alareq(PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT );
 
          if ( TSTCHK ) {
-            CALL DCHKTP( DOTYPE, NN, NVAL, NNS, NSVAL, THRESH, TSTERR, LDA, A( 1, 1 ), A( 1, 2 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), WORK, RWORK, IWORK, NOUT )
+            dchktp(DOTYPE, NN, NVAL, NNS, NSVAL, THRESH, TSTERR, LDA, A( 1, 1 ), A( 1, 2 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), WORK, RWORK, IWORK, NOUT );
          } else {
             WRITE( NOUT, FMT = 9989 )PATH
          }
@@ -616,10 +616,10 @@
          // TB:  triangular banded matrices
 
          NTYPES = 17
-         CALL ALAREQ( PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT )
+         alareq(PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT );
 
          if ( TSTCHK ) {
-            CALL DCHKTB( DOTYPE, NN, NVAL, NNS, NSVAL, THRESH, TSTERR, LDA, A( 1, 1 ), A( 1, 2 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), WORK, RWORK, IWORK, NOUT )
+            dchktb(DOTYPE, NN, NVAL, NNS, NSVAL, THRESH, TSTERR, LDA, A( 1, 1 ), A( 1, 2 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), WORK, RWORK, IWORK, NOUT );
          } else {
             WRITE( NOUT, FMT = 9989 )PATH
          }
@@ -629,10 +629,10 @@
          // QR:  QR factorization
 
          NTYPES = 8
-         CALL ALAREQ( PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT )
+         alareq(PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT );
 
          if ( TSTCHK ) {
-            CALL DCHKQR( DOTYPE, NM, MVAL, NN, NVAL, NNB, NBVAL, NXVAL, NRHS, THRESH, TSTERR, NMAX, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), A( 1, 4 ), A( 1, 5 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), B( 1, 4 ), WORK, RWORK, IWORK, NOUT )
+            dchkqr(DOTYPE, NM, MVAL, NN, NVAL, NNB, NBVAL, NXVAL, NRHS, THRESH, TSTERR, NMAX, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), A( 1, 4 ), A( 1, 5 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), B( 1, 4 ), WORK, RWORK, IWORK, NOUT );
          } else {
             WRITE( NOUT, FMT = 9989 )PATH
          }
@@ -642,10 +642,10 @@
          // LQ:  LQ factorization
 
          NTYPES = 8
-         CALL ALAREQ( PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT )
+         alareq(PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT );
 
          if ( TSTCHK ) {
-            CALL DCHKLQ( DOTYPE, NM, MVAL, NN, NVAL, NNB, NBVAL, NXVAL, NRHS, THRESH, TSTERR, NMAX, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), A( 1, 4 ), A( 1, 5 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), B( 1, 4 ), WORK, RWORK, NOUT )
+            dchklq(DOTYPE, NM, MVAL, NN, NVAL, NNB, NBVAL, NXVAL, NRHS, THRESH, TSTERR, NMAX, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), A( 1, 4 ), A( 1, 5 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), B( 1, 4 ), WORK, RWORK, NOUT );
          } else {
             WRITE( NOUT, FMT = 9989 )PATH
          }
@@ -655,10 +655,10 @@
          // QL:  QL factorization
 
          NTYPES = 8
-         CALL ALAREQ( PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT )
+         alareq(PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT );
 
          if ( TSTCHK ) {
-            CALL DCHKQL( DOTYPE, NM, MVAL, NN, NVAL, NNB, NBVAL, NXVAL, NRHS, THRESH, TSTERR, NMAX, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), A( 1, 4 ), A( 1, 5 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), B( 1, 4 ), WORK, RWORK, NOUT )
+            dchkql(DOTYPE, NM, MVAL, NN, NVAL, NNB, NBVAL, NXVAL, NRHS, THRESH, TSTERR, NMAX, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), A( 1, 4 ), A( 1, 5 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), B( 1, 4 ), WORK, RWORK, NOUT );
          } else {
             WRITE( NOUT, FMT = 9989 )PATH
          }
@@ -668,10 +668,10 @@
          // RQ:  RQ factorization
 
          NTYPES = 8
-         CALL ALAREQ( PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT )
+         alareq(PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT );
 
          if ( TSTCHK ) {
-            CALL DCHKRQ( DOTYPE, NM, MVAL, NN, NVAL, NNB, NBVAL, NXVAL, NRHS, THRESH, TSTERR, NMAX, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), A( 1, 4 ), A( 1, 5 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), B( 1, 4 ), WORK, RWORK, IWORK, NOUT )
+            dchkrq(DOTYPE, NM, MVAL, NN, NVAL, NNB, NBVAL, NXVAL, NRHS, THRESH, TSTERR, NMAX, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), A( 1, 4 ), A( 1, 5 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), B( 1, 4 ), WORK, RWORK, IWORK, NOUT );
          } else {
             WRITE( NOUT, FMT = 9989 )PATH
          }
@@ -681,10 +681,10 @@
          // QP:  QR factorization with pivoting
 
          NTYPES = 6
-         CALL ALAREQ( PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT )
+         alareq(PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT );
 
          if ( TSTCHK ) {
-            CALL DCHKQ3( DOTYPE, NM, MVAL, NN, NVAL, NNB, NBVAL, NXVAL, THRESH, A( 1, 1 ), A( 1, 2 ), B( 1, 1 ), B( 1, 3 ), WORK, IWORK, NOUT )
+            dchkq3(DOTYPE, NM, MVAL, NN, NVAL, NNB, NBVAL, NXVAL, THRESH, A( 1, 1 ), A( 1, 2 ), B( 1, 1 ), B( 1, 3 ), WORK, IWORK, NOUT );
          } else {
             WRITE( NOUT, FMT = 9989 )PATH
          }
@@ -694,10 +694,10 @@
          // QK: truncated QR factorization with pivoting
 
          NTYPES = 19
-         CALL ALAREQ( PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT )
+         alareq(PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT );
 
          if ( TSTCHK ) {
-            CALL DCHKQP3RK( DOTYPE, NM, MVAL, NN, NVAL, NNS, NSVAL, NNB, NBVAL, NXVAL, THRESH, A( 1, 1 ), A( 1, 2 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), B( 1, 4 ), WORK, IWORK, NOUT )
+            dchkqp3rk(DOTYPE, NM, MVAL, NN, NVAL, NNS, NSVAL, NNB, NBVAL, NXVAL, THRESH, A( 1, 1 ), A( 1, 2 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), B( 1, 4 ), WORK, IWORK, NOUT );
          } else {
             WRITE( NOUT, FMT = 9989 )PATH
          }
@@ -707,10 +707,10 @@
          // TZ:  Trapezoidal matrix
 
          NTYPES = 3
-         CALL ALAREQ( PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT )
+         alareq(PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT );
 
          if ( TSTCHK ) {
-            CALL DCHKTZ( DOTYPE, NM, MVAL, NN, NVAL, THRESH, TSTERR, A( 1, 1 ), A( 1, 2 ), B( 1, 1 ), B( 1, 3 ), WORK, NOUT )
+            dchktz(DOTYPE, NM, MVAL, NN, NVAL, THRESH, TSTERR, A( 1, 1 ), A( 1, 2 ), B( 1, 1 ), B( 1, 3 ), WORK, NOUT );
          } else {
             WRITE( NOUT, FMT = 9989 )PATH
          }
@@ -720,10 +720,10 @@
          // LS:  Least squares drivers
 
          NTYPES = 6
-         CALL ALAREQ( PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT )
+         alareq(PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT );
 
          if ( TSTDRV ) {
-            CALL DDRVLS( DOTYPE, NM, MVAL, NN, NVAL, NNS, NSVAL, NNB, NBVAL, NXVAL, THRESH, TSTERR, A( 1, 1 ), A( 1, 2 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), RWORK, RWORK( NMAX+1 ), NOUT )
+            ddrvls(DOTYPE, NM, MVAL, NN, NVAL, NNS, NSVAL, NNB, NBVAL, NXVAL, THRESH, TSTERR, A( 1, 1 ), A( 1, 2 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), RWORK, RWORK( NMAX+1 ), NOUT );
          } else {
             WRITE( NOUT, FMT = 9988 )PATH
          }
@@ -734,7 +734,7 @@
               // matrices (THREQ should be between 2 and 10)
 
          if ( TSTCHK ) {
-            CALL DCHKEQ( THREQ, NOUT )
+            dchkeq(THREQ, NOUT );
          } else {
             WRITE( NOUT, FMT = 9989 )PATH
          }
@@ -744,7 +744,7 @@
          // QT:  QRT routines for general matrices
 
          if ( TSTCHK ) {
-            CALL DCHKQRT( THRESH, TSTERR, NM, MVAL, NN, NVAL, NNB, NBVAL, NOUT )
+            dchkqrt(THRESH, TSTERR, NM, MVAL, NN, NVAL, NNB, NBVAL, NOUT );
          } else {
             WRITE( NOUT, FMT = 9989 )PATH
          }
@@ -754,7 +754,7 @@
          // QX:  QRT routines for triangular-pentagonal matrices
 
          if ( TSTCHK ) {
-            CALL DCHKQRTP( THRESH, TSTERR, NM, MVAL, NN, NVAL, NNB, NBVAL, NOUT )
+            dchkqrtp(THRESH, TSTERR, NM, MVAL, NN, NVAL, NNB, NBVAL, NOUT );
          } else {
             WRITE( NOUT, FMT = 9989 )PATH
          }
@@ -764,7 +764,7 @@
          // TQ:  LQT routines for general matrices
 
          if ( TSTCHK ) {
-            CALL DCHKLQT( THRESH, TSTERR, NM, MVAL, NN, NVAL, NNB, NBVAL, NOUT )
+            dchklqt(THRESH, TSTERR, NM, MVAL, NN, NVAL, NNB, NBVAL, NOUT );
          } else {
             WRITE( NOUT, FMT = 9989 )PATH
          }
@@ -774,7 +774,7 @@
          // XQ:  LQT routines for triangular-pentagonal matrices
 
          if ( TSTCHK ) {
-            CALL DCHKLQTP( THRESH, TSTERR, NM, MVAL, NN, NVAL, NNB, NBVAL, NOUT )
+            dchklqtp(THRESH, TSTERR, NM, MVAL, NN, NVAL, NNB, NBVAL, NOUT );
          } else {
             WRITE( NOUT, FMT = 9989 )PATH
          }
@@ -784,7 +784,7 @@
          // TS:  QR routines for tall-skinny matrices
 
          if ( TSTCHK ) {
-            CALL DCHKTSQR( THRESH, TSTERR, NM, MVAL, NN, NVAL, NNB, NBVAL, NOUT )
+            dchktsqr(THRESH, TSTERR, NM, MVAL, NN, NVAL, NNB, NBVAL, NOUT );
          } else {
             WRITE( NOUT, FMT = 9989 )PATH
          }
@@ -794,7 +794,7 @@
          // HH:  Householder reconstruction for tall-skinny matrices
 
          if ( TSTCHK ) {
-            CALL DCHKORHR_COL( THRESH, TSTERR, NM, MVAL, NN, NVAL, NNB, NBVAL, NOUT )
+            dchkorhr_col(THRESH, TSTERR, NM, MVAL, NN, NVAL, NNB, NBVAL, NOUT );
          } else {
             WRITE( NOUT, FMT = 9989 ) PATH
          }

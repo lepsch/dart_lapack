@@ -40,7 +40,7 @@
          INFO = -4
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'ZGERQ2', -INFO )
+         xerbla('ZGERQ2', -INFO );
          RETURN
       }
 
@@ -51,16 +51,16 @@
          // Generate elementary reflector H(i) to annihilate
          // A(m-k+i,1:n-k+i-1)
 
-         CALL ZLACGV( N-K+I, A( M-K+I, 1 ), LDA )
+         zlacgv(N-K+I, A( M-K+I, 1 ), LDA );
          ALPHA = A( M-K+I, N-K+I )
-         CALL ZLARFG( N-K+I, ALPHA, A( M-K+I, 1 ), LDA, TAU( I ) )
+         zlarfg(N-K+I, ALPHA, A( M-K+I, 1 ), LDA, TAU( I ) );
 
          // Apply H(i) to A(1:m-k+i-1,1:n-k+i) from the right
 
          A( M-K+I, N-K+I ) = ONE
-         CALL ZLARF( 'Right', M-K+I-1, N-K+I, A( M-K+I, 1 ), LDA, TAU( I ), A, LDA, WORK )
+         zlarf('Right', M-K+I-1, N-K+I, A( M-K+I, 1 ), LDA, TAU( I ), A, LDA, WORK );
          A( M-K+I, N-K+I ) = ALPHA
-         CALL ZLACGV( N-K+I-1, A( M-K+I, 1 ), LDA )
+         zlacgv(N-K+I-1, A( M-K+I, 1 ), LDA );
    10 CONTINUE
       RETURN
 

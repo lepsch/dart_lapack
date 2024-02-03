@@ -93,7 +93,7 @@
       }
 
       if ( INFO.NE.0 ) {
-        CALL XERBLA( 'CGEMQR', -INFO )
+        xerbla('CGEMQR', -INFO );
         RETURN
       } else if ( LQUERY ) {
         RETURN
@@ -107,7 +107,7 @@
 
       IF( ( LEFT .AND. M.LE.K ) .OR. ( RIGHT .AND. N.LE.K ) .OR. ( MB.LE.K ) .OR. ( MB.GE.MAX( M, N, K ) ) ) THEN         CALL CGEMQRT( SIDE, TRANS, M, N, K, NB, A, LDA, T( 6 ), NB, C, LDC, WORK, INFO )
       } else {
-        CALL CLAMTSQR( SIDE, TRANS, M, N, K, MB, NB, A, LDA, T( 6 ), NB, C, LDC, WORK, LWORK, INFO )
+        clamtsqr(SIDE, TRANS, M, N, K, MB, NB, A, LDA, T( 6 ), NB, C, LDC, WORK, LWORK, INFO );
       }
 
       WORK( 1 ) = SROUNDUP_LWORK( LWMIN )

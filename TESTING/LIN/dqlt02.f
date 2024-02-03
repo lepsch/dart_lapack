@@ -53,22 +53,22 @@
 
       // Copy the last k columns of the factorization to the array Q
 
-      CALL DLASET( 'Full', M, N, ROGUE, ROGUE, Q, LDA )
+      dlaset('Full', M, N, ROGUE, ROGUE, Q, LDA );
       IF( K.LT.M ) CALL DLACPY( 'Full', M-K, K, AF( 1, N-K+1 ), LDA, Q( 1, N-K+1 ), LDA )       IF( K.GT.1 ) CALL DLACPY( 'Upper', K-1, K-1, AF( M-K+1, N-K+2 ), LDA, Q( M-K+1, N-K+2 ), LDA )
 
       // Generate the last n columns of the matrix Q
 
       SRNAMT = 'DORGQL'
-      CALL DORGQL( M, N, K, Q, LDA, TAU( N-K+1 ), WORK, LWORK, INFO )
+      dorgql(M, N, K, Q, LDA, TAU( N-K+1 ), WORK, LWORK, INFO );
 
       // Copy L(m-n+1:m,n-k+1:n)
 
-      CALL DLASET( 'Full', N, K, ZERO, ZERO, L( M-N+1, N-K+1 ), LDA )
-      CALL DLACPY( 'Lower', K, K, AF( M-K+1, N-K+1 ), LDA, L( M-K+1, N-K+1 ), LDA )
+      dlaset('Full', N, K, ZERO, ZERO, L( M-N+1, N-K+1 ), LDA );
+      dlacpy('Lower', K, K, AF( M-K+1, N-K+1 ), LDA, L( M-K+1, N-K+1 ), LDA );
 
       // Compute L(m-n+1:m,n-k+1:n) - Q(1:m,m-n+1:m)' * A(1:m,n-k+1:n)
 
-      CALL DGEMM( 'Transpose', 'No transpose', N, K, M, -ONE, Q, LDA, A( 1, N-K+1 ), LDA, ONE, L( M-N+1, N-K+1 ), LDA )
+      dgemm('Transpose', 'No transpose', N, K, M, -ONE, Q, LDA, A( 1, N-K+1 ), LDA, ONE, L( M-N+1, N-K+1 ), LDA );
 
       // Compute norm( L - Q'*A ) / ( M * norm(A) * EPS ) .
 
@@ -82,8 +82,8 @@
 
       // Compute I - Q'*Q
 
-      CALL DLASET( 'Full', N, N, ZERO, ONE, L, LDA )
-      CALL DSYRK( 'Upper', 'Transpose', N, M, -ONE, Q, LDA, ONE, L, LDA )
+      dlaset('Full', N, N, ZERO, ONE, L, LDA );
+      dsyrk('Upper', 'Transpose', N, M, -ONE, Q, LDA, ONE, L, LDA );
 
       // Compute norm( I - Q'*Q ) / ( M * EPS ) .
 

@@ -76,7 +76,7 @@
 
       IF( TSTERR ) CALL DERRGE( PATH, NOUT )
       INFOT = 0
-      CALL XLAENV( 2, 2 )
+      xlaenv(2, 2 );
 
       // Initialize the first value for the lower and upper bandwidths.
 
@@ -171,19 +171,19 @@
                         // Set up parameters with DLATB4 and generate a
                         // test matrix with DLATMS.
 
-                        CALL DLATB4( PATH, IMAT, M, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST )
+                        dlatb4(PATH, IMAT, M, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST );
 
                         KOFF = MAX( 1, KU+2-N )
                         DO 20 I = 1, KOFF - 1
                            A( I ) = ZERO
    20                   CONTINUE
                         SRNAMT = 'DLATMS'
-                        CALL DLATMS( M, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KL, KU, 'Z', A( KOFF ), LDA, WORK, INFO )
+                        dlatms(M, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KL, KU, 'Z', A( KOFF ), LDA, WORK, INFO );
 
                         // Check the error code from DLATMS.
 
                         if ( INFO.NE.0 ) {
-                           CALL ALAERH( PATH, 'DLATMS', INFO, 0, ' ', M, N, KL, KU, -1, IMAT, NFAIL, NERRS, NOUT )
+                           alaerh(PATH, 'DLATMS', INFO, 0, ' ', M, N, KL, KU, -1, IMAT, NFAIL, NERRS, NOUT );
                            GO TO 120
                         }
                      } else if ( IZERO.GT.0 ) {
@@ -191,7 +191,7 @@
                         // Use the same matrix for types 3 and 4 as for
                         // type 2 by copying back the zeroed out column.
 
-                        CALL DCOPY( I2-I1+1, B, 1, A( IOFF+I1 ), 1 )
+                        dcopy(I2-I1+1, B, 1, A( IOFF+I1 ), 1 );
                      }
 
                      // For types 2, 3, and 4, zero one or more columns of
@@ -213,7 +213,7 @@
 
                            I1 = MAX( 1, KU+2-IZERO )
                            I2 = MIN( KL+KU+1, KU+1+( M-IZERO ) )
-                           CALL DCOPY( I2-I1+1, A( IOFF+I1 ), 1, B, 1 )
+                           dcopy(I2-I1+1, A( IOFF+I1 ), 1, B, 1 );
 
                            DO 30 I = I1, I2
                               A( IOFF+I ) = ZERO
@@ -239,13 +239,13 @@
 
                      DO 110 INB = 1, NNB
                         NB = NBVAL( INB )
-                        CALL XLAENV( 1, NB )
+                        xlaenv(1, NB );
 
                         // Compute the LU factorization of the band matrix.
 
                         IF( M.GT.0 .AND. N.GT.0 ) CALL DLACPY( 'Full', KL+KU+1, N, A, LDA, AFAC( KL+1 ), LDAFAC )
                         SRNAMT = 'DGBTRF'
-                        CALL DGBTRF( M, N, KL, KU, AFAC, LDAFAC, IWORK, INFO )
+                        dgbtrf(M, N, KL, KU, AFAC, LDAFAC, IWORK, INFO );
 
                         // Check error code from DGBTRF.
 
@@ -256,7 +256,7 @@
                         // Reconstruct matrix from factors and compute
                         // residual.
 
-                        CALL DGBT01( M, N, KL, KU, A, LDA, AFAC, LDAFAC, IWORK, WORK, RESULT( 1 ) )
+                        dgbt01(M, N, KL, KU, A, LDA, AFAC, LDAFAC, IWORK, WORK, RESULT( 1 ) );
 
                         // Print information about the tests so far that
                         // did not pass the threshold.
@@ -281,9 +281,9 @@
                            // estimate of CNDNUM = norm(A) * norm(inv(A)).
 
                            LDB = MAX( 1, N )
-                           CALL DLASET( 'Full', N, N, ZERO, ONE, WORK, LDB )
+                           dlaset('Full', N, N, ZERO, ONE, WORK, LDB );
                            SRNAMT = 'DGBTRS'
-                           CALL DGBTRS( 'No transpose', N, KL, KU, N, AFAC, LDAFAC, IWORK, WORK, LDB, INFO )
+                           dgbtrs('No transpose', N, KL, KU, N, AFAC, LDAFAC, IWORK, WORK, LDB, INFO );
 
                            // Compute the 1-norm condition number of A.
 
@@ -334,37 +334,37 @@
                               // Solve and compute residual for op(A) * X = B.
 
                               SRNAMT = 'DLARHS'
-                              CALL DLARHS( PATH, XTYPE, ' ', TRANS, N, N, KL, KU, NRHS, A, LDA, XACT, LDB, B, LDB, ISEED, INFO )
+                              dlarhs(PATH, XTYPE, ' ', TRANS, N, N, KL, KU, NRHS, A, LDA, XACT, LDB, B, LDB, ISEED, INFO );
                               XTYPE = 'C'
-                              CALL DLACPY( 'Full', N, NRHS, B, LDB, X, LDB )
+                              dlacpy('Full', N, NRHS, B, LDB, X, LDB );
 
                               SRNAMT = 'DGBTRS'
-                              CALL DGBTRS( TRANS, N, KL, KU, NRHS, AFAC, LDAFAC, IWORK, X, LDB, INFO )
+                              dgbtrs(TRANS, N, KL, KU, NRHS, AFAC, LDAFAC, IWORK, X, LDB, INFO );
 
                               // Check error code from DGBTRS.
 
                               IF( INFO.NE.0 ) CALL ALAERH( PATH, 'DGBTRS', INFO, 0, TRANS, N, N, KL, KU, -1, IMAT, NFAIL, NERRS, NOUT )
 
-                              CALL DLACPY( 'Full', N, NRHS, B, LDB, WORK, LDB )                               CALL DGBT02( TRANS, M, N, KL, KU, NRHS, A, LDA, X, LDB, WORK, LDB, RWORK, RESULT( 2 ) )
+                              dlacpy('Full', N, NRHS, B, LDB, WORK, LDB )                               CALL DGBT02( TRANS, M, N, KL, KU, NRHS, A, LDA, X, LDB, WORK, LDB, RWORK, RESULT( 2 ) );
 
 *+    TEST 3:
                               // Check solution from generated exact
                               // solution.
 
-                              CALL DGET04( N, NRHS, X, LDB, XACT, LDB, RCONDC, RESULT( 3 ) )
+                              dget04(N, NRHS, X, LDB, XACT, LDB, RCONDC, RESULT( 3 ) );
 
 *+    TESTS 4, 5, 6:
                               // Use iterative refinement to improve the
                               // solution.
 
                               SRNAMT = 'DGBRFS'
-                              CALL DGBRFS( TRANS, N, KL, KU, NRHS, A, LDA, AFAC, LDAFAC, IWORK, B, LDB, X, LDB, RWORK, RWORK( NRHS+1 ), WORK, IWORK( N+1 ), INFO )
+                              dgbrfs(TRANS, N, KL, KU, NRHS, A, LDA, AFAC, LDAFAC, IWORK, B, LDB, X, LDB, RWORK, RWORK( NRHS+1 ), WORK, IWORK( N+1 ), INFO );
 
                               // Check error code from DGBRFS.
 
                               IF( INFO.NE.0 ) CALL ALAERH( PATH, 'DGBRFS', INFO, 0, TRANS, N, N, KL, KU, NRHS, IMAT, NFAIL, NERRS, NOUT )
 
-                              CALL DGET04( N, NRHS, X, LDB, XACT, LDB, RCONDC, RESULT( 4 ) )                               CALL DGBT05( TRANS, N, KL, KU, NRHS, A, LDA, B, LDB, X, LDB, XACT, LDB, RWORK, RWORK( NRHS+1 ), RESULT( 5 ) )
+                              dget04(N, NRHS, X, LDB, XACT, LDB, RCONDC, RESULT( 4 ) )                               CALL DGBT05( TRANS, N, KL, KU, NRHS, A, LDA, B, LDB, X, LDB, XACT, LDB, RWORK, RWORK( NRHS+1 ), RESULT( 5 ) );
                               DO 60 K = 2, 6
                                  if ( RESULT( K ).GE.THRESH ) {
                                     IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                                     WRITE( NOUT, FMT = 9996 )TRANS, N, KL, KU, NRHS, IMAT, K, RESULT( K )
@@ -390,7 +390,7 @@
                               NORM = 'I'
                            }
                            SRNAMT = 'DGBCON'
-                           CALL DGBCON( NORM, N, KL, KU, AFAC, LDAFAC, IWORK, ANORM, RCOND, WORK, IWORK( N+1 ), INFO )
+                           dgbcon(NORM, N, KL, KU, AFAC, LDAFAC, IWORK, ANORM, RCOND, WORK, IWORK( N+1 ), INFO );
 
                               // Check error code from DGBCON.
 
@@ -417,7 +417,7 @@
 
       // Print a summary of the results.
 
-      CALL ALASUM( PATH, NOUT, NFAIL, NRUN, NERRS )
+      alasum(PATH, NOUT, NFAIL, NRUN, NERRS );
 
  9999 FORMAT( ' *** In DCHKGB, LA=', I5, ' is too small for M=', I5, ', N=', I5, ', KL=', I4, ', KU=', I4, / ' ==> Increase LA to at least ', I5 )
  9998 FORMAT( ' *** In DCHKGB, LAFAC=', I5, ' is too small for M=', I5, ', N=', I5, ', KL=', I4, ', KU=', I4, / ' ==> Increase LAFAC to at least ', I5 )

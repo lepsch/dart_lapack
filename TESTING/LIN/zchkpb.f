@@ -133,15 +133,15 @@
                      // Set up parameters with ZLATB4 and generate a test
                      // matrix with ZLATMS.
 
-                     CALL ZLATB4( PATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST )
+                     zlatb4(PATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST );
 
                      SRNAMT = 'ZLATMS'
-                     CALL ZLATMS( N, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KD, KD, PACKIT, A( KOFF ), LDAB, WORK, INFO )
+                     zlatms(N, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KD, KD, PACKIT, A( KOFF ), LDAB, WORK, INFO );
 
                      // Check error code from ZLATMS.
 
                      if ( INFO.NE.0 ) {
-                        CALL ALAERH( PATH, 'ZLATMS', INFO, 0, UPLO, N, N, KD, KD, -1, IMAT, NFAIL, NERRS, NOUT )
+                        alaerh(PATH, 'ZLATMS', INFO, 0, UPLO, N, N, KD, KD, -1, IMAT, NFAIL, NERRS, NOUT );
                         GO TO 60
                      }
                   } else if ( IZERO.GT.0 ) {
@@ -152,15 +152,15 @@
                      IW = 2*LDA + 1
                      if ( IUPLO.EQ.1 ) {
                         IOFF = ( IZERO-1 )*LDAB + KD + 1
-                        CALL ZCOPY( IZERO-I1, WORK( IW ), 1, A( IOFF-IZERO+I1 ), 1 )
+                        zcopy(IZERO-I1, WORK( IW ), 1, A( IOFF-IZERO+I1 ), 1 );
                         IW = IW + IZERO - I1
-                        CALL ZCOPY( I2-IZERO+1, WORK( IW ), 1, A( IOFF ), MAX( LDAB-1, 1 ) )
+                        zcopy(I2-IZERO+1, WORK( IW ), 1, A( IOFF ), MAX( LDAB-1, 1 ) );
                      } else {
                         IOFF = ( I1-1 )*LDAB + 1
-                        CALL ZCOPY( IZERO-I1, WORK( IW ), 1, A( IOFF+IZERO-I1 ), MAX( LDAB-1, 1 ) )
+                        zcopy(IZERO-I1, WORK( IW ), 1, A( IOFF+IZERO-I1 ), MAX( LDAB-1, 1 ) );
                         IOFF = ( IZERO-1 )*LDAB + 1
                         IW = IW + IZERO - I1
-                        CALL ZCOPY( I2-IZERO+1, WORK( IW ), 1, A( IOFF ), 1 )
+                        zcopy(I2-IZERO+1, WORK( IW ), 1, A( IOFF ), 1 );
                      }
                   }
 
@@ -189,43 +189,43 @@
 
                      if ( IUPLO.EQ.1 ) {
                         IOFF = ( IZERO-1 )*LDAB + KD + 1
-                        CALL ZSWAP( IZERO-I1, A( IOFF-IZERO+I1 ), 1, WORK( IW ), 1 )
+                        zswap(IZERO-I1, A( IOFF-IZERO+I1 ), 1, WORK( IW ), 1 );
                         IW = IW + IZERO - I1
-                        CALL ZSWAP( I2-IZERO+1, A( IOFF ), MAX( LDAB-1, 1 ), WORK( IW ), 1 )
+                        zswap(I2-IZERO+1, A( IOFF ), MAX( LDAB-1, 1 ), WORK( IW ), 1 );
                      } else {
                         IOFF = ( I1-1 )*LDAB + 1
-                        CALL ZSWAP( IZERO-I1, A( IOFF+IZERO-I1 ), MAX( LDAB-1, 1 ), WORK( IW ), 1 )
+                        zswap(IZERO-I1, A( IOFF+IZERO-I1 ), MAX( LDAB-1, 1 ), WORK( IW ), 1 );
                         IOFF = ( IZERO-1 )*LDAB + 1
                         IW = IW + IZERO - I1
-                        CALL ZSWAP( I2-IZERO+1, A( IOFF ), 1, WORK( IW ), 1 )
+                        zswap(I2-IZERO+1, A( IOFF ), 1, WORK( IW ), 1 );
                      }
                   }
 
                   // Set the imaginary part of the diagonals.
 
                   if ( IUPLO.EQ.1 ) {
-                     CALL ZLAIPD( N, A( KD+1 ), LDAB, 0 )
+                     zlaipd(N, A( KD+1 ), LDAB, 0 );
                   } else {
-                     CALL ZLAIPD( N, A( 1 ), LDAB, 0 )
+                     zlaipd(N, A( 1 ), LDAB, 0 );
                   }
 
                   // Do for each value of NB in NBVAL
 
                   DO 50 INB = 1, NNB
                      NB = NBVAL( INB )
-                     CALL XLAENV( 1, NB )
+                     xlaenv(1, NB );
 
                      // Compute the L*L' or U'*U factorization of the band
                      // matrix.
 
-                     CALL ZLACPY( 'Full', KD+1, N, A, LDAB, AFAC, LDAB )
+                     zlacpy('Full', KD+1, N, A, LDAB, AFAC, LDAB );
                      SRNAMT = 'ZPBTRF'
-                     CALL ZPBTRF( UPLO, N, KD, AFAC, LDAB, INFO )
+                     zpbtrf(UPLO, N, KD, AFAC, LDAB, INFO );
 
                      // Check error code from ZPBTRF.
 
                      if ( INFO.NE.IZERO ) {
-                        CALL ALAERH( PATH, 'ZPBTRF', INFO, IZERO, UPLO, N, N, KD, KD, NB, IMAT, NFAIL, NERRS, NOUT )
+                        alaerh(PATH, 'ZPBTRF', INFO, IZERO, UPLO, N, N, KD, KD, NB, IMAT, NFAIL, NERRS, NOUT );
                         GO TO 50
                      }
 
@@ -237,7 +237,7 @@
                      // Reconstruct matrix from factors and compute
                      // residual.
 
-                     CALL ZLACPY( 'Full', KD+1, N, AFAC, LDAB, AINV, LDAB )                      CALL ZPBT01( UPLO, N, KD, A, LDAB, AINV, LDAB, RWORK, RESULT( 1 ) )
+                     zlacpy('Full', KD+1, N, AFAC, LDAB, AINV, LDAB )                      CALL ZPBT01( UPLO, N, KD, A, LDAB, AINV, LDAB, RWORK, RESULT( 1 ) );
 
                      // Print the test ratio if it is .GE. THRESH.
 
@@ -254,9 +254,9 @@
                      // Form the inverse of A so we can get a good estimate
                      // of RCONDC = 1/(norm(A) * norm(inv(A))).
 
-                     CALL ZLASET( 'Full', N, N, DCMPLX( ZERO ), DCMPLX( ONE ), AINV, LDA )
+                     zlaset('Full', N, N, DCMPLX( ZERO ), DCMPLX( ONE ), AINV, LDA );
                      SRNAMT = 'ZPBTRS'
-                     CALL ZPBTRS( UPLO, N, KD, N, AFAC, LDAB, AINV, LDA, INFO )
+                     zpbtrs(UPLO, N, KD, N, AFAC, LDAB, AINV, LDA, INFO );
 
                      // Compute RCONDC = 1/(norm(A) * norm(inv(A))).
 
@@ -275,34 +275,34 @@
                      // Solve and compute residual for A * X = B.
 
                         SRNAMT = 'ZLARHS'
-                        CALL ZLARHS( PATH, XTYPE, UPLO, ' ', N, N, KD, KD, NRHS, A, LDAB, XACT, LDA, B, LDA, ISEED, INFO )
-                        CALL ZLACPY( 'Full', N, NRHS, B, LDA, X, LDA )
+                        zlarhs(PATH, XTYPE, UPLO, ' ', N, N, KD, KD, NRHS, A, LDAB, XACT, LDA, B, LDA, ISEED, INFO );
+                        zlacpy('Full', N, NRHS, B, LDA, X, LDA );
 
                         SRNAMT = 'ZPBTRS'
-                        CALL ZPBTRS( UPLO, N, KD, NRHS, AFAC, LDAB, X, LDA, INFO )
+                        zpbtrs(UPLO, N, KD, NRHS, AFAC, LDAB, X, LDA, INFO );
 
                      // Check error code from ZPBTRS.
 
                         IF( INFO.NE.0 ) CALL ALAERH( PATH, 'ZPBTRS', INFO, 0, UPLO, N, N, KD, KD, NRHS, IMAT, NFAIL, NERRS, NOUT )
 
-                        CALL ZLACPY( 'Full', N, NRHS, B, LDA, WORK, LDA )                         CALL ZPBT02( UPLO, N, KD, NRHS, A, LDAB, X, LDA, WORK, LDA, RWORK, RESULT( 2 ) )
+                        zlacpy('Full', N, NRHS, B, LDA, WORK, LDA )                         CALL ZPBT02( UPLO, N, KD, NRHS, A, LDAB, X, LDA, WORK, LDA, RWORK, RESULT( 2 ) );
 
 *+    TEST 3
                      // Check solution from generated exact solution.
 
-                        CALL ZGET04( N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 3 ) )
+                        zget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 3 ) );
 
 *+    TESTS 4, 5, and 6
                      // Use iterative refinement to improve the solution.
 
                         SRNAMT = 'ZPBRFS'
-                        CALL ZPBRFS( UPLO, N, KD, NRHS, A, LDAB, AFAC, LDAB, B, LDA, X, LDA, RWORK, RWORK( NRHS+1 ), WORK, RWORK( 2*NRHS+1 ), INFO )
+                        zpbrfs(UPLO, N, KD, NRHS, A, LDAB, AFAC, LDAB, B, LDA, X, LDA, RWORK, RWORK( NRHS+1 ), WORK, RWORK( 2*NRHS+1 ), INFO );
 
                      // Check error code from ZPBRFS.
 
                         IF( INFO.NE.0 ) CALL ALAERH( PATH, 'ZPBRFS', INFO, 0, UPLO, N, N, KD, KD, NRHS, IMAT, NFAIL, NERRS, NOUT )
 
-                        CALL ZGET04( N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 4 ) )                         CALL ZPBT05( UPLO, N, KD, NRHS, A, LDAB, B, LDA, X, LDA, XACT, LDA, RWORK, RWORK( NRHS+1 ), RESULT( 5 ) )
+                        zget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 4 ) )                         CALL ZPBT05( UPLO, N, KD, NRHS, A, LDAB, B, LDA, X, LDA, XACT, LDA, RWORK, RWORK( NRHS+1 ), RESULT( 5 ) );
 
                         // Print information about the tests that did not
                         // pass the threshold.
@@ -320,7 +320,7 @@
                      // Get an estimate of RCOND = 1/CNDNUM.
 
                      SRNAMT = 'ZPBCON'
-                     CALL ZPBCON( UPLO, N, KD, AFAC, LDAB, ANORM, RCOND, WORK, RWORK, INFO )
+                     zpbcon(UPLO, N, KD, AFAC, LDAB, ANORM, RCOND, WORK, RWORK, INFO );
 
                      // Check error code from ZPBCON.
 
@@ -343,7 +343,7 @@
 
       // Print a summary of the results.
 
-      CALL ALASUM( PATH, NOUT, NFAIL, NRUN, NERRS )
+      alasum(PATH, NOUT, NFAIL, NRUN, NERRS );
 
  9999 FORMAT( ' UPLO=''', A1, ''', N=', I5, ', KD=', I5, ', NB=', I4, ', type ', I2, ', test ', I2, ', ratio= ', G12.5 )
  9998 FORMAT( ' UPLO=''', A1, ''', N=', I5, ', KD=', I5, ', NRHS=', I3, ', type ', I2, ', test(', I2, ') = ', G12.5 )

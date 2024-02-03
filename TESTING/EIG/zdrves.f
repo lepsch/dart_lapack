@@ -106,7 +106,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'ZDRVES', -INFO )
+         xerbla('ZDRVES', -INFO );
          RETURN
       }
 
@@ -183,7 +183,7 @@
 
    60       CONTINUE
 
-            CALL ZLASET( 'Full', LDA, N, CZERO, CZERO, A, LDA )
+            zlaset('Full', LDA, N, CZERO, CZERO, A, LDA );
             IINFO = 0
             COND = ULPINV
 
@@ -216,13 +216,13 @@
 
                // Diagonal Matrix, [Eigen]values Specified
 
-               CALL ZLATMS( N, N, 'S', ISEED, 'H', RWORK, IMODE, COND, ANORM, 0, 0, 'N', A, LDA, WORK( N+1 ), IINFO )
+               zlatms(N, N, 'S', ISEED, 'H', RWORK, IMODE, COND, ANORM, 0, 0, 'N', A, LDA, WORK( N+1 ), IINFO );
 
             } else if ( ITYPE.EQ.5 ) {
 
                // Symmetric, eigenvalues specified
 
-               CALL ZLATMS( N, N, 'S', ISEED, 'H', RWORK, IMODE, COND, ANORM, N, N, 'N', A, LDA, WORK( N+1 ), IINFO )
+               zlatms(N, N, 'S', ISEED, 'H', RWORK, IMODE, COND, ANORM, N, N, 'N', A, LDA, WORK( N+1 ), IINFO );
 
             } else if ( ITYPE.EQ.6 ) {
 
@@ -236,35 +236,35 @@
                   CONDS = ZERO
                }
 
-               CALL ZLATME( N, 'D', ISEED, WORK, IMODE, COND, CONE, 'T', 'T', 'T', RWORK, 4, CONDS, N, N, ANORM, A, LDA, WORK( 2*N+1 ), IINFO )
+               zlatme(N, 'D', ISEED, WORK, IMODE, COND, CONE, 'T', 'T', 'T', RWORK, 4, CONDS, N, N, ANORM, A, LDA, WORK( 2*N+1 ), IINFO );
 
             } else if ( ITYPE.EQ.7 ) {
 
                // Diagonal, random eigenvalues
 
-               CALL ZLATMR( N, N, 'D', ISEED, 'N', WORK, 6, ONE, CONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, 0, 0, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO )
+               zlatmr(N, N, 'D', ISEED, 'N', WORK, 6, ONE, CONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, 0, 0, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO );
 
             } else if ( ITYPE.EQ.8 ) {
 
                // Symmetric, random eigenvalues
 
-               CALL ZLATMR( N, N, 'D', ISEED, 'H', WORK, 6, ONE, CONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, N, N, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO )
+               zlatmr(N, N, 'D', ISEED, 'H', WORK, 6, ONE, CONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, N, N, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO );
 
             } else if ( ITYPE.EQ.9 ) {
 
                // General, random eigenvalues
 
-               CALL ZLATMR( N, N, 'D', ISEED, 'N', WORK, 6, ONE, CONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, N, N, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO )
+               zlatmr(N, N, 'D', ISEED, 'N', WORK, 6, ONE, CONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, N, N, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO );
                if ( N.GE.4 ) {
-                  CALL ZLASET( 'Full', 2, N, CZERO, CZERO, A, LDA )
-                  CALL ZLASET( 'Full', N-3, 1, CZERO, CZERO, A( 3, 1 ), LDA )                   CALL ZLASET( 'Full', N-3, 2, CZERO, CZERO, A( 3, N-1 ), LDA )                   CALL ZLASET( 'Full', 1, N, CZERO, CZERO, A( N, 1 ), LDA )
+                  zlaset('Full', 2, N, CZERO, CZERO, A, LDA );
+                  zlaset('Full', N-3, 1, CZERO, CZERO, A( 3, 1 ), LDA )                   CALL ZLASET( 'Full', N-3, 2, CZERO, CZERO, A( 3, N-1 ), LDA )                   CALL ZLASET( 'Full', 1, N, CZERO, CZERO, A( N, 1 ), LDA );
                }
 
             } else if ( ITYPE.EQ.10 ) {
 
                // Triangular, random eigenvalues
 
-               CALL ZLATMR( N, N, 'D', ISEED, 'N', WORK, 6, ONE, CONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, N, 0, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO )
+               zlatmr(N, N, 'D', ISEED, 'N', WORK, 6, ONE, CONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, N, 0, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO );
 
             } else {
 
@@ -308,8 +308,8 @@
 
                   // Compute Schur form and Schur vectors, and test them
 
-                  CALL ZLACPY( 'F', N, N, A, LDA, H, LDA )
-                  CALL ZGEES( 'V', SORT, ZSLECT, N, H, LDA, SDIM, W, VS, LDVS, WORK, NNWORK, RWORK, BWORK, IINFO )
+                  zlacpy('F', N, N, A, LDA, H, LDA );
+                  zgees('V', SORT, ZSLECT, N, H, LDA, SDIM, W, VS, LDVS, WORK, NNWORK, RWORK, BWORK, IINFO );
                   if ( IINFO.NE.0 ) {
                      RESULT( 1+RSUB ) = ULPINV
                      WRITE( NOUNIT, FMT = 9992 )'ZGEES1', IINFO, N, JTYPE, IOLDSD
@@ -329,7 +329,7 @@
                   // Do Tests (2) and (3) or Tests (8) and (9)
 
                   LWORK = MAX( 1, 2*N*N )
-                  CALL ZHST01( N, 1, N, A, LDA, H, LDA, VS, LDVS, WORK, LWORK, RWORK, RES )
+                  zhst01(N, 1, N, A, LDA, H, LDA, VS, LDVS, WORK, LWORK, RWORK, RES );
                   RESULT( 2+RSUB ) = RES( 1 )
                   RESULT( 3+RSUB ) = RES( 2 )
 
@@ -342,8 +342,8 @@
 
                   // Do Test (5) or Test (11)
 
-                  CALL ZLACPY( 'F', N, N, A, LDA, HT, LDA )
-                  CALL ZGEES( 'N', SORT, ZSLECT, N, HT, LDA, SDIM, WT, VS, LDVS, WORK, NNWORK, RWORK, BWORK, IINFO )
+                  zlacpy('F', N, N, A, LDA, HT, LDA );
+                  zgees('N', SORT, ZSLECT, N, HT, LDA, SDIM, WT, VS, LDVS, WORK, NNWORK, RWORK, BWORK, IINFO );
                   if ( IINFO.NE.0 ) {
                      RESULT( 5+RSUB ) = ULPINV
                      WRITE( NOUNIT, FMT = 9992 )'ZGEES2', IINFO, N, JTYPE, IOLDSD
@@ -417,7 +417,7 @@
 
       // Summary
 
-      CALL DLASUM( PATH, NOUNIT, NERRS, NTESTT )
+      dlasum(PATH, NOUNIT, NERRS, NTESTT );
 
  9999 FORMAT( / 1X, A3, ' -- Complex Schur Form Decomposition Driver', / ' Matrix types (see ZDRVES for details): ' )
 

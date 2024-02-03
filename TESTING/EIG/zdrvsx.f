@@ -108,7 +108,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'ZDRVSX', -INFO )
+         xerbla('ZDRVSX', -INFO );
          RETURN
       }
 
@@ -185,7 +185,7 @@
 
    60       CONTINUE
 
-            CALL ZLASET( 'Full', LDA, N, CZERO, CZERO, A, LDA )
+            zlaset('Full', LDA, N, CZERO, CZERO, A, LDA );
             IINFO = 0
             COND = ULPINV
 
@@ -218,13 +218,13 @@
 
                // Diagonal Matrix, [Eigen]values Specified
 
-               CALL ZLATMS( N, N, 'S', ISEED, 'H', RWORK, IMODE, COND, ANORM, 0, 0, 'N', A, LDA, WORK( N+1 ), IINFO )
+               zlatms(N, N, 'S', ISEED, 'H', RWORK, IMODE, COND, ANORM, 0, 0, 'N', A, LDA, WORK( N+1 ), IINFO );
 
             } else if ( ITYPE.EQ.5 ) {
 
                // Symmetric, eigenvalues specified
 
-               CALL ZLATMS( N, N, 'S', ISEED, 'H', RWORK, IMODE, COND, ANORM, N, N, 'N', A, LDA, WORK( N+1 ), IINFO )
+               zlatms(N, N, 'S', ISEED, 'H', RWORK, IMODE, COND, ANORM, N, N, 'N', A, LDA, WORK( N+1 ), IINFO );
 
             } else if ( ITYPE.EQ.6 ) {
 
@@ -238,35 +238,35 @@
                   CONDS = ZERO
                }
 
-               CALL ZLATME( N, 'D', ISEED, WORK, IMODE, COND, CONE, 'T', 'T', 'T', RWORK, 4, CONDS, N, N, ANORM, A, LDA, WORK( 2*N+1 ), IINFO )
+               zlatme(N, 'D', ISEED, WORK, IMODE, COND, CONE, 'T', 'T', 'T', RWORK, 4, CONDS, N, N, ANORM, A, LDA, WORK( 2*N+1 ), IINFO );
 
             } else if ( ITYPE.EQ.7 ) {
 
                // Diagonal, random eigenvalues
 
-               CALL ZLATMR( N, N, 'D', ISEED, 'N', WORK, 6, ONE, CONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, 0, 0, ZERO, ANORM, 'NO', A, LDA, IDUMMA, IINFO )
+               zlatmr(N, N, 'D', ISEED, 'N', WORK, 6, ONE, CONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, 0, 0, ZERO, ANORM, 'NO', A, LDA, IDUMMA, IINFO );
 
             } else if ( ITYPE.EQ.8 ) {
 
                // Symmetric, random eigenvalues
 
-               CALL ZLATMR( N, N, 'D', ISEED, 'H', WORK, 6, ONE, CONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, N, N, ZERO, ANORM, 'NO', A, LDA, IDUMMA, IINFO )
+               zlatmr(N, N, 'D', ISEED, 'H', WORK, 6, ONE, CONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, N, N, ZERO, ANORM, 'NO', A, LDA, IDUMMA, IINFO );
 
             } else if ( ITYPE.EQ.9 ) {
 
                // General, random eigenvalues
 
-               CALL ZLATMR( N, N, 'D', ISEED, 'N', WORK, 6, ONE, CONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, N, N, ZERO, ANORM, 'NO', A, LDA, IDUMMA, IINFO )
+               zlatmr(N, N, 'D', ISEED, 'N', WORK, 6, ONE, CONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, N, N, ZERO, ANORM, 'NO', A, LDA, IDUMMA, IINFO );
                if ( N.GE.4 ) {
-                  CALL ZLASET( 'Full', 2, N, CZERO, CZERO, A, LDA )
-                  CALL ZLASET( 'Full', N-3, 1, CZERO, CZERO, A( 3, 1 ), LDA )                   CALL ZLASET( 'Full', N-3, 2, CZERO, CZERO, A( 3, N-1 ), LDA )                   CALL ZLASET( 'Full', 1, N, CZERO, CZERO, A( N, 1 ), LDA )
+                  zlaset('Full', 2, N, CZERO, CZERO, A, LDA );
+                  zlaset('Full', N-3, 1, CZERO, CZERO, A( 3, 1 ), LDA )                   CALL ZLASET( 'Full', N-3, 2, CZERO, CZERO, A( 3, N-1 ), LDA )                   CALL ZLASET( 'Full', 1, N, CZERO, CZERO, A( N, 1 ), LDA );
                }
 
             } else if ( ITYPE.EQ.10 ) {
 
                // Triangular, random eigenvalues
 
-               CALL ZLATMR( N, N, 'D', ISEED, 'N', WORK, 6, ONE, CONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, N, 0, ZERO, ANORM, 'NO', A, LDA, IDUMMA, IINFO )
+               zlatmr(N, N, 'D', ISEED, 'N', WORK, 6, ONE, CONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, N, 0, ZERO, ANORM, 'NO', A, LDA, IDUMMA, IINFO );
 
             } else {
 
@@ -291,7 +291,7 @@
                }
                NNWORK = MAX( NNWORK, 1 )
 
-               CALL ZGET24( .FALSE., JTYPE, THRESH, IOLDSD, NOUNIT, N, A, LDA, H, HT, W, WT, WTMP, VS, LDVS, VS1, RCDEIN, RCDVIN, NSLCT, ISLCT, 0, RESULT, WORK, NNWORK, RWORK, BWORK, INFO )
+               zget24(.FALSE., JTYPE, THRESH, IOLDSD, NOUNIT, N, A, LDA, H, HT, W, WT, WTMP, VS, LDVS, VS1, RCDEIN, RCDVIN, NSLCT, ISLCT, 0, RESULT, WORK, NNWORK, RWORK, BWORK, INFO );
 
                // Check for RESULT(j) > THRESH
 
@@ -342,7 +342,7 @@
   170 CONTINUE
       READ( NIUNIT, FMT = * )RCDEIN, RCDVIN
 
-      CALL ZGET24( .TRUE., 22, THRESH, ISEED, NOUNIT, N, A, LDA, H, HT, W, WT, WTMP, VS, LDVS, VS1, RCDEIN, RCDVIN, NSLCT, ISLCT, ISRT, RESULT, WORK, LWORK, RWORK, BWORK, INFO )
+      zget24(.TRUE., 22, THRESH, ISEED, NOUNIT, N, A, LDA, H, HT, W, WT, WTMP, VS, LDVS, VS1, RCDEIN, RCDVIN, NSLCT, ISLCT, ISRT, RESULT, WORK, LWORK, RWORK, BWORK, INFO );
 
       // Check for RESULT(j) > THRESH
 
@@ -375,7 +375,7 @@
 
       // Summary
 
-      CALL DLASUM( PATH, NOUNIT, NERRS, NTESTT )
+      dlasum(PATH, NOUNIT, NERRS, NTESTT );
 
  9999 FORMAT( / 1X, A3, ' -- Complex Schur Form Decomposition Expert ', 'Driver', / ' Matrix types (see ZDRVSX for details): ' )
 

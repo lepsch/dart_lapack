@@ -55,7 +55,7 @@
          INFO = -11
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'DSPSVX', -INFO )
+         xerbla('DSPSVX', -INFO );
          RETURN
       }
 
@@ -63,8 +63,8 @@
 
          // Compute the factorization A = U*D*U**T or A = L*D*L**T.
 
-         CALL DCOPY( N*( N+1 ) / 2, AP, 1, AFP, 1 )
-         CALL DSPTRF( UPLO, N, AFP, IPIV, INFO )
+         dcopy(N*( N+1 ) / 2, AP, 1, AFP, 1 );
+         dsptrf(UPLO, N, AFP, IPIV, INFO );
 
          // Return if INFO is non-zero.
 
@@ -80,17 +80,17 @@
 
       // Compute the reciprocal of the condition number of A.
 
-      CALL DSPCON( UPLO, N, AFP, IPIV, ANORM, RCOND, WORK, IWORK, INFO )
+      dspcon(UPLO, N, AFP, IPIV, ANORM, RCOND, WORK, IWORK, INFO );
 
       // Compute the solution vectors X.
 
-      CALL DLACPY( 'Full', N, NRHS, B, LDB, X, LDX )
-      CALL DSPTRS( UPLO, N, NRHS, AFP, IPIV, X, LDX, INFO )
+      dlacpy('Full', N, NRHS, B, LDB, X, LDX );
+      dsptrs(UPLO, N, NRHS, AFP, IPIV, X, LDX, INFO );
 
       // Use iterative refinement to improve the computed solutions and
       // compute error bounds and backward error estimates for them.
 
-      CALL DSPRFS( UPLO, N, NRHS, AP, AFP, IPIV, B, LDB, X, LDX, FERR, BERR, WORK, IWORK, INFO )
+      dsprfs(UPLO, N, NRHS, AP, AFP, IPIV, B, LDB, X, LDX, FERR, BERR, WORK, IWORK, INFO );
 
       // Set INFO = N+1 if the matrix is singular to working precision.
 

@@ -50,7 +50,7 @@
          INFO = -9
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'DLAED0', -INFO )
+         xerbla('DLAED0', -INFO );
          RETURN
       }
 
@@ -134,10 +134,10 @@
          if ( ICOMPQ.EQ.2 ) {
             CALL DSTEQR( 'I', MATSIZ, D( SUBMAT ), E( SUBMAT ), Q( SUBMAT, SUBMAT ), LDQ, WORK, INFO )             IF( INFO.NE.0 ) GO TO 130
          } else {
-            CALL DSTEQR( 'I', MATSIZ, D( SUBMAT ), E( SUBMAT ), WORK( IQ-1+IWORK( IQPTR+CURR ) ), MATSIZ, WORK, INFO )
+            dsteqr('I', MATSIZ, D( SUBMAT ), E( SUBMAT ), WORK( IQ-1+IWORK( IQPTR+CURR ) ), MATSIZ, WORK, INFO );
             IF( INFO.NE.0 ) GO TO 130
             if ( ICOMPQ.EQ.1 ) {
-               CALL DGEMM( 'N', 'N', QSIZ, MATSIZ, MATSIZ, ONE, Q( 1, SUBMAT ), LDQ, WORK( IQ-1+IWORK( IQPTR+ CURR ) ), MATSIZ, ZERO, QSTORE( 1, SUBMAT ), LDQS )
+               dgemm('N', 'N', QSIZ, MATSIZ, MATSIZ, ONE, Q( 1, SUBMAT ), LDQ, WORK( IQ-1+IWORK( IQPTR+ CURR ) ), MATSIZ, ZERO, QSTORE( 1, SUBMAT ), LDQS );
             }
             IWORK( IQPTR+CURR+1 ) = IWORK( IQPTR+CURR ) + MATSIZ**2
             CURR = CURR + 1
@@ -180,9 +180,9 @@
       // tridiagonal form) are desired.
 
             if ( ICOMPQ.EQ.2 ) {
-               CALL DLAED1( MATSIZ, D( SUBMAT ), Q( SUBMAT, SUBMAT ), LDQ, IWORK( INDXQ+SUBMAT ), E( SUBMAT+MSD2-1 ), MSD2, WORK, IWORK( SUBPBS+1 ), INFO )
+               dlaed1(MATSIZ, D( SUBMAT ), Q( SUBMAT, SUBMAT ), LDQ, IWORK( INDXQ+SUBMAT ), E( SUBMAT+MSD2-1 ), MSD2, WORK, IWORK( SUBPBS+1 ), INFO );
             } else {
-               CALL DLAED7( ICOMPQ, MATSIZ, QSIZ, TLVLS, CURLVL, CURPRB, D( SUBMAT ), QSTORE( 1, SUBMAT ), LDQS, IWORK( INDXQ+SUBMAT ), E( SUBMAT+MSD2-1 ), MSD2, WORK( IQ ), IWORK( IQPTR ), IWORK( IPRMPT ), IWORK( IPERM ), IWORK( IGIVPT ), IWORK( IGIVCL ), WORK( IGIVNM ), WORK( IWREM ), IWORK( SUBPBS+1 ), INFO )
+               dlaed7(ICOMPQ, MATSIZ, QSIZ, TLVLS, CURLVL, CURPRB, D( SUBMAT ), QSTORE( 1, SUBMAT ), LDQS, IWORK( INDXQ+SUBMAT ), E( SUBMAT+MSD2-1 ), MSD2, WORK( IQ ), IWORK( IQPTR ), IWORK( IPRMPT ), IWORK( IPERM ), IWORK( IGIVPT ), IWORK( IGIVCL ), WORK( IGIVNM ), WORK( IWREM ), IWORK( SUBPBS+1 ), INFO );
             }
             IF( INFO.NE.0 ) GO TO 130
             IWORK( I / 2+1 ) = IWORK( I+2 )
@@ -201,23 +201,23 @@
          DO 100 I = 1, N
             J = IWORK( INDXQ+I )
             WORK( I ) = D( J )
-            CALL DCOPY( QSIZ, QSTORE( 1, J ), 1, Q( 1, I ), 1 )
+            dcopy(QSIZ, QSTORE( 1, J ), 1, Q( 1, I ), 1 );
   100    CONTINUE
-         CALL DCOPY( N, WORK, 1, D, 1 )
+         dcopy(N, WORK, 1, D, 1 );
       } else if ( ICOMPQ.EQ.2 ) {
          DO 110 I = 1, N
             J = IWORK( INDXQ+I )
             WORK( I ) = D( J )
-            CALL DCOPY( N, Q( 1, J ), 1, WORK( N*I+1 ), 1 )
+            dcopy(N, Q( 1, J ), 1, WORK( N*I+1 ), 1 );
   110    CONTINUE
-         CALL DCOPY( N, WORK, 1, D, 1 )
-         CALL DLACPY( 'A', N, N, WORK( N+1 ), N, Q, LDQ )
+         dcopy(N, WORK, 1, D, 1 );
+         dlacpy('A', N, N, WORK( N+1 ), N, Q, LDQ );
       } else {
          DO 120 I = 1, N
             J = IWORK( INDXQ+I )
             WORK( I ) = D( J )
   120    CONTINUE
-         CALL DCOPY( N, WORK, 1, D, 1 )
+         dcopy(N, WORK, 1, D, 1 );
       }
       GO TO 140
 

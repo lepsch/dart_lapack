@@ -104,7 +104,7 @@
       IF( LWORK.LT.MINWRK ) INFO = -23
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'ZDRGEV', -INFO )
+         xerbla('ZDRGEV', -INFO );
          RETURN
       }
 
@@ -184,7 +184,7 @@
                } else {
                   IN = N
                }
-               CALL ZLATM4( KATYPE( JTYPE ), IN, KZ1( KAZERO( JTYPE ) ), KZ2( KAZERO( JTYPE ) ), LASIGN( JTYPE ), RMAGN( KAMAGN( JTYPE ) ), ULP, RMAGN( KTRIAN( JTYPE )*KAMAGN( JTYPE ) ), 2, ISEED, A, LDA )
+               zlatm4(KATYPE( JTYPE ), IN, KZ1( KAZERO( JTYPE ) ), KZ2( KAZERO( JTYPE ) ), LASIGN( JTYPE ), RMAGN( KAMAGN( JTYPE ) ), ULP, RMAGN( KTRIAN( JTYPE )*KAMAGN( JTYPE ) ), 2, ISEED, A, LDA );
                IADD = KADD( KAZERO( JTYPE ) )
                IF( IADD.GT.0 .AND. IADD.LE.N ) A( IADD, IADD ) = RMAGN( KAMAGN( JTYPE ) )
 
@@ -196,7 +196,7 @@
                } else {
                   IN = N
                }
-               CALL ZLATM4( KBTYPE( JTYPE ), IN, KZ1( KBZERO( JTYPE ) ), KZ2( KBZERO( JTYPE ) ), LBSIGN( JTYPE ), RMAGN( KBMAGN( JTYPE ) ), ONE, RMAGN( KTRIAN( JTYPE )*KBMAGN( JTYPE ) ), 2, ISEED, B, LDA )
+               zlatm4(KBTYPE( JTYPE ), IN, KZ1( KBZERO( JTYPE ) ), KZ2( KBZERO( JTYPE ) ), LBSIGN( JTYPE ), RMAGN( KBMAGN( JTYPE ) ), ONE, RMAGN( KTRIAN( JTYPE )*KBMAGN( JTYPE ) ), 2, ISEED, B, LDA );
                IADD = KADD( KBZERO( JTYPE ) )
                IF( IADD.NE.0 .AND. IADD.LE.N ) B( IADD, IADD ) = RMAGN( KBMAGN( JTYPE ) )
 
@@ -212,10 +212,10 @@
                         Q( JR, JC ) = ZLARND( 3, ISEED )
                         Z( JR, JC ) = ZLARND( 3, ISEED )
    30                CONTINUE
-                     CALL ZLARFG( N+1-JC, Q( JC, JC ), Q( JC+1, JC ), 1, WORK( JC ) )
+                     zlarfg(N+1-JC, Q( JC, JC ), Q( JC+1, JC ), 1, WORK( JC ) );
                      WORK( 2*N+JC ) = SIGN( ONE, DBLE( Q( JC, JC ) ) )
                      Q( JC, JC ) = CONE
-                     CALL ZLARFG( N+1-JC, Z( JC, JC ), Z( JC+1, JC ), 1, WORK( N+JC ) )
+                     zlarfg(N+1-JC, Z( JC, JC ), Z( JC+1, JC ), 1, WORK( N+JC ) );
                      WORK( 3*N+JC ) = SIGN( ONE, DBLE( Z( JC, JC ) ) )
                      Z( JC, JC ) = CONE
    40             CONTINUE
@@ -264,9 +264,9 @@
 
             // Call ZGGEV to compute eigenvalues and eigenvectors.
 
-            CALL ZLACPY( ' ', N, N, A, LDA, S, LDA )
-            CALL ZLACPY( ' ', N, N, B, LDA, T, LDA )
-            CALL ZGGEV( 'V', 'V', N, S, LDA, T, LDA, ALPHA, BETA, Q, LDQ, Z, LDQ, WORK, LWORK, RWORK, IERR )
+            zlacpy(' ', N, N, A, LDA, S, LDA );
+            zlacpy(' ', N, N, B, LDA, T, LDA );
+            zggev('V', 'V', N, S, LDA, T, LDA, ALPHA, BETA, Q, LDQ, Z, LDQ, WORK, LWORK, RWORK, IERR );
             if ( IERR.NE.0 .AND. IERR.NE.N+1 ) {
                RESULT( 1 ) = ULPINV
                WRITE( NOUNIT, FMT = 9999 )'ZGGEV1', IERR, N, JTYPE, IOLDSD
@@ -276,23 +276,23 @@
 
             // Do the tests (1) and (2)
 
-            CALL ZGET52( .TRUE., N, A, LDA, B, LDA, Q, LDQ, ALPHA, BETA, WORK, RWORK, RESULT( 1 ) )
+            zget52(.TRUE., N, A, LDA, B, LDA, Q, LDQ, ALPHA, BETA, WORK, RWORK, RESULT( 1 ) );
             if ( RESULT( 2 ).GT.THRESH ) {
                WRITE( NOUNIT, FMT = 9998 )'Left', 'ZGGEV1', RESULT( 2 ), N, JTYPE, IOLDSD
             }
 
             // Do the tests (3) and (4)
 
-            CALL ZGET52( .FALSE., N, A, LDA, B, LDA, Z, LDQ, ALPHA, BETA, WORK, RWORK, RESULT( 3 ) )
+            zget52(.FALSE., N, A, LDA, B, LDA, Z, LDQ, ALPHA, BETA, WORK, RWORK, RESULT( 3 ) );
             if ( RESULT( 4 ).GT.THRESH ) {
                WRITE( NOUNIT, FMT = 9998 )'Right', 'ZGGEV1', RESULT( 4 ), N, JTYPE, IOLDSD
             }
 
             // Do test (5)
 
-            CALL ZLACPY( ' ', N, N, A, LDA, S, LDA )
-            CALL ZLACPY( ' ', N, N, B, LDA, T, LDA )
-            CALL ZGGEV( 'N', 'N', N, S, LDA, T, LDA, ALPHA1, BETA1, Q, LDQ, Z, LDQ, WORK, LWORK, RWORK, IERR )
+            zlacpy(' ', N, N, A, LDA, S, LDA );
+            zlacpy(' ', N, N, B, LDA, T, LDA );
+            zggev('N', 'N', N, S, LDA, T, LDA, ALPHA1, BETA1, Q, LDQ, Z, LDQ, WORK, LWORK, RWORK, IERR );
             if ( IERR.NE.0 .AND. IERR.NE.N+1 ) {
                RESULT( 1 ) = ULPINV
                WRITE( NOUNIT, FMT = 9999 )'ZGGEV2', IERR, N, JTYPE, IOLDSD
@@ -307,9 +307,9 @@
             // Do test (6): Compute eigenvalues and left eigenvectors,
             // and test them
 
-            CALL ZLACPY( ' ', N, N, A, LDA, S, LDA )
-            CALL ZLACPY( ' ', N, N, B, LDA, T, LDA )
-            CALL ZGGEV( 'V', 'N', N, S, LDA, T, LDA, ALPHA1, BETA1, QE, LDQE, Z, LDQ, WORK, LWORK, RWORK, IERR )
+            zlacpy(' ', N, N, A, LDA, S, LDA );
+            zlacpy(' ', N, N, B, LDA, T, LDA );
+            zggev('V', 'N', N, S, LDA, T, LDA, ALPHA1, BETA1, QE, LDQE, Z, LDQ, WORK, LWORK, RWORK, IERR );
             if ( IERR.NE.0 .AND. IERR.NE.N+1 ) {
                RESULT( 1 ) = ULPINV
                WRITE( NOUNIT, FMT = 9999 )'ZGGEV3', IERR, N, JTYPE, IOLDSD
@@ -330,9 +330,9 @@
             // Do test (7): Compute eigenvalues and right eigenvectors,
             // and test them
 
-            CALL ZLACPY( ' ', N, N, A, LDA, S, LDA )
-            CALL ZLACPY( ' ', N, N, B, LDA, T, LDA )
-            CALL ZGGEV( 'N', 'V', N, S, LDA, T, LDA, ALPHA1, BETA1, Q, LDQ, QE, LDQE, WORK, LWORK, RWORK, IERR )
+            zlacpy(' ', N, N, A, LDA, S, LDA );
+            zlacpy(' ', N, N, B, LDA, T, LDA );
+            zggev('N', 'V', N, S, LDA, T, LDA, ALPHA1, BETA1, Q, LDQ, QE, LDQE, WORK, LWORK, RWORK, IERR );
             if ( IERR.NE.0 .AND. IERR.NE.N+1 ) {
                RESULT( 1 ) = ULPINV
                WRITE( NOUNIT, FMT = 9999 )'ZGGEV4', IERR, N, JTYPE, IOLDSD
@@ -392,7 +392,7 @@
 
       // Summary
 
-      CALL ALASVM( 'ZGV', NOUNIT, NERRS, NTESTT, 0 )
+      alasvm('ZGV', NOUNIT, NERRS, NTESTT, 0 );
 
       WORK( 1 ) = MAXWRK
 

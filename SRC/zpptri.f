@@ -46,7 +46,7 @@
          INFO = -2
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'ZPPTRI', -INFO )
+         xerbla('ZPPTRI', -INFO );
          RETURN
       }
 
@@ -56,7 +56,7 @@
 
       // Invert the triangular Cholesky factor U or L.
 
-      CALL ZTPTRI( UPLO, 'Non-unit', N, AP, INFO )
+      ztptri(UPLO, 'Non-unit', N, AP, INFO );
       IF( INFO.GT.0 ) RETURN
       if ( UPPER ) {
 
@@ -68,7 +68,7 @@
             JJ = JJ + J
             IF( J.GT.1 ) CALL ZHPR( 'Upper', J-1, ONE, AP( JC ), 1, AP )
             AJJ = DBLE( AP( JJ ) )
-            CALL ZDSCAL( J, AJJ, AP( JC ), 1 )
+            zdscal(J, AJJ, AP( JC ), 1 );
    10    CONTINUE
 
       } else {

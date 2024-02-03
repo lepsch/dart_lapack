@@ -76,7 +76,7 @@
          INFO = -15
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'SLARHS', -INFO )
+         xerbla('SLARHS', -INFO );
          RETURN
       }
 
@@ -91,7 +91,7 @@
       }
       if ( .NOT.LSAME( XTYPE, 'C' ) ) {
          DO 10 J = 1, NRHS
-            CALL SLARNV( 2, ISEED, N, X( 1, J ) )
+            slarnv(2, ISEED, N, X( 1, J ) );
    10    CONTINUE
       }
 
@@ -102,20 +102,20 @@
 
          // General matrix
 
-         CALL SGEMM( TRANS, 'N', MB, NRHS, NX, ONE, A, LDA, X, LDX, ZERO, B, LDB )
+         sgemm(TRANS, 'N', MB, NRHS, NX, ONE, A, LDA, X, LDX, ZERO, B, LDB );
 
       } else if ( LSAMEN( 2, C2, 'PO' ) .OR. LSAMEN( 2, C2, 'SY' ) ) {
 
          // Symmetric matrix, 2-D storage
 
-         CALL SSYMM( 'Left', UPLO, N, NRHS, ONE, A, LDA, X, LDX, ZERO, B, LDB )
+         ssymm('Left', UPLO, N, NRHS, ONE, A, LDA, X, LDX, ZERO, B, LDB );
 
       } else if ( LSAMEN( 2, C2, 'GB' ) ) {
 
          // General matrix, band storage
 
          DO 20 J = 1, NRHS
-            CALL SGBMV( TRANS, MB, NX, KL, KU, ONE, A, LDA, X( 1, J ), 1, ZERO, B( 1, J ), 1 )
+            sgbmv(TRANS, MB, NX, KL, KU, ONE, A, LDA, X( 1, J ), 1, ZERO, B( 1, J ), 1 );
    20    CONTINUE
 
       } else if ( LSAMEN( 2, C2, 'PB' ) ) {
@@ -123,7 +123,7 @@
          // Symmetric matrix, band storage
 
          DO 30 J = 1, NRHS
-            CALL SSBMV( UPLO, N, KL, ONE, A, LDA, X( 1, J ), 1, ZERO, B( 1, J ), 1 )
+            ssbmv(UPLO, N, KL, ONE, A, LDA, X( 1, J ), 1, ZERO, B( 1, J ), 1 );
    30    CONTINUE
 
       } else if ( LSAMEN( 2, C2, 'PP' ) .OR. LSAMEN( 2, C2, 'SP' ) ) {
@@ -131,7 +131,7 @@
          // Symmetric matrix, packed storage
 
          DO 40 J = 1, NRHS
-            CALL SSPMV( UPLO, N, ONE, A, X( 1, J ), 1, ZERO, B( 1, J ), 1 )
+            sspmv(UPLO, N, ONE, A, X( 1, J ), 1, ZERO, B( 1, J ), 1 );
    40    CONTINUE
 
       } else if ( LSAMEN( 2, C2, 'TR' ) ) {
@@ -140,40 +140,40 @@
             // KU = 1 => non-unit triangular
             // KU = 2 => unit triangular
 
-         CALL SLACPY( 'Full', N, NRHS, X, LDX, B, LDB )
+         slacpy('Full', N, NRHS, X, LDX, B, LDB );
          if ( KU.EQ.2 ) {
             DIAG = 'U'
          } else {
             DIAG = 'N'
          }
-         CALL STRMM( 'Left', UPLO, TRANS, DIAG, N, NRHS, ONE, A, LDA, B, LDB )
+         strmm('Left', UPLO, TRANS, DIAG, N, NRHS, ONE, A, LDA, B, LDB );
 
       } else if ( LSAMEN( 2, C2, 'TP' ) ) {
 
          // Triangular matrix, packed storage
 
-         CALL SLACPY( 'Full', N, NRHS, X, LDX, B, LDB )
+         slacpy('Full', N, NRHS, X, LDX, B, LDB );
          if ( KU.EQ.2 ) {
             DIAG = 'U'
          } else {
             DIAG = 'N'
          }
          DO 50 J = 1, NRHS
-            CALL STPMV( UPLO, TRANS, DIAG, N, A, B( 1, J ), 1 )
+            stpmv(UPLO, TRANS, DIAG, N, A, B( 1, J ), 1 );
    50    CONTINUE
 
       } else if ( LSAMEN( 2, C2, 'TB' ) ) {
 
          // Triangular matrix, banded storage
 
-         CALL SLACPY( 'Full', N, NRHS, X, LDX, B, LDB )
+         slacpy('Full', N, NRHS, X, LDX, B, LDB );
          if ( KU.EQ.2 ) {
             DIAG = 'U'
          } else {
             DIAG = 'N'
          }
          DO 60 J = 1, NRHS
-            CALL STBMV( UPLO, TRANS, DIAG, N, KL, A, LDA, B( 1, J ), 1 )
+            stbmv(UPLO, TRANS, DIAG, N, KL, A, LDA, B( 1, J ), 1 );
    60    CONTINUE
 
       } else {
@@ -181,7 +181,7 @@
          // If PATH is none of the above, return with an error code.
 
          INFO = -1
-         CALL XERBLA( 'SLARHS', -INFO )
+         xerbla('SLARHS', -INFO );
       }
 
       RETURN

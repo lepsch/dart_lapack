@@ -65,7 +65,7 @@
           INFO = 12
       }
       if (INFO.NE.0) {
-          CALL XERBLA('CHEMM ',INFO)
+          xerbla('CHEMM ',INFO);
           RETURN
       }
 

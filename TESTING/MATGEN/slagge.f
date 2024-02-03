@@ -49,7 +49,7 @@
          INFO = -7
       }
       if ( INFO.LT.0 ) {
-         CALL XERBLA( 'SLAGGE', -INFO )
+         xerbla('SLAGGE', -INFO );
          RETURN
       }
 
@@ -75,41 +75,41 @@
 
             // generate random reflection
 
-            CALL SLARNV( 3, ISEED, M-I+1, WORK )
+            slarnv(3, ISEED, M-I+1, WORK );
             WN = SNRM2( M-I+1, WORK, 1 )
             WA = SIGN( WN, WORK( 1 ) )
             if ( WN.EQ.ZERO ) {
                TAU = ZERO
             } else {
                WB = WORK( 1 ) + WA
-               CALL SSCAL( M-I, ONE / WB, WORK( 2 ), 1 )
+               sscal(M-I, ONE / WB, WORK( 2 ), 1 );
                WORK( 1 ) = ONE
                TAU = WB / WA
             }
 
             // multiply A(i:m,i:n) by random reflection from the left
 
-            CALL SGEMV( 'Transpose', M-I+1, N-I+1, ONE, A( I, I ), LDA, WORK, 1, ZERO, WORK( M+1 ), 1 )             CALL SGER( M-I+1, N-I+1, -TAU, WORK, 1, WORK( M+1 ), 1, A( I, I ), LDA )
+            sgemv('Transpose', M-I+1, N-I+1, ONE, A( I, I ), LDA, WORK, 1, ZERO, WORK( M+1 ), 1 )             CALL SGER( M-I+1, N-I+1, -TAU, WORK, 1, WORK( M+1 ), 1, A( I, I ), LDA );
          }
          if ( I.LT.N ) {
 
             // generate random reflection
 
-            CALL SLARNV( 3, ISEED, N-I+1, WORK )
+            slarnv(3, ISEED, N-I+1, WORK );
             WN = SNRM2( N-I+1, WORK, 1 )
             WA = SIGN( WN, WORK( 1 ) )
             if ( WN.EQ.ZERO ) {
                TAU = ZERO
             } else {
                WB = WORK( 1 ) + WA
-               CALL SSCAL( N-I, ONE / WB, WORK( 2 ), 1 )
+               sscal(N-I, ONE / WB, WORK( 2 ), 1 );
                WORK( 1 ) = ONE
                TAU = WB / WA
             }
 
             // multiply A(i:m,i:n) by random reflection from the right
 
-            CALL SGEMV( 'No transpose', M-I+1, N-I+1, ONE, A( I, I ), LDA, WORK, 1, ZERO, WORK( N+1 ), 1 )             CALL SGER( M-I+1, N-I+1, -TAU, WORK( N+1 ), 1, WORK, 1, A( I, I ), LDA )
+            sgemv('No transpose', M-I+1, N-I+1, ONE, A( I, I ), LDA, WORK, 1, ZERO, WORK( N+1 ), 1 )             CALL SGER( M-I+1, N-I+1, -TAU, WORK( N+1 ), 1, WORK, 1, A( I, I ), LDA );
          }
    40 CONTINUE
 
@@ -131,15 +131,15 @@
                   TAU = ZERO
                } else {
                   WB = A( KL+I, I ) + WA
-                  CALL SSCAL( M-KL-I, ONE / WB, A( KL+I+1, I ), 1 )
+                  sscal(M-KL-I, ONE / WB, A( KL+I+1, I ), 1 );
                   A( KL+I, I ) = ONE
                   TAU = WB / WA
                }
 
                // apply reflection to A(kl+i:m,i+1:n) from the left
 
-               CALL SGEMV( 'Transpose', M-KL-I+1, N-I, ONE, A( KL+I, I+1 ), LDA, A( KL+I, I ), 1, ZERO, WORK, 1 )
-               CALL SGER( M-KL-I+1, N-I, -TAU, A( KL+I, I ), 1, WORK, 1, A( KL+I, I+1 ), LDA )
+               sgemv('Transpose', M-KL-I+1, N-I, ONE, A( KL+I, I+1 ), LDA, A( KL+I, I ), 1, ZERO, WORK, 1 );
+               sger(M-KL-I+1, N-I, -TAU, A( KL+I, I ), 1, WORK, 1, A( KL+I, I+1 ), LDA );
                A( KL+I, I ) = -WA
             }
 
@@ -153,15 +153,15 @@
                   TAU = ZERO
                } else {
                   WB = A( I, KU+I ) + WA
-                  CALL SSCAL( N-KU-I, ONE / WB, A( I, KU+I+1 ), LDA )
+                  sscal(N-KU-I, ONE / WB, A( I, KU+I+1 ), LDA );
                   A( I, KU+I ) = ONE
                   TAU = WB / WA
                }
 
                // apply reflection to A(i+1:m,ku+i:n) from the right
 
-               CALL SGEMV( 'No transpose', M-I, N-KU-I+1, ONE, A( I+1, KU+I ), LDA, A( I, KU+I ), LDA, ZERO, WORK, 1 )
-               CALL SGER( M-I, N-KU-I+1, -TAU, WORK, 1, A( I, KU+I ), LDA, A( I+1, KU+I ), LDA )
+               sgemv('No transpose', M-I, N-KU-I+1, ONE, A( I+1, KU+I ), LDA, A( I, KU+I ), LDA, ZERO, WORK, 1 );
+               sger(M-I, N-KU-I+1, -TAU, WORK, 1, A( I, KU+I ), LDA, A( I+1, KU+I ), LDA );
                A( I, KU+I ) = -WA
             }
          } else {
@@ -179,15 +179,15 @@
                   TAU = ZERO
                } else {
                   WB = A( I, KU+I ) + WA
-                  CALL SSCAL( N-KU-I, ONE / WB, A( I, KU+I+1 ), LDA )
+                  sscal(N-KU-I, ONE / WB, A( I, KU+I+1 ), LDA );
                   A( I, KU+I ) = ONE
                   TAU = WB / WA
                }
 
                // apply reflection to A(i+1:m,ku+i:n) from the right
 
-               CALL SGEMV( 'No transpose', M-I, N-KU-I+1, ONE, A( I+1, KU+I ), LDA, A( I, KU+I ), LDA, ZERO, WORK, 1 )
-               CALL SGER( M-I, N-KU-I+1, -TAU, WORK, 1, A( I, KU+I ), LDA, A( I+1, KU+I ), LDA )
+               sgemv('No transpose', M-I, N-KU-I+1, ONE, A( I+1, KU+I ), LDA, A( I, KU+I ), LDA, ZERO, WORK, 1 );
+               sger(M-I, N-KU-I+1, -TAU, WORK, 1, A( I, KU+I ), LDA, A( I+1, KU+I ), LDA );
                A( I, KU+I ) = -WA
             }
 
@@ -201,15 +201,15 @@
                   TAU = ZERO
                } else {
                   WB = A( KL+I, I ) + WA
-                  CALL SSCAL( M-KL-I, ONE / WB, A( KL+I+1, I ), 1 )
+                  sscal(M-KL-I, ONE / WB, A( KL+I+1, I ), 1 );
                   A( KL+I, I ) = ONE
                   TAU = WB / WA
                }
 
                // apply reflection to A(kl+i:m,i+1:n) from the left
 
-               CALL SGEMV( 'Transpose', M-KL-I+1, N-I, ONE, A( KL+I, I+1 ), LDA, A( KL+I, I ), 1, ZERO, WORK, 1 )
-               CALL SGER( M-KL-I+1, N-I, -TAU, A( KL+I, I ), 1, WORK, 1, A( KL+I, I+1 ), LDA )
+               sgemv('Transpose', M-KL-I+1, N-I, ONE, A( KL+I, I+1 ), LDA, A( KL+I, I ), 1, ZERO, WORK, 1 );
+               sger(M-KL-I+1, N-I, -TAU, A( KL+I, I ), 1, WORK, 1, A( KL+I, I+1 ), LDA );
                A( KL+I, I ) = -WA
             }
          }

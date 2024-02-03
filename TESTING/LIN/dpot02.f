@@ -53,7 +53,7 @@
 
       // Compute  B - A*X
 
-      CALL DSYMM( 'Left', UPLO, N, NRHS, -ONE, A, LDA, X, LDX, ONE, B, LDB )
+      dsymm('Left', UPLO, N, NRHS, -ONE, A, LDA, X, LDX, ONE, B, LDB );
 
       // Compute the maximum over the number of right hand sides of
          // norm( B - A*X ) / ( norm(A) * norm(X) * EPS ) .

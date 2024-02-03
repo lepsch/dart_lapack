@@ -58,7 +58,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'SSYTRF', -INFO )
+         xerbla('SSYTRF', -INFO );
          RETURN
       } else if ( LQUERY ) {
          RETURN
@@ -97,12 +97,12 @@
             // Factorize columns k-kb+1:k of A and use blocked code to
             // update columns 1:k-kb
 
-            CALL SLASYF( UPLO, K, NB, KB, A, LDA, IPIV, WORK, LDWORK, IINFO )
+            slasyf(UPLO, K, NB, KB, A, LDA, IPIV, WORK, LDWORK, IINFO );
          } else {
 
             // Use unblocked code to factorize columns 1:k of A
 
-            CALL SSYTF2( UPLO, K, A, LDA, IPIV, IINFO )
+            ssytf2(UPLO, K, A, LDA, IPIV, IINFO );
             KB = K
          }
 
@@ -135,12 +135,12 @@
             // Factorize columns k:k+kb-1 of A and use blocked code to
             // update columns k+kb:n
 
-            CALL SLASYF( UPLO, N-K+1, NB, KB, A( K, K ), LDA, IPIV( K ), WORK, LDWORK, IINFO )
+            slasyf(UPLO, N-K+1, NB, KB, A( K, K ), LDA, IPIV( K ), WORK, LDWORK, IINFO );
          } else {
 
             // Use unblocked code to factorize columns k:n of A
 
-            CALL SSYTF2( UPLO, N-K+1, A( K, K ), LDA, IPIV( K ), IINFO )
+            ssytf2(UPLO, N-K+1, A( K, K ), LDA, IPIV( K ), IINFO );
             KB = N - K + 1
          }
 

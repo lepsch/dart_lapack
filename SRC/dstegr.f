@@ -26,7 +26,7 @@
       // .. Executable Statements ..
       INFO = 0
       TRYRAC = .FALSE.
-       CALL DSTEMR( JOBZ, RANGE, N, D, E, VL, VU, IL, IU, M, W, Z, LDZ, N, ISUPPZ, TRYRAC, WORK, LWORK, IWORK, LIWORK, INFO )
+       dstemr(JOBZ, RANGE, N, D, E, VL, VU, IL, IU, M, W, Z, LDZ, N, ISUPPZ, TRYRAC, WORK, LWORK, IWORK, LIWORK, INFO );
 
       // End of DSTEGR
 

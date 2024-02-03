@@ -46,7 +46,7 @@
          INFO = -4
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'ZGETF2', -INFO )
+         xerbla('ZGETF2', -INFO );
          RETURN
       }
 
@@ -83,7 +83,7 @@
 
             // Update trailing submatrix.
 
-            CALL ZGERU( M-J, N-J, -ONE, A( J+1, J ), 1, A( J, J+1 ), LDA, A( J+1, J+1 ), LDA )
+            zgeru(M-J, N-J, -ONE, A( J+1, J ), 1, A( J, J+1 ), LDA, A( J+1, J+1 ), LDA );
          }
    10 CONTINUE
       RETURN

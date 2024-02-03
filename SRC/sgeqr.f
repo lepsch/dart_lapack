@@ -115,7 +115,7 @@
         }
       }
       if ( INFO.NE.0 ) {
-        CALL XERBLA( 'SGEQR', -INFO )
+        xerbla('SGEQR', -INFO );
         RETURN
       } else if ( LQUERY ) {
         RETURN
@@ -130,9 +130,9 @@
       // The QR Decomposition
 
       if ( ( M.LE.N ) .OR. ( MB.LE.N ) .OR. ( MB.GE.M ) ) {
-        CALL SGEQRT( M, N, NB, A, LDA, T( 6 ), NB, WORK, INFO )
+        sgeqrt(M, N, NB, A, LDA, T( 6 ), NB, WORK, INFO );
       } else {
-        CALL SLATSQR( M, N, MB, NB, A, LDA, T( 6 ), NB, WORK, LWORK, INFO )
+        slatsqr(M, N, MB, NB, A, LDA, T( 6 ), NB, WORK, LWORK, INFO );
       }
 
       WORK( 1 ) = SROUNDUP_LWORK( LWREQ )

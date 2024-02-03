@@ -37,7 +37,7 @@
          INFO = -1
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'DLAEDA', -INFO )
+         xerbla('DLAEDA', -INFO );
          RETURN
       }
 
@@ -67,8 +67,8 @@
       DO 10 K = 1, MID - BSIZ1 - 1
          Z( K ) = ZERO
    10 CONTINUE
-      CALL DCOPY( BSIZ1, Q( QPTR( CURR )+BSIZ1-1 ), BSIZ1, Z( MID-BSIZ1 ), 1 )
-      CALL DCOPY( BSIZ2, Q( QPTR( CURR+1 ) ), BSIZ2, Z( MID ), 1 )
+      dcopy(BSIZ1, Q( QPTR( CURR )+BSIZ1-1 ), BSIZ1, Z( MID-BSIZ1 ), 1 );
+      dcopy(BSIZ2, Q( QPTR( CURR+1 ) ), BSIZ2, Z( MID ), 1 );
       DO 20 K = MID + BSIZ2, N
          Z( K ) = ZERO
    20 CONTINUE
@@ -87,10 +87,10 @@
         // Apply Givens at CURR and CURR+1
 
          DO 30 I = GIVPTR( CURR ), GIVPTR( CURR+1 ) - 1
-            CALL DROT( 1, Z( ZPTR1+GIVCOL( 1, I )-1 ), 1, Z( ZPTR1+GIVCOL( 2, I )-1 ), 1, GIVNUM( 1, I ), GIVNUM( 2, I ) )
+            drot(1, Z( ZPTR1+GIVCOL( 1, I )-1 ), 1, Z( ZPTR1+GIVCOL( 2, I )-1 ), 1, GIVNUM( 1, I ), GIVNUM( 2, I ) );
    30    CONTINUE
          DO 40 I = GIVPTR( CURR+1 ), GIVPTR( CURR+2 ) - 1
-            CALL DROT( 1, Z( MID-1+GIVCOL( 1, I ) ), 1, Z( MID-1+GIVCOL( 2, I ) ), 1, GIVNUM( 1, I ), GIVNUM( 2, I ) )
+            drot(1, Z( MID-1+GIVCOL( 1, I ) ), 1, Z( MID-1+GIVCOL( 2, I ) ), 1, GIVNUM( 1, I ), GIVNUM( 2, I ) );
    40    CONTINUE
          PSIZ1 = PRMPTR( CURR+1 ) - PRMPTR( CURR )
          PSIZ2 = PRMPTR( CURR+2 ) - PRMPTR( CURR+1 )
@@ -110,13 +110,13 @@
          BSIZ1 = INT( HALF+SQRT( DBLE( QPTR( CURR+1 )-QPTR( CURR ) ) ) )
          BSIZ2 = INT( HALF+SQRT( DBLE( QPTR( CURR+2 )-QPTR( CURR+ 1 ) ) ) )
          if ( BSIZ1.GT.0 ) {
-            CALL DGEMV( 'T', BSIZ1, BSIZ1, ONE, Q( QPTR( CURR ) ), BSIZ1, ZTEMP( 1 ), 1, ZERO, Z( ZPTR1 ), 1 )
+            dgemv('T', BSIZ1, BSIZ1, ONE, Q( QPTR( CURR ) ), BSIZ1, ZTEMP( 1 ), 1, ZERO, Z( ZPTR1 ), 1 );
          }
-         CALL DCOPY( PSIZ1-BSIZ1, ZTEMP( BSIZ1+1 ), 1, Z( ZPTR1+BSIZ1 ), 1 )
+         dcopy(PSIZ1-BSIZ1, ZTEMP( BSIZ1+1 ), 1, Z( ZPTR1+BSIZ1 ), 1 );
          if ( BSIZ2.GT.0 ) {
-            CALL DGEMV( 'T', BSIZ2, BSIZ2, ONE, Q( QPTR( CURR+1 ) ), BSIZ2, ZTEMP( PSIZ1+1 ), 1, ZERO, Z( MID ), 1 )
+            dgemv('T', BSIZ2, BSIZ2, ONE, Q( QPTR( CURR+1 ) ), BSIZ2, ZTEMP( PSIZ1+1 ), 1, ZERO, Z( MID ), 1 );
          }
-         CALL DCOPY( PSIZ2-BSIZ2, ZTEMP( PSIZ1+BSIZ2+1 ), 1, Z( MID+BSIZ2 ), 1 )
+         dcopy(PSIZ2-BSIZ2, ZTEMP( PSIZ1+BSIZ2+1 ), 1, Z( MID+BSIZ2 ), 1 );
 
          PTR = PTR + 2**( TLVLS-K )
    70 CONTINUE

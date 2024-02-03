@@ -48,7 +48,7 @@
          INFO = -4
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'ZPOTRF', -INFO )
+         xerbla('ZPOTRF', -INFO );
          RETURN
       }
 
@@ -63,7 +63,7 @@
 
          // Use unblocked code.
 
-         CALL ZPOTRF2( UPLO, N, A, LDA, INFO )
+         zpotrf2(UPLO, N, A, LDA, INFO );
       } else {
 
          // Use blocked code.
@@ -78,13 +78,13 @@
 
                // Compute the current block.
 
-               CALL ZTRSM( 'Left', 'Upper', 'Conjugate Transpose', 'Non-unit', J-1, JB, CONE, A( 1, 1 ), LDA, A( 1, J ), LDA )
-                CALL ZHERK( 'Upper', 'Conjugate Transpose', JB, J-1, -ONE, A( 1, J ), LDA, ONE, A( J, J ), LDA )
+               ztrsm('Left', 'Upper', 'Conjugate Transpose', 'Non-unit', J-1, JB, CONE, A( 1, 1 ), LDA, A( 1, J ), LDA );
+                zherk('Upper', 'Conjugate Transpose', JB, J-1, -ONE, A( 1, J ), LDA, ONE, A( J, J ), LDA );
 
                // Update and factorize the current diagonal block and test
                // for non-positive-definiteness.
 
-               CALL ZPOTRF2( 'Upper', JB, A( J, J ), LDA, INFO )
+               zpotrf2('Upper', JB, A( J, J ), LDA, INFO );
                IF( INFO.NE.0 ) GO TO 30
 
    10       CONTINUE
@@ -99,12 +99,12 @@
 
                // Compute the current block.
 
-               CALL ZTRSM( 'Right', 'Lower', 'Conjugate Transpose', 'Non-unit', JB, J-1, CONE, A( 1, 1 ), LDA, A( J, 1 ), LDA )                 CALL ZHERK( 'Lower', 'No Transpose', JB, J-1, -ONE, A( J, 1 ), LDA, ONE, A( J, J ), LDA )
+               ztrsm('Right', 'Lower', 'Conjugate Transpose', 'Non-unit', JB, J-1, CONE, A( 1, 1 ), LDA, A( J, 1 ), LDA )                 CALL ZHERK( 'Lower', 'No Transpose', JB, J-1, -ONE, A( J, 1 ), LDA, ONE, A( J, J ), LDA );
 
                // Update and factorize the current diagonal block and test
                // for non-positive-definiteness.
 
-               CALL ZPOTRF2( 'Lower', JB, A( J, J ), LDA, INFO )
+               zpotrf2('Lower', JB, A( J, J ), LDA, INFO );
                IF( INFO.NE.0 ) GO TO 30
 
    20       CONTINUE

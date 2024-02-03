@@ -121,7 +121,7 @@
          if ( WANTZ .AND. ALLEIG ) {
             NZCMIN = N
          } else if ( WANTZ .AND. VALEIG ) {
-            CALL DLARRC( 'T', N, VL, VU, D, E, SAFMIN, NZCMIN, ITMP, ITMP2, INFO )
+            dlarrc('T', N, VL, VU, D, E, SAFMIN, NZCMIN, ITMP, ITMP2, INFO );
          } else if ( WANTZ .AND. INDEIG ) {
             NZCMIN = IIU-IIL+1
          } else {
@@ -137,7 +137,7 @@
 
       if ( INFO.NE.0 ) {
 
-         CALL XERBLA( 'ZSTEMR', -INFO )
+         xerbla('ZSTEMR', -INFO );
 
          RETURN
       } else if ( LQUERY .OR. ZQUERY ) {
@@ -169,9 +169,9 @@
 
       if ( N.EQ.2 ) {
          if ( .NOT.WANTZ ) {
-            CALL DLAE2( D(1), E(1), D(2), R1, R2 )
+            dlae2(D(1), E(1), D(2), R1, R2 );
          } else if ( WANTZ.AND.(.NOT.ZQUERY) ) {
-            CALL DLAEV2( D(1), E(1), D(2), R1, R2, CS, SN )
+            dlaev2(D(1), E(1), D(2), R1, R2, CS, SN );
          }
          // D/S/LAE2 and D/S/LAEV2 outputs satisfy |R1| >= |R2|. However,
          // the following code requires R1 >= R2. Hence, we correct
@@ -264,8 +264,8 @@
             SCALE = RMAX / TNRM
          }
          if ( SCALE.NE.ONE ) {
-            CALL DSCAL( N, SCALE, D, 1 )
-            CALL DSCAL( N-1, SCALE, E, 1 )
+            dscal(N, SCALE, D, 1 );
+            dscal(N-1, SCALE, E, 1 );
             TNRM = TNRM*SCALE
             if ( VALEIG ) {
                // If eigenvalues in interval have to be found,
@@ -285,7 +285,7 @@
 
          if ( TRYRAC ) {
             // Test whether the matrix warrants the more expensive relative approach.
-            CALL DLARRR( N, D, E, IINFO )
+            dlarrr(N, D, E, IINFO );
          } else {
             // The user does not care about relative accurately eigenvalues
             IINFO = -1
@@ -301,7 +301,7 @@
 
          if ( TRYRAC ) {
             // Copy original diagonal, needed to guarantee relative accuracy
-            CALL DCOPY(N,D,1,WORK(INDD),1)
+            dcopy(N,D,1,WORK(INDD),1);
          ENDIF
          // Store the squares of the offdiagonal values of T
          DO 5 J = 1, N-1
@@ -321,7 +321,7 @@
             RTOL1 = SQRT(EPS)
             RTOL2 = MAX( SQRT(EPS)*5.0D-3, FOUR * EPS )
          ENDIF
-         CALL DLARRE( RANGE, N, WL, WU, IIL, IIU, D, E, WORK(INDE2), RTOL1, RTOL2, THRESH, NSPLIT, IWORK( IINSPL ), M, W, WORK( INDERR ), WORK( INDGP ), IWORK( IINDBL ), IWORK( IINDW ), WORK( INDGRS ), PIVMIN, WORK( INDWRK ), IWORK( IINDWK ), IINFO )
+         dlarre(RANGE, N, WL, WU, IIL, IIU, D, E, WORK(INDE2), RTOL1, RTOL2, THRESH, NSPLIT, IWORK( IINSPL ), M, W, WORK( INDERR ), WORK( INDGP ), IWORK( IINDBL ), IWORK( IINDW ), WORK( INDGRS ), PIVMIN, WORK( INDWRK ), IWORK( IINDWK ), IINFO );
          if ( IINFO.NE.0 ) {
             INFO = 10 + ABS( IINFO )
             RETURN
@@ -336,7 +336,7 @@
             // Compute the desired eigenvectors corresponding to the computed
             // eigenvalues
 
-            CALL ZLARRV( N, WL, WU, D, E, PIVMIN, IWORK( IINSPL ), M, 1, M, MINRGP, RTOL1, RTOL2, W, WORK( INDERR ), WORK( INDGP ), IWORK( IINDBL ), IWORK( IINDW ), WORK( INDGRS ), Z, LDZ, ISUPPZ, WORK( INDWRK ), IWORK( IINDWK ), IINFO )
+            zlarrv(N, WL, WU, D, E, PIVMIN, IWORK( IINSPL ), M, 1, M, MINRGP, RTOL1, RTOL2, W, WORK( INDERR ), WORK( INDGP ), IWORK( IINDBL ), IWORK( IINDW ), WORK( INDGRS ), Z, LDZ, ISUPPZ, WORK( INDWRK ), IWORK( IINDWK ), IINFO );
             if ( IINFO.NE.0 ) {
                INFO = 20 + ABS( IINFO )
                RETURN
@@ -380,7 +380,7 @@
                IFIRST = IWORK(IINDW+WBEGIN-1)
                ILAST = IWORK(IINDW+WEND-1)
                RTOL2 = FOUR * EPS
-               CALL DLARRJ( IN, WORK(INDD+IBEGIN-1), WORK(INDE2+IBEGIN-1), IFIRST, ILAST, RTOL2, OFFSET, W(WBEGIN), WORK( INDERR+WBEGIN-1 ), WORK( INDWRK ), IWORK( IINDWK ), PIVMIN, TNRM, IINFO )
+               dlarrj(IN, WORK(INDD+IBEGIN-1), WORK(INDE2+IBEGIN-1), IFIRST, ILAST, RTOL2, OFFSET, W(WBEGIN), WORK( INDERR+WBEGIN-1 ), WORK( INDWRK ), IWORK( IINDWK ), PIVMIN, TNRM, IINFO );
                IBEGIN = IEND + 1
                WBEGIN = WEND + 1
  39      CONTINUE
@@ -389,7 +389,7 @@
          // If matrix was scaled, then rescale eigenvalues appropriately.
 
          if ( SCALE.NE.ONE ) {
-            CALL DSCAL( M, ONE / SCALE, W, 1 )
+            dscal(M, ONE / SCALE, W, 1 );
          }
       }
 
@@ -398,7 +398,7 @@
 
       if ( NSPLIT.GT.1 .OR. N.EQ.2 ) {
          if ( .NOT. WANTZ ) {
-            CALL DLASRT( 'I', M, W, IINFO )
+            dlasrt('I', M, W, IINFO );
             if ( IINFO.NE.0 ) {
                INFO = 3
                RETURN
@@ -417,7 +417,7 @@
                   W( I ) = W( J )
                   W( J ) = TMP
                   if ( WANTZ ) {
-                     CALL ZSWAP( N, Z( 1, I ), 1, Z( 1, J ), 1 )
+                     zswap(N, Z( 1, I ), 1, Z( 1, J ), 1 );
                      ITMP = ISUPPZ( 2*I-1 )
                      ISUPPZ( 2*I-1 ) = ISUPPZ( 2*J-1 )
                      ISUPPZ( 2*J-1 ) = ITMP

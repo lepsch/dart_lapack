@@ -65,7 +65,7 @@
          INFO = -20
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'CGGSVD', -INFO )
+         xerbla('CGGSVD', -INFO );
          RETURN
       }
 
@@ -82,16 +82,16 @@
       TOLA = MAX( M, N )*MAX( ANORM, UNFL )*ULP
       TOLB = MAX( P, N )*MAX( BNORM, UNFL )*ULP
 
-      CALL CGGSVP( JOBU, JOBV, JOBQ, M, P, N, A, LDA, B, LDB, TOLA, TOLB, K, L, U, LDU, V, LDV, Q, LDQ, IWORK, RWORK, WORK, WORK( N+1 ), INFO )
+      cggsvp(JOBU, JOBV, JOBQ, M, P, N, A, LDA, B, LDB, TOLA, TOLB, K, L, U, LDU, V, LDV, Q, LDQ, IWORK, RWORK, WORK, WORK( N+1 ), INFO );
 
       // Compute the GSVD of two upper "triangular" matrices
 
-      CALL CTGSJA( JOBU, JOBV, JOBQ, M, P, N, K, L, A, LDA, B, LDB, TOLA, TOLB, ALPHA, BETA, U, LDU, V, LDV, Q, LDQ, WORK, NCYCLE, INFO )
+      ctgsja(JOBU, JOBV, JOBQ, M, P, N, K, L, A, LDA, B, LDB, TOLA, TOLB, ALPHA, BETA, U, LDU, V, LDV, Q, LDQ, WORK, NCYCLE, INFO );
 
       // Sort the singular values and store the pivot indices in IWORK
       // Copy ALPHA to RWORK, then sort ALPHA in RWORK
 
-      CALL SCOPY( N, ALPHA, 1, RWORK, 1 )
+      scopy(N, ALPHA, 1, RWORK, 1 );
       IBND = MIN( L, M-K )
       DO 20 I = 1, IBND
 

@@ -60,7 +60,7 @@
          INFO = -6
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'DLAROR', -INFO )
+         xerbla('DLAROR', -INFO );
          RETURN
       }
 
@@ -100,7 +100,7 @@
          FACTOR = XNORMS*( XNORMS+X( KBEG ) )
          if ( ABS( FACTOR ).LT.TOOSML ) {
             INFO = 1
-            CALL XERBLA( 'DLAROR', INFO )
+            xerbla('DLAROR', INFO );
             RETURN
          } else {
             FACTOR = ONE / FACTOR
@@ -113,7 +113,7 @@
 
             // Apply H(k) from the left.
 
-            CALL DGEMV( 'T', IXFRM, N, ONE, A( KBEG, 1 ), LDA, X( KBEG ), 1, ZERO, X( 2*NXFRM+1 ), 1 )             CALL DGER( IXFRM, N, -FACTOR, X( KBEG ), 1, X( 2*NXFRM+1 ), 1, A( KBEG, 1 ), LDA )
+            dgemv('T', IXFRM, N, ONE, A( KBEG, 1 ), LDA, X( KBEG ), 1, ZERO, X( 2*NXFRM+1 ), 1 )             CALL DGER( IXFRM, N, -FACTOR, X( KBEG ), 1, X( 2*NXFRM+1 ), 1, A( KBEG, 1 ), LDA );
 
          }
 
@@ -121,7 +121,7 @@
 
             // Apply H(k) from the right.
 
-            CALL DGEMV( 'N', M, IXFRM, ONE, A( 1, KBEG ), LDA, X( KBEG ), 1, ZERO, X( 2*NXFRM+1 ), 1 )             CALL DGER( M, IXFRM, -FACTOR, X( 2*NXFRM+1 ), 1, X( KBEG ), 1, A( 1, KBEG ), LDA )
+            dgemv('N', M, IXFRM, ONE, A( 1, KBEG ), LDA, X( KBEG ), 1, ZERO, X( 2*NXFRM+1 ), 1 )             CALL DGER( M, IXFRM, -FACTOR, X( 2*NXFRM+1 ), 1, X( KBEG ), 1, A( 1, KBEG ), LDA );
 
          }
    30 CONTINUE
@@ -132,13 +132,13 @@
 
       if ( ITYPE.EQ.1 .OR. ITYPE.EQ.3 ) {
          DO 40 IROW = 1, M
-            CALL DSCAL( N, X( NXFRM+IROW ), A( IROW, 1 ), LDA )
+            dscal(N, X( NXFRM+IROW ), A( IROW, 1 ), LDA );
    40    CONTINUE
       }
 
       if ( ITYPE.EQ.2 .OR. ITYPE.EQ.3 ) {
          DO 50 JCOL = 1, N
-            CALL DSCAL( M, X( NXFRM+JCOL ), A( 1, JCOL ), 1 )
+            dscal(M, X( NXFRM+JCOL ), A( 1, JCOL ), 1 );
    50    CONTINUE
       }
       RETURN

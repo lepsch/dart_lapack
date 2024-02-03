@@ -51,7 +51,7 @@
           INFO = 8
       }
       if (INFO.NE.0) {
-          CALL XERBLA('CTRMV ',INFO)
+          xerbla('CTRMV ',INFO);
           RETURN
       }
 

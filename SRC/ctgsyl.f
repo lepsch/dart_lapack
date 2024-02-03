@@ -94,7 +94,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'CTGSYL', -INFO )
+         xerbla('CTGSYL', -INFO );
          RETURN
       } else if ( LQUERY ) {
          RETURN
@@ -122,8 +122,8 @@
       if ( NOTRAN ) {
          if ( IJOB.GE.3 ) {
             IFUNC = IJOB - 2
-            CALL CLASET( 'F', M, N, CZERO, CZERO, C, LDC )
-            CALL CLASET( 'F', M, N, CZERO, CZERO, F, LDF )
+            claset('F', M, N, CZERO, CZERO, C, LDC );
+            claset('F', M, N, CZERO, CZERO, F, LDF );
          } else if ( IJOB.GE.1 .AND. NOTRAN ) {
             ISOLVE = 2
          }
@@ -139,7 +139,7 @@
             DSCALE = ZERO
             DSUM = ONE
             PQ = M*N
-            CALL CTGSY2( TRANS, IFUNC, M, N, A, LDA, B, LDB, C, LDC, D, LDD, E, LDE, F, LDF, SCALE, DSUM, DSCALE, INFO )
+            ctgsy2(TRANS, IFUNC, M, N, A, LDA, B, LDB, C, LDC, D, LDD, E, LDE, F, LDF, SCALE, DSUM, DSCALE, INFO );
             if ( DSCALE.NE.ZERO ) {
                if ( IJOB.EQ.1 .OR. IJOB.EQ.3 ) {
                   DIF = SQRT( REAL( 2*M*N ) ) / ( DSCALE*SQRT( DSUM ) )
@@ -152,13 +152,13 @@
                   IFUNC = IJOB
                }
                SCALE2 = SCALE
-               CALL CLACPY( 'F', M, N, C, LDC, WORK, M )
-               CALL CLACPY( 'F', M, N, F, LDF, WORK( M*N+1 ), M )
-               CALL CLASET( 'F', M, N, CZERO, CZERO, C, LDC )
-               CALL CLASET( 'F', M, N, CZERO, CZERO, F, LDF )
+               clacpy('F', M, N, C, LDC, WORK, M );
+               clacpy('F', M, N, F, LDF, WORK( M*N+1 ), M );
+               claset('F', M, N, CZERO, CZERO, C, LDC );
+               claset('F', M, N, CZERO, CZERO, F, LDF );
             } else if ( ISOLVE.EQ.2 .AND. IROUND.EQ.2 ) {
-               CALL CLACPY( 'F', M, N, WORK, M, C, LDC )
-               CALL CLACPY( 'F', M, N, WORK( M*N+1 ), M, F, LDF )
+               clacpy('F', M, N, WORK, M, C, LDC );
+               clacpy('F', M, N, WORK( M*N+1 ), M, F, LDF );
                SCALE = SCALE2
             }
    30    CONTINUE
@@ -219,21 +219,21 @@
                   IS = IWORK( I )
                   IE = IWORK( I+1 ) - 1
                   MB = IE - IS + 1
-                  CALL CTGSY2( TRANS, IFUNC, MB, NB, A( IS, IS ), LDA, B( JS, JS ), LDB, C( IS, JS ), LDC, D( IS, IS ), LDD, E( JS, JS ), LDE, F( IS, JS ), LDF, SCALOC, DSUM, DSCALE, LINFO )
+                  ctgsy2(TRANS, IFUNC, MB, NB, A( IS, IS ), LDA, B( JS, JS ), LDB, C( IS, JS ), LDC, D( IS, IS ), LDD, E( JS, JS ), LDE, F( IS, JS ), LDF, SCALOC, DSUM, DSCALE, LINFO );
                   IF( LINFO.GT.0 ) INFO = LINFO
                   PQ = PQ + MB*NB
                   if ( SCALOC.NE.ONE ) {
                      DO 80 K = 1, JS - 1
-                        CALL CSCAL( M, CMPLX( SCALOC, ZERO ), C( 1, K ), 1 )                         CALL CSCAL( M, CMPLX( SCALOC, ZERO ), F( 1, K ), 1 )
+                        cscal(M, CMPLX( SCALOC, ZERO ), C( 1, K ), 1 )                         CALL CSCAL( M, CMPLX( SCALOC, ZERO ), F( 1, K ), 1 );
    80                CONTINUE
                      DO 90 K = JS, JE
-                        CALL CSCAL( IS-1, CMPLX( SCALOC, ZERO ), C( 1, K ), 1 )                         CALL CSCAL( IS-1, CMPLX( SCALOC, ZERO ), F( 1, K ), 1 )
+                        cscal(IS-1, CMPLX( SCALOC, ZERO ), C( 1, K ), 1 )                         CALL CSCAL( IS-1, CMPLX( SCALOC, ZERO ), F( 1, K ), 1 );
    90                CONTINUE
                      DO 100 K = JS, JE
-                        CALL CSCAL( M-IE, CMPLX( SCALOC, ZERO ), C( IE+1, K ), 1 )                         CALL CSCAL( M-IE, CMPLX( SCALOC, ZERO ), F( IE+1, K ), 1 )
+                        cscal(M-IE, CMPLX( SCALOC, ZERO ), C( IE+1, K ), 1 )                         CALL CSCAL( M-IE, CMPLX( SCALOC, ZERO ), F( IE+1, K ), 1 );
   100                CONTINUE
                      DO 110 K = JE + 1, N
-                        CALL CSCAL( M, CMPLX( SCALOC, ZERO ), C( 1, K ), 1 )                         CALL CSCAL( M, CMPLX( SCALOC, ZERO ), F( 1, K ), 1 )
+                        cscal(M, CMPLX( SCALOC, ZERO ), C( 1, K ), 1 )                         CALL CSCAL( M, CMPLX( SCALOC, ZERO ), F( 1, K ), 1 );
   110                CONTINUE
                      SCALE = SCALE*SCALOC
                   }
@@ -241,10 +241,10 @@
                   // Substitute R(I,J) and L(I,J) into remaining equation.
 
                   if ( I.GT.1 ) {
-                     CALL CGEMM( 'N', 'N', IS-1, NB, MB, CMPLX( -ONE, ZERO ), A( 1, IS ), LDA, C( IS, JS ), LDC, CMPLX( ONE, ZERO ), C( 1, JS ), LDC )                      CALL CGEMM( 'N', 'N', IS-1, NB, MB, CMPLX( -ONE, ZERO ), D( 1, IS ), LDD, C( IS, JS ), LDC, CMPLX( ONE, ZERO ), F( 1, JS ), LDF )
+                     cgemm('N', 'N', IS-1, NB, MB, CMPLX( -ONE, ZERO ), A( 1, IS ), LDA, C( IS, JS ), LDC, CMPLX( ONE, ZERO ), C( 1, JS ), LDC )                      CALL CGEMM( 'N', 'N', IS-1, NB, MB, CMPLX( -ONE, ZERO ), D( 1, IS ), LDD, C( IS, JS ), LDC, CMPLX( ONE, ZERO ), F( 1, JS ), LDF );
                   }
                   if ( J.LT.Q ) {
-                     CALL CGEMM( 'N', 'N', MB, N-JE, NB, CMPLX( ONE, ZERO ), F( IS, JS ), LDF, B( JS, JE+1 ), LDB, CMPLX( ONE, ZERO ), C( IS, JE+1 ), LDC )                      CALL CGEMM( 'N', 'N', MB, N-JE, NB, CMPLX( ONE, ZERO ), F( IS, JS ), LDF, E( JS, JE+1 ), LDE, CMPLX( ONE, ZERO ), F( IS, JE+1 ), LDF )
+                     cgemm('N', 'N', MB, N-JE, NB, CMPLX( ONE, ZERO ), F( IS, JS ), LDF, B( JS, JE+1 ), LDB, CMPLX( ONE, ZERO ), C( IS, JE+1 ), LDC )                      CALL CGEMM( 'N', 'N', MB, N-JE, NB, CMPLX( ONE, ZERO ), F( IS, JS ), LDF, E( JS, JE+1 ), LDE, CMPLX( ONE, ZERO ), F( IS, JE+1 ), LDF );
                   }
   120          CONTINUE
   130       CONTINUE
@@ -260,13 +260,13 @@
                   IFUNC = IJOB
                }
                SCALE2 = SCALE
-               CALL CLACPY( 'F', M, N, C, LDC, WORK, M )
-               CALL CLACPY( 'F', M, N, F, LDF, WORK( M*N+1 ), M )
-               CALL CLASET( 'F', M, N, CZERO, CZERO, C, LDC )
-               CALL CLASET( 'F', M, N, CZERO, CZERO, F, LDF )
+               clacpy('F', M, N, C, LDC, WORK, M );
+               clacpy('F', M, N, F, LDF, WORK( M*N+1 ), M );
+               claset('F', M, N, CZERO, CZERO, C, LDC );
+               claset('F', M, N, CZERO, CZERO, F, LDF );
             } else if ( ISOLVE.EQ.2 .AND. IROUND.EQ.2 ) {
-               CALL CLACPY( 'F', M, N, WORK, M, C, LDC )
-               CALL CLACPY( 'F', M, N, WORK( M*N+1 ), M, F, LDF )
+               clacpy('F', M, N, WORK, M, C, LDC );
+               clacpy('F', M, N, WORK( M*N+1 ), M, F, LDF );
                SCALE = SCALE2
             }
   150    CONTINUE
@@ -286,20 +286,20 @@
                JS = IWORK( J )
                JE = IWORK( J+1 ) - 1
                NB = JE - JS + 1
-               CALL CTGSY2( TRANS, IFUNC, MB, NB, A( IS, IS ), LDA, B( JS, JS ), LDB, C( IS, JS ), LDC, D( IS, IS ), LDD, E( JS, JS ), LDE, F( IS, JS ), LDF, SCALOC, DSUM, DSCALE, LINFO )
+               ctgsy2(TRANS, IFUNC, MB, NB, A( IS, IS ), LDA, B( JS, JS ), LDB, C( IS, JS ), LDC, D( IS, IS ), LDD, E( JS, JS ), LDE, F( IS, JS ), LDF, SCALOC, DSUM, DSCALE, LINFO );
                IF( LINFO.GT.0 ) INFO = LINFO
                if ( SCALOC.NE.ONE ) {
                   DO 160 K = 1, JS - 1
-                     CALL CSCAL( M, CMPLX( SCALOC, ZERO ), C( 1, K ), 1 )                      CALL CSCAL( M, CMPLX( SCALOC, ZERO ), F( 1, K ), 1 )
+                     cscal(M, CMPLX( SCALOC, ZERO ), C( 1, K ), 1 )                      CALL CSCAL( M, CMPLX( SCALOC, ZERO ), F( 1, K ), 1 );
   160             CONTINUE
                   DO 170 K = JS, JE
-                     CALL CSCAL( IS-1, CMPLX( SCALOC, ZERO ), C( 1, K ), 1 )                      CALL CSCAL( IS-1, CMPLX( SCALOC, ZERO ), F( 1, K ), 1 )
+                     cscal(IS-1, CMPLX( SCALOC, ZERO ), C( 1, K ), 1 )                      CALL CSCAL( IS-1, CMPLX( SCALOC, ZERO ), F( 1, K ), 1 );
   170             CONTINUE
                   DO 180 K = JS, JE
-                     CALL CSCAL( M-IE, CMPLX( SCALOC, ZERO ), C( IE+1, K ), 1 )                      CALL CSCAL( M-IE, CMPLX( SCALOC, ZERO ), F( IE+1, K ), 1 )
+                     cscal(M-IE, CMPLX( SCALOC, ZERO ), C( IE+1, K ), 1 )                      CALL CSCAL( M-IE, CMPLX( SCALOC, ZERO ), F( IE+1, K ), 1 );
   180             CONTINUE
                   DO 190 K = JE + 1, N
-                     CALL CSCAL( M, CMPLX( SCALOC, ZERO ), C( 1, K ), 1 )                      CALL CSCAL( M, CMPLX( SCALOC, ZERO ), F( 1, K ), 1 )
+                     cscal(M, CMPLX( SCALOC, ZERO ), C( 1, K ), 1 )                      CALL CSCAL( M, CMPLX( SCALOC, ZERO ), F( 1, K ), 1 );
   190             CONTINUE
                   SCALE = SCALE*SCALOC
                }
@@ -307,10 +307,10 @@
                // Substitute R(I,J) and L(I,J) into remaining equation.
 
                if ( J.GT.P+2 ) {
-                  CALL CGEMM( 'N', 'C', MB, JS-1, NB, CMPLX( ONE, ZERO ), C( IS, JS ), LDC, B( 1, JS ), LDB, CMPLX( ONE, ZERO ), F( IS, 1 ), LDF )                   CALL CGEMM( 'N', 'C', MB, JS-1, NB, CMPLX( ONE, ZERO ), F( IS, JS ), LDF, E( 1, JS ), LDE, CMPLX( ONE, ZERO ), F( IS, 1 ), LDF )
+                  cgemm('N', 'C', MB, JS-1, NB, CMPLX( ONE, ZERO ), C( IS, JS ), LDC, B( 1, JS ), LDB, CMPLX( ONE, ZERO ), F( IS, 1 ), LDF )                   CALL CGEMM( 'N', 'C', MB, JS-1, NB, CMPLX( ONE, ZERO ), F( IS, JS ), LDF, E( 1, JS ), LDE, CMPLX( ONE, ZERO ), F( IS, 1 ), LDF );
                }
                if ( I.LT.P ) {
-                  CALL CGEMM( 'C', 'N', M-IE, NB, MB, CMPLX( -ONE, ZERO ), A( IS, IE+1 ), LDA, C( IS, JS ), LDC, CMPLX( ONE, ZERO ), C( IE+1, JS ), LDC )                   CALL CGEMM( 'C', 'N', M-IE, NB, MB, CMPLX( -ONE, ZERO ), D( IS, IE+1 ), LDD, F( IS, JS ), LDF, CMPLX( ONE, ZERO ), C( IE+1, JS ), LDC )
+                  cgemm('C', 'N', M-IE, NB, MB, CMPLX( -ONE, ZERO ), A( IS, IE+1 ), LDA, C( IS, JS ), LDC, CMPLX( ONE, ZERO ), C( IE+1, JS ), LDC )                   CALL CGEMM( 'C', 'N', M-IE, NB, MB, CMPLX( -ONE, ZERO ), D( IS, IE+1 ), LDD, F( IS, JS ), LDF, CMPLX( ONE, ZERO ), C( IE+1, JS ), LDC );
                }
   200       CONTINUE
   210    CONTINUE

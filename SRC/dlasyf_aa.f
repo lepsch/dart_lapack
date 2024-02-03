@@ -79,12 +79,12 @@
           // > for the rest of the columns, K is J+1, skipping only the
             // first column
 
-            CALL DGEMV( 'No transpose', MJ, J-K1, -ONE, H( J, K1 ), LDH, A( 1, J ), 1, ONE, H( J, J ), 1 )
+            dgemv('No transpose', MJ, J-K1, -ONE, H( J, K1 ), LDH, A( 1, J ), 1, ONE, H( J, J ), 1 );
          }
 
          // Copy H(i:M, i) into WORK
 
-         CALL DCOPY( MJ, H( J, J ), 1, WORK( 1 ), 1 )
+         dcopy(MJ, H( J, J ), 1, WORK( 1 ), 1 );
 
          if ( J.GT.K1 ) {
 
@@ -92,7 +92,7 @@
              // where A(J-1, J) stores T(J-1, J) and A(J-2, J:M) stores U(J-1, J:M)
 
             ALPHA = -A( K-1, J )
-            CALL DAXPY( MJ, ALPHA, A( K-2, J ), LDA, WORK( 1 ), 1 )
+            daxpy(MJ, ALPHA, A( K-2, J ), LDA, WORK( 1 ), 1 );
          }
 
          // Set A(J, J) = T(J, J)
@@ -106,7 +106,7 @@
 
             if ( K.GT.1 ) {
                ALPHA = -A( K, J )
-               CALL DAXPY( M-J, ALPHA, A( K-1, J+1 ), LDA, WORK( 2 ), 1 )
+               daxpy(M-J, ALPHA, A( K-1, J+1 ), LDA, WORK( 2 ), 1 );
             ENDIF
 
             // Find max(|WORK(2:M)|)
@@ -128,7 +128,7 @@
 
                I1 = I1+J-1
                I2 = I2+J-1
-               CALL DSWAP( I2-I1-1, A( J1+I1-1, I1+1 ), LDA, A( J1+I1, I2 ), 1 )
+               dswap(I2-I1-1, A( J1+I1-1, I1+1 ), LDA, A( J1+I1, I2 ), 1 );
 
                // Swap A(I1, I2+1:M) with A(I2, I2+1:M)
 
@@ -142,7 +142,7 @@
 
                // Swap H(I1, 1:J1) with H(I2, 1:J1)
 
-               CALL DSWAP( I1-1, H( I1, 1 ), LDH, H( I2, 1 ), LDH )
+               dswap(I1-1, H( I1, 1 ), LDH, H( I2, 1 ), LDH );
                IPIV( I1 ) = I2
 
                if ( I1.GT.(K1-1) ) {
@@ -150,7 +150,7 @@
                   // Swap L(1:I1-1, I1) with L(1:I1-1, I2),
                    // skipping the first column
 
-                  CALL DSWAP( I1-K1+1, A( 1, I1 ), 1, A( 1, I2 ), 1 )
+                  dswap(I1-K1+1, A( 1, I1 ), 1, A( 1, I2 ), 1 );
                }
             } else {
                IPIV( J+1 ) = J+1
@@ -164,7 +164,7 @@
 
                // Copy A(J+1:M, J+1) into H(J:M, J),
 
-               CALL DCOPY( M-J, A( K+1, J+1 ), LDA, H( J+1, J+1 ), 1 )
+               dcopy(M-J, A( K+1, J+1 ), LDA, H( J+1, J+1 ), 1 );
             }
 
             // Compute L(J+2, J+1) = WORK( 3:M ) / T(J, J+1),
@@ -173,10 +173,10 @@
             if ( J.LT.(M-1) ) {
                if ( A( K, J+1 ).NE.ZERO ) {
                   ALPHA = ONE / A( K, J+1 )
-                  CALL DCOPY( M-J-1, WORK( 3 ), 1, A( K, J+2 ), LDA )
-                  CALL DSCAL( M-J-1, ALPHA, A( K, J+2 ), LDA )
+                  dcopy(M-J-1, WORK( 3 ), 1, A( K, J+2 ), LDA );
+                  dscal(M-J-1, ALPHA, A( K, J+2 ), LDA );
                } else {
-                  CALL DLASET( 'Full', 1, M-J-1, ZERO, ZERO, A( K, J+2 ), LDA)
+                  dlaset('Full', 1, M-J-1, ZERO, ZERO, A( K, J+2 ), LDA);
                }
             }
          }
@@ -219,12 +219,12 @@
           // > for the rest of the columns, K is J+1, skipping only the
             // first column
 
-            CALL DGEMV( 'No transpose', MJ, J-K1, -ONE, H( J, K1 ), LDH, A( J, 1 ), LDA, ONE, H( J, J ), 1 )
+            dgemv('No transpose', MJ, J-K1, -ONE, H( J, K1 ), LDH, A( J, 1 ), LDA, ONE, H( J, J ), 1 );
          }
 
          // Copy H(J:M, J) into WORK
 
-         CALL DCOPY( MJ, H( J, J ), 1, WORK( 1 ), 1 )
+         dcopy(MJ, H( J, J ), 1, WORK( 1 ), 1 );
 
          if ( J.GT.K1 ) {
 
@@ -232,7 +232,7 @@
              // where A(J-1, J) = T(J-1, J) and A(J, J-2) = L(J, J-1)
 
             ALPHA = -A( J, K-1 )
-            CALL DAXPY( MJ, ALPHA, A( J, K-2 ), 1, WORK( 1 ), 1 )
+            daxpy(MJ, ALPHA, A( J, K-2 ), 1, WORK( 1 ), 1 );
          }
 
          // Set A(J, J) = T(J, J)
@@ -246,7 +246,7 @@
 
             if ( K.GT.1 ) {
                ALPHA = -A( J, K )
-               CALL DAXPY( M-J, ALPHA, A( J+1, K-1 ), 1, WORK( 2 ), 1 )
+               daxpy(M-J, ALPHA, A( J+1, K-1 ), 1, WORK( 2 ), 1 );
             ENDIF
 
             // Find max(|WORK(2:M)|)
@@ -268,7 +268,7 @@
 
                I1 = I1+J-1
                I2 = I2+J-1
-               CALL DSWAP( I2-I1-1, A( I1+1, J1+I1-1 ), 1, A( I2, J1+I1 ), LDA )
+               dswap(I2-I1-1, A( I1+1, J1+I1-1 ), 1, A( I2, J1+I1 ), LDA );
 
                // Swap A(I2+1:M, I1) with A(I2+1:M, I2)
 
@@ -282,7 +282,7 @@
 
                // Swap H(I1, I1:J1) with H(I2, I2:J1)
 
-               CALL DSWAP( I1-1, H( I1, 1 ), LDH, H( I2, 1 ), LDH )
+               dswap(I1-1, H( I1, 1 ), LDH, H( I2, 1 ), LDH );
                IPIV( I1 ) = I2
 
                if ( I1.GT.(K1-1) ) {
@@ -290,7 +290,7 @@
                   // Swap L(1:I1-1, I1) with L(1:I1-1, I2),
                    // skipping the first column
 
-                  CALL DSWAP( I1-K1+1, A( I1, 1 ), LDA, A( I2, 1 ), LDA )
+                  dswap(I1-K1+1, A( I1, 1 ), LDA, A( I2, 1 ), LDA );
                }
             } else {
                IPIV( J+1 ) = J+1
@@ -304,7 +304,7 @@
 
                // Copy A(J+1:M, J+1) into H(J+1:M, J),
 
-               CALL DCOPY( M-J, A( J+1, K+1 ), 1, H( J+1, J+1 ), 1 )
+               dcopy(M-J, A( J+1, K+1 ), 1, H( J+1, J+1 ), 1 );
             }
 
             // Compute L(J+2, J+1) = WORK( 3:M ) / T(J, J+1),
@@ -313,10 +313,10 @@
             if ( J.LT.(M-1) ) {
                if ( A( J+1, K ).NE.ZERO ) {
                   ALPHA = ONE / A( J+1, K )
-                  CALL DCOPY( M-J-1, WORK( 3 ), 1, A( J+2, K ), 1 )
-                  CALL DSCAL( M-J-1, ALPHA, A( J+2, K ), 1 )
+                  dcopy(M-J-1, WORK( 3 ), 1, A( J+2, K ), 1 );
+                  dscal(M-J-1, ALPHA, A( J+2, K ), 1 );
                } else {
-                  CALL DLASET( 'Full', M-J-1, 1, ZERO, ZERO, A( J+2, K ), LDA )
+                  dlaset('Full', M-J-1, 1, ZERO, ZERO, A( J+2, K ), LDA );
                }
             }
          }

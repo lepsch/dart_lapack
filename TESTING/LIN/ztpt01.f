@@ -68,7 +68,7 @@
 
             // Form the j-th column of A*AINV.
 
-            CALL ZTPMV( 'Upper', 'No transpose', DIAG, J, AP, AINVP( JC ), 1 )
+            ztpmv('Upper', 'No transpose', DIAG, J, AP, AINVP( JC ), 1 );
 
             // Subtract 1 from the diagonal to form A*AINV - I.
 
@@ -82,7 +82,7 @@
 
             // Form the j-th column of A*AINV.
 
-            CALL ZTPMV( 'Lower', 'No transpose', DIAG, N-J+1, AP( JC ), AINVP( JC ), 1 )
+            ztpmv('Lower', 'No transpose', DIAG, N-J+1, AP( JC ), AINVP( JC ), 1 );
 
             // Subtract 1 from the diagonal to form A*AINV - I.
 

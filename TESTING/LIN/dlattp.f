@@ -61,17 +61,17 @@
 
       UPPER = LSAME( UPLO, 'U' )
       if ( UPPER ) {
-         CALL DLATB4( PATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST )
+         dlatb4(PATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST );
          PACKIT = 'C'
       } else {
-         CALL DLATB4( PATH, -IMAT, N, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST )
+         dlatb4(PATH, -IMAT, N, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST );
          PACKIT = 'R'
       }
 
       // IMAT <= 6:  Non-unit triangular matrix
 
       if ( IMAT.LE.6 ) {
-         CALL DLATMS( N, N, DIST, ISEED, TYPE, B, MODE, CNDNUM, ANORM, KL, KU, PACKIT, A, N, WORK, INFO )
+         dlatms(N, N, DIST, ISEED, TYPE, B, MODE, CNDNUM, ANORM, KL, KU, PACKIT, A, N, WORK, INFO );
 
       // IMAT > 6:  Unit triangular matrix
       // The diagonal is deliberately set to something other than 1.
@@ -255,7 +255,7 @@
                JCNEXT = JC + J
                RA = A( JCNEXT+J-1 )
                RB = TWO
-               CALL DROTG( RA, RB, C, S )
+               drotg(RA, RB, C, S );
 
                // Multiply by [ c  s; -s  c] on the left.
 
@@ -284,7 +284,7 @@
                JCNEXT = JC + N - J + 1
                RA = A( JC+1 )
                RB = TWO
-               CALL DROTG( RA, RB, C, S )
+               drotg(RA, RB, C, S );
 
                // Multiply by [ c -s;  s  c] on the right.
 
@@ -322,14 +322,14 @@
          if ( UPPER ) {
             JC = 1
             DO 180 J = 1, N
-               CALL DLARNV( 2, ISEED, J, A( JC ) )
+               dlarnv(2, ISEED, J, A( JC ) );
                A( JC+J-1 ) = SIGN( TWO, A( JC+J-1 ) )
                JC = JC + J
   180       CONTINUE
          } else {
             JC = 1
             DO 190 J = 1, N
-               CALL DLARNV( 2, ISEED, N-J+1, A( JC ) )
+               dlarnv(2, ISEED, N-J+1, A( JC ) );
                A( JC ) = SIGN( TWO, A( JC ) )
                JC = JC + N - J + 1
   190       CONTINUE
@@ -337,11 +337,11 @@
 
          // Set the right hand side so that the largest value is BIGNUM.
 
-         CALL DLARNV( 2, ISEED, N, B )
+         dlarnv(2, ISEED, N, B );
          IY = IDAMAX( N, B, 1 )
          BNORM = ABS( B( IY ) )
          BSCAL = BIGNUM / MAX( ONE, BNORM )
-         CALL DSCAL( N, BSCAL, B, 1 )
+         dscal(N, BSCAL, B, 1 );
 
       } else if ( IMAT.EQ.12 ) {
 
@@ -349,13 +349,13 @@
          // cause immediate overflow when dividing by T(j,j).
          // In type 12, the offdiagonal elements are small (CNORM(j) < 1).
 
-         CALL DLARNV( 2, ISEED, N, B )
+         dlarnv(2, ISEED, N, B );
          TSCAL = ONE / MAX( ONE, DBLE( N-1 ) )
          if ( UPPER ) {
             JC = 1
             DO 200 J = 1, N
-               CALL DLARNV( 2, ISEED, J-1, A( JC ) )
-               CALL DSCAL( J-1, TSCAL, A( JC ), 1 )
+               dlarnv(2, ISEED, J-1, A( JC ) );
+               dscal(J-1, TSCAL, A( JC ), 1 );
                A( JC+J-1 ) = SIGN( ONE, DLARND( 2, ISEED ) )
                JC = JC + J
   200       CONTINUE
@@ -363,8 +363,8 @@
          } else {
             JC = 1
             DO 210 J = 1, N
-               CALL DLARNV( 2, ISEED, N-J, A( JC+1 ) )
-               CALL DSCAL( N-J, TSCAL, A( JC+1 ), 1 )
+               dlarnv(2, ISEED, N-J, A( JC+1 ) );
+               dscal(N-J, TSCAL, A( JC+1 ), 1 );
                A( JC ) = SIGN( ONE, DLARND( 2, ISEED ) )
                JC = JC + N - J + 1
   210       CONTINUE
@@ -377,11 +377,11 @@
          // cause immediate overflow when dividing by T(j,j).
          // In type 13, the offdiagonal elements are O(1) (CNORM(j) > 1).
 
-         CALL DLARNV( 2, ISEED, N, B )
+         dlarnv(2, ISEED, N, B );
          if ( UPPER ) {
             JC = 1
             DO 220 J = 1, N
-               CALL DLARNV( 2, ISEED, J-1, A( JC ) )
+               dlarnv(2, ISEED, J-1, A( JC ) );
                A( JC+J-1 ) = SIGN( ONE, DLARND( 2, ISEED ) )
                JC = JC + J
   220       CONTINUE
@@ -389,7 +389,7 @@
          } else {
             JC = 1
             DO 230 J = 1, N
-               CALL DLARNV( 2, ISEED, N-J, A( JC+1 ) )
+               dlarnv(2, ISEED, N-J, A( JC+1 ) );
                A( JC ) = SIGN( ONE, DLARND( 2, ISEED ) )
                JC = JC + N - J + 1
   230       CONTINUE
@@ -460,7 +460,7 @@
 
          TEXP = ONE / MAX( ONE, DBLE( N-1 ) )
          TSCAL = SMLNUM**TEXP
-         CALL DLARNV( 2, ISEED, N, B )
+         dlarnv(2, ISEED, N, B );
          if ( UPPER ) {
             JC = 1
             DO 310 J = 1, N
@@ -493,7 +493,7 @@
          if ( UPPER ) {
             JC = 1
             DO 340 J = 1, N
-               CALL DLARNV( 2, ISEED, J, A( JC ) )
+               dlarnv(2, ISEED, J, A( JC ) );
                if ( J.NE.IY ) {
                   A( JC+J-1 ) = SIGN( TWO, A( JC+J-1 ) )
                } else {
@@ -504,7 +504,7 @@
          } else {
             JC = 1
             DO 350 J = 1, N
-               CALL DLARNV( 2, ISEED, N-J+1, A( JC ) )
+               dlarnv(2, ISEED, N-J+1, A( JC ) );
                if ( J.NE.IY ) {
                   A( JC ) = SIGN( TWO, A( JC ) )
                } else {
@@ -513,8 +513,8 @@
                JC = JC + N - J + 1
   350       CONTINUE
          }
-         CALL DLARNV( 2, ISEED, N, B )
-         CALL DSCAL( N, TWO, B, 1 )
+         dlarnv(2, ISEED, N, B );
+         dscal(N, TWO, B, 1 );
 
       } else if ( IMAT.EQ.17 ) {
 
@@ -568,7 +568,7 @@
          if ( UPPER ) {
             JC = 1
             DO 390 J = 1, N
-               CALL DLARNV( 2, ISEED, J-1, A( JC ) )
+               dlarnv(2, ISEED, J-1, A( JC ) );
                A( JC+J-1 ) = ZERO
                JC = JC + J
   390       CONTINUE
@@ -583,11 +583,11 @@
 
          // Set the right hand side so that the largest value is BIGNUM.
 
-         CALL DLARNV( 2, ISEED, N, B )
+         dlarnv(2, ISEED, N, B );
          IY = IDAMAX( N, B, 1 )
          BNORM = ABS( B( IY ) )
          BSCAL = BIGNUM / MAX( ONE, BNORM )
-         CALL DSCAL( N, BSCAL, B, 1 )
+         dscal(N, BSCAL, B, 1 );
 
       } else if ( IMAT.EQ.19 ) {
 
@@ -600,7 +600,7 @@
          if ( UPPER ) {
             JC = 1
             DO 420 J = 1, N
-               CALL DLARNV( 2, ISEED, J, A( JC ) )
+               dlarnv(2, ISEED, J, A( JC ) );
                DO 410 I = 1, J
                   A( JC+I-1 ) = SIGN( TLEFT, A( JC+I-1 ) ) + TSCAL*A( JC+I-1 )
   410          CONTINUE
@@ -609,15 +609,15 @@
          } else {
             JC = 1
             DO 440 J = 1, N
-               CALL DLARNV( 2, ISEED, N-J+1, A( JC ) )
+               dlarnv(2, ISEED, N-J+1, A( JC ) );
                DO 430 I = J, N
                   A( JC+I-J ) = SIGN( TLEFT, A( JC+I-J ) ) + TSCAL*A( JC+I-J )
   430          CONTINUE
                JC = JC + N - J + 1
   440       CONTINUE
          }
-         CALL DLARNV( 2, ISEED, N, B )
-         CALL DSCAL( N, TWO, B, 1 )
+         dlarnv(2, ISEED, N, B );
+         dscal(N, TWO, B, 1 );
       }
 
       // Flip the matrix across its counter-diagonal if the transpose will

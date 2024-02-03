@@ -78,7 +78,7 @@
       IF( LWORK.LT.MINWRK ) INFO = -24
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'SDRGVX', -INFO )
+         xerbla('SDRGVX', -INFO );
          RETURN
       }
 
@@ -108,16 +108,16 @@
 
                      // generated a test matrix pair
 
-                     CALL SLATM6( IPTYPE, 5, A, LDA, B, VR, LDA, VL, LDA, WEIGHT( IWA ), WEIGHT( IWB ), WEIGHT( IWX ), WEIGHT( IWY ), STRU, DIFTRU )
+                     slatm6(IPTYPE, 5, A, LDA, B, VR, LDA, VL, LDA, WEIGHT( IWA ), WEIGHT( IWB ), WEIGHT( IWX ), WEIGHT( IWY ), STRU, DIFTRU );
 
                      // Compute eigenvalues/eigenvectors of (A, B).
                      // Compute eigenvalue/eigenvector condition numbers
                      // using computed eigenvectors.
 
-                     CALL SLACPY( 'F', N, N, A, LDA, AI, LDA )
-                     CALL SLACPY( 'F', N, N, B, LDA, BI, LDA )
+                     slacpy('F', N, N, A, LDA, AI, LDA );
+                     slacpy('F', N, N, B, LDA, BI, LDA );
 
-                     CALL SGGEVX( 'N', 'V', 'V', 'B', N, AI, LDA, BI, LDA, ALPHAR, ALPHAI, BETA, VL, LDA, VR, LDA, ILO, IHI, LSCALE, RSCALE, ANORM, BNORM, S, DIF, WORK, LWORK, IWORK, BWORK, LINFO )
+                     sggevx('N', 'V', 'V', 'B', N, AI, LDA, BI, LDA, ALPHAR, ALPHAI, BETA, VL, LDA, VR, LDA, ILO, IHI, LSCALE, RSCALE, ANORM, BNORM, S, DIF, WORK, LWORK, IWORK, BWORK, LINFO );
                      if ( LINFO.NE.0 ) {
                         RESULT( 1 ) = ULPINV
                         WRITE( NOUT, FMT = 9999 )'SGGEVX', LINFO, N, IPTYPE
@@ -126,20 +126,20 @@
 
                      // Compute the norm(A, B)
 
-                     CALL SLACPY( 'Full', N, N, AI, LDA, WORK, N )
-                     CALL SLACPY( 'Full', N, N, BI, LDA, WORK( N*N+1 ), N )
+                     slacpy('Full', N, N, AI, LDA, WORK, N );
+                     slacpy('Full', N, N, BI, LDA, WORK( N*N+1 ), N );
                      ABNORM = SLANGE( 'Fro', N, 2*N, WORK, N, WORK )
 
                      // Tests (1) and (2)
 
                      RESULT( 1 ) = ZERO
-                     CALL SGET52( .TRUE., N, A, LDA, B, LDA, VL, LDA, ALPHAR, ALPHAI, BETA, WORK, RESULT( 1 ) )
+                     sget52(.TRUE., N, A, LDA, B, LDA, VL, LDA, ALPHAR, ALPHAI, BETA, WORK, RESULT( 1 ) );
                      if ( RESULT( 2 ).GT.THRESH ) {
                         WRITE( NOUT, FMT = 9998 )'Left', 'SGGEVX', RESULT( 2 ), N, IPTYPE, IWA, IWB, IWX, IWY
                      }
 
                      RESULT( 2 ) = ZERO
-                     CALL SGET52( .FALSE., N, A, LDA, B, LDA, VR, LDA, ALPHAR, ALPHAI, BETA, WORK, RESULT( 2 ) )
+                     sget52(.FALSE., N, A, LDA, B, LDA, VR, LDA, ALPHAR, ALPHAI, BETA, WORK, RESULT( 2 ) );
                      if ( RESULT( 3 ).GT.THRESH ) {
                         WRITE( NOUT, FMT = 9998 )'Right', 'SGGEVX', RESULT( 3 ), N, IPTYPE, IWA, IWB, IWX, IWY
                      }
@@ -241,10 +241,10 @@
       // Compute eigenvalue/eigenvector condition numbers
       // using computed eigenvectors.
 
-      CALL SLACPY( 'F', N, N, A, LDA, AI, LDA )
-      CALL SLACPY( 'F', N, N, B, LDA, BI, LDA )
+      slacpy('F', N, N, A, LDA, AI, LDA );
+      slacpy('F', N, N, B, LDA, BI, LDA );
 
-      CALL SGGEVX( 'N', 'V', 'V', 'B', N, AI, LDA, BI, LDA, ALPHAR, ALPHAI, BETA, VL, LDA, VR, LDA, ILO, IHI, LSCALE, RSCALE, ANORM, BNORM, S, DIF, WORK, LWORK, IWORK, BWORK, LINFO )
+      sggevx('N', 'V', 'V', 'B', N, AI, LDA, BI, LDA, ALPHAR, ALPHAI, BETA, VL, LDA, VR, LDA, ILO, IHI, LSCALE, RSCALE, ANORM, BNORM, S, DIF, WORK, LWORK, IWORK, BWORK, LINFO );
 
       if ( LINFO.NE.0 ) {
          RESULT( 1 ) = ULPINV
@@ -254,20 +254,20 @@
 
       // Compute the norm(A, B)
 
-      CALL SLACPY( 'Full', N, N, AI, LDA, WORK, N )
-      CALL SLACPY( 'Full', N, N, BI, LDA, WORK( N*N+1 ), N )
+      slacpy('Full', N, N, AI, LDA, WORK, N );
+      slacpy('Full', N, N, BI, LDA, WORK( N*N+1 ), N );
       ABNORM = SLANGE( 'Fro', N, 2*N, WORK, N, WORK )
 
       // Tests (1) and (2)
 
       RESULT( 1 ) = ZERO
-      CALL SGET52( .TRUE., N, A, LDA, B, LDA, VL, LDA, ALPHAR, ALPHAI, BETA, WORK, RESULT( 1 ) )
+      sget52(.TRUE., N, A, LDA, B, LDA, VL, LDA, ALPHAR, ALPHAI, BETA, WORK, RESULT( 1 ) );
       if ( RESULT( 2 ).GT.THRESH ) {
          WRITE( NOUT, FMT = 9986 )'Left', 'SGGEVX', RESULT( 2 ), N, NPTKNT
       }
 
       RESULT( 2 ) = ZERO
-      CALL SGET52( .FALSE., N, A, LDA, B, LDA, VR, LDA, ALPHAR, ALPHAI, BETA, WORK, RESULT( 2 ) )
+      sget52(.FALSE., N, A, LDA, B, LDA, VR, LDA, ALPHAR, ALPHAI, BETA, WORK, RESULT( 2 ) );
       if ( RESULT( 3 ).GT.THRESH ) {
          WRITE( NOUT, FMT = 9986 )'Right', 'SGGEVX', RESULT( 3 ), N, NPTKNT
       }
@@ -342,7 +342,7 @@
 
       // Summary
 
-      CALL ALASVM( 'SXV', NOUT, NERRS, NTESTT, 0 )
+      alasvm('SXV', NOUT, NERRS, NTESTT, 0 );
 
       WORK( 1 ) = MAXWRK
 

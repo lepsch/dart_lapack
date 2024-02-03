@@ -78,7 +78,7 @@
  9996 FORMAT( ' Average time for DSECND       = ', G10.3, ' milliseconds' )
  9995 FORMAT( ' Equivalent floating point ops = ', G10.3, ' ops' )
  9994 FORMAT( ' *** Warning:  Time for operations was less or equal', ' than zero => timing in TESTING might be dubious' )
-      CALL MYSUB(NMAX,X,Y)
+      mysub(NMAX,X,Y);
       }
       SUBROUTINE MYSUB(N,X,Y)
       int     N;

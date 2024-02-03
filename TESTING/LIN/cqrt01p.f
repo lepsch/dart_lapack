@@ -47,31 +47,31 @@
 
       // Copy the matrix A to the array AF.
 
-      CALL CLACPY( 'Full', M, N, A, LDA, AF, LDA )
+      clacpy('Full', M, N, A, LDA, AF, LDA );
 
       // Factorize the matrix A in the array AF.
 
       SRNAMT = 'CGEQRFP'
-      CALL CGEQRFP( M, N, AF, LDA, TAU, WORK, LWORK, INFO )
+      cgeqrfp(M, N, AF, LDA, TAU, WORK, LWORK, INFO );
 
       // Copy details of Q
 
-      CALL CLASET( 'Full', M, M, ROGUE, ROGUE, Q, LDA )
-      CALL CLACPY( 'Lower', M-1, N, AF( 2, 1 ), LDA, Q( 2, 1 ), LDA )
+      claset('Full', M, M, ROGUE, ROGUE, Q, LDA );
+      clacpy('Lower', M-1, N, AF( 2, 1 ), LDA, Q( 2, 1 ), LDA );
 
       // Generate the m-by-m matrix Q
 
       SRNAMT = 'CUNGQR'
-      CALL CUNGQR( M, M, MINMN, Q, LDA, TAU, WORK, LWORK, INFO )
+      cungqr(M, M, MINMN, Q, LDA, TAU, WORK, LWORK, INFO );
 
       // Copy R
 
-      CALL CLASET( 'Full', M, N, CMPLX( ZERO ), CMPLX( ZERO ), R, LDA )
-      CALL CLACPY( 'Upper', M, N, AF, LDA, R, LDA )
+      claset('Full', M, N, CMPLX( ZERO ), CMPLX( ZERO ), R, LDA );
+      clacpy('Upper', M, N, AF, LDA, R, LDA );
 
       // Compute R - Q'*A
 
-      CALL CGEMM( 'Conjugate transpose', 'No transpose', M, N, M, CMPLX( -ONE ), Q, LDA, A, LDA, CMPLX( ONE ), R, LDA )
+      cgemm('Conjugate transpose', 'No transpose', M, N, M, CMPLX( -ONE ), Q, LDA, A, LDA, CMPLX( ONE ), R, LDA );
 
       // Compute norm( R - Q'*A ) / ( M * norm(A) * EPS ) .
 
@@ -85,8 +85,8 @@
 
       // Compute I - Q'*Q
 
-      CALL CLASET( 'Full', M, M, CMPLX( ZERO ), CMPLX( ONE ), R, LDA )
-      CALL CHERK( 'Upper', 'Conjugate transpose', M, M, -ONE, Q, LDA, ONE, R, LDA )
+      claset('Full', M, M, CMPLX( ZERO ), CMPLX( ONE ), R, LDA );
+      cherk('Upper', 'Conjugate transpose', M, M, -ONE, Q, LDA, ONE, R, LDA );
 
       // Compute norm( I - Q'*Q ) / ( M * EPS ) .
 

@@ -83,25 +83,25 @@
       ANORM = ZLANGE( 'M', N, N, A, LDA, RWORK )
       BNORM = ZLANGE( 'M', N, N, B, LDB, RWORK )
 
-      CALL ZLACPY( 'FULL', N, N, A, LDA, AF, LDA )
-      CALL ZLACPY( 'FULL', N, N, B, LDB, BF, LDB )
+      zlacpy('FULL', N, N, A, LDA, AF, LDA );
+      zlacpy('FULL', N, N, B, LDB, BF, LDB );
 
-      CALL ZGGBAL( 'B', N, A, LDA, B, LDB, ILO, IHI, LSCALE, RSCALE, RWORK, INFO )
+      zggbal('B', N, A, LDA, B, LDB, ILO, IHI, LSCALE, RSCALE, RWORK, INFO );
       if ( INFO.NE.0 ) {
          NINFO = NINFO + 1
          LMAX( 1 ) = KNT
       }
 
-      CALL ZLACPY( 'FULL', N, M, VL, LDVL, VLF, LDVL )
-      CALL ZLACPY( 'FULL', N, M, VR, LDVR, VRF, LDVR )
+      zlacpy('FULL', N, M, VL, LDVL, VLF, LDVL );
+      zlacpy('FULL', N, M, VR, LDVR, VRF, LDVR );
 
-      CALL ZGGBAK( 'B', 'L', N, ILO, IHI, LSCALE, RSCALE, M, VL, LDVL, INFO )
+      zggbak('B', 'L', N, ILO, IHI, LSCALE, RSCALE, M, VL, LDVL, INFO );
       if ( INFO.NE.0 ) {
          NINFO = NINFO + 1
          LMAX( 2 ) = KNT
       }
 
-      CALL ZGGBAK( 'B', 'R', N, ILO, IHI, LSCALE, RSCALE, M, VR, LDVR, INFO )
+      zggbak('B', 'R', N, ILO, IHI, LSCALE, RSCALE, M, VR, LDVR, INFO );
       if ( INFO.NE.0 ) {
          NINFO = NINFO + 1
          LMAX( 3 ) = KNT
@@ -112,9 +112,9 @@
       // Check tilde(VL)'*A*tilde(VR) - VL'*tilde(A)*VR
       // where tilde(A) denotes the transformed matrix.
 
-      CALL ZGEMM( 'N', 'N', N, M, N, CONE, AF, LDA, VR, LDVR, CZERO, WORK, LDWORK )       CALL ZGEMM( 'C', 'N', M, M, N, CONE, VL, LDVL, WORK, LDWORK, CZERO, E, LDE )
+      zgemm('N', 'N', N, M, N, CONE, AF, LDA, VR, LDVR, CZERO, WORK, LDWORK )       CALL ZGEMM( 'C', 'N', M, M, N, CONE, VL, LDVL, WORK, LDWORK, CZERO, E, LDE );
 
-      CALL ZGEMM( 'N', 'N', N, M, N, CONE, A, LDA, VRF, LDVR, CZERO, WORK, LDWORK )       CALL ZGEMM( 'C', 'N', M, M, N, CONE, VLF, LDVL, WORK, LDWORK, CZERO, F, LDF )
+      zgemm('N', 'N', N, M, N, CONE, A, LDA, VRF, LDVR, CZERO, WORK, LDWORK )       CALL ZGEMM( 'C', 'N', M, M, N, CONE, VLF, LDVL, WORK, LDWORK, CZERO, F, LDF );
 
       VMAX = ZERO
       DO 70 J = 1, M
@@ -130,9 +130,9 @@
 
       // Check tilde(VL)'*B*tilde(VR) - VL'*tilde(B)*VR
 
-      CALL ZGEMM( 'N', 'N', N, M, N, CONE, BF, LDB, VR, LDVR, CZERO, WORK, LDWORK )       CALL ZGEMM( 'C', 'N', M, M, N, CONE, VL, LDVL, WORK, LDWORK, CZERO, E, LDE )
+      zgemm('N', 'N', N, M, N, CONE, BF, LDB, VR, LDVR, CZERO, WORK, LDWORK )       CALL ZGEMM( 'C', 'N', M, M, N, CONE, VL, LDVL, WORK, LDWORK, CZERO, E, LDE );
 
-      CALL ZGEMM( 'n', 'n', N, M, N, CONE, B, LDB, VRF, LDVR, CZERO, WORK, LDWORK )       CALL ZGEMM( 'C', 'N', M, M, N, CONE, VLF, LDVL, WORK, LDWORK, CZERO, F, LDF )
+      zgemm('n', 'n', N, M, N, CONE, B, LDB, VRF, LDVR, CZERO, WORK, LDWORK )       CALL ZGEMM( 'C', 'N', M, M, N, CONE, VLF, LDVL, WORK, LDWORK, CZERO, F, LDF );
 
       VMAX = ZERO
       DO 90 J = 1, M

@@ -84,7 +84,7 @@
          SCALE = ZERO
          SUM = ONE
          DO 90 J = 1, N
-            CALL CLASSQ( MIN( N, J+1 ), A( 1, J ), 1, SCALE, SUM )
+            classq(MIN( N, J+1 ), A( 1, J ), 1, SCALE, SUM );
    90    CONTINUE
          VALUE = SCALE*SQRT( SUM )
       }

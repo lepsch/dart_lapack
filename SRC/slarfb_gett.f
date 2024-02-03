@@ -53,7 +53,7 @@
          // into W2=WORK(1:K, 1:N-K) column-by-column.
 
          DO J = 1, N-K
-            CALL SCOPY( K, A( 1, K+J ), 1, WORK( 1, J ), 1 )
+            scopy(K, A( 1, K+J ), 1, WORK( 1, J ), 1 );
          END DO
 
          if ( LNOTIDENT ) {
@@ -63,26 +63,26 @@
             // V1 stored in A1 (diagonal ones are not stored).
 
 
-            CALL STRMM( 'L', 'L', 'T', 'U', K, N-K, ONE, A, LDA, WORK, LDWORK )
+            strmm('L', 'L', 'T', 'U', K, N-K, ONE, A, LDA, WORK, LDWORK );
          }
 
          // col2_(3) Compute W2: = W2 + (V2**T) * B2 = W2 + (B1**T) * B2
          // V2 stored in B1.
 
          if ( M.GT.0 ) {
-            CALL SGEMM( 'T', 'N', K, N-K, M, ONE, B, LDB, B( 1, K+1 ), LDB, ONE, WORK, LDWORK )
+            sgemm('T', 'N', K, N-K, M, ONE, B, LDB, B( 1, K+1 ), LDB, ONE, WORK, LDWORK );
          }
 
          // col2_(4) Compute W2: = T * W2,
          // T is upper-triangular.
 
-         CALL STRMM( 'L', 'U', 'N', 'N', K, N-K, ONE, T, LDT, WORK, LDWORK )
+         strmm('L', 'U', 'N', 'N', K, N-K, ONE, T, LDT, WORK, LDWORK );
 
          // col2_(5) Compute B2: = B2 - V2 * W2 = B2 - B1 * W2,
          // V2 stored in B1.
 
          if ( M.GT.0 ) {
-            CALL SGEMM( 'N', 'N', M, N-K, K, -ONE, B, LDB, WORK, LDWORK, ONE, B( 1, K+1 ), LDB )
+            sgemm('N', 'N', M, N-K, K, -ONE, B, LDB, WORK, LDWORK, ONE, B( 1, K+1 ), LDB );
          }
 
          if ( LNOTIDENT ) {
@@ -91,7 +91,7 @@
             // V1 is not an identity matrix, but unit lower-triangular,
             // V1 stored in A1 (diagonal ones are not stored).
 
-            CALL STRMM( 'L', 'L', 'N', 'U', K, N-K, ONE, A, LDA, WORK, LDWORK )
+            strmm('L', 'L', 'N', 'U', K, N-K, ONE, A, LDA, WORK, LDWORK );
          }
 
          // col2_(7) Compute A2: = A2 - W2 =
@@ -120,7 +120,7 @@
       // W1 = WORK(1:K, 1:K) column-by-column.
 
       DO J = 1, K
-         CALL SCOPY( J, A( 1, J ), 1, WORK( 1, J ), 1 )
+         scopy(J, A( 1, J ), 1, WORK( 1, J ), 1 );
       END DO
 
       // Set the subdiagonal elements of W1 to zero column-by-column.
@@ -138,20 +138,20 @@
          // V1 stored in A1 (diagonal ones are not stored),
          // W1 is upper-triangular with zeroes below the diagonal.
 
-         CALL STRMM( 'L', 'L', 'T', 'U', K, K, ONE, A, LDA, WORK, LDWORK )
+         strmm('L', 'L', 'T', 'U', K, K, ONE, A, LDA, WORK, LDWORK );
       }
 
       // col1_(3) Compute W1: = T * W1,
       // T is upper-triangular,
       // W1 is upper-triangular with zeroes below the diagonal.
 
-      CALL STRMM( 'L', 'U', 'N', 'N', K, K, ONE, T, LDT, WORK, LDWORK )
+      strmm('L', 'U', 'N', 'N', K, K, ONE, T, LDT, WORK, LDWORK );
 
       // col1_(4) Compute B1: = - V2 * W1 = - B1 * W1,
       // V2 = B1, W1 is upper-triangular with zeroes below the diagonal.
 
       if ( M.GT.0 ) {
-         CALL STRMM( 'R', 'U', 'N', 'N', M, K, -ONE, WORK, LDWORK, B, LDB )
+         strmm('R', 'U', 'N', 'N', M, K, -ONE, WORK, LDWORK, B, LDB );
       }
 
       if ( LNOTIDENT ) {
@@ -162,7 +162,7 @@
          // W1 is upper-triangular on input with zeroes below the diagonal,
          // and square on output.
 
-         CALL STRMM( 'L', 'L', 'N', 'U', K, K, ONE, A, LDA, WORK, LDWORK )
+         strmm('L', 'L', 'N', 'U', K, K, ONE, A, LDA, WORK, LDWORK );
 
          // col1_(6) Compute A1: = A1 - W1 = A(1:K, 1:K) - WORK(1:K, 1:K)
          // column-by-column. A1 is upper-triangular on input.

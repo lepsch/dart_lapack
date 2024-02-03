@@ -214,10 +214,10 @@
 
       // Compute rhs (C, F)
 
-      CALL CGEMM( 'N', 'N', M, N, M, ONE, A, LDA, R, LDR, ZERO, C, LDC )
-      CALL CGEMM( 'N', 'N', M, N, N, -ONE, L, LDL, B, LDB, ONE, C, LDC )
-      CALL CGEMM( 'N', 'N', M, N, M, ONE, D, LDD, R, LDR, ZERO, F, LDF )
-      CALL CGEMM( 'N', 'N', M, N, N, -ONE, L, LDL, E, LDE, ONE, F, LDF )
+      cgemm('N', 'N', M, N, M, ONE, A, LDA, R, LDR, ZERO, C, LDC );
+      cgemm('N', 'N', M, N, N, -ONE, L, LDL, B, LDB, ONE, C, LDC );
+      cgemm('N', 'N', M, N, M, ONE, D, LDD, R, LDR, ZERO, F, LDF );
+      cgemm('N', 'N', M, N, N, -ONE, L, LDL, E, LDE, ONE, F, LDF );
 
       // End of CLATM5
 

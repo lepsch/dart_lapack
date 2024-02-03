@@ -44,13 +44,13 @@
       // Copy the matrices A and B to the arrays AF and BF,
       // and the vector D the array DF.
 
-      CALL CLACPY( 'Full', N, M, A, LDA, AF, LDA )
-      CALL CLACPY( 'Full', N, P, B, LDB, BF, LDB )
-      CALL CCOPY( N, D, 1, DF, 1 )
+      clacpy('Full', N, M, A, LDA, AF, LDA );
+      clacpy('Full', N, P, B, LDB, BF, LDB );
+      ccopy(N, D, 1, DF, 1 );
 
       // Solve GLM problem
 
-      CALL CGGGLM( N, M, P, AF, LDA, BF, LDB, DF, X, U, WORK, LWORK, INFO )
+      cggglm(N, M, P, AF, LDA, BF, LDB, DF, X, U, WORK, LWORK, INFO );
 
       // Test the residual for the solution of LSE
 
@@ -58,10 +58,10 @@
         // RESULT = -----------------------------------------
                  // (norm(A)+norm(B))*(norm(x)+norm(u))*EPS
 
-      CALL CCOPY( N, D, 1, DF, 1 )
-      CALL CGEMV( 'No transpose', N, M, -CONE, A, LDA, X, 1, CONE, DF, 1 )
+      ccopy(N, D, 1, DF, 1 );
+      cgemv('No transpose', N, M, -CONE, A, LDA, X, 1, CONE, DF, 1 );
 
-      CALL CGEMV( 'No transpose', N, P, -CONE, B, LDB, U, 1, CONE, DF, 1 )
+      cgemv('No transpose', N, P, -CONE, B, LDB, U, 1, CONE, DF, 1 );
 
       DNORM = SCASUM( N, DF, 1 )
       XNORM = SCASUM( M, X, 1 ) + SCASUM( P, U, 1 )

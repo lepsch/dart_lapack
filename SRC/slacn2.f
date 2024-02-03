@@ -95,7 +95,7 @@
       // X HAS BEEN OVERWRITTEN BY A*X.
 
    70 CONTINUE
-      CALL SCOPY( N, X, 1, V, 1 )
+      scopy(N, X, 1, V, 1 );
       ESTOLD = EST
       EST = SASUM( N, V, 1 )
       DO 80 I = 1, N
@@ -154,7 +154,7 @@
   140 CONTINUE
       TEMP = TWO*( SASUM( N, X, 1 ) / REAL( 3*N ) )
       if ( TEMP.GT.EST ) {
-         CALL SCOPY( N, X, 1, V, 1 )
+         scopy(N, X, 1, V, 1 );
          EST = TEMP
       }
 

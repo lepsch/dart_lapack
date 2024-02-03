@@ -115,15 +115,15 @@
                         K = ISAMAX( N, B, 1 )
                         NORMTB = NORM + ABS( B( K ) ) + ABS( W )
 
-                        CALL SCOPY( N, D, 1, X, 1 )
+                        scopy(N, D, 1, X, 1 );
                         KNT = KNT + 1
                         CALL SLAQTR( .FALSE., .TRUE., N, T, LDT, DUM, DUMM, SCALE, X, WORK, INFO )                         IF( INFO.NE.0 ) NINFO = NINFO + 1
 
                         // || T*x - scale*d || /
                           // max(ulp*||T||*||x||,smlnum/ulp*||T||,smlnum)
 
-                        CALL SCOPY( N, D, 1, Y, 1 )
-                        CALL SGEMV( 'No transpose', N, N, ONE, T, LDT, X, 1, -SCALE, Y, 1 )
+                        scopy(N, D, 1, Y, 1 );
+                        sgemv('No transpose', N, N, ONE, T, LDT, X, 1, -SCALE, Y, 1 );
                         XNORM = SASUM( N, X, 1 )
                         RESID = SASUM( N, Y, 1 )
                         DOMIN = MAX( SMLNUM, ( SMLNUM / EPS )*NORM, ( NORM*EPS )*XNORM )
@@ -133,15 +133,15 @@
                            LMAX = KNT
                         }
 
-                        CALL SCOPY( N, D, 1, X, 1 )
+                        scopy(N, D, 1, X, 1 );
                         KNT = KNT + 1
                         CALL SLAQTR( .TRUE., .TRUE., N, T, LDT, DUM, DUMM, SCALE, X, WORK, INFO )                         IF( INFO.NE.0 ) NINFO = NINFO + 1
 
                         // || T*x - scale*d || /
                           // max(ulp*||T||*||x||,smlnum/ulp*||T||,smlnum)
 
-                        CALL SCOPY( N, D, 1, Y, 1 )
-                        CALL SGEMV( 'Transpose', N, N, ONE, T, LDT, X, 1, -SCALE, Y, 1 )
+                        scopy(N, D, 1, Y, 1 );
+                        sgemv('Transpose', N, N, ONE, T, LDT, X, 1, -SCALE, Y, 1 );
                         XNORM = SASUM( N, X, 1 )
                         RESID = SASUM( N, Y, 1 )
                         DOMIN = MAX( SMLNUM, ( SMLNUM / EPS )*NORM, ( NORM*EPS )*XNORM )
@@ -151,7 +151,7 @@
                            LMAX = KNT
                         }
 
-                        CALL SCOPY( 2*N, D, 1, X, 1 )
+                        scopy(2*N, D, 1, X, 1 );
                         KNT = KNT + 1
                         CALL SLAQTR( .FALSE., .FALSE., N, T, LDT, B, W, SCALE, X, WORK, INFO )                         IF( INFO.NE.0 ) NINFO = NINFO + 1
 
@@ -160,18 +160,18 @@
                                    // smlnum/ulp * (||T||+||B||), smlnum )
 
 
-                        CALL SCOPY( 2*N, D, 1, Y, 1 )
+                        scopy(2*N, D, 1, Y, 1 );
                         Y( 1 ) = SDOT( N, B, 1, X( 1+N ), 1 ) + SCALE*Y( 1 )
                         DO 50 I = 2, N
                            Y( I ) = W*X( I+N ) + SCALE*Y( I )
    50                   CONTINUE
-                        CALL SGEMV( 'No transpose', N, N, ONE, T, LDT, X, 1, -ONE, Y, 1 )
+                        sgemv('No transpose', N, N, ONE, T, LDT, X, 1, -ONE, Y, 1 );
 
                         Y( 1+N ) = SDOT( N, B, 1, X, 1 ) - SCALE*Y( 1+N )
                         DO 60 I = 2, N
                            Y( I+N ) = W*X( I ) - SCALE*Y( I+N )
    60                   CONTINUE
-                        CALL SGEMV( 'No transpose', N, N, ONE, T, LDT, X( 1+N ), 1, ONE, Y( 1+N ), 1 )
+                        sgemv('No transpose', N, N, ONE, T, LDT, X( 1+N ), 1, ONE, Y( 1+N ), 1 );
 
                         RESID = SASUM( 2*N, Y, 1 )
                         DOMIN = MAX( SMLNUM, ( SMLNUM / EPS )*NORMTB, EPS*( NORMTB*SASUM( 2*N, X, 1 ) ) )
@@ -181,7 +181,7 @@
                            LMAX = KNT
                         }
 
-                        CALL SCOPY( 2*N, D, 1, X, 1 )
+                        scopy(2*N, D, 1, X, 1 );
                         KNT = KNT + 1
                         CALL SLAQTR( .TRUE., .FALSE., N, T, LDT, B, W, SCALE, X, WORK, INFO )                         IF( INFO.NE.0 ) NINFO = NINFO + 1
 
@@ -189,18 +189,18 @@
                            // max(ulp*(||T||+||B||)*(||x1||+||x2||),
                                    // smlnum/ulp * (||T||+||B||), smlnum )
 
-                        CALL SCOPY( 2*N, D, 1, Y, 1 )
+                        scopy(2*N, D, 1, Y, 1 );
                         Y( 1 ) = B( 1 )*X( 1+N ) - SCALE*Y( 1 )
                         DO 70 I = 2, N
                            Y( I ) = B( I )*X( 1+N ) + W*X( I+N ) - SCALE*Y( I )
    70                   CONTINUE
-                        CALL SGEMV( 'Transpose', N, N, ONE, T, LDT, X, 1, ONE, Y, 1 )
+                        sgemv('Transpose', N, N, ONE, T, LDT, X, 1, ONE, Y, 1 );
 
                         Y( 1+N ) = B( 1 )*X( 1 ) + SCALE*Y( 1+N )
                         DO 80 I = 2, N
                            Y( I+N ) = B( I )*X( 1 ) + W*X( I ) + SCALE*Y( I+N )
    80                   CONTINUE
-                        CALL SGEMV( 'Transpose', N, N, ONE, T, LDT, X( 1+N ), 1, -ONE, Y( 1+N ), 1 )
+                        sgemv('Transpose', N, N, ONE, T, LDT, X( 1+N ), 1, -ONE, Y( 1+N ), 1 );
 
                         RESID = SASUM( 2*N, Y, 1 )
                         DOMIN = MAX( SMLNUM, ( SMLNUM / EPS )*NORMTB, EPS*( NORMTB*SASUM( 2*N, X, 1 ) ) )

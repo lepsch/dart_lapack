@@ -53,7 +53,7 @@
          INFO = -9
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'DTRTRS', -INFO )
+         xerbla('DTRTRS', -INFO );
          RETURN
       }
 
@@ -72,7 +72,7 @@
 
       // Solve A * x = b  or  A**T * x = b.
 
-      CALL DTRSM( 'Left', UPLO, TRANS, DIAG, N, NRHS, ONE, A, LDA, B, LDB )
+      dtrsm('Left', UPLO, TRANS, DIAG, N, NRHS, ONE, A, LDA, B, LDB );
 
       RETURN
 

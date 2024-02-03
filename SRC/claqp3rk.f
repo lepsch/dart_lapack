@@ -130,7 +130,7 @@
                                 // A(I+1:M,1:KB) * F(N+1:N+NRHS,1:KB)**H.
 
                if ( NRHS.GT.0 .AND. KB.LT.(M-IOFFSET) ) {
-                  CALL CGEMM( 'No transpose', 'Conjugate transpose', M-IF, NRHS, KB, -CONE, A( IF+1, 1 ), LDA, F( N+1, 1 ), LDF, CONE, A( IF+1, N+1 ), LDA )
+                  cgemm('No transpose', 'Conjugate transpose', M-IF, NRHS, KB, -CONE, A( IF+1, 1 ), LDA, F( N+1, 1 ), LDF, CONE, A( IF+1, N+1 ), LDA );
                }
 
                // There is no need to recompute the 2-norm of the
@@ -177,7 +177,7 @@
                                 // A(I+1:M,1:KB) * F(N+1:N+NRHS,1:KB)**H.
 
                if ( NRHS.GT.0 .AND. KB.LT.(M-IOFFSET) ) {
-                  CALL CGEMM( 'No transpose', 'Conjugate transpose', M-IF, NRHS, KB, -CONE, A( IF+1, 1 ), LDA, F( N+1, 1 ), LDF, CONE, A( IF+1, N+1 ), LDA )
+                  cgemm('No transpose', 'Conjugate transpose', M-IF, NRHS, KB, -CONE, A( IF+1, 1 ), LDA, F( N+1, 1 ), LDF, CONE, A( IF+1, N+1 ), LDA );
                }
 
                // There is no need to recompute the 2-norm of the
@@ -251,7 +251,7 @@
                               // A(IF+1:M,1:KB) * F(KB+1:N+NRHS,1:KB)**H.
 
                if ( KB.LT.MINMNUPDT ) {
-                  CALL CGEMM( 'No transpose', 'Conjugate transpose', M-IF, N+NRHS-KB, KB,-CONE, A( IF+1, 1 ), LDA, F( KB+1, 1 ), LDF, CONE, A( IF+1, KB+1 ), LDA )
+                  cgemm('No transpose', 'Conjugate transpose', M-IF, N+NRHS-KB, KB,-CONE, A( IF+1, 1 ), LDA, F( KB+1, 1 ), LDF, CONE, A( IF+1, KB+1 ), LDA );
                }
 
                // There is no need to recompute the 2-norm of the
@@ -292,8 +292,8 @@
             // the original matrix A_orig, not the block A(1:M,1:N).
 
          if ( KP.NE.K ) {
-            CALL CSWAP( M, A( 1, KP ), 1, A( 1, K ), 1 )
-            CALL CSWAP( K-1, F( KP, 1 ), LDF, F( K, 1 ), LDF )
+            cswap(M, A( 1, KP ), 1, A( 1, K ), 1 );
+            cswap(K-1, F( KP, 1 ), LDF, F( K, 1 ), LDF );
             VN1( KP ) = VN1( K )
             VN2( KP ) = VN2( K )
             ITEMP = JPIV( KP )
@@ -308,7 +308,7 @@
             DO J = 1, K - 1
                F( K, J ) = CONJG( F( K, J ) )
             END DO
-            CALL CGEMV( 'No transpose', M-I+1, K-1, -CONE, A( I, 1 ), LDA, F( K, 1 ), LDF, CONE, A( I, K ), 1 )
+            cgemv('No transpose', M-I+1, K-1, -CONE, A( I, 1 ), LDA, F( K, 1 ), LDF, CONE, A( I, K ), 1 );
             DO J = 1, K - 1
                F( K, J ) = CONJG( F( K, J ) )
             END DO
@@ -317,7 +317,7 @@
          // Generate elementary reflector H(k) using the column A(I:M,K).
 
          if ( I.LT.M ) {
-            CALL CLARFG( M-I+1, A( I, K ), A( I+1, K ), 1, TAU( K ) )
+            clarfg(M-I+1, A( I, K ), A( I+1, K ), 1, TAU( K ) );
          } else {
             TAU( K ) = CZERO
          }
@@ -373,7 +373,7 @@
                              // A(I+1:M,1:KB) * F(N+1:N+NRHS,1:KB)**H.
 
             if ( NRHS.GT.0 .AND. KB.LT.(M-IOFFSET) ) {
-               CALL CGEMM( 'No transpose', 'Conjugate transpose', M-IF, NRHS, KB, -CONE, A( IF+1, 1 ), LDA, F( N+1, 1 ), LDF, CONE, A( IF+1, N+1 ), LDA )
+               cgemm('No transpose', 'Conjugate transpose', M-IF, NRHS, KB, -CONE, A( IF+1, 1 ), LDA, F( N+1, 1 ), LDF, CONE, A( IF+1, N+1 ), LDA );
             }
 
             // There is no need to recompute the 2-norm of the
@@ -398,7 +398,7 @@
            // 1) F(K+1:N,K) := tau(K) * A(I:M,K+1:N)**H * A(I:M,K).
 
          if ( K.LT.N+NRHS ) {
-            CALL CGEMV( 'Conjugate transpose', M-I+1, N+NRHS-K, TAU( K ), A( I, K+1 ), LDA, A( I, K ), 1, CZERO, F( K+1, K ), 1 )
+            cgemv('Conjugate transpose', M-I+1, N+NRHS-K, TAU( K ), A( I, K+1 ), LDA, A( I, K ), 1, CZERO, F( K+1, K ), 1 );
          }
 
             // 2) Zero out elements above and on the diagonal of the
@@ -413,9 +413,9 @@
                      // * A(I:M,K).
 
          if ( K.GT.1 ) {
-            CALL CGEMV( 'Conjugate Transpose', M-I+1, K-1, -TAU( K ), A( I, 1 ), LDA, A( I, K ), 1, CZERO, AUXV( 1 ), 1 )
+            cgemv('Conjugate Transpose', M-I+1, K-1, -TAU( K ), A( I, 1 ), LDA, A( I, K ), 1, CZERO, AUXV( 1 ), 1 );
 
-            CALL CGEMV( 'No transpose', N+NRHS, K-1, CONE, F( 1, 1 ), LDF, AUXV( 1 ), 1, CONE, F( 1, K ), 1 )
+            cgemv('No transpose', N+NRHS, K-1, CONE, F( 1, 1 ), LDF, AUXV( 1 ), 1, CONE, F( 1, K ), 1 );
          }
 
          // ===============================================================
@@ -425,7 +425,7 @@
                           // - A(I,1:K)*F(K+1:N+NRHS,1:K)**H.
 
          if ( K.LT.N+NRHS ) {
-            CALL CGEMM( 'No transpose', 'Conjugate transpose', 1, N+NRHS-K, K, -CONE, A( I, 1 ), LDA, F( K+1, 1 ), LDF, CONE, A( I, K+1 ), LDA )
+            cgemm('No transpose', 'Conjugate transpose', 1, N+NRHS-K, K, -CONE, A( I, 1 ), LDA, F( K+1, 1 ), LDF, CONE, A( I, K+1 ), LDA );
          }
 
          A( I, K ) = AIK
@@ -491,7 +491,7 @@
                           // A(IF+1:M,1:KB) * F(KB+1:N+NRHS,1:KB)**H.
 
       if ( KB.LT.MINMNUPDT ) {
-         CALL CGEMM( 'No transpose', 'Conjugate transpose', M-IF, N+NRHS-KB, KB, -CONE, A( IF+1, 1 ), LDA, F( KB+1, 1 ), LDF, CONE, A( IF+1, KB+1 ), LDA )
+         cgemm('No transpose', 'Conjugate transpose', M-IF, N+NRHS-KB, KB, -CONE, A( IF+1, 1 ), LDA, F( KB+1, 1 ), LDF, CONE, A( IF+1, KB+1 ), LDA );
       }
 
       // Recompute the 2-norm of the difficult columns.

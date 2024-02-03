@@ -66,7 +66,7 @@
       }
 
       if ( INFO.NE.0 ) {
-        CALL XERBLA( 'CLASWLQ', -INFO )
+        xerbla('CLASWLQ', -INFO );
         RETURN
       } else if ( LQUERY ) {
         RETURN
@@ -81,7 +81,7 @@
       // The LQ Decomposition
 
       if ( (M.GE.N) .OR. (NB.LE.M) .OR. (NB.GE.N) ) {
-        CALL CGELQT( M, N, MB, A, LDA, T, LDT, WORK, INFO)
+        cgelqt(M, N, MB, A, LDA, T, LDT, WORK, INFO);
         RETURN
       }
 
@@ -90,21 +90,21 @@
 
       // Compute the LQ factorization of the first block A(1:M,1:NB)
 
-      CALL CGELQT( M, NB, MB, A(1,1), LDA, T, LDT, WORK, INFO)
+      cgelqt(M, NB, MB, A(1,1), LDA, T, LDT, WORK, INFO);
       CTR = 1
 
       DO I = NB+1, II-NB+M , (NB-M)
 
         // Compute the QR factorization of the current block A(1:M,I:I+NB-M)
 
-        CALL CTPLQT( M, NB-M, 0, MB, A(1,1), LDA, A( 1, I ), LDA, T(1,CTR*M+1), LDT, WORK, INFO )
+        ctplqt(M, NB-M, 0, MB, A(1,1), LDA, A( 1, I ), LDA, T(1,CTR*M+1), LDT, WORK, INFO );
         CTR = CTR + 1
       END DO
 
       // Compute the QR factorization of the last block A(1:M,II:N)
 
       if ( II.LE.N ) {
-        CALL CTPLQT( M, KK, 0, MB, A(1,1), LDA, A( 1, II ), LDA, T(1,CTR*M+1), LDT, WORK, INFO )
+        ctplqt(M, KK, 0, MB, A(1,1), LDA, A( 1, II ), LDA, T(1,CTR*M+1), LDT, WORK, INFO );
       }
 
       WORK( 1 ) = SROUNDUP_LWORK( LWMIN )

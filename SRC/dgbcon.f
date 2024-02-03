@@ -61,7 +61,7 @@
          INFO = -8
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'DGBCON', -INFO )
+         xerbla('DGBCON', -INFO );
          RETURN
       }
 
@@ -90,7 +90,7 @@
       LNOTI = KL.GT.0
       KASE = 0
    10 CONTINUE
-      CALL DLACN2( N, WORK( N+1 ), WORK, IWORK, AINVNM, KASE, ISAVE )
+      dlacn2(N, WORK( N+1 ), WORK, IWORK, AINVNM, KASE, ISAVE );
       if ( KASE.NE.0 ) {
          if ( KASE.EQ.KASE1 ) {
 
@@ -105,18 +105,18 @@
                      WORK( JP ) = WORK( J )
                      WORK( J ) = T
                   }
-                  CALL DAXPY( LM, -T, AB( KD+1, J ), 1, WORK( J+1 ), 1 )
+                  daxpy(LM, -T, AB( KD+1, J ), 1, WORK( J+1 ), 1 );
    20          CONTINUE
             }
 
             // Multiply by inv(U).
 
-            CALL DLATBS( 'Upper', 'No transpose', 'Non-unit', NORMIN, N, KL+KU, AB, LDAB, WORK, SCALE, WORK( 2*N+1 ), INFO )
+            dlatbs('Upper', 'No transpose', 'Non-unit', NORMIN, N, KL+KU, AB, LDAB, WORK, SCALE, WORK( 2*N+1 ), INFO );
          } else {
 
             // Multiply by inv(U**T).
 
-            CALL DLATBS( 'Upper', 'Transpose', 'Non-unit', NORMIN, N, KL+KU, AB, LDAB, WORK, SCALE, WORK( 2*N+1 ), INFO )
+            dlatbs('Upper', 'Transpose', 'Non-unit', NORMIN, N, KL+KU, AB, LDAB, WORK, SCALE, WORK( 2*N+1 ), INFO );
 
             // Multiply by inv(L**T).
 
@@ -140,7 +140,7 @@
          if ( SCALE.NE.ONE ) {
             IX = IDAMAX( N, WORK, 1 )
             IF( SCALE.LT.ABS( WORK( IX ) )*SMLNUM .OR. SCALE.EQ.ZERO ) GO TO 40
-            CALL DRSCL( N, SCALE, WORK, 1 )
+            drscl(N, SCALE, WORK, 1 );
          }
          GO TO 10
       }

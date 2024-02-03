@@ -74,7 +74,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'DSBEV_2STAGE ', -INFO )
+         xerbla('DSBEV_2STAGE ', -INFO );
          RETURN
       } else if ( LQUERY ) {
          RETURN
@@ -116,9 +116,9 @@
       }
       if ( ISCALE.EQ.1 ) {
          if ( LOWER ) {
-            CALL DLASCL( 'B', KD, KD, ONE, SIGMA, N, N, AB, LDAB, INFO )
+            dlascl('B', KD, KD, ONE, SIGMA, N, N, AB, LDAB, INFO );
          } else {
-            CALL DLASCL( 'Q', KD, KD, ONE, SIGMA, N, N, AB, LDAB, INFO )
+            dlascl('Q', KD, KD, ONE, SIGMA, N, N, AB, LDAB, INFO );
          }
       }
 
@@ -129,14 +129,14 @@
       INDWRK  = INDHOUS + LHTRD
       LLWORK  = LWORK - INDWRK + 1
 
-      CALL DSYTRD_SB2ST( "N", JOBZ, UPLO, N, KD, AB, LDAB, W, WORK( INDE ), WORK( INDHOUS ), LHTRD, WORK( INDWRK ), LLWORK, IINFO )
+      dsytrd_sb2st("N", JOBZ, UPLO, N, KD, AB, LDAB, W, WORK( INDE ), WORK( INDHOUS ), LHTRD, WORK( INDWRK ), LLWORK, IINFO );
 
       // For eigenvalues only, call DSTERF.  For eigenvectors, call SSTEQR.
 
       if ( .NOT.WANTZ ) {
-         CALL DSTERF( N, W, WORK( INDE ), INFO )
+         dsterf(N, W, WORK( INDE ), INFO );
       } else {
-         CALL DSTEQR( JOBZ, N, W, WORK( INDE ), Z, LDZ, WORK( INDWRK ), INFO )
+         dsteqr(JOBZ, N, W, WORK( INDE ), Z, LDZ, WORK( INDWRK ), INFO );
       }
 
       // If matrix was scaled, then rescale eigenvalues appropriately.
@@ -147,7 +147,7 @@
          } else {
             IMAX = INFO - 1
          }
-         CALL DSCAL( IMAX, ONE / SIGMA, W, 1 )
+         dscal(IMAX, ONE / SIGMA, W, 1 );
       }
 
       // Set WORK(1) to optimal workspace size.

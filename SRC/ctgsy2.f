@@ -74,7 +74,7 @@
          }
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'CTGSY2', -INFO )
+         xerbla('CTGSY2', -INFO );
          RETURN
       }
 
@@ -104,18 +104,18 @@
 
                // Solve Z * x = RHS
 
-               CALL CGETC2( LDZ, Z, LDZ, IPIV, JPIV, IERR )
+               cgetc2(LDZ, Z, LDZ, IPIV, JPIV, IERR );
                IF( IERR.GT.0 ) INFO = IERR
                if ( IJOB.EQ.0 ) {
-                  CALL CGESC2( LDZ, Z, LDZ, RHS, IPIV, JPIV, SCALOC )
+                  cgesc2(LDZ, Z, LDZ, RHS, IPIV, JPIV, SCALOC );
                   if ( SCALOC.NE.ONE ) {
                      DO 10 K = 1, N
-                        CALL CSCAL( M, CMPLX( SCALOC, ZERO ), C( 1, K ), 1 )                         CALL CSCAL( M, CMPLX( SCALOC, ZERO ), F( 1, K ), 1 )
+                        cscal(M, CMPLX( SCALOC, ZERO ), C( 1, K ), 1 )                         CALL CSCAL( M, CMPLX( SCALOC, ZERO ), F( 1, K ), 1 );
    10                CONTINUE
                      SCALE = SCALE*SCALOC
                   }
                } else {
-                  CALL CLATDF( IJOB, LDZ, Z, LDZ, RHS, RDSUM, RDSCAL, IPIV, JPIV )
+                  clatdf(IJOB, LDZ, Z, LDZ, RHS, RDSUM, RDSCAL, IPIV, JPIV );
                }
 
                // Unpack solution vector(s)
@@ -127,11 +127,11 @@
 
                if ( I.GT.1 ) {
                   ALPHA = -RHS( 1 )
-                  CALL CAXPY( I-1, ALPHA, A( 1, I ), 1, C( 1, J ), 1 )
-                  CALL CAXPY( I-1, ALPHA, D( 1, I ), 1, F( 1, J ), 1 )
+                  caxpy(I-1, ALPHA, A( 1, I ), 1, C( 1, J ), 1 );
+                  caxpy(I-1, ALPHA, D( 1, I ), 1, F( 1, J ), 1 );
                }
                if ( J.LT.N ) {
-                  CALL CAXPY( N-J, RHS( 2 ), B( J, J+1 ), LDB, C( I, J+1 ), LDC )                   CALL CAXPY( N-J, RHS( 2 ), E( J, J+1 ), LDE, F( I, J+1 ), LDF )
+                  caxpy(N-J, RHS( 2 ), B( J, J+1 ), LDB, C( I, J+1 ), LDC )                   CALL CAXPY( N-J, RHS( 2 ), E( J, J+1 ), LDE, F( I, J+1 ), LDF );
                }
 
    20       CONTINUE
@@ -163,12 +163,12 @@
 
                // Solve Z**H * x = RHS
 
-               CALL CGETC2( LDZ, Z, LDZ, IPIV, JPIV, IERR )
+               cgetc2(LDZ, Z, LDZ, IPIV, JPIV, IERR );
                IF( IERR.GT.0 ) INFO = IERR
-               CALL CGESC2( LDZ, Z, LDZ, RHS, IPIV, JPIV, SCALOC )
+               cgesc2(LDZ, Z, LDZ, RHS, IPIV, JPIV, SCALOC );
                if ( SCALOC.NE.ONE ) {
                   DO 40 K = 1, N
-                     CALL CSCAL( M, CMPLX( SCALOC, ZERO ), C( 1, K ), 1 )                      CALL CSCAL( M, CMPLX( SCALOC, ZERO ), F( 1, K ), 1 )
+                     cscal(M, CMPLX( SCALOC, ZERO ), C( 1, K ), 1 )                      CALL CSCAL( M, CMPLX( SCALOC, ZERO ), F( 1, K ), 1 );
    40             CONTINUE
                   SCALE = SCALE*SCALOC
                }

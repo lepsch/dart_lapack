@@ -128,7 +128,7 @@
         INFO = -13
       }
       if ( INFO.NE.0 ) {
-        CALL XERBLA( 'ZPORFSX', -INFO )
+        xerbla('ZPORFSX', -INFO );
         RETURN
       }
 
@@ -178,14 +178,14 @@
 
       NORM = 'I'
       ANORM = ZLANHE( NORM, UPLO, N, A, LDA, RWORK )
-      CALL ZPOCON( UPLO, N, AF, LDAF, ANORM, RCOND, WORK, RWORK, INFO )
+      zpocon(UPLO, N, AF, LDAF, ANORM, RCOND, WORK, RWORK, INFO );
 
       // Perform refinement on each right-hand side
 
       if ( REF_TYPE .NE. 0 ) {
 
          PREC_TYPE = ILAPREC( 'E' )
-          CALL ZLA_PORFSX_EXTENDED( PREC_TYPE, UPLO, N, NRHS, A, LDA, AF, LDAF, RCEQU, S, B, LDB, X, LDX, BERR, N_NORMS, ERR_BNDS_NORM, ERR_BNDS_COMP, WORK, RWORK, WORK(N+1), TRANSFER (RWORK(1:2*N), (/ (ZERO, ZERO) /), N), RCOND, ITHRESH, RTHRESH, UNSTABLE_THRESH, IGNORE_CWISE, INFO )
+          zla_porfsx_extended(PREC_TYPE, UPLO, N, NRHS, A, LDA, AF, LDAF, RCEQU, S, B, LDB, X, LDX, BERR, N_NORMS, ERR_BNDS_NORM, ERR_BNDS_COMP, WORK, RWORK, WORK(N+1), TRANSFER (RWORK(1:2*N), (/ (ZERO, ZERO) /), N), RCOND, ITHRESH, RTHRESH, UNSTABLE_THRESH, IGNORE_CWISE, INFO );
       }
 
       ERR_LBND = MAX( 10.0D+0, SQRT( DBLE( N ) ) ) * DLAMCH( 'Epsilon' )

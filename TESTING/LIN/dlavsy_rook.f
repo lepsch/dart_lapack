@@ -53,7 +53,7 @@
          INFO = -9
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'DLAVSY_ROOK ', -INFO )
+         xerbla('DLAVSY_ROOK ', -INFO );
          RETURN
       }
 
@@ -93,7 +93,7 @@
 
                   // Apply the transformation.
 
-                  CALL DGER( K-1, NRHS, ONE, A( 1, K ), 1, B( K, 1 ), LDB, B( 1, 1 ), LDB )
+                  dger(K-1, NRHS, ONE, A( 1, K ), 1, B( K, 1 ), LDB, B( 1, 1 ), LDB );
 
                   // Interchange if P(K) .ne. I.
 
@@ -126,7 +126,7 @@
 
                   // Apply the transformations.
 
-                  CALL DGER( K-1, NRHS, ONE, A( 1, K ), 1, B( K, 1 ), LDB, B( 1, 1 ), LDB )                   CALL DGER( K-1, NRHS, ONE, A( 1, K+1 ), 1, B( K+1, 1 ), LDB, B( 1, 1 ), LDB )
+                  dger(K-1, NRHS, ONE, A( 1, K ), 1, B( K, 1 ), LDB, B( 1, 1 ), LDB )                   CALL DGER( K-1, NRHS, ONE, A( 1, K+1 ), 1, B( K+1, 1 ), LDB, B( 1, 1 ), LDB );
 
                   // Interchange if a permutation was applied at the
                   // K-th step of the factorization.
@@ -175,7 +175,7 @@
 
                   // Apply the transformation.
 
-                  CALL DGER( N-K, NRHS, ONE, A( K+1, K ), 1, B( K, 1 ), LDB, B( K+1, 1 ), LDB )
+                  dger(N-K, NRHS, ONE, A( K+1, K ), 1, B( K, 1 ), LDB, B( K+1, 1 ), LDB );
 
                   // Interchange if a permutation was applied at the
                   // K-th step of the factorization.
@@ -209,7 +209,7 @@
 
                   // Apply the transformation.
 
-                  CALL DGER( N-K, NRHS, ONE, A( K+1, K ), 1, B( K, 1 ), LDB, B( K+1, 1 ), LDB )                   CALL DGER( N-K, NRHS, ONE, A( K+1, K-1 ), 1, B( K-1, 1 ), LDB, B( K+1, 1 ), LDB )
+                  dger(N-K, NRHS, ONE, A( K+1, K ), 1, B( K, 1 ), LDB, B( K+1, 1 ), LDB )                   CALL DGER( N-K, NRHS, ONE, A( K+1, K-1 ), 1, B( K-1, 1 ), LDB, B( K+1, 1 ), LDB );
 
                   // Interchange if a permutation was applied at the
                   // K-th step of the factorization.
@@ -260,7 +260,7 @@
 
                   // Apply the transformation
 
-                  CALL DGEMV( 'Transpose', K-1, NRHS, ONE, B, LDB, A( 1, K ), 1, ONE, B( K, 1 ), LDB )
+                  dgemv('Transpose', K-1, NRHS, ONE, B, LDB, A( 1, K ), 1, ONE, B( K, 1 ), LDB );
                }
                IF( NOUNIT ) CALL DSCAL( NRHS, A( K, K ), B( K, 1 ), LDB )
                K = K - 1
@@ -282,7 +282,7 @@
 
                   // Apply the transformations
 
-                  CALL DGEMV( 'Transpose', K-2, NRHS, ONE, B, LDB, A( 1, K ), 1, ONE, B( K, 1 ), LDB )                   CALL DGEMV( 'Transpose', K-2, NRHS, ONE, B, LDB, A( 1, K-1 ), 1, ONE, B( K-1, 1 ), LDB )
+                  dgemv('Transpose', K-2, NRHS, ONE, B, LDB, A( 1, K ), 1, ONE, B( K, 1 ), LDB )                   CALL DGEMV( 'Transpose', K-2, NRHS, ONE, B, LDB, A( 1, K-1 ), 1, ONE, B( K-1, 1 ), LDB );
                }
 
                // Multiply by the diagonal block if non-unit.
@@ -328,7 +328,7 @@
 
                   // Apply the transformation
 
-                  CALL DGEMV( 'Transpose', N-K, NRHS, ONE, B( K+1, 1 ), LDB, A( K+1, K ), 1, ONE, B( K, 1 ), LDB )
+                  dgemv('Transpose', N-K, NRHS, ONE, B( K+1, 1 ), LDB, A( K+1, K ), 1, ONE, B( K, 1 ), LDB );
                }
                IF( NOUNIT ) CALL DSCAL( NRHS, A( K, K ), B( K, 1 ), LDB )
                K = K + 1
@@ -350,7 +350,7 @@
 
                   // Apply the transformation
 
-                  CALL DGEMV( 'Transpose', N-K-1, NRHS, ONE, B( K+2, 1 ), LDB, A( K+2, K+1 ), 1, ONE, B( K+1, 1 ), LDB )                   CALL DGEMV( 'Transpose', N-K-1, NRHS, ONE, B( K+2, 1 ), LDB, A( K+2, K ), 1, ONE, B( K, 1 ), LDB )
+                  dgemv('Transpose', N-K-1, NRHS, ONE, B( K+2, 1 ), LDB, A( K+2, K+1 ), 1, ONE, B( K+1, 1 ), LDB )                   CALL DGEMV( 'Transpose', N-K-1, NRHS, ONE, B( K+2, 1 ), LDB, A( K+2, K ), 1, ONE, B( K, 1 ), LDB );
                }
 
                // Multiply by the diagonal block if non-unit.

@@ -115,15 +115,15 @@
                      // Set up parameters with CLATB4 and generate a test
                      // matrix with CLATMS.
 
-                     CALL CLATB4( 'CPO', IMAT, N, N, CTYPE, KL, KU, ANORM, MODE, CNDNUM, DIST )
+                     clatb4('CPO', IMAT, N, N, CTYPE, KL, KU, ANORM, MODE, CNDNUM, DIST );
 
                      SRNAMT = 'CLATMS'
-                     CALL CLATMS( N, N, DIST, ISEED, CTYPE, S_WORK_CLATMS, MODE, CNDNUM, ANORM, KL, KU, UPLO, A, LDA, C_WORK_CLATMS, INFO )
+                     clatms(N, N, DIST, ISEED, CTYPE, S_WORK_CLATMS, MODE, CNDNUM, ANORM, KL, KU, UPLO, A, LDA, C_WORK_CLATMS, INFO );
 
                      // Check error code from CLATMS.
 
                      if ( INFO.NE.0 ) {
-                        CALL ALAERH( 'CPF', 'CLATMS', INFO, 0, UPLO, N, N, -1, -1, -1, IIT, NFAIL, NERRS, NOUT )
+                        alaerh('CPF', 'CLATMS', INFO, 0, UPLO, N, N, -1, -1, -1, IIT, NFAIL, NERRS, NOUT );
                         GO TO 100
                      }
 
@@ -169,11 +169,11 @@
 
                      // Set the imaginary part of the diagonals.
 
-                     CALL CLAIPD( N, A, LDA+1, 0 )
+                     claipd(N, A, LDA+1, 0 );
 
                      // Save a copy of the matrix A in ASAV.
 
-                     CALL CLACPY( UPLO, N, N, A, LDA, ASAV, LDA )
+                     clacpy(UPLO, N, N, A, LDA, ASAV, LDA );
 
                      // Compute the condition number of A (RCONDC).
 
@@ -187,11 +187,11 @@
 
                         // Factor the matrix A.
 
-                        CALL CPOTRF( UPLO, N, A, LDA, INFO )
+                        cpotrf(UPLO, N, A, LDA, INFO );
 
                         // Form the inverse of A.
 
-                        CALL CPOTRI( UPLO, N, A, LDA, INFO )
+                        cpotri(UPLO, N, A, LDA, INFO );
 
                         if ( N .NE. 0 ) {
 
@@ -202,7 +202,7 @@
 
                            // Restore the matrix A.
 
-                           CALL CLACPY( UPLO, N, N, ASAV, LDA, A, LDA )
+                           clacpy(UPLO, N, N, ASAV, LDA, A, LDA );
                         }
 
                      }
@@ -210,19 +210,19 @@
                      // Form an exact solution and set the right hand side.
 
                      SRNAMT = 'CLARHS'
-                     CALL CLARHS( 'CPO', 'N', UPLO, ' ', N, N, KL, KU, NRHS, A, LDA, XACT, LDA, B, LDA, ISEED, INFO )
-                     CALL CLACPY( 'Full', N, NRHS, B, LDA, BSAV, LDA )
+                     clarhs('CPO', 'N', UPLO, ' ', N, N, KL, KU, NRHS, A, LDA, XACT, LDA, B, LDA, ISEED, INFO );
+                     clacpy('Full', N, NRHS, B, LDA, BSAV, LDA );
 
                      // Compute the L*L' or U'*U factorization of the
                      // matrix and solve the system.
 
-                     CALL CLACPY( UPLO, N, N, A, LDA, AFAC, LDA )
-                     CALL CLACPY( 'Full', N, NRHS, B, LDB, X, LDB )
+                     clacpy(UPLO, N, N, A, LDA, AFAC, LDA );
+                     clacpy('Full', N, NRHS, B, LDB, X, LDB );
 
                      SRNAMT = 'CTRTTF'
-                     CALL CTRTTF( CFORM, UPLO, N, AFAC, LDA, ARF, INFO )
+                     ctrttf(CFORM, UPLO, N, AFAC, LDA, ARF, INFO );
                      SRNAMT = 'CPFTRF'
-                     CALL CPFTRF( CFORM, UPLO, N, ARF, INFO )
+                     cpftrf(CFORM, UPLO, N, ARF, INFO );
 
                      // Check error code from CPFTRF.
 
@@ -232,7 +232,7 @@
                         // always be INFO however if INFO is ZERO, ALAERH does not
                         // complain.
 
-                         CALL ALAERH( 'CPF', 'CPFSV ', INFO, IZERO, UPLO, N, N, -1, -1, NRHS, IIT, NFAIL, NERRS, NOUT )
+                         alaerh('CPF', 'CPFSV ', INFO, IZERO, UPLO, N, N, -1, -1, NRHS, IIT, NFAIL, NERRS, NOUT );
                          GO TO 100
                       }
 
@@ -243,45 +243,45 @@
                      }
 
                      SRNAMT = 'CPFTRS'
-                     CALL CPFTRS( CFORM, UPLO, N, NRHS, ARF, X, LDB, INFO )
+                     cpftrs(CFORM, UPLO, N, NRHS, ARF, X, LDB, INFO );
 
                      SRNAMT = 'CTFTTR'
-                     CALL CTFTTR( CFORM, UPLO, N, ARF, AFAC, LDA, INFO )
+                     ctfttr(CFORM, UPLO, N, ARF, AFAC, LDA, INFO );
 
                      // Reconstruct matrix from factors and compute
                      // residual.
 
-                     CALL CLACPY( UPLO, N, N, AFAC, LDA, ASAV, LDA )
-                     CALL CPOT01( UPLO, N, A, LDA, AFAC, LDA, S_WORK_CPOT01, RESULT( 1 ) )
-                     CALL CLACPY( UPLO, N, N, ASAV, LDA, AFAC, LDA )
+                     clacpy(UPLO, N, N, AFAC, LDA, ASAV, LDA );
+                     cpot01(UPLO, N, A, LDA, AFAC, LDA, S_WORK_CPOT01, RESULT( 1 ) );
+                     clacpy(UPLO, N, N, ASAV, LDA, AFAC, LDA );
 
                      // Form the inverse and compute the residual.
 
                     if (MOD(N,2).EQ.0) {
-                       CALL CLACPY( 'A', N+1, N/2, ARF, N+1, ARFINV, N+1 )
+                       clacpy('A', N+1, N/2, ARF, N+1, ARFINV, N+1 );
                     } else {
-                       CALL CLACPY( 'A', N, (N+1)/2, ARF, N, ARFINV, N )
+                       clacpy('A', N, (N+1)/2, ARF, N, ARFINV, N );
                     }
 
                      SRNAMT = 'CPFTRI'
-                     CALL CPFTRI( CFORM, UPLO, N, ARFINV , INFO )
+                     cpftri(CFORM, UPLO, N, ARFINV , INFO );
 
                      SRNAMT = 'CTFTTR'
-                     CALL CTFTTR( CFORM, UPLO, N, ARFINV, AINV, LDA, INFO )
+                     ctfttr(CFORM, UPLO, N, ARFINV, AINV, LDA, INFO );
 
                      // Check error code from CPFTRI.
 
                      IF( INFO.NE.0 ) CALL ALAERH( 'CPO', 'CPFTRI', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT )
 
-                     CALL CPOT03( UPLO, N, A, LDA, AINV, LDA, C_WORK_CPOT03, LDA, S_WORK_CPOT03, RCONDC, RESULT( 2 ) )
+                     cpot03(UPLO, N, A, LDA, AINV, LDA, C_WORK_CPOT03, LDA, S_WORK_CPOT03, RCONDC, RESULT( 2 ) );
 
                      // Compute residual of the computed solution.
 
-                     CALL CLACPY( 'Full', N, NRHS, B, LDA, C_WORK_CPOT02, LDA )                      CALL CPOT02( UPLO, N, NRHS, A, LDA, X, LDA, C_WORK_CPOT02, LDA, S_WORK_CPOT02, RESULT( 3 ) )
+                     clacpy('Full', N, NRHS, B, LDA, C_WORK_CPOT02, LDA )                      CALL CPOT02( UPLO, N, NRHS, A, LDA, X, LDA, C_WORK_CPOT02, LDA, S_WORK_CPOT02, RESULT( 3 ) );
 
                      // Check solution from generated exact solution.
 
-                     CALL CGET04( N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 4 ) )
+                     cget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 4 ) );
                      NT = 4
 
                      // Print information about the tests that did not
@@ -302,7 +302,7 @@
 
       // Print a summary of the results.
 
-      CALL ALASVM( 'CPF', NOUT, NFAIL, NRUN, NERRS )
+      alasvm('CPF', NOUT, NFAIL, NRUN, NERRS );
 
  9999 FORMAT( 1X, A6, ', UPLO=''', A1, ''', N =', I5, ', type ', I1, ', test(', I1, ')=', G12.5 )
 

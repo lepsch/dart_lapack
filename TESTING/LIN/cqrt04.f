@@ -54,27 +54,27 @@
 
       LDT=NB
       DO J=1,N
-         CALL CLARNV( 2, ISEED, M, A( 1, J ) )
+         clarnv(2, ISEED, M, A( 1, J ) );
       END DO
-      CALL CLACPY( 'Full', M, N, A, M, AF, M )
+      clacpy('Full', M, N, A, M, AF, M );
 
       // Factor the matrix A in the array AF.
 
-      CALL CGEQRT( M, N, NB, AF, M, T, LDT, WORK, INFO )
+      cgeqrt(M, N, NB, AF, M, T, LDT, WORK, INFO );
 
       // Generate the m-by-m matrix Q
 
-      CALL CLASET( 'Full', M, M, CZERO, ONE, Q, M )
-      CALL CGEMQRT( 'R', 'N', M, M, K, NB, AF, M, T, LDT, Q, M, WORK, INFO )
+      claset('Full', M, M, CZERO, ONE, Q, M );
+      cgemqrt('R', 'N', M, M, K, NB, AF, M, T, LDT, Q, M, WORK, INFO );
 
       // Copy R
 
-      CALL CLASET( 'Full', M, N, CZERO, CZERO, R, M )
-      CALL CLACPY( 'Upper', M, N, AF, M, R, M )
+      claset('Full', M, N, CZERO, CZERO, R, M );
+      clacpy('Upper', M, N, AF, M, R, M );
 
       // Compute |R - Q'*A| / |A| and store in RESULT(1)
 
-      CALL CGEMM( 'C', 'N', M, N, M, -ONE, Q, M, A, M, ONE, R, M )
+      cgemm('C', 'N', M, N, M, -ONE, Q, M, A, M, ONE, R, M );
       ANORM = CLANGE( '1', M, N, A, M, RWORK )
       RESID = CLANGE( '1', M, N, R, M, RWORK )
       if ( ANORM.GT.ZERO ) {
@@ -85,26 +85,26 @@
 
       // Compute |I - Q'*Q| and store in RESULT(2)
 
-      CALL CLASET( 'Full', M, M, CZERO, ONE, R, M )
-      CALL CHERK( 'U', 'C', M, M, REAL(-ONE), Q, M, REAL(ONE), R, M )
+      claset('Full', M, M, CZERO, ONE, R, M );
+      cherk('U', 'C', M, M, REAL(-ONE), Q, M, REAL(ONE), R, M );
       RESID = CLANSY( '1', 'Upper', M, R, M, RWORK )
       RESULT( 2 ) = RESID / (EPS*MAX(1,M))
 
       // Generate random m-by-n matrix C and a copy CF
 
       DO J=1,N
-         CALL CLARNV( 2, ISEED, M, C( 1, J ) )
+         clarnv(2, ISEED, M, C( 1, J ) );
       END DO
       CNORM = CLANGE( '1', M, N, C, M, RWORK)
-      CALL CLACPY( 'Full', M, N, C, M, CF, M )
+      clacpy('Full', M, N, C, M, CF, M );
 
       // Apply Q to C as Q*C
 
-      CALL CGEMQRT( 'L', 'N', M, N, K, NB, AF, M, T, NB, CF, M, WORK, INFO)
+      cgemqrt('L', 'N', M, N, K, NB, AF, M, T, NB, CF, M, WORK, INFO);
 
       // Compute |Q*C - Q*C| / |C|
 
-      CALL CGEMM( 'N', 'N', M, N, M, -ONE, Q, M, C, M, ONE, CF, M )
+      cgemm('N', 'N', M, N, M, -ONE, Q, M, C, M, ONE, CF, M );
       RESID = CLANGE( '1', M, N, CF, M, RWORK )
       if ( CNORM.GT.ZERO ) {
          RESULT( 3 ) = RESID / (EPS*MAX(1,M)*CNORM)
@@ -114,15 +114,15 @@
 
       // Copy C into CF again
 
-      CALL CLACPY( 'Full', M, N, C, M, CF, M )
+      clacpy('Full', M, N, C, M, CF, M );
 
       // Apply Q to C as QT*C
 
-      CALL CGEMQRT( 'L', 'C', M, N, K, NB, AF, M, T, NB, CF, M, WORK, INFO)
+      cgemqrt('L', 'C', M, N, K, NB, AF, M, T, NB, CF, M, WORK, INFO);
 
       // Compute |QT*C - QT*C| / |C|
 
-      CALL CGEMM( 'C', 'N', M, N, M, -ONE, Q, M, C, M, ONE, CF, M )
+      cgemm('C', 'N', M, N, M, -ONE, Q, M, C, M, ONE, CF, M );
       RESID = CLANGE( '1', M, N, CF, M, RWORK )
       if ( CNORM.GT.ZERO ) {
          RESULT( 4 ) = RESID / (EPS*MAX(1,M)*CNORM)
@@ -133,18 +133,18 @@
       // Generate random n-by-m matrix D and a copy DF
 
       DO J=1,M
-         CALL CLARNV( 2, ISEED, N, D( 1, J ) )
+         clarnv(2, ISEED, N, D( 1, J ) );
       END DO
       DNORM = CLANGE( '1', N, M, D, N, RWORK)
-      CALL CLACPY( 'Full', N, M, D, N, DF, N )
+      clacpy('Full', N, M, D, N, DF, N );
 
       // Apply Q to D as D*Q
 
-      CALL CGEMQRT( 'R', 'N', N, M, K, NB, AF, M, T, NB, DF, N, WORK, INFO)
+      cgemqrt('R', 'N', N, M, K, NB, AF, M, T, NB, DF, N, WORK, INFO);
 
       // Compute |D*Q - D*Q| / |D|
 
-      CALL CGEMM( 'N', 'N', N, M, M, -ONE, D, N, Q, M, ONE, DF, N )
+      cgemm('N', 'N', N, M, M, -ONE, D, N, Q, M, ONE, DF, N );
       RESID = CLANGE( '1', N, M, DF, N, RWORK )
       if ( CNORM.GT.ZERO ) {
          RESULT( 5 ) = RESID / (EPS*MAX(1,M)*DNORM)
@@ -154,15 +154,15 @@
 
       // Copy D into DF again
 
-      CALL CLACPY( 'Full', N, M, D, N, DF, N )
+      clacpy('Full', N, M, D, N, DF, N );
 
       // Apply Q to D as D*QT
 
-      CALL CGEMQRT( 'R', 'C', N, M, K, NB, AF, M, T, NB, DF, N, WORK, INFO)
+      cgemqrt('R', 'C', N, M, K, NB, AF, M, T, NB, DF, N, WORK, INFO);
 
       // Compute |D*QT - D*QT| / |D|
 
-      CALL CGEMM( 'N', 'C', N, M, M, -ONE, D, N, Q, M, ONE, DF, N )
+      cgemm('N', 'C', N, M, M, -ONE, D, N, Q, M, ONE, DF, N );
       RESID = CLANGE( '1', N, M, DF, N, RWORK )
       if ( CNORM.GT.ZERO ) {
          RESULT( 6 ) = RESID / (EPS*MAX(1,M)*DNORM)

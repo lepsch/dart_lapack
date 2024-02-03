@@ -43,11 +43,11 @@
          // Generate elementary reflector H(i) to annihilate
          // [ A(i,i) A(i,n-l+1:n) ]
 
-         CALL DLARFG( L+1, A( I, I ), A( I, N-L+1 ), LDA, TAU( I ) )
+         dlarfg(L+1, A( I, I ), A( I, N-L+1 ), LDA, TAU( I ) );
 
          // Apply H(i) to A(1:i-1,i:n) from the right
 
-         CALL DLARZ( 'Right', I-1, N-I+1, L, A( I, N-L+1 ), LDA, TAU( I ), A( 1, I ), LDA, WORK )
+         dlarz('Right', I-1, N-I+1, L, A( I, N-L+1 ), LDA, TAU( I ), A( 1, I ), LDA, WORK );
 
    20 CONTINUE
 

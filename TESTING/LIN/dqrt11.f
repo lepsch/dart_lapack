@@ -40,7 +40,7 @@
       // Test for sufficient workspace
 
       if ( LWORK.LT.M*M+M ) {
-         CALL XERBLA( 'DQRT11', 7 )
+         xerbla('DQRT11', 7 );
          RETURN
       }
 
@@ -48,15 +48,15 @@
 
       IF( M.LE.0 ) RETURN
 
-      CALL DLASET( 'Full', M, M, ZERO, ONE, WORK, M )
+      dlaset('Full', M, M, ZERO, ONE, WORK, M );
 
       // Form Q
 
-      CALL DORM2R( 'Left', 'No transpose', M, M, K, A, LDA, TAU, WORK, M, WORK( M*M+1 ), INFO )
+      dorm2r('Left', 'No transpose', M, M, K, A, LDA, TAU, WORK, M, WORK( M*M+1 ), INFO );
 
       // Form Q'*Q
 
-      CALL DORM2R( 'Left', 'Transpose', M, M, K, A, LDA, TAU, WORK, M, WORK( M*M+1 ), INFO )
+      dorm2r('Left', 'Transpose', M, M, K, A, LDA, TAU, WORK, M, WORK( M*M+1 ), INFO );
 
       DO J = 1, M
          WORK( ( J-1 )*M+J ) = WORK( ( J-1 )*M+J ) - ONE

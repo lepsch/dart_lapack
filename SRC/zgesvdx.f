@@ -174,7 +174,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'ZGESVDX', -INFO )
+         xerbla('ZGESVDX', -INFO );
          RETURN
       } else if ( LQUERY ) {
          RETURN
@@ -214,10 +214,10 @@
       ISCL = 0
       if ( ANRM.GT.ZERO .AND. ANRM.LT.SMLNUM ) {
          ISCL = 1
-         CALL ZLASCL( 'G', 0, 0, ANRM, SMLNUM, M, N, A, LDA, INFO )
+         zlascl('G', 0, 0, ANRM, SMLNUM, M, N, A, LDA, INFO );
       } else if ( ANRM.GT.BIGNUM ) {
          ISCL = 1
-         CALL ZLASCL( 'G', 0, 0, ANRM, BIGNUM, M, N, A, LDA, INFO )
+         zlascl('G', 0, 0, ANRM, BIGNUM, M, N, A, LDA, INFO );
       }
 
       if ( M.GE.N ) {
@@ -238,7 +238,7 @@
 
             ITAU = 1
             ITEMP = ITAU + N
-            CALL ZGEQRF( M, N, A, LDA, WORK( ITAU ), WORK( ITEMP ), LWORK-ITEMP+1, INFO )
+            zgeqrf(M, N, A, LDA, WORK( ITAU ), WORK( ITEMP ), LWORK-ITEMP+1, INFO );
 
             // Copy R into WORK and bidiagonalize it:
             // (Workspace: need N*N+3*N, prefer N*N+N+2*N*NB)
@@ -250,14 +250,14 @@
             ID = 1
             IE = ID + N
             ITGKZ = IE + N
-            CALL ZLACPY( 'U', N, N, A, LDA, WORK( IQRF ), N )
-            CALL ZLASET( 'L', N-1, N-1, CZERO, CZERO, WORK( IQRF+1 ), N )             CALL ZGEBRD( N, N, WORK( IQRF ), N, RWORK( ID ), RWORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( ITEMP ), LWORK-ITEMP+1, INFO )
+            zlacpy('U', N, N, A, LDA, WORK( IQRF ), N );
+            zlaset('L', N-1, N-1, CZERO, CZERO, WORK( IQRF+1 ), N )             CALL ZGEBRD( N, N, WORK( IQRF ), N, RWORK( ID ), RWORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( ITEMP ), LWORK-ITEMP+1, INFO );
             ITEMPR = ITGKZ + N*(N*2+1)
 
             // Solve eigenvalue problem TGK*Z=Z*S.
             // (Workspace: need 2*N*N+14*N)
 
-            CALL DBDSVDX( 'U', JOBZ, RNGTGK, N, RWORK( ID ), RWORK( IE ), VL, VU, ILTGK, IUTGK, NS, S, RWORK( ITGKZ ), N*2, RWORK( ITEMPR ), IWORK, INFO)
+            dbdsvdx('U', JOBZ, RNGTGK, N, RWORK( ID ), RWORK( IE ), VL, VU, ILTGK, IUTGK, NS, S, RWORK( ITGKZ ), N*2, RWORK( ITEMPR ), IWORK, INFO);
 
             // If needed, compute left singular vectors.
 
@@ -270,17 +270,17 @@
                   END DO
                   K = K + N
                END DO
-               CALL ZLASET( 'A', M-N, NS, CZERO, CZERO, U( N+1,1 ), LDU)
+               zlaset('A', M-N, NS, CZERO, CZERO, U( N+1,1 ), LDU);
 
                // Call ZUNMBR to compute QB*UB.
                // (Workspace in WORK( ITEMP ): need N, prefer N*NB)
 
-               CALL ZUNMBR( 'Q', 'L', 'N', N, NS, N, WORK( IQRF ), N, WORK( ITAUQ ), U, LDU, WORK( ITEMP ), LWORK-ITEMP+1, INFO )
+               zunmbr('Q', 'L', 'N', N, NS, N, WORK( IQRF ), N, WORK( ITAUQ ), U, LDU, WORK( ITEMP ), LWORK-ITEMP+1, INFO );
 
                // Call ZUNMQR to compute Q*(QB*UB).
                // (Workspace in WORK( ITEMP ): need N, prefer N*NB)
 
-               CALL ZUNMQR( 'L', 'N', M, NS, N, A, LDA, WORK( ITAU ), U, LDU, WORK( ITEMP ), LWORK-ITEMP+1, INFO )
+               zunmqr('L', 'N', M, NS, N, A, LDA, WORK( ITAU ), U, LDU, WORK( ITEMP ), LWORK-ITEMP+1, INFO );
             }
 
             // If needed, compute right singular vectors.
@@ -298,7 +298,7 @@
                // Call ZUNMBR to compute VB**T * PB**T
                // (Workspace in WORK( ITEMP ): need N, prefer N*NB)
 
-               CALL ZUNMBR( 'P', 'R', 'C', NS, N, N, WORK( IQRF ), N, WORK( ITAUP ), VT, LDVT, WORK( ITEMP ), LWORK-ITEMP+1, INFO )
+               zunmbr('P', 'R', 'C', NS, N, N, WORK( IQRF ), N, WORK( ITAUP ), VT, LDVT, WORK( ITEMP ), LWORK-ITEMP+1, INFO );
             }
          } else {
 
@@ -316,13 +316,13 @@
             ID = 1
             IE = ID + N
             ITGKZ = IE + N
-            CALL ZGEBRD( M, N, A, LDA, RWORK( ID ), RWORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( ITEMP ), LWORK-ITEMP+1, INFO )
+            zgebrd(M, N, A, LDA, RWORK( ID ), RWORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( ITEMP ), LWORK-ITEMP+1, INFO );
             ITEMPR = ITGKZ + N*(N*2+1)
 
             // Solve eigenvalue problem TGK*Z=Z*S.
             // (Workspace: need 2*N*N+14*N)
 
-            CALL DBDSVDX( 'U', JOBZ, RNGTGK, N, RWORK( ID ), RWORK( IE ), VL, VU, ILTGK, IUTGK, NS, S, RWORK( ITGKZ ), N*2, RWORK( ITEMPR ), IWORK, INFO)
+            dbdsvdx('U', JOBZ, RNGTGK, N, RWORK( ID ), RWORK( IE ), VL, VU, ILTGK, IUTGK, NS, S, RWORK( ITGKZ ), N*2, RWORK( ITEMPR ), IWORK, INFO);
 
             // If needed, compute left singular vectors.
 
@@ -335,12 +335,12 @@
                   END DO
                   K = K + N
                END DO
-               CALL ZLASET( 'A', M-N, NS, CZERO, CZERO, U( N+1,1 ), LDU)
+               zlaset('A', M-N, NS, CZERO, CZERO, U( N+1,1 ), LDU);
 
                // Call ZUNMBR to compute QB*UB.
                // (Workspace in WORK( ITEMP ): need N, prefer N*NB)
 
-               CALL ZUNMBR( 'Q', 'L', 'N', M, NS, N, A, LDA, WORK( ITAUQ ), U, LDU, WORK( ITEMP ), LWORK-ITEMP+1, IERR )
+               zunmbr('Q', 'L', 'N', M, NS, N, A, LDA, WORK( ITAUQ ), U, LDU, WORK( ITEMP ), LWORK-ITEMP+1, IERR );
             }
 
             // If needed, compute right singular vectors.
@@ -358,7 +358,7 @@
                // Call ZUNMBR to compute VB**T * PB**T
                // (Workspace in WORK( ITEMP ): need N, prefer N*NB)
 
-               CALL ZUNMBR( 'P', 'R', 'C', NS, N, N, A, LDA, WORK( ITAUP ), VT, LDVT, WORK( ITEMP ), LWORK-ITEMP+1, IERR )
+               zunmbr('P', 'R', 'C', NS, N, N, A, LDA, WORK( ITAUP ), VT, LDVT, WORK( ITEMP ), LWORK-ITEMP+1, IERR );
             }
          }
       } else {
@@ -378,7 +378,7 @@
 
             ITAU = 1
             ITEMP = ITAU + M
-            CALL ZGELQF( M, N, A, LDA, WORK( ITAU ), WORK( ITEMP ), LWORK-ITEMP+1, INFO )
+            zgelqf(M, N, A, LDA, WORK( ITAU ), WORK( ITEMP ), LWORK-ITEMP+1, INFO );
 
             // Copy L into WORK and bidiagonalize it:
             // (Workspace in WORK( ITEMP ): need M*M+3*M, prefer M*M+M+2*M*NB)
@@ -390,14 +390,14 @@
             ID = 1
             IE = ID + M
             ITGKZ = IE + M
-            CALL ZLACPY( 'L', M, M, A, LDA, WORK( ILQF ), M )
-            CALL ZLASET( 'U', M-1, M-1, CZERO, CZERO, WORK( ILQF+M ), M )             CALL ZGEBRD( M, M, WORK( ILQF ), M, RWORK( ID ), RWORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( ITEMP ), LWORK-ITEMP+1, INFO )
+            zlacpy('L', M, M, A, LDA, WORK( ILQF ), M );
+            zlaset('U', M-1, M-1, CZERO, CZERO, WORK( ILQF+M ), M )             CALL ZGEBRD( M, M, WORK( ILQF ), M, RWORK( ID ), RWORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( ITEMP ), LWORK-ITEMP+1, INFO );
             ITEMPR = ITGKZ + M*(M*2+1)
 
             // Solve eigenvalue problem TGK*Z=Z*S.
             // (Workspace: need 2*M*M+14*M)
 
-            CALL DBDSVDX( 'U', JOBZ, RNGTGK, M, RWORK( ID ), RWORK( IE ), VL, VU, ILTGK, IUTGK, NS, S, RWORK( ITGKZ ), M*2, RWORK( ITEMPR ), IWORK, INFO)
+            dbdsvdx('U', JOBZ, RNGTGK, M, RWORK( ID ), RWORK( IE ), VL, VU, ILTGK, IUTGK, NS, S, RWORK( ITGKZ ), M*2, RWORK( ITEMPR ), IWORK, INFO);
 
             // If needed, compute left singular vectors.
 
@@ -414,7 +414,7 @@
                // Call ZUNMBR to compute QB*UB.
                // (Workspace in WORK( ITEMP ): need M, prefer M*NB)
 
-               CALL ZUNMBR( 'Q', 'L', 'N', M, NS, M, WORK( ILQF ), M, WORK( ITAUQ ), U, LDU, WORK( ITEMP ), LWORK-ITEMP+1, INFO )
+               zunmbr('Q', 'L', 'N', M, NS, M, WORK( ILQF ), M, WORK( ITAUQ ), U, LDU, WORK( ITEMP ), LWORK-ITEMP+1, INFO );
             }
 
             // If needed, compute right singular vectors.
@@ -428,17 +428,17 @@
                   END DO
                   K = K + M
                END DO
-               CALL ZLASET( 'A', NS, N-M, CZERO, CZERO, VT( 1,M+1 ), LDVT )
+               zlaset('A', NS, N-M, CZERO, CZERO, VT( 1,M+1 ), LDVT );
 
                // Call ZUNMBR to compute (VB**T)*(PB**T)
                // (Workspace in WORK( ITEMP ): need M, prefer M*NB)
 
-               CALL ZUNMBR( 'P', 'R', 'C', NS, M, M, WORK( ILQF ), M, WORK( ITAUP ), VT, LDVT, WORK( ITEMP ), LWORK-ITEMP+1, INFO )
+               zunmbr('P', 'R', 'C', NS, M, M, WORK( ILQF ), M, WORK( ITAUP ), VT, LDVT, WORK( ITEMP ), LWORK-ITEMP+1, INFO );
 
                // Call ZUNMLQ to compute ((VB**T)*(PB**T))*Q.
                // (Workspace in WORK( ITEMP ): need M, prefer M*NB)
 
-               CALL ZUNMLQ( 'R', 'N', NS, N, M, A, LDA, WORK( ITAU ), VT, LDVT, WORK( ITEMP ), LWORK-ITEMP+1, INFO )
+               zunmlq('R', 'N', NS, N, M, A, LDA, WORK( ITAU ), VT, LDVT, WORK( ITEMP ), LWORK-ITEMP+1, INFO );
             }
          } else {
 
@@ -456,13 +456,13 @@
             ID = 1
             IE = ID + M
             ITGKZ = IE + M
-            CALL ZGEBRD( M, N, A, LDA, RWORK( ID ), RWORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( ITEMP ), LWORK-ITEMP+1, INFO )
+            zgebrd(M, N, A, LDA, RWORK( ID ), RWORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( ITEMP ), LWORK-ITEMP+1, INFO );
             ITEMPR = ITGKZ + M*(M*2+1)
 
             // Solve eigenvalue problem TGK*Z=Z*S.
             // (Workspace: need 2*M*M+14*M)
 
-            CALL DBDSVDX( 'L', JOBZ, RNGTGK, M, RWORK( ID ), RWORK( IE ), VL, VU, ILTGK, IUTGK, NS, S, RWORK( ITGKZ ), M*2, RWORK( ITEMPR ), IWORK, INFO)
+            dbdsvdx('L', JOBZ, RNGTGK, M, RWORK( ID ), RWORK( IE ), VL, VU, ILTGK, IUTGK, NS, S, RWORK( ITGKZ ), M*2, RWORK( ITEMPR ), IWORK, INFO);
 
             // If needed, compute left singular vectors.
 
@@ -479,7 +479,7 @@
                // Call ZUNMBR to compute QB*UB.
                // (Workspace in WORK( ITEMP ): need M, prefer M*NB)
 
-               CALL ZUNMBR( 'Q', 'L', 'N', M, NS, N, A, LDA, WORK( ITAUQ ), U, LDU, WORK( ITEMP ), LWORK-ITEMP+1, INFO )
+               zunmbr('Q', 'L', 'N', M, NS, N, A, LDA, WORK( ITAUQ ), U, LDU, WORK( ITEMP ), LWORK-ITEMP+1, INFO );
             }
 
             // If needed, compute right singular vectors.
@@ -493,12 +493,12 @@
                   END DO
                   K = K + M
                END DO
-               CALL ZLASET( 'A', NS, N-M, CZERO, CZERO, VT( 1,M+1 ), LDVT )
+               zlaset('A', NS, N-M, CZERO, CZERO, VT( 1,M+1 ), LDVT );
 
                // Call ZUNMBR to compute VB**T * PB**T
                // (Workspace in WORK( ITEMP ): need M, prefer M*NB)
 
-               CALL ZUNMBR( 'P', 'R', 'C', NS, N, M, A, LDA, WORK( ITAUP ), VT, LDVT, WORK( ITEMP ), LWORK-ITEMP+1, INFO )
+               zunmbr('P', 'R', 'C', NS, N, M, A, LDA, WORK( ITAUP ), VT, LDVT, WORK( ITEMP ), LWORK-ITEMP+1, INFO );
             }
          }
       }

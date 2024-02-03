@@ -49,7 +49,7 @@
          INFO = -5
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'CPBTF2', -INFO )
+         xerbla('CPBTF2', -INFO );
          RETURN
       }
 
@@ -80,10 +80,10 @@
 
             KN = MIN( KD, N-J )
             if ( KN.GT.0 ) {
-               CALL CSSCAL( KN, ONE / AJJ, AB( KD, J+1 ), KLD )
-               CALL CLACGV( KN, AB( KD, J+1 ), KLD )
-               CALL CHER( 'Upper', KN, -ONE, AB( KD, J+1 ), KLD, AB( KD+1, J+1 ), KLD )
-               CALL CLACGV( KN, AB( KD, J+1 ), KLD )
+               csscal(KN, ONE / AJJ, AB( KD, J+1 ), KLD );
+               clacgv(KN, AB( KD, J+1 ), KLD );
+               cher('Upper', KN, -ONE, AB( KD, J+1 ), KLD, AB( KD+1, J+1 ), KLD );
+               clacgv(KN, AB( KD, J+1 ), KLD );
             }
    10    CONTINUE
       } else {
@@ -107,8 +107,8 @@
 
             KN = MIN( KD, N-J )
             if ( KN.GT.0 ) {
-               CALL CSSCAL( KN, ONE / AJJ, AB( 2, J ), 1 )
-               CALL CHER( 'Lower', KN, -ONE, AB( 2, J ), 1, AB( 1, J+1 ), KLD )
+               csscal(KN, ONE / AJJ, AB( 2, J ), 1 );
+               cher('Lower', KN, -ONE, AB( 2, J ), 1, AB( 1, J+1 ), KLD );
             }
    20    CONTINUE
       }

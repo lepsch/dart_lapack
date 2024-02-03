@@ -57,7 +57,7 @@
       }
 
       if ( INFO .NE. 0 ) {
-         CALL XERBLA( 'DORBDB5', -INFO )
+         xerbla('DORBDB5', -INFO );
          RETURN
       }
 
@@ -67,8 +67,8 @@
 
       SCL = REALZERO
       SSQ = REALZERO
-      CALL DLASSQ( M1, X1, INCX1, SCL, SSQ )
-      CALL DLASSQ( M2, X2, INCX2, SCL, SSQ )
+      dlassq(M1, X1, INCX1, SCL, SSQ );
+      dlassq(M2, X2, INCX2, SCL, SSQ );
       NORM = SCL * SQRT( SSQ )
 
       if ( NORM .GT. N * EPS ) {
@@ -77,9 +77,9 @@
           // * xLASCL cannot be used because of the vector increments and
           // * the round-off error has a negligible impact on
             // orthogonalization.
-         CALL DSCAL( M1, ONE / NORM, X1, INCX1 )
-         CALL DSCAL( M2, ONE / NORM, X2, INCX2 )
-         CALL DORBDB6( M1, M2, N, X1, INCX1, X2, INCX2, Q1, LDQ1, Q2, LDQ2, WORK, LWORK, CHILDINFO )
+         dscal(M1, ONE / NORM, X1, INCX1 );
+         dscal(M2, ONE / NORM, X2, INCX2 );
+         dorbdb6(M1, M2, N, X1, INCX1, X2, INCX2, Q1, LDQ1, Q2, LDQ2, WORK, LWORK, CHILDINFO );
 
          // If the projection is nonzero, then return
 

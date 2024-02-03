@@ -71,7 +71,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'STPMQRT', -INFO )
+         xerbla('STPMQRT', -INFO );
          RETURN
       }
 
@@ -89,7 +89,7 @@
             } else {
                LB = MB-M+L-I+1
             }
-            CALL STPRFB( 'L', 'T', 'F', 'C', MB, N, IB, LB, V( 1, I ), LDV, T( 1, I ), LDT, A( I, 1 ), LDA, B, LDB, WORK, IB )
+            stprfb('L', 'T', 'F', 'C', MB, N, IB, LB, V( 1, I ), LDV, T( 1, I ), LDT, A( I, 1 ), LDA, B, LDB, WORK, IB );
          END DO
 
       } else if ( RIGHT .AND. NOTRAN ) {
@@ -102,7 +102,7 @@
             } else {
                LB = MB-N+L-I+1
             }
-            CALL STPRFB( 'R', 'N', 'F', 'C', M, MB, IB, LB, V( 1, I ), LDV, T( 1, I ), LDT, A( 1, I ), LDA, B, LDB, WORK, M )
+            stprfb('R', 'N', 'F', 'C', M, MB, IB, LB, V( 1, I ), LDV, T( 1, I ), LDT, A( 1, I ), LDA, B, LDB, WORK, M );
          END DO
 
       } else if ( LEFT .AND. NOTRAN ) {
@@ -116,7 +116,7 @@
             } else {
                LB = MB-M+L-I+1
             }
-            CALL STPRFB( 'L', 'N', 'F', 'C', MB, N, IB, LB, V( 1, I ), LDV, T( 1, I ), LDT, A( I, 1 ), LDA, B, LDB, WORK, IB )
+            stprfb('L', 'N', 'F', 'C', MB, N, IB, LB, V( 1, I ), LDV, T( 1, I ), LDT, A( I, 1 ), LDA, B, LDB, WORK, IB );
          END DO
 
       } else if ( RIGHT .AND. TRAN ) {
@@ -130,7 +130,7 @@
             } else {
                LB = MB-N+L-I+1
             }
-            CALL STPRFB( 'R', 'T', 'F', 'C', M, MB, IB, LB, V( 1, I ), LDV, T( 1, I ), LDT, A( 1, I ), LDA, B, LDB, WORK, M )
+            stprfb('R', 'T', 'F', 'C', M, MB, IB, LB, V( 1, I ), LDV, T( 1, I ), LDT, A( 1, I ), LDA, B, LDB, WORK, M );
          END DO
 
       }

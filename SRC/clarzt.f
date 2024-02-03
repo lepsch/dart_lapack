@@ -39,7 +39,7 @@
          INFO = -2
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'CLARZT', -INFO )
+         xerbla('CLARZT', -INFO );
          RETURN
       }
 
@@ -59,13 +59,13 @@
 
                // T(i+1:k,i) = - tau(i) * V(i+1:k,1:n) * V(i,1:n)**H
 
-               CALL CLACGV( N, V( I, 1 ), LDV )
-               CALL CGEMV( 'No transpose', K-I, N, -TAU( I ), V( I+1, 1 ), LDV, V( I, 1 ), LDV, ZERO, T( I+1, I ), 1 )
-               CALL CLACGV( N, V( I, 1 ), LDV )
+               clacgv(N, V( I, 1 ), LDV );
+               cgemv('No transpose', K-I, N, -TAU( I ), V( I+1, 1 ), LDV, V( I, 1 ), LDV, ZERO, T( I+1, I ), 1 );
+               clacgv(N, V( I, 1 ), LDV );
 
                // T(i+1:k,i) = T(i+1:k,i+1:k) * T(i+1:k,i)
 
-               CALL CTRMV( 'Lower', 'No transpose', 'Non-unit', K-I, T( I+1, I+1 ), LDT, T( I+1, I ), 1 )
+               ctrmv('Lower', 'No transpose', 'Non-unit', K-I, T( I+1, I+1 ), LDT, T( I+1, I ), 1 );
             }
             T( I, I ) = TAU( I )
          }

@@ -42,7 +42,7 @@
          INFO = -10
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'CGELQS', -INFO )
+         xerbla('CGELQS', -INFO );
          RETURN
       }
 
@@ -52,7 +52,7 @@
 
       // Solve L*X = B(1:m,:)
 
-      CALL CTRSM( 'Left', 'Lower', 'No transpose', 'Non-unit', M, NRHS, CONE, A, LDA, B, LDB )
+      ctrsm('Left', 'Lower', 'No transpose', 'Non-unit', M, NRHS, CONE, A, LDA, B, LDB );
 
       // Set B(m+1:n,:) to zero
 
@@ -60,7 +60,7 @@
 
       // B := Q' * B
 
-      CALL CUNMLQ( 'Left', 'Conjugate transpose', N, NRHS, M, A, LDA, TAU, B, LDB, WORK, LWORK, INFO )
+      cunmlq('Left', 'Conjugate transpose', N, NRHS, M, A, LDA, TAU, B, LDB, WORK, LWORK, INFO );
 
       RETURN
 

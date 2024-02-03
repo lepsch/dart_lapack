@@ -51,7 +51,7 @@
          INFO = -4
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'ZGEBAL', -INFO )
+         xerbla('ZGEBAL', -INFO );
          RETURN
       }
 
@@ -99,8 +99,8 @@
                if ( CANSWAP ) {
                   SCALE( L ) = I
                   if ( I.NE.L ) {
-                     CALL ZSWAP( L, A( 1, I ), 1, A( 1, L ), 1 )
-                     CALL ZSWAP( N-K+1, A( I, K ), LDA, A( L, K ), LDA )
+                     zswap(L, A( 1, I ), 1, A( 1, L ), 1 );
+                     zswap(N-K+1, A( I, K ), LDA, A( L, K ), LDA );
                   }
                   NOCONV = .TRUE.
 
@@ -134,8 +134,8 @@
                if ( CANSWAP ) {
                   SCALE( K ) = J
                   if ( J.NE.K ) {
-                     CALL ZSWAP( L, A( 1, J ), 1, A( 1, K ), 1 )
-                     CALL ZSWAP( N-K+1, A( J, K ), LDA, A( K, K ), LDA )
+                     zswap(L, A( 1, J ), 1, A( 1, K ), 1 );
+                     zswap(N-K+1, A( J, K ), LDA, A( K, K ), LDA );
                   }
                   NOCONV = .TRUE.
 
@@ -191,7 +191,7 @@
 
             if ( DISNAN( C+CA+R+RA ) ) {
                INFO = -3
-               CALL XERBLA( 'ZGEBAL', -INFO )
+               xerbla('ZGEBAL', -INFO );
                RETURN
             }
 
@@ -232,8 +232,8 @@
             SCALE( I ) = SCALE( I )*F
             NOCONV = .TRUE.
 
-            CALL ZDSCAL( N-K+1, G, A( I, K ), LDA )
-            CALL ZDSCAL( L, F, A( 1, I ), 1 )
+            zdscal(N-K+1, G, A( I, K ), LDA );
+            zdscal(L, F, A( 1, I ), 1 );
 
          END DO
 

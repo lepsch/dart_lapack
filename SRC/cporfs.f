@@ -75,7 +75,7 @@
          INFO = -11
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'CPORFS', -INFO )
+         xerbla('CPORFS', -INFO );
          RETURN
       }
 
@@ -109,8 +109,8 @@
 
          // Compute residual R = B - A * X
 
-         CALL CCOPY( N, B( 1, J ), 1, WORK, 1 )
-         CALL CHEMV( UPLO, N, -ONE, A, LDA, X( 1, J ), 1, ONE, WORK, 1 )
+         ccopy(N, B( 1, J ), 1, WORK, 1 );
+         chemv(UPLO, N, -ONE, A, LDA, X( 1, J ), 1, ONE, WORK, 1 );
 
          // Compute componentwise relative backward error from formula
 
@@ -169,8 +169,8 @@
 
             // Update solution and try again.
 
-            CALL CPOTRS( UPLO, N, 1, AF, LDAF, WORK, N, INFO )
-            CALL CAXPY( N, ONE, WORK, 1, X( 1, J ), 1 )
+            cpotrs(UPLO, N, 1, AF, LDAF, WORK, N, INFO );
+            caxpy(N, ONE, WORK, 1, X( 1, J ), 1 );
             LSTRES = BERR( J )
             COUNT = COUNT + 1
             GO TO 20
@@ -208,13 +208,13 @@
 
          KASE = 0
   100    CONTINUE
-         CALL CLACN2( N, WORK( N+1 ), WORK, FERR( J ), KASE, ISAVE )
+         clacn2(N, WORK( N+1 ), WORK, FERR( J ), KASE, ISAVE );
          if ( KASE.NE.0 ) {
             if ( KASE.EQ.1 ) {
 
                // Multiply by diag(W)*inv(A**H).
 
-               CALL CPOTRS( UPLO, N, 1, AF, LDAF, WORK, N, INFO )
+               cpotrs(UPLO, N, 1, AF, LDAF, WORK, N, INFO );
                DO 110 I = 1, N
                   WORK( I ) = RWORK( I )*WORK( I )
   110          CONTINUE
@@ -225,7 +225,7 @@
                DO 120 I = 1, N
                   WORK( I ) = RWORK( I )*WORK( I )
   120          CONTINUE
-               CALL CPOTRS( UPLO, N, 1, AF, LDAF, WORK, N, INFO )
+               cpotrs(UPLO, N, 1, AF, LDAF, WORK, N, INFO );
             }
             GO TO 100
          }

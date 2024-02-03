@@ -79,7 +79,7 @@
       }
 
       if ( INFO.NE.0 ) {
-        CALL XERBLA( 'CLAMTSQR', -INFO )
+        xerbla('CLAMTSQR', -INFO );
         RETURN
       } else if ( LQUERY ) {
         RETURN
@@ -94,7 +94,7 @@
       // Determine the block size if it is tall skinny or short and wide
 
       if ((MB.LE.K).OR.(MB.GE.MAX(M,N,K))) {
-        CALL CGEMQRT( SIDE, TRANS, M, N, K, NB, A, LDA, T, LDT, C, LDC, WORK, INFO )
+        cgemqrt(SIDE, TRANS, M, N, K, NB, A, LDA, T, LDT, C, LDC, WORK, INFO );
         RETURN
       }
 
@@ -106,7 +106,7 @@
          CTR = (M-K)/(MB-K)
          if (KK.GT.0) {
            II=M-KK+1
-           CALL CTPMQRT('L','N',KK , N, K, 0, NB, A(II,1), LDA, T(1, CTR*K+1),LDT , C(1,1), LDC, C(II,1), LDC, WORK, INFO )
+           ctpmqrt('L','N',KK , N, K, 0, NB, A(II,1), LDA, T(1, CTR*K+1),LDT , C(1,1), LDC, C(II,1), LDC, WORK, INFO );
          } else {
            II=M+1
          }
@@ -116,13 +116,13 @@
           // Multiply Q to the current block of C (I:I+MB,1:N)
 
            CTR = CTR - 1
-           CALL CTPMQRT('L','N',MB-K , N, K, 0,NB, A(I,1), LDA, T(1,CTR*K+1),LDT, C(1,1), LDC, C(I,1), LDC, WORK, INFO )
+           ctpmqrt('L','N',MB-K , N, K, 0,NB, A(I,1), LDA, T(1,CTR*K+1),LDT, C(1,1), LDC, C(I,1), LDC, WORK, INFO );
 
          END DO
 
           // Multiply Q to the first block of C (1:MB,1:N)
 
-         CALL CGEMQRT('L','N',MB , N, K, NB, A(1,1), LDA, T ,LDT ,C(1,1), LDC, WORK, INFO )
+         cgemqrt('L','N',MB , N, K, NB, A(1,1), LDA, T ,LDT ,C(1,1), LDC, WORK, INFO );
 
       } else if (LEFT.AND.TRAN) {
 
@@ -131,13 +131,13 @@
          KK = MOD((M-K),(MB-K))
          II=M-KK+1
          CTR = 1
-         CALL CGEMQRT('L','C',MB , N, K, NB, A(1,1), LDA, T ,LDT ,C(1,1), LDC, WORK, INFO )
+         cgemqrt('L','C',MB , N, K, NB, A(1,1), LDA, T ,LDT ,C(1,1), LDC, WORK, INFO );
 
          DO I=MB+1,II-MB+K,(MB-K)
 
           // Multiply Q to the current block of C (I:I+MB,1:N)
 
-          CALL CTPMQRT('L','C',MB-K , N, K, 0,NB, A(I,1), LDA, T(1, CTR*K+1),LDT, C(1,1), LDC, C(I,1), LDC, WORK, INFO )
+          ctpmqrt('L','C',MB-K , N, K, 0,NB, A(I,1), LDA, T(1, CTR*K+1),LDT, C(1,1), LDC, C(I,1), LDC, WORK, INFO );
           CTR = CTR + 1
 
          END DO
@@ -145,7 +145,7 @@
 
           // Multiply Q to the last block of C
 
-          CALL CTPMQRT('L','C',KK , N, K, 0,NB, A(II,1), LDA, T(1,CTR*K+1), LDT, C(1,1), LDC, C(II,1), LDC, WORK, INFO )
+          ctpmqrt('L','C',KK , N, K, 0,NB, A(II,1), LDA, T(1,CTR*K+1), LDT, C(1,1), LDC, C(II,1), LDC, WORK, INFO );
 
          }
 
@@ -157,7 +157,7 @@
           CTR = (N-K)/(MB-K)
           if (KK.GT.0) {
             II=N-KK+1
-            CALL CTPMQRT('R','C',M , KK, K, 0, NB, A(II,1), LDA, T(1, CTR*K+1), LDT, C(1,1), LDC, C(1,II), LDC, WORK, INFO )
+            ctpmqrt('R','C',M , KK, K, 0, NB, A(II,1), LDA, T(1, CTR*K+1), LDT, C(1,1), LDC, C(1,II), LDC, WORK, INFO );
           } else {
             II=N+1
           }
@@ -167,12 +167,12 @@
           // Multiply Q to the current block of C (1:M,I:I+MB)
 
             CTR = CTR - 1
-            CALL CTPMQRT('R','C',M , MB-K, K, 0,NB, A(I,1), LDA, T(1,CTR*K+1), LDT, C(1,1), LDC, C(1,I), LDC, WORK, INFO )
+            ctpmqrt('R','C',M , MB-K, K, 0,NB, A(I,1), LDA, T(1,CTR*K+1), LDT, C(1,1), LDC, C(1,I), LDC, WORK, INFO );
           END DO
 
           // Multiply Q to the first block of C (1:M,1:MB)
 
-          CALL CGEMQRT('R','C',M , MB, K, NB, A(1,1), LDA, T ,LDT ,C(1,1), LDC, WORK, INFO )
+          cgemqrt('R','C',M , MB, K, NB, A(1,1), LDA, T ,LDT ,C(1,1), LDC, WORK, INFO );
 
       } else if (RIGHT.AND.NOTRAN) {
 
@@ -181,13 +181,13 @@
          KK = MOD((N-K),(MB-K))
          II=N-KK+1
          CTR = 1
-         CALL CGEMQRT('R','N', M, MB , K, NB, A(1,1), LDA, T ,LDT ,C(1,1), LDC, WORK, INFO )
+         cgemqrt('R','N', M, MB , K, NB, A(1,1), LDA, T ,LDT ,C(1,1), LDC, WORK, INFO );
 
          DO I=MB+1,II-MB+K,(MB-K)
 
           // Multiply Q to the current block of C (1:M,I:I+MB)
 
-          CALL CTPMQRT('R','N', M, MB-K, K, 0,NB, A(I,1), LDA, T(1,CTR*K+1),LDT, C(1,1), LDC, C(1,I), LDC, WORK, INFO )
+          ctpmqrt('R','N', M, MB-K, K, 0,NB, A(I,1), LDA, T(1,CTR*K+1),LDT, C(1,1), LDC, C(1,I), LDC, WORK, INFO );
           CTR = CTR + 1
 
          END DO
@@ -195,7 +195,7 @@
 
           // Multiply Q to the last block of C
 
-          CALL CTPMQRT('R','N', M, KK , K, 0,NB, A(II,1), LDA, T(1,CTR*K+1),LDT, C(1,1), LDC, C(1,II), LDC, WORK, INFO )
+          ctpmqrt('R','N', M, KK , K, 0,NB, A(II,1), LDA, T(1,CTR*K+1),LDT, C(1,1), LDC, C(1,II), LDC, WORK, INFO );
 
          }
 

@@ -68,7 +68,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'DSTEIN', -INFO )
+         xerbla('DSTEIN', -INFO );
          RETURN
       }
 
@@ -161,18 +161,18 @@
 
             // Get random starting vector.
 
-            CALL DLARNV( 2, ISEED, BLKSIZ, WORK( INDRV1+1 ) )
+            dlarnv(2, ISEED, BLKSIZ, WORK( INDRV1+1 ) );
 
             // Copy the matrix T so it won't be destroyed in factorization.
 
-            CALL DCOPY( BLKSIZ, D( B1 ), 1, WORK( INDRV4+1 ), 1 )
-            CALL DCOPY( BLKSIZ-1, E( B1 ), 1, WORK( INDRV2+2 ), 1 )
-            CALL DCOPY( BLKSIZ-1, E( B1 ), 1, WORK( INDRV3+1 ), 1 )
+            dcopy(BLKSIZ, D( B1 ), 1, WORK( INDRV4+1 ), 1 );
+            dcopy(BLKSIZ-1, E( B1 ), 1, WORK( INDRV2+2 ), 1 );
+            dcopy(BLKSIZ-1, E( B1 ), 1, WORK( INDRV3+1 ), 1 );
 
             // Compute LU factors with partial pivoting  ( PT = LU )
 
             TOL = ZERO
-            CALL DLAGTF( BLKSIZ, WORK( INDRV4+1 ), XJ, WORK( INDRV2+2 ), WORK( INDRV3+1 ), TOL, WORK( INDRV5+1 ), IWORK, IINFO )
+            dlagtf(BLKSIZ, WORK( INDRV4+1 ), XJ, WORK( INDRV2+2 ), WORK( INDRV3+1 ), TOL, WORK( INDRV5+1 ), IWORK, IINFO );
 
             // Update iteration count.
 
@@ -184,11 +184,11 @@
 
             JMAX = IDAMAX( BLKSIZ, WORK( INDRV1+1 ), 1 )
             SCL = BLKSIZ*ONENRM*MAX( EPS, ABS( WORK( INDRV4+BLKSIZ ) ) ) / ABS( WORK( INDRV1+JMAX ) )
-            CALL DSCAL( BLKSIZ, SCL, WORK( INDRV1+1 ), 1 )
+            dscal(BLKSIZ, SCL, WORK( INDRV1+1 ), 1 );
 
             // Solve the system LU = Pb.
 
-            CALL DLAGTS( -1, BLKSIZ, WORK( INDRV4+1 ), WORK( INDRV2+2 ), WORK( INDRV3+1 ), WORK( INDRV5+1 ), IWORK, WORK( INDRV1+1 ), TOL, IINFO )
+            dlagts(-1, BLKSIZ, WORK( INDRV4+1 ), WORK( INDRV2+2 ), WORK( INDRV3+1 ), WORK( INDRV5+1 ), IWORK, WORK( INDRV1+1 ), TOL, IINFO );
 
             // Reorthogonalize by modified Gram-Schmidt if eigenvalues are
             // close enough.
@@ -228,7 +228,7 @@
             SCL = ONE / DNRM2( BLKSIZ, WORK( INDRV1+1 ), 1 )
             JMAX = IDAMAX( BLKSIZ, WORK( INDRV1+1 ), 1 )
             IF( WORK( INDRV1+JMAX ).LT.ZERO ) SCL = -SCL
-            CALL DSCAL( BLKSIZ, SCL, WORK( INDRV1+1 ), 1 )
+            dscal(BLKSIZ, SCL, WORK( INDRV1+1 ), 1 );
   120       CONTINUE
             DO 130 I = 1, N
                Z( I, J ) = ZERO

@@ -59,155 +59,155 @@
 
       SRNAMT = 'ZGELQF'
       INFOT = 1
-      CALL ZGELQF( -1, 0, A, 1, B, W, 1, INFO )
-      CALL CHKXER( 'ZGELQF', INFOT, NOUT, LERR, OK )
+      zgelqf(-1, 0, A, 1, B, W, 1, INFO );
+      chkxer('ZGELQF', INFOT, NOUT, LERR, OK );
       INFOT = 2
-      CALL ZGELQF( 0, -1, A, 1, B, W, 1, INFO )
-      CALL CHKXER( 'ZGELQF', INFOT, NOUT, LERR, OK )
+      zgelqf(0, -1, A, 1, B, W, 1, INFO );
+      chkxer('ZGELQF', INFOT, NOUT, LERR, OK );
       INFOT = 4
-      CALL ZGELQF( 2, 1, A, 1, B, W, 2, INFO )
-      CALL CHKXER( 'ZGELQF', INFOT, NOUT, LERR, OK )
+      zgelqf(2, 1, A, 1, B, W, 2, INFO );
+      chkxer('ZGELQF', INFOT, NOUT, LERR, OK );
       INFOT = 7
-      CALL ZGELQF( 2, 1, A, 2, B, W, 1, INFO )
-      CALL CHKXER( 'ZGELQF', INFOT, NOUT, LERR, OK )
+      zgelqf(2, 1, A, 2, B, W, 1, INFO );
+      chkxer('ZGELQF', INFOT, NOUT, LERR, OK );
 
       // ZGELQ2
 
       SRNAMT = 'ZGELQ2'
       INFOT = 1
-      CALL ZGELQ2( -1, 0, A, 1, B, W, INFO )
-      CALL CHKXER( 'ZGELQ2', INFOT, NOUT, LERR, OK )
+      zgelq2(-1, 0, A, 1, B, W, INFO );
+      chkxer('ZGELQ2', INFOT, NOUT, LERR, OK );
       INFOT = 2
-      CALL ZGELQ2( 0, -1, A, 1, B, W, INFO )
-      CALL CHKXER( 'ZGELQ2', INFOT, NOUT, LERR, OK )
+      zgelq2(0, -1, A, 1, B, W, INFO );
+      chkxer('ZGELQ2', INFOT, NOUT, LERR, OK );
       INFOT = 4
-      CALL ZGELQ2( 2, 1, A, 1, B, W, INFO )
-      CALL CHKXER( 'ZGELQ2', INFOT, NOUT, LERR, OK )
+      zgelq2(2, 1, A, 1, B, W, INFO );
+      chkxer('ZGELQ2', INFOT, NOUT, LERR, OK );
 
       // ZUNGLQ
 
       SRNAMT = 'ZUNGLQ'
       INFOT = 1
-      CALL ZUNGLQ( -1, 0, 0, A, 1, X, W, 1, INFO )
-      CALL CHKXER( 'ZUNGLQ', INFOT, NOUT, LERR, OK )
+      zunglq(-1, 0, 0, A, 1, X, W, 1, INFO );
+      chkxer('ZUNGLQ', INFOT, NOUT, LERR, OK );
       INFOT = 2
-      CALL ZUNGLQ( 0, -1, 0, A, 1, X, W, 1, INFO )
-      CALL CHKXER( 'ZUNGLQ', INFOT, NOUT, LERR, OK )
+      zunglq(0, -1, 0, A, 1, X, W, 1, INFO );
+      chkxer('ZUNGLQ', INFOT, NOUT, LERR, OK );
       INFOT = 2
-      CALL ZUNGLQ( 2, 1, 0, A, 2, X, W, 2, INFO )
-      CALL CHKXER( 'ZUNGLQ', INFOT, NOUT, LERR, OK )
+      zunglq(2, 1, 0, A, 2, X, W, 2, INFO );
+      chkxer('ZUNGLQ', INFOT, NOUT, LERR, OK );
       INFOT = 3
-      CALL ZUNGLQ( 0, 0, -1, A, 1, X, W, 1, INFO )
-      CALL CHKXER( 'ZUNGLQ', INFOT, NOUT, LERR, OK )
+      zunglq(0, 0, -1, A, 1, X, W, 1, INFO );
+      chkxer('ZUNGLQ', INFOT, NOUT, LERR, OK );
       INFOT = 3
-      CALL ZUNGLQ( 1, 1, 2, A, 1, X, W, 1, INFO )
-      CALL CHKXER( 'ZUNGLQ', INFOT, NOUT, LERR, OK )
+      zunglq(1, 1, 2, A, 1, X, W, 1, INFO );
+      chkxer('ZUNGLQ', INFOT, NOUT, LERR, OK );
       INFOT = 5
-      CALL ZUNGLQ( 2, 2, 0, A, 1, X, W, 2, INFO )
-      CALL CHKXER( 'ZUNGLQ', INFOT, NOUT, LERR, OK )
+      zunglq(2, 2, 0, A, 1, X, W, 2, INFO );
+      chkxer('ZUNGLQ', INFOT, NOUT, LERR, OK );
       INFOT = 8
-      CALL ZUNGLQ( 2, 2, 0, A, 2, X, W, 1, INFO )
-      CALL CHKXER( 'ZUNGLQ', INFOT, NOUT, LERR, OK )
+      zunglq(2, 2, 0, A, 2, X, W, 1, INFO );
+      chkxer('ZUNGLQ', INFOT, NOUT, LERR, OK );
 
       // ZUNGL2
 
       SRNAMT = 'ZUNGL2'
       INFOT = 1
-      CALL ZUNGL2( -1, 0, 0, A, 1, X, W, INFO )
-      CALL CHKXER( 'ZUNGL2', INFOT, NOUT, LERR, OK )
+      zungl2(-1, 0, 0, A, 1, X, W, INFO );
+      chkxer('ZUNGL2', INFOT, NOUT, LERR, OK );
       INFOT = 2
-      CALL ZUNGL2( 0, -1, 0, A, 1, X, W, INFO )
-      CALL CHKXER( 'ZUNGL2', INFOT, NOUT, LERR, OK )
+      zungl2(0, -1, 0, A, 1, X, W, INFO );
+      chkxer('ZUNGL2', INFOT, NOUT, LERR, OK );
       INFOT = 2
-      CALL ZUNGL2( 2, 1, 0, A, 2, X, W, INFO )
-      CALL CHKXER( 'ZUNGL2', INFOT, NOUT, LERR, OK )
+      zungl2(2, 1, 0, A, 2, X, W, INFO );
+      chkxer('ZUNGL2', INFOT, NOUT, LERR, OK );
       INFOT = 3
-      CALL ZUNGL2( 0, 0, -1, A, 1, X, W, INFO )
-      CALL CHKXER( 'ZUNGL2', INFOT, NOUT, LERR, OK )
+      zungl2(0, 0, -1, A, 1, X, W, INFO );
+      chkxer('ZUNGL2', INFOT, NOUT, LERR, OK );
       INFOT = 3
-      CALL ZUNGL2( 1, 1, 2, A, 1, X, W, INFO )
-      CALL CHKXER( 'ZUNGL2', INFOT, NOUT, LERR, OK )
+      zungl2(1, 1, 2, A, 1, X, W, INFO );
+      chkxer('ZUNGL2', INFOT, NOUT, LERR, OK );
       INFOT = 5
-      CALL ZUNGL2( 2, 2, 0, A, 1, X, W, INFO )
-      CALL CHKXER( 'ZUNGL2', INFOT, NOUT, LERR, OK )
+      zungl2(2, 2, 0, A, 1, X, W, INFO );
+      chkxer('ZUNGL2', INFOT, NOUT, LERR, OK );
 
       // ZUNMLQ
 
       SRNAMT = 'ZUNMLQ'
       INFOT = 1
-      CALL ZUNMLQ( '/', 'N', 0, 0, 0, A, 1, X, AF, 1, W, 1, INFO )
-      CALL CHKXER( 'ZUNMLQ', INFOT, NOUT, LERR, OK )
+      zunmlq('/', 'N', 0, 0, 0, A, 1, X, AF, 1, W, 1, INFO );
+      chkxer('ZUNMLQ', INFOT, NOUT, LERR, OK );
       INFOT = 2
-      CALL ZUNMLQ( 'L', '/', 0, 0, 0, A, 1, X, AF, 1, W, 1, INFO )
-      CALL CHKXER( 'ZUNMLQ', INFOT, NOUT, LERR, OK )
+      zunmlq('L', '/', 0, 0, 0, A, 1, X, AF, 1, W, 1, INFO );
+      chkxer('ZUNMLQ', INFOT, NOUT, LERR, OK );
       INFOT = 3
-      CALL ZUNMLQ( 'L', 'N', -1, 0, 0, A, 1, X, AF, 1, W, 1, INFO )
-      CALL CHKXER( 'ZUNMLQ', INFOT, NOUT, LERR, OK )
+      zunmlq('L', 'N', -1, 0, 0, A, 1, X, AF, 1, W, 1, INFO );
+      chkxer('ZUNMLQ', INFOT, NOUT, LERR, OK );
       INFOT = 4
-      CALL ZUNMLQ( 'L', 'N', 0, -1, 0, A, 1, X, AF, 1, W, 1, INFO )
-      CALL CHKXER( 'ZUNMLQ', INFOT, NOUT, LERR, OK )
+      zunmlq('L', 'N', 0, -1, 0, A, 1, X, AF, 1, W, 1, INFO );
+      chkxer('ZUNMLQ', INFOT, NOUT, LERR, OK );
       INFOT = 5
-      CALL ZUNMLQ( 'L', 'N', 0, 0, -1, A, 1, X, AF, 1, W, 1, INFO )
-      CALL CHKXER( 'ZUNMLQ', INFOT, NOUT, LERR, OK )
+      zunmlq('L', 'N', 0, 0, -1, A, 1, X, AF, 1, W, 1, INFO );
+      chkxer('ZUNMLQ', INFOT, NOUT, LERR, OK );
       INFOT = 5
-      CALL ZUNMLQ( 'L', 'N', 0, 1, 1, A, 1, X, AF, 1, W, 1, INFO )
-      CALL CHKXER( 'ZUNMLQ', INFOT, NOUT, LERR, OK )
+      zunmlq('L', 'N', 0, 1, 1, A, 1, X, AF, 1, W, 1, INFO );
+      chkxer('ZUNMLQ', INFOT, NOUT, LERR, OK );
       INFOT = 5
-      CALL ZUNMLQ( 'R', 'N', 1, 0, 1, A, 1, X, AF, 1, W, 1, INFO )
-      CALL CHKXER( 'ZUNMLQ', INFOT, NOUT, LERR, OK )
+      zunmlq('R', 'N', 1, 0, 1, A, 1, X, AF, 1, W, 1, INFO );
+      chkxer('ZUNMLQ', INFOT, NOUT, LERR, OK );
       INFOT = 7
-      CALL ZUNMLQ( 'L', 'N', 2, 0, 2, A, 1, X, AF, 2, W, 1, INFO )
-      CALL CHKXER( 'ZUNMLQ', INFOT, NOUT, LERR, OK )
+      zunmlq('L', 'N', 2, 0, 2, A, 1, X, AF, 2, W, 1, INFO );
+      chkxer('ZUNMLQ', INFOT, NOUT, LERR, OK );
       INFOT = 7
-      CALL ZUNMLQ( 'R', 'N', 0, 2, 2, A, 1, X, AF, 1, W, 1, INFO )
-      CALL CHKXER( 'ZUNMLQ', INFOT, NOUT, LERR, OK )
+      zunmlq('R', 'N', 0, 2, 2, A, 1, X, AF, 1, W, 1, INFO );
+      chkxer('ZUNMLQ', INFOT, NOUT, LERR, OK );
       INFOT = 10
-      CALL ZUNMLQ( 'L', 'N', 2, 1, 0, A, 2, X, AF, 1, W, 1, INFO )
-      CALL CHKXER( 'ZUNMLQ', INFOT, NOUT, LERR, OK )
+      zunmlq('L', 'N', 2, 1, 0, A, 2, X, AF, 1, W, 1, INFO );
+      chkxer('ZUNMLQ', INFOT, NOUT, LERR, OK );
       INFOT = 12
-      CALL ZUNMLQ( 'L', 'N', 1, 2, 0, A, 1, X, AF, 1, W, 1, INFO )
-      CALL CHKXER( 'ZUNMLQ', INFOT, NOUT, LERR, OK )
+      zunmlq('L', 'N', 1, 2, 0, A, 1, X, AF, 1, W, 1, INFO );
+      chkxer('ZUNMLQ', INFOT, NOUT, LERR, OK );
       INFOT = 12
-      CALL ZUNMLQ( 'R', 'N', 2, 1, 0, A, 1, X, AF, 2, W, 1, INFO )
-      CALL CHKXER( 'ZUNMLQ', INFOT, NOUT, LERR, OK )
+      zunmlq('R', 'N', 2, 1, 0, A, 1, X, AF, 2, W, 1, INFO );
+      chkxer('ZUNMLQ', INFOT, NOUT, LERR, OK );
 
       // ZUNML2
 
       SRNAMT = 'ZUNML2'
       INFOT = 1
-      CALL ZUNML2( '/', 'N', 0, 0, 0, A, 1, X, AF, 1, W, INFO )
-      CALL CHKXER( 'ZUNML2', INFOT, NOUT, LERR, OK )
+      zunml2('/', 'N', 0, 0, 0, A, 1, X, AF, 1, W, INFO );
+      chkxer('ZUNML2', INFOT, NOUT, LERR, OK );
       INFOT = 2
-      CALL ZUNML2( 'L', '/', 0, 0, 0, A, 1, X, AF, 1, W, INFO )
-      CALL CHKXER( 'ZUNML2', INFOT, NOUT, LERR, OK )
+      zunml2('L', '/', 0, 0, 0, A, 1, X, AF, 1, W, INFO );
+      chkxer('ZUNML2', INFOT, NOUT, LERR, OK );
       INFOT = 3
-      CALL ZUNML2( 'L', 'N', -1, 0, 0, A, 1, X, AF, 1, W, INFO )
-      CALL CHKXER( 'ZUNML2', INFOT, NOUT, LERR, OK )
+      zunml2('L', 'N', -1, 0, 0, A, 1, X, AF, 1, W, INFO );
+      chkxer('ZUNML2', INFOT, NOUT, LERR, OK );
       INFOT = 4
-      CALL ZUNML2( 'L', 'N', 0, -1, 0, A, 1, X, AF, 1, W, INFO )
-      CALL CHKXER( 'ZUNML2', INFOT, NOUT, LERR, OK )
+      zunml2('L', 'N', 0, -1, 0, A, 1, X, AF, 1, W, INFO );
+      chkxer('ZUNML2', INFOT, NOUT, LERR, OK );
       INFOT = 5
-      CALL ZUNML2( 'L', 'N', 0, 0, -1, A, 1, X, AF, 1, W, INFO )
-      CALL CHKXER( 'ZUNML2', INFOT, NOUT, LERR, OK )
+      zunml2('L', 'N', 0, 0, -1, A, 1, X, AF, 1, W, INFO );
+      chkxer('ZUNML2', INFOT, NOUT, LERR, OK );
       INFOT = 5
-      CALL ZUNML2( 'L', 'N', 0, 1, 1, A, 1, X, AF, 1, W, INFO )
-      CALL CHKXER( 'ZUNML2', INFOT, NOUT, LERR, OK )
+      zunml2('L', 'N', 0, 1, 1, A, 1, X, AF, 1, W, INFO );
+      chkxer('ZUNML2', INFOT, NOUT, LERR, OK );
       INFOT = 5
-      CALL ZUNML2( 'R', 'N', 1, 0, 1, A, 1, X, AF, 1, W, INFO )
-      CALL CHKXER( 'ZUNML2', INFOT, NOUT, LERR, OK )
+      zunml2('R', 'N', 1, 0, 1, A, 1, X, AF, 1, W, INFO );
+      chkxer('ZUNML2', INFOT, NOUT, LERR, OK );
       INFOT = 7
-      CALL ZUNML2( 'L', 'N', 2, 1, 2, A, 1, X, AF, 2, W, INFO )
-      CALL CHKXER( 'ZUNML2', INFOT, NOUT, LERR, OK )
+      zunml2('L', 'N', 2, 1, 2, A, 1, X, AF, 2, W, INFO );
+      chkxer('ZUNML2', INFOT, NOUT, LERR, OK );
       INFOT = 7
-      CALL ZUNML2( 'R', 'N', 1, 2, 2, A, 1, X, AF, 1, W, INFO )
-      CALL CHKXER( 'ZUNML2', INFOT, NOUT, LERR, OK )
+      zunml2('R', 'N', 1, 2, 2, A, 1, X, AF, 1, W, INFO );
+      chkxer('ZUNML2', INFOT, NOUT, LERR, OK );
       INFOT = 10
-      CALL ZUNML2( 'L', 'N', 2, 1, 0, A, 2, X, AF, 1, W, INFO )
-      CALL CHKXER( 'ZUNML2', INFOT, NOUT, LERR, OK )
+      zunml2('L', 'N', 2, 1, 0, A, 2, X, AF, 1, W, INFO );
+      chkxer('ZUNML2', INFOT, NOUT, LERR, OK );
 
       // Print a summary line.
 
-      CALL ALAESM( PATH, OK, NOUT )
+      alaesm(PATH, OK, NOUT );
 
       RETURN
 

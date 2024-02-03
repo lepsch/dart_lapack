@@ -47,8 +47,8 @@
 
       WNORM = ZERO
       DO 10 J = 1, N
-         CALL CCOPY( M, A( 1, J ), 1, WORK, 1 )
-         CALL CAXPY( M, CMPLX( -ONE ), B( 1, J ), 1, WORK, 1 )
+         ccopy(M, A( 1, J ), 1, WORK, 1 );
+         caxpy(M, CMPLX( -ONE ), B( 1, J ), 1, WORK, 1 );
          WNORM = MAX( WNORM, SCASUM( N, WORK, 1 ) )
    10 CONTINUE
 

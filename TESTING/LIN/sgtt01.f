@@ -69,12 +69,12 @@
       LASTJ = N
       DO 40 I = N - 1, 1, -1
          LI = DLF( I )
-         CALL SAXPY( LASTJ-I+1, LI, WORK( I, I ), LDWORK, WORK( I+1, I ), LDWORK )
+         saxpy(LASTJ-I+1, LI, WORK( I, I ), LDWORK, WORK( I+1, I ), LDWORK );
          IP = IPIV( I )
          if ( IP.EQ.I ) {
             LASTJ = MIN( I+2, N )
          } else {
-            CALL SSWAP( LASTJ-I+1, WORK( I, I ), LDWORK, WORK( I+1, I ), LDWORK )
+            sswap(LASTJ-I+1, WORK( I, I ), LDWORK, WORK( I+1, I ), LDWORK );
          }
    40 CONTINUE
 

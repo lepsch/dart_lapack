@@ -123,13 +123,13 @@
          // .. CGESVD of an N x N matrix
          LWSVD = MAX( 3 * N, 1 )
          if ( LQUERY ) {
-             CALL CGEQP3( M, N, A, LDA, IWORK, CDUMMY, CDUMMY, -1, RDUMMY, IERR )
+             cgeqp3(M, N, A, LDA, IWORK, CDUMMY, CDUMMY, -1, RDUMMY, IERR );
              LWRK_CGEQP3 = INT( CDUMMY(1) )
              if ( WNTUS .OR. WNTUR ) {
-                 CALL CUNMQR( 'L', 'N', M, N, N, A, LDA, CDUMMY, U, LDU, CDUMMY, -1, IERR )
+                 cunmqr('L', 'N', M, N, N, A, LDA, CDUMMY, U, LDU, CDUMMY, -1, IERR );
                  LWRK_CUNMQR = INT( CDUMMY(1) )
              } else if ( WNTUA ) {
-                 CALL CUNMQR( 'L', 'N', M, M, N, A, LDA, CDUMMY, U, LDU, CDUMMY, -1, IERR )
+                 cunmqr('L', 'N', M, M, N, A, LDA, CDUMMY, U, LDU, CDUMMY, -1, IERR );
                  LWRK_CUNMQR = INT( CDUMMY(1) )
              } else {
                  LWRK_CUNMQR = 0
@@ -146,7 +146,7 @@
                 MINWRK = MAX( N+LWQP3, LWSVD )
              }
              if ( LQUERY ) {
-                 CALL CGESVD( 'N', 'N', N, N, A, LDA, S, U, LDU, V, LDV, CDUMMY, -1, RDUMMY, IERR )
+                 cgesvd('N', 'N', N, N, A, LDA, S, U, LDU, V, LDV, CDUMMY, -1, RDUMMY, IERR );
                  LWRK_CGESVD = INT( CDUMMY(1) )
                  if ( CONDA ) {
                     OPTWRK = MAX( N+LWRK_CGEQP3, N+LWCON, LWRK_CGESVD )
@@ -164,9 +164,9 @@
              }
              if ( LQUERY ) {
                 if ( RTRANS ) {
-                   CALL CGESVD( 'N', 'O', N, N, A, LDA, S, U, LDU, V, LDV, CDUMMY, -1, RDUMMY, IERR )
+                   cgesvd('N', 'O', N, N, A, LDA, S, U, LDU, V, LDV, CDUMMY, -1, RDUMMY, IERR );
                 } else {
-                   CALL CGESVD( 'O', 'N', N, N, A, LDA, S, U, LDU, V, LDV, CDUMMY, -1, RDUMMY, IERR )
+                   cgesvd('O', 'N', N, N, A, LDA, S, U, LDU, V, LDV, CDUMMY, -1, RDUMMY, IERR );
                 }
                 LWRK_CGESVD = INT( CDUMMY(1) )
                 if ( CONDA ) {
@@ -185,9 +185,9 @@
              }
              if ( LQUERY ) {
                  if ( RTRANS ) {
-                     CALL CGESVD( 'O', 'N', N, N, A, LDA, S, U, LDU, V, LDV, CDUMMY, -1, RDUMMY, IERR )
+                     cgesvd('O', 'N', N, N, A, LDA, S, U, LDU, V, LDV, CDUMMY, -1, RDUMMY, IERR );
                  } else {
-                     CALL CGESVD( 'N', 'O', N, N, A, LDA, S, U, LDU, V, LDV, CDUMMY, -1, RDUMMY, IERR )
+                     cgesvd('N', 'O', N, N, A, LDA, S, U, LDU, V, LDV, CDUMMY, -1, RDUMMY, IERR );
                  }
                  LWRK_CGESVD = INT( CDUMMY(1) )
                  if ( CONDA ) {
@@ -231,17 +231,17 @@
              }
              if ( LQUERY ) {
                 if ( RTRANS ) {
-                   CALL CGESVD( 'O', 'A', N, N, A, LDA, S, U, LDU, V, LDV, CDUMMY, -1, RDUMMY, IERR )
+                   cgesvd('O', 'A', N, N, A, LDA, S, U, LDU, V, LDV, CDUMMY, -1, RDUMMY, IERR );
                    LWRK_CGESVD = INT( CDUMMY(1) )
                    OPTWRK = MAX(LWRK_CGEQP3,LWRK_CGESVD,LWRK_CUNMQR)
                    IF ( CONDA ) OPTWRK = MAX( OPTWRK, LWCON )
                    OPTWRK = N + OPTWRK
                    if ( WNTVA ) {
-                       CALL CGEQRF(N,N/2,U,LDU,CDUMMY,CDUMMY,-1,IERR)
+                       cgeqrf(N,N/2,U,LDU,CDUMMY,CDUMMY,-1,IERR);
                        LWRK_CGEQRF = INT( CDUMMY(1) )
-                       CALL CGESVD( 'S', 'O', N/2,N/2, V,LDV, S, U,LDU, V, LDV, CDUMMY, -1, RDUMMY, IERR )
+                       cgesvd('S', 'O', N/2,N/2, V,LDV, S, U,LDU, V, LDV, CDUMMY, -1, RDUMMY, IERR );
                        LWRK_CGESVD2 = INT( CDUMMY(1) )
-                       CALL CUNMQR( 'R', 'C', N, N, N/2, U, LDU, CDUMMY, V, LDV, CDUMMY, -1, IERR )
+                       cunmqr('R', 'C', N, N, N/2, U, LDU, CDUMMY, V, LDV, CDUMMY, -1, IERR );
                        LWRK_CUNMQR2 = INT( CDUMMY(1) )
                        OPTWRK2 = MAX( LWRK_CGEQP3, N/2+LWRK_CGEQRF, N/2+LWRK_CGESVD2, N/2+LWRK_CUNMQR2 )
                        IF ( CONDA ) OPTWRK2 = MAX( OPTWRK2, LWCON )
@@ -249,17 +249,17 @@
                        OPTWRK = MAX( OPTWRK, OPTWRK2 )
                    }
                 } else {
-                   CALL CGESVD( 'S', 'O', N, N, A, LDA, S, U, LDU, V, LDV, CDUMMY, -1, RDUMMY, IERR )
+                   cgesvd('S', 'O', N, N, A, LDA, S, U, LDU, V, LDV, CDUMMY, -1, RDUMMY, IERR );
                    LWRK_CGESVD = INT( CDUMMY(1) )
                    OPTWRK = MAX(LWRK_CGEQP3,LWRK_CGESVD,LWRK_CUNMQR)
                    IF ( CONDA ) OPTWRK = MAX( OPTWRK, LWCON )
                    OPTWRK = N + OPTWRK
                    if ( WNTVA ) {
-                      CALL CGELQF(N/2,N,U,LDU,CDUMMY,CDUMMY,-1,IERR)
+                      cgelqf(N/2,N,U,LDU,CDUMMY,CDUMMY,-1,IERR);
                       LWRK_CGELQF = INT( CDUMMY(1) )
-                      CALL CGESVD( 'S','O', N/2,N/2, V, LDV, S, U, LDU, V, LDV, CDUMMY, -1, RDUMMY, IERR )
+                      cgesvd('S','O', N/2,N/2, V, LDV, S, U, LDU, V, LDV, CDUMMY, -1, RDUMMY, IERR );
                       LWRK_CGESVD2 = INT( CDUMMY(1) )
-                      CALL CUNMLQ( 'R', 'N', N, N, N/2, U, LDU, CDUMMY, V, LDV, CDUMMY,-1,IERR )
+                      cunmlq('R', 'N', N, N, N/2, U, LDU, CDUMMY, V, LDV, CDUMMY,-1,IERR );
                       LWRK_CUNMLQ = INT( CDUMMY(1) )
                       OPTWRK2 = MAX( LWRK_CGEQP3, N/2+LWRK_CGELQF, N/2+LWRK_CGESVD2, N/2+LWRK_CUNMLQ )
                        IF ( CONDA ) OPTWRK2 = MAX( OPTWRK2, LWCON )
@@ -280,7 +280,7 @@
          INFO = -21
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'CGESVDQ', -INFO )
+         xerbla('CGESVDQ', -INFO );
          RETURN
       } else if ( LQUERY ) {
 
@@ -313,7 +313,7 @@
                 // .. check for NaN's and Inf's
                 if ( ( RWORK(p) .NE. RWORK(p) ) .OR. ( (RWORK(p)*ZERO) .NE. ZERO ) ) {
                     INFO = - 8
-                    CALL XERBLA( 'CGESVDQ', -INFO )
+                    xerbla('CGESVDQ', -INFO );
                     RETURN
                 }
  1904       CONTINUE
@@ -330,13 +330,13 @@
             if ( RWORK(1) .EQ. ZERO ) {
                // Quick return: A is the M x N zero matrix.
                NUMRANK = 0
-               CALL SLASET( 'G', N, 1, ZERO, ZERO, S, N )
+               slaset('G', N, 1, ZERO, ZERO, S, N );
                IF ( WNTUS ) CALL CLASET('G', M, N, CZERO, CONE, U, LDU)
                IF ( WNTUA ) CALL CLASET('G', M, M, CZERO, CONE, U, LDU)
                IF ( WNTVA ) CALL CLASET('G', N, N, CZERO, CONE, V, LDV)
                if ( WNTUF ) {
-                   CALL CLASET( 'G', N, 1, CZERO, CZERO, CWORK, N )
-                   CALL CLASET( 'G', M, N, CZERO, CONE, U, LDU )
+                   claset('G', N, 1, CZERO, CZERO, CWORK, N );
+                   claset('G', M, N, CZERO, CONE, U, LDU );
                }
                DO 5001 p = 1, N
                    IWORK(p) = p
@@ -354,10 +354,10 @@
             if ( RWORK(1) .GT. BIG / SQRT(REAL(M)) ) {
                 // .. to prevent overflow in the QR factorization, scale the
                 // matrix by 1/sqrt(M) if too large entry detected
-                CALL CLASCL('G',0,0,SQRT(REAL(M)),ONE, M,N, A,LDA, IERR)
+                clascl('G',0,0,SQRT(REAL(M)),ONE, M,N, A,LDA, IERR);
                 ASCALED = .TRUE.
             }
-            CALL CLASWP( N, A, LDA, 1, M-1, IWORK(N+1), 1 )
+            claswp(N, A, LDA, 1, M-1, IWORK(N+1), 1 );
       }
 
 *    .. At this stage, preemptive scaling is done only to avoid column
@@ -369,13 +369,13 @@
           RTMP = CLANGE( 'M', M, N, A, LDA, RWORK )
           if ( ( RTMP .NE. RTMP ) .OR. ( (RTMP*ZERO) .NE. ZERO ) ) {
                INFO = - 8
-               CALL XERBLA( 'CGESVDQ', -INFO )
+               xerbla('CGESVDQ', -INFO );
                RETURN
           }
           if ( RTMP .GT. BIG / SQRT(REAL(M)) ) {
               // .. to prevent overflow in the QR factorization, scale the
               // matrix by 1/sqrt(M) if too large entry detected
-              CALL CLASCL('G',0,0, SQRT(REAL(M)),ONE, M,N, A,LDA, IERR)
+              clascl('G',0,0, SQRT(REAL(M)),ONE, M,N, A,LDA, IERR);
               ASCALED = .TRUE.
           }
       }
@@ -389,7 +389,7 @@
          // .. all columns are free columns
          IWORK(p) = 0
  1963 CONTINUE
-      CALL CGEQP3( M, N, A, LDA, IWORK, CWORK, CWORK(N+1), LCWORK-N, RWORK, IERR )
+      cgeqp3(M, N, A, LDA, IWORK, CWORK, CWORK(N+1), LCWORK-N, RWORK, IERR );
 
 *    If the user requested accuracy level allows truncation in the
 *    computed upper triangular factor, the matrix R is examined and,
@@ -444,7 +444,7 @@
             // Estimate the scaled condition number of A. Use the fact that it is
             // the same as the scaled condition number of R.
                // .. V is used as workspace
-               CALL CLACPY( 'U', N, N, A, LDA, V, LDV )
+               clacpy('U', N, N, A, LDA, V, LDV );
                // Only the leading NR x NR submatrix of the triangular factor
                // is considered. Only if NR=N will this give a reliable error
                // bound. However, even for NR < N, this can be used on an
@@ -452,12 +452,12 @@
                // perturbation theory.
                DO 3053 p = 1, NR
                   RTMP = SCNRM2( p, V(1,p), 1 )
-                  CALL CSSCAL( p, ONE/RTMP, V(1,p), 1 )
+                  csscal(p, ONE/RTMP, V(1,p), 1 );
  3053          CONTINUE
                if ( .NOT. ( LSVEC .OR. RSVEC ) ) {
-                   CALL CPOCON( 'U', NR, V, LDV, ONE, RTMP, CWORK, RWORK, IERR )
+                   cpocon('U', NR, V, LDV, ONE, RTMP, CWORK, RWORK, IERR );
                } else {
-                   CALL CPOCON( 'U', NR, V, LDV, ONE, RTMP, CWORK(N+1), RWORK, IERR )
+                   cpocon('U', NR, V, LDV, ONE, RTMP, CWORK(N+1), RWORK, IERR );
                }
                SCONDA = ONE / SQRT(RTMP)
             // For NR=N, SCONDA is an estimate of SQRT(||(R^* * R)^(-1)||_1),
@@ -492,7 +492,7 @@
  1147          CONTINUE
  1146       CONTINUE
 
-            CALL CGESVD( 'N', 'N', N, NR, A, LDA, S, U, LDU, V, LDV, CWORK, LCWORK, RWORK, INFO )
+            cgesvd('N', 'N', N, NR, A, LDA, S, U, LDU, V, LDV, CWORK, LCWORK, RWORK, INFO );
 
          } else {
 
@@ -519,7 +519,7 @@
             // .. the left singular vectors not computed, the NR right singular
             // vectors overwrite [U](1:NR,1:NR) as conjugate transposed. These
             // will be pre-multiplied by Q to build the left singular vectors of A.
-               CALL CGESVD( 'N', 'O', N, NR, U, LDU, S, U, LDU, U, LDU, CWORK(N+1), LCWORK-N, RWORK, INFO )
+               cgesvd('N', 'O', N, NR, U, LDU, S, U, LDU, U, LDU, CWORK(N+1), LCWORK-N, RWORK, INFO );
 
                DO 1119 p = 1, NR
                    U(p,p) = CONJG(U(p,p))
@@ -533,11 +533,11 @@
          } else {
              // .. apply CGESVD to R
              // .. copy R into [U] and overwrite [U] with the left singular vectors
-             CALL CLACPY( 'U', NR, N, A, LDA, U, LDU )
+             clacpy('U', NR, N, A, LDA, U, LDU );
              IF ( NR .GT. 1 ) CALL CLASET( 'L', NR-1, NR-1, CZERO, CZERO, U(2,1), LDU )
              // .. the right singular vectors not computed, the NR left singular
              // vectors overwrite [U](1:NR,1:NR)
-                CALL CGESVD( 'O', 'N', NR, N, U, LDU, S, U, LDU, V, LDV, CWORK(N+1), LCWORK-N, RWORK, INFO )
+                cgesvd('O', 'N', NR, N, U, LDU, S, U, LDU, V, LDV, CWORK(N+1), LCWORK-N, RWORK, INFO );
                 // .. now [U](1:NR,1:NR) contains the NR left singular vectors of
                 // R. These will be pre-multiplied by Q to build the left singular
                 // vectors of A.
@@ -546,10 +546,10 @@
             // .. assemble the left singular vector matrix U of dimensions
                // (M x NR) or (M x N) or (M x M).
          if ( ( NR .LT. M ) .AND. ( .NOT.WNTUF ) ) {
-             CALL CLASET('A', M-NR, NR, CZERO, CZERO, U(NR+1,1), LDU)
+             claset('A', M-NR, NR, CZERO, CZERO, U(NR+1,1), LDU);
              if ( NR .LT. N1 ) {
-                CALL CLASET( 'A',NR,N1-NR,CZERO,CZERO,U(1,NR+1), LDU )
-                CALL CLASET( 'A',M-NR,N1-NR,CZERO,CONE, U(NR+1,NR+1), LDU )
+                claset('A',NR,N1-NR,CZERO,CZERO,U(1,NR+1), LDU );
+                claset('A',M-NR,N1-NR,CZERO,CONE, U(NR+1,NR+1), LDU );
              }
          }
 
@@ -575,7 +575,7 @@
             // .. the left singular vectors of R**H overwrite V, the right singular
             // vectors not computed
             if ( WNTVR .OR. ( NR .EQ. N ) ) {
-               CALL CGESVD( 'O', 'N', N, NR, V, LDV, S, U, LDU, U, LDU, CWORK(N+1), LCWORK-N, RWORK, INFO )
+               cgesvd('O', 'N', N, NR, V, LDV, S, U, LDU, U, LDU, CWORK(N+1), LCWORK-N, RWORK, INFO );
 
                DO 1121 p = 1, NR
                    V(p,p) = CONJG(V(p,p))
@@ -593,15 +593,15 @@
  1104                 CONTINUE
  1103              CONTINUE
                }
-               CALL CLAPMT( .FALSE., NR, N, V, LDV, IWORK )
+               clapmt(.FALSE., NR, N, V, LDV, IWORK );
             } else {
                 // .. need all N right singular vectors and NR < N
                 // [!] This is simple implementation that augments [V](1:N,1:NR)
                 // by padding a zero block. In the case NR << N, a more efficient
                 // way is to first use the QR factorization. For more details
                 // how to implement this, see the " FULL SVD " branch.
-                CALL CLASET('G', N, N-NR, CZERO, CZERO, V(1,NR+1), LDV)
-                CALL CGESVD( 'O', 'N', N, N, V, LDV, S, U, LDU, U, LDU, CWORK(N+1), LCWORK-N, RWORK, INFO )
+                claset('G', N, N-NR, CZERO, CZERO, V(1,NR+1), LDV);
+                cgesvd('O', 'N', N, N, V, LDV, S, U, LDU, U, LDU, CWORK(N+1), LCWORK-N, RWORK, INFO );
 
                 DO 1123 p = 1, N
                    V(p,p) = CONJG(V(p,p))
@@ -611,19 +611,19 @@
                       V(p,q) = CTMP
  1124              CONTINUE
  1123           CONTINUE
-                CALL CLAPMT( .FALSE., N, N, V, LDV, IWORK )
+                clapmt(.FALSE., N, N, V, LDV, IWORK );
             }
 
           } else {
              // .. aply CGESVD to R
              // .. copy R into V and overwrite V with the right singular vectors
-             CALL CLACPY( 'U', NR, N, A, LDA, V, LDV )
+             clacpy('U', NR, N, A, LDA, V, LDV );
              IF ( NR .GT. 1 ) CALL CLASET( 'L', NR-1, NR-1, CZERO, CZERO, V(2,1), LDV )
              // .. the right singular vectors overwrite V, the NR left singular
              // vectors stored in U(1:NR,1:NR)
              if ( WNTVR .OR. ( NR .EQ. N ) ) {
-                CALL CGESVD( 'N', 'O', NR, N, V, LDV, S, U, LDU, V, LDV, CWORK(N+1), LCWORK-N, RWORK, INFO )
-                CALL CLAPMT( .FALSE., NR, N, V, LDV, IWORK )
+                cgesvd('N', 'O', NR, N, V, LDV, S, U, LDU, V, LDV, CWORK(N+1), LCWORK-N, RWORK, INFO );
+                clapmt(.FALSE., NR, N, V, LDV, IWORK );
                 // .. now [V](1:NR,1:N) contains V(1:N,1:NR)**H
              } else {
                 // .. need all N right singular vectors and NR < N
@@ -631,9 +631,9 @@
                 // by padding a zero block. In the case NR << N, a more efficient
                 // way is to first use the LQ factorization. For more details
                 // how to implement this, see the " FULL SVD " branch.
-                 CALL CLASET('G', N-NR, N, CZERO,CZERO, V(NR+1,1), LDV)
-                 CALL CGESVD( 'N', 'O', N, N, V, LDV, S, U, LDU, V, LDV, CWORK(N+1), LCWORK-N, RWORK, INFO )
-                 CALL CLAPMT( .FALSE., N, N, V, LDV, IWORK )
+                 claset('G', N-NR, N, CZERO,CZERO, V(NR+1,1), LDV);
+                 cgesvd('N', 'O', N, N, V, LDV, S, U, LDU, V, LDV, CWORK(N+1), LCWORK-N, RWORK, INFO );
+                 clapmt(.FALSE., N, N, V, LDV, IWORK );
              }
              // .. now [V] contains the adjoint of the matrix of the right singular
              // vectors of A.
@@ -660,7 +660,7 @@
             // .. the left singular vectors of R**H overwrite [V], the NR right
             // singular vectors of R**H stored in [U](1:NR,1:NR) as conjugate
             // transposed
-               CALL CGESVD( 'O', 'A', N, NR, V, LDV, S, V, LDV, U, LDU, CWORK(N+1), LCWORK-N, RWORK, INFO )
+               cgesvd('O', 'A', N, NR, V, LDV, S, V, LDV, U, LDU, CWORK(N+1), LCWORK-N, RWORK, INFO );
                // .. assemble V
                DO 1115 p = 1, NR
                   V(p,p) = CONJG(V(p,p))
@@ -677,7 +677,7 @@
  1102                 CONTINUE
  1101              CONTINUE
                }
-               CALL CLAPMT( .FALSE., NR, N, V, LDV, IWORK )
+               clapmt(.FALSE., NR, N, V, LDV, IWORK );
 
                 DO 1117 p = 1, NR
                    U(p,p) = CONJG(U(p,p))
@@ -689,10 +689,10 @@
  1117           CONTINUE
 
                 if ( ( NR .LT. M ) .AND. .NOT.(WNTUF)) {
-                  CALL CLASET('A', M-NR,NR, CZERO,CZERO, U(NR+1,1), LDU)
+                  claset('A', M-NR,NR, CZERO,CZERO, U(NR+1,1), LDU);
                   if ( NR .LT. N1 ) {
-                     CALL CLASET('A',NR,N1-NR,CZERO,CZERO,U(1,NR+1),LDU)
-                     CALL CLASET( 'A',M-NR,N1-NR,CZERO,CONE, U(NR+1,NR+1), LDU )
+                     claset('A',NR,N1-NR,CZERO,CZERO,U(1,NR+1),LDU);
+                     claset('A',M-NR,N1-NR,CZERO,CONE, U(NR+1,NR+1), LDU );
                   }
                }
 
@@ -714,8 +714,8 @@
  1198              CONTINUE
                    IF ( NR .GT. 1 ) CALL CLASET('U',NR-1,NR-1, CZERO,CZERO, V(1,2),LDV)
 
-                   CALL CLASET('A',N,N-NR,CZERO,CZERO,V(1,NR+1),LDV)
-                   CALL CGESVD( 'O', 'A', N, N, V, LDV, S, V, LDV, U, LDU, CWORK(N+1), LCWORK-N, RWORK, INFO )
+                   claset('A',N,N-NR,CZERO,CZERO,V(1,NR+1),LDV);
+                   cgesvd('O', 'A', N, N, V, LDV, S, V, LDV, U, LDU, CWORK(N+1), LCWORK-N, RWORK, INFO );
 
                    DO 1113 p = 1, N
                       V(p,p) = CONJG(V(p,p))
@@ -725,7 +725,7 @@
                          V(p,q) = CTMP
  1114                 CONTINUE
  1113              CONTINUE
-                   CALL CLAPMT( .FALSE., N, N, V, LDV, IWORK )
+                   clapmt(.FALSE., N, N, V, LDV, IWORK );
                // .. assemble the left singular vector matrix U of dimensions
                // (M x N1), i.e. (M x N) or (M x M).
 
@@ -739,10 +739,10 @@
  1111              CONTINUE
 
                    if ( ( N .LT. M ) .AND. .NOT.(WNTUF)) {
-                      CALL CLASET('A',M-N,N,CZERO,CZERO,U(N+1,1),LDU)
+                      claset('A',M-N,N,CZERO,CZERO,U(N+1,1),LDU);
                       if ( N .LT. N1 ) {
-                        CALL CLASET('A',N,N1-N,CZERO,CZERO,U(1,N+1),LDU)
-                        CALL CLASET('A',M-N,N1-N,CZERO,CONE, U(N+1,N+1), LDU )
+                        claset('A',N,N1-N,CZERO,CZERO,U(1,N+1),LDU);
+                        claset('A',M-N,N1-N,CZERO,CONE, U(N+1,N+1), LDU );
                       }
                    }
                 } else {
@@ -759,20 +759,20 @@
                            V(q,p) = CONJG(U(p,NR+q))
  1144                  CONTINUE
  1143              CONTINUE
-                  CALL CLASET('U',NR-1,NR-1,CZERO,CZERO,V(1,2),LDV)
-                  CALL CGESVD( 'S', 'O', NR, NR, V, LDV, S, U, LDU, V,LDV, CWORK(N+NR+1),LCWORK-N-NR,RWORK, INFO )
-                  CALL CLASET('A',N-NR,NR,CZERO,CZERO,V(NR+1,1),LDV)
-                  CALL CLASET('A',NR,N-NR,CZERO,CZERO,V(1,NR+1),LDV)
-                  CALL CLASET('A',N-NR,N-NR,CZERO,CONE,V(NR+1,NR+1),LDV)
-                  CALL CUNMQR('R','C', N, N, NR, U(1,NR+1), LDU, CWORK(N+1),V,LDV,CWORK(N+NR+1),LCWORK-N-NR,IERR)
-                  CALL CLAPMT( .FALSE., N, N, V, LDV, IWORK )
+                  claset('U',NR-1,NR-1,CZERO,CZERO,V(1,2),LDV);
+                  cgesvd('S', 'O', NR, NR, V, LDV, S, U, LDU, V,LDV, CWORK(N+NR+1),LCWORK-N-NR,RWORK, INFO );
+                  claset('A',N-NR,NR,CZERO,CZERO,V(NR+1,1),LDV);
+                  claset('A',NR,N-NR,CZERO,CZERO,V(1,NR+1),LDV);
+                  claset('A',N-NR,N-NR,CZERO,CONE,V(NR+1,NR+1),LDV);
+                  cunmqr('R','C', N, N, NR, U(1,NR+1), LDU, CWORK(N+1),V,LDV,CWORK(N+NR+1),LCWORK-N-NR,IERR);
+                  clapmt(.FALSE., N, N, V, LDV, IWORK );
                   // .. assemble the left singular vector matrix U of dimensions
                   // (M x NR) or (M x N) or (M x M).
                   if ( ( NR .LT. M ) .AND. .NOT.(WNTUF)) {
-                     CALL CLASET('A',M-NR,NR,CZERO,CZERO,U(NR+1,1),LDU)
+                     claset('A',M-NR,NR,CZERO,CZERO,U(NR+1,1),LDU);
                      if ( NR .LT. N1 ) {
-                     CALL CLASET('A',NR,N1-NR,CZERO,CZERO,U(1,NR+1),LDU)
-                     CALL CLASET( 'A',M-NR,N1-NR,CZERO,CONE, U(NR+1,NR+1),LDU)
+                     claset('A',NR,N1-NR,CZERO,CZERO,U(1,NR+1),LDU);
+                     claset('A',M-NR,N1-NR,CZERO,CONE, U(NR+1,NR+1),LDU);
                      }
                   }
                 }
@@ -784,20 +784,20 @@
 
              if ( WNTVR .OR. ( NR .EQ. N ) ) {
                  // .. copy R into [V] and overwrite V with the right singular vectors
-                 CALL CLACPY( 'U', NR, N, A, LDA, V, LDV )
+                 clacpy('U', NR, N, A, LDA, V, LDV );
                 IF ( NR .GT. 1 ) CALL CLASET( 'L', NR-1,NR-1, CZERO,CZERO, V(2,1), LDV )
                 // .. the right singular vectors of R overwrite [V], the NR left
                 // singular vectors of R stored in [U](1:NR,1:NR)
-                CALL CGESVD( 'S', 'O', NR, N, V, LDV, S, U, LDU, V, LDV, CWORK(N+1), LCWORK-N, RWORK, INFO )
-                CALL CLAPMT( .FALSE., NR, N, V, LDV, IWORK )
+                cgesvd('S', 'O', NR, N, V, LDV, S, U, LDU, V, LDV, CWORK(N+1), LCWORK-N, RWORK, INFO );
+                clapmt(.FALSE., NR, N, V, LDV, IWORK );
                 // .. now [V](1:NR,1:N) contains V(1:N,1:NR)**H
                 // .. assemble the left singular vector matrix U of dimensions
                // (M x NR) or (M x N) or (M x M).
                if ( ( NR .LT. M ) .AND. .NOT.(WNTUF)) {
-                  CALL CLASET('A', M-NR,NR, CZERO,CZERO, U(NR+1,1), LDU)
+                  claset('A', M-NR,NR, CZERO,CZERO, U(NR+1,1), LDU);
                   if ( NR .LT. N1 ) {
-                     CALL CLASET('A',NR,N1-NR,CZERO,CZERO,U(1,NR+1),LDU)
-                     CALL CLASET( 'A',M-NR,N1-NR,CZERO,CONE, U(NR+1,NR+1), LDU )
+                     claset('A',NR,N1-NR,CZERO,CZERO,U(1,NR+1),LDU);
+                     claset('A',M-NR,N1-NR,CZERO,CONE, U(NR+1,NR+1), LDU );
                   }
                }
 
@@ -812,42 +812,42 @@
                 // OPTRATIO = MAX( OPTRATIO, 2 )
                OPTRATIO = 2
                if ( OPTRATIO * NR .GT. N ) {
-                  CALL CLACPY( 'U', NR, N, A, LDA, V, LDV )
+                  clacpy('U', NR, N, A, LDA, V, LDV );
                   IF ( NR .GT. 1 ) CALL CLASET('L', NR-1,NR-1, CZERO,CZERO, V(2,1),LDV)
                // .. the right singular vectors of R overwrite [V], the NR left
                   // singular vectors of R stored in [U](1:NR,1:NR)
-                  CALL CLASET('A', N-NR,N, CZERO,CZERO, V(NR+1,1),LDV)
-                  CALL CGESVD( 'S', 'O', N, N, V, LDV, S, U, LDU, V, LDV, CWORK(N+1), LCWORK-N, RWORK, INFO )
-                  CALL CLAPMT( .FALSE., N, N, V, LDV, IWORK )
+                  claset('A', N-NR,N, CZERO,CZERO, V(NR+1,1),LDV);
+                  cgesvd('S', 'O', N, N, V, LDV, S, U, LDU, V, LDV, CWORK(N+1), LCWORK-N, RWORK, INFO );
+                  clapmt(.FALSE., N, N, V, LDV, IWORK );
                   // .. now [V] contains the adjoint of the matrix of the right
                   // singular vectors of A. The leading N left singular vectors
                   // are in [U](1:N,1:N)
                   // .. assemble the left singular vector matrix U of dimensions
                   // (M x N1), i.e. (M x N) or (M x M).
                   if ( ( N .LT. M ) .AND. .NOT.(WNTUF)) {
-                      CALL CLASET('A',M-N,N,CZERO,CZERO,U(N+1,1),LDU)
+                      claset('A',M-N,N,CZERO,CZERO,U(N+1,1),LDU);
                       if ( N .LT. N1 ) {
-                        CALL CLASET('A',N,N1-N,CZERO,CZERO,U(1,N+1),LDU)
-                        CALL CLASET( 'A',M-N,N1-N,CZERO,CONE, U(N+1,N+1), LDU )
+                        claset('A',N,N1-N,CZERO,CZERO,U(1,N+1),LDU);
+                        claset('A',M-N,N1-N,CZERO,CONE, U(N+1,N+1), LDU );
                       }
                   }
                } else {
-                  CALL CLACPY( 'U', NR, N, A, LDA, U(NR+1,1), LDU )
+                  clacpy('U', NR, N, A, LDA, U(NR+1,1), LDU );
                   IF ( NR .GT. 1 ) CALL CLASET('L',NR-1,NR-1,CZERO,CZERO,U(NR+2,1),LDU)                   CALL CGELQF( NR, N, U(NR+1,1), LDU, CWORK(N+1), CWORK(N+NR+1), LCWORK-N-NR, IERR )
-                  CALL CLACPY('L',NR,NR,U(NR+1,1),LDU,V,LDV)
+                  clacpy('L',NR,NR,U(NR+1,1),LDU,V,LDV);
                   IF ( NR .GT. 1 ) CALL CLASET('U',NR-1,NR-1,CZERO,CZERO,V(1,2),LDV)                   CALL CGESVD( 'S', 'O', NR, NR, V, LDV, S, U, LDU, V, LDV, CWORK(N+NR+1), LCWORK-N-NR, RWORK, INFO )
-                  CALL CLASET('A',N-NR,NR,CZERO,CZERO,V(NR+1,1),LDV)
-                  CALL CLASET('A',NR,N-NR,CZERO,CZERO,V(1,NR+1),LDV)
-                  CALL CLASET('A',N-NR,N-NR,CZERO,CONE,V(NR+1,NR+1),LDV)
-                  CALL CUNMLQ('R','N',N,N,NR,U(NR+1,1),LDU,CWORK(N+1), V, LDV, CWORK(N+NR+1),LCWORK-N-NR,IERR)
-                  CALL CLAPMT( .FALSE., N, N, V, LDV, IWORK )
+                  claset('A',N-NR,NR,CZERO,CZERO,V(NR+1,1),LDV);
+                  claset('A',NR,N-NR,CZERO,CZERO,V(1,NR+1),LDV);
+                  claset('A',N-NR,N-NR,CZERO,CONE,V(NR+1,NR+1),LDV);
+                  cunmlq('R','N',N,N,NR,U(NR+1,1),LDU,CWORK(N+1), V, LDV, CWORK(N+NR+1),LCWORK-N-NR,IERR);
+                  clapmt(.FALSE., N, N, V, LDV, IWORK );
                 // .. assemble the left singular vector matrix U of dimensions
                // (M x NR) or (M x N) or (M x M).
                   if ( ( NR .LT. M ) .AND. .NOT.(WNTUF)) {
-                     CALL CLASET('A',M-NR,NR,CZERO,CZERO,U(NR+1,1),LDU)
+                     claset('A',M-NR,NR,CZERO,CZERO,U(NR+1,1),LDU);
                      if ( NR .LT. N1 ) {
-                     CALL CLASET('A',NR,N1-NR,CZERO,CZERO,U(1,NR+1),LDU)
-                     CALL CLASET( 'A',M-NR,N1-NR,CZERO,CONE, U(NR+1,NR+1), LDU )
+                     claset('A',NR,N1-NR,CZERO,CZERO,U(1,NR+1),LDU);
+                     claset('A',M-NR,N1-NR,CZERO,CONE, U(NR+1,NR+1), LDU );
                      }
                   }
                }

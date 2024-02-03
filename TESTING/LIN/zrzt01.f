@@ -39,7 +39,7 @@
       ZRZT01 = ZERO
 
       if ( LWORK.LT.M*N+M ) {
-         CALL XERBLA( 'ZRZT01', 8 )
+         xerbla('ZRZT01', 8 );
          RETURN
       }
 
@@ -51,7 +51,7 @@
 
       // Copy upper triangle R
 
-      CALL ZLASET( 'Full', M, N, DCMPLX( ZERO ), DCMPLX( ZERO ), WORK, M )
+      zlaset('Full', M, N, DCMPLX( ZERO ), DCMPLX( ZERO ), WORK, M );
       DO 20 J = 1, M
          DO 10 I = 1, J
             WORK( ( J-1 )*M+I ) = AF( I, J )
@@ -60,12 +60,12 @@
 
       // R = R * P(1) * ... *P(m)
 
-      CALL ZUNMRZ( 'Right', 'No transpose', M, N, M, N-M, AF, LDA, TAU, WORK, M, WORK( M*N+1 ), LWORK-M*N, INFO )
+      zunmrz('Right', 'No transpose', M, N, M, N-M, AF, LDA, TAU, WORK, M, WORK( M*N+1 ), LWORK-M*N, INFO );
 
       // R = R - A
 
       DO 30 I = 1, N
-         CALL ZAXPY( M, DCMPLX( -ONE ), A( 1, I ), 1, WORK( ( I-1 )*M+1 ), 1 )
+         zaxpy(M, DCMPLX( -ONE ), A( 1, I ), 1, WORK( ( I-1 )*M+1 ), 1 );
    30 CONTINUE
 
       ZRZT01 = ZLANGE( 'One-norm', M, N, WORK, M, RWORK )

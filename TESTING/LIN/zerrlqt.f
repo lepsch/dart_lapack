@@ -60,77 +60,77 @@
 
       SRNAMT = 'ZGELQT'
       INFOT = 1
-      CALL ZGELQT( -1, 0, 1, A, 1, T, 1, W, INFO )
-      CALL CHKXER( 'ZGELQT', INFOT, NOUT, LERR, OK )
+      zgelqt(-1, 0, 1, A, 1, T, 1, W, INFO );
+      chkxer('ZGELQT', INFOT, NOUT, LERR, OK );
       INFOT = 2
-      CALL ZGELQT( 0, -1, 1, A, 1, T, 1, W, INFO )
-      CALL CHKXER( 'ZGELQT', INFOT, NOUT, LERR, OK )
+      zgelqt(0, -1, 1, A, 1, T, 1, W, INFO );
+      chkxer('ZGELQT', INFOT, NOUT, LERR, OK );
       INFOT = 3
-      CALL ZGELQT( 0, 0, 0, A, 1, T, 1, W, INFO )
-      CALL CHKXER( 'ZGELQT', INFOT, NOUT, LERR, OK )
+      zgelqt(0, 0, 0, A, 1, T, 1, W, INFO );
+      chkxer('ZGELQT', INFOT, NOUT, LERR, OK );
       INFOT = 5
-      CALL ZGELQT( 2, 1, 1, A, 1, T, 1, W, INFO )
-      CALL CHKXER( 'ZGELQT', INFOT, NOUT, LERR, OK )
+      zgelqt(2, 1, 1, A, 1, T, 1, W, INFO );
+      chkxer('ZGELQT', INFOT, NOUT, LERR, OK );
       INFOT = 7
-      CALL ZGELQT( 2, 2, 2, A, 2, T, 1, W, INFO )
-      CALL CHKXER( 'ZGELQT', INFOT, NOUT, LERR, OK )
+      zgelqt(2, 2, 2, A, 2, T, 1, W, INFO );
+      chkxer('ZGELQT', INFOT, NOUT, LERR, OK );
 
       // ZGELQT3
 
       SRNAMT = 'ZGELQT3'
       INFOT = 1
-      CALL ZGELQT3( -1, 0, A, 1, T, 1, INFO )
-      CALL CHKXER( 'ZGELQT3', INFOT, NOUT, LERR, OK )
+      zgelqt3(-1, 0, A, 1, T, 1, INFO );
+      chkxer('ZGELQT3', INFOT, NOUT, LERR, OK );
       INFOT = 2
-      CALL ZGELQT3( 0, -1, A, 1, T, 1, INFO )
-      CALL CHKXER( 'ZGELQT3', INFOT, NOUT, LERR, OK )
+      zgelqt3(0, -1, A, 1, T, 1, INFO );
+      chkxer('ZGELQT3', INFOT, NOUT, LERR, OK );
       INFOT = 4
-      CALL ZGELQT3( 2, 2, A, 1, T, 1, INFO )
-      CALL CHKXER( 'ZGELQT3', INFOT, NOUT, LERR, OK )
+      zgelqt3(2, 2, A, 1, T, 1, INFO );
+      chkxer('ZGELQT3', INFOT, NOUT, LERR, OK );
       INFOT = 6
-      CALL ZGELQT3( 2, 2, A, 2, T, 1, INFO )
-      CALL CHKXER( 'ZGELQT3', INFOT, NOUT, LERR, OK )
+      zgelqt3(2, 2, A, 2, T, 1, INFO );
+      chkxer('ZGELQT3', INFOT, NOUT, LERR, OK );
 
       // ZGEMLQT
 
       SRNAMT = 'ZGEMLQT'
       INFOT = 1
-      CALL ZGEMLQT( '/', 'N', 0, 0, 0, 1, A, 1, T, 1, C, 1, W, INFO )
-      CALL CHKXER( 'ZGEMLQT', INFOT, NOUT, LERR, OK )
+      zgemlqt('/', 'N', 0, 0, 0, 1, A, 1, T, 1, C, 1, W, INFO );
+      chkxer('ZGEMLQT', INFOT, NOUT, LERR, OK );
       INFOT = 2
-      CALL ZGEMLQT( 'L', '/', 0, 0, 0, 1, A, 1, T, 1, C, 1, W, INFO )
-      CALL CHKXER( 'ZGEMLQT', INFOT, NOUT, LERR, OK )
+      zgemlqt('L', '/', 0, 0, 0, 1, A, 1, T, 1, C, 1, W, INFO );
+      chkxer('ZGEMLQT', INFOT, NOUT, LERR, OK );
       INFOT = 3
-      CALL ZGEMLQT( 'L', 'N', -1, 0, 0, 1, A, 1, T, 1, C, 1, W, INFO )
-      CALL CHKXER( 'ZGEMLQT', INFOT, NOUT, LERR, OK )
+      zgemlqt('L', 'N', -1, 0, 0, 1, A, 1, T, 1, C, 1, W, INFO );
+      chkxer('ZGEMLQT', INFOT, NOUT, LERR, OK );
       INFOT = 4
-      CALL ZGEMLQT( 'L', 'N', 0, -1, 0, 1, A, 1, T, 1, C, 1, W, INFO )
-      CALL CHKXER( 'ZGEMLQT', INFOT, NOUT, LERR, OK )
+      zgemlqt('L', 'N', 0, -1, 0, 1, A, 1, T, 1, C, 1, W, INFO );
+      chkxer('ZGEMLQT', INFOT, NOUT, LERR, OK );
       INFOT = 5
-      CALL ZGEMLQT( 'L', 'N', 0, 0, -1, 1, A, 1, T, 1, C, 1, W, INFO )
-      CALL CHKXER( 'ZGEMLQT', INFOT, NOUT, LERR, OK )
+      zgemlqt('L', 'N', 0, 0, -1, 1, A, 1, T, 1, C, 1, W, INFO );
+      chkxer('ZGEMLQT', INFOT, NOUT, LERR, OK );
       INFOT = 5
-      CALL ZGEMLQT( 'R', 'N', 0, 0, -1, 1, A, 1, T, 1, C, 1, W, INFO )
-      CALL CHKXER( 'ZGEMLQT', INFOT, NOUT, LERR, OK )
+      zgemlqt('R', 'N', 0, 0, -1, 1, A, 1, T, 1, C, 1, W, INFO );
+      chkxer('ZGEMLQT', INFOT, NOUT, LERR, OK );
       INFOT = 6
-      CALL ZGEMLQT( 'L', 'N', 0, 0, 0, 0, A, 1, T, 1, C, 1, W, INFO )
-      CALL CHKXER( 'ZGEMLQT', INFOT, NOUT, LERR, OK )
+      zgemlqt('L', 'N', 0, 0, 0, 0, A, 1, T, 1, C, 1, W, INFO );
+      chkxer('ZGEMLQT', INFOT, NOUT, LERR, OK );
       INFOT = 8
-      CALL ZGEMLQT( 'R', 'N', 2, 2, 2, 1, A, 1, T, 1, C, 1, W, INFO )
-      CALL CHKXER( 'ZGEMLQT', INFOT, NOUT, LERR, OK )
+      zgemlqt('R', 'N', 2, 2, 2, 1, A, 1, T, 1, C, 1, W, INFO );
+      chkxer('ZGEMLQT', INFOT, NOUT, LERR, OK );
       INFOT = 8
-      CALL ZGEMLQT( 'L', 'N', 2, 2, 2, 1, A, 1, T, 1, C, 1, W, INFO )
-      CALL CHKXER( 'ZGEMLQT', INFOT, NOUT, LERR, OK )
+      zgemlqt('L', 'N', 2, 2, 2, 1, A, 1, T, 1, C, 1, W, INFO );
+      chkxer('ZGEMLQT', INFOT, NOUT, LERR, OK );
       INFOT = 10
-      CALL ZGEMLQT( 'R', 'N', 1, 1, 1, 1, A, 1, T, 0, C, 1, W, INFO )
-      CALL CHKXER( 'ZGEMLQT', INFOT, NOUT, LERR, OK )
+      zgemlqt('R', 'N', 1, 1, 1, 1, A, 1, T, 0, C, 1, W, INFO );
+      chkxer('ZGEMLQT', INFOT, NOUT, LERR, OK );
       INFOT = 12
-      CALL ZGEMLQT( 'L', 'N', 1, 1, 1, 1, A, 1, T, 1, C, 0, W, INFO )
-      CALL CHKXER( 'ZGEMLQT', INFOT, NOUT, LERR, OK )
+      zgemlqt('L', 'N', 1, 1, 1, 1, A, 1, T, 1, C, 0, W, INFO );
+      chkxer('ZGEMLQT', INFOT, NOUT, LERR, OK );
 
       // Print a summary line.
 
-      CALL ALAESM( PATH, OK, NOUT )
+      alaesm(PATH, OK, NOUT );
 
       RETURN
 

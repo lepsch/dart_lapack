@@ -43,15 +43,15 @@
 
       // Copy the matrix A to the array AF.
 
-      CALL ZLACPY( 'Full', M, N, A, LDA, AF, LDA )
-      CALL ZLACPY( 'Full', P, N, B, LDB, BF, LDB )
+      zlacpy('Full', M, N, A, LDA, AF, LDA );
+      zlacpy('Full', P, N, B, LDB, BF, LDB );
 
       ANORM = MAX( ZLANGE( '1', M, N, A, LDA, RWORK ), UNFL )
       BNORM = MAX( ZLANGE( '1', P, N, B, LDB, RWORK ), UNFL )
 
       // Factorize the matrices A and B in the arrays AF and BF.
 
-      CALL ZGGSVD3( 'U', 'V', 'Q', M, N, P, K, L, AF, LDA, BF, LDB, ALPHA, BETA, U, LDU, V, LDV, Q, LDQ, WORK, LWORK, RWORK, IWORK, INFO )
+      zggsvd3('U', 'V', 'Q', M, N, P, K, L, AF, LDA, BF, LDB, ALPHA, BETA, U, LDU, V, LDV, Q, LDQ, WORK, LWORK, RWORK, IWORK, INFO );
 
       // Copy R
 
@@ -71,9 +71,9 @@
 
       // Compute A:= U'*A*Q - D1*R
 
-      CALL ZGEMM( 'No transpose', 'No transpose', M, N, N, CONE, A, LDA, Q, LDQ, CZERO, WORK, LDA )
+      zgemm('No transpose', 'No transpose', M, N, N, CONE, A, LDA, Q, LDQ, CZERO, WORK, LDA );
 
-      CALL ZGEMM( 'Conjugate transpose', 'No transpose', M, N, M, CONE, U, LDU, WORK, LDA, CZERO, A, LDA )
+      zgemm('Conjugate transpose', 'No transpose', M, N, M, CONE, U, LDU, WORK, LDA, CZERO, A, LDA );
 
       DO 60 I = 1, K
          DO 50 J = I, K + L
@@ -98,9 +98,9 @@
 
       // Compute B := V'*B*Q - D2*R
 
-      CALL ZGEMM( 'No transpose', 'No transpose', P, N, N, CONE, B, LDB, Q, LDQ, CZERO, WORK, LDB )
+      zgemm('No transpose', 'No transpose', P, N, N, CONE, B, LDB, Q, LDQ, CZERO, WORK, LDB );
 
-      CALL ZGEMM( 'Conjugate transpose', 'No transpose', P, N, P, CONE, V, LDV, WORK, LDB, CZERO, B, LDB )
+      zgemm('Conjugate transpose', 'No transpose', P, N, P, CONE, V, LDV, WORK, LDB, CZERO, B, LDB );
 
       DO 100 I = 1, L
          DO 90 J = I, L
@@ -119,8 +119,8 @@
 
       // Compute I - U'*U
 
-      CALL ZLASET( 'Full', M, M, CZERO, CONE, WORK, LDQ )
-      CALL ZHERK( 'Upper', 'Conjugate transpose', M, M, -ONE, U, LDU, ONE, WORK, LDU )
+      zlaset('Full', M, M, CZERO, CONE, WORK, LDQ );
+      zherk('Upper', 'Conjugate transpose', M, M, -ONE, U, LDU, ONE, WORK, LDU );
 
       // Compute norm( I - U'*U ) / ( M * ULP ) .
 
@@ -129,8 +129,8 @@
 
       // Compute I - V'*V
 
-      CALL ZLASET( 'Full', P, P, CZERO, CONE, WORK, LDV )
-      CALL ZHERK( 'Upper', 'Conjugate transpose', P, P, -ONE, V, LDV, ONE, WORK, LDV )
+      zlaset('Full', P, P, CZERO, CONE, WORK, LDV );
+      zherk('Upper', 'Conjugate transpose', P, P, -ONE, V, LDV, ONE, WORK, LDV );
 
       // Compute norm( I - V'*V ) / ( P * ULP ) .
 
@@ -139,8 +139,8 @@
 
       // Compute I - Q'*Q
 
-      CALL ZLASET( 'Full', N, N, CZERO, CONE, WORK, LDQ )
-      CALL ZHERK( 'Upper', 'Conjugate transpose', N, N, -ONE, Q, LDQ, ONE, WORK, LDQ )
+      zlaset('Full', N, N, CZERO, CONE, WORK, LDQ );
+      zherk('Upper', 'Conjugate transpose', N, N, -ONE, Q, LDQ, ONE, WORK, LDQ );
 
       // Compute norm( I - Q'*Q ) / ( N * ULP ) .
 
@@ -149,7 +149,7 @@
 
       // Check sorting
 
-      CALL DCOPY( N, ALPHA, 1, RWORK, 1 )
+      dcopy(N, ALPHA, 1, RWORK, 1 );
       DO 110 I = K + 1, MIN( K+L, M )
          J = IWORK( I )
          if ( I.NE.J ) {

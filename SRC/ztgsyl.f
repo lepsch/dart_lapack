@@ -93,7 +93,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'ZTGSYL', -INFO )
+         xerbla('ZTGSYL', -INFO );
          RETURN
       } else if ( LQUERY ) {
          RETURN
@@ -121,8 +121,8 @@
       if ( NOTRAN ) {
          if ( IJOB.GE.3 ) {
             IFUNC = IJOB - 2
-            CALL ZLASET( 'F', M, N, CZERO, CZERO, C, LDC )
-            CALL ZLASET( 'F', M, N, CZERO, CZERO, F, LDF )
+            zlaset('F', M, N, CZERO, CZERO, C, LDC );
+            zlaset('F', M, N, CZERO, CZERO, F, LDF );
          } else if ( IJOB.GE.1 .AND. NOTRAN ) {
             ISOLVE = 2
          }
@@ -138,7 +138,7 @@
             DSCALE = ZERO
             DSUM = ONE
             PQ = M*N
-            CALL ZTGSY2( TRANS, IFUNC, M, N, A, LDA, B, LDB, C, LDC, D, LDD, E, LDE, F, LDF, SCALE, DSUM, DSCALE, INFO )
+            ztgsy2(TRANS, IFUNC, M, N, A, LDA, B, LDB, C, LDC, D, LDD, E, LDE, F, LDF, SCALE, DSUM, DSCALE, INFO );
             if ( DSCALE.NE.ZERO ) {
                if ( IJOB.EQ.1 .OR. IJOB.EQ.3 ) {
                   DIF = SQRT( DBLE( 2*M*N ) ) / ( DSCALE*SQRT( DSUM ) )
@@ -151,13 +151,13 @@
                   IFUNC = IJOB
                }
                SCALE2 = SCALE
-               CALL ZLACPY( 'F', M, N, C, LDC, WORK, M )
-               CALL ZLACPY( 'F', M, N, F, LDF, WORK( M*N+1 ), M )
-               CALL ZLASET( 'F', M, N, CZERO, CZERO, C, LDC )
-               CALL ZLASET( 'F', M, N, CZERO, CZERO, F, LDF )
+               zlacpy('F', M, N, C, LDC, WORK, M );
+               zlacpy('F', M, N, F, LDF, WORK( M*N+1 ), M );
+               zlaset('F', M, N, CZERO, CZERO, C, LDC );
+               zlaset('F', M, N, CZERO, CZERO, F, LDF );
             } else if ( ISOLVE.EQ.2 .AND. IROUND.EQ.2 ) {
-               CALL ZLACPY( 'F', M, N, WORK, M, C, LDC )
-               CALL ZLACPY( 'F', M, N, WORK( M*N+1 ), M, F, LDF )
+               zlacpy('F', M, N, WORK, M, C, LDC );
+               zlacpy('F', M, N, WORK( M*N+1 ), M, F, LDF );
                SCALE = SCALE2
             }
    30    CONTINUE
@@ -218,21 +218,21 @@
                   IS = IWORK( I )
                   IE = IWORK( I+1 ) - 1
                   MB = IE - IS + 1
-                  CALL ZTGSY2( TRANS, IFUNC, MB, NB, A( IS, IS ), LDA, B( JS, JS ), LDB, C( IS, JS ), LDC, D( IS, IS ), LDD, E( JS, JS ), LDE, F( IS, JS ), LDF, SCALOC, DSUM, DSCALE, LINFO )
+                  ztgsy2(TRANS, IFUNC, MB, NB, A( IS, IS ), LDA, B( JS, JS ), LDB, C( IS, JS ), LDC, D( IS, IS ), LDD, E( JS, JS ), LDE, F( IS, JS ), LDF, SCALOC, DSUM, DSCALE, LINFO );
                   IF( LINFO.GT.0 ) INFO = LINFO
                   PQ = PQ + MB*NB
                   if ( SCALOC.NE.ONE ) {
                      DO 80 K = 1, JS - 1
-                        CALL ZSCAL( M, DCMPLX( SCALOC, ZERO ), C( 1, K ), 1 )                         CALL ZSCAL( M, DCMPLX( SCALOC, ZERO ), F( 1, K ), 1 )
+                        zscal(M, DCMPLX( SCALOC, ZERO ), C( 1, K ), 1 )                         CALL ZSCAL( M, DCMPLX( SCALOC, ZERO ), F( 1, K ), 1 );
    80                CONTINUE
                      DO 90 K = JS, JE
-                        CALL ZSCAL( IS-1, DCMPLX( SCALOC, ZERO ), C( 1, K ), 1 )                         CALL ZSCAL( IS-1, DCMPLX( SCALOC, ZERO ), F( 1, K ), 1 )
+                        zscal(IS-1, DCMPLX( SCALOC, ZERO ), C( 1, K ), 1 )                         CALL ZSCAL( IS-1, DCMPLX( SCALOC, ZERO ), F( 1, K ), 1 );
    90                CONTINUE
                      DO 100 K = JS, JE
-                        CALL ZSCAL( M-IE, DCMPLX( SCALOC, ZERO ), C( IE+1, K ), 1 )                         CALL ZSCAL( M-IE, DCMPLX( SCALOC, ZERO ), F( IE+1, K ), 1 )
+                        zscal(M-IE, DCMPLX( SCALOC, ZERO ), C( IE+1, K ), 1 )                         CALL ZSCAL( M-IE, DCMPLX( SCALOC, ZERO ), F( IE+1, K ), 1 );
   100                CONTINUE
                      DO 110 K = JE + 1, N
-                        CALL ZSCAL( M, DCMPLX( SCALOC, ZERO ), C( 1, K ), 1 )                         CALL ZSCAL( M, DCMPLX( SCALOC, ZERO ), F( 1, K ), 1 )
+                        zscal(M, DCMPLX( SCALOC, ZERO ), C( 1, K ), 1 )                         CALL ZSCAL( M, DCMPLX( SCALOC, ZERO ), F( 1, K ), 1 );
   110                CONTINUE
                      SCALE = SCALE*SCALOC
                   }
@@ -240,10 +240,10 @@
                   // Substitute R(I,J) and L(I,J) into remaining equation.
 
                   if ( I.GT.1 ) {
-                     CALL ZGEMM( 'N', 'N', IS-1, NB, MB, DCMPLX( -ONE, ZERO ), A( 1, IS ), LDA, C( IS, JS ), LDC, DCMPLX( ONE, ZERO ), C( 1, JS ), LDC )                      CALL ZGEMM( 'N', 'N', IS-1, NB, MB, DCMPLX( -ONE, ZERO ), D( 1, IS ), LDD, C( IS, JS ), LDC, DCMPLX( ONE, ZERO ), F( 1, JS ), LDF )
+                     zgemm('N', 'N', IS-1, NB, MB, DCMPLX( -ONE, ZERO ), A( 1, IS ), LDA, C( IS, JS ), LDC, DCMPLX( ONE, ZERO ), C( 1, JS ), LDC )                      CALL ZGEMM( 'N', 'N', IS-1, NB, MB, DCMPLX( -ONE, ZERO ), D( 1, IS ), LDD, C( IS, JS ), LDC, DCMPLX( ONE, ZERO ), F( 1, JS ), LDF );
                   }
                   if ( J.LT.Q ) {
-                     CALL ZGEMM( 'N', 'N', MB, N-JE, NB, DCMPLX( ONE, ZERO ), F( IS, JS ), LDF, B( JS, JE+1 ), LDB, DCMPLX( ONE, ZERO ), C( IS, JE+1 ), LDC )                      CALL ZGEMM( 'N', 'N', MB, N-JE, NB, DCMPLX( ONE, ZERO ), F( IS, JS ), LDF, E( JS, JE+1 ), LDE, DCMPLX( ONE, ZERO ), F( IS, JE+1 ), LDF )
+                     zgemm('N', 'N', MB, N-JE, NB, DCMPLX( ONE, ZERO ), F( IS, JS ), LDF, B( JS, JE+1 ), LDB, DCMPLX( ONE, ZERO ), C( IS, JE+1 ), LDC )                      CALL ZGEMM( 'N', 'N', MB, N-JE, NB, DCMPLX( ONE, ZERO ), F( IS, JS ), LDF, E( JS, JE+1 ), LDE, DCMPLX( ONE, ZERO ), F( IS, JE+1 ), LDF );
                   }
   120          CONTINUE
   130       CONTINUE
@@ -259,13 +259,13 @@
                   IFUNC = IJOB
                }
                SCALE2 = SCALE
-               CALL ZLACPY( 'F', M, N, C, LDC, WORK, M )
-               CALL ZLACPY( 'F', M, N, F, LDF, WORK( M*N+1 ), M )
-               CALL ZLASET( 'F', M, N, CZERO, CZERO, C, LDC )
-               CALL ZLASET( 'F', M, N, CZERO, CZERO, F, LDF )
+               zlacpy('F', M, N, C, LDC, WORK, M );
+               zlacpy('F', M, N, F, LDF, WORK( M*N+1 ), M );
+               zlaset('F', M, N, CZERO, CZERO, C, LDC );
+               zlaset('F', M, N, CZERO, CZERO, F, LDF );
             } else if ( ISOLVE.EQ.2 .AND. IROUND.EQ.2 ) {
-               CALL ZLACPY( 'F', M, N, WORK, M, C, LDC )
-               CALL ZLACPY( 'F', M, N, WORK( M*N+1 ), M, F, LDF )
+               zlacpy('F', M, N, WORK, M, C, LDC );
+               zlacpy('F', M, N, WORK( M*N+1 ), M, F, LDF );
                SCALE = SCALE2
             }
   150    CONTINUE
@@ -285,20 +285,20 @@
                JS = IWORK( J )
                JE = IWORK( J+1 ) - 1
                NB = JE - JS + 1
-               CALL ZTGSY2( TRANS, IFUNC, MB, NB, A( IS, IS ), LDA, B( JS, JS ), LDB, C( IS, JS ), LDC, D( IS, IS ), LDD, E( JS, JS ), LDE, F( IS, JS ), LDF, SCALOC, DSUM, DSCALE, LINFO )
+               ztgsy2(TRANS, IFUNC, MB, NB, A( IS, IS ), LDA, B( JS, JS ), LDB, C( IS, JS ), LDC, D( IS, IS ), LDD, E( JS, JS ), LDE, F( IS, JS ), LDF, SCALOC, DSUM, DSCALE, LINFO );
                IF( LINFO.GT.0 ) INFO = LINFO
                if ( SCALOC.NE.ONE ) {
                   DO 160 K = 1, JS - 1
-                     CALL ZSCAL( M, DCMPLX( SCALOC, ZERO ), C( 1, K ), 1 )                      CALL ZSCAL( M, DCMPLX( SCALOC, ZERO ), F( 1, K ), 1 )
+                     zscal(M, DCMPLX( SCALOC, ZERO ), C( 1, K ), 1 )                      CALL ZSCAL( M, DCMPLX( SCALOC, ZERO ), F( 1, K ), 1 );
   160             CONTINUE
                   DO 170 K = JS, JE
-                     CALL ZSCAL( IS-1, DCMPLX( SCALOC, ZERO ), C( 1, K ), 1 )                      CALL ZSCAL( IS-1, DCMPLX( SCALOC, ZERO ), F( 1, K ), 1 )
+                     zscal(IS-1, DCMPLX( SCALOC, ZERO ), C( 1, K ), 1 )                      CALL ZSCAL( IS-1, DCMPLX( SCALOC, ZERO ), F( 1, K ), 1 );
   170             CONTINUE
                   DO 180 K = JS, JE
-                     CALL ZSCAL( M-IE, DCMPLX( SCALOC, ZERO ), C( IE+1, K ), 1 )                      CALL ZSCAL( M-IE, DCMPLX( SCALOC, ZERO ), F( IE+1, K ), 1 )
+                     zscal(M-IE, DCMPLX( SCALOC, ZERO ), C( IE+1, K ), 1 )                      CALL ZSCAL( M-IE, DCMPLX( SCALOC, ZERO ), F( IE+1, K ), 1 );
   180             CONTINUE
                   DO 190 K = JE + 1, N
-                     CALL ZSCAL( M, DCMPLX( SCALOC, ZERO ), C( 1, K ), 1 )                      CALL ZSCAL( M, DCMPLX( SCALOC, ZERO ), F( 1, K ), 1 )
+                     zscal(M, DCMPLX( SCALOC, ZERO ), C( 1, K ), 1 )                      CALL ZSCAL( M, DCMPLX( SCALOC, ZERO ), F( 1, K ), 1 );
   190             CONTINUE
                   SCALE = SCALE*SCALOC
                }
@@ -306,10 +306,10 @@
                // Substitute R(I,J) and L(I,J) into remaining equation.
 
                if ( J.GT.P+2 ) {
-                  CALL ZGEMM( 'N', 'C', MB, JS-1, NB, DCMPLX( ONE, ZERO ), C( IS, JS ), LDC, B( 1, JS ), LDB, DCMPLX( ONE, ZERO ), F( IS, 1 ), LDF )                   CALL ZGEMM( 'N', 'C', MB, JS-1, NB, DCMPLX( ONE, ZERO ), F( IS, JS ), LDF, E( 1, JS ), LDE, DCMPLX( ONE, ZERO ), F( IS, 1 ), LDF )
+                  zgemm('N', 'C', MB, JS-1, NB, DCMPLX( ONE, ZERO ), C( IS, JS ), LDC, B( 1, JS ), LDB, DCMPLX( ONE, ZERO ), F( IS, 1 ), LDF )                   CALL ZGEMM( 'N', 'C', MB, JS-1, NB, DCMPLX( ONE, ZERO ), F( IS, JS ), LDF, E( 1, JS ), LDE, DCMPLX( ONE, ZERO ), F( IS, 1 ), LDF );
                }
                if ( I.LT.P ) {
-                  CALL ZGEMM( 'C', 'N', M-IE, NB, MB, DCMPLX( -ONE, ZERO ), A( IS, IE+1 ), LDA, C( IS, JS ), LDC, DCMPLX( ONE, ZERO ), C( IE+1, JS ), LDC )                   CALL ZGEMM( 'C', 'N', M-IE, NB, MB, DCMPLX( -ONE, ZERO ), D( IS, IE+1 ), LDD, F( IS, JS ), LDF, DCMPLX( ONE, ZERO ), C( IE+1, JS ), LDC )
+                  zgemm('C', 'N', M-IE, NB, MB, DCMPLX( -ONE, ZERO ), A( IS, IE+1 ), LDA, C( IS, JS ), LDC, DCMPLX( ONE, ZERO ), C( IE+1, JS ), LDC )                   CALL ZGEMM( 'C', 'N', M-IE, NB, MB, DCMPLX( -ONE, ZERO ), D( IS, IE+1 ), LDD, F( IS, JS ), LDF, DCMPLX( ONE, ZERO ), C( IE+1, JS ), LDC );
                }
   200       CONTINUE
   210    CONTINUE

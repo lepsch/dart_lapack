@@ -94,7 +94,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'CCHKST', -INFO )
+         xerbla('CCHKST', -INFO );
          RETURN
       }
 
@@ -190,7 +190,7 @@
 
    70       CONTINUE
 
-            CALL CLASET( 'Full', LDA, N, CZERO, CZERO, A, LDA )
+            claset('Full', LDA, N, CZERO, CZERO, A, LDA );
             IINFO = 0
             if ( JTYPE.LE.15 ) {
                COND = ULPINV
@@ -217,38 +217,38 @@
 
                // Diagonal Matrix, [Eigen]values Specified
 
-               CALL CLATMS( N, N, 'S', ISEED, 'H', RWORK, IMODE, COND, ANORM, 0, 0, 'N', A, LDA, WORK, IINFO )
+               clatms(N, N, 'S', ISEED, 'H', RWORK, IMODE, COND, ANORM, 0, 0, 'N', A, LDA, WORK, IINFO );
 
 
             } else if ( ITYPE.EQ.5 ) {
 
                // Hermitian, eigenvalues specified
 
-               CALL CLATMS( N, N, 'S', ISEED, 'H', RWORK, IMODE, COND, ANORM, N, N, 'N', A, LDA, WORK, IINFO )
+               clatms(N, N, 'S', ISEED, 'H', RWORK, IMODE, COND, ANORM, N, N, 'N', A, LDA, WORK, IINFO );
 
             } else if ( ITYPE.EQ.7 ) {
 
                // Diagonal, random eigenvalues
 
-               CALL CLATMR( N, N, 'S', ISEED, 'H', WORK, 6, ONE, CONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, 0, 0, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO )
+               clatmr(N, N, 'S', ISEED, 'H', WORK, 6, ONE, CONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, 0, 0, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO );
 
             } else if ( ITYPE.EQ.8 ) {
 
                // Hermitian, random eigenvalues
 
-               CALL CLATMR( N, N, 'S', ISEED, 'H', WORK, 6, ONE, CONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, N, N, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO )
+               clatmr(N, N, 'S', ISEED, 'H', WORK, 6, ONE, CONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, N, N, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO );
 
             } else if ( ITYPE.EQ.9 ) {
 
                // Positive definite, eigenvalues specified.
 
-               CALL CLATMS( N, N, 'S', ISEED, 'P', RWORK, IMODE, COND, ANORM, N, N, 'N', A, LDA, WORK, IINFO )
+               clatms(N, N, 'S', ISEED, 'P', RWORK, IMODE, COND, ANORM, N, N, 'N', A, LDA, WORK, IINFO );
 
             } else if ( ITYPE.EQ.10 ) {
 
                // Positive definite tridiagonal, eigenvalues specified.
 
-               CALL CLATMS( N, N, 'S', ISEED, 'P', RWORK, IMODE, COND, ANORM, 1, 1, 'N', A, LDA, WORK, IINFO )
+               clatms(N, N, 'S', ISEED, 'P', RWORK, IMODE, COND, ANORM, 1, 1, 'N', A, LDA, WORK, IINFO );
                DO 90 I = 2, N
                   TEMP1 = ABS( A( I-1, I ) )
                   TEMP2 = SQRT( ABS( A( I-1, I-1 )*A( I, I ) ) )
@@ -274,10 +274,10 @@
             // Call CHETRD and CUNGTR to compute S and U from
             // upper triangle.
 
-            CALL CLACPY( 'U', N, N, A, LDA, V, LDU )
+            clacpy('U', N, N, A, LDA, V, LDU );
 
             NTEST = 1
-            CALL CHETRD( 'U', N, V, LDU, SD, SE, TAU, WORK, LWORK, IINFO )
+            chetrd('U', N, V, LDU, SD, SE, TAU, WORK, LWORK, IINFO );
 
             if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'CHETRD(U)', IINFO, N, JTYPE, IOLDSD
@@ -290,10 +290,10 @@
                }
             }
 
-            CALL CLACPY( 'U', N, N, V, LDU, U, LDU )
+            clacpy('U', N, N, V, LDU, U, LDU );
 
             NTEST = 2
-            CALL CUNGTR( 'U', N, U, LDU, TAU, WORK, LWORK, IINFO )
+            cungtr('U', N, U, LDU, TAU, WORK, LWORK, IINFO );
             if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'CUNGTR(U)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
@@ -307,15 +307,15 @@
 
             // Do tests 1 and 2
 
-            CALL CHET21( 2, 'Upper', N, 1, A, LDA, SD, SE, U, LDU, V, LDU, TAU, WORK, RWORK, RESULT( 1 ) )             CALL CHET21( 3, 'Upper', N, 1, A, LDA, SD, SE, U, LDU, V, LDU, TAU, WORK, RWORK, RESULT( 2 ) )
+            chet21(2, 'Upper', N, 1, A, LDA, SD, SE, U, LDU, V, LDU, TAU, WORK, RWORK, RESULT( 1 ) )             CALL CHET21( 3, 'Upper', N, 1, A, LDA, SD, SE, U, LDU, V, LDU, TAU, WORK, RWORK, RESULT( 2 ) );
 
             // Call CHETRD and CUNGTR to compute S and U from
             // lower triangle, do tests.
 
-            CALL CLACPY( 'L', N, N, A, LDA, V, LDU )
+            clacpy('L', N, N, A, LDA, V, LDU );
 
             NTEST = 3
-            CALL CHETRD( 'L', N, V, LDU, SD, SE, TAU, WORK, LWORK, IINFO )
+            chetrd('L', N, V, LDU, SD, SE, TAU, WORK, LWORK, IINFO );
 
             if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'CHETRD(L)', IINFO, N, JTYPE, IOLDSD
@@ -328,10 +328,10 @@
                }
             }
 
-            CALL CLACPY( 'L', N, N, V, LDU, U, LDU )
+            clacpy('L', N, N, V, LDU, U, LDU );
 
             NTEST = 4
-            CALL CUNGTR( 'L', N, U, LDU, TAU, WORK, LWORK, IINFO )
+            cungtr('L', N, U, LDU, TAU, WORK, LWORK, IINFO );
             if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'CUNGTR(L)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
@@ -343,7 +343,7 @@
                }
             }
 
-            CALL CHET21( 2, 'Lower', N, 1, A, LDA, SD, SE, U, LDU, V, LDU, TAU, WORK, RWORK, RESULT( 3 ) )             CALL CHET21( 3, 'Lower', N, 1, A, LDA, SD, SE, U, LDU, V, LDU, TAU, WORK, RWORK, RESULT( 4 ) )
+            chet21(2, 'Lower', N, 1, A, LDA, SD, SE, U, LDU, V, LDU, TAU, WORK, RWORK, RESULT( 3 ) )             CALL CHET21( 3, 'Lower', N, 1, A, LDA, SD, SE, U, LDU, V, LDU, TAU, WORK, RWORK, RESULT( 4 ) );
 
             // Store the upper triangle of A in AP
 
@@ -357,10 +357,10 @@
 
             // Call CHPTRD and CUPGTR to compute S and U from AP
 
-            CALL CCOPY( NAP, AP, 1, VP, 1 )
+            ccopy(NAP, AP, 1, VP, 1 );
 
             NTEST = 5
-            CALL CHPTRD( 'U', N, VP, SD, SE, TAU, IINFO )
+            chptrd('U', N, VP, SD, SE, TAU, IINFO );
 
             if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'CHPTRD(U)', IINFO, N, JTYPE, IOLDSD
@@ -374,7 +374,7 @@
             }
 
             NTEST = 6
-            CALL CUPGTR( 'U', N, VP, TAU, U, LDU, WORK, IINFO )
+            cupgtr('U', N, VP, TAU, U, LDU, WORK, IINFO );
             if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'CUPGTR(U)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
@@ -388,7 +388,7 @@
 
             // Do tests 5 and 6
 
-            CALL CHPT21( 2, 'Upper', N, 1, AP, SD, SE, U, LDU, VP, TAU, WORK, RWORK, RESULT( 5 ) )             CALL CHPT21( 3, 'Upper', N, 1, AP, SD, SE, U, LDU, VP, TAU, WORK, RWORK, RESULT( 6 ) )
+            chpt21(2, 'Upper', N, 1, AP, SD, SE, U, LDU, VP, TAU, WORK, RWORK, RESULT( 5 ) )             CALL CHPT21( 3, 'Upper', N, 1, AP, SD, SE, U, LDU, VP, TAU, WORK, RWORK, RESULT( 6 ) );
 
             // Store the lower triangle of A in AP
 
@@ -402,10 +402,10 @@
 
             // Call CHPTRD and CUPGTR to compute S and U from AP
 
-            CALL CCOPY( NAP, AP, 1, VP, 1 )
+            ccopy(NAP, AP, 1, VP, 1 );
 
             NTEST = 7
-            CALL CHPTRD( 'L', N, VP, SD, SE, TAU, IINFO )
+            chptrd('L', N, VP, SD, SE, TAU, IINFO );
 
             if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'CHPTRD(L)', IINFO, N, JTYPE, IOLDSD
@@ -419,7 +419,7 @@
             }
 
             NTEST = 8
-            CALL CUPGTR( 'L', N, VP, TAU, U, LDU, WORK, IINFO )
+            cupgtr('L', N, VP, TAU, U, LDU, WORK, IINFO );
             if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'CUPGTR(L)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
@@ -431,18 +431,18 @@
                }
             }
 
-            CALL CHPT21( 2, 'Lower', N, 1, AP, SD, SE, U, LDU, VP, TAU, WORK, RWORK, RESULT( 7 ) )             CALL CHPT21( 3, 'Lower', N, 1, AP, SD, SE, U, LDU, VP, TAU, WORK, RWORK, RESULT( 8 ) )
+            chpt21(2, 'Lower', N, 1, AP, SD, SE, U, LDU, VP, TAU, WORK, RWORK, RESULT( 7 ) )             CALL CHPT21( 3, 'Lower', N, 1, AP, SD, SE, U, LDU, VP, TAU, WORK, RWORK, RESULT( 8 ) );
 
             // Call CSTEQR to compute D1, D2, and Z, do tests.
 
             // Compute D1 and Z
 
-            CALL SCOPY( N, SD, 1, D1, 1 )
+            scopy(N, SD, 1, D1, 1 );
             IF( N.GT.0 ) CALL SCOPY( N-1, SE, 1, RWORK, 1 )
-            CALL CLASET( 'Full', N, N, CZERO, CONE, Z, LDU )
+            claset('Full', N, N, CZERO, CONE, Z, LDU );
 
             NTEST = 9
-            CALL CSTEQR( 'V', N, D1, RWORK, Z, LDU, RWORK( N+1 ), IINFO )
+            csteqr('V', N, D1, RWORK, Z, LDU, RWORK( N+1 ), IINFO );
             if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'CSTEQR(V)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
@@ -456,11 +456,11 @@
 
             // Compute D2
 
-            CALL SCOPY( N, SD, 1, D2, 1 )
+            scopy(N, SD, 1, D2, 1 );
             IF( N.GT.0 ) CALL SCOPY( N-1, SE, 1, RWORK, 1 )
 
             NTEST = 11
-            CALL CSTEQR( 'N', N, D2, RWORK, WORK, LDU, RWORK( N+1 ), IINFO )
+            csteqr('N', N, D2, RWORK, WORK, LDU, RWORK( N+1 ), IINFO );
             if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'CSTEQR(N)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
@@ -474,11 +474,11 @@
 
             // Compute D3 (using PWK method)
 
-            CALL SCOPY( N, SD, 1, D3, 1 )
+            scopy(N, SD, 1, D3, 1 );
             IF( N.GT.0 ) CALL SCOPY( N-1, SE, 1, RWORK, 1 )
 
             NTEST = 12
-            CALL SSTERF( N, D3, RWORK, IINFO )
+            ssterf(N, D3, RWORK, IINFO );
             if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'SSTERF', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
@@ -492,7 +492,7 @@
 
             // Do Tests 9 and 10
 
-            CALL CSTT21( N, 0, SD, SE, D1, DUMMA, Z, LDU, WORK, RWORK, RESULT( 9 ) )
+            cstt21(N, 0, SD, SE, D1, DUMMA, Z, LDU, WORK, RWORK, RESULT( 9 ) );
 
             // Do Tests 11 and 12
 
@@ -518,7 +518,7 @@
             TEMP1 = THRESH*( HALF-ULP )
 
             DO 160 J = 0, LOG2UI
-               CALL SSTECH( N, SD, SE, D1, TEMP1, RWORK, IINFO )
+               sstech(N, SD, SE, D1, TEMP1, RWORK, IINFO );
                IF( IINFO.EQ.0 ) GO TO 170
                TEMP1 = TEMP1*TWO
   160       CONTINUE
@@ -533,12 +533,12 @@
 
                // Compute D4 and Z4
 
-               CALL SCOPY( N, SD, 1, D4, 1 )
+               scopy(N, SD, 1, D4, 1 );
                IF( N.GT.0 ) CALL SCOPY( N-1, SE, 1, RWORK, 1 )
-               CALL CLASET( 'Full', N, N, CZERO, CONE, Z, LDU )
+               claset('Full', N, N, CZERO, CONE, Z, LDU );
 
                NTEST = 14
-               CALL CPTEQR( 'V', N, D4, RWORK, Z, LDU, RWORK( N+1 ), IINFO )
+               cpteqr('V', N, D4, RWORK, Z, LDU, RWORK( N+1 ), IINFO );
                if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'CPTEQR(V)', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
@@ -552,15 +552,15 @@
 
                // Do Tests 14 and 15
 
-               CALL CSTT21( N, 0, SD, SE, D4, DUMMA, Z, LDU, WORK, RWORK, RESULT( 14 ) )
+               cstt21(N, 0, SD, SE, D4, DUMMA, Z, LDU, WORK, RWORK, RESULT( 14 ) );
 
                // Compute D5
 
-               CALL SCOPY( N, SD, 1, D5, 1 )
+               scopy(N, SD, 1, D5, 1 );
                IF( N.GT.0 ) CALL SCOPY( N-1, SE, 1, RWORK, 1 )
 
                NTEST = 16
-               CALL CPTEQR( 'N', N, D5, RWORK, Z, LDU, RWORK( N+1 ), IINFO )
+               cpteqr('N', N, D5, RWORK, Z, LDU, RWORK( N+1 ), IINFO );
                if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'CPTEQR(N)', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
@@ -600,7 +600,7 @@
             if ( JTYPE.EQ.21 ) {
                NTEST = 17
                ABSTOL = UNFL + UNFL
-               CALL SSTEBZ( 'A', 'E', N, VL, VU, IL, IU, ABSTOL, SD, SE, M, NSPLIT, WR, IWORK( 1 ), IWORK( N+1 ), RWORK, IWORK( 2*N+1 ), IINFO )
+               sstebz('A', 'E', N, VL, VU, IL, IU, ABSTOL, SD, SE, M, NSPLIT, WR, IWORK( 1 ), IWORK( N+1 ), RWORK, IWORK( 2*N+1 ), IINFO );
                if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'SSTEBZ(A,rel)', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
@@ -630,7 +630,7 @@
 
             NTEST = 18
             ABSTOL = UNFL + UNFL
-            CALL SSTEBZ( 'A', 'E', N, VL, VU, IL, IU, ABSTOL, SD, SE, M, NSPLIT, WA1, IWORK( 1 ), IWORK( N+1 ), RWORK, IWORK( 2*N+1 ), IINFO )
+            sstebz('A', 'E', N, VL, VU, IL, IU, ABSTOL, SD, SE, M, NSPLIT, WA1, IWORK( 1 ), IWORK( N+1 ), RWORK, IWORK( 2*N+1 ), IINFO );
             if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'SSTEBZ(A)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
@@ -670,7 +670,7 @@
                }
             }
 
-            CALL SSTEBZ( 'I', 'E', N, VL, VU, IL, IU, ABSTOL, SD, SE, M2, NSPLIT, WA2, IWORK( 1 ), IWORK( N+1 ), RWORK, IWORK( 2*N+1 ), IINFO )
+            sstebz('I', 'E', N, VL, VU, IL, IU, ABSTOL, SD, SE, M2, NSPLIT, WA2, IWORK( 1 ), IWORK( N+1 ), RWORK, IWORK( 2*N+1 ), IINFO );
             if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'SSTEBZ(I)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
@@ -701,7 +701,7 @@
                VU = ONE
             }
 
-            CALL SSTEBZ( 'V', 'E', N, VL, VU, IL, IU, ABSTOL, SD, SE, M3, NSPLIT, WA3, IWORK( 1 ), IWORK( N+1 ), RWORK, IWORK( 2*N+1 ), IINFO )
+            sstebz('V', 'E', N, VL, VU, IL, IU, ABSTOL, SD, SE, M3, NSPLIT, WA3, IWORK( 1 ), IWORK( N+1 ), RWORK, IWORK( 2*N+1 ), IINFO );
             if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'SSTEBZ(V)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
@@ -735,7 +735,7 @@
             // it returns these eigenvalues in the correct order.)
 
             NTEST = 21
-            CALL SSTEBZ( 'A', 'B', N, VL, VU, IL, IU, ABSTOL, SD, SE, M, NSPLIT, WA1, IWORK( 1 ), IWORK( N+1 ), RWORK, IWORK( 2*N+1 ), IINFO )
+            sstebz('A', 'B', N, VL, VU, IL, IU, ABSTOL, SD, SE, M, NSPLIT, WA1, IWORK( 1 ), IWORK( N+1 ), RWORK, IWORK( 2*N+1 ), IINFO );
             if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'SSTEBZ(A,B)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
@@ -748,7 +748,7 @@
                }
             }
 
-            CALL CSTEIN( N, SD, SE, M, WA1, IWORK( 1 ), IWORK( N+1 ), Z, LDU, RWORK, IWORK( 2*N+1 ), IWORK( 3*N+1 ), IINFO )
+            cstein(N, SD, SE, M, WA1, IWORK( 1 ), IWORK( N+1 ), Z, LDU, RWORK, IWORK( 2*N+1 ), IWORK( 3*N+1 ), IINFO );
             if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'CSTEIN', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
@@ -763,7 +763,7 @@
 
             // Do tests 20 and 21
 
-            CALL CSTT21( N, 0, SD, SE, WA1, DUMMA, Z, LDU, WORK, RWORK, RESULT( 20 ) )
+            cstt21(N, 0, SD, SE, WA1, DUMMA, Z, LDU, WORK, RWORK, RESULT( 20 ) );
 
             // Call CSTEDC(I) to compute D1 and Z, do tests.
 
@@ -771,12 +771,12 @@
 
             INDE = 1
             INDRWK = INDE + N
-            CALL SCOPY( N, SD, 1, D1, 1 )
+            scopy(N, SD, 1, D1, 1 );
             IF( N.GT.0 ) CALL SCOPY( N-1, SE, 1, RWORK( INDE ), 1 )
-            CALL CLASET( 'Full', N, N, CZERO, CONE, Z, LDU )
+            claset('Full', N, N, CZERO, CONE, Z, LDU );
 
             NTEST = 22
-            CALL CSTEDC( 'I', N, D1, RWORK( INDE ), Z, LDU, WORK, LWEDC, RWORK( INDRWK ), LRWEDC, IWORK, LIWEDC, IINFO )
+            cstedc('I', N, D1, RWORK( INDE ), Z, LDU, WORK, LWEDC, RWORK( INDRWK ), LRWEDC, IWORK, LIWEDC, IINFO );
             if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'CSTEDC(I)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
@@ -790,18 +790,18 @@
 
             // Do Tests 22 and 23
 
-            CALL CSTT21( N, 0, SD, SE, D1, DUMMA, Z, LDU, WORK, RWORK, RESULT( 22 ) )
+            cstt21(N, 0, SD, SE, D1, DUMMA, Z, LDU, WORK, RWORK, RESULT( 22 ) );
 
             // Call CSTEDC(V) to compute D1 and Z, do tests.
 
             // Compute D1 and Z
 
-            CALL SCOPY( N, SD, 1, D1, 1 )
+            scopy(N, SD, 1, D1, 1 );
             IF( N.GT.0 ) CALL SCOPY( N-1, SE, 1, RWORK( INDE ), 1 )
-            CALL CLASET( 'Full', N, N, CZERO, CONE, Z, LDU )
+            claset('Full', N, N, CZERO, CONE, Z, LDU );
 
             NTEST = 24
-            CALL CSTEDC( 'V', N, D1, RWORK( INDE ), Z, LDU, WORK, LWEDC, RWORK( INDRWK ), LRWEDC, IWORK, LIWEDC, IINFO )
+            cstedc('V', N, D1, RWORK( INDE ), Z, LDU, WORK, LWEDC, RWORK( INDRWK ), LRWEDC, IWORK, LIWEDC, IINFO );
             if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'CSTEDC(V)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
@@ -815,18 +815,18 @@
 
             // Do Tests 24 and 25
 
-            CALL CSTT21( N, 0, SD, SE, D1, DUMMA, Z, LDU, WORK, RWORK, RESULT( 24 ) )
+            cstt21(N, 0, SD, SE, D1, DUMMA, Z, LDU, WORK, RWORK, RESULT( 24 ) );
 
             // Call CSTEDC(N) to compute D2, do tests.
 
             // Compute D2
 
-            CALL SCOPY( N, SD, 1, D2, 1 )
+            scopy(N, SD, 1, D2, 1 );
             IF( N.GT.0 ) CALL SCOPY( N-1, SE, 1, RWORK( INDE ), 1 )
-            CALL CLASET( 'Full', N, N, CZERO, CONE, Z, LDU )
+            claset('Full', N, N, CZERO, CONE, Z, LDU );
 
             NTEST = 26
-            CALL CSTEDC( 'N', N, D2, RWORK( INDE ), Z, LDU, WORK, LWEDC, RWORK( INDRWK ), LRWEDC, IWORK, LIWEDC, IINFO )
+            cstedc('N', N, D2, RWORK( INDE ), Z, LDU, WORK, LWEDC, RWORK( INDRWK ), LRWEDC, IWORK, LIWEDC, IINFO );
             if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'CSTEDC(N)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
@@ -866,7 +866,7 @@
                if ( JTYPE.EQ.21 .AND. CREL ) {
                   NTEST = 27
                   ABSTOL = UNFL + UNFL
-                  CALL CSTEMR( 'V', 'A', N, SD, SE, VL, VU, IL, IU, M, WR, Z, LDU, N, IWORK( 1 ), TRYRAC, RWORK, LRWORK, IWORK( 2*N+1 ), LWORK-2*N, IINFO )
+                  cstemr('V', 'A', N, SD, SE, VL, VU, IL, IU, M, WR, Z, LDU, N, IWORK( 1 ), TRYRAC, RWORK, LRWORK, IWORK( 2*N+1 ), LWORK-2*N, IINFO );
                   if ( IINFO.NE.0 ) {
                      WRITE( NOUNIT, FMT = 9999 )'CSTEMR(V,A,rel)', IINFO, N, JTYPE, IOLDSD
                      INFO = ABS( IINFO )
@@ -900,7 +900,7 @@
                   if ( CRANGE ) {
                      NTEST = 28
                      ABSTOL = UNFL + UNFL
-                     CALL CSTEMR( 'V', 'I', N, SD, SE, VL, VU, IL, IU, M, WR, Z, LDU, N, IWORK( 1 ), TRYRAC, RWORK, LRWORK, IWORK( 2*N+1 ), LWORK-2*N, IINFO )
+                     cstemr('V', 'I', N, SD, SE, VL, VU, IL, IU, M, WR, Z, LDU, N, IWORK( 1 ), TRYRAC, RWORK, LRWORK, IWORK( 2*N+1 ), LWORK-2*N, IINFO );
 
                      if ( IINFO.NE.0 ) {
                         WRITE( NOUNIT, FMT = 9999 )'CSTEMR(V,I,rel)', IINFO, N, JTYPE, IOLDSD
@@ -936,9 +936,9 @@
 
             // Compute D1 and Z
 
-               CALL SCOPY( N, SD, 1, D5, 1 )
+               scopy(N, SD, 1, D5, 1 );
                IF( N.GT.0 ) CALL SCOPY( N-1, SE, 1, RWORK, 1 )
-               CALL CLASET( 'Full', N, N, CZERO, CONE, Z, LDU )
+               claset('Full', N, N, CZERO, CONE, Z, LDU );
 
                if ( CRANGE ) {
                   NTEST = 29
@@ -949,7 +949,7 @@
                      IU = IL
                      IL = ITEMP
                   }
-                  CALL CSTEMR( 'V', 'I', N, D5, RWORK, VL, VU, IL, IU, M, D1, Z, LDU, N, IWORK( 1 ), TRYRAC, RWORK( N+1 ), LRWORK-N, IWORK( 2*N+1 ), LIWORK-2*N, IINFO )
+                  cstemr('V', 'I', N, D5, RWORK, VL, VU, IL, IU, M, D1, Z, LDU, N, IWORK( 1 ), TRYRAC, RWORK( N+1 ), LRWORK-N, IWORK( 2*N+1 ), LIWORK-2*N, IINFO );
                   if ( IINFO.NE.0 ) {
                      WRITE( NOUNIT, FMT = 9999 )'CSTEMR(V,I)', IINFO, N, JTYPE, IOLDSD
                      INFO = ABS( IINFO )
@@ -968,11 +968,11 @@
 
             // Compute D2
 
-                  CALL SCOPY( N, SD, 1, D5, 1 )
+                  scopy(N, SD, 1, D5, 1 );
                   IF( N.GT.0 ) CALL SCOPY( N-1, SE, 1, RWORK, 1 )
 
                   NTEST = 31
-                  CALL CSTEMR( 'N', 'I', N, D5, RWORK, VL, VU, IL, IU, M, D2, Z, LDU, N, IWORK( 1 ), TRYRAC, RWORK( N+1 ), LRWORK-N, IWORK( 2*N+1 ), LIWORK-2*N, IINFO )
+                  cstemr('N', 'I', N, D5, RWORK, VL, VU, IL, IU, M, D2, Z, LDU, N, IWORK( 1 ), TRYRAC, RWORK( N+1 ), LRWORK-N, IWORK( 2*N+1 ), LIWORK-2*N, IINFO );
                   if ( IINFO.NE.0 ) {
                      WRITE( NOUNIT, FMT = 9999 )'CSTEMR(N,I)', IINFO, N, JTYPE, IOLDSD
                      INFO = ABS( IINFO )
@@ -1001,9 +1001,9 @@
 
             // Compute D1 and Z
 
-                  CALL SCOPY( N, SD, 1, D5, 1 )
+                  scopy(N, SD, 1, D5, 1 );
                   IF( N.GT.0 ) CALL SCOPY( N-1, SE, 1, RWORK, 1 )
-                  CALL CLASET( 'Full', N, N, CZERO, CONE, Z, LDU )
+                  claset('Full', N, N, CZERO, CONE, Z, LDU );
 
                   NTEST = 32
 
@@ -1023,7 +1023,7 @@
                      VU = ONE
                   }
 
-                  CALL CSTEMR( 'V', 'V', N, D5, RWORK, VL, VU, IL, IU, M, D1, Z, LDU, N, IWORK( 1 ), TRYRAC, RWORK( N+1 ), LRWORK-N, IWORK( 2*N+1 ), LIWORK-2*N, IINFO )
+                  cstemr('V', 'V', N, D5, RWORK, VL, VU, IL, IU, M, D1, Z, LDU, N, IWORK( 1 ), TRYRAC, RWORK( N+1 ), LRWORK-N, IWORK( 2*N+1 ), LIWORK-2*N, IINFO );
                   if ( IINFO.NE.0 ) {
                      WRITE( NOUNIT, FMT = 9999 )'CSTEMR(V,V)', IINFO, N, JTYPE, IOLDSD
                      INFO = ABS( IINFO )
@@ -1037,17 +1037,17 @@
 
             // Do Tests 32 and 33
 
-                  CALL CSTT22( N, M, 0, SD, SE, D1, DUMMA, Z, LDU, WORK, M, RWORK, RESULT( 32 ) )
+                  cstt22(N, M, 0, SD, SE, D1, DUMMA, Z, LDU, WORK, M, RWORK, RESULT( 32 ) );
 
             // Call CSTEMR to compute D2, do tests.
 
             // Compute D2
 
-                  CALL SCOPY( N, SD, 1, D5, 1 )
+                  scopy(N, SD, 1, D5, 1 );
                   IF( N.GT.0 ) CALL SCOPY( N-1, SE, 1, RWORK, 1 )
 
                   NTEST = 34
-                  CALL CSTEMR( 'N', 'V', N, D5, RWORK, VL, VU, IL, IU, M, D2, Z, LDU, N, IWORK( 1 ), TRYRAC, RWORK( N+1 ), LRWORK-N, IWORK( 2*N+1 ), LIWORK-2*N, IINFO )
+                  cstemr('N', 'V', N, D5, RWORK, VL, VU, IL, IU, M, D2, Z, LDU, N, IWORK( 1 ), TRYRAC, RWORK( N+1 ), LRWORK-N, IWORK( 2*N+1 ), LIWORK-2*N, IINFO );
                   if ( IINFO.NE.0 ) {
                      WRITE( NOUNIT, FMT = 9999 )'CSTEMR(N,V)', IINFO, N, JTYPE, IOLDSD
                      INFO = ABS( IINFO )
@@ -1084,12 +1084,12 @@
 
             // Compute D1 and Z
 
-               CALL SCOPY( N, SD, 1, D5, 1 )
+               scopy(N, SD, 1, D5, 1 );
                IF( N.GT.0 ) CALL SCOPY( N-1, SE, 1, RWORK, 1 )
 
                NTEST = 35
 
-               CALL CSTEMR( 'V', 'A', N, D5, RWORK, VL, VU, IL, IU, M, D1, Z, LDU, N, IWORK( 1 ), TRYRAC, RWORK( N+1 ), LRWORK-N, IWORK( 2*N+1 ), LIWORK-2*N, IINFO )
+               cstemr('V', 'A', N, D5, RWORK, VL, VU, IL, IU, M, D1, Z, LDU, N, IWORK( 1 ), TRYRAC, RWORK( N+1 ), LRWORK-N, IWORK( 2*N+1 ), LIWORK-2*N, IINFO );
                if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'CSTEMR(V,A)', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
@@ -1103,17 +1103,17 @@
 
             // Do Tests 35 and 36
 
-               CALL CSTT22( N, M, 0, SD, SE, D1, DUMMA, Z, LDU, WORK, M, RWORK, RESULT( 35 ) )
+               cstt22(N, M, 0, SD, SE, D1, DUMMA, Z, LDU, WORK, M, RWORK, RESULT( 35 ) );
 
             // Call CSTEMR to compute D2, do tests.
 
             // Compute D2
 
-               CALL SCOPY( N, SD, 1, D5, 1 )
+               scopy(N, SD, 1, D5, 1 );
                IF( N.GT.0 ) CALL SCOPY( N-1, SE, 1, RWORK, 1 )
 
                NTEST = 37
-               CALL CSTEMR( 'N', 'A', N, D5, RWORK, VL, VU, IL, IU, M, D2, Z, LDU, N, IWORK( 1 ), TRYRAC, RWORK( N+1 ), LRWORK-N, IWORK( 2*N+1 ), LIWORK-2*N, IINFO )
+               cstemr('N', 'A', N, D5, RWORK, VL, VU, IL, IU, M, D2, Z, LDU, N, IWORK( 1 ), TRYRAC, RWORK( N+1 ), LRWORK-N, IWORK( 2*N+1 ), LIWORK-2*N, IINFO );
                if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'CSTEMR(N,A)', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
@@ -1176,7 +1176,7 @@
 
       // Summary
 
-      CALL SLASUM( 'CST', NOUNIT, NERRS, NTESTT )
+      slasum('CST', NOUNIT, NERRS, NTESTT );
       RETURN
 
  9999 FORMAT( ' CCHKST: ', A, ' returned INFO=', I6, '.', / 9X, 'N=', I6, ', JTYPE=', I6, ', ISEED=(', 3( I5, ',' ), I5, ')' )

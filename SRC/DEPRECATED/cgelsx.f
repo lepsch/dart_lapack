@@ -61,7 +61,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'CGELSX', -INFO )
+         xerbla('CGELSX', -INFO );
          RETURN
       }
 
@@ -85,19 +85,19 @@
 
          // Scale matrix norm up to SMLNUM
 
-         CALL CLASCL( 'G', 0, 0, ANRM, SMLNUM, M, N, A, LDA, INFO )
+         clascl('G', 0, 0, ANRM, SMLNUM, M, N, A, LDA, INFO );
          IASCL = 1
       } else if ( ANRM.GT.BIGNUM ) {
 
          // Scale matrix norm down to BIGNUM
 
-         CALL CLASCL( 'G', 0, 0, ANRM, BIGNUM, M, N, A, LDA, INFO )
+         clascl('G', 0, 0, ANRM, BIGNUM, M, N, A, LDA, INFO );
          IASCL = 2
       } else if ( ANRM.EQ.ZERO ) {
 
          // Matrix all zero. Return zero solution.
 
-         CALL CLASET( 'F', MAX( M, N ), NRHS, CZERO, CZERO, B, LDB )
+         claset('F', MAX( M, N ), NRHS, CZERO, CZERO, B, LDB );
          RANK = 0
          GO TO 100
       }
@@ -108,20 +108,20 @@
 
          // Scale matrix norm up to SMLNUM
 
-         CALL CLASCL( 'G', 0, 0, BNRM, SMLNUM, M, NRHS, B, LDB, INFO )
+         clascl('G', 0, 0, BNRM, SMLNUM, M, NRHS, B, LDB, INFO );
          IBSCL = 1
       } else if ( BNRM.GT.BIGNUM ) {
 
          // Scale matrix norm down to BIGNUM
 
-         CALL CLASCL( 'G', 0, 0, BNRM, BIGNUM, M, NRHS, B, LDB, INFO )
+         clascl('G', 0, 0, BNRM, BIGNUM, M, NRHS, B, LDB, INFO );
          IBSCL = 2
       }
 
       // Compute QR factorization with column pivoting of A:
          // A * P = Q * R
 
-      CALL CGEQPF( M, N, A, LDA, JPVT, WORK( 1 ), WORK( MN+1 ), RWORK, INFO )
+      cgeqpf(M, N, A, LDA, JPVT, WORK( 1 ), WORK( MN+1 ), RWORK, INFO );
 
       // complex workspace MN+N. Real workspace 2*N. Details of Householder
       // rotations stored in WORK(1:MN).
@@ -134,7 +134,7 @@
       SMIN = SMAX
       if ( ABS( A( 1, 1 ) ).EQ.ZERO ) {
          RANK = 0
-         CALL CLASET( 'F', MAX( M, N ), NRHS, CZERO, CZERO, B, LDB )
+         claset('F', MAX( M, N ), NRHS, CZERO, CZERO, B, LDB );
          GO TO 100
       } else {
          RANK = 1
@@ -143,7 +143,7 @@
    10 CONTINUE
       if ( RANK.LT.MN ) {
          I = RANK + 1
-         CALL CLAIC1( IMIN, RANK, WORK( ISMIN ), SMIN, A( 1, I ), A( I, I ), SMINPR, S1, C1 )          CALL CLAIC1( IMAX, RANK, WORK( ISMAX ), SMAX, A( 1, I ), A( I, I ), SMAXPR, S2, C2 )
+         claic1(IMIN, RANK, WORK( ISMIN ), SMIN, A( 1, I ), A( I, I ), SMINPR, S1, C1 )          CALL CLAIC1( IMAX, RANK, WORK( ISMAX ), SMAX, A( 1, I ), A( I, I ), SMAXPR, S2, C2 );
 
          if ( SMAXPR*RCOND.LE.SMINPR ) {
             DO 20 I = 1, RANK
@@ -171,13 +171,13 @@
 
       // B(1:M,1:NRHS) := Q**H * B(1:M,1:NRHS)
 
-      CALL CUNM2R( 'Left', 'Conjugate transpose', M, NRHS, MN, A, LDA, WORK( 1 ), B, LDB, WORK( 2*MN+1 ), INFO )
+      cunm2r('Left', 'Conjugate transpose', M, NRHS, MN, A, LDA, WORK( 1 ), B, LDB, WORK( 2*MN+1 ), INFO );
 
       // workspace NRHS
 
        // B(1:RANK,1:NRHS) := inv(T11) * B(1:RANK,1:NRHS)
 
-      CALL CTRSM( 'Left', 'Upper', 'No transpose', 'Non-unit', RANK, NRHS, CONE, A, LDA, B, LDB )
+      ctrsm('Left', 'Upper', 'No transpose', 'Non-unit', RANK, NRHS, CONE, A, LDA, B, LDB );
 
       DO 40 I = RANK + 1, N
          DO 30 J = 1, NRHS
@@ -189,7 +189,7 @@
 
       if ( RANK.LT.N ) {
          DO 50 I = 1, RANK
-            CALL CLATZM( 'Left', N-RANK+1, NRHS, A( I, RANK+1 ), LDA, CONJG( WORK( MN+I ) ), B( I, 1 ), B( RANK+1, 1 ), LDB, WORK( 2*MN+1 ) )
+            clatzm('Left', N-RANK+1, NRHS, A( I, RANK+1 ), LDA, CONJG( WORK( MN+I ) ), B( I, 1 ), B( RANK+1, 1 ), LDB, WORK( 2*MN+1 ) );
    50    CONTINUE
       }
 
@@ -224,16 +224,16 @@
       // Undo scaling
 
       if ( IASCL.EQ.1 ) {
-         CALL CLASCL( 'G', 0, 0, ANRM, SMLNUM, N, NRHS, B, LDB, INFO )
-         CALL CLASCL( 'U', 0, 0, SMLNUM, ANRM, RANK, RANK, A, LDA, INFO )
+         clascl('G', 0, 0, ANRM, SMLNUM, N, NRHS, B, LDB, INFO );
+         clascl('U', 0, 0, SMLNUM, ANRM, RANK, RANK, A, LDA, INFO );
       } else if ( IASCL.EQ.2 ) {
-         CALL CLASCL( 'G', 0, 0, ANRM, BIGNUM, N, NRHS, B, LDB, INFO )
-         CALL CLASCL( 'U', 0, 0, BIGNUM, ANRM, RANK, RANK, A, LDA, INFO )
+         clascl('G', 0, 0, ANRM, BIGNUM, N, NRHS, B, LDB, INFO );
+         clascl('U', 0, 0, BIGNUM, ANRM, RANK, RANK, A, LDA, INFO );
       }
       if ( IBSCL.EQ.1 ) {
-         CALL CLASCL( 'G', 0, 0, SMLNUM, BNRM, N, NRHS, B, LDB, INFO )
+         clascl('G', 0, 0, SMLNUM, BNRM, N, NRHS, B, LDB, INFO );
       } else if ( IBSCL.EQ.2 ) {
-         CALL CLASCL( 'G', 0, 0, BIGNUM, BNRM, N, NRHS, B, LDB, INFO )
+         clascl('G', 0, 0, BIGNUM, BNRM, N, NRHS, B, LDB, INFO );
       }
 
   100 CONTINUE

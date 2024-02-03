@@ -35,7 +35,7 @@
       // .. Executable Statements ..
 
       if ( FIRST ) {
-         CALL DLAMC2( BETA, IT, LRND, EPS, IMIN, RMIN, IMAX, RMAX )
+         dlamc2(BETA, IT, LRND, EPS, IMIN, RMIN, IMAX, RMAX );
          BASE = BETA
          T = IT
          if ( LRND ) {
@@ -398,7 +398,7 @@
 
          // DLAMC1 returns the parameters  LBETA, LT, LRND and LIEEE1.
 
-         CALL DLAMC1( LBETA, LT, LRND, LIEEE1 )
+         dlamc1(LBETA, LT, LRND, LIEEE1 );
 
          // Start to find EPS.
 
@@ -446,10 +446,10 @@
             SMALL = DLAMC3( SMALL*RBASE, ZERO )
    20    CONTINUE
          A = DLAMC3( ONE, SMALL )
-         CALL DLAMC4( NGPMIN, ONE, LBETA )
-         CALL DLAMC4( NGNMIN, -ONE, LBETA )
-         CALL DLAMC4( GPMIN, A, LBETA )
-         CALL DLAMC4( GNMIN, -A, LBETA )
+         dlamc4(NGPMIN, ONE, LBETA );
+         dlamc4(NGNMIN, -ONE, LBETA );
+         dlamc4(GPMIN, A, LBETA );
+         dlamc4(GNMIN, -A, LBETA );
          IEEE = .FALSE.
 
          if ( ( NGPMIN.EQ.NGNMIN ) .AND. ( GPMIN.EQ.GNMIN ) ) {
@@ -522,7 +522,7 @@
 
          // Finally, call DLAMC5 to compute EMAX and RMAX.
 
-         CALL DLAMC5( LBETA, LT, LEMIN, IEEE, LEMAX, LRMAX )
+         dlamc5(LBETA, LT, LEMIN, IEEE, LEMAX, LRMAX );
       }
 
       BETA = LBETA

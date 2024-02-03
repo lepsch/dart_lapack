@@ -141,7 +141,7 @@
 
       // Error =  AE - EW
 
-      CALL DLASET( 'Full', N, N, ZERO, ZERO, WORK, N )
+      dlaset('Full', N, N, ZERO, ZERO, WORK, N );
 
       IPAIR = 0
       IEROW = 1
@@ -161,20 +161,20 @@
             WMAT( 2, 1 ) = -WI( JCOL )
             WMAT( 1, 2 ) = WI( JCOL )
             WMAT( 2, 2 ) = WR( JCOL )
-            CALL DGEMM( TRANSE, TRANSW, N, 2, 2, ONE, E( IEROW, IECOL ), LDE, WMAT, 2, ZERO, WORK( N*( JCOL-1 )+1 ), N )
+            dgemm(TRANSE, TRANSW, N, 2, 2, ONE, E( IEROW, IECOL ), LDE, WMAT, 2, ZERO, WORK( N*( JCOL-1 )+1 ), N );
             IPAIR = 2
          } else if ( IPAIR.EQ.2 ) {
             IPAIR = 0
 
          } else {
 
-            CALL DAXPY( N, WR( JCOL ), E( IEROW, IECOL ), INCE, WORK( N*( JCOL-1 )+1 ), 1 )
+            daxpy(N, WR( JCOL ), E( IEROW, IECOL ), INCE, WORK( N*( JCOL-1 )+1 ), 1 );
             IPAIR = 0
          }
 
    80 CONTINUE
 
-      CALL DGEMM( TRANSA, TRANSE, N, N, N, ONE, A, LDA, E, LDE, -ONE, WORK, N )
+      dgemm(TRANSA, TRANSE, N, N, N, ONE, A, LDA, E, LDE, -ONE, WORK, N );
 
       ERRNRM = DLANGE( 'One', N, N, WORK, N, WORK( N*N+1 ) ) / ENORM
 

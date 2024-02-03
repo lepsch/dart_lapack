@@ -46,7 +46,7 @@
          INFO = -4
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'DGEQPF', -INFO )
+         xerbla('DGEQPF', -INFO );
          RETURN
       }
 
@@ -59,7 +59,7 @@
       DO 10 I = 1, N
          if ( JPVT( I ).NE.0 ) {
             if ( I.NE.ITEMP ) {
-               CALL DSWAP( M, A( 1, I ), 1, A( 1, ITEMP ), 1 )
+               dswap(M, A( 1, I ), 1, A( 1, ITEMP ), 1 );
                JPVT( I ) = JPVT( ITEMP )
                JPVT( ITEMP ) = I
             } else {
@@ -76,9 +76,9 @@
 
       if ( ITEMP.GT.0 ) {
          MA = MIN( ITEMP, M )
-         CALL DGEQR2( M, MA, A, LDA, TAU, WORK, INFO )
+         dgeqr2(M, MA, A, LDA, TAU, WORK, INFO );
          if ( MA.LT.N ) {
-            CALL DORM2R( 'Left', 'Transpose', M, N-MA, MA, A, LDA, TAU, A( 1, MA+1 ), LDA, WORK, INFO )
+            dorm2r('Left', 'Transpose', M, N-MA, MA, A, LDA, TAU, A( 1, MA+1 ), LDA, WORK, INFO );
          }
       }
 
@@ -101,7 +101,7 @@
             PVT = ( I-1 ) + IDAMAX( N-I+1, WORK( I ), 1 )
 
             if ( PVT.NE.I ) {
-               CALL DSWAP( M, A( 1, PVT ), 1, A( 1, I ), 1 )
+               dswap(M, A( 1, PVT ), 1, A( 1, I ), 1 );
                ITEMP = JPVT( PVT )
                JPVT( PVT ) = JPVT( I )
                JPVT( I ) = ITEMP
@@ -112,9 +112,9 @@
             // Generate elementary reflector H(i)
 
             if ( I.LT.M ) {
-               CALL DLARFG( M-I+1, A( I, I ), A( I+1, I ), 1, TAU( I ) )
+               dlarfg(M-I+1, A( I, I ), A( I+1, I ), 1, TAU( I ) );
             } else {
-               CALL DLARFG( 1, A( M, M ), A( M, M ), 1, TAU( M ) )
+               dlarfg(1, A( M, M ), A( M, M ), 1, TAU( M ) );
             }
 
             if ( I.LT.N ) {
@@ -123,7 +123,7 @@
 
                AII = A( I, I )
                A( I, I ) = ONE
-               CALL DLARF( 'LEFT', M-I+1, N-I, A( I, I ), 1, TAU( I ), A( I, I+1 ), LDA, WORK( 2*N+1 ) )
+               dlarf('LEFT', M-I+1, N-I, A( I, I ), 1, TAU( I ), A( I, I+1 ), LDA, WORK( 2*N+1 ) );
                A( I, I ) = AII
             }
 

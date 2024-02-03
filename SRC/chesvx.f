@@ -76,7 +76,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'CHESVX', -INFO )
+         xerbla('CHESVX', -INFO );
          RETURN
       } else if ( LQUERY ) {
          RETURN
@@ -86,8 +86,8 @@
 
          // Compute the factorization A = U*D*U**H or A = L*D*L**H.
 
-         CALL CLACPY( UPLO, N, N, A, LDA, AF, LDAF )
-         CALL CHETRF( UPLO, N, AF, LDAF, IPIV, WORK, LWORK, INFO )
+         clacpy(UPLO, N, N, A, LDA, AF, LDAF );
+         chetrf(UPLO, N, AF, LDAF, IPIV, WORK, LWORK, INFO );
 
          // Return if INFO is non-zero.
 
@@ -103,17 +103,17 @@
 
       // Compute the reciprocal of the condition number of A.
 
-      CALL CHECON( UPLO, N, AF, LDAF, IPIV, ANORM, RCOND, WORK, INFO )
+      checon(UPLO, N, AF, LDAF, IPIV, ANORM, RCOND, WORK, INFO );
 
       // Compute the solution vectors X.
 
-      CALL CLACPY( 'Full', N, NRHS, B, LDB, X, LDX )
-      CALL CHETRS( UPLO, N, NRHS, AF, LDAF, IPIV, X, LDX, INFO )
+      clacpy('Full', N, NRHS, B, LDB, X, LDX );
+      chetrs(UPLO, N, NRHS, AF, LDAF, IPIV, X, LDX, INFO );
 
       // Use iterative refinement to improve the computed solutions and
       // compute error bounds and backward error estimates for them.
 
-      CALL CHERFS( UPLO, N, NRHS, A, LDA, AF, LDAF, IPIV, B, LDB, X, LDX, FERR, BERR, WORK, RWORK, INFO )
+      cherfs(UPLO, N, NRHS, A, LDA, AF, LDAF, IPIV, B, LDB, X, LDX, FERR, BERR, WORK, RWORK, INFO );
 
       // Set INFO = N+1 if the matrix is singular to working precision.
 

@@ -77,10 +77,10 @@
 
       // Test the error exits
 
-      CALL XLAENV( 1, 1 )
+      xlaenv(1, 1 );
       IF( TSTERR ) CALL ZERRGE( PATH, NOUT )
       INFOT = 0
-      CALL XLAENV( 2, 2 )
+      xlaenv(2, 2 );
 
       // Do for each value of M in MVAL
 
@@ -110,15 +110,15 @@
                // Set up parameters with ZLATB4 and generate a test matrix
                // with ZLATMS.
 
-               CALL ZLATB4( PATH, IMAT, M, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST )
+               zlatb4(PATH, IMAT, M, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST );
 
                SRNAMT = 'ZLATMS'
-               CALL ZLATMS( M, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KL, KU, 'No packing', A, LDA, WORK, INFO )
+               zlatms(M, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KL, KU, 'No packing', A, LDA, WORK, INFO );
 
                // Check error code from ZLATMS.
 
                if ( INFO.NE.0 ) {
-                  CALL ALAERH( PATH, 'ZLATMS', INFO, 0, ' ', M, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT )
+                  alaerh(PATH, 'ZLATMS', INFO, 0, ' ', M, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
                   GO TO 100
                }
 
@@ -139,7 +139,7 @@
                         A( IOFF+I ) = ZERO
    20                CONTINUE
                   } else {
-                     CALL ZLASET( 'Full', M, N-IZERO+1, DCMPLX( ZERO ), DCMPLX( ZERO ), A( IOFF+1 ), LDA )
+                     zlaset('Full', M, N-IZERO+1, DCMPLX( ZERO ), DCMPLX( ZERO ), A( IOFF+1 ), LDA );
                   }
                } else {
                   IZERO = 0
@@ -155,13 +155,13 @@
 
                DO 90 INB = 1, NNB
                   NB = NBVAL( INB )
-                  CALL XLAENV( 1, NB )
+                  xlaenv(1, NB );
 
                   // Compute the LU factorization of the matrix.
 
-                  CALL ZLACPY( 'Full', M, N, A, LDA, AFAC, LDA )
+                  zlacpy('Full', M, N, A, LDA, AFAC, LDA );
                   SRNAMT = 'ZGETRF'
-                  CALL ZGETRF( M, N, AFAC, LDA, IWORK, INFO )
+                  zgetrf(M, N, AFAC, LDA, IWORK, INFO );
 
                   // Check error code from ZGETRF.
 
@@ -171,8 +171,8 @@
 *+    TEST 1
                   // Reconstruct matrix from factors and compute residual.
 
-                  CALL ZLACPY( 'Full', M, N, AFAC, LDA, AINV, LDA )
-                  CALL ZGET01( M, N, A, LDA, AINV, LDA, IWORK, RWORK, RESULT( 1 ) )
+                  zlacpy('Full', M, N, AFAC, LDA, AINV, LDA );
+                  zget01(M, N, A, LDA, AINV, LDA, IWORK, RWORK, RESULT( 1 ) );
                   NT = 1
 
 *+    TEST 2
@@ -180,11 +180,11 @@
                   // and compute the residual.
 
                   if ( M.EQ.N .AND. INFO.EQ.0 ) {
-                     CALL ZLACPY( 'Full', N, N, AFAC, LDA, AINV, LDA )
+                     zlacpy('Full', N, N, AFAC, LDA, AINV, LDA );
                      SRNAMT = 'ZGETRI'
                      NRHS = NSVAL( 1 )
                      LWORK = NMAX*MAX( 3, NRHS )
-                     CALL ZGETRI( N, AINV, LDA, IWORK, WORK, LWORK, INFO )
+                     zgetri(N, AINV, LDA, IWORK, WORK, LWORK, INFO );
 
                      // Check error code from ZGETRI.
 
@@ -194,7 +194,7 @@
                      // inverse.  Also compute the 1-norm condition number
                      // of A.
 
-                     CALL ZGET03( N, A, LDA, AINV, LDA, WORK, LDA, RWORK, RCONDO, RESULT( 2 ) )
+                     zget03(N, A, LDA, AINV, LDA, WORK, LDA, RWORK, RCONDO, RESULT( 2 ) );
                      ANORMO = ZLANGE( 'O', M, N, A, LDA, RWORK )
 
                      // Compute the infinity-norm condition number of A.
@@ -251,36 +251,36 @@
                         // Solve and compute residual for A * X = B.
 
                         SRNAMT = 'ZLARHS'
-                        CALL ZLARHS( PATH, XTYPE, ' ', TRANS, N, N, KL, KU, NRHS, A, LDA, XACT, LDA, B, LDA, ISEED, INFO )
+                        zlarhs(PATH, XTYPE, ' ', TRANS, N, N, KL, KU, NRHS, A, LDA, XACT, LDA, B, LDA, ISEED, INFO );
                         XTYPE = 'C'
 
-                        CALL ZLACPY( 'Full', N, NRHS, B, LDA, X, LDA )
+                        zlacpy('Full', N, NRHS, B, LDA, X, LDA );
                         SRNAMT = 'ZGETRS'
-                        CALL ZGETRS( TRANS, N, NRHS, AFAC, LDA, IWORK, X, LDA, INFO )
+                        zgetrs(TRANS, N, NRHS, AFAC, LDA, IWORK, X, LDA, INFO );
 
                         // Check error code from ZGETRS.
 
                         IF( INFO.NE.0 ) CALL ALAERH( PATH, 'ZGETRS', INFO, 0, TRANS, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT )
 
-                        CALL ZLACPY( 'Full', N, NRHS, B, LDA, WORK, LDA )                         CALL ZGET02( TRANS, N, N, NRHS, A, LDA, X, LDA, WORK, LDA, RWORK, RESULT( 3 ) )
+                        zlacpy('Full', N, NRHS, B, LDA, WORK, LDA )                         CALL ZGET02( TRANS, N, N, NRHS, A, LDA, X, LDA, WORK, LDA, RWORK, RESULT( 3 ) );
 
 *+    TEST 4
                         // Check solution from generated exact solution.
 
-                        CALL ZGET04( N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 4 ) )
+                        zget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 4 ) );
 
 *+    TESTS 5, 6, and 7
                         // Use iterative refinement to improve the
                         // solution.
 
                         SRNAMT = 'ZGERFS'
-                        CALL ZGERFS( TRANS, N, NRHS, A, LDA, AFAC, LDA, IWORK, B, LDA, X, LDA, RWORK, RWORK( NRHS+1 ), WORK, RWORK( 2*NRHS+1 ), INFO )
+                        zgerfs(TRANS, N, NRHS, A, LDA, AFAC, LDA, IWORK, B, LDA, X, LDA, RWORK, RWORK( NRHS+1 ), WORK, RWORK( 2*NRHS+1 ), INFO );
 
                         // Check error code from ZGERFS.
 
                         IF( INFO.NE.0 ) CALL ALAERH( PATH, 'ZGERFS', INFO, 0, TRANS, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT )
 
-                        CALL ZGET04( N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 5 ) )                         CALL ZGET07( TRANS, N, NRHS, A, LDA, B, LDA, X, LDA, XACT, LDA, RWORK, .TRUE., RWORK( NRHS+1 ), RESULT( 6 ) )
+                        zget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 5 ) )                         CALL ZGET07( TRANS, N, NRHS, A, LDA, B, LDA, X, LDA, XACT, LDA, RWORK, .TRUE., RWORK( NRHS+1 ), RESULT( 6 ) );
 
                         // Print information about the tests that did not
                         // pass the threshold.
@@ -310,7 +310,7 @@
                         NORM = 'I'
                      }
                      SRNAMT = 'ZGECON'
-                     CALL ZGECON( NORM, N, AFAC, LDA, ANORM, RCOND, WORK, RWORK, INFO )
+                     zgecon(NORM, N, AFAC, LDA, ANORM, RCOND, WORK, RWORK, INFO );
 
                         // Check error code from ZGECON.
 
@@ -339,7 +339,7 @@
 
       // Print a summary of the results.
 
-      CALL ALASUM( PATH, NOUT, NFAIL, NRUN, NERRS )
+      alasum(PATH, NOUT, NFAIL, NRUN, NERRS );
 
  9999 FORMAT( ' M = ', I5, ', N =', I5, ', NB =', I4, ', type ', I2, ', test(', I2, ') =', G12.5 )
  9998 FORMAT( ' TRANS=''', A1, ''', N =', I5, ', NRHS=', I3, ', type ', I2, ', test(', I2, ') =', G12.5 )

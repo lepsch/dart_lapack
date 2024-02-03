@@ -49,7 +49,7 @@
          INFO = -8
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'SGTCON', -INFO )
+         xerbla('SGTCON', -INFO );
          RETURN
       }
 
@@ -77,18 +77,18 @@
       }
       KASE = 0
    20 CONTINUE
-      CALL SLACN2( N, WORK( N+1 ), WORK, IWORK, AINVNM, KASE, ISAVE )
+      slacn2(N, WORK( N+1 ), WORK, IWORK, AINVNM, KASE, ISAVE );
       if ( KASE.NE.0 ) {
          if ( KASE.EQ.KASE1 ) {
 
             // Multiply by inv(U)*inv(L).
 
-            CALL SGTTRS( 'No transpose', N, 1, DL, D, DU, DU2, IPIV, WORK, N, INFO )
+            sgttrs('No transpose', N, 1, DL, D, DU, DU2, IPIV, WORK, N, INFO );
          } else {
 
             // Multiply by inv(L**T)*inv(U**T).
 
-            CALL SGTTRS( 'Transpose', N, 1, DL, D, DU, DU2, IPIV, WORK, N, INFO )
+            sgttrs('Transpose', N, 1, DL, D, DU, DU2, IPIV, WORK, N, INFO );
          }
          GO TO 20
       }

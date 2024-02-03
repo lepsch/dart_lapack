@@ -62,7 +62,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'ZUNGQL', -INFO )
+         xerbla('ZUNGQL', -INFO );
          RETURN
       } else if ( LQUERY ) {
          RETURN
@@ -119,7 +119,7 @@
 
       // Use unblocked code for the first or only block.
 
-      CALL ZUNG2L( M-KK, N-KK, K-KK, A, LDA, TAU, WORK, IINFO )
+      zung2l(M-KK, N-KK, K-KK, A, LDA, TAU, WORK, IINFO );
 
       if ( KK.GT.0 ) {
 
@@ -132,16 +132,16 @@
                // Form the triangular factor of the block reflector
                // H = H(i+ib-1) . . . H(i+1) H(i)
 
-               CALL ZLARFT( 'Backward', 'Columnwise', M-K+I+IB-1, IB, A( 1, N-K+I ), LDA, TAU( I ), WORK, LDWORK )
+               zlarft('Backward', 'Columnwise', M-K+I+IB-1, IB, A( 1, N-K+I ), LDA, TAU( I ), WORK, LDWORK );
 
                // Apply H to A(1:m-k+i+ib-1,1:n-k+i-1) from the left
 
-               CALL ZLARFB( 'Left', 'No transpose', 'Backward', 'Columnwise', M-K+I+IB-1, N-K+I-1, IB, A( 1, N-K+I ), LDA, WORK, LDWORK, A, LDA, WORK( IB+1 ), LDWORK )
+               zlarfb('Left', 'No transpose', 'Backward', 'Columnwise', M-K+I+IB-1, N-K+I-1, IB, A( 1, N-K+I ), LDA, WORK, LDWORK, A, LDA, WORK( IB+1 ), LDWORK );
             }
 
             // Apply H to rows 1:m-k+i+ib-1 of current block
 
-            CALL ZUNG2L( M-K+I+IB-1, IB, IB, A( 1, N-K+I ), LDA, TAU( I ), WORK, IINFO )
+            zung2l(M-K+I+IB-1, IB, IB, A( 1, N-K+I ), LDA, TAU( I ), WORK, IINFO );
 
             // Set rows m-k+i+ib:m of current block to zero
 

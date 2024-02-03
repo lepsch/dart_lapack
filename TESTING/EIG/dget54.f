@@ -46,23 +46,23 @@
 
       // compute the norm of (A,B)
 
-      CALL DLACPY( 'Full', N, N, A, LDA, WORK, N )
-      CALL DLACPY( 'Full', N, N, B, LDB, WORK( N*N+1 ), N )
+      dlacpy('Full', N, N, A, LDA, WORK, N );
+      dlacpy('Full', N, N, B, LDB, WORK( N*N+1 ), N );
       ABNORM = MAX( DLANGE( '1', N, 2*N, WORK, N, DUM ), UNFL )
 
       // Compute W1 = A - U*S*V', and put in the array WORK(1:N*N)
 
-      CALL DLACPY( ' ', N, N, A, LDA, WORK, N )
-      CALL DGEMM( 'N', 'N', N, N, N, ONE, U, LDU, S, LDS, ZERO, WORK( N*N+1 ), N )
+      dlacpy(' ', N, N, A, LDA, WORK, N );
+      dgemm('N', 'N', N, N, N, ONE, U, LDU, S, LDS, ZERO, WORK( N*N+1 ), N );
 
-      CALL DGEMM( 'N', 'C', N, N, N, -ONE, WORK( N*N+1 ), N, V, LDV, ONE, WORK, N )
+      dgemm('N', 'C', N, N, N, -ONE, WORK( N*N+1 ), N, V, LDV, ONE, WORK, N );
 
       // Compute W2 = B - U*T*V', and put in the workarray W(N*N+1:2*N*N)
 
-      CALL DLACPY( ' ', N, N, B, LDB, WORK( N*N+1 ), N )
-      CALL DGEMM( 'N', 'N', N, N, N, ONE, U, LDU, T, LDT, ZERO, WORK( 2*N*N+1 ), N )
+      dlacpy(' ', N, N, B, LDB, WORK( N*N+1 ), N );
+      dgemm('N', 'N', N, N, N, ONE, U, LDU, T, LDT, ZERO, WORK( 2*N*N+1 ), N );
 
-      CALL DGEMM( 'N', 'C', N, N, N, -ONE, WORK( 2*N*N+1 ), N, V, LDV, ONE, WORK( N*N+1 ), N )
+      dgemm('N', 'C', N, N, N, -ONE, WORK( 2*N*N+1 ), N, V, LDV, ONE, WORK( N*N+1 ), N );
 
       // Compute norm(W)/ ( ulp*norm((A,B)) )
 

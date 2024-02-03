@@ -49,7 +49,7 @@
          INFO = -6
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'SGBEQU', -INFO )
+         xerbla('SGBEQU', -INFO );
          RETURN
       }
 

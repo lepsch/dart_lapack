@@ -50,7 +50,7 @@
          INFO = -8
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'ZTREXC', -INFO )
+         xerbla('ZTREXC', -INFO );
          RETURN
       }
 
@@ -83,12 +83,12 @@
 
          // Determine the transformation to perform the interchange.
 
-         CALL ZLARTG( T( K, K+1 ), T22-T11, CS, SN, TEMP )
+         zlartg(T( K, K+1 ), T22-T11, CS, SN, TEMP );
 
          // Apply transformation to the matrix T.
 
          IF( K+2.LE.N ) CALL ZROT( N-K-1, T( K, K+2 ), LDT, T( K+1, K+2 ), LDT, CS, SN )
-         CALL ZROT( K-1, T( 1, K ), 1, T( 1, K+1 ), 1, CS, DCONJG( SN ) )
+         zrot(K-1, T( 1, K ), 1, T( 1, K+1 ), 1, CS, DCONJG( SN ) );
 
          T( K, K ) = T22
          T( K+1, K+1 ) = T11
@@ -97,7 +97,7 @@
 
             // Accumulate transformation in the matrix Q.
 
-            CALL ZROT( N, Q( 1, K ), 1, Q( 1, K+1 ), 1, CS, DCONJG( SN ) )
+            zrot(N, Q( 1, K ), 1, Q( 1, K+1 ), 1, CS, DCONJG( SN ) );
          }
 
    10 CONTINUE

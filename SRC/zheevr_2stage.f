@@ -113,7 +113,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'ZHEEVR_2STAGE', -INFO )
+         xerbla('ZHEEVR_2STAGE', -INFO );
          RETURN
       } else if ( LQUERY ) {
          RETURN
@@ -174,11 +174,11 @@
       if ( ISCALE.EQ.1 ) {
          if ( LOWER ) {
             DO 10 J = 1, N
-               CALL ZDSCAL( N-J+1, SIGMA, A( J, J ), 1 )
+               zdscal(N-J+1, SIGMA, A( J, J ), 1 );
    10       CONTINUE
          } else {
             DO 20 J = 1, N
-               CALL ZDSCAL( J, SIGMA, A( 1, J ), 1 )
+               zdscal(J, SIGMA, A( 1, J ), 1 );
    20       CONTINUE
          }
          IF( ABSTOL.GT.0 ) ABSTLL = ABSTOL*SIGMA
@@ -234,7 +234,7 @@
 
       // Call ZHETRD_2STAGE to reduce Hermitian matrix to tridiagonal form.
 
-      CALL ZHETRD_2STAGE( JOBZ, UPLO, N, A, LDA, RWORK( INDRD ), RWORK( INDRE ), WORK( INDTAU ), WORK( INDHOUS ), LHTRD, WORK( INDWK ), LLWORK, IINFO )
+      zhetrd_2stage(JOBZ, UPLO, N, A, LDA, RWORK( INDRD ), RWORK( INDRE ), WORK( INDTAU ), WORK( INDHOUS ), LHTRD, WORK( INDWK ), LLWORK, IINFO );
 
       // If all eigenvalues are desired
       // then call DSTERF or ZSTEMR and ZUNMTR.
@@ -247,19 +247,19 @@
       }
       if ( ( ALLEIG.OR.TEST ) .AND. ( IEEEOK.EQ.1 ) ) {
          if ( .NOT.WANTZ ) {
-            CALL DCOPY( N, RWORK( INDRD ), 1, W, 1 )
-            CALL DCOPY( N-1, RWORK( INDRE ), 1, RWORK( INDREE ), 1 )
-            CALL DSTERF( N, W, RWORK( INDREE ), INFO )
+            dcopy(N, RWORK( INDRD ), 1, W, 1 );
+            dcopy(N-1, RWORK( INDRE ), 1, RWORK( INDREE ), 1 );
+            dsterf(N, W, RWORK( INDREE ), INFO );
          } else {
-            CALL DCOPY( N-1, RWORK( INDRE ), 1, RWORK( INDREE ), 1 )
-            CALL DCOPY( N, RWORK( INDRD ), 1, RWORK( INDRDD ), 1 )
+            dcopy(N-1, RWORK( INDRE ), 1, RWORK( INDREE ), 1 );
+            dcopy(N, RWORK( INDRD ), 1, RWORK( INDRDD ), 1 );
 
             if (ABSTOL .LE. TWO*N*EPS) {
                TRYRAC = .TRUE.
             } else {
                TRYRAC = .FALSE.
             }
-            CALL ZSTEMR( JOBZ, 'A', N, RWORK( INDRDD ), RWORK( INDREE ), VL, VU, IL, IU, M, W, Z, LDZ, N, ISUPPZ, TRYRAC, RWORK( INDRWK ), LLRWORK, IWORK, LIWORK, INFO )
+            zstemr(JOBZ, 'A', N, RWORK( INDRDD ), RWORK( INDREE ), VL, VU, IL, IU, M, W, Z, LDZ, N, ISUPPZ, TRYRAC, RWORK( INDRWK ), LLRWORK, IWORK, LIWORK, INFO );
 
             // Apply unitary matrix used in reduction to tridiagonal
             // form to eigenvectors returned by ZSTEMR.
@@ -267,7 +267,7 @@
             if ( WANTZ .AND. INFO.EQ.0 ) {
                INDWKN = INDWK
                LLWRKN = LWORK - INDWKN + 1
-               CALL ZUNMTR( 'L', UPLO, 'N', N, M, A, LDA, WORK( INDTAU ), Z, LDZ, WORK( INDWKN ), LLWRKN, IINFO )
+               zunmtr('L', UPLO, 'N', N, M, A, LDA, WORK( INDTAU ), Z, LDZ, WORK( INDWKN ), LLWRKN, IINFO );
             }
          }
 
@@ -287,17 +287,17 @@
       } else {
          ORDER = 'E'
       }
-       CALL DSTEBZ( RANGE, ORDER, N, VLL, VUU, IL, IU, ABSTLL, RWORK( INDRD ), RWORK( INDRE ), M, NSPLIT, W, IWORK( INDIBL ), IWORK( INDISP ), RWORK( INDRWK ), IWORK( INDIWO ), INFO )
+       dstebz(RANGE, ORDER, N, VLL, VUU, IL, IU, ABSTLL, RWORK( INDRD ), RWORK( INDRE ), M, NSPLIT, W, IWORK( INDIBL ), IWORK( INDISP ), RWORK( INDRWK ), IWORK( INDIWO ), INFO );
 
       if ( WANTZ ) {
-         CALL ZSTEIN( N, RWORK( INDRD ), RWORK( INDRE ), M, W, IWORK( INDIBL ), IWORK( INDISP ), Z, LDZ, RWORK( INDRWK ), IWORK( INDIWO ), IWORK( INDIFL ), INFO )
+         zstein(N, RWORK( INDRD ), RWORK( INDRE ), M, W, IWORK( INDIBL ), IWORK( INDISP ), Z, LDZ, RWORK( INDRWK ), IWORK( INDIWO ), IWORK( INDIFL ), INFO );
 
          // Apply unitary matrix used in reduction to tridiagonal
          // form to eigenvectors returned by ZSTEIN.
 
          INDWKN = INDWK
          LLWRKN = LWORK - INDWKN + 1
-         CALL ZUNMTR( 'L', UPLO, 'N', N, M, A, LDA, WORK( INDTAU ), Z, LDZ, WORK( INDWKN ), LLWRKN, IINFO )
+         zunmtr('L', UPLO, 'N', N, M, A, LDA, WORK( INDTAU ), Z, LDZ, WORK( INDWKN ), LLWRKN, IINFO );
       }
 
       // If matrix was scaled, then rescale eigenvalues appropriately.
@@ -309,7 +309,7 @@
          } else {
             IMAX = INFO - 1
          }
-         CALL DSCAL( IMAX, ONE / SIGMA, W, 1 )
+         dscal(IMAX, ONE / SIGMA, W, 1 );
       }
 
       // If eigenvalues are not in order, then sort them, along with
@@ -332,7 +332,7 @@
                IWORK( INDIBL+I-1 ) = IWORK( INDIBL+J-1 )
                W( J ) = TMP1
                IWORK( INDIBL+J-1 ) = ITMP1
-               CALL ZSWAP( N, Z( 1, I ), 1, Z( 1, J ), 1 )
+               zswap(N, Z( 1, I ), 1, Z( 1, J ), 1 );
             }
    50    CONTINUE
       }

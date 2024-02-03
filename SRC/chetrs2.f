@@ -51,7 +51,7 @@
          INFO = -8
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'CHETRS2', -INFO )
+         xerbla('CHETRS2', -INFO );
          RETURN
       }
 
@@ -61,7 +61,7 @@
 
       // Convert A
 
-      CALL CSYCONV( UPLO, 'C', N, A, LDA, IPIV, WORK, IINFO )
+      csyconv(UPLO, 'C', N, A, LDA, IPIV, WORK, IINFO );
 
       if ( UPPER ) {
 
@@ -87,7 +87,7 @@
 
 *  Compute (U \P**T * B) -> B    [ (U \P**T * B) ]
 
-        CALL CTRSM('L','U','N','U',N,NRHS,ONE,A,LDA,B,LDB)
+        ctrsm('L','U','N','U',N,NRHS,ONE,A,LDA,B,LDB);
 
 *  Compute D \ B -> B   [ D \ (U \P**T * B) ]
 
@@ -95,7 +95,7 @@
          DO WHILE ( I .GE. 1 )
             if ( IPIV(I) .GT. 0 ) {
               S = REAL( ONE ) / REAL( A( I, I ) )
-              CALL CSSCAL( NRHS, S, B( I, 1 ), LDB )
+              csscal(NRHS, S, B( I, 1 ), LDB );
             ELSEIF ( I .GT. 1) THEN
                if ( IPIV(I-1) .EQ. IPIV(I) ) {
                   AKM1K = WORK(I)
@@ -116,7 +116,7 @@
 
        // Compute (U**H \ B) -> B   [ U**H \ (D \ (U \P**T * B) ) ]
 
-         CALL CTRSM('L','U','C','U',N,NRHS,ONE,A,LDA,B,LDB)
+         ctrsm('L','U','C','U',N,NRHS,ONE,A,LDA,B,LDB);
 
         // P * B  [ P * (U**H \ (D \ (U \P**T * B) )) ]
 
@@ -161,7 +161,7 @@
 
 *  Compute (L \P**T * B) -> B    [ (L \P**T * B) ]
 
-        CALL CTRSM('L','L','N','U',N,NRHS,ONE,A,LDA,B,LDB)
+        ctrsm('L','L','N','U',N,NRHS,ONE,A,LDA,B,LDB);
 
 *  Compute D \ B -> B   [ D \ (L \P**T * B) ]
 
@@ -169,7 +169,7 @@
          DO WHILE ( I .LE. N )
             if ( IPIV(I) .GT. 0 ) {
               S = REAL( ONE ) / REAL( A( I, I ) )
-              CALL CSSCAL( NRHS, S, B( I, 1 ), LDB )
+              csscal(NRHS, S, B( I, 1 ), LDB );
             } else {
                   AKM1K = WORK(I)
                   AKM1 = A( I, I ) / CONJG( AKM1K )
@@ -188,7 +188,7 @@
 
 *  Compute (L**H \ B) -> B   [ L**H \ (D \ (L \P**T * B) ) ]
 
-        CALL CTRSM('L','L','C','U',N,NRHS,ONE,A,LDA,B,LDB)
+        ctrsm('L','L','C','U',N,NRHS,ONE,A,LDA,B,LDB);
 
         // P * B  [ P * (L**H \ (D \ (L \P**T * B) )) ]
 
@@ -213,7 +213,7 @@
 
       // Revert A
 
-      CALL CSYCONV( UPLO, 'R', N, A, LDA, IPIV, WORK, IINFO )
+      csyconv(UPLO, 'R', N, A, LDA, IPIV, WORK, IINFO );
 
       RETURN
 

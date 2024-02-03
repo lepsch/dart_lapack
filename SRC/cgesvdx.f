@@ -174,7 +174,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'CGESVDX', -INFO )
+         xerbla('CGESVDX', -INFO );
          RETURN
       } else if ( LQUERY ) {
          RETURN
@@ -214,10 +214,10 @@
       ISCL = 0
       if ( ANRM.GT.ZERO .AND. ANRM.LT.SMLNUM ) {
          ISCL = 1
-         CALL CLASCL( 'G', 0, 0, ANRM, SMLNUM, M, N, A, LDA, INFO )
+         clascl('G', 0, 0, ANRM, SMLNUM, M, N, A, LDA, INFO );
       } else if ( ANRM.GT.BIGNUM ) {
          ISCL = 1
-         CALL CLASCL( 'G', 0, 0, ANRM, BIGNUM, M, N, A, LDA, INFO )
+         clascl('G', 0, 0, ANRM, BIGNUM, M, N, A, LDA, INFO );
       }
 
       if ( M.GE.N ) {
@@ -238,7 +238,7 @@
 
             ITAU = 1
             ITEMP = ITAU + N
-            CALL CGEQRF( M, N, A, LDA, WORK( ITAU ), WORK( ITEMP ), LWORK-ITEMP+1, INFO )
+            cgeqrf(M, N, A, LDA, WORK( ITAU ), WORK( ITEMP ), LWORK-ITEMP+1, INFO );
 
             // Copy R into WORK and bidiagonalize it:
             // (Workspace: need N*N+3*N, prefer N*N+N+2*N*NB)
@@ -250,14 +250,14 @@
             ID = 1
             IE = ID + N
             ITGKZ = IE + N
-            CALL CLACPY( 'U', N, N, A, LDA, WORK( IQRF ), N )
-            CALL CLASET( 'L', N-1, N-1, CZERO, CZERO, WORK( IQRF+1 ), N )             CALL CGEBRD( N, N, WORK( IQRF ), N, RWORK( ID ), RWORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( ITEMP ), LWORK-ITEMP+1, INFO )
+            clacpy('U', N, N, A, LDA, WORK( IQRF ), N );
+            claset('L', N-1, N-1, CZERO, CZERO, WORK( IQRF+1 ), N )             CALL CGEBRD( N, N, WORK( IQRF ), N, RWORK( ID ), RWORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( ITEMP ), LWORK-ITEMP+1, INFO );
             ITEMPR = ITGKZ + N*(N*2+1)
 
             // Solve eigenvalue problem TGK*Z=Z*S.
             // (Workspace: need 2*N*N+14*N)
 
-            CALL SBDSVDX( 'U', JOBZ, RNGTGK, N, RWORK( ID ), RWORK( IE ), VL, VU, ILTGK, IUTGK, NS, S, RWORK( ITGKZ ), N*2, RWORK( ITEMPR ), IWORK, INFO)
+            sbdsvdx('U', JOBZ, RNGTGK, N, RWORK( ID ), RWORK( IE ), VL, VU, ILTGK, IUTGK, NS, S, RWORK( ITGKZ ), N*2, RWORK( ITEMPR ), IWORK, INFO);
 
             // If needed, compute left singular vectors.
 
@@ -270,17 +270,17 @@
                   END DO
                   K = K + N
                END DO
-               CALL CLASET( 'A', M-N, NS, CZERO, CZERO, U( N+1,1 ), LDU)
+               claset('A', M-N, NS, CZERO, CZERO, U( N+1,1 ), LDU);
 
                // Call CUNMBR to compute QB*UB.
                // (Workspace in WORK( ITEMP ): need N, prefer N*NB)
 
-               CALL CUNMBR( 'Q', 'L', 'N', N, NS, N, WORK( IQRF ), N, WORK( ITAUQ ), U, LDU, WORK( ITEMP ), LWORK-ITEMP+1, INFO )
+               cunmbr('Q', 'L', 'N', N, NS, N, WORK( IQRF ), N, WORK( ITAUQ ), U, LDU, WORK( ITEMP ), LWORK-ITEMP+1, INFO );
 
                // Call CUNMQR to compute Q*(QB*UB).
                // (Workspace in WORK( ITEMP ): need N, prefer N*NB)
 
-               CALL CUNMQR( 'L', 'N', M, NS, N, A, LDA, WORK( ITAU ), U, LDU, WORK( ITEMP ), LWORK-ITEMP+1, INFO )
+               cunmqr('L', 'N', M, NS, N, A, LDA, WORK( ITAU ), U, LDU, WORK( ITEMP ), LWORK-ITEMP+1, INFO );
             }
 
             // If needed, compute right singular vectors.
@@ -298,7 +298,7 @@
                // Call CUNMBR to compute VB**T * PB**T
                // (Workspace in WORK( ITEMP ): need N, prefer N*NB)
 
-               CALL CUNMBR( 'P', 'R', 'C', NS, N, N, WORK( IQRF ), N, WORK( ITAUP ), VT, LDVT, WORK( ITEMP ), LWORK-ITEMP+1, INFO )
+               cunmbr('P', 'R', 'C', NS, N, N, WORK( IQRF ), N, WORK( ITAUP ), VT, LDVT, WORK( ITEMP ), LWORK-ITEMP+1, INFO );
             }
          } else {
 
@@ -316,13 +316,13 @@
             ID = 1
             IE = ID + N
             ITGKZ = IE + N
-            CALL CGEBRD( M, N, A, LDA, RWORK( ID ), RWORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( ITEMP ), LWORK-ITEMP+1, INFO )
+            cgebrd(M, N, A, LDA, RWORK( ID ), RWORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( ITEMP ), LWORK-ITEMP+1, INFO );
             ITEMPR = ITGKZ + N*(N*2+1)
 
             // Solve eigenvalue problem TGK*Z=Z*S.
             // (Workspace: need 2*N*N+14*N)
 
-            CALL SBDSVDX( 'U', JOBZ, RNGTGK, N, RWORK( ID ), RWORK( IE ), VL, VU, ILTGK, IUTGK, NS, S, RWORK( ITGKZ ), N*2, RWORK( ITEMPR ), IWORK, INFO)
+            sbdsvdx('U', JOBZ, RNGTGK, N, RWORK( ID ), RWORK( IE ), VL, VU, ILTGK, IUTGK, NS, S, RWORK( ITGKZ ), N*2, RWORK( ITEMPR ), IWORK, INFO);
 
             // If needed, compute left singular vectors.
 
@@ -335,12 +335,12 @@
                   END DO
                   K = K + N
                END DO
-               CALL CLASET( 'A', M-N, NS, CZERO, CZERO, U( N+1,1 ), LDU)
+               claset('A', M-N, NS, CZERO, CZERO, U( N+1,1 ), LDU);
 
                // Call CUNMBR to compute QB*UB.
                // (Workspace in WORK( ITEMP ): need N, prefer N*NB)
 
-               CALL CUNMBR( 'Q', 'L', 'N', M, NS, N, A, LDA, WORK( ITAUQ ), U, LDU, WORK( ITEMP ), LWORK-ITEMP+1, IERR )
+               cunmbr('Q', 'L', 'N', M, NS, N, A, LDA, WORK( ITAUQ ), U, LDU, WORK( ITEMP ), LWORK-ITEMP+1, IERR );
             }
 
             // If needed, compute right singular vectors.
@@ -358,7 +358,7 @@
                // Call CUNMBR to compute VB**T * PB**T
                // (Workspace in WORK( ITEMP ): need N, prefer N*NB)
 
-               CALL CUNMBR( 'P', 'R', 'C', NS, N, N, A, LDA, WORK( ITAUP ), VT, LDVT, WORK( ITEMP ), LWORK-ITEMP+1, IERR )
+               cunmbr('P', 'R', 'C', NS, N, N, A, LDA, WORK( ITAUP ), VT, LDVT, WORK( ITEMP ), LWORK-ITEMP+1, IERR );
             }
          }
       } else {
@@ -378,7 +378,7 @@
 
             ITAU = 1
             ITEMP = ITAU + M
-            CALL CGELQF( M, N, A, LDA, WORK( ITAU ), WORK( ITEMP ), LWORK-ITEMP+1, INFO )
+            cgelqf(M, N, A, LDA, WORK( ITAU ), WORK( ITEMP ), LWORK-ITEMP+1, INFO );
 
             // Copy L into WORK and bidiagonalize it:
             // (Workspace in WORK( ITEMP ): need M*M+3*M, prefer M*M+M+2*M*NB)
@@ -390,14 +390,14 @@
             ID = 1
             IE = ID + M
             ITGKZ = IE + M
-            CALL CLACPY( 'L', M, M, A, LDA, WORK( ILQF ), M )
-            CALL CLASET( 'U', M-1, M-1, CZERO, CZERO, WORK( ILQF+M ), M )             CALL CGEBRD( M, M, WORK( ILQF ), M, RWORK( ID ), RWORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( ITEMP ), LWORK-ITEMP+1, INFO )
+            clacpy('L', M, M, A, LDA, WORK( ILQF ), M );
+            claset('U', M-1, M-1, CZERO, CZERO, WORK( ILQF+M ), M )             CALL CGEBRD( M, M, WORK( ILQF ), M, RWORK( ID ), RWORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( ITEMP ), LWORK-ITEMP+1, INFO );
             ITEMPR = ITGKZ + M*(M*2+1)
 
             // Solve eigenvalue problem TGK*Z=Z*S.
             // (Workspace: need 2*M*M+14*M)
 
-            CALL SBDSVDX( 'U', JOBZ, RNGTGK, M, RWORK( ID ), RWORK( IE ), VL, VU, ILTGK, IUTGK, NS, S, RWORK( ITGKZ ), M*2, RWORK( ITEMPR ), IWORK, INFO)
+            sbdsvdx('U', JOBZ, RNGTGK, M, RWORK( ID ), RWORK( IE ), VL, VU, ILTGK, IUTGK, NS, S, RWORK( ITGKZ ), M*2, RWORK( ITEMPR ), IWORK, INFO);
 
             // If needed, compute left singular vectors.
 
@@ -414,7 +414,7 @@
                // Call CUNMBR to compute QB*UB.
                // (Workspace in WORK( ITEMP ): need M, prefer M*NB)
 
-               CALL CUNMBR( 'Q', 'L', 'N', M, NS, M, WORK( ILQF ), M, WORK( ITAUQ ), U, LDU, WORK( ITEMP ), LWORK-ITEMP+1, INFO )
+               cunmbr('Q', 'L', 'N', M, NS, M, WORK( ILQF ), M, WORK( ITAUQ ), U, LDU, WORK( ITEMP ), LWORK-ITEMP+1, INFO );
             }
 
             // If needed, compute right singular vectors.
@@ -428,17 +428,17 @@
                   END DO
                   K = K + M
                END DO
-               CALL CLASET( 'A', NS, N-M, CZERO, CZERO, VT( 1,M+1 ), LDVT )
+               claset('A', NS, N-M, CZERO, CZERO, VT( 1,M+1 ), LDVT );
 
                // Call CUNMBR to compute (VB**T)*(PB**T)
                // (Workspace in WORK( ITEMP ): need M, prefer M*NB)
 
-               CALL CUNMBR( 'P', 'R', 'C', NS, M, M, WORK( ILQF ), M, WORK( ITAUP ), VT, LDVT, WORK( ITEMP ), LWORK-ITEMP+1, INFO )
+               cunmbr('P', 'R', 'C', NS, M, M, WORK( ILQF ), M, WORK( ITAUP ), VT, LDVT, WORK( ITEMP ), LWORK-ITEMP+1, INFO );
 
                // Call CUNMLQ to compute ((VB**T)*(PB**T))*Q.
                // (Workspace in WORK( ITEMP ): need M, prefer M*NB)
 
-               CALL CUNMLQ( 'R', 'N', NS, N, M, A, LDA, WORK( ITAU ), VT, LDVT, WORK( ITEMP ), LWORK-ITEMP+1, INFO )
+               cunmlq('R', 'N', NS, N, M, A, LDA, WORK( ITAU ), VT, LDVT, WORK( ITEMP ), LWORK-ITEMP+1, INFO );
             }
          } else {
 
@@ -456,13 +456,13 @@
             ID = 1
             IE = ID + M
             ITGKZ = IE + M
-            CALL CGEBRD( M, N, A, LDA, RWORK( ID ), RWORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( ITEMP ), LWORK-ITEMP+1, INFO )
+            cgebrd(M, N, A, LDA, RWORK( ID ), RWORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( ITEMP ), LWORK-ITEMP+1, INFO );
             ITEMPR = ITGKZ + M*(M*2+1)
 
             // Solve eigenvalue problem TGK*Z=Z*S.
             // (Workspace: need 2*M*M+14*M)
 
-            CALL SBDSVDX( 'L', JOBZ, RNGTGK, M, RWORK( ID ), RWORK( IE ), VL, VU, ILTGK, IUTGK, NS, S, RWORK( ITGKZ ), M*2, RWORK( ITEMPR ), IWORK, INFO)
+            sbdsvdx('L', JOBZ, RNGTGK, M, RWORK( ID ), RWORK( IE ), VL, VU, ILTGK, IUTGK, NS, S, RWORK( ITGKZ ), M*2, RWORK( ITEMPR ), IWORK, INFO);
 
             // If needed, compute left singular vectors.
 
@@ -479,7 +479,7 @@
                // Call CUNMBR to compute QB*UB.
                // (Workspace in WORK( ITEMP ): need M, prefer M*NB)
 
-               CALL CUNMBR( 'Q', 'L', 'N', M, NS, N, A, LDA, WORK( ITAUQ ), U, LDU, WORK( ITEMP ), LWORK-ITEMP+1, INFO )
+               cunmbr('Q', 'L', 'N', M, NS, N, A, LDA, WORK( ITAUQ ), U, LDU, WORK( ITEMP ), LWORK-ITEMP+1, INFO );
             }
 
             // If needed, compute right singular vectors.
@@ -493,12 +493,12 @@
                   END DO
                   K = K + M
                END DO
-               CALL CLASET( 'A', NS, N-M, CZERO, CZERO, VT( 1,M+1 ), LDVT )
+               claset('A', NS, N-M, CZERO, CZERO, VT( 1,M+1 ), LDVT );
 
                // Call CUNMBR to compute VB**T * PB**T
                // (Workspace in WORK( ITEMP ): need M, prefer M*NB)
 
-               CALL CUNMBR( 'P', 'R', 'C', NS, N, M, A, LDA, WORK( ITAUP ), VT, LDVT, WORK( ITEMP ), LWORK-ITEMP+1, INFO )
+               cunmbr('P', 'R', 'C', NS, N, M, A, LDA, WORK( ITAUP ), VT, LDVT, WORK( ITEMP ), LWORK-ITEMP+1, INFO );
             }
          }
       }

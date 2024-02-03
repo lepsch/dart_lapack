@@ -47,11 +47,11 @@
 
          // Norm of AZ - BZD
 
-         CALL ZHEMM( 'Left', UPLO, N, M, CONE, A, LDA, Z, LDZ, CZERO, WORK, N )
+         zhemm('Left', UPLO, N, M, CONE, A, LDA, Z, LDZ, CZERO, WORK, N );
          DO 10 I = 1, M
-            CALL ZDSCAL( N, D( I ), Z( 1, I ), 1 )
+            zdscal(N, D( I ), Z( 1, I ), 1 );
    10    CONTINUE
-         CALL ZHEMM( 'Left', UPLO, N, M, CONE, B, LDB, Z, LDZ, -CONE, WORK, N )
+         zhemm('Left', UPLO, N, M, CONE, B, LDB, Z, LDZ, -CONE, WORK, N );
 
          RESULT( 1 ) = ( ZLANGE( '1', N, M, WORK, N, RWORK ) / ANORM ) / ( N*ULP )
 
@@ -59,11 +59,11 @@
 
          // Norm of ABZ - ZD
 
-         CALL ZHEMM( 'Left', UPLO, N, M, CONE, B, LDB, Z, LDZ, CZERO, WORK, N )
+         zhemm('Left', UPLO, N, M, CONE, B, LDB, Z, LDZ, CZERO, WORK, N );
          DO 20 I = 1, M
-            CALL ZDSCAL( N, D( I ), Z( 1, I ), 1 )
+            zdscal(N, D( I ), Z( 1, I ), 1 );
    20    CONTINUE
-         CALL ZHEMM( 'Left', UPLO, N, M, CONE, A, LDA, WORK, N, -CONE, Z, LDZ )
+         zhemm('Left', UPLO, N, M, CONE, A, LDA, WORK, N, -CONE, Z, LDZ );
 
          RESULT( 1 ) = ( ZLANGE( '1', N, M, Z, LDZ, RWORK ) / ANORM ) / ( N*ULP )
 
@@ -71,11 +71,11 @@
 
          // Norm of BAZ - ZD
 
-         CALL ZHEMM( 'Left', UPLO, N, M, CONE, A, LDA, Z, LDZ, CZERO, WORK, N )
+         zhemm('Left', UPLO, N, M, CONE, A, LDA, Z, LDZ, CZERO, WORK, N );
          DO 30 I = 1, M
-            CALL ZDSCAL( N, D( I ), Z( 1, I ), 1 )
+            zdscal(N, D( I ), Z( 1, I ), 1 );
    30    CONTINUE
-         CALL ZHEMM( 'Left', UPLO, N, M, CONE, B, LDB, WORK, N, -CONE, Z, LDZ )
+         zhemm('Left', UPLO, N, M, CONE, B, LDB, WORK, N, -CONE, Z, LDZ );
 
          RESULT( 1 ) = ( ZLANGE( '1', N, M, Z, LDZ, RWORK ) / ANORM ) / ( N*ULP )
       }

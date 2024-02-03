@@ -38,7 +38,7 @@
       CRZT02 = ZERO
 
       if ( LWORK.LT.N*N+N ) {
-         CALL XERBLA( 'CRZT02', 7 )
+         xerbla('CRZT02', 7 );
          RETURN
       }
 
@@ -48,15 +48,15 @@
 
       // Q := I
 
-      CALL CLASET( 'Full', N, N, CMPLX( ZERO ), CMPLX( ONE ), WORK, N )
+      claset('Full', N, N, CMPLX( ZERO ), CMPLX( ONE ), WORK, N );
 
       // Q := P(1) * ... * P(m) * Q
 
-      CALL CUNMRZ( 'Left', 'No transpose', N, N, M, N-M, AF, LDA, TAU, WORK, N, WORK( N*N+1 ), LWORK-N*N, INFO )
+      cunmrz('Left', 'No transpose', N, N, M, N-M, AF, LDA, TAU, WORK, N, WORK( N*N+1 ), LWORK-N*N, INFO );
 
       // Q := P(m)' * ... * P(1)' * Q
 
-      CALL CUNMRZ( 'Left', 'Conjugate transpose', N, N, M, N-M, AF, LDA, TAU, WORK, N, WORK( N*N+1 ), LWORK-N*N, INFO )
+      cunmrz('Left', 'Conjugate transpose', N, N, M, N-M, AF, LDA, TAU, WORK, N, WORK( N*N+1 ), LWORK-N*N, INFO );
 
       // Q := Q - I
 

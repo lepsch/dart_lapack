@@ -65,7 +65,7 @@
          INFO = -16
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'DGBBRD', -INFO )
+         xerbla('DGBBRD', -INFO );
          RETURN
       }
 
@@ -141,7 +141,7 @@
                      // generate plane rotation to annihilate a(i+ml-1,i)
                      // within the band, and apply rotation from the left
 
-                     CALL DLARTG( AB( KU+ML-1, I ), AB( KU+ML, I ), WORK( MN+I+ML-1 ), WORK( I+ML-1 ), RA )
+                     dlartg(AB( KU+ML-1, I ), AB( KU+ML, I ), WORK( MN+I+ML-1 ), WORK( I+ML-1 ), RA );
                      AB( KU+ML-1, I ) = RA
                      IF( I.LT.N ) CALL DROT( MIN( KU+ML-2, N-I ), AB( KU+ML-2, I+1 ), LDAB-1, AB( KU+ML-1, I+1 ), LDAB-1, WORK( MN+I+ML-1 ), WORK( I+ML-1 ) )
                   }
@@ -154,7 +154,7 @@
                   // accumulate product of plane rotations in Q
 
                   DO 20 J = J1, J2, KB1
-                     CALL DROT( M, Q( 1, J-1 ), 1, Q( 1, J ), 1, WORK( MN+J ), WORK( J ) )
+                     drot(M, Q( 1, J-1 ), 1, Q( 1, J ), 1, WORK( MN+J ), WORK( J ) );
    20             CONTINUE
                }
 
@@ -163,7 +163,7 @@
                   // apply plane rotations to C
 
                   DO 30 J = J1, J2, KB1
-                     CALL DROT( NCC, C( J-1, 1 ), LDC, C( J, 1 ), LDC, WORK( MN+J ), WORK( J ) )
+                     drot(NCC, C( J-1, 1 ), LDC, C( J, 1 ), LDC, WORK( MN+J ), WORK( J ) );
    30             CONTINUE
                }
 
@@ -206,9 +206,9 @@
                      // generate plane rotation to annihilate a(i,i+mu-1)
                      // within the band, and apply rotation from the right
 
-                     CALL DLARTG( AB( KU-MU+3, I+MU-2 ), AB( KU-MU+2, I+MU-1 ), WORK( MN+I+MU-1 ), WORK( I+MU-1 ), RA )
+                     dlartg(AB( KU-MU+3, I+MU-2 ), AB( KU-MU+2, I+MU-1 ), WORK( MN+I+MU-1 ), WORK( I+MU-1 ), RA );
                      AB( KU-MU+3, I+MU-2 ) = RA
-                     CALL DROT( MIN( KL+MU-2, M-I ), AB( KU-MU+4, I+MU-2 ), 1, AB( KU-MU+3, I+MU-1 ), 1, WORK( MN+I+MU-1 ), WORK( I+MU-1 ) )
+                     drot(MIN( KL+MU-2, M-I ), AB( KU-MU+4, I+MU-2 ), 1, AB( KU-MU+3, I+MU-1 ), 1, WORK( MN+I+MU-1 ), WORK( I+MU-1 ) );
                   }
                   NR = NR + 1
                   J1 = J1 - KB1
@@ -219,7 +219,7 @@
                   // accumulate product of plane rotations in P**T
 
                   DO 60 J = J1, J2, KB1
-                     CALL DROT( N, PT( J+KUN-1, 1 ), LDPT, PT( J+KUN, 1 ), LDPT, WORK( MN+J+KUN ), WORK( J+KUN ) )
+                     drot(N, PT( J+KUN-1, 1 ), LDPT, PT( J+KUN, 1 ), LDPT, WORK( MN+J+KUN ), WORK( J+KUN ) );
    60             CONTINUE
                }
 
@@ -258,7 +258,7 @@
          // and off-diagonal elements in E
 
          DO 100 I = 1, MIN( M-1, N )
-            CALL DLARTG( AB( 1, I ), AB( 2, I ), RC, RS, RA )
+            dlartg(AB( 1, I ), AB( 2, I ), RC, RS, RA );
             D( I ) = RA
             if ( I.LT.N ) {
                E( I ) = RS*AB( 1, I+1 )
@@ -279,7 +279,7 @@
 
             RB = AB( KU, M+1 )
             DO 110 I = M, 1, -1
-               CALL DLARTG( AB( KU+1, I ), RB, RC, RS, RA )
+               dlartg(AB( KU+1, I ), RB, RC, RS, RA );
                D( I ) = RA
                if ( I.GT.1 ) {
                   RB = -RS*AB( KU, I )

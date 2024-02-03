@@ -77,7 +77,7 @@
          }
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'DTGSY2', -INFO )
+         xerbla('DTGSY2', -INFO );
          RETURN
       }
 
@@ -157,20 +157,20 @@
 
                   // Solve Z * x = RHS
 
-                  CALL DGETC2( ZDIM, Z, LDZ, IPIV, JPIV, IERR )
+                  dgetc2(ZDIM, Z, LDZ, IPIV, JPIV, IERR );
                   IF( IERR.GT.0 ) INFO = IERR
 
                   if ( IJOB.EQ.0 ) {
-                     CALL DGESC2( ZDIM, Z, LDZ, RHS, IPIV, JPIV, SCALOC )
+                     dgesc2(ZDIM, Z, LDZ, RHS, IPIV, JPIV, SCALOC );
                      if ( SCALOC.NE.ONE ) {
                         DO 50 K = 1, N
-                           CALL DSCAL( M, SCALOC, C( 1, K ), 1 )
-                           CALL DSCAL( M, SCALOC, F( 1, K ), 1 )
+                           dscal(M, SCALOC, C( 1, K ), 1 );
+                           dscal(M, SCALOC, F( 1, K ), 1 );
    50                   CONTINUE
                         SCALE = SCALE*SCALOC
                      }
                   } else {
-                     CALL DLATDF( IJOB, ZDIM, Z, LDZ, RHS, RDSUM, RDSCAL, IPIV, JPIV )
+                     dlatdf(IJOB, ZDIM, Z, LDZ, RHS, RDSUM, RDSCAL, IPIV, JPIV );
                   }
 
                   // Unpack solution vector(s)
@@ -183,10 +183,10 @@
 
                   if ( I.GT.1 ) {
                      ALPHA = -RHS( 1 )
-                     CALL DAXPY( IS-1, ALPHA, A( 1, IS ), 1, C( 1, JS ), 1 )                      CALL DAXPY( IS-1, ALPHA, D( 1, IS ), 1, F( 1, JS ), 1 )
+                     daxpy(IS-1, ALPHA, A( 1, IS ), 1, C( 1, JS ), 1 )                      CALL DAXPY( IS-1, ALPHA, D( 1, IS ), 1, F( 1, JS ), 1 );
                   }
                   if ( J.LT.Q ) {
-                     CALL DAXPY( N-JE, RHS( 2 ), B( JS, JE+1 ), LDB, C( IS, JE+1 ), LDC )                      CALL DAXPY( N-JE, RHS( 2 ), E( JS, JE+1 ), LDE, F( IS, JE+1 ), LDF )
+                     daxpy(N-JE, RHS( 2 ), B( JS, JE+1 ), LDB, C( IS, JE+1 ), LDC )                      CALL DAXPY( N-JE, RHS( 2 ), E( JS, JE+1 ), LDE, F( IS, JE+1 ), LDF );
                   }
 
                } else if ( ( MB.EQ.1 ) .AND. ( NB.EQ.2 ) ) {
@@ -222,20 +222,20 @@
 
                   // Solve Z * x = RHS
 
-                  CALL DGETC2( ZDIM, Z, LDZ, IPIV, JPIV, IERR )
+                  dgetc2(ZDIM, Z, LDZ, IPIV, JPIV, IERR );
                   IF( IERR.GT.0 ) INFO = IERR
 
                   if ( IJOB.EQ.0 ) {
-                     CALL DGESC2( ZDIM, Z, LDZ, RHS, IPIV, JPIV, SCALOC )
+                     dgesc2(ZDIM, Z, LDZ, RHS, IPIV, JPIV, SCALOC );
                      if ( SCALOC.NE.ONE ) {
                         DO 60 K = 1, N
-                           CALL DSCAL( M, SCALOC, C( 1, K ), 1 )
-                           CALL DSCAL( M, SCALOC, F( 1, K ), 1 )
+                           dscal(M, SCALOC, C( 1, K ), 1 );
+                           dscal(M, SCALOC, F( 1, K ), 1 );
    60                   CONTINUE
                         SCALE = SCALE*SCALOC
                      }
                   } else {
-                     CALL DLATDF( IJOB, ZDIM, Z, LDZ, RHS, RDSUM, RDSCAL, IPIV, JPIV )
+                     dlatdf(IJOB, ZDIM, Z, LDZ, RHS, RDSUM, RDSCAL, IPIV, JPIV );
                   }
 
                   // Unpack solution vector(s)
@@ -249,10 +249,10 @@
                   // equation.
 
                   if ( I.GT.1 ) {
-                     CALL DGER( IS-1, NB, -ONE, A( 1, IS ), 1, RHS( 1 ), 1, C( 1, JS ), LDC )                      CALL DGER( IS-1, NB, -ONE, D( 1, IS ), 1, RHS( 1 ), 1, F( 1, JS ), LDF )
+                     dger(IS-1, NB, -ONE, A( 1, IS ), 1, RHS( 1 ), 1, C( 1, JS ), LDC )                      CALL DGER( IS-1, NB, -ONE, D( 1, IS ), 1, RHS( 1 ), 1, F( 1, JS ), LDF );
                   }
                   if ( J.LT.Q ) {
-                     CALL DAXPY( N-JE, RHS( 3 ), B( JS, JE+1 ), LDB, C( IS, JE+1 ), LDC )                      CALL DAXPY( N-JE, RHS( 3 ), E( JS, JE+1 ), LDE, F( IS, JE+1 ), LDF )                      CALL DAXPY( N-JE, RHS( 4 ), B( JSP1, JE+1 ), LDB, C( IS, JE+1 ), LDC )                      CALL DAXPY( N-JE, RHS( 4 ), E( JSP1, JE+1 ), LDE, F( IS, JE+1 ), LDF )
+                     daxpy(N-JE, RHS( 3 ), B( JS, JE+1 ), LDB, C( IS, JE+1 ), LDC )                      CALL DAXPY( N-JE, RHS( 3 ), E( JS, JE+1 ), LDE, F( IS, JE+1 ), LDF )                      CALL DAXPY( N-JE, RHS( 4 ), B( JSP1, JE+1 ), LDB, C( IS, JE+1 ), LDC )                      CALL DAXPY( N-JE, RHS( 4 ), E( JSP1, JE+1 ), LDE, F( IS, JE+1 ), LDF );
                   }
 
                } else if ( ( MB.EQ.2 ) .AND. ( NB.EQ.1 ) ) {
@@ -288,19 +288,19 @@
 
                   // Solve Z * x = RHS
 
-                  CALL DGETC2( ZDIM, Z, LDZ, IPIV, JPIV, IERR )
+                  dgetc2(ZDIM, Z, LDZ, IPIV, JPIV, IERR );
                   IF( IERR.GT.0 ) INFO = IERR
                   if ( IJOB.EQ.0 ) {
-                     CALL DGESC2( ZDIM, Z, LDZ, RHS, IPIV, JPIV, SCALOC )
+                     dgesc2(ZDIM, Z, LDZ, RHS, IPIV, JPIV, SCALOC );
                      if ( SCALOC.NE.ONE ) {
                         DO 70 K = 1, N
-                           CALL DSCAL( M, SCALOC, C( 1, K ), 1 )
-                           CALL DSCAL( M, SCALOC, F( 1, K ), 1 )
+                           dscal(M, SCALOC, C( 1, K ), 1 );
+                           dscal(M, SCALOC, F( 1, K ), 1 );
    70                   CONTINUE
                         SCALE = SCALE*SCALOC
                      }
                   } else {
-                     CALL DLATDF( IJOB, ZDIM, Z, LDZ, RHS, RDSUM, RDSCAL, IPIV, JPIV )
+                     dlatdf(IJOB, ZDIM, Z, LDZ, RHS, RDSUM, RDSCAL, IPIV, JPIV );
                   }
 
                   // Unpack solution vector(s)
@@ -314,17 +314,17 @@
                   // equation.
 
                   if ( I.GT.1 ) {
-                     CALL DGEMV( 'N', IS-1, MB, -ONE, A( 1, IS ), LDA, RHS( 1 ), 1, ONE, C( 1, JS ), 1 )                      CALL DGEMV( 'N', IS-1, MB, -ONE, D( 1, IS ), LDD, RHS( 1 ), 1, ONE, F( 1, JS ), 1 )
+                     dgemv('N', IS-1, MB, -ONE, A( 1, IS ), LDA, RHS( 1 ), 1, ONE, C( 1, JS ), 1 )                      CALL DGEMV( 'N', IS-1, MB, -ONE, D( 1, IS ), LDD, RHS( 1 ), 1, ONE, F( 1, JS ), 1 );
                   }
                   if ( J.LT.Q ) {
-                     CALL DGER( MB, N-JE, ONE, RHS( 3 ), 1, B( JS, JE+1 ), LDB, C( IS, JE+1 ), LDC )                      CALL DGER( MB, N-JE, ONE, RHS( 3 ), 1, E( JS, JE+1 ), LDE, F( IS, JE+1 ), LDF )
+                     dger(MB, N-JE, ONE, RHS( 3 ), 1, B( JS, JE+1 ), LDB, C( IS, JE+1 ), LDC )                      CALL DGER( MB, N-JE, ONE, RHS( 3 ), 1, E( JS, JE+1 ), LDE, F( IS, JE+1 ), LDF );
                   }
 
                } else if ( ( MB.EQ.2 ) .AND. ( NB.EQ.2 ) ) {
 
                   // Build an 8-by-8 system Z * x = RHS
 
-                  CALL DLASET( 'F', LDZ, LDZ, ZERO, ZERO, Z, LDZ )
+                  dlaset('F', LDZ, LDZ, ZERO, ZERO, Z, LDZ );
 
                   Z( 1, 1 ) = A( IS, IS )
                   Z( 2, 1 ) = A( ISP1, IS )
@@ -367,27 +367,27 @@
                   K = 1
                   II = MB*NB + 1
                   DO 80 JJ = 0, NB - 1
-                     CALL DCOPY( MB, C( IS, JS+JJ ), 1, RHS( K ), 1 )
-                     CALL DCOPY( MB, F( IS, JS+JJ ), 1, RHS( II ), 1 )
+                     dcopy(MB, C( IS, JS+JJ ), 1, RHS( K ), 1 );
+                     dcopy(MB, F( IS, JS+JJ ), 1, RHS( II ), 1 );
                      K = K + MB
                      II = II + MB
    80             CONTINUE
 
                   // Solve Z * x = RHS
 
-                  CALL DGETC2( ZDIM, Z, LDZ, IPIV, JPIV, IERR )
+                  dgetc2(ZDIM, Z, LDZ, IPIV, JPIV, IERR );
                   IF( IERR.GT.0 ) INFO = IERR
                   if ( IJOB.EQ.0 ) {
-                     CALL DGESC2( ZDIM, Z, LDZ, RHS, IPIV, JPIV, SCALOC )
+                     dgesc2(ZDIM, Z, LDZ, RHS, IPIV, JPIV, SCALOC );
                      if ( SCALOC.NE.ONE ) {
                         DO 90 K = 1, N
-                           CALL DSCAL( M, SCALOC, C( 1, K ), 1 )
-                           CALL DSCAL( M, SCALOC, F( 1, K ), 1 )
+                           dscal(M, SCALOC, C( 1, K ), 1 );
+                           dscal(M, SCALOC, F( 1, K ), 1 );
    90                   CONTINUE
                         SCALE = SCALE*SCALOC
                      }
                   } else {
-                     CALL DLATDF( IJOB, ZDIM, Z, LDZ, RHS, RDSUM, RDSCAL, IPIV, JPIV )
+                     dlatdf(IJOB, ZDIM, Z, LDZ, RHS, RDSUM, RDSCAL, IPIV, JPIV );
                   }
 
                   // Unpack solution vector(s)
@@ -395,8 +395,8 @@
                   K = 1
                   II = MB*NB + 1
                   DO 100 JJ = 0, NB - 1
-                     CALL DCOPY( MB, RHS( K ), 1, C( IS, JS+JJ ), 1 )
-                     CALL DCOPY( MB, RHS( II ), 1, F( IS, JS+JJ ), 1 )
+                     dcopy(MB, RHS( K ), 1, C( IS, JS+JJ ), 1 );
+                     dcopy(MB, RHS( II ), 1, F( IS, JS+JJ ), 1 );
                      K = K + MB
                      II = II + MB
   100             CONTINUE
@@ -405,11 +405,11 @@
                   // equation.
 
                   if ( I.GT.1 ) {
-                     CALL DGEMM( 'N', 'N', IS-1, NB, MB, -ONE, A( 1, IS ), LDA, RHS( 1 ), MB, ONE, C( 1, JS ), LDC )                      CALL DGEMM( 'N', 'N', IS-1, NB, MB, -ONE, D( 1, IS ), LDD, RHS( 1 ), MB, ONE, F( 1, JS ), LDF )
+                     dgemm('N', 'N', IS-1, NB, MB, -ONE, A( 1, IS ), LDA, RHS( 1 ), MB, ONE, C( 1, JS ), LDC )                      CALL DGEMM( 'N', 'N', IS-1, NB, MB, -ONE, D( 1, IS ), LDD, RHS( 1 ), MB, ONE, F( 1, JS ), LDF );
                   }
                   if ( J.LT.Q ) {
                      K = MB*NB + 1
-                     CALL DGEMM( 'N', 'N', MB, N-JE, NB, ONE, RHS( K ), MB, B( JS, JE+1 ), LDB, ONE, C( IS, JE+1 ), LDC )                      CALL DGEMM( 'N', 'N', MB, N-JE, NB, ONE, RHS( K ), MB, E( JS, JE+1 ), LDE, ONE, F( IS, JE+1 ), LDF )
+                     dgemm('N', 'N', MB, N-JE, NB, ONE, RHS( K ), MB, B( JS, JE+1 ), LDB, ONE, C( IS, JE+1 ), LDC )                      CALL DGEMM( 'N', 'N', MB, N-JE, NB, ONE, RHS( K ), MB, E( JS, JE+1 ), LDE, ONE, F( IS, JE+1 ), LDF );
                   }
 
                }
@@ -454,14 +454,14 @@
 
                   // Solve Z**T * x = RHS
 
-                  CALL DGETC2( ZDIM, Z, LDZ, IPIV, JPIV, IERR )
+                  dgetc2(ZDIM, Z, LDZ, IPIV, JPIV, IERR );
                   IF( IERR.GT.0 ) INFO = IERR
 
-                  CALL DGESC2( ZDIM, Z, LDZ, RHS, IPIV, JPIV, SCALOC )
+                  dgesc2(ZDIM, Z, LDZ, RHS, IPIV, JPIV, SCALOC );
                   if ( SCALOC.NE.ONE ) {
                      DO 130 K = 1, N
-                        CALL DSCAL( M, SCALOC, C( 1, K ), 1 )
-                        CALL DSCAL( M, SCALOC, F( 1, K ), 1 )
+                        dscal(M, SCALOC, C( 1, K ), 1 );
+                        dscal(M, SCALOC, F( 1, K ), 1 );
   130                CONTINUE
                      SCALE = SCALE*SCALOC
                   }
@@ -476,15 +476,15 @@
 
                   if ( J.GT.P+2 ) {
                      ALPHA = RHS( 1 )
-                     CALL DAXPY( JS-1, ALPHA, B( 1, JS ), 1, F( IS, 1 ), LDF )
+                     daxpy(JS-1, ALPHA, B( 1, JS ), 1, F( IS, 1 ), LDF );
                      ALPHA = RHS( 2 )
-                     CALL DAXPY( JS-1, ALPHA, E( 1, JS ), 1, F( IS, 1 ), LDF )
+                     daxpy(JS-1, ALPHA, E( 1, JS ), 1, F( IS, 1 ), LDF );
                   }
                   if ( I.LT.P ) {
                      ALPHA = -RHS( 1 )
-                     CALL DAXPY( M-IE, ALPHA, A( IS, IE+1 ), LDA, C( IE+1, JS ), 1 )
+                     daxpy(M-IE, ALPHA, A( IS, IE+1 ), LDA, C( IE+1, JS ), 1 );
                      ALPHA = -RHS( 2 )
-                     CALL DAXPY( M-IE, ALPHA, D( IS, IE+1 ), LDD, C( IE+1, JS ), 1 )
+                     daxpy(M-IE, ALPHA, D( IS, IE+1 ), LDD, C( IE+1, JS ), 1 );
                   }
 
                } else if ( ( MB.EQ.1 ) .AND. ( NB.EQ.2 ) ) {
@@ -520,13 +520,13 @@
 
                   // Solve Z**T * x = RHS
 
-                  CALL DGETC2( ZDIM, Z, LDZ, IPIV, JPIV, IERR )
+                  dgetc2(ZDIM, Z, LDZ, IPIV, JPIV, IERR );
                   IF( IERR.GT.0 ) INFO = IERR
-                  CALL DGESC2( ZDIM, Z, LDZ, RHS, IPIV, JPIV, SCALOC )
+                  dgesc2(ZDIM, Z, LDZ, RHS, IPIV, JPIV, SCALOC );
                   if ( SCALOC.NE.ONE ) {
                      DO 140 K = 1, N
-                        CALL DSCAL( M, SCALOC, C( 1, K ), 1 )
-                        CALL DSCAL( M, SCALOC, F( 1, K ), 1 )
+                        dscal(M, SCALOC, C( 1, K ), 1 );
+                        dscal(M, SCALOC, F( 1, K ), 1 );
   140                CONTINUE
                      SCALE = SCALE*SCALOC
                   }
@@ -542,10 +542,10 @@
                   // equation.
 
                   if ( J.GT.P+2 ) {
-                     CALL DAXPY( JS-1, RHS( 1 ), B( 1, JS ), 1, F( IS, 1 ), LDF )                      CALL DAXPY( JS-1, RHS( 2 ), B( 1, JSP1 ), 1, F( IS, 1 ), LDF )                      CALL DAXPY( JS-1, RHS( 3 ), E( 1, JS ), 1, F( IS, 1 ), LDF )                      CALL DAXPY( JS-1, RHS( 4 ), E( 1, JSP1 ), 1, F( IS, 1 ), LDF )
+                     daxpy(JS-1, RHS( 1 ), B( 1, JS ), 1, F( IS, 1 ), LDF )                      CALL DAXPY( JS-1, RHS( 2 ), B( 1, JSP1 ), 1, F( IS, 1 ), LDF )                      CALL DAXPY( JS-1, RHS( 3 ), E( 1, JS ), 1, F( IS, 1 ), LDF )                      CALL DAXPY( JS-1, RHS( 4 ), E( 1, JSP1 ), 1, F( IS, 1 ), LDF );
                   }
                   if ( I.LT.P ) {
-                     CALL DGER( M-IE, NB, -ONE, A( IS, IE+1 ), LDA, RHS( 1 ), 1, C( IE+1, JS ), LDC )                      CALL DGER( M-IE, NB, -ONE, D( IS, IE+1 ), LDD, RHS( 3 ), 1, C( IE+1, JS ), LDC )
+                     dger(M-IE, NB, -ONE, A( IS, IE+1 ), LDA, RHS( 1 ), 1, C( IE+1, JS ), LDC )                      CALL DGER( M-IE, NB, -ONE, D( IS, IE+1 ), LDD, RHS( 3 ), 1, C( IE+1, JS ), LDC );
                   }
 
                } else if ( ( MB.EQ.2 ) .AND. ( NB.EQ.1 ) ) {
@@ -581,14 +581,14 @@
 
                   // Solve Z**T * x = RHS
 
-                  CALL DGETC2( ZDIM, Z, LDZ, IPIV, JPIV, IERR )
+                  dgetc2(ZDIM, Z, LDZ, IPIV, JPIV, IERR );
                   IF( IERR.GT.0 ) INFO = IERR
 
-                  CALL DGESC2( ZDIM, Z, LDZ, RHS, IPIV, JPIV, SCALOC )
+                  dgesc2(ZDIM, Z, LDZ, RHS, IPIV, JPIV, SCALOC );
                   if ( SCALOC.NE.ONE ) {
                      DO 150 K = 1, N
-                        CALL DSCAL( M, SCALOC, C( 1, K ), 1 )
-                        CALL DSCAL( M, SCALOC, F( 1, K ), 1 )
+                        dscal(M, SCALOC, C( 1, K ), 1 );
+                        dscal(M, SCALOC, F( 1, K ), 1 );
   150                CONTINUE
                      SCALE = SCALE*SCALOC
                   }
@@ -604,17 +604,17 @@
                   // equation.
 
                   if ( J.GT.P+2 ) {
-                     CALL DGER( MB, JS-1, ONE, RHS( 1 ), 1, B( 1, JS ), 1, F( IS, 1 ), LDF )                      CALL DGER( MB, JS-1, ONE, RHS( 3 ), 1, E( 1, JS ), 1, F( IS, 1 ), LDF )
+                     dger(MB, JS-1, ONE, RHS( 1 ), 1, B( 1, JS ), 1, F( IS, 1 ), LDF )                      CALL DGER( MB, JS-1, ONE, RHS( 3 ), 1, E( 1, JS ), 1, F( IS, 1 ), LDF );
                   }
                   if ( I.LT.P ) {
-                     CALL DGEMV( 'T', MB, M-IE, -ONE, A( IS, IE+1 ), LDA, RHS( 1 ), 1, ONE, C( IE+1, JS ), 1 )                      CALL DGEMV( 'T', MB, M-IE, -ONE, D( IS, IE+1 ), LDD, RHS( 3 ), 1, ONE, C( IE+1, JS ), 1 )
+                     dgemv('T', MB, M-IE, -ONE, A( IS, IE+1 ), LDA, RHS( 1 ), 1, ONE, C( IE+1, JS ), 1 )                      CALL DGEMV( 'T', MB, M-IE, -ONE, D( IS, IE+1 ), LDD, RHS( 3 ), 1, ONE, C( IE+1, JS ), 1 );
                   }
 
                } else if ( ( MB.EQ.2 ) .AND. ( NB.EQ.2 ) ) {
 
                   // Build an 8-by-8 system Z**T * x = RHS
 
-                  CALL DLASET( 'F', LDZ, LDZ, ZERO, ZERO, Z, LDZ )
+                  dlaset('F', LDZ, LDZ, ZERO, ZERO, Z, LDZ );
 
                   Z( 1, 1 ) = A( IS, IS )
                   Z( 2, 1 ) = A( IS, ISP1 )
@@ -657,8 +657,8 @@
                   K = 1
                   II = MB*NB + 1
                   DO 160 JJ = 0, NB - 1
-                     CALL DCOPY( MB, C( IS, JS+JJ ), 1, RHS( K ), 1 )
-                     CALL DCOPY( MB, F( IS, JS+JJ ), 1, RHS( II ), 1 )
+                     dcopy(MB, C( IS, JS+JJ ), 1, RHS( K ), 1 );
+                     dcopy(MB, F( IS, JS+JJ ), 1, RHS( II ), 1 );
                      K = K + MB
                      II = II + MB
   160             CONTINUE
@@ -666,14 +666,14 @@
 
                   // Solve Z**T * x = RHS
 
-                  CALL DGETC2( ZDIM, Z, LDZ, IPIV, JPIV, IERR )
+                  dgetc2(ZDIM, Z, LDZ, IPIV, JPIV, IERR );
                   IF( IERR.GT.0 ) INFO = IERR
 
-                  CALL DGESC2( ZDIM, Z, LDZ, RHS, IPIV, JPIV, SCALOC )
+                  dgesc2(ZDIM, Z, LDZ, RHS, IPIV, JPIV, SCALOC );
                   if ( SCALOC.NE.ONE ) {
                      DO 170 K = 1, N
-                        CALL DSCAL( M, SCALOC, C( 1, K ), 1 )
-                        CALL DSCAL( M, SCALOC, F( 1, K ), 1 )
+                        dscal(M, SCALOC, C( 1, K ), 1 );
+                        dscal(M, SCALOC, F( 1, K ), 1 );
   170                CONTINUE
                      SCALE = SCALE*SCALOC
                   }
@@ -683,8 +683,8 @@
                   K = 1
                   II = MB*NB + 1
                   DO 180 JJ = 0, NB - 1
-                     CALL DCOPY( MB, RHS( K ), 1, C( IS, JS+JJ ), 1 )
-                     CALL DCOPY( MB, RHS( II ), 1, F( IS, JS+JJ ), 1 )
+                     dcopy(MB, RHS( K ), 1, C( IS, JS+JJ ), 1 );
+                     dcopy(MB, RHS( II ), 1, F( IS, JS+JJ ), 1 );
                      K = K + MB
                      II = II + MB
   180             CONTINUE
@@ -693,10 +693,10 @@
                   // equation.
 
                   if ( J.GT.P+2 ) {
-                     CALL DGEMM( 'N', 'T', MB, JS-1, NB, ONE, C( IS, JS ), LDC, B( 1, JS ), LDB, ONE, F( IS, 1 ), LDF )                      CALL DGEMM( 'N', 'T', MB, JS-1, NB, ONE, F( IS, JS ), LDF, E( 1, JS ), LDE, ONE, F( IS, 1 ), LDF )
+                     dgemm('N', 'T', MB, JS-1, NB, ONE, C( IS, JS ), LDC, B( 1, JS ), LDB, ONE, F( IS, 1 ), LDF )                      CALL DGEMM( 'N', 'T', MB, JS-1, NB, ONE, F( IS, JS ), LDF, E( 1, JS ), LDE, ONE, F( IS, 1 ), LDF );
                   }
                   if ( I.LT.P ) {
-                     CALL DGEMM( 'T', 'N', M-IE, NB, MB, -ONE, A( IS, IE+1 ), LDA, C( IS, JS ), LDC, ONE, C( IE+1, JS ), LDC )                      CALL DGEMM( 'T', 'N', M-IE, NB, MB, -ONE, D( IS, IE+1 ), LDD, F( IS, JS ), LDF, ONE, C( IE+1, JS ), LDC )
+                     dgemm('T', 'N', M-IE, NB, MB, -ONE, A( IS, IE+1 ), LDA, C( IS, JS ), LDC, ONE, C( IE+1, JS ), LDC )                      CALL DGEMM( 'T', 'N', M-IE, NB, MB, -ONE, D( IS, IE+1 ), LDD, F( IS, JS ), LDF, ONE, C( IE+1, JS ), LDC );
                   }
 
                }

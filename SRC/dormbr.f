@@ -88,7 +88,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'DORMBR', -INFO )
+         xerbla('DORMBR', -INFO );
          RETURN
       } else if ( LQUERY ) {
          RETURN
@@ -107,7 +107,7 @@
 
             // Q was determined by a call to DGEBRD with nq >= k
 
-            CALL DORMQR( SIDE, TRANS, M, N, K, A, LDA, TAU, C, LDC, WORK, LWORK, IINFO )
+            dormqr(SIDE, TRANS, M, N, K, A, LDA, TAU, C, LDC, WORK, LWORK, IINFO );
          } else if ( NQ.GT.1 ) {
 
             // Q was determined by a call to DGEBRD with nq < k
@@ -123,7 +123,7 @@
                I1 = 1
                I2 = 2
             }
-            CALL DORMQR( SIDE, TRANS, MI, NI, NQ-1, A( 2, 1 ), LDA, TAU, C( I1, I2 ), LDC, WORK, LWORK, IINFO )
+            dormqr(SIDE, TRANS, MI, NI, NQ-1, A( 2, 1 ), LDA, TAU, C( I1, I2 ), LDC, WORK, LWORK, IINFO );
          }
       } else {
 
@@ -138,7 +138,7 @@
 
             // P was determined by a call to DGEBRD with nq > k
 
-            CALL DORMLQ( SIDE, TRANST, M, N, K, A, LDA, TAU, C, LDC, WORK, LWORK, IINFO )
+            dormlq(SIDE, TRANST, M, N, K, A, LDA, TAU, C, LDC, WORK, LWORK, IINFO );
          } else if ( NQ.GT.1 ) {
 
             // P was determined by a call to DGEBRD with nq <= k
@@ -154,7 +154,7 @@
                I1 = 1
                I2 = 2
             }
-            CALL DORMLQ( SIDE, TRANST, MI, NI, NQ-1, A( 1, 2 ), LDA, TAU, C( I1, I2 ), LDC, WORK, LWORK, IINFO )
+            dormlq(SIDE, TRANST, MI, NI, NQ-1, A( 1, 2 ), LDA, TAU, C( I1, I2 ), LDC, WORK, LWORK, IINFO );
          }
       }
       WORK( 1 ) = LWKOPT

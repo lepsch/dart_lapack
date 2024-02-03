@@ -92,7 +92,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'ZGELS ', -INFO )
+         xerbla('ZGELS ', -INFO );
          RETURN
       } else if ( LQUERY ) {
          RETURN
@@ -101,7 +101,7 @@
       // Quick return if possible
 
       if ( MIN( M, N, NRHS ).EQ.0 ) {
-         CALL ZLASET( 'Full', MAX( M, N ), NRHS, CZERO, CZERO, B, LDB )
+         zlaset('Full', MAX( M, N ), NRHS, CZERO, CZERO, B, LDB );
          RETURN
       }
 
@@ -118,19 +118,19 @@
 
          // Scale matrix norm up to SMLNUM
 
-         CALL ZLASCL( 'G', 0, 0, ANRM, SMLNUM, M, N, A, LDA, INFO )
+         zlascl('G', 0, 0, ANRM, SMLNUM, M, N, A, LDA, INFO );
          IASCL = 1
       } else if ( ANRM.GT.BIGNUM ) {
 
          // Scale matrix norm down to BIGNUM
 
-         CALL ZLASCL( 'G', 0, 0, ANRM, BIGNUM, M, N, A, LDA, INFO )
+         zlascl('G', 0, 0, ANRM, BIGNUM, M, N, A, LDA, INFO );
          IASCL = 2
       } else if ( ANRM.EQ.ZERO ) {
 
          // Matrix all zero. Return zero solution.
 
-         CALL ZLASET( 'F', MAX( M, N ), NRHS, CZERO, CZERO, B, LDB )
+         zlaset('F', MAX( M, N ), NRHS, CZERO, CZERO, B, LDB );
          GO TO 50
       }
 
@@ -142,13 +142,13 @@
 
          // Scale matrix norm up to SMLNUM
 
-         CALL ZLASCL( 'G', 0, 0, BNRM, SMLNUM, BROW, NRHS, B, LDB, INFO )
+         zlascl('G', 0, 0, BNRM, SMLNUM, BROW, NRHS, B, LDB, INFO );
          IBSCL = 1
       } else if ( BNRM.GT.BIGNUM ) {
 
          // Scale matrix norm down to BIGNUM
 
-         CALL ZLASCL( 'G', 0, 0, BNRM, BIGNUM, BROW, NRHS, B, LDB, INFO )
+         zlascl('G', 0, 0, BNRM, BIGNUM, BROW, NRHS, B, LDB, INFO );
          IBSCL = 2
       }
 
@@ -156,7 +156,7 @@
 
          // compute QR factorization of A
 
-         CALL ZGEQRF( M, N, A, LDA, WORK( 1 ), WORK( MN+1 ), LWORK-MN, INFO )
+         zgeqrf(M, N, A, LDA, WORK( 1 ), WORK( MN+1 ), LWORK-MN, INFO );
 
          // workspace at least N, optimally N*NB
 
@@ -166,13 +166,13 @@
 
             // B(1:M,1:NRHS) := Q**H * B(1:M,1:NRHS)
 
-            CALL ZUNMQR( 'Left', 'Conjugate transpose', M, NRHS, N, A, LDA, WORK( 1 ), B, LDB, WORK( MN+1 ), LWORK-MN, INFO )
+            zunmqr('Left', 'Conjugate transpose', M, NRHS, N, A, LDA, WORK( 1 ), B, LDB, WORK( MN+1 ), LWORK-MN, INFO );
 
             // workspace at least NRHS, optimally NRHS*NB
 
             // B(1:N,1:NRHS) := inv(R) * B(1:N,1:NRHS)
 
-            CALL ZTRTRS( 'Upper', 'No transpose', 'Non-unit', N, NRHS, A, LDA, B, LDB, INFO )
+            ztrtrs('Upper', 'No transpose', 'Non-unit', N, NRHS, A, LDA, B, LDB, INFO );
 
             if ( INFO.GT.0 ) {
                RETURN
@@ -186,7 +186,7 @@
 
             // B(1:N,1:NRHS) := inv(R**H) * B(1:N,1:NRHS)
 
-            CALL ZTRTRS( 'Upper', 'Conjugate transpose','Non-unit', N, NRHS, A, LDA, B, LDB, INFO )
+            ztrtrs('Upper', 'Conjugate transpose','Non-unit', N, NRHS, A, LDA, B, LDB, INFO );
 
             if ( INFO.GT.0 ) {
                RETURN
@@ -202,7 +202,7 @@
 
             // B(1:M,1:NRHS) := Q(1:N,:) * B(1:N,1:NRHS)
 
-            CALL ZUNMQR( 'Left', 'No transpose', M, NRHS, N, A, LDA, WORK( 1 ), B, LDB, WORK( MN+1 ), LWORK-MN, INFO )
+            zunmqr('Left', 'No transpose', M, NRHS, N, A, LDA, WORK( 1 ), B, LDB, WORK( MN+1 ), LWORK-MN, INFO );
 
             // workspace at least NRHS, optimally NRHS*NB
 
@@ -214,7 +214,7 @@
 
          // Compute LQ factorization of A
 
-         CALL ZGELQF( M, N, A, LDA, WORK( 1 ), WORK( MN+1 ), LWORK-MN, INFO )
+         zgelqf(M, N, A, LDA, WORK( 1 ), WORK( MN+1 ), LWORK-MN, INFO );
 
          // workspace at least M, optimally M*NB.
 
@@ -224,7 +224,7 @@
 
             // B(1:M,1:NRHS) := inv(L) * B(1:M,1:NRHS)
 
-            CALL ZTRTRS( 'Lower', 'No transpose', 'Non-unit', M, NRHS, A, LDA, B, LDB, INFO )
+            ztrtrs('Lower', 'No transpose', 'Non-unit', M, NRHS, A, LDA, B, LDB, INFO );
 
             if ( INFO.GT.0 ) {
                RETURN
@@ -240,7 +240,7 @@
 
             // B(1:N,1:NRHS) := Q(1:N,:)**H * B(1:M,1:NRHS)
 
-            CALL ZUNMLQ( 'Left', 'Conjugate transpose', N, NRHS, M, A, LDA, WORK( 1 ), B, LDB, WORK( MN+1 ), LWORK-MN, INFO )
+            zunmlq('Left', 'Conjugate transpose', N, NRHS, M, A, LDA, WORK( 1 ), B, LDB, WORK( MN+1 ), LWORK-MN, INFO );
 
             // workspace at least NRHS, optimally NRHS*NB
 
@@ -252,13 +252,13 @@
 
             // B(1:N,1:NRHS) := Q * B(1:N,1:NRHS)
 
-            CALL ZUNMLQ( 'Left', 'No transpose', N, NRHS, M, A, LDA, WORK( 1 ), B, LDB, WORK( MN+1 ), LWORK-MN, INFO )
+            zunmlq('Left', 'No transpose', N, NRHS, M, A, LDA, WORK( 1 ), B, LDB, WORK( MN+1 ), LWORK-MN, INFO );
 
             // workspace at least NRHS, optimally NRHS*NB
 
             // B(1:M,1:NRHS) := inv(L**H) * B(1:M,1:NRHS)
 
-            CALL ZTRTRS( 'Lower', 'Conjugate transpose', 'Non-unit', M, NRHS, A, LDA, B, LDB, INFO )
+            ztrtrs('Lower', 'Conjugate transpose', 'Non-unit', M, NRHS, A, LDA, B, LDB, INFO );
 
             if ( INFO.GT.0 ) {
                RETURN
@@ -273,14 +273,14 @@
       // Undo scaling
 
       if ( IASCL.EQ.1 ) {
-         CALL ZLASCL( 'G', 0, 0, ANRM, SMLNUM, SCLLEN, NRHS, B, LDB, INFO )
+         zlascl('G', 0, 0, ANRM, SMLNUM, SCLLEN, NRHS, B, LDB, INFO );
       } else if ( IASCL.EQ.2 ) {
-         CALL ZLASCL( 'G', 0, 0, ANRM, BIGNUM, SCLLEN, NRHS, B, LDB, INFO )
+         zlascl('G', 0, 0, ANRM, BIGNUM, SCLLEN, NRHS, B, LDB, INFO );
       }
       if ( IBSCL.EQ.1 ) {
-         CALL ZLASCL( 'G', 0, 0, SMLNUM, BNRM, SCLLEN, NRHS, B, LDB, INFO )
+         zlascl('G', 0, 0, SMLNUM, BNRM, SCLLEN, NRHS, B, LDB, INFO );
       } else if ( IBSCL.EQ.2 ) {
-         CALL ZLASCL( 'G', 0, 0, BIGNUM, BNRM, SCLLEN, NRHS, B, LDB, INFO )
+         zlascl('G', 0, 0, BIGNUM, BNRM, SCLLEN, NRHS, B, LDB, INFO );
       }
 
    50 CONTINUE

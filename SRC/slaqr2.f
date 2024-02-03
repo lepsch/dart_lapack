@@ -43,12 +43,12 @@
 
          // ==== Workspace query call to SGEHRD ====
 
-         CALL SGEHRD( JW, 1, JW-1, T, LDT, WORK, WORK, -1, INFO )
+         sgehrd(JW, 1, JW-1, T, LDT, WORK, WORK, -1, INFO );
          LWK1 = INT( WORK( 1 ) )
 
          // ==== Workspace query call to SORMHR ====
 
-         CALL SORMHR( 'R', 'N', JW, JW, 1, JW-1, T, LDT, WORK, V, LDV, WORK, -1, INFO )
+         sormhr('R', 'N', JW, JW, 1, JW-1, T, LDT, WORK, V, LDV, WORK, -1, INFO );
          LWK2 = INT( WORK( 1 ) )
 
          // ==== Optimal workspace ====
@@ -112,11 +112,11 @@
       // .    the deflation window that converged using INFQR
       // .    here and there to keep track.) ====
 
-      CALL SLACPY( 'U', JW, JW, H( KWTOP, KWTOP ), LDH, T, LDT )
-      CALL SCOPY( JW-1, H( KWTOP+1, KWTOP ), LDH+1, T( 2, 1 ), LDT+1 )
+      slacpy('U', JW, JW, H( KWTOP, KWTOP ), LDH, T, LDT );
+      scopy(JW-1, H( KWTOP+1, KWTOP ), LDH+1, T( 2, 1 ), LDT+1 );
 
-      CALL SLASET( 'A', JW, JW, ZERO, ONE, V, LDV )
-      CALL SLAHQR( .true., .true., JW, 1, JW, T, LDT, SR( KWTOP ), SI( KWTOP ), 1, JW, V, LDV, INFQR )
+      slaset('A', JW, JW, ZERO, ONE, V, LDV );
+      slahqr(.true., .true., JW, 1, JW, T, LDT, SR( KWTOP ), SI( KWTOP ), 1, JW, V, LDV, INFQR );
 
       // ==== STREXC needs a clean margin near the diagonal ====
 
@@ -157,7 +157,7 @@
                // .    (STREXC can not fail in this case.) ====
 
                IFST = NS
-               CALL STREXC( 'V', JW, T, LDT, V, LDV, IFST, ILST, WORK, INFO )
+               strexc('V', JW, T, LDT, V, LDV, IFST, ILST, WORK, INFO );
                ILST = ILST + 1
             }
          } else {
@@ -176,7 +176,7 @@
                // .    ILST in case of a rare exchange failure. ====
 
                IFST = NS
-               CALL STREXC( 'V', JW, T, LDT, V, LDV, IFST, ILST, WORK, INFO )
+               strexc('V', JW, T, LDT, V, LDV, IFST, ILST, WORK, INFO );
                ILST = ILST + 2
             }
          }
@@ -233,7 +233,7 @@
                SORTED = .false.
                IFST = I
                ILST = K
-               CALL STREXC( 'V', JW, T, LDT, V, LDV, IFST, ILST, WORK, INFO )
+               strexc('V', JW, T, LDT, V, LDV, IFST, ILST, WORK, INFO );
                if ( INFO.EQ.0 ) {
                   I = ILST
                } else {
@@ -271,7 +271,7 @@
             CC = T( I, I-1 )
             BB = T( I-1, I )
             DD = T( I, I )
-            CALL SLANV2( AA, BB, CC, DD, SR( KWTOP+I-2 ), SI( KWTOP+I-2 ), SR( KWTOP+I-1 ), SI( KWTOP+I-1 ), CS, SN )
+            slanv2(AA, BB, CC, DD, SR( KWTOP+I-2 ), SI( KWTOP+I-2 ), SR( KWTOP+I-1 ), SI( KWTOP+I-1 ), CS, SN );
             I = I - 2
          }
          GO TO 60
@@ -282,23 +282,23 @@
 
             // ==== Reflect spike back into lower triangle ====
 
-            CALL SCOPY( NS, V, LDV, WORK, 1 )
+            scopy(NS, V, LDV, WORK, 1 );
             BETA = WORK( 1 )
-            CALL SLARFG( NS, BETA, WORK( 2 ), 1, TAU )
+            slarfg(NS, BETA, WORK( 2 ), 1, TAU );
             WORK( 1 ) = ONE
 
-            CALL SLASET( 'L', JW-2, JW-2, ZERO, ZERO, T( 3, 1 ), LDT )
+            slaset('L', JW-2, JW-2, ZERO, ZERO, T( 3, 1 ), LDT );
 
-            CALL SLARF( 'L', NS, JW, WORK, 1, TAU, T, LDT, WORK( JW+1 ) )             CALL SLARF( 'R', NS, NS, WORK, 1, TAU, T, LDT, WORK( JW+1 ) )             CALL SLARF( 'R', JW, NS, WORK, 1, TAU, V, LDV, WORK( JW+1 ) )
+            slarf('L', NS, JW, WORK, 1, TAU, T, LDT, WORK( JW+1 ) )             CALL SLARF( 'R', NS, NS, WORK, 1, TAU, T, LDT, WORK( JW+1 ) )             CALL SLARF( 'R', JW, NS, WORK, 1, TAU, V, LDV, WORK( JW+1 ) );
 
-            CALL SGEHRD( JW, 1, NS, T, LDT, WORK, WORK( JW+1 ), LWORK-JW, INFO )
+            sgehrd(JW, 1, NS, T, LDT, WORK, WORK( JW+1 ), LWORK-JW, INFO );
          }
 
          // ==== Copy updated reduced window into place ====
 
          IF( KWTOP.GT.1 ) H( KWTOP, KWTOP-1 ) = S*V( 1, 1 )
-         CALL SLACPY( 'U', JW, JW, T, LDT, H( KWTOP, KWTOP ), LDH )
-         CALL SCOPY( JW-1, T( 2, 1 ), LDT+1, H( KWTOP+1, KWTOP ), LDH+1 )
+         slacpy('U', JW, JW, T, LDT, H( KWTOP, KWTOP ), LDH );
+         scopy(JW-1, T( 2, 1 ), LDT+1, H( KWTOP+1, KWTOP ), LDH+1 );
 
          // ==== Accumulate orthogonal matrix in order update
          // .    H and Z, if requested.  ====
@@ -314,8 +314,8 @@
          }
          DO 70 KROW = LTOP, KWTOP - 1, NV
             KLN = MIN( NV, KWTOP-KROW )
-            CALL SGEMM( 'N', 'N', KLN, JW, JW, ONE, H( KROW, KWTOP ), LDH, V, LDV, ZERO, WV, LDWV )
-            CALL SLACPY( 'A', KLN, JW, WV, LDWV, H( KROW, KWTOP ), LDH )
+            sgemm('N', 'N', KLN, JW, JW, ONE, H( KROW, KWTOP ), LDH, V, LDV, ZERO, WV, LDWV );
+            slacpy('A', KLN, JW, WV, LDWV, H( KROW, KWTOP ), LDH );
    70    CONTINUE
 
          // ==== Update horizontal slab in H ====
@@ -323,7 +323,7 @@
          if ( WANTT ) {
             DO 80 KCOL = KBOT + 1, N, NH
                KLN = MIN( NH, N-KCOL+1 )
-               CALL SGEMM( 'C', 'N', JW, KLN, JW, ONE, V, LDV, H( KWTOP, KCOL ), LDH, ZERO, T, LDT )                CALL SLACPY( 'A', JW, KLN, T, LDT, H( KWTOP, KCOL ), LDH )
+               sgemm('C', 'N', JW, KLN, JW, ONE, V, LDV, H( KWTOP, KCOL ), LDH, ZERO, T, LDT )                CALL SLACPY( 'A', JW, KLN, T, LDT, H( KWTOP, KCOL ), LDH );
    80       CONTINUE
          }
 
@@ -332,7 +332,7 @@
          if ( WANTZ ) {
             DO 90 KROW = ILOZ, IHIZ, NV
                KLN = MIN( NV, IHIZ-KROW+1 )
-               CALL SGEMM( 'N', 'N', KLN, JW, JW, ONE, Z( KROW, KWTOP ), LDZ, V, LDV, ZERO, WV, LDWV )                CALL SLACPY( 'A', KLN, JW, WV, LDWV, Z( KROW, KWTOP ), LDZ )
+               sgemm('N', 'N', KLN, JW, JW, ONE, Z( KROW, KWTOP ), LDZ, V, LDV, ZERO, WV, LDWV )                CALL SLACPY( 'A', KLN, JW, WV, LDWV, Z( KROW, KWTOP ), LDZ );
    90       CONTINUE
          }
       }

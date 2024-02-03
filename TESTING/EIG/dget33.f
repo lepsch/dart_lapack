@@ -81,7 +81,7 @@
                               Q( 2, 1 ) = ZERO
                               Q( 2, 2 ) = ONE
 
-                              CALL DLANV2( T( 1, 1 ), T( 1, 2 ), T( 2, 1 ), T( 2, 2 ), WR1, WI1, WR2, WI2, CS, SN )
+                              dlanv2(T( 1, 1 ), T( 1, 2 ), T( 2, 1 ), T( 2, 2 ), WR1, WI1, WR2, WI2, CS, SN );
                               DO 10 J1 = 1, 2
                                  RES = Q( J1, 1 )*CS + Q( J1, 2 )*SN
                                  Q( J1, 2 ) = -Q( J1, 1 )*SN + Q( J1, 2 )*CS

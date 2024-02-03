@@ -38,7 +38,7 @@
       // .. Executable Statements ..
 
       IF( N.LE.0 ) RETURN
-      CALL SLASET( 'Full', N, N, ZERO, ZERO, A, LDA )
+      slaset('Full', N, N, ZERO, ZERO, A, LDA );
 
       // Insure a correct ISEED
 

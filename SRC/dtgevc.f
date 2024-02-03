@@ -89,7 +89,7 @@
          INFO = -8
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'DTGEVC', -INFO )
+         xerbla('DTGEVC', -INFO );
          RETURN
       }
 
@@ -141,7 +141,7 @@
          INFO = -13
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'DTGEVC', -INFO )
+         xerbla('DTGEVC', -INFO );
          RETURN
       }
 
@@ -297,7 +297,7 @@
 
                // Complex eigenvalue
 
-               CALL DLAG2( S( JE, JE ), LDS, P( JE, JE ), LDP, SAFMIN*SAFETY, ACOEF, TEMP, BCOEFR, TEMP2, BCOEFI )
+               dlag2(S( JE, JE ), LDS, P( JE, JE ), LDP, SAFMIN*SAFETY, ACOEF, TEMP, BCOEFR, TEMP2, BCOEFI );
                BCOEFI = -BCOEFI
                if ( BCOEFI.EQ.ZERO ) {
                   INFO = JE
@@ -416,7 +416,7 @@
                // Solve  ( a A - b B )  y = SUM(,)
                // with scaling and perturbation of the denominator
 
-               CALL DLALN2( .TRUE., NA, NW, DMIN, ACOEF, S( J, J ), LDS, BDIAG( 1 ), BDIAG( 2 ), SUM, 2, BCOEFR, BCOEFI, WORK( 2*N+J ), N, SCALE, TEMP, IINFO )
+               dlaln2(.TRUE., NA, NW, DMIN, ACOEF, S( J, J ), LDS, BDIAG( 1 ), BDIAG( 2 ), SUM, 2, BCOEFR, BCOEFI, WORK( 2*N+J ), N, SCALE, TEMP, IINFO );
                if ( SCALE.LT.ONE ) {
                   DO 150 JW = 0, NW - 1
                      DO 140 JR = JE, J - 1
@@ -434,12 +434,12 @@
             IEIG = IEIG + 1
             if ( ILBACK ) {
                DO 170 JW = 0, NW - 1
-                  CALL DGEMV( 'N', N, N+1-JE, ONE, VL( 1, JE ), LDVL, WORK( ( JW+2 )*N+JE ), 1, ZERO, WORK( ( JW+4 )*N+1 ), 1 )
+                  dgemv('N', N, N+1-JE, ONE, VL( 1, JE ), LDVL, WORK( ( JW+2 )*N+JE ), 1, ZERO, WORK( ( JW+4 )*N+1 ), 1 );
   170          CONTINUE
-               CALL DLACPY( ' ', N, NW, WORK( 4*N+1 ), N, VL( 1, JE ), LDVL )
+               dlacpy(' ', N, NW, WORK( 4*N+1 ), N, VL( 1, JE ), LDVL );
                IBEG = 1
             } else {
-               CALL DLACPY( ' ', N, NW, WORK( 2*N+1 ), N, VL( 1, IEIG ), LDVL )
+               dlacpy(' ', N, NW, WORK( 2*N+1 ), N, VL( 1, IEIG ), LDVL );
                IBEG = JE
             }
 
@@ -584,7 +584,7 @@
 
                // Complex eigenvalue
 
-               CALL DLAG2( S( JE-1, JE-1 ), LDS, P( JE-1, JE-1 ), LDP, SAFMIN*SAFETY, ACOEF, TEMP, BCOEFR, TEMP2, BCOEFI )
+               dlag2(S( JE-1, JE-1 ), LDS, P( JE-1, JE-1 ), LDP, SAFMIN*SAFETY, ACOEF, TEMP, BCOEFR, TEMP2, BCOEFI );
                if ( BCOEFI.EQ.ZERO ) {
                   INFO = JE - 1
                   RETURN
@@ -666,7 +666,7 @@
 
                // Compute x(j) (and x(j+1), if 2-by-2 block)
 
-               CALL DLALN2( .FALSE., NA, NW, DMIN, ACOEF, S( J, J ), LDS, BDIAG( 1 ), BDIAG( 2 ), WORK( 2*N+J ), N, BCOEFR, BCOEFI, SUM, 2, SCALE, TEMP, IINFO )
+               dlaln2(.FALSE., NA, NW, DMIN, ACOEF, S( J, J ), LDS, BDIAG( 1 ), BDIAG( 2 ), WORK( 2*N+J ), N, BCOEFR, BCOEFI, SUM, 2, SCALE, TEMP, IINFO );
                if ( SCALE.LT.ONE ) {
 
                   DO 290 JW = 0, NW - 1

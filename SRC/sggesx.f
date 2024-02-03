@@ -146,7 +146,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'SGGESX', -INFO )
+         xerbla('SGGESX', -INFO );
          RETURN
       } else if (LQUERY) {
          RETURN
@@ -199,7 +199,7 @@
       ILEFT = 1
       IRIGHT = N + 1
       IWRK = IRIGHT + N
-      CALL SGGBAL( 'P', N, A, LDA, B, LDB, ILO, IHI, WORK( ILEFT ), WORK( IRIGHT ), WORK( IWRK ), IERR )
+      sggbal('P', N, A, LDA, B, LDB, ILO, IHI, WORK( ILEFT ), WORK( IRIGHT ), WORK( IWRK ), IERR );
 
       // Reduce B to triangular form (QR decomposition of B)
       // (Workspace: need N, prefer N*NB)
@@ -208,22 +208,22 @@
       ICOLS = N + 1 - ILO
       ITAU = IWRK
       IWRK = ITAU + IROWS
-      CALL SGEQRF( IROWS, ICOLS, B( ILO, ILO ), LDB, WORK( ITAU ), WORK( IWRK ), LWORK+1-IWRK, IERR )
+      sgeqrf(IROWS, ICOLS, B( ILO, ILO ), LDB, WORK( ITAU ), WORK( IWRK ), LWORK+1-IWRK, IERR );
 
       // Apply the orthogonal transformation to matrix A
       // (Workspace: need N, prefer N*NB)
 
-      CALL SORMQR( 'L', 'T', IROWS, ICOLS, IROWS, B( ILO, ILO ), LDB, WORK( ITAU ), A( ILO, ILO ), LDA, WORK( IWRK ), LWORK+1-IWRK, IERR )
+      sormqr('L', 'T', IROWS, ICOLS, IROWS, B( ILO, ILO ), LDB, WORK( ITAU ), A( ILO, ILO ), LDA, WORK( IWRK ), LWORK+1-IWRK, IERR );
 
       // Initialize VSL
       // (Workspace: need N, prefer N*NB)
 
       if ( ILVSL ) {
-         CALL SLASET( 'Full', N, N, ZERO, ONE, VSL, LDVSL )
+         slaset('Full', N, N, ZERO, ONE, VSL, LDVSL );
          if ( IROWS.GT.1 ) {
-            CALL SLACPY( 'L', IROWS-1, IROWS-1, B( ILO+1, ILO ), LDB, VSL( ILO+1, ILO ), LDVSL )
+            slacpy('L', IROWS-1, IROWS-1, B( ILO+1, ILO ), LDB, VSL( ILO+1, ILO ), LDVSL );
          }
-         CALL SORGQR( IROWS, IROWS, IROWS, VSL( ILO, ILO ), LDVSL, WORK( ITAU ), WORK( IWRK ), LWORK+1-IWRK, IERR )
+         sorgqr(IROWS, IROWS, IROWS, VSL( ILO, ILO ), LDVSL, WORK( ITAU ), WORK( IWRK ), LWORK+1-IWRK, IERR );
       }
 
       // Initialize VSR
@@ -233,7 +233,7 @@
       // Reduce to generalized Hessenberg form
       // (Workspace: none needed)
 
-      CALL SGGHRD( JOBVSL, JOBVSR, N, ILO, IHI, A, LDA, B, LDB, VSL, LDVSL, VSR, LDVSR, IERR )
+      sgghrd(JOBVSL, JOBVSR, N, ILO, IHI, A, LDA, B, LDB, VSL, LDVSL, VSR, LDVSR, IERR );
 
       SDIM = 0
 
@@ -241,7 +241,7 @@
       // (Workspace: need N)
 
       IWRK = ITAU
-      CALL SHGEQZ( 'S', JOBVSL, JOBVSR, N, ILO, IHI, A, LDA, B, LDB, ALPHAR, ALPHAI, BETA, VSL, LDVSL, VSR, LDVSR, WORK( IWRK ), LWORK+1-IWRK, IERR )
+      shgeqz('S', JOBVSL, JOBVSR, N, ILO, IHI, A, LDA, B, LDB, ALPHAR, ALPHAI, BETA, VSL, LDVSL, VSR, LDVSR, WORK( IWRK ), LWORK+1-IWRK, IERR );
       if ( IERR.NE.0 ) {
          if ( IERR.GT.0 .AND. IERR.LE.N ) {
             INFO = IERR
@@ -263,7 +263,7 @@
          // Undo scaling on eigenvalues before SELCTGing
 
          if ( ILASCL ) {
-            CALL SLASCL( 'G', 0, 0, ANRMTO, ANRM, N, 1, ALPHAR, N, IERR )             CALL SLASCL( 'G', 0, 0, ANRMTO, ANRM, N, 1, ALPHAI, N, IERR )
+            slascl('G', 0, 0, ANRMTO, ANRM, N, 1, ALPHAR, N, IERR )             CALL SLASCL( 'G', 0, 0, ANRMTO, ANRM, N, 1, ALPHAI, N, IERR );
          }
          IF( ILBSCL ) CALL SLASCL( 'G', 0, 0, BNRMTO, BNRM, N, 1, BETA, N, IERR )
 
@@ -276,7 +276,7 @@
          // Reorder eigenvalues, transform Generalized Schur vectors, and
          // compute reciprocal condition numbers
 
-         CALL STGSEN( IJOB, ILVSL, ILVSR, BWORK, N, A, LDA, B, LDB, ALPHAR, ALPHAI, BETA, VSL, LDVSL, VSR, LDVSR, SDIM, PL, PR, DIF, WORK( IWRK ), LWORK-IWRK+1, IWORK, LIWORK, IERR )
+         stgsen(IJOB, ILVSL, ILVSR, BWORK, N, A, LDA, B, LDB, ALPHAR, ALPHAI, BETA, VSL, LDVSL, VSR, LDVSR, SDIM, PL, PR, DIF, WORK( IWRK ), LWORK-IWRK+1, IWORK, LIWORK, IERR );
 
          IF( IJOB.GE.1 ) MAXWRK = MAX( MAXWRK, 2*SDIM*( N-SDIM ) )
          if ( IERR.EQ.-22 ) {
@@ -343,14 +343,14 @@
       // Undo scaling
 
       if ( ILASCL ) {
-         CALL SLASCL( 'H', 0, 0, ANRMTO, ANRM, N, N, A, LDA, IERR )
-         CALL SLASCL( 'G', 0, 0, ANRMTO, ANRM, N, 1, ALPHAR, N, IERR )
-         CALL SLASCL( 'G', 0, 0, ANRMTO, ANRM, N, 1, ALPHAI, N, IERR )
+         slascl('H', 0, 0, ANRMTO, ANRM, N, N, A, LDA, IERR );
+         slascl('G', 0, 0, ANRMTO, ANRM, N, 1, ALPHAR, N, IERR );
+         slascl('G', 0, 0, ANRMTO, ANRM, N, 1, ALPHAI, N, IERR );
       }
 
       if ( ILBSCL ) {
-         CALL SLASCL( 'U', 0, 0, BNRMTO, BNRM, N, N, B, LDB, IERR )
-         CALL SLASCL( 'G', 0, 0, BNRMTO, BNRM, N, 1, BETA, N, IERR )
+         slascl('U', 0, 0, BNRMTO, BNRM, N, N, B, LDB, IERR );
+         slascl('G', 0, 0, BNRMTO, BNRM, N, 1, BETA, N, IERR );
       }
 
       if ( WANTST ) {

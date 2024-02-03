@@ -51,15 +51,15 @@
       // Copy A to WORK
 
       LDWORK = MAX( 1, N )
-      CALL SLACPY( ' ', N, N, A, LDA, WORK, LDWORK )
+      slacpy(' ', N, N, A, LDA, WORK, LDWORK );
 
       // Compute Q*H
 
-      CALL SGEMM( 'No transpose', 'No transpose', N, N, N, ONE, Q, LDQ, H, LDH, ZERO, WORK( LDWORK*N+1 ), LDWORK )
+      sgemm('No transpose', 'No transpose', N, N, N, ONE, Q, LDQ, H, LDH, ZERO, WORK( LDWORK*N+1 ), LDWORK );
 
       // Compute A - Q*H*Q'
 
-      CALL SGEMM( 'No transpose', 'Transpose', N, N, N, -ONE, WORK( LDWORK*N+1 ), LDWORK, Q, LDQ, ONE, WORK, LDWORK )
+      sgemm('No transpose', 'Transpose', N, N, N, -ONE, WORK( LDWORK*N+1 ), LDWORK, Q, LDQ, ONE, WORK, LDWORK );
 
       ANORM = MAX( SLANGE( '1', N, N, A, LDA, WORK( LDWORK*N+1 ) ), UNFL )
       WNORM = SLANGE( '1', N, N, WORK, LDWORK, WORK( LDWORK*N+1 ) )
@@ -70,7 +70,7 @@
 
       // Test 2:  Compute norm( I - Q'*Q ) / ( N * EPS )
 
-      CALL SORT01( 'Columns', N, N, Q, LDQ, WORK, LWORK, RESULT( 2 ) )
+      sort01('Columns', N, N, Q, LDQ, WORK, LWORK, RESULT( 2 ) );
 
       RETURN
 

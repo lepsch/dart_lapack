@@ -59,7 +59,7 @@
          INFO = -10
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'ZHETRS_AA', -INFO )
+         xerbla('ZHETRS_AA', -INFO );
          RETURN
       } else if ( LQUERY ) {
          WORK( 1 ) = LWKMIN
@@ -87,20 +87,20 @@
 
             // Compute U**H \ B -> B    [ (U**H \P**T * B) ]
 
-            CALL ZTRSM( 'L', 'U', 'C', 'U', N-1, NRHS, ONE, A( 1, 2 ), LDA, B( 2, 1 ), LDB )
+            ztrsm('L', 'U', 'C', 'U', N-1, NRHS, ONE, A( 1, 2 ), LDA, B( 2, 1 ), LDB );
          }
 
          // 2) Solve with triangular matrix T
 
          // Compute T \ B -> B   [ T \ (U**H \P**T * B) ]
 
-         CALL ZLACPY( 'F', 1, N, A(1, 1), LDA+1, WORK(N), 1 )
+         zlacpy('F', 1, N, A(1, 1), LDA+1, WORK(N), 1 );
          if ( N.GT.1 ) {
-             CALL ZLACPY( 'F', 1, N-1, A( 1, 2 ), LDA+1, WORK( 2*N ), 1)
-             CALL ZLACPY( 'F', 1, N-1, A( 1, 2 ), LDA+1, WORK( 1 ), 1 )
-             CALL ZLACGV( N-1, WORK( 1 ), 1 )
+             zlacpy('F', 1, N-1, A( 1, 2 ), LDA+1, WORK( 2*N ), 1);
+             zlacpy('F', 1, N-1, A( 1, 2 ), LDA+1, WORK( 1 ), 1 );
+             zlacgv(N-1, WORK( 1 ), 1 );
          }
-         CALL ZGTSV( N, NRHS, WORK(1), WORK(N), WORK(2*N), B, LDB, INFO )
+         zgtsv(N, NRHS, WORK(1), WORK(N), WORK(2*N), B, LDB, INFO );
 
          // 3) Backward substitution with U
 
@@ -108,7 +108,7 @@
 
             // Compute U \ B -> B   [ U \ (T \ (U**H \P**T * B) ) ]
 
-            CALL ZTRSM( 'L', 'U', 'N', 'U', N-1, NRHS, ONE, A( 1, 2 ), LDA, B(2, 1), LDB)
+            ztrsm('L', 'U', 'N', 'U', N-1, NRHS, ONE, A( 1, 2 ), LDA, B(2, 1), LDB);
 
             // Pivot, P * B  [ P * (U**H \ (T \ (U \P**T * B) )) ]
 
@@ -135,20 +135,20 @@
 
             // Compute L \ B -> B    [ (L \P**T * B) ]
 
-            CALL ZTRSM( 'L', 'L', 'N', 'U', N-1, NRHS, ONE, A( 2, 1 ), LDA, B(2, 1), LDB)
+            ztrsm('L', 'L', 'N', 'U', N-1, NRHS, ONE, A( 2, 1 ), LDA, B(2, 1), LDB);
          }
 
          // 2) Solve with triangular matrix T
 
          // Compute T \ B -> B   [ T \ (L \P**T * B) ]
 
-         CALL ZLACPY( 'F', 1, N, A(1, 1), LDA+1, WORK(N), 1)
+         zlacpy('F', 1, N, A(1, 1), LDA+1, WORK(N), 1);
          if ( N.GT.1 ) {
-             CALL ZLACPY( 'F', 1, N-1, A( 2, 1 ), LDA+1, WORK( 1 ), 1)
-             CALL ZLACPY( 'F', 1, N-1, A( 2, 1 ), LDA+1, WORK( 2*N ), 1)
-             CALL ZLACGV( N-1, WORK( 2*N ), 1 )
+             zlacpy('F', 1, N-1, A( 2, 1 ), LDA+1, WORK( 1 ), 1);
+             zlacpy('F', 1, N-1, A( 2, 1 ), LDA+1, WORK( 2*N ), 1);
+             zlacgv(N-1, WORK( 2*N ), 1 );
          }
-         CALL ZGTSV(N, NRHS, WORK(1), WORK(N), WORK(2*N), B, LDB, INFO)
+         zgtsv(N, NRHS, WORK(1), WORK(N), WORK(2*N), B, LDB, INFO);
 
          // 3) Backward substitution with L**H
 
@@ -156,7 +156,7 @@
 
             // Compute L**H \ B -> B   [ L**H \ (T \ (L \P**T * B) ) ]
 
-            CALL ZTRSM( 'L', 'L', 'C', 'U', N-1, NRHS, ONE, A( 2, 1 ), LDA, B( 2, 1 ), LDB)
+            ztrsm('L', 'L', 'C', 'U', N-1, NRHS, ONE, A( 2, 1 ), LDA, B( 2, 1 ), LDB);
 
             // Pivot, P * B  [ P * (L**H \ (T \ (L \P**T * B) )) ]
 

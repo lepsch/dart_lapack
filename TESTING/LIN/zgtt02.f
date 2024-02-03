@@ -60,7 +60,7 @@
 
       // Compute B - op(A)*X and store in B.
 
-      CALL ZLAGTM( TRANS, N, NRHS, -ONE, DL, D, DU, X, LDX, ONE, B, LDB )
+      zlagtm(TRANS, N, NRHS, -ONE, DL, D, DU, X, LDX, ONE, B, LDB );
 
       DO 10 J = 1, NRHS
          BNORM = DZASUM( N, B( 1, J ), 1 )

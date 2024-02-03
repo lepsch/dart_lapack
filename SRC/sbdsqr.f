@@ -72,7 +72,7 @@
          INFO = -13
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'SBDSQR', -INFO )
+         xerbla('SBDSQR', -INFO );
          RETURN
       }
       IF( N.EQ.0 ) RETURN       IF( N.EQ.1 ) GO TO 160
@@ -84,7 +84,7 @@
       // If no singular vectors desired, use qd algorithm
 
       if ( .NOT.ROTATE ) {
-         CALL SLASQ1( N, D, E, WORK, INFO )
+         slasq1(N, D, E, WORK, INFO );
 
       // If INFO equals 2, dqds didn't finish, try to finish
 
@@ -107,7 +107,7 @@
 
       if ( LOWER ) {
          DO 10 I = 1, N - 1
-            CALL SLARTG( D( I ), E( I ), CS, SN, R )
+            slartg(D( I ), E( I ), CS, SN, R );
             D( I ) = R
             E( I ) = SN*D( I+1 )
             D( I+1 ) = CS*D( I+1 )
@@ -221,7 +221,7 @@
 
          // 2 by 2 block, handle separately
 
-         CALL SLASV2( D( M-1 ), E( M-1 ), D( M ), SIGMN, SIGMX, SINR, COSR, SINL, COSL )
+         slasv2(D( M-1 ), E( M-1 ), D( M ), SIGMN, SIGMX, SINR, COSR, SINL, COSL );
          D( M-1 ) = SIGMX
          E( M-1 ) = ZERO
          D( M ) = SIGMN
@@ -323,10 +323,10 @@
 
          if ( IDIR.EQ.1 ) {
             SLL = ABS( D( LL ) )
-            CALL SLAS2( D( M-1 ), E( M-1 ), D( M ), SHIFT, R )
+            slas2(D( M-1 ), E( M-1 ), D( M ), SHIFT, R );
          } else {
             SLL = ABS( D( M ) )
-            CALL SLAS2( D( LL ), E( LL ), D( LL+1 ), SHIFT, R )
+            slas2(D( LL ), E( LL ), D( LL+1 ), SHIFT, R );
          }
 
          // Test if shift negligible, and if so set to zero
@@ -351,9 +351,9 @@
             CS = ONE
             OLDCS = ONE
             DO 120 I = LL, M - 1
-               CALL SLARTG( D( I )*CS, E( I ), CS, SN, R )
+               slartg(D( I )*CS, E( I ), CS, SN, R );
                IF( I.GT.LL ) E( I-1 ) = OLDSN*R
-               CALL SLARTG( OLDCS*R, D( I+1 )*SN, OLDCS, OLDSN, D( I ) )
+               slartg(OLDCS*R, D( I+1 )*SN, OLDCS, OLDSN, D( I ) );
                WORK( I-LL+1 ) = CS
                WORK( I-LL+1+NM1 ) = SN
                WORK( I-LL+1+NM12 ) = OLDCS
@@ -379,9 +379,9 @@
             CS = ONE
             OLDCS = ONE
             DO 130 I = M, LL + 1, -1
-               CALL SLARTG( D( I )*CS, E( I-1 ), CS, SN, R )
+               slartg(D( I )*CS, E( I-1 ), CS, SN, R );
                IF( I.LT.M ) E( I ) = OLDSN*R
-               CALL SLARTG( OLDCS*R, D( I-1 )*SN, OLDCS, OLDSN, D( I ) )
+               slartg(OLDCS*R, D( I-1 )*SN, OLDCS, OLDSN, D( I ) );
                WORK( I-LL ) = CS
                WORK( I-LL+NM1 ) = -SN
                WORK( I-LL+NM12 ) = OLDCS
@@ -411,13 +411,13 @@
             F = ( ABS( D( LL ) )-SHIFT )* ( SIGN( ONE, D( LL ) )+SHIFT / D( LL ) )
             G = E( LL )
             DO 140 I = LL, M - 1
-               CALL SLARTG( F, G, COSR, SINR, R )
+               slartg(F, G, COSR, SINR, R );
                IF( I.GT.LL ) E( I-1 ) = R
                F = COSR*D( I ) + SINR*E( I )
                E( I ) = COSR*E( I ) - SINR*D( I )
                G = SINR*D( I+1 )
                D( I+1 ) = COSR*D( I+1 )
-               CALL SLARTG( F, G, COSL, SINL, R )
+               slartg(F, G, COSL, SINL, R );
                D( I ) = R
                F = COSL*E( I ) + SINL*D( I+1 )
                D( I+1 ) = COSL*D( I+1 ) - SINL*E( I )
@@ -448,13 +448,13 @@
             F = ( ABS( D( M ) )-SHIFT )*( SIGN( ONE, D( M ) )+SHIFT / D( M ) )
             G = E( M-1 )
             DO 150 I = M, LL + 1, -1
-               CALL SLARTG( F, G, COSR, SINR, R )
+               slartg(F, G, COSR, SINR, R );
                IF( I.LT.M ) E( I ) = R
                F = COSR*D( I ) + SINR*E( I-1 )
                E( I-1 ) = COSR*E( I-1 ) - SINR*D( I )
                G = SINR*D( I-1 )
                D( I-1 ) = COSR*D( I-1 )
-               CALL SLARTG( F, G, COSL, SINL, R )
+               slartg(F, G, COSL, SINL, R );
                D( I ) = R
                F = COSL*E( I-1 ) + SINL*D( I-1 )
                D( I-1 ) = COSL*D( I-1 ) - SINL*E( I-1 )

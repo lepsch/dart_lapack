@@ -49,7 +49,7 @@
           INFO = 9
       }
       if (INFO.NE.0) {
-          CALL XERBLA('ZHER2 ',INFO)
+          xerbla('ZHER2 ',INFO);
           RETURN
       }
 

@@ -32,7 +32,7 @@
          SRNAME( I:I ) = SRNAME_ARRAY( I )
       END DO
 
-      CALL XERBLA( SRNAME, INFO )
+      xerbla(SRNAME, INFO );
 
       RETURN
 

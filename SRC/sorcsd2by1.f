@@ -108,84 +108,84 @@
          LORGLQMIN = 1
          LORGLQOPT = 1
          if ( R .EQ. Q ) {
-            CALL SORBDB1( M, P, Q, X11, LDX11, X21, LDX21, THETA, DUM1, DUM1, DUM1, DUM1, WORK, -1, CHILDINFO )
+            sorbdb1(M, P, Q, X11, LDX11, X21, LDX21, THETA, DUM1, DUM1, DUM1, DUM1, WORK, -1, CHILDINFO );
             LORBDB = INT( WORK(1) )
             if ( WANTU1 .AND. P .GT. 0 ) {
-               CALL SORGQR( P, P, Q, U1, LDU1, DUM1, WORK(1), -1, CHILDINFO )
+               sorgqr(P, P, Q, U1, LDU1, DUM1, WORK(1), -1, CHILDINFO );
                LORGQRMIN = MAX( LORGQRMIN, P )
                LORGQROPT = MAX( LORGQROPT, INT( WORK(1) ) )
             ENDIF
             if ( WANTU2 .AND. M-P .GT. 0 ) {
-               CALL SORGQR( M-P, M-P, Q, U2, LDU2, DUM1, WORK(1), -1, CHILDINFO )
+               sorgqr(M-P, M-P, Q, U2, LDU2, DUM1, WORK(1), -1, CHILDINFO );
                LORGQRMIN = MAX( LORGQRMIN, M-P )
                LORGQROPT = MAX( LORGQROPT, INT( WORK(1) ) )
             }
             if ( WANTV1T .AND. Q .GT. 0 ) {
-               CALL SORGLQ( Q-1, Q-1, Q-1, V1T, LDV1T, DUM1, WORK(1), -1, CHILDINFO )
+               sorglq(Q-1, Q-1, Q-1, V1T, LDV1T, DUM1, WORK(1), -1, CHILDINFO );
                LORGLQMIN = MAX( LORGLQMIN, Q-1 )
                LORGLQOPT = MAX( LORGLQOPT, INT( WORK(1) ) )
             }
-            CALL SBBCSD( JOBU1, JOBU2, JOBV1T, 'N', 'N', M, P, Q, THETA, DUM1, U1, LDU1, U2, LDU2, V1T, LDV1T, DUM2, 1, DUM1, DUM1, DUM1, DUM1, DUM1, DUM1, DUM1, DUM1, WORK(1), -1, CHILDINFO )
+            sbbcsd(JOBU1, JOBU2, JOBV1T, 'N', 'N', M, P, Q, THETA, DUM1, U1, LDU1, U2, LDU2, V1T, LDV1T, DUM2, 1, DUM1, DUM1, DUM1, DUM1, DUM1, DUM1, DUM1, DUM1, WORK(1), -1, CHILDINFO );
             LBBCSD = INT( WORK(1) )
          } else if ( R .EQ. P ) {
-            CALL SORBDB2( M, P, Q, X11, LDX11, X21, LDX21, THETA, DUM1, DUM1, DUM1, DUM1, WORK(1), -1, CHILDINFO )
+            sorbdb2(M, P, Q, X11, LDX11, X21, LDX21, THETA, DUM1, DUM1, DUM1, DUM1, WORK(1), -1, CHILDINFO );
             LORBDB = INT( WORK(1) )
             if ( WANTU1 .AND. P .GT. 0 ) {
-               CALL SORGQR( P-1, P-1, P-1, U1(2,2), LDU1, DUM1, WORK(1), -1, CHILDINFO )
+               sorgqr(P-1, P-1, P-1, U1(2,2), LDU1, DUM1, WORK(1), -1, CHILDINFO );
                LORGQRMIN = MAX( LORGQRMIN, P-1 )
                LORGQROPT = MAX( LORGQROPT, INT( WORK(1) ) )
             }
             if ( WANTU2 .AND. M-P .GT. 0 ) {
-               CALL SORGQR( M-P, M-P, Q, U2, LDU2, DUM1, WORK(1), -1, CHILDINFO )
+               sorgqr(M-P, M-P, Q, U2, LDU2, DUM1, WORK(1), -1, CHILDINFO );
                LORGQRMIN = MAX( LORGQRMIN, M-P )
                LORGQROPT = MAX( LORGQROPT, INT( WORK(1) ) )
             }
             if ( WANTV1T .AND. Q .GT. 0 ) {
-               CALL SORGLQ( Q, Q, R, V1T, LDV1T, DUM1, WORK(1), -1, CHILDINFO )
+               sorglq(Q, Q, R, V1T, LDV1T, DUM1, WORK(1), -1, CHILDINFO );
                LORGLQMIN = MAX( LORGLQMIN, Q )
                LORGLQOPT = MAX( LORGLQOPT, INT( WORK(1) ) )
             }
-            CALL SBBCSD( JOBV1T, 'N', JOBU1, JOBU2, 'T', M, Q, P, THETA, DUM1, V1T, LDV1T, DUM2, 1, U1, LDU1, U2, LDU2, DUM1, DUM1, DUM1, DUM1, DUM1, DUM1, DUM1, DUM1, WORK(1), -1, CHILDINFO )
+            sbbcsd(JOBV1T, 'N', JOBU1, JOBU2, 'T', M, Q, P, THETA, DUM1, V1T, LDV1T, DUM2, 1, U1, LDU1, U2, LDU2, DUM1, DUM1, DUM1, DUM1, DUM1, DUM1, DUM1, DUM1, WORK(1), -1, CHILDINFO );
             LBBCSD = INT( WORK(1) )
          } else if ( R .EQ. M-P ) {
-            CALL SORBDB3( M, P, Q, X11, LDX11, X21, LDX21, THETA, DUM1, DUM1, DUM1, DUM1, WORK(1), -1, CHILDINFO )
+            sorbdb3(M, P, Q, X11, LDX11, X21, LDX21, THETA, DUM1, DUM1, DUM1, DUM1, WORK(1), -1, CHILDINFO );
             LORBDB = INT( WORK(1) )
             if ( WANTU1 .AND. P .GT. 0 ) {
-               CALL SORGQR( P, P, Q, U1, LDU1, DUM1, WORK(1), -1, CHILDINFO )
+               sorgqr(P, P, Q, U1, LDU1, DUM1, WORK(1), -1, CHILDINFO );
                LORGQRMIN = MAX( LORGQRMIN, P )
                LORGQROPT = MAX( LORGQROPT, INT( WORK(1) ) )
             }
             if ( WANTU2 .AND. M-P .GT. 0 ) {
-               CALL SORGQR( M-P-1, M-P-1, M-P-1, U2(2,2), LDU2, DUM1, WORK(1), -1, CHILDINFO )
+               sorgqr(M-P-1, M-P-1, M-P-1, U2(2,2), LDU2, DUM1, WORK(1), -1, CHILDINFO );
                LORGQRMIN = MAX( LORGQRMIN, M-P-1 )
                LORGQROPT = MAX( LORGQROPT, INT( WORK(1) ) )
             }
             if ( WANTV1T .AND. Q .GT. 0 ) {
-               CALL SORGLQ( Q, Q, R, V1T, LDV1T, DUM1, WORK(1), -1, CHILDINFO )
+               sorglq(Q, Q, R, V1T, LDV1T, DUM1, WORK(1), -1, CHILDINFO );
                LORGLQMIN = MAX( LORGLQMIN, Q )
                LORGLQOPT = MAX( LORGLQOPT, INT( WORK(1) ) )
             }
-            CALL SBBCSD( 'N', JOBV1T, JOBU2, JOBU1, 'T', M, M-Q, M-P, THETA, DUM1, DUM2, 1, V1T, LDV1T, U2, LDU2, U1, LDU1, DUM1, DUM1, DUM1, DUM1, DUM1, DUM1, DUM1, DUM1, WORK(1), -1, CHILDINFO )
+            sbbcsd('N', JOBV1T, JOBU2, JOBU1, 'T', M, M-Q, M-P, THETA, DUM1, DUM2, 1, V1T, LDV1T, U2, LDU2, U1, LDU1, DUM1, DUM1, DUM1, DUM1, DUM1, DUM1, DUM1, DUM1, WORK(1), -1, CHILDINFO );
             LBBCSD = INT( WORK(1) )
          } else {
-            CALL SORBDB4( M, P, Q, X11, LDX11, X21, LDX21, THETA, DUM1, DUM1, DUM1, DUM1, DUM1, WORK(1), -1, CHILDINFO )
+            sorbdb4(M, P, Q, X11, LDX11, X21, LDX21, THETA, DUM1, DUM1, DUM1, DUM1, DUM1, WORK(1), -1, CHILDINFO );
             LORBDB = M + INT( WORK(1) )
             if ( WANTU1 .AND. P .GT. 0 ) {
-               CALL SORGQR( P, P, M-Q, U1, LDU1, DUM1, WORK(1), -1, CHILDINFO )
+               sorgqr(P, P, M-Q, U1, LDU1, DUM1, WORK(1), -1, CHILDINFO );
                LORGQRMIN = MAX( LORGQRMIN, P )
                LORGQROPT = MAX( LORGQROPT, INT( WORK(1) ) )
             }
             if ( WANTU2 .AND. M-P .GT. 0 ) {
-               CALL SORGQR( M-P, M-P, M-Q, U2, LDU2, DUM1, WORK(1), -1, CHILDINFO )
+               sorgqr(M-P, M-P, M-Q, U2, LDU2, DUM1, WORK(1), -1, CHILDINFO );
                LORGQRMIN = MAX( LORGQRMIN, M-P )
                LORGQROPT = MAX( LORGQROPT, INT( WORK(1) ) )
             }
             if ( WANTV1T .AND. Q .GT. 0 ) {
-               CALL SORGLQ( Q, Q, Q, V1T, LDV1T, DUM1, WORK(1), -1, CHILDINFO )
+               sorglq(Q, Q, Q, V1T, LDV1T, DUM1, WORK(1), -1, CHILDINFO );
                LORGLQMIN = MAX( LORGLQMIN, Q )
                LORGLQOPT = MAX( LORGLQOPT, INT( WORK(1) ) )
             }
-            CALL SBBCSD( JOBU2, JOBU1, 'N', JOBV1T, 'N', M, M-P, M-Q, THETA, DUM1, U2, LDU2, U1, LDU1, DUM2, 1, V1T, LDV1T, DUM1, DUM1, DUM1, DUM1, DUM1, DUM1, DUM1, DUM1, WORK(1), -1, CHILDINFO )
+            sbbcsd(JOBU2, JOBU1, 'N', JOBV1T, 'N', M, M-P, M-Q, THETA, DUM1, U2, LDU2, U1, LDU1, DUM2, 1, V1T, LDV1T, DUM1, DUM1, DUM1, DUM1, DUM1, DUM1, DUM1, DUM1, WORK(1), -1, CHILDINFO );
             LBBCSD = INT( WORK(1) )
          }
          LWORKMIN = MAX( IORBDB+LORBDB-1, IORGQR+LORGQRMIN-1, IORGLQ+LORGLQMIN-1, IBBCSD+LBBCSD-1 )          LWORKOPT = MAX( IORBDB+LORBDB-1, IORGQR+LORGQROPT-1, IORGLQ+LORGLQOPT-1, IBBCSD+LBBCSD-1 )
@@ -195,7 +195,7 @@
          }
       }
       if ( INFO .NE. 0 ) {
-         CALL XERBLA( 'SORCSD2BY1', -INFO )
+         xerbla('SORCSD2BY1', -INFO );
          RETURN
       } else if ( LQUERY ) {
          RETURN
@@ -212,17 +212,17 @@
 
          // Simultaneously bidiagonalize X11 and X21
 
-         CALL SORBDB1( M, P, Q, X11, LDX11, X21, LDX21, THETA, WORK(IPHI), WORK(ITAUP1), WORK(ITAUP2), WORK(ITAUQ1), WORK(IORBDB), LORBDB, CHILDINFO )
+         sorbdb1(M, P, Q, X11, LDX11, X21, LDX21, THETA, WORK(IPHI), WORK(ITAUP1), WORK(ITAUP2), WORK(ITAUQ1), WORK(IORBDB), LORBDB, CHILDINFO );
 
          // Accumulate Householder reflectors
 
          if ( WANTU1 .AND. P .GT. 0 ) {
-            CALL SLACPY( 'L', P, Q, X11, LDX11, U1, LDU1 )
-            CALL SORGQR( P, P, Q, U1, LDU1, WORK(ITAUP1), WORK(IORGQR), LORGQR, CHILDINFO )
+            slacpy('L', P, Q, X11, LDX11, U1, LDU1 );
+            sorgqr(P, P, Q, U1, LDU1, WORK(ITAUP1), WORK(IORGQR), LORGQR, CHILDINFO );
          }
          if ( WANTU2 .AND. M-P .GT. 0 ) {
-            CALL SLACPY( 'L', M-P, Q, X21, LDX21, U2, LDU2 )
-            CALL SORGQR( M-P, M-P, Q, U2, LDU2, WORK(ITAUP2), WORK(IORGQR), LORGQR, CHILDINFO )
+            slacpy('L', M-P, Q, X21, LDX21, U2, LDU2 );
+            sorgqr(M-P, M-P, Q, U2, LDU2, WORK(ITAUP2), WORK(IORGQR), LORGQR, CHILDINFO );
          }
          if ( WANTV1T .AND. Q .GT. 0 ) {
             V1T(1,1) = ONE
@@ -230,12 +230,12 @@
                V1T(1,J) = ZERO
                V1T(J,1) = ZERO
             END DO
-            CALL SLACPY( 'U', Q-1, Q-1, X21(1,2), LDX21, V1T(2,2), LDV1T )             CALL SORGLQ( Q-1, Q-1, Q-1, V1T(2,2), LDV1T, WORK(ITAUQ1), WORK(IORGLQ), LORGLQ, CHILDINFO )
+            slacpy('U', Q-1, Q-1, X21(1,2), LDX21, V1T(2,2), LDV1T )             CALL SORGLQ( Q-1, Q-1, Q-1, V1T(2,2), LDV1T, WORK(ITAUQ1), WORK(IORGLQ), LORGLQ, CHILDINFO );
          }
 
          // Simultaneously diagonalize X11 and X21.
 
-         CALL SBBCSD( JOBU1, JOBU2, JOBV1T, 'N', 'N', M, P, Q, THETA, WORK(IPHI), U1, LDU1, U2, LDU2, V1T, LDV1T, DUM2, 1, WORK(IB11D), WORK(IB11E), WORK(IB12D), WORK(IB12E), WORK(IB21D), WORK(IB21E), WORK(IB22D), WORK(IB22E), WORK(IBBCSD), LBBCSD, CHILDINFO )
+         sbbcsd(JOBU1, JOBU2, JOBV1T, 'N', 'N', M, P, Q, THETA, WORK(IPHI), U1, LDU1, U2, LDU2, V1T, LDV1T, DUM2, 1, WORK(IB11D), WORK(IB11E), WORK(IB12D), WORK(IB12E), WORK(IB21D), WORK(IB21E), WORK(IB22D), WORK(IB22E), WORK(IBBCSD), LBBCSD, CHILDINFO );
 
          // Permute rows and columns to place zero submatrices in
          // preferred positions
@@ -247,7 +247,7 @@
             DO I = Q + 1, M - P
                IWORK(I) = I - Q
             END DO
-            CALL SLAPMT( .FALSE., M-P, M-P, U2, LDU2, IWORK )
+            slapmt(.FALSE., M-P, M-P, U2, LDU2, IWORK );
          }
       } else if ( R .EQ. P ) {
 
@@ -255,7 +255,7 @@
 
          // Simultaneously bidiagonalize X11 and X21
 
-         CALL SORBDB2( M, P, Q, X11, LDX11, X21, LDX21, THETA, WORK(IPHI), WORK(ITAUP1), WORK(ITAUP2), WORK(ITAUQ1), WORK(IORBDB), LORBDB, CHILDINFO )
+         sorbdb2(M, P, Q, X11, LDX11, X21, LDX21, THETA, WORK(IPHI), WORK(ITAUP1), WORK(ITAUP2), WORK(ITAUQ1), WORK(IORBDB), LORBDB, CHILDINFO );
 
          // Accumulate Householder reflectors
 
@@ -265,21 +265,21 @@
                U1(1,J) = ZERO
                U1(J,1) = ZERO
             END DO
-            CALL SLACPY( 'L', P-1, P-1, X11(2,1), LDX11, U1(2,2), LDU1 )
-            CALL SORGQR( P-1, P-1, P-1, U1(2,2), LDU1, WORK(ITAUP1), WORK(IORGQR), LORGQR, CHILDINFO )
+            slacpy('L', P-1, P-1, X11(2,1), LDX11, U1(2,2), LDU1 );
+            sorgqr(P-1, P-1, P-1, U1(2,2), LDU1, WORK(ITAUP1), WORK(IORGQR), LORGQR, CHILDINFO );
          }
          if ( WANTU2 .AND. M-P .GT. 0 ) {
-            CALL SLACPY( 'L', M-P, Q, X21, LDX21, U2, LDU2 )
-            CALL SORGQR( M-P, M-P, Q, U2, LDU2, WORK(ITAUP2), WORK(IORGQR), LORGQR, CHILDINFO )
+            slacpy('L', M-P, Q, X21, LDX21, U2, LDU2 );
+            sorgqr(M-P, M-P, Q, U2, LDU2, WORK(ITAUP2), WORK(IORGQR), LORGQR, CHILDINFO );
          }
          if ( WANTV1T .AND. Q .GT. 0 ) {
-            CALL SLACPY( 'U', P, Q, X11, LDX11, V1T, LDV1T )
-            CALL SORGLQ( Q, Q, R, V1T, LDV1T, WORK(ITAUQ1), WORK(IORGLQ), LORGLQ, CHILDINFO )
+            slacpy('U', P, Q, X11, LDX11, V1T, LDV1T );
+            sorglq(Q, Q, R, V1T, LDV1T, WORK(ITAUQ1), WORK(IORGLQ), LORGLQ, CHILDINFO );
          }
 
          // Simultaneously diagonalize X11 and X21.
 
-         CALL SBBCSD( JOBV1T, 'N', JOBU1, JOBU2, 'T', M, Q, P, THETA, WORK(IPHI), V1T, LDV1T, DUM1, 1, U1, LDU1, U2, LDU2, WORK(IB11D), WORK(IB11E), WORK(IB12D), WORK(IB12E), WORK(IB21D), WORK(IB21E), WORK(IB22D), WORK(IB22E), WORK(IBBCSD), LBBCSD, CHILDINFO )
+         sbbcsd(JOBV1T, 'N', JOBU1, JOBU2, 'T', M, Q, P, THETA, WORK(IPHI), V1T, LDV1T, DUM1, 1, U1, LDU1, U2, LDU2, WORK(IB11D), WORK(IB11E), WORK(IB12D), WORK(IB12E), WORK(IB21D), WORK(IB21E), WORK(IB22D), WORK(IB22E), WORK(IBBCSD), LBBCSD, CHILDINFO );
 
          // Permute rows and columns to place identity submatrices in
          // preferred positions
@@ -291,7 +291,7 @@
             DO I = Q + 1, M - P
                IWORK(I) = I - Q
             END DO
-            CALL SLAPMT( .FALSE., M-P, M-P, U2, LDU2, IWORK )
+            slapmt(.FALSE., M-P, M-P, U2, LDU2, IWORK );
          }
       } else if ( R .EQ. M-P ) {
 
@@ -299,13 +299,13 @@
 
          // Simultaneously bidiagonalize X11 and X21
 
-         CALL SORBDB3( M, P, Q, X11, LDX11, X21, LDX21, THETA, WORK(IPHI), WORK(ITAUP1), WORK(ITAUP2), WORK(ITAUQ1), WORK(IORBDB), LORBDB, CHILDINFO )
+         sorbdb3(M, P, Q, X11, LDX11, X21, LDX21, THETA, WORK(IPHI), WORK(ITAUP1), WORK(ITAUP2), WORK(ITAUQ1), WORK(IORBDB), LORBDB, CHILDINFO );
 
          // Accumulate Householder reflectors
 
          if ( WANTU1 .AND. P .GT. 0 ) {
-            CALL SLACPY( 'L', P, Q, X11, LDX11, U1, LDU1 )
-            CALL SORGQR( P, P, Q, U1, LDU1, WORK(ITAUP1), WORK(IORGQR), LORGQR, CHILDINFO )
+            slacpy('L', P, Q, X11, LDX11, U1, LDU1 );
+            sorgqr(P, P, Q, U1, LDU1, WORK(ITAUP1), WORK(IORGQR), LORGQR, CHILDINFO );
          }
          if ( WANTU2 .AND. M-P .GT. 0 ) {
             U2(1,1) = ONE
@@ -313,16 +313,16 @@
                U2(1,J) = ZERO
                U2(J,1) = ZERO
             END DO
-            CALL SLACPY( 'L', M-P-1, M-P-1, X21(2,1), LDX21, U2(2,2), LDU2 )             CALL SORGQR( M-P-1, M-P-1, M-P-1, U2(2,2), LDU2, WORK(ITAUP2), WORK(IORGQR), LORGQR, CHILDINFO )
+            slacpy('L', M-P-1, M-P-1, X21(2,1), LDX21, U2(2,2), LDU2 )             CALL SORGQR( M-P-1, M-P-1, M-P-1, U2(2,2), LDU2, WORK(ITAUP2), WORK(IORGQR), LORGQR, CHILDINFO );
          }
          if ( WANTV1T .AND. Q .GT. 0 ) {
-            CALL SLACPY( 'U', M-P, Q, X21, LDX21, V1T, LDV1T )
-            CALL SORGLQ( Q, Q, R, V1T, LDV1T, WORK(ITAUQ1), WORK(IORGLQ), LORGLQ, CHILDINFO )
+            slacpy('U', M-P, Q, X21, LDX21, V1T, LDV1T );
+            sorglq(Q, Q, R, V1T, LDV1T, WORK(ITAUQ1), WORK(IORGLQ), LORGLQ, CHILDINFO );
          }
 
          // Simultaneously diagonalize X11 and X21.
 
-         CALL SBBCSD( 'N', JOBV1T, JOBU2, JOBU1, 'T', M, M-Q, M-P, THETA, WORK(IPHI), DUM1, 1, V1T, LDV1T, U2, LDU2, U1, LDU1, WORK(IB11D), WORK(IB11E), WORK(IB12D), WORK(IB12E), WORK(IB21D), WORK(IB21E), WORK(IB22D), WORK(IB22E), WORK(IBBCSD), LBBCSD, CHILDINFO )
+         sbbcsd('N', JOBV1T, JOBU2, JOBU1, 'T', M, M-Q, M-P, THETA, WORK(IPHI), DUM1, 1, V1T, LDV1T, U2, LDU2, U1, LDU1, WORK(IB11D), WORK(IB11E), WORK(IB12D), WORK(IB12E), WORK(IB21D), WORK(IB21E), WORK(IB22D), WORK(IB22E), WORK(IBBCSD), LBBCSD, CHILDINFO );
 
          // Permute rows and columns to place identity submatrices in
          // preferred positions
@@ -335,10 +335,10 @@
                IWORK(I) = I - R
             END DO
             if ( WANTU1 ) {
-               CALL SLAPMT( .FALSE., P, Q, U1, LDU1, IWORK )
+               slapmt(.FALSE., P, Q, U1, LDU1, IWORK );
             }
             if ( WANTV1T ) {
-               CALL SLAPMR( .FALSE., Q, Q, V1T, LDV1T, IWORK )
+               slapmr(.FALSE., Q, Q, V1T, LDV1T, IWORK );
             }
          }
       } else {
@@ -347,34 +347,34 @@
 
          // Simultaneously bidiagonalize X11 and X21
 
-         CALL SORBDB4( M, P, Q, X11, LDX11, X21, LDX21, THETA, WORK(IPHI), WORK(ITAUP1), WORK(ITAUP2), WORK(ITAUQ1), WORK(IORBDB), WORK(IORBDB+M), LORBDB-M, CHILDINFO )
+         sorbdb4(M, P, Q, X11, LDX11, X21, LDX21, THETA, WORK(IPHI), WORK(ITAUP1), WORK(ITAUP2), WORK(ITAUQ1), WORK(IORBDB), WORK(IORBDB+M), LORBDB-M, CHILDINFO );
 
          // Accumulate Householder reflectors
 
          if ( WANTU2 .AND. M-P .GT. 0 ) {
-            CALL SCOPY( M-P, WORK(IORBDB+P), 1, U2, 1 )
+            scopy(M-P, WORK(IORBDB+P), 1, U2, 1 );
          }
          if ( WANTU1 .AND. P .GT. 0 ) {
-            CALL SCOPY( P, WORK(IORBDB), 1, U1, 1 )
+            scopy(P, WORK(IORBDB), 1, U1, 1 );
             DO J = 2, P
                U1(1,J) = ZERO
             END DO
-            CALL SLACPY( 'L', P-1, M-Q-1, X11(2,1), LDX11, U1(2,2), LDU1 )             CALL SORGQR( P, P, M-Q, U1, LDU1, WORK(ITAUP1), WORK(IORGQR), LORGQR, CHILDINFO )
+            slacpy('L', P-1, M-Q-1, X11(2,1), LDX11, U1(2,2), LDU1 )             CALL SORGQR( P, P, M-Q, U1, LDU1, WORK(ITAUP1), WORK(IORGQR), LORGQR, CHILDINFO );
          }
          if ( WANTU2 .AND. M-P .GT. 0 ) {
             DO J = 2, M-P
                U2(1,J) = ZERO
             END DO
-            CALL SLACPY( 'L', M-P-1, M-Q-1, X21(2,1), LDX21, U2(2,2), LDU2 )             CALL SORGQR( M-P, M-P, M-Q, U2, LDU2, WORK(ITAUP2), WORK(IORGQR), LORGQR, CHILDINFO )
+            slacpy('L', M-P-1, M-Q-1, X21(2,1), LDX21, U2(2,2), LDU2 )             CALL SORGQR( M-P, M-P, M-Q, U2, LDU2, WORK(ITAUP2), WORK(IORGQR), LORGQR, CHILDINFO );
          }
          if ( WANTV1T .AND. Q .GT. 0 ) {
-            CALL SLACPY( 'U', M-Q, Q, X21, LDX21, V1T, LDV1T )
-            CALL SLACPY( 'U', P-(M-Q), Q-(M-Q), X11(M-Q+1,M-Q+1), LDX11, V1T(M-Q+1,M-Q+1), LDV1T )             CALL SLACPY( 'U', -P+Q, Q-P, X21(M-Q+1,P+1), LDX21, V1T(P+1,P+1), LDV1T )             CALL SORGLQ( Q, Q, Q, V1T, LDV1T, WORK(ITAUQ1), WORK(IORGLQ), LORGLQ, CHILDINFO )
+            slacpy('U', M-Q, Q, X21, LDX21, V1T, LDV1T );
+            slacpy('U', P-(M-Q), Q-(M-Q), X11(M-Q+1,M-Q+1), LDX11, V1T(M-Q+1,M-Q+1), LDV1T )             CALL SLACPY( 'U', -P+Q, Q-P, X21(M-Q+1,P+1), LDX21, V1T(P+1,P+1), LDV1T )             CALL SORGLQ( Q, Q, Q, V1T, LDV1T, WORK(ITAUQ1), WORK(IORGLQ), LORGLQ, CHILDINFO );
          }
 
          // Simultaneously diagonalize X11 and X21.
 
-         CALL SBBCSD( JOBU2, JOBU1, 'N', JOBV1T, 'N', M, M-P, M-Q, THETA, WORK(IPHI), U2, LDU2, U1, LDU1, DUM1, 1, V1T, LDV1T, WORK(IB11D), WORK(IB11E), WORK(IB12D), WORK(IB12E), WORK(IB21D), WORK(IB21E), WORK(IB22D), WORK(IB22E), WORK(IBBCSD), LBBCSD, CHILDINFO )
+         sbbcsd(JOBU2, JOBU1, 'N', JOBV1T, 'N', M, M-P, M-Q, THETA, WORK(IPHI), U2, LDU2, U1, LDU1, DUM1, 1, V1T, LDV1T, WORK(IB11D), WORK(IB11E), WORK(IB12D), WORK(IB12E), WORK(IB21D), WORK(IB21E), WORK(IB22D), WORK(IB22E), WORK(IBBCSD), LBBCSD, CHILDINFO );
 
          // Permute rows and columns to place identity submatrices in
          // preferred positions
@@ -387,10 +387,10 @@
                IWORK(I) = I - R
             END DO
             if ( WANTU1 ) {
-               CALL SLAPMT( .FALSE., P, P, U1, LDU1, IWORK )
+               slapmt(.FALSE., P, P, U1, LDU1, IWORK );
             }
             if ( WANTV1T ) {
-               CALL SLAPMR( .FALSE., P, Q, V1T, LDV1T, IWORK )
+               slapmr(.FALSE., P, Q, V1T, LDV1T, IWORK );
             }
          }
       }

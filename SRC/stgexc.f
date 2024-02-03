@@ -68,7 +68,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'STGEXC', -INFO )
+         xerbla('STGEXC', -INFO );
          RETURN
       } else if ( LQUERY ) {
          RETURN
@@ -121,7 +121,7 @@
             if ( HERE+NBF+1.LE.N ) {
                IF( A( HERE+NBF+1, HERE+NBF ).NE.ZERO ) NBNEXT = 2
             }
-            CALL STGEX2( WANTQ, WANTZ, N, A, LDA, B, LDB, Q, LDQ, Z, LDZ, HERE, NBF, NBNEXT, WORK, LWORK, INFO )
+            stgex2(WANTQ, WANTZ, N, A, LDA, B, LDB, Q, LDQ, Z, LDZ, HERE, NBF, NBNEXT, WORK, LWORK, INFO );
             if ( INFO.NE.0 ) {
                ILST = HERE
                RETURN
@@ -143,7 +143,7 @@
             if ( HERE+3.LE.N ) {
                IF( A( HERE+3, HERE+2 ).NE.ZERO ) NBNEXT = 2
             }
-            CALL STGEX2( WANTQ, WANTZ, N, A, LDA, B, LDB, Q, LDQ, Z, LDZ, HERE+1, 1, NBNEXT, WORK, LWORK, INFO )
+            stgex2(WANTQ, WANTZ, N, A, LDA, B, LDB, Q, LDQ, Z, LDZ, HERE+1, 1, NBNEXT, WORK, LWORK, INFO );
             if ( INFO.NE.0 ) {
                ILST = HERE
                RETURN
@@ -152,7 +152,7 @@
 
                // Swap two 1-by-1 blocks.
 
-               CALL STGEX2( WANTQ, WANTZ, N, A, LDA, B, LDB, Q, LDQ, Z, LDZ, HERE, 1, 1, WORK, LWORK, INFO )
+               stgex2(WANTQ, WANTZ, N, A, LDA, B, LDB, Q, LDQ, Z, LDZ, HERE, 1, 1, WORK, LWORK, INFO );
                if ( INFO.NE.0 ) {
                   ILST = HERE
                   RETURN
@@ -168,7 +168,7 @@
 
                   // 2-by-2 block did not split.
 
-                  CALL STGEX2( WANTQ, WANTZ, N, A, LDA, B, LDB, Q, LDQ, Z, LDZ, HERE, 1, NBNEXT, WORK, LWORK, INFO )
+                  stgex2(WANTQ, WANTZ, N, A, LDA, B, LDB, Q, LDQ, Z, LDZ, HERE, 1, NBNEXT, WORK, LWORK, INFO );
                   if ( INFO.NE.0 ) {
                      ILST = HERE
                      RETURN
@@ -178,13 +178,13 @@
 
                   // 2-by-2 block did split.
 
-                  CALL STGEX2( WANTQ, WANTZ, N, A, LDA, B, LDB, Q, LDQ, Z, LDZ, HERE, 1, 1, WORK, LWORK, INFO )
+                  stgex2(WANTQ, WANTZ, N, A, LDA, B, LDB, Q, LDQ, Z, LDZ, HERE, 1, 1, WORK, LWORK, INFO );
                   if ( INFO.NE.0 ) {
                      ILST = HERE
                      RETURN
                   }
                   HERE = HERE + 1
-                  CALL STGEX2( WANTQ, WANTZ, N, A, LDA, B, LDB, Q, LDQ, Z, LDZ, HERE, 1, 1, WORK, LWORK, INFO )
+                  stgex2(WANTQ, WANTZ, N, A, LDA, B, LDB, Q, LDQ, Z, LDZ, HERE, 1, 1, WORK, LWORK, INFO );
                   if ( INFO.NE.0 ) {
                      ILST = HERE
                      RETURN
@@ -210,7 +210,7 @@
             if ( HERE.GE.3 ) {
                IF( A( HERE-1, HERE-2 ).NE.ZERO ) NBNEXT = 2
             }
-            CALL STGEX2( WANTQ, WANTZ, N, A, LDA, B, LDB, Q, LDQ, Z, LDZ, HERE-NBNEXT, NBNEXT, NBF, WORK, LWORK, INFO )
+            stgex2(WANTQ, WANTZ, N, A, LDA, B, LDB, Q, LDQ, Z, LDZ, HERE-NBNEXT, NBNEXT, NBF, WORK, LWORK, INFO );
             if ( INFO.NE.0 ) {
                ILST = HERE
                RETURN
@@ -232,7 +232,7 @@
             if ( HERE.GE.3 ) {
                IF( A( HERE-1, HERE-2 ).NE.ZERO ) NBNEXT = 2
             }
-            CALL STGEX2( WANTQ, WANTZ, N, A, LDA, B, LDB, Q, LDQ, Z, LDZ, HERE-NBNEXT, NBNEXT, 1, WORK, LWORK, INFO )
+            stgex2(WANTQ, WANTZ, N, A, LDA, B, LDB, Q, LDQ, Z, LDZ, HERE-NBNEXT, NBNEXT, 1, WORK, LWORK, INFO );
             if ( INFO.NE.0 ) {
                ILST = HERE
                RETURN
@@ -241,7 +241,7 @@
 
                // Swap two 1-by-1 blocks.
 
-               CALL STGEX2( WANTQ, WANTZ, N, A, LDA, B, LDB, Q, LDQ, Z, LDZ, HERE, NBNEXT, 1, WORK, LWORK, INFO )
+               stgex2(WANTQ, WANTZ, N, A, LDA, B, LDB, Q, LDQ, Z, LDZ, HERE, NBNEXT, 1, WORK, LWORK, INFO );
                if ( INFO.NE.0 ) {
                   ILST = HERE
                   RETURN
@@ -256,7 +256,7 @@
 
                   // 2-by-2 block did not split.
 
-                  CALL STGEX2( WANTQ, WANTZ, N, A, LDA, B, LDB, Q, LDQ, Z, LDZ, HERE-1, 2, 1, WORK, LWORK, INFO )
+                  stgex2(WANTQ, WANTZ, N, A, LDA, B, LDB, Q, LDQ, Z, LDZ, HERE-1, 2, 1, WORK, LWORK, INFO );
                   if ( INFO.NE.0 ) {
                      ILST = HERE
                      RETURN
@@ -266,13 +266,13 @@
 
                   // 2-by-2 block did split.
 
-                  CALL STGEX2( WANTQ, WANTZ, N, A, LDA, B, LDB, Q, LDQ, Z, LDZ, HERE, 1, 1, WORK, LWORK, INFO )
+                  stgex2(WANTQ, WANTZ, N, A, LDA, B, LDB, Q, LDQ, Z, LDZ, HERE, 1, 1, WORK, LWORK, INFO );
                   if ( INFO.NE.0 ) {
                      ILST = HERE
                      RETURN
                   }
                   HERE = HERE - 1
-                  CALL STGEX2( WANTQ, WANTZ, N, A, LDA, B, LDB, Q, LDQ, Z, LDZ, HERE, 1, 1, WORK, LWORK, INFO )
+                  stgex2(WANTQ, WANTZ, N, A, LDA, B, LDB, Q, LDQ, Z, LDZ, HERE, 1, 1, WORK, LWORK, INFO );
                   if ( INFO.NE.0 ) {
                      ILST = HERE
                      RETURN

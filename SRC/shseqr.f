@@ -85,7 +85,7 @@
 
          // ==== Quick return in case of invalid argument. ====
 
-         CALL XERBLA( 'SHSEQR', -INFO )
+         xerbla('SHSEQR', -INFO );
          RETURN
 
       } else if ( N.EQ.0 ) {
@@ -98,7 +98,7 @@
 
          // ==== Quick return in case of a workspace query ====
 
-         CALL SLAQR0( WANTT, WANTZ, N, ILO, IHI, H, LDH, WR, WI, ILO, IHI, Z, LDZ, WORK, LWORK, INFO )
+         slaqr0(WANTT, WANTZ, N, ILO, IHI, H, LDH, WR, WI, ILO, IHI, Z, LDZ, WORK, LWORK, INFO );
          // ==== Ensure reported workspace size is backward-compatible with
          // .    previous LAPACK versions. ====
          WORK( 1 ) = MAX( REAL( MAX( 1, N ) ), WORK( 1 ) )
@@ -137,12 +137,12 @@
          // ==== SLAQR0 for big matrices; SLAHQR for small ones ====
 
          if ( N.GT.NMIN ) {
-            CALL SLAQR0( WANTT, WANTZ, N, ILO, IHI, H, LDH, WR, WI, ILO, IHI, Z, LDZ, WORK, LWORK, INFO )
+            slaqr0(WANTT, WANTZ, N, ILO, IHI, H, LDH, WR, WI, ILO, IHI, Z, LDZ, WORK, LWORK, INFO );
          } else {
 
             // ==== Small matrix ====
 
-            CALL SLAHQR( WANTT, WANTZ, N, ILO, IHI, H, LDH, WR, WI, ILO, IHI, Z, LDZ, INFO )
+            slahqr(WANTT, WANTZ, N, ILO, IHI, H, LDH, WR, WI, ILO, IHI, Z, LDZ, INFO );
 
             if ( INFO.GT.0 ) {
 
@@ -156,7 +156,7 @@
                   // ==== Larger matrices have enough subdiagonal scratch
                   // .    space to call SLAQR0 directly. ====
 
-                  CALL SLAQR0( WANTT, WANTZ, N, ILO, KBOT, H, LDH, WR, WI, ILO, IHI, Z, LDZ, WORK, LWORK, INFO )
+                  slaqr0(WANTT, WANTZ, N, ILO, KBOT, H, LDH, WR, WI, ILO, IHI, Z, LDZ, WORK, LWORK, INFO );
 
                } else {
 
@@ -165,9 +165,9 @@
                   // .    tiny matrices must be copied into a larger
                   // .    array before calling SLAQR0. ====
 
-                  CALL SLACPY( 'A', N, N, H, LDH, HL, NL )
+                  slacpy('A', N, N, H, LDH, HL, NL );
                   HL( N+1, N ) = ZERO
-                  CALL SLASET( 'A', NL, NL-N, ZERO, ZERO, HL( 1, N+1 ), NL )                   CALL SLAQR0( WANTT, WANTZ, NL, ILO, KBOT, HL, NL, WR, WI, ILO, IHI, Z, LDZ, WORKL, NL, INFO )                   IF( WANTT .OR. INFO.NE.0 ) CALL SLACPY( 'A', N, N, HL, NL, H, LDH )
+                  slaset('A', NL, NL-N, ZERO, ZERO, HL( 1, N+1 ), NL )                   CALL SLAQR0( WANTT, WANTZ, NL, ILO, KBOT, HL, NL, WR, WI, ILO, IHI, Z, LDZ, WORKL, NL, INFO )                   IF( WANTT .OR. INFO.NE.0 ) CALL SLACPY( 'A', N, N, HL, NL, H, LDH );
                }
             }
          }

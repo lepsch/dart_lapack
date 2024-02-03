@@ -44,7 +44,7 @@
          INFO = -4
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'CGETF2', -INFO )
+         xerbla('CGETF2', -INFO );
          RETURN
       }
 
@@ -77,7 +77,7 @@
 
             // Update trailing submatrix.
 
-            CALL CGERU( M-J, N-J, -ONE, A( J+1, J ), 1, A( J, J+1 ), LDA, A( J+1, J+1 ), LDA )
+            cgeru(M-J, N-J, -ONE, A( J+1, J ), 1, A( J, J+1 ), LDA, A( J+1, J+1 ), LDA );
          }
    10 CONTINUE
       RETURN

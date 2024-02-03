@@ -74,7 +74,7 @@
 
             // Compute the rest of column K.
 
-            CALL STRMV( 'Upper', 'Transpose', 'Non-unit', K-1, AFAC, LDAFAC, AFAC( 1, K ), 1 )
+            strmv('Upper', 'Transpose', 'Non-unit', K-1, AFAC, LDAFAC, AFAC( 1, K ), 1 );
 
   120    CONTINUE
 
@@ -99,7 +99,7 @@
             // Scale column K by the diagonal element.
 
             T = AFAC( K, K )
-            CALL SSCAL( N-K+1, T, AFAC( K, K ), 1 )
+            sscal(N-K+1, T, AFAC( K, K ), 1 );
   150    CONTINUE
 
       }

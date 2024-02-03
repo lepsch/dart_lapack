@@ -70,7 +70,7 @@
 
       ANORM = ZLANGE( 'M', N, N, A, LDA, DUMMY )
       KNT = KNT + 1
-      CALL ZGEBAL( 'B', N, A, LDA, ILO, IHI, SCALE, INFO )
+      zgebal('B', N, A, LDA, ILO, IHI, SCALE, INFO );
 
       if ( INFO.NE.0 ) {
          NINFO = NINFO + 1

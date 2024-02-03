@@ -63,7 +63,7 @@
          INFO = -9
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'CUPMTR', -INFO )
+         xerbla('CUPMTR', -INFO );
          RETURN
       }
 
@@ -117,7 +117,7 @@
             }
             AII = AP( II )
             AP( II ) = ONE
-            CALL CLARF( SIDE, MI, NI, AP( II-I+1 ), 1, TAUI, C, LDC, WORK )
+            clarf(SIDE, MI, NI, AP( II-I+1 ), 1, TAUI, C, LDC, WORK );
             AP( II ) = AII
 
             if ( FORWRD ) {
@@ -176,7 +176,7 @@
             } else {
                TAUI = CONJG( TAU( I ) )
             }
-            CALL CLARF( SIDE, MI, NI, AP( II ), 1, TAUI, C( IC, JC ), LDC, WORK )
+            clarf(SIDE, MI, NI, AP( II ), 1, TAUI, C( IC, JC ), LDC, WORK );
             AP( II ) = AII
 
             if ( FORWRD ) {

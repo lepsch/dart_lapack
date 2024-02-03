@@ -59,154 +59,154 @@
 
          SRNAMT = 'CTRTRI'
          INFOT = 1
-         CALL CTRTRI( '/', 'N', 0, A, 1, INFO )
-         CALL CHKXER( 'CTRTRI', INFOT, NOUT, LERR, OK )
+         ctrtri('/', 'N', 0, A, 1, INFO );
+         chkxer('CTRTRI', INFOT, NOUT, LERR, OK );
          INFOT = 2
-         CALL CTRTRI( 'U', '/', 0, A, 1, INFO )
-         CALL CHKXER( 'CTRTRI', INFOT, NOUT, LERR, OK )
+         ctrtri('U', '/', 0, A, 1, INFO );
+         chkxer('CTRTRI', INFOT, NOUT, LERR, OK );
          INFOT = 3
-         CALL CTRTRI( 'U', 'N', -1, A, 1, INFO )
-         CALL CHKXER( 'CTRTRI', INFOT, NOUT, LERR, OK )
+         ctrtri('U', 'N', -1, A, 1, INFO );
+         chkxer('CTRTRI', INFOT, NOUT, LERR, OK );
          INFOT = 5
-         CALL CTRTRI( 'U', 'N', 2, A, 1, INFO )
-         CALL CHKXER( 'CTRTRI', INFOT, NOUT, LERR, OK )
+         ctrtri('U', 'N', 2, A, 1, INFO );
+         chkxer('CTRTRI', INFOT, NOUT, LERR, OK );
 
          // CTRTI2
 
          SRNAMT = 'CTRTI2'
          INFOT = 1
-         CALL CTRTI2( '/', 'N', 0, A, 1, INFO )
-         CALL CHKXER( 'CTRTI2', INFOT, NOUT, LERR, OK )
+         ctrti2('/', 'N', 0, A, 1, INFO );
+         chkxer('CTRTI2', INFOT, NOUT, LERR, OK );
          INFOT = 2
-         CALL CTRTI2( 'U', '/', 0, A, 1, INFO )
-         CALL CHKXER( 'CTRTI2', INFOT, NOUT, LERR, OK )
+         ctrti2('U', '/', 0, A, 1, INFO );
+         chkxer('CTRTI2', INFOT, NOUT, LERR, OK );
          INFOT = 3
-         CALL CTRTI2( 'U', 'N', -1, A, 1, INFO )
-         CALL CHKXER( 'CTRTI2', INFOT, NOUT, LERR, OK )
+         ctrti2('U', 'N', -1, A, 1, INFO );
+         chkxer('CTRTI2', INFOT, NOUT, LERR, OK );
          INFOT = 5
-         CALL CTRTI2( 'U', 'N', 2, A, 1, INFO )
-         CALL CHKXER( 'CTRTI2', INFOT, NOUT, LERR, OK )
+         ctrti2('U', 'N', 2, A, 1, INFO );
+         chkxer('CTRTI2', INFOT, NOUT, LERR, OK );
 
 
          // CTRTRS
 
          SRNAMT = 'CTRTRS'
          INFOT = 1
-         CALL CTRTRS( '/', 'N', 'N', 0, 0, A, 1, X, 1, INFO )
-         CALL CHKXER( 'CTRTRS', INFOT, NOUT, LERR, OK )
+         ctrtrs('/', 'N', 'N', 0, 0, A, 1, X, 1, INFO );
+         chkxer('CTRTRS', INFOT, NOUT, LERR, OK );
          INFOT = 2
-         CALL CTRTRS( 'U', '/', 'N', 0, 0, A, 1, X, 1, INFO )
-         CALL CHKXER( 'CTRTRS', INFOT, NOUT, LERR, OK )
+         ctrtrs('U', '/', 'N', 0, 0, A, 1, X, 1, INFO );
+         chkxer('CTRTRS', INFOT, NOUT, LERR, OK );
          INFOT = 3
-         CALL CTRTRS( 'U', 'N', '/', 0, 0, A, 1, X, 1, INFO )
-         CALL CHKXER( 'CTRTRS', INFOT, NOUT, LERR, OK )
+         ctrtrs('U', 'N', '/', 0, 0, A, 1, X, 1, INFO );
+         chkxer('CTRTRS', INFOT, NOUT, LERR, OK );
          INFOT = 4
-         CALL CTRTRS( 'U', 'N', 'N', -1, 0, A, 1, X, 1, INFO )
-         CALL CHKXER( 'CTRTRS', INFOT, NOUT, LERR, OK )
+         ctrtrs('U', 'N', 'N', -1, 0, A, 1, X, 1, INFO );
+         chkxer('CTRTRS', INFOT, NOUT, LERR, OK );
          INFOT = 5
-         CALL CTRTRS( 'U', 'N', 'N', 0, -1, A, 1, X, 1, INFO )
-         CALL CHKXER( 'CTRTRS', INFOT, NOUT, LERR, OK )
+         ctrtrs('U', 'N', 'N', 0, -1, A, 1, X, 1, INFO );
+         chkxer('CTRTRS', INFOT, NOUT, LERR, OK );
          INFOT = 7
 
          // CTRRFS
 
          SRNAMT = 'CTRRFS'
          INFOT = 1
-         CALL CTRRFS( '/', 'N', 'N', 0, 0, A, 1, B, 1, X, 1, R1, R2, W, RW, INFO )
-         CALL CHKXER( 'CTRRFS', INFOT, NOUT, LERR, OK )
+         ctrrfs('/', 'N', 'N', 0, 0, A, 1, B, 1, X, 1, R1, R2, W, RW, INFO );
+         chkxer('CTRRFS', INFOT, NOUT, LERR, OK );
          INFOT = 2
-         CALL CTRRFS( 'U', '/', 'N', 0, 0, A, 1, B, 1, X, 1, R1, R2, W, RW, INFO )
-         CALL CHKXER( 'CTRRFS', INFOT, NOUT, LERR, OK )
+         ctrrfs('U', '/', 'N', 0, 0, A, 1, B, 1, X, 1, R1, R2, W, RW, INFO );
+         chkxer('CTRRFS', INFOT, NOUT, LERR, OK );
          INFOT = 3
-         CALL CTRRFS( 'U', 'N', '/', 0, 0, A, 1, B, 1, X, 1, R1, R2, W, RW, INFO )
-         CALL CHKXER( 'CTRRFS', INFOT, NOUT, LERR, OK )
+         ctrrfs('U', 'N', '/', 0, 0, A, 1, B, 1, X, 1, R1, R2, W, RW, INFO );
+         chkxer('CTRRFS', INFOT, NOUT, LERR, OK );
          INFOT = 4
-         CALL CTRRFS( 'U', 'N', 'N', -1, 0, A, 1, B, 1, X, 1, R1, R2, W, RW, INFO )
-         CALL CHKXER( 'CTRRFS', INFOT, NOUT, LERR, OK )
+         ctrrfs('U', 'N', 'N', -1, 0, A, 1, B, 1, X, 1, R1, R2, W, RW, INFO );
+         chkxer('CTRRFS', INFOT, NOUT, LERR, OK );
          INFOT = 5
-         CALL CTRRFS( 'U', 'N', 'N', 0, -1, A, 1, B, 1, X, 1, R1, R2, W, RW, INFO )
-         CALL CHKXER( 'CTRRFS', INFOT, NOUT, LERR, OK )
+         ctrrfs('U', 'N', 'N', 0, -1, A, 1, B, 1, X, 1, R1, R2, W, RW, INFO );
+         chkxer('CTRRFS', INFOT, NOUT, LERR, OK );
          INFOT = 7
-         CALL CTRRFS( 'U', 'N', 'N', 2, 1, A, 1, B, 2, X, 2, R1, R2, W, RW, INFO )
-         CALL CHKXER( 'CTRRFS', INFOT, NOUT, LERR, OK )
+         ctrrfs('U', 'N', 'N', 2, 1, A, 1, B, 2, X, 2, R1, R2, W, RW, INFO );
+         chkxer('CTRRFS', INFOT, NOUT, LERR, OK );
          INFOT = 9
-         CALL CTRRFS( 'U', 'N', 'N', 2, 1, A, 2, B, 1, X, 2, R1, R2, W, RW, INFO )
-         CALL CHKXER( 'CTRRFS', INFOT, NOUT, LERR, OK )
+         ctrrfs('U', 'N', 'N', 2, 1, A, 2, B, 1, X, 2, R1, R2, W, RW, INFO );
+         chkxer('CTRRFS', INFOT, NOUT, LERR, OK );
          INFOT = 11
-         CALL CTRRFS( 'U', 'N', 'N', 2, 1, A, 2, B, 2, X, 1, R1, R2, W, RW, INFO )
-         CALL CHKXER( 'CTRRFS', INFOT, NOUT, LERR, OK )
+         ctrrfs('U', 'N', 'N', 2, 1, A, 2, B, 2, X, 1, R1, R2, W, RW, INFO );
+         chkxer('CTRRFS', INFOT, NOUT, LERR, OK );
 
          // CTRCON
 
          SRNAMT = 'CTRCON'
          INFOT = 1
-         CALL CTRCON( '/', 'U', 'N', 0, A, 1, RCOND, W, RW, INFO )
-         CALL CHKXER( 'CTRCON', INFOT, NOUT, LERR, OK )
+         ctrcon('/', 'U', 'N', 0, A, 1, RCOND, W, RW, INFO );
+         chkxer('CTRCON', INFOT, NOUT, LERR, OK );
          INFOT = 2
-         CALL CTRCON( '1', '/', 'N', 0, A, 1, RCOND, W, RW, INFO )
-         CALL CHKXER( 'CTRCON', INFOT, NOUT, LERR, OK )
+         ctrcon('1', '/', 'N', 0, A, 1, RCOND, W, RW, INFO );
+         chkxer('CTRCON', INFOT, NOUT, LERR, OK );
          INFOT = 3
-         CALL CTRCON( '1', 'U', '/', 0, A, 1, RCOND, W, RW, INFO )
-         CALL CHKXER( 'CTRCON', INFOT, NOUT, LERR, OK )
+         ctrcon('1', 'U', '/', 0, A, 1, RCOND, W, RW, INFO );
+         chkxer('CTRCON', INFOT, NOUT, LERR, OK );
          INFOT = 4
-         CALL CTRCON( '1', 'U', 'N', -1, A, 1, RCOND, W, RW, INFO )
-         CALL CHKXER( 'CTRCON', INFOT, NOUT, LERR, OK )
+         ctrcon('1', 'U', 'N', -1, A, 1, RCOND, W, RW, INFO );
+         chkxer('CTRCON', INFOT, NOUT, LERR, OK );
          INFOT = 6
-         CALL CTRCON( '1', 'U', 'N', 2, A, 1, RCOND, W, RW, INFO )
-         CALL CHKXER( 'CTRCON', INFOT, NOUT, LERR, OK )
+         ctrcon('1', 'U', 'N', 2, A, 1, RCOND, W, RW, INFO );
+         chkxer('CTRCON', INFOT, NOUT, LERR, OK );
 
          // CLATRS
 
          SRNAMT = 'CLATRS'
          INFOT = 1
-         CALL CLATRS( '/', 'N', 'N', 'N', 0, A, 1, X, SCALE, RW, INFO )
-         CALL CHKXER( 'CLATRS', INFOT, NOUT, LERR, OK )
+         clatrs('/', 'N', 'N', 'N', 0, A, 1, X, SCALE, RW, INFO );
+         chkxer('CLATRS', INFOT, NOUT, LERR, OK );
          INFOT = 2
-         CALL CLATRS( 'U', '/', 'N', 'N', 0, A, 1, X, SCALE, RW, INFO )
-         CALL CHKXER( 'CLATRS', INFOT, NOUT, LERR, OK )
+         clatrs('U', '/', 'N', 'N', 0, A, 1, X, SCALE, RW, INFO );
+         chkxer('CLATRS', INFOT, NOUT, LERR, OK );
          INFOT = 3
-         CALL CLATRS( 'U', 'N', '/', 'N', 0, A, 1, X, SCALE, RW, INFO )
-         CALL CHKXER( 'CLATRS', INFOT, NOUT, LERR, OK )
+         clatrs('U', 'N', '/', 'N', 0, A, 1, X, SCALE, RW, INFO );
+         chkxer('CLATRS', INFOT, NOUT, LERR, OK );
          INFOT = 4
-         CALL CLATRS( 'U', 'N', 'N', '/', 0, A, 1, X, SCALE, RW, INFO )
-         CALL CHKXER( 'CLATRS', INFOT, NOUT, LERR, OK )
+         clatrs('U', 'N', 'N', '/', 0, A, 1, X, SCALE, RW, INFO );
+         chkxer('CLATRS', INFOT, NOUT, LERR, OK );
          INFOT = 5
-         CALL CLATRS( 'U', 'N', 'N', 'N', -1, A, 1, X, SCALE, RW, INFO )
-         CALL CHKXER( 'CLATRS', INFOT, NOUT, LERR, OK )
+         clatrs('U', 'N', 'N', 'N', -1, A, 1, X, SCALE, RW, INFO );
+         chkxer('CLATRS', INFOT, NOUT, LERR, OK );
          INFOT = 7
-         CALL CLATRS( 'U', 'N', 'N', 'N', 2, A, 1, X, SCALE, RW, INFO )
-         CALL CHKXER( 'CLATRS', INFOT, NOUT, LERR, OK )
+         clatrs('U', 'N', 'N', 'N', 2, A, 1, X, SCALE, RW, INFO );
+         chkxer('CLATRS', INFOT, NOUT, LERR, OK );
 
          // CLATRS3
 
          SRNAMT = 'CLATRS3'
          INFOT = 1
-         CALL CLATRS3( '/', 'N', 'N', 'N', 0, 0, A, 1, X, 1, SCALES, RW, RW( 2 ), 1, INFO )
-         CALL CHKXER( 'CLATRS3', INFOT, NOUT, LERR, OK )
+         clatrs3('/', 'N', 'N', 'N', 0, 0, A, 1, X, 1, SCALES, RW, RW( 2 ), 1, INFO );
+         chkxer('CLATRS3', INFOT, NOUT, LERR, OK );
          INFOT = 2
-         CALL CLATRS3( 'U', '/', 'N', 'N', 0, 0, A, 1, X, 1, SCALES, RW, RW( 2 ), 1, INFO )
-         CALL CHKXER( 'CLATRS3', INFOT, NOUT, LERR, OK )
+         clatrs3('U', '/', 'N', 'N', 0, 0, A, 1, X, 1, SCALES, RW, RW( 2 ), 1, INFO );
+         chkxer('CLATRS3', INFOT, NOUT, LERR, OK );
          INFOT = 3
-         CALL CLATRS3( 'U', 'N', '/', 'N', 0, 0, A, 1, X, 1, SCALES, RW, RW( 2 ), 1, INFO )
-         CALL CHKXER( 'CLATRS3', INFOT, NOUT, LERR, OK )
+         clatrs3('U', 'N', '/', 'N', 0, 0, A, 1, X, 1, SCALES, RW, RW( 2 ), 1, INFO );
+         chkxer('CLATRS3', INFOT, NOUT, LERR, OK );
          INFOT = 4
-         CALL CLATRS3( 'U', 'N', 'N', '/', 0, 0, A, 1, X, 1, SCALES, RW, RW( 2 ), 1, INFO )
-         CALL CHKXER( 'CLATRS3', INFOT, NOUT, LERR, OK )
+         clatrs3('U', 'N', 'N', '/', 0, 0, A, 1, X, 1, SCALES, RW, RW( 2 ), 1, INFO );
+         chkxer('CLATRS3', INFOT, NOUT, LERR, OK );
          INFOT = 5
-         CALL CLATRS3( 'U', 'N', 'N', 'N', -1, 0, A, 1, X, 1, SCALES, RW, RW( 2 ), 1, INFO )
-         CALL CHKXER( 'CLATRS3', INFOT, NOUT, LERR, OK )
+         clatrs3('U', 'N', 'N', 'N', -1, 0, A, 1, X, 1, SCALES, RW, RW( 2 ), 1, INFO );
+         chkxer('CLATRS3', INFOT, NOUT, LERR, OK );
          INFOT = 6
-         CALL CLATRS3( 'U', 'N', 'N', 'N', 0, -1, A, 1, X, 1, SCALES, RW, RW( 2 ), 1, INFO )
-         CALL CHKXER( 'CLATRS3', INFOT, NOUT, LERR, OK )
+         clatrs3('U', 'N', 'N', 'N', 0, -1, A, 1, X, 1, SCALES, RW, RW( 2 ), 1, INFO );
+         chkxer('CLATRS3', INFOT, NOUT, LERR, OK );
          INFOT = 8
-         CALL CLATRS3( 'U', 'N', 'N', 'N', 2, 0, A, 1, X, 1, SCALES, RW, RW( 2 ), 1, INFO )
-         CALL CHKXER( 'CLATRS3', INFOT, NOUT, LERR, OK )
+         clatrs3('U', 'N', 'N', 'N', 2, 0, A, 1, X, 1, SCALES, RW, RW( 2 ), 1, INFO );
+         chkxer('CLATRS3', INFOT, NOUT, LERR, OK );
          INFOT = 10
-         CALL CLATRS3( 'U', 'N', 'N', 'N', 2, 0, A, 2, X, 1, SCALES, RW, RW( 2 ), 1, INFO )
-         CALL CHKXER( 'CLATRS3', INFOT, NOUT, LERR, OK )
+         clatrs3('U', 'N', 'N', 'N', 2, 0, A, 2, X, 1, SCALES, RW, RW( 2 ), 1, INFO );
+         chkxer('CLATRS3', INFOT, NOUT, LERR, OK );
          INFOT = 14
-         CALL CLATRS3( 'U', 'N', 'N', 'N', 1, 0, A, 1, X, 1, SCALES, RW, RW( 2 ), 0, INFO )
-         CALL CHKXER( 'CLATRS3', INFOT, NOUT, LERR, OK )
+         clatrs3('U', 'N', 'N', 'N', 1, 0, A, 1, X, 1, SCALES, RW, RW( 2 ), 0, INFO );
+         chkxer('CLATRS3', INFOT, NOUT, LERR, OK );
 
       // Test error exits for the packed triangular routines.
 
@@ -216,96 +216,96 @@
 
          SRNAMT = 'CTPTRI'
          INFOT = 1
-         CALL CTPTRI( '/', 'N', 0, A, INFO )
-         CALL CHKXER( 'CTPTRI', INFOT, NOUT, LERR, OK )
+         ctptri('/', 'N', 0, A, INFO );
+         chkxer('CTPTRI', INFOT, NOUT, LERR, OK );
          INFOT = 2
-         CALL CTPTRI( 'U', '/', 0, A, INFO )
-         CALL CHKXER( 'CTPTRI', INFOT, NOUT, LERR, OK )
+         ctptri('U', '/', 0, A, INFO );
+         chkxer('CTPTRI', INFOT, NOUT, LERR, OK );
          INFOT = 3
-         CALL CTPTRI( 'U', 'N', -1, A, INFO )
-         CALL CHKXER( 'CTPTRI', INFOT, NOUT, LERR, OK )
+         ctptri('U', 'N', -1, A, INFO );
+         chkxer('CTPTRI', INFOT, NOUT, LERR, OK );
 
          // CTPTRS
 
          SRNAMT = 'CTPTRS'
          INFOT = 1
-         CALL CTPTRS( '/', 'N', 'N', 0, 0, A, X, 1, INFO )
-         CALL CHKXER( 'CTPTRS', INFOT, NOUT, LERR, OK )
+         ctptrs('/', 'N', 'N', 0, 0, A, X, 1, INFO );
+         chkxer('CTPTRS', INFOT, NOUT, LERR, OK );
          INFOT = 2
-         CALL CTPTRS( 'U', '/', 'N', 0, 0, A, X, 1, INFO )
-         CALL CHKXER( 'CTPTRS', INFOT, NOUT, LERR, OK )
+         ctptrs('U', '/', 'N', 0, 0, A, X, 1, INFO );
+         chkxer('CTPTRS', INFOT, NOUT, LERR, OK );
          INFOT = 3
-         CALL CTPTRS( 'U', 'N', '/', 0, 0, A, X, 1, INFO )
-         CALL CHKXER( 'CTPTRS', INFOT, NOUT, LERR, OK )
+         ctptrs('U', 'N', '/', 0, 0, A, X, 1, INFO );
+         chkxer('CTPTRS', INFOT, NOUT, LERR, OK );
          INFOT = 4
-         CALL CTPTRS( 'U', 'N', 'N', -1, 0, A, X, 1, INFO )
-         CALL CHKXER( 'CTPTRS', INFOT, NOUT, LERR, OK )
+         ctptrs('U', 'N', 'N', -1, 0, A, X, 1, INFO );
+         chkxer('CTPTRS', INFOT, NOUT, LERR, OK );
          INFOT = 5
-         CALL CTPTRS( 'U', 'N', 'N', 0, -1, A, X, 1, INFO )
-         CALL CHKXER( 'CTPTRS', INFOT, NOUT, LERR, OK )
+         ctptrs('U', 'N', 'N', 0, -1, A, X, 1, INFO );
+         chkxer('CTPTRS', INFOT, NOUT, LERR, OK );
          INFOT = 8
-         CALL CTPTRS( 'U', 'N', 'N', 2, 1, A, X, 1, INFO )
-         CALL CHKXER( 'CTPTRS', INFOT, NOUT, LERR, OK )
+         ctptrs('U', 'N', 'N', 2, 1, A, X, 1, INFO );
+         chkxer('CTPTRS', INFOT, NOUT, LERR, OK );
 
          // CTPRFS
 
          SRNAMT = 'CTPRFS'
          INFOT = 1
-         CALL CTPRFS( '/', 'N', 'N', 0, 0, A, B, 1, X, 1, R1, R2, W, RW, INFO )
-         CALL CHKXER( 'CTPRFS', INFOT, NOUT, LERR, OK )
+         ctprfs('/', 'N', 'N', 0, 0, A, B, 1, X, 1, R1, R2, W, RW, INFO );
+         chkxer('CTPRFS', INFOT, NOUT, LERR, OK );
          INFOT = 2
-         CALL CTPRFS( 'U', '/', 'N', 0, 0, A, B, 1, X, 1, R1, R2, W, RW, INFO )
-         CALL CHKXER( 'CTPRFS', INFOT, NOUT, LERR, OK )
+         ctprfs('U', '/', 'N', 0, 0, A, B, 1, X, 1, R1, R2, W, RW, INFO );
+         chkxer('CTPRFS', INFOT, NOUT, LERR, OK );
          INFOT = 3
-         CALL CTPRFS( 'U', 'N', '/', 0, 0, A, B, 1, X, 1, R1, R2, W, RW, INFO )
-         CALL CHKXER( 'CTPRFS', INFOT, NOUT, LERR, OK )
+         ctprfs('U', 'N', '/', 0, 0, A, B, 1, X, 1, R1, R2, W, RW, INFO );
+         chkxer('CTPRFS', INFOT, NOUT, LERR, OK );
          INFOT = 4
-         CALL CTPRFS( 'U', 'N', 'N', -1, 0, A, B, 1, X, 1, R1, R2, W, RW, INFO )
-         CALL CHKXER( 'CTPRFS', INFOT, NOUT, LERR, OK )
+         ctprfs('U', 'N', 'N', -1, 0, A, B, 1, X, 1, R1, R2, W, RW, INFO );
+         chkxer('CTPRFS', INFOT, NOUT, LERR, OK );
          INFOT = 5
-         CALL CTPRFS( 'U', 'N', 'N', 0, -1, A, B, 1, X, 1, R1, R2, W, RW, INFO )
-         CALL CHKXER( 'CTPRFS', INFOT, NOUT, LERR, OK )
+         ctprfs('U', 'N', 'N', 0, -1, A, B, 1, X, 1, R1, R2, W, RW, INFO );
+         chkxer('CTPRFS', INFOT, NOUT, LERR, OK );
          INFOT = 8
-         CALL CTPRFS( 'U', 'N', 'N', 2, 1, A, B, 1, X, 2, R1, R2, W, RW, INFO )
-         CALL CHKXER( 'CTPRFS', INFOT, NOUT, LERR, OK )
+         ctprfs('U', 'N', 'N', 2, 1, A, B, 1, X, 2, R1, R2, W, RW, INFO );
+         chkxer('CTPRFS', INFOT, NOUT, LERR, OK );
          INFOT = 10
-         CALL CTPRFS( 'U', 'N', 'N', 2, 1, A, B, 2, X, 1, R1, R2, W, RW, INFO )
-         CALL CHKXER( 'CTPRFS', INFOT, NOUT, LERR, OK )
+         ctprfs('U', 'N', 'N', 2, 1, A, B, 2, X, 1, R1, R2, W, RW, INFO );
+         chkxer('CTPRFS', INFOT, NOUT, LERR, OK );
 
          // CTPCON
 
          SRNAMT = 'CTPCON'
          INFOT = 1
-         CALL CTPCON( '/', 'U', 'N', 0, A, RCOND, W, RW, INFO )
-         CALL CHKXER( 'CTPCON', INFOT, NOUT, LERR, OK )
+         ctpcon('/', 'U', 'N', 0, A, RCOND, W, RW, INFO );
+         chkxer('CTPCON', INFOT, NOUT, LERR, OK );
          INFOT = 2
-         CALL CTPCON( '1', '/', 'N', 0, A, RCOND, W, RW, INFO )
-         CALL CHKXER( 'CTPCON', INFOT, NOUT, LERR, OK )
+         ctpcon('1', '/', 'N', 0, A, RCOND, W, RW, INFO );
+         chkxer('CTPCON', INFOT, NOUT, LERR, OK );
          INFOT = 3
-         CALL CTPCON( '1', 'U', '/', 0, A, RCOND, W, RW, INFO )
-         CALL CHKXER( 'CTPCON', INFOT, NOUT, LERR, OK )
+         ctpcon('1', 'U', '/', 0, A, RCOND, W, RW, INFO );
+         chkxer('CTPCON', INFOT, NOUT, LERR, OK );
          INFOT = 4
-         CALL CTPCON( '1', 'U', 'N', -1, A, RCOND, W, RW, INFO )
-         CALL CHKXER( 'CTPCON', INFOT, NOUT, LERR, OK )
+         ctpcon('1', 'U', 'N', -1, A, RCOND, W, RW, INFO );
+         chkxer('CTPCON', INFOT, NOUT, LERR, OK );
 
          // CLATPS
 
          SRNAMT = 'CLATPS'
          INFOT = 1
-         CALL CLATPS( '/', 'N', 'N', 'N', 0, A, X, SCALE, RW, INFO )
-         CALL CHKXER( 'CLATPS', INFOT, NOUT, LERR, OK )
+         clatps('/', 'N', 'N', 'N', 0, A, X, SCALE, RW, INFO );
+         chkxer('CLATPS', INFOT, NOUT, LERR, OK );
          INFOT = 2
-         CALL CLATPS( 'U', '/', 'N', 'N', 0, A, X, SCALE, RW, INFO )
-         CALL CHKXER( 'CLATPS', INFOT, NOUT, LERR, OK )
+         clatps('U', '/', 'N', 'N', 0, A, X, SCALE, RW, INFO );
+         chkxer('CLATPS', INFOT, NOUT, LERR, OK );
          INFOT = 3
-         CALL CLATPS( 'U', 'N', '/', 'N', 0, A, X, SCALE, RW, INFO )
-         CALL CHKXER( 'CLATPS', INFOT, NOUT, LERR, OK )
+         clatps('U', 'N', '/', 'N', 0, A, X, SCALE, RW, INFO );
+         chkxer('CLATPS', INFOT, NOUT, LERR, OK );
          INFOT = 4
-         CALL CLATPS( 'U', 'N', 'N', '/', 0, A, X, SCALE, RW, INFO )
-         CALL CHKXER( 'CLATPS', INFOT, NOUT, LERR, OK )
+         clatps('U', 'N', 'N', '/', 0, A, X, SCALE, RW, INFO );
+         chkxer('CLATPS', INFOT, NOUT, LERR, OK );
          INFOT = 5
-         CALL CLATPS( 'U', 'N', 'N', 'N', -1, A, X, SCALE, RW, INFO )
-         CALL CHKXER( 'CLATPS', INFOT, NOUT, LERR, OK )
+         clatps('U', 'N', 'N', 'N', -1, A, X, SCALE, RW, INFO );
+         chkxer('CLATPS', INFOT, NOUT, LERR, OK );
 
       // Test error exits for the banded triangular routines.
 
@@ -315,112 +315,112 @@
 
          SRNAMT = 'CTBTRS'
          INFOT = 1
-         CALL CTBTRS( '/', 'N', 'N', 0, 0, 0, A, 1, X, 1, INFO )
-         CALL CHKXER( 'CTBTRS', INFOT, NOUT, LERR, OK )
+         ctbtrs('/', 'N', 'N', 0, 0, 0, A, 1, X, 1, INFO );
+         chkxer('CTBTRS', INFOT, NOUT, LERR, OK );
          INFOT = 2
-         CALL CTBTRS( 'U', '/', 'N', 0, 0, 0, A, 1, X, 1, INFO )
-         CALL CHKXER( 'CTBTRS', INFOT, NOUT, LERR, OK )
+         ctbtrs('U', '/', 'N', 0, 0, 0, A, 1, X, 1, INFO );
+         chkxer('CTBTRS', INFOT, NOUT, LERR, OK );
          INFOT = 3
-         CALL CTBTRS( 'U', 'N', '/', 0, 0, 0, A, 1, X, 1, INFO )
-         CALL CHKXER( 'CTBTRS', INFOT, NOUT, LERR, OK )
+         ctbtrs('U', 'N', '/', 0, 0, 0, A, 1, X, 1, INFO );
+         chkxer('CTBTRS', INFOT, NOUT, LERR, OK );
          INFOT = 4
-         CALL CTBTRS( 'U', 'N', 'N', -1, 0, 0, A, 1, X, 1, INFO )
-         CALL CHKXER( 'CTBTRS', INFOT, NOUT, LERR, OK )
+         ctbtrs('U', 'N', 'N', -1, 0, 0, A, 1, X, 1, INFO );
+         chkxer('CTBTRS', INFOT, NOUT, LERR, OK );
          INFOT = 5
-         CALL CTBTRS( 'U', 'N', 'N', 0, -1, 0, A, 1, X, 1, INFO )
-         CALL CHKXER( 'CTBTRS', INFOT, NOUT, LERR, OK )
+         ctbtrs('U', 'N', 'N', 0, -1, 0, A, 1, X, 1, INFO );
+         chkxer('CTBTRS', INFOT, NOUT, LERR, OK );
          INFOT = 6
-         CALL CTBTRS( 'U', 'N', 'N', 0, 0, -1, A, 1, X, 1, INFO )
-         CALL CHKXER( 'CTBTRS', INFOT, NOUT, LERR, OK )
+         ctbtrs('U', 'N', 'N', 0, 0, -1, A, 1, X, 1, INFO );
+         chkxer('CTBTRS', INFOT, NOUT, LERR, OK );
          INFOT = 8
-         CALL CTBTRS( 'U', 'N', 'N', 2, 1, 1, A, 1, X, 2, INFO )
-         CALL CHKXER( 'CTBTRS', INFOT, NOUT, LERR, OK )
+         ctbtrs('U', 'N', 'N', 2, 1, 1, A, 1, X, 2, INFO );
+         chkxer('CTBTRS', INFOT, NOUT, LERR, OK );
          INFOT = 10
-         CALL CTBTRS( 'U', 'N', 'N', 2, 0, 1, A, 1, X, 1, INFO )
-         CALL CHKXER( 'CTBTRS', INFOT, NOUT, LERR, OK )
+         ctbtrs('U', 'N', 'N', 2, 0, 1, A, 1, X, 1, INFO );
+         chkxer('CTBTRS', INFOT, NOUT, LERR, OK );
 
          // CTBRFS
 
          SRNAMT = 'CTBRFS'
          INFOT = 1
-         CALL CTBRFS( '/', 'N', 'N', 0, 0, 0, A, 1, B, 1, X, 1, R1, R2, W, RW, INFO )
-         CALL CHKXER( 'CTBRFS', INFOT, NOUT, LERR, OK )
+         ctbrfs('/', 'N', 'N', 0, 0, 0, A, 1, B, 1, X, 1, R1, R2, W, RW, INFO );
+         chkxer('CTBRFS', INFOT, NOUT, LERR, OK );
          INFOT = 2
-         CALL CTBRFS( 'U', '/', 'N', 0, 0, 0, A, 1, B, 1, X, 1, R1, R2, W, RW, INFO )
-         CALL CHKXER( 'CTBRFS', INFOT, NOUT, LERR, OK )
+         ctbrfs('U', '/', 'N', 0, 0, 0, A, 1, B, 1, X, 1, R1, R2, W, RW, INFO );
+         chkxer('CTBRFS', INFOT, NOUT, LERR, OK );
          INFOT = 3
-         CALL CTBRFS( 'U', 'N', '/', 0, 0, 0, A, 1, B, 1, X, 1, R1, R2, W, RW, INFO )
-         CALL CHKXER( 'CTBRFS', INFOT, NOUT, LERR, OK )
+         ctbrfs('U', 'N', '/', 0, 0, 0, A, 1, B, 1, X, 1, R1, R2, W, RW, INFO );
+         chkxer('CTBRFS', INFOT, NOUT, LERR, OK );
          INFOT = 4
-         CALL CTBRFS( 'U', 'N', 'N', -1, 0, 0, A, 1, B, 1, X, 1, R1, R2, W, RW, INFO )
-         CALL CHKXER( 'CTBRFS', INFOT, NOUT, LERR, OK )
+         ctbrfs('U', 'N', 'N', -1, 0, 0, A, 1, B, 1, X, 1, R1, R2, W, RW, INFO );
+         chkxer('CTBRFS', INFOT, NOUT, LERR, OK );
          INFOT = 5
-         CALL CTBRFS( 'U', 'N', 'N', 0, -1, 0, A, 1, B, 1, X, 1, R1, R2, W, RW, INFO )
-         CALL CHKXER( 'CTBRFS', INFOT, NOUT, LERR, OK )
+         ctbrfs('U', 'N', 'N', 0, -1, 0, A, 1, B, 1, X, 1, R1, R2, W, RW, INFO );
+         chkxer('CTBRFS', INFOT, NOUT, LERR, OK );
          INFOT = 6
-         CALL CTBRFS( 'U', 'N', 'N', 0, 0, -1, A, 1, B, 1, X, 1, R1, R2, W, RW, INFO )
-         CALL CHKXER( 'CTBRFS', INFOT, NOUT, LERR, OK )
+         ctbrfs('U', 'N', 'N', 0, 0, -1, A, 1, B, 1, X, 1, R1, R2, W, RW, INFO );
+         chkxer('CTBRFS', INFOT, NOUT, LERR, OK );
          INFOT = 8
-         CALL CTBRFS( 'U', 'N', 'N', 2, 1, 1, A, 1, B, 2, X, 2, R1, R2, W, RW, INFO )
-         CALL CHKXER( 'CTBRFS', INFOT, NOUT, LERR, OK )
+         ctbrfs('U', 'N', 'N', 2, 1, 1, A, 1, B, 2, X, 2, R1, R2, W, RW, INFO );
+         chkxer('CTBRFS', INFOT, NOUT, LERR, OK );
          INFOT = 10
-         CALL CTBRFS( 'U', 'N', 'N', 2, 1, 1, A, 2, B, 1, X, 2, R1, R2, W, RW, INFO )
-         CALL CHKXER( 'CTBRFS', INFOT, NOUT, LERR, OK )
+         ctbrfs('U', 'N', 'N', 2, 1, 1, A, 2, B, 1, X, 2, R1, R2, W, RW, INFO );
+         chkxer('CTBRFS', INFOT, NOUT, LERR, OK );
          INFOT = 12
-         CALL CTBRFS( 'U', 'N', 'N', 2, 1, 1, A, 2, B, 2, X, 1, R1, R2, W, RW, INFO )
-         CALL CHKXER( 'CTBRFS', INFOT, NOUT, LERR, OK )
+         ctbrfs('U', 'N', 'N', 2, 1, 1, A, 2, B, 2, X, 1, R1, R2, W, RW, INFO );
+         chkxer('CTBRFS', INFOT, NOUT, LERR, OK );
 
          // CTBCON
 
          SRNAMT = 'CTBCON'
          INFOT = 1
-         CALL CTBCON( '/', 'U', 'N', 0, 0, A, 1, RCOND, W, RW, INFO )
-         CALL CHKXER( 'CTBCON', INFOT, NOUT, LERR, OK )
+         ctbcon('/', 'U', 'N', 0, 0, A, 1, RCOND, W, RW, INFO );
+         chkxer('CTBCON', INFOT, NOUT, LERR, OK );
          INFOT = 2
-         CALL CTBCON( '1', '/', 'N', 0, 0, A, 1, RCOND, W, RW, INFO )
-         CALL CHKXER( 'CTBCON', INFOT, NOUT, LERR, OK )
+         ctbcon('1', '/', 'N', 0, 0, A, 1, RCOND, W, RW, INFO );
+         chkxer('CTBCON', INFOT, NOUT, LERR, OK );
          INFOT = 3
-         CALL CTBCON( '1', 'U', '/', 0, 0, A, 1, RCOND, W, RW, INFO )
-         CALL CHKXER( 'CTBCON', INFOT, NOUT, LERR, OK )
+         ctbcon('1', 'U', '/', 0, 0, A, 1, RCOND, W, RW, INFO );
+         chkxer('CTBCON', INFOT, NOUT, LERR, OK );
          INFOT = 4
-         CALL CTBCON( '1', 'U', 'N', -1, 0, A, 1, RCOND, W, RW, INFO )
-         CALL CHKXER( 'CTBCON', INFOT, NOUT, LERR, OK )
+         ctbcon('1', 'U', 'N', -1, 0, A, 1, RCOND, W, RW, INFO );
+         chkxer('CTBCON', INFOT, NOUT, LERR, OK );
          INFOT = 5
-         CALL CTBCON( '1', 'U', 'N', 0, -1, A, 1, RCOND, W, RW, INFO )
-         CALL CHKXER( 'CTBCON', INFOT, NOUT, LERR, OK )
+         ctbcon('1', 'U', 'N', 0, -1, A, 1, RCOND, W, RW, INFO );
+         chkxer('CTBCON', INFOT, NOUT, LERR, OK );
          INFOT = 7
-         CALL CTBCON( '1', 'U', 'N', 2, 1, A, 1, RCOND, W, RW, INFO )
-         CALL CHKXER( 'CTBCON', INFOT, NOUT, LERR, OK )
+         ctbcon('1', 'U', 'N', 2, 1, A, 1, RCOND, W, RW, INFO );
+         chkxer('CTBCON', INFOT, NOUT, LERR, OK );
 
          // CLATBS
 
          SRNAMT = 'CLATBS'
          INFOT = 1
-         CALL CLATBS( '/', 'N', 'N', 'N', 0, 0, A, 1, X, SCALE, RW, INFO )
-         CALL CHKXER( 'CLATBS', INFOT, NOUT, LERR, OK )
+         clatbs('/', 'N', 'N', 'N', 0, 0, A, 1, X, SCALE, RW, INFO );
+         chkxer('CLATBS', INFOT, NOUT, LERR, OK );
          INFOT = 2
-         CALL CLATBS( 'U', '/', 'N', 'N', 0, 0, A, 1, X, SCALE, RW, INFO )
-         CALL CHKXER( 'CLATBS', INFOT, NOUT, LERR, OK )
+         clatbs('U', '/', 'N', 'N', 0, 0, A, 1, X, SCALE, RW, INFO );
+         chkxer('CLATBS', INFOT, NOUT, LERR, OK );
          INFOT = 3
-         CALL CLATBS( 'U', 'N', '/', 'N', 0, 0, A, 1, X, SCALE, RW, INFO )
-         CALL CHKXER( 'CLATBS', INFOT, NOUT, LERR, OK )
+         clatbs('U', 'N', '/', 'N', 0, 0, A, 1, X, SCALE, RW, INFO );
+         chkxer('CLATBS', INFOT, NOUT, LERR, OK );
          INFOT = 4
-         CALL CLATBS( 'U', 'N', 'N', '/', 0, 0, A, 1, X, SCALE, RW, INFO )
-         CALL CHKXER( 'CLATBS', INFOT, NOUT, LERR, OK )
+         clatbs('U', 'N', 'N', '/', 0, 0, A, 1, X, SCALE, RW, INFO );
+         chkxer('CLATBS', INFOT, NOUT, LERR, OK );
          INFOT = 5
-         CALL CLATBS( 'U', 'N', 'N', 'N', -1, 0, A, 1, X, SCALE, RW, INFO )
-         CALL CHKXER( 'CLATBS', INFOT, NOUT, LERR, OK )
+         clatbs('U', 'N', 'N', 'N', -1, 0, A, 1, X, SCALE, RW, INFO );
+         chkxer('CLATBS', INFOT, NOUT, LERR, OK );
          INFOT = 6
-         CALL CLATBS( 'U', 'N', 'N', 'N', 1, -1, A, 1, X, SCALE, RW, INFO )
-         CALL CHKXER( 'CLATBS', INFOT, NOUT, LERR, OK )
+         clatbs('U', 'N', 'N', 'N', 1, -1, A, 1, X, SCALE, RW, INFO );
+         chkxer('CLATBS', INFOT, NOUT, LERR, OK );
          INFOT = 8
-         CALL CLATBS( 'U', 'N', 'N', 'N', 2, 1, A, 1, X, SCALE, RW, INFO )
-         CALL CHKXER( 'CLATBS', INFOT, NOUT, LERR, OK )
+         clatbs('U', 'N', 'N', 'N', 2, 1, A, 1, X, SCALE, RW, INFO );
+         chkxer('CLATBS', INFOT, NOUT, LERR, OK );
       }
 
       // Print a summary line.
 
-      CALL ALAESM( PATH, OK, NOUT )
+      alaesm(PATH, OK, NOUT );
 
       RETURN
 

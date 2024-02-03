@@ -43,50 +43,50 @@
 
       // Copy the matrix A to the array AF.
 
-      CALL CLACPY( 'Full', N, M, A, LDA, AF, LDA )
-      CALL CLACPY( 'Full', N, P, B, LDB, BF, LDB )
+      clacpy('Full', N, M, A, LDA, AF, LDA );
+      clacpy('Full', N, P, B, LDB, BF, LDB );
 
       ANORM = MAX( CLANGE( '1', N, M, A, LDA, RWORK ), UNFL )
       BNORM = MAX( CLANGE( '1', N, P, B, LDB, RWORK ), UNFL )
 
       // Factorize the matrices A and B in the arrays AF and BF.
 
-      CALL CGGQRF( N, M, P, AF, LDA, TAUA, BF, LDB, TAUB, WORK, LWORK, INFO )
+      cggqrf(N, M, P, AF, LDA, TAUA, BF, LDB, TAUB, WORK, LWORK, INFO );
 
       // Generate the N-by-N matrix Q
 
-      CALL CLASET( 'Full', N, N, CROGUE, CROGUE, Q, LDA )
-      CALL CLACPY( 'Lower', N-1, M, AF( 2,1 ), LDA, Q( 2,1 ), LDA )
-      CALL CUNGQR( N, N, MIN( N, M ), Q, LDA, TAUA, WORK, LWORK, INFO )
+      claset('Full', N, N, CROGUE, CROGUE, Q, LDA );
+      clacpy('Lower', N-1, M, AF( 2,1 ), LDA, Q( 2,1 ), LDA );
+      cungqr(N, N, MIN( N, M ), Q, LDA, TAUA, WORK, LWORK, INFO );
 
       // Generate the P-by-P matrix Z
 
-      CALL CLASET( 'Full', P, P, CROGUE, CROGUE, Z, LDB )
+      claset('Full', P, P, CROGUE, CROGUE, Z, LDB );
       if ( N.LE.P ) {
          IF( N.GT.0 .AND. N.LT.P ) CALL CLACPY( 'Full', N, P-N, BF, LDB, Z( P-N+1, 1 ), LDB )          IF( N.GT.1 ) CALL CLACPY( 'Lower', N-1, N-1, BF( 2, P-N+1 ), LDB, Z( P-N+2, P-N+1 ), LDB )
       } else {
          IF( P.GT.1) CALL CLACPY( 'Lower', P-1, P-1, BF( N-P+2, 1 ), LDB, Z( 2, 1 ), LDB )
       }
-      CALL CUNGRQ( P, P, MIN( N, P ), Z, LDB, TAUB, WORK, LWORK, INFO )
+      cungrq(P, P, MIN( N, P ), Z, LDB, TAUB, WORK, LWORK, INFO );
 
       // Copy R
 
-      CALL CLASET( 'Full', N, M, CZERO, CZERO, R, LDA )
-      CALL CLACPY( 'Upper', N, M, AF, LDA, R, LDA )
+      claset('Full', N, M, CZERO, CZERO, R, LDA );
+      clacpy('Upper', N, M, AF, LDA, R, LDA );
 
       // Copy T
 
-      CALL CLASET( 'Full', N, P, CZERO, CZERO, T, LDB )
+      claset('Full', N, P, CZERO, CZERO, T, LDB );
       if ( N.LE.P ) {
-         CALL CLACPY( 'Upper', N, N, BF( 1, P-N+1 ), LDB, T( 1, P-N+1 ), LDB )
+         clacpy('Upper', N, N, BF( 1, P-N+1 ), LDB, T( 1, P-N+1 ), LDB );
       } else {
-         CALL CLACPY( 'Full', N-P, P, BF, LDB, T, LDB )
-         CALL CLACPY( 'Upper', P, P, BF( N-P+1, 1 ), LDB, T( N-P+1, 1 ), LDB )
+         clacpy('Full', N-P, P, BF, LDB, T, LDB );
+         clacpy('Upper', P, P, BF( N-P+1, 1 ), LDB, T( N-P+1, 1 ), LDB );
       }
 
       // Compute R - Q'*A
 
-      CALL CGEMM( 'Conjugate transpose', 'No transpose', N, M, N, -CONE, Q, LDA, A, LDA, CONE, R, LDA )
+      cgemm('Conjugate transpose', 'No transpose', N, M, N, -CONE, Q, LDA, A, LDA, CONE, R, LDA );
 
       // Compute norm( R - Q'*A ) / ( MAX(M,N)*norm(A)*ULP ) .
 
@@ -99,7 +99,7 @@
 
       // Compute T*Z - Q'*B
 
-      CALL CGEMM( 'No Transpose', 'No transpose', N, P, P, CONE, T, LDB, Z, LDB, CZERO, BWK, LDB )       CALL CGEMM( 'Conjugate transpose', 'No transpose', N, P, N, -CONE, Q, LDA, B, LDB, CONE, BWK, LDB )
+      cgemm('No Transpose', 'No transpose', N, P, P, CONE, T, LDB, Z, LDB, CZERO, BWK, LDB )       CALL CGEMM( 'Conjugate transpose', 'No transpose', N, P, N, -CONE, Q, LDA, B, LDB, CONE, BWK, LDB );
 
       // Compute norm( T*Z - Q'*B ) / ( MAX(P,N)*norm(A)*ULP ) .
 
@@ -112,8 +112,8 @@
 
       // Compute I - Q'*Q
 
-      CALL CLASET( 'Full', N, N, CZERO, CONE, R, LDA )
-      CALL CHERK( 'Upper', 'Conjugate transpose', N, N, -ONE, Q, LDA, ONE, R, LDA )
+      claset('Full', N, N, CZERO, CONE, R, LDA );
+      cherk('Upper', 'Conjugate transpose', N, N, -ONE, Q, LDA, ONE, R, LDA );
 
       // Compute norm( I - Q'*Q ) / ( N * ULP ) .
 
@@ -122,8 +122,8 @@
 
       // Compute I - Z'*Z
 
-      CALL CLASET( 'Full', P, P, CZERO, CONE, T, LDB )
-      CALL CHERK( 'Upper', 'Conjugate transpose', P, P, -ONE, Z, LDB, ONE, T, LDB )
+      claset('Full', P, P, CZERO, CONE, T, LDB );
+      cherk('Upper', 'Conjugate transpose', P, P, -ONE, Z, LDB, ONE, T, LDB );
 
       // Compute norm( I - Z'*Z ) / ( P*ULP ) .
 

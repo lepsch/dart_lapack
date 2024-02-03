@@ -108,25 +108,25 @@
                   // singular value distribution indicated by `mode'.
 
                   if ( MODE.EQ.0 ) {
-                     CALL CLASET( 'Full', M, N, CMPLX( ZERO ), CMPLX( ZERO ), A, LDA )
+                     claset('Full', M, N, CMPLX( ZERO ), CMPLX( ZERO ), A, LDA );
                      DO 30 I = 1, MNMIN
                         S( I ) = ZERO
    30                CONTINUE
                   } else {
-                     CALL CLATMS( M, N, 'Uniform', ISEED, 'Nonsymmetric', S, IMODE, ONE / EPS, ONE, M, N, 'No packing', A, LDA, WORK, INFO )
-                     CALL CGEQR2( M, N, A, LDA, WORK, WORK( MNMIN+1 ), INFO )                      CALL CLASET( 'Lower', M-1, N, CMPLX( ZERO ), CMPLX( ZERO ), A( 2 ), LDA )
-                     CALL SLAORD( 'Decreasing', MNMIN, S, 1 )
+                     clatms(M, N, 'Uniform', ISEED, 'Nonsymmetric', S, IMODE, ONE / EPS, ONE, M, N, 'No packing', A, LDA, WORK, INFO );
+                     cgeqr2(M, N, A, LDA, WORK, WORK( MNMIN+1 ), INFO )                      CALL CLASET( 'Lower', M-1, N, CMPLX( ZERO ), CMPLX( ZERO ), A( 2 ), LDA );
+                     slaord('Decreasing', MNMIN, S, 1 );
                   }
 
                   // Save A and its singular values
 
-                  CALL CLACPY( 'All', M, N, A, LDA, COPYA, LDA )
+                  clacpy('All', M, N, A, LDA, COPYA, LDA );
 
                   // Call CTZRZF to reduce the upper trapezoidal matrix to
                   // upper triangular form.
 
                   SRNAMT = 'CTZRZF'
-                  CALL CTZRZF( M, N, A, LDA, TAU, WORK, LWORK, INFO )
+                  ctzrzf(M, N, A, LDA, TAU, WORK, LWORK, INFO );
 
                   // Compute norm(svd(a) - svd(r))
 
@@ -157,7 +157,7 @@
 
       // Print a summary of the results.
 
-      CALL ALASUM( PATH, NOUT, NFAIL, NRUN, NERRS )
+      alasum(PATH, NOUT, NFAIL, NRUN, NERRS );
 
  9999 FORMAT( ' M =', I5, ', N =', I5, ', type ', I2, ', test ', I2, ', ratio =', G12.5 )
 

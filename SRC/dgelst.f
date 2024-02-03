@@ -77,7 +77,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'DGELST ', -INFO )
+         xerbla('DGELST ', -INFO );
          RETURN
       } else if ( LQUERY ) {
          RETURN
@@ -86,7 +86,7 @@
       // Quick return if possible
 
       if ( MIN( M, N, NRHS ).EQ.0 ) {
-         CALL DLASET( 'Full', MAX( M, N ), NRHS, ZERO, ZERO, B, LDB )
+         dlaset('Full', MAX( M, N ), NRHS, ZERO, ZERO, B, LDB );
          WORK( 1 ) = DBLE( LWOPT )
          RETURN
       }
@@ -122,19 +122,19 @@
 
          // Scale matrix norm up to SMLNUM
 
-         CALL DLASCL( 'G', 0, 0, ANRM, SMLNUM, M, N, A, LDA, INFO )
+         dlascl('G', 0, 0, ANRM, SMLNUM, M, N, A, LDA, INFO );
          IASCL = 1
       } else if ( ANRM.GT.BIGNUM ) {
 
          // Scale matrix norm down to BIGNUM
 
-         CALL DLASCL( 'G', 0, 0, ANRM, BIGNUM, M, N, A, LDA, INFO )
+         dlascl('G', 0, 0, ANRM, BIGNUM, M, N, A, LDA, INFO );
          IASCL = 2
       } else if ( ANRM.EQ.ZERO ) {
 
          // Matrix all zero. Return zero solution.
 
-         CALL DLASET( 'Full', MAX( M, N ), NRHS, ZERO, ZERO, B, LDB )
+         dlaset('Full', MAX( M, N ), NRHS, ZERO, ZERO, B, LDB );
          WORK( 1 ) = DBLE( LWOPT )
          RETURN
       }
@@ -147,13 +147,13 @@
 
          // Scale matrix norm up to SMLNUM
 
-         CALL DLASCL( 'G', 0, 0, BNRM, SMLNUM, BROW, NRHS, B, LDB, INFO )
+         dlascl('G', 0, 0, BNRM, SMLNUM, BROW, NRHS, B, LDB, INFO );
          IBSCL = 1
       } else if ( BNRM.GT.BIGNUM ) {
 
          // Scale matrix norm down to BIGNUM
 
-         CALL DLASCL( 'G', 0, 0, BNRM, BIGNUM, BROW, NRHS, B, LDB, INFO )
+         dlascl('G', 0, 0, BNRM, BIGNUM, BROW, NRHS, B, LDB, INFO );
          IBSCL = 2
       }
 
@@ -164,7 +164,7 @@
          // using the compact WY representation of Q,
          // workspace at least N, optimally N*NB.
 
-         CALL DGEQRT( M, N, NB, A, LDA, WORK( 1 ), NB, WORK( MN*NB+1 ), INFO )
+         dgeqrt(M, N, NB, A, LDA, WORK( 1 ), NB, WORK( MN*NB+1 ), INFO );
 
          if ( .NOT.TPSD ) {
 
@@ -176,11 +176,11 @@
             // using the compact WY representation of Q,
             // workspace at least NRHS, optimally NRHS*NB.
 
-            CALL DGEMQRT( 'Left', 'Transpose', M, NRHS, N, NB, A, LDA, WORK( 1 ), NB, B, LDB, WORK( MN*NB+1 ), INFO )
+            dgemqrt('Left', 'Transpose', M, NRHS, N, NB, A, LDA, WORK( 1 ), NB, B, LDB, WORK( MN*NB+1 ), INFO );
 
             // Compute B(1:N,1:NRHS) := inv(R) * B(1:N,1:NRHS)
 
-            CALL DTRTRS( 'Upper', 'No transpose', 'Non-unit', N, NRHS, A, LDA, B, LDB, INFO )
+            dtrtrs('Upper', 'No transpose', 'Non-unit', N, NRHS, A, LDA, B, LDB, INFO );
 
             if ( INFO.GT.0 ) {
                RETURN
@@ -198,7 +198,7 @@
 
             // Block 1: B(1:N,1:NRHS) := inv(R**T) * B(1:N,1:NRHS)
 
-            CALL DTRTRS( 'Upper', 'Transpose', 'Non-unit', N, NRHS, A, LDA, B, LDB, INFO )
+            dtrtrs('Upper', 'Transpose', 'Non-unit', N, NRHS, A, LDA, B, LDB, INFO );
 
             if ( INFO.GT.0 ) {
                RETURN
@@ -217,7 +217,7 @@
             // using the compact WY representation of Q,
             // workspace at least NRHS, optimally NRHS*NB.
 
-            CALL DGEMQRT( 'Left', 'No transpose', M, NRHS, N, NB, A, LDA, WORK( 1 ), NB, B, LDB, WORK( MN*NB+1 ), INFO )
+            dgemqrt('Left', 'No transpose', M, NRHS, N, NB, A, LDA, WORK( 1 ), NB, B, LDB, WORK( MN*NB+1 ), INFO );
 
             SCLLEN = M
 
@@ -230,7 +230,7 @@
          // using the compact WY representation of Q,
          // workspace at least M, optimally M*NB.
 
-         CALL DGELQT( M, N, NB, A, LDA, WORK( 1 ), NB, WORK( MN*NB+1 ), INFO )
+         dgelqt(M, N, NB, A, LDA, WORK( 1 ), NB, WORK( MN*NB+1 ), INFO );
 
          if ( .NOT.TPSD ) {
 
@@ -242,7 +242,7 @@
 
             // Block 1: B(1:M,1:NRHS) := inv(L) * B(1:M,1:NRHS)
 
-            CALL DTRTRS( 'Lower', 'No transpose', 'Non-unit', M, NRHS, A, LDA, B, LDB, INFO )
+            dtrtrs('Lower', 'No transpose', 'Non-unit', M, NRHS, A, LDA, B, LDB, INFO );
 
             if ( INFO.GT.0 ) {
                RETURN
@@ -261,7 +261,7 @@
             // using the compact WY representation of Q,
             // workspace at least NRHS, optimally NRHS*NB.
 
-            CALL DGEMLQT( 'Left', 'Transpose', N, NRHS, M, NB, A, LDA, WORK( 1 ), NB, B, LDB, WORK( MN*NB+1 ), INFO )
+            dgemlqt('Left', 'Transpose', N, NRHS, M, NB, A, LDA, WORK( 1 ), NB, B, LDB, WORK( MN*NB+1 ), INFO );
 
             SCLLEN = N
 
@@ -275,11 +275,11 @@
             // using the compact WY representation of Q,
             // workspace at least NRHS, optimally NRHS*NB.
 
-            CALL DGEMLQT( 'Left', 'No transpose', N, NRHS, M, NB, A, LDA, WORK( 1 ), NB, B, LDB, WORK( MN*NB+1), INFO )
+            dgemlqt('Left', 'No transpose', N, NRHS, M, NB, A, LDA, WORK( 1 ), NB, B, LDB, WORK( MN*NB+1), INFO );
 
             // Compute B(1:M,1:NRHS) := inv(L**T) * B(1:M,1:NRHS)
 
-            CALL DTRTRS( 'Lower', 'Transpose', 'Non-unit', M, NRHS, A, LDA, B, LDB, INFO )
+            dtrtrs('Lower', 'Transpose', 'Non-unit', M, NRHS, A, LDA, B, LDB, INFO );
 
             if ( INFO.GT.0 ) {
                RETURN
@@ -294,14 +294,14 @@
       // Undo scaling
 
       if ( IASCL.EQ.1 ) {
-         CALL DLASCL( 'G', 0, 0, ANRM, SMLNUM, SCLLEN, NRHS, B, LDB, INFO )
+         dlascl('G', 0, 0, ANRM, SMLNUM, SCLLEN, NRHS, B, LDB, INFO );
       } else if ( IASCL.EQ.2 ) {
-         CALL DLASCL( 'G', 0, 0, ANRM, BIGNUM, SCLLEN, NRHS, B, LDB, INFO )
+         dlascl('G', 0, 0, ANRM, BIGNUM, SCLLEN, NRHS, B, LDB, INFO );
       }
       if ( IBSCL.EQ.1 ) {
-         CALL DLASCL( 'G', 0, 0, SMLNUM, BNRM, SCLLEN, NRHS, B, LDB, INFO )
+         dlascl('G', 0, 0, SMLNUM, BNRM, SCLLEN, NRHS, B, LDB, INFO );
       } else if ( IBSCL.EQ.2 ) {
-         CALL DLASCL( 'G', 0, 0, BIGNUM, BNRM, SCLLEN, NRHS, B, LDB, INFO )
+         dlascl('G', 0, 0, BIGNUM, BNRM, SCLLEN, NRHS, B, LDB, INFO );
       }
 
       WORK( 1 ) = DBLE( LWOPT )

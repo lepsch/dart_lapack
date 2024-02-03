@@ -39,7 +39,7 @@
          INFO = -4
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'DTZRQF', -INFO )
+         xerbla('DTZRQF', -INFO );
          RETURN
       }
 
@@ -57,7 +57,7 @@
             // Use a Householder reflection to zero the kth row of A.
             // First set up the reflection.
 
-            CALL DLARFG( N-M+1, A( K, K ), A( K, M1 ), LDA, TAU( K ) )
+            dlarfg(N-M+1, A( K, K ), A( K, M1 ), LDA, TAU( K ) );
 
             if ( ( TAU( K ).NE.ZERO ) .AND. ( K.GT.1 ) ) {
 
@@ -68,17 +68,17 @@
                // the  kth column  of  A.  Also  let  B  denote  the  first
                // ( k - 1 ) rows of the last ( n - m ) columns of A.
 
-               CALL DCOPY( K-1, A( 1, K ), 1, TAU, 1 )
+               dcopy(K-1, A( 1, K ), 1, TAU, 1 );
 
                // Form   w = a( k ) + B*z( k )  in TAU.
 
-               CALL DGEMV( 'No transpose', K-1, N-M, ONE, A( 1, M1 ), LDA, A( K, M1 ), LDA, ONE, TAU, 1 )
+               dgemv('No transpose', K-1, N-M, ONE, A( 1, M1 ), LDA, A( K, M1 ), LDA, ONE, TAU, 1 );
 
                // Now form  a( k ) := a( k ) - tau*w
                // and       B      := B      - tau*w*z( k )**T.
 
-               CALL DAXPY( K-1, -TAU( K ), TAU, 1, A( 1, K ), 1 )
-               CALL DGER( K-1, N-M, -TAU( K ), TAU, 1, A( K, M1 ), LDA, A( 1, M1 ), LDA )
+               daxpy(K-1, -TAU( K ), TAU, 1, A( 1, K ), 1 );
+               dger(K-1, N-M, -TAU( K ), TAU, 1, A( K, M1 ), LDA, A( 1, M1 ), LDA );
             }
    20    CONTINUE
       }

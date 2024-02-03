@@ -66,7 +66,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'CHETRD_HE2HB', -INFO )
+         xerbla('CHETRD_HE2HB', -INFO );
          RETURN
       } else if ( LQUERY ) {
          WORK( 1 ) = SROUNDUP_LWORK( LWMIN )
@@ -80,12 +80,12 @@
           if ( UPPER ) {
               DO 100 I = 1, N
                   LK = MIN( KD+1, I )
-                  CALL CCOPY( LK, A( I-LK+1, I ), 1,  AB( KD+1-LK+1, I ), 1 )
+                  ccopy(LK, A( I-LK+1, I ), 1,  AB( KD+1-LK+1, I ), 1 );
   100         CONTINUE
           } else {
               DO 110 I = 1, N
                   LK = MIN( KD+1, N-I+1 )
-                  CALL CCOPY( LK, A( I, I ), 1, AB( 1, I ), 1 )
+                  ccopy(LK, A( I, I ), 1, AB( 1, I ), 1 );
   110         CONTINUE
           ENDIF
           WORK( 1 ) = 1
@@ -117,7 +117,7 @@
       // Set the workspace of the triangular matrix T to zero once such a
       // way every time T is generated the upper/lower portion will be always zero
 
-      CALL CLASET( "A", LDT, KD, ZERO, ZERO, WORK( TPOS ), LDT )
+      claset("A", LDT, KD, ZERO, ZERO, WORK( TPOS ), LDT );
 
       if ( UPPER ) {
           DO 10 I = 1, N - KD, KD
@@ -126,43 +126,43 @@
 
              // Compute the LQ factorization of the current block
 
-             CALL CGELQF( KD, PN, A( I, I+KD ), LDA, TAU( I ), WORK( S2POS ), LS2, IINFO )
+             cgelqf(KD, PN, A( I, I+KD ), LDA, TAU( I ), WORK( S2POS ), LS2, IINFO );
 
              // Copy the upper portion of A into AB
 
              DO 20 J = I, I+PK-1
                 LK = MIN( KD, N-J ) + 1
-                CALL CCOPY( LK, A( J, J ), LDA, AB( KD+1, J ), LDAB-1 )
+                ccopy(LK, A( J, J ), LDA, AB( KD+1, J ), LDAB-1 );
    20        CONTINUE
 
-             CALL CLASET( 'Lower', PK, PK, ZERO, ONE,  A( I, I+KD ), LDA )
+             claset('Lower', PK, PK, ZERO, ONE,  A( I, I+KD ), LDA );
 
              // Form the matrix T
 
-             CALL CLARFT( 'Forward', 'Rowwise', PN, PK, A( I, I+KD ), LDA, TAU( I ), WORK( TPOS ), LDT )
+             clarft('Forward', 'Rowwise', PN, PK, A( I, I+KD ), LDA, TAU( I ), WORK( TPOS ), LDT );
 
              // Compute W:
 
-             CALL CGEMM( 'Conjugate', 'No transpose', PK, PN, PK, ONE,  WORK( TPOS ), LDT, A( I, I+KD ), LDA, ZERO, WORK( S2POS ), LDS2 )
+             cgemm('Conjugate', 'No transpose', PK, PN, PK, ONE,  WORK( TPOS ), LDT, A( I, I+KD ), LDA, ZERO, WORK( S2POS ), LDS2 );
 
-             CALL CHEMM( 'Right', UPLO, PK, PN, ONE,  A( I+KD, I+KD ), LDA, WORK( S2POS ), LDS2, ZERO, WORK( WPOS ), LDW )
+             chemm('Right', UPLO, PK, PN, ONE,  A( I+KD, I+KD ), LDA, WORK( S2POS ), LDS2, ZERO, WORK( WPOS ), LDW );
 
-             CALL CGEMM( 'No transpose', 'Conjugate', PK, PK, PN, ONE,  WORK( WPOS ), LDW, WORK( S2POS ), LDS2, ZERO, WORK( S1POS ), LDS1 )
+             cgemm('No transpose', 'Conjugate', PK, PK, PN, ONE,  WORK( WPOS ), LDW, WORK( S2POS ), LDS2, ZERO, WORK( S1POS ), LDS1 );
 
-             CALL CGEMM( 'No transpose', 'No transpose', PK, PN, PK, -HALF, WORK( S1POS ), LDS1, A( I, I+KD ), LDA, ONE,   WORK( WPOS ), LDW )
+             cgemm('No transpose', 'No transpose', PK, PN, PK, -HALF, WORK( S1POS ), LDS1, A( I, I+KD ), LDA, ONE,   WORK( WPOS ), LDW );
 
 
              // Update the unreduced submatrix A(i+kd:n,i+kd:n), using
              // an update of the form:  A := A - V'*W - W'*V
 
-             CALL CHER2K( UPLO, 'Conjugate', PN, PK, -ONE, A( I, I+KD ), LDA, WORK( WPOS ), LDW, RONE, A( I+KD, I+KD ), LDA )
+             cher2k(UPLO, 'Conjugate', PN, PK, -ONE, A( I, I+KD ), LDA, WORK( WPOS ), LDW, RONE, A( I+KD, I+KD ), LDA );
    10     CONTINUE
 
          // Copy the upper band to AB which is the band storage matrix
 
          DO 30 J = N-KD+1, N
             LK = MIN(KD, N-J) + 1
-            CALL CCOPY( LK, A( J, J ), LDA, AB( KD+1, J ), LDAB-1 )
+            ccopy(LK, A( J, J ), LDA, AB( KD+1, J ), LDAB-1 );
    30    CONTINUE
 
       } else {
@@ -175,36 +175,36 @@
 
              // Compute the QR factorization of the current block
 
-             CALL CGEQRF( PN, KD, A( I+KD, I ), LDA, TAU( I ), WORK( S2POS ), LS2, IINFO )
+             cgeqrf(PN, KD, A( I+KD, I ), LDA, TAU( I ), WORK( S2POS ), LS2, IINFO );
 
              // Copy the upper portion of A into AB
 
              DO 50 J = I, I+PK-1
                 LK = MIN( KD, N-J ) + 1
-                CALL CCOPY( LK, A( J, J ), 1, AB( 1, J ), 1 )
+                ccopy(LK, A( J, J ), 1, AB( 1, J ), 1 );
    50        CONTINUE
 
-             CALL CLASET( 'Upper', PK, PK, ZERO, ONE,  A( I+KD, I ), LDA )
+             claset('Upper', PK, PK, ZERO, ONE,  A( I+KD, I ), LDA );
 
              // Form the matrix T
 
-             CALL CLARFT( 'Forward', 'Columnwise', PN, PK, A( I+KD, I ), LDA, TAU( I ), WORK( TPOS ), LDT )
+             clarft('Forward', 'Columnwise', PN, PK, A( I+KD, I ), LDA, TAU( I ), WORK( TPOS ), LDT );
 
              // Compute W:
 
-             CALL CGEMM( 'No transpose', 'No transpose', PN, PK, PK, ONE, A( I+KD, I ), LDA, WORK( TPOS ), LDT, ZERO, WORK( S2POS ), LDS2 )
+             cgemm('No transpose', 'No transpose', PN, PK, PK, ONE, A( I+KD, I ), LDA, WORK( TPOS ), LDT, ZERO, WORK( S2POS ), LDS2 );
 
-             CALL CHEMM( 'Left', UPLO, PN, PK, ONE, A( I+KD, I+KD ), LDA, WORK( S2POS ), LDS2, ZERO, WORK( WPOS ), LDW )
+             chemm('Left', UPLO, PN, PK, ONE, A( I+KD, I+KD ), LDA, WORK( S2POS ), LDS2, ZERO, WORK( WPOS ), LDW );
 
-             CALL CGEMM( 'Conjugate', 'No transpose', PK, PK, PN, ONE, WORK( S2POS ), LDS2, WORK( WPOS ), LDW, ZERO, WORK( S1POS ), LDS1 )
+             cgemm('Conjugate', 'No transpose', PK, PK, PN, ONE, WORK( S2POS ), LDS2, WORK( WPOS ), LDW, ZERO, WORK( S1POS ), LDS1 );
 
-             CALL CGEMM( 'No transpose', 'No transpose', PN, PK, PK, -HALF, A( I+KD, I ), LDA, WORK( S1POS ), LDS1, ONE, WORK( WPOS ), LDW )
+             cgemm('No transpose', 'No transpose', PN, PK, PK, -HALF, A( I+KD, I ), LDA, WORK( S1POS ), LDS1, ONE, WORK( WPOS ), LDW );
 
 
              // Update the unreduced submatrix A(i+kd:n,i+kd:n), using
              // an update of the form:  A := A - V*W' - W*V'
 
-             CALL CHER2K( UPLO, 'No transpose', PN, PK, -ONE, A( I+KD, I ), LDA, WORK( WPOS ), LDW, RONE, A( I+KD, I+KD ), LDA )
+             cher2k(UPLO, 'No transpose', PN, PK, -ONE, A( I+KD, I ), LDA, WORK( WPOS ), LDW, RONE, A( I+KD, I+KD ), LDA );
              // ==================================================================
              // RESTORE A FOR COMPARISON AND CHECKING TO BE REMOVED
               // DO 45 J = I, I+PK-1
@@ -218,7 +218,7 @@
 
          DO 60 J = N-KD+1, N
             LK = MIN(KD, N-J) + 1
-            CALL CCOPY( LK, A( J, J ), 1, AB( 1, J ), 1 )
+            ccopy(LK, A( J, J ), 1, AB( 1, J ), 1 );
    60    CONTINUE
 
       }

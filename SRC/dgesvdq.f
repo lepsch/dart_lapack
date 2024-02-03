@@ -122,13 +122,13 @@
          // .. DGESVD of an N x N matrix
          LWSVD = MAX( 5 * N, 1 )
          if ( LQUERY ) {
-             CALL DGEQP3( M, N, A, LDA, IWORK, RDUMMY, RDUMMY, -1, IERR )
+             dgeqp3(M, N, A, LDA, IWORK, RDUMMY, RDUMMY, -1, IERR );
              LWRK_DGEQP3 = INT( RDUMMY(1) )
              if ( WNTUS .OR. WNTUR ) {
-                 CALL DORMQR( 'L', 'N', M, N, N, A, LDA, RDUMMY, U, LDU, RDUMMY, -1, IERR )
+                 dormqr('L', 'N', M, N, N, A, LDA, RDUMMY, U, LDU, RDUMMY, -1, IERR );
                  LWRK_DORMQR = INT( RDUMMY(1) )
              } else if ( WNTUA ) {
-                 CALL DORMQR( 'L', 'N', M, M, N, A, LDA, RDUMMY, U, LDU, RDUMMY, -1, IERR )
+                 dormqr('L', 'N', M, M, N, A, LDA, RDUMMY, U, LDU, RDUMMY, -1, IERR );
                  LWRK_DORMQR = INT( RDUMMY(1) )
              } else {
                  LWRK_DORMQR = 0
@@ -145,7 +145,7 @@
                 MINWRK = MAX( N+LWQP3, LWSVD )
              }
              if ( LQUERY ) {
-                 CALL DGESVD( 'N', 'N', N, N, A, LDA, S, U, LDU, V, LDV, RDUMMY, -1, IERR )
+                 dgesvd('N', 'N', N, N, A, LDA, S, U, LDU, V, LDV, RDUMMY, -1, IERR );
                  LWRK_DGESVD = INT( RDUMMY(1) )
                  if ( CONDA ) {
                     OPTWRK = MAX( N+LWRK_DGEQP3, N+LWCON, LWRK_DGESVD )
@@ -163,9 +163,9 @@
              }
              if ( LQUERY ) {
                 if ( RTRANS ) {
-                   CALL DGESVD( 'N', 'O', N, N, A, LDA, S, U, LDU, V, LDV, RDUMMY, -1, IERR )
+                   dgesvd('N', 'O', N, N, A, LDA, S, U, LDU, V, LDV, RDUMMY, -1, IERR );
                 } else {
-                   CALL DGESVD( 'O', 'N', N, N, A, LDA, S, U, LDU, V, LDV, RDUMMY, -1, IERR )
+                   dgesvd('O', 'N', N, N, A, LDA, S, U, LDU, V, LDV, RDUMMY, -1, IERR );
                 }
                 LWRK_DGESVD = INT( RDUMMY(1) )
                 if ( CONDA ) {
@@ -184,9 +184,9 @@
              }
              if ( LQUERY ) {
                  if ( RTRANS ) {
-                     CALL DGESVD( 'O', 'N', N, N, A, LDA, S, U, LDU, V, LDV, RDUMMY, -1, IERR )
+                     dgesvd('O', 'N', N, N, A, LDA, S, U, LDU, V, LDV, RDUMMY, -1, IERR );
                  } else {
-                     CALL DGESVD( 'N', 'O', N, N, A, LDA, S, U, LDU, V, LDV, RDUMMY, -1, IERR )
+                     dgesvd('N', 'O', N, N, A, LDA, S, U, LDU, V, LDV, RDUMMY, -1, IERR );
                  }
                  LWRK_DGESVD = INT( RDUMMY(1) )
                  if ( CONDA ) {
@@ -230,17 +230,17 @@
              }
              if ( LQUERY ) {
                 if ( RTRANS ) {
-                   CALL DGESVD( 'O', 'A', N, N, A, LDA, S, U, LDU, V, LDV, RDUMMY, -1, IERR )
+                   dgesvd('O', 'A', N, N, A, LDA, S, U, LDU, V, LDV, RDUMMY, -1, IERR );
                    LWRK_DGESVD = INT( RDUMMY(1) )
                    OPTWRK = MAX(LWRK_DGEQP3,LWRK_DGESVD,LWRK_DORMQR)
                    IF ( CONDA ) OPTWRK = MAX( OPTWRK, LWCON )
                    OPTWRK = N + OPTWRK
                    if ( WNTVA ) {
-                       CALL DGEQRF(N,N/2,U,LDU,RDUMMY,RDUMMY,-1,IERR)
+                       dgeqrf(N,N/2,U,LDU,RDUMMY,RDUMMY,-1,IERR);
                        LWRK_DGEQRF = INT( RDUMMY(1) )
-                       CALL DGESVD( 'S', 'O', N/2,N/2, V,LDV, S, U,LDU, V, LDV, RDUMMY, -1, IERR )
+                       dgesvd('S', 'O', N/2,N/2, V,LDV, S, U,LDU, V, LDV, RDUMMY, -1, IERR );
                        LWRK_DGESVD2 = INT( RDUMMY(1) )
-                       CALL DORMQR( 'R', 'C', N, N, N/2, U, LDU, RDUMMY, V, LDV, RDUMMY, -1, IERR )
+                       dormqr('R', 'C', N, N, N/2, U, LDU, RDUMMY, V, LDV, RDUMMY, -1, IERR );
                        LWRK_DORMQR2 = INT( RDUMMY(1) )
                        OPTWRK2 = MAX( LWRK_DGEQP3, N/2+LWRK_DGEQRF, N/2+LWRK_DGESVD2, N/2+LWRK_DORMQR2 )
                        IF ( CONDA ) OPTWRK2 = MAX( OPTWRK2, LWCON )
@@ -248,17 +248,17 @@
                        OPTWRK = MAX( OPTWRK, OPTWRK2 )
                    }
                 } else {
-                   CALL DGESVD( 'S', 'O', N, N, A, LDA, S, U, LDU, V, LDV, RDUMMY, -1, IERR )
+                   dgesvd('S', 'O', N, N, A, LDA, S, U, LDU, V, LDV, RDUMMY, -1, IERR );
                    LWRK_DGESVD = INT( RDUMMY(1) )
                    OPTWRK = MAX(LWRK_DGEQP3,LWRK_DGESVD,LWRK_DORMQR)
                    IF ( CONDA ) OPTWRK = MAX( OPTWRK, LWCON )
                    OPTWRK = N + OPTWRK
                    if ( WNTVA ) {
-                      CALL DGELQF(N/2,N,U,LDU,RDUMMY,RDUMMY,-1,IERR)
+                      dgelqf(N/2,N,U,LDU,RDUMMY,RDUMMY,-1,IERR);
                       LWRK_DGELQF = INT( RDUMMY(1) )
-                      CALL DGESVD( 'S','O', N/2,N/2, V, LDV, S, U, LDU, V, LDV, RDUMMY, -1, IERR )
+                      dgesvd('S','O', N/2,N/2, V, LDV, S, U, LDU, V, LDV, RDUMMY, -1, IERR );
                       LWRK_DGESVD2 = INT( RDUMMY(1) )
-                      CALL DORMLQ( 'R', 'N', N, N, N/2, U, LDU, RDUMMY, V, LDV, RDUMMY,-1,IERR )
+                      dormlq('R', 'N', N, N, N/2, U, LDU, RDUMMY, V, LDV, RDUMMY,-1,IERR );
                       LWRK_DORMLQ = INT( RDUMMY(1) )
                       OPTWRK2 = MAX( LWRK_DGEQP3, N/2+LWRK_DGELQF, N/2+LWRK_DGESVD2, N/2+LWRK_DORMLQ )
                        IF ( CONDA ) OPTWRK2 = MAX( OPTWRK2, LWCON )
@@ -279,7 +279,7 @@
          INFO = -21
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'DGESVDQ', -INFO )
+         xerbla('DGESVDQ', -INFO );
          RETURN
       } else if ( LQUERY ) {
 
@@ -314,7 +314,7 @@
                 // .. check for NaN's and Inf's
                 if ( ( RWORK(p) .NE. RWORK(p) ) .OR. ( (RWORK(p)*ZERO) .NE. ZERO ) ) {
                     INFO = -8
-                    CALL XERBLA( 'DGESVDQ', -INFO )
+                    xerbla('DGESVDQ', -INFO );
                     RETURN
                 }
  1904       CONTINUE
@@ -331,13 +331,13 @@
             if ( RWORK(1) .EQ. ZERO ) {
                // Quick return: A is the M x N zero matrix.
                NUMRANK = 0
-               CALL DLASET( 'G', N, 1, ZERO, ZERO, S, N )
+               dlaset('G', N, 1, ZERO, ZERO, S, N );
                IF ( WNTUS ) CALL DLASET('G', M, N, ZERO, ONE, U, LDU)
                IF ( WNTUA ) CALL DLASET('G', M, M, ZERO, ONE, U, LDU)
                IF ( WNTVA ) CALL DLASET('G', N, N, ZERO, ONE, V, LDV)
                if ( WNTUF ) {
-                   CALL DLASET( 'G', N, 1, ZERO, ZERO, WORK, N )
-                   CALL DLASET( 'G', M, N, ZERO,  ONE, U, LDU )
+                   dlaset('G', N, 1, ZERO, ZERO, WORK, N );
+                   dlaset('G', M, N, ZERO,  ONE, U, LDU );
                }
                DO 5001 p = 1, N
                    IWORK(p) = p
@@ -355,10 +355,10 @@
             if ( RWORK(1) .GT. BIG / SQRT(DBLE(M)) ) {
                 // .. to prevent overflow in the QR factorization, scale the
                 // matrix by 1/sqrt(M) if too large entry detected
-                CALL DLASCL('G',0,0,SQRT(DBLE(M)),ONE, M,N, A,LDA, IERR)
+                dlascl('G',0,0,SQRT(DBLE(M)),ONE, M,N, A,LDA, IERR);
                 ASCALED = .TRUE.
             }
-            CALL DLASWP( N, A, LDA, 1, M-1, IWORK(N+1), 1 )
+            dlaswp(N, A, LDA, 1, M-1, IWORK(N+1), 1 );
       }
 
 *    .. At this stage, preemptive scaling is done only to avoid column
@@ -370,13 +370,13 @@
           RTMP = DLANGE( 'M', M, N, A, LDA, RDUMMY )
           if ( ( RTMP .NE. RTMP ) .OR. ( (RTMP*ZERO) .NE. ZERO ) ) {
                INFO = -8
-               CALL XERBLA( 'DGESVDQ', -INFO )
+               xerbla('DGESVDQ', -INFO );
                RETURN
           }
           if ( RTMP .GT. BIG / SQRT(DBLE(M)) ) {
               // .. to prevent overflow in the QR factorization, scale the
               // matrix by 1/sqrt(M) if too large entry detected
-              CALL DLASCL('G',0,0, SQRT(DBLE(M)),ONE, M,N, A,LDA, IERR)
+              dlascl('G',0,0, SQRT(DBLE(M)),ONE, M,N, A,LDA, IERR);
               ASCALED = .TRUE.
           }
       }
@@ -390,7 +390,7 @@
          // .. all columns are free columns
          IWORK(p) = 0
  1963 CONTINUE
-      CALL DGEQP3( M, N, A, LDA, IWORK, WORK, WORK(N+1), LWORK-N, IERR )
+      dgeqp3(M, N, A, LDA, IWORK, WORK, WORK(N+1), LWORK-N, IERR );
 
 *    If the user requested accuracy level allows truncation in the
 *    computed upper triangular factor, the matrix R is examined and,
@@ -445,7 +445,7 @@
             // Estimate the scaled condition number of A. Use the fact that it is
             // the same as the scaled condition number of R.
                // .. V is used as workspace
-               CALL DLACPY( 'U', N, N, A, LDA, V, LDV )
+               dlacpy('U', N, N, A, LDA, V, LDV );
                // Only the leading NR x NR submatrix of the triangular factor
                // is considered. Only if NR=N will this give a reliable error
                // bound. However, even for NR < N, this can be used on an
@@ -453,12 +453,12 @@
                // perturbation theory.
                DO 3053 p = 1, NR
                   RTMP = DNRM2( p, V(1,p), 1 )
-                  CALL DSCAL( p, ONE/RTMP, V(1,p), 1 )
+                  dscal(p, ONE/RTMP, V(1,p), 1 );
  3053          CONTINUE
                if ( .NOT. ( LSVEC .OR. RSVEC ) ) {
-                   CALL DPOCON( 'U', NR, V, LDV, ONE, RTMP, WORK, IWORK(N+IWOFF), IERR )
+                   dpocon('U', NR, V, LDV, ONE, RTMP, WORK, IWORK(N+IWOFF), IERR );
                } else {
-                   CALL DPOCON( 'U', NR, V, LDV, ONE, RTMP, WORK(N+1), IWORK(N+IWOFF), IERR )
+                   dpocon('U', NR, V, LDV, ONE, RTMP, WORK(N+1), IWORK(N+IWOFF), IERR );
                }
                SCONDA = ONE / SQRT(RTMP)
             // For NR=N, SCONDA is an estimate of SQRT(||(R^* * R)^(-1)||_1),
@@ -492,7 +492,7 @@
  1147          CONTINUE
  1146       CONTINUE
 
-            CALL DGESVD( 'N', 'N', N, NR, A, LDA, S, U, LDU, V, LDV, WORK, LWORK, INFO )
+            dgesvd('N', 'N', N, NR, A, LDA, S, U, LDU, V, LDV, WORK, LWORK, INFO );
 
          } else {
 
@@ -519,7 +519,7 @@
             // .. the left singular vectors not computed, the NR right singular
             // vectors overwrite [U](1:NR,1:NR) as transposed. These
             // will be pre-multiplied by Q to build the left singular vectors of A.
-               CALL DGESVD( 'N', 'O', N, NR, U, LDU, S, U, LDU, U, LDU, WORK(N+1), LWORK-N, INFO )
+               dgesvd('N', 'O', N, NR, U, LDU, S, U, LDU, U, LDU, WORK(N+1), LWORK-N, INFO );
 
                DO 1119 p = 1, NR
                    DO 1120 q = p + 1, NR
@@ -532,11 +532,11 @@
          } else {
              // .. apply DGESVD to R
              // .. copy R into [U] and overwrite [U] with the left singular vectors
-             CALL DLACPY( 'U', NR, N, A, LDA, U, LDU )
+             dlacpy('U', NR, N, A, LDA, U, LDU );
              IF ( NR .GT. 1 ) CALL DLASET( 'L', NR-1, NR-1, ZERO, ZERO, U(2,1), LDU )
              // .. the right singular vectors not computed, the NR left singular
              // vectors overwrite [U](1:NR,1:NR)
-                CALL DGESVD( 'O', 'N', NR, N, U, LDU, S, U, LDU, V, LDV, WORK(N+1), LWORK-N, INFO )
+                dgesvd('O', 'N', NR, N, U, LDU, S, U, LDU, V, LDV, WORK(N+1), LWORK-N, INFO );
                 // .. now [U](1:NR,1:NR) contains the NR left singular vectors of
                 // R. These will be pre-multiplied by Q to build the left singular
                 // vectors of A.
@@ -545,10 +545,10 @@
             // .. assemble the left singular vector matrix U of dimensions
                // (M x NR) or (M x N) or (M x M).
          if ( ( NR .LT. M ) .AND. ( .NOT.WNTUF ) ) {
-             CALL DLASET('A', M-NR, NR, ZERO, ZERO, U(NR+1,1), LDU)
+             dlaset('A', M-NR, NR, ZERO, ZERO, U(NR+1,1), LDU);
              if ( NR .LT. N1 ) {
-                CALL DLASET( 'A',NR,N1-NR,ZERO,ZERO,U(1,NR+1), LDU )
-                CALL DLASET( 'A',M-NR,N1-NR,ZERO,ONE, U(NR+1,NR+1), LDU )
+                dlaset('A',NR,N1-NR,ZERO,ZERO,U(1,NR+1), LDU );
+                dlaset('A',M-NR,N1-NR,ZERO,ONE, U(NR+1,NR+1), LDU );
              }
          }
 
@@ -574,7 +574,7 @@
             // .. the left singular vectors of R**T overwrite V, the right singular
             // vectors not computed
             if ( WNTVR .OR. ( NR .EQ. N ) ) {
-               CALL DGESVD( 'O', 'N', N, NR, V, LDV, S, U, LDU, U, LDU, WORK(N+1), LWORK-N, INFO )
+               dgesvd('O', 'N', N, NR, V, LDV, S, U, LDU, U, LDU, WORK(N+1), LWORK-N, INFO );
 
                DO 1121 p = 1, NR
                    DO 1122 q = p + 1, NR
@@ -591,15 +591,15 @@
  1104                 CONTINUE
  1103              CONTINUE
                }
-               CALL DLAPMT( .FALSE., NR, N, V, LDV, IWORK )
+               dlapmt(.FALSE., NR, N, V, LDV, IWORK );
             } else {
                 // .. need all N right singular vectors and NR < N
                 // [!] This is simple implementation that augments [V](1:N,1:NR)
                 // by padding a zero block. In the case NR << N, a more efficient
                 // way is to first use the QR factorization. For more details
                 // how to implement this, see the " FULL SVD " branch.
-                CALL DLASET('G', N, N-NR, ZERO, ZERO, V(1,NR+1), LDV)
-                CALL DGESVD( 'O', 'N', N, N, V, LDV, S, U, LDU, U, LDU, WORK(N+1), LWORK-N, INFO )
+                dlaset('G', N, N-NR, ZERO, ZERO, V(1,NR+1), LDV);
+                dgesvd('O', 'N', N, N, V, LDV, S, U, LDU, U, LDU, WORK(N+1), LWORK-N, INFO );
 
                 DO 1123 p = 1, N
                    DO 1124 q = p + 1, N
@@ -608,19 +608,19 @@
                       V(p,q) = RTMP
  1124              CONTINUE
  1123           CONTINUE
-                CALL DLAPMT( .FALSE., N, N, V, LDV, IWORK )
+                dlapmt(.FALSE., N, N, V, LDV, IWORK );
             }
 
           } else {
              // .. aply DGESVD to R
              // .. copy R into V and overwrite V with the right singular vectors
-             CALL DLACPY( 'U', NR, N, A, LDA, V, LDV )
+             dlacpy('U', NR, N, A, LDA, V, LDV );
              IF ( NR .GT. 1 ) CALL DLASET( 'L', NR-1, NR-1, ZERO, ZERO, V(2,1), LDV )
              // .. the right singular vectors overwrite V, the NR left singular
              // vectors stored in U(1:NR,1:NR)
              if ( WNTVR .OR. ( NR .EQ. N ) ) {
-                CALL DGESVD( 'N', 'O', NR, N, V, LDV, S, U, LDU, V, LDV, WORK(N+1), LWORK-N, INFO )
-                CALL DLAPMT( .FALSE., NR, N, V, LDV, IWORK )
+                dgesvd('N', 'O', NR, N, V, LDV, S, U, LDU, V, LDV, WORK(N+1), LWORK-N, INFO );
+                dlapmt(.FALSE., NR, N, V, LDV, IWORK );
                 // .. now [V](1:NR,1:N) contains V(1:N,1:NR)**T
              } else {
                 // .. need all N right singular vectors and NR < N
@@ -628,9 +628,9 @@
                 // by padding a zero block. In the case NR << N, a more efficient
                 // way is to first use the LQ factorization. For more details
                 // how to implement this, see the " FULL SVD " branch.
-                 CALL DLASET('G', N-NR, N, ZERO,ZERO, V(NR+1,1), LDV)
-                 CALL DGESVD( 'N', 'O', N, N, V, LDV, S, U, LDU, V, LDV, WORK(N+1), LWORK-N, INFO )
-                 CALL DLAPMT( .FALSE., N, N, V, LDV, IWORK )
+                 dlaset('G', N-NR, N, ZERO,ZERO, V(NR+1,1), LDV);
+                 dgesvd('N', 'O', N, N, V, LDV, S, U, LDU, V, LDV, WORK(N+1), LWORK-N, INFO );
+                 dlapmt(.FALSE., N, N, V, LDV, IWORK );
              }
              // .. now [V] contains the transposed matrix of the right singular
              // vectors of A.
@@ -656,7 +656,7 @@
 
             // .. the left singular vectors of R**T overwrite [V], the NR right
             // singular vectors of R**T stored in [U](1:NR,1:NR) as transposed
-               CALL DGESVD( 'O', 'A', N, NR, V, LDV, S, V, LDV, U, LDU, WORK(N+1), LWORK-N, INFO )
+               dgesvd('O', 'A', N, NR, V, LDV, S, V, LDV, U, LDU, WORK(N+1), LWORK-N, INFO );
                // .. assemble V
                DO 1115 p = 1, NR
                   DO 1116 q = p + 1, NR
@@ -672,7 +672,7 @@
  1102                 CONTINUE
  1101              CONTINUE
                }
-               CALL DLAPMT( .FALSE., NR, N, V, LDV, IWORK )
+               dlapmt(.FALSE., NR, N, V, LDV, IWORK );
 
                 DO 1117 p = 1, NR
                    DO 1118 q = p + 1, NR
@@ -683,10 +683,10 @@
  1117           CONTINUE
 
                 if ( ( NR .LT. M ) .AND. .NOT.(WNTUF)) {
-                  CALL DLASET('A', M-NR,NR, ZERO,ZERO, U(NR+1,1), LDU)
+                  dlaset('A', M-NR,NR, ZERO,ZERO, U(NR+1,1), LDU);
                   if ( NR .LT. N1 ) {
-                     CALL DLASET('A',NR,N1-NR,ZERO,ZERO,U(1,NR+1),LDU)
-                     CALL DLASET( 'A',M-NR,N1-NR,ZERO,ONE, U(NR+1,NR+1), LDU )
+                     dlaset('A',NR,N1-NR,ZERO,ZERO,U(1,NR+1),LDU);
+                     dlaset('A',M-NR,N1-NR,ZERO,ONE, U(NR+1,NR+1), LDU );
                   }
                }
 
@@ -708,8 +708,8 @@
  1198              CONTINUE
                    IF ( NR .GT. 1 ) CALL DLASET('U',NR-1,NR-1, ZERO,ZERO, V(1,2),LDV)
 
-                   CALL DLASET('A',N,N-NR,ZERO,ZERO,V(1,NR+1),LDV)
-                   CALL DGESVD( 'O', 'A', N, N, V, LDV, S, V, LDV, U, LDU, WORK(N+1), LWORK-N, INFO )
+                   dlaset('A',N,N-NR,ZERO,ZERO,V(1,NR+1),LDV);
+                   dgesvd('O', 'A', N, N, V, LDV, S, V, LDV, U, LDU, WORK(N+1), LWORK-N, INFO );
 
                    DO 1113 p = 1, N
                       DO 1114 q = p + 1, N
@@ -718,7 +718,7 @@
                          V(p,q) = RTMP
  1114                 CONTINUE
  1113              CONTINUE
-                   CALL DLAPMT( .FALSE., N, N, V, LDV, IWORK )
+                   dlapmt(.FALSE., N, N, V, LDV, IWORK );
                // .. assemble the left singular vector matrix U of dimensions
                // (M x N1), i.e. (M x N) or (M x M).
 
@@ -731,10 +731,10 @@
  1111              CONTINUE
 
                    if ( ( N .LT. M ) .AND. .NOT.(WNTUF)) {
-                      CALL DLASET('A',M-N,N,ZERO,ZERO,U(N+1,1),LDU)
+                      dlaset('A',M-N,N,ZERO,ZERO,U(N+1,1),LDU);
                       if ( N .LT. N1 ) {
-                        CALL DLASET('A',N,N1-N,ZERO,ZERO,U(1,N+1),LDU)
-                        CALL DLASET('A',M-N,N1-N,ZERO,ONE, U(N+1,N+1), LDU )
+                        dlaset('A',N,N1-N,ZERO,ZERO,U(1,N+1),LDU);
+                        dlaset('A',M-N,N1-N,ZERO,ONE, U(N+1,N+1), LDU );
                       }
                    }
                 } else {
@@ -751,20 +751,20 @@
                            V(q,p) = U(p,NR+q)
  1144                  CONTINUE
  1143              CONTINUE
-                  CALL DLASET('U',NR-1,NR-1,ZERO,ZERO,V(1,2),LDV)
-                  CALL DGESVD( 'S', 'O', NR, NR, V, LDV, S, U, LDU, V,LDV, WORK(N+NR+1),LWORK-N-NR, INFO )
-                  CALL DLASET('A',N-NR,NR,ZERO,ZERO,V(NR+1,1),LDV)
-                  CALL DLASET('A',NR,N-NR,ZERO,ZERO,V(1,NR+1),LDV)
-                  CALL DLASET('A',N-NR,N-NR,ZERO,ONE,V(NR+1,NR+1),LDV)
-                  CALL DORMQR('R','C', N, N, NR, U(1,NR+1), LDU, WORK(N+1),V,LDV,WORK(N+NR+1),LWORK-N-NR,IERR)
-                  CALL DLAPMT( .FALSE., N, N, V, LDV, IWORK )
+                  dlaset('U',NR-1,NR-1,ZERO,ZERO,V(1,2),LDV);
+                  dgesvd('S', 'O', NR, NR, V, LDV, S, U, LDU, V,LDV, WORK(N+NR+1),LWORK-N-NR, INFO );
+                  dlaset('A',N-NR,NR,ZERO,ZERO,V(NR+1,1),LDV);
+                  dlaset('A',NR,N-NR,ZERO,ZERO,V(1,NR+1),LDV);
+                  dlaset('A',N-NR,N-NR,ZERO,ONE,V(NR+1,NR+1),LDV);
+                  dormqr('R','C', N, N, NR, U(1,NR+1), LDU, WORK(N+1),V,LDV,WORK(N+NR+1),LWORK-N-NR,IERR);
+                  dlapmt(.FALSE., N, N, V, LDV, IWORK );
                   // .. assemble the left singular vector matrix U of dimensions
                   // (M x NR) or (M x N) or (M x M).
                   if ( ( NR .LT. M ) .AND. .NOT.(WNTUF)) {
-                     CALL DLASET('A',M-NR,NR,ZERO,ZERO,U(NR+1,1),LDU)
+                     dlaset('A',M-NR,NR,ZERO,ZERO,U(NR+1,1),LDU);
                      if ( NR .LT. N1 ) {
-                     CALL DLASET('A',NR,N1-NR,ZERO,ZERO,U(1,NR+1),LDU)
-                     CALL DLASET( 'A',M-NR,N1-NR,ZERO,ONE, U(NR+1,NR+1),LDU)
+                     dlaset('A',NR,N1-NR,ZERO,ZERO,U(1,NR+1),LDU);
+                     dlaset('A',M-NR,N1-NR,ZERO,ONE, U(NR+1,NR+1),LDU);
                      }
                   }
                 }
@@ -776,20 +776,20 @@
 
              if ( WNTVR .OR. ( NR .EQ. N ) ) {
                  // .. copy R into [V] and overwrite V with the right singular vectors
-                 CALL DLACPY( 'U', NR, N, A, LDA, V, LDV )
+                 dlacpy('U', NR, N, A, LDA, V, LDV );
                 IF ( NR .GT. 1 ) CALL DLASET( 'L', NR-1,NR-1, ZERO,ZERO, V(2,1), LDV )
                 // .. the right singular vectors of R overwrite [V], the NR left
                 // singular vectors of R stored in [U](1:NR,1:NR)
-                CALL DGESVD( 'S', 'O', NR, N, V, LDV, S, U, LDU, V, LDV, WORK(N+1), LWORK-N, INFO )
-                CALL DLAPMT( .FALSE., NR, N, V, LDV, IWORK )
+                dgesvd('S', 'O', NR, N, V, LDV, S, U, LDU, V, LDV, WORK(N+1), LWORK-N, INFO );
+                dlapmt(.FALSE., NR, N, V, LDV, IWORK );
                 // .. now [V](1:NR,1:N) contains V(1:N,1:NR)**T
                 // .. assemble the left singular vector matrix U of dimensions
                // (M x NR) or (M x N) or (M x M).
                if ( ( NR .LT. M ) .AND. .NOT.(WNTUF)) {
-                  CALL DLASET('A', M-NR,NR, ZERO,ZERO, U(NR+1,1), LDU)
+                  dlaset('A', M-NR,NR, ZERO,ZERO, U(NR+1,1), LDU);
                   if ( NR .LT. N1 ) {
-                     CALL DLASET('A',NR,N1-NR,ZERO,ZERO,U(1,NR+1),LDU)
-                     CALL DLASET( 'A',M-NR,N1-NR,ZERO,ONE, U(NR+1,NR+1), LDU )
+                     dlaset('A',NR,N1-NR,ZERO,ZERO,U(1,NR+1),LDU);
+                     dlaset('A',M-NR,N1-NR,ZERO,ONE, U(NR+1,NR+1), LDU );
                   }
                }
 
@@ -804,42 +804,42 @@
                 // OPTRATIO = MAX( OPTRATIO, 2 )
                OPTRATIO = 2
                if ( OPTRATIO * NR .GT. N ) {
-                  CALL DLACPY( 'U', NR, N, A, LDA, V, LDV )
+                  dlacpy('U', NR, N, A, LDA, V, LDV );
                   IF ( NR .GT. 1 ) CALL DLASET('L', NR-1,NR-1, ZERO,ZERO, V(2,1),LDV)
                // .. the right singular vectors of R overwrite [V], the NR left
                   // singular vectors of R stored in [U](1:NR,1:NR)
-                  CALL DLASET('A', N-NR,N, ZERO,ZERO, V(NR+1,1),LDV)
-                  CALL DGESVD( 'S', 'O', N, N, V, LDV, S, U, LDU, V, LDV, WORK(N+1), LWORK-N, INFO )
-                  CALL DLAPMT( .FALSE., N, N, V, LDV, IWORK )
+                  dlaset('A', N-NR,N, ZERO,ZERO, V(NR+1,1),LDV);
+                  dgesvd('S', 'O', N, N, V, LDV, S, U, LDU, V, LDV, WORK(N+1), LWORK-N, INFO );
+                  dlapmt(.FALSE., N, N, V, LDV, IWORK );
                   // .. now [V] contains the transposed matrix of the right
                   // singular vectors of A. The leading N left singular vectors
                   // are in [U](1:N,1:N)
                   // .. assemble the left singular vector matrix U of dimensions
                   // (M x N1), i.e. (M x N) or (M x M).
                   if ( ( N .LT. M ) .AND. .NOT.(WNTUF)) {
-                      CALL DLASET('A',M-N,N,ZERO,ZERO,U(N+1,1),LDU)
+                      dlaset('A',M-N,N,ZERO,ZERO,U(N+1,1),LDU);
                       if ( N .LT. N1 ) {
-                        CALL DLASET('A',N,N1-N,ZERO,ZERO,U(1,N+1),LDU)
-                        CALL DLASET( 'A',M-N,N1-N,ZERO,ONE, U(N+1,N+1), LDU )
+                        dlaset('A',N,N1-N,ZERO,ZERO,U(1,N+1),LDU);
+                        dlaset('A',M-N,N1-N,ZERO,ONE, U(N+1,N+1), LDU );
                       }
                   }
                } else {
-                  CALL DLACPY( 'U', NR, N, A, LDA, U(NR+1,1), LDU )
+                  dlacpy('U', NR, N, A, LDA, U(NR+1,1), LDU );
                   IF ( NR .GT. 1 ) CALL DLASET('L',NR-1,NR-1,ZERO,ZERO,U(NR+2,1),LDU)                   CALL DGELQF( NR, N, U(NR+1,1), LDU, WORK(N+1), WORK(N+NR+1), LWORK-N-NR, IERR )
-                  CALL DLACPY('L',NR,NR,U(NR+1,1),LDU,V,LDV)
+                  dlacpy('L',NR,NR,U(NR+1,1),LDU,V,LDV);
                   IF ( NR .GT. 1 ) CALL DLASET('U',NR-1,NR-1,ZERO,ZERO,V(1,2),LDV)                   CALL DGESVD( 'S', 'O', NR, NR, V, LDV, S, U, LDU, V, LDV, WORK(N+NR+1), LWORK-N-NR, INFO )
-                  CALL DLASET('A',N-NR,NR,ZERO,ZERO,V(NR+1,1),LDV)
-                  CALL DLASET('A',NR,N-NR,ZERO,ZERO,V(1,NR+1),LDV)
-                  CALL DLASET('A',N-NR,N-NR,ZERO,ONE,V(NR+1,NR+1),LDV)
-                  CALL DORMLQ('R','N',N,N,NR,U(NR+1,1),LDU,WORK(N+1), V, LDV, WORK(N+NR+1),LWORK-N-NR,IERR)
-                  CALL DLAPMT( .FALSE., N, N, V, LDV, IWORK )
+                  dlaset('A',N-NR,NR,ZERO,ZERO,V(NR+1,1),LDV);
+                  dlaset('A',NR,N-NR,ZERO,ZERO,V(1,NR+1),LDV);
+                  dlaset('A',N-NR,N-NR,ZERO,ONE,V(NR+1,NR+1),LDV);
+                  dormlq('R','N',N,N,NR,U(NR+1,1),LDU,WORK(N+1), V, LDV, WORK(N+NR+1),LWORK-N-NR,IERR);
+                  dlapmt(.FALSE., N, N, V, LDV, IWORK );
                 // .. assemble the left singular vector matrix U of dimensions
                // (M x NR) or (M x N) or (M x M).
                   if ( ( NR .LT. M ) .AND. .NOT.(WNTUF)) {
-                     CALL DLASET('A',M-NR,NR,ZERO,ZERO,U(NR+1,1),LDU)
+                     dlaset('A',M-NR,NR,ZERO,ZERO,U(NR+1,1),LDU);
                      if ( NR .LT. N1 ) {
-                     CALL DLASET('A',NR,N1-NR,ZERO,ZERO,U(1,NR+1),LDU)
-                     CALL DLASET( 'A',M-NR,N1-NR,ZERO,ONE, U(NR+1,NR+1), LDU )
+                     dlaset('A',NR,N1-NR,ZERO,ZERO,U(1,NR+1),LDU);
+                     dlaset('A',M-NR,N1-NR,ZERO,ONE, U(NR+1,NR+1), LDU );
                      }
                   }
                }

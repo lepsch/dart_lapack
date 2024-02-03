@@ -68,7 +68,7 @@
          INFO = -11
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'CPTRFS', -INFO )
+         xerbla('CPTRFS', -INFO );
          RETURN
       }
 
@@ -186,8 +186,8 @@
 
             // Update solution and try again.
 
-            CALL CPTTRS( UPLO, N, 1, DF, EF, WORK, N, INFO )
-            CALL CAXPY( N, CMPLX( ONE ), WORK, 1, X( 1, J ), 1 )
+            cpttrs(UPLO, N, 1, DF, EF, WORK, N, INFO );
+            caxpy(N, CMPLX( ONE ), WORK, 1, X( 1, J ), 1 );
             LSTRES = BERR( J )
             COUNT = COUNT + 1
             GO TO 20

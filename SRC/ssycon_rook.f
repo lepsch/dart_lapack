@@ -54,7 +54,7 @@
          INFO = -6
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'SSYCON_ROOK', -INFO )
+         xerbla('SSYCON_ROOK', -INFO );
          RETURN
       }
 
@@ -90,12 +90,12 @@
 
       KASE = 0
    30 CONTINUE
-      CALL SLACN2( N, WORK( N+1 ), WORK, IWORK, AINVNM, KASE, ISAVE )
+      slacn2(N, WORK( N+1 ), WORK, IWORK, AINVNM, KASE, ISAVE );
       if ( KASE.NE.0 ) {
 
          // Multiply by inv(L*D*L**T) or inv(U*D*U**T).
 
-         CALL SSYTRS_ROOK( UPLO, N, 1, A, LDA, IPIV, WORK, N, INFO )
+         ssytrs_rook(UPLO, N, 1, A, LDA, IPIV, WORK, N, INFO );
          GO TO 30
       }
 

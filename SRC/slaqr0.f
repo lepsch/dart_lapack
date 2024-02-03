@@ -120,7 +120,7 @@
 
          // ==== Workspace query call to SLAQR3 ====
 
-         CALL SLAQR3( WANTT, WANTZ, N, ILO, IHI, NWR+1, H, LDH, ILOZ, IHIZ, Z, LDZ, LS, LD, WR, WI, H, LDH, N, H, LDH, N, H, LDH, WORK, -1 )
+         slaqr3(WANTT, WANTZ, N, ILO, IHI, NWR+1, H, LDH, ILOZ, IHIZ, Z, LDZ, LS, LD, WR, WI, H, LDH, N, H, LDH, N, H, LDH, WORK, -1 );
 
          // ==== Optimal workspace = MAX(SLAQR5, SLAQR3) ====
 
@@ -249,7 +249,7 @@
 
             // ==== Aggressive early deflation ====
 
-            CALL SLAQR3( WANTT, WANTZ, N, KTOP, KBOT, NW, H, LDH, ILOZ, IHIZ, Z, LDZ, LS, LD, WR, WI, H( KV, 1 ), LDH, NHO, H( KV, KT ), LDH, NVE, H( KWV, 1 ), LDH, WORK, LWORK )
+            slaqr3(WANTT, WANTZ, N, KTOP, KBOT, NW, H, LDH, ILOZ, IHIZ, Z, LDZ, LS, LD, WR, WI, H( KV, 1 ), LDH, NHO, H( KV, KT ), LDH, NVE, H( KWV, 1 ), LDH, WORK, LWORK );
 
             // ==== Adjust KBOT accounting for new deflations. ====
 
@@ -289,7 +289,7 @@
                      BB = SS
                      CC = WILK2*SS
                      DD = AA
-                     CALL SLANV2( AA, BB, CC, DD, WR( I-1 ), WI( I-1 ), WR( I ), WI( I ), CS, SN )
+                     slanv2(AA, BB, CC, DD, WR( I-1 ), WI( I-1 ), WR( I ), WI( I ), CS, SN );
    30             CONTINUE
                   if ( KS.EQ.KTOP ) {
                      WR( KS+1 ) = H( KS+1, KS+1 )
@@ -308,11 +308,11 @@
                   if ( KBOT-KS+1.LE.NS / 2 ) {
                      KS = KBOT - NS + 1
                      KT = N - NS + 1
-                     CALL SLACPY( 'A', NS, NS, H( KS, KS ), LDH, H( KT, 1 ), LDH )
+                     slacpy('A', NS, NS, H( KS, KS ), LDH, H( KT, 1 ), LDH );
                      if ( NS.GT.NMIN ) {
-                        CALL SLAQR4( .false., .false., NS, 1, NS, H( KT, 1 ), LDH, WR( KS ), WI( KS ), 1, 1, ZDUM, 1, WORK, LWORK, INF )
+                        slaqr4(.false., .false., NS, 1, NS, H( KT, 1 ), LDH, WR( KS ), WI( KS ), 1, 1, ZDUM, 1, WORK, LWORK, INF );
                      } else {
-                        CALL SLAHQR( .false., .false., NS, 1, NS, H( KT, 1 ), LDH, WR( KS ), WI( KS ), 1, 1, ZDUM, 1, INF )
+                        slahqr(.false., .false., NS, 1, NS, H( KT, 1 ), LDH, WR( KS ), WI( KS ), 1, 1, ZDUM, 1, INF );
                      }
                      KS = KS + INF
 
@@ -325,7 +325,7 @@
                         CC = H( KBOT, KBOT-1 )
                         BB = H( KBOT-1, KBOT )
                         DD = H( KBOT, KBOT )
-                        CALL SLANV2( AA, BB, CC, DD, WR( KBOT-1 ), WI( KBOT-1 ), WR( KBOT ), WI( KBOT ), CS, SN )
+                        slanv2(AA, BB, CC, DD, WR( KBOT-1 ), WI( KBOT-1 ), WR( KBOT ), WI( KBOT ), CS, SN );
                         KS = KBOT - 1
                      }
                   }
@@ -421,7 +421,7 @@
 
                // ==== Small-bulge multi-shift QR sweep ====
 
-               CALL SLAQR5( WANTT, WANTZ, KACC22, N, KTOP, KBOT, NS, WR( KS ), WI( KS ), H, LDH, ILOZ, IHIZ, Z, LDZ, WORK, 3, H( KU, 1 ), LDH, NVE, H( KWV, 1 ), LDH, NHO, H( KU, KWH ), LDH )
+               slaqr5(WANTT, WANTZ, KACC22, N, KTOP, KBOT, NS, WR( KS ), WI( KS ), H, LDH, ILOZ, IHIZ, Z, LDZ, WORK, 3, H( KU, 1 ), LDH, NVE, H( KWV, 1 ), LDH, NHO, H( KU, KWH ), LDH );
             }
 
             // ==== Note progress (or the lack of it). ====

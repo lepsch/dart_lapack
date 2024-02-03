@@ -33,7 +33,7 @@
       INFO = 0
       if ( N.LT.0 ) {
          INFO = -1
-         CALL XERBLA( 'SGTTRF', -INFO )
+         xerbla('SGTTRF', -INFO );
          RETURN
       }
 

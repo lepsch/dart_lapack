@@ -43,7 +43,7 @@
       // benign matrix
 
       DO 10 J = 1, N
-         CALL SLARNV( 2, ISEED, M, A( 1, J ) )
+         slarnv(2, ISEED, M, A( 1, J ) );
          if ( J.LE.M ) {
             A( J, J ) = A( J, J ) + SIGN( SASUM( M, A( 1, J ), 1 ), A( J, J ) )
          }
@@ -62,12 +62,12 @@
 
             // matrix scaled up
 
-            CALL SLASCL( 'General', 0, 0, NORMA, BIGNUM, M, N, A, LDA, INFO )
+            slascl('General', 0, 0, NORMA, BIGNUM, M, N, A, LDA, INFO );
          } else if ( SCALE.EQ.3 ) {
 
             // matrix scaled down
 
-            CALL SLASCL( 'General', 0, 0, NORMA, SMLNUM, M, N, A, LDA, INFO )
+            slascl('General', 0, 0, NORMA, SMLNUM, M, N, A, LDA, INFO );
          }
       }
 

@@ -173,7 +173,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'CLATMS', -INFO )
+         xerbla('CLATMS', -INFO );
          RETURN
       }
 
@@ -189,7 +189,7 @@
 
               // Compute D according to COND and MODE
 
-      CALL SLATM1( MODE, COND, IRSIGN, IDIST, ISEED, D, MNMIN, IINFO )
+      slatm1(MODE, COND, IRSIGN, IDIST, ISEED, D, MNMIN, IINFO );
       if ( IINFO.NE.0 ) {
          INFO = 1
          RETURN
@@ -220,11 +220,11 @@
             RETURN
          }
 
-         CALL SSCAL( MNMIN, ALPHA, D, 1 )
+         sscal(MNMIN, ALPHA, D, 1 );
 
       }
 
-      CALL CLASET( 'Full', LDA, N, CZERO, CZERO, A, LDA )
+      claset('Full', LDA, N, CZERO, CZERO, A, LDA );
 
       // 3)      Generate Banded Matrix using Givens rotations.
               // Also the special case of UUB=LLB=0
@@ -301,7 +301,7 @@
                      ICOL = MAX( 1, JR-JKL )
                      if ( JR.LT.M ) {
                         IL = MIN( N, JR+JKU ) + 1 - ICOL
-                        CALL CLAROT( .TRUE., JR.GT.JKL, .FALSE., IL, C, S, A( JR-ISKEW*ICOL+IOFFST, ICOL ), ILDA, EXTRA, DUMMY )
+                        clarot(.TRUE., JR.GT.JKL, .FALSE., IL, C, S, A( JR-ISKEW*ICOL+IOFFST, ICOL ), ILDA, EXTRA, DUMMY );
                      }
 
                      // Chase "EXTRA" back up
@@ -310,7 +310,7 @@
                      IC = ICOL
                      DO 50 JCH = JR - JKL, 1, -JKL - JKU
                         if ( IR.LT.M ) {
-                           CALL CLARTG( A( IR+1-ISKEW*( IC+1 )+IOFFST, IC+1 ), EXTRA, REALC, S, DUMMY )
+                           clartg(A( IR+1-ISKEW*( IC+1 )+IOFFST, IC+1 ), EXTRA, REALC, S, DUMMY );
                            DUMMY = CLARND( 5, ISEED )
                            C = CONJG( REALC*DUMMY )
                            S = CONJG( -S*DUMMY )
@@ -319,9 +319,9 @@
                         IL = IR + 2 - IROW
                         CTEMP = CZERO
                         ILTEMP = JCH.GT.JKU
-                        CALL CLAROT( .FALSE., ILTEMP, .TRUE., IL, C, S, A( IROW-ISKEW*IC+IOFFST, IC ), ILDA, CTEMP, EXTRA )
+                        clarot(.FALSE., ILTEMP, .TRUE., IL, C, S, A( IROW-ISKEW*IC+IOFFST, IC ), ILDA, CTEMP, EXTRA );
                         if ( ILTEMP ) {
-                           CALL CLARTG( A( IROW+1-ISKEW*( IC+1 )+IOFFST, IC+1 ), CTEMP, REALC, S, DUMMY )
+                           clartg(A( IROW+1-ISKEW*( IC+1 )+IOFFST, IC+1 ), CTEMP, REALC, S, DUMMY );
                            DUMMY = CLARND( 5, ISEED )
                            C = CONJG( REALC*DUMMY )
                            S = CONJG( -S*DUMMY )
@@ -329,7 +329,7 @@
                            ICOL = MAX( 1, JCH-JKU-JKL )
                            IL = IC + 2 - ICOL
                            EXTRA = CZERO
-                           CALL CLAROT( .TRUE., JCH.GT.JKU+JKL, .TRUE., IL, C, S, A( IROW-ISKEW*ICOL+ IOFFST, ICOL ), ILDA, EXTRA, CTEMP )
+                           clarot(.TRUE., JCH.GT.JKU+JKL, .TRUE., IL, C, S, A( IROW-ISKEW*ICOL+ IOFFST, ICOL ), ILDA, EXTRA, CTEMP );
                            IC = ICOL
                            IR = IROW
                         }
@@ -350,7 +350,7 @@
                      IROW = MAX( 1, JC-JKU )
                      if ( JC.LT.N ) {
                         IL = MIN( M, JC+JKL ) + 1 - IROW
-                        CALL CLAROT( .FALSE., JC.GT.JKU, .FALSE., IL, C, S, A( IROW-ISKEW*JC+IOFFST, JC ), ILDA, EXTRA, DUMMY )
+                        clarot(.FALSE., JC.GT.JKU, .FALSE., IL, C, S, A( IROW-ISKEW*JC+IOFFST, JC ), ILDA, EXTRA, DUMMY );
                      }
 
                      // Chase "EXTRA" back up
@@ -359,7 +359,7 @@
                      IR = IROW
                      DO 80 JCH = JC - JKU, 1, -JKL - JKU
                         if ( IC.LT.N ) {
-                           CALL CLARTG( A( IR+1-ISKEW*( IC+1 )+IOFFST, IC+1 ), EXTRA, REALC, S, DUMMY )
+                           clartg(A( IR+1-ISKEW*( IC+1 )+IOFFST, IC+1 ), EXTRA, REALC, S, DUMMY );
                            DUMMY = CLARND( 5, ISEED )
                            C = CONJG( REALC*DUMMY )
                            S = CONJG( -S*DUMMY )
@@ -368,16 +368,16 @@
                         IL = IC + 2 - ICOL
                         CTEMP = CZERO
                         ILTEMP = JCH.GT.JKL
-                        CALL CLAROT( .TRUE., ILTEMP, .TRUE., IL, C, S, A( IR-ISKEW*ICOL+IOFFST, ICOL ), ILDA, CTEMP, EXTRA )
+                        clarot(.TRUE., ILTEMP, .TRUE., IL, C, S, A( IR-ISKEW*ICOL+IOFFST, ICOL ), ILDA, CTEMP, EXTRA );
                         if ( ILTEMP ) {
-                           CALL CLARTG( A( IR+1-ISKEW*( ICOL+1 )+IOFFST, ICOL+1 ), CTEMP, REALC, S, DUMMY )
+                           clartg(A( IR+1-ISKEW*( ICOL+1 )+IOFFST, ICOL+1 ), CTEMP, REALC, S, DUMMY );
                            DUMMY = CLARND( 5, ISEED )
                            C = CONJG( REALC*DUMMY )
                            S = CONJG( -S*DUMMY )
                            IROW = MAX( 1, JCH-JKL-JKU )
                            IL = IR + 2 - IROW
                            EXTRA = CZERO
-                           CALL CLAROT( .FALSE., JCH.GT.JKL+JKU, .TRUE., IL, C, S, A( IROW-ISKEW*ICOL+ IOFFST, ICOL ), ILDA, EXTRA, CTEMP )
+                           clarot(.FALSE., JCH.GT.JKL+JKU, .TRUE., IL, C, S, A( IROW-ISKEW*ICOL+ IOFFST, ICOL ), ILDA, EXTRA, CTEMP );
                            IC = ICOL
                            IR = IROW
                         }
@@ -406,7 +406,7 @@
                      IROW = MAX( 1, JC-JKU+1 )
                      if ( JC.GT.0 ) {
                         IL = MIN( M, JC+JKL+1 ) + 1 - IROW
-                        CALL CLAROT( .FALSE., .FALSE., JC+JKL.LT.M, IL, C, S, A( IROW-ISKEW*JC+IOFFST, JC ), ILDA, DUMMY, EXTRA )
+                        clarot(.FALSE., .FALSE., JC+JKL.LT.M, IL, C, S, A( IROW-ISKEW*JC+IOFFST, JC ), ILDA, DUMMY, EXTRA );
                      }
 
                      // Chase "EXTRA" back down
@@ -415,7 +415,7 @@
                      DO 110 JCH = JC + JKL, IENDCH, JKL + JKU
                         ILEXTR = IC.GT.0
                         if ( ILEXTR ) {
-                           CALL CLARTG( A( JCH-ISKEW*IC+IOFFST, IC ), EXTRA, REALC, S, DUMMY )
+                           clartg(A( JCH-ISKEW*IC+IOFFST, IC ), EXTRA, REALC, S, DUMMY );
                            DUMMY = CLARND( 5, ISEED )
                            C = REALC*DUMMY
                            S = S*DUMMY
@@ -424,15 +424,15 @@
                         ICOL = MIN( N-1, JCH+JKU )
                         ILTEMP = JCH + JKU.LT.N
                         CTEMP = CZERO
-                        CALL CLAROT( .TRUE., ILEXTR, ILTEMP, ICOL+2-IC, C, S, A( JCH-ISKEW*IC+IOFFST, IC ), ILDA, EXTRA, CTEMP )
+                        clarot(.TRUE., ILEXTR, ILTEMP, ICOL+2-IC, C, S, A( JCH-ISKEW*IC+IOFFST, IC ), ILDA, EXTRA, CTEMP );
                         if ( ILTEMP ) {
-                           CALL CLARTG( A( JCH-ISKEW*ICOL+IOFFST, ICOL ), CTEMP, REALC, S, DUMMY )
+                           clartg(A( JCH-ISKEW*ICOL+IOFFST, ICOL ), CTEMP, REALC, S, DUMMY );
                            DUMMY = CLARND( 5, ISEED )
                            C = REALC*DUMMY
                            S = S*DUMMY
                            IL = MIN( IENDCH, JCH+JKL+JKU ) + 2 - JCH
                            EXTRA = CZERO
-                           CALL CLAROT( .FALSE., .TRUE., JCH+JKL+JKU.LE.IENDCH, IL, C, S, A( JCH-ISKEW*ICOL+IOFFST, ICOL ), ILDA, CTEMP, EXTRA )
+                           clarot(.FALSE., .TRUE., JCH+JKL+JKU.LE.IENDCH, IL, C, S, A( JCH-ISKEW*ICOL+IOFFST, ICOL ), ILDA, CTEMP, EXTRA );
                            IC = ICOL
                         }
   110                CONTINUE
@@ -456,7 +456,7 @@
                      ICOL = MAX( 1, JR-JKL+1 )
                      if ( JR.GT.0 ) {
                         IL = MIN( N, JR+JKU+1 ) + 1 - ICOL
-                        CALL CLAROT( .TRUE., .FALSE., JR+JKU.LT.N, IL, C, S, A( JR-ISKEW*ICOL+IOFFST, ICOL ), ILDA, DUMMY, EXTRA )
+                        clarot(.TRUE., .FALSE., JR+JKU.LT.N, IL, C, S, A( JR-ISKEW*ICOL+IOFFST, ICOL ), ILDA, DUMMY, EXTRA );
                      }
 
                      // Chase "EXTRA" back down
@@ -465,7 +465,7 @@
                      DO 140 JCH = JR + JKU, IENDCH, JKL + JKU
                         ILEXTR = IR.GT.0
                         if ( ILEXTR ) {
-                           CALL CLARTG( A( IR-ISKEW*JCH+IOFFST, JCH ), EXTRA, REALC, S, DUMMY )
+                           clartg(A( IR-ISKEW*JCH+IOFFST, JCH ), EXTRA, REALC, S, DUMMY );
                            DUMMY = CLARND( 5, ISEED )
                            C = REALC*DUMMY
                            S = S*DUMMY
@@ -474,15 +474,15 @@
                         IROW = MIN( M-1, JCH+JKL )
                         ILTEMP = JCH + JKL.LT.M
                         CTEMP = CZERO
-                        CALL CLAROT( .FALSE., ILEXTR, ILTEMP, IROW+2-IR, C, S, A( IR-ISKEW*JCH+IOFFST, JCH ), ILDA, EXTRA, CTEMP )
+                        clarot(.FALSE., ILEXTR, ILTEMP, IROW+2-IR, C, S, A( IR-ISKEW*JCH+IOFFST, JCH ), ILDA, EXTRA, CTEMP );
                         if ( ILTEMP ) {
-                           CALL CLARTG( A( IROW-ISKEW*JCH+IOFFST, JCH ), CTEMP, REALC, S, DUMMY )
+                           clartg(A( IROW-ISKEW*JCH+IOFFST, JCH ), CTEMP, REALC, S, DUMMY );
                            DUMMY = CLARND( 5, ISEED )
                            C = REALC*DUMMY
                            S = S*DUMMY
                            IL = MIN( IENDCH, JCH+JKL+JKU ) + 2 - JCH
                            EXTRA = CZERO
-                           CALL CLAROT( .TRUE., .TRUE., JCH+JKL+JKU.LE.IENDCH, IL, C, S, A( IROW-ISKEW*JCH+IOFFST, JCH ), ILDA, CTEMP, EXTRA )
+                           clarot(.TRUE., .TRUE., JCH+JKL+JKU.LE.IENDCH, IL, C, S, A( IROW-ISKEW*JCH+IOFFST, JCH ), ILDA, CTEMP, EXTRA );
                            IR = IROW
                         }
   140                CONTINUE
@@ -531,13 +531,13 @@
                         CT = CONJG( C )
                         ST = CONJG( S )
                      }
-                     CALL CLAROT( .FALSE., JC.GT.K, .TRUE., IL, C, S, A( IROW-ISKEW*JC+IOFFG, JC ), ILDA, EXTRA, CTEMP )                      CALL CLAROT( .TRUE., .TRUE., .FALSE., MIN( K, N-JC )+1, CT, ST, A( ( 1-ISKEW )*JC+IOFFG, JC ), ILDA, CTEMP, DUMMY )
+                     clarot(.FALSE., JC.GT.K, .TRUE., IL, C, S, A( IROW-ISKEW*JC+IOFFG, JC ), ILDA, EXTRA, CTEMP )                      CALL CLAROT( .TRUE., .TRUE., .FALSE., MIN( K, N-JC )+1, CT, ST, A( ( 1-ISKEW )*JC+IOFFG, JC ), ILDA, CTEMP, DUMMY );
 
                      // Chase EXTRA back up the matrix
 
                      ICOL = JC
                      DO 180 JCH = JC - K, 1, -K
-                        CALL CLARTG( A( JCH+1-ISKEW*( ICOL+1 )+IOFFG, ICOL+1 ), EXTRA, REALC, S, DUMMY )
+                        clartg(A( JCH+1-ISKEW*( ICOL+1 )+IOFFG, ICOL+1 ), EXTRA, REALC, S, DUMMY );
                         DUMMY = CLARND( 5, ISEED )
                         C = CONJG( REALC*DUMMY )
                         S = CONJG( -S*DUMMY )
@@ -550,11 +550,11 @@
                            CT = CONJG( C )
                            ST = CONJG( S )
                         }
-                        CALL CLAROT( .TRUE., .TRUE., .TRUE., K+2, C, S, A( ( 1-ISKEW )*JCH+IOFFG, JCH ), ILDA, CTEMP, EXTRA )
+                        clarot(.TRUE., .TRUE., .TRUE., K+2, C, S, A( ( 1-ISKEW )*JCH+IOFFG, JCH ), ILDA, CTEMP, EXTRA );
                         IROW = MAX( 1, JCH-K )
                         IL = MIN( JCH+1, K+2 )
                         EXTRA = CZERO
-                        CALL CLAROT( .FALSE., JCH.GT.K, .TRUE., IL, CT, ST, A( IROW-ISKEW*JCH+IOFFG, JCH ), ILDA, EXTRA, CTEMP )
+                        clarot(.FALSE., JCH.GT.K, .TRUE., IL, CT, ST, A( IROW-ISKEW*JCH+IOFFG, JCH ), ILDA, EXTRA, CTEMP );
                         ICOL = JCH
   180                CONTINUE
   190             CONTINUE
@@ -620,15 +620,15 @@
                         CT = CONJG( C )
                         ST = CONJG( S )
                      }
-                     CALL CLAROT( .FALSE., .TRUE., N-JC.GT.K, IL, C, S, A( ( 1-ISKEW )*JC+IOFFG, JC ), ILDA, CTEMP, EXTRA )
+                     clarot(.FALSE., .TRUE., N-JC.GT.K, IL, C, S, A( ( 1-ISKEW )*JC+IOFFG, JC ), ILDA, CTEMP, EXTRA );
                      ICOL = MAX( 1, JC-K+1 )
-                     CALL CLAROT( .TRUE., .FALSE., .TRUE., JC+2-ICOL, CT, ST, A( JC-ISKEW*ICOL+IOFFG, ICOL ), ILDA, DUMMY, CTEMP )
+                     clarot(.TRUE., .FALSE., .TRUE., JC+2-ICOL, CT, ST, A( JC-ISKEW*ICOL+IOFFG, ICOL ), ILDA, DUMMY, CTEMP );
 
                      // Chase EXTRA back down the matrix
 
                      ICOL = JC
                      DO 270 JCH = JC + K, N - 1, K
-                        CALL CLARTG( A( JCH-ISKEW*ICOL+IOFFG, ICOL ), EXTRA, REALC, S, DUMMY )
+                        clartg(A( JCH-ISKEW*ICOL+IOFFG, ICOL ), EXTRA, REALC, S, DUMMY );
                         DUMMY = CLARND( 5, ISEED )
                         C = REALC*DUMMY
                         S = S*DUMMY
@@ -641,10 +641,10 @@
                            CT = CONJG( C )
                            ST = CONJG( S )
                         }
-                        CALL CLAROT( .TRUE., .TRUE., .TRUE., K+2, C, S, A( JCH-ISKEW*ICOL+IOFFG, ICOL ), ILDA, EXTRA, CTEMP )
+                        clarot(.TRUE., .TRUE., .TRUE., K+2, C, S, A( JCH-ISKEW*ICOL+IOFFG, ICOL ), ILDA, EXTRA, CTEMP );
                         IL = MIN( N+1-JCH, K+2 )
                         EXTRA = CZERO
-                        CALL CLAROT( .FALSE., .TRUE., N-JCH.GT.K, IL, CT, ST, A( ( 1-ISKEW )*JCH+IOFFG, JCH ), ILDA, CTEMP, EXTRA )
+                        clarot(.FALSE., .TRUE., N-JCH.GT.K, IL, CT, ST, A( ( 1-ISKEW )*JCH+IOFFG, JCH ), ILDA, CTEMP, EXTRA );
                         ICOL = JCH
   270                CONTINUE
   280             CONTINUE
@@ -705,16 +705,16 @@
 
             // Non-symmetric -- A = U D V
 
-            CALL CLAGGE( MR, NC, LLB, UUB, D, A, LDA, ISEED, WORK, IINFO )
+            clagge(MR, NC, LLB, UUB, D, A, LDA, ISEED, WORK, IINFO );
          } else {
 
             // Symmetric -- A = U D U' or
             // Hermitian -- A = U D U*
 
             if ( CSYM ) {
-               CALL CLAGSY( M, LLB, D, A, LDA, ISEED, WORK, IINFO )
+               clagsy(M, LLB, D, A, LDA, ISEED, WORK, IINFO );
             } else {
-               CALL CLAGHE( M, LLB, D, A, LDA, ISEED, WORK, IINFO )
+               claghe(M, LLB, D, A, LDA, ISEED, WORK, IINFO );
             }
          }
 

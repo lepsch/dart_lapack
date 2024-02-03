@@ -96,7 +96,7 @@
          INFO = -8
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'ZTGEVC', -INFO )
+         xerbla('ZTGEVC', -INFO );
          RETURN
       }
 
@@ -128,7 +128,7 @@
          INFO = -13
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'ZTGEVC', -INFO )
+         xerbla('ZTGEVC', -INFO );
          RETURN
       }
 
@@ -290,7 +290,7 @@
                // Back transform eigenvector if HOWMNY='B'.
 
                if ( ILBACK ) {
-                  CALL ZGEMV( 'N', N, N+1-JE, CONE, VL( 1, JE ), LDVL, WORK( JE ), 1, CZERO, WORK( N+1 ), 1 )
+                  zgemv('N', N, N+1-JE, CONE, VL( 1, JE ), LDVL, WORK( JE ), 1, CZERO, WORK( N+1 ), 1 );
                   ISRC = 2
                   IBEG = 1
                } else {
@@ -443,7 +443,7 @@
                // Back transform eigenvector if HOWMNY='B'.
 
                if ( ILBACK ) {
-                  CALL ZGEMV( 'N', N, JE, CONE, VR, LDVR, WORK, 1, CZERO, WORK( N+1 ), 1 )
+                  zgemv('N', N, JE, CONE, VR, LDVR, WORK, 1, CZERO, WORK( N+1 ), 1 );
                   ISRC = 2
                   IEND = N
                } else {

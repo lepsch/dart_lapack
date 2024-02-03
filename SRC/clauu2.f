@@ -48,7 +48,7 @@
          INFO = -4
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'CLAUU2', -INFO )
+         xerbla('CLAUU2', -INFO );
          RETURN
       }
 
@@ -64,11 +64,11 @@
             AII = REAL( A( I, I ) )
             if ( I.LT.N ) {
                A( I, I ) = AII*AII + REAL( CDOTC( N-I, A( I, I+1 ), LDA, A( I, I+1 ), LDA ) )
-               CALL CLACGV( N-I, A( I, I+1 ), LDA )
-               CALL CGEMV( 'No transpose', I-1, N-I, ONE, A( 1, I+1 ), LDA, A( I, I+1 ), LDA, CMPLX( AII ), A( 1, I ), 1 )
-               CALL CLACGV( N-I, A( I, I+1 ), LDA )
+               clacgv(N-I, A( I, I+1 ), LDA );
+               cgemv('No transpose', I-1, N-I, ONE, A( 1, I+1 ), LDA, A( I, I+1 ), LDA, CMPLX( AII ), A( 1, I ), 1 );
+               clacgv(N-I, A( I, I+1 ), LDA );
             } else {
-               CALL CSSCAL( I, AII, A( 1, I ), 1 )
+               csscal(I, AII, A( 1, I ), 1 );
             }
    10    CONTINUE
 
@@ -80,11 +80,11 @@
             AII = REAL( A( I, I ) )
             if ( I.LT.N ) {
                A( I, I ) = AII*AII + REAL( CDOTC( N-I, A( I+1, I ), 1, A( I+1, I ), 1 ) )
-               CALL CLACGV( I-1, A( I, 1 ), LDA )
-               CALL CGEMV( 'Conjugate transpose', N-I, I-1, ONE, A( I+1, 1 ), LDA, A( I+1, I ), 1, CMPLX( AII ), A( I, 1 ), LDA )
-               CALL CLACGV( I-1, A( I, 1 ), LDA )
+               clacgv(I-1, A( I, 1 ), LDA );
+               cgemv('Conjugate transpose', N-I, I-1, ONE, A( I+1, 1 ), LDA, A( I+1, I ), 1, CMPLX( AII ), A( I, 1 ), LDA );
+               clacgv(I-1, A( I, 1 ), LDA );
             } else {
-               CALL CSSCAL( I, AII, A( I, 1 ), LDA )
+               csscal(I, AII, A( I, 1 ), LDA );
             }
    20    CONTINUE
       }

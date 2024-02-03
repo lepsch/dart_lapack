@@ -64,9 +64,9 @@
 
       RESID = ZERO
       DO 10 J = 1, NRHS
-         CALL SCOPY( N, X( 1, J ), 1, WORK, 1 )
-         CALL STRMV( UPLO, TRANS, DIAG, N, A, LDA, WORK, 1 )
-         CALL SAXPY( N, -ONE, B( 1, J ), 1, WORK, 1 )
+         scopy(N, X( 1, J ), 1, WORK, 1 );
+         strmv(UPLO, TRANS, DIAG, N, A, LDA, WORK, 1 );
+         saxpy(N, -ONE, B( 1, J ), 1, WORK, 1 );
          BNORM = SASUM( N, WORK, 1 )
          XNORM = SASUM( N, X( 1, J ), 1 )
          if ( XNORM.LE.ZERO ) {

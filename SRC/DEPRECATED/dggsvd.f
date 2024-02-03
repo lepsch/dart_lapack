@@ -64,7 +64,7 @@
          INFO = -20
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'DGGSVD', -INFO )
+         xerbla('DGGSVD', -INFO );
          RETURN
       }
 
@@ -83,16 +83,16 @@
 
       // Preprocessing
 
-      CALL DGGSVP( JOBU, JOBV, JOBQ, M, P, N, A, LDA, B, LDB, TOLA, TOLB, K, L, U, LDU, V, LDV, Q, LDQ, IWORK, WORK, WORK( N+1 ), INFO )
+      dggsvp(JOBU, JOBV, JOBQ, M, P, N, A, LDA, B, LDB, TOLA, TOLB, K, L, U, LDU, V, LDV, Q, LDQ, IWORK, WORK, WORK( N+1 ), INFO );
 
       // Compute the GSVD of two upper "triangular" matrices
 
-      CALL DTGSJA( JOBU, JOBV, JOBQ, M, P, N, K, L, A, LDA, B, LDB, TOLA, TOLB, ALPHA, BETA, U, LDU, V, LDV, Q, LDQ, WORK, NCYCLE, INFO )
+      dtgsja(JOBU, JOBV, JOBQ, M, P, N, K, L, A, LDA, B, LDB, TOLA, TOLB, ALPHA, BETA, U, LDU, V, LDV, Q, LDQ, WORK, NCYCLE, INFO );
 
       // Sort the singular values and store the pivot indices in IWORK
       // Copy ALPHA to WORK, then sort ALPHA in WORK
 
-      CALL DCOPY( N, ALPHA, 1, WORK, 1 )
+      dcopy(N, ALPHA, 1, WORK, 1 );
       IBND = MIN( L, M-K )
       DO 20 I = 1, IBND
 

@@ -42,7 +42,7 @@
           // ( CSL -SNL )*( A B )*(  CSR  SNR ) = ( R 0 )
           // ( SNL  CSL ) ( 0 D ) ( -SNR  CSR )   ( 0 T )
 
-         CALL SLASV2( A, B, D, S1, S2, SNR, CSR, SNL, CSL )
+         slasv2(A, B, D, S1, S2, SNR, CSR, SNL, CSL );
 
          if ( ABS( CSL ).GE.ABS( SNL ) .OR. ABS( CSR ).GE.ABS( SNR ) ) {
 
@@ -62,12 +62,12 @@
 
             if ( ( ABS( UA11R )+ABS( UA12 ) ).NE.ZERO ) {
                if ( AUA12 / ( ABS( UA11R )+ABS( UA12 ) ).LE.AVB12 / ( ABS( VB11R )+ABS( VB12 ) ) ) {
-                  CALL SLARTG( -UA11R, UA12, CSQ, SNQ, R )
+                  slartg(-UA11R, UA12, CSQ, SNQ, R );
                } else {
-                  CALL SLARTG( -VB11R, VB12, CSQ, SNQ, R )
+                  slartg(-VB11R, VB12, CSQ, SNQ, R );
                }
             } else {
-               CALL SLARTG( -VB11R, VB12, CSQ, SNQ, R )
+               slartg(-VB11R, VB12, CSQ, SNQ, R );
             }
 
             CSU = CSL
@@ -93,12 +93,12 @@
 
             if ( ( ABS( UA21 )+ABS( UA22 ) ).NE.ZERO ) {
                if ( AUA22 / ( ABS( UA21 )+ABS( UA22 ) ).LE.AVB22 / ( ABS( VB21 )+ABS( VB22 ) ) ) {
-                  CALL SLARTG( -UA21, UA22, CSQ, SNQ, R )
+                  slartg(-UA21, UA22, CSQ, SNQ, R );
                } else {
-                  CALL SLARTG( -VB21, VB22, CSQ, SNQ, R )
+                  slartg(-VB21, VB22, CSQ, SNQ, R );
                }
             } else {
-               CALL SLARTG( -VB21, VB22, CSQ, SNQ, R )
+               slartg(-VB21, VB22, CSQ, SNQ, R );
             }
 
             CSU = SNL
@@ -124,7 +124,7 @@
           // ( CSL -SNL )*( A 0 )*(  CSR  SNR ) = ( R 0 )
           // ( SNL  CSL ) ( C D ) ( -SNR  CSR )   ( 0 T )
 
-         CALL SLASV2( A, C, D, S1, S2, SNR, CSR, SNL, CSL )
+         slasv2(A, C, D, S1, S2, SNR, CSR, SNL, CSL );
 
          if ( ABS( CSR ).GE.ABS( SNR ) .OR. ABS( CSL ).GE.ABS( SNL ) ) {
 
@@ -144,12 +144,12 @@
 
             if ( ( ABS( UA21 )+ABS( UA22R ) ).NE.ZERO ) {
                if ( AUA21 / ( ABS( UA21 )+ABS( UA22R ) ).LE.AVB21 / ( ABS( VB21 )+ABS( VB22R ) ) ) {
-                  CALL SLARTG( UA22R, UA21, CSQ, SNQ, R )
+                  slartg(UA22R, UA21, CSQ, SNQ, R );
                } else {
-                  CALL SLARTG( VB22R, VB21, CSQ, SNQ, R )
+                  slartg(VB22R, VB21, CSQ, SNQ, R );
                }
             } else {
-               CALL SLARTG( VB22R, VB21, CSQ, SNQ, R )
+               slartg(VB22R, VB21, CSQ, SNQ, R );
             }
 
             CSU = CSR
@@ -175,12 +175,12 @@
 
             if ( ( ABS( UA11 )+ABS( UA12 ) ).NE.ZERO ) {
                if ( AUA11 / ( ABS( UA11 )+ABS( UA12 ) ).LE.AVB11 / ( ABS( VB11 )+ABS( VB12 ) ) ) {
-                  CALL SLARTG( UA12, UA11, CSQ, SNQ, R )
+                  slartg(UA12, UA11, CSQ, SNQ, R );
                } else {
-                  CALL SLARTG( VB12, VB11, CSQ, SNQ, R )
+                  slartg(VB12, VB11, CSQ, SNQ, R );
                }
             } else {
-               CALL SLARTG( VB12, VB11, CSQ, SNQ, R )
+               slartg(VB12, VB11, CSQ, SNQ, R );
             }
 
             CSU = SNR

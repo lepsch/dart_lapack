@@ -39,7 +39,7 @@
       DRZT01 = ZERO
 
       if ( LWORK.LT.M*N+M ) {
-         CALL XERBLA( 'DRZT01', 8 )
+         xerbla('DRZT01', 8 );
          RETURN
       }
 
@@ -51,7 +51,7 @@
 
       // Copy upper triangle R
 
-      CALL DLASET( 'Full', M, N, ZERO, ZERO, WORK, M )
+      dlaset('Full', M, N, ZERO, ZERO, WORK, M );
       DO 20 J = 1, M
          DO 10 I = 1, J
             WORK( ( J-1 )*M+I ) = AF( I, J )
@@ -60,12 +60,12 @@
 
       // R = R * P(1) * ... *P(m)
 
-      CALL DORMRZ( 'Right', 'No transpose', M, N, M, N-M, AF, LDA, TAU, WORK, M, WORK( M*N+1 ), LWORK-M*N, INFO )
+      dormrz('Right', 'No transpose', M, N, M, N-M, AF, LDA, TAU, WORK, M, WORK( M*N+1 ), LWORK-M*N, INFO );
 
       // R = R - A
 
       DO 30 I = 1, N
-         CALL DAXPY( M, -ONE, A( 1, I ), 1, WORK( ( I-1 )*M+1 ), 1 )
+         daxpy(M, -ONE, A( 1, I ), 1, WORK( ( I-1 )*M+1 ), 1 );
    30 CONTINUE
 
       DRZT01 = DLANGE( 'One-norm', M, N, WORK, M, RWORK )

@@ -72,7 +72,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'DGET24', -INFO )
+         xerbla('DGET24', -INFO );
          RETURN
       }
 
@@ -105,8 +105,8 @@
 
          // Compute Schur form and Schur vectors, and test them
 
-         CALL DLACPY( 'F', N, N, A, LDA, H, LDA )
-         CALL DGEESX( 'V', SORT, DSLECT, 'N', N, H, LDA, SDIM, WR, WI, VS, LDVS, RCONDE, RCONDV, WORK, LWORK, IWORK, LIWORK, BWORK, IINFO )
+         dlacpy('F', N, N, A, LDA, H, LDA );
+         dgeesx('V', SORT, DSLECT, 'N', N, H, LDA, SDIM, WR, WI, VS, LDVS, RCONDE, RCONDV, WORK, LWORK, IWORK, LIWORK, BWORK, IINFO );
          if ( IINFO.NE.0 .AND. IINFO.NE.N+2 ) {
             RESULT( 1+RSUB ) = ULPINV
             if ( JTYPE.NE.22 ) {
@@ -118,8 +118,8 @@
             RETURN
          }
          if ( ISORT.EQ.0 ) {
-            CALL DCOPY( N, WR, 1, WRTMP, 1 )
-            CALL DCOPY( N, WI, 1, WITMP, 1 )
+            dcopy(N, WR, 1, WRTMP, 1 );
+            dcopy(N, WI, 1, WITMP, 1 );
          }
 
          // Do Test (1) or Test (7)
@@ -143,15 +143,15 @@
 
          // Copy A to VS1, used as workspace
 
-         CALL DLACPY( ' ', N, N, A, LDA, VS1, LDVS )
+         dlacpy(' ', N, N, A, LDA, VS1, LDVS );
 
          // Compute Q*H and store in HT.
 
-         CALL DGEMM( 'No transpose', 'No transpose', N, N, N, ONE, VS, LDVS, H, LDA, ZERO, HT, LDA )
+         dgemm('No transpose', 'No transpose', N, N, N, ONE, VS, LDVS, H, LDA, ZERO, HT, LDA );
 
          // Compute A - Q*H*Q'
 
-         CALL DGEMM( 'No transpose', 'Transpose', N, N, N, -ONE, HT, LDA, VS, LDVS, ONE, VS1, LDVS )
+         dgemm('No transpose', 'Transpose', N, N, N, -ONE, HT, LDA, VS, LDVS, ONE, VS1, LDVS );
 
          ANORM = MAX( DLANGE( '1', N, N, A, LDA, WORK ), SMLNUM )
          WNORM = DLANGE( '1', N, N, VS1, LDVS, WORK )
@@ -168,7 +168,7 @@
 
          // Test (3) or (9):  Compute norm( I - Q'*Q ) / ( N * ULP )
 
-         CALL DORT01( 'Columns', N, N, VS, LDVS, WORK, LWORK, RESULT( 3+RSUB ) )
+         dort01('Columns', N, N, VS, LDVS, WORK, LWORK, RESULT( 3+RSUB ) );
 
          // Do Test (4) or Test (10)
 
@@ -189,8 +189,8 @@
 
          // Do Test (5) or Test (11)
 
-         CALL DLACPY( 'F', N, N, A, LDA, HT, LDA )
-         CALL DGEESX( 'N', SORT, DSLECT, 'N', N, HT, LDA, SDIM, WRT, WIT, VS, LDVS, RCONDE, RCONDV, WORK, LWORK, IWORK, LIWORK, BWORK, IINFO )
+         dlacpy('F', N, N, A, LDA, HT, LDA );
+         dgeesx('N', SORT, DSLECT, 'N', N, HT, LDA, SDIM, WRT, WIT, VS, LDVS, RCONDE, RCONDV, WORK, LWORK, IWORK, LIWORK, BWORK, IINFO );
          if ( IINFO.NE.0 .AND. IINFO.NE.N+2 ) {
             RESULT( 5+RSUB ) = ULPINV
             if ( JTYPE.NE.22 ) {
@@ -242,8 +242,8 @@
          SORT = 'S'
          RESULT( 14 ) = ZERO
          RESULT( 15 ) = ZERO
-         CALL DLACPY( 'F', N, N, A, LDA, HT, LDA )
-         CALL DGEESX( 'V', SORT, DSLECT, 'B', N, HT, LDA, SDIM1, WRT, WIT, VS1, LDVS, RCONDE, RCONDV, WORK, LWORK, IWORK, LIWORK, BWORK, IINFO )
+         dlacpy('F', N, N, A, LDA, HT, LDA );
+         dgeesx('V', SORT, DSLECT, 'B', N, HT, LDA, SDIM1, WRT, WIT, VS1, LDVS, RCONDE, RCONDV, WORK, LWORK, IWORK, LIWORK, BWORK, IINFO );
          if ( IINFO.NE.0 .AND. IINFO.NE.N+2 ) {
             RESULT( 14 ) = ULPINV
             RESULT( 15 ) = ULPINV
@@ -268,8 +268,8 @@
 
          // Compute both RCONDE and RCONDV without VS, and compare
 
-         CALL DLACPY( 'F', N, N, A, LDA, HT, LDA )
-         CALL DGEESX( 'N', SORT, DSLECT, 'B', N, HT, LDA, SDIM1, WRT, WIT, VS1, LDVS, RCNDE1, RCNDV1, WORK, LWORK, IWORK, LIWORK, BWORK, IINFO )
+         dlacpy('F', N, N, A, LDA, HT, LDA );
+         dgeesx('N', SORT, DSLECT, 'B', N, HT, LDA, SDIM1, WRT, WIT, VS1, LDVS, RCNDE1, RCNDV1, WORK, LWORK, IWORK, LIWORK, BWORK, IINFO );
          if ( IINFO.NE.0 .AND. IINFO.NE.N+2 ) {
             RESULT( 14 ) = ULPINV
             RESULT( 15 ) = ULPINV
@@ -298,8 +298,8 @@
 
          // Compute RCONDE with VS, and compare
 
-         CALL DLACPY( 'F', N, N, A, LDA, HT, LDA )
-         CALL DGEESX( 'V', SORT, DSLECT, 'E', N, HT, LDA, SDIM1, WRT, WIT, VS1, LDVS, RCNDE1, RCNDV1, WORK, LWORK, IWORK, LIWORK, BWORK, IINFO )
+         dlacpy('F', N, N, A, LDA, HT, LDA );
+         dgeesx('V', SORT, DSLECT, 'E', N, HT, LDA, SDIM1, WRT, WIT, VS1, LDVS, RCNDE1, RCNDV1, WORK, LWORK, IWORK, LIWORK, BWORK, IINFO );
          if ( IINFO.NE.0 .AND. IINFO.NE.N+2 ) {
             RESULT( 14 ) = ULPINV
             if ( JTYPE.NE.22 ) {
@@ -327,8 +327,8 @@
 
          // Compute RCONDE without VS, and compare
 
-         CALL DLACPY( 'F', N, N, A, LDA, HT, LDA )
-         CALL DGEESX( 'N', SORT, DSLECT, 'E', N, HT, LDA, SDIM1, WRT, WIT, VS1, LDVS, RCNDE1, RCNDV1, WORK, LWORK, IWORK, LIWORK, BWORK, IINFO )
+         dlacpy('F', N, N, A, LDA, HT, LDA );
+         dgeesx('N', SORT, DSLECT, 'E', N, HT, LDA, SDIM1, WRT, WIT, VS1, LDVS, RCNDE1, RCNDV1, WORK, LWORK, IWORK, LIWORK, BWORK, IINFO );
          if ( IINFO.NE.0 .AND. IINFO.NE.N+2 ) {
             RESULT( 14 ) = ULPINV
             if ( JTYPE.NE.22 ) {
@@ -356,8 +356,8 @@
 
          // Compute RCONDV with VS, and compare
 
-         CALL DLACPY( 'F', N, N, A, LDA, HT, LDA )
-         CALL DGEESX( 'V', SORT, DSLECT, 'V', N, HT, LDA, SDIM1, WRT, WIT, VS1, LDVS, RCNDE1, RCNDV1, WORK, LWORK, IWORK, LIWORK, BWORK, IINFO )
+         dlacpy('F', N, N, A, LDA, HT, LDA );
+         dgeesx('V', SORT, DSLECT, 'V', N, HT, LDA, SDIM1, WRT, WIT, VS1, LDVS, RCNDE1, RCNDV1, WORK, LWORK, IWORK, LIWORK, BWORK, IINFO );
          if ( IINFO.NE.0 .AND. IINFO.NE.N+2 ) {
             RESULT( 15 ) = ULPINV
             if ( JTYPE.NE.22 ) {
@@ -385,8 +385,8 @@
 
          // Compute RCONDV without VS, and compare
 
-         CALL DLACPY( 'F', N, N, A, LDA, HT, LDA )
-         CALL DGEESX( 'N', SORT, DSLECT, 'V', N, HT, LDA, SDIM1, WRT, WIT, VS1, LDVS, RCNDE1, RCNDV1, WORK, LWORK, IWORK, LIWORK, BWORK, IINFO )
+         dlacpy('F', N, N, A, LDA, HT, LDA );
+         dgeesx('N', SORT, DSLECT, 'V', N, HT, LDA, SDIM1, WRT, WIT, VS1, LDVS, RCNDE1, RCNDV1, WORK, LWORK, IWORK, LIWORK, BWORK, IINFO );
          if ( IINFO.NE.0 .AND. IINFO.NE.N+2 ) {
             RESULT( 15 ) = ULPINV
             if ( JTYPE.NE.22 ) {
@@ -459,8 +459,8 @@
 
          // Compute condition numbers
 
-         CALL DLACPY( 'F', N, N, A, LDA, HT, LDA )
-         CALL DGEESX( 'N', 'S', DSLECT, 'B', N, HT, LDA, SDIM1, WRT, WIT, VS1, LDVS, RCONDE, RCONDV, WORK, LWORK, IWORK, LIWORK, BWORK, IINFO )
+         dlacpy('F', N, N, A, LDA, HT, LDA );
+         dgeesx('N', 'S', DSLECT, 'B', N, HT, LDA, SDIM1, WRT, WIT, VS1, LDVS, RCONDE, RCONDV, WORK, LWORK, IWORK, LIWORK, BWORK, IINFO );
          if ( IINFO.NE.0 .AND. IINFO.NE.N+2 ) {
             RESULT( 16 ) = ULPINV
             RESULT( 17 ) = ULPINV

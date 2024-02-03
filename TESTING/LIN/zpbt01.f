@@ -106,7 +106,7 @@
             // Scale column K by the diagonal element.
 
             AKK = DBLE( AFAC( 1, K ) )
-            CALL ZDSCAL( KLEN+1, AKK, AFAC( 1, K ), 1 )
+            zdscal(KLEN+1, AKK, AFAC( 1, K ), 1 );
 
    40    CONTINUE
       }

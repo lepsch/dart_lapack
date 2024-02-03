@@ -87,7 +87,7 @@
          DO 90 J = 1, N
             L = MAX( 1, J-KU )
             K = KU + 1 - J + L
-            CALL SLASSQ( MIN( N, J+KL )-L+1, AB( K, J ), 1, SCALE, SUM )
+            slassq(MIN( N, J+KL )-L+1, AB( K, J ), 1, SCALE, SUM );
    90    CONTINUE
          VALUE = SCALE*SQRT( SUM )
       }

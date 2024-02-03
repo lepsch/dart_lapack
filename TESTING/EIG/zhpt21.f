@@ -85,16 +85,16 @@
 
          // ITYPE=1: error = A - U S U**H
 
-         CALL ZLASET( 'Full', N, N, CZERO, CZERO, WORK, N )
-         CALL ZCOPY( LAP, AP, 1, WORK, 1 )
+         zlaset('Full', N, N, CZERO, CZERO, WORK, N );
+         zcopy(LAP, AP, 1, WORK, 1 );
 
          DO 10 J = 1, N
-            CALL ZHPR( CUPLO, N, -D( J ), U( 1, J ), 1, WORK )
+            zhpr(CUPLO, N, -D( J ), U( 1, J ), 1, WORK );
    10    CONTINUE
 
          if ( N.GT.1 .AND. KBAND.EQ.1 ) {
             DO 20 J = 2, N - 1
-               CALL ZHPR2( CUPLO, N, -DCMPLX( E( J ) ), U( 1, J ), 1, U( 1, J-1 ), 1, WORK )
+               zhpr2(CUPLO, N, -DCMPLX( E( J ) ), U( 1, J ), 1, U( 1, J-1 ), 1, WORK );
    20       CONTINUE
          }
          WNORM = ZLANHP( '1', CUPLO, N, WORK, RWORK )
@@ -103,7 +103,7 @@
 
          // ITYPE=2: error = V S V**H - A
 
-         CALL ZLASET( 'Full', N, N, CZERO, CZERO, WORK, N )
+         zlaset('Full', N, N, CZERO, CZERO, WORK, N );
 
          if ( LOWER ) {
             WORK( LAP ) = D( N )
@@ -120,7 +120,7 @@
                if ( TAU( J ).NE.CZERO ) {
                   VSAVE = VP( JP+J+1 )
                   VP( JP+J+1 ) = CONE
-                  CALL ZHPMV( 'L', N-J, CONE, WORK( JP1+J+1 ), VP( JP+J+1 ), 1, CZERO, WORK( LAP+1 ), 1 )                   TEMP = -HALF*TAU( J )*ZDOTC( N-J, WORK( LAP+1 ), 1, VP( JP+J+1 ), 1 )                   CALL ZAXPY( N-J, TEMP, VP( JP+J+1 ), 1, WORK( LAP+1 ), 1 )                   CALL ZHPR2( 'L', N-J, -TAU( J ), VP( JP+J+1 ), 1, WORK( LAP+1 ), 1, WORK( JP1+J+1 ) )
+                  zhpmv('L', N-J, CONE, WORK( JP1+J+1 ), VP( JP+J+1 ), 1, CZERO, WORK( LAP+1 ), 1 )                   TEMP = -HALF*TAU( J )*ZDOTC( N-J, WORK( LAP+1 ), 1, VP( JP+J+1 ), 1 )                   CALL ZAXPY( N-J, TEMP, VP( JP+J+1 ), 1, WORK( LAP+1 ), 1 )                   CALL ZHPR2( 'L', N-J, -TAU( J ), VP( JP+J+1 ), 1, WORK( LAP+1 ), 1, WORK( JP1+J+1 ) );
 
                   VP( JP+J+1 ) = VSAVE
                }
@@ -141,7 +141,7 @@
                if ( TAU( J ).NE.CZERO ) {
                   VSAVE = VP( JP1+J )
                   VP( JP1+J ) = CONE
-                  CALL ZHPMV( 'U', J, CONE, WORK, VP( JP1+1 ), 1, CZERO, WORK( LAP+1 ), 1 )                   TEMP = -HALF*TAU( J )*ZDOTC( J, WORK( LAP+1 ), 1, VP( JP1+1 ), 1 )                   CALL ZAXPY( J, TEMP, VP( JP1+1 ), 1, WORK( LAP+1 ), 1 )                   CALL ZHPR2( 'U', J, -TAU( J ), VP( JP1+1 ), 1, WORK( LAP+1 ), 1, WORK )
+                  zhpmv('U', J, CONE, WORK, VP( JP1+1 ), 1, CZERO, WORK( LAP+1 ), 1 )                   TEMP = -HALF*TAU( J )*ZDOTC( J, WORK( LAP+1 ), 1, VP( JP1+1 ), 1 )                   CALL ZAXPY( J, TEMP, VP( JP1+1 ), 1, WORK( LAP+1 ), 1 )                   CALL ZHPR2( 'U', J, -TAU( J ), VP( JP1+1 ), 1, WORK( LAP+1 ), 1, WORK );
                   VP( JP1+J ) = VSAVE
                }
                WORK( JP1+J+1 ) = D( J+1 )
@@ -158,8 +158,8 @@
          // ITYPE=3: error = U V**H - I
 
          IF( N.LT.2 ) RETURN
-         CALL ZLACPY( ' ', N, N, U, LDU, WORK, N )
-         CALL ZUPMTR( 'R', CUPLO, 'C', N, N, VP, TAU, WORK, N, WORK( N**2+1 ), IINFO )
+         zlacpy(' ', N, N, U, LDU, WORK, N );
+         zupmtr('R', CUPLO, 'C', N, N, VP, TAU, WORK, N, WORK( N**2+1 ), IINFO );
          if ( IINFO.NE.0 ) {
             RESULT( 1 ) = TEN / ULP
             RETURN
@@ -187,7 +187,7 @@
       // Compute  U U**H - I
 
       if ( ITYPE.EQ.1 ) {
-         CALL ZGEMM( 'N', 'C', N, N, N, CONE, U, LDU, U, LDU, CZERO, WORK, N )
+         zgemm('N', 'C', N, N, N, CONE, U, LDU, U, LDU, CZERO, WORK, N );
 
          DO 90 J = 1, N
             WORK( ( N+1 )*( J-1 )+1 ) = WORK( ( N+1 )*( J-1 )+1 ) - CONE

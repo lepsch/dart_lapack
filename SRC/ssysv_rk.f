@@ -54,14 +54,14 @@
          if ( N.EQ.0 ) {
             LWKOPT = 1
          } else {
-            CALL SSYTRF_RK( UPLO, N, A, LDA, E, IPIV, WORK, -1, INFO )
+            ssytrf_rk(UPLO, N, A, LDA, E, IPIV, WORK, -1, INFO );
             LWKOPT = INT( WORK( 1 ) )
          }
          WORK( 1 ) = SROUNDUP_LWORK(LWKOPT)
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'SSYSV_RK ', -INFO )
+         xerbla('SSYSV_RK ', -INFO );
          RETURN
       } else if ( LQUERY ) {
          RETURN
@@ -70,13 +70,13 @@
       // Compute the factorization A = P*U*D*(U**T)*(P**T) or
       // A = P*U*D*(U**T)*(P**T).
 
-      CALL SSYTRF_RK( UPLO, N, A, LDA, E, IPIV, WORK, LWORK, INFO )
+      ssytrf_rk(UPLO, N, A, LDA, E, IPIV, WORK, LWORK, INFO );
 
       if ( INFO.EQ.0 ) {
 
          // Solve the system A*X = B with BLAS3 solver, overwriting B with X.
 
-         CALL SSYTRS_3( UPLO, N, NRHS, A, LDA, E, IPIV, B, LDB, INFO )
+         ssytrs_3(UPLO, N, NRHS, A, LDA, E, IPIV, B, LDB, INFO );
 
       }
 

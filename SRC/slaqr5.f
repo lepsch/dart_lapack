@@ -152,13 +152,13 @@
 
                K = KRCOL + 2*( M22-1 )
                if ( K.EQ.KTOP-1 ) {
-                  CALL SLAQR1( 2, H( K+1, K+1 ), LDH, SR( 2*M22-1 ), SI( 2*M22-1 ), SR( 2*M22 ), SI( 2*M22 ), V( 1, M22 ) )
+                  slaqr1(2, H( K+1, K+1 ), LDH, SR( 2*M22-1 ), SI( 2*M22-1 ), SR( 2*M22 ), SI( 2*M22 ), V( 1, M22 ) );
                   BETA = V( 1, M22 )
-                  CALL SLARFG( 2, BETA, V( 2, M22 ), 1, V( 1, M22 ) )
+                  slarfg(2, BETA, V( 2, M22 ), 1, V( 1, M22 ) );
                } else {
                   BETA = H( K+1, K )
                   V( 2, M22 ) = H( K+2, K )
-                  CALL SLARFG( 2, BETA, V( 2, M22 ), 1, V( 1, M22 ) )
+                  slarfg(2, BETA, V( 2, M22 ), 1, V( 1, M22 ) );
                   H( K+1, K ) = BETA
                   H( K+2, K ) = ZERO
                }
@@ -246,9 +246,9 @@
             DO 80 M = MBOT, MTOP, -1
                K = KRCOL + 2*( M-1 )
                if ( K.EQ.KTOP-1 ) {
-                  CALL SLAQR1( 3, H( KTOP, KTOP ), LDH, SR( 2*M-1 ), SI( 2*M-1 ), SR( 2*M ), SI( 2*M ), V( 1, M ) )
+                  slaqr1(3, H( KTOP, KTOP ), LDH, SR( 2*M-1 ), SI( 2*M-1 ), SR( 2*M ), SI( 2*M ), V( 1, M ) );
                   ALPHA = V( 1, M )
-                  CALL SLARFG( 3, ALPHA, V( 2, M ), 1, V( 1, M ) )
+                  slarfg(3, ALPHA, V( 2, M ), 1, V( 1, M ) );
                } else {
 
                   // ==== Perform delayed transformation of row below
@@ -269,7 +269,7 @@
                   BETA      = H( K+1, K )
                   V( 2, M ) = H( K+2, K )
                   V( 3, M ) = H( K+3, K )
-                  CALL SLARFG( 3, BETA, V( 2, M ), 1, V( 1, M ) )
+                  slarfg(3, BETA, V( 2, M ), 1, V( 1, M ) );
 
                   // ==== A Bulge may collapse because of vigilant
                   // .    deflation or destructive underflow.  In the
@@ -291,9 +291,9 @@
                      // .    reflector is too large, then abandon it.
                      // .    Otherwise, use the new one. ====
 
-                     CALL SLAQR1( 3, H( K+1, K+1 ), LDH, SR( 2*M-1 ), SI( 2*M-1 ), SR( 2*M ), SI( 2*M ), VT )
+                     slaqr1(3, H( K+1, K+1 ), LDH, SR( 2*M-1 ), SI( 2*M-1 ), SR( 2*M ), SI( 2*M ), VT );
                      ALPHA = VT( 1 )
-                     CALL SLARFG( 3, ALPHA, VT( 2 ), 1, VT( 1 ) )
+                     slarfg(3, ALPHA, VT( 2 ), 1, VT( 1 ) );
                      T1 = VT( 1 )
                      T2 = T1*VT( 2 )
                      T3 = T2*VT( 3 )
@@ -468,16 +468,16 @@
 
             DO 150 JCOL = MIN( NDCOL, KBOT ) + 1, JBOT, NH
                JLEN = MIN( NH, JBOT-JCOL+1 )
-               CALL SGEMM( 'C', 'N', NU, JLEN, NU, ONE, U( K1, K1 ), LDU, H( INCOL+K1, JCOL ), LDH, ZERO, WH, LDWH )
-               CALL SLACPY( 'ALL', NU, JLEN, WH, LDWH, H( INCOL+K1, JCOL ), LDH )
+               sgemm('C', 'N', NU, JLEN, NU, ONE, U( K1, K1 ), LDU, H( INCOL+K1, JCOL ), LDH, ZERO, WH, LDWH );
+               slacpy('ALL', NU, JLEN, WH, LDWH, H( INCOL+K1, JCOL ), LDH );
   150       CONTINUE
 
             // ==== Vertical multiply ====
 
             DO 160 JROW = JTOP, MAX( KTOP, INCOL ) - 1, NV
                JLEN = MIN( NV, MAX( KTOP, INCOL )-JROW )
-               CALL SGEMM( 'N', 'N', JLEN, NU, NU, ONE, H( JROW, INCOL+K1 ), LDH, U( K1, K1 ), LDU, ZERO, WV, LDWV )
-               CALL SLACPY( 'ALL', JLEN, NU, WV, LDWV, H( JROW, INCOL+K1 ), LDH )
+               sgemm('N', 'N', JLEN, NU, NU, ONE, H( JROW, INCOL+K1 ), LDH, U( K1, K1 ), LDU, ZERO, WV, LDWV );
+               slacpy('ALL', JLEN, NU, WV, LDWV, H( JROW, INCOL+K1 ), LDH );
   160       CONTINUE
 
             // ==== Z multiply (also vertical) ====
@@ -485,8 +485,8 @@
             if ( WANTZ ) {
                DO 170 JROW = ILOZ, IHIZ, NV
                   JLEN = MIN( NV, IHIZ-JROW+1 )
-                  CALL SGEMM( 'N', 'N', JLEN, NU, NU, ONE, Z( JROW, INCOL+K1 ), LDZ, U( K1, K1 ), LDU, ZERO, WV, LDWV )
-                  CALL SLACPY( 'ALL', JLEN, NU, WV, LDWV, Z( JROW, INCOL+K1 ), LDZ )
+                  sgemm('N', 'N', JLEN, NU, NU, ONE, Z( JROW, INCOL+K1 ), LDZ, U( K1, K1 ), LDU, ZERO, WV, LDWV );
+                  slacpy('ALL', JLEN, NU, WV, LDWV, Z( JROW, INCOL+K1 ), LDZ );
   170          CONTINUE
             }
          }

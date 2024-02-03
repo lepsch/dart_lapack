@@ -42,7 +42,7 @@
       // Test if there is enough workspace
 
       if ( LWORK.LT.M*N+N ) {
-         CALL XERBLA( 'DQPT01', 10 )
+         xerbla('DQPT01', 10 );
          RETURN
       }
 
@@ -74,16 +74,16 @@
       // matrix of R.
 
       DO J = K + 1, N
-         CALL DCOPY( M, AF( 1, J ), 1, WORK( ( J-1 )*M+1 ), 1 )
+         dcopy(M, AF( 1, J ), 1, WORK( ( J-1 )*M+1 ), 1 );
       END DO
 
-      CALL DORMQR( 'Left', 'No transpose', M, N, K, AF, LDA, TAU, WORK, M, WORK( M*N+1 ), LWORK-M*N, INFO )
+      dormqr('Left', 'No transpose', M, N, K, AF, LDA, TAU, WORK, M, WORK( M*N+1 ), LWORK-M*N, INFO );
 
       DO J = 1, N
 
          // Compare J-th column of QR and JPVT(J)-th column of A.
 
-         CALL DAXPY( M, -ONE, A( 1, JPVT( J ) ), 1, WORK( ( J-1 )*M+1 ), 1 )
+         daxpy(M, -ONE, A( 1, JPVT( J ) ), 1, WORK( ( J-1 )*M+1 ), 1 );
       END DO
 
       DQPT01 = DLANGE( 'One-norm', M, N, WORK, M, RWORK ) / ( DBLE( MAX( M, N ) )*DLAMCH( 'Epsilon' ) )       IF( NORMA.NE.ZERO ) DQPT01 = DQPT01 / NORMA

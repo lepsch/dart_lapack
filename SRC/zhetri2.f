@@ -57,7 +57,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'ZHETRI2', -INFO )
+         xerbla('ZHETRI2', -INFO );
          RETURN
       } else if ( LQUERY ) {
          WORK( 1 ) = MINSIZE
@@ -69,9 +69,9 @@
       IF( N.EQ.0 ) RETURN
 
       if ( NBMAX.GE.N ) {
-         CALL ZHETRI( UPLO, N, A, LDA, IPIV, WORK, INFO )
+         zhetri(UPLO, N, A, LDA, IPIV, WORK, INFO );
       } else {
-         CALL ZHETRI2X( UPLO, N, A, LDA, IPIV, WORK, NBMAX, INFO )
+         zhetri2x(UPLO, N, A, LDA, IPIV, WORK, NBMAX, INFO );
       }
 
       RETURN

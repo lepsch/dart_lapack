@@ -50,7 +50,7 @@
          INFO = -5
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'DTRTRI', -INFO )
+         xerbla('DTRTRI', -INFO );
          RETURN
       }
 
@@ -74,7 +74,7 @@
 
          // Use unblocked code
 
-         CALL DTRTI2( UPLO, DIAG, N, A, LDA, INFO )
+         dtrti2(UPLO, DIAG, N, A, LDA, INFO );
       } else {
 
          // Use blocked code
@@ -88,11 +88,11 @@
 
                // Compute rows 1:j-1 of current block column
 
-               CALL DTRMM( 'Left', 'Upper', 'No transpose', DIAG, J-1, JB, ONE, A, LDA, A( 1, J ), LDA )                CALL DTRSM( 'Right', 'Upper', 'No transpose', DIAG, J-1, JB, -ONE, A( J, J ), LDA, A( 1, J ), LDA )
+               dtrmm('Left', 'Upper', 'No transpose', DIAG, J-1, JB, ONE, A, LDA, A( 1, J ), LDA )                CALL DTRSM( 'Right', 'Upper', 'No transpose', DIAG, J-1, JB, -ONE, A( J, J ), LDA, A( 1, J ), LDA );
 
                // Compute inverse of current diagonal block
 
-               CALL DTRTI2( 'Upper', DIAG, JB, A( J, J ), LDA, INFO )
+               dtrti2('Upper', DIAG, JB, A( J, J ), LDA, INFO );
    20       CONTINUE
          } else {
 
@@ -105,12 +105,12 @@
 
                   // Compute rows j+jb:n of current block column
 
-                  CALL DTRMM( 'Left', 'Lower', 'No transpose', DIAG, N-J-JB+1, JB, ONE, A( J+JB, J+JB ), LDA, A( J+JB, J ), LDA )                   CALL DTRSM( 'Right', 'Lower', 'No transpose', DIAG, N-J-JB+1, JB, -ONE, A( J, J ), LDA, A( J+JB, J ), LDA )
+                  dtrmm('Left', 'Lower', 'No transpose', DIAG, N-J-JB+1, JB, ONE, A( J+JB, J+JB ), LDA, A( J+JB, J ), LDA )                   CALL DTRSM( 'Right', 'Lower', 'No transpose', DIAG, N-J-JB+1, JB, -ONE, A( J, J ), LDA, A( J+JB, J ), LDA );
                }
 
                // Compute inverse of current diagonal block
 
-               CALL DTRTI2( 'Lower', DIAG, JB, A( J, J ), LDA, INFO )
+               dtrti2('Lower', DIAG, JB, A( J, J ), LDA, INFO );
    30       CONTINUE
          }
       }

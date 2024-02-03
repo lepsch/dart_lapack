@@ -105,7 +105,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'DPOSVXX', -INFO )
+         xerbla('DPOSVXX', -INFO );
          RETURN
       }
 
@@ -113,12 +113,12 @@
 
       // Compute row and column scalings to equilibrate the matrix A.
 
-         CALL DPOEQUB( N, A, LDA, S, SCOND, AMAX, INFEQU )
+         dpoequb(N, A, LDA, S, SCOND, AMAX, INFEQU );
          if ( INFEQU.EQ.0 ) {
 
       // Equilibrate the matrix.
 
-            CALL DLAQSY( UPLO, N, A, LDA, S, SCOND, AMAX, EQUED )
+            dlaqsy(UPLO, N, A, LDA, S, SCOND, AMAX, EQUED );
             RCEQU = LSAME( EQUED, 'Y' )
          }
       }
@@ -131,8 +131,8 @@
 
          // Compute the Cholesky factorization of A.
 
-         CALL DLACPY( UPLO, N, N, A, LDA, AF, LDAF )
-         CALL DPOTRF( UPLO, N, AF, LDAF, INFO )
+         dlacpy(UPLO, N, N, A, LDA, AF, LDAF );
+         dpotrf(UPLO, N, AF, LDAF, INFO );
 
          // Return if INFO is non-zero.
 
@@ -153,19 +153,19 @@
 
       // Compute the solution matrix X.
 
-      CALL DLACPY( 'Full', N, NRHS, B, LDB, X, LDX )
-      CALL DPOTRS( UPLO, N, NRHS, AF, LDAF, X, LDX, INFO )
+      dlacpy('Full', N, NRHS, B, LDB, X, LDX );
+      dpotrs(UPLO, N, NRHS, AF, LDAF, X, LDX, INFO );
 
       // Use iterative refinement to improve the computed solution and
       // compute error bounds and backward error estimates for it.
 
-      CALL DPORFSX( UPLO, EQUED, N, NRHS, A, LDA, AF, LDAF, S, B, LDB, X, LDX, RCOND, BERR, N_ERR_BNDS, ERR_BNDS_NORM, ERR_BNDS_COMP, NPARAMS, PARAMS, WORK, IWORK, INFO )
+      dporfsx(UPLO, EQUED, N, NRHS, A, LDA, AF, LDAF, S, B, LDB, X, LDX, RCOND, BERR, N_ERR_BNDS, ERR_BNDS_NORM, ERR_BNDS_COMP, NPARAMS, PARAMS, WORK, IWORK, INFO );
 
 
       // Scale solutions.
 
       if ( RCEQU ) {
-         CALL DLASCL2 ( N, NRHS, S, X, LDX )
+         dlascl2(N, NRHS, S, X, LDX );
       }
 
       RETURN

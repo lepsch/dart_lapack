@@ -48,7 +48,7 @@
          INFO = -8
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'CPBTRS', -INFO )
+         xerbla('CPBTRS', -INFO );
          RETURN
       }
 
@@ -64,11 +64,11 @@
 
             // Solve U**H *X = B, overwriting B with X.
 
-            CALL CTBSV( 'Upper', 'Conjugate transpose', 'Non-unit', N, KD, AB, LDAB, B( 1, J ), 1 )
+            ctbsv('Upper', 'Conjugate transpose', 'Non-unit', N, KD, AB, LDAB, B( 1, J ), 1 );
 
             // Solve U*X = B, overwriting B with X.
 
-            CALL CTBSV( 'Upper', 'No transpose', 'Non-unit', N, KD, AB, LDAB, B( 1, J ), 1 )
+            ctbsv('Upper', 'No transpose', 'Non-unit', N, KD, AB, LDAB, B( 1, J ), 1 );
    10    CONTINUE
       } else {
 
@@ -78,11 +78,11 @@
 
             // Solve L*X = B, overwriting B with X.
 
-            CALL CTBSV( 'Lower', 'No transpose', 'Non-unit', N, KD, AB, LDAB, B( 1, J ), 1 )
+            ctbsv('Lower', 'No transpose', 'Non-unit', N, KD, AB, LDAB, B( 1, J ), 1 );
 
             // Solve L**H *X = B, overwriting B with X.
 
-            CALL CTBSV( 'Lower', 'Conjugate transpose', 'Non-unit', N, KD, AB, LDAB, B( 1, J ), 1 )
+            ctbsv('Lower', 'Conjugate transpose', 'Non-unit', N, KD, AB, LDAB, B( 1, J ), 1 );
    20    CONTINUE
       }
 

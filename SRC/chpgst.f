@@ -51,7 +51,7 @@
          INFO = -3
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'CHPGST', -INFO )
+         xerbla('CHPGST', -INFO );
          RETURN
       }
 
@@ -71,8 +71,8 @@
 
                AP( JJ ) = REAL( AP( JJ ) )
                BJJ = REAL( BP( JJ ) )
-               CALL CTPSV( UPLO, 'Conjugate transpose', 'Non-unit', J, BP, AP( J1 ), 1 )                CALL CHPMV( UPLO, J-1, -CONE, AP, BP( J1 ), 1, CONE, AP( J1 ), 1 )
-               CALL CSSCAL( J-1, ONE / BJJ, AP( J1 ), 1 )
+               ctpsv(UPLO, 'Conjugate transpose', 'Non-unit', J, BP, AP( J1 ), 1 )                CALL CHPMV( UPLO, J-1, -CONE, AP, BP( J1 ), 1, CONE, AP( J1 ), 1 );
+               csscal(J-1, ONE / BJJ, AP( J1 ), 1 );
                AP( JJ ) = ( AP( JJ )-CDOTC( J-1, AP( J1 ), 1, BP( J1 ), 1 ) ) / BJJ
    10       CONTINUE
          } else {
@@ -92,12 +92,12 @@
                AKK = AKK / BKK**2
                AP( KK ) = AKK
                if ( K.LT.N ) {
-                  CALL CSSCAL( N-K, ONE / BKK, AP( KK+1 ), 1 )
+                  csscal(N-K, ONE / BKK, AP( KK+1 ), 1 );
                   CT = -HALF*AKK
-                  CALL CAXPY( N-K, CT, BP( KK+1 ), 1, AP( KK+1 ), 1 )
-                  CALL CHPR2( UPLO, N-K, -CONE, AP( KK+1 ), 1, BP( KK+1 ), 1, AP( K1K1 ) )
-                  CALL CAXPY( N-K, CT, BP( KK+1 ), 1, AP( KK+1 ), 1 )
-                  CALL CTPSV( UPLO, 'No transpose', 'Non-unit', N-K, BP( K1K1 ), AP( KK+1 ), 1 )
+                  caxpy(N-K, CT, BP( KK+1 ), 1, AP( KK+1 ), 1 );
+                  chpr2(UPLO, N-K, -CONE, AP( KK+1 ), 1, BP( KK+1 ), 1, AP( K1K1 ) );
+                  caxpy(N-K, CT, BP( KK+1 ), 1, AP( KK+1 ), 1 );
+                  ctpsv(UPLO, 'No transpose', 'Non-unit', N-K, BP( K1K1 ), AP( KK+1 ), 1 );
                }
                KK = K1K1
    20       CONTINUE
@@ -118,12 +118,12 @@
 
                AKK = REAL( AP( KK ) )
                BKK = REAL( BP( KK ) )
-               CALL CTPMV( UPLO, 'No transpose', 'Non-unit', K-1, BP, AP( K1 ), 1 )
+               ctpmv(UPLO, 'No transpose', 'Non-unit', K-1, BP, AP( K1 ), 1 );
                CT = HALF*AKK
-               CALL CAXPY( K-1, CT, BP( K1 ), 1, AP( K1 ), 1 )
-               CALL CHPR2( UPLO, K-1, CONE, AP( K1 ), 1, BP( K1 ), 1, AP )
-               CALL CAXPY( K-1, CT, BP( K1 ), 1, AP( K1 ), 1 )
-               CALL CSSCAL( K-1, BKK, AP( K1 ), 1 )
+               caxpy(K-1, CT, BP( K1 ), 1, AP( K1 ), 1 );
+               chpr2(UPLO, K-1, CONE, AP( K1 ), 1, BP( K1 ), 1, AP );
+               caxpy(K-1, CT, BP( K1 ), 1, AP( K1 ), 1 );
+               csscal(K-1, BKK, AP( K1 ), 1 );
                AP( KK ) = AKK*BKK**2
    30       CONTINUE
          } else {
@@ -141,8 +141,8 @@
                AJJ = REAL( AP( JJ ) )
                BJJ = REAL( BP( JJ ) )
                AP( JJ ) = AJJ*BJJ + CDOTC( N-J, AP( JJ+1 ), 1, BP( JJ+1 ), 1 )
-               CALL CSSCAL( N-J, BJJ, AP( JJ+1 ), 1 )
-               CALL CHPMV( UPLO, N-J, CONE, AP( J1J1 ), BP( JJ+1 ), 1, CONE, AP( JJ+1 ), 1 )                CALL CTPMV( UPLO, 'Conjugate transpose', 'Non-unit', N-J+1, BP( JJ ), AP( JJ ), 1 )
+               csscal(N-J, BJJ, AP( JJ+1 ), 1 );
+               chpmv(UPLO, N-J, CONE, AP( J1J1 ), BP( JJ+1 ), 1, CONE, AP( JJ+1 ), 1 )                CALL CTPMV( UPLO, 'Conjugate transpose', 'Non-unit', N-J+1, BP( JJ ), AP( JJ ), 1 );
                JJ = J1J1
    40       CONTINUE
          }

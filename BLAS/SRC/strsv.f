@@ -51,7 +51,7 @@
           INFO = 8
       }
       if (INFO.NE.0) {
-          CALL XERBLA('STRSV ',INFO)
+          xerbla('STRSV ',INFO);
           RETURN
       }
 

@@ -44,7 +44,7 @@
          LDWORK = M + NRHS
          TPSD = .FALSE.
          if ( LWORK.LT.( M+NRHS )*( N+2 ) ) {
-            CALL XERBLA( 'DQRT14', 10 )
+            xerbla('DQRT14', 10 );
             RETURN
          } else if ( N.LE.0 .OR. NRHS.LE.0 ) {
             RETURN
@@ -53,19 +53,19 @@
          LDWORK = M
          TPSD = .TRUE.
          if ( LWORK.LT.( N+NRHS )*( M+2 ) ) {
-            CALL XERBLA( 'DQRT14', 10 )
+            xerbla('DQRT14', 10 );
             RETURN
          } else if ( M.LE.0 .OR. NRHS.LE.0 ) {
             RETURN
          }
       } else {
-         CALL XERBLA( 'DQRT14', 1 )
+         xerbla('DQRT14', 1 );
          RETURN
       }
 
       // Copy and scale A
 
-      CALL DLACPY( 'All', M, N, A, LDA, WORK, LDWORK )
+      dlacpy('All', M, N, A, LDA, WORK, LDWORK );
       ANRM = DLANGE( 'M', M, N, WORK, LDWORK, RWORK )
       IF( ANRM.NE.ZERO ) CALL DLASCL( 'G', 0, 0, ANRM, ONE, M, N, WORK, LDWORK, INFO )
 
@@ -75,11 +75,11 @@
 
          // Copy X into columns n+1:n+nrhs of work
 
-         CALL DLACPY( 'All', M, NRHS, X, LDX, WORK( N*LDWORK+1 ), LDWORK )          XNRM = DLANGE( 'M', M, NRHS, WORK( N*LDWORK+1 ), LDWORK, RWORK )          IF( XNRM.NE.ZERO ) CALL DLASCL( 'G', 0, 0, XNRM, ONE, M, NRHS, WORK( N*LDWORK+1 ), LDWORK, INFO )
+         dlacpy('All', M, NRHS, X, LDX, WORK( N*LDWORK+1 ), LDWORK )          XNRM = DLANGE( 'M', M, NRHS, WORK( N*LDWORK+1 ), LDWORK, RWORK )          IF( XNRM.NE.ZERO ) CALL DLASCL( 'G', 0, 0, XNRM, ONE, M, NRHS, WORK( N*LDWORK+1 ), LDWORK, INFO );
 
          // Compute QR factorization of X
 
-         CALL DGEQR2( M, N+NRHS, WORK, LDWORK, WORK( LDWORK*( N+NRHS )+1 ), WORK( LDWORK*( N+NRHS )+MIN( M, N+NRHS )+1 ), INFO )
+         dgeqr2(M, N+NRHS, WORK, LDWORK, WORK( LDWORK*( N+NRHS )+1 ), WORK( LDWORK*( N+NRHS )+MIN( M, N+NRHS )+1 ), INFO );
 
          // Compute largest entry in upper triangle of
          // work(n+1:m,n+1:n+nrhs)
@@ -106,7 +106,7 @@
 
          // Compute LQ factorization of work
 
-         CALL DGELQ2( LDWORK, N, WORK, LDWORK, WORK( LDWORK*N+1 ), WORK( LDWORK*( N+1 )+1 ), INFO )
+         dgelq2(LDWORK, N, WORK, LDWORK, WORK( LDWORK*N+1 ), WORK( LDWORK*( N+1 )+1 ), INFO );
 
          // Compute largest entry in lower triangle in
          // work(m+1:m+nrhs,m+1:n)

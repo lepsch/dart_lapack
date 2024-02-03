@@ -54,7 +54,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'ZSYTRI_3', -INFO )
+         xerbla('ZSYTRI_3', -INFO );
          RETURN
       } else if ( LQUERY ) {
          WORK( 1 ) = LWKOPT
@@ -65,7 +65,7 @@
 
       IF( N.EQ.0 ) RETURN
 
-      CALL ZSYTRI_3X( UPLO, N, A, LDA, E, IPIV, WORK, NB, INFO )
+      zsytri_3x(UPLO, N, A, LDA, E, IPIV, WORK, NB, INFO );
 
       WORK( 1 ) = LWKOPT
 

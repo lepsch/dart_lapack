@@ -67,21 +67,21 @@
       // Check if B is singular
 
       } else if ( ABS( B( 1, 1 ) ).LE.ULP ) {
-         CALL DLARTG( A( 1, 1 ), A( 2, 1 ), CSL, SNL, R )
+         dlartg(A( 1, 1 ), A( 2, 1 ), CSL, SNL, R );
          CSR = ONE
          SNR = ZERO
-         CALL DROT( 2, A( 1, 1 ), LDA, A( 2, 1 ), LDA, CSL, SNL )
-         CALL DROT( 2, B( 1, 1 ), LDB, B( 2, 1 ), LDB, CSL, SNL )
+         drot(2, A( 1, 1 ), LDA, A( 2, 1 ), LDA, CSL, SNL );
+         drot(2, B( 1, 1 ), LDB, B( 2, 1 ), LDB, CSL, SNL );
          A( 2, 1 ) = ZERO
          B( 1, 1 ) = ZERO
          B( 2, 1 ) = ZERO
          WI = ZERO
 
       } else if ( ABS( B( 2, 2 ) ).LE.ULP ) {
-         CALL DLARTG( A( 2, 2 ), A( 2, 1 ), CSR, SNR, T )
+         dlartg(A( 2, 2 ), A( 2, 1 ), CSR, SNR, T );
          SNR = -SNR
-         CALL DROT( 2, A( 1, 1 ), 1, A( 1, 2 ), 1, CSR, SNR )
-         CALL DROT( 2, B( 1, 1 ), 1, B( 1, 2 ), 1, CSR, SNR )
+         drot(2, A( 1, 1 ), 1, A( 1, 2 ), 1, CSR, SNR );
+         drot(2, B( 1, 1 ), 1, B( 1, 2 ), 1, CSR, SNR );
          CSL = ONE
          SNL = ZERO
          A( 2, 1 ) = ZERO
@@ -93,7 +93,7 @@
 
          // B is nonsingular, first compute the eigenvalues of (A,B)
 
-         CALL DLAG2( A, LDA, B, LDB, SAFMIN, SCALE1, SCALE2, WR1, WR2, WI )
+         dlag2(A, LDA, B, LDB, SAFMIN, SCALE1, SCALE2, WR1, WR2, WI );
 
          if ( WI.EQ.ZERO ) {
 
@@ -111,20 +111,20 @@
                // find right rotation matrix to zero 1,1 element of
                // (sA - wB)
 
-               CALL DLARTG( H2, H1, CSR, SNR, T )
+               dlartg(H2, H1, CSR, SNR, T );
 
             } else {
 
                // find right rotation matrix to zero 2,1 element of
                // (sA - wB)
 
-               CALL DLARTG( H3, SCALE1*A( 2, 1 ), CSR, SNR, T )
+               dlartg(H3, SCALE1*A( 2, 1 ), CSR, SNR, T );
 
             }
 
             SNR = -SNR
-            CALL DROT( 2, A( 1, 1 ), 1, A( 1, 2 ), 1, CSR, SNR )
-            CALL DROT( 2, B( 1, 1 ), 1, B( 1, 2 ), 1, CSR, SNR )
+            drot(2, A( 1, 1 ), 1, A( 1, 2 ), 1, CSR, SNR );
+            drot(2, B( 1, 1 ), 1, B( 1, 2 ), 1, CSR, SNR );
 
             // compute inf norms of A and B
 
@@ -134,18 +134,18 @@
 
                // find left rotation matrix Q to zero out B(2,1)
 
-               CALL DLARTG( B( 1, 1 ), B( 2, 1 ), CSL, SNL, R )
+               dlartg(B( 1, 1 ), B( 2, 1 ), CSL, SNL, R );
 
             } else {
 
                // find left rotation matrix Q to zero out A(2,1)
 
-               CALL DLARTG( A( 1, 1 ), A( 2, 1 ), CSL, SNL, R )
+               dlartg(A( 1, 1 ), A( 2, 1 ), CSL, SNL, R );
 
             }
 
-            CALL DROT( 2, A( 1, 1 ), LDA, A( 2, 1 ), LDA, CSL, SNL )
-            CALL DROT( 2, B( 1, 1 ), LDB, B( 2, 1 ), LDB, CSL, SNL )
+            drot(2, A( 1, 1 ), LDA, A( 2, 1 ), LDA, CSL, SNL );
+            drot(2, B( 1, 1 ), LDB, B( 2, 1 ), LDB, CSL, SNL );
 
             A( 2, 1 ) = ZERO
             B( 2, 1 ) = ZERO
@@ -155,15 +155,15 @@
             // a pair of complex conjugate eigenvalues
             // first compute the SVD of the matrix B
 
-            CALL DLASV2( B( 1, 1 ), B( 1, 2 ), B( 2, 2 ), R, T, SNR, CSR, SNL, CSL )
+            dlasv2(B( 1, 1 ), B( 1, 2 ), B( 2, 2 ), R, T, SNR, CSR, SNL, CSL );
 
             // Form (A,B) := Q(A,B)Z**T where Q is left rotation matrix and
             // Z is right rotation matrix computed from DLASV2
 
-            CALL DROT( 2, A( 1, 1 ), LDA, A( 2, 1 ), LDA, CSL, SNL )
-            CALL DROT( 2, B( 1, 1 ), LDB, B( 2, 1 ), LDB, CSL, SNL )
-            CALL DROT( 2, A( 1, 1 ), 1, A( 1, 2 ), 1, CSR, SNR )
-            CALL DROT( 2, B( 1, 1 ), 1, B( 1, 2 ), 1, CSR, SNR )
+            drot(2, A( 1, 1 ), LDA, A( 2, 1 ), LDA, CSL, SNL );
+            drot(2, B( 1, 1 ), LDB, B( 2, 1 ), LDB, CSL, SNL );
+            drot(2, A( 1, 1 ), 1, A( 1, 2 ), 1, CSR, SNR );
+            drot(2, B( 1, 1 ), 1, B( 1, 2 ), 1, CSR, SNR );
 
             B( 2, 1 ) = ZERO
             B( 1, 2 ) = ZERO

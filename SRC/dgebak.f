@@ -57,7 +57,7 @@
          INFO = -9
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'DGEBAK', -INFO )
+         xerbla('DGEBAK', -INFO );
          RETURN
       }
 
@@ -74,14 +74,14 @@
          if ( RIGHTV ) {
             DO 10 I = ILO, IHI
                S = SCALE( I )
-               CALL DSCAL( M, S, V( I, 1 ), LDV )
+               dscal(M, S, V( I, 1 ), LDV );
    10       CONTINUE
          }
 
          if ( LEFTV ) {
             DO 20 I = ILO, IHI
                S = ONE / SCALE( I )
-               CALL DSCAL( M, S, V( I, 1 ), LDV )
+               dscal(M, S, V( I, 1 ), LDV );
    20       CONTINUE
          }
 
@@ -100,7 +100,7 @@
                IF( I.GE.ILO .AND. I.LE.IHI ) GO TO 40                IF( I.LT.ILO ) I = ILO - II
                K = INT( SCALE( I ) )
                IF( K.EQ.I ) GO TO 40
-               CALL DSWAP( M, V( I, 1 ), LDV, V( K, 1 ), LDV )
+               dswap(M, V( I, 1 ), LDV, V( K, 1 ), LDV );
    40       CONTINUE
          }
 
@@ -110,7 +110,7 @@
                IF( I.GE.ILO .AND. I.LE.IHI ) GO TO 50                IF( I.LT.ILO ) I = ILO - II
                K = INT( SCALE( I ) )
                IF( K.EQ.I ) GO TO 50
-               CALL DSWAP( M, V( I, 1 ), LDV, V( K, 1 ), LDV )
+               dswap(M, V( I, 1 ), LDV, V( K, 1 ), LDV );
    50       CONTINUE
          }
       }

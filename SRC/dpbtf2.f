@@ -49,7 +49,7 @@
          INFO = -5
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'DPBTF2', -INFO )
+         xerbla('DPBTF2', -INFO );
          RETURN
       }
 
@@ -77,8 +77,8 @@
 
             KN = MIN( KD, N-J )
             if ( KN.GT.0 ) {
-               CALL DSCAL( KN, ONE / AJJ, AB( KD, J+1 ), KLD )
-               CALL DSYR( 'Upper', KN, -ONE, AB( KD, J+1 ), KLD, AB( KD+1, J+1 ), KLD )
+               dscal(KN, ONE / AJJ, AB( KD, J+1 ), KLD );
+               dsyr('Upper', KN, -ONE, AB( KD, J+1 ), KLD, AB( KD+1, J+1 ), KLD );
             }
    10    CONTINUE
       } else {
@@ -99,8 +99,8 @@
 
             KN = MIN( KD, N-J )
             if ( KN.GT.0 ) {
-               CALL DSCAL( KN, ONE / AJJ, AB( 2, J ), 1 )
-               CALL DSYR( 'Lower', KN, -ONE, AB( 2, J ), 1, AB( 1, J+1 ), KLD )
+               dscal(KN, ONE / AJJ, AB( 2, J ), 1 );
+               dsyr('Lower', KN, -ONE, AB( 2, J ), 1, AB( 1, J+1 ), KLD );
             }
    20    CONTINUE
       }

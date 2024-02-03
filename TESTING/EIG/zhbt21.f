@@ -95,12 +95,12 @@
    50 CONTINUE
 
       DO 60 J = 1, N
-         CALL ZHPR( CUPLO, N, -D( J ), U( 1, J ), 1, WORK )
+         zhpr(CUPLO, N, -D( J ), U( 1, J ), 1, WORK );
    60 CONTINUE
 
       if ( N.GT.1 .AND. KS.EQ.1 ) {
          DO 70 J = 1, N - 1
-            CALL ZHPR2( CUPLO, N, -DCMPLX( E( J ) ), U( 1, J ), 1, U( 1, J+1 ), 1, WORK )
+            zhpr2(CUPLO, N, -DCMPLX( E( J ) ), U( 1, J ), 1, U( 1, J+1 ), 1, WORK );
    70    CONTINUE
       }
       WNORM = ZLANHP( '1', CUPLO, N, WORK, RWORK )
@@ -119,7 +119,7 @@
 
       // Compute  U U**H - I
 
-      CALL ZGEMM( 'N', 'C', N, N, N, CONE, U, LDU, U, LDU, CZERO, WORK, N )
+      zgemm('N', 'C', N, N, N, CONE, U, LDU, U, LDU, CZERO, WORK, N );
 
       DO 80 J = 1, N
          WORK( ( N+1 )*( J-1 )+1 ) = WORK( ( N+1 )*( J-1 )+1 ) - CONE

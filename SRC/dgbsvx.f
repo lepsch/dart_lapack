@@ -115,7 +115,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'DGBSVX', -INFO )
+         xerbla('DGBSVX', -INFO );
          RETURN
       }
 
@@ -123,12 +123,12 @@
 
          // Compute row and column scalings to equilibrate the matrix A.
 
-         CALL DGBEQU( N, N, KL, KU, AB, LDAB, R, C, ROWCND, COLCND, AMAX, INFEQU )
+         dgbequ(N, N, KL, KU, AB, LDAB, R, C, ROWCND, COLCND, AMAX, INFEQU );
          if ( INFEQU.EQ.0 ) {
 
             // Equilibrate the matrix.
 
-            CALL DLAQGB( N, N, KL, KU, AB, LDAB, R, C, ROWCND, COLCND, AMAX, EQUED )
+            dlaqgb(N, N, KL, KU, AB, LDAB, R, C, ROWCND, COLCND, AMAX, EQUED );
             ROWEQU = LSAME( EQUED, 'R' ) .OR. LSAME( EQUED, 'B' )
             COLEQU = LSAME( EQUED, 'C' ) .OR. LSAME( EQUED, 'B' )
          }
@@ -159,10 +159,10 @@
          DO 70 J = 1, N
             J1 = MAX( J-KU, 1 )
             J2 = MIN( J+KL, N )
-            CALL DCOPY( J2-J1+1, AB( KU+1-J+J1, J ), 1, AFB( KL+KU+1-J+J1, J ), 1 )
+            dcopy(J2-J1+1, AB( KU+1-J+J1, J ), 1, AFB( KL+KU+1-J+J1, J ), 1 );
    70    CONTINUE
 
-         CALL DGBTRF( N, N, KL, KU, AFB, LDAFB, IPIV, INFO )
+         dgbtrf(N, N, KL, KU, AFB, LDAFB, IPIV, INFO );
 
          // Return if INFO is non-zero.
 
@@ -207,17 +207,17 @@
 
       // Compute the reciprocal of the condition number of A.
 
-      CALL DGBCON( NORM, N, KL, KU, AFB, LDAFB, IPIV, ANORM, RCOND, WORK, IWORK, INFO )
+      dgbcon(NORM, N, KL, KU, AFB, LDAFB, IPIV, ANORM, RCOND, WORK, IWORK, INFO );
 
       // Compute the solution matrix X.
 
-      CALL DLACPY( 'Full', N, NRHS, B, LDB, X, LDX )
-      CALL DGBTRS( TRANS, N, KL, KU, NRHS, AFB, LDAFB, IPIV, X, LDX, INFO )
+      dlacpy('Full', N, NRHS, B, LDB, X, LDX );
+      dgbtrs(TRANS, N, KL, KU, NRHS, AFB, LDAFB, IPIV, X, LDX, INFO );
 
       // Use iterative refinement to improve the computed solution and
       // compute error bounds and backward error estimates for it.
 
-      CALL DGBRFS( TRANS, N, KL, KU, NRHS, AB, LDAB, AFB, LDAFB, IPIV, B, LDB, X, LDX, FERR, BERR, WORK, IWORK, INFO )
+      dgbrfs(TRANS, N, KL, KU, NRHS, AB, LDAB, AFB, LDAFB, IPIV, B, LDB, X, LDX, FERR, BERR, WORK, IWORK, INFO );
 
       // Transform the solution matrix X to a solution of the original
       // system.

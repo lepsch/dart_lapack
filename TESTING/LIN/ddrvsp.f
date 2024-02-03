@@ -114,15 +114,15 @@
                // Set up parameters with DLATB4 and generate a test matrix
                // with DLATMS.
 
-               CALL DLATB4( PATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST )
+               dlatb4(PATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST );
 
                SRNAMT = 'DLATMS'
-               CALL DLATMS( N, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KL, KU, PACKIT, A, LDA, WORK, INFO )
+               dlatms(N, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KL, KU, PACKIT, A, LDA, WORK, INFO );
 
                // Check error code from DLATMS.
 
                if ( INFO.NE.0 ) {
-                  CALL ALAERH( PATH, 'DLATMS', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT )
+                  alaerh(PATH, 'DLATMS', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
                   GO TO 160
                }
 
@@ -214,13 +214,13 @@
 
                      // Factor the matrix A.
 
-                     CALL DCOPY( NPP, A, 1, AFAC, 1 )
-                     CALL DSPTRF( UPLO, N, AFAC, IWORK, INFO )
+                     dcopy(NPP, A, 1, AFAC, 1 );
+                     dsptrf(UPLO, N, AFAC, IWORK, INFO );
 
                      // Compute inv(A) and take its norm.
 
-                     CALL DCOPY( NPP, AFAC, 1, AINV, 1 )
-                     CALL DSPTRI( UPLO, N, AINV, IWORK, WORK, INFO )
+                     dcopy(NPP, AFAC, 1, AINV, 1 );
+                     dsptri(UPLO, N, AINV, IWORK, WORK, INFO );
                      AINVNM = DLANSP( '1', UPLO, N, AINV, RWORK )
 
                      // Compute the 1-norm condition number of A.
@@ -235,19 +235,19 @@
                   // Form an exact solution and set the right hand side.
 
                   SRNAMT = 'DLARHS'
-                  CALL DLARHS( PATH, XTYPE, UPLO, ' ', N, N, KL, KU, NRHS, A, LDA, XACT, LDA, B, LDA, ISEED, INFO )
+                  dlarhs(PATH, XTYPE, UPLO, ' ', N, N, KL, KU, NRHS, A, LDA, XACT, LDA, B, LDA, ISEED, INFO );
                   XTYPE = 'C'
 
                   // --- Test DSPSV  ---
 
                   if ( IFACT.EQ.2 ) {
-                     CALL DCOPY( NPP, A, 1, AFAC, 1 )
-                     CALL DLACPY( 'Full', N, NRHS, B, LDA, X, LDA )
+                     dcopy(NPP, A, 1, AFAC, 1 );
+                     dlacpy('Full', N, NRHS, B, LDA, X, LDA );
 
                      // Factor the matrix and solve the system using DSPSV.
 
                      SRNAMT = 'DSPSV '
-                     CALL DSPSV( UPLO, N, NRHS, AFAC, IWORK, X, LDA, INFO )
+                     dspsv(UPLO, N, NRHS, AFAC, IWORK, X, LDA, INFO );
 
                      // Adjust the expected value of INFO to account for
                      // pivoting.
@@ -269,7 +269,7 @@
                      // Check error code from DSPSV .
 
                      if ( INFO.NE.K ) {
-                        CALL ALAERH( PATH, 'DSPSV ', INFO, K, UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT )
+                        alaerh(PATH, 'DSPSV ', INFO, K, UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
                         GO TO 120
                      } else if ( INFO.NE.0 ) {
                         GO TO 120
@@ -278,16 +278,16 @@
                      // Reconstruct matrix from factors and compute
                      // residual.
 
-                     CALL DSPT01( UPLO, N, A, AFAC, IWORK, AINV, LDA, RWORK, RESULT( 1 ) )
+                     dspt01(UPLO, N, A, AFAC, IWORK, AINV, LDA, RWORK, RESULT( 1 ) );
 
                      // Compute residual of the computed solution.
 
-                     CALL DLACPY( 'Full', N, NRHS, B, LDA, WORK, LDA )
-                     CALL DPPT02( UPLO, N, NRHS, A, X, LDA, WORK, LDA, RWORK, RESULT( 2 ) )
+                     dlacpy('Full', N, NRHS, B, LDA, WORK, LDA );
+                     dppt02(UPLO, N, NRHS, A, X, LDA, WORK, LDA, RWORK, RESULT( 2 ) );
 
                      // Check solution from generated exact solution.
 
-                     CALL DGET04( N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 3 ) )
+                     dget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 3 ) );
                      NT = 3
 
                      // Print information about the tests that did not pass
@@ -306,13 +306,13 @@
                   // --- Test DSPSVX ---
 
                   IF( IFACT.EQ.2 .AND. NPP.GT.0 ) CALL DLASET( 'Full', NPP, 1, ZERO, ZERO, AFAC, NPP )
-                  CALL DLASET( 'Full', N, NRHS, ZERO, ZERO, X, LDA )
+                  dlaset('Full', N, NRHS, ZERO, ZERO, X, LDA );
 
                   // Solve the system and compute the condition number and
                   // error bounds using DSPSVX.
 
                   SRNAMT = 'DSPSVX'
-                  CALL DSPSVX( FACT, UPLO, N, NRHS, A, AFAC, IWORK, B, LDA, X, LDA, RCOND, RWORK, RWORK( NRHS+1 ), WORK, IWORK( N+1 ), INFO )
+                  dspsvx(FACT, UPLO, N, NRHS, A, AFAC, IWORK, B, LDA, X, LDA, RCOND, RWORK, RWORK( NRHS+1 ), WORK, IWORK( N+1 ), INFO );
 
                   // Adjust the expected value of INFO to account for
                   // pivoting.
@@ -334,7 +334,7 @@
                   // Check the error code from DSPSVX.
 
                   if ( INFO.NE.K ) {
-                     CALL ALAERH( PATH, 'DSPSVX', INFO, K, FACT // UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT )
+                     alaerh(PATH, 'DSPSVX', INFO, K, FACT // UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
                      GO TO 150
                   }
 
@@ -344,7 +344,7 @@
                         // Reconstruct matrix from factors and compute
                         // residual.
 
-                        CALL DSPT01( UPLO, N, A, AFAC, IWORK, AINV, LDA, RWORK( 2*NRHS+1 ), RESULT( 1 ) )
+                        dspt01(UPLO, N, A, AFAC, IWORK, AINV, LDA, RWORK( 2*NRHS+1 ), RESULT( 1 ) );
                         K1 = 1
                      } else {
                         K1 = 2
@@ -352,16 +352,16 @@
 
                      // Compute residual of the computed solution.
 
-                     CALL DLACPY( 'Full', N, NRHS, B, LDA, WORK, LDA )
-                     CALL DPPT02( UPLO, N, NRHS, A, X, LDA, WORK, LDA, RWORK( 2*NRHS+1 ), RESULT( 2 ) )
+                     dlacpy('Full', N, NRHS, B, LDA, WORK, LDA );
+                     dppt02(UPLO, N, NRHS, A, X, LDA, WORK, LDA, RWORK( 2*NRHS+1 ), RESULT( 2 ) );
 
                      // Check solution from generated exact solution.
 
-                     CALL DGET04( N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 3 ) )
+                     dget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 3 ) );
 
                      // Check the error bounds from iterative refinement.
 
-                     CALL DPPT05( UPLO, N, NRHS, A, B, LDA, X, LDA, XACT, LDA, RWORK, RWORK( NRHS+1 ), RESULT( 4 ) )
+                     dppt05(UPLO, N, NRHS, A, B, LDA, X, LDA, XACT, LDA, RWORK, RWORK( NRHS+1 ), RESULT( 4 ) );
                   } else {
                      K1 = 6
                   }
@@ -390,7 +390,7 @@
 
       // Print a summary of the results.
 
-      CALL ALASVM( PATH, NOUT, NFAIL, NRUN, NERRS )
+      alasvm(PATH, NOUT, NFAIL, NRUN, NERRS );
 
  9999 FORMAT( 1X, A, ', UPLO=''', A1, ''', N =', I5, ', type ', I2, ', test ', I2, ', ratio =', G12.5 )
  9998 FORMAT( 1X, A, ', FACT=''', A1, ''', UPLO=''', A1, ''', N =', I5, ', type ', I2, ', test ', I2, ', ratio =', G12.5 )

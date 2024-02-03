@@ -74,7 +74,7 @@
       // Compute workspace
 
       if ( INFO.EQ.0 ) {
-         CALL ZGGSVP3( JOBU, JOBV, JOBQ, M, P, N, A, LDA, B, LDB, TOLA, TOLB, K, L, U, LDU, V, LDV, Q, LDQ, IWORK, RWORK, WORK, WORK, -1, INFO )
+         zggsvp3(JOBU, JOBV, JOBQ, M, P, N, A, LDA, B, LDB, TOLA, TOLB, K, L, U, LDU, V, LDV, Q, LDQ, IWORK, RWORK, WORK, WORK, -1, INFO );
          LWKOPT = N + INT( WORK( 1 ) )
          LWKOPT = MAX( 2*N, LWKOPT )
          LWKOPT = MAX( 1, LWKOPT )
@@ -82,7 +82,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'ZGGSVD3', -INFO )
+         xerbla('ZGGSVD3', -INFO );
          RETURN
       }
       if ( LQUERY ) {
@@ -102,16 +102,16 @@
       TOLA = MAX( M, N )*MAX( ANORM, UNFL )*ULP
       TOLB = MAX( P, N )*MAX( BNORM, UNFL )*ULP
 
-      CALL ZGGSVP3( JOBU, JOBV, JOBQ, M, P, N, A, LDA, B, LDB, TOLA, TOLB, K, L, U, LDU, V, LDV, Q, LDQ, IWORK, RWORK, WORK, WORK( N+1 ), LWORK-N, INFO )
+      zggsvp3(JOBU, JOBV, JOBQ, M, P, N, A, LDA, B, LDB, TOLA, TOLB, K, L, U, LDU, V, LDV, Q, LDQ, IWORK, RWORK, WORK, WORK( N+1 ), LWORK-N, INFO );
 
       // Compute the GSVD of two upper "triangular" matrices
 
-      CALL ZTGSJA( JOBU, JOBV, JOBQ, M, P, N, K, L, A, LDA, B, LDB, TOLA, TOLB, ALPHA, BETA, U, LDU, V, LDV, Q, LDQ, WORK, NCYCLE, INFO )
+      ztgsja(JOBU, JOBV, JOBQ, M, P, N, K, L, A, LDA, B, LDB, TOLA, TOLB, ALPHA, BETA, U, LDU, V, LDV, Q, LDQ, WORK, NCYCLE, INFO );
 
       // Sort the singular values and store the pivot indices in IWORK
       // Copy ALPHA to RWORK, then sort ALPHA in RWORK
 
-      CALL DCOPY( N, ALPHA, 1, RWORK, 1 )
+      dcopy(N, ALPHA, 1, RWORK, 1 );
       IBND = MIN( L, M-K )
       DO 20 I = 1, IBND
 

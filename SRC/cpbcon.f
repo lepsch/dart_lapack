@@ -66,7 +66,7 @@
          INFO = -6
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'CPBCON', -INFO )
+         xerbla('CPBCON', -INFO );
          RETURN
       }
 
@@ -87,28 +87,28 @@
       KASE = 0
       NORMIN = 'N'
    10 CONTINUE
-      CALL CLACN2( N, WORK( N+1 ), WORK, AINVNM, KASE, ISAVE )
+      clacn2(N, WORK( N+1 ), WORK, AINVNM, KASE, ISAVE );
       if ( KASE.NE.0 ) {
          if ( UPPER ) {
 
             // Multiply by inv(U**H).
 
-            CALL CLATBS( 'Upper', 'Conjugate transpose', 'Non-unit', NORMIN, N, KD, AB, LDAB, WORK, SCALEL, RWORK, INFO )
+            clatbs('Upper', 'Conjugate transpose', 'Non-unit', NORMIN, N, KD, AB, LDAB, WORK, SCALEL, RWORK, INFO );
             NORMIN = 'Y'
 
             // Multiply by inv(U).
 
-            CALL CLATBS( 'Upper', 'No transpose', 'Non-unit', NORMIN, N, KD, AB, LDAB, WORK, SCALEU, RWORK, INFO )
+            clatbs('Upper', 'No transpose', 'Non-unit', NORMIN, N, KD, AB, LDAB, WORK, SCALEU, RWORK, INFO );
          } else {
 
             // Multiply by inv(L).
 
-            CALL CLATBS( 'Lower', 'No transpose', 'Non-unit', NORMIN, N, KD, AB, LDAB, WORK, SCALEL, RWORK, INFO )
+            clatbs('Lower', 'No transpose', 'Non-unit', NORMIN, N, KD, AB, LDAB, WORK, SCALEL, RWORK, INFO );
             NORMIN = 'Y'
 
             // Multiply by inv(L**H).
 
-            CALL CLATBS( 'Lower', 'Conjugate transpose', 'Non-unit', NORMIN, N, KD, AB, LDAB, WORK, SCALEU, RWORK, INFO )
+            clatbs('Lower', 'Conjugate transpose', 'Non-unit', NORMIN, N, KD, AB, LDAB, WORK, SCALEU, RWORK, INFO );
          }
 
          // Multiply by 1/SCALE if doing so will not cause overflow.
@@ -117,7 +117,7 @@
          if ( SCALE.NE.ONE ) {
             IX = ICAMAX( N, WORK, 1 )
             IF( SCALE.LT.CABS1( WORK( IX ) )*SMLNUM .OR. SCALE.EQ.ZERO ) GO TO 20
-            CALL CSRSCL( N, SCALE, WORK, 1 )
+            csrscl(N, SCALE, WORK, 1 );
          }
          GO TO 10
       }

@@ -75,7 +75,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'SSYSVX', -INFO )
+         xerbla('SSYSVX', -INFO );
          RETURN
       } else if ( LQUERY ) {
          RETURN
@@ -85,8 +85,8 @@
 
          // Compute the factorization A = U*D*U**T or A = L*D*L**T.
 
-         CALL SLACPY( UPLO, N, N, A, LDA, AF, LDAF )
-         CALL SSYTRF( UPLO, N, AF, LDAF, IPIV, WORK, LWORK, INFO )
+         slacpy(UPLO, N, N, A, LDA, AF, LDAF );
+         ssytrf(UPLO, N, AF, LDAF, IPIV, WORK, LWORK, INFO );
 
          // Return if INFO is non-zero.
 
@@ -102,17 +102,17 @@
 
       // Compute the reciprocal of the condition number of A.
 
-      CALL SSYCON( UPLO, N, AF, LDAF, IPIV, ANORM, RCOND, WORK, IWORK, INFO )
+      ssycon(UPLO, N, AF, LDAF, IPIV, ANORM, RCOND, WORK, IWORK, INFO );
 
       // Compute the solution vectors X.
 
-      CALL SLACPY( 'Full', N, NRHS, B, LDB, X, LDX )
-      CALL SSYTRS( UPLO, N, NRHS, AF, LDAF, IPIV, X, LDX, INFO )
+      slacpy('Full', N, NRHS, B, LDB, X, LDX );
+      ssytrs(UPLO, N, NRHS, AF, LDAF, IPIV, X, LDX, INFO );
 
       // Use iterative refinement to improve the computed solutions and
       // compute error bounds and backward error estimates for them.
 
-      CALL SSYRFS( UPLO, N, NRHS, A, LDA, AF, LDAF, IPIV, B, LDB, X, LDX, FERR, BERR, WORK, IWORK, INFO )
+      ssyrfs(UPLO, N, NRHS, A, LDA, AF, LDAF, IPIV, B, LDB, X, LDX, FERR, BERR, WORK, IWORK, INFO );
 
       // Set INFO = N+1 if the matrix is singular to working precision.
 

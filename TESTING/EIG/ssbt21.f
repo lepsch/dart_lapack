@@ -93,12 +93,12 @@
    50 CONTINUE
 
       DO 60 J = 1, N
-         CALL SSPR( CUPLO, N, -D( J ), U( 1, J ), 1, WORK )
+         sspr(CUPLO, N, -D( J ), U( 1, J ), 1, WORK );
    60 CONTINUE
 
       if ( N.GT.1 .AND. KS.EQ.1 ) {
          DO 70 J = 1, N - 1
-            CALL SSPR2( CUPLO, N, -E( J ), U( 1, J ), 1, U( 1, J+1 ), 1, WORK )
+            sspr2(CUPLO, N, -E( J ), U( 1, J ), 1, U( 1, J+1 ), 1, WORK );
    70    CONTINUE
       }
       WNORM = SLANSP( '1', CUPLO, N, WORK, WORK( LW+1 ) )
@@ -117,7 +117,7 @@
 
       // Compute  U U**T - I
 
-      CALL SGEMM( 'N', 'C', N, N, N, ONE, U, LDU, U, LDU, ZERO, WORK, N )
+      sgemm('N', 'C', N, N, N, ONE, U, LDU, U, LDU, ZERO, WORK, N );
 
       DO 80 J = 1, N
          WORK( ( N+1 )*( J-1 )+1 ) = WORK( ( N+1 )*( J-1 )+1 ) - ONE

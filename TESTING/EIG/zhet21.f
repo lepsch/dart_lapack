@@ -78,16 +78,16 @@
 
          // ITYPE=1: error = A - U S U**H
 
-         CALL ZLASET( 'Full', N, N, CZERO, CZERO, WORK, N )
-         CALL ZLACPY( CUPLO, N, N, A, LDA, WORK, N )
+         zlaset('Full', N, N, CZERO, CZERO, WORK, N );
+         zlacpy(CUPLO, N, N, A, LDA, WORK, N );
 
          DO 10 J = 1, N
-            CALL ZHER( CUPLO, N, -D( J ), U( 1, J ), 1, WORK, N )
+            zher(CUPLO, N, -D( J ), U( 1, J ), 1, WORK, N );
    10    CONTINUE
 
          if ( N.GT.1 .AND. KBAND.EQ.1 ) {
             DO 20 J = 1, N - 1
-               CALL ZHER2( CUPLO, N, -DCMPLX( E( J ) ), U( 1, J ), 1, U( 1, J+1 ), 1, WORK, N )
+               zher2(CUPLO, N, -DCMPLX( E( J ) ), U( 1, J ), 1, U( 1, J+1 ), 1, WORK, N );
    20       CONTINUE
          }
          WNORM = ZLANHE( '1', CUPLO, N, WORK, N, RWORK )
@@ -96,7 +96,7 @@
 
          // ITYPE=2: error = V S V**H - A
 
-         CALL ZLASET( 'Full', N, N, CZERO, CZERO, WORK, N )
+         zlaset('Full', N, N, CZERO, CZERO, WORK, N );
 
          if ( LOWER ) {
             WORK( N**2 ) = D( N )
@@ -110,7 +110,7 @@
 
                VSAVE = V( J+1, J )
                V( J+1, J ) = ONE
-               CALL ZLARFY( 'L', N-J, V( J+1, J ), 1, TAU( J ), WORK( ( N+1 )*J+1 ), N, WORK( N**2+1 ) )
+               zlarfy('L', N-J, V( J+1, J ), 1, TAU( J ), WORK( ( N+1 )*J+1 ), N, WORK( N**2+1 ) );
                V( J+1, J ) = VSAVE
                WORK( ( N+1 )*( J-1 )+1 ) = D( J )
    40       CONTINUE
@@ -126,7 +126,7 @@
 
                VSAVE = V( J, J+1 )
                V( J, J+1 ) = ONE
-               CALL ZLARFY( 'U', J, V( 1, J+1 ), 1, TAU( J ), WORK, N, WORK( N**2+1 ) )
+               zlarfy('U', J, V( 1, J+1 ), 1, TAU( J ), WORK, N, WORK( N**2+1 ) );
                V( J, J+1 ) = VSAVE
                WORK( ( N+1 )*J+1 ) = D( J+1 )
    60       CONTINUE
@@ -150,11 +150,11 @@
          // ITYPE=3: error = U V**H - I
 
          IF( N.LT.2 ) RETURN
-         CALL ZLACPY( ' ', N, N, U, LDU, WORK, N )
+         zlacpy(' ', N, N, U, LDU, WORK, N );
          if ( LOWER ) {
-            CALL ZUNM2R( 'R', 'C', N, N-1, N-1, V( 2, 1 ), LDV, TAU, WORK( N+1 ), N, WORK( N**2+1 ), IINFO )
+            zunm2r('R', 'C', N, N-1, N-1, V( 2, 1 ), LDV, TAU, WORK( N+1 ), N, WORK( N**2+1 ), IINFO );
          } else {
-            CALL ZUNM2L( 'R', 'C', N, N-1, N-1, V( 1, 2 ), LDV, TAU, WORK, N, WORK( N**2+1 ), IINFO )
+            zunm2l('R', 'C', N, N-1, N-1, V( 1, 2 ), LDV, TAU, WORK, N, WORK( N**2+1 ), IINFO );
          }
          if ( IINFO.NE.0 ) {
             RESULT( 1 ) = TEN / ULP
@@ -183,7 +183,7 @@
       // Compute  U U**H - I
 
       if ( ITYPE.EQ.1 ) {
-         CALL ZGEMM( 'N', 'C', N, N, N, CONE, U, LDU, U, LDU, CZERO, WORK, N )
+         zgemm('N', 'C', N, N, N, CONE, U, LDU, U, LDU, CZERO, WORK, N );
 
          DO 110 J = 1, N
             WORK( ( N+1 )*( J-1 )+1 ) = WORK( ( N+1 )*( J-1 )+1 ) - CONE

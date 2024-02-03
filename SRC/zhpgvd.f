@@ -82,7 +82,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'ZHPGVD', -INFO )
+         xerbla('ZHPGVD', -INFO );
          RETURN
       } else if ( LQUERY ) {
          RETURN
@@ -94,7 +94,7 @@
 
       // Form a Cholesky factorization of B.
 
-      CALL ZPPTRF( UPLO, N, BP, INFO )
+      zpptrf(UPLO, N, BP, INFO );
       if ( INFO.NE.0 ) {
          INFO = N + INFO
          RETURN
@@ -102,8 +102,8 @@
 
       // Transform problem to standard eigenvalue problem and solve.
 
-      CALL ZHPGST( ITYPE, UPLO, N, AP, BP, INFO )
-      CALL ZHPEVD( JOBZ, UPLO, N, AP, W, Z, LDZ, WORK, LWORK, RWORK, LRWORK, IWORK, LIWORK, INFO )
+      zhpgst(ITYPE, UPLO, N, AP, BP, INFO );
+      zhpevd(JOBZ, UPLO, N, AP, W, Z, LDZ, WORK, LWORK, RWORK, LRWORK, IWORK, LIWORK, INFO );
       LWMIN = INT( MAX( DBLE( LWMIN ), DBLE( WORK( 1 ) ) ) )
       LRWMIN = INT( MAX( DBLE( LRWMIN ), DBLE( RWORK( 1 ) ) ) )
       LIWMIN = INT( MAX( DBLE( LIWMIN ), DBLE( IWORK( 1 ) ) ) )
@@ -126,7 +126,7 @@
             }
 
             DO 10 J = 1, NEIG
-               CALL ZTPSV( UPLO, TRANS, 'Non-unit', N, BP, Z( 1, J ), 1 )
+               ztpsv(UPLO, TRANS, 'Non-unit', N, BP, Z( 1, J ), 1 );
    10       CONTINUE
 
          } else if ( ITYPE.EQ.3 ) {
@@ -141,7 +141,7 @@
             }
 
             DO 20 J = 1, NEIG
-               CALL ZTPMV( UPLO, TRANS, 'Non-unit', N, BP, Z( 1, J ), 1 )
+               ztpmv(UPLO, TRANS, 'Non-unit', N, BP, Z( 1, J ), 1 );
    20       CONTINUE
          }
       }

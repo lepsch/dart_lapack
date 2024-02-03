@@ -38,7 +38,7 @@
       ZRZT02 = ZERO
 
       if ( LWORK.LT.N*N+N ) {
-         CALL XERBLA( 'ZRZT02', 7 )
+         xerbla('ZRZT02', 7 );
          RETURN
       }
 
@@ -48,15 +48,15 @@
 
       // Q := I
 
-      CALL ZLASET( 'Full', N, N, DCMPLX( ZERO ), DCMPLX( ONE ), WORK, N )
+      zlaset('Full', N, N, DCMPLX( ZERO ), DCMPLX( ONE ), WORK, N );
 
       // Q := P(1) * ... * P(m) * Q
 
-      CALL ZUNMRZ( 'Left', 'No transpose', N, N, M, N-M, AF, LDA, TAU, WORK, N, WORK( N*N+1 ), LWORK-N*N, INFO )
+      zunmrz('Left', 'No transpose', N, N, M, N-M, AF, LDA, TAU, WORK, N, WORK( N*N+1 ), LWORK-N*N, INFO );
 
       // Q := P(m)' * ... * P(1)' * Q
 
-      CALL ZUNMRZ( 'Left', 'Conjugate transpose', N, N, M, N-M, AF, LDA, TAU, WORK, N, WORK( N*N+1 ), LWORK-N*N, INFO )
+      zunmrz('Left', 'Conjugate transpose', N, N, M, N-M, AF, LDA, TAU, WORK, N, WORK( N*N+1 ), LWORK-N*N, INFO );
 
       // Q := Q - I
 

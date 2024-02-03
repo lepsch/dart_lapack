@@ -54,15 +54,15 @@
 
       // Initialize C to the identity matrix.
 
-      CALL ZLASET( 'Full', N, N, CZERO, CONE, C, LDC )
+      zlaset('Full', N, N, CZERO, CONE, C, LDC );
 
       // Call ZLAVSY_ROOK to form the product D * U' (or D * L' ).
 
-      CALL ZLAVSY_ROOK( UPLO, 'Transpose', 'Non-unit', N, N, AFAC, LDAFAC, IPIV, C, LDC, INFO )
+      zlavsy_rook(UPLO, 'Transpose', 'Non-unit', N, N, AFAC, LDAFAC, IPIV, C, LDC, INFO );
 
       // Call ZLAVSY_ROOK again to multiply by U (or L ).
 
-      CALL ZLAVSY_ROOK( UPLO, 'No transpose', 'Unit', N, N, AFAC, LDAFAC, IPIV, C, LDC, INFO )
+      zlavsy_rook(UPLO, 'No transpose', 'Unit', N, N, AFAC, LDAFAC, IPIV, C, LDC, INFO );
 
       // Compute the difference  C - A .
 

@@ -69,12 +69,12 @@
       LASTJ = N
       DO 40 I = N - 1, 1, -1
          LI = DLF( I )
-         CALL DAXPY( LASTJ-I+1, LI, WORK( I, I ), LDWORK, WORK( I+1, I ), LDWORK )
+         daxpy(LASTJ-I+1, LI, WORK( I, I ), LDWORK, WORK( I+1, I ), LDWORK );
          IP = IPIV( I )
          if ( IP.EQ.I ) {
             LASTJ = MIN( I+2, N )
          } else {
-            CALL DSWAP( LASTJ-I+1, WORK( I, I ), LDWORK, WORK( I+1, I ), LDWORK )
+            dswap(LASTJ-I+1, WORK( I, I ), LDWORK, WORK( I+1, I ), LDWORK );
          }
    40 CONTINUE
 

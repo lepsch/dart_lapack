@@ -48,7 +48,7 @@
          INFO = -4
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'CGEQPF', -INFO )
+         xerbla('CGEQPF', -INFO );
          RETURN
       }
 
@@ -61,7 +61,7 @@
       DO 10 I = 1, N
          if ( JPVT( I ).NE.0 ) {
             if ( I.NE.ITEMP ) {
-               CALL CSWAP( M, A( 1, I ), 1, A( 1, ITEMP ), 1 )
+               cswap(M, A( 1, I ), 1, A( 1, ITEMP ), 1 );
                JPVT( I ) = JPVT( ITEMP )
                JPVT( ITEMP ) = I
             } else {
@@ -78,9 +78,9 @@
 
       if ( ITEMP.GT.0 ) {
          MA = MIN( ITEMP, M )
-         CALL CGEQR2( M, MA, A, LDA, TAU, WORK, INFO )
+         cgeqr2(M, MA, A, LDA, TAU, WORK, INFO );
          if ( MA.LT.N ) {
-            CALL CUNM2R( 'Left', 'Conjugate transpose', M, N-MA, MA, A, LDA, TAU, A( 1, MA+1 ), LDA, WORK, INFO )
+            cunm2r('Left', 'Conjugate transpose', M, N-MA, MA, A, LDA, TAU, A( 1, MA+1 ), LDA, WORK, INFO );
          }
       }
 
@@ -103,7 +103,7 @@
             PVT = ( I-1 ) + ISAMAX( N-I+1, RWORK( I ), 1 )
 
             if ( PVT.NE.I ) {
-               CALL CSWAP( M, A( 1, PVT ), 1, A( 1, I ), 1 )
+               cswap(M, A( 1, PVT ), 1, A( 1, I ), 1 );
                ITEMP = JPVT( PVT )
                JPVT( PVT ) = JPVT( I )
                JPVT( I ) = ITEMP
@@ -114,7 +114,7 @@
             // Generate elementary reflector H(i)
 
             AII = A( I, I )
-            CALL CLARFG( M-I+1, AII, A( MIN( I+1, M ), I ), 1, TAU( I ) )
+            clarfg(M-I+1, AII, A( MIN( I+1, M ), I ), 1, TAU( I ) );
             A( I, I ) = AII
 
             if ( I.LT.N ) {
@@ -123,7 +123,7 @@
 
                AII = A( I, I )
                A( I, I ) = CMPLX( ONE )
-               CALL CLARF( 'Left', M-I+1, N-I, A( I, I ), 1, CONJG( TAU( I ) ), A( I, I+1 ), LDA, WORK )
+               clarf('Left', M-I+1, N-I, A( I, I ), 1, CONJG( TAU( I ) ), A( I, I+1 ), LDA, WORK );
                A( I, I ) = AII
             }
 

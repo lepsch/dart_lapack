@@ -50,7 +50,7 @@
          INFO = -5
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'STRTRI', -INFO )
+         xerbla('STRTRI', -INFO );
          RETURN
       }
 
@@ -74,7 +74,7 @@
 
          // Use unblocked code
 
-         CALL STRTI2( UPLO, DIAG, N, A, LDA, INFO )
+         strti2(UPLO, DIAG, N, A, LDA, INFO );
       } else {
 
          // Use blocked code
@@ -88,11 +88,11 @@
 
                // Compute rows 1:j-1 of current block column
 
-               CALL STRMM( 'Left', 'Upper', 'No transpose', DIAG, J-1, JB, ONE, A, LDA, A( 1, J ), LDA )                CALL STRSM( 'Right', 'Upper', 'No transpose', DIAG, J-1, JB, -ONE, A( J, J ), LDA, A( 1, J ), LDA )
+               strmm('Left', 'Upper', 'No transpose', DIAG, J-1, JB, ONE, A, LDA, A( 1, J ), LDA )                CALL STRSM( 'Right', 'Upper', 'No transpose', DIAG, J-1, JB, -ONE, A( J, J ), LDA, A( 1, J ), LDA );
 
                // Compute inverse of current diagonal block
 
-               CALL STRTI2( 'Upper', DIAG, JB, A( J, J ), LDA, INFO )
+               strti2('Upper', DIAG, JB, A( J, J ), LDA, INFO );
    20       CONTINUE
          } else {
 
@@ -105,12 +105,12 @@
 
                   // Compute rows j+jb:n of current block column
 
-                  CALL STRMM( 'Left', 'Lower', 'No transpose', DIAG, N-J-JB+1, JB, ONE, A( J+JB, J+JB ), LDA, A( J+JB, J ), LDA )                   CALL STRSM( 'Right', 'Lower', 'No transpose', DIAG, N-J-JB+1, JB, -ONE, A( J, J ), LDA, A( J+JB, J ), LDA )
+                  strmm('Left', 'Lower', 'No transpose', DIAG, N-J-JB+1, JB, ONE, A( J+JB, J+JB ), LDA, A( J+JB, J ), LDA )                   CALL STRSM( 'Right', 'Lower', 'No transpose', DIAG, N-J-JB+1, JB, -ONE, A( J, J ), LDA, A( J+JB, J ), LDA );
                }
 
                // Compute inverse of current diagonal block
 
-               CALL STRTI2( 'Lower', DIAG, JB, A( J, J ), LDA, INFO )
+               strti2('Lower', DIAG, JB, A( J, J ), LDA, INFO );
    30       CONTINUE
          }
       }

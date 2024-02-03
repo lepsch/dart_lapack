@@ -72,11 +72,11 @@
 
             // w(1:lastc,1) := C(1:lastv,1:lastc)**T * v(1:lastv,1)
 
-            CALL SGEMV( 'Transpose', LASTV, LASTC, ONE, C, LDC, V, INCV, ZERO, WORK, 1 )
+            sgemv('Transpose', LASTV, LASTC, ONE, C, LDC, V, INCV, ZERO, WORK, 1 );
 
             // C(1:lastv,1:lastc) := C(...) - v(1:lastv,1) * w(1:lastc,1)**T
 
-            CALL SGER( LASTV, LASTC, -TAU, V, INCV, WORK, 1, C, LDC )
+            sger(LASTV, LASTC, -TAU, V, INCV, WORK, 1, C, LDC );
          }
       } else {
 
@@ -86,11 +86,11 @@
 
             // w(1:lastc,1) := C(1:lastc,1:lastv) * v(1:lastv,1)
 
-            CALL SGEMV( 'No transpose', LASTC, LASTV, ONE, C, LDC, V, INCV, ZERO, WORK, 1 )
+            sgemv('No transpose', LASTC, LASTV, ONE, C, LDC, V, INCV, ZERO, WORK, 1 );
 
             // C(1:lastc,1:lastv) := C(...) - w(1:lastc,1) * v(1:lastv,1)**T
 
-            CALL SGER( LASTC, LASTV, -TAU, WORK, 1, V, INCV, C, LDC )
+            sger(LASTC, LASTV, -TAU, WORK, 1, V, INCV, C, LDC );
          }
       }
       RETURN

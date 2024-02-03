@@ -99,7 +99,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'CHBEVX_2STAGE', -INFO )
+         xerbla('CHBEVX_2STAGE', -INFO );
          RETURN
       } else if ( LQUERY ) {
          RETURN
@@ -158,9 +158,9 @@
       }
       if ( ISCALE.EQ.1 ) {
          if ( LOWER ) {
-            CALL CLASCL( 'B', KD, KD, ONE, SIGMA, N, N, AB, LDAB, INFO )
+            clascl('B', KD, KD, ONE, SIGMA, N, N, AB, LDAB, INFO );
          } else {
-            CALL CLASCL( 'Q', KD, KD, ONE, SIGMA, N, N, AB, LDAB, INFO )
+            clascl('Q', KD, KD, ONE, SIGMA, N, N, AB, LDAB, INFO );
          }
          IF( ABSTOL.GT.0 ) ABSTLL = ABSTOL*SIGMA
          if ( VALEIG ) {
@@ -179,7 +179,7 @@
       INDWRK  = INDHOUS + LHTRD
       LLWORK  = LWORK - INDWRK + 1
 
-      CALL CHETRD_HB2ST( 'N', JOBZ, UPLO, N, KD, AB, LDAB, RWORK( INDD ), RWORK( INDE ), WORK( INDHOUS ), LHTRD, WORK( INDWRK ), LLWORK, IINFO )
+      chetrd_hb2st('N', JOBZ, UPLO, N, KD, AB, LDAB, RWORK( INDD ), RWORK( INDE ), WORK( INDHOUS ), LHTRD, WORK( INDWRK ), LLWORK, IINFO );
 
       // If all eigenvalues are desired and ABSTOL is less than or equal
       // to zero, then call SSTERF or CSTEQR.  If this fails for some
@@ -192,15 +192,15 @@
          }
       }
       if ((ALLEIG .OR. TEST) .AND. (ABSTOL.LE.ZERO)) {
-         CALL SCOPY( N, RWORK( INDD ), 1, W, 1 )
+         scopy(N, RWORK( INDD ), 1, W, 1 );
          INDEE = INDRWK + 2*N
          if ( .NOT.WANTZ ) {
-            CALL SCOPY( N-1, RWORK( INDE ), 1, RWORK( INDEE ), 1 )
-            CALL SSTERF( N, W, RWORK( INDEE ), INFO )
+            scopy(N-1, RWORK( INDE ), 1, RWORK( INDEE ), 1 );
+            ssterf(N, W, RWORK( INDEE ), INFO );
          } else {
-            CALL CLACPY( 'A', N, N, Q, LDQ, Z, LDZ )
-            CALL SCOPY( N-1, RWORK( INDE ), 1, RWORK( INDEE ), 1 )
-            CALL CSTEQR( JOBZ, N, W, RWORK( INDEE ), Z, LDZ, RWORK( INDRWK ), INFO )
+            clacpy('A', N, N, Q, LDQ, Z, LDZ );
+            scopy(N-1, RWORK( INDE ), 1, RWORK( INDEE ), 1 );
+            csteqr(JOBZ, N, W, RWORK( INDEE ), Z, LDZ, RWORK( INDRWK ), INFO );
             if ( INFO.EQ.0 ) {
                DO 10 I = 1, N
                   IFAIL( I ) = 0
@@ -224,17 +224,17 @@
       INDIBL = 1
       INDISP = INDIBL + N
       INDIWK = INDISP + N
-      CALL SSTEBZ( RANGE, ORDER, N, VLL, VUU, IL, IU, ABSTLL, RWORK( INDD ), RWORK( INDE ), M, NSPLIT, W, IWORK( INDIBL ), IWORK( INDISP ), RWORK( INDRWK ), IWORK( INDIWK ), INFO )
+      sstebz(RANGE, ORDER, N, VLL, VUU, IL, IU, ABSTLL, RWORK( INDD ), RWORK( INDE ), M, NSPLIT, W, IWORK( INDIBL ), IWORK( INDISP ), RWORK( INDRWK ), IWORK( INDIWK ), INFO );
 
       if ( WANTZ ) {
-         CALL CSTEIN( N, RWORK( INDD ), RWORK( INDE ), M, W, IWORK( INDIBL ), IWORK( INDISP ), Z, LDZ, RWORK( INDRWK ), IWORK( INDIWK ), IFAIL, INFO )
+         cstein(N, RWORK( INDD ), RWORK( INDE ), M, W, IWORK( INDIBL ), IWORK( INDISP ), Z, LDZ, RWORK( INDRWK ), IWORK( INDIWK ), IFAIL, INFO );
 
          // Apply unitary matrix used in reduction to tridiagonal
          // form to eigenvectors returned by CSTEIN.
 
          DO 20 J = 1, M
-            CALL CCOPY( N, Z( 1, J ), 1, WORK( 1 ), 1 )
-            CALL CGEMV( 'N', N, N, CONE, Q, LDQ, WORK, 1, CZERO, Z( 1, J ), 1 )
+            ccopy(N, Z( 1, J ), 1, WORK( 1 ), 1 );
+            cgemv('N', N, N, CONE, Q, LDQ, WORK, 1, CZERO, Z( 1, J ), 1 );
    20    CONTINUE
       }
 
@@ -247,7 +247,7 @@
          } else {
             IMAX = INFO - 1
          }
-         CALL SSCAL( IMAX, ONE / SIGMA, W, 1 )
+         sscal(IMAX, ONE / SIGMA, W, 1 );
       }
 
       // If eigenvalues are not in order, then sort them, along with
@@ -270,7 +270,7 @@
                IWORK( INDIBL+I-1 ) = IWORK( INDIBL+J-1 )
                W( J ) = TMP1
                IWORK( INDIBL+J-1 ) = ITMP1
-               CALL CSWAP( N, Z( 1, I ), 1, Z( 1, J ), 1 )
+               cswap(N, Z( 1, I ), 1, Z( 1, J ), 1 );
                if ( INFO.NE.0 ) {
                   ITMP1 = IFAIL( I )
                   IFAIL( I ) = IFAIL( J )

@@ -40,50 +40,50 @@
 
       // Copy the matrix A to the array AF.
 
-      CALL DLACPY( 'Full', N, M, A, LDA, AF, LDA )
-      CALL DLACPY( 'Full', N, P, B, LDB, BF, LDB )
+      dlacpy('Full', N, M, A, LDA, AF, LDA );
+      dlacpy('Full', N, P, B, LDB, BF, LDB );
 
       ANORM = MAX( DLANGE( '1', N, M, A, LDA, RWORK ), UNFL )
       BNORM = MAX( DLANGE( '1', N, P, B, LDB, RWORK ), UNFL )
 
       // Factorize the matrices A and B in the arrays AF and BF.
 
-      CALL DGGQRF( N, M, P, AF, LDA, TAUA, BF, LDB, TAUB, WORK, LWORK, INFO )
+      dggqrf(N, M, P, AF, LDA, TAUA, BF, LDB, TAUB, WORK, LWORK, INFO );
 
       // Generate the N-by-N matrix Q
 
-      CALL DLASET( 'Full', N, N, ROGUE, ROGUE, Q, LDA )
-      CALL DLACPY( 'Lower', N-1, M, AF( 2, 1 ), LDA, Q( 2, 1 ), LDA )
-      CALL DORGQR( N, N, MIN( N, M ), Q, LDA, TAUA, WORK, LWORK, INFO )
+      dlaset('Full', N, N, ROGUE, ROGUE, Q, LDA );
+      dlacpy('Lower', N-1, M, AF( 2, 1 ), LDA, Q( 2, 1 ), LDA );
+      dorgqr(N, N, MIN( N, M ), Q, LDA, TAUA, WORK, LWORK, INFO );
 
       // Generate the P-by-P matrix Z
 
-      CALL DLASET( 'Full', P, P, ROGUE, ROGUE, Z, LDB )
+      dlaset('Full', P, P, ROGUE, ROGUE, Z, LDB );
       if ( N.LE.P ) {
          IF( N.GT.0 .AND. N.LT.P ) CALL DLACPY( 'Full', N, P-N, BF, LDB, Z( P-N+1, 1 ), LDB )          IF( N.GT.1 ) CALL DLACPY( 'Lower', N-1, N-1, BF( 2, P-N+1 ), LDB, Z( P-N+2, P-N+1 ), LDB )
       } else {
          IF( P.GT.1 ) CALL DLACPY( 'Lower', P-1, P-1, BF( N-P+2, 1 ), LDB, Z( 2, 1 ), LDB )
       }
-      CALL DORGRQ( P, P, MIN( N, P ), Z, LDB, TAUB, WORK, LWORK, INFO )
+      dorgrq(P, P, MIN( N, P ), Z, LDB, TAUB, WORK, LWORK, INFO );
 
       // Copy R
 
-      CALL DLASET( 'Full', N, M, ZERO, ZERO, R, LDA )
-      CALL DLACPY( 'Upper', N, M, AF, LDA, R, LDA )
+      dlaset('Full', N, M, ZERO, ZERO, R, LDA );
+      dlacpy('Upper', N, M, AF, LDA, R, LDA );
 
       // Copy T
 
-      CALL DLASET( 'Full', N, P, ZERO, ZERO, T, LDB )
+      dlaset('Full', N, P, ZERO, ZERO, T, LDB );
       if ( N.LE.P ) {
-         CALL DLACPY( 'Upper', N, N, BF( 1, P-N+1 ), LDB, T( 1, P-N+1 ), LDB )
+         dlacpy('Upper', N, N, BF( 1, P-N+1 ), LDB, T( 1, P-N+1 ), LDB );
       } else {
-         CALL DLACPY( 'Full', N-P, P, BF, LDB, T, LDB )
-         CALL DLACPY( 'Upper', P, P, BF( N-P+1, 1 ), LDB, T( N-P+1, 1 ), LDB )
+         dlacpy('Full', N-P, P, BF, LDB, T, LDB );
+         dlacpy('Upper', P, P, BF( N-P+1, 1 ), LDB, T( N-P+1, 1 ), LDB );
       }
 
       // Compute R - Q'*A
 
-      CALL DGEMM( 'Transpose', 'No transpose', N, M, N, -ONE, Q, LDA, A, LDA, ONE, R, LDA )
+      dgemm('Transpose', 'No transpose', N, M, N, -ONE, Q, LDA, A, LDA, ONE, R, LDA );
 
       // Compute norm( R - Q'*A ) / ( MAX(M,N)*norm(A)*ULP ) .
 
@@ -96,7 +96,7 @@
 
       // Compute T*Z - Q'*B
 
-      CALL DGEMM( 'No Transpose', 'No transpose', N, P, P, ONE, T, LDB, Z, LDB, ZERO, BWK, LDB )       CALL DGEMM( 'Transpose', 'No transpose', N, P, N, -ONE, Q, LDA, B, LDB, ONE, BWK, LDB )
+      dgemm('No Transpose', 'No transpose', N, P, P, ONE, T, LDB, Z, LDB, ZERO, BWK, LDB )       CALL DGEMM( 'Transpose', 'No transpose', N, P, N, -ONE, Q, LDA, B, LDB, ONE, BWK, LDB );
 
       // Compute norm( T*Z - Q'*B ) / ( MAX(P,N)*norm(A)*ULP ) .
 
@@ -109,8 +109,8 @@
 
       // Compute I - Q'*Q
 
-      CALL DLASET( 'Full', N, N, ZERO, ONE, R, LDA )
-      CALL DSYRK( 'Upper', 'Transpose', N, N, -ONE, Q, LDA, ONE, R, LDA )
+      dlaset('Full', N, N, ZERO, ONE, R, LDA );
+      dsyrk('Upper', 'Transpose', N, N, -ONE, Q, LDA, ONE, R, LDA );
 
       // Compute norm( I - Q'*Q ) / ( N * ULP ) .
 
@@ -119,8 +119,8 @@
 
       // Compute I - Z'*Z
 
-      CALL DLASET( 'Full', P, P, ZERO, ONE, T, LDB )
-      CALL DSYRK( 'Upper', 'Transpose', P, P, -ONE, Z, LDB, ONE, T, LDB )
+      dlaset('Full', P, P, ZERO, ONE, T, LDB );
+      dsyrk('Upper', 'Transpose', P, P, -ONE, Z, LDB, ONE, T, LDB );
 
       // Compute norm( I - Z'*Z ) / ( P*ULP ) .
 

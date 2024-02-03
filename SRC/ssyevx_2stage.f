@@ -93,7 +93,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'SSYEVX_2STAGE', -INFO )
+         xerbla('SSYEVX_2STAGE', -INFO );
          RETURN
       } else if ( LQUERY ) {
          RETURN
@@ -148,11 +148,11 @@
       if ( ISCALE.EQ.1 ) {
          if ( LOWER ) {
             DO 10 J = 1, N
-               CALL SSCAL( N-J+1, SIGMA, A( J, J ), 1 )
+               sscal(N-J+1, SIGMA, A( J, J ), 1 );
    10       CONTINUE
          } else {
             DO 20 J = 1, N
-               CALL SSCAL( J, SIGMA, A( 1, J ), 1 )
+               sscal(J, SIGMA, A( 1, J ), 1 );
    20       CONTINUE
          }
          IF( ABSTOL.GT.0 ) ABSTLL = ABSTOL*SIGMA
@@ -171,7 +171,7 @@
       INDWRK  = INDHOUS + LHTRD
       LLWORK  = LWORK - INDWRK + 1
 
-      CALL SSYTRD_2STAGE( JOBZ, UPLO, N, A, LDA, WORK( INDD ), WORK( INDE ), WORK( INDTAU ), WORK( INDHOUS ), LHTRD, WORK( INDWRK ), LLWORK, IINFO )
+      ssytrd_2stage(JOBZ, UPLO, N, A, LDA, WORK( INDD ), WORK( INDE ), WORK( INDTAU ), WORK( INDHOUS ), LHTRD, WORK( INDWRK ), LLWORK, IINFO );
 
       // If all eigenvalues are desired and ABSTOL is less than or equal to
       // zero, then call SSTERF or SORGTR and SSTEQR.  If this fails for
@@ -184,16 +184,16 @@
          }
       }
       if ( ( ALLEIG .OR. TEST ) .AND. ( ABSTOL.LE.ZERO ) ) {
-         CALL SCOPY( N, WORK( INDD ), 1, W, 1 )
+         scopy(N, WORK( INDD ), 1, W, 1 );
          INDEE = INDWRK + 2*N
          if ( .NOT.WANTZ ) {
-            CALL SCOPY( N-1, WORK( INDE ), 1, WORK( INDEE ), 1 )
-            CALL SSTERF( N, W, WORK( INDEE ), INFO )
+            scopy(N-1, WORK( INDE ), 1, WORK( INDEE ), 1 );
+            ssterf(N, W, WORK( INDEE ), INFO );
          } else {
-            CALL SLACPY( 'A', N, N, A, LDA, Z, LDZ )
-            CALL SORGTR( UPLO, N, Z, LDZ, WORK( INDTAU ), WORK( INDWRK ), LLWORK, IINFO )
-            CALL SCOPY( N-1, WORK( INDE ), 1, WORK( INDEE ), 1 )
-            CALL SSTEQR( JOBZ, N, W, WORK( INDEE ), Z, LDZ, WORK( INDWRK ), INFO )
+            slacpy('A', N, N, A, LDA, Z, LDZ );
+            sorgtr(UPLO, N, Z, LDZ, WORK( INDTAU ), WORK( INDWRK ), LLWORK, IINFO );
+            scopy(N-1, WORK( INDE ), 1, WORK( INDEE ), 1 );
+            ssteqr(JOBZ, N, W, WORK( INDEE ), Z, LDZ, WORK( INDWRK ), INFO );
             if ( INFO.EQ.0 ) {
                DO 30 I = 1, N
                   IFAIL( I ) = 0
@@ -217,17 +217,17 @@
       INDIBL = 1
       INDISP = INDIBL + N
       INDIWO = INDISP + N
-      CALL SSTEBZ( RANGE, ORDER, N, VLL, VUU, IL, IU, ABSTLL, WORK( INDD ), WORK( INDE ), M, NSPLIT, W, IWORK( INDIBL ), IWORK( INDISP ), WORK( INDWRK ), IWORK( INDIWO ), INFO )
+      sstebz(RANGE, ORDER, N, VLL, VUU, IL, IU, ABSTLL, WORK( INDD ), WORK( INDE ), M, NSPLIT, W, IWORK( INDIBL ), IWORK( INDISP ), WORK( INDWRK ), IWORK( INDIWO ), INFO );
 
       if ( WANTZ ) {
-         CALL SSTEIN( N, WORK( INDD ), WORK( INDE ), M, W, IWORK( INDIBL ), IWORK( INDISP ), Z, LDZ, WORK( INDWRK ), IWORK( INDIWO ), IFAIL, INFO )
+         sstein(N, WORK( INDD ), WORK( INDE ), M, W, IWORK( INDIBL ), IWORK( INDISP ), Z, LDZ, WORK( INDWRK ), IWORK( INDIWO ), IFAIL, INFO );
 
          // Apply orthogonal matrix used in reduction to tridiagonal
          // form to eigenvectors returned by SSTEIN.
 
          INDWKN = INDE
          LLWRKN = LWORK - INDWKN + 1
-         CALL SORMTR( 'L', UPLO, 'N', N, M, A, LDA, WORK( INDTAU ), Z, LDZ, WORK( INDWKN ), LLWRKN, IINFO )
+         sormtr('L', UPLO, 'N', N, M, A, LDA, WORK( INDTAU ), Z, LDZ, WORK( INDWKN ), LLWRKN, IINFO );
       }
 
       // If matrix was scaled, then rescale eigenvalues appropriately.
@@ -239,7 +239,7 @@
          } else {
             IMAX = INFO - 1
          }
-         CALL SSCAL( IMAX, ONE / SIGMA, W, 1 )
+         sscal(IMAX, ONE / SIGMA, W, 1 );
       }
 
       // If eigenvalues are not in order, then sort them, along with
@@ -262,7 +262,7 @@
                IWORK( INDIBL+I-1 ) = IWORK( INDIBL+J-1 )
                W( J ) = TMP1
                IWORK( INDIBL+J-1 ) = ITMP1
-               CALL SSWAP( N, Z( 1, I ), 1, Z( 1, J ), 1 )
+               sswap(N, Z( 1, I ), 1, Z( 1, J ), 1 );
                if ( INFO.NE.0 ) {
                   ITMP1 = IFAIL( I )
                   IFAIL( I ) = IFAIL( J )

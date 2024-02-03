@@ -51,7 +51,7 @@
           INFO = 10
       }
       if (INFO.NE.0) {
-          CALL XERBLA('ZHEMV ',INFO)
+          xerbla('ZHEMV ',INFO);
           RETURN
       }
 

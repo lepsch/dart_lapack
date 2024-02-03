@@ -63,7 +63,7 @@
         WORK( 1 ) = LWMIN
       }
       if ( INFO.NE.0 ) {
-        CALL XERBLA( 'ZLATSQR', -INFO )
+        xerbla('ZLATSQR', -INFO );
         RETURN
       } else if ( LQUERY ) {
         RETURN
@@ -78,7 +78,7 @@
       // The QR Decomposition
 
       if ( (MB.LE.N) .OR. (MB.GE.M) ) {
-        CALL ZGEQRT( M, N, NB, A, LDA, T, LDT, WORK, INFO )
+        zgeqrt(M, N, NB, A, LDA, T, LDT, WORK, INFO );
         RETURN
       }
       KK = MOD((M-N),(MB-N))
@@ -86,21 +86,21 @@
 
       // Compute the QR factorization of the first block A(1:MB,1:N)
 
-      CALL ZGEQRT( MB, N, NB, A(1,1), LDA, T, LDT, WORK, INFO )
+      zgeqrt(MB, N, NB, A(1,1), LDA, T, LDT, WORK, INFO );
       CTR = 1
 
       DO I = MB+1, II-MB+N, (MB-N)
 
         // Compute the QR factorization of the current block A(I:I+MB-N,1:N)
 
-        CALL ZTPQRT( MB-N, N, 0, NB, A(1,1), LDA, A( I, 1 ), LDA, T(1, CTR * N + 1), LDT, WORK, INFO )
+        ztpqrt(MB-N, N, 0, NB, A(1,1), LDA, A( I, 1 ), LDA, T(1, CTR * N + 1), LDT, WORK, INFO );
         CTR = CTR + 1
       END DO
 
       // Compute the QR factorization of the last block A(II:M,1:N)
 
       if ( II.LE.M ) {
-        CALL ZTPQRT( KK, N, 0, NB, A(1,1), LDA, A( II, 1 ), LDA, T(1,CTR * N + 1), LDT, WORK, INFO )
+        ztpqrt(KK, N, 0, NB, A(1,1), LDA, A( II, 1 ), LDA, T(1,CTR * N + 1), LDT, WORK, INFO );
       }
 
       WORK( 1 ) = LWMIN

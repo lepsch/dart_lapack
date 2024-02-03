@@ -43,50 +43,50 @@
 
       // Copy the matrix A to the array AF.
 
-      CALL ZLACPY( 'Full', M, N, A, LDA, AF, LDA )
-      CALL ZLACPY( 'Full', P, N, B, LDB, BF, LDB )
+      zlacpy('Full', M, N, A, LDA, AF, LDA );
+      zlacpy('Full', P, N, B, LDB, BF, LDB );
 
       ANORM = MAX( ZLANGE( '1', M, N, A, LDA, RWORK ), UNFL )
       BNORM = MAX( ZLANGE( '1', P, N, B, LDB, RWORK ), UNFL )
 
       // Factorize the matrices A and B in the arrays AF and BF.
 
-      CALL ZGGRQF( M, P, N, AF, LDA, TAUA, BF, LDB, TAUB, WORK, LWORK, INFO )
+      zggrqf(M, P, N, AF, LDA, TAUA, BF, LDB, TAUB, WORK, LWORK, INFO );
 
       // Generate the N-by-N matrix Q
 
-      CALL ZLASET( 'Full', N, N, CROGUE, CROGUE, Q, LDA )
+      zlaset('Full', N, N, CROGUE, CROGUE, Q, LDA );
       if ( M.LE.N ) {
          IF( M.GT.0 .AND. M.LT.N ) CALL ZLACPY( 'Full', M, N-M, AF, LDA, Q( N-M+1, 1 ), LDA )          IF( M.GT.1 ) CALL ZLACPY( 'Lower', M-1, M-1, AF( 2, N-M+1 ), LDA, Q( N-M+2, N-M+1 ), LDA )
       } else {
          IF( N.GT.1 ) CALL ZLACPY( 'Lower', N-1, N-1, AF( M-N+2, 1 ), LDA, Q( 2, 1 ), LDA )
       }
-      CALL ZUNGRQ( N, N, MIN( M, N ), Q, LDA, TAUA, WORK, LWORK, INFO )
+      zungrq(N, N, MIN( M, N ), Q, LDA, TAUA, WORK, LWORK, INFO );
 
       // Generate the P-by-P matrix Z
 
-      CALL ZLASET( 'Full', P, P, CROGUE, CROGUE, Z, LDB )
+      zlaset('Full', P, P, CROGUE, CROGUE, Z, LDB );
       IF( P.GT.1 ) CALL ZLACPY( 'Lower', P-1, N, BF( 2, 1 ), LDB, Z( 2, 1 ), LDB )
-      CALL ZUNGQR( P, P, MIN( P, N ), Z, LDB, TAUB, WORK, LWORK, INFO )
+      zungqr(P, P, MIN( P, N ), Z, LDB, TAUB, WORK, LWORK, INFO );
 
       // Copy R
 
-      CALL ZLASET( 'Full', M, N, CZERO, CZERO, R, LDA )
+      zlaset('Full', M, N, CZERO, CZERO, R, LDA );
       if ( M.LE.N ) {
-         CALL ZLACPY( 'Upper', M, M, AF( 1, N-M+1 ), LDA, R( 1, N-M+1 ), LDA )
+         zlacpy('Upper', M, M, AF( 1, N-M+1 ), LDA, R( 1, N-M+1 ), LDA );
       } else {
-         CALL ZLACPY( 'Full', M-N, N, AF, LDA, R, LDA )
-         CALL ZLACPY( 'Upper', N, N, AF( M-N+1, 1 ), LDA, R( M-N+1, 1 ), LDA )
+         zlacpy('Full', M-N, N, AF, LDA, R, LDA );
+         zlacpy('Upper', N, N, AF( M-N+1, 1 ), LDA, R( M-N+1, 1 ), LDA );
       }
 
       // Copy T
 
-      CALL ZLASET( 'Full', P, N, CZERO, CZERO, T, LDB )
-      CALL ZLACPY( 'Upper', P, N, BF, LDB, T, LDB )
+      zlaset('Full', P, N, CZERO, CZERO, T, LDB );
+      zlacpy('Upper', P, N, BF, LDB, T, LDB );
 
       // Compute R - A*Q'
 
-      CALL ZGEMM( 'No transpose', 'Conjugate transpose', M, N, N, -CONE, A, LDA, Q, LDA, CONE, R, LDA )
+      zgemm('No transpose', 'Conjugate transpose', M, N, N, -CONE, A, LDA, Q, LDA, CONE, R, LDA );
 
       // Compute norm( R - A*Q' ) / ( MAX(M,N)*norm(A)*ULP ) .
 
@@ -99,7 +99,7 @@
 
       // Compute T*Q - Z'*B
 
-      CALL ZGEMM( 'Conjugate transpose', 'No transpose', P, N, P, CONE, Z, LDB, B, LDB, CZERO, BWK, LDB )       CALL ZGEMM( 'No transpose', 'No transpose', P, N, N, CONE, T, LDB, Q, LDA, -CONE, BWK, LDB )
+      zgemm('Conjugate transpose', 'No transpose', P, N, P, CONE, Z, LDB, B, LDB, CZERO, BWK, LDB )       CALL ZGEMM( 'No transpose', 'No transpose', P, N, N, CONE, T, LDB, Q, LDA, -CONE, BWK, LDB );
 
       // Compute norm( T*Q - Z'*B ) / ( MAX(P,N)*norm(A)*ULP ) .
 
@@ -112,8 +112,8 @@
 
       // Compute I - Q*Q'
 
-      CALL ZLASET( 'Full', N, N, CZERO, CONE, R, LDA )
-      CALL ZHERK( 'Upper', 'No Transpose', N, N, -ONE, Q, LDA, ONE, R, LDA )
+      zlaset('Full', N, N, CZERO, CONE, R, LDA );
+      zherk('Upper', 'No Transpose', N, N, -ONE, Q, LDA, ONE, R, LDA );
 
       // Compute norm( I - Q'*Q ) / ( N * ULP ) .
 
@@ -122,8 +122,8 @@
 
       // Compute I - Z'*Z
 
-      CALL ZLASET( 'Full', P, P, CZERO, CONE, T, LDB )
-      CALL ZHERK( 'Upper', 'Conjugate transpose', P, P, -ONE, Z, LDB, ONE, T, LDB )
+      zlaset('Full', P, P, CZERO, CONE, T, LDB );
+      zherk('Upper', 'Conjugate transpose', P, P, -ONE, Z, LDB, ONE, T, LDB );
 
       // Compute norm( I - Z'*Z ) / ( P*ULP ) .
 

@@ -180,7 +180,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'SGESVDX', -INFO )
+         xerbla('SGESVDX', -INFO );
          RETURN
       } else if ( LQUERY ) {
          RETURN
@@ -220,10 +220,10 @@
       ISCL = 0
       if ( ANRM.GT.ZERO .AND. ANRM.LT.SMLNUM ) {
          ISCL = 1
-         CALL SLASCL( 'G', 0, 0, ANRM, SMLNUM, M, N, A, LDA, INFO )
+         slascl('G', 0, 0, ANRM, SMLNUM, M, N, A, LDA, INFO );
       } else if ( ANRM.GT.BIGNUM ) {
          ISCL = 1
-         CALL SLASCL( 'G', 0, 0, ANRM, BIGNUM, M, N, A, LDA, INFO )
+         slascl('G', 0, 0, ANRM, BIGNUM, M, N, A, LDA, INFO );
       }
 
       if ( M.GE.N ) {
@@ -244,7 +244,7 @@
 
             ITAU = 1
             ITEMP = ITAU + N
-            CALL SGEQRF( M, N, A, LDA, WORK( ITAU ), WORK( ITEMP ), LWORK-ITEMP+1, INFO )
+            sgeqrf(M, N, A, LDA, WORK( ITAU ), WORK( ITEMP ), LWORK-ITEMP+1, INFO );
 
             // Copy R into WORK and bidiagonalize it:
             // (Workspace: need N*N+5*N, prefer N*N+4*N+2*N*NB)
@@ -255,36 +255,36 @@
             ITAUQ = IE + N
             ITAUP = ITAUQ + N
             ITEMP = ITAUP + N
-            CALL SLACPY( 'U', N, N, A, LDA, WORK( IQRF ), N )
-            CALL SLASET( 'L', N-1, N-1, ZERO, ZERO, WORK( IQRF+1 ), N )
-            CALL SGEBRD( N, N, WORK( IQRF ), N, WORK( ID ), WORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( ITEMP ), LWORK-ITEMP+1, INFO )
+            slacpy('U', N, N, A, LDA, WORK( IQRF ), N );
+            slaset('L', N-1, N-1, ZERO, ZERO, WORK( IQRF+1 ), N );
+            sgebrd(N, N, WORK( IQRF ), N, WORK( ID ), WORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( ITEMP ), LWORK-ITEMP+1, INFO );
 
             // Solve eigenvalue problem TGK*Z=Z*S.
             // (Workspace: need 14*N + 2*N*(N+1))
 
             ITGKZ = ITEMP
             ITEMP = ITGKZ + N*(N*2+1)
-            CALL SBDSVDX( 'U', JOBZ, RNGTGK, N, WORK( ID ), WORK( IE ), VL, VU, ILTGK, IUTGK, NS, S, WORK( ITGKZ ), N*2, WORK( ITEMP ), IWORK, INFO)
+            sbdsvdx('U', JOBZ, RNGTGK, N, WORK( ID ), WORK( IE ), VL, VU, ILTGK, IUTGK, NS, S, WORK( ITGKZ ), N*2, WORK( ITEMP ), IWORK, INFO);
 
             // If needed, compute left singular vectors.
 
             if ( WANTU ) {
                J = ITGKZ
                DO I = 1, NS
-                  CALL SCOPY( N, WORK( J ), 1, U( 1,I ), 1 )
+                  scopy(N, WORK( J ), 1, U( 1,I ), 1 );
                   J = J + N*2
                END DO
-               CALL SLASET( 'A', M-N, NS, ZERO, ZERO, U( N+1,1 ), LDU )
+               slaset('A', M-N, NS, ZERO, ZERO, U( N+1,1 ), LDU );
 
                // Call SORMBR to compute QB*UB.
                // (Workspace in WORK( ITEMP ): need N, prefer N*NB)
 
-               CALL SORMBR( 'Q', 'L', 'N', N, NS, N, WORK( IQRF ), N, WORK( ITAUQ ), U, LDU, WORK( ITEMP ), LWORK-ITEMP+1, INFO )
+               sormbr('Q', 'L', 'N', N, NS, N, WORK( IQRF ), N, WORK( ITAUQ ), U, LDU, WORK( ITEMP ), LWORK-ITEMP+1, INFO );
 
                // Call SORMQR to compute Q*(QB*UB).
                // (Workspace in WORK( ITEMP ): need N, prefer N*NB)
 
-               CALL SORMQR( 'L', 'N', M, NS, N, A, LDA, WORK( ITAU ), U, LDU, WORK( ITEMP ), LWORK-ITEMP+1, INFO )
+               sormqr('L', 'N', M, NS, N, A, LDA, WORK( ITAU ), U, LDU, WORK( ITEMP ), LWORK-ITEMP+1, INFO );
             }
 
             // If needed, compute right singular vectors.
@@ -292,14 +292,14 @@
             if ( WANTVT) {
                J = ITGKZ + N
                DO I = 1, NS
-                  CALL SCOPY( N, WORK( J ), 1, VT( I,1 ), LDVT )
+                  scopy(N, WORK( J ), 1, VT( I,1 ), LDVT );
                   J = J + N*2
                END DO
 
                // Call SORMBR to compute VB**T * PB**T
                // (Workspace in WORK( ITEMP ): need N, prefer N*NB)
 
-               CALL SORMBR( 'P', 'R', 'T', NS, N, N, WORK( IQRF ), N, WORK( ITAUP ), VT, LDVT, WORK( ITEMP ), LWORK-ITEMP+1, INFO )
+               sormbr('P', 'R', 'T', NS, N, N, WORK( IQRF ), N, WORK( ITAUP ), VT, LDVT, WORK( ITEMP ), LWORK-ITEMP+1, INFO );
             }
          } else {
 
@@ -316,29 +316,29 @@
             ITAUQ = IE + N
             ITAUP = ITAUQ + N
             ITEMP = ITAUP + N
-            CALL SGEBRD( M, N, A, LDA, WORK( ID ), WORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( ITEMP ), LWORK-ITEMP+1, INFO )
+            sgebrd(M, N, A, LDA, WORK( ID ), WORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( ITEMP ), LWORK-ITEMP+1, INFO );
 
             // Solve eigenvalue problem TGK*Z=Z*S.
             // (Workspace: need 14*N + 2*N*(N+1))
 
             ITGKZ = ITEMP
             ITEMP = ITGKZ + N*(N*2+1)
-            CALL SBDSVDX( 'U', JOBZ, RNGTGK, N, WORK( ID ), WORK( IE ), VL, VU, ILTGK, IUTGK, NS, S, WORK( ITGKZ ), N*2, WORK( ITEMP ), IWORK, INFO)
+            sbdsvdx('U', JOBZ, RNGTGK, N, WORK( ID ), WORK( IE ), VL, VU, ILTGK, IUTGK, NS, S, WORK( ITGKZ ), N*2, WORK( ITEMP ), IWORK, INFO);
 
             // If needed, compute left singular vectors.
 
             if ( WANTU ) {
                J = ITGKZ
                DO I = 1, NS
-                  CALL SCOPY( N, WORK( J ), 1, U( 1,I ), 1 )
+                  scopy(N, WORK( J ), 1, U( 1,I ), 1 );
                   J = J + N*2
                END DO
-               CALL SLASET( 'A', M-N, NS, ZERO, ZERO, U( N+1,1 ), LDU )
+               slaset('A', M-N, NS, ZERO, ZERO, U( N+1,1 ), LDU );
 
                // Call SORMBR to compute QB*UB.
                // (Workspace in WORK( ITEMP ): need N, prefer N*NB)
 
-               CALL SORMBR( 'Q', 'L', 'N', M, NS, N, A, LDA, WORK( ITAUQ ), U, LDU, WORK( ITEMP ), LWORK-ITEMP+1, IERR )
+               sormbr('Q', 'L', 'N', M, NS, N, A, LDA, WORK( ITAUQ ), U, LDU, WORK( ITEMP ), LWORK-ITEMP+1, IERR );
             }
 
             // If needed, compute right singular vectors.
@@ -346,14 +346,14 @@
             if ( WANTVT) {
                J = ITGKZ + N
                DO I = 1, NS
-                  CALL SCOPY( N, WORK( J ), 1, VT( I,1 ), LDVT )
+                  scopy(N, WORK( J ), 1, VT( I,1 ), LDVT );
                   J = J + N*2
                END DO
 
                // Call SORMBR to compute VB**T * PB**T
                // (Workspace in WORK( ITEMP ): need N, prefer N*NB)
 
-               CALL SORMBR( 'P', 'R', 'T', NS, N, N, A, LDA, WORK( ITAUP ), VT, LDVT, WORK( ITEMP ), LWORK-ITEMP+1, IERR )
+               sormbr('P', 'R', 'T', NS, N, N, A, LDA, WORK( ITAUP ), VT, LDVT, WORK( ITEMP ), LWORK-ITEMP+1, IERR );
             }
          }
       } else {
@@ -373,7 +373,7 @@
 
             ITAU = 1
             ITEMP = ITAU + M
-            CALL SGELQF( M, N, A, LDA, WORK( ITAU ), WORK( ITEMP ), LWORK-ITEMP+1, INFO )
+            sgelqf(M, N, A, LDA, WORK( ITAU ), WORK( ITEMP ), LWORK-ITEMP+1, INFO );
 
             // Copy L into WORK and bidiagonalize it:
             // (Workspace in WORK( ITEMP ): need M*M+5*N, prefer M*M+4*M+2*M*NB)
@@ -384,30 +384,30 @@
             ITAUQ = IE + M
             ITAUP = ITAUQ + M
             ITEMP = ITAUP + M
-            CALL SLACPY( 'L', M, M, A, LDA, WORK( ILQF ), M )
-            CALL SLASET( 'U', M-1, M-1, ZERO, ZERO, WORK( ILQF+M ), M )
-            CALL SGEBRD( M, M, WORK( ILQF ), M, WORK( ID ), WORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( ITEMP ), LWORK-ITEMP+1, INFO )
+            slacpy('L', M, M, A, LDA, WORK( ILQF ), M );
+            slaset('U', M-1, M-1, ZERO, ZERO, WORK( ILQF+M ), M );
+            sgebrd(M, M, WORK( ILQF ), M, WORK( ID ), WORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( ITEMP ), LWORK-ITEMP+1, INFO );
 
             // Solve eigenvalue problem TGK*Z=Z*S.
             // (Workspace: need 2*M*M+14*M)
 
             ITGKZ = ITEMP
             ITEMP = ITGKZ + M*(M*2+1)
-            CALL SBDSVDX( 'U', JOBZ, RNGTGK, M, WORK( ID ), WORK( IE ), VL, VU, ILTGK, IUTGK, NS, S, WORK( ITGKZ ), M*2, WORK( ITEMP ), IWORK, INFO)
+            sbdsvdx('U', JOBZ, RNGTGK, M, WORK( ID ), WORK( IE ), VL, VU, ILTGK, IUTGK, NS, S, WORK( ITGKZ ), M*2, WORK( ITEMP ), IWORK, INFO);
 
             // If needed, compute left singular vectors.
 
             if ( WANTU ) {
                J = ITGKZ
                DO I = 1, NS
-                  CALL SCOPY( M, WORK( J ), 1, U( 1,I ), 1 )
+                  scopy(M, WORK( J ), 1, U( 1,I ), 1 );
                   J = J + M*2
                END DO
 
                // Call SORMBR to compute QB*UB.
                // (Workspace in WORK( ITEMP ): need M, prefer M*NB)
 
-               CALL SORMBR( 'Q', 'L', 'N', M, NS, M, WORK( ILQF ), M, WORK( ITAUQ ), U, LDU, WORK( ITEMP ), LWORK-ITEMP+1, INFO )
+               sormbr('Q', 'L', 'N', M, NS, M, WORK( ILQF ), M, WORK( ITAUQ ), U, LDU, WORK( ITEMP ), LWORK-ITEMP+1, INFO );
             }
 
             // If needed, compute right singular vectors.
@@ -415,20 +415,20 @@
             if ( WANTVT) {
                J = ITGKZ + M
                DO I = 1, NS
-                  CALL SCOPY( M, WORK( J ), 1, VT( I,1 ), LDVT )
+                  scopy(M, WORK( J ), 1, VT( I,1 ), LDVT );
                   J = J + M*2
                END DO
-               CALL SLASET( 'A', NS, N-M, ZERO, ZERO, VT( 1,M+1 ), LDVT)
+               slaset('A', NS, N-M, ZERO, ZERO, VT( 1,M+1 ), LDVT);
 
                // Call SORMBR to compute (VB**T)*(PB**T)
                // (Workspace in WORK( ITEMP ): need M, prefer M*NB)
 
-               CALL SORMBR( 'P', 'R', 'T', NS, M, M, WORK( ILQF ), M, WORK( ITAUP ), VT, LDVT, WORK( ITEMP ), LWORK-ITEMP+1, INFO )
+               sormbr('P', 'R', 'T', NS, M, M, WORK( ILQF ), M, WORK( ITAUP ), VT, LDVT, WORK( ITEMP ), LWORK-ITEMP+1, INFO );
 
                // Call SORMLQ to compute ((VB**T)*(PB**T))*Q.
                // (Workspace in WORK( ITEMP ): need M, prefer M*NB)
 
-               CALL SORMLQ( 'R', 'N', NS, N, M, A, LDA, WORK( ITAU ), VT, LDVT, WORK( ITEMP ), LWORK-ITEMP+1, INFO )
+               sormlq('R', 'N', NS, N, M, A, LDA, WORK( ITAU ), VT, LDVT, WORK( ITEMP ), LWORK-ITEMP+1, INFO );
             }
          } else {
 
@@ -445,28 +445,28 @@
             ITAUQ = IE + M
             ITAUP = ITAUQ + M
             ITEMP = ITAUP + M
-            CALL SGEBRD( M, N, A, LDA, WORK( ID ), WORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( ITEMP ), LWORK-ITEMP+1, INFO )
+            sgebrd(M, N, A, LDA, WORK( ID ), WORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( ITEMP ), LWORK-ITEMP+1, INFO );
 
             // Solve eigenvalue problem TGK*Z=Z*S.
             // (Workspace: need 2*M*M+14*M)
 
             ITGKZ = ITEMP
             ITEMP = ITGKZ + M*(M*2+1)
-            CALL SBDSVDX( 'L', JOBZ, RNGTGK, M, WORK( ID ), WORK( IE ), VL, VU, ILTGK, IUTGK, NS, S, WORK( ITGKZ ), M*2, WORK( ITEMP ), IWORK, INFO)
+            sbdsvdx('L', JOBZ, RNGTGK, M, WORK( ID ), WORK( IE ), VL, VU, ILTGK, IUTGK, NS, S, WORK( ITGKZ ), M*2, WORK( ITEMP ), IWORK, INFO);
 
             // If needed, compute left singular vectors.
 
             if ( WANTU ) {
                J = ITGKZ
                DO I = 1, NS
-                  CALL SCOPY( M, WORK( J ), 1, U( 1,I ), 1 )
+                  scopy(M, WORK( J ), 1, U( 1,I ), 1 );
                   J = J + M*2
                END DO
 
                // Call SORMBR to compute QB*UB.
                // (Workspace in WORK( ITEMP ): need M, prefer M*NB)
 
-               CALL SORMBR( 'Q', 'L', 'N', M, NS, N, A, LDA, WORK( ITAUQ ), U, LDU, WORK( ITEMP ), LWORK-ITEMP+1, INFO )
+               sormbr('Q', 'L', 'N', M, NS, N, A, LDA, WORK( ITAUQ ), U, LDU, WORK( ITEMP ), LWORK-ITEMP+1, INFO );
             }
 
             // If needed, compute right singular vectors.
@@ -474,15 +474,15 @@
             if ( WANTVT) {
                J = ITGKZ + M
                DO I = 1, NS
-                  CALL SCOPY( M, WORK( J ), 1, VT( I,1 ), LDVT )
+                  scopy(M, WORK( J ), 1, VT( I,1 ), LDVT );
                   J = J + M*2
                END DO
-               CALL SLASET( 'A', NS, N-M, ZERO, ZERO, VT( 1,M+1 ), LDVT)
+               slaset('A', NS, N-M, ZERO, ZERO, VT( 1,M+1 ), LDVT);
 
                // Call SORMBR to compute VB**T * PB**T
                // (Workspace in WORK( ITEMP ): need M, prefer M*NB)
 
-               CALL SORMBR( 'P', 'R', 'T', NS, N, M, A, LDA, WORK( ITAUP ), VT, LDVT, WORK( ITEMP ), LWORK-ITEMP+1, INFO )
+               sormbr('P', 'R', 'T', NS, N, M, A, LDA, WORK( ITAUP ), VT, LDVT, WORK( ITEMP ), LWORK-ITEMP+1, INFO );
             }
          }
       }

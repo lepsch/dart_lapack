@@ -51,7 +51,7 @@
          INFO = -3
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'DLAED2', -INFO )
+         xerbla('DLAED2', -INFO );
          RETURN
       }
 
@@ -63,14 +63,14 @@
       N1P1 = N1 + 1
 
       if ( RHO.LT.ZERO ) {
-         CALL DSCAL( N2, MONE, Z( N1P1 ), 1 )
+         dscal(N2, MONE, Z( N1P1 ), 1 );
       }
 
       // Normalize z so that norm(z) = 1.  Since z is the concatenation of
       // two normalized vectors, norm2(z) = sqrt(2).
 
       T = ONE / SQRT( TWO )
-      CALL DSCAL( N, T, Z, 1 )
+      dscal(N, T, Z, 1 );
 
       // RHO = ABS( norm(z)**2 * RHO )
 
@@ -87,7 +87,7 @@
       DO 20 I = 1, N
          DLAMBDA( I ) = D( INDXQ( I ) )
    20 CONTINUE
-      CALL DLAMRG( N1, N2, DLAMBDA, 1, 1, INDXC )
+      dlamrg(N1, N2, DLAMBDA, 1, 1, INDXC );
       DO 30 I = 1, N
          INDX( I ) = INDXQ( INDXC( I ) )
    30 CONTINUE
@@ -108,12 +108,12 @@
          IQ2 = 1
          DO 40 J = 1, N
             I = INDX( J )
-            CALL DCOPY( N, Q( 1, I ), 1, Q2( IQ2 ), 1 )
+            dcopy(N, Q( 1, I ), 1, Q2( IQ2 ), 1 );
             DLAMBDA( J ) = D( I )
             IQ2 = IQ2 + N
    40    CONTINUE
-         CALL DLACPY( 'A', N, N, Q2, N, Q, LDQ )
-         CALL DCOPY( N, DLAMBDA, 1, D, 1 )
+         dlacpy('A', N, N, Q2, N, Q, LDQ );
+         dcopy(N, DLAMBDA, 1, D, 1 );
          GO TO 190
       }
 
@@ -181,7 +181,7 @@
             Z( PJ ) = ZERO
             IF( COLTYP( NJ ).NE.COLTYP( PJ ) ) COLTYP( NJ ) = 2
             COLTYP( PJ ) = 4
-            CALL DROT( N, Q( 1, PJ ), 1, Q( 1, NJ ), 1, C, S )
+            drot(N, Q( 1, PJ ), 1, Q( 1, NJ ), 1, C, S );
             T = D( PJ )*C**2 + D( NJ )*S**2
             D( NJ ) = D( PJ )*S**2 + D( NJ )*C**2
             D( PJ ) = T
@@ -262,7 +262,7 @@
       IQ2 = 1 + ( CTOT( 1 )+CTOT( 2 ) )*N1
       DO 140 J = 1, CTOT( 1 )
          JS = INDX( I )
-         CALL DCOPY( N1, Q( 1, JS ), 1, Q2( IQ1 ), 1 )
+         dcopy(N1, Q( 1, JS ), 1, Q2( IQ1 ), 1 );
          Z( I ) = D( JS )
          I = I + 1
          IQ1 = IQ1 + N1
@@ -270,8 +270,8 @@
 
       DO 150 J = 1, CTOT( 2 )
          JS = INDX( I )
-         CALL DCOPY( N1, Q( 1, JS ), 1, Q2( IQ1 ), 1 )
-         CALL DCOPY( N2, Q( N1+1, JS ), 1, Q2( IQ2 ), 1 )
+         dcopy(N1, Q( 1, JS ), 1, Q2( IQ1 ), 1 );
+         dcopy(N2, Q( N1+1, JS ), 1, Q2( IQ2 ), 1 );
          Z( I ) = D( JS )
          I = I + 1
          IQ1 = IQ1 + N1
@@ -280,7 +280,7 @@
 
       DO 160 J = 1, CTOT( 3 )
          JS = INDX( I )
-         CALL DCOPY( N2, Q( N1+1, JS ), 1, Q2( IQ2 ), 1 )
+         dcopy(N2, Q( N1+1, JS ), 1, Q2( IQ2 ), 1 );
          Z( I ) = D( JS )
          I = I + 1
          IQ2 = IQ2 + N2
@@ -289,7 +289,7 @@
       IQ1 = IQ2
       DO 170 J = 1, CTOT( 4 )
          JS = INDX( I )
-         CALL DCOPY( N, Q( 1, JS ), 1, Q2( IQ2 ), 1 )
+         dcopy(N, Q( 1, JS ), 1, Q2( IQ2 ), 1 );
          IQ2 = IQ2 + N
          Z( I ) = D( JS )
          I = I + 1
@@ -299,8 +299,8 @@
       // into the last N - K slots of D and Q respectively.
 
       if ( K.LT.N ) {
-         CALL DLACPY( 'A', N, CTOT( 4 ), Q2( IQ1 ), N, Q( 1, K+1 ), LDQ )
-         CALL DCOPY( N-K, Z( K+1 ), 1, D( K+1 ), 1 )
+         dlacpy('A', N, CTOT( 4 ), Q2( IQ1 ), N, Q( 1, K+1 ), LDQ );
+         dcopy(N-K, Z( K+1 ), 1, D( K+1 ), 1 );
       }
 
       // Copy CTOT into COLTYP for referencing in DLAED3.

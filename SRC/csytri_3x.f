@@ -51,7 +51,7 @@
       // Quick return if possible
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'CSYTRI_3X', -INFO )
+         xerbla('CSYTRI_3X', -INFO );
          RETURN
       }
       IF( N.EQ.0 ) RETURN
@@ -101,7 +101,7 @@
 
          // invA = P * inv(U**T) * inv(D) * inv(U) * P**T.
 
-         CALL CTRTRI( UPLO, 'U', N, A, LDA, INFO )
+         ctrtri(UPLO, 'U', N, A, LDA, INFO );
 
          // inv(D) and inv(D) * inv(U)
 
@@ -208,7 +208,7 @@
 
             // U11**T * invD1 * U11 -> U11
 
-            CALL CTRMM( 'L', 'U', 'T', 'U', NNB, NNB, CONE, A( CUT+1, CUT+1 ), LDA, WORK( U11+1, 1 ), N+NB+1 )
+            ctrmm('L', 'U', 'T', 'U', NNB, NNB, CONE, A( CUT+1, CUT+1 ), LDA, WORK( U11+1, 1 ), N+NB+1 );
 
             DO I = 1, NNB
                DO J = I, NNB
@@ -218,7 +218,7 @@
 
             // U01**T * invD * U01 -> A( CUT+I, CUT+J )
 
-            CALL CGEMM( 'T', 'N', NNB, NNB, CUT, CONE, A( 1, CUT+1 ), LDA, WORK, N+NB+1, CZERO, WORK(U11+1,1), N+NB+1 )
+            cgemm('T', 'N', NNB, NNB, CUT, CONE, A( 1, CUT+1 ), LDA, WORK, N+NB+1, CZERO, WORK(U11+1,1), N+NB+1 );
 
 
             // U11 =  U11**T * invD1 * U11 + U01**T * invD * U01
@@ -231,7 +231,7 @@
 
             // U01 =  U00**T * invD0 * U01
 
-            CALL CTRMM( 'L', UPLO, 'T', 'U', CUT, NNB, CONE, A, LDA, WORK, N+NB+1 )
+            ctrmm('L', UPLO, 'T', 'U', CUT, NNB, CONE, A, LDA, WORK, N+NB+1 );
 
 
             // Update U01
@@ -271,7 +271,7 @@
 
          // inv A = P * inv(L**T) * inv(D) * inv(L) * P**T.
 
-         CALL CTRTRI( UPLO, 'U', N, A, LDA, INFO )
+         ctrtri(UPLO, 'U', N, A, LDA, INFO );
 
          // inv(D) and inv(D) * inv(L)
 
@@ -377,7 +377,7 @@
 
             // L11**T * invD1 * L11 -> L11
 
-            CALL CTRMM( 'L', UPLO, 'T', 'U', NNB, NNB, CONE, A( CUT+1, CUT+1 ), LDA, WORK( U11+1, 1 ), N+NB+1 )
+            ctrmm('L', UPLO, 'T', 'U', NNB, NNB, CONE, A( CUT+1, CUT+1 ), LDA, WORK( U11+1, 1 ), N+NB+1 );
 
 
             DO I = 1, NNB
@@ -390,7 +390,7 @@
 
                // L21**T * invD2*L21 -> A( CUT+I, CUT+J )
 
-               CALL CGEMM( 'T', 'N', NNB, NNB, N-NNB-CUT, CONE, A( CUT+NNB+1, CUT+1 ), LDA, WORK, N+NB+1, CZERO, WORK( U11+1, 1 ), N+NB+1 )
+               cgemm('T', 'N', NNB, NNB, N-NNB-CUT, CONE, A( CUT+NNB+1, CUT+1 ), LDA, WORK, N+NB+1, CZERO, WORK( U11+1, 1 ), N+NB+1 );
 
 
                // L11 =  L11**T * invD1 * L11 + U01**T * invD * U01
@@ -403,7 +403,7 @@
 
                // L01 =  L22**T * invD2 * L21
 
-               CALL CTRMM( 'L', UPLO, 'T', 'U', N-NNB-CUT, NNB, CONE, A( CUT+NNB+1, CUT+NNB+1 ), LDA, WORK, N+NB+1 )
+               ctrmm('L', UPLO, 'T', 'U', N-NNB-CUT, NNB, CONE, A( CUT+NNB+1, CUT+NNB+1 ), LDA, WORK, N+NB+1 );
 
                // Update L21
 

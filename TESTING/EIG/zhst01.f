@@ -52,15 +52,15 @@
       // Copy A to WORK
 
       LDWORK = MAX( 1, N )
-      CALL ZLACPY( ' ', N, N, A, LDA, WORK, LDWORK )
+      zlacpy(' ', N, N, A, LDA, WORK, LDWORK );
 
       // Compute Q*H
 
-      CALL ZGEMM( 'No transpose', 'No transpose', N, N, N, DCMPLX( ONE ), Q, LDQ, H, LDH, DCMPLX( ZERO ), WORK( LDWORK*N+1 ), LDWORK )
+      zgemm('No transpose', 'No transpose', N, N, N, DCMPLX( ONE ), Q, LDQ, H, LDH, DCMPLX( ZERO ), WORK( LDWORK*N+1 ), LDWORK );
 
       // Compute A - Q*H*Q'
 
-      CALL ZGEMM( 'No transpose', 'Conjugate transpose', N, N, N, DCMPLX( -ONE ), WORK( LDWORK*N+1 ), LDWORK, Q, LDQ, DCMPLX( ONE ), WORK, LDWORK )
+      zgemm('No transpose', 'Conjugate transpose', N, N, N, DCMPLX( -ONE ), WORK( LDWORK*N+1 ), LDWORK, Q, LDQ, DCMPLX( ONE ), WORK, LDWORK );
 
       ANORM = MAX( ZLANGE( '1', N, N, A, LDA, RWORK ), UNFL )
       WNORM = ZLANGE( '1', N, N, WORK, LDWORK, RWORK )
@@ -71,7 +71,7 @@
 
       // Test 2:  Compute norm( I - Q'*Q ) / ( N * EPS )
 
-      CALL ZUNT01( 'Columns', N, N, Q, LDQ, WORK, LWORK, RWORK, RESULT( 2 ) )
+      zunt01('Columns', N, N, Q, LDQ, WORK, LWORK, RWORK, RESULT( 2 ) );
 
       RETURN
 

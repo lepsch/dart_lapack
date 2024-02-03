@@ -87,7 +87,7 @@
          INFO = -11
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'ZTREVC', -INFO )
+         xerbla('ZTREVC', -INFO );
          RETURN
       }
 
@@ -145,18 +145,18 @@
    50       CONTINUE
 
             if ( KI.GT.1 ) {
-               CALL ZLATRS( 'Upper', 'No transpose', 'Non-unit', 'Y', KI-1, T, LDT, WORK( 1 ), SCALE, RWORK, INFO )
+               zlatrs('Upper', 'No transpose', 'Non-unit', 'Y', KI-1, T, LDT, WORK( 1 ), SCALE, RWORK, INFO );
                WORK( KI ) = SCALE
             }
 
             // Copy the vector x or Q*x to VR and normalize.
 
             if ( .NOT.OVER ) {
-               CALL ZCOPY( KI, WORK( 1 ), 1, VR( 1, IS ), 1 )
+               zcopy(KI, WORK( 1 ), 1, VR( 1, IS ), 1 );
 
                II = IZAMAX( KI, VR( 1, IS ), 1 )
                REMAX = ONE / CABS1( VR( II, IS ) )
-               CALL ZDSCAL( KI, REMAX, VR( 1, IS ), 1 )
+               zdscal(KI, REMAX, VR( 1, IS ), 1 );
 
                DO 60 K = KI + 1, N
                   VR( K, IS ) = CMZERO
@@ -166,7 +166,7 @@
 
                II = IZAMAX( N, VR( 1, KI ), 1 )
                REMAX = ONE / CABS1( VR( II, KI ) )
-               CALL ZDSCAL( N, REMAX, VR( 1, KI ), 1 )
+               zdscal(N, REMAX, VR( 1, KI ), 1 );
             }
 
             // Set back the original diagonal elements of T.
@@ -208,18 +208,18 @@
   100       CONTINUE
 
             if ( KI.LT.N ) {
-               CALL ZLATRS( 'Upper', 'Conjugate transpose', 'Non-unit', 'Y', N-KI, T( KI+1, KI+1 ), LDT, WORK( KI+1 ), SCALE, RWORK, INFO )
+               zlatrs('Upper', 'Conjugate transpose', 'Non-unit', 'Y', N-KI, T( KI+1, KI+1 ), LDT, WORK( KI+1 ), SCALE, RWORK, INFO );
                WORK( KI ) = SCALE
             }
 
             // Copy the vector x or Q*x to VL and normalize.
 
             if ( .NOT.OVER ) {
-               CALL ZCOPY( N-KI+1, WORK( KI ), 1, VL( KI, IS ), 1 )
+               zcopy(N-KI+1, WORK( KI ), 1, VL( KI, IS ), 1 );
 
                II = IZAMAX( N-KI+1, VL( KI, IS ), 1 ) + KI - 1
                REMAX = ONE / CABS1( VL( II, IS ) )
-               CALL ZDSCAL( N-KI+1, REMAX, VL( KI, IS ), 1 )
+               zdscal(N-KI+1, REMAX, VL( KI, IS ), 1 );
 
                DO 110 K = 1, KI - 1
                   VL( K, IS ) = CMZERO
@@ -229,7 +229,7 @@
 
                II = IZAMAX( N, VL( 1, KI ), 1 )
                REMAX = ONE / CABS1( VL( II, KI ) )
-               CALL ZDSCAL( N, REMAX, VL( 1, KI ), 1 )
+               zdscal(N, REMAX, VL( 1, KI ), 1 );
             }
 
             // Set back the original diagonal elements of T.

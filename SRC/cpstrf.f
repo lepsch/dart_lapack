@@ -55,7 +55,7 @@
          INFO = -4
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'CPSTRF', -INFO )
+         xerbla('CPSTRF', -INFO );
          RETURN
       }
 
@@ -70,7 +70,7 @@
 
          // Use unblocked code
 
-         CALL CPSTF2( UPLO, N, A( 1, 1 ), LDA, PIV, RANK, TOL, WORK, INFO )
+         cpstf2(UPLO, N, A( 1, 1 ), LDA, PIV, RANK, TOL, WORK, INFO );
          GO TO 230
 
       } else {
@@ -150,7 +150,7 @@
                      // Pivot OK, so can now swap pivot rows and columns
 
                      A( PVT, PVT ) = A( J, J )
-                     CALL CSWAP( J-1, A( 1, J ), 1, A( 1, PVT ), 1 )
+                     cswap(J-1, A( 1, J ), 1, A( 1, PVT ), 1 );
                      IF( PVT.LT.N ) CALL CSWAP( N-PVT, A( J, PVT+1 ), LDA, A( PVT, PVT+1 ), LDA )
                      DO 140 I = J + 1, PVT - 1
                         CTEMP = CONJG( A( J, I ) )
@@ -175,10 +175,10 @@
                   // Compute elements J+1:N of row J.
 
                   if ( J.LT.N ) {
-                     CALL CLACGV( J-1, A( 1, J ), 1 )
-                     CALL CGEMV( 'Trans', J-K, N-J, -CONE, A( K, J+1 ), LDA, A( K, J ), 1, CONE, A( J, J+1 ), LDA )
-                     CALL CLACGV( J-1, A( 1, J ), 1 )
-                     CALL CSSCAL( N-J, ONE / AJJ, A( J, J+1 ), LDA )
+                     clacgv(J-1, A( 1, J ), 1 );
+                     cgemv('Trans', J-K, N-J, -CONE, A( K, J+1 ), LDA, A( K, J ), 1, CONE, A( J, J+1 ), LDA );
+                     clacgv(J-1, A( 1, J ), 1 );
+                     csscal(N-J, ONE / AJJ, A( J, J+1 ), LDA );
                   }
 
   150          CONTINUE
@@ -186,7 +186,7 @@
                // Update trailing matrix, J already incremented
 
                if ( K+JB.LE.N ) {
-                  CALL CHERK( 'Upper', 'Conj Trans', N-J+1, JB, -ONE, A( K, J ), LDA, ONE, A( J, J ), LDA )
+                  cherk('Upper', 'Conj Trans', N-J+1, JB, -ONE, A( K, J ), LDA, ONE, A( J, J ), LDA );
                }
 
   160       CONTINUE
@@ -238,7 +238,7 @@
                      // Pivot OK, so can now swap pivot rows and columns
 
                      A( PVT, PVT ) = A( J, J )
-                     CALL CSWAP( J-1, A( J, 1 ), LDA, A( PVT, 1 ), LDA )
+                     cswap(J-1, A( J, 1 ), LDA, A( PVT, 1 ), LDA );
                      IF( PVT.LT.N ) CALL CSWAP( N-PVT, A( PVT+1, J ), 1, A( PVT+1, PVT ), 1 )
                      DO 190 I = J + 1, PVT - 1
                         CTEMP = CONJG( A( I, J ) )
@@ -263,10 +263,10 @@
                   // Compute elements J+1:N of column J.
 
                   if ( J.LT.N ) {
-                     CALL CLACGV( J-1, A( J, 1 ), LDA )
-                     CALL CGEMV( 'No Trans', N-J, J-K, -CONE, A( J+1, K ), LDA, A( J, K ), LDA, CONE, A( J+1, J ), 1 )
-                     CALL CLACGV( J-1, A( J, 1 ), LDA )
-                     CALL CSSCAL( N-J, ONE / AJJ, A( J+1, J ), 1 )
+                     clacgv(J-1, A( J, 1 ), LDA );
+                     cgemv('No Trans', N-J, J-K, -CONE, A( J+1, K ), LDA, A( J, K ), LDA, CONE, A( J+1, J ), 1 );
+                     clacgv(J-1, A( J, 1 ), LDA );
+                     csscal(N-J, ONE / AJJ, A( J+1, J ), 1 );
                   }
 
   200          CONTINUE
@@ -274,7 +274,7 @@
                // Update trailing matrix, J already incremented
 
                if ( K+JB.LE.N ) {
-                  CALL CHERK( 'Lower', 'No Trans', N-J+1, JB, -ONE, A( J, K ), LDA, ONE, A( J, J ), LDA )
+                  cherk('Lower', 'No Trans', N-J+1, JB, -ONE, A( J, K ), LDA, ONE, A( J, J ), LDA );
                }
 
   210       CONTINUE

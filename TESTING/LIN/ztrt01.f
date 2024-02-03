@@ -69,11 +69,11 @@
 
       if ( LSAME( UPLO, 'U' ) ) {
          DO 20 J = 1, N
-            CALL ZTRMV( 'Upper', 'No transpose', DIAG, J, A, LDA, AINV( 1, J ), 1 )
+            ztrmv('Upper', 'No transpose', DIAG, J, A, LDA, AINV( 1, J ), 1 );
    20    CONTINUE
       } else {
          DO 30 J = 1, N
-            CALL ZTRMV( 'Lower', 'No transpose', DIAG, N-J+1, A( J, J ), LDA, AINV( J, J ), 1 )
+            ztrmv('Lower', 'No transpose', DIAG, N-J+1, A( J, J ), LDA, AINV( J, J ), 1 );
    30    CONTINUE
       }
 

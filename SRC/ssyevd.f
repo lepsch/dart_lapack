@@ -84,7 +84,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'SSYEVD', -INFO )
+         xerbla('SSYEVD', -INFO );
          RETURN
       } else if ( LQUERY ) {
          RETURN
@@ -131,7 +131,7 @@
       INDWK2 = INDWRK + N*N
       LLWRK2 = LWORK - INDWK2 + 1
 
-      CALL SSYTRD( UPLO, N, A, LDA, W, WORK( INDE ), WORK( INDTAU ), WORK( INDWRK ), LLWORK, IINFO )
+      ssytrd(UPLO, N, A, LDA, W, WORK( INDE ), WORK( INDTAU ), WORK( INDWRK ), LLWORK, IINFO );
 
       // For eigenvalues only, call SSTERF.  For eigenvectors, first call
       // SSTEDC to generate the eigenvector matrix, WORK(INDWRK), of the
@@ -139,10 +139,10 @@
       // Householder transformations stored in A.
 
       if ( .NOT.WANTZ ) {
-         CALL SSTERF( N, W, WORK( INDE ), INFO )
+         ssterf(N, W, WORK( INDE ), INFO );
       } else {
-         CALL SSTEDC( 'I', N, W, WORK( INDE ), WORK( INDWRK ), N, WORK( INDWK2 ), LLWRK2, IWORK, LIWORK, INFO )          CALL SORMTR( 'L', UPLO, 'N', N, N, A, LDA, WORK( INDTAU ), WORK( INDWRK ), N, WORK( INDWK2 ), LLWRK2, IINFO )
-         CALL SLACPY( 'A', N, N, WORK( INDWRK ), N, A, LDA )
+         sstedc('I', N, W, WORK( INDE ), WORK( INDWRK ), N, WORK( INDWK2 ), LLWRK2, IWORK, LIWORK, INFO )          CALL SORMTR( 'L', UPLO, 'N', N, N, A, LDA, WORK( INDTAU ), WORK( INDWRK ), N, WORK( INDWK2 ), LLWRK2, IINFO );
+         slacpy('A', N, N, WORK( INDWRK ), N, A, LDA );
       }
 
       // If matrix was scaled, then rescale eigenvalues appropriately.

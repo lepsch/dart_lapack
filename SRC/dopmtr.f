@@ -63,7 +63,7 @@
          INFO = -9
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'DOPMTR', -INFO )
+         xerbla('DOPMTR', -INFO );
          RETURN
       }
 
@@ -112,7 +112,7 @@
 
             AII = AP( II )
             AP( II ) = ONE
-            CALL DLARF( SIDE, MI, NI, AP( II-I+1 ), 1, TAU( I ), C, LDC, WORK )
+            dlarf(SIDE, MI, NI, AP( II-I+1 ), 1, TAU( I ), C, LDC, WORK );
             AP( II ) = AII
 
             if ( FORWRD ) {
@@ -166,7 +166,7 @@
 
             // Apply H(i)
 
-            CALL DLARF( SIDE, MI, NI, AP( II ), 1, TAU( I ), C( IC, JC ), LDC, WORK )
+            dlarf(SIDE, MI, NI, AP( II ), 1, TAU( I ), C( IC, JC ), LDC, WORK );
             AP( II ) = AII
 
             if ( FORWRD ) {

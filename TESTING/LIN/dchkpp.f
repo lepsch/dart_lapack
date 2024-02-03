@@ -107,15 +107,15 @@
                // Set up parameters with DLATB4 and generate a test matrix
                // with DLATMS.
 
-               CALL DLATB4( PATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST )
+               dlatb4(PATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST );
 
                SRNAMT = 'DLATMS'
-               CALL DLATMS( N, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KL, KU, PACKIT, A, LDA, WORK, INFO )
+               dlatms(N, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KL, KU, PACKIT, A, LDA, WORK, INFO );
 
                // Check error code from DLATMS.
 
                if ( INFO.NE.0 ) {
-                  CALL ALAERH( PATH, 'DLATMS', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT )
+                  alaerh(PATH, 'DLATMS', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
                   GO TO 90
                }
 
@@ -161,14 +161,14 @@
                // Compute the L*L' or U'*U factorization of the matrix.
 
                NPP = N*( N+1 ) / 2
-               CALL DCOPY( NPP, A, 1, AFAC, 1 )
+               dcopy(NPP, A, 1, AFAC, 1 );
                SRNAMT = 'DPPTRF'
-               CALL DPPTRF( UPLO, N, AFAC, INFO )
+               dpptrf(UPLO, N, AFAC, INFO );
 
                // Check error code from DPPTRF.
 
                if ( INFO.NE.IZERO ) {
-                  CALL ALAERH( PATH, 'DPPTRF', INFO, IZERO, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT )
+                  alaerh(PATH, 'DPPTRF', INFO, IZERO, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
                   GO TO 90
                }
 
@@ -179,21 +179,21 @@
 *+    TEST 1
                // Reconstruct matrix from factors and compute residual.
 
-               CALL DCOPY( NPP, AFAC, 1, AINV, 1 )
-               CALL DPPT01( UPLO, N, A, AINV, RWORK, RESULT( 1 ) )
+               dcopy(NPP, AFAC, 1, AINV, 1 );
+               dppt01(UPLO, N, A, AINV, RWORK, RESULT( 1 ) );
 
 *+    TEST 2
                // Form the inverse and compute the residual.
 
-               CALL DCOPY( NPP, AFAC, 1, AINV, 1 )
+               dcopy(NPP, AFAC, 1, AINV, 1 );
                SRNAMT = 'DPPTRI'
-               CALL DPPTRI( UPLO, N, AINV, INFO )
+               dpptri(UPLO, N, AINV, INFO );
 
                // Check error code from DPPTRI.
 
                IF( INFO.NE.0 ) CALL ALAERH( PATH, 'DPPTRI', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT )
 
-               CALL DPPT03( UPLO, N, A, AINV, WORK, LDA, RWORK, RCONDC, RESULT( 2 ) )
+               dppt03(UPLO, N, A, AINV, WORK, LDA, RWORK, RCONDC, RESULT( 2 ) );
 
                // Print information about the tests that did not pass
                // the threshold.
@@ -213,35 +213,35 @@
                // Solve and compute residual for  A * X = B.
 
                   SRNAMT = 'DLARHS'
-                  CALL DLARHS( PATH, XTYPE, UPLO, ' ', N, N, KL, KU, NRHS, A, LDA, XACT, LDA, B, LDA, ISEED, INFO )
-                  CALL DLACPY( 'Full', N, NRHS, B, LDA, X, LDA )
+                  dlarhs(PATH, XTYPE, UPLO, ' ', N, N, KL, KU, NRHS, A, LDA, XACT, LDA, B, LDA, ISEED, INFO );
+                  dlacpy('Full', N, NRHS, B, LDA, X, LDA );
 
                   SRNAMT = 'DPPTRS'
-                  CALL DPPTRS( UPLO, N, NRHS, AFAC, X, LDA, INFO )
+                  dpptrs(UPLO, N, NRHS, AFAC, X, LDA, INFO );
 
                // Check error code from DPPTRS.
 
                   IF( INFO.NE.0 ) CALL ALAERH( PATH, 'DPPTRS', INFO, 0, UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT )
 
-                  CALL DLACPY( 'Full', N, NRHS, B, LDA, WORK, LDA )
-                  CALL DPPT02( UPLO, N, NRHS, A, X, LDA, WORK, LDA, RWORK, RESULT( 3 ) )
+                  dlacpy('Full', N, NRHS, B, LDA, WORK, LDA );
+                  dppt02(UPLO, N, NRHS, A, X, LDA, WORK, LDA, RWORK, RESULT( 3 ) );
 
 *+    TEST 4
                // Check solution from generated exact solution.
 
-                  CALL DGET04( N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 4 ) )
+                  dget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 4 ) );
 
 *+    TESTS 5, 6, and 7
                // Use iterative refinement to improve the solution.
 
                   SRNAMT = 'DPPRFS'
-                  CALL DPPRFS( UPLO, N, NRHS, A, AFAC, B, LDA, X, LDA, RWORK, RWORK( NRHS+1 ), WORK, IWORK, INFO )
+                  dpprfs(UPLO, N, NRHS, A, AFAC, B, LDA, X, LDA, RWORK, RWORK( NRHS+1 ), WORK, IWORK, INFO );
 
                // Check error code from DPPRFS.
 
                   IF( INFO.NE.0 ) CALL ALAERH( PATH, 'DPPRFS', INFO, 0, UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT )
 
-                  CALL DGET04( N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 5 ) )                   CALL DPPT05( UPLO, N, NRHS, A, B, LDA, X, LDA, XACT, LDA, RWORK, RWORK( NRHS+1 ), RESULT( 6 ) )
+                  dget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 5 ) )                   CALL DPPT05( UPLO, N, NRHS, A, B, LDA, X, LDA, XACT, LDA, RWORK, RWORK( NRHS+1 ), RESULT( 6 ) );
 
                   // Print information about the tests that did not pass
                   // the threshold.
@@ -260,7 +260,7 @@
 
                ANORM = DLANSP( '1', UPLO, N, A, RWORK )
                SRNAMT = 'DPPCON'
-               CALL DPPCON( UPLO, N, AFAC, ANORM, RCOND, WORK, IWORK, INFO )
+               dppcon(UPLO, N, AFAC, ANORM, RCOND, WORK, IWORK, INFO );
 
                // Check error code from DPPCON.
 
@@ -281,7 +281,7 @@
 
       // Print a summary of the results.
 
-      CALL ALASUM( PATH, NOUT, NFAIL, NRUN, NERRS )
+      alasum(PATH, NOUT, NFAIL, NRUN, NERRS );
 
  9999 FORMAT( ' UPLO = ''', A1, ''', N =', I5, ', type ', I2, ', test ', I2, ', ratio =', G12.5 )
  9998 FORMAT( ' UPLO = ''', A1, ''', N =', I5, ', NRHS=', I3, ', type ', I2, ', test(', I2, ') =', G12.5 )

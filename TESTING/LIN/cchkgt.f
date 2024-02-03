@@ -95,7 +95,7 @@
 
             // Set up parameters with CLATB4.
 
-            CALL CLATB4( PATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, COND, DIST )
+            clatb4(PATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, COND, DIST );
 
             ZEROT = IMAT.GE.8 .AND. IMAT.LE.10
             if ( IMAT.LE.6 ) {
@@ -104,21 +104,21 @@
 
                KOFF = MAX( 2-KU, 3-MAX( 1, N ) )
                SRNAMT = 'CLATMS'
-               CALL CLATMS( N, N, DIST, ISEED, TYPE, RWORK, MODE, COND, ANORM, KL, KU, 'Z', AF( KOFF ), 3, WORK, INFO )
+               clatms(N, N, DIST, ISEED, TYPE, RWORK, MODE, COND, ANORM, KL, KU, 'Z', AF( KOFF ), 3, WORK, INFO );
 
                // Check the error code from CLATMS.
 
                if ( INFO.NE.0 ) {
-                  CALL ALAERH( PATH, 'CLATMS', INFO, 0, ' ', N, N, KL, KU, -1, IMAT, NFAIL, NERRS, NOUT )
+                  alaerh(PATH, 'CLATMS', INFO, 0, ' ', N, N, KL, KU, -1, IMAT, NFAIL, NERRS, NOUT );
                   GO TO 100
                }
                IZERO = 0
 
                if ( N.GT.1 ) {
-                  CALL CCOPY( N-1, AF( 4 ), 3, A, 1 )
-                  CALL CCOPY( N-1, AF( 3 ), 3, A( N+M+1 ), 1 )
+                  ccopy(N-1, AF( 4 ), 3, A, 1 );
+                  ccopy(N-1, AF( 3 ), 3, A( N+M+1 ), 1 );
                }
-               CALL CCOPY( N, AF( 2 ), 3, A( M+1 ), 1 )
+               ccopy(N, AF( 2 ), 3, A( M+1 ), 1 );
             } else {
 
                // Types 7-12:  generate tridiagonal matrices with
@@ -129,7 +129,7 @@
                   // Generate a matrix with elements whose real and
                   // imaginary parts are from [-1,1].
 
-                  CALL CLARNV( 2, ISEED, N+2*M, A )
+                  clarnv(2, ISEED, N+2*M, A );
                   IF( ANORM.NE.ONE ) CALL CSSCAL( N+2*M, ANORM, A, 1 )
                } else if ( IZERO.GT.0 ) {
 
@@ -183,16 +183,16 @@
             // Factor A as L*U and compute the ratio
                // norm(L*U - A) / (n * norm(A) * EPS )
 
-            CALL CCOPY( N+2*M, A, 1, AF, 1 )
+            ccopy(N+2*M, A, 1, AF, 1 );
             SRNAMT = 'CGTTRF'
-            CALL CGTTRF( N, AF, AF( M+1 ), AF( N+M+1 ), AF( N+2*M+1 ), IWORK, INFO )
+            cgttrf(N, AF, AF( M+1 ), AF( N+M+1 ), AF( N+2*M+1 ), IWORK, INFO );
 
             // Check error code from CGTTRF.
 
             IF( INFO.NE.IZERO ) CALL ALAERH( PATH, 'CGTTRF', INFO, IZERO, ' ', N, N, 1, 1, -1, IMAT, NFAIL, NERRS, NOUT )
             TRFCON = INFO.NE.0
 
-            CALL CGTT01( N, A, A( M+1 ), A( N+M+1 ), AF, AF( M+1 ), AF( N+M+1 ), AF( N+2*M+1 ), IWORK, WORK, LDA, RWORK, RESULT( 1 ) )
+            cgtt01(N, A, A( M+1 ), A( N+M+1 ), AF, AF( M+1 ), AF( N+M+1 ), AF( N+2*M+1 ), IWORK, WORK, LDA, RWORK, RESULT( 1 ) );
 
             // Print the test ratio if it is .GE. THRESH.
 
@@ -223,7 +223,7 @@
                         X( J ) = ZERO
    30                CONTINUE
                      X( I ) = ONE
-                     CALL CGTTRS( TRANS, N, 1, AF, AF( M+1 ), AF( N+M+1 ), AF( N+2*M+1 ), IWORK, X, LDA, INFO )
+                     cgttrs(TRANS, N, 1, AF, AF( M+1 ), AF( N+M+1 ), AF( N+2*M+1 ), IWORK, X, LDA, INFO );
                      AINVNM = MAX( AINVNM, SCASUM( N, X, 1 ) )
    40             CONTINUE
 
@@ -248,7 +248,7 @@
                // matrix.
 
                SRNAMT = 'CGTCON'
-               CALL CGTCON( NORM, N, AF, AF( M+1 ), AF( N+M+1 ), AF( N+2*M+1 ), IWORK, ANORM, RCOND, WORK, INFO )
+               cgtcon(NORM, N, AF, AF( M+1 ), AF( N+M+1 ), AF( N+2*M+1 ), IWORK, ANORM, RCOND, WORK, INFO );
 
                // Check error code from CGTCON.
 
@@ -276,7 +276,7 @@
 
                IX = 1
                DO 60 J = 1, NRHS
-                  CALL CLARNV( 2, ISEED, N, XACT( IX ) )
+                  clarnv(2, ISEED, N, XACT( IX ) );
                   IX = IX + LDA
    60          CONTINUE
 
@@ -290,38 +290,38 @@
 
                   // Set the right hand side.
 
-                  CALL CLAGTM( TRANS, N, NRHS, ONE, A, A( M+1 ), A( N+M+1 ), XACT, LDA, ZERO, B, LDA )
+                  clagtm(TRANS, N, NRHS, ONE, A, A( M+1 ), A( N+M+1 ), XACT, LDA, ZERO, B, LDA );
 
 *+    TEST 2
                // Solve op(A) * X = B and compute the residual.
 
-                  CALL CLACPY( 'Full', N, NRHS, B, LDA, X, LDA )
+                  clacpy('Full', N, NRHS, B, LDA, X, LDA );
                   SRNAMT = 'CGTTRS'
-                  CALL CGTTRS( TRANS, N, NRHS, AF, AF( M+1 ), AF( N+M+1 ), AF( N+2*M+1 ), IWORK, X, LDA, INFO )
+                  cgttrs(TRANS, N, NRHS, AF, AF( M+1 ), AF( N+M+1 ), AF( N+2*M+1 ), IWORK, X, LDA, INFO );
 
                // Check error code from CGTTRS.
 
                   IF( INFO.NE.0 ) CALL ALAERH( PATH, 'CGTTRS', INFO, 0, TRANS, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT )
 
-                  CALL CLACPY( 'Full', N, NRHS, B, LDA, WORK, LDA )
-                  CALL CGTT02( TRANS, N, NRHS, A, A( M+1 ), A( N+M+1 ), X, LDA, WORK, LDA, RESULT( 2 ) )
+                  clacpy('Full', N, NRHS, B, LDA, WORK, LDA );
+                  cgtt02(TRANS, N, NRHS, A, A( M+1 ), A( N+M+1 ), X, LDA, WORK, LDA, RESULT( 2 ) );
 
 *+    TEST 3
                // Check solution from generated exact solution.
 
-                  CALL CGET04( N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 3 ) )
+                  cget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 3 ) );
 
 *+    TESTS 4, 5, and 6
                // Use iterative refinement to improve the solution.
 
                   SRNAMT = 'CGTRFS'
-                  CALL CGTRFS( TRANS, N, NRHS, A, A( M+1 ), A( N+M+1 ), AF, AF( M+1 ), AF( N+M+1 ), AF( N+2*M+1 ), IWORK, B, LDA, X, LDA, RWORK, RWORK( NRHS+1 ), WORK, RWORK( 2*NRHS+1 ), INFO )
+                  cgtrfs(TRANS, N, NRHS, A, A( M+1 ), A( N+M+1 ), AF, AF( M+1 ), AF( N+M+1 ), AF( N+2*M+1 ), IWORK, B, LDA, X, LDA, RWORK, RWORK( NRHS+1 ), WORK, RWORK( 2*NRHS+1 ), INFO );
 
                // Check error code from CGTRFS.
 
                   IF( INFO.NE.0 ) CALL ALAERH( PATH, 'CGTRFS', INFO, 0, TRANS, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT )
 
-                  CALL CGET04( N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 4 ) )                   CALL CGTT05( TRANS, N, NRHS, A, A( M+1 ), A( N+M+1 ), B, LDA, X, LDA, XACT, LDA, RWORK, RWORK( NRHS+1 ), RESULT( 5 ) )
+                  cget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 4 ) )                   CALL CGTT05( TRANS, N, NRHS, A, A( M+1 ), A( N+M+1 ), B, LDA, X, LDA, XACT, LDA, RWORK, RWORK( NRHS+1 ), RESULT( 5 ) );
 
                // Print information about the tests that did not pass the
                // threshold.
@@ -340,7 +340,7 @@
 
       // Print a summary of the results.
 
-      CALL ALASUM( PATH, NOUT, NFAIL, NRUN, NERRS )
+      alasum(PATH, NOUT, NFAIL, NRUN, NERRS );
 
  9999 FORMAT( 12X, 'N =', I5, ',', 10X, ' type ', I2, ', test(', I2, ') = ', G12.5 )
  9998 FORMAT( ' TRANS=''', A1, ''', N =', I5, ', NRHS=', I3, ', type ', I2, ', test(', I2, ') = ', G12.5 )

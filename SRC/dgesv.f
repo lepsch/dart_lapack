@@ -35,18 +35,18 @@
          INFO = -7
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'DGESV ', -INFO )
+         xerbla('DGESV ', -INFO );
          RETURN
       }
 
       // Compute the LU factorization of A.
 
-      CALL DGETRF( N, N, A, LDA, IPIV, INFO )
+      dgetrf(N, N, A, LDA, IPIV, INFO );
       if ( INFO.EQ.0 ) {
 
          // Solve the system A*X = B, overwriting B with X.
 
-         CALL DGETRS( 'No transpose', N, NRHS, A, LDA, IPIV, B, LDB, INFO )
+         dgetrs('No transpose', N, NRHS, A, LDA, IPIV, B, LDB, INFO );
       }
       RETURN
 

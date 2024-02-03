@@ -68,7 +68,7 @@
 
             // Form the j-th column of A*AINV.
 
-            CALL CTPMV( 'Upper', 'No transpose', DIAG, J, AP, AINVP( JC ), 1 )
+            ctpmv('Upper', 'No transpose', DIAG, J, AP, AINVP( JC ), 1 );
 
             // Subtract 1 from the diagonal to form A*AINV - I.
 
@@ -82,7 +82,7 @@
 
             // Form the j-th column of A*AINV.
 
-            CALL CTPMV( 'Lower', 'No transpose', DIAG, N-J+1, AP( JC ), AINVP( JC ), 1 )
+            ctpmv('Lower', 'No transpose', DIAG, N-J+1, AP( JC ), AINVP( JC ), 1 );
 
             // Subtract 1 from the diagonal to form A*AINV - I.
 

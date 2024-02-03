@@ -35,9 +35,9 @@
       // Determine required workspace
       IFST = 1
       ILST = JW
-      CALL STGEXC( .TRUE., .TRUE., JW, A, LDA, B, LDB, QC, LDQC, ZC, LDZC, IFST, ILST, WORK, -1, STGEXC_INFO )
+      stgexc(.TRUE., .TRUE., JW, A, LDA, B, LDB, QC, LDQC, ZC, LDZC, IFST, ILST, WORK, -1, STGEXC_INFO );
       LWORKREQ = INT( WORK( 1 ) )
-      CALL SLAQZ0( 'S', 'V', 'V', JW, 1, JW, A( KWTOP, KWTOP ), LDA, B( KWTOP, KWTOP ), LDB, ALPHAR, ALPHAI, BETA, QC, LDQC, ZC, LDZC, WORK, -1, REC+1, QZ_SMALL_INFO )
+      slaqz0('S', 'V', 'V', JW, 1, JW, A( KWTOP, KWTOP ), LDA, B( KWTOP, KWTOP ), LDB, ALPHAR, ALPHAI, BETA, QC, LDQC, ZC, LDZC, WORK, -1, REC+1, QZ_SMALL_INFO );
       LWORKREQ = MAX( LWORKREQ, INT( WORK( 1 ) )+2*JW**2 )
       LWORKREQ = MAX( LWORKREQ, N*NW, 2*NW**2+N )
       if ( LWORK .EQ.-1 ) {
@@ -49,7 +49,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'SLAQZ3', -INFO )
+         xerbla('SLAQZ3', -INFO );
          RETURN
       }
 
@@ -77,20 +77,20 @@
 
 
       // Store window in case of convergence failure
-      CALL SLACPY( 'ALL', JW, JW, A( KWTOP, KWTOP ), LDA, WORK, JW )
-      CALL SLACPY( 'ALL', JW, JW, B( KWTOP, KWTOP ), LDB, WORK( JW**2+ 1 ), JW )
+      slacpy('ALL', JW, JW, A( KWTOP, KWTOP ), LDA, WORK, JW );
+      slacpy('ALL', JW, JW, B( KWTOP, KWTOP ), LDB, WORK( JW**2+ 1 ), JW );
 
       // Transform window to real schur form
-      CALL SLASET( 'FULL', JW, JW, ZERO, ONE, QC, LDQC )
-      CALL SLASET( 'FULL', JW, JW, ZERO, ONE, ZC, LDZC )
-      CALL SLAQZ0( 'S', 'V', 'V', JW, 1, JW, A( KWTOP, KWTOP ), LDA, B( KWTOP, KWTOP ), LDB, ALPHAR, ALPHAI, BETA, QC, LDQC, ZC, LDZC, WORK( 2*JW**2+1 ), LWORK-2*JW**2, REC+1, QZ_SMALL_INFO )
+      slaset('FULL', JW, JW, ZERO, ONE, QC, LDQC );
+      slaset('FULL', JW, JW, ZERO, ONE, ZC, LDZC );
+      slaqz0('S', 'V', 'V', JW, 1, JW, A( KWTOP, KWTOP ), LDA, B( KWTOP, KWTOP ), LDB, ALPHAR, ALPHAI, BETA, QC, LDQC, ZC, LDZC, WORK( 2*JW**2+1 ), LWORK-2*JW**2, REC+1, QZ_SMALL_INFO );
 
       if ( QZ_SMALL_INFO .NE. 0 ) {
          // Convergence failure, restore the window and exit
          ND = 0
          NS = JW-QZ_SMALL_INFO
-         CALL SLACPY( 'ALL', JW, JW, WORK, JW, A( KWTOP, KWTOP ), LDA )
-         CALL SLACPY( 'ALL', JW, JW, WORK( JW**2+1 ), JW, B( KWTOP, KWTOP ), LDB )
+         slacpy('ALL', JW, JW, WORK, JW, A( KWTOP, KWTOP ), LDA );
+         slacpy('ALL', JW, JW, WORK( JW**2+1 ), JW, B( KWTOP, KWTOP ), LDB );
          RETURN
       }
 
@@ -120,7 +120,7 @@
                   // Not deflatable, move out of the way
                   IFST = KWBOT-KWTOP+1
                   ILST = K2
-                  CALL STGEXC( .TRUE., .TRUE., JW, A( KWTOP, KWTOP ), LDA, B( KWTOP, KWTOP ), LDB, QC, LDQC, ZC, LDZC, IFST, ILST, WORK, LWORK, STGEXC_INFO )
+                  stgexc(.TRUE., .TRUE., JW, A( KWTOP, KWTOP ), LDA, B( KWTOP, KWTOP ), LDB, QC, LDQC, ZC, LDZC, IFST, ILST, WORK, LWORK, STGEXC_INFO );
                   K2 = K2+2
                }
                K = K+2
@@ -138,7 +138,7 @@
                   // Not deflatable, move out of the way
                   IFST = KWBOT-KWTOP+1
                   ILST = K2
-                  CALL STGEXC( .TRUE., .TRUE., JW, A( KWTOP, KWTOP ), LDA, B( KWTOP, KWTOP ), LDB, QC, LDQC, ZC, LDZC, IFST, ILST, WORK, LWORK, STGEXC_INFO )
+                  stgexc(.TRUE., .TRUE., JW, A( KWTOP, KWTOP ), LDA, B( KWTOP, KWTOP ), LDB, QC, LDQC, ZC, LDZC, IFST, ILST, WORK, LWORK, STGEXC_INFO );
                   K2 = K2+1
                }
 
@@ -161,7 +161,7 @@
          }
          if ( BULGE ) {
             // 2x2 eigenvalue block
-            CALL SLAG2( A( K, K ), LDA, B( K, K ), LDB, SAFMIN, BETA( K ), BETA( K+1 ), ALPHAR( K ), ALPHAR( K+1 ), ALPHAI( K ) )
+            slag2(A( K, K ), LDA, B( K, K ), LDB, SAFMIN, BETA( K ), BETA( K+1 ), ALPHAR( K ), ALPHAR( K+1 ), ALPHAI( K ) );
             ALPHAI( K+1 ) = -ALPHAI( K )
             K = K+2
          } else {
@@ -177,11 +177,11 @@
          // Reflect spike back, this will create optimally packed bulges
          A( KWTOP:KWBOT, KWTOP-1 ) = A( KWTOP, KWTOP-1 )*QC( 1, 1:JW-ND )
          DO K = KWBOT-1, KWTOP, -1
-            CALL SLARTG( A( K, KWTOP-1 ), A( K+1, KWTOP-1 ), C1, S1, TEMP )
+            slartg(A( K, KWTOP-1 ), A( K+1, KWTOP-1 ), C1, S1, TEMP );
             A( K, KWTOP-1 ) = TEMP
             A( K+1, KWTOP-1 ) = ZERO
             K2 = MAX( KWTOP, K-1 )
-            CALL SROT( IHI-K2+1, A( K, K2 ), LDA, A( K+1, K2 ), LDA, C1, S1 )             CALL SROT( IHI-( K-1 )+1, B( K, K-1 ), LDB, B( K+1, K-1 ), LDB, C1, S1 )             CALL SROT( JW, QC( 1, K-KWTOP+1 ), 1, QC( 1, K+1-KWTOP+1 ), 1, C1, S1 )
+            srot(IHI-K2+1, A( K, K2 ), LDA, A( K+1, K2 ), LDA, C1, S1 )             CALL SROT( IHI-( K-1 )+1, B( K, K-1 ), LDB, B( K+1, K-1 ), LDB, C1, S1 )             CALL SROT( JW, QC( 1, K-KWTOP+1 ), 1, QC( 1, K+1-KWTOP+1 ), 1, C1, S1 );
          END DO
 
          // Chase bulges down
@@ -193,7 +193,7 @@
 
                // Move double pole block down and remove it
                DO K2 = K-1, KWBOT-2
-                  CALL SLAQZ2( .TRUE., .TRUE., K2, KWTOP, KWTOP+JW-1, KWBOT, A, LDA, B, LDB, JW, KWTOP, QC, LDQC, JW, KWTOP, ZC, LDZC )
+                  slaqz2(.TRUE., .TRUE., K2, KWTOP, KWTOP+JW-1, KWBOT, A, LDA, B, LDB, JW, KWTOP, QC, LDQC, JW, KWTOP, ZC, LDZC );
                END DO
 
                K = K-2
@@ -203,23 +203,23 @@
                DO K2 = K, KWBOT-2
 
                   // Move shift down
-                  CALL SLARTG( B( K2+1, K2+1 ), B( K2+1, K2 ), C1, S1, TEMP )
+                  slartg(B( K2+1, K2+1 ), B( K2+1, K2 ), C1, S1, TEMP );
                   B( K2+1, K2+1 ) = TEMP
                   B( K2+1, K2 ) = ZERO
-                  CALL SROT( K2+2-ISTARTM+1, A( ISTARTM, K2+1 ), 1, A( ISTARTM, K2 ), 1, C1, S1 )                   CALL SROT( K2-ISTARTM+1, B( ISTARTM, K2+1 ), 1, B( ISTARTM, K2 ), 1, C1, S1 )                   CALL SROT( JW, ZC( 1, K2+1-KWTOP+1 ), 1, ZC( 1, K2-KWTOP+1 ), 1, C1, S1 )
+                  srot(K2+2-ISTARTM+1, A( ISTARTM, K2+1 ), 1, A( ISTARTM, K2 ), 1, C1, S1 )                   CALL SROT( K2-ISTARTM+1, B( ISTARTM, K2+1 ), 1, B( ISTARTM, K2 ), 1, C1, S1 )                   CALL SROT( JW, ZC( 1, K2+1-KWTOP+1 ), 1, ZC( 1, K2-KWTOP+1 ), 1, C1, S1 );
 
-                  CALL SLARTG( A( K2+1, K2 ), A( K2+2, K2 ), C1, S1, TEMP )
+                  slartg(A( K2+1, K2 ), A( K2+2, K2 ), C1, S1, TEMP );
                   A( K2+1, K2 ) = TEMP
                   A( K2+2, K2 ) = ZERO
-                  CALL SROT( ISTOPM-K2, A( K2+1, K2+1 ), LDA, A( K2+2, K2+1 ), LDA, C1, S1 )                   CALL SROT( ISTOPM-K2, B( K2+1, K2+1 ), LDB, B( K2+2, K2+1 ), LDB, C1, S1 )                   CALL SROT( JW, QC( 1, K2+1-KWTOP+1 ), 1, QC( 1, K2+2-KWTOP+1 ), 1, C1, S1 )
+                  srot(ISTOPM-K2, A( K2+1, K2+1 ), LDA, A( K2+2, K2+1 ), LDA, C1, S1 )                   CALL SROT( ISTOPM-K2, B( K2+1, K2+1 ), LDB, B( K2+2, K2+1 ), LDB, C1, S1 )                   CALL SROT( JW, QC( 1, K2+1-KWTOP+1 ), 1, QC( 1, K2+2-KWTOP+1 ), 1, C1, S1 );
 
                END DO
 
                // Remove the shift
-               CALL SLARTG( B( KWBOT, KWBOT ), B( KWBOT, KWBOT-1 ), C1, S1, TEMP )
+               slartg(B( KWBOT, KWBOT ), B( KWBOT, KWBOT-1 ), C1, S1, TEMP );
                B( KWBOT, KWBOT ) = TEMP
                B( KWBOT, KWBOT-1 ) = ZERO
-               CALL SROT( KWBOT-ISTARTM, B( ISTARTM, KWBOT ), 1, B( ISTARTM, KWBOT-1 ), 1, C1, S1 )                CALL SROT( KWBOT-ISTARTM+1, A( ISTARTM, KWBOT ), 1, A( ISTARTM, KWBOT-1 ), 1, C1, S1 )                CALL SROT( JW, ZC( 1, KWBOT-KWTOP+1 ), 1, ZC( 1, KWBOT-1-KWTOP+1 ), 1, C1, S1 )
+               srot(KWBOT-ISTARTM, B( ISTARTM, KWBOT ), 1, B( ISTARTM, KWBOT-1 ), 1, C1, S1 )                CALL SROT( KWBOT-ISTARTM+1, A( ISTARTM, KWBOT ), 1, A( ISTARTM, KWBOT-1 ), 1, C1, S1 )                CALL SROT( JW, ZC( 1, KWBOT-KWTOP+1 ), 1, ZC( 1, KWBOT-1-KWTOP+1 ), 1, C1, S1 );
 
                K = K-1
             }
@@ -237,20 +237,20 @@
       }
 
       if ( ISTOPM-IHI > 0 ) {
-         CALL SGEMM( 'T', 'N', JW, ISTOPM-IHI, JW, ONE, QC, LDQC, A( KWTOP, IHI+1 ), LDA, ZERO, WORK, JW )          CALL SLACPY( 'ALL', JW, ISTOPM-IHI, WORK, JW, A( KWTOP, IHI+1 ), LDA )          CALL SGEMM( 'T', 'N', JW, ISTOPM-IHI, JW, ONE, QC, LDQC, B( KWTOP, IHI+1 ), LDB, ZERO, WORK, JW )          CALL SLACPY( 'ALL', JW, ISTOPM-IHI, WORK, JW, B( KWTOP, IHI+1 ), LDB )
+         sgemm('T', 'N', JW, ISTOPM-IHI, JW, ONE, QC, LDQC, A( KWTOP, IHI+1 ), LDA, ZERO, WORK, JW )          CALL SLACPY( 'ALL', JW, ISTOPM-IHI, WORK, JW, A( KWTOP, IHI+1 ), LDA )          CALL SGEMM( 'T', 'N', JW, ISTOPM-IHI, JW, ONE, QC, LDQC, B( KWTOP, IHI+1 ), LDB, ZERO, WORK, JW )          CALL SLACPY( 'ALL', JW, ISTOPM-IHI, WORK, JW, B( KWTOP, IHI+1 ), LDB );
       }
       if ( ILQ ) {
-         CALL SGEMM( 'N', 'N', N, JW, JW, ONE, Q( 1, KWTOP ), LDQ, QC, LDQC, ZERO, WORK, N )
-         CALL SLACPY( 'ALL', N, JW, WORK, N, Q( 1, KWTOP ), LDQ )
+         sgemm('N', 'N', N, JW, JW, ONE, Q( 1, KWTOP ), LDQ, QC, LDQC, ZERO, WORK, N );
+         slacpy('ALL', N, JW, WORK, N, Q( 1, KWTOP ), LDQ );
       }
 
       if ( KWTOP-1-ISTARTM+1 > 0 ) {
-         CALL SGEMM( 'N', 'N', KWTOP-ISTARTM, JW, JW, ONE, A( ISTARTM, KWTOP ), LDA, ZC, LDZC, ZERO, WORK, KWTOP-ISTARTM )          CALL SLACPY( 'ALL', KWTOP-ISTARTM, JW, WORK, KWTOP-ISTARTM, A( ISTARTM, KWTOP ), LDA )          CALL SGEMM( 'N', 'N', KWTOP-ISTARTM, JW, JW, ONE, B( ISTARTM, KWTOP ), LDB, ZC, LDZC, ZERO, WORK, KWTOP-ISTARTM )
-         CALL SLACPY( 'ALL', KWTOP-ISTARTM, JW, WORK, KWTOP-ISTARTM, B( ISTARTM, KWTOP ), LDB )
+         sgemm('N', 'N', KWTOP-ISTARTM, JW, JW, ONE, A( ISTARTM, KWTOP ), LDA, ZC, LDZC, ZERO, WORK, KWTOP-ISTARTM )          CALL SLACPY( 'ALL', KWTOP-ISTARTM, JW, WORK, KWTOP-ISTARTM, A( ISTARTM, KWTOP ), LDA )          CALL SGEMM( 'N', 'N', KWTOP-ISTARTM, JW, JW, ONE, B( ISTARTM, KWTOP ), LDB, ZC, LDZC, ZERO, WORK, KWTOP-ISTARTM );
+         slacpy('ALL', KWTOP-ISTARTM, JW, WORK, KWTOP-ISTARTM, B( ISTARTM, KWTOP ), LDB );
       }
       if ( ILZ ) {
-         CALL SGEMM( 'N', 'N', N, JW, JW, ONE, Z( 1, KWTOP ), LDZ, ZC, LDZC, ZERO, WORK, N )
-         CALL SLACPY( 'ALL', N, JW, WORK, N, Z( 1, KWTOP ), LDZ )
+         sgemm('N', 'N', N, JW, JW, ONE, Z( 1, KWTOP ), LDZ, ZC, LDZC, ZERO, WORK, N );
+         slacpy('ALL', N, JW, WORK, N, Z( 1, KWTOP ), LDZ );
       }
 
       END SUBROUTINE

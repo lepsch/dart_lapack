@@ -36,7 +36,7 @@
       INFO = 0
       if ( N.LT.0 ) {
          INFO = -1
-         CALL XERBLA( 'SLASQ1', -INFO )
+         xerbla('SLASQ1', -INFO );
          RETURN
       } else if ( N.EQ.0 ) {
          RETURN
@@ -44,7 +44,7 @@
          D( 1 ) = ABS( D( 1 ) )
          RETURN
       } else if ( N.EQ.2 ) {
-         CALL SLAS2( D( 1 ), E( 1 ), D( 2 ), SIGMN, SIGMX )
+         slas2(D( 1 ), E( 1 ), D( 2 ), SIGMN, SIGMX );
          D( 1 ) = SIGMX
          D( 2 ) = SIGMN
          RETURN
@@ -62,7 +62,7 @@
       // Early return if SIGMX is zero (matrix is already diagonal).
 
       if ( SIGMX.EQ.ZERO ) {
-         CALL SLASRT( 'D', N, D, IINFO )
+         slasrt('D', N, D, IINFO );
          RETURN
       }
 
@@ -76,9 +76,9 @@
       EPS = SLAMCH( 'Precision' )
       SAFMIN = SLAMCH( 'Safe minimum' )
       SCALE = SQRT( EPS / SAFMIN )
-      CALL SCOPY( N, D, 1, WORK( 1 ), 2 )
-      CALL SCOPY( N-1, E, 1, WORK( 2 ), 2 )
-      CALL SLASCL( 'G', 0, 0, SIGMX, SCALE, 2*N-1, 1, WORK, 2*N-1, IINFO )
+      scopy(N, D, 1, WORK( 1 ), 2 );
+      scopy(N-1, E, 1, WORK( 2 ), 2 );
+      slascl('G', 0, 0, SIGMX, SCALE, 2*N-1, 1, WORK, 2*N-1, IINFO );
 
       // Compute the q's and e's.
 
@@ -87,13 +87,13 @@
    30 CONTINUE
       WORK( 2*N ) = ZERO
 
-      CALL SLASQ2( N, WORK, INFO )
+      slasq2(N, WORK, INFO );
 
       if ( INFO.EQ.0 ) {
          DO 40 I = 1, N
             D( I ) = SQRT( WORK( I ) )
    40    CONTINUE
-         CALL SLASCL( 'G', 0, 0, SCALE, SIGMX, N, 1, D, N, IINFO )
+         slascl('G', 0, 0, SCALE, SIGMX, N, 1, D, N, IINFO );
       } else if ( INFO.EQ.2 ) {
 
       // Maximum number of iterations exceeded.  Move data from WORK
@@ -103,8 +103,8 @@
             D( I ) = SQRT( WORK( 2*I-1 ) )
             E( I ) = SQRT( WORK( 2*I ) )
          END DO
-         CALL SLASCL( 'G', 0, 0, SCALE, SIGMX, N, 1, D, N, IINFO )
-         CALL SLASCL( 'G', 0, 0, SCALE, SIGMX, N, 1, E, N, IINFO )
+         slascl('G', 0, 0, SCALE, SIGMX, N, 1, D, N, IINFO );
+         slascl('G', 0, 0, SCALE, SIGMX, N, 1, E, N, IINFO );
       }
 
       RETURN

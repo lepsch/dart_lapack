@@ -101,7 +101,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'DSYEVR', -INFO )
+         xerbla('DSYEVR', -INFO );
          RETURN
       } else if ( LQUERY ) {
          RETURN
@@ -162,11 +162,11 @@
       if ( ISCALE.EQ.1 ) {
          if ( LOWER ) {
             DO 10 J = 1, N
-               CALL DSCAL( N-J+1, SIGMA, A( J, J ), 1 )
+               dscal(N-J+1, SIGMA, A( J, J ), 1 );
    10       CONTINUE
          } else {
             DO 20 J = 1, N
-               CALL DSCAL( J, SIGMA, A( 1, J ), 1 )
+               dscal(J, SIGMA, A( 1, J ), 1 );
    20       CONTINUE
          }
          IF( ABSTOL.GT.0 ) ABSTLL = ABSTOL*SIGMA
@@ -215,26 +215,26 @@
 
       // Call DSYTRD to reduce symmetric matrix to tridiagonal form.
 
-      CALL DSYTRD( UPLO, N, A, LDA, WORK( INDD ), WORK( INDE ), WORK( INDTAU ), WORK( INDWK ), LLWORK, IINFO )
+      dsytrd(UPLO, N, A, LDA, WORK( INDD ), WORK( INDE ), WORK( INDTAU ), WORK( INDWK ), LLWORK, IINFO );
 
       // If all eigenvalues are desired
       // then call DSTERF or DSTEMR and DORMTR.
 
       if ( ( ALLEIG .OR. ( INDEIG .AND. IL.EQ.1 .AND. IU.EQ.N ) ) .AND. IEEEOK.EQ.1 ) {
          if ( .NOT.WANTZ ) {
-            CALL DCOPY( N, WORK( INDD ), 1, W, 1 )
-            CALL DCOPY( N-1, WORK( INDE ), 1, WORK( INDEE ), 1 )
-            CALL DSTERF( N, W, WORK( INDEE ), INFO )
+            dcopy(N, WORK( INDD ), 1, W, 1 );
+            dcopy(N-1, WORK( INDE ), 1, WORK( INDEE ), 1 );
+            dsterf(N, W, WORK( INDEE ), INFO );
          } else {
-            CALL DCOPY( N-1, WORK( INDE ), 1, WORK( INDEE ), 1 )
-            CALL DCOPY( N, WORK( INDD ), 1, WORK( INDDD ), 1 )
+            dcopy(N-1, WORK( INDE ), 1, WORK( INDEE ), 1 );
+            dcopy(N, WORK( INDD ), 1, WORK( INDDD ), 1 );
 
             if (ABSTOL .LE. TWO*N*EPS) {
                TRYRAC = .TRUE.
             } else {
                TRYRAC = .FALSE.
             }
-            CALL DSTEMR( JOBZ, 'A', N, WORK( INDDD ), WORK( INDEE ), VL, VU, IL, IU, M, W, Z, LDZ, N, ISUPPZ, TRYRAC, WORK( INDWK ), LWORK, IWORK, LIWORK, INFO )
+            dstemr(JOBZ, 'A', N, WORK( INDDD ), WORK( INDEE ), VL, VU, IL, IU, M, W, Z, LDZ, N, ISUPPZ, TRYRAC, WORK( INDWK ), LWORK, IWORK, LIWORK, INFO );
 
 
 
@@ -244,7 +244,7 @@
             if ( WANTZ .AND. INFO.EQ.0 ) {
                INDWKN = INDE
                LLWRKN = LWORK - INDWKN + 1
-               CALL DORMTR( 'L', UPLO, 'N', N, M, A, LDA, WORK( INDTAU ), Z, LDZ, WORK( INDWKN ), LLWRKN, IINFO )
+               dormtr('L', UPLO, 'N', N, M, A, LDA, WORK( INDTAU ), Z, LDZ, WORK( INDWKN ), LLWRKN, IINFO );
             }
          }
 
@@ -266,17 +266,17 @@
       } else {
          ORDER = 'E'
       }
-       CALL DSTEBZ( RANGE, ORDER, N, VLL, VUU, IL, IU, ABSTLL, WORK( INDD ), WORK( INDE ), M, NSPLIT, W, IWORK( INDIBL ), IWORK( INDISP ), WORK( INDWK ), IWORK( INDIWO ), INFO )
+       dstebz(RANGE, ORDER, N, VLL, VUU, IL, IU, ABSTLL, WORK( INDD ), WORK( INDE ), M, NSPLIT, W, IWORK( INDIBL ), IWORK( INDISP ), WORK( INDWK ), IWORK( INDIWO ), INFO );
 
       if ( WANTZ ) {
-         CALL DSTEIN( N, WORK( INDD ), WORK( INDE ), M, W, IWORK( INDIBL ), IWORK( INDISP ), Z, LDZ, WORK( INDWK ), IWORK( INDIWO ), IWORK( INDIFL ), INFO )
+         dstein(N, WORK( INDD ), WORK( INDE ), M, W, IWORK( INDIBL ), IWORK( INDISP ), Z, LDZ, WORK( INDWK ), IWORK( INDIWO ), IWORK( INDIFL ), INFO );
 
          // Apply orthogonal matrix used in reduction to tridiagonal
          // form to eigenvectors returned by DSTEIN.
 
          INDWKN = INDE
          LLWRKN = LWORK - INDWKN + 1
-         CALL DORMTR( 'L', UPLO, 'N', N, M, A, LDA, WORK( INDTAU ), Z, LDZ, WORK( INDWKN ), LLWRKN, IINFO )
+         dormtr('L', UPLO, 'N', N, M, A, LDA, WORK( INDTAU ), Z, LDZ, WORK( INDWKN ), LLWRKN, IINFO );
       }
 
       // If matrix was scaled, then rescale eigenvalues appropriately.
@@ -289,7 +289,7 @@
          } else {
             IMAX = INFO - 1
          }
-         CALL DSCAL( IMAX, ONE / SIGMA, W, 1 )
+         dscal(IMAX, ONE / SIGMA, W, 1 );
       }
 
       // If eigenvalues are not in order, then sort them, along with
@@ -311,7 +311,7 @@
             if ( I.NE.0 ) {
                W( I ) = W( J )
                W( J ) = TMP1
-               CALL DSWAP( N, Z( 1, I ), 1, Z( 1, J ), 1 )
+               dswap(N, Z( 1, I ), 1, Z( 1, J ), 1 );
             }
    50    CONTINUE
       }

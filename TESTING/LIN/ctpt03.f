@@ -76,13 +76,13 @@
 
       RESID = ZERO
       DO 40 J = 1, NRHS
-         CALL CCOPY( N, X( 1, J ), 1, WORK, 1 )
+         ccopy(N, X( 1, J ), 1, WORK, 1 );
          IX = ICAMAX( N, WORK, 1 )
          XNORM = MAX( ONE, ABS( X( IX, J ) ) )
          XSCAL = ( ONE / XNORM ) / REAL( N )
-         CALL CSSCAL( N, XSCAL, WORK, 1 )
-         CALL CTPMV( UPLO, TRANS, DIAG, N, AP, WORK, 1 )
-         CALL CAXPY( N, CMPLX( -SCALE*XSCAL ), B( 1, J ), 1, WORK, 1 )
+         csscal(N, XSCAL, WORK, 1 );
+         ctpmv(UPLO, TRANS, DIAG, N, AP, WORK, 1 );
+         caxpy(N, CMPLX( -SCALE*XSCAL ), B( 1, J ), 1, WORK, 1 );
          IX = ICAMAX( N, WORK, 1 )
          ERR = TSCAL*ABS( WORK( IX ) )
          IX = ICAMAX( N, X( 1, J ), 1 )

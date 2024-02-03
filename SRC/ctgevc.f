@@ -96,7 +96,7 @@
          INFO = -8
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'CTGEVC', -INFO )
+         xerbla('CTGEVC', -INFO );
          RETURN
       }
 
@@ -128,7 +128,7 @@
          INFO = -13
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'CTGEVC', -INFO )
+         xerbla('CTGEVC', -INFO );
          RETURN
       }
 
@@ -290,7 +290,7 @@
                // Back transform eigenvector if HOWMNY='B'.
 
                if ( ILBACK ) {
-                  CALL CGEMV( 'N', N, N+1-JE, CONE, VL( 1, JE ), LDVL, WORK( JE ), 1, CZERO, WORK( N+1 ), 1 )
+                  cgemv('N', N, N+1-JE, CONE, VL( 1, JE ), LDVL, WORK( JE ), 1, CZERO, WORK( N+1 ), 1 );
                   ISRC = 2
                   IBEG = 1
                } else {
@@ -443,7 +443,7 @@
                // Back transform eigenvector if HOWMNY='B'.
 
                if ( ILBACK ) {
-                  CALL CGEMV( 'N', N, JE, CONE, VR, LDVR, WORK, 1, CZERO, WORK( N+1 ), 1 )
+                  cgemv('N', N, JE, CONE, VR, LDVR, WORK, 1, CZERO, WORK( N+1 ), 1 );
                   ISRC = 2
                   IEND = N
                } else {

@@ -107,7 +107,7 @@
          INFO = -19
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'DHGEQZ', -INFO )
+         xerbla('DHGEQZ', -INFO );
          RETURN
       } else if ( LQUERY ) {
          RETURN
@@ -262,9 +262,9 @@
                if ( ILAZRO .OR. ILAZR2 ) {
                   DO 40 JCH = J, ILAST - 1
                      TEMP = H( JCH, JCH )
-                     CALL DLARTG( TEMP, H( JCH+1, JCH ), C, S, H( JCH, JCH ) )
+                     dlartg(TEMP, H( JCH+1, JCH ), C, S, H( JCH, JCH ) );
                      H( JCH+1, JCH ) = ZERO
-                     CALL DROT( ILASTM-JCH, H( JCH, JCH+1 ), LDH, H( JCH+1, JCH+1 ), LDH, C, S )                      CALL DROT( ILASTM-JCH, T( JCH, JCH+1 ), LDT, T( JCH+1, JCH+1 ), LDT, C, S )                      IF( ILQ ) CALL DROT( N, Q( 1, JCH ), 1, Q( 1, JCH+1 ), 1, C, S )
+                     drot(ILASTM-JCH, H( JCH, JCH+1 ), LDH, H( JCH+1, JCH+1 ), LDH, C, S )                      CALL DROT( ILASTM-JCH, T( JCH, JCH+1 ), LDT, T( JCH+1, JCH+1 ), LDT, C, S )                      IF( ILQ ) CALL DROT( N, Q( 1, JCH ), 1, Q( 1, JCH+1 ), 1, C, S );
                      IF( ILAZR2 ) H( JCH, JCH-1 ) = H( JCH, JCH-1 )*C
                      ILAZR2 = .FALSE.
                      if ( ABS( T( JCH+1, JCH+1 ) ).GE.BTOL ) {
@@ -285,13 +285,13 @@
 
                   DO 50 JCH = J, ILAST - 1
                      TEMP = T( JCH, JCH+1 )
-                     CALL DLARTG( TEMP, T( JCH+1, JCH+1 ), C, S, T( JCH, JCH+1 ) )
+                     dlartg(TEMP, T( JCH+1, JCH+1 ), C, S, T( JCH, JCH+1 ) );
                      T( JCH+1, JCH+1 ) = ZERO
                      IF( JCH.LT.ILASTM-1 ) CALL DROT( ILASTM-JCH-1, T( JCH, JCH+2 ), LDT, T( JCH+1, JCH+2 ), LDT, C, S )                      CALL DROT( ILASTM-JCH+2, H( JCH, JCH-1 ), LDH, H( JCH+1, JCH-1 ), LDH, C, S )                      IF( ILQ ) CALL DROT( N, Q( 1, JCH ), 1, Q( 1, JCH+1 ), 1, C, S )
                      TEMP = H( JCH+1, JCH )
-                     CALL DLARTG( TEMP, H( JCH+1, JCH-1 ), C, S, H( JCH+1, JCH ) )
+                     dlartg(TEMP, H( JCH+1, JCH-1 ), C, S, H( JCH+1, JCH ) );
                      H( JCH+1, JCH-1 ) = ZERO
-                     CALL DROT( JCH+1-IFRSTM, H( IFRSTM, JCH ), 1, H( IFRSTM, JCH-1 ), 1, C, S )                      CALL DROT( JCH-IFRSTM, T( IFRSTM, JCH ), 1, T( IFRSTM, JCH-1 ), 1, C, S )                      IF( ILZ ) CALL DROT( N, Z( 1, JCH ), 1, Z( 1, JCH-1 ), 1, C, S )
+                     drot(JCH+1-IFRSTM, H( IFRSTM, JCH ), 1, H( IFRSTM, JCH-1 ), 1, C, S )                      CALL DROT( JCH-IFRSTM, T( IFRSTM, JCH ), 1, T( IFRSTM, JCH-1 ), 1, C, S )                      IF( ILZ ) CALL DROT( N, Z( 1, JCH ), 1, Z( 1, JCH-1 ), 1, C, S );
    50             CONTINUE
                   GO TO 70
                }
@@ -317,9 +317,9 @@
 
    70    CONTINUE
          TEMP = H( ILAST, ILAST )
-         CALL DLARTG( TEMP, H( ILAST, ILAST-1 ), C, S, H( ILAST, ILAST ) )
+         dlartg(TEMP, H( ILAST, ILAST-1 ), C, S, H( ILAST, ILAST ) );
          H( ILAST, ILAST-1 ) = ZERO
-         CALL DROT( ILAST-IFRSTM, H( IFRSTM, ILAST ), 1, H( IFRSTM, ILAST-1 ), 1, C, S )          CALL DROT( ILAST-IFRSTM, T( IFRSTM, ILAST ), 1, T( IFRSTM, ILAST-1 ), 1, C, S )          IF( ILZ ) CALL DROT( N, Z( 1, ILAST ), 1, Z( 1, ILAST-1 ), 1, C, S )
+         drot(ILAST-IFRSTM, H( IFRSTM, ILAST ), 1, H( IFRSTM, ILAST-1 ), 1, C, S )          CALL DROT( ILAST-IFRSTM, T( IFRSTM, ILAST ), 1, T( IFRSTM, ILAST-1 ), 1, C, S )          IF( ILZ ) CALL DROT( N, Z( 1, ILAST ), 1, Z( 1, ILAST-1 ), 1, C, S );
 
          // H(ILAST,ILAST-1)=0 -- Standardize B, set ALPHAR, ALPHAI,
                                // and BETA
@@ -395,7 +395,7 @@
             // bottom-right 2x2 block of A and B. The first eigenvalue
             // returned by DLAG2 is the Wilkinson shift (AEP p.512),
 
-            CALL DLAG2( H( ILAST-1, ILAST-1 ), LDH, T( ILAST-1, ILAST-1 ), LDT, SAFMIN*SAFETY, S1, S2, WR, WR2, WI )
+            dlag2(H( ILAST-1, ILAST-1 ), LDH, T( ILAST-1, ILAST-1 ), LDT, SAFMIN*SAFETY, S1, S2, WR, WR2, WI );
 
             if ( ABS( (WR/S1)*T( ILAST, ILAST ) - H( ILAST, ILAST ) ) .GT. ABS( (WR2/S2)*T( ILAST, ILAST ) - H( ILAST, ILAST ) ) ) {
                TEMP = WR
@@ -446,14 +446,14 @@
 
          TEMP = S1*H( ISTART, ISTART ) - WR*T( ISTART, ISTART )
          TEMP2 = S1*H( ISTART+1, ISTART )
-         CALL DLARTG( TEMP, TEMP2, C, S, TEMPR )
+         dlartg(TEMP, TEMP2, C, S, TEMPR );
 
          // Sweep
 
          DO 190 J = ISTART, ILAST - 1
             if ( J.GT.ISTART ) {
                TEMP = H( J, J-1 )
-               CALL DLARTG( TEMP, H( J+1, J-1 ), C, S, H( J, J-1 ) )
+               dlartg(TEMP, H( J+1, J-1 ), C, S, H( J, J-1 ) );
                H( J+1, J-1 ) = ZERO
             }
 
@@ -474,7 +474,7 @@
             }
 
             TEMP = T( J+1, J+1 )
-            CALL DLARTG( TEMP, T( J+1, J ), C, S, T( J+1, J+1 ) )
+            dlartg(TEMP, T( J+1, J ), C, S, T( J+1, J+1 ) );
             T( J+1, J ) = ZERO
 
             DO 160 JR = IFRSTM, MIN( J+2, ILAST )
@@ -516,7 +516,7 @@
                     // B = (         )  with B11 non-negative.
                         // (  0  B22 )
 
-            CALL DLASV2( T( ILAST-1, ILAST-1 ), T( ILAST-1, ILAST ), T( ILAST, ILAST ), B22, B11, SR, CR, SL, CL )
+            dlasv2(T( ILAST-1, ILAST-1 ), T( ILAST-1, ILAST ), T( ILAST, ILAST ), B22, B11, SR, CR, SL, CL );
 
             if ( B11.LT.ZERO ) {
                CR = -CR
@@ -525,7 +525,7 @@
                B22 = -B22
             }
 
-            CALL DROT( ILASTM+1-IFIRST, H( ILAST-1, ILAST-1 ), LDH, H( ILAST, ILAST-1 ), LDH, CL, SL )             CALL DROT( ILAST+1-IFRSTM, H( IFRSTM, ILAST-1 ), 1, H( IFRSTM, ILAST ), 1, CR, SR )
+            drot(ILASTM+1-IFIRST, H( ILAST-1, ILAST-1 ), LDH, H( ILAST, ILAST-1 ), LDH, CL, SL )             CALL DROT( ILAST+1-IFRSTM, H( IFRSTM, ILAST-1 ), 1, H( IFRSTM, ILAST ), 1, CR, SR );
 
             IF( ILAST.LT.ILASTM ) CALL DROT( ILASTM-ILAST, T( ILAST-1, ILAST+1 ), LDT, T( ILAST, ILAST+1 ), LDT, CL, SL )             IF( IFRSTM.LT.ILAST-1 ) CALL DROT( IFIRST-IFRSTM, T( IFRSTM, ILAST-1 ), 1, T( IFRSTM, ILAST ), 1, CR, SR )
 
@@ -556,7 +556,7 @@
 
             // Recompute shift
 
-            CALL DLAG2( H( ILAST-1, ILAST-1 ), LDH, T( ILAST-1, ILAST-1 ), LDT, SAFMIN*SAFETY, S1, TEMP, WR, TEMP2, WI )
+            dlag2(H( ILAST-1, ILAST-1 ), LDH, T( ILAST-1, ILAST-1 ), LDT, SAFMIN*SAFETY, S1, TEMP, WR, TEMP2, WI );
 
             // If standardization has perturbed the shift onto real line,
             // do another (real single-shift) QR step.
@@ -698,7 +698,7 @@
 
             ISTART = IFIRST
 
-            CALL DLARFG( 3, V( 1 ), V( 2 ), 1, TAU )
+            dlarfg(3, V( 1 ), V( 2 ), 1, TAU );
             V( 1 ) = ONE
 
             // Sweep
@@ -714,7 +714,7 @@
                   V( 2 ) = H( J+1, J-1 )
                   V( 3 ) = H( J+2, J-1 )
 
-                  CALL DLARFG( 3, H( J, J-1 ), V( 2 ), 1, TAU )
+                  dlarfg(3, H( J, J-1 ), V( 2 ), 1, TAU );
                   V( 1 ) = ONE
                   H( J+1, J-1 ) = ZERO
                   H( J+2, J-1 ) = ZERO
@@ -854,7 +854,7 @@
 
             J = ILAST - 1
             TEMP = H( J, J-1 )
-            CALL DLARTG( TEMP, H( J+1, J-1 ), C, S, H( J, J-1 ) )
+            dlartg(TEMP, H( J+1, J-1 ), C, S, H( J, J-1 ) );
             H( J+1, J-1 ) = ZERO
 
             DO 300 JC = J, ILASTM
@@ -876,7 +876,7 @@
             // Rotations from the right.
 
             TEMP = T( J+1, J+1 )
-            CALL DLARTG( TEMP, T( J+1, J ), C, S, T( J+1, J+1 ) )
+            dlartg(TEMP, T( J+1, J ), C, S, T( J+1, J+1 ) );
             T( J+1, J ) = ZERO
 
             DO 320 JR = IFRSTM, ILAST

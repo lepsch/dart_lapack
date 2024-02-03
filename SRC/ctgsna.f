@@ -101,7 +101,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'CTGSNA', -INFO )
+         xerbla('CTGSNA', -INFO );
          RETURN
       } else if ( LQUERY ) {
          RETURN
@@ -135,9 +135,9 @@
 
             RNRM = SCNRM2( N, VR( 1, KS ), 1 )
             LNRM = SCNRM2( N, VL( 1, KS ), 1 )
-            CALL CGEMV( 'N', N, N, CMPLX( ONE, ZERO ), A, LDA, VR( 1, KS ), 1, CMPLX( ZERO, ZERO ), WORK, 1 )
+            cgemv('N', N, N, CMPLX( ONE, ZERO ), A, LDA, VR( 1, KS ), 1, CMPLX( ZERO, ZERO ), WORK, 1 );
             YHAX = CDOTC( N, WORK, 1, VL( 1, KS ), 1 )
-            CALL CGEMV( 'N', N, N, CMPLX( ONE, ZERO ), B, LDB, VR( 1, KS ), 1, CMPLX( ZERO, ZERO ), WORK, 1 )
+            cgemv('N', N, N, CMPLX( ONE, ZERO ), B, LDB, VR( 1, KS ), 1, CMPLX( ZERO, ZERO ), WORK, 1 );
             YHBX = CDOTC( N, WORK, 1, VL( 1, KS ), 1 )
             COND = SLAPY2( ABS( YHAX ), ABS( YHBX ) )
             if ( COND.EQ.ZERO ) {
@@ -158,12 +158,12 @@
                // Copy the matrix (A, B) to the array WORK and move the
                // (k,k)th pair to the (1,1) position.
 
-               CALL CLACPY( 'Full', N, N, A, LDA, WORK, N )
-               CALL CLACPY( 'Full', N, N, B, LDB, WORK( N*N+1 ), N )
+               clacpy('Full', N, N, A, LDA, WORK, N );
+               clacpy('Full', N, N, B, LDB, WORK( N*N+1 ), N );
                IFST = K
                ILST = 1
 
-               CALL CTGEXC( .FALSE., .FALSE., N, WORK, N, WORK( N*N+1 ), N, DUMMY, 1, DUMMY1, 1, IFST, ILST, IERR )
+               ctgexc(.FALSE., .FALSE., N, WORK, N, WORK( N*N+1 ), N, DUMMY, 1, DUMMY1, 1, IFST, ILST, IERR );
 
                if ( IERR.GT.0 ) {
 
@@ -181,7 +181,7 @@
                   N1 = 1
                   N2 = N - N1
                   I = N*N + 1
-                  CALL CTGSYL( 'N', IDIFJB, N2, N1, WORK( N*N1+N1+1 ), N, WORK, N, WORK( N1+1 ), N, WORK( N*N1+N1+I ), N, WORK( I ), N, WORK( N1+I ), N, SCALE, DIF( KS ), DUMMY, 1, IWORK, IERR )
+                  ctgsyl('N', IDIFJB, N2, N1, WORK( N*N1+N1+1 ), N, WORK, N, WORK( N1+1 ), N, WORK( N*N1+N1+I ), N, WORK( I ), N, WORK( N1+I ), N, SCALE, DIF( KS ), DUMMY, 1, IWORK, IERR );
                }
             }
          }

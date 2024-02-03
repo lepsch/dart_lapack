@@ -66,7 +66,7 @@
          INFO = -11
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'ZTRSYL', -INFO )
+         xerbla('ZTRSYL', -INFO );
          RETURN
       }
 
@@ -122,7 +122,7 @@
 
                if ( SCALOC.NE.ONE ) {
                   DO 10 J = 1, N
-                     CALL ZDSCAL( M, SCALOC, C( 1, J ), 1 )
+                     zdscal(M, SCALOC, C( 1, J ), 1 );
    10             CONTINUE
                   SCALE = SCALE*SCALOC
                }
@@ -169,7 +169,7 @@
 
                if ( SCALOC.NE.ONE ) {
                   DO 40 J = 1, N
-                     CALL ZDSCAL( M, SCALOC, C( 1, J ), 1 )
+                     zdscal(M, SCALOC, C( 1, J ), 1 );
    40             CONTINUE
                   SCALE = SCALE*SCALOC
                }
@@ -219,7 +219,7 @@
 
                if ( SCALOC.NE.ONE ) {
                   DO 70 J = 1, N
-                     CALL ZDSCAL( M, SCALOC, C( 1, J ), 1 )
+                     zdscal(M, SCALOC, C( 1, J ), 1 );
    70             CONTINUE
                   SCALE = SCALE*SCALOC
                }
@@ -265,7 +265,7 @@
 
                if ( SCALOC.NE.ONE ) {
                   DO 100 J = 1, N
-                     CALL ZDSCAL( M, SCALOC, C( 1, J ), 1 )
+                     zdscal(M, SCALOC, C( 1, J ), 1 );
   100             CONTINUE
                   SCALE = SCALE*SCALOC
                }

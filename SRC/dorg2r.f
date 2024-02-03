@@ -41,7 +41,7 @@
          INFO = -5
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'DORG2R', -INFO )
+         xerbla('DORG2R', -INFO );
          RETURN
       }
 
@@ -64,7 +64,7 @@
 
          if ( I.LT.N ) {
             A( I, I ) = ONE
-            CALL DLARF( 'Left', M-I+1, N-I, A( I, I ), 1, TAU( I ), A( I, I+1 ), LDA, WORK )
+            dlarf('Left', M-I+1, N-I, A( I, I ), 1, TAU( I ), A( I, I+1 ), LDA, WORK );
          }
          IF( I.LT.M ) CALL DSCAL( M-I, -TAU( I ), A( I+1, I ), 1 )
          A( I, I ) = ONE - TAU( I )

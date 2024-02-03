@@ -50,7 +50,7 @@
          INFO = -5
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'SPBEQU', -INFO )
+         xerbla('SPBEQU', -INFO );
          RETURN
       }
 

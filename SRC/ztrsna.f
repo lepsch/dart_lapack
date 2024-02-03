@@ -91,7 +91,7 @@
          INFO = -16
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'ZTRSNA', -INFO )
+         xerbla('ZTRSNA', -INFO );
          RETURN
       }
 
@@ -140,8 +140,8 @@
             // Copy the matrix T to the array WORK and swap the k-th
             // diagonal element to the (1,1) position.
 
-            CALL ZLACPY( 'Full', N, N, T, LDT, WORK, LDWORK )
-            CALL ZTREXC( 'No Q', N, WORK, LDWORK, DUMMY, 1, K, 1, IERR )
+            zlacpy('Full', N, N, T, LDT, WORK, LDWORK );
+            ztrexc('No Q', N, WORK, LDWORK, DUMMY, 1, K, 1, IERR );
 
             // Form  C = T22 - lambda*I in WORK(2:N,2:N).
 
@@ -157,19 +157,19 @@
             KASE = 0
             NORMIN = 'N'
    30       CONTINUE
-            CALL ZLACN2( N-1, WORK( 1, N+1 ), WORK, EST, KASE, ISAVE )
+            zlacn2(N-1, WORK( 1, N+1 ), WORK, EST, KASE, ISAVE );
 
             if ( KASE.NE.0 ) {
                if ( KASE.EQ.1 ) {
 
                   // Solve C**H*x = scale*b
 
-                  CALL ZLATRS( 'Upper', 'Conjugate transpose', 'Nonunit', NORMIN, N-1, WORK( 2, 2 ), LDWORK, WORK, SCALE, RWORK, IERR )
+                  zlatrs('Upper', 'Conjugate transpose', 'Nonunit', NORMIN, N-1, WORK( 2, 2 ), LDWORK, WORK, SCALE, RWORK, IERR );
                } else {
 
                   // Solve C*x = scale*b
 
-                  CALL ZLATRS( 'Upper', 'No transpose', 'Nonunit', NORMIN, N-1, WORK( 2, 2 ), LDWORK, WORK, SCALE, RWORK, IERR )
+                  zlatrs('Upper', 'No transpose', 'Nonunit', NORMIN, N-1, WORK( 2, 2 ), LDWORK, WORK, SCALE, RWORK, IERR );
                }
                NORMIN = 'Y'
                if ( SCALE.NE.ONE ) {
@@ -180,7 +180,7 @@
                   IX = IZAMAX( N-1, WORK, 1 )
                   XNORM = CABS1( WORK( IX, 1 ) )
                   IF( SCALE.LT.XNORM*SMLNUM .OR. SCALE.EQ.ZERO ) GO TO 40
-                  CALL ZDRSCL( N, SCALE, WORK, 1 )
+                  zdrscl(N, SCALE, WORK, 1 );
                }
                GO TO 30
             }

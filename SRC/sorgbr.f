@@ -59,18 +59,18 @@
          WORK( 1 ) = 1
          if ( WANTQ ) {
             if ( M.GE.K ) {
-               CALL SORGQR( M, N, K, A, LDA, TAU, WORK, -1, IINFO )
+               sorgqr(M, N, K, A, LDA, TAU, WORK, -1, IINFO );
             } else {
                if ( M.GT.1 ) {
-                  CALL SORGQR( M-1, M-1, M-1, A, LDA, TAU, WORK, -1, IINFO )
+                  sorgqr(M-1, M-1, M-1, A, LDA, TAU, WORK, -1, IINFO );
                }
             }
          } else {
             if ( K.LT.N ) {
-               CALL SORGLQ( M, N, K, A, LDA, TAU, WORK, -1, IINFO )
+               sorglq(M, N, K, A, LDA, TAU, WORK, -1, IINFO );
             } else {
                if ( N.GT.1 ) {
-                  CALL SORGLQ( N-1, N-1, N-1, A, LDA, TAU, WORK, -1, IINFO )
+                  sorglq(N-1, N-1, N-1, A, LDA, TAU, WORK, -1, IINFO );
                }
             }
          }
@@ -79,7 +79,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'SORGBR', -INFO )
+         xerbla('SORGBR', -INFO );
          RETURN
       } else if ( LQUERY ) {
          WORK( 1 ) = SROUNDUP_LWORK(LWKOPT)
@@ -102,7 +102,7 @@
 
             // If m >= k, assume m >= n >= k
 
-            CALL SORGQR( M, N, K, A, LDA, TAU, WORK, LWORK, IINFO )
+            sorgqr(M, N, K, A, LDA, TAU, WORK, LWORK, IINFO );
 
          } else {
 
@@ -126,7 +126,7 @@
 
                // Form Q(2:m,2:m)
 
-               CALL SORGQR( M-1, M-1, M-1, A( 2, 2 ), LDA, TAU, WORK, LWORK, IINFO )
+               sorgqr(M-1, M-1, M-1, A( 2, 2 ), LDA, TAU, WORK, LWORK, IINFO );
             }
          }
       } else {
@@ -138,7 +138,7 @@
 
             // If k < n, assume k <= m <= n
 
-            CALL SORGLQ( M, N, K, A, LDA, TAU, WORK, LWORK, IINFO )
+            sorglq(M, N, K, A, LDA, TAU, WORK, LWORK, IINFO );
 
          } else {
 
@@ -162,7 +162,7 @@
 
                // Form P**T(2:n,2:n)
 
-               CALL SORGLQ( N-1, N-1, N-1, A( 2, 2 ), LDA, TAU, WORK, LWORK, IINFO )
+               sorglq(N-1, N-1, N-1, A( 2, 2 ), LDA, TAU, WORK, LWORK, IINFO );
             }
          }
       }

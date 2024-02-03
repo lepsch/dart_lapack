@@ -111,7 +111,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'DGESVX', -INFO )
+         xerbla('DGESVX', -INFO );
          RETURN
       }
 
@@ -119,12 +119,12 @@
 
          // Compute row and column scalings to equilibrate the matrix A.
 
-         CALL DGEEQU( N, N, A, LDA, R, C, ROWCND, COLCND, AMAX, INFEQU )
+         dgeequ(N, N, A, LDA, R, C, ROWCND, COLCND, AMAX, INFEQU );
          if ( INFEQU.EQ.0 ) {
 
             // Equilibrate the matrix.
 
-            CALL DLAQGE( N, N, A, LDA, R, C, ROWCND, COLCND, AMAX, EQUED )
+            dlaqge(N, N, A, LDA, R, C, ROWCND, COLCND, AMAX, EQUED );
             ROWEQU = LSAME( EQUED, 'R' ) .OR. LSAME( EQUED, 'B' )
             COLEQU = LSAME( EQUED, 'C' ) .OR. LSAME( EQUED, 'B' )
          }
@@ -152,8 +152,8 @@
 
          // Compute the LU factorization of A.
 
-         CALL DLACPY( 'Full', N, N, A, LDA, AF, LDAF )
-         CALL DGETRF( N, N, AF, LDAF, IPIV, INFO )
+         dlacpy('Full', N, N, A, LDA, AF, LDAF );
+         dgetrf(N, N, AF, LDAF, IPIV, INFO );
 
          // Return if INFO is non-zero.
 
@@ -192,17 +192,17 @@
 
       // Compute the reciprocal of the condition number of A.
 
-      CALL DGECON( NORM, N, AF, LDAF, ANORM, RCOND, WORK, IWORK, INFO )
+      dgecon(NORM, N, AF, LDAF, ANORM, RCOND, WORK, IWORK, INFO );
 
       // Compute the solution matrix X.
 
-      CALL DLACPY( 'Full', N, NRHS, B, LDB, X, LDX )
-      CALL DGETRS( TRANS, N, NRHS, AF, LDAF, IPIV, X, LDX, INFO )
+      dlacpy('Full', N, NRHS, B, LDB, X, LDX );
+      dgetrs(TRANS, N, NRHS, AF, LDAF, IPIV, X, LDX, INFO );
 
       // Use iterative refinement to improve the computed solution and
       // compute error bounds and backward error estimates for it.
 
-      CALL DGERFS( TRANS, N, NRHS, A, LDA, AF, LDAF, IPIV, B, LDB, X, LDX, FERR, BERR, WORK, IWORK, INFO )
+      dgerfs(TRANS, N, NRHS, A, LDA, AF, LDAF, IPIV, B, LDB, X, LDX, FERR, BERR, WORK, IWORK, INFO );
 
       // Transform the solution matrix X to a solution of the original
       // system.

@@ -176,13 +176,13 @@
                SCALE = ONE
                SUM = MIN( M, N )
                DO 290 J = 2, N
-                  CALL CLASSQ( MIN( M, J-1 ), A( 1, J ), 1, SCALE, SUM )
+                  classq(MIN( M, J-1 ), A( 1, J ), 1, SCALE, SUM );
   290          CONTINUE
             } else {
                SCALE = ZERO
                SUM = ONE
                DO 300 J = 1, N
-                  CALL CLASSQ( MIN( M, J ), A( 1, J ), 1, SCALE, SUM )
+                  classq(MIN( M, J ), A( 1, J ), 1, SCALE, SUM );
   300          CONTINUE
             }
          } else {
@@ -190,13 +190,13 @@
                SCALE = ONE
                SUM = MIN( M, N )
                DO 310 J = 1, N
-                  CALL CLASSQ( M-J, A( MIN( M, J+1 ), J ), 1, SCALE, SUM )
+                  classq(M-J, A( MIN( M, J+1 ), J ), 1, SCALE, SUM );
   310          CONTINUE
             } else {
                SCALE = ZERO
                SUM = ONE
                DO 320 J = 1, N
-                  CALL CLASSQ( M-J+1, A( J, J ), 1, SCALE, SUM )
+                  classq(M-J+1, A( J, J ), 1, SCALE, SUM );
   320          CONTINUE
             }
          }

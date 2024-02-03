@@ -95,7 +95,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'DDRVEV', -INFO )
+         xerbla('DDRVEV', -INFO );
          RETURN
       }
 
@@ -172,7 +172,7 @@
 
    60       CONTINUE
 
-            CALL DLASET( 'Full', LDA, N, ZERO, ZERO, A, LDA )
+            dlaset('Full', LDA, N, ZERO, ZERO, A, LDA );
             IINFO = 0
             COND = ULPINV
 
@@ -204,13 +204,13 @@
 
                // Diagonal Matrix, [Eigen]values Specified
 
-               CALL DLATMS( N, N, 'S', ISEED, 'S', WORK, IMODE, COND, ANORM, 0, 0, 'N', A, LDA, WORK( N+1 ), IINFO )
+               dlatms(N, N, 'S', ISEED, 'S', WORK, IMODE, COND, ANORM, 0, 0, 'N', A, LDA, WORK( N+1 ), IINFO );
 
             } else if ( ITYPE.EQ.5 ) {
 
                // Symmetric, eigenvalues specified
 
-               CALL DLATMS( N, N, 'S', ISEED, 'S', WORK, IMODE, COND, ANORM, N, N, 'N', A, LDA, WORK( N+1 ), IINFO )
+               dlatms(N, N, 'S', ISEED, 'S', WORK, IMODE, COND, ANORM, N, N, 'N', A, LDA, WORK( N+1 ), IINFO );
 
             } else if ( ITYPE.EQ.6 ) {
 
@@ -225,35 +225,35 @@
                }
 
                ADUMMA( 1 ) = ' '
-               CALL DLATME( N, 'S', ISEED, WORK, IMODE, COND, ONE, ADUMMA, 'T', 'T', 'T', WORK( N+1 ), 4, CONDS, N, N, ANORM, A, LDA, WORK( 2*N+1 ), IINFO )
+               dlatme(N, 'S', ISEED, WORK, IMODE, COND, ONE, ADUMMA, 'T', 'T', 'T', WORK( N+1 ), 4, CONDS, N, N, ANORM, A, LDA, WORK( 2*N+1 ), IINFO );
 
             } else if ( ITYPE.EQ.7 ) {
 
                // Diagonal, random eigenvalues
 
-               CALL DLATMR( N, N, 'S', ISEED, 'S', WORK, 6, ONE, ONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, 0, 0, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO )
+               dlatmr(N, N, 'S', ISEED, 'S', WORK, 6, ONE, ONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, 0, 0, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO );
 
             } else if ( ITYPE.EQ.8 ) {
 
                // Symmetric, random eigenvalues
 
-               CALL DLATMR( N, N, 'S', ISEED, 'S', WORK, 6, ONE, ONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, N, N, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO )
+               dlatmr(N, N, 'S', ISEED, 'S', WORK, 6, ONE, ONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, N, N, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO );
 
             } else if ( ITYPE.EQ.9 ) {
 
                // General, random eigenvalues
 
-               CALL DLATMR( N, N, 'S', ISEED, 'N', WORK, 6, ONE, ONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, N, N, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO )
+               dlatmr(N, N, 'S', ISEED, 'N', WORK, 6, ONE, ONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, N, N, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO );
                if ( N.GE.4 ) {
-                  CALL DLASET( 'Full', 2, N, ZERO, ZERO, A, LDA )
-                  CALL DLASET( 'Full', N-3, 1, ZERO, ZERO, A( 3, 1 ), LDA )                   CALL DLASET( 'Full', N-3, 2, ZERO, ZERO, A( 3, N-1 ), LDA )                   CALL DLASET( 'Full', 1, N, ZERO, ZERO, A( N, 1 ), LDA )
+                  dlaset('Full', 2, N, ZERO, ZERO, A, LDA );
+                  dlaset('Full', N-3, 1, ZERO, ZERO, A( 3, 1 ), LDA )                   CALL DLASET( 'Full', N-3, 2, ZERO, ZERO, A( 3, N-1 ), LDA )                   CALL DLASET( 'Full', 1, N, ZERO, ZERO, A( N, 1 ), LDA );
                }
 
             } else if ( ITYPE.EQ.10 ) {
 
                // Triangular, random eigenvalues
 
-               CALL DLATMR( N, N, 'S', ISEED, 'N', WORK, 6, ONE, ONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, N, 0, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO )
+               dlatmr(N, N, 'S', ISEED, 'N', WORK, 6, ONE, ONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, N, 0, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO );
 
             } else {
 
@@ -286,8 +286,8 @@
 
                // Compute eigenvalues and eigenvectors, and test them
 
-               CALL DLACPY( 'F', N, N, A, LDA, H, LDA )
-               CALL DGEEV( 'V', 'V', N, H, LDA, WR, WI, VL, LDVL, VR, LDVR, WORK, NNWORK, IINFO )
+               dlacpy('F', N, N, A, LDA, H, LDA );
+               dgeev('V', 'V', N, H, LDA, WR, WI, VL, LDVL, VR, LDVR, WORK, NNWORK, IINFO );
                if ( IINFO.NE.0 ) {
                   RESULT( 1 ) = ULPINV
                   WRITE( NOUNIT, FMT = 9993 )'DGEEV1', IINFO, N, JTYPE, IOLDSD
@@ -297,12 +297,12 @@
 
                // Do Test (1)
 
-               CALL DGET22( 'N', 'N', 'N', N, A, LDA, VR, LDVR, WR, WI, WORK, RES )
+               dget22('N', 'N', 'N', N, A, LDA, VR, LDVR, WR, WI, WORK, RES );
                RESULT( 1 ) = RES( 1 )
 
                // Do Test (2)
 
-               CALL DGET22( 'T', 'N', 'T', N, A, LDA, VL, LDVL, WR, WI, WORK, RES )
+               dget22('T', 'N', 'T', N, A, LDA, VL, LDVL, WR, WI, WORK, RES );
                RESULT( 2 ) = RES( 1 )
 
                // Do Test (3)
@@ -349,8 +349,8 @@
 
                // Compute eigenvalues only, and test them
 
-               CALL DLACPY( 'F', N, N, A, LDA, H, LDA )
-               CALL DGEEV( 'N', 'N', N, H, LDA, WR1, WI1, DUM, 1, DUM, 1, WORK, NNWORK, IINFO )
+               dlacpy('F', N, N, A, LDA, H, LDA );
+               dgeev('N', 'N', N, H, LDA, WR1, WI1, DUM, 1, DUM, 1, WORK, NNWORK, IINFO );
                if ( IINFO.NE.0 ) {
                   RESULT( 1 ) = ULPINV
                   WRITE( NOUNIT, FMT = 9993 )'DGEEV2', IINFO, N, JTYPE, IOLDSD
@@ -366,8 +366,8 @@
 
                // Compute eigenvalues and right eigenvectors, and test them
 
-               CALL DLACPY( 'F', N, N, A, LDA, H, LDA )
-               CALL DGEEV( 'N', 'V', N, H, LDA, WR1, WI1, DUM, 1, LRE, LDLRE, WORK, NNWORK, IINFO )
+               dlacpy('F', N, N, A, LDA, H, LDA );
+               dgeev('N', 'V', N, H, LDA, WR1, WI1, DUM, 1, LRE, LDLRE, WORK, NNWORK, IINFO );
                if ( IINFO.NE.0 ) {
                   RESULT( 1 ) = ULPINV
                   WRITE( NOUNIT, FMT = 9993 )'DGEEV3', IINFO, N, JTYPE, IOLDSD
@@ -391,8 +391,8 @@
 
                // Compute eigenvalues and left eigenvectors, and test them
 
-               CALL DLACPY( 'F', N, N, A, LDA, H, LDA )
-               CALL DGEEV( 'V', 'N', N, H, LDA, WR1, WI1, LRE, LDLRE, DUM, 1, WORK, NNWORK, IINFO )
+               dlacpy('F', N, N, A, LDA, H, LDA );
+               dgeev('V', 'N', N, H, LDA, WR1, WI1, LRE, LDLRE, DUM, 1, WORK, NNWORK, IINFO );
                if ( IINFO.NE.0 ) {
                   RESULT( 1 ) = ULPINV
                   WRITE( NOUNIT, FMT = 9993 )'DGEEV4', IINFO, N, JTYPE, IOLDSD
@@ -449,7 +449,7 @@
 
       // Summary
 
-      CALL DLASUM( PATH, NOUNIT, NERRS, NTESTT )
+      dlasum(PATH, NOUNIT, NERRS, NTESTT );
 
  9999 FORMAT( / 1X, A3, ' -- Real Eigenvalue-Eigenvector Decomposition', ' Driver', / ' Matrix types (see DDRVEV for details): ' )
 

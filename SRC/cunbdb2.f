@@ -67,7 +67,7 @@
          }
       }
       if ( INFO .NE. 0 ) {
-         CALL XERBLA( 'CUNBDB2', -INFO )
+         xerbla('CUNBDB2', -INFO );
          RETURN
       } else if ( LQUERY ) {
          RETURN
@@ -78,39 +78,39 @@
       DO I = 1, P
 
          if ( I .GT. 1 ) {
-            CALL CSROT( Q-I+1, X11(I,I), LDX11, X21(I-1,I), LDX21, C, S )
+            csrot(Q-I+1, X11(I,I), LDX11, X21(I-1,I), LDX21, C, S );
          }
-         CALL CLACGV( Q-I+1, X11(I,I), LDX11 )
-         CALL CLARFGP( Q-I+1, X11(I,I), X11(I,I+1), LDX11, TAUQ1(I) )
+         clacgv(Q-I+1, X11(I,I), LDX11 );
+         clarfgp(Q-I+1, X11(I,I), X11(I,I+1), LDX11, TAUQ1(I) );
          C = REAL( X11(I,I) )
          X11(I,I) = ONE
-         CALL CLARF( 'R', P-I, Q-I+1, X11(I,I), LDX11, TAUQ1(I), X11(I+1,I), LDX11, WORK(ILARF) )          CALL CLARF( 'R', M-P-I+1, Q-I+1, X11(I,I), LDX11, TAUQ1(I), X21(I,I), LDX21, WORK(ILARF) )
-         CALL CLACGV( Q-I+1, X11(I,I), LDX11 )
+         clarf('R', P-I, Q-I+1, X11(I,I), LDX11, TAUQ1(I), X11(I+1,I), LDX11, WORK(ILARF) )          CALL CLARF( 'R', M-P-I+1, Q-I+1, X11(I,I), LDX11, TAUQ1(I), X21(I,I), LDX21, WORK(ILARF) );
+         clacgv(Q-I+1, X11(I,I), LDX11 );
          S = SQRT( SCNRM2( P-I, X11(I+1,I), 1 )**2 + SCNRM2( M-P-I+1, X21(I,I), 1 )**2 )
          THETA(I) = ATAN2( S, C )
 
-         CALL CUNBDB5( P-I, M-P-I+1, Q-I, X11(I+1,I), 1, X21(I,I), 1, X11(I+1,I+1), LDX11, X21(I,I+1), LDX21, WORK(IORBDB5), LORBDB5, CHILDINFO )
-         CALL CSCAL( P-I, NEGONE, X11(I+1,I), 1 )
-         CALL CLARFGP( M-P-I+1, X21(I,I), X21(I+1,I), 1, TAUP2(I) )
+         cunbdb5(P-I, M-P-I+1, Q-I, X11(I+1,I), 1, X21(I,I), 1, X11(I+1,I+1), LDX11, X21(I,I+1), LDX21, WORK(IORBDB5), LORBDB5, CHILDINFO );
+         cscal(P-I, NEGONE, X11(I+1,I), 1 );
+         clarfgp(M-P-I+1, X21(I,I), X21(I+1,I), 1, TAUP2(I) );
          if ( I .LT. P ) {
-            CALL CLARFGP( P-I, X11(I+1,I), X11(I+2,I), 1, TAUP1(I) )
+            clarfgp(P-I, X11(I+1,I), X11(I+2,I), 1, TAUP1(I) );
             PHI(I) = ATAN2( REAL( X11(I+1,I) ), REAL( X21(I,I) ) )
             C = COS( PHI(I) )
             S = SIN( PHI(I) )
             X11(I+1,I) = ONE
-            CALL CLARF( 'L', P-I, Q-I, X11(I+1,I), 1, CONJG(TAUP1(I)), X11(I+1,I+1), LDX11, WORK(ILARF) )
+            clarf('L', P-I, Q-I, X11(I+1,I), 1, CONJG(TAUP1(I)), X11(I+1,I+1), LDX11, WORK(ILARF) );
          }
          X21(I,I) = ONE
-         CALL CLARF( 'L', M-P-I+1, Q-I, X21(I,I), 1, CONJG(TAUP2(I)), X21(I,I+1), LDX21, WORK(ILARF) )
+         clarf('L', M-P-I+1, Q-I, X21(I,I), 1, CONJG(TAUP2(I)), X21(I,I+1), LDX21, WORK(ILARF) );
 
       END DO
 
       // Reduce the bottom-right portion of X21 to the identity matrix
 
       DO I = P + 1, Q
-         CALL CLARFGP( M-P-I+1, X21(I,I), X21(I+1,I), 1, TAUP2(I) )
+         clarfgp(M-P-I+1, X21(I,I), X21(I+1,I), 1, TAUP2(I) );
          X21(I,I) = ONE
-         CALL CLARF( 'L', M-P-I+1, Q-I, X21(I,I), 1, CONJG(TAUP2(I)), X21(I,I+1), LDX21, WORK(ILARF) )
+         clarf('L', M-P-I+1, Q-I, X21(I,I), 1, CONJG(TAUP2(I)), X21(I,I+1), LDX21, WORK(ILARF) );
       END DO
 
       RETURN

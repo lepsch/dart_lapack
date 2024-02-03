@@ -42,7 +42,7 @@
          INFO = -10
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'ZGELQS', -INFO )
+         xerbla('ZGELQS', -INFO );
          RETURN
       }
 
@@ -52,7 +52,7 @@
 
       // Solve L*X = B(1:m,:)
 
-      CALL ZTRSM( 'Left', 'Lower', 'No transpose', 'Non-unit', M, NRHS, CONE, A, LDA, B, LDB )
+      ztrsm('Left', 'Lower', 'No transpose', 'Non-unit', M, NRHS, CONE, A, LDA, B, LDB );
 
       // Set B(m+1:n,:) to zero
 
@@ -60,7 +60,7 @@
 
       // B := Q' * B
 
-      CALL ZUNMLQ( 'Left', 'Conjugate transpose', N, NRHS, M, A, LDA, TAU, B, LDB, WORK, LWORK, INFO )
+      zunmlq('Left', 'Conjugate transpose', N, NRHS, M, A, LDA, TAU, B, LDB, WORK, LWORK, INFO );
 
       RETURN
 

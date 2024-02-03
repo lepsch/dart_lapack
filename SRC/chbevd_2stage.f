@@ -97,7 +97,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'CHBEVD_2STAGE', -INFO )
+         xerbla('CHBEVD_2STAGE', -INFO );
          RETURN
       } else if ( LQUERY ) {
          RETURN
@@ -135,9 +135,9 @@
       }
       if ( ISCALE.EQ.1 ) {
          if ( LOWER ) {
-            CALL CLASCL( 'B', KD, KD, ONE, SIGMA, N, N, AB, LDAB, INFO )
+            clascl('B', KD, KD, ONE, SIGMA, N, N, AB, LDAB, INFO );
          } else {
-            CALL CLASCL( 'Q', KD, KD, ONE, SIGMA, N, N, AB, LDAB, INFO )
+            clascl('Q', KD, KD, ONE, SIGMA, N, N, AB, LDAB, INFO );
          }
       }
 
@@ -152,16 +152,16 @@
       INDWK2  = INDWK + N*N
       LLWK2   = LWORK - INDWK2 + 1
 
-      CALL CHETRD_HB2ST( "N", JOBZ, UPLO, N, KD, AB, LDAB, W, RWORK( INDE ), WORK( INDHOUS ), LHTRD, WORK( INDWK ), LLWORK, IINFO )
+      chetrd_hb2st("N", JOBZ, UPLO, N, KD, AB, LDAB, W, RWORK( INDE ), WORK( INDHOUS ), LHTRD, WORK( INDWK ), LLWORK, IINFO );
 
       // For eigenvalues only, call SSTERF.  For eigenvectors, call CSTEDC.
 
       if ( .NOT.WANTZ ) {
-         CALL SSTERF( N, W, RWORK( INDE ), INFO )
+         ssterf(N, W, RWORK( INDE ), INFO );
       } else {
-         CALL CSTEDC( 'I', N, W, RWORK( INDE ), WORK, N, WORK( INDWK2 ), LLWK2, RWORK( INDRWK ), LLRWK, IWORK, LIWORK, INFO )
-         CALL CGEMM( 'N', 'N', N, N, N, CONE, Z, LDZ, WORK, N, CZERO, WORK( INDWK2 ), N )
-         CALL CLACPY( 'A', N, N, WORK( INDWK2 ), N, Z, LDZ )
+         cstedc('I', N, W, RWORK( INDE ), WORK, N, WORK( INDWK2 ), LLWK2, RWORK( INDRWK ), LLRWK, IWORK, LIWORK, INFO );
+         cgemm('N', 'N', N, N, N, CONE, Z, LDZ, WORK, N, CZERO, WORK( INDWK2 ), N );
+         clacpy('A', N, N, WORK( INDWK2 ), N, Z, LDZ );
       }
 
       // If matrix was scaled, then rescale eigenvalues appropriately.
@@ -172,7 +172,7 @@
          } else {
             IMAX = INFO - 1
          }
-         CALL SSCAL( IMAX, ONE / SIGMA, W, 1 )
+         sscal(IMAX, ONE / SIGMA, W, 1 );
       }
 
       WORK( 1 )  = LWMIN

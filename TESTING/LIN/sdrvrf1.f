@@ -118,7 +118,7 @@
                   CFORM = FORMS( IFORM )
 
                   SRNAMT = 'STRTTF'
-                  CALL STRTTF( CFORM, UPLO, N, A, LDA, ARF, INFO )
+                  strttf(CFORM, UPLO, N, A, LDA, ARF, INFO );
 
                   // Check error code from STRTTF
 

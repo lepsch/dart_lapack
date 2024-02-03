@@ -65,9 +65,9 @@
 
       RESID = ZERO
       DO 10 J = 1, NRHS
-         CALL CCOPY( N, X( 1, J ), 1, WORK, 1 )
-         CALL CTPMV( UPLO, TRANS, DIAG, N, AP, WORK, 1 )
-         CALL CAXPY( N, CMPLX( -ONE ), B( 1, J ), 1, WORK, 1 )
+         ccopy(N, X( 1, J ), 1, WORK, 1 );
+         ctpmv(UPLO, TRANS, DIAG, N, AP, WORK, 1 );
+         caxpy(N, CMPLX( -ONE ), B( 1, J ), 1, WORK, 1 );
          BNORM = SCASUM( N, WORK, 1 )
          XNORM = SCASUM( N, X( 1, J ), 1 )
          if ( XNORM.LE.ZERO ) {

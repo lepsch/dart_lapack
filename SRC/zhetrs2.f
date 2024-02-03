@@ -51,7 +51,7 @@
          INFO = -8
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'ZHETRS2', -INFO )
+         xerbla('ZHETRS2', -INFO );
          RETURN
       }
 
@@ -61,7 +61,7 @@
 
       // Convert A
 
-      CALL ZSYCONV( UPLO, 'C', N, A, LDA, IPIV, WORK, IINFO )
+      zsyconv(UPLO, 'C', N, A, LDA, IPIV, WORK, IINFO );
 
       if ( UPPER ) {
 
@@ -87,7 +87,7 @@
 
 *  Compute (U \P**T * B) -> B    [ (U \P**T * B) ]
 
-        CALL ZTRSM('L','U','N','U',N,NRHS,ONE,A,LDA,B,LDB)
+        ztrsm('L','U','N','U',N,NRHS,ONE,A,LDA,B,LDB);
 
 *  Compute D \ B -> B   [ D \ (U \P**T * B) ]
 
@@ -95,7 +95,7 @@
          DO WHILE ( I .GE. 1 )
             if ( IPIV(I) .GT. 0 ) {
               S = DBLE( ONE ) / DBLE( A( I, I ) )
-              CALL ZDSCAL( NRHS, S, B( I, 1 ), LDB )
+              zdscal(NRHS, S, B( I, 1 ), LDB );
             ELSEIF ( I .GT. 1) THEN
                if ( IPIV(I-1) .EQ. IPIV(I) ) {
                   AKM1K = WORK(I)
@@ -116,7 +116,7 @@
 
        // Compute (U**H \ B) -> B   [ U**H \ (D \ (U \P**T * B) ) ]
 
-         CALL ZTRSM('L','U','C','U',N,NRHS,ONE,A,LDA,B,LDB)
+         ztrsm('L','U','C','U',N,NRHS,ONE,A,LDA,B,LDB);
 
         // P * B  [ P * (U**H \ (D \ (U \P**T * B) )) ]
 
@@ -161,7 +161,7 @@
 
 *  Compute (L \P**T * B) -> B    [ (L \P**T * B) ]
 
-        CALL ZTRSM('L','L','N','U',N,NRHS,ONE,A,LDA,B,LDB)
+        ztrsm('L','L','N','U',N,NRHS,ONE,A,LDA,B,LDB);
 
 *  Compute D \ B -> B   [ D \ (L \P**T * B) ]
 
@@ -169,7 +169,7 @@
          DO WHILE ( I .LE. N )
             if ( IPIV(I) .GT. 0 ) {
               S = DBLE( ONE ) / DBLE( A( I, I ) )
-              CALL ZDSCAL( NRHS, S, B( I, 1 ), LDB )
+              zdscal(NRHS, S, B( I, 1 ), LDB );
             } else {
                   AKM1K = WORK(I)
                   AKM1 = A( I, I ) / DCONJG( AKM1K )
@@ -188,7 +188,7 @@
 
 *  Compute (L**H \ B) -> B   [ L**H \ (D \ (L \P**T * B) ) ]
 
-        CALL ZTRSM('L','L','C','U',N,NRHS,ONE,A,LDA,B,LDB)
+        ztrsm('L','L','C','U',N,NRHS,ONE,A,LDA,B,LDB);
 
         // P * B  [ P * (L**H \ (D \ (L \P**T * B) )) ]
 
@@ -213,7 +213,7 @@
 
       // Revert A
 
-      CALL ZSYCONV( UPLO, 'R', N, A, LDA, IPIV, WORK, IINFO )
+      zsyconv(UPLO, 'R', N, A, LDA, IPIV, WORK, IINFO );
 
       RETURN
 

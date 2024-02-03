@@ -87,8 +87,8 @@
 
       NB = 1
       NBMIN = 2
-      CALL XLAENV( 1, NB )
-      CALL XLAENV( 2, NBMIN )
+      xlaenv(1, NB );
+      xlaenv(2, NBMIN );
 
       // Do for each value of N in NVAL
 
@@ -167,16 +167,16 @@
                   // Set up parameters with DLATB4 and generate a
                   // test matrix with DLATMS.
 
-                  CALL DLATB4( PATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST )
+                  dlatb4(PATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST );
                   RCONDC = ONE / CNDNUM
 
                   SRNAMT = 'DLATMS'
-                  CALL DLATMS( N, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KL, KU, 'Z', A, LDA, WORK, INFO )
+                  dlatms(N, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KL, KU, 'Z', A, LDA, WORK, INFO );
 
                   // Check the error code from DLATMS.
 
                   if ( INFO.NE.0 ) {
-                     CALL ALAERH( PATH, 'DLATMS', INFO, 0, ' ', N, N, KL, KU, -1, IMAT, NFAIL, NERRS, NOUT )
+                     alaerh(PATH, 'DLATMS', INFO, 0, ' ', N, N, KL, KU, -1, IMAT, NFAIL, NERRS, NOUT );
                      GO TO 120
                   }
 
@@ -211,7 +211,7 @@
 
                   // Save a copy of the matrix A in ASAV.
 
-                  CALL DLACPY( 'Full', KL+KU+1, N, A, LDA, ASAV, LDA )
+                  dlacpy('Full', KL+KU+1, N, A, LDA, ASAV, LDA );
 
                   DO 110 IEQUED = 1, 4
                      EQUED = EQUEDS( IEQUED )
@@ -239,13 +239,13 @@
                            // 'N' reuses the condition number from the
                            // previous iteration with FACT = 'F').
 
-                           CALL DLACPY( 'Full', KL+KU+1, N, ASAV, LDA, AFB( KL+1 ), LDAFB )
+                           dlacpy('Full', KL+KU+1, N, ASAV, LDA, AFB( KL+1 ), LDAFB );
                            if ( EQUIL .OR. IEQUED.GT.1 ) {
 
                               // Compute row and column scale factors to
                               // equilibrate the matrix A.
 
-                              CALL DGBEQU( N, N, KL, KU, AFB( KL+1 ), LDAFB, S, S( N+1 ), ROWCND, COLCND, AMAX, INFO )
+                              dgbequ(N, N, KL, KU, AFB( KL+1 ), LDAFB, S, S( N+1 ), ROWCND, COLCND, AMAX, INFO );
                               if ( INFO.EQ.0 .AND. N.GT.0 ) {
                                  if ( LSAME( EQUED, 'R' ) ) {
                                     ROWCND = ZERO
@@ -260,7 +260,7 @@
 
                                  // Equilibrate the matrix.
 
-                                 CALL DLAQGB( N, N, KL, KU, AFB( KL+1 ), LDAFB, S, S( N+1 ), ROWCND, COLCND, AMAX, EQUED )
+                                 dlaqgb(N, N, KL, KU, AFB( KL+1 ), LDAFB, S, S( N+1 ), ROWCND, COLCND, AMAX, EQUED );
                               }
                            }
 
@@ -278,13 +278,13 @@
 
                            // Factor the matrix A.
 
-                           CALL DGBTRF( N, N, KL, KU, AFB, LDAFB, IWORK, INFO )
+                           dgbtrf(N, N, KL, KU, AFB, LDAFB, IWORK, INFO );
 
                            // Form the inverse of A.
 
-                           CALL DLASET( 'Full', N, N, ZERO, ONE, WORK, LDB )
+                           dlaset('Full', N, N, ZERO, ONE, WORK, LDB );
                            SRNAMT = 'DGBTRS'
-                           CALL DGBTRS( 'No transpose', N, KL, KU, N, AFB, LDAFB, IWORK, WORK, LDB, INFO )
+                           dgbtrs('No transpose', N, KL, KU, N, AFB, LDAFB, IWORK, WORK, LDB, INFO );
 
                            // Compute the 1-norm condition number of A.
 
@@ -319,15 +319,15 @@
 
                            // Restore the matrix A.
 
-                           CALL DLACPY( 'Full', KL+KU+1, N, ASAV, LDA, A, LDA )
+                           dlacpy('Full', KL+KU+1, N, ASAV, LDA, A, LDA );
 
                            // Form an exact solution and set the right hand
                            // side.
 
                            SRNAMT = 'DLARHS'
-                           CALL DLARHS( PATH, XTYPE, 'Full', TRANS, N, N, KL, KU, NRHS, A, LDA, XACT, LDB, B, LDB, ISEED, INFO )
+                           dlarhs(PATH, XTYPE, 'Full', TRANS, N, N, KL, KU, NRHS, A, LDA, XACT, LDB, B, LDB, ISEED, INFO );
                            XTYPE = 'C'
-                           CALL DLACPY( 'Full', N, NRHS, B, LDB, BSAV, LDB )
+                           dlacpy('Full', N, NRHS, B, LDB, BSAV, LDB );
 
                            if ( NOFACT .AND. ITRAN.EQ.1 ) {
 
@@ -336,10 +336,10 @@
                               // Compute the LU factorization of the matrix
                               // and solve the system.
 
-                              CALL DLACPY( 'Full', KL+KU+1, N, A, LDA, AFB( KL+1 ), LDAFB )                               CALL DLACPY( 'Full', N, NRHS, B, LDB, X, LDB )
+                              dlacpy('Full', KL+KU+1, N, A, LDA, AFB( KL+1 ), LDAFB )                               CALL DLACPY( 'Full', N, NRHS, B, LDB, X, LDB );
 
                               SRNAMT = 'DGBSV '
-                              CALL DGBSV( N, KL, KU, NRHS, AFB, LDAFB, IWORK, X, LDB, INFO )
+                              dgbsv(N, KL, KU, NRHS, AFB, LDAFB, IWORK, X, LDB, INFO );
 
                               // Check error code from DGBSV .
 
@@ -348,19 +348,19 @@
                               // Reconstruct matrix from factors and
                               // compute residual.
 
-                              CALL DGBT01( N, N, KL, KU, A, LDA, AFB, LDAFB, IWORK, WORK, RESULT( 1 ) )
+                              dgbt01(N, N, KL, KU, A, LDA, AFB, LDAFB, IWORK, WORK, RESULT( 1 ) );
                               NT = 1
                               if ( IZERO.EQ.0 ) {
 
                                  // Compute residual of the computed
                                  // solution.
 
-                                 CALL DLACPY( 'Full', N, NRHS, B, LDB, WORK, LDB )                                  CALL DGBT02( 'No transpose', N, N, KL, KU, NRHS, A, LDA, X, LDB, WORK, LDB, RWORK, RESULT( 2 ) )
+                                 dlacpy('Full', N, NRHS, B, LDB, WORK, LDB )                                  CALL DGBT02( 'No transpose', N, N, KL, KU, NRHS, A, LDA, X, LDB, WORK, LDB, RWORK, RESULT( 2 ) );
 
                                  // Check solution from generated exact
                                  // solution.
 
-                                 CALL DGET04( N, NRHS, X, LDB, XACT, LDB, RCONDC, RESULT( 3 ) )
+                                 dget04(N, NRHS, X, LDB, XACT, LDB, RCONDC, RESULT( 3 ) );
                                  NT = 3
                               }
 
@@ -379,20 +379,20 @@
                            // --- Test DGBSVX ---
 
                            IF( .NOT.PREFAC ) CALL DLASET( 'Full', 2*KL+KU+1, N, ZERO, ZERO, AFB, LDAFB )
-                           CALL DLASET( 'Full', N, NRHS, ZERO, ZERO, X, LDB )
+                           dlaset('Full', N, NRHS, ZERO, ZERO, X, LDB );
                            if ( IEQUED.GT.1 .AND. N.GT.0 ) {
 
                               // Equilibrate the matrix if FACT = 'F' and
                               // EQUED = 'R', 'C', or 'B'.
 
-                              CALL DLAQGB( N, N, KL, KU, A, LDA, S, S( N+1 ), ROWCND, COLCND, AMAX, EQUED )
+                              dlaqgb(N, N, KL, KU, A, LDA, S, S( N+1 ), ROWCND, COLCND, AMAX, EQUED );
                            }
 
                            // Solve the system and compute the condition
                            // number and error bounds using DGBSVX.
 
                            SRNAMT = 'DGBSVX'
-                           CALL DGBSVX( FACT, TRANS, N, KL, KU, NRHS, A, LDA, AFB, LDAFB, IWORK, EQUED, S, S( N+1 ), B, LDB, X, LDB, RCOND, RWORK, RWORK( NRHS+1 ), WORK, IWORK( N+1 ), INFO )
+                           dgbsvx(FACT, TRANS, N, KL, KU, NRHS, A, LDA, AFB, LDAFB, IWORK, EQUED, S, S( N+1 ), B, LDB, X, LDB, RCOND, RWORK, RWORK( NRHS+1 ), WORK, IWORK( N+1 ), INFO );
 
                            // Check the error code from DGBSVX.
 
@@ -428,7 +428,7 @@
                               // Reconstruct matrix from factors and
                               // compute residual.
 
-                              CALL DGBT01( N, N, KL, KU, A, LDA, AFB, LDAFB, IWORK, WORK, RESULT( 1 ) )
+                              dgbt01(N, N, KL, KU, A, LDA, AFB, LDAFB, IWORK, WORK, RESULT( 1 ) );
                               K1 = 1
                            } else {
                               K1 = 2
@@ -439,7 +439,7 @@
 
                               // Compute residual of the computed solution.
 
-                              CALL DLACPY( 'Full', N, NRHS, BSAV, LDB, WORK, LDB )                               CALL DGBT02( TRANS, N, N, KL, KU, NRHS, ASAV, LDA, X, LDB, WORK, LDB, RWORK( 2*NRHS+1 ), RESULT( 2 ) )
+                              dlacpy('Full', N, NRHS, BSAV, LDB, WORK, LDB )                               CALL DGBT02( TRANS, N, N, KL, KU, NRHS, ASAV, LDA, X, LDB, WORK, LDB, RWORK( 2*NRHS+1 ), RESULT( 2 ) );
 
                               // Check solution from generated exact
                               // solution.
@@ -451,13 +451,13 @@
                                  } else {
                                     ROLDC = ROLDI
                                  }
-                                 CALL DGET04( N, NRHS, X, LDB, XACT, LDB, ROLDC, RESULT( 3 ) )
+                                 dget04(N, NRHS, X, LDB, XACT, LDB, ROLDC, RESULT( 3 ) );
                               }
 
                               // Check the error bounds from iterative
                               // refinement.
 
-                              CALL DGBT05( TRANS, N, KL, KU, NRHS, ASAV, LDA, B, LDB, X, LDB, XACT, LDB, RWORK, RWORK( NRHS+1 ), RESULT( 4 ) )
+                              dgbt05(TRANS, N, KL, KU, NRHS, ASAV, LDA, B, LDB, X, LDB, XACT, LDB, RWORK, RWORK( NRHS+1 ), RESULT( 4 ) );
                            } else {
                               TRFCON = .TRUE.
                            }
@@ -525,7 +525,7 @@
 
       // Print a summary of the results.
 
-      CALL ALASVM( PATH, NOUT, NFAIL, NRUN, NERRS )
+      alasvm(PATH, NOUT, NFAIL, NRUN, NERRS );
 
  9999 FORMAT( ' *** In DDRVGB, LA=', I5, ' is too small for N=', I5, ', KU=', I5, ', KL=', I5, / ' ==> Increase LA to at least ', I5 )
  9998 FORMAT( ' *** In DDRVGB, LAFB=', I5, ' is too small for N=', I5, ', KU=', I5, ', KL=', I5, / ' ==> Increase LAFB to at least ', I5 )

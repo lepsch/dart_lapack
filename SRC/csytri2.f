@@ -56,7 +56,7 @@
 
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'CSYTRI2', -INFO )
+         xerbla('CSYTRI2', -INFO );
          RETURN
       } else if ( LQUERY ) {
          WORK(1)=MINSIZE
@@ -65,9 +65,9 @@
       IF( N.EQ.0 ) RETURN
 
       if ( NBMAX .GE. N ) {
-         CALL CSYTRI( UPLO, N, A, LDA, IPIV, WORK, INFO )
+         csytri(UPLO, N, A, LDA, IPIV, WORK, INFO );
       } else {
-         CALL CSYTRI2X( UPLO, N, A, LDA, IPIV, WORK, NBMAX, INFO )
+         csytri2x(UPLO, N, A, LDA, IPIV, WORK, NBMAX, INFO );
       }
       RETURN
 

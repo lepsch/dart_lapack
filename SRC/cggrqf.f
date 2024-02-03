@@ -54,7 +54,7 @@
          INFO = -11
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'CGGRQF', -INFO )
+         xerbla('CGGRQF', -INFO );
          RETURN
       } else if ( LQUERY ) {
          RETURN
@@ -62,17 +62,17 @@
 
       // RQ factorization of M-by-N matrix A: A = R*Q
 
-      CALL CGERQF( M, N, A, LDA, TAUA, WORK, LWORK, INFO )
+      cgerqf(M, N, A, LDA, TAUA, WORK, LWORK, INFO );
       LOPT = INT( WORK( 1 ) )
 
       // Update B := B*Q**H
 
-      CALL CUNMRQ( 'Right', 'Conjugate Transpose', P, N, MIN( M, N ), A( MAX( 1, M-N+1 ), 1 ), LDA, TAUA, B, LDB, WORK, LWORK, INFO )
+      cunmrq('Right', 'Conjugate Transpose', P, N, MIN( M, N ), A( MAX( 1, M-N+1 ), 1 ), LDA, TAUA, B, LDB, WORK, LWORK, INFO );
       LOPT = MAX( LOPT, INT( WORK( 1 ) ) )
 
       // QR factorization of P-by-N matrix B: B = Z*T
 
-      CALL CGEQRF( P, N, B, LDB, TAUB, WORK, LWORK, INFO )
+      cgeqrf(P, N, B, LDB, TAUB, WORK, LWORK, INFO );
       WORK( 1 ) = SROUNDUP_LWORK( MAX( LOPT, INT( WORK( 1 ) ) ) )
 
       RETURN

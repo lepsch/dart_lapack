@@ -67,7 +67,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'SGEMQRT', -INFO )
+         xerbla('SGEMQRT', -INFO );
          RETURN
       }
 
@@ -79,14 +79,14 @@
 
          DO I = 1, K, NB
             IB = MIN( NB, K-I+1 )
-            CALL SLARFB( 'L', 'T', 'F', 'C', M-I+1, N, IB, V( I, I ), LDV, T( 1, I ), LDT, C( I, 1 ), LDC, WORK, LDWORK )
+            slarfb('L', 'T', 'F', 'C', M-I+1, N, IB, V( I, I ), LDV, T( 1, I ), LDT, C( I, 1 ), LDC, WORK, LDWORK );
          END DO
 
       } else if ( RIGHT .AND. NOTRAN ) {
 
          DO I = 1, K, NB
             IB = MIN( NB, K-I+1 )
-            CALL SLARFB( 'R', 'N', 'F', 'C', M, N-I+1, IB, V( I, I ), LDV, T( 1, I ), LDT, C( 1, I ), LDC, WORK, LDWORK )
+            slarfb('R', 'N', 'F', 'C', M, N-I+1, IB, V( I, I ), LDV, T( 1, I ), LDT, C( 1, I ), LDC, WORK, LDWORK );
          END DO
 
       } else if ( LEFT .AND. NOTRAN ) {
@@ -94,7 +94,7 @@
          KF = ((K-1)/NB)*NB+1
          DO I = KF, 1, -NB
             IB = MIN( NB, K-I+1 )
-            CALL SLARFB( 'L', 'N', 'F', 'C', M-I+1, N, IB, V( I, I ), LDV, T( 1, I ), LDT, C( I, 1 ), LDC, WORK, LDWORK )
+            slarfb('L', 'N', 'F', 'C', M-I+1, N, IB, V( I, I ), LDV, T( 1, I ), LDT, C( I, 1 ), LDC, WORK, LDWORK );
          END DO
 
       } else if ( RIGHT .AND. TRAN ) {
@@ -102,7 +102,7 @@
          KF = ((K-1)/NB)*NB+1
          DO I = KF, 1, -NB
             IB = MIN( NB, K-I+1 )
-            CALL SLARFB( 'R', 'T', 'F', 'C', M, N-I+1, IB, V( I, I ), LDV, T( 1, I ), LDT, C( 1, I ), LDC, WORK, LDWORK )
+            slarfb('R', 'T', 'F', 'C', M, N-I+1, IB, V( I, I ), LDV, T( 1, I ), LDT, C( 1, I ), LDC, WORK, LDWORK );
          END DO
 
       }

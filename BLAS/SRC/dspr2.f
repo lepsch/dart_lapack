@@ -44,7 +44,7 @@
           INFO = 7
       }
       if (INFO.NE.0) {
-          CALL XERBLA('DSPR2 ',INFO)
+          xerbla('DSPR2 ',INFO);
           RETURN
       }
 

@@ -46,22 +46,22 @@
 
       // Copy the first k columns of the factorization to the array Q
 
-      CALL CLASET( 'Full', M, N, ROGUE, ROGUE, Q, LDA )
-      CALL CLACPY( 'Lower', M-1, K, AF( 2, 1 ), LDA, Q( 2, 1 ), LDA )
+      claset('Full', M, N, ROGUE, ROGUE, Q, LDA );
+      clacpy('Lower', M-1, K, AF( 2, 1 ), LDA, Q( 2, 1 ), LDA );
 
       // Generate the first n columns of the matrix Q
 
       SRNAMT = 'CUNGQR'
-      CALL CUNGQR( M, N, K, Q, LDA, TAU, WORK, LWORK, INFO )
+      cungqr(M, N, K, Q, LDA, TAU, WORK, LWORK, INFO );
 
       // Copy R(1:n,1:k)
 
-      CALL CLASET( 'Full', N, K, CMPLX( ZERO ), CMPLX( ZERO ), R, LDA )
-      CALL CLACPY( 'Upper', N, K, AF, LDA, R, LDA )
+      claset('Full', N, K, CMPLX( ZERO ), CMPLX( ZERO ), R, LDA );
+      clacpy('Upper', N, K, AF, LDA, R, LDA );
 
       // Compute R(1:n,1:k) - Q(1:m,1:n)' * A(1:m,1:k)
 
-      CALL CGEMM( 'Conjugate transpose', 'No transpose', N, K, M, CMPLX( -ONE ), Q, LDA, A, LDA, CMPLX( ONE ), R, LDA )
+      cgemm('Conjugate transpose', 'No transpose', N, K, M, CMPLX( -ONE ), Q, LDA, A, LDA, CMPLX( ONE ), R, LDA );
 
       // Compute norm( R - Q'*A ) / ( M * norm(A) * EPS ) .
 
@@ -75,8 +75,8 @@
 
       // Compute I - Q'*Q
 
-      CALL CLASET( 'Full', N, N, CMPLX( ZERO ), CMPLX( ONE ), R, LDA )
-      CALL CHERK( 'Upper', 'Conjugate transpose', N, M, -ONE, Q, LDA, ONE, R, LDA )
+      claset('Full', N, N, CMPLX( ZERO ), CMPLX( ONE ), R, LDA );
+      cherk('Upper', 'Conjugate transpose', N, M, -ONE, Q, LDA, ONE, R, LDA );
 
       // Compute norm( I - Q'*Q ) / ( M * EPS ) .
 

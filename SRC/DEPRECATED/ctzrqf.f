@@ -40,7 +40,7 @@
          INFO = -4
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'CTZRQF', -INFO )
+         xerbla('CTZRQF', -INFO );
          RETURN
       }
 
@@ -59,9 +59,9 @@
             // First set up the reflection.
 
             A( K, K ) = CONJG( A( K, K ) )
-            CALL CLACGV( N-M, A( K, M1 ), LDA )
+            clacgv(N-M, A( K, M1 ), LDA );
             ALPHA = A( K, K )
-            CALL CLARFG( N-M+1, ALPHA, A( K, M1 ), LDA, TAU( K ) )
+            clarfg(N-M+1, ALPHA, A( K, M1 ), LDA, TAU( K ) );
             A( K, K ) = ALPHA
             TAU( K ) = CONJG( TAU( K ) )
 
@@ -74,16 +74,16 @@
                // the  kth column  of  A.  Also  let  B  denote  the  first
                // ( k - 1 ) rows of the last ( n - m ) columns of A.
 
-               CALL CCOPY( K-1, A( 1, K ), 1, TAU, 1 )
+               ccopy(K-1, A( 1, K ), 1, TAU, 1 );
 
                // Form   w = a( k ) + B*z( k )  in TAU.
 
-               CALL CGEMV( 'No transpose', K-1, N-M, CONE, A( 1, M1 ), LDA, A( K, M1 ), LDA, CONE, TAU, 1 )
+               cgemv('No transpose', K-1, N-M, CONE, A( 1, M1 ), LDA, A( K, M1 ), LDA, CONE, TAU, 1 );
 
                // Now form  a( k ) := a( k ) - conjg(tau)*w
                // and       B      := B      - conjg(tau)*w*z( k )**H.
 
-               CALL CAXPY( K-1, -CONJG( TAU( K ) ), TAU, 1, A( 1, K ), 1 )                CALL CGERC( K-1, N-M, -CONJG( TAU( K ) ), TAU, 1, A( K, M1 ), LDA, A( 1, M1 ), LDA )
+               caxpy(K-1, -CONJG( TAU( K ) ), TAU, 1, A( 1, K ), 1 )                CALL CGERC( K-1, N-M, -CONJG( TAU( K ) ), TAU, 1, A( K, M1 ), LDA, A( 1, M1 ), LDA );
             }
    20    CONTINUE
       }

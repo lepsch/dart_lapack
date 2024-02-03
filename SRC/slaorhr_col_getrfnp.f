@@ -44,7 +44,7 @@
          INFO = -4
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'SLAORHR_COL_GETRFNP', -INFO )
+         xerbla('SLAORHR_COL_GETRFNP', -INFO );
          RETURN
       }
 
@@ -61,7 +61,7 @@
 
          // Use unblocked code.
 
-         CALL SLAORHR_COL_GETRFNP2( M, N, A, LDA, D, INFO )
+         slaorhr_col_getrfnp2(M, N, A, LDA, D, INFO );
       } else {
 
          // Use blocked code.
@@ -71,18 +71,18 @@
 
             // Factor diagonal and subdiagonal blocks.
 
-            CALL SLAORHR_COL_GETRFNP2( M-J+1, JB, A( J, J ), LDA, D( J ), IINFO )
+            slaorhr_col_getrfnp2(M-J+1, JB, A( J, J ), LDA, D( J ), IINFO );
 
             if ( J+JB.LE.N ) {
 
                // Compute block row of U.
 
-               CALL STRSM( 'Left', 'Lower', 'No transpose', 'Unit', JB, N-J-JB+1, ONE, A( J, J ), LDA, A( J, J+JB ), LDA )
+               strsm('Left', 'Lower', 'No transpose', 'Unit', JB, N-J-JB+1, ONE, A( J, J ), LDA, A( J, J+JB ), LDA );
                if ( J+JB.LE.M ) {
 
                   // Update trailing submatrix.
 
-                  CALL SGEMM( 'No transpose', 'No transpose', M-J-JB+1, N-J-JB+1, JB, -ONE, A( J+JB, J ), LDA, A( J, J+JB ), LDA, ONE, A( J+JB, J+JB ), LDA )
+                  sgemm('No transpose', 'No transpose', M-J-JB+1, N-J-JB+1, JB, -ONE, A( J+JB, J ), LDA, A( J, J+JB ), LDA, ONE, A( J+JB, J+JB ), LDA );
                }
             }
          END DO

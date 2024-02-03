@@ -80,10 +80,10 @@
 
          SCALE = ZERO
          SUM = ONE
-         CALL SLASSQ( N, D, 1, SCALE, SUM )
+         slassq(N, D, 1, SCALE, SUM );
          if ( N.GT.1 ) {
-            CALL SLASSQ( N-1, DL, 1, SCALE, SUM )
-            CALL SLASSQ( N-1, DU, 1, SCALE, SUM )
+            slassq(N-1, DL, 1, SCALE, SUM );
+            slassq(N-1, DU, 1, SCALE, SUM );
          }
          ANORM = SCALE*SQRT( SUM )
       }

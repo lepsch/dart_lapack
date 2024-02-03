@@ -77,7 +77,7 @@
          INFO = -12
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'ZGERFS', -INFO )
+         xerbla('ZGERFS', -INFO );
          RETURN
       }
 
@@ -120,8 +120,8 @@
          // Compute residual R = B - op(A) * X,
          // where op(A) = A, A**T, or A**H, depending on TRANS.
 
-         CALL ZCOPY( N, B( 1, J ), 1, WORK, 1 )
-         CALL ZGEMV( TRANS, N, N, -ONE, A, LDA, X( 1, J ), 1, ONE, WORK, 1 )
+         zcopy(N, B( 1, J ), 1, WORK, 1 );
+         zgemv(TRANS, N, N, -ONE, A, LDA, X( 1, J ), 1, ONE, WORK, 1 );
 
          // Compute componentwise relative backward error from formula
 
@@ -174,8 +174,8 @@
 
             // Update solution and try again.
 
-            CALL ZGETRS( TRANS, N, 1, AF, LDAF, IPIV, WORK, N, INFO )
-            CALL ZAXPY( N, ONE, WORK, 1, X( 1, J ), 1 )
+            zgetrs(TRANS, N, 1, AF, LDAF, IPIV, WORK, N, INFO );
+            zaxpy(N, ONE, WORK, 1, X( 1, J ), 1 );
             LSTRES = BERR( J )
             COUNT = COUNT + 1
             GO TO 20
@@ -213,13 +213,13 @@
 
          KASE = 0
   100    CONTINUE
-         CALL ZLACN2( N, WORK( N+1 ), WORK, FERR( J ), KASE, ISAVE )
+         zlacn2(N, WORK( N+1 ), WORK, FERR( J ), KASE, ISAVE );
          if ( KASE.NE.0 ) {
             if ( KASE.EQ.1 ) {
 
                // Multiply by diag(W)*inv(op(A)**H).
 
-               CALL ZGETRS( TRANST, N, 1, AF, LDAF, IPIV, WORK, N, INFO )
+               zgetrs(TRANST, N, 1, AF, LDAF, IPIV, WORK, N, INFO );
                DO 110 I = 1, N
                   WORK( I ) = RWORK( I )*WORK( I )
   110          CONTINUE
@@ -230,7 +230,7 @@
                DO 120 I = 1, N
                   WORK( I ) = RWORK( I )*WORK( I )
   120          CONTINUE
-               CALL ZGETRS( TRANSN, N, 1, AF, LDAF, IPIV, WORK, N, INFO )
+               zgetrs(TRANSN, N, 1, AF, LDAF, IPIV, WORK, N, INFO );
             }
             GO TO 100
          }

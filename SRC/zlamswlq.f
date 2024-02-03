@@ -75,7 +75,7 @@
         WORK( 1 ) = LWMIN
       }
       if ( INFO.NE.0 ) {
-        CALL XERBLA( 'ZLAMSWLQ', -INFO )
+        xerbla('ZLAMSWLQ', -INFO );
         RETURN
       } else if ( LQUERY ) {
         RETURN
@@ -88,7 +88,7 @@
       }
 
       if ((NB.LE.K).OR.(NB.GE.MAX(M,N,K))) {
-        CALL ZGEMLQT( SIDE, TRANS, M, N, K, MB, A, LDA, T, LDT, C, LDC, WORK, INFO )
+        zgemlqt(SIDE, TRANS, M, N, K, MB, A, LDA, T, LDT, C, LDC, WORK, INFO );
         RETURN
       }
 
@@ -101,7 +101,7 @@
 
           if (KK.GT.0) {
             II=M-KK+1
-            CALL ZTPMLQT('L','C',KK , N, K, 0, MB, A(1,II), LDA, T(1,CTR*K+1), LDT, C(1,1), LDC, C(II,1), LDC, WORK, INFO )
+            ztpmlqt('L','C',KK , N, K, 0, MB, A(1,II), LDA, T(1,CTR*K+1), LDT, C(1,1), LDC, C(II,1), LDC, WORK, INFO );
           } else {
             II=M+1
           }
@@ -111,13 +111,13 @@
           // Multiply Q to the current block of C (1:M,I:I+NB)
 
             CTR = CTR - 1
-            CALL ZTPMLQT('L','C',NB-K , N, K, 0,MB, A(1,I), LDA, T(1,CTR*K+1),LDT, C(1,1), LDC, C(I,1), LDC, WORK, INFO )
+            ztpmlqt('L','C',NB-K , N, K, 0,MB, A(1,I), LDA, T(1,CTR*K+1),LDT, C(1,1), LDC, C(I,1), LDC, WORK, INFO );
 
           END DO
 
           // Multiply Q to the first block of C (1:M,1:NB)
 
-          CALL ZGEMLQT('L','C',NB , N, K, MB, A(1,1), LDA, T ,LDT ,C(1,1), LDC, WORK, INFO )
+          zgemlqt('L','C',NB , N, K, MB, A(1,1), LDA, T ,LDT ,C(1,1), LDC, WORK, INFO );
 
       } else if (LEFT.AND.NOTRAN) {
 
@@ -126,13 +126,13 @@
          KK = MOD((M-K),(NB-K))
          II=M-KK+1
          CTR = 1
-         CALL ZGEMLQT('L','N',NB , N, K, MB, A(1,1), LDA, T ,LDT ,C(1,1), LDC, WORK, INFO )
+         zgemlqt('L','N',NB , N, K, MB, A(1,1), LDA, T ,LDT ,C(1,1), LDC, WORK, INFO );
 
          DO I=NB+1,II-NB+K,(NB-K)
 
           // Multiply Q to the current block of C (I:I+NB,1:N)
 
-          CALL ZTPMLQT('L','N',NB-K , N, K, 0,MB, A(1,I), LDA, T(1, CTR * K + 1), LDT, C(1,1), LDC, C(I,1), LDC, WORK, INFO )
+          ztpmlqt('L','N',NB-K , N, K, 0,MB, A(1,I), LDA, T(1, CTR * K + 1), LDT, C(1,1), LDC, C(I,1), LDC, WORK, INFO );
           CTR = CTR + 1
 
          END DO
@@ -140,7 +140,7 @@
 
           // Multiply Q to the last block of C
 
-          CALL ZTPMLQT('L','N',KK , N, K, 0, MB, A(1,II), LDA, T(1, CTR * K + 1), LDT, C(1,1), LDC, C(II,1), LDC, WORK, INFO )
+          ztpmlqt('L','N',KK , N, K, 0, MB, A(1,II), LDA, T(1, CTR * K + 1), LDT, C(1,1), LDC, C(II,1), LDC, WORK, INFO );
 
          }
 
@@ -152,7 +152,7 @@
           CTR = (N-K)/(NB-K)
           if (KK.GT.0) {
             II=N-KK+1
-            CALL ZTPMLQT('R','N',M , KK, K, 0, MB, A(1, II), LDA, T(1, CTR * K + 1), LDT, C(1,1), LDC, C(1,II), LDC, WORK, INFO )
+            ztpmlqt('R','N',M , KK, K, 0, MB, A(1, II), LDA, T(1, CTR * K + 1), LDT, C(1,1), LDC, C(1,II), LDC, WORK, INFO );
           } else {
             II=N+1
           }
@@ -162,13 +162,13 @@
           // Multiply Q to the current block of C (1:M,I:I+MB)
 
           CTR = CTR - 1
-          CALL ZTPMLQT('R','N', M, NB-K, K, 0, MB, A(1, I), LDA, T(1, CTR * K + 1), LDT, C(1,1), LDC, C(1,I), LDC, WORK, INFO )
+          ztpmlqt('R','N', M, NB-K, K, 0, MB, A(1, I), LDA, T(1, CTR * K + 1), LDT, C(1,1), LDC, C(1,I), LDC, WORK, INFO );
 
           END DO
 
           // Multiply Q to the first block of C (1:M,1:MB)
 
-          CALL ZGEMLQT('R','N',M , NB, K, MB, A(1,1), LDA, T ,LDT ,C(1,1), LDC, WORK, INFO )
+          zgemlqt('R','N',M , NB, K, MB, A(1,1), LDA, T ,LDT ,C(1,1), LDC, WORK, INFO );
 
       } else if (RIGHT.AND.TRAN) {
 
@@ -176,14 +176,14 @@
 
          KK = MOD((N-K),(NB-K))
          II=N-KK+1
-         CALL ZGEMLQT('R','C',M , NB, K, MB, A(1,1), LDA, T ,LDT ,C(1,1), LDC, WORK, INFO )
+         zgemlqt('R','C',M , NB, K, MB, A(1,1), LDA, T ,LDT ,C(1,1), LDC, WORK, INFO );
          CTR = 1
 
          DO I=NB+1,II-NB+K,(NB-K)
 
           // Multiply Q to the current block of C (1:M,I:I+MB)
 
-          CALL ZTPMLQT('R','C',M , NB-K, K, 0,MB, A(1,I), LDA, T(1,CTR *K+1), LDT, C(1,1), LDC, C(1,I), LDC, WORK, INFO )
+          ztpmlqt('R','C',M , NB-K, K, 0,MB, A(1,I), LDA, T(1,CTR *K+1), LDT, C(1,1), LDC, C(1,I), LDC, WORK, INFO );
           CTR = CTR + 1
 
          END DO
@@ -191,7 +191,7 @@
 
         // Multiply Q to the last block of C
 
-          CALL ZTPMLQT('R','C',M , KK, K, 0,MB, A(1,II), LDA, T(1, CTR * K + 1),LDT, C(1,1), LDC, C(1,II), LDC, WORK, INFO )
+          ztpmlqt('R','C',M , KK, K, 0,MB, A(1,II), LDA, T(1, CTR * K + 1),LDT, C(1,1), LDC, C(1,II), LDC, WORK, INFO );
 
          }
 

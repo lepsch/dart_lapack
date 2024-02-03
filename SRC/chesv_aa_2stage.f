@@ -58,13 +58,13 @@
       }
 
       if ( INFO.EQ.0 ) {
-         CALL CHETRF_AA_2STAGE( UPLO, N, A, LDA, TB, -1, IPIV, IPIV2, WORK, -1, INFO )
+         chetrf_aa_2stage(UPLO, N, A, LDA, TB, -1, IPIV, IPIV2, WORK, -1, INFO );
          LWKOPT = MAX( LWKMIN, INT( WORK( 1 ) ) )
          WORK( 1 ) = SROUNDUP_LWORK( LWKOPT )
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'CHESV_AA_2STAGE', -INFO )
+         xerbla('CHESV_AA_2STAGE', -INFO );
          RETURN
       } else if ( WQUERY .OR. TQUERY ) {
          RETURN
@@ -72,12 +72,12 @@
 
       // Compute the factorization A = U**H*T*U or A = L*T*L**H.
 
-      CALL CHETRF_AA_2STAGE( UPLO, N, A, LDA, TB, LTB, IPIV, IPIV2, WORK, LWORK, INFO )
+      chetrf_aa_2stage(UPLO, N, A, LDA, TB, LTB, IPIV, IPIV2, WORK, LWORK, INFO );
       if ( INFO.EQ.0 ) {
 
          // Solve the system A*X = B, overwriting B with X.
 
-         CALL CHETRS_AA_2STAGE( UPLO, N, NRHS, A, LDA, TB, LTB, IPIV, IPIV2, B, LDB, INFO )
+         chetrs_aa_2stage(UPLO, N, NRHS, A, LDA, TB, LTB, IPIV, IPIV2, B, LDB, INFO );
 
       }
 

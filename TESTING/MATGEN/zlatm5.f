@@ -214,10 +214,10 @@
 
       // Compute rhs (C, F)
 
-      CALL ZGEMM( 'N', 'N', M, N, M, ONE, A, LDA, R, LDR, ZERO, C, LDC )
-      CALL ZGEMM( 'N', 'N', M, N, N, -ONE, L, LDL, B, LDB, ONE, C, LDC )
-      CALL ZGEMM( 'N', 'N', M, N, M, ONE, D, LDD, R, LDR, ZERO, F, LDF )
-      CALL ZGEMM( 'N', 'N', M, N, N, -ONE, L, LDL, E, LDE, ONE, F, LDF )
+      zgemm('N', 'N', M, N, M, ONE, A, LDA, R, LDR, ZERO, C, LDC );
+      zgemm('N', 'N', M, N, N, -ONE, L, LDL, B, LDB, ONE, C, LDC );
+      zgemm('N', 'N', M, N, M, ONE, D, LDD, R, LDR, ZERO, F, LDF );
+      zgemm('N', 'N', M, N, N, -ONE, L, LDL, E, LDE, ONE, F, LDF );
 
       // End of ZLATM5
 

@@ -60,7 +60,7 @@
             RSAFMN = ONE / SAFMIN
    10       CONTINUE
             KNT = KNT + 1
-            CALL SSCAL( N-1, RSAFMN, X, INCX )
+            sscal(N-1, RSAFMN, X, INCX );
             BETA = BETA*RSAFMN
             ALPHA = ALPHA*RSAFMN
             IF( (ABS( BETA ).LT.SAFMIN) .AND. (KNT .LT. 20) ) GO TO 10
@@ -71,7 +71,7 @@
             BETA = -SIGN( SLAPY2( ALPHA, XNORM ), ALPHA )
          }
          TAU = ( BETA-ALPHA ) / BETA
-         CALL SSCAL( N-1, ONE / ( ALPHA-BETA ), X, INCX )
+         sscal(N-1, ONE / ( ALPHA-BETA ), X, INCX );
 
          // If ALPHA is subnormal, it may lose relative accuracy
 

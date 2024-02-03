@@ -44,7 +44,7 @@
          INFO = -3
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'DLASD1', -INFO )
+         xerbla('DLASD1', -INFO );
          RETURN
       }
 
@@ -78,18 +78,18 @@
             ORGNRM = ABS( D( I ) )
          }
    10 CONTINUE
-      CALL DLASCL( 'G', 0, 0, ORGNRM, ONE, N, 1, D, N, INFO )
+      dlascl('G', 0, 0, ORGNRM, ONE, N, 1, D, N, INFO );
       ALPHA = ALPHA / ORGNRM
       BETA = BETA / ORGNRM
 
       // Deflate singular values.
 
-      CALL DLASD2( NL, NR, SQRE, K, D, WORK( IZ ), ALPHA, BETA, U, LDU, VT, LDVT, WORK( ISIGMA ), WORK( IU2 ), LDU2, WORK( IVT2 ), LDVT2, IWORK( IDXP ), IWORK( IDX ), IWORK( IDXC ), IDXQ, IWORK( COLTYP ), INFO )
+      dlasd2(NL, NR, SQRE, K, D, WORK( IZ ), ALPHA, BETA, U, LDU, VT, LDVT, WORK( ISIGMA ), WORK( IU2 ), LDU2, WORK( IVT2 ), LDVT2, IWORK( IDXP ), IWORK( IDX ), IWORK( IDXC ), IDXQ, IWORK( COLTYP ), INFO );
 
       // Solve Secular Equation and update singular vectors.
 
       LDQ = K
-      CALL DLASD3( NL, NR, SQRE, K, D, WORK( IQ ), LDQ, WORK( ISIGMA ), U, LDU, WORK( IU2 ), LDU2, VT, LDVT, WORK( IVT2 ), LDVT2, IWORK( IDXC ), IWORK( COLTYP ), WORK( IZ ), INFO )
+      dlasd3(NL, NR, SQRE, K, D, WORK( IQ ), LDQ, WORK( ISIGMA ), U, LDU, WORK( IU2 ), LDU2, VT, LDVT, WORK( IVT2 ), LDVT2, IWORK( IDXC ), IWORK( COLTYP ), WORK( IZ ), INFO );
 
       // Report the convergence failure.
 
@@ -99,13 +99,13 @@
 
       // Unscale.
 
-      CALL DLASCL( 'G', 0, 0, ONE, ORGNRM, N, 1, D, N, INFO )
+      dlascl('G', 0, 0, ONE, ORGNRM, N, 1, D, N, INFO );
 
       // Prepare the IDXQ sorting permutation.
 
       N1 = K
       N2 = N - K
-      CALL DLAMRG( N1, N2, D, 1, -1, IDXQ )
+      dlamrg(N1, N2, D, 1, -1, IDXQ );
 
       RETURN
 

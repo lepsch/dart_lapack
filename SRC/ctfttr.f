@@ -48,7 +48,7 @@
          INFO = -6
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'CTFTTR', -INFO )
+         xerbla('CTFTTR', -INFO );
          RETURN
       }
 

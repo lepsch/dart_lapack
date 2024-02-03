@@ -40,7 +40,7 @@
       // Test for sufficient workspace
 
       if ( LWORK.LT.M*M+M ) {
-         CALL XERBLA( 'ZQRT11', 7 )
+         xerbla('ZQRT11', 7 );
          RETURN
       }
 
@@ -48,15 +48,15 @@
 
       IF( M.LE.0 ) RETURN
 
-      CALL ZLASET( 'Full', M, M, DCMPLX( ZERO ), DCMPLX( ONE ), WORK, M )
+      zlaset('Full', M, M, DCMPLX( ZERO ), DCMPLX( ONE ), WORK, M );
 
       // Form Q
 
-      CALL ZUNM2R( 'Left', 'No transpose', M, M, K, A, LDA, TAU, WORK, M, WORK( M*M+1 ), INFO )
+      zunm2r('Left', 'No transpose', M, M, K, A, LDA, TAU, WORK, M, WORK( M*M+1 ), INFO );
 
       // Form Q'*Q
 
-      CALL ZUNM2R( 'Left', 'Conjugate transpose', M, M, K, A, LDA, TAU, WORK, M, WORK( M*M+1 ), INFO )
+      zunm2r('Left', 'Conjugate transpose', M, M, K, A, LDA, TAU, WORK, M, WORK( M*M+1 ), INFO );
 
       DO J = 1, M
          WORK( ( J-1 )*M+J ) = WORK( ( J-1 )*M+J ) - ONE

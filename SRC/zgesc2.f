@@ -45,7 +45,7 @@
 
       // Apply permutations IPIV to RHS
 
-      CALL ZLASWP( 1, RHS, LDA, 1, N-1, IPIV, 1 )
+      zlaswp(1, RHS, LDA, 1, N-1, IPIV, 1 );
 
       // Solve for L part
 
@@ -64,7 +64,7 @@
       I = IZAMAX( N, RHS, 1 )
       if ( TWO*SMLNUM*ABS( RHS( I ) ).GT.ABS( A( N, N ) ) ) {
          TEMP = DCMPLX( ONE / TWO, ZERO ) / ABS( RHS( I ) )
-         CALL ZSCAL( N, TEMP, RHS( 1 ), 1 )
+         zscal(N, TEMP, RHS( 1 ), 1 );
          SCALE = SCALE*DBLE( TEMP )
       }
       DO 40 I = N, 1, -1
@@ -77,7 +77,7 @@
 
       // Apply permutations JPIV to the solution (RHS)
 
-      CALL ZLASWP( 1, RHS, LDA, 1, N-1, JPIV, -1 )
+      zlaswp(1, RHS, LDA, 1, N-1, JPIV, -1 );
       RETURN
 
       // End of ZGESC2

@@ -89,7 +89,7 @@
          INFO = -13
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'ZGGHRD', -INFO )
+         xerbla('ZGGHRD', -INFO );
          RETURN
       }
 
@@ -118,17 +118,17 @@
             // Step 1: rotate rows JROW-1, JROW to kill A(JROW,JCOL)
 
             CTEMP = A( JROW-1, JCOL )
-            CALL ZLARTG( CTEMP, A( JROW, JCOL ), C, S, A( JROW-1, JCOL ) )
+            zlartg(CTEMP, A( JROW, JCOL ), C, S, A( JROW-1, JCOL ) );
             A( JROW, JCOL ) = CZERO
-            CALL ZROT( N-JCOL, A( JROW-1, JCOL+1 ), LDA, A( JROW, JCOL+1 ), LDA, C, S )             CALL ZROT( N+2-JROW, B( JROW-1, JROW-1 ), LDB, B( JROW, JROW-1 ), LDB, C, S )             IF( ILQ ) CALL ZROT( N, Q( 1, JROW-1 ), 1, Q( 1, JROW ), 1, C, DCONJG( S ) )
+            zrot(N-JCOL, A( JROW-1, JCOL+1 ), LDA, A( JROW, JCOL+1 ), LDA, C, S )             CALL ZROT( N+2-JROW, B( JROW-1, JROW-1 ), LDB, B( JROW, JROW-1 ), LDB, C, S )             IF( ILQ ) CALL ZROT( N, Q( 1, JROW-1 ), 1, Q( 1, JROW ), 1, C, DCONJG( S ) );
 
             // Step 2: rotate columns JROW, JROW-1 to kill B(JROW,JROW-1)
 
             CTEMP = B( JROW, JROW )
-            CALL ZLARTG( CTEMP, B( JROW, JROW-1 ), C, S, B( JROW, JROW ) )
+            zlartg(CTEMP, B( JROW, JROW-1 ), C, S, B( JROW, JROW ) );
             B( JROW, JROW-1 ) = CZERO
-            CALL ZROT( IHI, A( 1, JROW ), 1, A( 1, JROW-1 ), 1, C, S )
-            CALL ZROT( JROW-1, B( 1, JROW ), 1, B( 1, JROW-1 ), 1, C, S )             IF( ILZ ) CALL ZROT( N, Z( 1, JROW ), 1, Z( 1, JROW-1 ), 1, C, S )
+            zrot(IHI, A( 1, JROW ), 1, A( 1, JROW-1 ), 1, C, S );
+            zrot(JROW-1, B( 1, JROW ), 1, B( 1, JROW-1 ), 1, C, S )             IF( ILZ ) CALL ZROT( N, Z( 1, JROW ), 1, Z( 1, JROW-1 ), 1, C, S );
    30    CONTINUE
    40 CONTINUE
 

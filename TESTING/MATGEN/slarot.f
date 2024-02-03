@@ -58,18 +58,18 @@
       // Check for errors
 
       if ( NL.LT.NT ) {
-         CALL XERBLA( 'SLAROT', 4 )
+         xerbla('SLAROT', 4 );
          RETURN
       }
       if ( LDA.LE.0 .OR. ( .NOT.LROWS .AND. LDA.LT.NL-NT ) ) {
-         CALL XERBLA( 'SLAROT', 8 )
+         xerbla('SLAROT', 8 );
          RETURN
       }
 
       // Rotate
 
-      CALL SROT( NL-NT, A( IX ), IINC, A( IY ), IINC, C, S )
-      CALL SROT( NT, XT, 1, YT, 1, C, S )
+      srot(NL-NT, A( IX ), IINC, A( IY ), IINC, C, S );
+      srot(NT, XT, 1, YT, 1, C, S );
 
       // Stuff values back into XLEFT, XRIGHT, etc.
 

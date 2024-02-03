@@ -59,7 +59,7 @@
       // reordering the arguments ensures that if Z = 0 then the rotation
       // is by PI/2.
 
-      CALL SLARTGP( W, Z, SN, CS, R )
+      slartgp(W, Z, SN, CS, R );
 
       RETURN
 

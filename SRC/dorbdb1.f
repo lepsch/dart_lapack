@@ -67,7 +67,7 @@
          }
       }
       if ( INFO .NE. 0 ) {
-         CALL XERBLA( 'DORBDB1', -INFO )
+         xerbla('DORBDB1', -INFO );
          RETURN
       } else if ( LQUERY ) {
          RETURN
@@ -77,23 +77,23 @@
 
       DO I = 1, Q
 
-         CALL DLARFGP( P-I+1, X11(I,I), X11(I+1,I), 1, TAUP1(I) )
-         CALL DLARFGP( M-P-I+1, X21(I,I), X21(I+1,I), 1, TAUP2(I) )
+         dlarfgp(P-I+1, X11(I,I), X11(I+1,I), 1, TAUP1(I) );
+         dlarfgp(M-P-I+1, X21(I,I), X21(I+1,I), 1, TAUP2(I) );
          THETA(I) = ATAN2( X21(I,I), X11(I,I) )
          C = COS( THETA(I) )
          S = SIN( THETA(I) )
          X11(I,I) = ONE
          X21(I,I) = ONE
-         CALL DLARF( 'L', P-I+1, Q-I, X11(I,I), 1, TAUP1(I), X11(I,I+1), LDX11, WORK(ILARF) )          CALL DLARF( 'L', M-P-I+1, Q-I, X21(I,I), 1, TAUP2(I), X21(I,I+1), LDX21, WORK(ILARF) )
+         dlarf('L', P-I+1, Q-I, X11(I,I), 1, TAUP1(I), X11(I,I+1), LDX11, WORK(ILARF) )          CALL DLARF( 'L', M-P-I+1, Q-I, X21(I,I), 1, TAUP2(I), X21(I,I+1), LDX21, WORK(ILARF) );
 
          if ( I .LT. Q ) {
-            CALL DROT( Q-I, X11(I,I+1), LDX11, X21(I,I+1), LDX21, C, S )
-            CALL DLARFGP( Q-I, X21(I,I+1), X21(I,I+2), LDX21, TAUQ1(I) )
+            drot(Q-I, X11(I,I+1), LDX11, X21(I,I+1), LDX21, C, S );
+            dlarfgp(Q-I, X21(I,I+1), X21(I,I+2), LDX21, TAUQ1(I) );
             S = X21(I,I+1)
             X21(I,I+1) = ONE
-            CALL DLARF( 'R', P-I, Q-I, X21(I,I+1), LDX21, TAUQ1(I), X11(I+1,I+1), LDX11, WORK(ILARF) )             CALL DLARF( 'R', M-P-I, Q-I, X21(I,I+1), LDX21, TAUQ1(I), X21(I+1,I+1), LDX21, WORK(ILARF) )             C = SQRT( DNRM2( P-I, X11(I+1,I+1), 1 )**2 + DNRM2( M-P-I, X21(I+1,I+1), 1 )**2 )
+            dlarf('R', P-I, Q-I, X21(I,I+1), LDX21, TAUQ1(I), X11(I+1,I+1), LDX11, WORK(ILARF) )             CALL DLARF( 'R', M-P-I, Q-I, X21(I,I+1), LDX21, TAUQ1(I), X21(I+1,I+1), LDX21, WORK(ILARF) )             C = SQRT( DNRM2( P-I, X11(I+1,I+1), 1 )**2 + DNRM2( M-P-I, X21(I+1,I+1), 1 )**2 );
             PHI(I) = ATAN2( S, C )
-            CALL DORBDB5( P-I, M-P-I, Q-I-1, X11(I+1,I+1), 1, X21(I+1,I+1), 1, X11(I+1,I+2), LDX11, X21(I+1,I+2), LDX21, WORK(IORBDB5), LORBDB5, CHILDINFO )
+            dorbdb5(P-I, M-P-I, Q-I-1, X11(I+1,I+1), 1, X21(I+1,I+1), 1, X11(I+1,I+2), LDX11, X21(I+1,I+2), LDX21, WORK(IORBDB5), LORBDB5, CHILDINFO );
          }
 
       END DO

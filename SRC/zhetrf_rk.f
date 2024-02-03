@@ -57,7 +57,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'ZHETRF_RK', -INFO )
+         xerbla('ZHETRF_RK', -INFO );
          RETURN
       } else if ( LQUERY ) {
          RETURN
@@ -96,12 +96,12 @@
             // Factorize columns k-kb+1:k of A and use blocked code to
             // update columns 1:k-kb
 
-            CALL ZLAHEF_RK( UPLO, K, NB, KB, A, LDA, E, IPIV, WORK, LDWORK, IINFO )
+            zlahef_rk(UPLO, K, NB, KB, A, LDA, E, IPIV, WORK, LDWORK, IINFO );
          } else {
 
             // Use unblocked code to factorize columns 1:k of A
 
-            CALL ZHETF2_RK( UPLO, K, A, LDA, E, IPIV, IINFO )
+            zhetf2_rk(UPLO, K, A, LDA, E, IPIV, IINFO );
             KB = K
          }
 
@@ -125,7 +125,7 @@
             DO I = K, ( K - KB + 1 ), -1
                IP = ABS( IPIV( I ) )
                if ( IP.NE.I ) {
-                  CALL ZSWAP( N-K, A( I, K+1 ), LDA, A( IP, K+1 ), LDA )
+                  zswap(N-K, A( I, K+1 ), LDA, A( IP, K+1 ), LDA );
                }
             END DO
          }
@@ -160,14 +160,14 @@
             // Factorize columns k:k+kb-1 of A and use blocked code to
             // update columns k+kb:n
 
-            CALL ZLAHEF_RK( UPLO, N-K+1, NB, KB, A( K, K ), LDA, E( K ), IPIV( K ), WORK, LDWORK, IINFO )
+            zlahef_rk(UPLO, N-K+1, NB, KB, A( K, K ), LDA, E( K ), IPIV( K ), WORK, LDWORK, IINFO );
 
 
          } else {
 
             // Use unblocked code to factorize columns k:n of A
 
-            CALL ZHETF2_RK( UPLO, N-K+1, A( K, K ), LDA, E( K ), IPIV( K ), IINFO )
+            zhetf2_rk(UPLO, N-K+1, A( K, K ), LDA, E( K ), IPIV( K ), IINFO );
             KB = N - K + 1
 
          }
@@ -199,7 +199,7 @@
             DO I = K, ( K + KB - 1 ), 1
                IP = ABS( IPIV( I ) )
                if ( IP.NE.I ) {
-                  CALL ZSWAP( K-1, A( I, 1 ), LDA, A( IP, 1 ), LDA )
+                  zswap(K-1, A( I, 1 ), LDA, A( IP, 1 ), LDA );
                }
             END DO
          }

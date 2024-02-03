@@ -76,7 +76,7 @@
          INFO = -12
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'ZSYRFS', -INFO )
+         xerbla('ZSYRFS', -INFO );
          RETURN
       }
 
@@ -110,8 +110,8 @@
 
          // Compute residual R = B - A * X
 
-         CALL ZCOPY( N, B( 1, J ), 1, WORK, 1 )
-         CALL ZSYMV( UPLO, N, -ONE, A, LDA, X( 1, J ), 1, ONE, WORK, 1 )
+         zcopy(N, B( 1, J ), 1, WORK, 1 );
+         zsymv(UPLO, N, -ONE, A, LDA, X( 1, J ), 1, ONE, WORK, 1 );
 
          // Compute componentwise relative backward error from formula
 
@@ -170,8 +170,8 @@
 
             // Update solution and try again.
 
-            CALL ZSYTRS( UPLO, N, 1, AF, LDAF, IPIV, WORK, N, INFO )
-            CALL ZAXPY( N, ONE, WORK, 1, X( 1, J ), 1 )
+            zsytrs(UPLO, N, 1, AF, LDAF, IPIV, WORK, N, INFO );
+            zaxpy(N, ONE, WORK, 1, X( 1, J ), 1 );
             LSTRES = BERR( J )
             COUNT = COUNT + 1
             GO TO 20
@@ -209,13 +209,13 @@
 
          KASE = 0
   100    CONTINUE
-         CALL ZLACN2( N, WORK( N+1 ), WORK, FERR( J ), KASE, ISAVE )
+         zlacn2(N, WORK( N+1 ), WORK, FERR( J ), KASE, ISAVE );
          if ( KASE.NE.0 ) {
             if ( KASE.EQ.1 ) {
 
                // Multiply by diag(W)*inv(A**T).
 
-               CALL ZSYTRS( UPLO, N, 1, AF, LDAF, IPIV, WORK, N, INFO )
+               zsytrs(UPLO, N, 1, AF, LDAF, IPIV, WORK, N, INFO );
                DO 110 I = 1, N
                   WORK( I ) = RWORK( I )*WORK( I )
   110          CONTINUE
@@ -226,7 +226,7 @@
                DO 120 I = 1, N
                   WORK( I ) = RWORK( I )*WORK( I )
   120          CONTINUE
-               CALL ZSYTRS( UPLO, N, 1, AF, LDAF, IPIV, WORK, N, INFO )
+               zsytrs(UPLO, N, 1, AF, LDAF, IPIV, WORK, N, INFO );
             }
             GO TO 100
          }

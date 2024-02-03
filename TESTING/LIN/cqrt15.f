@@ -43,7 +43,7 @@
 
       MN = MIN( M, N )
       if ( LWORK.LT.MAX( M+MN, MN*NRHS, 2*N+M ) ) {
-         CALL XERBLA( 'CQRT15', 16 )
+         xerbla('CQRT15', 16 );
          RETURN
       }
 
@@ -63,7 +63,7 @@
             S( J ) = ZERO
    10    CONTINUE
       } else {
-         CALL XERBLA( 'CQRT15', 2 )
+         xerbla('CQRT15', 2 );
       }
 
       if ( RANK.GT.0 ) {
@@ -80,31 +80,31 @@
                GO TO 20
             }
    30    CONTINUE
-         CALL SLAORD( 'Decreasing', RANK, S, 1 )
+         slaord('Decreasing', RANK, S, 1 );
 
          // Generate 'rank' columns of a random orthogonal matrix in A
 
-         CALL CLARNV( 2, ISEED, M, WORK )
-         CALL CSSCAL( M, ONE / SCNRM2( M, WORK, 1 ), WORK, 1 )
-         CALL CLASET( 'Full', M, RANK, CZERO, CONE, A, LDA )
-         CALL CLARF( 'Left', M, RANK, WORK, 1, CMPLX( TWO ), A, LDA, WORK( M+1 ) )
+         clarnv(2, ISEED, M, WORK );
+         csscal(M, ONE / SCNRM2( M, WORK, 1 ), WORK, 1 );
+         claset('Full', M, RANK, CZERO, CONE, A, LDA );
+         clarf('Left', M, RANK, WORK, 1, CMPLX( TWO ), A, LDA, WORK( M+1 ) );
 
          // workspace used: m+mn
 
          // Generate consistent rhs in the range space of A
 
-         CALL CLARNV( 2, ISEED, RANK*NRHS, WORK )
-         CALL CGEMM( 'No transpose', 'No transpose', M, NRHS, RANK, CONE, A, LDA, WORK, RANK, CZERO, B, LDB )
+         clarnv(2, ISEED, RANK*NRHS, WORK );
+         cgemm('No transpose', 'No transpose', M, NRHS, RANK, CONE, A, LDA, WORK, RANK, CZERO, B, LDB );
 
          // work space used: <= mn *nrhs
 
          // generate (unscaled) matrix A
 
          DO 40 J = 1, RANK
-            CALL CSSCAL( M, S( J ), A( 1, J ), 1 )
+            csscal(M, S( J ), A( 1, J ), 1 );
    40    CONTINUE
          IF( RANK.LT.N ) CALL CLASET( 'Full', M, N-RANK, CZERO, CZERO, A( 1, RANK+1 ), LDA )
-         CALL CLAROR( 'Right', 'No initialization', M, N, A, LDA, ISEED, WORK, INFO )
+         claror('Right', 'No initialization', M, N, A, LDA, ISEED, WORK, INFO );
 
       } else {
 
@@ -115,8 +115,8 @@
          DO 50 J = 1, MN
             S( J ) = ZERO
    50    CONTINUE
-         CALL CLASET( 'Full', M, N, CZERO, CZERO, A, LDA )
-         CALL CLASET( 'Full', M, NRHS, CZERO, CZERO, B, LDB )
+         claset('Full', M, N, CZERO, CZERO, A, LDA );
+         claset('Full', M, NRHS, CZERO, CZERO, B, LDB );
 
       }
 
@@ -129,14 +129,14 @@
 
                // matrix scaled up
 
-               CALL CLASCL( 'General', 0, 0, NORMA, BIGNUM, M, N, A, LDA, INFO )                CALL SLASCL( 'General', 0, 0, NORMA, BIGNUM, MN, 1, S, MN, INFO )                CALL CLASCL( 'General', 0, 0, NORMA, BIGNUM, M, NRHS, B, LDB, INFO )
+               clascl('General', 0, 0, NORMA, BIGNUM, M, N, A, LDA, INFO )                CALL SLASCL( 'General', 0, 0, NORMA, BIGNUM, MN, 1, S, MN, INFO )                CALL CLASCL( 'General', 0, 0, NORMA, BIGNUM, M, NRHS, B, LDB, INFO );
             } else if ( SCALE.EQ.3 ) {
 
                // matrix scaled down
 
-               CALL CLASCL( 'General', 0, 0, NORMA, SMLNUM, M, N, A, LDA, INFO )                CALL SLASCL( 'General', 0, 0, NORMA, SMLNUM, MN, 1, S, MN, INFO )                CALL CLASCL( 'General', 0, 0, NORMA, SMLNUM, M, NRHS, B, LDB, INFO )
+               clascl('General', 0, 0, NORMA, SMLNUM, M, N, A, LDA, INFO )                CALL SLASCL( 'General', 0, 0, NORMA, SMLNUM, MN, 1, S, MN, INFO )                CALL CLASCL( 'General', 0, 0, NORMA, SMLNUM, M, NRHS, B, LDB, INFO );
             } else {
-               CALL XERBLA( 'CQRT15', 1 )
+               xerbla('CQRT15', 1 );
                RETURN
             }
          }

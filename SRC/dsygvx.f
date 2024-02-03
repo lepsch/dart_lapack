@@ -91,7 +91,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'DSYGVX', -INFO )
+         xerbla('DSYGVX', -INFO );
          RETURN
       } else if ( LQUERY ) {
          RETURN
@@ -106,7 +106,7 @@
 
       // Form a Cholesky factorization of B.
 
-      CALL DPOTRF( UPLO, N, B, LDB, INFO )
+      dpotrf(UPLO, N, B, LDB, INFO );
       if ( INFO.NE.0 ) {
          INFO = N + INFO
          RETURN
@@ -114,8 +114,8 @@
 
       // Transform problem to standard eigenvalue problem and solve.
 
-      CALL DSYGST( ITYPE, UPLO, N, A, LDA, B, LDB, INFO )
-      CALL DSYEVX( JOBZ, RANGE, UPLO, N, A, LDA, VL, VU, IL, IU, ABSTOL, M, W, Z, LDZ, WORK, LWORK, IWORK, IFAIL, INFO )
+      dsygst(ITYPE, UPLO, N, A, LDA, B, LDB, INFO );
+      dsyevx(JOBZ, RANGE, UPLO, N, A, LDA, VL, VU, IL, IU, ABSTOL, M, W, Z, LDZ, WORK, LWORK, IWORK, IFAIL, INFO );
 
       if ( WANTZ ) {
 
@@ -133,7 +133,7 @@
                TRANS = 'T'
             }
 
-            CALL DTRSM( 'Left', UPLO, TRANS, 'Non-unit', N, M, ONE, B, LDB, Z, LDZ )
+            dtrsm('Left', UPLO, TRANS, 'Non-unit', N, M, ONE, B, LDB, Z, LDZ );
 
          } else if ( ITYPE.EQ.3 ) {
 
@@ -146,7 +146,7 @@
                TRANS = 'N'
             }
 
-            CALL DTRMM( 'Left', UPLO, TRANS, 'Non-unit', N, M, ONE, B, LDB, Z, LDZ )
+            dtrmm('Left', UPLO, TRANS, 'Non-unit', N, M, ONE, B, LDB, Z, LDZ );
          }
       }
 

@@ -64,7 +64,7 @@
          INFO = -10
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'DORM2L', -INFO )
+         xerbla('DORM2L', -INFO );
          RETURN
       }
 
@@ -105,7 +105,7 @@
 
          AII = A( NQ-K+I, I )
          A( NQ-K+I, I ) = ONE
-         CALL DLARF( SIDE, MI, NI, A( 1, I ), 1, TAU( I ), C, LDC, WORK )
+         dlarf(SIDE, MI, NI, A( 1, I ), 1, TAU( I ), C, LDC, WORK );
          A( NQ-K+I, I ) = AII
    10 CONTINUE
       RETURN

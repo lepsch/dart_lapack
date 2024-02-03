@@ -107,7 +107,7 @@
       IF( LWORK.LT.MINWRK ) INFO = -18
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'CDRGSX', -INFO )
+         xerbla('CDRGSX', -INFO );
          RETURN
       }
 
@@ -148,9 +148,9 @@
                   FS = .TRUE.
                   K = 0
 
-                  CALL CLASET( 'Full', MPLUSN, MPLUSN, CZERO, CZERO, AI, LDA )                   CALL CLASET( 'Full', MPLUSN, MPLUSN, CZERO, CZERO, BI, LDA )
+                  claset('Full', MPLUSN, MPLUSN, CZERO, CZERO, AI, LDA )                   CALL CLASET( 'Full', MPLUSN, MPLUSN, CZERO, CZERO, BI, LDA );
 
-                  CALL CLATM5( PRTYPE, M, N, AI, LDA, AI( M+1, M+1 ), LDA, AI( 1, M+1 ), LDA, BI, LDA, BI( M+1, M+1 ), LDA, BI( 1, M+1 ), LDA, Q, LDA, Z, LDA, WEIGHT, QBA, QBB )
+                  clatm5(PRTYPE, M, N, AI, LDA, AI( M+1, M+1 ), LDA, AI( 1, M+1 ), LDA, BI, LDA, BI( M+1, M+1 ), LDA, BI( 1, M+1 ), LDA, Q, LDA, Z, LDA, WEIGHT, QBA, QBB );
 
                   // Compute the Schur factorization and swapping the
                   // m-by-m (1,1)-blocks with n-by-n (2,2)-blocks.
@@ -167,10 +167,10 @@
                      SENSE = 'B'
                   }
 
-                  CALL CLACPY( 'Full', MPLUSN, MPLUSN, AI, LDA, A, LDA )
-                  CALL CLACPY( 'Full', MPLUSN, MPLUSN, BI, LDA, B, LDA )
+                  clacpy('Full', MPLUSN, MPLUSN, AI, LDA, A, LDA );
+                  clacpy('Full', MPLUSN, MPLUSN, BI, LDA, B, LDA );
 
-                  CALL CGGESX( 'V', 'V', 'S', CLCTSX, SENSE, MPLUSN, AI, LDA, BI, LDA, MM, ALPHA, BETA, Q, LDA, Z, LDA, PL, DIFEST, WORK, LWORK, RWORK, IWORK, LIWORK, BWORK, LINFO )
+                  cggesx('V', 'V', 'S', CLCTSX, SENSE, MPLUSN, AI, LDA, BI, LDA, MM, ALPHA, BETA, Q, LDA, Z, LDA, PL, DIFEST, WORK, LWORK, RWORK, IWORK, LIWORK, BWORK, LINFO );
 
                   if ( LINFO.NE.0 .AND. LINFO.NE.MPLUSN+2 ) {
                      RESULT( 1 ) = ULPINV
@@ -181,12 +181,12 @@
 
                   // Compute the norm(A, B)
 
-                  CALL CLACPY( 'Full', MPLUSN, MPLUSN, AI, LDA, WORK, MPLUSN )                   CALL CLACPY( 'Full', MPLUSN, MPLUSN, BI, LDA, WORK( MPLUSN*MPLUSN+1 ), MPLUSN )                   ABNRM = CLANGE( 'Fro', MPLUSN, 2*MPLUSN, WORK, MPLUSN, RWORK )
+                  clacpy('Full', MPLUSN, MPLUSN, AI, LDA, WORK, MPLUSN )                   CALL CLACPY( 'Full', MPLUSN, MPLUSN, BI, LDA, WORK( MPLUSN*MPLUSN+1 ), MPLUSN )                   ABNRM = CLANGE( 'Fro', MPLUSN, 2*MPLUSN, WORK, MPLUSN, RWORK );
 
                   // Do tests (1) to (4)
 
                   RESULT( 2 ) = ZERO
-                  CALL CGET51( 1, MPLUSN, A, LDA, AI, LDA, Q, LDA, Z, LDA, WORK, RWORK, RESULT( 1 ) )                   CALL CGET51( 1, MPLUSN, B, LDA, BI, LDA, Q, LDA, Z, LDA, WORK, RWORK, RESULT( 2 ) )                   CALL CGET51( 3, MPLUSN, B, LDA, BI, LDA, Q, LDA, Q, LDA, WORK, RWORK, RESULT( 3 ) )                   CALL CGET51( 3, MPLUSN, B, LDA, BI, LDA, Z, LDA, Z, LDA, WORK, RWORK, RESULT( 4 ) )
+                  cget51(1, MPLUSN, A, LDA, AI, LDA, Q, LDA, Z, LDA, WORK, RWORK, RESULT( 1 ) )                   CALL CGET51( 1, MPLUSN, B, LDA, BI, LDA, Q, LDA, Z, LDA, WORK, RWORK, RESULT( 2 ) )                   CALL CGET51( 3, MPLUSN, B, LDA, BI, LDA, Q, LDA, Q, LDA, WORK, RWORK, RESULT( 3 ) )                   CALL CGET51( 3, MPLUSN, B, LDA, BI, LDA, Z, LDA, Z, LDA, WORK, RWORK, RESULT( 4 ) );
                   NTEST = 4
 
                   // Do tests (5) and (6): check Schur form of A and
@@ -239,9 +239,9 @@
                      // Note: for either following two cases, there are
                      // almost same number of test cases fail the test.
 
-                     CALL CLAKF2( MM, MPLUSN-MM, AI, LDA, AI( MM+1, MM+1 ), BI, BI( MM+1, MM+1 ), C, LDC )
+                     clakf2(MM, MPLUSN-MM, AI, LDA, AI( MM+1, MM+1 ), BI, BI( MM+1, MM+1 ), C, LDC );
 
-                     CALL CGESVD( 'N', 'N', MN2, MN2, C, LDC, S, WORK, 1, WORK( 2 ), 1, WORK( 3 ), LWORK-2, RWORK, INFO )
+                     cgesvd('N', 'N', MN2, MN2, C, LDC, S, WORK, 1, WORK( 2 ), 1, WORK( 3 ), LWORK-2, RWORK, INFO );
                      DIFTRU = S( MN2 )
 
                      if ( DIFEST( 2 ).EQ.ZERO ) {
@@ -322,13 +322,13 @@
       K = 0
       M = MPLUSN - N
 
-      CALL CLACPY( 'Full', MPLUSN, MPLUSN, AI, LDA, A, LDA )
-      CALL CLACPY( 'Full', MPLUSN, MPLUSN, BI, LDA, B, LDA )
+      clacpy('Full', MPLUSN, MPLUSN, AI, LDA, A, LDA );
+      clacpy('Full', MPLUSN, MPLUSN, BI, LDA, B, LDA );
 
       // Compute the Schur factorization while swapping the
       // m-by-m (1,1)-blocks with n-by-n (2,2)-blocks.
 
-      CALL CGGESX( 'V', 'V', 'S', CLCTSX, 'B', MPLUSN, AI, LDA, BI, LDA, MM, ALPHA, BETA, Q, LDA, Z, LDA, PL, DIFEST, WORK, LWORK, RWORK, IWORK, LIWORK, BWORK, LINFO )
+      cggesx('V', 'V', 'S', CLCTSX, 'B', MPLUSN, AI, LDA, BI, LDA, MM, ALPHA, BETA, Q, LDA, Z, LDA, PL, DIFEST, WORK, LWORK, RWORK, IWORK, LIWORK, BWORK, LINFO );
 
       if ( LINFO.NE.0 .AND. LINFO.NE.MPLUSN+2 ) {
          RESULT( 1 ) = ULPINV
@@ -339,13 +339,13 @@
       // Compute the norm(A, B)
          // (should this be norm of (A,B) or (AI,BI)?)
 
-      CALL CLACPY( 'Full', MPLUSN, MPLUSN, AI, LDA, WORK, MPLUSN )
-      CALL CLACPY( 'Full', MPLUSN, MPLUSN, BI, LDA, WORK( MPLUSN*MPLUSN+1 ), MPLUSN )
+      clacpy('Full', MPLUSN, MPLUSN, AI, LDA, WORK, MPLUSN );
+      clacpy('Full', MPLUSN, MPLUSN, BI, LDA, WORK( MPLUSN*MPLUSN+1 ), MPLUSN );
       ABNRM = CLANGE( 'Fro', MPLUSN, 2*MPLUSN, WORK, MPLUSN, RWORK )
 
       // Do tests (1) to (4)
 
-      CALL CGET51( 1, MPLUSN, A, LDA, AI, LDA, Q, LDA, Z, LDA, WORK, RWORK, RESULT( 1 ) )       CALL CGET51( 1, MPLUSN, B, LDA, BI, LDA, Q, LDA, Z, LDA, WORK, RWORK, RESULT( 2 ) )       CALL CGET51( 3, MPLUSN, B, LDA, BI, LDA, Q, LDA, Q, LDA, WORK, RWORK, RESULT( 3 ) )       CALL CGET51( 3, MPLUSN, B, LDA, BI, LDA, Z, LDA, Z, LDA, WORK, RWORK, RESULT( 4 ) )
+      cget51(1, MPLUSN, A, LDA, AI, LDA, Q, LDA, Z, LDA, WORK, RWORK, RESULT( 1 ) )       CALL CGET51( 1, MPLUSN, B, LDA, BI, LDA, Q, LDA, Z, LDA, WORK, RWORK, RESULT( 2 ) )       CALL CGET51( 3, MPLUSN, B, LDA, BI, LDA, Q, LDA, Q, LDA, WORK, RWORK, RESULT( 3 ) )       CALL CGET51( 3, MPLUSN, B, LDA, BI, LDA, Z, LDA, Z, LDA, WORK, RWORK, RESULT( 4 ) );
 
       // Do tests (5) and (6): check Schur form of A and compare
       // eigenvalues with diagonals.
@@ -453,7 +453,7 @@
 
       // Summary
 
-      CALL ALASVM( 'CGX', NOUT, NERRS, NTESTT, 0 )
+      alasvm('CGX', NOUT, NERRS, NTESTT, 0 );
 
       WORK( 1 ) = MAXWRK
 

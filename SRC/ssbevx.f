@@ -78,7 +78,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'SSBEVX', -INFO )
+         xerbla('SSBEVX', -INFO );
          RETURN
       }
 
@@ -134,9 +134,9 @@
       }
       if ( ISCALE.EQ.1 ) {
          if ( LOWER ) {
-            CALL SLASCL( 'B', KD, KD, ONE, SIGMA, N, N, AB, LDAB, INFO )
+            slascl('B', KD, KD, ONE, SIGMA, N, N, AB, LDAB, INFO );
          } else {
-            CALL SLASCL( 'Q', KD, KD, ONE, SIGMA, N, N, AB, LDAB, INFO )
+            slascl('Q', KD, KD, ONE, SIGMA, N, N, AB, LDAB, INFO );
          }
          IF( ABSTOL.GT.0 ) ABSTLL = ABSTOL*SIGMA
          if ( VALEIG ) {
@@ -150,7 +150,7 @@
       INDD = 1
       INDE = INDD + N
       INDWRK = INDE + N
-      CALL SSBTRD( JOBZ, UPLO, N, KD, AB, LDAB, WORK( INDD ), WORK( INDE ), Q, LDQ, WORK( INDWRK ), IINFO )
+      ssbtrd(JOBZ, UPLO, N, KD, AB, LDAB, WORK( INDD ), WORK( INDE ), Q, LDQ, WORK( INDWRK ), IINFO );
 
       // If all eigenvalues are desired and ABSTOL is less than or equal
       // to zero, then call SSTERF or SSTEQR.  If this fails for some
@@ -163,15 +163,15 @@
          }
       }
       if ((ALLEIG .OR. TEST) .AND. (ABSTOL.LE.ZERO)) {
-         CALL SCOPY( N, WORK( INDD ), 1, W, 1 )
+         scopy(N, WORK( INDD ), 1, W, 1 );
          INDEE = INDWRK + 2*N
          if ( .NOT.WANTZ ) {
-            CALL SCOPY( N-1, WORK( INDE ), 1, WORK( INDEE ), 1 )
-            CALL SSTERF( N, W, WORK( INDEE ), INFO )
+            scopy(N-1, WORK( INDE ), 1, WORK( INDEE ), 1 );
+            ssterf(N, W, WORK( INDEE ), INFO );
          } else {
-            CALL SLACPY( 'A', N, N, Q, LDQ, Z, LDZ )
-            CALL SCOPY( N-1, WORK( INDE ), 1, WORK( INDEE ), 1 )
-            CALL SSTEQR( JOBZ, N, W, WORK( INDEE ), Z, LDZ, WORK( INDWRK ), INFO )
+            slacpy('A', N, N, Q, LDQ, Z, LDZ );
+            scopy(N-1, WORK( INDE ), 1, WORK( INDEE ), 1 );
+            ssteqr(JOBZ, N, W, WORK( INDEE ), Z, LDZ, WORK( INDWRK ), INFO );
             if ( INFO.EQ.0 ) {
                DO 10 I = 1, N
                   IFAIL( I ) = 0
@@ -195,17 +195,17 @@
       INDIBL = 1
       INDISP = INDIBL + N
       INDIWO = INDISP + N
-      CALL SSTEBZ( RANGE, ORDER, N, VLL, VUU, IL, IU, ABSTLL, WORK( INDD ), WORK( INDE ), M, NSPLIT, W, IWORK( INDIBL ), IWORK( INDISP ), WORK( INDWRK ), IWORK( INDIWO ), INFO )
+      sstebz(RANGE, ORDER, N, VLL, VUU, IL, IU, ABSTLL, WORK( INDD ), WORK( INDE ), M, NSPLIT, W, IWORK( INDIBL ), IWORK( INDISP ), WORK( INDWRK ), IWORK( INDIWO ), INFO );
 
       if ( WANTZ ) {
-         CALL SSTEIN( N, WORK( INDD ), WORK( INDE ), M, W, IWORK( INDIBL ), IWORK( INDISP ), Z, LDZ, WORK( INDWRK ), IWORK( INDIWO ), IFAIL, INFO )
+         sstein(N, WORK( INDD ), WORK( INDE ), M, W, IWORK( INDIBL ), IWORK( INDISP ), Z, LDZ, WORK( INDWRK ), IWORK( INDIWO ), IFAIL, INFO );
 
          // Apply orthogonal matrix used in reduction to tridiagonal
          // form to eigenvectors returned by SSTEIN.
 
          DO 20 J = 1, M
-            CALL SCOPY( N, Z( 1, J ), 1, WORK( 1 ), 1 )
-            CALL SGEMV( 'N', N, N, ONE, Q, LDQ, WORK, 1, ZERO, Z( 1, J ), 1 )
+            scopy(N, Z( 1, J ), 1, WORK( 1 ), 1 );
+            sgemv('N', N, N, ONE, Q, LDQ, WORK, 1, ZERO, Z( 1, J ), 1 );
    20    CONTINUE
       }
 
@@ -218,7 +218,7 @@
          } else {
             IMAX = INFO - 1
          }
-         CALL SSCAL( IMAX, ONE / SIGMA, W, 1 )
+         sscal(IMAX, ONE / SIGMA, W, 1 );
       }
 
       // If eigenvalues are not in order, then sort them, along with
@@ -241,7 +241,7 @@
                IWORK( INDIBL+I-1 ) = IWORK( INDIBL+J-1 )
                W( J ) = TMP1
                IWORK( INDIBL+J-1 ) = ITMP1
-               CALL SSWAP( N, Z( 1, I ), 1, Z( 1, J ), 1 )
+               sswap(N, Z( 1, I ), 1, Z( 1, J ), 1 );
                if ( INFO.NE.0 ) {
                   ITMP1 = IFAIL( I )
                   IFAIL( I ) = IFAIL( J )

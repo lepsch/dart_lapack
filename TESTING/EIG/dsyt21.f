@@ -74,16 +74,16 @@
 
          // ITYPE=1: error = A - U S U**T
 
-         CALL DLASET( 'Full', N, N, ZERO, ZERO, WORK, N )
-         CALL DLACPY( CUPLO, N, N, A, LDA, WORK, N )
+         dlaset('Full', N, N, ZERO, ZERO, WORK, N );
+         dlacpy(CUPLO, N, N, A, LDA, WORK, N );
 
          DO 10 J = 1, N
-            CALL DSYR( CUPLO, N, -D( J ), U( 1, J ), 1, WORK, N )
+            dsyr(CUPLO, N, -D( J ), U( 1, J ), 1, WORK, N );
    10    CONTINUE
 
          if ( N.GT.1 .AND. KBAND.EQ.1 ) {
             DO 20 J = 1, N - 1
-               CALL DSYR2( CUPLO, N, -E( J ), U( 1, J ), 1, U( 1, J+1 ), 1, WORK, N )
+               dsyr2(CUPLO, N, -E( J ), U( 1, J ), 1, U( 1, J+1 ), 1, WORK, N );
    20       CONTINUE
          }
          WNORM = DLANSY( '1', CUPLO, N, WORK, N, WORK( N**2+1 ) )
@@ -92,7 +92,7 @@
 
          // ITYPE=2: error = V S V**T - A
 
-         CALL DLASET( 'Full', N, N, ZERO, ZERO, WORK, N )
+         dlaset('Full', N, N, ZERO, ZERO, WORK, N );
 
          if ( LOWER ) {
             WORK( N**2 ) = D( N )
@@ -106,7 +106,7 @@
 
                VSAVE = V( J+1, J )
                V( J+1, J ) = ONE
-               CALL DLARFY( 'L', N-J, V( J+1, J ), 1, TAU( J ), WORK( ( N+1 )*J+1 ), N, WORK( N**2+1 ) )
+               dlarfy('L', N-J, V( J+1, J ), 1, TAU( J ), WORK( ( N+1 )*J+1 ), N, WORK( N**2+1 ) );
                V( J+1, J ) = VSAVE
                WORK( ( N+1 )*( J-1 )+1 ) = D( J )
    40       CONTINUE
@@ -122,7 +122,7 @@
 
                VSAVE = V( J, J+1 )
                V( J, J+1 ) = ONE
-               CALL DLARFY( 'U', J, V( 1, J+1 ), 1, TAU( J ), WORK, N, WORK( N**2+1 ) )
+               dlarfy('U', J, V( 1, J+1 ), 1, TAU( J ), WORK, N, WORK( N**2+1 ) );
                V( J, J+1 ) = VSAVE
                WORK( ( N+1 )*J+1 ) = D( J+1 )
    60       CONTINUE
@@ -146,11 +146,11 @@
          // ITYPE=3: error = U V**T - I
 
          IF( N.LT.2 ) RETURN
-         CALL DLACPY( ' ', N, N, U, LDU, WORK, N )
+         dlacpy(' ', N, N, U, LDU, WORK, N );
          if ( LOWER ) {
-            CALL DORM2R( 'R', 'T', N, N-1, N-1, V( 2, 1 ), LDV, TAU, WORK( N+1 ), N, WORK( N**2+1 ), IINFO )
+            dorm2r('R', 'T', N, N-1, N-1, V( 2, 1 ), LDV, TAU, WORK( N+1 ), N, WORK( N**2+1 ), IINFO );
          } else {
-            CALL DORM2L( 'R', 'T', N, N-1, N-1, V( 1, 2 ), LDV, TAU, WORK, N, WORK( N**2+1 ), IINFO )
+            dorm2l('R', 'T', N, N-1, N-1, V( 1, 2 ), LDV, TAU, WORK, N, WORK( N**2+1 ), IINFO );
          }
          if ( IINFO.NE.0 ) {
             RESULT( 1 ) = TEN / ULP
@@ -179,7 +179,7 @@
       // Compute  U U**T - I
 
       if ( ITYPE.EQ.1 ) {
-         CALL DGEMM( 'N', 'C', N, N, N, ONE, U, LDU, U, LDU, ZERO, WORK, N )
+         dgemm('N', 'C', N, N, N, ONE, U, LDU, U, LDU, ZERO, WORK, N );
 
          DO 110 J = 1, N
             WORK( ( N+1 )*( J-1 )+1 ) = WORK( ( N+1 )*( J-1 )+1 ) - ONE

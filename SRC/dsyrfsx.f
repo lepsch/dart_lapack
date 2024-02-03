@@ -128,7 +128,7 @@
         INFO = -14
       }
       if ( INFO.NE.0 ) {
-        CALL XERBLA( 'DSYRFSX', -INFO )
+        xerbla('DSYRFSX', -INFO );
         RETURN
       }
 
@@ -178,14 +178,14 @@
 
       NORM = 'I'
       ANORM = DLANSY( NORM, UPLO, N, A, LDA, WORK )
-      CALL DSYCON( UPLO, N, AF, LDAF, IPIV, ANORM, RCOND, WORK, IWORK, INFO )
+      dsycon(UPLO, N, AF, LDAF, IPIV, ANORM, RCOND, WORK, IWORK, INFO );
 
       // Perform refinement on each right-hand side
 
       if ( REF_TYPE .NE. 0 ) {
 
          PREC_TYPE = ILAPREC( 'E' )
-          CALL DLA_SYRFSX_EXTENDED( PREC_TYPE, UPLO,  N, NRHS, A, LDA, AF, LDAF, IPIV, RCEQU, S, B, LDB, X, LDX, BERR, N_NORMS, ERR_BNDS_NORM, ERR_BNDS_COMP, WORK( N+1 ), WORK( 1 ), WORK( 2*N+1 ), WORK( 1 ), RCOND, ITHRESH, RTHRESH, UNSTABLE_THRESH, IGNORE_CWISE, INFO )
+          dla_syrfsx_extended(PREC_TYPE, UPLO,  N, NRHS, A, LDA, AF, LDAF, IPIV, RCEQU, S, B, LDB, X, LDX, BERR, N_NORMS, ERR_BNDS_NORM, ERR_BNDS_COMP, WORK( N+1 ), WORK( 1 ), WORK( 2*N+1 ), WORK( 1 ), RCOND, ITHRESH, RTHRESH, UNSTABLE_THRESH, IGNORE_CWISE, INFO );
       }
 
       ERR_LBND = MAX( 10.0D+0, SQRT( DBLE( N ) ) )*DLAMCH( 'Epsilon' )

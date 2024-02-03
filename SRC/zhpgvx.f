@@ -73,7 +73,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'ZHPGVX', -INFO )
+         xerbla('ZHPGVX', -INFO );
          RETURN
       }
 
@@ -83,7 +83,7 @@
 
       // Form a Cholesky factorization of B.
 
-      CALL ZPPTRF( UPLO, N, BP, INFO )
+      zpptrf(UPLO, N, BP, INFO );
       if ( INFO.NE.0 ) {
          INFO = N + INFO
          RETURN
@@ -91,8 +91,8 @@
 
       // Transform problem to standard eigenvalue problem and solve.
 
-      CALL ZHPGST( ITYPE, UPLO, N, AP, BP, INFO )
-      CALL ZHPEVX( JOBZ, RANGE, UPLO, N, AP, VL, VU, IL, IU, ABSTOL, M, W, Z, LDZ, WORK, RWORK, IWORK, IFAIL, INFO )
+      zhpgst(ITYPE, UPLO, N, AP, BP, INFO );
+      zhpevx(JOBZ, RANGE, UPLO, N, AP, VL, VU, IL, IU, ABSTOL, M, W, Z, LDZ, WORK, RWORK, IWORK, IFAIL, INFO );
 
       if ( WANTZ ) {
 
@@ -111,7 +111,7 @@
             }
 
             DO 10 J = 1, M
-               CALL ZTPSV( UPLO, TRANS, 'Non-unit', N, BP, Z( 1, J ), 1 )
+               ztpsv(UPLO, TRANS, 'Non-unit', N, BP, Z( 1, J ), 1 );
    10       CONTINUE
 
          } else if ( ITYPE.EQ.3 ) {
@@ -126,7 +126,7 @@
             }
 
             DO 20 J = 1, M
-               CALL ZTPMV( UPLO, TRANS, 'Non-unit', N, BP, Z( 1, J ), 1 )
+               ztpmv(UPLO, TRANS, 'Non-unit', N, BP, Z( 1, J ), 1 );
    20       CONTINUE
          }
       }

@@ -44,7 +44,7 @@
          INFO = -4
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'CLARZB', -INFO )
+         xerbla('CLARZB', -INFO );
          RETURN
       }
 
@@ -61,7 +61,7 @@
          // W( 1:n, 1:k ) = C( 1:k, 1:n )**H
 
          DO 10 J = 1, K
-            CALL CCOPY( N, C( J, 1 ), LDC, WORK( 1, J ), 1 )
+            ccopy(N, C( J, 1 ), LDC, WORK( 1, J ), 1 );
    10    CONTINUE
 
          // W( 1:n, 1:k ) = W( 1:n, 1:k ) + ...
@@ -71,7 +71,7 @@
 
          // W( 1:n, 1:k ) = W( 1:n, 1:k ) * T**T  or  W( 1:m, 1:k ) * T
 
-         CALL CTRMM( 'Right', 'Lower', TRANST, 'Non-unit', N, K, ONE, T, LDT, WORK, LDWORK )
+         ctrmm('Right', 'Lower', TRANST, 'Non-unit', N, K, ONE, T, LDT, WORK, LDWORK );
 
          // C( 1:k, 1:n ) = C( 1:k, 1:n ) - W( 1:n, 1:k )**H
 
@@ -93,7 +93,7 @@
          // W( 1:m, 1:k ) = C( 1:m, 1:k )
 
          DO 40 J = 1, K
-            CALL CCOPY( M, C( 1, J ), 1, WORK( 1, J ), 1 )
+            ccopy(M, C( 1, J ), 1, WORK( 1, J ), 1 );
    40    CONTINUE
 
          // W( 1:m, 1:k ) = W( 1:m, 1:k ) + ...
@@ -105,11 +105,11 @@
                          // W( 1:m, 1:k ) * T**H
 
          DO 50 J = 1, K
-            CALL CLACGV( K-J+1, T( J, J ), 1 )
+            clacgv(K-J+1, T( J, J ), 1 );
    50    CONTINUE
-         CALL CTRMM( 'Right', 'Lower', TRANS, 'Non-unit', M, K, ONE, T, LDT, WORK, LDWORK )
+         ctrmm('Right', 'Lower', TRANS, 'Non-unit', M, K, ONE, T, LDT, WORK, LDWORK );
          DO 60 J = 1, K
-            CALL CLACGV( K-J+1, T( J, J ), 1 )
+            clacgv(K-J+1, T( J, J ), 1 );
    60    CONTINUE
 
          // C( 1:m, 1:k ) = C( 1:m, 1:k ) - W( 1:m, 1:k )
@@ -124,11 +124,11 @@
                              // W( 1:m, 1:k ) * conjg( V( 1:k, 1:l ) )
 
          DO 90 J = 1, L
-            CALL CLACGV( K, V( 1, J ), 1 )
+            clacgv(K, V( 1, J ), 1 );
    90    CONTINUE
          IF( L.GT.0 ) CALL CGEMM( 'No transpose', 'No transpose', M, L, K, -ONE, WORK, LDWORK, V, LDV, ONE, C( 1, N-L+1 ), LDC )
          DO 100 J = 1, L
-            CALL CLACGV( K, V( 1, J ), 1 )
+            clacgv(K, V( 1, J ), 1 );
   100    CONTINUE
 
       }

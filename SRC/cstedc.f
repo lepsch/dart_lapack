@@ -99,7 +99,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'CSTEDC', -INFO )
+         xerbla('CSTEDC', -INFO );
          RETURN
       } else if ( LQUERY ) {
          RETURN
@@ -125,7 +125,7 @@
       // If COMPZ = 'N', use SSTERF to compute the eigenvalues.
 
       if ( ICOMPZ.EQ.0 ) {
-         CALL SSTERF( N, D, E, INFO )
+         ssterf(N, D, E, INFO );
          GO TO 70
       }
 
@@ -134,16 +134,16 @@
 
       if ( N.LE.SMLSIZ ) {
 
-         CALL CSTEQR( COMPZ, N, D, E, Z, LDZ, RWORK, INFO )
+         csteqr(COMPZ, N, D, E, Z, LDZ, RWORK, INFO );
 
       } else {
 
          // If COMPZ = 'I', we simply call SSTEDC instead.
 
          if ( ICOMPZ.EQ.2 ) {
-            CALL SLASET( 'Full', N, N, ZERO, ONE, RWORK, N )
+            slaset('Full', N, N, ZERO, ONE, RWORK, N );
             LL = N*N + 1
-            CALL SSTEDC( 'I', N, D, E, RWORK, N, RWORK( LL ), LRWORK-LL+1, IWORK, LIWORK, INFO )
+            sstedc('I', N, D, E, RWORK, N, RWORK( LL ), LRWORK-LL+1, IWORK, LIWORK, INFO );
             DO 20 J = 1, N
                DO 10 I = 1, N
                   Z( I, J ) = RWORK( ( J-1 )*N+I )
@@ -193,9 +193,9 @@
                // Scale.
 
                ORGNRM = SLANST( 'M', M, D( START ), E( START ) )
-               CALL SLASCL( 'G', 0, 0, ORGNRM, ONE, M, 1, D( START ), M, INFO )                CALL SLASCL( 'G', 0, 0, ORGNRM, ONE, M-1, 1, E( START ), M-1, INFO )
+               slascl('G', 0, 0, ORGNRM, ONE, M, 1, D( START ), M, INFO )                CALL SLASCL( 'G', 0, 0, ORGNRM, ONE, M-1, 1, E( START ), M-1, INFO );
 
-               CALL CLAED0( N, M, D( START ), E( START ), Z( 1, START ), LDZ, WORK, N, RWORK, IWORK, INFO )
+               claed0(N, M, D( START ), E( START ), Z( 1, START ), LDZ, WORK, N, RWORK, IWORK, INFO );
                if ( INFO.GT.0 ) {
                   INFO = ( INFO / ( M+1 )+START-1 )*( N+1 ) + MOD( INFO, ( M+1 ) ) + START - 1
                   GO TO 70
@@ -203,11 +203,11 @@
 
                // Scale back.
 
-               CALL SLASCL( 'G', 0, 0, ONE, ORGNRM, M, 1, D( START ), M, INFO )
+               slascl('G', 0, 0, ONE, ORGNRM, M, 1, D( START ), M, INFO );
 
             } else {
-               CALL SSTEQR( 'I', M, D( START ), E( START ), RWORK, M, RWORK( M*M+1 ), INFO )                CALL CLACRM( N, M, Z( 1, START ), LDZ, RWORK, M, WORK, N, RWORK( M*M+1 ) )
-               CALL CLACPY( 'A', N, M, WORK, N, Z( 1, START ), LDZ )
+               ssteqr('I', M, D( START ), E( START ), RWORK, M, RWORK( M*M+1 ), INFO )                CALL CLACRM( N, M, Z( 1, START ), LDZ, RWORK, M, WORK, N, RWORK( M*M+1 ) );
+               clacpy('A', N, M, WORK, N, Z( 1, START ), LDZ );
                if ( INFO.GT.0 ) {
                   INFO = START*( N+1 ) + FINISH
                   GO TO 70
@@ -236,7 +236,7 @@
            if ( K.NE.I ) {
               D( K ) = D( I )
               D( I ) = P
-              CALL CSWAP( N, Z( 1, I ), 1, Z( 1, K ), 1 )
+              cswap(N, Z( 1, I ), 1, Z( 1, K ), 1 );
            }
    60    CONTINUE
       }

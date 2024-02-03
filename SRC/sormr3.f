@@ -61,7 +61,7 @@
          INFO = -11
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'SORMR3', -INFO )
+         xerbla('SORMR3', -INFO );
          RETURN
       }
 
@@ -106,7 +106,7 @@
 
          // Apply H(i) or H(i)**T
 
-         CALL SLARZ( SIDE, MI, NI, L, A( I, JA ), LDA, TAU( I ), C( IC, JC ), LDC, WORK )
+         slarz(SIDE, MI, NI, L, A( I, JA ), LDA, TAU( I ), C( IC, JC ), LDC, WORK );
 
    10 CONTINUE
 

@@ -53,13 +53,13 @@
 
       // Copy the first k rows of the factorization to the array Q
 
-      CALL SLASET( 'Full', N, N, ROGUE, ROGUE, Q, LDA )
-      CALL SLACPY( 'Upper', K, N-1, AF( 1, 2 ), LDA, Q( 1, 2 ), LDA )
+      slaset('Full', N, N, ROGUE, ROGUE, Q, LDA );
+      slacpy('Upper', K, N-1, AF( 1, 2 ), LDA, Q( 1, 2 ), LDA );
 
       // Generate the n-by-n matrix Q
 
       SRNAMT = 'SORGLQ'
-      CALL SORGLQ( N, N, K, Q, LDA, TAU, WORK, LWORK, INFO )
+      sorglq(N, N, K, Q, LDA, TAU, WORK, LWORK, INFO );
 
       DO 30 ISIDE = 1, 2
          if ( ISIDE.EQ.1 ) {
@@ -75,7 +75,7 @@
          // Generate MC by NC matrix C
 
          DO 10 J = 1, NC
-            CALL SLARNV( 2, ISEED, MC, C( 1, J ) )
+            slarnv(2, ISEED, MC, C( 1, J ) );
    10    CONTINUE
          CNORM = SLANGE( '1', MC, NC, C, LDA, RWORK )
          IF( CNORM.EQ.0.0 ) CNORM = ONE
@@ -89,19 +89,19 @@
 
             // Copy C
 
-            CALL SLACPY( 'Full', MC, NC, C, LDA, CC, LDA )
+            slacpy('Full', MC, NC, C, LDA, CC, LDA );
 
             // Apply Q or Q' to C
 
             SRNAMT = 'SORMLQ'
-            CALL SORMLQ( SIDE, TRANS, MC, NC, K, AF, LDA, TAU, CC, LDA, WORK, LWORK, INFO )
+            sormlq(SIDE, TRANS, MC, NC, K, AF, LDA, TAU, CC, LDA, WORK, LWORK, INFO );
 
             // Form explicit product and subtract
 
             if ( LSAME( SIDE, 'L' ) ) {
-               CALL SGEMM( TRANS, 'No transpose', MC, NC, MC, -ONE, Q, LDA, C, LDA, ONE, CC, LDA )
+               sgemm(TRANS, 'No transpose', MC, NC, MC, -ONE, Q, LDA, C, LDA, ONE, CC, LDA );
             } else {
-               CALL SGEMM( 'No transpose', TRANS, MC, NC, NC, -ONE, C, LDA, Q, LDA, ONE, CC, LDA )
+               sgemm('No transpose', TRANS, MC, NC, NC, -ONE, C, LDA, Q, LDA, ONE, CC, LDA );
             }
 
             // Compute error in the difference

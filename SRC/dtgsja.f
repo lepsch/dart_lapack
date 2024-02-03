@@ -76,7 +76,7 @@
          INFO = -22
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'DTGSJA', -INFO )
+         xerbla('DTGSJA', -INFO );
          RETURN
       }
 
@@ -110,7 +110,7 @@
                   B2 = B( J, N-L+I )
                }
 
-               CALL DLAGS2( UPPER, A1, A2, A3, B1, B2, B3, CSU, SNU, CSV, SNV, CSQ, SNQ )
+               dlags2(UPPER, A1, A2, A3, B1, B2, B3, CSU, SNU, CSV, SNV, CSQ, SNQ );
 
                // Update (K+I)-th and (K+J)-th rows of matrix A: U**T *A
 
@@ -118,14 +118,14 @@
 
                // Update I-th and J-th rows of matrix B: V**T *B
 
-               CALL DROT( L, B( J, N-L+1 ), LDB, B( I, N-L+1 ), LDB, CSV, SNV )
+               drot(L, B( J, N-L+1 ), LDB, B( I, N-L+1 ), LDB, CSV, SNV );
 
                // Update (N-L+I)-th and (N-L+J)-th columns of matrices
                // A and B: A*Q and B*Q
 
-               CALL DROT( MIN( K+L, M ), A( 1, N-L+J ), 1, A( 1, N-L+I ), 1, CSQ, SNQ )
+               drot(MIN( K+L, M ), A( 1, N-L+J ), 1, A( 1, N-L+I ), 1, CSQ, SNQ );
 
-               CALL DROT( L, B( 1, N-L+J ), 1, B( 1, N-L+I ), 1, CSQ, SNQ )
+               drot(L, B( 1, N-L+J ), 1, B( 1, N-L+I ), 1, CSQ, SNQ );
 
                if ( UPPER ) {
                   IF( K+I.LE.M ) A( K+I, N-L+J ) = ZERO
@@ -156,9 +156,9 @@
 
             ERROR = ZERO
             DO 30 I = 1, MIN( L, M-K )
-               CALL DCOPY( L-I+1, A( K+I, N-L+I ), LDA, WORK, 1 )
-               CALL DCOPY( L-I+1, B( I, N-L+I ), LDB, WORK( L+1 ), 1 )
-               CALL DLAPLL( L-I+1, WORK, 1, WORK( L+1 ), 1, SSMIN )
+               dcopy(L-I+1, A( K+I, N-L+I ), LDA, WORK, 1 );
+               dcopy(L-I+1, B( I, N-L+I ), LDB, WORK( L+1 ), 1 );
+               dlapll(L-I+1, WORK, 1, WORK( L+1 ), 1, SSMIN );
                ERROR = MAX( ERROR, SSMIN )
    30       CONTINUE
 
@@ -196,23 +196,23 @@
             // change sign if necessary
 
             if ( GAMMA.LT.ZERO ) {
-               CALL DSCAL( L-I+1, -ONE, B( I, N-L+I ), LDB )
+               dscal(L-I+1, -ONE, B( I, N-L+I ), LDB );
                IF( WANTV ) CALL DSCAL( P, -ONE, V( 1, I ), 1 )
             }
 
-            CALL DLARTG( ABS( GAMMA ), ONE, BETA( K+I ), ALPHA( K+I ), RWK )
+            dlartg(ABS( GAMMA ), ONE, BETA( K+I ), ALPHA( K+I ), RWK );
 
             if ( ALPHA( K+I ).GE.BETA( K+I ) ) {
-               CALL DSCAL( L-I+1, ONE / ALPHA( K+I ), A( K+I, N-L+I ), LDA )
+               dscal(L-I+1, ONE / ALPHA( K+I ), A( K+I, N-L+I ), LDA );
             } else {
-               CALL DSCAL( L-I+1, ONE / BETA( K+I ), B( I, N-L+I ), LDB )                CALL DCOPY( L-I+1, B( I, N-L+I ), LDB, A( K+I, N-L+I ), LDA )
+               dscal(L-I+1, ONE / BETA( K+I ), B( I, N-L+I ), LDB )                CALL DCOPY( L-I+1, B( I, N-L+I ), LDB, A( K+I, N-L+I ), LDA );
             }
 
          } else {
 
             ALPHA( K+I ) = ZERO
             BETA( K+I ) = ONE
-            CALL DCOPY( L-I+1, B( I, N-L+I ), LDB, A( K+I, N-L+I ), LDA )
+            dcopy(L-I+1, B( I, N-L+I ), LDB, A( K+I, N-L+I ), LDA );
 
          }
 

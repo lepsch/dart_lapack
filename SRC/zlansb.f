@@ -101,12 +101,12 @@
          if ( K.GT.0 ) {
             if ( LSAME( UPLO, 'U' ) ) {
                DO 110 J = 2, N
-                  CALL ZLASSQ( MIN( J-1, K ), AB( MAX( K+2-J, 1 ), J ), 1, SCALE, SUM )
+                  zlassq(MIN( J-1, K ), AB( MAX( K+2-J, 1 ), J ), 1, SCALE, SUM );
   110          CONTINUE
                L = K + 1
             } else {
                DO 120 J = 1, N - 1
-                  CALL ZLASSQ( MIN( N-J, K ), AB( 2, J ), 1, SCALE, SUM )
+                  zlassq(MIN( N-J, K ), AB( 2, J ), 1, SCALE, SUM );
   120          CONTINUE
                L = 1
             }
@@ -114,7 +114,7 @@
          } else {
             L = 1
          }
-         CALL ZLASSQ( N, AB( L, 1 ), LDAB, SCALE, SUM )
+         zlassq(N, AB( L, 1 ), LDAB, SCALE, SUM );
          VALUE = SCALE*SQRT( SUM )
       }
 

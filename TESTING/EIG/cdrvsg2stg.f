@@ -86,7 +86,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'CDRVSG2STG', -INFO )
+         xerbla('CDRVSG2STG', -INFO );
          RETURN
       }
 
@@ -182,7 +182,7 @@
 
                KA = 0
                KB = 0
-               CALL CLASET( 'Full', LDA, N, CZERO, CZERO, A, LDA )
+               claset('Full', LDA, N, CZERO, CZERO, A, LDA );
 
             } else if ( ITYPE.EQ.2 ) {
 
@@ -190,7 +190,7 @@
 
                KA = 0
                KB = 0
-               CALL CLASET( 'Full', LDA, N, CZERO, CZERO, A, LDA )
+               claset('Full', LDA, N, CZERO, CZERO, A, LDA );
                DO 80 JCOL = 1, N
                   A( JCOL, JCOL ) = ANORM
    80          CONTINUE
@@ -201,7 +201,7 @@
 
                KA = 0
                KB = 0
-               CALL CLATMS( N, N, 'S', ISEED, 'H', RWORK, IMODE, COND, ANORM, 0, 0, 'N', A, LDA, WORK, IINFO )
+               clatms(N, N, 'S', ISEED, 'H', RWORK, IMODE, COND, ANORM, 0, 0, 'N', A, LDA, WORK, IINFO );
 
             } else if ( ITYPE.EQ.5 ) {
 
@@ -209,7 +209,7 @@
 
                KA = MAX( 0, N-1 )
                KB = KA
-               CALL CLATMS( N, N, 'S', ISEED, 'H', RWORK, IMODE, COND, ANORM, N, N, 'N', A, LDA, WORK, IINFO )
+               clatms(N, N, 'S', ISEED, 'H', RWORK, IMODE, COND, ANORM, N, N, 'N', A, LDA, WORK, IINFO );
 
             } else if ( ITYPE.EQ.7 ) {
 
@@ -217,7 +217,7 @@
 
                KA = 0
                KB = 0
-               CALL CLATMR( N, N, 'S', ISEED, 'H', WORK, 6, ONE, CONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, 0, 0, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO )
+               clatmr(N, N, 'S', ISEED, 'H', WORK, 6, ONE, CONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, 0, 0, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO );
 
             } else if ( ITYPE.EQ.8 ) {
 
@@ -225,7 +225,7 @@
 
                KA = MAX( 0, N-1 )
                KB = KA
-               CALL CLATMR( N, N, 'S', ISEED, 'H', WORK, 6, ONE, CONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, N, N, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO )
+               clatmr(N, N, 'S', ISEED, 'H', WORK, 6, ONE, CONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, N, N, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO );
 
             } else if ( ITYPE.EQ.9 ) {
 
@@ -247,7 +247,7 @@
                }
                KA = MAX( 0, MIN( N-1, KA9 ) )
                KB = MAX( 0, MIN( N-1, KB9 ) )
-               CALL CLATMS( N, N, 'S', ISEED, 'H', RWORK, IMODE, COND, ANORM, KA, KA, 'N', A, LDA, WORK, IINFO )
+               clatms(N, N, 'S', ISEED, 'H', RWORK, IMODE, COND, ANORM, KA, KA, 'N', A, LDA, WORK, IINFO );
 
             } else {
 
@@ -294,16 +294,16 @@
                   // Generate random well-conditioned positive definite
                   // matrix B, of bandwidth not greater than that of A.
 
-                  CALL CLATMS( N, N, 'U', ISEED, 'P', RWORK, 5, TEN, ONE, KB, KB, UPLO, B, LDB, WORK( N+1 ), IINFO )
+                  clatms(N, N, 'U', ISEED, 'P', RWORK, 5, TEN, ONE, KB, KB, UPLO, B, LDB, WORK( N+1 ), IINFO );
 
                   // Test CHEGV
 
                   NTEST = NTEST + 1
 
-                  CALL CLACPY( ' ', N, N, A, LDA, Z, LDZ )
-                  CALL CLACPY( UPLO, N, N, B, LDB, BB, LDB )
+                  clacpy(' ', N, N, A, LDA, Z, LDZ );
+                  clacpy(UPLO, N, N, B, LDB, BB, LDB );
 
-                  CALL CHEGV( IBTYPE, 'V', UPLO, N, Z, LDZ, BB, LDB, D, WORK, NWORK, RWORK, IINFO )
+                  chegv(IBTYPE, 'V', UPLO, N, Z, LDZ, BB, LDB, D, WORK, NWORK, RWORK, IINFO );
                   if ( IINFO.NE.0 ) {
                      WRITE( NOUNIT, FMT = 9999 )'CHEGV(V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                      INFO = ABS( IINFO )
@@ -317,16 +317,16 @@
 
                   // Do Test
 
-                  CALL CSGT01( IBTYPE, UPLO, N, N, A, LDA, B, LDB, Z, LDZ, D, WORK, RWORK, RESULT( NTEST ) )
+                  csgt01(IBTYPE, UPLO, N, N, A, LDA, B, LDB, Z, LDZ, D, WORK, RWORK, RESULT( NTEST ) );
 
                   // Test CHEGV_2STAGE
 
                   NTEST = NTEST + 1
 
-                  CALL CLACPY( ' ', N, N, A, LDA, Z, LDZ )
-                  CALL CLACPY( UPLO, N, N, B, LDB, BB, LDB )
+                  clacpy(' ', N, N, A, LDA, Z, LDZ );
+                  clacpy(UPLO, N, N, B, LDB, BB, LDB );
 
-                  CALL CHEGV_2STAGE( IBTYPE, 'N', UPLO, N, Z, LDZ, BB, LDB, D2, WORK, NWORK, RWORK, IINFO )
+                  chegv_2stage(IBTYPE, 'N', UPLO, N, Z, LDZ, BB, LDB, D2, WORK, NWORK, RWORK, IINFO );
                   if ( IINFO.NE.0 ) {
                      WRITE( NOUNIT, FMT = 9999 ) 'CHEGV_2STAGE(V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                      INFO = ABS( IINFO )
@@ -360,10 +360,10 @@
 
                   NTEST = NTEST + 1
 
-                  CALL CLACPY( ' ', N, N, A, LDA, Z, LDZ )
-                  CALL CLACPY( UPLO, N, N, B, LDB, BB, LDB )
+                  clacpy(' ', N, N, A, LDA, Z, LDZ );
+                  clacpy(UPLO, N, N, B, LDB, BB, LDB );
 
-                  CALL CHEGVD( IBTYPE, 'V', UPLO, N, Z, LDZ, BB, LDB, D, WORK, NWORK, RWORK, LRWORK, IWORK, LIWORK, IINFO )
+                  chegvd(IBTYPE, 'V', UPLO, N, Z, LDZ, BB, LDB, D, WORK, NWORK, RWORK, LRWORK, IWORK, LIWORK, IINFO );
                   if ( IINFO.NE.0 ) {
                      WRITE( NOUNIT, FMT = 9999 )'CHEGVD(V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                      INFO = ABS( IINFO )
@@ -377,16 +377,16 @@
 
                   // Do Test
 
-                  CALL CSGT01( IBTYPE, UPLO, N, N, A, LDA, B, LDB, Z, LDZ, D, WORK, RWORK, RESULT( NTEST ) )
+                  csgt01(IBTYPE, UPLO, N, N, A, LDA, B, LDB, Z, LDZ, D, WORK, RWORK, RESULT( NTEST ) );
 
                   // Test CHEGVX
 
                   NTEST = NTEST + 1
 
-                  CALL CLACPY( ' ', N, N, A, LDA, AB, LDA )
-                  CALL CLACPY( UPLO, N, N, B, LDB, BB, LDB )
+                  clacpy(' ', N, N, A, LDA, AB, LDA );
+                  clacpy(UPLO, N, N, B, LDB, BB, LDB );
 
-                  CALL CHEGVX( IBTYPE, 'V', 'A', UPLO, N, AB, LDA, BB, LDB, VL, VU, IL, IU, ABSTOL, M, D, Z, LDZ, WORK, NWORK, RWORK, IWORK( N+1 ), IWORK, IINFO )
+                  chegvx(IBTYPE, 'V', 'A', UPLO, N, AB, LDA, BB, LDB, VL, VU, IL, IU, ABSTOL, M, D, Z, LDZ, WORK, NWORK, RWORK, IWORK( N+1 ), IWORK, IINFO );
                   if ( IINFO.NE.0 ) {
                      WRITE( NOUNIT, FMT = 9999 )'CHEGVX(V,A' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                      INFO = ABS( IINFO )
@@ -400,12 +400,12 @@
 
                   // Do Test
 
-                  CALL CSGT01( IBTYPE, UPLO, N, N, A, LDA, B, LDB, Z, LDZ, D, WORK, RWORK, RESULT( NTEST ) )
+                  csgt01(IBTYPE, UPLO, N, N, A, LDA, B, LDB, Z, LDZ, D, WORK, RWORK, RESULT( NTEST ) );
 
                   NTEST = NTEST + 1
 
-                  CALL CLACPY( ' ', N, N, A, LDA, AB, LDA )
-                  CALL CLACPY( UPLO, N, N, B, LDB, BB, LDB )
+                  clacpy(' ', N, N, A, LDA, AB, LDA );
+                  clacpy(UPLO, N, N, B, LDB, BB, LDB );
 
                   // since we do not know the exact eigenvalues of this
                   // eigenpair, we just set VL and VU as constants.
@@ -414,7 +414,7 @@
 
                   VL = ZERO
                   VU = ANORM
-                  CALL CHEGVX( IBTYPE, 'V', 'V', UPLO, N, AB, LDA, BB, LDB, VL, VU, IL, IU, ABSTOL, M, D, Z, LDZ, WORK, NWORK, RWORK, IWORK( N+1 ), IWORK, IINFO )
+                  chegvx(IBTYPE, 'V', 'V', UPLO, N, AB, LDA, BB, LDB, VL, VU, IL, IU, ABSTOL, M, D, Z, LDZ, WORK, NWORK, RWORK, IWORK( N+1 ), IWORK, IINFO );
                   if ( IINFO.NE.0 ) {
                      WRITE( NOUNIT, FMT = 9999 )'CHEGVX(V,V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                      INFO = ABS( IINFO )
@@ -428,14 +428,14 @@
 
                   // Do Test
 
-                  CALL CSGT01( IBTYPE, UPLO, N, M, A, LDA, B, LDB, Z, LDZ, D, WORK, RWORK, RESULT( NTEST ) )
+                  csgt01(IBTYPE, UPLO, N, M, A, LDA, B, LDB, Z, LDZ, D, WORK, RWORK, RESULT( NTEST ) );
 
                   NTEST = NTEST + 1
 
-                  CALL CLACPY( ' ', N, N, A, LDA, AB, LDA )
-                  CALL CLACPY( UPLO, N, N, B, LDB, BB, LDB )
+                  clacpy(' ', N, N, A, LDA, AB, LDA );
+                  clacpy(UPLO, N, N, B, LDB, BB, LDB );
 
-                  CALL CHEGVX( IBTYPE, 'V', 'I', UPLO, N, AB, LDA, BB, LDB, VL, VU, IL, IU, ABSTOL, M, D, Z, LDZ, WORK, NWORK, RWORK, IWORK( N+1 ), IWORK, IINFO )
+                  chegvx(IBTYPE, 'V', 'I', UPLO, N, AB, LDA, BB, LDB, VL, VU, IL, IU, ABSTOL, M, D, Z, LDZ, WORK, NWORK, RWORK, IWORK( N+1 ), IWORK, IINFO );
                   if ( IINFO.NE.0 ) {
                      WRITE( NOUNIT, FMT = 9999 )'CHEGVX(V,I,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                      INFO = ABS( IINFO )
@@ -449,7 +449,7 @@
 
                   // Do Test
 
-                  CALL CSGT01( IBTYPE, UPLO, N, M, A, LDA, B, LDB, Z, LDZ, D, WORK, RWORK, RESULT( NTEST ) )
+                  csgt01(IBTYPE, UPLO, N, M, A, LDA, B, LDB, Z, LDZ, D, WORK, RWORK, RESULT( NTEST ) );
 
   100             CONTINUE
 
@@ -479,7 +479,7 @@
   140                CONTINUE
                   }
 
-                  CALL CHPGV( IBTYPE, 'V', UPLO, N, AP, BP, D, Z, LDZ, WORK, RWORK, IINFO )
+                  chpgv(IBTYPE, 'V', UPLO, N, AP, BP, D, Z, LDZ, WORK, RWORK, IINFO );
                   if ( IINFO.NE.0 ) {
                      WRITE( NOUNIT, FMT = 9999 )'CHPGV(V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                      INFO = ABS( IINFO )
@@ -493,7 +493,7 @@
 
                   // Do Test
 
-                  CALL CSGT01( IBTYPE, UPLO, N, N, A, LDA, B, LDB, Z, LDZ, D, WORK, RWORK, RESULT( NTEST ) )
+                  csgt01(IBTYPE, UPLO, N, N, A, LDA, B, LDB, Z, LDZ, D, WORK, RWORK, RESULT( NTEST ) );
 
                   // Test CHPGVD
 
@@ -521,7 +521,7 @@
   180                CONTINUE
                   }
 
-                  CALL CHPGVD( IBTYPE, 'V', UPLO, N, AP, BP, D, Z, LDZ, WORK, NWORK, RWORK, LRWORK, IWORK, LIWORK, IINFO )
+                  chpgvd(IBTYPE, 'V', UPLO, N, AP, BP, D, Z, LDZ, WORK, NWORK, RWORK, LRWORK, IWORK, LIWORK, IINFO );
                   if ( IINFO.NE.0 ) {
                      WRITE( NOUNIT, FMT = 9999 )'CHPGVD(V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                      INFO = ABS( IINFO )
@@ -535,7 +535,7 @@
 
                   // Do Test
 
-                  CALL CSGT01( IBTYPE, UPLO, N, N, A, LDA, B, LDB, Z, LDZ, D, WORK, RWORK, RESULT( NTEST ) )
+                  csgt01(IBTYPE, UPLO, N, N, A, LDA, B, LDB, Z, LDZ, D, WORK, RWORK, RESULT( NTEST ) );
 
                   // Test CHPGVX
 
@@ -563,7 +563,7 @@
   220                CONTINUE
                   }
 
-                  CALL CHPGVX( IBTYPE, 'V', 'A', UPLO, N, AP, BP, VL, VU, IL, IU, ABSTOL, M, D, Z, LDZ, WORK, RWORK, IWORK( N+1 ), IWORK, INFO )
+                  chpgvx(IBTYPE, 'V', 'A', UPLO, N, AP, BP, VL, VU, IL, IU, ABSTOL, M, D, Z, LDZ, WORK, RWORK, IWORK( N+1 ), IWORK, INFO );
                   if ( IINFO.NE.0 ) {
                      WRITE( NOUNIT, FMT = 9999 )'CHPGVX(V,A' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                      INFO = ABS( IINFO )
@@ -577,7 +577,7 @@
 
                   // Do Test
 
-                  CALL CSGT01( IBTYPE, UPLO, N, N, A, LDA, B, LDB, Z, LDZ, D, WORK, RWORK, RESULT( NTEST ) )
+                  csgt01(IBTYPE, UPLO, N, N, A, LDA, B, LDB, Z, LDZ, D, WORK, RWORK, RESULT( NTEST ) );
 
                   NTEST = NTEST + 1
 
@@ -605,7 +605,7 @@
 
                   VL = ZERO
                   VU = ANORM
-                  CALL CHPGVX( IBTYPE, 'V', 'V', UPLO, N, AP, BP, VL, VU, IL, IU, ABSTOL, M, D, Z, LDZ, WORK, RWORK, IWORK( N+1 ), IWORK, INFO )
+                  chpgvx(IBTYPE, 'V', 'V', UPLO, N, AP, BP, VL, VU, IL, IU, ABSTOL, M, D, Z, LDZ, WORK, RWORK, IWORK( N+1 ), IWORK, INFO );
                   if ( IINFO.NE.0 ) {
                      WRITE( NOUNIT, FMT = 9999 )'CHPGVX(V,V' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                      INFO = ABS( IINFO )
@@ -619,7 +619,7 @@
 
                   // Do Test
 
-                  CALL CSGT01( IBTYPE, UPLO, N, M, A, LDA, B, LDB, Z, LDZ, D, WORK, RWORK, RESULT( NTEST ) )
+                  csgt01(IBTYPE, UPLO, N, M, A, LDA, B, LDB, Z, LDZ, D, WORK, RWORK, RESULT( NTEST ) );
 
                   NTEST = NTEST + 1
 
@@ -645,7 +645,7 @@
   300                CONTINUE
                   }
 
-                  CALL CHPGVX( IBTYPE, 'V', 'I', UPLO, N, AP, BP, VL, VU, IL, IU, ABSTOL, M, D, Z, LDZ, WORK, RWORK, IWORK( N+1 ), IWORK, INFO )
+                  chpgvx(IBTYPE, 'V', 'I', UPLO, N, AP, BP, VL, VU, IL, IU, ABSTOL, M, D, Z, LDZ, WORK, RWORK, IWORK( N+1 ), IWORK, INFO );
                   if ( IINFO.NE.0 ) {
                      WRITE( NOUNIT, FMT = 9999 )'CHPGVX(V,I' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                      INFO = ABS( IINFO )
@@ -659,7 +659,7 @@
 
                   // Do Test
 
-                  CALL CSGT01( IBTYPE, UPLO, N, M, A, LDA, B, LDB, Z, LDZ, D, WORK, RWORK, RESULT( NTEST ) )
+                  csgt01(IBTYPE, UPLO, N, M, A, LDA, B, LDB, Z, LDZ, D, WORK, RWORK, RESULT( NTEST ) );
 
   310             CONTINUE
 
@@ -691,7 +691,7 @@
   370                   CONTINUE
                      }
 
-                     CALL CHBGV( 'V', UPLO, N, KA, KB, AB, LDA, BB, LDB, D, Z, LDZ, WORK, RWORK, IINFO )
+                     chbgv('V', UPLO, N, KA, KB, AB, LDA, BB, LDB, D, Z, LDZ, WORK, RWORK, IINFO );
                      if ( IINFO.NE.0 ) {
                         WRITE( NOUNIT, FMT = 9999 )'CHBGV(V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                         INFO = ABS( IINFO )
@@ -705,7 +705,7 @@
 
                      // Do Test
 
-                     CALL CSGT01( IBTYPE, UPLO, N, N, A, LDA, B, LDB, Z, LDZ, D, WORK, RWORK, RESULT( NTEST ) )
+                     csgt01(IBTYPE, UPLO, N, N, A, LDA, B, LDB, Z, LDZ, D, WORK, RWORK, RESULT( NTEST ) );
 
                      // TEST CHBGVD
 
@@ -733,7 +733,7 @@
   430                   CONTINUE
                      }
 
-                     CALL CHBGVD( 'V', UPLO, N, KA, KB, AB, LDA, BB, LDB, D, Z, LDZ, WORK, NWORK, RWORK, LRWORK, IWORK, LIWORK, IINFO )
+                     chbgvd('V', UPLO, N, KA, KB, AB, LDA, BB, LDB, D, Z, LDZ, WORK, NWORK, RWORK, LRWORK, IWORK, LIWORK, IINFO );
                      if ( IINFO.NE.0 ) {
                         WRITE( NOUNIT, FMT = 9999 )'CHBGVD(V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                         INFO = ABS( IINFO )
@@ -747,7 +747,7 @@
 
                      // Do Test
 
-                     CALL CSGT01( IBTYPE, UPLO, N, N, A, LDA, B, LDB, Z, LDZ, D, WORK, RWORK, RESULT( NTEST ) )
+                     csgt01(IBTYPE, UPLO, N, N, A, LDA, B, LDB, Z, LDZ, D, WORK, RWORK, RESULT( NTEST ) );
 
                      // Test CHBGVX
 
@@ -775,7 +775,7 @@
   490                   CONTINUE
                      }
 
-                     CALL CHBGVX( 'V', 'A', UPLO, N, KA, KB, AB, LDA, BB, LDB, BP, MAX( 1, N ), VL, VU, IL, IU, ABSTOL, M, D, Z, LDZ, WORK, RWORK, IWORK( N+1 ), IWORK, IINFO )
+                     chbgvx('V', 'A', UPLO, N, KA, KB, AB, LDA, BB, LDB, BP, MAX( 1, N ), VL, VU, IL, IU, ABSTOL, M, D, Z, LDZ, WORK, RWORK, IWORK( N+1 ), IWORK, IINFO );
                      if ( IINFO.NE.0 ) {
                         WRITE( NOUNIT, FMT = 9999 )'CHBGVX(V,A' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                         INFO = ABS( IINFO )
@@ -789,7 +789,7 @@
 
                      // Do Test
 
-                     CALL CSGT01( IBTYPE, UPLO, N, N, A, LDA, B, LDB, Z, LDZ, D, WORK, RWORK, RESULT( NTEST ) )
+                     csgt01(IBTYPE, UPLO, N, N, A, LDA, B, LDB, Z, LDZ, D, WORK, RWORK, RESULT( NTEST ) );
 
                      NTEST = NTEST + 1
 
@@ -817,7 +817,7 @@
 
                      VL = ZERO
                      VU = ANORM
-                     CALL CHBGVX( 'V', 'V', UPLO, N, KA, KB, AB, LDA, BB, LDB, BP, MAX( 1, N ), VL, VU, IL, IU, ABSTOL, M, D, Z, LDZ, WORK, RWORK, IWORK( N+1 ), IWORK, IINFO )
+                     chbgvx('V', 'V', UPLO, N, KA, KB, AB, LDA, BB, LDB, BP, MAX( 1, N ), VL, VU, IL, IU, ABSTOL, M, D, Z, LDZ, WORK, RWORK, IWORK( N+1 ), IWORK, IINFO );
                      if ( IINFO.NE.0 ) {
                         WRITE( NOUNIT, FMT = 9999 )'CHBGVX(V,V' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                         INFO = ABS( IINFO )
@@ -831,7 +831,7 @@
 
                      // Do Test
 
-                     CALL CSGT01( IBTYPE, UPLO, N, M, A, LDA, B, LDB, Z, LDZ, D, WORK, RWORK, RESULT( NTEST ) )
+                     csgt01(IBTYPE, UPLO, N, M, A, LDA, B, LDB, Z, LDZ, D, WORK, RWORK, RESULT( NTEST ) );
 
                      NTEST = NTEST + 1
 
@@ -857,7 +857,7 @@
   610                   CONTINUE
                      }
 
-                     CALL CHBGVX( 'V', 'I', UPLO, N, KA, KB, AB, LDA, BB, LDB, BP, MAX( 1, N ), VL, VU, IL, IU, ABSTOL, M, D, Z, LDZ, WORK, RWORK, IWORK( N+1 ), IWORK, IINFO )
+                     chbgvx('V', 'I', UPLO, N, KA, KB, AB, LDA, BB, LDB, BP, MAX( 1, N ), VL, VU, IL, IU, ABSTOL, M, D, Z, LDZ, WORK, RWORK, IWORK( N+1 ), IWORK, IINFO );
                      if ( IINFO.NE.0 ) {
                         WRITE( NOUNIT, FMT = 9999 )'CHBGVX(V,I' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                         INFO = ABS( IINFO )
@@ -871,7 +871,7 @@
 
                      // Do Test
 
-                     CALL CSGT01( IBTYPE, UPLO, N, M, A, LDA, B, LDB, Z, LDZ, D, WORK, RWORK, RESULT( NTEST ) )
+                     csgt01(IBTYPE, UPLO, N, M, A, LDA, B, LDB, Z, LDZ, D, WORK, RWORK, RESULT( NTEST ) );
 
                   }
 
@@ -881,13 +881,13 @@
             // End of Loop -- Check for RESULT(j) > THRESH
 
             NTESTT = NTESTT + NTEST
-            CALL SLAFTS( 'CSG', N, N, JTYPE, NTEST, RESULT, IOLDSD, THRESH, NOUNIT, NERRS )
+            slafts('CSG', N, N, JTYPE, NTEST, RESULT, IOLDSD, THRESH, NOUNIT, NERRS );
   640    CONTINUE
   650 CONTINUE
 
       // Summary
 
-      CALL SLASUM( 'CSG', NOUNIT, NERRS, NTESTT )
+      slasum('CSG', NOUNIT, NERRS, NTESTT );
 
       RETURN
 

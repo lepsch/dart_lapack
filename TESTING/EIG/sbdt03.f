@@ -57,7 +57,7 @@
                DO 10 I = 1, N
                   WORK( N+I ) = S( I )*VT( I, J )
    10          CONTINUE
-               CALL SGEMV( 'No transpose', N, N, -ONE, U, LDU, WORK( N+1 ), 1, ZERO, WORK, 1 )
+               sgemv('No transpose', N, N, -ONE, U, LDU, WORK( N+1 ), 1, ZERO, WORK, 1 );
                WORK( J ) = WORK( J ) + D( J )
                if ( J.GT.1 ) {
                   WORK( J-1 ) = WORK( J-1 ) + E( J-1 )
@@ -75,7 +75,7 @@
                DO 30 I = 1, N
                   WORK( N+I ) = S( I )*VT( I, J )
    30          CONTINUE
-               CALL SGEMV( 'No transpose', N, N, -ONE, U, LDU, WORK( N+1 ), 1, ZERO, WORK, 1 )
+               sgemv('No transpose', N, N, -ONE, U, LDU, WORK( N+1 ), 1, ZERO, WORK, 1 );
                WORK( J ) = WORK( J ) + D( J )
                if ( J.LT.N ) {
                   WORK( J+1 ) = WORK( J+1 ) + E( J )
@@ -94,7 +94,7 @@
             DO 50 I = 1, N
                WORK( N+I ) = S( I )*VT( I, J )
    50       CONTINUE
-            CALL SGEMV( 'No transpose', N, N, -ONE, U, LDU, WORK( N+1 ), 1, ZERO, WORK, 1 )
+            sgemv('No transpose', N, N, -ONE, U, LDU, WORK( N+1 ), 1, ZERO, WORK, 1 );
             WORK( J ) = WORK( J ) + D( J )
             RESID = MAX( RESID, SASUM( N, WORK, 1 ) )
    60    CONTINUE

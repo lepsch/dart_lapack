@@ -38,7 +38,7 @@
          INFO = -7
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'SLAED1', -INFO )
+         xerbla('SLAED1', -INFO );
          RETURN
       }
 
@@ -64,13 +64,13 @@
       // Form the z-vector which consists of the last row of Q_1 and the
       // first row of Q_2.
 
-      CALL SCOPY( CUTPNT, Q( CUTPNT, 1 ), LDQ, WORK( IZ ), 1 )
+      scopy(CUTPNT, Q( CUTPNT, 1 ), LDQ, WORK( IZ ), 1 );
       CPP1 = CUTPNT + 1
-      CALL SCOPY( N-CUTPNT, Q( CPP1, CPP1 ), LDQ, WORK( IZ+CUTPNT ), 1 )
+      scopy(N-CUTPNT, Q( CPP1, CPP1 ), LDQ, WORK( IZ+CUTPNT ), 1 );
 
       // Deflate eigenvalues.
 
-      CALL SLAED2( K, N, CUTPNT, D, Q, LDQ, INDXQ, RHO, WORK( IZ ), WORK( IDLMDA ), WORK( IW ), WORK( IQ2 ), IWORK( INDX ), IWORK( INDXC ), IWORK( INDXP ), IWORK( COLTYP ), INFO )
+      slaed2(K, N, CUTPNT, D, Q, LDQ, INDXQ, RHO, WORK( IZ ), WORK( IDLMDA ), WORK( IW ), WORK( IQ2 ), IWORK( INDX ), IWORK( INDXC ), IWORK( INDXP ), IWORK( COLTYP ), INFO );
 
       IF( INFO.NE.0 ) GO TO 20
 
@@ -84,7 +84,7 @@
 
          N1 = K
          N2 = N - K
-         CALL SLAMRG( N1, N2, D, 1, -1, INDXQ )
+         slamrg(N1, N2, D, 1, -1, INDXQ );
       } else {
          DO 10 I = 1, N
             INDXQ( I ) = I

@@ -104,20 +104,20 @@
       // Compute workspace
 
       if ( INFO.EQ.0 ) {
-         CALL SGEQRF( N, N, B, LDB, WORK, WORK, -1, IERR )
+         sgeqrf(N, N, B, LDB, WORK, WORK, -1, IERR );
          LWKOPT = MAX( LWKMIN, 3*N+INT( WORK( 1 ) ) )
-         CALL SORMQR( 'L', 'T', N, N, N, B, LDB, WORK, A, LDA, WORK, -1, IERR )
+         sormqr('L', 'T', N, N, N, B, LDB, WORK, A, LDA, WORK, -1, IERR );
          LWKOPT = MAX( LWKOPT, 3*N+INT( WORK( 1 ) ) )
          if ( ILVSL ) {
-            CALL SORGQR( N, N, N, VSL, LDVSL, WORK, WORK, -1, IERR )
+            sorgqr(N, N, N, VSL, LDVSL, WORK, WORK, -1, IERR );
             LWKOPT = MAX( LWKOPT, 3*N+INT( WORK( 1 ) ) )
          }
-         CALL SGGHD3( JOBVSL, JOBVSR, N, 1, N, A, LDA, B, LDB, VSL, LDVSL, VSR, LDVSR, WORK, -1, IERR )
+         sgghd3(JOBVSL, JOBVSR, N, 1, N, A, LDA, B, LDB, VSL, LDVSL, VSR, LDVSR, WORK, -1, IERR );
          LWKOPT = MAX( LWKOPT, 3*N+INT( WORK( 1 ) ) )
-         CALL SLAQZ0( 'S', JOBVSL, JOBVSR, N, 1, N, A, LDA, B, LDB, ALPHAR, ALPHAI, BETA, VSL, LDVSL, VSR, LDVSR, WORK, -1, 0, IERR )
+         slaqz0('S', JOBVSL, JOBVSR, N, 1, N, A, LDA, B, LDB, ALPHAR, ALPHAI, BETA, VSL, LDVSL, VSR, LDVSR, WORK, -1, 0, IERR );
          LWKOPT = MAX( LWKOPT, 2*N+INT( WORK( 1 ) ) )
          if ( WANTST ) {
-            CALL STGSEN( 0, ILVSL, ILVSR, BWORK, N, A, LDA, B, LDB, ALPHAR, ALPHAI, BETA, VSL, LDVSL, VSR, LDVSR, SDIM, PVSL, PVSR, DIF, WORK, -1, IDUM, 1, IERR )
+            stgsen(0, ILVSL, ILVSR, BWORK, N, A, LDA, B, LDB, ALPHAR, ALPHAI, BETA, VSL, LDVSL, VSR, LDVSR, SDIM, PVSL, PVSR, DIF, WORK, -1, IDUM, 1, IERR );
             LWKOPT = MAX( LWKOPT, 2*N+INT( WORK( 1 ) ) )
          }
          if ( N.EQ.0 ) {
@@ -128,7 +128,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'SGGES3 ', -INFO )
+         xerbla('SGGES3 ', -INFO );
          RETURN
       } else if ( LQUERY ) {
          RETURN
@@ -181,7 +181,7 @@
       ILEFT = 1
       IRIGHT = N + 1
       IWRK = IRIGHT + N
-      CALL SGGBAL( 'P', N, A, LDA, B, LDB, ILO, IHI, WORK( ILEFT ), WORK( IRIGHT ), WORK( IWRK ), IERR )
+      sggbal('P', N, A, LDA, B, LDB, ILO, IHI, WORK( ILEFT ), WORK( IRIGHT ), WORK( IWRK ), IERR );
 
       // Reduce B to triangular form (QR decomposition of B)
 
@@ -189,20 +189,20 @@
       ICOLS = N + 1 - ILO
       ITAU = IWRK
       IWRK = ITAU + IROWS
-      CALL SGEQRF( IROWS, ICOLS, B( ILO, ILO ), LDB, WORK( ITAU ), WORK( IWRK ), LWORK+1-IWRK, IERR )
+      sgeqrf(IROWS, ICOLS, B( ILO, ILO ), LDB, WORK( ITAU ), WORK( IWRK ), LWORK+1-IWRK, IERR );
 
       // Apply the orthogonal transformation to matrix A
 
-      CALL SORMQR( 'L', 'T', IROWS, ICOLS, IROWS, B( ILO, ILO ), LDB, WORK( ITAU ), A( ILO, ILO ), LDA, WORK( IWRK ), LWORK+1-IWRK, IERR )
+      sormqr('L', 'T', IROWS, ICOLS, IROWS, B( ILO, ILO ), LDB, WORK( ITAU ), A( ILO, ILO ), LDA, WORK( IWRK ), LWORK+1-IWRK, IERR );
 
       // Initialize VSL
 
       if ( ILVSL ) {
-         CALL SLASET( 'Full', N, N, ZERO, ONE, VSL, LDVSL )
+         slaset('Full', N, N, ZERO, ONE, VSL, LDVSL );
          if ( IROWS.GT.1 ) {
-            CALL SLACPY( 'L', IROWS-1, IROWS-1, B( ILO+1, ILO ), LDB, VSL( ILO+1, ILO ), LDVSL )
+            slacpy('L', IROWS-1, IROWS-1, B( ILO+1, ILO ), LDB, VSL( ILO+1, ILO ), LDVSL );
          }
-         CALL SORGQR( IROWS, IROWS, IROWS, VSL( ILO, ILO ), LDVSL, WORK( ITAU ), WORK( IWRK ), LWORK+1-IWRK, IERR )
+         sorgqr(IROWS, IROWS, IROWS, VSL( ILO, ILO ), LDVSL, WORK( ITAU ), WORK( IWRK ), LWORK+1-IWRK, IERR );
       }
 
       // Initialize VSR
@@ -211,12 +211,12 @@
 
       // Reduce to generalized Hessenberg form
 
-      CALL SGGHD3( JOBVSL, JOBVSR, N, ILO, IHI, A, LDA, B, LDB, VSL, LDVSL, VSR, LDVSR, WORK( IWRK ), LWORK+1-IWRK, IERR )
+      sgghd3(JOBVSL, JOBVSR, N, ILO, IHI, A, LDA, B, LDB, VSL, LDVSL, VSR, LDVSR, WORK( IWRK ), LWORK+1-IWRK, IERR );
 
       // Perform QZ algorithm, computing Schur vectors if desired
 
       IWRK = ITAU
-      CALL SLAQZ0( 'S', JOBVSL, JOBVSR, N, ILO, IHI, A, LDA, B, LDB, ALPHAR, ALPHAI, BETA, VSL, LDVSL, VSR, LDVSR, WORK( IWRK ), LWORK+1-IWRK, 0, IERR )
+      slaqz0('S', JOBVSL, JOBVSR, N, ILO, IHI, A, LDA, B, LDB, ALPHAR, ALPHAI, BETA, VSL, LDVSL, VSR, LDVSR, WORK( IWRK ), LWORK+1-IWRK, 0, IERR );
       if ( IERR.NE.0 ) {
          if ( IERR.GT.0 .AND. IERR.LE.N ) {
             INFO = IERR
@@ -236,7 +236,7 @@
          // Undo scaling on eigenvalues before SELCTGing
 
          if ( ILASCL ) {
-            CALL SLASCL( 'G', 0, 0, ANRMTO, ANRM, N, 1, ALPHAR, N, IERR )             CALL SLASCL( 'G', 0, 0, ANRMTO, ANRM, N, 1, ALPHAI, N, IERR )
+            slascl('G', 0, 0, ANRMTO, ANRM, N, 1, ALPHAR, N, IERR )             CALL SLASCL( 'G', 0, 0, ANRMTO, ANRM, N, 1, ALPHAI, N, IERR );
          }
          IF( ILBSCL ) CALL SLASCL( 'G', 0, 0, BNRMTO, BNRM, N, 1, BETA, N, IERR )
 
@@ -246,7 +246,7 @@
             BWORK( I ) = SELCTG( ALPHAR( I ), ALPHAI( I ), BETA( I ) )
    10    CONTINUE
 
-         CALL STGSEN( 0, ILVSL, ILVSR, BWORK, N, A, LDA, B, LDB, ALPHAR, ALPHAI, BETA, VSL, LDVSL, VSR, LDVSR, SDIM, PVSL, PVSR, DIF, WORK( IWRK ), LWORK-IWRK+1, IDUM, 1, IERR )
+         stgsen(0, ILVSL, ILVSR, BWORK, N, A, LDA, B, LDB, ALPHAR, ALPHAI, BETA, VSL, LDVSL, VSR, LDVSR, SDIM, PVSL, PVSR, DIF, WORK( IWRK ), LWORK-IWRK+1, IDUM, 1, IERR );
          IF( IERR.EQ.1 ) INFO = N + 3
 
       }
@@ -295,14 +295,14 @@
       // Undo scaling
 
       if ( ILASCL ) {
-         CALL SLASCL( 'H', 0, 0, ANRMTO, ANRM, N, N, A, LDA, IERR )
-         CALL SLASCL( 'G', 0, 0, ANRMTO, ANRM, N, 1, ALPHAR, N, IERR )
-         CALL SLASCL( 'G', 0, 0, ANRMTO, ANRM, N, 1, ALPHAI, N, IERR )
+         slascl('H', 0, 0, ANRMTO, ANRM, N, N, A, LDA, IERR );
+         slascl('G', 0, 0, ANRMTO, ANRM, N, 1, ALPHAR, N, IERR );
+         slascl('G', 0, 0, ANRMTO, ANRM, N, 1, ALPHAI, N, IERR );
       }
 
       if ( ILBSCL ) {
-         CALL SLASCL( 'U', 0, 0, BNRMTO, BNRM, N, N, B, LDB, IERR )
-         CALL SLASCL( 'G', 0, 0, BNRMTO, BNRM, N, 1, BETA, N, IERR )
+         slascl('U', 0, 0, BNRMTO, BNRM, N, N, B, LDB, IERR );
+         slascl('G', 0, 0, BNRMTO, BNRM, N, 1, BETA, N, IERR );
       }
 
       if ( WANTST ) {

@@ -73,7 +73,7 @@
       // Compute workspace
 
       if ( INFO.EQ.0 ) {
-         CALL SGGSVP3( JOBU, JOBV, JOBQ, M, P, N, A, LDA, B, LDB, TOLA, TOLB, K, L, U, LDU, V, LDV, Q, LDQ, IWORK, WORK, WORK, -1, INFO )
+         sggsvp3(JOBU, JOBV, JOBQ, M, P, N, A, LDA, B, LDB, TOLA, TOLB, K, L, U, LDU, V, LDV, Q, LDQ, IWORK, WORK, WORK, -1, INFO );
          LWKOPT = N + INT( WORK( 1 ) )
          LWKOPT = MAX( 2*N, LWKOPT )
          LWKOPT = MAX( 1, LWKOPT )
@@ -81,7 +81,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'SGGSVD3', -INFO )
+         xerbla('SGGSVD3', -INFO );
          RETURN
       }
       if ( LQUERY ) {
@@ -103,16 +103,16 @@
 
       // Preprocessing
 
-      CALL SGGSVP3( JOBU, JOBV, JOBQ, M, P, N, A, LDA, B, LDB, TOLA, TOLB, K, L, U, LDU, V, LDV, Q, LDQ, IWORK, WORK, WORK( N+1 ), LWORK-N, INFO )
+      sggsvp3(JOBU, JOBV, JOBQ, M, P, N, A, LDA, B, LDB, TOLA, TOLB, K, L, U, LDU, V, LDV, Q, LDQ, IWORK, WORK, WORK( N+1 ), LWORK-N, INFO );
 
       // Compute the GSVD of two upper "triangular" matrices
 
-      CALL STGSJA( JOBU, JOBV, JOBQ, M, P, N, K, L, A, LDA, B, LDB, TOLA, TOLB, ALPHA, BETA, U, LDU, V, LDV, Q, LDQ, WORK, NCYCLE, INFO )
+      stgsja(JOBU, JOBV, JOBQ, M, P, N, K, L, A, LDA, B, LDB, TOLA, TOLB, ALPHA, BETA, U, LDU, V, LDV, Q, LDQ, WORK, NCYCLE, INFO );
 
       // Sort the singular values and store the pivot indices in IWORK
       // Copy ALPHA to WORK, then sort ALPHA in WORK
 
-      CALL SCOPY( N, ALPHA, 1, WORK, 1 )
+      scopy(N, ALPHA, 1, WORK, 1 );
       IBND = MIN( L, M-K )
       DO 20 I = 1, IBND
 

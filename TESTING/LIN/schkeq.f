@@ -67,7 +67,7 @@
    30          CONTINUE
    40       CONTINUE
 
-            CALL SGEEQU( M, N, A, NSZ, R, C, RCOND, CCOND, NORM, INFO )
+            sgeequ(M, N, A, NSZ, R, C, RCOND, CCOND, NORM, INFO );
 
             if ( INFO.NE.0 ) {
                RESLTS( 1 ) = ONE
@@ -91,7 +91,7 @@
       DO 90 J = 1, NSZ
          A( MAX( NSZ-1, 1 ), J ) = ZERO
    90 CONTINUE
-      CALL SGEEQU( NSZ, NSZ, A, NSZ, R, C, RCOND, CCOND, NORM, INFO )
+      sgeequ(NSZ, NSZ, A, NSZ, R, C, RCOND, CCOND, NORM, INFO );
       IF( INFO.NE.MAX( NSZ-1, 1 ) ) RESLTS( 1 ) = ONE
 
       DO 100 J = 1, NSZ
@@ -100,7 +100,7 @@
       DO 110 I = 1, NSZ
          A( I, MAX( NSZ-1, 1 ) ) = ZERO
   110 CONTINUE
-      CALL SGEEQU( NSZ, NSZ, A, NSZ, R, C, RCOND, CCOND, NORM, INFO )
+      sgeequ(NSZ, NSZ, A, NSZ, R, C, RCOND, CCOND, NORM, INFO );
       IF( INFO.NE.NSZ+MAX( NSZ-1, 1 ) ) RESLTS( 1 ) = ONE
       RESLTS( 1 ) = RESLTS( 1 ) / EPS
 
@@ -123,7 +123,7 @@
   140                CONTINUE
   150             CONTINUE
 
-                  CALL SGBEQU( M, N, KL, KU, AB, NSZB, R, C, RCOND, CCOND, NORM, INFO )
+                  sgbequ(M, N, KL, KU, AB, NSZB, R, C, RCOND, CCOND, NORM, INFO );
 
                   if ( INFO.NE.0 ) {
                      if ( .NOT.( ( N+KL.LT.M .AND. INFO.EQ.N+KL+1 ) .OR. ( M+KU.LT.N .AND. INFO.EQ.2*M+KU+1 ) ) ) {
@@ -195,7 +195,7 @@
   260       CONTINUE
   270    CONTINUE
 
-         CALL SPOEQU( N, A, NSZ, R, RCOND, NORM, INFO )
+         spoequ(N, A, NSZ, R, RCOND, NORM, INFO );
 
          if ( INFO.NE.0 ) {
             RESLTS( 3 ) = ONE
@@ -209,7 +209,7 @@
          }
   290 CONTINUE
       A( MAX( NSZ-1, 1 ), MAX( NSZ-1, 1 ) ) = -ONE
-      CALL SPOEQU( NSZ, A, NSZ, R, RCOND, NORM, INFO )
+      spoequ(NSZ, A, NSZ, R, RCOND, NORM, INFO );
       IF( INFO.NE.MAX( NSZ-1, 1 ) ) RESLTS( 3 ) = ONE
       RESLTS( 3 ) = RESLTS( 3 ) / EPS
 
@@ -226,7 +226,7 @@
             AP( ( I*( I+1 ) ) / 2 ) = POW( 2*I+1 )
   310    CONTINUE
 
-         CALL SPPEQU( 'U', N, AP, R, RCOND, NORM, INFO )
+         sppequ('U', N, AP, R, RCOND, NORM, INFO );
 
          if ( INFO.NE.0 ) {
             RESLTS( 4 ) = ONE
@@ -250,7 +250,7 @@
             J = J + ( N-I+1 )
   340    CONTINUE
 
-         CALL SPPEQU( 'L', N, AP, R, RCOND, NORM, INFO )
+         sppequ('L', N, AP, R, RCOND, NORM, INFO );
 
          if ( INFO.NE.0 ) {
             RESLTS( 4 ) = ONE
@@ -266,7 +266,7 @@
   360 CONTINUE
       I = ( NSZ*( NSZ+1 ) ) / 2 - 2
       AP( I ) = -ONE
-      CALL SPPEQU( 'L', NSZ, AP, R, RCOND, NORM, INFO )
+      sppequ('L', NSZ, AP, R, RCOND, NORM, INFO );
       IF( INFO.NE.MAX( NSZ-1, 1 ) ) RESLTS( 4 ) = ONE
       RESLTS( 4 ) = RESLTS( 4 ) / EPS
 
@@ -286,7 +286,7 @@
                AB( KL+1, J ) = POW( 2*J+1 )
   390       CONTINUE
 
-            CALL SPBEQU( 'U', N, KL, AB, NSZB, R, RCOND, NORM, INFO )
+            spbequ('U', N, KL, AB, NSZB, R, RCOND, NORM, INFO );
 
             if ( INFO.NE.0 ) {
                RESLTS( 5 ) = ONE
@@ -300,7 +300,7 @@
             }
             if ( N.NE.0 ) {
                AB( KL+1, MAX( N-1, 1 ) ) = -ONE
-               CALL SPBEQU( 'U', N, KL, AB, NSZB, R, RCOND, NORM, INFO )
+               spbequ('U', N, KL, AB, NSZB, R, RCOND, NORM, INFO );
                IF( INFO.NE.MAX( N-1, 1 ) ) RESLTS( 5 ) = ONE
             }
 
@@ -315,7 +315,7 @@
                AB( 1, J ) = POW( 2*J+1 )
   430       CONTINUE
 
-            CALL SPBEQU( 'L', N, KL, AB, NSZB, R, RCOND, NORM, INFO )
+            spbequ('L', N, KL, AB, NSZB, R, RCOND, NORM, INFO );
 
             if ( INFO.NE.0 ) {
                RESLTS( 5 ) = ONE
@@ -329,7 +329,7 @@
             }
             if ( N.NE.0 ) {
                AB( 1, MAX( N-1, 1 ) ) = -ONE
-               CALL SPBEQU( 'L', N, KL, AB, NSZB, R, RCOND, NORM, INFO )
+               spbequ('L', N, KL, AB, NSZB, R, RCOND, NORM, INFO );
                IF( INFO.NE.MAX( N-1, 1 ) ) RESLTS( 5 ) = ONE
             }
   450    CONTINUE

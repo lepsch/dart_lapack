@@ -58,7 +58,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'ZSYTRF_AA_2STAGE', -INFO )
+         xerbla('ZSYTRF_AA_2STAGE', -INFO );
          RETURN
       }
 
@@ -128,7 +128,7 @@
                   } else {
                      JB = 2*NB
                   }
-                  CALL ZGEMM( 'NoTranspose', 'NoTranspose', NB, KB, JB, CONE,  TB( TD+1 + (I*NB)*LDTB ), LDTB-1, A( (I-1)*NB+1, J*NB+1 ), LDA, CZERO, WORK( I*NB+1 ), N )
+                  zgemm('NoTranspose', 'NoTranspose', NB, KB, JB, CONE,  TB( TD+1 + (I*NB)*LDTB ), LDTB-1, A( (I-1)*NB+1, J*NB+1 ), LDA, CZERO, WORK( I*NB+1 ), N );
                } else {
                   // H(I,J) = T(I,I-1)*U(I-1,J) + T(I,I)*U(I,J) + T(I,I+1)*U(I+1,J)
                   if ( I .EQ. (J-1) ) {
@@ -136,18 +136,18 @@
                   } else {
                      JB = 3*NB
                   }
-                  CALL ZGEMM( 'NoTranspose', 'NoTranspose', NB, KB, JB, CONE,  TB( TD+NB+1 + ((I-1)*NB)*LDTB ), LDTB-1, A( (I-2)*NB+1, J*NB+1 ), LDA, CZERO, WORK( I*NB+1 ), N )
+                  zgemm('NoTranspose', 'NoTranspose', NB, KB, JB, CONE,  TB( TD+NB+1 + ((I-1)*NB)*LDTB ), LDTB-1, A( (I-2)*NB+1, J*NB+1 ), LDA, CZERO, WORK( I*NB+1 ), N );
                }
             END DO
 
             // Compute T(J,J)
 
-            CALL ZLACPY( 'Upper', KB, KB, A( J*NB+1, J*NB+1 ), LDA, TB( TD+1 + (J*NB)*LDTB ), LDTB-1 )
+            zlacpy('Upper', KB, KB, A( J*NB+1, J*NB+1 ), LDA, TB( TD+1 + (J*NB)*LDTB ), LDTB-1 );
             if ( J.GT.1 ) {
                // T(J,J) = U(1:J,J)'*H(1:J)
-               CALL ZGEMM( 'Transpose', 'NoTranspose', KB, KB, (J-1)*NB, -CONE, A( 1, J*NB+1 ), LDA, WORK( NB+1 ), N, CONE, TB( TD+1 + (J*NB)*LDTB ), LDTB-1 )
+               zgemm('Transpose', 'NoTranspose', KB, KB, (J-1)*NB, -CONE, A( 1, J*NB+1 ), LDA, WORK( NB+1 ), N, CONE, TB( TD+1 + (J*NB)*LDTB ), LDTB-1 );
                // T(J,J) += U(J,J)'*T(J,J-1)*U(J-1,J)
-               CALL ZGEMM( 'Transpose', 'NoTranspose', KB, NB, KB, CONE,  A( (J-1)*NB+1, J*NB+1 ), LDA, TB( TD+NB+1 + ((J-1)*NB)*LDTB ), LDTB-1, CZERO, WORK( 1 ), N )                CALL ZGEMM( 'NoTranspose', 'NoTranspose', KB, KB, NB, -CONE, WORK( 1 ), N, A( (J-2)*NB+1, J*NB+1 ), LDA, CONE, TB( TD+1 + (J*NB)*LDTB ), LDTB-1 )
+               zgemm('Transpose', 'NoTranspose', KB, NB, KB, CONE,  A( (J-1)*NB+1, J*NB+1 ), LDA, TB( TD+NB+1 + ((J-1)*NB)*LDTB ), LDTB-1, CZERO, WORK( 1 ), N )                CALL ZGEMM( 'NoTranspose', 'NoTranspose', KB, KB, NB, -CONE, WORK( 1 ), N, A( (J-2)*NB+1, J*NB+1 ), LDA, CONE, TB( TD+1 + (J*NB)*LDTB ), LDTB-1 );
             }
 
             // Expand T(J,J) into full format
@@ -161,7 +161,7 @@
                 // CALL CHEGST( 1, 'Upper', KB,
       // $                      TB( TD+1 + (J*NB)*LDTB ), LDTB-1,
       // $                      A( (J-1)*NB+1, J*NB+1 ), LDA, IINFO )
-               CALL ZTRSM( 'L', 'U', 'T', 'N', KB, KB, CONE, A( (J-1)*NB+1, J*NB+1 ), LDA, TB( TD+1 + (J*NB)*LDTB ), LDTB-1 )                CALL ZTRSM( 'R', 'U', 'N', 'N', KB, KB, CONE, A( (J-1)*NB+1, J*NB+1 ), LDA, TB( TD+1 + (J*NB)*LDTB ), LDTB-1 )
+               ztrsm('L', 'U', 'T', 'N', KB, KB, CONE, A( (J-1)*NB+1, J*NB+1 ), LDA, TB( TD+1 + (J*NB)*LDTB ), LDTB-1 )                CALL ZTRSM( 'R', 'U', 'N', 'N', KB, KB, CONE, A( (J-1)*NB+1, J*NB+1 ), LDA, TB( TD+1 + (J*NB)*LDTB ), LDTB-1 );
             }
 
             if ( J.LT.NT-1 ) {
@@ -170,25 +170,25 @@
                   // Compute H(J,J)
 
                   if ( J.EQ.1 ) {
-                     CALL ZGEMM( 'NoTranspose', 'NoTranspose', KB, KB, KB, CONE,  TB( TD+1 + (J*NB)*LDTB ), LDTB-1, A( (J-1)*NB+1, J*NB+1 ), LDA, CZERO, WORK( J*NB+1 ), N )
+                     zgemm('NoTranspose', 'NoTranspose', KB, KB, KB, CONE,  TB( TD+1 + (J*NB)*LDTB ), LDTB-1, A( (J-1)*NB+1, J*NB+1 ), LDA, CZERO, WORK( J*NB+1 ), N );
                   } else {
-                     CALL ZGEMM( 'NoTranspose', 'NoTranspose', KB, KB, NB+KB, CONE, TB( TD+NB+1 + ((J-1)*NB)*LDTB ), LDTB-1, A( (J-2)*NB+1, J*NB+1 ), LDA, CZERO, WORK( J*NB+1 ), N )
+                     zgemm('NoTranspose', 'NoTranspose', KB, KB, NB+KB, CONE, TB( TD+NB+1 + ((J-1)*NB)*LDTB ), LDTB-1, A( (J-2)*NB+1, J*NB+1 ), LDA, CZERO, WORK( J*NB+1 ), N );
                   }
 
                   // Update with the previous column
 
-                  CALL ZGEMM( 'Transpose', 'NoTranspose', NB, N-(J+1)*NB, J*NB, -CONE, WORK( NB+1 ), N, A( 1, (J+1)*NB+1 ), LDA, CONE, A( J*NB+1, (J+1)*NB+1 ), LDA )
+                  zgemm('Transpose', 'NoTranspose', NB, N-(J+1)*NB, J*NB, -CONE, WORK( NB+1 ), N, A( 1, (J+1)*NB+1 ), LDA, CONE, A( J*NB+1, (J+1)*NB+1 ), LDA );
                }
 
                // Copy panel to workspace to call ZGETRF
 
                DO K = 1, NB
-                   CALL ZCOPY( N-(J+1)*NB, A( J*NB+K, (J+1)*NB+1 ), LDA, WORK( 1+(K-1)*N ), 1 )
+                   zcopy(N-(J+1)*NB, A( J*NB+K, (J+1)*NB+1 ), LDA, WORK( 1+(K-1)*N ), 1 );
                END DO
 
                // Factorize panel
 
-               CALL ZGETRF( N-(J+1)*NB, NB,  WORK, N, IPIV( (J+1)*NB+1 ), IINFO )
+               zgetrf(N-(J+1)*NB, NB,  WORK, N, IPIV( (J+1)*NB+1 ), IINFO );
                 // IF (IINFO.NE.0 .AND. INFO.EQ.0) THEN
                    // INFO = IINFO+(J+1)*NB
                 // END IF
@@ -196,15 +196,15 @@
                // Copy panel back
 
                DO K = 1, NB
-                   CALL ZCOPY( N-(J+1)*NB, WORK( 1+(K-1)*N ), 1, A( J*NB+K, (J+1)*NB+1 ), LDA )
+                   zcopy(N-(J+1)*NB, WORK( 1+(K-1)*N ), 1, A( J*NB+K, (J+1)*NB+1 ), LDA );
                END DO
 
                // Compute T(J+1, J), zero out for GEMM update
 
                KB = MIN(NB, N-(J+1)*NB)
-               CALL ZLASET( 'Full', KB, NB, CZERO, CZERO,  TB( TD+NB+1 + (J*NB)*LDTB), LDTB-1 )                CALL ZLACPY( 'Upper', KB, NB, WORK, N, TB( TD+NB+1 + (J*NB)*LDTB ), LDTB-1 )
+               zlaset('Full', KB, NB, CZERO, CZERO,  TB( TD+NB+1 + (J*NB)*LDTB), LDTB-1 )                CALL ZLACPY( 'Upper', KB, NB, WORK, N, TB( TD+NB+1 + (J*NB)*LDTB ), LDTB-1 );
                if ( J.GT.0 ) {
-                  CALL ZTRSM( 'R', 'U', 'N', 'U', KB, NB, CONE, A( (J-1)*NB+1, J*NB+1 ), LDA, TB( TD+NB+1 + (J*NB)*LDTB ), LDTB-1 )
+                  ztrsm('R', 'U', 'N', 'U', KB, NB, CONE, A( (J-1)*NB+1, J*NB+1 ), LDA, TB( TD+NB+1 + (J*NB)*LDTB ), LDTB-1 );
                }
 
                // Copy T(J,J+1) into T(J+1, J), both upper/lower for GEMM
@@ -215,7 +215,7 @@
                      TB( TD-NB+K-I+1 + (J*NB+NB+I-1)*LDTB ) = TB( TD+NB+I-K+1 + (J*NB+K-1)*LDTB )
                   END DO
                END DO
-               CALL ZLASET( 'Lower', KB, NB, CZERO, CONE,  A( J*NB+1, (J+1)*NB+1), LDA )
+               zlaset('Lower', KB, NB, CZERO, CONE,  A( J*NB+1, (J+1)*NB+1), LDA );
 
                // Apply pivots to trailing submatrix of A
 
@@ -227,7 +227,7 @@
                   I2 = IPIV( (J+1)*NB+K )
                   if ( I1.NE.I2 ) {
                      // > Apply pivots to previous columns of L
-                     CALL ZSWAP( K-1, A( (J+1)*NB+1, I1 ), 1,  A( (J+1)*NB+1, I2 ), 1 )
+                     zswap(K-1, A( (J+1)*NB+1, I1 ), 1,  A( (J+1)*NB+1, I2 ), 1 );
                      // > Swap A(I1+1:M, I1) with A(I2, I1+1:M)
                      IF( I2.GT.(I1+1) ) CALL ZSWAP( I2-I1-1, A( I1, I1+1 ), LDA, A( I1+1, I2 ), 1 )
                      // > Swap A(I2+1:M, I1) with A(I2+1:M, I2)
@@ -238,7 +238,7 @@
                      A( I2, I2 ) = PIV
                      // > Apply pivots to previous columns of L
                      if ( J.GT.0 ) {
-                        CALL ZSWAP( J*NB, A( 1, I1 ), 1, A( 1, I2 ), 1 )
+                        zswap(J*NB, A( 1, I1 ), 1, A( 1, I2 ), 1 );
                      }
                   ENDIF
                END DO
@@ -263,7 +263,7 @@
                   } else {
                      JB = 2*NB
                   }
-                  CALL ZGEMM( 'NoTranspose', 'Transpose', NB, KB, JB, CONE, TB( TD+1 + (I*NB)*LDTB ), LDTB-1, A( J*NB+1, (I-1)*NB+1 ), LDA, CZERO, WORK( I*NB+1 ), N )
+                  zgemm('NoTranspose', 'Transpose', NB, KB, JB, CONE, TB( TD+1 + (I*NB)*LDTB ), LDTB-1, A( J*NB+1, (I-1)*NB+1 ), LDA, CZERO, WORK( I*NB+1 ), N );
                } else {
                   // H(I,J) = T(I,I-1)*L(J,I-1)' + T(I,I)*L(J,I)' + T(I,I+1)*L(J,I+1)'
                   if ( I .EQ. (J-1) ) {
@@ -271,18 +271,18 @@
                   } else {
                      JB = 3*NB
                   }
-                  CALL ZGEMM( 'NoTranspose', 'Transpose', NB, KB, JB, CONE,  TB( TD+NB+1 + ((I-1)*NB)*LDTB ), LDTB-1, A( J*NB+1, (I-2)*NB+1 ), LDA, CZERO, WORK( I*NB+1 ), N )
+                  zgemm('NoTranspose', 'Transpose', NB, KB, JB, CONE,  TB( TD+NB+1 + ((I-1)*NB)*LDTB ), LDTB-1, A( J*NB+1, (I-2)*NB+1 ), LDA, CZERO, WORK( I*NB+1 ), N );
                }
             END DO
 
             // Compute T(J,J)
 
-            CALL ZLACPY( 'Lower', KB, KB, A( J*NB+1, J*NB+1 ), LDA, TB( TD+1 + (J*NB)*LDTB ), LDTB-1 )
+            zlacpy('Lower', KB, KB, A( J*NB+1, J*NB+1 ), LDA, TB( TD+1 + (J*NB)*LDTB ), LDTB-1 );
             if ( J.GT.1 ) {
                // T(J,J) = L(J,1:J)*H(1:J)
-               CALL ZGEMM( 'NoTranspose', 'NoTranspose', KB, KB, (J-1)*NB, -CONE, A( J*NB+1, 1 ), LDA, WORK( NB+1 ), N, CONE, TB( TD+1 + (J*NB)*LDTB ), LDTB-1 )
+               zgemm('NoTranspose', 'NoTranspose', KB, KB, (J-1)*NB, -CONE, A( J*NB+1, 1 ), LDA, WORK( NB+1 ), N, CONE, TB( TD+1 + (J*NB)*LDTB ), LDTB-1 );
                // T(J,J) += L(J,J)*T(J,J-1)*L(J,J-1)'
-               CALL ZGEMM( 'NoTranspose', 'NoTranspose', KB, NB, KB, CONE,  A( J*NB+1, (J-1)*NB+1 ), LDA, TB( TD+NB+1 + ((J-1)*NB)*LDTB ), LDTB-1, CZERO, WORK( 1 ), N )                CALL ZGEMM( 'NoTranspose', 'Transpose', KB, KB, NB, -CONE, WORK( 1 ), N, A( J*NB+1, (J-2)*NB+1 ), LDA, CONE, TB( TD+1 + (J*NB)*LDTB ), LDTB-1 )
+               zgemm('NoTranspose', 'NoTranspose', KB, NB, KB, CONE,  A( J*NB+1, (J-1)*NB+1 ), LDA, TB( TD+NB+1 + ((J-1)*NB)*LDTB ), LDTB-1, CZERO, WORK( 1 ), N )                CALL ZGEMM( 'NoTranspose', 'Transpose', KB, KB, NB, -CONE, WORK( 1 ), N, A( J*NB+1, (J-2)*NB+1 ), LDA, CONE, TB( TD+1 + (J*NB)*LDTB ), LDTB-1 );
             }
 
             // Expand T(J,J) into full format
@@ -296,7 +296,7 @@
                 // CALL CHEGST( 1, 'Lower', KB,
       // $                      TB( TD+1 + (J*NB)*LDTB ), LDTB-1,
       // $                      A( J*NB+1, (J-1)*NB+1 ), LDA, IINFO )
-               CALL ZTRSM( 'L', 'L', 'N', 'N', KB, KB, CONE, A( J*NB+1, (J-1)*NB+1 ), LDA, TB( TD+1 + (J*NB)*LDTB ), LDTB-1 )                CALL ZTRSM( 'R', 'L', 'T', 'N', KB, KB, CONE, A( J*NB+1, (J-1)*NB+1 ), LDA, TB( TD+1 + (J*NB)*LDTB ), LDTB-1 )
+               ztrsm('L', 'L', 'N', 'N', KB, KB, CONE, A( J*NB+1, (J-1)*NB+1 ), LDA, TB( TD+1 + (J*NB)*LDTB ), LDTB-1 )                CALL ZTRSM( 'R', 'L', 'T', 'N', KB, KB, CONE, A( J*NB+1, (J-1)*NB+1 ), LDA, TB( TD+1 + (J*NB)*LDTB ), LDTB-1 );
             }
 
             // Symmetrize T(J,J)
@@ -313,19 +313,19 @@
                   // Compute H(J,J)
 
                   if ( J.EQ.1 ) {
-                     CALL ZGEMM( 'NoTranspose', 'Transpose', KB, KB, KB, CONE,  TB( TD+1 + (J*NB)*LDTB ), LDTB-1, A( J*NB+1, (J-1)*NB+1 ), LDA, CZERO, WORK( J*NB+1 ), N )
+                     zgemm('NoTranspose', 'Transpose', KB, KB, KB, CONE,  TB( TD+1 + (J*NB)*LDTB ), LDTB-1, A( J*NB+1, (J-1)*NB+1 ), LDA, CZERO, WORK( J*NB+1 ), N );
                   } else {
-                     CALL ZGEMM( 'NoTranspose', 'Transpose', KB, KB, NB+KB, CONE, TB( TD+NB+1 + ((J-1)*NB)*LDTB ), LDTB-1, A( J*NB+1, (J-2)*NB+1 ), LDA, CZERO, WORK( J*NB+1 ), N )
+                     zgemm('NoTranspose', 'Transpose', KB, KB, NB+KB, CONE, TB( TD+NB+1 + ((J-1)*NB)*LDTB ), LDTB-1, A( J*NB+1, (J-2)*NB+1 ), LDA, CZERO, WORK( J*NB+1 ), N );
                   }
 
                   // Update with the previous column
 
-                  CALL ZGEMM( 'NoTranspose', 'NoTranspose', N-(J+1)*NB, NB, J*NB, -CONE, A( (J+1)*NB+1, 1 ), LDA, WORK( NB+1 ), N, CONE, A( (J+1)*NB+1, J*NB+1 ), LDA )
+                  zgemm('NoTranspose', 'NoTranspose', N-(J+1)*NB, NB, J*NB, -CONE, A( (J+1)*NB+1, 1 ), LDA, WORK( NB+1 ), N, CONE, A( (J+1)*NB+1, J*NB+1 ), LDA );
                }
 
                // Factorize panel
 
-               CALL ZGETRF( N-(J+1)*NB, NB,  A( (J+1)*NB+1, J*NB+1 ), LDA, IPIV( (J+1)*NB+1 ), IINFO )
+               zgetrf(N-(J+1)*NB, NB,  A( (J+1)*NB+1, J*NB+1 ), LDA, IPIV( (J+1)*NB+1 ), IINFO );
                 // IF (IINFO.NE.0 .AND. INFO.EQ.0) THEN
                    // INFO = IINFO+(J+1)*NB
                 // END IF
@@ -333,9 +333,9 @@
                // Compute T(J+1, J), zero out for GEMM update
 
                KB = MIN(NB, N-(J+1)*NB)
-               CALL ZLASET( 'Full', KB, NB, CZERO, CZERO,  TB( TD+NB+1 + (J*NB)*LDTB), LDTB-1 )                CALL ZLACPY( 'Upper', KB, NB, A( (J+1)*NB+1, J*NB+1 ), LDA, TB( TD+NB+1 + (J*NB)*LDTB ), LDTB-1 )
+               zlaset('Full', KB, NB, CZERO, CZERO,  TB( TD+NB+1 + (J*NB)*LDTB), LDTB-1 )                CALL ZLACPY( 'Upper', KB, NB, A( (J+1)*NB+1, J*NB+1 ), LDA, TB( TD+NB+1 + (J*NB)*LDTB ), LDTB-1 );
                if ( J.GT.0 ) {
-                  CALL ZTRSM( 'R', 'L', 'T', 'U', KB, NB, CONE, A( J*NB+1, (J-1)*NB+1 ), LDA, TB( TD+NB+1 + (J*NB)*LDTB ), LDTB-1 )
+                  ztrsm('R', 'L', 'T', 'U', KB, NB, CONE, A( J*NB+1, (J-1)*NB+1 ), LDA, TB( TD+NB+1 + (J*NB)*LDTB ), LDTB-1 );
                }
 
                // Copy T(J+1,J) into T(J, J+1), both upper/lower for GEMM
@@ -346,7 +346,7 @@
                      TB( TD-NB+K-I+1 + (J*NB+NB+I-1)*LDTB ) = TB( TD+NB+I-K+1 + (J*NB+K-1)*LDTB )
                   END DO
                END DO
-               CALL ZLASET( 'Upper', KB, NB, CZERO, CONE,  A( (J+1)*NB+1, J*NB+1 ), LDA )
+               zlaset('Upper', KB, NB, CZERO, CONE,  A( (J+1)*NB+1, J*NB+1 ), LDA );
 
                // Apply pivots to trailing submatrix of A
 
@@ -358,7 +358,7 @@
                   I2 = IPIV( (J+1)*NB+K )
                   if ( I1.NE.I2 ) {
                      // > Apply pivots to previous columns of L
-                     CALL ZSWAP( K-1, A( I1, (J+1)*NB+1 ), LDA,  A( I2, (J+1)*NB+1 ), LDA )
+                     zswap(K-1, A( I1, (J+1)*NB+1 ), LDA,  A( I2, (J+1)*NB+1 ), LDA );
                      // > Swap A(I1+1:M, I1) with A(I2, I1+1:M)
                      IF( I2.GT.(I1+1) ) CALL ZSWAP( I2-I1-1, A( I1+1, I1 ), 1, A( I2, I1+1 ), LDA )
                      // > Swap A(I2+1:M, I1) with A(I2+1:M, I2)
@@ -369,7 +369,7 @@
                      A( I2, I2 ) = PIV
                      // > Apply pivots to previous columns of L
                      if ( J.GT.0 ) {
-                        CALL ZSWAP( J*NB, A( I1, 1 ), LDA, A( I2, 1 ), LDA )
+                        zswap(J*NB, A( I1, 1 ), LDA, A( I2, 1 ), LDA );
                      }
                   ENDIF
                END DO
@@ -383,7 +383,7 @@
       }
 
       // Factor the band matrix
-      CALL ZGBTRF( N, N, NB, NB, TB, LDTB, IPIV2, INFO )
+      zgbtrf(N, N, NB, NB, TB, LDTB, IPIV2, INFO );
 
       RETURN
 

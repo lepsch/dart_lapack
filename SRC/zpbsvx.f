@@ -95,7 +95,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'ZPBSVX', -INFO )
+         xerbla('ZPBSVX', -INFO );
          RETURN
       }
 
@@ -103,12 +103,12 @@
 
          // Compute row and column scalings to equilibrate the matrix A.
 
-         CALL ZPBEQU( UPLO, N, KD, AB, LDAB, S, SCOND, AMAX, INFEQU )
+         zpbequ(UPLO, N, KD, AB, LDAB, S, SCOND, AMAX, INFEQU );
          if ( INFEQU.EQ.0 ) {
 
             // Equilibrate the matrix.
 
-            CALL ZLAQHB( UPLO, N, KD, AB, LDAB, S, SCOND, AMAX, EQUED )
+            zlaqhb(UPLO, N, KD, AB, LDAB, S, SCOND, AMAX, EQUED );
             RCEQU = LSAME( EQUED, 'Y' )
          }
       }
@@ -130,16 +130,16 @@
          if ( UPPER ) {
             DO 40 J = 1, N
                J1 = MAX( J-KD, 1 )
-               CALL ZCOPY( J-J1+1, AB( KD+1-J+J1, J ), 1, AFB( KD+1-J+J1, J ), 1 )
+               zcopy(J-J1+1, AB( KD+1-J+J1, J ), 1, AFB( KD+1-J+J1, J ), 1 );
    40       CONTINUE
          } else {
             DO 50 J = 1, N
                J2 = MIN( J+KD, N )
-               CALL ZCOPY( J2-J+1, AB( 1, J ), 1, AFB( 1, J ), 1 )
+               zcopy(J2-J+1, AB( 1, J ), 1, AFB( 1, J ), 1 );
    50       CONTINUE
          }
 
-         CALL ZPBTRF( UPLO, N, KD, AFB, LDAFB, INFO )
+         zpbtrf(UPLO, N, KD, AFB, LDAFB, INFO );
 
          // Return if INFO is non-zero.
 
@@ -155,17 +155,17 @@
 
       // Compute the reciprocal of the condition number of A.
 
-      CALL ZPBCON( UPLO, N, KD, AFB, LDAFB, ANORM, RCOND, WORK, RWORK, INFO )
+      zpbcon(UPLO, N, KD, AFB, LDAFB, ANORM, RCOND, WORK, RWORK, INFO );
 
       // Compute the solution matrix X.
 
-      CALL ZLACPY( 'Full', N, NRHS, B, LDB, X, LDX )
-      CALL ZPBTRS( UPLO, N, KD, NRHS, AFB, LDAFB, X, LDX, INFO )
+      zlacpy('Full', N, NRHS, B, LDB, X, LDX );
+      zpbtrs(UPLO, N, KD, NRHS, AFB, LDAFB, X, LDX, INFO );
 
       // Use iterative refinement to improve the computed solution and
       // compute error bounds and backward error estimates for it.
 
-      CALL ZPBRFS( UPLO, N, KD, NRHS, AB, LDAB, AFB, LDAFB, B, LDB, X, LDX, FERR, BERR, WORK, RWORK, INFO )
+      zpbrfs(UPLO, N, KD, NRHS, AB, LDAB, AFB, LDAFB, B, LDB, X, LDX, FERR, BERR, WORK, RWORK, INFO );
 
       // Transform the solution matrix X to a solution of the original
       // system.

@@ -50,7 +50,7 @@
          INFO = -5
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'ZTRTI2', -INFO )
+         xerbla('ZTRTI2', -INFO );
          RETURN
       }
 
@@ -68,8 +68,8 @@
 
             // Compute elements 1:j-1 of j-th column.
 
-            CALL ZTRMV( 'Upper', 'No transpose', DIAG, J-1, A, LDA, A( 1, J ), 1 )
-            CALL ZSCAL( J-1, AJJ, A( 1, J ), 1 )
+            ztrmv('Upper', 'No transpose', DIAG, J-1, A, LDA, A( 1, J ), 1 );
+            zscal(J-1, AJJ, A( 1, J ), 1 );
    10    CONTINUE
       } else {
 
@@ -86,8 +86,8 @@
 
                // Compute elements j+1:n of j-th column.
 
-               CALL ZTRMV( 'Lower', 'No transpose', DIAG, N-J, A( J+1, J+1 ), LDA, A( J+1, J ), 1 )
-               CALL ZSCAL( N-J, AJJ, A( J+1, J ), 1 )
+               ztrmv('Lower', 'No transpose', DIAG, N-J, A( J+1, J+1 ), LDA, A( J+1, J ), 1 );
+               zscal(N-J, AJJ, A( J+1, J ), 1 );
             }
    20    CONTINUE
       }

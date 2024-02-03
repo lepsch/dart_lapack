@@ -53,7 +53,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'CHPEV ', -INFO )
+         xerbla('CHPEV ', -INFO );
          RETURN
       }
 
@@ -89,25 +89,25 @@
          SIGMA = RMAX / ANRM
       }
       if ( ISCALE.EQ.1 ) {
-         CALL CSSCAL( ( N*( N+1 ) ) / 2, SIGMA, AP, 1 )
+         csscal(( N*( N+1 ) ) / 2, SIGMA, AP, 1 );
       }
 
       // Call CHPTRD to reduce Hermitian packed matrix to tridiagonal form.
 
       INDE = 1
       INDTAU = 1
-      CALL CHPTRD( UPLO, N, AP, W, RWORK( INDE ), WORK( INDTAU ), IINFO )
+      chptrd(UPLO, N, AP, W, RWORK( INDE ), WORK( INDTAU ), IINFO );
 
       // For eigenvalues only, call SSTERF.  For eigenvectors, first call
       // CUPGTR to generate the orthogonal matrix, then call CSTEQR.
 
       if ( .NOT.WANTZ ) {
-         CALL SSTERF( N, W, RWORK( INDE ), INFO )
+         ssterf(N, W, RWORK( INDE ), INFO );
       } else {
          INDWRK = INDTAU + N
-         CALL CUPGTR( UPLO, N, AP, WORK( INDTAU ), Z, LDZ, WORK( INDWRK ), IINFO )
+         cupgtr(UPLO, N, AP, WORK( INDTAU ), Z, LDZ, WORK( INDWRK ), IINFO );
          INDRWK = INDE + N
-         CALL CSTEQR( JOBZ, N, W, RWORK( INDE ), Z, LDZ, RWORK( INDRWK ), INFO )
+         csteqr(JOBZ, N, W, RWORK( INDE ), Z, LDZ, RWORK( INDRWK ), INFO );
       }
 
       // If matrix was scaled, then rescale eigenvalues appropriately.
@@ -118,7 +118,7 @@
          } else {
             IMAX = INFO - 1
          }
-         CALL SSCAL( IMAX, ONE / SIGMA, W, 1 )
+         sscal(IMAX, ONE / SIGMA, W, 1 );
       }
 
       RETURN

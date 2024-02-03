@@ -96,7 +96,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'ZHEEVX_2STAGE', -INFO )
+         xerbla('ZHEEVX_2STAGE', -INFO );
          RETURN
       } else if ( LQUERY ) {
          RETURN
@@ -151,11 +151,11 @@
       if ( ISCALE.EQ.1 ) {
          if ( LOWER ) {
             DO 10 J = 1, N
-               CALL ZDSCAL( N-J+1, SIGMA, A( J, J ), 1 )
+               zdscal(N-J+1, SIGMA, A( J, J ), 1 );
    10       CONTINUE
          } else {
             DO 20 J = 1, N
-               CALL ZDSCAL( J, SIGMA, A( 1, J ), 1 )
+               zdscal(J, SIGMA, A( 1, J ), 1 );
    20       CONTINUE
          }
          IF( ABSTOL.GT.0 ) ABSTLL = ABSTOL*SIGMA
@@ -175,7 +175,7 @@
       INDWRK  = INDHOUS + LHTRD
       LLWORK  = LWORK - INDWRK + 1
 
-      CALL ZHETRD_2STAGE( JOBZ, UPLO, N, A, LDA, RWORK( INDD ), RWORK( INDE ), WORK( INDTAU ), WORK( INDHOUS ), LHTRD, WORK( INDWRK ), LLWORK, IINFO )
+      zhetrd_2stage(JOBZ, UPLO, N, A, LDA, RWORK( INDD ), RWORK( INDE ), WORK( INDTAU ), WORK( INDHOUS ), LHTRD, WORK( INDWRK ), LLWORK, IINFO );
 
       // If all eigenvalues are desired and ABSTOL is less than or equal to
       // zero, then call DSTERF or ZUNGTR and ZSTEQR.  If this fails for
@@ -188,16 +188,16 @@
          }
       }
       if ( ( ALLEIG .OR. TEST ) .AND. ( ABSTOL.LE.ZERO ) ) {
-         CALL DCOPY( N, RWORK( INDD ), 1, W, 1 )
+         dcopy(N, RWORK( INDD ), 1, W, 1 );
          INDEE = INDRWK + 2*N
          if ( .NOT.WANTZ ) {
-            CALL DCOPY( N-1, RWORK( INDE ), 1, RWORK( INDEE ), 1 )
-            CALL DSTERF( N, W, RWORK( INDEE ), INFO )
+            dcopy(N-1, RWORK( INDE ), 1, RWORK( INDEE ), 1 );
+            dsterf(N, W, RWORK( INDEE ), INFO );
          } else {
-            CALL ZLACPY( 'A', N, N, A, LDA, Z, LDZ )
-            CALL ZUNGTR( UPLO, N, Z, LDZ, WORK( INDTAU ), WORK( INDWRK ), LLWORK, IINFO )
-            CALL DCOPY( N-1, RWORK( INDE ), 1, RWORK( INDEE ), 1 )
-            CALL ZSTEQR( JOBZ, N, W, RWORK( INDEE ), Z, LDZ, RWORK( INDRWK ), INFO )
+            zlacpy('A', N, N, A, LDA, Z, LDZ );
+            zungtr(UPLO, N, Z, LDZ, WORK( INDTAU ), WORK( INDWRK ), LLWORK, IINFO );
+            dcopy(N-1, RWORK( INDE ), 1, RWORK( INDEE ), 1 );
+            zsteqr(JOBZ, N, W, RWORK( INDEE ), Z, LDZ, RWORK( INDRWK ), INFO );
             if ( INFO.EQ.0 ) {
                DO 30 I = 1, N
                   IFAIL( I ) = 0
@@ -221,15 +221,15 @@
       INDIBL = 1
       INDISP = INDIBL + N
       INDIWK = INDISP + N
-      CALL DSTEBZ( RANGE, ORDER, N, VLL, VUU, IL, IU, ABSTLL, RWORK( INDD ), RWORK( INDE ), M, NSPLIT, W, IWORK( INDIBL ), IWORK( INDISP ), RWORK( INDRWK ), IWORK( INDIWK ), INFO )
+      dstebz(RANGE, ORDER, N, VLL, VUU, IL, IU, ABSTLL, RWORK( INDD ), RWORK( INDE ), M, NSPLIT, W, IWORK( INDIBL ), IWORK( INDISP ), RWORK( INDRWK ), IWORK( INDIWK ), INFO );
 
       if ( WANTZ ) {
-         CALL ZSTEIN( N, RWORK( INDD ), RWORK( INDE ), M, W, IWORK( INDIBL ), IWORK( INDISP ), Z, LDZ, RWORK( INDRWK ), IWORK( INDIWK ), IFAIL, INFO )
+         zstein(N, RWORK( INDD ), RWORK( INDE ), M, W, IWORK( INDIBL ), IWORK( INDISP ), Z, LDZ, RWORK( INDRWK ), IWORK( INDIWK ), IFAIL, INFO );
 
          // Apply unitary matrix used in reduction to tridiagonal
          // form to eigenvectors returned by ZSTEIN.
 
-         CALL ZUNMTR( 'L', UPLO, 'N', N, M, A, LDA, WORK( INDTAU ), Z, LDZ, WORK( INDWRK ), LLWORK, IINFO )
+         zunmtr('L', UPLO, 'N', N, M, A, LDA, WORK( INDTAU ), Z, LDZ, WORK( INDWRK ), LLWORK, IINFO );
       }
 
       // If matrix was scaled, then rescale eigenvalues appropriately.
@@ -241,7 +241,7 @@
          } else {
             IMAX = INFO - 1
          }
-         CALL DSCAL( IMAX, ONE / SIGMA, W, 1 )
+         dscal(IMAX, ONE / SIGMA, W, 1 );
       }
 
       // If eigenvalues are not in order, then sort them, along with
@@ -264,7 +264,7 @@
                IWORK( INDIBL+I-1 ) = IWORK( INDIBL+J-1 )
                W( J ) = TMP1
                IWORK( INDIBL+J-1 ) = ITMP1
-               CALL ZSWAP( N, Z( 1, I ), 1, Z( 1, J ), 1 )
+               zswap(N, Z( 1, I ), 1, Z( 1, J ), 1 );
                if ( INFO.NE.0 ) {
                   ITMP1 = IFAIL( I )
                   IFAIL( I ) = IFAIL( J )

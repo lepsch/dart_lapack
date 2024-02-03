@@ -252,7 +252,7 @@
 
             NR = MIN( 3, I-K+1 )
             IF( K.GT.M ) CALL SCOPY( NR, H( K, K-1 ), 1, V, 1 )
-            CALL SLARFG( NR, V( 1 ), V( 2 ), 1, T1 )
+            slarfg(NR, V( 1 ), V( 2 ), 1, T1 );
             if ( K.GT.M ) {
                H( K, K-1 ) = V( 1 )
                H( K+1, K-1 ) = ZERO
@@ -356,20 +356,20 @@
          // Transform the 2-by-2 submatrix to standard Schur form,
          // and compute and store the eigenvalues.
 
-         CALL SLANV2( H( I-1, I-1 ), H( I-1, I ), H( I, I-1 ), H( I, I ), WR( I-1 ), WI( I-1 ), WR( I ), WI( I ), CS, SN )
+         slanv2(H( I-1, I-1 ), H( I-1, I ), H( I, I-1 ), H( I, I ), WR( I-1 ), WI( I-1 ), WR( I ), WI( I ), CS, SN );
 
          if ( WANTT ) {
 
             // Apply the transformation to the rest of H.
 
             IF( I2.GT.I ) CALL SROT( I2-I, H( I-1, I+1 ), LDH, H( I, I+1 ), LDH, CS, SN )
-            CALL SROT( I-I1-1, H( I1, I-1 ), 1, H( I1, I ), 1, CS, SN )
+            srot(I-I1-1, H( I1, I-1 ), 1, H( I1, I ), 1, CS, SN );
          }
          if ( WANTZ ) {
 
             // Apply the transformation to Z.
 
-            CALL SROT( NZ, Z( ILOZ, I-1 ), 1, Z( ILOZ, I ), 1, CS, SN )
+            srot(NZ, Z( ILOZ, I-1 ), 1, Z( ILOZ, I ), 1, CS, SN );
          }
       }
       // reset deflation counter

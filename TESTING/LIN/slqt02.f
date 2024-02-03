@@ -45,22 +45,22 @@
 
       // Copy the first k rows of the factorization to the array Q
 
-      CALL SLASET( 'Full', M, N, ROGUE, ROGUE, Q, LDA )
-      CALL SLACPY( 'Upper', K, N-1, AF( 1, 2 ), LDA, Q( 1, 2 ), LDA )
+      slaset('Full', M, N, ROGUE, ROGUE, Q, LDA );
+      slacpy('Upper', K, N-1, AF( 1, 2 ), LDA, Q( 1, 2 ), LDA );
 
       // Generate the first n columns of the matrix Q
 
       SRNAMT = 'SORGLQ'
-      CALL SORGLQ( M, N, K, Q, LDA, TAU, WORK, LWORK, INFO )
+      sorglq(M, N, K, Q, LDA, TAU, WORK, LWORK, INFO );
 
       // Copy L(1:k,1:m)
 
-      CALL SLASET( 'Full', K, M, ZERO, ZERO, L, LDA )
-      CALL SLACPY( 'Lower', K, M, AF, LDA, L, LDA )
+      slaset('Full', K, M, ZERO, ZERO, L, LDA );
+      slacpy('Lower', K, M, AF, LDA, L, LDA );
 
       // Compute L(1:k,1:m) - A(1:k,1:n) * Q(1:m,1:n)'
 
-      CALL SGEMM( 'No transpose', 'Transpose', K, M, N, -ONE, A, LDA, Q, LDA, ONE, L, LDA )
+      sgemm('No transpose', 'Transpose', K, M, N, -ONE, A, LDA, Q, LDA, ONE, L, LDA );
 
       // Compute norm( L - A*Q' ) / ( N * norm(A) * EPS ) .
 
@@ -74,8 +74,8 @@
 
       // Compute I - Q*Q'
 
-      CALL SLASET( 'Full', M, M, ZERO, ONE, L, LDA )
-      CALL SSYRK( 'Upper', 'No transpose', M, N, -ONE, Q, LDA, ONE, L, LDA )
+      slaset('Full', M, M, ZERO, ONE, L, LDA );
+      ssyrk('Upper', 'No transpose', M, N, -ONE, Q, LDA, ONE, L, LDA );
 
       // Compute norm( I - Q*Q' ) / ( N * EPS ) .
 

@@ -100,7 +100,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'CDRVEV', -INFO )
+         xerbla('CDRVEV', -INFO );
          RETURN
       }
 
@@ -177,7 +177,7 @@
 
    60       CONTINUE
 
-            CALL CLASET( 'Full', LDA, N, CZERO, CZERO, A, LDA )
+            claset('Full', LDA, N, CZERO, CZERO, A, LDA );
             IINFO = 0
             COND = ULPINV
 
@@ -209,13 +209,13 @@
 
                // Diagonal Matrix, [Eigen]values Specified
 
-               CALL CLATMS( N, N, 'S', ISEED, 'H', RWORK, IMODE, COND, ANORM, 0, 0, 'N', A, LDA, WORK( N+1 ), IINFO )
+               clatms(N, N, 'S', ISEED, 'H', RWORK, IMODE, COND, ANORM, 0, 0, 'N', A, LDA, WORK( N+1 ), IINFO );
 
             } else if ( ITYPE.EQ.5 ) {
 
                // Hermitian, eigenvalues specified
 
-               CALL CLATMS( N, N, 'S', ISEED, 'H', RWORK, IMODE, COND, ANORM, N, N, 'N', A, LDA, WORK( N+1 ), IINFO )
+               clatms(N, N, 'S', ISEED, 'H', RWORK, IMODE, COND, ANORM, N, N, 'N', A, LDA, WORK( N+1 ), IINFO );
 
             } else if ( ITYPE.EQ.6 ) {
 
@@ -229,35 +229,35 @@
                   CONDS = ZERO
                }
 
-               CALL CLATME( N, 'D', ISEED, WORK, IMODE, COND, CONE, 'T', 'T', 'T', RWORK, 4, CONDS, N, N, ANORM, A, LDA, WORK( 2*N+1 ), IINFO )
+               clatme(N, 'D', ISEED, WORK, IMODE, COND, CONE, 'T', 'T', 'T', RWORK, 4, CONDS, N, N, ANORM, A, LDA, WORK( 2*N+1 ), IINFO );
 
             } else if ( ITYPE.EQ.7 ) {
 
                // Diagonal, random eigenvalues
 
-               CALL CLATMR( N, N, 'D', ISEED, 'N', WORK, 6, ONE, CONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, 0, 0, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO )
+               clatmr(N, N, 'D', ISEED, 'N', WORK, 6, ONE, CONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, 0, 0, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO );
 
             } else if ( ITYPE.EQ.8 ) {
 
                // Symmetric, random eigenvalues
 
-               CALL CLATMR( N, N, 'D', ISEED, 'H', WORK, 6, ONE, CONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, N, N, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO )
+               clatmr(N, N, 'D', ISEED, 'H', WORK, 6, ONE, CONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, N, N, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO );
 
             } else if ( ITYPE.EQ.9 ) {
 
                // General, random eigenvalues
 
-               CALL CLATMR( N, N, 'D', ISEED, 'N', WORK, 6, ONE, CONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, N, N, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO )
+               clatmr(N, N, 'D', ISEED, 'N', WORK, 6, ONE, CONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, N, N, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO );
                if ( N.GE.4 ) {
-                  CALL CLASET( 'Full', 2, N, CZERO, CZERO, A, LDA )
-                  CALL CLASET( 'Full', N-3, 1, CZERO, CZERO, A( 3, 1 ), LDA )                   CALL CLASET( 'Full', N-3, 2, CZERO, CZERO, A( 3, N-1 ), LDA )                   CALL CLASET( 'Full', 1, N, CZERO, CZERO, A( N, 1 ), LDA )
+                  claset('Full', 2, N, CZERO, CZERO, A, LDA );
+                  claset('Full', N-3, 1, CZERO, CZERO, A( 3, 1 ), LDA )                   CALL CLASET( 'Full', N-3, 2, CZERO, CZERO, A( 3, N-1 ), LDA )                   CALL CLASET( 'Full', 1, N, CZERO, CZERO, A( N, 1 ), LDA );
                }
 
             } else if ( ITYPE.EQ.10 ) {
 
                // Triangular, random eigenvalues
 
-               CALL CLATMR( N, N, 'D', ISEED, 'N', WORK, 6, ONE, CONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, N, 0, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO )
+               clatmr(N, N, 'D', ISEED, 'N', WORK, 6, ONE, CONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, N, 0, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO );
 
             } else {
 
@@ -290,8 +290,8 @@
 
                // Compute eigenvalues and eigenvectors, and test them
 
-               CALL CLACPY( 'F', N, N, A, LDA, H, LDA )
-               CALL CGEEV( 'V', 'V', N, H, LDA, W, VL, LDVL, VR, LDVR, WORK, NNWORK, RWORK, IINFO )
+               clacpy('F', N, N, A, LDA, H, LDA );
+               cgeev('V', 'V', N, H, LDA, W, VL, LDVL, VR, LDVR, WORK, NNWORK, RWORK, IINFO );
                if ( IINFO.NE.0 ) {
                   RESULT( 1 ) = ULPINV
                   WRITE( NOUNIT, FMT = 9993 )'CGEEV1', IINFO, N, JTYPE, IOLDSD
@@ -301,12 +301,12 @@
 
                // Do Test (1)
 
-               CALL CGET22( 'N', 'N', 'N', N, A, LDA, VR, LDVR, W, WORK, RWORK, RES )
+               cget22('N', 'N', 'N', N, A, LDA, VR, LDVR, W, WORK, RWORK, RES );
                RESULT( 1 ) = RES( 1 )
 
                // Do Test (2)
 
-               CALL CGET22( 'C', 'N', 'C', N, A, LDA, VL, LDVL, W, WORK, RWORK, RES )
+               cget22('C', 'N', 'C', N, A, LDA, VL, LDVL, W, WORK, RWORK, RES );
                RESULT( 2 ) = RES( 1 )
 
                // Do Test (3)
@@ -339,8 +339,8 @@
 
                // Compute eigenvalues only, and test them
 
-               CALL CLACPY( 'F', N, N, A, LDA, H, LDA )
-               CALL CGEEV( 'N', 'N', N, H, LDA, W1, DUM, 1, DUM, 1, WORK, NNWORK, RWORK, IINFO )
+               clacpy('F', N, N, A, LDA, H, LDA );
+               cgeev('N', 'N', N, H, LDA, W1, DUM, 1, DUM, 1, WORK, NNWORK, RWORK, IINFO );
                if ( IINFO.NE.0 ) {
                   RESULT( 1 ) = ULPINV
                   WRITE( NOUNIT, FMT = 9993 )'CGEEV2', IINFO, N, JTYPE, IOLDSD
@@ -356,8 +356,8 @@
 
                // Compute eigenvalues and right eigenvectors, and test them
 
-               CALL CLACPY( 'F', N, N, A, LDA, H, LDA )
-               CALL CGEEV( 'N', 'V', N, H, LDA, W1, DUM, 1, LRE, LDLRE, WORK, NNWORK, RWORK, IINFO )
+               clacpy('F', N, N, A, LDA, H, LDA );
+               cgeev('N', 'V', N, H, LDA, W1, DUM, 1, LRE, LDLRE, WORK, NNWORK, RWORK, IINFO );
                if ( IINFO.NE.0 ) {
                   RESULT( 1 ) = ULPINV
                   WRITE( NOUNIT, FMT = 9993 )'CGEEV3', IINFO, N, JTYPE, IOLDSD
@@ -381,8 +381,8 @@
 
                // Compute eigenvalues and left eigenvectors, and test them
 
-               CALL CLACPY( 'F', N, N, A, LDA, H, LDA )
-               CALL CGEEV( 'V', 'N', N, H, LDA, W1, LRE, LDLRE, DUM, 1, WORK, NNWORK, RWORK, IINFO )
+               clacpy('F', N, N, A, LDA, H, LDA );
+               cgeev('V', 'N', N, H, LDA, W1, LRE, LDLRE, DUM, 1, WORK, NNWORK, RWORK, IINFO );
                if ( IINFO.NE.0 ) {
                   RESULT( 1 ) = ULPINV
                   WRITE( NOUNIT, FMT = 9993 )'CGEEV4', IINFO, N, JTYPE, IOLDSD
@@ -439,7 +439,7 @@
 
       // Summary
 
-      CALL SLASUM( PATH, NOUNIT, NERRS, NTESTT )
+      slasum(PATH, NOUNIT, NERRS, NTESTT );
 
  9999 FORMAT( / 1X, A3, ' -- Complex Eigenvalue-Eigenvector ', 'Decomposition Driver', / ' Matrix types (see CDRVEV for details): ' )
 

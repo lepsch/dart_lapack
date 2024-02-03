@@ -52,7 +52,7 @@
          INFO = -5
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'DPBTRF', -INFO )
+         xerbla('DPBTRF', -INFO );
          RETURN
       }
 
@@ -73,7 +73,7 @@
 
          // Use unblocked code
 
-         CALL DPBTF2( UPLO, N, KD, AB, LDAB, INFO )
+         dpbtf2(UPLO, N, KD, AB, LDAB, INFO );
       } else {
 
          // Use blocked code
@@ -99,7 +99,7 @@
 
                // Factorize the diagonal block
 
-               CALL DPOTF2( UPLO, IB, AB( KD+1, I ), LDAB-1, II )
+               dpotf2(UPLO, IB, AB( KD+1, I ), LDAB-1, II );
                if ( II.NE.0 ) {
                   INFO = I + II - 1
                   GO TO 150
@@ -127,11 +127,11 @@
 
                      // Update A12
 
-                     CALL DTRSM( 'Left', 'Upper', 'Transpose', 'Non-unit', IB, I2, ONE, AB( KD+1, I ), LDAB-1, AB( KD+1-IB, I+IB ), LDAB-1 )
+                     dtrsm('Left', 'Upper', 'Transpose', 'Non-unit', IB, I2, ONE, AB( KD+1, I ), LDAB-1, AB( KD+1-IB, I+IB ), LDAB-1 );
 
                      // Update A22
 
-                     CALL DSYRK( 'Upper', 'Transpose', I2, IB, -ONE, AB( KD+1-IB, I+IB ), LDAB-1, ONE, AB( KD+1, I+IB ), LDAB-1 )
+                     dsyrk('Upper', 'Transpose', I2, IB, -ONE, AB( KD+1-IB, I+IB ), LDAB-1, ONE, AB( KD+1, I+IB ), LDAB-1 );
                   }
 
                   if ( I3.GT.0 ) {
@@ -146,7 +146,7 @@
 
                      // Update A13 (in the work array).
 
-                     CALL DTRSM( 'Left', 'Upper', 'Transpose', 'Non-unit', IB, I3, ONE, AB( KD+1, I ), LDAB-1, WORK, LDWORK )
+                     dtrsm('Left', 'Upper', 'Transpose', 'Non-unit', IB, I3, ONE, AB( KD+1, I ), LDAB-1, WORK, LDWORK );
 
                      // Update A23
 
@@ -154,7 +154,7 @@
 
                      // Update A33
 
-                     CALL DSYRK( 'Upper', 'Transpose', I3, IB, -ONE, WORK, LDWORK, ONE, AB( KD+1, I+KD ), LDAB-1 )
+                     dsyrk('Upper', 'Transpose', I3, IB, -ONE, WORK, LDWORK, ONE, AB( KD+1, I+KD ), LDAB-1 );
 
                      // Copy the lower triangle of A13 back into place.
 
@@ -187,7 +187,7 @@
 
                // Factorize the diagonal block
 
-               CALL DPOTF2( UPLO, IB, AB( 1, I ), LDAB-1, II )
+               dpotf2(UPLO, IB, AB( 1, I ), LDAB-1, II );
                if ( II.NE.0 ) {
                   INFO = I + II - 1
                   GO TO 150
@@ -215,11 +215,11 @@
 
                      // Update A21
 
-                     CALL DTRSM( 'Right', 'Lower', 'Transpose', 'Non-unit', I2, IB, ONE, AB( 1, I ), LDAB-1, AB( 1+IB, I ), LDAB-1 )
+                     dtrsm('Right', 'Lower', 'Transpose', 'Non-unit', I2, IB, ONE, AB( 1, I ), LDAB-1, AB( 1+IB, I ), LDAB-1 );
 
                      // Update A22
 
-                     CALL DSYRK( 'Lower', 'No Transpose', I2, IB, -ONE, AB( 1+IB, I ), LDAB-1, ONE, AB( 1, I+IB ), LDAB-1 )
+                     dsyrk('Lower', 'No Transpose', I2, IB, -ONE, AB( 1+IB, I ), LDAB-1, ONE, AB( 1, I+IB ), LDAB-1 );
                   }
 
                   if ( I3.GT.0 ) {
@@ -234,7 +234,7 @@
 
                      // Update A31 (in the work array).
 
-                     CALL DTRSM( 'Right', 'Lower', 'Transpose', 'Non-unit', I3, IB, ONE, AB( 1, I ), LDAB-1, WORK, LDWORK )
+                     dtrsm('Right', 'Lower', 'Transpose', 'Non-unit', I3, IB, ONE, AB( 1, I ), LDAB-1, WORK, LDWORK );
 
                      // Update A32
 
@@ -242,7 +242,7 @@
 
                      // Update A33
 
-                     CALL DSYRK( 'Lower', 'No Transpose', I3, IB, -ONE, WORK, LDWORK, ONE, AB( 1, I+KD ), LDAB-1 )
+                     dsyrk('Lower', 'No Transpose', I3, IB, -ONE, WORK, LDWORK, ONE, AB( 1, I+KD ), LDAB-1 );
 
                      // Copy the upper triangle of A31 back into place.
 

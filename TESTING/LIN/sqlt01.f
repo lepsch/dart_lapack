@@ -46,16 +46,16 @@
 
       // Copy the matrix A to the array AF.
 
-      CALL SLACPY( 'Full', M, N, A, LDA, AF, LDA )
+      slacpy('Full', M, N, A, LDA, AF, LDA );
 
       // Factorize the matrix A in the array AF.
 
       SRNAMT = 'SGEQLF'
-      CALL SGEQLF( M, N, AF, LDA, TAU, WORK, LWORK, INFO )
+      sgeqlf(M, N, AF, LDA, TAU, WORK, LWORK, INFO );
 
       // Copy details of Q
 
-      CALL SLASET( 'Full', M, M, ROGUE, ROGUE, Q, LDA )
+      slaset('Full', M, M, ROGUE, ROGUE, Q, LDA );
       if ( M.GE.N ) {
          IF( N.LT.M .AND. N.GT.0 ) CALL SLACPY( 'Full', M-N, N, AF, LDA, Q( 1, M-N+1 ), LDA )          IF( N.GT.1 ) CALL SLACPY( 'Upper', N-1, N-1, AF( M-N+1, 2 ), LDA, Q( M-N+1, M-N+2 ), LDA )
       } else {
@@ -65,11 +65,11 @@
       // Generate the m-by-m matrix Q
 
       SRNAMT = 'SORGQL'
-      CALL SORGQL( M, M, MINMN, Q, LDA, TAU, WORK, LWORK, INFO )
+      sorgql(M, M, MINMN, Q, LDA, TAU, WORK, LWORK, INFO );
 
       // Copy L
 
-      CALL SLASET( 'Full', M, N, ZERO, ZERO, L, LDA )
+      slaset('Full', M, N, ZERO, ZERO, L, LDA );
       if ( M.GE.N ) {
          IF( N.GT.0 ) CALL SLACPY( 'Lower', N, N, AF( M-N+1, 1 ), LDA, L( M-N+1, 1 ), LDA )
       } else {
@@ -78,7 +78,7 @@
 
       // Compute L - Q'*A
 
-      CALL SGEMM( 'Transpose', 'No transpose', M, N, M, -ONE, Q, LDA, A, LDA, ONE, L, LDA )
+      sgemm('Transpose', 'No transpose', M, N, M, -ONE, Q, LDA, A, LDA, ONE, L, LDA );
 
       // Compute norm( L - Q'*A ) / ( M * norm(A) * EPS ) .
 
@@ -92,8 +92,8 @@
 
       // Compute I - Q'*Q
 
-      CALL SLASET( 'Full', M, M, ZERO, ONE, L, LDA )
-      CALL SSYRK( 'Upper', 'Transpose', M, M, -ONE, Q, LDA, ONE, L, LDA )
+      slaset('Full', M, M, ZERO, ONE, L, LDA );
+      ssyrk('Upper', 'Transpose', M, M, -ONE, Q, LDA, ONE, L, LDA );
 
       // Compute norm( I - Q'*Q ) / ( M * EPS ) .
 

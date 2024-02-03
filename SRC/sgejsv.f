@@ -85,7 +85,7 @@
 
       if ( INFO .NE. 0 ) {
         // #:(
-         CALL XERBLA( 'SGEJSV', - INFO )
+         xerbla('SGEJSV', - INFO );
          RETURN
       }
 
@@ -126,10 +126,10 @@
       DO 1874 p = 1, N
          AAPP = ZERO
          AAQQ = ONE
-         CALL SLASSQ( M, A(1,p), 1, AAPP, AAQQ )
+         slassq(M, A(1,p), 1, AAPP, AAQQ );
          if ( AAPP .GT. BIG ) {
             INFO = - 9
-            CALL XERBLA( 'SGEJSV', -INFO )
+            xerbla('SGEJSV', -INFO );
             RETURN
          }
          AAQQ = SQRT(AAQQ)
@@ -140,7 +140,7 @@
             SVA(p)  = AAPP * ( AAQQ * SCALEM )
             if ( GOSCAL ) {
                GOSCAL = .FALSE.
-               CALL SSCAL( p-1, SCALEM, SVA, 1 )
+               sscal(p-1, SCALEM, SVA, 1 );
             }
          }
  1874 CONTINUE
@@ -192,13 +192,13 @@
       if ( N .EQ. 1 ) {
 
          if ( LSVEC ) {
-            CALL SLASCL( 'G',0,0,SVA(1),SCALEM, M,1,A(1,1),LDA,IERR )
-            CALL SLACPY( 'A', M, 1, A, LDA, U, LDU )
+            slascl('G',0,0,SVA(1),SCALEM, M,1,A(1,1),LDA,IERR );
+            slacpy('A', M, 1, A, LDA, U, LDU );
             // computing all M left singular vectors of the M x 1 matrix
             if ( N1 .NE. N  ) {
-               CALL SGEQRF( M, N, U,LDU, WORK, WORK(N+1),LWORK-N,IERR )
-               CALL SORGQR( M,N1,1, U,LDU,WORK,WORK(N+1),LWORK-N,IERR )
-               CALL SCOPY( M, A(1,1), 1, U(1,1), 1 )
+               sgeqrf(M, N, U,LDU, WORK, WORK(N+1),LWORK-N,IERR );
+               sorgqr(M,N1,1, U,LDU,WORK,WORK(N+1),LWORK-N,IERR );
+               scopy(M, A(1,1), 1, U(1,1), 1 );
             }
          }
          if ( RSVEC ) {
@@ -251,7 +251,7 @@
             DO 1950 p = 1, M
                XSC   = ZERO
                TEMP1 = ONE
-               CALL SLASSQ( N, A(p,1), LDA, XSC, TEMP1 )
+               slassq(N, A(p,1), LDA, XSC, TEMP1 );
                // SLASSQ gets both the ell_2 and the ell_infinity norm
                // in one pass through the vector
                WORK(M+N+p)  = XSC * SCALEM
@@ -282,7 +282,7 @@
 
          XSC   = ZERO
          TEMP1 = ONE
-         CALL SLASSQ( N, SVA, 1, XSC, TEMP1 )
+         slassq(N, SVA, 1, XSC, TEMP1 );
          TEMP1 = ONE / TEMP1
 
          ENTRA = ZERO
@@ -356,14 +356,14 @@
       BIG1   = SQRT( BIG )
       TEMP1  = SQRT( BIG / FLOAT(N) )
 
-      CALL SLASCL( 'G', 0, 0, AAPP, TEMP1, N, 1, SVA, N, IERR )
+      slascl('G', 0, 0, AAPP, TEMP1, N, 1, SVA, N, IERR );
       if ( AAQQ .GT. (AAPP * SFMIN) ) {
           AAQQ = ( AAQQ / AAPP ) * TEMP1
       } else {
           AAQQ = ( AAQQ * TEMP1 ) / AAPP
       }
       TEMP1 = TEMP1 * SCALEM
-      CALL SLASCL( 'G', 0, 0, AAPP, TEMP1, M, N, A, LDA, IERR )
+      slascl('G', 0, 0, AAPP, TEMP1, M, N, A, LDA, IERR );
 
       // To undo scaling at the end of this procedure, multiply the
       // computed singular values with USCAL2 / USCAL1.
@@ -395,7 +395,7 @@
       if ( AAQQ .LT. XSC ) {
          DO 700 p = 1, N
             if ( SVA(p) .LT. XSC ) {
-               CALL SLASET( 'A', M, 1, ZERO, ZERO, A(1,p), LDA )
+               slaset('A', M, 1, ZERO, ZERO, A(1,p), LDA );
                SVA(p) = ZERO
             }
  700     CONTINUE
@@ -418,7 +418,7 @@
                WORK(M+N+q) = TEMP1
             }
  1952    CONTINUE
-         CALL SLASWP( N, A, LDA, 1, M-1, IWORK(2*N+1), 1 )
+         slaswp(N, A, LDA, 1, M-1, IWORK(2*N+1), 1 );
       }
 
       // End of the preparation phase (scaling, optional sorting and
@@ -440,7 +440,7 @@
          // .. all columns are free columns
          IWORK(p) = 0
  1963 CONTINUE
-      CALL SGEQP3( M,N,A,LDA, IWORK,WORK, WORK(N+1),LWORK-N, IERR )
+      sgeqp3(M,N,A,LDA, IWORK,WORK, WORK(N+1),LWORK-N, IERR );
 
       // The upper triangular matrix R1 from the first QRF is inspected for
       // rank deficiency and possibilities for deflation, or possible
@@ -512,28 +512,28 @@
          if ( N .EQ. NR ) {
             if ( RSVEC ) {
                // .. V is available as workspace
-               CALL SLACPY( 'U', N, N, A, LDA, V, LDV )
+               slacpy('U', N, N, A, LDA, V, LDV );
                DO 3053 p = 1, N
                   TEMP1 = SVA(IWORK(p))
-                  CALL SSCAL( p, ONE/TEMP1, V(1,p), 1 )
+                  sscal(p, ONE/TEMP1, V(1,p), 1 );
  3053          CONTINUE
-               CALL SPOCON( 'U', N, V, LDV, ONE, TEMP1, WORK(N+1), IWORK(2*N+M+1), IERR )
+               spocon('U', N, V, LDV, ONE, TEMP1, WORK(N+1), IWORK(2*N+M+1), IERR );
             } else if ( LSVEC ) {
                // .. U is available as workspace
-               CALL SLACPY( 'U', N, N, A, LDA, U, LDU )
+               slacpy('U', N, N, A, LDA, U, LDU );
                DO 3054 p = 1, N
                   TEMP1 = SVA(IWORK(p))
-                  CALL SSCAL( p, ONE/TEMP1, U(1,p), 1 )
+                  sscal(p, ONE/TEMP1, U(1,p), 1 );
  3054          CONTINUE
-               CALL SPOCON( 'U', N, U, LDU, ONE, TEMP1, WORK(N+1), IWORK(2*N+M+1), IERR )
+               spocon('U', N, U, LDU, ONE, TEMP1, WORK(N+1), IWORK(2*N+M+1), IERR );
             } else {
-               CALL SLACPY( 'U', N, N, A, LDA, WORK(N+1), N )
+               slacpy('U', N, N, A, LDA, WORK(N+1), N );
                DO 3052 p = 1, N
                   TEMP1 = SVA(IWORK(p))
-                  CALL SSCAL( p, ONE/TEMP1, WORK(N+(p-1)*N+1), 1 )
+                  sscal(p, ONE/TEMP1, WORK(N+(p-1)*N+1), 1 );
  3052          CONTINUE
             // .. the columns of R are scaled to have unit Euclidean lengths.
-               CALL SPOCON( 'U', N, WORK(N+1), N, ONE, TEMP1, WORK(N+N*N+1), IWORK(2*N+M+1), IERR )
+               spocon('U', N, WORK(N+1), N, ONE, TEMP1, WORK(N+N*N+1), IWORK(2*N+M+1), IERR );
             }
             SCONDA = ONE / SQRT(TEMP1)
             // SCONDA is an estimate of SQRT(||(R^t * R)^(-1)||_1).
@@ -554,7 +554,7 @@
 
           // .. transpose A(1:NR,1:N)
          DO 1946 p = 1, MIN( N-1, NR )
-            CALL SCOPY( N-p, A(p,p+1), LDA, A(p+1,p), 1 )
+            scopy(N-p, A(p,p+1), LDA, A(p+1,p), 1 );
  1946    CONTINUE
 
          // The following two DO-loops introduce small relative perturbation
@@ -581,16 +581,16 @@
  4949             CONTINUE
  4947          CONTINUE
             } else {
-               CALL SLASET( 'U', NR-1,NR-1, ZERO,ZERO, A(1,2),LDA )
+               slaset('U', NR-1,NR-1, ZERO,ZERO, A(1,2),LDA );
             }
 
              // .. second preconditioning using the QR factorization
 
-            CALL SGEQRF( N,NR, A,LDA, WORK, WORK(N+1),LWORK-N, IERR )
+            sgeqrf(N,NR, A,LDA, WORK, WORK(N+1),LWORK-N, IERR );
 
             // .. and transpose upper to lower triangular
             DO 1948 p = 1, NR - 1
-               CALL SCOPY( NR-p, A(p,p+1), LDA, A(p+1,p), 1 )
+               scopy(NR-p, A(p,p+1), LDA, A(p+1,p), 1 );
  1948       CONTINUE
 
          }
@@ -609,14 +609,14 @@
  1949             CONTINUE
  1947          CONTINUE
             } else {
-               CALL SLASET( 'U', NR-1, NR-1, ZERO, ZERO, A(1,2), LDA )
+               slaset('U', NR-1, NR-1, ZERO, ZERO, A(1,2), LDA );
             }
 
             // .. and one-sided Jacobi rotations are started on a lower
             // triangular matrix (plus perturbation which is ignored in
             // the part which destroys triangular form (confusing?!))
 
-            CALL SGESVJ( 'L', 'NoU', 'NoV', NR, NR, A, LDA, SVA, N, V, LDV, WORK, LWORK, INFO )
+            sgesvj('L', 'NoU', 'NoV', NR, NR, A, LDA, SVA, N, V, LDV, WORK, LWORK, INFO );
 
             SCALEM  = WORK(1)
             NUMRANK = NINT(WORK(2))
@@ -630,11 +630,11 @@
 
             // .. in this case NR equals N
             DO 1998 p = 1, NR
-               CALL SCOPY( N-p+1, A(p,p), LDA, V(p,p), 1 )
+               scopy(N-p+1, A(p,p), LDA, V(p,p), 1 );
  1998       CONTINUE
-            CALL SLASET( 'Upper', NR-1, NR-1, ZERO, ZERO, V(1,2), LDV )
+            slaset('Upper', NR-1, NR-1, ZERO, ZERO, V(1,2), LDV );
 
-            CALL SGESVJ( 'L','U','N', N, NR, V,LDV, SVA, NR, A,LDA, WORK, LWORK, INFO )
+            sgesvj('L','U','N', N, NR, V,LDV, SVA, NR, A,LDA, WORK, LWORK, INFO );
             SCALEM  = WORK(1)
             NUMRANK = NINT(WORK(2))
 
@@ -643,36 +643,36 @@
          // .. two more QR factorizations ( one QRF is not enough, two require
          // accumulated product of Jacobi rotations, three are perfect )
 
-            CALL SLASET( 'Lower', NR-1, NR-1, ZERO, ZERO, A(2,1), LDA )
-            CALL SGELQF( NR, N, A, LDA, WORK, WORK(N+1), LWORK-N, IERR)
-            CALL SLACPY( 'Lower', NR, NR, A, LDA, V, LDV )
-            CALL SLASET( 'Upper', NR-1, NR-1, ZERO, ZERO, V(1,2), LDV )
-            CALL SGEQRF( NR, NR, V, LDV, WORK(N+1), WORK(2*N+1), LWORK-2*N, IERR )
+            slaset('Lower', NR-1, NR-1, ZERO, ZERO, A(2,1), LDA );
+            sgelqf(NR, N, A, LDA, WORK, WORK(N+1), LWORK-N, IERR);
+            slacpy('Lower', NR, NR, A, LDA, V, LDV );
+            slaset('Upper', NR-1, NR-1, ZERO, ZERO, V(1,2), LDV );
+            sgeqrf(NR, NR, V, LDV, WORK(N+1), WORK(2*N+1), LWORK-2*N, IERR );
             DO 8998 p = 1, NR
-               CALL SCOPY( NR-p+1, V(p,p), LDV, V(p,p), 1 )
+               scopy(NR-p+1, V(p,p), LDV, V(p,p), 1 );
  8998       CONTINUE
-            CALL SLASET( 'Upper', NR-1, NR-1, ZERO, ZERO, V(1,2), LDV )
+            slaset('Upper', NR-1, NR-1, ZERO, ZERO, V(1,2), LDV );
 
-            CALL SGESVJ( 'Lower', 'U','N', NR, NR, V,LDV, SVA, NR, U, LDU, WORK(N+1), LWORK-N, INFO )
+            sgesvj('Lower', 'U','N', NR, NR, V,LDV, SVA, NR, U, LDU, WORK(N+1), LWORK-N, INFO );
             SCALEM  = WORK(N+1)
             NUMRANK = NINT(WORK(N+2))
             if ( NR .LT. N ) {
-               CALL SLASET( 'A',N-NR, NR, ZERO,ZERO, V(NR+1,1),   LDV )
-               CALL SLASET( 'A',NR, N-NR, ZERO,ZERO, V(1,NR+1),   LDV )
-               CALL SLASET( 'A',N-NR,N-NR,ZERO,ONE, V(NR+1,NR+1), LDV )
+               slaset('A',N-NR, NR, ZERO,ZERO, V(NR+1,1),   LDV );
+               slaset('A',NR, N-NR, ZERO,ZERO, V(1,NR+1),   LDV );
+               slaset('A',N-NR,N-NR,ZERO,ONE, V(NR+1,NR+1), LDV );
             }
 
-         CALL SORMLQ( 'Left', 'Transpose', N, N, NR, A, LDA, WORK, V, LDV, WORK(N+1), LWORK-N, IERR )
+         sormlq('Left', 'Transpose', N, N, NR, A, LDA, WORK, V, LDV, WORK(N+1), LWORK-N, IERR );
 
          }
 
          DO 8991 p = 1, N
-            CALL SCOPY( N, V(p,1), LDV, A(IWORK(p),1), LDA )
+            scopy(N, V(p,1), LDV, A(IWORK(p),1), LDA );
  8991    CONTINUE
-         CALL SLACPY( 'All', N, N, A, LDA, V, LDV )
+         slacpy('All', N, N, A, LDA, V, LDV );
 
          if ( TRANSP ) {
-            CALL SLACPY( 'All', N, N, V, LDV, U, LDU )
+            slacpy('All', N, N, V, LDV, U, LDU );
          }
 
       } else if ( LSVEC .AND. ( .NOT. RSVEC ) ) {
@@ -682,40 +682,40 @@
          // .. second preconditioning step to avoid need to accumulate
          // Jacobi rotations in the Jacobi iterations.
          DO 1965 p = 1, NR
-            CALL SCOPY( N-p+1, A(p,p), LDA, U(p,p), 1 )
+            scopy(N-p+1, A(p,p), LDA, U(p,p), 1 );
  1965    CONTINUE
-         CALL SLASET( 'Upper', NR-1, NR-1, ZERO, ZERO, U(1,2), LDU )
+         slaset('Upper', NR-1, NR-1, ZERO, ZERO, U(1,2), LDU );
 
-         CALL SGEQRF( N, NR, U, LDU, WORK(N+1), WORK(2*N+1), LWORK-2*N, IERR )
+         sgeqrf(N, NR, U, LDU, WORK(N+1), WORK(2*N+1), LWORK-2*N, IERR );
 
          DO 1967 p = 1, NR - 1
-            CALL SCOPY( NR-p, U(p,p+1), LDU, U(p+1,p), 1 )
+            scopy(NR-p, U(p,p+1), LDU, U(p+1,p), 1 );
  1967    CONTINUE
-         CALL SLASET( 'Upper', NR-1, NR-1, ZERO, ZERO, U(1,2), LDU )
+         slaset('Upper', NR-1, NR-1, ZERO, ZERO, U(1,2), LDU );
 
-         CALL SGESVJ( 'Lower', 'U', 'N', NR,NR, U, LDU, SVA, NR, A, LDA, WORK(N+1), LWORK-N, INFO )
+         sgesvj('Lower', 'U', 'N', NR,NR, U, LDU, SVA, NR, A, LDA, WORK(N+1), LWORK-N, INFO );
          SCALEM  = WORK(N+1)
          NUMRANK = NINT(WORK(N+2))
 
          if ( NR .LT. M ) {
-            CALL SLASET( 'A',  M-NR, NR,ZERO, ZERO, U(NR+1,1), LDU )
+            slaset('A',  M-NR, NR,ZERO, ZERO, U(NR+1,1), LDU );
             if ( NR .LT. N1 ) {
-               CALL SLASET( 'A',NR, N1-NR, ZERO, ZERO, U(1,NR+1), LDU )
-               CALL SLASET( 'A',M-NR,N1-NR,ZERO,ONE,U(NR+1,NR+1), LDU )
+               slaset('A',NR, N1-NR, ZERO, ZERO, U(1,NR+1), LDU );
+               slaset('A',M-NR,N1-NR,ZERO,ONE,U(NR+1,NR+1), LDU );
             }
          }
 
-         CALL SORMQR( 'Left', 'No Tr', M, N1, N, A, LDA, WORK, U, LDU, WORK(N+1), LWORK-N, IERR )
+         sormqr('Left', 'No Tr', M, N1, N, A, LDA, WORK, U, LDU, WORK(N+1), LWORK-N, IERR );
 
          IF ( ROWPIV ) CALL SLASWP( N1, U, LDU, 1, M-1, IWORK(2*N+1), -1 )
 
          DO 1974 p = 1, N1
             XSC = ONE / SNRM2( M, U(1,p), 1 )
-            CALL SSCAL( M, XSC, U(1,p), 1 )
+            sscal(M, XSC, U(1,p), 1 );
  1974    CONTINUE
 
          if ( TRANSP ) {
-            CALL SLACPY( 'All', N, N, U, LDU, V, LDV )
+            slacpy('All', N, N, U, LDU, V, LDV );
          }
 
       } else {
@@ -734,7 +734,7 @@
             // optimized implementation of SGEJSV.
 
             DO 1968 p = 1, NR
-               CALL SCOPY( N-p+1, A(p,p), LDA, V(p,p), 1 )
+               scopy(N-p+1, A(p,p), LDA, V(p,p), 1 );
  1968       CONTINUE
 
             // .. the following two loops perturb small entries to avoid
@@ -759,19 +759,19 @@
  2968             CONTINUE
  2969          CONTINUE
             } else {
-               CALL SLASET( 'U', NR-1, NR-1, ZERO, ZERO, V(1,2), LDV )
+               slaset('U', NR-1, NR-1, ZERO, ZERO, V(1,2), LDV );
             }
 
             // Estimate the row scaled condition number of R1
             // (If R1 is rectangular, N > NR, then the condition number
             // of the leading NR x NR submatrix is estimated.)
 
-            CALL SLACPY( 'L', NR, NR, V, LDV, WORK(2*N+1), NR )
+            slacpy('L', NR, NR, V, LDV, WORK(2*N+1), NR );
             DO 3950 p = 1, NR
                TEMP1 = SNRM2(NR-p+1,WORK(2*N+(p-1)*NR+p),1)
-               CALL SSCAL(NR-p+1,ONE/TEMP1,WORK(2*N+(p-1)*NR+p),1)
+               sscal(NR-p+1,ONE/TEMP1,WORK(2*N+(p-1)*NR+p),1);
  3950       CONTINUE
-            CALL SPOCON('Lower',NR,WORK(2*N+1),NR,ONE,TEMP1, WORK(2*N+NR*NR+1),IWORK(M+2*N+1),IERR)
+            spocon('Lower',NR,WORK(2*N+1),NR,ONE,TEMP1, WORK(2*N+NR*NR+1),IWORK(M+2*N+1),IERR);
             CONDR1 = ONE / SQRT(TEMP1)
             // .. here need a second opinion on the condition number
             // .. then assume worst case scenario
@@ -786,7 +786,7 @@
                // implementation, this QRF should be implemented as the QRF
                // of a lower triangular matrix.
                // R1^t = Q2 * R2
-               CALL SGEQRF( N, NR, V, LDV, WORK(N+1), WORK(2*N+1), LWORK-2*N, IERR )
+               sgeqrf(N, NR, V, LDV, WORK(N+1), WORK(2*N+1), LWORK-2*N, IERR );
 
                if ( L2PERT ) {
                   XSC = SQRT(SMALL)/EPSLN
@@ -803,7 +803,7 @@
 
             // .. this transposed copy should be better than naive
                DO 1969 p = 1, NR - 1
-                  CALL SCOPY( NR-p, V(p,p+1), LDV, V(p+1,p), 1 )
+                  scopy(NR-p, V(p,p+1), LDV, V(p+1,p), 1 );
  1969          CONTINUE
 
                CONDR2 = CONDR1
@@ -821,7 +821,7 @@
                DO 3003 p = 1, NR
                   IWORK(N+p) = 0
  3003          CONTINUE
-               CALL SGEQP3( N, NR, V, LDV, IWORK(N+1), WORK(N+1), WORK(2*N+1), LWORK-2*N, IERR )
+               sgeqp3(N, NR, V, LDV, IWORK(N+1), WORK(N+1), WORK(2*N+1), LWORK-2*N, IERR );
 **               CALL SGEQRF( N, NR, V, LDV, WORK(N+1), WORK(2*N+1),
 **     $              LWORK-2*N, IERR )
                if ( L2PERT ) {
@@ -834,7 +834,7 @@
  3969             CONTINUE
                }
 
-               CALL SLACPY( 'A', N, NR, V, LDV, WORK(2*N+1), N )
+               slacpy('A', N, NR, V, LDV, WORK(2*N+1), N );
 
                if ( L2PERT ) {
                   XSC = SQRT(SMALL)
@@ -845,17 +845,17 @@
  8971                CONTINUE
  8970             CONTINUE
                } else {
-                  CALL SLASET( 'L',NR-1,NR-1,ZERO,ZERO,V(2,1),LDV )
+                  slaset('L',NR-1,NR-1,ZERO,ZERO,V(2,1),LDV );
                }
                // Now, compute R2 = L3 * Q3, the LQ factorization.
-               CALL SGELQF( NR, NR, V, LDV, WORK(2*N+N*NR+1), WORK(2*N+N*NR+NR+1), LWORK-2*N-N*NR-NR, IERR )
+               sgelqf(NR, NR, V, LDV, WORK(2*N+N*NR+1), WORK(2*N+N*NR+NR+1), LWORK-2*N-N*NR-NR, IERR );
                // .. and estimate the condition number
-               CALL SLACPY( 'L',NR,NR,V,LDV,WORK(2*N+N*NR+NR+1),NR )
+               slacpy('L',NR,NR,V,LDV,WORK(2*N+N*NR+NR+1),NR );
                DO 4950 p = 1, NR
                   TEMP1 = SNRM2( p, WORK(2*N+N*NR+NR+p), NR )
-                  CALL SSCAL( p, ONE/TEMP1, WORK(2*N+N*NR+NR+p), NR )
+                  sscal(p, ONE/TEMP1, WORK(2*N+N*NR+NR+p), NR );
  4950          CONTINUE
-               CALL SPOCON( 'L',NR,WORK(2*N+N*NR+NR+1),NR,ONE,TEMP1, WORK(2*N+N*NR+NR+NR*NR+1),IWORK(M+2*N+1),IERR )
+               spocon('L',NR,WORK(2*N+N*NR+NR+1),NR,ONE,TEMP1, WORK(2*N+N*NR+NR+NR*NR+1),IWORK(M+2*N+1),IERR );
                CONDR2 = ONE / SQRT(TEMP1)
 
                if ( CONDR2 .GE. COND_OK ) {
@@ -863,7 +863,7 @@
                   // (this overwrites the copy of R2, as it will not be
                   // needed in this branch, but it does not overwrite the
                   // Huseholder vectors of Q2.).
-                  CALL SLACPY( 'U', NR, NR, V, LDV, WORK(2*N+1), N )
+                  slacpy('U', NR, NR, V, LDV, WORK(2*N+1), N );
                   // .. and the rest of the information on Q3 is in
                   // WORK(2*N+N*NR+1:2*N+N*NR+N)
                }
@@ -880,7 +880,7 @@
  4969             CONTINUE
  4968          CONTINUE
             } else {
-               CALL SLASET( 'U', NR-1,NR-1, ZERO,ZERO, V(1,2), LDV )
+               slaset('U', NR-1,NR-1, ZERO,ZERO, V(1,2), LDV );
             }
 
          // Second preconditioning finished; continue with Jacobi SVD
@@ -891,12 +891,12 @@
 
             if ( CONDR1 .LT. COND_OK ) {
 
-               CALL SGESVJ( 'L','U','N',NR,NR,V,LDV,SVA,NR,U, LDU,WORK(2*N+N*NR+NR+1),LWORK-2*N-N*NR-NR,INFO )
+               sgesvj('L','U','N',NR,NR,V,LDV,SVA,NR,U, LDU,WORK(2*N+N*NR+NR+1),LWORK-2*N-N*NR-NR,INFO );
                SCALEM  = WORK(2*N+N*NR+NR+1)
                NUMRANK = NINT(WORK(2*N+N*NR+NR+2))
                DO 3970 p = 1, NR
-                  CALL SCOPY( NR, V(1,p), 1, U(1,p), 1 )
-                  CALL SSCAL( NR, SVA(p),    V(1,p), 1 )
+                  scopy(NR, V(1,p), 1, U(1,p), 1 );
+                  sscal(NR, SVA(p),    V(1,p), 1 );
  3970          CONTINUE
 
          // .. pick the right matrix equation and solve it
@@ -906,19 +906,19 @@
                   // equation is Q2*V2 = the product of the Jacobi rotations
                   // used in SGESVJ, premultiplied with the orthogonal matrix
                   // from the second QR factorization.
-                  CALL STRSM( 'L','U','N','N', NR,NR,ONE, A,LDA, V,LDV )
+                  strsm('L','U','N','N', NR,NR,ONE, A,LDA, V,LDV );
                } else {
                   // .. R1 is well conditioned, but non-square. Transpose(R2)
                   // is inverted to get the product of the Jacobi rotations
                   // used in SGESVJ. The Q-factor from the second QR
                   // factorization is then built in explicitly.
-                  CALL STRSM('L','U','T','N',NR,NR,ONE,WORK(2*N+1), N,V,LDV)
+                  strsm('L','U','T','N',NR,NR,ONE,WORK(2*N+1), N,V,LDV);
                   if ( NR .LT. N ) {
-                    CALL SLASET('A',N-NR,NR,ZERO,ZERO,V(NR+1,1),LDV)
-                    CALL SLASET('A',NR,N-NR,ZERO,ZERO,V(1,NR+1),LDV)
-                    CALL SLASET('A',N-NR,N-NR,ZERO,ONE,V(NR+1,NR+1),LDV)
+                    slaset('A',N-NR,NR,ZERO,ZERO,V(NR+1,1),LDV);
+                    slaset('A',NR,N-NR,ZERO,ZERO,V(1,NR+1),LDV);
+                    slaset('A',N-NR,N-NR,ZERO,ONE,V(NR+1,NR+1),LDV);
                   }
-                  CALL SORMQR('L','N',N,N,NR,WORK(2*N+1),N,WORK(N+1), V,LDV,WORK(2*N+N*NR+NR+1),LWORK-2*N-N*NR-NR,IERR)
+                  sormqr('L','N',N,N,NR,WORK(2*N+1),N,WORK(N+1), V,LDV,WORK(2*N+N*NR+NR+1),LWORK-2*N-N*NR-NR,IERR);
                }
 
             } else if ( CONDR2 .LT. COND_OK ) {
@@ -929,14 +929,14 @@
                // is Q3^T*V3 = the product of the Jacobi rotations (applied to
                // the lower triangular L3 from the LQ factorization of
                // R2=L3*Q3), pre-multiplied with the transposed Q3.
-               CALL SGESVJ( 'L', 'U', 'N', NR, NR, V, LDV, SVA, NR, U, LDU, WORK(2*N+N*NR+NR+1), LWORK-2*N-N*NR-NR, INFO )
+               sgesvj('L', 'U', 'N', NR, NR, V, LDV, SVA, NR, U, LDU, WORK(2*N+N*NR+NR+1), LWORK-2*N-N*NR-NR, INFO );
                SCALEM  = WORK(2*N+N*NR+NR+1)
                NUMRANK = NINT(WORK(2*N+N*NR+NR+2))
                DO 3870 p = 1, NR
-                  CALL SCOPY( NR, V(1,p), 1, U(1,p), 1 )
-                  CALL SSCAL( NR, SVA(p),    U(1,p), 1 )
+                  scopy(NR, V(1,p), 1, U(1,p), 1 );
+                  sscal(NR, SVA(p),    U(1,p), 1 );
  3870          CONTINUE
-               CALL STRSM('L','U','N','N',NR,NR,ONE,WORK(2*N+1),N,U,LDU)
+               strsm('L','U','N','N',NR,NR,ONE,WORK(2*N+1),N,U,LDU);
                // .. apply the permutation from the second QR factorization
                DO 873 q = 1, NR
                   DO 872 p = 1, NR
@@ -947,11 +947,11 @@
  874              CONTINUE
  873           CONTINUE
                if ( NR .LT. N ) {
-                  CALL SLASET( 'A',N-NR,NR,ZERO,ZERO,V(NR+1,1),LDV )
-                  CALL SLASET( 'A',NR,N-NR,ZERO,ZERO,V(1,NR+1),LDV )
-                  CALL SLASET( 'A',N-NR,N-NR,ZERO,ONE,V(NR+1,NR+1),LDV )
+                  slaset('A',N-NR,NR,ZERO,ZERO,V(NR+1,1),LDV );
+                  slaset('A',NR,N-NR,ZERO,ZERO,V(1,NR+1),LDV );
+                  slaset('A',N-NR,N-NR,ZERO,ONE,V(NR+1,NR+1),LDV );
                }
-               CALL SORMQR( 'L','N',N,N,NR,WORK(2*N+1),N,WORK(N+1), V,LDV,WORK(2*N+N*NR+NR+1),LWORK-2*N-N*NR-NR,IERR )
+               sormqr('L','N',N,N,NR,WORK(2*N+1),N,WORK(N+1), V,LDV,WORK(2*N+N*NR+NR+1),LWORK-2*N-N*NR-NR,IERR );
             } else {
                // Last line of defense.
 * #:(          This is a rather pathological case: no scaled condition
@@ -964,17 +964,17 @@
                // defense ensures that SGEJSV completes the task.
                // Compute the full SVD of L3 using SGESVJ with explicit
                // accumulation of Jacobi rotations.
-               CALL SGESVJ( 'L', 'U', 'V', NR, NR, V, LDV, SVA, NR, U, LDU, WORK(2*N+N*NR+NR+1), LWORK-2*N-N*NR-NR, INFO )
+               sgesvj('L', 'U', 'V', NR, NR, V, LDV, SVA, NR, U, LDU, WORK(2*N+N*NR+NR+1), LWORK-2*N-N*NR-NR, INFO );
                SCALEM  = WORK(2*N+N*NR+NR+1)
                NUMRANK = NINT(WORK(2*N+N*NR+NR+2))
                if ( NR .LT. N ) {
-                  CALL SLASET( 'A',N-NR,NR,ZERO,ZERO,V(NR+1,1),LDV )
-                  CALL SLASET( 'A',NR,N-NR,ZERO,ZERO,V(1,NR+1),LDV )
-                  CALL SLASET( 'A',N-NR,N-NR,ZERO,ONE,V(NR+1,NR+1),LDV )
+                  slaset('A',N-NR,NR,ZERO,ZERO,V(NR+1,1),LDV );
+                  slaset('A',NR,N-NR,ZERO,ZERO,V(1,NR+1),LDV );
+                  slaset('A',N-NR,N-NR,ZERO,ONE,V(NR+1,NR+1),LDV );
                }
-               CALL SORMQR( 'L','N',N,N,NR,WORK(2*N+1),N,WORK(N+1), V,LDV,WORK(2*N+N*NR+NR+1),LWORK-2*N-N*NR-NR,IERR )
+               sormqr('L','N',N,N,NR,WORK(2*N+1),N,WORK(N+1), V,LDV,WORK(2*N+N*NR+NR+1),LWORK-2*N-N*NR-NR,IERR );
 
-               CALL SORMLQ( 'L', 'T', NR, NR, NR, WORK(2*N+1), N, WORK(2*N+N*NR+1), U, LDU, WORK(2*N+N*NR+NR+1), LWORK-2*N-N*NR-NR, IERR )
+               sormlq('L', 'T', NR, NR, NR, WORK(2*N+1), N, WORK(2*N+N*NR+1), U, LDU, WORK(2*N+N*NR+NR+1), LWORK-2*N-N*NR-NR, IERR );
                DO 773 q = 1, NR
                   DO 772 p = 1, NR
                      WORK(2*N+N*NR+NR+IWORK(N+p)) = U(p,q)
@@ -1004,17 +1004,17 @@
             // At this moment, V contains the right singular vectors of A.
             // Next, assemble the left singular vector matrix U (M x N).
             if ( NR .LT. M ) {
-               CALL SLASET( 'A', M-NR, NR, ZERO, ZERO, U(NR+1,1), LDU )
+               slaset('A', M-NR, NR, ZERO, ZERO, U(NR+1,1), LDU );
                if ( NR .LT. N1 ) {
-                  CALL SLASET('A',NR,N1-NR,ZERO,ZERO,U(1,NR+1),LDU)
-                  CALL SLASET('A',M-NR,N1-NR,ZERO,ONE,U(NR+1,NR+1),LDU)
+                  slaset('A',NR,N1-NR,ZERO,ZERO,U(1,NR+1),LDU);
+                  slaset('A',M-NR,N1-NR,ZERO,ONE,U(NR+1,NR+1),LDU);
                }
             }
 
             // The Q matrix from the first QRF is built into the left singular
             // matrix U. This applies to all cases.
 
-            CALL SORMQR( 'Left', 'No_Tr', M, N1, N, A, LDA, WORK, U, LDU, WORK(N+1), LWORK-N, IERR )
+            sormqr('Left', 'No_Tr', M, N1, N, A, LDA, WORK, U, LDU, WORK(N+1), LWORK-N, IERR );
 
             // The columns of U are normalized. The cost is O(M*N) flops.
             TEMP1 = SQRT(FLOAT(M)) * EPSLN
@@ -1033,7 +1033,7 @@
          // .. the initial matrix A has almost orthogonal columns and
          // the second QRF is not needed
 
-            CALL SLACPY( 'Upper', N, N, A, LDA, WORK(N+1), N )
+            slacpy('Upper', N, N, A, LDA, WORK(N+1), N );
             if ( L2PERT ) {
                XSC = SQRT(SMALL)
                DO 5970 p = 2, N
@@ -1043,21 +1043,21 @@
  5971             CONTINUE
  5970          CONTINUE
             } else {
-               CALL SLASET( 'Lower',N-1,N-1,ZERO,ZERO,WORK(N+2),N )
+               slaset('Lower',N-1,N-1,ZERO,ZERO,WORK(N+2),N );
             }
 
-            CALL SGESVJ( 'Upper', 'U', 'N', N, N, WORK(N+1), N, SVA, N, U, LDU, WORK(N+N*N+1), LWORK-N-N*N, INFO )
+            sgesvj('Upper', 'U', 'N', N, N, WORK(N+1), N, SVA, N, U, LDU, WORK(N+N*N+1), LWORK-N-N*N, INFO );
 
             SCALEM  = WORK(N+N*N+1)
             NUMRANK = NINT(WORK(N+N*N+2))
             DO 6970 p = 1, N
-               CALL SCOPY( N, WORK(N+(p-1)*N+1), 1, U(1,p), 1 )
-               CALL SSCAL( N, SVA(p), WORK(N+(p-1)*N+1), 1 )
+               scopy(N, WORK(N+(p-1)*N+1), 1, U(1,p), 1 );
+               sscal(N, SVA(p), WORK(N+(p-1)*N+1), 1 );
  6970       CONTINUE
 
-            CALL STRSM( 'Left', 'Upper', 'NoTrans', 'No UD', N, N, ONE, A, LDA, WORK(N+1), N )
+            strsm('Left', 'Upper', 'NoTrans', 'No UD', N, N, ONE, A, LDA, WORK(N+1), N );
             DO 6972 p = 1, N
-               CALL SCOPY( N, WORK(N+p), N, V(IWORK(p),1), LDV )
+               scopy(N, WORK(N+p), N, V(IWORK(p),1), LDV );
  6972       CONTINUE
             TEMP1 = SQRT(FLOAT(N))*EPSLN
             DO 6971 p = 1, N
@@ -1068,13 +1068,13 @@
             // Assemble the left singular vector matrix U (M x N).
 
             if ( N .LT. M ) {
-               CALL SLASET( 'A',  M-N, N, ZERO, ZERO, U(N+1,1), LDU )
+               slaset('A',  M-N, N, ZERO, ZERO, U(N+1,1), LDU );
                if ( N .LT. N1 ) {
-                  CALL SLASET( 'A',N,  N1-N, ZERO, ZERO,  U(1,N+1),LDU )
-                  CALL SLASET( 'A',M-N,N1-N, ZERO, ONE,U(N+1,N+1),LDU )
+                  slaset('A',N,  N1-N, ZERO, ZERO,  U(1,N+1),LDU );
+                  slaset('A',M-N,N1-N, ZERO, ONE,U(N+1,N+1),LDU );
                }
             }
-            CALL SORMQR( 'Left', 'No Tr', M, N1, N, A, LDA, WORK, U, LDU, WORK(N+1), LWORK-N, IERR )
+            sormqr('Left', 'No Tr', M, N1, N, A, LDA, WORK, U, LDU, WORK(N+1), LWORK-N, IERR );
             TEMP1 = SQRT(FLOAT(M))*EPSLN
             DO 6973 p = 1, N1
                XSC = ONE / SNRM2( M, U(1,p), 1 )
@@ -1100,7 +1100,7 @@
          // in presence of extreme values. Since that is not always the case, ...
 
          DO 7968 p = 1, NR
-            CALL SCOPY( N-p+1, A(p,p), LDA, V(p,p), 1 )
+            scopy(N-p+1, A(p,p), LDA, V(p,p), 1 );
  7968    CONTINUE
 
          if ( L2PERT ) {
@@ -1113,13 +1113,13 @@
  5968          CONTINUE
  5969       CONTINUE
          } else {
-            CALL SLASET( 'U', NR-1, NR-1, ZERO, ZERO, V(1,2), LDV )
+            slaset('U', NR-1, NR-1, ZERO, ZERO, V(1,2), LDV );
          }
-          CALL SGEQRF( N, NR, V, LDV, WORK(N+1), WORK(2*N+1), LWORK-2*N, IERR )
-         CALL SLACPY( 'L', N, NR, V, LDV, WORK(2*N+1), N )
+          sgeqrf(N, NR, V, LDV, WORK(N+1), WORK(2*N+1), LWORK-2*N, IERR );
+         slacpy('L', N, NR, V, LDV, WORK(2*N+1), N );
 
          DO 7969 p = 1, NR
-            CALL SCOPY( NR-p+1, V(p,p), LDV, U(p,p), 1 )
+            scopy(NR-p+1, V(p,p), LDV, U(p,p), 1 );
  7969    CONTINUE
 
          if ( L2PERT ) {
@@ -1131,18 +1131,18 @@
  9971          CONTINUE
  9970       CONTINUE
          } else {
-            CALL SLASET('U', NR-1, NR-1, ZERO, ZERO, U(1,2), LDU )
+            slaset('U', NR-1, NR-1, ZERO, ZERO, U(1,2), LDU );
          }
-          CALL SGESVJ( 'L', 'U', 'V', NR, NR, U, LDU, SVA, N, V, LDV, WORK(2*N+N*NR+1), LWORK-2*N-N*NR, INFO )
+          sgesvj('L', 'U', 'V', NR, NR, U, LDU, SVA, N, V, LDV, WORK(2*N+N*NR+1), LWORK-2*N-N*NR, INFO );
          SCALEM  = WORK(2*N+N*NR+1)
          NUMRANK = NINT(WORK(2*N+N*NR+2))
 
          if ( NR .LT. N ) {
-            CALL SLASET( 'A',N-NR,NR,ZERO,ZERO,V(NR+1,1),LDV )
-            CALL SLASET( 'A',NR,N-NR,ZERO,ZERO,V(1,NR+1),LDV )
-            CALL SLASET( 'A',N-NR,N-NR,ZERO,ONE,V(NR+1,NR+1),LDV )
+            slaset('A',N-NR,NR,ZERO,ZERO,V(NR+1,1),LDV );
+            slaset('A',NR,N-NR,ZERO,ZERO,V(1,NR+1),LDV );
+            slaset('A',N-NR,N-NR,ZERO,ONE,V(NR+1,NR+1),LDV );
          }
-          CALL SORMQR( 'L','N',N,N,NR,WORK(2*N+1),N,WORK(N+1), V,LDV,WORK(2*N+N*NR+NR+1),LWORK-2*N-N*NR-NR,IERR )
+          sormqr('L','N',N,N,NR,WORK(2*N+1),N,WORK(N+1), V,LDV,WORK(2*N+N*NR+NR+1),LWORK-2*N-N*NR-NR,IERR );
 
             // Permute the rows of V using the (column) permutation from the
             // first QRF. Also, scale the columns to make them unit in
@@ -1164,14 +1164,14 @@
             // Next, assemble the left singular vector matrix U (M x N).
 
          if ( NR .LT. M ) {
-            CALL SLASET( 'A',  M-NR, NR, ZERO, ZERO, U(NR+1,1), LDU )
+            slaset('A',  M-NR, NR, ZERO, ZERO, U(NR+1,1), LDU );
             if ( NR .LT. N1 ) {
-               CALL SLASET( 'A',NR,  N1-NR, ZERO, ZERO,  U(1,NR+1),LDU )
-               CALL SLASET( 'A',M-NR,N1-NR, ZERO, ONE,U(NR+1,NR+1),LDU )
+               slaset('A',NR,  N1-NR, ZERO, ZERO,  U(1,NR+1),LDU );
+               slaset('A',M-NR,N1-NR, ZERO, ONE,U(NR+1,NR+1),LDU );
             }
          }
 
-         CALL SORMQR( 'Left', 'No Tr', M, N1, N, A, LDA, WORK, U, LDU, WORK(N+1), LWORK-N, IERR )
+         sormqr('Left', 'No Tr', M, N1, N, A, LDA, WORK, U, LDU, WORK(N+1), LWORK-N, IERR );
 
             IF ( ROWPIV ) CALL SLASWP( N1, U, LDU, 1, M-1, IWORK(2*N+1), -1 )
 
@@ -1180,7 +1180,7 @@
          if ( TRANSP ) {
             // .. swap U and V because the procedure worked on A^t
             DO 6974 p = 1, N
-               CALL SSWAP( N, U(1,p), 1, V(1,p), 1 )
+               sswap(N, U(1,p), 1, V(1,p), 1 );
  6974       CONTINUE
          }
 
@@ -1190,7 +1190,7 @@
       // Undo scaling, if necessary (and possible)
 
       if ( USCAL2 .LE. (BIG/SVA(1))*USCAL1 ) {
-         CALL SLASCL( 'G', 0, 0, USCAL1, USCAL2, NR, 1, SVA, N, IERR )
+         slascl('G', 0, 0, USCAL1, USCAL2, NR, 1, SVA, N, IERR );
          USCAL1 = ONE
          USCAL2 = ONE
       }

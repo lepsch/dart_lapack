@@ -47,7 +47,7 @@
          INFO = 9
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'ZSPMV ', INFO )
+         xerbla('ZSPMV ', INFO );
          RETURN
       }
 

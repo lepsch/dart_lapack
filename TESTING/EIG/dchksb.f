@@ -91,7 +91,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'DCHKSB', -INFO )
+         xerbla('DCHKSB', -INFO );
          RETURN
       }
 
@@ -177,7 +177,7 @@
 
    70          CONTINUE
 
-               CALL DLASET( 'Full', LDA, N, ZERO, ZERO, A, LDA )
+               dlaset('Full', LDA, N, ZERO, ZERO, A, LDA );
                IINFO = 0
                if ( JTYPE.LE.15 ) {
                   COND = ULPINV
@@ -204,31 +204,31 @@
 
                   // Diagonal Matrix, [Eigen]values Specified
 
-                  CALL DLATMS( N, N, 'S', ISEED, 'S', WORK, IMODE, COND, ANORM, 0, 0, 'Q', A( K+1, 1 ), LDA, WORK( N+1 ), IINFO )
+                  dlatms(N, N, 'S', ISEED, 'S', WORK, IMODE, COND, ANORM, 0, 0, 'Q', A( K+1, 1 ), LDA, WORK( N+1 ), IINFO );
 
                } else if ( ITYPE.EQ.5 ) {
 
                   // Symmetric, eigenvalues specified
 
-                  CALL DLATMS( N, N, 'S', ISEED, 'S', WORK, IMODE, COND, ANORM, K, K, 'Q', A, LDA, WORK( N+1 ), IINFO )
+                  dlatms(N, N, 'S', ISEED, 'S', WORK, IMODE, COND, ANORM, K, K, 'Q', A, LDA, WORK( N+1 ), IINFO );
 
                } else if ( ITYPE.EQ.7 ) {
 
                   // Diagonal, random eigenvalues
 
-                  CALL DLATMR( N, N, 'S', ISEED, 'S', WORK, 6, ONE, ONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, 0, 0, ZERO, ANORM, 'Q', A( K+1, 1 ), LDA, IDUMMA, IINFO )
+                  dlatmr(N, N, 'S', ISEED, 'S', WORK, 6, ONE, ONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, 0, 0, ZERO, ANORM, 'Q', A( K+1, 1 ), LDA, IDUMMA, IINFO );
 
                } else if ( ITYPE.EQ.8 ) {
 
                   // Symmetric, random eigenvalues
 
-                  CALL DLATMR( N, N, 'S', ISEED, 'S', WORK, 6, ONE, ONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, K, K, ZERO, ANORM, 'Q', A, LDA, IDUMMA, IINFO )
+                  dlatmr(N, N, 'S', ISEED, 'S', WORK, 6, ONE, ONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, K, K, ZERO, ANORM, 'Q', A, LDA, IDUMMA, IINFO );
 
                } else if ( ITYPE.EQ.9 ) {
 
                   // Positive definite, eigenvalues specified.
 
-                  CALL DLATMS( N, N, 'S', ISEED, 'P', WORK, IMODE, COND, ANORM, K, K, 'Q', A, LDA, WORK( N+1 ), IINFO )
+                  dlatms(N, N, 'S', ISEED, 'P', WORK, IMODE, COND, ANORM, K, K, 'Q', A, LDA, WORK( N+1 ), IINFO );
 
                } else if ( ITYPE.EQ.10 ) {
 
@@ -257,10 +257,10 @@
 
                // Call DSBTRD to compute S and U from upper triangle.
 
-               CALL DLACPY( ' ', K+1, N, A, LDA, WORK, LDA )
+               dlacpy(' ', K+1, N, A, LDA, WORK, LDA );
 
                NTEST = 1
-               CALL DSBTRD( 'V', 'U', N, K, WORK, LDA, SD, SE, U, LDU, WORK( LDA*N+1 ), IINFO )
+               dsbtrd('V', 'U', N, K, WORK, LDA, SD, SE, U, LDU, WORK( LDA*N+1 ), IINFO );
 
                if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'DSBTRD(U)', IINFO, N, JTYPE, IOLDSD
@@ -275,7 +275,7 @@
 
                // Do tests 1 and 2
 
-               CALL DSBT21( 'Upper', N, K, 1, A, LDA, SD, SE, U, LDU, WORK, RESULT( 1 ) )
+               dsbt21('Upper', N, K, 1, A, LDA, SD, SE, U, LDU, WORK, RESULT( 1 ) );
 
                // Convert A from Upper-Triangle-Only storage to
                // Lower-Triangle-Only storage.
@@ -293,10 +293,10 @@
 
                // Call DSBTRD to compute S and U from lower triangle
 
-               CALL DLACPY( ' ', K+1, N, A, LDA, WORK, LDA )
+               dlacpy(' ', K+1, N, A, LDA, WORK, LDA );
 
                NTEST = 3
-               CALL DSBTRD( 'V', 'L', N, K, WORK, LDA, SD, SE, U, LDU, WORK( LDA*N+1 ), IINFO )
+               dsbtrd('V', 'L', N, K, WORK, LDA, SD, SE, U, LDU, WORK( LDA*N+1 ), IINFO );
 
                if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'DSBTRD(L)', IINFO, N, JTYPE, IOLDSD
@@ -312,7 +312,7 @@
 
                // Do tests 3 and 4
 
-               CALL DSBT21( 'Lower', N, K, 1, A, LDA, SD, SE, U, LDU, WORK, RESULT( 3 ) )
+               dsbt21('Lower', N, K, 1, A, LDA, SD, SE, U, LDU, WORK, RESULT( 3 ) );
 
                // End of Loop -- Check for RESULT(j) > THRESH
 
@@ -345,7 +345,7 @@
 
       // Summary
 
-      CALL DLASUM( 'DSB', NOUNIT, NERRS, NTESTT )
+      dlasum('DSB', NOUNIT, NERRS, NTESTT );
       RETURN
 
  9999 FORMAT( ' DCHKSB: ', A, ' returned INFO=', I6, '.', / 9X, 'N=', I6, ', JTYPE=', I6, ', ISEED=(', 3( I5, ',' ), I5, ')' )

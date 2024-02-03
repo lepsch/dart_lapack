@@ -51,7 +51,7 @@
          INFO = -16
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'DLASD6', -INFO )
+         xerbla('DLASD6', -INFO );
          RETURN
       }
 
@@ -77,17 +77,17 @@
             ORGNRM = ABS( D( I ) )
          }
    10 CONTINUE
-      CALL DLASCL( 'G', 0, 0, ORGNRM, ONE, N, 1, D, N, INFO )
+      dlascl('G', 0, 0, ORGNRM, ONE, N, 1, D, N, INFO );
       ALPHA = ALPHA / ORGNRM
       BETA = BETA / ORGNRM
 
       // Sort and Deflate singular values.
 
-      CALL DLASD7( ICOMPQ, NL, NR, SQRE, K, D, Z, WORK( IW ), VF, WORK( IVFW ), VL, WORK( IVLW ), ALPHA, BETA, WORK( ISIGMA ), IWORK( IDX ), IWORK( IDXP ), IDXQ, PERM, GIVPTR, GIVCOL, LDGCOL, GIVNUM, LDGNUM, C, S, INFO )
+      dlasd7(ICOMPQ, NL, NR, SQRE, K, D, Z, WORK( IW ), VF, WORK( IVFW ), VL, WORK( IVLW ), ALPHA, BETA, WORK( ISIGMA ), IWORK( IDX ), IWORK( IDXP ), IDXQ, PERM, GIVPTR, GIVCOL, LDGCOL, GIVNUM, LDGNUM, C, S, INFO );
 
       // Solve Secular Equation, compute DIFL, DIFR, and update VF, VL.
 
-      CALL DLASD8( ICOMPQ, K, D, Z, VF, VL, DIFL, DIFR, LDGNUM, WORK( ISIGMA ), WORK( IW ), INFO )
+      dlasd8(ICOMPQ, K, D, Z, VF, VL, DIFL, DIFR, LDGNUM, WORK( ISIGMA ), WORK( IW ), INFO );
 
       // Report the possible convergence failure.
 
@@ -98,19 +98,19 @@
       // Save the poles if ICOMPQ = 1.
 
       if ( ICOMPQ.EQ.1 ) {
-         CALL DCOPY( K, D, 1, POLES( 1, 1 ), 1 )
-         CALL DCOPY( K, WORK( ISIGMA ), 1, POLES( 1, 2 ), 1 )
+         dcopy(K, D, 1, POLES( 1, 1 ), 1 );
+         dcopy(K, WORK( ISIGMA ), 1, POLES( 1, 2 ), 1 );
       }
 
       // Unscale.
 
-      CALL DLASCL( 'G', 0, 0, ONE, ORGNRM, N, 1, D, N, INFO )
+      dlascl('G', 0, 0, ONE, ORGNRM, N, 1, D, N, INFO );
 
       // Prepare the IDXQ sorting permutation.
 
       N1 = K
       N2 = N - K
-      CALL DLAMRG( N1, N2, D, 1, -1, IDXQ )
+      dlamrg(N1, N2, D, 1, -1, IDXQ );
 
       RETURN
 

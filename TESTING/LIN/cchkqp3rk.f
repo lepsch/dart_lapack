@@ -98,15 +98,15 @@
                   // Random matrix, CNDNUM = 2, NORM = ONE,
                   // MODE = 3 (geometric distribution of singular values).
 
-                  CALL CLATB4( PATH, 14, M, NRHS, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST )
+                  clatb4(PATH, 14, M, NRHS, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST );
 
                   SRNAMT = 'CLATMS'
-                  CALL CLATMS( M, NRHS, DIST, ISEED, TYPE, S, MODE, CNDNUM, ANORM, KL, KU, 'No packing', COPYB, LDA, WORK, INFO )
+                  clatms(M, NRHS, DIST, ISEED, TYPE, S, MODE, CNDNUM, ANORM, KL, KU, 'No packing', COPYB, LDA, WORK, INFO );
 
                   // Check error code from CLATMS.
 
                   if ( INFO.NE.0 ) {
-                     CALL ALAERH( PATH, 'CLATMS', INFO, 0, ' ', M, NRHS, -1, -1, -1, 6, NFAIL, NERRS, NOUT )
+                     alaerh(PATH, 'CLATMS', INFO, 0, ' ', M, NRHS, -1, -1, -1, 6, NFAIL, NERRS, NOUT );
                      CYCLE
                   }
 
@@ -147,7 +147,7 @@
 
                   // Matrix 1: Zero matrix
 
-                  CALL CLASET( 'Full', M, N, CZERO, CZERO, COPYA, LDA )
+                  claset('Full', M, N, CZERO, CZERO, COPYA, LDA );
                   DO I = 1, MINMN
                      S( I ) = ZERO
                   END DO
@@ -159,19 +159,19 @@
                   // Set up parameters with DLATB4 and generate a test
                   // matrix with CLATMS.
 
-                  CALL CLATB4( PATH, IMAT, M, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST )
+                  clatb4(PATH, IMAT, M, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST );
 
                   SRNAMT = 'CLATMS'
-                  CALL CLATMS( M, N, DIST, ISEED, TYPE, S, MODE, CNDNUM, ANORM, KL, KU, 'No packing', COPYA, LDA, WORK, INFO )
+                  clatms(M, N, DIST, ISEED, TYPE, S, MODE, CNDNUM, ANORM, KL, KU, 'No packing', COPYA, LDA, WORK, INFO );
 
                   // Check error code from CLATMS.
 
                   if ( INFO.NE.0 ) {
-                     CALL ALAERH( PATH, 'CLATMS', INFO, 0, ' ', M, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT )
+                     alaerh(PATH, 'CLATMS', INFO, 0, ' ', M, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
                      CYCLE
                   }
 
-                  CALL SLAORD( 'Decreasing', MINMN, S, 1 )
+                  slaord('Decreasing', MINMN, S, 1 );
 
                } else if ( MINMN.GE.2 .AND. IMAT.GE.5 .AND. IMAT.LE.13 ) {
 
@@ -270,24 +270,24 @@
                   // 1) Set the first NB_ZERO columns in COPYA(1:M,1:N)
                      // to zero.
 
-                  CALL CLASET( 'Full', M, NB_ZERO, CZERO, CZERO, COPYA, LDA )
+                  claset('Full', M, NB_ZERO, CZERO, CZERO, COPYA, LDA );
 
                      // 2) Generate an M-by-(N-NB_ZERO) matrix with the
                         // chosen singular value distribution
                         // in COPYA(1:M,NB_ZERO+1:N).
 
-                  CALL CLATB4( PATH, IMAT, M, NB_GEN, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST )
+                  clatb4(PATH, IMAT, M, NB_GEN, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST );
 
                   SRNAMT = 'CLATMS'
 
                   IND_OFFSET_GEN = NB_ZERO * LDA
 
-                  CALL CLATMS( M, NB_GEN, DIST, ISEED, TYPE, S, MODE, CNDNUM, ANORM, KL, KU, 'No packing', COPYA( IND_OFFSET_GEN + 1 ), LDA, WORK, INFO )
+                  clatms(M, NB_GEN, DIST, ISEED, TYPE, S, MODE, CNDNUM, ANORM, KL, KU, 'No packing', COPYA( IND_OFFSET_GEN + 1 ), LDA, WORK, INFO );
 
                   // Check error code from CLATMS.
 
                   if ( INFO.NE.0 ) {
-                     CALL ALAERH( PATH, 'CLATMS', INFO, 0, ' ', M, NB_GEN, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT )
+                     alaerh(PATH, 'CLATMS', INFO, 0, ' ', M, NB_GEN, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
                      CYCLE
                   }
 
@@ -303,7 +303,7 @@
                      // into columns (1:JB_ZERO-1).
 
                      DO J = 1, JB_ZERO-1, 1
-                        CALL CSWAP( M, COPYA( ( NB_ZERO+J-1)*LDA+1), 1, COPYA( (J-1)*LDA + 1 ), 1 )
+                        cswap(M, COPYA( ( NB_ZERO+J-1)*LDA+1), 1, COPYA( (J-1)*LDA + 1 ), 1 );
                      END DO
 
                   } else if ( IMAT.EQ.12 .OR. IMAT.EQ.13 ) {
@@ -332,7 +332,7 @@
 
                   MINMNB_GEN = MIN( M, NB_GEN )
 
-                  CALL SLAORD( 'Decreasing', MINMNB_GEN, S, 1 )
+                  slaord('Decreasing', MINMNB_GEN, S, 1 );
 
                   DO I = MINMNB_GEN+1, MINMN
                      S( I ) = ZERO
@@ -356,9 +356,9 @@
                   // Do for each pair of values (NB,NX) in NBVAL and NXVAL.
 
                   NB = NBVAL( INB )
-                  CALL XLAENV( 1, NB )
+                  xlaenv(1, NB );
                   NX = NXVAL( INB )
-                  CALL XLAENV( 3, NX )
+                  xlaenv(3, NX );
 
                   // We do MIN(M,N)+1 because we need a test for KMAX > N,
                   // when KMAX is larger than MIN(M,N), KMAX should be
@@ -374,9 +374,9 @@
                   // NOTE: IWORK(2N+1:3N) is going to be used as a WORK array
                   // for the routine.
 
-                  CALL CLACPY( 'All', M, N, COPYA, LDA, A, LDA )
-                  CALL CLACPY( 'All', M, NRHS, COPYB, LDA, A( LDA*N + 1 ),  LDA )                   CALL CLACPY( 'All', M, NRHS, COPYB, LDA, B,  LDA )
-                  CALL ICOPY( N, IWORK( 1 ), 1, IWORK( N+1 ), 1 )
+                  clacpy('All', M, N, COPYA, LDA, A, LDA );
+                  clacpy('All', M, NRHS, COPYB, LDA, A( LDA*N + 1 ),  LDA )                   CALL CLACPY( 'All', M, NRHS, COPYB, LDA, B,  LDA );
+                  icopy(N, IWORK( 1 ), 1, IWORK( N+1 ), 1 );
 
                   ABSTOL = -1.0
                   RELTOl = -1.0
@@ -388,7 +388,7 @@
                   // Compute CGEQP3RK factorization of A.
 
                   SRNAMT = 'CGEQP3RK'
-                  CALL CGEQP3RK( M, N, NRHS, KMAX, ABSTOL, RELTOL, A, LDA, KFACT, MAXC2NRMK, RELMAXC2NRMK, IWORK( N+1 ), TAU, WORK, LW, RWORK, IWORK( 2*N+1 ), INFO )
+                  cgeqp3rk(M, N, NRHS, KMAX, ABSTOL, RELTOL, A, LDA, KFACT, MAXC2NRMK, RELMAXC2NRMK, IWORK( N+1 ), TAU, WORK, LW, RWORK, IWORK( 2*N+1 ), INFO );
 
                   // Check error code from CGEQP3RK.
 
@@ -504,13 +504,13 @@
                   if ( MINMN.GT.0 ) {
 
                      LWORK_MQR = MAX(1, NRHS)
-                     CALL CUNMQR( 'Left', 'Conjugate transpose', M, NRHS, KFACT, A, LDA, TAU, B, LDA, WORK, LWORK_MQR, INFO )
+                     cunmqr('Left', 'Conjugate transpose', M, NRHS, KFACT, A, LDA, TAU, B, LDA, WORK, LWORK_MQR, INFO );
 
                      DO I = 1, NRHS
 
                         // Compare N+J-th column of A and J-column of B.
 
-                        CALL CAXPY( M, -CONE, A( ( N+I-1 )*LDA+1 ), 1, B( ( I-1 )*LDA+1 ), 1 )
+                        caxpy(M, -CONE, A( ( N+I-1 )*LDA+1 ), 1, B( ( I-1 )*LDA+1 ), 1 );
                      END DO
 
                      RESULT( 5 ) = ABS( CLANGE( 'One-norm', M, NRHS, B, LDA, RDUMMY ) / ( REAL( M )*SLAMCH( 'Epsilon' ) ) )
@@ -556,7 +556,7 @@
 
       // Print a summary of the results.
 
-      CALL ALASUM( PATH, NOUT, NFAIL, NRUN, NERRS )
+      alasum(PATH, NOUT, NFAIL, NRUN, NERRS );
 
  9999 FORMAT( 1X, A, ' M =', I5, ', N =', I5, ', NRHS =', I5, ', KMAX =', I5, ', ABSTOL =', G12.5, ', RELTOL =', G12.5, ', NB =', I4, ', NX =', I4, ', type ', I2, ', test ', I2, ', ratio =', G12.5 )
 

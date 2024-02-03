@@ -34,7 +34,7 @@
       } else {
          W = CONJG( B ) / ABS( B )
       }
-      CALL SLAEV2( REAL( A ), ABS( B ), REAL( C ), RT1, RT2, CS1, T )
+      slaev2(REAL( A ), ABS( B ), REAL( C ), RT1, RT2, CS1, T );
       SN1 = W*T
       RETURN
 

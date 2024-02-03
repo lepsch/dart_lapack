@@ -37,7 +37,7 @@
          INFO = -7
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'CGELQT', -INFO )
+         xerbla('CGELQT', -INFO );
          RETURN
       }
 
@@ -53,12 +53,12 @@
 
       // Compute the LQ factorization of the current block A(I:M,I:I+IB-1)
 
-         CALL CGELQT3( IB, N-I+1, A(I,I), LDA, T(1,I), LDT, IINFO )
+         cgelqt3(IB, N-I+1, A(I,I), LDA, T(1,I), LDT, IINFO );
          if ( I+IB.LE.M ) {
 
       // Update by applying H**T to A(I:M,I+IB:N) from the right
 
-         CALL CLARFB( 'R', 'N', 'F', 'R', M-I-IB+1, N-I+1, IB, A( I, I ), LDA, T( 1, I ), LDT, A( I+IB, I ), LDA, WORK , M-I-IB+1 )
+         clarfb('R', 'N', 'F', 'R', M-I-IB+1, N-I+1, IB, A( I, I ), LDA, T( 1, I ), LDT, A( I+IB, I ), LDA, WORK , M-I-IB+1 );
          }
       END DO
       RETURN

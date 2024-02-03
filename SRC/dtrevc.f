@@ -102,7 +102,7 @@
          }
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'DTREVC', -INFO )
+         xerbla('DTREVC', -INFO );
          RETURN
       }
 
@@ -195,7 +195,7 @@
 
                      // 1-by-1 diagonal block
 
-                     CALL DLALN2( .FALSE., 1, 1, SMIN, ONE, T( J, J ), LDT, ONE, ONE, WORK( J+N ), N, WR, ZERO, X, 2, SCALE, XNORM, IERR )
+                     dlaln2(.FALSE., 1, 1, SMIN, ONE, T( J, J ), LDT, ONE, ONE, WORK( J+N ), N, WR, ZERO, X, 2, SCALE, XNORM, IERR );
 
                      // Scale X(1,1) to avoid overflow when updating
                      // the right-hand side.
@@ -214,13 +214,13 @@
 
                      // Update right-hand side
 
-                     CALL DAXPY( J-1, -X( 1, 1 ), T( 1, J ), 1, WORK( 1+N ), 1 )
+                     daxpy(J-1, -X( 1, 1 ), T( 1, J ), 1, WORK( 1+N ), 1 );
 
                   } else {
 
                      // 2-by-2 diagonal block
 
-                     CALL DLALN2( .FALSE., 2, 1, SMIN, ONE, T( J-1, J-1 ), LDT, ONE, ONE, WORK( J-1+N ), N, WR, ZERO, X, 2, SCALE, XNORM, IERR )
+                     dlaln2(.FALSE., 2, 1, SMIN, ONE, T( J-1, J-1 ), LDT, ONE, ONE, WORK( J-1+N ), N, WR, ZERO, X, 2, SCALE, XNORM, IERR );
 
                      // Scale X(1,1) and X(2,1) to avoid overflow when
                      // updating the right-hand side.
@@ -242,18 +242,18 @@
 
                      // Update right-hand side
 
-                     CALL DAXPY( J-2, -X( 1, 1 ), T( 1, J-1 ), 1, WORK( 1+N ), 1 )                      CALL DAXPY( J-2, -X( 2, 1 ), T( 1, J ), 1, WORK( 1+N ), 1 )
+                     daxpy(J-2, -X( 1, 1 ), T( 1, J-1 ), 1, WORK( 1+N ), 1 )                      CALL DAXPY( J-2, -X( 2, 1 ), T( 1, J ), 1, WORK( 1+N ), 1 );
                   }
    60          CONTINUE
 
                // Copy the vector x or Q*x to VR and normalize.
 
                if ( .NOT.OVER ) {
-                  CALL DCOPY( KI, WORK( 1+N ), 1, VR( 1, IS ), 1 )
+                  dcopy(KI, WORK( 1+N ), 1, VR( 1, IS ), 1 );
 
                   II = IDAMAX( KI, VR( 1, IS ), 1 )
                   REMAX = ONE / ABS( VR( II, IS ) )
-                  CALL DSCAL( KI, REMAX, VR( 1, IS ), 1 )
+                  dscal(KI, REMAX, VR( 1, IS ), 1 );
 
                   DO 70 K = KI + 1, N
                      VR( K, IS ) = ZERO
@@ -263,7 +263,7 @@
 
                   II = IDAMAX( N, VR( 1, KI ), 1 )
                   REMAX = ONE / ABS( VR( II, KI ) )
-                  CALL DSCAL( N, REMAX, VR( 1, KI ), 1 )
+                  dscal(N, REMAX, VR( 1, KI ), 1 );
                }
 
             } else {
@@ -311,7 +311,7 @@
 
                      // 1-by-1 diagonal block
 
-                     CALL DLALN2( .FALSE., 1, 2, SMIN, ONE, T( J, J ), LDT, ONE, ONE, WORK( J+N ), N, WR, WI, X, 2, SCALE, XNORM, IERR )
+                     dlaln2(.FALSE., 1, 2, SMIN, ONE, T( J, J ), LDT, ONE, ONE, WORK( J+N ), N, WR, WI, X, 2, SCALE, XNORM, IERR );
 
                      // Scale X(1,1) and X(1,2) to avoid overflow when
                      // updating the right-hand side.
@@ -327,21 +327,21 @@
                      // Scale if necessary
 
                      if ( SCALE.NE.ONE ) {
-                        CALL DSCAL( KI, SCALE, WORK( 1+N ), 1 )
-                        CALL DSCAL( KI, SCALE, WORK( 1+N2 ), 1 )
+                        dscal(KI, SCALE, WORK( 1+N ), 1 );
+                        dscal(KI, SCALE, WORK( 1+N2 ), 1 );
                      }
                      WORK( J+N ) = X( 1, 1 )
                      WORK( J+N2 ) = X( 1, 2 )
 
                      // Update the right-hand side
 
-                     CALL DAXPY( J-1, -X( 1, 1 ), T( 1, J ), 1, WORK( 1+N ), 1 )                      CALL DAXPY( J-1, -X( 1, 2 ), T( 1, J ), 1, WORK( 1+N2 ), 1 )
+                     daxpy(J-1, -X( 1, 1 ), T( 1, J ), 1, WORK( 1+N ), 1 )                      CALL DAXPY( J-1, -X( 1, 2 ), T( 1, J ), 1, WORK( 1+N2 ), 1 );
 
                   } else {
 
                      // 2-by-2 diagonal block
 
-                     CALL DLALN2( .FALSE., 2, 2, SMIN, ONE, T( J-1, J-1 ), LDT, ONE, ONE, WORK( J-1+N ), N, WR, WI, X, 2, SCALE, XNORM, IERR )
+                     dlaln2(.FALSE., 2, 2, SMIN, ONE, T( J-1, J-1 ), LDT, ONE, ONE, WORK( J-1+N ), N, WR, WI, X, 2, SCALE, XNORM, IERR );
 
                      // Scale X to avoid overflow when updating
                      // the right-hand side.
@@ -361,8 +361,8 @@
                      // Scale if necessary
 
                      if ( SCALE.NE.ONE ) {
-                        CALL DSCAL( KI, SCALE, WORK( 1+N ), 1 )
-                        CALL DSCAL( KI, SCALE, WORK( 1+N2 ), 1 )
+                        dscal(KI, SCALE, WORK( 1+N ), 1 );
+                        dscal(KI, SCALE, WORK( 1+N2 ), 1 );
                      }
                      WORK( J-1+N ) = X( 1, 1 )
                      WORK( J+N ) = X( 2, 1 )
@@ -371,15 +371,15 @@
 
                      // Update the right-hand side
 
-                     CALL DAXPY( J-2, -X( 1, 1 ), T( 1, J-1 ), 1, WORK( 1+N ), 1 )                      CALL DAXPY( J-2, -X( 2, 1 ), T( 1, J ), 1, WORK( 1+N ), 1 )                      CALL DAXPY( J-2, -X( 1, 2 ), T( 1, J-1 ), 1, WORK( 1+N2 ), 1 )                      CALL DAXPY( J-2, -X( 2, 2 ), T( 1, J ), 1, WORK( 1+N2 ), 1 )
+                     daxpy(J-2, -X( 1, 1 ), T( 1, J-1 ), 1, WORK( 1+N ), 1 )                      CALL DAXPY( J-2, -X( 2, 1 ), T( 1, J ), 1, WORK( 1+N ), 1 )                      CALL DAXPY( J-2, -X( 1, 2 ), T( 1, J-1 ), 1, WORK( 1+N2 ), 1 )                      CALL DAXPY( J-2, -X( 2, 2 ), T( 1, J ), 1, WORK( 1+N2 ), 1 );
                   }
    90          CONTINUE
 
                // Copy the vector x or Q*x to VR and normalize.
 
                if ( .NOT.OVER ) {
-                  CALL DCOPY( KI, WORK( 1+N ), 1, VR( 1, IS-1 ), 1 )
-                  CALL DCOPY( KI, WORK( 1+N2 ), 1, VR( 1, IS ), 1 )
+                  dcopy(KI, WORK( 1+N ), 1, VR( 1, IS-1 ), 1 );
+                  dcopy(KI, WORK( 1+N2 ), 1, VR( 1, IS ), 1 );
 
                   EMAX = ZERO
                   DO 100 K = 1, KI
@@ -387,8 +387,8 @@
   100             CONTINUE
 
                   REMAX = ONE / EMAX
-                  CALL DSCAL( KI, REMAX, VR( 1, IS-1 ), 1 )
-                  CALL DSCAL( KI, REMAX, VR( 1, IS ), 1 )
+                  dscal(KI, REMAX, VR( 1, IS-1 ), 1 );
+                  dscal(KI, REMAX, VR( 1, IS ), 1 );
 
                   DO 110 K = KI + 1, N
                      VR( K, IS-1 ) = ZERO
@@ -398,10 +398,10 @@
                } else {
 
                   if ( KI.GT.2 ) {
-                     CALL DGEMV( 'N', N, KI-2, ONE, VR, LDVR, WORK( 1+N ), 1, WORK( KI-1+N ), VR( 1, KI-1 ), 1 )                      CALL DGEMV( 'N', N, KI-2, ONE, VR, LDVR, WORK( 1+N2 ), 1, WORK( KI+N2 ), VR( 1, KI ), 1 )
+                     dgemv('N', N, KI-2, ONE, VR, LDVR, WORK( 1+N ), 1, WORK( KI-1+N ), VR( 1, KI-1 ), 1 )                      CALL DGEMV( 'N', N, KI-2, ONE, VR, LDVR, WORK( 1+N2 ), 1, WORK( KI+N2 ), VR( 1, KI ), 1 );
                   } else {
-                     CALL DSCAL( N, WORK( KI-1+N ), VR( 1, KI-1 ), 1 )
-                     CALL DSCAL( N, WORK( KI+N2 ), VR( 1, KI ), 1 )
+                     dscal(N, WORK( KI-1+N ), VR( 1, KI-1 ), 1 );
+                     dscal(N, WORK( KI+N2 ), VR( 1, KI ), 1 );
                   }
 
                   EMAX = ZERO
@@ -409,8 +409,8 @@
                      EMAX = MAX( EMAX, ABS( VR( K, KI-1 ) )+ ABS( VR( K, KI ) ) )
   120             CONTINUE
                   REMAX = ONE / EMAX
-                  CALL DSCAL( N, REMAX, VR( 1, KI-1 ), 1 )
-                  CALL DSCAL( N, REMAX, VR( 1, KI ), 1 )
+                  dscal(N, REMAX, VR( 1, KI-1 ), 1 );
+                  dscal(N, REMAX, VR( 1, KI ), 1 );
                }
             }
 
@@ -484,7 +484,7 @@
 
                      if ( WORK( J ).GT.VCRIT ) {
                         REC = ONE / VMAX
-                        CALL DSCAL( N-KI+1, REC, WORK( KI+N ), 1 )
+                        dscal(N-KI+1, REC, WORK( KI+N ), 1 );
                         VMAX = ONE
                         VCRIT = BIGNUM
                      }
@@ -493,7 +493,7 @@
 
                      // Solve (T(J,J)-WR)**T*X = WORK
 
-                     CALL DLALN2( .FALSE., 1, 1, SMIN, ONE, T( J, J ), LDT, ONE, ONE, WORK( J+N ), N, WR, ZERO, X, 2, SCALE, XNORM, IERR )
+                     dlaln2(.FALSE., 1, 1, SMIN, ONE, T( J, J ), LDT, ONE, ONE, WORK( J+N ), N, WR, ZERO, X, 2, SCALE, XNORM, IERR );
 
                      // Scale if necessary
 
@@ -512,7 +512,7 @@
                      BETA = MAX( WORK( J ), WORK( J+1 ) )
                      if ( BETA.GT.VCRIT ) {
                         REC = ONE / VMAX
-                        CALL DSCAL( N-KI+1, REC, WORK( KI+N ), 1 )
+                        dscal(N-KI+1, REC, WORK( KI+N ), 1 );
                         VMAX = ONE
                         VCRIT = BIGNUM
                      }
@@ -525,7 +525,7 @@
                        // [T(J,J)-WR   T(J,J+1)     ]**T * X = SCALE*( WORK1 )
                        // [T(J+1,J)    T(J+1,J+1)-WR]                ( WORK2 )
 
-                     CALL DLALN2( .TRUE., 2, 1, SMIN, ONE, T( J, J ), LDT, ONE, ONE, WORK( J+N ), N, WR, ZERO, X, 2, SCALE, XNORM, IERR )
+                     dlaln2(.TRUE., 2, 1, SMIN, ONE, T( J, J ), LDT, ONE, ONE, WORK( J+N ), N, WR, ZERO, X, 2, SCALE, XNORM, IERR );
 
                      // Scale if necessary
 
@@ -542,11 +542,11 @@
                // Copy the vector x or Q*x to VL and normalize.
 
                if ( .NOT.OVER ) {
-                  CALL DCOPY( N-KI+1, WORK( KI+N ), 1, VL( KI, IS ), 1 )
+                  dcopy(N-KI+1, WORK( KI+N ), 1, VL( KI, IS ), 1 );
 
                   II = IDAMAX( N-KI+1, VL( KI, IS ), 1 ) + KI - 1
                   REMAX = ONE / ABS( VL( II, IS ) )
-                  CALL DSCAL( N-KI+1, REMAX, VL( KI, IS ), 1 )
+                  dscal(N-KI+1, REMAX, VL( KI, IS ), 1 );
 
                   DO 180 K = 1, KI - 1
                      VL( K, IS ) = ZERO
@@ -558,7 +558,7 @@
 
                   II = IDAMAX( N, VL( 1, KI ), 1 )
                   REMAX = ONE / ABS( VL( II, KI ) )
-                  CALL DSCAL( N, REMAX, VL( 1, KI ), 1 )
+                  dscal(N, REMAX, VL( 1, KI ), 1 );
 
                }
 
@@ -615,8 +615,8 @@
 
                      if ( WORK( J ).GT.VCRIT ) {
                         REC = ONE / VMAX
-                        CALL DSCAL( N-KI+1, REC, WORK( KI+N ), 1 )
-                        CALL DSCAL( N-KI+1, REC, WORK( KI+N2 ), 1 )
+                        dscal(N-KI+1, REC, WORK( KI+N ), 1 );
+                        dscal(N-KI+1, REC, WORK( KI+N2 ), 1 );
                         VMAX = ONE
                         VCRIT = BIGNUM
                      }
@@ -625,13 +625,13 @@
 
                      // Solve (T(J,J)-(WR-i*WI))*(X11+i*X12)= WK+I*WK2
 
-                     CALL DLALN2( .FALSE., 1, 2, SMIN, ONE, T( J, J ), LDT, ONE, ONE, WORK( J+N ), N, WR, -WI, X, 2, SCALE, XNORM, IERR )
+                     dlaln2(.FALSE., 1, 2, SMIN, ONE, T( J, J ), LDT, ONE, ONE, WORK( J+N ), N, WR, -WI, X, 2, SCALE, XNORM, IERR );
 
                      // Scale if necessary
 
                      if ( SCALE.NE.ONE ) {
-                        CALL DSCAL( N-KI+1, SCALE, WORK( KI+N ), 1 )
-                        CALL DSCAL( N-KI+1, SCALE, WORK( KI+N2 ), 1 )
+                        dscal(N-KI+1, SCALE, WORK( KI+N ), 1 );
+                        dscal(N-KI+1, SCALE, WORK( KI+N2 ), 1 );
                      }
                      WORK( J+N ) = X( 1, 1 )
                      WORK( J+N2 ) = X( 1, 2 )
@@ -648,8 +648,8 @@
                      BETA = MAX( WORK( J ), WORK( J+1 ) )
                      if ( BETA.GT.VCRIT ) {
                         REC = ONE / VMAX
-                        CALL DSCAL( N-KI+1, REC, WORK( KI+N ), 1 )
-                        CALL DSCAL( N-KI+1, REC, WORK( KI+N2 ), 1 )
+                        dscal(N-KI+1, REC, WORK( KI+N ), 1 );
+                        dscal(N-KI+1, REC, WORK( KI+N2 ), 1 );
                         VMAX = ONE
                         VCRIT = BIGNUM
                      }
@@ -666,13 +666,13 @@
                        // ([T(j,j)   T(j,j+1)  ]**T-(wr-i*wi)*I)*X = SCALE*B
                        // ([T(j+1,j) T(j+1,j+1)]               )
 
-                     CALL DLALN2( .TRUE., 2, 2, SMIN, ONE, T( J, J ), LDT, ONE, ONE, WORK( J+N ), N, WR, -WI, X, 2, SCALE, XNORM, IERR )
+                     dlaln2(.TRUE., 2, 2, SMIN, ONE, T( J, J ), LDT, ONE, ONE, WORK( J+N ), N, WR, -WI, X, 2, SCALE, XNORM, IERR );
 
                      // Scale if necessary
 
                      if ( SCALE.NE.ONE ) {
-                        CALL DSCAL( N-KI+1, SCALE, WORK( KI+N ), 1 )
-                        CALL DSCAL( N-KI+1, SCALE, WORK( KI+N2 ), 1 )
+                        dscal(N-KI+1, SCALE, WORK( KI+N ), 1 );
+                        dscal(N-KI+1, SCALE, WORK( KI+N2 ), 1 );
                      }
                      WORK( J+N ) = X( 1, 1 )
                      WORK( J+N2 ) = X( 1, 2 )
@@ -687,16 +687,16 @@
                // Copy the vector x or Q*x to VL and normalize.
 
                if ( .NOT.OVER ) {
-                  CALL DCOPY( N-KI+1, WORK( KI+N ), 1, VL( KI, IS ), 1 )
-                  CALL DCOPY( N-KI+1, WORK( KI+N2 ), 1, VL( KI, IS+1 ), 1 )
+                  dcopy(N-KI+1, WORK( KI+N ), 1, VL( KI, IS ), 1 );
+                  dcopy(N-KI+1, WORK( KI+N2 ), 1, VL( KI, IS+1 ), 1 );
 
                   EMAX = ZERO
                   DO 220 K = KI, N
                      EMAX = MAX( EMAX, ABS( VL( K, IS ) )+ ABS( VL( K, IS+1 ) ) )
   220             CONTINUE
                   REMAX = ONE / EMAX
-                  CALL DSCAL( N-KI+1, REMAX, VL( KI, IS ), 1 )
-                  CALL DSCAL( N-KI+1, REMAX, VL( KI, IS+1 ), 1 )
+                  dscal(N-KI+1, REMAX, VL( KI, IS ), 1 );
+                  dscal(N-KI+1, REMAX, VL( KI, IS+1 ), 1 );
 
                   DO 230 K = 1, KI - 1
                      VL( K, IS ) = ZERO
@@ -704,10 +704,10 @@
   230             CONTINUE
                } else {
                   if ( KI.LT.N-1 ) {
-                     CALL DGEMV( 'N', N, N-KI-1, ONE, VL( 1, KI+2 ), LDVL, WORK( KI+2+N ), 1, WORK( KI+N ), VL( 1, KI ), 1 )                      CALL DGEMV( 'N', N, N-KI-1, ONE, VL( 1, KI+2 ), LDVL, WORK( KI+2+N2 ), 1, WORK( KI+1+N2 ), VL( 1, KI+1 ), 1 )
+                     dgemv('N', N, N-KI-1, ONE, VL( 1, KI+2 ), LDVL, WORK( KI+2+N ), 1, WORK( KI+N ), VL( 1, KI ), 1 )                      CALL DGEMV( 'N', N, N-KI-1, ONE, VL( 1, KI+2 ), LDVL, WORK( KI+2+N2 ), 1, WORK( KI+1+N2 ), VL( 1, KI+1 ), 1 );
                   } else {
-                     CALL DSCAL( N, WORK( KI+N ), VL( 1, KI ), 1 )
-                     CALL DSCAL( N, WORK( KI+1+N2 ), VL( 1, KI+1 ), 1 )
+                     dscal(N, WORK( KI+N ), VL( 1, KI ), 1 );
+                     dscal(N, WORK( KI+1+N2 ), VL( 1, KI+1 ), 1 );
                   }
 
                   EMAX = ZERO
@@ -715,8 +715,8 @@
                      EMAX = MAX( EMAX, ABS( VL( K, KI ) )+ ABS( VL( K, KI+1 ) ) )
   240             CONTINUE
                   REMAX = ONE / EMAX
-                  CALL DSCAL( N, REMAX, VL( 1, KI ), 1 )
-                  CALL DSCAL( N, REMAX, VL( 1, KI+1 ), 1 )
+                  dscal(N, REMAX, VL( 1, KI ), 1 );
+                  dscal(N, REMAX, VL( 1, KI+1 ), 1 );
 
                }
 

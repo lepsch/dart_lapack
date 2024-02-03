@@ -46,7 +46,7 @@
 
       // Copy A & Compute its 1-Norm:
 
-      CALL SLASET( 'Full', N, N, ZERO, ZERO, WORK, N )
+      slaset('Full', N, N, ZERO, ZERO, WORK, N );
 
       ANORM = ZERO
       TEMP1 = ZERO
@@ -65,12 +65,12 @@
       // Norm of A - USU'
 
       DO 20 J = 1, N
-         CALL SSYR( 'L', N, -SD( J ), U( 1, J ), 1, WORK, N )
+         ssyr('L', N, -SD( J ), U( 1, J ), 1, WORK, N );
    20 CONTINUE
 
       if ( N.GT.1 .AND. KBAND.EQ.1 ) {
          DO 30 J = 1, N - 1
-            CALL SSYR2( 'L', N, -SE( J ), U( 1, J ), 1, U( 1, J+1 ), 1, WORK, N )
+            ssyr2('L', N, -SE( J ), U( 1, J ), 1, U( 1, J+1 ), 1, WORK, N );
    30    CONTINUE
       }
 
@@ -90,7 +90,7 @@
 
       // Compute  UU' - I
 
-      CALL SGEMM( 'N', 'C', N, N, N, ONE, U, LDU, U, LDU, ZERO, WORK, N )
+      sgemm('N', 'C', N, N, N, ONE, U, LDU, U, LDU, ZERO, WORK, N );
 
       DO 40 J = 1, N
          WORK( ( N+1 )*( J-1 )+1 ) = WORK( ( N+1 )*( J-1 )+1 ) - ONE

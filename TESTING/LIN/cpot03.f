@@ -75,7 +75,7 @@
    30       CONTINUE
    40    CONTINUE
       }
-      CALL CHEMM( 'Left', UPLO, N, N, -CONE, A, LDA, AINV, LDAINV, CZERO, WORK, LDWORK )
+      chemm('Left', UPLO, N, N, -CONE, A, LDA, AINV, LDAINV, CZERO, WORK, LDWORK );
 
       // Add the identity matrix to WORK .
 

@@ -57,7 +57,7 @@
 
       // Compute  B - A*X  (or  B - A'*X ) and store in B.
 
-      CALL SGEMM( TRANS, 'No transpose', N1, NRHS, N2, -ONE, A, LDA, X, LDX, ONE, B, LDB )
+      sgemm(TRANS, 'No transpose', N1, NRHS, N2, -ONE, A, LDA, X, LDX, ONE, B, LDB );
 
       // Compute the maximum over the number of right hand sides of
          // norm(B - A*X) / ( max(m,n) * norm(A) * norm(X) * EPS ) .

@@ -51,7 +51,7 @@
          INFO = -4
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'CGEBAL', -INFO )
+         xerbla('CGEBAL', -INFO );
          RETURN
       }
 
@@ -99,8 +99,8 @@
                if ( CANSWAP ) {
                   SCALE( L ) = I
                   if ( I.NE.L ) {
-                     CALL CSWAP( L, A( 1, I ), 1, A( 1, L ), 1 )
-                     CALL CSWAP( N-K+1, A( I, K ), LDA, A( L, K ), LDA )
+                     cswap(L, A( 1, I ), 1, A( 1, L ), 1 );
+                     cswap(N-K+1, A( I, K ), LDA, A( L, K ), LDA );
                   }
                   NOCONV = .TRUE.
 
@@ -134,8 +134,8 @@
                if ( CANSWAP ) {
                   SCALE( K ) = J
                   if ( J.NE.K ) {
-                     CALL CSWAP( L, A( 1, J ), 1, A( 1, K ), 1 )
-                     CALL CSWAP( N-K+1, A( J, K ), LDA, A( K, K ), LDA )
+                     cswap(L, A( 1, J ), 1, A( 1, K ), 1 );
+                     cswap(N-K+1, A( J, K ), LDA, A( K, K ), LDA );
                   }
                   NOCONV = .TRUE.
 
@@ -191,7 +191,7 @@
 
             if ( SISNAN( C+CA+R+RA ) ) {
                INFO = -3
-               CALL XERBLA( 'CGEBAL', -INFO )
+               xerbla('CGEBAL', -INFO );
                RETURN
             }
 
@@ -232,8 +232,8 @@
             SCALE( I ) = SCALE( I )*F
             NOCONV = .TRUE.
 
-            CALL CSSCAL( N-K+1, G, A( I, K ), LDA )
-            CALL CSSCAL( L, F, A( 1, I ), 1 )
+            csscal(N-K+1, G, A( I, K ), LDA );
+            csscal(L, F, A( 1, I ), 1 );
 
          END DO
 

@@ -49,7 +49,7 @@
          INFO = -7
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'CPOTRS', -INFO )
+         xerbla('CPOTRS', -INFO );
          RETURN
       }
 
@@ -63,22 +63,22 @@
 
          // Solve U**H *X = B, overwriting B with X.
 
-         CALL CTRSM( 'Left', 'Upper', 'Conjugate transpose', 'Non-unit', N, NRHS, ONE, A, LDA, B, LDB )
+         ctrsm('Left', 'Upper', 'Conjugate transpose', 'Non-unit', N, NRHS, ONE, A, LDA, B, LDB );
 
          // Solve U*X = B, overwriting B with X.
 
-         CALL CTRSM( 'Left', 'Upper', 'No transpose', 'Non-unit', N, NRHS, ONE, A, LDA, B, LDB )
+         ctrsm('Left', 'Upper', 'No transpose', 'Non-unit', N, NRHS, ONE, A, LDA, B, LDB );
       } else {
 
          // Solve A*X = B where A = L*L**H.
 
          // Solve L*X = B, overwriting B with X.
 
-         CALL CTRSM( 'Left', 'Lower', 'No transpose', 'Non-unit', N, NRHS, ONE, A, LDA, B, LDB )
+         ctrsm('Left', 'Lower', 'No transpose', 'Non-unit', N, NRHS, ONE, A, LDA, B, LDB );
 
          // Solve L**H *X = B, overwriting B with X.
 
-         CALL CTRSM( 'Left', 'Lower', 'Conjugate transpose', 'Non-unit', N, NRHS, ONE, A, LDA, B, LDB )
+         ctrsm('Left', 'Lower', 'Conjugate transpose', 'Non-unit', N, NRHS, ONE, A, LDA, B, LDB );
       }
 
       RETURN

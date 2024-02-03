@@ -92,7 +92,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'CGELS ', -INFO )
+         xerbla('CGELS ', -INFO );
          RETURN
       } else if ( LQUERY ) {
          RETURN
@@ -101,7 +101,7 @@
       // Quick return if possible
 
       if ( MIN( M, N, NRHS ).EQ.0 ) {
-         CALL CLASET( 'Full', MAX( M, N ), NRHS, CZERO, CZERO, B, LDB )
+         claset('Full', MAX( M, N ), NRHS, CZERO, CZERO, B, LDB );
          RETURN
       }
 
@@ -118,19 +118,19 @@
 
          // Scale matrix norm up to SMLNUM
 
-         CALL CLASCL( 'G', 0, 0, ANRM, SMLNUM, M, N, A, LDA, INFO )
+         clascl('G', 0, 0, ANRM, SMLNUM, M, N, A, LDA, INFO );
          IASCL = 1
       } else if ( ANRM.GT.BIGNUM ) {
 
          // Scale matrix norm down to BIGNUM
 
-         CALL CLASCL( 'G', 0, 0, ANRM, BIGNUM, M, N, A, LDA, INFO )
+         clascl('G', 0, 0, ANRM, BIGNUM, M, N, A, LDA, INFO );
          IASCL = 2
       } else if ( ANRM.EQ.ZERO ) {
 
          // Matrix all zero. Return zero solution.
 
-         CALL CLASET( 'F', MAX( M, N ), NRHS, CZERO, CZERO, B, LDB )
+         claset('F', MAX( M, N ), NRHS, CZERO, CZERO, B, LDB );
          GO TO 50
       }
 
@@ -142,13 +142,13 @@
 
          // Scale matrix norm up to SMLNUM
 
-         CALL CLASCL( 'G', 0, 0, BNRM, SMLNUM, BROW, NRHS, B, LDB, INFO )
+         clascl('G', 0, 0, BNRM, SMLNUM, BROW, NRHS, B, LDB, INFO );
          IBSCL = 1
       } else if ( BNRM.GT.BIGNUM ) {
 
          // Scale matrix norm down to BIGNUM
 
-         CALL CLASCL( 'G', 0, 0, BNRM, BIGNUM, BROW, NRHS, B, LDB, INFO )
+         clascl('G', 0, 0, BNRM, BIGNUM, BROW, NRHS, B, LDB, INFO );
          IBSCL = 2
       }
 
@@ -156,7 +156,7 @@
 
          // compute QR factorization of A
 
-         CALL CGEQRF( M, N, A, LDA, WORK( 1 ), WORK( MN+1 ), LWORK-MN, INFO )
+         cgeqrf(M, N, A, LDA, WORK( 1 ), WORK( MN+1 ), LWORK-MN, INFO );
 
          // workspace at least N, optimally N*NB
 
@@ -166,13 +166,13 @@
 
             // B(1:M,1:NRHS) := Q**H * B(1:M,1:NRHS)
 
-            CALL CUNMQR( 'Left', 'Conjugate transpose', M, NRHS, N, A, LDA, WORK( 1 ), B, LDB, WORK( MN+1 ), LWORK-MN, INFO )
+            cunmqr('Left', 'Conjugate transpose', M, NRHS, N, A, LDA, WORK( 1 ), B, LDB, WORK( MN+1 ), LWORK-MN, INFO );
 
             // workspace at least NRHS, optimally NRHS*NB
 
             // B(1:N,1:NRHS) := inv(R) * B(1:N,1:NRHS)
 
-            CALL CTRTRS( 'Upper', 'No transpose', 'Non-unit', N, NRHS, A, LDA, B, LDB, INFO )
+            ctrtrs('Upper', 'No transpose', 'Non-unit', N, NRHS, A, LDA, B, LDB, INFO );
 
             if ( INFO.GT.0 ) {
                RETURN
@@ -186,7 +186,7 @@
 
             // B(1:N,1:NRHS) := inv(R**H) * B(1:N,1:NRHS)
 
-            CALL CTRTRS( 'Upper', 'Conjugate transpose','Non-unit', N, NRHS, A, LDA, B, LDB, INFO )
+            ctrtrs('Upper', 'Conjugate transpose','Non-unit', N, NRHS, A, LDA, B, LDB, INFO );
 
             if ( INFO.GT.0 ) {
                RETURN
@@ -202,7 +202,7 @@
 
             // B(1:M,1:NRHS) := Q(1:N,:) * B(1:N,1:NRHS)
 
-            CALL CUNMQR( 'Left', 'No transpose', M, NRHS, N, A, LDA, WORK( 1 ), B, LDB, WORK( MN+1 ), LWORK-MN, INFO )
+            cunmqr('Left', 'No transpose', M, NRHS, N, A, LDA, WORK( 1 ), B, LDB, WORK( MN+1 ), LWORK-MN, INFO );
 
             // workspace at least NRHS, optimally NRHS*NB
 
@@ -214,7 +214,7 @@
 
          // Compute LQ factorization of A
 
-         CALL CGELQF( M, N, A, LDA, WORK( 1 ), WORK( MN+1 ), LWORK-MN, INFO )
+         cgelqf(M, N, A, LDA, WORK( 1 ), WORK( MN+1 ), LWORK-MN, INFO );
 
          // workspace at least M, optimally M*NB.
 
@@ -224,7 +224,7 @@
 
             // B(1:M,1:NRHS) := inv(L) * B(1:M,1:NRHS)
 
-            CALL CTRTRS( 'Lower', 'No transpose', 'Non-unit', M, NRHS, A, LDA, B, LDB, INFO )
+            ctrtrs('Lower', 'No transpose', 'Non-unit', M, NRHS, A, LDA, B, LDB, INFO );
 
             if ( INFO.GT.0 ) {
                RETURN
@@ -240,7 +240,7 @@
 
             // B(1:N,1:NRHS) := Q(1:N,:)**H * B(1:M,1:NRHS)
 
-            CALL CUNMLQ( 'Left', 'Conjugate transpose', N, NRHS, M, A, LDA, WORK( 1 ), B, LDB, WORK( MN+1 ), LWORK-MN, INFO )
+            cunmlq('Left', 'Conjugate transpose', N, NRHS, M, A, LDA, WORK( 1 ), B, LDB, WORK( MN+1 ), LWORK-MN, INFO );
 
             // workspace at least NRHS, optimally NRHS*NB
 
@@ -252,13 +252,13 @@
 
             // B(1:N,1:NRHS) := Q * B(1:N,1:NRHS)
 
-            CALL CUNMLQ( 'Left', 'No transpose', N, NRHS, M, A, LDA, WORK( 1 ), B, LDB, WORK( MN+1 ), LWORK-MN, INFO )
+            cunmlq('Left', 'No transpose', N, NRHS, M, A, LDA, WORK( 1 ), B, LDB, WORK( MN+1 ), LWORK-MN, INFO );
 
             // workspace at least NRHS, optimally NRHS*NB
 
             // B(1:M,1:NRHS) := inv(L**H) * B(1:M,1:NRHS)
 
-            CALL CTRTRS( 'Lower', 'Conjugate transpose', 'Non-unit', M, NRHS, A, LDA, B, LDB, INFO )
+            ctrtrs('Lower', 'Conjugate transpose', 'Non-unit', M, NRHS, A, LDA, B, LDB, INFO );
 
             if ( INFO.GT.0 ) {
                RETURN
@@ -273,14 +273,14 @@
       // Undo scaling
 
       if ( IASCL.EQ.1 ) {
-         CALL CLASCL( 'G', 0, 0, ANRM, SMLNUM, SCLLEN, NRHS, B, LDB, INFO )
+         clascl('G', 0, 0, ANRM, SMLNUM, SCLLEN, NRHS, B, LDB, INFO );
       } else if ( IASCL.EQ.2 ) {
-         CALL CLASCL( 'G', 0, 0, ANRM, BIGNUM, SCLLEN, NRHS, B, LDB, INFO )
+         clascl('G', 0, 0, ANRM, BIGNUM, SCLLEN, NRHS, B, LDB, INFO );
       }
       if ( IBSCL.EQ.1 ) {
-         CALL CLASCL( 'G', 0, 0, SMLNUM, BNRM, SCLLEN, NRHS, B, LDB, INFO )
+         clascl('G', 0, 0, SMLNUM, BNRM, SCLLEN, NRHS, B, LDB, INFO );
       } else if ( IBSCL.EQ.2 ) {
-         CALL CLASCL( 'G', 0, 0, BIGNUM, BNRM, SCLLEN, NRHS, B, LDB, INFO )
+         clascl('G', 0, 0, BIGNUM, BNRM, SCLLEN, NRHS, B, LDB, INFO );
       }
 
    50 CONTINUE

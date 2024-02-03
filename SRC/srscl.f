@@ -75,7 +75,7 @@
 
       // Scale the vector X by MUL
 
-      CALL SSCAL( N, MUL, SX, INCX )
+      sscal(N, MUL, SX, INCX );
 
       IF( .NOT.DONE ) GO TO 10
 

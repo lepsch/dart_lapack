@@ -68,7 +68,7 @@
          INFO = -11
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'DTRRFS', -INFO )
+         xerbla('DTRRFS', -INFO );
          RETURN
       }
 
@@ -103,9 +103,9 @@
          // Compute residual R = B - op(A) * X,
          // where op(A) = A or A**T, depending on TRANS.
 
-         CALL DCOPY( N, X( 1, J ), 1, WORK( N+1 ), 1 )
-         CALL DTRMV( UPLO, TRANS, DIAG, N, A, LDA, WORK( N+1 ), 1 )
-         CALL DAXPY( N, -ONE, B( 1, J ), 1, WORK( N+1 ), 1 )
+         dcopy(N, X( 1, J ), 1, WORK( N+1 ), 1 );
+         dtrmv(UPLO, TRANS, DIAG, N, A, LDA, WORK( N+1 ), 1 );
+         daxpy(N, -ONE, B( 1, J ), 1, WORK( N+1 ), 1 );
 
          // Compute componentwise relative backward error from formula
 
@@ -243,13 +243,13 @@
 
          KASE = 0
   210    CONTINUE
-         CALL DLACN2( N, WORK( 2*N+1 ), WORK( N+1 ), IWORK, FERR( J ), KASE, ISAVE )
+         dlacn2(N, WORK( 2*N+1 ), WORK( N+1 ), IWORK, FERR( J ), KASE, ISAVE );
          if ( KASE.NE.0 ) {
             if ( KASE.EQ.1 ) {
 
                // Multiply by diag(W)*inv(op(A)**T).
 
-               CALL DTRSV( UPLO, TRANST, DIAG, N, A, LDA, WORK( N+1 ), 1 )
+               dtrsv(UPLO, TRANST, DIAG, N, A, LDA, WORK( N+1 ), 1 );
                DO 220 I = 1, N
                   WORK( N+I ) = WORK( I )*WORK( N+I )
   220          CONTINUE
@@ -260,7 +260,7 @@
                DO 230 I = 1, N
                   WORK( N+I ) = WORK( I )*WORK( N+I )
   230          CONTINUE
-               CALL DTRSV( UPLO, TRANS, DIAG, N, A, LDA, WORK( N+1 ), 1 )
+               dtrsv(UPLO, TRANS, DIAG, N, A, LDA, WORK( N+1 ), 1 );
             }
             GO TO 210
          }

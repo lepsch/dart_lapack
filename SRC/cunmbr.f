@@ -93,7 +93,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'CUNMBR', -INFO )
+         xerbla('CUNMBR', -INFO );
          RETURN
       } else if ( LQUERY ) {
          RETURN
@@ -111,7 +111,7 @@
 
             // Q was determined by a call to CGEBRD with nq >= k
 
-            CALL CUNMQR( SIDE, TRANS, M, N, K, A, LDA, TAU, C, LDC, WORK, LWORK, IINFO )
+            cunmqr(SIDE, TRANS, M, N, K, A, LDA, TAU, C, LDC, WORK, LWORK, IINFO );
          } else if ( NQ.GT.1 ) {
 
             // Q was determined by a call to CGEBRD with nq < k
@@ -127,7 +127,7 @@
                I1 = 1
                I2 = 2
             }
-            CALL CUNMQR( SIDE, TRANS, MI, NI, NQ-1, A( 2, 1 ), LDA, TAU, C( I1, I2 ), LDC, WORK, LWORK, IINFO )
+            cunmqr(SIDE, TRANS, MI, NI, NQ-1, A( 2, 1 ), LDA, TAU, C( I1, I2 ), LDC, WORK, LWORK, IINFO );
          }
       } else {
 
@@ -142,7 +142,7 @@
 
             // P was determined by a call to CGEBRD with nq > k
 
-            CALL CUNMLQ( SIDE, TRANST, M, N, K, A, LDA, TAU, C, LDC, WORK, LWORK, IINFO )
+            cunmlq(SIDE, TRANST, M, N, K, A, LDA, TAU, C, LDC, WORK, LWORK, IINFO );
          } else if ( NQ.GT.1 ) {
 
             // P was determined by a call to CGEBRD with nq <= k
@@ -158,7 +158,7 @@
                I1 = 1
                I2 = 2
             }
-            CALL CUNMLQ( SIDE, TRANST, MI, NI, NQ-1, A( 1, 2 ), LDA, TAU, C( I1, I2 ), LDC, WORK, LWORK, IINFO )
+            cunmlq(SIDE, TRANST, MI, NI, NQ-1, A( 1, 2 ), LDA, TAU, C( I1, I2 ), LDC, WORK, LWORK, IINFO );
          }
       }
       WORK( 1 ) = SROUNDUP_LWORK(LWKOPT)

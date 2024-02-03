@@ -117,7 +117,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'ZGGEV ', -INFO )
+         xerbla('ZGGEV ', -INFO );
          RETURN
       } else if ( LQUERY ) {
          RETURN
@@ -167,7 +167,7 @@
       ILEFT = 1
       IRIGHT = N + 1
       IRWRK = IRIGHT + N
-      CALL ZGGBAL( 'P', N, A, LDA, B, LDB, ILO, IHI, RWORK( ILEFT ), RWORK( IRIGHT ), RWORK( IRWRK ), IERR )
+      zggbal('P', N, A, LDA, B, LDB, ILO, IHI, RWORK( ILEFT ), RWORK( IRIGHT ), RWORK( IRWRK ), IERR );
 
       // Reduce B to triangular form (QR decomposition of B)
       // (Complex Workspace: need N, prefer N*NB)
@@ -180,22 +180,22 @@
       }
       ITAU = 1
       IWRK = ITAU + IROWS
-      CALL ZGEQRF( IROWS, ICOLS, B( ILO, ILO ), LDB, WORK( ITAU ), WORK( IWRK ), LWORK+1-IWRK, IERR )
+      zgeqrf(IROWS, ICOLS, B( ILO, ILO ), LDB, WORK( ITAU ), WORK( IWRK ), LWORK+1-IWRK, IERR );
 
       // Apply the orthogonal transformation to matrix A
       // (Complex Workspace: need N, prefer N*NB)
 
-      CALL ZUNMQR( 'L', 'C', IROWS, ICOLS, IROWS, B( ILO, ILO ), LDB, WORK( ITAU ), A( ILO, ILO ), LDA, WORK( IWRK ), LWORK+1-IWRK, IERR )
+      zunmqr('L', 'C', IROWS, ICOLS, IROWS, B( ILO, ILO ), LDB, WORK( ITAU ), A( ILO, ILO ), LDA, WORK( IWRK ), LWORK+1-IWRK, IERR );
 
       // Initialize VL
       // (Complex Workspace: need N, prefer N*NB)
 
       if ( ILVL ) {
-         CALL ZLASET( 'Full', N, N, CZERO, CONE, VL, LDVL )
+         zlaset('Full', N, N, CZERO, CONE, VL, LDVL );
          if ( IROWS.GT.1 ) {
-            CALL ZLACPY( 'L', IROWS-1, IROWS-1, B( ILO+1, ILO ), LDB, VL( ILO+1, ILO ), LDVL )
+            zlacpy('L', IROWS-1, IROWS-1, B( ILO+1, ILO ), LDB, VL( ILO+1, ILO ), LDVL );
          }
-         CALL ZUNGQR( IROWS, IROWS, IROWS, VL( ILO, ILO ), LDVL, WORK( ITAU ), WORK( IWRK ), LWORK+1-IWRK, IERR )
+         zungqr(IROWS, IROWS, IROWS, VL( ILO, ILO ), LDVL, WORK( ITAU ), WORK( IWRK ), LWORK+1-IWRK, IERR );
       }
 
       // Initialize VR
@@ -208,9 +208,9 @@
 
          // Eigenvectors requested -- work on whole matrix.
 
-         CALL ZGGHRD( JOBVL, JOBVR, N, ILO, IHI, A, LDA, B, LDB, VL, LDVL, VR, LDVR, IERR )
+         zgghrd(JOBVL, JOBVR, N, ILO, IHI, A, LDA, B, LDB, VL, LDVL, VR, LDVR, IERR );
       } else {
-         CALL ZGGHRD( 'N', 'N', IROWS, 1, IROWS, A( ILO, ILO ), LDA, B( ILO, ILO ), LDB, VL, LDVL, VR, LDVR, IERR )
+         zgghrd('N', 'N', IROWS, 1, IROWS, A( ILO, ILO ), LDA, B( ILO, ILO ), LDB, VL, LDVL, VR, LDVR, IERR );
       }
 
       // Perform QZ algorithm (Compute eigenvalues, and optionally, the
@@ -224,7 +224,7 @@
       } else {
          CHTEMP = 'E'
       }
-      CALL ZHGEQZ( CHTEMP, JOBVL, JOBVR, N, ILO, IHI, A, LDA, B, LDB, ALPHA, BETA, VL, LDVL, VR, LDVR, WORK( IWRK ), LWORK+1-IWRK, RWORK( IRWRK ), IERR )
+      zhgeqz(CHTEMP, JOBVL, JOBVR, N, ILO, IHI, A, LDA, B, LDB, ALPHA, BETA, VL, LDVL, VR, LDVR, WORK( IWRK ), LWORK+1-IWRK, RWORK( IRWRK ), IERR );
       if ( IERR.NE.0 ) {
          if ( IERR.GT.0 .AND. IERR.LE.N ) {
             INFO = IERR
@@ -251,7 +251,7 @@
             CHTEMP = 'R'
          }
 
-         CALL ZTGEVC( CHTEMP, 'B', LDUMMA, N, A, LDA, B, LDB, VL, LDVL, VR, LDVR, N, IN, WORK( IWRK ), RWORK( IRWRK ), IERR )
+         ztgevc(CHTEMP, 'B', LDUMMA, N, A, LDA, B, LDB, VL, LDVL, VR, LDVR, N, IN, WORK( IWRK ), RWORK( IRWRK ), IERR );
          if ( IERR.NE.0 ) {
             INFO = N + 2
             GO TO 70
@@ -261,7 +261,7 @@
          // (Workspace: none needed)
 
          if ( ILVL ) {
-            CALL ZGGBAK( 'P', 'L', N, ILO, IHI, RWORK( ILEFT ), RWORK( IRIGHT ), N, VL, LDVL, IERR )
+            zggbak('P', 'L', N, ILO, IHI, RWORK( ILEFT ), RWORK( IRIGHT ), N, VL, LDVL, IERR );
             DO 30 JC = 1, N
                TEMP = ZERO
                DO 10 JR = 1, N
@@ -275,7 +275,7 @@
    30       CONTINUE
          }
          if ( ILVR ) {
-            CALL ZGGBAK( 'P', 'R', N, ILO, IHI, RWORK( ILEFT ), RWORK( IRIGHT ), N, VR, LDVR, IERR )
+            zggbak('P', 'R', N, ILO, IHI, RWORK( ILEFT ), RWORK( IRIGHT ), N, VR, LDVR, IERR );
             DO 60 JC = 1, N
                TEMP = ZERO
                DO 40 JR = 1, N

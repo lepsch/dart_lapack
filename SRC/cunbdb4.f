@@ -87,7 +87,7 @@
          }
       }
       if ( INFO .NE. 0 ) {
-         CALL XERBLA( 'CUNBDB4', -INFO )
+         xerbla('CUNBDB4', -INFO );
          RETURN
       } else if ( LQUERY ) {
          RETURN
@@ -101,36 +101,36 @@
             DO J = 1, M
                PHANTOM(J) = ZERO
             END DO
-            CALL CUNBDB5( P, M-P, Q, PHANTOM(1), 1, PHANTOM(P+1), 1, X11, LDX11, X21, LDX21, WORK(IORBDB5), LORBDB5, CHILDINFO )
-            CALL CSCAL( P, NEGONE, PHANTOM(1), 1 )
-            CALL CLARFGP( P, PHANTOM(1), PHANTOM(2), 1, TAUP1(1) )
-            CALL CLARFGP( M-P, PHANTOM(P+1), PHANTOM(P+2), 1, TAUP2(1) )
+            cunbdb5(P, M-P, Q, PHANTOM(1), 1, PHANTOM(P+1), 1, X11, LDX11, X21, LDX21, WORK(IORBDB5), LORBDB5, CHILDINFO );
+            cscal(P, NEGONE, PHANTOM(1), 1 );
+            clarfgp(P, PHANTOM(1), PHANTOM(2), 1, TAUP1(1) );
+            clarfgp(M-P, PHANTOM(P+1), PHANTOM(P+2), 1, TAUP2(1) );
             THETA(I) = ATAN2( REAL( PHANTOM(1) ), REAL( PHANTOM(P+1) ) )
             C = COS( THETA(I) )
             S = SIN( THETA(I) )
             PHANTOM(1) = ONE
             PHANTOM(P+1) = ONE
-            CALL CLARF( 'L', P, Q, PHANTOM(1), 1, CONJG(TAUP1(1)), X11, LDX11, WORK(ILARF) )             CALL CLARF( 'L', M-P, Q, PHANTOM(P+1), 1, CONJG(TAUP2(1)), X21, LDX21, WORK(ILARF) )
+            clarf('L', P, Q, PHANTOM(1), 1, CONJG(TAUP1(1)), X11, LDX11, WORK(ILARF) )             CALL CLARF( 'L', M-P, Q, PHANTOM(P+1), 1, CONJG(TAUP2(1)), X21, LDX21, WORK(ILARF) );
          } else {
-            CALL CUNBDB5( P-I+1, M-P-I+1, Q-I+1, X11(I,I-1), 1, X21(I,I-1), 1, X11(I,I), LDX11, X21(I,I), LDX21, WORK(IORBDB5), LORBDB5, CHILDINFO )
-            CALL CSCAL( P-I+1, NEGONE, X11(I,I-1), 1 )
-            CALL CLARFGP( P-I+1, X11(I,I-1), X11(I+1,I-1), 1, TAUP1(I) )
-            CALL CLARFGP( M-P-I+1, X21(I,I-1), X21(I+1,I-1), 1, TAUP2(I) )
+            cunbdb5(P-I+1, M-P-I+1, Q-I+1, X11(I,I-1), 1, X21(I,I-1), 1, X11(I,I), LDX11, X21(I,I), LDX21, WORK(IORBDB5), LORBDB5, CHILDINFO );
+            cscal(P-I+1, NEGONE, X11(I,I-1), 1 );
+            clarfgp(P-I+1, X11(I,I-1), X11(I+1,I-1), 1, TAUP1(I) );
+            clarfgp(M-P-I+1, X21(I,I-1), X21(I+1,I-1), 1, TAUP2(I) );
             THETA(I) = ATAN2( REAL( X11(I,I-1) ), REAL( X21(I,I-1) ) )
             C = COS( THETA(I) )
             S = SIN( THETA(I) )
             X11(I,I-1) = ONE
             X21(I,I-1) = ONE
-            CALL CLARF( 'L', P-I+1, Q-I+1, X11(I,I-1), 1, CONJG(TAUP1(I)), X11(I,I), LDX11, WORK(ILARF) )             CALL CLARF( 'L', M-P-I+1, Q-I+1, X21(I,I-1), 1, CONJG(TAUP2(I)), X21(I,I), LDX21, WORK(ILARF) )
+            clarf('L', P-I+1, Q-I+1, X11(I,I-1), 1, CONJG(TAUP1(I)), X11(I,I), LDX11, WORK(ILARF) )             CALL CLARF( 'L', M-P-I+1, Q-I+1, X21(I,I-1), 1, CONJG(TAUP2(I)), X21(I,I), LDX21, WORK(ILARF) );
          }
 
-         CALL CSROT( Q-I+1, X11(I,I), LDX11, X21(I,I), LDX21, S, -C )
-         CALL CLACGV( Q-I+1, X21(I,I), LDX21 )
-         CALL CLARFGP( Q-I+1, X21(I,I), X21(I,I+1), LDX21, TAUQ1(I) )
+         csrot(Q-I+1, X11(I,I), LDX11, X21(I,I), LDX21, S, -C );
+         clacgv(Q-I+1, X21(I,I), LDX21 );
+         clarfgp(Q-I+1, X21(I,I), X21(I,I+1), LDX21, TAUQ1(I) );
          C = REAL( X21(I,I) )
          X21(I,I) = ONE
-         CALL CLARF( 'R', P-I, Q-I+1, X21(I,I), LDX21, TAUQ1(I), X11(I+1,I), LDX11, WORK(ILARF) )          CALL CLARF( 'R', M-P-I, Q-I+1, X21(I,I), LDX21, TAUQ1(I), X21(I+1,I), LDX21, WORK(ILARF) )
-         CALL CLACGV( Q-I+1, X21(I,I), LDX21 )
+         clarf('R', P-I, Q-I+1, X21(I,I), LDX21, TAUQ1(I), X11(I+1,I), LDX11, WORK(ILARF) )          CALL CLARF( 'R', M-P-I, Q-I+1, X21(I,I), LDX21, TAUQ1(I), X21(I+1,I), LDX21, WORK(ILARF) );
+         clacgv(Q-I+1, X21(I,I), LDX21 );
          if ( I .LT. M-Q ) {
             S = SQRT( SCNRM2( P-I, X11(I+1,I), 1 )**2 + SCNRM2( M-P-I, X21(I+1,I), 1 )**2 )
             PHI(I) = ATAN2( S, C )
@@ -141,21 +141,21 @@
       // Reduce the bottom-right portion of X11 to [ I 0 ]
 
       DO I = M - Q + 1, P
-         CALL CLACGV( Q-I+1, X11(I,I), LDX11 )
-         CALL CLARFGP( Q-I+1, X11(I,I), X11(I,I+1), LDX11, TAUQ1(I) )
+         clacgv(Q-I+1, X11(I,I), LDX11 );
+         clarfgp(Q-I+1, X11(I,I), X11(I,I+1), LDX11, TAUQ1(I) );
          X11(I,I) = ONE
-         CALL CLARF( 'R', P-I, Q-I+1, X11(I,I), LDX11, TAUQ1(I), X11(I+1,I), LDX11, WORK(ILARF) )          CALL CLARF( 'R', Q-P, Q-I+1, X11(I,I), LDX11, TAUQ1(I), X21(M-Q+1,I), LDX21, WORK(ILARF) )
-         CALL CLACGV( Q-I+1, X11(I,I), LDX11 )
+         clarf('R', P-I, Q-I+1, X11(I,I), LDX11, TAUQ1(I), X11(I+1,I), LDX11, WORK(ILARF) )          CALL CLARF( 'R', Q-P, Q-I+1, X11(I,I), LDX11, TAUQ1(I), X21(M-Q+1,I), LDX21, WORK(ILARF) );
+         clacgv(Q-I+1, X11(I,I), LDX11 );
       END DO
 
       // Reduce the bottom-right portion of X21 to [ 0 I ]
 
       DO I = P + 1, Q
-         CALL CLACGV( Q-I+1, X21(M-Q+I-P,I), LDX21 )
-         CALL CLARFGP( Q-I+1, X21(M-Q+I-P,I), X21(M-Q+I-P,I+1), LDX21, TAUQ1(I) )
+         clacgv(Q-I+1, X21(M-Q+I-P,I), LDX21 );
+         clarfgp(Q-I+1, X21(M-Q+I-P,I), X21(M-Q+I-P,I+1), LDX21, TAUQ1(I) );
          X21(M-Q+I-P,I) = ONE
-         CALL CLARF( 'R', Q-I, Q-I+1, X21(M-Q+I-P,I), LDX21, TAUQ1(I), X21(M-Q+I-P+1,I), LDX21, WORK(ILARF) )
-         CALL CLACGV( Q-I+1, X21(M-Q+I-P,I), LDX21 )
+         clarf('R', Q-I, Q-I+1, X21(M-Q+I-P,I), LDX21, TAUQ1(I), X21(M-Q+I-P+1,I), LDX21, WORK(ILARF) );
+         clacgv(Q-I+1, X21(M-Q+I-P,I), LDX21 );
       END DO
 
       RETURN

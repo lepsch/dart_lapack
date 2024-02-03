@@ -91,7 +91,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'DTGSYL', -INFO )
+         xerbla('DTGSYL', -INFO );
          RETURN
       } else if ( LQUERY ) {
          RETURN
@@ -119,8 +119,8 @@
       if ( NOTRAN ) {
          if ( IJOB.GE.3 ) {
             IFUNC = IJOB - 2
-            CALL DLASET( 'F', M, N, ZERO, ZERO, C, LDC )
-            CALL DLASET( 'F', M, N, ZERO, ZERO, F, LDF )
+            dlaset('F', M, N, ZERO, ZERO, C, LDC );
+            dlaset('F', M, N, ZERO, ZERO, F, LDF );
          } else if ( IJOB.GE.1 ) {
             ISOLVE = 2
          }
@@ -135,7 +135,7 @@
             DSCALE = ZERO
             DSUM = ONE
             PQ = 0
-            CALL DTGSY2( TRANS, IFUNC, M, N, A, LDA, B, LDB, C, LDC, D, LDD, E, LDE, F, LDF, SCALE, DSUM, DSCALE, IWORK, PQ, INFO )
+            dtgsy2(TRANS, IFUNC, M, N, A, LDA, B, LDB, C, LDC, D, LDD, E, LDE, F, LDF, SCALE, DSUM, DSCALE, IWORK, PQ, INFO );
             if ( DSCALE.NE.ZERO ) {
                if ( IJOB.EQ.1 .OR. IJOB.EQ.3 ) {
                   DIF = SQRT( DBLE( 2*M*N ) ) / ( DSCALE*SQRT( DSUM ) )
@@ -149,13 +149,13 @@
                   IFUNC = IJOB
                }
                SCALE2 = SCALE
-               CALL DLACPY( 'F', M, N, C, LDC, WORK, M )
-               CALL DLACPY( 'F', M, N, F, LDF, WORK( M*N+1 ), M )
-               CALL DLASET( 'F', M, N, ZERO, ZERO, C, LDC )
-               CALL DLASET( 'F', M, N, ZERO, ZERO, F, LDF )
+               dlacpy('F', M, N, C, LDC, WORK, M );
+               dlacpy('F', M, N, F, LDF, WORK( M*N+1 ), M );
+               dlaset('F', M, N, ZERO, ZERO, C, LDC );
+               dlaset('F', M, N, ZERO, ZERO, F, LDF );
             } else if ( ISOLVE.EQ.2 .AND. IROUND.EQ.2 ) {
-               CALL DLACPY( 'F', M, N, WORK, M, C, LDC )
-               CALL DLACPY( 'F', M, N, WORK( M*N+1 ), M, F, LDF )
+               dlacpy('F', M, N, WORK, M, C, LDC );
+               dlacpy('F', M, N, WORK( M*N+1 ), M, F, LDF );
                SCALE = SCALE2
             }
    30    CONTINUE
@@ -217,26 +217,26 @@
                   IE = IWORK( I+1 ) - 1
                   MB = IE - IS + 1
                   PPQQ = 0
-                  CALL DTGSY2( TRANS, IFUNC, MB, NB, A( IS, IS ), LDA, B( JS, JS ), LDB, C( IS, JS ), LDC, D( IS, IS ), LDD, E( JS, JS ), LDE, F( IS, JS ), LDF, SCALOC, DSUM, DSCALE, IWORK( Q+2 ), PPQQ, LINFO )
+                  dtgsy2(TRANS, IFUNC, MB, NB, A( IS, IS ), LDA, B( JS, JS ), LDB, C( IS, JS ), LDC, D( IS, IS ), LDD, E( JS, JS ), LDE, F( IS, JS ), LDF, SCALOC, DSUM, DSCALE, IWORK( Q+2 ), PPQQ, LINFO );
                   IF( LINFO.GT.0 ) INFO = LINFO
 
                   PQ = PQ + PPQQ
                   if ( SCALOC.NE.ONE ) {
                      DO 80 K = 1, JS - 1
-                        CALL DSCAL( M, SCALOC, C( 1, K ), 1 )
-                        CALL DSCAL( M, SCALOC, F( 1, K ), 1 )
+                        dscal(M, SCALOC, C( 1, K ), 1 );
+                        dscal(M, SCALOC, F( 1, K ), 1 );
    80                CONTINUE
                      DO 90 K = JS, JE
-                        CALL DSCAL( IS-1, SCALOC, C( 1, K ), 1 )
-                        CALL DSCAL( IS-1, SCALOC, F( 1, K ), 1 )
+                        dscal(IS-1, SCALOC, C( 1, K ), 1 );
+                        dscal(IS-1, SCALOC, F( 1, K ), 1 );
    90                CONTINUE
                      DO 100 K = JS, JE
-                        CALL DSCAL( M-IE, SCALOC, C( IE+1, K ), 1 )
-                        CALL DSCAL( M-IE, SCALOC, F( IE+1, K ), 1 )
+                        dscal(M-IE, SCALOC, C( IE+1, K ), 1 );
+                        dscal(M-IE, SCALOC, F( IE+1, K ), 1 );
   100                CONTINUE
                      DO 110 K = JE + 1, N
-                        CALL DSCAL( M, SCALOC, C( 1, K ), 1 )
-                        CALL DSCAL( M, SCALOC, F( 1, K ), 1 )
+                        dscal(M, SCALOC, C( 1, K ), 1 );
+                        dscal(M, SCALOC, F( 1, K ), 1 );
   110                CONTINUE
                      SCALE = SCALE*SCALOC
                   }
@@ -245,10 +245,10 @@
                   // equation.
 
                   if ( I.GT.1 ) {
-                     CALL DGEMM( 'N', 'N', IS-1, NB, MB, -ONE, A( 1, IS ), LDA, C( IS, JS ), LDC, ONE, C( 1, JS ), LDC )                      CALL DGEMM( 'N', 'N', IS-1, NB, MB, -ONE, D( 1, IS ), LDD, C( IS, JS ), LDC, ONE, F( 1, JS ), LDF )
+                     dgemm('N', 'N', IS-1, NB, MB, -ONE, A( 1, IS ), LDA, C( IS, JS ), LDC, ONE, C( 1, JS ), LDC )                      CALL DGEMM( 'N', 'N', IS-1, NB, MB, -ONE, D( 1, IS ), LDD, C( IS, JS ), LDC, ONE, F( 1, JS ), LDF );
                   }
                   if ( J.LT.Q ) {
-                     CALL DGEMM( 'N', 'N', MB, N-JE, NB, ONE, F( IS, JS ), LDF, B( JS, JE+1 ), LDB, ONE, C( IS, JE+1 ), LDC )                      CALL DGEMM( 'N', 'N', MB, N-JE, NB, ONE, F( IS, JS ), LDF, E( JS, JE+1 ), LDE, ONE, F( IS, JE+1 ), LDF )
+                     dgemm('N', 'N', MB, N-JE, NB, ONE, F( IS, JS ), LDF, B( JS, JE+1 ), LDB, ONE, C( IS, JE+1 ), LDC )                      CALL DGEMM( 'N', 'N', MB, N-JE, NB, ONE, F( IS, JS ), LDF, E( JS, JE+1 ), LDE, ONE, F( IS, JE+1 ), LDF );
                   }
   120          CONTINUE
   130       CONTINUE
@@ -264,13 +264,13 @@
                   IFUNC = IJOB
                }
                SCALE2 = SCALE
-               CALL DLACPY( 'F', M, N, C, LDC, WORK, M )
-               CALL DLACPY( 'F', M, N, F, LDF, WORK( M*N+1 ), M )
-               CALL DLASET( 'F', M, N, ZERO, ZERO, C, LDC )
-               CALL DLASET( 'F', M, N, ZERO, ZERO, F, LDF )
+               dlacpy('F', M, N, C, LDC, WORK, M );
+               dlacpy('F', M, N, F, LDF, WORK( M*N+1 ), M );
+               dlaset('F', M, N, ZERO, ZERO, C, LDC );
+               dlaset('F', M, N, ZERO, ZERO, F, LDF );
             } else if ( ISOLVE.EQ.2 .AND. IROUND.EQ.2 ) {
-               CALL DLACPY( 'F', M, N, WORK, M, C, LDC )
-               CALL DLACPY( 'F', M, N, WORK( M*N+1 ), M, F, LDF )
+               dlacpy('F', M, N, WORK, M, C, LDC );
+               dlacpy('F', M, N, WORK( M*N+1 ), M, F, LDF );
                SCALE = SCALE2
             }
   150    CONTINUE
@@ -291,24 +291,24 @@
                JS = IWORK( J )
                JE = IWORK( J+1 ) - 1
                NB = JE - JS + 1
-               CALL DTGSY2( TRANS, IFUNC, MB, NB, A( IS, IS ), LDA, B( JS, JS ), LDB, C( IS, JS ), LDC, D( IS, IS ), LDD, E( JS, JS ), LDE, F( IS, JS ), LDF, SCALOC, DSUM, DSCALE, IWORK( Q+2 ), PPQQ, LINFO )
+               dtgsy2(TRANS, IFUNC, MB, NB, A( IS, IS ), LDA, B( JS, JS ), LDB, C( IS, JS ), LDC, D( IS, IS ), LDD, E( JS, JS ), LDE, F( IS, JS ), LDF, SCALOC, DSUM, DSCALE, IWORK( Q+2 ), PPQQ, LINFO );
                IF( LINFO.GT.0 ) INFO = LINFO
                if ( SCALOC.NE.ONE ) {
                   DO 160 K = 1, JS - 1
-                     CALL DSCAL( M, SCALOC, C( 1, K ), 1 )
-                     CALL DSCAL( M, SCALOC, F( 1, K ), 1 )
+                     dscal(M, SCALOC, C( 1, K ), 1 );
+                     dscal(M, SCALOC, F( 1, K ), 1 );
   160             CONTINUE
                   DO 170 K = JS, JE
-                     CALL DSCAL( IS-1, SCALOC, C( 1, K ), 1 )
-                     CALL DSCAL( IS-1, SCALOC, F( 1, K ), 1 )
+                     dscal(IS-1, SCALOC, C( 1, K ), 1 );
+                     dscal(IS-1, SCALOC, F( 1, K ), 1 );
   170             CONTINUE
                   DO 180 K = JS, JE
-                     CALL DSCAL( M-IE, SCALOC, C( IE+1, K ), 1 )
-                     CALL DSCAL( M-IE, SCALOC, F( IE+1, K ), 1 )
+                     dscal(M-IE, SCALOC, C( IE+1, K ), 1 );
+                     dscal(M-IE, SCALOC, F( IE+1, K ), 1 );
   180             CONTINUE
                   DO 190 K = JE + 1, N
-                     CALL DSCAL( M, SCALOC, C( 1, K ), 1 )
-                     CALL DSCAL( M, SCALOC, F( 1, K ), 1 )
+                     dscal(M, SCALOC, C( 1, K ), 1 );
+                     dscal(M, SCALOC, F( 1, K ), 1 );
   190             CONTINUE
                   SCALE = SCALE*SCALOC
                }
@@ -316,10 +316,10 @@
                // Substitute R(I, J) and L(I, J) into remaining equation.
 
                if ( J.GT.P+2 ) {
-                  CALL DGEMM( 'N', 'T', MB, JS-1, NB, ONE, C( IS, JS ), LDC, B( 1, JS ), LDB, ONE, F( IS, 1 ), LDF )                   CALL DGEMM( 'N', 'T', MB, JS-1, NB, ONE, F( IS, JS ), LDF, E( 1, JS ), LDE, ONE, F( IS, 1 ), LDF )
+                  dgemm('N', 'T', MB, JS-1, NB, ONE, C( IS, JS ), LDC, B( 1, JS ), LDB, ONE, F( IS, 1 ), LDF )                   CALL DGEMM( 'N', 'T', MB, JS-1, NB, ONE, F( IS, JS ), LDF, E( 1, JS ), LDE, ONE, F( IS, 1 ), LDF );
                }
                if ( I.LT.P ) {
-                  CALL DGEMM( 'T', 'N', M-IE, NB, MB, -ONE, A( IS, IE+1 ), LDA, C( IS, JS ), LDC, ONE, C( IE+1, JS ), LDC )                   CALL DGEMM( 'T', 'N', M-IE, NB, MB, -ONE, D( IS, IE+1 ), LDD, F( IS, JS ), LDF, ONE, C( IE+1, JS ), LDC )
+                  dgemm('T', 'N', M-IE, NB, MB, -ONE, A( IS, IE+1 ), LDA, C( IS, JS ), LDC, ONE, C( IE+1, JS ), LDC )                   CALL DGEMM( 'T', 'N', M-IE, NB, MB, -ONE, D( IS, IE+1 ), LDD, F( IS, JS ), LDF, ONE, C( IE+1, JS ), LDC );
                }
   200       CONTINUE
   210    CONTINUE

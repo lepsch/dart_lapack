@@ -92,7 +92,7 @@
       // Compute B - op(A)*X
 
       DO 20 J = 1, NRHS
-         CALL SGBMV( TRANS, M, N, KL, KU, -ONE, A, LDA, X( 1, J ), 1, ONE, B( 1, J ), 1 )
+         sgbmv(TRANS, M, N, KL, KU, -ONE, A, LDA, X( 1, J ), 1, ONE, B( 1, J ), 1 );
    20 CONTINUE
 
       // Compute the maximum over the number of right hand sides of

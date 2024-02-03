@@ -93,7 +93,7 @@
 
             // Set up parameters with DLATB4.
 
-            CALL DLATB4( PATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, COND, DIST )
+            dlatb4(PATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, COND, DIST );
 
             ZEROT = IMAT.GE.8 .AND. IMAT.LE.10
             if ( IMAT.LE.6 ) {
@@ -102,21 +102,21 @@
 
                KOFF = MAX( 2-KU, 3-MAX( 1, N ) )
                SRNAMT = 'DLATMS'
-               CALL DLATMS( N, N, DIST, ISEED, TYPE, RWORK, MODE, COND, ANORM, KL, KU, 'Z', AF( KOFF ), 3, WORK, INFO )
+               dlatms(N, N, DIST, ISEED, TYPE, RWORK, MODE, COND, ANORM, KL, KU, 'Z', AF( KOFF ), 3, WORK, INFO );
 
                // Check the error code from DLATMS.
 
                if ( INFO.NE.0 ) {
-                  CALL ALAERH( PATH, 'DLATMS', INFO, 0, ' ', N, N, KL, KU, -1, IMAT, NFAIL, NERRS, NOUT )
+                  alaerh(PATH, 'DLATMS', INFO, 0, ' ', N, N, KL, KU, -1, IMAT, NFAIL, NERRS, NOUT );
                   GO TO 130
                }
                IZERO = 0
 
                if ( N.GT.1 ) {
-                  CALL DCOPY( N-1, AF( 4 ), 3, A, 1 )
-                  CALL DCOPY( N-1, AF( 3 ), 3, A( N+M+1 ), 1 )
+                  dcopy(N-1, AF( 4 ), 3, A, 1 );
+                  dcopy(N-1, AF( 3 ), 3, A( N+M+1 ), 1 );
                }
-               CALL DCOPY( N, AF( 2 ), 3, A( M+1 ), 1 )
+               dcopy(N, AF( 2 ), 3, A( M+1 ), 1 );
             } else {
 
                // Types 7-12:  generate tridiagonal matrices with
@@ -126,7 +126,7 @@
 
                   // Generate a matrix with elements from [-1,1].
 
-                  CALL DLARNV( 2, ISEED, N+2*M, A )
+                  dlarnv(2, ISEED, N+2*M, A );
                   IF( ANORM.NE.ONE ) CALL DSCAL( N+2*M, ANORM, A, 1 )
                } else if ( IZERO.GT.0 ) {
 
@@ -192,7 +192,7 @@
                   RCONDI = ZERO
 
                } else if ( IFACT.EQ.1 ) {
-                  CALL DCOPY( N+2*M, A, 1, AF, 1 )
+                  dcopy(N+2*M, A, 1, AF, 1 );
 
                   // Compute the 1-norm and infinity-norm of A.
 
@@ -201,7 +201,7 @@
 
                   // Factor the matrix A.
 
-                  CALL DGTTRF( N, AF, AF( M+1 ), AF( N+M+1 ), AF( N+2*M+1 ), IWORK, INFO )
+                  dgttrf(N, AF, AF( M+1 ), AF( N+M+1 ), AF( N+2*M+1 ), IWORK, INFO );
 
                   // Use DGTTRS to solve for one column at a time of
                   // inv(A), computing the maximum column sum as we go.
@@ -212,7 +212,7 @@
                         X( J ) = ZERO
    30                CONTINUE
                      X( I ) = ONE
-                     CALL DGTTRS( 'No transpose', N, 1, AF, AF( M+1 ), AF( N+M+1 ), AF( N+2*M+1 ), IWORK, X, LDA, INFO )
+                     dgttrs('No transpose', N, 1, AF, AF( M+1 ), AF( N+M+1 ), AF( N+2*M+1 ), IWORK, X, LDA, INFO );
                      AINVNM = MAX( AINVNM, DASUM( N, X, 1 ) )
    40             CONTINUE
 
@@ -233,7 +233,7 @@
                         X( J ) = ZERO
    50                CONTINUE
                      X( I ) = ONE
-                     CALL DGTTRS( 'Transpose', N, 1, AF, AF( M+1 ), AF( N+M+1 ), AF( N+2*M+1 ), IWORK, X, LDA, INFO )
+                     dgttrs('Transpose', N, 1, AF, AF( M+1 ), AF( N+M+1 ), AF( N+2*M+1 ), IWORK, X, LDA, INFO );
                      AINVNM = MAX( AINVNM, DASUM( N, X, 1 ) )
    60             CONTINUE
 
@@ -258,13 +258,13 @@
 
                   IX = 1
                   DO 70 J = 1, NRHS
-                     CALL DLARNV( 2, ISEED, N, XACT( IX ) )
+                     dlarnv(2, ISEED, N, XACT( IX ) );
                      IX = IX + LDA
    70             CONTINUE
 
                   // Set the right hand side.
 
-                  CALL DLAGTM( TRANS, N, NRHS, ONE, A, A( M+1 ), A( N+M+1 ), XACT, LDA, ZERO, B, LDA )
+                  dlagtm(TRANS, N, NRHS, ONE, A, A( M+1 ), A( N+M+1 ), XACT, LDA, ZERO, B, LDA );
 
                   if ( IFACT.EQ.2 .AND. ITRAN.EQ.1 ) {
 
@@ -273,11 +273,11 @@
                      // Solve the system using Gaussian elimination with
                      // partial pivoting.
 
-                     CALL DCOPY( N+2*M, A, 1, AF, 1 )
-                     CALL DLACPY( 'Full', N, NRHS, B, LDA, X, LDA )
+                     dcopy(N+2*M, A, 1, AF, 1 );
+                     dlacpy('Full', N, NRHS, B, LDA, X, LDA );
 
                      SRNAMT = 'DGTSV '
-                     CALL DGTSV( N, NRHS, AF, AF( M+1 ), AF( N+M+1 ), X, LDA, INFO )
+                     dgtsv(N, NRHS, AF, AF( M+1 ), AF( N+M+1 ), X, LDA, INFO );
 
                      // Check error code from DGTSV .
 
@@ -287,11 +287,11 @@
 
                         // Check residual of computed solution.
 
-                        CALL DLACPY( 'Full', N, NRHS, B, LDA, WORK, LDA )                         CALL DGTT02( TRANS, N, NRHS, A, A( M+1 ), A( N+M+1 ), X, LDA, WORK, LDA, RESULT( 2 ) )
+                        dlacpy('Full', N, NRHS, B, LDA, WORK, LDA )                         CALL DGTT02( TRANS, N, NRHS, A, A( M+1 ), A( N+M+1 ), X, LDA, WORK, LDA, RESULT( 2 ) );
 
                         // Check solution from generated exact solution.
 
-                        CALL DGET04( N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 3 ) )
+                        dget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 3 ) );
                         NT = 3
                      }
 
@@ -317,13 +317,13 @@
                         AF( I ) = ZERO
    90                CONTINUE
                   }
-                  CALL DLASET( 'Full', N, NRHS, ZERO, ZERO, X, LDA )
+                  dlaset('Full', N, NRHS, ZERO, ZERO, X, LDA );
 
                   // Solve the system and compute the condition number and
                   // error bounds using DGTSVX.
 
                   SRNAMT = 'DGTSVX'
-                  CALL DGTSVX( FACT, TRANS, N, NRHS, A, A( M+1 ), A( N+M+1 ), AF, AF( M+1 ), AF( N+M+1 ), AF( N+2*M+1 ), IWORK, B, LDA, X, LDA, RCOND, RWORK, RWORK( NRHS+1 ), WORK, IWORK( N+1 ), INFO )
+                  dgtsvx(FACT, TRANS, N, NRHS, A, A( M+1 ), A( N+M+1 ), AF, AF( M+1 ), AF( N+M+1 ), AF( N+2*M+1 ), IWORK, B, LDA, X, LDA, RCOND, RWORK, RWORK( NRHS+1 ), WORK, IWORK( N+1 ), INFO );
 
                   // Check the error code from DGTSVX.
 
@@ -334,7 +334,7 @@
                      // Reconstruct matrix from factors and compute
                      // residual.
 
-                     CALL DGTT01( N, A, A( M+1 ), A( N+M+1 ), AF, AF( M+1 ), AF( N+M+1 ), AF( N+2*M+1 ), IWORK, WORK, LDA, RWORK, RESULT( 1 ) )
+                     dgtt01(N, A, A( M+1 ), A( N+M+1 ), AF, AF( M+1 ), AF( N+M+1 ), AF( N+2*M+1 ), IWORK, WORK, LDA, RWORK, RESULT( 1 ) );
                      K1 = 1
                   } else {
                      K1 = 2
@@ -345,16 +345,16 @@
 
                      // Check residual of computed solution.
 
-                     CALL DLACPY( 'Full', N, NRHS, B, LDA, WORK, LDA )
-                     CALL DGTT02( TRANS, N, NRHS, A, A( M+1 ), A( N+M+1 ), X, LDA, WORK, LDA, RESULT( 2 ) )
+                     dlacpy('Full', N, NRHS, B, LDA, WORK, LDA );
+                     dgtt02(TRANS, N, NRHS, A, A( M+1 ), A( N+M+1 ), X, LDA, WORK, LDA, RESULT( 2 ) );
 
                      // Check solution from generated exact solution.
 
-                     CALL DGET04( N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 3 ) )
+                     dget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 3 ) );
 
                      // Check the error bounds from iterative refinement.
 
-                     CALL DGTT05( TRANS, N, NRHS, A, A( M+1 ), A( N+M+1 ), B, LDA, X, LDA, XACT, LDA, RWORK, RWORK( NRHS+1 ), RESULT( 4 ) )
+                     dgtt05(TRANS, N, NRHS, A, A( M+1 ), A( N+M+1 ), B, LDA, X, LDA, XACT, LDA, RWORK, RWORK( NRHS+1 ), RESULT( 4 ) );
                      NT = 5
                   }
 
@@ -384,7 +384,7 @@
 
       // Print a summary of the results.
 
-      CALL ALASVM( PATH, NOUT, NFAIL, NRUN, NERRS )
+      alasvm(PATH, NOUT, NFAIL, NRUN, NERRS );
 
  9999 FORMAT( 1X, A, ', N =', I5, ', type ', I2, ', test ', I2, ', ratio = ', G12.5 )
  9998 FORMAT( 1X, A, ', FACT=''', A1, ''', TRANS=''', A1, ''', N =', I5, ', type ', I2, ', test ', I2, ', ratio = ', G12.5 )

@@ -45,7 +45,7 @@
          INFO = -3
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'CTPTRI', -INFO )
+         xerbla('CTPTRI', -INFO );
          RETURN
       }
 
@@ -83,8 +83,8 @@
 
             // Compute elements 1:j-1 of j-th column.
 
-            CALL CTPMV( 'Upper', 'No transpose', DIAG, J-1, AP, AP( JC ), 1 )
-            CALL CSCAL( J-1, AJJ, AP( JC ), 1 )
+            ctpmv('Upper', 'No transpose', DIAG, J-1, AP, AP( JC ), 1 );
+            cscal(J-1, AJJ, AP( JC ), 1 );
             JC = JC + J
    30    CONTINUE
 
@@ -104,8 +104,8 @@
 
                // Compute elements j+1:n of j-th column.
 
-               CALL CTPMV( 'Lower', 'No transpose', DIAG, N-J, AP( JCLAST ), AP( JC+1 ), 1 )
-               CALL CSCAL( N-J, AJJ, AP( JC+1 ), 1 )
+               ctpmv('Lower', 'No transpose', DIAG, N-J, AP( JCLAST ), AP( JC+1 ), 1 );
+               cscal(N-J, AJJ, AP( JC+1 ), 1 );
             }
             JCLAST = JC
             JC = JC - N + J - 2

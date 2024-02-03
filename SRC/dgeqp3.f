@@ -66,7 +66,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'DGEQP3', -INFO )
+         xerbla('DGEQP3', -INFO );
          RETURN
       } else if ( LQUERY ) {
          RETURN
@@ -78,7 +78,7 @@
       DO 10 J = 1, N
          if ( JPVT( J ).NE.0 ) {
             if ( J.NE.NFXD ) {
-               CALL DSWAP( M, A( 1, J ), 1, A( 1, NFXD ), 1 )
+               dswap(M, A( 1, J ), 1, A( 1, NFXD ), 1 );
                JPVT( J ) = JPVT( NFXD )
                JPVT( NFXD ) = J
             } else {
@@ -100,12 +100,12 @@
       if ( NFXD.GT.0 ) {
          NA = MIN( M, NFXD )
 *CC      CALL DGEQR2( M, NA, A, LDA, TAU, WORK, INFO )
-         CALL DGEQRF( M, NA, A, LDA, TAU, WORK, LWORK, INFO )
+         dgeqrf(M, NA, A, LDA, TAU, WORK, LWORK, INFO );
          IWS = MAX( IWS, INT( WORK( 1 ) ) )
          if ( NA.LT.N ) {
 *CC         CALL DORM2R( 'Left', 'Transpose', M, N-NA, NA, A, LDA,
 *CC  $                   TAU, A( 1, NA+1 ), LDA, WORK, INFO )
-            CALL DORMQR( 'Left', 'Transpose', M, N-NA, NA, A, LDA, TAU, A( 1, NA+1 ), LDA, WORK, LWORK, INFO )
+            dormqr('Left', 'Transpose', M, N-NA, NA, A, LDA, TAU, A( 1, NA+1 ), LDA, WORK, LWORK, INFO );
             IWS = MAX( IWS, INT( WORK( 1 ) ) )
          }
       }
@@ -175,7 +175,7 @@
 
                // Factorize JB columns among columns J:N.
 
-               CALL DLAQPS( M, N-J+1, J-1, JB, FJB, A( 1, J ), LDA, JPVT( J ), TAU( J ), WORK( J ), WORK( N+J ), WORK( 2*N+1 ), WORK( 2*N+JB+1 ), N-J+1 )
+               dlaqps(M, N-J+1, J-1, JB, FJB, A( 1, J ), LDA, JPVT( J ), TAU( J ), WORK( J ), WORK( N+J ), WORK( 2*N+1 ), WORK( 2*N+JB+1 ), N-J+1 );
 
                J = J + FJB
                GO TO 30

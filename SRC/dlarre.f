@@ -124,7 +124,7 @@
       SPDIAM = GU - GL
 
       // Compute splitting points
-      CALL DLARRA( N, D, E, E2, SPLTOL, SPDIAM, NSPLIT, ISPLIT, IINFO )
+      dlarra(N, D, E, E2, SPLTOL, SPDIAM, NSPLIT, ISPLIT, IINFO );
 
       // Can force use of bisection instead of faster DQDS.
       // Option left in the code for future multisection work.
@@ -145,7 +145,7 @@
          // An interval [LEFT,RIGHT] has converged if
          // RIGHT-LEFT.LT.RTOL*MAX(ABS(LEFT),ABS(RIGHT))
          // DLARRD needs a WORK of size 4*N, IWORK of size 3*N
-         CALL DLARRD( RANGE, 'B', N, VL, VU, IL, IU, GERS, BSRTOL, D, E, E2, PIVMIN, NSPLIT, ISPLIT, MM, W, WERR, VL, VU, IBLOCK, INDEXW, WORK, IWORK, IINFO )
+         dlarrd(RANGE, 'B', N, VL, VU, IL, IU, GERS, BSRTOL, D, E, E2, PIVMIN, NSPLIT, ISPLIT, MM, W, WERR, VL, VU, IBLOCK, INDEXW, WORK, IWORK, IINFO );
          if ( IINFO.NE.0 ) {
             INFO = -1
             RETURN
@@ -240,13 +240,13 @@
          if (( (IRANGE.EQ.ALLRNG) .AND. (.NOT. FORCEB) ).OR.USEDQD) {
             // Case of DQDS
             // Find approximations to the extremal eigenvalues of the block
-            CALL DLARRK( IN, 1, GL, GU, D(IBEGIN), E2(IBEGIN), PIVMIN, RTL, TMP, TMP1, IINFO )
+            dlarrk(IN, 1, GL, GU, D(IBEGIN), E2(IBEGIN), PIVMIN, RTL, TMP, TMP1, IINFO );
             if ( IINFO.NE.0 ) {
                INFO = -1
                RETURN
             ENDIF
             ISLEFT = MAX(GL, TMP - TMP1 - HNDRD * EPS* ABS(TMP - TMP1))
-             CALL DLARRK( IN, IN, GL, GU, D(IBEGIN), E2(IBEGIN), PIVMIN, RTL, TMP, TMP1, IINFO )
+             dlarrk(IN, IN, GL, GU, D(IBEGIN), E2(IBEGIN), PIVMIN, RTL, TMP, TMP1, IINFO );
             if ( IINFO.NE.0 ) {
                INFO = -1
                RETURN
@@ -297,7 +297,7 @@
 
          // Compute the negcount at the 1/4 and 3/4 points
          if (MB.GT.1) {
-            CALL DLARRC( 'T', IN, S1, S2, D(IBEGIN), E(IBEGIN), PIVMIN, CNT, CNT1, CNT2, IINFO)
+            dlarrc('T', IN, S1, S2, D(IBEGIN), E(IBEGIN), PIVMIN, CNT, CNT1, CNT2, IINFO);
          ENDIF
 
          if (MB.EQ.1) {
@@ -420,8 +420,8 @@
          // Store the shift.
          E( IEND ) = SIGMA
          // Store D and L.
-         CALL DCOPY( IN, WORK, 1, D( IBEGIN ), 1 )
-         CALL DCOPY( IN-1, WORK( IN+1 ), 1, E( IBEGIN ), 1 )
+         dcopy(IN, WORK, 1, D( IBEGIN ), 1 );
+         dcopy(IN-1, WORK( IN+1 ), 1, E( IBEGIN ), 1 );
 
 
          if (MB.GT.1 ) {
@@ -434,7 +434,7 @@
                ISEED( I ) = 1
  122        CONTINUE
 
-            CALL DLARNV(2, ISEED, 2*IN-1, WORK(1))
+            dlarnv(2, ISEED, 2*IN-1, WORK(1));
             DO 125 I = 1,IN-1
                D(IBEGIN+I-1) = D(IBEGIN+I-1)*(ONE+EPS*PERT*WORK(I))
                E(IBEGIN+I-1) = E(IBEGIN+I-1)*(ONE+EPS*PERT*WORK(IN+I))
@@ -465,7 +465,7 @@
                WORK( I ) = D( I ) * E( I )**2
  135        CONTINUE
             // use bisection to find EV from INDL to INDU
-            CALL DLARRB(IN, D(IBEGIN), WORK(IBEGIN), INDL, INDU, RTOL1, RTOL2, INDL-1, W(WBEGIN), WGAP(WBEGIN), WERR(WBEGIN), WORK( 2*N+1 ), IWORK, PIVMIN, SPDIAM, IN, IINFO )
+            dlarrb(IN, D(IBEGIN), WORK(IBEGIN), INDL, INDU, RTOL1, RTOL2, INDL-1, W(WBEGIN), WGAP(WBEGIN), WERR(WBEGIN), WORK( 2*N+1 ), IWORK, PIVMIN, SPDIAM, IN, IINFO );
             if ( IINFO .NE. 0 ) {
                INFO = -4
                RETURN
@@ -499,7 +499,7 @@
   140       CONTINUE
             WORK( 2*IN-1 ) = ABS( D( IEND ) )
             WORK( 2*IN ) = ZERO
-            CALL DLASQ2( IN, WORK, IINFO )
+            dlasq2(IN, WORK, IINFO );
             if ( IINFO .NE. 0 ) {
                // If IINFO = -5 then an index is part of a tight cluster
                // and should be changed. The index is in IWORK(1) and the

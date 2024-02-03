@@ -49,7 +49,7 @@
 
       // Copy A & Compute its 1-Norm:
 
-      CALL ZLASET( 'Full', N, N, CZERO, CZERO, WORK, N )
+      zlaset('Full', N, N, CZERO, CZERO, WORK, N );
 
       ANORM = ZERO
       TEMP1 = ZERO
@@ -68,12 +68,12 @@
       // Norm of A - USU*
 
       DO 20 J = 1, N
-         CALL ZHER( 'L', N, -SD( J ), U( 1, J ), 1, WORK, N )
+         zher('L', N, -SD( J ), U( 1, J ), 1, WORK, N );
    20 CONTINUE
 
       if ( N.GT.1 .AND. KBAND.EQ.1 ) {
          DO 30 J = 1, N - 1
-            CALL ZHER2( 'L', N, -DCMPLX( SE( J ) ), U( 1, J ), 1, U( 1, J+1 ), 1, WORK, N )
+            zher2('L', N, -DCMPLX( SE( J ) ), U( 1, J ), 1, U( 1, J+1 ), 1, WORK, N );
    30    CONTINUE
       }
 
@@ -93,7 +93,7 @@
 
       // Compute  U U**H - I
 
-      CALL ZGEMM( 'N', 'C', N, N, N, CONE, U, LDU, U, LDU, CZERO, WORK, N )
+      zgemm('N', 'C', N, N, N, CONE, U, LDU, U, LDU, CZERO, WORK, N );
 
       DO 40 J = 1, N
          WORK( ( N+1 )*( J-1 )+1 ) = WORK( ( N+1 )*( J-1 )+1 ) - CONE

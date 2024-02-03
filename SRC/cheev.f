@@ -66,7 +66,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'CHEEV ', -INFO )
+         xerbla('CHEEV ', -INFO );
          RETURN
       } else if ( LQUERY ) {
          RETURN
@@ -113,17 +113,17 @@
       INDTAU = 1
       INDWRK = INDTAU + N
       LLWORK = LWORK - INDWRK + 1
-      CALL CHETRD( UPLO, N, A, LDA, W, RWORK( INDE ), WORK( INDTAU ), WORK( INDWRK ), LLWORK, IINFO )
+      chetrd(UPLO, N, A, LDA, W, RWORK( INDE ), WORK( INDTAU ), WORK( INDWRK ), LLWORK, IINFO );
 
       // For eigenvalues only, call SSTERF.  For eigenvectors, first call
       // CUNGTR to generate the unitary matrix, then call CSTEQR.
 
       if ( .NOT.WANTZ ) {
-         CALL SSTERF( N, W, RWORK( INDE ), INFO )
+         ssterf(N, W, RWORK( INDE ), INFO );
       } else {
-         CALL CUNGTR( UPLO, N, A, LDA, WORK( INDTAU ), WORK( INDWRK ), LLWORK, IINFO )
+         cungtr(UPLO, N, A, LDA, WORK( INDTAU ), WORK( INDWRK ), LLWORK, IINFO );
          INDWRK = INDE + N
-         CALL CSTEQR( JOBZ, N, W, RWORK( INDE ), A, LDA, RWORK( INDWRK ), INFO )
+         csteqr(JOBZ, N, W, RWORK( INDE ), A, LDA, RWORK( INDWRK ), INFO );
       }
 
       // If matrix was scaled, then rescale eigenvalues appropriately.
@@ -134,7 +134,7 @@
          } else {
             IMAX = INFO - 1
          }
-         CALL SSCAL( IMAX, ONE / SIGMA, W, 1 )
+         sscal(IMAX, ONE / SIGMA, W, 1 );
       }
 
       // Set WORK(1) to optimal complex workspace size.

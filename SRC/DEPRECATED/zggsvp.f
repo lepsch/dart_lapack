@@ -76,7 +76,7 @@
          INFO = -20
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'ZGGSVP', -INFO )
+         xerbla('ZGGSVP', -INFO );
          RETURN
       }
 
@@ -86,11 +86,11 @@
       DO 10 I = 1, N
          IWORK( I ) = 0
    10 CONTINUE
-      CALL ZGEQPF( P, N, B, LDB, IWORK, TAU, WORK, RWORK, INFO )
+      zgeqpf(P, N, B, LDB, IWORK, TAU, WORK, RWORK, INFO );
 
       // Update A := A*P
 
-      CALL ZLAPMT( FORWRD, M, N, A, LDA, IWORK )
+      zlapmt(FORWRD, M, N, A, LDA, IWORK );
 
       // Determine the effective rank of matrix B.
 
@@ -103,9 +103,9 @@
 
          // Copy the details of V, and form V.
 
-         CALL ZLASET( 'Full', P, P, CZERO, CZERO, V, LDV )
+         zlaset('Full', P, P, CZERO, CZERO, V, LDV );
          IF( P.GT.1 ) CALL ZLACPY( 'Lower', P-1, N, B( 2, 1 ), LDB, V( 2, 1 ), LDV )
-         CALL ZUNG2R( P, P, MIN( P, N ), V, LDV, TAU, WORK, INFO )
+         zung2r(P, P, MIN( P, N ), V, LDV, TAU, WORK, INFO );
       }
 
       // Clean up B
@@ -121,29 +121,29 @@
 
          // Set Q = I and Update Q := Q*P
 
-         CALL ZLASET( 'Full', N, N, CZERO, CONE, Q, LDQ )
-         CALL ZLAPMT( FORWRD, N, N, Q, LDQ, IWORK )
+         zlaset('Full', N, N, CZERO, CONE, Q, LDQ );
+         zlapmt(FORWRD, N, N, Q, LDQ, IWORK );
       }
 
       if ( P.GE.L .AND. N.NE.L ) {
 
          // RQ factorization of ( S11 S12 ) = ( 0 S12 )*Z
 
-         CALL ZGERQ2( L, N, B, LDB, TAU, WORK, INFO )
+         zgerq2(L, N, B, LDB, TAU, WORK, INFO );
 
          // Update A := A*Z**H
 
-         CALL ZUNMR2( 'Right', 'Conjugate transpose', M, N, L, B, LDB, TAU, A, LDA, WORK, INFO )
+         zunmr2('Right', 'Conjugate transpose', M, N, L, B, LDB, TAU, A, LDA, WORK, INFO );
          if ( WANTQ ) {
 
             // Update Q := Q*Z**H
 
-            CALL ZUNMR2( 'Right', 'Conjugate transpose', N, N, L, B, LDB, TAU, Q, LDQ, WORK, INFO )
+            zunmr2('Right', 'Conjugate transpose', N, N, L, B, LDB, TAU, Q, LDQ, WORK, INFO );
          }
 
          // Clean up B
 
-         CALL ZLASET( 'Full', L, N-L, CZERO, CZERO, B, LDB )
+         zlaset('Full', L, N-L, CZERO, CZERO, B, LDB );
          DO 60 J = N - L + 1, N
             DO 50 I = J - N + L + 1, L
                B( I, J ) = CZERO
@@ -163,7 +163,7 @@
       DO 70 I = 1, N - L
          IWORK( I ) = 0
    70 CONTINUE
-      CALL ZGEQPF( M, N-L, A, LDA, IWORK, TAU, WORK, RWORK, INFO )
+      zgeqpf(M, N-L, A, LDA, IWORK, TAU, WORK, RWORK, INFO );
 
       // Determine the effective rank of A11
 
@@ -174,22 +174,22 @@
 
       // Update A12 := U**H*A12, where A12 = A( 1:M, N-L+1:N )
 
-      CALL ZUNM2R( 'Left', 'Conjugate transpose', M, L, MIN( M, N-L ), A, LDA, TAU, A( 1, N-L+1 ), LDA, WORK, INFO )
+      zunm2r('Left', 'Conjugate transpose', M, L, MIN( M, N-L ), A, LDA, TAU, A( 1, N-L+1 ), LDA, WORK, INFO );
 
       if ( WANTU ) {
 
          // Copy the details of U, and form U
 
-         CALL ZLASET( 'Full', M, M, CZERO, CZERO, U, LDU )
+         zlaset('Full', M, M, CZERO, CZERO, U, LDU );
          IF( M.GT.1 ) CALL ZLACPY( 'Lower', M-1, N-L, A( 2, 1 ), LDA, U( 2, 1 ), LDU )
-         CALL ZUNG2R( M, M, MIN( M, N-L ), U, LDU, TAU, WORK, INFO )
+         zung2r(M, M, MIN( M, N-L ), U, LDU, TAU, WORK, INFO );
       }
 
       if ( WANTQ ) {
 
          // Update Q( 1:N, 1:N-L )  = Q( 1:N, 1:N-L )*P1
 
-         CALL ZLAPMT( FORWRD, N, N-L, Q, LDQ, IWORK )
+         zlapmt(FORWRD, N, N-L, Q, LDQ, IWORK );
       }
 
       // Clean up A: set the strictly lower triangular part of
@@ -206,18 +206,18 @@
 
          // RQ factorization of ( T11 T12 ) = ( 0 T12 )*Z1
 
-         CALL ZGERQ2( K, N-L, A, LDA, TAU, WORK, INFO )
+         zgerq2(K, N-L, A, LDA, TAU, WORK, INFO );
 
          if ( WANTQ ) {
 
             // Update Q( 1:N,1:N-L ) = Q( 1:N,1:N-L )*Z1**H
 
-            CALL ZUNMR2( 'Right', 'Conjugate transpose', N, N-L, K, A, LDA, TAU, Q, LDQ, WORK, INFO )
+            zunmr2('Right', 'Conjugate transpose', N, N-L, K, A, LDA, TAU, Q, LDQ, WORK, INFO );
          }
 
          // Clean up A
 
-         CALL ZLASET( 'Full', K, N-L-K, CZERO, CZERO, A, LDA )
+         zlaset('Full', K, N-L-K, CZERO, CZERO, A, LDA );
          DO 120 J = N - L - K + 1, N - L
             DO 110 I = J - N + L + K + 1, K
                A( I, J ) = CZERO
@@ -230,13 +230,13 @@
 
          // QR factorization of A( K+1:M,N-L+1:N )
 
-         CALL ZGEQR2( M-K, L, A( K+1, N-L+1 ), LDA, TAU, WORK, INFO )
+         zgeqr2(M-K, L, A( K+1, N-L+1 ), LDA, TAU, WORK, INFO );
 
          if ( WANTU ) {
 
             // Update U(:,K+1:M) := U(:,K+1:M)*U1
 
-            CALL ZUNM2R( 'Right', 'No transpose', M, M-K, MIN( M-K, L ), A( K+1, N-L+1 ), LDA, TAU, U( 1, K+1 ), LDU, WORK, INFO )
+            zunm2r('Right', 'No transpose', M, M-K, MIN( M-K, L ), A( K+1, N-L+1 ), LDA, TAU, U( 1, K+1 ), LDU, WORK, INFO );
          }
 
          // Clean up

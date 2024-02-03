@@ -53,7 +53,7 @@
          INFO = -9
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'CLAVSY_ROOK ', -INFO )
+         xerbla('CLAVSY_ROOK ', -INFO );
          RETURN
       }
 
@@ -93,7 +93,7 @@
 
                   // Apply the transformation.
 
-                  CALL CGERU( K-1, NRHS, CONE, A( 1, K ), 1, B( K, 1 ), LDB, B( 1, 1 ), LDB )
+                  cgeru(K-1, NRHS, CONE, A( 1, K ), 1, B( K, 1 ), LDB, B( 1, 1 ), LDB );
 
                   // Interchange if P(K) != I.
 
@@ -126,7 +126,7 @@
 
                   // Apply the transformations.
 
-                  CALL CGERU( K-1, NRHS, CONE, A( 1, K ), 1, B( K, 1 ), LDB, B( 1, 1 ), LDB )                   CALL CGERU( K-1, NRHS, CONE, A( 1, K+1 ), 1, B( K+1, 1 ), LDB, B( 1, 1 ), LDB )
+                  cgeru(K-1, NRHS, CONE, A( 1, K ), 1, B( K, 1 ), LDB, B( 1, 1 ), LDB )                   CALL CGERU( K-1, NRHS, CONE, A( 1, K+1 ), 1, B( K+1, 1 ), LDB, B( 1, 1 ), LDB );
 
                   // Interchange if a permutation was applied at the
                   // K-th step of the factorization.
@@ -175,7 +175,7 @@
 
                   // Apply the transformation.
 
-                  CALL CGERU( N-K, NRHS, CONE, A( K+1, K ), 1, B( K, 1 ), LDB, B( K+1, 1 ), LDB )
+                  cgeru(N-K, NRHS, CONE, A( K+1, K ), 1, B( K, 1 ), LDB, B( K+1, 1 ), LDB );
 
                   // Interchange if a permutation was applied at the
                   // K-th step of the factorization.
@@ -209,7 +209,7 @@
 
                   // Apply the transformation.
 
-                  CALL CGERU( N-K, NRHS, CONE, A( K+1, K ), 1, B( K, 1 ), LDB, B( K+1, 1 ), LDB )                   CALL CGERU( N-K, NRHS, CONE, A( K+1, K-1 ), 1, B( K-1, 1 ), LDB, B( K+1, 1 ), LDB )
+                  cgeru(N-K, NRHS, CONE, A( K+1, K ), 1, B( K, 1 ), LDB, B( K+1, 1 ), LDB )                   CALL CGERU( N-K, NRHS, CONE, A( K+1, K-1 ), 1, B( K-1, 1 ), LDB, B( K+1, 1 ), LDB );
 
                   // Interchange if a permutation was applied at the
                   // K-th step of the factorization.
@@ -259,7 +259,7 @@
 
                   // Apply the transformation
 
-                  CALL CGEMV( 'Transpose', K-1, NRHS, CONE, B, LDB, A( 1, K ), 1, CONE, B( K, 1 ), LDB )
+                  cgemv('Transpose', K-1, NRHS, CONE, B, LDB, A( 1, K ), 1, CONE, B( K, 1 ), LDB );
                }
                IF( NOUNIT ) CALL CSCAL( NRHS, A( K, K ), B( K, 1 ), LDB )
                K = K - 1
@@ -281,7 +281,7 @@
 
                   // Apply the transformations
 
-                  CALL CGEMV( 'Transpose', K-2, NRHS, CONE, B, LDB, A( 1, K ), 1, CONE, B( K, 1 ), LDB )                   CALL CGEMV( 'Transpose', K-2, NRHS, CONE, B, LDB, A( 1, K-1 ), 1, CONE, B( K-1, 1 ), LDB )
+                  cgemv('Transpose', K-2, NRHS, CONE, B, LDB, A( 1, K ), 1, CONE, B( K, 1 ), LDB )                   CALL CGEMV( 'Transpose', K-2, NRHS, CONE, B, LDB, A( 1, K-1 ), 1, CONE, B( K-1, 1 ), LDB );
                }
 
                // Multiply by the diagonal block if non-unit.
@@ -327,7 +327,7 @@
 
                   // Apply the transformation
 
-                  CALL CGEMV( 'Transpose', N-K, NRHS, CONE, B( K+1, 1 ), LDB, A( K+1, K ), 1, CONE, B( K, 1 ), LDB )
+                  cgemv('Transpose', N-K, NRHS, CONE, B( K+1, 1 ), LDB, A( K+1, K ), 1, CONE, B( K, 1 ), LDB );
                }
                IF( NOUNIT ) CALL CSCAL( NRHS, A( K, K ), B( K, 1 ), LDB )
                K = K + 1
@@ -349,7 +349,7 @@
 
                   // Apply the transformation
 
-                  CALL CGEMV( 'Transpose', N-K-1, NRHS, CONE, B( K+2, 1 ), LDB, A( K+2, K+1 ), 1, CONE, B( K+1, 1 ), LDB )                   CALL CGEMV( 'Transpose', N-K-1, NRHS, CONE, B( K+2, 1 ), LDB, A( K+2, K ), 1, CONE, B( K, 1 ), LDB )
+                  cgemv('Transpose', N-K-1, NRHS, CONE, B( K+2, 1 ), LDB, A( K+2, K+1 ), 1, CONE, B( K+1, 1 ), LDB )                   CALL CGEMV( 'Transpose', N-K-1, NRHS, CONE, B( K+2, 1 ), LDB, A( K+2, K ), 1, CONE, B( K, 1 ), LDB );
                }
 
                // Multiply by the diagonal block if non-unit.

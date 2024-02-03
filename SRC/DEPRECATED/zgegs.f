@@ -99,7 +99,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'ZGEGS ', -INFO )
+         xerbla('ZGEGS ', -INFO );
          RETURN
       } else if ( LQUERY ) {
          RETURN
@@ -129,7 +129,7 @@
       }
 
       if ( ILASCL ) {
-         CALL ZLASCL( 'G', -1, -1, ANRM, ANRMTO, N, N, A, LDA, IINFO )
+         zlascl('G', -1, -1, ANRM, ANRMTO, N, N, A, LDA, IINFO );
          if ( IINFO.NE.0 ) {
             INFO = N + 9
             RETURN
@@ -149,7 +149,7 @@
       }
 
       if ( ILBSCL ) {
-         CALL ZLASCL( 'G', -1, -1, BNRM, BNRMTO, N, N, B, LDB, IINFO )
+         zlascl('G', -1, -1, BNRM, BNRMTO, N, N, B, LDB, IINFO );
          if ( IINFO.NE.0 ) {
             INFO = N + 9
             RETURN
@@ -162,7 +162,7 @@
       IRIGHT = N + 1
       IRWORK = IRIGHT + N
       IWORK = 1
-      CALL ZGGBAL( 'P', N, A, LDA, B, LDB, ILO, IHI, RWORK( ILEFT ), RWORK( IRIGHT ), RWORK( IRWORK ), IINFO )
+      zggbal('P', N, A, LDA, B, LDB, ILO, IHI, RWORK( ILEFT ), RWORK( IRIGHT ), RWORK( IRWORK ), IINFO );
       if ( IINFO.NE.0 ) {
          INFO = N + 1
          GO TO 10
@@ -174,13 +174,13 @@
       ICOLS = N + 1 - ILO
       ITAU = IWORK
       IWORK = ITAU + IROWS
-      CALL ZGEQRF( IROWS, ICOLS, B( ILO, ILO ), LDB, WORK( ITAU ), WORK( IWORK ), LWORK+1-IWORK, IINFO )       IF( IINFO.GE.0 ) LWKOPT = MAX( LWKOPT, INT( WORK( IWORK ) )+IWORK-1 )
+      zgeqrf(IROWS, ICOLS, B( ILO, ILO ), LDB, WORK( ITAU ), WORK( IWORK ), LWORK+1-IWORK, IINFO )       IF( IINFO.GE.0 ) LWKOPT = MAX( LWKOPT, INT( WORK( IWORK ) )+IWORK-1 );
       if ( IINFO.NE.0 ) {
          INFO = N + 2
          GO TO 10
       }
 
-      CALL ZUNMQR( 'L', 'C', IROWS, ICOLS, IROWS, B( ILO, ILO ), LDB, WORK( ITAU ), A( ILO, ILO ), LDA, WORK( IWORK ), LWORK+1-IWORK, IINFO )
+      zunmqr('L', 'C', IROWS, ICOLS, IROWS, B( ILO, ILO ), LDB, WORK( ITAU ), A( ILO, ILO ), LDA, WORK( IWORK ), LWORK+1-IWORK, IINFO );
       IF( IINFO.GE.0 ) LWKOPT = MAX( LWKOPT, INT( WORK( IWORK ) )+IWORK-1 )
       if ( IINFO.NE.0 ) {
          INFO = N + 3
@@ -188,8 +188,8 @@
       }
 
       if ( ILVSL ) {
-         CALL ZLASET( 'Full', N, N, CZERO, CONE, VSL, LDVSL )
-         CALL ZLACPY( 'L', IROWS-1, IROWS-1, B( ILO+1, ILO ), LDB, VSL( ILO+1, ILO ), LDVSL )          CALL ZUNGQR( IROWS, IROWS, IROWS, VSL( ILO, ILO ), LDVSL, WORK( ITAU ), WORK( IWORK ), LWORK+1-IWORK, IINFO )
+         zlaset('Full', N, N, CZERO, CONE, VSL, LDVSL );
+         zlacpy('L', IROWS-1, IROWS-1, B( ILO+1, ILO ), LDB, VSL( ILO+1, ILO ), LDVSL )          CALL ZUNGQR( IROWS, IROWS, IROWS, VSL( ILO, ILO ), LDVSL, WORK( ITAU ), WORK( IWORK ), LWORK+1-IWORK, IINFO );
          IF( IINFO.GE.0 ) LWKOPT = MAX( LWKOPT, INT( WORK( IWORK ) )+IWORK-1 )
          if ( IINFO.NE.0 ) {
             INFO = N + 4
@@ -201,7 +201,7 @@
 
       // Reduce to generalized Hessenberg form
 
-      CALL ZGGHRD( JOBVSL, JOBVSR, N, ILO, IHI, A, LDA, B, LDB, VSL, LDVSL, VSR, LDVSR, IINFO )
+      zgghrd(JOBVSL, JOBVSR, N, ILO, IHI, A, LDA, B, LDB, VSL, LDVSL, VSR, LDVSR, IINFO );
       if ( IINFO.NE.0 ) {
          INFO = N + 5
          GO TO 10
@@ -210,7 +210,7 @@
       // Perform QZ algorithm, computing Schur vectors if desired
 
       IWORK = ITAU
-      CALL ZHGEQZ( 'S', JOBVSL, JOBVSR, N, ILO, IHI, A, LDA, B, LDB, ALPHA, BETA, VSL, LDVSL, VSR, LDVSR, WORK( IWORK ), LWORK+1-IWORK, RWORK( IRWORK ), IINFO )
+      zhgeqz('S', JOBVSL, JOBVSR, N, ILO, IHI, A, LDA, B, LDB, ALPHA, BETA, VSL, LDVSL, VSR, LDVSR, WORK( IWORK ), LWORK+1-IWORK, RWORK( IRWORK ), IINFO );
       IF( IINFO.GE.0 ) LWKOPT = MAX( LWKOPT, INT( WORK( IWORK ) )+IWORK-1 )
       if ( IINFO.NE.0 ) {
          if ( IINFO.GT.0 .AND. IINFO.LE.N ) {
@@ -226,14 +226,14 @@
       // Apply permutation to VSL and VSR
 
       if ( ILVSL ) {
-         CALL ZGGBAK( 'P', 'L', N, ILO, IHI, RWORK( ILEFT ), RWORK( IRIGHT ), N, VSL, LDVSL, IINFO )
+         zggbak('P', 'L', N, ILO, IHI, RWORK( ILEFT ), RWORK( IRIGHT ), N, VSL, LDVSL, IINFO );
          if ( IINFO.NE.0 ) {
             INFO = N + 7
             GO TO 10
          }
       }
       if ( ILVSR ) {
-         CALL ZGGBAK( 'P', 'R', N, ILO, IHI, RWORK( ILEFT ), RWORK( IRIGHT ), N, VSR, LDVSR, IINFO )
+         zggbak('P', 'R', N, ILO, IHI, RWORK( ILEFT ), RWORK( IRIGHT ), N, VSR, LDVSR, IINFO );
          if ( IINFO.NE.0 ) {
             INFO = N + 8
             GO TO 10
@@ -243,12 +243,12 @@
       // Undo scaling
 
       if ( ILASCL ) {
-         CALL ZLASCL( 'U', -1, -1, ANRMTO, ANRM, N, N, A, LDA, IINFO )
+         zlascl('U', -1, -1, ANRMTO, ANRM, N, N, A, LDA, IINFO );
          if ( IINFO.NE.0 ) {
             INFO = N + 9
             RETURN
          }
-         CALL ZLASCL( 'G', -1, -1, ANRMTO, ANRM, N, 1, ALPHA, N, IINFO )
+         zlascl('G', -1, -1, ANRMTO, ANRM, N, 1, ALPHA, N, IINFO );
          if ( IINFO.NE.0 ) {
             INFO = N + 9
             RETURN
@@ -256,12 +256,12 @@
       }
 
       if ( ILBSCL ) {
-         CALL ZLASCL( 'U', -1, -1, BNRMTO, BNRM, N, N, B, LDB, IINFO )
+         zlascl('U', -1, -1, BNRMTO, BNRM, N, N, B, LDB, IINFO );
          if ( IINFO.NE.0 ) {
             INFO = N + 9
             RETURN
          }
-         CALL ZLASCL( 'G', -1, -1, BNRMTO, BNRM, N, 1, BETA, N, IINFO )
+         zlascl('G', -1, -1, BNRMTO, BNRM, N, 1, BETA, N, IINFO );
          if ( IINFO.NE.0 ) {
             INFO = N + 9
             RETURN

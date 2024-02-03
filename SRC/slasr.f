@@ -51,7 +51,7 @@
          INFO = 9
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'SLASR ', INFO )
+         xerbla('SLASR ', INFO );
          RETURN
       }
 

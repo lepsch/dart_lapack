@@ -119,7 +119,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'ZGBSVX', -INFO )
+         xerbla('ZGBSVX', -INFO );
          RETURN
       }
 
@@ -127,12 +127,12 @@
 
          // Compute row and column scalings to equilibrate the matrix A.
 
-         CALL ZGBEQU( N, N, KL, KU, AB, LDAB, R, C, ROWCND, COLCND, AMAX, INFEQU )
+         zgbequ(N, N, KL, KU, AB, LDAB, R, C, ROWCND, COLCND, AMAX, INFEQU );
          if ( INFEQU.EQ.0 ) {
 
             // Equilibrate the matrix.
 
-            CALL ZLAQGB( N, N, KL, KU, AB, LDAB, R, C, ROWCND, COLCND, AMAX, EQUED )
+            zlaqgb(N, N, KL, KU, AB, LDAB, R, C, ROWCND, COLCND, AMAX, EQUED );
             ROWEQU = LSAME( EQUED, 'R' ) .OR. LSAME( EQUED, 'B' )
             COLEQU = LSAME( EQUED, 'C' ) .OR. LSAME( EQUED, 'B' )
          }
@@ -163,10 +163,10 @@
          DO 70 J = 1, N
             J1 = MAX( J-KU, 1 )
             J2 = MIN( J+KL, N )
-            CALL ZCOPY( J2-J1+1, AB( KU+1-J+J1, J ), 1, AFB( KL+KU+1-J+J1, J ), 1 )
+            zcopy(J2-J1+1, AB( KU+1-J+J1, J ), 1, AFB( KL+KU+1-J+J1, J ), 1 );
    70    CONTINUE
 
-         CALL ZGBTRF( N, N, KL, KU, AFB, LDAFB, IPIV, INFO )
+         zgbtrf(N, N, KL, KU, AFB, LDAFB, IPIV, INFO );
 
          // Return if INFO is non-zero.
 
@@ -211,17 +211,17 @@
 
       // Compute the reciprocal of the condition number of A.
 
-      CALL ZGBCON( NORM, N, KL, KU, AFB, LDAFB, IPIV, ANORM, RCOND, WORK, RWORK, INFO )
+      zgbcon(NORM, N, KL, KU, AFB, LDAFB, IPIV, ANORM, RCOND, WORK, RWORK, INFO );
 
       // Compute the solution matrix X.
 
-      CALL ZLACPY( 'Full', N, NRHS, B, LDB, X, LDX )
-      CALL ZGBTRS( TRANS, N, KL, KU, NRHS, AFB, LDAFB, IPIV, X, LDX, INFO )
+      zlacpy('Full', N, NRHS, B, LDB, X, LDX );
+      zgbtrs(TRANS, N, KL, KU, NRHS, AFB, LDAFB, IPIV, X, LDX, INFO );
 
       // Use iterative refinement to improve the computed solution and
       // compute error bounds and backward error estimates for it.
 
-      CALL ZGBRFS( TRANS, N, KL, KU, NRHS, AB, LDAB, AFB, LDAFB, IPIV, B, LDB, X, LDX, FERR, BERR, WORK, RWORK, INFO )
+      zgbrfs(TRANS, N, KL, KU, NRHS, AB, LDAB, AFB, LDAFB, IPIV, B, LDB, X, LDX, FERR, BERR, WORK, RWORK, INFO );
 
       // Transform the solution matrix X to a solution of the original
       // system.

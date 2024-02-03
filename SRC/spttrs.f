@@ -39,7 +39,7 @@
          INFO = -6
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'SPTTRS', -INFO )
+         xerbla('SPTTRS', -INFO );
          RETURN
       }
 
@@ -56,11 +56,11 @@
       }
 
       if ( NB.GE.NRHS ) {
-         CALL SPTTS2( N, NRHS, D, E, B, LDB )
+         sptts2(N, NRHS, D, E, B, LDB );
       } else {
          DO 10 J = 1, NRHS, NB
             JB = MIN( NRHS-J+1, NB )
-            CALL SPTTS2( N, JB, D, E, B( 1, J ), LDB )
+            sptts2(N, JB, D, E, B( 1, J ), LDB );
    10    CONTINUE
       }
 

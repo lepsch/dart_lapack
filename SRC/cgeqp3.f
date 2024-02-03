@@ -67,7 +67,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'CGEQP3', -INFO )
+         xerbla('CGEQP3', -INFO );
          RETURN
       } else if ( LQUERY ) {
          RETURN
@@ -79,7 +79,7 @@
       DO 10 J = 1, N
          if ( JPVT( J ).NE.0 ) {
             if ( J.NE.NFXD ) {
-               CALL CSWAP( M, A( 1, J ), 1, A( 1, NFXD ), 1 )
+               cswap(M, A( 1, J ), 1, A( 1, NFXD ), 1 );
                JPVT( J ) = JPVT( NFXD )
                JPVT( NFXD ) = J
             } else {
@@ -101,13 +101,13 @@
       if ( NFXD.GT.0 ) {
          NA = MIN( M, NFXD )
 *CC      CALL CGEQR2( M, NA, A, LDA, TAU, WORK, INFO )
-         CALL CGEQRF( M, NA, A, LDA, TAU, WORK, LWORK, INFO )
+         cgeqrf(M, NA, A, LDA, TAU, WORK, LWORK, INFO );
          IWS = MAX( IWS, INT( WORK( 1 ) ) )
          if ( NA.LT.N ) {
 *CC         CALL CUNM2R( 'Left', 'Conjugate Transpose', M, N-NA,
 *CC  $                   NA, A, LDA, TAU, A( 1, NA+1 ), LDA, WORK,
 *CC  $                   INFO )
-            CALL CUNMQR( 'Left', 'Conjugate Transpose', M, N-NA, NA, A, LDA, TAU, A( 1, NA+1 ), LDA, WORK, LWORK, INFO )
+            cunmqr('Left', 'Conjugate Transpose', M, N-NA, NA, A, LDA, TAU, A( 1, NA+1 ), LDA, WORK, LWORK, INFO );
             IWS = MAX( IWS, INT( WORK( 1 ) ) )
          }
       }
@@ -177,7 +177,7 @@
 
                // Factorize JB columns among columns J:N.
 
-               CALL CLAQPS( M, N-J+1, J-1, JB, FJB, A( 1, J ), LDA, JPVT( J ), TAU( J ), RWORK( J ), RWORK( N+J ), WORK( 1 ), WORK( JB+1 ), N-J+1 )
+               claqps(M, N-J+1, J-1, JB, FJB, A( 1, J ), LDA, JPVT( J ), TAU( J ), RWORK( J ), RWORK( N+J ), WORK( 1 ), WORK( JB+1 ), N-J+1 );
 
                J = J + FJB
                GO TO 30

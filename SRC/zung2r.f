@@ -41,7 +41,7 @@
          INFO = -5
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'ZUNG2R', -INFO )
+         xerbla('ZUNG2R', -INFO );
          RETURN
       }
 
@@ -64,7 +64,7 @@
 
          if ( I.LT.N ) {
             A( I, I ) = ONE
-            CALL ZLARF( 'Left', M-I+1, N-I, A( I, I ), 1, TAU( I ), A( I, I+1 ), LDA, WORK )
+            zlarf('Left', M-I+1, N-I, A( I, I ), 1, TAU( I ), A( I, I+1 ), LDA, WORK );
          }
          IF( I.LT.M ) CALL ZSCAL( M-I, -TAU( I ), A( I+1, I ), 1 )
          A( I, I ) = ONE - TAU( I )

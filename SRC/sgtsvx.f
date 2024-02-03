@@ -55,7 +55,7 @@
          INFO = -16
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'SGTSVX', -INFO )
+         xerbla('SGTSVX', -INFO );
          RETURN
       }
 
@@ -63,12 +63,12 @@
 
          // Compute the LU factorization of A.
 
-         CALL SCOPY( N, D, 1, DF, 1 )
+         scopy(N, D, 1, DF, 1 );
          if ( N.GT.1 ) {
-            CALL SCOPY( N-1, DL, 1, DLF, 1 )
-            CALL SCOPY( N-1, DU, 1, DUF, 1 )
+            scopy(N-1, DL, 1, DLF, 1 );
+            scopy(N-1, DU, 1, DUF, 1 );
          }
-         CALL SGTTRF( N, DLF, DF, DUF, DU2, IPIV, INFO )
+         sgttrf(N, DLF, DF, DUF, DU2, IPIV, INFO );
 
          // Return if INFO is non-zero.
 
@@ -89,17 +89,17 @@
 
       // Compute the reciprocal of the condition number of A.
 
-      CALL SGTCON( NORM, N, DLF, DF, DUF, DU2, IPIV, ANORM, RCOND, WORK, IWORK, INFO )
+      sgtcon(NORM, N, DLF, DF, DUF, DU2, IPIV, ANORM, RCOND, WORK, IWORK, INFO );
 
       // Compute the solution vectors X.
 
-      CALL SLACPY( 'Full', N, NRHS, B, LDB, X, LDX )
-      CALL SGTTRS( TRANS, N, NRHS, DLF, DF, DUF, DU2, IPIV, X, LDX, INFO )
+      slacpy('Full', N, NRHS, B, LDB, X, LDX );
+      sgttrs(TRANS, N, NRHS, DLF, DF, DUF, DU2, IPIV, X, LDX, INFO );
 
       // Use iterative refinement to improve the computed solutions and
       // compute error bounds and backward error estimates for them.
 
-      CALL SGTRFS( TRANS, N, NRHS, DL, D, DU, DLF, DF, DUF, DU2, IPIV, B, LDB, X, LDX, FERR, BERR, WORK, IWORK, INFO )
+      sgtrfs(TRANS, N, NRHS, DL, D, DU, DLF, DF, DUF, DU2, IPIV, B, LDB, X, LDX, FERR, BERR, WORK, IWORK, INFO );
 
       // Set INFO = N+1 if the matrix is singular to working precision.
 

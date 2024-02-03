@@ -103,15 +103,15 @@
                // Set up parameters with ZLATB4 and generate a test matrix
                // with ZLATMS.
 
-               CALL ZLATB4( PATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST )
+               zlatb4(PATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST );
 
                SRNAMT = 'ZLATMS'
-               CALL ZLATMS( N, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KL, KU, UPLO, A, LDA, WORK, INFO )
+               zlatms(N, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KL, KU, UPLO, A, LDA, WORK, INFO );
 
                // Check error code from ZLATMS.
 
                if ( INFO.NE.0 ) {
-                  CALL ALAERH( PATH, 'ZLATMS', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT )
+                  alaerh(PATH, 'ZLATMS', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
                   GO TO 100
                }
 
@@ -156,7 +156,7 @@
 
                // Set the imaginary part of the diagonals.
 
-               CALL ZLAIPD( N, A, LDA+1, 0 )
+               zlaipd(N, A, LDA+1, 0 );
 
                DO 60 IRHS = 1, NNS
                   NRHS = NSVAL( IRHS )
@@ -165,7 +165,7 @@
                   // Form an exact solution and set the right hand side.
 
                   SRNAMT = 'ZLARHS'
-                  CALL ZLARHS( PATH, XTYPE, UPLO, ' ', N, N, KL, KU, NRHS, A, LDA, X, LDA, B, LDA, ISEED, INFO )
+                  zlarhs(PATH, XTYPE, UPLO, ' ', N, N, KL, KU, NRHS, A, LDA, X, LDA, B, LDA, ISEED, INFO );
 
                   // Compute the L*L' or U'*U factorization of the
                   // matrix and solve the system.
@@ -173,12 +173,12 @@
                   SRNAMT = 'ZCPOSV '
                   KASE = KASE + 1
 
-                  CALL ZLACPY( 'All', N, N, A, LDA, AFAC, LDA)
+                  zlacpy('All', N, N, A, LDA, AFAC, LDA);
 
-                  CALL ZCPOSV( UPLO, N, NRHS, AFAC, LDA, B, LDA, X, LDA, WORK, SWORK, RWORK, ITER, INFO )
+                  zcposv(UPLO, N, NRHS, AFAC, LDA, B, LDA, X, LDA, WORK, SWORK, RWORK, ITER, INFO );
 
                   if (ITER.LT.0) {
-                     CALL ZLACPY( 'All', N, N, A, LDA, AFAC, LDA )
+                     zlacpy('All', N, N, A, LDA, AFAC, LDA );
                   ENDIF
 
                   // Check error code from ZCPOSV .
@@ -201,9 +201,9 @@
 
                   // Check the quality of the solution
 
-                  CALL ZLACPY( 'All', N, NRHS, B, LDA, WORK, LDA )
+                  zlacpy('All', N, NRHS, B, LDA, WORK, LDA );
 
-                  CALL ZPOT06( UPLO, N, NRHS, A, LDA, X, LDA, WORK, LDA, RWORK, RESULT( 1 ) )
+                  zpot06(UPLO, N, NRHS, A, LDA, X, LDA, WORK, LDA, RWORK, RESULT( 1 ) );
 
                   // Check if the test passes the testing.
                   // Print information about the tests that did not

@@ -62,7 +62,7 @@
          INFO = -6
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'STRCON', -INFO )
+         xerbla('STRCON', -INFO );
          RETURN
       }
 
@@ -95,18 +95,18 @@
          }
          KASE = 0
    10    CONTINUE
-         CALL SLACN2( N, WORK( N+1 ), WORK, IWORK, AINVNM, KASE, ISAVE )
+         slacn2(N, WORK( N+1 ), WORK, IWORK, AINVNM, KASE, ISAVE );
          if ( KASE.NE.0 ) {
             if ( KASE.EQ.KASE1 ) {
 
                // Multiply by inv(A).
 
-               CALL SLATRS( UPLO, 'No transpose', DIAG, NORMIN, N, A, LDA, WORK, SCALE, WORK( 2*N+1 ), INFO )
+               slatrs(UPLO, 'No transpose', DIAG, NORMIN, N, A, LDA, WORK, SCALE, WORK( 2*N+1 ), INFO );
             } else {
 
                // Multiply by inv(A**T).
 
-               CALL SLATRS( UPLO, 'Transpose', DIAG, NORMIN, N, A, LDA, WORK, SCALE, WORK( 2*N+1 ), INFO )
+               slatrs(UPLO, 'Transpose', DIAG, NORMIN, N, A, LDA, WORK, SCALE, WORK( 2*N+1 ), INFO );
             }
             NORMIN = 'Y'
 
@@ -116,7 +116,7 @@
                IX = ISAMAX( N, WORK, 1 )
                XNORM = ABS( WORK( IX ) )
                IF( SCALE.LT.XNORM*SMLNUM .OR. SCALE.EQ.ZERO ) GO TO 20
-               CALL SRSCL( N, SCALE, WORK, 1 )
+               srscl(N, SCALE, WORK, 1 );
             }
             GO TO 10
          }

@@ -88,7 +88,7 @@
 
       // Compute  U'U - I
 
-      CALL DGEMM( 'T', 'N', M, M, N, ONE, U, LDU, U, LDU, ZERO, WORK, M )
+      dgemm('T', 'N', M, M, N, ONE, U, LDU, U, LDU, ZERO, WORK, M );
 
       DO 50 J = 1, M
          WORK( J, J ) = WORK( J, J ) - ONE

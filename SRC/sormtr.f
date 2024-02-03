@@ -85,7 +85,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'SORMTR', -INFO )
+         xerbla('SORMTR', -INFO );
          RETURN
       } else if ( LQUERY ) {
          RETURN
@@ -110,7 +110,7 @@
 
          // Q was determined by a call to SSYTRD with UPLO = 'U'
 
-         CALL SORMQL( SIDE, TRANS, MI, NI, NQ-1, A( 1, 2 ), LDA, TAU, C, LDC, WORK, LWORK, IINFO )
+         sormql(SIDE, TRANS, MI, NI, NQ-1, A( 1, 2 ), LDA, TAU, C, LDC, WORK, LWORK, IINFO );
       } else {
 
          // Q was determined by a call to SSYTRD with UPLO = 'L'
@@ -122,7 +122,7 @@
             I1 = 1
             I2 = 2
          }
-         CALL SORMQR( SIDE, TRANS, MI, NI, NQ-1, A( 2, 1 ), LDA, TAU, C( I1, I2 ), LDC, WORK, LWORK, IINFO )
+         sormqr(SIDE, TRANS, MI, NI, NQ-1, A( 2, 1 ), LDA, TAU, C( I1, I2 ), LDC, WORK, LWORK, IINFO );
       }
       WORK( 1 ) = SROUNDUP_LWORK(LWKOPT)
       RETURN

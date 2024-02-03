@@ -108,7 +108,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'CCHKBB', -INFO )
+         xerbla('CCHKBB', -INFO );
          RETURN
       }
 
@@ -195,8 +195,8 @@
 
    70          CONTINUE
 
-               CALL CLASET( 'Full', LDA, N, CZERO, CZERO, A, LDA )
-               CALL CLASET( 'Full', LDAB, N, CZERO, CZERO, AB, LDAB )
+               claset('Full', LDA, N, CZERO, CZERO, A, LDA );
+               claset('Full', LDAB, N, CZERO, CZERO, AB, LDAB );
                IINFO = 0
                COND = ULPINV
 
@@ -219,19 +219,19 @@
 
                   // Diagonal Matrix, singular values specified
 
-                  CALL CLATMS( M, N, 'S', ISEED, 'N', RWORK, IMODE, COND, ANORM, 0, 0, 'N', A, LDA, WORK, IINFO )
+                  clatms(M, N, 'S', ISEED, 'N', RWORK, IMODE, COND, ANORM, 0, 0, 'N', A, LDA, WORK, IINFO );
 
                } else if ( ITYPE.EQ.6 ) {
 
                   // Nonhermitian, singular values specified
 
-                  CALL CLATMS( M, N, 'S', ISEED, 'N', RWORK, IMODE, COND, ANORM, KL, KU, 'N', A, LDA, WORK, IINFO )
+                  clatms(M, N, 'S', ISEED, 'N', RWORK, IMODE, COND, ANORM, KL, KU, 'N', A, LDA, WORK, IINFO );
 
                } else if ( ITYPE.EQ.9 ) {
 
                   // Nonhermitian, random entries
 
-                  CALL CLATMR( M, N, 'S', ISEED, 'N', WORK, 6, ONE, CONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, KL, KU, ZERO, ANORM, 'N', A, LDA, IDUMMA, IINFO )
+                  clatmr(M, N, 'S', ISEED, 'N', WORK, 6, ONE, CONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, KL, KU, ZERO, ANORM, 'N', A, LDA, IDUMMA, IINFO );
 
                } else {
 
@@ -240,7 +240,7 @@
 
                // Generate Right-Hand Side
 
-               CALL CLATMR( M, NRHS, 'S', ISEED, 'N', WORK, 6, ONE, CONE, 'T', 'N', WORK( M+1 ), 1, ONE, WORK( 2*M+1 ), 1, ONE, 'N', IDUMMA, M, NRHS, ZERO, ONE, 'NO', C, LDC, IDUMMA, IINFO )
+               clatmr(M, NRHS, 'S', ISEED, 'N', WORK, 6, ONE, CONE, 'T', 'N', WORK( M+1 ), 1, ONE, WORK( 2*M+1 ), 1, ONE, 'N', IDUMMA, M, NRHS, ZERO, ONE, 'NO', C, LDC, IDUMMA, IINFO );
 
                if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'Generator', IINFO, N, JTYPE, IOLDSD
@@ -260,11 +260,11 @@
 
                // Copy C
 
-               CALL CLACPY( 'Full', M, NRHS, C, LDC, CC, LDC )
+               clacpy('Full', M, NRHS, C, LDC, CC, LDC );
 
                // Call CGBBRD to compute B, Q and P, and to update C.
 
-               CALL CGBBRD( 'B', M, N, NRHS, KL, KU, AB, LDAB, BD, BE, Q, LDQ, P, LDP, CC, LDC, WORK, RWORK, IINFO )
+               cgbbrd('B', M, N, NRHS, KL, KU, AB, LDAB, BD, BE, Q, LDQ, P, LDP, CC, LDC, WORK, RWORK, IINFO );
 
                if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'CGBBRD', IINFO, N, JTYPE, IOLDSD
@@ -282,7 +282,7 @@
                     // 3:  Check the orthogonality of P
                     // 4:  Check the computation of Q' * C
 
-               CALL CBDT01( M, N, -1, A, LDA, Q, LDQ, BD, BE, P, LDP, WORK, RWORK, RESULT( 1 ) )                CALL CUNT01( 'Columns', M, M, Q, LDQ, WORK, LWORK, RWORK, RESULT( 2 ) )                CALL CUNT01( 'Rows', N, N, P, LDP, WORK, LWORK, RWORK, RESULT( 3 ) )                CALL CBDT02( M, NRHS, C, LDC, CC, LDC, Q, LDQ, WORK, RWORK, RESULT( 4 ) )
+               cbdt01(M, N, -1, A, LDA, Q, LDQ, BD, BE, P, LDP, WORK, RWORK, RESULT( 1 ) )                CALL CUNT01( 'Columns', M, M, Q, LDQ, WORK, LWORK, RWORK, RESULT( 2 ) )                CALL CUNT01( 'Rows', N, N, P, LDP, WORK, LWORK, RWORK, RESULT( 3 ) )                CALL CBDT02( M, NRHS, C, LDC, CC, LDC, Q, LDQ, WORK, RWORK, RESULT( 4 ) );
 
                // End of Loop -- Check for RESULT(j) > THRESH
 
@@ -306,7 +306,7 @@
 
       // Summary
 
-      CALL SLASUM( 'CBB', NOUNIT, NERRS, NTESTT )
+      slasum('CBB', NOUNIT, NERRS, NTESTT );
       RETURN
 
  9999 FORMAT( ' CCHKBB: ', A, ' returned INFO=', I5, '.', / 9X, 'M=', I5, ' N=', I5, ' K=', I5, ', JTYPE=', I5, ', ISEED=(', 3( I5, ',' ), I5, ')' )

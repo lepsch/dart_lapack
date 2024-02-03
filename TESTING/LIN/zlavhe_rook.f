@@ -53,7 +53,7 @@
          INFO = -9
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'ZLAVHE_ROOK ', -INFO )
+         xerbla('ZLAVHE_ROOK ', -INFO );
          RETURN
       }
 
@@ -93,7 +93,7 @@
 
                   // Apply the transformation.
 
-                  CALL ZGERU( K-1, NRHS, CONE, A( 1, K ), 1, B( K, 1 ), LDB, B( 1, 1 ), LDB )
+                  zgeru(K-1, NRHS, CONE, A( 1, K ), 1, B( K, 1 ), LDB, B( 1, 1 ), LDB );
 
                   // Interchange if P(K) != I.
 
@@ -126,7 +126,7 @@
 
                   // Apply the transformations.
 
-                  CALL ZGERU( K-1, NRHS, CONE, A( 1, K ), 1, B( K, 1 ), LDB, B( 1, 1 ), LDB )                   CALL ZGERU( K-1, NRHS, CONE, A( 1, K+1 ), 1, B( K+1, 1 ), LDB, B( 1, 1 ), LDB )
+                  zgeru(K-1, NRHS, CONE, A( 1, K ), 1, B( K, 1 ), LDB, B( 1, 1 ), LDB )                   CALL ZGERU( K-1, NRHS, CONE, A( 1, K+1 ), 1, B( K+1, 1 ), LDB, B( 1, 1 ), LDB );
 
                   // Interchange if a permutation was applied at the
                   // K-th step of the factorization.
@@ -175,7 +175,7 @@
 
                   // Apply the transformation.
 
-                  CALL ZGERU( N-K, NRHS, CONE, A( K+1, K ), 1, B( K, 1 ), LDB, B( K+1, 1 ), LDB )
+                  zgeru(N-K, NRHS, CONE, A( K+1, K ), 1, B( K, 1 ), LDB, B( K+1, 1 ), LDB );
 
                   // Interchange if a permutation was applied at the
                   // K-th step of the factorization.
@@ -209,7 +209,7 @@
 
                   // Apply the transformation.
 
-                  CALL ZGERU( N-K, NRHS, CONE, A( K+1, K ), 1, B( K, 1 ), LDB, B( K+1, 1 ), LDB )                   CALL ZGERU( N-K, NRHS, CONE, A( K+1, K-1 ), 1, B( K-1, 1 ), LDB, B( K+1, 1 ), LDB )
+                  zgeru(N-K, NRHS, CONE, A( K+1, K ), 1, B( K, 1 ), LDB, B( K+1, 1 ), LDB )                   CALL ZGERU( N-K, NRHS, CONE, A( K+1, K-1 ), 1, B( K-1, 1 ), LDB, B( K+1, 1 ), LDB );
 
                   // Interchange if a permutation was applied at the
                   // K-th step of the factorization.
@@ -263,9 +263,9 @@
                      // y = y - B' DCONJG(x),
                   // where x is a column of A and y is a row of B.
 
-                  CALL ZLACGV( NRHS, B( K, 1 ), LDB )
-                  CALL ZGEMV( 'Conjugate', K-1, NRHS, CONE, B, LDB, A( 1, K ), 1, CONE, B( K, 1 ), LDB )
-                  CALL ZLACGV( NRHS, B( K, 1 ), LDB )
+                  zlacgv(NRHS, B( K, 1 ), LDB );
+                  zgemv('Conjugate', K-1, NRHS, CONE, B, LDB, A( 1, K ), 1, CONE, B( K, 1 ), LDB );
+                  zlacgv(NRHS, B( K, 1 ), LDB );
                }
                IF( NOUNIT ) CALL ZSCAL( NRHS, A( K, K ), B( K, 1 ), LDB )
                K = K - 1
@@ -290,13 +290,13 @@
                   // where x is a block column of A and y is a block
                   // row of B.
 
-                  CALL ZLACGV( NRHS, B( K, 1 ), LDB )
-                  CALL ZGEMV( 'Conjugate', K-2, NRHS, CONE, B, LDB, A( 1, K ), 1, CONE, B( K, 1 ), LDB )
-                  CALL ZLACGV( NRHS, B( K, 1 ), LDB )
+                  zlacgv(NRHS, B( K, 1 ), LDB );
+                  zgemv('Conjugate', K-2, NRHS, CONE, B, LDB, A( 1, K ), 1, CONE, B( K, 1 ), LDB );
+                  zlacgv(NRHS, B( K, 1 ), LDB );
 
-                  CALL ZLACGV( NRHS, B( K-1, 1 ), LDB )
-                  CALL ZGEMV( 'Conjugate', K-2, NRHS, CONE, B, LDB, A( 1, K-1 ), 1, CONE, B( K-1, 1 ), LDB )
-                  CALL ZLACGV( NRHS, B( K-1, 1 ), LDB )
+                  zlacgv(NRHS, B( K-1, 1 ), LDB );
+                  zgemv('Conjugate', K-2, NRHS, CONE, B, LDB, A( 1, K-1 ), 1, CONE, B( K-1, 1 ), LDB );
+                  zlacgv(NRHS, B( K-1, 1 ), LDB );
                }
 
                // Multiply by the diagonal block if non-unit.
@@ -342,9 +342,9 @@
 
                   // Apply the transformation
 
-                  CALL ZLACGV( NRHS, B( K, 1 ), LDB )
-                  CALL ZGEMV( 'Conjugate', N-K, NRHS, CONE, B( K+1, 1 ), LDB, A( K+1, K ), 1, CONE, B( K, 1 ), LDB )
-                  CALL ZLACGV( NRHS, B( K, 1 ), LDB )
+                  zlacgv(NRHS, B( K, 1 ), LDB );
+                  zgemv('Conjugate', N-K, NRHS, CONE, B( K+1, 1 ), LDB, A( K+1, K ), 1, CONE, B( K, 1 ), LDB );
+                  zlacgv(NRHS, B( K, 1 ), LDB );
                }
                IF( NOUNIT ) CALL ZSCAL( NRHS, A( K, K ), B( K, 1 ), LDB )
                K = K + 1
@@ -366,13 +366,13 @@
 
                   // Apply the transformation
 
-                  CALL ZLACGV( NRHS, B( K+1, 1 ), LDB )
-                  CALL ZGEMV( 'Conjugate', N-K-1, NRHS, CONE, B( K+2, 1 ), LDB, A( K+2, K+1 ), 1, CONE, B( K+1, 1 ), LDB )
-                  CALL ZLACGV( NRHS, B( K+1, 1 ), LDB )
+                  zlacgv(NRHS, B( K+1, 1 ), LDB );
+                  zgemv('Conjugate', N-K-1, NRHS, CONE, B( K+2, 1 ), LDB, A( K+2, K+1 ), 1, CONE, B( K+1, 1 ), LDB );
+                  zlacgv(NRHS, B( K+1, 1 ), LDB );
 
-                  CALL ZLACGV( NRHS, B( K, 1 ), LDB )
-                  CALL ZGEMV( 'Conjugate', N-K-1, NRHS, CONE, B( K+2, 1 ), LDB, A( K+2, K ), 1, CONE, B( K, 1 ), LDB )
-                  CALL ZLACGV( NRHS, B( K, 1 ), LDB )
+                  zlacgv(NRHS, B( K, 1 ), LDB );
+                  zgemv('Conjugate', N-K-1, NRHS, CONE, B( K+2, 1 ), LDB, A( K+2, K ), 1, CONE, B( K, 1 ), LDB );
+                  zlacgv(NRHS, B( K, 1 ), LDB );
                }
 
                // Multiply by the diagonal block if non-unit.

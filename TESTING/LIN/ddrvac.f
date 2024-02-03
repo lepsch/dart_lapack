@@ -106,15 +106,15 @@
                // Set up parameters with DLATB4 and generate a test matrix
                // with DLATMS.
 
-               CALL DLATB4( PATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST )
+               dlatb4(PATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST );
 
                SRNAMT = 'DLATMS'
-               CALL DLATMS( N, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KL, KU, UPLO, A, LDA, WORK, INFO )
+               dlatms(N, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KL, KU, UPLO, A, LDA, WORK, INFO );
 
                // Check error code from DLATMS.
 
                if ( INFO.NE.0 ) {
-                  CALL ALAERH( PATH, 'DLATMS', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT )
+                  alaerh(PATH, 'DLATMS', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
                   GO TO 100
                }
 
@@ -164,7 +164,7 @@
                   // Form an exact solution and set the right hand side.
 
                   SRNAMT = 'DLARHS'
-                  CALL DLARHS( PATH, XTYPE, UPLO, ' ', N, N, KL, KU, NRHS, A, LDA, X, LDA, B, LDA, ISEED, INFO )
+                  dlarhs(PATH, XTYPE, UPLO, ' ', N, N, KL, KU, NRHS, A, LDA, X, LDA, B, LDA, ISEED, INFO );
 
                   // Compute the L*L' or U'*U factorization of the
                   // matrix and solve the system.
@@ -172,12 +172,12 @@
                   SRNAMT = 'DSPOSV '
                   KASE = KASE + 1
 
-                  CALL DLACPY( 'All', N, N, A, LDA, AFAC, LDA)
+                  dlacpy('All', N, N, A, LDA, AFAC, LDA);
 
-                  CALL DSPOSV( UPLO, N, NRHS, AFAC, LDA, B, LDA, X, LDA, WORK, SWORK, ITER, INFO )
+                  dsposv(UPLO, N, NRHS, AFAC, LDA, B, LDA, X, LDA, WORK, SWORK, ITER, INFO );
 
                   if (ITER.LT.0) {
-                     CALL DLACPY( 'All', N, N, A, LDA, AFAC, LDA )
+                     dlacpy('All', N, N, A, LDA, AFAC, LDA );
                   ENDIF
 
                   // Check error code from DSPOSV .
@@ -200,9 +200,9 @@
 
                   // Check the quality of the solution
 
-                  CALL DLACPY( 'All', N, NRHS, B, LDA, WORK, LDA )
+                  dlacpy('All', N, NRHS, B, LDA, WORK, LDA );
 
-                  CALL DPOT06( UPLO, N, NRHS, A, LDA, X, LDA, WORK, LDA, RWORK, RESULT( 1 ) )
+                  dpot06(UPLO, N, NRHS, A, LDA, X, LDA, WORK, LDA, RWORK, RESULT( 1 ) );
 
                   // Check if the test passes the testing.
                   // Print information about the tests that did not

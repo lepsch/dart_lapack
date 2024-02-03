@@ -64,7 +64,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'CHETRD', -INFO )
+         xerbla('CHETRD', -INFO );
          RETURN
       } else if ( LQUERY ) {
          RETURN
@@ -120,12 +120,12 @@
             // matrix W which is needed to update the unreduced part of
             // the matrix
 
-            CALL CLATRD( UPLO, I+NB-1, NB, A, LDA, E, TAU, WORK, LDWORK )
+            clatrd(UPLO, I+NB-1, NB, A, LDA, E, TAU, WORK, LDWORK );
 
             // Update the unreduced submatrix A(1:i-1,1:i-1), using an
             // update of the form:  A := A - V*W**H - W*V**H
 
-            CALL CHER2K( UPLO, 'No transpose', I-1, NB, -CONE, A( 1, I ), LDA, WORK, LDWORK, ONE, A, LDA )
+            cher2k(UPLO, 'No transpose', I-1, NB, -CONE, A( 1, I ), LDA, WORK, LDWORK, ONE, A, LDA );
 
             // Copy superdiagonal elements back into A, and diagonal
             // elements into D
@@ -138,7 +138,7 @@
 
          // Use unblocked code to reduce the last or only block
 
-         CALL CHETD2( UPLO, KK, A, LDA, D, E, TAU, IINFO )
+         chetd2(UPLO, KK, A, LDA, D, E, TAU, IINFO );
       } else {
 
          // Reduce the lower triangle of A
@@ -149,12 +149,12 @@
             // matrix W which is needed to update the unreduced part of
             // the matrix
 
-            CALL CLATRD( UPLO, N-I+1, NB, A( I, I ), LDA, E( I ), TAU( I ), WORK, LDWORK )
+            clatrd(UPLO, N-I+1, NB, A( I, I ), LDA, E( I ), TAU( I ), WORK, LDWORK );
 
             // Update the unreduced submatrix A(i+nb:n,i+nb:n), using
             // an update of the form:  A := A - V*W**H - W*V**H
 
-            CALL CHER2K( UPLO, 'No transpose', N-I-NB+1, NB, -CONE, A( I+NB, I ), LDA, WORK( NB+1 ), LDWORK, ONE, A( I+NB, I+NB ), LDA )
+            cher2k(UPLO, 'No transpose', N-I-NB+1, NB, -CONE, A( I+NB, I ), LDA, WORK( NB+1 ), LDWORK, ONE, A( I+NB, I+NB ), LDA );
 
             // Copy subdiagonal elements back into A, and diagonal
             // elements into D
@@ -167,7 +167,7 @@
 
          // Use unblocked code to reduce the last or only block
 
-         CALL CHETD2( UPLO, N-I+1, A( I, I ), LDA, D( I ), E( I ), TAU( I ), IINFO )
+         chetd2(UPLO, N-I+1, A( I, I ), LDA, D( I ), E( I ), TAU( I ), IINFO );
       }
 
       WORK( 1 ) = SROUNDUP_LWORK(LWKOPT)

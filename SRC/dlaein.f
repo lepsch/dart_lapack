@@ -72,7 +72,7 @@
             // Scale supplied initial vector.
 
             VNORM = DNRM2( N, VR, 1 )
-            CALL DSCAL( N, ( EPS3*ROOTN ) / MAX( VNORM, NRMSML ), VR, 1 )
+            dscal(N, ( EPS3*ROOTN ) / MAX( VNORM, NRMSML ), VR, 1 );
          }
 
          if ( RIGHTV ) {
@@ -154,7 +154,7 @@
               // or U**T*x = scale*v for a left eigenvector,
             // overwriting x on v.
 
-            CALL DLATRS( 'Upper', TRANS, 'Nonunit', NORMIN, N, B, LDB, VR, SCALE, WORK, IERR )
+            dlatrs('Upper', TRANS, 'Nonunit', NORMIN, N, B, LDB, VR, SCALE, WORK, IERR );
             NORMIN = 'Y'
 
             // Test for sufficient growth in the norm of v.
@@ -181,7 +181,7 @@
          // Normalize eigenvector.
 
          I = IDAMAX( N, VR, 1 )
-         CALL DSCAL( N, ONE / ABS( VR( I ) ), VR, 1 )
+         dscal(N, ONE / ABS( VR( I ) ), VR, 1 );
       } else {
 
          // Complex eigenvalue.
@@ -200,8 +200,8 @@
 
             NORM = DLAPY2( DNRM2( N, VR, 1 ), DNRM2( N, VI, 1 ) )
             REC = ( EPS3*ROOTN ) / MAX( NORM, NRMSML )
-            CALL DSCAL( N, REC, VR, 1 )
-            CALL DSCAL( N, REC, VI, 1 )
+            dscal(N, REC, VR, 1 );
+            dscal(N, REC, VI, 1 );
          }
 
          if ( RIGHTV ) {
@@ -345,8 +345,8 @@
 
                if ( WORK( I ).GT.VCRIT ) {
                   REC = ONE / VMAX
-                  CALL DSCAL( N, REC, VR, 1 )
-                  CALL DSCAL( N, REC, VI, 1 )
+                  dscal(N, REC, VR, 1 );
+                  dscal(N, REC, VI, 1 );
                   SCALE = SCALE*REC
                   VMAX = ONE
                   VCRIT = BIGNUM
@@ -372,8 +372,8 @@
                      W1 = ABS( XR ) + ABS( XI )
                      if ( W1.GT.W*BIGNUM ) {
                         REC = ONE / W1
-                        CALL DSCAL( N, REC, VR, 1 )
-                        CALL DSCAL( N, REC, VI, 1 )
+                        dscal(N, REC, VR, 1 );
+                        dscal(N, REC, VI, 1 );
                         XR = VR( I )
                         XI = VI( I )
                         SCALE = SCALE*REC
@@ -383,7 +383,7 @@
 
                   // Divide by diagonal element of B.
 
-                  CALL DLADIV( XR, XI, B( I, I ), B( I+1, I ), VR( I ), VI( I ) )
+                  dladiv(XR, XI, B( I, I ), B( I+1, I ), VR( I ), VI( I ) );
                   VMAX = MAX( ABS( VR( I ) )+ABS( VI( I ) ), VMAX )
                   VCRIT = BIGNUM / VMAX
                } else {
@@ -429,8 +429,8 @@
          DO 290 I = 1, N
             VNORM = MAX( VNORM, ABS( VR( I ) )+ABS( VI( I ) ) )
   290    CONTINUE
-         CALL DSCAL( N, ONE / VNORM, VR, 1 )
-         CALL DSCAL( N, ONE / VNORM, VI, 1 )
+         dscal(N, ONE / VNORM, VR, 1 );
+         dscal(N, ONE / VNORM, VI, 1 );
 
       }
 

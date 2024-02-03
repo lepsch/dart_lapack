@@ -52,7 +52,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'SSPEV ', -INFO )
+         xerbla('SSPEV ', -INFO );
          RETURN
       }
 
@@ -87,23 +87,23 @@
          SIGMA = RMAX / ANRM
       }
       if ( ISCALE.EQ.1 ) {
-         CALL SSCAL( ( N*( N+1 ) ) / 2, SIGMA, AP, 1 )
+         sscal(( N*( N+1 ) ) / 2, SIGMA, AP, 1 );
       }
 
       // Call SSPTRD to reduce symmetric packed matrix to tridiagonal form.
 
       INDE = 1
       INDTAU = INDE + N
-      CALL SSPTRD( UPLO, N, AP, W, WORK( INDE ), WORK( INDTAU ), IINFO )
+      ssptrd(UPLO, N, AP, W, WORK( INDE ), WORK( INDTAU ), IINFO );
 
       // For eigenvalues only, call SSTERF.  For eigenvectors, first call
       // SOPGTR to generate the orthogonal matrix, then call SSTEQR.
 
       if ( .NOT.WANTZ ) {
-         CALL SSTERF( N, W, WORK( INDE ), INFO )
+         ssterf(N, W, WORK( INDE ), INFO );
       } else {
          INDWRK = INDTAU + N
-         CALL SOPGTR( UPLO, N, AP, WORK( INDTAU ), Z, LDZ, WORK( INDWRK ), IINFO )          CALL SSTEQR( JOBZ, N, W, WORK( INDE ), Z, LDZ, WORK( INDTAU ), INFO )
+         sopgtr(UPLO, N, AP, WORK( INDTAU ), Z, LDZ, WORK( INDWRK ), IINFO )          CALL SSTEQR( JOBZ, N, W, WORK( INDE ), Z, LDZ, WORK( INDTAU ), INFO );
       }
 
       // If matrix was scaled, then rescale eigenvalues appropriately.
@@ -114,7 +114,7 @@
          } else {
             IMAX = INFO - 1
          }
-         CALL SSCAL( IMAX, ONE / SIGMA, W, 1 )
+         sscal(IMAX, ONE / SIGMA, W, 1 );
       }
 
       RETURN

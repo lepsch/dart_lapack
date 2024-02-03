@@ -35,14 +35,14 @@
 
       // Form  w:= C * v
 
-      CALL SSYMV( UPLO, N, ONE, C, LDC, V, INCV, ZERO, WORK, 1 )
+      ssymv(UPLO, N, ONE, C, LDC, V, INCV, ZERO, WORK, 1 );
 
       ALPHA = -HALF*TAU*SDOT( N, WORK, 1, V, INCV )
-      CALL SAXPY( N, ALPHA, V, INCV, WORK, 1 )
+      saxpy(N, ALPHA, V, INCV, WORK, 1 );
 
       // C := C - v * w' - w * v'
 
-      CALL SSYR2( UPLO, N, -TAU, V, INCV, WORK, 1, C, LDC )
+      ssyr2(UPLO, N, -TAU, V, INCV, WORK, 1, C, LDC );
 
       RETURN
 

@@ -52,7 +52,7 @@
          INFO = -11
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'SPTSVX', -INFO )
+         xerbla('SPTSVX', -INFO );
          RETURN
       }
 
@@ -60,9 +60,9 @@
 
          // Compute the L*D*L**T (or U**T*D*U) factorization of A.
 
-         CALL SCOPY( N, D, 1, DF, 1 )
+         scopy(N, D, 1, DF, 1 );
          IF( N.GT.1 ) CALL SCOPY( N-1, E, 1, EF, 1 )
-         CALL SPTTRF( N, DF, EF, INFO )
+         spttrf(N, DF, EF, INFO );
 
          // Return if INFO is non-zero.
 
@@ -78,17 +78,17 @@
 
       // Compute the reciprocal of the condition number of A.
 
-      CALL SPTCON( N, DF, EF, ANORM, RCOND, WORK, INFO )
+      sptcon(N, DF, EF, ANORM, RCOND, WORK, INFO );
 
       // Compute the solution vectors X.
 
-      CALL SLACPY( 'Full', N, NRHS, B, LDB, X, LDX )
-      CALL SPTTRS( N, NRHS, DF, EF, X, LDX, INFO )
+      slacpy('Full', N, NRHS, B, LDB, X, LDX );
+      spttrs(N, NRHS, DF, EF, X, LDX, INFO );
 
       // Use iterative refinement to improve the computed solutions and
       // compute error bounds and backward error estimates for them.
 
-      CALL SPTRFS( N, NRHS, D, E, DF, EF, B, LDB, X, LDX, FERR, BERR, WORK, INFO )
+      sptrfs(N, NRHS, D, E, DF, EF, B, LDB, X, LDX, FERR, BERR, WORK, INFO );
 
       // Set INFO = N+1 if the matrix is singular to working precision.
 

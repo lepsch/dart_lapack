@@ -41,7 +41,7 @@
          INFO = -5
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'ZUNGL2', -INFO )
+         xerbla('ZUNGL2', -INFO );
          RETURN
       }
 
@@ -66,13 +66,13 @@
          // Apply H(i)**H to A(i:m,i:n) from the right
 
          if ( I.LT.N ) {
-            CALL ZLACGV( N-I, A( I, I+1 ), LDA )
+            zlacgv(N-I, A( I, I+1 ), LDA );
             if ( I.LT.M ) {
                A( I, I ) = ONE
-               CALL ZLARF( 'Right', M-I, N-I+1, A( I, I ), LDA, DCONJG( TAU( I ) ), A( I+1, I ), LDA, WORK )
+               zlarf('Right', M-I, N-I+1, A( I, I ), LDA, DCONJG( TAU( I ) ), A( I+1, I ), LDA, WORK );
             }
-            CALL ZSCAL( N-I, -TAU( I ), A( I, I+1 ), LDA )
-            CALL ZLACGV( N-I, A( I, I+1 ), LDA )
+            zscal(N-I, -TAU( I ), A( I, I+1 ), LDA );
+            zlacgv(N-I, A( I, I+1 ), LDA );
          }
          A( I, I ) = ONE - DCONJG( TAU( I ) )
 

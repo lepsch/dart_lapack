@@ -188,7 +188,7 @@
                SUM = N
                K = 2
                DO 280 J = 2, N
-                  CALL SLASSQ( J-1, AP( K ), 1, SCALE, SUM )
+                  slassq(J-1, AP( K ), 1, SCALE, SUM );
                   K = K + J
   280          CONTINUE
             } else {
@@ -196,7 +196,7 @@
                SUM = ONE
                K = 1
                DO 290 J = 1, N
-                  CALL SLASSQ( J, AP( K ), 1, SCALE, SUM )
+                  slassq(J, AP( K ), 1, SCALE, SUM );
                   K = K + J
   290          CONTINUE
             }
@@ -206,7 +206,7 @@
                SUM = N
                K = 2
                DO 300 J = 1, N - 1
-                  CALL SLASSQ( N-J, AP( K ), 1, SCALE, SUM )
+                  slassq(N-J, AP( K ), 1, SCALE, SUM );
                   K = K + N - J + 1
   300          CONTINUE
             } else {
@@ -214,7 +214,7 @@
                SUM = ONE
                K = 1
                DO 310 J = 1, N
-                  CALL SLASSQ( N-J+1, AP( K ), 1, SCALE, SUM )
+                  slassq(N-J+1, AP( K ), 1, SCALE, SUM );
                   K = K + N - J + 1
   310          CONTINUE
             }

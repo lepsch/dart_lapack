@@ -70,10 +70,10 @@
          SCALE = ZERO
          SUM = ONE
          if ( N.GT.1 ) {
-            CALL CLASSQ( N-1, E, 1, SCALE, SUM )
+            classq(N-1, E, 1, SCALE, SUM );
             SUM = 2*SUM
          }
-         CALL SLASSQ( N, D, 1, SCALE, SUM )
+         slassq(N, D, 1, SCALE, SUM );
          ANORM = SCALE*SQRT( SUM )
       }
 

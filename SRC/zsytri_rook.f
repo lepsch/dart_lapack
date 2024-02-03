@@ -49,7 +49,7 @@
          INFO = -4
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'ZSYTRI_ROOK', -INFO )
+         xerbla('ZSYTRI_ROOK', -INFO );
          RETURN
       }
 
@@ -101,8 +101,8 @@
             // Compute column K of the inverse.
 
             if ( K.GT.1 ) {
-               CALL ZCOPY( K-1, A( 1, K ), 1, WORK, 1 )
-               CALL ZSYMV( UPLO, K-1, -CONE, A, LDA, WORK, 1, CZERO, A( 1, K ), 1 )                A( K, K ) = A( K, K ) - ZDOTU( K-1, WORK, 1, A( 1, K ), 1 )
+               zcopy(K-1, A( 1, K ), 1, WORK, 1 );
+               zsymv(UPLO, K-1, -CONE, A, LDA, WORK, 1, CZERO, A( 1, K ), 1 )                A( K, K ) = A( K, K ) - ZDOTU( K-1, WORK, 1, A( 1, K ), 1 );
             }
             KSTEP = 1
          } else {
@@ -123,10 +123,10 @@
             // Compute columns K and K+1 of the inverse.
 
             if ( K.GT.1 ) {
-               CALL ZCOPY( K-1, A( 1, K ), 1, WORK, 1 )
-               CALL ZSYMV( UPLO, K-1, -CONE, A, LDA, WORK, 1, CZERO, A( 1, K ), 1 )                A( K, K ) = A( K, K ) - ZDOTU( K-1, WORK, 1, A( 1, K ), 1 )                A( K, K+1 ) = A( K, K+1 ) - ZDOTU( K-1, A( 1, K ), 1, A( 1, K+1 ), 1 )
-               CALL ZCOPY( K-1, A( 1, K+1 ), 1, WORK, 1 )
-               CALL ZSYMV( UPLO, K-1, -CONE, A, LDA, WORK, 1, CZERO, A( 1, K+1 ), 1 )                A( K+1, K+1 ) = A( K+1, K+1 ) - ZDOTU( K-1, WORK, 1, A( 1, K+1 ), 1 )
+               zcopy(K-1, A( 1, K ), 1, WORK, 1 );
+               zsymv(UPLO, K-1, -CONE, A, LDA, WORK, 1, CZERO, A( 1, K ), 1 )                A( K, K ) = A( K, K ) - ZDOTU( K-1, WORK, 1, A( 1, K ), 1 )                A( K, K+1 ) = A( K, K+1 ) - ZDOTU( K-1, A( 1, K ), 1, A( 1, K+1 ), 1 );
+               zcopy(K-1, A( 1, K+1 ), 1, WORK, 1 );
+               zsymv(UPLO, K-1, -CONE, A, LDA, WORK, 1, CZERO, A( 1, K+1 ), 1 )                A( K+1, K+1 ) = A( K+1, K+1 ) - ZDOTU( K-1, WORK, 1, A( 1, K+1 ), 1 );
             }
             KSTEP = 2
          }
@@ -139,7 +139,7 @@
             KP = IPIV( K )
             if ( KP.NE.K ) {
                IF( KP.GT.1 ) CALL ZSWAP( KP-1, A( 1, K ), 1, A( 1, KP ), 1 )
-               CALL ZSWAP( K-KP-1, A( KP+1, K ), 1, A( KP, KP+1 ), LDA )
+               zswap(K-KP-1, A( KP+1, K ), 1, A( KP, KP+1 ), LDA );
                TEMP = A( K, K )
                A( K, K ) = A( KP, KP )
                A( KP, KP ) = TEMP
@@ -152,7 +152,7 @@
             KP = -IPIV( K )
             if ( KP.NE.K ) {
                IF( KP.GT.1 ) CALL ZSWAP( KP-1, A( 1, K ), 1, A( 1, KP ), 1 )
-               CALL ZSWAP( K-KP-1, A( KP+1, K ), 1, A( KP, KP+1 ), LDA )
+               zswap(K-KP-1, A( KP+1, K ), 1, A( KP, KP+1 ), LDA );
 
                TEMP = A( K, K )
                A( K, K ) = A( KP, KP )
@@ -166,7 +166,7 @@
             KP = -IPIV( K )
             if ( KP.NE.K ) {
                IF( KP.GT.1 ) CALL ZSWAP( KP-1, A( 1, K ), 1, A( 1, KP ), 1 )
-               CALL ZSWAP( K-KP-1, A( KP+1, K ), 1, A( KP, KP+1 ), LDA )
+               zswap(K-KP-1, A( KP+1, K ), 1, A( KP, KP+1 ), LDA );
                TEMP = A( K, K )
                A( K, K ) = A( KP, KP )
                A( KP, KP ) = TEMP
@@ -202,8 +202,8 @@
             // Compute column K of the inverse.
 
             if ( K.LT.N ) {
-               CALL ZCOPY( N-K, A( K+1, K ), 1, WORK, 1 )
-               CALL ZSYMV( UPLO, N-K,-CONE, A( K+1, K+1 ), LDA, WORK, 1, CZERO, A( K+1, K ), 1 )                A( K, K ) = A( K, K ) - ZDOTU( N-K, WORK, 1, A( K+1, K ), 1 )
+               zcopy(N-K, A( K+1, K ), 1, WORK, 1 );
+               zsymv(UPLO, N-K,-CONE, A( K+1, K+1 ), LDA, WORK, 1, CZERO, A( K+1, K ), 1 )                A( K, K ) = A( K, K ) - ZDOTU( N-K, WORK, 1, A( K+1, K ), 1 );
             }
             KSTEP = 1
          } else {
@@ -224,10 +224,10 @@
             // Compute columns K-1 and K of the inverse.
 
             if ( K.LT.N ) {
-               CALL ZCOPY( N-K, A( K+1, K ), 1, WORK, 1 )
-               CALL ZSYMV( UPLO, N-K,-CONE, A( K+1, K+1 ), LDA, WORK, 1, CZERO, A( K+1, K ), 1 )                A( K, K ) = A( K, K ) - ZDOTU( N-K, WORK, 1, A( K+1, K ), 1 )                A( K, K-1 ) = A( K, K-1 ) - ZDOTU( N-K, A( K+1, K ), 1, A( K+1, K-1 ), 1 )
-               CALL ZCOPY( N-K, A( K+1, K-1 ), 1, WORK, 1 )
-               CALL ZSYMV( UPLO, N-K,-CONE, A( K+1, K+1 ), LDA, WORK, 1, CZERO, A( K+1, K-1 ), 1 )                A( K-1, K-1 ) = A( K-1, K-1 ) - ZDOTU( N-K, WORK, 1, A( K+1, K-1 ), 1 )
+               zcopy(N-K, A( K+1, K ), 1, WORK, 1 );
+               zsymv(UPLO, N-K,-CONE, A( K+1, K+1 ), LDA, WORK, 1, CZERO, A( K+1, K ), 1 )                A( K, K ) = A( K, K ) - ZDOTU( N-K, WORK, 1, A( K+1, K ), 1 )                A( K, K-1 ) = A( K, K-1 ) - ZDOTU( N-K, A( K+1, K ), 1, A( K+1, K-1 ), 1 );
+               zcopy(N-K, A( K+1, K-1 ), 1, WORK, 1 );
+               zsymv(UPLO, N-K,-CONE, A( K+1, K+1 ), LDA, WORK, 1, CZERO, A( K+1, K-1 ), 1 )                A( K-1, K-1 ) = A( K-1, K-1 ) - ZDOTU( N-K, WORK, 1, A( K+1, K-1 ), 1 );
             }
             KSTEP = 2
          }
@@ -240,7 +240,7 @@
             KP = IPIV( K )
             if ( KP.NE.K ) {
                IF( KP.LT.N ) CALL ZSWAP( N-KP, A( KP+1, K ), 1, A( KP+1, KP ), 1 )
-               CALL ZSWAP( KP-K-1, A( K+1, K ), 1, A( KP, K+1 ), LDA )
+               zswap(KP-K-1, A( K+1, K ), 1, A( KP, K+1 ), LDA );
                TEMP = A( K, K )
                A( K, K ) = A( KP, KP )
                A( KP, KP ) = TEMP
@@ -253,7 +253,7 @@
             KP = -IPIV( K )
             if ( KP.NE.K ) {
                IF( KP.LT.N ) CALL ZSWAP( N-KP, A( KP+1, K ), 1, A( KP+1, KP ), 1 )
-               CALL ZSWAP( KP-K-1, A( K+1, K ), 1, A( KP, K+1 ), LDA )
+               zswap(KP-K-1, A( K+1, K ), 1, A( KP, K+1 ), LDA );
 
                TEMP = A( K, K )
                A( K, K ) = A( KP, KP )
@@ -267,7 +267,7 @@
             KP = -IPIV( K )
             if ( KP.NE.K ) {
                IF( KP.LT.N ) CALL ZSWAP( N-KP, A( KP+1, K ), 1, A( KP+1, KP ), 1 )
-               CALL ZSWAP( KP-K-1, A( K+1, K ), 1, A( KP, K+1 ), LDA )
+               zswap(KP-K-1, A( K+1, K ), 1, A( KP, K+1 ), LDA );
                TEMP = A( K, K )
                A( K, K ) = A( KP, KP )
                A( KP, KP ) = TEMP

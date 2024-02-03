@@ -52,7 +52,7 @@
          INFO = -8
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'DTREXC', -INFO )
+         xerbla('DTREXC', -INFO );
          RETURN
       }
 
@@ -104,7 +104,7 @@
             if ( HERE+NBF+1.LE.N ) {
                IF( T( HERE+NBF+1, HERE+NBF ).NE.ZERO ) NBNEXT = 2
             }
-            CALL DLAEXC( WANTQ, N, T, LDT, Q, LDQ, HERE, NBF, NBNEXT, WORK, INFO )
+            dlaexc(WANTQ, N, T, LDT, Q, LDQ, HERE, NBF, NBNEXT, WORK, INFO );
             if ( INFO.NE.0 ) {
                ILST = HERE
                RETURN
@@ -126,7 +126,7 @@
             if ( HERE+3.LE.N ) {
                IF( T( HERE+3, HERE+2 ).NE.ZERO ) NBNEXT = 2
             }
-            CALL DLAEXC( WANTQ, N, T, LDT, Q, LDQ, HERE+1, 1, NBNEXT, WORK, INFO )
+            dlaexc(WANTQ, N, T, LDT, Q, LDQ, HERE+1, 1, NBNEXT, WORK, INFO );
             if ( INFO.NE.0 ) {
                ILST = HERE
                RETURN
@@ -135,7 +135,7 @@
 
                // Swap two 1 by 1 blocks, no problems possible
 
-               CALL DLAEXC( WANTQ, N, T, LDT, Q, LDQ, HERE, 1, NBNEXT, WORK, INFO )
+               dlaexc(WANTQ, N, T, LDT, Q, LDQ, HERE, 1, NBNEXT, WORK, INFO );
                HERE = HERE + 1
             } else {
 
@@ -146,7 +146,7 @@
 
                   // 2 by 2 Block did not split
 
-                  CALL DLAEXC( WANTQ, N, T, LDT, Q, LDQ, HERE, 1, NBNEXT, WORK, INFO )
+                  dlaexc(WANTQ, N, T, LDT, Q, LDQ, HERE, 1, NBNEXT, WORK, INFO );
                   if ( INFO.NE.0 ) {
                      ILST = HERE
                      RETURN
@@ -156,7 +156,7 @@
 
                   // 2 by 2 Block did split
 
-                  CALL DLAEXC( WANTQ, N, T, LDT, Q, LDQ, HERE, 1, 1, WORK, INFO )                   CALL DLAEXC( WANTQ, N, T, LDT, Q, LDQ, HERE+1, 1, 1, WORK, INFO )
+                  dlaexc(WANTQ, N, T, LDT, Q, LDQ, HERE, 1, 1, WORK, INFO )                   CALL DLAEXC( WANTQ, N, T, LDT, Q, LDQ, HERE+1, 1, 1, WORK, INFO );
                   HERE = HERE + 2
                }
             }
@@ -178,7 +178,7 @@
             if ( HERE.GE.3 ) {
                IF( T( HERE-1, HERE-2 ).NE.ZERO ) NBNEXT = 2
             }
-            CALL DLAEXC( WANTQ, N, T, LDT, Q, LDQ, HERE-NBNEXT, NBNEXT, NBF, WORK, INFO )
+            dlaexc(WANTQ, N, T, LDT, Q, LDQ, HERE-NBNEXT, NBNEXT, NBF, WORK, INFO );
             if ( INFO.NE.0 ) {
                ILST = HERE
                RETURN
@@ -200,7 +200,7 @@
             if ( HERE.GE.3 ) {
                IF( T( HERE-1, HERE-2 ).NE.ZERO ) NBNEXT = 2
             }
-            CALL DLAEXC( WANTQ, N, T, LDT, Q, LDQ, HERE-NBNEXT, NBNEXT, 1, WORK, INFO )
+            dlaexc(WANTQ, N, T, LDT, Q, LDQ, HERE-NBNEXT, NBNEXT, 1, WORK, INFO );
             if ( INFO.NE.0 ) {
                ILST = HERE
                RETURN
@@ -209,7 +209,7 @@
 
                // Swap two 1 by 1 blocks, no problems possible
 
-               CALL DLAEXC( WANTQ, N, T, LDT, Q, LDQ, HERE, NBNEXT, 1, WORK, INFO )
+               dlaexc(WANTQ, N, T, LDT, Q, LDQ, HERE, NBNEXT, 1, WORK, INFO );
                HERE = HERE - 1
             } else {
 
@@ -220,7 +220,7 @@
 
                   // 2 by 2 Block did not split
 
-                  CALL DLAEXC( WANTQ, N, T, LDT, Q, LDQ, HERE-1, 2, 1, WORK, INFO )
+                  dlaexc(WANTQ, N, T, LDT, Q, LDQ, HERE-1, 2, 1, WORK, INFO );
                   if ( INFO.NE.0 ) {
                      ILST = HERE
                      RETURN
@@ -230,7 +230,7 @@
 
                   // 2 by 2 Block did split
 
-                  CALL DLAEXC( WANTQ, N, T, LDT, Q, LDQ, HERE, 1, 1, WORK, INFO )                   CALL DLAEXC( WANTQ, N, T, LDT, Q, LDQ, HERE-1, 1, 1, WORK, INFO )
+                  dlaexc(WANTQ, N, T, LDT, Q, LDQ, HERE, 1, 1, WORK, INFO )                   CALL DLAEXC( WANTQ, N, T, LDT, Q, LDQ, HERE-1, 1, 1, WORK, INFO );
                   HERE = HERE - 2
                }
             }

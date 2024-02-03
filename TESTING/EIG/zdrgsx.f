@@ -108,7 +108,7 @@
       IF( LWORK.LT.MINWRK ) INFO = -18
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'ZDRGSX', -INFO )
+         xerbla('ZDRGSX', -INFO );
          RETURN
       }
 
@@ -149,9 +149,9 @@
                   FS = .TRUE.
                   K = 0
 
-                  CALL ZLASET( 'Full', MPLUSN, MPLUSN, CZERO, CZERO, AI, LDA )                   CALL ZLASET( 'Full', MPLUSN, MPLUSN, CZERO, CZERO, BI, LDA )
+                  zlaset('Full', MPLUSN, MPLUSN, CZERO, CZERO, AI, LDA )                   CALL ZLASET( 'Full', MPLUSN, MPLUSN, CZERO, CZERO, BI, LDA );
 
-                  CALL ZLATM5( PRTYPE, M, N, AI, LDA, AI( M+1, M+1 ), LDA, AI( 1, M+1 ), LDA, BI, LDA, BI( M+1, M+1 ), LDA, BI( 1, M+1 ), LDA, Q, LDA, Z, LDA, WEIGHT, QBA, QBB )
+                  zlatm5(PRTYPE, M, N, AI, LDA, AI( M+1, M+1 ), LDA, AI( 1, M+1 ), LDA, BI, LDA, BI( M+1, M+1 ), LDA, BI( 1, M+1 ), LDA, Q, LDA, Z, LDA, WEIGHT, QBA, QBB );
 
                   // Compute the Schur factorization and swapping the
                   // m-by-m (1,1)-blocks with n-by-n (2,2)-blocks.
@@ -168,10 +168,10 @@
                      SENSE = 'B'
                   }
 
-                  CALL ZLACPY( 'Full', MPLUSN, MPLUSN, AI, LDA, A, LDA )
-                  CALL ZLACPY( 'Full', MPLUSN, MPLUSN, BI, LDA, B, LDA )
+                  zlacpy('Full', MPLUSN, MPLUSN, AI, LDA, A, LDA );
+                  zlacpy('Full', MPLUSN, MPLUSN, BI, LDA, B, LDA );
 
-                  CALL ZGGESX( 'V', 'V', 'S', ZLCTSX, SENSE, MPLUSN, AI, LDA, BI, LDA, MM, ALPHA, BETA, Q, LDA, Z, LDA, PL, DIFEST, WORK, LWORK, RWORK, IWORK, LIWORK, BWORK, LINFO )
+                  zggesx('V', 'V', 'S', ZLCTSX, SENSE, MPLUSN, AI, LDA, BI, LDA, MM, ALPHA, BETA, Q, LDA, Z, LDA, PL, DIFEST, WORK, LWORK, RWORK, IWORK, LIWORK, BWORK, LINFO );
 
                   if ( LINFO.NE.0 .AND. LINFO.NE.MPLUSN+2 ) {
                      RESULT( 1 ) = ULPINV
@@ -182,12 +182,12 @@
 
                   // Compute the norm(A, B)
 
-                  CALL ZLACPY( 'Full', MPLUSN, MPLUSN, AI, LDA, WORK, MPLUSN )                   CALL ZLACPY( 'Full', MPLUSN, MPLUSN, BI, LDA, WORK( MPLUSN*MPLUSN+1 ), MPLUSN )                   ABNRM = ZLANGE( 'Fro', MPLUSN, 2*MPLUSN, WORK, MPLUSN, RWORK )
+                  zlacpy('Full', MPLUSN, MPLUSN, AI, LDA, WORK, MPLUSN )                   CALL ZLACPY( 'Full', MPLUSN, MPLUSN, BI, LDA, WORK( MPLUSN*MPLUSN+1 ), MPLUSN )                   ABNRM = ZLANGE( 'Fro', MPLUSN, 2*MPLUSN, WORK, MPLUSN, RWORK );
 
                   // Do tests (1) to (4)
 
                   RESULT( 2 ) = ZERO
-                  CALL ZGET51( 1, MPLUSN, A, LDA, AI, LDA, Q, LDA, Z, LDA, WORK, RWORK, RESULT( 1 ) )                   CALL ZGET51( 1, MPLUSN, B, LDA, BI, LDA, Q, LDA, Z, LDA, WORK, RWORK, RESULT( 2 ) )                   CALL ZGET51( 3, MPLUSN, B, LDA, BI, LDA, Q, LDA, Q, LDA, WORK, RWORK, RESULT( 3 ) )                   CALL ZGET51( 3, MPLUSN, B, LDA, BI, LDA, Z, LDA, Z, LDA, WORK, RWORK, RESULT( 4 ) )
+                  zget51(1, MPLUSN, A, LDA, AI, LDA, Q, LDA, Z, LDA, WORK, RWORK, RESULT( 1 ) )                   CALL ZGET51( 1, MPLUSN, B, LDA, BI, LDA, Q, LDA, Z, LDA, WORK, RWORK, RESULT( 2 ) )                   CALL ZGET51( 3, MPLUSN, B, LDA, BI, LDA, Q, LDA, Q, LDA, WORK, RWORK, RESULT( 3 ) )                   CALL ZGET51( 3, MPLUSN, B, LDA, BI, LDA, Z, LDA, Z, LDA, WORK, RWORK, RESULT( 4 ) );
                   NTEST = 4
 
                   // Do tests (5) and (6): check Schur form of A and
@@ -240,9 +240,9 @@
                      // Note: for either following two cases, there are
                      // almost same number of test cases fail the test.
 
-                     CALL ZLAKF2( MM, MPLUSN-MM, AI, LDA, AI( MM+1, MM+1 ), BI, BI( MM+1, MM+1 ), C, LDC )
+                     zlakf2(MM, MPLUSN-MM, AI, LDA, AI( MM+1, MM+1 ), BI, BI( MM+1, MM+1 ), C, LDC );
 
-                     CALL ZGESVD( 'N', 'N', MN2, MN2, C, LDC, S, WORK, 1, WORK( 2 ), 1, WORK( 3 ), LWORK-2, RWORK, INFO )
+                     zgesvd('N', 'N', MN2, MN2, C, LDC, S, WORK, 1, WORK( 2 ), 1, WORK( 3 ), LWORK-2, RWORK, INFO );
                      DIFTRU = S( MN2 )
 
                      if ( DIFEST( 2 ).EQ.ZERO ) {
@@ -323,13 +323,13 @@
       K = 0
       M = MPLUSN - N
 
-      CALL ZLACPY( 'Full', MPLUSN, MPLUSN, AI, LDA, A, LDA )
-      CALL ZLACPY( 'Full', MPLUSN, MPLUSN, BI, LDA, B, LDA )
+      zlacpy('Full', MPLUSN, MPLUSN, AI, LDA, A, LDA );
+      zlacpy('Full', MPLUSN, MPLUSN, BI, LDA, B, LDA );
 
       // Compute the Schur factorization while swapping the
       // m-by-m (1,1)-blocks with n-by-n (2,2)-blocks.
 
-      CALL ZGGESX( 'V', 'V', 'S', ZLCTSX, 'B', MPLUSN, AI, LDA, BI, LDA, MM, ALPHA, BETA, Q, LDA, Z, LDA, PL, DIFEST, WORK, LWORK, RWORK, IWORK, LIWORK, BWORK, LINFO )
+      zggesx('V', 'V', 'S', ZLCTSX, 'B', MPLUSN, AI, LDA, BI, LDA, MM, ALPHA, BETA, Q, LDA, Z, LDA, PL, DIFEST, WORK, LWORK, RWORK, IWORK, LIWORK, BWORK, LINFO );
 
       if ( LINFO.NE.0 .AND. LINFO.NE.MPLUSN+2 ) {
          RESULT( 1 ) = ULPINV
@@ -340,13 +340,13 @@
       // Compute the norm(A, B)
          // (should this be norm of (A,B) or (AI,BI)?)
 
-      CALL ZLACPY( 'Full', MPLUSN, MPLUSN, AI, LDA, WORK, MPLUSN )
-      CALL ZLACPY( 'Full', MPLUSN, MPLUSN, BI, LDA, WORK( MPLUSN*MPLUSN+1 ), MPLUSN )
+      zlacpy('Full', MPLUSN, MPLUSN, AI, LDA, WORK, MPLUSN );
+      zlacpy('Full', MPLUSN, MPLUSN, BI, LDA, WORK( MPLUSN*MPLUSN+1 ), MPLUSN );
       ABNRM = ZLANGE( 'Fro', MPLUSN, 2*MPLUSN, WORK, MPLUSN, RWORK )
 
       // Do tests (1) to (4)
 
-      CALL ZGET51( 1, MPLUSN, A, LDA, AI, LDA, Q, LDA, Z, LDA, WORK, RWORK, RESULT( 1 ) )       CALL ZGET51( 1, MPLUSN, B, LDA, BI, LDA, Q, LDA, Z, LDA, WORK, RWORK, RESULT( 2 ) )       CALL ZGET51( 3, MPLUSN, B, LDA, BI, LDA, Q, LDA, Q, LDA, WORK, RWORK, RESULT( 3 ) )       CALL ZGET51( 3, MPLUSN, B, LDA, BI, LDA, Z, LDA, Z, LDA, WORK, RWORK, RESULT( 4 ) )
+      zget51(1, MPLUSN, A, LDA, AI, LDA, Q, LDA, Z, LDA, WORK, RWORK, RESULT( 1 ) )       CALL ZGET51( 1, MPLUSN, B, LDA, BI, LDA, Q, LDA, Z, LDA, WORK, RWORK, RESULT( 2 ) )       CALL ZGET51( 3, MPLUSN, B, LDA, BI, LDA, Q, LDA, Q, LDA, WORK, RWORK, RESULT( 3 ) )       CALL ZGET51( 3, MPLUSN, B, LDA, BI, LDA, Z, LDA, Z, LDA, WORK, RWORK, RESULT( 4 ) );
 
       // Do tests (5) and (6): check Schur form of A and compare
       // eigenvalues with diagonals.
@@ -454,7 +454,7 @@
 
       // Summary
 
-      CALL ALASVM( 'ZGX', NOUT, NERRS, NTESTT, 0 )
+      alasvm('ZGX', NOUT, NERRS, NTESTT, 0 );
 
       WORK( 1 ) = MAXWRK
 

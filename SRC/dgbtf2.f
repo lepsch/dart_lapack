@@ -53,7 +53,7 @@
          INFO = -6
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'DGBTF2', -INFO )
+         xerbla('DGBTF2', -INFO );
          RETURN
       }
 
@@ -103,7 +103,7 @@
 
                // Compute multipliers.
 
-               CALL DSCAL( KM, ONE / AB( KV+1, J ), AB( KV+2, J ), 1 )
+               dscal(KM, ONE / AB( KV+1, J ), AB( KV+2, J ), 1 );
 
                // Update trailing submatrix within the band.
 

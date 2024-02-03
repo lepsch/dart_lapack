@@ -49,7 +49,7 @@
       NRUN = 0
       NFAIL = 0
       FIRSTT = .TRUE.
-      CALL ALAREQ( PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT )
+      alareq(PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT );
       LDA = NMAX
       LDB = NMAX
       LWORK = NMAX*NMAX
@@ -87,16 +87,16 @@
             // Set up parameters with DLATB9 and generate test
             // matrices A and B with ZLATMS.
 
-            CALL DLATB9( PATH, IMAT, M, P, N, TYPE, KLA, KUA, KLB, KUB, ANORM, BNORM, MODEA, MODEB, CNDNMA, CNDNMB, DISTA, DISTB )
+            dlatb9(PATH, IMAT, M, P, N, TYPE, KLA, KUA, KLB, KUB, ANORM, BNORM, MODEA, MODEB, CNDNMA, CNDNMB, DISTA, DISTB );
 
-            CALL ZLATMS( N, M, DISTA, ISEED, TYPE, RWORK, MODEA, CNDNMA, ANORM, KLA, KUA, 'No packing', A, LDA, WORK, IINFO )
+            zlatms(N, M, DISTA, ISEED, TYPE, RWORK, MODEA, CNDNMA, ANORM, KLA, KUA, 'No packing', A, LDA, WORK, IINFO );
             if ( IINFO.NE.0 ) {
                WRITE( NOUT, FMT = 9999 )IINFO
                INFO = ABS( IINFO )
                GO TO 30
             }
 
-            CALL ZLATMS( N, P, DISTB, ISEED, TYPE, RWORK, MODEB, CNDNMB, BNORM, KLB, KUB, 'No packing', B, LDB, WORK, IINFO )
+            zlatms(N, P, DISTB, ISEED, TYPE, RWORK, MODEB, CNDNMB, BNORM, KLB, KUB, 'No packing', B, LDB, WORK, IINFO );
             if ( IINFO.NE.0 ) {
                WRITE( NOUT, FMT = 9999 )IINFO
                INFO = ABS( IINFO )
@@ -109,7 +109,7 @@
                X( I ) = ZLARND( 2, ISEED )
    20       CONTINUE
 
-            CALL ZGLMTS( N, M, P, A, AF, LDA, B, BF, LDB, X, X( NMAX+1 ), X( 2*NMAX+1 ), X( 3*NMAX+1 ), WORK, LWORK, RWORK, RESID )
+            zglmts(N, M, P, A, AF, LDA, B, BF, LDB, X, X( NMAX+1 ), X( 2*NMAX+1 ), X( 3*NMAX+1 ), WORK, LWORK, RWORK, RESID );
 
             // Print information about the tests that did not
             // pass the threshold.
@@ -117,7 +117,7 @@
             if ( RESID.GE.THRESH ) {
                if ( NFAIL.EQ.0 .AND. FIRSTT ) {
                   FIRSTT = .FALSE.
-                  CALL ALAHDG( NOUT, PATH )
+                  alahdg(NOUT, PATH );
                }
                WRITE( NOUT, FMT = 9998 )N, M, P, IMAT, 1, RESID
                NFAIL = NFAIL + 1
@@ -129,7 +129,7 @@
 
       // Print a summary of the results.
 
-      CALL ALASUM( PATH, NOUT, NFAIL, NRUN, 0 )
+      alasum(PATH, NOUT, NFAIL, NRUN, 0 );
 
  9999 FORMAT( ' ZLATMS in ZCKGLM INFO = ', I5 )
  9998 FORMAT( ' N=', I4, ' M=', I4, ', P=', I4, ', type ', I2, ', test ', I2, ', ratio=', G13.6 )

@@ -55,7 +55,7 @@
 
       // Compute B - A*X.
 
-      CALL SLAPTM( N, NRHS, -ONE, D, E, X, LDX, ONE, B, LDB )
+      slaptm(N, NRHS, -ONE, D, E, X, LDX, ONE, B, LDB );
 
       // Compute the maximum over the number of right hand sides of
          // norm(B - A*X) / ( norm(A) * norm(X) * EPS ).

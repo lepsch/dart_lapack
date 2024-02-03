@@ -93,7 +93,7 @@
       // Set the minimum block size for which the block routine should
       // be used, which will be later returned by ILAENV
 
-      CALL XLAENV( 2, 2 )
+      xlaenv(2, 2 );
 
       // Do for each value of N in NVAL
 
@@ -129,17 +129,17 @@
                // Set up parameters with DLATB4 for the matrix generator
                // based on the type of matrix to be generated.
 
-               CALL DLATB4( MATPATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST )
+               dlatb4(MATPATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST );
 
                // Generate a matrix with DLATMS.
 
                SRNAMT = 'DLATMS'
-               CALL DLATMS( N, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KL, KU, UPLO, A, LDA, WORK, INFO )
+               dlatms(N, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KL, KU, UPLO, A, LDA, WORK, INFO );
 
                // Check error code from DLATMS and handle error.
 
                if ( INFO.NE.0 ) {
-                  CALL ALAERH( PATH, 'DLATMS', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT )
+                  alaerh(PATH, 'DLATMS', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
 
                   // Skip all tests for this generated matrix
 
@@ -226,13 +226,13 @@
                   // returned by ILAENV.
 
                   NB = NBVAL( INB )
-                  CALL XLAENV( 1, NB )
+                  xlaenv(1, NB );
 
                   // Copy the test matrix A into matrix AFAC which
                   // will be factorized in place. This is needed to
                   // preserve the test matrix A for subsequent tests.
 
-                  CALL DLACPY( UPLO, N, N, A, LDA, AFAC, LDA )
+                  dlacpy(UPLO, N, N, A, LDA, AFAC, LDA );
 
                   // Compute the L*D*L**T or U*D*U**T factorization of the
                   // matrix. IWORK stores details of the interchanges and
@@ -241,7 +241,7 @@
 
                   LWORK = MAX( 2, NB )*LDA
                   SRNAMT = 'DSYTRF_RK'
-                  CALL DSYTRF_RK( UPLO, N, AFAC, LDA, E, IWORK, AINV, LWORK, INFO )
+                  dsytrf_rk(UPLO, N, AFAC, LDA, E, IWORK, AINV, LWORK, INFO );
 
                   // Adjust the expected value of INFO to account for
                   // pivoting.
@@ -275,7 +275,7 @@
 *+    TEST 1
                   // Reconstruct matrix from factors and compute residual.
 
-                  CALL DSYT01_3( UPLO, N, A, LDA, AFAC, LDA, E, IWORK, AINV, LDA, RWORK, RESULT( 1 ) )
+                  dsyt01_3(UPLO, N, A, LDA, AFAC, LDA, E, IWORK, AINV, LDA, RWORK, RESULT( 1 ) );
                   NT = 1
 
 *+    TEST 2
@@ -285,7 +285,7 @@
                   // Do it only for the first block size.
 
                   if ( INB.EQ.1 .AND. .NOT.TRFCON ) {
-                     CALL DLACPY( UPLO, N, N, AFAC, LDA, AINV, LDA )
+                     dlacpy(UPLO, N, N, AFAC, LDA, AINV, LDA );
                      SRNAMT = 'DSYTRI_3'
 
                      // Another reason that we need to compute the inverse
@@ -293,7 +293,7 @@
                      // in TEST6 and TEST7.
 
                      LWORK = (N+NB+1)*(NB+3)
-                     CALL DSYTRI_3( UPLO, N, AINV, LDA, E, IWORK, WORK, LWORK, INFO )
+                     dsytri_3(UPLO, N, AINV, LDA, E, IWORK, WORK, LWORK, INFO );
 
                      // Check error code from DSYTRI_3 and handle error.
 
@@ -302,7 +302,7 @@
                      // Compute the residual for a symmetric matrix times
                      // its inverse.
 
-                     CALL DPOT03( UPLO, N, A, LDA, AINV, LDA, WORK, LDA, RWORK, RCONDC, RESULT( 2 ) )
+                     dpot03(UPLO, N, A, LDA, AINV, LDA, WORK, LDA, RWORK, RCONDC, RESULT( 2 ) );
                      NT = 2
                   }
 
@@ -402,7 +402,7 @@
                   DTEMP = ZERO
 
                   CONST = ( ONE+ALPHA ) / ( ONE-ALPHA )
-                  CALL DLACPY( UPLO, N, N, AFAC, LDA, AINV, LDA )
+                  dlacpy(UPLO, N, N, AFAC, LDA, AINV, LDA );
 
                   if ( IUPLO.EQ.1 ) {
 
@@ -423,7 +423,7 @@
                         BLOCK( 2, 1 ) = BLOCK( 1, 2 )
                         BLOCK( 2, 2 ) = AFAC( (K-1)*LDA+K )
 
-                        CALL DGESVD( 'N', 'N', 2, 2, BLOCK, 2, RWORK, DDUMMY, 1, DDUMMY, 1, WORK, 10, INFO )
+                        dgesvd('N', 'N', 2, 2, BLOCK, 2, RWORK, DDUMMY, 1, DDUMMY, 1, WORK, 10, INFO );
 
                         SING_MAX = RWORK( 1 )
                         SING_MIN = RWORK( 2 )
@@ -462,7 +462,7 @@
                         BLOCK( 1, 2 ) = BLOCK( 2, 1 )
                         BLOCK( 2, 2 ) = AFAC( K*LDA+K+1 )
 
-                        CALL DGESVD( 'N', 'N', 2, 2, BLOCK, 2, RWORK, DDUMMY, 1, DDUMMY, 1, WORK, 10, INFO )
+                        dgesvd('N', 'N', 2, 2, BLOCK, 2, RWORK, DDUMMY, 1, DDUMMY, 1, WORK, 10, INFO );
 
 
                         SING_MAX = RWORK( 1 )
@@ -519,26 +519,26 @@
                      // stored in XACT and set up the right hand side B
 
                      SRNAMT = 'DLARHS'
-                     CALL DLARHS( MATPATH, XTYPE, UPLO, ' ', N, N, KL, KU, NRHS, A, LDA, XACT, LDA, B, LDA, ISEED, INFO )
-                     CALL DLACPY( 'Full', N, NRHS, B, LDA, X, LDA )
+                     dlarhs(MATPATH, XTYPE, UPLO, ' ', N, N, KL, KU, NRHS, A, LDA, XACT, LDA, B, LDA, ISEED, INFO );
+                     dlacpy('Full', N, NRHS, B, LDA, X, LDA );
 
                      SRNAMT = 'DSYTRS_3'
-                     CALL DSYTRS_3( UPLO, N, NRHS, AFAC, LDA, E, IWORK, X, LDA, INFO )
+                     dsytrs_3(UPLO, N, NRHS, AFAC, LDA, E, IWORK, X, LDA, INFO );
 
                      // Check error code from DSYTRS_3 and handle error.
 
                      IF( INFO.NE.0 ) CALL ALAERH( PATH, 'DSYTRS_3', INFO, 0, UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT )
 
-                     CALL DLACPY( 'Full', N, NRHS, B, LDA, WORK, LDA )
+                     dlacpy('Full', N, NRHS, B, LDA, WORK, LDA );
 
                      // Compute the residual for the solution
 
-                     CALL DPOT02( UPLO, N, NRHS, A, LDA, X, LDA, WORK, LDA, RWORK, RESULT( 5 ) )
+                     dpot02(UPLO, N, NRHS, A, LDA, X, LDA, WORK, LDA, RWORK, RESULT( 5 ) );
 
 *+    TEST 6
                      // Check solution from generated exact solution.
 
-                     CALL DGET04( N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 6 ) )
+                     dget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 6 ) );
 
                      // Print information about the tests that did not pass
                      // the threshold.
@@ -561,7 +561,7 @@
   230             CONTINUE
                   ANORM = DLANSY( '1', UPLO, N, A, LDA, RWORK )
                   SRNAMT = 'DSYCON_3'
-                  CALL DSYCON_3( UPLO, N, AFAC, LDA, E, IWORK, ANORM, RCOND, WORK, IWORK( N+1 ), INFO )
+                  dsycon_3(UPLO, N, AFAC, LDA, E, IWORK, ANORM, RCOND, WORK, IWORK( N+1 ), INFO );
 
                   // Check error code from DSYCON_3 and handle error.
 
@@ -587,7 +587,7 @@
 
       // Print a summary of the results.
 
-      CALL ALASUM( PATH, NOUT, NFAIL, NRUN, NERRS )
+      alasum(PATH, NOUT, NFAIL, NRUN, NERRS );
 
  9999 FORMAT( ' UPLO = ''', A1, ''', N =', I5, ', NB =', I4, ', type ', I2, ', test ', I2, ', ratio =', G12.5 )
  9998 FORMAT( ' UPLO = ''', A1, ''', N =', I5, ', NRHS=', I3, ', type ', I2, ', test(', I2, ') =', G12.5 )

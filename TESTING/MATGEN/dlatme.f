@@ -159,7 +159,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'DLATME', -INFO )
+         xerbla('DLATME', -INFO );
          RETURN
       }
 
@@ -175,7 +175,7 @@
 
               // Compute D according to COND and MODE
 
-      CALL DLATM1( MODE, COND, IRSIGN, IDIST, ISEED, D, N, IINFO )
+      dlatm1(MODE, COND, IRSIGN, IDIST, ISEED, D, N, IINFO );
       if ( IINFO.NE.0 ) {
          INFO = 1
          RETURN
@@ -198,12 +198,12 @@
             ALPHA = ZERO
          }
 
-         CALL DSCAL( N, ALPHA, D, 1 )
+         dscal(N, ALPHA, D, 1 );
 
       }
 
-      CALL DLASET( 'Full', N, N, ZERO, ZERO, A, LDA )
-      CALL DCOPY( N, D, 1, A, LDA+1 )
+      dlaset('Full', N, N, ZERO, ZERO, A, LDA );
+      dcopy(N, D, 1, A, LDA+1 );
 
       // Set up complex conjugate pairs
 
@@ -239,7 +239,7 @@
             } else {
                JR = JC - 1
             }
-            CALL DLARNV( IDIST, ISEED, JR, A( 1, JC ) )
+            dlarnv(IDIST, ISEED, JR, A( 1, JC ) );
    70    CONTINUE
       }
 
@@ -255,7 +255,7 @@
          // Compute S (singular values of the eigenvector matrix)
          // according to CONDS and MODES
 
-         CALL DLATM1( MODES, CONDS, 0, 0, ISEED, DS, N, IINFO )
+         dlatm1(MODES, CONDS, 0, 0, ISEED, DS, N, IINFO );
          if ( IINFO.NE.0 ) {
             INFO = 3
             RETURN
@@ -263,7 +263,7 @@
 
          // Multiply by V and V'
 
-         CALL DLARGE( N, A, LDA, ISEED, WORK, IINFO )
+         dlarge(N, A, LDA, ISEED, WORK, IINFO );
          if ( IINFO.NE.0 ) {
             INFO = 4
             RETURN
@@ -272,9 +272,9 @@
          // Multiply by S and (1/S)
 
          DO 80 J = 1, N
-            CALL DSCAL( N, DS( J ), A( J, 1 ), LDA )
+            dscal(N, DS( J ), A( J, 1 ), LDA );
             if ( DS( J ).NE.ZERO ) {
-               CALL DSCAL( N, ONE / DS( J ), A( 1, J ), 1 )
+               dscal(N, ONE / DS( J ), A( 1, J ), 1 );
             } else {
                INFO = 5
                RETURN
@@ -283,7 +283,7 @@
 
          // Multiply by U and U'
 
-         CALL DLARGE( N, A, LDA, ISEED, WORK, IINFO )
+         dlarge(N, A, LDA, ISEED, WORK, IINFO );
          if ( IINFO.NE.0 ) {
             INFO = 4
             RETURN
@@ -301,17 +301,17 @@
             IROWS = N + 1 - JCR
             ICOLS = N + KL - JCR
 
-            CALL DCOPY( IROWS, A( JCR, IC ), 1, WORK, 1 )
+            dcopy(IROWS, A( JCR, IC ), 1, WORK, 1 );
             XNORMS = WORK( 1 )
-            CALL DLARFG( IROWS, XNORMS, WORK( 2 ), 1, TAU )
+            dlarfg(IROWS, XNORMS, WORK( 2 ), 1, TAU );
             WORK( 1 ) = ONE
 
-            CALL DGEMV( 'T', IROWS, ICOLS, ONE, A( JCR, IC+1 ), LDA, WORK, 1, ZERO, WORK( IROWS+1 ), 1 )             CALL DGER( IROWS, ICOLS, -TAU, WORK, 1, WORK( IROWS+1 ), 1, A( JCR, IC+1 ), LDA )
+            dgemv('T', IROWS, ICOLS, ONE, A( JCR, IC+1 ), LDA, WORK, 1, ZERO, WORK( IROWS+1 ), 1 )             CALL DGER( IROWS, ICOLS, -TAU, WORK, 1, WORK( IROWS+1 ), 1, A( JCR, IC+1 ), LDA );
 
-            CALL DGEMV( 'N', N, IROWS, ONE, A( 1, JCR ), LDA, WORK, 1, ZERO, WORK( IROWS+1 ), 1 )             CALL DGER( N, IROWS, -TAU, WORK( IROWS+1 ), 1, WORK, 1, A( 1, JCR ), LDA )
+            dgemv('N', N, IROWS, ONE, A( 1, JCR ), LDA, WORK, 1, ZERO, WORK( IROWS+1 ), 1 )             CALL DGER( N, IROWS, -TAU, WORK( IROWS+1 ), 1, WORK, 1, A( 1, JCR ), LDA );
 
             A( JCR, IC ) = XNORMS
-            CALL DLASET( 'Full', IROWS-1, 1, ZERO, ZERO, A( JCR+1, IC ), LDA )
+            dlaset('Full', IROWS-1, 1, ZERO, ZERO, A( JCR+1, IC ), LDA );
    90    CONTINUE
       } else if ( KU.LT.N-1 ) {
 
@@ -322,17 +322,17 @@
             IROWS = N + KU - JCR
             ICOLS = N + 1 - JCR
 
-            CALL DCOPY( ICOLS, A( IR, JCR ), LDA, WORK, 1 )
+            dcopy(ICOLS, A( IR, JCR ), LDA, WORK, 1 );
             XNORMS = WORK( 1 )
-            CALL DLARFG( ICOLS, XNORMS, WORK( 2 ), 1, TAU )
+            dlarfg(ICOLS, XNORMS, WORK( 2 ), 1, TAU );
             WORK( 1 ) = ONE
 
-            CALL DGEMV( 'N', IROWS, ICOLS, ONE, A( IR+1, JCR ), LDA, WORK, 1, ZERO, WORK( ICOLS+1 ), 1 )             CALL DGER( IROWS, ICOLS, -TAU, WORK( ICOLS+1 ), 1, WORK, 1, A( IR+1, JCR ), LDA )
+            dgemv('N', IROWS, ICOLS, ONE, A( IR+1, JCR ), LDA, WORK, 1, ZERO, WORK( ICOLS+1 ), 1 )             CALL DGER( IROWS, ICOLS, -TAU, WORK( ICOLS+1 ), 1, WORK, 1, A( IR+1, JCR ), LDA );
 
-            CALL DGEMV( 'C', ICOLS, N, ONE, A( JCR, 1 ), LDA, WORK, 1, ZERO, WORK( ICOLS+1 ), 1 )             CALL DGER( ICOLS, N, -TAU, WORK, 1, WORK( ICOLS+1 ), 1, A( JCR, 1 ), LDA )
+            dgemv('C', ICOLS, N, ONE, A( JCR, 1 ), LDA, WORK, 1, ZERO, WORK( ICOLS+1 ), 1 )             CALL DGER( ICOLS, N, -TAU, WORK, 1, WORK( ICOLS+1 ), 1, A( JCR, 1 ), LDA );
 
             A( IR, JCR ) = XNORMS
-            CALL DLASET( 'Full', 1, ICOLS-1, ZERO, ZERO, A( IR, JCR+1 ), LDA )
+            dlaset('Full', 1, ICOLS-1, ZERO, ZERO, A( IR, JCR+1 ), LDA );
   100    CONTINUE
       }
 
@@ -343,7 +343,7 @@
          if ( TEMP.GT.ZERO ) {
             ALPHA = ANORM / TEMP
             DO 110 J = 1, N
-               CALL DSCAL( N, ALPHA, A( 1, J ), 1 )
+               dscal(N, ALPHA, A( 1, J ), 1 );
   110       CONTINUE
          }
       }

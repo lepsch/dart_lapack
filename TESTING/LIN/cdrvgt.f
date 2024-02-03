@@ -94,7 +94,7 @@
 
             // Set up parameters with CLATB4.
 
-            CALL CLATB4( PATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, COND, DIST )
+            clatb4(PATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, COND, DIST );
 
             ZEROT = IMAT.GE.8 .AND. IMAT.LE.10
             if ( IMAT.LE.6 ) {
@@ -103,21 +103,21 @@
 
                KOFF = MAX( 2-KU, 3-MAX( 1, N ) )
                SRNAMT = 'CLATMS'
-               CALL CLATMS( N, N, DIST, ISEED, TYPE, RWORK, MODE, COND, ANORM, KL, KU, 'Z', AF( KOFF ), 3, WORK, INFO )
+               clatms(N, N, DIST, ISEED, TYPE, RWORK, MODE, COND, ANORM, KL, KU, 'Z', AF( KOFF ), 3, WORK, INFO );
 
                // Check the error code from CLATMS.
 
                if ( INFO.NE.0 ) {
-                  CALL ALAERH( PATH, 'CLATMS', INFO, 0, ' ', N, N, KL, KU, -1, IMAT, NFAIL, NERRS, NOUT )
+                  alaerh(PATH, 'CLATMS', INFO, 0, ' ', N, N, KL, KU, -1, IMAT, NFAIL, NERRS, NOUT );
                   GO TO 130
                }
                IZERO = 0
 
                if ( N.GT.1 ) {
-                  CALL CCOPY( N-1, AF( 4 ), 3, A, 1 )
-                  CALL CCOPY( N-1, AF( 3 ), 3, A( N+M+1 ), 1 )
+                  ccopy(N-1, AF( 4 ), 3, A, 1 );
+                  ccopy(N-1, AF( 3 ), 3, A( N+M+1 ), 1 );
                }
-               CALL CCOPY( N, AF( 2 ), 3, A( M+1 ), 1 )
+               ccopy(N, AF( 2 ), 3, A( M+1 ), 1 );
             } else {
 
                // Types 7-12:  generate tridiagonal matrices with
@@ -127,7 +127,7 @@
 
                   // Generate a matrix with elements from [-1,1].
 
-                  CALL CLARNV( 2, ISEED, N+2*M, A )
+                  clarnv(2, ISEED, N+2*M, A );
                   IF( ANORM.NE.ONE ) CALL CSSCAL( N+2*M, ANORM, A, 1 )
                } else if ( IZERO.GT.0 ) {
 
@@ -193,7 +193,7 @@
                   RCONDI = ZERO
 
                } else if ( IFACT.EQ.1 ) {
-                  CALL CCOPY( N+2*M, A, 1, AF, 1 )
+                  ccopy(N+2*M, A, 1, AF, 1 );
 
                   // Compute the 1-norm and infinity-norm of A.
 
@@ -202,7 +202,7 @@
 
                   // Factor the matrix A.
 
-                  CALL CGTTRF( N, AF, AF( M+1 ), AF( N+M+1 ), AF( N+2*M+1 ), IWORK, INFO )
+                  cgttrf(N, AF, AF( M+1 ), AF( N+M+1 ), AF( N+2*M+1 ), IWORK, INFO );
 
                   // Use CGTTRS to solve for one column at a time of
                   // inv(A), computing the maximum column sum as we go.
@@ -213,7 +213,7 @@
                         X( J ) = ZERO
    30                CONTINUE
                      X( I ) = ONE
-                     CALL CGTTRS( 'No transpose', N, 1, AF, AF( M+1 ), AF( N+M+1 ), AF( N+2*M+1 ), IWORK, X, LDA, INFO )
+                     cgttrs('No transpose', N, 1, AF, AF( M+1 ), AF( N+M+1 ), AF( N+2*M+1 ), IWORK, X, LDA, INFO );
                      AINVNM = MAX( AINVNM, SCASUM( N, X, 1 ) )
    40             CONTINUE
 
@@ -234,7 +234,7 @@
                         X( J ) = ZERO
    50                CONTINUE
                      X( I ) = ONE
-                     CALL CGTTRS( 'Conjugate transpose', N, 1, AF, AF( M+1 ), AF( N+M+1 ), AF( N+2*M+1 ), IWORK, X, LDA, INFO )
+                     cgttrs('Conjugate transpose', N, 1, AF, AF( M+1 ), AF( N+M+1 ), AF( N+2*M+1 ), IWORK, X, LDA, INFO );
                      AINVNM = MAX( AINVNM, SCASUM( N, X, 1 ) )
    60             CONTINUE
 
@@ -259,13 +259,13 @@
 
                   IX = 1
                   DO 70 J = 1, NRHS
-                     CALL CLARNV( 2, ISEED, N, XACT( IX ) )
+                     clarnv(2, ISEED, N, XACT( IX ) );
                      IX = IX + LDA
    70             CONTINUE
 
                   // Set the right hand side.
 
-                  CALL CLAGTM( TRANS, N, NRHS, ONE, A, A( M+1 ), A( N+M+1 ), XACT, LDA, ZERO, B, LDA )
+                  clagtm(TRANS, N, NRHS, ONE, A, A( M+1 ), A( N+M+1 ), XACT, LDA, ZERO, B, LDA );
 
                   if ( IFACT.EQ.2 .AND. ITRAN.EQ.1 ) {
 
@@ -274,11 +274,11 @@
                      // Solve the system using Gaussian elimination with
                      // partial pivoting.
 
-                     CALL CCOPY( N+2*M, A, 1, AF, 1 )
-                     CALL CLACPY( 'Full', N, NRHS, B, LDA, X, LDA )
+                     ccopy(N+2*M, A, 1, AF, 1 );
+                     clacpy('Full', N, NRHS, B, LDA, X, LDA );
 
                      SRNAMT = 'CGTSV '
-                     CALL CGTSV( N, NRHS, AF, AF( M+1 ), AF( N+M+1 ), X, LDA, INFO )
+                     cgtsv(N, NRHS, AF, AF( M+1 ), AF( N+M+1 ), X, LDA, INFO );
 
                      // Check error code from CGTSV .
 
@@ -288,11 +288,11 @@
 
                         // Check residual of computed solution.
 
-                        CALL CLACPY( 'Full', N, NRHS, B, LDA, WORK, LDA )                         CALL CGTT02( TRANS, N, NRHS, A, A( M+1 ), A( N+M+1 ), X, LDA, WORK, LDA, RESULT( 2 ) )
+                        clacpy('Full', N, NRHS, B, LDA, WORK, LDA )                         CALL CGTT02( TRANS, N, NRHS, A, A( M+1 ), A( N+M+1 ), X, LDA, WORK, LDA, RESULT( 2 ) );
 
                         // Check solution from generated exact solution.
 
-                        CALL CGET04( N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 3 ) )
+                        cget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 3 ) );
                         NT = 3
                      }
 
@@ -318,13 +318,13 @@
                         AF( I ) = ZERO
    90                CONTINUE
                   }
-                  CALL CLASET( 'Full', N, NRHS, CMPLX( ZERO ), CMPLX( ZERO ), X, LDA )
+                  claset('Full', N, NRHS, CMPLX( ZERO ), CMPLX( ZERO ), X, LDA );
 
                   // Solve the system and compute the condition number and
                   // error bounds using CGTSVX.
 
                   SRNAMT = 'CGTSVX'
-                  CALL CGTSVX( FACT, TRANS, N, NRHS, A, A( M+1 ), A( N+M+1 ), AF, AF( M+1 ), AF( N+M+1 ), AF( N+2*M+1 ), IWORK, B, LDA, X, LDA, RCOND, RWORK, RWORK( NRHS+1 ), WORK, RWORK( 2*NRHS+1 ), INFO )
+                  cgtsvx(FACT, TRANS, N, NRHS, A, A( M+1 ), A( N+M+1 ), AF, AF( M+1 ), AF( N+M+1 ), AF( N+2*M+1 ), IWORK, B, LDA, X, LDA, RCOND, RWORK, RWORK( NRHS+1 ), WORK, RWORK( 2*NRHS+1 ), INFO );
 
                   // Check the error code from CGTSVX.
 
@@ -335,7 +335,7 @@
                      // Reconstruct matrix from factors and compute
                      // residual.
 
-                     CALL CGTT01( N, A, A( M+1 ), A( N+M+1 ), AF, AF( M+1 ), AF( N+M+1 ), AF( N+2*M+1 ), IWORK, WORK, LDA, RWORK, RESULT( 1 ) )
+                     cgtt01(N, A, A( M+1 ), A( N+M+1 ), AF, AF( M+1 ), AF( N+M+1 ), AF( N+2*M+1 ), IWORK, WORK, LDA, RWORK, RESULT( 1 ) );
                      K1 = 1
                   } else {
                      K1 = 2
@@ -346,16 +346,16 @@
 
                      // Check residual of computed solution.
 
-                     CALL CLACPY( 'Full', N, NRHS, B, LDA, WORK, LDA )
-                     CALL CGTT02( TRANS, N, NRHS, A, A( M+1 ), A( N+M+1 ), X, LDA, WORK, LDA, RESULT( 2 ) )
+                     clacpy('Full', N, NRHS, B, LDA, WORK, LDA );
+                     cgtt02(TRANS, N, NRHS, A, A( M+1 ), A( N+M+1 ), X, LDA, WORK, LDA, RESULT( 2 ) );
 
                      // Check solution from generated exact solution.
 
-                     CALL CGET04( N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 3 ) )
+                     cget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 3 ) );
 
                      // Check the error bounds from iterative refinement.
 
-                     CALL CGTT05( TRANS, N, NRHS, A, A( M+1 ), A( N+M+1 ), B, LDA, X, LDA, XACT, LDA, RWORK, RWORK( NRHS+1 ), RESULT( 4 ) )
+                     cgtt05(TRANS, N, NRHS, A, A( M+1 ), A( N+M+1 ), B, LDA, X, LDA, XACT, LDA, RWORK, RWORK( NRHS+1 ), RESULT( 4 ) );
                      NT = 5
                   }
 
@@ -385,7 +385,7 @@
 
       // Print a summary of the results.
 
-      CALL ALASVM( PATH, NOUT, NFAIL, NRUN, NERRS )
+      alasvm(PATH, NOUT, NFAIL, NRUN, NERRS );
 
  9999 FORMAT( 1X, A, ', N =', I5, ', type ', I2, ', test ', I2, ', ratio = ', G12.5 )
  9998 FORMAT( 1X, A, ', FACT=''', A1, ''', TRANS=''', A1, ''', N =', I5, ', type ', I2, ', test ', I2, ', ratio = ', G12.5 )

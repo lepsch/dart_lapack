@@ -64,7 +64,7 @@
          INFO = -5
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'ZPOCON', -INFO )
+         xerbla('ZPOCON', -INFO );
          RETURN
       }
 
@@ -85,28 +85,28 @@
       KASE = 0
       NORMIN = 'N'
    10 CONTINUE
-      CALL ZLACN2( N, WORK( N+1 ), WORK, AINVNM, KASE, ISAVE )
+      zlacn2(N, WORK( N+1 ), WORK, AINVNM, KASE, ISAVE );
       if ( KASE.NE.0 ) {
          if ( UPPER ) {
 
             // Multiply by inv(U**H).
 
-            CALL ZLATRS( 'Upper', 'Conjugate transpose', 'Non-unit', NORMIN, N, A, LDA, WORK, SCALEL, RWORK, INFO )
+            zlatrs('Upper', 'Conjugate transpose', 'Non-unit', NORMIN, N, A, LDA, WORK, SCALEL, RWORK, INFO );
             NORMIN = 'Y'
 
             // Multiply by inv(U).
 
-            CALL ZLATRS( 'Upper', 'No transpose', 'Non-unit', NORMIN, N, A, LDA, WORK, SCALEU, RWORK, INFO )
+            zlatrs('Upper', 'No transpose', 'Non-unit', NORMIN, N, A, LDA, WORK, SCALEU, RWORK, INFO );
          } else {
 
             // Multiply by inv(L).
 
-            CALL ZLATRS( 'Lower', 'No transpose', 'Non-unit', NORMIN, N, A, LDA, WORK, SCALEL, RWORK, INFO )
+            zlatrs('Lower', 'No transpose', 'Non-unit', NORMIN, N, A, LDA, WORK, SCALEL, RWORK, INFO );
             NORMIN = 'Y'
 
             // Multiply by inv(L**H).
 
-            CALL ZLATRS( 'Lower', 'Conjugate transpose', 'Non-unit', NORMIN, N, A, LDA, WORK, SCALEU, RWORK, INFO )
+            zlatrs('Lower', 'Conjugate transpose', 'Non-unit', NORMIN, N, A, LDA, WORK, SCALEU, RWORK, INFO );
          }
 
          // Multiply by 1/SCALE if doing so will not cause overflow.
@@ -115,7 +115,7 @@
          if ( SCALE.NE.ONE ) {
             IX = IZAMAX( N, WORK, 1 )
             IF( SCALE.LT.CABS1( WORK( IX ) )*SMLNUM .OR. SCALE.EQ.ZERO ) GO TO 20
-            CALL ZDRSCL( N, SCALE, WORK, 1 )
+            zdrscl(N, SCALE, WORK, 1 );
          }
          GO TO 10
       }

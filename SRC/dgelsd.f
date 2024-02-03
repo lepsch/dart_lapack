@@ -128,7 +128,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'DGELSD', -INFO )
+         xerbla('DGELSD', -INFO );
          RETURN
       } else if ( LQUERY ) {
          GO TO 10
@@ -156,20 +156,20 @@
 
          // Scale matrix norm up to SMLNUM.
 
-         CALL DLASCL( 'G', 0, 0, ANRM, SMLNUM, M, N, A, LDA, INFO )
+         dlascl('G', 0, 0, ANRM, SMLNUM, M, N, A, LDA, INFO );
          IASCL = 1
       } else if ( ANRM.GT.BIGNUM ) {
 
          // Scale matrix norm down to BIGNUM.
 
-         CALL DLASCL( 'G', 0, 0, ANRM, BIGNUM, M, N, A, LDA, INFO )
+         dlascl('G', 0, 0, ANRM, BIGNUM, M, N, A, LDA, INFO );
          IASCL = 2
       } else if ( ANRM.EQ.ZERO ) {
 
          // Matrix all zero. Return zero solution.
 
-         CALL DLASET( 'F', MAX( M, N ), NRHS, ZERO, ZERO, B, LDB )
-         CALL DLASET( 'F', MINMN, 1, ZERO, ZERO, S, 1 )
+         dlaset('F', MAX( M, N ), NRHS, ZERO, ZERO, B, LDB );
+         dlaset('F', MINMN, 1, ZERO, ZERO, S, 1 );
          RANK = 0
          GO TO 10
       }
@@ -182,13 +182,13 @@
 
          // Scale matrix norm up to SMLNUM.
 
-         CALL DLASCL( 'G', 0, 0, BNRM, SMLNUM, M, NRHS, B, LDB, INFO )
+         dlascl('G', 0, 0, BNRM, SMLNUM, M, NRHS, B, LDB, INFO );
          IBSCL = 1
       } else if ( BNRM.GT.BIGNUM ) {
 
          // Scale matrix norm down to BIGNUM.
 
-         CALL DLASCL( 'G', 0, 0, BNRM, BIGNUM, M, NRHS, B, LDB, INFO )
+         dlascl('G', 0, 0, BNRM, BIGNUM, M, NRHS, B, LDB, INFO );
          IBSCL = 2
       }
 
@@ -214,17 +214,17 @@
             // Compute A=Q*R.
             // (Workspace: need 2*N, prefer N+N*NB)
 
-            CALL DGEQRF( M, N, A, LDA, WORK( ITAU ), WORK( NWORK ), LWORK-NWORK+1, INFO )
+            dgeqrf(M, N, A, LDA, WORK( ITAU ), WORK( NWORK ), LWORK-NWORK+1, INFO );
 
             // Multiply B by transpose(Q).
             // (Workspace: need N+NRHS, prefer N+NRHS*NB)
 
-            CALL DORMQR( 'L', 'T', M, NRHS, N, A, LDA, WORK( ITAU ), B, LDB, WORK( NWORK ), LWORK-NWORK+1, INFO )
+            dormqr('L', 'T', M, NRHS, N, A, LDA, WORK( ITAU ), B, LDB, WORK( NWORK ), LWORK-NWORK+1, INFO );
 
             // Zero out below R.
 
             if ( N.GT.1 ) {
-               CALL DLASET( 'L', N-1, N-1, ZERO, ZERO, A( 2, 1 ), LDA )
+               dlaset('L', N-1, N-1, ZERO, ZERO, A( 2, 1 ), LDA );
             }
          }
 
@@ -236,23 +236,23 @@
          // Bidiagonalize R in A.
          // (Workspace: need 3*N+MM, prefer 3*N+(MM+N)*NB)
 
-         CALL DGEBRD( MM, N, A, LDA, S, WORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( NWORK ), LWORK-NWORK+1, INFO )
+         dgebrd(MM, N, A, LDA, S, WORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( NWORK ), LWORK-NWORK+1, INFO );
 
          // Multiply B by transpose of left bidiagonalizing vectors of R.
          // (Workspace: need 3*N+NRHS, prefer 3*N+NRHS*NB)
 
-         CALL DORMBR( 'Q', 'L', 'T', MM, NRHS, N, A, LDA, WORK( ITAUQ ), B, LDB, WORK( NWORK ), LWORK-NWORK+1, INFO )
+         dormbr('Q', 'L', 'T', MM, NRHS, N, A, LDA, WORK( ITAUQ ), B, LDB, WORK( NWORK ), LWORK-NWORK+1, INFO );
 
          // Solve the bidiagonal least squares problem.
 
-         CALL DLALSD( 'U', SMLSIZ, N, NRHS, S, WORK( IE ), B, LDB, RCOND, RANK, WORK( NWORK ), IWORK, INFO )
+         dlalsd('U', SMLSIZ, N, NRHS, S, WORK( IE ), B, LDB, RCOND, RANK, WORK( NWORK ), IWORK, INFO );
          if ( INFO.NE.0 ) {
             GO TO 10
          }
 
          // Multiply B by right bidiagonalizing vectors of R.
 
-         CALL DORMBR( 'P', 'L', 'N', N, NRHS, N, A, LDA, WORK( ITAUP ), B, LDB, WORK( NWORK ), LWORK-NWORK+1, INFO )
+         dormbr('P', 'L', 'N', N, NRHS, N, A, LDA, WORK( ITAUP ), B, LDB, WORK( NWORK ), LWORK-NWORK+1, INFO );
 
       } else if ( N.GE.MNTHR .AND. LWORK.GE.4*M+M*M+ MAX( M, 2*M-4, NRHS, N-3*M, WLALSD ) ) {
 
@@ -267,13 +267,13 @@
          // Compute A=L*Q.
          // (Workspace: need 2*M, prefer M+M*NB)
 
-         CALL DGELQF( M, N, A, LDA, WORK( ITAU ), WORK( NWORK ), LWORK-NWORK+1, INFO )
+         dgelqf(M, N, A, LDA, WORK( ITAU ), WORK( NWORK ), LWORK-NWORK+1, INFO );
          IL = NWORK
 
          // Copy L to WORK(IL), zeroing out above its diagonal.
 
-         CALL DLACPY( 'L', M, M, A, LDA, WORK( IL ), LDWORK )
-         CALL DLASET( 'U', M-1, M-1, ZERO, ZERO, WORK( IL+LDWORK ), LDWORK )
+         dlacpy('L', M, M, A, LDA, WORK( IL ), LDWORK );
+         dlaset('U', M-1, M-1, ZERO, ZERO, WORK( IL+LDWORK ), LDWORK );
          IE = IL + LDWORK*M
          ITAUQ = IE + M
          ITAUP = ITAUQ + M
@@ -282,33 +282,33 @@
          // Bidiagonalize L in WORK(IL).
          // (Workspace: need M*M+5*M, prefer M*M+4*M+2*M*NB)
 
-         CALL DGEBRD( M, M, WORK( IL ), LDWORK, S, WORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( NWORK ), LWORK-NWORK+1, INFO )
+         dgebrd(M, M, WORK( IL ), LDWORK, S, WORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( NWORK ), LWORK-NWORK+1, INFO );
 
          // Multiply B by transpose of left bidiagonalizing vectors of L.
          // (Workspace: need M*M+4*M+NRHS, prefer M*M+4*M+NRHS*NB)
 
-         CALL DORMBR( 'Q', 'L', 'T', M, NRHS, M, WORK( IL ), LDWORK, WORK( ITAUQ ), B, LDB, WORK( NWORK ), LWORK-NWORK+1, INFO )
+         dormbr('Q', 'L', 'T', M, NRHS, M, WORK( IL ), LDWORK, WORK( ITAUQ ), B, LDB, WORK( NWORK ), LWORK-NWORK+1, INFO );
 
          // Solve the bidiagonal least squares problem.
 
-         CALL DLALSD( 'U', SMLSIZ, M, NRHS, S, WORK( IE ), B, LDB, RCOND, RANK, WORK( NWORK ), IWORK, INFO )
+         dlalsd('U', SMLSIZ, M, NRHS, S, WORK( IE ), B, LDB, RCOND, RANK, WORK( NWORK ), IWORK, INFO );
          if ( INFO.NE.0 ) {
             GO TO 10
          }
 
          // Multiply B by right bidiagonalizing vectors of L.
 
-         CALL DORMBR( 'P', 'L', 'N', M, NRHS, M, WORK( IL ), LDWORK, WORK( ITAUP ), B, LDB, WORK( NWORK ), LWORK-NWORK+1, INFO )
+         dormbr('P', 'L', 'N', M, NRHS, M, WORK( IL ), LDWORK, WORK( ITAUP ), B, LDB, WORK( NWORK ), LWORK-NWORK+1, INFO );
 
          // Zero out below first M rows of B.
 
-         CALL DLASET( 'F', N-M, NRHS, ZERO, ZERO, B( M+1, 1 ), LDB )
+         dlaset('F', N-M, NRHS, ZERO, ZERO, B( M+1, 1 ), LDB );
          NWORK = ITAU + M
 
          // Multiply transpose(Q) by B.
          // (Workspace: need M+NRHS, prefer M+NRHS*NB)
 
-         CALL DORMLQ( 'L', 'T', N, NRHS, M, A, LDA, WORK( ITAU ), B, LDB, WORK( NWORK ), LWORK-NWORK+1, INFO )
+         dormlq('L', 'T', N, NRHS, M, A, LDA, WORK( ITAU ), B, LDB, WORK( NWORK ), LWORK-NWORK+1, INFO );
 
       } else {
 
@@ -322,39 +322,39 @@
          // Bidiagonalize A.
          // (Workspace: need 3*M+N, prefer 3*M+(M+N)*NB)
 
-         CALL DGEBRD( M, N, A, LDA, S, WORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( NWORK ), LWORK-NWORK+1, INFO )
+         dgebrd(M, N, A, LDA, S, WORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( NWORK ), LWORK-NWORK+1, INFO );
 
          // Multiply B by transpose of left bidiagonalizing vectors.
          // (Workspace: need 3*M+NRHS, prefer 3*M+NRHS*NB)
 
-         CALL DORMBR( 'Q', 'L', 'T', M, NRHS, N, A, LDA, WORK( ITAUQ ), B, LDB, WORK( NWORK ), LWORK-NWORK+1, INFO )
+         dormbr('Q', 'L', 'T', M, NRHS, N, A, LDA, WORK( ITAUQ ), B, LDB, WORK( NWORK ), LWORK-NWORK+1, INFO );
 
          // Solve the bidiagonal least squares problem.
 
-         CALL DLALSD( 'L', SMLSIZ, M, NRHS, S, WORK( IE ), B, LDB, RCOND, RANK, WORK( NWORK ), IWORK, INFO )
+         dlalsd('L', SMLSIZ, M, NRHS, S, WORK( IE ), B, LDB, RCOND, RANK, WORK( NWORK ), IWORK, INFO );
          if ( INFO.NE.0 ) {
             GO TO 10
          }
 
          // Multiply B by right bidiagonalizing vectors of A.
 
-         CALL DORMBR( 'P', 'L', 'N', N, NRHS, M, A, LDA, WORK( ITAUP ), B, LDB, WORK( NWORK ), LWORK-NWORK+1, INFO )
+         dormbr('P', 'L', 'N', N, NRHS, M, A, LDA, WORK( ITAUP ), B, LDB, WORK( NWORK ), LWORK-NWORK+1, INFO );
 
       }
 
       // Undo scaling.
 
       if ( IASCL.EQ.1 ) {
-         CALL DLASCL( 'G', 0, 0, ANRM, SMLNUM, N, NRHS, B, LDB, INFO )
-         CALL DLASCL( 'G', 0, 0, SMLNUM, ANRM, MINMN, 1, S, MINMN, INFO )
+         dlascl('G', 0, 0, ANRM, SMLNUM, N, NRHS, B, LDB, INFO );
+         dlascl('G', 0, 0, SMLNUM, ANRM, MINMN, 1, S, MINMN, INFO );
       } else if ( IASCL.EQ.2 ) {
-         CALL DLASCL( 'G', 0, 0, ANRM, BIGNUM, N, NRHS, B, LDB, INFO )
-         CALL DLASCL( 'G', 0, 0, BIGNUM, ANRM, MINMN, 1, S, MINMN, INFO )
+         dlascl('G', 0, 0, ANRM, BIGNUM, N, NRHS, B, LDB, INFO );
+         dlascl('G', 0, 0, BIGNUM, ANRM, MINMN, 1, S, MINMN, INFO );
       }
       if ( IBSCL.EQ.1 ) {
-         CALL DLASCL( 'G', 0, 0, SMLNUM, BNRM, N, NRHS, B, LDB, INFO )
+         dlascl('G', 0, 0, SMLNUM, BNRM, N, NRHS, B, LDB, INFO );
       } else if ( IBSCL.EQ.2 ) {
-         CALL DLASCL( 'G', 0, 0, BIGNUM, BNRM, N, NRHS, B, LDB, INFO )
+         dlascl('G', 0, 0, BIGNUM, BNRM, N, NRHS, B, LDB, INFO );
       }
 
    10 CONTINUE

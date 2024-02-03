@@ -90,8 +90,8 @@
 
       NB = 1
       NBMIN = 2
-      CALL XLAENV( 1, NB )
-      CALL XLAENV( 2, NBMIN )
+      xlaenv(1, NB );
+      xlaenv(2, NBMIN );
 
       // Do for each value of N in NVAL
 
@@ -123,15 +123,15 @@
                // Set up parameters with DLATB4 and generate a test matrix
                // with DLATMS.
 
-               CALL DLATB4( MATPATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST )
+               dlatb4(MATPATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST );
 
                SRNAMT = 'DLATMS'
-               CALL DLATMS( N, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KL, KU, UPLO, A, LDA, WORK, INFO )
+               dlatms(N, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KL, KU, UPLO, A, LDA, WORK, INFO );
 
                // Check error code from DLATMS.
 
                if ( INFO.NE.0 ) {
-                  CALL ALAERH( PATH, 'DLATMS', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT )
+                  alaerh(PATH, 'DLATMS', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
                   GO TO 160
                }
 
@@ -212,19 +212,19 @@
                   // Form an exact solution and set the right hand side.
 
                   SRNAMT = 'DLARHS'
-                  CALL DLARHS( MATPATH, XTYPE, UPLO, ' ', N, N, KL, KU, NRHS, A, LDA, XACT, LDA, B, LDA, ISEED, INFO )
+                  dlarhs(MATPATH, XTYPE, UPLO, ' ', N, N, KL, KU, NRHS, A, LDA, XACT, LDA, B, LDA, ISEED, INFO );
                   XTYPE = 'C'
 
                   // --- Test DSYSV_AA  ---
 
                   if ( IFACT.EQ.2 ) {
-                     CALL DLACPY( UPLO, N, N, A, LDA, AFAC, LDA )
-                     CALL DLACPY( 'Full', N, NRHS, B, LDA, X, LDA )
+                     dlacpy(UPLO, N, N, A, LDA, AFAC, LDA );
+                     dlacpy('Full', N, NRHS, B, LDA, X, LDA );
 
                      // Factor the matrix and solve the system using DSYSV_AA.
 
                      SRNAMT = 'DSYSV_AA'
-                     CALL DSYSV_AA( UPLO, N, NRHS, AFAC, LDA, IWORK, X, LDA, WORK, LWORK, INFO )
+                     dsysv_aa(UPLO, N, NRHS, AFAC, LDA, IWORK, X, LDA, WORK, LWORK, INFO );
 
                      // Adjust the expected value of INFO to account for
                      // pivoting.
@@ -249,7 +249,7 @@
                      // Check error code from DSYSV_AA .
 
                      if ( INFO.NE.K ) {
-                        CALL ALAERH( PATH, 'DSYSV_AA ', INFO, K, UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT )
+                        alaerh(PATH, 'DSYSV_AA ', INFO, K, UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
                         GO TO 120
                      } else if ( INFO.NE.0 ) {
                         GO TO 120
@@ -258,12 +258,12 @@
                      // Reconstruct matrix from factors and compute
                      // residual.
 
-                     CALL DSYT01_AA( UPLO, N, A, LDA, AFAC, LDA, IWORK, AINV, LDA, RWORK, RESULT( 1 ) )
+                     dsyt01_aa(UPLO, N, A, LDA, AFAC, LDA, IWORK, AINV, LDA, RWORK, RESULT( 1 ) );
 
                      // Compute residual of the computed solution.
 
-                     CALL DLACPY( 'Full', N, NRHS, B, LDA, WORK, LDA )
-                     CALL DPOT02( UPLO, N, NRHS, A, LDA, X, LDA, WORK, LDA, RWORK, RESULT( 2 ) )
+                     dlacpy('Full', N, NRHS, B, LDA, WORK, LDA );
+                     dpot02(UPLO, N, NRHS, A, LDA, X, LDA, WORK, LDA, RWORK, RESULT( 2 ) );
                      NT = 2
 
                      // Print information about the tests that did not pass
@@ -287,7 +287,7 @@
 
       // Print a summary of the results.
 
-      CALL ALASVM( PATH, NOUT, NFAIL, NRUN, NERRS )
+      alasvm(PATH, NOUT, NFAIL, NRUN, NERRS );
 
  9999 FORMAT( 1X, A, ', UPLO=''', A1, ''', N =', I5, ', type ', I2, ', test ', I2, ', ratio =', G12.5 )
       RETURN

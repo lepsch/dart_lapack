@@ -72,10 +72,10 @@
 
          // Generate the Hilbert matrix, its inverse, and the
          // right hand side, all scaled by the LCM(1,..,2N-1).
-         CALL CLAHILB(N, N, A, LDA, INVHILB, LDA, B, LDA, WORK, INFO, PATH)
+         clahilb(N, N, A, LDA, INVHILB, LDA, B, LDA, WORK, INFO, PATH);
 
          // Copy A into ACOPY.
-         CALL CLACPY('ALL', N, N, A, NMAX, ACOPY, NMAX)
+         clacpy('ALL', N, N, A, NMAX, ACOPY, NMAX);
 
          // Store A in band format for GB tests
          DO J = 1, N
@@ -95,19 +95,19 @@
                ABCOPY( I, J ) = (0.0E+0,0.0E+0)
             END DO
          END DO
-         CALL CLACPY('ALL', KL+KU+1, N, AB, LDAB, ABCOPY, LDAB)
+         clacpy('ALL', KL+KU+1, N, AB, LDAB, ABCOPY, LDAB);
 
          // Call C**SVXX with default PARAMS and N_ERR_BND = 3.
          if ( LSAMEN( 2, C2, 'SY' ) ) {
-            CALL CSYSVXX(FACT, UPLO, N, NRHS, ACOPY, LDA, AF, LDA, IPIV, EQUED, S, B, LDA, X, LDA, ORCOND, RPVGRW, BERR, NERRBND, ERRBND_N, ERRBND_C, NPARAMS, PARAMS, WORK, RWORK, INFO)
+            csysvxx(FACT, UPLO, N, NRHS, ACOPY, LDA, AF, LDA, IPIV, EQUED, S, B, LDA, X, LDA, ORCOND, RPVGRW, BERR, NERRBND, ERRBND_N, ERRBND_C, NPARAMS, PARAMS, WORK, RWORK, INFO);
          } else if ( LSAMEN( 2, C2, 'PO' ) ) {
-            CALL CPOSVXX(FACT, UPLO, N, NRHS, ACOPY, LDA, AF, LDA, EQUED, S, B, LDA, X, LDA, ORCOND, RPVGRW, BERR, NERRBND, ERRBND_N, ERRBND_C, NPARAMS, PARAMS, WORK, RWORK, INFO)
+            cposvxx(FACT, UPLO, N, NRHS, ACOPY, LDA, AF, LDA, EQUED, S, B, LDA, X, LDA, ORCOND, RPVGRW, BERR, NERRBND, ERRBND_N, ERRBND_C, NPARAMS, PARAMS, WORK, RWORK, INFO);
          } else if ( LSAMEN( 2, C2, 'HE' ) ) {
-            CALL CHESVXX(FACT, UPLO, N, NRHS, ACOPY, LDA, AF, LDA, IPIV, EQUED, S, B, LDA, X, LDA, ORCOND, RPVGRW, BERR, NERRBND, ERRBND_N, ERRBND_C, NPARAMS, PARAMS, WORK, RWORK, INFO)
+            chesvxx(FACT, UPLO, N, NRHS, ACOPY, LDA, AF, LDA, IPIV, EQUED, S, B, LDA, X, LDA, ORCOND, RPVGRW, BERR, NERRBND, ERRBND_N, ERRBND_C, NPARAMS, PARAMS, WORK, RWORK, INFO);
          } else if ( LSAMEN( 2, C2, 'GB' ) ) {
-            CALL CGBSVXX(FACT, TRANS, N, KL, KU, NRHS, ABCOPY, LDAB, AFB, LDAFB, IPIV, EQUED, R, C, B, LDA, X, LDA, ORCOND, RPVGRW, BERR, NERRBND, ERRBND_N, ERRBND_C, NPARAMS, PARAMS, WORK, RWORK, INFO)
+            cgbsvxx(FACT, TRANS, N, KL, KU, NRHS, ABCOPY, LDAB, AFB, LDAFB, IPIV, EQUED, R, C, B, LDA, X, LDA, ORCOND, RPVGRW, BERR, NERRBND, ERRBND_N, ERRBND_C, NPARAMS, PARAMS, WORK, RWORK, INFO);
          } else {
-            CALL CGESVXX(FACT, TRANS, N, NRHS, ACOPY, LDA, AF, LDA, IPIV, EQUED, R, C, B, LDA, X, LDA, ORCOND, RPVGRW, BERR, NERRBND, ERRBND_N, ERRBND_C, NPARAMS, PARAMS, WORK, RWORK, INFO)
+            cgesvxx(FACT, TRANS, N, NRHS, ACOPY, LDA, AF, LDA, IPIV, EQUED, R, C, B, LDA, X, LDA, ORCOND, RPVGRW, BERR, NERRBND, ERRBND_N, ERRBND_C, NPARAMS, PARAMS, WORK, RWORK, INFO);
          }
 
          N_AUX_TESTS = N_AUX_TESTS + 1

@@ -53,14 +53,14 @@
          if ( N.EQ.0 ) {
             LWKOPT = 1
          } else {
-            CALL DSYTRF_ROOK( UPLO, N, A, LDA, IPIV, WORK, -1, INFO )
+            dsytrf_rook(UPLO, N, A, LDA, IPIV, WORK, -1, INFO );
             LWKOPT = INT( WORK( 1 ) )
          }
          WORK( 1 ) = LWKOPT
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'DSYSV_ROOK ', -INFO )
+         xerbla('DSYSV_ROOK ', -INFO );
          RETURN
       } else if ( LQUERY ) {
          RETURN
@@ -68,14 +68,14 @@
 
       // Compute the factorization A = U*D*U**T or A = L*D*L**T.
 
-      CALL DSYTRF_ROOK( UPLO, N, A, LDA, IPIV, WORK, LWORK, INFO )
+      dsytrf_rook(UPLO, N, A, LDA, IPIV, WORK, LWORK, INFO );
       if ( INFO.EQ.0 ) {
 
          // Solve the system A*X = B, overwriting B with X.
 
          // Solve with TRS_ROOK ( Use Level 2 BLAS)
 
-         CALL DSYTRS_ROOK( UPLO, N, NRHS, A, LDA, IPIV, B, LDB, INFO )
+         dsytrs_rook(UPLO, N, NRHS, A, LDA, IPIV, B, LDB, INFO );
 
       }
 

@@ -54,7 +54,7 @@
       // Compute  B - A*X
 
       DO 10 J = 1, NRHS
-         CALL DSBMV( UPLO, N, KD, -ONE, A, LDA, X( 1, J ), 1, ONE, B( 1, J ), 1 )
+         dsbmv(UPLO, N, KD, -ONE, A, LDA, X( 1, J ), 1, ONE, B( 1, J ), 1 );
    10 CONTINUE
 
       // Compute the maximum over the number of right hand sides of

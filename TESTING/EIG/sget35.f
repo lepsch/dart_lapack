@@ -108,7 +108,7 @@
    50                               CONTINUE
    60                            CONTINUE
                                  KNT = KNT + 1
-                                 CALL STRSYL( TRANA, TRANB, ISGN, M, N, A, 6, B, 6, C, 6, SCALE, INFO )
+                                 strsyl(TRANA, TRANB, ISGN, M, N, A, 6, B, 6, C, 6, SCALE, INFO );
                                  IF( INFO.NE.0 ) NINFO = NINFO + 1
                                  XNRM = SLANGE( 'M', M, N, C, 6, DUM )
                                  RMUL = ONE
@@ -117,7 +117,7 @@
                                        RMUL = ONE / MAX( XNRM, TNRM )
                                     }
                                  }
-                                 CALL SGEMM( TRANA, 'N', M, N, M, RMUL, A, 6, C, 6, -SCALE*RMUL, CC, 6 )                                  CALL SGEMM( 'N', TRANB, M, N, N, REAL( ISGN )*RMUL, C, 6, B, 6, ONE, CC, 6 )
+                                 sgemm(TRANA, 'N', M, N, M, RMUL, A, 6, C, 6, -SCALE*RMUL, CC, 6 )                                  CALL SGEMM( 'N', TRANB, M, N, N, REAL( ISGN )*RMUL, C, 6, B, 6, ONE, CC, 6 );
                                  RES1 = SLANGE( 'M', M, N, CC, 6, DUM )
                                  RES = RES1 / MAX( SMLNUM, SMLNUM*XNRM, ( ( RMUL*TNRM )*EPS )*XNRM )
                                  if ( RES.GT.RMAX ) {

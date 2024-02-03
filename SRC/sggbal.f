@@ -51,7 +51,7 @@
          INFO = -6
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'SGGBAL', -INFO )
+         xerbla('SGGBAL', -INFO );
          RETURN
       }
 
@@ -152,16 +152,16 @@
   160 CONTINUE
       LSCALE( M ) = I
       IF( I.EQ.M ) GO TO 170
-      CALL SSWAP( N-K+1, A( I, K ), LDA, A( M, K ), LDA )
-      CALL SSWAP( N-K+1, B( I, K ), LDB, B( M, K ), LDB )
+      sswap(N-K+1, A( I, K ), LDA, A( M, K ), LDA );
+      sswap(N-K+1, B( I, K ), LDB, B( M, K ), LDB );
 
       // Permute columns M and J
 
   170 CONTINUE
       RSCALE( M ) = J
       IF( J.EQ.M ) GO TO 180
-      CALL SSWAP( L, A( 1, J ), 1, A( 1, M ), 1 )
-      CALL SSWAP( L, B( 1, J ), 1, B( 1, M ), 1 )
+      sswap(L, A( 1, J ), 1, A( 1, M ), 1 );
+      sswap(L, B( 1, J ), 1, B( 1, M ), 1 );
 
   180 CONTINUE
       GO TO ( 20, 90 )IFLOW
@@ -238,11 +238,11 @@
       T = COEF5*( EWC-THREE*EW )
       TC = COEF5*( EW-THREE*EWC )
 
-      CALL SSCAL( NR, BETA, WORK( ILO ), 1 )
-      CALL SSCAL( NR, BETA, WORK( ILO+N ), 1 )
+      sscal(NR, BETA, WORK( ILO ), 1 );
+      sscal(NR, BETA, WORK( ILO+N ), 1 );
 
-      CALL SAXPY( NR, COEF, WORK( ILO+4*N ), 1, WORK( ILO+N ), 1 )
-      CALL SAXPY( NR, COEF, WORK( ILO+5*N ), 1, WORK( ILO ), 1 )
+      saxpy(NR, COEF, WORK( ILO+4*N ), 1, WORK( ILO+N ), 1 );
+      saxpy(NR, COEF, WORK( ILO+5*N ), 1, WORK( ILO ), 1 );
 
       DO 270 I = ILO, IHI
          WORK( I ) = WORK( I ) + TC
@@ -297,8 +297,8 @@
   340 CONTINUE
       IF( CMAX.LT.HALF ) GO TO 350
 
-      CALL SAXPY( NR, -ALPHA, WORK( ILO+2*N ), 1, WORK( ILO+4*N ), 1 )
-      CALL SAXPY( NR, -ALPHA, WORK( ILO+3*N ), 1, WORK( ILO+5*N ), 1 )
+      saxpy(NR, -ALPHA, WORK( ILO+2*N ), 1, WORK( ILO+4*N ), 1 );
+      saxpy(NR, -ALPHA, WORK( ILO+3*N ), 1, WORK( ILO+5*N ), 1 );
 
       PGAMMA = GAMMA
       IT = IT + 1
@@ -333,15 +333,15 @@
       // Row scaling of matrices A and B
 
       DO 370 I = ILO, IHI
-         CALL SSCAL( N-ILO+1, LSCALE( I ), A( I, ILO ), LDA )
-         CALL SSCAL( N-ILO+1, LSCALE( I ), B( I, ILO ), LDB )
+         sscal(N-ILO+1, LSCALE( I ), A( I, ILO ), LDA );
+         sscal(N-ILO+1, LSCALE( I ), B( I, ILO ), LDB );
   370 CONTINUE
 
       // Column scaling of matrices A and B
 
       DO 380 J = ILO, IHI
-         CALL SSCAL( IHI, RSCALE( J ), A( 1, J ), 1 )
-         CALL SSCAL( IHI, RSCALE( J ), B( 1, J ), 1 )
+         sscal(IHI, RSCALE( J ), A( 1, J ), 1 );
+         sscal(IHI, RSCALE( J ), B( 1, J ), 1 );
   380 CONTINUE
 
       RETURN

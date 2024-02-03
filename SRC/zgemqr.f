@@ -92,7 +92,7 @@
       }
 
       if ( INFO.NE.0 ) {
-        CALL XERBLA( 'ZGEMQR', -INFO )
+        xerbla('ZGEMQR', -INFO );
         RETURN
       } else if ( LQUERY ) {
         RETURN
@@ -106,7 +106,7 @@
 
       IF( ( LEFT .AND. M.LE.K ) .OR. ( RIGHT .AND. N.LE.K ) .OR. ( MB.LE.K ) .OR. ( MB.GE.MAX( M, N, K ) ) ) THEN         CALL ZGEMQRT( SIDE, TRANS, M, N, K, NB, A, LDA, T( 6 ), NB, C, LDC, WORK, INFO )
       } else {
-        CALL ZLAMTSQR( SIDE, TRANS, M, N, K, MB, NB, A, LDA, T( 6 ), NB, C, LDC, WORK, LWORK, INFO )
+        zlamtsqr(SIDE, TRANS, M, N, K, MB, NB, A, LDA, T( 6 ), NB, C, LDC, WORK, LWORK, INFO );
       }
 
       WORK( 1 ) = LWMIN

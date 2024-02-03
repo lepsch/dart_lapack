@@ -74,7 +74,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'SGGLSE', -INFO )
+         xerbla('SGGLSE', -INFO );
          RETURN
       } else if ( LQUERY ) {
          RETURN
@@ -93,19 +93,19 @@
       // where T12 and R11 are upper triangular, and Q and Z are
       // orthogonal.
 
-      CALL SGGRQF( P, M, N, B, LDB, WORK, A, LDA, WORK( P+1 ), WORK( P+MN+1 ), LWORK-P-MN, INFO )
+      sggrqf(P, M, N, B, LDB, WORK, A, LDA, WORK( P+1 ), WORK( P+MN+1 ), LWORK-P-MN, INFO );
       LOPT = INT( WORK( P+MN+1 ) )
 
       // Update c = Z**T *c = ( c1 ) N-P
                            // ( c2 ) M+P-N
 
-      CALL SORMQR( 'Left', 'Transpose', M, 1, MN, A, LDA, WORK( P+1 ), C, MAX( 1, M ), WORK( P+MN+1 ), LWORK-P-MN, INFO )
+      sormqr('Left', 'Transpose', M, 1, MN, A, LDA, WORK( P+1 ), C, MAX( 1, M ), WORK( P+MN+1 ), LWORK-P-MN, INFO );
       LOPT = MAX( LOPT, INT( WORK( P+MN+1 ) ) )
 
       // Solve T12*x2 = d for x2
 
       if ( P.GT.0 ) {
-         CALL STRTRS( 'Upper', 'No transpose', 'Non-unit', P, 1, B( 1, N-P+1 ), LDB, D, P, INFO )
+         strtrs('Upper', 'No transpose', 'Non-unit', P, 1, B( 1, N-P+1 ), LDB, D, P, INFO );
 
          if ( INFO.GT.0 ) {
             INFO = 1
@@ -114,17 +114,17 @@
 
          // Put the solution in X
 
-         CALL SCOPY( P, D, 1, X( N-P+1 ), 1 )
+         scopy(P, D, 1, X( N-P+1 ), 1 );
 
          // Update c1
 
-         CALL SGEMV( 'No transpose', N-P, P, -ONE, A( 1, N-P+1 ), LDA, D, 1, ONE, C, 1 )
+         sgemv('No transpose', N-P, P, -ONE, A( 1, N-P+1 ), LDA, D, 1, ONE, C, 1 );
       }
 
       // Solve R11*x1 = c1 for x1
 
       if ( N.GT.P ) {
-         CALL STRTRS( 'Upper', 'No transpose', 'Non-unit', N-P, 1, A, LDA, C, N-P, INFO )
+         strtrs('Upper', 'No transpose', 'Non-unit', N-P, 1, A, LDA, C, N-P, INFO );
 
          if ( INFO.GT.0 ) {
             INFO = 2
@@ -133,7 +133,7 @@
 
          // Put the solutions in X
 
-         CALL SCOPY( N-P, C, 1, X, 1 )
+         scopy(N-P, C, 1, X, 1 );
       }
 
       // Compute the residual vector:
@@ -145,13 +145,13 @@
          NR = P
       }
       if ( NR.GT.0 ) {
-         CALL STRMV( 'Upper', 'No transpose', 'Non unit', NR, A( N-P+1, N-P+1 ), LDA, D, 1 )
-         CALL SAXPY( NR, -ONE, D, 1, C( N-P+1 ), 1 )
+         strmv('Upper', 'No transpose', 'Non unit', NR, A( N-P+1, N-P+1 ), LDA, D, 1 );
+         saxpy(NR, -ONE, D, 1, C( N-P+1 ), 1 );
       }
 
       // Backward transformation x = Q**T*x
 
-      CALL SORMRQ( 'Left', 'Transpose', N, 1, P, B, LDB, WORK( 1 ), X, N, WORK( P+MN+1 ), LWORK-P-MN, INFO )
+      sormrq('Left', 'Transpose', N, 1, P, B, LDB, WORK( 1 ), X, N, WORK( P+MN+1 ), LWORK-P-MN, INFO );
       WORK( 1 ) = P + MN + MAX( LOPT, INT( WORK( P+MN+1 ) ) )
 
       RETURN

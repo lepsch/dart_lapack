@@ -71,7 +71,7 @@
 
          // Compute I - U*U' or I - U'*U.
 
-         CALL CLASET( 'Upper', MNMIN, MNMIN, CMPLX( ZERO ), CMPLX( ONE ), WORK, LDWORK )          CALL CHERK( 'Upper', TRANSU, MNMIN, K, -ONE, U, LDU, ONE, WORK, LDWORK )
+         claset('Upper', MNMIN, MNMIN, CMPLX( ZERO ), CMPLX( ONE ), WORK, LDWORK )          CALL CHERK( 'Upper', TRANSU, MNMIN, K, -ONE, U, LDU, ONE, WORK, LDWORK );
 
          // Compute norm( I - U*U' ) / ( K * EPS ) .
 

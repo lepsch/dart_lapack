@@ -53,7 +53,7 @@
          INFO = -6
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'ZGBTF2', -INFO )
+         xerbla('ZGBTF2', -INFO );
          RETURN
       }
 
@@ -102,7 +102,7 @@
 
                // Compute multipliers.
 
-               CALL ZSCAL( KM, ONE / AB( KV+1, J ), AB( KV+2, J ), 1 )
+               zscal(KM, ONE / AB( KV+1, J ), AB( KV+2, J ), 1 );
 
                // Update trailing submatrix within the band.
 

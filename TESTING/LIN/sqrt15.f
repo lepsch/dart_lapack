@@ -40,7 +40,7 @@
 
       MN = MIN( M, N )
       if ( LWORK.LT.MAX( M+MN, MN*NRHS, 2*N+M ) ) {
-         CALL XERBLA( 'SQRT15', 16 )
+         xerbla('SQRT15', 16 );
          RETURN
       }
 
@@ -60,7 +60,7 @@
             S( J ) = ZERO
    10    CONTINUE
       } else {
-         CALL XERBLA( 'SQRT15', 2 )
+         xerbla('SQRT15', 2 );
       }
 
       if ( RANK.GT.0 ) {
@@ -77,31 +77,31 @@
                GO TO 20
             }
    30    CONTINUE
-         CALL SLAORD( 'Decreasing', RANK, S, 1 )
+         slaord('Decreasing', RANK, S, 1 );
 
          // Generate 'rank' columns of a random orthogonal matrix in A
 
-         CALL SLARNV( 2, ISEED, M, WORK )
-         CALL SSCAL( M, ONE / SNRM2( M, WORK, 1 ), WORK, 1 )
-         CALL SLASET( 'Full', M, RANK, ZERO, ONE, A, LDA )
-         CALL SLARF( 'Left', M, RANK, WORK, 1, TWO, A, LDA, WORK( M+1 ) )
+         slarnv(2, ISEED, M, WORK );
+         sscal(M, ONE / SNRM2( M, WORK, 1 ), WORK, 1 );
+         slaset('Full', M, RANK, ZERO, ONE, A, LDA );
+         slarf('Left', M, RANK, WORK, 1, TWO, A, LDA, WORK( M+1 ) );
 
          // workspace used: m+mn
 
          // Generate consistent rhs in the range space of A
 
-         CALL SLARNV( 2, ISEED, RANK*NRHS, WORK )
-         CALL SGEMM( 'No transpose', 'No transpose', M, NRHS, RANK, ONE, A, LDA, WORK, RANK, ZERO, B, LDB )
+         slarnv(2, ISEED, RANK*NRHS, WORK );
+         sgemm('No transpose', 'No transpose', M, NRHS, RANK, ONE, A, LDA, WORK, RANK, ZERO, B, LDB );
 
          // work space used: <= mn *nrhs
 
          // generate (unscaled) matrix A
 
          DO 40 J = 1, RANK
-            CALL SSCAL( M, S( J ), A( 1, J ), 1 )
+            sscal(M, S( J ), A( 1, J ), 1 );
    40    CONTINUE
          IF( RANK.LT.N ) CALL SLASET( 'Full', M, N-RANK, ZERO, ZERO, A( 1, RANK+1 ), LDA )
-         CALL SLAROR( 'Right', 'No initialization', M, N, A, LDA, ISEED, WORK, INFO )
+         slaror('Right', 'No initialization', M, N, A, LDA, ISEED, WORK, INFO );
 
       } else {
 
@@ -112,8 +112,8 @@
          DO 50 J = 1, MN
             S( J ) = ZERO
    50    CONTINUE
-         CALL SLASET( 'Full', M, N, ZERO, ZERO, A, LDA )
-         CALL SLASET( 'Full', M, NRHS, ZERO, ZERO, B, LDB )
+         slaset('Full', M, N, ZERO, ZERO, A, LDA );
+         slaset('Full', M, NRHS, ZERO, ZERO, B, LDB );
 
       }
 
@@ -126,14 +126,14 @@
 
                // matrix scaled up
 
-               CALL SLASCL( 'General', 0, 0, NORMA, BIGNUM, M, N, A, LDA, INFO )                CALL SLASCL( 'General', 0, 0, NORMA, BIGNUM, MN, 1, S, MN, INFO )                CALL SLASCL( 'General', 0, 0, NORMA, BIGNUM, M, NRHS, B, LDB, INFO )
+               slascl('General', 0, 0, NORMA, BIGNUM, M, N, A, LDA, INFO )                CALL SLASCL( 'General', 0, 0, NORMA, BIGNUM, MN, 1, S, MN, INFO )                CALL SLASCL( 'General', 0, 0, NORMA, BIGNUM, M, NRHS, B, LDB, INFO );
             } else if ( SCALE.EQ.3 ) {
 
                // matrix scaled down
 
-               CALL SLASCL( 'General', 0, 0, NORMA, SMLNUM, M, N, A, LDA, INFO )                CALL SLASCL( 'General', 0, 0, NORMA, SMLNUM, MN, 1, S, MN, INFO )                CALL SLASCL( 'General', 0, 0, NORMA, SMLNUM, M, NRHS, B, LDB, INFO )
+               slascl('General', 0, 0, NORMA, SMLNUM, M, N, A, LDA, INFO )                CALL SLASCL( 'General', 0, 0, NORMA, SMLNUM, MN, 1, S, MN, INFO )                CALL SLASCL( 'General', 0, 0, NORMA, SMLNUM, M, NRHS, B, LDB, INFO );
             } else {
-               CALL XERBLA( 'SQRT15', 1 )
+               xerbla('SQRT15', 1 );
                RETURN
             }
          }

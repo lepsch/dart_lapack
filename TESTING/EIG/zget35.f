@@ -108,7 +108,7 @@
    90                         CONTINUE
   100                      CONTINUE
                            KNT = KNT + 1
-                           CALL ZTRSYL( TRANA, TRANB, ISGN, M, N, A, LDT, B, LDT, C, LDT, SCALE, INFO )
+                           ztrsyl(TRANA, TRANB, ISGN, M, N, A, LDT, B, LDT, C, LDT, SCALE, INFO );
                            IF( INFO.NE.0 ) NINFO = NINFO + 1
                            XNRM = ZLANGE( 'M', M, N, C, LDT, DUM )
                            RMUL = CONE
@@ -118,7 +118,7 @@
                                  RMUL = CONE / RMUL
                               }
                            }
-                           CALL ZGEMM( TRANA, 'N', M, N, M, RMUL, A, LDT, C, LDT, -SCALE*RMUL, CSAV, LDT )                            CALL ZGEMM( 'N', TRANB, M, N, N, DBLE( ISGN )*RMUL, C, LDT, B, LDT, CONE, CSAV, LDT )
+                           zgemm(TRANA, 'N', M, N, M, RMUL, A, LDT, C, LDT, -SCALE*RMUL, CSAV, LDT )                            CALL ZGEMM( 'N', TRANB, M, N, N, DBLE( ISGN )*RMUL, C, LDT, B, LDT, CONE, CSAV, LDT );
                            RES1 = ZLANGE( 'M', M, N, CSAV, LDT, DUM )
                            RES = RES1 / MAX( SMLNUM, SMLNUM*XNRM, ( ( ABS( RMUL )*TNRM )*EPS )*XNRM )
                            if ( RES.GT.RMAX ) {

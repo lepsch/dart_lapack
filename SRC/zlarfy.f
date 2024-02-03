@@ -35,14 +35,14 @@
 
       // Form  w:= C * v
 
-      CALL ZHEMV( UPLO, N, ONE, C, LDC, V, INCV, ZERO, WORK, 1 )
+      zhemv(UPLO, N, ONE, C, LDC, V, INCV, ZERO, WORK, 1 );
 
       ALPHA = -HALF*TAU*ZDOTC( N, WORK, 1, V, INCV )
-      CALL ZAXPY( N, ALPHA, V, INCV, WORK, 1 )
+      zaxpy(N, ALPHA, V, INCV, WORK, 1 );
 
       // C := C - v * w' - w * v'
 
-      CALL ZHER2( UPLO, N, -TAU, V, INCV, WORK, 1, C, LDC )
+      zher2(UPLO, N, -TAU, V, INCV, WORK, 1, C, LDC );
 
       RETURN
 

@@ -64,7 +64,7 @@
 
    10       CONTINUE
             KNT = KNT + 1
-            CALL CSSCAL( N-1, RSAFMN, X, INCX )
+            csscal(N-1, RSAFMN, X, INCX );
             BETA = BETA*RSAFMN
             ALPHI = ALPHI*RSAFMN
             ALPHR = ALPHR*RSAFMN
@@ -78,7 +78,7 @@
          }
          TAU = CMPLX( ( BETA-ALPHR ) / BETA, -ALPHI / BETA )
          ALPHA = CLADIV( CMPLX( ONE ), ALPHA-BETA )
-         CALL CSCAL( N-1, ALPHA, X, INCX )
+         cscal(N-1, ALPHA, X, INCX );
 
          // If ALPHA is subnormal, it may lose relative accuracy
 

@@ -41,18 +41,18 @@
          INFO = -7
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'SPOSV ', -INFO )
+         xerbla('SPOSV ', -INFO );
          RETURN
       }
 
       // Compute the Cholesky factorization A = U**T*U or A = L*L**T.
 
-      CALL SPOTRF( UPLO, N, A, LDA, INFO )
+      spotrf(UPLO, N, A, LDA, INFO );
       if ( INFO.EQ.0 ) {
 
          // Solve the system A*X = B, overwriting B with X.
 
-         CALL SPOTRS( UPLO, N, NRHS, A, LDA, B, LDB, INFO )
+         spotrs(UPLO, N, NRHS, A, LDA, B, LDB, INFO );
 
       }
       RETURN

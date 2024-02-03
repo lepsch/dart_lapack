@@ -80,10 +80,10 @@
 
          SCALE = ZERO
          SUM = ONE
-         CALL CLASSQ( N, D, 1, SCALE, SUM )
+         classq(N, D, 1, SCALE, SUM );
          if ( N.GT.1 ) {
-            CALL CLASSQ( N-1, DL, 1, SCALE, SUM )
-            CALL CLASSQ( N-1, DU, 1, SCALE, SUM )
+            classq(N-1, DL, 1, SCALE, SUM );
+            classq(N-1, DU, 1, SCALE, SUM );
          }
          ANORM = SCALE*SQRT( SUM )
       }

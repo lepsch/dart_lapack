@@ -45,7 +45,7 @@
          INFO = -3
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'DSPGST', -INFO )
+         xerbla('DSPGST', -INFO );
          RETURN
       }
 
@@ -64,8 +64,8 @@
                // Compute the j-th column of the upper triangle of A
 
                BJJ = BP( JJ )
-               CALL DTPSV( UPLO, 'Transpose', 'Nonunit', J, BP, AP( J1 ), 1 )                CALL DSPMV( UPLO, J-1, -ONE, AP, BP( J1 ), 1, ONE, AP( J1 ), 1 )
-               CALL DSCAL( J-1, ONE / BJJ, AP( J1 ), 1 )
+               dtpsv(UPLO, 'Transpose', 'Nonunit', J, BP, AP( J1 ), 1 )                CALL DSPMV( UPLO, J-1, -ONE, AP, BP( J1 ), 1, ONE, AP( J1 ), 1 );
+               dscal(J-1, ONE / BJJ, AP( J1 ), 1 );
                AP( JJ ) = ( AP( JJ )-DDOT( J-1, AP( J1 ), 1, BP( J1 ), 1 ) ) / BJJ
    10       CONTINUE
          } else {
@@ -85,12 +85,12 @@
                AKK = AKK / BKK**2
                AP( KK ) = AKK
                if ( K.LT.N ) {
-                  CALL DSCAL( N-K, ONE / BKK, AP( KK+1 ), 1 )
+                  dscal(N-K, ONE / BKK, AP( KK+1 ), 1 );
                   CT = -HALF*AKK
-                  CALL DAXPY( N-K, CT, BP( KK+1 ), 1, AP( KK+1 ), 1 )
-                  CALL DSPR2( UPLO, N-K, -ONE, AP( KK+1 ), 1, BP( KK+1 ), 1, AP( K1K1 ) )
-                  CALL DAXPY( N-K, CT, BP( KK+1 ), 1, AP( KK+1 ), 1 )
-                  CALL DTPSV( UPLO, 'No transpose', 'Non-unit', N-K, BP( K1K1 ), AP( KK+1 ), 1 )
+                  daxpy(N-K, CT, BP( KK+1 ), 1, AP( KK+1 ), 1 );
+                  dspr2(UPLO, N-K, -ONE, AP( KK+1 ), 1, BP( KK+1 ), 1, AP( K1K1 ) );
+                  daxpy(N-K, CT, BP( KK+1 ), 1, AP( KK+1 ), 1 );
+                  dtpsv(UPLO, 'No transpose', 'Non-unit', N-K, BP( K1K1 ), AP( KK+1 ), 1 );
                }
                KK = K1K1
    20       CONTINUE
@@ -111,12 +111,12 @@
 
                AKK = AP( KK )
                BKK = BP( KK )
-               CALL DTPMV( UPLO, 'No transpose', 'Non-unit', K-1, BP, AP( K1 ), 1 )
+               dtpmv(UPLO, 'No transpose', 'Non-unit', K-1, BP, AP( K1 ), 1 );
                CT = HALF*AKK
-               CALL DAXPY( K-1, CT, BP( K1 ), 1, AP( K1 ), 1 )
-               CALL DSPR2( UPLO, K-1, ONE, AP( K1 ), 1, BP( K1 ), 1, AP )
-               CALL DAXPY( K-1, CT, BP( K1 ), 1, AP( K1 ), 1 )
-               CALL DSCAL( K-1, BKK, AP( K1 ), 1 )
+               daxpy(K-1, CT, BP( K1 ), 1, AP( K1 ), 1 );
+               dspr2(UPLO, K-1, ONE, AP( K1 ), 1, BP( K1 ), 1, AP );
+               daxpy(K-1, CT, BP( K1 ), 1, AP( K1 ), 1 );
+               dscal(K-1, BKK, AP( K1 ), 1 );
                AP( KK ) = AKK*BKK**2
    30       CONTINUE
          } else {
@@ -134,8 +134,8 @@
                AJJ = AP( JJ )
                BJJ = BP( JJ )
                AP( JJ ) = AJJ*BJJ + DDOT( N-J, AP( JJ+1 ), 1, BP( JJ+1 ), 1 )
-               CALL DSCAL( N-J, BJJ, AP( JJ+1 ), 1 )
-               CALL DSPMV( UPLO, N-J, ONE, AP( J1J1 ), BP( JJ+1 ), 1, ONE, AP( JJ+1 ), 1 )                CALL DTPMV( UPLO, 'Transpose', 'Non-unit', N-J+1, BP( JJ ), AP( JJ ), 1 )
+               dscal(N-J, BJJ, AP( JJ+1 ), 1 );
+               dspmv(UPLO, N-J, ONE, AP( J1J1 ), BP( JJ+1 ), 1, ONE, AP( JJ+1 ), 1 )                CALL DTPMV( UPLO, 'Transpose', 'Non-unit', N-J+1, BP( JJ ), AP( JJ ), 1 );
                JJ = J1J1
    40       CONTINUE
          }

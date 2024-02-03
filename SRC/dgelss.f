@@ -77,10 +77,10 @@
                          // columns
 
                // Compute space needed for DGEQRF
-               CALL DGEQRF( M, N, A, LDA, DUM(1), DUM(1), -1, INFO )
+               dgeqrf(M, N, A, LDA, DUM(1), DUM(1), -1, INFO );
                LWORK_DGEQRF = INT( DUM(1) )
                // Compute space needed for DORMQR
-               CALL DORMQR( 'L', 'T', M, NRHS, N, A, LDA, DUM(1), B, LDB, DUM(1), -1, INFO )
+               dormqr('L', 'T', M, NRHS, N, A, LDA, DUM(1), B, LDB, DUM(1), -1, INFO );
                LWORK_DORMQR = INT( DUM(1) )
                MM = N
                MAXWRK = MAX( MAXWRK, N + LWORK_DGEQRF )
@@ -94,13 +94,13 @@
 
                BDSPAC = MAX( 1, 5*N )
                // Compute space needed for DGEBRD
-               CALL DGEBRD( MM, N, A, LDA, S, DUM(1), DUM(1), DUM(1), DUM(1), -1, INFO )
+               dgebrd(MM, N, A, LDA, S, DUM(1), DUM(1), DUM(1), DUM(1), -1, INFO );
                LWORK_DGEBRD = INT( DUM(1) )
                // Compute space needed for DORMBR
-               CALL DORMBR( 'Q', 'L', 'T', MM, NRHS, N, A, LDA, DUM(1), B, LDB, DUM(1), -1, INFO )
+               dormbr('Q', 'L', 'T', MM, NRHS, N, A, LDA, DUM(1), B, LDB, DUM(1), -1, INFO );
                LWORK_DORMBR = INT( DUM(1) )
                // Compute space needed for DORGBR
-               CALL DORGBR( 'P', N, N, N, A, LDA, DUM(1), DUM(1), -1, INFO )
+               dorgbr('P', N, N, N, A, LDA, DUM(1), DUM(1), -1, INFO );
                LWORK_DORGBR = INT( DUM(1) )
                // Compute total workspace needed
                MAXWRK = MAX( MAXWRK, 3*N + LWORK_DGEBRD )
@@ -123,19 +123,19 @@
                   // than rows
 
                   // Compute space needed for DGELQF
-                  CALL DGELQF( M, N, A, LDA, DUM(1), DUM(1), -1, INFO )
+                  dgelqf(M, N, A, LDA, DUM(1), DUM(1), -1, INFO );
                   LWORK_DGELQF = INT( DUM(1) )
                   // Compute space needed for DGEBRD
-                  CALL DGEBRD( M, M, A, LDA, S, DUM(1), DUM(1), DUM(1), DUM(1), -1, INFO )
+                  dgebrd(M, M, A, LDA, S, DUM(1), DUM(1), DUM(1), DUM(1), -1, INFO );
                   LWORK_DGEBRD = INT( DUM(1) )
                   // Compute space needed for DORMBR
-                  CALL DORMBR( 'Q', 'L', 'T', M, NRHS, N, A, LDA, DUM(1), B, LDB, DUM(1), -1, INFO )
+                  dormbr('Q', 'L', 'T', M, NRHS, N, A, LDA, DUM(1), B, LDB, DUM(1), -1, INFO );
                   LWORK_DORMBR = INT( DUM(1) )
                   // Compute space needed for DORGBR
-                  CALL DORGBR( 'P', M, M, M, A, LDA, DUM(1), DUM(1), -1, INFO )
+                  dorgbr('P', M, M, M, A, LDA, DUM(1), DUM(1), -1, INFO );
                   LWORK_DORGBR = INT( DUM(1) )
                   // Compute space needed for DORMLQ
-                  CALL DORMLQ( 'L', 'T', N, NRHS, M, A, LDA, DUM(1), B, LDB, DUM(1), -1, INFO )
+                  dormlq('L', 'T', N, NRHS, M, A, LDA, DUM(1), B, LDB, DUM(1), -1, INFO );
                   LWORK_DORMLQ = INT( DUM(1) )
                   // Compute total workspace needed
                   MAXWRK = M + LWORK_DGELQF
@@ -154,13 +154,13 @@
                   // Path 2 - underdetermined
 
                   // Compute space needed for DGEBRD
-                  CALL DGEBRD( M, N, A, LDA, S, DUM(1), DUM(1), DUM(1), DUM(1), -1, INFO )
+                  dgebrd(M, N, A, LDA, S, DUM(1), DUM(1), DUM(1), DUM(1), -1, INFO );
                   LWORK_DGEBRD = INT( DUM(1) )
                   // Compute space needed for DORMBR
-                  CALL DORMBR( 'Q', 'L', 'T', M, NRHS, M, A, LDA, DUM(1), B, LDB, DUM(1), -1, INFO )
+                  dormbr('Q', 'L', 'T', M, NRHS, M, A, LDA, DUM(1), B, LDB, DUM(1), -1, INFO );
                   LWORK_DORMBR = INT( DUM(1) )
                   // Compute space needed for DORGBR
-                  CALL DORGBR( 'P', M, N, M, A, LDA, DUM(1), DUM(1), -1, INFO )
+                  dorgbr('P', M, N, M, A, LDA, DUM(1), DUM(1), -1, INFO );
                   LWORK_DORGBR = INT( DUM(1) )
                   MAXWRK = 3*M + LWORK_DGEBRD
                   MAXWRK = MAX( MAXWRK, 3*M + LWORK_DORMBR )
@@ -177,7 +177,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'DGELSS', -INFO )
+         xerbla('DGELSS', -INFO );
          RETURN
       } else if ( LQUERY ) {
          RETURN
@@ -205,20 +205,20 @@
 
          // Scale matrix norm up to SMLNUM
 
-         CALL DLASCL( 'G', 0, 0, ANRM, SMLNUM, M, N, A, LDA, INFO )
+         dlascl('G', 0, 0, ANRM, SMLNUM, M, N, A, LDA, INFO );
          IASCL = 1
       } else if ( ANRM.GT.BIGNUM ) {
 
          // Scale matrix norm down to BIGNUM
 
-         CALL DLASCL( 'G', 0, 0, ANRM, BIGNUM, M, N, A, LDA, INFO )
+         dlascl('G', 0, 0, ANRM, BIGNUM, M, N, A, LDA, INFO );
          IASCL = 2
       } else if ( ANRM.EQ.ZERO ) {
 
          // Matrix all zero. Return zero solution.
 
-         CALL DLASET( 'F', MAX( M, N ), NRHS, ZERO, ZERO, B, LDB )
-         CALL DLASET( 'F', MINMN, 1, ZERO, ZERO, S, MINMN )
+         dlaset('F', MAX( M, N ), NRHS, ZERO, ZERO, B, LDB );
+         dlaset('F', MINMN, 1, ZERO, ZERO, S, MINMN );
          RANK = 0
          GO TO 70
       }
@@ -231,13 +231,13 @@
 
          // Scale matrix norm up to SMLNUM
 
-         CALL DLASCL( 'G', 0, 0, BNRM, SMLNUM, M, NRHS, B, LDB, INFO )
+         dlascl('G', 0, 0, BNRM, SMLNUM, M, NRHS, B, LDB, INFO );
          IBSCL = 1
       } else if ( BNRM.GT.BIGNUM ) {
 
          // Scale matrix norm down to BIGNUM
 
-         CALL DLASCL( 'G', 0, 0, BNRM, BIGNUM, M, NRHS, B, LDB, INFO )
+         dlascl('G', 0, 0, BNRM, BIGNUM, M, NRHS, B, LDB, INFO );
          IBSCL = 2
       }
 
@@ -259,12 +259,12 @@
             // Compute A=Q*R
             // (Workspace: need 2*N, prefer N+N*NB)
 
-            CALL DGEQRF( M, N, A, LDA, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, INFO )
+            dgeqrf(M, N, A, LDA, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, INFO );
 
             // Multiply B by transpose(Q)
             // (Workspace: need N+NRHS, prefer N+NRHS*NB)
 
-            CALL DORMQR( 'L', 'T', M, NRHS, N, A, LDA, WORK( ITAU ), B, LDB, WORK( IWORK ), LWORK-IWORK+1, INFO )
+            dormqr('L', 'T', M, NRHS, N, A, LDA, WORK( ITAU ), B, LDB, WORK( IWORK ), LWORK-IWORK+1, INFO );
 
             // Zero out below R
 
@@ -279,17 +279,17 @@
          // Bidiagonalize R in A
          // (Workspace: need 3*N+MM, prefer 3*N+(MM+N)*NB)
 
-         CALL DGEBRD( MM, N, A, LDA, S, WORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, INFO )
+         dgebrd(MM, N, A, LDA, S, WORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, INFO );
 
          // Multiply B by transpose of left bidiagonalizing vectors of R
          // (Workspace: need 3*N+NRHS, prefer 3*N+NRHS*NB)
 
-         CALL DORMBR( 'Q', 'L', 'T', MM, NRHS, N, A, LDA, WORK( ITAUQ ), B, LDB, WORK( IWORK ), LWORK-IWORK+1, INFO )
+         dormbr('Q', 'L', 'T', MM, NRHS, N, A, LDA, WORK( ITAUQ ), B, LDB, WORK( IWORK ), LWORK-IWORK+1, INFO );
 
          // Generate right bidiagonalizing vectors of R in A
          // (Workspace: need 4*N-1, prefer 3*N+(N-1)*NB)
 
-         CALL DORGBR( 'P', N, N, N, A, LDA, WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, INFO )
+         dorgbr('P', N, N, N, A, LDA, WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, INFO );
          IWORK = IE + N
 
          // Perform bidiagonal QR iteration
@@ -306,10 +306,10 @@
          RANK = 0
          DO 10 I = 1, N
             if ( S( I ).GT.THR ) {
-               CALL DRSCL( NRHS, S( I ), B( I, 1 ), LDB )
+               drscl(NRHS, S( I ), B( I, 1 ), LDB );
                RANK = RANK + 1
             } else {
-               CALL DLASET( 'F', 1, NRHS, ZERO, ZERO, B( I, 1 ), LDB )
+               dlaset('F', 1, NRHS, ZERO, ZERO, B( I, 1 ), LDB );
             }
    10    CONTINUE
 
@@ -317,18 +317,18 @@
          // (Workspace: need N, prefer N*NRHS)
 
          if ( LWORK.GE.LDB*NRHS .AND. NRHS.GT.1 ) {
-            CALL DGEMM( 'T', 'N', N, NRHS, N, ONE, A, LDA, B, LDB, ZERO, WORK, LDB )
-            CALL DLACPY( 'G', N, NRHS, WORK, LDB, B, LDB )
+            dgemm('T', 'N', N, NRHS, N, ONE, A, LDA, B, LDB, ZERO, WORK, LDB );
+            dlacpy('G', N, NRHS, WORK, LDB, B, LDB );
          } else if ( NRHS.GT.1 ) {
             CHUNK = LWORK / N
             DO 20 I = 1, NRHS, CHUNK
                BL = MIN( NRHS-I+1, CHUNK )
-               CALL DGEMM( 'T', 'N', N, BL, N, ONE, A, LDA, B( 1, I ), LDB, ZERO, WORK, N )
-               CALL DLACPY( 'G', N, BL, WORK, N, B( 1, I ), LDB )
+               dgemm('T', 'N', N, BL, N, ONE, A, LDA, B( 1, I ), LDB, ZERO, WORK, N );
+               dlacpy('G', N, BL, WORK, N, B( 1, I ), LDB );
    20       CONTINUE
          } else if ( NRHS.EQ.1 ) {
-            CALL DGEMV( 'T', N, N, ONE, A, LDA, B, 1, ZERO, WORK, 1 )
-            CALL DCOPY( N, WORK, 1, B, 1 )
+            dgemv('T', N, N, ONE, A, LDA, B, 1, ZERO, WORK, 1 );
+            dcopy(N, WORK, 1, B, 1 );
          }
 
       } else if ( N.GE.MNTHR .AND. LWORK.GE.4*M+M*M+ MAX( M, 2*M-4, NRHS, N-3*M ) ) {
@@ -344,13 +344,13 @@
          // Compute A=L*Q
          // (Workspace: need 2*M, prefer M+M*NB)
 
-         CALL DGELQF( M, N, A, LDA, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, INFO )
+         dgelqf(M, N, A, LDA, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, INFO );
          IL = IWORK
 
          // Copy L to WORK(IL), zeroing out above it
 
-         CALL DLACPY( 'L', M, M, A, LDA, WORK( IL ), LDWORK )
-         CALL DLASET( 'U', M-1, M-1, ZERO, ZERO, WORK( IL+LDWORK ), LDWORK )
+         dlacpy('L', M, M, A, LDA, WORK( IL ), LDWORK );
+         dlaset('U', M-1, M-1, ZERO, ZERO, WORK( IL+LDWORK ), LDWORK );
          IE = IL + LDWORK*M
          ITAUQ = IE + M
          ITAUP = ITAUQ + M
@@ -359,17 +359,17 @@
          // Bidiagonalize L in WORK(IL)
          // (Workspace: need M*M+5*M, prefer M*M+4*M+2*M*NB)
 
-         CALL DGEBRD( M, M, WORK( IL ), LDWORK, S, WORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, INFO )
+         dgebrd(M, M, WORK( IL ), LDWORK, S, WORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, INFO );
 
          // Multiply B by transpose of left bidiagonalizing vectors of L
          // (Workspace: need M*M+4*M+NRHS, prefer M*M+4*M+NRHS*NB)
 
-         CALL DORMBR( 'Q', 'L', 'T', M, NRHS, M, WORK( IL ), LDWORK, WORK( ITAUQ ), B, LDB, WORK( IWORK ), LWORK-IWORK+1, INFO )
+         dormbr('Q', 'L', 'T', M, NRHS, M, WORK( IL ), LDWORK, WORK( ITAUQ ), B, LDB, WORK( IWORK ), LWORK-IWORK+1, INFO );
 
          // Generate right bidiagonalizing vectors of R in WORK(IL)
          // (Workspace: need M*M+5*M-1, prefer M*M+4*M+(M-1)*NB)
 
-         CALL DORGBR( 'P', M, M, M, WORK( IL ), LDWORK, WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, INFO )
+         dorgbr('P', M, M, M, WORK( IL ), LDWORK, WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, INFO );
          IWORK = IE + M
 
          // Perform bidiagonal QR iteration,
@@ -386,10 +386,10 @@
          RANK = 0
          DO 30 I = 1, M
             if ( S( I ).GT.THR ) {
-               CALL DRSCL( NRHS, S( I ), B( I, 1 ), LDB )
+               drscl(NRHS, S( I ), B( I, 1 ), LDB );
                RANK = RANK + 1
             } else {
-               CALL DLASET( 'F', 1, NRHS, ZERO, ZERO, B( I, 1 ), LDB )
+               dlaset('F', 1, NRHS, ZERO, ZERO, B( I, 1 ), LDB );
             }
    30    CONTINUE
          IWORK = IE
@@ -398,28 +398,28 @@
          // (Workspace: need M*M+2*M, prefer M*M+M+M*NRHS)
 
          if ( LWORK.GE.LDB*NRHS+IWORK-1 .AND. NRHS.GT.1 ) {
-            CALL DGEMM( 'T', 'N', M, NRHS, M, ONE, WORK( IL ), LDWORK, B, LDB, ZERO, WORK( IWORK ), LDB )
-            CALL DLACPY( 'G', M, NRHS, WORK( IWORK ), LDB, B, LDB )
+            dgemm('T', 'N', M, NRHS, M, ONE, WORK( IL ), LDWORK, B, LDB, ZERO, WORK( IWORK ), LDB );
+            dlacpy('G', M, NRHS, WORK( IWORK ), LDB, B, LDB );
          } else if ( NRHS.GT.1 ) {
             CHUNK = ( LWORK-IWORK+1 ) / M
             DO 40 I = 1, NRHS, CHUNK
                BL = MIN( NRHS-I+1, CHUNK )
-               CALL DGEMM( 'T', 'N', M, BL, M, ONE, WORK( IL ), LDWORK, B( 1, I ), LDB, ZERO, WORK( IWORK ), M )                CALL DLACPY( 'G', M, BL, WORK( IWORK ), M, B( 1, I ), LDB )
+               dgemm('T', 'N', M, BL, M, ONE, WORK( IL ), LDWORK, B( 1, I ), LDB, ZERO, WORK( IWORK ), M )                CALL DLACPY( 'G', M, BL, WORK( IWORK ), M, B( 1, I ), LDB );
    40       CONTINUE
          } else if ( NRHS.EQ.1 ) {
-            CALL DGEMV( 'T', M, M, ONE, WORK( IL ), LDWORK, B( 1, 1 ), 1, ZERO, WORK( IWORK ), 1 )
-            CALL DCOPY( M, WORK( IWORK ), 1, B( 1, 1 ), 1 )
+            dgemv('T', M, M, ONE, WORK( IL ), LDWORK, B( 1, 1 ), 1, ZERO, WORK( IWORK ), 1 );
+            dcopy(M, WORK( IWORK ), 1, B( 1, 1 ), 1 );
          }
 
          // Zero out below first M rows of B
 
-         CALL DLASET( 'F', N-M, NRHS, ZERO, ZERO, B( M+1, 1 ), LDB )
+         dlaset('F', N-M, NRHS, ZERO, ZERO, B( M+1, 1 ), LDB );
          IWORK = ITAU + M
 
          // Multiply transpose(Q) by B
          // (Workspace: need M+NRHS, prefer M+NRHS*NB)
 
-         CALL DORMLQ( 'L', 'T', N, NRHS, M, A, LDA, WORK( ITAU ), B, LDB, WORK( IWORK ), LWORK-IWORK+1, INFO )
+         dormlq('L', 'T', N, NRHS, M, A, LDA, WORK( ITAU ), B, LDB, WORK( IWORK ), LWORK-IWORK+1, INFO );
 
       } else {
 
@@ -433,17 +433,17 @@
          // Bidiagonalize A
          // (Workspace: need 3*M+N, prefer 3*M+(M+N)*NB)
 
-         CALL DGEBRD( M, N, A, LDA, S, WORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, INFO )
+         dgebrd(M, N, A, LDA, S, WORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, INFO );
 
          // Multiply B by transpose of left bidiagonalizing vectors
          // (Workspace: need 3*M+NRHS, prefer 3*M+NRHS*NB)
 
-         CALL DORMBR( 'Q', 'L', 'T', M, NRHS, N, A, LDA, WORK( ITAUQ ), B, LDB, WORK( IWORK ), LWORK-IWORK+1, INFO )
+         dormbr('Q', 'L', 'T', M, NRHS, N, A, LDA, WORK( ITAUQ ), B, LDB, WORK( IWORK ), LWORK-IWORK+1, INFO );
 
          // Generate right bidiagonalizing vectors in A
          // (Workspace: need 4*M, prefer 3*M+M*NB)
 
-         CALL DORGBR( 'P', M, N, M, A, LDA, WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, INFO )
+         dorgbr('P', M, N, M, A, LDA, WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, INFO );
          IWORK = IE + M
 
          // Perform bidiagonal QR iteration,
@@ -460,10 +460,10 @@
          RANK = 0
          DO 50 I = 1, M
             if ( S( I ).GT.THR ) {
-               CALL DRSCL( NRHS, S( I ), B( I, 1 ), LDB )
+               drscl(NRHS, S( I ), B( I, 1 ), LDB );
                RANK = RANK + 1
             } else {
-               CALL DLASET( 'F', 1, NRHS, ZERO, ZERO, B( I, 1 ), LDB )
+               dlaset('F', 1, NRHS, ZERO, ZERO, B( I, 1 ), LDB );
             }
    50    CONTINUE
 
@@ -471,34 +471,34 @@
          // (Workspace: need N, prefer N*NRHS)
 
          if ( LWORK.GE.LDB*NRHS .AND. NRHS.GT.1 ) {
-            CALL DGEMM( 'T', 'N', N, NRHS, M, ONE, A, LDA, B, LDB, ZERO, WORK, LDB )
-            CALL DLACPY( 'F', N, NRHS, WORK, LDB, B, LDB )
+            dgemm('T', 'N', N, NRHS, M, ONE, A, LDA, B, LDB, ZERO, WORK, LDB );
+            dlacpy('F', N, NRHS, WORK, LDB, B, LDB );
          } else if ( NRHS.GT.1 ) {
             CHUNK = LWORK / N
             DO 60 I = 1, NRHS, CHUNK
                BL = MIN( NRHS-I+1, CHUNK )
-               CALL DGEMM( 'T', 'N', N, BL, M, ONE, A, LDA, B( 1, I ), LDB, ZERO, WORK, N )
-               CALL DLACPY( 'F', N, BL, WORK, N, B( 1, I ), LDB )
+               dgemm('T', 'N', N, BL, M, ONE, A, LDA, B( 1, I ), LDB, ZERO, WORK, N );
+               dlacpy('F', N, BL, WORK, N, B( 1, I ), LDB );
    60       CONTINUE
          } else if ( NRHS.EQ.1 ) {
-            CALL DGEMV( 'T', M, N, ONE, A, LDA, B, 1, ZERO, WORK, 1 )
-            CALL DCOPY( N, WORK, 1, B, 1 )
+            dgemv('T', M, N, ONE, A, LDA, B, 1, ZERO, WORK, 1 );
+            dcopy(N, WORK, 1, B, 1 );
          }
       }
 
       // Undo scaling
 
       if ( IASCL.EQ.1 ) {
-         CALL DLASCL( 'G', 0, 0, ANRM, SMLNUM, N, NRHS, B, LDB, INFO )
-         CALL DLASCL( 'G', 0, 0, SMLNUM, ANRM, MINMN, 1, S, MINMN, INFO )
+         dlascl('G', 0, 0, ANRM, SMLNUM, N, NRHS, B, LDB, INFO );
+         dlascl('G', 0, 0, SMLNUM, ANRM, MINMN, 1, S, MINMN, INFO );
       } else if ( IASCL.EQ.2 ) {
-         CALL DLASCL( 'G', 0, 0, ANRM, BIGNUM, N, NRHS, B, LDB, INFO )
-         CALL DLASCL( 'G', 0, 0, BIGNUM, ANRM, MINMN, 1, S, MINMN, INFO )
+         dlascl('G', 0, 0, ANRM, BIGNUM, N, NRHS, B, LDB, INFO );
+         dlascl('G', 0, 0, BIGNUM, ANRM, MINMN, 1, S, MINMN, INFO );
       }
       if ( IBSCL.EQ.1 ) {
-         CALL DLASCL( 'G', 0, 0, SMLNUM, BNRM, N, NRHS, B, LDB, INFO )
+         dlascl('G', 0, 0, SMLNUM, BNRM, N, NRHS, B, LDB, INFO );
       } else if ( IBSCL.EQ.2 ) {
-         CALL DLASCL( 'G', 0, 0, BIGNUM, BNRM, N, NRHS, B, LDB, INFO )
+         dlascl('G', 0, 0, BIGNUM, BNRM, N, NRHS, B, LDB, INFO );
       }
 
    70 CONTINUE

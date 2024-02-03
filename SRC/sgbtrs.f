@@ -55,7 +55,7 @@
          INFO = -10
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'SGBTRS', -INFO )
+         xerbla('SGBTRS', -INFO );
          RETURN
       }
 
@@ -89,7 +89,7 @@
 
             // Solve U*X = B, overwriting B with X.
 
-            CALL STBSV( 'Upper', 'No transpose', 'Non-unit', N, KL+KU, AB, LDAB, B( 1, I ), 1 )
+            stbsv('Upper', 'No transpose', 'Non-unit', N, KL+KU, AB, LDAB, B( 1, I ), 1 );
    20    CONTINUE
 
       } else {
@@ -100,7 +100,7 @@
 
             // Solve U**T*X = B, overwriting B with X.
 
-            CALL STBSV( 'Upper', 'Transpose', 'Non-unit', N, KL+KU, AB, LDAB, B( 1, I ), 1 )
+            stbsv('Upper', 'Transpose', 'Non-unit', N, KL+KU, AB, LDAB, B( 1, I ), 1 );
    30    CONTINUE
 
          // Solve L**T*X = B, overwriting B with X.
@@ -108,7 +108,7 @@
          if ( LNOTI ) {
             DO 40 J = N - 1, 1, -1
                LM = MIN( KL, N-J )
-               CALL SGEMV( 'Transpose', LM, NRHS, -ONE, B( J+1, 1 ), LDB, AB( KD+1, J ), 1, ONE, B( J, 1 ), LDB )
+               sgemv('Transpose', LM, NRHS, -ONE, B( J+1, 1 ), LDB, AB( KD+1, J ), 1, ONE, B( J, 1 ), LDB );
                L = IPIV( J )
                IF( L.NE.J ) CALL SSWAP( NRHS, B( L, 1 ), LDB, B( J, 1 ), LDB )
    40       CONTINUE

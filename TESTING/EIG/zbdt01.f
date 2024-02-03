@@ -54,12 +54,12 @@
             // B is upper bidiagonal and M >= N.
 
             DO 20 J = 1, N
-               CALL ZCOPY( M, A( 1, J ), 1, WORK, 1 )
+               zcopy(M, A( 1, J ), 1, WORK, 1 );
                DO 10 I = 1, N - 1
                   WORK( M+I ) = D( I )*PT( I, J ) + E( I )*PT( I+1, J )
    10          CONTINUE
                WORK( M+N ) = D( N )*PT( N, J )
-               CALL ZGEMV( 'No transpose', M, N, -DCMPLX( ONE ), Q, LDQ, WORK( M+1 ), 1, DCMPLX( ONE ), WORK, 1 )
+               zgemv('No transpose', M, N, -DCMPLX( ONE ), Q, LDQ, WORK( M+1 ), 1, DCMPLX( ONE ), WORK, 1 );
                RESID = MAX( RESID, DZASUM( M, WORK, 1 ) )
    20       CONTINUE
          } else if ( KD.LT.0 ) {
@@ -67,12 +67,12 @@
             // B is upper bidiagonal and M < N.
 
             DO 40 J = 1, N
-               CALL ZCOPY( M, A( 1, J ), 1, WORK, 1 )
+               zcopy(M, A( 1, J ), 1, WORK, 1 );
                DO 30 I = 1, M - 1
                   WORK( M+I ) = D( I )*PT( I, J ) + E( I )*PT( I+1, J )
    30          CONTINUE
                WORK( M+M ) = D( M )*PT( M, J )
-               CALL ZGEMV( 'No transpose', M, M, -DCMPLX( ONE ), Q, LDQ, WORK( M+1 ), 1, DCMPLX( ONE ), WORK, 1 )
+               zgemv('No transpose', M, M, -DCMPLX( ONE ), Q, LDQ, WORK( M+1 ), 1, DCMPLX( ONE ), WORK, 1 );
                RESID = MAX( RESID, DZASUM( M, WORK, 1 ) )
    40       CONTINUE
          } else {
@@ -80,12 +80,12 @@
             // B is lower bidiagonal.
 
             DO 60 J = 1, N
-               CALL ZCOPY( M, A( 1, J ), 1, WORK, 1 )
+               zcopy(M, A( 1, J ), 1, WORK, 1 );
                WORK( M+1 ) = D( 1 )*PT( 1, J )
                DO 50 I = 2, M
                   WORK( M+I ) = E( I-1 )*PT( I-1, J ) + D( I )*PT( I, J )
    50          CONTINUE
-               CALL ZGEMV( 'No transpose', M, M, -DCMPLX( ONE ), Q, LDQ, WORK( M+1 ), 1, DCMPLX( ONE ), WORK, 1 )
+               zgemv('No transpose', M, M, -DCMPLX( ONE ), Q, LDQ, WORK( M+1 ), 1, DCMPLX( ONE ), WORK, 1 );
                RESID = MAX( RESID, DZASUM( M, WORK, 1 ) )
    60       CONTINUE
          }
@@ -95,20 +95,20 @@
 
          if ( M.GE.N ) {
             DO 80 J = 1, N
-               CALL ZCOPY( M, A( 1, J ), 1, WORK, 1 )
+               zcopy(M, A( 1, J ), 1, WORK, 1 );
                DO 70 I = 1, N
                   WORK( M+I ) = D( I )*PT( I, J )
    70          CONTINUE
-               CALL ZGEMV( 'No transpose', M, N, -DCMPLX( ONE ), Q, LDQ, WORK( M+1 ), 1, DCMPLX( ONE ), WORK, 1 )
+               zgemv('No transpose', M, N, -DCMPLX( ONE ), Q, LDQ, WORK( M+1 ), 1, DCMPLX( ONE ), WORK, 1 );
                RESID = MAX( RESID, DZASUM( M, WORK, 1 ) )
    80       CONTINUE
          } else {
             DO 100 J = 1, N
-               CALL ZCOPY( M, A( 1, J ), 1, WORK, 1 )
+               zcopy(M, A( 1, J ), 1, WORK, 1 );
                DO 90 I = 1, M
                   WORK( M+I ) = D( I )*PT( I, J )
    90          CONTINUE
-               CALL ZGEMV( 'No transpose', M, M, -DCMPLX( ONE ), Q, LDQ, WORK( M+1 ), 1, DCMPLX( ONE ), WORK, 1 )
+               zgemv('No transpose', M, M, -DCMPLX( ONE ), Q, LDQ, WORK( M+1 ), 1, DCMPLX( ONE ), WORK, 1 );
                RESID = MAX( RESID, DZASUM( M, WORK, 1 ) )
   100       CONTINUE
          }

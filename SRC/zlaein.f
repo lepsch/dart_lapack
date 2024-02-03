@@ -80,7 +80,7 @@
          // Scale supplied initial vector.
 
          VNORM = DZNRM2( N, V, 1 )
-         CALL ZDSCAL( N, ( EPS3*ROOTN ) / MAX( VNORM, NRMSML ), V, 1 )
+         zdscal(N, ( EPS3*ROOTN ) / MAX( VNORM, NRMSML ), V, 1 );
       }
 
       if ( RIGHTV ) {
@@ -162,7 +162,7 @@
            // or U**H *x = scale*v for a left eigenvector,
          // overwriting x on v.
 
-         CALL ZLATRS( 'Upper', TRANS, 'Nonunit', NORMIN, N, B, LDB, V, SCALE, RWORK, IERR )
+         zlatrs('Upper', TRANS, 'Nonunit', NORMIN, N, B, LDB, V, SCALE, RWORK, IERR );
          NORMIN = 'Y'
 
          // Test for sufficient growth in the norm of v.
@@ -189,7 +189,7 @@
       // Normalize eigenvector.
 
       I = IZAMAX( N, V, 1 )
-      CALL ZDSCAL( N, ONE / CABS1( V( I ) ), V, 1 )
+      zdscal(N, ONE / CABS1( V( I ) ), V, 1 );
 
       RETURN
 

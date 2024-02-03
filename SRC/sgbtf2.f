@@ -53,7 +53,7 @@
          INFO = -6
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'SGBTF2', -INFO )
+         xerbla('SGBTF2', -INFO );
          RETURN
       }
 
@@ -103,7 +103,7 @@
 
                // Compute multipliers.
 
-               CALL SSCAL( KM, ONE / AB( KV+1, J ), AB( KV+2, J ), 1 )
+               sscal(KM, ONE / AB( KV+1, J ), AB( KV+2, J ), 1 );
 
                // Update trailing submatrix within the band.
 

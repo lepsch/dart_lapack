@@ -87,8 +87,8 @@
 
       NB = 1
       NBMIN = 2
-      CALL XLAENV( 1, NB )
-      CALL XLAENV( 2, NBMIN )
+      xlaenv(1, NB );
+      xlaenv(2, NBMIN );
 
       // Do for each value of N in NVAL
 
@@ -113,16 +113,16 @@
             // Set up parameters with SLATB4 and generate a test matrix
             // with SLATMS.
 
-            CALL SLATB4( PATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST )
+            slatb4(PATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST );
             RCONDC = ONE / CNDNUM
 
             SRNAMT = 'SLATMS'
-            CALL SLATMS( N, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KL, KU, 'No packing', A, LDA, WORK, INFO )
+            slatms(N, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KL, KU, 'No packing', A, LDA, WORK, INFO );
 
             // Check error code from SLATMS.
 
             if ( INFO.NE.0 ) {
-               CALL ALAERH( PATH, 'SLATMS', INFO, 0, ' ', N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT )
+               alaerh(PATH, 'SLATMS', INFO, 0, ' ', N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
                GO TO 80
             }
 
@@ -143,7 +143,7 @@
                      A( IOFF+I ) = ZERO
    20             CONTINUE
                } else {
-                  CALL SLASET( 'Full', N, N-IZERO+1, ZERO, ZERO, A( IOFF+1 ), LDA )
+                  slaset('Full', N, N-IZERO+1, ZERO, ZERO, A( IOFF+1 ), LDA );
                }
             } else {
                IZERO = 0
@@ -151,7 +151,7 @@
 
             // Save a copy of the matrix A in ASAV.
 
-            CALL SLACPY( 'Full', N, N, A, LDA, ASAV, LDA )
+            slacpy('Full', N, N, A, LDA, ASAV, LDA );
 
             DO 70 IEQUED = 1, 4
                EQUED = EQUEDS( IEQUED )
@@ -179,13 +179,13 @@
                      // the condition number from the previous iteration
                      // with FACT = 'F').
 
-                     CALL SLACPY( 'Full', N, N, ASAV, LDA, AFAC, LDA )
+                     slacpy('Full', N, N, ASAV, LDA, AFAC, LDA );
                      if ( EQUIL .OR. IEQUED.GT.1 ) {
 
                         // Compute row and column scale factors to
                         // equilibrate the matrix A.
 
-                        CALL SGEEQU( N, N, AFAC, LDA, S, S( N+1 ), ROWCND, COLCND, AMAX, INFO )
+                        sgeequ(N, N, AFAC, LDA, S, S( N+1 ), ROWCND, COLCND, AMAX, INFO );
                         if ( INFO.EQ.0 .AND. N.GT.0 ) {
                            if ( LSAME( EQUED, 'R' ) ) {
                               ROWCND = ZERO
@@ -200,7 +200,7 @@
 
                            // Equilibrate the matrix.
 
-                           CALL SLAQGE( N, N, AFAC, LDA, S, S( N+1 ), ROWCND, COLCND, AMAX, EQUED )
+                           slaqge(N, N, AFAC, LDA, S, S( N+1 ), ROWCND, COLCND, AMAX, EQUED );
                         }
                      }
 
@@ -220,14 +220,14 @@
                      // Factor the matrix A.
 
                      SRNAMT = 'SGETRF'
-                     CALL SGETRF( N, N, AFAC, LDA, IWORK, INFO )
+                     sgetrf(N, N, AFAC, LDA, IWORK, INFO );
 
                      // Form the inverse of A.
 
-                     CALL SLACPY( 'Full', N, N, AFAC, LDA, A, LDA )
+                     slacpy('Full', N, N, AFAC, LDA, A, LDA );
                      LWORK = NMAX*MAX( 3, NRHS )
                      SRNAMT = 'SGETRI'
-                     CALL SGETRI( N, A, LDA, IWORK, WORK, LWORK, INFO )
+                     sgetri(N, A, LDA, IWORK, WORK, LWORK, INFO );
 
                      // Compute the 1-norm condition number of A.
 
@@ -261,14 +261,14 @@
 
                      // Restore the matrix A.
 
-                     CALL SLACPY( 'Full', N, N, ASAV, LDA, A, LDA )
+                     slacpy('Full', N, N, ASAV, LDA, A, LDA );
 
                      // Form an exact solution and set the right hand side.
 
                      SRNAMT = 'SLARHS'
-                     CALL SLARHS( PATH, XTYPE, 'Full', TRANS, N, N, KL, KU, NRHS, A, LDA, XACT, LDA, B, LDA, ISEED, INFO )
+                     slarhs(PATH, XTYPE, 'Full', TRANS, N, N, KL, KU, NRHS, A, LDA, XACT, LDA, B, LDA, ISEED, INFO );
                      XTYPE = 'C'
-                     CALL SLACPY( 'Full', N, NRHS, B, LDA, BSAV, LDA )
+                     slacpy('Full', N, NRHS, B, LDA, BSAV, LDA );
 
                      if ( NOFACT .AND. ITRAN.EQ.1 ) {
 
@@ -277,11 +277,11 @@
                         // Compute the LU factorization of the matrix and
                         // solve the system.
 
-                        CALL SLACPY( 'Full', N, N, A, LDA, AFAC, LDA )
-                        CALL SLACPY( 'Full', N, NRHS, B, LDA, X, LDA )
+                        slacpy('Full', N, N, A, LDA, AFAC, LDA );
+                        slacpy('Full', N, NRHS, B, LDA, X, LDA );
 
                         SRNAMT = 'SGESV '
-                        CALL SGESV( N, NRHS, AFAC, LDA, IWORK, X, LDA, INFO )
+                        sgesv(N, NRHS, AFAC, LDA, IWORK, X, LDA, INFO );
 
                         // Check error code from SGESV .
 
@@ -290,17 +290,17 @@
                         // Reconstruct matrix from factors and compute
                         // residual.
 
-                        CALL SGET01( N, N, A, LDA, AFAC, LDA, IWORK, RWORK, RESULT( 1 ) )
+                        sget01(N, N, A, LDA, AFAC, LDA, IWORK, RWORK, RESULT( 1 ) );
                         NT = 1
                         if ( IZERO.EQ.0 ) {
 
                            // Compute residual of the computed solution.
 
-                           CALL SLACPY( 'Full', N, NRHS, B, LDA, WORK, LDA )                            CALL SGET02( 'No transpose', N, N, NRHS, A, LDA, X, LDA, WORK, LDA, RWORK, RESULT( 2 ) )
+                           slacpy('Full', N, NRHS, B, LDA, WORK, LDA )                            CALL SGET02( 'No transpose', N, N, NRHS, A, LDA, X, LDA, WORK, LDA, RWORK, RESULT( 2 ) );
 
                            // Check solution from generated exact solution.
 
-                           CALL SGET04( N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 3 ) )
+                           sget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 3 ) );
                            NT = 3
                         }
 
@@ -319,20 +319,20 @@
                      // --- Test SGESVX ---
 
                      IF( .NOT.PREFAC ) CALL SLASET( 'Full', N, N, ZERO, ZERO, AFAC, LDA )
-                     CALL SLASET( 'Full', N, NRHS, ZERO, ZERO, X, LDA )
+                     slaset('Full', N, NRHS, ZERO, ZERO, X, LDA );
                      if ( IEQUED.GT.1 .AND. N.GT.0 ) {
 
                         // Equilibrate the matrix if FACT = 'F' and
                         // EQUED = 'R', 'C', or 'B'.
 
-                        CALL SLAQGE( N, N, A, LDA, S, S( N+1 ), ROWCND, COLCND, AMAX, EQUED )
+                        slaqge(N, N, A, LDA, S, S( N+1 ), ROWCND, COLCND, AMAX, EQUED );
                      }
 
                      // Solve the system and compute the condition number
                      // and error bounds using SGESVX.
 
                      SRNAMT = 'SGESVX'
-                     CALL SGESVX( FACT, TRANS, N, NRHS, A, LDA, AFAC, LDA, IWORK, EQUED, S, S( N+1 ), B, LDA, X, LDA, RCOND, RWORK, RWORK( NRHS+1 ), WORK, IWORK( N+1 ), INFO )
+                     sgesvx(FACT, TRANS, N, NRHS, A, LDA, AFAC, LDA, IWORK, EQUED, S, S( N+1 ), B, LDA, X, LDA, RCOND, RWORK, RWORK( NRHS+1 ), WORK, IWORK( N+1 ), INFO );
 
                      // Check the error code from SGESVX.
 
@@ -363,7 +363,7 @@
                         // Reconstruct matrix from factors and compute
                         // residual.
 
-                        CALL SGET01( N, N, A, LDA, AFAC, LDA, IWORK, RWORK( 2*NRHS+1 ), RESULT( 1 ) )
+                        sget01(N, N, A, LDA, AFAC, LDA, IWORK, RWORK( 2*NRHS+1 ), RESULT( 1 ) );
                         K1 = 1
                      } else {
                         K1 = 2
@@ -374,7 +374,7 @@
 
                         // Compute residual of the computed solution.
 
-                        CALL SLACPY( 'Full', N, NRHS, BSAV, LDA, WORK, LDA )                         CALL SGET02( TRANS, N, N, NRHS, ASAV, LDA, X, LDA, WORK, LDA, RWORK( 2*NRHS+1 ), RESULT( 2 ) )
+                        slacpy('Full', N, NRHS, BSAV, LDA, WORK, LDA )                         CALL SGET02( TRANS, N, N, NRHS, ASAV, LDA, X, LDA, WORK, LDA, RWORK( 2*NRHS+1 ), RESULT( 2 ) );
 
                         // Check solution from generated exact solution.
 
@@ -385,13 +385,13 @@
                            } else {
                               ROLDC = ROLDI
                            }
-                           CALL SGET04( N, NRHS, X, LDA, XACT, LDA, ROLDC, RESULT( 3 ) )
+                           sget04(N, NRHS, X, LDA, XACT, LDA, ROLDC, RESULT( 3 ) );
                         }
 
                         // Check the error bounds from iterative
                         // refinement.
 
-                        CALL SGET07( TRANS, N, NRHS, ASAV, LDA, B, LDA, X, LDA, XACT, LDA, RWORK, .TRUE., RWORK( NRHS+1 ), RESULT( 4 ) )
+                        sget07(TRANS, N, NRHS, ASAV, LDA, B, LDA, X, LDA, XACT, LDA, RWORK, .TRUE., RWORK( NRHS+1 ), RESULT( 4 ) );
                      } else {
                         TRFCON = .TRUE.
                      }
@@ -458,7 +458,7 @@
 
       // Print a summary of the results.
 
-      CALL ALASVM( PATH, NOUT, NFAIL, NRUN, NERRS )
+      alasvm(PATH, NOUT, NFAIL, NRUN, NERRS );
 
  9999 FORMAT( 1X, A, ', N =', I5, ', type ', I2, ', test(', I2, ') =', G12.5 )
  9998 FORMAT( 1X, A, ', FACT=''', A1, ''', TRANS=''', A1, ''', N=', I5, ', type ', I2, ', test(', I1, ')=', G12.5 )

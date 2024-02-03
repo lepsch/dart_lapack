@@ -63,7 +63,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'CUNGRQ', -INFO )
+         xerbla('CUNGRQ', -INFO );
          RETURN
       } else if ( LQUERY ) {
          RETURN
@@ -120,7 +120,7 @@
 
       // Use unblocked code for the first or only block.
 
-      CALL CUNGR2( M-KK, N-KK, K-KK, A, LDA, TAU, WORK, IINFO )
+      cungr2(M-KK, N-KK, K-KK, A, LDA, TAU, WORK, IINFO );
 
       if ( KK.GT.0 ) {
 
@@ -134,16 +134,16 @@
                // Form the triangular factor of the block reflector
                // H = H(i+ib-1) . . . H(i+1) H(i)
 
-               CALL CLARFT( 'Backward', 'Rowwise', N-K+I+IB-1, IB, A( II, 1 ), LDA, TAU( I ), WORK, LDWORK )
+               clarft('Backward', 'Rowwise', N-K+I+IB-1, IB, A( II, 1 ), LDA, TAU( I ), WORK, LDWORK );
 
                // Apply H**H to A(1:m-k+i-1,1:n-k+i+ib-1) from the right
 
-               CALL CLARFB( 'Right', 'Conjugate transpose', 'Backward', 'Rowwise', II-1, N-K+I+IB-1, IB, A( II, 1 ), LDA, WORK, LDWORK, A, LDA, WORK( IB+1 ), LDWORK )
+               clarfb('Right', 'Conjugate transpose', 'Backward', 'Rowwise', II-1, N-K+I+IB-1, IB, A( II, 1 ), LDA, WORK, LDWORK, A, LDA, WORK( IB+1 ), LDWORK );
             }
 
             // Apply H**H to columns 1:n-k+i+ib-1 of current block
 
-            CALL CUNGR2( IB, N-K+I+IB-1, IB, A( II, 1 ), LDA, TAU( I ), WORK, IINFO )
+            cungr2(IB, N-K+I+IB-1, IB, A( II, 1 ), LDA, TAU( I ), WORK, IINFO );
 
             // Set columns n-k+i+ib:n of current block to zero
 

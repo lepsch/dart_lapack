@@ -91,7 +91,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'DSTEVR', -INFO )
+         xerbla('DSTEVR', -INFO );
          RETURN
       } else if ( LQUERY ) {
          RETURN
@@ -143,8 +143,8 @@
          SIGMA = RMAX / TNRM
       }
       if ( ISCALE.EQ.1 ) {
-         CALL DSCAL( N, SIGMA, D, 1 )
-         CALL DSCAL( N-1, SIGMA, E( 1 ), 1 )
+         dscal(N, SIGMA, D, 1 );
+         dscal(N-1, SIGMA, E( 1 ), 1 );
          if ( VALEIG ) {
             VLL = VL*SIGMA
             VUU = VU*SIGMA
@@ -180,18 +180,18 @@
          }
       }
       if ( ( ALLEIG .OR. TEST ) .AND. IEEEOK.EQ.1 ) {
-         CALL DCOPY( N-1, E( 1 ), 1, WORK( 1 ), 1 )
+         dcopy(N-1, E( 1 ), 1, WORK( 1 ), 1 );
          if ( .NOT.WANTZ ) {
-            CALL DCOPY( N, D, 1, W, 1 )
-            CALL DSTERF( N, W, WORK, INFO )
+            dcopy(N, D, 1, W, 1 );
+            dsterf(N, W, WORK, INFO );
          } else {
-            CALL DCOPY( N, D, 1, WORK( N+1 ), 1 )
+            dcopy(N, D, 1, WORK( N+1 ), 1 );
             if (ABSTOL .LE. TWO*N*EPS) {
                TRYRAC = .TRUE.
             } else {
                TRYRAC = .FALSE.
             }
-            CALL DSTEMR( JOBZ, 'A', N, WORK( N+1 ), WORK, VL, VU, IL, IU, M, W, Z, LDZ, N, ISUPPZ, TRYRAC, WORK( 2*N+1 ), LWORK-2*N, IWORK, LIWORK, INFO )
+            dstemr(JOBZ, 'A', N, WORK( N+1 ), WORK, VL, VU, IL, IU, M, W, Z, LDZ, N, ISUPPZ, TRYRAC, WORK( 2*N+1 ), LWORK-2*N, IWORK, LIWORK, INFO );
 
          }
          if ( INFO.EQ.0 ) {
@@ -208,10 +208,10 @@
       } else {
          ORDER = 'E'
       }
-       CALL DSTEBZ( RANGE, ORDER, N, VLL, VUU, IL, IU, ABSTOL, D, E, M, NSPLIT, W, IWORK( INDIBL ), IWORK( INDISP ), WORK, IWORK( INDIWO ), INFO )
+       dstebz(RANGE, ORDER, N, VLL, VUU, IL, IU, ABSTOL, D, E, M, NSPLIT, W, IWORK( INDIBL ), IWORK( INDISP ), WORK, IWORK( INDIWO ), INFO );
 
       if ( WANTZ ) {
-         CALL DSTEIN( N, D, E, M, W, IWORK( INDIBL ), IWORK( INDISP ), Z, LDZ, WORK, IWORK( INDIWO ), IWORK( INDIFL ), INFO )
+         dstein(N, D, E, M, W, IWORK( INDIBL ), IWORK( INDISP ), Z, LDZ, WORK, IWORK( INDIWO ), IWORK( INDIFL ), INFO );
       }
 
       // If matrix was scaled, then rescale eigenvalues appropriately.
@@ -223,7 +223,7 @@
          } else {
             IMAX = INFO - 1
          }
-         CALL DSCAL( IMAX, ONE / SIGMA, W, 1 )
+         dscal(IMAX, ONE / SIGMA, W, 1 );
       }
 
       // If eigenvalues are not in order, then sort them, along with
@@ -246,7 +246,7 @@
                IWORK( I ) = IWORK( J )
                W( J ) = TMP1
                IWORK( J ) = ITMP1
-               CALL DSWAP( N, Z( 1, I ), 1, Z( 1, J ), 1 )
+               dswap(N, Z( 1, I ), 1, Z( 1, J ), 1 );
             }
    30    CONTINUE
       }

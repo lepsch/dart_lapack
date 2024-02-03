@@ -25,7 +25,7 @@
       WRITE (NOUT,99999)
       DO 20 IC = 1, 13
          ICASE = IC
-         CALL HEADER
+         header();
 
          // .. Initialize  PASS,  INCX,  and INCY for a new case. ..
          // .. the value 9999 for INCX or INCY will appear in the ..
@@ -36,13 +36,13 @@
          INCX = 9999
          INCY = 9999
          if (ICASE.EQ.3 .OR. ICASE.EQ.11) {
-            CALL CHECK0(SFAC)
+            check0(SFAC);
          } else if (ICASE.EQ.7 .OR. ICASE.EQ.8 .OR. ICASE.EQ.9 .OR. ICASE.EQ.10) {
-            CALL CHECK1(SFAC)
+            check1(SFAC);
          } else if (ICASE.EQ.1 .OR. ICASE.EQ.2 .OR. ICASE.EQ.5 .OR. ICASE.EQ.6 .OR. ICASE.EQ.12 .OR. ICASE.EQ.13) {
-            CALL CHECK2(SFAC)
+            check2(SFAC);
          } else if (ICASE.EQ.4) {
-            CALL CHECK3(SFAC)
+            check3(SFAC);
          }
          // -- Print
          IF (PASS) WRITE (NOUT,99998)
@@ -153,11 +153,11 @@
             IF (K.GT.8) GO TO 40
             SA = DA1(K)
             SB = DB1(K)
-            CALL DROTG(SA,SB,SC,SS)
-            CALL STEST1(SA,DATRUE(K),DATRUE(K),SFAC)
-            CALL STEST1(SB,DBTRUE(K),DBTRUE(K),SFAC)
-            CALL STEST1(SC,DC1(K),DC1(K),SFAC)
-            CALL STEST1(SS,DS1(K),DS1(K),SFAC)
+            drotg(SA,SB,SC,SS);
+            stest1(SA,DATRUE(K),DATRUE(K),SFAC);
+            stest1(SB,DBTRUE(K),DBTRUE(K),SFAC);
+            stest1(SC,DC1(K),DC1(K),SFAC);
+            stest1(SS,DS1(K),DS1(K),SFAC);
          ELSEIF (ICASE.EQ.11) THEN
             // .. DROTMG ..
             DO I=1,4
@@ -165,8 +165,8 @@
                DTEMP(I+4) = 0.0
             END DO
             DTEMP(9) = 0.0
-            CALL DROTMG(DTEMP(1),DTEMP(2),DTEMP(3),DTEMP(4),DTEMP(5))
-            CALL STEST(9,DTEMP,DTRUE(1,K),DTRUE(1,K),SFAC)
+            drotmg(DTEMP(1),DTEMP(2),DTEMP(3),DTEMP(4),DTEMP(5));
+            stest(9,DTEMP,DTRUE(1,K),DTRUE(1,K),SFAC);
          } else {
             WRITE (NOUT,*) ' Shouldn''t be here in CHECK0'
             STOP
@@ -223,29 +223,29 @@
             if (ICASE.EQ.7) {
                // .. DNRM2 ..
                // Test scaling when some entries are tiny or huge
-               CALL DB1NRM2(N,(INCX-2)*2,THRESH)
-               CALL DB1NRM2(N,INCX,THRESH)
+               db1nrm2(N,(INCX-2)*2,THRESH);
+               db1nrm2(N,INCX,THRESH);
                // Test with hardcoded mid range entries
                STEMP(1) = DTRUE1(NP1)
-               CALL STEST1(DNRM2(N,SX,INCX),STEMP(1),STEMP,SFAC)
+               stest1(DNRM2(N,SX,INCX),STEMP(1),STEMP,SFAC);
             } else if (ICASE.EQ.8) {
                // .. DASUM ..
                STEMP(1) = DTRUE3(NP1)
-               CALL STEST1(DASUM(N,SX,INCX),STEMP(1),STEMP,SFAC)
+               stest1(DASUM(N,SX,INCX),STEMP(1),STEMP,SFAC);
             } else if (ICASE.EQ.9) {
                // .. DSCAL ..
-               CALL DSCAL(N,SA((INCX-1)*5+NP1),SX,INCX)
+               dscal(N,SA((INCX-1)*5+NP1),SX,INCX);
                DO 40 I = 1, LEN
                   STRUE(I) = DTRUE5(I,NP1,INCX)
    40          CONTINUE
-               CALL STEST(LEN,SX,STRUE,STRUE,SFAC)
+               stest(LEN,SX,STRUE,STRUE,SFAC);
             } else if (ICASE.EQ.10) {
                // .. IDAMAX ..
-               CALL ITEST1(IDAMAX(N,SX,INCX),ITRUE2(NP1))
+               itest1(IDAMAX(N,SX,INCX),ITRUE2(NP1));
                DO 100 I = 1, LEN
                   SX(I) = 42.0D0
   100          CONTINUE
-               CALL ITEST1(IDAMAX(N,SX,INCX),ITRUEC(NP1))
+               itest1(IDAMAX(N,SX,INCX),ITRUEC(NP1));
             } else {
                WRITE (NOUT,*) ' Shouldn''t be here in CHECK1'
                STOP
@@ -258,7 +258,7 @@
                SXR(IX) = DVR(I)
                IX = IX + INCX
   120       CONTINUE
-            CALL ITEST1(IDAMAX(N,SXR,INCX),3)
+            itest1(IDAMAX(N,SXR,INCX),3);
          }
    80 CONTINUE
       RETURN
@@ -344,21 +344,21 @@
 
             if (ICASE.EQ.1) {
                // .. DDOT ..
-               CALL STEST1(DDOT(N,SX,INCX,SY,INCY),DT7(KN,KI),SSIZE1(KN) ,SFAC)
+               stest1(DDOT(N,SX,INCX,SY,INCY),DT7(KN,KI),SSIZE1(KN) ,SFAC);
             } else if (ICASE.EQ.2) {
                // .. DAXPY ..
-               CALL DAXPY(N,SA,SX,INCX,SY,INCY)
+               daxpy(N,SA,SX,INCX,SY,INCY);
                DO 40 J = 1, LENY
                   STY(J) = DT8(J,KN,KI)
    40          CONTINUE
-               CALL STEST(LENY,SY,STY,SSIZE2(1,KSIZE),SFAC)
+               stest(LENY,SY,STY,SSIZE2(1,KSIZE),SFAC);
             } else if (ICASE.EQ.5) {
                // .. DCOPY ..
                DO 60 I = 1, 7
                   STY(I) = DT10Y(I,KN,KI)
    60          CONTINUE
-               CALL DCOPY(N,SX,INCX,SY,INCY)
-               CALL STEST(LENY,SY,STY,SSIZE2(1,1),1.0D0)
+               dcopy(N,SX,INCX,SY,INCY);
+               stest(LENY,SY,STY,SSIZE2(1,1),1.0D0);
                if (KI.EQ.1) {
                   SX0(1) = 42.0D0
                   SY0(1) = 43.0D0
@@ -371,20 +371,20 @@
                   INCX = 0
                   LINCY = INCY
                   INCY = 0
-                  CALL DCOPY(N,SX0,INCX,SY0,INCY)
-                  CALL STEST(1,SY0,STY0,SSIZE2(1,1),1.0D0)
+                  dcopy(N,SX0,INCX,SY0,INCY);
+                  stest(1,SY0,STY0,SSIZE2(1,1),1.0D0);
                   INCX = LINCX
                   INCY = LINCY
                }
             } else if (ICASE.EQ.6) {
                // .. DSWAP ..
-               CALL DSWAP(N,SX,INCX,SY,INCY)
+               dswap(N,SX,INCX,SY,INCY);
                DO 80 I = 1, 7
                   STX(I) = DT10X(I,KN,KI)
                   STY(I) = DT10Y(I,KN,KI)
    80          CONTINUE
-               CALL STEST(LENX,SX,STX,SSIZE2(1,1),1.0D0)
-               CALL STEST(LENY,SY,STY,SSIZE2(1,1),1.0D0)
+               stest(LENX,SX,STX,SSIZE2(1,1),1.0D0);
+               stest(LENY,SY,STY,SSIZE2(1,1),1.0D0);
             } else if (ICASE.EQ.12) {
                // .. DROTM ..
                KNI=KN+4*(KI-1)
@@ -407,13 +407,13 @@
                         // AND DT11X(5,3,8).
                   IF ((KPAR .EQ. 2) .AND. (KNI .EQ. 7)) SSIZE(1) = 2.4D0                   IF ((KPAR .EQ. 3) .AND. (KNI .EQ. 8)) SSIZE(5) = 1.8D0
 
-                  CALL   DROTM(N,SX,INCX,SY,INCY,DTEMP)
-                  CALL   STEST(LENX,SX,STX,SSIZE,SFAC)
-                  CALL   STEST(LENY,SY,STY,STY,SFAC)
+                  drotm(N,SX,INCX,SY,INCY,DTEMP);
+                  stest(LENX,SX,STX,SSIZE,SFAC);
+                  stest(LENY,SY,STY,STY,SFAC);
                END DO
             } else if (ICASE.EQ.13) {
                // .. DSDOT ..
-            CALL TESTDSDOT(REAL(DSDOT(N,REAL(SX),INCX,REAL(SY),INCY)), REAL(DT7(KN,KI)),REAL(SSIZE1(KN)), .3125E-1)
+            testdsdot(REAL(DSDOT(N,REAL(SX),INCX,REAL(SY),INCY)), REAL(DT7(KN,KI)),REAL(SSIZE1(KN)), .3125E-1);
             } else {
                WRITE (NOUT,*) ' Shouldn''t be here in CHECK2'
                STOP
@@ -477,9 +477,9 @@
                   STX(I) = DT9X(I,KN,KI)
                   STY(I) = DT9Y(I,KN,KI)
    20          CONTINUE
-               CALL DROT(N,SX,INCX,SY,INCY,SC,SS)
-               CALL STEST(LENX,SX,STX,SSIZE2(1,KSIZE),SFAC)
-               CALL STEST(LENY,SY,STY,SSIZE2(1,KSIZE),SFAC)
+               drot(N,SX,INCX,SY,INCY,SC,SS);
+               stest(LENX,SX,STX,SSIZE2(1,KSIZE),SFAC);
+               stest(LENY,SY,STY,SSIZE2(1,KSIZE),SFAC);
             } else {
                WRITE (NOUT,*) ' Shouldn''t be here in CHECK3'
                STOP
@@ -576,9 +576,9 @@
             MWPSTX(K) = MWPTX(I,K)
             MWPSTY(K) = MWPTY(I,K)
   180    CONTINUE
-         CALL DROT(MWPN(I),COPYX,INCX,COPYY,INCY,MWPC(I),MWPS(I))
-         CALL STEST(5,COPYX,MWPSTX,MWPSTX,SFAC)
-         CALL STEST(5,COPYY,MWPSTY,MWPSTY,SFAC)
+         drot(MWPN(I),COPYX,INCX,COPYY,INCY,MWPC(I),MWPS(I));
+         stest(5,COPYX,MWPSTX,MWPSTX,SFAC);
+         stest(5,COPYY,MWPSTY,MWPSTY,SFAC);
   200 CONTINUE
       RETURN
 
@@ -708,7 +708,7 @@
 
       SCOMP(1) = SCOMP1
       STRUE(1) = STRUE1
-      CALL STEST(1,SCOMP,STRUE,SSIZE,SFAC)
+      stest(1,SCOMP,STRUE,SSIZE,SFAC);
 
       RETURN
 
@@ -839,7 +839,7 @@
       // Generate (N-1) values in (-1,1).
 
       DO I = 2, N
-         CALL RANDOM_NUMBER(WORK(I))
+         random_number(WORK(I));
          WORK(I) = ONE - TWO*WORK(I)
       END DO
 

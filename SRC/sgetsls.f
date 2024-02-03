@@ -66,28 +66,28 @@
          WSIZEO = 1
          WSIZEM = 1
        } else if ( M.GE.N ) {
-         CALL SGEQR( M, N, A, LDA, TQ, -1, WORKQ, -1, INFO2 )
+         sgeqr(M, N, A, LDA, TQ, -1, WORKQ, -1, INFO2 );
          TSZO = INT( TQ( 1 ) )
          LWO  = INT( WORKQ( 1 ) )
-         CALL SGEMQR( 'L', TRANS, M, NRHS, N, A, LDA, TQ, TSZO, B, LDB, WORKQ, -1, INFO2 )
+         sgemqr('L', TRANS, M, NRHS, N, A, LDA, TQ, TSZO, B, LDB, WORKQ, -1, INFO2 );
          LWO  = MAX( LWO, INT( WORKQ( 1 ) ) )
-         CALL SGEQR( M, N, A, LDA, TQ, -2, WORKQ, -2, INFO2 )
+         sgeqr(M, N, A, LDA, TQ, -2, WORKQ, -2, INFO2 );
          TSZM = INT( TQ( 1 ) )
          LWM  = INT( WORKQ( 1 ) )
-         CALL SGEMQR( 'L', TRANS, M, NRHS, N, A, LDA, TQ, TSZM, B, LDB, WORKQ, -1, INFO2 )
+         sgemqr('L', TRANS, M, NRHS, N, A, LDA, TQ, TSZM, B, LDB, WORKQ, -1, INFO2 );
          LWM = MAX( LWM, INT( WORKQ( 1 ) ) )
          WSIZEO = TSZO + LWO
          WSIZEM = TSZM + LWM
        } else {
-         CALL SGELQ( M, N, A, LDA, TQ, -1, WORKQ, -1, INFO2 )
+         sgelq(M, N, A, LDA, TQ, -1, WORKQ, -1, INFO2 );
          TSZO = INT( TQ( 1 ) )
          LWO  = INT( WORKQ( 1 ) )
-         CALL SGEMLQ( 'L', TRANS, N, NRHS, M, A, LDA, TQ, TSZO, B, LDB, WORKQ, -1, INFO2 )
+         sgemlq('L', TRANS, N, NRHS, M, A, LDA, TQ, TSZO, B, LDB, WORKQ, -1, INFO2 );
          LWO  = MAX( LWO, INT( WORKQ( 1 ) ) )
-         CALL SGELQ( M, N, A, LDA, TQ, -2, WORKQ, -2, INFO2 )
+         sgelq(M, N, A, LDA, TQ, -2, WORKQ, -2, INFO2 );
          TSZM = INT( TQ( 1 ) )
          LWM  = INT( WORKQ( 1 ) )
-         CALL SGEMLQ( 'L', TRANS, N, NRHS, M, A, LDA, TQ, TSZM, B, LDB, WORKQ, -1, INFO2 )
+         sgemlq('L', TRANS, N, NRHS, M, A, LDA, TQ, TSZM, B, LDB, WORKQ, -1, INFO2 );
          LWM  = MAX( LWM, INT( WORKQ( 1 ) ) )
          WSIZEO = TSZO + LWO
          WSIZEM = TSZM + LWM
@@ -102,7 +102,7 @@
       }
 
       if ( INFO.NE.0 ) {
-        CALL XERBLA( 'SGETSLS', -INFO )
+        xerbla('SGETSLS', -INFO );
         RETURN
       }
       if ( LQUERY ) {
@@ -120,7 +120,7 @@
       // Quick return if possible
 
       if ( MIN( M, N, NRHS ).EQ.0 ) {
-           CALL SLASET( 'FULL', MAX( M, N ), NRHS, ZERO, ZERO, B, LDB )
+           slaset('FULL', MAX( M, N ), NRHS, ZERO, ZERO, B, LDB );
            RETURN
       }
 
@@ -137,19 +137,19 @@
 
          // Scale matrix norm up to SMLNUM
 
-         CALL SLASCL( 'G', 0, 0, ANRM, SMLNUM, M, N, A, LDA, INFO )
+         slascl('G', 0, 0, ANRM, SMLNUM, M, N, A, LDA, INFO );
          IASCL = 1
       } else if ( ANRM.GT.BIGNUM ) {
 
          // Scale matrix norm down to BIGNUM
 
-         CALL SLASCL( 'G', 0, 0, ANRM, BIGNUM, M, N, A, LDA, INFO )
+         slascl('G', 0, 0, ANRM, BIGNUM, M, N, A, LDA, INFO );
          IASCL = 2
       } else if ( ANRM.EQ.ZERO ) {
 
          // Matrix all zero. Return zero solution.
 
-         CALL SLASET( 'F', MAXMN, NRHS, ZERO, ZERO, B, LDB )
+         slaset('F', MAXMN, NRHS, ZERO, ZERO, B, LDB );
          GO TO 50
       }
 
@@ -163,13 +163,13 @@
 
          // Scale matrix norm up to SMLNUM
 
-         CALL SLASCL( 'G', 0, 0, BNRM, SMLNUM, BROW, NRHS, B, LDB, INFO )
+         slascl('G', 0, 0, BNRM, SMLNUM, BROW, NRHS, B, LDB, INFO );
          IBSCL = 1
       } else if ( BNRM.GT.BIGNUM ) {
 
          // Scale matrix norm down to BIGNUM
 
-         CALL SLASCL( 'G', 0, 0, BNRM, BIGNUM, BROW, NRHS, B, LDB, INFO )
+         slascl('G', 0, 0, BNRM, BIGNUM, BROW, NRHS, B, LDB, INFO );
          IBSCL = 2
       }
 
@@ -177,18 +177,18 @@
 
          // compute QR factorization of A
 
-        CALL SGEQR( M, N, A, LDA, WORK( LW2+1 ), LW1, WORK( 1 ), LW2, INFO )
+        sgeqr(M, N, A, LDA, WORK( LW2+1 ), LW1, WORK( 1 ), LW2, INFO );
         if ( .NOT.TRAN ) {
 
             // Least-Squares Problem min || A * X - B ||
 
             // B(1:M,1:NRHS) := Q**T * B(1:M,1:NRHS)
 
-          CALL SGEMQR( 'L' , 'T', M, NRHS, N, A, LDA, WORK( LW2+1 ), LW1, B, LDB, WORK( 1 ), LW2, INFO )
+          sgemqr('L' , 'T', M, NRHS, N, A, LDA, WORK( LW2+1 ), LW1, B, LDB, WORK( 1 ), LW2, INFO );
 
             // B(1:N,1:NRHS) := inv(R) * B(1:N,1:NRHS)
 
-          CALL STRTRS( 'U', 'N', 'N', N, NRHS, A, LDA, B, LDB, INFO )
+          strtrs('U', 'N', 'N', N, NRHS, A, LDA, B, LDB, INFO );
           if ( INFO.GT.0 ) {
             RETURN
           }
@@ -199,7 +199,7 @@
 
             // B(1:N,1:NRHS) := inv(R**T) * B(1:N,1:NRHS)
 
-            CALL STRTRS( 'U', 'T', 'N', N, NRHS, A, LDA, B, LDB, INFO )
+            strtrs('U', 'T', 'N', N, NRHS, A, LDA, B, LDB, INFO );
 
             if ( INFO.GT.0 ) {
                RETURN
@@ -215,7 +215,7 @@
 
             // B(1:M,1:NRHS) := Q(1:N,:) * B(1:N,1:NRHS)
 
-            CALL SGEMQR( 'L', 'N', M, NRHS, N, A, LDA, WORK( LW2+1 ), LW1, B, LDB, WORK( 1 ), LW2, INFO )
+            sgemqr('L', 'N', M, NRHS, N, A, LDA, WORK( LW2+1 ), LW1, B, LDB, WORK( 1 ), LW2, INFO );
 
             SCLLEN = M
 
@@ -225,7 +225,7 @@
 
          // Compute LQ factorization of A
 
-         CALL SGELQ( M, N, A, LDA, WORK( LW2+1 ), LW1, WORK( 1 ), LW2, INFO )
+         sgelq(M, N, A, LDA, WORK( LW2+1 ), LW1, WORK( 1 ), LW2, INFO );
 
          // workspace at least M, optimally M*NB.
 
@@ -235,7 +235,7 @@
 
             // B(1:M,1:NRHS) := inv(L) * B(1:M,1:NRHS)
 
-            CALL STRTRS( 'L', 'N', 'N', M, NRHS, A, LDA, B, LDB, INFO )
+            strtrs('L', 'N', 'N', M, NRHS, A, LDA, B, LDB, INFO );
 
             if ( INFO.GT.0 ) {
                RETURN
@@ -251,7 +251,7 @@
 
             // B(1:N,1:NRHS) := Q(1:N,:)**T * B(1:M,1:NRHS)
 
-            CALL SGEMLQ( 'L', 'T', N, NRHS, M, A, LDA, WORK( LW2+1 ), LW1, B, LDB, WORK( 1 ), LW2, INFO )
+            sgemlq('L', 'T', N, NRHS, M, A, LDA, WORK( LW2+1 ), LW1, B, LDB, WORK( 1 ), LW2, INFO );
 
             // workspace at least NRHS, optimally NRHS*NB
 
@@ -263,13 +263,13 @@
 
             // B(1:N,1:NRHS) := Q * B(1:N,1:NRHS)
 
-            CALL SGEMLQ( 'L', 'N', N, NRHS, M, A, LDA, WORK( LW2+1 ), LW1, B, LDB, WORK( 1 ), LW2, INFO )
+            sgemlq('L', 'N', N, NRHS, M, A, LDA, WORK( LW2+1 ), LW1, B, LDB, WORK( 1 ), LW2, INFO );
 
             // workspace at least NRHS, optimally NRHS*NB
 
             // B(1:M,1:NRHS) := inv(L**T) * B(1:M,1:NRHS)
 
-            CALL STRTRS( 'Lower', 'Transpose', 'Non-unit', M, NRHS, A, LDA, B, LDB, INFO )
+            strtrs('Lower', 'Transpose', 'Non-unit', M, NRHS, A, LDA, B, LDB, INFO );
 
             if ( INFO.GT.0 ) {
                RETURN
@@ -284,14 +284,14 @@
       // Undo scaling
 
       if ( IASCL.EQ.1 ) {
-        CALL SLASCL( 'G', 0, 0, ANRM, SMLNUM, SCLLEN, NRHS, B, LDB, INFO )
+        slascl('G', 0, 0, ANRM, SMLNUM, SCLLEN, NRHS, B, LDB, INFO );
       } else if ( IASCL.EQ.2 ) {
-        CALL SLASCL( 'G', 0, 0, ANRM, BIGNUM, SCLLEN, NRHS, B, LDB, INFO )
+        slascl('G', 0, 0, ANRM, BIGNUM, SCLLEN, NRHS, B, LDB, INFO );
       }
       if ( IBSCL.EQ.1 ) {
-        CALL SLASCL( 'G', 0, 0, SMLNUM, BNRM, SCLLEN, NRHS, B, LDB, INFO )
+        slascl('G', 0, 0, SMLNUM, BNRM, SCLLEN, NRHS, B, LDB, INFO );
       } else if ( IBSCL.EQ.2 ) {
-        CALL SLASCL( 'G', 0, 0, BIGNUM, BNRM, SCLLEN, NRHS, B, LDB, INFO )
+        slascl('G', 0, 0, BIGNUM, BNRM, SCLLEN, NRHS, B, LDB, INFO );
       }
 
    50 CONTINUE

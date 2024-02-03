@@ -99,7 +99,7 @@
       IF( LWORK.LT.MINWRK ) INFO = -20
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'DDRGES', -INFO )
+         xerbla('DDRGES', -INFO );
          RETURN
       }
 
@@ -190,7 +190,7 @@
                } else {
                   IN = N
                }
-               CALL DLATM4( KATYPE( JTYPE ), IN, KZ1( KAZERO( JTYPE ) ), KZ2( KAZERO( JTYPE ) ), IASIGN( JTYPE ), RMAGN( KAMAGN( JTYPE ) ), ULP, RMAGN( KTRIAN( JTYPE )*KAMAGN( JTYPE ) ), 2, ISEED, A, LDA )
+               dlatm4(KATYPE( JTYPE ), IN, KZ1( KAZERO( JTYPE ) ), KZ2( KAZERO( JTYPE ) ), IASIGN( JTYPE ), RMAGN( KAMAGN( JTYPE ) ), ULP, RMAGN( KTRIAN( JTYPE )*KAMAGN( JTYPE ) ), 2, ISEED, A, LDA );
                IADD = KADD( KAZERO( JTYPE ) )
                IF( IADD.GT.0 .AND. IADD.LE.N ) A( IADD, IADD ) = ONE
 
@@ -202,7 +202,7 @@
                } else {
                   IN = N
                }
-               CALL DLATM4( KBTYPE( JTYPE ), IN, KZ1( KBZERO( JTYPE ) ), KZ2( KBZERO( JTYPE ) ), IBSIGN( JTYPE ), RMAGN( KBMAGN( JTYPE ) ), ONE, RMAGN( KTRIAN( JTYPE )*KBMAGN( JTYPE ) ), 2, ISEED, B, LDA )
+               dlatm4(KBTYPE( JTYPE ), IN, KZ1( KBZERO( JTYPE ) ), KZ2( KBZERO( JTYPE ) ), IBSIGN( JTYPE ), RMAGN( KBMAGN( JTYPE ) ), ONE, RMAGN( KTRIAN( JTYPE )*KBMAGN( JTYPE ) ), 2, ISEED, B, LDA );
                IADD = KADD( KBZERO( JTYPE ) )
                IF( IADD.NE.0 .AND. IADD.LE.N ) B( IADD, IADD ) = ONE
 
@@ -218,10 +218,10 @@
                         Q( JR, JC ) = DLARND( 3, ISEED )
                         Z( JR, JC ) = DLARND( 3, ISEED )
    40                CONTINUE
-                     CALL DLARFG( N+1-JC, Q( JC, JC ), Q( JC+1, JC ), 1, WORK( JC ) )
+                     dlarfg(N+1-JC, Q( JC, JC ), Q( JC+1, JC ), 1, WORK( JC ) );
                      WORK( 2*N+JC ) = SIGN( ONE, Q( JC, JC ) )
                      Q( JC, JC ) = ONE
-                     CALL DLARFG( N+1-JC, Z( JC, JC ), Z( JC+1, JC ), 1, WORK( N+JC ) )
+                     dlarfg(N+1-JC, Z( JC, JC ), Z( JC+1, JC ), 1, WORK( N+JC ) );
                      WORK( 3*N+JC ) = SIGN( ONE, Z( JC, JC ) )
                      Z( JC, JC ) = ONE
    50             CONTINUE
@@ -279,11 +279,11 @@
 
                // Call DGGES to compute H, T, Q, Z, alpha, and beta.
 
-               CALL DLACPY( 'Full', N, N, A, LDA, S, LDA )
-               CALL DLACPY( 'Full', N, N, B, LDA, T, LDA )
+               dlacpy('Full', N, N, A, LDA, S, LDA );
+               dlacpy('Full', N, N, B, LDA, T, LDA );
                NTEST = 1 + RSUB + ISORT
                RESULT( 1+RSUB+ISORT ) = ULPINV
-               CALL DGGES( 'V', 'V', SORT, DLCTES, N, S, LDA, T, LDA, SDIM, ALPHAR, ALPHAI, BETA, Q, LDQ, Z, LDQ, WORK, LWORK, BWORK, IINFO )
+               dgges('V', 'V', SORT, DLCTES, N, S, LDA, T, LDA, SDIM, ALPHAR, ALPHAI, BETA, Q, LDQ, Z, LDQ, WORK, LWORK, BWORK, IINFO );
                if ( IINFO.NE.0 .AND. IINFO.NE.N+2 ) {
                   RESULT( 1+RSUB+ISORT ) = ULPINV
                   WRITE( NOUNIT, FMT = 9999 )'DGGES', IINFO, N, JTYPE, IOLDSD
@@ -296,11 +296,11 @@
                // Do tests 1--4 (or tests 7--9 when reordering )
 
                if ( ISORT.EQ.0 ) {
-                  CALL DGET51( 1, N, A, LDA, S, LDA, Q, LDQ, Z, LDQ, WORK, RESULT( 1 ) )                   CALL DGET51( 1, N, B, LDA, T, LDA, Q, LDQ, Z, LDQ, WORK, RESULT( 2 ) )
+                  dget51(1, N, A, LDA, S, LDA, Q, LDQ, Z, LDQ, WORK, RESULT( 1 ) )                   CALL DGET51( 1, N, B, LDA, T, LDA, Q, LDQ, Z, LDQ, WORK, RESULT( 2 ) );
                } else {
-                  CALL DGET54( N, A, LDA, B, LDA, S, LDA, T, LDA, Q, LDQ, Z, LDQ, WORK, RESULT( 7 ) )
+                  dget54(N, A, LDA, B, LDA, S, LDA, T, LDA, Q, LDQ, Z, LDQ, WORK, RESULT( 7 ) );
                }
-               CALL DGET51( 3, N, A, LDA, T, LDA, Q, LDQ, Q, LDQ, WORK, RESULT( 3+RSUB ) )                CALL DGET51( 3, N, B, LDA, T, LDA, Z, LDQ, Z, LDQ, WORK, RESULT( 4+RSUB ) )
+               dget51(3, N, A, LDA, T, LDA, Q, LDQ, Q, LDQ, WORK, RESULT( 3+RSUB ) )                CALL DGET51( 3, N, B, LDA, T, LDA, Z, LDQ, Z, LDQ, WORK, RESULT( 4+RSUB ) );
 
                // Do test 5 and 6 (or Tests 10 and 11 when reordering):
                // check Schur form of A and compare eigenvalues with
@@ -347,7 +347,7 @@
                         }
                      }
                      if ( .NOT.ILABAD ) {
-                        CALL DGET53( S( I1, I1 ), LDA, T( I1, I1 ), LDA, BETA( J ), ALPHAR( J ), ALPHAI( J ), TEMP2, IERR )
+                        dget53(S( I1, I1 ), LDA, T( I1, I1 ), LDA, BETA( J ), ALPHAR( J ), ALPHAI( J ), TEMP2, IERR );
                         if ( IERR.GE.3 ) {
                            WRITE( NOUNIT, FMT = 9998 )IERR, J, N, JTYPE, IOLDSD
                            INFO = ABS( IERR )
@@ -430,7 +430,7 @@
 
       // Summary
 
-      CALL ALASVM( 'DGS', NOUNIT, NERRS, NTESTT, 0 )
+      alasvm('DGS', NOUNIT, NERRS, NTESTT, 0 );
 
       WORK( 1 ) = MAXWRK
 

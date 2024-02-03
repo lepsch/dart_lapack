@@ -54,14 +54,14 @@
          if ( N.EQ.0 ) {
             LWKOPT = 1
          } else {
-            CALL CHETRF_RK( UPLO, N, A, LDA, E, IPIV, WORK, -1, INFO )
+            chetrf_rk(UPLO, N, A, LDA, E, IPIV, WORK, -1, INFO );
             LWKOPT = INT( WORK( 1 ) )
          }
          WORK( 1 ) = SROUNDUP_LWORK(LWKOPT)
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'CHESV_RK ', -INFO )
+         xerbla('CHESV_RK ', -INFO );
          RETURN
       } else if ( LQUERY ) {
          RETURN
@@ -69,13 +69,13 @@
 
       // Compute the factorization A = U*D*U**T or A = L*D*L**T.
 
-      CALL CHETRF_RK( UPLO, N, A, LDA, E, IPIV, WORK, LWORK, INFO )
+      chetrf_rk(UPLO, N, A, LDA, E, IPIV, WORK, LWORK, INFO );
 
       if ( INFO.EQ.0 ) {
 
          // Solve the system A*X = B with BLAS3 solver, overwriting B with X.
 
-         CALL CHETRS_3( UPLO, N, NRHS, A, LDA, E, IPIV, B, LDB, INFO )
+         chetrs_3(UPLO, N, NRHS, A, LDA, E, IPIV, B, LDB, INFO );
 
       }
 

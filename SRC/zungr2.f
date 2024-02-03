@@ -41,7 +41,7 @@
          INFO = -5
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'ZUNGR2', -INFO )
+         xerbla('ZUNGR2', -INFO );
          RETURN
       }
 
@@ -66,11 +66,11 @@
 
          // Apply H(i)**H to A(1:m-k+i,1:n-k+i) from the right
 
-         CALL ZLACGV( N-M+II-1, A( II, 1 ), LDA )
+         zlacgv(N-M+II-1, A( II, 1 ), LDA );
          A( II, N-M+II ) = ONE
-         CALL ZLARF( 'Right', II-1, N-M+II, A( II, 1 ), LDA, DCONJG( TAU( I ) ), A, LDA, WORK )
-         CALL ZSCAL( N-M+II-1, -TAU( I ), A( II, 1 ), LDA )
-         CALL ZLACGV( N-M+II-1, A( II, 1 ), LDA )
+         zlarf('Right', II-1, N-M+II, A( II, 1 ), LDA, DCONJG( TAU( I ) ), A, LDA, WORK );
+         zscal(N-M+II-1, -TAU( I ), A( II, 1 ), LDA );
+         zlacgv(N-M+II-1, A( II, 1 ), LDA );
          A( II, N-M+II ) = ONE - DCONJG( TAU( I ) )
 
          // Set A(m-k+i,n-k+i+1:n) to zero

@@ -70,7 +70,7 @@
 
          JJ = 1
          DO 20 J = 1, N - 1
-            CALL CCOPY( J, AINV( JJ ), 1, WORK( 1, J+1 ), 1 )
+            ccopy(J, AINV( JJ ), 1, WORK( 1, J+1 ), 1 );
             DO 10 I = 1, J - 1
                WORK( J, I+1 ) = CONJG( AINV( JJ+I-1 ) )
    10       CONTINUE
@@ -84,9 +84,9 @@
          // Multiply by A
 
          DO 40 J = 1, N - 1
-            CALL CHPMV( 'Upper', N, -CONE, A, WORK( 1, J+1 ), 1, CZERO, WORK( 1, J ), 1 )
+            chpmv('Upper', N, -CONE, A, WORK( 1, J+1 ), 1, CZERO, WORK( 1, J ), 1 );
    40    CONTINUE
-         CALL CHPMV( 'Upper', N, -CONE, A, AINV( JJ ), 1, CZERO, WORK( 1, N ), 1 )
+         chpmv('Upper', N, -CONE, A, AINV( JJ ), 1, CZERO, WORK( 1, N ), 1 );
 
       // UPLO = 'L':
       // Copy the trailing N-1 x N-1 submatrix of AINV to WORK(1:N,1:N-1)
@@ -101,7 +101,7 @@
    50    CONTINUE
          JJ = N + 1
          DO 70 J = 2, N
-            CALL CCOPY( N-J+1, AINV( JJ ), 1, WORK( J, J-1 ), 1 )
+            ccopy(N-J+1, AINV( JJ ), 1, WORK( J, J-1 ), 1 );
             DO 60 I = 1, N - J
                WORK( J, J+I-1 ) = CONJG( AINV( JJ+I ) )
    60       CONTINUE
@@ -111,9 +111,9 @@
          // Multiply by A
 
          DO 80 J = N, 2, -1
-            CALL CHPMV( 'Lower', N, -CONE, A, WORK( 1, J-1 ), 1, CZERO, WORK( 1, J ), 1 )
+            chpmv('Lower', N, -CONE, A, WORK( 1, J-1 ), 1, CZERO, WORK( 1, J ), 1 );
    80    CONTINUE
-         CALL CHPMV( 'Lower', N, -CONE, A, AINV( 1 ), 1, CZERO, WORK( 1, 1 ), 1 )
+         chpmv('Lower', N, -CONE, A, AINV( 1 ), 1, CZERO, WORK( 1, 1 ), 1 );
 
       }
 

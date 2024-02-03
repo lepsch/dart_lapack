@@ -86,8 +86,8 @@
 
       NB = 1
       NBMIN = 2
-      CALL XLAENV( 1, NB )
-      CALL XLAENV( 2, NBMIN )
+      xlaenv(1, NB );
+      xlaenv(2, NBMIN );
 
       // Do for each value of N in NVAL
 
@@ -117,15 +117,15 @@
                // Set up parameters with CLATB4 and generate a test matrix
                // with CLATMS.
 
-               CALL CLATB4( PATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST )
+               clatb4(PATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST );
 
                SRNAMT = 'CLATMS'
-               CALL CLATMS( N, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KL, KU, UPLO, A, LDA, WORK, INFO )
+               clatms(N, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KL, KU, UPLO, A, LDA, WORK, INFO );
 
                // Check error code from CLATMS.
 
                if ( INFO.NE.0 ) {
-                  CALL ALAERH( PATH, 'CLATMS', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT )
+                  alaerh(PATH, 'CLATMS', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
                   GO TO 110
                }
 
@@ -170,11 +170,11 @@
 
                // Set the imaginary part of the diagonals.
 
-               CALL CLAIPD( N, A, LDA+1, 0 )
+               claipd(N, A, LDA+1, 0 );
 
                // Save a copy of the matrix A in ASAV.
 
-               CALL CLACPY( UPLO, N, N, A, LDA, ASAV, LDA )
+               clacpy(UPLO, N, N, A, LDA, ASAV, LDA );
 
                DO 100 IEQUED = 1, 2
                   EQUED = EQUEDS( IEQUED )
@@ -201,19 +201,19 @@
                         // the condition number from the previous iteration
                         // with FACT = 'F').
 
-                        CALL CLACPY( UPLO, N, N, ASAV, LDA, AFAC, LDA )
+                        clacpy(UPLO, N, N, ASAV, LDA, AFAC, LDA );
                         if ( EQUIL .OR. IEQUED.GT.1 ) {
 
                            // Compute row and column scale factors to
                            // equilibrate the matrix A.
 
-                           CALL CPOEQU( N, AFAC, LDA, S, SCOND, AMAX, INFO )
+                           cpoequ(N, AFAC, LDA, S, SCOND, AMAX, INFO );
                            if ( INFO.EQ.0 .AND. N.GT.0 ) {
                               IF( IEQUED.GT.1 ) SCOND = ZERO
 
                               // Equilibrate the matrix.
 
-                              CALL CLAQHE( UPLO, N, AFAC, LDA, S, SCOND, AMAX, EQUED )
+                              claqhe(UPLO, N, AFAC, LDA, S, SCOND, AMAX, EQUED );
                            }
                         }
 
@@ -228,12 +228,12 @@
 
                         // Factor the matrix A.
 
-                        CALL CPOTRF( UPLO, N, AFAC, LDA, INFO )
+                        cpotrf(UPLO, N, AFAC, LDA, INFO );
 
                         // Form the inverse of A.
 
-                        CALL CLACPY( UPLO, N, N, AFAC, LDA, A, LDA )
-                        CALL CPOTRI( UPLO, N, A, LDA, INFO )
+                        clacpy(UPLO, N, N, AFAC, LDA, A, LDA );
+                        cpotri(UPLO, N, A, LDA, INFO );
 
                         // Compute the 1-norm condition number of A.
 
@@ -247,14 +247,14 @@
 
                      // Restore the matrix A.
 
-                     CALL CLACPY( UPLO, N, N, ASAV, LDA, A, LDA )
+                     clacpy(UPLO, N, N, ASAV, LDA, A, LDA );
 
                      // Form an exact solution and set the right hand side.
 
                      SRNAMT = 'CLARHS'
-                     CALL CLARHS( PATH, XTYPE, UPLO, ' ', N, N, KL, KU, NRHS, A, LDA, XACT, LDA, B, LDA, ISEED, INFO )
+                     clarhs(PATH, XTYPE, UPLO, ' ', N, N, KL, KU, NRHS, A, LDA, XACT, LDA, B, LDA, ISEED, INFO );
                      XTYPE = 'C'
-                     CALL CLACPY( 'Full', N, NRHS, B, LDA, BSAV, LDA )
+                     clacpy('Full', N, NRHS, B, LDA, BSAV, LDA );
 
                      if ( NOFACT ) {
 
@@ -263,16 +263,16 @@
                         // Compute the L*L' or U'*U factorization of the
                         // matrix and solve the system.
 
-                        CALL CLACPY( UPLO, N, N, A, LDA, AFAC, LDA )
-                        CALL CLACPY( 'Full', N, NRHS, B, LDA, X, LDA )
+                        clacpy(UPLO, N, N, A, LDA, AFAC, LDA );
+                        clacpy('Full', N, NRHS, B, LDA, X, LDA );
 
                         SRNAMT = 'CPOSV '
-                        CALL CPOSV( UPLO, N, NRHS, AFAC, LDA, X, LDA, INFO )
+                        cposv(UPLO, N, NRHS, AFAC, LDA, X, LDA, INFO );
 
                         // Check error code from CPOSV .
 
                         if ( INFO.NE.IZERO ) {
-                           CALL ALAERH( PATH, 'CPOSV ', INFO, IZERO, UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT )
+                           alaerh(PATH, 'CPOSV ', INFO, IZERO, UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
                            GO TO 70
                         } else if ( INFO.NE.0 ) {
                            GO TO 70
@@ -281,15 +281,15 @@
                         // Reconstruct matrix from factors and compute
                         // residual.
 
-                        CALL CPOT01( UPLO, N, A, LDA, AFAC, LDA, RWORK, RESULT( 1 ) )
+                        cpot01(UPLO, N, A, LDA, AFAC, LDA, RWORK, RESULT( 1 ) );
 
                         // Compute residual of the computed solution.
 
-                        CALL CLACPY( 'Full', N, NRHS, B, LDA, WORK, LDA )                         CALL CPOT02( UPLO, N, NRHS, A, LDA, X, LDA, WORK, LDA, RWORK, RESULT( 2 ) )
+                        clacpy('Full', N, NRHS, B, LDA, WORK, LDA )                         CALL CPOT02( UPLO, N, NRHS, A, LDA, X, LDA, WORK, LDA, RWORK, RESULT( 2 ) );
 
                         // Check solution from generated exact solution.
 
-                        CALL CGET04( N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 3 ) )
+                        cget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 3 ) );
                         NT = 3
 
                         // Print information about the tests that did not
@@ -308,25 +308,25 @@
                      // --- Test CPOSVX ---
 
                      IF( .NOT.PREFAC ) CALL CLASET( UPLO, N, N, CMPLX( ZERO ), CMPLX( ZERO ), AFAC, LDA )
-                     CALL CLASET( 'Full', N, NRHS, CMPLX( ZERO ), CMPLX( ZERO ), X, LDA )
+                     claset('Full', N, NRHS, CMPLX( ZERO ), CMPLX( ZERO ), X, LDA );
                      if ( IEQUED.GT.1 .AND. N.GT.0 ) {
 
                         // Equilibrate the matrix if FACT='F' and
                         // EQUED='Y'.
 
-                        CALL CLAQHE( UPLO, N, A, LDA, S, SCOND, AMAX, EQUED )
+                        claqhe(UPLO, N, A, LDA, S, SCOND, AMAX, EQUED );
                      }
 
                      // Solve the system and compute the condition number
                      // and error bounds using CPOSVX.
 
                      SRNAMT = 'CPOSVX'
-                     CALL CPOSVX( FACT, UPLO, N, NRHS, A, LDA, AFAC, LDA, EQUED, S, B, LDA, X, LDA, RCOND, RWORK, RWORK( NRHS+1 ), WORK, RWORK( 2*NRHS+1 ), INFO )
+                     cposvx(FACT, UPLO, N, NRHS, A, LDA, AFAC, LDA, EQUED, S, B, LDA, X, LDA, RCOND, RWORK, RWORK( NRHS+1 ), WORK, RWORK( 2*NRHS+1 ), INFO );
 
                      // Check the error code from CPOSVX.
 
                      if ( INFO.NE.IZERO ) {
-                        CALL ALAERH( PATH, 'CPOSVX', INFO, IZERO, FACT // UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT )
+                        alaerh(PATH, 'CPOSVX', INFO, IZERO, FACT // UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
                         GO TO 90
                      }
 
@@ -336,7 +336,7 @@
                            // Reconstruct matrix from factors and compute
                            // residual.
 
-                           CALL CPOT01( UPLO, N, A, LDA, AFAC, LDA, RWORK( 2*NRHS+1 ), RESULT( 1 ) )
+                           cpot01(UPLO, N, A, LDA, AFAC, LDA, RWORK( 2*NRHS+1 ), RESULT( 1 ) );
                            K1 = 1
                         } else {
                            K1 = 2
@@ -344,19 +344,19 @@
 
                         // Compute residual of the computed solution.
 
-                        CALL CLACPY( 'Full', N, NRHS, BSAV, LDA, WORK, LDA )                         CALL CPOT02( UPLO, N, NRHS, ASAV, LDA, X, LDA, WORK, LDA, RWORK( 2*NRHS+1 ), RESULT( 2 ) )
+                        clacpy('Full', N, NRHS, BSAV, LDA, WORK, LDA )                         CALL CPOT02( UPLO, N, NRHS, ASAV, LDA, X, LDA, WORK, LDA, RWORK( 2*NRHS+1 ), RESULT( 2 ) );
 
                         // Check solution from generated exact solution.
 
                         IF( NOFACT .OR. ( PREFAC .AND. LSAME( EQUED, 'N' ) ) ) THEN                            CALL CGET04( N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 3 ) )
                         } else {
-                           CALL CGET04( N, NRHS, X, LDA, XACT, LDA, ROLDC, RESULT( 3 ) )
+                           cget04(N, NRHS, X, LDA, XACT, LDA, ROLDC, RESULT( 3 ) );
                         }
 
                         // Check the error bounds from iterative
                         // refinement.
 
-                        CALL CPOT05( UPLO, N, NRHS, ASAV, LDA, B, LDA, X, LDA, XACT, LDA, RWORK, RWORK( NRHS+1 ), RESULT( 4 ) )
+                        cpot05(UPLO, N, NRHS, ASAV, LDA, B, LDA, X, LDA, XACT, LDA, RWORK, RWORK( NRHS+1 ), RESULT( 4 ) );
                      } else {
                         K1 = 6
                      }
@@ -386,16 +386,16 @@
 
                      // Restore the matrices A and B.
 
-                     CALL CLACPY( 'Full', N, N, ASAV, LDA, A, LDA )
-                     CALL CLACPY( 'Full', N, NRHS, BSAV, LDA, B, LDA )
+                     clacpy('Full', N, N, ASAV, LDA, A, LDA );
+                     clacpy('Full', N, NRHS, BSAV, LDA, B, LDA );
                       IF( .NOT.PREFAC ) CALL CLASET( UPLO, N, N, CMPLX( ZERO ), CMPLX( ZERO ), AFAC, LDA )
-                     CALL CLASET( 'Full', N, NRHS, CMPLX( ZERO ), CMPLX( ZERO ), X, LDA )
+                     claset('Full', N, NRHS, CMPLX( ZERO ), CMPLX( ZERO ), X, LDA );
                      if ( IEQUED.GT.1 .AND. N.GT.0 ) {
 
                         // Equilibrate the matrix if FACT='F' and
                         // EQUED='Y'.
 
-                        CALL CLAQHE( UPLO, N, A, LDA, S, SCOND, AMAX, EQUED )
+                        claqhe(UPLO, N, A, LDA, S, SCOND, AMAX, EQUED );
                      }
 
                      // Solve the system and compute the condition number
@@ -403,13 +403,13 @@
 
                      SRNAMT = 'CPOSVXX'
                      N_ERR_BNDS = 3
-                    CALL CPOSVXX( FACT, UPLO, N, NRHS, A, LDA, AFAC, LDA, EQUED, S, B, LDA, X, LDA, RCOND, RPVGRW_SVXX, BERR, N_ERR_BNDS, ERRBNDS_N, ERRBNDS_C, 0, ZERO, WORK, RWORK( 2*NRHS+1 ), INFO )
+                    cposvxx(FACT, UPLO, N, NRHS, A, LDA, AFAC, LDA, EQUED, S, B, LDA, X, LDA, RCOND, RPVGRW_SVXX, BERR, N_ERR_BNDS, ERRBNDS_N, ERRBNDS_C, 0, ZERO, WORK, RWORK( 2*NRHS+1 ), INFO );
 
                      // Check the error code from CPOSVXX.
 
                      IF( INFO.EQ.N+1 ) GOTO 90
                      if ( INFO.NE.IZERO ) {
-                        CALL ALAERH( PATH, 'CPOSVXX', INFO, IZERO, FACT // UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT )
+                        alaerh(PATH, 'CPOSVXX', INFO, IZERO, FACT // UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
                         GO TO 90
                      }
 
@@ -419,7 +419,7 @@
                            // Reconstruct matrix from factors and compute
                            // residual.
 
-                           CALL CPOT01( UPLO, N, A, LDA, AFAC, LDA, RWORK( 2*NRHS+1 ), RESULT( 1 ) )
+                           cpot01(UPLO, N, A, LDA, AFAC, LDA, RWORK( 2*NRHS+1 ), RESULT( 1 ) );
                            K1 = 1
                         } else {
                            K1 = 2
@@ -427,19 +427,19 @@
 
                         // Compute residual of the computed solution.
 
-                        CALL CLACPY( 'Full', N, NRHS, BSAV, LDA, WORK, LDA )                         CALL CPOT02( UPLO, N, NRHS, ASAV, LDA, X, LDA, WORK, LDA, RWORK( 2*NRHS+1 ), RESULT( 2 ) )
+                        clacpy('Full', N, NRHS, BSAV, LDA, WORK, LDA )                         CALL CPOT02( UPLO, N, NRHS, ASAV, LDA, X, LDA, WORK, LDA, RWORK( 2*NRHS+1 ), RESULT( 2 ) );
 
                         // Check solution from generated exact solution.
 
                         IF( NOFACT .OR. ( PREFAC .AND. LSAME( EQUED, 'N' ) ) ) THEN                            CALL CGET04( N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 3 ) )
                         } else {
-                           CALL CGET04( N, NRHS, X, LDA, XACT, LDA, ROLDC, RESULT( 3 ) )
+                           cget04(N, NRHS, X, LDA, XACT, LDA, ROLDC, RESULT( 3 ) );
                         }
 
                         // Check the error bounds from iterative
                         // refinement.
 
-                        CALL CPOT05( UPLO, N, NRHS, ASAV, LDA, B, LDA, X, LDA, XACT, LDA, RWORK, RWORK( NRHS+1 ), RESULT( 4 ) )
+                        cpot05(UPLO, N, NRHS, ASAV, LDA, B, LDA, X, LDA, XACT, LDA, RWORK, RWORK( NRHS+1 ), RESULT( 4 ) );
                      } else {
                         K1 = 6
                      }
@@ -472,12 +472,12 @@
 
       // Print a summary of the results.
 
-      CALL ALASVM( PATH, NOUT, NFAIL, NRUN, NERRS )
+      alasvm(PATH, NOUT, NFAIL, NRUN, NERRS );
 
 
       // Test Error Bounds for CGESVXX
 
-      CALL CEBCHVXX(THRESH, PATH)
+      cebchvxx(THRESH, PATH);
 
  9999 FORMAT( 1X, A, ', UPLO=''', A1, ''', N =', I5, ', type ', I1, ', test(', I1, ')=', G12.5 )
  9998 FORMAT( 1X, A, ', FACT=''', A1, ''', UPLO=''', A1, ''', N=', I5, ', type ', I1, ', test(', I1, ')=', G12.5 )

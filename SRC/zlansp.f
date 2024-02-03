@@ -108,12 +108,12 @@
          K = 2
          if ( LSAME( UPLO, 'U' ) ) {
             DO 110 J = 2, N
-               CALL ZLASSQ( J-1, AP( K ), 1, SCALE, SUM )
+               zlassq(J-1, AP( K ), 1, SCALE, SUM );
                K = K + J
   110       CONTINUE
          } else {
             DO 120 J = 1, N - 1
-               CALL ZLASSQ( N-J, AP( K ), 1, SCALE, SUM )
+               zlassq(N-J, AP( K ), 1, SCALE, SUM );
                K = K + N - J + 1
   120       CONTINUE
          }

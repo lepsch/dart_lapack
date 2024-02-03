@@ -45,22 +45,22 @@
 
       // Copy the first k columns of the factorization to the array Q
 
-      CALL DLASET( 'Full', M, N, ROGUE, ROGUE, Q, LDA )
-      CALL DLACPY( 'Lower', M-1, K, AF( 2, 1 ), LDA, Q( 2, 1 ), LDA )
+      dlaset('Full', M, N, ROGUE, ROGUE, Q, LDA );
+      dlacpy('Lower', M-1, K, AF( 2, 1 ), LDA, Q( 2, 1 ), LDA );
 
       // Generate the first n columns of the matrix Q
 
       SRNAMT = 'DORGQR'
-      CALL DORGQR( M, N, K, Q, LDA, TAU, WORK, LWORK, INFO )
+      dorgqr(M, N, K, Q, LDA, TAU, WORK, LWORK, INFO );
 
       // Copy R(1:n,1:k)
 
-      CALL DLASET( 'Full', N, K, ZERO, ZERO, R, LDA )
-      CALL DLACPY( 'Upper', N, K, AF, LDA, R, LDA )
+      dlaset('Full', N, K, ZERO, ZERO, R, LDA );
+      dlacpy('Upper', N, K, AF, LDA, R, LDA );
 
       // Compute R(1:n,1:k) - Q(1:m,1:n)' * A(1:m,1:k)
 
-      CALL DGEMM( 'Transpose', 'No transpose', N, K, M, -ONE, Q, LDA, A, LDA, ONE, R, LDA )
+      dgemm('Transpose', 'No transpose', N, K, M, -ONE, Q, LDA, A, LDA, ONE, R, LDA );
 
       // Compute norm( R - Q'*A ) / ( M * norm(A) * EPS ) .
 
@@ -74,8 +74,8 @@
 
       // Compute I - Q'*Q
 
-      CALL DLASET( 'Full', N, N, ZERO, ONE, R, LDA )
-      CALL DSYRK( 'Upper', 'Transpose', N, M, -ONE, Q, LDA, ONE, R, LDA )
+      dlaset('Full', N, N, ZERO, ONE, R, LDA );
+      dsyrk('Upper', 'Transpose', N, M, -ONE, Q, LDA, ONE, R, LDA );
 
       // Compute norm( I - Q'*Q ) / ( M * EPS ) .
 

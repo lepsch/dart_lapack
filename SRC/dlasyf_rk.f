@@ -79,7 +79,7 @@
 
          // Copy column K of A to column KW of W and update it
 
-         CALL DCOPY( K, A( 1, K ), 1, W( 1, KW ), 1 )
+         dcopy(K, A( 1, K ), 1, W( 1, KW ), 1 );
          IF( K.LT.N ) CALL DGEMV( 'No transpose', K, N-K, -ONE, A( 1, K+1 ), LDA, W( K, KW+1 ), LDW, ONE, W( 1, KW ), 1 )
 
          // Determine rows and columns to be interchanged and whether
@@ -104,7 +104,7 @@
 
             IF( INFO.EQ.0 ) INFO = K
             KP = K
-            CALL DCOPY( K, W( 1, KW ), 1, A( 1, K ), 1 )
+            dcopy(K, W( 1, KW ), 1, A( 1, K ), 1 );
 
             // Set E( K ) to zero
 
@@ -138,8 +138,8 @@
 
                   // Copy column IMAX to column KW-1 of W and update it
 
-                  CALL DCOPY( IMAX, A( 1, IMAX ), 1, W( 1, KW-1 ), 1 )
-                  CALL DCOPY( K-IMAX, A( IMAX, IMAX+1 ), LDA, W( IMAX+1, KW-1 ), 1 )
+                  dcopy(IMAX, A( 1, IMAX ), 1, W( 1, KW-1 ), 1 );
+                  dcopy(K-IMAX, A( IMAX, IMAX+1 ), LDA, W( IMAX+1, KW-1 ), 1 );
 
                   IF( K.LT.N ) CALL DGEMV( 'No transpose', K, N-K, -ONE, A( 1, K+1 ), LDA, W( IMAX, KW+1 ), LDW, ONE, W( 1, KW-1 ), 1 )
 
@@ -176,7 +176,7 @@
 
                      // copy column KW-1 of W to column KW of W
 
-                     CALL DCOPY( K, W( 1, KW-1 ), 1, W( 1, KW ), 1 )
+                     dcopy(K, W( 1, KW-1 ), 1, W( 1, KW ), 1 );
 
                      DONE = .TRUE.
 
@@ -201,7 +201,7 @@
 
                      // Copy updated JMAXth (next IMAXth) column to Kth of W
 
-                     CALL DCOPY( K, W( 1, KW-1 ), 1, W( 1, KW ), 1 )
+                     dcopy(K, W( 1, KW-1 ), 1, W( 1, KW ), 1 );
 
                   }
 
@@ -223,14 +223,14 @@
 
                // Copy non-updated column K to column P
 
-               CALL DCOPY( K-P, A( P+1, K ), 1, A( P, P+1 ), LDA )
-               CALL DCOPY( P, A( 1, K ), 1, A( 1, P ), 1 )
+               dcopy(K-P, A( P+1, K ), 1, A( P, P+1 ), LDA );
+               dcopy(P, A( 1, K ), 1, A( 1, P ), 1 );
 
                // Interchange rows K and P in last N-K+1 columns of A
                // and last N-K+2 columns of W
 
-               CALL DSWAP( N-K+1, A( K, K ), LDA, A( P, K ), LDA )
-               CALL DSWAP( N-KK+1, W( K, KKW ), LDW, W( P, KKW ), LDW )
+               dswap(N-K+1, A( K, K ), LDA, A( P, K ), LDA );
+               dswap(N-KK+1, W( K, KKW ), LDW, W( P, KKW ), LDW );
             }
 
             // Updated column KP is already stored in column KKW of W
@@ -240,14 +240,14 @@
                // Copy non-updated column KK to column KP
 
                A( KP, K ) = A( KK, K )
-               CALL DCOPY( K-1-KP, A( KP+1, KK ), 1, A( KP, KP+1 ), LDA )
-               CALL DCOPY( KP, A( 1, KK ), 1, A( 1, KP ), 1 )
+               dcopy(K-1-KP, A( KP+1, KK ), 1, A( KP, KP+1 ), LDA );
+               dcopy(KP, A( 1, KK ), 1, A( 1, KP ), 1 );
 
                // Interchange rows KK and KP in last N-KK+1 columns
                // of A and W
 
-               CALL DSWAP( N-KK+1, A( KK, KK ), LDA, A( KP, KK ), LDA )
-               CALL DSWAP( N-KK+1, W( KK, KKW ), LDW, W( KP, KKW ), LDW )
+               dswap(N-KK+1, A( KK, KK ), LDA, A( KP, KK ), LDA );
+               dswap(N-KK+1, W( KK, KKW ), LDW, W( KP, KKW ), LDW );
             }
 
             if ( KSTEP.EQ.1 ) {
@@ -260,11 +260,11 @@
 
                // Store U(k) in column k of A
 
-               CALL DCOPY( K, W( 1, KW ), 1, A( 1, K ), 1 )
+               dcopy(K, W( 1, KW ), 1, A( 1, K ), 1 );
                if ( K.GT.1 ) {
                   if ( ABS( A( K, K ) ).GE.SFMIN ) {
                      R1 = ONE / A( K, K )
-                     CALL DSCAL( K-1, R1, A( 1, K ), 1 )
+                     dscal(K-1, R1, A( 1, K ), 1 );
                   } else if ( A( K, K ).NE.ZERO ) {
                      DO 14 II = 1, K - 1
                         A( II, K ) = A( II, K ) / A( K, K )
@@ -344,7 +344,7 @@
             // Update the upper triangle of the diagonal block
 
             DO 40 JJ = J, J + JB - 1
-               CALL DGEMV( 'No transpose', JJ-J+1, N-K, -ONE, A( J, K+1 ), LDA, W( JJ, KW+1 ), LDW, ONE, A( J, JJ ), 1 )
+               dgemv('No transpose', JJ-J+1, N-K, -ONE, A( J, K+1 ), LDA, W( JJ, KW+1 ), LDW, ONE, A( J, JJ ), 1 );
    40       CONTINUE
 
             // Update the rectangular superdiagonal block
@@ -380,7 +380,7 @@
 
          // Copy column K of A to column K of W and update it
 
-         CALL DCOPY( N-K+1, A( K, K ), 1, W( K, K ), 1 )
+         dcopy(N-K+1, A( K, K ), 1, W( K, K ), 1 );
          IF( K.GT.1 ) CALL DGEMV( 'No transpose', N-K+1, K-1, -ONE, A( K, 1 ), LDA, W( K, 1 ), LDW, ONE, W( K, K ), 1 )
 
          // Determine rows and columns to be interchanged and whether
@@ -405,7 +405,7 @@
 
             IF( INFO.EQ.0 ) INFO = K
             KP = K
-            CALL DCOPY( N-K+1, W( K, K ), 1, A( K, K ), 1 )
+            dcopy(N-K+1, W( K, K ), 1, A( K, K ), 1 );
 
             // Set E( K ) to zero
 
@@ -439,8 +439,8 @@
 
                   // Copy column IMAX to column K+1 of W and update it
 
-                  CALL DCOPY( IMAX-K, A( IMAX, K ), LDA, W( K, K+1 ), 1)
-                  CALL DCOPY( N-IMAX+1, A( IMAX, IMAX ), 1, W( IMAX, K+1 ), 1 )                   IF( K.GT.1 ) CALL DGEMV( 'No transpose', N-K+1, K-1, -ONE, A( K, 1 ), LDA, W( IMAX, 1 ), LDW, ONE, W( K, K+1 ), 1 )
+                  dcopy(IMAX-K, A( IMAX, K ), LDA, W( K, K+1 ), 1);
+                  dcopy(N-IMAX+1, A( IMAX, IMAX ), 1, W( IMAX, K+1 ), 1 )                   IF( K.GT.1 ) CALL DGEMV( 'No transpose', N-K+1, K-1, -ONE, A( K, 1 ), LDA, W( IMAX, 1 ), LDW, ONE, W( K, K+1 ), 1 );
 
                   // JMAX is the column-index of the largest off-diagonal
                   // element in row IMAX, and ROWMAX is its absolute value.
@@ -475,7 +475,7 @@
 
                      // copy column K+1 of W to column K of W
 
-                     CALL DCOPY( N-K+1, W( K, K+1 ), 1, W( K, K ), 1 )
+                     dcopy(N-K+1, W( K, K+1 ), 1, W( K, K ), 1 );
 
                      DONE = .TRUE.
 
@@ -500,7 +500,7 @@
 
                      // Copy updated JMAXth (next IMAXth) column to Kth of W
 
-                     CALL DCOPY( N-K+1, W( K, K+1 ), 1, W( K, K ), 1 )
+                     dcopy(N-K+1, W( K, K+1 ), 1, W( K, K ), 1 );
 
                   }
 
@@ -518,14 +518,14 @@
 
                // Copy non-updated column K to column P
 
-               CALL DCOPY( P-K, A( K, K ), 1, A( P, K ), LDA )
-               CALL DCOPY( N-P+1, A( P, K ), 1, A( P, P ), 1 )
+               dcopy(P-K, A( K, K ), 1, A( P, K ), LDA );
+               dcopy(N-P+1, A( P, K ), 1, A( P, P ), 1 );
 
                // Interchange rows K and P in first K columns of A
                // and first K+1 columns of W
 
-               CALL DSWAP( K, A( K, 1 ), LDA, A( P, 1 ), LDA )
-               CALL DSWAP( KK, W( K, 1 ), LDW, W( P, 1 ), LDW )
+               dswap(K, A( K, 1 ), LDA, A( P, 1 ), LDA );
+               dswap(KK, W( K, 1 ), LDW, W( P, 1 ), LDW );
             }
 
             // Updated column KP is already stored in column KK of W
@@ -535,13 +535,13 @@
                // Copy non-updated column KK to column KP
 
                A( KP, K ) = A( KK, K )
-               CALL DCOPY( KP-K-1, A( K+1, KK ), 1, A( KP, K+1 ), LDA )
-               CALL DCOPY( N-KP+1, A( KP, KK ), 1, A( KP, KP ), 1 )
+               dcopy(KP-K-1, A( K+1, KK ), 1, A( KP, K+1 ), LDA );
+               dcopy(N-KP+1, A( KP, KK ), 1, A( KP, KP ), 1 );
 
                // Interchange rows KK and KP in first KK columns of A and W
 
-               CALL DSWAP( KK, A( KK, 1 ), LDA, A( KP, 1 ), LDA )
-               CALL DSWAP( KK, W( KK, 1 ), LDW, W( KP, 1 ), LDW )
+               dswap(KK, A( KK, 1 ), LDA, A( KP, 1 ), LDA );
+               dswap(KK, W( KK, 1 ), LDW, W( KP, 1 ), LDW );
             }
 
             if ( KSTEP.EQ.1 ) {
@@ -554,11 +554,11 @@
 
                // Store L(k) in column k of A
 
-               CALL DCOPY( N-K+1, W( K, K ), 1, A( K, K ), 1 )
+               dcopy(N-K+1, W( K, K ), 1, A( K, K ), 1 );
                if ( K.LT.N ) {
                   if ( ABS( A( K, K ) ).GE.SFMIN ) {
                      R1 = ONE / A( K, K )
-                     CALL DSCAL( N-K, R1, A( K+1, K ), 1 )
+                     dscal(N-K, R1, A( K+1, K ), 1 );
                   } else if ( A( K, K ).NE.ZERO ) {
                      DO 74 II = K + 1, N
                         A( II, K ) = A( II, K ) / A( K, K )
@@ -637,7 +637,7 @@
             // Update the lower triangle of the diagonal block
 
             DO 100 JJ = J, J + JB - 1
-               CALL DGEMV( 'No transpose', J+JB-JJ, K-1, -ONE, A( JJ, 1 ), LDA, W( JJ, 1 ), LDW, ONE, A( JJ, JJ ), 1 )
+               dgemv('No transpose', J+JB-JJ, K-1, -ONE, A( JJ, 1 ), LDA, W( JJ, 1 ), LDW, ONE, A( JJ, JJ ), 1 );
   100       CONTINUE
 
             // Update the rectangular subdiagonal block

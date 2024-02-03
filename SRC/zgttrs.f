@@ -43,7 +43,7 @@
          INFO = -10
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'ZGTTRS', -INFO )
+         xerbla('ZGTTRS', -INFO );
          RETURN
       }
 
@@ -70,11 +70,11 @@
       }
 
       if ( NB.GE.NRHS ) {
-         CALL ZGTTS2( ITRANS, N, NRHS, DL, D, DU, DU2, IPIV, B, LDB )
+         zgtts2(ITRANS, N, NRHS, DL, D, DU, DU2, IPIV, B, LDB );
       } else {
          DO 10 J = 1, NRHS, NB
             JB = MIN( NRHS-J+1, NB )
-            CALL ZGTTS2( ITRANS, N, JB, DL, D, DU, DU2, IPIV, B( 1, J ), LDB )
+            zgtts2(ITRANS, N, JB, DL, D, DU, DU2, IPIV, B( 1, J ), LDB );
    10    CONTINUE
       }
 

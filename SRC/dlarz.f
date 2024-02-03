@@ -36,20 +36,20 @@
 
             // w( 1:n ) = C( 1, 1:n )
 
-            CALL DCOPY( N, C, LDC, WORK, 1 )
+            dcopy(N, C, LDC, WORK, 1 );
 
             // w( 1:n ) = w( 1:n ) + C( m-l+1:m, 1:n )**T * v( 1:l )
 
-            CALL DGEMV( 'Transpose', L, N, ONE, C( M-L+1, 1 ), LDC, V, INCV, ONE, WORK, 1 )
+            dgemv('Transpose', L, N, ONE, C( M-L+1, 1 ), LDC, V, INCV, ONE, WORK, 1 );
 
             // C( 1, 1:n ) = C( 1, 1:n ) - tau * w( 1:n )
 
-            CALL DAXPY( N, -TAU, WORK, 1, C, LDC )
+            daxpy(N, -TAU, WORK, 1, C, LDC );
 
             // C( m-l+1:m, 1:n ) = C( m-l+1:m, 1:n ) - ...
                                 // tau * v( 1:l ) * w( 1:n )**T
 
-            CALL DGER( L, N, -TAU, V, INCV, WORK, 1, C( M-L+1, 1 ), LDC )
+            dger(L, N, -TAU, V, INCV, WORK, 1, C( M-L+1, 1 ), LDC );
          }
 
       } else {
@@ -60,20 +60,20 @@
 
             // w( 1:m ) = C( 1:m, 1 )
 
-            CALL DCOPY( M, C, 1, WORK, 1 )
+            dcopy(M, C, 1, WORK, 1 );
 
             // w( 1:m ) = w( 1:m ) + C( 1:m, n-l+1:n, 1:n ) * v( 1:l )
 
-            CALL DGEMV( 'No transpose', M, L, ONE, C( 1, N-L+1 ), LDC, V, INCV, ONE, WORK, 1 )
+            dgemv('No transpose', M, L, ONE, C( 1, N-L+1 ), LDC, V, INCV, ONE, WORK, 1 );
 
             // C( 1:m, 1 ) = C( 1:m, 1 ) - tau * w( 1:m )
 
-            CALL DAXPY( M, -TAU, WORK, 1, C, 1 )
+            daxpy(M, -TAU, WORK, 1, C, 1 );
 
             // C( 1:m, n-l+1:n ) = C( 1:m, n-l+1:n ) - ...
                                 // tau * w( 1:m ) * v( 1:l )**T
 
-            CALL DGER( M, L, -TAU, WORK, 1, V, INCV, C( 1, N-L+1 ), LDC )
+            dger(M, L, -TAU, WORK, 1, V, INCV, C( 1, N-L+1 ), LDC );
 
          }
 

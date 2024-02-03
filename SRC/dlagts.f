@@ -42,7 +42,7 @@
          INFO = -2
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'DLAGTS', -INFO )
+         xerbla('DLAGTS', -INFO );
          RETURN
       }
 

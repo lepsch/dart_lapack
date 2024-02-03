@@ -66,7 +66,7 @@
          INFO = -5
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'ZGECON', -INFO )
+         xerbla('ZGECON', -INFO );
          RETURN
       }
 
@@ -100,26 +100,26 @@
       }
       KASE = 0
    10 CONTINUE
-      CALL ZLACN2( N, WORK( N+1 ), WORK, AINVNM, KASE, ISAVE )
+      zlacn2(N, WORK( N+1 ), WORK, AINVNM, KASE, ISAVE );
       if ( KASE.NE.0 ) {
          if ( KASE.EQ.KASE1 ) {
 
             // Multiply by inv(L).
 
-            CALL ZLATRS( 'Lower', 'No transpose', 'Unit', NORMIN, N, A, LDA, WORK, SL, RWORK, INFO )
+            zlatrs('Lower', 'No transpose', 'Unit', NORMIN, N, A, LDA, WORK, SL, RWORK, INFO );
 
             // Multiply by inv(U).
 
-            CALL ZLATRS( 'Upper', 'No transpose', 'Non-unit', NORMIN, N, A, LDA, WORK, SU, RWORK( N+1 ), INFO )
+            zlatrs('Upper', 'No transpose', 'Non-unit', NORMIN, N, A, LDA, WORK, SU, RWORK( N+1 ), INFO );
          } else {
 
             // Multiply by inv(U**H).
 
-            CALL ZLATRS( 'Upper', 'Conjugate transpose', 'Non-unit', NORMIN, N, A, LDA, WORK, SU, RWORK( N+1 ), INFO )
+            zlatrs('Upper', 'Conjugate transpose', 'Non-unit', NORMIN, N, A, LDA, WORK, SU, RWORK( N+1 ), INFO );
 
             // Multiply by inv(L**H).
 
-            CALL ZLATRS( 'Lower', 'Conjugate transpose', 'Unit', NORMIN, N, A, LDA, WORK, SL, RWORK, INFO )
+            zlatrs('Lower', 'Conjugate transpose', 'Unit', NORMIN, N, A, LDA, WORK, SL, RWORK, INFO );
          }
 
          // Divide X by 1/(SL*SU) if doing so will not cause overflow.
@@ -129,7 +129,7 @@
          if ( SCALE.NE.ONE ) {
             IX = IZAMAX( N, WORK, 1 )
             IF( SCALE.LT.CABS1( WORK( IX ) )*SMLNUM .OR. SCALE.EQ.ZERO ) GO TO 20
-            CALL ZDRSCL( N, SCALE, WORK, 1 )
+            zdrscl(N, SCALE, WORK, 1 );
          }
          GO TO 10
       }

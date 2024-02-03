@@ -46,7 +46,7 @@
          INFO = -12
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'DLAED7', -INFO )
+         xerbla('DLAED7', -INFO );
          RETURN
       }
 
@@ -83,7 +83,7 @@
          PTR = PTR + 2**( TLVLS-I )
    10 CONTINUE
       CURR = PTR + CURPBM
-      CALL DLAEDA( N, TLVLS, CURLVL, CURPBM, PRMPTR, PERM, GIVPTR, GIVCOL, GIVNUM, QSTORE, QPTR, WORK( IZ ), WORK( IZ+N ), INFO )
+      dlaeda(N, TLVLS, CURLVL, CURPBM, PRMPTR, PERM, GIVPTR, GIVCOL, GIVNUM, QSTORE, QPTR, WORK( IZ ), WORK( IZ+N ), INFO );
 
       // When solving the final problem, we no longer need the stored data,
       // so we will overwrite the data from this level onto the previously
@@ -97,7 +97,7 @@
 
       // Sort and Deflate eigenvalues.
 
-      CALL DLAED8( ICOMPQ, K, N, QSIZ, D, Q, LDQ, INDXQ, RHO, CUTPNT, WORK( IZ ), WORK( IDLMDA ), WORK( IQ2 ), LDQ2, WORK( IW ), PERM( PRMPTR( CURR ) ), GIVPTR( CURR+1 ), GIVCOL( 1, GIVPTR( CURR ) ), GIVNUM( 1, GIVPTR( CURR ) ), IWORK( INDXP ), IWORK( INDX ), INFO )
+      dlaed8(ICOMPQ, K, N, QSIZ, D, Q, LDQ, INDXQ, RHO, CUTPNT, WORK( IZ ), WORK( IDLMDA ), WORK( IQ2 ), LDQ2, WORK( IW ), PERM( PRMPTR( CURR ) ), GIVPTR( CURR+1 ), GIVCOL( 1, GIVPTR( CURR ) ), GIVNUM( 1, GIVPTR( CURR ) ), IWORK( INDXP ), IWORK( INDX ), INFO );
       PRMPTR( CURR+1 ) = PRMPTR( CURR ) + N
       GIVPTR( CURR+1 ) = GIVPTR( CURR+1 ) + GIVPTR( CURR )
 
@@ -106,7 +106,7 @@
       if ( K.NE.0 ) {
          CALL DLAED9( K, 1, K, N, D, WORK( IS ), K, RHO, WORK( IDLMDA ), WORK( IW ), QSTORE( QPTR( CURR ) ), K, INFO )          IF( INFO.NE.0 ) GO TO 30
          if ( ICOMPQ.EQ.1 ) {
-            CALL DGEMM( 'N', 'N', QSIZ, K, K, ONE, WORK( IQ2 ), LDQ2, QSTORE( QPTR( CURR ) ), K, ZERO, Q, LDQ )
+            dgemm('N', 'N', QSIZ, K, K, ONE, WORK( IQ2 ), LDQ2, QSTORE( QPTR( CURR ) ), K, ZERO, Q, LDQ );
          }
          QPTR( CURR+1 ) = QPTR( CURR ) + K**2
 
@@ -114,7 +114,7 @@
 
          N1 = K
          N2 = N - K
-         CALL DLAMRG( N1, N2, D, 1, -1, INDXQ )
+         dlamrg(N1, N2, D, 1, -1, INDXQ );
       } else {
          QPTR( CURR+1 ) = QPTR( CURR )
          DO 20 I = 1, N

@@ -46,7 +46,7 @@
          INFO = -2
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'CPPTRF', -INFO )
+         xerbla('CPPTRF', -INFO );
          RETURN
       }
 
@@ -97,8 +97,8 @@
             // submatrix.
 
             if ( J.LT.N ) {
-               CALL CSSCAL( N-J, ONE / AJJ, AP( JJ+1 ), 1 )
-               CALL CHPR( 'Lower', N-J, -ONE, AP( JJ+1 ), 1, AP( JJ+N-J+1 ) )
+               csscal(N-J, ONE / AJJ, AP( JJ+1 ), 1 );
+               chpr('Lower', N-J, -ONE, AP( JJ+1 ), 1, AP( JJ+N-J+1 ) );
                JJ = JJ + N - J + 1
             }
    20    CONTINUE

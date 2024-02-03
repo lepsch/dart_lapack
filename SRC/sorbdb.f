@@ -91,7 +91,7 @@
          }
       }
       if ( INFO .NE. 0 ) {
-         CALL XERBLA( 'xORBDB', -INFO )
+         xerbla('xORBDB', -INFO );
          RETURN
       } else if ( LQUERY ) {
          RETURN
@@ -106,79 +106,79 @@
          DO I = 1, Q
 
             if ( I .EQ. 1 ) {
-               CALL SSCAL( P-I+1, Z1, X11(I,I), 1 )
+               sscal(P-I+1, Z1, X11(I,I), 1 );
             } else {
-               CALL SSCAL( P-I+1, Z1*COS(PHI(I-1)), X11(I,I), 1 )
-               CALL SAXPY( P-I+1, -Z1*Z3*Z4*SIN(PHI(I-1)), X12(I,I-1), 1, X11(I,I), 1 )
+               sscal(P-I+1, Z1*COS(PHI(I-1)), X11(I,I), 1 );
+               saxpy(P-I+1, -Z1*Z3*Z4*SIN(PHI(I-1)), X12(I,I-1), 1, X11(I,I), 1 );
             }
             if ( I .EQ. 1 ) {
-               CALL SSCAL( M-P-I+1, Z2, X21(I,I), 1 )
+               sscal(M-P-I+1, Z2, X21(I,I), 1 );
             } else {
-               CALL SSCAL( M-P-I+1, Z2*COS(PHI(I-1)), X21(I,I), 1 )
-               CALL SAXPY( M-P-I+1, -Z2*Z3*Z4*SIN(PHI(I-1)), X22(I,I-1), 1, X21(I,I), 1 )
+               sscal(M-P-I+1, Z2*COS(PHI(I-1)), X21(I,I), 1 );
+               saxpy(M-P-I+1, -Z2*Z3*Z4*SIN(PHI(I-1)), X22(I,I-1), 1, X21(I,I), 1 );
             }
 
             THETA(I) = ATAN2( SNRM2( M-P-I+1, X21(I,I), 1 ), SNRM2( P-I+1, X11(I,I), 1 ) )
 
             if ( P .GT. I ) {
-               CALL SLARFGP( P-I+1, X11(I,I), X11(I+1,I), 1, TAUP1(I) )
+               slarfgp(P-I+1, X11(I,I), X11(I+1,I), 1, TAUP1(I) );
             } else if ( P .EQ. I ) {
-               CALL SLARFGP( P-I+1, X11(I,I), X11(I,I), 1, TAUP1(I) )
+               slarfgp(P-I+1, X11(I,I), X11(I,I), 1, TAUP1(I) );
             }
             X11(I,I) = ONE
             if ( M-P .GT. I ) {
-               CALL SLARFGP( M-P-I+1, X21(I,I), X21(I+1,I), 1, TAUP2(I) )
+               slarfgp(M-P-I+1, X21(I,I), X21(I+1,I), 1, TAUP2(I) );
             } else if ( M-P .EQ. I ) {
-               CALL SLARFGP( M-P-I+1, X21(I,I), X21(I,I), 1, TAUP2(I) )
+               slarfgp(M-P-I+1, X21(I,I), X21(I,I), 1, TAUP2(I) );
             }
             X21(I,I) = ONE
 
             if ( Q .GT. I ) {
-               CALL SLARF( 'L', P-I+1, Q-I, X11(I,I), 1, TAUP1(I), X11(I,I+1), LDX11, WORK )
+               slarf('L', P-I+1, Q-I, X11(I,I), 1, TAUP1(I), X11(I,I+1), LDX11, WORK );
             }
             if ( M-Q+1 .GT. I ) {
-               CALL SLARF( 'L', P-I+1, M-Q-I+1, X11(I,I), 1, TAUP1(I), X12(I,I), LDX12, WORK )
+               slarf('L', P-I+1, M-Q-I+1, X11(I,I), 1, TAUP1(I), X12(I,I), LDX12, WORK );
             }
             if ( Q .GT. I ) {
-               CALL SLARF( 'L', M-P-I+1, Q-I, X21(I,I), 1, TAUP2(I), X21(I,I+1), LDX21, WORK )
+               slarf('L', M-P-I+1, Q-I, X21(I,I), 1, TAUP2(I), X21(I,I+1), LDX21, WORK );
             }
             if ( M-Q+1 .GT. I ) {
-               CALL SLARF( 'L', M-P-I+1, M-Q-I+1, X21(I,I), 1, TAUP2(I), X22(I,I), LDX22, WORK )
+               slarf('L', M-P-I+1, M-Q-I+1, X21(I,I), 1, TAUP2(I), X22(I,I), LDX22, WORK );
             }
 
             if ( I .LT. Q ) {
-               CALL SSCAL( Q-I, -Z1*Z3*SIN(THETA(I)), X11(I,I+1), LDX11 )                CALL SAXPY( Q-I, Z2*Z3*COS(THETA(I)), X21(I,I+1), LDX21, X11(I,I+1), LDX11 )
+               sscal(Q-I, -Z1*Z3*SIN(THETA(I)), X11(I,I+1), LDX11 )                CALL SAXPY( Q-I, Z2*Z3*COS(THETA(I)), X21(I,I+1), LDX21, X11(I,I+1), LDX11 );
             }
-            CALL SSCAL( M-Q-I+1, -Z1*Z4*SIN(THETA(I)), X12(I,I), LDX12 )
-            CALL SAXPY( M-Q-I+1, Z2*Z4*COS(THETA(I)), X22(I,I), LDX22, X12(I,I), LDX12 )
+            sscal(M-Q-I+1, -Z1*Z4*SIN(THETA(I)), X12(I,I), LDX12 );
+            saxpy(M-Q-I+1, Z2*Z4*COS(THETA(I)), X22(I,I), LDX22, X12(I,I), LDX12 );
 
             IF( I .LT. Q ) PHI(I) = ATAN2( SNRM2( Q-I, X11(I,I+1), LDX11 ), SNRM2( M-Q-I+1, X12(I,I), LDX12 ) )
 
             if ( I .LT. Q ) {
                if ( Q-I .EQ. 1 ) {
-                  CALL SLARFGP( Q-I, X11(I,I+1), X11(I,I+1), LDX11, TAUQ1(I) )
+                  slarfgp(Q-I, X11(I,I+1), X11(I,I+1), LDX11, TAUQ1(I) );
                } else {
-                  CALL SLARFGP( Q-I, X11(I,I+1), X11(I,I+2), LDX11, TAUQ1(I) )
+                  slarfgp(Q-I, X11(I,I+1), X11(I,I+2), LDX11, TAUQ1(I) );
                }
                X11(I,I+1) = ONE
             }
             if ( Q+I-1 .LT. M ) {
                if ( M-Q .EQ. I ) {
-                  CALL SLARFGP( M-Q-I+1, X12(I,I), X12(I,I), LDX12, TAUQ2(I) )
+                  slarfgp(M-Q-I+1, X12(I,I), X12(I,I), LDX12, TAUQ2(I) );
                } else {
-                  CALL SLARFGP( M-Q-I+1, X12(I,I), X12(I,I+1), LDX12, TAUQ2(I) )
+                  slarfgp(M-Q-I+1, X12(I,I), X12(I,I+1), LDX12, TAUQ2(I) );
                }
             }
             X12(I,I) = ONE
 
             if ( I .LT. Q ) {
-               CALL SLARF( 'R', P-I, Q-I, X11(I,I+1), LDX11, TAUQ1(I), X11(I+1,I+1), LDX11, WORK )                CALL SLARF( 'R', M-P-I, Q-I, X11(I,I+1), LDX11, TAUQ1(I), X21(I+1,I+1), LDX21, WORK )
+               slarf('R', P-I, Q-I, X11(I,I+1), LDX11, TAUQ1(I), X11(I+1,I+1), LDX11, WORK )                CALL SLARF( 'R', M-P-I, Q-I, X11(I,I+1), LDX11, TAUQ1(I), X21(I+1,I+1), LDX21, WORK );
             }
             if ( P .GT. I ) {
-               CALL SLARF( 'R', P-I, M-Q-I+1, X12(I,I), LDX12, TAUQ2(I), X12(I+1,I), LDX12, WORK )
+               slarf('R', P-I, M-Q-I+1, X12(I,I), LDX12, TAUQ2(I), X12(I+1,I), LDX12, WORK );
             }
             if ( M-P .GT. I ) {
-               CALL SLARF( 'R', M-P-I, M-Q-I+1, X12(I,I), LDX12, TAUQ2(I), X22(I+1,I), LDX22, WORK )
+               slarf('R', M-P-I, M-Q-I+1, X12(I,I), LDX12, TAUQ2(I), X22(I+1,I), LDX22, WORK );
             }
 
          END DO
@@ -187,16 +187,16 @@
 
          DO I = Q + 1, P
 
-            CALL SSCAL( M-Q-I+1, -Z1*Z4, X12(I,I), LDX12 )
+            sscal(M-Q-I+1, -Z1*Z4, X12(I,I), LDX12 );
             if ( I .GE. M-Q ) {
-               CALL SLARFGP( M-Q-I+1, X12(I,I), X12(I,I), LDX12, TAUQ2(I) )
+               slarfgp(M-Q-I+1, X12(I,I), X12(I,I), LDX12, TAUQ2(I) );
             } else {
-               CALL SLARFGP( M-Q-I+1, X12(I,I), X12(I,I+1), LDX12, TAUQ2(I) )
+               slarfgp(M-Q-I+1, X12(I,I), X12(I,I+1), LDX12, TAUQ2(I) );
             }
             X12(I,I) = ONE
 
             if ( P .GT. I ) {
-               CALL SLARF( 'R', P-I, M-Q-I+1, X12(I,I), LDX12, TAUQ2(I), X12(I+1,I), LDX12, WORK )
+               slarf('R', P-I, M-Q-I+1, X12(I,I), LDX12, TAUQ2(I), X12(I+1,I), LDX12, WORK );
             }
             IF( M-P-Q .GE. 1 ) CALL SLARF( 'R', M-P-Q, M-Q-I+1, X12(I,I), LDX12, TAUQ2(I), X22(Q+1,I), LDX22, WORK )
 
@@ -206,15 +206,15 @@
 
          DO I = 1, M - P - Q
 
-            CALL SSCAL( M-P-Q-I+1, Z2*Z4, X22(Q+I,P+I), LDX22 )
+            sscal(M-P-Q-I+1, Z2*Z4, X22(Q+I,P+I), LDX22 );
             if ( I .EQ. M-P-Q ) {
-               CALL SLARFGP( M-P-Q-I+1, X22(Q+I,P+I), X22(Q+I,P+I), LDX22, TAUQ2(P+I) )
+               slarfgp(M-P-Q-I+1, X22(Q+I,P+I), X22(Q+I,P+I), LDX22, TAUQ2(P+I) );
             } else {
-               CALL SLARFGP( M-P-Q-I+1, X22(Q+I,P+I), X22(Q+I,P+I+1), LDX22, TAUQ2(P+I) )
+               slarfgp(M-P-Q-I+1, X22(Q+I,P+I), X22(Q+I,P+I+1), LDX22, TAUQ2(P+I) );
             }
             X22(Q+I,P+I) = ONE
             if ( I .LT. M-P-Q ) {
-               CALL SLARF( 'R', M-P-Q-I, M-P-Q-I+1, X22(Q+I,P+I), LDX22, TAUQ2(P+I), X22(Q+I+1,P+I), LDX22, WORK )
+               slarf('R', M-P-Q-I, M-P-Q-I+1, X22(Q+I,P+I), LDX22, TAUQ2(P+I), X22(Q+I+1,P+I), LDX22, WORK );
             }
 
          END DO
@@ -226,72 +226,72 @@
          DO I = 1, Q
 
             if ( I .EQ. 1 ) {
-               CALL SSCAL( P-I+1, Z1, X11(I,I), LDX11 )
+               sscal(P-I+1, Z1, X11(I,I), LDX11 );
             } else {
-               CALL SSCAL( P-I+1, Z1*COS(PHI(I-1)), X11(I,I), LDX11 )
-               CALL SAXPY( P-I+1, -Z1*Z3*Z4*SIN(PHI(I-1)), X12(I-1,I), LDX12, X11(I,I), LDX11 )
+               sscal(P-I+1, Z1*COS(PHI(I-1)), X11(I,I), LDX11 );
+               saxpy(P-I+1, -Z1*Z3*Z4*SIN(PHI(I-1)), X12(I-1,I), LDX12, X11(I,I), LDX11 );
             }
             if ( I .EQ. 1 ) {
-               CALL SSCAL( M-P-I+1, Z2, X21(I,I), LDX21 )
+               sscal(M-P-I+1, Z2, X21(I,I), LDX21 );
             } else {
-               CALL SSCAL( M-P-I+1, Z2*COS(PHI(I-1)), X21(I,I), LDX21 )
-               CALL SAXPY( M-P-I+1, -Z2*Z3*Z4*SIN(PHI(I-1)), X22(I-1,I), LDX22, X21(I,I), LDX21 )
+               sscal(M-P-I+1, Z2*COS(PHI(I-1)), X21(I,I), LDX21 );
+               saxpy(M-P-I+1, -Z2*Z3*Z4*SIN(PHI(I-1)), X22(I-1,I), LDX22, X21(I,I), LDX21 );
             }
 
             THETA(I) = ATAN2( SNRM2( M-P-I+1, X21(I,I), LDX21 ), SNRM2( P-I+1, X11(I,I), LDX11 ) )
 
-            CALL SLARFGP( P-I+1, X11(I,I), X11(I,I+1), LDX11, TAUP1(I) )
+            slarfgp(P-I+1, X11(I,I), X11(I,I+1), LDX11, TAUP1(I) );
             X11(I,I) = ONE
             if ( I .EQ. M-P ) {
-               CALL SLARFGP( M-P-I+1, X21(I,I), X21(I,I), LDX21, TAUP2(I) )
+               slarfgp(M-P-I+1, X21(I,I), X21(I,I), LDX21, TAUP2(I) );
             } else {
-               CALL SLARFGP( M-P-I+1, X21(I,I), X21(I,I+1), LDX21, TAUP2(I) )
+               slarfgp(M-P-I+1, X21(I,I), X21(I,I+1), LDX21, TAUP2(I) );
             }
             X21(I,I) = ONE
 
             if ( Q .GT. I ) {
-               CALL SLARF( 'R', Q-I, P-I+1, X11(I,I), LDX11, TAUP1(I), X11(I+1,I), LDX11, WORK )
+               slarf('R', Q-I, P-I+1, X11(I,I), LDX11, TAUP1(I), X11(I+1,I), LDX11, WORK );
             }
             if ( M-Q+1 .GT. I ) {
-               CALL SLARF( 'R', M-Q-I+1, P-I+1, X11(I,I), LDX11, TAUP1(I), X12(I,I), LDX12, WORK )
+               slarf('R', M-Q-I+1, P-I+1, X11(I,I), LDX11, TAUP1(I), X12(I,I), LDX12, WORK );
             }
             if ( Q .GT. I ) {
-               CALL SLARF( 'R', Q-I, M-P-I+1, X21(I,I), LDX21, TAUP2(I), X21(I+1,I), LDX21, WORK )
+               slarf('R', Q-I, M-P-I+1, X21(I,I), LDX21, TAUP2(I), X21(I+1,I), LDX21, WORK );
             }
             if ( M-Q+1 .GT. I ) {
-               CALL SLARF( 'R', M-Q-I+1, M-P-I+1, X21(I,I), LDX21, TAUP2(I), X22(I,I), LDX22, WORK )
+               slarf('R', M-Q-I+1, M-P-I+1, X21(I,I), LDX21, TAUP2(I), X22(I,I), LDX22, WORK );
             }
 
             if ( I .LT. Q ) {
-               CALL SSCAL( Q-I, -Z1*Z3*SIN(THETA(I)), X11(I+1,I), 1 )
-               CALL SAXPY( Q-I, Z2*Z3*COS(THETA(I)), X21(I+1,I), 1, X11(I+1,I), 1 )
+               sscal(Q-I, -Z1*Z3*SIN(THETA(I)), X11(I+1,I), 1 );
+               saxpy(Q-I, Z2*Z3*COS(THETA(I)), X21(I+1,I), 1, X11(I+1,I), 1 );
             }
-            CALL SSCAL( M-Q-I+1, -Z1*Z4*SIN(THETA(I)), X12(I,I), 1 )
-            CALL SAXPY( M-Q-I+1, Z2*Z4*COS(THETA(I)), X22(I,I), 1, X12(I,I), 1 )
+            sscal(M-Q-I+1, -Z1*Z4*SIN(THETA(I)), X12(I,I), 1 );
+            saxpy(M-Q-I+1, Z2*Z4*COS(THETA(I)), X22(I,I), 1, X12(I,I), 1 );
 
             IF( I .LT. Q ) PHI(I) = ATAN2( SNRM2( Q-I, X11(I+1,I), 1 ), SNRM2( M-Q-I+1, X12(I,I), 1 ) )
 
             if ( I .LT. Q ) {
                if ( Q-I .EQ. 1) {
-                  CALL SLARFGP( Q-I, X11(I+1,I), X11(I+1,I), 1, TAUQ1(I) )
+                  slarfgp(Q-I, X11(I+1,I), X11(I+1,I), 1, TAUQ1(I) );
                } else {
-                  CALL SLARFGP( Q-I, X11(I+1,I), X11(I+2,I), 1, TAUQ1(I) )
+                  slarfgp(Q-I, X11(I+1,I), X11(I+2,I), 1, TAUQ1(I) );
                }
                X11(I+1,I) = ONE
             }
             if ( M-Q .GT. I ) {
-               CALL SLARFGP( M-Q-I+1, X12(I,I), X12(I+1,I), 1, TAUQ2(I) )
+               slarfgp(M-Q-I+1, X12(I,I), X12(I+1,I), 1, TAUQ2(I) );
             } else {
-               CALL SLARFGP( M-Q-I+1, X12(I,I), X12(I,I), 1, TAUQ2(I) )
+               slarfgp(M-Q-I+1, X12(I,I), X12(I,I), 1, TAUQ2(I) );
             }
             X12(I,I) = ONE
 
             if ( I .LT. Q ) {
-               CALL SLARF( 'L', Q-I, P-I, X11(I+1,I), 1, TAUQ1(I), X11(I+1,I+1), LDX11, WORK )                CALL SLARF( 'L', Q-I, M-P-I, X11(I+1,I), 1, TAUQ1(I), X21(I+1,I+1), LDX21, WORK )
+               slarf('L', Q-I, P-I, X11(I+1,I), 1, TAUQ1(I), X11(I+1,I+1), LDX11, WORK )                CALL SLARF( 'L', Q-I, M-P-I, X11(I+1,I), 1, TAUQ1(I), X21(I+1,I+1), LDX21, WORK );
             }
-            CALL SLARF( 'L', M-Q-I+1, P-I, X12(I,I), 1, TAUQ2(I), X12(I,I+1), LDX12, WORK )
+            slarf('L', M-Q-I+1, P-I, X12(I,I), 1, TAUQ2(I), X12(I,I+1), LDX12, WORK );
             if ( M-P-I .GT. 0 ) {
-               CALL SLARF( 'L', M-Q-I+1, M-P-I, X12(I,I), 1, TAUQ2(I), X22(I,I+1), LDX22, WORK )
+               slarf('L', M-Q-I+1, M-P-I, X12(I,I), 1, TAUQ2(I), X22(I,I+1), LDX22, WORK );
             }
 
          END DO
@@ -300,12 +300,12 @@
 
          DO I = Q + 1, P
 
-            CALL SSCAL( M-Q-I+1, -Z1*Z4, X12(I,I), 1 )
-            CALL SLARFGP( M-Q-I+1, X12(I,I), X12(I+1,I), 1, TAUQ2(I) )
+            sscal(M-Q-I+1, -Z1*Z4, X12(I,I), 1 );
+            slarfgp(M-Q-I+1, X12(I,I), X12(I+1,I), 1, TAUQ2(I) );
             X12(I,I) = ONE
 
             if ( P .GT. I ) {
-               CALL SLARF( 'L', M-Q-I+1, P-I, X12(I,I), 1, TAUQ2(I), X12(I,I+1), LDX12, WORK )
+               slarf('L', M-Q-I+1, P-I, X12(I,I), 1, TAUQ2(I), X12(I,I+1), LDX12, WORK );
             }
             IF( M-P-Q .GE. 1 ) CALL SLARF( 'L', M-Q-I+1, M-P-Q, X12(I,I), 1, TAUQ2(I), X22(I,Q+1), LDX22, WORK )
 
@@ -315,14 +315,14 @@
 
          DO I = 1, M - P - Q
 
-            CALL SSCAL( M-P-Q-I+1, Z2*Z4, X22(P+I,Q+I), 1 )
+            sscal(M-P-Q-I+1, Z2*Z4, X22(P+I,Q+I), 1 );
             if ( M-P-Q .EQ. I ) {
-               CALL SLARFGP( M-P-Q-I+1, X22(P+I,Q+I), X22(P+I,Q+I), 1, TAUQ2(P+I) )
+               slarfgp(M-P-Q-I+1, X22(P+I,Q+I), X22(P+I,Q+I), 1, TAUQ2(P+I) );
                X22(P+I,Q+I) = ONE
             } else {
-               CALL SLARFGP( M-P-Q-I+1, X22(P+I,Q+I), X22(P+I+1,Q+I), 1, TAUQ2(P+I) )
+               slarfgp(M-P-Q-I+1, X22(P+I,Q+I), X22(P+I+1,Q+I), 1, TAUQ2(P+I) );
                X22(P+I,Q+I) = ONE
-               CALL SLARF( 'L', M-P-Q-I+1, M-P-Q-I, X22(P+I,Q+I), 1, TAUQ2(P+I), X22(P+I,Q+I+1), LDX22, WORK )
+               slarf('L', M-P-Q-I+1, M-P-Q-I, X22(P+I,Q+I), 1, TAUQ2(P+I), X22(P+I,Q+I+1), LDX22, WORK );
             }
 
 

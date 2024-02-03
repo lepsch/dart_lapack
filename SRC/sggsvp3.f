@@ -81,7 +81,7 @@
       // Compute workspace
 
       if ( INFO.EQ.0 ) {
-         CALL SGEQP3( P, N, B, LDB, IWORK, TAU, WORK, -1, INFO )
+         sgeqp3(P, N, B, LDB, IWORK, TAU, WORK, -1, INFO );
          LWKOPT = INT( WORK ( 1 ) )
          if ( WANTV ) {
             LWKOPT = MAX( LWKOPT, P )
@@ -91,14 +91,14 @@
          if ( WANTQ ) {
             LWKOPT = MAX( LWKOPT, N )
          }
-         CALL SGEQP3( M, N, A, LDA, IWORK, TAU, WORK, -1, INFO )
+         sgeqp3(M, N, A, LDA, IWORK, TAU, WORK, -1, INFO );
          LWKOPT = MAX( LWKOPT, INT( WORK ( 1 ) ) )
          LWKOPT = MAX( 1, LWKOPT )
          WORK( 1 ) = SROUNDUP_LWORK( LWKOPT )
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'SGGSVP3', -INFO )
+         xerbla('SGGSVP3', -INFO );
          RETURN
       }
       if ( LQUERY ) {
@@ -111,11 +111,11 @@
       DO 10 I = 1, N
          IWORK( I ) = 0
    10 CONTINUE
-      CALL SGEQP3( P, N, B, LDB, IWORK, TAU, WORK, LWORK, INFO )
+      sgeqp3(P, N, B, LDB, IWORK, TAU, WORK, LWORK, INFO );
 
       // Update A := A*P
 
-      CALL SLAPMT( FORWRD, M, N, A, LDA, IWORK )
+      slapmt(FORWRD, M, N, A, LDA, IWORK );
 
       // Determine the effective rank of matrix B.
 
@@ -128,9 +128,9 @@
 
          // Copy the details of V, and form V.
 
-         CALL SLASET( 'Full', P, P, ZERO, ZERO, V, LDV )
+         slaset('Full', P, P, ZERO, ZERO, V, LDV );
          IF( P.GT.1 ) CALL SLACPY( 'Lower', P-1, N, B( 2, 1 ), LDB, V( 2, 1 ), LDV )
-         CALL SORG2R( P, P, MIN( P, N ), V, LDV, TAU, WORK, INFO )
+         sorg2r(P, P, MIN( P, N ), V, LDV, TAU, WORK, INFO );
       }
 
       // Clean up B
@@ -146,30 +146,30 @@
 
          // Set Q = I and Update Q := Q*P
 
-         CALL SLASET( 'Full', N, N, ZERO, ONE, Q, LDQ )
-         CALL SLAPMT( FORWRD, N, N, Q, LDQ, IWORK )
+         slaset('Full', N, N, ZERO, ONE, Q, LDQ );
+         slapmt(FORWRD, N, N, Q, LDQ, IWORK );
       }
 
       if ( P.GE.L .AND. N.NE.L ) {
 
          // RQ factorization of (S11 S12): ( S11 S12 ) = ( 0 S12 )*Z
 
-         CALL SGERQ2( L, N, B, LDB, TAU, WORK, INFO )
+         sgerq2(L, N, B, LDB, TAU, WORK, INFO );
 
          // Update A := A*Z**T
 
-         CALL SORMR2( 'Right', 'Transpose', M, N, L, B, LDB, TAU, A, LDA, WORK, INFO )
+         sormr2('Right', 'Transpose', M, N, L, B, LDB, TAU, A, LDA, WORK, INFO );
 
          if ( WANTQ ) {
 
             // Update Q := Q*Z**T
 
-            CALL SORMR2( 'Right', 'Transpose', N, N, L, B, LDB, TAU, Q, LDQ, WORK, INFO )
+            sormr2('Right', 'Transpose', N, N, L, B, LDB, TAU, Q, LDQ, WORK, INFO );
          }
 
          // Clean up B
 
-         CALL SLASET( 'Full', L, N-L, ZERO, ZERO, B, LDB )
+         slaset('Full', L, N-L, ZERO, ZERO, B, LDB );
          DO 60 J = N - L + 1, N
             DO 50 I = J - N + L + 1, L
                B( I, J ) = ZERO
@@ -189,7 +189,7 @@
       DO 70 I = 1, N - L
          IWORK( I ) = 0
    70 CONTINUE
-      CALL SGEQP3( M, N-L, A, LDA, IWORK, TAU, WORK, LWORK, INFO )
+      sgeqp3(M, N-L, A, LDA, IWORK, TAU, WORK, LWORK, INFO );
 
       // Determine the effective rank of A11
 
@@ -200,22 +200,22 @@
 
       // Update A12 := U**T*A12, where A12 = A( 1:M, N-L+1:N )
 
-      CALL SORM2R( 'Left', 'Transpose', M, L, MIN( M, N-L ), A, LDA, TAU, A( 1, N-L+1 ), LDA, WORK, INFO )
+      sorm2r('Left', 'Transpose', M, L, MIN( M, N-L ), A, LDA, TAU, A( 1, N-L+1 ), LDA, WORK, INFO );
 
       if ( WANTU ) {
 
          // Copy the details of U, and form U
 
-         CALL SLASET( 'Full', M, M, ZERO, ZERO, U, LDU )
+         slaset('Full', M, M, ZERO, ZERO, U, LDU );
          IF( M.GT.1 ) CALL SLACPY( 'Lower', M-1, N-L, A( 2, 1 ), LDA, U( 2, 1 ), LDU )
-         CALL SORG2R( M, M, MIN( M, N-L ), U, LDU, TAU, WORK, INFO )
+         sorg2r(M, M, MIN( M, N-L ), U, LDU, TAU, WORK, INFO );
       }
 
       if ( WANTQ ) {
 
          // Update Q( 1:N, 1:N-L )  = Q( 1:N, 1:N-L )*P1
 
-         CALL SLAPMT( FORWRD, N, N-L, Q, LDQ, IWORK )
+         slapmt(FORWRD, N, N-L, Q, LDQ, IWORK );
       }
 
       // Clean up A: set the strictly lower triangular part of
@@ -232,18 +232,18 @@
 
          // RQ factorization of ( T11 T12 ) = ( 0 T12 )*Z1
 
-         CALL SGERQ2( K, N-L, A, LDA, TAU, WORK, INFO )
+         sgerq2(K, N-L, A, LDA, TAU, WORK, INFO );
 
          if ( WANTQ ) {
 
             // Update Q( 1:N,1:N-L ) = Q( 1:N,1:N-L )*Z1**T
 
-            CALL SORMR2( 'Right', 'Transpose', N, N-L, K, A, LDA, TAU, Q, LDQ, WORK, INFO )
+            sormr2('Right', 'Transpose', N, N-L, K, A, LDA, TAU, Q, LDQ, WORK, INFO );
          }
 
          // Clean up A
 
-         CALL SLASET( 'Full', K, N-L-K, ZERO, ZERO, A, LDA )
+         slaset('Full', K, N-L-K, ZERO, ZERO, A, LDA );
          DO 120 J = N - L - K + 1, N - L
             DO 110 I = J - N + L + K + 1, K
                A( I, J ) = ZERO
@@ -256,13 +256,13 @@
 
          // QR factorization of A( K+1:M,N-L+1:N )
 
-         CALL SGEQR2( M-K, L, A( K+1, N-L+1 ), LDA, TAU, WORK, INFO )
+         sgeqr2(M-K, L, A( K+1, N-L+1 ), LDA, TAU, WORK, INFO );
 
          if ( WANTU ) {
 
             // Update U(:,K+1:M) := U(:,K+1:M)*U1
 
-            CALL SORM2R( 'Right', 'No transpose', M, M-K, MIN( M-K, L ), A( K+1, N-L+1 ), LDA, TAU, U( 1, K+1 ), LDU, WORK, INFO )
+            sorm2r('Right', 'No transpose', M, M-K, MIN( M-K, L ), A( K+1, N-L+1 ), LDA, TAU, U( 1, K+1 ), LDU, WORK, INFO );
          }
 
          // Clean up

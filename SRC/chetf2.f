@@ -59,7 +59,7 @@
          INFO = -4
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'CHETF2', -INFO )
+         xerbla('CHETF2', -INFO );
          RETURN
       }
 
@@ -151,7 +151,7 @@
                // Interchange rows and columns KK and KP in the leading
                // submatrix A(1:k,1:k)
 
-               CALL CSWAP( KP-1, A( 1, KK ), 1, A( 1, KP ), 1 )
+               cswap(KP-1, A( 1, KK ), 1, A( 1, KP ), 1 );
                DO 20 J = KP + 1, KK - 1
                   T = CONJG( A( J, KK ) )
                   A( J, KK ) = CONJG( A( KP, J ) )
@@ -187,11 +187,11 @@
                // A := A - U(k)*D(k)*U(k)**H = A - W(k)*1/D(k)*W(k)**H
 
                R1 = ONE / REAL( A( K, K ) )
-               CALL CHER( UPLO, K-1, -R1, A( 1, K ), 1, A, LDA )
+               cher(UPLO, K-1, -R1, A( 1, K ), 1, A, LDA );
 
                // Store U(k) in column k
 
-               CALL CSSCAL( K-1, R1, A( 1, K ), 1 )
+               csscal(K-1, R1, A( 1, K ), 1 );
             } else {
 
                // 2-by-2 pivot block D(k): columns k and k-1 now hold
@@ -367,11 +367,11 @@
                   // A := A - L(k)*D(k)*L(k)**H = A - W(k)*(1/D(k))*W(k)**H
 
                   R1 = ONE / REAL( A( K, K ) )
-                  CALL CHER( UPLO, N-K, -R1, A( K+1, K ), 1, A( K+1, K+1 ), LDA )
+                  cher(UPLO, N-K, -R1, A( K+1, K ), 1, A( K+1, K+1 ), LDA );
 
                   // Store L(k) in column K
 
-                  CALL CSSCAL( N-K, R1, A( K+1, K ), 1 )
+                  csscal(N-K, R1, A( K+1, K ), 1 );
                }
             } else {
 

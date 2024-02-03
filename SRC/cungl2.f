@@ -41,7 +41,7 @@
          INFO = -5
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'CUNGL2', -INFO )
+         xerbla('CUNGL2', -INFO );
          RETURN
       }
 
@@ -66,13 +66,13 @@
          // Apply H(i)**H to A(i:m,i:n) from the right
 
          if ( I.LT.N ) {
-            CALL CLACGV( N-I, A( I, I+1 ), LDA )
+            clacgv(N-I, A( I, I+1 ), LDA );
             if ( I.LT.M ) {
                A( I, I ) = ONE
-               CALL CLARF( 'Right', M-I, N-I+1, A( I, I ), LDA, CONJG( TAU( I ) ), A( I+1, I ), LDA, WORK )
+               clarf('Right', M-I, N-I+1, A( I, I ), LDA, CONJG( TAU( I ) ), A( I+1, I ), LDA, WORK );
             }
-            CALL CSCAL( N-I, -TAU( I ), A( I, I+1 ), LDA )
-            CALL CLACGV( N-I, A( I, I+1 ), LDA )
+            cscal(N-I, -TAU( I ), A( I, I+1 ), LDA );
+            clacgv(N-I, A( I, I+1 ), LDA );
          }
          A( I, I ) = ONE - CONJG( TAU( I ) )
 

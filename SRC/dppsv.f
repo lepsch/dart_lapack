@@ -39,18 +39,18 @@
          INFO = -6
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'DPPSV ', -INFO )
+         xerbla('DPPSV ', -INFO );
          RETURN
       }
 
       // Compute the Cholesky factorization A = U**T*U or A = L*L**T.
 
-      CALL DPPTRF( UPLO, N, AP, INFO )
+      dpptrf(UPLO, N, AP, INFO );
       if ( INFO.EQ.0 ) {
 
          // Solve the system A*X = B, overwriting B with X.
 
-         CALL DPPTRS( UPLO, N, NRHS, AP, B, LDB, INFO )
+         dpptrs(UPLO, N, NRHS, AP, B, LDB, INFO );
 
       }
       RETURN

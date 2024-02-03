@@ -64,13 +64,13 @@
 
       UPPER = LSAME( UPLO, 'U' )
       if ( UPPER ) {
-         CALL ZLATB4( PATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST )
+         zlatb4(PATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST );
          KU = KD
          IOFF = 1 + MAX( 0, KD-N+1 )
          KL = 0
          PACKIT = 'Q'
       } else {
-         CALL ZLATB4( PATH, -IMAT, N, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST )
+         zlatb4(PATH, -IMAT, N, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST );
          KL = KD
          IOFF = 1
          KU = 0
@@ -80,7 +80,7 @@
       // IMAT <= 5:  Non-unit triangular matrix
 
       if ( IMAT.LE.5 ) {
-         CALL ZLATMS( N, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KL, KU, PACKIT, AB( IOFF, 1 ), LDAB, WORK, INFO )
+         zlatms(N, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KL, KU, PACKIT, AB( IOFF, 1 ), LDAB, WORK, INFO );
 
       // IMAT > 5:  Unit triangular matrix
       // The diagonal is deliberately set to something other than 1.
@@ -137,14 +137,14 @@
             if ( UPPER ) {
                AB( 1, 2 ) = TNORM*ZLARND( 5, ISEED )
                LENJ = ( N-3 ) / 2
-               CALL ZLARNV( 2, ISEED, LENJ, WORK )
+               zlarnv(2, ISEED, LENJ, WORK );
                DO 90 J = 1, LENJ
                   AB( 1, 2*( J+1 ) ) = TNORM*WORK( J )
    90          CONTINUE
             } else {
                AB( 2, 1 ) = TNORM*ZLARND( 5, ISEED )
                LENJ = ( N-3 ) / 2
-               CALL ZLARNV( 2, ISEED, LENJ, WORK )
+               zlarnv(2, ISEED, LENJ, WORK );
                DO 100 J = 1, LENJ
                   AB( 2, 2*J+1 ) = TNORM*WORK( J )
   100          CONTINUE
@@ -194,11 +194,11 @@
             // Copy the tridiagonal T to AB.
 
             if ( UPPER ) {
-               CALL ZCOPY( N-1, WORK, 1, AB( KD, 2 ), LDAB )
-               CALL ZCOPY( N-2, WORK( N+1 ), 1, AB( KD-1, 3 ), LDAB )
+               zcopy(N-1, WORK, 1, AB( KD, 2 ), LDAB );
+               zcopy(N-2, WORK( N+1 ), 1, AB( KD-1, 3 ), LDAB );
             } else {
-               CALL ZCOPY( N-1, WORK, 1, AB( 2, 1 ), LDAB )
-               CALL ZCOPY( N-2, WORK( N+1 ), 1, AB( 3, 1 ), LDAB )
+               zcopy(N-1, WORK, 1, AB( 2, 1 ), LDAB );
+               zcopy(N-2, WORK( N+1 ), 1, AB( 3, 1 ), LDAB );
             }
          }
 
@@ -215,7 +215,7 @@
          if ( UPPER ) {
             DO 120 J = 1, N
                LENJ = MIN( J-1, KD )
-               CALL ZLARNV( 4, ISEED, LENJ, AB( KD+1-LENJ, J ) )
+               zlarnv(4, ISEED, LENJ, AB( KD+1-LENJ, J ) );
                AB( KD+1, J ) = ZLARND( 5, ISEED )*TWO
   120       CONTINUE
          } else {
@@ -228,11 +228,11 @@
 
          // Set the right hand side so that the largest value is BIGNUM.
 
-         CALL ZLARNV( 2, ISEED, N, B )
+         zlarnv(2, ISEED, N, B );
          IY = IZAMAX( N, B, 1 )
          BNORM = ABS( B( IY ) )
          BSCAL = BIGNUM / MAX( ONE, BNORM )
-         CALL ZDSCAL( N, BSCAL, B, 1 )
+         zdscal(N, BSCAL, B, 1 );
 
       } else if ( IMAT.EQ.11 ) {
 
@@ -240,14 +240,14 @@
          // cause immediate overflow when dividing by T(j,j).
          // In type 11, the offdiagonal elements are small (CNORM(j) < 1).
 
-         CALL ZLARNV( 2, ISEED, N, B )
+         zlarnv(2, ISEED, N, B );
          TSCAL = ONE / DBLE( KD+1 )
          if ( UPPER ) {
             DO 140 J = 1, N
                LENJ = MIN( J-1, KD )
                if ( LENJ.GT.0 ) {
-                  CALL ZLARNV( 4, ISEED, LENJ, AB( KD+2-LENJ, J ) )
-                  CALL ZDSCAL( LENJ, TSCAL, AB( KD+2-LENJ, J ), 1 )
+                  zlarnv(4, ISEED, LENJ, AB( KD+2-LENJ, J ) );
+                  zdscal(LENJ, TSCAL, AB( KD+2-LENJ, J ), 1 );
                }
                AB( KD+1, J ) = ZLARND( 5, ISEED )
   140       CONTINUE
@@ -256,8 +256,8 @@
             DO 150 J = 1, N
                LENJ = MIN( N-J, KD )
                if ( LENJ.GT.0 ) {
-                  CALL ZLARNV( 4, ISEED, LENJ, AB( 2, J ) )
-                  CALL ZDSCAL( LENJ, TSCAL, AB( 2, J ), 1 )
+                  zlarnv(4, ISEED, LENJ, AB( 2, J ) );
+                  zdscal(LENJ, TSCAL, AB( 2, J ), 1 );
                }
                AB( 1, J ) = ZLARND( 5, ISEED )
   150       CONTINUE
@@ -270,7 +270,7 @@
          // cause immediate overflow when dividing by T(j,j).
          // In type 12, the offdiagonal elements are O(1) (CNORM(j) > 1).
 
-         CALL ZLARNV( 2, ISEED, N, B )
+         zlarnv(2, ISEED, N, B );
          if ( UPPER ) {
             DO 160 J = 1, N
                LENJ = MIN( J-1, KD )
@@ -347,7 +347,7 @@
 
          TEXP = ONE / DBLE( KD+1 )
          TSCAL = SMLNUM**TEXP
-         CALL ZLARNV( 4, ISEED, N, B )
+         zlarnv(4, ISEED, N, B );
          if ( UPPER ) {
             DO 250 J = 1, N
                DO 240 I = MAX( 1, KD+2-J ), KD
@@ -376,7 +376,7 @@
          if ( UPPER ) {
             DO 280 J = 1, N
                LENJ = MIN( J, KD+1 )
-               CALL ZLARNV( 4, ISEED, LENJ, AB( KD+2-LENJ, J ) )
+               zlarnv(4, ISEED, LENJ, AB( KD+2-LENJ, J ) );
                if ( J.NE.IY ) {
                   AB( KD+1, J ) = ZLARND( 5, ISEED )*TWO
                } else {
@@ -386,7 +386,7 @@
          } else {
             DO 290 J = 1, N
                LENJ = MIN( N-J+1, KD+1 )
-               CALL ZLARNV( 4, ISEED, LENJ, AB( 1, J ) )
+               zlarnv(4, ISEED, LENJ, AB( 1, J ) );
                if ( J.NE.IY ) {
                   AB( 1, J ) = ZLARND( 5, ISEED )*TWO
                } else {
@@ -394,8 +394,8 @@
                }
   290       CONTINUE
          }
-         CALL ZLARNV( 2, ISEED, N, B )
-         CALL ZDSCAL( N, TWO, B, 1 )
+         zlarnv(2, ISEED, N, B );
+         zdscal(N, TWO, B, 1 );
 
       } else if ( IMAT.EQ.16 ) {
 
@@ -457,7 +457,7 @@
          if ( UPPER ) {
             DO 360 J = 1, N
                LENJ = MIN( J-1, KD )
-               CALL ZLARNV( 4, ISEED, LENJ, AB( KD+1-LENJ, J ) )
+               zlarnv(4, ISEED, LENJ, AB( KD+1-LENJ, J ) );
                AB( KD+1, J ) = DBLE( J )
   360       CONTINUE
          } else {
@@ -470,11 +470,11 @@
 
          // Set the right hand side so that the largest value is BIGNUM.
 
-         CALL ZLARNV( 2, ISEED, N, B )
+         zlarnv(2, ISEED, N, B );
          IY = IZAMAX( N, B, 1 )
          BNORM = ABS( B( IY ) )
          BSCAL = BIGNUM / MAX( ONE, BNORM )
-         CALL ZDSCAL( N, BSCAL, B, 1 )
+         zdscal(N, BSCAL, B, 1 );
 
       } else if ( IMAT.EQ.18 ) {
 
@@ -488,8 +488,8 @@
          if ( UPPER ) {
             DO 390 J = 1, N
                LENJ = MIN( J, KD+1 )
-               CALL ZLARNV( 5, ISEED, LENJ, AB( KD+2-LENJ, J ) )
-               CALL DLARNV( 1, ISEED, LENJ, RWORK( KD+2-LENJ ) )
+               zlarnv(5, ISEED, LENJ, AB( KD+2-LENJ, J ) );
+               dlarnv(1, ISEED, LENJ, RWORK( KD+2-LENJ ) );
                DO 380 I = KD + 2 - LENJ, KD + 1
                   AB( I, J ) = AB( I, J )*( TLEFT+RWORK( I )*TSCAL )
   380          CONTINUE
@@ -497,15 +497,15 @@
          } else {
             DO 410 J = 1, N
                LENJ = MIN( N-J+1, KD+1 )
-               CALL ZLARNV( 5, ISEED, LENJ, AB( 1, J ) )
-               CALL DLARNV( 1, ISEED, LENJ, RWORK )
+               zlarnv(5, ISEED, LENJ, AB( 1, J ) );
+               dlarnv(1, ISEED, LENJ, RWORK );
                DO 400 I = 1, LENJ
                   AB( I, J ) = AB( I, J )*( TLEFT+RWORK( I )*TSCAL )
   400          CONTINUE
   410       CONTINUE
          }
-         CALL ZLARNV( 2, ISEED, N, B )
-         CALL ZDSCAL( N, TWO, B, 1 )
+         zlarnv(2, ISEED, N, B );
+         zdscal(N, TWO, B, 1 );
       }
 
       // Flip the matrix if the transpose will be used.
@@ -514,12 +514,12 @@
          if ( UPPER ) {
             DO 420 J = 1, N / 2
                LENJ = MIN( N-2*J+1, KD+1 )
-               CALL ZSWAP( LENJ, AB( KD+1, J ), LDAB-1, AB( KD+2-LENJ, N-J+1 ), -1 )
+               zswap(LENJ, AB( KD+1, J ), LDAB-1, AB( KD+2-LENJ, N-J+1 ), -1 );
   420       CONTINUE
          } else {
             DO 430 J = 1, N / 2
                LENJ = MIN( N-2*J+1, KD+1 )
-               CALL ZSWAP( LENJ, AB( 1, J ), 1, AB( LENJ, N-J+2-LENJ ), -LDAB+1 )
+               zswap(LENJ, AB( 1, J ), 1, AB( LENJ, N-J+2-LENJ ), -LDAB+1 );
   430       CONTINUE
          }
       }

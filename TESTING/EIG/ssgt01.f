@@ -44,11 +44,11 @@
 
          // Norm of AZ - BZD
 
-         CALL SSYMM( 'Left', UPLO, N, M, ONE, A, LDA, Z, LDZ, ZERO, WORK, N )
+         ssymm('Left', UPLO, N, M, ONE, A, LDA, Z, LDZ, ZERO, WORK, N );
          DO 10 I = 1, M
-            CALL SSCAL( N, D( I ), Z( 1, I ), 1 )
+            sscal(N, D( I ), Z( 1, I ), 1 );
    10    CONTINUE
-         CALL SSYMM( 'Left', UPLO, N, M, ONE, B, LDB, Z, LDZ, -ONE, WORK, N )
+         ssymm('Left', UPLO, N, M, ONE, B, LDB, Z, LDZ, -ONE, WORK, N );
 
          RESULT( 1 ) = ( SLANGE( '1', N, M, WORK, N, WORK ) / ANORM ) / ( N*ULP )
 
@@ -56,11 +56,11 @@
 
          // Norm of ABZ - ZD
 
-         CALL SSYMM( 'Left', UPLO, N, M, ONE, B, LDB, Z, LDZ, ZERO, WORK, N )
+         ssymm('Left', UPLO, N, M, ONE, B, LDB, Z, LDZ, ZERO, WORK, N );
          DO 20 I = 1, M
-            CALL SSCAL( N, D( I ), Z( 1, I ), 1 )
+            sscal(N, D( I ), Z( 1, I ), 1 );
    20    CONTINUE
-         CALL SSYMM( 'Left', UPLO, N, M, ONE, A, LDA, WORK, N, -ONE, Z, LDZ )
+         ssymm('Left', UPLO, N, M, ONE, A, LDA, WORK, N, -ONE, Z, LDZ );
 
          RESULT( 1 ) = ( SLANGE( '1', N, M, Z, LDZ, WORK ) / ANORM ) / ( N*ULP )
 
@@ -68,11 +68,11 @@
 
          // Norm of BAZ - ZD
 
-         CALL SSYMM( 'Left', UPLO, N, M, ONE, A, LDA, Z, LDZ, ZERO, WORK, N )
+         ssymm('Left', UPLO, N, M, ONE, A, LDA, Z, LDZ, ZERO, WORK, N );
          DO 30 I = 1, M
-            CALL SSCAL( N, D( I ), Z( 1, I ), 1 )
+            sscal(N, D( I ), Z( 1, I ), 1 );
    30    CONTINUE
-         CALL SSYMM( 'Left', UPLO, N, M, ONE, B, LDB, WORK, N, -ONE, Z, LDZ )
+         ssymm('Left', UPLO, N, M, ONE, B, LDB, WORK, N, -ONE, Z, LDZ );
 
          RESULT( 1 ) = ( SLANGE( '1', N, M, Z, LDZ, WORK ) / ANORM ) / ( N*ULP )
       }

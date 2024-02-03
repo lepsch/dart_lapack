@@ -84,7 +84,7 @@
                MAXWRK = MAX( MAXWRK, 2*N + ( N - 1 )*ILAENV( 1, 'DORGHR', ' ', N, 1, N, -1 ) )                CALL DHSEQR( 'S', 'V', N, 1, N, A, LDA, WR, WI, VL, LDVL, WORK, -1, INFO )
                HSWORK = INT( WORK(1) )
                MAXWRK = MAX( MAXWRK, N + 1, N + HSWORK )
-               CALL DTREVC3( 'L', 'B', SELECT, N, A, LDA, VL, LDVL, VR, LDVR, N, NOUT, WORK, -1, IERR )
+               dtrevc3('L', 'B', SELECT, N, A, LDA, VL, LDVL, VR, LDVR, N, NOUT, WORK, -1, IERR );
                LWORK_TREVC = INT( WORK(1) )
                MAXWRK = MAX( MAXWRK, N + LWORK_TREVC )
                MAXWRK = MAX( MAXWRK, 4*N )
@@ -93,13 +93,13 @@
                MAXWRK = MAX( MAXWRK, 2*N + ( N - 1 )*ILAENV( 1, 'DORGHR', ' ', N, 1, N, -1 ) )                CALL DHSEQR( 'S', 'V', N, 1, N, A, LDA, WR, WI, VR, LDVR, WORK, -1, INFO )
                HSWORK = INT( WORK(1) )
                MAXWRK = MAX( MAXWRK, N + 1, N + HSWORK )
-               CALL DTREVC3( 'R', 'B', SELECT, N, A, LDA, VL, LDVL, VR, LDVR, N, NOUT, WORK, -1, IERR )
+               dtrevc3('R', 'B', SELECT, N, A, LDA, VL, LDVL, VR, LDVR, N, NOUT, WORK, -1, IERR );
                LWORK_TREVC = INT( WORK(1) )
                MAXWRK = MAX( MAXWRK, N + LWORK_TREVC )
                MAXWRK = MAX( MAXWRK, 4*N )
             } else {
                MINWRK = 3*N
-               CALL DHSEQR( 'E', 'N', N, 1, N, A, LDA, WR, WI, VR, LDVR, WORK, -1, INFO )
+               dhseqr('E', 'N', N, 1, N, A, LDA, WR, WI, VR, LDVR, WORK, -1, INFO );
                HSWORK = INT( WORK(1) )
                MAXWRK = MAX( MAXWRK, N + 1, N + HSWORK )
             }
@@ -113,7 +113,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'DGEEV ', -INFO )
+         xerbla('DGEEV ', -INFO );
          RETURN
       } else if ( LQUERY ) {
          RETURN
@@ -148,14 +148,14 @@
       // (Workspace: need N)
 
       IBAL = 1
-      CALL DGEBAL( 'B', N, A, LDA, ILO, IHI, WORK( IBAL ), IERR )
+      dgebal('B', N, A, LDA, ILO, IHI, WORK( IBAL ), IERR );
 
       // Reduce to upper Hessenberg form
       // (Workspace: need 3*N, prefer 2*N+N*NB)
 
       ITAU = IBAL + N
       IWRK = ITAU + N
-      CALL DGEHRD( N, ILO, IHI, A, LDA, WORK( ITAU ), WORK( IWRK ), LWORK-IWRK+1, IERR )
+      dgehrd(N, ILO, IHI, A, LDA, WORK( ITAU ), WORK( IWRK ), LWORK-IWRK+1, IERR );
 
       if ( WANTVL ) {
 
@@ -163,18 +163,18 @@
          // Copy Householder vectors to VL
 
          SIDE = 'L'
-         CALL DLACPY( 'L', N, N, A, LDA, VL, LDVL )
+         dlacpy('L', N, N, A, LDA, VL, LDVL );
 
          // Generate orthogonal matrix in VL
          // (Workspace: need 3*N-1, prefer 2*N+(N-1)*NB)
 
-         CALL DORGHR( N, ILO, IHI, VL, LDVL, WORK( ITAU ), WORK( IWRK ), LWORK-IWRK+1, IERR )
+         dorghr(N, ILO, IHI, VL, LDVL, WORK( ITAU ), WORK( IWRK ), LWORK-IWRK+1, IERR );
 
          // Perform QR iteration, accumulating Schur vectors in VL
          // (Workspace: need N+1, prefer N+HSWORK (see comments) )
 
          IWRK = ITAU
-         CALL DHSEQR( 'S', 'V', N, ILO, IHI, A, LDA, WR, WI, VL, LDVL, WORK( IWRK ), LWORK-IWRK+1, INFO )
+         dhseqr('S', 'V', N, ILO, IHI, A, LDA, WR, WI, VL, LDVL, WORK( IWRK ), LWORK-IWRK+1, INFO );
 
          if ( WANTVR ) {
 
@@ -182,7 +182,7 @@
             // Copy Schur vectors to VR
 
             SIDE = 'B'
-            CALL DLACPY( 'F', N, N, VL, LDVL, VR, LDVR )
+            dlacpy('F', N, N, VL, LDVL, VR, LDVR );
          }
 
       } else if ( WANTVR ) {
@@ -191,18 +191,18 @@
          // Copy Householder vectors to VR
 
          SIDE = 'R'
-         CALL DLACPY( 'L', N, N, A, LDA, VR, LDVR )
+         dlacpy('L', N, N, A, LDA, VR, LDVR );
 
          // Generate orthogonal matrix in VR
          // (Workspace: need 3*N-1, prefer 2*N+(N-1)*NB)
 
-         CALL DORGHR( N, ILO, IHI, VR, LDVR, WORK( ITAU ), WORK( IWRK ), LWORK-IWRK+1, IERR )
+         dorghr(N, ILO, IHI, VR, LDVR, WORK( ITAU ), WORK( IWRK ), LWORK-IWRK+1, IERR );
 
          // Perform QR iteration, accumulating Schur vectors in VR
          // (Workspace: need N+1, prefer N+HSWORK (see comments) )
 
          IWRK = ITAU
-         CALL DHSEQR( 'S', 'V', N, ILO, IHI, A, LDA, WR, WI, VR, LDVR, WORK( IWRK ), LWORK-IWRK+1, INFO )
+         dhseqr('S', 'V', N, ILO, IHI, A, LDA, WR, WI, VR, LDVR, WORK( IWRK ), LWORK-IWRK+1, INFO );
 
       } else {
 
@@ -210,7 +210,7 @@
          // (Workspace: need N+1, prefer N+HSWORK (see comments) )
 
          IWRK = ITAU
-         CALL DHSEQR( 'E', 'N', N, ILO, IHI, A, LDA, WR, WI, VR, LDVR, WORK( IWRK ), LWORK-IWRK+1, INFO )
+         dhseqr('E', 'N', N, ILO, IHI, A, LDA, WR, WI, VR, LDVR, WORK( IWRK ), LWORK-IWRK+1, INFO );
       }
 
       // If INFO .NE. 0 from DHSEQR, then quit
@@ -222,7 +222,7 @@
          // Compute left and/or right eigenvectors
          // (Workspace: need 4*N, prefer N + N + 2*N*NB)
 
-         CALL DTREVC3( SIDE, 'B', SELECT, N, A, LDA, VL, LDVL, VR, LDVR, N, NOUT, WORK( IWRK ), LWORK-IWRK+1, IERR )
+         dtrevc3(SIDE, 'B', SELECT, N, A, LDA, VL, LDVL, VR, LDVR, N, NOUT, WORK( IWRK ), LWORK-IWRK+1, IERR );
       }
 
       if ( WANTVL ) {
@@ -230,24 +230,24 @@
          // Undo balancing of left eigenvectors
          // (Workspace: need N)
 
-         CALL DGEBAK( 'B', 'L', N, ILO, IHI, WORK( IBAL ), N, VL, LDVL, IERR )
+         dgebak('B', 'L', N, ILO, IHI, WORK( IBAL ), N, VL, LDVL, IERR );
 
          // Normalize left eigenvectors and make largest component real
 
          DO 20 I = 1, N
             if ( WI( I ).EQ.ZERO ) {
                SCL = ONE / DNRM2( N, VL( 1, I ), 1 )
-               CALL DSCAL( N, SCL, VL( 1, I ), 1 )
+               dscal(N, SCL, VL( 1, I ), 1 );
             } else if ( WI( I ).GT.ZERO ) {
                SCL = ONE / DLAPY2( DNRM2( N, VL( 1, I ), 1 ), DNRM2( N, VL( 1, I+1 ), 1 ) )
-               CALL DSCAL( N, SCL, VL( 1, I ), 1 )
-               CALL DSCAL( N, SCL, VL( 1, I+1 ), 1 )
+               dscal(N, SCL, VL( 1, I ), 1 );
+               dscal(N, SCL, VL( 1, I+1 ), 1 );
                DO 10 K = 1, N
                   WORK( IWRK+K-1 ) = VL( K, I )**2 + VL( K, I+1 )**2
    10          CONTINUE
                K = IDAMAX( N, WORK( IWRK ), 1 )
-               CALL DLARTG( VL( K, I ), VL( K, I+1 ), CS, SN, R )
-               CALL DROT( N, VL( 1, I ), 1, VL( 1, I+1 ), 1, CS, SN )
+               dlartg(VL( K, I ), VL( K, I+1 ), CS, SN, R );
+               drot(N, VL( 1, I ), 1, VL( 1, I+1 ), 1, CS, SN );
                VL( K, I+1 ) = ZERO
             }
    20    CONTINUE
@@ -258,24 +258,24 @@
          // Undo balancing of right eigenvectors
          // (Workspace: need N)
 
-         CALL DGEBAK( 'B', 'R', N, ILO, IHI, WORK( IBAL ), N, VR, LDVR, IERR )
+         dgebak('B', 'R', N, ILO, IHI, WORK( IBAL ), N, VR, LDVR, IERR );
 
          // Normalize right eigenvectors and make largest component real
 
          DO 40 I = 1, N
             if ( WI( I ).EQ.ZERO ) {
                SCL = ONE / DNRM2( N, VR( 1, I ), 1 )
-               CALL DSCAL( N, SCL, VR( 1, I ), 1 )
+               dscal(N, SCL, VR( 1, I ), 1 );
             } else if ( WI( I ).GT.ZERO ) {
                SCL = ONE / DLAPY2( DNRM2( N, VR( 1, I ), 1 ), DNRM2( N, VR( 1, I+1 ), 1 ) )
-               CALL DSCAL( N, SCL, VR( 1, I ), 1 )
-               CALL DSCAL( N, SCL, VR( 1, I+1 ), 1 )
+               dscal(N, SCL, VR( 1, I ), 1 );
+               dscal(N, SCL, VR( 1, I+1 ), 1 );
                DO 30 K = 1, N
                   WORK( IWRK+K-1 ) = VR( K, I )**2 + VR( K, I+1 )**2
    30          CONTINUE
                K = IDAMAX( N, WORK( IWRK ), 1 )
-               CALL DLARTG( VR( K, I ), VR( K, I+1 ), CS, SN, R )
-               CALL DROT( N, VR( 1, I ), 1, VR( 1, I+1 ), 1, CS, SN )
+               dlartg(VR( K, I ), VR( K, I+1 ), CS, SN, R );
+               drot(N, VR( 1, I ), 1, VR( 1, I+1 ), 1, CS, SN );
                VR( K, I+1 ) = ZERO
             }
    40    CONTINUE
@@ -285,9 +285,9 @@
 
    50 CONTINUE
       if ( SCALEA ) {
-         CALL DLASCL( 'G', 0, 0, CSCALE, ANRM, N-INFO, 1, WR( INFO+1 ), MAX( N-INFO, 1 ), IERR )          CALL DLASCL( 'G', 0, 0, CSCALE, ANRM, N-INFO, 1, WI( INFO+1 ), MAX( N-INFO, 1 ), IERR )
+         dlascl('G', 0, 0, CSCALE, ANRM, N-INFO, 1, WR( INFO+1 ), MAX( N-INFO, 1 ), IERR )          CALL DLASCL( 'G', 0, 0, CSCALE, ANRM, N-INFO, 1, WI( INFO+1 ), MAX( N-INFO, 1 ), IERR );
          if ( INFO.GT.0 ) {
-            CALL DLASCL( 'G', 0, 0, CSCALE, ANRM, ILO-1, 1, WR, N, IERR )             CALL DLASCL( 'G', 0, 0, CSCALE, ANRM, ILO-1, 1, WI, N, IERR )
+            dlascl('G', 0, 0, CSCALE, ANRM, ILO-1, 1, WR, N, IERR )             CALL DLASCL( 'G', 0, 0, CSCALE, ANRM, ILO-1, 1, WI, N, IERR );
          }
       }
 

@@ -75,10 +75,10 @@
 
          // Copy column K of A to column KW of W and update it
 
-         CALL ZCOPY( K-1, A( 1, K ), 1, W( 1, KW ), 1 )
+         zcopy(K-1, A( 1, K ), 1, W( 1, KW ), 1 );
          W( K, KW ) = DBLE( A( K, K ) )
          if ( K.LT.N ) {
-            CALL ZGEMV( 'No transpose', K, N-K, -CONE, A( 1, K+1 ), LDA, W( K, KW+1 ), LDW, CONE, W( 1, KW ), 1 )
+            zgemv('No transpose', K, N-K, -CONE, A( 1, K+1 ), LDA, W( K, KW+1 ), LDW, CONE, W( 1, KW ), 1 );
             W( K, KW ) = DBLE( W( K, KW ) )
          }
 
@@ -124,12 +124,12 @@
 
                // Copy column IMAX to column KW-1 of W and update it
 
-               CALL ZCOPY( IMAX-1, A( 1, IMAX ), 1, W( 1, KW-1 ), 1 )
+               zcopy(IMAX-1, A( 1, IMAX ), 1, W( 1, KW-1 ), 1 );
                W( IMAX, KW-1 ) = DBLE( A( IMAX, IMAX ) )
-               CALL ZCOPY( K-IMAX, A( IMAX, IMAX+1 ), LDA, W( IMAX+1, KW-1 ), 1 )
-               CALL ZLACGV( K-IMAX, W( IMAX+1, KW-1 ), 1 )
+               zcopy(K-IMAX, A( IMAX, IMAX+1 ), LDA, W( IMAX+1, KW-1 ), 1 );
+               zlacgv(K-IMAX, W( IMAX+1, KW-1 ), 1 );
                if ( K.LT.N ) {
-                  CALL ZGEMV( 'No transpose', K, N-K, -CONE, A( 1, K+1 ), LDA, W( IMAX, KW+1 ), LDW, CONE, W( 1, KW-1 ), 1 )
+                  zgemv('No transpose', K, N-K, -CONE, A( 1, K+1 ), LDA, W( IMAX, KW+1 ), LDW, CONE, W( 1, KW-1 ), 1 );
                   W( IMAX, KW-1 ) = DBLE( W( IMAX, KW-1 ) )
                }
 
@@ -161,7 +161,7 @@
 
                   // copy column KW-1 of W to column KW of W
 
-                  CALL ZCOPY( K, W( 1, KW-1 ), 1, W( 1, KW ), 1 )
+                  zcopy(K, W( 1, KW-1 ), 1, W( 1, KW ), 1 );
 
                // Case(4)
                } else {
@@ -201,8 +201,8 @@
                // will be later overwritten.
 
                A( KP, KP ) = DBLE( A( KK, KK ) )
-               CALL ZCOPY( KK-1-KP, A( KP+1, KK ), 1, A( KP, KP+1 ), LDA )
-               CALL ZLACGV( KK-1-KP, A( KP, KP+1 ), LDA )
+               zcopy(KK-1-KP, A( KP+1, KK ), 1, A( KP, KP+1 ), LDA );
+               zlacgv(KK-1-KP, A( KP, KP+1 ), LDA );
                IF( KP.GT.1 ) CALL ZCOPY( KP-1, A( 1, KK ), 1, A( 1, KP ), 1 )
 
                // Interchange rows KK and KP in last K+1 to N columns of A
@@ -211,7 +211,7 @@
                // in last KKW to NB columns of W.
 
                IF( K.LT.N ) CALL ZSWAP( N-K, A( KK, K+1 ), LDA, A( KP, K+1 ), LDA )
-               CALL ZSWAP( N-KK+1, W( KK, KKW ), LDW, W( KP, KKW ), LDW )
+               zswap(N-KK+1, W( KK, KKW ), LDW, W( KP, KKW ), LDW );
             }
 
             if ( KSTEP.EQ.1 ) {
@@ -232,7 +232,7 @@
                // (NOTE: No need to use for Hermitian matrix
                // A( K, K ) = DBLE( W( K, K) ) to separately copy diagonal
                // element D(k,k) from W (potentially saves only one load))
-               CALL ZCOPY( K, W( 1, KW ), 1, A( 1, K ), 1 )
+               zcopy(K, W( 1, KW ), 1, A( 1, K ), 1 );
                if ( K.GT.1 ) {
 
                   // (NOTE: No need to check if A(k,k) is NOT ZERO,
@@ -240,11 +240,11 @@
                    // case A(k,k) = 0 falls into 2x2 pivot case(4))
 
                   R1 = ONE / DBLE( A( K, K ) )
-                  CALL ZDSCAL( K-1, R1, A( 1, K ), 1 )
+                  zdscal(K-1, R1, A( 1, K ), 1 );
 
                   // (2) Conjugate column W(kw)
 
-                  CALL ZLACGV( K-1, W( 1, KW ), 1 )
+                  zlacgv(K-1, W( 1, KW ), 1 );
                }
 
             } else {
@@ -332,8 +332,8 @@
 
                // (2) Conjugate columns W(kw) and W(kw-1)
 
-               CALL ZLACGV( K-1, W( 1, KW ), 1 )
-               CALL ZLACGV( K-2, W( 1, KW-1 ), 1 )
+               zlacgv(K-1, W( 1, KW ), 1 );
+               zlacgv(K-2, W( 1, KW-1 ), 1 );
 
             }
 
@@ -369,13 +369,13 @@
 
             DO 40 JJ = J, J + JB - 1
                A( JJ, JJ ) = DBLE( A( JJ, JJ ) )
-               CALL ZGEMV( 'No transpose', JJ-J+1, N-K, -CONE, A( J, K+1 ), LDA, W( JJ, KW+1 ), LDW, CONE, A( J, JJ ), 1 )
+               zgemv('No transpose', JJ-J+1, N-K, -CONE, A( J, K+1 ), LDA, W( JJ, KW+1 ), LDW, CONE, A( J, JJ ), 1 );
                A( JJ, JJ ) = DBLE( A( JJ, JJ ) )
    40       CONTINUE
 
             // Update the rectangular superdiagonal block
 
-            CALL ZGEMM( 'No transpose', 'Transpose', J-1, JB, N-K, -CONE, A( 1, K+1 ), LDA, W( J, KW+1 ), LDW, CONE, A( 1, J ), LDA )
+            zgemm('No transpose', 'Transpose', J-1, JB, N-K, -CONE, A( 1, K+1 ), LDA, W( J, KW+1 ), LDW, CONE, A( 1, J ), LDA );
    50    CONTINUE
 
          // Put U12 in standard form by partially undoing the interchanges
@@ -469,8 +469,8 @@
 
                // Copy column IMAX to column K+1 of W and update it
 
-               CALL ZCOPY( IMAX-K, A( IMAX, K ), LDA, W( K, K+1 ), 1 )
-               CALL ZLACGV( IMAX-K, W( K, K+1 ), 1 )
+               zcopy(IMAX-K, A( IMAX, K ), LDA, W( K, K+1 ), 1 );
+               zlacgv(IMAX-K, W( K, K+1 ), 1 );
                W( IMAX, K+1 ) = DBLE( A( IMAX, IMAX ) )
                IF( IMAX.LT.N ) CALL ZCOPY( N-IMAX, A( IMAX+1, IMAX ), 1, W( IMAX+1, K+1 ), 1 )                CALL ZGEMV( 'No transpose', N-K+1, K-1, -CONE, A( K, 1 ), LDA, W( IMAX, 1 ), LDW, CONE, W( K, K+1 ), 1 )
                W( IMAX, K+1 ) = DBLE( W( IMAX, K+1 ) )
@@ -503,7 +503,7 @@
 
                   // copy column K+1 of W to column K of W
 
-                  CALL ZCOPY( N-K+1, W( K, K+1 ), 1, W( K, K ), 1 )
+                  zcopy(N-K+1, W( K, K+1 ), 1, W( K, K ), 1 );
 
                // Case(4)
                } else {
@@ -539,8 +539,8 @@
                // will be later overwritten.
 
                A( KP, KP ) = DBLE( A( KK, KK ) )
-               CALL ZCOPY( KP-KK-1, A( KK+1, KK ), 1, A( KP, KK+1 ), LDA )
-               CALL ZLACGV( KP-KK-1, A( KP, KK+1 ), LDA )
+               zcopy(KP-KK-1, A( KK+1, KK ), 1, A( KP, KK+1 ), LDA );
+               zlacgv(KP-KK-1, A( KP, KK+1 ), LDA );
                IF( KP.LT.N ) CALL ZCOPY( N-KP, A( KP+1, KK ), 1, A( KP+1, KP ), 1 )
 
                // Interchange rows KK and KP in first K-1 columns of A
@@ -549,7 +549,7 @@
                // in first KK columns of W.
 
                IF( K.GT.1 ) CALL ZSWAP( K-1, A( KK, 1 ), LDA, A( KP, 1 ), LDA )
-               CALL ZSWAP( KK, W( KK, 1 ), LDW, W( KP, 1 ), LDW )
+               zswap(KK, W( KK, 1 ), LDW, W( KP, 1 ), LDW );
             }
 
             if ( KSTEP.EQ.1 ) {
@@ -570,7 +570,7 @@
                // (NOTE: No need to use for Hermitian matrix
                // A( K, K ) = DBLE( W( K, K) ) to separately copy diagonal
                // element D(k,k) from W (potentially saves only one load))
-               CALL ZCOPY( N-K+1, W( K, K ), 1, A( K, K ), 1 )
+               zcopy(N-K+1, W( K, K ), 1, A( K, K ), 1 );
                if ( K.LT.N ) {
 
                   // (NOTE: No need to check if A(k,k) is NOT ZERO,
@@ -578,11 +578,11 @@
                    // case A(k,k) = 0 falls into 2x2 pivot case(4))
 
                   R1 = ONE / DBLE( A( K, K ) )
-                  CALL ZDSCAL( N-K, R1, A( K+1, K ), 1 )
+                  zdscal(N-K, R1, A( K+1, K ), 1 );
 
                   // (2) Conjugate column W(k)
 
-                  CALL ZLACGV( N-K, W( K+1, K ), 1 )
+                  zlacgv(N-K, W( K+1, K ), 1 );
                }
 
             } else {
@@ -670,8 +670,8 @@
 
                // (2) Conjugate columns W(k) and W(k+1)
 
-               CALL ZLACGV( N-K, W( K+1, K ), 1 )
-               CALL ZLACGV( N-K-1, W( K+2, K+1 ), 1 )
+               zlacgv(N-K, W( K+1, K ), 1 );
+               zlacgv(N-K-1, W( K+2, K+1 ), 1 );
 
             }
 
@@ -707,7 +707,7 @@
 
             DO 100 JJ = J, J + JB - 1
                A( JJ, JJ ) = DBLE( A( JJ, JJ ) )
-               CALL ZGEMV( 'No transpose', J+JB-JJ, K-1, -CONE, A( JJ, 1 ), LDA, W( JJ, 1 ), LDW, CONE, A( JJ, JJ ), 1 )
+               zgemv('No transpose', J+JB-JJ, K-1, -CONE, A( JJ, 1 ), LDA, W( JJ, 1 ), LDW, CONE, A( JJ, JJ ), 1 );
                A( JJ, JJ ) = DBLE( A( JJ, JJ ) )
   100       CONTINUE
 

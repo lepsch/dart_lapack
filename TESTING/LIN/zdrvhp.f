@@ -83,8 +83,8 @@
 
       NB = 1
       NBMIN = 2
-      CALL XLAENV( 1, NB )
-      CALL XLAENV( 2, NBMIN )
+      xlaenv(1, NB );
+      xlaenv(2, NBMIN );
 
       // Do for each value of N in NVAL
 
@@ -121,15 +121,15 @@
                // Set up parameters with ZLATB4 and generate a test matrix
                // with ZLATMS.
 
-               CALL ZLATB4( PATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST )
+               zlatb4(PATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST );
 
                SRNAMT = 'ZLATMS'
-               CALL ZLATMS( N, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KL, KU, PACKIT, A, LDA, WORK, INFO )
+               zlatms(N, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KL, KU, PACKIT, A, LDA, WORK, INFO );
 
                // Check error code from ZLATMS.
 
                if ( INFO.NE.0 ) {
-                  CALL ALAERH( PATH, 'ZLATMS', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT )
+                  alaerh(PATH, 'ZLATMS', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
                   GO TO 160
                }
 
@@ -203,9 +203,9 @@
                // Set the imaginary part of the diagonals.
 
                if ( IUPLO.EQ.1 ) {
-                  CALL ZLAIPD( N, A, 2, 1 )
+                  zlaipd(N, A, 2, 1 );
                } else {
-                  CALL ZLAIPD( N, A, N, -1 )
+                  zlaipd(N, A, N, -1 );
                }
 
                DO 150 IFACT = 1, NFACT
@@ -229,13 +229,13 @@
 
                      // Factor the matrix A.
 
-                     CALL ZCOPY( NPP, A, 1, AFAC, 1 )
-                     CALL ZHPTRF( UPLO, N, AFAC, IWORK, INFO )
+                     zcopy(NPP, A, 1, AFAC, 1 );
+                     zhptrf(UPLO, N, AFAC, IWORK, INFO );
 
                      // Compute inv(A) and take its norm.
 
-                     CALL ZCOPY( NPP, AFAC, 1, AINV, 1 )
-                     CALL ZHPTRI( UPLO, N, AINV, IWORK, WORK, INFO )
+                     zcopy(NPP, AFAC, 1, AINV, 1 );
+                     zhptri(UPLO, N, AINV, IWORK, WORK, INFO );
                      AINVNM = ZLANHP( '1', UPLO, N, AINV, RWORK )
 
                      // Compute the 1-norm condition number of A.
@@ -250,19 +250,19 @@
                   // Form an exact solution and set the right hand side.
 
                   SRNAMT = 'ZLARHS'
-                  CALL ZLARHS( PATH, XTYPE, UPLO, ' ', N, N, KL, KU, NRHS, A, LDA, XACT, LDA, B, LDA, ISEED, INFO )
+                  zlarhs(PATH, XTYPE, UPLO, ' ', N, N, KL, KU, NRHS, A, LDA, XACT, LDA, B, LDA, ISEED, INFO );
                   XTYPE = 'C'
 
                   // --- Test ZHPSV  ---
 
                   if ( IFACT.EQ.2 ) {
-                     CALL ZCOPY( NPP, A, 1, AFAC, 1 )
-                     CALL ZLACPY( 'Full', N, NRHS, B, LDA, X, LDA )
+                     zcopy(NPP, A, 1, AFAC, 1 );
+                     zlacpy('Full', N, NRHS, B, LDA, X, LDA );
 
                      // Factor the matrix and solve the system using ZHPSV.
 
                      SRNAMT = 'ZHPSV '
-                     CALL ZHPSV( UPLO, N, NRHS, AFAC, IWORK, X, LDA, INFO )
+                     zhpsv(UPLO, N, NRHS, AFAC, IWORK, X, LDA, INFO );
 
                      // Adjust the expected value of INFO to account for
                      // pivoting.
@@ -284,7 +284,7 @@
                      // Check error code from ZHPSV .
 
                      if ( INFO.NE.K ) {
-                        CALL ALAERH( PATH, 'ZHPSV ', INFO, K, UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT )
+                        alaerh(PATH, 'ZHPSV ', INFO, K, UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
                         GO TO 120
                      } else if ( INFO.NE.0 ) {
                         GO TO 120
@@ -293,16 +293,16 @@
                      // Reconstruct matrix from factors and compute
                      // residual.
 
-                     CALL ZHPT01( UPLO, N, A, AFAC, IWORK, AINV, LDA, RWORK, RESULT( 1 ) )
+                     zhpt01(UPLO, N, A, AFAC, IWORK, AINV, LDA, RWORK, RESULT( 1 ) );
 
                      // Compute residual of the computed solution.
 
-                     CALL ZLACPY( 'Full', N, NRHS, B, LDA, WORK, LDA )
-                     CALL ZPPT02( UPLO, N, NRHS, A, X, LDA, WORK, LDA, RWORK, RESULT( 2 ) )
+                     zlacpy('Full', N, NRHS, B, LDA, WORK, LDA );
+                     zppt02(UPLO, N, NRHS, A, X, LDA, WORK, LDA, RWORK, RESULT( 2 ) );
 
                      // Check solution from generated exact solution.
 
-                     CALL ZGET04( N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 3 ) )
+                     zget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 3 ) );
                      NT = 3
 
                      // Print information about the tests that did not pass
@@ -321,13 +321,13 @@
                   // --- Test ZHPSVX ---
 
                   IF( IFACT.EQ.2 .AND. NPP.GT.0 ) CALL ZLASET( 'Full', NPP, 1, DCMPLX( ZERO ), DCMPLX( ZERO ), AFAC, NPP )
-                  CALL ZLASET( 'Full', N, NRHS, DCMPLX( ZERO ), DCMPLX( ZERO ), X, LDA )
+                  zlaset('Full', N, NRHS, DCMPLX( ZERO ), DCMPLX( ZERO ), X, LDA );
 
                   // Solve the system and compute the condition number and
                   // error bounds using ZHPSVX.
 
                   SRNAMT = 'ZHPSVX'
-                  CALL ZHPSVX( FACT, UPLO, N, NRHS, A, AFAC, IWORK, B, LDA, X, LDA, RCOND, RWORK, RWORK( NRHS+1 ), WORK, RWORK( 2*NRHS+1 ), INFO )
+                  zhpsvx(FACT, UPLO, N, NRHS, A, AFAC, IWORK, B, LDA, X, LDA, RCOND, RWORK, RWORK( NRHS+1 ), WORK, RWORK( 2*NRHS+1 ), INFO );
 
                   // Adjust the expected value of INFO to account for
                   // pivoting.
@@ -349,7 +349,7 @@
                   // Check the error code from ZHPSVX.
 
                   if ( INFO.NE.K ) {
-                     CALL ALAERH( PATH, 'ZHPSVX', INFO, K, FACT // UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT )
+                     alaerh(PATH, 'ZHPSVX', INFO, K, FACT // UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
                      GO TO 150
                   }
 
@@ -359,7 +359,7 @@
                         // Reconstruct matrix from factors and compute
                         // residual.
 
-                        CALL ZHPT01( UPLO, N, A, AFAC, IWORK, AINV, LDA, RWORK( 2*NRHS+1 ), RESULT( 1 ) )
+                        zhpt01(UPLO, N, A, AFAC, IWORK, AINV, LDA, RWORK( 2*NRHS+1 ), RESULT( 1 ) );
                         K1 = 1
                      } else {
                         K1 = 2
@@ -367,16 +367,16 @@
 
                      // Compute residual of the computed solution.
 
-                     CALL ZLACPY( 'Full', N, NRHS, B, LDA, WORK, LDA )
-                     CALL ZPPT02( UPLO, N, NRHS, A, X, LDA, WORK, LDA, RWORK( 2*NRHS+1 ), RESULT( 2 ) )
+                     zlacpy('Full', N, NRHS, B, LDA, WORK, LDA );
+                     zppt02(UPLO, N, NRHS, A, X, LDA, WORK, LDA, RWORK( 2*NRHS+1 ), RESULT( 2 ) );
 
                      // Check solution from generated exact solution.
 
-                     CALL ZGET04( N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 3 ) )
+                     zget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 3 ) );
 
                      // Check the error bounds from iterative refinement.
 
-                     CALL ZPPT05( UPLO, N, NRHS, A, B, LDA, X, LDA, XACT, LDA, RWORK, RWORK( NRHS+1 ), RESULT( 4 ) )
+                     zppt05(UPLO, N, NRHS, A, B, LDA, X, LDA, XACT, LDA, RWORK, RWORK( NRHS+1 ), RESULT( 4 ) );
                   } else {
                      K1 = 6
                   }
@@ -405,7 +405,7 @@
 
       // Print a summary of the results.
 
-      CALL ALASVM( PATH, NOUT, NFAIL, NRUN, NERRS )
+      alasvm(PATH, NOUT, NFAIL, NRUN, NERRS );
 
  9999 FORMAT( 1X, A, ', UPLO=''', A1, ''', N =', I5, ', type ', I2, ', test ', I2, ', ratio =', G12.5 )
  9998 FORMAT( 1X, A, ', FACT=''', A1, ''', UPLO=''', A1, ''', N =', I5, ', type ', I2, ', test ', I2, ', ratio =', G12.5 )

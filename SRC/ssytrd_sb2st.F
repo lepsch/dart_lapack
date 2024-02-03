@@ -88,7 +88,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'SSYTRD_SB2ST', -INFO )
+         xerbla('SSYTRD_SB2ST', -INFO );
          RETURN
       } else if ( LQUERY ) {
          RETURN
@@ -192,8 +192,8 @@
       STEPERCOL = CEILING( REAL(SHIFT)/REAL(GRSIZ) )
       THGRNB    = CEILING( REAL(N-1)/REAL(THGRSIZ) )
 
-      CALL SLACPY( "A", KD+1, N, AB, LDAB, WORK( APOS ), LDA )
-      CALL SLASET( "A", KD,   N, ZERO, ZERO, WORK( AWPOS ), LDA )
+      slacpy("A", KD+1, N, AB, LDAB, WORK( APOS ), LDA );
+      slaset("A", KD,   N, ZERO, ZERO, WORK( AWPOS ), LDA );
 
 
       // openMP parallelisation start here
@@ -251,17 +251,17 @@
 !$OMP$     DEPEND(in:WORK(MYID-1))
 !$OMP$     DEPEND(out:WORK(MYID))
                               TID      = OMP_GET_THREAD_NUM()
-                              CALL SSB2ST_KERNELS( UPLO, WANTQ, TTYPE, STIND, EDIND, SWEEPID, N, KD, IB, WORK ( INDA ), LDA, HOUS( INDV ), HOUS( INDTAU ), LDV, WORK( INDW + TID*KD ) )
+                              ssb2st_kernels(UPLO, WANTQ, TTYPE, STIND, EDIND, SWEEPID, N, KD, IB, WORK ( INDA ), LDA, HOUS( INDV ), HOUS( INDTAU ), LDV, WORK( INDW + TID*KD ) );
 !$OMP END TASK
                           } else {
 !$OMP TASK DEPEND(in:WORK(MYID+SHIFT-1))
 !$OMP$     DEPEND(out:WORK(MYID))
                               TID      = OMP_GET_THREAD_NUM()
-                              CALL SSB2ST_KERNELS( UPLO, WANTQ, TTYPE, STIND, EDIND, SWEEPID, N, KD, IB, WORK ( INDA ), LDA, HOUS( INDV ), HOUS( INDTAU ), LDV, WORK( INDW + TID*KD ) )
+                              ssb2st_kernels(UPLO, WANTQ, TTYPE, STIND, EDIND, SWEEPID, N, KD, IB, WORK ( INDA ), LDA, HOUS( INDV ), HOUS( INDTAU ), LDV, WORK( INDW + TID*KD ) );
 !$OMP END TASK
                           ENDIF
 #else
-                          CALL SSB2ST_KERNELS( UPLO, WANTQ, TTYPE, STIND, EDIND, SWEEPID, N, KD, IB, WORK ( INDA ), LDA, HOUS( INDV ), HOUS( INDTAU ), LDV, WORK( INDW ) )
+                          ssb2st_kernels(UPLO, WANTQ, TTYPE, STIND, EDIND, SWEEPID, N, KD, IB, WORK ( INDA ), LDA, HOUS( INDV ), HOUS( INDTAU ), LDV, WORK( INDW ) );
 #endif
                           if ( BLKLASTIND.GE.(N-1) ) {
                               STT = STT + 1

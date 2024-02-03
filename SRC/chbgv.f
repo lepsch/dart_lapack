@@ -53,7 +53,7 @@
          INFO = -12
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'CHBGV', -INFO )
+         xerbla('CHBGV', -INFO );
          RETURN
       }
 
@@ -63,7 +63,7 @@
 
       // Form a split Cholesky factorization of B.
 
-      CALL CPBSTF( UPLO, N, KB, BB, LDBB, INFO )
+      cpbstf(UPLO, N, KB, BB, LDBB, INFO );
       if ( INFO.NE.0 ) {
          INFO = N + INFO
          RETURN
@@ -73,7 +73,7 @@
 
       INDE = 1
       INDWRK = INDE + N
-      CALL CHBGST( JOBZ, UPLO, N, KA, KB, AB, LDAB, BB, LDBB, Z, LDZ, WORK, RWORK( INDWRK ), IINFO )
+      chbgst(JOBZ, UPLO, N, KA, KB, AB, LDAB, BB, LDBB, Z, LDZ, WORK, RWORK( INDWRK ), IINFO );
 
       // Reduce to tridiagonal form.
 
@@ -82,14 +82,14 @@
       } else {
          VECT = 'N'
       }
-      CALL CHBTRD( VECT, UPLO, N, KA, AB, LDAB, W, RWORK( INDE ), Z, LDZ, WORK, IINFO )
+      chbtrd(VECT, UPLO, N, KA, AB, LDAB, W, RWORK( INDE ), Z, LDZ, WORK, IINFO );
 
       // For eigenvalues only, call SSTERF.  For eigenvectors, call CSTEQR.
 
       if ( .NOT.WANTZ ) {
-         CALL SSTERF( N, W, RWORK( INDE ), INFO )
+         ssterf(N, W, RWORK( INDE ), INFO );
       } else {
-         CALL CSTEQR( JOBZ, N, W, RWORK( INDE ), Z, LDZ, RWORK( INDWRK ), INFO )
+         csteqr(JOBZ, N, W, RWORK( INDE ), Z, LDZ, RWORK( INDWRK ), INFO );
       }
       RETURN
 

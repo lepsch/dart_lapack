@@ -84,7 +84,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'CUNMQL', -INFO )
+         xerbla('CUNMQL', -INFO );
          RETURN
       } else if ( LQUERY ) {
          RETURN
@@ -111,7 +111,7 @@
 
          // Use unblocked code
 
-         CALL CUNM2L( SIDE, TRANS, M, N, K, A, LDA, TAU, C, LDC, WORK, IINFO )
+         cunm2l(SIDE, TRANS, M, N, K, A, LDA, TAU, C, LDC, WORK, IINFO );
       } else {
 
          // Use blocked code
@@ -139,7 +139,7 @@
             // Form the triangular factor of the block reflector
             // H = H(i+ib-1) . . . H(i+1) H(i)
 
-            CALL CLARFT( 'Backward', 'Columnwise', NQ-K+I+IB-1, IB, A( 1, I ), LDA, TAU( I ), WORK( IWT ), LDT )
+            clarft('Backward', 'Columnwise', NQ-K+I+IB-1, IB, A( 1, I ), LDA, TAU( I ), WORK( IWT ), LDT );
             if ( LEFT ) {
 
                // H or H**H is applied to C(1:m-k+i+ib-1,1:n)
@@ -154,7 +154,7 @@
 
             // Apply H or H**H
 
-            CALL CLARFB( SIDE, TRANS, 'Backward', 'Columnwise', MI, NI, IB, A( 1, I ), LDA, WORK( IWT ), LDT, C, LDC, WORK, LDWORK )
+            clarfb(SIDE, TRANS, 'Backward', 'Columnwise', MI, NI, IB, A( 1, I ), LDA, WORK( IWT ), LDT, C, LDC, WORK, LDWORK );
    10    CONTINUE
       }
       WORK( 1 ) = SROUNDUP_LWORK(LWKOPT)

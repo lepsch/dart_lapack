@@ -63,16 +63,16 @@
       // Put random numbers into A and copy to AF
 
       DO J = 1, N
-         CALL SLARNV( 2, ISEED, M, A( 1, J ) )
+         slarnv(2, ISEED, M, A( 1, J ) );
       END DO
       if ( TESTZEROS ) {
          if ( M.GE.4 ) {
             DO J = 1, N
-               CALL SLARNV( 2, ISEED, M/2, A( M/4, J ) )
+               slarnv(2, ISEED, M/2, A( M/4, J ) );
             END DO
          }
       }
-      CALL SLACPY( 'Full', M, N, A, M, AF, M )
+      slacpy('Full', M, N, A, M, AF, M );
 
       // Number of row blocks in SLATSQR
 
@@ -88,7 +88,7 @@
 
       NB2_UB = MIN( NB2, N)
 
-      CALL SGETSQRHRT( M, N, MB1, NB1, NB2, AF, M, T2, NB2, WORKQUERY, -1, INFO )
+      sgetsqrhrt(M, N, MB1, NB1, NB2, AF, M, T2, NB2, WORKQUERY, -1, INFO );
 
       LWORK = INT( WORKQUERY( 1 ) )
 
@@ -107,28 +107,28 @@
       // Factor the matrix A in the array AF.
 
       SRNAMT = 'SGETSQRHRT'
-      CALL SGETSQRHRT( M, N, MB1, NB1, NB2, AF, M, T2, NB2, WORK, LWORK, INFO )
+      sgetsqrhrt(M, N, MB1, NB1, NB2, AF, M, T2, NB2, WORK, LWORK, INFO );
 
       // End Householder reconstruction routines.
 
 
       // Generate the m-by-m matrix Q
 
-      CALL SLASET( 'Full', M, M, ZERO, ONE, Q, M )
+      slaset('Full', M, M, ZERO, ONE, Q, M );
 
       SRNAMT = 'SGEMQRT'
-      CALL SGEMQRT( 'L', 'N', M, M, K, NB2_UB, AF, M, T2, NB2, Q, M, WORK, INFO )
+      sgemqrt('L', 'N', M, M, K, NB2_UB, AF, M, T2, NB2, Q, M, WORK, INFO );
 
       // Copy R
 
-      CALL SLASET( 'Full', M, N, ZERO, ZERO, R, M )
+      slaset('Full', M, N, ZERO, ZERO, R, M );
 
-      CALL SLACPY( 'Upper', M, N, AF, M, R, M )
+      slacpy('Upper', M, N, AF, M, R, M );
 
       // TEST 1
       // Compute |R - (Q**T)*A| / ( eps * m * |A| ) and store in RESULT(1)
 
-      CALL SGEMM( 'T', 'N', M, N, M, -ONE, Q, M, A, M, ONE, R, M )
+      sgemm('T', 'N', M, N, M, -ONE, Q, M, A, M, ONE, R, M );
 
       ANORM = SLANGE( '1', M, N, A, M, RWORK )
       RESID = SLANGE( '1', M, N, R, M, RWORK )
@@ -141,28 +141,28 @@
       // TEST 2
       // Compute |I - (Q**T)*Q| / ( eps * m ) and store in RESULT(2)
 
-      CALL SLASET( 'Full', M, M, ZERO, ONE, R, M )
-      CALL SSYRK( 'U', 'T', M, M, -ONE, Q, M, ONE, R, M )
+      slaset('Full', M, M, ZERO, ONE, R, M );
+      ssyrk('U', 'T', M, M, -ONE, Q, M, ONE, R, M );
       RESID = SLANSY( '1', 'Upper', M, R, M, RWORK )
       RESULT( 2 ) = RESID / ( EPS * MAX( 1, M ) )
 
       // Generate random m-by-n matrix C
 
       DO J = 1, N
-         CALL SLARNV( 2, ISEED, M, C( 1, J ) )
+         slarnv(2, ISEED, M, C( 1, J ) );
       END DO
       CNORM = SLANGE( '1', M, N, C, M, RWORK )
-      CALL SLACPY( 'Full', M, N, C, M, CF, M )
+      slacpy('Full', M, N, C, M, CF, M );
 
       // Apply Q to C as Q*C = CF
 
       SRNAMT = 'SGEMQRT'
-      CALL SGEMQRT( 'L', 'N', M, N, K, NB2_UB, AF, M, T2, NB2, CF, M, WORK, INFO )
+      sgemqrt('L', 'N', M, N, K, NB2_UB, AF, M, T2, NB2, CF, M, WORK, INFO );
 
       // TEST 3
       // Compute |CF - Q*C| / ( eps *  m * |C| )
 
-      CALL SGEMM( 'N', 'N', M, N, M, -ONE, Q, M, C, M, ONE, CF, M )
+      sgemm('N', 'N', M, N, M, -ONE, Q, M, C, M, ONE, CF, M );
       RESID = SLANGE( '1', M, N, CF, M, RWORK )
       if ( CNORM.GT.ZERO ) {
          RESULT( 3 ) = RESID / ( EPS * MAX( 1, M ) * CNORM )
@@ -172,17 +172,17 @@
 
       // Copy C into CF again
 
-      CALL SLACPY( 'Full', M, N, C, M, CF, M )
+      slacpy('Full', M, N, C, M, CF, M );
 
       // Apply Q to C as (Q**T)*C = CF
 
       SRNAMT = 'SGEMQRT'
-      CALL SGEMQRT( 'L', 'T', M, N, K, NB2_UB, AF, M, T2, NB2, CF, M, WORK, INFO )
+      sgemqrt('L', 'T', M, N, K, NB2_UB, AF, M, T2, NB2, CF, M, WORK, INFO );
 
       // TEST 4
       // Compute |CF - (Q**T)*C| / ( eps * m * |C|)
 
-      CALL SGEMM( 'T', 'N', M, N, M, -ONE, Q, M, C, M, ONE, CF, M )
+      sgemm('T', 'N', M, N, M, -ONE, Q, M, C, M, ONE, CF, M );
       RESID = SLANGE( '1', M, N, CF, M, RWORK )
       if ( CNORM.GT.ZERO ) {
          RESULT( 4 ) = RESID / ( EPS * MAX( 1, M ) * CNORM )
@@ -193,20 +193,20 @@
       // Generate random n-by-m matrix D and a copy DF
 
       DO J = 1, M
-         CALL SLARNV( 2, ISEED, N, D( 1, J ) )
+         slarnv(2, ISEED, N, D( 1, J ) );
       END DO
       DNORM = SLANGE( '1', N, M, D, N, RWORK )
-      CALL SLACPY( 'Full', N, M, D, N, DF, N )
+      slacpy('Full', N, M, D, N, DF, N );
 
       // Apply Q to D as D*Q = DF
 
       SRNAMT = 'SGEMQRT'
-      CALL SGEMQRT( 'R', 'N', N, M, K, NB2_UB, AF, M, T2, NB2, DF, N, WORK, INFO )
+      sgemqrt('R', 'N', N, M, K, NB2_UB, AF, M, T2, NB2, DF, N, WORK, INFO );
 
       // TEST 5
       // Compute |DF - D*Q| / ( eps * m * |D| )
 
-      CALL SGEMM( 'N', 'N', N, M, M, -ONE, D, N, Q, M, ONE, DF, N )
+      sgemm('N', 'N', N, M, M, -ONE, D, N, Q, M, ONE, DF, N );
       RESID = SLANGE( '1', N, M, DF, N, RWORK )
       if ( DNORM.GT.ZERO ) {
          RESULT( 5 ) = RESID / ( EPS * MAX( 1, M ) * DNORM )
@@ -216,17 +216,17 @@
 
       // Copy D into DF again
 
-      CALL SLACPY( 'Full', N, M, D, N, DF, N )
+      slacpy('Full', N, M, D, N, DF, N );
 
       // Apply Q to D as D*QT = DF
 
       SRNAMT = 'SGEMQRT'
-      CALL SGEMQRT( 'R', 'T', N, M, K, NB2_UB, AF, M, T2, NB2, DF, N, WORK, INFO )
+      sgemqrt('R', 'T', N, M, K, NB2_UB, AF, M, T2, NB2, DF, N, WORK, INFO );
 
       // TEST 6
       // Compute |DF - D*(Q**T)| / ( eps * m * |D| )
 
-      CALL SGEMM( 'N', 'T', N, M, M, -ONE, D, N, Q, M, ONE, DF, N )
+      sgemm('N', 'T', N, M, M, -ONE, D, N, Q, M, ONE, DF, N );
       RESID = SLANGE( '1', N, M, DF, N, RWORK )
       if ( DNORM.GT.ZERO ) {
          RESULT( 6 ) = RESID / ( EPS * MAX( 1, M ) * DNORM )

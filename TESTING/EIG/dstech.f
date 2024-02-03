@@ -109,8 +109,8 @@
 
       // Count singular values in interval [ LOWER, UPPER ]
 
-      CALL DSTECT( N, A, B, LOWER, NUML )
-      CALL DSTECT( N, A, B, UPPER, NUMU )
+      dstect(N, A, B, LOWER, NUML );
+      dstect(N, A, B, UPPER, NUMU );
       COUNT = NUMU - NUML
       if ( COUNT.NE.BPNT-TPNT+1 ) {
 

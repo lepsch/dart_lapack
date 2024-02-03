@@ -98,7 +98,7 @@
       IF( LWORK.LT.MINWRK ) INFO = -19
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'SDRGSX', -INFO )
+         xerbla('SDRGSX', -INFO );
          RETURN
       }
 
@@ -139,9 +139,9 @@
                   FS = .TRUE.
                   K = 0
 
-                  CALL SLASET( 'Full', MPLUSN, MPLUSN, ZERO, ZERO, AI, LDA )                   CALL SLASET( 'Full', MPLUSN, MPLUSN, ZERO, ZERO, BI, LDA )
+                  slaset('Full', MPLUSN, MPLUSN, ZERO, ZERO, AI, LDA )                   CALL SLASET( 'Full', MPLUSN, MPLUSN, ZERO, ZERO, BI, LDA );
 
-                  CALL SLATM5( PRTYPE, M, N, AI, LDA, AI( M+1, M+1 ), LDA, AI( 1, M+1 ), LDA, BI, LDA, BI( M+1, M+1 ), LDA, BI( 1, M+1 ), LDA, Q, LDA, Z, LDA, WEIGHT, QBA, QBB )
+                  slatm5(PRTYPE, M, N, AI, LDA, AI( M+1, M+1 ), LDA, AI( 1, M+1 ), LDA, BI, LDA, BI( M+1, M+1 ), LDA, BI( 1, M+1 ), LDA, Q, LDA, Z, LDA, WEIGHT, QBA, QBB );
 
                   // Compute the Schur factorization and swapping the
                   // m-by-m (1,1)-blocks with n-by-n (2,2)-blocks.
@@ -158,10 +158,10 @@
                      SENSE = 'B'
                   }
 
-                  CALL SLACPY( 'Full', MPLUSN, MPLUSN, AI, LDA, A, LDA )
-                  CALL SLACPY( 'Full', MPLUSN, MPLUSN, BI, LDA, B, LDA )
+                  slacpy('Full', MPLUSN, MPLUSN, AI, LDA, A, LDA );
+                  slacpy('Full', MPLUSN, MPLUSN, BI, LDA, B, LDA );
 
-                  CALL SGGESX( 'V', 'V', 'S', SLCTSX, SENSE, MPLUSN, AI, LDA, BI, LDA, MM, ALPHAR, ALPHAI, BETA, Q, LDA, Z, LDA, PL, DIFEST, WORK, LWORK, IWORK, LIWORK, BWORK, LINFO )
+                  sggesx('V', 'V', 'S', SLCTSX, SENSE, MPLUSN, AI, LDA, BI, LDA, MM, ALPHAR, ALPHAI, BETA, Q, LDA, Z, LDA, PL, DIFEST, WORK, LWORK, IWORK, LIWORK, BWORK, LINFO );
 
                   if ( LINFO.NE.0 .AND. LINFO.NE.MPLUSN+2 ) {
                      RESULT( 1 ) = ULPINV
@@ -172,11 +172,11 @@
 
                   // Compute the norm(A, B)
 
-                  CALL SLACPY( 'Full', MPLUSN, MPLUSN, AI, LDA, WORK, MPLUSN )                   CALL SLACPY( 'Full', MPLUSN, MPLUSN, BI, LDA, WORK( MPLUSN*MPLUSN+1 ), MPLUSN )                   ABNRM = SLANGE( 'Fro', MPLUSN, 2*MPLUSN, WORK, MPLUSN, WORK )
+                  slacpy('Full', MPLUSN, MPLUSN, AI, LDA, WORK, MPLUSN )                   CALL SLACPY( 'Full', MPLUSN, MPLUSN, BI, LDA, WORK( MPLUSN*MPLUSN+1 ), MPLUSN )                   ABNRM = SLANGE( 'Fro', MPLUSN, 2*MPLUSN, WORK, MPLUSN, WORK );
 
                   // Do tests (1) to (4)
 
-                  CALL SGET51( 1, MPLUSN, A, LDA, AI, LDA, Q, LDA, Z, LDA, WORK, RESULT( 1 ) )                   CALL SGET51( 1, MPLUSN, B, LDA, BI, LDA, Q, LDA, Z, LDA, WORK, RESULT( 2 ) )                   CALL SGET51( 3, MPLUSN, B, LDA, BI, LDA, Q, LDA, Q, LDA, WORK, RESULT( 3 ) )                   CALL SGET51( 3, MPLUSN, B, LDA, BI, LDA, Z, LDA, Z, LDA, WORK, RESULT( 4 ) )
+                  sget51(1, MPLUSN, A, LDA, AI, LDA, Q, LDA, Z, LDA, WORK, RESULT( 1 ) )                   CALL SGET51( 1, MPLUSN, B, LDA, BI, LDA, Q, LDA, Z, LDA, WORK, RESULT( 2 ) )                   CALL SGET51( 3, MPLUSN, B, LDA, BI, LDA, Q, LDA, Q, LDA, WORK, RESULT( 3 ) )                   CALL SGET51( 3, MPLUSN, B, LDA, BI, LDA, Z, LDA, Z, LDA, WORK, RESULT( 4 ) );
                   NTEST = 4
 
                   // Do tests (5) and (6): check Schur form of A and
@@ -222,7 +222,7 @@
                            }
                         }
                         if ( .NOT.ILABAD ) {
-                           CALL SGET53( AI( I1, I1 ), LDA, BI( I1, I1 ), LDA, BETA( J ), ALPHAR( J ), ALPHAI( J ), TEMP2, IINFO )
+                           sget53(AI( I1, I1 ), LDA, BI( I1, I1 ), LDA, BETA( J ), ALPHAR( J ), ALPHAI( J ), TEMP2, IINFO );
                            if ( IINFO.GE.3 ) {
                               WRITE( NOUT, FMT = 9997 )IINFO, J, MPLUSN, PRTYPE
                               INFO = ABS( IINFO )
@@ -259,9 +259,9 @@
                      // Note: for either following two causes, there are
                      // almost same number of test cases fail the test.
 
-                     CALL SLAKF2( MM, MPLUSN-MM, AI, LDA, AI( MM+1, MM+1 ), BI, BI( MM+1, MM+1 ), C, LDC )
+                     slakf2(MM, MPLUSN-MM, AI, LDA, AI( MM+1, MM+1 ), BI, BI( MM+1, MM+1 ), C, LDC );
 
-                     CALL SGESVD( 'N', 'N', MN2, MN2, C, LDC, S, WORK, 1, WORK( 2 ), 1, WORK( 3 ), LWORK-2, INFO )
+                     sgesvd('N', 'N', MN2, MN2, C, LDC, S, WORK, 1, WORK( 2 ), 1, WORK( 3 ), LWORK-2, INFO );
                      DIFTRU = S( MN2 )
 
                      if ( DIFEST( 2 ).EQ.ZERO ) {
@@ -342,13 +342,13 @@
       K = 0
       M = MPLUSN - N
 
-      CALL SLACPY( 'Full', MPLUSN, MPLUSN, AI, LDA, A, LDA )
-      CALL SLACPY( 'Full', MPLUSN, MPLUSN, BI, LDA, B, LDA )
+      slacpy('Full', MPLUSN, MPLUSN, AI, LDA, A, LDA );
+      slacpy('Full', MPLUSN, MPLUSN, BI, LDA, B, LDA );
 
       // Compute the Schur factorization while swapping the
       // m-by-m (1,1)-blocks with n-by-n (2,2)-blocks.
 
-      CALL SGGESX( 'V', 'V', 'S', SLCTSX, 'B', MPLUSN, AI, LDA, BI, LDA, MM, ALPHAR, ALPHAI, BETA, Q, LDA, Z, LDA, PL, DIFEST, WORK, LWORK, IWORK, LIWORK, BWORK, LINFO )
+      sggesx('V', 'V', 'S', SLCTSX, 'B', MPLUSN, AI, LDA, BI, LDA, MM, ALPHAR, ALPHAI, BETA, Q, LDA, Z, LDA, PL, DIFEST, WORK, LWORK, IWORK, LIWORK, BWORK, LINFO );
 
       if ( LINFO.NE.0 .AND. LINFO.NE.MPLUSN+2 ) {
          RESULT( 1 ) = ULPINV
@@ -359,13 +359,13 @@
       // Compute the norm(A, B)
          // (should this be norm of (A,B) or (AI,BI)?)
 
-      CALL SLACPY( 'Full', MPLUSN, MPLUSN, AI, LDA, WORK, MPLUSN )
-      CALL SLACPY( 'Full', MPLUSN, MPLUSN, BI, LDA, WORK( MPLUSN*MPLUSN+1 ), MPLUSN )
+      slacpy('Full', MPLUSN, MPLUSN, AI, LDA, WORK, MPLUSN );
+      slacpy('Full', MPLUSN, MPLUSN, BI, LDA, WORK( MPLUSN*MPLUSN+1 ), MPLUSN );
       ABNRM = SLANGE( 'Fro', MPLUSN, 2*MPLUSN, WORK, MPLUSN, WORK )
 
       // Do tests (1) to (4)
 
-      CALL SGET51( 1, MPLUSN, A, LDA, AI, LDA, Q, LDA, Z, LDA, WORK, RESULT( 1 ) )       CALL SGET51( 1, MPLUSN, B, LDA, BI, LDA, Q, LDA, Z, LDA, WORK, RESULT( 2 ) )       CALL SGET51( 3, MPLUSN, B, LDA, BI, LDA, Q, LDA, Q, LDA, WORK, RESULT( 3 ) )       CALL SGET51( 3, MPLUSN, B, LDA, BI, LDA, Z, LDA, Z, LDA, WORK, RESULT( 4 ) )
+      sget51(1, MPLUSN, A, LDA, AI, LDA, Q, LDA, Z, LDA, WORK, RESULT( 1 ) )       CALL SGET51( 1, MPLUSN, B, LDA, BI, LDA, Q, LDA, Z, LDA, WORK, RESULT( 2 ) )       CALL SGET51( 3, MPLUSN, B, LDA, BI, LDA, Q, LDA, Q, LDA, WORK, RESULT( 3 ) )       CALL SGET51( 3, MPLUSN, B, LDA, BI, LDA, Z, LDA, Z, LDA, WORK, RESULT( 4 ) );
 
       // Do tests (5) and (6): check Schur form of A and compare
       // eigenvalues with diagonals.
@@ -411,7 +411,7 @@
                }
             }
             if ( .NOT.ILABAD ) {
-               CALL SGET53( AI( I1, I1 ), LDA, BI( I1, I1 ), LDA, BETA( J ), ALPHAR( J ), ALPHAI( J ), TEMP2, IINFO )
+               sget53(AI( I1, I1 ), LDA, BI( I1, I1 ), LDA, BETA( J ), ALPHAR( J ), ALPHAI( J ), TEMP2, IINFO );
                if ( IINFO.GE.3 ) {
                   WRITE( NOUT, FMT = 9997 )IINFO, J, MPLUSN, NPTKNT
                   INFO = ABS( IINFO )
@@ -503,7 +503,7 @@
 
       // Summary
 
-      CALL ALASVM( 'SGX', NOUT, NERRS, NTESTT, 0 )
+      alasvm('SGX', NOUT, NERRS, NTESTT, 0 );
 
       WORK( 1 ) = MAXWRK
 

@@ -41,7 +41,7 @@
 
          // Code for general M
 
-         CALL DLARF( SIDE, M, N, V, 1, TAU, C, LDC, WORK )
+         dlarf(SIDE, M, N, V, 1, TAU, C, LDC, WORK );
          GO TO 410
    10    CONTINUE
 
@@ -294,7 +294,7 @@
 
          // Code for general N
 
-         CALL DLARF( SIDE, M, N, V, 1, TAU, C, LDC, WORK )
+         dlarf(SIDE, M, N, V, 1, TAU, C, LDC, WORK );
          GO TO 410
   210    CONTINUE
 

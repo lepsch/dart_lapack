@@ -52,7 +52,7 @@
          INFO = -8
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'CLALSD', -INFO )
+         xerbla('CLALSD', -INFO );
          RETURN
       }
 
@@ -74,10 +74,10 @@
          RETURN
       } else if ( N.EQ.1 ) {
          if ( D( 1 ).EQ.ZERO ) {
-            CALL CLASET( 'A', 1, NRHS, CZERO, CZERO, B, LDB )
+            claset('A', 1, NRHS, CZERO, CZERO, B, LDB );
          } else {
             RANK = 1
-            CALL CLASCL( 'G', 0, 0, D( 1 ), ONE, 1, NRHS, B, LDB, INFO )
+            clascl('G', 0, 0, D( 1 ), ONE, 1, NRHS, B, LDB, INFO );
             D( 1 ) = ABS( D( 1 ) )
          }
          RETURN
@@ -87,12 +87,12 @@
 
       if ( UPLO.EQ.'L' ) {
          DO 10 I = 1, N - 1
-            CALL SLARTG( D( I ), E( I ), CS, SN, R )
+            slartg(D( I ), E( I ), CS, SN, R );
             D( I ) = R
             E( I ) = SN*D( I+1 )
             D( I+1 ) = CS*D( I+1 )
             if ( NRHS.EQ.1 ) {
-               CALL CSROT( 1, B( I, 1 ), 1, B( I+1, 1 ), 1, CS, SN )
+               csrot(1, B( I, 1 ), 1, B( I+1, 1 ), 1, CS, SN );
             } else {
                RWORK( I*2-1 ) = CS
                RWORK( I*2 ) = SN
@@ -103,7 +103,7 @@
                DO 20 J = 1, N - 1
                   CS = RWORK( J*2-1 )
                   SN = RWORK( J*2 )
-                  CALL CSROT( 1, B( J, I ), 1, B( J+1, I ), 1, CS, SN )
+                  csrot(1, B( J, I ), 1, B( J+1, I ), 1, CS, SN );
    20          CONTINUE
    30       CONTINUE
          }
@@ -114,12 +114,12 @@
       NM1 = N - 1
       ORGNRM = SLANST( 'M', N, D, E )
       if ( ORGNRM.EQ.ZERO ) {
-         CALL CLASET( 'A', N, NRHS, CZERO, CZERO, B, LDB )
+         claset('A', N, NRHS, CZERO, CZERO, B, LDB );
          RETURN
       }
 
-      CALL SLASCL( 'G', 0, 0, ORGNRM, ONE, N, 1, D, N, INFO )
-      CALL SLASCL( 'G', 0, 0, ORGNRM, ONE, NM1, 1, E, NM1, INFO )
+      slascl('G', 0, 0, ORGNRM, ONE, N, 1, D, N, INFO );
+      slascl('G', 0, 0, ORGNRM, ONE, NM1, 1, E, NM1, INFO );
 
       // If N is smaller than the minimum divide size SMLSIZ, then solve
       // the problem with another solver.
@@ -131,9 +131,9 @@
          IRWRB = IRWWRK
          IRWIB = IRWRB + N*NRHS
          IRWB = IRWIB + N*NRHS
-         CALL SLASET( 'A', N, N, ZERO, ONE, RWORK( IRWU ), N )
-         CALL SLASET( 'A', N, N, ZERO, ONE, RWORK( IRWVT ), N )
-         CALL SLASDQ( 'U', 0, N, N, N, 0, D, E, RWORK( IRWVT ), N, RWORK( IRWU ), N, RWORK( IRWWRK ), 1, RWORK( IRWWRK ), INFO )
+         slaset('A', N, N, ZERO, ONE, RWORK( IRWU ), N );
+         slaset('A', N, N, ZERO, ONE, RWORK( IRWVT ), N );
+         slasdq('U', 0, N, N, N, 0, D, E, RWORK( IRWVT ), N, RWORK( IRWU ), N, RWORK( IRWWRK ), 1, RWORK( IRWWRK ), INFO );
          if ( INFO.NE.0 ) {
             RETURN
          }
@@ -149,7 +149,7 @@
                RWORK( J ) = REAL( B( JROW, JCOL ) )
    40       CONTINUE
    50    CONTINUE
-         CALL SGEMM( 'T', 'N', N, NRHS, N, ONE, RWORK( IRWU ), N, RWORK( IRWB ), N, ZERO, RWORK( IRWRB ), N )
+         sgemm('T', 'N', N, NRHS, N, ONE, RWORK( IRWU ), N, RWORK( IRWB ), N, ZERO, RWORK( IRWRB ), N );
          J = IRWB - 1
          DO 70 JCOL = 1, NRHS
             DO 60 JROW = 1, N
@@ -157,7 +157,7 @@
                RWORK( J ) = AIMAG( B( JROW, JCOL ) )
    60       CONTINUE
    70    CONTINUE
-         CALL SGEMM( 'T', 'N', N, NRHS, N, ONE, RWORK( IRWU ), N, RWORK( IRWB ), N, ZERO, RWORK( IRWIB ), N )
+         sgemm('T', 'N', N, NRHS, N, ONE, RWORK( IRWU ), N, RWORK( IRWB ), N, ZERO, RWORK( IRWIB ), N );
          JREAL = IRWRB - 1
          JIMAG = IRWIB - 1
          DO 90 JCOL = 1, NRHS
@@ -171,9 +171,9 @@
          TOL = RCND*ABS( D( ISAMAX( N, D, 1 ) ) )
          DO 100 I = 1, N
             if ( D( I ).LE.TOL ) {
-               CALL CLASET( 'A', 1, NRHS, CZERO, CZERO, B( I, 1 ), LDB )
+               claset('A', 1, NRHS, CZERO, CZERO, B( I, 1 ), LDB );
             } else {
-               CALL CLASCL( 'G', 0, 0, D( I ), ONE, 1, NRHS, B( I, 1 ), LDB, INFO )
+               clascl('G', 0, 0, D( I ), ONE, 1, NRHS, B( I, 1 ), LDB, INFO );
                RANK = RANK + 1
             }
   100    CONTINUE
@@ -192,7 +192,7 @@
                RWORK( J ) = REAL( B( JROW, JCOL ) )
   110       CONTINUE
   120    CONTINUE
-         CALL SGEMM( 'T', 'N', N, NRHS, N, ONE, RWORK( IRWVT ), N, RWORK( IRWB ), N, ZERO, RWORK( IRWRB ), N )
+         sgemm('T', 'N', N, NRHS, N, ONE, RWORK( IRWVT ), N, RWORK( IRWB ), N, ZERO, RWORK( IRWRB ), N );
          J = IRWB - 1
          DO 140 JCOL = 1, NRHS
             DO 130 JROW = 1, N
@@ -200,7 +200,7 @@
                RWORK( J ) = AIMAG( B( JROW, JCOL ) )
   130       CONTINUE
   140    CONTINUE
-         CALL SGEMM( 'T', 'N', N, NRHS, N, ONE, RWORK( IRWVT ), N, RWORK( IRWB ), N, ZERO, RWORK( IRWIB ), N )
+         sgemm('T', 'N', N, NRHS, N, ONE, RWORK( IRWVT ), N, RWORK( IRWB ), N, ZERO, RWORK( IRWIB ), N );
          JREAL = IRWRB - 1
          JIMAG = IRWIB - 1
          DO 160 JCOL = 1, NRHS
@@ -213,9 +213,9 @@
 
          // Unscale.
 
-         CALL SLASCL( 'G', 0, 0, ONE, ORGNRM, N, 1, D, N, INFO )
-         CALL SLASRT( 'D', N, D, INFO )
-         CALL CLASCL( 'G', 0, 0, ORGNRM, ONE, N, NRHS, B, LDB, INFO )
+         slascl('G', 0, 0, ONE, ORGNRM, N, 1, D, N, INFO );
+         slasrt('D', N, D, INFO );
+         clascl('G', 0, 0, ORGNRM, ONE, N, NRHS, B, LDB, INFO );
 
          RETURN
       }
@@ -292,7 +292,7 @@
                NSUB = NSUB + 1
                IWORK( NSUB ) = N
                IWORK( SIZEI+NSUB-1 ) = 1
-               CALL CCOPY( NRHS, B( N, 1 ), LDB, WORK( BX+NM1 ), N )
+               ccopy(NRHS, B( N, 1 ), LDB, WORK( BX+NM1 ), N );
             }
             ST1 = ST - 1
             if ( NSIZE.EQ.1 ) {
@@ -300,12 +300,12 @@
                // This is a 1-by-1 subproblem and is not solved
                // explicitly.
 
-               CALL CCOPY( NRHS, B( ST, 1 ), LDB, WORK( BX+ST1 ), N )
+               ccopy(NRHS, B( ST, 1 ), LDB, WORK( BX+ST1 ), N );
             } else if ( NSIZE.LE.SMLSIZ ) {
 
                // This is a small subproblem and is solved by SLASDQ.
 
-               CALL SLASET( 'A', NSIZE, NSIZE, ZERO, ONE, RWORK( VT+ST1 ), N )                CALL SLASET( 'A', NSIZE, NSIZE, ZERO, ONE, RWORK( U+ST1 ), N )                CALL SLASDQ( 'U', 0, NSIZE, NSIZE, NSIZE, 0, D( ST ), E( ST ), RWORK( VT+ST1 ), N, RWORK( U+ST1 ), N, RWORK( NRWORK ), 1, RWORK( NRWORK ), INFO )
+               slaset('A', NSIZE, NSIZE, ZERO, ONE, RWORK( VT+ST1 ), N )                CALL SLASET( 'A', NSIZE, NSIZE, ZERO, ONE, RWORK( U+ST1 ), N )                CALL SLASDQ( 'U', 0, NSIZE, NSIZE, NSIZE, 0, D( ST ), E( ST ), RWORK( VT+ST1 ), N, RWORK( U+ST1 ), N, RWORK( NRWORK ), 1, RWORK( NRWORK ), INFO );
                if ( INFO.NE.0 ) {
                   RETURN
                }
@@ -321,7 +321,7 @@
                      RWORK( J ) = REAL( B( JROW, JCOL ) )
   180             CONTINUE
   190          CONTINUE
-               CALL SGEMM( 'T', 'N', NSIZE, NRHS, NSIZE, ONE, RWORK( U+ST1 ), N, RWORK( IRWB ), NSIZE, ZERO, RWORK( IRWRB ), NSIZE )
+               sgemm('T', 'N', NSIZE, NRHS, NSIZE, ONE, RWORK( U+ST1 ), N, RWORK( IRWB ), NSIZE, ZERO, RWORK( IRWRB ), NSIZE );
                J = IRWB - 1
                DO 210 JCOL = 1, NRHS
                   DO 200 JROW = ST, ST + NSIZE - 1
@@ -329,7 +329,7 @@
                      RWORK( J ) = AIMAG( B( JROW, JCOL ) )
   200             CONTINUE
   210          CONTINUE
-               CALL SGEMM( 'T', 'N', NSIZE, NRHS, NSIZE, ONE, RWORK( U+ST1 ), N, RWORK( IRWB ), NSIZE, ZERO, RWORK( IRWIB ), NSIZE )
+               sgemm('T', 'N', NSIZE, NRHS, NSIZE, ONE, RWORK( U+ST1 ), N, RWORK( IRWB ), NSIZE, ZERO, RWORK( IRWIB ), NSIZE );
                JREAL = IRWRB - 1
                JIMAG = IRWIB - 1
                DO 230 JCOL = 1, NRHS
@@ -340,17 +340,17 @@
   220             CONTINUE
   230          CONTINUE
 
-               CALL CLACPY( 'A', NSIZE, NRHS, B( ST, 1 ), LDB, WORK( BX+ST1 ), N )
+               clacpy('A', NSIZE, NRHS, B( ST, 1 ), LDB, WORK( BX+ST1 ), N );
             } else {
 
                // A large problem. Solve it using divide and conquer.
 
-               CALL SLASDA( ICMPQ1, SMLSIZ, NSIZE, SQRE, D( ST ), E( ST ), RWORK( U+ST1 ), N, RWORK( VT+ST1 ), IWORK( K+ST1 ), RWORK( DIFL+ST1 ), RWORK( DIFR+ST1 ), RWORK( Z+ST1 ), RWORK( POLES+ST1 ), IWORK( GIVPTR+ST1 ), IWORK( GIVCOL+ST1 ), N, IWORK( PERM+ST1 ), RWORK( GIVNUM+ST1 ), RWORK( C+ST1 ), RWORK( S+ST1 ), RWORK( NRWORK ), IWORK( IWK ), INFO )
+               slasda(ICMPQ1, SMLSIZ, NSIZE, SQRE, D( ST ), E( ST ), RWORK( U+ST1 ), N, RWORK( VT+ST1 ), IWORK( K+ST1 ), RWORK( DIFL+ST1 ), RWORK( DIFR+ST1 ), RWORK( Z+ST1 ), RWORK( POLES+ST1 ), IWORK( GIVPTR+ST1 ), IWORK( GIVCOL+ST1 ), N, IWORK( PERM+ST1 ), RWORK( GIVNUM+ST1 ), RWORK( C+ST1 ), RWORK( S+ST1 ), RWORK( NRWORK ), IWORK( IWK ), INFO );
                if ( INFO.NE.0 ) {
                   RETURN
                }
                BXST = BX + ST1
-               CALL CLALSA( ICMPQ2, SMLSIZ, NSIZE, NRHS, B( ST, 1 ), LDB, WORK( BXST ), N, RWORK( U+ST1 ), N, RWORK( VT+ST1 ), IWORK( K+ST1 ), RWORK( DIFL+ST1 ), RWORK( DIFR+ST1 ), RWORK( Z+ST1 ), RWORK( POLES+ST1 ), IWORK( GIVPTR+ST1 ), IWORK( GIVCOL+ST1 ), N, IWORK( PERM+ST1 ), RWORK( GIVNUM+ST1 ), RWORK( C+ST1 ), RWORK( S+ST1 ), RWORK( NRWORK ), IWORK( IWK ), INFO )
+               clalsa(ICMPQ2, SMLSIZ, NSIZE, NRHS, B( ST, 1 ), LDB, WORK( BXST ), N, RWORK( U+ST1 ), N, RWORK( VT+ST1 ), IWORK( K+ST1 ), RWORK( DIFL+ST1 ), RWORK( DIFR+ST1 ), RWORK( Z+ST1 ), RWORK( POLES+ST1 ), IWORK( GIVPTR+ST1 ), IWORK( GIVCOL+ST1 ), N, IWORK( PERM+ST1 ), RWORK( GIVNUM+ST1 ), RWORK( C+ST1 ), RWORK( S+ST1 ), RWORK( NRWORK ), IWORK( IWK ), INFO );
                if ( INFO.NE.0 ) {
                   RETURN
                }
@@ -369,10 +369,10 @@
          // subproblems were not solved explicitly.
 
          if ( ABS( D( I ) ).LE.TOL ) {
-            CALL CLASET( 'A', 1, NRHS, CZERO, CZERO, WORK( BX+I-1 ), N )
+            claset('A', 1, NRHS, CZERO, CZERO, WORK( BX+I-1 ), N );
          } else {
             RANK = RANK + 1
-            CALL CLASCL( 'G', 0, 0, D( I ), ONE, 1, NRHS, WORK( BX+I-1 ), N, INFO )
+            clascl('G', 0, 0, D( I ), ONE, 1, NRHS, WORK( BX+I-1 ), N, INFO );
          }
          D( I ) = ABS( D( I ) )
   250 CONTINUE
@@ -386,7 +386,7 @@
          NSIZE = IWORK( SIZEI+I-1 )
          BXST = BX + ST1
          if ( NSIZE.EQ.1 ) {
-            CALL CCOPY( NRHS, WORK( BXST ), N, B( ST, 1 ), LDB )
+            ccopy(NRHS, WORK( BXST ), N, B( ST, 1 ), LDB );
          } else if ( NSIZE.LE.SMLSIZ ) {
 
             // Since B and BX are complex, the following call to SGEMM
@@ -405,7 +405,7 @@
                   RWORK( JREAL ) = REAL( WORK( J+JROW ) )
   260          CONTINUE
   270       CONTINUE
-            CALL SGEMM( 'T', 'N', NSIZE, NRHS, NSIZE, ONE, RWORK( VT+ST1 ), N, RWORK( IRWB ), NSIZE, ZERO, RWORK( IRWRB ), NSIZE )
+            sgemm('T', 'N', NSIZE, NRHS, NSIZE, ONE, RWORK( VT+ST1 ), N, RWORK( IRWB ), NSIZE, ZERO, RWORK( IRWRB ), NSIZE );
             J = BXST - N - 1
             JIMAG = IRWB - 1
             DO 290 JCOL = 1, NRHS
@@ -415,7 +415,7 @@
                   RWORK( JIMAG ) = AIMAG( WORK( J+JROW ) )
   280          CONTINUE
   290       CONTINUE
-            CALL SGEMM( 'T', 'N', NSIZE, NRHS, NSIZE, ONE, RWORK( VT+ST1 ), N, RWORK( IRWB ), NSIZE, ZERO, RWORK( IRWIB ), NSIZE )
+            sgemm('T', 'N', NSIZE, NRHS, NSIZE, ONE, RWORK( VT+ST1 ), N, RWORK( IRWB ), NSIZE, ZERO, RWORK( IRWIB ), NSIZE );
             JREAL = IRWRB - 1
             JIMAG = IRWIB - 1
             DO 310 JCOL = 1, NRHS
@@ -426,7 +426,7 @@
   300          CONTINUE
   310       CONTINUE
          } else {
-            CALL CLALSA( ICMPQ2, SMLSIZ, NSIZE, NRHS, WORK( BXST ), N, B( ST, 1 ), LDB, RWORK( U+ST1 ), N, RWORK( VT+ST1 ), IWORK( K+ST1 ), RWORK( DIFL+ST1 ), RWORK( DIFR+ST1 ), RWORK( Z+ST1 ), RWORK( POLES+ST1 ), IWORK( GIVPTR+ST1 ), IWORK( GIVCOL+ST1 ), N, IWORK( PERM+ST1 ), RWORK( GIVNUM+ST1 ), RWORK( C+ST1 ), RWORK( S+ST1 ), RWORK( NRWORK ), IWORK( IWK ), INFO )
+            clalsa(ICMPQ2, SMLSIZ, NSIZE, NRHS, WORK( BXST ), N, B( ST, 1 ), LDB, RWORK( U+ST1 ), N, RWORK( VT+ST1 ), IWORK( K+ST1 ), RWORK( DIFL+ST1 ), RWORK( DIFR+ST1 ), RWORK( Z+ST1 ), RWORK( POLES+ST1 ), IWORK( GIVPTR+ST1 ), IWORK( GIVCOL+ST1 ), N, IWORK( PERM+ST1 ), RWORK( GIVNUM+ST1 ), RWORK( C+ST1 ), RWORK( S+ST1 ), RWORK( NRWORK ), IWORK( IWK ), INFO );
             if ( INFO.NE.0 ) {
                RETURN
             }
@@ -435,9 +435,9 @@
 
       // Unscale and sort the singular values.
 
-      CALL SLASCL( 'G', 0, 0, ONE, ORGNRM, N, 1, D, N, INFO )
-      CALL SLASRT( 'D', N, D, INFO )
-      CALL CLASCL( 'G', 0, 0, ORGNRM, ONE, N, NRHS, B, LDB, INFO )
+      slascl('G', 0, 0, ONE, ORGNRM, N, 1, D, N, INFO );
+      slasrt('D', N, D, INFO );
+      clascl('G', 0, 0, ORGNRM, ONE, N, NRHS, B, LDB, INFO );
 
       RETURN
 

@@ -57,7 +57,7 @@
          INFO = -6
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'SPTEQR', -INFO )
+         xerbla('SPTEQR', -INFO );
          RETURN
       }
 
@@ -73,7 +73,7 @@
 
       // Call SPTTRF to factor the matrix.
 
-      CALL SPTTRF( N, D, E, INFO )
+      spttrf(N, D, E, INFO );
       IF( INFO.NE.0 ) RETURN
       DO 10 I = 1, N
          D( I ) = SQRT( D( I ) )
@@ -90,7 +90,7 @@
       } else {
          NRU = 0
       }
-      CALL SBDSQR( 'Lower', N, 0, NRU, 0, D, E, VT, 1, Z, LDZ, C, 1, WORK, INFO )
+      sbdsqr('Lower', N, 0, NRU, 0, D, E, VT, 1, Z, LDZ, C, 1, WORK, INFO );
 
       // Square the singular values.
 

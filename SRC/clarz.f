@@ -36,22 +36,22 @@
 
             // w( 1:n ) = conjg( C( 1, 1:n ) )
 
-            CALL CCOPY( N, C, LDC, WORK, 1 )
-            CALL CLACGV( N, WORK, 1 )
+            ccopy(N, C, LDC, WORK, 1 );
+            clacgv(N, WORK, 1 );
 
             // w( 1:n ) = conjg( w( 1:n ) + C( m-l+1:m, 1:n )**H * v( 1:l ) )
 
-            CALL CGEMV( 'Conjugate transpose', L, N, ONE, C( M-L+1, 1 ), LDC, V, INCV, ONE, WORK, 1 )
-            CALL CLACGV( N, WORK, 1 )
+            cgemv('Conjugate transpose', L, N, ONE, C( M-L+1, 1 ), LDC, V, INCV, ONE, WORK, 1 );
+            clacgv(N, WORK, 1 );
 
             // C( 1, 1:n ) = C( 1, 1:n ) - tau * w( 1:n )
 
-            CALL CAXPY( N, -TAU, WORK, 1, C, LDC )
+            caxpy(N, -TAU, WORK, 1, C, LDC );
 
             // C( m-l+1:m, 1:n ) = C( m-l+1:m, 1:n ) - ...
                                 // tau * v( 1:l ) * w( 1:n )**H
 
-            CALL CGERU( L, N, -TAU, V, INCV, WORK, 1, C( M-L+1, 1 ), LDC )
+            cgeru(L, N, -TAU, V, INCV, WORK, 1, C( M-L+1, 1 ), LDC );
          }
 
       } else {
@@ -62,20 +62,20 @@
 
             // w( 1:m ) = C( 1:m, 1 )
 
-            CALL CCOPY( M, C, 1, WORK, 1 )
+            ccopy(M, C, 1, WORK, 1 );
 
             // w( 1:m ) = w( 1:m ) + C( 1:m, n-l+1:n, 1:n ) * v( 1:l )
 
-            CALL CGEMV( 'No transpose', M, L, ONE, C( 1, N-L+1 ), LDC, V, INCV, ONE, WORK, 1 )
+            cgemv('No transpose', M, L, ONE, C( 1, N-L+1 ), LDC, V, INCV, ONE, WORK, 1 );
 
             // C( 1:m, 1 ) = C( 1:m, 1 ) - tau * w( 1:m )
 
-            CALL CAXPY( M, -TAU, WORK, 1, C, 1 )
+            caxpy(M, -TAU, WORK, 1, C, 1 );
 
             // C( 1:m, n-l+1:n ) = C( 1:m, n-l+1:n ) - ...
                                 // tau * w( 1:m ) * v( 1:l )**H
 
-            CALL CGERC( M, L, -TAU, WORK, 1, V, INCV, C( 1, N-L+1 ), LDC )
+            cgerc(M, L, -TAU, WORK, 1, V, INCV, C( 1, N-L+1 ), LDC );
 
          }
 

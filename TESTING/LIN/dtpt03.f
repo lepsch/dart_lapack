@@ -76,13 +76,13 @@
 
       RESID = ZERO
       DO 40 J = 1, NRHS
-         CALL DCOPY( N, X( 1, J ), 1, WORK, 1 )
+         dcopy(N, X( 1, J ), 1, WORK, 1 );
          IX = IDAMAX( N, WORK, 1 )
          XNORM = MAX( ONE, ABS( X( IX, J ) ) )
          XSCAL = ( ONE / XNORM ) / DBLE( N )
-         CALL DSCAL( N, XSCAL, WORK, 1 )
-         CALL DTPMV( UPLO, TRANS, DIAG, N, AP, WORK, 1 )
-         CALL DAXPY( N, -SCALE*XSCAL, B( 1, J ), 1, WORK, 1 )
+         dscal(N, XSCAL, WORK, 1 );
+         dtpmv(UPLO, TRANS, DIAG, N, AP, WORK, 1 );
+         daxpy(N, -SCALE*XSCAL, B( 1, J ), 1, WORK, 1 );
          IX = IDAMAX( N, WORK, 1 )
          ERR = TSCAL*ABS( WORK( IX ) )
          IX = IDAMAX( N, X( 1, J ), 1 )

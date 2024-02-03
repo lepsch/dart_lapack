@@ -144,7 +144,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'ZLATME', -INFO )
+         xerbla('ZLATME', -INFO );
          RETURN
       }
 
@@ -160,7 +160,7 @@
 
               // Compute D according to COND and MODE
 
-      CALL ZLATM1( MODE, COND, IRSIGN, IDIST, ISEED, D, N, IINFO )
+      zlatm1(MODE, COND, IRSIGN, IDIST, ISEED, D, N, IINFO );
       if ( IINFO.NE.0 ) {
          INFO = 1
          RETURN
@@ -181,18 +181,18 @@
             RETURN
          }
 
-         CALL ZSCAL( N, ALPHA, D, 1 )
+         zscal(N, ALPHA, D, 1 );
 
       }
 
-      CALL ZLASET( 'Full', N, N, CZERO, CZERO, A, LDA )
-      CALL ZCOPY( N, D, 1, A, LDA+1 )
+      zlaset('Full', N, N, CZERO, CZERO, A, LDA );
+      zcopy(N, D, 1, A, LDA+1 );
 
       // 3)      If UPPER='T', set upper triangle of A to random numbers.
 
       if ( IUPPER.NE.0 ) {
          DO 40 JC = 2, N
-            CALL ZLARNV( IDIST, ISEED, JC-1, A( 1, JC ) )
+            zlarnv(IDIST, ISEED, JC-1, A( 1, JC ) );
    40    CONTINUE
       }
 
@@ -208,7 +208,7 @@
          // Compute S (singular values of the eigenvector matrix)
          // according to CONDS and MODES
 
-         CALL DLATM1( MODES, CONDS, 0, 0, ISEED, DS, N, IINFO )
+         dlatm1(MODES, CONDS, 0, 0, ISEED, DS, N, IINFO );
          if ( IINFO.NE.0 ) {
             INFO = 3
             RETURN
@@ -216,7 +216,7 @@
 
          // Multiply by V and V'
 
-         CALL ZLARGE( N, A, LDA, ISEED, WORK, IINFO )
+         zlarge(N, A, LDA, ISEED, WORK, IINFO );
          if ( IINFO.NE.0 ) {
             INFO = 4
             RETURN
@@ -225,9 +225,9 @@
          // Multiply by S and (1/S)
 
          DO 50 J = 1, N
-            CALL ZDSCAL( N, DS( J ), A( J, 1 ), LDA )
+            zdscal(N, DS( J ), A( J, 1 ), LDA );
             if ( DS( J ).NE.ZERO ) {
-               CALL ZDSCAL( N, ONE / DS( J ), A( 1, J ), 1 )
+               zdscal(N, ONE / DS( J ), A( 1, J ), 1 );
             } else {
                INFO = 5
                RETURN
@@ -236,7 +236,7 @@
 
          // Multiply by U and U'
 
-         CALL ZLARGE( N, A, LDA, ISEED, WORK, IINFO )
+         zlarge(N, A, LDA, ISEED, WORK, IINFO );
          if ( IINFO.NE.0 ) {
             INFO = 4
             RETURN
@@ -254,22 +254,22 @@
             IROWS = N + 1 - JCR
             ICOLS = N + KL - JCR
 
-            CALL ZCOPY( IROWS, A( JCR, IC ), 1, WORK, 1 )
+            zcopy(IROWS, A( JCR, IC ), 1, WORK, 1 );
             XNORMS = WORK( 1 )
-            CALL ZLARFG( IROWS, XNORMS, WORK( 2 ), 1, TAU )
+            zlarfg(IROWS, XNORMS, WORK( 2 ), 1, TAU );
             TAU = DCONJG( TAU )
             WORK( 1 ) = CONE
             ALPHA = ZLARND( 5, ISEED )
 
-            CALL ZGEMV( 'C', IROWS, ICOLS, CONE, A( JCR, IC+1 ), LDA, WORK, 1, CZERO, WORK( IROWS+1 ), 1 )             CALL ZGERC( IROWS, ICOLS, -TAU, WORK, 1, WORK( IROWS+1 ), 1, A( JCR, IC+1 ), LDA )
+            zgemv('C', IROWS, ICOLS, CONE, A( JCR, IC+1 ), LDA, WORK, 1, CZERO, WORK( IROWS+1 ), 1 )             CALL ZGERC( IROWS, ICOLS, -TAU, WORK, 1, WORK( IROWS+1 ), 1, A( JCR, IC+1 ), LDA );
 
-            CALL ZGEMV( 'N', N, IROWS, CONE, A( 1, JCR ), LDA, WORK, 1, CZERO, WORK( IROWS+1 ), 1 )             CALL ZGERC( N, IROWS, -DCONJG( TAU ), WORK( IROWS+1 ), 1, WORK, 1, A( 1, JCR ), LDA )
+            zgemv('N', N, IROWS, CONE, A( 1, JCR ), LDA, WORK, 1, CZERO, WORK( IROWS+1 ), 1 )             CALL ZGERC( N, IROWS, -DCONJG( TAU ), WORK( IROWS+1 ), 1, WORK, 1, A( 1, JCR ), LDA );
 
             A( JCR, IC ) = XNORMS
-            CALL ZLASET( 'Full', IROWS-1, 1, CZERO, CZERO, A( JCR+1, IC ), LDA )
+            zlaset('Full', IROWS-1, 1, CZERO, CZERO, A( JCR+1, IC ), LDA );
 
-            CALL ZSCAL( ICOLS+1, ALPHA, A( JCR, IC ), LDA )
-            CALL ZSCAL( N, DCONJG( ALPHA ), A( 1, JCR ), 1 )
+            zscal(ICOLS+1, ALPHA, A( JCR, IC ), LDA );
+            zscal(N, DCONJG( ALPHA ), A( 1, JCR ), 1 );
    60    CONTINUE
       } else if ( KU.LT.N-1 ) {
 
@@ -280,23 +280,23 @@
             IROWS = N + KU - JCR
             ICOLS = N + 1 - JCR
 
-            CALL ZCOPY( ICOLS, A( IR, JCR ), LDA, WORK, 1 )
+            zcopy(ICOLS, A( IR, JCR ), LDA, WORK, 1 );
             XNORMS = WORK( 1 )
-            CALL ZLARFG( ICOLS, XNORMS, WORK( 2 ), 1, TAU )
+            zlarfg(ICOLS, XNORMS, WORK( 2 ), 1, TAU );
             TAU = DCONJG( TAU )
             WORK( 1 ) = CONE
-            CALL ZLACGV( ICOLS-1, WORK( 2 ), 1 )
+            zlacgv(ICOLS-1, WORK( 2 ), 1 );
             ALPHA = ZLARND( 5, ISEED )
 
-            CALL ZGEMV( 'N', IROWS, ICOLS, CONE, A( IR+1, JCR ), LDA, WORK, 1, CZERO, WORK( ICOLS+1 ), 1 )             CALL ZGERC( IROWS, ICOLS, -TAU, WORK( ICOLS+1 ), 1, WORK, 1, A( IR+1, JCR ), LDA )
+            zgemv('N', IROWS, ICOLS, CONE, A( IR+1, JCR ), LDA, WORK, 1, CZERO, WORK( ICOLS+1 ), 1 )             CALL ZGERC( IROWS, ICOLS, -TAU, WORK( ICOLS+1 ), 1, WORK, 1, A( IR+1, JCR ), LDA );
 
-            CALL ZGEMV( 'C', ICOLS, N, CONE, A( JCR, 1 ), LDA, WORK, 1, CZERO, WORK( ICOLS+1 ), 1 )             CALL ZGERC( ICOLS, N, -DCONJG( TAU ), WORK, 1, WORK( ICOLS+1 ), 1, A( JCR, 1 ), LDA )
+            zgemv('C', ICOLS, N, CONE, A( JCR, 1 ), LDA, WORK, 1, CZERO, WORK( ICOLS+1 ), 1 )             CALL ZGERC( ICOLS, N, -DCONJG( TAU ), WORK, 1, WORK( ICOLS+1 ), 1, A( JCR, 1 ), LDA );
 
             A( IR, JCR ) = XNORMS
-            CALL ZLASET( 'Full', 1, ICOLS-1, CZERO, CZERO, A( IR, JCR+1 ), LDA )
+            zlaset('Full', 1, ICOLS-1, CZERO, CZERO, A( IR, JCR+1 ), LDA );
 
-            CALL ZSCAL( IROWS+1, ALPHA, A( IR, JCR ), 1 )
-            CALL ZSCAL( N, DCONJG( ALPHA ), A( JCR, 1 ), LDA )
+            zscal(IROWS+1, ALPHA, A( IR, JCR ), 1 );
+            zscal(N, DCONJG( ALPHA ), A( JCR, 1 ), LDA );
    70    CONTINUE
       }
 
@@ -307,7 +307,7 @@
          if ( TEMP.GT.ZERO ) {
             RALPHA = ANORM / TEMP
             DO 80 J = 1, N
-               CALL ZDSCAL( N, RALPHA, A( 1, J ), 1 )
+               zdscal(N, RALPHA, A( 1, J ), 1 );
    80       CONTINUE
          }
       }

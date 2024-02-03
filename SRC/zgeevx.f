@@ -93,20 +93,20 @@
             MAXWRK = N + N*ILAENV( 1, 'ZGEHRD', ' ', N, 1, N, 0 )
 
             if ( WANTVL ) {
-               CALL ZTREVC3( 'L', 'B', SELECT, N, A, LDA, VL, LDVL, VR, LDVR, N, NOUT, WORK, -1, RWORK, -1, IERR )
+               ztrevc3('L', 'B', SELECT, N, A, LDA, VL, LDVL, VR, LDVR, N, NOUT, WORK, -1, RWORK, -1, IERR );
                LWORK_TREVC = INT( WORK(1) )
                MAXWRK = MAX( MAXWRK, LWORK_TREVC )
-               CALL ZHSEQR( 'S', 'V', N, 1, N, A, LDA, W, VL, LDVL, WORK, -1, INFO )
+               zhseqr('S', 'V', N, 1, N, A, LDA, W, VL, LDVL, WORK, -1, INFO );
             } else if ( WANTVR ) {
-               CALL ZTREVC3( 'R', 'B', SELECT, N, A, LDA, VL, LDVL, VR, LDVR, N, NOUT, WORK, -1, RWORK, -1, IERR )
+               ztrevc3('R', 'B', SELECT, N, A, LDA, VL, LDVL, VR, LDVR, N, NOUT, WORK, -1, RWORK, -1, IERR );
                LWORK_TREVC = INT( WORK(1) )
                MAXWRK = MAX( MAXWRK, LWORK_TREVC )
-               CALL ZHSEQR( 'S', 'V', N, 1, N, A, LDA, W, VR, LDVR, WORK, -1, INFO )
+               zhseqr('S', 'V', N, 1, N, A, LDA, W, VR, LDVR, WORK, -1, INFO );
             } else {
                if ( WNTSNN ) {
-                  CALL ZHSEQR( 'E', 'N', N, 1, N, A, LDA, W, VR, LDVR, WORK, -1, INFO )
+                  zhseqr('E', 'N', N, 1, N, A, LDA, W, VR, LDVR, WORK, -1, INFO );
                } else {
-                  CALL ZHSEQR( 'S', 'N', N, 1, N, A, LDA, W, VR, LDVR, WORK, -1, INFO )
+                  zhseqr('S', 'N', N, 1, N, A, LDA, W, VR, LDVR, WORK, -1, INFO );
                }
             }
             HSWORK = INT( WORK(1) )
@@ -133,7 +133,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'ZGEEVX', -INFO )
+         xerbla('ZGEEVX', -INFO );
          RETURN
       } else if ( LQUERY ) {
          RETURN
@@ -167,11 +167,11 @@
 
       // Balance the matrix and compute ABNRM
 
-      CALL ZGEBAL( BALANC, N, A, LDA, ILO, IHI, SCALE, IERR )
+      zgebal(BALANC, N, A, LDA, ILO, IHI, SCALE, IERR );
       ABNRM = ZLANGE( '1', N, N, A, LDA, DUM )
       if ( SCALEA ) {
          DUM( 1 ) = ABNRM
-         CALL DLASCL( 'G', 0, 0, CSCALE, ANRM, 1, 1, DUM, 1, IERR )
+         dlascl('G', 0, 0, CSCALE, ANRM, 1, 1, DUM, 1, IERR );
          ABNRM = DUM( 1 )
       }
 
@@ -181,7 +181,7 @@
 
       ITAU = 1
       IWRK = ITAU + N
-      CALL ZGEHRD( N, ILO, IHI, A, LDA, WORK( ITAU ), WORK( IWRK ), LWORK-IWRK+1, IERR )
+      zgehrd(N, ILO, IHI, A, LDA, WORK( ITAU ), WORK( IWRK ), LWORK-IWRK+1, IERR );
 
       if ( WANTVL ) {
 
@@ -189,20 +189,20 @@
          // Copy Householder vectors to VL
 
          SIDE = 'L'
-         CALL ZLACPY( 'L', N, N, A, LDA, VL, LDVL )
+         zlacpy('L', N, N, A, LDA, VL, LDVL );
 
          // Generate unitary matrix in VL
          // (CWorkspace: need 2*N-1, prefer N+(N-1)*NB)
          // (RWorkspace: none)
 
-         CALL ZUNGHR( N, ILO, IHI, VL, LDVL, WORK( ITAU ), WORK( IWRK ), LWORK-IWRK+1, IERR )
+         zunghr(N, ILO, IHI, VL, LDVL, WORK( ITAU ), WORK( IWRK ), LWORK-IWRK+1, IERR );
 
          // Perform QR iteration, accumulating Schur vectors in VL
          // (CWorkspace: need 1, prefer HSWORK (see comments) )
          // (RWorkspace: none)
 
          IWRK = ITAU
-         CALL ZHSEQR( 'S', 'V', N, ILO, IHI, A, LDA, W, VL, LDVL, WORK( IWRK ), LWORK-IWRK+1, INFO )
+         zhseqr('S', 'V', N, ILO, IHI, A, LDA, W, VL, LDVL, WORK( IWRK ), LWORK-IWRK+1, INFO );
 
          if ( WANTVR ) {
 
@@ -210,7 +210,7 @@
             // Copy Schur vectors to VR
 
             SIDE = 'B'
-            CALL ZLACPY( 'F', N, N, VL, LDVL, VR, LDVR )
+            zlacpy('F', N, N, VL, LDVL, VR, LDVR );
          }
 
       } else if ( WANTVR ) {
@@ -219,20 +219,20 @@
          // Copy Householder vectors to VR
 
          SIDE = 'R'
-         CALL ZLACPY( 'L', N, N, A, LDA, VR, LDVR )
+         zlacpy('L', N, N, A, LDA, VR, LDVR );
 
          // Generate unitary matrix in VR
          // (CWorkspace: need 2*N-1, prefer N+(N-1)*NB)
          // (RWorkspace: none)
 
-         CALL ZUNGHR( N, ILO, IHI, VR, LDVR, WORK( ITAU ), WORK( IWRK ), LWORK-IWRK+1, IERR )
+         zunghr(N, ILO, IHI, VR, LDVR, WORK( ITAU ), WORK( IWRK ), LWORK-IWRK+1, IERR );
 
          // Perform QR iteration, accumulating Schur vectors in VR
          // (CWorkspace: need 1, prefer HSWORK (see comments) )
          // (RWorkspace: none)
 
          IWRK = ITAU
-         CALL ZHSEQR( 'S', 'V', N, ILO, IHI, A, LDA, W, VR, LDVR, WORK( IWRK ), LWORK-IWRK+1, INFO )
+         zhseqr('S', 'V', N, ILO, IHI, A, LDA, W, VR, LDVR, WORK( IWRK ), LWORK-IWRK+1, INFO );
 
       } else {
 
@@ -249,7 +249,7 @@
          // (RWorkspace: none)
 
          IWRK = ITAU
-         CALL ZHSEQR( JOB, 'N', N, ILO, IHI, A, LDA, W, VR, LDVR, WORK( IWRK ), LWORK-IWRK+1, INFO )
+         zhseqr(JOB, 'N', N, ILO, IHI, A, LDA, W, VR, LDVR, WORK( IWRK ), LWORK-IWRK+1, INFO );
       }
 
       // If INFO .NE. 0 from ZHSEQR, then quit
@@ -262,7 +262,7 @@
          // (CWorkspace: need 2*N, prefer N + 2*N*NB)
          // (RWorkspace: need N)
 
-         CALL ZTREVC3( SIDE, 'B', SELECT, N, A, LDA, VL, LDVL, VR, LDVR, N, NOUT, WORK( IWRK ), LWORK-IWRK+1, RWORK, N, IERR )
+         ztrevc3(SIDE, 'B', SELECT, N, A, LDA, VL, LDVL, VR, LDVR, N, NOUT, WORK( IWRK ), LWORK-IWRK+1, RWORK, N, IERR );
       }
 
       // Compute condition numbers if desired
@@ -270,26 +270,26 @@
       // (RWorkspace: need 2*N unless SENSE = 'E')
 
       if ( .NOT.WNTSNN ) {
-         CALL ZTRSNA( SENSE, 'A', SELECT, N, A, LDA, VL, LDVL, VR, LDVR, RCONDE, RCONDV, N, NOUT, WORK( IWRK ), N, RWORK, ICOND )
+         ztrsna(SENSE, 'A', SELECT, N, A, LDA, VL, LDVL, VR, LDVR, RCONDE, RCONDV, N, NOUT, WORK( IWRK ), N, RWORK, ICOND );
       }
 
       if ( WANTVL ) {
 
          // Undo balancing of left eigenvectors
 
-         CALL ZGEBAK( BALANC, 'L', N, ILO, IHI, SCALE, N, VL, LDVL, IERR )
+         zgebak(BALANC, 'L', N, ILO, IHI, SCALE, N, VL, LDVL, IERR );
 
          // Normalize left eigenvectors and make largest component real
 
          DO 20 I = 1, N
             SCL = ONE / DZNRM2( N, VL( 1, I ), 1 )
-            CALL ZDSCAL( N, SCL, VL( 1, I ), 1 )
+            zdscal(N, SCL, VL( 1, I ), 1 );
             DO 10 K = 1, N
                RWORK( K ) = DBLE( VL( K, I ) )**2 + AIMAG( VL( K, I ) )**2
    10       CONTINUE
             K = IDAMAX( N, RWORK, 1 )
             TMP = CONJG( VL( K, I ) ) / SQRT( RWORK( K ) )
-            CALL ZSCAL( N, TMP, VL( 1, I ), 1 )
+            zscal(N, TMP, VL( 1, I ), 1 );
             VL( K, I ) = DCMPLX( DBLE( VL( K, I ) ), ZERO )
    20    CONTINUE
       }
@@ -298,19 +298,19 @@
 
          // Undo balancing of right eigenvectors
 
-         CALL ZGEBAK( BALANC, 'R', N, ILO, IHI, SCALE, N, VR, LDVR, IERR )
+         zgebak(BALANC, 'R', N, ILO, IHI, SCALE, N, VR, LDVR, IERR );
 
          // Normalize right eigenvectors and make largest component real
 
          DO 40 I = 1, N
             SCL = ONE / DZNRM2( N, VR( 1, I ), 1 )
-            CALL ZDSCAL( N, SCL, VR( 1, I ), 1 )
+            zdscal(N, SCL, VR( 1, I ), 1 );
             DO 30 K = 1, N
                RWORK( K ) = DBLE( VR( K, I ) )**2 + AIMAG( VR( K, I ) )**2
    30       CONTINUE
             K = IDAMAX( N, RWORK, 1 )
             TMP = CONJG( VR( K, I ) ) / SQRT( RWORK( K ) )
-            CALL ZSCAL( N, TMP, VR( 1, I ), 1 )
+            zscal(N, TMP, VR( 1, I ), 1 );
             VR( K, I ) = DCMPLX( DBLE( VR( K, I ) ), ZERO )
    40    CONTINUE
       }
@@ -319,11 +319,11 @@
 
    50 CONTINUE
       if ( SCALEA ) {
-         CALL ZLASCL( 'G', 0, 0, CSCALE, ANRM, N-INFO, 1, W( INFO+1 ), MAX( N-INFO, 1 ), IERR )
+         zlascl('G', 0, 0, CSCALE, ANRM, N-INFO, 1, W( INFO+1 ), MAX( N-INFO, 1 ), IERR );
          if ( INFO.EQ.0 ) {
             IF( ( WNTSNV .OR. WNTSNB ) .AND. ICOND.EQ.0 ) CALL DLASCL( 'G', 0, 0, CSCALE, ANRM, N, 1, RCONDV, N, IERR )
          } else {
-            CALL ZLASCL( 'G', 0, 0, CSCALE, ANRM, ILO-1, 1, W, N, IERR )
+            zlascl('G', 0, 0, CSCALE, ANRM, ILO-1, 1, W, N, IERR );
          }
       }
 

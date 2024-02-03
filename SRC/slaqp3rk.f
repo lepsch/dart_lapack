@@ -126,7 +126,7 @@
                                 // A(I+1:M,1:KB) * F(N+1:N+NRHS,1:KB)**T.
 
                if ( NRHS.GT.0 .AND. KB.LT.(M-IOFFSET) ) {
-                  CALL SGEMM( 'No transpose', 'Transpose', M-IF, NRHS, KB, -ONE, A( IF+1, 1 ), LDA, F( N+1, 1 ), LDF, ONE, A( IF+1, N+1 ), LDA )
+                  sgemm('No transpose', 'Transpose', M-IF, NRHS, KB, -ONE, A( IF+1, 1 ), LDA, F( N+1, 1 ), LDF, ONE, A( IF+1, N+1 ), LDA );
                }
 
                // There is no need to recompute the 2-norm of the
@@ -173,7 +173,7 @@
                                 // A(I+1:M,1:KB) * F(N+1:N+NRHS,1:KB)**T.
 
                if ( NRHS.GT.0 .AND. KB.LT.(M-IOFFSET) ) {
-                  CALL SGEMM( 'No transpose', 'Transpose', M-IF, NRHS, KB, -ONE, A( IF+1, 1 ), LDA, F( N+1, 1 ), LDF, ONE, A( IF+1, N+1 ), LDA )
+                  sgemm('No transpose', 'Transpose', M-IF, NRHS, KB, -ONE, A( IF+1, 1 ), LDA, F( N+1, 1 ), LDF, ONE, A( IF+1, N+1 ), LDA );
                }
 
                // There is no need to recompute the 2-norm of the
@@ -247,7 +247,7 @@
                               // A(IF+1:M,1:KB) * F(KB+1:N+NRHS,1:KB)**T.
 
                if ( KB.LT.MINMNUPDT ) {
-                  CALL SGEMM( 'No transpose', 'Transpose', M-IF, N+NRHS-KB, KB,-ONE, A( IF+1, 1 ), LDA, F( KB+1, 1 ), LDF, ONE, A( IF+1, KB+1 ), LDA )
+                  sgemm('No transpose', 'Transpose', M-IF, N+NRHS-KB, KB,-ONE, A( IF+1, 1 ), LDA, F( KB+1, 1 ), LDF, ONE, A( IF+1, KB+1 ), LDA );
                }
 
                // There is no need to recompute the 2-norm of the
@@ -288,8 +288,8 @@
             // the original matrix A_orig, not the block A(1:M,1:N).
 
          if ( KP.NE.K ) {
-            CALL SSWAP( M, A( 1, KP ), 1, A( 1, K ), 1 )
-            CALL SSWAP( K-1, F( KP, 1 ), LDF, F( K, 1 ), LDF )
+            sswap(M, A( 1, KP ), 1, A( 1, K ), 1 );
+            sswap(K-1, F( KP, 1 ), LDF, F( K, 1 ), LDF );
             VN1( KP ) = VN1( K )
             VN2( KP ) = VN2( K )
             ITEMP = JPIV( KP )
@@ -301,13 +301,13 @@
          // A(I:M,K) := A(I:M,K) - A(I:M,1:K-1)*F(K,1:K-1)**T.
 
          if ( K.GT.1 ) {
-            CALL SGEMV( 'No transpose', M-I+1, K-1, -ONE, A( I, 1 ), LDA, F( K, 1 ), LDF, ONE, A( I, K ), 1 )
+            sgemv('No transpose', M-I+1, K-1, -ONE, A( I, 1 ), LDA, F( K, 1 ), LDF, ONE, A( I, K ), 1 );
          }
 
          // Generate elementary reflector H(k) using the column A(I:M,K).
 
          if ( I.LT.M ) {
-            CALL SLARFG( M-I+1, A( I, K ), A( I+1, K ), 1, TAU( K ) )
+            slarfg(M-I+1, A( I, K ), A( I+1, K ), 1, TAU( K ) );
          } else {
             TAU( K ) = ZERO
          }
@@ -355,7 +355,7 @@
                              // A(I+1:M,1:KB) * F(N+1:N+NRHS,1:KB)**T.
 
             if ( NRHS.GT.0 .AND. KB.LT.(M-IOFFSET) ) {
-               CALL SGEMM( 'No transpose', 'Transpose', M-IF, NRHS, KB, -ONE, A( IF+1, 1 ), LDA, F( N+1, 1 ), LDF, ONE, A( IF+1, N+1 ), LDA )
+               sgemm('No transpose', 'Transpose', M-IF, NRHS, KB, -ONE, A( IF+1, 1 ), LDA, F( N+1, 1 ), LDF, ONE, A( IF+1, N+1 ), LDA );
             }
 
             // There is no need to recompute the 2-norm of the
@@ -380,7 +380,7 @@
            // 1) F(K+1:N,K) := tau(K) * A(I:M,K+1:N)**T * A(I:M,K).
 
          if ( K.LT.N+NRHS ) {
-            CALL SGEMV( 'Transpose', M-I+1, N+NRHS-K, TAU( K ), A( I, K+1 ), LDA, A( I, K ), 1, ZERO, F( K+1, K ), 1 )
+            sgemv('Transpose', M-I+1, N+NRHS-K, TAU( K ), A( I, K+1 ), LDA, A( I, K ), 1, ZERO, F( K+1, K ), 1 );
          }
 
             // 2) Zero out elements above and on the diagonal of the
@@ -395,9 +395,9 @@
                      // * A(I:M,K).
 
          if ( K.GT.1 ) {
-            CALL SGEMV( 'Transpose', M-I+1, K-1, -TAU( K ), A( I, 1 ), LDA, A( I, K ), 1, ZERO, AUXV( 1 ), 1 )
+            sgemv('Transpose', M-I+1, K-1, -TAU( K ), A( I, 1 ), LDA, A( I, K ), 1, ZERO, AUXV( 1 ), 1 );
 
-            CALL SGEMV( 'No transpose', N+NRHS, K-1, ONE, F( 1, 1 ), LDF, AUXV( 1 ), 1, ONE, F( 1, K ), 1 )
+            sgemv('No transpose', N+NRHS, K-1, ONE, F( 1, 1 ), LDF, AUXV( 1 ), 1, ONE, F( 1, K ), 1 );
          }
 
          // ===============================================================
@@ -407,7 +407,7 @@
                           // - A(I,1:K)*F(K+1:N+NRHS,1:K)**T.
 
          if ( K.LT.N+NRHS ) {
-            CALL SGEMV( 'No transpose', N+NRHS-K, K, -ONE, F( K+1, 1 ), LDF, A( I, 1 ), LDA, ONE, A( I, K+1 ), LDA )
+            sgemv('No transpose', N+NRHS-K, K, -ONE, F( K+1, 1 ), LDF, A( I, 1 ), LDA, ONE, A( I, K+1 ), LDA );
          }
 
          A( I, K ) = AIK
@@ -473,7 +473,7 @@
                           // A(IF+1:M,1:KB) * F(KB+1:N+NRHS,1:KB)**T.
 
       if ( KB.LT.MINMNUPDT ) {
-         CALL SGEMM( 'No transpose', 'Transpose', M-IF, N+NRHS-KB, KB, -ONE, A( IF+1, 1 ), LDA, F( KB+1, 1 ), LDF, ONE, A( IF+1, KB+1 ), LDA )
+         sgemm('No transpose', 'Transpose', M-IF, N+NRHS-KB, KB, -ONE, A( IF+1, 1 ), LDA, F( KB+1, 1 ), LDF, ONE, A( IF+1, KB+1 ), LDA );
       }
 
       // Recompute the 2-norm of the difficult columns.

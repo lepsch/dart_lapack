@@ -53,13 +53,13 @@
 
       // Copy the first k columns of the factorization to the array Q
 
-      CALL DLASET( 'Full', M, M, ROGUE, ROGUE, Q, LDA )
-      CALL DLACPY( 'Lower', M-1, K, AF( 2, 1 ), LDA, Q( 2, 1 ), LDA )
+      dlaset('Full', M, M, ROGUE, ROGUE, Q, LDA );
+      dlacpy('Lower', M-1, K, AF( 2, 1 ), LDA, Q( 2, 1 ), LDA );
 
       // Generate the m-by-m matrix Q
 
       SRNAMT = 'DORGQR'
-      CALL DORGQR( M, M, K, Q, LDA, TAU, WORK, LWORK, INFO )
+      dorgqr(M, M, K, Q, LDA, TAU, WORK, LWORK, INFO );
 
       DO 30 ISIDE = 1, 2
          if ( ISIDE.EQ.1 ) {
@@ -75,7 +75,7 @@
          // Generate MC by NC matrix C
 
          DO 10 J = 1, NC
-            CALL DLARNV( 2, ISEED, MC, C( 1, J ) )
+            dlarnv(2, ISEED, MC, C( 1, J ) );
    10    CONTINUE
          CNORM = DLANGE( '1', MC, NC, C, LDA, RWORK )
          IF( CNORM.EQ.0.0D0 ) CNORM = ONE
@@ -89,19 +89,19 @@
 
             // Copy C
 
-            CALL DLACPY( 'Full', MC, NC, C, LDA, CC, LDA )
+            dlacpy('Full', MC, NC, C, LDA, CC, LDA );
 
             // Apply Q or Q' to C
 
             SRNAMT = 'DORMQR'
-            CALL DORMQR( SIDE, TRANS, MC, NC, K, AF, LDA, TAU, CC, LDA, WORK, LWORK, INFO )
+            dormqr(SIDE, TRANS, MC, NC, K, AF, LDA, TAU, CC, LDA, WORK, LWORK, INFO );
 
             // Form explicit product and subtract
 
             if ( LSAME( SIDE, 'L' ) ) {
-               CALL DGEMM( TRANS, 'No transpose', MC, NC, MC, -ONE, Q, LDA, C, LDA, ONE, CC, LDA )
+               dgemm(TRANS, 'No transpose', MC, NC, MC, -ONE, Q, LDA, C, LDA, ONE, CC, LDA );
             } else {
-               CALL DGEMM( 'No transpose', TRANS, MC, NC, NC, -ONE, C, LDA, Q, LDA, ONE, CC, LDA )
+               dgemm('No transpose', TRANS, MC, NC, NC, -ONE, C, LDA, Q, LDA, ONE, CC, LDA );
             }
 
             // Compute error in the difference

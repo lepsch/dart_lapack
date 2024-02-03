@@ -50,7 +50,7 @@
          INFO = -8
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'DGETRS', -INFO )
+         xerbla('DGETRS', -INFO );
          RETURN
       }
 
@@ -64,30 +64,30 @@
 
          // Apply row interchanges to the right hand sides.
 
-         CALL DLASWP( NRHS, B, LDB, 1, N, IPIV, 1 )
+         dlaswp(NRHS, B, LDB, 1, N, IPIV, 1 );
 
          // Solve L*X = B, overwriting B with X.
 
-         CALL DTRSM( 'Left', 'Lower', 'No transpose', 'Unit', N, NRHS, ONE, A, LDA, B, LDB )
+         dtrsm('Left', 'Lower', 'No transpose', 'Unit', N, NRHS, ONE, A, LDA, B, LDB );
 
          // Solve U*X = B, overwriting B with X.
 
-         CALL DTRSM( 'Left', 'Upper', 'No transpose', 'Non-unit', N, NRHS, ONE, A, LDA, B, LDB )
+         dtrsm('Left', 'Upper', 'No transpose', 'Non-unit', N, NRHS, ONE, A, LDA, B, LDB );
       } else {
 
          // Solve A**T * X = B.
 
          // Solve U**T *X = B, overwriting B with X.
 
-         CALL DTRSM( 'Left', 'Upper', 'Transpose', 'Non-unit', N, NRHS, ONE, A, LDA, B, LDB )
+         dtrsm('Left', 'Upper', 'Transpose', 'Non-unit', N, NRHS, ONE, A, LDA, B, LDB );
 
          // Solve L**T *X = B, overwriting B with X.
 
-         CALL DTRSM( 'Left', 'Lower', 'Transpose', 'Unit', N, NRHS, ONE, A, LDA, B, LDB )
+         dtrsm('Left', 'Lower', 'Transpose', 'Unit', N, NRHS, ONE, A, LDA, B, LDB );
 
          // Apply row interchanges to the solution vectors.
 
-         CALL DLASWP( NRHS, B, LDB, 1, N, IPIV, -1 )
+         dlaswp(NRHS, B, LDB, 1, N, IPIV, -1 );
       }
 
       RETURN

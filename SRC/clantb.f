@@ -178,14 +178,14 @@
                SUM = N
                if ( K.GT.0 ) {
                   DO 280 J = 2, N
-                     CALL CLASSQ( MIN( J-1, K ), AB( MAX( K+2-J, 1 ), J ), 1, SCALE, SUM )
+                     classq(MIN( J-1, K ), AB( MAX( K+2-J, 1 ), J ), 1, SCALE, SUM );
   280             CONTINUE
                }
             } else {
                SCALE = ZERO
                SUM = ONE
                DO 290 J = 1, N
-                  CALL CLASSQ( MIN( J, K+1 ), AB( MAX( K+2-J, 1 ), J ), 1, SCALE, SUM )
+                  classq(MIN( J, K+1 ), AB( MAX( K+2-J, 1 ), J ), 1, SCALE, SUM );
   290          CONTINUE
             }
          } else {
@@ -194,14 +194,14 @@
                SUM = N
                if ( K.GT.0 ) {
                   DO 300 J = 1, N - 1
-                     CALL CLASSQ( MIN( N-J, K ), AB( 2, J ), 1, SCALE, SUM )
+                     classq(MIN( N-J, K ), AB( 2, J ), 1, SCALE, SUM );
   300             CONTINUE
                }
             } else {
                SCALE = ZERO
                SUM = ONE
                DO 310 J = 1, N
-                  CALL CLASSQ( MIN( N-J+1, K+1 ), AB( 1, J ), 1, SCALE, SUM )
+                  classq(MIN( N-J+1, K+1 ), AB( 1, J ), 1, SCALE, SUM );
   310          CONTINUE
             }
          }

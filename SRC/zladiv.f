@@ -21,7 +21,7 @@
       // ..
       // .. Executable Statements ..
 
-      CALL DLADIV( DBLE( X ), DIMAG( X ), DBLE( Y ), DIMAG( Y ), ZR, ZI )
+      dladiv(DBLE( X ), DIMAG( X ), DBLE( Y ), DIMAG( Y ), ZR, ZI );
       ZLADIV = DCMPLX( ZR, ZI )
 
       RETURN

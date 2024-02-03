@@ -74,7 +74,7 @@
 
       KNT = KNT + 1
 
-      CALL ZGGBAL( 'B', N, A, LDA, B, LDB, ILO, IHI, LSCALE, RSCALE, WORK, INFO )
+      zggbal('B', N, A, LDA, B, LDB, ILO, IHI, LSCALE, RSCALE, WORK, INFO );
 
       if ( INFO.NE.0 ) {
          NINFO = NINFO + 1

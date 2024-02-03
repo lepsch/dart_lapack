@@ -49,7 +49,7 @@
          INFO = -5
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'CSPCON', -INFO )
+         xerbla('CSPCON', -INFO );
          RETURN
       }
 
@@ -89,12 +89,12 @@
 
       KASE = 0
    30 CONTINUE
-      CALL CLACN2( N, WORK( N+1 ), WORK, AINVNM, KASE, ISAVE )
+      clacn2(N, WORK( N+1 ), WORK, AINVNM, KASE, ISAVE );
       if ( KASE.NE.0 ) {
 
          // Multiply by inv(L*D*L**T) or inv(U*D*U**T).
 
-         CALL CSPTRS( UPLO, N, 1, AP, IPIV, WORK, N, INFO )
+         csptrs(UPLO, N, 1, AP, IPIV, WORK, N, INFO );
          GO TO 30
       }
 

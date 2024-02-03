@@ -108,15 +108,15 @@
                // Set up parameters with ZLATB4 and generate a test matrix
                // with ZLATMS.
 
-               CALL ZLATB4( PATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST )
+               zlatb4(PATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST );
 
                SRNAMT = 'ZLATMS'
-               CALL ZLATMS( N, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KL, KU, PACKIT, A, LDA, WORK, INFO )
+               zlatms(N, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KL, KU, PACKIT, A, LDA, WORK, INFO );
 
                // Check error code from ZLATMS.
 
                if ( INFO.NE.0 ) {
-                  CALL ALAERH( PATH, 'ZLATMS', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT )
+                  alaerh(PATH, 'ZLATMS', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
                   GO TO 90
                }
 
@@ -162,22 +162,22 @@
                // Set the imaginary part of the diagonals.
 
                if ( IUPLO.EQ.1 ) {
-                  CALL ZLAIPD( N, A, 2, 1 )
+                  zlaipd(N, A, 2, 1 );
                } else {
-                  CALL ZLAIPD( N, A, N, -1 )
+                  zlaipd(N, A, N, -1 );
                }
 
                // Compute the L*L' or U'*U factorization of the matrix.
 
                NPP = N*( N+1 ) / 2
-               CALL ZCOPY( NPP, A, 1, AFAC, 1 )
+               zcopy(NPP, A, 1, AFAC, 1 );
                SRNAMT = 'ZPPTRF'
-               CALL ZPPTRF( UPLO, N, AFAC, INFO )
+               zpptrf(UPLO, N, AFAC, INFO );
 
                // Check error code from ZPPTRF.
 
                if ( INFO.NE.IZERO ) {
-                  CALL ALAERH( PATH, 'ZPPTRF', INFO, IZERO, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT )
+                  alaerh(PATH, 'ZPPTRF', INFO, IZERO, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
                   GO TO 90
                }
 
@@ -188,21 +188,21 @@
 *+    TEST 1
                // Reconstruct matrix from factors and compute residual.
 
-               CALL ZCOPY( NPP, AFAC, 1, AINV, 1 )
-               CALL ZPPT01( UPLO, N, A, AINV, RWORK, RESULT( 1 ) )
+               zcopy(NPP, AFAC, 1, AINV, 1 );
+               zppt01(UPLO, N, A, AINV, RWORK, RESULT( 1 ) );
 
 *+    TEST 2
                // Form the inverse and compute the residual.
 
-               CALL ZCOPY( NPP, AFAC, 1, AINV, 1 )
+               zcopy(NPP, AFAC, 1, AINV, 1 );
                SRNAMT = 'ZPPTRI'
-               CALL ZPPTRI( UPLO, N, AINV, INFO )
+               zpptri(UPLO, N, AINV, INFO );
 
                // Check error code from ZPPTRI.
 
                IF( INFO.NE.0 ) CALL ALAERH( PATH, 'ZPPTRI', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT )
 
-               CALL ZPPT03( UPLO, N, A, AINV, WORK, LDA, RWORK, RCONDC, RESULT( 2 ) )
+               zppt03(UPLO, N, A, AINV, WORK, LDA, RWORK, RCONDC, RESULT( 2 ) );
 
                // Print information about the tests that did not pass
                // the threshold.
@@ -222,35 +222,35 @@
                // Solve and compute residual for  A * X = B.
 
                   SRNAMT = 'ZLARHS'
-                  CALL ZLARHS( PATH, XTYPE, UPLO, ' ', N, N, KL, KU, NRHS, A, LDA, XACT, LDA, B, LDA, ISEED, INFO )
-                  CALL ZLACPY( 'Full', N, NRHS, B, LDA, X, LDA )
+                  zlarhs(PATH, XTYPE, UPLO, ' ', N, N, KL, KU, NRHS, A, LDA, XACT, LDA, B, LDA, ISEED, INFO );
+                  zlacpy('Full', N, NRHS, B, LDA, X, LDA );
 
                   SRNAMT = 'ZPPTRS'
-                  CALL ZPPTRS( UPLO, N, NRHS, AFAC, X, LDA, INFO )
+                  zpptrs(UPLO, N, NRHS, AFAC, X, LDA, INFO );
 
                // Check error code from ZPPTRS.
 
                   IF( INFO.NE.0 ) CALL ALAERH( PATH, 'ZPPTRS', INFO, 0, UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT )
 
-                  CALL ZLACPY( 'Full', N, NRHS, B, LDA, WORK, LDA )
-                  CALL ZPPT02( UPLO, N, NRHS, A, X, LDA, WORK, LDA, RWORK, RESULT( 3 ) )
+                  zlacpy('Full', N, NRHS, B, LDA, WORK, LDA );
+                  zppt02(UPLO, N, NRHS, A, X, LDA, WORK, LDA, RWORK, RESULT( 3 ) );
 
 *+    TEST 4
                // Check solution from generated exact solution.
 
-                  CALL ZGET04( N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 4 ) )
+                  zget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 4 ) );
 
 *+    TESTS 5, 6, and 7
                // Use iterative refinement to improve the solution.
 
                   SRNAMT = 'ZPPRFS'
-                  CALL ZPPRFS( UPLO, N, NRHS, A, AFAC, B, LDA, X, LDA, RWORK, RWORK( NRHS+1 ), WORK, RWORK( 2*NRHS+1 ), INFO )
+                  zpprfs(UPLO, N, NRHS, A, AFAC, B, LDA, X, LDA, RWORK, RWORK( NRHS+1 ), WORK, RWORK( 2*NRHS+1 ), INFO );
 
                // Check error code from ZPPRFS.
 
                   IF( INFO.NE.0 ) CALL ALAERH( PATH, 'ZPPRFS', INFO, 0, UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT )
 
-                  CALL ZGET04( N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 5 ) )                   CALL ZPPT05( UPLO, N, NRHS, A, B, LDA, X, LDA, XACT, LDA, RWORK, RWORK( NRHS+1 ), RESULT( 6 ) )
+                  zget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 5 ) )                   CALL ZPPT05( UPLO, N, NRHS, A, B, LDA, X, LDA, XACT, LDA, RWORK, RWORK( NRHS+1 ), RESULT( 6 ) );
 
                   // Print information about the tests that did not pass
                   // the threshold.
@@ -269,7 +269,7 @@
 
                ANORM = ZLANHP( '1', UPLO, N, A, RWORK )
                SRNAMT = 'ZPPCON'
-               CALL ZPPCON( UPLO, N, AFAC, ANORM, RCOND, WORK, RWORK, INFO )
+               zppcon(UPLO, N, AFAC, ANORM, RCOND, WORK, RWORK, INFO );
 
                // Check error code from ZPPCON.
 
@@ -291,7 +291,7 @@
 
       // Print a summary of the results.
 
-      CALL ALASUM( PATH, NOUT, NFAIL, NRUN, NERRS )
+      alasum(PATH, NOUT, NFAIL, NRUN, NERRS );
 
  9999 FORMAT( ' UPLO = ''', A1, ''', N =', I5, ', type ', I2, ', test ', I2, ', ratio =', G12.5 )
  9998 FORMAT( ' UPLO = ''', A1, ''', N =', I5, ', NRHS=', I3, ', type ', I2, ', test(', I2, ') =', G12.5 )

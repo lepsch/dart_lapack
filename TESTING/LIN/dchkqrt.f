@@ -73,7 +73,7 @@
                // Test DGEQRT and DGEMQRT
 
                if ( (NB.LE.MINMN).AND.(NB.GT.0) ) {
-                  CALL DQRT04( M, N, NB, RESULT )
+                  dqrt04(M, N, NB, RESULT );
 
                   // Print information about the tests that did not
                   // pass the threshold.
@@ -92,7 +92,7 @@
 
       // Print a summary of the results.
 
-      CALL ALASUM( PATH, NOUT, NFAIL, NRUN, NERRS )
+      alasum(PATH, NOUT, NFAIL, NRUN, NERRS );
 
  9999 FORMAT( ' M=', I5, ', N=', I5, ', NB=', I4, ' test(', I2, ')=', G12.5 )
       RETURN

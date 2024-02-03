@@ -119,6 +119,18 @@ $1if $3 {
 $1} else if $3 {
 ```
 
+### No arguments CALL
+```
+^(\s+)CALL\s+(\w+)$
+$1\L$2();
+```
+
+### CALL
+```
+^(\s+)CALL\s+(\w+)\s*\(\s*(.*)\s*\)$
+$1\L$2($3);
+```
+
 # LAPACK
 
 [![Build Status](https://travis-ci.org/Reference-LAPACK/lapack.svg?branch=master)](https://travis-ci.org/Reference-LAPACK/lapack)

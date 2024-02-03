@@ -95,7 +95,7 @@
       // Handle error in the input parameters and return workspace query.
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'DGETSQRHRT', -INFO )
+         xerbla('DGETSQRHRT', -INFO );
          RETURN
       } else if ( LQUERY ) {
          WORK( 1 ) = DBLE( LWORKOPT )
@@ -114,25 +114,25 @@
 
       // (1) Perform TSQR-factorization of the M-by-N matrix A.
 
-      CALL DLATSQR( M, N, MB1, NB1LOCAL, A, LDA, WORK, LDWT, WORK(LWT+1), LW1, IINFO )
+      dlatsqr(M, N, MB1, NB1LOCAL, A, LDA, WORK, LDWT, WORK(LWT+1), LW1, IINFO );
 
       // (2) Copy the factor R_tsqr stored in the upper-triangular part
           // of A into the square matrix in the work array
           // WORK(LWT+1:LWT+N*N) column-by-column.
 
       DO J = 1, N
-         CALL DCOPY( J, A( 1, J ), 1, WORK( LWT + N*(J-1)+1 ), 1 )
+         dcopy(J, A( 1, J ), 1, WORK( LWT + N*(J-1)+1 ), 1 );
       END DO
 
       // (3) Generate a M-by-N matrix Q with orthonormal columns from
       // the result stored below the diagonal in the array A in place.
 
-       CALL DORGTSQR_ROW( M, N, MB1, NB1LOCAL, A, LDA, WORK, LDWT, WORK( LWT+N*N+1 ), LW2, IINFO )
+       dorgtsqr_row(M, N, MB1, NB1LOCAL, A, LDA, WORK, LDWT, WORK( LWT+N*N+1 ), LW2, IINFO );
 
       // (4) Perform the reconstruction of Householder vectors from
       // the matrix Q (stored in A) in place.
 
-      CALL DORHR_COL( M, N, NB2LOCAL, A, LDA, T, LDT, WORK( LWT+N*N+1 ), IINFO )
+      dorhr_col(M, N, NB2LOCAL, A, LDA, T, LDT, WORK( LWT+N*N+1 ), IINFO );
 
       // (5) Copy the factor R_tsqr stored in the square matrix in the
       // work array WORK(LWT+1:LWT+N*N) into the upper-triangular
@@ -154,7 +154,7 @@
                A( I, J ) = -ONE * WORK( LWT+N*(J-1)+I )
             END DO
          } else {
-            CALL DCOPY( N-I+1, WORK(LWT+N*(I-1)+I), N, A( I, I ), LDA )
+            dcopy(N-I+1, WORK(LWT+N*(I-1)+I), N, A( I, I ), LDA );
          }
       END DO
 

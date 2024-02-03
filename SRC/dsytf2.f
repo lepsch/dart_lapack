@@ -51,7 +51,7 @@
          INFO = -4
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'DSYTF2', -INFO )
+         xerbla('DSYTF2', -INFO );
          RETURN
       }
 
@@ -142,8 +142,8 @@
                // Interchange rows and columns KK and KP in the leading
                // submatrix A(1:k,1:k)
 
-               CALL DSWAP( KP-1, A( 1, KK ), 1, A( 1, KP ), 1 )
-               CALL DSWAP( KK-KP-1, A( KP+1, KK ), 1, A( KP, KP+1 ), LDA )
+               dswap(KP-1, A( 1, KK ), 1, A( 1, KP ), 1 );
+               dswap(KK-KP-1, A( KP+1, KK ), 1, A( KP, KP+1 ), LDA );
                T = A( KK, KK )
                A( KK, KK ) = A( KP, KP )
                A( KP, KP ) = T
@@ -169,11 +169,11 @@
                // A := A - U(k)*D(k)*U(k)**T = A - W(k)*1/D(k)*W(k)**T
 
                R1 = ONE / A( K, K )
-               CALL DSYR( UPLO, K-1, -R1, A( 1, K ), 1, A, LDA )
+               dsyr(UPLO, K-1, -R1, A( 1, K ), 1, A, LDA );
 
                // Store U(k) in column k
 
-               CALL DSCAL( K-1, R1, A( 1, K ), 1 )
+               dscal(K-1, R1, A( 1, K ), 1 );
             } else {
 
                // 2-by-2 pivot block D(k): columns k and k-1 now hold
@@ -336,11 +336,11 @@
                   // A := A - L(k)*D(k)*L(k)**T = A - W(k)*(1/D(k))*W(k)**T
 
                   D11 = ONE / A( K, K )
-                  CALL DSYR( UPLO, N-K, -D11, A( K+1, K ), 1, A( K+1, K+1 ), LDA )
+                  dsyr(UPLO, N-K, -D11, A( K+1, K ), 1, A( K+1, K+1 ), LDA );
 
                   // Store L(k) in column K
 
-                  CALL DSCAL( N-K, D11, A( K+1, K ), 1 )
+                  dscal(N-K, D11, A( K+1, K ), 1 );
                }
             } else {
 

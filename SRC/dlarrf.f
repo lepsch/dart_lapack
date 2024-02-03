@@ -273,8 +273,8 @@
       if (SHIFT.EQ.SLEFT) {
       ELSEIF (SHIFT.EQ.SRIGHT) THEN
          // store new L and D back into DPLUS, LPLUS
-         CALL DCOPY( N, WORK, 1, DPLUS, 1 )
-         CALL DCOPY( N-1, WORK(N+1), 1, LPLUS, 1 )
+         dcopy(N, WORK, 1, DPLUS, 1 );
+         dcopy(N-1, WORK(N+1), 1, LPLUS, 1 );
       ENDIF
 
       RETURN

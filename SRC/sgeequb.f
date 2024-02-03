@@ -45,7 +45,7 @@
          INFO = -4
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'SGEEQUB', -INFO )
+         xerbla('SGEEQUB', -INFO );
          RETURN
       }
 

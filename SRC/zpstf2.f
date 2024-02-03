@@ -54,7 +54,7 @@
          INFO = -4
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'ZPSTF2', -INFO )
+         xerbla('ZPSTF2', -INFO );
          RETURN
       }
 
@@ -129,7 +129,7 @@
                // Pivot OK, so can now swap pivot rows and columns
 
                A( PVT, PVT ) = A( J, J )
-               CALL ZSWAP( J-1, A( 1, J ), 1, A( 1, PVT ), 1 )
+               zswap(J-1, A( 1, J ), 1, A( 1, PVT ), 1 );
                IF( PVT.LT.N ) CALL ZSWAP( N-PVT, A( J, PVT+1 ), LDA, A( PVT, PVT+1 ), LDA )
                DO 140 I = J + 1, PVT - 1
                   ZTEMP = DCONJG( A( J, I ) )
@@ -154,10 +154,10 @@
             // Compute elements J+1:N of row J
 
             if ( J.LT.N ) {
-               CALL ZLACGV( J-1, A( 1, J ), 1 )
-               CALL ZGEMV( 'Trans', J-1, N-J, -CONE, A( 1, J+1 ), LDA, A( 1, J ), 1, CONE, A( J, J+1 ), LDA )
-               CALL ZLACGV( J-1, A( 1, J ), 1 )
-               CALL ZDSCAL( N-J, ONE / AJJ, A( J, J+1 ), LDA )
+               zlacgv(J-1, A( 1, J ), 1 );
+               zgemv('Trans', J-1, N-J, -CONE, A( 1, J+1 ), LDA, A( 1, J ), 1, CONE, A( J, J+1 ), LDA );
+               zlacgv(J-1, A( 1, J ), 1 );
+               zdscal(N-J, ONE / AJJ, A( J, J+1 ), LDA );
             }
 
   150    CONTINUE
@@ -196,7 +196,7 @@
                // Pivot OK, so can now swap pivot rows and columns
 
                A( PVT, PVT ) = A( J, J )
-               CALL ZSWAP( J-1, A( J, 1 ), LDA, A( PVT, 1 ), LDA )
+               zswap(J-1, A( J, 1 ), LDA, A( PVT, 1 ), LDA );
                IF( PVT.LT.N ) CALL ZSWAP( N-PVT, A( PVT+1, J ), 1, A( PVT+1, PVT ), 1 )
                DO 170 I = J + 1, PVT - 1
                   ZTEMP = DCONJG( A( I, J ) )
@@ -221,10 +221,10 @@
             // Compute elements J+1:N of column J
 
             if ( J.LT.N ) {
-               CALL ZLACGV( J-1, A( J, 1 ), LDA )
-               CALL ZGEMV( 'No Trans', N-J, J-1, -CONE, A( J+1, 1 ), LDA, A( J, 1 ), LDA, CONE, A( J+1, J ), 1 )
-               CALL ZLACGV( J-1, A( J, 1 ), LDA )
-               CALL ZDSCAL( N-J, ONE / AJJ, A( J+1, J ), 1 )
+               zlacgv(J-1, A( J, 1 ), LDA );
+               zgemv('No Trans', N-J, J-1, -CONE, A( J+1, 1 ), LDA, A( J, 1 ), LDA, CONE, A( J+1, J ), 1 );
+               zlacgv(J-1, A( J, 1 ), LDA );
+               zdscal(N-J, ONE / AJJ, A( J+1, J ), 1 );
             }
 
   180    CONTINUE

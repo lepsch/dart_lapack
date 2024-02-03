@@ -32,18 +32,18 @@
          INFO = -6
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'SPTSV ', -INFO )
+         xerbla('SPTSV ', -INFO );
          RETURN
       }
 
       // Compute the L*D*L**T (or U**T*D*U) factorization of A.
 
-      CALL SPTTRF( N, D, E, INFO )
+      spttrf(N, D, E, INFO );
       if ( INFO.EQ.0 ) {
 
          // Solve the system A*X = B, overwriting B with X.
 
-         CALL SPTTRS( N, NRHS, D, E, B, LDB, INFO )
+         spttrs(N, NRHS, D, E, B, LDB, INFO );
       }
       RETURN
 

@@ -51,10 +51,10 @@
 
       // ITYPE=1: error = U**T A U - S
 
-      CALL SSYMM( 'L', UPLO, N, M, ONE, A, LDA, U, LDU, ZERO, WORK, N )
+      ssymm('L', UPLO, N, M, ONE, A, LDA, U, LDU, ZERO, WORK, N );
       NN = N*N
       NNP1 = NN + 1
-      CALL SGEMM( 'T', 'N', M, M, N, ONE, U, LDU, WORK, N, ZERO, WORK( NNP1 ), N )
+      sgemm('T', 'N', M, M, N, ONE, U, LDU, WORK, N, ZERO, WORK( NNP1 ), N );
       DO 10 J = 1, M
          JJ = NN + ( J-1 )*N + J
          WORK( JJ ) = WORK( JJ ) - D( J )

@@ -87,14 +87,14 @@
                MAXWRK = MAX( MAXWRK, N + ( N - 1 )*ILAENV( 1, 'CUNGHR', ' ', N, 1, N, -1 ) )                CALL CTREVC3( 'L', 'B', SELECT, N, A, LDA, VL, LDVL, VR, LDVR, N, NOUT, WORK, -1, RWORK, -1, IERR )
                LWORK_TREVC = INT( WORK(1) )
                MAXWRK = MAX( MAXWRK, N + LWORK_TREVC )
-               CALL CHSEQR( 'S', 'V', N, 1, N, A, LDA, W, VL, LDVL, WORK, -1, INFO )
+               chseqr('S', 'V', N, 1, N, A, LDA, W, VL, LDVL, WORK, -1, INFO );
             } else if ( WANTVR ) {
                MAXWRK = MAX( MAXWRK, N + ( N - 1 )*ILAENV( 1, 'CUNGHR', ' ', N, 1, N, -1 ) )                CALL CTREVC3( 'R', 'B', SELECT, N, A, LDA, VL, LDVL, VR, LDVR, N, NOUT, WORK, -1, RWORK, -1, IERR )
                LWORK_TREVC = INT( WORK(1) )
                MAXWRK = MAX( MAXWRK, N + LWORK_TREVC )
-               CALL CHSEQR( 'S', 'V', N, 1, N, A, LDA, W, VR, LDVR, WORK, -1, INFO )
+               chseqr('S', 'V', N, 1, N, A, LDA, W, VR, LDVR, WORK, -1, INFO );
             } else {
-               CALL CHSEQR( 'E', 'N', N, 1, N, A, LDA, W, VR, LDVR, WORK, -1, INFO )
+               chseqr('E', 'N', N, 1, N, A, LDA, W, VR, LDVR, WORK, -1, INFO );
             }
             HSWORK = INT( WORK(1) )
             MAXWRK = MAX( MAXWRK, HSWORK, MINWRK )
@@ -107,7 +107,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'CGEEV ', -INFO )
+         xerbla('CGEEV ', -INFO );
          RETURN
       } else if ( LQUERY ) {
          RETURN
@@ -143,7 +143,7 @@
       // (RWorkspace: need N)
 
       IBAL = 1
-      CALL CGEBAL( 'B', N, A, LDA, ILO, IHI, RWORK( IBAL ), IERR )
+      cgebal('B', N, A, LDA, ILO, IHI, RWORK( IBAL ), IERR );
 
       // Reduce to upper Hessenberg form
       // (CWorkspace: need 2*N, prefer N+N*NB)
@@ -151,7 +151,7 @@
 
       ITAU = 1
       IWRK = ITAU + N
-      CALL CGEHRD( N, ILO, IHI, A, LDA, WORK( ITAU ), WORK( IWRK ), LWORK-IWRK+1, IERR )
+      cgehrd(N, ILO, IHI, A, LDA, WORK( ITAU ), WORK( IWRK ), LWORK-IWRK+1, IERR );
 
       if ( WANTVL ) {
 
@@ -159,20 +159,20 @@
          // Copy Householder vectors to VL
 
          SIDE = 'L'
-         CALL CLACPY( 'L', N, N, A, LDA, VL, LDVL )
+         clacpy('L', N, N, A, LDA, VL, LDVL );
 
          // Generate unitary matrix in VL
          // (CWorkspace: need 2*N-1, prefer N+(N-1)*NB)
          // (RWorkspace: none)
 
-         CALL CUNGHR( N, ILO, IHI, VL, LDVL, WORK( ITAU ), WORK( IWRK ), LWORK-IWRK+1, IERR )
+         cunghr(N, ILO, IHI, VL, LDVL, WORK( ITAU ), WORK( IWRK ), LWORK-IWRK+1, IERR );
 
          // Perform QR iteration, accumulating Schur vectors in VL
          // (CWorkspace: need 1, prefer HSWORK (see comments) )
          // (RWorkspace: none)
 
          IWRK = ITAU
-         CALL CHSEQR( 'S', 'V', N, ILO, IHI, A, LDA, W, VL, LDVL, WORK( IWRK ), LWORK-IWRK+1, INFO )
+         chseqr('S', 'V', N, ILO, IHI, A, LDA, W, VL, LDVL, WORK( IWRK ), LWORK-IWRK+1, INFO );
 
          if ( WANTVR ) {
 
@@ -180,7 +180,7 @@
             // Copy Schur vectors to VR
 
             SIDE = 'B'
-            CALL CLACPY( 'F', N, N, VL, LDVL, VR, LDVR )
+            clacpy('F', N, N, VL, LDVL, VR, LDVR );
          }
 
       } else if ( WANTVR ) {
@@ -189,20 +189,20 @@
          // Copy Householder vectors to VR
 
          SIDE = 'R'
-         CALL CLACPY( 'L', N, N, A, LDA, VR, LDVR )
+         clacpy('L', N, N, A, LDA, VR, LDVR );
 
          // Generate unitary matrix in VR
          // (CWorkspace: need 2*N-1, prefer N+(N-1)*NB)
          // (RWorkspace: none)
 
-         CALL CUNGHR( N, ILO, IHI, VR, LDVR, WORK( ITAU ), WORK( IWRK ), LWORK-IWRK+1, IERR )
+         cunghr(N, ILO, IHI, VR, LDVR, WORK( ITAU ), WORK( IWRK ), LWORK-IWRK+1, IERR );
 
          // Perform QR iteration, accumulating Schur vectors in VR
          // (CWorkspace: need 1, prefer HSWORK (see comments) )
          // (RWorkspace: none)
 
          IWRK = ITAU
-         CALL CHSEQR( 'S', 'V', N, ILO, IHI, A, LDA, W, VR, LDVR, WORK( IWRK ), LWORK-IWRK+1, INFO )
+         chseqr('S', 'V', N, ILO, IHI, A, LDA, W, VR, LDVR, WORK( IWRK ), LWORK-IWRK+1, INFO );
 
       } else {
 
@@ -211,7 +211,7 @@
          // (RWorkspace: none)
 
          IWRK = ITAU
-         CALL CHSEQR( 'E', 'N', N, ILO, IHI, A, LDA, W, VR, LDVR, WORK( IWRK ), LWORK-IWRK+1, INFO )
+         chseqr('E', 'N', N, ILO, IHI, A, LDA, W, VR, LDVR, WORK( IWRK ), LWORK-IWRK+1, INFO );
       }
 
       // If INFO .NE. 0 from CHSEQR, then quit
@@ -225,7 +225,7 @@
          // (RWorkspace: need 2*N)
 
          IRWORK = IBAL + N
-         CALL CTREVC3( SIDE, 'B', SELECT, N, A, LDA, VL, LDVL, VR, LDVR, N, NOUT, WORK( IWRK ), LWORK-IWRK+1, RWORK( IRWORK ), N, IERR )
+         ctrevc3(SIDE, 'B', SELECT, N, A, LDA, VL, LDVL, VR, LDVR, N, NOUT, WORK( IWRK ), LWORK-IWRK+1, RWORK( IRWORK ), N, IERR );
       }
 
       if ( WANTVL ) {
@@ -234,19 +234,19 @@
          // (CWorkspace: none)
          // (RWorkspace: need N)
 
-         CALL CGEBAK( 'B', 'L', N, ILO, IHI, RWORK( IBAL ), N, VL, LDVL, IERR )
+         cgebak('B', 'L', N, ILO, IHI, RWORK( IBAL ), N, VL, LDVL, IERR );
 
          // Normalize left eigenvectors and make largest component real
 
          DO 20 I = 1, N
             SCL = ONE / SCNRM2( N, VL( 1, I ), 1 )
-            CALL CSSCAL( N, SCL, VL( 1, I ), 1 )
+            csscal(N, SCL, VL( 1, I ), 1 );
             DO 10 K = 1, N
                RWORK( IRWORK+K-1 ) = REAL( VL( K, I ) )**2 + AIMAG( VL( K, I ) )**2
    10       CONTINUE
             K = ISAMAX( N, RWORK( IRWORK ), 1 )
             TMP = CONJG( VL( K, I ) ) / SQRT( RWORK( IRWORK+K-1 ) )
-            CALL CSCAL( N, TMP, VL( 1, I ), 1 )
+            cscal(N, TMP, VL( 1, I ), 1 );
             VL( K, I ) = CMPLX( REAL( VL( K, I ) ), ZERO )
    20    CONTINUE
       }
@@ -257,19 +257,19 @@
          // (CWorkspace: none)
          // (RWorkspace: need N)
 
-         CALL CGEBAK( 'B', 'R', N, ILO, IHI, RWORK( IBAL ), N, VR, LDVR, IERR )
+         cgebak('B', 'R', N, ILO, IHI, RWORK( IBAL ), N, VR, LDVR, IERR );
 
          // Normalize right eigenvectors and make largest component real
 
          DO 40 I = 1, N
             SCL = ONE / SCNRM2( N, VR( 1, I ), 1 )
-            CALL CSSCAL( N, SCL, VR( 1, I ), 1 )
+            csscal(N, SCL, VR( 1, I ), 1 );
             DO 30 K = 1, N
                RWORK( IRWORK+K-1 ) = REAL( VR( K, I ) )**2 + AIMAG( VR( K, I ) )**2
    30       CONTINUE
             K = ISAMAX( N, RWORK( IRWORK ), 1 )
             TMP = CONJG( VR( K, I ) ) / SQRT( RWORK( IRWORK+K-1 ) )
-            CALL CSCAL( N, TMP, VR( 1, I ), 1 )
+            cscal(N, TMP, VR( 1, I ), 1 );
             VR( K, I ) = CMPLX( REAL( VR( K, I ) ), ZERO )
    40    CONTINUE
       }
@@ -278,9 +278,9 @@
 
    50 CONTINUE
       if ( SCALEA ) {
-         CALL CLASCL( 'G', 0, 0, CSCALE, ANRM, N-INFO, 1, W( INFO+1 ), MAX( N-INFO, 1 ), IERR )
+         clascl('G', 0, 0, CSCALE, ANRM, N-INFO, 1, W( INFO+1 ), MAX( N-INFO, 1 ), IERR );
          if ( INFO.GT.0 ) {
-            CALL CLASCL( 'G', 0, 0, CSCALE, ANRM, ILO-1, 1, W, N, IERR )
+            clascl('G', 0, 0, CSCALE, ANRM, ILO-1, 1, W, N, IERR );
          }
       }
 

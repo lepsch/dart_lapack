@@ -63,7 +63,7 @@
       ANORM = DLANGE( 'M', N, N, A, LDA, DUMMY )
       KNT = KNT + 1
 
-      CALL DGEBAL( 'B', N, A, LDA, ILO, IHI, SCALE, INFO )
+      dgebal('B', N, A, LDA, ILO, IHI, SCALE, INFO );
 
       if ( INFO.NE.0 ) {
          NINFO = NINFO + 1

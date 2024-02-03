@@ -45,7 +45,7 @@
          INFO = -5
       }
       if ( INFO.LT.0 ) {
-         CALL XERBLA( 'DLAGSY', -INFO )
+         xerbla('DLAGSY', -INFO );
          RETURN
       }
 
@@ -66,14 +66,14 @@
 
          // generate random reflection
 
-         CALL DLARNV( 3, ISEED, N-I+1, WORK )
+         dlarnv(3, ISEED, N-I+1, WORK );
          WN = DNRM2( N-I+1, WORK, 1 )
          WA = SIGN( WN, WORK( 1 ) )
          if ( WN.EQ.ZERO ) {
             TAU = ZERO
          } else {
             WB = WORK( 1 ) + WA
-            CALL DSCAL( N-I, ONE / WB, WORK( 2 ), 1 )
+            dscal(N-I, ONE / WB, WORK( 2 ), 1 );
             WORK( 1 ) = ONE
             TAU = WB / WA
          }
@@ -83,16 +83,16 @@
 
          // compute  y := tau * A * u
 
-         CALL DSYMV( 'Lower', N-I+1, TAU, A( I, I ), LDA, WORK, 1, ZERO, WORK( N+1 ), 1 )
+         dsymv('Lower', N-I+1, TAU, A( I, I ), LDA, WORK, 1, ZERO, WORK( N+1 ), 1 );
 
          // compute  v := y - 1/2 * tau * ( y, u ) * u
 
          ALPHA = -HALF*TAU*DDOT( N-I+1, WORK( N+1 ), 1, WORK, 1 )
-         CALL DAXPY( N-I+1, ALPHA, WORK, 1, WORK( N+1 ), 1 )
+         daxpy(N-I+1, ALPHA, WORK, 1, WORK( N+1 ), 1 );
 
          // apply the transformation as a rank-2 update to A(i:n,i:n)
 
-         CALL DSYR2( 'Lower', N-I+1, -ONE, WORK, 1, WORK( N+1 ), 1, A( I, I ), LDA )
+         dsyr2('Lower', N-I+1, -ONE, WORK, 1, WORK( N+1 ), 1, A( I, I ), LDA );
    40 CONTINUE
 
       // Reduce number of subdiagonals to K
@@ -107,29 +107,29 @@
             TAU = ZERO
          } else {
             WB = A( K+I, I ) + WA
-            CALL DSCAL( N-K-I, ONE / WB, A( K+I+1, I ), 1 )
+            dscal(N-K-I, ONE / WB, A( K+I+1, I ), 1 );
             A( K+I, I ) = ONE
             TAU = WB / WA
          }
 
          // apply reflection to A(k+i:n,i+1:k+i-1) from the left
 
-         CALL DGEMV( 'Transpose', N-K-I+1, K-1, ONE, A( K+I, I+1 ), LDA, A( K+I, I ), 1, ZERO, WORK, 1 )          CALL DGER( N-K-I+1, K-1, -TAU, A( K+I, I ), 1, WORK, 1, A( K+I, I+1 ), LDA )
+         dgemv('Transpose', N-K-I+1, K-1, ONE, A( K+I, I+1 ), LDA, A( K+I, I ), 1, ZERO, WORK, 1 )          CALL DGER( N-K-I+1, K-1, -TAU, A( K+I, I ), 1, WORK, 1, A( K+I, I+1 ), LDA );
 
          // apply reflection to A(k+i:n,k+i:n) from the left and the right
 
          // compute  y := tau * A * u
 
-         CALL DSYMV( 'Lower', N-K-I+1, TAU, A( K+I, K+I ), LDA, A( K+I, I ), 1, ZERO, WORK, 1 )
+         dsymv('Lower', N-K-I+1, TAU, A( K+I, K+I ), LDA, A( K+I, I ), 1, ZERO, WORK, 1 );
 
          // compute  v := y - 1/2 * tau * ( y, u ) * u
 
          ALPHA = -HALF*TAU*DDOT( N-K-I+1, WORK, 1, A( K+I, I ), 1 )
-         CALL DAXPY( N-K-I+1, ALPHA, A( K+I, I ), 1, WORK, 1 )
+         daxpy(N-K-I+1, ALPHA, A( K+I, I ), 1, WORK, 1 );
 
          // apply symmetric rank-2 update to A(k+i:n,k+i:n)
 
-         CALL DSYR2( 'Lower', N-K-I+1, -ONE, A( K+I, I ), 1, WORK, 1, A( K+I, K+I ), LDA )
+         dsyr2('Lower', N-K-I+1, -ONE, A( K+I, I ), 1, WORK, 1, A( K+I, K+I ), LDA );
 
          A( K+I, I ) = -WA
          DO 50 J = K + I + 1, N

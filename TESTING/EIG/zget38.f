@@ -86,17 +86,17 @@
          // Scale input matrix
 
          KNT = KNT + 1
-         CALL ZLACPY( 'F', N, N, TMP, LDT, T, LDT )
+         zlacpy('F', N, N, TMP, LDT, T, LDT );
          VMUL = VAL( ISCL )
          DO 30 I = 1, N
-            CALL ZDSCAL( N, VMUL, T( 1, I ), 1 )
+            zdscal(N, VMUL, T( 1, I ), 1 );
    30    CONTINUE
          IF( TNRM.EQ.ZERO ) VMUL = ONE
-         CALL ZLACPY( 'F', N, N, T, LDT, TSAV, LDT )
+         zlacpy('F', N, N, T, LDT, TSAV, LDT );
 
          // Compute Schur form
 
-         CALL ZGEHRD( N, 1, N, T, LDT, WORK( 1 ), WORK( N+1 ), LWORK-N, INFO )
+         zgehrd(N, 1, N, T, LDT, WORK( 1 ), WORK( N+1 ), LWORK-N, INFO );
          if ( INFO.NE.0 ) {
             LMAX( 1 ) = KNT
             NINFO( 1 ) = NINFO( 1 ) + 1
@@ -105,8 +105,8 @@
 
          // Generate unitary matrix
 
-         CALL ZLACPY( 'L', N, N, T, LDT, Q, LDT )
-         CALL ZUNGHR( N, 1, N, Q, LDT, WORK( 1 ), WORK( N+1 ), LWORK-N, INFO )
+         zlacpy('L', N, N, T, LDT, Q, LDT );
+         zunghr(N, 1, N, Q, LDT, WORK( 1 ), WORK( N+1 ), LWORK-N, INFO );
 
          // Compute Schur form
 
@@ -115,7 +115,7 @@
                T( I, J ) = CZERO
    40       CONTINUE
    50    CONTINUE
-         CALL ZHSEQR( 'S', 'V', N, 1, N, T, LDT, W, Q, LDT, WORK, LWORK, INFO )
+         zhseqr('S', 'V', N, 1, N, T, LDT, W, Q, LDT, WORK, LWORK, INFO );
          if ( INFO.NE.0 ) {
             LMAX( 2 ) = KNT
             NINFO( 2 ) = NINFO( 2 ) + 1
@@ -158,9 +158,9 @@
 
          // Compute condition numbers
 
-         CALL ZLACPY( 'F', N, N, Q, LDT, QSAV, LDT )
-         CALL ZLACPY( 'F', N, N, T, LDT, TSAV1, LDT )
-         CALL ZTRSEN( 'B', 'V', SELECT, N, T, LDT, Q, LDT, WTMP, M, S, SEP, WORK, LWORK, INFO )
+         zlacpy('F', N, N, Q, LDT, QSAV, LDT );
+         zlacpy('F', N, N, T, LDT, TSAV1, LDT );
+         ztrsen('B', 'V', SELECT, N, T, LDT, Q, LDT, WTMP, M, S, SEP, WORK, LWORK, INFO );
          if ( INFO.NE.0 ) {
             LMAX( 3 ) = KNT
             NINFO( 3 ) = NINFO( 3 ) + 1
@@ -171,7 +171,7 @@
 
          // Compute residuals
 
-         CALL ZHST01( N, 1, N, TSAV, LDT, T, LDT, Q, LDT, WORK, LWORK, RWORK, RESULT )
+         zhst01(N, 1, N, TSAV, LDT, T, LDT, Q, LDT, WORK, LWORK, RWORK, RESULT );
          VMAX = MAX( RESULT( 1 ), RESULT( 2 ) )
          if ( VMAX.GT.RMAX( 1 ) ) {
             RMAX( 1 ) = VMAX
@@ -288,11 +288,11 @@
          // Update Q
 
          VMAX = ZERO
-         CALL ZLACPY( 'F', N, N, TSAV1, LDT, TTMP, LDT )
-         CALL ZLACPY( 'F', N, N, QSAV, LDT, QTMP, LDT )
+         zlacpy('F', N, N, TSAV1, LDT, TTMP, LDT );
+         zlacpy('F', N, N, QSAV, LDT, QTMP, LDT );
          SEPTMP = -ONE
          STMP = -ONE
-         CALL ZTRSEN( 'E', 'V', SELECT, N, TTMP, LDT, QTMP, LDT, WTMP, M, STMP, SEPTMP, WORK, LWORK, INFO )
+         ztrsen('E', 'V', SELECT, N, TTMP, LDT, QTMP, LDT, WTMP, M, STMP, SEPTMP, WORK, LWORK, INFO );
          if ( INFO.NE.0 ) {
             LMAX( 3 ) = KNT
             NINFO( 3 ) = NINFO( 3 ) + 1
@@ -308,11 +308,11 @@
          // Compute invariant subspace condition number only and compare
          // Update Q
 
-         CALL ZLACPY( 'F', N, N, TSAV1, LDT, TTMP, LDT )
-         CALL ZLACPY( 'F', N, N, QSAV, LDT, QTMP, LDT )
+         zlacpy('F', N, N, TSAV1, LDT, TTMP, LDT );
+         zlacpy('F', N, N, QSAV, LDT, QTMP, LDT );
          SEPTMP = -ONE
          STMP = -ONE
-         CALL ZTRSEN( 'V', 'V', SELECT, N, TTMP, LDT, QTMP, LDT, WTMP, M, STMP, SEPTMP, WORK, LWORK, INFO )
+         ztrsen('V', 'V', SELECT, N, TTMP, LDT, QTMP, LDT, WTMP, M, STMP, SEPTMP, WORK, LWORK, INFO );
          if ( INFO.NE.0 ) {
             LMAX( 3 ) = KNT
             NINFO( 3 ) = NINFO( 3 ) + 1
@@ -328,11 +328,11 @@
          // Compute eigenvalue condition number only and compare
          // Do not update Q
 
-         CALL ZLACPY( 'F', N, N, TSAV1, LDT, TTMP, LDT )
-         CALL ZLACPY( 'F', N, N, QSAV, LDT, QTMP, LDT )
+         zlacpy('F', N, N, TSAV1, LDT, TTMP, LDT );
+         zlacpy('F', N, N, QSAV, LDT, QTMP, LDT );
          SEPTMP = -ONE
          STMP = -ONE
-         CALL ZTRSEN( 'E', 'N', SELECT, N, TTMP, LDT, QTMP, LDT, WTMP, M, STMP, SEPTMP, WORK, LWORK, INFO )
+         ztrsen('E', 'N', SELECT, N, TTMP, LDT, QTMP, LDT, WTMP, M, STMP, SEPTMP, WORK, LWORK, INFO );
          if ( INFO.NE.0 ) {
             LMAX( 3 ) = KNT
             NINFO( 3 ) = NINFO( 3 ) + 1
@@ -348,11 +348,11 @@
          // Compute invariant subspace condition number only and compare
          // Do not update Q
 
-         CALL ZLACPY( 'F', N, N, TSAV1, LDT, TTMP, LDT )
-         CALL ZLACPY( 'F', N, N, QSAV, LDT, QTMP, LDT )
+         zlacpy('F', N, N, TSAV1, LDT, TTMP, LDT );
+         zlacpy('F', N, N, QSAV, LDT, QTMP, LDT );
          SEPTMP = -ONE
          STMP = -ONE
-         CALL ZTRSEN( 'V', 'N', SELECT, N, TTMP, LDT, QTMP, LDT, WTMP, M, STMP, SEPTMP, WORK, LWORK, INFO )
+         ztrsen('V', 'N', SELECT, N, TTMP, LDT, QTMP, LDT, WTMP, M, STMP, SEPTMP, WORK, LWORK, INFO );
          if ( INFO.NE.0 ) {
             LMAX( 3 ) = KNT
             NINFO( 3 ) = NINFO( 3 ) + 1

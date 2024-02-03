@@ -65,7 +65,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'ZTZRZF', -INFO )
+         xerbla('ZTZRZF', -INFO );
          RETURN
       } else if ( LQUERY ) {
          RETURN
@@ -122,17 +122,17 @@
             // Compute the TZ factorization of the current block
             // A(i:i+ib-1,i:n)
 
-            CALL ZLATRZ( IB, N-I+1, N-M, A( I, I ), LDA, TAU( I ), WORK )
+            zlatrz(IB, N-I+1, N-M, A( I, I ), LDA, TAU( I ), WORK );
             if ( I.GT.1 ) {
 
                // Form the triangular factor of the block reflector
                // H = H(i+ib-1) . . . H(i+1) H(i)
 
-               CALL ZLARZT( 'Backward', 'Rowwise', N-M, IB, A( I, M1 ), LDA, TAU( I ), WORK, LDWORK )
+               zlarzt('Backward', 'Rowwise', N-M, IB, A( I, M1 ), LDA, TAU( I ), WORK, LDWORK );
 
                // Apply H to A(1:i-1,i:n) from the right
 
-               CALL ZLARZB( 'Right', 'No transpose', 'Backward', 'Rowwise', I-1, N-I+1, IB, N-M, A( I, M1 ), LDA, WORK, LDWORK, A( 1, I ), LDA, WORK( IB+1 ), LDWORK )
+               zlarzb('Right', 'No transpose', 'Backward', 'Rowwise', I-1, N-I+1, IB, N-M, A( I, M1 ), LDA, WORK, LDWORK, A( 1, I ), LDA, WORK( IB+1 ), LDWORK );
             }
    20    CONTINUE
          MU = I + NB - 1

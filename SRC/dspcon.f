@@ -49,7 +49,7 @@
          INFO = -5
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'DSPCON', -INFO )
+         xerbla('DSPCON', -INFO );
          RETURN
       }
 
@@ -89,12 +89,12 @@
 
       KASE = 0
    30 CONTINUE
-      CALL DLACN2( N, WORK( N+1 ), WORK, IWORK, AINVNM, KASE, ISAVE )
+      dlacn2(N, WORK( N+1 ), WORK, IWORK, AINVNM, KASE, ISAVE );
       if ( KASE.NE.0 ) {
 
          // Multiply by inv(L*D*L**T) or inv(U*D*U**T).
 
-         CALL DSPTRS( UPLO, N, 1, AP, IPIV, WORK, N, INFO )
+         dsptrs(UPLO, N, 1, AP, IPIV, WORK, N, INFO );
          GO TO 30
       }
 

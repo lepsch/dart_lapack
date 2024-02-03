@@ -54,7 +54,7 @@
       NRUN = 0
       NFAIL = 0
       FIRSTT = .TRUE.
-      CALL ALAREQ( PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT )
+      alareq(PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT );
       LDX = MMAX
       LDU1 = MMAX
       LDU2 = MMAX
@@ -78,7 +78,7 @@
             // Generate X
 
             if ( IMAT.EQ.1 ) {
-               CALL DLAROR( 'L', 'I', M, M, X, LDX, ISEED, WORK, IINFO )
+               dlaror('L', 'I', M, M, X, LDX, ISEED, WORK, IINFO );
                if ( M .NE. 0 .AND. IINFO .NE. 0 ) {
                   WRITE( NOUT, FMT = 9999 ) M, IINFO
                   INFO = ABS( IINFO )
@@ -89,7 +89,7 @@
                DO I = 1, R
                   THETA(I) = PIOVER2 * DLARND( 1, ISEED )
                END DO
-               CALL DLACSG( M, P, Q, THETA, ISEED, X, LDX, WORK )
+               dlacsg(M, P, Q, THETA, ISEED, X, LDX, WORK );
                DO I = 1, M
                   DO J = 1, M
                      X(I+(J-1)*LDX) = X(I+(J-1)*LDX) + ORTH*DLARND(2,ISEED)
@@ -106,20 +106,20 @@
                DO I = 1, R
                   THETA(I) = PIOVER2 * THETA(I) / THETA(R+1)
                END DO
-               CALL DLACSG( M, P, Q, THETA, ISEED, X, LDX, WORK )
+               dlacsg(M, P, Q, THETA, ISEED, X, LDX, WORK );
             } else {
-               CALL DLASET( 'F', M, M, ZERO, ONE, X, LDX )
+               dlaset('F', M, M, ZERO, ONE, X, LDX );
                DO I = 1, M
                   J = INT( DLARAN( ISEED ) * M ) + 1
                   if ( J .NE. I ) {
-                     CALL DROT( M, X(1+(I-1)*LDX), 1, X(1+(J-1)*LDX), 1, ZERO, ONE )
+                     drot(M, X(1+(I-1)*LDX), 1, X(1+(J-1)*LDX), 1, ZERO, ONE );
                   }
                END DO
             }
 
             NT = 15
 
-            CALL DCSDTS( M, P, Q, X, XF, LDX, U1, LDU1, U2, LDU2, V1T, LDV1T, V2T, LDV2T, THETA, IWORK, WORK, LWORK, RWORK, RESULT )
+            dcsdts(M, P, Q, X, XF, LDX, U1, LDU1, U2, LDU2, V1T, LDV1T, V2T, LDV2T, THETA, IWORK, WORK, LWORK, RWORK, RESULT );
 
             // Print information about the tests that did not
             // pass the threshold.
@@ -128,7 +128,7 @@
                if ( RESULT( I ).GE.THRESH ) {
                   if ( NFAIL.EQ.0 .AND. FIRSTT ) {
                      FIRSTT = .FALSE.
-                     CALL ALAHDG( NOUT, PATH )
+                     alahdg(NOUT, PATH );
                   }
                   WRITE( NOUT, FMT = 9998 )M, P, Q, IMAT, I, RESULT( I )
                   NFAIL = NFAIL + 1
@@ -140,7 +140,7 @@
 
       // Print a summary of the results.
 
-      CALL ALASUM( PATH, NOUT, NFAIL, NRUN, 0 )
+      alasum(PATH, NOUT, NFAIL, NRUN, 0 );
 
  9999 FORMAT( ' DLAROR in DCKCSD: M = ', I5, ', INFO = ', I15 )
  9998 FORMAT( ' M=', I4, ' P=', I4, ', Q=', I4, ', type ', I2, ', test ', I2, ', ratio=', G13.6 )
@@ -167,7 +167,7 @@
 
       R = MIN( P, M-P, Q, M-Q )
 
-      CALL DLASET( 'Full', M, M, ZERO, ZERO, X, LDX )
+      dlaset('Full', M, M, ZERO, ZERO, X, LDX );
 
       DO I = 1, MIN(P,Q)-R
          X(I,I) = ONE
@@ -193,7 +193,7 @@
       DO I = 1, R
          X(P+(MIN(M-P,M-Q)-R)+I,Q+(MIN(M-P,M-Q)-R)+I) = COS(THETA(I))
       END DO
-      CALL DLAROR( 'Left', 'No init', P, M, X, LDX, ISEED, WORK, INFO )
-      CALL DLAROR( 'Left', 'No init', M-P, M, X(P+1,1), LDX, ISEED, WORK, INFO )       CALL DLAROR( 'Right', 'No init', M, Q, X, LDX, ISEED, WORK, INFO )       CALL DLAROR( 'Right', 'No init', M, M-Q, X(1,Q+1), LDX, ISEED, WORK, INFO )
+      dlaror('Left', 'No init', P, M, X, LDX, ISEED, WORK, INFO );
+      dlaror('Left', 'No init', M-P, M, X(P+1,1), LDX, ISEED, WORK, INFO )       CALL DLAROR( 'Right', 'No init', M, Q, X, LDX, ISEED, WORK, INFO )       CALL DLAROR( 'Right', 'No init', M, M-Q, X(1,Q+1), LDX, ISEED, WORK, INFO );
 
       }

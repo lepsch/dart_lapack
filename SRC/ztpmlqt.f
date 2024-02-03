@@ -69,7 +69,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'ZTPMLQT', -INFO )
+         xerbla('ZTPMLQT', -INFO );
          RETURN
       }
 
@@ -87,7 +87,7 @@
             } else {
                LB = 0
             }
-            CALL ZTPRFB( 'L', 'C', 'F', 'R', NB, N, IB, LB, V( I, 1 ), LDV, T( 1, I ), LDT, A( I, 1 ), LDA, B, LDB, WORK, IB )
+            ztprfb('L', 'C', 'F', 'R', NB, N, IB, LB, V( I, 1 ), LDV, T( 1, I ), LDT, A( I, 1 ), LDA, B, LDB, WORK, IB );
          END DO
 
       } else if ( RIGHT .AND. TRAN ) {
@@ -100,7 +100,7 @@
             } else {
                LB = NB-N+L-I+1
             }
-            CALL ZTPRFB( 'R', 'N', 'F', 'R', M, NB, IB, LB, V( I, 1 ), LDV, T( 1, I ), LDT, A( 1, I ), LDA, B, LDB, WORK, M )
+            ztprfb('R', 'N', 'F', 'R', M, NB, IB, LB, V( I, 1 ), LDV, T( 1, I ), LDT, A( 1, I ), LDA, B, LDB, WORK, M );
          END DO
 
       } else if ( LEFT .AND. TRAN ) {
@@ -114,7 +114,7 @@
             } else {
                LB = 0
             }
-            CALL ZTPRFB( 'L', 'N', 'F', 'R', NB, N, IB, LB, V( I, 1 ), LDV, T( 1, I ), LDT, A( I, 1 ), LDA, B, LDB, WORK, IB )
+            ztprfb('L', 'N', 'F', 'R', NB, N, IB, LB, V( I, 1 ), LDV, T( 1, I ), LDT, A( I, 1 ), LDA, B, LDB, WORK, IB );
          END DO
 
       } else if ( RIGHT .AND. NOTRAN ) {
@@ -128,7 +128,7 @@
             } else {
                LB = NB-N+L-I+1
             }
-            CALL ZTPRFB( 'R', 'C', 'F', 'R', M, NB, IB, LB, V( I, 1 ), LDV, T( 1, I ), LDT, A( 1, I ), LDA, B, LDB, WORK, M )
+            ztprfb('R', 'C', 'F', 'R', M, NB, IB, LB, V( I, 1 ), LDV, T( 1, I ), LDT, A( 1, I ), LDA, B, LDB, WORK, M );
          END DO
 
       }

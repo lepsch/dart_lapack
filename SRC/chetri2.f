@@ -58,7 +58,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'CHETRI2', -INFO )
+         xerbla('CHETRI2', -INFO );
          RETURN
       } else if ( LQUERY ) {
          WORK( 1 ) = SROUNDUP_LWORK( MINSIZE )
@@ -70,9 +70,9 @@
       IF( N.EQ.0 ) RETURN
 
       if ( NBMAX.GE.N ) {
-         CALL CHETRI( UPLO, N, A, LDA, IPIV, WORK, INFO )
+         chetri(UPLO, N, A, LDA, IPIV, WORK, INFO );
       } else {
-         CALL CHETRI2X( UPLO, N, A, LDA, IPIV, WORK, NBMAX, INFO )
+         chetri2x(UPLO, N, A, LDA, IPIV, WORK, NBMAX, INFO );
       }
 
       RETURN

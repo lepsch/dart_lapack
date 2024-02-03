@@ -214,10 +214,10 @@
 
       // Compute rhs (C, F)
 
-      CALL SGEMM( 'N', 'N', M, N, M, ONE, A, LDA, R, LDR, ZERO, C, LDC )
-      CALL SGEMM( 'N', 'N', M, N, N, -ONE, L, LDL, B, LDB, ONE, C, LDC )
-      CALL SGEMM( 'N', 'N', M, N, M, ONE, D, LDD, R, LDR, ZERO, F, LDF )
-      CALL SGEMM( 'N', 'N', M, N, N, -ONE, L, LDL, E, LDE, ONE, F, LDF )
+      sgemm('N', 'N', M, N, M, ONE, A, LDA, R, LDR, ZERO, C, LDC );
+      sgemm('N', 'N', M, N, N, -ONE, L, LDL, B, LDB, ONE, C, LDC );
+      sgemm('N', 'N', M, N, M, ONE, D, LDD, R, LDR, ZERO, F, LDF );
+      sgemm('N', 'N', M, N, N, -ONE, L, LDL, E, LDE, ONE, F, LDF );
 
       // End of SLATM5
 

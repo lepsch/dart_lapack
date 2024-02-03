@@ -79,13 +79,13 @@
                END DO
 
                SRNAMT = 'ZTRTTF'
-               CALL ZTRTTF( CFORM, UPLO, N, A, LDA, ARF, INFO )
+               ztrttf(CFORM, UPLO, N, A, LDA, ARF, INFO );
 
                SRNAMT = 'ZTFTTP'
-               CALL ZTFTTP( CFORM, UPLO, N, ARF, AP, INFO )
+               ztfttp(CFORM, UPLO, N, ARF, AP, INFO );
 
                SRNAMT = 'ZTPTTR'
-               CALL ZTPTTR( UPLO, N, AP, ASAV, LDA, INFO )
+               ztpttr(UPLO, N, AP, ASAV, LDA, INFO );
 
                OK1 = .TRUE.
                if ( LOWER ) {
@@ -109,13 +109,13 @@
                NRUN = NRUN + 1
 
                SRNAMT = 'ZTRTTP'
-               CALL ZTRTTP( UPLO, N, A, LDA, AP, INFO )
+               ztrttp(UPLO, N, A, LDA, AP, INFO );
 
                SRNAMT = 'ZTPTTF'
-               CALL ZTPTTF( CFORM, UPLO, N, AP, ARF, INFO )
+               ztpttf(CFORM, UPLO, N, AP, ARF, INFO );
 
                SRNAMT = 'ZTFTTR'
-               CALL ZTFTTR( CFORM, UPLO, N, ARF, ASAV, LDA, INFO )
+               ztfttr(CFORM, UPLO, N, ARF, ASAV, LDA, INFO );
 
                OK2 = .TRUE.
                if ( LOWER ) {

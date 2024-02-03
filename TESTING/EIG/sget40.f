@@ -55,15 +55,15 @@
       DO 20 I = 1, N
          READ( NIN, FMT = * )( TMP( I, J ), J = 1, N )
    20 CONTINUE
-      CALL SLACPY( 'F', N, N, TMP, LDT, T, LDT )
-      CALL SLACPY( 'F', N, N, TMP, LDT, T1, LDT )
-      CALL SLACPY( 'F', N, N, TMP, LDT, T2, LDT )
+      slacpy('F', N, N, TMP, LDT, T, LDT );
+      slacpy('F', N, N, TMP, LDT, T1, LDT );
+      slacpy('F', N, N, TMP, LDT, T2, LDT );
       DO 25 I = 1, N
          READ( NIN, FMT = * )( TMP( I, J ), J = 1, N )
    25 CONTINUE
-      CALL SLACPY( 'F', N, N, TMP, LDT, S, LDT )
-      CALL SLACPY( 'F', N, N, TMP, LDT, S1, LDT )
-      CALL SLACPY( 'F', N, N, TMP, LDT, S2, LDT )
+      slacpy('F', N, N, TMP, LDT, S, LDT );
+      slacpy('F', N, N, TMP, LDT, S1, LDT );
+      slacpy('F', N, N, TMP, LDT, S2, LDT );
       IFSTSV = IFST
       ILSTSV = ILST
       IFST1 = IFST
@@ -74,9 +74,9 @@
 
       // Test without accumulating Q and Z
 
-      CALL SLASET( 'Full', N, N, ZERO, ONE, Q, LDT )
-      CALL SLASET( 'Full', N, N, ZERO, ONE, Z, LDT )
-      CALL STGEXC( .FALSE., .FALSE., N, T1, LDT, S1, LDT, Q, LDT, Z, LDT, IFST1, ILST1, WORK, LWORK, NINFO( 1 ) )
+      slaset('Full', N, N, ZERO, ONE, Q, LDT );
+      slaset('Full', N, N, ZERO, ONE, Z, LDT );
+      stgexc(.FALSE., .FALSE., N, T1, LDT, S1, LDT, Q, LDT, Z, LDT, IFST1, ILST1, WORK, LWORK, NINFO( 1 ) );
       DO 40 I = 1, N
          DO 30 J = 1, N
             IF( I.EQ.J .AND. Q( I, J ).NE.ONE ) RES = RES + ONE / EPS             IF( I.NE.J .AND. Q( I, J ).NE.ZERO ) RES = RES + ONE / EPS             IF( I.EQ.J .AND. Z( I, J ).NE.ONE ) RES = RES + ONE / EPS             IF( I.NE.J .AND. Z( I, J ).NE.ZERO ) RES = RES + ONE / EPS
@@ -85,9 +85,9 @@
 
       // Test with accumulating Q
 
-      CALL SLASET( 'Full', N, N, ZERO, ONE, Q, LDT )
-      CALL SLASET( 'Full', N, N, ZERO, ONE, Z, LDT )
-      CALL STGEXC( .TRUE., .TRUE., N, T2, LDT, S2, LDT, Q, LDT, Z, LDT, IFST2, ILST2, WORK, LWORK, NINFO( 2 ) )
+      slaset('Full', N, N, ZERO, ONE, Q, LDT );
+      slaset('Full', N, N, ZERO, ONE, Z, LDT );
+      stgexc(.TRUE., .TRUE., N, T2, LDT, S2, LDT, Q, LDT, Z, LDT, IFST2, ILST2, WORK, LWORK, NINFO( 2 ) );
 
       // Compare T1 with T2 and S1 with S2
 
@@ -100,7 +100,7 @@
 
       // Test orthogonality of Q and Z and backward error on T2 and S2
 
-      CALL SGET51( 1, N, T, LDT, T2, LDT, Q, LDT, Z, LDT, WORK, RESULT( 1 ) )       CALL SGET51( 1, N, S, LDT, S2, LDT, Q, LDT, Z, LDT, WORK, RESULT( 2 ) )       CALL SGET51( 3, N, T, LDT, T2, LDT, Q, LDT, Q, LDT, WORK, RESULT( 3 ) )       CALL SGET51( 3, N, T, LDT, T2, LDT, Z, LDT, Z, LDT, WORK, RESULT( 4 ) )
+      sget51(1, N, T, LDT, T2, LDT, Q, LDT, Z, LDT, WORK, RESULT( 1 ) )       CALL SGET51( 1, N, S, LDT, S2, LDT, Q, LDT, Z, LDT, WORK, RESULT( 2 ) )       CALL SGET51( 3, N, T, LDT, T2, LDT, Q, LDT, Q, LDT, WORK, RESULT( 3 ) )       CALL SGET51( 3, N, T, LDT, T2, LDT, Z, LDT, Z, LDT, WORK, RESULT( 4 ) );
       RES = RES + RESULT( 1 ) + RESULT( 2 ) + RESULT( 3 ) + RESULT( 4 )
 
       // Read next matrix pair

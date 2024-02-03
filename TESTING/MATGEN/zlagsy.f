@@ -48,7 +48,7 @@
          INFO = -5
       }
       if ( INFO.LT.0 ) {
-         CALL XERBLA( 'ZLAGSY', -INFO )
+         xerbla('ZLAGSY', -INFO );
          RETURN
       }
 
@@ -69,14 +69,14 @@
 
          // generate random reflection
 
-         CALL ZLARNV( 3, ISEED, N-I+1, WORK )
+         zlarnv(3, ISEED, N-I+1, WORK );
          WN = DZNRM2( N-I+1, WORK, 1 )
          WA = ( WN / ABS( WORK( 1 ) ) )*WORK( 1 )
          if ( WN.EQ.ZERO ) {
             TAU = ZERO
          } else {
             WB = WORK( 1 ) + WA
-            CALL ZSCAL( N-I, ONE / WB, WORK( 2 ), 1 )
+            zscal(N-I, ONE / WB, WORK( 2 ), 1 );
             WORK( 1 ) = ONE
             TAU = DBLE( WB / WA )
          }
@@ -86,14 +86,14 @@
 
          // compute  y := tau * A * conjg(u)
 
-         CALL ZLACGV( N-I+1, WORK, 1 )
-         CALL ZSYMV( 'Lower', N-I+1, TAU, A( I, I ), LDA, WORK, 1, ZERO, WORK( N+1 ), 1 )
-         CALL ZLACGV( N-I+1, WORK, 1 )
+         zlacgv(N-I+1, WORK, 1 );
+         zsymv('Lower', N-I+1, TAU, A( I, I ), LDA, WORK, 1, ZERO, WORK( N+1 ), 1 );
+         zlacgv(N-I+1, WORK, 1 );
 
          // compute  v := y - 1/2 * tau * ( u, y ) * u
 
          ALPHA = -HALF*TAU*ZDOTC( N-I+1, WORK, 1, WORK( N+1 ), 1 )
-         CALL ZAXPY( N-I+1, ALPHA, WORK, 1, WORK( N+1 ), 1 )
+         zaxpy(N-I+1, ALPHA, WORK, 1, WORK( N+1 ), 1 );
 
          // apply the transformation as a rank-2 update to A(i:n,i:n)
 
@@ -119,27 +119,27 @@
             TAU = ZERO
          } else {
             WB = A( K+I, I ) + WA
-            CALL ZSCAL( N-K-I, ONE / WB, A( K+I+1, I ), 1 )
+            zscal(N-K-I, ONE / WB, A( K+I+1, I ), 1 );
             A( K+I, I ) = ONE
             TAU = DBLE( WB / WA )
          }
 
          // apply reflection to A(k+i:n,i+1:k+i-1) from the left
 
-         CALL ZGEMV( 'Conjugate transpose', N-K-I+1, K-1, ONE, A( K+I, I+1 ), LDA, A( K+I, I ), 1, ZERO, WORK, 1 )          CALL ZGERC( N-K-I+1, K-1, -TAU, A( K+I, I ), 1, WORK, 1, A( K+I, I+1 ), LDA )
+         zgemv('Conjugate transpose', N-K-I+1, K-1, ONE, A( K+I, I+1 ), LDA, A( K+I, I ), 1, ZERO, WORK, 1 )          CALL ZGERC( N-K-I+1, K-1, -TAU, A( K+I, I ), 1, WORK, 1, A( K+I, I+1 ), LDA );
 
          // apply reflection to A(k+i:n,k+i:n) from the left and the right
 
          // compute  y := tau * A * conjg(u)
 
-         CALL ZLACGV( N-K-I+1, A( K+I, I ), 1 )
-         CALL ZSYMV( 'Lower', N-K-I+1, TAU, A( K+I, K+I ), LDA, A( K+I, I ), 1, ZERO, WORK, 1 )
-         CALL ZLACGV( N-K-I+1, A( K+I, I ), 1 )
+         zlacgv(N-K-I+1, A( K+I, I ), 1 );
+         zsymv('Lower', N-K-I+1, TAU, A( K+I, K+I ), LDA, A( K+I, I ), 1, ZERO, WORK, 1 );
+         zlacgv(N-K-I+1, A( K+I, I ), 1 );
 
          // compute  v := y - 1/2 * tau * ( u, y ) * u
 
          ALPHA = -HALF*TAU*ZDOTC( N-K-I+1, A( K+I, I ), 1, WORK, 1 )
-         CALL ZAXPY( N-K-I+1, ALPHA, A( K+I, I ), 1, WORK, 1 )
+         zaxpy(N-K-I+1, ALPHA, A( K+I, I ), 1, WORK, 1 );
 
          // apply symmetric rank-2 update to A(k+i:n,k+i:n)
 

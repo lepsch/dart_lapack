@@ -108,7 +108,7 @@
    90                         CONTINUE
   100                      CONTINUE
                            KNT = KNT + 1
-                           CALL CTRSYL( TRANA, TRANB, ISGN, M, N, A, LDT, B, LDT, C, LDT, SCALE, INFO )
+                           ctrsyl(TRANA, TRANB, ISGN, M, N, A, LDT, B, LDT, C, LDT, SCALE, INFO );
                            IF( INFO.NE.0 ) NINFO = NINFO + 1
                            XNRM = CLANGE( 'M', M, N, C, LDT, DUM )
                            RMUL = CONE
@@ -118,7 +118,7 @@
                                  RMUL = CONE / RMUL
                               }
                            }
-                           CALL CGEMM( TRANA, 'N', M, N, M, RMUL, A, LDT, C, LDT, -SCALE*RMUL, CSAV, LDT )                            CALL CGEMM( 'N', TRANB, M, N, N, REAL( ISGN )*RMUL, C, LDT, B, LDT, CONE, CSAV, LDT )
+                           cgemm(TRANA, 'N', M, N, M, RMUL, A, LDT, C, LDT, -SCALE*RMUL, CSAV, LDT )                            CALL CGEMM( 'N', TRANB, M, N, N, REAL( ISGN )*RMUL, C, LDT, B, LDT, CONE, CSAV, LDT );
                            RES1 = CLANGE( 'M', M, N, CSAV, LDT, DUM )
                            RES = RES1 / MAX( SMLNUM, SMLNUM*XNRM, ( ( ABS( RMUL )*TNRM )*EPS )*XNRM )
                            if ( RES.GT.RMAX ) {

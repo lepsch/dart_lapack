@@ -44,7 +44,7 @@
          INFO = -4
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'SLARZB', -INFO )
+         xerbla('SLARZB', -INFO );
          RETURN
       }
 
@@ -61,7 +61,7 @@
          // W( 1:n, 1:k ) = C( 1:k, 1:n )**T
 
          DO 10 J = 1, K
-            CALL SCOPY( N, C( J, 1 ), LDC, WORK( 1, J ), 1 )
+            scopy(N, C( J, 1 ), LDC, WORK( 1, J ), 1 );
    10    CONTINUE
 
          // W( 1:n, 1:k ) = W( 1:n, 1:k ) + ...
@@ -71,7 +71,7 @@
 
          // W( 1:n, 1:k ) = W( 1:n, 1:k ) * T**T  or  W( 1:m, 1:k ) * T
 
-         CALL STRMM( 'Right', 'Lower', TRANST, 'Non-unit', N, K, ONE, T, LDT, WORK, LDWORK )
+         strmm('Right', 'Lower', TRANST, 'Non-unit', N, K, ONE, T, LDT, WORK, LDWORK );
 
          // C( 1:k, 1:n ) = C( 1:k, 1:n ) - W( 1:n, 1:k )**T
 
@@ -93,7 +93,7 @@
          // W( 1:m, 1:k ) = C( 1:m, 1:k )
 
          DO 40 J = 1, K
-            CALL SCOPY( M, C( 1, J ), 1, WORK( 1, J ), 1 )
+            scopy(M, C( 1, J ), 1, WORK( 1, J ), 1 );
    40    CONTINUE
 
          // W( 1:m, 1:k ) = W( 1:m, 1:k ) + ...
@@ -103,7 +103,7 @@
 
          // W( 1:m, 1:k ) = W( 1:m, 1:k ) * T  or  W( 1:m, 1:k ) * T**T
 
-         CALL STRMM( 'Right', 'Lower', TRANS, 'Non-unit', M, K, ONE, T, LDT, WORK, LDWORK )
+         strmm('Right', 'Lower', TRANS, 'Non-unit', M, K, ONE, T, LDT, WORK, LDWORK );
 
          // C( 1:m, 1:k ) = C( 1:m, 1:k ) - W( 1:m, 1:k )
 

@@ -53,17 +53,17 @@
 
          // ==== Workspace query call to CGEHRD ====
 
-         CALL CGEHRD( JW, 1, JW-1, T, LDT, WORK, WORK, -1, INFO )
+         cgehrd(JW, 1, JW-1, T, LDT, WORK, WORK, -1, INFO );
          LWK1 = INT( WORK( 1 ) )
 
          // ==== Workspace query call to CUNMHR ====
 
-         CALL CUNMHR( 'R', 'N', JW, JW, 1, JW-1, T, LDT, WORK, V, LDV, WORK, -1, INFO )
+         cunmhr('R', 'N', JW, JW, 1, JW-1, T, LDT, WORK, V, LDV, WORK, -1, INFO );
          LWK2 = INT( WORK( 1 ) )
 
          // ==== Workspace query call to CLAQR4 ====
 
-         CALL CLAQR4( .true., .true., JW, 1, JW, T, LDT, SH, 1, JW, V, LDV, WORK, -1, INFQR )
+         claqr4(.true., .true., JW, 1, JW, T, LDT, SH, 1, JW, V, LDV, WORK, -1, INFQR );
          LWK3 = INT( WORK( 1 ) )
 
          // ==== Optimal workspace ====
@@ -126,15 +126,15 @@
       // .    the deflation window that converged using INFQR
       // .    here and there to keep track.) ====
 
-      CALL CLACPY( 'U', JW, JW, H( KWTOP, KWTOP ), LDH, T, LDT )
-      CALL CCOPY( JW-1, H( KWTOP+1, KWTOP ), LDH+1, T( 2, 1 ), LDT+1 )
+      clacpy('U', JW, JW, H( KWTOP, KWTOP ), LDH, T, LDT );
+      ccopy(JW-1, H( KWTOP+1, KWTOP ), LDH+1, T( 2, 1 ), LDT+1 );
 
-      CALL CLASET( 'A', JW, JW, ZERO, ONE, V, LDV )
+      claset('A', JW, JW, ZERO, ONE, V, LDV );
       NMIN = ILAENV( 12, 'CLAQR3', 'SV', JW, 1, JW, LWORK )
       if ( JW.GT.NMIN ) {
-         CALL CLAQR4( .true., .true., JW, 1, JW, T, LDT, SH( KWTOP ), 1, JW, V, LDV, WORK, LWORK, INFQR )
+         claqr4(.true., .true., JW, 1, JW, T, LDT, SH( KWTOP ), 1, JW, V, LDV, WORK, LWORK, INFQR );
       } else {
-         CALL CLAHQR( .true., .true., JW, 1, JW, T, LDT, SH( KWTOP ), 1, JW, V, LDV, INFQR )
+         clahqr(.true., .true., JW, 1, JW, T, LDT, SH( KWTOP ), 1, JW, V, LDV, INFQR );
       }
 
       // ==== Deflation detection loop ====
@@ -157,7 +157,7 @@
             // .    way.   (CTREXC can not fail in this case.) ====
 
             IFST = NS
-            CALL CTREXC( 'V', JW, T, LDT, V, LDV, IFST, ILST, INFO )
+            ctrexc('V', JW, T, LDT, V, LDV, IFST, ILST, INFO );
             ILST = ILST + 1
          }
    10 CONTINUE
@@ -193,26 +193,26 @@
 
             // ==== Reflect spike back into lower triangle ====
 
-            CALL CCOPY( NS, V, LDV, WORK, 1 )
+            ccopy(NS, V, LDV, WORK, 1 );
             DO 50 I = 1, NS
                WORK( I ) = CONJG( WORK( I ) )
    50       CONTINUE
             BETA = WORK( 1 )
-            CALL CLARFG( NS, BETA, WORK( 2 ), 1, TAU )
+            clarfg(NS, BETA, WORK( 2 ), 1, TAU );
             WORK( 1 ) = ONE
 
-            CALL CLASET( 'L', JW-2, JW-2, ZERO, ZERO, T( 3, 1 ), LDT )
+            claset('L', JW-2, JW-2, ZERO, ZERO, T( 3, 1 ), LDT );
 
-            CALL CLARF( 'L', NS, JW, WORK, 1, CONJG( TAU ), T, LDT, WORK( JW+1 ) )             CALL CLARF( 'R', NS, NS, WORK, 1, TAU, T, LDT, WORK( JW+1 ) )             CALL CLARF( 'R', JW, NS, WORK, 1, TAU, V, LDV, WORK( JW+1 ) )
+            clarf('L', NS, JW, WORK, 1, CONJG( TAU ), T, LDT, WORK( JW+1 ) )             CALL CLARF( 'R', NS, NS, WORK, 1, TAU, T, LDT, WORK( JW+1 ) )             CALL CLARF( 'R', JW, NS, WORK, 1, TAU, V, LDV, WORK( JW+1 ) );
 
-            CALL CGEHRD( JW, 1, NS, T, LDT, WORK, WORK( JW+1 ), LWORK-JW, INFO )
+            cgehrd(JW, 1, NS, T, LDT, WORK, WORK( JW+1 ), LWORK-JW, INFO );
          }
 
          // ==== Copy updated reduced window into place ====
 
          IF( KWTOP.GT.1 ) H( KWTOP, KWTOP-1 ) = S*CONJG( V( 1, 1 ) )
-         CALL CLACPY( 'U', JW, JW, T, LDT, H( KWTOP, KWTOP ), LDH )
-         CALL CCOPY( JW-1, T( 2, 1 ), LDT+1, H( KWTOP+1, KWTOP ), LDH+1 )
+         clacpy('U', JW, JW, T, LDT, H( KWTOP, KWTOP ), LDH );
+         ccopy(JW-1, T( 2, 1 ), LDT+1, H( KWTOP+1, KWTOP ), LDH+1 );
 
          // ==== Accumulate orthogonal matrix in order update
          // .    H and Z, if requested.  ====
@@ -228,8 +228,8 @@
          }
          DO 60 KROW = LTOP, KWTOP - 1, NV
             KLN = MIN( NV, KWTOP-KROW )
-            CALL CGEMM( 'N', 'N', KLN, JW, JW, ONE, H( KROW, KWTOP ), LDH, V, LDV, ZERO, WV, LDWV )
-            CALL CLACPY( 'A', KLN, JW, WV, LDWV, H( KROW, KWTOP ), LDH )
+            cgemm('N', 'N', KLN, JW, JW, ONE, H( KROW, KWTOP ), LDH, V, LDV, ZERO, WV, LDWV );
+            clacpy('A', KLN, JW, WV, LDWV, H( KROW, KWTOP ), LDH );
    60    CONTINUE
 
          // ==== Update horizontal slab in H ====
@@ -237,7 +237,7 @@
          if ( WANTT ) {
             DO 70 KCOL = KBOT + 1, N, NH
                KLN = MIN( NH, N-KCOL+1 )
-               CALL CGEMM( 'C', 'N', JW, KLN, JW, ONE, V, LDV, H( KWTOP, KCOL ), LDH, ZERO, T, LDT )                CALL CLACPY( 'A', JW, KLN, T, LDT, H( KWTOP, KCOL ), LDH )
+               cgemm('C', 'N', JW, KLN, JW, ONE, V, LDV, H( KWTOP, KCOL ), LDH, ZERO, T, LDT )                CALL CLACPY( 'A', JW, KLN, T, LDT, H( KWTOP, KCOL ), LDH );
    70       CONTINUE
          }
 
@@ -246,7 +246,7 @@
          if ( WANTZ ) {
             DO 80 KROW = ILOZ, IHIZ, NV
                KLN = MIN( NV, IHIZ-KROW+1 )
-               CALL CGEMM( 'N', 'N', KLN, JW, JW, ONE, Z( KROW, KWTOP ), LDZ, V, LDV, ZERO, WV, LDWV )                CALL CLACPY( 'A', KLN, JW, WV, LDWV, Z( KROW, KWTOP ), LDZ )
+               cgemm('N', 'N', KLN, JW, JW, ONE, Z( KROW, KWTOP ), LDZ, V, LDV, ZERO, WV, LDWV )                CALL CLACPY( 'A', KLN, JW, WV, LDWV, Z( KROW, KWTOP ), LDZ );
    80       CONTINUE
          }
       }

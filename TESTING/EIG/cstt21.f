@@ -49,7 +49,7 @@
 
       // Copy A & Compute its 1-Norm:
 
-      CALL CLASET( 'Full', N, N, CZERO, CZERO, WORK, N )
+      claset('Full', N, N, CZERO, CZERO, WORK, N );
 
       ANORM = ZERO
       TEMP1 = ZERO
@@ -68,12 +68,12 @@
       // Norm of A - U S U**H
 
       DO 20 J = 1, N
-         CALL CHER( 'L', N, -SD( J ), U( 1, J ), 1, WORK, N )
+         cher('L', N, -SD( J ), U( 1, J ), 1, WORK, N );
    20 CONTINUE
 
       if ( N.GT.1 .AND. KBAND.EQ.1 ) {
          DO 30 J = 1, N - 1
-            CALL CHER2( 'L', N, -CMPLX( SE( J ) ), U( 1, J ), 1, U( 1, J+1 ), 1, WORK, N )
+            cher2('L', N, -CMPLX( SE( J ) ), U( 1, J ), 1, U( 1, J+1 ), 1, WORK, N );
    30    CONTINUE
       }
 
@@ -93,7 +93,7 @@
 
       // Compute  U U**H - I
 
-      CALL CGEMM( 'N', 'C', N, N, N, CONE, U, LDU, U, LDU, CZERO, WORK, N )
+      cgemm('N', 'C', N, N, N, CONE, U, LDU, U, LDU, CZERO, WORK, N );
 
       DO 40 J = 1, N
          WORK( ( N+1 )*( J-1 )+1 ) = WORK( ( N+1 )*( J-1 )+1 ) - CONE

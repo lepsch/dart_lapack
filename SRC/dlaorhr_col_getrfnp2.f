@@ -45,7 +45,7 @@
          INFO = -4
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'DLAORHR_COL_GETRFNP2', -INFO )
+         xerbla('DLAORHR_COL_GETRFNP2', -INFO );
          RETURN
       }
 
@@ -88,7 +88,7 @@
          // Construct the subdiagonal elements of L
 
          if ( ABS( A( 1, 1 ) ) .GE. SFMIN ) {
-            CALL DSCAL( M-1, ONE / A( 1, 1 ), A( 2, 1 ), 1 )
+            dscal(M-1, ONE / A( 1, 1 ), A( 2, 1 ), 1 );
          } else {
             DO I = 2, M
                A( I, 1 ) = A( I, 1 ) / A( 1, 1 )
@@ -105,24 +105,24 @@
 
          // Factor B11, recursive call
 
-         CALL DLAORHR_COL_GETRFNP2( N1, N1, A, LDA, D, IINFO )
+         dlaorhr_col_getrfnp2(N1, N1, A, LDA, D, IINFO );
 
          // Solve for B21
 
-         CALL DTRSM( 'R', 'U', 'N', 'N', M-N1, N1, ONE, A, LDA, A( N1+1, 1 ), LDA )
+         dtrsm('R', 'U', 'N', 'N', M-N1, N1, ONE, A, LDA, A( N1+1, 1 ), LDA );
 
          // Solve for B12
 
-         CALL DTRSM( 'L', 'L', 'N', 'U', N1, N2, ONE, A, LDA, A( 1, N1+1 ), LDA )
+         dtrsm('L', 'L', 'N', 'U', N1, N2, ONE, A, LDA, A( 1, N1+1 ), LDA );
 
          // Update B22, i.e. compute the Schur complement
          // B22 := B22 - B21*B12
 
-         CALL DGEMM( 'N', 'N', M-N1, N2, N1, -ONE, A( N1+1, 1 ), LDA, A( 1, N1+1 ), LDA, ONE, A( N1+1, N1+1 ), LDA )
+         dgemm('N', 'N', M-N1, N2, N1, -ONE, A( N1+1, 1 ), LDA, A( 1, N1+1 ), LDA, ONE, A( N1+1, N1+1 ), LDA );
 
          // Factor B22, recursive call
 
-         CALL DLAORHR_COL_GETRFNP2( M-N1, N2, A( N1+1, N1+1 ), LDA, D( N1+1 ), IINFO )
+         dlaorhr_col_getrfnp2(M-N1, N2, A( N1+1, N1+1 ), LDA, D( N1+1 ), IINFO );
 
       }
       RETURN

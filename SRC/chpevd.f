@@ -86,7 +86,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'CHPEVD', -INFO )
+         xerbla('CHPEVD', -INFO );
          RETURN
       } else if ( LQUERY ) {
          RETURN
@@ -123,7 +123,7 @@
          SIGMA = RMAX / ANRM
       }
       if ( ISCALE.EQ.1 ) {
-         CALL CSSCAL( ( N*( N+1 ) ) / 2, SIGMA, AP, 1 )
+         csscal(( N*( N+1 ) ) / 2, SIGMA, AP, 1 );
       }
 
       // Call CHPTRD to reduce Hermitian packed matrix to tridiagonal form.
@@ -134,16 +134,16 @@
       INDWRK = INDTAU + N
       LLWRK = LWORK - INDWRK + 1
       LLRWK = LRWORK - INDRWK + 1
-      CALL CHPTRD( UPLO, N, AP, W, RWORK( INDE ), WORK( INDTAU ), IINFO )
+      chptrd(UPLO, N, AP, W, RWORK( INDE ), WORK( INDTAU ), IINFO );
 
       // For eigenvalues only, call SSTERF.  For eigenvectors, first call
       // CUPGTR to generate the orthogonal matrix, then call CSTEDC.
 
       if ( .NOT.WANTZ ) {
-         CALL SSTERF( N, W, RWORK( INDE ), INFO )
+         ssterf(N, W, RWORK( INDE ), INFO );
       } else {
-         CALL CSTEDC( 'I', N, W, RWORK( INDE ), Z, LDZ, WORK( INDWRK ), LLWRK, RWORK( INDRWK ), LLRWK, IWORK, LIWORK, INFO )
-         CALL CUPMTR( 'L', UPLO, 'N', N, N, AP, WORK( INDTAU ), Z, LDZ, WORK( INDWRK ), IINFO )
+         cstedc('I', N, W, RWORK( INDE ), Z, LDZ, WORK( INDWRK ), LLWRK, RWORK( INDRWK ), LLRWK, IWORK, LIWORK, INFO );
+         cupmtr('L', UPLO, 'N', N, N, AP, WORK( INDTAU ), Z, LDZ, WORK( INDWRK ), IINFO );
       }
 
       // If matrix was scaled, then rescale eigenvalues appropriately.
@@ -154,7 +154,7 @@
          } else {
             IMAX = INFO - 1
          }
-         CALL SSCAL( IMAX, ONE / SIGMA, W, 1 )
+         sscal(IMAX, ONE / SIGMA, W, 1 );
       }
 
       WORK( 1 ) = SROUNDUP_LWORK(LWMIN)

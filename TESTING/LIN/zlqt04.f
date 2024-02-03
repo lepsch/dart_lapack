@@ -55,27 +55,27 @@
 
       LDT=NB
       DO J=1,N
-         CALL ZLARNV( 2, ISEED, M, A( 1, J ) )
+         zlarnv(2, ISEED, M, A( 1, J ) );
       END DO
-      CALL ZLACPY( 'Full', M, N, A, M, AF, M )
+      zlacpy('Full', M, N, A, M, AF, M );
 
       // Factor the matrix A in the array AF.
 
-      CALL ZGELQT( M, N, NB, AF, M, T, LDT, WORK, INFO )
+      zgelqt(M, N, NB, AF, M, T, LDT, WORK, INFO );
 
       // Generate the n-by-n matrix Q
 
-      CALL ZLASET( 'Full', N, N, CZERO, ONE, Q, N )
-      CALL ZGEMLQT( 'R', 'N', N, N, K, NB, AF, M, T, LDT, Q, N, WORK, INFO )
+      zlaset('Full', N, N, CZERO, ONE, Q, N );
+      zgemlqt('R', 'N', N, N, K, NB, AF, M, T, LDT, Q, N, WORK, INFO );
 
       // Copy L
 
-      CALL ZLASET( 'Full', LL, N, CZERO, CZERO, L, LL )
-      CALL ZLACPY( 'Lower', M, N, AF, M, L, LL )
+      zlaset('Full', LL, N, CZERO, CZERO, L, LL );
+      zlacpy('Lower', M, N, AF, M, L, LL );
 
       // Compute |L - A*Q'| / |A| and store in RESULT(1)
 
-      CALL ZGEMM( 'N', 'C', M, N, N, -ONE, A, M, Q, N, ONE, L, LL )
+      zgemm('N', 'C', M, N, N, -ONE, A, M, Q, N, ONE, L, LL );
       ANORM = ZLANGE( '1', M, N, A, M, RWORK )
       RESID = ZLANGE( '1', M, N, L, LL, RWORK )
       if ( ANORM.GT.ZERO ) {
@@ -86,26 +86,26 @@
 
       // Compute |I - Q'*Q| and store in RESULT(2)
 
-      CALL ZLASET( 'Full', N, N, CZERO, ONE, L, LL )
-      CALL ZHERK( 'U', 'C', N, N, DREAL(-ONE), Q, N, DREAL(ONE), L, LL)
+      zlaset('Full', N, N, CZERO, ONE, L, LL );
+      zherk('U', 'C', N, N, DREAL(-ONE), Q, N, DREAL(ONE), L, LL);
       RESID = ZLANSY( '1', 'Upper', N, L, LL, RWORK )
       RESULT( 2 ) = RESID / (EPS*MAX(1,N))
 
       // Generate random m-by-n matrix C and a copy CF
 
       DO J=1,M
-         CALL ZLARNV( 2, ISEED, N, D( 1, J ) )
+         zlarnv(2, ISEED, N, D( 1, J ) );
       END DO
       DNORM = ZLANGE( '1', N, M, D, N, RWORK)
-      CALL ZLACPY( 'Full', N, M, D, N, DF, N )
+      zlacpy('Full', N, M, D, N, DF, N );
 
       // Apply Q to C as Q*C
 
-      CALL ZGEMLQT( 'L', 'N', N, M, K, NB, AF, M, T, NB, DF, N, WORK, INFO)
+      zgemlqt('L', 'N', N, M, K, NB, AF, M, T, NB, DF, N, WORK, INFO);
 
       // Compute |Q*D - Q*D| / |D|
 
-      CALL ZGEMM( 'N', 'N', N, M, N, -ONE, Q, N, D, N, ONE, DF, N )
+      zgemm('N', 'N', N, M, N, -ONE, Q, N, D, N, ONE, DF, N );
       RESID = ZLANGE( '1', N, M, DF, N, RWORK )
       if ( DNORM.GT.ZERO ) {
          RESULT( 3 ) = RESID / (EPS*MAX(1,M)*DNORM)
@@ -115,15 +115,15 @@
 
       // Copy D into DF again
 
-      CALL ZLACPY( 'Full', N, M, D, N, DF, N )
+      zlacpy('Full', N, M, D, N, DF, N );
 
       // Apply Q to D as QT*D
 
-      CALL ZGEMLQT( 'L', 'C', N, M, K, NB, AF, M, T, NB, DF, N, WORK, INFO)
+      zgemlqt('L', 'C', N, M, K, NB, AF, M, T, NB, DF, N, WORK, INFO);
 
       // Compute |QT*D - QT*D| / |D|
 
-      CALL ZGEMM( 'C', 'N', N, M, N, -ONE, Q, N, D, N, ONE, DF, N )
+      zgemm('C', 'N', N, M, N, -ONE, Q, N, D, N, ONE, DF, N );
       RESID = ZLANGE( '1', N, M, DF, N, RWORK )
       if ( DNORM.GT.ZERO ) {
          RESULT( 4 ) = RESID / (EPS*MAX(1,M)*DNORM)
@@ -134,18 +134,18 @@
       // Generate random n-by-m matrix D and a copy DF
 
       DO J=1,N
-         CALL ZLARNV( 2, ISEED, M, C( 1, J ) )
+         zlarnv(2, ISEED, M, C( 1, J ) );
       END DO
       CNORM = ZLANGE( '1', M, N, C, M, RWORK)
-      CALL ZLACPY( 'Full', M, N, C, M, CF, M )
+      zlacpy('Full', M, N, C, M, CF, M );
 
       // Apply Q to C as C*Q
 
-      CALL ZGEMLQT( 'R', 'N', M, N, K, NB, AF, M, T, NB, CF, M, WORK, INFO)
+      zgemlqt('R', 'N', M, N, K, NB, AF, M, T, NB, CF, M, WORK, INFO);
 
       // Compute |C*Q - C*Q| / |C|
 
-      CALL ZGEMM( 'N', 'N', M, N, N, -ONE, C, M, Q, N, ONE, CF, M )
+      zgemm('N', 'N', M, N, N, -ONE, C, M, Q, N, ONE, CF, M );
       RESID = ZLANGE( '1', N, M, DF, N, RWORK )
       if ( CNORM.GT.ZERO ) {
          RESULT( 5 ) = RESID / (EPS*MAX(1,M)*DNORM)
@@ -155,15 +155,15 @@
 
       // Copy C into CF again
 
-      CALL ZLACPY( 'Full', M, N, C, M, CF, M )
+      zlacpy('Full', M, N, C, M, CF, M );
 
       // Apply Q to D as D*QT
 
-      CALL ZGEMLQT( 'R', 'C', M, N, K, NB, AF, M, T, NB, CF, M, WORK, INFO)
+      zgemlqt('R', 'C', M, N, K, NB, AF, M, T, NB, CF, M, WORK, INFO);
 
       // Compute |C*QT - C*QT| / |C|
 
-      CALL ZGEMM( 'N', 'C', M, N, N, -ONE, C, M, Q, N, ONE, CF, M )
+      zgemm('N', 'C', M, N, N, -ONE, C, M, Q, N, ONE, CF, M );
       RESID = ZLANGE( '1', M, N, CF, M, RWORK )
       if ( CNORM.GT.ZERO ) {
          RESULT( 6 ) = RESID / (EPS*MAX(1,M)*DNORM)

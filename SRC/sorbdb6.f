@@ -56,7 +56,7 @@
       }
 
       if ( INFO .NE. 0 ) {
-         CALL XERBLA( 'SORBDB6', -INFO )
+         xerbla('SORBDB6', -INFO );
          RETURN
       }
 
@@ -66,8 +66,8 @@
 
       SCL = REALZERO
       SSQ = REALZERO
-      CALL SLASSQ( M1, X1, INCX1, SCL, SSQ )
-      CALL SLASSQ( M2, X2, INCX2, SCL, SSQ )
+      slassq(M1, X1, INCX1, SCL, SSQ );
+      slassq(M2, X2, INCX2, SCL, SSQ );
       NORM = SCL * SQRT( SSQ )
 
       // First, project X onto the orthogonal complement of Q's column
@@ -78,17 +78,17 @@
             WORK(I) = ZERO
          END DO
       } else {
-         CALL SGEMV( 'C', M1, N, ONE, Q1, LDQ1, X1, INCX1, ZERO, WORK, 1 )
+         sgemv('C', M1, N, ONE, Q1, LDQ1, X1, INCX1, ZERO, WORK, 1 );
       }
 
-      CALL SGEMV( 'C', M2, N, ONE, Q2, LDQ2, X2, INCX2, ONE, WORK, 1 )
+      sgemv('C', M2, N, ONE, Q2, LDQ2, X2, INCX2, ONE, WORK, 1 );
 
-      CALL SGEMV( 'N', M1, N, NEGONE, Q1, LDQ1, WORK, 1, ONE, X1, INCX1 )       CALL SGEMV( 'N', M2, N, NEGONE, Q2, LDQ2, WORK, 1, ONE, X2, INCX2 )
+      sgemv('N', M1, N, NEGONE, Q1, LDQ1, WORK, 1, ONE, X1, INCX1 )       CALL SGEMV( 'N', M2, N, NEGONE, Q2, LDQ2, WORK, 1, ONE, X2, INCX2 );
 
       SCL = REALZERO
       SSQ = REALZERO
-      CALL SLASSQ( M1, X1, INCX1, SCL, SSQ )
-      CALL SLASSQ( M2, X2, INCX2, SCL, SSQ )
+      slassq(M1, X1, INCX1, SCL, SSQ );
+      slassq(M2, X2, INCX2, SCL, SSQ );
       NORM_NEW = SCL * SQRT(SSQ)
 
       // If projection is sufficiently large in norm, then stop.
@@ -120,17 +120,17 @@
             WORK(I) = ZERO
          END DO
       } else {
-         CALL SGEMV( 'C', M1, N, ONE, Q1, LDQ1, X1, INCX1, ZERO, WORK, 1 )
+         sgemv('C', M1, N, ONE, Q1, LDQ1, X1, INCX1, ZERO, WORK, 1 );
       }
 
-      CALL SGEMV( 'C', M2, N, ONE, Q2, LDQ2, X2, INCX2, ONE, WORK, 1 )
+      sgemv('C', M2, N, ONE, Q2, LDQ2, X2, INCX2, ONE, WORK, 1 );
 
-      CALL SGEMV( 'N', M1, N, NEGONE, Q1, LDQ1, WORK, 1, ONE, X1, INCX1 )       CALL SGEMV( 'N', M2, N, NEGONE, Q2, LDQ2, WORK, 1, ONE, X2, INCX2 )
+      sgemv('N', M1, N, NEGONE, Q1, LDQ1, WORK, 1, ONE, X1, INCX1 )       CALL SGEMV( 'N', M2, N, NEGONE, Q2, LDQ2, WORK, 1, ONE, X2, INCX2 );
 
       SCL = REALZERO
       SSQ = REALZERO
-      CALL SLASSQ( M1, X1, INCX1, SCL, SSQ )
-      CALL SLASSQ( M2, X2, INCX2, SCL, SSQ )
+      slassq(M1, X1, INCX1, SCL, SSQ );
+      slassq(M2, X2, INCX2, SCL, SSQ );
       NORM_NEW = SCL * SQRT(SSQ)
 
       // If second projection is sufficiently large in norm, then do

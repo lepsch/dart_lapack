@@ -54,21 +54,21 @@
 
       // Copy the last k columns of the factorization to the array Q
 
-      CALL ZLASET( 'Full', M, N, ROGUE, ROGUE, Q, LDA )
+      zlaset('Full', M, N, ROGUE, ROGUE, Q, LDA );
       IF( K.LT.M ) CALL ZLACPY( 'Full', M-K, K, AF( 1, N-K+1 ), LDA, Q( 1, N-K+1 ), LDA )       IF( K.GT.1 ) CALL ZLACPY( 'Upper', K-1, K-1, AF( M-K+1, N-K+2 ), LDA, Q( M-K+1, N-K+2 ), LDA )
 
       // Generate the last n columns of the matrix Q
 
       SRNAMT = 'ZUNGQL'
-      CALL ZUNGQL( M, N, K, Q, LDA, TAU( N-K+1 ), WORK, LWORK, INFO )
+      zungql(M, N, K, Q, LDA, TAU( N-K+1 ), WORK, LWORK, INFO );
 
       // Copy L(m-n+1:m,n-k+1:n)
 
-      CALL ZLASET( 'Full', N, K, DCMPLX( ZERO ), DCMPLX( ZERO ), L( M-N+1, N-K+1 ), LDA )       CALL ZLACPY( 'Lower', K, K, AF( M-K+1, N-K+1 ), LDA, L( M-K+1, N-K+1 ), LDA )
+      zlaset('Full', N, K, DCMPLX( ZERO ), DCMPLX( ZERO ), L( M-N+1, N-K+1 ), LDA )       CALL ZLACPY( 'Lower', K, K, AF( M-K+1, N-K+1 ), LDA, L( M-K+1, N-K+1 ), LDA );
 
       // Compute L(m-n+1:m,n-k+1:n) - Q(1:m,m-n+1:m)' * A(1:m,n-k+1:n)
 
-      CALL ZGEMM( 'Conjugate transpose', 'No transpose', N, K, M, DCMPLX( -ONE ), Q, LDA, A( 1, N-K+1 ), LDA, DCMPLX( ONE ), L( M-N+1, N-K+1 ), LDA )
+      zgemm('Conjugate transpose', 'No transpose', N, K, M, DCMPLX( -ONE ), Q, LDA, A( 1, N-K+1 ), LDA, DCMPLX( ONE ), L( M-N+1, N-K+1 ), LDA );
 
       // Compute norm( L - Q'*A ) / ( M * norm(A) * EPS ) .
 
@@ -82,8 +82,8 @@
 
       // Compute I - Q'*Q
 
-      CALL ZLASET( 'Full', N, N, DCMPLX( ZERO ), DCMPLX( ONE ), L, LDA )
-      CALL ZHERK( 'Upper', 'Conjugate transpose', N, M, -ONE, Q, LDA, ONE, L, LDA )
+      zlaset('Full', N, N, DCMPLX( ZERO ), DCMPLX( ONE ), L, LDA );
+      zherk('Upper', 'Conjugate transpose', N, M, -ONE, Q, LDA, ONE, L, LDA );
 
       // Compute norm( I - Q'*Q ) / ( M * EPS ) .
 

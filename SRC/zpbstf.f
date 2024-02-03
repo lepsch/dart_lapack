@@ -49,7 +49,7 @@
          INFO = -5
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'ZPBSTF', -INFO )
+         xerbla('ZPBSTF', -INFO );
          RETURN
       }
 
@@ -83,8 +83,8 @@
             // Compute elements j-km:j-1 of the j-th column and update the
             // the leading submatrix within the band.
 
-            CALL ZDSCAL( KM, ONE / AJJ, AB( KD+1-KM, J ), 1 )
-            CALL ZHER( 'Upper', KM, -ONE, AB( KD+1-KM, J ), 1, AB( KD+1, J-KM ), KLD )
+            zdscal(KM, ONE / AJJ, AB( KD+1-KM, J ), 1 );
+            zher('Upper', KM, -ONE, AB( KD+1-KM, J ), 1, AB( KD+1, J-KM ), KLD );
    10    CONTINUE
 
          // Factorize the updated submatrix A(1:m,1:m) as U**H*U.
@@ -106,10 +106,10 @@
             // trailing submatrix within the band.
 
             if ( KM.GT.0 ) {
-               CALL ZDSCAL( KM, ONE / AJJ, AB( KD, J+1 ), KLD )
-               CALL ZLACGV( KM, AB( KD, J+1 ), KLD )
-               CALL ZHER( 'Upper', KM, -ONE, AB( KD, J+1 ), KLD, AB( KD+1, J+1 ), KLD )
-               CALL ZLACGV( KM, AB( KD, J+1 ), KLD )
+               zdscal(KM, ONE / AJJ, AB( KD, J+1 ), KLD );
+               zlacgv(KM, AB( KD, J+1 ), KLD );
+               zher('Upper', KM, -ONE, AB( KD, J+1 ), KLD, AB( KD+1, J+1 ), KLD );
+               zlacgv(KM, AB( KD, J+1 ), KLD );
             }
    20    CONTINUE
       } else {
@@ -132,10 +132,10 @@
             // Compute elements j-km:j-1 of the j-th row and update the
             // trailing submatrix within the band.
 
-            CALL ZDSCAL( KM, ONE / AJJ, AB( KM+1, J-KM ), KLD )
-            CALL ZLACGV( KM, AB( KM+1, J-KM ), KLD )
-            CALL ZHER( 'Lower', KM, -ONE, AB( KM+1, J-KM ), KLD, AB( 1, J-KM ), KLD )
-            CALL ZLACGV( KM, AB( KM+1, J-KM ), KLD )
+            zdscal(KM, ONE / AJJ, AB( KM+1, J-KM ), KLD );
+            zlacgv(KM, AB( KM+1, J-KM ), KLD );
+            zher('Lower', KM, -ONE, AB( KM+1, J-KM ), KLD, AB( 1, J-KM ), KLD );
+            zlacgv(KM, AB( KM+1, J-KM ), KLD );
    30    CONTINUE
 
          // Factorize the updated submatrix A(1:m,1:m) as U**H*U.
@@ -157,8 +157,8 @@
             // trailing submatrix within the band.
 
             if ( KM.GT.0 ) {
-               CALL ZDSCAL( KM, ONE / AJJ, AB( 2, J ), 1 )
-               CALL ZHER( 'Lower', KM, -ONE, AB( 2, J ), 1, AB( 1, J+1 ), KLD )
+               zdscal(KM, ONE / AJJ, AB( 2, J ), 1 );
+               zher('Lower', KM, -ONE, AB( 2, J ), 1, AB( 1, J+1 ), KLD );
             }
    40    CONTINUE
       }

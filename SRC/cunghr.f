@@ -58,7 +58,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'CUNGHR', -INFO )
+         xerbla('CUNGHR', -INFO );
          RETURN
       } else if ( LQUERY ) {
          RETURN
@@ -103,7 +103,7 @@
 
          // Generate Q(ilo+1:ihi,ilo+1:ihi)
 
-         CALL CUNGQR( NH, NH, NH, A( ILO+1, ILO+1 ), LDA, TAU( ILO ), WORK, LWORK, IINFO )
+         cungqr(NH, NH, NH, A( ILO+1, ILO+1 ), LDA, TAU( ILO ), WORK, LWORK, IINFO );
       }
       WORK( 1 ) = SROUNDUP_LWORK(LWKOPT)
       RETURN

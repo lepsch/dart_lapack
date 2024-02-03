@@ -77,7 +77,7 @@
                   // Test DTPQRT and DTPMQRT
 
                   if ( (NB.LE.N).AND.(NB.GT.0) ) {
-                     CALL DQRT05( M, N, L, NB, RESULT )
+                     dqrt05(M, N, L, NB, RESULT );
 
                      // Print information about the tests that did not
                      // pass the threshold.
@@ -97,7 +97,7 @@
 
       // Print a summary of the results.
 
-      CALL ALASUM( PATH, NOUT, NFAIL, NRUN, NERRS )
+      alasum(PATH, NOUT, NFAIL, NRUN, NERRS );
 
  9999 FORMAT( ' M=', I5, ', N=', I5, ', NB=', I4,' L=', I4, ' test(', I2, ')=', G12.5 )
       RETURN

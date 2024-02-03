@@ -75,7 +75,7 @@
 
       // Scale the vector X by MUL
 
-      CALL ZDSCAL( N, MUL, SX, INCX )
+      zdscal(N, MUL, SX, INCX );
 
       IF( .NOT.DONE ) GO TO 10
 

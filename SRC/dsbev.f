@@ -57,7 +57,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'DSBEV ', -INFO )
+         xerbla('DSBEV ', -INFO );
          RETURN
       }
 
@@ -97,9 +97,9 @@
       }
       if ( ISCALE.EQ.1 ) {
          if ( LOWER ) {
-            CALL DLASCL( 'B', KD, KD, ONE, SIGMA, N, N, AB, LDAB, INFO )
+            dlascl('B', KD, KD, ONE, SIGMA, N, N, AB, LDAB, INFO );
          } else {
-            CALL DLASCL( 'Q', KD, KD, ONE, SIGMA, N, N, AB, LDAB, INFO )
+            dlascl('Q', KD, KD, ONE, SIGMA, N, N, AB, LDAB, INFO );
          }
       }
 
@@ -107,14 +107,14 @@
 
       INDE = 1
       INDWRK = INDE + N
-      CALL DSBTRD( JOBZ, UPLO, N, KD, AB, LDAB, W, WORK( INDE ), Z, LDZ, WORK( INDWRK ), IINFO )
+      dsbtrd(JOBZ, UPLO, N, KD, AB, LDAB, W, WORK( INDE ), Z, LDZ, WORK( INDWRK ), IINFO );
 
       // For eigenvalues only, call DSTERF.  For eigenvectors, call SSTEQR.
 
       if ( .NOT.WANTZ ) {
-         CALL DSTERF( N, W, WORK( INDE ), INFO )
+         dsterf(N, W, WORK( INDE ), INFO );
       } else {
-         CALL DSTEQR( JOBZ, N, W, WORK( INDE ), Z, LDZ, WORK( INDWRK ), INFO )
+         dsteqr(JOBZ, N, W, WORK( INDE ), Z, LDZ, WORK( INDWRK ), INFO );
       }
 
       // If matrix was scaled, then rescale eigenvalues appropriately.
@@ -125,7 +125,7 @@
          } else {
             IMAX = INFO - 1
          }
-         CALL DSCAL( IMAX, ONE / SIGMA, W, 1 )
+         dscal(IMAX, ONE / SIGMA, W, 1 );
       }
 
       RETURN

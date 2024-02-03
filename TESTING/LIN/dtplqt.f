@@ -41,7 +41,7 @@
          INFO = -10
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'DTPLQT', -INFO )
+         xerbla('DTPLQT', -INFO );
          RETURN
       }
 
@@ -61,12 +61,12 @@
             LB = NB-N+L-I+1
          }
 
-         CALL DTPLQT2( IB, NB, LB, A(I,I), LDA, B( I, 1 ), LDB, T(1, I ), LDT, IINFO )
+         dtplqt2(IB, NB, LB, A(I,I), LDA, B( I, 1 ), LDB, T(1, I ), LDT, IINFO );
 
       // Update by applying H**T to B(I+IB:M,:) from the right
 
          if ( I+IB.LE.M ) {
-            CALL DTPRFB( 'R', 'N', 'F', 'R', M-I-IB+1, NB, IB, LB, B( I, 1 ), LDB, T( 1, I ), LDT, A( I+IB, I ), LDA, B( I+IB, 1 ), LDB, WORK, M-I-IB+1)
+            dtprfb('R', 'N', 'F', 'R', M-I-IB+1, NB, IB, LB, B( I, 1 ), LDB, T( 1, I ), LDT, A( I+IB, I ), LDA, B( I+IB, 1 ), LDB, WORK, M-I-IB+1);
          }
       END DO
       RETURN

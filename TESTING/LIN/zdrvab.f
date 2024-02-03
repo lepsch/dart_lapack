@@ -98,15 +98,15 @@
             // Set up parameters with ZLATB4 and generate a test matrix
             // with ZLATMS.
 
-            CALL ZLATB4( PATH, IMAT, M, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST )
+            zlatb4(PATH, IMAT, M, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST );
 
             SRNAMT = 'ZLATMS'
-            CALL ZLATMS( M, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KL, KU, 'No packing', A, LDA, WORK, INFO )
+            zlatms(M, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KL, KU, 'No packing', A, LDA, WORK, INFO );
 
             // Check error code from ZLATMS.
 
             if ( INFO.NE.0 ) {
-               CALL ALAERH( PATH, 'ZLATMS', INFO, 0, ' ', M, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT )
+               alaerh(PATH, 'ZLATMS', INFO, 0, ' ', M, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
                GO TO 100
             }
 
@@ -127,7 +127,7 @@
                      A( IOFF+I ) = ZERO
    20             CONTINUE
                } else {
-                  CALL ZLASET( 'Full', M, N-IZERO+1, DCMPLX(ZERO), DCMPLX(ZERO), A( IOFF+1 ), LDA )
+                  zlaset('Full', M, N-IZERO+1, DCMPLX(ZERO), DCMPLX(ZERO), A( IOFF+1 ), LDA );
                }
             } else {
                IZERO = 0
@@ -139,18 +139,18 @@
                TRANS = 'N'
 
                SRNAMT = 'ZLARHS'
-               CALL ZLARHS( PATH, XTYPE, ' ', TRANS, N, N, KL, KU, NRHS, A, LDA, X, LDA, B, LDA, ISEED, INFO )
+               zlarhs(PATH, XTYPE, ' ', TRANS, N, N, KL, KU, NRHS, A, LDA, X, LDA, B, LDA, ISEED, INFO );
 
                SRNAMT = 'ZCGESV'
 
                KASE = KASE + 1
 
-               CALL ZLACPY( 'Full', M, N, A, LDA, AFAC, LDA )
+               zlacpy('Full', M, N, A, LDA, AFAC, LDA );
 
-               CALL ZCGESV( N, NRHS, A, LDA, IWORK, B, LDA, X, LDA, WORK, SWORK, RWORK, ITER, INFO)
+               zcgesv(N, NRHS, A, LDA, IWORK, B, LDA, X, LDA, WORK, SWORK, RWORK, ITER, INFO);
 
                if (ITER.LT.0) {
-                   CALL ZLACPY( 'Full', M, N, AFAC, LDA, A, LDA )
+                   zlacpy('Full', M, N, AFAC, LDA, A, LDA );
                ENDIF
 
                // Check error code from ZCGESV. This should be the same as
@@ -174,9 +174,9 @@
 
                // Check the quality of the solution
 
-               CALL ZLACPY( 'Full', N, NRHS, B, LDA, WORK, LDA )
+               zlacpy('Full', N, NRHS, B, LDA, WORK, LDA );
 
-               CALL ZGET08( TRANS, N, N, NRHS, A, LDA, X, LDA, WORK, LDA, RWORK, RESULT( 1 ) )
+               zget08(TRANS, N, N, NRHS, A, LDA, X, LDA, WORK, LDA, RWORK, RESULT( 1 ) );
 
                // Check if the test passes the testing.
                // Print information about the tests that did not

@@ -57,7 +57,7 @@
          INFO = -10
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'ZTBTRS', -INFO )
+         xerbla('ZTBTRS', -INFO );
          RETURN
       }
 
@@ -83,7 +83,7 @@
       // Solve A * X = B,  A**T * X = B,  or  A**H * X = B.
 
       DO 30 J = 1, NRHS
-         CALL ZTBSV( UPLO, TRANS, DIAG, N, KD, AB, LDAB, B( 1, J ), 1 )
+         ztbsv(UPLO, TRANS, DIAG, N, KD, AB, LDAB, B( 1, J ), 1 );
    30 CONTINUE
 
       RETURN

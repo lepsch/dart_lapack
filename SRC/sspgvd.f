@@ -75,7 +75,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'SSPGVD', -INFO )
+         xerbla('SSPGVD', -INFO );
          RETURN
       } else if ( LQUERY ) {
          RETURN
@@ -87,7 +87,7 @@
 
       // Form a Cholesky factorization of BP.
 
-      CALL SPPTRF( UPLO, N, BP, INFO )
+      spptrf(UPLO, N, BP, INFO );
       if ( INFO.NE.0 ) {
          INFO = N + INFO
          RETURN
@@ -95,8 +95,8 @@
 
       // Transform problem to standard eigenvalue problem and solve.
 
-      CALL SSPGST( ITYPE, UPLO, N, AP, BP, INFO )
-      CALL SSPEVD( JOBZ, UPLO, N, AP, W, Z, LDZ, WORK, LWORK, IWORK, LIWORK, INFO )
+      sspgst(ITYPE, UPLO, N, AP, BP, INFO );
+      sspevd(JOBZ, UPLO, N, AP, W, Z, LDZ, WORK, LWORK, IWORK, LIWORK, INFO );
       LWMIN = INT( MAX( REAL( LWMIN ), REAL( WORK( 1 ) ) ) )
       LIWMIN = INT( MAX( REAL( LIWMIN ), REAL( IWORK( 1 ) ) ) )
 
@@ -118,7 +118,7 @@
             }
 
             DO 10 J = 1, NEIG
-               CALL STPSV( UPLO, TRANS, 'Non-unit', N, BP, Z( 1, J ), 1 )
+               stpsv(UPLO, TRANS, 'Non-unit', N, BP, Z( 1, J ), 1 );
    10       CONTINUE
 
          } else if ( ITYPE.EQ.3 ) {
@@ -133,7 +133,7 @@
             }
 
             DO 20 J = 1, NEIG
-               CALL STPMV( UPLO, TRANS, 'Non-unit', N, BP, Z( 1, J ), 1 )
+               stpmv(UPLO, TRANS, 'Non-unit', N, BP, Z( 1, J ), 1 );
    20       CONTINUE
          }
       }

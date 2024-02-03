@@ -85,7 +85,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'SSTEBZ', -INFO )
+         xerbla('SSTEBZ', -INFO );
          RETURN
       }
 
@@ -198,7 +198,7 @@
          IWORK( 5 ) = IL - 1
          IWORK( 6 ) = IU
 
-         CALL SLAEBZ( 3, ITMAX, N, 2, 2, NB, ATOLI, RTOLI, PIVMIN, D, E, WORK, IWORK( 5 ), WORK( N+1 ), WORK( N+5 ), IOUT, IWORK, W, IBLOCK, IINFO )
+         slaebz(3, ITMAX, N, 2, 2, NB, ATOLI, RTOLI, PIVMIN, D, E, WORK, IWORK( 5 ), WORK( N+1 ), WORK( N+5 ), IOUT, IWORK, W, IBLOCK, IINFO );
 
          if ( IWORK( 6 ).EQ.IU ) {
             WL = WORK( N+1 )
@@ -317,7 +317,7 @@
 
             WORK( N+1 ) = GL
             WORK( N+IN+1 ) = GU
-            CALL SLAEBZ( 1, 0, IN, IN, 1, NB, ATOLI, RTOLI, PIVMIN, D( IBEGIN ), E( IBEGIN ), WORK( IBEGIN ), IDUMMA, WORK( N+1 ), WORK( N+2*IN+1 ), IM, IWORK, W( M+1 ), IBLOCK( M+1 ), IINFO )
+            slaebz(1, 0, IN, IN, 1, NB, ATOLI, RTOLI, PIVMIN, D( IBEGIN ), E( IBEGIN ), WORK( IBEGIN ), IDUMMA, WORK( N+1 ), WORK( N+2*IN+1 ), IM, IWORK, W( M+1 ), IBLOCK( M+1 ), IINFO );
 
             NWL = NWL + IWORK( 1 )
             NWU = NWU + IWORK( IN+1 )

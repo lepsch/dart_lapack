@@ -52,7 +52,7 @@
          INFO = -4
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'SSYTF2_ROOK', -INFO )
+         xerbla('SSYTF2_ROOK', -INFO );
          RETURN
       }
 
@@ -238,11 +238,11 @@
                         // = A - W(k)*1/D(k)*W(k)**T
 
                      D11 = ONE / A( K, K )
-                     CALL SSYR( UPLO, K-1, -D11, A( 1, K ), 1, A, LDA )
+                     ssyr(UPLO, K-1, -D11, A( 1, K ), 1, A, LDA );
 
                      // Store U(k) in column k
 
-                     CALL SSCAL( K-1, D11, A( 1, K ), 1 )
+                     sscal(K-1, D11, A( 1, K ), 1 );
                   } else {
 
                      // Store L(k) in column K
@@ -257,7 +257,7 @@
                         // = A - W(k)*(1/D(k))*W(k)**T
                         // = A - (W(k)/D(k))*(D(k))*(W(k)/D(K))**T
 
-                     CALL SSYR( UPLO, K-1, -D11, A( 1, K ), 1, A, LDA )
+                     ssyr(UPLO, K-1, -D11, A( 1, K ), 1, A, LDA );
                   }
                }
 
@@ -492,11 +492,11 @@
                         // = A - W(k)*(1/D(k))*W(k)**T
 
                      D11 = ONE / A( K, K )
-                     CALL SSYR( UPLO, N-K, -D11, A( K+1, K ), 1, A( K+1, K+1 ), LDA )
+                     ssyr(UPLO, N-K, -D11, A( K+1, K ), 1, A( K+1, K+1 ), LDA );
 
                      // Store L(k) in column k
 
-                     CALL SSCAL( N-K, D11, A( K+1, K ), 1 )
+                     sscal(N-K, D11, A( K+1, K ), 1 );
                   } else {
 
                      // Store L(k) in column k
@@ -511,7 +511,7 @@
                         // = A - W(k)*(1/D(k))*W(k)**T
                         // = A - (W(k)/D(k))*(D(k))*(W(k)/D(K))**T
 
-                     CALL SSYR( UPLO, N-K, -D11, A( K+1, K ), 1, A( K+1, K+1 ), LDA )
+                     ssyr(UPLO, N-K, -D11, A( K+1, K ), 1, A( K+1, K+1 ), LDA );
                   }
                }
 

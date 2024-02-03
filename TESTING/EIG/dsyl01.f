@@ -98,7 +98,7 @@
             DO M = 32, MAXM, 71
                KLA = 0
                KUA = M - 1
-               CALL DLATMR( M, M, 'S', ISEED, 'N', D, 6, ONE, ONE, 'T', 'N', DUML, 1, ONE, DUMR, 1, ONE, 'N', IWORK, KLA, KUA, ZERO, ONE, 'NO', A, MAXM, IWORK, IINFO )
+               dlatmr(M, M, 'S', ISEED, 'N', D, 6, ONE, ONE, 'T', 'N', DUML, 1, ONE, DUMR, 1, ONE, 'N', IWORK, KLA, KUA, ZERO, ONE, 'NO', A, MAXM, IWORK, IINFO );
                DO I = 1, M
                   A( I, I ) = A( I, I ) * VM( J )
                END DO
@@ -106,10 +106,10 @@
                DO N = 51, MAXN, 47
                   KLB = 0
                   KUB = N - 1
-                  CALL DLATMR( N, N, 'S', ISEED, 'N', D, 6, ONE, ONE, 'T', 'N', DUML, 1, ONE, DUMR, 1, ONE, 'N', IWORK, KLB, KUB, ZERO, ONE, 'NO', B, MAXN, IWORK, IINFO )
+                  dlatmr(N, N, 'S', ISEED, 'N', D, 6, ONE, ONE, 'T', 'N', DUML, 1, ONE, DUMR, 1, ONE, 'N', IWORK, KLB, KUB, ZERO, ONE, 'NO', B, MAXN, IWORK, IINFO );
                   BNRM = DLANGE( 'M', N, N, B, MAXN, DUM )
                   TNRM = MAX( ANRM, BNRM )
-                  CALL DLATMR( M, N, 'S', ISEED, 'N', D, 6, ONE, ONE, 'T', 'N', DUML, 1, ONE, DUMR, 1, ONE, 'N', IWORK, M, N, ZERO, ONE, 'NO', C, MAXM, IWORK, IINFO )
+                  dlatmr(M, N, 'S', ISEED, 'N', D, 6, ONE, ONE, 'T', 'N', DUML, 1, ONE, DUMR, 1, ONE, 'N', IWORK, M, N, ZERO, ONE, 'NO', C, MAXM, IWORK, IINFO );
                   DO ITRANA = 1, 2
                      if ( ITRANA.EQ.1 ) {
                         TRANA = 'N'
@@ -126,9 +126,9 @@
                         }
                         KNT = KNT + 1
 
-                        CALL DLACPY( 'All', M, N, C, MAXM, X, MAXM)
-                        CALL DLACPY( 'All', M, N, C, MAXM, CC, MAXM)
-                        CALL DTRSYL( TRANA, TRANB, ISGN, M, N,  A, MAXM, B, MAXN, X, MAXM, SCALE, IINFO )
+                        dlacpy('All', M, N, C, MAXM, X, MAXM);
+                        dlacpy('All', M, N, C, MAXM, CC, MAXM);
+                        dtrsyl(TRANA, TRANB, ISGN, M, N,  A, MAXM, B, MAXN, X, MAXM, SCALE, IINFO );
                         IF( IINFO.NE.0 ) NINFO( 1 ) = NINFO( 1 ) + 1
                         XNRM = DLANGE( 'M', M, N, X, MAXM, DUM )
                         RMUL = ONE
@@ -137,13 +137,13 @@
                               RMUL = ONE / MAX( XNRM, TNRM )
                            }
                         }
-                        CALL DGEMM( TRANA, 'N', M, N, M, RMUL, A, MAXM, X, MAXM, -SCALE*RMUL, CC, MAXM )                         CALL DGEMM( 'N', TRANB, M, N, N, DBLE( ISGN )*RMUL, X, MAXM, B, MAXN, ONE, CC, MAXM )
+                        dgemm(TRANA, 'N', M, N, M, RMUL, A, MAXM, X, MAXM, -SCALE*RMUL, CC, MAXM )                         CALL DGEMM( 'N', TRANB, M, N, N, DBLE( ISGN )*RMUL, X, MAXM, B, MAXN, ONE, CC, MAXM );
                         RES1 = DLANGE( 'M', M, N, CC, MAXM, DUM )
                         RES = RES1 / MAX( SMLNUM, SMLNUM*XNRM, ( ( RMUL*TNRM )*EPS )*XNRM )                         IF( RES.GT.THRESH ) NFAIL( 1 ) = NFAIL( 1 ) + 1                         IF( RES.GT.RMAX( 1 ) ) RMAX( 1 ) = RES
 
-                        CALL DLACPY( 'All', M, N, C, MAXM, X, MAXM )
-                        CALL DLACPY( 'All', M, N, C, MAXM, CC, MAXM )
-                        CALL DTRSYL3( TRANA, TRANB, ISGN, M, N, A, MAXM, B, MAXN, X, MAXM, SCALE3, IWORK, LIWORK, SWORK, LDSWORK, INFO)
+                        dlacpy('All', M, N, C, MAXM, X, MAXM );
+                        dlacpy('All', M, N, C, MAXM, CC, MAXM );
+                        dtrsyl3(TRANA, TRANB, ISGN, M, N, A, MAXM, B, MAXN, X, MAXM, SCALE3, IWORK, LIWORK, SWORK, LDSWORK, INFO);
                         IF( INFO.NE.0 ) NINFO( 2 ) = NINFO( 2 ) + 1
                         XNRM = DLANGE( 'M', M, N, X, MAXM, DUM )
                         RMUL = ONE
@@ -152,7 +152,7 @@
                               RMUL = ONE / MAX( XNRM, TNRM )
                            }
                         }
-                        CALL DGEMM( TRANA, 'N', M, N, M, RMUL, A, MAXM, X, MAXM, -SCALE3*RMUL, CC, MAXM )                         CALL DGEMM( 'N', TRANB, M, N, N, DBLE( ISGN )*RMUL, X, MAXM, B, MAXN, ONE, CC, MAXM )
+                        dgemm(TRANA, 'N', M, N, M, RMUL, A, MAXM, X, MAXM, -SCALE3*RMUL, CC, MAXM )                         CALL DGEMM( 'N', TRANB, M, N, N, DBLE( ISGN )*RMUL, X, MAXM, B, MAXN, ONE, CC, MAXM );
                         RES1 = DLANGE( 'M', M, N, CC, MAXM, DUM )
                         RES = RES1 / MAX( SMLNUM, SMLNUM*XNRM, ( ( RMUL*TNRM )*EPS )*XNRM )
                         // Verify that TRSYL3 only flushes if TRSYL flushes (but

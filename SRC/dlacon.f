@@ -94,7 +94,7 @@
       // X HAS BEEN OVERWRITTEN BY A*X.
 
    70 CONTINUE
-      CALL DCOPY( N, X, 1, V, 1 )
+      dcopy(N, X, 1, V, 1 );
       ESTOLD = EST
       EST = DASUM( N, V, 1 )
       DO 80 I = 1, N
@@ -144,7 +144,7 @@
   140 CONTINUE
       TEMP = TWO*( DASUM( N, X, 1 ) / DBLE( 3*N ) )
       if ( TEMP.GT.EST ) {
-         CALL DCOPY( N, X, 1, V, 1 )
+         dcopy(N, X, 1, V, 1 );
          EST = TEMP
       }
 

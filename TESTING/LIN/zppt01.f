@@ -91,7 +91,7 @@
             // Compute the rest of column K.
 
             if ( K.GT.1 ) {
-               CALL ZTPMV( 'Upper', 'Conjugate', 'Non-unit', K-1, AFAC, AFAC( KC ), 1 )
+               ztpmv('Upper', 'Conjugate', 'Non-unit', K-1, AFAC, AFAC( KC ), 1 );
                KC = KC - ( K-1 )
             }
    30    CONTINUE
@@ -121,7 +121,7 @@
             // Scale column K by the diagonal element.
 
             TC = AFAC( KC )
-            CALL ZSCAL( N-K+1, TC, AFAC( KC ), 1 )
+            zscal(N-K+1, TC, AFAC( KC ), 1 );
 
             KC = KC - ( N-K+2 )
    60    CONTINUE

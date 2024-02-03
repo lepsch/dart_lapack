@@ -52,15 +52,15 @@
       // Copy A to WORK
 
       LDWORK = MAX( 1, N )
-      CALL CLACPY( ' ', N, N, A, LDA, WORK, LDWORK )
+      clacpy(' ', N, N, A, LDA, WORK, LDWORK );
 
       // Compute Q*H
 
-      CALL CGEMM( 'No transpose', 'No transpose', N, N, N, CMPLX( ONE ), Q, LDQ, H, LDH, CMPLX( ZERO ), WORK( LDWORK*N+1 ), LDWORK )
+      cgemm('No transpose', 'No transpose', N, N, N, CMPLX( ONE ), Q, LDQ, H, LDH, CMPLX( ZERO ), WORK( LDWORK*N+1 ), LDWORK );
 
       // Compute A - Q*H*Q'
 
-      CALL CGEMM( 'No transpose', 'Conjugate transpose', N, N, N, CMPLX( -ONE ), WORK( LDWORK*N+1 ), LDWORK, Q, LDQ, CMPLX( ONE ), WORK, LDWORK )
+      cgemm('No transpose', 'Conjugate transpose', N, N, N, CMPLX( -ONE ), WORK( LDWORK*N+1 ), LDWORK, Q, LDQ, CMPLX( ONE ), WORK, LDWORK );
 
       ANORM = MAX( CLANGE( '1', N, N, A, LDA, RWORK ), UNFL )
       WNORM = CLANGE( '1', N, N, WORK, LDWORK, RWORK )
@@ -71,7 +71,7 @@
 
       // Test 2:  Compute norm( I - Q'*Q ) / ( N * EPS )
 
-      CALL CUNT01( 'Columns', N, N, Q, LDQ, WORK, LWORK, RWORK, RESULT( 2 ) )
+      cunt01('Columns', N, N, Q, LDQ, WORK, LWORK, RWORK, RESULT( 2 ) );
 
       RETURN
 

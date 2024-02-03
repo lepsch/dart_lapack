@@ -96,7 +96,7 @@
          } else {
             SIGNST = 'D'
          }
-         CALL ZUNCSD( JOBV1T, JOBV2T, JOBU1, JOBU2, TRANST, SIGNST, M, Q, P, X11, LDX11, X21, LDX21, X12, LDX12, X22, LDX22, THETA, V1T, LDV1T, V2T, LDV2T, U1, LDU1, U2, LDU2, WORK, LWORK, RWORK, LRWORK, IWORK, INFO )
+         zuncsd(JOBV1T, JOBV2T, JOBU1, JOBU2, TRANST, SIGNST, M, Q, P, X11, LDX11, X21, LDX21, X12, LDX12, X22, LDX22, THETA, V1T, LDV1T, V2T, LDV2T, U1, LDU1, U2, LDU2, WORK, LWORK, RWORK, LRWORK, IWORK, INFO );
          RETURN
       }
 
@@ -109,7 +109,7 @@
          } else {
             SIGNST = 'D'
          }
-         CALL ZUNCSD( JOBU2, JOBU1, JOBV2T, JOBV1T, TRANS, SIGNST, M, M-P, M-Q, X22, LDX22, X21, LDX21, X12, LDX12, X11, LDX11, THETA, U2, LDU2, U1, LDU1, V2T, LDV2T, V1T, LDV1T, WORK, LWORK, RWORK, LRWORK, IWORK, INFO )
+         zuncsd(JOBU2, JOBU1, JOBV2T, JOBV1T, TRANS, SIGNST, M, M-P, M-Q, X22, LDX22, X21, LDX21, X12, LDX12, X11, LDX11, THETA, U2, LDU2, U1, LDU1, V2T, LDV2T, V1T, LDV1T, WORK, LWORK, RWORK, LRWORK, IWORK, INFO );
          RETURN
       }
 
@@ -129,7 +129,7 @@
          IB22D = IB21E + MAX( 1, Q - 1 )
          IB22E = IB22D + MAX( 1, Q )
          IBBCSD = IB22E + MAX( 1, Q - 1 )
-         CALL ZBBCSD( JOBU1, JOBU2, JOBV1T, JOBV2T, TRANS, M, P, Q, THETA, THETA, U1, LDU1, U2, LDU2, V1T, LDV1T, V2T, LDV2T, THETA, THETA, THETA, THETA, THETA, THETA, THETA, THETA, RWORK, -1, CHILDINFO )
+         zbbcsd(JOBU1, JOBU2, JOBV1T, JOBV2T, TRANS, M, P, Q, THETA, THETA, U1, LDU1, U2, LDU2, V1T, LDV1T, V2T, LDV2T, THETA, THETA, THETA, THETA, THETA, THETA, THETA, THETA, RWORK, -1, CHILDINFO );
          LBBCSDWORKOPT = INT( RWORK(1) )
          LBBCSDWORKMIN = LBBCSDWORKOPT
          LRWORKOPT = IBBCSD + LBBCSDWORKOPT - 1
@@ -143,15 +143,15 @@
          ITAUQ1 = ITAUP2 + MAX( 1, M - P )
          ITAUQ2 = ITAUQ1 + MAX( 1, Q )
          IORGQR = ITAUQ2 + MAX( 1, M - Q )
-         CALL ZUNGQR( M-Q, M-Q, M-Q, U1, MAX(1,M-Q), U1, WORK, -1, CHILDINFO )
+         zungqr(M-Q, M-Q, M-Q, U1, MAX(1,M-Q), U1, WORK, -1, CHILDINFO );
          LORGQRWORKOPT = INT( WORK(1) )
          LORGQRWORKMIN = MAX( 1, M - Q )
          IORGLQ = ITAUQ2 + MAX( 1, M - Q )
-         CALL ZUNGLQ( M-Q, M-Q, M-Q, U1, MAX(1,M-Q), U1, WORK, -1, CHILDINFO )
+         zunglq(M-Q, M-Q, M-Q, U1, MAX(1,M-Q), U1, WORK, -1, CHILDINFO );
          LORGLQWORKOPT = INT( WORK(1) )
          LORGLQWORKMIN = MAX( 1, M - Q )
          IORBDB = ITAUQ2 + MAX( 1, M - Q )
-         CALL ZUNBDB( TRANS, SIGNS, M, P, Q, X11, LDX11, X12, LDX12, X21, LDX21, X22, LDX22, THETA, THETA, U1, U2, V1T, V2T, WORK, -1, CHILDINFO )
+         zunbdb(TRANS, SIGNS, M, P, Q, X11, LDX11, X12, LDX12, X21, LDX21, X22, LDX22, THETA, THETA, U1, U2, V1T, V2T, WORK, -1, CHILDINFO );
          LORBDBWORKOPT = INT( WORK(1) )
          LORBDBWORKMIN = LORBDBWORKOPT
          LWORKOPT = MAX( IORGQR + LORGQRWORKOPT, IORGLQ + LORGLQWORKOPT, IORBDB + LORBDBWORKOPT ) - 1          LWORKMIN = MAX( IORGQR + LORGQRWORKMIN, IORGLQ + LORGLQWORKMIN, IORBDB + LORBDBWORKMIN ) - 1
@@ -172,7 +172,7 @@
       // Abort if any illegal arguments
 
       if ( INFO .NE. 0 ) {
-         CALL XERBLA( 'ZUNCSD', -INFO )
+         xerbla('ZUNCSD', -INFO );
          RETURN
       } else if ( LQUERY .OR. LRQUERY ) {
          RETURN
@@ -180,69 +180,69 @@
 
       // Transform to bidiagonal block form
 
-      CALL ZUNBDB( TRANS, SIGNS, M, P, Q, X11, LDX11, X12, LDX12, X21, LDX21, X22, LDX22, THETA, RWORK(IPHI), WORK(ITAUP1), WORK(ITAUP2), WORK(ITAUQ1), WORK(ITAUQ2), WORK(IORBDB), LORBDBWORK, CHILDINFO )
+      zunbdb(TRANS, SIGNS, M, P, Q, X11, LDX11, X12, LDX12, X21, LDX21, X22, LDX22, THETA, RWORK(IPHI), WORK(ITAUP1), WORK(ITAUP2), WORK(ITAUQ1), WORK(ITAUQ2), WORK(IORBDB), LORBDBWORK, CHILDINFO );
 
       // Accumulate Householder reflectors
 
       if ( COLMAJOR ) {
          if ( WANTU1 .AND. P .GT. 0 ) {
-            CALL ZLACPY( 'L', P, Q, X11, LDX11, U1, LDU1 )
-            CALL ZUNGQR( P, P, Q, U1, LDU1, WORK(ITAUP1), WORK(IORGQR), LORGQRWORK, INFO)
+            zlacpy('L', P, Q, X11, LDX11, U1, LDU1 );
+            zungqr(P, P, Q, U1, LDU1, WORK(ITAUP1), WORK(IORGQR), LORGQRWORK, INFO);
          }
          if ( WANTU2 .AND. M-P .GT. 0 ) {
-            CALL ZLACPY( 'L', M-P, Q, X21, LDX21, U2, LDU2 )
-            CALL ZUNGQR( M-P, M-P, Q, U2, LDU2, WORK(ITAUP2), WORK(IORGQR), LORGQRWORK, INFO )
+            zlacpy('L', M-P, Q, X21, LDX21, U2, LDU2 );
+            zungqr(M-P, M-P, Q, U2, LDU2, WORK(ITAUP2), WORK(IORGQR), LORGQRWORK, INFO );
          }
          if ( WANTV1T .AND. Q .GT. 0 ) {
-            CALL ZLACPY( 'U', Q-1, Q-1, X11(1,2), LDX11, V1T(2,2), LDV1T )
+            zlacpy('U', Q-1, Q-1, X11(1,2), LDX11, V1T(2,2), LDV1T );
             V1T(1, 1) = ONE
             DO J = 2, Q
                V1T(1,J) = ZERO
                V1T(J,1) = ZERO
             END DO
-            CALL ZUNGLQ( Q-1, Q-1, Q-1, V1T(2,2), LDV1T, WORK(ITAUQ1), WORK(IORGLQ), LORGLQWORK, INFO )
+            zunglq(Q-1, Q-1, Q-1, V1T(2,2), LDV1T, WORK(ITAUQ1), WORK(IORGLQ), LORGLQWORK, INFO );
          }
          if ( WANTV2T .AND. M-Q .GT. 0 ) {
-            CALL ZLACPY( 'U', P, M-Q, X12, LDX12, V2T, LDV2T )
+            zlacpy('U', P, M-Q, X12, LDX12, V2T, LDV2T );
             if ( M-P .GT. Q) {
-               CALL ZLACPY( 'U', M-P-Q, M-P-Q, X22(Q+1,P+1), LDX22, V2T(P+1,P+1), LDV2T )
+               zlacpy('U', M-P-Q, M-P-Q, X22(Q+1,P+1), LDX22, V2T(P+1,P+1), LDV2T );
             }
             if ( M .GT. Q ) {
-               CALL ZUNGLQ( M-Q, M-Q, M-Q, V2T, LDV2T, WORK(ITAUQ2), WORK(IORGLQ), LORGLQWORK, INFO )
+               zunglq(M-Q, M-Q, M-Q, V2T, LDV2T, WORK(ITAUQ2), WORK(IORGLQ), LORGLQWORK, INFO );
             }
          }
       } else {
          if ( WANTU1 .AND. P .GT. 0 ) {
-            CALL ZLACPY( 'U', Q, P, X11, LDX11, U1, LDU1 )
-            CALL ZUNGLQ( P, P, Q, U1, LDU1, WORK(ITAUP1), WORK(IORGLQ), LORGLQWORK, INFO)
+            zlacpy('U', Q, P, X11, LDX11, U1, LDU1 );
+            zunglq(P, P, Q, U1, LDU1, WORK(ITAUP1), WORK(IORGLQ), LORGLQWORK, INFO);
          }
          if ( WANTU2 .AND. M-P .GT. 0 ) {
-            CALL ZLACPY( 'U', Q, M-P, X21, LDX21, U2, LDU2 )
-            CALL ZUNGLQ( M-P, M-P, Q, U2, LDU2, WORK(ITAUP2), WORK(IORGLQ), LORGLQWORK, INFO )
+            zlacpy('U', Q, M-P, X21, LDX21, U2, LDU2 );
+            zunglq(M-P, M-P, Q, U2, LDU2, WORK(ITAUP2), WORK(IORGLQ), LORGLQWORK, INFO );
          }
          if ( WANTV1T .AND. Q .GT. 0 ) {
-            CALL ZLACPY( 'L', Q-1, Q-1, X11(2,1), LDX11, V1T(2,2), LDV1T )
+            zlacpy('L', Q-1, Q-1, X11(2,1), LDX11, V1T(2,2), LDV1T );
             V1T(1, 1) = ONE
             DO J = 2, Q
                V1T(1,J) = ZERO
                V1T(J,1) = ZERO
             END DO
-            CALL ZUNGQR( Q-1, Q-1, Q-1, V1T(2,2), LDV1T, WORK(ITAUQ1), WORK(IORGQR), LORGQRWORK, INFO )
+            zungqr(Q-1, Q-1, Q-1, V1T(2,2), LDV1T, WORK(ITAUQ1), WORK(IORGQR), LORGQRWORK, INFO );
          }
          if ( WANTV2T .AND. M-Q .GT. 0 ) {
             P1 = MIN( P+1, M )
             Q1 = MIN( Q+1, M )
-            CALL ZLACPY( 'L', M-Q, P, X12, LDX12, V2T, LDV2T )
+            zlacpy('L', M-Q, P, X12, LDX12, V2T, LDV2T );
             if ( M .GT. P+Q ) {
-               CALL ZLACPY( 'L', M-P-Q, M-P-Q, X22(P1,Q1), LDX22, V2T(P+1,P+1), LDV2T )
+               zlacpy('L', M-P-Q, M-P-Q, X22(P1,Q1), LDX22, V2T(P+1,P+1), LDV2T );
             }
-            CALL ZUNGQR( M-Q, M-Q, M-Q, V2T, LDV2T, WORK(ITAUQ2), WORK(IORGQR), LORGQRWORK, INFO )
+            zungqr(M-Q, M-Q, M-Q, V2T, LDV2T, WORK(ITAUQ2), WORK(IORGQR), LORGQRWORK, INFO );
          }
       }
 
       // Compute the CSD of the matrix in bidiagonal-block form
 
-      CALL ZBBCSD( JOBU1, JOBU2, JOBV1T, JOBV2T, TRANS, M, P, Q, THETA, RWORK(IPHI), U1, LDU1, U2, LDU2, V1T, LDV1T, V2T, LDV2T, RWORK(IB11D), RWORK(IB11E), RWORK(IB12D), RWORK(IB12E), RWORK(IB21D), RWORK(IB21E), RWORK(IB22D), RWORK(IB22E), RWORK(IBBCSD), LBBCSDWORK, INFO )
+      zbbcsd(JOBU1, JOBU2, JOBV1T, JOBV2T, TRANS, M, P, Q, THETA, RWORK(IPHI), U1, LDU1, U2, LDU2, V1T, LDV1T, V2T, LDV2T, RWORK(IB11D), RWORK(IB11E), RWORK(IB12D), RWORK(IB12E), RWORK(IB21D), RWORK(IB21E), RWORK(IB22D), RWORK(IB22E), RWORK(IBBCSD), LBBCSDWORK, INFO );
 
       // Permute rows and columns to place identity submatrices in top-
       // left corner of (1,1)-block and/or bottom-right corner of (1,2)-
@@ -257,9 +257,9 @@
             IWORK(I) = I - Q
          END DO
          if ( COLMAJOR ) {
-            CALL ZLAPMT( .FALSE., M-P, M-P, U2, LDU2, IWORK )
+            zlapmt(.FALSE., M-P, M-P, U2, LDU2, IWORK );
          } else {
-            CALL ZLAPMR( .FALSE., M-P, M-P, U2, LDU2, IWORK )
+            zlapmr(.FALSE., M-P, M-P, U2, LDU2, IWORK );
          }
       }
       if ( M .GT. 0 .AND. WANTV2T ) {
@@ -270,9 +270,9 @@
             IWORK(I) = I - P
          END DO
          if ( .NOT. COLMAJOR ) {
-            CALL ZLAPMT( .FALSE., M-Q, M-Q, V2T, LDV2T, IWORK )
+            zlapmt(.FALSE., M-Q, M-Q, V2T, LDV2T, IWORK );
          } else {
-            CALL ZLAPMR( .FALSE., M-Q, M-Q, V2T, LDV2T, IWORK )
+            zlapmr(.FALSE., M-Q, M-Q, V2T, LDV2T, IWORK );
          }
       }
 

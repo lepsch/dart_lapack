@@ -45,7 +45,7 @@
 
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'CSYCONVF', -INFO )
+         xerbla('CSYCONVF', -INFO );
          RETURN
       }
 
@@ -97,7 +97,7 @@
                   IP = IPIV( I )
                   if ( I.LT.N ) {
                      if ( IP.NE.I ) {
-                        CALL CSWAP( N-I, A( I, I+1 ), LDA, A( IP, I+1 ), LDA )
+                        cswap(N-I, A( I, I+1 ), LDA, A( IP, I+1 ), LDA );
                      }
                   }
 
@@ -110,7 +110,7 @@
                   IP = -IPIV( I )
                   if ( I.LT.N ) {
                      if ( IP.NE.(I-1) ) {
-                        CALL CSWAP( N-I, A( I-1, I+1 ), LDA, A( IP, I+1 ), LDA )
+                        cswap(N-I, A( I-1, I+1 ), LDA, A( IP, I+1 ), LDA );
                      }
                   }
 
@@ -148,7 +148,7 @@
                   IP = IPIV( I )
                   if ( I.LT.N ) {
                      if ( IP.NE.I ) {
-                        CALL CSWAP( N-I, A( IP, I+1 ), LDA, A( I, I+1 ), LDA )
+                        cswap(N-I, A( IP, I+1 ), LDA, A( I, I+1 ), LDA );
                      }
                   }
 
@@ -162,7 +162,7 @@
                   IP = -IPIV( I )
                   if ( I.LT.N ) {
                      if ( IP.NE.(I-1) ) {
-                        CALL CSWAP( N-I, A( IP, I+1 ), LDA, A( I-1, I+1 ), LDA )
+                        cswap(N-I, A( IP, I+1 ), LDA, A( I-1, I+1 ), LDA );
                      }
                   }
 
@@ -237,7 +237,7 @@
                   IP = IPIV( I )
                   if ( I.GT.1 ) {
                      if ( IP.NE.I ) {
-                        CALL CSWAP( I-1, A( I, 1 ), LDA, A( IP, 1 ), LDA )
+                        cswap(I-1, A( I, 1 ), LDA, A( IP, 1 ), LDA );
                      }
                   }
 
@@ -250,7 +250,7 @@
                   IP = -IPIV( I )
                   if ( I.GT.1 ) {
                      if ( IP.NE.(I+1) ) {
-                        CALL CSWAP( I-1, A( I+1, 1 ), LDA, A( IP, 1 ), LDA )
+                        cswap(I-1, A( I+1, 1 ), LDA, A( IP, 1 ), LDA );
                      }
                   }
 
@@ -288,7 +288,7 @@
                   IP = IPIV( I )
                   if ( I.GT.1 ) {
                      if ( IP.NE.I ) {
-                        CALL CSWAP( I-1, A( IP, 1 ), LDA, A( I, 1 ), LDA )
+                        cswap(I-1, A( IP, 1 ), LDA, A( I, 1 ), LDA );
                      }
                   }
 
@@ -302,7 +302,7 @@
                   IP = -IPIV( I )
                   if ( I.GT.1 ) {
                      if ( IP.NE.(I+1) ) {
-                        CALL CSWAP( I-1, A( IP, 1 ), LDA, A( I+1, 1 ), LDA )
+                        cswap(I-1, A( IP, 1 ), LDA, A( I+1, 1 ), LDA );
                      }
                   }
 

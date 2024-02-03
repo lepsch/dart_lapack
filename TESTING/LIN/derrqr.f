@@ -60,184 +60,184 @@
 
       SRNAMT = 'DGEQRF'
       INFOT = 1
-      CALL DGEQRF( -1, 0, A, 1, B, W, 1, INFO )
-      CALL CHKXER( 'DGEQRF', INFOT, NOUT, LERR, OK )
+      dgeqrf(-1, 0, A, 1, B, W, 1, INFO );
+      chkxer('DGEQRF', INFOT, NOUT, LERR, OK );
       INFOT = 2
-      CALL DGEQRF( 0, -1, A, 1, B, W, 1, INFO )
-      CALL CHKXER( 'DGEQRF', INFOT, NOUT, LERR, OK )
+      dgeqrf(0, -1, A, 1, B, W, 1, INFO );
+      chkxer('DGEQRF', INFOT, NOUT, LERR, OK );
       INFOT = 4
-      CALL DGEQRF( 2, 1, A, 1, B, W, 1, INFO )
-      CALL CHKXER( 'DGEQRF', INFOT, NOUT, LERR, OK )
+      dgeqrf(2, 1, A, 1, B, W, 1, INFO );
+      chkxer('DGEQRF', INFOT, NOUT, LERR, OK );
       INFOT = 7
-      CALL DGEQRF( 1, 2, A, 1, B, W, 1, INFO )
-      CALL CHKXER( 'DGEQRF', INFOT, NOUT, LERR, OK )
+      dgeqrf(1, 2, A, 1, B, W, 1, INFO );
+      chkxer('DGEQRF', INFOT, NOUT, LERR, OK );
 
       // DGEQRFP
 
       SRNAMT = 'DGEQRFP'
       INFOT = 1
-      CALL DGEQRFP( -1, 0, A, 1, B, W, 1, INFO )
-      CALL CHKXER( 'DGEQRFP', INFOT, NOUT, LERR, OK )
+      dgeqrfp(-1, 0, A, 1, B, W, 1, INFO );
+      chkxer('DGEQRFP', INFOT, NOUT, LERR, OK );
       INFOT = 2
-      CALL DGEQRFP( 0, -1, A, 1, B, W, 1, INFO )
-      CALL CHKXER( 'DGEQRFP', INFOT, NOUT, LERR, OK )
+      dgeqrfp(0, -1, A, 1, B, W, 1, INFO );
+      chkxer('DGEQRFP', INFOT, NOUT, LERR, OK );
       INFOT = 4
-      CALL DGEQRFP( 2, 1, A, 1, B, W, 1, INFO )
-      CALL CHKXER( 'DGEQRFP', INFOT, NOUT, LERR, OK )
+      dgeqrfp(2, 1, A, 1, B, W, 1, INFO );
+      chkxer('DGEQRFP', INFOT, NOUT, LERR, OK );
       INFOT = 7
-      CALL DGEQRFP( 1, 2, A, 1, B, W, 1, INFO )
-      CALL CHKXER( 'DGEQRFP', INFOT, NOUT, LERR, OK )
+      dgeqrfp(1, 2, A, 1, B, W, 1, INFO );
+      chkxer('DGEQRFP', INFOT, NOUT, LERR, OK );
 
       // DGEQR2
 
       SRNAMT = 'DGEQR2'
       INFOT = 1
-      CALL DGEQR2( -1, 0, A, 1, B, W, INFO )
-      CALL CHKXER( 'DGEQR2', INFOT, NOUT, LERR, OK )
+      dgeqr2(-1, 0, A, 1, B, W, INFO );
+      chkxer('DGEQR2', INFOT, NOUT, LERR, OK );
       INFOT = 2
-      CALL DGEQR2( 0, -1, A, 1, B, W, INFO )
-      CALL CHKXER( 'DGEQR2', INFOT, NOUT, LERR, OK )
+      dgeqr2(0, -1, A, 1, B, W, INFO );
+      chkxer('DGEQR2', INFOT, NOUT, LERR, OK );
       INFOT = 4
-      CALL DGEQR2( 2, 1, A, 1, B, W, INFO )
-      CALL CHKXER( 'DGEQR2', INFOT, NOUT, LERR, OK )
+      dgeqr2(2, 1, A, 1, B, W, INFO );
+      chkxer('DGEQR2', INFOT, NOUT, LERR, OK );
 
       // DGEQR2P
 
       SRNAMT = 'DGEQR2P'
       INFOT = 1
-      CALL DGEQR2P( -1, 0, A, 1, B, W, INFO )
-      CALL CHKXER( 'DGEQR2P', INFOT, NOUT, LERR, OK )
+      dgeqr2p(-1, 0, A, 1, B, W, INFO );
+      chkxer('DGEQR2P', INFOT, NOUT, LERR, OK );
       INFOT = 2
-      CALL DGEQR2P( 0, -1, A, 1, B, W, INFO )
-      CALL CHKXER( 'DGEQR2P', INFOT, NOUT, LERR, OK )
+      dgeqr2p(0, -1, A, 1, B, W, INFO );
+      chkxer('DGEQR2P', INFOT, NOUT, LERR, OK );
       INFOT = 4
-      CALL DGEQR2P( 2, 1, A, 1, B, W, INFO )
-      CALL CHKXER( 'DGEQR2P', INFOT, NOUT, LERR, OK )
+      dgeqr2p(2, 1, A, 1, B, W, INFO );
+      chkxer('DGEQR2P', INFOT, NOUT, LERR, OK );
 
       // DORGQR
 
       SRNAMT = 'DORGQR'
       INFOT = 1
-      CALL DORGQR( -1, 0, 0, A, 1, X, W, 1, INFO )
-      CALL CHKXER( 'DORGQR', INFOT, NOUT, LERR, OK )
+      dorgqr(-1, 0, 0, A, 1, X, W, 1, INFO );
+      chkxer('DORGQR', INFOT, NOUT, LERR, OK );
       INFOT = 2
-      CALL DORGQR( 0, -1, 0, A, 1, X, W, 1, INFO )
-      CALL CHKXER( 'DORGQR', INFOT, NOUT, LERR, OK )
+      dorgqr(0, -1, 0, A, 1, X, W, 1, INFO );
+      chkxer('DORGQR', INFOT, NOUT, LERR, OK );
       INFOT = 2
-      CALL DORGQR( 1, 2, 0, A, 1, X, W, 2, INFO )
-      CALL CHKXER( 'DORGQR', INFOT, NOUT, LERR, OK )
+      dorgqr(1, 2, 0, A, 1, X, W, 2, INFO );
+      chkxer('DORGQR', INFOT, NOUT, LERR, OK );
       INFOT = 3
-      CALL DORGQR( 0, 0, -1, A, 1, X, W, 1, INFO )
-      CALL CHKXER( 'DORGQR', INFOT, NOUT, LERR, OK )
+      dorgqr(0, 0, -1, A, 1, X, W, 1, INFO );
+      chkxer('DORGQR', INFOT, NOUT, LERR, OK );
       INFOT = 3
-      CALL DORGQR( 1, 1, 2, A, 1, X, W, 1, INFO )
-      CALL CHKXER( 'DORGQR', INFOT, NOUT, LERR, OK )
+      dorgqr(1, 1, 2, A, 1, X, W, 1, INFO );
+      chkxer('DORGQR', INFOT, NOUT, LERR, OK );
       INFOT = 5
-      CALL DORGQR( 2, 2, 0, A, 1, X, W, 2, INFO )
-      CALL CHKXER( 'DORGQR', INFOT, NOUT, LERR, OK )
+      dorgqr(2, 2, 0, A, 1, X, W, 2, INFO );
+      chkxer('DORGQR', INFOT, NOUT, LERR, OK );
       INFOT = 8
-      CALL DORGQR( 2, 2, 0, A, 2, X, W, 1, INFO )
-      CALL CHKXER( 'DORGQR', INFOT, NOUT, LERR, OK )
+      dorgqr(2, 2, 0, A, 2, X, W, 1, INFO );
+      chkxer('DORGQR', INFOT, NOUT, LERR, OK );
 
       // DORG2R
 
       SRNAMT = 'DORG2R'
       INFOT = 1
-      CALL DORG2R( -1, 0, 0, A, 1, X, W, INFO )
-      CALL CHKXER( 'DORG2R', INFOT, NOUT, LERR, OK )
+      dorg2r(-1, 0, 0, A, 1, X, W, INFO );
+      chkxer('DORG2R', INFOT, NOUT, LERR, OK );
       INFOT = 2
-      CALL DORG2R( 0, -1, 0, A, 1, X, W, INFO )
-      CALL CHKXER( 'DORG2R', INFOT, NOUT, LERR, OK )
+      dorg2r(0, -1, 0, A, 1, X, W, INFO );
+      chkxer('DORG2R', INFOT, NOUT, LERR, OK );
       INFOT = 2
-      CALL DORG2R( 1, 2, 0, A, 1, X, W, INFO )
-      CALL CHKXER( 'DORG2R', INFOT, NOUT, LERR, OK )
+      dorg2r(1, 2, 0, A, 1, X, W, INFO );
+      chkxer('DORG2R', INFOT, NOUT, LERR, OK );
       INFOT = 3
-      CALL DORG2R( 0, 0, -1, A, 1, X, W, INFO )
-      CALL CHKXER( 'DORG2R', INFOT, NOUT, LERR, OK )
+      dorg2r(0, 0, -1, A, 1, X, W, INFO );
+      chkxer('DORG2R', INFOT, NOUT, LERR, OK );
       INFOT = 3
-      CALL DORG2R( 2, 1, 2, A, 2, X, W, INFO )
-      CALL CHKXER( 'DORG2R', INFOT, NOUT, LERR, OK )
+      dorg2r(2, 1, 2, A, 2, X, W, INFO );
+      chkxer('DORG2R', INFOT, NOUT, LERR, OK );
       INFOT = 5
-      CALL DORG2R( 2, 1, 0, A, 1, X, W, INFO )
-      CALL CHKXER( 'DORG2R', INFOT, NOUT, LERR, OK )
+      dorg2r(2, 1, 0, A, 1, X, W, INFO );
+      chkxer('DORG2R', INFOT, NOUT, LERR, OK );
 
       // DORMQR
 
       SRNAMT = 'DORMQR'
       INFOT = 1
-      CALL DORMQR( '/', 'N', 0, 0, 0, A, 1, X, AF, 1, W, 1, INFO )
-      CALL CHKXER( 'DORMQR', INFOT, NOUT, LERR, OK )
+      dormqr('/', 'N', 0, 0, 0, A, 1, X, AF, 1, W, 1, INFO );
+      chkxer('DORMQR', INFOT, NOUT, LERR, OK );
       INFOT = 2
-      CALL DORMQR( 'L', '/', 0, 0, 0, A, 1, X, AF, 1, W, 1, INFO )
-      CALL CHKXER( 'DORMQR', INFOT, NOUT, LERR, OK )
+      dormqr('L', '/', 0, 0, 0, A, 1, X, AF, 1, W, 1, INFO );
+      chkxer('DORMQR', INFOT, NOUT, LERR, OK );
       INFOT = 3
-      CALL DORMQR( 'L', 'N', -1, 0, 0, A, 1, X, AF, 1, W, 1, INFO )
-      CALL CHKXER( 'DORMQR', INFOT, NOUT, LERR, OK )
+      dormqr('L', 'N', -1, 0, 0, A, 1, X, AF, 1, W, 1, INFO );
+      chkxer('DORMQR', INFOT, NOUT, LERR, OK );
       INFOT = 4
-      CALL DORMQR( 'L', 'N', 0, -1, 0, A, 1, X, AF, 1, W, 1, INFO )
-      CALL CHKXER( 'DORMQR', INFOT, NOUT, LERR, OK )
+      dormqr('L', 'N', 0, -1, 0, A, 1, X, AF, 1, W, 1, INFO );
+      chkxer('DORMQR', INFOT, NOUT, LERR, OK );
       INFOT = 5
-      CALL DORMQR( 'L', 'N', 0, 0, -1, A, 1, X, AF, 1, W, 1, INFO )
-      CALL CHKXER( 'DORMQR', INFOT, NOUT, LERR, OK )
+      dormqr('L', 'N', 0, 0, -1, A, 1, X, AF, 1, W, 1, INFO );
+      chkxer('DORMQR', INFOT, NOUT, LERR, OK );
       INFOT = 5
-      CALL DORMQR( 'L', 'N', 0, 1, 1, A, 1, X, AF, 1, W, 1, INFO )
-      CALL CHKXER( 'DORMQR', INFOT, NOUT, LERR, OK )
+      dormqr('L', 'N', 0, 1, 1, A, 1, X, AF, 1, W, 1, INFO );
+      chkxer('DORMQR', INFOT, NOUT, LERR, OK );
       INFOT = 5
-      CALL DORMQR( 'R', 'N', 1, 0, 1, A, 1, X, AF, 1, W, 1, INFO )
-      CALL CHKXER( 'DORMQR', INFOT, NOUT, LERR, OK )
+      dormqr('R', 'N', 1, 0, 1, A, 1, X, AF, 1, W, 1, INFO );
+      chkxer('DORMQR', INFOT, NOUT, LERR, OK );
       INFOT = 7
-      CALL DORMQR( 'L', 'N', 2, 1, 0, A, 1, X, AF, 2, W, 1, INFO )
-      CALL CHKXER( 'DORMQR', INFOT, NOUT, LERR, OK )
+      dormqr('L', 'N', 2, 1, 0, A, 1, X, AF, 2, W, 1, INFO );
+      chkxer('DORMQR', INFOT, NOUT, LERR, OK );
       INFOT = 7
-      CALL DORMQR( 'R', 'N', 1, 2, 0, A, 1, X, AF, 1, W, 1, INFO )
-      CALL CHKXER( 'DORMQR', INFOT, NOUT, LERR, OK )
+      dormqr('R', 'N', 1, 2, 0, A, 1, X, AF, 1, W, 1, INFO );
+      chkxer('DORMQR', INFOT, NOUT, LERR, OK );
       INFOT = 10
-      CALL DORMQR( 'L', 'N', 2, 1, 0, A, 2, X, AF, 1, W, 1, INFO )
-      CALL CHKXER( 'DORMQR', INFOT, NOUT, LERR, OK )
+      dormqr('L', 'N', 2, 1, 0, A, 2, X, AF, 1, W, 1, INFO );
+      chkxer('DORMQR', INFOT, NOUT, LERR, OK );
       INFOT = 12
-      CALL DORMQR( 'L', 'N', 1, 2, 0, A, 1, X, AF, 1, W, 1, INFO )
-      CALL CHKXER( 'DORMQR', INFOT, NOUT, LERR, OK )
+      dormqr('L', 'N', 1, 2, 0, A, 1, X, AF, 1, W, 1, INFO );
+      chkxer('DORMQR', INFOT, NOUT, LERR, OK );
       INFOT = 12
-      CALL DORMQR( 'R', 'N', 2, 1, 0, A, 1, X, AF, 2, W, 1, INFO )
-      CALL CHKXER( 'DORMQR', INFOT, NOUT, LERR, OK )
+      dormqr('R', 'N', 2, 1, 0, A, 1, X, AF, 2, W, 1, INFO );
+      chkxer('DORMQR', INFOT, NOUT, LERR, OK );
 
       // DORM2R
 
       SRNAMT = 'DORM2R'
       INFOT = 1
-      CALL DORM2R( '/', 'N', 0, 0, 0, A, 1, X, AF, 1, W, INFO )
-      CALL CHKXER( 'DORM2R', INFOT, NOUT, LERR, OK )
+      dorm2r('/', 'N', 0, 0, 0, A, 1, X, AF, 1, W, INFO );
+      chkxer('DORM2R', INFOT, NOUT, LERR, OK );
       INFOT = 2
-      CALL DORM2R( 'L', '/', 0, 0, 0, A, 1, X, AF, 1, W, INFO )
-      CALL CHKXER( 'DORM2R', INFOT, NOUT, LERR, OK )
+      dorm2r('L', '/', 0, 0, 0, A, 1, X, AF, 1, W, INFO );
+      chkxer('DORM2R', INFOT, NOUT, LERR, OK );
       INFOT = 3
-      CALL DORM2R( 'L', 'N', -1, 0, 0, A, 1, X, AF, 1, W, INFO )
-      CALL CHKXER( 'DORM2R', INFOT, NOUT, LERR, OK )
+      dorm2r('L', 'N', -1, 0, 0, A, 1, X, AF, 1, W, INFO );
+      chkxer('DORM2R', INFOT, NOUT, LERR, OK );
       INFOT = 4
-      CALL DORM2R( 'L', 'N', 0, -1, 0, A, 1, X, AF, 1, W, INFO )
-      CALL CHKXER( 'DORM2R', INFOT, NOUT, LERR, OK )
+      dorm2r('L', 'N', 0, -1, 0, A, 1, X, AF, 1, W, INFO );
+      chkxer('DORM2R', INFOT, NOUT, LERR, OK );
       INFOT = 5
-      CALL DORM2R( 'L', 'N', 0, 0, -1, A, 1, X, AF, 1, W, INFO )
-      CALL CHKXER( 'DORM2R', INFOT, NOUT, LERR, OK )
+      dorm2r('L', 'N', 0, 0, -1, A, 1, X, AF, 1, W, INFO );
+      chkxer('DORM2R', INFOT, NOUT, LERR, OK );
       INFOT = 5
-      CALL DORM2R( 'L', 'N', 0, 1, 1, A, 1, X, AF, 1, W, INFO )
-      CALL CHKXER( 'DORM2R', INFOT, NOUT, LERR, OK )
+      dorm2r('L', 'N', 0, 1, 1, A, 1, X, AF, 1, W, INFO );
+      chkxer('DORM2R', INFOT, NOUT, LERR, OK );
       INFOT = 5
-      CALL DORM2R( 'R', 'N', 1, 0, 1, A, 1, X, AF, 1, W, INFO )
-      CALL CHKXER( 'DORM2R', INFOT, NOUT, LERR, OK )
+      dorm2r('R', 'N', 1, 0, 1, A, 1, X, AF, 1, W, INFO );
+      chkxer('DORM2R', INFOT, NOUT, LERR, OK );
       INFOT = 7
-      CALL DORM2R( 'L', 'N', 2, 1, 0, A, 1, X, AF, 2, W, INFO )
-      CALL CHKXER( 'DORM2R', INFOT, NOUT, LERR, OK )
+      dorm2r('L', 'N', 2, 1, 0, A, 1, X, AF, 2, W, INFO );
+      chkxer('DORM2R', INFOT, NOUT, LERR, OK );
       INFOT = 7
-      CALL DORM2R( 'R', 'N', 1, 2, 0, A, 1, X, AF, 1, W, INFO )
-      CALL CHKXER( 'DORM2R', INFOT, NOUT, LERR, OK )
+      dorm2r('R', 'N', 1, 2, 0, A, 1, X, AF, 1, W, INFO );
+      chkxer('DORM2R', INFOT, NOUT, LERR, OK );
       INFOT = 10
-      CALL DORM2R( 'L', 'N', 2, 1, 0, A, 2, X, AF, 1, W, INFO )
-      CALL CHKXER( 'DORM2R', INFOT, NOUT, LERR, OK )
+      dorm2r('L', 'N', 2, 1, 0, A, 2, X, AF, 1, W, INFO );
+      chkxer('DORM2R', INFOT, NOUT, LERR, OK );
 
       // Print a summary line.
 
-      CALL ALAESM( PATH, OK, NOUT )
+      alaesm(PATH, OK, NOUT );
 
       RETURN
 

@@ -62,7 +62,7 @@
          INFO = -11
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'CUNMR3', -INFO )
+         xerbla('CUNMR3', -INFO );
          RETURN
       }
 
@@ -112,7 +112,7 @@
          } else {
             TAUI = CONJG( TAU( I ) )
          }
-         CALL CLARZ( SIDE, MI, NI, L, A( I, JA ), LDA, TAUI, C( IC, JC ), LDC, WORK )
+         clarz(SIDE, MI, NI, L, A( I, JA ), LDA, TAUI, C( IC, JC ), LDC, WORK );
 
    10 CONTINUE
 

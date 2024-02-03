@@ -115,15 +115,15 @@
                      // Set up parameters with ZLATB4 and generate a test
                      // matrix with ZLATMS.
 
-                     CALL ZLATB4( 'ZPO', IMAT, N, N, CTYPE, KL, KU, ANORM, MODE, CNDNUM, DIST )
+                     zlatb4('ZPO', IMAT, N, N, CTYPE, KL, KU, ANORM, MODE, CNDNUM, DIST );
 
                      SRNAMT = 'ZLATMS'
-                     CALL ZLATMS( N, N, DIST, ISEED, CTYPE, D_WORK_ZLATMS, MODE, CNDNUM, ANORM, KL, KU, UPLO, A, LDA, Z_WORK_ZLATMS, INFO )
+                     zlatms(N, N, DIST, ISEED, CTYPE, D_WORK_ZLATMS, MODE, CNDNUM, ANORM, KL, KU, UPLO, A, LDA, Z_WORK_ZLATMS, INFO );
 
                      // Check error code from ZLATMS.
 
                      if ( INFO.NE.0 ) {
-                        CALL ALAERH( 'ZPF', 'ZLATMS', INFO, 0, UPLO, N, N, -1, -1, -1, IIT, NFAIL, NERRS, NOUT )
+                        alaerh('ZPF', 'ZLATMS', INFO, 0, UPLO, N, N, -1, -1, -1, IIT, NFAIL, NERRS, NOUT );
                         GO TO 100
                      }
 
@@ -169,11 +169,11 @@
 
                      // Set the imaginary part of the diagonals.
 
-                     CALL ZLAIPD( N, A, LDA+1, 0 )
+                     zlaipd(N, A, LDA+1, 0 );
 
                      // Save a copy of the matrix A in ASAV.
 
-                     CALL ZLACPY( UPLO, N, N, A, LDA, ASAV, LDA )
+                     zlacpy(UPLO, N, N, A, LDA, ASAV, LDA );
 
                      // Compute the condition number of A (RCONDC).
 
@@ -187,11 +187,11 @@
 
                         // Factor the matrix A.
 
-                        CALL ZPOTRF( UPLO, N, A, LDA, INFO )
+                        zpotrf(UPLO, N, A, LDA, INFO );
 
                         // Form the inverse of A.
 
-                        CALL ZPOTRI( UPLO, N, A, LDA, INFO )
+                        zpotri(UPLO, N, A, LDA, INFO );
 
                         if ( N .NE. 0 ) {
 
@@ -202,7 +202,7 @@
 
                            // Restore the matrix A.
 
-                           CALL ZLACPY( UPLO, N, N, ASAV, LDA, A, LDA )
+                           zlacpy(UPLO, N, N, ASAV, LDA, A, LDA );
                         }
 
                      }
@@ -210,19 +210,19 @@
                      // Form an exact solution and set the right hand side.
 
                      SRNAMT = 'ZLARHS'
-                     CALL ZLARHS( 'ZPO', 'N', UPLO, ' ', N, N, KL, KU, NRHS, A, LDA, XACT, LDA, B, LDA, ISEED, INFO )
-                     CALL ZLACPY( 'Full', N, NRHS, B, LDA, BSAV, LDA )
+                     zlarhs('ZPO', 'N', UPLO, ' ', N, N, KL, KU, NRHS, A, LDA, XACT, LDA, B, LDA, ISEED, INFO );
+                     zlacpy('Full', N, NRHS, B, LDA, BSAV, LDA );
 
                      // Compute the L*L' or U'*U factorization of the
                      // matrix and solve the system.
 
-                     CALL ZLACPY( UPLO, N, N, A, LDA, AFAC, LDA )
-                     CALL ZLACPY( 'Full', N, NRHS, B, LDB, X, LDB )
+                     zlacpy(UPLO, N, N, A, LDA, AFAC, LDA );
+                     zlacpy('Full', N, NRHS, B, LDB, X, LDB );
 
                      SRNAMT = 'ZTRTTF'
-                     CALL ZTRTTF( CFORM, UPLO, N, AFAC, LDA, ARF, INFO )
+                     ztrttf(CFORM, UPLO, N, AFAC, LDA, ARF, INFO );
                      SRNAMT = 'ZPFTRF'
-                     CALL ZPFTRF( CFORM, UPLO, N, ARF, INFO )
+                     zpftrf(CFORM, UPLO, N, ARF, INFO );
 
                      // Check error code from ZPFTRF.
 
@@ -232,7 +232,7 @@
                         // always be INFO however if INFO is ZERO, ALAERH does not
                         // complain.
 
-                         CALL ALAERH( 'ZPF', 'ZPFSV ', INFO, IZERO, UPLO, N, N, -1, -1, NRHS, IIT, NFAIL, NERRS, NOUT )
+                         alaerh('ZPF', 'ZPFSV ', INFO, IZERO, UPLO, N, N, -1, -1, NRHS, IIT, NFAIL, NERRS, NOUT );
                          GO TO 100
                       }
 
@@ -243,45 +243,45 @@
                      }
 
                      SRNAMT = 'ZPFTRS'
-                     CALL ZPFTRS( CFORM, UPLO, N, NRHS, ARF, X, LDB, INFO )
+                     zpftrs(CFORM, UPLO, N, NRHS, ARF, X, LDB, INFO );
 
                      SRNAMT = 'ZTFTTR'
-                     CALL ZTFTTR( CFORM, UPLO, N, ARF, AFAC, LDA, INFO )
+                     ztfttr(CFORM, UPLO, N, ARF, AFAC, LDA, INFO );
 
                      // Reconstruct matrix from factors and compute
                      // residual.
 
-                     CALL ZLACPY( UPLO, N, N, AFAC, LDA, ASAV, LDA )
-                     CALL ZPOT01( UPLO, N, A, LDA, AFAC, LDA, D_WORK_ZPOT01, RESULT( 1 ) )
-                     CALL ZLACPY( UPLO, N, N, ASAV, LDA, AFAC, LDA )
+                     zlacpy(UPLO, N, N, AFAC, LDA, ASAV, LDA );
+                     zpot01(UPLO, N, A, LDA, AFAC, LDA, D_WORK_ZPOT01, RESULT( 1 ) );
+                     zlacpy(UPLO, N, N, ASAV, LDA, AFAC, LDA );
 
                      // Form the inverse and compute the residual.
 
                     if (MOD(N,2).EQ.0) {
-                       CALL ZLACPY( 'A', N+1, N/2, ARF, N+1, ARFINV, N+1 )
+                       zlacpy('A', N+1, N/2, ARF, N+1, ARFINV, N+1 );
                     } else {
-                       CALL ZLACPY( 'A', N, (N+1)/2, ARF, N, ARFINV, N )
+                       zlacpy('A', N, (N+1)/2, ARF, N, ARFINV, N );
                     }
 
                      SRNAMT = 'ZPFTRI'
-                     CALL ZPFTRI( CFORM, UPLO, N, ARFINV , INFO )
+                     zpftri(CFORM, UPLO, N, ARFINV , INFO );
 
                      SRNAMT = 'ZTFTTR'
-                     CALL ZTFTTR( CFORM, UPLO, N, ARFINV, AINV, LDA, INFO )
+                     ztfttr(CFORM, UPLO, N, ARFINV, AINV, LDA, INFO );
 
                      // Check error code from ZPFTRI.
 
                      IF( INFO.NE.0 ) CALL ALAERH( 'ZPO', 'ZPFTRI', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT )
 
-                     CALL ZPOT03( UPLO, N, A, LDA, AINV, LDA, Z_WORK_ZPOT03, LDA, D_WORK_ZPOT03, RCONDC, RESULT( 2 ) )
+                     zpot03(UPLO, N, A, LDA, AINV, LDA, Z_WORK_ZPOT03, LDA, D_WORK_ZPOT03, RCONDC, RESULT( 2 ) );
 
                      // Compute residual of the computed solution.
 
-                     CALL ZLACPY( 'Full', N, NRHS, B, LDA, Z_WORK_ZPOT02, LDA )                      CALL ZPOT02( UPLO, N, NRHS, A, LDA, X, LDA, Z_WORK_ZPOT02, LDA, D_WORK_ZPOT02, RESULT( 3 ) )
+                     zlacpy('Full', N, NRHS, B, LDA, Z_WORK_ZPOT02, LDA )                      CALL ZPOT02( UPLO, N, NRHS, A, LDA, X, LDA, Z_WORK_ZPOT02, LDA, D_WORK_ZPOT02, RESULT( 3 ) );
 
                      // Check solution from generated exact solution.
 
-                     CALL ZGET04( N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 4 ) )
+                     zget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 4 ) );
                      NT = 4
 
                      // Print information about the tests that did not
@@ -302,7 +302,7 @@
 
       // Print a summary of the results.
 
-      CALL ALASVM( 'ZPF', NOUT, NFAIL, NRUN, NERRS )
+      alasvm('ZPF', NOUT, NFAIL, NRUN, NERRS );
 
  9999 FORMAT( 1X, A6, ', UPLO=''', A1, ''', N =', I5, ', type ', I1, ', test(', I1, ')=', G12.5 )
 

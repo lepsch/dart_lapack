@@ -70,7 +70,7 @@
 
       IF( TSTERR ) CALL SERRRQ( PATH, NOUT )
       INFOT = 0
-      CALL XLAENV( 2, 2 )
+      xlaenv(2, 2 );
 
       LDA = NMAX
       LWORK = NMAX*MAX( NMAX, NRHS )
@@ -94,15 +94,15 @@
                // Set up parameters with SLATB4 and generate a test matrix
                // with SLATMS.
 
-               CALL SLATB4( PATH, IMAT, M, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST )
+               slatb4(PATH, IMAT, M, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST );
 
                SRNAMT = 'SLATMS'
-               CALL SLATMS( M, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KL, KU, 'No packing', A, LDA, WORK, INFO )
+               slatms(M, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KL, KU, 'No packing', A, LDA, WORK, INFO );
 
                // Check error code from SLATMS.
 
                if ( INFO.NE.0 ) {
-                  CALL ALAERH( PATH, 'SLATMS', INFO, 0, ' ', M, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT )
+                  alaerh(PATH, 'SLATMS', INFO, 0, ' ', M, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
                   GO TO 50
                }
 
@@ -133,9 +133,9 @@
 
                   DO 30 INB = 1, NNB
                      NB = NBVAL( INB )
-                     CALL XLAENV( 1, NB )
+                     xlaenv(1, NB );
                      NX = NXVAL( INB )
-                     CALL XLAENV( 3, NX )
+                     xlaenv(3, NX );
                      DO I = 1, NTESTS
                         RESULT( I ) = ZERO
                      END DO
@@ -144,20 +144,20 @@
 
                         // Test SGERQF
 
-                        CALL SRQT01( M, N, A, AF, AQ, AR, LDA, TAU, WORK, LWORK, RWORK, RESULT( 1 ) )
+                        srqt01(M, N, A, AF, AQ, AR, LDA, TAU, WORK, LWORK, RWORK, RESULT( 1 ) );
                      } else if ( M.LE.N ) {
 
                         // Test SORGRQ, using factorization
                         // returned by SRQT01
 
-                        CALL SRQT02( M, N, K, A, AF, AQ, AR, LDA, TAU, WORK, LWORK, RWORK, RESULT( 1 ) )
+                        srqt02(M, N, K, A, AF, AQ, AR, LDA, TAU, WORK, LWORK, RWORK, RESULT( 1 ) );
                      }
                      if ( M.GE.K ) {
 
                         // Test SORMRQ, using factorization returned
                         // by SRQT01
 
-                        CALL SRQT03( M, N, K, AF, AC, AR, AQ, LDA, TAU, WORK, LWORK, RWORK, RESULT( 3 ) )
+                        srqt03(M, N, K, AF, AC, AR, AQ, LDA, TAU, WORK, LWORK, RWORK, RESULT( 3 ) );
                         NT = NT + 4
 
                         // If M>=N and K=N, call SGERQS to solve a system
@@ -170,17 +170,17 @@
                            // hand side.
 
                            SRNAMT = 'SLARHS'
-                           CALL SLARHS( PATH, 'New', 'Full', 'No transpose', M, N, 0, 0, NRHS, A, LDA, XACT, LDA, B, LDA, ISEED, INFO )
+                           slarhs(PATH, 'New', 'Full', 'No transpose', M, N, 0, 0, NRHS, A, LDA, XACT, LDA, B, LDA, ISEED, INFO );
 
-                           CALL SLACPY( 'Full', M, NRHS, B, LDA, X( N-M+1 ), LDA )
+                           slacpy('Full', M, NRHS, B, LDA, X( N-M+1 ), LDA );
                            SRNAMT = 'SGERQS'
-                           CALL SGERQS( M, N, NRHS, AF, LDA, TAU, X, LDA, WORK, LWORK, INFO )
+                           sgerqs(M, N, NRHS, AF, LDA, TAU, X, LDA, WORK, LWORK, INFO );
 
                            // Check error code from SGERQS.
 
                            IF( INFO.NE.0 ) CALL ALAERH( PATH, 'SGERQS', INFO, 0, ' ', M, N, NRHS, -1, NB, IMAT, NFAIL, NERRS, NOUT )
 
-                           CALL SGET02( 'No transpose', M, N, NRHS, A, LDA, X, LDA, B, LDA, RWORK, RESULT( 7 ) )
+                           sget02('No transpose', M, N, NRHS, A, LDA, X, LDA, B, LDA, RWORK, RESULT( 7 ) );
                            NT = NT + 1
                         }
                      }
@@ -203,7 +203,7 @@
 
       // Print a summary of the results.
 
-      CALL ALASUM( PATH, NOUT, NFAIL, NRUN, NERRS )
+      alasum(PATH, NOUT, NFAIL, NRUN, NERRS );
 
  9999 FORMAT( ' M=', I5, ', N=', I5, ', K=', I5, ', NB=', I4, ', NX=', I5, ', type ', I2, ', test(', I2, ')=', G12.5 )
       RETURN

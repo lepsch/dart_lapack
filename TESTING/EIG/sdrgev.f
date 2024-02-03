@@ -99,7 +99,7 @@
       IF( LWORK.LT.MINWRK ) INFO = -25
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'SDRGEV', -INFO )
+         xerbla('SDRGEV', -INFO );
          RETURN
       }
 
@@ -181,7 +181,7 @@
                } else {
                   IN = N
                }
-               CALL SLATM4( KATYPE( JTYPE ), IN, KZ1( KAZERO( JTYPE ) ), KZ2( KAZERO( JTYPE ) ), IASIGN( JTYPE ), RMAGN( KAMAGN( JTYPE ) ), ULP, RMAGN( KTRIAN( JTYPE )*KAMAGN( JTYPE ) ), 2, ISEED, A, LDA )
+               slatm4(KATYPE( JTYPE ), IN, KZ1( KAZERO( JTYPE ) ), KZ2( KAZERO( JTYPE ) ), IASIGN( JTYPE ), RMAGN( KAMAGN( JTYPE ) ), ULP, RMAGN( KTRIAN( JTYPE )*KAMAGN( JTYPE ) ), 2, ISEED, A, LDA );
                IADD = KADD( KAZERO( JTYPE ) )
                IF( IADD.GT.0 .AND. IADD.LE.N ) A( IADD, IADD ) = ONE
 
@@ -193,7 +193,7 @@
                } else {
                   IN = N
                }
-               CALL SLATM4( KBTYPE( JTYPE ), IN, KZ1( KBZERO( JTYPE ) ), KZ2( KBZERO( JTYPE ) ), IBSIGN( JTYPE ), RMAGN( KBMAGN( JTYPE ) ), ONE, RMAGN( KTRIAN( JTYPE )*KBMAGN( JTYPE ) ), 2, ISEED, B, LDA )
+               slatm4(KBTYPE( JTYPE ), IN, KZ1( KBZERO( JTYPE ) ), KZ2( KBZERO( JTYPE ) ), IBSIGN( JTYPE ), RMAGN( KBMAGN( JTYPE ) ), ONE, RMAGN( KTRIAN( JTYPE )*KBMAGN( JTYPE ) ), 2, ISEED, B, LDA );
                IADD = KADD( KBZERO( JTYPE ) )
                IF( IADD.NE.0 .AND. IADD.LE.N ) B( IADD, IADD ) = ONE
 
@@ -209,10 +209,10 @@
                         Q( JR, JC ) = SLARND( 3, ISEED )
                         Z( JR, JC ) = SLARND( 3, ISEED )
    30                CONTINUE
-                     CALL SLARFG( N+1-JC, Q( JC, JC ), Q( JC+1, JC ), 1, WORK( JC ) )
+                     slarfg(N+1-JC, Q( JC, JC ), Q( JC+1, JC ), 1, WORK( JC ) );
                      WORK( 2*N+JC ) = SIGN( ONE, Q( JC, JC ) )
                      Q( JC, JC ) = ONE
-                     CALL SLARFG( N+1-JC, Z( JC, JC ), Z( JC+1, JC ), 1, WORK( N+JC ) )
+                     slarfg(N+1-JC, Z( JC, JC ), Z( JC+1, JC ), 1, WORK( N+JC ) );
                      WORK( 3*N+JC ) = SIGN( ONE, Z( JC, JC ) )
                      Z( JC, JC ) = ONE
    40             CONTINUE
@@ -259,9 +259,9 @@
 
             // Call SGGEV to compute eigenvalues and eigenvectors.
 
-            CALL SLACPY( ' ', N, N, A, LDA, S, LDA )
-            CALL SLACPY( ' ', N, N, B, LDA, T, LDA )
-            CALL SGGEV( 'V', 'V', N, S, LDA, T, LDA, ALPHAR, ALPHAI, BETA, Q, LDQ, Z, LDQ, WORK, LWORK, IERR )
+            slacpy(' ', N, N, A, LDA, S, LDA );
+            slacpy(' ', N, N, B, LDA, T, LDA );
+            sggev('V', 'V', N, S, LDA, T, LDA, ALPHAR, ALPHAI, BETA, Q, LDQ, Z, LDQ, WORK, LWORK, IERR );
             if ( IERR.NE.0 .AND. IERR.NE.N+1 ) {
                RESULT( 1 ) = ULPINV
                WRITE( NOUNIT, FMT = 9999 )'SGGEV1', IERR, N, JTYPE, IOLDSD
@@ -271,23 +271,23 @@
 
             // Do the tests (1) and (2)
 
-            CALL SGET52( .TRUE., N, A, LDA, B, LDA, Q, LDQ, ALPHAR, ALPHAI, BETA, WORK, RESULT( 1 ) )
+            sget52(.TRUE., N, A, LDA, B, LDA, Q, LDQ, ALPHAR, ALPHAI, BETA, WORK, RESULT( 1 ) );
             if ( RESULT( 2 ).GT.THRESH ) {
                WRITE( NOUNIT, FMT = 9998 )'Left', 'SGGEV1', RESULT( 2 ), N, JTYPE, IOLDSD
             }
 
             // Do the tests (3) and (4)
 
-            CALL SGET52( .FALSE., N, A, LDA, B, LDA, Z, LDQ, ALPHAR, ALPHAI, BETA, WORK, RESULT( 3 ) )
+            sget52(.FALSE., N, A, LDA, B, LDA, Z, LDQ, ALPHAR, ALPHAI, BETA, WORK, RESULT( 3 ) );
             if ( RESULT( 4 ).GT.THRESH ) {
                WRITE( NOUNIT, FMT = 9998 )'Right', 'SGGEV1', RESULT( 4 ), N, JTYPE, IOLDSD
             }
 
             // Do the test (5)
 
-            CALL SLACPY( ' ', N, N, A, LDA, S, LDA )
-            CALL SLACPY( ' ', N, N, B, LDA, T, LDA )
-            CALL SGGEV( 'N', 'N', N, S, LDA, T, LDA, ALPHR1, ALPHI1, BETA1, Q, LDQ, Z, LDQ, WORK, LWORK, IERR )
+            slacpy(' ', N, N, A, LDA, S, LDA );
+            slacpy(' ', N, N, B, LDA, T, LDA );
+            sggev('N', 'N', N, S, LDA, T, LDA, ALPHR1, ALPHI1, BETA1, Q, LDQ, Z, LDQ, WORK, LWORK, IERR );
             if ( IERR.NE.0 .AND. IERR.NE.N+1 ) {
                RESULT( 1 ) = ULPINV
                WRITE( NOUNIT, FMT = 9999 )'SGGEV2', IERR, N, JTYPE, IOLDSD
@@ -302,9 +302,9 @@
             // Do the test (6): Compute eigenvalues and left eigenvectors,
             // and test them
 
-            CALL SLACPY( ' ', N, N, A, LDA, S, LDA )
-            CALL SLACPY( ' ', N, N, B, LDA, T, LDA )
-            CALL SGGEV( 'V', 'N', N, S, LDA, T, LDA, ALPHR1, ALPHI1, BETA1, QE, LDQE, Z, LDQ, WORK, LWORK, IERR )
+            slacpy(' ', N, N, A, LDA, S, LDA );
+            slacpy(' ', N, N, B, LDA, T, LDA );
+            sggev('V', 'N', N, S, LDA, T, LDA, ALPHR1, ALPHI1, BETA1, QE, LDQE, Z, LDQ, WORK, LWORK, IERR );
             if ( IERR.NE.0 .AND. IERR.NE.N+1 ) {
                RESULT( 1 ) = ULPINV
                WRITE( NOUNIT, FMT = 9999 )'SGGEV3', IERR, N, JTYPE, IOLDSD
@@ -325,9 +325,9 @@
             // DO the test (7): Compute eigenvalues and right eigenvectors,
             // and test them
 
-            CALL SLACPY( ' ', N, N, A, LDA, S, LDA )
-            CALL SLACPY( ' ', N, N, B, LDA, T, LDA )
-            CALL SGGEV( 'N', 'V', N, S, LDA, T, LDA, ALPHR1, ALPHI1, BETA1, Q, LDQ, QE, LDQE, WORK, LWORK, IERR )
+            slacpy(' ', N, N, A, LDA, S, LDA );
+            slacpy(' ', N, N, B, LDA, T, LDA );
+            sggev('N', 'V', N, S, LDA, T, LDA, ALPHR1, ALPHI1, BETA1, Q, LDQ, QE, LDQE, WORK, LWORK, IERR );
             if ( IERR.NE.0 .AND. IERR.NE.N+1 ) {
                RESULT( 1 ) = ULPINV
                WRITE( NOUNIT, FMT = 9999 )'SGGEV4', IERR, N, JTYPE, IOLDSD
@@ -387,7 +387,7 @@
 
       // Summary
 
-      CALL ALASVM( 'SGV', NOUNIT, NERRS, NTESTT, 0 )
+      alasvm('SGV', NOUNIT, NERRS, NTESTT, 0 );
 
       WORK( 1 ) = MAXWRK
 

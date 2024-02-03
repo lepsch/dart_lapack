@@ -96,7 +96,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'DGEGS ', -INFO )
+         xerbla('DGEGS ', -INFO );
          RETURN
       } else if ( LQUERY ) {
          RETURN
@@ -126,7 +126,7 @@
       }
 
       if ( ILASCL ) {
-         CALL DLASCL( 'G', -1, -1, ANRM, ANRMTO, N, N, A, LDA, IINFO )
+         dlascl('G', -1, -1, ANRM, ANRMTO, N, N, A, LDA, IINFO );
          if ( IINFO.NE.0 ) {
             INFO = N + 9
             RETURN
@@ -146,7 +146,7 @@
       }
 
       if ( ILBSCL ) {
-         CALL DLASCL( 'G', -1, -1, BNRM, BNRMTO, N, N, B, LDB, IINFO )
+         dlascl('G', -1, -1, BNRM, BNRMTO, N, N, B, LDB, IINFO );
          if ( IINFO.NE.0 ) {
             INFO = N + 9
             RETURN
@@ -160,7 +160,7 @@
       ILEFT = 1
       IRIGHT = N + 1
       IWORK = IRIGHT + N
-      CALL DGGBAL( 'P', N, A, LDA, B, LDB, ILO, IHI, WORK( ILEFT ), WORK( IRIGHT ), WORK( IWORK ), IINFO )
+      dggbal('P', N, A, LDA, B, LDB, ILO, IHI, WORK( ILEFT ), WORK( IRIGHT ), WORK( IWORK ), IINFO );
       if ( IINFO.NE.0 ) {
          INFO = N + 1
          GO TO 10
@@ -174,13 +174,13 @@
       ICOLS = N + 1 - ILO
       ITAU = IWORK
       IWORK = ITAU + IROWS
-      CALL DGEQRF( IROWS, ICOLS, B( ILO, ILO ), LDB, WORK( ITAU ), WORK( IWORK ), LWORK+1-IWORK, IINFO )       IF( IINFO.GE.0 ) LWKOPT = MAX( LWKOPT, INT( WORK( IWORK ) )+IWORK-1 )
+      dgeqrf(IROWS, ICOLS, B( ILO, ILO ), LDB, WORK( ITAU ), WORK( IWORK ), LWORK+1-IWORK, IINFO )       IF( IINFO.GE.0 ) LWKOPT = MAX( LWKOPT, INT( WORK( IWORK ) )+IWORK-1 );
       if ( IINFO.NE.0 ) {
          INFO = N + 2
          GO TO 10
       }
 
-      CALL DORMQR( 'L', 'T', IROWS, ICOLS, IROWS, B( ILO, ILO ), LDB, WORK( ITAU ), A( ILO, ILO ), LDA, WORK( IWORK ), LWORK+1-IWORK, IINFO )
+      dormqr('L', 'T', IROWS, ICOLS, IROWS, B( ILO, ILO ), LDB, WORK( ITAU ), A( ILO, ILO ), LDA, WORK( IWORK ), LWORK+1-IWORK, IINFO );
       IF( IINFO.GE.0 ) LWKOPT = MAX( LWKOPT, INT( WORK( IWORK ) )+IWORK-1 )
       if ( IINFO.NE.0 ) {
          INFO = N + 3
@@ -188,8 +188,8 @@
       }
 
       if ( ILVSL ) {
-         CALL DLASET( 'Full', N, N, ZERO, ONE, VSL, LDVSL )
-         CALL DLACPY( 'L', IROWS-1, IROWS-1, B( ILO+1, ILO ), LDB, VSL( ILO+1, ILO ), LDVSL )          CALL DORGQR( IROWS, IROWS, IROWS, VSL( ILO, ILO ), LDVSL, WORK( ITAU ), WORK( IWORK ), LWORK+1-IWORK, IINFO )
+         dlaset('Full', N, N, ZERO, ONE, VSL, LDVSL );
+         dlacpy('L', IROWS-1, IROWS-1, B( ILO+1, ILO ), LDB, VSL( ILO+1, ILO ), LDVSL )          CALL DORGQR( IROWS, IROWS, IROWS, VSL( ILO, ILO ), LDVSL, WORK( ITAU ), WORK( IWORK ), LWORK+1-IWORK, IINFO );
          IF( IINFO.GE.0 ) LWKOPT = MAX( LWKOPT, INT( WORK( IWORK ) )+IWORK-1 )
          if ( IINFO.NE.0 ) {
             INFO = N + 4
@@ -201,7 +201,7 @@
 
       // Reduce to generalized Hessenberg form
 
-      CALL DGGHRD( JOBVSL, JOBVSR, N, ILO, IHI, A, LDA, B, LDB, VSL, LDVSL, VSR, LDVSR, IINFO )
+      dgghrd(JOBVSL, JOBVSR, N, ILO, IHI, A, LDA, B, LDB, VSL, LDVSL, VSR, LDVSR, IINFO );
       if ( IINFO.NE.0 ) {
          INFO = N + 5
          GO TO 10
@@ -212,7 +212,7 @@
          // left_permutation, right_permutation, work...
 
       IWORK = ITAU
-      CALL DHGEQZ( 'S', JOBVSL, JOBVSR, N, ILO, IHI, A, LDA, B, LDB, ALPHAR, ALPHAI, BETA, VSL, LDVSL, VSR, LDVSR, WORK( IWORK ), LWORK+1-IWORK, IINFO )
+      dhgeqz('S', JOBVSL, JOBVSR, N, ILO, IHI, A, LDA, B, LDB, ALPHAR, ALPHAI, BETA, VSL, LDVSL, VSR, LDVSR, WORK( IWORK ), LWORK+1-IWORK, IINFO );
       IF( IINFO.GE.0 ) LWKOPT = MAX( LWKOPT, INT( WORK( IWORK ) )+IWORK-1 )
       if ( IINFO.NE.0 ) {
          if ( IINFO.GT.0 .AND. IINFO.LE.N ) {
@@ -228,14 +228,14 @@
       // Apply permutation to VSL and VSR
 
       if ( ILVSL ) {
-         CALL DGGBAK( 'P', 'L', N, ILO, IHI, WORK( ILEFT ), WORK( IRIGHT ), N, VSL, LDVSL, IINFO )
+         dggbak('P', 'L', N, ILO, IHI, WORK( ILEFT ), WORK( IRIGHT ), N, VSL, LDVSL, IINFO );
          if ( IINFO.NE.0 ) {
             INFO = N + 7
             GO TO 10
          }
       }
       if ( ILVSR ) {
-         CALL DGGBAK( 'P', 'R', N, ILO, IHI, WORK( ILEFT ), WORK( IRIGHT ), N, VSR, LDVSR, IINFO )
+         dggbak('P', 'R', N, ILO, IHI, WORK( ILEFT ), WORK( IRIGHT ), N, VSR, LDVSR, IINFO );
          if ( IINFO.NE.0 ) {
             INFO = N + 8
             GO TO 10
@@ -245,17 +245,17 @@
       // Undo scaling
 
       if ( ILASCL ) {
-         CALL DLASCL( 'H', -1, -1, ANRMTO, ANRM, N, N, A, LDA, IINFO )
+         dlascl('H', -1, -1, ANRMTO, ANRM, N, N, A, LDA, IINFO );
          if ( IINFO.NE.0 ) {
             INFO = N + 9
             RETURN
          }
-         CALL DLASCL( 'G', -1, -1, ANRMTO, ANRM, N, 1, ALPHAR, N, IINFO )
+         dlascl('G', -1, -1, ANRMTO, ANRM, N, 1, ALPHAR, N, IINFO );
          if ( IINFO.NE.0 ) {
             INFO = N + 9
             RETURN
          }
-         CALL DLASCL( 'G', -1, -1, ANRMTO, ANRM, N, 1, ALPHAI, N, IINFO )
+         dlascl('G', -1, -1, ANRMTO, ANRM, N, 1, ALPHAI, N, IINFO );
          if ( IINFO.NE.0 ) {
             INFO = N + 9
             RETURN
@@ -263,12 +263,12 @@
       }
 
       if ( ILBSCL ) {
-         CALL DLASCL( 'U', -1, -1, BNRMTO, BNRM, N, N, B, LDB, IINFO )
+         dlascl('U', -1, -1, BNRMTO, BNRM, N, N, B, LDB, IINFO );
          if ( IINFO.NE.0 ) {
             INFO = N + 9
             RETURN
          }
-         CALL DLASCL( 'G', -1, -1, BNRMTO, BNRM, N, 1, BETA, N, IINFO )
+         dlascl('G', -1, -1, BNRMTO, BNRM, N, 1, BETA, N, IINFO );
          if ( IINFO.NE.0 ) {
             INFO = N + 9
             RETURN

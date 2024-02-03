@@ -59,7 +59,7 @@
 
       // Compute I - A * AINV
 
-      CALL ZGEMM( 'No transpose', 'No transpose', N, N, N, -CONE, AINV, LDAINV, A, LDA, CZERO, WORK, LDWORK )
+      zgemm('No transpose', 'No transpose', N, N, N, -CONE, AINV, LDAINV, A, LDA, CZERO, WORK, LDWORK );
       DO 10 I = 1, N
          WORK( I, I ) = CONE + WORK( I, I )
    10 CONTINUE

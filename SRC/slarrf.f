@@ -273,8 +273,8 @@
       if (SHIFT.EQ.SLEFT) {
       ELSEIF (SHIFT.EQ.SRIGHT) THEN
          // store new L and D back into DPLUS, LPLUS
-         CALL SCOPY( N, WORK, 1, DPLUS, 1 )
-         CALL SCOPY( N-1, WORK(N+1), 1, LPLUS, 1 )
+         scopy(N, WORK, 1, DPLUS, 1 );
+         scopy(N-1, WORK(N+1), 1, LPLUS, 1 );
       ENDIF
 
       RETURN

@@ -102,7 +102,7 @@
       // Compute B - op(A)*X
 
       DO 20 J = 1, NRHS
-         CALL ZGBMV( TRANS, M, N, KL, KU, -CONE, A, LDA, X( 1, J ), 1, CONE, B( 1, J ), 1 )
+         zgbmv(TRANS, M, N, KL, KU, -CONE, A, LDA, X( 1, J ), 1, CONE, B( 1, J ), 1 );
    20 CONTINUE
 
       // Compute the maximum over the number of right hand sides of

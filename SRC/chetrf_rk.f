@@ -58,7 +58,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'CHETRF_RK', -INFO )
+         xerbla('CHETRF_RK', -INFO );
          RETURN
       } else if ( LQUERY ) {
          RETURN
@@ -97,12 +97,12 @@
             // Factorize columns k-kb+1:k of A and use blocked code to
             // update columns 1:k-kb
 
-            CALL CLAHEF_RK( UPLO, K, NB, KB, A, LDA, E, IPIV, WORK, LDWORK, IINFO )
+            clahef_rk(UPLO, K, NB, KB, A, LDA, E, IPIV, WORK, LDWORK, IINFO );
          } else {
 
             // Use unblocked code to factorize columns 1:k of A
 
-            CALL CHETF2_RK( UPLO, K, A, LDA, E, IPIV, IINFO )
+            chetf2_rk(UPLO, K, A, LDA, E, IPIV, IINFO );
             KB = K
          }
 
@@ -126,7 +126,7 @@
             DO I = K, ( K - KB + 1 ), -1
                IP = ABS( IPIV( I ) )
                if ( IP.NE.I ) {
-                  CALL CSWAP( N-K, A( I, K+1 ), LDA, A( IP, K+1 ), LDA )
+                  cswap(N-K, A( I, K+1 ), LDA, A( IP, K+1 ), LDA );
                }
             END DO
          }
@@ -161,14 +161,14 @@
             // Factorize columns k:k+kb-1 of A and use blocked code to
             // update columns k+kb:n
 
-            CALL CLAHEF_RK( UPLO, N-K+1, NB, KB, A( K, K ), LDA, E( K ), IPIV( K ), WORK, LDWORK, IINFO )
+            clahef_rk(UPLO, N-K+1, NB, KB, A( K, K ), LDA, E( K ), IPIV( K ), WORK, LDWORK, IINFO );
 
 
          } else {
 
             // Use unblocked code to factorize columns k:n of A
 
-            CALL CHETF2_RK( UPLO, N-K+1, A( K, K ), LDA, E( K ), IPIV( K ), IINFO )
+            chetf2_rk(UPLO, N-K+1, A( K, K ), LDA, E( K ), IPIV( K ), IINFO );
             KB = N - K + 1
 
          }
@@ -200,7 +200,7 @@
             DO I = K, ( K + KB - 1 ), 1
                IP = ABS( IPIV( I ) )
                if ( IP.NE.I ) {
-                  CALL CSWAP( K-1, A( I, 1 ), LDA, A( IP, 1 ), LDA )
+                  cswap(K-1, A( I, 1 ), LDA, A( IP, 1 ), LDA );
                }
             END DO
          }

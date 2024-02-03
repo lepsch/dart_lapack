@@ -53,16 +53,16 @@
       }
 
       if ( INFO.EQ.0 ) {
-         CALL CHETRF_AA( UPLO, N, A, LDA, IPIV, WORK, -1, INFO )
+         chetrf_aa(UPLO, N, A, LDA, IPIV, WORK, -1, INFO );
          LWKOPT_HETRF = INT( WORK( 1 ) )
-         CALL CHETRS_AA( UPLO, N, NRHS, A, LDA, IPIV, B, LDB, WORK, -1, INFO )
+         chetrs_aa(UPLO, N, NRHS, A, LDA, IPIV, B, LDB, WORK, -1, INFO );
          LWKOPT_HETRS = INT( WORK( 1 ) )
          LWKOPT = MAX( LWKMIN, LWKOPT_HETRF, LWKOPT_HETRS )
          WORK( 1 ) = SROUNDUP_LWORK( LWKOPT )
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'CHESV_AA ', -INFO )
+         xerbla('CHESV_AA ', -INFO );
          RETURN
       } else if ( LQUERY ) {
          RETURN
@@ -70,12 +70,12 @@
 
       // Compute the factorization A = U**H*T*U or A = L*T*L**H.
 
-      CALL CHETRF_AA( UPLO, N, A, LDA, IPIV, WORK, LWORK, INFO )
+      chetrf_aa(UPLO, N, A, LDA, IPIV, WORK, LWORK, INFO );
       if ( INFO.EQ.0 ) {
 
          // Solve the system A*X = B, overwriting B with X.
 
-         CALL CHETRS_AA( UPLO, N, NRHS, A, LDA, IPIV, B, LDB, WORK, LWORK, INFO )
+         chetrs_aa(UPLO, N, NRHS, A, LDA, IPIV, B, LDB, WORK, LWORK, INFO );
 
       }
 

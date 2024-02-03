@@ -62,7 +62,7 @@
 
       // Form X and Y
 
-      CALL ZLACPY( 'F', N, N, B, LDA, Y, LDY )
+      zlacpy('F', N, N, B, LDA, Y, LDY );
       Y( 3, 1 ) = -DCONJG( WY )
       Y( 4, 1 ) = DCONJG( WY )
       Y( 5, 1 ) = -DCONJG( WY )
@@ -70,7 +70,7 @@
       Y( 4, 2 ) = DCONJG( WY )
       Y( 5, 2 ) = -DCONJG( WY )
 
-      CALL ZLACPY( 'F', N, N, B, LDA, X, LDX )
+      zlacpy('F', N, N, B, LDA, X, LDX );
       X( 1, 3 ) = -WX
       X( 1, 4 ) = -WX
       X( 1, 5 ) = WX
@@ -97,12 +97,12 @@
 
       S( 1 ) = RONE / SQRT( ( RONE+THREE*CDABS( WY )*CDABS( WY ) ) / ( RONE+CDABS( A( 1, 1 ) )*CDABS( A( 1, 1 ) ) ) )       S( 2 ) = RONE / SQRT( ( RONE+THREE*CDABS( WY )*CDABS( WY ) ) / ( RONE+CDABS( A( 2, 2 ) )*CDABS( A( 2, 2 ) ) ) )       S( 3 ) = RONE / SQRT( ( RONE+TWO*CDABS( WX )*CDABS( WX ) ) / ( RONE+CDABS( A( 3, 3 ) )*CDABS( A( 3, 3 ) ) ) )       S( 4 ) = RONE / SQRT( ( RONE+TWO*CDABS( WX )*CDABS( WX ) ) / ( RONE+CDABS( A( 4, 4 ) )*CDABS( A( 4, 4 ) ) ) )       S( 5 ) = RONE / SQRT( ( RONE+TWO*CDABS( WX )*CDABS( WX ) ) / ( RONE+CDABS( A( 5, 5 ) )*CDABS( A( 5, 5 ) ) ) )
 
-      CALL ZLAKF2( 1, 4, A, LDA, A( 2, 2 ), B, B( 2, 2 ), Z, 8 )
-      CALL ZGESVD( 'N', 'N', 8, 8, Z, 8, RWORK, WORK, 1, WORK( 2 ), 1, WORK( 3 ), 24, RWORK( 9 ), INFO )
+      zlakf2(1, 4, A, LDA, A( 2, 2 ), B, B( 2, 2 ), Z, 8 );
+      zgesvd('N', 'N', 8, 8, Z, 8, RWORK, WORK, 1, WORK( 2 ), 1, WORK( 3 ), 24, RWORK( 9 ), INFO );
       DIF( 1 ) = RWORK( 8 )
 
-      CALL ZLAKF2( 4, 1, A, LDA, A( 5, 5 ), B, B( 5, 5 ), Z, 8 )
-      CALL ZGESVD( 'N', 'N', 8, 8, Z, 8, RWORK, WORK, 1, WORK( 2 ), 1, WORK( 3 ), 24, RWORK( 9 ), INFO )
+      zlakf2(4, 1, A, LDA, A( 5, 5 ), B, B( 5, 5 ), Z, 8 );
+      zgesvd('N', 'N', 8, 8, Z, 8, RWORK, WORK, 1, WORK( 2 ), 1, WORK( 3 ), 24, RWORK( 9 ), INFO );
       DIF( 5 ) = RWORK( 8 )
 
       RETURN

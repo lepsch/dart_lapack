@@ -49,7 +49,7 @@
          INFO = -4
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'SSYTRI_ROOK', -INFO )
+         xerbla('SSYTRI_ROOK', -INFO );
          RETURN
       }
 
@@ -101,8 +101,8 @@
             // Compute column K of the inverse.
 
             if ( K.GT.1 ) {
-               CALL SCOPY( K-1, A( 1, K ), 1, WORK, 1 )
-               CALL SSYMV( UPLO, K-1, -ONE, A, LDA, WORK, 1, ZERO, A( 1, K ), 1 )                A( K, K ) = A( K, K ) - SDOT( K-1, WORK, 1, A( 1, K ), 1 )
+               scopy(K-1, A( 1, K ), 1, WORK, 1 );
+               ssymv(UPLO, K-1, -ONE, A, LDA, WORK, 1, ZERO, A( 1, K ), 1 )                A( K, K ) = A( K, K ) - SDOT( K-1, WORK, 1, A( 1, K ), 1 );
             }
             KSTEP = 1
          } else {
@@ -123,10 +123,10 @@
             // Compute columns K and K+1 of the inverse.
 
             if ( K.GT.1 ) {
-               CALL SCOPY( K-1, A( 1, K ), 1, WORK, 1 )
-               CALL SSYMV( UPLO, K-1, -ONE, A, LDA, WORK, 1, ZERO, A( 1, K ), 1 )                A( K, K ) = A( K, K ) - SDOT( K-1, WORK, 1, A( 1, K ), 1 )                A( K, K+1 ) = A( K, K+1 ) - SDOT( K-1, A( 1, K ), 1, A( 1, K+1 ), 1 )
-               CALL SCOPY( K-1, A( 1, K+1 ), 1, WORK, 1 )
-               CALL SSYMV( UPLO, K-1, -ONE, A, LDA, WORK, 1, ZERO, A( 1, K+1 ), 1 )                A( K+1, K+1 ) = A( K+1, K+1 ) - SDOT( K-1, WORK, 1, A( 1, K+1 ), 1 )
+               scopy(K-1, A( 1, K ), 1, WORK, 1 );
+               ssymv(UPLO, K-1, -ONE, A, LDA, WORK, 1, ZERO, A( 1, K ), 1 )                A( K, K ) = A( K, K ) - SDOT( K-1, WORK, 1, A( 1, K ), 1 )                A( K, K+1 ) = A( K, K+1 ) - SDOT( K-1, A( 1, K ), 1, A( 1, K+1 ), 1 );
+               scopy(K-1, A( 1, K+1 ), 1, WORK, 1 );
+               ssymv(UPLO, K-1, -ONE, A, LDA, WORK, 1, ZERO, A( 1, K+1 ), 1 )                A( K+1, K+1 ) = A( K+1, K+1 ) - SDOT( K-1, WORK, 1, A( 1, K+1 ), 1 );
             }
             KSTEP = 2
          }
@@ -139,7 +139,7 @@
             KP = IPIV( K )
             if ( KP.NE.K ) {
                IF( KP.GT.1 ) CALL SSWAP( KP-1, A( 1, K ), 1, A( 1, KP ), 1 )
-               CALL SSWAP( K-KP-1, A( KP+1, K ), 1, A( KP, KP+1 ), LDA )
+               sswap(K-KP-1, A( KP+1, K ), 1, A( KP, KP+1 ), LDA );
                TEMP = A( K, K )
                A( K, K ) = A( KP, KP )
                A( KP, KP ) = TEMP
@@ -152,7 +152,7 @@
             KP = -IPIV( K )
             if ( KP.NE.K ) {
                IF( KP.GT.1 ) CALL SSWAP( KP-1, A( 1, K ), 1, A( 1, KP ), 1 )
-               CALL SSWAP( K-KP-1, A( KP+1, K ), 1, A( KP, KP+1 ), LDA )
+               sswap(K-KP-1, A( KP+1, K ), 1, A( KP, KP+1 ), LDA );
 
                TEMP = A( K, K )
                A( K, K ) = A( KP, KP )
@@ -166,7 +166,7 @@
             KP = -IPIV( K )
             if ( KP.NE.K ) {
                IF( KP.GT.1 ) CALL SSWAP( KP-1, A( 1, K ), 1, A( 1, KP ), 1 )
-               CALL SSWAP( K-KP-1, A( KP+1, K ), 1, A( KP, KP+1 ), LDA )
+               sswap(K-KP-1, A( KP+1, K ), 1, A( KP, KP+1 ), LDA );
                TEMP = A( K, K )
                A( K, K ) = A( KP, KP )
                A( KP, KP ) = TEMP
@@ -202,8 +202,8 @@
             // Compute column K of the inverse.
 
             if ( K.LT.N ) {
-               CALL SCOPY( N-K, A( K+1, K ), 1, WORK, 1 )
-               CALL SSYMV( UPLO, N-K, -ONE, A( K+1, K+1 ), LDA, WORK, 1, ZERO, A( K+1, K ), 1 )                A( K, K ) = A( K, K ) - SDOT( N-K, WORK, 1, A( K+1, K ), 1 )
+               scopy(N-K, A( K+1, K ), 1, WORK, 1 );
+               ssymv(UPLO, N-K, -ONE, A( K+1, K+1 ), LDA, WORK, 1, ZERO, A( K+1, K ), 1 )                A( K, K ) = A( K, K ) - SDOT( N-K, WORK, 1, A( K+1, K ), 1 );
             }
             KSTEP = 1
          } else {
@@ -224,10 +224,10 @@
             // Compute columns K-1 and K of the inverse.
 
             if ( K.LT.N ) {
-               CALL SCOPY( N-K, A( K+1, K ), 1, WORK, 1 )
-               CALL SSYMV( UPLO, N-K, -ONE, A( K+1, K+1 ), LDA, WORK, 1, ZERO, A( K+1, K ), 1 )                A( K, K ) = A( K, K ) - SDOT( N-K, WORK, 1, A( K+1, K ), 1 )                A( K, K-1 ) = A( K, K-1 ) - SDOT( N-K, A( K+1, K ), 1, A( K+1, K-1 ), 1 )
-               CALL SCOPY( N-K, A( K+1, K-1 ), 1, WORK, 1 )
-               CALL SSYMV( UPLO, N-K, -ONE, A( K+1, K+1 ), LDA, WORK, 1, ZERO, A( K+1, K-1 ), 1 )                A( K-1, K-1 ) = A( K-1, K-1 ) - SDOT( N-K, WORK, 1, A( K+1, K-1 ), 1 )
+               scopy(N-K, A( K+1, K ), 1, WORK, 1 );
+               ssymv(UPLO, N-K, -ONE, A( K+1, K+1 ), LDA, WORK, 1, ZERO, A( K+1, K ), 1 )                A( K, K ) = A( K, K ) - SDOT( N-K, WORK, 1, A( K+1, K ), 1 )                A( K, K-1 ) = A( K, K-1 ) - SDOT( N-K, A( K+1, K ), 1, A( K+1, K-1 ), 1 );
+               scopy(N-K, A( K+1, K-1 ), 1, WORK, 1 );
+               ssymv(UPLO, N-K, -ONE, A( K+1, K+1 ), LDA, WORK, 1, ZERO, A( K+1, K-1 ), 1 )                A( K-1, K-1 ) = A( K-1, K-1 ) - SDOT( N-K, WORK, 1, A( K+1, K-1 ), 1 );
             }
             KSTEP = 2
          }
@@ -240,7 +240,7 @@
             KP = IPIV( K )
             if ( KP.NE.K ) {
                IF( KP.LT.N ) CALL SSWAP( N-KP, A( KP+1, K ), 1, A( KP+1, KP ), 1 )
-               CALL SSWAP( KP-K-1, A( K+1, K ), 1, A( KP, K+1 ), LDA )
+               sswap(KP-K-1, A( K+1, K ), 1, A( KP, K+1 ), LDA );
                TEMP = A( K, K )
                A( K, K ) = A( KP, KP )
                A( KP, KP ) = TEMP
@@ -253,7 +253,7 @@
             KP = -IPIV( K )
             if ( KP.NE.K ) {
                IF( KP.LT.N ) CALL SSWAP( N-KP, A( KP+1, K ), 1, A( KP+1, KP ), 1 )
-               CALL SSWAP( KP-K-1, A( K+1, K ), 1, A( KP, K+1 ), LDA )
+               sswap(KP-K-1, A( K+1, K ), 1, A( KP, K+1 ), LDA );
 
                TEMP = A( K, K )
                A( K, K ) = A( KP, KP )
@@ -267,7 +267,7 @@
             KP = -IPIV( K )
             if ( KP.NE.K ) {
                IF( KP.LT.N ) CALL SSWAP( N-KP, A( KP+1, K ), 1, A( KP+1, KP ), 1 )
-               CALL SSWAP( KP-K-1, A( K+1, K ), 1, A( KP, K+1 ), LDA )
+               sswap(KP-K-1, A( K+1, K ), 1, A( KP, K+1 ), LDA );
                TEMP = A( K, K )
                A( K, K ) = A( KP, KP )
                A( KP, KP ) = TEMP

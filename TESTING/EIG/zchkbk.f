@@ -67,7 +67,7 @@
    30 CONTINUE
 
       KNT = KNT + 1
-      CALL ZGEBAK( 'B', 'R', N, ILO, IHI, SCALE, N, E, LDE, INFO )
+      zgebak('B', 'R', N, ILO, IHI, SCALE, N, E, LDE, INFO );
 
       if ( INFO.NE.0 ) {
          NINFO = NINFO + 1

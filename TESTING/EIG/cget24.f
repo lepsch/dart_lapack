@@ -76,7 +76,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'CGET24', -INFO )
+         xerbla('CGET24', -INFO );
          RETURN
       }
 
@@ -108,8 +108,8 @@
 
          // Compute Schur form and Schur vectors, and test them
 
-         CALL CLACPY( 'F', N, N, A, LDA, H, LDA )
-         CALL CGEESX( 'V', SORT, CSLECT, 'N', N, H, LDA, SDIM, W, VS, LDVS, RCONDE, RCONDV, WORK, LWORK, RWORK, BWORK, IINFO )
+         clacpy('F', N, N, A, LDA, H, LDA );
+         cgeesx('V', SORT, CSLECT, 'N', N, H, LDA, SDIM, W, VS, LDVS, RCONDE, RCONDV, WORK, LWORK, RWORK, BWORK, IINFO );
          if ( IINFO.NE.0 ) {
             RESULT( 1+RSUB ) = ULPINV
             if ( JTYPE.NE.22 ) {
@@ -121,7 +121,7 @@
             RETURN
          }
          if ( ISORT.EQ.0 ) {
-            CALL CCOPY( N, W, 1, WTMP, 1 )
+            ccopy(N, W, 1, WTMP, 1 );
          }
 
          // Do Test (1) or Test (7)
@@ -137,15 +137,15 @@
 
          // Copy A to VS1, used as workspace
 
-         CALL CLACPY( ' ', N, N, A, LDA, VS1, LDVS )
+         clacpy(' ', N, N, A, LDA, VS1, LDVS );
 
          // Compute Q*H and store in HT.
 
-         CALL CGEMM( 'No transpose', 'No transpose', N, N, N, CONE, VS, LDVS, H, LDA, CZERO, HT, LDA )
+         cgemm('No transpose', 'No transpose', N, N, N, CONE, VS, LDVS, H, LDA, CZERO, HT, LDA );
 
          // Compute A - Q*H*Q'
 
-         CALL CGEMM( 'No transpose', 'Conjugate transpose', N, N, N, -CONE, HT, LDA, VS, LDVS, CONE, VS1, LDVS )
+         cgemm('No transpose', 'Conjugate transpose', N, N, N, -CONE, HT, LDA, VS, LDVS, CONE, VS1, LDVS );
 
          ANORM = MAX( CLANGE( '1', N, N, A, LDA, RWORK ), SMLNUM )
          WNORM = CLANGE( '1', N, N, VS1, LDVS, RWORK )
@@ -162,7 +162,7 @@
 
          // Test (3) or (9):  Compute norm( I - Q'*Q ) / ( N * ULP )
 
-         CALL CUNT01( 'Columns', N, N, VS, LDVS, WORK, LWORK, RWORK, RESULT( 3+RSUB ) )
+         cunt01('Columns', N, N, VS, LDVS, WORK, LWORK, RWORK, RESULT( 3+RSUB ) );
 
          // Do Test (4) or Test (10)
 
@@ -173,8 +173,8 @@
 
          // Do Test (5) or Test (11)
 
-         CALL CLACPY( 'F', N, N, A, LDA, HT, LDA )
-         CALL CGEESX( 'N', SORT, CSLECT, 'N', N, HT, LDA, SDIM, WT, VS, LDVS, RCONDE, RCONDV, WORK, LWORK, RWORK, BWORK, IINFO )
+         clacpy('F', N, N, A, LDA, HT, LDA );
+         cgeesx('N', SORT, CSLECT, 'N', N, HT, LDA, SDIM, WT, VS, LDVS, RCONDE, RCONDV, WORK, LWORK, RWORK, BWORK, IINFO );
          if ( IINFO.NE.0 ) {
             RESULT( 5+RSUB ) = ULPINV
             if ( JTYPE.NE.22 ) {
@@ -226,8 +226,8 @@
          SORT = 'S'
          RESULT( 14 ) = ZERO
          RESULT( 15 ) = ZERO
-         CALL CLACPY( 'F', N, N, A, LDA, HT, LDA )
-         CALL CGEESX( 'V', SORT, CSLECT, 'B', N, HT, LDA, SDIM1, WT, VS1, LDVS, RCONDE, RCONDV, WORK, LWORK, RWORK, BWORK, IINFO )
+         clacpy('F', N, N, A, LDA, HT, LDA );
+         cgeesx('V', SORT, CSLECT, 'B', N, HT, LDA, SDIM1, WT, VS1, LDVS, RCONDE, RCONDV, WORK, LWORK, RWORK, BWORK, IINFO );
          if ( IINFO.NE.0 ) {
             RESULT( 14 ) = ULPINV
             RESULT( 15 ) = ULPINV
@@ -252,8 +252,8 @@
 
          // Compute both RCONDE and RCONDV without VS, and compare
 
-         CALL CLACPY( 'F', N, N, A, LDA, HT, LDA )
-         CALL CGEESX( 'N', SORT, CSLECT, 'B', N, HT, LDA, SDIM1, WT, VS1, LDVS, RCNDE1, RCNDV1, WORK, LWORK, RWORK, BWORK, IINFO )
+         clacpy('F', N, N, A, LDA, HT, LDA );
+         cgeesx('N', SORT, CSLECT, 'B', N, HT, LDA, SDIM1, WT, VS1, LDVS, RCNDE1, RCNDV1, WORK, LWORK, RWORK, BWORK, IINFO );
          if ( IINFO.NE.0 ) {
             RESULT( 14 ) = ULPINV
             RESULT( 15 ) = ULPINV
@@ -282,8 +282,8 @@
 
          // Compute RCONDE with VS, and compare
 
-         CALL CLACPY( 'F', N, N, A, LDA, HT, LDA )
-         CALL CGEESX( 'V', SORT, CSLECT, 'E', N, HT, LDA, SDIM1, WT, VS1, LDVS, RCNDE1, RCNDV1, WORK, LWORK, RWORK, BWORK, IINFO )
+         clacpy('F', N, N, A, LDA, HT, LDA );
+         cgeesx('V', SORT, CSLECT, 'E', N, HT, LDA, SDIM1, WT, VS1, LDVS, RCNDE1, RCNDV1, WORK, LWORK, RWORK, BWORK, IINFO );
          if ( IINFO.NE.0 ) {
             RESULT( 14 ) = ULPINV
             if ( JTYPE.NE.22 ) {
@@ -311,8 +311,8 @@
 
          // Compute RCONDE without VS, and compare
 
-         CALL CLACPY( 'F', N, N, A, LDA, HT, LDA )
-         CALL CGEESX( 'N', SORT, CSLECT, 'E', N, HT, LDA, SDIM1, WT, VS1, LDVS, RCNDE1, RCNDV1, WORK, LWORK, RWORK, BWORK, IINFO )
+         clacpy('F', N, N, A, LDA, HT, LDA );
+         cgeesx('N', SORT, CSLECT, 'E', N, HT, LDA, SDIM1, WT, VS1, LDVS, RCNDE1, RCNDV1, WORK, LWORK, RWORK, BWORK, IINFO );
          if ( IINFO.NE.0 ) {
             RESULT( 14 ) = ULPINV
             if ( JTYPE.NE.22 ) {
@@ -340,8 +340,8 @@
 
          // Compute RCONDV with VS, and compare
 
-         CALL CLACPY( 'F', N, N, A, LDA, HT, LDA )
-         CALL CGEESX( 'V', SORT, CSLECT, 'V', N, HT, LDA, SDIM1, WT, VS1, LDVS, RCNDE1, RCNDV1, WORK, LWORK, RWORK, BWORK, IINFO )
+         clacpy('F', N, N, A, LDA, HT, LDA );
+         cgeesx('V', SORT, CSLECT, 'V', N, HT, LDA, SDIM1, WT, VS1, LDVS, RCNDE1, RCNDV1, WORK, LWORK, RWORK, BWORK, IINFO );
          if ( IINFO.NE.0 ) {
             RESULT( 15 ) = ULPINV
             if ( JTYPE.NE.22 ) {
@@ -369,8 +369,8 @@
 
          // Compute RCONDV without VS, and compare
 
-         CALL CLACPY( 'F', N, N, A, LDA, HT, LDA )
-         CALL CGEESX( 'N', SORT, CSLECT, 'V', N, HT, LDA, SDIM1, WT, VS1, LDVS, RCNDE1, RCNDV1, WORK, LWORK, RWORK, BWORK, IINFO )
+         clacpy('F', N, N, A, LDA, HT, LDA );
+         cgeesx('N', SORT, CSLECT, 'V', N, HT, LDA, SDIM1, WT, VS1, LDVS, RCNDE1, RCNDV1, WORK, LWORK, RWORK, BWORK, IINFO );
          if ( IINFO.NE.0 ) {
             RESULT( 15 ) = ULPINV
             if ( JTYPE.NE.22 ) {
@@ -449,8 +449,8 @@
 
          // Compute condition numbers
 
-         CALL CLACPY( 'F', N, N, A, LDA, HT, LDA )
-         CALL CGEESX( 'N', 'S', CSLECT, 'B', N, HT, LDA, SDIM1, WT, VS1, LDVS, RCONDE, RCONDV, WORK, LWORK, RWORK, BWORK, IINFO )
+         clacpy('F', N, N, A, LDA, HT, LDA );
+         cgeesx('N', 'S', CSLECT, 'B', N, HT, LDA, SDIM1, WT, VS1, LDVS, RCONDE, RCONDV, WORK, LWORK, RWORK, BWORK, IINFO );
          if ( IINFO.NE.0 ) {
             RESULT( 16 ) = ULPINV
             RESULT( 17 ) = ULPINV

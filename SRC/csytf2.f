@@ -60,7 +60,7 @@
          INFO = -4
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'CSYTF2', -INFO )
+         xerbla('CSYTF2', -INFO );
          RETURN
       }
 
@@ -151,8 +151,8 @@
                // Interchange rows and columns KK and KP in the leading
                // submatrix A(1:k,1:k)
 
-               CALL CSWAP( KP-1, A( 1, KK ), 1, A( 1, KP ), 1 )
-               CALL CSWAP( KK-KP-1, A( KP+1, KK ), 1, A( KP, KP+1 ), LDA )
+               cswap(KP-1, A( 1, KK ), 1, A( 1, KP ), 1 );
+               cswap(KK-KP-1, A( KP+1, KK ), 1, A( KP, KP+1 ), LDA );
                T = A( KK, KK )
                A( KK, KK ) = A( KP, KP )
                A( KP, KP ) = T
@@ -178,11 +178,11 @@
                // A := A - U(k)*D(k)*U(k)**T = A - W(k)*1/D(k)*W(k)**T
 
                R1 = CONE / A( K, K )
-               CALL CSYR( UPLO, K-1, -R1, A( 1, K ), 1, A, LDA )
+               csyr(UPLO, K-1, -R1, A( 1, K ), 1, A, LDA );
 
                // Store U(k) in column k
 
-               CALL CSCAL( K-1, R1, A( 1, K ), 1 )
+               cscal(K-1, R1, A( 1, K ), 1 );
             } else {
 
                // 2-by-2 pivot block D(k): columns k and k-1 now hold
@@ -345,11 +345,11 @@
                   // A := A - L(k)*D(k)*L(k)**T = A - W(k)*(1/D(k))*W(k)**T
 
                   R1 = CONE / A( K, K )
-                  CALL CSYR( UPLO, N-K, -R1, A( K+1, K ), 1, A( K+1, K+1 ), LDA )
+                  csyr(UPLO, N-K, -R1, A( K+1, K ), 1, A( K+1, K+1 ), LDA );
 
                   // Store L(k) in column K
 
-                  CALL CSCAL( N-K, R1, A( K+1, K ), 1 )
+                  cscal(N-K, R1, A( K+1, K ), 1 );
                }
             } else {
 

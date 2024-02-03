@@ -63,7 +63,7 @@
          INFO = -9
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'DORT03', -INFO )
+         xerbla('DORT03', -INFO );
          RETURN
       }
 
@@ -92,7 +92,7 @@
 
          // Compute orthogonality of rows of V.
 
-         CALL DORT01( 'Rows', MV, N, V, LDV, WORK, LWORK, RES2 )
+         dort01('Rows', MV, N, V, LDV, WORK, LWORK, RES2 );
 
       } else {
 
@@ -110,7 +110,7 @@
 
          // Compute orthogonality of columns of V.
 
-         CALL DORT01( 'Columns', N, MV, V, LDV, WORK, LWORK, RES2 )
+         dort01('Columns', N, MV, V, LDV, WORK, LWORK, RES2 );
       }
 
       RESULT = MIN( MAX( RES1, RES2 ), ONE / ULP )

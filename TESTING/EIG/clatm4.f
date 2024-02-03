@@ -41,7 +41,7 @@
       // .. Executable Statements ..
 
       IF( N.LE.0 ) RETURN
-      CALL CLASET( 'Full', N, N, CZERO, CZERO, A, LDA )
+      claset('Full', N, N, CZERO, CZERO, A, LDA );
 
       // Insure a correct ISEED
 

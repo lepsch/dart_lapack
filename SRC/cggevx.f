@@ -141,7 +141,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'CGGEVX', -INFO )
+         xerbla('CGGEVX', -INFO );
          RETURN
       } else if ( LQUERY ) {
          RETURN
@@ -188,21 +188,21 @@
       // Permute and/or balance the matrix pair (A,B)
       // (Real Workspace: need 6*N if BALANC = 'S' or 'B', 1 otherwise)
 
-      CALL CGGBAL( BALANC, N, A, LDA, B, LDB, ILO, IHI, LSCALE, RSCALE, RWORK, IERR )
+      cggbal(BALANC, N, A, LDA, B, LDB, ILO, IHI, LSCALE, RSCALE, RWORK, IERR );
 
       // Compute ABNRM and BBNRM
 
       ABNRM = CLANGE( '1', N, N, A, LDA, RWORK( 1 ) )
       if ( ILASCL ) {
          RWORK( 1 ) = ABNRM
-         CALL SLASCL( 'G', 0, 0, ANRMTO, ANRM, 1, 1, RWORK( 1 ), 1, IERR )
+         slascl('G', 0, 0, ANRMTO, ANRM, 1, 1, RWORK( 1 ), 1, IERR );
          ABNRM = RWORK( 1 )
       }
 
       BBNRM = CLANGE( '1', N, N, B, LDB, RWORK( 1 ) )
       if ( ILBSCL ) {
          RWORK( 1 ) = BBNRM
-         CALL SLASCL( 'G', 0, 0, BNRMTO, BNRM, 1, 1, RWORK( 1 ), 1, IERR )
+         slascl('G', 0, 0, BNRMTO, BNRM, 1, 1, RWORK( 1 ), 1, IERR );
          BBNRM = RWORK( 1 )
       }
 
@@ -217,22 +217,22 @@
       }
       ITAU = 1
       IWRK = ITAU + IROWS
-      CALL CGEQRF( IROWS, ICOLS, B( ILO, ILO ), LDB, WORK( ITAU ), WORK( IWRK ), LWORK+1-IWRK, IERR )
+      cgeqrf(IROWS, ICOLS, B( ILO, ILO ), LDB, WORK( ITAU ), WORK( IWRK ), LWORK+1-IWRK, IERR );
 
       // Apply the unitary transformation to A
       // (Complex Workspace: need N, prefer N*NB)
 
-      CALL CUNMQR( 'L', 'C', IROWS, ICOLS, IROWS, B( ILO, ILO ), LDB, WORK( ITAU ), A( ILO, ILO ), LDA, WORK( IWRK ), LWORK+1-IWRK, IERR )
+      cunmqr('L', 'C', IROWS, ICOLS, IROWS, B( ILO, ILO ), LDB, WORK( ITAU ), A( ILO, ILO ), LDA, WORK( IWRK ), LWORK+1-IWRK, IERR );
 
       // Initialize VL and/or VR
       // (Workspace: need N, prefer N*NB)
 
       if ( ILVL ) {
-         CALL CLASET( 'Full', N, N, CZERO, CONE, VL, LDVL )
+         claset('Full', N, N, CZERO, CONE, VL, LDVL );
          if ( IROWS.GT.1 ) {
-            CALL CLACPY( 'L', IROWS-1, IROWS-1, B( ILO+1, ILO ), LDB, VL( ILO+1, ILO ), LDVL )
+            clacpy('L', IROWS-1, IROWS-1, B( ILO+1, ILO ), LDB, VL( ILO+1, ILO ), LDVL );
          }
-         CALL CUNGQR( IROWS, IROWS, IROWS, VL( ILO, ILO ), LDVL, WORK( ITAU ), WORK( IWRK ), LWORK+1-IWRK, IERR )
+         cungqr(IROWS, IROWS, IROWS, VL( ILO, ILO ), LDVL, WORK( ITAU ), WORK( IWRK ), LWORK+1-IWRK, IERR );
       }
 
       IF( ILVR ) CALL CLASET( 'Full', N, N, CZERO, CONE, VR, LDVR )
@@ -244,9 +244,9 @@
 
          // Eigenvectors requested -- work on whole matrix.
 
-         CALL CGGHRD( JOBVL, JOBVR, N, ILO, IHI, A, LDA, B, LDB, VL, LDVL, VR, LDVR, IERR )
+         cgghrd(JOBVL, JOBVR, N, ILO, IHI, A, LDA, B, LDB, VL, LDVL, VR, LDVR, IERR );
       } else {
-         CALL CGGHRD( 'N', 'N', IROWS, 1, IROWS, A( ILO, ILO ), LDA, B( ILO, ILO ), LDB, VL, LDVL, VR, LDVR, IERR )
+         cgghrd('N', 'N', IROWS, 1, IROWS, A( ILO, ILO ), LDA, B( ILO, ILO ), LDB, VL, LDVL, VR, LDVR, IERR );
       }
 
       // Perform QZ algorithm (Compute eigenvalues, and optionally, the
@@ -261,7 +261,7 @@
          CHTEMP = 'E'
       }
 
-      CALL CHGEQZ( CHTEMP, JOBVL, JOBVR, N, ILO, IHI, A, LDA, B, LDB, ALPHA, BETA, VL, LDVL, VR, LDVR, WORK( IWRK ), LWORK+1-IWRK, RWORK, IERR )
+      chgeqz(CHTEMP, JOBVL, JOBVR, N, ILO, IHI, A, LDA, B, LDB, ALPHA, BETA, VL, LDVL, VR, LDVR, WORK( IWRK ), LWORK+1-IWRK, RWORK, IERR );
       if ( IERR.NE.0 ) {
          if ( IERR.GT.0 .AND. IERR.LE.N ) {
             INFO = IERR
@@ -291,7 +291,7 @@
                CHTEMP = 'R'
             }
 
-            CALL CTGEVC( CHTEMP, 'B', LDUMMA, N, A, LDA, B, LDB, VL, LDVL, VR, LDVR, N, IN, WORK( IWRK ), RWORK, IERR )
+            ctgevc(CHTEMP, 'B', LDUMMA, N, A, LDA, B, LDB, VL, LDVL, VR, LDVR, N, IN, WORK( IWRK ), RWORK, IERR );
             if ( IERR.NE.0 ) {
                INFO = N + 2
                GO TO 90
@@ -320,14 +320,14 @@
                IWRK1 = IWRK + N
 
                if ( WANTSE .OR. WANTSB ) {
-                  CALL CTGEVC( 'B', 'S', BWORK, N, A, LDA, B, LDB, WORK( 1 ), N, WORK( IWRK ), N, 1, M, WORK( IWRK1 ), RWORK, IERR )
+                  ctgevc('B', 'S', BWORK, N, A, LDA, B, LDB, WORK( 1 ), N, WORK( IWRK ), N, 1, M, WORK( IWRK1 ), RWORK, IERR );
                   if ( IERR.NE.0 ) {
                      INFO = N + 2
                      GO TO 90
                   }
                }
 
-               CALL CTGSNA( SENSE, 'S', BWORK, N, A, LDA, B, LDB, WORK( 1 ), N, WORK( IWRK ), N, RCONDE( I ), RCONDV( I ), 1, M, WORK( IWRK1 ), LWORK-IWRK1+1, IWORK, IERR )
+               ctgsna(SENSE, 'S', BWORK, N, A, LDA, B, LDB, WORK( 1 ), N, WORK( IWRK ), N, RCONDE( I ), RCONDV( I ), 1, M, WORK( IWRK1 ), LWORK-IWRK1+1, IWORK, IERR );
 
    20       CONTINUE
          }
@@ -337,7 +337,7 @@
       // (Workspace: none needed)
 
       if ( ILVL ) {
-         CALL CGGBAK( BALANC, 'L', N, ILO, IHI, LSCALE, RSCALE, N, VL, LDVL, IERR )
+         cggbak(BALANC, 'L', N, ILO, IHI, LSCALE, RSCALE, N, VL, LDVL, IERR );
 
          DO 50 JC = 1, N
             TEMP = ZERO
@@ -353,7 +353,7 @@
       }
 
       if ( ILVR ) {
-         CALL CGGBAK( BALANC, 'R', N, ILO, IHI, LSCALE, RSCALE, N, VR, LDVR, IERR )
+         cggbak(BALANC, 'R', N, ILO, IHI, LSCALE, RSCALE, N, VR, LDVR, IERR );
          DO 80 JC = 1, N
             TEMP = ZERO
             DO 60 JR = 1, N

@@ -63,7 +63,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'SSYEV ', -INFO )
+         xerbla('SSYEV ', -INFO );
          RETURN
       } else if ( LQUERY ) {
          RETURN
@@ -110,15 +110,15 @@
       INDTAU = INDE + N
       INDWRK = INDTAU + N
       LLWORK = LWORK - INDWRK + 1
-      CALL SSYTRD( UPLO, N, A, LDA, W, WORK( INDE ), WORK( INDTAU ), WORK( INDWRK ), LLWORK, IINFO )
+      ssytrd(UPLO, N, A, LDA, W, WORK( INDE ), WORK( INDTAU ), WORK( INDWRK ), LLWORK, IINFO );
 
       // For eigenvalues only, call SSTERF.  For eigenvectors, first call
       // SORGTR to generate the orthogonal matrix, then call SSTEQR.
 
       if ( .NOT.WANTZ ) {
-         CALL SSTERF( N, W, WORK( INDE ), INFO )
+         ssterf(N, W, WORK( INDE ), INFO );
       } else {
-         CALL SORGTR( UPLO, N, A, LDA, WORK( INDTAU ), WORK( INDWRK ), LLWORK, IINFO )          CALL SSTEQR( JOBZ, N, W, WORK( INDE ), A, LDA, WORK( INDTAU ), INFO )
+         sorgtr(UPLO, N, A, LDA, WORK( INDTAU ), WORK( INDWRK ), LLWORK, IINFO )          CALL SSTEQR( JOBZ, N, W, WORK( INDE ), A, LDA, WORK( INDTAU ), INFO );
       }
 
       // If matrix was scaled, then rescale eigenvalues appropriately.
@@ -129,7 +129,7 @@
          } else {
             IMAX = INFO - 1
          }
-         CALL SSCAL( IMAX, ONE / SIGMA, W, 1 )
+         sscal(IMAX, ONE / SIGMA, W, 1 );
       }
 
       // Set WORK(1) to optimal workspace size.

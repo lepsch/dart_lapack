@@ -34,7 +34,7 @@
       } else {
          W = DCONJG( B ) / ABS( B )
       }
-      CALL DLAEV2( DBLE( A ), ABS( B ), DBLE( C ), RT1, RT2, CS1, T )
+      dlaev2(DBLE( A ), ABS( B ), DBLE( C ), RT1, RT2, CS1, T );
       SN1 = W*T
       RETURN
 

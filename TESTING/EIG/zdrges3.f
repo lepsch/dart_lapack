@@ -110,7 +110,7 @@
       IF( LWORK.LT.MINWRK ) INFO = -19
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'ZDRGES3', -INFO )
+         xerbla('ZDRGES3', -INFO );
          RETURN
       }
 
@@ -199,7 +199,7 @@
                } else {
                   IN = N
                }
-               CALL ZLATM4( KATYPE( JTYPE ), IN, KZ1( KAZERO( JTYPE ) ), KZ2( KAZERO( JTYPE ) ), LASIGN( JTYPE ), RMAGN( KAMAGN( JTYPE ) ), ULP, RMAGN( KTRIAN( JTYPE )*KAMAGN( JTYPE ) ), 2, ISEED, A, LDA )
+               zlatm4(KATYPE( JTYPE ), IN, KZ1( KAZERO( JTYPE ) ), KZ2( KAZERO( JTYPE ) ), LASIGN( JTYPE ), RMAGN( KAMAGN( JTYPE ) ), ULP, RMAGN( KTRIAN( JTYPE )*KAMAGN( JTYPE ) ), 2, ISEED, A, LDA );
                IADD = KADD( KAZERO( JTYPE ) )
                IF( IADD.GT.0 .AND. IADD.LE.N ) A( IADD, IADD ) = RMAGN( KAMAGN( JTYPE ) )
 
@@ -211,7 +211,7 @@
                } else {
                   IN = N
                }
-               CALL ZLATM4( KBTYPE( JTYPE ), IN, KZ1( KBZERO( JTYPE ) ), KZ2( KBZERO( JTYPE ) ), LBSIGN( JTYPE ), RMAGN( KBMAGN( JTYPE ) ), ONE, RMAGN( KTRIAN( JTYPE )*KBMAGN( JTYPE ) ), 2, ISEED, B, LDA )
+               zlatm4(KBTYPE( JTYPE ), IN, KZ1( KBZERO( JTYPE ) ), KZ2( KBZERO( JTYPE ) ), LBSIGN( JTYPE ), RMAGN( KBMAGN( JTYPE ) ), ONE, RMAGN( KTRIAN( JTYPE )*KBMAGN( JTYPE ) ), 2, ISEED, B, LDA );
                IADD = KADD( KBZERO( JTYPE ) )
                IF( IADD.NE.0 .AND. IADD.LE.N ) B( IADD, IADD ) = RMAGN( KBMAGN( JTYPE ) )
 
@@ -227,10 +227,10 @@
                         Q( JR, JC ) = ZLARND( 3, ISEED )
                         Z( JR, JC ) = ZLARND( 3, ISEED )
    40                CONTINUE
-                     CALL ZLARFG( N+1-JC, Q( JC, JC ), Q( JC+1, JC ), 1, WORK( JC ) )
+                     zlarfg(N+1-JC, Q( JC, JC ), Q( JC+1, JC ), 1, WORK( JC ) );
                      WORK( 2*N+JC ) = SIGN( ONE, DBLE( Q( JC, JC ) ) )
                      Q( JC, JC ) = CONE
-                     CALL ZLARFG( N+1-JC, Z( JC, JC ), Z( JC+1, JC ), 1, WORK( N+JC ) )
+                     zlarfg(N+1-JC, Z( JC, JC ), Z( JC+1, JC ), 1, WORK( N+JC ) );
                      WORK( 3*N+JC ) = SIGN( ONE, DBLE( Z( JC, JC ) ) )
                      Z( JC, JC ) = CONE
    50             CONTINUE
@@ -290,19 +290,19 @@
 
                // Call XLAENV to set the parameters used in ZLAQZ0
 
-               CALL XLAENV( 12, 10 )
-               CALL XLAENV( 13, 12 )
-               CALL XLAENV( 14, 13 )
-               CALL XLAENV( 15, 2 )
-               CALL XLAENV( 17, 10 )
+               xlaenv(12, 10 );
+               xlaenv(13, 12 );
+               xlaenv(14, 13 );
+               xlaenv(15, 2 );
+               xlaenv(17, 10 );
 
                // Call ZGGES3 to compute H, T, Q, Z, alpha, and beta.
 
-               CALL ZLACPY( 'Full', N, N, A, LDA, S, LDA )
-               CALL ZLACPY( 'Full', N, N, B, LDA, T, LDA )
+               zlacpy('Full', N, N, A, LDA, S, LDA );
+               zlacpy('Full', N, N, B, LDA, T, LDA );
                NTEST = 1 + RSUB + ISORT
                RESULT( 1+RSUB+ISORT ) = ULPINV
-               CALL ZGGES3( 'V', 'V', SORT, ZLCTES, N, S, LDA, T, LDA, SDIM, ALPHA, BETA, Q, LDQ, Z, LDQ, WORK, LWORK, RWORK, BWORK, IINFO )
+               zgges3('V', 'V', SORT, ZLCTES, N, S, LDA, T, LDA, SDIM, ALPHA, BETA, Q, LDQ, Z, LDQ, WORK, LWORK, RWORK, BWORK, IINFO );
                if ( IINFO.NE.0 .AND. IINFO.NE.N+2 ) {
                   RESULT( 1+RSUB+ISORT ) = ULPINV
                   WRITE( NOUNIT, FMT = 9999 )'ZGGES3', IINFO, N, JTYPE, IOLDSD
@@ -315,12 +315,12 @@
                // Do tests 1--4 (or tests 7--9 when reordering )
 
                if ( ISORT.EQ.0 ) {
-                  CALL ZGET51( 1, N, A, LDA, S, LDA, Q, LDQ, Z, LDQ, WORK, RWORK, RESULT( 1 ) )                   CALL ZGET51( 1, N, B, LDA, T, LDA, Q, LDQ, Z, LDQ, WORK, RWORK, RESULT( 2 ) )
+                  zget51(1, N, A, LDA, S, LDA, Q, LDQ, Z, LDQ, WORK, RWORK, RESULT( 1 ) )                   CALL ZGET51( 1, N, B, LDA, T, LDA, Q, LDQ, Z, LDQ, WORK, RWORK, RESULT( 2 ) );
                } else {
-                  CALL ZGET54( N, A, LDA, B, LDA, S, LDA, T, LDA, Q, LDQ, Z, LDQ, WORK, RESULT( 2+RSUB ) )
+                  zget54(N, A, LDA, B, LDA, S, LDA, T, LDA, Q, LDQ, Z, LDQ, WORK, RESULT( 2+RSUB ) );
                }
 
-               CALL ZGET51( 3, N, B, LDA, T, LDA, Q, LDQ, Q, LDQ, WORK, RWORK, RESULT( 3+RSUB ) )                CALL ZGET51( 3, N, B, LDA, T, LDA, Z, LDQ, Z, LDQ, WORK, RWORK, RESULT( 4+RSUB ) )
+               zget51(3, N, B, LDA, T, LDA, Q, LDQ, Q, LDQ, WORK, RWORK, RESULT( 3+RSUB ) )                CALL ZGET51( 3, N, B, LDA, T, LDA, Z, LDQ, Z, LDQ, WORK, RWORK, RESULT( 4+RSUB ) );
 
                // Do test 5 and 6 (or Tests 10 and 11 when reordering):
                // check Schur form of A and compare eigenvalues with
@@ -409,7 +409,7 @@
 
       // Summary
 
-      CALL ALASVM( 'ZGS', NOUNIT, NERRS, NTESTT, 0 )
+      alasvm('ZGS', NOUNIT, NERRS, NTESTT, 0 );
 
       WORK( 1 ) = MAXWRK
 

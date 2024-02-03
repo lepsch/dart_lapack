@@ -96,40 +96,40 @@
             // not including e, RU, and RVT matrices.
 
             // Compute space preferred for each routine
-            CALL CGEBRD( M, N, CDUM(1), M, DUM(1), DUM(1), CDUM(1), CDUM(1), CDUM(1), -1, IERR )
+            cgebrd(M, N, CDUM(1), M, DUM(1), DUM(1), CDUM(1), CDUM(1), CDUM(1), -1, IERR );
             LWORK_CGEBRD_MN = INT( CDUM(1) )
 
-            CALL CGEBRD( N, N, CDUM(1), N, DUM(1), DUM(1), CDUM(1), CDUM(1), CDUM(1), -1, IERR )
+            cgebrd(N, N, CDUM(1), N, DUM(1), DUM(1), CDUM(1), CDUM(1), CDUM(1), -1, IERR );
             LWORK_CGEBRD_NN = INT( CDUM(1) )
 
-            CALL CGEQRF( M, N, CDUM(1), M, CDUM(1), CDUM(1), -1, IERR )
+            cgeqrf(M, N, CDUM(1), M, CDUM(1), CDUM(1), -1, IERR );
             LWORK_CGEQRF_MN = INT( CDUM(1) )
 
-            CALL CUNGBR( 'P', N, N, N, CDUM(1), N, CDUM(1), CDUM(1), -1, IERR )
+            cungbr('P', N, N, N, CDUM(1), N, CDUM(1), CDUM(1), -1, IERR );
             LWORK_CUNGBR_P_NN = INT( CDUM(1) )
 
-            CALL CUNGBR( 'Q', M, M, N, CDUM(1), M, CDUM(1), CDUM(1), -1, IERR )
+            cungbr('Q', M, M, N, CDUM(1), M, CDUM(1), CDUM(1), -1, IERR );
             LWORK_CUNGBR_Q_MM = INT( CDUM(1) )
 
-            CALL CUNGBR( 'Q', M, N, N, CDUM(1), M, CDUM(1), CDUM(1), -1, IERR )
+            cungbr('Q', M, N, N, CDUM(1), M, CDUM(1), CDUM(1), -1, IERR );
             LWORK_CUNGBR_Q_MN = INT( CDUM(1) )
 
-            CALL CUNGQR( M, M, N, CDUM(1), M, CDUM(1), CDUM(1), -1, IERR )
+            cungqr(M, M, N, CDUM(1), M, CDUM(1), CDUM(1), -1, IERR );
             LWORK_CUNGQR_MM = INT( CDUM(1) )
 
-            CALL CUNGQR( M, N, N, CDUM(1), M, CDUM(1), CDUM(1), -1, IERR )
+            cungqr(M, N, N, CDUM(1), M, CDUM(1), CDUM(1), -1, IERR );
             LWORK_CUNGQR_MN = INT( CDUM(1) )
 
-            CALL CUNMBR( 'P', 'R', 'C', N, N, N, CDUM(1), N, CDUM(1), CDUM(1), N, CDUM(1), -1, IERR )
+            cunmbr('P', 'R', 'C', N, N, N, CDUM(1), N, CDUM(1), CDUM(1), N, CDUM(1), -1, IERR );
             LWORK_CUNMBR_PRC_NN = INT( CDUM(1) )
 
-            CALL CUNMBR( 'Q', 'L', 'N', M, M, N, CDUM(1), M, CDUM(1), CDUM(1), M, CDUM(1), -1, IERR )
+            cunmbr('Q', 'L', 'N', M, M, N, CDUM(1), M, CDUM(1), CDUM(1), M, CDUM(1), -1, IERR );
             LWORK_CUNMBR_QLN_MM = INT( CDUM(1) )
 
-            CALL CUNMBR( 'Q', 'L', 'N', M, N, N, CDUM(1), M, CDUM(1), CDUM(1), M, CDUM(1), -1, IERR )
+            cunmbr('Q', 'L', 'N', M, N, N, CDUM(1), M, CDUM(1), CDUM(1), M, CDUM(1), -1, IERR );
             LWORK_CUNMBR_QLN_MN = INT( CDUM(1) )
 
-            CALL CUNMBR( 'Q', 'L', 'N', N, N, N, CDUM(1), N, CDUM(1), CDUM(1), N, CDUM(1), -1, IERR )
+            cunmbr('Q', 'L', 'N', N, N, N, CDUM(1), N, CDUM(1), CDUM(1), N, CDUM(1), -1, IERR );
             LWORK_CUNMBR_QLN_NN = INT( CDUM(1) )
 
             if ( M.GE.MNTHR1 ) {
@@ -226,40 +226,40 @@
             // not including e, RU, and RVT matrices.
 
             // Compute space preferred for each routine
-            CALL CGEBRD( M, N, CDUM(1), M, DUM(1), DUM(1), CDUM(1), CDUM(1), CDUM(1), -1, IERR )
+            cgebrd(M, N, CDUM(1), M, DUM(1), DUM(1), CDUM(1), CDUM(1), CDUM(1), -1, IERR );
             LWORK_CGEBRD_MN = INT( CDUM(1) )
 
-            CALL CGEBRD( M, M, CDUM(1), M, DUM(1), DUM(1), CDUM(1), CDUM(1), CDUM(1), -1, IERR )
+            cgebrd(M, M, CDUM(1), M, DUM(1), DUM(1), CDUM(1), CDUM(1), CDUM(1), -1, IERR );
             LWORK_CGEBRD_MM = INT( CDUM(1) )
 
-            CALL CGELQF( M, N, CDUM(1), M, CDUM(1), CDUM(1), -1, IERR )
+            cgelqf(M, N, CDUM(1), M, CDUM(1), CDUM(1), -1, IERR );
             LWORK_CGELQF_MN = INT( CDUM(1) )
 
-            CALL CUNGBR( 'P', M, N, M, CDUM(1), M, CDUM(1), CDUM(1), -1, IERR )
+            cungbr('P', M, N, M, CDUM(1), M, CDUM(1), CDUM(1), -1, IERR );
             LWORK_CUNGBR_P_MN = INT( CDUM(1) )
 
-            CALL CUNGBR( 'P', N, N, M, CDUM(1), N, CDUM(1), CDUM(1), -1, IERR )
+            cungbr('P', N, N, M, CDUM(1), N, CDUM(1), CDUM(1), -1, IERR );
             LWORK_CUNGBR_P_NN = INT( CDUM(1) )
 
-            CALL CUNGBR( 'Q', M, M, N, CDUM(1), M, CDUM(1), CDUM(1), -1, IERR )
+            cungbr('Q', M, M, N, CDUM(1), M, CDUM(1), CDUM(1), -1, IERR );
             LWORK_CUNGBR_Q_MM = INT( CDUM(1) )
 
-            CALL CUNGLQ( M, N, M, CDUM(1), M, CDUM(1), CDUM(1), -1, IERR )
+            cunglq(M, N, M, CDUM(1), M, CDUM(1), CDUM(1), -1, IERR );
             LWORK_CUNGLQ_MN = INT( CDUM(1) )
 
-            CALL CUNGLQ( N, N, M, CDUM(1), N, CDUM(1), CDUM(1), -1, IERR )
+            cunglq(N, N, M, CDUM(1), N, CDUM(1), CDUM(1), -1, IERR );
             LWORK_CUNGLQ_NN = INT( CDUM(1) )
 
-            CALL CUNMBR( 'P', 'R', 'C', M, M, M, CDUM(1), M, CDUM(1), CDUM(1), M, CDUM(1), -1, IERR )
+            cunmbr('P', 'R', 'C', M, M, M, CDUM(1), M, CDUM(1), CDUM(1), M, CDUM(1), -1, IERR );
             LWORK_CUNMBR_PRC_MM = INT( CDUM(1) )
 
-            CALL CUNMBR( 'P', 'R', 'C', M, N, M, CDUM(1), M, CDUM(1), CDUM(1), M, CDUM(1), -1, IERR )
+            cunmbr('P', 'R', 'C', M, N, M, CDUM(1), M, CDUM(1), CDUM(1), M, CDUM(1), -1, IERR );
             LWORK_CUNMBR_PRC_MN = INT( CDUM(1) )
 
-            CALL CUNMBR( 'P', 'R', 'C', N, N, M, CDUM(1), N, CDUM(1), CDUM(1), N, CDUM(1), -1, IERR )
+            cunmbr('P', 'R', 'C', N, N, M, CDUM(1), N, CDUM(1), CDUM(1), N, CDUM(1), -1, IERR );
             LWORK_CUNMBR_PRC_NN = INT( CDUM(1) )
 
-            CALL CUNMBR( 'Q', 'L', 'N', M, M, M, CDUM(1), M, CDUM(1), CDUM(1), M, CDUM(1), -1, IERR )
+            cunmbr('Q', 'L', 'N', M, M, M, CDUM(1), M, CDUM(1), CDUM(1), M, CDUM(1), -1, IERR );
             LWORK_CUNMBR_QLN_MM = INT( CDUM(1) )
 
             if ( N.GE.MNTHR1 ) {
@@ -358,7 +358,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'CGESDD', -INFO )
+         xerbla('CGESDD', -INFO );
          RETURN
       } else if ( LQUERY ) {
          RETURN
@@ -386,10 +386,10 @@
       ISCL = 0
       if ( ANRM.GT.ZERO .AND. ANRM.LT.SMLNUM ) {
          ISCL = 1
-         CALL CLASCL( 'G', 0, 0, ANRM, SMLNUM, M, N, A, LDA, IERR )
+         clascl('G', 0, 0, ANRM, SMLNUM, M, N, A, LDA, IERR );
       } else if ( ANRM.GT.BIGNUM ) {
          ISCL = 1
-         CALL CLASCL( 'G', 0, 0, ANRM, BIGNUM, M, N, A, LDA, IERR )
+         clascl('G', 0, 0, ANRM, BIGNUM, M, N, A, LDA, IERR );
       }
 
       if ( M.GE.N ) {
@@ -413,11 +413,11 @@
                // CWorkspace: prefer N [tau] + N*NB [work]
                // RWorkspace: need   0
 
-               CALL CGEQRF( M, N, A, LDA, WORK( ITAU ), WORK( NWORK ), LWORK-NWORK+1, IERR )
+               cgeqrf(M, N, A, LDA, WORK( ITAU ), WORK( NWORK ), LWORK-NWORK+1, IERR );
 
                // Zero out below R
 
-               CALL CLASET( 'L', N-1, N-1, CZERO, CZERO, A( 2, 1 ), LDA )
+               claset('L', N-1, N-1, CZERO, CZERO, A( 2, 1 ), LDA );
                IE = 1
                ITAUQ = 1
                ITAUP = ITAUQ + N
@@ -428,14 +428,14 @@
                // CWorkspace: prefer 2*N [tauq, taup] + 2*N*NB [work]
                // RWorkspace: need   N [e]
 
-               CALL CGEBRD( N, N, A, LDA, S, RWORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( NWORK ), LWORK-NWORK+1, IERR )
+               cgebrd(N, N, A, LDA, S, RWORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( NWORK ), LWORK-NWORK+1, IERR );
                NRWORK = IE + N
 
                // Perform bidiagonal SVD, compute singular values only
                // CWorkspace: need   0
                // RWorkspace: need   N [e] + BDSPAC
 
-               CALL SBDSDC( 'U', 'N', N, S, RWORK( IE ), DUM,1,DUM,1, DUM, IDUM, RWORK( NRWORK ), IWORK, INFO )
+               sbdsdc('U', 'N', N, S, RWORK( IE ), DUM,1,DUM,1, DUM, IDUM, RWORK( NRWORK ), IWORK, INFO );
 
             } else if ( WNTQO ) {
 
@@ -465,19 +465,19 @@
                // CWorkspace: prefer N*N [U] + N*N [R] + N [tau] + N*NB [work]
                // RWorkspace: need   0
 
-               CALL CGEQRF( M, N, A, LDA, WORK( ITAU ), WORK( NWORK ), LWORK-NWORK+1, IERR )
+               cgeqrf(M, N, A, LDA, WORK( ITAU ), WORK( NWORK ), LWORK-NWORK+1, IERR );
 
                // Copy R to WORK( IR ), zeroing out below it
 
-               CALL CLACPY( 'U', N, N, A, LDA, WORK( IR ), LDWRKR )
-               CALL CLASET( 'L', N-1, N-1, CZERO, CZERO, WORK( IR+1 ), LDWRKR )
+               clacpy('U', N, N, A, LDA, WORK( IR ), LDWRKR );
+               claset('L', N-1, N-1, CZERO, CZERO, WORK( IR+1 ), LDWRKR );
 
                // Generate Q in A
                // CWorkspace: need   N*N [U] + N*N [R] + N [tau] + N    [work]
                // CWorkspace: prefer N*N [U] + N*N [R] + N [tau] + N*NB [work]
                // RWorkspace: need   0
 
-               CALL CUNGQR( M, N, N, A, LDA, WORK( ITAU ), WORK( NWORK ), LWORK-NWORK+1, IERR )
+               cungqr(M, N, N, A, LDA, WORK( ITAU ), WORK( NWORK ), LWORK-NWORK+1, IERR );
                IE = 1
                ITAUQ = ITAU
                ITAUP = ITAUQ + N
@@ -488,7 +488,7 @@
                // CWorkspace: prefer N*N [U] + N*N [R] + 2*N [tauq, taup] + 2*N*NB [work]
                // RWorkspace: need   N [e]
 
-               CALL CGEBRD( N, N, WORK( IR ), LDWRKR, S, RWORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( NWORK ), LWORK-NWORK+1, IERR )
+               cgebrd(N, N, WORK( IR ), LDWRKR, S, RWORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( NWORK ), LWORK-NWORK+1, IERR );
 
                // Perform bidiagonal SVD, computing left singular vectors
                // of R in WORK(IRU) and computing right singular vectors
@@ -499,7 +499,7 @@
                IRU = IE + N
                IRVT = IRU + N*N
                NRWORK = IRVT + N*N
-               CALL SBDSDC( 'U', 'I', N, S, RWORK( IE ), RWORK( IRU ), N, RWORK( IRVT ), N, DUM, IDUM, RWORK( NRWORK ), IWORK, INFO )
+               sbdsdc('U', 'I', N, S, RWORK( IE ), RWORK( IRU ), N, RWORK( IRVT ), N, DUM, IDUM, RWORK( NRWORK ), IWORK, INFO );
 
                // Copy real matrix RWORK(IRU) to complex matrix WORK(IU)
                // Overwrite WORK(IU) by the left singular vectors of R
@@ -507,7 +507,7 @@
                // CWorkspace: prefer N*N [U] + N*N [R] + 2*N [tauq, taup] + N*NB [work]
                // RWorkspace: need   0
 
-               CALL CLACP2( 'F', N, N, RWORK( IRU ), N, WORK( IU ), LDWRKU )                CALL CUNMBR( 'Q', 'L', 'N', N, N, N, WORK( IR ), LDWRKR, WORK( ITAUQ ), WORK( IU ), LDWRKU, WORK( NWORK ), LWORK-NWORK+1, IERR )
+               clacp2('F', N, N, RWORK( IRU ), N, WORK( IU ), LDWRKU )                CALL CUNMBR( 'Q', 'L', 'N', N, N, N, WORK( IR ), LDWRKR, WORK( ITAUQ ), WORK( IU ), LDWRKU, WORK( NWORK ), LWORK-NWORK+1, IERR );
 
                // Copy real matrix RWORK(IRVT) to complex matrix VT
                // Overwrite VT by the right singular vectors of R
@@ -515,8 +515,8 @@
                // CWorkspace: prefer N*N [U] + N*N [R] + 2*N [tauq, taup] + N*NB [work]
                // RWorkspace: need   0
 
-               CALL CLACP2( 'F', N, N, RWORK( IRVT ), N, VT, LDVT )
-               CALL CUNMBR( 'P', 'R', 'C', N, N, N, WORK( IR ), LDWRKR, WORK( ITAUP ), VT, LDVT, WORK( NWORK ), LWORK-NWORK+1, IERR )
+               clacp2('F', N, N, RWORK( IRVT ), N, VT, LDVT );
+               cunmbr('P', 'R', 'C', N, N, N, WORK( IR ), LDWRKR, WORK( ITAUP ), VT, LDVT, WORK( NWORK ), LWORK-NWORK+1, IERR );
 
                // Multiply Q in A by left singular vectors of R in
                // WORK(IU), storing result in WORK(IR) and copying to A
@@ -526,8 +526,8 @@
 
                DO 10 I = 1, M, LDWRKR
                   CHUNK = MIN( M-I+1, LDWRKR )
-                  CALL CGEMM( 'N', 'N', CHUNK, N, N, CONE, A( I, 1 ), LDA, WORK( IU ), LDWRKU, CZERO, WORK( IR ), LDWRKR )
-                  CALL CLACPY( 'F', CHUNK, N, WORK( IR ), LDWRKR, A( I, 1 ), LDA )
+                  cgemm('N', 'N', CHUNK, N, N, CONE, A( I, 1 ), LDA, WORK( IU ), LDWRKU, CZERO, WORK( IR ), LDWRKR );
+                  clacpy('F', CHUNK, N, WORK( IR ), LDWRKR, A( I, 1 ), LDA );
    10          CONTINUE
 
             } else if ( WNTQS ) {
@@ -549,19 +549,19 @@
                // CWorkspace: prefer N*N [R] + N [tau] + N*NB [work]
                // RWorkspace: need   0
 
-               CALL CGEQRF( M, N, A, LDA, WORK( ITAU ), WORK( NWORK ), LWORK-NWORK+1, IERR )
+               cgeqrf(M, N, A, LDA, WORK( ITAU ), WORK( NWORK ), LWORK-NWORK+1, IERR );
 
                // Copy R to WORK(IR), zeroing out below it
 
-               CALL CLACPY( 'U', N, N, A, LDA, WORK( IR ), LDWRKR )
-               CALL CLASET( 'L', N-1, N-1, CZERO, CZERO, WORK( IR+1 ), LDWRKR )
+               clacpy('U', N, N, A, LDA, WORK( IR ), LDWRKR );
+               claset('L', N-1, N-1, CZERO, CZERO, WORK( IR+1 ), LDWRKR );
 
                // Generate Q in A
                // CWorkspace: need   N*N [R] + N [tau] + N    [work]
                // CWorkspace: prefer N*N [R] + N [tau] + N*NB [work]
                // RWorkspace: need   0
 
-               CALL CUNGQR( M, N, N, A, LDA, WORK( ITAU ), WORK( NWORK ), LWORK-NWORK+1, IERR )
+               cungqr(M, N, N, A, LDA, WORK( ITAU ), WORK( NWORK ), LWORK-NWORK+1, IERR );
                IE = 1
                ITAUQ = ITAU
                ITAUP = ITAUQ + N
@@ -572,7 +572,7 @@
                // CWorkspace: prefer N*N [R] + 2*N [tauq, taup] + 2*N*NB [work]
                // RWorkspace: need   N [e]
 
-               CALL CGEBRD( N, N, WORK( IR ), LDWRKR, S, RWORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( NWORK ), LWORK-NWORK+1, IERR )
+               cgebrd(N, N, WORK( IR ), LDWRKR, S, RWORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( NWORK ), LWORK-NWORK+1, IERR );
 
                // Perform bidiagonal SVD, computing left singular vectors
                // of bidiagonal matrix in RWORK(IRU) and computing right
@@ -583,7 +583,7 @@
                IRU = IE + N
                IRVT = IRU + N*N
                NRWORK = IRVT + N*N
-               CALL SBDSDC( 'U', 'I', N, S, RWORK( IE ), RWORK( IRU ), N, RWORK( IRVT ), N, DUM, IDUM, RWORK( NRWORK ), IWORK, INFO )
+               sbdsdc('U', 'I', N, S, RWORK( IE ), RWORK( IRU ), N, RWORK( IRVT ), N, DUM, IDUM, RWORK( NRWORK ), IWORK, INFO );
 
                // Copy real matrix RWORK(IRU) to complex matrix U
                // Overwrite U by left singular vectors of R
@@ -591,8 +591,8 @@
                // CWorkspace: prefer N*N [R] + 2*N [tauq, taup] + N*NB [work]
                // RWorkspace: need   0
 
-               CALL CLACP2( 'F', N, N, RWORK( IRU ), N, U, LDU )
-               CALL CUNMBR( 'Q', 'L', 'N', N, N, N, WORK( IR ), LDWRKR, WORK( ITAUQ ), U, LDU, WORK( NWORK ), LWORK-NWORK+1, IERR )
+               clacp2('F', N, N, RWORK( IRU ), N, U, LDU );
+               cunmbr('Q', 'L', 'N', N, N, N, WORK( IR ), LDWRKR, WORK( ITAUQ ), U, LDU, WORK( NWORK ), LWORK-NWORK+1, IERR );
 
                // Copy real matrix RWORK(IRVT) to complex matrix VT
                // Overwrite VT by right singular vectors of R
@@ -600,16 +600,16 @@
                // CWorkspace: prefer N*N [R] + 2*N [tauq, taup] + N*NB [work]
                // RWorkspace: need   0
 
-               CALL CLACP2( 'F', N, N, RWORK( IRVT ), N, VT, LDVT )
-               CALL CUNMBR( 'P', 'R', 'C', N, N, N, WORK( IR ), LDWRKR, WORK( ITAUP ), VT, LDVT, WORK( NWORK ), LWORK-NWORK+1, IERR )
+               clacp2('F', N, N, RWORK( IRVT ), N, VT, LDVT );
+               cunmbr('P', 'R', 'C', N, N, N, WORK( IR ), LDWRKR, WORK( ITAUP ), VT, LDVT, WORK( NWORK ), LWORK-NWORK+1, IERR );
 
                // Multiply Q in A by left singular vectors of R in
                // WORK(IR), storing result in U
                // CWorkspace: need   N*N [R]
                // RWorkspace: need   0
 
-               CALL CLACPY( 'F', N, N, U, LDU, WORK( IR ), LDWRKR )
-               CALL CGEMM( 'N', 'N', M, N, N, CONE, A, LDA, WORK( IR ), LDWRKR, CZERO, U, LDU )
+               clacpy('F', N, N, U, LDU, WORK( IR ), LDWRKR );
+               cgemm('N', 'N', M, N, N, CONE, A, LDA, WORK( IR ), LDWRKR, CZERO, U, LDU );
 
             } else if ( WNTQA ) {
 
@@ -630,19 +630,19 @@
                // CWorkspace: prefer N*N [U] + N [tau] + N*NB [work]
                // RWorkspace: need   0
 
-               CALL CGEQRF( M, N, A, LDA, WORK( ITAU ), WORK( NWORK ), LWORK-NWORK+1, IERR )
-               CALL CLACPY( 'L', M, N, A, LDA, U, LDU )
+               cgeqrf(M, N, A, LDA, WORK( ITAU ), WORK( NWORK ), LWORK-NWORK+1, IERR );
+               clacpy('L', M, N, A, LDA, U, LDU );
 
                // Generate Q in U
                // CWorkspace: need   N*N [U] + N [tau] + M    [work]
                // CWorkspace: prefer N*N [U] + N [tau] + M*NB [work]
                // RWorkspace: need   0
 
-               CALL CUNGQR( M, M, N, U, LDU, WORK( ITAU ), WORK( NWORK ), LWORK-NWORK+1, IERR )
+               cungqr(M, M, N, U, LDU, WORK( ITAU ), WORK( NWORK ), LWORK-NWORK+1, IERR );
 
                // Produce R in A, zeroing out below it
 
-               CALL CLASET( 'L', N-1, N-1, CZERO, CZERO, A( 2, 1 ), LDA )
+               claset('L', N-1, N-1, CZERO, CZERO, A( 2, 1 ), LDA );
                IE = 1
                ITAUQ = ITAU
                ITAUP = ITAUQ + N
@@ -653,7 +653,7 @@
                // CWorkspace: prefer N*N [U] + 2*N [tauq, taup] + 2*N*NB [work]
                // RWorkspace: need   N [e]
 
-               CALL CGEBRD( N, N, A, LDA, S, RWORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( NWORK ), LWORK-NWORK+1, IERR )
+               cgebrd(N, N, A, LDA, S, RWORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( NWORK ), LWORK-NWORK+1, IERR );
                IRU = IE + N
                IRVT = IRU + N*N
                NRWORK = IRVT + N*N
@@ -664,7 +664,7 @@
                // CWorkspace: need   0
                // RWorkspace: need   N [e] + N*N [RU] + N*N [RVT] + BDSPAC
 
-               CALL SBDSDC( 'U', 'I', N, S, RWORK( IE ), RWORK( IRU ), N, RWORK( IRVT ), N, DUM, IDUM, RWORK( NRWORK ), IWORK, INFO )
+               sbdsdc('U', 'I', N, S, RWORK( IE ), RWORK( IRU ), N, RWORK( IRVT ), N, DUM, IDUM, RWORK( NRWORK ), IWORK, INFO );
 
                // Copy real matrix RWORK(IRU) to complex matrix WORK(IU)
                // Overwrite WORK(IU) by left singular vectors of R
@@ -672,7 +672,7 @@
                // CWorkspace: prefer N*N [U] + 2*N [tauq, taup] + N*NB [work]
                // RWorkspace: need   0
 
-               CALL CLACP2( 'F', N, N, RWORK( IRU ), N, WORK( IU ), LDWRKU )                CALL CUNMBR( 'Q', 'L', 'N', N, N, N, A, LDA, WORK( ITAUQ ), WORK( IU ), LDWRKU, WORK( NWORK ), LWORK-NWORK+1, IERR )
+               clacp2('F', N, N, RWORK( IRU ), N, WORK( IU ), LDWRKU )                CALL CUNMBR( 'Q', 'L', 'N', N, N, N, A, LDA, WORK( ITAUQ ), WORK( IU ), LDWRKU, WORK( NWORK ), LWORK-NWORK+1, IERR );
 
                // Copy real matrix RWORK(IRVT) to complex matrix VT
                // Overwrite VT by right singular vectors of R
@@ -680,19 +680,19 @@
                // CWorkspace: prefer N*N [U] + 2*N [tauq, taup] + N*NB [work]
                // RWorkspace: need   0
 
-               CALL CLACP2( 'F', N, N, RWORK( IRVT ), N, VT, LDVT )
-               CALL CUNMBR( 'P', 'R', 'C', N, N, N, A, LDA, WORK( ITAUP ), VT, LDVT, WORK( NWORK ), LWORK-NWORK+1, IERR )
+               clacp2('F', N, N, RWORK( IRVT ), N, VT, LDVT );
+               cunmbr('P', 'R', 'C', N, N, N, A, LDA, WORK( ITAUP ), VT, LDVT, WORK( NWORK ), LWORK-NWORK+1, IERR );
 
                // Multiply Q in U by left singular vectors of R in
                // WORK(IU), storing result in A
                // CWorkspace: need   N*N [U]
                // RWorkspace: need   0
 
-               CALL CGEMM( 'N', 'N', M, N, N, CONE, U, LDU, WORK( IU ), LDWRKU, CZERO, A, LDA )
+               cgemm('N', 'N', M, N, N, CONE, U, LDU, WORK( IU ), LDWRKU, CZERO, A, LDA );
 
                // Copy left singular vectors of A from A to U
 
-               CALL CLACPY( 'F', M, N, A, LDA, U, LDU )
+               clacpy('F', M, N, A, LDA, U, LDU );
 
             }
 
@@ -715,7 +715,7 @@
             // CWorkspace: prefer 2*N [tauq, taup] + (M+N)*NB [work]
             // RWorkspace: need   N [e]
 
-            CALL CGEBRD( M, N, A, LDA, S, RWORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( NWORK ), LWORK-NWORK+1, IERR )
+            cgebrd(M, N, A, LDA, S, RWORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( NWORK ), LWORK-NWORK+1, IERR );
             if ( WNTQN ) {
 
                // Path 5n (M >> N, JOBZ='N')
@@ -723,7 +723,7 @@
                // CWorkspace: need   0
                // RWorkspace: need   N [e] + BDSPAC
 
-               CALL SBDSDC( 'U', 'N', N, S, RWORK( IE ), DUM, 1,DUM,1, DUM, IDUM, RWORK( NRWORK ), IWORK, INFO )
+               sbdsdc('U', 'N', N, S, RWORK( IE ), DUM, 1,DUM,1, DUM, IDUM, RWORK( NRWORK ), IWORK, INFO );
             } else if ( WNTQO ) {
                IU = NWORK
                IRU = NRWORK
@@ -736,15 +736,15 @@
                // CWorkspace: prefer 2*N [tauq, taup] + N*NB [work]
                // RWorkspace: need   0
 
-               CALL CLACPY( 'U', N, N, A, LDA, VT, LDVT )
-               CALL CUNGBR( 'P', N, N, N, VT, LDVT, WORK( ITAUP ), WORK( NWORK ), LWORK-NWORK+1, IERR )
+               clacpy('U', N, N, A, LDA, VT, LDVT );
+               cungbr('P', N, N, N, VT, LDVT, WORK( ITAUP ), WORK( NWORK ), LWORK-NWORK+1, IERR );
 
                // Generate Q in A
                // CWorkspace: need   2*N [tauq, taup] + N    [work]
                // CWorkspace: prefer 2*N [tauq, taup] + N*NB [work]
                // RWorkspace: need   0
 
-               CALL CUNGBR( 'Q', M, N, N, A, LDA, WORK( ITAUQ ), WORK( NWORK ), LWORK-NWORK+1, IERR )
+               cungbr('Q', M, N, N, A, LDA, WORK( ITAUQ ), WORK( NWORK ), LWORK-NWORK+1, IERR );
 
                if ( LWORK .GE. M*N + 3*N ) {
 
@@ -765,15 +765,15 @@
                // CWorkspace: need   0
                // RWorkspace: need   N [e] + N*N [RU] + N*N [RVT] + BDSPAC
 
-               CALL SBDSDC( 'U', 'I', N, S, RWORK( IE ), RWORK( IRU ), N, RWORK( IRVT ), N, DUM, IDUM, RWORK( NRWORK ), IWORK, INFO )
+               sbdsdc('U', 'I', N, S, RWORK( IE ), RWORK( IRU ), N, RWORK( IRVT ), N, DUM, IDUM, RWORK( NRWORK ), IWORK, INFO );
 
                // Multiply real matrix RWORK(IRVT) by P**H in VT,
                // storing the result in WORK(IU), copying to VT
                // CWorkspace: need   2*N [tauq, taup] + N*N [U]
                // RWorkspace: need   N [e] + N*N [RU] + N*N [RVT] + 2*N*N [rwork]
 
-               CALL CLARCM( N, N, RWORK( IRVT ), N, VT, LDVT, WORK( IU ), LDWRKU, RWORK( NRWORK ) )
-               CALL CLACPY( 'F', N, N, WORK( IU ), LDWRKU, VT, LDVT )
+               clarcm(N, N, RWORK( IRVT ), N, VT, LDVT, WORK( IU ), LDWRKU, RWORK( NRWORK ) );
+               clacpy('F', N, N, WORK( IU ), LDWRKU, VT, LDVT );
 
                // Multiply Q in A by real matrix RWORK(IRU), storing the
                // result in WORK(IU), copying to A
@@ -785,7 +785,7 @@
                NRWORK = IRVT
                DO 20 I = 1, M, LDWRKU
                   CHUNK = MIN( M-I+1, LDWRKU )
-                  CALL CLACRM( CHUNK, N, A( I, 1 ), LDA, RWORK( IRU ), N, WORK( IU ), LDWRKU, RWORK( NRWORK ) )                   CALL CLACPY( 'F', CHUNK, N, WORK( IU ), LDWRKU, A( I, 1 ), LDA )
+                  clacrm(CHUNK, N, A( I, 1 ), LDA, RWORK( IRU ), N, WORK( IU ), LDWRKU, RWORK( NRWORK ) )                   CALL CLACPY( 'F', CHUNK, N, WORK( IU ), LDWRKU, A( I, 1 ), LDA );
    20          CONTINUE
 
             } else if ( WNTQS ) {
@@ -796,16 +796,16 @@
                // CWorkspace: prefer 2*N [tauq, taup] + N*NB [work]
                // RWorkspace: need   0
 
-               CALL CLACPY( 'U', N, N, A, LDA, VT, LDVT )
-               CALL CUNGBR( 'P', N, N, N, VT, LDVT, WORK( ITAUP ), WORK( NWORK ), LWORK-NWORK+1, IERR )
+               clacpy('U', N, N, A, LDA, VT, LDVT );
+               cungbr('P', N, N, N, VT, LDVT, WORK( ITAUP ), WORK( NWORK ), LWORK-NWORK+1, IERR );
 
                // Copy A to U, generate Q
                // CWorkspace: need   2*N [tauq, taup] + N    [work]
                // CWorkspace: prefer 2*N [tauq, taup] + N*NB [work]
                // RWorkspace: need   0
 
-               CALL CLACPY( 'L', M, N, A, LDA, U, LDU )
-               CALL CUNGBR( 'Q', M, N, N, U, LDU, WORK( ITAUQ ), WORK( NWORK ), LWORK-NWORK+1, IERR )
+               clacpy('L', M, N, A, LDA, U, LDU );
+               cungbr('Q', M, N, N, U, LDU, WORK( ITAUQ ), WORK( NWORK ), LWORK-NWORK+1, IERR );
 
                // Perform bidiagonal SVD, computing left singular vectors
                // of bidiagonal matrix in RWORK(IRU) and computing right
@@ -816,15 +816,15 @@
                IRU = NRWORK
                IRVT = IRU + N*N
                NRWORK = IRVT + N*N
-               CALL SBDSDC( 'U', 'I', N, S, RWORK( IE ), RWORK( IRU ), N, RWORK( IRVT ), N, DUM, IDUM, RWORK( NRWORK ), IWORK, INFO )
+               sbdsdc('U', 'I', N, S, RWORK( IE ), RWORK( IRU ), N, RWORK( IRVT ), N, DUM, IDUM, RWORK( NRWORK ), IWORK, INFO );
 
                // Multiply real matrix RWORK(IRVT) by P**H in VT,
                // storing the result in A, copying to VT
                // CWorkspace: need   0
                // RWorkspace: need   N [e] + N*N [RU] + N*N [RVT] + 2*N*N [rwork]
 
-               CALL CLARCM( N, N, RWORK( IRVT ), N, VT, LDVT, A, LDA, RWORK( NRWORK ) )
-               CALL CLACPY( 'F', N, N, A, LDA, VT, LDVT )
+               clarcm(N, N, RWORK( IRVT ), N, VT, LDVT, A, LDA, RWORK( NRWORK ) );
+               clacpy('F', N, N, A, LDA, VT, LDVT );
 
                // Multiply Q in U by real matrix RWORK(IRU), storing the
                // result in A, copying to U
@@ -832,8 +832,8 @@
                // RWorkspace: need   N [e] + N*N [RU] + 2*M*N [rwork] < N + 5*N*N since M < 2*N here
 
                NRWORK = IRVT
-               CALL CLACRM( M, N, U, LDU, RWORK( IRU ), N, A, LDA, RWORK( NRWORK ) )
-               CALL CLACPY( 'F', M, N, A, LDA, U, LDU )
+               clacrm(M, N, U, LDU, RWORK( IRU ), N, A, LDA, RWORK( NRWORK ) );
+               clacpy('F', M, N, A, LDA, U, LDU );
             } else {
 
                // Path 5a (M >> N, JOBZ='A')
@@ -842,16 +842,16 @@
                // CWorkspace: prefer 2*N [tauq, taup] + N*NB [work]
                // RWorkspace: need   0
 
-               CALL CLACPY( 'U', N, N, A, LDA, VT, LDVT )
-               CALL CUNGBR( 'P', N, N, N, VT, LDVT, WORK( ITAUP ), WORK( NWORK ), LWORK-NWORK+1, IERR )
+               clacpy('U', N, N, A, LDA, VT, LDVT );
+               cungbr('P', N, N, N, VT, LDVT, WORK( ITAUP ), WORK( NWORK ), LWORK-NWORK+1, IERR );
 
                // Copy A to U, generate Q
                // CWorkspace: need   2*N [tauq, taup] + M    [work]
                // CWorkspace: prefer 2*N [tauq, taup] + M*NB [work]
                // RWorkspace: need   0
 
-               CALL CLACPY( 'L', M, N, A, LDA, U, LDU )
-               CALL CUNGBR( 'Q', M, M, N, U, LDU, WORK( ITAUQ ), WORK( NWORK ), LWORK-NWORK+1, IERR )
+               clacpy('L', M, N, A, LDA, U, LDU );
+               cungbr('Q', M, M, N, U, LDU, WORK( ITAUQ ), WORK( NWORK ), LWORK-NWORK+1, IERR );
 
                // Perform bidiagonal SVD, computing left singular vectors
                // of bidiagonal matrix in RWORK(IRU) and computing right
@@ -862,15 +862,15 @@
                IRU = NRWORK
                IRVT = IRU + N*N
                NRWORK = IRVT + N*N
-               CALL SBDSDC( 'U', 'I', N, S, RWORK( IE ), RWORK( IRU ), N, RWORK( IRVT ), N, DUM, IDUM, RWORK( NRWORK ), IWORK, INFO )
+               sbdsdc('U', 'I', N, S, RWORK( IE ), RWORK( IRU ), N, RWORK( IRVT ), N, DUM, IDUM, RWORK( NRWORK ), IWORK, INFO );
 
                // Multiply real matrix RWORK(IRVT) by P**H in VT,
                // storing the result in A, copying to VT
                // CWorkspace: need   0
                // RWorkspace: need   N [e] + N*N [RU] + N*N [RVT] + 2*N*N [rwork]
 
-               CALL CLARCM( N, N, RWORK( IRVT ), N, VT, LDVT, A, LDA, RWORK( NRWORK ) )
-               CALL CLACPY( 'F', N, N, A, LDA, VT, LDVT )
+               clarcm(N, N, RWORK( IRVT ), N, VT, LDVT, A, LDA, RWORK( NRWORK ) );
+               clacpy('F', N, N, A, LDA, VT, LDVT );
 
                // Multiply Q in U by real matrix RWORK(IRU), storing the
                // result in A, copying to U
@@ -878,8 +878,8 @@
                // RWorkspace: need   N [e] + N*N [RU] + 2*M*N [rwork] < N + 5*N*N since M < 2*N here
 
                NRWORK = IRVT
-               CALL CLACRM( M, N, U, LDU, RWORK( IRU ), N, A, LDA, RWORK( NRWORK ) )
-               CALL CLACPY( 'F', M, N, A, LDA, U, LDU )
+               clacrm(M, N, U, LDU, RWORK( IRU ), N, A, LDA, RWORK( NRWORK ) );
+               clacpy('F', M, N, A, LDA, U, LDU );
             }
 
          } else {
@@ -901,7 +901,7 @@
             // CWorkspace: prefer 2*N [tauq, taup] + (M+N)*NB [work]
             // RWorkspace: need   N [e]
 
-            CALL CGEBRD( M, N, A, LDA, S, RWORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( NWORK ), LWORK-NWORK+1, IERR )
+            cgebrd(M, N, A, LDA, S, RWORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( NWORK ), LWORK-NWORK+1, IERR );
             if ( WNTQN ) {
 
                // Path 6n (M >= N, JOBZ='N')
@@ -909,7 +909,7 @@
                // CWorkspace: need   0
                // RWorkspace: need   N [e] + BDSPAC
 
-               CALL SBDSDC( 'U', 'N', N, S, RWORK( IE ), DUM,1,DUM,1, DUM, IDUM, RWORK( NRWORK ), IWORK, INFO )
+               sbdsdc('U', 'N', N, S, RWORK( IE ), DUM,1,DUM,1, DUM, IDUM, RWORK( NRWORK ), IWORK, INFO );
             } else if ( WNTQO ) {
                IU = NWORK
                IRU = NRWORK
@@ -935,7 +935,7 @@
                // CWorkspace: need   0
                // RWorkspace: need   N [e] + N*N [RU] + N*N [RVT] + BDSPAC
 
-               CALL SBDSDC( 'U', 'I', N, S, RWORK( IE ), RWORK( IRU ), N, RWORK( IRVT ), N, DUM, IDUM, RWORK( NRWORK ), IWORK, INFO )
+               sbdsdc('U', 'I', N, S, RWORK( IE ), RWORK( IRU ), N, RWORK( IRVT ), N, DUM, IDUM, RWORK( NRWORK ), IWORK, INFO );
 
                // Copy real matrix RWORK(IRVT) to complex matrix VT
                // Overwrite VT by right singular vectors of A
@@ -943,8 +943,8 @@
                // CWorkspace: prefer 2*N [tauq, taup] + N*N [U] + N*NB [work]
                // RWorkspace: need   N [e] + N*N [RU] + N*N [RVT]
 
-               CALL CLACP2( 'F', N, N, RWORK( IRVT ), N, VT, LDVT )
-               CALL CUNMBR( 'P', 'R', 'C', N, N, N, A, LDA, WORK( ITAUP ), VT, LDVT, WORK( NWORK ), LWORK-NWORK+1, IERR )
+               clacp2('F', N, N, RWORK( IRVT ), N, VT, LDVT );
+               cunmbr('P', 'R', 'C', N, N, N, A, LDA, WORK( ITAUP ), VT, LDVT, WORK( NWORK ), LWORK-NWORK+1, IERR );
 
                if ( LWORK .GE. M*N + 3*N ) {
 
@@ -956,8 +956,8 @@
                   // CWorkspace: prefer 2*N [tauq, taup] + M*N [U] + N*NB [work]
                   // RWorkspace: need   N [e] + N*N [RU]
 
-                  CALL CLASET( 'F', M, N, CZERO, CZERO, WORK( IU ), LDWRKU )                   CALL CLACP2( 'F', N, N, RWORK( IRU ), N, WORK( IU ), LDWRKU )                   CALL CUNMBR( 'Q', 'L', 'N', M, N, N, A, LDA, WORK( ITAUQ ), WORK( IU ), LDWRKU, WORK( NWORK ), LWORK-NWORK+1, IERR )
-                  CALL CLACPY( 'F', M, N, WORK( IU ), LDWRKU, A, LDA )
+                  claset('F', M, N, CZERO, CZERO, WORK( IU ), LDWRKU )                   CALL CLACP2( 'F', N, N, RWORK( IRU ), N, WORK( IU ), LDWRKU )                   CALL CUNMBR( 'Q', 'L', 'N', M, N, N, A, LDA, WORK( ITAUQ ), WORK( IU ), LDWRKU, WORK( NWORK ), LWORK-NWORK+1, IERR );
+                  clacpy('F', M, N, WORK( IU ), LDWRKU, A, LDA );
                } else {
 
                   // Path 6o-slow
@@ -966,7 +966,7 @@
                   // CWorkspace: prefer 2*N [tauq, taup] + N*N [U] + N*NB [work]
                   // RWorkspace: need   0
 
-                  CALL CUNGBR( 'Q', M, N, N, A, LDA, WORK( ITAUQ ), WORK( NWORK ), LWORK-NWORK+1, IERR )
+                  cungbr('Q', M, N, N, A, LDA, WORK( ITAUQ ), WORK( NWORK ), LWORK-NWORK+1, IERR );
 
                   // Multiply Q in A by real matrix RWORK(IRU), storing the
                   // result in WORK(IU), copying to A
@@ -978,8 +978,8 @@
                   NRWORK = IRVT
                   DO 30 I = 1, M, LDWRKU
                      CHUNK = MIN( M-I+1, LDWRKU )
-                     CALL CLACRM( CHUNK, N, A( I, 1 ), LDA, RWORK( IRU ), N, WORK( IU ), LDWRKU, RWORK( NRWORK ) )
-                     CALL CLACPY( 'F', CHUNK, N, WORK( IU ), LDWRKU, A( I, 1 ), LDA )
+                     clacrm(CHUNK, N, A( I, 1 ), LDA, RWORK( IRU ), N, WORK( IU ), LDWRKU, RWORK( NRWORK ) );
+                     clacpy('F', CHUNK, N, WORK( IU ), LDWRKU, A( I, 1 ), LDA );
    30             CONTINUE
                }
 
@@ -995,7 +995,7 @@
                IRU = NRWORK
                IRVT = IRU + N*N
                NRWORK = IRVT + N*N
-               CALL SBDSDC( 'U', 'I', N, S, RWORK( IE ), RWORK( IRU ), N, RWORK( IRVT ), N, DUM, IDUM, RWORK( NRWORK ), IWORK, INFO )
+               sbdsdc('U', 'I', N, S, RWORK( IE ), RWORK( IRU ), N, RWORK( IRVT ), N, DUM, IDUM, RWORK( NRWORK ), IWORK, INFO );
 
                // Copy real matrix RWORK(IRU) to complex matrix U
                // Overwrite U by left singular vectors of A
@@ -1003,9 +1003,9 @@
                // CWorkspace: prefer 2*N [tauq, taup] + N*NB [work]
                // RWorkspace: need   N [e] + N*N [RU] + N*N [RVT]
 
-               CALL CLASET( 'F', M, N, CZERO, CZERO, U, LDU )
-               CALL CLACP2( 'F', N, N, RWORK( IRU ), N, U, LDU )
-               CALL CUNMBR( 'Q', 'L', 'N', M, N, N, A, LDA, WORK( ITAUQ ), U, LDU, WORK( NWORK ), LWORK-NWORK+1, IERR )
+               claset('F', M, N, CZERO, CZERO, U, LDU );
+               clacp2('F', N, N, RWORK( IRU ), N, U, LDU );
+               cunmbr('Q', 'L', 'N', M, N, N, A, LDA, WORK( ITAUQ ), U, LDU, WORK( NWORK ), LWORK-NWORK+1, IERR );
 
                // Copy real matrix RWORK(IRVT) to complex matrix VT
                // Overwrite VT by right singular vectors of A
@@ -1013,8 +1013,8 @@
                // CWorkspace: prefer 2*N [tauq, taup] + N*NB [work]
                // RWorkspace: need   N [e] + N*N [RU] + N*N [RVT]
 
-               CALL CLACP2( 'F', N, N, RWORK( IRVT ), N, VT, LDVT )
-               CALL CUNMBR( 'P', 'R', 'C', N, N, N, A, LDA, WORK( ITAUP ), VT, LDVT, WORK( NWORK ), LWORK-NWORK+1, IERR )
+               clacp2('F', N, N, RWORK( IRVT ), N, VT, LDVT );
+               cunmbr('P', 'R', 'C', N, N, N, A, LDA, WORK( ITAUP ), VT, LDVT, WORK( NWORK ), LWORK-NWORK+1, IERR );
             } else {
 
                // Path 6a (M >= N, JOBZ='A')
@@ -1027,13 +1027,13 @@
                IRU = NRWORK
                IRVT = IRU + N*N
                NRWORK = IRVT + N*N
-               CALL SBDSDC( 'U', 'I', N, S, RWORK( IE ), RWORK( IRU ), N, RWORK( IRVT ), N, DUM, IDUM, RWORK( NRWORK ), IWORK, INFO )
+               sbdsdc('U', 'I', N, S, RWORK( IE ), RWORK( IRU ), N, RWORK( IRVT ), N, DUM, IDUM, RWORK( NRWORK ), IWORK, INFO );
 
                // Set the right corner of U to identity matrix
 
-               CALL CLASET( 'F', M, M, CZERO, CZERO, U, LDU )
+               claset('F', M, M, CZERO, CZERO, U, LDU );
                if ( M.GT.N ) {
-                  CALL CLASET( 'F', M-N, M-N, CZERO, CONE, U( N+1, N+1 ), LDU )
+                  claset('F', M-N, M-N, CZERO, CONE, U( N+1, N+1 ), LDU );
                }
 
                // Copy real matrix RWORK(IRU) to complex matrix U
@@ -1042,8 +1042,8 @@
                // CWorkspace: prefer 2*N [tauq, taup] + M*NB [work]
                // RWorkspace: need   N [e] + N*N [RU] + N*N [RVT]
 
-               CALL CLACP2( 'F', N, N, RWORK( IRU ), N, U, LDU )
-               CALL CUNMBR( 'Q', 'L', 'N', M, M, N, A, LDA, WORK( ITAUQ ), U, LDU, WORK( NWORK ), LWORK-NWORK+1, IERR )
+               clacp2('F', N, N, RWORK( IRU ), N, U, LDU );
+               cunmbr('Q', 'L', 'N', M, M, N, A, LDA, WORK( ITAUQ ), U, LDU, WORK( NWORK ), LWORK-NWORK+1, IERR );
 
                // Copy real matrix RWORK(IRVT) to complex matrix VT
                // Overwrite VT by right singular vectors of A
@@ -1051,8 +1051,8 @@
                // CWorkspace: prefer 2*N [tauq, taup] + N*NB [work]
                // RWorkspace: need   N [e] + N*N [RU] + N*N [RVT]
 
-               CALL CLACP2( 'F', N, N, RWORK( IRVT ), N, VT, LDVT )
-               CALL CUNMBR( 'P', 'R', 'C', N, N, N, A, LDA, WORK( ITAUP ), VT, LDVT, WORK( NWORK ), LWORK-NWORK+1, IERR )
+               clacp2('F', N, N, RWORK( IRVT ), N, VT, LDVT );
+               cunmbr('P', 'R', 'C', N, N, N, A, LDA, WORK( ITAUP ), VT, LDVT, WORK( NWORK ), LWORK-NWORK+1, IERR );
             }
 
          }
@@ -1078,11 +1078,11 @@
                // CWorkspace: prefer M [tau] + M*NB [work]
                // RWorkspace: need   0
 
-               CALL CGELQF( M, N, A, LDA, WORK( ITAU ), WORK( NWORK ), LWORK-NWORK+1, IERR )
+               cgelqf(M, N, A, LDA, WORK( ITAU ), WORK( NWORK ), LWORK-NWORK+1, IERR );
 
                // Zero out above L
 
-               CALL CLASET( 'U', M-1, M-1, CZERO, CZERO, A( 1, 2 ), LDA )
+               claset('U', M-1, M-1, CZERO, CZERO, A( 1, 2 ), LDA );
                IE = 1
                ITAUQ = 1
                ITAUP = ITAUQ + M
@@ -1093,14 +1093,14 @@
                // CWorkspace: prefer 2*M [tauq, taup] + 2*M*NB [work]
                // RWorkspace: need   M [e]
 
-               CALL CGEBRD( M, M, A, LDA, S, RWORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( NWORK ), LWORK-NWORK+1, IERR )
+               cgebrd(M, M, A, LDA, S, RWORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( NWORK ), LWORK-NWORK+1, IERR );
                NRWORK = IE + M
 
                // Perform bidiagonal SVD, compute singular values only
                // CWorkspace: need   0
                // RWorkspace: need   M [e] + BDSPAC
 
-               CALL SBDSDC( 'U', 'N', M, S, RWORK( IE ), DUM,1,DUM,1, DUM, IDUM, RWORK( NRWORK ), IWORK, INFO )
+               sbdsdc('U', 'N', M, S, RWORK( IE ), DUM,1,DUM,1, DUM, IDUM, RWORK( NRWORK ), IWORK, INFO );
 
             } else if ( WNTQO ) {
 
@@ -1135,19 +1135,19 @@
                // CWorkspace: prefer M*M [VT] + M*M [L] + M [tau] + M*NB [work]
                // RWorkspace: need   0
 
-               CALL CGELQF( M, N, A, LDA, WORK( ITAU ), WORK( NWORK ), LWORK-NWORK+1, IERR )
+               cgelqf(M, N, A, LDA, WORK( ITAU ), WORK( NWORK ), LWORK-NWORK+1, IERR );
 
                // Copy L to WORK(IL), zeroing about above it
 
-               CALL CLACPY( 'L', M, M, A, LDA, WORK( IL ), LDWRKL )
-               CALL CLASET( 'U', M-1, M-1, CZERO, CZERO, WORK( IL+LDWRKL ), LDWRKL )
+               clacpy('L', M, M, A, LDA, WORK( IL ), LDWRKL );
+               claset('U', M-1, M-1, CZERO, CZERO, WORK( IL+LDWRKL ), LDWRKL );
 
                // Generate Q in A
                // CWorkspace: need   M*M [VT] + M*M [L] + M [tau] + M    [work]
                // CWorkspace: prefer M*M [VT] + M*M [L] + M [tau] + M*NB [work]
                // RWorkspace: need   0
 
-               CALL CUNGLQ( M, N, M, A, LDA, WORK( ITAU ), WORK( NWORK ), LWORK-NWORK+1, IERR )
+               cunglq(M, N, M, A, LDA, WORK( ITAU ), WORK( NWORK ), LWORK-NWORK+1, IERR );
                IE = 1
                ITAUQ = ITAU
                ITAUP = ITAUQ + M
@@ -1158,7 +1158,7 @@
                // CWorkspace: prefer M*M [VT] + M*M [L] + 2*M [tauq, taup] + 2*M*NB [work]
                // RWorkspace: need   M [e]
 
-               CALL CGEBRD( M, M, WORK( IL ), LDWRKL, S, RWORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( NWORK ), LWORK-NWORK+1, IERR )
+               cgebrd(M, M, WORK( IL ), LDWRKL, S, RWORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( NWORK ), LWORK-NWORK+1, IERR );
 
                // Perform bidiagonal SVD, computing left singular vectors
                // of bidiagonal matrix in RWORK(IRU) and computing right
@@ -1169,7 +1169,7 @@
                IRU = IE + M
                IRVT = IRU + M*M
                NRWORK = IRVT + M*M
-               CALL SBDSDC( 'U', 'I', M, S, RWORK( IE ), RWORK( IRU ), M, RWORK( IRVT ), M, DUM, IDUM, RWORK( NRWORK ), IWORK, INFO )
+               sbdsdc('U', 'I', M, S, RWORK( IE ), RWORK( IRU ), M, RWORK( IRVT ), M, DUM, IDUM, RWORK( NRWORK ), IWORK, INFO );
 
                // Copy real matrix RWORK(IRU) to complex matrix WORK(IU)
                // Overwrite WORK(IU) by the left singular vectors of L
@@ -1177,8 +1177,8 @@
                // CWorkspace: prefer M*M [VT] + M*M [L] + 2*M [tauq, taup] + M*NB [work]
                // RWorkspace: need   0
 
-               CALL CLACP2( 'F', M, M, RWORK( IRU ), M, U, LDU )
-               CALL CUNMBR( 'Q', 'L', 'N', M, M, M, WORK( IL ), LDWRKL, WORK( ITAUQ ), U, LDU, WORK( NWORK ), LWORK-NWORK+1, IERR )
+               clacp2('F', M, M, RWORK( IRU ), M, U, LDU );
+               cunmbr('Q', 'L', 'N', M, M, M, WORK( IL ), LDWRKL, WORK( ITAUQ ), U, LDU, WORK( NWORK ), LWORK-NWORK+1, IERR );
 
                // Copy real matrix RWORK(IRVT) to complex matrix WORK(IVT)
                // Overwrite WORK(IVT) by the right singular vectors of L
@@ -1186,7 +1186,7 @@
                // CWorkspace: prefer M*M [VT] + M*M [L] + 2*M [tauq, taup] + M*NB [work]
                // RWorkspace: need   0
 
-               CALL CLACP2( 'F', M, M, RWORK( IRVT ), M, WORK( IVT ), LDWKVT )                CALL CUNMBR( 'P', 'R', 'C', M, M, M, WORK( IL ), LDWRKL, WORK( ITAUP ), WORK( IVT ), LDWKVT, WORK( NWORK ), LWORK-NWORK+1, IERR )
+               clacp2('F', M, M, RWORK( IRVT ), M, WORK( IVT ), LDWKVT )                CALL CUNMBR( 'P', 'R', 'C', M, M, M, WORK( IL ), LDWRKL, WORK( ITAUP ), WORK( IVT ), LDWKVT, WORK( NWORK ), LWORK-NWORK+1, IERR );
 
                // Multiply right singular vectors of L in WORK(IL) by Q
                // in A, storing result in WORK(IL) and copying to A
@@ -1196,8 +1196,8 @@
 
                DO 40 I = 1, N, CHUNK
                   BLK = MIN( N-I+1, CHUNK )
-                  CALL CGEMM( 'N', 'N', M, BLK, M, CONE, WORK( IVT ), M, A( 1, I ), LDA, CZERO, WORK( IL ), LDWRKL )
-                  CALL CLACPY( 'F', M, BLK, WORK( IL ), LDWRKL, A( 1, I ), LDA )
+                  cgemm('N', 'N', M, BLK, M, CONE, WORK( IVT ), M, A( 1, I ), LDA, CZERO, WORK( IL ), LDWRKL );
+                  clacpy('F', M, BLK, WORK( IL ), LDWRKL, A( 1, I ), LDA );
    40          CONTINUE
 
             } else if ( WNTQS ) {
@@ -1219,19 +1219,19 @@
                // CWorkspace: prefer M*M [L] + M [tau] + M*NB [work]
                // RWorkspace: need   0
 
-               CALL CGELQF( M, N, A, LDA, WORK( ITAU ), WORK( NWORK ), LWORK-NWORK+1, IERR )
+               cgelqf(M, N, A, LDA, WORK( ITAU ), WORK( NWORK ), LWORK-NWORK+1, IERR );
 
                // Copy L to WORK(IL), zeroing out above it
 
-               CALL CLACPY( 'L', M, M, A, LDA, WORK( IL ), LDWRKL )
-               CALL CLASET( 'U', M-1, M-1, CZERO, CZERO, WORK( IL+LDWRKL ), LDWRKL )
+               clacpy('L', M, M, A, LDA, WORK( IL ), LDWRKL );
+               claset('U', M-1, M-1, CZERO, CZERO, WORK( IL+LDWRKL ), LDWRKL );
 
                // Generate Q in A
                // CWorkspace: need   M*M [L] + M [tau] + M    [work]
                // CWorkspace: prefer M*M [L] + M [tau] + M*NB [work]
                // RWorkspace: need   0
 
-               CALL CUNGLQ( M, N, M, A, LDA, WORK( ITAU ), WORK( NWORK ), LWORK-NWORK+1, IERR )
+               cunglq(M, N, M, A, LDA, WORK( ITAU ), WORK( NWORK ), LWORK-NWORK+1, IERR );
                IE = 1
                ITAUQ = ITAU
                ITAUP = ITAUQ + M
@@ -1242,7 +1242,7 @@
                // CWorkspace: prefer M*M [L] + 2*M [tauq, taup] + 2*M*NB [work]
                // RWorkspace: need   M [e]
 
-               CALL CGEBRD( M, M, WORK( IL ), LDWRKL, S, RWORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( NWORK ), LWORK-NWORK+1, IERR )
+               cgebrd(M, M, WORK( IL ), LDWRKL, S, RWORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( NWORK ), LWORK-NWORK+1, IERR );
 
                // Perform bidiagonal SVD, computing left singular vectors
                // of bidiagonal matrix in RWORK(IRU) and computing right
@@ -1253,7 +1253,7 @@
                IRU = IE + M
                IRVT = IRU + M*M
                NRWORK = IRVT + M*M
-               CALL SBDSDC( 'U', 'I', M, S, RWORK( IE ), RWORK( IRU ), M, RWORK( IRVT ), M, DUM, IDUM, RWORK( NRWORK ), IWORK, INFO )
+               sbdsdc('U', 'I', M, S, RWORK( IE ), RWORK( IRU ), M, RWORK( IRVT ), M, DUM, IDUM, RWORK( NRWORK ), IWORK, INFO );
 
                // Copy real matrix RWORK(IRU) to complex matrix U
                // Overwrite U by left singular vectors of L
@@ -1261,8 +1261,8 @@
                // CWorkspace: prefer M*M [L] + 2*M [tauq, taup] + M*NB [work]
                // RWorkspace: need   0
 
-               CALL CLACP2( 'F', M, M, RWORK( IRU ), M, U, LDU )
-               CALL CUNMBR( 'Q', 'L', 'N', M, M, M, WORK( IL ), LDWRKL, WORK( ITAUQ ), U, LDU, WORK( NWORK ), LWORK-NWORK+1, IERR )
+               clacp2('F', M, M, RWORK( IRU ), M, U, LDU );
+               cunmbr('Q', 'L', 'N', M, M, M, WORK( IL ), LDWRKL, WORK( ITAUQ ), U, LDU, WORK( NWORK ), LWORK-NWORK+1, IERR );
 
                // Copy real matrix RWORK(IRVT) to complex matrix VT
                // Overwrite VT by left singular vectors of L
@@ -1270,16 +1270,16 @@
                // CWorkspace: prefer M*M [L] + 2*M [tauq, taup] + M*NB [work]
                // RWorkspace: need   0
 
-               CALL CLACP2( 'F', M, M, RWORK( IRVT ), M, VT, LDVT )
-               CALL CUNMBR( 'P', 'R', 'C', M, M, M, WORK( IL ), LDWRKL, WORK( ITAUP ), VT, LDVT, WORK( NWORK ), LWORK-NWORK+1, IERR )
+               clacp2('F', M, M, RWORK( IRVT ), M, VT, LDVT );
+               cunmbr('P', 'R', 'C', M, M, M, WORK( IL ), LDWRKL, WORK( ITAUP ), VT, LDVT, WORK( NWORK ), LWORK-NWORK+1, IERR );
 
                // Copy VT to WORK(IL), multiply right singular vectors of L
                // in WORK(IL) by Q in A, storing result in VT
                // CWorkspace: need   M*M [L]
                // RWorkspace: need   0
 
-               CALL CLACPY( 'F', M, M, VT, LDVT, WORK( IL ), LDWRKL )
-               CALL CGEMM( 'N', 'N', M, N, M, CONE, WORK( IL ), LDWRKL, A, LDA, CZERO, VT, LDVT )
+               clacpy('F', M, M, VT, LDVT, WORK( IL ), LDWRKL );
+               cgemm('N', 'N', M, N, M, CONE, WORK( IL ), LDWRKL, A, LDA, CZERO, VT, LDVT );
 
             } else if ( WNTQA ) {
 
@@ -1300,19 +1300,19 @@
                // CWorkspace: prefer M*M [VT] + M [tau] + M*NB [work]
                // RWorkspace: need   0
 
-               CALL CGELQF( M, N, A, LDA, WORK( ITAU ), WORK( NWORK ), LWORK-NWORK+1, IERR )
-               CALL CLACPY( 'U', M, N, A, LDA, VT, LDVT )
+               cgelqf(M, N, A, LDA, WORK( ITAU ), WORK( NWORK ), LWORK-NWORK+1, IERR );
+               clacpy('U', M, N, A, LDA, VT, LDVT );
 
                // Generate Q in VT
                // CWorkspace: need   M*M [VT] + M [tau] + N    [work]
                // CWorkspace: prefer M*M [VT] + M [tau] + N*NB [work]
                // RWorkspace: need   0
 
-               CALL CUNGLQ( N, N, M, VT, LDVT, WORK( ITAU ), WORK( NWORK ), LWORK-NWORK+1, IERR )
+               cunglq(N, N, M, VT, LDVT, WORK( ITAU ), WORK( NWORK ), LWORK-NWORK+1, IERR );
 
                // Produce L in A, zeroing out above it
 
-               CALL CLASET( 'U', M-1, M-1, CZERO, CZERO, A( 1, 2 ), LDA )
+               claset('U', M-1, M-1, CZERO, CZERO, A( 1, 2 ), LDA );
                IE = 1
                ITAUQ = ITAU
                ITAUP = ITAUQ + M
@@ -1323,7 +1323,7 @@
                // CWorkspace: prefer M*M [VT] + 2*M [tauq, taup] + 2*M*NB [work]
                // RWorkspace: need   M [e]
 
-               CALL CGEBRD( M, M, A, LDA, S, RWORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( NWORK ), LWORK-NWORK+1, IERR )
+               cgebrd(M, M, A, LDA, S, RWORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( NWORK ), LWORK-NWORK+1, IERR );
 
                // Perform bidiagonal SVD, computing left singular vectors
                // of bidiagonal matrix in RWORK(IRU) and computing right
@@ -1334,7 +1334,7 @@
                IRU = IE + M
                IRVT = IRU + M*M
                NRWORK = IRVT + M*M
-               CALL SBDSDC( 'U', 'I', M, S, RWORK( IE ), RWORK( IRU ), M, RWORK( IRVT ), M, DUM, IDUM, RWORK( NRWORK ), IWORK, INFO )
+               sbdsdc('U', 'I', M, S, RWORK( IE ), RWORK( IRU ), M, RWORK( IRVT ), M, DUM, IDUM, RWORK( NRWORK ), IWORK, INFO );
 
                // Copy real matrix RWORK(IRU) to complex matrix U
                // Overwrite U by left singular vectors of L
@@ -1342,8 +1342,8 @@
                // CWorkspace: prefer M*M [VT] + 2*M [tauq, taup] + M*NB [work]
                // RWorkspace: need   0
 
-               CALL CLACP2( 'F', M, M, RWORK( IRU ), M, U, LDU )
-               CALL CUNMBR( 'Q', 'L', 'N', M, M, M, A, LDA, WORK( ITAUQ ), U, LDU, WORK( NWORK ), LWORK-NWORK+1, IERR )
+               clacp2('F', M, M, RWORK( IRU ), M, U, LDU );
+               cunmbr('Q', 'L', 'N', M, M, M, A, LDA, WORK( ITAUQ ), U, LDU, WORK( NWORK ), LWORK-NWORK+1, IERR );
 
                // Copy real matrix RWORK(IRVT) to complex matrix WORK(IVT)
                // Overwrite WORK(IVT) by right singular vectors of L
@@ -1351,18 +1351,18 @@
                // CWorkspace: prefer M*M [VT] + 2*M [tauq, taup] + M*NB [work]
                // RWorkspace: need   0
 
-               CALL CLACP2( 'F', M, M, RWORK( IRVT ), M, WORK( IVT ), LDWKVT )                CALL CUNMBR( 'P', 'R', 'C', M, M, M, A, LDA, WORK( ITAUP ), WORK( IVT ), LDWKVT, WORK( NWORK ), LWORK-NWORK+1, IERR )
+               clacp2('F', M, M, RWORK( IRVT ), M, WORK( IVT ), LDWKVT )                CALL CUNMBR( 'P', 'R', 'C', M, M, M, A, LDA, WORK( ITAUP ), WORK( IVT ), LDWKVT, WORK( NWORK ), LWORK-NWORK+1, IERR );
 
                // Multiply right singular vectors of L in WORK(IVT) by
                // Q in VT, storing result in A
                // CWorkspace: need   M*M [VT]
                // RWorkspace: need   0
 
-               CALL CGEMM( 'N', 'N', M, N, M, CONE, WORK( IVT ), LDWKVT, VT, LDVT, CZERO, A, LDA )
+               cgemm('N', 'N', M, N, M, CONE, WORK( IVT ), LDWKVT, VT, LDVT, CZERO, A, LDA );
 
                // Copy right singular vectors of A from A to VT
 
-               CALL CLACPY( 'F', M, N, A, LDA, VT, LDVT )
+               clacpy('F', M, N, A, LDA, VT, LDVT );
 
             }
 
@@ -1385,7 +1385,7 @@
             // CWorkspace: prefer 2*M [tauq, taup] + (M+N)*NB [work]
             // RWorkspace: need   M [e]
 
-            CALL CGEBRD( M, N, A, LDA, S, RWORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( NWORK ), LWORK-NWORK+1, IERR )
+            cgebrd(M, N, A, LDA, S, RWORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( NWORK ), LWORK-NWORK+1, IERR );
 
             if ( WNTQN ) {
 
@@ -1394,7 +1394,7 @@
                // CWorkspace: need   0
                // RWorkspace: need   M [e] + BDSPAC
 
-               CALL SBDSDC( 'L', 'N', M, S, RWORK( IE ), DUM,1,DUM,1, DUM, IDUM, RWORK( NRWORK ), IWORK, INFO )
+               sbdsdc('L', 'N', M, S, RWORK( IE ), DUM,1,DUM,1, DUM, IDUM, RWORK( NRWORK ), IWORK, INFO );
             } else if ( WNTQO ) {
                IRVT = NRWORK
                IRU = IRVT + M*M
@@ -1407,15 +1407,15 @@
                // CWorkspace: prefer 2*M [tauq, taup] + M*NB [work]
                // RWorkspace: need   0
 
-               CALL CLACPY( 'L', M, M, A, LDA, U, LDU )
-               CALL CUNGBR( 'Q', M, M, N, U, LDU, WORK( ITAUQ ), WORK( NWORK ), LWORK-NWORK+1, IERR )
+               clacpy('L', M, M, A, LDA, U, LDU );
+               cungbr('Q', M, M, N, U, LDU, WORK( ITAUQ ), WORK( NWORK ), LWORK-NWORK+1, IERR );
 
                // Generate P**H in A
                // CWorkspace: need   2*M [tauq, taup] + M    [work]
                // CWorkspace: prefer 2*M [tauq, taup] + M*NB [work]
                // RWorkspace: need   0
 
-               CALL CUNGBR( 'P', M, N, M, A, LDA, WORK( ITAUP ), WORK( NWORK ), LWORK-NWORK+1, IERR )
+               cungbr('P', M, N, M, A, LDA, WORK( ITAUP ), WORK( NWORK ), LWORK-NWORK+1, IERR );
 
                LDWKVT = M
                if ( LWORK .GE. M*N + 3*M ) {
@@ -1438,15 +1438,15 @@
                // CWorkspace: need   0
                // RWorkspace: need   M [e] + M*M [RVT] + M*M [RU] + BDSPAC
 
-               CALL SBDSDC( 'L', 'I', M, S, RWORK( IE ), RWORK( IRU ), M, RWORK( IRVT ), M, DUM, IDUM, RWORK( NRWORK ), IWORK, INFO )
+               sbdsdc('L', 'I', M, S, RWORK( IE ), RWORK( IRU ), M, RWORK( IRVT ), M, DUM, IDUM, RWORK( NRWORK ), IWORK, INFO );
 
                // Multiply Q in U by real matrix RWORK(IRVT)
                // storing the result in WORK(IVT), copying to U
                // CWorkspace: need   2*M [tauq, taup] + M*M [VT]
                // RWorkspace: need   M [e] + M*M [RVT] + M*M [RU] + 2*M*M [rwork]
 
-               CALL CLACRM( M, M, U, LDU, RWORK( IRU ), M, WORK( IVT ), LDWKVT, RWORK( NRWORK ) )
-               CALL CLACPY( 'F', M, M, WORK( IVT ), LDWKVT, U, LDU )
+               clacrm(M, M, U, LDU, RWORK( IRU ), M, WORK( IVT ), LDWKVT, RWORK( NRWORK ) );
+               clacpy('F', M, M, WORK( IVT ), LDWKVT, U, LDU );
 
                // Multiply RWORK(IRVT) by P**H in A, storing the
                // result in WORK(IVT), copying to A
@@ -1458,7 +1458,7 @@
                NRWORK = IRU
                DO 50 I = 1, N, CHUNK
                   BLK = MIN( N-I+1, CHUNK )
-                  CALL CLARCM( M, BLK, RWORK( IRVT ), M, A( 1, I ), LDA, WORK( IVT ), LDWKVT, RWORK( NRWORK ) )                   CALL CLACPY( 'F', M, BLK, WORK( IVT ), LDWKVT, A( 1, I ), LDA )
+                  clarcm(M, BLK, RWORK( IRVT ), M, A( 1, I ), LDA, WORK( IVT ), LDWKVT, RWORK( NRWORK ) )                   CALL CLACPY( 'F', M, BLK, WORK( IVT ), LDWKVT, A( 1, I ), LDA );
    50          CONTINUE
             } else if ( WNTQS ) {
 
@@ -1468,16 +1468,16 @@
                // CWorkspace: prefer 2*M [tauq, taup] + M*NB [work]
                // RWorkspace: need   0
 
-               CALL CLACPY( 'L', M, M, A, LDA, U, LDU )
-               CALL CUNGBR( 'Q', M, M, N, U, LDU, WORK( ITAUQ ), WORK( NWORK ), LWORK-NWORK+1, IERR )
+               clacpy('L', M, M, A, LDA, U, LDU );
+               cungbr('Q', M, M, N, U, LDU, WORK( ITAUQ ), WORK( NWORK ), LWORK-NWORK+1, IERR );
 
                // Copy A to VT, generate P**H
                // CWorkspace: need   2*M [tauq, taup] + M    [work]
                // CWorkspace: prefer 2*M [tauq, taup] + M*NB [work]
                // RWorkspace: need   0
 
-               CALL CLACPY( 'U', M, N, A, LDA, VT, LDVT )
-               CALL CUNGBR( 'P', M, N, M, VT, LDVT, WORK( ITAUP ), WORK( NWORK ), LWORK-NWORK+1, IERR )
+               clacpy('U', M, N, A, LDA, VT, LDVT );
+               cungbr('P', M, N, M, VT, LDVT, WORK( ITAUP ), WORK( NWORK ), LWORK-NWORK+1, IERR );
 
                // Perform bidiagonal SVD, computing left singular vectors
                // of bidiagonal matrix in RWORK(IRU) and computing right
@@ -1488,15 +1488,15 @@
                IRVT = NRWORK
                IRU = IRVT + M*M
                NRWORK = IRU + M*M
-               CALL SBDSDC( 'L', 'I', M, S, RWORK( IE ), RWORK( IRU ), M, RWORK( IRVT ), M, DUM, IDUM, RWORK( NRWORK ), IWORK, INFO )
+               sbdsdc('L', 'I', M, S, RWORK( IE ), RWORK( IRU ), M, RWORK( IRVT ), M, DUM, IDUM, RWORK( NRWORK ), IWORK, INFO );
 
                // Multiply Q in U by real matrix RWORK(IRU), storing the
                // result in A, copying to U
                // CWorkspace: need   0
                // RWorkspace: need   M [e] + M*M [RVT] + M*M [RU] + 2*M*M [rwork]
 
-               CALL CLACRM( M, M, U, LDU, RWORK( IRU ), M, A, LDA, RWORK( NRWORK ) )
-               CALL CLACPY( 'F', M, M, A, LDA, U, LDU )
+               clacrm(M, M, U, LDU, RWORK( IRU ), M, A, LDA, RWORK( NRWORK ) );
+               clacpy('F', M, M, A, LDA, U, LDU );
 
                // Multiply real matrix RWORK(IRVT) by P**H in VT,
                // storing the result in A, copying to VT
@@ -1504,8 +1504,8 @@
                // RWorkspace: need   M [e] + M*M [RVT] + 2*M*N [rwork] < M + 5*M*M since N < 2*M here
 
                NRWORK = IRU
-               CALL CLARCM( M, N, RWORK( IRVT ), M, VT, LDVT, A, LDA, RWORK( NRWORK ) )
-               CALL CLACPY( 'F', M, N, A, LDA, VT, LDVT )
+               clarcm(M, N, RWORK( IRVT ), M, VT, LDVT, A, LDA, RWORK( NRWORK ) );
+               clacpy('F', M, N, A, LDA, VT, LDVT );
             } else {
 
                // Path 5ta (N >> M, JOBZ='A')
@@ -1514,16 +1514,16 @@
                // CWorkspace: prefer 2*M [tauq, taup] + M*NB [work]
                // RWorkspace: need   0
 
-               CALL CLACPY( 'L', M, M, A, LDA, U, LDU )
-               CALL CUNGBR( 'Q', M, M, N, U, LDU, WORK( ITAUQ ), WORK( NWORK ), LWORK-NWORK+1, IERR )
+               clacpy('L', M, M, A, LDA, U, LDU );
+               cungbr('Q', M, M, N, U, LDU, WORK( ITAUQ ), WORK( NWORK ), LWORK-NWORK+1, IERR );
 
                // Copy A to VT, generate P**H
                // CWorkspace: need   2*M [tauq, taup] + N    [work]
                // CWorkspace: prefer 2*M [tauq, taup] + N*NB [work]
                // RWorkspace: need   0
 
-               CALL CLACPY( 'U', M, N, A, LDA, VT, LDVT )
-               CALL CUNGBR( 'P', N, N, M, VT, LDVT, WORK( ITAUP ), WORK( NWORK ), LWORK-NWORK+1, IERR )
+               clacpy('U', M, N, A, LDA, VT, LDVT );
+               cungbr('P', N, N, M, VT, LDVT, WORK( ITAUP ), WORK( NWORK ), LWORK-NWORK+1, IERR );
 
                // Perform bidiagonal SVD, computing left singular vectors
                // of bidiagonal matrix in RWORK(IRU) and computing right
@@ -1534,15 +1534,15 @@
                IRVT = NRWORK
                IRU = IRVT + M*M
                NRWORK = IRU + M*M
-               CALL SBDSDC( 'L', 'I', M, S, RWORK( IE ), RWORK( IRU ), M, RWORK( IRVT ), M, DUM, IDUM, RWORK( NRWORK ), IWORK, INFO )
+               sbdsdc('L', 'I', M, S, RWORK( IE ), RWORK( IRU ), M, RWORK( IRVT ), M, DUM, IDUM, RWORK( NRWORK ), IWORK, INFO );
 
                // Multiply Q in U by real matrix RWORK(IRU), storing the
                // result in A, copying to U
                // CWorkspace: need   0
                // RWorkspace: need   M [e] + M*M [RVT] + M*M [RU] + 2*M*M [rwork]
 
-               CALL CLACRM( M, M, U, LDU, RWORK( IRU ), M, A, LDA, RWORK( NRWORK ) )
-               CALL CLACPY( 'F', M, M, A, LDA, U, LDU )
+               clacrm(M, M, U, LDU, RWORK( IRU ), M, A, LDA, RWORK( NRWORK ) );
+               clacpy('F', M, M, A, LDA, U, LDU );
 
                // Multiply real matrix RWORK(IRVT) by P**H in VT,
                // storing the result in A, copying to VT
@@ -1550,8 +1550,8 @@
                // RWorkspace: need   M [e] + M*M [RVT] + 2*M*N [rwork] < M + 5*M*M since N < 2*M here
 
                NRWORK = IRU
-               CALL CLARCM( M, N, RWORK( IRVT ), M, VT, LDVT, A, LDA, RWORK( NRWORK ) )
-               CALL CLACPY( 'F', M, N, A, LDA, VT, LDVT )
+               clarcm(M, N, RWORK( IRVT ), M, VT, LDVT, A, LDA, RWORK( NRWORK ) );
+               clacpy('F', M, N, A, LDA, VT, LDVT );
             }
 
          } else {
@@ -1573,7 +1573,7 @@
             // CWorkspace: prefer 2*M [tauq, taup] + (M+N)*NB [work]
             // RWorkspace: need   M [e]
 
-            CALL CGEBRD( M, N, A, LDA, S, RWORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( NWORK ), LWORK-NWORK+1, IERR )
+            cgebrd(M, N, A, LDA, S, RWORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( NWORK ), LWORK-NWORK+1, IERR );
             if ( WNTQN ) {
 
                // Path 6tn (N > M, JOBZ='N')
@@ -1581,7 +1581,7 @@
                // CWorkspace: need   0
                // RWorkspace: need   M [e] + BDSPAC
 
-               CALL SBDSDC( 'L', 'N', M, S, RWORK( IE ), DUM,1,DUM,1, DUM, IDUM, RWORK( NRWORK ), IWORK, INFO )
+               sbdsdc('L', 'N', M, S, RWORK( IE ), DUM,1,DUM,1, DUM, IDUM, RWORK( NRWORK ), IWORK, INFO );
             } else if ( WNTQO ) {
                // Path 6to (N > M, JOBZ='O')
                LDWKVT = M
@@ -1590,7 +1590,7 @@
 
                   // WORK( IVT ) is M by N
 
-                  CALL CLASET( 'F', M, N, CZERO, CZERO, WORK( IVT ), LDWKVT )
+                  claset('F', M, N, CZERO, CZERO, WORK( IVT ), LDWKVT );
                   NWORK = IVT + LDWKVT*N
                } else {
 
@@ -1609,7 +1609,7 @@
                IRVT = NRWORK
                IRU = IRVT + M*M
                NRWORK = IRU + M*M
-               CALL SBDSDC( 'L', 'I', M, S, RWORK( IE ), RWORK( IRU ), M, RWORK( IRVT ), M, DUM, IDUM, RWORK( NRWORK ), IWORK, INFO )
+               sbdsdc('L', 'I', M, S, RWORK( IE ), RWORK( IRU ), M, RWORK( IRVT ), M, DUM, IDUM, RWORK( NRWORK ), IWORK, INFO );
 
                // Copy real matrix RWORK(IRU) to complex matrix U
                // Overwrite U by left singular vectors of A
@@ -1617,8 +1617,8 @@
                // CWorkspace: prefer 2*M [tauq, taup] + M*M [VT] + M*NB [work]
                // RWorkspace: need   M [e] + M*M [RVT] + M*M [RU]
 
-               CALL CLACP2( 'F', M, M, RWORK( IRU ), M, U, LDU )
-               CALL CUNMBR( 'Q', 'L', 'N', M, M, N, A, LDA, WORK( ITAUQ ), U, LDU, WORK( NWORK ), LWORK-NWORK+1, IERR )
+               clacp2('F', M, M, RWORK( IRU ), M, U, LDU );
+               cunmbr('Q', 'L', 'N', M, M, N, A, LDA, WORK( ITAUQ ), U, LDU, WORK( NWORK ), LWORK-NWORK+1, IERR );
 
                if ( LWORK .GE. M*N + 3*M ) {
 
@@ -1630,8 +1630,8 @@
                   // CWorkspace: prefer 2*M [tauq, taup] + M*N [VT] + M*NB [work]
                   // RWorkspace: need   M [e] + M*M [RVT]
 
-                  CALL CLACP2( 'F', M, M, RWORK( IRVT ), M, WORK( IVT ), LDWKVT )                   CALL CUNMBR( 'P', 'R', 'C', M, N, M, A, LDA, WORK( ITAUP ), WORK( IVT ), LDWKVT, WORK( NWORK ), LWORK-NWORK+1, IERR )
-                  CALL CLACPY( 'F', M, N, WORK( IVT ), LDWKVT, A, LDA )
+                  clacp2('F', M, M, RWORK( IRVT ), M, WORK( IVT ), LDWKVT )                   CALL CUNMBR( 'P', 'R', 'C', M, N, M, A, LDA, WORK( ITAUP ), WORK( IVT ), LDWKVT, WORK( NWORK ), LWORK-NWORK+1, IERR );
+                  clacpy('F', M, N, WORK( IVT ), LDWKVT, A, LDA );
                } else {
 
                   // Path 6to-slow
@@ -1640,7 +1640,7 @@
                   // CWorkspace: prefer 2*M [tauq, taup] + M*M [VT] + M*NB [work]
                   // RWorkspace: need   0
 
-                  CALL CUNGBR( 'P', M, N, M, A, LDA, WORK( ITAUP ), WORK( NWORK ), LWORK-NWORK+1, IERR )
+                  cungbr('P', M, N, M, A, LDA, WORK( ITAUP ), WORK( NWORK ), LWORK-NWORK+1, IERR );
 
                   // Multiply Q in A by real matrix RWORK(IRU), storing the
                   // result in WORK(IU), copying to A
@@ -1652,8 +1652,8 @@
                   NRWORK = IRU
                   DO 60 I = 1, N, CHUNK
                      BLK = MIN( N-I+1, CHUNK )
-                     CALL CLARCM( M, BLK, RWORK( IRVT ), M, A( 1, I ), LDA, WORK( IVT ), LDWKVT, RWORK( NRWORK ) )
-                     CALL CLACPY( 'F', M, BLK, WORK( IVT ), LDWKVT, A( 1, I ), LDA )
+                     clarcm(M, BLK, RWORK( IRVT ), M, A( 1, I ), LDA, WORK( IVT ), LDWKVT, RWORK( NRWORK ) );
+                     clacpy('F', M, BLK, WORK( IVT ), LDWKVT, A( 1, I ), LDA );
    60             CONTINUE
                }
             } else if ( WNTQS ) {
@@ -1668,7 +1668,7 @@
                IRVT = NRWORK
                IRU = IRVT + M*M
                NRWORK = IRU + M*M
-               CALL SBDSDC( 'L', 'I', M, S, RWORK( IE ), RWORK( IRU ), M, RWORK( IRVT ), M, DUM, IDUM, RWORK( NRWORK ), IWORK, INFO )
+               sbdsdc('L', 'I', M, S, RWORK( IE ), RWORK( IRU ), M, RWORK( IRVT ), M, DUM, IDUM, RWORK( NRWORK ), IWORK, INFO );
 
                // Copy real matrix RWORK(IRU) to complex matrix U
                // Overwrite U by left singular vectors of A
@@ -1676,8 +1676,8 @@
                // CWorkspace: prefer 2*M [tauq, taup] + M*NB [work]
                // RWorkspace: need   M [e] + M*M [RVT] + M*M [RU]
 
-               CALL CLACP2( 'F', M, M, RWORK( IRU ), M, U, LDU )
-               CALL CUNMBR( 'Q', 'L', 'N', M, M, N, A, LDA, WORK( ITAUQ ), U, LDU, WORK( NWORK ), LWORK-NWORK+1, IERR )
+               clacp2('F', M, M, RWORK( IRU ), M, U, LDU );
+               cunmbr('Q', 'L', 'N', M, M, N, A, LDA, WORK( ITAUQ ), U, LDU, WORK( NWORK ), LWORK-NWORK+1, IERR );
 
                // Copy real matrix RWORK(IRVT) to complex matrix VT
                // Overwrite VT by right singular vectors of A
@@ -1685,9 +1685,9 @@
                // CWorkspace: prefer 2*M [tauq, taup] + M*NB [work]
                // RWorkspace: need   M [e] + M*M [RVT]
 
-               CALL CLASET( 'F', M, N, CZERO, CZERO, VT, LDVT )
-               CALL CLACP2( 'F', M, M, RWORK( IRVT ), M, VT, LDVT )
-               CALL CUNMBR( 'P', 'R', 'C', M, N, M, A, LDA, WORK( ITAUP ), VT, LDVT, WORK( NWORK ), LWORK-NWORK+1, IERR )
+               claset('F', M, N, CZERO, CZERO, VT, LDVT );
+               clacp2('F', M, M, RWORK( IRVT ), M, VT, LDVT );
+               cunmbr('P', 'R', 'C', M, N, M, A, LDA, WORK( ITAUP ), VT, LDVT, WORK( NWORK ), LWORK-NWORK+1, IERR );
             } else {
 
                // Path 6ta (N > M, JOBZ='A')
@@ -1701,7 +1701,7 @@
                IRU = IRVT + M*M
                NRWORK = IRU + M*M
 
-               CALL SBDSDC( 'L', 'I', M, S, RWORK( IE ), RWORK( IRU ), M, RWORK( IRVT ), M, DUM, IDUM, RWORK( NRWORK ), IWORK, INFO )
+               sbdsdc('L', 'I', M, S, RWORK( IE ), RWORK( IRU ), M, RWORK( IRVT ), M, DUM, IDUM, RWORK( NRWORK ), IWORK, INFO );
 
                // Copy real matrix RWORK(IRU) to complex matrix U
                // Overwrite U by left singular vectors of A
@@ -1709,12 +1709,12 @@
                // CWorkspace: prefer 2*M [tauq, taup] + M*NB [work]
                // RWorkspace: need   M [e] + M*M [RVT] + M*M [RU]
 
-               CALL CLACP2( 'F', M, M, RWORK( IRU ), M, U, LDU )
-               CALL CUNMBR( 'Q', 'L', 'N', M, M, N, A, LDA, WORK( ITAUQ ), U, LDU, WORK( NWORK ), LWORK-NWORK+1, IERR )
+               clacp2('F', M, M, RWORK( IRU ), M, U, LDU );
+               cunmbr('Q', 'L', 'N', M, M, N, A, LDA, WORK( ITAUQ ), U, LDU, WORK( NWORK ), LWORK-NWORK+1, IERR );
 
                // Set all of VT to identity matrix
 
-               CALL CLASET( 'F', N, N, CZERO, CONE, VT, LDVT )
+               claset('F', N, N, CZERO, CONE, VT, LDVT );
 
                // Copy real matrix RWORK(IRVT) to complex matrix VT
                // Overwrite VT by right singular vectors of A
@@ -1722,8 +1722,8 @@
                // CWorkspace: prefer 2*M [tauq, taup] + N*NB [work]
                // RWorkspace: need   M [e] + M*M [RVT]
 
-               CALL CLACP2( 'F', M, M, RWORK( IRVT ), M, VT, LDVT )
-               CALL CUNMBR( 'P', 'R', 'C', N, N, M, A, LDA, WORK( ITAUP ), VT, LDVT, WORK( NWORK ), LWORK-NWORK+1, IERR )
+               clacp2('F', M, M, RWORK( IRVT ), M, VT, LDVT );
+               cunmbr('P', 'R', 'C', N, N, M, A, LDA, WORK( ITAUP ), VT, LDVT, WORK( NWORK ), LWORK-NWORK+1, IERR );
             }
 
          }

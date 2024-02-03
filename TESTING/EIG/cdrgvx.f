@@ -78,7 +78,7 @@
       IF( LWORK.LT.MINWRK ) INFO = -23
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'CDRGVX', -INFO )
+         xerbla('CDRGVX', -INFO );
          RETURN
       }
 
@@ -108,16 +108,16 @@
 
                      // generated a pair of test matrix
 
-                     CALL CLATM6( IPTYPE, 5, A, LDA, B, VR, LDA, VL, LDA, WEIGHT( IWA ), WEIGHT( IWB ), WEIGHT( IWX ), WEIGHT( IWY ), STRU, DIFTRU )
+                     clatm6(IPTYPE, 5, A, LDA, B, VR, LDA, VL, LDA, WEIGHT( IWA ), WEIGHT( IWB ), WEIGHT( IWX ), WEIGHT( IWY ), STRU, DIFTRU );
 
                      // Compute eigenvalues/eigenvectors of (A, B).
                      // Compute eigenvalue/eigenvector condition numbers
                      // using computed eigenvectors.
 
-                     CALL CLACPY( 'F', N, N, A, LDA, AI, LDA )
-                     CALL CLACPY( 'F', N, N, B, LDA, BI, LDA )
+                     clacpy('F', N, N, A, LDA, AI, LDA );
+                     clacpy('F', N, N, B, LDA, BI, LDA );
 
-                     CALL CGGEVX( 'N', 'V', 'V', 'B', N, AI, LDA, BI, LDA, ALPHA, BETA, VL, LDA, VR, LDA, ILO, IHI, LSCALE, RSCALE, ANORM, BNORM, S, DIF, WORK, LWORK, RWORK, IWORK, BWORK, LINFO )
+                     cggevx('N', 'V', 'V', 'B', N, AI, LDA, BI, LDA, ALPHA, BETA, VL, LDA, VR, LDA, ILO, IHI, LSCALE, RSCALE, ANORM, BNORM, S, DIF, WORK, LWORK, RWORK, IWORK, BWORK, LINFO );
                      if ( LINFO.NE.0 ) {
                         WRITE( NOUT, FMT = 9999 )'CGGEVX', LINFO, N, IPTYPE, IWA, IWB, IWX, IWY
                         GO TO 30
@@ -125,20 +125,20 @@
 
                      // Compute the norm(A, B)
 
-                     CALL CLACPY( 'Full', N, N, AI, LDA, WORK, N )
-                     CALL CLACPY( 'Full', N, N, BI, LDA, WORK( N*N+1 ), N )
+                     clacpy('Full', N, N, AI, LDA, WORK, N );
+                     clacpy('Full', N, N, BI, LDA, WORK( N*N+1 ), N );
                      ABNORM = CLANGE( 'Fro', N, 2*N, WORK, N, RWORK )
 
                      // Tests (1) and (2)
 
                      RESULT( 1 ) = ZERO
-                     CALL CGET52( .TRUE., N, A, LDA, B, LDA, VL, LDA, ALPHA, BETA, WORK, RWORK, RESULT( 1 ) )
+                     cget52(.TRUE., N, A, LDA, B, LDA, VL, LDA, ALPHA, BETA, WORK, RWORK, RESULT( 1 ) );
                      if ( RESULT( 2 ).GT.THRESH ) {
                         WRITE( NOUT, FMT = 9998 )'Left', 'CGGEVX', RESULT( 2 ), N, IPTYPE, IWA, IWB, IWX, IWY
                      }
 
                      RESULT( 2 ) = ZERO
-                     CALL CGET52( .FALSE., N, A, LDA, B, LDA, VR, LDA, ALPHA, BETA, WORK, RWORK, RESULT( 2 ) )
+                     cget52(.FALSE., N, A, LDA, B, LDA, VR, LDA, ALPHA, BETA, WORK, RWORK, RESULT( 2 ) );
                      if ( RESULT( 3 ).GT.THRESH ) {
                         WRITE( NOUT, FMT = 9998 )'Right', 'CGGEVX', RESULT( 3 ), N, IPTYPE, IWA, IWB, IWX, IWY
                      }
@@ -240,10 +240,10 @@
       // Compute eigenvalue/eigenvector condition numbers
       // using computed eigenvectors.
 
-      CALL CLACPY( 'F', N, N, A, LDA, AI, LDA )
-      CALL CLACPY( 'F', N, N, B, LDA, BI, LDA )
+      clacpy('F', N, N, A, LDA, AI, LDA );
+      clacpy('F', N, N, B, LDA, BI, LDA );
 
-      CALL CGGEVX( 'N', 'V', 'V', 'B', N, AI, LDA, BI, LDA, ALPHA, BETA, VL, LDA, VR, LDA, ILO, IHI, LSCALE, RSCALE, ANORM, BNORM, S, DIF, WORK, LWORK, RWORK, IWORK, BWORK, LINFO )
+      cggevx('N', 'V', 'V', 'B', N, AI, LDA, BI, LDA, ALPHA, BETA, VL, LDA, VR, LDA, ILO, IHI, LSCALE, RSCALE, ANORM, BNORM, S, DIF, WORK, LWORK, RWORK, IWORK, BWORK, LINFO );
 
       if ( LINFO.NE.0 ) {
          WRITE( NOUT, FMT = 9987 )'CGGEVX', LINFO, N, NPTKNT
@@ -252,20 +252,20 @@
 
       // Compute the norm(A, B)
 
-      CALL CLACPY( 'Full', N, N, AI, LDA, WORK, N )
-      CALL CLACPY( 'Full', N, N, BI, LDA, WORK( N*N+1 ), N )
+      clacpy('Full', N, N, AI, LDA, WORK, N );
+      clacpy('Full', N, N, BI, LDA, WORK( N*N+1 ), N );
       ABNORM = CLANGE( 'Fro', N, 2*N, WORK, N, RWORK )
 
       // Tests (1) and (2)
 
       RESULT( 1 ) = ZERO
-      CALL CGET52( .TRUE., N, A, LDA, B, LDA, VL, LDA, ALPHA, BETA, WORK, RWORK, RESULT( 1 ) )
+      cget52(.TRUE., N, A, LDA, B, LDA, VL, LDA, ALPHA, BETA, WORK, RWORK, RESULT( 1 ) );
       if ( RESULT( 2 ).GT.THRESH ) {
          WRITE( NOUT, FMT = 9986 )'Left', 'CGGEVX', RESULT( 2 ), N, NPTKNT
       }
 
       RESULT( 2 ) = ZERO
-      CALL CGET52( .FALSE., N, A, LDA, B, LDA, VR, LDA, ALPHA, BETA, WORK, RWORK, RESULT( 2 ) )
+      cget52(.FALSE., N, A, LDA, B, LDA, VR, LDA, ALPHA, BETA, WORK, RWORK, RESULT( 2 ) );
       if ( RESULT( 3 ).GT.THRESH ) {
          WRITE( NOUT, FMT = 9986 )'Right', 'CGGEVX', RESULT( 3 ), N, NPTKNT
       }
@@ -340,7 +340,7 @@
 
       // Summary
 
-      CALL ALASVM( 'CXV', NOUT, NERRS, NTESTT, 0 )
+      alasvm('CXV', NOUT, NERRS, NTESTT, 0 );
 
       WORK( 1 ) = MAXWRK
 

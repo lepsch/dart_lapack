@@ -48,7 +48,7 @@
 
       if ( N.LT.0 ) {
          INFO = -1
-         CALL XERBLA( 'DLASQ2', 1 )
+         xerbla('DLASQ2', 1 );
          RETURN
       } else if ( N.EQ.0 ) {
          RETURN
@@ -58,7 +58,7 @@
 
          if ( Z( 1 ).LT.ZERO ) {
             INFO = -201
-            CALL XERBLA( 'DLASQ2', 2 )
+            xerbla('DLASQ2', 2 );
          }
          RETURN
       } else if ( N.EQ.2 ) {
@@ -67,15 +67,15 @@
 
          if ( Z( 1 ).LT.ZERO ) {
             INFO = -201
-            CALL XERBLA( 'DLASQ2', 2 )
+            xerbla('DLASQ2', 2 );
             RETURN
          } else if ( Z( 2 ).LT.ZERO ) {
             INFO = -202
-            CALL XERBLA( 'DLASQ2', 2 )
+            xerbla('DLASQ2', 2 );
             RETURN
          } else if ( Z( 3 ).LT.ZERO ) {
            INFO = -203
-           CALL XERBLA( 'DLASQ2', 2 )
+           xerbla('DLASQ2', 2 );
            RETURN
          } else if ( Z( 3 ).GT.Z( 1 ) ) {
             D = Z( 3 )
@@ -112,11 +112,11 @@
       DO 10 K = 1, 2*( N-1 ), 2
          if ( Z( K ).LT.ZERO ) {
             INFO = -( 200+K )
-            CALL XERBLA( 'DLASQ2', 2 )
+            xerbla('DLASQ2', 2 );
             RETURN
          } else if ( Z( K+1 ).LT.ZERO ) {
             INFO = -( 200+K+1 )
-            CALL XERBLA( 'DLASQ2', 2 )
+            xerbla('DLASQ2', 2 );
             RETURN
          }
          D = D + Z( K )
@@ -127,7 +127,7 @@
    10 CONTINUE
       if ( Z( 2*N-1 ).LT.ZERO ) {
          INFO = -( 200+2*N-1 )
-         CALL XERBLA( 'DLASQ2', 2 )
+         xerbla('DLASQ2', 2 );
          RETURN
       }
       D = D + Z( 2*N-1 )
@@ -140,7 +140,7 @@
          DO 20 K = 2, N
             Z( K ) = Z( 2*K-1 )
    20    CONTINUE
-         CALL DLASRT( 'D', N, Z, IINFO )
+         dlasrt('D', N, Z, IINFO );
          Z( 2*N-1 ) = D
          RETURN
       }
@@ -342,7 +342,7 @@
 
             // While submatrix unfinished take a good dqds step.
 
-            CALL DLASQ3( I0, N0, Z, PP, DMIN, SIGMA, DESIG, QMAX, NFAIL, ITER, NDIV, IEEE, TTYPE, DMIN1, DMIN2, DN, DN1, DN2, G, TAU )
+            dlasq3(I0, N0, Z, PP, DMIN, SIGMA, DESIG, QMAX, NFAIL, ITER, NDIV, IEEE, TTYPE, DMIN1, DMIN2, DN, DN1, DN2, G, TAU );
 
             PP = 1 - PP
 
@@ -440,7 +440,7 @@
 
       // Sort and compute sum of eigenvalues.
 
-      CALL DLASRT( 'D', N, Z, IINFO )
+      dlasrt('D', N, Z, IINFO );
 
       E = ZERO
       DO 190 K = N, 1, -1

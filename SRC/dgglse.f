@@ -73,7 +73,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'DGGLSE', -INFO )
+         xerbla('DGGLSE', -INFO );
          RETURN
       } else if ( LQUERY ) {
          RETURN
@@ -92,19 +92,19 @@
       // where T12 and R11 are upper triangular, and Q and Z are
       // orthogonal.
 
-      CALL DGGRQF( P, M, N, B, LDB, WORK, A, LDA, WORK( P+1 ), WORK( P+MN+1 ), LWORK-P-MN, INFO )
+      dggrqf(P, M, N, B, LDB, WORK, A, LDA, WORK( P+1 ), WORK( P+MN+1 ), LWORK-P-MN, INFO );
       LOPT = INT( WORK( P+MN+1 ) )
 
       // Update c = Z**T *c = ( c1 ) N-P
                            // ( c2 ) M+P-N
 
-      CALL DORMQR( 'Left', 'Transpose', M, 1, MN, A, LDA, WORK( P+1 ), C, MAX( 1, M ), WORK( P+MN+1 ), LWORK-P-MN, INFO )
+      dormqr('Left', 'Transpose', M, 1, MN, A, LDA, WORK( P+1 ), C, MAX( 1, M ), WORK( P+MN+1 ), LWORK-P-MN, INFO );
       LOPT = MAX( LOPT, INT( WORK( P+MN+1 ) ) )
 
       // Solve T12*x2 = d for x2
 
       if ( P.GT.0 ) {
-         CALL DTRTRS( 'Upper', 'No transpose', 'Non-unit', P, 1, B( 1, N-P+1 ), LDB, D, P, INFO )
+         dtrtrs('Upper', 'No transpose', 'Non-unit', P, 1, B( 1, N-P+1 ), LDB, D, P, INFO );
 
          if ( INFO.GT.0 ) {
             INFO = 1
@@ -113,17 +113,17 @@
 
          // Put the solution in X
 
-         CALL DCOPY( P, D, 1, X( N-P+1 ), 1 )
+         dcopy(P, D, 1, X( N-P+1 ), 1 );
 
          // Update c1
 
-         CALL DGEMV( 'No transpose', N-P, P, -ONE, A( 1, N-P+1 ), LDA, D, 1, ONE, C, 1 )
+         dgemv('No transpose', N-P, P, -ONE, A( 1, N-P+1 ), LDA, D, 1, ONE, C, 1 );
       }
 
       // Solve R11*x1 = c1 for x1
 
       if ( N.GT.P ) {
-         CALL DTRTRS( 'Upper', 'No transpose', 'Non-unit', N-P, 1, A, LDA, C, N-P, INFO )
+         dtrtrs('Upper', 'No transpose', 'Non-unit', N-P, 1, A, LDA, C, N-P, INFO );
 
          if ( INFO.GT.0 ) {
             INFO = 2
@@ -132,7 +132,7 @@
 
          // Put the solutions in X
 
-         CALL DCOPY( N-P, C, 1, X, 1 )
+         dcopy(N-P, C, 1, X, 1 );
       }
 
       // Compute the residual vector:
@@ -144,13 +144,13 @@
          NR = P
       }
       if ( NR.GT.0 ) {
-         CALL DTRMV( 'Upper', 'No transpose', 'Non unit', NR, A( N-P+1, N-P+1 ), LDA, D, 1 )
-         CALL DAXPY( NR, -ONE, D, 1, C( N-P+1 ), 1 )
+         dtrmv('Upper', 'No transpose', 'Non unit', NR, A( N-P+1, N-P+1 ), LDA, D, 1 );
+         daxpy(NR, -ONE, D, 1, C( N-P+1 ), 1 );
       }
 
       // Backward transformation x = Q**T*x
 
-      CALL DORMRQ( 'Left', 'Transpose', N, 1, P, B, LDB, WORK( 1 ), X, N, WORK( P+MN+1 ), LWORK-P-MN, INFO )
+      dormrq('Left', 'Transpose', N, 1, P, B, LDB, WORK( 1 ), X, N, WORK( P+MN+1 ), LWORK-P-MN, INFO );
       WORK( 1 ) = P + MN + MAX( LOPT, INT( WORK( P+MN+1 ) ) )
 
       RETURN

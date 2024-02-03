@@ -49,7 +49,7 @@
          INFO = -4
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'ZLAUUM', -INFO )
+         xerbla('ZLAUUM', -INFO );
          RETURN
       }
 
@@ -65,7 +65,7 @@
 
          // Use unblocked code
 
-         CALL ZLAUU2( UPLO, N, A, LDA, INFO )
+         zlauu2(UPLO, N, A, LDA, INFO );
       } else {
 
          // Use blocked code
@@ -76,11 +76,11 @@
 
             DO 10 I = 1, N, NB
                IB = MIN( NB, N-I+1 )
-               CALL ZTRMM( 'Right', 'Upper', 'Conjugate transpose', 'Non-unit', I-1, IB, CONE, A( I, I ), LDA, A( 1, I ), LDA )
-               CALL ZLAUU2( 'Upper', IB, A( I, I ), LDA, INFO )
+               ztrmm('Right', 'Upper', 'Conjugate transpose', 'Non-unit', I-1, IB, CONE, A( I, I ), LDA, A( 1, I ), LDA );
+               zlauu2('Upper', IB, A( I, I ), LDA, INFO );
                if ( I+IB.LE.N ) {
-                  CALL ZGEMM( 'No transpose', 'Conjugate transpose', I-1, IB, N-I-IB+1, CONE, A( 1, I+IB ), LDA, A( I, I+IB ), LDA, CONE, A( 1, I ), LDA )
-                  CALL ZHERK( 'Upper', 'No transpose', IB, N-I-IB+1, ONE, A( I, I+IB ), LDA, ONE, A( I, I ), LDA )
+                  zgemm('No transpose', 'Conjugate transpose', I-1, IB, N-I-IB+1, CONE, A( 1, I+IB ), LDA, A( I, I+IB ), LDA, CONE, A( 1, I ), LDA );
+                  zherk('Upper', 'No transpose', IB, N-I-IB+1, ONE, A( I, I+IB ), LDA, ONE, A( I, I ), LDA );
                }
    10       CONTINUE
          } else {
@@ -89,10 +89,10 @@
 
             DO 20 I = 1, N, NB
                IB = MIN( NB, N-I+1 )
-               CALL ZTRMM( 'Left', 'Lower', 'Conjugate transpose', 'Non-unit', IB, I-1, CONE, A( I, I ), LDA, A( I, 1 ), LDA )
-               CALL ZLAUU2( 'Lower', IB, A( I, I ), LDA, INFO )
+               ztrmm('Left', 'Lower', 'Conjugate transpose', 'Non-unit', IB, I-1, CONE, A( I, I ), LDA, A( I, 1 ), LDA );
+               zlauu2('Lower', IB, A( I, I ), LDA, INFO );
                if ( I+IB.LE.N ) {
-                  CALL ZGEMM( 'Conjugate transpose', 'No transpose', IB, I-1, N-I-IB+1, CONE, A( I+IB, I ), LDA, A( I+IB, 1 ), LDA, CONE, A( I, 1 ), LDA )                   CALL ZHERK( 'Lower', 'Conjugate transpose', IB, N-I-IB+1, ONE, A( I+IB, I ), LDA, ONE, A( I, I ), LDA )
+                  zgemm('Conjugate transpose', 'No transpose', IB, I-1, N-I-IB+1, CONE, A( I+IB, I ), LDA, A( I+IB, 1 ), LDA, CONE, A( I, 1 ), LDA )                   CALL ZHERK( 'Lower', 'Conjugate transpose', IB, N-I-IB+1, ONE, A( I+IB, I ), LDA, ONE, A( I, I ), LDA );
                }
    20       CONTINUE
          }

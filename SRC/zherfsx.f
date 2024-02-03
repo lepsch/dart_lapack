@@ -128,7 +128,7 @@
         INFO = -14
       }
       if ( INFO.NE.0 ) {
-        CALL XERBLA( 'ZHERFSX', -INFO )
+        xerbla('ZHERFSX', -INFO );
         RETURN
       }
 
@@ -178,14 +178,14 @@
 
       NORM = 'I'
       ANORM = ZLANHE( NORM, UPLO, N, A, LDA, RWORK )
-      CALL ZHECON( UPLO, N, AF, LDAF, IPIV, ANORM, RCOND, WORK, INFO )
+      zhecon(UPLO, N, AF, LDAF, IPIV, ANORM, RCOND, WORK, INFO );
 
       // Perform refinement on each right-hand side
 
       if ( REF_TYPE .NE. 0 ) {
 
          PREC_TYPE = ILAPREC( 'E' )
-          CALL ZLA_HERFSX_EXTENDED( PREC_TYPE, UPLO,  N, NRHS, A, LDA, AF, LDAF, IPIV, RCEQU, S, B, LDB, X, LDX, BERR, N_NORMS, ERR_BNDS_NORM, ERR_BNDS_COMP, WORK, RWORK, WORK(N+1), TRANSFER (RWORK(1:2*N), (/ (ZERO, ZERO) /), N), RCOND, ITHRESH, RTHRESH, UNSTABLE_THRESH, IGNORE_CWISE, INFO )
+          zla_herfsx_extended(PREC_TYPE, UPLO,  N, NRHS, A, LDA, AF, LDAF, IPIV, RCEQU, S, B, LDB, X, LDX, BERR, N_NORMS, ERR_BNDS_NORM, ERR_BNDS_COMP, WORK, RWORK, WORK(N+1), TRANSFER (RWORK(1:2*N), (/ (ZERO, ZERO) /), N), RCOND, ITHRESH, RTHRESH, UNSTABLE_THRESH, IGNORE_CWISE, INFO );
       }
 
       ERR_LBND = MAX( 10.0D+0, SQRT( DBLE( N ) ) ) * DLAMCH( 'Epsilon' )

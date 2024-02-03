@@ -183,7 +183,7 @@
       SMIN = MAX( ABS( TR( 1, 1 ) ), ABS( TR( 1, 2 ) ), ABS( TR( 2, 1 ) ), ABS( TR( 2, 2 ) ) )       SMIN = MAX( SMIN, ABS( TL( 1, 1 ) ), ABS( TL( 1, 2 ) ), ABS( TL( 2, 1 ) ), ABS( TL( 2, 2 ) ) )
       SMIN = MAX( EPS*SMIN, SMLNUM )
       BTMP( 1 ) = ZERO
-      CALL SCOPY( 16, BTMP, 0, T16, 1 )
+      scopy(16, BTMP, 0, T16, 1 );
       T16( 1, 1 ) = TL( 1, 1 ) + SGN*TR( 1, 1 )
       T16( 2, 2 ) = TL( 2, 2 ) + SGN*TR( 1, 1 )
       T16( 3, 3 ) = TL( 1, 1 ) + SGN*TR( 2, 2 )
@@ -229,7 +229,7 @@
    60       CONTINUE
    70    CONTINUE
          if ( IPSV.NE.I ) {
-            CALL SSWAP( 4, T16( IPSV, 1 ), 4, T16( I, 1 ), 4 )
+            sswap(4, T16( IPSV, 1 ), 4, T16( I, 1 ), 4 );
             TEMP = BTMP( I )
             BTMP( I ) = BTMP( IPSV )
             BTMP( IPSV ) = TEMP

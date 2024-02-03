@@ -46,7 +46,7 @@
          INFO = -4
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'SPOTRF2', -INFO )
+         xerbla('SPOTRF2', -INFO );
          RETURN
       }
 
@@ -77,7 +77,7 @@
 
          // Factor A11
 
-         CALL SPOTRF2( UPLO, N1, A( 1, 1 ), LDA, IINFO )
+         spotrf2(UPLO, N1, A( 1, 1 ), LDA, IINFO );
          if ( IINFO.NE.0 ) {
             INFO = IINFO
             RETURN
@@ -89,12 +89,12 @@
 
             // Update and scale A12
 
-            CALL STRSM( 'L', 'U', 'T', 'N', N1, N2, ONE, A( 1, 1 ), LDA, A( 1, N1+1 ), LDA )
+            strsm('L', 'U', 'T', 'N', N1, N2, ONE, A( 1, 1 ), LDA, A( 1, N1+1 ), LDA );
 
             // Update and factor A22
 
-            CALL SSYRK( UPLO, 'T', N2, N1, -ONE, A( 1, N1+1 ), LDA, ONE, A( N1+1, N1+1 ), LDA )
-            CALL SPOTRF2( UPLO, N2, A( N1+1, N1+1 ), LDA, IINFO )
+            ssyrk(UPLO, 'T', N2, N1, -ONE, A( 1, N1+1 ), LDA, ONE, A( N1+1, N1+1 ), LDA );
+            spotrf2(UPLO, N2, A( N1+1, N1+1 ), LDA, IINFO );
             if ( IINFO.NE.0 ) {
                INFO = IINFO + N1
                RETURN
@@ -106,12 +106,12 @@
 
             // Update and scale A21
 
-            CALL STRSM( 'R', 'L', 'T', 'N', N2, N1, ONE, A( 1, 1 ), LDA, A( N1+1, 1 ), LDA )
+            strsm('R', 'L', 'T', 'N', N2, N1, ONE, A( 1, 1 ), LDA, A( N1+1, 1 ), LDA );
 
             // Update and factor A22
 
-            CALL SSYRK( UPLO, 'N', N2, N1, -ONE, A( N1+1, 1 ), LDA, ONE, A( N1+1, N1+1 ), LDA )
-            CALL SPOTRF2( UPLO, N2, A( N1+1, N1+1 ), LDA, IINFO )
+            ssyrk(UPLO, 'N', N2, N1, -ONE, A( N1+1, 1 ), LDA, ONE, A( N1+1, N1+1 ), LDA );
+            spotrf2(UPLO, N2, A( N1+1, N1+1 ), LDA, IINFO );
             if ( IINFO.NE.0 ) {
                INFO = IINFO + N1
                RETURN

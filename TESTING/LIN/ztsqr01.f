@@ -70,53 +70,53 @@
       // Put random numbers into A and copy to AF
 
       DO J=1,N
-         CALL ZLARNV( 2, ISEED, M, A( 1, J ) )
+         zlarnv(2, ISEED, M, A( 1, J ) );
       END DO
       if (TESTZEROS) {
          if (M.GE.4) {
             DO J=1,N
-               CALL ZLARNV( 2, ISEED, M/2, A( M/4, J ) )
+               zlarnv(2, ISEED, M/2, A( M/4, J ) );
             END DO
          }
       }
-      CALL ZLACPY( 'Full', M, N, A, M, AF, M )
+      zlacpy('Full', M, N, A, M, AF, M );
 
       if (TS) {
 
       // Factor the matrix A in the array AF.
 
-      CALL ZGEQR( M, N, AF, M, TQUERY, -1, WORKQUERY, -1, INFO )
+      zgeqr(M, N, AF, M, TQUERY, -1, WORKQUERY, -1, INFO );
       TSIZE = INT( TQUERY( 1 ) )
       LWORK = INT( WORKQUERY( 1 ) )
-      CALL ZGEMQR( 'L', 'N', M, M, K, AF, M, TQUERY, TSIZE, CF, M, WORKQUERY, -1, INFO)
+      zgemqr('L', 'N', M, M, K, AF, M, TQUERY, TSIZE, CF, M, WORKQUERY, -1, INFO);
       LWORK = MAX( LWORK, INT( WORKQUERY( 1 ) ) )
-      CALL ZGEMQR( 'L', 'N', M, N, K, AF, M, TQUERY, TSIZE, CF, M, WORKQUERY, -1, INFO)
+      zgemqr('L', 'N', M, N, K, AF, M, TQUERY, TSIZE, CF, M, WORKQUERY, -1, INFO);
       LWORK = MAX( LWORK, INT( WORKQUERY( 1 ) ) )
-      CALL ZGEMQR( 'L', 'C', M, N, K, AF, M, TQUERY, TSIZE, CF, M, WORKQUERY, -1, INFO)
+      zgemqr('L', 'C', M, N, K, AF, M, TQUERY, TSIZE, CF, M, WORKQUERY, -1, INFO);
       LWORK = MAX( LWORK, INT( WORKQUERY( 1 ) ) )
-      CALL ZGEMQR( 'R', 'N', N, M, K, AF, M, TQUERY, TSIZE, DF, N, WORKQUERY, -1, INFO)
+      zgemqr('R', 'N', N, M, K, AF, M, TQUERY, TSIZE, DF, N, WORKQUERY, -1, INFO);
       LWORK = MAX( LWORK, INT( WORKQUERY( 1 ) ) )
-      CALL ZGEMQR( 'R', 'C', N, M, K, AF, M, TQUERY, TSIZE, DF, N, WORKQUERY, -1, INFO)
+      zgemqr('R', 'C', N, M, K, AF, M, TQUERY, TSIZE, DF, N, WORKQUERY, -1, INFO);
       LWORK = MAX( LWORK, INT( WORKQUERY( 1 ) ) )
       ALLOCATE ( T( TSIZE ) )
       ALLOCATE ( WORK( LWORK ) )
       srnamt = 'ZGEQR'
-      CALL ZGEQR( M, N, AF, M, T, TSIZE, WORK, LWORK, INFO )
+      zgeqr(M, N, AF, M, T, TSIZE, WORK, LWORK, INFO );
 
       // Generate the m-by-m matrix Q
 
-      CALL ZLASET( 'Full', M, M, CZERO, ONE, Q, M )
+      zlaset('Full', M, M, CZERO, ONE, Q, M );
       srnamt = 'ZGEMQR'
-      CALL ZGEMQR( 'L', 'N', M, M, K, AF, M, T, TSIZE, Q, M, WORK, LWORK, INFO )
+      zgemqr('L', 'N', M, M, K, AF, M, T, TSIZE, Q, M, WORK, LWORK, INFO );
 
       // Copy R
 
-      CALL ZLASET( 'Full', M, N, CZERO, CZERO, R, M )
-      CALL ZLACPY( 'Upper', M, N, AF, M, R, M )
+      zlaset('Full', M, N, CZERO, CZERO, R, M );
+      zlacpy('Upper', M, N, AF, M, R, M );
 
       // Compute |R - Q'*A| / |A| and store in RESULT(1)
 
-      CALL ZGEMM( 'C', 'N', M, N, M, -ONE, Q, M, A, M, ONE, R, M )
+      zgemm('C', 'N', M, N, M, -ONE, Q, M, A, M, ONE, R, M );
       ANORM = ZLANGE( '1', M, N, A, M, RWORK )
       RESID = ZLANGE( '1', M, N, R, M, RWORK )
       if ( ANORM.GT.ZERO ) {
@@ -127,27 +127,27 @@
 
       // Compute |I - Q'*Q| and store in RESULT(2)
 
-      CALL ZLASET( 'Full', M, M, CZERO, ONE, R, M )
-      CALL ZHERK( 'U', 'C', M, M, DREAL(-ONE), Q, M, DREAL(ONE), R, M )
+      zlaset('Full', M, M, CZERO, ONE, R, M );
+      zherk('U', 'C', M, M, DREAL(-ONE), Q, M, DREAL(ONE), R, M );
       RESID = ZLANSY( '1', 'Upper', M, R, M, RWORK )
       RESULT( 2 ) = RESID / (EPS*MAX(1,M))
 
       // Generate random m-by-n matrix C and a copy CF
 
       DO J=1,N
-         CALL ZLARNV( 2, ISEED, M, C( 1, J ) )
+         zlarnv(2, ISEED, M, C( 1, J ) );
       END DO
       CNORM = ZLANGE( '1', M, N, C, M, RWORK)
-      CALL ZLACPY( 'Full', M, N, C, M, CF, M )
+      zlacpy('Full', M, N, C, M, CF, M );
 
       // Apply Q to C as Q*C
 
       srnamt = 'ZGEMQR'
-      CALL ZGEMQR( 'L', 'N', M, N, K, AF, M, T, TSIZE, CF, M, WORK, LWORK, INFO)
+      zgemqr('L', 'N', M, N, K, AF, M, T, TSIZE, CF, M, WORK, LWORK, INFO);
 
       // Compute |Q*C - Q*C| / |C|
 
-      CALL ZGEMM( 'N', 'N', M, N, M, -ONE, Q, M, C, M, ONE, CF, M )
+      zgemm('N', 'N', M, N, M, -ONE, Q, M, C, M, ONE, CF, M );
       RESID = ZLANGE( '1', M, N, CF, M, RWORK )
       if ( CNORM.GT.ZERO ) {
          RESULT( 3 ) = RESID / (EPS*MAX(1,M)*CNORM)
@@ -157,16 +157,16 @@
 
       // Copy C into CF again
 
-      CALL ZLACPY( 'Full', M, N, C, M, CF, M )
+      zlacpy('Full', M, N, C, M, CF, M );
 
       // Apply Q to C as QT*C
 
       srnamt = 'ZGEMQR'
-      CALL ZGEMQR( 'L', 'C', M, N, K, AF, M, T, TSIZE, CF, M, WORK, LWORK, INFO)
+      zgemqr('L', 'C', M, N, K, AF, M, T, TSIZE, CF, M, WORK, LWORK, INFO);
 
       // Compute |QT*C - QT*C| / |C|
 
-      CALL ZGEMM( 'C', 'N', M, N, M, -ONE, Q, M, C, M, ONE, CF, M )
+      zgemm('C', 'N', M, N, M, -ONE, Q, M, C, M, ONE, CF, M );
       RESID = ZLANGE( '1', M, N, CF, M, RWORK )
       if ( CNORM.GT.ZERO ) {
          RESULT( 4 ) = RESID / (EPS*MAX(1,M)*CNORM)
@@ -177,19 +177,19 @@
       // Generate random n-by-m matrix D and a copy DF
 
       DO J=1,M
-         CALL ZLARNV( 2, ISEED, N, D( 1, J ) )
+         zlarnv(2, ISEED, N, D( 1, J ) );
       END DO
       DNORM = ZLANGE( '1', N, M, D, N, RWORK)
-      CALL ZLACPY( 'Full', N, M, D, N, DF, N )
+      zlacpy('Full', N, M, D, N, DF, N );
 
       // Apply Q to D as D*Q
 
       srnamt = 'ZGEMQR'
-      CALL ZGEMQR( 'R', 'N', N, M, K, AF, M, T, TSIZE, DF, N, WORK, LWORK, INFO)
+      zgemqr('R', 'N', N, M, K, AF, M, T, TSIZE, DF, N, WORK, LWORK, INFO);
 
       // Compute |D*Q - D*Q| / |D|
 
-      CALL ZGEMM( 'N', 'N', N, M, M, -ONE, D, N, Q, M, ONE, DF, N )
+      zgemm('N', 'N', N, M, M, -ONE, D, N, Q, M, ONE, DF, N );
       RESID = ZLANGE( '1', N, M, DF, N, RWORK )
       if ( DNORM.GT.ZERO ) {
          RESULT( 5 ) = RESID / (EPS*MAX(1,M)*DNORM)
@@ -199,15 +199,15 @@
 
       // Copy D into DF again
 
-      CALL ZLACPY( 'Full', N, M, D, N, DF, N )
+      zlacpy('Full', N, M, D, N, DF, N );
 
       // Apply Q to D as D*QT
 
-      CALL ZGEMQR( 'R', 'C', N, M, K, AF, M, T, TSIZE, DF, N, WORK, LWORK, INFO)
+      zgemqr('R', 'C', N, M, K, AF, M, T, TSIZE, DF, N, WORK, LWORK, INFO);
 
       // Compute |D*QT - D*QT| / |D|
 
-      CALL ZGEMM( 'N', 'C', N, M, M, -ONE, D, N, Q, M, ONE, DF, N )
+      zgemm('N', 'C', N, M, M, -ONE, D, N, Q, M, ONE, DF, N );
       RESID = ZLANGE( '1', N, M, DF, N, RWORK )
       if ( CNORM.GT.ZERO ) {
          RESULT( 6 ) = RESID / (EPS*MAX(1,M)*DNORM)
@@ -218,39 +218,39 @@
       // Short and wide
 
       } else {
-      CALL ZGELQ( M, N, AF, M, TQUERY, -1, WORKQUERY, -1, INFO )
+      zgelq(M, N, AF, M, TQUERY, -1, WORKQUERY, -1, INFO );
       TSIZE = INT( TQUERY( 1 ) )
       LWORK = INT( WORKQUERY( 1 ) )
-      CALL ZGEMLQ( 'R', 'N', N, N, K, AF, M, TQUERY, TSIZE, Q, N, WORKQUERY, -1, INFO )
+      zgemlq('R', 'N', N, N, K, AF, M, TQUERY, TSIZE, Q, N, WORKQUERY, -1, INFO );
       LWORK = MAX( LWORK, INT( WORKQUERY( 1 ) ) )
-      CALL ZGEMLQ( 'L', 'N', N, M, K, AF, M, TQUERY, TSIZE, DF, N, WORKQUERY, -1, INFO)
+      zgemlq('L', 'N', N, M, K, AF, M, TQUERY, TSIZE, DF, N, WORKQUERY, -1, INFO);
       LWORK = MAX( LWORK, INT( WORKQUERY( 1 ) ) )
-      CALL ZGEMLQ( 'L', 'C', N, M, K, AF, M, TQUERY, TSIZE, DF, N, WORKQUERY, -1, INFO)
+      zgemlq('L', 'C', N, M, K, AF, M, TQUERY, TSIZE, DF, N, WORKQUERY, -1, INFO);
       LWORK = MAX( LWORK, INT( WORKQUERY( 1 ) ) )
-      CALL ZGEMLQ( 'R', 'N', M, N, K, AF, M, TQUERY, TSIZE, CF, M, WORKQUERY, -1, INFO)
+      zgemlq('R', 'N', M, N, K, AF, M, TQUERY, TSIZE, CF, M, WORKQUERY, -1, INFO);
       LWORK = MAX( LWORK, INT( WORKQUERY( 1 ) ) )
-      CALL ZGEMLQ( 'R', 'C', M, N, K, AF, M, TQUERY, TSIZE, CF, M, WORKQUERY, -1, INFO)
+      zgemlq('R', 'C', M, N, K, AF, M, TQUERY, TSIZE, CF, M, WORKQUERY, -1, INFO);
       LWORK = MAX( LWORK, INT( WORKQUERY( 1 ) ) )
       ALLOCATE ( T( TSIZE ) )
       ALLOCATE ( WORK( LWORK ) )
       srnamt = 'ZGELQ'
-      CALL ZGELQ( M, N, AF, M, T, TSIZE, WORK, LWORK, INFO )
+      zgelq(M, N, AF, M, T, TSIZE, WORK, LWORK, INFO );
 
 
       // Generate the n-by-n matrix Q
 
-      CALL ZLASET( 'Full', N, N, CZERO, ONE, Q, N )
+      zlaset('Full', N, N, CZERO, ONE, Q, N );
       srnamt = 'ZGEMLQ'
-      CALL ZGEMLQ( 'R', 'N', N, N, K, AF, M, T, TSIZE, Q, N, WORK, LWORK, INFO )
+      zgemlq('R', 'N', N, N, K, AF, M, T, TSIZE, Q, N, WORK, LWORK, INFO );
 
       // Copy R
 
-      CALL ZLASET( 'Full', M, N, CZERO, CZERO, LQ, L )
-      CALL ZLACPY( 'Lower', M, N, AF, M, LQ, L )
+      zlaset('Full', M, N, CZERO, CZERO, LQ, L );
+      zlacpy('Lower', M, N, AF, M, LQ, L );
 
       // Compute |L - A*Q'| / |A| and store in RESULT(1)
 
-      CALL ZGEMM( 'N', 'C', M, N, N, -ONE, A, M, Q, N, ONE, LQ, L )
+      zgemm('N', 'C', M, N, N, -ONE, A, M, Q, N, ONE, LQ, L );
       ANORM = ZLANGE( '1', M, N, A, M, RWORK )
       RESID = ZLANGE( '1', M, N, LQ, L, RWORK )
       if ( ANORM.GT.ZERO ) {
@@ -261,26 +261,26 @@
 
       // Compute |I - Q'*Q| and store in RESULT(2)
 
-      CALL ZLASET( 'Full', N, N, CZERO, ONE, LQ, L )
-      CALL ZHERK( 'U', 'C', N, N, DREAL(-ONE), Q, N, DREAL(ONE), LQ, L)
+      zlaset('Full', N, N, CZERO, ONE, LQ, L );
+      zherk('U', 'C', N, N, DREAL(-ONE), Q, N, DREAL(ONE), LQ, L);
       RESID = ZLANSY( '1', 'Upper', N, LQ, L, RWORK )
       RESULT( 2 ) = RESID / (EPS*MAX(1,N))
 
       // Generate random m-by-n matrix C and a copy CF
 
       DO J=1,M
-         CALL ZLARNV( 2, ISEED, N, D( 1, J ) )
+         zlarnv(2, ISEED, N, D( 1, J ) );
       END DO
       DNORM = ZLANGE( '1', N, M, D, N, RWORK)
-      CALL ZLACPY( 'Full', N, M, D, N, DF, N )
+      zlacpy('Full', N, M, D, N, DF, N );
 
       // Apply Q to C as Q*C
 
-      CALL ZGEMLQ( 'L', 'N', N, M, K, AF, M, T, TSIZE, DF, N, WORK, LWORK, INFO)
+      zgemlq('L', 'N', N, M, K, AF, M, T, TSIZE, DF, N, WORK, LWORK, INFO);
 
       // Compute |Q*D - Q*D| / |D|
 
-      CALL ZGEMM( 'N', 'N', N, M, N, -ONE, Q, N, D, N, ONE, DF, N )
+      zgemm('N', 'N', N, M, N, -ONE, Q, N, D, N, ONE, DF, N );
       RESID = ZLANGE( '1', N, M, DF, N, RWORK )
       if ( DNORM.GT.ZERO ) {
          RESULT( 3 ) = RESID / (EPS*MAX(1,N)*DNORM)
@@ -290,15 +290,15 @@
 
       // Copy D into DF again
 
-      CALL ZLACPY( 'Full', N, M, D, N, DF, N )
+      zlacpy('Full', N, M, D, N, DF, N );
 
       // Apply Q to D as QT*D
 
-      CALL ZGEMLQ( 'L', 'C', N, M, K, AF, M, T, TSIZE, DF, N, WORK, LWORK, INFO)
+      zgemlq('L', 'C', N, M, K, AF, M, T, TSIZE, DF, N, WORK, LWORK, INFO);
 
       // Compute |QT*D - QT*D| / |D|
 
-      CALL ZGEMM( 'C', 'N', N, M, N, -ONE, Q, N, D, N, ONE, DF, N )
+      zgemm('C', 'N', N, M, N, -ONE, Q, N, D, N, ONE, DF, N );
       RESID = ZLANGE( '1', N, M, DF, N, RWORK )
       if ( DNORM.GT.ZERO ) {
          RESULT( 4 ) = RESID / (EPS*MAX(1,N)*DNORM)
@@ -309,18 +309,18 @@
       // Generate random n-by-m matrix D and a copy DF
 
       DO J=1,N
-         CALL ZLARNV( 2, ISEED, M, C( 1, J ) )
+         zlarnv(2, ISEED, M, C( 1, J ) );
       END DO
       CNORM = ZLANGE( '1', M, N, C, M, RWORK)
-      CALL ZLACPY( 'Full', M, N, C, M, CF, M )
+      zlacpy('Full', M, N, C, M, CF, M );
 
       // Apply Q to C as C*Q
 
-      CALL ZGEMLQ( 'R', 'N', M, N, K, AF, M, T, TSIZE, CF, M, WORK, LWORK, INFO)
+      zgemlq('R', 'N', M, N, K, AF, M, T, TSIZE, CF, M, WORK, LWORK, INFO);
 
       // Compute |C*Q - C*Q| / |C|
 
-      CALL ZGEMM( 'N', 'N', M, N, N, -ONE, C, M, Q, N, ONE, CF, M )
+      zgemm('N', 'N', M, N, N, -ONE, C, M, Q, N, ONE, CF, M );
       RESID = ZLANGE( '1', N, M, DF, N, RWORK )
       if ( CNORM.GT.ZERO ) {
          RESULT( 5 ) = RESID / (EPS*MAX(1,N)*CNORM)
@@ -330,15 +330,15 @@
 
       // Copy C into CF again
 
-      CALL ZLACPY( 'Full', M, N, C, M, CF, M )
+      zlacpy('Full', M, N, C, M, CF, M );
 
       // Apply Q to D as D*QT
 
-      CALL ZGEMLQ( 'R', 'C', M, N, K, AF, M, T, TSIZE, CF, M, WORK, LWORK, INFO)
+      zgemlq('R', 'C', M, N, K, AF, M, T, TSIZE, CF, M, WORK, LWORK, INFO);
 
       // Compute |C*QT - C*QT| / |C|
 
-      CALL ZGEMM( 'N', 'C', M, N, N, -ONE, C, M, Q, N, ONE, CF, M )
+      zgemm('N', 'C', M, N, N, -ONE, C, M, Q, N, ONE, CF, M );
       RESID = ZLANGE( '1', M, N, CF, M, RWORK )
       if ( CNORM.GT.ZERO ) {
          RESULT( 6 ) = RESID / (EPS*MAX(1,N)*CNORM)

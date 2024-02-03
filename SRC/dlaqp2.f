@@ -49,7 +49,7 @@
          PVT = ( I-1 ) + IDAMAX( N-I+1, VN1( I ), 1 )
 
          if ( PVT.NE.I ) {
-            CALL DSWAP( M, A( 1, PVT ), 1, A( 1, I ), 1 )
+            dswap(M, A( 1, PVT ), 1, A( 1, I ), 1 );
             ITEMP = JPVT( PVT )
             JPVT( PVT ) = JPVT( I )
             JPVT( I ) = ITEMP
@@ -60,9 +60,9 @@
          // Generate elementary reflector H(i).
 
          if ( OFFPI.LT.M ) {
-            CALL DLARFG( M-OFFPI+1, A( OFFPI, I ), A( OFFPI+1, I ), 1, TAU( I ) )
+            dlarfg(M-OFFPI+1, A( OFFPI, I ), A( OFFPI+1, I ), 1, TAU( I ) );
          } else {
-            CALL DLARFG( 1, A( M, I ), A( M, I ), 1, TAU( I ) )
+            dlarfg(1, A( M, I ), A( M, I ), 1, TAU( I ) );
          }
 
          if ( I.LT.N ) {
@@ -71,7 +71,7 @@
 
             AII = A( OFFPI, I )
             A( OFFPI, I ) = ONE
-            CALL DLARF( 'Left', M-OFFPI+1, N-I, A( OFFPI, I ), 1, TAU( I ), A( OFFPI, I+1 ), LDA, WORK( 1 ) )
+            dlarf('Left', M-OFFPI+1, N-I, A( OFFPI, I ), 1, TAU( I ), A( OFFPI, I+1 ), LDA, WORK( 1 ) );
             A( OFFPI, I ) = AII
          }
 

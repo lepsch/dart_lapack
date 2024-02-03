@@ -88,8 +88,8 @@
 
       NB = 1
       NBMIN = 2
-      CALL XLAENV( 1, NB )
-      CALL XLAENV( 2, NBMIN )
+      xlaenv(1, NB );
+      xlaenv(2, NBMIN );
 
       // Do for each value of N in NVAL
 
@@ -168,16 +168,16 @@
                   // Set up parameters with CLATB4 and generate a
                   // test matrix with CLATMS.
 
-                  CALL CLATB4( PATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST )
+                  clatb4(PATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST );
                   RCONDC = ONE / CNDNUM
 
                   SRNAMT = 'CLATMS'
-                  CALL CLATMS( N, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KL, KU, 'Z', A, LDA, WORK, INFO )
+                  clatms(N, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KL, KU, 'Z', A, LDA, WORK, INFO );
 
                   // Check the error code from CLATMS.
 
                   if ( INFO.NE.0 ) {
-                     CALL ALAERH( PATH, 'CLATMS', INFO, 0, ' ', N, N, KL, KU, -1, IMAT, NFAIL, NERRS, NOUT )
+                     alaerh(PATH, 'CLATMS', INFO, 0, ' ', N, N, KL, KU, -1, IMAT, NFAIL, NERRS, NOUT );
                      GO TO 120
                   }
 
@@ -212,7 +212,7 @@
 
                   // Save a copy of the matrix A in ASAV.
 
-                  CALL CLACPY( 'Full', KL+KU+1, N, A, LDA, ASAV, LDA )
+                  clacpy('Full', KL+KU+1, N, A, LDA, ASAV, LDA );
 
                   DO 110 IEQUED = 1, 4
                      EQUED = EQUEDS( IEQUED )
@@ -240,13 +240,13 @@
                            // 'N' reuses the condition number from the
                            // previous iteration with FACT = 'F').
 
-                           CALL CLACPY( 'Full', KL+KU+1, N, ASAV, LDA, AFB( KL+1 ), LDAFB )
+                           clacpy('Full', KL+KU+1, N, ASAV, LDA, AFB( KL+1 ), LDAFB );
                            if ( EQUIL .OR. IEQUED.GT.1 ) {
 
                               // Compute row and column scale factors to
                               // equilibrate the matrix A.
 
-                              CALL CGBEQU( N, N, KL, KU, AFB( KL+1 ), LDAFB, S, S( N+1 ), ROWCND, COLCND, AMAX, INFO )
+                              cgbequ(N, N, KL, KU, AFB( KL+1 ), LDAFB, S, S( N+1 ), ROWCND, COLCND, AMAX, INFO );
                               if ( INFO.EQ.0 .AND. N.GT.0 ) {
                                  if ( LSAME( EQUED, 'R' ) ) {
                                     ROWCND = ZERO
@@ -261,7 +261,7 @@
 
                                  // Equilibrate the matrix.
 
-                                 CALL CLAQGB( N, N, KL, KU, AFB( KL+1 ), LDAFB, S, S( N+1 ), ROWCND, COLCND, AMAX, EQUED )
+                                 claqgb(N, N, KL, KU, AFB( KL+1 ), LDAFB, S, S( N+1 ), ROWCND, COLCND, AMAX, EQUED );
                               }
                            }
 
@@ -279,13 +279,13 @@
 
                            // Factor the matrix A.
 
-                           CALL CGBTRF( N, N, KL, KU, AFB, LDAFB, IWORK, INFO )
+                           cgbtrf(N, N, KL, KU, AFB, LDAFB, IWORK, INFO );
 
                            // Form the inverse of A.
 
-                           CALL CLASET( 'Full', N, N, CMPLX( ZERO ), CMPLX( ONE ), WORK, LDB )
+                           claset('Full', N, N, CMPLX( ZERO ), CMPLX( ONE ), WORK, LDB );
                            SRNAMT = 'CGBTRS'
-                           CALL CGBTRS( 'No transpose', N, KL, KU, N, AFB, LDAFB, IWORK, WORK, LDB, INFO )
+                           cgbtrs('No transpose', N, KL, KU, N, AFB, LDAFB, IWORK, WORK, LDB, INFO );
 
                            // Compute the 1-norm condition number of A.
 
@@ -320,15 +320,15 @@
 
                            // Restore the matrix A.
 
-                           CALL CLACPY( 'Full', KL+KU+1, N, ASAV, LDA, A, LDA )
+                           clacpy('Full', KL+KU+1, N, ASAV, LDA, A, LDA );
 
                            // Form an exact solution and set the right hand
                            // side.
 
                            SRNAMT = 'CLARHS'
-                           CALL CLARHS( PATH, XTYPE, 'Full', TRANS, N, N, KL, KU, NRHS, A, LDA, XACT, LDB, B, LDB, ISEED, INFO )
+                           clarhs(PATH, XTYPE, 'Full', TRANS, N, N, KL, KU, NRHS, A, LDA, XACT, LDB, B, LDB, ISEED, INFO );
                            XTYPE = 'C'
-                           CALL CLACPY( 'Full', N, NRHS, B, LDB, BSAV, LDB )
+                           clacpy('Full', N, NRHS, B, LDB, BSAV, LDB );
 
                            if ( NOFACT .AND. ITRAN.EQ.1 ) {
 
@@ -337,10 +337,10 @@
                               // Compute the LU factorization of the matrix
                               // and solve the system.
 
-                              CALL CLACPY( 'Full', KL+KU+1, N, A, LDA, AFB( KL+1 ), LDAFB )                               CALL CLACPY( 'Full', N, NRHS, B, LDB, X, LDB )
+                              clacpy('Full', KL+KU+1, N, A, LDA, AFB( KL+1 ), LDAFB )                               CALL CLACPY( 'Full', N, NRHS, B, LDB, X, LDB );
 
                               SRNAMT = 'CGBSV '
-                              CALL CGBSV( N, KL, KU, NRHS, AFB, LDAFB, IWORK, X, LDB, INFO )
+                              cgbsv(N, KL, KU, NRHS, AFB, LDAFB, IWORK, X, LDB, INFO );
 
                               // Check error code from CGBSV .
 
@@ -349,19 +349,19 @@
                               // Reconstruct matrix from factors and
                               // compute residual.
 
-                              CALL CGBT01( N, N, KL, KU, A, LDA, AFB, LDAFB, IWORK, WORK, RESULT( 1 ) )
+                              cgbt01(N, N, KL, KU, A, LDA, AFB, LDAFB, IWORK, WORK, RESULT( 1 ) );
                               NT = 1
                               if ( IZERO.EQ.0 ) {
 
                                  // Compute residual of the computed
                                  // solution.
 
-                                 CALL CLACPY( 'Full', N, NRHS, B, LDB, WORK, LDB )                                  CALL CGBT02( 'No transpose', N, N, KL, KU, NRHS, A, LDA, X, LDB, WORK, LDB, RWORK, RESULT( 2 ) )
+                                 clacpy('Full', N, NRHS, B, LDB, WORK, LDB )                                  CALL CGBT02( 'No transpose', N, N, KL, KU, NRHS, A, LDA, X, LDB, WORK, LDB, RWORK, RESULT( 2 ) );
 
                                  // Check solution from generated exact
                                  // solution.
 
-                                 CALL CGET04( N, NRHS, X, LDB, XACT, LDB, RCONDC, RESULT( 3 ) )
+                                 cget04(N, NRHS, X, LDB, XACT, LDB, RCONDC, RESULT( 3 ) );
                                  NT = 3
                               }
 
@@ -380,20 +380,20 @@
                            // --- Test CGBSVX ---
 
                            IF( .NOT.PREFAC ) CALL CLASET( 'Full', 2*KL+KU+1, N, CMPLX( ZERO ), CMPLX( ZERO ), AFB, LDAFB )
-                           CALL CLASET( 'Full', N, NRHS, CMPLX( ZERO ), CMPLX( ZERO ), X, LDB )
+                           claset('Full', N, NRHS, CMPLX( ZERO ), CMPLX( ZERO ), X, LDB );
                            if ( IEQUED.GT.1 .AND. N.GT.0 ) {
 
                               // Equilibrate the matrix if FACT = 'F' and
                               // EQUED = 'R', 'C', or 'B'.
 
-                              CALL CLAQGB( N, N, KL, KU, A, LDA, S, S( N+1 ), ROWCND, COLCND, AMAX, EQUED )
+                              claqgb(N, N, KL, KU, A, LDA, S, S( N+1 ), ROWCND, COLCND, AMAX, EQUED );
                            }
 
                            // Solve the system and compute the condition
                            // number and error bounds using CGBSVX.
 
                            SRNAMT = 'CGBSVX'
-                           CALL CGBSVX( FACT, TRANS, N, KL, KU, NRHS, A, LDA, AFB, LDAFB, IWORK, EQUED, S, S( LDB+1 ), B, LDB, X, LDB, RCOND, RWORK, RWORK( NRHS+1 ), WORK, RWORK( 2*NRHS+1 ), INFO )
+                           cgbsvx(FACT, TRANS, N, KL, KU, NRHS, A, LDA, AFB, LDAFB, IWORK, EQUED, S, S( LDB+1 ), B, LDB, X, LDB, RCOND, RWORK, RWORK( NRHS+1 ), WORK, RWORK( 2*NRHS+1 ), INFO );
 
                            // Check the error code from CGBSVX.
 
@@ -428,7 +428,7 @@
                               // Reconstruct matrix from factors and
                               // compute residual.
 
-                              CALL CGBT01( N, N, KL, KU, A, LDA, AFB, LDAFB, IWORK, WORK, RESULT( 1 ) )
+                              cgbt01(N, N, KL, KU, A, LDA, AFB, LDAFB, IWORK, WORK, RESULT( 1 ) );
                               K1 = 1
                            } else {
                               K1 = 2
@@ -439,7 +439,7 @@
 
                               // Compute residual of the computed solution.
 
-                              CALL CLACPY( 'Full', N, NRHS, BSAV, LDB, WORK, LDB )                               CALL CGBT02( TRANS, N, N, KL, KU, NRHS, ASAV, LDA, X, LDB, WORK, LDB, RWORK( 2*NRHS+1 ), RESULT( 2 ) )
+                              clacpy('Full', N, NRHS, BSAV, LDB, WORK, LDB )                               CALL CGBT02( TRANS, N, N, KL, KU, NRHS, ASAV, LDA, X, LDB, WORK, LDB, RWORK( 2*NRHS+1 ), RESULT( 2 ) );
 
                               // Check solution from generated exact
                               // solution.
@@ -451,13 +451,13 @@
                                  } else {
                                     ROLDC = ROLDI
                                  }
-                                 CALL CGET04( N, NRHS, X, LDB, XACT, LDB, ROLDC, RESULT( 3 ) )
+                                 cget04(N, NRHS, X, LDB, XACT, LDB, ROLDC, RESULT( 3 ) );
                               }
 
                               // Check the error bounds from iterative
                               // refinement.
 
-                              CALL CGBT05( TRANS, N, KL, KU, NRHS, ASAV, LDA, BSAV, LDB, X, LDB, XACT, LDB, RWORK, RWORK( NRHS+1 ), RESULT( 4 ) )
+                              cgbt05(TRANS, N, KL, KU, NRHS, ASAV, LDA, BSAV, LDB, X, LDB, XACT, LDB, RWORK, RWORK( NRHS+1 ), RESULT( 4 ) );
                            } else {
                               TRFCON = .TRUE.
                            }
@@ -524,7 +524,7 @@
 
       // Print a summary of the results.
 
-      CALL ALASVM( PATH, NOUT, NFAIL, NRUN, NERRS )
+      alasvm(PATH, NOUT, NFAIL, NRUN, NERRS );
 
  9999 FORMAT( ' *** In CDRVGB, LA=', I5, ' is too small for N=', I5, ', KU=', I5, ', KL=', I5, / ' ==> Increase LA to at least ', I5 )
  9998 FORMAT( ' *** In CDRVGB, LAFB=', I5, ' is too small for N=', I5, ', KU=', I5, ', KL=', I5, / ' ==> Increase LAFB to at least ', I5 )

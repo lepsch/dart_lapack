@@ -64,7 +64,7 @@
          INFO = -11
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'STRSYL', -INFO )
+         xerbla('STRSYL', -INFO );
          RETURN
       }
 
@@ -162,7 +162,7 @@
 
                   if ( SCALOC.NE.ONE ) {
                      DO 10 J = 1, N
-                        CALL SSCAL( M, SCALOC, C( 1, J ), 1 )
+                        sscal(M, SCALOC, C( 1, J ), 1 );
    10                CONTINUE
                      SCALE = SCALE*SCALOC
                   }
@@ -178,12 +178,12 @@
                   SUMR = SDOT( L1-1, C( K2, 1 ), LDC, B( 1, L1 ), 1 )
                   VEC( 2, 1 ) = C( K2, L1 ) - ( SUML+SGN*SUMR )
 
-                  CALL SLALN2( .FALSE., 2, 1, SMIN, ONE, A( K1, K1 ), LDA, ONE, ONE, VEC, 2, -SGN*B( L1, L1 ), ZERO, X, 2, SCALOC, XNORM, IERR )
+                  slaln2(.FALSE., 2, 1, SMIN, ONE, A( K1, K1 ), LDA, ONE, ONE, VEC, 2, -SGN*B( L1, L1 ), ZERO, X, 2, SCALOC, XNORM, IERR );
                   IF( IERR.NE.0 ) INFO = 1
 
                   if ( SCALOC.NE.ONE ) {
                      DO 20 J = 1, N
-                        CALL SSCAL( M, SCALOC, C( 1, J ), 1 )
+                        sscal(M, SCALOC, C( 1, J ), 1 );
    20                CONTINUE
                      SCALE = SCALE*SCALOC
                   }
@@ -200,12 +200,12 @@
                   SUMR = SDOT( L1-1, C( K1, 1 ), LDC, B( 1, L2 ), 1 )
                   VEC( 2, 1 ) = SGN*( C( K1, L2 )-( SUML+SGN*SUMR ) )
 
-                  CALL SLALN2( .TRUE., 2, 1, SMIN, ONE, B( L1, L1 ), LDB, ONE, ONE, VEC, 2, -SGN*A( K1, K1 ), ZERO, X, 2, SCALOC, XNORM, IERR )
+                  slaln2(.TRUE., 2, 1, SMIN, ONE, B( L1, L1 ), LDB, ONE, ONE, VEC, 2, -SGN*A( K1, K1 ), ZERO, X, 2, SCALOC, XNORM, IERR );
                   IF( IERR.NE.0 ) INFO = 1
 
                   if ( SCALOC.NE.ONE ) {
                      DO 40 J = 1, N
-                        CALL SSCAL( M, SCALOC, C( 1, J ), 1 )
+                        sscal(M, SCALOC, C( 1, J ), 1 );
    40                CONTINUE
                      SCALE = SCALE*SCALOC
                   }
@@ -230,12 +230,12 @@
                   SUMR = SDOT( L1-1, C( K2, 1 ), LDC, B( 1, L2 ), 1 )
                   VEC( 2, 2 ) = C( K2, L2 ) - ( SUML+SGN*SUMR )
 
-                  CALL SLASY2( .FALSE., .FALSE., ISGN, 2, 2, A( K1, K1 ), LDA, B( L1, L1 ), LDB, VEC, 2, SCALOC, X, 2, XNORM, IERR )
+                  slasy2(.FALSE., .FALSE., ISGN, 2, 2, A( K1, K1 ), LDA, B( L1, L1 ), LDB, VEC, 2, SCALOC, X, 2, XNORM, IERR );
                   IF( IERR.NE.0 ) INFO = 1
 
                   if ( SCALOC.NE.ONE ) {
                      DO 50 J = 1, N
-                        CALL SSCAL( M, SCALOC, C( 1, J ), 1 )
+                        sscal(M, SCALOC, C( 1, J ), 1 );
    50                CONTINUE
                      SCALE = SCALE*SCALOC
                   }
@@ -326,7 +326,7 @@
 
                   if ( SCALOC.NE.ONE ) {
                      DO 80 J = 1, N
-                        CALL SSCAL( M, SCALOC, C( 1, J ), 1 )
+                        sscal(M, SCALOC, C( 1, J ), 1 );
    80                CONTINUE
                      SCALE = SCALE*SCALOC
                   }
@@ -342,12 +342,12 @@
                   SUMR = SDOT( L1-1, C( K2, 1 ), LDC, B( 1, L1 ), 1 )
                   VEC( 2, 1 ) = C( K2, L1 ) - ( SUML+SGN*SUMR )
 
-                  CALL SLALN2( .TRUE., 2, 1, SMIN, ONE, A( K1, K1 ), LDA, ONE, ONE, VEC, 2, -SGN*B( L1, L1 ), ZERO, X, 2, SCALOC, XNORM, IERR )
+                  slaln2(.TRUE., 2, 1, SMIN, ONE, A( K1, K1 ), LDA, ONE, ONE, VEC, 2, -SGN*B( L1, L1 ), ZERO, X, 2, SCALOC, XNORM, IERR );
                   IF( IERR.NE.0 ) INFO = 1
 
                   if ( SCALOC.NE.ONE ) {
                      DO 90 J = 1, N
-                        CALL SSCAL( M, SCALOC, C( 1, J ), 1 )
+                        sscal(M, SCALOC, C( 1, J ), 1 );
    90                CONTINUE
                      SCALE = SCALE*SCALOC
                   }
@@ -364,12 +364,12 @@
                   SUMR = SDOT( L1-1, C( K1, 1 ), LDC, B( 1, L2 ), 1 )
                   VEC( 2, 1 ) = SGN*( C( K1, L2 )-( SUML+SGN*SUMR ) )
 
-                  CALL SLALN2( .TRUE., 2, 1, SMIN, ONE, B( L1, L1 ), LDB, ONE, ONE, VEC, 2, -SGN*A( K1, K1 ), ZERO, X, 2, SCALOC, XNORM, IERR )
+                  slaln2(.TRUE., 2, 1, SMIN, ONE, B( L1, L1 ), LDB, ONE, ONE, VEC, 2, -SGN*A( K1, K1 ), ZERO, X, 2, SCALOC, XNORM, IERR );
                   IF( IERR.NE.0 ) INFO = 1
 
                   if ( SCALOC.NE.ONE ) {
                      DO 100 J = 1, N
-                        CALL SSCAL( M, SCALOC, C( 1, J ), 1 )
+                        sscal(M, SCALOC, C( 1, J ), 1 );
   100                CONTINUE
                      SCALE = SCALE*SCALOC
                   }
@@ -394,12 +394,12 @@
                   SUMR = SDOT( L1-1, C( K2, 1 ), LDC, B( 1, L2 ), 1 )
                   VEC( 2, 2 ) = C( K2, L2 ) - ( SUML+SGN*SUMR )
 
-                  CALL SLASY2( .TRUE., .FALSE., ISGN, 2, 2, A( K1, K1 ), LDA, B( L1, L1 ), LDB, VEC, 2, SCALOC, X, 2, XNORM, IERR )
+                  slasy2(.TRUE., .FALSE., ISGN, 2, 2, A( K1, K1 ), LDA, B( L1, L1 ), LDB, VEC, 2, SCALOC, X, 2, XNORM, IERR );
                   IF( IERR.NE.0 ) INFO = 1
 
                   if ( SCALOC.NE.ONE ) {
                      DO 110 J = 1, N
-                        CALL SSCAL( M, SCALOC, C( 1, J ), 1 )
+                        sscal(M, SCALOC, C( 1, J ), 1 );
   110                CONTINUE
                      SCALE = SCALE*SCALOC
                   }
@@ -489,7 +489,7 @@
 
                   if ( SCALOC.NE.ONE ) {
                      DO 140 J = 1, N
-                        CALL SSCAL( M, SCALOC, C( 1, J ), 1 )
+                        sscal(M, SCALOC, C( 1, J ), 1 );
   140                CONTINUE
                      SCALE = SCALE*SCALOC
                   }
@@ -505,12 +505,12 @@
                   SUMR = SDOT( N-L2, C( K2, MIN( L2+1, N ) ), LDC, B( L1, MIN( L2+1, N ) ), LDB )
                   VEC( 2, 1 ) = C( K2, L1 ) - ( SUML+SGN*SUMR )
 
-                  CALL SLALN2( .TRUE., 2, 1, SMIN, ONE, A( K1, K1 ), LDA, ONE, ONE, VEC, 2, -SGN*B( L1, L1 ), ZERO, X, 2, SCALOC, XNORM, IERR )
+                  slaln2(.TRUE., 2, 1, SMIN, ONE, A( K1, K1 ), LDA, ONE, ONE, VEC, 2, -SGN*B( L1, L1 ), ZERO, X, 2, SCALOC, XNORM, IERR );
                   IF( IERR.NE.0 ) INFO = 1
 
                   if ( SCALOC.NE.ONE ) {
                      DO 150 J = 1, N
-                        CALL SSCAL( M, SCALOC, C( 1, J ), 1 )
+                        sscal(M, SCALOC, C( 1, J ), 1 );
   150                CONTINUE
                      SCALE = SCALE*SCALOC
                   }
@@ -527,12 +527,12 @@
                   SUMR = SDOT( N-L2, C( K1, MIN( L2+1, N ) ), LDC, B( L2, MIN( L2+1, N ) ), LDB )
                   VEC( 2, 1 ) = SGN*( C( K1, L2 )-( SUML+SGN*SUMR ) )
 
-                  CALL SLALN2( .FALSE., 2, 1, SMIN, ONE, B( L1, L1 ), LDB, ONE, ONE, VEC, 2, -SGN*A( K1, K1 ), ZERO, X, 2, SCALOC, XNORM, IERR )
+                  slaln2(.FALSE., 2, 1, SMIN, ONE, B( L1, L1 ), LDB, ONE, ONE, VEC, 2, -SGN*A( K1, K1 ), ZERO, X, 2, SCALOC, XNORM, IERR );
                   IF( IERR.NE.0 ) INFO = 1
 
                   if ( SCALOC.NE.ONE ) {
                      DO 160 J = 1, N
-                        CALL SSCAL( M, SCALOC, C( 1, J ), 1 )
+                        sscal(M, SCALOC, C( 1, J ), 1 );
   160                CONTINUE
                      SCALE = SCALE*SCALOC
                   }
@@ -557,12 +557,12 @@
                   SUMR = SDOT( N-L2, C( K2, MIN( L2+1, N ) ), LDC, B( L2, MIN(L2+1, N ) ), LDB )
                   VEC( 2, 2 ) = C( K2, L2 ) - ( SUML+SGN*SUMR )
 
-                  CALL SLASY2( .TRUE., .TRUE., ISGN, 2, 2, A( K1, K1 ), LDA, B( L1, L1 ), LDB, VEC, 2, SCALOC, X, 2, XNORM, IERR )
+                  slasy2(.TRUE., .TRUE., ISGN, 2, 2, A( K1, K1 ), LDA, B( L1, L1 ), LDB, VEC, 2, SCALOC, X, 2, XNORM, IERR );
                   IF( IERR.NE.0 ) INFO = 1
 
                   if ( SCALOC.NE.ONE ) {
                      DO 170 J = 1, N
-                        CALL SSCAL( M, SCALOC, C( 1, J ), 1 )
+                        sscal(M, SCALOC, C( 1, J ), 1 );
   170                CONTINUE
                      SCALE = SCALE*SCALOC
                   }
@@ -651,7 +651,7 @@
 
                   if ( SCALOC.NE.ONE ) {
                      DO 200 J = 1, N
-                        CALL SSCAL( M, SCALOC, C( 1, J ), 1 )
+                        sscal(M, SCALOC, C( 1, J ), 1 );
   200                CONTINUE
                      SCALE = SCALE*SCALOC
                   }
@@ -665,12 +665,12 @@
                   SUML = SDOT( M-K2, A( K2, MIN( K2+1, M ) ), LDA, C( MIN( K2+1, M ), L1 ), 1 )                   SUMR = SDOT( N-L2, C( K2, MIN( L2+1, N ) ), LDC, B( L1, MIN( L2+1, N ) ), LDB )
                   VEC( 2, 1 ) = C( K2, L1 ) - ( SUML+SGN*SUMR )
 
-                  CALL SLALN2( .FALSE., 2, 1, SMIN, ONE, A( K1, K1 ), LDA, ONE, ONE, VEC, 2, -SGN*B( L1, L1 ), ZERO, X, 2, SCALOC, XNORM, IERR )
+                  slaln2(.FALSE., 2, 1, SMIN, ONE, A( K1, K1 ), LDA, ONE, ONE, VEC, 2, -SGN*B( L1, L1 ), ZERO, X, 2, SCALOC, XNORM, IERR );
                   IF( IERR.NE.0 ) INFO = 1
 
                   if ( SCALOC.NE.ONE ) {
                      DO 210 J = 1, N
-                        CALL SSCAL( M, SCALOC, C( 1, J ), 1 )
+                        sscal(M, SCALOC, C( 1, J ), 1 );
   210                CONTINUE
                      SCALE = SCALE*SCALOC
                   }
@@ -685,12 +685,12 @@
                   SUML = SDOT( M-K1, A( K1, MIN( K1+1, M ) ), LDA, C( MIN( K1+1, M ), L2 ), 1 )                   SUMR = SDOT( N-L2, C( K1, MIN( L2+1, N ) ), LDC, B( L2, MIN( L2+1, N ) ), LDB )
                   VEC( 2, 1 ) = SGN*( C( K1, L2 )-( SUML+SGN*SUMR ) )
 
-                  CALL SLALN2( .FALSE., 2, 1, SMIN, ONE, B( L1, L1 ), LDB, ONE, ONE, VEC, 2, -SGN*A( K1, K1 ), ZERO, X, 2, SCALOC, XNORM, IERR )
+                  slaln2(.FALSE., 2, 1, SMIN, ONE, B( L1, L1 ), LDB, ONE, ONE, VEC, 2, -SGN*A( K1, K1 ), ZERO, X, 2, SCALOC, XNORM, IERR );
                   IF( IERR.NE.0 ) INFO = 1
 
                   if ( SCALOC.NE.ONE ) {
                      DO 220 J = 1, N
-                        CALL SSCAL( M, SCALOC, C( 1, J ), 1 )
+                        sscal(M, SCALOC, C( 1, J ), 1 );
   220                CONTINUE
                      SCALE = SCALE*SCALOC
                   }
@@ -711,12 +711,12 @@
                   SUML = SDOT( M-K2, A( K2, MIN( K2+1, M ) ), LDA, C( MIN( K2+1, M ), L2 ), 1 )                   SUMR = SDOT( N-L2, C( K2, MIN( L2+1, N ) ), LDC, B( L2, MIN( L2+1, N ) ), LDB )
                   VEC( 2, 2 ) = C( K2, L2 ) - ( SUML+SGN*SUMR )
 
-                  CALL SLASY2( .FALSE., .TRUE., ISGN, 2, 2, A( K1, K1 ), LDA, B( L1, L1 ), LDB, VEC, 2, SCALOC, X, 2, XNORM, IERR )
+                  slasy2(.FALSE., .TRUE., ISGN, 2, 2, A( K1, K1 ), LDA, B( L1, L1 ), LDB, VEC, 2, SCALOC, X, 2, XNORM, IERR );
                   IF( IERR.NE.0 ) INFO = 1
 
                   if ( SCALOC.NE.ONE ) {
                      DO 230 J = 1, N
-                        CALL SSCAL( M, SCALOC, C( 1, J ), 1 )
+                        sscal(M, SCALOC, C( 1, J ), 1 );
   230                CONTINUE
                      SCALE = SCALE*SCALOC
                   }

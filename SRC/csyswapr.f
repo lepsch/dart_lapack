@@ -33,7 +33,7 @@
           // UPPER
           // first swap
            // - swap column I1 and I2 from I1 to I1-1
-         CALL CSWAP( I1-1, A(1,I1), 1, A(1,I2), 1 )
+         cswap(I1-1, A(1,I1), 1, A(1,I2), 1 );
 
            // second swap :
            // - swap A(I1,I1) and A(I2,I2)
@@ -42,7 +42,7 @@
          A(I1,I1)=A(I2,I2)
          A(I2,I2)=TMP
 
-         CALL CSWAP( I2-I1-1, A(I1,I1+1), LDA, A(I1+1,I2), 1 )
+         cswap(I2-I1-1, A(I1,I1+1), LDA, A(I1+1,I2), 1 );
 
            // third swap
            // - swap row I1 and I2 from I2+1 to N
@@ -53,7 +53,7 @@
           // LOWER
           // first swap
            // - swap row I1 and I2 from I1 to I1-1
-         CALL CSWAP ( I1-1, A(I1,1), LDA, A(I2,1), LDA )
+         cswap(I1-1, A(I1,1), LDA, A(I2,1), LDA );
 
           // second swap :
            // - swap A(I1,I1) and A(I2,I2)
@@ -62,7 +62,7 @@
           A(I1,I1)=A(I2,I2)
           A(I2,I2)=TMP
 
-          CALL CSWAP( I2-I1-1, A(I1+1,I1), 1, A(I2,I1+1), LDA )
+          cswap(I2-I1-1, A(I1+1,I1), 1, A(I2,I1+1), LDA );
 
           // third swap
            // - swap col I1 and I2 from I2+1 to N

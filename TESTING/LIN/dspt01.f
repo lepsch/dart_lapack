@@ -51,15 +51,15 @@
 
       // Initialize C to the identity matrix.
 
-      CALL DLASET( 'Full', N, N, ZERO, ONE, C, LDC )
+      dlaset('Full', N, N, ZERO, ONE, C, LDC );
 
       // Call DLAVSP to form the product D * U' (or D * L' ).
 
-      CALL DLAVSP( UPLO, 'Transpose', 'Non-unit', N, N, AFAC, IPIV, C, LDC, INFO )
+      dlavsp(UPLO, 'Transpose', 'Non-unit', N, N, AFAC, IPIV, C, LDC, INFO );
 
       // Call DLAVSP again to multiply by U ( or L ).
 
-      CALL DLAVSP( UPLO, 'No transpose', 'Unit', N, N, AFAC, IPIV, C, LDC, INFO )
+      dlavsp(UPLO, 'No transpose', 'Unit', N, N, AFAC, IPIV, C, LDC, INFO );
 
       // Compute the difference  C - A .
 

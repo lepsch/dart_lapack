@@ -46,13 +46,13 @@
       // Copy the matrices A and B to the arrays AF and BF,
       // and the vector D the array DF.
 
-      CALL ZLACPY( 'Full', N, M, A, LDA, AF, LDA )
-      CALL ZLACPY( 'Full', N, P, B, LDB, BF, LDB )
-      CALL ZCOPY( N, D, 1, DF, 1 )
+      zlacpy('Full', N, M, A, LDA, AF, LDA );
+      zlacpy('Full', N, P, B, LDB, BF, LDB );
+      zcopy(N, D, 1, DF, 1 );
 
       // Solve GLM problem
 
-      CALL ZGGGLM( N, M, P, AF, LDA, BF, LDB, DF, X, U, WORK, LWORK, INFO )
+      zggglm(N, M, P, AF, LDA, BF, LDB, DF, X, U, WORK, LWORK, INFO );
 
       // Test the residual for the solution of LSE
 
@@ -60,10 +60,10 @@
         // RESULT = -----------------------------------------
                  // (norm(A)+norm(B))*(norm(x)+norm(u))*EPS
 
-      CALL ZCOPY( N, D, 1, DF, 1 )
-      CALL ZGEMV( 'No transpose', N, M, -CONE, A, LDA, X, 1, CONE, DF, 1 )
+      zcopy(N, D, 1, DF, 1 );
+      zgemv('No transpose', N, M, -CONE, A, LDA, X, 1, CONE, DF, 1 );
 
-      CALL ZGEMV( 'No transpose', N, P, -CONE, B, LDB, U, 1, CONE, DF, 1 )
+      zgemv('No transpose', N, P, -CONE, B, LDB, U, 1, CONE, DF, 1 );
 
       DNORM = DZASUM( N, DF, 1 )
       XNORM = DZASUM( M, X, 1 ) + DZASUM( P, U, 1 )

@@ -91,7 +91,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'DCHKSB2STG', -INFO )
+         xerbla('DCHKSB2STG', -INFO );
          RETURN
       }
 
@@ -177,7 +177,7 @@
 
    70          CONTINUE
 
-               CALL DLASET( 'Full', LDA, N, ZERO, ZERO, A, LDA )
+               dlaset('Full', LDA, N, ZERO, ZERO, A, LDA );
                IINFO = 0
                if ( JTYPE.LE.15 ) {
                   COND = ULPINV
@@ -204,31 +204,31 @@
 
                   // Diagonal Matrix, [Eigen]values Specified
 
-                  CALL DLATMS( N, N, 'S', ISEED, 'S', WORK, IMODE, COND, ANORM, 0, 0, 'Q', A( K+1, 1 ), LDA, WORK( N+1 ), IINFO )
+                  dlatms(N, N, 'S', ISEED, 'S', WORK, IMODE, COND, ANORM, 0, 0, 'Q', A( K+1, 1 ), LDA, WORK( N+1 ), IINFO );
 
                } else if ( ITYPE.EQ.5 ) {
 
                   // Symmetric, eigenvalues specified
 
-                  CALL DLATMS( N, N, 'S', ISEED, 'S', WORK, IMODE, COND, ANORM, K, K, 'Q', A, LDA, WORK( N+1 ), IINFO )
+                  dlatms(N, N, 'S', ISEED, 'S', WORK, IMODE, COND, ANORM, K, K, 'Q', A, LDA, WORK( N+1 ), IINFO );
 
                } else if ( ITYPE.EQ.7 ) {
 
                   // Diagonal, random eigenvalues
 
-                  CALL DLATMR( N, N, 'S', ISEED, 'S', WORK, 6, ONE, ONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, 0, 0, ZERO, ANORM, 'Q', A( K+1, 1 ), LDA, IDUMMA, IINFO )
+                  dlatmr(N, N, 'S', ISEED, 'S', WORK, 6, ONE, ONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, 0, 0, ZERO, ANORM, 'Q', A( K+1, 1 ), LDA, IDUMMA, IINFO );
 
                } else if ( ITYPE.EQ.8 ) {
 
                   // Symmetric, random eigenvalues
 
-                  CALL DLATMR( N, N, 'S', ISEED, 'S', WORK, 6, ONE, ONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, K, K, ZERO, ANORM, 'Q', A, LDA, IDUMMA, IINFO )
+                  dlatmr(N, N, 'S', ISEED, 'S', WORK, 6, ONE, ONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, K, K, ZERO, ANORM, 'Q', A, LDA, IDUMMA, IINFO );
 
                } else if ( ITYPE.EQ.9 ) {
 
                   // Positive definite, eigenvalues specified.
 
-                  CALL DLATMS( N, N, 'S', ISEED, 'P', WORK, IMODE, COND, ANORM, K, K, 'Q', A, LDA, WORK( N+1 ), IINFO )
+                  dlatms(N, N, 'S', ISEED, 'P', WORK, IMODE, COND, ANORM, K, K, 'Q', A, LDA, WORK( N+1 ), IINFO );
 
                } else if ( ITYPE.EQ.10 ) {
 
@@ -257,10 +257,10 @@
 
                // Call DSBTRD to compute S and U from upper triangle.
 
-               CALL DLACPY( ' ', K+1, N, A, LDA, WORK, LDA )
+               dlacpy(' ', K+1, N, A, LDA, WORK, LDA );
 
                NTEST = 1
-               CALL DSBTRD( 'V', 'U', N, K, WORK, LDA, SD, SE, U, LDU, WORK( LDA*N+1 ), IINFO )
+               dsbtrd('V', 'U', N, K, WORK, LDA, SD, SE, U, LDU, WORK( LDA*N+1 ), IINFO );
 
                if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'DSBTRD(U)', IINFO, N, JTYPE, IOLDSD
@@ -275,7 +275,7 @@
 
                // Do tests 1 and 2
 
-               CALL DSBT21( 'Upper', N, K, 1, A, LDA, SD, SE, U, LDU, WORK, RESULT( 1 ) )
+               dsbt21('Upper', N, K, 1, A, LDA, SD, SE, U, LDU, WORK, RESULT( 1 ) );
 
                // Before converting A into lower for DSBTRD, run DSYTRD_SB2ST
                // otherwise matrix A will be converted to lower and then need
@@ -289,10 +289,10 @@
                // Compute D1 from the DSBTRD and used as reference for the
                // DSYTRD_SB2ST
 
-               CALL DCOPY( N, SD, 1, D1, 1 )
+               dcopy(N, SD, 1, D1, 1 );
                IF( N.GT.0 ) CALL DCOPY( N-1, SE, 1, WORK, 1 )
 
-               CALL DSTEQR( 'N', N, D1, WORK, WORK( N+1 ), LDU, WORK( N+1 ), IINFO )
+               dsteqr('N', N, D1, WORK, WORK( N+1 ), LDU, WORK( N+1 ), IINFO );
                if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'DSTEQR(N)', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
@@ -309,19 +309,19 @@
                // the one from above. Compare it with D1 computed
                // using the DSBTRD.
 
-               CALL DLASET( 'Full', N, 1, ZERO, ZERO, SD, N )
-               CALL DLASET( 'Full', N, 1, ZERO, ZERO, SE, N )
-               CALL DLACPY( ' ', K+1, N, A, LDA, U, LDU )
+               dlaset('Full', N, 1, ZERO, ZERO, SD, N );
+               dlaset('Full', N, 1, ZERO, ZERO, SE, N );
+               dlacpy(' ', K+1, N, A, LDA, U, LDU );
                LH = MAX(1, 4*N)
                LW = LWORK - LH
-               CALL DSYTRD_SB2ST( 'N', 'N', "U", N, K, U, LDU, SD, SE, WORK, LH, WORK( LH+1 ), LW, IINFO )
+               dsytrd_sb2st('N', 'N', "U", N, K, U, LDU, SD, SE, WORK, LH, WORK( LH+1 ), LW, IINFO );
 
                // Compute D2 from the DSYTRD_SB2ST Upper case
 
-               CALL DCOPY( N, SD, 1, D2, 1 )
+               dcopy(N, SD, 1, D2, 1 );
                IF( N.GT.0 ) CALL DCOPY( N-1, SE, 1, WORK, 1 )
 
-               CALL DSTEQR( 'N', N, D2, WORK, WORK( N+1 ), LDU, WORK( N+1 ), IINFO )
+               dsteqr('N', N, D2, WORK, WORK( N+1 ), LDU, WORK( N+1 ), IINFO );
                if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'DSTEQR(N)', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
@@ -349,10 +349,10 @@
 
                // Call DSBTRD to compute S and U from lower triangle
 
-               CALL DLACPY( ' ', K+1, N, A, LDA, WORK, LDA )
+               dlacpy(' ', K+1, N, A, LDA, WORK, LDA );
 
                NTEST = 3
-               CALL DSBTRD( 'V', 'L', N, K, WORK, LDA, SD, SE, U, LDU, WORK( LDA*N+1 ), IINFO )
+               dsbtrd('V', 'L', N, K, WORK, LDA, SD, SE, U, LDU, WORK( LDA*N+1 ), IINFO );
 
                if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'DSBTRD(L)', IINFO, N, JTYPE, IOLDSD
@@ -368,26 +368,26 @@
 
                // Do tests 3 and 4
 
-               CALL DSBT21( 'Lower', N, K, 1, A, LDA, SD, SE, U, LDU, WORK, RESULT( 3 ) )
+               dsbt21('Lower', N, K, 1, A, LDA, SD, SE, U, LDU, WORK, RESULT( 3 ) );
 
                // DSYTRD_SB2ST Lower case is used to compute D3.
                // Note to set SD and SE to zero to be sure not reusing
                // the one from above. Compare it with D1 computed
                // using the DSBTRD.
 
-               CALL DLASET( 'Full', N, 1, ZERO, ZERO, SD, N )
-               CALL DLASET( 'Full', N, 1, ZERO, ZERO, SE, N )
-               CALL DLACPY( ' ', K+1, N, A, LDA, U, LDU )
+               dlaset('Full', N, 1, ZERO, ZERO, SD, N );
+               dlaset('Full', N, 1, ZERO, ZERO, SE, N );
+               dlacpy(' ', K+1, N, A, LDA, U, LDU );
                LH = MAX(1, 4*N)
                LW = LWORK - LH
-               CALL DSYTRD_SB2ST( 'N', 'N', "L", N, K, U, LDU, SD, SE, WORK, LH, WORK( LH+1 ), LW, IINFO )
+               dsytrd_sb2st('N', 'N', "L", N, K, U, LDU, SD, SE, WORK, LH, WORK( LH+1 ), LW, IINFO );
 
                // Compute D3 from the 2-stage Upper case
 
-               CALL DCOPY( N, SD, 1, D3, 1 )
+               dcopy(N, SD, 1, D3, 1 );
                IF( N.GT.0 ) CALL DCOPY( N-1, SE, 1, WORK, 1 )
 
-               CALL DSTEQR( 'N', N, D3, WORK, WORK( N+1 ), LDU, WORK( N+1 ), IINFO )
+               dsteqr('N', N, D3, WORK, WORK( N+1 ), LDU, WORK( N+1 ), IINFO );
                if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'DSTEQR(N)', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
@@ -450,7 +450,7 @@
 
       // Summary
 
-      CALL DLASUM( 'DSB', NOUNIT, NERRS, NTESTT )
+      dlasum('DSB', NOUNIT, NERRS, NTESTT );
       RETURN
 
  9999 FORMAT( ' DCHKSB2STG: ', A, ' returned INFO=', I6, '.', / 9X, 'N=', I6, ', JTYPE=', I6, ', ISEED=(', 3( I5, ',' ), I5, ')' )

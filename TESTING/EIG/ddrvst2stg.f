@@ -89,7 +89,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'DDRVST2STG', -INFO )
+         xerbla('DDRVST2STG', -INFO );
          RETURN
       }
 
@@ -186,7 +186,7 @@
 
    70       CONTINUE
 
-            CALL DLASET( 'Full', LDA, N, ZERO, ZERO, A, LDA )
+            dlaset('Full', LDA, N, ZERO, ZERO, A, LDA );
             IINFO = 0
             COND = ULPINV
 
@@ -209,38 +209,38 @@
 
                // Diagonal Matrix, [Eigen]values Specified
 
-               CALL DLATMS( N, N, 'S', ISEED, 'S', WORK, IMODE, COND, ANORM, 0, 0, 'N', A, LDA, WORK( N+1 ), IINFO )
+               dlatms(N, N, 'S', ISEED, 'S', WORK, IMODE, COND, ANORM, 0, 0, 'N', A, LDA, WORK( N+1 ), IINFO );
 
             } else if ( ITYPE.EQ.5 ) {
 
                // Symmetric, eigenvalues specified
 
-               CALL DLATMS( N, N, 'S', ISEED, 'S', WORK, IMODE, COND, ANORM, N, N, 'N', A, LDA, WORK( N+1 ), IINFO )
+               dlatms(N, N, 'S', ISEED, 'S', WORK, IMODE, COND, ANORM, N, N, 'N', A, LDA, WORK( N+1 ), IINFO );
 
             } else if ( ITYPE.EQ.7 ) {
 
                // Diagonal, random eigenvalues
 
                IDUMMA( 1 ) = 1
-               CALL DLATMR( N, N, 'S', ISEED, 'S', WORK, 6, ONE, ONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, 0, 0, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO )
+               dlatmr(N, N, 'S', ISEED, 'S', WORK, 6, ONE, ONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, 0, 0, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO );
 
             } else if ( ITYPE.EQ.8 ) {
 
                // Symmetric, random eigenvalues
 
                IDUMMA( 1 ) = 1
-               CALL DLATMR( N, N, 'S', ISEED, 'S', WORK, 6, ONE, ONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, N, N, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO )
+               dlatmr(N, N, 'S', ISEED, 'S', WORK, 6, ONE, ONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, N, N, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO );
 
             } else if ( ITYPE.EQ.9 ) {
 
                // Symmetric banded, eigenvalues specified
 
                IHBW = INT( ( N-1 )*DLARND( 1, ISEED3 ) )
-               CALL DLATMS( N, N, 'S', ISEED, 'S', WORK, IMODE, COND, ANORM, IHBW, IHBW, 'Z', U, LDU, WORK( N+1 ), IINFO )
+               dlatms(N, N, 'S', ISEED, 'S', WORK, IMODE, COND, ANORM, IHBW, IHBW, 'Z', U, LDU, WORK( N+1 ), IINFO );
 
                // Store as dense matrix for most routines.
 
-               CALL DLASET( 'Full', LDA, N, ZERO, ZERO, A, LDA )
+               dlaset('Full', LDA, N, ZERO, ZERO, A, LDA );
                DO 100 IDIAG = -IHBW, IHBW
                   IROW = IHBW - IDIAG + 1
                   J1 = MAX( 1, IDIAG+1 )
@@ -287,7 +287,7 @@
                   D2( I ) = DBLE( A( I+1, I ) )
   130          CONTINUE
                SRNAMT = 'DSTEV'
-               CALL DSTEV( 'V', N, D1, D2, Z, LDU, WORK, IINFO )
+               dstev('V', N, D1, D2, Z, LDU, WORK, IINFO );
                if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'DSTEV(V)', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
@@ -309,14 +309,14 @@
                DO 150 I = 1, N - 1
                   D4( I ) = DBLE( A( I+1, I ) )
   150          CONTINUE
-               CALL DSTT21( N, 0, D3, D4, D1, D2, Z, LDU, WORK, RESULT( 1 ) )
+               dstt21(N, 0, D3, D4, D1, D2, Z, LDU, WORK, RESULT( 1 ) );
 
                NTEST = 3
                DO 160 I = 1, N - 1
                   D4( I ) = DBLE( A( I+1, I ) )
   160          CONTINUE
                SRNAMT = 'DSTEV'
-               CALL DSTEV( 'N', N, D3, D4, Z, LDU, WORK, IINFO )
+               dstev('N', N, D3, D4, Z, LDU, WORK, IINFO );
                if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'DSTEV(N)', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
@@ -349,7 +349,7 @@
                   D2( I ) = DBLE( A( I+1, I ) )
   200          CONTINUE
                SRNAMT = 'DSTEVX'
-               CALL DSTEVX( 'V', 'A', N, D1, D2, VL, VU, IL, IU, ABSTOL, M, WA1, Z, LDU, WORK, IWORK, IWORK( 5*N+1 ), IINFO )
+               dstevx('V', 'A', N, D1, D2, VL, VU, IL, IU, ABSTOL, M, WA1, Z, LDU, WORK, IWORK, IWORK( 5*N+1 ), IINFO );
                if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'DSTEVX(V,A)', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
@@ -376,14 +376,14 @@
                DO 220 I = 1, N - 1
                   D4( I ) = DBLE( A( I+1, I ) )
   220          CONTINUE
-               CALL DSTT21( N, 0, D3, D4, WA1, D2, Z, LDU, WORK, RESULT( 4 ) )
+               dstt21(N, 0, D3, D4, WA1, D2, Z, LDU, WORK, RESULT( 4 ) );
 
                NTEST = 6
                DO 230 I = 1, N - 1
                   D4( I ) = DBLE( A( I+1, I ) )
   230          CONTINUE
                SRNAMT = 'DSTEVX'
-               CALL DSTEVX( 'N', 'A', N, D3, D4, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, WORK, IWORK, IWORK( 5*N+1 ), IINFO )
+               dstevx('N', 'A', N, D3, D4, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, WORK, IWORK, IWORK( 5*N+1 ), IINFO );
                if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'DSTEVX(N,A)', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
@@ -415,7 +415,7 @@
                   D2( I ) = DBLE( A( I+1, I ) )
   270          CONTINUE
                SRNAMT = 'DSTEVR'
-               CALL DSTEVR( 'V', 'A', N, D1, D2, VL, VU, IL, IU, ABSTOL, M, WA1, Z, LDU, IWORK, WORK, LWORK, IWORK(2*N+1), LIWORK-2*N, IINFO )
+               dstevr('V', 'A', N, D1, D2, VL, VU, IL, IU, ABSTOL, M, WA1, Z, LDU, IWORK, WORK, LWORK, IWORK(2*N+1), LIWORK-2*N, IINFO );
                if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'DSTEVR(V,A)', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
@@ -441,14 +441,14 @@
                DO 290 I = 1, N - 1
                   D4( I ) = DBLE( A( I+1, I ) )
   290          CONTINUE
-               CALL DSTT21( N, 0, D3, D4, WA1, D2, Z, LDU, WORK, RESULT( 7 ) )
+               dstt21(N, 0, D3, D4, WA1, D2, Z, LDU, WORK, RESULT( 7 ) );
 
                NTEST = 9
                DO 300 I = 1, N - 1
                   D4( I ) = DBLE( A( I+1, I ) )
   300          CONTINUE
                SRNAMT = 'DSTEVR'
-               CALL DSTEVR( 'N', 'A', N, D3, D4, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, IWORK, WORK, LWORK, IWORK(2*N+1), LIWORK-2*N, IINFO )
+               dstevr('N', 'A', N, D3, D4, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, IWORK, WORK, LWORK, IWORK(2*N+1), LIWORK-2*N, IINFO );
                if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'DSTEVR(N,A)', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
@@ -481,7 +481,7 @@
                   D2( I ) = DBLE( A( I+1, I ) )
   340          CONTINUE
                SRNAMT = 'DSTEVX'
-               CALL DSTEVX( 'V', 'I', N, D1, D2, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, WORK, IWORK, IWORK( 5*N+1 ), IINFO )
+               dstevx('V', 'I', N, D1, D2, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, WORK, IWORK, IWORK( 5*N+1 ), IINFO );
                if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'DSTEVX(V,I)', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
@@ -503,7 +503,7 @@
                DO 360 I = 1, N - 1
                   D4( I ) = DBLE( A( I+1, I ) )
   360          CONTINUE
-               CALL DSTT22( N, M2, 0, D3, D4, WA2, D2, Z, LDU, WORK, MAX( 1, M2 ), RESULT( 10 ) )
+               dstt22(N, M2, 0, D3, D4, WA2, D2, Z, LDU, WORK, MAX( 1, M2 ), RESULT( 10 ) );
 
 
                NTEST = 12
@@ -511,7 +511,7 @@
                   D4( I ) = DBLE( A( I+1, I ) )
   370          CONTINUE
                SRNAMT = 'DSTEVX'
-               CALL DSTEVX( 'N', 'I', N, D3, D4, VL, VU, IL, IU, ABSTOL, M3, WA3, Z, LDU, WORK, IWORK, IWORK( 5*N+1 ), IINFO )
+               dstevx('N', 'I', N, D3, D4, VL, VU, IL, IU, ABSTOL, M3, WA3, Z, LDU, WORK, IWORK, IWORK( 5*N+1 ), IINFO );
                if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'DSTEVX(N,I)', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
@@ -555,7 +555,7 @@
                   D2( I ) = DBLE( A( I+1, I ) )
   400          CONTINUE
                SRNAMT = 'DSTEVX'
-               CALL DSTEVX( 'V', 'V', N, D1, D2, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, WORK, IWORK, IWORK( 5*N+1 ), IINFO )
+               dstevx('V', 'V', N, D1, D2, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, WORK, IWORK, IWORK( 5*N+1 ), IINFO );
                if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'DSTEVX(V,V)', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
@@ -584,14 +584,14 @@
                DO 420 I = 1, N - 1
                   D4( I ) = DBLE( A( I+1, I ) )
   420          CONTINUE
-               CALL DSTT22( N, M2, 0, D3, D4, WA2, D2, Z, LDU, WORK, MAX( 1, M2 ), RESULT( 13 ) )
+               dstt22(N, M2, 0, D3, D4, WA2, D2, Z, LDU, WORK, MAX( 1, M2 ), RESULT( 13 ) );
 
                NTEST = 15
                DO 430 I = 1, N - 1
                   D4( I ) = DBLE( A( I+1, I ) )
   430          CONTINUE
                SRNAMT = 'DSTEVX'
-               CALL DSTEVX( 'N', 'V', N, D3, D4, VL, VU, IL, IU, ABSTOL, M3, WA3, Z, LDU, WORK, IWORK, IWORK( 5*N+1 ), IINFO )
+               dstevx('N', 'V', N, D3, D4, VL, VU, IL, IU, ABSTOL, M3, WA3, Z, LDU, WORK, IWORK, IWORK( 5*N+1 ), IINFO );
                if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'DSTEVX(N,V)', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
@@ -619,7 +619,7 @@
                   D2( I ) = DBLE( A( I+1, I ) )
   460          CONTINUE
                SRNAMT = 'DSTEVD'
-               CALL DSTEVD( 'V', N, D1, D2, Z, LDU, WORK, LWEDC, IWORK, LIWEDC, IINFO )
+               dstevd('V', N, D1, D2, Z, LDU, WORK, LWEDC, IWORK, LIWEDC, IINFO );
                if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'DSTEVD(V)', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
@@ -641,14 +641,14 @@
                DO 480 I = 1, N - 1
                   D4( I ) = DBLE( A( I+1, I ) )
   480          CONTINUE
-               CALL DSTT21( N, 0, D3, D4, D1, D2, Z, LDU, WORK, RESULT( 16 ) )
+               dstt21(N, 0, D3, D4, D1, D2, Z, LDU, WORK, RESULT( 16 ) );
 
                NTEST = 18
                DO 490 I = 1, N - 1
                   D4( I ) = DBLE( A( I+1, I ) )
   490          CONTINUE
                SRNAMT = 'DSTEVD'
-               CALL DSTEVD( 'N', N, D3, D4, Z, LDU, WORK, LWEDC, IWORK, LIWEDC, IINFO )
+               dstevd('N', N, D3, D4, Z, LDU, WORK, LWEDC, IWORK, LIWEDC, IINFO );
                if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'DSTEVD(N)', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
@@ -680,7 +680,7 @@
                   D2( I ) = DBLE( A( I+1, I ) )
   530          CONTINUE
                SRNAMT = 'DSTEVR'
-               CALL DSTEVR( 'V', 'I', N, D1, D2, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, IWORK, WORK, LWORK, IWORK(2*N+1), LIWORK-2*N, IINFO )
+               dstevr('V', 'I', N, D1, D2, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, IWORK, WORK, LWORK, IWORK(2*N+1), LIWORK-2*N, IINFO );
                if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'DSTEVR(V,I)', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
@@ -702,7 +702,7 @@
                DO 550 I = 1, N - 1
                   D4( I ) = DBLE( A( I+1, I ) )
   550          CONTINUE
-               CALL DSTT22( N, M2, 0, D3, D4, WA2, D2, Z, LDU, WORK, MAX( 1, M2 ), RESULT( 19 ) )
+               dstt22(N, M2, 0, D3, D4, WA2, D2, Z, LDU, WORK, MAX( 1, M2 ), RESULT( 19 ) );
 
 
                NTEST = 21
@@ -710,7 +710,7 @@
                   D4( I ) = DBLE( A( I+1, I ) )
   560          CONTINUE
                SRNAMT = 'DSTEVR'
-               CALL DSTEVR( 'N', 'I', N, D3, D4, VL, VU, IL, IU, ABSTOL, M3, WA3, Z, LDU, IWORK, WORK, LWORK, IWORK(2*N+1), LIWORK-2*N, IINFO )
+               dstevr('N', 'I', N, D3, D4, VL, VU, IL, IU, ABSTOL, M3, WA3, Z, LDU, IWORK, WORK, LWORK, IWORK(2*N+1), LIWORK-2*N, IINFO );
                if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'DSTEVR(N,I)', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
@@ -754,7 +754,7 @@
                   D2( I ) = DBLE( A( I+1, I ) )
   590          CONTINUE
                SRNAMT = 'DSTEVR'
-               CALL DSTEVR( 'V', 'V', N, D1, D2, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, IWORK, WORK, LWORK, IWORK(2*N+1), LIWORK-2*N, IINFO )
+               dstevr('V', 'V', N, D1, D2, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, IWORK, WORK, LWORK, IWORK(2*N+1), LIWORK-2*N, IINFO );
                if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'DSTEVR(V,V)', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
@@ -783,14 +783,14 @@
                DO 610 I = 1, N - 1
                   D4( I ) = DBLE( A( I+1, I ) )
   610          CONTINUE
-               CALL DSTT22( N, M2, 0, D3, D4, WA2, D2, Z, LDU, WORK, MAX( 1, M2 ), RESULT( 22 ) )
+               dstt22(N, M2, 0, D3, D4, WA2, D2, Z, LDU, WORK, MAX( 1, M2 ), RESULT( 22 ) );
 
                NTEST = 24
                DO 620 I = 1, N - 1
                   D4( I ) = DBLE( A( I+1, I ) )
   620          CONTINUE
                SRNAMT = 'DSTEVR'
-               CALL DSTEVR( 'N', 'V', N, D3, D4, VL, VU, IL, IU, ABSTOL, M3, WA3, Z, LDU, IWORK, WORK, LWORK, IWORK(2*N+1), LIWORK-2*N, IINFO )
+               dstevr('N', 'V', N, D3, D4, VL, VU, IL, IU, ABSTOL, M3, WA3, Z, LDU, IWORK, WORK, LWORK, IWORK(2*N+1), LIWORK-2*N, IINFO );
                if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'DSTEVR(N,V)', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
@@ -832,11 +832,11 @@
 
                // 4)      Call DSYEV and DSYEVX.
 
-               CALL DLACPY( ' ', N, N, A, LDA, V, LDU )
+               dlacpy(' ', N, N, A, LDA, V, LDU );
 
                NTEST = NTEST + 1
                SRNAMT = 'DSYEV'
-               CALL DSYEV( 'V', UPLO, N, A, LDU, D1, WORK, LWORK, IINFO )
+               dsyev('V', UPLO, N, A, LDU, D1, WORK, LWORK, IINFO );
                if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'DSYEV(V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
@@ -852,13 +852,13 @@
 
                // Do tests 25 and 26 (or +54)
 
-               CALL DSYT21( 1, UPLO, N, 0, V, LDU, D1, D2, A, LDU, Z, LDU, TAU, WORK, RESULT( NTEST ) )
+               dsyt21(1, UPLO, N, 0, V, LDU, D1, D2, A, LDU, Z, LDU, TAU, WORK, RESULT( NTEST ) );
 
-               CALL DLACPY( ' ', N, N, V, LDU, A, LDA )
+               dlacpy(' ', N, N, V, LDU, A, LDA );
 
                NTEST = NTEST + 2
                SRNAMT = 'DSYEV_2STAGE'
-               CALL DSYEV_2STAGE( 'N', UPLO, N, A, LDU, D3, WORK, LWORK, IINFO )
+               dsyev_2stage('N', UPLO, N, A, LDU, D3, WORK, LWORK, IINFO );
                if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9999 ) 'DSYEV_2STAGE(N,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
@@ -881,7 +881,7 @@
                RESULT( NTEST ) = TEMP2 / MAX( UNFL, ULP*MAX( TEMP1, TEMP2 ) )
 
   660          CONTINUE
-               CALL DLACPY( ' ', N, N, V, LDU, A, LDA )
+               dlacpy(' ', N, N, V, LDU, A, LDA );
 
                NTEST = NTEST + 1
 
@@ -904,7 +904,7 @@
                }
 
                SRNAMT = 'DSYEVX'
-               CALL DSYEVX( 'V', 'A', UPLO, N, A, LDU, VL, VU, IL, IU, ABSTOL, M, WA1, Z, LDU, WORK, LWORK, IWORK, IWORK( 5*N+1 ), IINFO )
+               dsyevx('V', 'A', UPLO, N, A, LDU, VL, VU, IL, IU, ABSTOL, M, WA1, Z, LDU, WORK, LWORK, IWORK, IWORK( 5*N+1 ), IINFO );
                if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'DSYEVX(V,A,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
@@ -920,13 +920,13 @@
 
                // Do tests 28 and 29 (or +54)
 
-               CALL DLACPY( ' ', N, N, V, LDU, A, LDA )
+               dlacpy(' ', N, N, V, LDU, A, LDA );
 
-               CALL DSYT21( 1, UPLO, N, 0, A, LDU, D1, D2, Z, LDU, V, LDU, TAU, WORK, RESULT( NTEST ) )
+               dsyt21(1, UPLO, N, 0, A, LDU, D1, D2, Z, LDU, V, LDU, TAU, WORK, RESULT( NTEST ) );
 
                NTEST = NTEST + 2
                SRNAMT = 'DSYEVX_2STAGE'
-               CALL DSYEVX_2STAGE( 'N', 'A', UPLO, N, A, LDU, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, WORK, LWORK, IWORK, IWORK( 5*N+1 ), IINFO )
+               dsyevx_2stage('N', 'A', UPLO, N, A, LDU, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, WORK, LWORK, IWORK, IWORK( 5*N+1 ), IINFO );
                if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9999 ) 'DSYEVX_2STAGE(N,A,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
@@ -951,9 +951,9 @@
   680          CONTINUE
 
                NTEST = NTEST + 1
-               CALL DLACPY( ' ', N, N, V, LDU, A, LDA )
+               dlacpy(' ', N, N, V, LDU, A, LDA );
                SRNAMT = 'DSYEVX'
-               CALL DSYEVX( 'V', 'I', UPLO, N, A, LDU, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, WORK, LWORK, IWORK, IWORK( 5*N+1 ), IINFO )
+               dsyevx('V', 'I', UPLO, N, A, LDU, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, WORK, LWORK, IWORK, IWORK( 5*N+1 ), IINFO );
                if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'DSYEVX(V,I,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
@@ -969,14 +969,14 @@
 
                // Do tests 31 and 32 (or +54)
 
-               CALL DLACPY( ' ', N, N, V, LDU, A, LDA )
+               dlacpy(' ', N, N, V, LDU, A, LDA );
 
-               CALL DSYT22( 1, UPLO, N, M2, 0, A, LDU, WA2, D2, Z, LDU, V, LDU, TAU, WORK, RESULT( NTEST ) )
+               dsyt22(1, UPLO, N, M2, 0, A, LDU, WA2, D2, Z, LDU, V, LDU, TAU, WORK, RESULT( NTEST ) );
 
                NTEST = NTEST + 2
-               CALL DLACPY( ' ', N, N, V, LDU, A, LDA )
+               dlacpy(' ', N, N, V, LDU, A, LDA );
                SRNAMT = 'DSYEVX_2STAGE'
-               CALL DSYEVX_2STAGE( 'N', 'I', UPLO, N, A, LDU, VL, VU, IL, IU, ABSTOL, M3, WA3, Z, LDU, WORK, LWORK, IWORK, IWORK( 5*N+1 ), IINFO )
+               dsyevx_2stage('N', 'I', UPLO, N, A, LDU, VL, VU, IL, IU, ABSTOL, M3, WA3, Z, LDU, WORK, LWORK, IWORK, IWORK( 5*N+1 ), IINFO );
                if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9999 ) 'DSYEVX_2STAGE(N,I,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
@@ -996,9 +996,9 @@
   690          CONTINUE
 
                NTEST = NTEST + 1
-               CALL DLACPY( ' ', N, N, V, LDU, A, LDA )
+               dlacpy(' ', N, N, V, LDU, A, LDA );
                SRNAMT = 'DSYEVX'
-               CALL DSYEVX( 'V', 'V', UPLO, N, A, LDU, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, WORK, LWORK, IWORK, IWORK( 5*N+1 ), IINFO )
+               dsyevx('V', 'V', UPLO, N, A, LDU, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, WORK, LWORK, IWORK, IWORK( 5*N+1 ), IINFO );
                if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'DSYEVX(V,V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
@@ -1014,14 +1014,14 @@
 
                // Do tests 34 and 35 (or +54)
 
-               CALL DLACPY( ' ', N, N, V, LDU, A, LDA )
+               dlacpy(' ', N, N, V, LDU, A, LDA );
 
-               CALL DSYT22( 1, UPLO, N, M2, 0, A, LDU, WA2, D2, Z, LDU, V, LDU, TAU, WORK, RESULT( NTEST ) )
+               dsyt22(1, UPLO, N, M2, 0, A, LDU, WA2, D2, Z, LDU, V, LDU, TAU, WORK, RESULT( NTEST ) );
 
                NTEST = NTEST + 2
-               CALL DLACPY( ' ', N, N, V, LDU, A, LDA )
+               dlacpy(' ', N, N, V, LDU, A, LDA );
                SRNAMT = 'DSYEVX_2STAGE'
-               CALL DSYEVX_2STAGE( 'N', 'V', UPLO, N, A, LDU, VL, VU, IL, IU, ABSTOL, M3, WA3, Z, LDU, WORK, LWORK, IWORK, IWORK( 5*N+1 ), IINFO )
+               dsyevx_2stage('N', 'V', UPLO, N, A, LDU, VL, VU, IL, IU, ABSTOL, M3, WA3, Z, LDU, WORK, LWORK, IWORK, IWORK( 5*N+1 ), IINFO );
                if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9999 ) 'DSYEVX_2STAGE(N,V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
@@ -1053,7 +1053,7 @@
 
                // 5)      Call DSPEV and DSPEVX.
 
-               CALL DLACPY( ' ', N, N, V, LDU, A, LDA )
+               dlacpy(' ', N, N, V, LDU, A, LDA );
 
                // Load array WORK with the upper or lower triangular
                // part of the matrix in packed form.
@@ -1078,7 +1078,7 @@
 
                NTEST = NTEST + 1
                SRNAMT = 'DSPEV'
-               CALL DSPEV( 'V', UPLO, N, WORK, D1, Z, LDU, V, IINFO )
+               dspev('V', UPLO, N, WORK, D1, Z, LDU, V, IINFO );
                if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'DSPEV(V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
@@ -1094,7 +1094,7 @@
 
                // Do tests 37 and 38 (or +54)
 
-               CALL DSYT21( 1, UPLO, N, 0, A, LDA, D1, D2, Z, LDU, V, LDU, TAU, WORK, RESULT( NTEST ) )
+               dsyt21(1, UPLO, N, 0, A, LDA, D1, D2, Z, LDU, V, LDU, TAU, WORK, RESULT( NTEST ) );
 
                if ( IUPLO.EQ.1 ) {
                   INDX = 1
@@ -1116,7 +1116,7 @@
 
                NTEST = NTEST + 2
                SRNAMT = 'DSPEV'
-               CALL DSPEV( 'N', UPLO, N, WORK, D3, Z, LDU, V, IINFO )
+               dspev('N', UPLO, N, WORK, D3, Z, LDU, V, IINFO );
                if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'DSPEV(N,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
@@ -1181,7 +1181,7 @@
                }
 
                SRNAMT = 'DSPEVX'
-               CALL DSPEVX( 'V', 'A', UPLO, N, WORK, VL, VU, IL, IU, ABSTOL, M, WA1, Z, LDU, V, IWORK, IWORK( 5*N+1 ), IINFO )
+               dspevx('V', 'A', UPLO, N, WORK, VL, VU, IL, IU, ABSTOL, M, WA1, Z, LDU, V, IWORK, IWORK( 5*N+1 ), IINFO );
                if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'DSPEVX(V,A,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
@@ -1197,7 +1197,7 @@
 
                // Do tests 40 and 41 (or +54)
 
-               CALL DSYT21( 1, UPLO, N, 0, A, LDU, WA1, D2, Z, LDU, V, LDU, TAU, WORK, RESULT( NTEST ) )
+               dsyt21(1, UPLO, N, 0, A, LDU, WA1, D2, Z, LDU, V, LDU, TAU, WORK, RESULT( NTEST ) );
 
                NTEST = NTEST + 2
 
@@ -1220,7 +1220,7 @@
                }
 
                SRNAMT = 'DSPEVX'
-               CALL DSPEVX( 'N', 'A', UPLO, N, WORK, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, V, IWORK, IWORK( 5*N+1 ), IINFO )
+               dspevx('N', 'A', UPLO, N, WORK, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, V, IWORK, IWORK( 5*N+1 ), IINFO );
                if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'DSPEVX(N,A,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
@@ -1264,7 +1264,7 @@
                NTEST = NTEST + 1
 
                SRNAMT = 'DSPEVX'
-               CALL DSPEVX( 'V', 'I', UPLO, N, WORK, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, V, IWORK, IWORK( 5*N+1 ), IINFO )
+               dspevx('V', 'I', UPLO, N, WORK, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, V, IWORK, IWORK( 5*N+1 ), IINFO );
                if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'DSPEVX(V,I,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
@@ -1280,7 +1280,7 @@
 
                // Do tests 43 and 44 (or +54)
 
-               CALL DSYT22( 1, UPLO, N, M2, 0, A, LDU, WA2, D2, Z, LDU, V, LDU, TAU, WORK, RESULT( NTEST ) )
+               dsyt22(1, UPLO, N, M2, 0, A, LDU, WA2, D2, Z, LDU, V, LDU, TAU, WORK, RESULT( NTEST ) );
 
                NTEST = NTEST + 2
 
@@ -1303,7 +1303,7 @@
                }
 
                SRNAMT = 'DSPEVX'
-               CALL DSPEVX( 'N', 'I', UPLO, N, WORK, VL, VU, IL, IU, ABSTOL, M3, WA3, Z, LDU, V, IWORK, IWORK( 5*N+1 ), IINFO )
+               dspevx('N', 'I', UPLO, N, WORK, VL, VU, IL, IU, ABSTOL, M3, WA3, Z, LDU, V, IWORK, IWORK( 5*N+1 ), IINFO );
                if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'DSPEVX(N,I,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
@@ -1353,7 +1353,7 @@
                NTEST = NTEST + 1
 
                SRNAMT = 'DSPEVX'
-               CALL DSPEVX( 'V', 'V', UPLO, N, WORK, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, V, IWORK, IWORK( 5*N+1 ), IINFO )
+               dspevx('V', 'V', UPLO, N, WORK, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, V, IWORK, IWORK( 5*N+1 ), IINFO );
                if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'DSPEVX(V,V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
@@ -1369,7 +1369,7 @@
 
                // Do tests 46 and 47 (or +54)
 
-               CALL DSYT22( 1, UPLO, N, M2, 0, A, LDU, WA2, D2, Z, LDU, V, LDU, TAU, WORK, RESULT( NTEST ) )
+               dsyt22(1, UPLO, N, M2, 0, A, LDU, WA2, D2, Z, LDU, V, LDU, TAU, WORK, RESULT( NTEST ) );
 
                NTEST = NTEST + 2
 
@@ -1392,7 +1392,7 @@
                }
 
                SRNAMT = 'DSPEVX'
-               CALL DSPEVX( 'N', 'V', UPLO, N, WORK, VL, VU, IL, IU, ABSTOL, M3, WA3, Z, LDU, V, IWORK, IWORK( 5*N+1 ), IINFO )
+               dspevx('N', 'V', UPLO, N, WORK, VL, VU, IL, IU, ABSTOL, M3, WA3, Z, LDU, V, IWORK, IWORK( 5*N+1 ), IINFO );
                if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'DSPEVX(N,V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
@@ -1451,7 +1451,7 @@
 
                NTEST = NTEST + 1
                SRNAMT = 'DSBEV'
-               CALL DSBEV( 'V', UPLO, N, KD, V, LDU, D1, Z, LDU, WORK, IINFO )
+               dsbev('V', UPLO, N, KD, V, LDU, D1, Z, LDU, WORK, IINFO );
                if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'DSBEV(V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
@@ -1467,7 +1467,7 @@
 
                // Do tests 49 and 50 (or ... )
 
-               CALL DSYT21( 1, UPLO, N, 0, A, LDA, D1, D2, Z, LDU, V, LDU, TAU, WORK, RESULT( NTEST ) )
+               dsyt21(1, UPLO, N, 0, A, LDA, D1, D2, Z, LDU, V, LDU, TAU, WORK, RESULT( NTEST ) );
 
                if ( IUPLO.EQ.1 ) {
                   DO 1140 J = 1, N
@@ -1485,7 +1485,7 @@
 
                NTEST = NTEST + 2
                SRNAMT = 'DSBEV_2STAGE'
-               CALL DSBEV_2STAGE( 'N', UPLO, N, KD, V, LDU, D3, Z, LDU, WORK, LWORK, IINFO )
+               dsbev_2stage('N', UPLO, N, KD, V, LDU, D3, Z, LDU, WORK, LWORK, IINFO );
                if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9999 ) 'DSBEV_2STAGE(N,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
@@ -1527,7 +1527,7 @@
 
                NTEST = NTEST + 1
                SRNAMT = 'DSBEVX'
-               CALL DSBEVX( 'V', 'A', UPLO, N, KD, V, LDU, U, LDU, VL, VU, IL, IU, ABSTOL, M, WA2, Z, LDU, WORK, IWORK, IWORK( 5*N+1 ), IINFO )
+               dsbevx('V', 'A', UPLO, N, KD, V, LDU, U, LDU, VL, VU, IL, IU, ABSTOL, M, WA2, Z, LDU, WORK, IWORK, IWORK( 5*N+1 ), IINFO );
                if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'DSBEVX(V,A,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
@@ -1543,7 +1543,7 @@
 
                // Do tests 52 and 53 (or +54)
 
-               CALL DSYT21( 1, UPLO, N, 0, A, LDU, WA2, D2, Z, LDU, V, LDU, TAU, WORK, RESULT( NTEST ) )
+               dsyt21(1, UPLO, N, 0, A, LDU, WA2, D2, Z, LDU, V, LDU, TAU, WORK, RESULT( NTEST ) );
 
                NTEST = NTEST + 2
 
@@ -1562,7 +1562,7 @@
                }
 
                SRNAMT = 'DSBEVX_2STAGE'
-               CALL DSBEVX_2STAGE( 'N', 'A', UPLO, N, KD, V, LDU, U, LDU, VL, VU, IL, IU, ABSTOL, M3, WA3, Z, LDU, WORK, LWORK, IWORK, IWORK( 5*N+1 ), IINFO )
+               dsbevx_2stage('N', 'A', UPLO, N, KD, V, LDU, U, LDU, VL, VU, IL, IU, ABSTOL, M3, WA3, Z, LDU, WORK, LWORK, IWORK, IWORK( 5*N+1 ), IINFO );
                if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9999 ) 'DSBEVX_2STAGE(N,A,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
@@ -1601,7 +1601,7 @@
                }
 
                SRNAMT = 'DSBEVX'
-               CALL DSBEVX( 'V', 'I', UPLO, N, KD, V, LDU, U, LDU, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, WORK, IWORK, IWORK( 5*N+1 ), IINFO )
+               dsbevx('V', 'I', UPLO, N, KD, V, LDU, U, LDU, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, WORK, IWORK, IWORK( 5*N+1 ), IINFO );
                if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'DSBEVX(V,I,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
@@ -1617,7 +1617,7 @@
 
                // Do tests 55 and 56 (or +54)
 
-               CALL DSYT22( 1, UPLO, N, M2, 0, A, LDU, WA2, D2, Z, LDU, V, LDU, TAU, WORK, RESULT( NTEST ) )
+               dsyt22(1, UPLO, N, M2, 0, A, LDU, WA2, D2, Z, LDU, V, LDU, TAU, WORK, RESULT( NTEST ) );
 
                NTEST = NTEST + 2
 
@@ -1636,7 +1636,7 @@
                }
 
                SRNAMT = 'DSBEVX_2STAGE'
-               CALL DSBEVX_2STAGE( 'N', 'I', UPLO, N, KD, V, LDU, U, LDU, VL, VU, IL, IU, ABSTOL, M3, WA3, Z, LDU, WORK, LWORK, IWORK, IWORK( 5*N+1 ), IINFO )
+               dsbevx_2stage('N', 'I', UPLO, N, KD, V, LDU, U, LDU, VL, VU, IL, IU, ABSTOL, M3, WA3, Z, LDU, WORK, LWORK, IWORK, IWORK( 5*N+1 ), IINFO );
                if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9999 ) 'DSBEVX_2STAGE(N,I,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
@@ -1676,7 +1676,7 @@
                }
 
                SRNAMT = 'DSBEVX'
-               CALL DSBEVX( 'V', 'V', UPLO, N, KD, V, LDU, U, LDU, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, WORK, IWORK, IWORK( 5*N+1 ), IINFO )
+               dsbevx('V', 'V', UPLO, N, KD, V, LDU, U, LDU, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, WORK, IWORK, IWORK( 5*N+1 ), IINFO );
                if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'DSBEVX(V,V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
@@ -1692,7 +1692,7 @@
 
                // Do tests 58 and 59 (or +54)
 
-               CALL DSYT22( 1, UPLO, N, M2, 0, A, LDU, WA2, D2, Z, LDU, V, LDU, TAU, WORK, RESULT( NTEST ) )
+               dsyt22(1, UPLO, N, M2, 0, A, LDU, WA2, D2, Z, LDU, V, LDU, TAU, WORK, RESULT( NTEST ) );
 
                NTEST = NTEST + 2
 
@@ -1711,7 +1711,7 @@
                }
 
                SRNAMT = 'DSBEVX_2STAGE'
-               CALL DSBEVX_2STAGE( 'N', 'V', UPLO, N, KD, V, LDU, U, LDU, VL, VU, IL, IU, ABSTOL, M3, WA3, Z, LDU, WORK, LWORK, IWORK, IWORK( 5*N+1 ), IINFO )
+               dsbevx_2stage('N', 'V', UPLO, N, KD, V, LDU, U, LDU, VL, VU, IL, IU, ABSTOL, M3, WA3, Z, LDU, WORK, LWORK, IWORK, IWORK( 5*N+1 ), IINFO );
                if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9999 ) 'DSBEVX_2STAGE(N,V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
@@ -1743,11 +1743,11 @@
 
                // 7)      Call DSYEVD
 
-               CALL DLACPY( ' ', N, N, A, LDA, V, LDU )
+               dlacpy(' ', N, N, A, LDA, V, LDU );
 
                NTEST = NTEST + 1
                SRNAMT = 'DSYEVD'
-               CALL DSYEVD( 'V', UPLO, N, A, LDU, D1, WORK, LWEDC, IWORK, LIWEDC, IINFO )
+               dsyevd('V', UPLO, N, A, LDU, D1, WORK, LWEDC, IWORK, LIWEDC, IINFO );
                if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'DSYEVD(V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
@@ -1763,13 +1763,13 @@
 
                // Do tests 61 and 62 (or +54)
 
-               CALL DSYT21( 1, UPLO, N, 0, V, LDU, D1, D2, A, LDU, Z, LDU, TAU, WORK, RESULT( NTEST ) )
+               dsyt21(1, UPLO, N, 0, V, LDU, D1, D2, A, LDU, Z, LDU, TAU, WORK, RESULT( NTEST ) );
 
-               CALL DLACPY( ' ', N, N, V, LDU, A, LDA )
+               dlacpy(' ', N, N, V, LDU, A, LDA );
 
                NTEST = NTEST + 2
                SRNAMT = 'DSYEVD_2STAGE'
-               CALL DSYEVD_2STAGE( 'N', UPLO, N, A, LDU, D3, WORK,  LWORK, IWORK, LIWEDC, IINFO )
+               dsyevd_2stage('N', UPLO, N, A, LDU, D3, WORK,  LWORK, IWORK, LIWEDC, IINFO );
                if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9999 ) 'DSYEVD_2STAGE(N,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
@@ -1795,7 +1795,7 @@
 
                // 8)      Call DSPEVD.
 
-               CALL DLACPY( ' ', N, N, V, LDU, A, LDA )
+               dlacpy(' ', N, N, V, LDU, A, LDA );
 
                // Load array WORK with the upper or lower triangular
                // part of the matrix in packed form.
@@ -1820,7 +1820,7 @@
 
                NTEST = NTEST + 1
                SRNAMT = 'DSPEVD'
-               CALL DSPEVD( 'V', UPLO, N, WORK, D1, Z, LDU, WORK( INDX ), LWEDC-INDX+1, IWORK, LIWEDC, IINFO )
+               dspevd('V', UPLO, N, WORK, D1, Z, LDU, WORK( INDX ), LWEDC-INDX+1, IWORK, LIWEDC, IINFO );
                if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'DSPEVD(V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
@@ -1836,7 +1836,7 @@
 
                // Do tests 64 and 65 (or +54)
 
-               CALL DSYT21( 1, UPLO, N, 0, A, LDA, D1, D2, Z, LDU, V, LDU, TAU, WORK, RESULT( NTEST ) )
+               dsyt21(1, UPLO, N, 0, A, LDA, D1, D2, Z, LDU, V, LDU, TAU, WORK, RESULT( NTEST ) );
 
                if ( IUPLO.EQ.1 ) {
                   INDX = 1
@@ -1859,7 +1859,7 @@
 
                NTEST = NTEST + 2
                SRNAMT = 'DSPEVD'
-               CALL DSPEVD( 'N', UPLO, N, WORK, D3, Z, LDU, WORK( INDX ), LWEDC-INDX+1, IWORK, LIWEDC, IINFO )
+               dspevd('N', UPLO, N, WORK, D3, Z, LDU, WORK( INDX ), LWEDC-INDX+1, IWORK, LIWEDC, IINFO );
                if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'DSPEVD(N,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
@@ -1911,7 +1911,7 @@
 
                NTEST = NTEST + 1
                SRNAMT = 'DSBEVD'
-               CALL DSBEVD( 'V', UPLO, N, KD, V, LDU, D1, Z, LDU, WORK, LWEDC, IWORK, LIWEDC, IINFO )
+               dsbevd('V', UPLO, N, KD, V, LDU, D1, Z, LDU, WORK, LWEDC, IWORK, LIWEDC, IINFO );
                if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'DSBEVD(V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
@@ -1927,7 +1927,7 @@
 
                // Do tests 67 and 68 (or +54)
 
-               CALL DSYT21( 1, UPLO, N, 0, A, LDA, D1, D2, Z, LDU, V, LDU, TAU, WORK, RESULT( NTEST ) )
+               dsyt21(1, UPLO, N, 0, A, LDA, D1, D2, Z, LDU, V, LDU, TAU, WORK, RESULT( NTEST ) );
 
                if ( IUPLO.EQ.1 ) {
                   DO 1640 J = 1, N
@@ -1945,7 +1945,7 @@
 
                NTEST = NTEST + 2
                SRNAMT = 'DSBEVD_2STAGE'
-               CALL DSBEVD_2STAGE( 'N', UPLO, N, KD, V, LDU, D3, Z, LDU, WORK, LWORK, IWORK, LIWEDC, IINFO )
+               dsbevd_2stage('N', UPLO, N, KD, V, LDU, D3, Z, LDU, WORK, LWORK, IWORK, LIWEDC, IINFO );
                if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9999 ) 'DSBEVD_2STAGE(N,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
@@ -1970,10 +1970,10 @@
  1680          CONTINUE
 
 
-               CALL DLACPY( ' ', N, N, A, LDA, V, LDU )
+               dlacpy(' ', N, N, A, LDA, V, LDU );
                NTEST = NTEST + 1
                SRNAMT = 'DSYEVR'
-               CALL DSYEVR( 'V', 'A', UPLO, N, A, LDU, VL, VU, IL, IU, ABSTOL, M, WA1, Z, LDU, IWORK, WORK, LWORK, IWORK(2*N+1), LIWORK-2*N, IINFO )
+               dsyevr('V', 'A', UPLO, N, A, LDU, VL, VU, IL, IU, ABSTOL, M, WA1, Z, LDU, IWORK, WORK, LWORK, IWORK(2*N+1), LIWORK-2*N, IINFO );
                if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'DSYEVR(V,A,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
@@ -1989,13 +1989,13 @@
 
                // Do tests 70 and 71 (or ... )
 
-               CALL DLACPY( ' ', N, N, V, LDU, A, LDA )
+               dlacpy(' ', N, N, V, LDU, A, LDA );
 
-               CALL DSYT21( 1, UPLO, N, 0, A, LDU, WA1, D2, Z, LDU, V, LDU, TAU, WORK, RESULT( NTEST ) )
+               dsyt21(1, UPLO, N, 0, A, LDU, WA1, D2, Z, LDU, V, LDU, TAU, WORK, RESULT( NTEST ) );
 
                NTEST = NTEST + 2
                SRNAMT = 'DSYEVR_2STAGE'
-               CALL DSYEVR_2STAGE( 'N', 'A', UPLO, N, A, LDU, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, IWORK, WORK, LWORK, IWORK(2*N+1), LIWORK-2*N, IINFO )
+               dsyevr_2stage('N', 'A', UPLO, N, A, LDU, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, IWORK, WORK, LWORK, IWORK(2*N+1), LIWORK-2*N, IINFO );
                if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9999 ) 'DSYEVR_2STAGE(N,A,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
@@ -2020,9 +2020,9 @@
  1700          CONTINUE
 
                NTEST = NTEST + 1
-               CALL DLACPY( ' ', N, N, V, LDU, A, LDA )
+               dlacpy(' ', N, N, V, LDU, A, LDA );
                SRNAMT = 'DSYEVR'
-               CALL DSYEVR( 'V', 'I', UPLO, N, A, LDU, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, IWORK, WORK, LWORK, IWORK(2*N+1), LIWORK-2*N, IINFO )
+               dsyevr('V', 'I', UPLO, N, A, LDU, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, IWORK, WORK, LWORK, IWORK(2*N+1), LIWORK-2*N, IINFO );
                if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'DSYEVR(V,I,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
@@ -2038,14 +2038,14 @@
 
                // Do tests 73 and 74 (or +54)
 
-               CALL DLACPY( ' ', N, N, V, LDU, A, LDA )
+               dlacpy(' ', N, N, V, LDU, A, LDA );
 
-               CALL DSYT22( 1, UPLO, N, M2, 0, A, LDU, WA2, D2, Z, LDU, V, LDU, TAU, WORK, RESULT( NTEST ) )
+               dsyt22(1, UPLO, N, M2, 0, A, LDU, WA2, D2, Z, LDU, V, LDU, TAU, WORK, RESULT( NTEST ) );
 
                NTEST = NTEST + 2
-               CALL DLACPY( ' ', N, N, V, LDU, A, LDA )
+               dlacpy(' ', N, N, V, LDU, A, LDA );
                SRNAMT = 'DSYEVR_2STAGE'
-               CALL DSYEVR_2STAGE( 'N', 'I', UPLO, N, A, LDU, VL, VU, IL, IU, ABSTOL, M3, WA3, Z, LDU, IWORK, WORK, LWORK, IWORK(2*N+1), LIWORK-2*N, IINFO )
+               dsyevr_2stage('N', 'I', UPLO, N, A, LDU, VL, VU, IL, IU, ABSTOL, M3, WA3, Z, LDU, IWORK, WORK, LWORK, IWORK(2*N+1), LIWORK-2*N, IINFO );
                if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9999 ) 'DSYEVR_2STAGE(N,I,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
@@ -2065,9 +2065,9 @@
  1710          CONTINUE
 
                NTEST = NTEST + 1
-               CALL DLACPY( ' ', N, N, V, LDU, A, LDA )
+               dlacpy(' ', N, N, V, LDU, A, LDA );
                SRNAMT = 'DSYEVR'
-               CALL DSYEVR( 'V', 'V', UPLO, N, A, LDU, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, IWORK, WORK, LWORK, IWORK(2*N+1), LIWORK-2*N, IINFO )
+               dsyevr('V', 'V', UPLO, N, A, LDU, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, IWORK, WORK, LWORK, IWORK(2*N+1), LIWORK-2*N, IINFO );
                if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'DSYEVR(V,V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
@@ -2083,14 +2083,14 @@
 
                // Do tests 76 and 77 (or +54)
 
-               CALL DLACPY( ' ', N, N, V, LDU, A, LDA )
+               dlacpy(' ', N, N, V, LDU, A, LDA );
 
-               CALL DSYT22( 1, UPLO, N, M2, 0, A, LDU, WA2, D2, Z, LDU, V, LDU, TAU, WORK, RESULT( NTEST ) )
+               dsyt22(1, UPLO, N, M2, 0, A, LDU, WA2, D2, Z, LDU, V, LDU, TAU, WORK, RESULT( NTEST ) );
 
                NTEST = NTEST + 2
-               CALL DLACPY( ' ', N, N, V, LDU, A, LDA )
+               dlacpy(' ', N, N, V, LDU, A, LDA );
                SRNAMT = 'DSYEVR_2STAGE'
-               CALL DSYEVR_2STAGE( 'N', 'V', UPLO, N, A, LDU, VL, VU, IL, IU, ABSTOL, M3, WA3, Z, LDU, IWORK, WORK, LWORK, IWORK(2*N+1), LIWORK-2*N, IINFO )
+               dsyevr_2stage('N', 'V', UPLO, N, A, LDU, VL, VU, IL, IU, ABSTOL, M3, WA3, Z, LDU, IWORK, WORK, LWORK, IWORK(2*N+1), LIWORK-2*N, IINFO );
                if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9999 ) 'DSYEVR_2STAGE(N,V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
@@ -2118,7 +2118,7 @@
                }
                RESULT( NTEST ) = ( TEMP1+TEMP2 ) / MAX( UNFL, TEMP3*ULP )
 
-               CALL DLACPY( ' ', N, N, V, LDU, A, LDA )
+               dlacpy(' ', N, N, V, LDU, A, LDA );
 
  1720       CONTINUE
 
@@ -2126,14 +2126,14 @@
 
             NTESTT = NTESTT + NTEST
 
-            CALL DLAFTS( 'DST', N, N, JTYPE, NTEST, RESULT, IOLDSD, THRESH, NOUNIT, NERRS )
+            dlafts('DST', N, N, JTYPE, NTEST, RESULT, IOLDSD, THRESH, NOUNIT, NERRS );
 
  1730    CONTINUE
  1740 CONTINUE
 
       // Summary
 
-      CALL ALASVM( 'DST', NOUNIT, NERRS, NTESTT, 0 )
+      alasvm('DST', NOUNIT, NERRS, NTESTT, 0 );
 
  9999 FORMAT( ' DDRVST2STG: ', A, ' returned INFO=', I6, '.', / 9X, 'N=', I6, ', JTYPE=', I6, ', ISEED=(', 3( I5, ',' ), I5, ')' )
 

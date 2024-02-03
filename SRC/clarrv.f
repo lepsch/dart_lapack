@@ -91,7 +91,7 @@
       // The width of the part of Z that is used
       ZUSEDW = ZUSEDU - ZUSEDL + 1
 
-       CALL CLASET( 'Full', N, ZUSEDW, CZERO, CZERO, Z(1,ZUSEDL), LDZ )
+       claset('Full', N, ZUSEDW, CZERO, CZERO, Z(1,ZUSEDL), LDZ );
 
       EPS = SLAMCH( 'Precision' )
       RQTOL = TWO * EPS
@@ -175,7 +175,7 @@
          // The eigenvalue approximations will be refined when necessary as
          // high relative accuracy is required for the computation of the
          // corresponding eigenvectors.
-         CALL SCOPY( IM, W( WBEGIN ), 1, WORK( WBEGIN ), 1 )
+         scopy(IM, W( WBEGIN ), 1, WORK( WBEGIN ), 1 );
 
          // We store in W the eigenvalue approximations w.r.t. the original
          // matrix T.
@@ -257,7 +257,7 @@
                   SIGMA = REAL( Z( IEND, J+1 ) )
 
                   // Set the corresponding entries in Z to zero
-                  CALL CLASET( 'Full', IN, 2, CZERO, CZERO, Z( IBEGIN, J), LDZ )
+                  claset('Full', IN, 2, CZERO, CZERO, Z( IBEGIN, J), LDZ );
                }
 
                // Compute DL and DLL of current RRR
@@ -278,7 +278,7 @@
                   OFFSET = INDEXW( WBEGIN ) - 1
                   // perform limited bisection (if necessary) to get approximate
                   // eigenvalues to the precision needed.
-                  CALL SLARRB( IN, D( IBEGIN ), WORK(INDLLD+IBEGIN-1), P, Q, RTOL1, RTOL2, OFFSET, WORK(WBEGIN),WGAP(WBEGIN),WERR(WBEGIN), WORK( INDWRK ), IWORK( IINDWK ), PIVMIN, SPDIAM, IN, IINFO )
+                  slarrb(IN, D( IBEGIN ), WORK(INDLLD+IBEGIN-1), P, Q, RTOL1, RTOL2, OFFSET, WORK(WBEGIN),WGAP(WBEGIN),WERR(WBEGIN), WORK( INDWRK ), IWORK( IINDWK ), PIVMIN, SPDIAM, IN, IINFO );
                   if ( IINFO.NE.0 ) {
                      INFO = -1
                      RETURN
@@ -375,7 +375,7 @@
                            P = INDEXW( WBEGIN-1+NEWLST )
                         ENDIF
                         OFFSET = INDEXW( WBEGIN ) - 1
-                        CALL SLARRB( IN, D(IBEGIN), WORK( INDLLD+IBEGIN-1 ),P,P, RQTOL, RQTOL, OFFSET, WORK(WBEGIN),WGAP(WBEGIN), WERR(WBEGIN),WORK( INDWRK ), IWORK( IINDWK ), PIVMIN, SPDIAM, IN, IINFO )
+                        slarrb(IN, D(IBEGIN), WORK( INDLLD+IBEGIN-1 ),P,P, RQTOL, RQTOL, OFFSET, WORK(WBEGIN),WGAP(WBEGIN), WERR(WBEGIN),WORK( INDWRK ), IWORK( IINDWK ), PIVMIN, SPDIAM, IN, IINFO );
  55                  CONTINUE
 
                      if ((WBEGIN+NEWLST-1.LT.DOL).OR. (WBEGIN+NEWFST-1.GT.DOU)) {
@@ -394,7 +394,7 @@
                      // Note that the new RRR is stored in Z
 
                      // SLARRF needs LWORK = 2*N
-                     CALL SLARRF( IN, D( IBEGIN ), L( IBEGIN ), WORK(INDLD+IBEGIN-1), NEWFST, NEWLST, WORK(WBEGIN), WGAP(WBEGIN), WERR(WBEGIN), SPDIAM, LGAP, RGAP, PIVMIN, TAU, WORK( INDIN1 ), WORK( INDIN2 ), WORK( INDWRK ), IINFO )
+                     slarrf(IN, D( IBEGIN ), L( IBEGIN ), WORK(INDLD+IBEGIN-1), NEWFST, NEWLST, WORK(WBEGIN), WGAP(WBEGIN), WERR(WBEGIN), SPDIAM, LGAP, RGAP, PIVMIN, TAU, WORK( INDIN1 ), WORK( INDIN2 ), WORK( INDWRK ), IINFO );
                      // In the complex case, SLARRF cannot write
                      // the new RRR directly into Z and needs an intermediate
                      // workspace
@@ -517,7 +517,7 @@
                         USEDBS = .TRUE.
                         ITMP1 = IWORK( IINDR+WINDEX )
                         OFFSET = INDEXW( WBEGIN ) - 1
-                        CALL SLARRB( IN, D(IBEGIN), WORK(INDLLD+IBEGIN-1),INDEIG,INDEIG, ZERO, TWO*EPS, OFFSET, WORK(WBEGIN),WGAP(WBEGIN), WERR(WBEGIN),WORK( INDWRK ), IWORK( IINDWK ), PIVMIN, SPDIAM, ITMP1, IINFO )
+                        slarrb(IN, D(IBEGIN), WORK(INDLLD+IBEGIN-1),INDEIG,INDEIG, ZERO, TWO*EPS, OFFSET, WORK(WBEGIN),WGAP(WBEGIN), WERR(WBEGIN),WORK( INDWRK ), IWORK( IINDWK ), PIVMIN, SPDIAM, ITMP1, IINFO );
                         if ( IINFO.NE.0 ) {
                            INFO = -3
                            RETURN
@@ -528,7 +528,7 @@
                         IWORK( IINDR+WINDEX ) = 0
                      ENDIF
                      // Given LAMBDA, compute the eigenvector.
-                     CALL CLAR1V( IN, 1, IN, LAMBDA, D( IBEGIN ), L( IBEGIN ), WORK(INDLD+IBEGIN-1), WORK(INDLLD+IBEGIN-1), PIVMIN, GAPTOL, Z( IBEGIN, WINDEX ), .NOT.USEDBS, NEGCNT, ZTZ, MINGMA, IWORK( IINDR+WINDEX ), ISUPPZ( 2*WINDEX-1 ), NRMINV, RESID, RQCORR, WORK( INDWRK ) )
+                     clar1v(IN, 1, IN, LAMBDA, D( IBEGIN ), L( IBEGIN ), WORK(INDLD+IBEGIN-1), WORK(INDLLD+IBEGIN-1), PIVMIN, GAPTOL, Z( IBEGIN, WINDEX ), .NOT.USEDBS, NEGCNT, ZTZ, MINGMA, IWORK( IINDR+WINDEX ), ISUPPZ( 2*WINDEX-1 ), NRMINV, RESID, RQCORR, WORK( INDWRK ) );
                      if (ITER .EQ. 0) {
                         BSTRES = RESID
                         BSTW = LAMBDA
@@ -614,7 +614,7 @@
                         ENDIF
                         if (STP2II) {
                            // improve error angle by second step
-                           CALL CLAR1V( IN, 1, IN, LAMBDA, D( IBEGIN ), L( IBEGIN ), WORK(INDLD+IBEGIN-1), WORK(INDLLD+IBEGIN-1), PIVMIN, GAPTOL, Z( IBEGIN, WINDEX ), .NOT.USEDBS, NEGCNT, ZTZ, MINGMA, IWORK( IINDR+WINDEX ), ISUPPZ( 2*WINDEX-1 ), NRMINV, RESID, RQCORR, WORK( INDWRK ) )
+                           clar1v(IN, 1, IN, LAMBDA, D( IBEGIN ), L( IBEGIN ), WORK(INDLD+IBEGIN-1), WORK(INDLLD+IBEGIN-1), PIVMIN, GAPTOL, Z( IBEGIN, WINDEX ), .NOT.USEDBS, NEGCNT, ZTZ, MINGMA, IWORK( IINDR+WINDEX ), ISUPPZ( 2*WINDEX-1 ), NRMINV, RESID, RQCORR, WORK( INDWRK ) );
                         ENDIF
                         WORK( WINDEX ) = LAMBDA
                      }
@@ -638,7 +638,7 @@
                            Z( II, WINDEX ) = ZERO
  123                    CONTINUE
                      ENDIF
-                     CALL CSSCAL( ZTO-ZFROM+1, NRMINV, Z( ZFROM, WINDEX ), 1 )
+                     csscal(ZTO-ZFROM+1, NRMINV, Z( ZFROM, WINDEX ), 1 );
  125                 CONTINUE
                      // Update W
                      W( WINDEX ) = LAMBDA+SIGMA

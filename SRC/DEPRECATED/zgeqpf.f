@@ -48,7 +48,7 @@
          INFO = -4
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'ZGEQPF', -INFO )
+         xerbla('ZGEQPF', -INFO );
          RETURN
       }
 
@@ -61,7 +61,7 @@
       DO 10 I = 1, N
          if ( JPVT( I ).NE.0 ) {
             if ( I.NE.ITEMP ) {
-               CALL ZSWAP( M, A( 1, I ), 1, A( 1, ITEMP ), 1 )
+               zswap(M, A( 1, I ), 1, A( 1, ITEMP ), 1 );
                JPVT( I ) = JPVT( ITEMP )
                JPVT( ITEMP ) = I
             } else {
@@ -78,9 +78,9 @@
 
       if ( ITEMP.GT.0 ) {
          MA = MIN( ITEMP, M )
-         CALL ZGEQR2( M, MA, A, LDA, TAU, WORK, INFO )
+         zgeqr2(M, MA, A, LDA, TAU, WORK, INFO );
          if ( MA.LT.N ) {
-            CALL ZUNM2R( 'Left', 'Conjugate transpose', M, N-MA, MA, A, LDA, TAU, A( 1, MA+1 ), LDA, WORK, INFO )
+            zunm2r('Left', 'Conjugate transpose', M, N-MA, MA, A, LDA, TAU, A( 1, MA+1 ), LDA, WORK, INFO );
          }
       }
 
@@ -103,7 +103,7 @@
             PVT = ( I-1 ) + IDAMAX( N-I+1, RWORK( I ), 1 )
 
             if ( PVT.NE.I ) {
-               CALL ZSWAP( M, A( 1, PVT ), 1, A( 1, I ), 1 )
+               zswap(M, A( 1, PVT ), 1, A( 1, I ), 1 );
                ITEMP = JPVT( PVT )
                JPVT( PVT ) = JPVT( I )
                JPVT( I ) = ITEMP
@@ -114,7 +114,7 @@
             // Generate elementary reflector H(i)
 
             AII = A( I, I )
-            CALL ZLARFG( M-I+1, AII, A( MIN( I+1, M ), I ), 1, TAU( I ) )
+            zlarfg(M-I+1, AII, A( MIN( I+1, M ), I ), 1, TAU( I ) );
             A( I, I ) = AII
 
             if ( I.LT.N ) {
@@ -123,7 +123,7 @@
 
                AII = A( I, I )
                A( I, I ) = DCMPLX( ONE )
-               CALL ZLARF( 'Left', M-I+1, N-I, A( I, I ), 1, DCONJG( TAU( I ) ), A( I, I+1 ), LDA, WORK )
+               zlarf('Left', M-I+1, N-I, A( I, I ), 1, DCONJG( TAU( I ) ), A( I, I+1 ), LDA, WORK );
                A( I, I ) = AII
             }
 

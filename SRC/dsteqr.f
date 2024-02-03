@@ -58,7 +58,7 @@
          INFO = -6
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'DSTEQR', -INFO )
+         xerbla('DSTEQR', -INFO );
          RETURN
       }
 
@@ -123,10 +123,10 @@
       IF( ANORM.EQ.ZERO ) GO TO 10
       if ( ANORM.GT.SSFMAX ) {
          ISCALE = 1
-         CALL DLASCL( 'G', 0, 0, ANORM, SSFMAX, LEND-L+1, 1, D( L ), N, INFO )          CALL DLASCL( 'G', 0, 0, ANORM, SSFMAX, LEND-L, 1, E( L ), N, INFO )
+         dlascl('G', 0, 0, ANORM, SSFMAX, LEND-L+1, 1, D( L ), N, INFO )          CALL DLASCL( 'G', 0, 0, ANORM, SSFMAX, LEND-L, 1, E( L ), N, INFO );
       } else if ( ANORM.LT.SSFMIN ) {
          ISCALE = 2
-         CALL DLASCL( 'G', 0, 0, ANORM, SSFMIN, LEND-L+1, 1, D( L ), N, INFO )          CALL DLASCL( 'G', 0, 0, ANORM, SSFMIN, LEND-L, 1, E( L ), N, INFO )
+         dlascl('G', 0, 0, ANORM, SSFMIN, LEND-L+1, 1, D( L ), N, INFO )          CALL DLASCL( 'G', 0, 0, ANORM, SSFMIN, LEND-L, 1, E( L ), N, INFO );
       }
 
       // Choose between QL and QR iteration
@@ -163,12 +163,12 @@
 
          if ( M.EQ.L+1 ) {
             if ( ICOMPZ.GT.0 ) {
-               CALL DLAEV2( D( L ), E( L ), D( L+1 ), RT1, RT2, C, S )
+               dlaev2(D( L ), E( L ), D( L+1 ), RT1, RT2, C, S );
                WORK( L ) = C
                WORK( N-1+L ) = S
-               CALL DLASR( 'R', 'V', 'B', N, 2, WORK( L ), WORK( N-1+L ), Z( 1, L ), LDZ )
+               dlasr('R', 'V', 'B', N, 2, WORK( L ), WORK( N-1+L ), Z( 1, L ), LDZ );
             } else {
-               CALL DLAE2( D( L ), E( L ), D( L+1 ), RT1, RT2 )
+               dlae2(D( L ), E( L ), D( L+1 ), RT1, RT2 );
             }
             D( L ) = RT1
             D( L+1 ) = RT2
@@ -197,7 +197,7 @@
          DO 70 I = MM1, L, -1
             F = S*E( I )
             B = C*E( I )
-            CALL DLARTG( G, F, C, S, R )
+            dlartg(G, F, C, S, R );
             IF( I.NE.M-1 ) E( I+1 ) = R
             G = D( I+1 ) - P
             R = ( D( I )-G )*S + TWO*C*B
@@ -218,7 +218,7 @@
 
          if ( ICOMPZ.GT.0 ) {
             MM = M - L + 1
-            CALL DLASR( 'R', 'V', 'B', N, MM, WORK( L ), WORK( N-1+L ), Z( 1, L ), LDZ )
+            dlasr('R', 'V', 'B', N, MM, WORK( L ), WORK( N-1+L ), Z( 1, L ), LDZ );
          }
 
          D( L ) = D( L ) - P
@@ -261,12 +261,12 @@
 
          if ( M.EQ.L-1 ) {
             if ( ICOMPZ.GT.0 ) {
-               CALL DLAEV2( D( L-1 ), E( L-1 ), D( L ), RT1, RT2, C, S )
+               dlaev2(D( L-1 ), E( L-1 ), D( L ), RT1, RT2, C, S );
                WORK( M ) = C
                WORK( N-1+M ) = S
-               CALL DLASR( 'R', 'V', 'F', N, 2, WORK( M ), WORK( N-1+M ), Z( 1, L-1 ), LDZ )
+               dlasr('R', 'V', 'F', N, 2, WORK( M ), WORK( N-1+M ), Z( 1, L-1 ), LDZ );
             } else {
-               CALL DLAE2( D( L-1 ), E( L-1 ), D( L ), RT1, RT2 )
+               dlae2(D( L-1 ), E( L-1 ), D( L ), RT1, RT2 );
             }
             D( L-1 ) = RT1
             D( L ) = RT2
@@ -295,7 +295,7 @@
          DO 120 I = M, LM1
             F = S*E( I )
             B = C*E( I )
-            CALL DLARTG( G, F, C, S, R )
+            dlartg(G, F, C, S, R );
             IF( I.NE.M ) E( I-1 ) = R
             G = D( I ) - P
             R = ( D( I+1 )-G )*S + TWO*C*B
@@ -316,7 +316,7 @@
 
          if ( ICOMPZ.GT.0 ) {
             MM = L - M + 1
-            CALL DLASR( 'R', 'V', 'F', N, MM, WORK( M ), WORK( N-1+M ), Z( 1, M ), LDZ )
+            dlasr('R', 'V', 'F', N, MM, WORK( M ), WORK( N-1+M ), Z( 1, M ), LDZ );
          }
 
          D( L ) = D( L ) - P
@@ -338,9 +338,9 @@
 
   140 CONTINUE
       if ( ISCALE.EQ.1 ) {
-         CALL DLASCL( 'G', 0, 0, SSFMAX, ANORM, LENDSV-LSV+1, 1, D( LSV ), N, INFO )          CALL DLASCL( 'G', 0, 0, SSFMAX, ANORM, LENDSV-LSV, 1, E( LSV ), N, INFO )
+         dlascl('G', 0, 0, SSFMAX, ANORM, LENDSV-LSV+1, 1, D( LSV ), N, INFO )          CALL DLASCL( 'G', 0, 0, SSFMAX, ANORM, LENDSV-LSV, 1, E( LSV ), N, INFO );
       } else if ( ISCALE.EQ.2 ) {
-         CALL DLASCL( 'G', 0, 0, SSFMIN, ANORM, LENDSV-LSV+1, 1, D( LSV ), N, INFO )          CALL DLASCL( 'G', 0, 0, SSFMIN, ANORM, LENDSV-LSV, 1, E( LSV ), N, INFO )
+         dlascl('G', 0, 0, SSFMIN, ANORM, LENDSV-LSV+1, 1, D( LSV ), N, INFO )          CALL DLASCL( 'G', 0, 0, SSFMIN, ANORM, LENDSV-LSV, 1, E( LSV ), N, INFO );
       }
 
       // Check for no convergence to an eigenvalue after a total
@@ -359,7 +359,7 @@
 
          // Use Quick Sort
 
-         CALL DLASRT( 'I', N, D, INFO )
+         dlasrt('I', N, D, INFO );
 
       } else {
 
@@ -378,7 +378,7 @@
             if ( K.NE.I ) {
                D( K ) = D( I )
                D( I ) = P
-               CALL DSWAP( N, Z( 1, I ), 1, Z( 1, K ), 1 )
+               dswap(N, Z( 1, I ), 1, Z( 1, K ), 1 );
             }
   180    CONTINUE
       }

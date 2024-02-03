@@ -52,7 +52,7 @@
          PVT = ( I-1 ) + IDAMAX( N-I+1, VN1( I ), 1 )
 
          if ( PVT.NE.I ) {
-            CALL ZSWAP( M, A( 1, PVT ), 1, A( 1, I ), 1 )
+            zswap(M, A( 1, PVT ), 1, A( 1, I ), 1 );
             ITEMP = JPVT( PVT )
             JPVT( PVT ) = JPVT( I )
             JPVT( I ) = ITEMP
@@ -63,9 +63,9 @@
          // Generate elementary reflector H(i).
 
          if ( OFFPI.LT.M ) {
-            CALL ZLARFG( M-OFFPI+1, A( OFFPI, I ), A( OFFPI+1, I ), 1, TAU( I ) )
+            zlarfg(M-OFFPI+1, A( OFFPI, I ), A( OFFPI+1, I ), 1, TAU( I ) );
          } else {
-            CALL ZLARFG( 1, A( M, I ), A( M, I ), 1, TAU( I ) )
+            zlarfg(1, A( M, I ), A( M, I ), 1, TAU( I ) );
          }
 
          if ( I.LT.N ) {
@@ -74,7 +74,7 @@
 
             AII = A( OFFPI, I )
             A( OFFPI, I ) = CONE
-            CALL ZLARF( 'Left', M-OFFPI+1, N-I, A( OFFPI, I ), 1, DCONJG( TAU( I ) ), A( OFFPI, I+1 ), LDA, WORK( 1 ) )
+            zlarf('Left', M-OFFPI+1, N-I, A( OFFPI, I ), 1, DCONJG( TAU( I ) ), A( OFFPI, I+1 ), LDA, WORK( 1 ) );
             A( OFFPI, I ) = AII
          }
 

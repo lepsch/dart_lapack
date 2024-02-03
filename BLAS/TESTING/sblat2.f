@@ -184,14 +184,14 @@
       // YY holds the exact result. On exit from SMVCH YT holds
       // the result computed by SMVCH.
       TRANS = 'N'
-      CALL SMVCH( TRANS, N, N, ONE, A, NMAX, X, 1, ZERO, Y, 1, YT, G, YY, EPS, ERR, FATAL, NOUT, .TRUE. )
+      smvch(TRANS, N, N, ONE, A, NMAX, X, 1, ZERO, Y, 1, YT, G, YY, EPS, ERR, FATAL, NOUT, .TRUE. );
       SAME = LSE( YY, YT, N )
       if ( .NOT.SAME.OR.ERR.NE.ZERO ) {
          WRITE( NOUT, FMT = 9985 )TRANS, SAME, ERR
          STOP
       }
       TRANS = 'T'
-      CALL SMVCH( TRANS, N, N, ONE, A, NMAX, X, -1, ZERO, Y, -1, YT, G, YY, EPS, ERR, FATAL, NOUT, .TRUE. )
+      smvch(TRANS, N, N, ONE, A, NMAX, X, -1, ZERO, Y, -1, YT, G, YY, EPS, ERR, FATAL, NOUT, .TRUE. );
       SAME = LSE( YY, YT, N )
       if ( .NOT.SAME.OR.ERR.NE.ZERO ) {
          WRITE( NOUT, FMT = 9985 )TRANS, SAME, ERR
@@ -209,7 +209,7 @@
             SRNAMT = SNAMES( ISNUM )
             // Test error exits.
             if ( TSTERR ) {
-               CALL SCHKE( ISNUM, SNAMES( ISNUM ), NOUT )
+               schke(ISNUM, SNAMES( ISNUM ), NOUT );
                WRITE( NOUT, FMT = * )
             }
             // Test computations.
@@ -370,7 +370,7 @@
                // Generate the matrix A.
 
                TRANSL = ZERO
-               CALL SMAKE( SNAME( 2: 3 ), ' ', ' ', M, N, A, NMAX, AA, LDA, KL, KU, RESET, TRANSL )
+               smake(SNAME( 2: 3 ), ' ', ' ', M, N, A, NMAX, AA, LDA, KL, KU, RESET, TRANSL );
 
                DO 90 IC = 1, 3
                   TRANS = ICH( IC: IC )
@@ -391,7 +391,7 @@
                      // Generate the vector X.
 
                      TRANSL = HALF
-                     CALL SMAKE( 'GE', ' ', ' ', 1, NL, X, 1, XX, ABS( INCX ), 0, NL - 1, RESET, TRANSL )
+                     smake('GE', ' ', ' ', 1, NL, X, 1, XX, ABS( INCX ), 0, NL - 1, RESET, TRANSL );
                      if ( NL.GT.1 ) {
                         X( NL/2 ) = ZERO
                         XX( 1 + ABS( INCX )*( NL/2 - 1 ) ) = ZERO
@@ -410,7 +410,7 @@
                               // Generate the vector Y.
 
                               TRANSL = ZERO
-                              CALL SMAKE( 'GE', ' ', ' ', 1, ML, Y, 1, YY, ABS( INCY ), 0, ML - 1, RESET, TRANSL )
+                              smake('GE', ' ', ' ', 1, ML, Y, 1, YY, ABS( INCY ), 0, ML - 1, RESET, TRANSL );
 
                               NC = NC + 1
 
@@ -507,7 +507,7 @@
 
                                  // Check the result.
 
-                                 CALL SMVCH( TRANS, M, N, ALPHA, A, NMAX, X, INCX, BETA, Y, INCY, YT, G, YY, EPS, ERR, FATAL, NOUT, .TRUE. )
+                                 smvch(TRANS, M, N, ALPHA, A, NMAX, X, INCX, BETA, Y, INCY, YT, G, YY, EPS, ERR, FATAL, NOUT, .TRUE. );
                                  ERRMAX = MAX( ERRMAX, ERR )
                                  // If got really bad answer, report and
                                  // return.
@@ -536,7 +536,7 @@
 
       // Regression test to verify preservation of y when m zero, n nonzero.
 
-      CALL SREGR1( TRANS, M, N, LY, KL, KU, ALPHA, AA, LDA, XX, INCX, BETA, YY, INCY, YS )
+      sregr1(TRANS, M, N, LY, KL, KU, ALPHA, AA, LDA, XX, INCX, BETA, YY, INCY, YS );
       if ( FULL ) {
          IF( TRACE ) WRITE( NTRA, FMT = 9994 )NC, SNAME, TRANS, M, N, ALPHA, LDA, INCX, BETA, INCY
          IF( REWI ) REWIND NTRA          CALL SGEMV( TRANS, M, N, ALPHA, AA, LDA, XX, INCX, BETA, YY, INCY )
@@ -678,7 +678,7 @@
                // Generate the matrix A.
 
                TRANSL = ZERO
-               CALL SMAKE( SNAME( 2: 3 ), UPLO, ' ', N, N, A, NMAX, AA, LDA, K, K, RESET, TRANSL )
+               smake(SNAME( 2: 3 ), UPLO, ' ', N, N, A, NMAX, AA, LDA, K, K, RESET, TRANSL );
 
                DO 80 IX = 1, NINC
                   INCX = INC( IX )
@@ -687,7 +687,7 @@
                   // Generate the vector X.
 
                   TRANSL = HALF
-                  CALL SMAKE( 'GE', ' ', ' ', 1, N, X, 1, XX, ABS( INCX ), 0, N - 1, RESET, TRANSL )
+                  smake('GE', ' ', ' ', 1, N, X, 1, XX, ABS( INCX ), 0, N - 1, RESET, TRANSL );
                   if ( N.GT.1 ) {
                      X( N/2 ) = ZERO
                      XX( 1 + ABS( INCX )*( N/2 - 1 ) ) = ZERO
@@ -706,7 +706,7 @@
                            // Generate the vector Y.
 
                            TRANSL = ZERO
-                           CALL SMAKE( 'GE', ' ', ' ', 1, N, Y, 1, YY, ABS( INCY ), 0, N - 1, RESET, TRANSL )
+                           smake('GE', ' ', ' ', 1, N, Y, 1, YY, ABS( INCY ), 0, N - 1, RESET, TRANSL );
 
                            NC = NC + 1
 
@@ -814,7 +814,7 @@
 
                               // Check the result.
 
-                              CALL SMVCH( 'N', N, N, ALPHA, A, NMAX, X, INCX, BETA, Y, INCY, YT, G, YY, EPS, ERR, FATAL, NOUT, .TRUE. )
+                              smvch('N', N, N, ALPHA, A, NMAX, X, INCX, BETA, Y, INCY, YT, G, YY, EPS, ERR, FATAL, NOUT, .TRUE. );
                               ERRMAX = MAX( ERRMAX, ERR )
                               // If got really bad answer, report and
                               // return.
@@ -979,7 +979,7 @@
                      // Generate the matrix A.
 
                      TRANSL = ZERO
-                     CALL SMAKE( SNAME( 2: 3 ), UPLO, DIAG, N, N, A, NMAX, AA, LDA, K, K, RESET, TRANSL )
+                     smake(SNAME( 2: 3 ), UPLO, DIAG, N, N, A, NMAX, AA, LDA, K, K, RESET, TRANSL );
 
                      DO 60 IX = 1, NINC
                         INCX = INC( IX )
@@ -988,7 +988,7 @@
                         // Generate the vector X.
 
                         TRANSL = HALF
-                        CALL SMAKE( 'GE', ' ', ' ', 1, N, X, 1, XX, ABS( INCX ), 0, N - 1, RESET, TRANSL )
+                        smake('GE', ' ', ' ', 1, N, X, 1, XX, ABS( INCX ), 0, N - 1, RESET, TRANSL );
                         if ( N.GT.1 ) {
                            X( N/2 ) = ZERO
                            XX( 1 + ABS( INCX )*( N/2 - 1 ) ) = ZERO
@@ -1099,7 +1099,7 @@
 
                               // Check the result.
 
-                              CALL SMVCH( TRANS, N, N, ONE, A, NMAX, X, INCX, ZERO, Z, INCX, XT, G, XX, EPS, ERR, FATAL, NOUT, .TRUE. )
+                              smvch(TRANS, N, N, ONE, A, NMAX, X, INCX, ZERO, Z, INCX, XT, G, XX, EPS, ERR, FATAL, NOUT, .TRUE. );
                            } else if ( SNAME( 4: 5 ).EQ.'SV' ) {
 
                               // Compute approximation to original vector.
@@ -1107,7 +1107,7 @@
                               DO 50 I = 1, N
                                  Z( I ) = XX( 1 + ( I - 1 )* ABS( INCX ) )                                  XX( 1 + ( I - 1 )*ABS( INCX ) ) = X( I )
    50                         CONTINUE
-                              CALL SMVCH( TRANS, N, N, ONE, A, NMAX, Z, INCX, ZERO, X, INCX, XT, G, XX, EPS, ERR, FATAL, NOUT, .FALSE. )
+                              smvch(TRANS, N, N, ONE, A, NMAX, Z, INCX, ZERO, X, INCX, XT, G, XX, EPS, ERR, FATAL, NOUT, .FALSE. );
                            }
                            ERRMAX = MAX( ERRMAX, ERR )
                            // If got really bad answer, report and return.
@@ -1233,7 +1233,7 @@
                // Generate the vector X.
 
                TRANSL = HALF
-               CALL SMAKE( 'GE', ' ', ' ', 1, M, X, 1, XX, ABS( INCX ), 0, M - 1, RESET, TRANSL )
+               smake('GE', ' ', ' ', 1, M, X, 1, XX, ABS( INCX ), 0, M - 1, RESET, TRANSL );
                if ( M.GT.1 ) {
                   X( M/2 ) = ZERO
                   XX( 1 + ABS( INCX )*( M/2 - 1 ) ) = ZERO
@@ -1246,7 +1246,7 @@
                   // Generate the vector Y.
 
                   TRANSL = ZERO
-                  CALL SMAKE( 'GE', ' ', ' ', 1, N, Y, 1, YY, ABS( INCY ), 0, N - 1, RESET, TRANSL )
+                  smake('GE', ' ', ' ', 1, N, Y, 1, YY, ABS( INCY ), 0, N - 1, RESET, TRANSL );
                   if ( N.GT.1 ) {
                      Y( N/2 ) = ZERO
                      YY( 1 + ABS( INCY )*( N/2 - 1 ) ) = ZERO
@@ -1258,7 +1258,7 @@
                      // Generate the matrix A.
 
                      TRANSL = ZERO
-                     CALL SMAKE( SNAME( 2: 3 ), ' ', ' ', M, N, A, NMAX, AA, LDA, M - 1, N - 1, RESET, TRANSL )
+                     smake(SNAME( 2: 3 ), ' ', ' ', M, N, A, NMAX, AA, LDA, M - 1, N - 1, RESET, TRANSL );
 
                      NC = NC + 1
 
@@ -1340,7 +1340,7 @@
                            } else {
                               W( 1 ) = Y( N - J + 1 )
                            }
-                           CALL SMVCH( 'N', M, 1, ALPHA, Z, NMAX, W, 1, ONE, A( 1, J ), 1, YT, G, AA( 1 + ( J - 1 )*LDA ), EPS, ERR, FATAL, NOUT, .TRUE. )
+                           smvch('N', M, 1, ALPHA, Z, NMAX, W, 1, ONE, A( 1, J ), 1, YT, G, AA( 1 + ( J - 1 )*LDA ), EPS, ERR, FATAL, NOUT, .TRUE. );
                            ERRMAX = MAX( ERRMAX, ERR )
                            // If got really bad answer, report and return.
                            IF( FATAL ) GO TO 130
@@ -1472,7 +1472,7 @@
                // Generate the vector X.
 
                TRANSL = HALF
-               CALL SMAKE( 'GE', ' ', ' ', 1, N, X, 1, XX, ABS( INCX ), 0, N - 1, RESET, TRANSL )
+               smake('GE', ' ', ' ', 1, N, X, 1, XX, ABS( INCX ), 0, N - 1, RESET, TRANSL );
                if ( N.GT.1 ) {
                   X( N/2 ) = ZERO
                   XX( 1 + ABS( INCX )*( N/2 - 1 ) ) = ZERO
@@ -1485,7 +1485,7 @@
                   // Generate the matrix A.
 
                   TRANSL = ZERO
-                  CALL SMAKE( SNAME( 2: 3 ), UPLO, ' ', N, N, A, NMAX, AA, LDA, N - 1, N - 1, RESET, TRANSL )
+                  smake(SNAME( 2: 3 ), UPLO, ' ', N, N, A, NMAX, AA, LDA, N - 1, N - 1, RESET, TRANSL );
 
                   NC = NC + 1
 
@@ -1508,11 +1508,11 @@
                   if ( FULL ) {
                      IF( TRACE ) WRITE( NTRA, FMT = 9993 )NC, SNAME, UPLO, N, ALPHA, INCX, LDA
                      IF( REWI ) REWIND NTRA
-                     CALL SSYR( UPLO, N, ALPHA, XX, INCX, AA, LDA )
+                     ssyr(UPLO, N, ALPHA, XX, INCX, AA, LDA );
                   } else if ( PACKED ) {
                      IF( TRACE ) WRITE( NTRA, FMT = 9994 )NC, SNAME, UPLO, N, ALPHA, INCX
                      IF( REWI ) REWIND NTRA
-                     CALL SSPR( UPLO, N, ALPHA, XX, INCX, AA )
+                     sspr(UPLO, N, ALPHA, XX, INCX, AA );
                   }
 
                   // Check if error-exit was taken incorrectly.
@@ -1574,7 +1574,7 @@
                            JJ = J
                            LJ = N - J + 1
                         }
-                        CALL SMVCH( 'N', LJ, 1, ALPHA, Z( JJ ), LJ, W, 1, ONE, A( JJ, J ), 1, YT, G, AA( JA ), EPS, ERR, FATAL, NOUT, .TRUE. )
+                        smvch('N', LJ, 1, ALPHA, Z( JJ ), LJ, W, 1, ONE, A( JJ, J ), 1, YT, G, AA( JA ), EPS, ERR, FATAL, NOUT, .TRUE. );
                         if ( FULL ) {
                            if ( UPPER ) {
                               JA = JA + LDA
@@ -1718,7 +1718,7 @@
                // Generate the vector X.
 
                TRANSL = HALF
-               CALL SMAKE( 'GE', ' ', ' ', 1, N, X, 1, XX, ABS( INCX ), 0, N - 1, RESET, TRANSL )
+               smake('GE', ' ', ' ', 1, N, X, 1, XX, ABS( INCX ), 0, N - 1, RESET, TRANSL );
                if ( N.GT.1 ) {
                   X( N/2 ) = ZERO
                   XX( 1 + ABS( INCX )*( N/2 - 1 ) ) = ZERO
@@ -1731,7 +1731,7 @@
                   // Generate the vector Y.
 
                   TRANSL = ZERO
-                  CALL SMAKE( 'GE', ' ', ' ', 1, N, Y, 1, YY, ABS( INCY ), 0, N - 1, RESET, TRANSL )
+                  smake('GE', ' ', ' ', 1, N, Y, 1, YY, ABS( INCY ), 0, N - 1, RESET, TRANSL );
                   if ( N.GT.1 ) {
                      Y( N/2 ) = ZERO
                      YY( 1 + ABS( INCY )*( N/2 - 1 ) ) = ZERO
@@ -1744,7 +1744,7 @@
                      // Generate the matrix A.
 
                      TRANSL = ZERO
-                     CALL SMAKE( SNAME( 2: 3 ), UPLO, ' ', N, N, A, NMAX, AA, LDA, N - 1, N - 1, RESET, TRANSL )
+                     smake(SNAME( 2: 3 ), UPLO, ' ', N, N, A, NMAX, AA, LDA, N - 1, N - 1, RESET, TRANSL );
 
                      NC = NC + 1
 
@@ -1847,7 +1847,7 @@
                               JJ = J
                               LJ = N - J + 1
                            }
-                           CALL SMVCH( 'N', LJ, 2, ALPHA, Z( JJ, 1 ), NMAX, W, 1, ONE, A( JJ, J ), 1, YT, G, AA( JA ), EPS, ERR, FATAL, NOUT, .TRUE. )
+                           smvch('N', LJ, 2, ALPHA, Z( JJ, 1 ), NMAX, W, 1, ONE, A( JJ, J ), 1, YT, G, AA( JA ), EPS, ERR, FATAL, NOUT, .TRUE. );
                            if ( FULL ) {
                               if ( UPPER ) {
                                  JA = JA + LDA
@@ -1946,278 +1946,278 @@
       LERR = .FALSE.
       GO TO ( 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150, 160 )ISNUM
    10 INFOT = 1
-      CALL SGEMV( '/', 0, 0, ALPHA, A, 1, X, 1, BETA, Y, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      sgemv('/', 0, 0, ALPHA, A, 1, X, 1, BETA, Y, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 2
-      CALL SGEMV( 'N', -1, 0, ALPHA, A, 1, X, 1, BETA, Y, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      sgemv('N', -1, 0, ALPHA, A, 1, X, 1, BETA, Y, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 3
-      CALL SGEMV( 'N', 0, -1, ALPHA, A, 1, X, 1, BETA, Y, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      sgemv('N', 0, -1, ALPHA, A, 1, X, 1, BETA, Y, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 6
-      CALL SGEMV( 'N', 2, 0, ALPHA, A, 1, X, 1, BETA, Y, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      sgemv('N', 2, 0, ALPHA, A, 1, X, 1, BETA, Y, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 8
-      CALL SGEMV( 'N', 0, 0, ALPHA, A, 1, X, 0, BETA, Y, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      sgemv('N', 0, 0, ALPHA, A, 1, X, 0, BETA, Y, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 11
-      CALL SGEMV( 'N', 0, 0, ALPHA, A, 1, X, 1, BETA, Y, 0 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      sgemv('N', 0, 0, ALPHA, A, 1, X, 1, BETA, Y, 0 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       GO TO 170
    20 INFOT = 1
-      CALL SGBMV( '/', 0, 0, 0, 0, ALPHA, A, 1, X, 1, BETA, Y, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      sgbmv('/', 0, 0, 0, 0, ALPHA, A, 1, X, 1, BETA, Y, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 2
-      CALL SGBMV( 'N', -1, 0, 0, 0, ALPHA, A, 1, X, 1, BETA, Y, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      sgbmv('N', -1, 0, 0, 0, ALPHA, A, 1, X, 1, BETA, Y, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 3
-      CALL SGBMV( 'N', 0, -1, 0, 0, ALPHA, A, 1, X, 1, BETA, Y, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      sgbmv('N', 0, -1, 0, 0, ALPHA, A, 1, X, 1, BETA, Y, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 4
-      CALL SGBMV( 'N', 0, 0, -1, 0, ALPHA, A, 1, X, 1, BETA, Y, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      sgbmv('N', 0, 0, -1, 0, ALPHA, A, 1, X, 1, BETA, Y, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 5
-      CALL SGBMV( 'N', 2, 0, 0, -1, ALPHA, A, 1, X, 1, BETA, Y, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      sgbmv('N', 2, 0, 0, -1, ALPHA, A, 1, X, 1, BETA, Y, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 8
-      CALL SGBMV( 'N', 0, 0, 1, 0, ALPHA, A, 1, X, 1, BETA, Y, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      sgbmv('N', 0, 0, 1, 0, ALPHA, A, 1, X, 1, BETA, Y, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 10
-      CALL SGBMV( 'N', 0, 0, 0, 0, ALPHA, A, 1, X, 0, BETA, Y, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      sgbmv('N', 0, 0, 0, 0, ALPHA, A, 1, X, 0, BETA, Y, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 13
-      CALL SGBMV( 'N', 0, 0, 0, 0, ALPHA, A, 1, X, 1, BETA, Y, 0 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      sgbmv('N', 0, 0, 0, 0, ALPHA, A, 1, X, 1, BETA, Y, 0 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       GO TO 170
    30 INFOT = 1
-      CALL SSYMV( '/', 0, ALPHA, A, 1, X, 1, BETA, Y, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ssymv('/', 0, ALPHA, A, 1, X, 1, BETA, Y, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 2
-      CALL SSYMV( 'U', -1, ALPHA, A, 1, X, 1, BETA, Y, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ssymv('U', -1, ALPHA, A, 1, X, 1, BETA, Y, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 5
-      CALL SSYMV( 'U', 2, ALPHA, A, 1, X, 1, BETA, Y, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ssymv('U', 2, ALPHA, A, 1, X, 1, BETA, Y, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 7
-      CALL SSYMV( 'U', 0, ALPHA, A, 1, X, 0, BETA, Y, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ssymv('U', 0, ALPHA, A, 1, X, 0, BETA, Y, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 10
-      CALL SSYMV( 'U', 0, ALPHA, A, 1, X, 1, BETA, Y, 0 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ssymv('U', 0, ALPHA, A, 1, X, 1, BETA, Y, 0 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       GO TO 170
    40 INFOT = 1
-      CALL SSBMV( '/', 0, 0, ALPHA, A, 1, X, 1, BETA, Y, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ssbmv('/', 0, 0, ALPHA, A, 1, X, 1, BETA, Y, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 2
-      CALL SSBMV( 'U', -1, 0, ALPHA, A, 1, X, 1, BETA, Y, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ssbmv('U', -1, 0, ALPHA, A, 1, X, 1, BETA, Y, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 3
-      CALL SSBMV( 'U', 0, -1, ALPHA, A, 1, X, 1, BETA, Y, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ssbmv('U', 0, -1, ALPHA, A, 1, X, 1, BETA, Y, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 6
-      CALL SSBMV( 'U', 0, 1, ALPHA, A, 1, X, 1, BETA, Y, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ssbmv('U', 0, 1, ALPHA, A, 1, X, 1, BETA, Y, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 8
-      CALL SSBMV( 'U', 0, 0, ALPHA, A, 1, X, 0, BETA, Y, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ssbmv('U', 0, 0, ALPHA, A, 1, X, 0, BETA, Y, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 11
-      CALL SSBMV( 'U', 0, 0, ALPHA, A, 1, X, 1, BETA, Y, 0 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ssbmv('U', 0, 0, ALPHA, A, 1, X, 1, BETA, Y, 0 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       GO TO 170
    50 INFOT = 1
-      CALL SSPMV( '/', 0, ALPHA, A, X, 1, BETA, Y, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      sspmv('/', 0, ALPHA, A, X, 1, BETA, Y, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 2
-      CALL SSPMV( 'U', -1, ALPHA, A, X, 1, BETA, Y, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      sspmv('U', -1, ALPHA, A, X, 1, BETA, Y, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 6
-      CALL SSPMV( 'U', 0, ALPHA, A, X, 0, BETA, Y, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      sspmv('U', 0, ALPHA, A, X, 0, BETA, Y, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 9
-      CALL SSPMV( 'U', 0, ALPHA, A, X, 1, BETA, Y, 0 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      sspmv('U', 0, ALPHA, A, X, 1, BETA, Y, 0 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       GO TO 170
    60 INFOT = 1
-      CALL STRMV( '/', 'N', 'N', 0, A, 1, X, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      strmv('/', 'N', 'N', 0, A, 1, X, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 2
-      CALL STRMV( 'U', '/', 'N', 0, A, 1, X, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      strmv('U', '/', 'N', 0, A, 1, X, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 3
-      CALL STRMV( 'U', 'N', '/', 0, A, 1, X, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      strmv('U', 'N', '/', 0, A, 1, X, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 4
-      CALL STRMV( 'U', 'N', 'N', -1, A, 1, X, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      strmv('U', 'N', 'N', -1, A, 1, X, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 6
-      CALL STRMV( 'U', 'N', 'N', 2, A, 1, X, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      strmv('U', 'N', 'N', 2, A, 1, X, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 8
-      CALL STRMV( 'U', 'N', 'N', 0, A, 1, X, 0 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      strmv('U', 'N', 'N', 0, A, 1, X, 0 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       GO TO 170
    70 INFOT = 1
-      CALL STBMV( '/', 'N', 'N', 0, 0, A, 1, X, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      stbmv('/', 'N', 'N', 0, 0, A, 1, X, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 2
-      CALL STBMV( 'U', '/', 'N', 0, 0, A, 1, X, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      stbmv('U', '/', 'N', 0, 0, A, 1, X, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 3
-      CALL STBMV( 'U', 'N', '/', 0, 0, A, 1, X, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      stbmv('U', 'N', '/', 0, 0, A, 1, X, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 4
-      CALL STBMV( 'U', 'N', 'N', -1, 0, A, 1, X, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      stbmv('U', 'N', 'N', -1, 0, A, 1, X, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 5
-      CALL STBMV( 'U', 'N', 'N', 0, -1, A, 1, X, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      stbmv('U', 'N', 'N', 0, -1, A, 1, X, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 7
-      CALL STBMV( 'U', 'N', 'N', 0, 1, A, 1, X, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      stbmv('U', 'N', 'N', 0, 1, A, 1, X, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 9
-      CALL STBMV( 'U', 'N', 'N', 0, 0, A, 1, X, 0 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      stbmv('U', 'N', 'N', 0, 0, A, 1, X, 0 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       GO TO 170
    80 INFOT = 1
-      CALL STPMV( '/', 'N', 'N', 0, A, X, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      stpmv('/', 'N', 'N', 0, A, X, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 2
-      CALL STPMV( 'U', '/', 'N', 0, A, X, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      stpmv('U', '/', 'N', 0, A, X, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 3
-      CALL STPMV( 'U', 'N', '/', 0, A, X, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      stpmv('U', 'N', '/', 0, A, X, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 4
-      CALL STPMV( 'U', 'N', 'N', -1, A, X, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      stpmv('U', 'N', 'N', -1, A, X, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 7
-      CALL STPMV( 'U', 'N', 'N', 0, A, X, 0 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      stpmv('U', 'N', 'N', 0, A, X, 0 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       GO TO 170
    90 INFOT = 1
-      CALL STRSV( '/', 'N', 'N', 0, A, 1, X, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      strsv('/', 'N', 'N', 0, A, 1, X, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 2
-      CALL STRSV( 'U', '/', 'N', 0, A, 1, X, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      strsv('U', '/', 'N', 0, A, 1, X, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 3
-      CALL STRSV( 'U', 'N', '/', 0, A, 1, X, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      strsv('U', 'N', '/', 0, A, 1, X, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 4
-      CALL STRSV( 'U', 'N', 'N', -1, A, 1, X, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      strsv('U', 'N', 'N', -1, A, 1, X, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 6
-      CALL STRSV( 'U', 'N', 'N', 2, A, 1, X, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      strsv('U', 'N', 'N', 2, A, 1, X, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 8
-      CALL STRSV( 'U', 'N', 'N', 0, A, 1, X, 0 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      strsv('U', 'N', 'N', 0, A, 1, X, 0 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       GO TO 170
   100 INFOT = 1
-      CALL STBSV( '/', 'N', 'N', 0, 0, A, 1, X, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      stbsv('/', 'N', 'N', 0, 0, A, 1, X, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 2
-      CALL STBSV( 'U', '/', 'N', 0, 0, A, 1, X, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      stbsv('U', '/', 'N', 0, 0, A, 1, X, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 3
-      CALL STBSV( 'U', 'N', '/', 0, 0, A, 1, X, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      stbsv('U', 'N', '/', 0, 0, A, 1, X, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 4
-      CALL STBSV( 'U', 'N', 'N', -1, 0, A, 1, X, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      stbsv('U', 'N', 'N', -1, 0, A, 1, X, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 5
-      CALL STBSV( 'U', 'N', 'N', 0, -1, A, 1, X, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      stbsv('U', 'N', 'N', 0, -1, A, 1, X, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 7
-      CALL STBSV( 'U', 'N', 'N', 0, 1, A, 1, X, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      stbsv('U', 'N', 'N', 0, 1, A, 1, X, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 9
-      CALL STBSV( 'U', 'N', 'N', 0, 0, A, 1, X, 0 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      stbsv('U', 'N', 'N', 0, 0, A, 1, X, 0 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       GO TO 170
   110 INFOT = 1
-      CALL STPSV( '/', 'N', 'N', 0, A, X, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      stpsv('/', 'N', 'N', 0, A, X, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 2
-      CALL STPSV( 'U', '/', 'N', 0, A, X, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      stpsv('U', '/', 'N', 0, A, X, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 3
-      CALL STPSV( 'U', 'N', '/', 0, A, X, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      stpsv('U', 'N', '/', 0, A, X, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 4
-      CALL STPSV( 'U', 'N', 'N', -1, A, X, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      stpsv('U', 'N', 'N', -1, A, X, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 7
-      CALL STPSV( 'U', 'N', 'N', 0, A, X, 0 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      stpsv('U', 'N', 'N', 0, A, X, 0 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       GO TO 170
   120 INFOT = 1
-      CALL SGER( -1, 0, ALPHA, X, 1, Y, 1, A, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      sger(-1, 0, ALPHA, X, 1, Y, 1, A, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 2
-      CALL SGER( 0, -1, ALPHA, X, 1, Y, 1, A, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      sger(0, -1, ALPHA, X, 1, Y, 1, A, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 5
-      CALL SGER( 0, 0, ALPHA, X, 0, Y, 1, A, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      sger(0, 0, ALPHA, X, 0, Y, 1, A, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 7
-      CALL SGER( 0, 0, ALPHA, X, 1, Y, 0, A, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      sger(0, 0, ALPHA, X, 1, Y, 0, A, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 9
-      CALL SGER( 2, 0, ALPHA, X, 1, Y, 1, A, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      sger(2, 0, ALPHA, X, 1, Y, 1, A, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       GO TO 170
   130 INFOT = 1
-      CALL SSYR( '/', 0, ALPHA, X, 1, A, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ssyr('/', 0, ALPHA, X, 1, A, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 2
-      CALL SSYR( 'U', -1, ALPHA, X, 1, A, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ssyr('U', -1, ALPHA, X, 1, A, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 5
-      CALL SSYR( 'U', 0, ALPHA, X, 0, A, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ssyr('U', 0, ALPHA, X, 0, A, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 7
-      CALL SSYR( 'U', 2, ALPHA, X, 1, A, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ssyr('U', 2, ALPHA, X, 1, A, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       GO TO 170
   140 INFOT = 1
-      CALL SSPR( '/', 0, ALPHA, X, 1, A )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      sspr('/', 0, ALPHA, X, 1, A );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 2
-      CALL SSPR( 'U', -1, ALPHA, X, 1, A )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      sspr('U', -1, ALPHA, X, 1, A );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 5
-      CALL SSPR( 'U', 0, ALPHA, X, 0, A )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      sspr('U', 0, ALPHA, X, 0, A );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       GO TO 170
   150 INFOT = 1
-      CALL SSYR2( '/', 0, ALPHA, X, 1, Y, 1, A, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ssyr2('/', 0, ALPHA, X, 1, Y, 1, A, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 2
-      CALL SSYR2( 'U', -1, ALPHA, X, 1, Y, 1, A, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ssyr2('U', -1, ALPHA, X, 1, Y, 1, A, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 5
-      CALL SSYR2( 'U', 0, ALPHA, X, 0, Y, 1, A, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ssyr2('U', 0, ALPHA, X, 0, Y, 1, A, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 7
-      CALL SSYR2( 'U', 0, ALPHA, X, 1, Y, 0, A, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ssyr2('U', 0, ALPHA, X, 1, Y, 0, A, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 9
-      CALL SSYR2( 'U', 2, ALPHA, X, 1, Y, 1, A, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ssyr2('U', 2, ALPHA, X, 1, Y, 1, A, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       GO TO 170
   160 INFOT = 1
-      CALL SSPR2( '/', 0, ALPHA, X, 1, Y, 1, A )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      sspr2('/', 0, ALPHA, X, 1, Y, 1, A );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 2
-      CALL SSPR2( 'U', -1, ALPHA, X, 1, Y, 1, A )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      sspr2('U', -1, ALPHA, X, 1, Y, 1, A );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 5
-      CALL SSPR2( 'U', 0, ALPHA, X, 0, Y, 1, A )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      sspr2('U', 0, ALPHA, X, 0, Y, 1, A );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 7
-      CALL SSPR2( 'U', 0, ALPHA, X, 1, Y, 0, A )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      sspr2('U', 0, ALPHA, X, 1, Y, 0, A );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
 
   170 IF( OK )THEN
          WRITE( NOUT, FMT = 9999 )SRNAMT

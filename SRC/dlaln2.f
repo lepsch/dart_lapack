@@ -124,7 +124,7 @@
 
             // Compute X
 
-            CALL DLADIV( SCALE*B( 1, 1 ), SCALE*B( 1, 2 ), CSR, CSI, X( 1, 1 ), X( 1, 2 ) )
+            dladiv(SCALE*B( 1, 1 ), SCALE*B( 1, 2 ), CSR, CSI, X( 1, 1 ), X( 1, 2 ) );
             XNORM = ABS( X( 1, 1 ) ) + ABS( X( 1, 2 ) )
          }
 
@@ -338,7 +338,7 @@
                }
             }
 
-            CALL DLADIV( BR2, BI2, UR22, UI22, XR2, XI2 )
+            dladiv(BR2, BI2, UR22, UI22, XR2, XI2 );
             XR1 = UR11R*BR1 - UI11R*BI1 - UR12S*XR2 + UI12S*XI2
             XI1 = UI11R*BR1 + UR11R*BI1 - UI12S*XR2 - UR12S*XI2
             if ( ZSWAP( ICMAX ) ) {

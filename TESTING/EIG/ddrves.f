@@ -102,7 +102,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'DDRVES', -INFO )
+         xerbla('DDRVES', -INFO );
          RETURN
       }
 
@@ -176,7 +176,7 @@
 
    60       CONTINUE
 
-            CALL DLASET( 'Full', LDA, N, ZERO, ZERO, A, LDA )
+            dlaset('Full', LDA, N, ZERO, ZERO, A, LDA );
             IINFO = 0
             COND = ULPINV
 
@@ -208,13 +208,13 @@
 
                // Diagonal Matrix, [Eigen]values Specified
 
-               CALL DLATMS( N, N, 'S', ISEED, 'S', WORK, IMODE, COND, ANORM, 0, 0, 'N', A, LDA, WORK( N+1 ), IINFO )
+               dlatms(N, N, 'S', ISEED, 'S', WORK, IMODE, COND, ANORM, 0, 0, 'N', A, LDA, WORK( N+1 ), IINFO );
 
             } else if ( ITYPE.EQ.5 ) {
 
                // Symmetric, eigenvalues specified
 
-               CALL DLATMS( N, N, 'S', ISEED, 'S', WORK, IMODE, COND, ANORM, N, N, 'N', A, LDA, WORK( N+1 ), IINFO )
+               dlatms(N, N, 'S', ISEED, 'S', WORK, IMODE, COND, ANORM, N, N, 'N', A, LDA, WORK( N+1 ), IINFO );
 
             } else if ( ITYPE.EQ.6 ) {
 
@@ -229,35 +229,35 @@
                }
 
                ADUMMA( 1 ) = ' '
-               CALL DLATME( N, 'S', ISEED, WORK, IMODE, COND, ONE, ADUMMA, 'T', 'T', 'T', WORK( N+1 ), 4, CONDS, N, N, ANORM, A, LDA, WORK( 2*N+1 ), IINFO )
+               dlatme(N, 'S', ISEED, WORK, IMODE, COND, ONE, ADUMMA, 'T', 'T', 'T', WORK( N+1 ), 4, CONDS, N, N, ANORM, A, LDA, WORK( 2*N+1 ), IINFO );
 
             } else if ( ITYPE.EQ.7 ) {
 
                // Diagonal, random eigenvalues
 
-               CALL DLATMR( N, N, 'S', ISEED, 'S', WORK, 6, ONE, ONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, 0, 0, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO )
+               dlatmr(N, N, 'S', ISEED, 'S', WORK, 6, ONE, ONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, 0, 0, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO );
 
             } else if ( ITYPE.EQ.8 ) {
 
                // Symmetric, random eigenvalues
 
-               CALL DLATMR( N, N, 'S', ISEED, 'S', WORK, 6, ONE, ONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, N, N, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO )
+               dlatmr(N, N, 'S', ISEED, 'S', WORK, 6, ONE, ONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, N, N, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO );
 
             } else if ( ITYPE.EQ.9 ) {
 
                // General, random eigenvalues
 
-               CALL DLATMR( N, N, 'S', ISEED, 'N', WORK, 6, ONE, ONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, N, N, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO )
+               dlatmr(N, N, 'S', ISEED, 'N', WORK, 6, ONE, ONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, N, N, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO );
                if ( N.GE.4 ) {
-                  CALL DLASET( 'Full', 2, N, ZERO, ZERO, A, LDA )
-                  CALL DLASET( 'Full', N-3, 1, ZERO, ZERO, A( 3, 1 ), LDA )                   CALL DLASET( 'Full', N-3, 2, ZERO, ZERO, A( 3, N-1 ), LDA )                   CALL DLASET( 'Full', 1, N, ZERO, ZERO, A( N, 1 ), LDA )
+                  dlaset('Full', 2, N, ZERO, ZERO, A, LDA );
+                  dlaset('Full', N-3, 1, ZERO, ZERO, A( 3, 1 ), LDA )                   CALL DLASET( 'Full', N-3, 2, ZERO, ZERO, A( 3, N-1 ), LDA )                   CALL DLASET( 'Full', 1, N, ZERO, ZERO, A( N, 1 ), LDA );
                }
 
             } else if ( ITYPE.EQ.10 ) {
 
                // Triangular, random eigenvalues
 
-               CALL DLATMR( N, N, 'S', ISEED, 'N', WORK, 6, ONE, ONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, N, 0, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO )
+               dlatmr(N, N, 'S', ISEED, 'N', WORK, 6, ONE, ONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, N, 0, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO );
 
             } else {
 
@@ -301,8 +301,8 @@
 
                   // Compute Schur form and Schur vectors, and test them
 
-                  CALL DLACPY( 'F', N, N, A, LDA, H, LDA )
-                  CALL DGEES( 'V', SORT, DSLECT, N, H, LDA, SDIM, WR, WI, VS, LDVS, WORK, NNWORK, BWORK, IINFO )
+                  dlacpy('F', N, N, A, LDA, H, LDA );
+                  dgees('V', SORT, DSLECT, N, H, LDA, SDIM, WR, WI, VS, LDVS, WORK, NNWORK, BWORK, IINFO );
                   if ( IINFO.NE.0 .AND. IINFO.NE.N+2 ) {
                      RESULT( 1+RSUB ) = ULPINV
                      WRITE( NOUNIT, FMT = 9992 )'DGEES1', IINFO, N, JTYPE, IOLDSD
@@ -330,7 +330,7 @@
                   // Do Tests (2) and (3) or Tests (8) and (9)
 
                   LWORK = MAX( 1, 2*N*N )
-                  CALL DHST01( N, 1, N, A, LDA, H, LDA, VS, LDVS, WORK, LWORK, RES )
+                  dhst01(N, 1, N, A, LDA, H, LDA, VS, LDVS, WORK, LWORK, RES );
                   RESULT( 2+RSUB ) = RES( 1 )
                   RESULT( 3+RSUB ) = RES( 2 )
 
@@ -353,8 +353,8 @@
 
                   // Do Test (5) or Test (11)
 
-                  CALL DLACPY( 'F', N, N, A, LDA, HT, LDA )
-                  CALL DGEES( 'N', SORT, DSLECT, N, HT, LDA, SDIM, WRT, WIT, VS, LDVS, WORK, NNWORK, BWORK, IINFO )
+                  dlacpy('F', N, N, A, LDA, HT, LDA );
+                  dgees('N', SORT, DSLECT, N, HT, LDA, SDIM, WRT, WIT, VS, LDVS, WORK, NNWORK, BWORK, IINFO );
                   if ( IINFO.NE.0 .AND. IINFO.NE.N+2 ) {
                      RESULT( 5+RSUB ) = ULPINV
                      WRITE( NOUNIT, FMT = 9992 )'DGEES2', IINFO, N, JTYPE, IOLDSD
@@ -430,7 +430,7 @@
 
       // Summary
 
-      CALL DLASUM( PATH, NOUNIT, NERRS, NTESTT )
+      dlasum(PATH, NOUNIT, NERRS, NTESTT );
 
  9999 FORMAT( / 1X, A3, ' -- Real Schur Form Decomposition Driver', / ' Matrix types (see DDRVES for details): ' )
 

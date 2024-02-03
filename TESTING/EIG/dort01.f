@@ -62,8 +62,8 @@
 
          // Compute I - U*U' or I - U'*U.
 
-         CALL DLASET( 'Upper', MNMIN, MNMIN, ZERO, ONE, WORK, LDWORK )
-         CALL DSYRK( 'Upper', TRANSU, MNMIN, K, -ONE, U, LDU, ONE, WORK, LDWORK )
+         dlaset('Upper', MNMIN, MNMIN, ZERO, ONE, WORK, LDWORK );
+         dsyrk('Upper', TRANSU, MNMIN, K, -ONE, U, LDU, ONE, WORK, LDWORK );
 
          // Compute norm( I - U*U' ) / ( K * EPS ) .
 

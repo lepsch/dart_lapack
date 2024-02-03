@@ -84,7 +84,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'DORMTR', -INFO )
+         xerbla('DORMTR', -INFO );
          RETURN
       } else if ( LQUERY ) {
          RETURN
@@ -109,7 +109,7 @@
 
          // Q was determined by a call to DSYTRD with UPLO = 'U'
 
-         CALL DORMQL( SIDE, TRANS, MI, NI, NQ-1, A( 1, 2 ), LDA, TAU, C, LDC, WORK, LWORK, IINFO )
+         dormql(SIDE, TRANS, MI, NI, NQ-1, A( 1, 2 ), LDA, TAU, C, LDC, WORK, LWORK, IINFO );
       } else {
 
          // Q was determined by a call to DSYTRD with UPLO = 'L'
@@ -121,7 +121,7 @@
             I1 = 1
             I2 = 2
          }
-         CALL DORMQR( SIDE, TRANS, MI, NI, NQ-1, A( 2, 1 ), LDA, TAU, C( I1, I2 ), LDC, WORK, LWORK, IINFO )
+         dormqr(SIDE, TRANS, MI, NI, NQ-1, A( 2, 1 ), LDA, TAU, C( I1, I2 ), LDC, WORK, LWORK, IINFO );
       }
       WORK( 1 ) = LWKOPT
       RETURN

@@ -40,7 +40,7 @@
          INFO = -4
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'SGELQ2', -INFO )
+         xerbla('SGELQ2', -INFO );
          RETURN
       }
 
@@ -50,14 +50,14 @@
 
          // Generate elementary reflector H(i) to annihilate A(i,i+1:n)
 
-         CALL SLARFG( N-I+1, A( I, I ), A( I, MIN( I+1, N ) ), LDA, TAU( I ) )
+         slarfg(N-I+1, A( I, I ), A( I, MIN( I+1, N ) ), LDA, TAU( I ) );
          if ( I.LT.M ) {
 
             // Apply H(i) to A(i+1:m,i:n) from the right
 
             AII = A( I, I )
             A( I, I ) = ONE
-            CALL SLARF( 'Right', M-I, N-I+1, A( I, I ), LDA, TAU( I ), A( I+1, I ), LDA, WORK )
+            slarf('Right', M-I, N-I+1, A( I, I ), LDA, TAU( I ), A( I+1, I ), LDA, WORK );
             A( I, I ) = AII
          }
    10 CONTINUE

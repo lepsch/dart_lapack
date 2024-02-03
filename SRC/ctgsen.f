@@ -66,7 +66,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'CTGSEN', -INFO )
+         xerbla('CTGSEN', -INFO );
          RETURN
       }
 
@@ -114,7 +114,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'CTGSEN', -INFO )
+         xerbla('CTGSEN', -INFO );
          RETURN
       } else if ( LQUERY ) {
          RETURN
@@ -131,8 +131,8 @@
             DSCALE = ZERO
             DSUM = ONE
             DO 20 I = 1, N
-               CALL CLASSQ( N, A( 1, I ), 1, DSCALE, DSUM )
-               CALL CLASSQ( N, B( 1, I ), 1, DSCALE, DSUM )
+               classq(N, A( 1, I ), 1, DSCALE, DSUM );
+               classq(N, B( 1, I ), 1, DSCALE, DSUM );
    20       CONTINUE
             DIF( 1 ) = DSCALE*SQRT( DSUM )
             DIF( 2 ) = DIF( 1 )
@@ -183,17 +183,17 @@
          N1 = M
          N2 = N - M
          I = N1 + 1
-         CALL CLACPY( 'Full', N1, N2, A( 1, I ), LDA, WORK, N1 )
-         CALL CLACPY( 'Full', N1, N2, B( 1, I ), LDB, WORK( N1*N2+1 ), N1 )
+         clacpy('Full', N1, N2, A( 1, I ), LDA, WORK, N1 );
+         clacpy('Full', N1, N2, B( 1, I ), LDB, WORK( N1*N2+1 ), N1 );
          IJB = 0
-         CALL CTGSYL( 'N', IJB, N1, N2, A, LDA, A( I, I ), LDA, WORK, N1, B, LDB, B( I, I ), LDB, WORK( N1*N2+1 ), N1, DSCALE, DIF( 1 ), WORK( N1*N2*2+1 ), LWORK-2*N1*N2, IWORK, IERR )
+         ctgsyl('N', IJB, N1, N2, A, LDA, A( I, I ), LDA, WORK, N1, B, LDB, B( I, I ), LDB, WORK( N1*N2+1 ), N1, DSCALE, DIF( 1 ), WORK( N1*N2*2+1 ), LWORK-2*N1*N2, IWORK, IERR );
 
          // Estimate the reciprocal of norms of "projections" onto
          // left and right eigenspaces
 
          RDSCAL = ZERO
          DSUM = ONE
-         CALL CLASSQ( N1*N2, WORK, 1, RDSCAL, DSUM )
+         classq(N1*N2, WORK, 1, RDSCAL, DSUM );
          PL = RDSCAL*SQRT( DSUM )
          if ( PL.EQ.ZERO ) {
             PL = ONE
@@ -202,7 +202,7 @@
          }
          RDSCAL = ZERO
          DSUM = ONE
-         CALL CLASSQ( N1*N2, WORK( N1*N2+1 ), 1, RDSCAL, DSUM )
+         classq(N1*N2, WORK( N1*N2+1 ), 1, RDSCAL, DSUM );
          PR = RDSCAL*SQRT( DSUM )
          if ( PR.EQ.ZERO ) {
             PR = ONE
@@ -222,11 +222,11 @@
 
             // Frobenius norm-based Difu estimate.
 
-            CALL CTGSYL( 'N', IJB, N1, N2, A, LDA, A( I, I ), LDA, WORK, N1, B, LDB, B( I, I ), LDB, WORK( N1*N2+1 ), N1, DSCALE, DIF( 1 ), WORK( N1*N2*2+1 ), LWORK-2*N1*N2, IWORK, IERR )
+            ctgsyl('N', IJB, N1, N2, A, LDA, A( I, I ), LDA, WORK, N1, B, LDB, B( I, I ), LDB, WORK( N1*N2+1 ), N1, DSCALE, DIF( 1 ), WORK( N1*N2*2+1 ), LWORK-2*N1*N2, IWORK, IERR );
 
             // Frobenius norm-based Difl estimate.
 
-            CALL CTGSYL( 'N', IJB, N2, N1, A( I, I ), LDA, A, LDA, WORK, N2, B( I, I ), LDB, B, LDB, WORK( N1*N2+1 ), N2, DSCALE, DIF( 2 ), WORK( N1*N2*2+1 ), LWORK-2*N1*N2, IWORK, IERR )
+            ctgsyl('N', IJB, N2, N1, A( I, I ), LDA, A, LDA, WORK, N2, B( I, I ), LDB, B, LDB, WORK( N1*N2+1 ), N2, DSCALE, DIF( 2 ), WORK( N1*N2*2+1 ), LWORK-2*N1*N2, IWORK, IERR );
          } else {
 
             // Compute 1-norm-based estimates of Difu and Difl using
@@ -244,18 +244,18 @@
             // 1-norm-based estimate of Difu.
 
    40       CONTINUE
-            CALL CLACN2( MN2, WORK( MN2+1 ), WORK, DIF( 1 ), KASE, ISAVE )
+            clacn2(MN2, WORK( MN2+1 ), WORK, DIF( 1 ), KASE, ISAVE );
             if ( KASE.NE.0 ) {
                if ( KASE.EQ.1 ) {
 
                   // Solve generalized Sylvester equation
 
-                  CALL CTGSYL( 'N', IJB, N1, N2, A, LDA, A( I, I ), LDA, WORK, N1, B, LDB, B( I, I ), LDB, WORK( N1*N2+1 ), N1, DSCALE, DIF( 1 ), WORK( N1*N2*2+1 ), LWORK-2*N1*N2, IWORK, IERR )
+                  ctgsyl('N', IJB, N1, N2, A, LDA, A( I, I ), LDA, WORK, N1, B, LDB, B( I, I ), LDB, WORK( N1*N2+1 ), N1, DSCALE, DIF( 1 ), WORK( N1*N2*2+1 ), LWORK-2*N1*N2, IWORK, IERR );
                } else {
 
                   // Solve the transposed variant.
 
-                  CALL CTGSYL( 'C', IJB, N1, N2, A, LDA, A( I, I ), LDA, WORK, N1, B, LDB, B( I, I ), LDB, WORK( N1*N2+1 ), N1, DSCALE, DIF( 1 ), WORK( N1*N2*2+1 ), LWORK-2*N1*N2, IWORK, IERR )
+                  ctgsyl('C', IJB, N1, N2, A, LDA, A( I, I ), LDA, WORK, N1, B, LDB, B( I, I ), LDB, WORK( N1*N2+1 ), N1, DSCALE, DIF( 1 ), WORK( N1*N2*2+1 ), LWORK-2*N1*N2, IWORK, IERR );
                }
                GO TO 40
             }
@@ -264,18 +264,18 @@
             // 1-norm-based estimate of Difl.
 
    50       CONTINUE
-            CALL CLACN2( MN2, WORK( MN2+1 ), WORK, DIF( 2 ), KASE, ISAVE )
+            clacn2(MN2, WORK( MN2+1 ), WORK, DIF( 2 ), KASE, ISAVE );
             if ( KASE.NE.0 ) {
                if ( KASE.EQ.1 ) {
 
                   // Solve generalized Sylvester equation
 
-                  CALL CTGSYL( 'N', IJB, N2, N1, A( I, I ), LDA, A, LDA, WORK, N2, B( I, I ), LDB, B, LDB, WORK( N1*N2+1 ), N2, DSCALE, DIF( 2 ), WORK( N1*N2*2+1 ), LWORK-2*N1*N2, IWORK, IERR )
+                  ctgsyl('N', IJB, N2, N1, A( I, I ), LDA, A, LDA, WORK, N2, B( I, I ), LDB, B, LDB, WORK( N1*N2+1 ), N2, DSCALE, DIF( 2 ), WORK( N1*N2*2+1 ), LWORK-2*N1*N2, IWORK, IERR );
                } else {
 
                   // Solve the transposed variant.
 
-                  CALL CTGSYL( 'C', IJB, N2, N1, A( I, I ), LDA, A, LDA, WORK, N2, B, LDB, B( I, I ), LDB, WORK( N1*N2+1 ), N2, DSCALE, DIF( 2 ), WORK( N1*N2*2+1 ), LWORK-2*N1*N2, IWORK, IERR )
+                  ctgsyl('C', IJB, N2, N1, A( I, I ), LDA, A, LDA, WORK, N2, B, LDB, B( I, I ), LDB, WORK( N1*N2+1 ), N2, DSCALE, DIF( 2 ), WORK( N1*N2*2+1 ), LWORK-2*N1*N2, IWORK, IERR );
                }
                GO TO 50
             }
@@ -293,8 +293,8 @@
             TEMP1 = CONJG( B( K, K ) / DSCALE )
             TEMP2 = B( K, K ) / DSCALE
             B( K, K ) = DSCALE
-            CALL CSCAL( N-K, TEMP1, B( K, K+1 ), LDB )
-            CALL CSCAL( N-K+1, TEMP1, A( K, K ), LDA )
+            cscal(N-K, TEMP1, B( K, K+1 ), LDB );
+            cscal(N-K+1, TEMP1, A( K, K ), LDA );
             IF( WANTQ ) CALL CSCAL( N, TEMP2, Q( 1, K ), 1 )
          } else {
             B( K, K ) = CMPLX( ZERO, ZERO )

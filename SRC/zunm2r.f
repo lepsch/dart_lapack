@@ -64,7 +64,7 @@
          INFO = -10
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'ZUNM2R', -INFO )
+         xerbla('ZUNM2R', -INFO );
          RETURN
       }
 
@@ -114,7 +114,7 @@
          }
          AII = A( I, I )
          A( I, I ) = ONE
-         CALL ZLARF( SIDE, MI, NI, A( I, I ), 1, TAUI, C( IC, JC ), LDC, WORK )
+         zlarf(SIDE, MI, NI, A( I, I ), 1, TAUI, C( IC, JC ), LDC, WORK );
          A( I, I ) = AII
    10 CONTINUE
       RETURN

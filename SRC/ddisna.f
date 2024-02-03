@@ -66,7 +66,7 @@
          IF( .NOT.( INCR .OR. DECR ) ) INFO = -4
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'DDISNA', -INFO )
+         xerbla('DDISNA', -INFO );
          RETURN
       }
 

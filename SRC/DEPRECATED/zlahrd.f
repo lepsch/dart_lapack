@@ -40,9 +40,9 @@
 
             // Compute i-th column of A - Y * V**H
 
-            CALL ZLACGV( I-1, A( K+I-1, 1 ), LDA )
-            CALL ZGEMV( 'No transpose', N, I-1, -ONE, Y, LDY, A( K+I-1, 1 ), LDA, ONE, A( 1, I ), 1 )
-            CALL ZLACGV( I-1, A( K+I-1, 1 ), LDA )
+            zlacgv(I-1, A( K+I-1, 1 ), LDA );
+            zgemv('No transpose', N, I-1, -ONE, Y, LDY, A( K+I-1, 1 ), LDA, ONE, A( 1, I ), 1 );
+            zlacgv(I-1, A( K+I-1, 1 ), LDA );
 
             // Apply I - V * T**H * V**H to this column (call it b) from the
             // left, using the last column of T as workspace
@@ -54,25 +54,25 @@
 
             // w := V1**H * b1
 
-            CALL ZCOPY( I-1, A( K+1, I ), 1, T( 1, NB ), 1 )
-            CALL ZTRMV( 'Lower', 'Conjugate transpose', 'Unit', I-1, A( K+1, 1 ), LDA, T( 1, NB ), 1 )
+            zcopy(I-1, A( K+1, I ), 1, T( 1, NB ), 1 );
+            ztrmv('Lower', 'Conjugate transpose', 'Unit', I-1, A( K+1, 1 ), LDA, T( 1, NB ), 1 );
 
             // w := w + V2**H *b2
 
-            CALL ZGEMV( 'Conjugate transpose', N-K-I+1, I-1, ONE, A( K+I, 1 ), LDA, A( K+I, I ), 1, ONE, T( 1, NB ), 1 )
+            zgemv('Conjugate transpose', N-K-I+1, I-1, ONE, A( K+I, 1 ), LDA, A( K+I, I ), 1, ONE, T( 1, NB ), 1 );
 
             // w := T**H *w
 
-            CALL ZTRMV( 'Upper', 'Conjugate transpose', 'Non-unit', I-1, T, LDT, T( 1, NB ), 1 )
+            ztrmv('Upper', 'Conjugate transpose', 'Non-unit', I-1, T, LDT, T( 1, NB ), 1 );
 
             // b2 := b2 - V2*w
 
-            CALL ZGEMV( 'No transpose', N-K-I+1, I-1, -ONE, A( K+I, 1 ), LDA, T( 1, NB ), 1, ONE, A( K+I, I ), 1 )
+            zgemv('No transpose', N-K-I+1, I-1, -ONE, A( K+I, 1 ), LDA, T( 1, NB ), 1, ONE, A( K+I, I ), 1 );
 
             // b1 := b1 - V1*w
 
-            CALL ZTRMV( 'Lower', 'No transpose', 'Unit', I-1, A( K+1, 1 ), LDA, T( 1, NB ), 1 )
-            CALL ZAXPY( I-1, -ONE, T( 1, NB ), 1, A( K+1, I ), 1 )
+            ztrmv('Lower', 'No transpose', 'Unit', I-1, A( K+1, 1 ), LDA, T( 1, NB ), 1 );
+            zaxpy(I-1, -ONE, T( 1, NB ), 1, A( K+1, I ), 1 );
 
             A( K+I-1, I-1 ) = EI
          }
@@ -81,19 +81,19 @@
          // A(k+i+1:n,i)
 
          EI = A( K+I, I )
-         CALL ZLARFG( N-K-I+1, EI, A( MIN( K+I+1, N ), I ), 1, TAU( I ) )
+         zlarfg(N-K-I+1, EI, A( MIN( K+I+1, N ), I ), 1, TAU( I ) );
          A( K+I, I ) = ONE
 
          // Compute  Y(1:n,i)
 
-         CALL ZGEMV( 'No transpose', N, N-K-I+1, ONE, A( 1, I+1 ), LDA, A( K+I, I ), 1, ZERO, Y( 1, I ), 1 )          CALL ZGEMV( 'Conjugate transpose', N-K-I+1, I-1, ONE, A( K+I, 1 ), LDA, A( K+I, I ), 1, ZERO, T( 1, I ), 1 )
-         CALL ZGEMV( 'No transpose', N, I-1, -ONE, Y, LDY, T( 1, I ), 1, ONE, Y( 1, I ), 1 )
-         CALL ZSCAL( N, TAU( I ), Y( 1, I ), 1 )
+         zgemv('No transpose', N, N-K-I+1, ONE, A( 1, I+1 ), LDA, A( K+I, I ), 1, ZERO, Y( 1, I ), 1 )          CALL ZGEMV( 'Conjugate transpose', N-K-I+1, I-1, ONE, A( K+I, 1 ), LDA, A( K+I, I ), 1, ZERO, T( 1, I ), 1 );
+         zgemv('No transpose', N, I-1, -ONE, Y, LDY, T( 1, I ), 1, ONE, Y( 1, I ), 1 );
+         zscal(N, TAU( I ), Y( 1, I ), 1 );
 
          // Compute T(1:i,i)
 
-         CALL ZSCAL( I-1, -TAU( I ), T( 1, I ), 1 )
-         CALL ZTRMV( 'Upper', 'No transpose', 'Non-unit', I-1, T, LDT, T( 1, I ), 1 )
+         zscal(I-1, -TAU( I ), T( 1, I ), 1 );
+         ztrmv('Upper', 'No transpose', 'Non-unit', I-1, T, LDT, T( 1, I ), 1 );
          T( I, I ) = TAU( I )
 
    10 CONTINUE

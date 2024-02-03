@@ -81,7 +81,7 @@
          INFO = -11
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'DTRSYL3', -INFO )
+         xerbla('DTRSYL3', -INFO );
          RETURN
       } else if ( LQUERY ) {
          RETURN
@@ -254,7 +254,7 @@
                L1 = IWORK( PC + L )
                L2 = IWORK( PC + L + 1 )
 
-               CALL DTRSYL( TRANA, TRANB, ISGN, K2-K1, L2-L1, A( K1, K1 ), LDA, B( L1, L1 ), LDB, C( K1, L1 ), LDC, SCALOC, IINFO )
+               dtrsyl(TRANA, TRANB, ISGN, K2-K1, L2-L1, A( K1, K1 ), LDA, B( L1, L1 ), LDB, C( K1, L1 ), LDC, SCALOC, IINFO );
                INFO = MAX( INFO, IINFO )
 
                if ( SCALOC * SWORK( K, L ) .EQ. ZERO ) {
@@ -316,14 +316,14 @@
                   SCAL = ( SCAMIN / SWORK( K, L ) ) * SCALOC
                   if (SCAL .NE. ONE) {
                       DO JJ = L1, L2-1
-                         CALL DSCAL( K2-K1, SCAL, C( K1, JJ ), 1)
+                         dscal(K2-K1, SCAL, C( K1, JJ ), 1);
                       END DO
                   ENDIF
 
                   SCAL = ( SCAMIN / SWORK( I, L ) ) * SCALOC
                   if (SCAL .NE. ONE) {
                       DO LL = L1, L2-1
-                         CALL DSCAL( I2-I1, SCAL, C( I1, LL ), 1)
+                         dscal(I2-I1, SCAL, C( I1, LL ), 1);
                       END DO
                   ENDIF
 
@@ -332,7 +332,7 @@
                   SWORK( K, L ) = SCAMIN * SCALOC
                   SWORK( I, L ) = SCAMIN * SCALOC
 
-                  CALL DGEMM( 'N', 'N', I2-I1, L2-L1, K2-K1, -ONE, A( I1, K1 ), LDA, C( K1, L1 ), LDC, ONE, C( I1, L1 ), LDC )
+                  dgemm('N', 'N', I2-I1, L2-L1, K2-K1, -ONE, A( I1, K1 ), LDA, C( K1, L1 ), LDC, ONE, C( I1, L1 ), LDC );
 
                END DO
 
@@ -372,14 +372,14 @@
                   SCAL = ( SCAMIN / SWORK( K, L ) ) * SCALOC
                   if ( SCAL .NE. ONE ) {
                      DO LL = L1, L2-1
-                        CALL DSCAL( K2-K1, SCAL, C( K1, LL ), 1 )
+                        dscal(K2-K1, SCAL, C( K1, LL ), 1 );
                      END DO
                   ENDIF
 
                   SCAL = ( SCAMIN / SWORK( K, J ) ) * SCALOC
                   if ( SCAL .NE. ONE ) {
                       DO JJ = J1, J2-1
-                         CALL DSCAL( K2-K1, SCAL, C( K1, JJ ), 1 )
+                         dscal(K2-K1, SCAL, C( K1, JJ ), 1 );
                       END DO
                   ENDIF
 
@@ -388,7 +388,7 @@
                   SWORK( K, L ) = SCAMIN * SCALOC
                   SWORK( K, J ) = SCAMIN * SCALOC
 
-                  CALL DGEMM( 'N', 'N', K2-K1, J2-J1, L2-L1, -SGN, C( K1, L1 ), LDC, B( L1, J1 ), LDB, ONE, C( K1, J1 ), LDC )
+                  dgemm('N', 'N', K2-K1, J2-J1, L2-L1, -SGN, C( K1, L1 ), LDC, B( L1, J1 ), LDB, ONE, C( K1, J1 ), LDC );
                END DO
             END DO
          END DO
@@ -425,7 +425,7 @@
                L1 = IWORK( PC + L )
                L2 = IWORK( PC + L + 1 )
 
-               CALL DTRSYL( TRANA, TRANB, ISGN, K2-K1, L2-L1, A( K1, K1 ), LDA, B( L1, L1 ), LDB, C( K1, L1 ), LDC, SCALOC, IINFO )
+               dtrsyl(TRANA, TRANB, ISGN, K2-K1, L2-L1, A( K1, K1 ), LDA, B( L1, L1 ), LDB, C( K1, L1 ), LDC, SCALOC, IINFO );
                INFO = MAX( INFO, IINFO )
 
                if ( SCALOC * SWORK( K, L ) .EQ. ZERO ) {
@@ -487,14 +487,14 @@
                   SCAL = ( SCAMIN / SWORK( K, L ) ) * SCALOC
                   if (SCAL .NE. ONE) {
                      DO LL = L1, L2-1
-                        CALL DSCAL( K2-K1, SCAL, C( K1, LL ), 1 )
+                        dscal(K2-K1, SCAL, C( K1, LL ), 1 );
                      END DO
                   ENDIF
 
                   SCAL = ( SCAMIN / SWORK( I, L ) ) * SCALOC
                   if (SCAL .NE. ONE) {
                      DO LL = L1, L2-1
-                        CALL DSCAL( I2-I1, SCAL, C( I1, LL ), 1 )
+                        dscal(I2-I1, SCAL, C( I1, LL ), 1 );
                      END DO
                   ENDIF
 
@@ -503,7 +503,7 @@
                   SWORK( K, L ) = SCAMIN * SCALOC
                   SWORK( I, L ) = SCAMIN * SCALOC
 
-                  CALL DGEMM( 'T', 'N', I2-I1, L2-L1, K2-K1, -ONE, A( K1, I1 ), LDA, C( K1, L1 ), LDC, ONE, C( I1, L1 ), LDC )
+                  dgemm('T', 'N', I2-I1, L2-L1, K2-K1, -ONE, A( K1, I1 ), LDA, C( K1, L1 ), LDC, ONE, C( I1, L1 ), LDC );
                END DO
 
                DO J = L + 1, NBB
@@ -542,14 +542,14 @@
                   SCAL = ( SCAMIN / SWORK( K, L ) ) * SCALOC
                   if ( SCAL .NE. ONE ) {
                       DO LL = L1, L2-1
-                         CALL DSCAL( K2-K1, SCAL, C( K1, LL ), 1 )
+                         dscal(K2-K1, SCAL, C( K1, LL ), 1 );
                       END DO
                   ENDIF
 
                   SCAL = ( SCAMIN / SWORK( K, J ) ) * SCALOC
                   if ( SCAL .NE. ONE ) {
                      DO JJ = J1, J2-1
-                        CALL DSCAL( K2-K1, SCAL, C( K1, JJ ), 1 )
+                        dscal(K2-K1, SCAL, C( K1, JJ ), 1 );
                      END DO
                   ENDIF
 
@@ -558,7 +558,7 @@
                   SWORK( K, L ) = SCAMIN * SCALOC
                   SWORK( K, J ) = SCAMIN * SCALOC
 
-                  CALL DGEMM( 'N', 'N', K2-K1, J2-J1, L2-L1, -SGN, C( K1, L1 ), LDC, B( L1, J1 ), LDB, ONE, C( K1, J1 ), LDC )
+                  dgemm('N', 'N', K2-K1, J2-J1, L2-L1, -SGN, C( K1, L1 ), LDC, B( L1, J1 ), LDB, ONE, C( K1, J1 ), LDC );
                END DO
             END DO
          END DO
@@ -595,7 +595,7 @@
                L1 = IWORK( PC + L )
                L2 = IWORK( PC + L + 1 )
 
-               CALL DTRSYL( TRANA, TRANB, ISGN, K2-K1, L2-L1, A( K1, K1 ), LDA, B( L1, L1 ), LDB, C( K1, L1 ), LDC, SCALOC, IINFO )
+               dtrsyl(TRANA, TRANB, ISGN, K2-K1, L2-L1, A( K1, K1 ), LDA, B( L1, L1 ), LDB, C( K1, L1 ), LDC, SCALOC, IINFO );
                INFO = MAX( INFO, IINFO )
 
                SWORK( K, L ) = SCALOC * SWORK( K, L )
@@ -657,14 +657,14 @@
                   SCAL = ( SCAMIN / SWORK( K, L ) ) * SCALOC
                   if (SCAL .NE. ONE) {
                      DO LL = L1, L2-1
-                        CALL DSCAL( K2-K1, SCAL, C( K1, LL ), 1 )
+                        dscal(K2-K1, SCAL, C( K1, LL ), 1 );
                      END DO
                   ENDIF
 
                   SCAL = ( SCAMIN / SWORK( I, L ) ) * SCALOC
                   if (SCAL .NE. ONE) {
                      DO LL = L1, L2-1
-                        CALL DSCAL( I2-I1, SCAL, C( I1, LL ), 1 )
+                        dscal(I2-I1, SCAL, C( I1, LL ), 1 );
                      END DO
                   ENDIF
 
@@ -673,7 +673,7 @@
                   SWORK( K, L ) = SCAMIN * SCALOC
                   SWORK( I, L ) = SCAMIN * SCALOC
 
-                  CALL DGEMM( 'T', 'N', I2-I1, L2-L1, K2-K1, -ONE, A( K1, I1 ), LDA, C( K1, L1 ), LDC, ONE, C( I1, L1 ), LDC )
+                  dgemm('T', 'N', I2-I1, L2-L1, K2-K1, -ONE, A( K1, I1 ), LDA, C( K1, L1 ), LDC, ONE, C( I1, L1 ), LDC );
                END DO
 
                DO J = 1, L - 1
@@ -712,14 +712,14 @@
                   SCAL = ( SCAMIN / SWORK( K, L ) ) * SCALOC
                   if ( SCAL .NE. ONE ) {
                      DO LL = L1, L2-1
-                        CALL DSCAL( K2-K1, SCAL, C( K1, LL ), 1)
+                        dscal(K2-K1, SCAL, C( K1, LL ), 1);
                      END DO
                   ENDIF
 
                   SCAL = ( SCAMIN / SWORK( K, J ) ) * SCALOC
                   if ( SCAL .NE. ONE ) {
                      DO JJ = J1, J2-1
-                        CALL DSCAL( K2-K1, SCAL, C( K1, JJ ), 1 )
+                        dscal(K2-K1, SCAL, C( K1, JJ ), 1 );
                      END DO
                   ENDIF
 
@@ -728,7 +728,7 @@
                   SWORK( K, L ) = SCAMIN * SCALOC
                   SWORK( K, J ) = SCAMIN * SCALOC
 
-                  CALL DGEMM( 'N', 'T', K2-K1, J2-J1, L2-L1, -SGN, C( K1, L1 ), LDC, B( J1, L1 ), LDB, ONE, C( K1, J1 ), LDC )
+                  dgemm('N', 'T', K2-K1, J2-J1, L2-L1, -SGN, C( K1, L1 ), LDC, B( J1, L1 ), LDB, ONE, C( K1, J1 ), LDC );
                END DO
             END DO
          END DO
@@ -765,7 +765,7 @@
                L1 = IWORK( PC + L )
                L2 = IWORK( PC + L + 1 )
 
-               CALL DTRSYL( TRANA, TRANB, ISGN, K2-K1, L2-L1, A( K1, K1 ), LDA, B( L1, L1 ), LDB, C( K1, L1 ), LDC, SCALOC, IINFO )
+               dtrsyl(TRANA, TRANB, ISGN, K2-K1, L2-L1, A( K1, K1 ), LDA, B( L1, L1 ), LDB, C( K1, L1 ), LDC, SCALOC, IINFO );
                INFO = MAX( INFO, IINFO )
 
                if ( SCALOC * SWORK( K, L ) .EQ. ZERO ) {
@@ -827,14 +827,14 @@
                   SCAL = ( SCAMIN / SWORK( K, L ) ) * SCALOC
                   if (SCAL .NE. ONE) {
                      DO LL = L1, L2-1
-                        CALL DSCAL( K2-K1, SCAL, C( K1, LL ), 1 )
+                        dscal(K2-K1, SCAL, C( K1, LL ), 1 );
                      END DO
                   ENDIF
 
                   SCAL = ( SCAMIN / SWORK( I, L ) ) * SCALOC
                   if (SCAL .NE. ONE) {
                      DO LL = L1, L2-1
-                        CALL DSCAL( I2-I1, SCAL, C( I1, LL ), 1 )
+                        dscal(I2-I1, SCAL, C( I1, LL ), 1 );
                      END DO
                   ENDIF
 
@@ -843,7 +843,7 @@
                   SWORK( K, L ) = SCAMIN * SCALOC
                   SWORK( I, L ) = SCAMIN * SCALOC
 
-                  CALL DGEMM( 'N', 'N', I2-I1, L2-L1, K2-K1, -ONE, A( I1, K1 ), LDA, C( K1, L1 ), LDC, ONE, C( I1, L1 ), LDC )
+                  dgemm('N', 'N', I2-I1, L2-L1, K2-K1, -ONE, A( I1, K1 ), LDA, C( K1, L1 ), LDC, ONE, C( I1, L1 ), LDC );
 
                END DO
 
@@ -883,14 +883,14 @@
                   SCAL = ( SCAMIN / SWORK( K, L ) ) * SCALOC
                   if ( SCAL .NE. ONE ) {
                      DO JJ = L1, L2-1
-                        CALL DSCAL( K2-K1, SCAL, C( K1, JJ ), 1 )
+                        dscal(K2-K1, SCAL, C( K1, JJ ), 1 );
                      END DO
                   ENDIF
 
                   SCAL = ( SCAMIN / SWORK( K, J ) ) * SCALOC
                   if ( SCAL .NE. ONE ) {
                      DO JJ = J1, J2-1
-                        CALL DSCAL( K2-K1, SCAL, C( K1, JJ ), 1 )
+                        dscal(K2-K1, SCAL, C( K1, JJ ), 1 );
                      END DO
                   ENDIF
 
@@ -899,7 +899,7 @@
                   SWORK( K, L ) = SCAMIN * SCALOC
                   SWORK( K, J ) = SCAMIN * SCALOC
 
-                  CALL DGEMM( 'N', 'T', K2-K1, J2-J1, L2-L1, -SGN, C( K1, L1 ), LDC, B( J1, L1 ), LDB, ONE, C( K1, J1 ), LDC )
+                  dgemm('N', 'T', K2-K1, J2-J1, L2-L1, -SGN, C( K1, L1 ), LDC, B( J1, L1 ), LDB, ONE, C( K1, J1 ), LDC );
                END DO
             END DO
          END DO
@@ -939,7 +939,7 @@
             SCAL = SCALE / SWORK( K, L )
             if ( SCAL .NE. ONE ) {
                DO LL = L1, L2-1
-                  CALL DSCAL( K2-K1, SCAL, C( K1, LL ), 1 )
+                  dscal(K2-K1, SCAL, C( K1, LL ), 1 );
                END DO
             ENDIF
          END DO
@@ -975,7 +975,7 @@
 
          SCALOC = MIN( BIGNUM / SCAL, ONE / BUF )
          BUF = BUF * SCALOC
-         CALL DLASCL( 'G', -1, -1, ONE, SCALOC, M, N, C, LDC, IWORK(1) )
+         dlascl('G', -1, -1, ONE, SCALOC, M, N, C, LDC, IWORK(1) );
       }
 
       // Combine with buffer scaling factor. SCALE will be flushed if

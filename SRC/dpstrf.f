@@ -51,7 +51,7 @@
          INFO = -4
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'DPSTRF', -INFO )
+         xerbla('DPSTRF', -INFO );
          RETURN
       }
 
@@ -66,7 +66,7 @@
 
          // Use unblocked code
 
-         CALL DPSTF2( UPLO, N, A( 1, 1 ), LDA, PIV, RANK, TOL, WORK, INFO )
+         dpstf2(UPLO, N, A( 1, 1 ), LDA, PIV, RANK, TOL, WORK, INFO );
          GO TO 200
 
       } else {
@@ -149,9 +149,9 @@
                      // Pivot OK, so can now swap pivot rows and columns
 
                      A( PVT, PVT ) = A( J, J )
-                     CALL DSWAP( J-1, A( 1, J ), 1, A( 1, PVT ), 1 )
+                     dswap(J-1, A( 1, J ), 1, A( 1, PVT ), 1 );
                      IF( PVT.LT.N ) CALL DSWAP( N-PVT, A( J, PVT+1 ), LDA, A( PVT, PVT+1 ), LDA )
-                     CALL DSWAP( PVT-J-1, A( J, J+1 ), LDA, A( J+1, PVT ), 1 )
+                     dswap(PVT-J-1, A( J, J+1 ), LDA, A( J+1, PVT ), 1 );
 
                      // Swap dot products and PIV
 
@@ -169,8 +169,8 @@
                   // Compute elements J+1:N of row J.
 
                   if ( J.LT.N ) {
-                     CALL DGEMV( 'Trans', J-K, N-J, -ONE, A( K, J+1 ), LDA, A( K, J ), 1, ONE, A( J, J+1 ), LDA )
-                     CALL DSCAL( N-J, ONE / AJJ, A( J, J+1 ), LDA )
+                     dgemv('Trans', J-K, N-J, -ONE, A( K, J+1 ), LDA, A( K, J ), 1, ONE, A( J, J+1 ), LDA );
+                     dscal(N-J, ONE / AJJ, A( J, J+1 ), LDA );
                   }
 
   130          CONTINUE
@@ -178,7 +178,7 @@
                // Update trailing matrix, J already incremented
 
                if ( K+JB.LE.N ) {
-                  CALL DSYRK( 'Upper', 'Trans', N-J+1, JB, -ONE, A( K, J ), LDA, ONE, A( J, J ), LDA )
+                  dsyrk('Upper', 'Trans', N-J+1, JB, -ONE, A( K, J ), LDA, ONE, A( J, J ), LDA );
                }
 
   140       CONTINUE
@@ -230,9 +230,9 @@
                      // Pivot OK, so can now swap pivot rows and columns
 
                      A( PVT, PVT ) = A( J, J )
-                     CALL DSWAP( J-1, A( J, 1 ), LDA, A( PVT, 1 ), LDA )
+                     dswap(J-1, A( J, 1 ), LDA, A( PVT, 1 ), LDA );
                      IF( PVT.LT.N ) CALL DSWAP( N-PVT, A( PVT+1, J ), 1, A( PVT+1, PVT ), 1 )
-                     CALL DSWAP( PVT-J-1, A( J+1, J ), 1, A( PVT, J+1 ), LDA )
+                     dswap(PVT-J-1, A( J+1, J ), 1, A( PVT, J+1 ), LDA );
 
                      // Swap dot products and PIV
 
@@ -250,8 +250,8 @@
                   // Compute elements J+1:N of column J.
 
                   if ( J.LT.N ) {
-                     CALL DGEMV( 'No Trans', N-J, J-K, -ONE, A( J+1, K ), LDA, A( J, K ), LDA, ONE, A( J+1, J ), 1 )
-                     CALL DSCAL( N-J, ONE / AJJ, A( J+1, J ), 1 )
+                     dgemv('No Trans', N-J, J-K, -ONE, A( J+1, K ), LDA, A( J, K ), LDA, ONE, A( J+1, J ), 1 );
+                     dscal(N-J, ONE / AJJ, A( J+1, J ), 1 );
                   }
 
   170          CONTINUE
@@ -259,7 +259,7 @@
                // Update trailing matrix, J already incremented
 
                if ( K+JB.LE.N ) {
-                  CALL DSYRK( 'Lower', 'No Trans', N-J+1, JB, -ONE, A( J, K ), LDA, ONE, A( J, J ), LDA )
+                  dsyrk('Lower', 'No Trans', N-J+1, JB, -ONE, A( J, K ), LDA, ONE, A( J, J ), LDA );
                }
 
   180       CONTINUE

@@ -55,7 +55,7 @@
          INFO = -14
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'DLAED8', -INFO )
+         xerbla('DLAED8', -INFO );
          RETURN
       }
 
@@ -75,7 +75,7 @@
       N1P1 = N1 + 1
 
       if ( RHO.LT.ZERO ) {
-         CALL DSCAL( N2, MONE, Z( N1P1 ), 1 )
+         dscal(N2, MONE, Z( N1P1 ), 1 );
       }
 
       // Normalize z so that norm(z) = 1
@@ -84,7 +84,7 @@
       DO 10 J = 1, N
          INDX( J ) = J
    10 CONTINUE
-      CALL DSCAL( N, T, Z, 1 )
+      dscal(N, T, Z, 1 );
       RHO = ABS( TWO*RHO )
 
       // Sort the eigenvalues into increasing order
@@ -98,7 +98,7 @@
    30 CONTINUE
       I = 1
       J = CUTPNT + 1
-      CALL DLAMRG( N1, N2, DLAMBDA, 1, 1, INDX )
+      dlamrg(N1, N2, DLAMBDA, 1, 1, INDX );
       DO 40 I = 1, N
          D( I ) = DLAMBDA( INDX( I ) )
          Z( I ) = W( INDX( I ) )
@@ -124,9 +124,9 @@
          } else {
             DO 60 J = 1, N
                PERM( J ) = INDXQ( INDX( J ) )
-               CALL DCOPY( QSIZ, Q( 1, PERM( J ) ), 1, Q2( 1, J ), 1 )
+               dcopy(QSIZ, Q( 1, PERM( J ) ), 1, Q2( 1, J ), 1 );
    60       CONTINUE
-            CALL DLACPY( 'A', QSIZ, N, Q2( 1, 1 ), LDQ2, Q( 1, 1 ), LDQ )
+            dlacpy('A', QSIZ, N, Q2( 1, 1 ), LDQ2, Q( 1, 1 ), LDQ );
          }
          RETURN
       }
@@ -190,7 +190,7 @@
             GIVNUM( 1, GIVPTR ) = C
             GIVNUM( 2, GIVPTR ) = S
             if ( ICOMPQ.EQ.1 ) {
-               CALL DROT( QSIZ, Q( 1, INDXQ( INDX( JLAM ) ) ), 1, Q( 1, INDXQ( INDX( J ) ) ), 1, C, S )
+               drot(QSIZ, Q( 1, INDXQ( INDX( JLAM ) ) ), 1, Q( 1, INDXQ( INDX( J ) ) ), 1, C, S );
             }
             T = D( JLAM )*C*C + D( J )*S*S
             D( J ) = D( JLAM )*S*S + D( J )*C*C
@@ -247,7 +247,7 @@
             JP = INDXP( J )
             DLAMBDA( J ) = D( JP )
             PERM( J ) = INDXQ( INDX( JP ) )
-            CALL DCOPY( QSIZ, Q( 1, PERM( J ) ), 1, Q2( 1, J ), 1 )
+            dcopy(QSIZ, Q( 1, PERM( J ) ), 1, Q2( 1, J ), 1 );
   130    CONTINUE
       }
 
@@ -256,10 +256,10 @@
 
       if ( K.LT.N ) {
          if ( ICOMPQ.EQ.0 ) {
-            CALL DCOPY( N-K, DLAMBDA( K+1 ), 1, D( K+1 ), 1 )
+            dcopy(N-K, DLAMBDA( K+1 ), 1, D( K+1 ), 1 );
          } else {
-            CALL DCOPY( N-K, DLAMBDA( K+1 ), 1, D( K+1 ), 1 )
-            CALL DLACPY( 'A', QSIZ, N-K, Q2( 1, K+1 ), LDQ2, Q( 1, K+1 ), LDQ )
+            dcopy(N-K, DLAMBDA( K+1 ), 1, D( K+1 ), 1 );
+            dlacpy('A', QSIZ, N-K, Q2( 1, K+1 ), LDQ2, Q( 1, K+1 ), LDQ );
          }
       }
 

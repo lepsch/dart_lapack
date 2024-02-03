@@ -42,7 +42,7 @@
          INFO = -10
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'SGEQLS', -INFO )
+         xerbla('SGEQLS', -INFO );
          RETURN
       }
 
@@ -52,11 +52,11 @@
 
       // B := Q' * B
 
-      CALL SORMQL( 'Left', 'Transpose', M, NRHS, N, A, LDA, TAU, B, LDB, WORK, LWORK, INFO )
+      sormql('Left', 'Transpose', M, NRHS, N, A, LDA, TAU, B, LDB, WORK, LWORK, INFO );
 
       // Solve L*X = B(m-n+1:m,:)
 
-      CALL STRSM( 'Left', 'Lower', 'No transpose', 'Non-unit', N, NRHS, ONE, A( M-N+1, 1 ), LDA, B( M-N+1, 1 ), LDB )
+      strsm('Left', 'Lower', 'No transpose', 'Non-unit', N, NRHS, ONE, A( M-N+1, 1 ), LDA, B( M-N+1, 1 ), LDB );
 
       RETURN
 

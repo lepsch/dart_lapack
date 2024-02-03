@@ -59,22 +59,22 @@
 
          SRNAMT = 'SGEQP3'
          INFOT = 1
-         CALL SGEQP3( -1, 0, A, 1, IP, TAU, W, LW, INFO )
-         CALL CHKXER( 'SGEQP3', INFOT, NOUT, LERR, OK )
+         sgeqp3(-1, 0, A, 1, IP, TAU, W, LW, INFO );
+         chkxer('SGEQP3', INFOT, NOUT, LERR, OK );
          INFOT = 2
-         CALL SGEQP3( 1, -1, A, 1, IP, TAU, W, LW, INFO )
-         CALL CHKXER( 'SGEQP3', INFOT, NOUT, LERR, OK )
+         sgeqp3(1, -1, A, 1, IP, TAU, W, LW, INFO );
+         chkxer('SGEQP3', INFOT, NOUT, LERR, OK );
          INFOT = 4
-         CALL SGEQP3( 2, 3, A, 1, IP, TAU, W, LW, INFO )
-         CALL CHKXER( 'SGEQP3', INFOT, NOUT, LERR, OK )
+         sgeqp3(2, 3, A, 1, IP, TAU, W, LW, INFO );
+         chkxer('SGEQP3', INFOT, NOUT, LERR, OK );
          INFOT = 8
-         CALL SGEQP3( 2, 2, A, 2, IP, TAU, W, LW-10, INFO )
-         CALL CHKXER( 'SGEQP3', INFOT, NOUT, LERR, OK )
+         sgeqp3(2, 2, A, 2, IP, TAU, W, LW-10, INFO );
+         chkxer('SGEQP3', INFOT, NOUT, LERR, OK );
       }
 
       // Print a summary line.
 
-      CALL ALAESM( PATH, OK, NOUT )
+      alaesm(PATH, OK, NOUT );
 
       RETURN
 

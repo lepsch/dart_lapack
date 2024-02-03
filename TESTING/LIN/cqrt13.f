@@ -43,7 +43,7 @@
       // benign matrix
 
       DO 10 J = 1, N
-         CALL CLARNV( 2, ISEED, M, A( 1, J ) )
+         clarnv(2, ISEED, M, A( 1, J ) );
          if ( J.LE.M ) {
             A( J, J ) = A( J, J ) + CMPLX( SIGN( SCASUM( M, A( 1, J ), 1 ), REAL( A( J, J ) ) ) )
          }
@@ -62,12 +62,12 @@
 
             // matrix scaled up
 
-            CALL CLASCL( 'General', 0, 0, NORMA, BIGNUM, M, N, A, LDA, INFO )
+            clascl('General', 0, 0, NORMA, BIGNUM, M, N, A, LDA, INFO );
          } else if ( SCALE.EQ.3 ) {
 
             // matrix scaled down
 
-            CALL CLASCL( 'General', 0, 0, NORMA, SMLNUM, M, N, A, LDA, INFO )
+            clascl('General', 0, 0, NORMA, SMLNUM, M, N, A, LDA, INFO );
          }
       }
 

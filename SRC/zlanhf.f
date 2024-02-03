@@ -828,11 +828,11 @@
                if ( ILU.EQ.0 ) {
                   // A is upper
                   DO J = 0, K - 3
-                     CALL ZLASSQ( K-J-2, A( K+J+1+J*LDA ), 1, SCALE, S )
+                     zlassq(K-J-2, A( K+J+1+J*LDA ), 1, SCALE, S );
                      // L at A(k,0)
                   END DO
                   DO J = 0, K - 1
-                     CALL ZLASSQ( K+J-1, A( 0+J*LDA ), 1, SCALE, S )
+                     zlassq(K+J-1, A( 0+J*LDA ), 1, SCALE, S );
                      // trap U at A(0,0)
                   END DO
                   S = S + S
@@ -875,11 +875,11 @@
                } else {
                   // ilu=1 & A is lower
                   DO J = 0, K - 1
-                     CALL ZLASSQ( N-J-1, A( J+1+J*LDA ), 1, SCALE, S )
+                     zlassq(N-J-1, A( J+1+J*LDA ), 1, SCALE, S );
                      // trap L at A(0,0)
                   END DO
                   DO J = 1, K - 2
-                     CALL ZLASSQ( J, A( 0+( 1+J )*LDA ), 1, SCALE, S )
+                     zlassq(J, A( 0+( 1+J )*LDA ), 1, SCALE, S );
                      // U at A(0,1)
                   END DO
                   S = S + S
@@ -925,15 +925,15 @@
                if ( ILU.EQ.0 ) {
                   // A**H is upper
                   DO J = 1, K - 2
-                     CALL ZLASSQ( J, A( 0+( K+J )*LDA ), 1, SCALE, S )
+                     zlassq(J, A( 0+( K+J )*LDA ), 1, SCALE, S );
                      // U at A(0,k)
                   END DO
                   DO J = 0, K - 2
-                     CALL ZLASSQ( K, A( 0+J*LDA ), 1, SCALE, S )
+                     zlassq(K, A( 0+J*LDA ), 1, SCALE, S );
                      // k by k-1 rect. at A(0,0)
                   END DO
                   DO J = 0, K - 2
-                     CALL ZLASSQ( K-J-1, A( J+1+( J+K-1 )*LDA ), 1, SCALE, S )
+                     zlassq(K-J-1, A( J+1+( J+K-1 )*LDA ), 1, SCALE, S );
                      // L at A(0,k-1)
                   END DO
                   S = S + S
@@ -978,15 +978,15 @@
                } else {
                   // A**H is lower
                   DO J = 1, K - 1
-                     CALL ZLASSQ( J, A( 0+J*LDA ), 1, SCALE, S )
+                     zlassq(J, A( 0+J*LDA ), 1, SCALE, S );
                      // U at A(0,0)
                   END DO
                   DO J = K, N - 1
-                     CALL ZLASSQ( K, A( 0+J*LDA ), 1, SCALE, S )
+                     zlassq(K, A( 0+J*LDA ), 1, SCALE, S );
                      // k by k-1 rect. at A(0,k)
                   END DO
                   DO J = 0, K - 3
-                     CALL ZLASSQ( K-J-2, A( J+2+J*LDA ), 1, SCALE, S )
+                     zlassq(K-J-2, A( J+2+J*LDA ), 1, SCALE, S );
                      // L at A(1,0)
                   END DO
                   S = S + S
@@ -1036,11 +1036,11 @@
                if ( ILU.EQ.0 ) {
                   // A is upper
                   DO J = 0, K - 2
-                     CALL ZLASSQ( K-J-1, A( K+J+2+J*LDA ), 1, SCALE, S )
+                     zlassq(K-J-1, A( K+J+2+J*LDA ), 1, SCALE, S );
                   // L at A(k+1,0)
                   END DO
                   DO J = 0, K - 1
-                     CALL ZLASSQ( K+J, A( 0+J*LDA ), 1, SCALE, S )
+                     zlassq(K+J, A( 0+J*LDA ), 1, SCALE, S );
                   // trap U at A(0,0)
                   END DO
                   S = S + S
@@ -1073,11 +1073,11 @@
                } else {
                   // ilu=1 & A is lower
                   DO J = 0, K - 1
-                     CALL ZLASSQ( N-J-1, A( J+2+J*LDA ), 1, SCALE, S )
+                     zlassq(N-J-1, A( J+2+J*LDA ), 1, SCALE, S );
                      // trap L at A(1,0)
                   END DO
                   DO J = 1, K - 1
-                     CALL ZLASSQ( J, A( 0+J*LDA ), 1, SCALE, S )
+                     zlassq(J, A( 0+J*LDA ), 1, SCALE, S );
                      // U at A(0,0)
                   END DO
                   S = S + S
@@ -1113,15 +1113,15 @@
                if ( ILU.EQ.0 ) {
                   // A**H is upper
                   DO J = 1, K - 1
-                     CALL ZLASSQ( J, A( 0+( K+1+J )*LDA ), 1, SCALE, S )
+                     zlassq(J, A( 0+( K+1+J )*LDA ), 1, SCALE, S );
                   // U at A(0,k+1)
                   END DO
                   DO J = 0, K - 1
-                     CALL ZLASSQ( K, A( 0+J*LDA ), 1, SCALE, S )
+                     zlassq(K, A( 0+J*LDA ), 1, SCALE, S );
                   // k by k rect. at A(0,0)
                   END DO
                   DO J = 0, K - 2
-                     CALL ZLASSQ( K-J-1, A( J+1+( J+K )*LDA ), 1, SCALE, S )
+                     zlassq(K-J-1, A( J+1+( J+K )*LDA ), 1, SCALE, S );
                   // L at A(0,k)
                   END DO
                   S = S + S
@@ -1178,15 +1178,15 @@
                } else {
                   // A**H is lower
                   DO J = 1, K - 1
-                     CALL ZLASSQ( J, A( 0+( J+1 )*LDA ), 1, SCALE, S )
+                     zlassq(J, A( 0+( J+1 )*LDA ), 1, SCALE, S );
                   // U at A(0,1)
                   END DO
                   DO J = K + 1, N
-                     CALL ZLASSQ( K, A( 0+J*LDA ), 1, SCALE, S )
+                     zlassq(K, A( 0+J*LDA ), 1, SCALE, S );
                   // k by k rect. at A(0,k+1)
                   END DO
                   DO J = 0, K - 2
-                     CALL ZLASSQ( K-J-1, A( J+1+J*LDA ), 1, SCALE, S )
+                     zlassq(K-J-1, A( J+1+J*LDA ), 1, SCALE, S );
                   // L at A(0,0)
                   END DO
                   S = S + S

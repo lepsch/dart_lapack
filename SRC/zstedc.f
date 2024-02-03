@@ -99,7 +99,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'ZSTEDC', -INFO )
+         xerbla('ZSTEDC', -INFO );
          RETURN
       } else if ( LQUERY ) {
          RETURN
@@ -125,7 +125,7 @@
       // If COMPZ = 'N', use DSTERF to compute the eigenvalues.
 
       if ( ICOMPZ.EQ.0 ) {
-         CALL DSTERF( N, D, E, INFO )
+         dsterf(N, D, E, INFO );
          GO TO 70
       }
 
@@ -134,16 +134,16 @@
 
       if ( N.LE.SMLSIZ ) {
 
-         CALL ZSTEQR( COMPZ, N, D, E, Z, LDZ, RWORK, INFO )
+         zsteqr(COMPZ, N, D, E, Z, LDZ, RWORK, INFO );
 
       } else {
 
          // If COMPZ = 'I', we simply call DSTEDC instead.
 
          if ( ICOMPZ.EQ.2 ) {
-            CALL DLASET( 'Full', N, N, ZERO, ONE, RWORK, N )
+            dlaset('Full', N, N, ZERO, ONE, RWORK, N );
             LL = N*N + 1
-            CALL DSTEDC( 'I', N, D, E, RWORK, N, RWORK( LL ), LRWORK-LL+1, IWORK, LIWORK, INFO )
+            dstedc('I', N, D, E, RWORK, N, RWORK( LL ), LRWORK-LL+1, IWORK, LIWORK, INFO );
             DO 20 J = 1, N
                DO 10 I = 1, N
                   Z( I, J ) = RWORK( ( J-1 )*N+I )
@@ -193,9 +193,9 @@
                // Scale.
 
                ORGNRM = DLANST( 'M', M, D( START ), E( START ) )
-               CALL DLASCL( 'G', 0, 0, ORGNRM, ONE, M, 1, D( START ), M, INFO )                CALL DLASCL( 'G', 0, 0, ORGNRM, ONE, M-1, 1, E( START ), M-1, INFO )
+               dlascl('G', 0, 0, ORGNRM, ONE, M, 1, D( START ), M, INFO )                CALL DLASCL( 'G', 0, 0, ORGNRM, ONE, M-1, 1, E( START ), M-1, INFO );
 
-               CALL ZLAED0( N, M, D( START ), E( START ), Z( 1, START ), LDZ, WORK, N, RWORK, IWORK, INFO )
+               zlaed0(N, M, D( START ), E( START ), Z( 1, START ), LDZ, WORK, N, RWORK, IWORK, INFO );
                if ( INFO.GT.0 ) {
                   INFO = ( INFO / ( M+1 )+START-1 )*( N+1 ) + MOD( INFO, ( M+1 ) ) + START - 1
                   GO TO 70
@@ -203,11 +203,11 @@
 
                // Scale back.
 
-               CALL DLASCL( 'G', 0, 0, ONE, ORGNRM, M, 1, D( START ), M, INFO )
+               dlascl('G', 0, 0, ONE, ORGNRM, M, 1, D( START ), M, INFO );
 
             } else {
-               CALL DSTEQR( 'I', M, D( START ), E( START ), RWORK, M, RWORK( M*M+1 ), INFO )                CALL ZLACRM( N, M, Z( 1, START ), LDZ, RWORK, M, WORK, N, RWORK( M*M+1 ) )
-               CALL ZLACPY( 'A', N, M, WORK, N, Z( 1, START ), LDZ )
+               dsteqr('I', M, D( START ), E( START ), RWORK, M, RWORK( M*M+1 ), INFO )                CALL ZLACRM( N, M, Z( 1, START ), LDZ, RWORK, M, WORK, N, RWORK( M*M+1 ) );
+               zlacpy('A', N, M, WORK, N, Z( 1, START ), LDZ );
                if ( INFO.GT.0 ) {
                   INFO = START*( N+1 ) + FINISH
                   GO TO 70
@@ -236,7 +236,7 @@
            if ( K.NE.I ) {
               D( K ) = D( I )
               D( I ) = P
-              CALL ZSWAP( N, Z( 1, I ), 1, Z( 1, K ), 1 )
+              zswap(N, Z( 1, I ), 1, Z( 1, K ), 1 );
            }
    60    CONTINUE
       }

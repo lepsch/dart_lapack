@@ -64,32 +64,32 @@
 
       SRNAMT = 'DPSTRF'
       INFOT = 1
-      CALL DPSTRF( '/', 0, A, 1, PIV, RANK, -1.D0, WORK, INFO )
-      CALL CHKXER( 'DPSTRF', INFOT, NOUT, LERR, OK )
+      dpstrf('/', 0, A, 1, PIV, RANK, -1.D0, WORK, INFO );
+      chkxer('DPSTRF', INFOT, NOUT, LERR, OK );
       INFOT = 2
-      CALL DPSTRF( 'U', -1, A, 1, PIV, RANK, -1.D0, WORK, INFO )
-      CALL CHKXER( 'DPSTRF', INFOT, NOUT, LERR, OK )
+      dpstrf('U', -1, A, 1, PIV, RANK, -1.D0, WORK, INFO );
+      chkxer('DPSTRF', INFOT, NOUT, LERR, OK );
       INFOT = 4
-      CALL DPSTRF( 'U', 2, A, 1, PIV, RANK, -1.D0, WORK, INFO )
-      CALL CHKXER( 'DPSTRF', INFOT, NOUT, LERR, OK )
+      dpstrf('U', 2, A, 1, PIV, RANK, -1.D0, WORK, INFO );
+      chkxer('DPSTRF', INFOT, NOUT, LERR, OK );
 
          // DPSTF2
 
       SRNAMT = 'DPSTF2'
       INFOT = 1
-      CALL DPSTF2( '/', 0, A, 1, PIV, RANK, -1.D0, WORK, INFO )
-      CALL CHKXER( 'DPSTF2', INFOT, NOUT, LERR, OK )
+      dpstf2('/', 0, A, 1, PIV, RANK, -1.D0, WORK, INFO );
+      chkxer('DPSTF2', INFOT, NOUT, LERR, OK );
       INFOT = 2
-      CALL DPSTF2( 'U', -1, A, 1, PIV, RANK, -1.D0, WORK, INFO )
-      CALL CHKXER( 'DPSTF2', INFOT, NOUT, LERR, OK )
+      dpstf2('U', -1, A, 1, PIV, RANK, -1.D0, WORK, INFO );
+      chkxer('DPSTF2', INFOT, NOUT, LERR, OK );
       INFOT = 4
-      CALL DPSTF2( 'U', 2, A, 1, PIV, RANK, -1.D0, WORK, INFO )
-      CALL CHKXER( 'DPSTF2', INFOT, NOUT, LERR, OK )
+      dpstf2('U', 2, A, 1, PIV, RANK, -1.D0, WORK, INFO );
+      chkxer('DPSTF2', INFOT, NOUT, LERR, OK );
 
 
       // Print a summary line.
 
-      CALL ALAESM( PATH, OK, NOUT )
+      alaesm(PATH, OK, NOUT );
 
       RETURN
 

@@ -173,7 +173,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'ZLATMT', -INFO )
+         xerbla('ZLATMT', -INFO );
          RETURN
       }
 
@@ -189,7 +189,7 @@
 
               // Compute D according to COND and MODE
 
-      CALL DLATM7( MODE, COND, IRSIGN, IDIST, ISEED, D, MNMIN, RANK, IINFO )
+      dlatm7(MODE, COND, IRSIGN, IDIST, ISEED, D, MNMIN, RANK, IINFO );
       if ( IINFO.NE.0 ) {
          INFO = 1
          RETURN
@@ -220,11 +220,11 @@
             RETURN
          }
 
-         CALL DSCAL( RANK, ALPHA, D, 1 )
+         dscal(RANK, ALPHA, D, 1 );
 
       }
 
-      CALL ZLASET( 'Full', LDA, N, CZERO, CZERO, A, LDA )
+      zlaset('Full', LDA, N, CZERO, CZERO, A, LDA );
 
       // 3)      Generate Banded Matrix using Givens rotations.
               // Also the special case of UUB=LLB=0
@@ -301,7 +301,7 @@
                      ICOL = MAX( 1, JR-JKL )
                      if ( JR.LT.M ) {
                         IL = MIN( N, JR+JKU ) + 1 - ICOL
-                        CALL ZLAROT( .TRUE., JR.GT.JKL, .FALSE., IL, C, S, A( JR-ISKEW*ICOL+IOFFST, ICOL ), ILDA, EXTRA, DUMMY )
+                        zlarot(.TRUE., JR.GT.JKL, .FALSE., IL, C, S, A( JR-ISKEW*ICOL+IOFFST, ICOL ), ILDA, EXTRA, DUMMY );
                      }
 
                      // Chase "EXTRA" back up
@@ -310,7 +310,7 @@
                      IC = ICOL
                      DO 140 JCH = JR - JKL, 1, -JKL - JKU
                         if ( IR.LT.M ) {
-                           CALL ZLARTG( A( IR+1-ISKEW*( IC+1 )+IOFFST, IC+1 ), EXTRA, REALC, S, DUMMY )
+                           zlartg(A( IR+1-ISKEW*( IC+1 )+IOFFST, IC+1 ), EXTRA, REALC, S, DUMMY );
                            DUMMY = DLARND( 5, ISEED )
                            C = DCONJG( REALC*DUMMY )
                            S = DCONJG( -S*DUMMY )
@@ -319,9 +319,9 @@
                         IL = IR + 2 - IROW
                         ZTEMP = CZERO
                         ILTEMP = JCH.GT.JKU
-                        CALL ZLAROT( .FALSE., ILTEMP, .TRUE., IL, C, S, A( IROW-ISKEW*IC+IOFFST, IC ), ILDA, ZTEMP, EXTRA )
+                        zlarot(.FALSE., ILTEMP, .TRUE., IL, C, S, A( IROW-ISKEW*IC+IOFFST, IC ), ILDA, ZTEMP, EXTRA );
                         if ( ILTEMP ) {
-                           CALL ZLARTG( A( IROW+1-ISKEW*( IC+1 )+IOFFST, IC+1 ), ZTEMP, REALC, S, DUMMY )
+                           zlartg(A( IROW+1-ISKEW*( IC+1 )+IOFFST, IC+1 ), ZTEMP, REALC, S, DUMMY );
                            DUMMY = ZLARND( 5, ISEED )
                            C = DCONJG( REALC*DUMMY )
                            S = DCONJG( -S*DUMMY )
@@ -329,7 +329,7 @@
                            ICOL = MAX( 1, JCH-JKU-JKL )
                            IL = IC + 2 - ICOL
                            EXTRA = CZERO
-                           CALL ZLAROT( .TRUE., JCH.GT.JKU+JKL, .TRUE., IL, C, S, A( IROW-ISKEW*ICOL+ IOFFST, ICOL ), ILDA, EXTRA, ZTEMP )
+                           zlarot(.TRUE., JCH.GT.JKU+JKL, .TRUE., IL, C, S, A( IROW-ISKEW*ICOL+ IOFFST, ICOL ), ILDA, EXTRA, ZTEMP );
                            IC = ICOL
                            IR = IROW
                         }
@@ -350,7 +350,7 @@
                      IROW = MAX( 1, JC-JKU )
                      if ( JC.LT.N ) {
                         IL = MIN( M, JC+JKL ) + 1 - IROW
-                        CALL ZLAROT( .FALSE., JC.GT.JKU, .FALSE., IL, C, S, A( IROW-ISKEW*JC+IOFFST, JC ), ILDA, EXTRA, DUMMY )
+                        zlarot(.FALSE., JC.GT.JKU, .FALSE., IL, C, S, A( IROW-ISKEW*JC+IOFFST, JC ), ILDA, EXTRA, DUMMY );
                      }
 
                      // Chase "EXTRA" back up
@@ -359,7 +359,7 @@
                      IR = IROW
                      DO 170 JCH = JC - JKU, 1, -JKL - JKU
                         if ( IC.LT.N ) {
-                           CALL ZLARTG( A( IR+1-ISKEW*( IC+1 )+IOFFST, IC+1 ), EXTRA, REALC, S, DUMMY )
+                           zlartg(A( IR+1-ISKEW*( IC+1 )+IOFFST, IC+1 ), EXTRA, REALC, S, DUMMY );
                            DUMMY = ZLARND( 5, ISEED )
                            C = DCONJG( REALC*DUMMY )
                            S = DCONJG( -S*DUMMY )
@@ -368,16 +368,16 @@
                         IL = IC + 2 - ICOL
                         ZTEMP = CZERO
                         ILTEMP = JCH.GT.JKL
-                        CALL ZLAROT( .TRUE., ILTEMP, .TRUE., IL, C, S, A( IR-ISKEW*ICOL+IOFFST, ICOL ), ILDA, ZTEMP, EXTRA )
+                        zlarot(.TRUE., ILTEMP, .TRUE., IL, C, S, A( IR-ISKEW*ICOL+IOFFST, ICOL ), ILDA, ZTEMP, EXTRA );
                         if ( ILTEMP ) {
-                           CALL ZLARTG( A( IR+1-ISKEW*( ICOL+1 )+IOFFST, ICOL+1 ), ZTEMP, REALC, S, DUMMY )
+                           zlartg(A( IR+1-ISKEW*( ICOL+1 )+IOFFST, ICOL+1 ), ZTEMP, REALC, S, DUMMY );
                            DUMMY = ZLARND( 5, ISEED )
                            C = DCONJG( REALC*DUMMY )
                            S = DCONJG( -S*DUMMY )
                            IROW = MAX( 1, JCH-JKL-JKU )
                            IL = IR + 2 - IROW
                            EXTRA = CZERO
-                           CALL ZLAROT( .FALSE., JCH.GT.JKL+JKU, .TRUE., IL, C, S, A( IROW-ISKEW*ICOL+ IOFFST, ICOL ), ILDA, EXTRA, ZTEMP )
+                           zlarot(.FALSE., JCH.GT.JKL+JKU, .TRUE., IL, C, S, A( IROW-ISKEW*ICOL+ IOFFST, ICOL ), ILDA, EXTRA, ZTEMP );
                            IC = ICOL
                            IR = IROW
                         }
@@ -406,7 +406,7 @@
                      IROW = MAX( 1, JC-JKU+1 )
                      if ( JC.GT.0 ) {
                         IL = MIN( M, JC+JKL+1 ) + 1 - IROW
-                        CALL ZLAROT( .FALSE., .FALSE., JC+JKL.LT.M, IL, C, S, A( IROW-ISKEW*JC+IOFFST, JC ), ILDA, DUMMY, EXTRA )
+                        zlarot(.FALSE., .FALSE., JC+JKL.LT.M, IL, C, S, A( IROW-ISKEW*JC+IOFFST, JC ), ILDA, DUMMY, EXTRA );
                      }
 
                      // Chase "EXTRA" back down
@@ -415,7 +415,7 @@
                      DO 200 JCH = JC + JKL, IENDCH, JKL + JKU
                         ILEXTR = IC.GT.0
                         if ( ILEXTR ) {
-                           CALL ZLARTG( A( JCH-ISKEW*IC+IOFFST, IC ), EXTRA, REALC, S, DUMMY )
+                           zlartg(A( JCH-ISKEW*IC+IOFFST, IC ), EXTRA, REALC, S, DUMMY );
                            DUMMY = ZLARND( 5, ISEED )
                            C = REALC*DUMMY
                            S = S*DUMMY
@@ -424,15 +424,15 @@
                         ICOL = MIN( N-1, JCH+JKU )
                         ILTEMP = JCH + JKU.LT.N
                         ZTEMP = CZERO
-                        CALL ZLAROT( .TRUE., ILEXTR, ILTEMP, ICOL+2-IC, C, S, A( JCH-ISKEW*IC+IOFFST, IC ), ILDA, EXTRA, ZTEMP )
+                        zlarot(.TRUE., ILEXTR, ILTEMP, ICOL+2-IC, C, S, A( JCH-ISKEW*IC+IOFFST, IC ), ILDA, EXTRA, ZTEMP );
                         if ( ILTEMP ) {
-                           CALL ZLARTG( A( JCH-ISKEW*ICOL+IOFFST, ICOL ), ZTEMP, REALC, S, DUMMY )
+                           zlartg(A( JCH-ISKEW*ICOL+IOFFST, ICOL ), ZTEMP, REALC, S, DUMMY );
                            DUMMY = ZLARND( 5, ISEED )
                            C = REALC*DUMMY
                            S = S*DUMMY
                            IL = MIN( IENDCH, JCH+JKL+JKU ) + 2 - JCH
                            EXTRA = CZERO
-                           CALL ZLAROT( .FALSE., .TRUE., JCH+JKL+JKU.LE.IENDCH, IL, C, S, A( JCH-ISKEW*ICOL+IOFFST, ICOL ), ILDA, ZTEMP, EXTRA )
+                           zlarot(.FALSE., .TRUE., JCH+JKL+JKU.LE.IENDCH, IL, C, S, A( JCH-ISKEW*ICOL+IOFFST, ICOL ), ILDA, ZTEMP, EXTRA );
                            IC = ICOL
                         }
   200                CONTINUE
@@ -456,7 +456,7 @@
                      ICOL = MAX( 1, JR-JKL+1 )
                      if ( JR.GT.0 ) {
                         IL = MIN( N, JR+JKU+1 ) + 1 - ICOL
-                        CALL ZLAROT( .TRUE., .FALSE., JR+JKU.LT.N, IL, C, S, A( JR-ISKEW*ICOL+IOFFST, ICOL ), ILDA, DUMMY, EXTRA )
+                        zlarot(.TRUE., .FALSE., JR+JKU.LT.N, IL, C, S, A( JR-ISKEW*ICOL+IOFFST, ICOL ), ILDA, DUMMY, EXTRA );
                      }
 
                      // Chase "EXTRA" back down
@@ -465,7 +465,7 @@
                      DO 230 JCH = JR + JKU, IENDCH, JKL + JKU
                         ILEXTR = IR.GT.0
                         if ( ILEXTR ) {
-                           CALL ZLARTG( A( IR-ISKEW*JCH+IOFFST, JCH ), EXTRA, REALC, S, DUMMY )
+                           zlartg(A( IR-ISKEW*JCH+IOFFST, JCH ), EXTRA, REALC, S, DUMMY );
                            DUMMY = ZLARND( 5, ISEED )
                            C = REALC*DUMMY
                            S = S*DUMMY
@@ -474,15 +474,15 @@
                         IROW = MIN( M-1, JCH+JKL )
                         ILTEMP = JCH + JKL.LT.M
                         ZTEMP = CZERO
-                        CALL ZLAROT( .FALSE., ILEXTR, ILTEMP, IROW+2-IR, C, S, A( IR-ISKEW*JCH+IOFFST, JCH ), ILDA, EXTRA, ZTEMP )
+                        zlarot(.FALSE., ILEXTR, ILTEMP, IROW+2-IR, C, S, A( IR-ISKEW*JCH+IOFFST, JCH ), ILDA, EXTRA, ZTEMP );
                         if ( ILTEMP ) {
-                           CALL ZLARTG( A( IROW-ISKEW*JCH+IOFFST, JCH ), ZTEMP, REALC, S, DUMMY )
+                           zlartg(A( IROW-ISKEW*JCH+IOFFST, JCH ), ZTEMP, REALC, S, DUMMY );
                            DUMMY = ZLARND( 5, ISEED )
                            C = REALC*DUMMY
                            S = S*DUMMY
                            IL = MIN( IENDCH, JCH+JKL+JKU ) + 2 - JCH
                            EXTRA = CZERO
-                           CALL ZLAROT( .TRUE., .TRUE., JCH+JKL+JKU.LE.IENDCH, IL, C, S, A( IROW-ISKEW*JCH+IOFFST, JCH ), ILDA, ZTEMP, EXTRA )
+                           zlarot(.TRUE., .TRUE., JCH+JKL+JKU.LE.IENDCH, IL, C, S, A( IROW-ISKEW*JCH+IOFFST, JCH ), ILDA, ZTEMP, EXTRA );
                            IR = IROW
                         }
   230                CONTINUE
@@ -531,13 +531,13 @@
                         CT = DCONJG( C )
                         ST = DCONJG( S )
                      }
-                     CALL ZLAROT( .FALSE., JC.GT.K, .TRUE., IL, C, S, A( IROW-ISKEW*JC+IOFFG, JC ), ILDA, EXTRA, ZTEMP )                      CALL ZLAROT( .TRUE., .TRUE., .FALSE., MIN( K, N-JC )+1, CT, ST, A( ( 1-ISKEW )*JC+IOFFG, JC ), ILDA, ZTEMP, DUMMY )
+                     zlarot(.FALSE., JC.GT.K, .TRUE., IL, C, S, A( IROW-ISKEW*JC+IOFFG, JC ), ILDA, EXTRA, ZTEMP )                      CALL ZLAROT( .TRUE., .TRUE., .FALSE., MIN( K, N-JC )+1, CT, ST, A( ( 1-ISKEW )*JC+IOFFG, JC ), ILDA, ZTEMP, DUMMY );
 
                      // Chase EXTRA back up the matrix
 
                      ICOL = JC
                      DO 270 JCH = JC - K, 1, -K
-                        CALL ZLARTG( A( JCH+1-ISKEW*( ICOL+1 )+IOFFG, ICOL+1 ), EXTRA, REALC, S, DUMMY )
+                        zlartg(A( JCH+1-ISKEW*( ICOL+1 )+IOFFG, ICOL+1 ), EXTRA, REALC, S, DUMMY );
                         DUMMY = ZLARND( 5, ISEED )
                         C = DCONJG( REALC*DUMMY )
                         S = DCONJG( -S*DUMMY )
@@ -550,11 +550,11 @@
                            CT = DCONJG( C )
                            ST = DCONJG( S )
                         }
-                        CALL ZLAROT( .TRUE., .TRUE., .TRUE., K+2, C, S, A( ( 1-ISKEW )*JCH+IOFFG, JCH ), ILDA, ZTEMP, EXTRA )
+                        zlarot(.TRUE., .TRUE., .TRUE., K+2, C, S, A( ( 1-ISKEW )*JCH+IOFFG, JCH ), ILDA, ZTEMP, EXTRA );
                         IROW = MAX( 1, JCH-K )
                         IL = MIN( JCH+1, K+2 )
                         EXTRA = CZERO
-                        CALL ZLAROT( .FALSE., JCH.GT.K, .TRUE., IL, CT, ST, A( IROW-ISKEW*JCH+IOFFG, JCH ), ILDA, EXTRA, ZTEMP )
+                        zlarot(.FALSE., JCH.GT.K, .TRUE., IL, CT, ST, A( IROW-ISKEW*JCH+IOFFG, JCH ), ILDA, EXTRA, ZTEMP );
                         ICOL = JCH
   270                CONTINUE
   280             CONTINUE
@@ -620,15 +620,15 @@
                         CT = DCONJG( C )
                         ST = DCONJG( S )
                      }
-                     CALL ZLAROT( .FALSE., .TRUE., N-JC.GT.K, IL, C, S, A( ( 1-ISKEW )*JC+IOFFG, JC ), ILDA, ZTEMP, EXTRA )
+                     zlarot(.FALSE., .TRUE., N-JC.GT.K, IL, C, S, A( ( 1-ISKEW )*JC+IOFFG, JC ), ILDA, ZTEMP, EXTRA );
                      ICOL = MAX( 1, JC-K+1 )
-                     CALL ZLAROT( .TRUE., .FALSE., .TRUE., JC+2-ICOL, CT, ST, A( JC-ISKEW*ICOL+IOFFG, ICOL ), ILDA, DUMMY, ZTEMP )
+                     zlarot(.TRUE., .FALSE., .TRUE., JC+2-ICOL, CT, ST, A( JC-ISKEW*ICOL+IOFFG, ICOL ), ILDA, DUMMY, ZTEMP );
 
                      // Chase EXTRA back down the matrix
 
                      ICOL = JC
                      DO 360 JCH = JC + K, N - 1, K
-                        CALL ZLARTG( A( JCH-ISKEW*ICOL+IOFFG, ICOL ), EXTRA, REALC, S, DUMMY )
+                        zlartg(A( JCH-ISKEW*ICOL+IOFFG, ICOL ), EXTRA, REALC, S, DUMMY );
                         DUMMY = ZLARND( 5, ISEED )
                         C = REALC*DUMMY
                         S = S*DUMMY
@@ -641,10 +641,10 @@
                            CT = DCONJG( C )
                            ST = DCONJG( S )
                         }
-                        CALL ZLAROT( .TRUE., .TRUE., .TRUE., K+2, C, S, A( JCH-ISKEW*ICOL+IOFFG, ICOL ), ILDA, EXTRA, ZTEMP )
+                        zlarot(.TRUE., .TRUE., .TRUE., K+2, C, S, A( JCH-ISKEW*ICOL+IOFFG, ICOL ), ILDA, EXTRA, ZTEMP );
                         IL = MIN( N+1-JCH, K+2 )
                         EXTRA = CZERO
-                        CALL ZLAROT( .FALSE., .TRUE., N-JCH.GT.K, IL, CT, ST, A( ( 1-ISKEW )*JCH+IOFFG, JCH ), ILDA, ZTEMP, EXTRA )
+                        zlarot(.FALSE., .TRUE., N-JCH.GT.K, IL, CT, ST, A( ( 1-ISKEW )*JCH+IOFFG, JCH ), ILDA, ZTEMP, EXTRA );
                         ICOL = JCH
   360                CONTINUE
   370             CONTINUE
@@ -705,16 +705,16 @@
 
             // Non-symmetric -- A = U D V
 
-            CALL ZLAGGE( MR, NC, LLB, UUB, D, A, LDA, ISEED, WORK, IINFO )
+            zlagge(MR, NC, LLB, UUB, D, A, LDA, ISEED, WORK, IINFO );
          } else {
 
             // Symmetric -- A = U D U' or
             // Hermitian -- A = U D U*
 
             if ( CSYM ) {
-               CALL ZLAGSY( M, LLB, D, A, LDA, ISEED, WORK, IINFO )
+               zlagsy(M, LLB, D, A, LDA, ISEED, WORK, IINFO );
             } else {
-               CALL ZLAGHE( M, LLB, D, A, LDA, ISEED, WORK, IINFO )
+               zlaghe(M, LLB, D, A, LDA, ISEED, WORK, IINFO );
             }
          }
 

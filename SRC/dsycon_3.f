@@ -54,7 +54,7 @@
          INFO = -7
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'DSYCON_3', -INFO )
+         xerbla('DSYCON_3', -INFO );
          RETURN
       }
 
@@ -90,12 +90,12 @@
 
       KASE = 0
    30 CONTINUE
-      CALL DLACN2( N, WORK( N+1 ), WORK, IWORK, AINVNM, KASE, ISAVE )
+      dlacn2(N, WORK( N+1 ), WORK, IWORK, AINVNM, KASE, ISAVE );
       if ( KASE.NE.0 ) {
 
          // Multiply by inv(L*D*L**T) or inv(U*D*U**T).
 
-         CALL DSYTRS_3( UPLO, N, 1, A, LDA, E, IPIV, WORK, N, INFO )
+         dsytrs_3(UPLO, N, 1, A, LDA, E, IPIV, WORK, N, INFO );
          GO TO 30
       }
 

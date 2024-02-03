@@ -47,7 +47,7 @@
          INFO = -2
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'CPPEQU', -INFO )
+         xerbla('CPPEQU', -INFO );
          RETURN
       }
 

@@ -139,13 +139,13 @@
 
                K = KRCOL + 2*( M22-1 )
                if ( K.EQ.KTOP-1 ) {
-                  CALL CLAQR1( 2, H( K+1, K+1 ), LDH, S( 2*M22-1 ), S( 2*M22 ), V( 1, M22 ) )
+                  claqr1(2, H( K+1, K+1 ), LDH, S( 2*M22-1 ), S( 2*M22 ), V( 1, M22 ) );
                   BETA = V( 1, M22 )
-                  CALL CLARFG( 2, BETA, V( 2, M22 ), 1, V( 1, M22 ) )
+                  clarfg(2, BETA, V( 2, M22 ), 1, V( 1, M22 ) );
                } else {
                   BETA = H( K+1, K )
                   V( 2, M22 ) = H( K+2, K )
-                  CALL CLARFG( 2, BETA, V( 2, M22 ), 1, V( 1, M22 ) )
+                  clarfg(2, BETA, V( 2, M22 ), 1, V( 1, M22 ) );
                   H( K+1, K ) = BETA
                   H( K+2, K ) = ZERO
                }
@@ -227,9 +227,9 @@
             DO 80 M = MBOT, MTOP, -1
                K = KRCOL + 2*( M-1 )
                if ( K.EQ.KTOP-1 ) {
-                  CALL CLAQR1( 3, H( KTOP, KTOP ), LDH, S( 2*M-1 ), S( 2*M ), V( 1, M ) )
+                  claqr1(3, H( KTOP, KTOP ), LDH, S( 2*M-1 ), S( 2*M ), V( 1, M ) );
                   ALPHA = V( 1, M )
-                  CALL CLARFG( 3, ALPHA, V( 2, M ), 1, V( 1, M ) )
+                  clarfg(3, ALPHA, V( 2, M ), 1, V( 1, M ) );
                } else {
 
                   // ==== Perform delayed transformation of row below
@@ -250,7 +250,7 @@
                   BETA      = H( K+1, K )
                   V( 2, M ) = H( K+2, K )
                   V( 3, M ) = H( K+3, K )
-                  CALL CLARFG( 3, BETA, V( 2, M ), 1, V( 1, M ) )
+                  clarfg(3, BETA, V( 2, M ), 1, V( 1, M ) );
 
                   // ==== A Bulge may collapse because of vigilant
                   // .    deflation or destructive underflow.  In the
@@ -272,9 +272,9 @@
                      // .    reflector is too large, then abandon it.
                      // .    Otherwise, use the new one. ====
 
-                     CALL CLAQR1( 3, H( K+1, K+1 ), LDH, S( 2*M-1 ), S( 2*M ), VT )
+                     claqr1(3, H( K+1, K+1 ), LDH, S( 2*M-1 ), S( 2*M ), VT );
                      ALPHA = VT( 1 )
-                     CALL CLARFG( 3, ALPHA, VT( 2 ), 1, VT( 1 ) )
+                     clarfg(3, ALPHA, VT( 2 ), 1, VT( 1 ) );
                      T1 = CONJG( VT( 1 ) )
                      T2 = T1*VT( 2 )
                      T3 = T1*VT( 3 )
@@ -447,16 +447,16 @@
 
             DO 150 JCOL = MIN( NDCOL, KBOT ) + 1, JBOT, NH
                JLEN = MIN( NH, JBOT-JCOL+1 )
-               CALL CGEMM( 'C', 'N', NU, JLEN, NU, ONE, U( K1, K1 ), LDU, H( INCOL+K1, JCOL ), LDH, ZERO, WH, LDWH )
-               CALL CLACPY( 'ALL', NU, JLEN, WH, LDWH, H( INCOL+K1, JCOL ), LDH )
+               cgemm('C', 'N', NU, JLEN, NU, ONE, U( K1, K1 ), LDU, H( INCOL+K1, JCOL ), LDH, ZERO, WH, LDWH );
+               clacpy('ALL', NU, JLEN, WH, LDWH, H( INCOL+K1, JCOL ), LDH );
   150       CONTINUE
 
             // ==== Vertical multiply ====
 
             DO 160 JROW = JTOP, MAX( KTOP, INCOL ) - 1, NV
                JLEN = MIN( NV, MAX( KTOP, INCOL )-JROW )
-               CALL CGEMM( 'N', 'N', JLEN, NU, NU, ONE, H( JROW, INCOL+K1 ), LDH, U( K1, K1 ), LDU, ZERO, WV, LDWV )
-               CALL CLACPY( 'ALL', JLEN, NU, WV, LDWV, H( JROW, INCOL+K1 ), LDH )
+               cgemm('N', 'N', JLEN, NU, NU, ONE, H( JROW, INCOL+K1 ), LDH, U( K1, K1 ), LDU, ZERO, WV, LDWV );
+               clacpy('ALL', JLEN, NU, WV, LDWV, H( JROW, INCOL+K1 ), LDH );
   160       CONTINUE
 
             // ==== Z multiply (also vertical) ====
@@ -464,8 +464,8 @@
             if ( WANTZ ) {
                DO 170 JROW = ILOZ, IHIZ, NV
                   JLEN = MIN( NV, IHIZ-JROW+1 )
-                  CALL CGEMM( 'N', 'N', JLEN, NU, NU, ONE, Z( JROW, INCOL+K1 ), LDZ, U( K1, K1 ), LDU, ZERO, WV, LDWV )
-                  CALL CLACPY( 'ALL', JLEN, NU, WV, LDWV, Z( JROW, INCOL+K1 ), LDZ )
+                  cgemm('N', 'N', JLEN, NU, NU, ONE, Z( JROW, INCOL+K1 ), LDZ, U( K1, K1 ), LDU, ZERO, WV, LDWV );
+                  clacpy('ALL', JLEN, NU, WV, LDWV, Z( JROW, INCOL+K1 ), LDZ );
   170          CONTINUE
             }
          }

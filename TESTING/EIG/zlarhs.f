@@ -76,7 +76,7 @@
          INFO = -15
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'ZLARHS', -INFO )
+         xerbla('ZLARHS', -INFO );
          RETURN
       }
 
@@ -91,7 +91,7 @@
       }
       if ( .NOT.LSAME( XTYPE, 'C' ) ) {
          DO 10 J = 1, NRHS
-            CALL ZLARNV( 2, ISEED, N, X( 1, J ) )
+            zlarnv(2, ISEED, N, X( 1, J ) );
    10    CONTINUE
       }
 
@@ -102,26 +102,26 @@
 
          // General matrix
 
-         CALL ZGEMM( TRANS, 'N', MB, NRHS, NX, ONE, A, LDA, X, LDX, ZERO, B, LDB )
+         zgemm(TRANS, 'N', MB, NRHS, NX, ONE, A, LDA, X, LDX, ZERO, B, LDB );
 
       } else if ( LSAMEN( 2, C2, 'PO' ) .OR. LSAMEN( 2, C2, 'HE' ) ) {
 
          // Hermitian matrix, 2-D storage
 
-         CALL ZHEMM( 'Left', UPLO, N, NRHS, ONE, A, LDA, X, LDX, ZERO, B, LDB )
+         zhemm('Left', UPLO, N, NRHS, ONE, A, LDA, X, LDX, ZERO, B, LDB );
 
       } else if ( LSAMEN( 2, C2, 'SY' ) ) {
 
          // Symmetric matrix, 2-D storage
 
-         CALL ZSYMM( 'Left', UPLO, N, NRHS, ONE, A, LDA, X, LDX, ZERO, B, LDB )
+         zsymm('Left', UPLO, N, NRHS, ONE, A, LDA, X, LDX, ZERO, B, LDB );
 
       } else if ( LSAMEN( 2, C2, 'GB' ) ) {
 
          // General matrix, band storage
 
          DO 20 J = 1, NRHS
-            CALL ZGBMV( TRANS, M, N, KL, KU, ONE, A, LDA, X( 1, J ), 1, ZERO, B( 1, J ), 1 )
+            zgbmv(TRANS, M, N, KL, KU, ONE, A, LDA, X( 1, J ), 1, ZERO, B( 1, J ), 1 );
    20    CONTINUE
 
       } else if ( LSAMEN( 2, C2, 'PB' ) .OR. LSAMEN( 2, C2, 'HB' ) ) {
@@ -129,7 +129,7 @@
          // Hermitian matrix, band storage
 
          DO 30 J = 1, NRHS
-            CALL ZHBMV( UPLO, N, KL, ONE, A, LDA, X( 1, J ), 1, ZERO, B( 1, J ), 1 )
+            zhbmv(UPLO, N, KL, ONE, A, LDA, X( 1, J ), 1, ZERO, B( 1, J ), 1 );
    30    CONTINUE
 
       } else if ( LSAMEN( 2, C2, 'SB' ) ) {
@@ -137,7 +137,7 @@
          // Symmetric matrix, band storage
 
          DO 40 J = 1, NRHS
-            CALL ZSBMV( UPLO, N, KL, ONE, A, LDA, X( 1, J ), 1, ZERO, B( 1, J ), 1 )
+            zsbmv(UPLO, N, KL, ONE, A, LDA, X( 1, J ), 1, ZERO, B( 1, J ), 1 );
    40    CONTINUE
 
       } else if ( LSAMEN( 2, C2, 'PP' ) .OR. LSAMEN( 2, C2, 'HP' ) ) {
@@ -145,7 +145,7 @@
          // Hermitian matrix, packed storage
 
          DO 50 J = 1, NRHS
-            CALL ZHPMV( UPLO, N, ONE, A, X( 1, J ), 1, ZERO, B( 1, J ), 1 )
+            zhpmv(UPLO, N, ONE, A, X( 1, J ), 1, ZERO, B( 1, J ), 1 );
    50    CONTINUE
 
       } else if ( LSAMEN( 2, C2, 'SP' ) ) {
@@ -153,7 +153,7 @@
          // Symmetric matrix, packed storage
 
          DO 60 J = 1, NRHS
-            CALL ZSPMV( UPLO, N, ONE, A, X( 1, J ), 1, ZERO, B( 1, J ), 1 )
+            zspmv(UPLO, N, ONE, A, X( 1, J ), 1, ZERO, B( 1, J ), 1 );
    60    CONTINUE
 
       } else if ( LSAMEN( 2, C2, 'TR' ) ) {
@@ -162,40 +162,40 @@
             // KU = 1 => non-unit triangular
             // KU = 2 => unit triangular
 
-         CALL ZLACPY( 'Full', N, NRHS, X, LDX, B, LDB )
+         zlacpy('Full', N, NRHS, X, LDX, B, LDB );
          if ( KU.EQ.2 ) {
             DIAG = 'U'
          } else {
             DIAG = 'N'
          }
-         CALL ZTRMM( 'Left', UPLO, TRANS, DIAG, N, NRHS, ONE, A, LDA, B, LDB )
+         ztrmm('Left', UPLO, TRANS, DIAG, N, NRHS, ONE, A, LDA, B, LDB );
 
       } else if ( LSAMEN( 2, C2, 'TP' ) ) {
 
          // Triangular matrix, packed storage
 
-         CALL ZLACPY( 'Full', N, NRHS, X, LDX, B, LDB )
+         zlacpy('Full', N, NRHS, X, LDX, B, LDB );
          if ( KU.EQ.2 ) {
             DIAG = 'U'
          } else {
             DIAG = 'N'
          }
          DO 70 J = 1, NRHS
-            CALL ZTPMV( UPLO, TRANS, DIAG, N, A, B( 1, J ), 1 )
+            ztpmv(UPLO, TRANS, DIAG, N, A, B( 1, J ), 1 );
    70    CONTINUE
 
       } else if ( LSAMEN( 2, C2, 'TB' ) ) {
 
          // Triangular matrix, banded storage
 
-         CALL ZLACPY( 'Full', N, NRHS, X, LDX, B, LDB )
+         zlacpy('Full', N, NRHS, X, LDX, B, LDB );
          if ( KU.EQ.2 ) {
             DIAG = 'U'
          } else {
             DIAG = 'N'
          }
          DO 80 J = 1, NRHS
-            CALL ZTBMV( UPLO, TRANS, DIAG, N, KL, A, LDA, B( 1, J ), 1 )
+            ztbmv(UPLO, TRANS, DIAG, N, KL, A, LDA, B( 1, J ), 1 );
    80    CONTINUE
 
       } else {
@@ -203,7 +203,7 @@
          // If none of the above, set INFO = -1 and return
 
          INFO = -1
-         CALL XERBLA( 'ZLARHS', -INFO )
+         xerbla('ZLARHS', -INFO );
       }
 
       RETURN

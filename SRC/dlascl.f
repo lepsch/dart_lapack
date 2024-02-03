@@ -82,7 +82,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'DLASCL', -INFO )
+         xerbla('DLASCL', -INFO );
          RETURN
       }
 

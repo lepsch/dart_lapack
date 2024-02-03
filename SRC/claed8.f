@@ -53,7 +53,7 @@
          INFO = -12
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'CLAED8', -INFO )
+         xerbla('CLAED8', -INFO );
          RETURN
       }
 
@@ -73,7 +73,7 @@
       N1P1 = N1 + 1
 
       if ( RHO.LT.ZERO ) {
-         CALL SSCAL( N2, MONE, Z( N1P1 ), 1 )
+         sscal(N2, MONE, Z( N1P1 ), 1 );
       }
 
       // Normalize z so that norm(z) = 1
@@ -82,7 +82,7 @@
       DO 10 J = 1, N
          INDX( J ) = J
    10 CONTINUE
-      CALL SSCAL( N, T, Z, 1 )
+      sscal(N, T, Z, 1 );
       RHO = ABS( TWO*RHO )
 
       // Sort the eigenvalues into increasing order
@@ -96,7 +96,7 @@
    30 CONTINUE
       I = 1
       J = CUTPNT + 1
-      CALL SLAMRG( N1, N2, DLAMBDA, 1, 1, INDX )
+      slamrg(N1, N2, DLAMBDA, 1, 1, INDX );
       DO 40 I = 1, N
          D( I ) = DLAMBDA( INDX( I ) )
          Z( I ) = W( INDX( I ) )
@@ -117,9 +117,9 @@
          K = 0
          DO 50 J = 1, N
             PERM( J ) = INDXQ( INDX( J ) )
-            CALL CCOPY( QSIZ, Q( 1, PERM( J ) ), 1, Q2( 1, J ), 1 )
+            ccopy(QSIZ, Q( 1, PERM( J ) ), 1, Q2( 1, J ), 1 );
    50    CONTINUE
-         CALL CLACPY( 'A', QSIZ, N, Q2( 1, 1 ), LDQ2, Q( 1, 1 ), LDQ )
+         clacpy('A', QSIZ, N, Q2( 1, 1 ), LDQ2, Q( 1, 1 ), LDQ );
          RETURN
       }
 
@@ -181,7 +181,7 @@
             GIVCOL( 2, GIVPTR ) = INDXQ( INDX( J ) )
             GIVNUM( 1, GIVPTR ) = C
             GIVNUM( 2, GIVPTR ) = S
-            CALL CSROT( QSIZ, Q( 1, INDXQ( INDX( JLAM ) ) ), 1, Q( 1, INDXQ( INDX( J ) ) ), 1, C, S )
+            csrot(QSIZ, Q( 1, INDXQ( INDX( JLAM ) ) ), 1, Q( 1, INDXQ( INDX( J ) ) ), 1, C, S );
             T = D( JLAM )*C*C + D( J )*S*S
             D( J ) = D( JLAM )*S*S + D( J )*C*C
             D( JLAM ) = T
@@ -230,15 +230,15 @@
          JP = INDXP( J )
          DLAMBDA( J ) = D( JP )
          PERM( J ) = INDXQ( INDX( JP ) )
-         CALL CCOPY( QSIZ, Q( 1, PERM( J ) ), 1, Q2( 1, J ), 1 )
+         ccopy(QSIZ, Q( 1, PERM( J ) ), 1, Q2( 1, J ), 1 );
   110 CONTINUE
 
       // The deflated eigenvalues and their corresponding vectors go back
       // into the last N - K slots of D and Q respectively.
 
       if ( K.LT.N ) {
-         CALL SCOPY( N-K, DLAMBDA( K+1 ), 1, D( K+1 ), 1 )
-         CALL CLACPY( 'A', QSIZ, N-K, Q2( 1, K+1 ), LDQ2, Q( 1, K+1 ), LDQ )
+         scopy(N-K, DLAMBDA( K+1 ), 1, D( K+1 ), 1 );
+         clacpy('A', QSIZ, N-K, Q2( 1, K+1 ), LDQ2, Q( 1, K+1 ), LDQ );
       }
 
       RETURN

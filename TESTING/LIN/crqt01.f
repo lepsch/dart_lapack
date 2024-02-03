@@ -47,16 +47,16 @@
 
       // Copy the matrix A to the array AF.
 
-      CALL CLACPY( 'Full', M, N, A, LDA, AF, LDA )
+      clacpy('Full', M, N, A, LDA, AF, LDA );
 
       // Factorize the matrix A in the array AF.
 
       SRNAMT = 'CGERQF'
-      CALL CGERQF( M, N, AF, LDA, TAU, WORK, LWORK, INFO )
+      cgerqf(M, N, AF, LDA, TAU, WORK, LWORK, INFO );
 
       // Copy details of Q
 
-      CALL CLASET( 'Full', N, N, ROGUE, ROGUE, Q, LDA )
+      claset('Full', N, N, ROGUE, ROGUE, Q, LDA );
       if ( M.LE.N ) {
          IF( M.GT.0 .AND. M.LT.N ) CALL CLACPY( 'Full', M, N-M, AF, LDA, Q( N-M+1, 1 ), LDA )          IF( M.GT.1 ) CALL CLACPY( 'Lower', M-1, M-1, AF( 2, N-M+1 ), LDA, Q( N-M+2, N-M+1 ), LDA )
       } else {
@@ -66,11 +66,11 @@
       // Generate the n-by-n matrix Q
 
       SRNAMT = 'CUNGRQ'
-      CALL CUNGRQ( N, N, MINMN, Q, LDA, TAU, WORK, LWORK, INFO )
+      cungrq(N, N, MINMN, Q, LDA, TAU, WORK, LWORK, INFO );
 
       // Copy R
 
-      CALL CLASET( 'Full', M, N, CMPLX( ZERO ), CMPLX( ZERO ), R, LDA )
+      claset('Full', M, N, CMPLX( ZERO ), CMPLX( ZERO ), R, LDA );
       if ( M.LE.N ) {
          IF( M.GT.0 ) CALL CLACPY( 'Upper', M, M, AF( 1, N-M+1 ), LDA, R( 1, N-M+1 ), LDA )
       } else {
@@ -79,7 +79,7 @@
 
       // Compute R - A*Q'
 
-      CALL CGEMM( 'No transpose', 'Conjugate transpose', M, N, N, CMPLX( -ONE ), A, LDA, Q, LDA, CMPLX( ONE ), R, LDA )
+      cgemm('No transpose', 'Conjugate transpose', M, N, N, CMPLX( -ONE ), A, LDA, Q, LDA, CMPLX( ONE ), R, LDA );
 
       // Compute norm( R - Q'*A ) / ( N * norm(A) * EPS ) .
 
@@ -93,8 +93,8 @@
 
       // Compute I - Q*Q'
 
-      CALL CLASET( 'Full', N, N, CMPLX( ZERO ), CMPLX( ONE ), R, LDA )
-      CALL CHERK( 'Upper', 'No transpose', N, N, -ONE, Q, LDA, ONE, R, LDA )
+      claset('Full', N, N, CMPLX( ZERO ), CMPLX( ONE ), R, LDA );
+      cherk('Upper', 'No transpose', N, N, -ONE, Q, LDA, ONE, R, LDA );
 
       // Compute norm( I - Q*Q' ) / ( N * EPS ) .
 

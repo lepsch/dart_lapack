@@ -57,7 +57,7 @@
           // ( CSL -SNL )*( A B )*(  CSR  SNR ) = ( R 0 )
           // ( SNL  CSL ) ( 0 D ) ( -SNR  CSR )   ( 0 T )
 
-         CALL SLASV2( A, FB, D, S1, S2, SNR, CSR, SNL, CSL )
+         slasv2(A, FB, D, S1, S2, SNR, CSR, SNL, CSL );
 
          if ( ABS( CSL ).GE.ABS( SNL ) .OR. ABS( CSR ).GE.ABS( SNR ) ) {
 
@@ -76,11 +76,11 @@
             // zero (1,2) elements of U**H *A and V**H *B
 
             if ( ( ABS( UA11R )+ABS1( UA12 ) ).EQ.ZERO ) {
-               CALL CLARTG( -CMPLX( VB11R ), CONJG( VB12 ), CSQ, SNQ, R )
+               clartg(-CMPLX( VB11R ), CONJG( VB12 ), CSQ, SNQ, R );
             } else if ( ( ABS( VB11R )+ABS1( VB12 ) ).EQ.ZERO ) {
-               CALL CLARTG( -CMPLX( UA11R ), CONJG( UA12 ), CSQ, SNQ, R )             ELSE IF( AUA12 / ( ABS( UA11R )+ABS1( UA12 ) ).LE.AVB12 / ( ABS( VB11R )+ABS1( VB12 ) ) ) THEN                CALL CLARTG( -CMPLX( UA11R ), CONJG( UA12 ), CSQ, SNQ, R )
+               clartg(-CMPLX( UA11R ), CONJG( UA12 ), CSQ, SNQ, R )             ELSE IF( AUA12 / ( ABS( UA11R )+ABS1( UA12 ) ).LE.AVB12 / ( ABS( VB11R )+ABS1( VB12 ) ) ) THEN                CALL CLARTG( -CMPLX( UA11R ), CONJG( UA12 ), CSQ, SNQ, R );
             } else {
-               CALL CLARTG( -CMPLX( VB11R ), CONJG( VB12 ), CSQ, SNQ, R )
+               clartg(-CMPLX( VB11R ), CONJG( VB12 ), CSQ, SNQ, R );
             }
 
             CSU = CSL
@@ -105,13 +105,13 @@
             // zero (2,2) elements of U**H *A and V**H *B, and then swap.
 
             if ( ( ABS1( UA21 )+ABS1( UA22 ) ).EQ.ZERO ) {
-               CALL CLARTG( -CONJG( VB21 ), CONJG( VB22 ), CSQ, SNQ, R )
+               clartg(-CONJG( VB21 ), CONJG( VB22 ), CSQ, SNQ, R );
             } else if ( ( ABS1( VB21 )+ABS( VB22 ) ).EQ.ZERO ) {
-               CALL CLARTG( -CONJG( UA21 ), CONJG( UA22 ), CSQ, SNQ, R )
+               clartg(-CONJG( UA21 ), CONJG( UA22 ), CSQ, SNQ, R );
             } else if ( AUA22 / ( ABS1( UA21 )+ABS1( UA22 ) ).LE.AVB22 / ( ABS1( VB21 )+ABS1( VB22 ) ) ) {
-               CALL CLARTG( -CONJG( UA21 ), CONJG( UA22 ), CSQ, SNQ, R )
+               clartg(-CONJG( UA21 ), CONJG( UA22 ), CSQ, SNQ, R );
             } else {
-               CALL CLARTG( -CONJG( VB21 ), CONJG( VB22 ), CSQ, SNQ, R )
+               clartg(-CONJG( VB21 ), CONJG( VB22 ), CSQ, SNQ, R );
             }
 
             CSU = SNL
@@ -144,7 +144,7 @@
           // ( CSL -SNL )*( A 0 )*(  CSR  SNR ) = ( R 0 )
           // ( SNL  CSL ) ( C D ) ( -SNR  CSR )   ( 0 T )
 
-         CALL SLASV2( A, FC, D, S1, S2, SNR, CSR, SNL, CSL )
+         slasv2(A, FC, D, S1, S2, SNR, CSR, SNL, CSL );
 
          if ( ABS( CSR ).GE.ABS( SNR ) .OR. ABS( CSL ).GE.ABS( SNL ) ) {
 
@@ -163,13 +163,13 @@
             // zero (2,1) elements of U**H *A and V**H *B.
 
             if ( ( ABS1( UA21 )+ABS( UA22R ) ).EQ.ZERO ) {
-               CALL CLARTG( CMPLX( VB22R ), VB21, CSQ, SNQ, R )
+               clartg(CMPLX( VB22R ), VB21, CSQ, SNQ, R );
             } else if ( ( ABS1( VB21 )+ABS( VB22R ) ).EQ.ZERO ) {
-               CALL CLARTG( CMPLX( UA22R ), UA21, CSQ, SNQ, R )
+               clartg(CMPLX( UA22R ), UA21, CSQ, SNQ, R );
             } else if ( AUA21 / ( ABS1( UA21 )+ABS( UA22R ) ).LE.AVB21 / ( ABS1( VB21 )+ABS( VB22R ) ) ) {
-               CALL CLARTG( CMPLX( UA22R ), UA21, CSQ, SNQ, R )
+               clartg(CMPLX( UA22R ), UA21, CSQ, SNQ, R );
             } else {
-               CALL CLARTG( CMPLX( VB22R ), VB21, CSQ, SNQ, R )
+               clartg(CMPLX( VB22R ), VB21, CSQ, SNQ, R );
             }
 
             CSU = CSR
@@ -194,13 +194,13 @@
             // zero (1,1) elements of U**H *A and V**H *B, and then swap.
 
             if ( ( ABS1( UA11 )+ABS1( UA12 ) ).EQ.ZERO ) {
-               CALL CLARTG( VB12, VB11, CSQ, SNQ, R )
+               clartg(VB12, VB11, CSQ, SNQ, R );
             } else if ( ( ABS1( VB11 )+ABS1( VB12 ) ).EQ.ZERO ) {
-               CALL CLARTG( UA12, UA11, CSQ, SNQ, R )
+               clartg(UA12, UA11, CSQ, SNQ, R );
             } else if ( AUA11 / ( ABS1( UA11 )+ABS1( UA12 ) ).LE.AVB11 / ( ABS1( VB11 )+ABS1( VB12 ) ) ) {
-               CALL CLARTG( UA12, UA11, CSQ, SNQ, R )
+               clartg(UA12, UA11, CSQ, SNQ, R );
             } else {
-               CALL CLARTG( VB12, VB11, CSQ, SNQ, R )
+               clartg(VB12, VB11, CSQ, SNQ, R );
             }
 
             CSU = SNR

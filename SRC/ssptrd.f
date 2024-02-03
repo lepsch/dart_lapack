@@ -43,7 +43,7 @@
          INFO = -2
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'SSPTRD', -INFO )
+         xerbla('SSPTRD', -INFO );
          RETURN
       }
 
@@ -62,7 +62,7 @@
             // Generate elementary reflector H(i) = I - tau * v * v**T
             // to annihilate A(1:i-1,i+1)
 
-            CALL SLARFG( I, AP( I1+I-1 ), AP( I1 ), 1, TAUI )
+            slarfg(I, AP( I1+I-1 ), AP( I1 ), 1, TAUI );
             E( I ) = AP( I1+I-1 )
 
             if ( TAUI.NE.ZERO ) {
@@ -73,17 +73,17 @@
 
                // Compute  y := tau * A * v  storing y in TAU(1:i)
 
-               CALL SSPMV( UPLO, I, TAUI, AP, AP( I1 ), 1, ZERO, TAU, 1 )
+               sspmv(UPLO, I, TAUI, AP, AP( I1 ), 1, ZERO, TAU, 1 );
 
                // Compute  w := y - 1/2 * tau * (y**T *v) * v
 
                ALPHA = -HALF*TAUI*SDOT( I, TAU, 1, AP( I1 ), 1 )
-               CALL SAXPY( I, ALPHA, AP( I1 ), 1, TAU, 1 )
+               saxpy(I, ALPHA, AP( I1 ), 1, TAU, 1 );
 
                // Apply the transformation as a rank-2 update:
                   // A := A - v * w**T - w * v**T
 
-               CALL SSPR2( UPLO, I, -ONE, AP( I1 ), 1, TAU, 1, AP )
+               sspr2(UPLO, I, -ONE, AP( I1 ), 1, TAU, 1, AP );
 
                AP( I1+I-1 ) = E( I )
             }
@@ -104,7 +104,7 @@
             // Generate elementary reflector H(i) = I - tau * v * v**T
             // to annihilate A(i+2:n,i)
 
-            CALL SLARFG( N-I, AP( II+1 ), AP( II+2 ), 1, TAUI )
+            slarfg(N-I, AP( II+1 ), AP( II+2 ), 1, TAUI );
             E( I ) = AP( II+1 )
 
             if ( TAUI.NE.ZERO ) {
@@ -115,17 +115,17 @@
 
                // Compute  y := tau * A * v  storing y in TAU(i:n-1)
 
-               CALL SSPMV( UPLO, N-I, TAUI, AP( I1I1 ), AP( II+1 ), 1, ZERO, TAU( I ), 1 )
+               sspmv(UPLO, N-I, TAUI, AP( I1I1 ), AP( II+1 ), 1, ZERO, TAU( I ), 1 );
 
                // Compute  w := y - 1/2 * tau * (y**T *v) * v
 
                ALPHA = -HALF*TAUI*SDOT( N-I, TAU( I ), 1, AP( II+1 ), 1 )
-               CALL SAXPY( N-I, ALPHA, AP( II+1 ), 1, TAU( I ), 1 )
+               saxpy(N-I, ALPHA, AP( II+1 ), 1, TAU( I ), 1 );
 
                // Apply the transformation as a rank-2 update:
                   // A := A - v * w**T - w * v**T
 
-               CALL SSPR2( UPLO, N-I, -ONE, AP( II+1 ), 1, TAU( I ), 1, AP( I1I1 ) )
+               sspr2(UPLO, N-I, -ONE, AP( II+1 ), 1, TAU( I ), 1, AP( I1I1 ) );
 
                AP( II+1 ) = E( I )
             }

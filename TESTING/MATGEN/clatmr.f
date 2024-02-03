@@ -230,7 +230,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'CLATMR', -INFO )
+         xerbla('CLATMR', -INFO );
          RETURN
       }
 
@@ -251,7 +251,7 @@
 
               // Compute D according to COND and MODE
 
-      CALL CLATM1( MODE, COND, IRSIGN, IDIST, ISEED, D, MNMIN, INFO )
+      clatm1(MODE, COND, IRSIGN, IDIST, ISEED, D, MNMIN, INFO );
       if ( INFO.NE.0 ) {
          INFO = 1
          RETURN
@@ -290,7 +290,7 @@
       // Compute DL if grading set
 
       if ( IGRADE.EQ.1 .OR. IGRADE.EQ.3 .OR. IGRADE.EQ.4 .OR. IGRADE.EQ. 5 .OR. IGRADE.EQ.6 ) {
-         CALL CLATM1( MODEL, CONDL, 0, IDIST, ISEED, DL, M, INFO )
+         clatm1(MODEL, CONDL, 0, IDIST, ISEED, DL, M, INFO );
          if ( INFO.NE.0 ) {
             INFO = 3
             RETURN
@@ -300,7 +300,7 @@
       // Compute DR if grading set
 
       if ( IGRADE.EQ.2 .OR. IGRADE.EQ.3 ) {
-         CALL CLATM1( MODER, CONDR, 0, IDIST, ISEED, DR, N, INFO )
+         clatm1(MODER, CONDR, 0, IDIST, ISEED, DR, N, INFO );
          if ( INFO.NE.0 ) {
             INFO = 4
             RETURN
@@ -709,20 +709,20 @@
 
             if ( IPACK.LE.2 ) {
                DO 560 J = 1, N
-                  CALL CSSCAL( M, ONE / ONORM, A( 1, J ), 1 )
-                  CALL CSSCAL( M, ANORM, A( 1, J ), 1 )
+                  csscal(M, ONE / ONORM, A( 1, J ), 1 );
+                  csscal(M, ANORM, A( 1, J ), 1 );
   560          CONTINUE
 
             } else if ( IPACK.EQ.3 .OR. IPACK.EQ.4 ) {
 
-               CALL CSSCAL( N*( N+1 ) / 2, ONE / ONORM, A, 1 )
-               CALL CSSCAL( N*( N+1 ) / 2, ANORM, A, 1 )
+               csscal(N*( N+1 ) / 2, ONE / ONORM, A, 1 );
+               csscal(N*( N+1 ) / 2, ANORM, A, 1 );
 
             } else if ( IPACK.GE.5 ) {
 
                DO 570 J = 1, N
-                  CALL CSSCAL( KLL+KUU+1, ONE / ONORM, A( 1, J ), 1 )
-                  CALL CSSCAL( KLL+KUU+1, ANORM, A( 1, J ), 1 )
+                  csscal(KLL+KUU+1, ONE / ONORM, A( 1, J ), 1 );
+                  csscal(KLL+KUU+1, ANORM, A( 1, J ), 1 );
   570          CONTINUE
 
             }
@@ -733,17 +733,17 @@
 
             if ( IPACK.LE.2 ) {
                DO 580 J = 1, N
-                  CALL CSSCAL( M, ANORM / ONORM, A( 1, J ), 1 )
+                  csscal(M, ANORM / ONORM, A( 1, J ), 1 );
   580          CONTINUE
 
             } else if ( IPACK.EQ.3 .OR. IPACK.EQ.4 ) {
 
-               CALL CSSCAL( N*( N+1 ) / 2, ANORM / ONORM, A, 1 )
+               csscal(N*( N+1 ) / 2, ANORM / ONORM, A, 1 );
 
             } else if ( IPACK.GE.5 ) {
 
                DO 590 J = 1, N
-                  CALL CSSCAL( KLL+KUU+1, ANORM / ONORM, A( 1, J ), 1 )
+                  csscal(KLL+KUU+1, ANORM / ONORM, A( 1, J ), 1 );
   590          CONTINUE
             }
 

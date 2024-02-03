@@ -53,7 +53,7 @@
           INFO = 9
       }
       if (INFO.NE.0) {
-          CALL XERBLA('DTBSV ',INFO)
+          xerbla('DTBSV ',INFO);
           RETURN
       }
 

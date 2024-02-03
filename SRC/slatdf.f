@@ -45,7 +45,7 @@
 
          // Apply permutations IPIV to RHS
 
-         CALL SLASWP( 1, RHS, LDZ, 1, N-1, IPIV, 1 )
+         slaswp(1, RHS, LDZ, 1, N-1, IPIV, 1 );
 
          // Solve for L-part choosing RHS either to +1 or -1.
 
@@ -81,7 +81,7 @@
             // Compute the remaining r.h.s.
 
             TEMP = -RHS( J )
-            CALL SAXPY( N-J, TEMP, Z( J+1, J ), 1, RHS( J+1 ), 1 )
+            saxpy(N-J, TEMP, Z( J+1, J ), 1, RHS( J+1 ), 1 );
 
    10    CONTINUE
 
@@ -90,7 +90,7 @@
          // any ill-conditioning of the original matrix is transferred to U
          // and not to L. U(N, N) is an approximation to sigma_min(LU).
 
-         CALL SCOPY( N-1, RHS, 1, XP, 1 )
+         scopy(N-1, RHS, 1, XP, 1 );
          XP( N ) = RHS( N ) + ONE
          RHS( N ) = RHS( N ) - ONE
          SPLUS = ZERO
@@ -110,34 +110,34 @@
 
          // Apply the permutations JPIV to the computed solution (RHS)
 
-         CALL SLASWP( 1, RHS, LDZ, 1, N-1, JPIV, -1 )
+         slaswp(1, RHS, LDZ, 1, N-1, JPIV, -1 );
 
          // Compute the sum of squares
 
-         CALL SLASSQ( N, RHS, 1, RDSCAL, RDSUM )
+         slassq(N, RHS, 1, RDSCAL, RDSUM );
 
       } else {
 
          // IJOB = 2, Compute approximate nullvector XM of Z
 
-         CALL SGECON( 'I', N, Z, LDZ, ONE, TEMP, WORK, IWORK, INFO )
-         CALL SCOPY( N, WORK( N+1 ), 1, XM, 1 )
+         sgecon('I', N, Z, LDZ, ONE, TEMP, WORK, IWORK, INFO );
+         scopy(N, WORK( N+1 ), 1, XM, 1 );
 
          // Compute RHS
 
-         CALL SLASWP( 1, XM, LDZ, 1, N-1, IPIV, -1 )
+         slaswp(1, XM, LDZ, 1, N-1, IPIV, -1 );
          TEMP = ONE / SQRT( SDOT( N, XM, 1, XM, 1 ) )
-         CALL SSCAL( N, TEMP, XM, 1 )
-         CALL SCOPY( N, XM, 1, XP, 1 )
-         CALL SAXPY( N, ONE, RHS, 1, XP, 1 )
-         CALL SAXPY( N, -ONE, XM, 1, RHS, 1 )
-         CALL SGESC2( N, Z, LDZ, RHS, IPIV, JPIV, TEMP )
-         CALL SGESC2( N, Z, LDZ, XP, IPIV, JPIV, TEMP )
+         sscal(N, TEMP, XM, 1 );
+         scopy(N, XM, 1, XP, 1 );
+         saxpy(N, ONE, RHS, 1, XP, 1 );
+         saxpy(N, -ONE, XM, 1, RHS, 1 );
+         sgesc2(N, Z, LDZ, RHS, IPIV, JPIV, TEMP );
+         sgesc2(N, Z, LDZ, XP, IPIV, JPIV, TEMP );
          IF( SASUM( N, XP, 1 ).GT.SASUM( N, RHS, 1 ) ) CALL SCOPY( N, XP, 1, RHS, 1 )
 
          // Compute the sum of squares
 
-         CALL SLASSQ( N, RHS, 1, RDSCAL, RDSUM )
+         slassq(N, RHS, 1, RDSCAL, RDSUM );
 
       }
 

@@ -49,7 +49,7 @@
 
       // a) Revert to multipliers of L
 
-      CALL CSYCONVF_ROOK( UPLO, 'R', N, AFAC, LDAFAC, E, IPIV, INFO )
+      csyconvf_rook(UPLO, 'R', N, AFAC, LDAFAC, E, IPIV, INFO );
 
       // 1) Determine EPS and the norm of A.
 
@@ -68,15 +68,15 @@
 
       // 2) Initialize C to the identity matrix.
 
-      CALL CLASET( 'Full', N, N, CZERO, CONE, C, LDC )
+      claset('Full', N, N, CZERO, CONE, C, LDC );
 
       // 3) Call CLAVHE_ROOK to form the product D * U' (or D * L' ).
 
-      CALL CLAVHE_ROOK( UPLO, 'Conjugate', 'Non-unit', N, N, AFAC, LDAFAC, IPIV, C, LDC, INFO )
+      clavhe_rook(UPLO, 'Conjugate', 'Non-unit', N, N, AFAC, LDAFAC, IPIV, C, LDC, INFO );
 
       // 4) Call ZLAVHE_RK again to multiply by U (or L ).
 
-      CALL CLAVHE_ROOK( UPLO, 'No transpose', 'Unit', N, N, AFAC, LDAFAC, IPIV, C, LDC, INFO )
+      clavhe_rook(UPLO, 'No transpose', 'Unit', N, N, AFAC, LDAFAC, IPIV, C, LDC, INFO );
 
       // 5) Compute the difference  C - A .
 
@@ -108,7 +108,7 @@
 
       // b) Convert to factor of L (or U)
 
-      CALL CSYCONVF_ROOK( UPLO, 'C', N, AFAC, LDAFAC, E, IPIV, INFO )
+      csyconvf_rook(UPLO, 'C', N, AFAC, LDAFAC, E, IPIV, INFO );
 
       RETURN
 

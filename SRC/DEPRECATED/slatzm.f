@@ -37,26 +37,26 @@
 
          // w :=  (C1 + v**T * C2)**T
 
-         CALL SCOPY( N, C1, LDC, WORK, 1 )
-         CALL SGEMV( 'Transpose', M-1, N, ONE, C2, LDC, V, INCV, ONE, WORK, 1 )
+         scopy(N, C1, LDC, WORK, 1 );
+         sgemv('Transpose', M-1, N, ONE, C2, LDC, V, INCV, ONE, WORK, 1 );
 
          // [ C1 ] := [ C1 ] - tau* [ 1 ] * w**T
          // [ C2 ]    [ C2 ]        [ v ]
 
-         CALL SAXPY( N, -TAU, WORK, 1, C1, LDC )
-         CALL SGER( M-1, N, -TAU, V, INCV, WORK, 1, C2, LDC )
+         saxpy(N, -TAU, WORK, 1, C1, LDC );
+         sger(M-1, N, -TAU, V, INCV, WORK, 1, C2, LDC );
 
       } else if ( LSAME( SIDE, 'R' ) ) {
 
          // w := C1 + C2 * v
 
-         CALL SCOPY( M, C1, 1, WORK, 1 )
-         CALL SGEMV( 'No transpose', M, N-1, ONE, C2, LDC, V, INCV, ONE, WORK, 1 )
+         scopy(M, C1, 1, WORK, 1 );
+         sgemv('No transpose', M, N-1, ONE, C2, LDC, V, INCV, ONE, WORK, 1 );
 
          // [ C1, C2 ] := [ C1, C2 ] - tau* w * [ 1 , v**T]
 
-         CALL SAXPY( M, -TAU, WORK, 1, C1, 1 )
-         CALL SGER( M, N-1, -TAU, WORK, 1, V, INCV, C2, LDC )
+         saxpy(M, -TAU, WORK, 1, C1, 1 );
+         sger(M, N-1, -TAU, WORK, 1, V, INCV, C2, LDC );
       }
 
       RETURN

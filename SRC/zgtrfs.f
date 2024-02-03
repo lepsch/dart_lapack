@@ -71,7 +71,7 @@
          INFO = -15
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'ZGTRFS', -INFO )
+         xerbla('ZGTRFS', -INFO );
          RETURN
       }
 
@@ -114,8 +114,8 @@
          // Compute residual R = B - op(A) * X,
          // where op(A) = A, A**T, or A**H, depending on TRANS.
 
-         CALL ZCOPY( N, B( 1, J ), 1, WORK, 1 )
-         CALL ZLAGTM( TRANS, N, 1, -ONE, DL, D, DU, X( 1, J ), LDX, ONE, WORK, N )
+         zcopy(N, B( 1, J ), 1, WORK, 1 );
+         zlagtm(TRANS, N, 1, -ONE, DL, D, DU, X( 1, J ), LDX, ONE, WORK, N );
 
          // Compute abs(op(A))*abs(x) + abs(b) for use in the backward
          // error bound.
@@ -171,8 +171,8 @@
 
             // Update solution and try again.
 
-            CALL ZGTTRS( TRANS, N, 1, DLF, DF, DUF, DU2, IPIV, WORK, N, INFO )
-            CALL ZAXPY( N, DCMPLX( ONE ), WORK, 1, X( 1, J ), 1 )
+            zgttrs(TRANS, N, 1, DLF, DF, DUF, DU2, IPIV, WORK, N, INFO );
+            zaxpy(N, DCMPLX( ONE ), WORK, 1, X( 1, J ), 1 );
             LSTRES = BERR( J )
             COUNT = COUNT + 1
             GO TO 20
@@ -210,13 +210,13 @@
 
          KASE = 0
    70    CONTINUE
-         CALL ZLACN2( N, WORK( N+1 ), WORK, FERR( J ), KASE, ISAVE )
+         zlacn2(N, WORK( N+1 ), WORK, FERR( J ), KASE, ISAVE );
          if ( KASE.NE.0 ) {
             if ( KASE.EQ.1 ) {
 
                // Multiply by diag(W)*inv(op(A)**H).
 
-               CALL ZGTTRS( TRANST, N, 1, DLF, DF, DUF, DU2, IPIV, WORK, N, INFO )
+               zgttrs(TRANST, N, 1, DLF, DF, DUF, DU2, IPIV, WORK, N, INFO );
                DO 80 I = 1, N
                   WORK( I ) = RWORK( I )*WORK( I )
    80          CONTINUE
@@ -227,7 +227,7 @@
                DO 90 I = 1, N
                   WORK( I ) = RWORK( I )*WORK( I )
    90          CONTINUE
-               CALL ZGTTRS( TRANSN, N, 1, DLF, DF, DUF, DU2, IPIV, WORK, N, INFO )
+               zgttrs(TRANSN, N, 1, DLF, DF, DUF, DU2, IPIV, WORK, N, INFO );
             }
             GO TO 70
          }

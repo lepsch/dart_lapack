@@ -69,7 +69,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'SSTEVX', -INFO )
+         xerbla('SSTEVX', -INFO );
          RETURN
       }
 
@@ -120,8 +120,8 @@
          SIGMA = RMAX / TNRM
       }
       if ( ISCALE.EQ.1 ) {
-         CALL SSCAL( N, SIGMA, D, 1 )
-         CALL SSCAL( N-1, SIGMA, E( 1 ), 1 )
+         sscal(N, SIGMA, D, 1 );
+         sscal(N-1, SIGMA, E( 1 ), 1 );
          if ( VALEIG ) {
             VLL = VL*SIGMA
             VUU = VU*SIGMA
@@ -139,13 +139,13 @@
          }
       }
       if ( ( ALLEIG .OR. TEST ) .AND. ( ABSTOL.LE.ZERO ) ) {
-         CALL SCOPY( N, D, 1, W, 1 )
-         CALL SCOPY( N-1, E( 1 ), 1, WORK( 1 ), 1 )
+         scopy(N, D, 1, W, 1 );
+         scopy(N-1, E( 1 ), 1, WORK( 1 ), 1 );
          INDWRK = N + 1
          if ( .NOT.WANTZ ) {
-            CALL SSTERF( N, W, WORK, INFO )
+            ssterf(N, W, WORK, INFO );
          } else {
-            CALL SSTEQR( 'I', N, W, WORK, Z, LDZ, WORK( INDWRK ), INFO )
+            ssteqr('I', N, W, WORK, Z, LDZ, WORK( INDWRK ), INFO );
             if ( INFO.EQ.0 ) {
                DO 10 I = 1, N
                   IFAIL( I ) = 0
@@ -169,10 +169,10 @@
       INDWRK = 1
       INDISP = 1 + N
       INDIWO = INDISP + N
-      CALL SSTEBZ( RANGE, ORDER, N, VLL, VUU, IL, IU, ABSTOL, D, E, M, NSPLIT, W, IWORK( 1 ), IWORK( INDISP ), WORK( INDWRK ), IWORK( INDIWO ), INFO )
+      sstebz(RANGE, ORDER, N, VLL, VUU, IL, IU, ABSTOL, D, E, M, NSPLIT, W, IWORK( 1 ), IWORK( INDISP ), WORK( INDWRK ), IWORK( INDIWO ), INFO );
 
       if ( WANTZ ) {
-         CALL SSTEIN( N, D, E, M, W, IWORK( 1 ), IWORK( INDISP ), Z, LDZ, WORK( INDWRK ), IWORK( INDIWO ), IFAIL, INFO )
+         sstein(N, D, E, M, W, IWORK( 1 ), IWORK( INDISP ), Z, LDZ, WORK( INDWRK ), IWORK( INDIWO ), IFAIL, INFO );
       }
 
       // If matrix was scaled, then rescale eigenvalues appropriately.
@@ -184,7 +184,7 @@
          } else {
             IMAX = INFO - 1
          }
-         CALL SSCAL( IMAX, ONE / SIGMA, W, 1 )
+         sscal(IMAX, ONE / SIGMA, W, 1 );
       }
 
       // If eigenvalues are not in order, then sort them, along with
@@ -207,7 +207,7 @@
                IWORK( 1 + I-1 ) = IWORK( 1 + J-1 )
                W( J ) = TMP1
                IWORK( 1 + J-1 ) = ITMP1
-               CALL SSWAP( N, Z( 1, I ), 1, Z( 1, J ), 1 )
+               sswap(N, Z( 1, I ), 1, Z( 1, J ), 1 );
                if ( INFO.NE.0 ) {
                   ITMP1 = IFAIL( I )
                   IFAIL( I ) = IFAIL( J )

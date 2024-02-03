@@ -40,18 +40,18 @@
          INFO = -7
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'ZSPSV ', -INFO )
+         xerbla('ZSPSV ', -INFO );
          RETURN
       }
 
       // Compute the factorization A = U*D*U**T or A = L*D*L**T.
 
-      CALL ZSPTRF( UPLO, N, AP, IPIV, INFO )
+      zsptrf(UPLO, N, AP, IPIV, INFO );
       if ( INFO.EQ.0 ) {
 
          // Solve the system A*X = B, overwriting B with X.
 
-         CALL ZSPTRS( UPLO, N, NRHS, AP, IPIV, B, LDB, INFO )
+         zsptrs(UPLO, N, NRHS, AP, IPIV, B, LDB, INFO );
 
       }
       RETURN

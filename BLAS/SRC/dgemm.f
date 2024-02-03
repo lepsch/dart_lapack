@@ -73,7 +73,7 @@
           INFO = 13
       }
       if (INFO.NE.0) {
-          CALL XERBLA('DGEMM ',INFO)
+          xerbla('DGEMM ',INFO);
           RETURN
       }
 

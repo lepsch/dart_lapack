@@ -108,7 +108,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'SSYEVR_2STAGE', -INFO )
+         xerbla('SSYEVR_2STAGE', -INFO );
          RETURN
       } else if ( LQUERY ) {
          RETURN
@@ -169,11 +169,11 @@
       if ( ISCALE.EQ.1 ) {
          if ( LOWER ) {
             DO 10 J = 1, N
-               CALL SSCAL( N-J+1, SIGMA, A( J, J ), 1 )
+               sscal(N-J+1, SIGMA, A( J, J ), 1 );
    10       CONTINUE
          } else {
             DO 20 J = 1, N
-               CALL SSCAL( J, SIGMA, A( 1, J ), 1 )
+               sscal(J, SIGMA, A( 1, J ), 1 );
    20       CONTINUE
          }
          IF( ABSTOL.GT.0 ) ABSTLL = ABSTOL*SIGMA
@@ -226,7 +226,7 @@
       // Call SSYTRD_2STAGE to reduce symmetric matrix to tridiagonal form.
 
 
-      CALL SSYTRD_2STAGE( JOBZ, UPLO, N, A, LDA, WORK( INDD ), WORK( INDE ), WORK( INDTAU ), WORK( INDHOUS ), LHTRD, WORK( INDWK ), LLWORK, IINFO )
+      ssytrd_2stage(JOBZ, UPLO, N, A, LDA, WORK( INDD ), WORK( INDE ), WORK( INDTAU ), WORK( INDHOUS ), LHTRD, WORK( INDWK ), LLWORK, IINFO );
 
       // If all eigenvalues are desired
       // then call SSTERF or SSTEMR and SORMTR.
@@ -239,19 +239,19 @@
       }
       if ( ( ALLEIG.OR.TEST ) .AND. ( IEEEOK.EQ.1 ) ) {
          if ( .NOT.WANTZ ) {
-            CALL SCOPY( N, WORK( INDD ), 1, W, 1 )
-            CALL SCOPY( N-1, WORK( INDE ), 1, WORK( INDEE ), 1 )
-            CALL SSTERF( N, W, WORK( INDEE ), INFO )
+            scopy(N, WORK( INDD ), 1, W, 1 );
+            scopy(N-1, WORK( INDE ), 1, WORK( INDEE ), 1 );
+            ssterf(N, W, WORK( INDEE ), INFO );
          } else {
-            CALL SCOPY( N-1, WORK( INDE ), 1, WORK( INDEE ), 1 )
-            CALL SCOPY( N, WORK( INDD ), 1, WORK( INDDD ), 1 )
+            scopy(N-1, WORK( INDE ), 1, WORK( INDEE ), 1 );
+            scopy(N, WORK( INDD ), 1, WORK( INDDD ), 1 );
 
             if (ABSTOL .LE. TWO*N*EPS) {
                TRYRAC = .TRUE.
             } else {
                TRYRAC = .FALSE.
             }
-            CALL SSTEMR( JOBZ, 'A', N, WORK( INDDD ), WORK( INDEE ), VL, VU, IL, IU, M, W, Z, LDZ, N, ISUPPZ, TRYRAC, WORK( INDWK ), LWORK, IWORK, LIWORK, INFO )
+            sstemr(JOBZ, 'A', N, WORK( INDDD ), WORK( INDEE ), VL, VU, IL, IU, M, W, Z, LDZ, N, ISUPPZ, TRYRAC, WORK( INDWK ), LWORK, IWORK, LIWORK, INFO );
 
 
 
@@ -261,7 +261,7 @@
             if ( WANTZ .AND. INFO.EQ.0 ) {
                INDWKN = INDE
                LLWRKN = LWORK - INDWKN + 1
-               CALL SORMTR( 'L', UPLO, 'N', N, M, A, LDA, WORK( INDTAU ), Z, LDZ, WORK( INDWKN ), LLWRKN, IINFO )
+               sormtr('L', UPLO, 'N', N, M, A, LDA, WORK( INDTAU ), Z, LDZ, WORK( INDWKN ), LLWRKN, IINFO );
             }
          }
 
@@ -283,17 +283,17 @@
       } else {
          ORDER = 'E'
       }
-       CALL SSTEBZ( RANGE, ORDER, N, VLL, VUU, IL, IU, ABSTLL, WORK( INDD ), WORK( INDE ), M, NSPLIT, W, IWORK( INDIBL ), IWORK( INDISP ), WORK( INDWK ), IWORK( INDIWO ), INFO )
+       sstebz(RANGE, ORDER, N, VLL, VUU, IL, IU, ABSTLL, WORK( INDD ), WORK( INDE ), M, NSPLIT, W, IWORK( INDIBL ), IWORK( INDISP ), WORK( INDWK ), IWORK( INDIWO ), INFO );
 
       if ( WANTZ ) {
-         CALL SSTEIN( N, WORK( INDD ), WORK( INDE ), M, W, IWORK( INDIBL ), IWORK( INDISP ), Z, LDZ, WORK( INDWK ), IWORK( INDIWO ), IWORK( INDIFL ), INFO )
+         sstein(N, WORK( INDD ), WORK( INDE ), M, W, IWORK( INDIBL ), IWORK( INDISP ), Z, LDZ, WORK( INDWK ), IWORK( INDIWO ), IWORK( INDIFL ), INFO );
 
          // Apply orthogonal matrix used in reduction to tridiagonal
          // form to eigenvectors returned by SSTEIN.
 
          INDWKN = INDE
          LLWRKN = LWORK - INDWKN + 1
-         CALL SORMTR( 'L', UPLO, 'N', N, M, A, LDA, WORK( INDTAU ), Z, LDZ, WORK( INDWKN ), LLWRKN, IINFO )
+         sormtr('L', UPLO, 'N', N, M, A, LDA, WORK( INDTAU ), Z, LDZ, WORK( INDWKN ), LLWRKN, IINFO );
       }
 
       // If matrix was scaled, then rescale eigenvalues appropriately.
@@ -306,7 +306,7 @@
          } else {
             IMAX = INFO - 1
          }
-         CALL SSCAL( IMAX, ONE / SIGMA, W, 1 )
+         sscal(IMAX, ONE / SIGMA, W, 1 );
       }
 
       // If eigenvalues are not in order, then sort them, along with
@@ -328,7 +328,7 @@
             if ( I.NE.0 ) {
                W( I ) = W( J )
                W( J ) = TMP1
-               CALL SSWAP( N, Z( 1, I ), 1, Z( 1, J ), 1 )
+               sswap(N, Z( 1, I ), 1, Z( 1, J ), 1 );
             }
    50    CONTINUE
       }

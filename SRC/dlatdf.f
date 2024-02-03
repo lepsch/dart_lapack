@@ -45,7 +45,7 @@
 
          // Apply permutations IPIV to RHS
 
-         CALL DLASWP( 1, RHS, LDZ, 1, N-1, IPIV, 1 )
+         dlaswp(1, RHS, LDZ, 1, N-1, IPIV, 1 );
 
          // Solve for L-part choosing RHS either to +1 or -1.
 
@@ -81,7 +81,7 @@
             // Compute the remaining r.h.s.
 
             TEMP = -RHS( J )
-            CALL DAXPY( N-J, TEMP, Z( J+1, J ), 1, RHS( J+1 ), 1 )
+            daxpy(N-J, TEMP, Z( J+1, J ), 1, RHS( J+1 ), 1 );
 
    10    CONTINUE
 
@@ -90,7 +90,7 @@
          // any ill-conditioning of the original matrix is transferred to U
          // and not to L. U(N, N) is an approximation to sigma_min(LU).
 
-         CALL DCOPY( N-1, RHS, 1, XP, 1 )
+         dcopy(N-1, RHS, 1, XP, 1 );
          XP( N ) = RHS( N ) + ONE
          RHS( N ) = RHS( N ) - ONE
          SPLUS = ZERO
@@ -110,34 +110,34 @@
 
          // Apply the permutations JPIV to the computed solution (RHS)
 
-         CALL DLASWP( 1, RHS, LDZ, 1, N-1, JPIV, -1 )
+         dlaswp(1, RHS, LDZ, 1, N-1, JPIV, -1 );
 
          // Compute the sum of squares
 
-         CALL DLASSQ( N, RHS, 1, RDSCAL, RDSUM )
+         dlassq(N, RHS, 1, RDSCAL, RDSUM );
 
       } else {
 
          // IJOB = 2, Compute approximate nullvector XM of Z
 
-         CALL DGECON( 'I', N, Z, LDZ, ONE, TEMP, WORK, IWORK, INFO )
-         CALL DCOPY( N, WORK( N+1 ), 1, XM, 1 )
+         dgecon('I', N, Z, LDZ, ONE, TEMP, WORK, IWORK, INFO );
+         dcopy(N, WORK( N+1 ), 1, XM, 1 );
 
          // Compute RHS
 
-         CALL DLASWP( 1, XM, LDZ, 1, N-1, IPIV, -1 )
+         dlaswp(1, XM, LDZ, 1, N-1, IPIV, -1 );
          TEMP = ONE / SQRT( DDOT( N, XM, 1, XM, 1 ) )
-         CALL DSCAL( N, TEMP, XM, 1 )
-         CALL DCOPY( N, XM, 1, XP, 1 )
-         CALL DAXPY( N, ONE, RHS, 1, XP, 1 )
-         CALL DAXPY( N, -ONE, XM, 1, RHS, 1 )
-         CALL DGESC2( N, Z, LDZ, RHS, IPIV, JPIV, TEMP )
-         CALL DGESC2( N, Z, LDZ, XP, IPIV, JPIV, TEMP )
+         dscal(N, TEMP, XM, 1 );
+         dcopy(N, XM, 1, XP, 1 );
+         daxpy(N, ONE, RHS, 1, XP, 1 );
+         daxpy(N, -ONE, XM, 1, RHS, 1 );
+         dgesc2(N, Z, LDZ, RHS, IPIV, JPIV, TEMP );
+         dgesc2(N, Z, LDZ, XP, IPIV, JPIV, TEMP );
          IF( DASUM( N, XP, 1 ).GT.DASUM( N, RHS, 1 ) ) CALL DCOPY( N, XP, 1, RHS, 1 )
 
          // Compute the sum of squares
 
-         CALL DLASSQ( N, RHS, 1, RDSCAL, RDSUM )
+         dlassq(N, RHS, 1, RDSCAL, RDSUM );
 
       }
 

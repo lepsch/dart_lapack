@@ -51,15 +51,15 @@
       // Copy A to WORK
 
       LDWORK = MAX( 1, N )
-      CALL DLACPY( ' ', N, N, A, LDA, WORK, LDWORK )
+      dlacpy(' ', N, N, A, LDA, WORK, LDWORK );
 
       // Compute Q*H
 
-      CALL DGEMM( 'No transpose', 'No transpose', N, N, N, ONE, Q, LDQ, H, LDH, ZERO, WORK( LDWORK*N+1 ), LDWORK )
+      dgemm('No transpose', 'No transpose', N, N, N, ONE, Q, LDQ, H, LDH, ZERO, WORK( LDWORK*N+1 ), LDWORK );
 
       // Compute A - Q*H*Q'
 
-      CALL DGEMM( 'No transpose', 'Transpose', N, N, N, -ONE, WORK( LDWORK*N+1 ), LDWORK, Q, LDQ, ONE, WORK, LDWORK )
+      dgemm('No transpose', 'Transpose', N, N, N, -ONE, WORK( LDWORK*N+1 ), LDWORK, Q, LDQ, ONE, WORK, LDWORK );
 
       ANORM = MAX( DLANGE( '1', N, N, A, LDA, WORK( LDWORK*N+1 ) ), UNFL )
       WNORM = DLANGE( '1', N, N, WORK, LDWORK, WORK( LDWORK*N+1 ) )
@@ -70,7 +70,7 @@
 
       // Test 2:  Compute norm( I - Q'*Q ) / ( N * EPS )
 
-      CALL DORT01( 'Columns', N, N, Q, LDQ, WORK, LWORK, RESULT( 2 ) )
+      dort01('Columns', N, N, Q, LDQ, WORK, LWORK, RESULT( 2 ) );
 
       RETURN
 

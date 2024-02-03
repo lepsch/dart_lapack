@@ -44,7 +44,7 @@
          INFO = -4
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'DGETRF', -INFO )
+         xerbla('DGETRF', -INFO );
          RETURN
       }
 
@@ -59,7 +59,7 @@
 
          // Use unblocked code.
 
-         CALL DGETF2( M, N, A, LDA, IPIV, INFO )
+         dgetf2(M, N, A, LDA, IPIV, INFO );
       } else {
 
          // Use blocked code.
@@ -69,13 +69,13 @@
 
             // Update current block.
 
-            CALL DGEMM( 'No transpose', 'No transpose', M-J+1, JB, J-1, -ONE, A( J, 1 ), LDA, A( 1, J ), LDA, ONE, A( J, J ), LDA )
+            dgemm('No transpose', 'No transpose', M-J+1, JB, J-1, -ONE, A( J, 1 ), LDA, A( 1, J ), LDA, ONE, A( J, J ), LDA );
 
 
             // Factor diagonal and subdiagonal blocks and test for exact
             // singularity.
 
-            CALL DGETF2( M-J+1, JB, A( J, J ), LDA, IPIV( J ), IINFO )
+            dgetf2(M-J+1, JB, A( J, J ), LDA, IPIV( J ), IINFO );
 
             // Adjust INFO and the pivot indices.
 
@@ -86,19 +86,19 @@
 
             // Apply interchanges to column 1:J-1
 
-            CALL DLASWP( J-1, A, LDA, J, J+JB-1, IPIV, 1 )
+            dlaswp(J-1, A, LDA, J, J+JB-1, IPIV, 1 );
 
             if ( J+JB.LE.N ) {
 
                // Apply interchanges to column J+JB:N
 
-               CALL DLASWP( N-J-JB+1, A( 1, J+JB ), LDA, J, J+JB-1, IPIV, 1 )
+               dlaswp(N-J-JB+1, A( 1, J+JB ), LDA, J, J+JB-1, IPIV, 1 );
 
-               CALL DGEMM( 'No transpose', 'No transpose', JB, N-J-JB+1, J-1, -ONE, A( J, 1 ), LDA, A( 1, J+JB ), LDA, ONE, A( J, J+JB ), LDA )
+               dgemm('No transpose', 'No transpose', JB, N-J-JB+1, J-1, -ONE, A( J, 1 ), LDA, A( 1, J+JB ), LDA, ONE, A( J, J+JB ), LDA );
 
                // Compute block row of U.
 
-               CALL DTRSM( 'Left', 'Lower', 'No transpose', 'Unit', JB, N-J-JB+1, ONE, A( J, J ), LDA, A( J, J+JB ), LDA )
+               dtrsm('Left', 'Lower', 'No transpose', 'Unit', JB, N-J-JB+1, ONE, A( J, J ), LDA, A( J, J+JB ), LDA );
             }
 
    20    CONTINUE

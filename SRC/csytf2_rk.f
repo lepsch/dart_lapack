@@ -61,7 +61,7 @@
          INFO = -4
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'CSYTF2_RK', -INFO )
+         xerbla('CSYTF2_RK', -INFO );
          RETURN
       }
 
@@ -269,11 +269,11 @@
                         // = A - W(k)*1/D(k)*W(k)**T
 
                      D11 = CONE / A( K, K )
-                     CALL CSYR( UPLO, K-1, -D11, A( 1, K ), 1, A, LDA )
+                     csyr(UPLO, K-1, -D11, A( 1, K ), 1, A, LDA );
 
                      // Store U(k) in column k
 
-                     CALL CSCAL( K-1, D11, A( 1, K ), 1 )
+                     cscal(K-1, D11, A( 1, K ), 1 );
                   } else {
 
                      // Store L(k) in column K
@@ -288,7 +288,7 @@
                         // = A - W(k)*(1/D(k))*W(k)**T
                         // = A - (W(k)/D(k))*(D(k))*(W(k)/D(K))**T
 
-                     CALL CSYR( UPLO, K-1, -D11, A( 1, K ), 1, A, LDA )
+                     csyr(UPLO, K-1, -D11, A( 1, K ), 1, A, LDA );
                   }
 
                   // Store the superdiagonal element of D in array E
@@ -562,11 +562,11 @@
                         // = A - W(k)*(1/D(k))*W(k)**T
 
                      D11 = CONE / A( K, K )
-                     CALL CSYR( UPLO, N-K, -D11, A( K+1, K ), 1, A( K+1, K+1 ), LDA )
+                     csyr(UPLO, N-K, -D11, A( K+1, K ), 1, A( K+1, K+1 ), LDA );
 
                      // Store L(k) in column k
 
-                     CALL CSCAL( N-K, D11, A( K+1, K ), 1 )
+                     cscal(N-K, D11, A( K+1, K ), 1 );
                   } else {
 
                      // Store L(k) in column k
@@ -581,7 +581,7 @@
                         // = A - W(k)*(1/D(k))*W(k)**T
                         // = A - (W(k)/D(k))*(D(k))*(W(k)/D(K))**T
 
-                     CALL CSYR( UPLO, N-K, -D11, A( K+1, K ), 1, A( K+1, K+1 ), LDA )
+                     csyr(UPLO, N-K, -D11, A( K+1, K ), 1, A( K+1, K+1 ), LDA );
                   }
 
                   // Store the subdiagonal element of D in array E

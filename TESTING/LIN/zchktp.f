@@ -105,7 +105,7 @@
                // Call ZLATTP to generate a triangular test matrix.
 
                SRNAMT = 'ZLATTP'
-               CALL ZLATTP( IMAT, UPLO, 'No transpose', DIAG, ISEED, N, AP, X, WORK, RWORK, INFO )
+               zlattp(IMAT, UPLO, 'No transpose', DIAG, ISEED, N, AP, X, WORK, RWORK, INFO );
 
                // Set IDIAG = 1 for non-unit matrices, 2 for unit.
 
@@ -120,7 +120,7 @@
 
                IF( N.GT.0 ) CALL ZCOPY( LAP, AP, 1, AINVP, 1 )
                SRNAMT = 'ZTPTRI'
-               CALL ZTPTRI( UPLO, DIAG, N, AINVP, INFO )
+               ztptri(UPLO, DIAG, N, AINVP, INFO );
 
                // Check error code from ZTPTRI.
 
@@ -139,7 +139,7 @@
                // Compute the residual for the triangular matrix times its
                // inverse.  Also compute the 1-norm condition number of A.
 
-               CALL ZTPT01( UPLO, DIAG, N, AP, AINVP, RCONDO, RWORK, RESULT( 1 ) )
+               ztpt01(UPLO, DIAG, N, AP, AINVP, RCONDO, RWORK, RESULT( 1 ) );
 
                // Print the test ratio if it is .GE. THRESH.
 
@@ -170,36 +170,36 @@
                   // Solve and compute residual for op(A)*x = b.
 
                      SRNAMT = 'ZLARHS'
-                     CALL ZLARHS( PATH, XTYPE, UPLO, TRANS, N, N, 0, IDIAG, NRHS, AP, LAP, XACT, LDA, B, LDA, ISEED, INFO )
+                     zlarhs(PATH, XTYPE, UPLO, TRANS, N, N, 0, IDIAG, NRHS, AP, LAP, XACT, LDA, B, LDA, ISEED, INFO );
                      XTYPE = 'C'
-                     CALL ZLACPY( 'Full', N, NRHS, B, LDA, X, LDA )
+                     zlacpy('Full', N, NRHS, B, LDA, X, LDA );
 
                      SRNAMT = 'ZTPTRS'
-                     CALL ZTPTRS( UPLO, TRANS, DIAG, N, NRHS, AP, X, LDA, INFO )
+                     ztptrs(UPLO, TRANS, DIAG, N, NRHS, AP, X, LDA, INFO );
 
                   // Check error code from ZTPTRS.
 
                      IF( INFO.NE.0 ) CALL ALAERH( PATH, 'ZTPTRS', INFO, 0, UPLO // TRANS // DIAG, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT )
 
-                     CALL ZTPT02( UPLO, TRANS, DIAG, N, NRHS, AP, X, LDA, B, LDA, WORK, RWORK, RESULT( 2 ) )
+                     ztpt02(UPLO, TRANS, DIAG, N, NRHS, AP, X, LDA, B, LDA, WORK, RWORK, RESULT( 2 ) );
 
 *+    TEST 3
                   // Check solution from generated exact solution.
 
-                     CALL ZGET04( N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 3 ) )
+                     zget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 3 ) );
 
 *+    TESTS 4, 5, and 6
                   // Use iterative refinement to improve the solution and
                   // compute error bounds.
 
                      SRNAMT = 'ZTPRFS'
-                     CALL ZTPRFS( UPLO, TRANS, DIAG, N, NRHS, AP, B, LDA, X, LDA, RWORK, RWORK( NRHS+1 ), WORK, RWORK( 2*NRHS+1 ), INFO )
+                     ztprfs(UPLO, TRANS, DIAG, N, NRHS, AP, B, LDA, X, LDA, RWORK, RWORK( NRHS+1 ), WORK, RWORK( 2*NRHS+1 ), INFO );
 
                   // Check error code from ZTPRFS.
 
                      IF( INFO.NE.0 ) CALL ALAERH( PATH, 'ZTPRFS', INFO, 0, UPLO // TRANS // DIAG, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT )
 
-                     CALL ZGET04( N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 4 ) )                      CALL ZTPT05( UPLO, TRANS, DIAG, N, NRHS, AP, B, LDA, X, LDA, XACT, LDA, RWORK, RWORK( NRHS+1 ), RESULT( 5 ) )
+                     zget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 4 ) )                      CALL ZTPT05( UPLO, TRANS, DIAG, N, NRHS, AP, B, LDA, X, LDA, XACT, LDA, RWORK, RWORK( NRHS+1 ), RESULT( 5 ) );
 
                      // Print information about the tests that did not pass
                      // the threshold.
@@ -226,13 +226,13 @@
                      RCONDC = RCONDI
                   }
                   SRNAMT = 'ZTPCON'
-                  CALL ZTPCON( NORM, UPLO, DIAG, N, AP, RCOND, WORK, RWORK, INFO )
+                  ztpcon(NORM, UPLO, DIAG, N, AP, RCOND, WORK, RWORK, INFO );
 
                   // Check error code from ZTPCON.
 
                   IF( INFO.NE.0 ) CALL ALAERH( PATH, 'ZTPCON', INFO, 0, NORM // UPLO // DIAG, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT )
 
-                  CALL ZTPT06( RCOND, RCONDC, UPLO, DIAG, N, AP, RWORK, RESULT( 7 ) )
+                  ztpt06(RCOND, RCONDC, UPLO, DIAG, N, AP, RWORK, RESULT( 7 ) );
 
                   // Print the test ratio if it is .GE. THRESH.
 
@@ -267,32 +267,32 @@
                   // Call ZLATTP to generate a triangular test matrix.
 
                   SRNAMT = 'ZLATTP'
-                  CALL ZLATTP( IMAT, UPLO, TRANS, DIAG, ISEED, N, AP, X, WORK, RWORK, INFO )
+                  zlattp(IMAT, UPLO, TRANS, DIAG, ISEED, N, AP, X, WORK, RWORK, INFO );
 
 *+    TEST 8
                   // Solve the system op(A)*x = b.
 
                   SRNAMT = 'ZLATPS'
-                  CALL ZCOPY( N, X, 1, B, 1 )
-                  CALL ZLATPS( UPLO, TRANS, DIAG, 'N', N, AP, B, SCALE, RWORK, INFO )
+                  zcopy(N, X, 1, B, 1 );
+                  zlatps(UPLO, TRANS, DIAG, 'N', N, AP, B, SCALE, RWORK, INFO );
 
                   // Check error code from ZLATPS.
 
                   IF( INFO.NE.0 ) CALL ALAERH( PATH, 'ZLATPS', INFO, 0, UPLO // TRANS // DIAG // 'N', N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT )
 
-                  CALL ZTPT03( UPLO, TRANS, DIAG, N, 1, AP, SCALE, RWORK, ONE, B, LDA, X, LDA, WORK, RESULT( 8 ) )
+                  ztpt03(UPLO, TRANS, DIAG, N, 1, AP, SCALE, RWORK, ONE, B, LDA, X, LDA, WORK, RESULT( 8 ) );
 
 *+    TEST 9
                   // Solve op(A)*x = b again with NORMIN = 'Y'.
 
-                  CALL ZCOPY( N, X, 1, B( N+1 ), 1 )
-                  CALL ZLATPS( UPLO, TRANS, DIAG, 'Y', N, AP, B( N+1 ), SCALE, RWORK, INFO )
+                  zcopy(N, X, 1, B( N+1 ), 1 );
+                  zlatps(UPLO, TRANS, DIAG, 'Y', N, AP, B( N+1 ), SCALE, RWORK, INFO );
 
                   // Check error code from ZLATPS.
 
                   IF( INFO.NE.0 ) CALL ALAERH( PATH, 'ZLATPS', INFO, 0, UPLO // TRANS // DIAG // 'Y', N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT )
 
-                  CALL ZTPT03( UPLO, TRANS, DIAG, N, 1, AP, SCALE, RWORK, ONE, B( N+1 ), LDA, X, LDA, WORK, RESULT( 9 ) )
+                  ztpt03(UPLO, TRANS, DIAG, N, 1, AP, SCALE, RWORK, ONE, B( N+1 ), LDA, X, LDA, WORK, RESULT( 9 ) );
 
                   // Print information about the tests that did not pass
                   // the threshold.
@@ -313,7 +313,7 @@
 
       // Print a summary of the results.
 
-      CALL ALASUM( PATH, NOUT, NFAIL, NRUN, NERRS )
+      alasum(PATH, NOUT, NFAIL, NRUN, NERRS );
 
  9999 FORMAT( ' UPLO=''', A1, ''', DIAG=''', A1, ''', N=', I5, ', type ', I2, ', test(', I2, ')= ', G12.5 )
  9998 FORMAT( ' UPLO=''', A1, ''', TRANS=''', A1, ''', DIAG=''', A1, ''', N=', I5, ''', NRHS=', I5, ', type ', I2, ', test(', I2, ')= ', G12.5 )

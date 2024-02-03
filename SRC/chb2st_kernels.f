@@ -71,17 +71,17 @@
                   A( OFDPOS-I, ST+I ) = ZERO
    10         CONTINUE
               CTMP = CONJG( A( OFDPOS, ST ) )
-              CALL CLARFG( LM, CTMP, V( VPOS+1 ), 1, TAU( TAUPOS ) )
+              clarfg(LM, CTMP, V( VPOS+1 ), 1, TAU( TAUPOS ) );
               A( OFDPOS, ST ) = CTMP
 
               LM = ED - ST + 1
-              CALL CLARFY( UPLO, LM, V( VPOS ), 1, CONJG( TAU( TAUPOS ) ), A( DPOS, ST ), LDA-1, WORK)
+              clarfy(UPLO, LM, V( VPOS ), 1, CONJG( TAU( TAUPOS ) ), A( DPOS, ST ), LDA-1, WORK);
           ENDIF
 
           if ( TTYPE.EQ.3 ) {
 
               LM = ED - ST + 1
-              CALL CLARFY( UPLO, LM, V( VPOS ), 1, CONJG( TAU( TAUPOS ) ), A( DPOS, ST ), LDA-1, WORK)
+              clarfy(UPLO, LM, V( VPOS ), 1, CONJG( TAU( TAUPOS ) ), A( DPOS, ST ), LDA-1, WORK);
           ENDIF
 
           if ( TTYPE.EQ.2 ) {
@@ -90,7 +90,7 @@
               LN = ED-ST+1
               LM = J2-J1+1
               if ( LM.GT.0) {
-                  CALL CLARFX( 'Left', LN, LM, V( VPOS ), CONJG( TAU( TAUPOS ) ), A( DPOS-NB, J1 ), LDA-1, WORK)
+                  clarfx('Left', LN, LM, V( VPOS ), CONJG( TAU( TAUPOS ) ), A( DPOS-NB, J1 ), LDA-1, WORK);
 
                   if ( WANTZ ) {
                       VPOS   = MOD( SWEEP-1, 2 ) * N + J1
@@ -106,10 +106,10 @@
                       A( DPOS-NB-I, J1+I ) = ZERO
    30             CONTINUE
                   CTMP = CONJG( A( DPOS-NB, J1 ) )
-                  CALL CLARFG( LM, CTMP, V( VPOS+1 ), 1, TAU( TAUPOS ) )
+                  clarfg(LM, CTMP, V( VPOS+1 ), 1, TAU( TAUPOS ) );
                   A( DPOS-NB, J1 ) = CTMP
 
-                  CALL CLARFX( 'Right', LN-1, LM, V( VPOS ), TAU( TAUPOS ), A( DPOS-NB+1, J1 ), LDA-1, WORK)
+                  clarfx('Right', LN-1, LM, V( VPOS ), TAU( TAUPOS ), A( DPOS-NB+1, J1 ), LDA-1, WORK);
               ENDIF
           ENDIF
 
@@ -133,18 +133,18 @@
                   V( VPOS+I )         = A( OFDPOS+I, ST-1 )
                   A( OFDPOS+I, ST-1 ) = ZERO
    20         CONTINUE
-              CALL CLARFG( LM, A( OFDPOS, ST-1 ), V( VPOS+1 ), 1, TAU( TAUPOS ) )
+              clarfg(LM, A( OFDPOS, ST-1 ), V( VPOS+1 ), 1, TAU( TAUPOS ) );
 
               LM = ED - ST + 1
 
-              CALL CLARFY( UPLO, LM, V( VPOS ), 1, CONJG( TAU( TAUPOS ) ), A( DPOS, ST ), LDA-1, WORK)
+              clarfy(UPLO, LM, V( VPOS ), 1, CONJG( TAU( TAUPOS ) ), A( DPOS, ST ), LDA-1, WORK);
 
           ENDIF
 
           if ( TTYPE.EQ.3 ) {
               LM = ED - ST + 1
 
-              CALL CLARFY( UPLO, LM, V( VPOS ), 1, CONJG( TAU( TAUPOS ) ), A( DPOS, ST ), LDA-1, WORK)
+              clarfy(UPLO, LM, V( VPOS ), 1, CONJG( TAU( TAUPOS ) ), A( DPOS, ST ), LDA-1, WORK);
 
           ENDIF
 
@@ -155,7 +155,7 @@
               LM = J2-J1+1
 
               if ( LM.GT.0) {
-                  CALL CLARFX( 'Right', LM, LN, V( VPOS ), TAU( TAUPOS ), A( DPOS+NB, ST ), LDA-1, WORK)
+                  clarfx('Right', LM, LN, V( VPOS ), TAU( TAUPOS ), A( DPOS+NB, ST ), LDA-1, WORK);
 
                   if ( WANTZ ) {
                       VPOS   = MOD( SWEEP-1, 2 ) * N + J1
@@ -170,9 +170,9 @@
                       V( VPOS+I )        = A( DPOS+NB+I, ST )
                       A( DPOS+NB+I, ST ) = ZERO
    40             CONTINUE
-                  CALL CLARFG( LM, A( DPOS+NB, ST ), V( VPOS+1 ), 1, TAU( TAUPOS ) )
+                  clarfg(LM, A( DPOS+NB, ST ), V( VPOS+1 ), 1, TAU( TAUPOS ) );
 
-                  CALL CLARFX( 'Left', LM, LN-1, V( VPOS ), CONJG( TAU( TAUPOS ) ), A( DPOS+NB-1, ST+1 ), LDA-1, WORK)
+                  clarfx('Left', LM, LN-1, V( VPOS ), CONJG( TAU( TAUPOS ) ), A( DPOS+NB-1, ST+1 ), LDA-1, WORK);
 
               ENDIF
           ENDIF

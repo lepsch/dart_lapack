@@ -113,7 +113,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'STGSNA', -INFO )
+         xerbla('STGSNA', -INFO );
          RETURN
       } else if ( LQUERY ) {
          RETURN
@@ -166,15 +166,15 @@
                RNRM = SLAPY2( SNRM2( N, VR( 1, KS ), 1 ), SNRM2( N, VR( 1, KS+1 ), 1 ) )                LNRM = SLAPY2( SNRM2( N, VL( 1, KS ), 1 ), SNRM2( N, VL( 1, KS+1 ), 1 ) )                CALL SGEMV( 'N', N, N, ONE, A, LDA, VR( 1, KS ), 1, ZERO, WORK, 1 )
                TMPRR = SDOT( N, WORK, 1, VL( 1, KS ), 1 )
                TMPRI = SDOT( N, WORK, 1, VL( 1, KS+1 ), 1 )
-               CALL SGEMV( 'N', N, N, ONE, A, LDA, VR( 1, KS+1 ), 1, ZERO, WORK, 1 )
+               sgemv('N', N, N, ONE, A, LDA, VR( 1, KS+1 ), 1, ZERO, WORK, 1 );
                TMPII = SDOT( N, WORK, 1, VL( 1, KS+1 ), 1 )
                TMPIR = SDOT( N, WORK, 1, VL( 1, KS ), 1 )
                UHAV = TMPRR + TMPII
                UHAVI = TMPIR - TMPRI
-               CALL SGEMV( 'N', N, N, ONE, B, LDB, VR( 1, KS ), 1, ZERO, WORK, 1 )
+               sgemv('N', N, N, ONE, B, LDB, VR( 1, KS ), 1, ZERO, WORK, 1 );
                TMPRR = SDOT( N, WORK, 1, VL( 1, KS ), 1 )
                TMPRI = SDOT( N, WORK, 1, VL( 1, KS+1 ), 1 )
-               CALL SGEMV( 'N', N, N, ONE, B, LDB, VR( 1, KS+1 ), 1, ZERO, WORK, 1 )
+               sgemv('N', N, N, ONE, B, LDB, VR( 1, KS+1 ), 1, ZERO, WORK, 1 );
                TMPII = SDOT( N, WORK, 1, VL( 1, KS+1 ), 1 )
                TMPIR = SDOT( N, WORK, 1, VL( 1, KS ), 1 )
                UHBV = TMPRR + TMPII
@@ -191,9 +191,9 @@
 
                RNRM = SNRM2( N, VR( 1, KS ), 1 )
                LNRM = SNRM2( N, VL( 1, KS ), 1 )
-               CALL SGEMV( 'N', N, N, ONE, A, LDA, VR( 1, KS ), 1, ZERO, WORK, 1 )
+               sgemv('N', N, N, ONE, A, LDA, VR( 1, KS ), 1, ZERO, WORK, 1 );
                UHAV = SDOT( N, WORK, 1, VL( 1, KS ), 1 )
-               CALL SGEMV( 'N', N, N, ONE, B, LDB, VR( 1, KS ), 1, ZERO, WORK, 1 )
+               sgemv('N', N, N, ONE, B, LDB, VR( 1, KS ), 1, ZERO, WORK, 1 );
                UHBV = SDOT( N, WORK, 1, VL( 1, KS ), 1 )
                COND = SLAPY2( UHAV, UHBV )
                if ( COND.EQ.ZERO ) {
@@ -225,7 +225,7 @@
                WORK( 6 ) = B( K+1, K )
                WORK( 7 ) = B( K, K+1 )
                WORK( 8 ) = B( K+1, K+1 )
-               CALL SLAG2( WORK, 2, WORK( 5 ), 2, SMLNUM*EPS, BETA, DUMMY1( 1 ), ALPHAR, DUMMY( 1 ), ALPHAI )
+               slag2(WORK, 2, WORK( 5 ), 2, SMLNUM*EPS, BETA, DUMMY1( 1 ), ALPHAR, DUMMY( 1 ), ALPHAI );
                ALPRQT = ONE
                C1 = TWO*( ALPHAR*ALPHAR+ALPHAI*ALPHAI+BETA*BETA )
                C2 = FOUR*BETA*BETA*ALPHAI*ALPHAI
@@ -238,12 +238,12 @@
             // Copy the matrix (A, B) to the array WORK and swap the
             // diagonal block beginning at A(k,k) to the (1,1) position.
 
-            CALL SLACPY( 'Full', N, N, A, LDA, WORK, N )
-            CALL SLACPY( 'Full', N, N, B, LDB, WORK( N*N+1 ), N )
+            slacpy('Full', N, N, A, LDA, WORK, N );
+            slacpy('Full', N, N, B, LDB, WORK( N*N+1 ), N );
             IFST = K
             ILST = 1
 
-            CALL STGEXC( .FALSE., .FALSE., N, WORK, N, WORK( N*N+1 ), N, DUMMY, 1, DUMMY1, 1, IFST, ILST, WORK( N*N*2+1 ), LWORK-2*N*N, IERR )
+            stgexc(.FALSE., .FALSE., N, WORK, N, WORK( N*N+1 ), N, DUMMY, 1, DUMMY1, 1, IFST, ILST, WORK( N*N*2+1 ), LWORK-2*N*N, IERR );
 
             if ( IERR.GT.0 ) {
 
@@ -266,7 +266,7 @@
                } else {
                   I = N*N + 1
                   IZ = 2*N*N + 1
-                  CALL STGSYL( 'N', DIFDRI, N2, N1, WORK( N*N1+N1+1 ), N, WORK, N, WORK( N1+1 ), N, WORK( N*N1+N1+I ), N, WORK( I ), N, WORK( N1+I ), N, SCALE, DIF( KS ), WORK( IZ+1 ), LWORK-2*N*N, IWORK, IERR )
+                  stgsyl('N', DIFDRI, N2, N1, WORK( N*N1+N1+1 ), N, WORK, N, WORK( N1+1 ), N, WORK( N*N1+N1+I ), N, WORK( I ), N, WORK( N1+I ), N, SCALE, DIF( KS ), WORK( IZ+1 ), LWORK-2*N*N, IWORK, IERR );
 
                   IF( PAIR ) DIF( KS ) = MIN( MAX( ONE, ALPRQT )*DIF( KS ), COND )
                }

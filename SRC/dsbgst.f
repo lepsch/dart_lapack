@@ -60,7 +60,7 @@
          INFO = -11
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'DSBGST', -INFO )
+         xerbla('DSBGST', -INFO );
          RETURN
       }
 
@@ -195,7 +195,7 @@
 
                // post-multiply X by inv(S(i))
 
-               CALL DSCAL( N-M, ONE / BII, X( M+1, I ), 1 )
+               dscal(N-M, ONE / BII, X( M+1, I ), 1 );
                IF( KBT.GT.0 ) CALL DGER( N-M, KBT, -ONE, X( M+1, I ), 1, BB( KB1-KBT, I ), 1, X( M+1, I-KBT ), LDX )
             }
 
@@ -218,7 +218,7 @@
 
                   // generate rotation to annihilate a(i,i-k+ka+1)
 
-                  CALL DLARTG( AB( K+1, I-K+KA ), RA1, WORK( N+I-K+KA-M ), WORK( I-K+KA-M ), RA )
+                  dlartg(AB( K+1, I-K+KA ), RA1, WORK( N+I-K+KA-M ), WORK( I-K+KA-M ), RA );
 
                   // create nonzero element a(i-k,i-k+ka+1) outside the
                   // band and store it in WORK(i-k)
@@ -255,13 +255,13 @@
                // apply rotations in 1st set from the right
 
                DO 100 L = 1, KA - 1
-                  CALL DLARTV( NR, AB( KA1-L, J2 ), INCA, AB( KA-L, J2+1 ), INCA, WORK( N+J2-M ), WORK( J2-M ), KA1 )
+                  dlartv(NR, AB( KA1-L, J2 ), INCA, AB( KA-L, J2+1 ), INCA, WORK( N+J2-M ), WORK( J2-M ), KA1 );
   100          CONTINUE
 
                // apply rotations in 1st set from both sides to diagonal
                // blocks
 
-               CALL DLAR2V( NR, AB( KA1, J2 ), AB( KA1, J2+1 ), AB( KA, J2+1 ), INCA, WORK( N+J2-M ), WORK( J2-M ), KA1 )
+               dlar2v(NR, AB( KA1, J2 ), AB( KA1, J2+1 ), AB( KA, J2+1 ), INCA, WORK( N+J2-M ), WORK( J2-M ), KA1 );
 
             }
 
@@ -277,7 +277,7 @@
                // post-multiply X by product of rotations in 1st set
 
                DO 120 J = J2, J1, KA1
-                  CALL DROT( N-M, X( M+1, J ), 1, X( M+1, J+1 ), 1, WORK( N+J-M ), WORK( J-M ) )
+                  drot(N-M, X( M+1, J ), 1, X( M+1, J+1 ), 1, WORK( N+J-M ), WORK( J-M ) );
   120          CONTINUE
             }
   130    CONTINUE
@@ -333,18 +333,18 @@
                // generate rotations in 2nd set to annihilate elements
                // which have been created outside the band
 
-               CALL DLARGV( NR, AB( 1, J2 ), INCA, WORK( J2 ), KA1, WORK( N+J2 ), KA1 )
+               dlargv(NR, AB( 1, J2 ), INCA, WORK( J2 ), KA1, WORK( N+J2 ), KA1 );
 
                // apply rotations in 2nd set from the right
 
                DO 180 L = 1, KA - 1
-                  CALL DLARTV( NR, AB( KA1-L, J2 ), INCA, AB( KA-L, J2+1 ), INCA, WORK( N+J2 ), WORK( J2 ), KA1 )
+                  dlartv(NR, AB( KA1-L, J2 ), INCA, AB( KA-L, J2+1 ), INCA, WORK( N+J2 ), WORK( J2 ), KA1 );
   180          CONTINUE
 
                // apply rotations in 2nd set from both sides to diagonal
                // blocks
 
-               CALL DLAR2V( NR, AB( KA1, J2 ), AB( KA1, J2+1 ), AB( KA, J2+1 ), INCA, WORK( N+J2 ), WORK( J2 ), KA1 )
+               dlar2v(NR, AB( KA1, J2 ), AB( KA1, J2+1 ), AB( KA, J2+1 ), INCA, WORK( N+J2 ), WORK( J2 ), KA1 );
 
             }
 
@@ -360,7 +360,7 @@
                // post-multiply X by product of rotations in 2nd set
 
                DO 200 J = J2, J1, KA1
-                  CALL DROT( N-M, X( M+1, J ), 1, X( M+1, J+1 ), 1, WORK( N+J ), WORK( J ) )
+                  drot(N-M, X( M+1, J ), 1, X( M+1, J+1 ), 1, WORK( N+J ), WORK( J ) );
   200          CONTINUE
             }
   210    CONTINUE
@@ -416,7 +416,7 @@
 
                // post-multiply X by inv(S(i))
 
-               CALL DSCAL( N-M, ONE / BII, X( M+1, I ), 1 )
+               dscal(N-M, ONE / BII, X( M+1, I ), 1 );
                IF( KBT.GT.0 ) CALL DGER( N-M, KBT, -ONE, X( M+1, I ), 1, BB( KBT+1, I-KBT ), LDBB-1, X( M+1, I-KBT ), LDX )
             }
 
@@ -439,7 +439,7 @@
 
                   // generate rotation to annihilate a(i-k+ka+1,i)
 
-                  CALL DLARTG( AB( KA1-K, I ), RA1, WORK( N+I-K+KA-M ), WORK( I-K+KA-M ), RA )
+                  dlartg(AB( KA1-K, I ), RA1, WORK( N+I-K+KA-M ), WORK( I-K+KA-M ), RA );
 
                   // create nonzero element a(i-k+ka+1,i-k) outside the
                   // band and store it in WORK(i-k)
@@ -476,13 +476,13 @@
                // apply rotations in 1st set from the left
 
                DO 330 L = 1, KA - 1
-                  CALL DLARTV( NR, AB( L+1, J2-L ), INCA, AB( L+2, J2-L ), INCA, WORK( N+J2-M ), WORK( J2-M ), KA1 )
+                  dlartv(NR, AB( L+1, J2-L ), INCA, AB( L+2, J2-L ), INCA, WORK( N+J2-M ), WORK( J2-M ), KA1 );
   330          CONTINUE
 
                // apply rotations in 1st set from both sides to diagonal
                // blocks
 
-               CALL DLAR2V( NR, AB( 1, J2 ), AB( 1, J2+1 ), AB( 2, J2 ), INCA, WORK( N+J2-M ), WORK( J2-M ), KA1 )
+               dlar2v(NR, AB( 1, J2 ), AB( 1, J2+1 ), AB( 2, J2 ), INCA, WORK( N+J2-M ), WORK( J2-M ), KA1 );
 
             }
 
@@ -498,7 +498,7 @@
                // post-multiply X by product of rotations in 1st set
 
                DO 350 J = J2, J1, KA1
-                  CALL DROT( N-M, X( M+1, J ), 1, X( M+1, J+1 ), 1, WORK( N+J-M ), WORK( J-M ) )
+                  drot(N-M, X( M+1, J ), 1, X( M+1, J+1 ), 1, WORK( N+J-M ), WORK( J-M ) );
   350          CONTINUE
             }
   360    CONTINUE
@@ -554,18 +554,18 @@
                // generate rotations in 2nd set to annihilate elements
                // which have been created outside the band
 
-               CALL DLARGV( NR, AB( KA1, J2-KA ), INCA, WORK( J2 ), KA1, WORK( N+J2 ), KA1 )
+               dlargv(NR, AB( KA1, J2-KA ), INCA, WORK( J2 ), KA1, WORK( N+J2 ), KA1 );
 
                // apply rotations in 2nd set from the left
 
                DO 410 L = 1, KA - 1
-                  CALL DLARTV( NR, AB( L+1, J2-L ), INCA, AB( L+2, J2-L ), INCA, WORK( N+J2 ), WORK( J2 ), KA1 )
+                  dlartv(NR, AB( L+1, J2-L ), INCA, AB( L+2, J2-L ), INCA, WORK( N+J2 ), WORK( J2 ), KA1 );
   410          CONTINUE
 
                // apply rotations in 2nd set from both sides to diagonal
                // blocks
 
-               CALL DLAR2V( NR, AB( 1, J2 ), AB( 1, J2+1 ), AB( 2, J2 ), INCA, WORK( N+J2 ), WORK( J2 ), KA1 )
+               dlar2v(NR, AB( 1, J2 ), AB( 1, J2+1 ), AB( 2, J2 ), INCA, WORK( N+J2 ), WORK( J2 ), KA1 );
 
             }
 
@@ -581,7 +581,7 @@
                // post-multiply X by product of rotations in 2nd set
 
                DO 430 J = J2, J1, KA1
-                  CALL DROT( N-M, X( M+1, J ), 1, X( M+1, J+1 ), 1, WORK( N+J ), WORK( J ) )
+                  drot(N-M, X( M+1, J ), 1, X( M+1, J+1 ), 1, WORK( N+J ), WORK( J ) );
   430          CONTINUE
             }
   440    CONTINUE
@@ -686,7 +686,7 @@
 
                // post-multiply X by inv(S(i))
 
-               CALL DSCAL( NX, ONE / BII, X( 1, I ), 1 )
+               dscal(NX, ONE / BII, X( 1, I ), 1 );
                IF( KBT.GT.0 ) CALL DGER( NX, KBT, -ONE, X( 1, I ), 1, BB( KB, I+1 ), LDBB-1, X( 1, I+1 ), LDX )
             }
 
@@ -708,7 +708,7 @@
 
                   // generate rotation to annihilate a(i+k-ka-1,i)
 
-                  CALL DLARTG( AB( K+1, I ), RA1, WORK( N+I+K-KA ), WORK( I+K-KA ), RA )
+                  dlartg(AB( K+1, I ), RA1, WORK( N+I+K-KA ), WORK( I+K-KA ), RA );
 
                   // create nonzero element a(i+k-ka-1,i+k) outside the
                   // band and store it in WORK(m-kb+i+k)
@@ -745,13 +745,13 @@
                // apply rotations in 1st set from the left
 
                DO 580 L = 1, KA - 1
-                  CALL DLARTV( NR, AB( KA1-L, J1+L ), INCA, AB( KA-L, J1+L ), INCA, WORK( N+J1 ), WORK( J1 ), KA1 )
+                  dlartv(NR, AB( KA1-L, J1+L ), INCA, AB( KA-L, J1+L ), INCA, WORK( N+J1 ), WORK( J1 ), KA1 );
   580          CONTINUE
 
                // apply rotations in 1st set from both sides to diagonal
                // blocks
 
-               CALL DLAR2V( NR, AB( KA1, J1 ), AB( KA1, J1-1 ), AB( KA, J1 ), INCA, WORK( N+J1 ), WORK( J1 ), KA1 )
+               dlar2v(NR, AB( KA1, J1 ), AB( KA1, J1-1 ), AB( KA, J1 ), INCA, WORK( N+J1 ), WORK( J1 ), KA1 );
 
             }
 
@@ -768,7 +768,7 @@
                // post-multiply X by product of rotations in 1st set
 
                DO 600 J = J1, J2, KA1
-                  CALL DROT( NX, X( 1, J ), 1, X( 1, J-1 ), 1, WORK( N+J ), WORK( J ) )
+                  drot(NX, X( 1, J ), 1, X( 1, J-1 ), 1, WORK( N+J ), WORK( J ) );
   600          CONTINUE
             }
   610    CONTINUE
@@ -825,18 +825,18 @@
                // generate rotations in 2nd set to annihilate elements
                // which have been created outside the band
 
-               CALL DLARGV( NR, AB( 1, J1+KA ), INCA, WORK( M-KB+J1 ), KA1, WORK( N+M-KB+J1 ), KA1 )
+               dlargv(NR, AB( 1, J1+KA ), INCA, WORK( M-KB+J1 ), KA1, WORK( N+M-KB+J1 ), KA1 );
 
                // apply rotations in 2nd set from the left
 
                DO 660 L = 1, KA - 1
-                  CALL DLARTV( NR, AB( KA1-L, J1+L ), INCA, AB( KA-L, J1+L ), INCA, WORK( N+M-KB+J1 ), WORK( M-KB+J1 ), KA1 )
+                  dlartv(NR, AB( KA1-L, J1+L ), INCA, AB( KA-L, J1+L ), INCA, WORK( N+M-KB+J1 ), WORK( M-KB+J1 ), KA1 );
   660          CONTINUE
 
                // apply rotations in 2nd set from both sides to diagonal
                // blocks
 
-               CALL DLAR2V( NR, AB( KA1, J1 ), AB( KA1, J1-1 ), AB( KA, J1 ), INCA, WORK( N+M-KB+J1 ), WORK( M-KB+J1 ), KA1 )
+               dlar2v(NR, AB( KA1, J1 ), AB( KA1, J1-1 ), AB( KA, J1 ), INCA, WORK( N+M-KB+J1 ), WORK( M-KB+J1 ), KA1 );
 
             }
 
@@ -853,7 +853,7 @@
                // post-multiply X by product of rotations in 2nd set
 
                DO 680 J = J1, J2, KA1
-                  CALL DROT( NX, X( 1, J ), 1, X( 1, J-1 ), 1, WORK( N+M-KB+J ), WORK( M-KB+J ) )
+                  drot(NX, X( 1, J ), 1, X( 1, J-1 ), 1, WORK( N+M-KB+J ), WORK( M-KB+J ) );
   680          CONTINUE
             }
   690    CONTINUE
@@ -910,7 +910,7 @@
 
                // post-multiply X by inv(S(i))
 
-               CALL DSCAL( NX, ONE / BII, X( 1, I ), 1 )
+               dscal(NX, ONE / BII, X( 1, I ), 1 );
                IF( KBT.GT.0 ) CALL DGER( NX, KBT, -ONE, X( 1, I ), 1, BB( 2, I ), 1, X( 1, I+1 ), LDX )
             }
 
@@ -932,7 +932,7 @@
 
                   // generate rotation to annihilate a(i,i+k-ka-1)
 
-                  CALL DLARTG( AB( KA1-K, I+K-KA ), RA1, WORK( N+I+K-KA ), WORK( I+K-KA ), RA )
+                  dlartg(AB( KA1-K, I+K-KA ), RA1, WORK( N+I+K-KA ), WORK( I+K-KA ), RA );
 
                   // create nonzero element a(i+k,i+k-ka-1) outside the
                   // band and store it in WORK(m-kb+i+k)
@@ -969,13 +969,13 @@
                // apply rotations in 1st set from the right
 
                DO 810 L = 1, KA - 1
-                  CALL DLARTV( NR, AB( L+1, J1 ), INCA, AB( L+2, J1-1 ), INCA, WORK( N+J1 ), WORK( J1 ), KA1 )
+                  dlartv(NR, AB( L+1, J1 ), INCA, AB( L+2, J1-1 ), INCA, WORK( N+J1 ), WORK( J1 ), KA1 );
   810          CONTINUE
 
                // apply rotations in 1st set from both sides to diagonal
                // blocks
 
-               CALL DLAR2V( NR, AB( 1, J1 ), AB( 1, J1-1 ), AB( 2, J1-1 ), INCA, WORK( N+J1 ), WORK( J1 ), KA1 )
+               dlar2v(NR, AB( 1, J1 ), AB( 1, J1-1 ), AB( 2, J1-1 ), INCA, WORK( N+J1 ), WORK( J1 ), KA1 );
 
             }
 
@@ -992,7 +992,7 @@
                // post-multiply X by product of rotations in 1st set
 
                DO 830 J = J1, J2, KA1
-                  CALL DROT( NX, X( 1, J ), 1, X( 1, J-1 ), 1, WORK( N+J ), WORK( J ) )
+                  drot(NX, X( 1, J ), 1, X( 1, J-1 ), 1, WORK( N+J ), WORK( J ) );
   830          CONTINUE
             }
   840    CONTINUE
@@ -1049,18 +1049,18 @@
                // generate rotations in 2nd set to annihilate elements
                // which have been created outside the band
 
-               CALL DLARGV( NR, AB( KA1, J1 ), INCA, WORK( M-KB+J1 ), KA1, WORK( N+M-KB+J1 ), KA1 )
+               dlargv(NR, AB( KA1, J1 ), INCA, WORK( M-KB+J1 ), KA1, WORK( N+M-KB+J1 ), KA1 );
 
                // apply rotations in 2nd set from the right
 
                DO 890 L = 1, KA - 1
-                  CALL DLARTV( NR, AB( L+1, J1 ), INCA, AB( L+2, J1-1 ), INCA, WORK( N+M-KB+J1 ), WORK( M-KB+J1 ), KA1 )
+                  dlartv(NR, AB( L+1, J1 ), INCA, AB( L+2, J1-1 ), INCA, WORK( N+M-KB+J1 ), WORK( M-KB+J1 ), KA1 );
   890          CONTINUE
 
                // apply rotations in 2nd set from both sides to diagonal
                // blocks
 
-               CALL DLAR2V( NR, AB( 1, J1 ), AB( 1, J1-1 ), AB( 2, J1-1 ), INCA, WORK( N+M-KB+J1 ), WORK( M-KB+J1 ), KA1 )
+               dlar2v(NR, AB( 1, J1 ), AB( 1, J1-1 ), AB( 2, J1-1 ), INCA, WORK( N+M-KB+J1 ), WORK( M-KB+J1 ), KA1 );
 
             }
 
@@ -1077,7 +1077,7 @@
                // post-multiply X by product of rotations in 2nd set
 
                DO 910 J = J1, J2, KA1
-                  CALL DROT( NX, X( 1, J ), 1, X( 1, J-1 ), 1, WORK( N+M-KB+J ), WORK( M-KB+J ) )
+                  drot(NX, X( 1, J ), 1, X( 1, J-1 ), 1, WORK( N+M-KB+J ), WORK( M-KB+J ) );
   910          CONTINUE
             }
   920    CONTINUE

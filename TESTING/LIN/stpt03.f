@@ -76,13 +76,13 @@
 
       RESID = ZERO
       DO 40 J = 1, NRHS
-         CALL SCOPY( N, X( 1, J ), 1, WORK, 1 )
+         scopy(N, X( 1, J ), 1, WORK, 1 );
          IX = ISAMAX( N, WORK, 1 )
          XNORM = MAX( ONE, ABS( X( IX, J ) ) )
          XSCAL = ( ONE / XNORM ) / REAL( N )
-         CALL SSCAL( N, XSCAL, WORK, 1 )
-         CALL STPMV( UPLO, TRANS, DIAG, N, AP, WORK, 1 )
-         CALL SAXPY( N, -SCALE*XSCAL, B( 1, J ), 1, WORK, 1 )
+         sscal(N, XSCAL, WORK, 1 );
+         stpmv(UPLO, TRANS, DIAG, N, AP, WORK, 1 );
+         saxpy(N, -SCALE*XSCAL, B( 1, J ), 1, WORK, 1 );
          IX = ISAMAX( N, WORK, 1 )
          ERR = TSCAL*ABS( WORK( IX ) )
          IX = ISAMAX( N, X( 1, J ), 1 )

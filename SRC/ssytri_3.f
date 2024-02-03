@@ -60,7 +60,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'SSYTRI_3', -INFO )
+         xerbla('SSYTRI_3', -INFO );
          RETURN
       } else if ( LQUERY ) {
          RETURN
@@ -70,7 +70,7 @@
 
       IF( N.EQ.0 ) RETURN
 
-      CALL SSYTRI_3X( UPLO, N, A, LDA, E, IPIV, WORK, NB, INFO )
+      ssytri_3x(UPLO, N, A, LDA, E, IPIV, WORK, NB, INFO );
 
       WORK( 1 ) = SROUNDUP_LWORK( LWKOPT )
 

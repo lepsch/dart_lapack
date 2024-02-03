@@ -107,25 +107,25 @@
                   // singular value distribution indicated by `mode'.
 
                   if ( MODE.EQ.0 ) {
-                     CALL DLASET( 'Full', M, N, ZERO, ZERO, A, LDA )
+                     dlaset('Full', M, N, ZERO, ZERO, A, LDA );
                      DO 30 I = 1, MNMIN
                         S( I ) = ZERO
    30                CONTINUE
                   } else {
-                     CALL DLATMS( M, N, 'Uniform', ISEED, 'Nonsymmetric', S, IMODE, ONE / EPS, ONE, M, N, 'No packing', A, LDA, WORK, INFO )
-                     CALL DGEQR2( M, N, A, LDA, WORK, WORK( MNMIN+1 ), INFO )                      CALL DLASET( 'Lower', M-1, N, ZERO, ZERO, A( 2 ), LDA )
-                     CALL DLAORD( 'Decreasing', MNMIN, S, 1 )
+                     dlatms(M, N, 'Uniform', ISEED, 'Nonsymmetric', S, IMODE, ONE / EPS, ONE, M, N, 'No packing', A, LDA, WORK, INFO );
+                     dgeqr2(M, N, A, LDA, WORK, WORK( MNMIN+1 ), INFO )                      CALL DLASET( 'Lower', M-1, N, ZERO, ZERO, A( 2 ), LDA );
+                     dlaord('Decreasing', MNMIN, S, 1 );
                   }
 
                   // Save A and its singular values
 
-                  CALL DLACPY( 'All', M, N, A, LDA, COPYA, LDA )
+                  dlacpy('All', M, N, A, LDA, COPYA, LDA );
 
                   // Call DTZRZF to reduce the upper trapezoidal matrix to
                   // upper triangular form.
 
                   SRNAMT = 'DTZRZF'
-                  CALL DTZRZF( M, N, A, LDA, TAU, WORK, LWORK, INFO )
+                  dtzrzf(M, N, A, LDA, TAU, WORK, LWORK, INFO );
 
                   // Compute norm(svd(a) - svd(r))
 
@@ -156,7 +156,7 @@
 
       // Print a summary of the results.
 
-      CALL ALASUM( PATH, NOUT, NFAIL, NRUN, NERRS )
+      alasum(PATH, NOUT, NFAIL, NRUN, NERRS );
 
  9999 FORMAT( ' M =', I5, ', N =', I5, ', type ', I2, ', test ', I2, ', ratio =', G12.5 )
 

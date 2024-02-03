@@ -150,7 +150,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'ZGGESX', -INFO )
+         xerbla('ZGGESX', -INFO );
          RETURN
       } else if (LQUERY) {
          RETURN
@@ -203,7 +203,7 @@
       ILEFT = 1
       IRIGHT = N + 1
       IRWRK = IRIGHT + N
-      CALL ZGGBAL( 'P', N, A, LDA, B, LDB, ILO, IHI, RWORK( ILEFT ), RWORK( IRIGHT ), RWORK( IRWRK ), IERR )
+      zggbal('P', N, A, LDA, B, LDB, ILO, IHI, RWORK( ILEFT ), RWORK( IRIGHT ), RWORK( IRWRK ), IERR );
 
       // Reduce B to triangular form (QR decomposition of B)
       // (Complex Workspace: need N, prefer N*NB)
@@ -212,22 +212,22 @@
       ICOLS = N + 1 - ILO
       ITAU = 1
       IWRK = ITAU + IROWS
-      CALL ZGEQRF( IROWS, ICOLS, B( ILO, ILO ), LDB, WORK( ITAU ), WORK( IWRK ), LWORK+1-IWRK, IERR )
+      zgeqrf(IROWS, ICOLS, B( ILO, ILO ), LDB, WORK( ITAU ), WORK( IWRK ), LWORK+1-IWRK, IERR );
 
       // Apply the unitary transformation to matrix A
       // (Complex Workspace: need N, prefer N*NB)
 
-      CALL ZUNMQR( 'L', 'C', IROWS, ICOLS, IROWS, B( ILO, ILO ), LDB, WORK( ITAU ), A( ILO, ILO ), LDA, WORK( IWRK ), LWORK+1-IWRK, IERR )
+      zunmqr('L', 'C', IROWS, ICOLS, IROWS, B( ILO, ILO ), LDB, WORK( ITAU ), A( ILO, ILO ), LDA, WORK( IWRK ), LWORK+1-IWRK, IERR );
 
       // Initialize VSL
       // (Complex Workspace: need N, prefer N*NB)
 
       if ( ILVSL ) {
-         CALL ZLASET( 'Full', N, N, CZERO, CONE, VSL, LDVSL )
+         zlaset('Full', N, N, CZERO, CONE, VSL, LDVSL );
          if ( IROWS.GT.1 ) {
-            CALL ZLACPY( 'L', IROWS-1, IROWS-1, B( ILO+1, ILO ), LDB, VSL( ILO+1, ILO ), LDVSL )
+            zlacpy('L', IROWS-1, IROWS-1, B( ILO+1, ILO ), LDB, VSL( ILO+1, ILO ), LDVSL );
          }
-         CALL ZUNGQR( IROWS, IROWS, IROWS, VSL( ILO, ILO ), LDVSL, WORK( ITAU ), WORK( IWRK ), LWORK+1-IWRK, IERR )
+         zungqr(IROWS, IROWS, IROWS, VSL( ILO, ILO ), LDVSL, WORK( ITAU ), WORK( IWRK ), LWORK+1-IWRK, IERR );
       }
 
       // Initialize VSR
@@ -237,7 +237,7 @@
       // Reduce to generalized Hessenberg form
       // (Workspace: none needed)
 
-      CALL ZGGHRD( JOBVSL, JOBVSR, N, ILO, IHI, A, LDA, B, LDB, VSL, LDVSL, VSR, LDVSR, IERR )
+      zgghrd(JOBVSL, JOBVSR, N, ILO, IHI, A, LDA, B, LDB, VSL, LDVSL, VSR, LDVSR, IERR );
 
       SDIM = 0
 
@@ -246,7 +246,7 @@
       // (Real Workspace:    need N)
 
       IWRK = ITAU
-      CALL ZHGEQZ( 'S', JOBVSL, JOBVSR, N, ILO, IHI, A, LDA, B, LDB, ALPHA, BETA, VSL, LDVSL, VSR, LDVSR, WORK( IWRK ), LWORK+1-IWRK, RWORK( IRWRK ), IERR )
+      zhgeqz('S', JOBVSL, JOBVSR, N, ILO, IHI, A, LDA, B, LDB, ALPHA, BETA, VSL, LDVSL, VSR, LDVSR, WORK( IWRK ), LWORK+1-IWRK, RWORK( IRWRK ), IERR );
       if ( IERR.NE.0 ) {
          if ( IERR.GT.0 .AND. IERR.LE.N ) {
             INFO = IERR
@@ -278,7 +278,7 @@
          // (Complex Workspace: If IJOB >= 1, need MAX(1, 2*SDIM*(N-SDIM))
                              // otherwise, need 1 )
 
-         CALL ZTGSEN( IJOB, ILVSL, ILVSR, BWORK, N, A, LDA, B, LDB, ALPHA, BETA, VSL, LDVSL, VSR, LDVSR, SDIM, PL, PR, DIF, WORK( IWRK ), LWORK-IWRK+1, IWORK, LIWORK, IERR )
+         ztgsen(IJOB, ILVSL, ILVSR, BWORK, N, A, LDA, B, LDB, ALPHA, BETA, VSL, LDVSL, VSR, LDVSR, SDIM, PL, PR, DIF, WORK( IWRK ), LWORK-IWRK+1, IWORK, LIWORK, IERR );
 
          IF( IJOB.GE.1 ) MAXWRK = MAX( MAXWRK, 2*SDIM*( N-SDIM ) )
          if ( IERR.EQ.-21 ) {
@@ -310,13 +310,13 @@
       // Undo scaling
 
       if ( ILASCL ) {
-         CALL ZLASCL( 'U', 0, 0, ANRMTO, ANRM, N, N, A, LDA, IERR )
-         CALL ZLASCL( 'G', 0, 0, ANRMTO, ANRM, N, 1, ALPHA, N, IERR )
+         zlascl('U', 0, 0, ANRMTO, ANRM, N, N, A, LDA, IERR );
+         zlascl('G', 0, 0, ANRMTO, ANRM, N, 1, ALPHA, N, IERR );
       }
 
       if ( ILBSCL ) {
-         CALL ZLASCL( 'U', 0, 0, BNRMTO, BNRM, N, N, B, LDB, IERR )
-         CALL ZLASCL( 'G', 0, 0, BNRMTO, BNRM, N, 1, BETA, N, IERR )
+         zlascl('U', 0, 0, BNRMTO, BNRM, N, N, B, LDB, IERR );
+         zlascl('G', 0, 0, BNRMTO, BNRM, N, 1, BETA, N, IERR );
       }
 
       if ( WANTST ) {

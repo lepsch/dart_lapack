@@ -89,7 +89,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'SCHKGG', -INFO )
+         xerbla('SCHKGG', -INFO );
          RETURN
       }
 
@@ -178,7 +178,7 @@
                } else {
                   IN = N
                }
-               CALL SLATM4( KATYPE( JTYPE ), IN, KZ1( KAZERO( JTYPE ) ), KZ2( KAZERO( JTYPE ) ), IASIGN( JTYPE ), RMAGN( KAMAGN( JTYPE ) ), ULP, RMAGN( KTRIAN( JTYPE )*KAMAGN( JTYPE ) ), 2, ISEED, A, LDA )
+               slatm4(KATYPE( JTYPE ), IN, KZ1( KAZERO( JTYPE ) ), KZ2( KAZERO( JTYPE ) ), IASIGN( JTYPE ), RMAGN( KAMAGN( JTYPE ) ), ULP, RMAGN( KTRIAN( JTYPE )*KAMAGN( JTYPE ) ), 2, ISEED, A, LDA );
                IADD = KADD( KAZERO( JTYPE ) )
                IF( IADD.GT.0 .AND. IADD.LE.N ) A( IADD, IADD ) = RMAGN( KAMAGN( JTYPE ) )
 
@@ -190,7 +190,7 @@
                } else {
                   IN = N
                }
-               CALL SLATM4( KBTYPE( JTYPE ), IN, KZ1( KBZERO( JTYPE ) ), KZ2( KBZERO( JTYPE ) ), IBSIGN( JTYPE ), RMAGN( KBMAGN( JTYPE ) ), ONE, RMAGN( KTRIAN( JTYPE )*KBMAGN( JTYPE ) ), 2, ISEED, B, LDA )
+               slatm4(KBTYPE( JTYPE ), IN, KZ1( KBZERO( JTYPE ) ), KZ2( KBZERO( JTYPE ) ), IBSIGN( JTYPE ), RMAGN( KBMAGN( JTYPE ) ), ONE, RMAGN( KTRIAN( JTYPE )*KBMAGN( JTYPE ) ), 2, ISEED, B, LDA );
                IADD = KADD( KBZERO( JTYPE ) )
                IF( IADD.NE.0 .AND. IADD.LE.N ) B( IADD, IADD ) = RMAGN( KBMAGN( JTYPE ) )
 
@@ -206,10 +206,10 @@
                         U( JR, JC ) = SLARND( 3, ISEED )
                         V( JR, JC ) = SLARND( 3, ISEED )
    40                CONTINUE
-                     CALL SLARFG( N+1-JC, U( JC, JC ), U( JC+1, JC ), 1, WORK( JC ) )
+                     slarfg(N+1-JC, U( JC, JC ), U( JC+1, JC ), 1, WORK( JC ) );
                      WORK( 2*N+JC ) = SIGN( ONE, U( JC, JC ) )
                      U( JC, JC ) = ONE
-                     CALL SLARFG( N+1-JC, V( JC, JC ), V( JC+1, JC ), 1, WORK( N+JC ) )
+                     slarfg(N+1-JC, V( JC, JC ), V( JC+1, JC ), 1, WORK( N+JC ) );
                      WORK( 3*N+JC ) = SIGN( ONE, V( JC, JC ) )
                      V( JC, JC ) = ONE
    50             CONTINUE
@@ -255,34 +255,34 @@
 
             // Call SGEQR2, SORM2R, and SGGHRD to compute H, T, U, and V
 
-            CALL SLACPY( ' ', N, N, A, LDA, H, LDA )
-            CALL SLACPY( ' ', N, N, B, LDA, T, LDA )
+            slacpy(' ', N, N, A, LDA, H, LDA );
+            slacpy(' ', N, N, B, LDA, T, LDA );
             NTEST = 1
             RESULT( 1 ) = ULPINV
 
-            CALL SGEQR2( N, N, T, LDA, WORK, WORK( N+1 ), IINFO )
+            sgeqr2(N, N, T, LDA, WORK, WORK( N+1 ), IINFO );
             if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'SGEQR2', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                GO TO 210
             }
 
-            CALL SORM2R( 'L', 'T', N, N, N, T, LDA, WORK, H, LDA, WORK( N+1 ), IINFO )
+            sorm2r('L', 'T', N, N, N, T, LDA, WORK, H, LDA, WORK( N+1 ), IINFO );
             if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'SORM2R', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                GO TO 210
             }
 
-            CALL SLASET( 'Full', N, N, ZERO, ONE, U, LDU )
-            CALL SORM2R( 'R', 'N', N, N, N, T, LDA, WORK, U, LDU, WORK( N+1 ), IINFO )
+            slaset('Full', N, N, ZERO, ONE, U, LDU );
+            sorm2r('R', 'N', N, N, N, T, LDA, WORK, U, LDU, WORK( N+1 ), IINFO );
             if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'SORM2R', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                GO TO 210
             }
 
-            CALL SGGHRD( 'V', 'I', N, 1, N, H, LDA, T, LDA, U, LDU, V, LDU, IINFO )
+            sgghrd('V', 'I', N, 1, N, H, LDA, T, LDA, U, LDU, V, LDU, IINFO );
             if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'SGGHRD', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
@@ -292,7 +292,7 @@
 
             // Do tests 1--4
 
-            CALL SGET51( 1, N, A, LDA, H, LDA, U, LDU, V, LDU, WORK, RESULT( 1 ) )             CALL SGET51( 1, N, B, LDA, T, LDA, U, LDU, V, LDU, WORK, RESULT( 2 ) )             CALL SGET51( 3, N, B, LDA, T, LDA, U, LDU, U, LDU, WORK, RESULT( 3 ) )             CALL SGET51( 3, N, B, LDA, T, LDA, V, LDU, V, LDU, WORK, RESULT( 4 ) )
+            sget51(1, N, A, LDA, H, LDA, U, LDU, V, LDU, WORK, RESULT( 1 ) )             CALL SGET51( 1, N, B, LDA, T, LDA, U, LDU, V, LDU, WORK, RESULT( 2 ) )             CALL SGET51( 3, N, B, LDA, T, LDA, U, LDU, U, LDU, WORK, RESULT( 3 ) )             CALL SGET51( 3, N, B, LDA, T, LDA, V, LDU, V, LDU, WORK, RESULT( 4 ) );
 
             // Call SHGEQZ to compute S1, P1, S2, P2, Q, and Z, do tests.
 
@@ -300,12 +300,12 @@
 
             // Eigenvalues only
 
-            CALL SLACPY( ' ', N, N, H, LDA, S2, LDA )
-            CALL SLACPY( ' ', N, N, T, LDA, P2, LDA )
+            slacpy(' ', N, N, H, LDA, S2, LDA );
+            slacpy(' ', N, N, T, LDA, P2, LDA );
             NTEST = 5
             RESULT( 5 ) = ULPINV
 
-            CALL SHGEQZ( 'E', 'N', 'N', N, 1, N, S2, LDA, P2, LDA, ALPHR3, ALPHI3, BETA3, Q, LDU, Z, LDU, WORK, LWORK, IINFO )
+            shgeqz('E', 'N', 'N', N, 1, N, S2, LDA, P2, LDA, ALPHR3, ALPHI3, BETA3, Q, LDU, Z, LDU, WORK, LWORK, IINFO );
             if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'SHGEQZ(E)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
@@ -314,10 +314,10 @@
 
             // Eigenvalues and Full Schur Form
 
-            CALL SLACPY( ' ', N, N, H, LDA, S2, LDA )
-            CALL SLACPY( ' ', N, N, T, LDA, P2, LDA )
+            slacpy(' ', N, N, H, LDA, S2, LDA );
+            slacpy(' ', N, N, T, LDA, P2, LDA );
 
-            CALL SHGEQZ( 'S', 'N', 'N', N, 1, N, S2, LDA, P2, LDA, ALPHR1, ALPHI1, BETA1, Q, LDU, Z, LDU, WORK, LWORK, IINFO )
+            shgeqz('S', 'N', 'N', N, 1, N, S2, LDA, P2, LDA, ALPHR1, ALPHI1, BETA1, Q, LDU, Z, LDU, WORK, LWORK, IINFO );
             if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'SHGEQZ(S)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
@@ -326,10 +326,10 @@
 
             // Eigenvalues, Schur Form, and Schur Vectors
 
-            CALL SLACPY( ' ', N, N, H, LDA, S1, LDA )
-            CALL SLACPY( ' ', N, N, T, LDA, P1, LDA )
+            slacpy(' ', N, N, H, LDA, S1, LDA );
+            slacpy(' ', N, N, T, LDA, P1, LDA );
 
-            CALL SHGEQZ( 'S', 'I', 'I', N, 1, N, S1, LDA, P1, LDA, ALPHR1, ALPHI1, BETA1, Q, LDU, Z, LDU, WORK, LWORK, IINFO )
+            shgeqz('S', 'I', 'I', N, 1, N, S1, LDA, P1, LDA, ALPHR1, ALPHI1, BETA1, Q, LDU, Z, LDU, WORK, LWORK, IINFO );
             if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'SHGEQZ(V)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
@@ -340,7 +340,7 @@
 
             // Do Tests 5--8
 
-            CALL SGET51( 1, N, H, LDA, S1, LDA, Q, LDU, Z, LDU, WORK, RESULT( 5 ) )             CALL SGET51( 1, N, T, LDA, P1, LDA, Q, LDU, Z, LDU, WORK, RESULT( 6 ) )             CALL SGET51( 3, N, T, LDA, P1, LDA, Q, LDU, Q, LDU, WORK, RESULT( 7 ) )             CALL SGET51( 3, N, T, LDA, P1, LDA, Z, LDU, Z, LDU, WORK, RESULT( 8 ) )
+            sget51(1, N, H, LDA, S1, LDA, Q, LDU, Z, LDU, WORK, RESULT( 5 ) )             CALL SGET51( 1, N, T, LDA, P1, LDA, Q, LDU, Z, LDU, WORK, RESULT( 6 ) )             CALL SGET51( 3, N, T, LDA, P1, LDA, Q, LDU, Q, LDU, WORK, RESULT( 7 ) )             CALL SGET51( 3, N, T, LDA, P1, LDA, Z, LDU, Z, LDU, WORK, RESULT( 8 ) );
 
             // Compute the Left and Right Eigenvectors of (S1,P1)
 
@@ -361,7 +361,7 @@
                LLWORK( J ) = .FALSE.
   130       CONTINUE
 
-            CALL STGEVC( 'L', 'S', LLWORK, N, S1, LDA, P1, LDA, EVECTL, LDU, DUMMA, LDU, N, IN, WORK, IINFO )
+            stgevc('L', 'S', LLWORK, N, S1, LDA, P1, LDA, EVECTL, LDU, DUMMA, LDU, N, IN, WORK, IINFO );
             if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'STGEVC(L,S1)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
@@ -376,14 +376,14 @@
                LLWORK( J ) = .TRUE.
   150       CONTINUE
 
-            CALL STGEVC( 'L', 'S', LLWORK, N, S1, LDA, P1, LDA, EVECTL( 1, I1+1 ), LDU, DUMMA, LDU, N, IN, WORK, IINFO )
+            stgevc('L', 'S', LLWORK, N, S1, LDA, P1, LDA, EVECTL( 1, I1+1 ), LDU, DUMMA, LDU, N, IN, WORK, IINFO );
             if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'STGEVC(L,S2)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                GO TO 210
             }
 
-            CALL SGET52( .TRUE., N, S1, LDA, P1, LDA, EVECTL, LDU, ALPHR1, ALPHI1, BETA1, WORK, DUMMA( 1 ) )
+            sget52(.TRUE., N, S1, LDA, P1, LDA, EVECTL, LDU, ALPHR1, ALPHI1, BETA1, WORK, DUMMA( 1 ) );
             RESULT( 9 ) = DUMMA( 1 )
             if ( DUMMA( 2 ).GT.THRSHN ) {
                WRITE( NOUNIT, FMT = 9998 )'Left', 'STGEVC(HOWMNY=S)', DUMMA( 2 ), N, JTYPE, IOLDSD
@@ -394,15 +394,15 @@
 
             NTEST = 10
             RESULT( 10 ) = ULPINV
-            CALL SLACPY( 'F', N, N, Q, LDU, EVECTL, LDU )
-            CALL STGEVC( 'L', 'B', LLWORK, N, S1, LDA, P1, LDA, EVECTL, LDU, DUMMA, LDU, N, IN, WORK, IINFO )
+            slacpy('F', N, N, Q, LDU, EVECTL, LDU );
+            stgevc('L', 'B', LLWORK, N, S1, LDA, P1, LDA, EVECTL, LDU, DUMMA, LDU, N, IN, WORK, IINFO );
             if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'STGEVC(L,B)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                GO TO 210
             }
 
-            CALL SGET52( .TRUE., N, H, LDA, T, LDA, EVECTL, LDU, ALPHR1, ALPHI1, BETA1, WORK, DUMMA( 1 ) )
+            sget52(.TRUE., N, H, LDA, T, LDA, EVECTL, LDU, ALPHR1, ALPHI1, BETA1, WORK, DUMMA( 1 ) );
             RESULT( 10 ) = DUMMA( 1 )
             if ( DUMMA( 2 ).GT.THRSHN ) {
                WRITE( NOUNIT, FMT = 9998 )'Left', 'STGEVC(HOWMNY=B)', DUMMA( 2 ), N, JTYPE, IOLDSD
@@ -425,7 +425,7 @@
                LLWORK( J ) = .FALSE.
   170       CONTINUE
 
-            CALL STGEVC( 'R', 'S', LLWORK, N, S1, LDA, P1, LDA, DUMMA, LDU, EVECTR, LDU, N, IN, WORK, IINFO )
+            stgevc('R', 'S', LLWORK, N, S1, LDA, P1, LDA, DUMMA, LDU, EVECTR, LDU, N, IN, WORK, IINFO );
             if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'STGEVC(R,S1)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
@@ -440,14 +440,14 @@
                LLWORK( J ) = .TRUE.
   190       CONTINUE
 
-            CALL STGEVC( 'R', 'S', LLWORK, N, S1, LDA, P1, LDA, DUMMA, LDU, EVECTR( 1, I1+1 ), LDU, N, IN, WORK, IINFO )
+            stgevc('R', 'S', LLWORK, N, S1, LDA, P1, LDA, DUMMA, LDU, EVECTR( 1, I1+1 ), LDU, N, IN, WORK, IINFO );
             if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'STGEVC(R,S2)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                GO TO 210
             }
 
-            CALL SGET52( .FALSE., N, S1, LDA, P1, LDA, EVECTR, LDU, ALPHR1, ALPHI1, BETA1, WORK, DUMMA( 1 ) )
+            sget52(.FALSE., N, S1, LDA, P1, LDA, EVECTR, LDU, ALPHR1, ALPHI1, BETA1, WORK, DUMMA( 1 ) );
             RESULT( 11 ) = DUMMA( 1 )
             if ( DUMMA( 2 ).GT.THRESH ) {
                WRITE( NOUNIT, FMT = 9998 )'Right', 'STGEVC(HOWMNY=S)', DUMMA( 2 ), N, JTYPE, IOLDSD
@@ -458,15 +458,15 @@
 
             NTEST = 12
             RESULT( 12 ) = ULPINV
-            CALL SLACPY( 'F', N, N, Z, LDU, EVECTR, LDU )
-            CALL STGEVC( 'R', 'B', LLWORK, N, S1, LDA, P1, LDA, DUMMA, LDU, EVECTR, LDU, N, IN, WORK, IINFO )
+            slacpy('F', N, N, Z, LDU, EVECTR, LDU );
+            stgevc('R', 'B', LLWORK, N, S1, LDA, P1, LDA, DUMMA, LDU, EVECTR, LDU, N, IN, WORK, IINFO );
             if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'STGEVC(R,B)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                GO TO 210
             }
 
-            CALL SGET52( .FALSE., N, H, LDA, T, LDA, EVECTR, LDU, ALPHR1, ALPHI1, BETA1, WORK, DUMMA( 1 ) )
+            sget52(.FALSE., N, H, LDA, T, LDA, EVECTR, LDU, ALPHR1, ALPHI1, BETA1, WORK, DUMMA( 1 ) );
             RESULT( 12 ) = DUMMA( 1 )
             if ( DUMMA( 2 ).GT.THRESH ) {
                WRITE( NOUNIT, FMT = 9998 )'Right', 'STGEVC(HOWMNY=B)', DUMMA( 2 ), N, JTYPE, IOLDSD
@@ -478,7 +478,7 @@
 
                // Do Tests 13--14
 
-               CALL SGET51( 2, N, S1, LDA, S2, LDA, Q, LDU, Z, LDU, WORK, RESULT( 13 ) )                CALL SGET51( 2, N, P1, LDA, P2, LDA, Q, LDU, Z, LDU, WORK, RESULT( 14 ) )
+               sget51(2, N, S1, LDA, S2, LDA, Q, LDU, Z, LDU, WORK, RESULT( 13 ) )                CALL SGET51( 2, N, P1, LDA, P2, LDA, Q, LDU, Z, LDU, WORK, RESULT( 14 ) );
 
                // Do Test 15
 
@@ -542,7 +542,7 @@
 
       // Summary
 
-      CALL SLASUM( 'SGG', NOUNIT, NERRS, NTESTT )
+      slasum('SGG', NOUNIT, NERRS, NTESTT );
       RETURN
 
  9999 FORMAT( ' SCHKGG: ', A, ' returned INFO=', I6, '.', / 9X, 'N=', I6, ', JTYPE=', I6, ', ISEED=(', 3( I5, ',' ), I5, ')' )

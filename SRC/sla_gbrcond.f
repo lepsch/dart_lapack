@@ -53,7 +53,7 @@
          INFO = -8
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'SLA_GBRCOND', -INFO )
+         xerbla('SLA_GBRCOND', -INFO );
          RETURN
       }
       if ( N.EQ.0 ) {
@@ -110,7 +110,7 @@
 
       KASE = 0
    10 CONTINUE
-      CALL SLACN2( N, WORK( N+1 ), WORK, IWORK, AINVNM, KASE, ISAVE )
+      slacn2(N, WORK( N+1 ), WORK, IWORK, AINVNM, KASE, ISAVE );
       if ( KASE.NE.0 ) {
          if ( KASE.EQ.2 ) {
 
@@ -121,9 +121,9 @@
             END DO
 
             if ( NOTRANS ) {
-               CALL SGBTRS( 'No transpose', N, KL, KU, 1, AFB, LDAFB, IPIV, WORK, N, INFO )
+               sgbtrs('No transpose', N, KL, KU, 1, AFB, LDAFB, IPIV, WORK, N, INFO );
             } else {
-               CALL SGBTRS( 'Transpose', N, KL, KU, 1, AFB, LDAFB, IPIV, WORK, N, INFO )
+               sgbtrs('Transpose', N, KL, KU, 1, AFB, LDAFB, IPIV, WORK, N, INFO );
             }
 
             // Multiply by inv(C).
@@ -152,9 +152,9 @@
             }
 
             if ( NOTRANS ) {
-               CALL SGBTRS( 'Transpose', N, KL, KU, 1, AFB, LDAFB, IPIV, WORK, N, INFO )
+               sgbtrs('Transpose', N, KL, KU, 1, AFB, LDAFB, IPIV, WORK, N, INFO );
             } else {
-               CALL SGBTRS( 'No transpose', N, KL, KU, 1, AFB, LDAFB, IPIV, WORK, N, INFO )
+               sgbtrs('No transpose', N, KL, KU, 1, AFB, LDAFB, IPIV, WORK, N, INFO );
             }
 
             // Multiply by R.

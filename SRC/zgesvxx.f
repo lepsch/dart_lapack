@@ -123,7 +123,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'ZGESVXX', -INFO )
+         xerbla('ZGESVXX', -INFO );
          RETURN
       }
 
@@ -131,12 +131,12 @@
 
       // Compute row and column scalings to equilibrate the matrix A.
 
-         CALL ZGEEQUB( N, N, A, LDA, R, C, ROWCND, COLCND, AMAX, INFEQU )
+         zgeequb(N, N, A, LDA, R, C, ROWCND, COLCND, AMAX, INFEQU );
          if ( INFEQU.EQ.0 ) {
 
       // Equilibrate the matrix.
 
-            CALL ZLAQGE( N, N, A, LDA, R, C, ROWCND, COLCND, AMAX, EQUED )
+            zlaqge(N, N, A, LDA, R, C, ROWCND, COLCND, AMAX, EQUED );
             ROWEQU = LSAME( EQUED, 'R' ) .OR. LSAME( EQUED, 'B' )
             COLEQU = LSAME( EQUED, 'C' ) .OR. LSAME( EQUED, 'B' )
          }
@@ -167,8 +167,8 @@
 
          // Compute the LU factorization of A.
 
-         CALL ZLACPY( 'Full', N, N, A, LDA, AF, LDAF )
-         CALL ZGETRF( N, N, AF, LDAF, IPIV, INFO )
+         zlacpy('Full', N, N, A, LDA, AF, LDAF );
+         zgetrf(N, N, AF, LDAF, IPIV, INFO );
 
          // Return if INFO is non-zero.
 
@@ -189,20 +189,20 @@
 
       // Compute the solution matrix X.
 
-      CALL ZLACPY( 'Full', N, NRHS, B, LDB, X, LDX )
-      CALL ZGETRS( TRANS, N, NRHS, AF, LDAF, IPIV, X, LDX, INFO )
+      zlacpy('Full', N, NRHS, B, LDB, X, LDX );
+      zgetrs(TRANS, N, NRHS, AF, LDAF, IPIV, X, LDX, INFO );
 
       // Use iterative refinement to improve the computed solution and
       // compute error bounds and backward error estimates for it.
 
-      CALL ZGERFSX( TRANS, EQUED, N, NRHS, A, LDA, AF, LDAF, IPIV, R, C, B, LDB, X, LDX, RCOND, BERR, N_ERR_BNDS, ERR_BNDS_NORM, ERR_BNDS_COMP, NPARAMS, PARAMS, WORK, RWORK, INFO )
+      zgerfsx(TRANS, EQUED, N, NRHS, A, LDA, AF, LDAF, IPIV, R, C, B, LDB, X, LDX, RCOND, BERR, N_ERR_BNDS, ERR_BNDS_NORM, ERR_BNDS_COMP, NPARAMS, PARAMS, WORK, RWORK, INFO );
 
       // Scale solutions.
 
       if ( COLEQU .AND. NOTRAN ) {
-         CALL ZLASCL2 ( N, NRHS, C, X, LDX )
+         zlascl2(N, NRHS, C, X, LDX );
       } else if ( ROWEQU .AND. .NOT.NOTRAN ) {
-         CALL ZLASCL2 ( N, NRHS, R, X, LDX )
+         zlascl2(N, NRHS, R, X, LDX );
       }
 
       RETURN

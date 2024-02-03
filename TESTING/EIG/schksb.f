@@ -91,7 +91,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'SCHKSB', -INFO )
+         xerbla('SCHKSB', -INFO );
          RETURN
       }
 
@@ -177,7 +177,7 @@
 
    70          CONTINUE
 
-               CALL SLASET( 'Full', LDA, N, ZERO, ZERO, A, LDA )
+               slaset('Full', LDA, N, ZERO, ZERO, A, LDA );
                IINFO = 0
                if ( JTYPE.LE.15 ) {
                   COND = ULPINV
@@ -204,31 +204,31 @@
 
                   // Diagonal Matrix, [Eigen]values Specified
 
-                  CALL SLATMS( N, N, 'S', ISEED, 'S', WORK, IMODE, COND, ANORM, 0, 0, 'Q', A( K+1, 1 ), LDA, WORK( N+1 ), IINFO )
+                  slatms(N, N, 'S', ISEED, 'S', WORK, IMODE, COND, ANORM, 0, 0, 'Q', A( K+1, 1 ), LDA, WORK( N+1 ), IINFO );
 
                } else if ( ITYPE.EQ.5 ) {
 
                   // Symmetric, eigenvalues specified
 
-                  CALL SLATMS( N, N, 'S', ISEED, 'S', WORK, IMODE, COND, ANORM, K, K, 'Q', A, LDA, WORK( N+1 ), IINFO )
+                  slatms(N, N, 'S', ISEED, 'S', WORK, IMODE, COND, ANORM, K, K, 'Q', A, LDA, WORK( N+1 ), IINFO );
 
                } else if ( ITYPE.EQ.7 ) {
 
                   // Diagonal, random eigenvalues
 
-                  CALL SLATMR( N, N, 'S', ISEED, 'S', WORK, 6, ONE, ONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, 0, 0, ZERO, ANORM, 'Q', A( K+1, 1 ), LDA, IDUMMA, IINFO )
+                  slatmr(N, N, 'S', ISEED, 'S', WORK, 6, ONE, ONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, 0, 0, ZERO, ANORM, 'Q', A( K+1, 1 ), LDA, IDUMMA, IINFO );
 
                } else if ( ITYPE.EQ.8 ) {
 
                   // Symmetric, random eigenvalues
 
-                  CALL SLATMR( N, N, 'S', ISEED, 'S', WORK, 6, ONE, ONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, K, K, ZERO, ANORM, 'Q', A, LDA, IDUMMA, IINFO )
+                  slatmr(N, N, 'S', ISEED, 'S', WORK, 6, ONE, ONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, K, K, ZERO, ANORM, 'Q', A, LDA, IDUMMA, IINFO );
 
                } else if ( ITYPE.EQ.9 ) {
 
                   // Positive definite, eigenvalues specified.
 
-                  CALL SLATMS( N, N, 'S', ISEED, 'P', WORK, IMODE, COND, ANORM, K, K, 'Q', A, LDA, WORK( N+1 ), IINFO )
+                  slatms(N, N, 'S', ISEED, 'P', WORK, IMODE, COND, ANORM, K, K, 'Q', A, LDA, WORK( N+1 ), IINFO );
 
                } else if ( ITYPE.EQ.10 ) {
 
@@ -257,10 +257,10 @@
 
                // Call SSBTRD to compute S and U from upper triangle.
 
-               CALL SLACPY( ' ', K+1, N, A, LDA, WORK, LDA )
+               slacpy(' ', K+1, N, A, LDA, WORK, LDA );
 
                NTEST = 1
-               CALL SSBTRD( 'V', 'U', N, K, WORK, LDA, SD, SE, U, LDU, WORK( LDA*N+1 ), IINFO )
+               ssbtrd('V', 'U', N, K, WORK, LDA, SD, SE, U, LDU, WORK( LDA*N+1 ), IINFO );
 
                if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'SSBTRD(U)', IINFO, N, JTYPE, IOLDSD
@@ -275,7 +275,7 @@
 
                // Do tests 1 and 2
 
-               CALL SSBT21( 'Upper', N, K, 1, A, LDA, SD, SE, U, LDU, WORK, RESULT( 1 ) )
+               ssbt21('Upper', N, K, 1, A, LDA, SD, SE, U, LDU, WORK, RESULT( 1 ) );
 
                // Convert A from Upper-Triangle-Only storage to
                // Lower-Triangle-Only storage.
@@ -293,10 +293,10 @@
 
                // Call SSBTRD to compute S and U from lower triangle
 
-               CALL SLACPY( ' ', K+1, N, A, LDA, WORK, LDA )
+               slacpy(' ', K+1, N, A, LDA, WORK, LDA );
 
                NTEST = 3
-               CALL SSBTRD( 'V', 'L', N, K, WORK, LDA, SD, SE, U, LDU, WORK( LDA*N+1 ), IINFO )
+               ssbtrd('V', 'L', N, K, WORK, LDA, SD, SE, U, LDU, WORK( LDA*N+1 ), IINFO );
 
                if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'SSBTRD(L)', IINFO, N, JTYPE, IOLDSD
@@ -312,7 +312,7 @@
 
                // Do tests 3 and 4
 
-               CALL SSBT21( 'Lower', N, K, 1, A, LDA, SD, SE, U, LDU, WORK, RESULT( 3 ) )
+               ssbt21('Lower', N, K, 1, A, LDA, SD, SE, U, LDU, WORK, RESULT( 3 ) );
 
                // End of Loop -- Check for RESULT(j) > THRESH
 
@@ -345,7 +345,7 @@
 
       // Summary
 
-      CALL SLASUM( 'SSB', NOUNIT, NERRS, NTESTT )
+      slasum('SSB', NOUNIT, NERRS, NTESTT );
       RETURN
 
  9999 FORMAT( ' SCHKSB: ', A, ' returned INFO=', I6, '.', / 9X, 'N=', I6, ', JTYPE=', I6, ', ISEED=(', 3( I5, ',' ), I5, ')' )

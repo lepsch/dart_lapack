@@ -58,7 +58,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'ZHBEV ', -INFO )
+         xerbla('ZHBEV ', -INFO );
          RETURN
       }
 
@@ -98,24 +98,24 @@
       }
       if ( ISCALE.EQ.1 ) {
          if ( LOWER ) {
-            CALL ZLASCL( 'B', KD, KD, ONE, SIGMA, N, N, AB, LDAB, INFO )
+            zlascl('B', KD, KD, ONE, SIGMA, N, N, AB, LDAB, INFO );
          } else {
-            CALL ZLASCL( 'Q', KD, KD, ONE, SIGMA, N, N, AB, LDAB, INFO )
+            zlascl('Q', KD, KD, ONE, SIGMA, N, N, AB, LDAB, INFO );
          }
       }
 
       // Call ZHBTRD to reduce Hermitian band matrix to tridiagonal form.
 
       INDE = 1
-      CALL ZHBTRD( JOBZ, UPLO, N, KD, AB, LDAB, W, RWORK( INDE ), Z, LDZ, WORK, IINFO )
+      zhbtrd(JOBZ, UPLO, N, KD, AB, LDAB, W, RWORK( INDE ), Z, LDZ, WORK, IINFO );
 
       // For eigenvalues only, call DSTERF.  For eigenvectors, call ZSTEQR.
 
       if ( .NOT.WANTZ ) {
-         CALL DSTERF( N, W, RWORK( INDE ), INFO )
+         dsterf(N, W, RWORK( INDE ), INFO );
       } else {
          INDRWK = INDE + N
-         CALL ZSTEQR( JOBZ, N, W, RWORK( INDE ), Z, LDZ, RWORK( INDRWK ), INFO )
+         zsteqr(JOBZ, N, W, RWORK( INDE ), Z, LDZ, RWORK( INDRWK ), INFO );
       }
 
       // If matrix was scaled, then rescale eigenvalues appropriately.
@@ -126,7 +126,7 @@
          } else {
             IMAX = INFO - 1
          }
-         CALL DSCAL( IMAX, ONE / SIGMA, W, 1 )
+         dscal(IMAX, ONE / SIGMA, W, 1 );
       }
 
       RETURN

@@ -69,7 +69,7 @@
 
       IF( TSTERR ) CALL SERRPS( PATH, NOUT )
       INFOT = 0
-      CALL XLAENV( 2, 2 )
+      xlaenv(2, 2 );
 
       // Do for each value of N in NVAL
 
@@ -106,15 +106,15 @@
                // Set up parameters with SLATB5 and generate a test matrix
                // with SLATMT.
 
-                  CALL SLATB5( PATH, IMAT, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST )
+                  slatb5(PATH, IMAT, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST );
 
                   SRNAMT = 'SLATMT'
-                  CALL SLATMT( N, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, RANK, KL, KU, UPLO, A, LDA, WORK, INFO )
+                  slatmt(N, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, RANK, KL, KU, UPLO, A, LDA, WORK, INFO );
 
                // Check error code from SLATMT.
 
                   if ( INFO.NE.0 ) {
-                    CALL ALAERH( PATH, 'SLATMT', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT )
+                    alaerh(PATH, 'SLATMT', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
                      GO TO 120
                   }
 
@@ -122,18 +122,18 @@
 
                   DO 110 INB = 1, NNB
                      NB = NBVAL( INB )
-                     CALL XLAENV( 1, NB )
+                     xlaenv(1, NB );
 
                   // Compute the pivoted L*L' or U'*U factorization
                   // of the matrix.
 
-                     CALL SLACPY( UPLO, N, N, A, LDA, AFAC, LDA )
+                     slacpy(UPLO, N, N, A, LDA, AFAC, LDA );
                      SRNAMT = 'SPSTRF'
 
                   // Use default tolerance
 
                      TOL = -ONE
-                     CALL SPSTRF( UPLO, N, AFAC, LDA, PIV, COMPRANK, TOL, WORK, INFO )
+                     spstrf(UPLO, N, AFAC, LDA, PIV, COMPRANK, TOL, WORK, INFO );
 
                   // Check error code from SPSTRF.
 
@@ -149,7 +149,7 @@
 
                   // PERM holds permuted L*L^T or U^T*U
 
-                     CALL SPST01( UPLO, N, A, LDA, AFAC, LDA, PERM, LDA, PIV, RWORK, RESULT, COMPRANK )
+                     spst01(UPLO, N, A, LDA, AFAC, LDA, PERM, LDA, PIV, RWORK, RESULT, COMPRANK );
 
                   // Print information about the tests that did not pass
                   // the threshold or where computed rank was not RANK.
@@ -170,7 +170,7 @@
 
       // Print a summary of the results.
 
-      CALL ALASUM( PATH, NOUT, NFAIL, NRUN, NERRS )
+      alasum(PATH, NOUT, NFAIL, NRUN, NERRS );
 
  9999 FORMAT( ' UPLO = ''', A1, ''', N =', I5, ', RANK =', I3, ', Diff =', I5, ', NB =', I4, ', type ', I2, ', Ratio =', G12.5 )
       RETURN

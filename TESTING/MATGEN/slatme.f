@@ -159,7 +159,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'SLATME', -INFO )
+         xerbla('SLATME', -INFO );
          RETURN
       }
 
@@ -175,7 +175,7 @@
 
               // Compute D according to COND and MODE
 
-      CALL SLATM1( MODE, COND, IRSIGN, IDIST, ISEED, D, N, IINFO )
+      slatm1(MODE, COND, IRSIGN, IDIST, ISEED, D, N, IINFO );
       if ( IINFO.NE.0 ) {
          INFO = 1
          RETURN
@@ -198,12 +198,12 @@
             ALPHA = ZERO
          }
 
-         CALL SSCAL( N, ALPHA, D, 1 )
+         sscal(N, ALPHA, D, 1 );
 
       }
 
-      CALL SLASET( 'Full', N, N, ZERO, ZERO, A, LDA )
-      CALL SCOPY( N, D, 1, A, LDA+1 )
+      slaset('Full', N, N, ZERO, ZERO, A, LDA );
+      scopy(N, D, 1, A, LDA+1 );
 
       // Set up complex conjugate pairs
 
@@ -239,7 +239,7 @@
             } else {
                JR = JC - 1
             }
-            CALL SLARNV( IDIST, ISEED, JR, A( 1, JC ) )
+            slarnv(IDIST, ISEED, JR, A( 1, JC ) );
    70    CONTINUE
       }
 
@@ -255,7 +255,7 @@
          // Compute S (singular values of the eigenvector matrix)
          // according to CONDS and MODES
 
-         CALL SLATM1( MODES, CONDS, 0, 0, ISEED, DS, N, IINFO )
+         slatm1(MODES, CONDS, 0, 0, ISEED, DS, N, IINFO );
          if ( IINFO.NE.0 ) {
             INFO = 3
             RETURN
@@ -263,7 +263,7 @@
 
          // Multiply by V and V'
 
-         CALL SLARGE( N, A, LDA, ISEED, WORK, IINFO )
+         slarge(N, A, LDA, ISEED, WORK, IINFO );
          if ( IINFO.NE.0 ) {
             INFO = 4
             RETURN
@@ -272,9 +272,9 @@
          // Multiply by S and (1/S)
 
          DO 80 J = 1, N
-            CALL SSCAL( N, DS( J ), A( J, 1 ), LDA )
+            sscal(N, DS( J ), A( J, 1 ), LDA );
             if ( DS( J ).NE.ZERO ) {
-               CALL SSCAL( N, ONE / DS( J ), A( 1, J ), 1 )
+               sscal(N, ONE / DS( J ), A( 1, J ), 1 );
             } else {
                INFO = 5
                RETURN
@@ -283,7 +283,7 @@
 
          // Multiply by U and U'
 
-         CALL SLARGE( N, A, LDA, ISEED, WORK, IINFO )
+         slarge(N, A, LDA, ISEED, WORK, IINFO );
          if ( IINFO.NE.0 ) {
             INFO = 4
             RETURN
@@ -301,17 +301,17 @@
             IROWS = N + 1 - JCR
             ICOLS = N + KL - JCR
 
-            CALL SCOPY( IROWS, A( JCR, IC ), 1, WORK, 1 )
+            scopy(IROWS, A( JCR, IC ), 1, WORK, 1 );
             XNORMS = WORK( 1 )
-            CALL SLARFG( IROWS, XNORMS, WORK( 2 ), 1, TAU )
+            slarfg(IROWS, XNORMS, WORK( 2 ), 1, TAU );
             WORK( 1 ) = ONE
 
-            CALL SGEMV( 'T', IROWS, ICOLS, ONE, A( JCR, IC+1 ), LDA, WORK, 1, ZERO, WORK( IROWS+1 ), 1 )             CALL SGER( IROWS, ICOLS, -TAU, WORK, 1, WORK( IROWS+1 ), 1, A( JCR, IC+1 ), LDA )
+            sgemv('T', IROWS, ICOLS, ONE, A( JCR, IC+1 ), LDA, WORK, 1, ZERO, WORK( IROWS+1 ), 1 )             CALL SGER( IROWS, ICOLS, -TAU, WORK, 1, WORK( IROWS+1 ), 1, A( JCR, IC+1 ), LDA );
 
-            CALL SGEMV( 'N', N, IROWS, ONE, A( 1, JCR ), LDA, WORK, 1, ZERO, WORK( IROWS+1 ), 1 )             CALL SGER( N, IROWS, -TAU, WORK( IROWS+1 ), 1, WORK, 1, A( 1, JCR ), LDA )
+            sgemv('N', N, IROWS, ONE, A( 1, JCR ), LDA, WORK, 1, ZERO, WORK( IROWS+1 ), 1 )             CALL SGER( N, IROWS, -TAU, WORK( IROWS+1 ), 1, WORK, 1, A( 1, JCR ), LDA );
 
             A( JCR, IC ) = XNORMS
-            CALL SLASET( 'Full', IROWS-1, 1, ZERO, ZERO, A( JCR+1, IC ), LDA )
+            slaset('Full', IROWS-1, 1, ZERO, ZERO, A( JCR+1, IC ), LDA );
    90    CONTINUE
       } else if ( KU.LT.N-1 ) {
 
@@ -322,17 +322,17 @@
             IROWS = N + KU - JCR
             ICOLS = N + 1 - JCR
 
-            CALL SCOPY( ICOLS, A( IR, JCR ), LDA, WORK, 1 )
+            scopy(ICOLS, A( IR, JCR ), LDA, WORK, 1 );
             XNORMS = WORK( 1 )
-            CALL SLARFG( ICOLS, XNORMS, WORK( 2 ), 1, TAU )
+            slarfg(ICOLS, XNORMS, WORK( 2 ), 1, TAU );
             WORK( 1 ) = ONE
 
-            CALL SGEMV( 'N', IROWS, ICOLS, ONE, A( IR+1, JCR ), LDA, WORK, 1, ZERO, WORK( ICOLS+1 ), 1 )             CALL SGER( IROWS, ICOLS, -TAU, WORK( ICOLS+1 ), 1, WORK, 1, A( IR+1, JCR ), LDA )
+            sgemv('N', IROWS, ICOLS, ONE, A( IR+1, JCR ), LDA, WORK, 1, ZERO, WORK( ICOLS+1 ), 1 )             CALL SGER( IROWS, ICOLS, -TAU, WORK( ICOLS+1 ), 1, WORK, 1, A( IR+1, JCR ), LDA );
 
-            CALL SGEMV( 'C', ICOLS, N, ONE, A( JCR, 1 ), LDA, WORK, 1, ZERO, WORK( ICOLS+1 ), 1 )             CALL SGER( ICOLS, N, -TAU, WORK, 1, WORK( ICOLS+1 ), 1, A( JCR, 1 ), LDA )
+            sgemv('C', ICOLS, N, ONE, A( JCR, 1 ), LDA, WORK, 1, ZERO, WORK( ICOLS+1 ), 1 )             CALL SGER( ICOLS, N, -TAU, WORK, 1, WORK( ICOLS+1 ), 1, A( JCR, 1 ), LDA );
 
             A( IR, JCR ) = XNORMS
-            CALL SLASET( 'Full', 1, ICOLS-1, ZERO, ZERO, A( IR, JCR+1 ), LDA )
+            slaset('Full', 1, ICOLS-1, ZERO, ZERO, A( IR, JCR+1 ), LDA );
   100    CONTINUE
       }
 
@@ -343,7 +343,7 @@
          if ( TEMP.GT.ZERO ) {
             ALPHA = ANORM / TEMP
             DO 110 J = 1, N
-               CALL SSCAL( N, ALPHA, A( 1, J ), 1 )
+               sscal(N, ALPHA, A( 1, J ), 1 );
   110       CONTINUE
          }
       }

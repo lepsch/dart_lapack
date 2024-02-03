@@ -57,7 +57,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'ZUNGHR', -INFO )
+         xerbla('ZUNGHR', -INFO );
          RETURN
       } else if ( LQUERY ) {
          RETURN
@@ -102,7 +102,7 @@
 
          // Generate Q(ilo+1:ihi,ilo+1:ihi)
 
-         CALL ZUNGQR( NH, NH, NH, A( ILO+1, ILO+1 ), LDA, TAU( ILO ), WORK, LWORK, IINFO )
+         zungqr(NH, NH, NH, A( ILO+1, ILO+1 ), LDA, TAU( ILO ), WORK, LWORK, IINFO );
       }
       WORK( 1 ) = LWKOPT
       RETURN

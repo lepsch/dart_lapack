@@ -38,7 +38,7 @@
       INFO = 0
       if ( N.LT.0 ) {
          INFO = -1
-         CALL XERBLA( 'SLAGTF', -INFO )
+         xerbla('SLAGTF', -INFO );
          RETURN
       }
 

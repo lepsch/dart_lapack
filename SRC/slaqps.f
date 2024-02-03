@@ -51,8 +51,8 @@
 
          PVT = ( K-1 ) + ISAMAX( N-K+1, VN1( K ), 1 )
          if ( PVT.NE.K ) {
-            CALL SSWAP( M, A( 1, PVT ), 1, A( 1, K ), 1 )
-            CALL SSWAP( K-1, F( PVT, 1 ), LDF, F( K, 1 ), LDF )
+            sswap(M, A( 1, PVT ), 1, A( 1, K ), 1 );
+            sswap(K-1, F( PVT, 1 ), LDF, F( K, 1 ), LDF );
             ITEMP = JPVT( PVT )
             JPVT( PVT ) = JPVT( K )
             JPVT( K ) = ITEMP
@@ -64,15 +64,15 @@
          // A(RK:M,K) := A(RK:M,K) - A(RK:M,1:K-1)*F(K,1:K-1)**T.
 
          if ( K.GT.1 ) {
-            CALL SGEMV( 'No transpose', M-RK+1, K-1, -ONE, A( RK, 1 ), LDA, F( K, 1 ), LDF, ONE, A( RK, K ), 1 )
+            sgemv('No transpose', M-RK+1, K-1, -ONE, A( RK, 1 ), LDA, F( K, 1 ), LDF, ONE, A( RK, K ), 1 );
          }
 
          // Generate elementary reflector H(k).
 
          if ( RK.LT.M ) {
-            CALL SLARFG( M-RK+1, A( RK, K ), A( RK+1, K ), 1, TAU( K ) )
+            slarfg(M-RK+1, A( RK, K ), A( RK+1, K ), 1, TAU( K ) );
          } else {
-            CALL SLARFG( 1, A( RK, K ), A( RK, K ), 1, TAU( K ) )
+            slarfg(1, A( RK, K ), A( RK, K ), 1, TAU( K ) );
          }
 
          AKK = A( RK, K )
@@ -83,7 +83,7 @@
          // Compute  F(K+1:N,K) := tau(K)*A(RK:M,K+1:N)**T*A(RK:M,K).
 
          if ( K.LT.N ) {
-            CALL SGEMV( 'Transpose', M-RK+1, N-K, TAU( K ), A( RK, K+1 ), LDA, A( RK, K ), 1, ZERO, F( K+1, K ), 1 )
+            sgemv('Transpose', M-RK+1, N-K, TAU( K ), A( RK, K+1 ), LDA, A( RK, K ), 1, ZERO, F( K+1, K ), 1 );
          }
 
          // Padding F(1:K,K) with zeros.
@@ -97,16 +97,16 @@
                      // *A(RK:M,K).
 
          if ( K.GT.1 ) {
-            CALL SGEMV( 'Transpose', M-RK+1, K-1, -TAU( K ), A( RK, 1 ), LDA, A( RK, K ), 1, ZERO, AUXV( 1 ), 1 )
+            sgemv('Transpose', M-RK+1, K-1, -TAU( K ), A( RK, 1 ), LDA, A( RK, K ), 1, ZERO, AUXV( 1 ), 1 );
 
-            CALL SGEMV( 'No transpose', N, K-1, ONE, F( 1, 1 ), LDF, AUXV( 1 ), 1, ONE, F( 1, K ), 1 )
+            sgemv('No transpose', N, K-1, ONE, F( 1, 1 ), LDF, AUXV( 1 ), 1, ONE, F( 1, K ), 1 );
          }
 
          // Update the current row of A:
          // A(RK,K+1:N) := A(RK,K+1:N) - A(RK,1:K)*F(K+1:N,1:K)**T.
 
          if ( K.LT.N ) {
-            CALL SGEMV( 'No transpose', N-K, K, -ONE, F( K+1, 1 ), LDF, A( RK, 1 ), LDA, ONE, A( RK, K+1 ), LDA )
+            sgemv('No transpose', N-K, K, -ONE, F( K+1, 1 ), LDF, A( RK, 1 ), LDA, ONE, A( RK, K+1 ), LDA );
          }
 
          // Update partial column norms.
@@ -145,7 +145,7 @@
                           // A(OFFSET+KB+1:M,1:KB)*F(KB+1:N,1:KB)**T.
 
       if ( KB.LT.MIN( N, M-OFFSET ) ) {
-         CALL SGEMM( 'No transpose', 'Transpose', M-RK, N-KB, KB, -ONE, A( RK+1, 1 ), LDA, F( KB+1, 1 ), LDF, ONE, A( RK+1, KB+1 ), LDA )
+         sgemm('No transpose', 'Transpose', M-RK, N-KB, KB, -ONE, A( RK+1, 1 ), LDA, F( KB+1, 1 ), LDF, ONE, A( RK+1, KB+1 ), LDA );
       }
 
       // Recomputation of difficult columns.

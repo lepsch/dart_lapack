@@ -64,7 +64,7 @@
          INFO = -10
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'ZUNML2', -INFO )
+         xerbla('ZUNML2', -INFO );
          RETURN
       }
 
@@ -115,7 +115,7 @@
          IF( I.LT.NQ ) CALL ZLACGV( NQ-I, A( I, I+1 ), LDA )
          AII = A( I, I )
          A( I, I ) = ONE
-         CALL ZLARF( SIDE, MI, NI, A( I, I ), LDA, TAUI, C( IC, JC ), LDC, WORK )
+         zlarf(SIDE, MI, NI, A( I, I ), LDA, TAUI, C( IC, JC ), LDC, WORK );
          A( I, I ) = AII
          IF( I.LT.NQ ) CALL ZLACGV( NQ-I, A( I, I+1 ), LDA )
    10 CONTINUE

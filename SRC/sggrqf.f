@@ -54,7 +54,7 @@
          INFO = -11
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'SGGRQF', -INFO )
+         xerbla('SGGRQF', -INFO );
          RETURN
       } else if ( LQUERY ) {
          RETURN
@@ -62,17 +62,17 @@
 
       // RQ factorization of M-by-N matrix A: A = R*Q
 
-      CALL SGERQF( M, N, A, LDA, TAUA, WORK, LWORK, INFO )
+      sgerqf(M, N, A, LDA, TAUA, WORK, LWORK, INFO );
       LOPT = INT( WORK( 1 ) )
 
       // Update B := B*Q**T
 
-      CALL SORMRQ( 'Right', 'Transpose', P, N, MIN( M, N ), A( MAX( 1, M-N+1 ), 1 ), LDA, TAUA, B, LDB, WORK, LWORK, INFO )
+      sormrq('Right', 'Transpose', P, N, MIN( M, N ), A( MAX( 1, M-N+1 ), 1 ), LDA, TAUA, B, LDB, WORK, LWORK, INFO );
       LOPT = MAX( LOPT, INT( WORK( 1 ) ) )
 
       // QR factorization of P-by-N matrix B: B = Z*T
 
-      CALL SGEQRF( P, N, B, LDB, TAUB, WORK, LWORK, INFO )
+      sgeqrf(P, N, B, LDB, TAUB, WORK, LWORK, INFO );
       LWKOPT = MAX( LOPT, INT( WORK( 1 ) ) )
       WORK( 1 ) = SROUNDUP_LWORK( LWKOPT )
 

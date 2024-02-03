@@ -106,7 +106,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'CCHKBD', -INFO )
+         xerbla('CCHKBD', -INFO );
          RETURN
       }
 
@@ -191,7 +191,7 @@
 
    70       CONTINUE
 
-            CALL CLASET( 'Full', LDA, N, CZERO, CZERO, A, LDA )
+            claset('Full', LDA, N, CZERO, CZERO, A, LDA );
             IINFO = 0
             COND = ULPINV
 
@@ -214,37 +214,37 @@
 
                // Diagonal Matrix, [Eigen]values Specified
 
-               CALL CLATMS( MNMIN, MNMIN, 'S', ISEED, 'N', RWORK, IMODE, COND, ANORM, 0, 0, 'N', A, LDA, WORK, IINFO )
+               clatms(MNMIN, MNMIN, 'S', ISEED, 'N', RWORK, IMODE, COND, ANORM, 0, 0, 'N', A, LDA, WORK, IINFO );
 
             } else if ( ITYPE.EQ.5 ) {
 
                // Symmetric, eigenvalues specified
 
-               CALL CLATMS( MNMIN, MNMIN, 'S', ISEED, 'S', RWORK, IMODE, COND, ANORM, M, N, 'N', A, LDA, WORK, IINFO )
+               clatms(MNMIN, MNMIN, 'S', ISEED, 'S', RWORK, IMODE, COND, ANORM, M, N, 'N', A, LDA, WORK, IINFO );
 
             } else if ( ITYPE.EQ.6 ) {
 
                // Nonsymmetric, singular values specified
 
-               CALL CLATMS( M, N, 'S', ISEED, 'N', RWORK, IMODE, COND, ANORM, M, N, 'N', A, LDA, WORK, IINFO )
+               clatms(M, N, 'S', ISEED, 'N', RWORK, IMODE, COND, ANORM, M, N, 'N', A, LDA, WORK, IINFO );
 
             } else if ( ITYPE.EQ.7 ) {
 
                // Diagonal, random entries
 
-               CALL CLATMR( MNMIN, MNMIN, 'S', ISEED, 'N', WORK, 6, ONE, CONE, 'T', 'N', WORK( MNMIN+1 ), 1, ONE, WORK( 2*MNMIN+1 ), 1, ONE, 'N', IWORK, 0, 0, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO )
+               clatmr(MNMIN, MNMIN, 'S', ISEED, 'N', WORK, 6, ONE, CONE, 'T', 'N', WORK( MNMIN+1 ), 1, ONE, WORK( 2*MNMIN+1 ), 1, ONE, 'N', IWORK, 0, 0, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO );
 
             } else if ( ITYPE.EQ.8 ) {
 
                // Symmetric, random entries
 
-               CALL CLATMR( MNMIN, MNMIN, 'S', ISEED, 'S', WORK, 6, ONE, CONE, 'T', 'N', WORK( MNMIN+1 ), 1, ONE, WORK( M+MNMIN+1 ), 1, ONE, 'N', IWORK, M, N, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO )
+               clatmr(MNMIN, MNMIN, 'S', ISEED, 'S', WORK, 6, ONE, CONE, 'T', 'N', WORK( MNMIN+1 ), 1, ONE, WORK( M+MNMIN+1 ), 1, ONE, 'N', IWORK, M, N, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO );
 
             } else if ( ITYPE.EQ.9 ) {
 
                // Nonsymmetric, random entries
 
-               CALL CLATMR( M, N, 'S', ISEED, 'N', WORK, 6, ONE, CONE, 'T', 'N', WORK( MNMIN+1 ), 1, ONE, WORK( M+MNMIN+1 ), 1, ONE, 'N', IWORK, M, N, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO )
+               clatmr(M, N, 'S', ISEED, 'N', WORK, 6, ONE, CONE, 'T', 'N', WORK( MNMIN+1 ), 1, ONE, WORK( M+MNMIN+1 ), 1, ONE, 'N', IWORK, M, N, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO );
 
             } else if ( ITYPE.EQ.10 ) {
 
@@ -272,9 +272,9 @@
                // Generate Right-Hand Side
 
                if ( BIDIAG ) {
-                  CALL CLATMR( MNMIN, NRHS, 'S', ISEED, 'N', WORK, 6, ONE, CONE, 'T', 'N', WORK( MNMIN+1 ), 1, ONE, WORK( 2*MNMIN+1 ), 1, ONE, 'N', IWORK, MNMIN, NRHS, ZERO, ONE, 'NO', Y, LDX, IWORK, IINFO )
+                  clatmr(MNMIN, NRHS, 'S', ISEED, 'N', WORK, 6, ONE, CONE, 'T', 'N', WORK( MNMIN+1 ), 1, ONE, WORK( 2*MNMIN+1 ), 1, ONE, 'N', IWORK, MNMIN, NRHS, ZERO, ONE, 'NO', Y, LDX, IWORK, IINFO );
                } else {
-                  CALL CLATMR( M, NRHS, 'S', ISEED, 'N', WORK, 6, ONE, CONE, 'T', 'N', WORK( M+1 ), 1, ONE, WORK( 2*M+1 ), 1, ONE, 'N', IWORK, M, NRHS, ZERO, ONE, 'NO', X, LDX, IWORK, IINFO )
+                  clatmr(M, NRHS, 'S', ISEED, 'N', WORK, 6, ONE, CONE, 'T', 'N', WORK( M+1 ), 1, ONE, WORK( 2*M+1 ), 1, ONE, 'N', IWORK, M, NRHS, ZERO, ONE, 'NO', X, LDX, IWORK, IINFO );
                }
             }
 
@@ -295,8 +295,8 @@
                // Compute transformations to reduce A to bidiagonal form:
                // B := Q' * A * P.
 
-               CALL CLACPY( ' ', M, N, A, LDA, Q, LDQ )
-               CALL CGEBRD( M, N, Q, LDQ, BD, BE, WORK, WORK( MNMIN+1 ), WORK( 2*MNMIN+1 ), LWORK-2*MNMIN, IINFO )
+               clacpy(' ', M, N, A, LDA, Q, LDQ );
+               cgebrd(M, N, Q, LDQ, BD, BE, WORK, WORK( MNMIN+1 ), WORK( 2*MNMIN+1 ), LWORK-2*MNMIN, IINFO );
 
                // Check error code from CGEBRD.
 
@@ -306,7 +306,7 @@
                   RETURN
                }
 
-               CALL CLACPY( ' ', M, N, Q, LDQ, PT, LDPT )
+               clacpy(' ', M, N, Q, LDQ, PT, LDPT );
                if ( M.GE.N ) {
                   UPLO = 'U'
                } else {
@@ -328,7 +328,7 @@
 
                // Generate P'
 
-               CALL CUNGBR( 'P', MNMIN, N, M, PT, LDPT, WORK( MNMIN+1 ), WORK( 2*MNMIN+1 ), LWORK-2*MNMIN, IINFO )
+               cungbr('P', MNMIN, N, M, PT, LDPT, WORK( MNMIN+1 ), WORK( 2*MNMIN+1 ), LWORK-2*MNMIN, IINFO );
 
                // Check error code from CUNGBR.
 
@@ -340,25 +340,25 @@
 
                // Apply Q' to an M by NRHS matrix X:  Y := Q' * X.
 
-               CALL CGEMM( 'Conjugate transpose', 'No transpose', M, NRHS, M, CONE, Q, LDQ, X, LDX, CZERO, Y, LDX )
+               cgemm('Conjugate transpose', 'No transpose', M, NRHS, M, CONE, Q, LDQ, X, LDX, CZERO, Y, LDX );
 
                // Test 1:  Check the decomposition A := Q * B * PT
                     // 2:  Check the orthogonality of Q
                     // 3:  Check the orthogonality of PT
 
-               CALL CBDT01( M, N, 1, A, LDA, Q, LDQ, BD, BE, PT, LDPT, WORK, RWORK, RESULT( 1 ) )                CALL CUNT01( 'Columns', M, MQ, Q, LDQ, WORK, LWORK, RWORK, RESULT( 2 ) )                CALL CUNT01( 'Rows', MNMIN, N, PT, LDPT, WORK, LWORK, RWORK, RESULT( 3 ) )
+               cbdt01(M, N, 1, A, LDA, Q, LDQ, BD, BE, PT, LDPT, WORK, RWORK, RESULT( 1 ) )                CALL CUNT01( 'Columns', M, MQ, Q, LDQ, WORK, LWORK, RWORK, RESULT( 2 ) )                CALL CUNT01( 'Rows', MNMIN, N, PT, LDPT, WORK, LWORK, RWORK, RESULT( 3 ) );
             }
 
             // Use CBDSQR to form the SVD of the bidiagonal matrix B:
             // B := U * S1 * VT, and compute Z = U' * Y.
 
-            CALL SCOPY( MNMIN, BD, 1, S1, 1 )
+            scopy(MNMIN, BD, 1, S1, 1 );
             IF( MNMIN.GT.0 ) CALL SCOPY( MNMIN-1, BE, 1, RWORK, 1 )
-            CALL CLACPY( ' ', M, NRHS, Y, LDX, Z, LDX )
-            CALL CLASET( 'Full', MNMIN, MNMIN, CZERO, CONE, U, LDPT )
-            CALL CLASET( 'Full', MNMIN, MNMIN, CZERO, CONE, VT, LDPT )
+            clacpy(' ', M, NRHS, Y, LDX, Z, LDX );
+            claset('Full', MNMIN, MNMIN, CZERO, CONE, U, LDPT );
+            claset('Full', MNMIN, MNMIN, CZERO, CONE, VT, LDPT );
 
-            CALL CBDSQR( UPLO, MNMIN, MNMIN, MNMIN, NRHS, S1, RWORK, VT, LDPT, U, LDPT, Z, LDX, RWORK( MNMIN+1 ), IINFO )
+            cbdsqr(UPLO, MNMIN, MNMIN, MNMIN, NRHS, S1, RWORK, VT, LDPT, U, LDPT, Z, LDX, RWORK( MNMIN+1 ), IINFO );
 
             // Check error code from CBDSQR.
 
@@ -376,10 +376,10 @@
             // Use CBDSQR to compute only the singular values of the
             // bidiagonal matrix B;  U, VT, and Z should not be modified.
 
-            CALL SCOPY( MNMIN, BD, 1, S2, 1 )
+            scopy(MNMIN, BD, 1, S2, 1 );
             IF( MNMIN.GT.0 ) CALL SCOPY( MNMIN-1, BE, 1, RWORK, 1 )
 
-            CALL CBDSQR( UPLO, MNMIN, 0, 0, 0, S2, RWORK, VT, LDPT, U, LDPT, Z, LDX, RWORK( MNMIN+1 ), IINFO )
+            cbdsqr(UPLO, MNMIN, 0, 0, 0, S2, RWORK, VT, LDPT, U, LDPT, Z, LDX, RWORK( MNMIN+1 ), IINFO );
 
             // Check error code from CBDSQR.
 
@@ -399,7 +399,7 @@
                  // 6:  Check the orthogonality of U
                  // 7:  Check the orthogonality of VT
 
-            CALL CBDT03( UPLO, MNMIN, 1, BD, BE, U, LDPT, S1, VT, LDPT, WORK, RESULT( 4 ) )             CALL CBDT02( MNMIN, NRHS, Y, LDX, Z, LDX, U, LDPT, WORK, RWORK, RESULT( 5 ) )             CALL CUNT01( 'Columns', MNMIN, MNMIN, U, LDPT, WORK, LWORK, RWORK, RESULT( 6 ) )             CALL CUNT01( 'Rows', MNMIN, MNMIN, VT, LDPT, WORK, LWORK, RWORK, RESULT( 7 ) )
+            cbdt03(UPLO, MNMIN, 1, BD, BE, U, LDPT, S1, VT, LDPT, WORK, RESULT( 4 ) )             CALL CBDT02( MNMIN, NRHS, Y, LDX, Z, LDX, U, LDPT, WORK, RWORK, RESULT( 5 ) )             CALL CUNT01( 'Columns', MNMIN, MNMIN, U, LDPT, WORK, LWORK, RWORK, RESULT( 6 ) )             CALL CUNT01( 'Rows', MNMIN, MNMIN, VT, LDPT, WORK, LWORK, RWORK, RESULT( 7 ) );
 
             // Test 8:  Check that the singular values are sorted in
                      // non-increasing order and are non-negative
@@ -429,7 +429,7 @@
             TEMP1 = THRESH*( HALF-ULP )
 
             DO 130 J = 0, LOG2UI
-               CALL SSVDCH( MNMIN, BD, BE, S1, TEMP1, IINFO )
+               ssvdch(MNMIN, BD, BE, S1, TEMP1, IINFO );
                IF( IINFO.EQ.0 ) GO TO 140
                TEMP1 = TEMP1*TWO
   130       CONTINUE
@@ -441,17 +441,17 @@
             // from the bidiagonal form A := Q B PT.
 
             if ( .NOT.BIDIAG ) {
-               CALL SCOPY( MNMIN, BD, 1, S2, 1 )
+               scopy(MNMIN, BD, 1, S2, 1 );
                IF( MNMIN.GT.0 ) CALL SCOPY( MNMIN-1, BE, 1, RWORK, 1 )
 
-               CALL CBDSQR( UPLO, MNMIN, N, M, NRHS, S2, RWORK, PT, LDPT, Q, LDQ, Y, LDX, RWORK( MNMIN+1 ), IINFO )
+               cbdsqr(UPLO, MNMIN, N, M, NRHS, S2, RWORK, PT, LDPT, Q, LDQ, Y, LDX, RWORK( MNMIN+1 ), IINFO );
 
                // Test 11:  Check the decomposition A := Q*U * S2 * VT*PT
                     // 12:  Check the computation Z := U' * Q' * X
                     // 13:  Check the orthogonality of Q*U
                     // 14:  Check the orthogonality of VT*PT
 
-               CALL CBDT01( M, N, 0, A, LDA, Q, LDQ, S2, DUMMA, PT, LDPT, WORK, RWORK, RESULT( 11 ) )                CALL CBDT02( M, NRHS, X, LDX, Y, LDX, Q, LDQ, WORK, RWORK, RESULT( 12 ) )                CALL CUNT01( 'Columns', M, MQ, Q, LDQ, WORK, LWORK, RWORK, RESULT( 13 ) )                CALL CUNT01( 'Rows', MNMIN, N, PT, LDPT, WORK, LWORK, RWORK, RESULT( 14 ) )
+               cbdt01(M, N, 0, A, LDA, Q, LDQ, S2, DUMMA, PT, LDPT, WORK, RWORK, RESULT( 11 ) )                CALL CBDT02( M, NRHS, X, LDX, Y, LDX, Q, LDQ, WORK, RWORK, RESULT( 12 ) )                CALL CUNT01( 'Columns', M, MQ, Q, LDQ, WORK, LWORK, RWORK, RESULT( 13 ) )                CALL CUNT01( 'Rows', MNMIN, N, PT, LDPT, WORK, LWORK, RWORK, RESULT( 14 ) );
             }
 
             // End of Loop -- Check for RESULT(j) > THRESH
@@ -474,7 +474,7 @@
 
       // Summary
 
-      CALL ALASUM( PATH, NOUT, NFAIL, NTEST, 0 )
+      alasum(PATH, NOUT, NFAIL, NTEST, 0 );
 
       RETURN
 

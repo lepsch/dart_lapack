@@ -43,7 +43,7 @@
          INFO = -2
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'SPPTRI', -INFO )
+         xerbla('SPPTRI', -INFO );
          RETURN
       }
 
@@ -53,7 +53,7 @@
 
       // Invert the triangular Cholesky factor U or L.
 
-      CALL STPTRI( UPLO, 'Non-unit', N, AP, INFO )
+      stptri(UPLO, 'Non-unit', N, AP, INFO );
       IF( INFO.GT.0 ) RETURN
 
       if ( UPPER ) {
@@ -66,7 +66,7 @@
             JJ = JJ + J
             IF( J.GT.1 ) CALL SSPR( 'Upper', J-1, ONE, AP( JC ), 1, AP )
             AJJ = AP( JJ )
-            CALL SSCAL( J, AJJ, AP( JC ), 1 )
+            sscal(J, AJJ, AP( JC ), 1 );
    10    CONTINUE
 
       } else {

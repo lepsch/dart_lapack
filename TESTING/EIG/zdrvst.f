@@ -82,7 +82,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'ZDRVST', -INFO )
+         xerbla('ZDRVST', -INFO );
          RETURN
       }
 
@@ -177,7 +177,7 @@
 
    70       CONTINUE
 
-            CALL ZLASET( 'Full', LDA, N, CZERO, CZERO, A, LDA )
+            zlaset('Full', LDA, N, CZERO, CZERO, A, LDA );
             IINFO = 0
             COND = ULPINV
 
@@ -200,36 +200,36 @@
 
                // Diagonal Matrix, [Eigen]values Specified
 
-               CALL ZLATMS( N, N, 'S', ISEED, 'H', RWORK, IMODE, COND, ANORM, 0, 0, 'N', A, LDA, WORK, IINFO )
+               zlatms(N, N, 'S', ISEED, 'H', RWORK, IMODE, COND, ANORM, 0, 0, 'N', A, LDA, WORK, IINFO );
 
             } else if ( ITYPE.EQ.5 ) {
 
                // Hermitian, eigenvalues specified
 
-               CALL ZLATMS( N, N, 'S', ISEED, 'H', RWORK, IMODE, COND, ANORM, N, N, 'N', A, LDA, WORK, IINFO )
+               zlatms(N, N, 'S', ISEED, 'H', RWORK, IMODE, COND, ANORM, N, N, 'N', A, LDA, WORK, IINFO );
 
             } else if ( ITYPE.EQ.7 ) {
 
                // Diagonal, random eigenvalues
 
-               CALL ZLATMR( N, N, 'S', ISEED, 'H', WORK, 6, ONE, CONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, 0, 0, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO )
+               zlatmr(N, N, 'S', ISEED, 'H', WORK, 6, ONE, CONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, 0, 0, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO );
 
             } else if ( ITYPE.EQ.8 ) {
 
                // Hermitian, random eigenvalues
 
-               CALL ZLATMR( N, N, 'S', ISEED, 'H', WORK, 6, ONE, CONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, N, N, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO )
+               zlatmr(N, N, 'S', ISEED, 'H', WORK, 6, ONE, CONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, N, N, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO );
 
             } else if ( ITYPE.EQ.9 ) {
 
                // Hermitian banded, eigenvalues specified
 
                IHBW = INT( ( N-1 )*DLARND( 1, ISEED3 ) )
-               CALL ZLATMS( N, N, 'S', ISEED, 'H', RWORK, IMODE, COND, ANORM, IHBW, IHBW, 'Z', U, LDU, WORK, IINFO )
+               zlatms(N, N, 'S', ISEED, 'H', RWORK, IMODE, COND, ANORM, IHBW, IHBW, 'Z', U, LDU, WORK, IINFO );
 
                // Store as dense matrix for most routines.
 
-               CALL ZLASET( 'Full', LDA, N, CZERO, CZERO, A, LDA )
+               zlaset('Full', LDA, N, CZERO, CZERO, A, LDA );
                DO 100 IDIAG = -IHBW, IHBW
                   IROW = IHBW - IDIAG + 1
                   J1 = MAX( 1, IDIAG+1 )
@@ -277,10 +277,10 @@
 
                // Call ZHEEVD and CHEEVX.
 
-               CALL ZLACPY( ' ', N, N, A, LDA, V, LDU )
+               zlacpy(' ', N, N, A, LDA, V, LDU );
 
                NTEST = NTEST + 1
-               CALL ZHEEVD( 'V', UPLO, N, A, LDU, D1, WORK, LWEDC, RWORK, LRWEDC, IWORK, LIWEDC, IINFO )
+               zheevd('V', UPLO, N, A, LDU, D1, WORK, LWEDC, RWORK, LRWEDC, IWORK, LIWEDC, IINFO );
                if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'ZHEEVD(V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
@@ -296,12 +296,12 @@
 
                // Do tests 1 and 2.
 
-               CALL ZHET21( 1, UPLO, N, 0, V, LDU, D1, D2, A, LDU, Z, LDU, TAU, WORK, RWORK, RESULT( NTEST ) )
+               zhet21(1, UPLO, N, 0, V, LDU, D1, D2, A, LDU, Z, LDU, TAU, WORK, RWORK, RESULT( NTEST ) );
 
-               CALL ZLACPY( ' ', N, N, V, LDU, A, LDA )
+               zlacpy(' ', N, N, V, LDU, A, LDA );
 
                NTEST = NTEST + 2
-               CALL ZHEEVD( 'N', UPLO, N, A, LDU, D3, WORK, LWEDC, RWORK, LRWEDC, IWORK, LIWEDC, IINFO )
+               zheevd('N', UPLO, N, A, LDU, D3, WORK, LWEDC, RWORK, LRWEDC, IWORK, LIWEDC, IINFO );
                if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'ZHEEVD(N,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
@@ -324,7 +324,7 @@
                RESULT( NTEST ) = TEMP2 / MAX( UNFL, ULP*MAX( TEMP1, TEMP2 ) )
 
   130          CONTINUE
-               CALL ZLACPY( ' ', N, N, V, LDU, A, LDA )
+               zlacpy(' ', N, N, V, LDU, A, LDA );
 
                NTEST = NTEST + 1
 
@@ -346,7 +346,7 @@
                   VU = ONE
                }
 
-               CALL ZHEEVX( 'V', 'A', UPLO, N, A, LDU, VL, VU, IL, IU, ABSTOL, M, WA1, Z, LDU, WORK, LWORK, RWORK, IWORK, IWORK( 5*N+1 ), IINFO )
+               zheevx('V', 'A', UPLO, N, A, LDU, VL, VU, IL, IU, ABSTOL, M, WA1, Z, LDU, WORK, LWORK, RWORK, IWORK, IWORK( 5*N+1 ), IINFO );
                if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'ZHEEVX(V,A,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
@@ -362,12 +362,12 @@
 
                // Do tests 4 and 5.
 
-               CALL ZLACPY( ' ', N, N, V, LDU, A, LDA )
+               zlacpy(' ', N, N, V, LDU, A, LDA );
 
-               CALL ZHET21( 1, UPLO, N, 0, A, LDU, WA1, D2, Z, LDU, V, LDU, TAU, WORK, RWORK, RESULT( NTEST ) )
+               zhet21(1, UPLO, N, 0, A, LDU, WA1, D2, Z, LDU, V, LDU, TAU, WORK, RWORK, RESULT( NTEST ) );
 
                NTEST = NTEST + 2
-               CALL ZHEEVX( 'N', 'A', UPLO, N, A, LDU, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, WORK, LWORK, RWORK, IWORK, IWORK( 5*N+1 ), IINFO )
+               zheevx('N', 'A', UPLO, N, A, LDU, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, WORK, LWORK, RWORK, IWORK, IWORK( 5*N+1 ), IINFO );
                if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'ZHEEVX(N,A,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
@@ -390,11 +390,11 @@
                RESULT( NTEST ) = TEMP2 / MAX( UNFL, ULP*MAX( TEMP1, TEMP2 ) )
 
   150          CONTINUE
-               CALL ZLACPY( ' ', N, N, V, LDU, A, LDA )
+               zlacpy(' ', N, N, V, LDU, A, LDA );
 
                NTEST = NTEST + 1
 
-               CALL ZHEEVX( 'V', 'I', UPLO, N, A, LDU, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, WORK, LWORK, RWORK, IWORK, IWORK( 5*N+1 ), IINFO )
+               zheevx('V', 'I', UPLO, N, A, LDU, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, WORK, LWORK, RWORK, IWORK, IWORK( 5*N+1 ), IINFO );
                if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'ZHEEVX(V,I,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
@@ -408,13 +408,13 @@
 
                // Do tests 7 and 8.
 
-               CALL ZLACPY( ' ', N, N, V, LDU, A, LDA )
+               zlacpy(' ', N, N, V, LDU, A, LDA );
 
-               CALL ZHET22( 1, UPLO, N, M2, 0, A, LDU, WA2, D2, Z, LDU, V, LDU, TAU, WORK, RWORK, RESULT( NTEST ) )
+               zhet22(1, UPLO, N, M2, 0, A, LDU, WA2, D2, Z, LDU, V, LDU, TAU, WORK, RWORK, RESULT( NTEST ) );
 
                NTEST = NTEST + 2
 
-               CALL ZHEEVX( 'N', 'I', UPLO, N, A, LDU, VL, VU, IL, IU, ABSTOL, M3, WA3, Z, LDU, WORK, LWORK, RWORK, IWORK, IWORK( 5*N+1 ), IINFO )
+               zheevx('N', 'I', UPLO, N, A, LDU, VL, VU, IL, IU, ABSTOL, M3, WA3, Z, LDU, WORK, LWORK, RWORK, IWORK, IWORK( 5*N+1 ), IINFO );
                if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'ZHEEVX(N,I,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
@@ -438,11 +438,11 @@
                RESULT( NTEST ) = ( TEMP1+TEMP2 ) / MAX( UNFL, TEMP3*ULP )
 
   160          CONTINUE
-               CALL ZLACPY( ' ', N, N, V, LDU, A, LDA )
+               zlacpy(' ', N, N, V, LDU, A, LDA );
 
                NTEST = NTEST + 1
 
-               CALL ZHEEVX( 'V', 'V', UPLO, N, A, LDU, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, WORK, LWORK, RWORK, IWORK, IWORK( 5*N+1 ), IINFO )
+               zheevx('V', 'V', UPLO, N, A, LDU, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, WORK, LWORK, RWORK, IWORK, IWORK( 5*N+1 ), IINFO );
                if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'ZHEEVX(V,V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
@@ -456,13 +456,13 @@
 
                // Do tests 10 and 11.
 
-               CALL ZLACPY( ' ', N, N, V, LDU, A, LDA )
+               zlacpy(' ', N, N, V, LDU, A, LDA );
 
-               CALL ZHET22( 1, UPLO, N, M2, 0, A, LDU, WA2, D2, Z, LDU, V, LDU, TAU, WORK, RWORK, RESULT( NTEST ) )
+               zhet22(1, UPLO, N, M2, 0, A, LDU, WA2, D2, Z, LDU, V, LDU, TAU, WORK, RWORK, RESULT( NTEST ) );
 
                NTEST = NTEST + 2
 
-               CALL ZHEEVX( 'N', 'V', UPLO, N, A, LDU, VL, VU, IL, IU, ABSTOL, M3, WA3, Z, LDU, WORK, LWORK, RWORK, IWORK, IWORK( 5*N+1 ), IINFO )
+               zheevx('N', 'V', UPLO, N, A, LDU, VL, VU, IL, IU, ABSTOL, M3, WA3, Z, LDU, WORK, LWORK, RWORK, IWORK, IWORK( 5*N+1 ), IINFO );
                if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'ZHEEVX(N,V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
@@ -494,7 +494,7 @@
 
                // Call ZHPEVD and CHPEVX.
 
-               CALL ZLACPY( ' ', N, N, V, LDU, A, LDA )
+               zlacpy(' ', N, N, V, LDU, A, LDA );
 
                // Load array WORK with the upper or lower triangular
                // part of the matrix in packed form.
@@ -519,7 +519,7 @@
 
                NTEST = NTEST + 1
                INDWRK = N*( N+1 ) / 2 + 1
-               CALL ZHPEVD( 'V', UPLO, N, WORK, D1, Z, LDU, WORK( INDWRK ), LWEDC, RWORK, LRWEDC, IWORK, LIWEDC, IINFO )
+               zhpevd('V', UPLO, N, WORK, D1, Z, LDU, WORK( INDWRK ), LWEDC, RWORK, LRWEDC, IWORK, LIWEDC, IINFO );
                if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'ZHPEVD(V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
@@ -535,7 +535,7 @@
 
                // Do tests 13 and 14.
 
-               CALL ZHET21( 1, UPLO, N, 0, A, LDA, D1, D2, Z, LDU, V, LDU, TAU, WORK, RWORK, RESULT( NTEST ) )
+               zhet21(1, UPLO, N, 0, A, LDA, D1, D2, Z, LDU, V, LDU, TAU, WORK, RWORK, RESULT( NTEST ) );
 
                if ( IUPLO.EQ.1 ) {
                   INDX = 1
@@ -557,7 +557,7 @@
 
                NTEST = NTEST + 2
                INDWRK = N*( N+1 ) / 2 + 1
-               CALL ZHPEVD( 'N', UPLO, N, WORK, D3, Z, LDU, WORK( INDWRK ), LWEDC, RWORK, LRWEDC, IWORK, LIWEDC, IINFO )
+               zhpevd('N', UPLO, N, WORK, D3, Z, LDU, WORK( INDWRK ), LWEDC, RWORK, LRWEDC, IWORK, LIWEDC, IINFO );
                if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'ZHPEVD(N,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
@@ -621,7 +621,7 @@
                   VU = ONE
                }
 
-               CALL ZHPEVX( 'V', 'A', UPLO, N, WORK, VL, VU, IL, IU, ABSTOL, M, WA1, Z, LDU, V, RWORK, IWORK, IWORK( 5*N+1 ), IINFO )
+               zhpevx('V', 'A', UPLO, N, WORK, VL, VU, IL, IU, ABSTOL, M, WA1, Z, LDU, V, RWORK, IWORK, IWORK( 5*N+1 ), IINFO );
                if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'ZHPEVX(V,A,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
@@ -637,7 +637,7 @@
 
                // Do tests 16 and 17.
 
-               CALL ZHET21( 1, UPLO, N, 0, A, LDU, WA1, D2, Z, LDU, V, LDU, TAU, WORK, RWORK, RESULT( NTEST ) )
+               zhet21(1, UPLO, N, 0, A, LDU, WA1, D2, Z, LDU, V, LDU, TAU, WORK, RWORK, RESULT( NTEST ) );
 
                NTEST = NTEST + 2
 
@@ -659,7 +659,7 @@
   350             CONTINUE
                }
 
-               CALL ZHPEVX( 'N', 'A', UPLO, N, WORK, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, V, RWORK, IWORK, IWORK( 5*N+1 ), IINFO )
+               zhpevx('N', 'A', UPLO, N, WORK, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, V, RWORK, IWORK, IWORK( 5*N+1 ), IINFO );
                if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'ZHPEVX(N,A,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
@@ -701,7 +701,7 @@
   410             CONTINUE
                }
 
-               CALL ZHPEVX( 'V', 'I', UPLO, N, WORK, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, V, RWORK, IWORK, IWORK( 5*N+1 ), IINFO )
+               zhpevx('V', 'I', UPLO, N, WORK, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, V, RWORK, IWORK, IWORK( 5*N+1 ), IINFO );
                if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'ZHPEVX(V,I,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
@@ -717,7 +717,7 @@
 
                // Do tests 19 and 20.
 
-               CALL ZHET22( 1, UPLO, N, M2, 0, A, LDU, WA2, D2, Z, LDU, V, LDU, TAU, WORK, RWORK, RESULT( NTEST ) )
+               zhet22(1, UPLO, N, M2, 0, A, LDU, WA2, D2, Z, LDU, V, LDU, TAU, WORK, RWORK, RESULT( NTEST ) );
 
                NTEST = NTEST + 2
 
@@ -739,7 +739,7 @@
   450             CONTINUE
                }
 
-               CALL ZHPEVX( 'N', 'I', UPLO, N, WORK, VL, VU, IL, IU, ABSTOL, M3, WA3, Z, LDU, V, RWORK, IWORK, IWORK( 5*N+1 ), IINFO )
+               zhpevx('N', 'I', UPLO, N, WORK, VL, VU, IL, IU, ABSTOL, M3, WA3, Z, LDU, V, RWORK, IWORK, IWORK( 5*N+1 ), IINFO );
                if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'ZHPEVX(N,I,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
@@ -782,7 +782,7 @@
   500             CONTINUE
                }
 
-               CALL ZHPEVX( 'V', 'V', UPLO, N, WORK, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, V, RWORK, IWORK, IWORK( 5*N+1 ), IINFO )
+               zhpevx('V', 'V', UPLO, N, WORK, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, V, RWORK, IWORK, IWORK( 5*N+1 ), IINFO );
                if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'ZHPEVX(V,V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
@@ -798,7 +798,7 @@
 
                // Do tests 22 and 23.
 
-               CALL ZHET22( 1, UPLO, N, M2, 0, A, LDU, WA2, D2, Z, LDU, V, LDU, TAU, WORK, RWORK, RESULT( NTEST ) )
+               zhet22(1, UPLO, N, M2, 0, A, LDU, WA2, D2, Z, LDU, V, LDU, TAU, WORK, RWORK, RESULT( NTEST ) );
 
                NTEST = NTEST + 2
 
@@ -820,7 +820,7 @@
   540             CONTINUE
                }
 
-               CALL ZHPEVX( 'N', 'V', UPLO, N, WORK, VL, VU, IL, IU, ABSTOL, M3, WA3, Z, LDU, V, RWORK, IWORK, IWORK( 5*N+1 ), IINFO )
+               zhpevx('N', 'V', UPLO, N, WORK, VL, VU, IL, IU, ABSTOL, M3, WA3, Z, LDU, V, RWORK, IWORK, IWORK( 5*N+1 ), IINFO );
                if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'ZHPEVX(N,V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
@@ -878,7 +878,7 @@
                }
 
                NTEST = NTEST + 1
-               CALL ZHBEVD( 'V', UPLO, N, KD, V, LDU, D1, Z, LDU, WORK, LWEDC, RWORK, LRWEDC, IWORK, LIWEDC, IINFO )
+               zhbevd('V', UPLO, N, KD, V, LDU, D1, Z, LDU, WORK, LWEDC, RWORK, LRWEDC, IWORK, LIWEDC, IINFO );
                if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9998 )'ZHBEVD(V,' // UPLO // ')', IINFO, N, KD, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
@@ -894,7 +894,7 @@
 
                // Do tests 25 and 26.
 
-               CALL ZHET21( 1, UPLO, N, 0, A, LDA, D1, D2, Z, LDU, V, LDU, TAU, WORK, RWORK, RESULT( NTEST ) )
+               zhet21(1, UPLO, N, 0, A, LDA, D1, D2, Z, LDU, V, LDU, TAU, WORK, RWORK, RESULT( NTEST ) );
 
                if ( IUPLO.EQ.1 ) {
                   DO 610 J = 1, N
@@ -911,7 +911,7 @@
                }
 
                NTEST = NTEST + 2
-               CALL ZHBEVD( 'N', UPLO, N, KD, V, LDU, D3, Z, LDU, WORK, LWEDC, RWORK, LRWEDC, IWORK, LIWEDC, IINFO )
+               zhbevd('N', UPLO, N, KD, V, LDU, D3, Z, LDU, WORK, LWEDC, RWORK, LRWEDC, IWORK, LIWEDC, IINFO );
                if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9998 )'ZHBEVD(N,' // UPLO // ')', IINFO, N, KD, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
@@ -952,7 +952,7 @@
                }
 
                NTEST = NTEST + 1
-               CALL ZHBEVX( 'V', 'A', UPLO, N, KD, V, LDU, U, LDU, VL, VU, IL, IU, ABSTOL, M, WA1, Z, LDU, WORK, RWORK, IWORK, IWORK( 5*N+1 ), IINFO )
+               zhbevx('V', 'A', UPLO, N, KD, V, LDU, U, LDU, VL, VU, IL, IU, ABSTOL, M, WA1, Z, LDU, WORK, RWORK, IWORK, IWORK( 5*N+1 ), IINFO );
                if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'ZHBEVX(V,A,' // UPLO // ')', IINFO, N, KD, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
@@ -968,7 +968,7 @@
 
                // Do tests 28 and 29.
 
-               CALL ZHET21( 1, UPLO, N, 0, A, LDU, WA1, D2, Z, LDU, V, LDU, TAU, WORK, RWORK, RESULT( NTEST ) )
+               zhet21(1, UPLO, N, 0, A, LDU, WA1, D2, Z, LDU, V, LDU, TAU, WORK, RWORK, RESULT( NTEST ) );
 
                NTEST = NTEST + 2
 
@@ -986,7 +986,7 @@
   730             CONTINUE
                }
 
-               CALL ZHBEVX( 'N', 'A', UPLO, N, KD, V, LDU, U, LDU, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, WORK, RWORK, IWORK, IWORK( 5*N+1 ), IINFO )
+               zhbevx('N', 'A', UPLO, N, KD, V, LDU, U, LDU, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, WORK, RWORK, IWORK, IWORK( 5*N+1 ), IINFO );
                if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9998 )'ZHBEVX(N,A,' // UPLO // ')', IINFO, N, KD, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
@@ -1027,7 +1027,7 @@
   790             CONTINUE
                }
 
-               CALL ZHBEVX( 'V', 'I', UPLO, N, KD, V, LDU, U, LDU, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, WORK, RWORK, IWORK, IWORK( 5*N+1 ), IINFO )
+               zhbevx('V', 'I', UPLO, N, KD, V, LDU, U, LDU, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, WORK, RWORK, IWORK, IWORK( 5*N+1 ), IINFO );
                if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9998 )'ZHBEVX(V,I,' // UPLO // ')', IINFO, N, KD, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
@@ -1043,7 +1043,7 @@
 
                // Do tests 31 and 32.
 
-               CALL ZHET22( 1, UPLO, N, M2, 0, A, LDU, WA2, D2, Z, LDU, V, LDU, TAU, WORK, RWORK, RESULT( NTEST ) )
+               zhet22(1, UPLO, N, M2, 0, A, LDU, WA2, D2, Z, LDU, V, LDU, TAU, WORK, RWORK, RESULT( NTEST ) );
 
                NTEST = NTEST + 2
 
@@ -1060,7 +1060,7 @@
   820                CONTINUE
   830             CONTINUE
                }
-               CALL ZHBEVX( 'N', 'I', UPLO, N, KD, V, LDU, U, LDU, VL, VU, IL, IU, ABSTOL, M3, WA3, Z, LDU, WORK, RWORK, IWORK, IWORK( 5*N+1 ), IINFO )
+               zhbevx('N', 'I', UPLO, N, KD, V, LDU, U, LDU, VL, VU, IL, IU, ABSTOL, M3, WA3, Z, LDU, WORK, RWORK, IWORK, IWORK( 5*N+1 ), IINFO );
                if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9998 )'ZHBEVX(N,I,' // UPLO // ')', IINFO, N, KD, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
@@ -1101,7 +1101,7 @@
   870                CONTINUE
   880             CONTINUE
                }
-               CALL ZHBEVX( 'V', 'V', UPLO, N, KD, V, LDU, U, LDU, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, WORK, RWORK, IWORK, IWORK( 5*N+1 ), IINFO )
+               zhbevx('V', 'V', UPLO, N, KD, V, LDU, U, LDU, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, WORK, RWORK, IWORK, IWORK( 5*N+1 ), IINFO );
                if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9998 )'ZHBEVX(V,V,' // UPLO // ')', IINFO, N, KD, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
@@ -1117,7 +1117,7 @@
 
                // Do tests 34 and 35.
 
-               CALL ZHET22( 1, UPLO, N, M2, 0, A, LDU, WA2, D2, Z, LDU, V, LDU, TAU, WORK, RWORK, RESULT( NTEST ) )
+               zhet22(1, UPLO, N, M2, 0, A, LDU, WA2, D2, Z, LDU, V, LDU, TAU, WORK, RWORK, RESULT( NTEST ) );
 
                NTEST = NTEST + 2
 
@@ -1134,7 +1134,7 @@
   910                CONTINUE
   920             CONTINUE
                }
-               CALL ZHBEVX( 'N', 'V', UPLO, N, KD, V, LDU, U, LDU, VL, VU, IL, IU, ABSTOL, M3, WA3, Z, LDU, WORK, RWORK, IWORK, IWORK( 5*N+1 ), IINFO )
+               zhbevx('N', 'V', UPLO, N, KD, V, LDU, U, LDU, VL, VU, IL, IU, ABSTOL, M3, WA3, Z, LDU, WORK, RWORK, IWORK, IWORK( 5*N+1 ), IINFO );
                if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9998 )'ZHBEVX(N,V,' // UPLO // ')', IINFO, N, KD, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
@@ -1166,10 +1166,10 @@
 
                // Call ZHEEV
 
-               CALL ZLACPY( ' ', N, N, A, LDA, V, LDU )
+               zlacpy(' ', N, N, A, LDA, V, LDU );
 
                NTEST = NTEST + 1
-               CALL ZHEEV( 'V', UPLO, N, A, LDU, D1, WORK, LWORK, RWORK, IINFO )
+               zheev('V', UPLO, N, A, LDU, D1, WORK, LWORK, RWORK, IINFO );
                if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'ZHEEV(V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
@@ -1185,12 +1185,12 @@
 
                // Do tests 37 and 38
 
-               CALL ZHET21( 1, UPLO, N, 0, V, LDU, D1, D2, A, LDU, Z, LDU, TAU, WORK, RWORK, RESULT( NTEST ) )
+               zhet21(1, UPLO, N, 0, V, LDU, D1, D2, A, LDU, Z, LDU, TAU, WORK, RWORK, RESULT( NTEST ) );
 
-               CALL ZLACPY( ' ', N, N, V, LDU, A, LDA )
+               zlacpy(' ', N, N, V, LDU, A, LDA );
 
                NTEST = NTEST + 2
-               CALL ZHEEV( 'N', UPLO, N, A, LDU, D3, WORK, LWORK, RWORK, IINFO )
+               zheev('N', UPLO, N, A, LDU, D3, WORK, LWORK, RWORK, IINFO );
                if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'ZHEEV(N,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
@@ -1214,7 +1214,7 @@
 
   950          CONTINUE
 
-               CALL ZLACPY( ' ', N, N, V, LDU, A, LDA )
+               zlacpy(' ', N, N, V, LDU, A, LDA );
 
                // Call ZHPEV
 
@@ -1241,7 +1241,7 @@
 
                NTEST = NTEST + 1
                INDWRK = N*( N+1 ) / 2 + 1
-               CALL ZHPEV( 'V', UPLO, N, WORK, D1, Z, LDU, WORK( INDWRK ), RWORK, IINFO )
+               zhpev('V', UPLO, N, WORK, D1, Z, LDU, WORK( INDWRK ), RWORK, IINFO );
                if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'ZHPEV(V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
@@ -1257,7 +1257,7 @@
 
                // Do tests 40 and 41.
 
-               CALL ZHET21( 1, UPLO, N, 0, A, LDA, D1, D2, Z, LDU, V, LDU, TAU, WORK, RWORK, RESULT( NTEST ) )
+               zhet21(1, UPLO, N, 0, A, LDA, D1, D2, Z, LDU, V, LDU, TAU, WORK, RWORK, RESULT( NTEST ) );
 
                if ( IUPLO.EQ.1 ) {
                   INDX = 1
@@ -1279,7 +1279,7 @@
 
                NTEST = NTEST + 2
                INDWRK = N*( N+1 ) / 2 + 1
-               CALL ZHPEV( 'N', UPLO, N, WORK, D3, Z, LDU, WORK( INDWRK ), RWORK, IINFO )
+               zhpev('N', UPLO, N, WORK, D3, Z, LDU, WORK( INDWRK ), RWORK, IINFO );
                if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'ZHPEV(N,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
@@ -1331,7 +1331,7 @@
                }
 
                NTEST = NTEST + 1
-               CALL ZHBEV( 'V', UPLO, N, KD, V, LDU, D1, Z, LDU, WORK, RWORK, IINFO )
+               zhbev('V', UPLO, N, KD, V, LDU, D1, Z, LDU, WORK, RWORK, IINFO );
                if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9998 )'ZHBEV(V,' // UPLO // ')', IINFO, N, KD, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
@@ -1347,7 +1347,7 @@
 
                // Do tests 43 and 44.
 
-               CALL ZHET21( 1, UPLO, N, 0, A, LDA, D1, D2, Z, LDU, V, LDU, TAU, WORK, RWORK, RESULT( NTEST ) )
+               zhet21(1, UPLO, N, 0, A, LDA, D1, D2, Z, LDU, V, LDU, TAU, WORK, RWORK, RESULT( NTEST ) );
 
                if ( IUPLO.EQ.1 ) {
                   DO 1110 J = 1, N
@@ -1364,7 +1364,7 @@
                }
 
                NTEST = NTEST + 2
-               CALL ZHBEV( 'N', UPLO, N, KD, V, LDU, D3, Z, LDU, WORK, RWORK, IINFO )
+               zhbev('N', UPLO, N, KD, V, LDU, D3, Z, LDU, WORK, RWORK, IINFO );
                if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9998 )'ZHBEV(N,' // UPLO // ')', IINFO, N, KD, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
@@ -1388,9 +1388,9 @@
  1150          CONTINUE
                RESULT( NTEST ) = TEMP2 / MAX( UNFL, ULP*MAX( TEMP1, TEMP2 ) )
 
-               CALL ZLACPY( ' ', N, N, A, LDA, V, LDU )
+               zlacpy(' ', N, N, A, LDA, V, LDU );
                NTEST = NTEST + 1
-               CALL ZHEEVR( 'V', 'A', UPLO, N, A, LDU, VL, VU, IL, IU, ABSTOL, M, WA1, Z, LDU, IWORK, WORK, LWORK, RWORK, LRWORK, IWORK( 2*N+1 ), LIWORK-2*N, IINFO )
+               zheevr('V', 'A', UPLO, N, A, LDU, VL, VU, IL, IU, ABSTOL, M, WA1, Z, LDU, IWORK, WORK, LWORK, RWORK, LRWORK, IWORK( 2*N+1 ), LIWORK-2*N, IINFO );
                if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'ZHEEVR(V,A,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
@@ -1406,12 +1406,12 @@
 
                // Do tests 45 and 46 (or ... )
 
-               CALL ZLACPY( ' ', N, N, V, LDU, A, LDA )
+               zlacpy(' ', N, N, V, LDU, A, LDA );
 
-               CALL ZHET21( 1, UPLO, N, 0, A, LDU, WA1, D2, Z, LDU, V, LDU, TAU, WORK, RWORK, RESULT( NTEST ) )
+               zhet21(1, UPLO, N, 0, A, LDU, WA1, D2, Z, LDU, V, LDU, TAU, WORK, RWORK, RESULT( NTEST ) );
 
                NTEST = NTEST + 2
-               CALL ZHEEVR( 'N', 'A', UPLO, N, A, LDU, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, IWORK, WORK, LWORK, RWORK, LRWORK, IWORK( 2*N+1 ), LIWORK-2*N, IINFO )
+               zheevr('N', 'A', UPLO, N, A, LDU, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, IWORK, WORK, LWORK, RWORK, LRWORK, IWORK( 2*N+1 ), LIWORK-2*N, IINFO );
                if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'ZHEEVR(N,A,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
@@ -1436,8 +1436,8 @@
  1170          CONTINUE
 
                NTEST = NTEST + 1
-               CALL ZLACPY( ' ', N, N, V, LDU, A, LDA )
-               CALL ZHEEVR( 'V', 'I', UPLO, N, A, LDU, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, IWORK, WORK, LWORK, RWORK, LRWORK, IWORK( 2*N+1 ), LIWORK-2*N, IINFO )
+               zlacpy(' ', N, N, V, LDU, A, LDA );
+               zheevr('V', 'I', UPLO, N, A, LDU, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, IWORK, WORK, LWORK, RWORK, LRWORK, IWORK( 2*N+1 ), LIWORK-2*N, IINFO );
                if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'ZHEEVR(V,I,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
@@ -1453,13 +1453,13 @@
 
                // Do tests 48 and 49 (or +??)
 
-               CALL ZLACPY( ' ', N, N, V, LDU, A, LDA )
+               zlacpy(' ', N, N, V, LDU, A, LDA );
 
-               CALL ZHET22( 1, UPLO, N, M2, 0, A, LDU, WA2, D2, Z, LDU, V, LDU, TAU, WORK, RWORK, RESULT( NTEST ) )
+               zhet22(1, UPLO, N, M2, 0, A, LDU, WA2, D2, Z, LDU, V, LDU, TAU, WORK, RWORK, RESULT( NTEST ) );
 
                NTEST = NTEST + 2
-               CALL ZLACPY( ' ', N, N, V, LDU, A, LDA )
-               CALL ZHEEVR( 'N', 'I', UPLO, N, A, LDU, VL, VU, IL, IU, ABSTOL, M3, WA3, Z, LDU, IWORK, WORK, LWORK, RWORK, LRWORK, IWORK( 2*N+1 ), LIWORK-2*N, IINFO )
+               zlacpy(' ', N, N, V, LDU, A, LDA );
+               zheevr('N', 'I', UPLO, N, A, LDU, VL, VU, IL, IU, ABSTOL, M3, WA3, Z, LDU, IWORK, WORK, LWORK, RWORK, LRWORK, IWORK( 2*N+1 ), LIWORK-2*N, IINFO );
                if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'ZHEEVR(N,I,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
@@ -1479,8 +1479,8 @@
  1180          CONTINUE
 
                NTEST = NTEST + 1
-               CALL ZLACPY( ' ', N, N, V, LDU, A, LDA )
-               CALL ZHEEVR( 'V', 'V', UPLO, N, A, LDU, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, IWORK, WORK, LWORK, RWORK, LRWORK, IWORK( 2*N+1 ), LIWORK-2*N, IINFO )
+               zlacpy(' ', N, N, V, LDU, A, LDA );
+               zheevr('V', 'V', UPLO, N, A, LDU, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, IWORK, WORK, LWORK, RWORK, LRWORK, IWORK( 2*N+1 ), LIWORK-2*N, IINFO );
                if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'ZHEEVR(V,V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
@@ -1496,13 +1496,13 @@
 
                // Do tests 51 and 52 (or +??)
 
-               CALL ZLACPY( ' ', N, N, V, LDU, A, LDA )
+               zlacpy(' ', N, N, V, LDU, A, LDA );
 
-               CALL ZHET22( 1, UPLO, N, M2, 0, A, LDU, WA2, D2, Z, LDU, V, LDU, TAU, WORK, RWORK, RESULT( NTEST ) )
+               zhet22(1, UPLO, N, M2, 0, A, LDU, WA2, D2, Z, LDU, V, LDU, TAU, WORK, RWORK, RESULT( NTEST ) );
 
                NTEST = NTEST + 2
-               CALL ZLACPY( ' ', N, N, V, LDU, A, LDA )
-               CALL ZHEEVR( 'N', 'V', UPLO, N, A, LDU, VL, VU, IL, IU, ABSTOL, M3, WA3, Z, LDU, IWORK, WORK, LWORK, RWORK, LRWORK, IWORK( 2*N+1 ), LIWORK-2*N, IINFO )
+               zlacpy(' ', N, N, V, LDU, A, LDA );
+               zheevr('N', 'V', UPLO, N, A, LDU, VL, VU, IL, IU, ABSTOL, M3, WA3, Z, LDU, IWORK, WORK, LWORK, RWORK, LRWORK, IWORK( 2*N+1 ), LIWORK-2*N, IINFO );
                if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'ZHEEVR(N,V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
@@ -1530,7 +1530,7 @@
                }
                RESULT( NTEST ) = ( TEMP1+TEMP2 ) / MAX( UNFL, TEMP3*ULP )
 
-               CALL ZLACPY( ' ', N, N, V, LDU, A, LDA )
+               zlacpy(' ', N, N, V, LDU, A, LDA );
 
 
 
@@ -1545,14 +1545,14 @@
             // End of Loop -- Check for RESULT(j) > THRESH
 
             NTESTT = NTESTT + NTEST
-            CALL DLAFTS( 'ZST', N, N, JTYPE, NTEST, RESULT, IOLDSD, THRESH, NOUNIT, NERRS )
+            dlafts('ZST', N, N, JTYPE, NTEST, RESULT, IOLDSD, THRESH, NOUNIT, NERRS );
 
  1210    CONTINUE
  1220 CONTINUE
 
       // Summary
 
-      CALL ALASVM( 'ZST', NOUNIT, NERRS, NTESTT, 0 )
+      alasvm('ZST', NOUNIT, NERRS, NTESTT, 0 );
 
  9999 FORMAT( ' ZDRVST: ', A, ' returned INFO=', I6, / 9X, 'N=', I6, ', JTYPE=', I6, ', ISEED=(', 3( I5, ',' ), I5, ')' )
  9998 FORMAT( ' ZDRVST: ', A, ' returned INFO=', I6, / 9X, 'N=', I6, ', KD=', I6, ', JTYPE=', I6, ', ISEED=(', 3( I5, ',' ), I5, ')' )

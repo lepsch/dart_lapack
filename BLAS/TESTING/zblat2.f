@@ -187,14 +187,14 @@
       // YY holds the exact result. On exit from ZMVCH YT holds
       // the result computed by ZMVCH.
       TRANS = 'N'
-      CALL ZMVCH( TRANS, N, N, ONE, A, NMAX, X, 1, ZERO, Y, 1, YT, G, YY, EPS, ERR, FATAL, NOUT, .TRUE. )
+      zmvch(TRANS, N, N, ONE, A, NMAX, X, 1, ZERO, Y, 1, YT, G, YY, EPS, ERR, FATAL, NOUT, .TRUE. );
       SAME = LZE( YY, YT, N )
       if ( .NOT.SAME.OR.ERR.NE.RZERO ) {
          WRITE( NOUT, FMT = 9985 )TRANS, SAME, ERR
          STOP
       }
       TRANS = 'T'
-      CALL ZMVCH( TRANS, N, N, ONE, A, NMAX, X, -1, ZERO, Y, -1, YT, G, YY, EPS, ERR, FATAL, NOUT, .TRUE. )
+      zmvch(TRANS, N, N, ONE, A, NMAX, X, -1, ZERO, Y, -1, YT, G, YY, EPS, ERR, FATAL, NOUT, .TRUE. );
       SAME = LZE( YY, YT, N )
       if ( .NOT.SAME.OR.ERR.NE.RZERO ) {
          WRITE( NOUT, FMT = 9985 )TRANS, SAME, ERR
@@ -212,7 +212,7 @@
             SRNAMT = SNAMES( ISNUM )
             // Test error exits.
             if ( TSTERR ) {
-               CALL ZCHKE( ISNUM, SNAMES( ISNUM ), NOUT )
+               zchke(ISNUM, SNAMES( ISNUM ), NOUT );
                WRITE( NOUT, FMT = * )
             }
             // Test computations.
@@ -377,7 +377,7 @@
                // Generate the matrix A.
 
                TRANSL = ZERO
-               CALL ZMAKE( SNAME( 2: 3 ), ' ', ' ', M, N, A, NMAX, AA, LDA, KL, KU, RESET, TRANSL )
+               zmake(SNAME( 2: 3 ), ' ', ' ', M, N, A, NMAX, AA, LDA, KL, KU, RESET, TRANSL );
 
                DO 90 IC = 1, 3
                   TRANS = ICH( IC: IC )
@@ -398,7 +398,7 @@
                      // Generate the vector X.
 
                      TRANSL = HALF
-                     CALL ZMAKE( 'GE', ' ', ' ', 1, NL, X, 1, XX, ABS( INCX ), 0, NL - 1, RESET, TRANSL )
+                     zmake('GE', ' ', ' ', 1, NL, X, 1, XX, ABS( INCX ), 0, NL - 1, RESET, TRANSL );
                      if ( NL.GT.1 ) {
                         X( NL/2 ) = ZERO
                         XX( 1 + ABS( INCX )*( NL/2 - 1 ) ) = ZERO
@@ -417,7 +417,7 @@
                               // Generate the vector Y.
 
                               TRANSL = ZERO
-                              CALL ZMAKE( 'GE', ' ', ' ', 1, ML, Y, 1, YY, ABS( INCY ), 0, ML - 1, RESET, TRANSL )
+                              zmake('GE', ' ', ' ', 1, ML, Y, 1, YY, ABS( INCY ), 0, ML - 1, RESET, TRANSL );
 
                               NC = NC + 1
 
@@ -514,7 +514,7 @@
 
                                  // Check the result.
 
-                                 CALL ZMVCH( TRANS, M, N, ALPHA, A, NMAX, X, INCX, BETA, Y, INCY, YT, G, YY, EPS, ERR, FATAL, NOUT, .TRUE. )
+                                 zmvch(TRANS, M, N, ALPHA, A, NMAX, X, INCX, BETA, Y, INCY, YT, G, YY, EPS, ERR, FATAL, NOUT, .TRUE. );
                                  ERRMAX = MAX( ERRMAX, ERR )
                                  // If got really bad answer, report and
                                  // return.
@@ -543,7 +543,7 @@
 
       // Regression test to verify preservation of y when m zero, n nonzero.
 
-      CALL ZREGR1( TRANS, M, N, LY, KL, KU, ALPHA, AA, LDA, XX, INCX, BETA, YY, INCY, YS )
+      zregr1(TRANS, M, N, LY, KL, KU, ALPHA, AA, LDA, XX, INCX, BETA, YY, INCY, YS );
       if ( FULL ) {
          IF( TRACE ) WRITE( NTRA, FMT = 9994 )NC, SNAME, TRANS, M, N, ALPHA, LDA, INCX, BETA, INCY
          IF( REWI ) REWIND NTRA          CALL ZGEMV( TRANS, M, N, ALPHA, AA, LDA, XX, INCX, BETA, YY, INCY )
@@ -689,7 +689,7 @@
                // Generate the matrix A.
 
                TRANSL = ZERO
-               CALL ZMAKE( SNAME( 2: 3 ), UPLO, ' ', N, N, A, NMAX, AA, LDA, K, K, RESET, TRANSL )
+               zmake(SNAME( 2: 3 ), UPLO, ' ', N, N, A, NMAX, AA, LDA, K, K, RESET, TRANSL );
 
                DO 80 IX = 1, NINC
                   INCX = INC( IX )
@@ -698,7 +698,7 @@
                   // Generate the vector X.
 
                   TRANSL = HALF
-                  CALL ZMAKE( 'GE', ' ', ' ', 1, N, X, 1, XX, ABS( INCX ), 0, N - 1, RESET, TRANSL )
+                  zmake('GE', ' ', ' ', 1, N, X, 1, XX, ABS( INCX ), 0, N - 1, RESET, TRANSL );
                   if ( N.GT.1 ) {
                      X( N/2 ) = ZERO
                      XX( 1 + ABS( INCX )*( N/2 - 1 ) ) = ZERO
@@ -717,7 +717,7 @@
                            // Generate the vector Y.
 
                            TRANSL = ZERO
-                           CALL ZMAKE( 'GE', ' ', ' ', 1, N, Y, 1, YY, ABS( INCY ), 0, N - 1, RESET, TRANSL )
+                           zmake('GE', ' ', ' ', 1, N, Y, 1, YY, ABS( INCY ), 0, N - 1, RESET, TRANSL );
 
                            NC = NC + 1
 
@@ -825,7 +825,7 @@
 
                               // Check the result.
 
-                              CALL ZMVCH( 'N', N, N, ALPHA, A, NMAX, X, INCX, BETA, Y, INCY, YT, G, YY, EPS, ERR, FATAL, NOUT, .TRUE. )
+                              zmvch('N', N, N, ALPHA, A, NMAX, X, INCX, BETA, Y, INCY, YT, G, YY, EPS, ERR, FATAL, NOUT, .TRUE. );
                               ERRMAX = MAX( ERRMAX, ERR )
                               // If got really bad answer, report and
                               // return.
@@ -994,7 +994,7 @@
                      // Generate the matrix A.
 
                      TRANSL = ZERO
-                     CALL ZMAKE( SNAME( 2: 3 ), UPLO, DIAG, N, N, A, NMAX, AA, LDA, K, K, RESET, TRANSL )
+                     zmake(SNAME( 2: 3 ), UPLO, DIAG, N, N, A, NMAX, AA, LDA, K, K, RESET, TRANSL );
 
                      DO 60 IX = 1, NINC
                         INCX = INC( IX )
@@ -1003,7 +1003,7 @@
                         // Generate the vector X.
 
                         TRANSL = HALF
-                        CALL ZMAKE( 'GE', ' ', ' ', 1, N, X, 1, XX, ABS( INCX ), 0, N - 1, RESET, TRANSL )
+                        zmake('GE', ' ', ' ', 1, N, X, 1, XX, ABS( INCX ), 0, N - 1, RESET, TRANSL );
                         if ( N.GT.1 ) {
                            X( N/2 ) = ZERO
                            XX( 1 + ABS( INCX )*( N/2 - 1 ) ) = ZERO
@@ -1114,7 +1114,7 @@
 
                               // Check the result.
 
-                              CALL ZMVCH( TRANS, N, N, ONE, A, NMAX, X, INCX, ZERO, Z, INCX, XT, G, XX, EPS, ERR, FATAL, NOUT, .TRUE. )
+                              zmvch(TRANS, N, N, ONE, A, NMAX, X, INCX, ZERO, Z, INCX, XT, G, XX, EPS, ERR, FATAL, NOUT, .TRUE. );
                            } else if ( SNAME( 4: 5 ).EQ.'SV' ) {
 
                               // Compute approximation to original vector.
@@ -1122,7 +1122,7 @@
                               DO 50 I = 1, N
                                  Z( I ) = XX( 1 + ( I - 1 )* ABS( INCX ) )                                  XX( 1 + ( I - 1 )*ABS( INCX ) ) = X( I )
    50                         CONTINUE
-                              CALL ZMVCH( TRANS, N, N, ONE, A, NMAX, Z, INCX, ZERO, X, INCX, XT, G, XX, EPS, ERR, FATAL, NOUT, .FALSE. )
+                              zmvch(TRANS, N, N, ONE, A, NMAX, Z, INCX, ZERO, X, INCX, XT, G, XX, EPS, ERR, FATAL, NOUT, .FALSE. );
                            }
                            ERRMAX = MAX( ERRMAX, ERR )
                            // If got really bad answer, report and return.
@@ -1253,7 +1253,7 @@
                // Generate the vector X.
 
                TRANSL = HALF
-               CALL ZMAKE( 'GE', ' ', ' ', 1, M, X, 1, XX, ABS( INCX ), 0, M - 1, RESET, TRANSL )
+               zmake('GE', ' ', ' ', 1, M, X, 1, XX, ABS( INCX ), 0, M - 1, RESET, TRANSL );
                if ( M.GT.1 ) {
                   X( M/2 ) = ZERO
                   XX( 1 + ABS( INCX )*( M/2 - 1 ) ) = ZERO
@@ -1266,7 +1266,7 @@
                   // Generate the vector Y.
 
                   TRANSL = ZERO
-                  CALL ZMAKE( 'GE', ' ', ' ', 1, N, Y, 1, YY, ABS( INCY ), 0, N - 1, RESET, TRANSL )
+                  zmake('GE', ' ', ' ', 1, N, Y, 1, YY, ABS( INCY ), 0, N - 1, RESET, TRANSL );
                   if ( N.GT.1 ) {
                      Y( N/2 ) = ZERO
                      YY( 1 + ABS( INCY )*( N/2 - 1 ) ) = ZERO
@@ -1278,7 +1278,7 @@
                      // Generate the matrix A.
 
                      TRANSL = ZERO
-                     CALL ZMAKE( SNAME( 2: 3 ), ' ', ' ', M, N, A, NMAX, AA, LDA, M - 1, N - 1, RESET, TRANSL )
+                     zmake(SNAME( 2: 3 ), ' ', ' ', M, N, A, NMAX, AA, LDA, M - 1, N - 1, RESET, TRANSL );
 
                      NC = NC + 1
 
@@ -1500,7 +1500,7 @@
                // Generate the vector X.
 
                TRANSL = HALF
-               CALL ZMAKE( 'GE', ' ', ' ', 1, N, X, 1, XX, ABS( INCX ), 0, N - 1, RESET, TRANSL )
+               zmake('GE', ' ', ' ', 1, N, X, 1, XX, ABS( INCX ), 0, N - 1, RESET, TRANSL );
                if ( N.GT.1 ) {
                   X( N/2 ) = ZERO
                   XX( 1 + ABS( INCX )*( N/2 - 1 ) ) = ZERO
@@ -1514,7 +1514,7 @@
                   // Generate the matrix A.
 
                   TRANSL = ZERO
-                  CALL ZMAKE( SNAME( 2: 3 ), UPLO, ' ', N, N, A, NMAX, AA, LDA, N - 1, N - 1, RESET, TRANSL )
+                  zmake(SNAME( 2: 3 ), UPLO, ' ', N, N, A, NMAX, AA, LDA, N - 1, N - 1, RESET, TRANSL );
 
                   NC = NC + 1
 
@@ -1537,11 +1537,11 @@
                   if ( FULL ) {
                      IF( TRACE ) WRITE( NTRA, FMT = 9993 )NC, SNAME, UPLO, N, RALPHA, INCX, LDA
                      IF( REWI ) REWIND NTRA
-                     CALL ZHER( UPLO, N, RALPHA, XX, INCX, AA, LDA )
+                     zher(UPLO, N, RALPHA, XX, INCX, AA, LDA );
                   } else if ( PACKED ) {
                      IF( TRACE ) WRITE( NTRA, FMT = 9994 )NC, SNAME, UPLO, N, RALPHA, INCX
                      IF( REWI ) REWIND NTRA
-                     CALL ZHPR( UPLO, N, RALPHA, XX, INCX, AA )
+                     zhpr(UPLO, N, RALPHA, XX, INCX, AA );
                   }
 
                   // Check if error-exit was taken incorrectly.
@@ -1603,7 +1603,7 @@
                            JJ = J
                            LJ = N - J + 1
                         }
-                        CALL ZMVCH( 'N', LJ, 1, ALPHA, Z( JJ ), LJ, W, 1, ONE, A( JJ, J ), 1, YT, G, AA( JA ), EPS, ERR, FATAL, NOUT, .TRUE. )
+                        zmvch('N', LJ, 1, ALPHA, Z( JJ ), LJ, W, 1, ONE, A( JJ, J ), 1, YT, G, AA( JA ), EPS, ERR, FATAL, NOUT, .TRUE. );
                         if ( FULL ) {
                            if ( UPPER ) {
                               JA = JA + LDA
@@ -1751,7 +1751,7 @@
                // Generate the vector X.
 
                TRANSL = HALF
-               CALL ZMAKE( 'GE', ' ', ' ', 1, N, X, 1, XX, ABS( INCX ), 0, N - 1, RESET, TRANSL )
+               zmake('GE', ' ', ' ', 1, N, X, 1, XX, ABS( INCX ), 0, N - 1, RESET, TRANSL );
                if ( N.GT.1 ) {
                   X( N/2 ) = ZERO
                   XX( 1 + ABS( INCX )*( N/2 - 1 ) ) = ZERO
@@ -1764,7 +1764,7 @@
                   // Generate the vector Y.
 
                   TRANSL = ZERO
-                  CALL ZMAKE( 'GE', ' ', ' ', 1, N, Y, 1, YY, ABS( INCY ), 0, N - 1, RESET, TRANSL )
+                  zmake('GE', ' ', ' ', 1, N, Y, 1, YY, ABS( INCY ), 0, N - 1, RESET, TRANSL );
                   if ( N.GT.1 ) {
                      Y( N/2 ) = ZERO
                      YY( 1 + ABS( INCY )*( N/2 - 1 ) ) = ZERO
@@ -1777,7 +1777,7 @@
                      // Generate the matrix A.
 
                      TRANSL = ZERO
-                     CALL ZMAKE( SNAME( 2: 3 ), UPLO, ' ', N, N, A, NMAX, AA, LDA, N - 1, N - 1, RESET, TRANSL )
+                     zmake(SNAME( 2: 3 ), UPLO, ' ', N, N, A, NMAX, AA, LDA, N - 1, N - 1, RESET, TRANSL );
 
                      NC = NC + 1
 
@@ -1880,7 +1880,7 @@
                               JJ = J
                               LJ = N - J + 1
                            }
-                           CALL ZMVCH( 'N', LJ, 2, ONE, Z( JJ, 1 ), NMAX, W, 1, ONE, A( JJ, J ), 1, YT, G, AA( JA ), EPS, ERR, FATAL, NOUT, .TRUE. )
+                           zmvch('N', LJ, 2, ONE, Z( JJ, 1 ), NMAX, W, 1, ONE, A( JJ, J ), 1, YT, G, AA( JA ), EPS, ERR, FATAL, NOUT, .TRUE. );
                            if ( FULL ) {
                               if ( UPPER ) {
                                  JA = JA + LDA
@@ -1980,294 +1980,294 @@
       LERR = .FALSE.
       GO TO ( 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150, 160, 170 )ISNUM
    10 INFOT = 1
-      CALL ZGEMV( '/', 0, 0, ALPHA, A, 1, X, 1, BETA, Y, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zgemv('/', 0, 0, ALPHA, A, 1, X, 1, BETA, Y, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 2
-      CALL ZGEMV( 'N', -1, 0, ALPHA, A, 1, X, 1, BETA, Y, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zgemv('N', -1, 0, ALPHA, A, 1, X, 1, BETA, Y, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 3
-      CALL ZGEMV( 'N', 0, -1, ALPHA, A, 1, X, 1, BETA, Y, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zgemv('N', 0, -1, ALPHA, A, 1, X, 1, BETA, Y, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 6
-      CALL ZGEMV( 'N', 2, 0, ALPHA, A, 1, X, 1, BETA, Y, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zgemv('N', 2, 0, ALPHA, A, 1, X, 1, BETA, Y, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 8
-      CALL ZGEMV( 'N', 0, 0, ALPHA, A, 1, X, 0, BETA, Y, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zgemv('N', 0, 0, ALPHA, A, 1, X, 0, BETA, Y, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 11
-      CALL ZGEMV( 'N', 0, 0, ALPHA, A, 1, X, 1, BETA, Y, 0 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zgemv('N', 0, 0, ALPHA, A, 1, X, 1, BETA, Y, 0 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       GO TO 180
    20 INFOT = 1
-      CALL ZGBMV( '/', 0, 0, 0, 0, ALPHA, A, 1, X, 1, BETA, Y, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zgbmv('/', 0, 0, 0, 0, ALPHA, A, 1, X, 1, BETA, Y, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 2
-      CALL ZGBMV( 'N', -1, 0, 0, 0, ALPHA, A, 1, X, 1, BETA, Y, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zgbmv('N', -1, 0, 0, 0, ALPHA, A, 1, X, 1, BETA, Y, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 3
-      CALL ZGBMV( 'N', 0, -1, 0, 0, ALPHA, A, 1, X, 1, BETA, Y, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zgbmv('N', 0, -1, 0, 0, ALPHA, A, 1, X, 1, BETA, Y, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 4
-      CALL ZGBMV( 'N', 0, 0, -1, 0, ALPHA, A, 1, X, 1, BETA, Y, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zgbmv('N', 0, 0, -1, 0, ALPHA, A, 1, X, 1, BETA, Y, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 5
-      CALL ZGBMV( 'N', 2, 0, 0, -1, ALPHA, A, 1, X, 1, BETA, Y, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zgbmv('N', 2, 0, 0, -1, ALPHA, A, 1, X, 1, BETA, Y, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 8
-      CALL ZGBMV( 'N', 0, 0, 1, 0, ALPHA, A, 1, X, 1, BETA, Y, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zgbmv('N', 0, 0, 1, 0, ALPHA, A, 1, X, 1, BETA, Y, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 10
-      CALL ZGBMV( 'N', 0, 0, 0, 0, ALPHA, A, 1, X, 0, BETA, Y, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zgbmv('N', 0, 0, 0, 0, ALPHA, A, 1, X, 0, BETA, Y, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 13
-      CALL ZGBMV( 'N', 0, 0, 0, 0, ALPHA, A, 1, X, 1, BETA, Y, 0 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zgbmv('N', 0, 0, 0, 0, ALPHA, A, 1, X, 1, BETA, Y, 0 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       GO TO 180
    30 INFOT = 1
-      CALL ZHEMV( '/', 0, ALPHA, A, 1, X, 1, BETA, Y, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zhemv('/', 0, ALPHA, A, 1, X, 1, BETA, Y, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 2
-      CALL ZHEMV( 'U', -1, ALPHA, A, 1, X, 1, BETA, Y, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zhemv('U', -1, ALPHA, A, 1, X, 1, BETA, Y, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 5
-      CALL ZHEMV( 'U', 2, ALPHA, A, 1, X, 1, BETA, Y, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zhemv('U', 2, ALPHA, A, 1, X, 1, BETA, Y, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 7
-      CALL ZHEMV( 'U', 0, ALPHA, A, 1, X, 0, BETA, Y, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zhemv('U', 0, ALPHA, A, 1, X, 0, BETA, Y, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 10
-      CALL ZHEMV( 'U', 0, ALPHA, A, 1, X, 1, BETA, Y, 0 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zhemv('U', 0, ALPHA, A, 1, X, 1, BETA, Y, 0 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       GO TO 180
    40 INFOT = 1
-      CALL ZHBMV( '/', 0, 0, ALPHA, A, 1, X, 1, BETA, Y, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zhbmv('/', 0, 0, ALPHA, A, 1, X, 1, BETA, Y, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 2
-      CALL ZHBMV( 'U', -1, 0, ALPHA, A, 1, X, 1, BETA, Y, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zhbmv('U', -1, 0, ALPHA, A, 1, X, 1, BETA, Y, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 3
-      CALL ZHBMV( 'U', 0, -1, ALPHA, A, 1, X, 1, BETA, Y, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zhbmv('U', 0, -1, ALPHA, A, 1, X, 1, BETA, Y, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 6
-      CALL ZHBMV( 'U', 0, 1, ALPHA, A, 1, X, 1, BETA, Y, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zhbmv('U', 0, 1, ALPHA, A, 1, X, 1, BETA, Y, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 8
-      CALL ZHBMV( 'U', 0, 0, ALPHA, A, 1, X, 0, BETA, Y, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zhbmv('U', 0, 0, ALPHA, A, 1, X, 0, BETA, Y, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 11
-      CALL ZHBMV( 'U', 0, 0, ALPHA, A, 1, X, 1, BETA, Y, 0 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zhbmv('U', 0, 0, ALPHA, A, 1, X, 1, BETA, Y, 0 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       GO TO 180
    50 INFOT = 1
-      CALL ZHPMV( '/', 0, ALPHA, A, X, 1, BETA, Y, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zhpmv('/', 0, ALPHA, A, X, 1, BETA, Y, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 2
-      CALL ZHPMV( 'U', -1, ALPHA, A, X, 1, BETA, Y, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zhpmv('U', -1, ALPHA, A, X, 1, BETA, Y, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 6
-      CALL ZHPMV( 'U', 0, ALPHA, A, X, 0, BETA, Y, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zhpmv('U', 0, ALPHA, A, X, 0, BETA, Y, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 9
-      CALL ZHPMV( 'U', 0, ALPHA, A, X, 1, BETA, Y, 0 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zhpmv('U', 0, ALPHA, A, X, 1, BETA, Y, 0 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       GO TO 180
    60 INFOT = 1
-      CALL ZTRMV( '/', 'N', 'N', 0, A, 1, X, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ztrmv('/', 'N', 'N', 0, A, 1, X, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 2
-      CALL ZTRMV( 'U', '/', 'N', 0, A, 1, X, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ztrmv('U', '/', 'N', 0, A, 1, X, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 3
-      CALL ZTRMV( 'U', 'N', '/', 0, A, 1, X, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ztrmv('U', 'N', '/', 0, A, 1, X, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 4
-      CALL ZTRMV( 'U', 'N', 'N', -1, A, 1, X, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ztrmv('U', 'N', 'N', -1, A, 1, X, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 6
-      CALL ZTRMV( 'U', 'N', 'N', 2, A, 1, X, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ztrmv('U', 'N', 'N', 2, A, 1, X, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 8
-      CALL ZTRMV( 'U', 'N', 'N', 0, A, 1, X, 0 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ztrmv('U', 'N', 'N', 0, A, 1, X, 0 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       GO TO 180
    70 INFOT = 1
-      CALL ZTBMV( '/', 'N', 'N', 0, 0, A, 1, X, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ztbmv('/', 'N', 'N', 0, 0, A, 1, X, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 2
-      CALL ZTBMV( 'U', '/', 'N', 0, 0, A, 1, X, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ztbmv('U', '/', 'N', 0, 0, A, 1, X, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 3
-      CALL ZTBMV( 'U', 'N', '/', 0, 0, A, 1, X, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ztbmv('U', 'N', '/', 0, 0, A, 1, X, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 4
-      CALL ZTBMV( 'U', 'N', 'N', -1, 0, A, 1, X, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ztbmv('U', 'N', 'N', -1, 0, A, 1, X, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 5
-      CALL ZTBMV( 'U', 'N', 'N', 0, -1, A, 1, X, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ztbmv('U', 'N', 'N', 0, -1, A, 1, X, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 7
-      CALL ZTBMV( 'U', 'N', 'N', 0, 1, A, 1, X, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ztbmv('U', 'N', 'N', 0, 1, A, 1, X, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 9
-      CALL ZTBMV( 'U', 'N', 'N', 0, 0, A, 1, X, 0 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ztbmv('U', 'N', 'N', 0, 0, A, 1, X, 0 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       GO TO 180
    80 INFOT = 1
-      CALL ZTPMV( '/', 'N', 'N', 0, A, X, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ztpmv('/', 'N', 'N', 0, A, X, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 2
-      CALL ZTPMV( 'U', '/', 'N', 0, A, X, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ztpmv('U', '/', 'N', 0, A, X, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 3
-      CALL ZTPMV( 'U', 'N', '/', 0, A, X, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ztpmv('U', 'N', '/', 0, A, X, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 4
-      CALL ZTPMV( 'U', 'N', 'N', -1, A, X, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ztpmv('U', 'N', 'N', -1, A, X, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 7
-      CALL ZTPMV( 'U', 'N', 'N', 0, A, X, 0 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ztpmv('U', 'N', 'N', 0, A, X, 0 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       GO TO 180
    90 INFOT = 1
-      CALL ZTRSV( '/', 'N', 'N', 0, A, 1, X, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ztrsv('/', 'N', 'N', 0, A, 1, X, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 2
-      CALL ZTRSV( 'U', '/', 'N', 0, A, 1, X, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ztrsv('U', '/', 'N', 0, A, 1, X, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 3
-      CALL ZTRSV( 'U', 'N', '/', 0, A, 1, X, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ztrsv('U', 'N', '/', 0, A, 1, X, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 4
-      CALL ZTRSV( 'U', 'N', 'N', -1, A, 1, X, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ztrsv('U', 'N', 'N', -1, A, 1, X, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 6
-      CALL ZTRSV( 'U', 'N', 'N', 2, A, 1, X, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ztrsv('U', 'N', 'N', 2, A, 1, X, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 8
-      CALL ZTRSV( 'U', 'N', 'N', 0, A, 1, X, 0 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ztrsv('U', 'N', 'N', 0, A, 1, X, 0 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       GO TO 180
   100 INFOT = 1
-      CALL ZTBSV( '/', 'N', 'N', 0, 0, A, 1, X, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ztbsv('/', 'N', 'N', 0, 0, A, 1, X, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 2
-      CALL ZTBSV( 'U', '/', 'N', 0, 0, A, 1, X, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ztbsv('U', '/', 'N', 0, 0, A, 1, X, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 3
-      CALL ZTBSV( 'U', 'N', '/', 0, 0, A, 1, X, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ztbsv('U', 'N', '/', 0, 0, A, 1, X, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 4
-      CALL ZTBSV( 'U', 'N', 'N', -1, 0, A, 1, X, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ztbsv('U', 'N', 'N', -1, 0, A, 1, X, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 5
-      CALL ZTBSV( 'U', 'N', 'N', 0, -1, A, 1, X, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ztbsv('U', 'N', 'N', 0, -1, A, 1, X, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 7
-      CALL ZTBSV( 'U', 'N', 'N', 0, 1, A, 1, X, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ztbsv('U', 'N', 'N', 0, 1, A, 1, X, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 9
-      CALL ZTBSV( 'U', 'N', 'N', 0, 0, A, 1, X, 0 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ztbsv('U', 'N', 'N', 0, 0, A, 1, X, 0 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       GO TO 180
   110 INFOT = 1
-      CALL ZTPSV( '/', 'N', 'N', 0, A, X, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ztpsv('/', 'N', 'N', 0, A, X, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 2
-      CALL ZTPSV( 'U', '/', 'N', 0, A, X, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ztpsv('U', '/', 'N', 0, A, X, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 3
-      CALL ZTPSV( 'U', 'N', '/', 0, A, X, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ztpsv('U', 'N', '/', 0, A, X, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 4
-      CALL ZTPSV( 'U', 'N', 'N', -1, A, X, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ztpsv('U', 'N', 'N', -1, A, X, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 7
-      CALL ZTPSV( 'U', 'N', 'N', 0, A, X, 0 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ztpsv('U', 'N', 'N', 0, A, X, 0 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       GO TO 180
   120 INFOT = 1
-      CALL ZGERC( -1, 0, ALPHA, X, 1, Y, 1, A, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zgerc(-1, 0, ALPHA, X, 1, Y, 1, A, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 2
-      CALL ZGERC( 0, -1, ALPHA, X, 1, Y, 1, A, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zgerc(0, -1, ALPHA, X, 1, Y, 1, A, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 5
-      CALL ZGERC( 0, 0, ALPHA, X, 0, Y, 1, A, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zgerc(0, 0, ALPHA, X, 0, Y, 1, A, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 7
-      CALL ZGERC( 0, 0, ALPHA, X, 1, Y, 0, A, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zgerc(0, 0, ALPHA, X, 1, Y, 0, A, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 9
-      CALL ZGERC( 2, 0, ALPHA, X, 1, Y, 1, A, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zgerc(2, 0, ALPHA, X, 1, Y, 1, A, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       GO TO 180
   130 INFOT = 1
-      CALL ZGERU( -1, 0, ALPHA, X, 1, Y, 1, A, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zgeru(-1, 0, ALPHA, X, 1, Y, 1, A, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 2
-      CALL ZGERU( 0, -1, ALPHA, X, 1, Y, 1, A, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zgeru(0, -1, ALPHA, X, 1, Y, 1, A, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 5
-      CALL ZGERU( 0, 0, ALPHA, X, 0, Y, 1, A, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zgeru(0, 0, ALPHA, X, 0, Y, 1, A, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 7
-      CALL ZGERU( 0, 0, ALPHA, X, 1, Y, 0, A, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zgeru(0, 0, ALPHA, X, 1, Y, 0, A, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 9
-      CALL ZGERU( 2, 0, ALPHA, X, 1, Y, 1, A, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zgeru(2, 0, ALPHA, X, 1, Y, 1, A, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       GO TO 180
   140 INFOT = 1
-      CALL ZHER( '/', 0, RALPHA, X, 1, A, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zher('/', 0, RALPHA, X, 1, A, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 2
-      CALL ZHER( 'U', -1, RALPHA, X, 1, A, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zher('U', -1, RALPHA, X, 1, A, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 5
-      CALL ZHER( 'U', 0, RALPHA, X, 0, A, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zher('U', 0, RALPHA, X, 0, A, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 7
-      CALL ZHER( 'U', 2, RALPHA, X, 1, A, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zher('U', 2, RALPHA, X, 1, A, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       GO TO 180
   150 INFOT = 1
-      CALL ZHPR( '/', 0, RALPHA, X, 1, A )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zhpr('/', 0, RALPHA, X, 1, A );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 2
-      CALL ZHPR( 'U', -1, RALPHA, X, 1, A )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zhpr('U', -1, RALPHA, X, 1, A );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 5
-      CALL ZHPR( 'U', 0, RALPHA, X, 0, A )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zhpr('U', 0, RALPHA, X, 0, A );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       GO TO 180
   160 INFOT = 1
-      CALL ZHER2( '/', 0, ALPHA, X, 1, Y, 1, A, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zher2('/', 0, ALPHA, X, 1, Y, 1, A, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 2
-      CALL ZHER2( 'U', -1, ALPHA, X, 1, Y, 1, A, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zher2('U', -1, ALPHA, X, 1, Y, 1, A, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 5
-      CALL ZHER2( 'U', 0, ALPHA, X, 0, Y, 1, A, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zher2('U', 0, ALPHA, X, 0, Y, 1, A, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 7
-      CALL ZHER2( 'U', 0, ALPHA, X, 1, Y, 0, A, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zher2('U', 0, ALPHA, X, 1, Y, 0, A, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 9
-      CALL ZHER2( 'U', 2, ALPHA, X, 1, Y, 1, A, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zher2('U', 2, ALPHA, X, 1, Y, 1, A, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       GO TO 180
   170 INFOT = 1
-      CALL ZHPR2( '/', 0, ALPHA, X, 1, Y, 1, A )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zhpr2('/', 0, ALPHA, X, 1, Y, 1, A );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 2
-      CALL ZHPR2( 'U', -1, ALPHA, X, 1, Y, 1, A )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zhpr2('U', -1, ALPHA, X, 1, Y, 1, A );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 5
-      CALL ZHPR2( 'U', 0, ALPHA, X, 0, Y, 1, A )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zhpr2('U', 0, ALPHA, X, 0, Y, 1, A );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 7
-      CALL ZHPR2( 'U', 0, ALPHA, X, 1, Y, 0, A )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zhpr2('U', 0, ALPHA, X, 1, Y, 0, A );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
 
   180 IF( OK )THEN
          WRITE( NOUT, FMT = 9999 )SRNAMT

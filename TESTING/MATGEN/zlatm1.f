@@ -60,7 +60,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'ZLATM1', -INFO )
+         xerbla('ZLATM1', -INFO );
          RETURN
       }
 
@@ -124,7 +124,7 @@
          // Randomly distributed D values from IDIST
 
   110    CONTINUE
-         CALL ZLARNV( IDIST, ISEED, N, D )
+         zlarnv(IDIST, ISEED, N, D );
 
   120    CONTINUE
 

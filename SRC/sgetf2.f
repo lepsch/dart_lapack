@@ -46,7 +46,7 @@
          INFO = -4
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'SGETF2', -INFO )
+         xerbla('SGETF2', -INFO );
          RETURN
       }
 
@@ -74,7 +74,7 @@
 
             if ( J.LT.M ) {
                if ( ABS(A( J, J )) .GE. SFMIN ) {
-                  CALL SSCAL( M-J, ONE / A( J, J ), A( J+1, J ), 1 )
+                  sscal(M-J, ONE / A( J, J ), A( J+1, J ), 1 );
                } else {
                  DO 20 I = 1, M-J
                     A( J+I, J ) = A( J+I, J ) / A( J, J )
@@ -91,7 +91,7 @@
 
             // Update trailing submatrix.
 
-            CALL SGER( M-J, N-J, -ONE, A( J+1, J ), 1, A( J, J+1 ), LDA, A( J+1, J+1 ), LDA )
+            sger(M-J, N-J, -ONE, A( J+1, J ), 1, A( J, J+1 ), LDA, A( J+1, J+1 ), LDA );
          }
    10 CONTINUE
       RETURN

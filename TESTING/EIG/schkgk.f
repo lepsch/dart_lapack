@@ -75,25 +75,25 @@
       ANORM = SLANGE( 'M', N, N, A, LDA, WORK )
       BNORM = SLANGE( 'M', N, N, B, LDB, WORK )
 
-      CALL SLACPY( 'FULL', N, N, A, LDA, AF, LDA )
-      CALL SLACPY( 'FULL', N, N, B, LDB, BF, LDB )
+      slacpy('FULL', N, N, A, LDA, AF, LDA );
+      slacpy('FULL', N, N, B, LDB, BF, LDB );
 
-      CALL SGGBAL( 'B', N, A, LDA, B, LDB, ILO, IHI, LSCALE, RSCALE, WORK, INFO )
+      sggbal('B', N, A, LDA, B, LDB, ILO, IHI, LSCALE, RSCALE, WORK, INFO );
       if ( INFO.NE.0 ) {
          NINFO = NINFO + 1
          LMAX( 1 ) = KNT
       }
 
-      CALL SLACPY( 'FULL', N, M, VL, LDVL, VLF, LDVL )
-      CALL SLACPY( 'FULL', N, M, VR, LDVR, VRF, LDVR )
+      slacpy('FULL', N, M, VL, LDVL, VLF, LDVL );
+      slacpy('FULL', N, M, VR, LDVR, VRF, LDVR );
 
-      CALL SGGBAK( 'B', 'L', N, ILO, IHI, LSCALE, RSCALE, M, VL, LDVL, INFO )
+      sggbak('B', 'L', N, ILO, IHI, LSCALE, RSCALE, M, VL, LDVL, INFO );
       if ( INFO.NE.0 ) {
          NINFO = NINFO + 1
          LMAX( 2 ) = KNT
       }
 
-      CALL SGGBAK( 'B', 'R', N, ILO, IHI, LSCALE, RSCALE, M, VR, LDVR, INFO )
+      sggbak('B', 'R', N, ILO, IHI, LSCALE, RSCALE, M, VR, LDVR, INFO );
       if ( INFO.NE.0 ) {
          NINFO = NINFO + 1
          LMAX( 3 ) = KNT
@@ -104,9 +104,9 @@
       // Check tilde(VL)'*A*tilde(VR) - VL'*tilde(A)*VR
       // where tilde(A) denotes the transformed matrix.
 
-      CALL SGEMM( 'N', 'N', N, M, N, ONE, AF, LDA, VR, LDVR, ZERO, WORK, LDWORK )       CALL SGEMM( 'T', 'N', M, M, N, ONE, VL, LDVL, WORK, LDWORK, ZERO, E, LDE )
+      sgemm('N', 'N', N, M, N, ONE, AF, LDA, VR, LDVR, ZERO, WORK, LDWORK )       CALL SGEMM( 'T', 'N', M, M, N, ONE, VL, LDVL, WORK, LDWORK, ZERO, E, LDE );
 
-      CALL SGEMM( 'N', 'N', N, M, N, ONE, A, LDA, VRF, LDVR, ZERO, WORK, LDWORK )       CALL SGEMM( 'T', 'N', M, M, N, ONE, VLF, LDVL, WORK, LDWORK, ZERO, F, LDF )
+      sgemm('N', 'N', N, M, N, ONE, A, LDA, VRF, LDVR, ZERO, WORK, LDWORK )       CALL SGEMM( 'T', 'N', M, M, N, ONE, VLF, LDVL, WORK, LDWORK, ZERO, F, LDF );
 
       VMAX = ZERO
       DO 70 J = 1, M
@@ -122,9 +122,9 @@
 
       // Check tilde(VL)'*B*tilde(VR) - VL'*tilde(B)*VR
 
-      CALL SGEMM( 'N', 'N', N, M, N, ONE, BF, LDB, VR, LDVR, ZERO, WORK, LDWORK )       CALL SGEMM( 'T', 'N', M, M, N, ONE, VL, LDVL, WORK, LDWORK, ZERO, E, LDE )
+      sgemm('N', 'N', N, M, N, ONE, BF, LDB, VR, LDVR, ZERO, WORK, LDWORK )       CALL SGEMM( 'T', 'N', M, M, N, ONE, VL, LDVL, WORK, LDWORK, ZERO, E, LDE );
 
-      CALL SGEMM( 'N', 'N', N, M, N, ONE, B, LDB, VRF, LDVR, ZERO, WORK, LDWORK )       CALL SGEMM( 'T', 'N', M, M, N, ONE, VLF, LDVL, WORK, LDWORK, ZERO, F, LDF )
+      sgemm('N', 'N', N, M, N, ONE, B, LDB, VRF, LDVR, ZERO, WORK, LDWORK )       CALL SGEMM( 'T', 'N', M, M, N, ONE, VLF, LDVL, WORK, LDWORK, ZERO, F, LDF );
 
       VMAX = ZERO
       DO 90 J = 1, M

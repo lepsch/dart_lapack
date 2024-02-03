@@ -46,22 +46,22 @@
 
       // Copy the first k rows of the factorization to the array Q
 
-      CALL ZLASET( 'Full', M, N, ROGUE, ROGUE, Q, LDA )
-      CALL ZLACPY( 'Upper', K, N-1, AF( 1, 2 ), LDA, Q( 1, 2 ), LDA )
+      zlaset('Full', M, N, ROGUE, ROGUE, Q, LDA );
+      zlacpy('Upper', K, N-1, AF( 1, 2 ), LDA, Q( 1, 2 ), LDA );
 
       // Generate the first n columns of the matrix Q
 
       SRNAMT = 'ZUNGLQ'
-      CALL ZUNGLQ( M, N, K, Q, LDA, TAU, WORK, LWORK, INFO )
+      zunglq(M, N, K, Q, LDA, TAU, WORK, LWORK, INFO );
 
       // Copy L(1:k,1:m)
 
-      CALL ZLASET( 'Full', K, M, DCMPLX( ZERO ), DCMPLX( ZERO ), L, LDA )
-      CALL ZLACPY( 'Lower', K, M, AF, LDA, L, LDA )
+      zlaset('Full', K, M, DCMPLX( ZERO ), DCMPLX( ZERO ), L, LDA );
+      zlacpy('Lower', K, M, AF, LDA, L, LDA );
 
       // Compute L(1:k,1:m) - A(1:k,1:n) * Q(1:m,1:n)'
 
-      CALL ZGEMM( 'No transpose', 'Conjugate transpose', K, M, N, DCMPLX( -ONE ), A, LDA, Q, LDA, DCMPLX( ONE ), L, LDA )
+      zgemm('No transpose', 'Conjugate transpose', K, M, N, DCMPLX( -ONE ), A, LDA, Q, LDA, DCMPLX( ONE ), L, LDA );
 
       // Compute norm( L - A*Q' ) / ( N * norm(A) * EPS ) .
 
@@ -75,8 +75,8 @@
 
       // Compute I - Q*Q'
 
-      CALL ZLASET( 'Full', M, M, DCMPLX( ZERO ), DCMPLX( ONE ), L, LDA )
-      CALL ZHERK( 'Upper', 'No transpose', M, N, -ONE, Q, LDA, ONE, L, LDA )
+      zlaset('Full', M, M, DCMPLX( ZERO ), DCMPLX( ONE ), L, LDA );
+      zherk('Upper', 'No transpose', M, N, -ONE, Q, LDA, ONE, L, LDA );
 
       // Compute norm( I - Q*Q' ) / ( N * EPS ) .
 

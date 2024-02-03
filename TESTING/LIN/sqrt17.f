@@ -47,12 +47,12 @@
          NROWS = N
          NCOLS = M
       } else {
-         CALL XERBLA( 'SQRT17', 1 )
+         xerbla('SQRT17', 1 );
          RETURN
       }
 
       if ( LWORK.LT.NCOLS*NRHS ) {
-         CALL XERBLA( 'SQRT17', 13 )
+         xerbla('SQRT17', 13 );
          RETURN
       }
 
@@ -66,17 +66,17 @@
 
       // compute residual and scale it
 
-      CALL SLACPY( 'All', NROWS, NRHS, B, LDB, C, LDB )
-      CALL SGEMM( TRANS, 'No transpose', NROWS, NRHS, NCOLS, -ONE, A, LDA, X, LDX, ONE, C, LDB )
+      slacpy('All', NROWS, NRHS, B, LDB, C, LDB );
+      sgemm(TRANS, 'No transpose', NROWS, NRHS, NCOLS, -ONE, A, LDA, X, LDX, ONE, C, LDB );
       NORMRS = SLANGE( 'Max', NROWS, NRHS, C, LDB, RWORK )
       if ( NORMRS.GT.SMLNUM ) {
          ISCL = 1
-         CALL SLASCL( 'General', 0, 0, NORMRS, ONE, NROWS, NRHS, C, LDB, INFO )
+         slascl('General', 0, 0, NORMRS, ONE, NROWS, NRHS, C, LDB, INFO );
       }
 
       // compute R**T * op(A)
 
-      CALL SGEMM( 'Transpose', TRANS, NRHS, NCOLS, NROWS, ONE, C, LDB, A, LDA, ZERO, WORK, NRHS )
+      sgemm('Transpose', TRANS, NRHS, NCOLS, NROWS, ONE, C, LDB, A, LDA, ZERO, WORK, NRHS );
 
       // compute and properly scale error
 

@@ -59,7 +59,7 @@
    30 CONTINUE
 
       KNT = KNT + 1
-      CALL SGEBAK( 'B', 'R', N, ILO, IHI, SCALE, N, E, LDE, INFO )
+      sgebak('B', 'R', N, ILO, IHI, SCALE, N, E, LDE, INFO );
 
       if ( INFO.NE.0 ) {
          NINFO = NINFO + 1

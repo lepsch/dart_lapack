@@ -21,7 +21,7 @@
       WRITE (NOUT,99999)
       DO 20 IC = 1, 10
          ICASE = IC
-         CALL HEADER
+         header();
 
          // .. Initialize  PASS,  INCX,  INCY, and MODE for a new case. ..
          // .. the value 9999 for INCX, INCY or MODE will appear in the ..
@@ -33,13 +33,13 @@
          INCY = 9999
          MODE = 9999
          if (ICASE.EQ.3) {
-            CALL CHECK0(SFAC)
+            check0(SFAC);
          } else if (ICASE.EQ.7 .OR. ICASE.EQ.8 .OR. ICASE.EQ.9 .OR. ICASE.EQ.10) {
-            CALL CHECK1(SFAC)
+            check1(SFAC);
          } else if (ICASE.EQ.1 .OR. ICASE.EQ.2 .OR. ICASE.EQ.5 .OR. ICASE.EQ.6) {
-            CALL CHECK2(SFAC)
+            check2(SFAC);
          } else if (ICASE.EQ.4) {
-            CALL CHECK3(SFAC)
+            check3(SFAC);
          }
          // -- Print
          IF (PASS) WRITE (NOUT,99998)
@@ -114,11 +114,11 @@
             IF (K.GT.8) GO TO 40
             SA = DA1(K)
             SB = DB1(K)
-            CALL SROTGTEST(SA,SB,SC,SS)
-            CALL STEST1(SA,DATRUE(K),DATRUE(K),SFAC)
-            CALL STEST1(SB,DBTRUE(K),DBTRUE(K),SFAC)
-            CALL STEST1(SC,DC1(K),DC1(K),SFAC)
-            CALL STEST1(SS,DS1(K),DS1(K),SFAC)
+            srotgtest(SA,SB,SC,SS);
+            stest1(SA,DATRUE(K),DATRUE(K),SFAC);
+            stest1(SB,DBTRUE(K),DBTRUE(K),SFAC);
+            stest1(SC,DC1(K),DC1(K),SFAC);
+            stest1(SS,DS1(K),DS1(K),SFAC);
          } else {
             WRITE (NOUT,*) ' Shouldn''t be here in CHECK0'
             STOP
@@ -169,21 +169,21 @@
             if (ICASE.EQ.7) {
                // .. SNRM2TEST ..
                STEMP(1) = DTRUE1(NP1)
-               CALL STEST1(SNRM2TEST(N,SX,INCX),STEMP(1),STEMP,SFAC)
+               stest1(SNRM2TEST(N,SX,INCX),STEMP(1),STEMP,SFAC);
             } else if (ICASE.EQ.8) {
                // .. SASUMTEST ..
                STEMP(1) = DTRUE3(NP1)
-               CALL STEST1(SASUMTEST(N,SX,INCX),STEMP(1),STEMP,SFAC)
+               stest1(SASUMTEST(N,SX,INCX),STEMP(1),STEMP,SFAC);
             } else if (ICASE.EQ.9) {
                // .. SSCALTEST ..
-               CALL SSCALTEST(N,SA((INCX-1)*5+NP1),SX,INCX)
+               sscaltest(N,SA((INCX-1)*5+NP1),SX,INCX);
                DO 40 I = 1, LEN
                   STRUE(I) = DTRUE5(I,NP1,INCX)
    40          CONTINUE
-               CALL STEST(LEN,SX,STRUE,STRUE,SFAC)
+               stest(LEN,SX,STRUE,STRUE,SFAC);
             } else if (ICASE.EQ.10) {
                // .. ISAMAXTEST ..
-               CALL ITEST1(ISAMAXTEST(N,SX,INCX),ITRUE2(NP1))
+               itest1(ISAMAXTEST(N,SX,INCX),ITRUE2(NP1));
             } else {
                WRITE (NOUT,*) ' Shouldn''t be here in CHECK1'
                STOP
@@ -247,30 +247,30 @@
 
             if (ICASE.EQ.1) {
                // .. SDOTTEST ..
-               CALL STEST1(SDOTTEST(N,SX,INCX,SY,INCY),DT7(KN,KI), SSIZE1(KN),SFAC)
+               stest1(SDOTTEST(N,SX,INCX,SY,INCY),DT7(KN,KI), SSIZE1(KN),SFAC);
             } else if (ICASE.EQ.2) {
                // .. SAXPYTEST ..
-               CALL SAXPYTEST(N,SA,SX,INCX,SY,INCY)
+               saxpytest(N,SA,SX,INCX,SY,INCY);
                DO 40 J = 1, LENY
                   STY(J) = DT8(J,KN,KI)
    40          CONTINUE
-               CALL STEST(LENY,SY,STY,SSIZE2(1,KSIZE),SFAC)
+               stest(LENY,SY,STY,SSIZE2(1,KSIZE),SFAC);
             } else if (ICASE.EQ.5) {
                // .. SCOPYTEST ..
                DO 60 I = 1, 7
                   STY(I) = DT10Y(I,KN,KI)
    60          CONTINUE
-               CALL SCOPYTEST(N,SX,INCX,SY,INCY)
-               CALL STEST(LENY,SY,STY,SSIZE2(1,1),1.0E0)
+               scopytest(N,SX,INCX,SY,INCY);
+               stest(LENY,SY,STY,SSIZE2(1,1),1.0E0);
             } else if (ICASE.EQ.6) {
                // .. SSWAPTEST ..
-               CALL SSWAPTEST(N,SX,INCX,SY,INCY)
+               sswaptest(N,SX,INCX,SY,INCY);
                DO 80 I = 1, 7
                   STX(I) = DT10X(I,KN,KI)
                   STY(I) = DT10Y(I,KN,KI)
    80          CONTINUE
-               CALL STEST(LENX,SX,STX,SSIZE2(1,1),1.0E0)
-               CALL STEST(LENY,SY,STY,SSIZE2(1,1),1.0E0)
+               stest(LENX,SX,STX,SSIZE2(1,1),1.0E0);
+               stest(LENY,SY,STY,SSIZE2(1,1),1.0E0);
             } else {
                WRITE (NOUT,*) ' Shouldn''t be here in CHECK2'
                STOP
@@ -331,9 +331,9 @@
                   STX(I) = DT9X(I,KN,KI)
                   STY(I) = DT9Y(I,KN,KI)
    20          CONTINUE
-               CALL SROTTEST(N,SX,INCX,SY,INCY,SC,SS)
-               CALL STEST(LENX,SX,STX,SSIZE2(1,KSIZE),SFAC)
-               CALL STEST(LENY,SY,STY,SSIZE2(1,KSIZE),SFAC)
+               srottest(N,SX,INCX,SY,INCY,SC,SS);
+               stest(LENX,SX,STX,SSIZE2(1,KSIZE),SFAC);
+               stest(LENY,SY,STY,SSIZE2(1,KSIZE),SFAC);
             } else {
                WRITE (NOUT,*) ' Shouldn''t be here in CHECK3'
                STOP
@@ -430,9 +430,9 @@
             MWPSTX(K) = MWPTX(I,K)
             MWPSTY(K) = MWPTY(I,K)
   180    CONTINUE
-         CALL SROTTEST(MWPN(I),COPYX,INCX,COPYY,INCY,MWPC(I),MWPS(I))
-         CALL STEST(5,COPYX,MWPSTX,MWPSTX,SFAC)
-         CALL STEST(5,COPYY,MWPSTY,MWPSTY,SFAC)
+         srottest(MWPN(I),COPYX,INCX,COPYY,INCY,MWPC(I),MWPS(I));
+         stest(5,COPYX,MWPSTX,MWPSTX,SFAC);
+         stest(5,COPYY,MWPSTY,MWPSTY,SFAC);
   200 CONTINUE
       RETURN
       }
@@ -508,7 +508,7 @@
 
       SCOMP(1) = SCOMP1
       STRUE(1) = STRUE1
-      CALL STEST(1,SCOMP,STRUE,SSIZE,SFAC)
+      stest(1,SCOMP,STRUE,SSIZE,SFAC);
 
       RETURN
       }

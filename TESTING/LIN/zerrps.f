@@ -65,32 +65,32 @@
 
       SRNAMT = 'ZPSTRF'
       INFOT = 1
-      CALL ZPSTRF( '/', 0, A, 1, PIV, RANK, -1.D0, RWORK, INFO )
-      CALL CHKXER( 'ZPSTRF', INFOT, NOUT, LERR, OK )
+      zpstrf('/', 0, A, 1, PIV, RANK, -1.D0, RWORK, INFO );
+      chkxer('ZPSTRF', INFOT, NOUT, LERR, OK );
       INFOT = 2
-      CALL ZPSTRF( 'U', -1, A, 1, PIV, RANK, -1.D0, RWORK, INFO )
-      CALL CHKXER( 'ZPSTRF', INFOT, NOUT, LERR, OK )
+      zpstrf('U', -1, A, 1, PIV, RANK, -1.D0, RWORK, INFO );
+      chkxer('ZPSTRF', INFOT, NOUT, LERR, OK );
       INFOT = 4
-      CALL ZPSTRF( 'U', 2, A, 1, PIV, RANK, -1.D0, RWORK, INFO )
-      CALL CHKXER( 'ZPSTRF', INFOT, NOUT, LERR, OK )
+      zpstrf('U', 2, A, 1, PIV, RANK, -1.D0, RWORK, INFO );
+      chkxer('ZPSTRF', INFOT, NOUT, LERR, OK );
 
          // ZPSTF2
 
       SRNAMT = 'ZPSTF2'
       INFOT = 1
-      CALL ZPSTF2( '/', 0, A, 1, PIV, RANK, -1.D0, RWORK, INFO )
-      CALL CHKXER( 'ZPSTF2', INFOT, NOUT, LERR, OK )
+      zpstf2('/', 0, A, 1, PIV, RANK, -1.D0, RWORK, INFO );
+      chkxer('ZPSTF2', INFOT, NOUT, LERR, OK );
       INFOT = 2
-      CALL ZPSTF2( 'U', -1, A, 1, PIV, RANK, -1.D0, RWORK, INFO )
-      CALL CHKXER( 'ZPSTF2', INFOT, NOUT, LERR, OK )
+      zpstf2('U', -1, A, 1, PIV, RANK, -1.D0, RWORK, INFO );
+      chkxer('ZPSTF2', INFOT, NOUT, LERR, OK );
       INFOT = 4
-      CALL ZPSTF2( 'U', 2, A, 1, PIV, RANK, -1.D0, RWORK, INFO )
-      CALL CHKXER( 'ZPSTF2', INFOT, NOUT, LERR, OK )
+      zpstf2('U', 2, A, 1, PIV, RANK, -1.D0, RWORK, INFO );
+      chkxer('ZPSTF2', INFOT, NOUT, LERR, OK );
 
 
       // Print a summary line.
 
-      CALL ALAESM( PATH, OK, NOUT )
+      alaesm(PATH, OK, NOUT );
 
       RETURN
 

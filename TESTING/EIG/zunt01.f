@@ -71,7 +71,7 @@
 
          // Compute I - U*U' or I - U'*U.
 
-         CALL ZLASET( 'Upper', MNMIN, MNMIN, DCMPLX( ZERO ), DCMPLX( ONE ), WORK, LDWORK )          CALL ZHERK( 'Upper', TRANSU, MNMIN, K, -ONE, U, LDU, ONE, WORK, LDWORK )
+         zlaset('Upper', MNMIN, MNMIN, DCMPLX( ZERO ), DCMPLX( ONE ), WORK, LDWORK )          CALL ZHERK( 'Upper', TRANSU, MNMIN, K, -ONE, U, LDU, ONE, WORK, LDWORK );
 
          // Compute norm( I - U*U' ) / ( K * EPS ) .
 

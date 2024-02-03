@@ -42,47 +42,47 @@
 
             // Update A(i:m,i)
 
-            CALL CLACGV( I-1, Y( I, 1 ), LDY )
-            CALL CGEMV( 'No transpose', M-I+1, I-1, -ONE, A( I, 1 ), LDA, Y( I, 1 ), LDY, ONE, A( I, I ), 1 )
-            CALL CLACGV( I-1, Y( I, 1 ), LDY )
-            CALL CGEMV( 'No transpose', M-I+1, I-1, -ONE, X( I, 1 ), LDX, A( 1, I ), 1, ONE, A( I, I ), 1 )
+            clacgv(I-1, Y( I, 1 ), LDY );
+            cgemv('No transpose', M-I+1, I-1, -ONE, A( I, 1 ), LDA, Y( I, 1 ), LDY, ONE, A( I, I ), 1 );
+            clacgv(I-1, Y( I, 1 ), LDY );
+            cgemv('No transpose', M-I+1, I-1, -ONE, X( I, 1 ), LDX, A( 1, I ), 1, ONE, A( I, I ), 1 );
 
             // Generate reflection Q(i) to annihilate A(i+1:m,i)
 
             ALPHA = A( I, I )
-            CALL CLARFG( M-I+1, ALPHA, A( MIN( I+1, M ), I ), 1, TAUQ( I ) )
+            clarfg(M-I+1, ALPHA, A( MIN( I+1, M ), I ), 1, TAUQ( I ) );
             D( I ) = REAL( ALPHA )
             if ( I.LT.N ) {
                A( I, I ) = ONE
 
                // Compute Y(i+1:n,i)
 
-               CALL CGEMV( 'Conjugate transpose', M-I+1, N-I, ONE, A( I, I+1 ), LDA, A( I, I ), 1, ZERO, Y( I+1, I ), 1 )                CALL CGEMV( 'Conjugate transpose', M-I+1, I-1, ONE, A( I, 1 ), LDA, A( I, I ), 1, ZERO, Y( 1, I ), 1 )                CALL CGEMV( 'No transpose', N-I, I-1, -ONE, Y( I+1, 1 ), LDY, Y( 1, I ), 1, ONE, Y( I+1, I ), 1 )                CALL CGEMV( 'Conjugate transpose', M-I+1, I-1, ONE, X( I, 1 ), LDX, A( I, I ), 1, ZERO, Y( 1, I ), 1 )                CALL CGEMV( 'Conjugate transpose', I-1, N-I, -ONE, A( 1, I+1 ), LDA, Y( 1, I ), 1, ONE, Y( I+1, I ), 1 )
-               CALL CSCAL( N-I, TAUQ( I ), Y( I+1, I ), 1 )
+               cgemv('Conjugate transpose', M-I+1, N-I, ONE, A( I, I+1 ), LDA, A( I, I ), 1, ZERO, Y( I+1, I ), 1 )                CALL CGEMV( 'Conjugate transpose', M-I+1, I-1, ONE, A( I, 1 ), LDA, A( I, I ), 1, ZERO, Y( 1, I ), 1 )                CALL CGEMV( 'No transpose', N-I, I-1, -ONE, Y( I+1, 1 ), LDY, Y( 1, I ), 1, ONE, Y( I+1, I ), 1 )                CALL CGEMV( 'Conjugate transpose', M-I+1, I-1, ONE, X( I, 1 ), LDX, A( I, I ), 1, ZERO, Y( 1, I ), 1 )                CALL CGEMV( 'Conjugate transpose', I-1, N-I, -ONE, A( 1, I+1 ), LDA, Y( 1, I ), 1, ONE, Y( I+1, I ), 1 );
+               cscal(N-I, TAUQ( I ), Y( I+1, I ), 1 );
 
                // Update A(i,i+1:n)
 
-               CALL CLACGV( N-I, A( I, I+1 ), LDA )
-               CALL CLACGV( I, A( I, 1 ), LDA )
-               CALL CGEMV( 'No transpose', N-I, I, -ONE, Y( I+1, 1 ), LDY, A( I, 1 ), LDA, ONE, A( I, I+1 ), LDA )
-               CALL CLACGV( I, A( I, 1 ), LDA )
-               CALL CLACGV( I-1, X( I, 1 ), LDX )
-               CALL CGEMV( 'Conjugate transpose', I-1, N-I, -ONE, A( 1, I+1 ), LDA, X( I, 1 ), LDX, ONE, A( I, I+1 ), LDA )
-               CALL CLACGV( I-1, X( I, 1 ), LDX )
+               clacgv(N-I, A( I, I+1 ), LDA );
+               clacgv(I, A( I, 1 ), LDA );
+               cgemv('No transpose', N-I, I, -ONE, Y( I+1, 1 ), LDY, A( I, 1 ), LDA, ONE, A( I, I+1 ), LDA );
+               clacgv(I, A( I, 1 ), LDA );
+               clacgv(I-1, X( I, 1 ), LDX );
+               cgemv('Conjugate transpose', I-1, N-I, -ONE, A( 1, I+1 ), LDA, X( I, 1 ), LDX, ONE, A( I, I+1 ), LDA );
+               clacgv(I-1, X( I, 1 ), LDX );
 
                // Generate reflection P(i) to annihilate A(i,i+2:n)
 
                ALPHA = A( I, I+1 )
-               CALL CLARFG( N-I, ALPHA, A( I, MIN( I+2, N ) ), LDA, TAUP( I ) )
+               clarfg(N-I, ALPHA, A( I, MIN( I+2, N ) ), LDA, TAUP( I ) );
                E( I ) = REAL( ALPHA )
                A( I, I+1 ) = ONE
 
                // Compute X(i+1:m,i)
 
-               CALL CGEMV( 'No transpose', M-I, N-I, ONE, A( I+1, I+1 ), LDA, A( I, I+1 ), LDA, ZERO, X( I+1, I ), 1 )                CALL CGEMV( 'Conjugate transpose', N-I, I, ONE, Y( I+1, 1 ), LDY, A( I, I+1 ), LDA, ZERO, X( 1, I ), 1 )
-               CALL CGEMV( 'No transpose', M-I, I, -ONE, A( I+1, 1 ), LDA, X( 1, I ), 1, ONE, X( I+1, I ), 1 )                CALL CGEMV( 'No transpose', I-1, N-I, ONE, A( 1, I+1 ), LDA, A( I, I+1 ), LDA, ZERO, X( 1, I ), 1 )                CALL CGEMV( 'No transpose', M-I, I-1, -ONE, X( I+1, 1 ), LDX, X( 1, I ), 1, ONE, X( I+1, I ), 1 )
-               CALL CSCAL( M-I, TAUP( I ), X( I+1, I ), 1 )
-               CALL CLACGV( N-I, A( I, I+1 ), LDA )
+               cgemv('No transpose', M-I, N-I, ONE, A( I+1, I+1 ), LDA, A( I, I+1 ), LDA, ZERO, X( I+1, I ), 1 )                CALL CGEMV( 'Conjugate transpose', N-I, I, ONE, Y( I+1, 1 ), LDY, A( I, I+1 ), LDA, ZERO, X( 1, I ), 1 );
+               cgemv('No transpose', M-I, I, -ONE, A( I+1, 1 ), LDA, X( 1, I ), 1, ONE, X( I+1, I ), 1 )                CALL CGEMV( 'No transpose', I-1, N-I, ONE, A( 1, I+1 ), LDA, A( I, I+1 ), LDA, ZERO, X( 1, I ), 1 )                CALL CGEMV( 'No transpose', M-I, I-1, -ONE, X( I+1, 1 ), LDX, X( 1, I ), 1, ONE, X( I+1, I ), 1 );
+               cscal(M-I, TAUP( I ), X( I+1, I ), 1 );
+               clacgv(N-I, A( I, I+1 ), LDA );
             }
    10    CONTINUE
       } else {
@@ -93,49 +93,49 @@
 
             // Update A(i,i:n)
 
-            CALL CLACGV( N-I+1, A( I, I ), LDA )
-            CALL CLACGV( I-1, A( I, 1 ), LDA )
-            CALL CGEMV( 'No transpose', N-I+1, I-1, -ONE, Y( I, 1 ), LDY, A( I, 1 ), LDA, ONE, A( I, I ), LDA )
-            CALL CLACGV( I-1, A( I, 1 ), LDA )
-            CALL CLACGV( I-1, X( I, 1 ), LDX )
-            CALL CGEMV( 'Conjugate transpose', I-1, N-I+1, -ONE, A( 1, I ), LDA, X( I, 1 ), LDX, ONE, A( I, I ), LDA )
-            CALL CLACGV( I-1, X( I, 1 ), LDX )
+            clacgv(N-I+1, A( I, I ), LDA );
+            clacgv(I-1, A( I, 1 ), LDA );
+            cgemv('No transpose', N-I+1, I-1, -ONE, Y( I, 1 ), LDY, A( I, 1 ), LDA, ONE, A( I, I ), LDA );
+            clacgv(I-1, A( I, 1 ), LDA );
+            clacgv(I-1, X( I, 1 ), LDX );
+            cgemv('Conjugate transpose', I-1, N-I+1, -ONE, A( 1, I ), LDA, X( I, 1 ), LDX, ONE, A( I, I ), LDA );
+            clacgv(I-1, X( I, 1 ), LDX );
 
             // Generate reflection P(i) to annihilate A(i,i+1:n)
 
             ALPHA = A( I, I )
-            CALL CLARFG( N-I+1, ALPHA, A( I, MIN( I+1, N ) ), LDA, TAUP( I ) )
+            clarfg(N-I+1, ALPHA, A( I, MIN( I+1, N ) ), LDA, TAUP( I ) );
             D( I ) = REAL( ALPHA )
             if ( I.LT.M ) {
                A( I, I ) = ONE
 
                // Compute X(i+1:m,i)
 
-               CALL CGEMV( 'No transpose', M-I, N-I+1, ONE, A( I+1, I ), LDA, A( I, I ), LDA, ZERO, X( I+1, I ), 1 )                CALL CGEMV( 'Conjugate transpose', N-I+1, I-1, ONE, Y( I, 1 ), LDY, A( I, I ), LDA, ZERO, X( 1, I ), 1 )
-               CALL CGEMV( 'No transpose', M-I, I-1, -ONE, A( I+1, 1 ), LDA, X( 1, I ), 1, ONE, X( I+1, I ), 1 )                CALL CGEMV( 'No transpose', I-1, N-I+1, ONE, A( 1, I ), LDA, A( I, I ), LDA, ZERO, X( 1, I ), 1 )                CALL CGEMV( 'No transpose', M-I, I-1, -ONE, X( I+1, 1 ), LDX, X( 1, I ), 1, ONE, X( I+1, I ), 1 )
-               CALL CSCAL( M-I, TAUP( I ), X( I+1, I ), 1 )
-               CALL CLACGV( N-I+1, A( I, I ), LDA )
+               cgemv('No transpose', M-I, N-I+1, ONE, A( I+1, I ), LDA, A( I, I ), LDA, ZERO, X( I+1, I ), 1 )                CALL CGEMV( 'Conjugate transpose', N-I+1, I-1, ONE, Y( I, 1 ), LDY, A( I, I ), LDA, ZERO, X( 1, I ), 1 );
+               cgemv('No transpose', M-I, I-1, -ONE, A( I+1, 1 ), LDA, X( 1, I ), 1, ONE, X( I+1, I ), 1 )                CALL CGEMV( 'No transpose', I-1, N-I+1, ONE, A( 1, I ), LDA, A( I, I ), LDA, ZERO, X( 1, I ), 1 )                CALL CGEMV( 'No transpose', M-I, I-1, -ONE, X( I+1, 1 ), LDX, X( 1, I ), 1, ONE, X( I+1, I ), 1 );
+               cscal(M-I, TAUP( I ), X( I+1, I ), 1 );
+               clacgv(N-I+1, A( I, I ), LDA );
 
                // Update A(i+1:m,i)
 
-               CALL CLACGV( I-1, Y( I, 1 ), LDY )
-               CALL CGEMV( 'No transpose', M-I, I-1, -ONE, A( I+1, 1 ), LDA, Y( I, 1 ), LDY, ONE, A( I+1, I ), 1 )
-               CALL CLACGV( I-1, Y( I, 1 ), LDY )
-               CALL CGEMV( 'No transpose', M-I, I, -ONE, X( I+1, 1 ), LDX, A( 1, I ), 1, ONE, A( I+1, I ), 1 )
+               clacgv(I-1, Y( I, 1 ), LDY );
+               cgemv('No transpose', M-I, I-1, -ONE, A( I+1, 1 ), LDA, Y( I, 1 ), LDY, ONE, A( I+1, I ), 1 );
+               clacgv(I-1, Y( I, 1 ), LDY );
+               cgemv('No transpose', M-I, I, -ONE, X( I+1, 1 ), LDX, A( 1, I ), 1, ONE, A( I+1, I ), 1 );
 
                // Generate reflection Q(i) to annihilate A(i+2:m,i)
 
                ALPHA = A( I+1, I )
-               CALL CLARFG( M-I, ALPHA, A( MIN( I+2, M ), I ), 1, TAUQ( I ) )
+               clarfg(M-I, ALPHA, A( MIN( I+2, M ), I ), 1, TAUQ( I ) );
                E( I ) = REAL( ALPHA )
                A( I+1, I ) = ONE
 
                // Compute Y(i+1:n,i)
 
-               CALL CGEMV( 'Conjugate transpose', M-I, N-I, ONE, A( I+1, I+1 ), LDA, A( I+1, I ), 1, ZERO, Y( I+1, I ), 1 )                CALL CGEMV( 'Conjugate transpose', M-I, I-1, ONE, A( I+1, 1 ), LDA, A( I+1, I ), 1, ZERO, Y( 1, I ), 1 )                CALL CGEMV( 'No transpose', N-I, I-1, -ONE, Y( I+1, 1 ), LDY, Y( 1, I ), 1, ONE, Y( I+1, I ), 1 )                CALL CGEMV( 'Conjugate transpose', M-I, I, ONE, X( I+1, 1 ), LDX, A( I+1, I ), 1, ZERO, Y( 1, I ), 1 )                CALL CGEMV( 'Conjugate transpose', I, N-I, -ONE, A( 1, I+1 ), LDA, Y( 1, I ), 1, ONE, Y( I+1, I ), 1 )
-               CALL CSCAL( N-I, TAUQ( I ), Y( I+1, I ), 1 )
+               cgemv('Conjugate transpose', M-I, N-I, ONE, A( I+1, I+1 ), LDA, A( I+1, I ), 1, ZERO, Y( I+1, I ), 1 )                CALL CGEMV( 'Conjugate transpose', M-I, I-1, ONE, A( I+1, 1 ), LDA, A( I+1, I ), 1, ZERO, Y( 1, I ), 1 )                CALL CGEMV( 'No transpose', N-I, I-1, -ONE, Y( I+1, 1 ), LDY, Y( 1, I ), 1, ONE, Y( I+1, I ), 1 )                CALL CGEMV( 'Conjugate transpose', M-I, I, ONE, X( I+1, 1 ), LDX, A( I+1, I ), 1, ZERO, Y( 1, I ), 1 )                CALL CGEMV( 'Conjugate transpose', I, N-I, -ONE, A( 1, I+1 ), LDA, Y( 1, I ), 1, ONE, Y( I+1, I ), 1 );
+               cscal(N-I, TAUQ( I ), Y( I+1, I ), 1 );
             } else {
-               CALL CLACGV( N-I+1, A( I, I ), LDA )
+               clacgv(N-I+1, A( I, I ), LDA );
             }
    20    CONTINUE
       }

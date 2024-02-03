@@ -39,7 +39,7 @@
          INFO = -7
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'CGEQRT', -INFO )
+         xerbla('CGEQRT', -INFO );
          RETURN
       }
 
@@ -56,15 +56,15 @@
       // Compute the QR factorization of the current block A(I:M,I:I+IB-1)
 
          if ( USE_RECURSIVE_QR ) {
-            CALL CGEQRT3( M-I+1, IB, A(I,I), LDA, T(1,I), LDT, IINFO )
+            cgeqrt3(M-I+1, IB, A(I,I), LDA, T(1,I), LDT, IINFO );
          } else {
-            CALL CGEQRT2( M-I+1, IB, A(I,I), LDA, T(1,I), LDT, IINFO )
+            cgeqrt2(M-I+1, IB, A(I,I), LDA, T(1,I), LDT, IINFO );
          }
          if ( I+IB.LE.N ) {
 
       // Update by applying H**H to A(I:M,I+IB:N) from the left
 
-            CALL CLARFB( 'L', 'C', 'F', 'C', M-I+1, N-I-IB+1, IB, A( I, I ), LDA, T( 1, I ), LDT, A( I, I+IB ), LDA, WORK , N-I-IB+1 )
+            clarfb('L', 'C', 'F', 'C', M-I+1, N-I-IB+1, IB, A( I, I ), LDA, T( 1, I ), LDT, A( I, I+IB ), LDA, WORK , N-I-IB+1 );
          }
       END DO
       RETURN

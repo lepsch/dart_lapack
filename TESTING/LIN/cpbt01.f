@@ -106,7 +106,7 @@
             // Scale column K by the diagonal element.
 
             AKK = REAL( AFAC( 1, K ) )
-            CALL CSSCAL( KLEN+1, AKK, AFAC( 1, K ), 1 )
+            csscal(KLEN+1, AKK, AFAC( 1, K ), 1 );
 
    40    CONTINUE
       }

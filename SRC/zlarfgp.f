@@ -79,7 +79,7 @@
 
    10       CONTINUE
             KNT = KNT + 1
-            CALL ZDSCAL( N-1, BIGNUM, X, INCX )
+            zdscal(N-1, BIGNUM, X, INCX );
             BETA = BETA*BIGNUM
             ALPHI = ALPHI*BIGNUM
             ALPHR = ALPHR*BIGNUM
@@ -138,7 +138,7 @@
 
             // This is the general case.
 
-            CALL ZSCAL( N-1, ALPHA, X, INCX )
+            zscal(N-1, ALPHA, X, INCX );
 
          }
 

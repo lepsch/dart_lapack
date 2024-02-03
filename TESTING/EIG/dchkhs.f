@@ -80,7 +80,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'DCHKHS', -INFO )
+         xerbla('DCHKHS', -INFO );
          RETURN
       }
 
@@ -172,7 +172,7 @@
 
    70       CONTINUE
 
-            CALL DLASET( 'Full', LDA, N, ZERO, ZERO, A, LDA )
+            dlaset('Full', LDA, N, ZERO, ZERO, A, LDA );
             IINFO = 0
             COND = ULPINV
 
@@ -205,13 +205,13 @@
 
                // Diagonal Matrix, [Eigen]values Specified
 
-               CALL DLATMS( N, N, 'S', ISEED, 'S', WORK, IMODE, COND, ANORM, 0, 0, 'N', A, LDA, WORK( N+1 ), IINFO )
+               dlatms(N, N, 'S', ISEED, 'S', WORK, IMODE, COND, ANORM, 0, 0, 'N', A, LDA, WORK( N+1 ), IINFO );
 
             } else if ( ITYPE.EQ.5 ) {
 
                // Symmetric, eigenvalues specified
 
-               CALL DLATMS( N, N, 'S', ISEED, 'S', WORK, IMODE, COND, ANORM, N, N, 'N', A, LDA, WORK( N+1 ), IINFO )
+               dlatms(N, N, 'S', ISEED, 'S', WORK, IMODE, COND, ANORM, N, N, 'N', A, LDA, WORK( N+1 ), IINFO );
 
             } else if ( ITYPE.EQ.6 ) {
 
@@ -226,31 +226,31 @@
                }
 
                ADUMMA( 1 ) = ' '
-               CALL DLATME( N, 'S', ISEED, WORK, IMODE, COND, ONE, ADUMMA, 'T', 'T', 'T', WORK( N+1 ), 4, CONDS, N, N, ANORM, A, LDA, WORK( 2*N+1 ), IINFO )
+               dlatme(N, 'S', ISEED, WORK, IMODE, COND, ONE, ADUMMA, 'T', 'T', 'T', WORK( N+1 ), 4, CONDS, N, N, ANORM, A, LDA, WORK( 2*N+1 ), IINFO );
 
             } else if ( ITYPE.EQ.7 ) {
 
                // Diagonal, random eigenvalues
 
-               CALL DLATMR( N, N, 'S', ISEED, 'S', WORK, 6, ONE, ONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, 0, 0, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO )
+               dlatmr(N, N, 'S', ISEED, 'S', WORK, 6, ONE, ONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, 0, 0, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO );
 
             } else if ( ITYPE.EQ.8 ) {
 
                // Symmetric, random eigenvalues
 
-               CALL DLATMR( N, N, 'S', ISEED, 'S', WORK, 6, ONE, ONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, N, N, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO )
+               dlatmr(N, N, 'S', ISEED, 'S', WORK, 6, ONE, ONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, N, N, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO );
 
             } else if ( ITYPE.EQ.9 ) {
 
                // General, random eigenvalues
 
-               CALL DLATMR( N, N, 'S', ISEED, 'N', WORK, 6, ONE, ONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, N, N, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO )
+               dlatmr(N, N, 'S', ISEED, 'N', WORK, 6, ONE, ONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, N, N, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO );
 
             } else if ( ITYPE.EQ.10 ) {
 
                // Triangular, random eigenvalues
 
-               CALL DLATMR( N, N, 'S', ISEED, 'N', WORK, 6, ONE, ONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, N, 0, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO )
+               dlatmr(N, N, 'S', ISEED, 'N', WORK, 6, ONE, ONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, N, 0, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO );
 
             } else {
 
@@ -267,14 +267,14 @@
 
             // Call DGEHRD to compute H and U, do tests.
 
-            CALL DLACPY( ' ', N, N, A, LDA, H, LDA )
+            dlacpy(' ', N, N, A, LDA, H, LDA );
 
             NTEST = 1
 
             ILO = 1
             IHI = N
 
-            CALL DGEHRD( N, ILO, IHI, H, LDA, WORK, WORK( N+1 ), NWORK-N, IINFO )
+            dgehrd(N, ILO, IHI, H, LDA, WORK, WORK( N+1 ), NWORK-N, IINFO );
 
             if ( IINFO.NE.0 ) {
                RESULT( 1 ) = ULPINV
@@ -291,21 +291,21 @@
                   H( I, J ) = ZERO
   110          CONTINUE
   120       CONTINUE
-            CALL DCOPY( N-1, WORK, 1, TAU, 1 )
-            CALL DORGHR( N, ILO, IHI, U, LDU, WORK, WORK( N+1 ), NWORK-N, IINFO )
+            dcopy(N-1, WORK, 1, TAU, 1 );
+            dorghr(N, ILO, IHI, U, LDU, WORK, WORK( N+1 ), NWORK-N, IINFO );
             NTEST = 2
 
-            CALL DHST01( N, ILO, IHI, A, LDA, H, LDA, U, LDU, WORK, NWORK, RESULT( 1 ) )
+            dhst01(N, ILO, IHI, A, LDA, H, LDA, U, LDU, WORK, NWORK, RESULT( 1 ) );
 
             // Call DHSEQR to compute T1, T2 and Z, do tests.
 
             // Eigenvalues only (WR3,WI3)
 
-            CALL DLACPY( ' ', N, N, H, LDA, T2, LDA )
+            dlacpy(' ', N, N, H, LDA, T2, LDA );
             NTEST = 3
             RESULT( 3 ) = ULPINV
 
-            CALL DHSEQR( 'E', 'N', N, ILO, IHI, T2, LDA, WR3, WI3, UZ, LDU, WORK, NWORK, IINFO )
+            dhseqr('E', 'N', N, ILO, IHI, T2, LDA, WR3, WI3, UZ, LDU, WORK, NWORK, IINFO );
             if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'DHSEQR(E)', IINFO, N, JTYPE, IOLDSD
                if ( IINFO.LE.N+2 ) {
@@ -316,9 +316,9 @@
 
             // Eigenvalues (WR2,WI2) and Full Schur Form (T2)
 
-            CALL DLACPY( ' ', N, N, H, LDA, T2, LDA )
+            dlacpy(' ', N, N, H, LDA, T2, LDA );
 
-            CALL DHSEQR( 'S', 'N', N, ILO, IHI, T2, LDA, WR2, WI2, UZ, LDU, WORK, NWORK, IINFO )
+            dhseqr('S', 'N', N, ILO, IHI, T2, LDA, WR2, WI2, UZ, LDU, WORK, NWORK, IINFO );
             if ( IINFO.NE.0 .AND. IINFO.LE.N+2 ) {
                WRITE( NOUNIT, FMT = 9999 )'DHSEQR(S)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
@@ -328,10 +328,10 @@
             // Eigenvalues (WR1,WI1), Schur Form (T1), and Schur vectors
             // (UZ)
 
-            CALL DLACPY( ' ', N, N, H, LDA, T1, LDA )
-            CALL DLACPY( ' ', N, N, U, LDU, UZ, LDU )
+            dlacpy(' ', N, N, H, LDA, T1, LDA );
+            dlacpy(' ', N, N, U, LDU, UZ, LDU );
 
-            CALL DHSEQR( 'S', 'V', N, ILO, IHI, T1, LDA, WR1, WI1, UZ, LDU, WORK, NWORK, IINFO )
+            dhseqr('S', 'V', N, ILO, IHI, T1, LDA, WR1, WI1, UZ, LDU, WORK, NWORK, IINFO );
             if ( IINFO.NE.0 .AND. IINFO.LE.N+2 ) {
                WRITE( NOUNIT, FMT = 9999 )'DHSEQR(V)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
@@ -340,22 +340,22 @@
 
             // Compute Z = U' UZ
 
-            CALL DGEMM( 'T', 'N', N, N, N, ONE, U, LDU, UZ, LDU, ZERO, Z, LDU )
+            dgemm('T', 'N', N, N, N, ONE, U, LDU, UZ, LDU, ZERO, Z, LDU );
             NTEST = 8
 
             // Do Tests 3: | H - Z T Z' | / ( |H| n ulp )
                  // and 4: | I - Z Z' | / ( n ulp )
 
-            CALL DHST01( N, ILO, IHI, H, LDA, T1, LDA, Z, LDU, WORK, NWORK, RESULT( 3 ) )
+            dhst01(N, ILO, IHI, H, LDA, T1, LDA, Z, LDU, WORK, NWORK, RESULT( 3 ) );
 
             // Do Tests 5: | A - UZ T (UZ)' | / ( |A| n ulp )
                  // and 6: | I - UZ (UZ)' | / ( n ulp )
 
-            CALL DHST01( N, ILO, IHI, A, LDA, T1, LDA, UZ, LDU, WORK, NWORK, RESULT( 5 ) )
+            dhst01(N, ILO, IHI, A, LDA, T1, LDA, UZ, LDU, WORK, NWORK, RESULT( 5 ) );
 
             // Do Test 7: | T2 - T1 | / ( |T| n ulp )
 
-            CALL DGET10( N, N, T2, LDA, T1, LDA, WORK, RESULT( 7 ) )
+            dget10(N, N, T2, LDA, T1, LDA, WORK, RESULT( 7 ) );
 
             // Do Test 8: | W2 - W1 | / ( max(|W1|,|W2|) ulp )
 
@@ -401,7 +401,7 @@
             }
             IF( J.GT.0 ) GO TO 140
 
-            CALL DTREVC( 'Right', 'All', SELECT, N, T1, LDA, DUMMA, LDU, EVECTR, LDU, N, IN, WORK, IINFO )
+            dtrevc('Right', 'All', SELECT, N, T1, LDA, DUMMA, LDU, EVECTR, LDU, N, IN, WORK, IINFO );
             if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'DTREVC(R,A)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
@@ -410,7 +410,7 @@
 
             // Test 9:  | TR - RW | / ( |T| |R| ulp )
 
-            CALL DGET22( 'N', 'N', 'N', N, T1, LDA, EVECTR, LDU, WR1, WI1, WORK, DUMMA( 1 ) )
+            dget22('N', 'N', 'N', N, T1, LDA, EVECTR, LDU, WR1, WI1, WORK, DUMMA( 1 ) );
             RESULT( 9 ) = DUMMA( 1 )
             if ( DUMMA( 2 ).GT.THRESH ) {
                WRITE( NOUNIT, FMT = 9998 )'Right', 'DTREVC', DUMMA( 2 ), N, JTYPE, IOLDSD
@@ -419,7 +419,7 @@
             // Compute selected right eigenvectors and confirm that
             // they agree with previous right eigenvectors
 
-            CALL DTREVC( 'Right', 'Some', SELECT, N, T1, LDA, DUMMA, LDU, EVECTL, LDU, N, IN, WORK, IINFO )
+            dtrevc('Right', 'Some', SELECT, N, T1, LDA, DUMMA, LDU, EVECTL, LDU, N, IN, WORK, IINFO );
             if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'DTREVC(R,S)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
@@ -454,7 +454,7 @@
 
             NTEST = 10
             RESULT( 10 ) = ULPINV
-            CALL DTREVC( 'Left', 'All', SELECT, N, T1, LDA, EVECTL, LDU, DUMMA, LDU, N, IN, WORK, IINFO )
+            dtrevc('Left', 'All', SELECT, N, T1, LDA, EVECTL, LDU, DUMMA, LDU, N, IN, WORK, IINFO );
             if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'DTREVC(L,A)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
@@ -463,7 +463,7 @@
 
             // Test 10:  | LT - WL | / ( |T| |L| ulp )
 
-            CALL DGET22( 'Trans', 'N', 'Conj', N, T1, LDA, EVECTL, LDU, WR1, WI1, WORK, DUMMA( 3 ) )
+            dget22('Trans', 'N', 'Conj', N, T1, LDA, EVECTL, LDU, WR1, WI1, WORK, DUMMA( 3 ) );
             RESULT( 10 ) = DUMMA( 3 )
             if ( DUMMA( 4 ).GT.THRESH ) {
                WRITE( NOUNIT, FMT = 9998 )'Left', 'DTREVC', DUMMA( 4 ), N, JTYPE, IOLDSD
@@ -472,7 +472,7 @@
             // Compute selected left eigenvectors and confirm that
             // they agree with previous left eigenvectors
 
-            CALL DTREVC( 'Left', 'Some', SELECT, N, T1, LDA, EVECTR, LDU, DUMMA, LDU, N, IN, WORK, IINFO )
+            dtrevc('Left', 'Some', SELECT, N, T1, LDA, EVECTR, LDU, DUMMA, LDU, N, IN, WORK, IINFO );
             if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'DTREVC(L,S)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
@@ -511,7 +511,7 @@
                SELECT( J ) = .TRUE.
   230       CONTINUE
 
-            CALL DHSEIN( 'Right', 'Qr', 'Ninitv', SELECT, N, H, LDA, WR3, WI3, DUMMA, LDU, EVECTX, LDU, N1, IN, WORK, IWORK, IWORK, IINFO )
+            dhsein('Right', 'Qr', 'Ninitv', SELECT, N, H, LDA, WR3, WI3, DUMMA, LDU, EVECTX, LDU, N1, IN, WORK, IWORK, IWORK, IINFO );
             if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'DHSEIN(R)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
@@ -536,7 +536,7 @@
                SELECT( J ) = .TRUE.
   240       CONTINUE
 
-            CALL DHSEIN( 'Left', 'Qr', 'Ninitv', SELECT, N, H, LDA, WR3, WI3, EVECTY, LDU, DUMMA, LDU, N1, IN, WORK, IWORK, IWORK, IINFO )
+            dhsein('Left', 'Qr', 'Ninitv', SELECT, N, H, LDA, WR3, WI3, EVECTY, LDU, DUMMA, LDU, N1, IN, WORK, IWORK, IWORK, IINFO );
             if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'DHSEIN(L)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
@@ -558,7 +558,7 @@
             NTEST = 13
             RESULT( 13 ) = ULPINV
 
-            CALL DORMHR( 'Left', 'No transpose', N, N, ILO, IHI, UU, LDU, TAU, EVECTX, LDU, WORK, NWORK, IINFO )
+            dormhr('Left', 'No transpose', N, N, ILO, IHI, UU, LDU, TAU, EVECTX, LDU, WORK, NWORK, IINFO );
             if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'DORMHR(R)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
@@ -577,7 +577,7 @@
             NTEST = 14
             RESULT( 14 ) = ULPINV
 
-            CALL DORMHR( 'Left', 'No transpose', N, N, ILO, IHI, UU, LDU, TAU, EVECTY, LDU, WORK, NWORK, IINFO )
+            dormhr('Left', 'No transpose', N, N, ILO, IHI, UU, LDU, TAU, EVECTY, LDU, WORK, NWORK, IINFO );
             if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'DORMHR(L)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
@@ -598,9 +598,9 @@
             NTEST = 15
             RESULT( 15 ) = ULPINV
 
-            CALL DLACPY( ' ', N, N, UZ, LDU, EVECTR, LDU )
+            dlacpy(' ', N, N, UZ, LDU, EVECTR, LDU );
 
-            CALL DTREVC3( 'Right', 'Back', SELECT, N, T1, LDA, DUMMA, LDU, EVECTR, LDU, N, IN, WORK, NWORK, IINFO )
+            dtrevc3('Right', 'Back', SELECT, N, T1, LDA, DUMMA, LDU, EVECTR, LDU, N, IN, WORK, NWORK, IINFO );
             if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'DTREVC3(R,B)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
@@ -611,7 +611,7 @@
 
                       // (from Schur decomposition)
 
-            CALL DGET22( 'N', 'N', 'N', N, A, LDA, EVECTR, LDU, WR1, WI1, WORK, DUMMA( 1 ) )
+            dget22('N', 'N', 'N', N, A, LDA, EVECTR, LDU, WR1, WI1, WORK, DUMMA( 1 ) );
             RESULT( 15 ) = DUMMA( 1 )
             if ( DUMMA( 2 ).GT.THRESH ) {
                WRITE( NOUNIT, FMT = 9998 )'Right', 'DTREVC3', DUMMA( 2 ), N, JTYPE, IOLDSD
@@ -622,9 +622,9 @@
             NTEST = 16
             RESULT( 16 ) = ULPINV
 
-            CALL DLACPY( ' ', N, N, UZ, LDU, EVECTL, LDU )
+            dlacpy(' ', N, N, UZ, LDU, EVECTL, LDU );
 
-            CALL DTREVC3( 'Left', 'Back', SELECT, N, T1, LDA, EVECTL, LDU, DUMMA, LDU, N, IN, WORK, NWORK, IINFO )
+            dtrevc3('Left', 'Back', SELECT, N, T1, LDA, EVECTL, LDU, DUMMA, LDU, N, IN, WORK, NWORK, IINFO );
             if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'DTREVC3(L,B)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
@@ -635,7 +635,7 @@
 
                       // (from Schur decomposition)
 
-            CALL DGET22( 'Trans', 'N', 'Conj', N, A, LDA, EVECTL, LDU, WR1, WI1, WORK, DUMMA( 3 ) )
+            dget22('Trans', 'N', 'Conj', N, A, LDA, EVECTL, LDU, WR1, WI1, WORK, DUMMA( 3 ) );
             RESULT( 16 ) = DUMMA( 3 )
             if ( DUMMA( 4 ).GT.THRESH ) {
                WRITE( NOUNIT, FMT = 9998 )'Left', 'DTREVC3', DUMMA( 4 ), N, JTYPE, IOLDSD
@@ -646,14 +646,14 @@
   250       CONTINUE
 
             NTESTT = NTESTT + NTEST
-            CALL DLAFTS( 'DHS', N, N, JTYPE, NTEST, RESULT, IOLDSD, THRESH, NOUNIT, NERRS )
+            dlafts('DHS', N, N, JTYPE, NTEST, RESULT, IOLDSD, THRESH, NOUNIT, NERRS );
 
   260    CONTINUE
   270 CONTINUE
 
       // Summary
 
-      CALL DLASUM( 'DHS', NOUNIT, NERRS, NTESTT )
+      dlasum('DHS', NOUNIT, NERRS, NTESTT );
 
       RETURN
 

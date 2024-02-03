@@ -136,7 +136,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'SGGEVX', -INFO )
+         xerbla('SGGEVX', -INFO );
          RETURN
       } else if ( LQUERY ) {
          RETURN
@@ -184,21 +184,21 @@
       // Permute and/or balance the matrix pair (A,B)
       // (Workspace: need 6*N if BALANC = 'S' or 'B', 1 otherwise)
 
-      CALL SGGBAL( BALANC, N, A, LDA, B, LDB, ILO, IHI, LSCALE, RSCALE, WORK, IERR )
+      sggbal(BALANC, N, A, LDA, B, LDB, ILO, IHI, LSCALE, RSCALE, WORK, IERR );
 
       // Compute ABNRM and BBNRM
 
       ABNRM = SLANGE( '1', N, N, A, LDA, WORK( 1 ) )
       if ( ILASCL ) {
          WORK( 1 ) = ABNRM
-         CALL SLASCL( 'G', 0, 0, ANRMTO, ANRM, 1, 1, WORK( 1 ), 1, IERR )
+         slascl('G', 0, 0, ANRMTO, ANRM, 1, 1, WORK( 1 ), 1, IERR );
          ABNRM = WORK( 1 )
       }
 
       BBNRM = SLANGE( '1', N, N, B, LDB, WORK( 1 ) )
       if ( ILBSCL ) {
          WORK( 1 ) = BBNRM
-         CALL SLASCL( 'G', 0, 0, BNRMTO, BNRM, 1, 1, WORK( 1 ), 1, IERR )
+         slascl('G', 0, 0, BNRMTO, BNRM, 1, 1, WORK( 1 ), 1, IERR );
          BBNRM = WORK( 1 )
       }
 
@@ -213,22 +213,22 @@
       }
       ITAU = 1
       IWRK = ITAU + IROWS
-      CALL SGEQRF( IROWS, ICOLS, B( ILO, ILO ), LDB, WORK( ITAU ), WORK( IWRK ), LWORK+1-IWRK, IERR )
+      sgeqrf(IROWS, ICOLS, B( ILO, ILO ), LDB, WORK( ITAU ), WORK( IWRK ), LWORK+1-IWRK, IERR );
 
       // Apply the orthogonal transformation to A
       // (Workspace: need N, prefer N*NB)
 
-      CALL SORMQR( 'L', 'T', IROWS, ICOLS, IROWS, B( ILO, ILO ), LDB, WORK( ITAU ), A( ILO, ILO ), LDA, WORK( IWRK ), LWORK+1-IWRK, IERR )
+      sormqr('L', 'T', IROWS, ICOLS, IROWS, B( ILO, ILO ), LDB, WORK( ITAU ), A( ILO, ILO ), LDA, WORK( IWRK ), LWORK+1-IWRK, IERR );
 
       // Initialize VL and/or VR
       // (Workspace: need N, prefer N*NB)
 
       if ( ILVL ) {
-         CALL SLASET( 'Full', N, N, ZERO, ONE, VL, LDVL )
+         slaset('Full', N, N, ZERO, ONE, VL, LDVL );
          if ( IROWS.GT.1 ) {
-            CALL SLACPY( 'L', IROWS-1, IROWS-1, B( ILO+1, ILO ), LDB, VL( ILO+1, ILO ), LDVL )
+            slacpy('L', IROWS-1, IROWS-1, B( ILO+1, ILO ), LDB, VL( ILO+1, ILO ), LDVL );
          }
-         CALL SORGQR( IROWS, IROWS, IROWS, VL( ILO, ILO ), LDVL, WORK( ITAU ), WORK( IWRK ), LWORK+1-IWRK, IERR )
+         sorgqr(IROWS, IROWS, IROWS, VL( ILO, ILO ), LDVL, WORK( ITAU ), WORK( IWRK ), LWORK+1-IWRK, IERR );
       }
 
       IF( ILVR ) CALL SLASET( 'Full', N, N, ZERO, ONE, VR, LDVR )
@@ -240,9 +240,9 @@
 
          // Eigenvectors requested -- work on whole matrix.
 
-         CALL SGGHRD( JOBVL, JOBVR, N, ILO, IHI, A, LDA, B, LDB, VL, LDVL, VR, LDVR, IERR )
+         sgghrd(JOBVL, JOBVR, N, ILO, IHI, A, LDA, B, LDB, VL, LDVL, VR, LDVR, IERR );
       } else {
-         CALL SGGHRD( 'N', 'N', IROWS, 1, IROWS, A( ILO, ILO ), LDA, B( ILO, ILO ), LDB, VL, LDVL, VR, LDVR, IERR )
+         sgghrd('N', 'N', IROWS, 1, IROWS, A( ILO, ILO ), LDA, B( ILO, ILO ), LDB, VL, LDVL, VR, LDVR, IERR );
       }
 
       // Perform QZ algorithm (Compute eigenvalues, and optionally, the
@@ -255,7 +255,7 @@
          CHTEMP = 'E'
       }
 
-      CALL SHGEQZ( CHTEMP, JOBVL, JOBVR, N, ILO, IHI, A, LDA, B, LDB, ALPHAR, ALPHAI, BETA, VL, LDVL, VR, LDVR, WORK, LWORK, IERR )
+      shgeqz(CHTEMP, JOBVL, JOBVR, N, ILO, IHI, A, LDA, B, LDB, ALPHAR, ALPHAI, BETA, VL, LDVL, VR, LDVR, WORK, LWORK, IERR );
       if ( IERR.NE.0 ) {
          if ( IERR.GT.0 .AND. IERR.LE.N ) {
             INFO = IERR
@@ -284,7 +284,7 @@
                CHTEMP = 'R'
             }
 
-            CALL STGEVC( CHTEMP, 'B', LDUMMA, N, A, LDA, B, LDB, VL, LDVL, VR, LDVR, N, IN, WORK, IERR )
+            stgevc(CHTEMP, 'B', LDUMMA, N, A, LDA, B, LDB, VL, LDVL, VR, LDVR, N, IN, WORK, IERR );
             if ( IERR.NE.0 ) {
                INFO = N + 2
                GO TO 130
@@ -333,14 +333,14 @@
                // (compute workspace: need up to 4*N + 6*N)
 
                if ( WANTSE .OR. WANTSB ) {
-                  CALL STGEVC( 'B', 'S', BWORK, N, A, LDA, B, LDB, WORK( 1 ), N, WORK( IWRK ), N, MM, M, WORK( IWRK1 ), IERR )
+                  stgevc('B', 'S', BWORK, N, A, LDA, B, LDB, WORK( 1 ), N, WORK( IWRK ), N, MM, M, WORK( IWRK1 ), IERR );
                   if ( IERR.NE.0 ) {
                      INFO = N + 2
                      GO TO 130
                   }
                }
 
-               CALL STGSNA( SENSE, 'S', BWORK, N, A, LDA, B, LDB, WORK( 1 ), N, WORK( IWRK ), N, RCONDE( I ), RCONDV( I ), MM, M, WORK( IWRK1 ), LWORK-IWRK1+1, IWORK, IERR )
+               stgsna(SENSE, 'S', BWORK, N, A, LDA, B, LDB, WORK( 1 ), N, WORK( IWRK ), N, RCONDE( I ), RCONDV( I ), MM, M, WORK( IWRK1 ), LWORK-IWRK1+1, IWORK, IERR );
 
    20       CONTINUE
          }
@@ -350,7 +350,7 @@
       // (Workspace: none needed)
 
       if ( ILVL ) {
-         CALL SGGBAK( BALANC, 'L', N, ILO, IHI, LSCALE, RSCALE, N, VL, LDVL, IERR )
+         sggbak(BALANC, 'L', N, ILO, IHI, LSCALE, RSCALE, N, VL, LDVL, IERR );
 
          DO 70 JC = 1, N
             IF( ALPHAI( JC ).LT.ZERO ) GO TO 70
@@ -379,7 +379,7 @@
    70    CONTINUE
       }
       if ( ILVR ) {
-         CALL SGGBAK( BALANC, 'R', N, ILO, IHI, LSCALE, RSCALE, N, VR, LDVR, IERR )
+         sggbak(BALANC, 'R', N, ILO, IHI, LSCALE, RSCALE, N, VR, LDVR, IERR );
          DO 120 JC = 1, N
             IF( ALPHAI( JC ).LT.ZERO ) GO TO 120
             TEMP = ZERO
@@ -412,12 +412,12 @@
   130 CONTINUE
 
       if ( ILASCL ) {
-         CALL SLASCL( 'G', 0, 0, ANRMTO, ANRM, N, 1, ALPHAR, N, IERR )
-         CALL SLASCL( 'G', 0, 0, ANRMTO, ANRM, N, 1, ALPHAI, N, IERR )
+         slascl('G', 0, 0, ANRMTO, ANRM, N, 1, ALPHAR, N, IERR );
+         slascl('G', 0, 0, ANRMTO, ANRM, N, 1, ALPHAI, N, IERR );
       }
 
       if ( ILBSCL ) {
-         CALL SLASCL( 'G', 0, 0, BNRMTO, BNRM, N, 1, BETA, N, IERR )
+         slascl('G', 0, 0, BNRMTO, BNRM, N, 1, BETA, N, IERR );
       }
 
       WORK( 1 ) = SROUNDUP_LWORK(MAXWRK)

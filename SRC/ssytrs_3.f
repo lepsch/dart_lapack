@@ -50,7 +50,7 @@
          INFO = -9
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'SSYTRS_3', -INFO )
+         xerbla('SSYTRS_3', -INFO );
          RETURN
       }
 
@@ -76,20 +76,20 @@
          DO K = N, 1, -1
             KP = ABS( IPIV( K ) )
             if ( KP.NE.K ) {
-               CALL SSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB )
+               sswap(NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
             }
          END DO
 
          // Compute (U \P**T * B) -> B    [ (U \P**T * B) ]
 
-         CALL STRSM( 'L', 'U', 'N', 'U', N, NRHS, ONE, A, LDA, B, LDB )
+         strsm('L', 'U', 'N', 'U', N, NRHS, ONE, A, LDA, B, LDB );
 
          // Compute D \ B -> B   [ D \ (U \P**T * B) ]
 
          I = N
          DO WHILE ( I.GE.1 )
             if ( IPIV( I ).GT.0 ) {
-               CALL SSCAL( NRHS, ONE / A( I, I ), B( I, 1 ), LDB )
+               sscal(NRHS, ONE / A( I, I ), B( I, 1 ), LDB );
             } else if ( I.GT.1 ) {
                AKM1K = E( I )
                AKM1 = A( I-1, I-1 ) / AKM1K
@@ -108,7 +108,7 @@
 
          // Compute (U**T \ B) -> B   [ U**T \ (D \ (U \P**T * B) ) ]
 
-         CALL STRSM( 'L', 'U', 'T', 'U', N, NRHS, ONE, A, LDA, B, LDB )
+         strsm('L', 'U', 'T', 'U', N, NRHS, ONE, A, LDA, B, LDB );
 
          // P * B  [ P * (U**T \ (D \ (U \P**T * B) )) ]
 
@@ -122,7 +122,7 @@
          DO K = 1, N, 1
             KP = ABS( IPIV( K ) )
             if ( KP.NE.K ) {
-               CALL SSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB )
+               sswap(NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
             }
          END DO
 
@@ -143,20 +143,20 @@
          DO K = 1, N, 1
             KP = ABS( IPIV( K ) )
             if ( KP.NE.K ) {
-               CALL SSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB )
+               sswap(NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
             }
          END DO
 
          // Compute (L \P**T * B) -> B    [ (L \P**T * B) ]
 
-         CALL STRSM( 'L', 'L', 'N', 'U', N, NRHS, ONE, A, LDA, B, LDB )
+         strsm('L', 'L', 'N', 'U', N, NRHS, ONE, A, LDA, B, LDB );
 
          // Compute D \ B -> B   [ D \ (L \P**T * B) ]
 
          I = 1
          DO WHILE ( I.LE.N )
             if ( IPIV( I ).GT.0 ) {
-               CALL SSCAL( NRHS, ONE / A( I, I ), B( I, 1 ), LDB )
+               sscal(NRHS, ONE / A( I, I ), B( I, 1 ), LDB );
             } else if ( I.LT.N ) {
                AKM1K = E( I )
                AKM1 = A( I, I ) / AKM1K
@@ -175,7 +175,7 @@
 
          // Compute (L**T \ B) -> B   [ L**T \ (D \ (L \P**T * B) ) ]
 
-         CALL STRSM('L', 'L', 'T', 'U', N, NRHS, ONE, A, LDA, B, LDB )
+         strsm('L', 'L', 'T', 'U', N, NRHS, ONE, A, LDA, B, LDB );
 
          // P * B  [ P * (L**T \ (D \ (L \P**T * B) )) ]
 
@@ -189,7 +189,7 @@
          DO K = N, 1, -1
             KP = ABS( IPIV( K ) )
             if ( KP.NE.K ) {
-               CALL SSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB )
+               sswap(NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
             }
          END DO
 

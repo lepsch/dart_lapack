@@ -47,7 +47,7 @@
          INFO = -6
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'SLAED3', -INFO )
+         xerbla('SLAED3', -INFO );
          RETURN
       }
 
@@ -56,7 +56,7 @@
       IF( K.EQ.0 ) RETURN
 
       DO 20 J = 1, K
-         CALL SLAED4( K, J, DLAMBDA, W, Q( 1, J ), RHO, D( J ), INFO )
+         slaed4(K, J, DLAMBDA, W, Q( 1, J ), RHO, D( J ), INFO );
 
          // If the zero finder fails, the computation is terminated.
 
@@ -78,11 +78,11 @@
 
       // Compute updated W.
 
-      CALL SCOPY( K, W, 1, S, 1 )
+      scopy(K, W, 1, S, 1 );
 
       // Initialize W(I) = Q(I,I)
 
-      CALL SCOPY( K, Q, LDQ+1, W, 1 )
+      scopy(K, Q, LDQ+1, W, 1 );
       DO 60 J = 1, K
          DO 40 I = 1, J - 1
             W( I ) = W( I )*( Q( I, J )/( DLAMBDA( I )-DLAMBDA( J ) ) )
@@ -116,19 +116,19 @@
       N12 = CTOT( 1 ) + CTOT( 2 )
       N23 = CTOT( 2 ) + CTOT( 3 )
 
-      CALL SLACPY( 'A', N23, K, Q( CTOT( 1 )+1, 1 ), LDQ, S, N23 )
+      slacpy('A', N23, K, Q( CTOT( 1 )+1, 1 ), LDQ, S, N23 );
       IQ2 = N1*N12 + 1
       if ( N23.NE.0 ) {
-         CALL SGEMM( 'N', 'N', N2, K, N23, ONE, Q2( IQ2 ), N2, S, N23, ZERO, Q( N1+1, 1 ), LDQ )
+         sgemm('N', 'N', N2, K, N23, ONE, Q2( IQ2 ), N2, S, N23, ZERO, Q( N1+1, 1 ), LDQ );
       } else {
-         CALL SLASET( 'A', N2, K, ZERO, ZERO, Q( N1+1, 1 ), LDQ )
+         slaset('A', N2, K, ZERO, ZERO, Q( N1+1, 1 ), LDQ );
       }
 
-      CALL SLACPY( 'A', N12, K, Q, LDQ, S, N12 )
+      slacpy('A', N12, K, Q, LDQ, S, N12 );
       if ( N12.NE.0 ) {
-         CALL SGEMM( 'N', 'N', N1, K, N12, ONE, Q2, N1, S, N12, ZERO, Q, LDQ )
+         sgemm('N', 'N', N1, K, N12, ONE, Q2, N1, S, N12, ZERO, Q, LDQ );
       } else {
-         CALL SLASET( 'A', N1, K, ZERO, ZERO, Q( 1, 1 ), LDQ )
+         slaset('A', N1, K, ZERO, ZERO, Q( 1, 1 ), LDQ );
       }
 
 

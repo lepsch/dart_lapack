@@ -153,22 +153,22 @@
                         NORMC = DLANGE( 'I', N, N, C1, LDC, D_WORK_DLANGE )
 
                         SRNAMT = 'DTRTTF'
-                        CALL DTRTTF( CFORM, UPLO, N, C1, LDC, CRF, INFO )
+                        dtrttf(CFORM, UPLO, N, C1, LDC, CRF, INFO );
 
                         // call dsyrk the BLAS routine -> gives C1
 
                         SRNAMT = 'DSYRK '
-                        CALL DSYRK( UPLO, TRANS, N, K, ALPHA, A, LDA, BETA, C1, LDC )
+                        dsyrk(UPLO, TRANS, N, K, ALPHA, A, LDA, BETA, C1, LDC );
 
                         // call dsfrk the RFP routine -> gives CRF
 
                         SRNAMT = 'DSFRK '
-                        CALL DSFRK( CFORM, UPLO, TRANS, N, K, ALPHA, A, LDA, BETA, CRF )
+                        dsfrk(CFORM, UPLO, TRANS, N, K, ALPHA, A, LDA, BETA, CRF );
 
                         // convert CRF in full format -> gives C2
 
                         SRNAMT = 'DTFTTR'
-                        CALL DTFTTR( CFORM, UPLO, N, CRF, C2, LDC, INFO )
+                        dtfttr(CFORM, UPLO, N, CRF, C2, LDC, INFO );
 
                         // compare C1 and C2
 

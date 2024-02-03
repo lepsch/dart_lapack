@@ -64,7 +64,7 @@
          INFO = -10
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'ZUNMR2', -INFO )
+         xerbla('ZUNMR2', -INFO );
          RETURN
       }
 
@@ -108,12 +108,12 @@
          } else {
             TAUI = TAU( I )
          }
-         CALL ZLACGV( NQ-K+I-1, A( I, 1 ), LDA )
+         zlacgv(NQ-K+I-1, A( I, 1 ), LDA );
          AII = A( I, NQ-K+I )
          A( I, NQ-K+I ) = ONE
-         CALL ZLARF( SIDE, MI, NI, A( I, 1 ), LDA, TAUI, C, LDC, WORK )
+         zlarf(SIDE, MI, NI, A( I, 1 ), LDA, TAUI, C, LDC, WORK );
          A( I, NQ-K+I ) = AII
-         CALL ZLACGV( NQ-K+I-1, A( I, 1 ), LDA )
+         zlacgv(NQ-K+I-1, A( I, 1 ), LDA );
    10 CONTINUE
       RETURN
 

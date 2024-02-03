@@ -53,7 +53,7 @@
          INFO = -11
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'ZPTSVX', -INFO )
+         xerbla('ZPTSVX', -INFO );
          RETURN
       }
 
@@ -61,9 +61,9 @@
 
          // Compute the L*D*L**H (or U**H*D*U) factorization of A.
 
-         CALL DCOPY( N, D, 1, DF, 1 )
+         dcopy(N, D, 1, DF, 1 );
          IF( N.GT.1 ) CALL ZCOPY( N-1, E, 1, EF, 1 )
-         CALL ZPTTRF( N, DF, EF, INFO )
+         zpttrf(N, DF, EF, INFO );
 
          // Return if INFO is non-zero.
 
@@ -79,17 +79,17 @@
 
       // Compute the reciprocal of the condition number of A.
 
-      CALL ZPTCON( N, DF, EF, ANORM, RCOND, RWORK, INFO )
+      zptcon(N, DF, EF, ANORM, RCOND, RWORK, INFO );
 
       // Compute the solution vectors X.
 
-      CALL ZLACPY( 'Full', N, NRHS, B, LDB, X, LDX )
-      CALL ZPTTRS( 'Lower', N, NRHS, DF, EF, X, LDX, INFO )
+      zlacpy('Full', N, NRHS, B, LDB, X, LDX );
+      zpttrs('Lower', N, NRHS, DF, EF, X, LDX, INFO );
 
       // Use iterative refinement to improve the computed solutions and
       // compute error bounds and backward error estimates for them.
 
-      CALL ZPTRFS( 'Lower', N, NRHS, D, E, DF, EF, B, LDB, X, LDX, FERR, BERR, WORK, RWORK, INFO )
+      zptrfs('Lower', N, NRHS, D, E, DF, EF, B, LDB, X, LDX, FERR, BERR, WORK, RWORK, INFO );
 
       // Set INFO = N+1 if the matrix is singular to working precision.
 

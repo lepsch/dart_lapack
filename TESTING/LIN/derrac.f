@@ -61,23 +61,23 @@
 
       SRNAMT = 'DSPOSV'
       INFOT = 1
-      CALL DSPOSV('/',0,0,A,1,B,1,X,1,WORK,SWORK,ITER,INFO)
-      CALL CHKXER( 'DSPOSV', INFOT, NOUT, LERR, OK )
+      dsposv('/',0,0,A,1,B,1,X,1,WORK,SWORK,ITER,INFO);
+      chkxer('DSPOSV', INFOT, NOUT, LERR, OK );
       INFOT = 2
-      CALL DSPOSV('U',-1,0,A,1,B,1,X,1,WORK,SWORK,ITER,INFO)
-      CALL CHKXER( 'DSPOSV', INFOT, NOUT, LERR, OK )
+      dsposv('U',-1,0,A,1,B,1,X,1,WORK,SWORK,ITER,INFO);
+      chkxer('DSPOSV', INFOT, NOUT, LERR, OK );
       INFOT = 3
-      CALL DSPOSV('U',0,-1,A,1,B,1,X,1,WORK,SWORK,ITER,INFO)
-      CALL CHKXER( 'DSPOSV', INFOT, NOUT, LERR, OK )
+      dsposv('U',0,-1,A,1,B,1,X,1,WORK,SWORK,ITER,INFO);
+      chkxer('DSPOSV', INFOT, NOUT, LERR, OK );
       INFOT = 5
-      CALL DSPOSV('U',2,1,A,1,B,2,X,2,WORK,SWORK,ITER,INFO)
-      CALL CHKXER( 'DSPOSV', INFOT, NOUT, LERR, OK )
+      dsposv('U',2,1,A,1,B,2,X,2,WORK,SWORK,ITER,INFO);
+      chkxer('DSPOSV', INFOT, NOUT, LERR, OK );
       INFOT = 7
-      CALL DSPOSV('U',2,1,A,2,B,1,X,2,WORK,SWORK,ITER,INFO)
-      CALL CHKXER( 'DSPOSV', INFOT, NOUT, LERR, OK )
+      dsposv('U',2,1,A,2,B,1,X,2,WORK,SWORK,ITER,INFO);
+      chkxer('DSPOSV', INFOT, NOUT, LERR, OK );
       INFOT = 9
-      CALL DSPOSV('U',2,1,A,2,B,2,X,1,WORK,SWORK,ITER,INFO)
-      CALL CHKXER( 'DSPOSV', INFOT, NOUT, LERR, OK )
+      dsposv('U',2,1,A,2,B,2,X,1,WORK,SWORK,ITER,INFO);
+      chkxer('DSPOSV', INFOT, NOUT, LERR, OK );
 
       // Print a summary line.
 

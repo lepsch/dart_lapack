@@ -45,7 +45,7 @@
           INFO = 5
       }
       if (INFO.NE.0) {
-          CALL XERBLA('ZHPR  ',INFO)
+          xerbla('ZHPR  ',INFO);
           RETURN
       }
 

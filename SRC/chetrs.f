@@ -51,7 +51,7 @@
          INFO = -8
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'CHETRS', -INFO )
+         xerbla('CHETRS', -INFO );
          RETURN
       }
 
@@ -87,12 +87,12 @@
             // Multiply by inv(U(K)), where U(K) is the transformation
             // stored in column K of A.
 
-            CALL CGERU( K-1, NRHS, -ONE, A( 1, K ), 1, B( K, 1 ), LDB, B( 1, 1 ), LDB )
+            cgeru(K-1, NRHS, -ONE, A( 1, K ), 1, B( K, 1 ), LDB, B( 1, 1 ), LDB );
 
             // Multiply by the inverse of the diagonal block.
 
             S = REAL( ONE ) / REAL( A( K, K ) )
-            CALL CSSCAL( NRHS, S, B( K, 1 ), LDB )
+            csscal(NRHS, S, B( K, 1 ), LDB );
             K = K - 1
          } else {
 
@@ -106,7 +106,7 @@
             // Multiply by inv(U(K)), where U(K) is the transformation
             // stored in columns K-1 and K of A.
 
-            CALL CGERU( K-2, NRHS, -ONE, A( 1, K ), 1, B( K, 1 ), LDB, B( 1, 1 ), LDB )             CALL CGERU( K-2, NRHS, -ONE, A( 1, K-1 ), 1, B( K-1, 1 ), LDB, B( 1, 1 ), LDB )
+            cgeru(K-2, NRHS, -ONE, A( 1, K ), 1, B( K, 1 ), LDB, B( 1, 1 ), LDB )             CALL CGERU( K-2, NRHS, -ONE, A( 1, K-1 ), 1, B( K-1, 1 ), LDB, B( 1, 1 ), LDB );
 
             // Multiply by the inverse of the diagonal block.
 
@@ -146,9 +146,9 @@
             // stored in column K of A.
 
             if ( K.GT.1 ) {
-               CALL CLACGV( NRHS, B( K, 1 ), LDB )
-               CALL CGEMV( 'Conjugate transpose', K-1, NRHS, -ONE, B, LDB, A( 1, K ), 1, ONE, B( K, 1 ), LDB )
-               CALL CLACGV( NRHS, B( K, 1 ), LDB )
+               clacgv(NRHS, B( K, 1 ), LDB );
+               cgemv('Conjugate transpose', K-1, NRHS, -ONE, B, LDB, A( 1, K ), 1, ONE, B( K, 1 ), LDB );
+               clacgv(NRHS, B( K, 1 ), LDB );
             }
 
             // Interchange rows K and IPIV(K).
@@ -164,13 +164,13 @@
             // stored in columns K and K+1 of A.
 
             if ( K.GT.1 ) {
-               CALL CLACGV( NRHS, B( K, 1 ), LDB )
-               CALL CGEMV( 'Conjugate transpose', K-1, NRHS, -ONE, B, LDB, A( 1, K ), 1, ONE, B( K, 1 ), LDB )
-               CALL CLACGV( NRHS, B( K, 1 ), LDB )
+               clacgv(NRHS, B( K, 1 ), LDB );
+               cgemv('Conjugate transpose', K-1, NRHS, -ONE, B, LDB, A( 1, K ), 1, ONE, B( K, 1 ), LDB );
+               clacgv(NRHS, B( K, 1 ), LDB );
 
-               CALL CLACGV( NRHS, B( K+1, 1 ), LDB )
-               CALL CGEMV( 'Conjugate transpose', K-1, NRHS, -ONE, B, LDB, A( 1, K+1 ), 1, ONE, B( K+1, 1 ), LDB )
-               CALL CLACGV( NRHS, B( K+1, 1 ), LDB )
+               clacgv(NRHS, B( K+1, 1 ), LDB );
+               cgemv('Conjugate transpose', K-1, NRHS, -ONE, B, LDB, A( 1, K+1 ), 1, ONE, B( K+1, 1 ), LDB );
+               clacgv(NRHS, B( K+1, 1 ), LDB );
             }
 
             // Interchange rows K and -IPIV(K).
@@ -216,7 +216,7 @@
             // Multiply by the inverse of the diagonal block.
 
             S = REAL( ONE ) / REAL( A( K, K ) )
-            CALL CSSCAL( NRHS, S, B( K, 1 ), LDB )
+            csscal(NRHS, S, B( K, 1 ), LDB );
             K = K + 1
          } else {
 
@@ -231,7 +231,7 @@
             // stored in columns K and K+1 of A.
 
             if ( K.LT.N-1 ) {
-               CALL CGERU( N-K-1, NRHS, -ONE, A( K+2, K ), 1, B( K, 1 ), LDB, B( K+2, 1 ), LDB )                CALL CGERU( N-K-1, NRHS, -ONE, A( K+2, K+1 ), 1, B( K+1, 1 ), LDB, B( K+2, 1 ), LDB )
+               cgeru(N-K-1, NRHS, -ONE, A( K+2, K ), 1, B( K, 1 ), LDB, B( K+2, 1 ), LDB )                CALL CGERU( N-K-1, NRHS, -ONE, A( K+2, K+1 ), 1, B( K+1, 1 ), LDB, B( K+2, 1 ), LDB );
             }
 
             // Multiply by the inverse of the diagonal block.
@@ -272,9 +272,9 @@
             // stored in column K of A.
 
             if ( K.LT.N ) {
-               CALL CLACGV( NRHS, B( K, 1 ), LDB )
-               CALL CGEMV( 'Conjugate transpose', N-K, NRHS, -ONE, B( K+1, 1 ), LDB, A( K+1, K ), 1, ONE, B( K, 1 ), LDB )
-               CALL CLACGV( NRHS, B( K, 1 ), LDB )
+               clacgv(NRHS, B( K, 1 ), LDB );
+               cgemv('Conjugate transpose', N-K, NRHS, -ONE, B( K+1, 1 ), LDB, A( K+1, K ), 1, ONE, B( K, 1 ), LDB );
+               clacgv(NRHS, B( K, 1 ), LDB );
             }
 
             // Interchange rows K and IPIV(K).
@@ -290,13 +290,13 @@
             // stored in columns K-1 and K of A.
 
             if ( K.LT.N ) {
-               CALL CLACGV( NRHS, B( K, 1 ), LDB )
-               CALL CGEMV( 'Conjugate transpose', N-K, NRHS, -ONE, B( K+1, 1 ), LDB, A( K+1, K ), 1, ONE, B( K, 1 ), LDB )
-               CALL CLACGV( NRHS, B( K, 1 ), LDB )
+               clacgv(NRHS, B( K, 1 ), LDB );
+               cgemv('Conjugate transpose', N-K, NRHS, -ONE, B( K+1, 1 ), LDB, A( K+1, K ), 1, ONE, B( K, 1 ), LDB );
+               clacgv(NRHS, B( K, 1 ), LDB );
 
-               CALL CLACGV( NRHS, B( K-1, 1 ), LDB )
-               CALL CGEMV( 'Conjugate transpose', N-K, NRHS, -ONE, B( K+1, 1 ), LDB, A( K+1, K-1 ), 1, ONE, B( K-1, 1 ), LDB )
-               CALL CLACGV( NRHS, B( K-1, 1 ), LDB )
+               clacgv(NRHS, B( K-1, 1 ), LDB );
+               cgemv('Conjugate transpose', N-K, NRHS, -ONE, B( K+1, 1 ), LDB, A( K+1, K-1 ), 1, ONE, B( K-1, 1 ), LDB );
+               clacgv(NRHS, B( K-1, 1 ), LDB );
             }
 
             // Interchange rows K and -IPIV(K).

@@ -52,7 +52,7 @@
          INFO = -11
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'CSYTRS_AA_2STAGE', -INFO )
+         xerbla('CSYTRS_AA_2STAGE', -INFO );
          RETURN
       }
 
@@ -73,26 +73,26 @@
 
             // Pivot, P**T * B -> B
 
-            CALL CLASWP( NRHS, B, LDB, NB+1, N, IPIV, 1 )
+            claswp(NRHS, B, LDB, NB+1, N, IPIV, 1 );
 
             // Compute (U**T \ B) -> B    [ (U**T \P**T * B) ]
 
-            CALL CTRSM( 'L', 'U', 'T', 'U', N-NB, NRHS, ONE, A(1, NB+1), LDA, B(NB+1, 1), LDB)
+            ctrsm('L', 'U', 'T', 'U', N-NB, NRHS, ONE, A(1, NB+1), LDA, B(NB+1, 1), LDB);
 
          }
 
          // Compute T \ B -> B   [ T \ (U**T \P**T * B) ]
 
-         CALL CGBTRS( 'N', N, NB, NB, NRHS, TB, LDTB, IPIV2, B, LDB, INFO)
+         cgbtrs('N', N, NB, NB, NRHS, TB, LDTB, IPIV2, B, LDB, INFO);
          if ( N.GT.NB ) {
 
             // Compute (U \ B) -> B   [ U \ (T \ (U**T \P**T * B) ) ]
 
-            CALL CTRSM( 'L', 'U', 'N', 'U', N-NB, NRHS, ONE, A(1, NB+1), LDA, B(NB+1, 1), LDB)
+            ctrsm('L', 'U', 'N', 'U', N-NB, NRHS, ONE, A(1, NB+1), LDA, B(NB+1, 1), LDB);
 
             // Pivot, P * B -> B  [ P * (U \ (T \ (U**T \P**T * B) )) ]
 
-            CALL CLASWP( NRHS, B, LDB, NB+1, N, IPIV, -1 )
+            claswp(NRHS, B, LDB, NB+1, N, IPIV, -1 );
 
          }
 
@@ -104,26 +104,26 @@
 
             // Pivot, P**T * B -> B
 
-            CALL CLASWP( NRHS, B, LDB, NB+1, N, IPIV, 1 )
+            claswp(NRHS, B, LDB, NB+1, N, IPIV, 1 );
 
             // Compute (L \ B) -> B    [ (L \P**T * B) ]
 
-            CALL CTRSM( 'L', 'L', 'N', 'U', N-NB, NRHS, ONE, A(NB+1, 1), LDA, B(NB+1, 1), LDB)
+            ctrsm('L', 'L', 'N', 'U', N-NB, NRHS, ONE, A(NB+1, 1), LDA, B(NB+1, 1), LDB);
 
          }
 
          // Compute T \ B -> B   [ T \ (L \P**T * B) ]
 
-         CALL CGBTRS( 'N', N, NB, NB, NRHS, TB, LDTB, IPIV2, B, LDB, INFO)
+         cgbtrs('N', N, NB, NB, NRHS, TB, LDTB, IPIV2, B, LDB, INFO);
          if ( N.GT.NB ) {
 
             // Compute (L**T \ B) -> B   [ L**T \ (T \ (L \P**T * B) ) ]
 
-            CALL CTRSM( 'L', 'L', 'T', 'U', N-NB, NRHS, ONE, A(NB+1, 1), LDA, B(NB+1, 1), LDB)
+            ctrsm('L', 'L', 'T', 'U', N-NB, NRHS, ONE, A(NB+1, 1), LDA, B(NB+1, 1), LDB);
 
             // Pivot, P * B -> B  [ P * (L**T \ (T \ (L \P**T * B) )) ]
 
-            CALL CLASWP( NRHS, B, LDB, NB+1, N, IPIV, -1 )
+            claswp(NRHS, B, LDB, NB+1, N, IPIV, -1 );
 
          }
       }

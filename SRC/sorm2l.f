@@ -64,7 +64,7 @@
          INFO = -10
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'SORM2L', -INFO )
+         xerbla('SORM2L', -INFO );
          RETURN
       }
 
@@ -105,7 +105,7 @@
 
          AII = A( NQ-K+I, I )
          A( NQ-K+I, I ) = ONE
-         CALL SLARF( SIDE, MI, NI, A( 1, I ), 1, TAU( I ), C, LDC, WORK )
+         slarf(SIDE, MI, NI, A( 1, I ), 1, TAU( I ), C, LDC, WORK );
          A( NQ-K+I, I ) = AII
    10 CONTINUE
       RETURN

@@ -82,7 +82,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'DGELSY', -INFO )
+         xerbla('DGELSY', -INFO );
          RETURN
       } else if ( LQUERY ) {
          RETURN
@@ -108,19 +108,19 @@
 
          // Scale matrix norm up to SMLNUM
 
-         CALL DLASCL( 'G', 0, 0, ANRM, SMLNUM, M, N, A, LDA, INFO )
+         dlascl('G', 0, 0, ANRM, SMLNUM, M, N, A, LDA, INFO );
          IASCL = 1
       } else if ( ANRM.GT.BIGNUM ) {
 
          // Scale matrix norm down to BIGNUM
 
-         CALL DLASCL( 'G', 0, 0, ANRM, BIGNUM, M, N, A, LDA, INFO )
+         dlascl('G', 0, 0, ANRM, BIGNUM, M, N, A, LDA, INFO );
          IASCL = 2
       } else if ( ANRM.EQ.ZERO ) {
 
          // Matrix all zero. Return zero solution.
 
-         CALL DLASET( 'F', MAX( M, N ), NRHS, ZERO, ZERO, B, LDB )
+         dlaset('F', MAX( M, N ), NRHS, ZERO, ZERO, B, LDB );
          RANK = 0
          GO TO 70
       }
@@ -131,20 +131,20 @@
 
          // Scale matrix norm up to SMLNUM
 
-         CALL DLASCL( 'G', 0, 0, BNRM, SMLNUM, M, NRHS, B, LDB, INFO )
+         dlascl('G', 0, 0, BNRM, SMLNUM, M, NRHS, B, LDB, INFO );
          IBSCL = 1
       } else if ( BNRM.GT.BIGNUM ) {
 
          // Scale matrix norm down to BIGNUM
 
-         CALL DLASCL( 'G', 0, 0, BNRM, BIGNUM, M, NRHS, B, LDB, INFO )
+         dlascl('G', 0, 0, BNRM, BIGNUM, M, NRHS, B, LDB, INFO );
          IBSCL = 2
       }
 
       // Compute QR factorization with column pivoting of A:
          // A * P = Q * R
 
-      CALL DGEQP3( M, N, A, LDA, JPVT, WORK( 1 ), WORK( MN+1 ), LWORK-MN, INFO )
+      dgeqp3(M, N, A, LDA, JPVT, WORK( 1 ), WORK( MN+1 ), LWORK-MN, INFO );
       WSIZE = MN + WORK( MN+1 )
 
       // workspace: MN+2*N+NB*(N+1).
@@ -158,7 +158,7 @@
       SMIN = SMAX
       if ( ABS( A( 1, 1 ) ).EQ.ZERO ) {
          RANK = 0
-         CALL DLASET( 'F', MAX( M, N ), NRHS, ZERO, ZERO, B, LDB )
+         dlaset('F', MAX( M, N ), NRHS, ZERO, ZERO, B, LDB );
          GO TO 70
       } else {
          RANK = 1
@@ -167,7 +167,7 @@
    10 CONTINUE
       if ( RANK.LT.MN ) {
          I = RANK + 1
-         CALL DLAIC1( IMIN, RANK, WORK( ISMIN ), SMIN, A( 1, I ), A( I, I ), SMINPR, S1, C1 )          CALL DLAIC1( IMAX, RANK, WORK( ISMAX ), SMAX, A( 1, I ), A( I, I ), SMAXPR, S2, C2 )
+         dlaic1(IMIN, RANK, WORK( ISMIN ), SMIN, A( 1, I ), A( I, I ), SMINPR, S1, C1 )          CALL DLAIC1( IMAX, RANK, WORK( ISMAX ), SMAX, A( 1, I ), A( I, I ), SMAXPR, S2, C2 );
 
          if ( SMAXPR*RCOND.LE.SMINPR ) {
             DO 20 I = 1, RANK
@@ -198,14 +198,14 @@
 
       // B(1:M,1:NRHS) := Q**T * B(1:M,1:NRHS)
 
-      CALL DORMQR( 'Left', 'Transpose', M, NRHS, MN, A, LDA, WORK( 1 ), B, LDB, WORK( 2*MN+1 ), LWORK-2*MN, INFO )
+      dormqr('Left', 'Transpose', M, NRHS, MN, A, LDA, WORK( 1 ), B, LDB, WORK( 2*MN+1 ), LWORK-2*MN, INFO );
       WSIZE = MAX( WSIZE, 2*MN+WORK( 2*MN+1 ) )
 
       // workspace: 2*MN+NB*NRHS.
 
       // B(1:RANK,1:NRHS) := inv(T11) * B(1:RANK,1:NRHS)
 
-      CALL DTRSM( 'Left', 'Upper', 'No transpose', 'Non-unit', RANK, NRHS, ONE, A, LDA, B, LDB )
+      dtrsm('Left', 'Upper', 'No transpose', 'Non-unit', RANK, NRHS, ONE, A, LDA, B, LDB );
 
       DO 40 J = 1, NRHS
          DO 30 I = RANK + 1, N
@@ -216,7 +216,7 @@
       // B(1:N,1:NRHS) := Y**T * B(1:N,1:NRHS)
 
       if ( RANK.LT.N ) {
-         CALL DORMRZ( 'Left', 'Transpose', N, NRHS, RANK, N-RANK, A, LDA, WORK( MN+1 ), B, LDB, WORK( 2*MN+1 ), LWORK-2*MN, INFO )
+         dormrz('Left', 'Transpose', N, NRHS, RANK, N-RANK, A, LDA, WORK( MN+1 ), B, LDB, WORK( 2*MN+1 ), LWORK-2*MN, INFO );
       }
 
       // workspace: 2*MN+NRHS.
@@ -227,7 +227,7 @@
          DO 50 I = 1, N
             WORK( JPVT( I ) ) = B( I, J )
    50    CONTINUE
-         CALL DCOPY( N, WORK( 1 ), 1, B( 1, J ), 1 )
+         dcopy(N, WORK( 1 ), 1, B( 1, J ), 1 );
    60 CONTINUE
 
       // workspace: N.
@@ -235,16 +235,16 @@
       // Undo scaling
 
       if ( IASCL.EQ.1 ) {
-         CALL DLASCL( 'G', 0, 0, ANRM, SMLNUM, N, NRHS, B, LDB, INFO )
-         CALL DLASCL( 'U', 0, 0, SMLNUM, ANRM, RANK, RANK, A, LDA, INFO )
+         dlascl('G', 0, 0, ANRM, SMLNUM, N, NRHS, B, LDB, INFO );
+         dlascl('U', 0, 0, SMLNUM, ANRM, RANK, RANK, A, LDA, INFO );
       } else if ( IASCL.EQ.2 ) {
-         CALL DLASCL( 'G', 0, 0, ANRM, BIGNUM, N, NRHS, B, LDB, INFO )
-         CALL DLASCL( 'U', 0, 0, BIGNUM, ANRM, RANK, RANK, A, LDA, INFO )
+         dlascl('G', 0, 0, ANRM, BIGNUM, N, NRHS, B, LDB, INFO );
+         dlascl('U', 0, 0, BIGNUM, ANRM, RANK, RANK, A, LDA, INFO );
       }
       if ( IBSCL.EQ.1 ) {
-         CALL DLASCL( 'G', 0, 0, SMLNUM, BNRM, N, NRHS, B, LDB, INFO )
+         dlascl('G', 0, 0, SMLNUM, BNRM, N, NRHS, B, LDB, INFO );
       } else if ( IBSCL.EQ.2 ) {
-         CALL DLASCL( 'G', 0, 0, BIGNUM, BNRM, N, NRHS, B, LDB, INFO )
+         dlascl('G', 0, 0, BIGNUM, BNRM, N, NRHS, B, LDB, INFO );
       }
 
    70 CONTINUE

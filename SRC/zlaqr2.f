@@ -52,12 +52,12 @@
 
          // ==== Workspace query call to ZGEHRD ====
 
-         CALL ZGEHRD( JW, 1, JW-1, T, LDT, WORK, WORK, -1, INFO )
+         zgehrd(JW, 1, JW-1, T, LDT, WORK, WORK, -1, INFO );
          LWK1 = INT( WORK( 1 ) )
 
          // ==== Workspace query call to ZUNMHR ====
 
-         CALL ZUNMHR( 'R', 'N', JW, JW, 1, JW-1, T, LDT, WORK, V, LDV, WORK, -1, INFO )
+         zunmhr('R', 'N', JW, JW, 1, JW-1, T, LDT, WORK, V, LDV, WORK, -1, INFO );
          LWK2 = INT( WORK( 1 ) )
 
          // ==== Optimal workspace ====
@@ -120,11 +120,11 @@
       // .    the deflation window that converged using INFQR
       // .    here and there to keep track.) ====
 
-      CALL ZLACPY( 'U', JW, JW, H( KWTOP, KWTOP ), LDH, T, LDT )
-      CALL ZCOPY( JW-1, H( KWTOP+1, KWTOP ), LDH+1, T( 2, 1 ), LDT+1 )
+      zlacpy('U', JW, JW, H( KWTOP, KWTOP ), LDH, T, LDT );
+      zcopy(JW-1, H( KWTOP+1, KWTOP ), LDH+1, T( 2, 1 ), LDT+1 );
 
-      CALL ZLASET( 'A', JW, JW, ZERO, ONE, V, LDV )
-      CALL ZLAHQR( .true., .true., JW, 1, JW, T, LDT, SH( KWTOP ), 1, JW, V, LDV, INFQR )
+      zlaset('A', JW, JW, ZERO, ONE, V, LDV );
+      zlahqr(.true., .true., JW, 1, JW, T, LDT, SH( KWTOP ), 1, JW, V, LDV, INFQR );
 
       // ==== Deflation detection loop ====
 
@@ -146,7 +146,7 @@
             // .    way.   (ZTREXC can not fail in this case.) ====
 
             IFST = NS
-            CALL ZTREXC( 'V', JW, T, LDT, V, LDV, IFST, ILST, INFO )
+            ztrexc('V', JW, T, LDT, V, LDV, IFST, ILST, INFO );
             ILST = ILST + 1
          }
    10 CONTINUE
@@ -182,26 +182,26 @@
 
             // ==== Reflect spike back into lower triangle ====
 
-            CALL ZCOPY( NS, V, LDV, WORK, 1 )
+            zcopy(NS, V, LDV, WORK, 1 );
             DO 50 I = 1, NS
                WORK( I ) = DCONJG( WORK( I ) )
    50       CONTINUE
             BETA = WORK( 1 )
-            CALL ZLARFG( NS, BETA, WORK( 2 ), 1, TAU )
+            zlarfg(NS, BETA, WORK( 2 ), 1, TAU );
             WORK( 1 ) = ONE
 
-            CALL ZLASET( 'L', JW-2, JW-2, ZERO, ZERO, T( 3, 1 ), LDT )
+            zlaset('L', JW-2, JW-2, ZERO, ZERO, T( 3, 1 ), LDT );
 
-            CALL ZLARF( 'L', NS, JW, WORK, 1, DCONJG( TAU ), T, LDT, WORK( JW+1 ) )             CALL ZLARF( 'R', NS, NS, WORK, 1, TAU, T, LDT, WORK( JW+1 ) )             CALL ZLARF( 'R', JW, NS, WORK, 1, TAU, V, LDV, WORK( JW+1 ) )
+            zlarf('L', NS, JW, WORK, 1, DCONJG( TAU ), T, LDT, WORK( JW+1 ) )             CALL ZLARF( 'R', NS, NS, WORK, 1, TAU, T, LDT, WORK( JW+1 ) )             CALL ZLARF( 'R', JW, NS, WORK, 1, TAU, V, LDV, WORK( JW+1 ) );
 
-            CALL ZGEHRD( JW, 1, NS, T, LDT, WORK, WORK( JW+1 ), LWORK-JW, INFO )
+            zgehrd(JW, 1, NS, T, LDT, WORK, WORK( JW+1 ), LWORK-JW, INFO );
          }
 
          // ==== Copy updated reduced window into place ====
 
          IF( KWTOP.GT.1 ) H( KWTOP, KWTOP-1 ) = S*DCONJG( V( 1, 1 ) )
-         CALL ZLACPY( 'U', JW, JW, T, LDT, H( KWTOP, KWTOP ), LDH )
-         CALL ZCOPY( JW-1, T( 2, 1 ), LDT+1, H( KWTOP+1, KWTOP ), LDH+1 )
+         zlacpy('U', JW, JW, T, LDT, H( KWTOP, KWTOP ), LDH );
+         zcopy(JW-1, T( 2, 1 ), LDT+1, H( KWTOP+1, KWTOP ), LDH+1 );
 
          // ==== Accumulate orthogonal matrix in order update
          // .    H and Z, if requested.  ====
@@ -217,8 +217,8 @@
          }
          DO 60 KROW = LTOP, KWTOP - 1, NV
             KLN = MIN( NV, KWTOP-KROW )
-            CALL ZGEMM( 'N', 'N', KLN, JW, JW, ONE, H( KROW, KWTOP ), LDH, V, LDV, ZERO, WV, LDWV )
-            CALL ZLACPY( 'A', KLN, JW, WV, LDWV, H( KROW, KWTOP ), LDH )
+            zgemm('N', 'N', KLN, JW, JW, ONE, H( KROW, KWTOP ), LDH, V, LDV, ZERO, WV, LDWV );
+            zlacpy('A', KLN, JW, WV, LDWV, H( KROW, KWTOP ), LDH );
    60    CONTINUE
 
          // ==== Update horizontal slab in H ====
@@ -226,7 +226,7 @@
          if ( WANTT ) {
             DO 70 KCOL = KBOT + 1, N, NH
                KLN = MIN( NH, N-KCOL+1 )
-               CALL ZGEMM( 'C', 'N', JW, KLN, JW, ONE, V, LDV, H( KWTOP, KCOL ), LDH, ZERO, T, LDT )                CALL ZLACPY( 'A', JW, KLN, T, LDT, H( KWTOP, KCOL ), LDH )
+               zgemm('C', 'N', JW, KLN, JW, ONE, V, LDV, H( KWTOP, KCOL ), LDH, ZERO, T, LDT )                CALL ZLACPY( 'A', JW, KLN, T, LDT, H( KWTOP, KCOL ), LDH );
    70       CONTINUE
          }
 
@@ -235,7 +235,7 @@
          if ( WANTZ ) {
             DO 80 KROW = ILOZ, IHIZ, NV
                KLN = MIN( NV, IHIZ-KROW+1 )
-               CALL ZGEMM( 'N', 'N', KLN, JW, JW, ONE, Z( KROW, KWTOP ), LDZ, V, LDV, ZERO, WV, LDWV )                CALL ZLACPY( 'A', KLN, JW, WV, LDWV, Z( KROW, KWTOP ), LDZ )
+               zgemm('N', 'N', KLN, JW, JW, ONE, Z( KROW, KWTOP ), LDZ, V, LDV, ZERO, WV, LDWV )                CALL ZLACPY( 'A', KLN, JW, WV, LDWV, Z( KROW, KWTOP ), LDZ );
    80       CONTINUE
          }
       }

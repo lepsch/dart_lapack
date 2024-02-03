@@ -52,7 +52,7 @@
          INFO = -11
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'DPTSVX', -INFO )
+         xerbla('DPTSVX', -INFO );
          RETURN
       }
 
@@ -60,9 +60,9 @@
 
          // Compute the L*D*L**T (or U**T*D*U) factorization of A.
 
-         CALL DCOPY( N, D, 1, DF, 1 )
+         dcopy(N, D, 1, DF, 1 );
          IF( N.GT.1 ) CALL DCOPY( N-1, E, 1, EF, 1 )
-         CALL DPTTRF( N, DF, EF, INFO )
+         dpttrf(N, DF, EF, INFO );
 
          // Return if INFO is non-zero.
 
@@ -78,17 +78,17 @@
 
       // Compute the reciprocal of the condition number of A.
 
-      CALL DPTCON( N, DF, EF, ANORM, RCOND, WORK, INFO )
+      dptcon(N, DF, EF, ANORM, RCOND, WORK, INFO );
 
       // Compute the solution vectors X.
 
-      CALL DLACPY( 'Full', N, NRHS, B, LDB, X, LDX )
-      CALL DPTTRS( N, NRHS, DF, EF, X, LDX, INFO )
+      dlacpy('Full', N, NRHS, B, LDB, X, LDX );
+      dpttrs(N, NRHS, DF, EF, X, LDX, INFO );
 
       // Use iterative refinement to improve the computed solutions and
       // compute error bounds and backward error estimates for them.
 
-      CALL DPTRFS( N, NRHS, D, E, DF, EF, B, LDB, X, LDX, FERR, BERR, WORK, INFO )
+      dptrfs(N, NRHS, D, E, DF, EF, B, LDB, X, LDX, FERR, BERR, WORK, INFO );
 
       // Set INFO = N+1 if the matrix is singular to working precision.
 

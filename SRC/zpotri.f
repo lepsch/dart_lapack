@@ -37,7 +37,7 @@
          INFO = -4
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'ZPOTRI', -INFO )
+         xerbla('ZPOTRI', -INFO );
          RETURN
       }
 
@@ -47,12 +47,12 @@
 
       // Invert the triangular Cholesky factor U or L.
 
-      CALL ZTRTRI( UPLO, 'Non-unit', N, A, LDA, INFO )
+      ztrtri(UPLO, 'Non-unit', N, A, LDA, INFO );
       IF( INFO.GT.0 ) RETURN
 
       // Form inv(U) * inv(U)**H or inv(L)**H * inv(L).
 
-      CALL ZLAUUM( UPLO, N, A, LDA, INFO )
+      zlauum(UPLO, N, A, LDA, INFO );
 
       RETURN
 

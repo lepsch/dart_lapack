@@ -64,7 +64,7 @@
           INFO = 12
       }
       if (INFO.NE.0) {
-          CALL XERBLA('CHER2K',INFO)
+          xerbla('CHER2K',INFO);
           RETURN
       }
 

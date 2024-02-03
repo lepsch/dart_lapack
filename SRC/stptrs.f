@@ -53,7 +53,7 @@
          INFO = -8
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'STPTRS', -INFO )
+         xerbla('STPTRS', -INFO );
          RETURN
       }
 
@@ -83,7 +83,7 @@
       // Solve A * x = b  or  A**T * x = b.
 
       DO 30 J = 1, NRHS
-         CALL STPSV( UPLO, TRANS, DIAG, N, AP, B( 1, J ), 1 )
+         stpsv(UPLO, TRANS, DIAG, N, AP, B( 1, J ), 1 );
    30 CONTINUE
 
       RETURN

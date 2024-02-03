@@ -59,7 +59,7 @@
          INFO = -5
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'DGECON', -INFO )
+         xerbla('DGECON', -INFO );
          RETURN
       }
 
@@ -93,26 +93,26 @@
       }
       KASE = 0
    10 CONTINUE
-      CALL DLACN2( N, WORK( N+1 ), WORK, IWORK, AINVNM, KASE, ISAVE )
+      dlacn2(N, WORK( N+1 ), WORK, IWORK, AINVNM, KASE, ISAVE );
       if ( KASE.NE.0 ) {
          if ( KASE.EQ.KASE1 ) {
 
             // Multiply by inv(L).
 
-            CALL DLATRS( 'Lower', 'No transpose', 'Unit', NORMIN, N, A, LDA, WORK, SL, WORK( 2*N+1 ), INFO )
+            dlatrs('Lower', 'No transpose', 'Unit', NORMIN, N, A, LDA, WORK, SL, WORK( 2*N+1 ), INFO );
 
             // Multiply by inv(U).
 
-            CALL DLATRS( 'Upper', 'No transpose', 'Non-unit', NORMIN, N, A, LDA, WORK, SU, WORK( 3*N+1 ), INFO )
+            dlatrs('Upper', 'No transpose', 'Non-unit', NORMIN, N, A, LDA, WORK, SU, WORK( 3*N+1 ), INFO );
          } else {
 
             // Multiply by inv(U**T).
 
-            CALL DLATRS( 'Upper', 'Transpose', 'Non-unit', NORMIN, N, A, LDA, WORK, SU, WORK( 3*N+1 ), INFO )
+            dlatrs('Upper', 'Transpose', 'Non-unit', NORMIN, N, A, LDA, WORK, SU, WORK( 3*N+1 ), INFO );
 
             // Multiply by inv(L**T).
 
-            CALL DLATRS( 'Lower', 'Transpose', 'Unit', NORMIN, N, A, LDA, WORK, SL, WORK( 2*N+1 ), INFO )
+            dlatrs('Lower', 'Transpose', 'Unit', NORMIN, N, A, LDA, WORK, SL, WORK( 2*N+1 ), INFO );
          }
 
          // Divide X by 1/(SL*SU) if doing so will not cause overflow.
@@ -122,7 +122,7 @@
          if ( SCALE.NE.ONE ) {
             IX = IDAMAX( N, WORK, 1 )
             IF( SCALE.LT.ABS( WORK( IX ) )*SMLNUM .OR. SCALE.EQ.ZERO ) GO TO 20
-            CALL DRSCL( N, SCALE, WORK, 1 )
+            drscl(N, SCALE, WORK, 1 );
          }
          GO TO 10
       }

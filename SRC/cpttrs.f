@@ -45,7 +45,7 @@
          INFO = -7
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'CPTTRS', -INFO )
+         xerbla('CPTTRS', -INFO );
          RETURN
       }
 
@@ -70,11 +70,11 @@
       }
 
       if ( NB.GE.NRHS ) {
-         CALL CPTTS2( IUPLO, N, NRHS, D, E, B, LDB )
+         cptts2(IUPLO, N, NRHS, D, E, B, LDB );
       } else {
          DO 10 J = 1, NRHS, NB
             JB = MIN( NRHS-J+1, NB )
-            CALL CPTTS2( IUPLO, N, JB, D, E, B( 1, J ), LDB )
+            cptts2(IUPLO, N, JB, D, E, B( 1, J ), LDB );
    10    CONTINUE
       }
 

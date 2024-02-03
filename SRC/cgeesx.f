@@ -94,7 +94,7 @@
             MAXWRK = N + N*ILAENV( 1, 'CGEHRD', ' ', N, 1, N, 0 )
             MINWRK = 2*N
 
-            CALL CHSEQR( 'S', JOBVS, N, 1, N, A, LDA, W, VS, LDVS, WORK, -1, IEVAL )
+            chseqr('S', JOBVS, N, 1, N, A, LDA, W, VS, LDVS, WORK, -1, IEVAL );
             HSWORK = INT( WORK( 1 ) )
 
             if ( .NOT.WANTVS ) {
@@ -114,7 +114,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'CGEESX', -INFO )
+         xerbla('CGEESX', -INFO );
          RETURN
       } else if ( LQUERY ) {
          RETURN
@@ -154,7 +154,7 @@
       // (RWorkspace: need N)
 
       IBAL = 1
-      CALL CGEBAL( 'P', N, A, LDA, ILO, IHI, RWORK( IBAL ), IERR )
+      cgebal('P', N, A, LDA, ILO, IHI, RWORK( IBAL ), IERR );
 
       // Reduce to upper Hessenberg form
       // (CWorkspace: need 2*N, prefer N+N*NB)
@@ -162,19 +162,19 @@
 
       ITAU = 1
       IWRK = N + ITAU
-      CALL CGEHRD( N, ILO, IHI, A, LDA, WORK( ITAU ), WORK( IWRK ), LWORK-IWRK+1, IERR )
+      cgehrd(N, ILO, IHI, A, LDA, WORK( ITAU ), WORK( IWRK ), LWORK-IWRK+1, IERR );
 
       if ( WANTVS ) {
 
          // Copy Householder vectors to VS
 
-         CALL CLACPY( 'L', N, N, A, LDA, VS, LDVS )
+         clacpy('L', N, N, A, LDA, VS, LDVS );
 
          // Generate unitary matrix in VS
          // (CWorkspace: need 2*N-1, prefer N+(N-1)*NB)
          // (RWorkspace: none)
 
-         CALL CUNGHR( N, ILO, IHI, VS, LDVS, WORK( ITAU ), WORK( IWRK ), LWORK-IWRK+1, IERR )
+         cunghr(N, ILO, IHI, VS, LDVS, WORK( ITAU ), WORK( IWRK ), LWORK-IWRK+1, IERR );
       }
 
       SDIM = 0
@@ -200,7 +200,7 @@
                       // otherwise, need none )
          // (RWorkspace: none)
 
-         CALL CTRSEN( SENSE, JOBVS, BWORK, N, A, LDA, VS, LDVS, W, SDIM, RCONDE, RCONDV, WORK( IWRK ), LWORK-IWRK+1, ICOND )
+         ctrsen(SENSE, JOBVS, BWORK, N, A, LDA, VS, LDVS, W, SDIM, RCONDE, RCONDV, WORK( IWRK ), LWORK-IWRK+1, ICOND );
          IF( .NOT.WANTSN ) MAXWRK = MAX( MAXWRK, 2*SDIM*( N-SDIM ) )
          if ( ICOND.EQ.-14 ) {
 
@@ -216,18 +216,18 @@
          // (CWorkspace: none)
          // (RWorkspace: need N)
 
-         CALL CGEBAK( 'P', 'R', N, ILO, IHI, RWORK( IBAL ), N, VS, LDVS, IERR )
+         cgebak('P', 'R', N, ILO, IHI, RWORK( IBAL ), N, VS, LDVS, IERR );
       }
 
       if ( SCALEA ) {
 
          // Undo scaling for the Schur form of A
 
-         CALL CLASCL( 'U', 0, 0, CSCALE, ANRM, N, N, A, LDA, IERR )
-         CALL CCOPY( N, A, LDA+1, W, 1 )
+         clascl('U', 0, 0, CSCALE, ANRM, N, N, A, LDA, IERR );
+         ccopy(N, A, LDA+1, W, 1 );
          if ( ( WANTSV .OR. WANTSB ) .AND. INFO.EQ.0 ) {
             DUM( 1 ) = RCONDV
-            CALL SLASCL( 'G', 0, 0, CSCALE, ANRM, 1, 1, DUM, 1, IERR )
+            slascl('G', 0, 0, CSCALE, ANRM, 1, 1, DUM, 1, IERR );
             RCONDV = DUM( 1 )
          }
       }

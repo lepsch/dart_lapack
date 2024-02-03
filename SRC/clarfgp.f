@@ -79,7 +79,7 @@
 
    10       CONTINUE
             KNT = KNT + 1
-            CALL CSSCAL( N-1, BIGNUM, X, INCX )
+            csscal(N-1, BIGNUM, X, INCX );
             BETA = BETA*BIGNUM
             ALPHI = ALPHI*BIGNUM
             ALPHR = ALPHR*BIGNUM
@@ -138,7 +138,7 @@
 
             // This is the general case.
 
-            CALL CSCAL( N-1, ALPHA, X, INCX )
+            cscal(N-1, ALPHA, X, INCX );
 
          }
 

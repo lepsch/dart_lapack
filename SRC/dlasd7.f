@@ -56,7 +56,7 @@
          INFO = -24
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'DLASD7', -INFO )
+         xerbla('DLASD7', -INFO );
          RETURN
       }
 
@@ -103,7 +103,7 @@
          VLW( I ) = VL( IDXQ( I ) )
    40 CONTINUE
 
-      CALL DLAMRG( NL, NR, DSIGMA( 2 ), 1, 1, IDX( 2 ) )
+      dlamrg(NL, NR, DSIGMA( 2 ), 1, 1, IDX( 2 ) );
 
       DO 50 I = 2, N
          IDXI = 1 + IDX( I )
@@ -201,8 +201,8 @@
                GIVNUM( GIVPTR, 2 ) = C
                GIVNUM( GIVPTR, 1 ) = S
             }
-            CALL DROT( 1, VF( JPREV ), 1, VF( J ), 1, C, S )
-            CALL DROT( 1, VL( JPREV ), 1, VL( J ), 1, C, S )
+            drot(1, VF( JPREV ), 1, VF( J ), 1, C, S );
+            drot(1, VL( JPREV ), 1, VL( J ), 1, C, S );
             K2 = K2 - 1
             IDXP( K2 ) = JPREV
             JPREV = J
@@ -249,7 +249,7 @@
       // The deflated singular values go back into the last N - K slots of
       // D.
 
-      CALL DCOPY( N-K, DSIGMA( K+1 ), 1, D( K+1 ), 1 )
+      dcopy(N-K, DSIGMA( K+1 ), 1, D( K+1 ), 1 );
 
       // Determine DSIGMA(1), DSIGMA(2), Z(1), VF(1), VL(1), VF(M), and
       // VL(M).
@@ -267,8 +267,8 @@
             C = Z1 / Z( 1 )
             S = -Z( M ) / Z( 1 )
          }
-         CALL DROT( 1, VF( M ), 1, VF( 1 ), 1, C, S )
-         CALL DROT( 1, VL( M ), 1, VL( 1 ), 1, C, S )
+         drot(1, VF( M ), 1, VF( 1 ), 1, C, S );
+         drot(1, VL( M ), 1, VL( 1 ), 1, C, S );
       } else {
          if ( ABS( Z1 ).LE.TOL ) {
             Z( 1 ) = TOL
@@ -279,9 +279,9 @@
 
       // Restore Z, VF, and VL.
 
-      CALL DCOPY( K-1, ZW( 2 ), 1, Z( 2 ), 1 )
-      CALL DCOPY( N-1, VFW( 2 ), 1, VF( 2 ), 1 )
-      CALL DCOPY( N-1, VLW( 2 ), 1, VL( 2 ), 1 )
+      dcopy(K-1, ZW( 2 ), 1, Z( 2 ), 1 );
+      dcopy(N-1, VFW( 2 ), 1, VF( 2 ), 1 );
+      dcopy(N-1, VLW( 2 ), 1, VL( 2 ), 1 );
 
       RETURN
 

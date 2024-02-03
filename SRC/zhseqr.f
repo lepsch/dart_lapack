@@ -86,7 +86,7 @@
 
          // ==== Quick return in case of invalid argument. ====
 
-         CALL XERBLA( 'ZHSEQR', -INFO )
+         xerbla('ZHSEQR', -INFO );
          RETURN
 
       } else if ( N.EQ.0 ) {
@@ -99,7 +99,7 @@
 
          // ==== Quick return in case of a workspace query ====
 
-         CALL ZLAQR0( WANTT, WANTZ, N, ILO, IHI, H, LDH, W, ILO, IHI, Z, LDZ, WORK, LWORK, INFO )
+         zlaqr0(WANTT, WANTZ, N, ILO, IHI, H, LDH, W, ILO, IHI, Z, LDZ, WORK, LWORK, INFO );
          // ==== Ensure reported workspace size is backward-compatible with
          // .    previous LAPACK versions. ====
          WORK( 1 ) = DCMPLX( MAX( DBLE( WORK( 1 ) ), DBLE( MAX( 1, N ) ) ), RZERO )
@@ -130,12 +130,12 @@
          // ==== ZLAQR0 for big matrices; ZLAHQR for small ones ====
 
          if ( N.GT.NMIN ) {
-            CALL ZLAQR0( WANTT, WANTZ, N, ILO, IHI, H, LDH, W, ILO, IHI, Z, LDZ, WORK, LWORK, INFO )
+            zlaqr0(WANTT, WANTZ, N, ILO, IHI, H, LDH, W, ILO, IHI, Z, LDZ, WORK, LWORK, INFO );
          } else {
 
             // ==== Small matrix ====
 
-            CALL ZLAHQR( WANTT, WANTZ, N, ILO, IHI, H, LDH, W, ILO, IHI, Z, LDZ, INFO )
+            zlahqr(WANTT, WANTZ, N, ILO, IHI, H, LDH, W, ILO, IHI, Z, LDZ, INFO );
 
             if ( INFO.GT.0 ) {
 
@@ -149,7 +149,7 @@
                   // ==== Larger matrices have enough subdiagonal scratch
                   // .    space to call ZLAQR0 directly. ====
 
-                  CALL ZLAQR0( WANTT, WANTZ, N, ILO, KBOT, H, LDH, W, ILO, IHI, Z, LDZ, WORK, LWORK, INFO )
+                  zlaqr0(WANTT, WANTZ, N, ILO, KBOT, H, LDH, W, ILO, IHI, Z, LDZ, WORK, LWORK, INFO );
 
                } else {
 
@@ -158,9 +158,9 @@
                   // .    tiny matrices must be copied into a larger
                   // .    array before calling ZLAQR0. ====
 
-                  CALL ZLACPY( 'A', N, N, H, LDH, HL, NL )
+                  zlacpy('A', N, N, H, LDH, HL, NL );
                   HL( N+1, N ) = ZERO
-                  CALL ZLASET( 'A', NL, NL-N, ZERO, ZERO, HL( 1, N+1 ), NL )                   CALL ZLAQR0( WANTT, WANTZ, NL, ILO, KBOT, HL, NL, W, ILO, IHI, Z, LDZ, WORKL, NL, INFO )                   IF( WANTT .OR. INFO.NE.0 ) CALL ZLACPY( 'A', N, N, HL, NL, H, LDH )
+                  zlaset('A', NL, NL-N, ZERO, ZERO, HL( 1, N+1 ), NL )                   CALL ZLAQR0( WANTT, WANTZ, NL, ILO, KBOT, HL, NL, W, ILO, IHI, Z, LDZ, WORKL, NL, INFO )                   IF( WANTT .OR. INFO.NE.0 ) CALL ZLACPY( 'A', N, N, HL, NL, H, LDH );
                }
             }
          }

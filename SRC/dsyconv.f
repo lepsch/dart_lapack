@@ -46,7 +46,7 @@
 
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'DSYCONV', -INFO )
+         xerbla('DSYCONV', -INFO );
          RETURN
       }
 

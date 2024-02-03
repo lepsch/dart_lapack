@@ -72,11 +72,11 @@
 
             // w(1:lastc,1) := C(1:lastv,1:lastc)**H * v(1:lastv,1)
 
-            CALL CGEMV( 'Conjugate transpose', LASTV, LASTC, ONE, C, LDC, V, INCV, ZERO, WORK, 1 )
+            cgemv('Conjugate transpose', LASTV, LASTC, ONE, C, LDC, V, INCV, ZERO, WORK, 1 );
 
             // C(1:lastv,1:lastc) := C(...) - v(1:lastv,1) * w(1:lastc,1)**H
 
-            CALL CGERC( LASTV, LASTC, -TAU, V, INCV, WORK, 1, C, LDC )
+            cgerc(LASTV, LASTC, -TAU, V, INCV, WORK, 1, C, LDC );
          }
       } else {
 
@@ -86,11 +86,11 @@
 
             // w(1:lastc,1) := C(1:lastc,1:lastv) * v(1:lastv,1)
 
-            CALL CGEMV( 'No transpose', LASTC, LASTV, ONE, C, LDC, V, INCV, ZERO, WORK, 1 )
+            cgemv('No transpose', LASTC, LASTV, ONE, C, LDC, V, INCV, ZERO, WORK, 1 );
 
             // C(1:lastc,1:lastv) := C(...) - w(1:lastc,1) * v(1:lastv,1)**H
 
-            CALL CGERC( LASTC, LASTV, -TAU, WORK, 1, V, INCV, C, LDC )
+            cgerc(LASTC, LASTV, -TAU, WORK, 1, V, INCV, C, LDC );
          }
       }
       RETURN

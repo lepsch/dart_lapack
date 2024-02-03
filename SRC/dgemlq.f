@@ -92,7 +92,7 @@
       }
 
       if ( INFO.NE.0 ) {
-        CALL XERBLA( 'DGEMLQ', -INFO )
+        xerbla('DGEMLQ', -INFO );
         RETURN
       } else if ( LQUERY ) {
         RETURN
@@ -106,7 +106,7 @@
 
       IF( ( LEFT .AND. M.LE.K ) .OR. ( RIGHT .AND. N.LE.K ) .OR. ( NB.LE.K ) .OR. ( NB.GE.MAX( M, N, K ) ) ) THEN         CALL DGEMLQT( SIDE, TRANS, M, N, K, MB, A, LDA, T( 6 ), MB, C, LDC, WORK, INFO )
       } else {
-        CALL DLAMSWLQ( SIDE, TRANS, M, N, K, MB, NB, A, LDA, T( 6 ), MB, C, LDC, WORK, LWORK, INFO )
+        dlamswlq(SIDE, TRANS, M, N, K, MB, NB, A, LDA, T( 6 ), MB, C, LDC, WORK, LWORK, INFO );
       }
 
       WORK( 1 ) = LWMIN

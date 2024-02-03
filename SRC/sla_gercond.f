@@ -49,7 +49,7 @@
          INFO = -6
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'SLA_GERCOND', -INFO )
+         xerbla('SLA_GERCOND', -INFO );
          RETURN
       }
       if ( N.EQ.0 ) {
@@ -104,7 +104,7 @@
 
       KASE = 0
    10 CONTINUE
-      CALL SLACN2( N, WORK( N+1 ), WORK, IWORK, AINVNM, KASE, ISAVE )
+      slacn2(N, WORK( N+1 ), WORK, IWORK, AINVNM, KASE, ISAVE );
       if ( KASE.NE.0 ) {
          if ( KASE.EQ.2 ) {
 
@@ -115,9 +115,9 @@
             END DO
 
             if (NOTRANS) {
-               CALL SGETRS( 'No transpose', N, 1, AF, LDAF, IPIV, WORK, N, INFO )
+               sgetrs('No transpose', N, 1, AF, LDAF, IPIV, WORK, N, INFO );
             } else {
-               CALL SGETRS( 'Transpose', N, 1, AF, LDAF, IPIV, WORK, N, INFO )
+               sgetrs('Transpose', N, 1, AF, LDAF, IPIV, WORK, N, INFO );
             }
 
             // Multiply by inv(C).
@@ -146,9 +146,9 @@
             }
 
             if (NOTRANS) {
-               CALL SGETRS( 'Transpose', N, 1, AF, LDAF, IPIV, WORK, N, INFO )
+               sgetrs('Transpose', N, 1, AF, LDAF, IPIV, WORK, N, INFO );
             } else {
-               CALL SGETRS( 'No transpose', N, 1, AF, LDAF, IPIV, WORK, N, INFO )
+               sgetrs('No transpose', N, 1, AF, LDAF, IPIV, WORK, N, INFO );
             }
 
             // Multiply by R.

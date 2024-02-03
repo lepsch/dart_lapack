@@ -52,7 +52,7 @@
          INFO = -19
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'CLALSA', -INFO )
+         xerbla('CLALSA', -INFO );
          RETURN
       }
 
@@ -62,7 +62,7 @@
       NDIML = INODE + N
       NDIMR = NDIML + N
 
-      CALL SLASDT( N, NLVL, ND, IWORK( INODE ), IWORK( NDIML ), IWORK( NDIMR ), SMLSIZ )
+      slasdt(N, NLVL, ND, IWORK( INODE ), IWORK( NDIML ), IWORK( NDIMR ), SMLSIZ );
 
       // The following code applies back the left singular vector factors.
       // For applying back the right singular vector factors, go to 170.
@@ -105,7 +105,7 @@
                RWORK( J ) = REAL( B( JROW, JCOL ) )
    10       CONTINUE
    20    CONTINUE
-         CALL SGEMM( 'T', 'N', NL, NRHS, NL, ONE, U( NLF, 1 ), LDU, RWORK( 1+NL*NRHS*2 ), NL, ZERO, RWORK( 1 ), NL )
+         sgemm('T', 'N', NL, NRHS, NL, ONE, U( NLF, 1 ), LDU, RWORK( 1+NL*NRHS*2 ), NL, ZERO, RWORK( 1 ), NL );
          J = NL*NRHS*2
          DO 40 JCOL = 1, NRHS
             DO 30 JROW = NLF, NLF + NL - 1
@@ -113,7 +113,7 @@
                RWORK( J ) = AIMAG( B( JROW, JCOL ) )
    30       CONTINUE
    40    CONTINUE
-         CALL SGEMM( 'T', 'N', NL, NRHS, NL, ONE, U( NLF, 1 ), LDU, RWORK( 1+NL*NRHS*2 ), NL, ZERO, RWORK( 1+NL*NRHS ), NL )
+         sgemm('T', 'N', NL, NRHS, NL, ONE, U( NLF, 1 ), LDU, RWORK( 1+NL*NRHS*2 ), NL, ZERO, RWORK( 1+NL*NRHS ), NL );
          JREAL = 0
          JIMAG = NL*NRHS
          DO 60 JCOL = 1, NRHS
@@ -137,7 +137,7 @@
                RWORK( J ) = REAL( B( JROW, JCOL ) )
    70       CONTINUE
    80    CONTINUE
-         CALL SGEMM( 'T', 'N', NR, NRHS, NR, ONE, U( NRF, 1 ), LDU, RWORK( 1+NR*NRHS*2 ), NR, ZERO, RWORK( 1 ), NR )
+         sgemm('T', 'N', NR, NRHS, NR, ONE, U( NRF, 1 ), LDU, RWORK( 1+NR*NRHS*2 ), NR, ZERO, RWORK( 1 ), NR );
          J = NR*NRHS*2
          DO 100 JCOL = 1, NRHS
             DO 90 JROW = NRF, NRF + NR - 1
@@ -145,7 +145,7 @@
                RWORK( J ) = AIMAG( B( JROW, JCOL ) )
    90       CONTINUE
   100    CONTINUE
-         CALL SGEMM( 'T', 'N', NR, NRHS, NR, ONE, U( NRF, 1 ), LDU, RWORK( 1+NR*NRHS*2 ), NR, ZERO, RWORK( 1+NR*NRHS ), NR )
+         sgemm('T', 'N', NR, NRHS, NR, ONE, U( NRF, 1 ), LDU, RWORK( 1+NR*NRHS*2 ), NR, ZERO, RWORK( 1+NR*NRHS ), NR );
          JREAL = 0
          JIMAG = NR*NRHS
          DO 120 JCOL = 1, NRHS
@@ -163,7 +163,7 @@
 
       DO 140 I = 1, ND
          IC = IWORK( INODE+I-1 )
-         CALL CCOPY( NRHS, B( IC, 1 ), LDB, BX( IC, 1 ), LDBX )
+         ccopy(NRHS, B( IC, 1 ), LDB, BX( IC, 1 ), LDBX );
   140 CONTINUE
 
       // Finally go through the left singular vector matrices of all
@@ -193,7 +193,7 @@
             NLF = IC - NL
             NRF = IC + 1
             J = J - 1
-            CALL CLALS0( ICOMPQ, NL, NR, SQRE, NRHS, BX( NLF, 1 ), LDBX, B( NLF, 1 ), LDB, PERM( NLF, LVL ), GIVPTR( J ), GIVCOL( NLF, LVL2 ), LDGCOL, GIVNUM( NLF, LVL2 ), LDU, POLES( NLF, LVL2 ), DIFL( NLF, LVL ), DIFR( NLF, LVL2 ), Z( NLF, LVL ), K( J ), C( J ), S( J ), RWORK, INFO )
+            clals0(ICOMPQ, NL, NR, SQRE, NRHS, BX( NLF, 1 ), LDBX, B( NLF, 1 ), LDB, PERM( NLF, LVL ), GIVPTR( J ), GIVCOL( NLF, LVL2 ), LDGCOL, GIVNUM( NLF, LVL2 ), LDU, POLES( NLF, LVL2 ), DIFL( NLF, LVL ), DIFR( NLF, LVL2 ), Z( NLF, LVL ), K( J ), C( J ), S( J ), RWORK, INFO );
   150    CONTINUE
   160 CONTINUE
       GO TO 330
@@ -232,7 +232,7 @@
                SQRE = 1
             }
             J = J + 1
-            CALL CLALS0( ICOMPQ, NL, NR, SQRE, NRHS, B( NLF, 1 ), LDB, BX( NLF, 1 ), LDBX, PERM( NLF, LVL ), GIVPTR( J ), GIVCOL( NLF, LVL2 ), LDGCOL, GIVNUM( NLF, LVL2 ), LDU, POLES( NLF, LVL2 ), DIFL( NLF, LVL ), DIFR( NLF, LVL2 ), Z( NLF, LVL ), K( J ), C( J ), S( J ), RWORK, INFO )
+            clals0(ICOMPQ, NL, NR, SQRE, NRHS, B( NLF, 1 ), LDB, BX( NLF, 1 ), LDBX, PERM( NLF, LVL ), GIVPTR( J ), GIVCOL( NLF, LVL2 ), LDGCOL, GIVNUM( NLF, LVL2 ), LDU, POLES( NLF, LVL2 ), DIFL( NLF, LVL ), DIFR( NLF, LVL2 ), Z( NLF, LVL ), K( J ), C( J ), S( J ), RWORK, INFO );
   180    CONTINUE
   190 CONTINUE
 
@@ -268,7 +268,7 @@
                RWORK( J ) = REAL( B( JROW, JCOL ) )
   200       CONTINUE
   210    CONTINUE
-         CALL SGEMM( 'T', 'N', NLP1, NRHS, NLP1, ONE, VT( NLF, 1 ), LDU, RWORK( 1+NLP1*NRHS*2 ), NLP1, ZERO, RWORK( 1 ), NLP1 )
+         sgemm('T', 'N', NLP1, NRHS, NLP1, ONE, VT( NLF, 1 ), LDU, RWORK( 1+NLP1*NRHS*2 ), NLP1, ZERO, RWORK( 1 ), NLP1 );
          J = NLP1*NRHS*2
          DO 230 JCOL = 1, NRHS
             DO 220 JROW = NLF, NLF + NLP1 - 1
@@ -276,7 +276,7 @@
                RWORK( J ) = AIMAG( B( JROW, JCOL ) )
   220       CONTINUE
   230    CONTINUE
-         CALL SGEMM( 'T', 'N', NLP1, NRHS, NLP1, ONE, VT( NLF, 1 ), LDU, RWORK( 1+NLP1*NRHS*2 ), NLP1, ZERO, RWORK( 1+NLP1*NRHS ), NLP1 )
+         sgemm('T', 'N', NLP1, NRHS, NLP1, ONE, VT( NLF, 1 ), LDU, RWORK( 1+NLP1*NRHS*2 ), NLP1, ZERO, RWORK( 1+NLP1*NRHS ), NLP1 );
          JREAL = 0
          JIMAG = NLP1*NRHS
          DO 250 JCOL = 1, NRHS
@@ -300,7 +300,7 @@
                RWORK( J ) = REAL( B( JROW, JCOL ) )
   260       CONTINUE
   270    CONTINUE
-         CALL SGEMM( 'T', 'N', NRP1, NRHS, NRP1, ONE, VT( NRF, 1 ), LDU, RWORK( 1+NRP1*NRHS*2 ), NRP1, ZERO, RWORK( 1 ), NRP1 )
+         sgemm('T', 'N', NRP1, NRHS, NRP1, ONE, VT( NRF, 1 ), LDU, RWORK( 1+NRP1*NRHS*2 ), NRP1, ZERO, RWORK( 1 ), NRP1 );
          J = NRP1*NRHS*2
          DO 290 JCOL = 1, NRHS
             DO 280 JROW = NRF, NRF + NRP1 - 1
@@ -308,7 +308,7 @@
                RWORK( J ) = AIMAG( B( JROW, JCOL ) )
   280       CONTINUE
   290    CONTINUE
-         CALL SGEMM( 'T', 'N', NRP1, NRHS, NRP1, ONE, VT( NRF, 1 ), LDU, RWORK( 1+NRP1*NRHS*2 ), NRP1, ZERO, RWORK( 1+NRP1*NRHS ), NRP1 )
+         sgemm('T', 'N', NRP1, NRHS, NRP1, ONE, VT( NRF, 1 ), LDU, RWORK( 1+NRP1*NRHS*2 ), NRP1, ZERO, RWORK( 1+NRP1*NRHS ), NRP1 );
          JREAL = 0
          JIMAG = NRP1*NRHS
          DO 310 JCOL = 1, NRHS

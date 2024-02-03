@@ -98,7 +98,7 @@
       // X HAS BEEN OVERWRITTEN BY A*X.
 
    70 CONTINUE
-      CALL CCOPY( N, X, 1, V, 1 )
+      ccopy(N, X, 1, V, 1 );
       ESTOLD = EST
       EST = SCSUM1( N, V, 1 )
 
@@ -146,7 +146,7 @@
   120 CONTINUE
       TEMP = TWO*( SCSUM1( N, X, 1 ) / REAL( 3*N ) )
       if ( TEMP.GT.EST ) {
-         CALL CCOPY( N, X, 1, V, 1 )
+         ccopy(N, X, 1, V, 1 );
          EST = TEMP
       }
 

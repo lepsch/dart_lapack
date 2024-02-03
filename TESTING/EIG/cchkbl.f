@@ -70,7 +70,7 @@
 
       ANORM = CLANGE( 'M', N, N, A, LDA, DUMMY )
       KNT = KNT + 1
-      CALL CGEBAL( 'B', N, A, LDA, ILO, IHI, SCALE, INFO )
+      cgebal('B', N, A, LDA, ILO, IHI, SCALE, INFO );
 
       if ( INFO.NE.0 ) {
          NINFO = NINFO + 1

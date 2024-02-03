@@ -77,7 +77,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'DSPEVD', -INFO )
+         xerbla('DSPEVD', -INFO );
          RETURN
       } else if ( LQUERY ) {
          RETURN
@@ -114,14 +114,14 @@
          SIGMA = RMAX / ANRM
       }
       if ( ISCALE.EQ.1 ) {
-         CALL DSCAL( ( N*( N+1 ) ) / 2, SIGMA, AP, 1 )
+         dscal(( N*( N+1 ) ) / 2, SIGMA, AP, 1 );
       }
 
       // Call DSPTRD to reduce symmetric packed matrix to tridiagonal form.
 
       INDE = 1
       INDTAU = INDE + N
-      CALL DSPTRD( UPLO, N, AP, W, WORK( INDE ), WORK( INDTAU ), IINFO )
+      dsptrd(UPLO, N, AP, W, WORK( INDE ), WORK( INDTAU ), IINFO );
 
       // For eigenvalues only, call DSTERF.  For eigenvectors, first call
       // DSTEDC to generate the eigenvector matrix, WORK(INDWRK), of the
@@ -129,11 +129,11 @@
       // Householder transformations represented in AP.
 
       if ( .NOT.WANTZ ) {
-         CALL DSTERF( N, W, WORK( INDE ), INFO )
+         dsterf(N, W, WORK( INDE ), INFO );
       } else {
          INDWRK = INDTAU + N
          LLWORK = LWORK - INDWRK + 1
-         CALL DSTEDC( 'I', N, W, WORK( INDE ), Z, LDZ, WORK( INDWRK ), LLWORK, IWORK, LIWORK, INFO )          CALL DOPMTR( 'L', UPLO, 'N', N, N, AP, WORK( INDTAU ), Z, LDZ, WORK( INDWRK ), IINFO )
+         dstedc('I', N, W, WORK( INDE ), Z, LDZ, WORK( INDWRK ), LLWORK, IWORK, LIWORK, INFO )          CALL DOPMTR( 'L', UPLO, 'N', N, N, AP, WORK( INDTAU ), Z, LDZ, WORK( INDWRK ), IINFO );
       }
 
       // If matrix was scaled, then rescale eigenvalues appropriately.

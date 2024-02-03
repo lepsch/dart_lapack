@@ -65,9 +65,9 @@
 
       RESID = ZERO
       DO 10 J = 1, NRHS
-         CALL ZCOPY( N, X( 1, J ), 1, WORK, 1 )
-         CALL ZTPMV( UPLO, TRANS, DIAG, N, AP, WORK, 1 )
-         CALL ZAXPY( N, DCMPLX( -ONE ), B( 1, J ), 1, WORK, 1 )
+         zcopy(N, X( 1, J ), 1, WORK, 1 );
+         ztpmv(UPLO, TRANS, DIAG, N, AP, WORK, 1 );
+         zaxpy(N, DCMPLX( -ONE ), B( 1, J ), 1, WORK, 1 );
          BNORM = DZASUM( N, WORK, 1 )
          XNORM = DZASUM( N, X( 1, J ), 1 )
          if ( XNORM.LE.ZERO ) {

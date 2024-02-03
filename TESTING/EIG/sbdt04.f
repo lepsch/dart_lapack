@@ -84,7 +84,7 @@
    60    CONTINUE
       }
 
-      CALL SGEMM( 'T', 'N', NS, NS, N, -ONE, U, LDU, WORK( 1 ), N, ZERO, WORK( 1+N*NS ), NS )
+      sgemm('T', 'N', NS, NS, N, -ONE, U, LDU, WORK( 1 ), N, ZERO, WORK( 1+N*NS ), NS );
 
       // norm(S - U' * B * V)
 

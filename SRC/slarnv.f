@@ -47,7 +47,7 @@
          // Call SLARUV to generate IL2 numbers from a uniform (0,1)
          // distribution (IL2 <= LV)
 
-         CALL SLARUV( ISEED, IL2, U )
+         slaruv(ISEED, IL2, U );
 
          if ( IDIST.EQ.1 ) {
 

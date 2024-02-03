@@ -46,7 +46,7 @@
          INFO = -9
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'ZTPLQT2', -INFO )
+         xerbla('ZTPLQT2', -INFO );
          RETURN
       }
 
@@ -59,7 +59,7 @@
          // Generate elementary reflector H(I) to annihilate B(I,:)
 
          P = N-L+MIN( L, I )
-         CALL ZLARFG( P+1, A( I, I ), B( I, 1 ), LDB, T( 1, I ) )
+         zlarfg(P+1, A( I, I ), B( I, 1 ), LDB, T( 1, I ) );
          T(1,I)=CONJG(T(1,I))
          if ( I.LT.M ) {
             DO J = 1, P
@@ -71,7 +71,7 @@
             DO J = 1, M-I
                T( M, J ) = (A( I+J, I ))
             END DO
-            CALL ZGEMV( 'N', M-I, P, ONE, B( I+1, 1 ), LDB, B( I, 1 ), LDB, ONE, T( M, 1 ), LDT )
+            zgemv('N', M-I, P, ONE, B( I+1, 1 ), LDB, B( I, 1 ), LDB, ONE, T( M, 1 ), LDT );
 
             // C(I+1:M,I:N) = C(I+1:M,I:N) + alpha * C(I,I:N)*W(M-1:1)^H
 
@@ -79,7 +79,7 @@
             DO J = 1, M-I
                A( I+J, I ) = A( I+J, I ) + ALPHA*(T( M, J ))
             END DO
-            CALL ZGERC( M-I, P, (ALPHA),  T( M, 1 ), LDT, B( I, 1 ), LDB, B( I+1, 1 ), LDB )
+            zgerc(M-I, P, (ALPHA),  T( M, 1 ), LDT, B( I, 1 ), LDB, B( I+1, 1 ), LDB );
             DO J = 1, P
                B( I, J ) = CONJG(B(I,J))
             END DO
@@ -106,16 +106,16 @@
          DO J = 1, P
             T( I, J ) = (ALPHA*B( I, N-L+J ))
          END DO
-         CALL ZTRMV( 'L', 'N', 'N', P, B( 1, NP ), LDB, T( I, 1 ), LDT )
+         ztrmv('L', 'N', 'N', P, B( 1, NP ), LDB, T( I, 1 ), LDT );
 
          // Rectangular part of B2
 
-         CALL ZGEMV( 'N', I-1-P, L,  ALPHA, B( MP, NP ), LDB, B( I, NP ), LDB, ZERO, T( I,MP ), LDT )
+         zgemv('N', I-1-P, L,  ALPHA, B( MP, NP ), LDB, B( I, NP ), LDB, ZERO, T( I,MP ), LDT );
 
          // B1
 
 
-         CALL ZGEMV( 'N', I-1, N-L, ALPHA, B, LDB, B( I, 1 ), LDB, ONE, T( I, 1 ), LDT )
+         zgemv('N', I-1, N-L, ALPHA, B, LDB, B( I, 1 ), LDB, ONE, T( I, 1 ), LDT );
 
 
 
@@ -124,7 +124,7 @@
          DO J = 1, I-1
             T(I,J)=CONJG(T(I,J))
          END DO
-         CALL ZTRMV( 'L', 'C', 'N', I-1, T, LDT, T( I, 1 ), LDT )
+         ztrmv('L', 'C', 'N', I-1, T, LDT, T( I, 1 ), LDT );
          DO J = 1, I-1
             T(I,J)=CONJG(T(I,J))
          END DO

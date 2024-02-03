@@ -81,7 +81,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'CDRVST', -INFO )
+         xerbla('CDRVST', -INFO );
          RETURN
       }
 
@@ -176,7 +176,7 @@
 
    70       CONTINUE
 
-            CALL CLASET( 'Full', LDA, N, CZERO, CZERO, A, LDA )
+            claset('Full', LDA, N, CZERO, CZERO, A, LDA );
             IINFO = 0
             COND = ULPINV
 
@@ -199,36 +199,36 @@
 
                // Diagonal Matrix, [Eigen]values Specified
 
-               CALL CLATMS( N, N, 'S', ISEED, 'H', RWORK, IMODE, COND, ANORM, 0, 0, 'N', A, LDA, WORK, IINFO )
+               clatms(N, N, 'S', ISEED, 'H', RWORK, IMODE, COND, ANORM, 0, 0, 'N', A, LDA, WORK, IINFO );
 
             } else if ( ITYPE.EQ.5 ) {
 
                // Hermitian, eigenvalues specified
 
-               CALL CLATMS( N, N, 'S', ISEED, 'H', RWORK, IMODE, COND, ANORM, N, N, 'N', A, LDA, WORK, IINFO )
+               clatms(N, N, 'S', ISEED, 'H', RWORK, IMODE, COND, ANORM, N, N, 'N', A, LDA, WORK, IINFO );
 
             } else if ( ITYPE.EQ.7 ) {
 
                // Diagonal, random eigenvalues
 
-               CALL CLATMR( N, N, 'S', ISEED, 'H', WORK, 6, ONE, CONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, 0, 0, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO )
+               clatmr(N, N, 'S', ISEED, 'H', WORK, 6, ONE, CONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, 0, 0, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO );
 
             } else if ( ITYPE.EQ.8 ) {
 
                // Hermitian, random eigenvalues
 
-               CALL CLATMR( N, N, 'S', ISEED, 'H', WORK, 6, ONE, CONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, N, N, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO )
+               clatmr(N, N, 'S', ISEED, 'H', WORK, 6, ONE, CONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, N, N, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO );
 
             } else if ( ITYPE.EQ.9 ) {
 
                // Hermitian banded, eigenvalues specified
 
                IHBW = INT( ( N-1 )*SLARND( 1, ISEED3 ) )
-               CALL CLATMS( N, N, 'S', ISEED, 'H', RWORK, IMODE, COND, ANORM, IHBW, IHBW, 'Z', U, LDU, WORK, IINFO )
+               clatms(N, N, 'S', ISEED, 'H', RWORK, IMODE, COND, ANORM, IHBW, IHBW, 'Z', U, LDU, WORK, IINFO );
 
                // Store as dense matrix for most routines.
 
-               CALL CLASET( 'Full', LDA, N, CZERO, CZERO, A, LDA )
+               claset('Full', LDA, N, CZERO, CZERO, A, LDA );
                DO 100 IDIAG = -IHBW, IHBW
                   IROW = IHBW - IDIAG + 1
                   J1 = MAX( 1, IDIAG+1 )
@@ -276,10 +276,10 @@
 
                // Call CHEEVD and CHEEVX.
 
-               CALL CLACPY( ' ', N, N, A, LDA, V, LDU )
+               clacpy(' ', N, N, A, LDA, V, LDU );
 
                NTEST = NTEST + 1
-               CALL CHEEVD( 'V', UPLO, N, A, LDU, D1, WORK, LWEDC, RWORK, LRWEDC, IWORK, LIWEDC, IINFO )
+               cheevd('V', UPLO, N, A, LDU, D1, WORK, LWEDC, RWORK, LRWEDC, IWORK, LIWEDC, IINFO );
                if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'CHEEVD(V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
@@ -295,12 +295,12 @@
 
                // Do tests 1 and 2.
 
-               CALL CHET21( 1, UPLO, N, 0, V, LDU, D1, D2, A, LDU, Z, LDU, TAU, WORK, RWORK, RESULT( NTEST ) )
+               chet21(1, UPLO, N, 0, V, LDU, D1, D2, A, LDU, Z, LDU, TAU, WORK, RWORK, RESULT( NTEST ) );
 
-               CALL CLACPY( ' ', N, N, V, LDU, A, LDA )
+               clacpy(' ', N, N, V, LDU, A, LDA );
 
                NTEST = NTEST + 2
-               CALL CHEEVD( 'N', UPLO, N, A, LDU, D3, WORK, LWEDC, RWORK, LRWEDC, IWORK, LIWEDC, IINFO )
+               cheevd('N', UPLO, N, A, LDU, D3, WORK, LWEDC, RWORK, LRWEDC, IWORK, LIWEDC, IINFO );
                if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'CHEEVD(N,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
@@ -323,7 +323,7 @@
                RESULT( NTEST ) = TEMP2 / MAX( UNFL, ULP*MAX( TEMP1, TEMP2 ) )
 
   130          CONTINUE
-               CALL CLACPY( ' ', N, N, V, LDU, A, LDA )
+               clacpy(' ', N, N, V, LDU, A, LDA );
 
                NTEST = NTEST + 1
 
@@ -345,7 +345,7 @@
                   VU = ONE
                }
 
-               CALL CHEEVX( 'V', 'A', UPLO, N, A, LDU, VL, VU, IL, IU, ABSTOL, M, WA1, Z, LDU, WORK, LWORK, RWORK, IWORK, IWORK( 5*N+1 ), IINFO )
+               cheevx('V', 'A', UPLO, N, A, LDU, VL, VU, IL, IU, ABSTOL, M, WA1, Z, LDU, WORK, LWORK, RWORK, IWORK, IWORK( 5*N+1 ), IINFO );
                if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'CHEEVX(V,A,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
@@ -361,12 +361,12 @@
 
                // Do tests 4 and 5.
 
-               CALL CLACPY( ' ', N, N, V, LDU, A, LDA )
+               clacpy(' ', N, N, V, LDU, A, LDA );
 
-               CALL CHET21( 1, UPLO, N, 0, A, LDU, WA1, D2, Z, LDU, V, LDU, TAU, WORK, RWORK, RESULT( NTEST ) )
+               chet21(1, UPLO, N, 0, A, LDU, WA1, D2, Z, LDU, V, LDU, TAU, WORK, RWORK, RESULT( NTEST ) );
 
                NTEST = NTEST + 2
-               CALL CHEEVX( 'N', 'A', UPLO, N, A, LDU, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, WORK, LWORK, RWORK, IWORK, IWORK( 5*N+1 ), IINFO )
+               cheevx('N', 'A', UPLO, N, A, LDU, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, WORK, LWORK, RWORK, IWORK, IWORK( 5*N+1 ), IINFO );
                if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'CHEEVX(N,A,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
@@ -389,11 +389,11 @@
                RESULT( NTEST ) = TEMP2 / MAX( UNFL, ULP*MAX( TEMP1, TEMP2 ) )
 
   150          CONTINUE
-               CALL CLACPY( ' ', N, N, V, LDU, A, LDA )
+               clacpy(' ', N, N, V, LDU, A, LDA );
 
                NTEST = NTEST + 1
 
-               CALL CHEEVX( 'V', 'I', UPLO, N, A, LDU, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, WORK, LWORK, RWORK, IWORK, IWORK( 5*N+1 ), IINFO )
+               cheevx('V', 'I', UPLO, N, A, LDU, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, WORK, LWORK, RWORK, IWORK, IWORK( 5*N+1 ), IINFO );
                if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'CHEEVX(V,I,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
@@ -407,13 +407,13 @@
 
                // Do tests 7 and 8.
 
-               CALL CLACPY( ' ', N, N, V, LDU, A, LDA )
+               clacpy(' ', N, N, V, LDU, A, LDA );
 
-               CALL CHET22( 1, UPLO, N, M2, 0, A, LDU, WA2, D2, Z, LDU, V, LDU, TAU, WORK, RWORK, RESULT( NTEST ) )
+               chet22(1, UPLO, N, M2, 0, A, LDU, WA2, D2, Z, LDU, V, LDU, TAU, WORK, RWORK, RESULT( NTEST ) );
 
                NTEST = NTEST + 2
 
-               CALL CHEEVX( 'N', 'I', UPLO, N, A, LDU, VL, VU, IL, IU, ABSTOL, M3, WA3, Z, LDU, WORK, LWORK, RWORK, IWORK, IWORK( 5*N+1 ), IINFO )
+               cheevx('N', 'I', UPLO, N, A, LDU, VL, VU, IL, IU, ABSTOL, M3, WA3, Z, LDU, WORK, LWORK, RWORK, IWORK, IWORK( 5*N+1 ), IINFO );
                if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'CHEEVX(N,I,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
@@ -437,11 +437,11 @@
                RESULT( NTEST ) = ( TEMP1+TEMP2 ) / MAX( UNFL, TEMP3*ULP )
 
   160          CONTINUE
-               CALL CLACPY( ' ', N, N, V, LDU, A, LDA )
+               clacpy(' ', N, N, V, LDU, A, LDA );
 
                NTEST = NTEST + 1
 
-               CALL CHEEVX( 'V', 'V', UPLO, N, A, LDU, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, WORK, LWORK, RWORK, IWORK, IWORK( 5*N+1 ), IINFO )
+               cheevx('V', 'V', UPLO, N, A, LDU, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, WORK, LWORK, RWORK, IWORK, IWORK( 5*N+1 ), IINFO );
                if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'CHEEVX(V,V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
@@ -455,13 +455,13 @@
 
                // Do tests 10 and 11.
 
-               CALL CLACPY( ' ', N, N, V, LDU, A, LDA )
+               clacpy(' ', N, N, V, LDU, A, LDA );
 
-               CALL CHET22( 1, UPLO, N, M2, 0, A, LDU, WA2, D2, Z, LDU, V, LDU, TAU, WORK, RWORK, RESULT( NTEST ) )
+               chet22(1, UPLO, N, M2, 0, A, LDU, WA2, D2, Z, LDU, V, LDU, TAU, WORK, RWORK, RESULT( NTEST ) );
 
                NTEST = NTEST + 2
 
-               CALL CHEEVX( 'N', 'V', UPLO, N, A, LDU, VL, VU, IL, IU, ABSTOL, M3, WA3, Z, LDU, WORK, LWORK, RWORK, IWORK, IWORK( 5*N+1 ), IINFO )
+               cheevx('N', 'V', UPLO, N, A, LDU, VL, VU, IL, IU, ABSTOL, M3, WA3, Z, LDU, WORK, LWORK, RWORK, IWORK, IWORK( 5*N+1 ), IINFO );
                if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'CHEEVX(N,V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
@@ -493,7 +493,7 @@
 
                // Call CHPEVD and CHPEVX.
 
-               CALL CLACPY( ' ', N, N, V, LDU, A, LDA )
+               clacpy(' ', N, N, V, LDU, A, LDA );
 
                // Load array WORK with the upper or lower triangular
                // part of the matrix in packed form.
@@ -518,7 +518,7 @@
 
                NTEST = NTEST + 1
                INDWRK = N*( N+1 ) / 2 + 1
-               CALL CHPEVD( 'V', UPLO, N, WORK, D1, Z, LDU, WORK( INDWRK ), LWEDC, RWORK, LRWEDC, IWORK, LIWEDC, IINFO )
+               chpevd('V', UPLO, N, WORK, D1, Z, LDU, WORK( INDWRK ), LWEDC, RWORK, LRWEDC, IWORK, LIWEDC, IINFO );
                if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'CHPEVD(V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
@@ -534,7 +534,7 @@
 
                // Do tests 13 and 14.
 
-               CALL CHET21( 1, UPLO, N, 0, A, LDA, D1, D2, Z, LDU, V, LDU, TAU, WORK, RWORK, RESULT( NTEST ) )
+               chet21(1, UPLO, N, 0, A, LDA, D1, D2, Z, LDU, V, LDU, TAU, WORK, RWORK, RESULT( NTEST ) );
 
                if ( IUPLO.EQ.1 ) {
                   INDX = 1
@@ -556,7 +556,7 @@
 
                NTEST = NTEST + 2
                INDWRK = N*( N+1 ) / 2 + 1
-               CALL CHPEVD( 'N', UPLO, N, WORK, D3, Z, LDU, WORK( INDWRK ), LWEDC, RWORK, LRWEDC, IWORK, LIWEDC, IINFO )
+               chpevd('N', UPLO, N, WORK, D3, Z, LDU, WORK( INDWRK ), LWEDC, RWORK, LRWEDC, IWORK, LIWEDC, IINFO );
                if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'CHPEVD(N,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
@@ -620,7 +620,7 @@
                   VU = ONE
                }
 
-               CALL CHPEVX( 'V', 'A', UPLO, N, WORK, VL, VU, IL, IU, ABSTOL, M, WA1, Z, LDU, V, RWORK, IWORK, IWORK( 5*N+1 ), IINFO )
+               chpevx('V', 'A', UPLO, N, WORK, VL, VU, IL, IU, ABSTOL, M, WA1, Z, LDU, V, RWORK, IWORK, IWORK( 5*N+1 ), IINFO );
                if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'CHPEVX(V,A,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
@@ -636,7 +636,7 @@
 
                // Do tests 16 and 17.
 
-               CALL CHET21( 1, UPLO, N, 0, A, LDU, WA1, D2, Z, LDU, V, LDU, TAU, WORK, RWORK, RESULT( NTEST ) )
+               chet21(1, UPLO, N, 0, A, LDU, WA1, D2, Z, LDU, V, LDU, TAU, WORK, RWORK, RESULT( NTEST ) );
 
                NTEST = NTEST + 2
 
@@ -658,7 +658,7 @@
   350             CONTINUE
                }
 
-               CALL CHPEVX( 'N', 'A', UPLO, N, WORK, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, V, RWORK, IWORK, IWORK( 5*N+1 ), IINFO )
+               chpevx('N', 'A', UPLO, N, WORK, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, V, RWORK, IWORK, IWORK( 5*N+1 ), IINFO );
                if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'CHPEVX(N,A,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
@@ -700,7 +700,7 @@
   410             CONTINUE
                }
 
-               CALL CHPEVX( 'V', 'I', UPLO, N, WORK, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, V, RWORK, IWORK, IWORK( 5*N+1 ), IINFO )
+               chpevx('V', 'I', UPLO, N, WORK, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, V, RWORK, IWORK, IWORK( 5*N+1 ), IINFO );
                if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'CHPEVX(V,I,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
@@ -716,7 +716,7 @@
 
                // Do tests 19 and 20.
 
-               CALL CHET22( 1, UPLO, N, M2, 0, A, LDU, WA2, D2, Z, LDU, V, LDU, TAU, WORK, RWORK, RESULT( NTEST ) )
+               chet22(1, UPLO, N, M2, 0, A, LDU, WA2, D2, Z, LDU, V, LDU, TAU, WORK, RWORK, RESULT( NTEST ) );
 
                NTEST = NTEST + 2
 
@@ -738,7 +738,7 @@
   450             CONTINUE
                }
 
-               CALL CHPEVX( 'N', 'I', UPLO, N, WORK, VL, VU, IL, IU, ABSTOL, M3, WA3, Z, LDU, V, RWORK, IWORK, IWORK( 5*N+1 ), IINFO )
+               chpevx('N', 'I', UPLO, N, WORK, VL, VU, IL, IU, ABSTOL, M3, WA3, Z, LDU, V, RWORK, IWORK, IWORK( 5*N+1 ), IINFO );
                if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'CHPEVX(N,I,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
@@ -781,7 +781,7 @@
   500             CONTINUE
                }
 
-               CALL CHPEVX( 'V', 'V', UPLO, N, WORK, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, V, RWORK, IWORK, IWORK( 5*N+1 ), IINFO )
+               chpevx('V', 'V', UPLO, N, WORK, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, V, RWORK, IWORK, IWORK( 5*N+1 ), IINFO );
                if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'CHPEVX(V,V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
@@ -797,7 +797,7 @@
 
                // Do tests 22 and 23.
 
-               CALL CHET22( 1, UPLO, N, M2, 0, A, LDU, WA2, D2, Z, LDU, V, LDU, TAU, WORK, RWORK, RESULT( NTEST ) )
+               chet22(1, UPLO, N, M2, 0, A, LDU, WA2, D2, Z, LDU, V, LDU, TAU, WORK, RWORK, RESULT( NTEST ) );
 
                NTEST = NTEST + 2
 
@@ -819,7 +819,7 @@
   540             CONTINUE
                }
 
-               CALL CHPEVX( 'N', 'V', UPLO, N, WORK, VL, VU, IL, IU, ABSTOL, M3, WA3, Z, LDU, V, RWORK, IWORK, IWORK( 5*N+1 ), IINFO )
+               chpevx('N', 'V', UPLO, N, WORK, VL, VU, IL, IU, ABSTOL, M3, WA3, Z, LDU, V, RWORK, IWORK, IWORK( 5*N+1 ), IINFO );
                if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'CHPEVX(N,V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
@@ -877,7 +877,7 @@
                }
 
                NTEST = NTEST + 1
-               CALL CHBEVD( 'V', UPLO, N, KD, V, LDU, D1, Z, LDU, WORK, LWEDC, RWORK, LRWEDC, IWORK, LIWEDC, IINFO )
+               chbevd('V', UPLO, N, KD, V, LDU, D1, Z, LDU, WORK, LWEDC, RWORK, LRWEDC, IWORK, LIWEDC, IINFO );
                if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9998 )'CHBEVD(V,' // UPLO // ')', IINFO, N, KD, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
@@ -893,7 +893,7 @@
 
                // Do tests 25 and 26.
 
-               CALL CHET21( 1, UPLO, N, 0, A, LDA, D1, D2, Z, LDU, V, LDU, TAU, WORK, RWORK, RESULT( NTEST ) )
+               chet21(1, UPLO, N, 0, A, LDA, D1, D2, Z, LDU, V, LDU, TAU, WORK, RWORK, RESULT( NTEST ) );
 
                if ( IUPLO.EQ.1 ) {
                   DO 610 J = 1, N
@@ -910,7 +910,7 @@
                }
 
                NTEST = NTEST + 2
-               CALL CHBEVD( 'N', UPLO, N, KD, V, LDU, D3, Z, LDU, WORK, LWEDC, RWORK, LRWEDC, IWORK, LIWEDC, IINFO )
+               chbevd('N', UPLO, N, KD, V, LDU, D3, Z, LDU, WORK, LWEDC, RWORK, LRWEDC, IWORK, LIWEDC, IINFO );
                if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9998 )'CHBEVD(N,' // UPLO // ')', IINFO, N, KD, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
@@ -951,7 +951,7 @@
                }
 
                NTEST = NTEST + 1
-               CALL CHBEVX( 'V', 'A', UPLO, N, KD, V, LDU, U, LDU, VL, VU, IL, IU, ABSTOL, M, WA1, Z, LDU, WORK, RWORK, IWORK, IWORK( 5*N+1 ), IINFO )
+               chbevx('V', 'A', UPLO, N, KD, V, LDU, U, LDU, VL, VU, IL, IU, ABSTOL, M, WA1, Z, LDU, WORK, RWORK, IWORK, IWORK( 5*N+1 ), IINFO );
                if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'CHBEVX(V,A,' // UPLO // ')', IINFO, N, KD, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
@@ -967,7 +967,7 @@
 
                // Do tests 28 and 29.
 
-               CALL CHET21( 1, UPLO, N, 0, A, LDU, WA1, D2, Z, LDU, V, LDU, TAU, WORK, RWORK, RESULT( NTEST ) )
+               chet21(1, UPLO, N, 0, A, LDU, WA1, D2, Z, LDU, V, LDU, TAU, WORK, RWORK, RESULT( NTEST ) );
 
                NTEST = NTEST + 2
 
@@ -985,7 +985,7 @@
   730             CONTINUE
                }
 
-               CALL CHBEVX( 'N', 'A', UPLO, N, KD, V, LDU, U, LDU, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, WORK, RWORK, IWORK, IWORK( 5*N+1 ), IINFO )
+               chbevx('N', 'A', UPLO, N, KD, V, LDU, U, LDU, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, WORK, RWORK, IWORK, IWORK( 5*N+1 ), IINFO );
                if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9998 )'CHBEVX(N,A,' // UPLO // ')', IINFO, N, KD, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
@@ -1026,7 +1026,7 @@
   790             CONTINUE
                }
 
-               CALL CHBEVX( 'V', 'I', UPLO, N, KD, V, LDU, U, LDU, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, WORK, RWORK, IWORK, IWORK( 5*N+1 ), IINFO )
+               chbevx('V', 'I', UPLO, N, KD, V, LDU, U, LDU, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, WORK, RWORK, IWORK, IWORK( 5*N+1 ), IINFO );
                if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9998 )'CHBEVX(V,I,' // UPLO // ')', IINFO, N, KD, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
@@ -1042,7 +1042,7 @@
 
                // Do tests 31 and 32.
 
-               CALL CHET22( 1, UPLO, N, M2, 0, A, LDU, WA2, D2, Z, LDU, V, LDU, TAU, WORK, RWORK, RESULT( NTEST ) )
+               chet22(1, UPLO, N, M2, 0, A, LDU, WA2, D2, Z, LDU, V, LDU, TAU, WORK, RWORK, RESULT( NTEST ) );
 
                NTEST = NTEST + 2
 
@@ -1059,7 +1059,7 @@
   820                CONTINUE
   830             CONTINUE
                }
-               CALL CHBEVX( 'N', 'I', UPLO, N, KD, V, LDU, U, LDU, VL, VU, IL, IU, ABSTOL, M3, WA3, Z, LDU, WORK, RWORK, IWORK, IWORK( 5*N+1 ), IINFO )
+               chbevx('N', 'I', UPLO, N, KD, V, LDU, U, LDU, VL, VU, IL, IU, ABSTOL, M3, WA3, Z, LDU, WORK, RWORK, IWORK, IWORK( 5*N+1 ), IINFO );
                if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9998 )'CHBEVX(N,I,' // UPLO // ')', IINFO, N, KD, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
@@ -1100,7 +1100,7 @@
   870                CONTINUE
   880             CONTINUE
                }
-               CALL CHBEVX( 'V', 'V', UPLO, N, KD, V, LDU, U, LDU, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, WORK, RWORK, IWORK, IWORK( 5*N+1 ), IINFO )
+               chbevx('V', 'V', UPLO, N, KD, V, LDU, U, LDU, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, WORK, RWORK, IWORK, IWORK( 5*N+1 ), IINFO );
                if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9998 )'CHBEVX(V,V,' // UPLO // ')', IINFO, N, KD, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
@@ -1116,7 +1116,7 @@
 
                // Do tests 34 and 35.
 
-               CALL CHET22( 1, UPLO, N, M2, 0, A, LDU, WA2, D2, Z, LDU, V, LDU, TAU, WORK, RWORK, RESULT( NTEST ) )
+               chet22(1, UPLO, N, M2, 0, A, LDU, WA2, D2, Z, LDU, V, LDU, TAU, WORK, RWORK, RESULT( NTEST ) );
 
                NTEST = NTEST + 2
 
@@ -1133,7 +1133,7 @@
   910                CONTINUE
   920             CONTINUE
                }
-               CALL CHBEVX( 'N', 'V', UPLO, N, KD, V, LDU, U, LDU, VL, VU, IL, IU, ABSTOL, M3, WA3, Z, LDU, WORK, RWORK, IWORK, IWORK( 5*N+1 ), IINFO )
+               chbevx('N', 'V', UPLO, N, KD, V, LDU, U, LDU, VL, VU, IL, IU, ABSTOL, M3, WA3, Z, LDU, WORK, RWORK, IWORK, IWORK( 5*N+1 ), IINFO );
                if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9998 )'CHBEVX(N,V,' // UPLO // ')', IINFO, N, KD, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
@@ -1165,10 +1165,10 @@
 
                // Call CHEEV
 
-               CALL CLACPY( ' ', N, N, A, LDA, V, LDU )
+               clacpy(' ', N, N, A, LDA, V, LDU );
 
                NTEST = NTEST + 1
-               CALL CHEEV( 'V', UPLO, N, A, LDU, D1, WORK, LWORK, RWORK, IINFO )
+               cheev('V', UPLO, N, A, LDU, D1, WORK, LWORK, RWORK, IINFO );
                if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'CHEEV(V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
@@ -1184,12 +1184,12 @@
 
                // Do tests 37 and 38
 
-               CALL CHET21( 1, UPLO, N, 0, V, LDU, D1, D2, A, LDU, Z, LDU, TAU, WORK, RWORK, RESULT( NTEST ) )
+               chet21(1, UPLO, N, 0, V, LDU, D1, D2, A, LDU, Z, LDU, TAU, WORK, RWORK, RESULT( NTEST ) );
 
-               CALL CLACPY( ' ', N, N, V, LDU, A, LDA )
+               clacpy(' ', N, N, V, LDU, A, LDA );
 
                NTEST = NTEST + 2
-               CALL CHEEV( 'N', UPLO, N, A, LDU, D3, WORK, LWORK, RWORK, IINFO )
+               cheev('N', UPLO, N, A, LDU, D3, WORK, LWORK, RWORK, IINFO );
                if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'CHEEV(N,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
@@ -1213,7 +1213,7 @@
 
   950          CONTINUE
 
-               CALL CLACPY( ' ', N, N, V, LDU, A, LDA )
+               clacpy(' ', N, N, V, LDU, A, LDA );
 
                // Call CHPEV
 
@@ -1240,7 +1240,7 @@
 
                NTEST = NTEST + 1
                INDWRK = N*( N+1 ) / 2 + 1
-               CALL CHPEV( 'V', UPLO, N, WORK, D1, Z, LDU, WORK( INDWRK ), RWORK, IINFO )
+               chpev('V', UPLO, N, WORK, D1, Z, LDU, WORK( INDWRK ), RWORK, IINFO );
                if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'CHPEV(V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
@@ -1256,7 +1256,7 @@
 
                // Do tests 40 and 41.
 
-               CALL CHET21( 1, UPLO, N, 0, A, LDA, D1, D2, Z, LDU, V, LDU, TAU, WORK, RWORK, RESULT( NTEST ) )
+               chet21(1, UPLO, N, 0, A, LDA, D1, D2, Z, LDU, V, LDU, TAU, WORK, RWORK, RESULT( NTEST ) );
 
                if ( IUPLO.EQ.1 ) {
                   INDX = 1
@@ -1278,7 +1278,7 @@
 
                NTEST = NTEST + 2
                INDWRK = N*( N+1 ) / 2 + 1
-               CALL CHPEV( 'N', UPLO, N, WORK, D3, Z, LDU, WORK( INDWRK ), RWORK, IINFO )
+               chpev('N', UPLO, N, WORK, D3, Z, LDU, WORK( INDWRK ), RWORK, IINFO );
                if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'CHPEV(N,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
@@ -1330,7 +1330,7 @@
                }
 
                NTEST = NTEST + 1
-               CALL CHBEV( 'V', UPLO, N, KD, V, LDU, D1, Z, LDU, WORK, RWORK, IINFO )
+               chbev('V', UPLO, N, KD, V, LDU, D1, Z, LDU, WORK, RWORK, IINFO );
                if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9998 )'CHBEV(V,' // UPLO // ')', IINFO, N, KD, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
@@ -1346,7 +1346,7 @@
 
                // Do tests 43 and 44.
 
-               CALL CHET21( 1, UPLO, N, 0, A, LDA, D1, D2, Z, LDU, V, LDU, TAU, WORK, RWORK, RESULT( NTEST ) )
+               chet21(1, UPLO, N, 0, A, LDA, D1, D2, Z, LDU, V, LDU, TAU, WORK, RWORK, RESULT( NTEST ) );
 
                if ( IUPLO.EQ.1 ) {
                   DO 1110 J = 1, N
@@ -1363,7 +1363,7 @@
                }
 
                NTEST = NTEST + 2
-               CALL CHBEV( 'N', UPLO, N, KD, V, LDU, D3, Z, LDU, WORK, RWORK, IINFO )
+               chbev('N', UPLO, N, KD, V, LDU, D3, Z, LDU, WORK, RWORK, IINFO );
                if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9998 )'CHBEV(N,' // UPLO // ')', IINFO, N, KD, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
@@ -1387,9 +1387,9 @@
  1150          CONTINUE
                RESULT( NTEST ) = TEMP2 / MAX( UNFL, ULP*MAX( TEMP1, TEMP2 ) )
 
-               CALL CLACPY( ' ', N, N, A, LDA, V, LDU )
+               clacpy(' ', N, N, A, LDA, V, LDU );
                NTEST = NTEST + 1
-               CALL CHEEVR( 'V', 'A', UPLO, N, A, LDU, VL, VU, IL, IU, ABSTOL, M, WA1, Z, LDU, IWORK, WORK, LWORK, RWORK, LRWORK, IWORK( 2*N+1 ), LIWORK-2*N, IINFO )
+               cheevr('V', 'A', UPLO, N, A, LDU, VL, VU, IL, IU, ABSTOL, M, WA1, Z, LDU, IWORK, WORK, LWORK, RWORK, LRWORK, IWORK( 2*N+1 ), LIWORK-2*N, IINFO );
                if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'CHEEVR(V,A,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
@@ -1405,12 +1405,12 @@
 
                // Do tests 45 and 46 (or ... )
 
-               CALL CLACPY( ' ', N, N, V, LDU, A, LDA )
+               clacpy(' ', N, N, V, LDU, A, LDA );
 
-               CALL CHET21( 1, UPLO, N, 0, A, LDU, WA1, D2, Z, LDU, V, LDU, TAU, WORK, RWORK, RESULT( NTEST ) )
+               chet21(1, UPLO, N, 0, A, LDU, WA1, D2, Z, LDU, V, LDU, TAU, WORK, RWORK, RESULT( NTEST ) );
 
                NTEST = NTEST + 2
-               CALL CHEEVR( 'N', 'A', UPLO, N, A, LDU, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, IWORK, WORK, LWORK, RWORK, LRWORK, IWORK( 2*N+1 ), LIWORK-2*N, IINFO )
+               cheevr('N', 'A', UPLO, N, A, LDU, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, IWORK, WORK, LWORK, RWORK, LRWORK, IWORK( 2*N+1 ), LIWORK-2*N, IINFO );
                if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'CHEEVR(N,A,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
@@ -1435,8 +1435,8 @@
  1170          CONTINUE
 
                NTEST = NTEST + 1
-               CALL CLACPY( ' ', N, N, V, LDU, A, LDA )
-               CALL CHEEVR( 'V', 'I', UPLO, N, A, LDU, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, IWORK, WORK, LWORK, RWORK, LRWORK, IWORK( 2*N+1 ), LIWORK-2*N, IINFO )
+               clacpy(' ', N, N, V, LDU, A, LDA );
+               cheevr('V', 'I', UPLO, N, A, LDU, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, IWORK, WORK, LWORK, RWORK, LRWORK, IWORK( 2*N+1 ), LIWORK-2*N, IINFO );
                if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'CHEEVR(V,I,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
@@ -1452,13 +1452,13 @@
 
                // Do tests 48 and 49 (or +??)
 
-               CALL CLACPY( ' ', N, N, V, LDU, A, LDA )
+               clacpy(' ', N, N, V, LDU, A, LDA );
 
-               CALL CHET22( 1, UPLO, N, M2, 0, A, LDU, WA2, D2, Z, LDU, V, LDU, TAU, WORK, RWORK, RESULT( NTEST ) )
+               chet22(1, UPLO, N, M2, 0, A, LDU, WA2, D2, Z, LDU, V, LDU, TAU, WORK, RWORK, RESULT( NTEST ) );
 
                NTEST = NTEST + 2
-               CALL CLACPY( ' ', N, N, V, LDU, A, LDA )
-               CALL CHEEVR( 'N', 'I', UPLO, N, A, LDU, VL, VU, IL, IU, ABSTOL, M3, WA3, Z, LDU, IWORK, WORK, LWORK, RWORK, LRWORK, IWORK( 2*N+1 ), LIWORK-2*N, IINFO )
+               clacpy(' ', N, N, V, LDU, A, LDA );
+               cheevr('N', 'I', UPLO, N, A, LDU, VL, VU, IL, IU, ABSTOL, M3, WA3, Z, LDU, IWORK, WORK, LWORK, RWORK, LRWORK, IWORK( 2*N+1 ), LIWORK-2*N, IINFO );
                if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'CHEEVR(N,I,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
@@ -1478,8 +1478,8 @@
  1180          CONTINUE
 
                NTEST = NTEST + 1
-               CALL CLACPY( ' ', N, N, V, LDU, A, LDA )
-               CALL CHEEVR( 'V', 'V', UPLO, N, A, LDU, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, IWORK, WORK, LWORK, RWORK, LRWORK, IWORK( 2*N+1 ), LIWORK-2*N, IINFO )
+               clacpy(' ', N, N, V, LDU, A, LDA );
+               cheevr('V', 'V', UPLO, N, A, LDU, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, IWORK, WORK, LWORK, RWORK, LRWORK, IWORK( 2*N+1 ), LIWORK-2*N, IINFO );
                if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'CHEEVR(V,V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
@@ -1495,13 +1495,13 @@
 
                // Do tests 51 and 52 (or +??)
 
-               CALL CLACPY( ' ', N, N, V, LDU, A, LDA )
+               clacpy(' ', N, N, V, LDU, A, LDA );
 
-               CALL CHET22( 1, UPLO, N, M2, 0, A, LDU, WA2, D2, Z, LDU, V, LDU, TAU, WORK, RWORK, RESULT( NTEST ) )
+               chet22(1, UPLO, N, M2, 0, A, LDU, WA2, D2, Z, LDU, V, LDU, TAU, WORK, RWORK, RESULT( NTEST ) );
 
                NTEST = NTEST + 2
-               CALL CLACPY( ' ', N, N, V, LDU, A, LDA )
-               CALL CHEEVR( 'N', 'V', UPLO, N, A, LDU, VL, VU, IL, IU, ABSTOL, M3, WA3, Z, LDU, IWORK, WORK, LWORK, RWORK, LRWORK, IWORK( 2*N+1 ), LIWORK-2*N, IINFO )
+               clacpy(' ', N, N, V, LDU, A, LDA );
+               cheevr('N', 'V', UPLO, N, A, LDU, VL, VU, IL, IU, ABSTOL, M3, WA3, Z, LDU, IWORK, WORK, LWORK, RWORK, LRWORK, IWORK( 2*N+1 ), LIWORK-2*N, IINFO );
                if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'CHEEVR(N,V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
@@ -1529,7 +1529,7 @@
                }
                RESULT( NTEST ) = ( TEMP1+TEMP2 ) / MAX( UNFL, TEMP3*ULP )
 
-               CALL CLACPY( ' ', N, N, V, LDU, A, LDA )
+               clacpy(' ', N, N, V, LDU, A, LDA );
 
 
 
@@ -1544,14 +1544,14 @@
             // End of Loop -- Check for RESULT(j) > THRESH
 
             NTESTT = NTESTT + NTEST
-            CALL SLAFTS( 'CST', N, N, JTYPE, NTEST, RESULT, IOLDSD, THRESH, NOUNIT, NERRS )
+            slafts('CST', N, N, JTYPE, NTEST, RESULT, IOLDSD, THRESH, NOUNIT, NERRS );
 
  1210    CONTINUE
  1220 CONTINUE
 
       // Summary
 
-      CALL ALASVM( 'CST', NOUNIT, NERRS, NTESTT, 0 )
+      alasvm('CST', NOUNIT, NERRS, NTESTT, 0 );
 
  9999 FORMAT( ' CDRVST: ', A, ' returned INFO=', I6, / 9X, 'N=', I6, ', JTYPE=', I6, ', ISEED=(', 3( I5, ',' ), I5, ')' )
  9998 FORMAT( ' CDRVST: ', A, ' returned INFO=', I6, / 9X, 'N=', I6, ', KD=', I6, ', JTYPE=', I6, ', ISEED=(', 3( I5, ',' ), I5, ')' )

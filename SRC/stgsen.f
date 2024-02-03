@@ -63,7 +63,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'STGSEN', -INFO )
+         xerbla('STGSEN', -INFO );
          RETURN
       }
 
@@ -123,7 +123,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'STGSEN', -INFO )
+         xerbla('STGSEN', -INFO );
          RETURN
       } else if ( LQUERY ) {
          RETURN
@@ -140,8 +140,8 @@
             DSCALE = ZERO
             DSUM = ONE
             DO 20 I = 1, N
-               CALL SLASSQ( N, A( 1, I ), 1, DSCALE, DSUM )
-               CALL SLASSQ( N, B( 1, I ), 1, DSCALE, DSUM )
+               slassq(N, A( 1, I ), 1, DSCALE, DSUM );
+               slassq(N, B( 1, I ), 1, DSCALE, DSUM );
    20       CONTINUE
             DIF( 1 ) = DSCALE*SQRT( DSUM )
             DIF( 2 ) = DIF( 1 )
@@ -206,15 +206,15 @@
          N2 = N - M
          I = N1 + 1
          IJB = 0
-         CALL SLACPY( 'Full', N1, N2, A( 1, I ), LDA, WORK, N1 )
-         CALL SLACPY( 'Full', N1, N2, B( 1, I ), LDB, WORK( N1*N2+1 ), N1 )          CALL STGSYL( 'N', IJB, N1, N2, A, LDA, A( I, I ), LDA, WORK, N1, B, LDB, B( I, I ), LDB, WORK( N1*N2+1 ), N1, DSCALE, DIF( 1 ), WORK( N1*N2*2+1 ), LWORK-2*N1*N2, IWORK, IERR )
+         slacpy('Full', N1, N2, A( 1, I ), LDA, WORK, N1 );
+         slacpy('Full', N1, N2, B( 1, I ), LDB, WORK( N1*N2+1 ), N1 )          CALL STGSYL( 'N', IJB, N1, N2, A, LDA, A( I, I ), LDA, WORK, N1, B, LDB, B( I, I ), LDB, WORK( N1*N2+1 ), N1, DSCALE, DIF( 1 ), WORK( N1*N2*2+1 ), LWORK-2*N1*N2, IWORK, IERR );
 
          // Estimate the reciprocal of norms of "projections" onto left
          // and right eigenspaces.
 
          RDSCAL = ZERO
          DSUM = ONE
-         CALL SLASSQ( N1*N2, WORK, 1, RDSCAL, DSUM )
+         slassq(N1*N2, WORK, 1, RDSCAL, DSUM );
          PL = RDSCAL*SQRT( DSUM )
          if ( PL.EQ.ZERO ) {
             PL = ONE
@@ -223,7 +223,7 @@
          }
          RDSCAL = ZERO
          DSUM = ONE
-         CALL SLASSQ( N1*N2, WORK( N1*N2+1 ), 1, RDSCAL, DSUM )
+         slassq(N1*N2, WORK( N1*N2+1 ), 1, RDSCAL, DSUM );
          PR = RDSCAL*SQRT( DSUM )
          if ( PR.EQ.ZERO ) {
             PR = ONE
@@ -244,11 +244,11 @@
 
             // Frobenius norm-based Difu-estimate.
 
-            CALL STGSYL( 'N', IJB, N1, N2, A, LDA, A( I, I ), LDA, WORK, N1, B, LDB, B( I, I ), LDB, WORK( N1*N2+1 ), N1, DSCALE, DIF( 1 ), WORK( 2*N1*N2+1 ), LWORK-2*N1*N2, IWORK, IERR )
+            stgsyl('N', IJB, N1, N2, A, LDA, A( I, I ), LDA, WORK, N1, B, LDB, B( I, I ), LDB, WORK( N1*N2+1 ), N1, DSCALE, DIF( 1 ), WORK( 2*N1*N2+1 ), LWORK-2*N1*N2, IWORK, IERR );
 
             // Frobenius norm-based Difl-estimate.
 
-            CALL STGSYL( 'N', IJB, N2, N1, A( I, I ), LDA, A, LDA, WORK, N2, B( I, I ), LDB, B, LDB, WORK( N1*N2+1 ), N2, DSCALE, DIF( 2 ), WORK( 2*N1*N2+1 ), LWORK-2*N1*N2, IWORK, IERR )
+            stgsyl('N', IJB, N2, N1, A( I, I ), LDA, A, LDA, WORK, N2, B( I, I ), LDB, B, LDB, WORK( N1*N2+1 ), N2, DSCALE, DIF( 2 ), WORK( 2*N1*N2+1 ), LWORK-2*N1*N2, IWORK, IERR );
          } else {
 
 
@@ -267,18 +267,18 @@
             // 1-norm-based estimate of Difu.
 
    40       CONTINUE
-            CALL SLACN2( MN2, WORK( MN2+1 ), WORK, IWORK, DIF( 1 ), KASE, ISAVE )
+            slacn2(MN2, WORK( MN2+1 ), WORK, IWORK, DIF( 1 ), KASE, ISAVE );
             if ( KASE.NE.0 ) {
                if ( KASE.EQ.1 ) {
 
                   // Solve generalized Sylvester equation.
 
-                  CALL STGSYL( 'N', IJB, N1, N2, A, LDA, A( I, I ), LDA, WORK, N1, B, LDB, B( I, I ), LDB, WORK( N1*N2+1 ), N1, DSCALE, DIF( 1 ), WORK( 2*N1*N2+1 ), LWORK-2*N1*N2, IWORK, IERR )
+                  stgsyl('N', IJB, N1, N2, A, LDA, A( I, I ), LDA, WORK, N1, B, LDB, B( I, I ), LDB, WORK( N1*N2+1 ), N1, DSCALE, DIF( 1 ), WORK( 2*N1*N2+1 ), LWORK-2*N1*N2, IWORK, IERR );
                } else {
 
                   // Solve the transposed variant.
 
-                  CALL STGSYL( 'T', IJB, N1, N2, A, LDA, A( I, I ), LDA, WORK, N1, B, LDB, B( I, I ), LDB, WORK( N1*N2+1 ), N1, DSCALE, DIF( 1 ), WORK( 2*N1*N2+1 ), LWORK-2*N1*N2, IWORK, IERR )
+                  stgsyl('T', IJB, N1, N2, A, LDA, A( I, I ), LDA, WORK, N1, B, LDB, B( I, I ), LDB, WORK( N1*N2+1 ), N1, DSCALE, DIF( 1 ), WORK( 2*N1*N2+1 ), LWORK-2*N1*N2, IWORK, IERR );
                }
                GO TO 40
             }
@@ -287,18 +287,18 @@
             // 1-norm-based estimate of Difl.
 
    50       CONTINUE
-            CALL SLACN2( MN2, WORK( MN2+1 ), WORK, IWORK, DIF( 2 ), KASE, ISAVE )
+            slacn2(MN2, WORK( MN2+1 ), WORK, IWORK, DIF( 2 ), KASE, ISAVE );
             if ( KASE.NE.0 ) {
                if ( KASE.EQ.1 ) {
 
                   // Solve generalized Sylvester equation.
 
-                  CALL STGSYL( 'N', IJB, N2, N1, A( I, I ), LDA, A, LDA, WORK, N2, B( I, I ), LDB, B, LDB, WORK( N1*N2+1 ), N2, DSCALE, DIF( 2 ), WORK( 2*N1*N2+1 ), LWORK-2*N1*N2, IWORK, IERR )
+                  stgsyl('N', IJB, N2, N1, A( I, I ), LDA, A, LDA, WORK, N2, B( I, I ), LDB, B, LDB, WORK( N1*N2+1 ), N2, DSCALE, DIF( 2 ), WORK( 2*N1*N2+1 ), LWORK-2*N1*N2, IWORK, IERR );
                } else {
 
                   // Solve the transposed variant.
 
-                  CALL STGSYL( 'T', IJB, N2, N1, A( I, I ), LDA, A, LDA, WORK, N2, B( I, I ), LDB, B, LDB, WORK( N1*N2+1 ), N2, DSCALE, DIF( 2 ), WORK( 2*N1*N2+1 ), LWORK-2*N1*N2, IWORK, IERR )
+                  stgsyl('T', IJB, N2, N1, A( I, I ), LDA, A, LDA, WORK, N2, B( I, I ), LDB, B, LDB, WORK( N1*N2+1 ), N2, DSCALE, DIF( 2 ), WORK( 2*N1*N2+1 ), LWORK-2*N1*N2, IWORK, IERR );
                }
                GO TO 50
             }
@@ -336,7 +336,7 @@
                WORK( 6 ) = B( K+1, K )
                WORK( 7 ) = B( K, K+1 )
                WORK( 8 ) = B( K+1, K+1 )
-               CALL SLAG2( WORK, 2, WORK( 5 ), 2, SMLNUM*EPS, BETA( K ), BETA( K+1 ), ALPHAR( K ), ALPHAR( K+1 ), ALPHAI( K ) )
+               slag2(WORK, 2, WORK( 5 ), 2, SMLNUM*EPS, BETA( K ), BETA( K+1 ), ALPHAR( K ), ALPHAR( K+1 ), ALPHAI( K ) );
                ALPHAI( K+1 ) = -ALPHAI( K )
 
             } else {

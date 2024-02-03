@@ -108,15 +108,15 @@
                // Set up parameters with CLATB4 and generate a test matrix
                // with CLATMS.
 
-               CALL CLATB4( PATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST )
+               clatb4(PATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST );
 
                SRNAMT = 'CLATMS'
-               CALL CLATMS( N, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KL, KU, PACKIT, A, LDA, WORK, INFO )
+               clatms(N, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KL, KU, PACKIT, A, LDA, WORK, INFO );
 
                // Check error code from CLATMS.
 
                if ( INFO.NE.0 ) {
-                  CALL ALAERH( PATH, 'CLATMS', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT )
+                  alaerh(PATH, 'CLATMS', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
                   GO TO 90
                }
 
@@ -162,22 +162,22 @@
                // Set the imaginary part of the diagonals.
 
                if ( IUPLO.EQ.1 ) {
-                  CALL CLAIPD( N, A, 2, 1 )
+                  claipd(N, A, 2, 1 );
                } else {
-                  CALL CLAIPD( N, A, N, -1 )
+                  claipd(N, A, N, -1 );
                }
 
                // Compute the L*L' or U'*U factorization of the matrix.
 
                NPP = N*( N+1 ) / 2
-               CALL CCOPY( NPP, A, 1, AFAC, 1 )
+               ccopy(NPP, A, 1, AFAC, 1 );
                SRNAMT = 'CPPTRF'
-               CALL CPPTRF( UPLO, N, AFAC, INFO )
+               cpptrf(UPLO, N, AFAC, INFO );
 
                // Check error code from CPPTRF.
 
                if ( INFO.NE.IZERO ) {
-                  CALL ALAERH( PATH, 'CPPTRF', INFO, IZERO, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT )
+                  alaerh(PATH, 'CPPTRF', INFO, IZERO, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
                   GO TO 90
                }
 
@@ -188,21 +188,21 @@
 *+    TEST 1
                // Reconstruct matrix from factors and compute residual.
 
-               CALL CCOPY( NPP, AFAC, 1, AINV, 1 )
-               CALL CPPT01( UPLO, N, A, AINV, RWORK, RESULT( 1 ) )
+               ccopy(NPP, AFAC, 1, AINV, 1 );
+               cppt01(UPLO, N, A, AINV, RWORK, RESULT( 1 ) );
 
 *+    TEST 2
                // Form the inverse and compute the residual.
 
-               CALL CCOPY( NPP, AFAC, 1, AINV, 1 )
+               ccopy(NPP, AFAC, 1, AINV, 1 );
                SRNAMT = 'CPPTRI'
-               CALL CPPTRI( UPLO, N, AINV, INFO )
+               cpptri(UPLO, N, AINV, INFO );
 
                // Check error code from CPPTRI.
 
                IF( INFO.NE.0 ) CALL ALAERH( PATH, 'CPPTRI', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT )
 
-               CALL CPPT03( UPLO, N, A, AINV, WORK, LDA, RWORK, RCONDC, RESULT( 2 ) )
+               cppt03(UPLO, N, A, AINV, WORK, LDA, RWORK, RCONDC, RESULT( 2 ) );
 
                // Print information about the tests that did not pass
                // the threshold.
@@ -222,35 +222,35 @@
                // Solve and compute residual for  A * X = B.
 
                   SRNAMT = 'CLARHS'
-                  CALL CLARHS( PATH, XTYPE, UPLO, ' ', N, N, KL, KU, NRHS, A, LDA, XACT, LDA, B, LDA, ISEED, INFO )
-                  CALL CLACPY( 'Full', N, NRHS, B, LDA, X, LDA )
+                  clarhs(PATH, XTYPE, UPLO, ' ', N, N, KL, KU, NRHS, A, LDA, XACT, LDA, B, LDA, ISEED, INFO );
+                  clacpy('Full', N, NRHS, B, LDA, X, LDA );
 
                   SRNAMT = 'CPPTRS'
-                  CALL CPPTRS( UPLO, N, NRHS, AFAC, X, LDA, INFO )
+                  cpptrs(UPLO, N, NRHS, AFAC, X, LDA, INFO );
 
                // Check error code from CPPTRS.
 
                   IF( INFO.NE.0 ) CALL ALAERH( PATH, 'CPPTRS', INFO, 0, UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT )
 
-                  CALL CLACPY( 'Full', N, NRHS, B, LDA, WORK, LDA )
-                  CALL CPPT02( UPLO, N, NRHS, A, X, LDA, WORK, LDA, RWORK, RESULT( 3 ) )
+                  clacpy('Full', N, NRHS, B, LDA, WORK, LDA );
+                  cppt02(UPLO, N, NRHS, A, X, LDA, WORK, LDA, RWORK, RESULT( 3 ) );
 
 *+    TEST 4
                // Check solution from generated exact solution.
 
-                  CALL CGET04( N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 4 ) )
+                  cget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 4 ) );
 
 *+    TESTS 5, 6, and 7
                // Use iterative refinement to improve the solution.
 
                   SRNAMT = 'CPPRFS'
-                  CALL CPPRFS( UPLO, N, NRHS, A, AFAC, B, LDA, X, LDA, RWORK, RWORK( NRHS+1 ), WORK, RWORK( 2*NRHS+1 ), INFO )
+                  cpprfs(UPLO, N, NRHS, A, AFAC, B, LDA, X, LDA, RWORK, RWORK( NRHS+1 ), WORK, RWORK( 2*NRHS+1 ), INFO );
 
                // Check error code from CPPRFS.
 
                   IF( INFO.NE.0 ) CALL ALAERH( PATH, 'CPPRFS', INFO, 0, UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT )
 
-                  CALL CGET04( N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 5 ) )                   CALL CPPT05( UPLO, N, NRHS, A, B, LDA, X, LDA, XACT, LDA, RWORK, RWORK( NRHS+1 ), RESULT( 6 ) )
+                  cget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 5 ) )                   CALL CPPT05( UPLO, N, NRHS, A, B, LDA, X, LDA, XACT, LDA, RWORK, RWORK( NRHS+1 ), RESULT( 6 ) );
 
                   // Print information about the tests that did not pass
                   // the threshold.
@@ -269,7 +269,7 @@
 
                ANORM = CLANHP( '1', UPLO, N, A, RWORK )
                SRNAMT = 'CPPCON'
-               CALL CPPCON( UPLO, N, AFAC, ANORM, RCOND, WORK, RWORK, INFO )
+               cppcon(UPLO, N, AFAC, ANORM, RCOND, WORK, RWORK, INFO );
 
                // Check error code from CPPCON.
 
@@ -291,7 +291,7 @@
 
       // Print a summary of the results.
 
-      CALL ALASUM( PATH, NOUT, NFAIL, NRUN, NERRS )
+      alasum(PATH, NOUT, NFAIL, NRUN, NERRS );
 
  9999 FORMAT( ' UPLO = ''', A1, ''', N =', I5, ', type ', I2, ', test ', I2, ', ratio =', G12.5 )
  9998 FORMAT( ' UPLO = ''', A1, ''', N =', I5, ', NRHS=', I3, ', type ', I2, ', test(', I2, ') =', G12.5 )

@@ -47,12 +47,12 @@
          NROWS = N
          NCOLS = M
       } else {
-         CALL XERBLA( 'CQRT17', 1 )
+         xerbla('CQRT17', 1 );
          RETURN
       }
 
       if ( LWORK.LT.NCOLS*NRHS ) {
-         CALL XERBLA( 'CQRT17', 13 )
+         xerbla('CQRT17', 13 );
          RETURN
       }
 
@@ -64,17 +64,17 @@
 
       // compute residual and scale it
 
-      CALL CLACPY( 'All', NROWS, NRHS, B, LDB, C, LDB )
-      CALL CGEMM( TRANS, 'No transpose', NROWS, NRHS, NCOLS, CMPLX( -ONE ), A, LDA, X, LDX, CMPLX( ONE ), C, LDB )
+      clacpy('All', NROWS, NRHS, B, LDB, C, LDB );
+      cgemm(TRANS, 'No transpose', NROWS, NRHS, NCOLS, CMPLX( -ONE ), A, LDA, X, LDX, CMPLX( ONE ), C, LDB );
       NORMRS = CLANGE( 'Max', NROWS, NRHS, C, LDB, RWORK )
       if ( NORMRS.GT.SMLNUM ) {
          ISCL = 1
-         CALL CLASCL( 'General', 0, 0, NORMRS, ONE, NROWS, NRHS, C, LDB, INFO )
+         clascl('General', 0, 0, NORMRS, ONE, NROWS, NRHS, C, LDB, INFO );
       }
 
       // compute R**H * op(A)
 
-      CALL CGEMM( 'Conjugate transpose', TRANS, NRHS, NCOLS, NROWS, CMPLX( ONE ), C, LDB, A, LDA, CMPLX( ZERO ), WORK, NRHS )
+      cgemm('Conjugate transpose', TRANS, NRHS, NCOLS, NROWS, CMPLX( ONE ), C, LDB, A, LDA, CMPLX( ZERO ), WORK, NRHS );
 
       // compute and properly scale error
 

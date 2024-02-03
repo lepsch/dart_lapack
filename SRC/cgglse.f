@@ -74,7 +74,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'CGGLSE', -INFO )
+         xerbla('CGGLSE', -INFO );
          RETURN
       } else if ( LQUERY ) {
          RETURN
@@ -93,19 +93,19 @@
       // where T12 and R11 are upper triangular, and Q and Z are
       // unitary.
 
-      CALL CGGRQF( P, M, N, B, LDB, WORK, A, LDA, WORK( P+1 ), WORK( P+MN+1 ), LWORK-P-MN, INFO )
+      cggrqf(P, M, N, B, LDB, WORK, A, LDA, WORK( P+1 ), WORK( P+MN+1 ), LWORK-P-MN, INFO );
       LOPT = INT( WORK( P+MN+1 ) )
 
       // Update c = Z**H *c = ( c1 ) N-P
                         // ( c2 ) M+P-N
 
-      CALL CUNMQR( 'Left', 'Conjugate Transpose', M, 1, MN, A, LDA, WORK( P+1 ), C, MAX( 1, M ), WORK( P+MN+1 ), LWORK-P-MN, INFO )
+      cunmqr('Left', 'Conjugate Transpose', M, 1, MN, A, LDA, WORK( P+1 ), C, MAX( 1, M ), WORK( P+MN+1 ), LWORK-P-MN, INFO );
       LOPT = MAX( LOPT, INT( WORK( P+MN+1 ) ) )
 
       // Solve T12*x2 = d for x2
 
       if ( P.GT.0 ) {
-         CALL CTRTRS( 'Upper', 'No transpose', 'Non-unit', P, 1, B( 1, N-P+1 ), LDB, D, P, INFO )
+         ctrtrs('Upper', 'No transpose', 'Non-unit', P, 1, B( 1, N-P+1 ), LDB, D, P, INFO );
 
          if ( INFO.GT.0 ) {
             INFO = 1
@@ -114,17 +114,17 @@
 
          // Put the solution in X
 
-      CALL CCOPY( P, D, 1, X( N-P+1 ), 1 )
+      ccopy(P, D, 1, X( N-P+1 ), 1 );
 
          // Update c1
 
-         CALL CGEMV( 'No transpose', N-P, P, -CONE, A( 1, N-P+1 ), LDA, D, 1, CONE, C, 1 )
+         cgemv('No transpose', N-P, P, -CONE, A( 1, N-P+1 ), LDA, D, 1, CONE, C, 1 );
       }
 
       // Solve R11*x1 = c1 for x1
 
       if ( N.GT.P ) {
-         CALL CTRTRS( 'Upper', 'No transpose', 'Non-unit', N-P, 1, A, LDA, C, N-P, INFO )
+         ctrtrs('Upper', 'No transpose', 'Non-unit', N-P, 1, A, LDA, C, N-P, INFO );
 
          if ( INFO.GT.0 ) {
             INFO = 2
@@ -133,7 +133,7 @@
 
          // Put the solutions in X
 
-         CALL CCOPY( N-P, C, 1, X, 1 )
+         ccopy(N-P, C, 1, X, 1 );
       }
 
       // Compute the residual vector:
@@ -145,13 +145,13 @@
          NR = P
       }
       if ( NR.GT.0 ) {
-         CALL CTRMV( 'Upper', 'No transpose', 'Non unit', NR, A( N-P+1, N-P+1 ), LDA, D, 1 )
-         CALL CAXPY( NR, -CONE, D, 1, C( N-P+1 ), 1 )
+         ctrmv('Upper', 'No transpose', 'Non unit', NR, A( N-P+1, N-P+1 ), LDA, D, 1 );
+         caxpy(NR, -CONE, D, 1, C( N-P+1 ), 1 );
       }
 
       // Backward transformation x = Q**H*x
 
-      CALL CUNMRQ( 'Left', 'Conjugate Transpose', N, 1, P, B, LDB, WORK( 1 ), X, N, WORK( P+MN+1 ), LWORK-P-MN, INFO )
+      cunmrq('Left', 'Conjugate Transpose', N, 1, P, B, LDB, WORK( 1 ), X, N, WORK( P+MN+1 ), LWORK-P-MN, INFO );
       WORK( 1 ) = P + MN + MAX( LOPT, INT( WORK( P+MN+1 ) ) )
 
       RETURN

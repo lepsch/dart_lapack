@@ -59,16 +59,16 @@
 
             // ITYPE=1: Compute W = A - UBV'
 
-            CALL DLACPY( ' ', N, N, A, LDA, WORK, N )
-            CALL DGEMM( 'N', 'N', N, N, N, ONE, U, LDU, B, LDB, ZERO, WORK( N**2+1 ), N )
+            dlacpy(' ', N, N, A, LDA, WORK, N );
+            dgemm('N', 'N', N, N, N, ONE, U, LDU, B, LDB, ZERO, WORK( N**2+1 ), N );
 
-            CALL DGEMM( 'N', 'C', N, N, N, -ONE, WORK( N**2+1 ), N, V, LDV, ONE, WORK, N )
+            dgemm('N', 'C', N, N, N, -ONE, WORK( N**2+1 ), N, V, LDV, ONE, WORK, N );
 
          } else {
 
             // ITYPE=2: Compute W = A - B
 
-            CALL DLACPY( ' ', N, N, B, LDB, WORK, N )
+            dlacpy(' ', N, N, B, LDB, WORK, N );
 
             DO 20 JCOL = 1, N
                DO 10 JROW = 1, N
@@ -97,7 +97,7 @@
 
          // ITYPE=3: Compute  UU' - I
 
-         CALL DGEMM( 'N', 'C', N, N, N, ONE, U, LDU, U, LDU, ZERO, WORK, N )
+         dgemm('N', 'C', N, N, N, ONE, U, LDU, U, LDU, ZERO, WORK, N );
 
          DO 30 JDIAG = 1, N
             WORK( ( N+1 )*( JDIAG-1 )+1 ) = WORK( ( N+1 )*( JDIAG-1 )+ 1 ) - ONE

@@ -45,21 +45,21 @@
 
       // Compute the QR factorization of the N-by-2 matrix ( X Y )
 
-      CALL ZLARFG( N, X( 1 ), X( 1+INCX ), INCX, TAU )
+      zlarfg(N, X( 1 ), X( 1+INCX ), INCX, TAU );
       A11 = X( 1 )
       X( 1 ) = CONE
 
       C = -DCONJG( TAU )*ZDOTC( N, X, INCX, Y, INCY )
-      CALL ZAXPY( N, C, X, INCX, Y, INCY )
+      zaxpy(N, C, X, INCX, Y, INCY );
 
-      CALL ZLARFG( N-1, Y( 1+INCY ), Y( 1+2*INCY ), INCY, TAU )
+      zlarfg(N-1, Y( 1+INCY ), Y( 1+2*INCY ), INCY, TAU );
 
       A12 = Y( 1 )
       A22 = Y( 1+INCY )
 
       // Compute the SVD of 2-by-2 Upper triangular matrix.
 
-      CALL DLAS2( ABS( A11 ), ABS( A12 ), ABS( A22 ), SSMIN, SSMAX )
+      dlas2(ABS( A11 ), ABS( A12 ), ABS( A22 ), SSMIN, SSMAX );
 
       RETURN
 

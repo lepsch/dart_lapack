@@ -71,7 +71,7 @@
          INFO = -8
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'CLATBS', -INFO )
+         xerbla('CLATBS', -INFO );
          RETURN
       }
 
@@ -121,7 +121,7 @@
          TSCAL = ONE
       } else {
          TSCAL = HALF / ( SMLNUM*TMAX )
-         CALL SSCAL( N, TSCAL, CNORM, 1 )
+         sscal(N, TSCAL, CNORM, 1 );
       }
 
       // Compute a bound on the computed solution vector to see if the
@@ -300,7 +300,7 @@
          // Use the Level 2 BLAS solve if the reciprocal of the bound on
          // elements of X is not too small.
 
-         CALL CTBSV( UPLO, TRANS, DIAG, N, KD, AB, LDAB, X, 1 )
+         ctbsv(UPLO, TRANS, DIAG, N, KD, AB, LDAB, X, 1 );
       } else {
 
          // Use a Level 1 BLAS solve, scaling intermediate results.
@@ -311,7 +311,7 @@
             // BIGNUM in absolute value.
 
             SCALE = ( BIGNUM*HALF ) / XMAX
-            CALL CSSCAL( N, SCALE, X, 1 )
+            csscal(N, SCALE, X, 1 );
             XMAX = BIGNUM
          } else {
             XMAX = XMAX*TWO
@@ -343,7 +343,7 @@
                            // Scale x by 1/b(j).
 
                            REC = ONE / XJ
-                           CALL CSSCAL( N, REC, X, 1 )
+                           csscal(N, REC, X, 1 );
                            SCALE = SCALE*REC
                            XMAX = XMAX*REC
                         }
@@ -367,7 +367,7 @@
 
                            REC = REC / CNORM( J )
                         }
-                        CALL CSSCAL( N, REC, X, 1 )
+                        csscal(N, REC, X, 1 );
                         SCALE = SCALE*REC
                         XMAX = XMAX*REC
                      }
@@ -398,14 +398,14 @@
                      // Scale x by 1/(2*abs(x(j))).
 
                      REC = REC*HALF
-                     CALL CSSCAL( N, REC, X, 1 )
+                     csscal(N, REC, X, 1 );
                      SCALE = SCALE*REC
                   }
                } else if ( XJ*CNORM( J ).GT.( BIGNUM-XMAX ) ) {
 
                   // Scale x by 1/2.
 
-                  CALL CSSCAL( N, HALF, X, 1 )
+                  csscal(N, HALF, X, 1 );
                   SCALE = SCALE*HALF
                }
 
@@ -417,7 +417,7 @@
                                               // x(j)* A(max(1,j-kd):j-1,j)
 
                      JLEN = MIN( KD, J-1 )
-                     CALL CAXPY( JLEN, -X( J )*TSCAL, AB( KD+1-JLEN, J ), 1, X( J-JLEN ), 1 )
+                     caxpy(JLEN, -X( J )*TSCAL, AB( KD+1-JLEN, J ), 1, X( J-JLEN ), 1 );
                      I = ICAMAX( J-1, X, 1 )
                      XMAX = CABS1( X( I ) )
                   }
@@ -465,7 +465,7 @@
                         USCAL = CLADIV( USCAL, TJJS )
                      }
                   if ( REC.LT.ONE ) {
-                     CALL CSSCAL( N, REC, X, 1 )
+                     csscal(N, REC, X, 1 );
                      SCALE = SCALE*REC
                      XMAX = XMAX*REC
                   }
@@ -528,7 +528,7 @@
                               // Scale X by 1/abs(x(j)).
 
                               REC = ONE / XJ
-                              CALL CSSCAL( N, REC, X, 1 )
+                              csscal(N, REC, X, 1 );
                               SCALE = SCALE*REC
                               XMAX = XMAX*REC
                            }
@@ -543,7 +543,7 @@
                            // Scale x by (1/abs(x(j)))*abs(A(j,j))*BIGNUM.
 
                            REC = ( TJJ*BIGNUM ) / XJ
-                           CALL CSSCAL( N, REC, X, 1 )
+                           csscal(N, REC, X, 1 );
                            SCALE = SCALE*REC
                            XMAX = XMAX*REC
                         }
@@ -602,7 +602,7 @@
                         USCAL = CLADIV( USCAL, TJJS )
                      }
                   if ( REC.LT.ONE ) {
-                     CALL CSSCAL( N, REC, X, 1 )
+                     csscal(N, REC, X, 1 );
                      SCALE = SCALE*REC
                      XMAX = XMAX*REC
                   }
@@ -665,7 +665,7 @@
                               // Scale X by 1/abs(x(j)).
 
                               REC = ONE / XJ
-                              CALL CSSCAL( N, REC, X, 1 )
+                              csscal(N, REC, X, 1 );
                               SCALE = SCALE*REC
                               XMAX = XMAX*REC
                            }
@@ -680,7 +680,7 @@
                            // Scale x by (1/abs(x(j)))*abs(A(j,j))*BIGNUM.
 
                            REC = ( TJJ*BIGNUM ) / XJ
-                           CALL CSSCAL( N, REC, X, 1 )
+                           csscal(N, REC, X, 1 );
                            SCALE = SCALE*REC
                            XMAX = XMAX*REC
                         }
@@ -714,7 +714,7 @@
       // Scale the column norms by 1/TSCAL for return.
 
       if ( TSCAL.NE.ONE ) {
-         CALL SSCAL( N, ONE / TSCAL, CNORM, 1 )
+         sscal(N, ONE / TSCAL, CNORM, 1 );
       }
 
       RETURN

@@ -48,7 +48,7 @@
          INFO = -4
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'ZLAUU2', -INFO )
+         xerbla('ZLAUU2', -INFO );
          RETURN
       }
 
@@ -64,11 +64,11 @@
             AII = DBLE( A( I, I ) )
             if ( I.LT.N ) {
                A( I, I ) = AII*AII + DBLE( ZDOTC( N-I, A( I, I+1 ), LDA, A( I, I+1 ), LDA ) )
-               CALL ZLACGV( N-I, A( I, I+1 ), LDA )
-               CALL ZGEMV( 'No transpose', I-1, N-I, ONE, A( 1, I+1 ), LDA, A( I, I+1 ), LDA, DCMPLX( AII ), A( 1, I ), 1 )
-               CALL ZLACGV( N-I, A( I, I+1 ), LDA )
+               zlacgv(N-I, A( I, I+1 ), LDA );
+               zgemv('No transpose', I-1, N-I, ONE, A( 1, I+1 ), LDA, A( I, I+1 ), LDA, DCMPLX( AII ), A( 1, I ), 1 );
+               zlacgv(N-I, A( I, I+1 ), LDA );
             } else {
-               CALL ZDSCAL( I, AII, A( 1, I ), 1 )
+               zdscal(I, AII, A( 1, I ), 1 );
             }
    10    CONTINUE
 
@@ -80,11 +80,11 @@
             AII = DBLE( A( I, I ) )
             if ( I.LT.N ) {
                A( I, I ) = AII*AII + DBLE( ZDOTC( N-I, A( I+1, I ), 1, A( I+1, I ), 1 ) )
-               CALL ZLACGV( I-1, A( I, 1 ), LDA )
-               CALL ZGEMV( 'Conjugate transpose', N-I, I-1, ONE, A( I+1, 1 ), LDA, A( I+1, I ), 1, DCMPLX( AII ), A( I, 1 ), LDA )
-               CALL ZLACGV( I-1, A( I, 1 ), LDA )
+               zlacgv(I-1, A( I, 1 ), LDA );
+               zgemv('Conjugate transpose', N-I, I-1, ONE, A( I+1, 1 ), LDA, A( I+1, I ), 1, DCMPLX( AII ), A( I, 1 ), LDA );
+               zlacgv(I-1, A( I, 1 ), LDA );
             } else {
-               CALL ZDSCAL( I, AII, A( I, 1 ), LDA )
+               zdscal(I, AII, A( I, 1 ), LDA );
             }
    20    CONTINUE
       }

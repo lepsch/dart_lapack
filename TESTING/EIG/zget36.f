@@ -52,14 +52,14 @@
       DO 20 I = 1, N
          READ( NIN, FMT = * )( TMP( I, J ), J = 1, N )
    20 CONTINUE
-      CALL ZLACPY( 'F', N, N, TMP, LDT, T1, LDT )
-      CALL ZLACPY( 'F', N, N, TMP, LDT, T2, LDT )
+      zlacpy('F', N, N, TMP, LDT, T1, LDT );
+      zlacpy('F', N, N, TMP, LDT, T2, LDT );
       RES = ZERO
 
       // Test without accumulating Q
 
-      CALL ZLASET( 'Full', N, N, CZERO, CONE, Q, LDT )
-      CALL ZTREXC( 'N', N, T1, LDT, Q, LDT, IFST, ILST, INFO1 )
+      zlaset('Full', N, N, CZERO, CONE, Q, LDT );
+      ztrexc('N', N, T1, LDT, Q, LDT, IFST, ILST, INFO1 );
       DO 40 I = 1, N
          DO 30 J = 1, N
             IF( I.EQ.J .AND. Q( I, J ).NE.CONE ) RES = RES + ONE / EPS             IF( I.NE.J .AND. Q( I, J ).NE.CZERO ) RES = RES + ONE / EPS
@@ -68,8 +68,8 @@
 
       // Test with accumulating Q
 
-      CALL ZLASET( 'Full', N, N, CZERO, CONE, Q, LDT )
-      CALL ZTREXC( 'V', N, T2, LDT, Q, LDT, IFST, ILST, INFO2 )
+      zlaset('Full', N, N, CZERO, CONE, Q, LDT );
+      ztrexc('V', N, T2, LDT, Q, LDT, IFST, ILST, INFO2 );
 
       // Compare T1 with T2
 
@@ -82,7 +82,7 @@
 
       // Test for successful reordering of T2
 
-      CALL ZCOPY( N, TMP, LDT+1, DIAG, 1 )
+      zcopy(N, TMP, LDT+1, DIAG, 1 );
       if ( IFST.LT.ILST ) {
          DO 70 I = IFST + 1, ILST
             CTEMP = DIAG( I )
@@ -102,7 +102,7 @@
 
       // Test for small residual, and orthogonality of Q
 
-      CALL ZHST01( N, 1, N, TMP, LDT, T2, LDT, Q, LDT, WORK, LWORK, RWORK, RESULT )
+      zhst01(N, 1, N, TMP, LDT, T2, LDT, Q, LDT, WORK, LWORK, RWORK, RESULT );
       RES = RES + RESULT( 1 ) + RESULT( 2 )
 
       // Test for T2 being in Schur form

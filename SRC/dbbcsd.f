@@ -100,7 +100,7 @@
       }
 
       if ( INFO .NE. 0 ) {
-         CALL XERBLA( 'DBBCSD', -INFO )
+         xerbla('DBBCSD', -INFO );
          RETURN
       } else if ( LQUERY ) {
          RETURN
@@ -214,7 +214,7 @@
 
             // Compute shifts for B11 and B21 and use the lesser
 
-            CALL DLAS2( B11D(IMAX-1), B11E(IMAX-1), B11D(IMAX), SIGMA11, DUMMY )             CALL DLAS2( B21D(IMAX-1), B21E(IMAX-1), B21D(IMAX), SIGMA21, DUMMY )
+            dlas2(B11D(IMAX-1), B11E(IMAX-1), B11D(IMAX), SIGMA11, DUMMY )             CALL DLAS2( B21D(IMAX-1), B21E(IMAX-1), B21D(IMAX), SIGMA21, DUMMY );
 
             if ( SIGMA11 .LE. SIGMA21 ) {
                MU = SIGMA11
@@ -236,9 +236,9 @@
          // Rotate to produce bulges in B11 and B21
 
          if ( MU .LE. NU ) {
-            CALL DLARTGS( B11D(IMIN), B11E(IMIN), MU, WORK(IV1TCS+IMIN-1), WORK(IV1TSN+IMIN-1) )
+            dlartgs(B11D(IMIN), B11E(IMIN), MU, WORK(IV1TCS+IMIN-1), WORK(IV1TSN+IMIN-1) );
          } else {
-            CALL DLARTGS( B21D(IMIN), B21E(IMIN), NU, WORK(IV1TCS+IMIN-1), WORK(IV1TSN+IMIN-1) )
+            dlartgs(B21D(IMIN), B21E(IMIN), NU, WORK(IV1TCS+IMIN-1), WORK(IV1TSN+IMIN-1) );
          }
 
          TEMP = WORK(IV1TCS+IMIN-1)*B11D(IMIN) + WORK(IV1TSN+IMIN-1)*B11E(IMIN)          B11E(IMIN) = WORK(IV1TCS+IMIN-1)*B11E(IMIN) - WORK(IV1TSN+IMIN-1)*B11D(IMIN)
@@ -257,18 +257,18 @@
          // Chase the bulges in B11(IMIN+1,IMIN) and B21(IMIN+1,IMIN)
 
          if ( B11D(IMIN)**2+B11BULGE**2 .GT. THRESH**2 ) {
-            CALL DLARTGP( B11BULGE, B11D(IMIN), WORK(IU1SN+IMIN-1), WORK(IU1CS+IMIN-1), R )
+            dlartgp(B11BULGE, B11D(IMIN), WORK(IU1SN+IMIN-1), WORK(IU1CS+IMIN-1), R );
          } else if ( MU .LE. NU ) {
-            CALL DLARTGS( B11E( IMIN ), B11D( IMIN + 1 ), MU, WORK(IU1CS+IMIN-1), WORK(IU1SN+IMIN-1) )
+            dlartgs(B11E( IMIN ), B11D( IMIN + 1 ), MU, WORK(IU1CS+IMIN-1), WORK(IU1SN+IMIN-1) );
          } else {
-            CALL DLARTGS( B12D( IMIN ), B12E( IMIN ), NU, WORK(IU1CS+IMIN-1), WORK(IU1SN+IMIN-1) )
+            dlartgs(B12D( IMIN ), B12E( IMIN ), NU, WORK(IU1CS+IMIN-1), WORK(IU1SN+IMIN-1) );
          }
          if ( B21D(IMIN)**2+B21BULGE**2 .GT. THRESH**2 ) {
-            CALL DLARTGP( B21BULGE, B21D(IMIN), WORK(IU2SN+IMIN-1), WORK(IU2CS+IMIN-1), R )
+            dlartgp(B21BULGE, B21D(IMIN), WORK(IU2SN+IMIN-1), WORK(IU2CS+IMIN-1), R );
          } else if ( NU .LT. MU ) {
-            CALL DLARTGS( B21E( IMIN ), B21D( IMIN + 1 ), NU, WORK(IU2CS+IMIN-1), WORK(IU2SN+IMIN-1) )
+            dlartgs(B21E( IMIN ), B21D( IMIN + 1 ), NU, WORK(IU2CS+IMIN-1), WORK(IU2SN+IMIN-1) );
          } else {
-            CALL DLARTGS( B22D(IMIN), B22E(IMIN), MU, WORK(IU2CS+IMIN-1), WORK(IU2SN+IMIN-1) )
+            dlartgs(B22D(IMIN), B22E(IMIN), MU, WORK(IU2CS+IMIN-1), WORK(IU2SN+IMIN-1) );
          }
          WORK(IU2CS+IMIN-1) = -WORK(IU2CS+IMIN-1)
          WORK(IU2SN+IMIN-1) = -WORK(IU2SN+IMIN-1)
@@ -322,28 +322,28 @@
             // chasing by applying the original shift again.
 
             if ( .NOT. RESTART11 .AND. .NOT. RESTART21 ) {
-               CALL DLARTGP( X2, X1, WORK(IV1TSN+I-1), WORK(IV1TCS+I-1), R )
+               dlartgp(X2, X1, WORK(IV1TSN+I-1), WORK(IV1TCS+I-1), R );
             } else if ( .NOT. RESTART11 .AND. RESTART21 ) {
-               CALL DLARTGP( B11BULGE, B11E(I-1), WORK(IV1TSN+I-1), WORK(IV1TCS+I-1), R )
+               dlartgp(B11BULGE, B11E(I-1), WORK(IV1TSN+I-1), WORK(IV1TCS+I-1), R );
             } else if ( RESTART11 .AND. .NOT. RESTART21 ) {
-               CALL DLARTGP( B21BULGE, B21E(I-1), WORK(IV1TSN+I-1), WORK(IV1TCS+I-1), R )
+               dlartgp(B21BULGE, B21E(I-1), WORK(IV1TSN+I-1), WORK(IV1TCS+I-1), R );
             } else if ( MU .LE. NU ) {
-               CALL DLARTGS( B11D(I), B11E(I), MU, WORK(IV1TCS+I-1), WORK(IV1TSN+I-1) )
+               dlartgs(B11D(I), B11E(I), MU, WORK(IV1TCS+I-1), WORK(IV1TSN+I-1) );
             } else {
-               CALL DLARTGS( B21D(I), B21E(I), NU, WORK(IV1TCS+I-1), WORK(IV1TSN+I-1) )
+               dlartgs(B21D(I), B21E(I), NU, WORK(IV1TCS+I-1), WORK(IV1TSN+I-1) );
             }
             WORK(IV1TCS+I-1) = -WORK(IV1TCS+I-1)
             WORK(IV1TSN+I-1) = -WORK(IV1TSN+I-1)
             if ( .NOT. RESTART12 .AND. .NOT. RESTART22 ) {
-               CALL DLARTGP( Y2, Y1, WORK(IV2TSN+I-1-1), WORK(IV2TCS+I-1-1), R )
+               dlartgp(Y2, Y1, WORK(IV2TSN+I-1-1), WORK(IV2TCS+I-1-1), R );
             } else if ( .NOT. RESTART12 .AND. RESTART22 ) {
-               CALL DLARTGP( B12BULGE, B12D(I-1), WORK(IV2TSN+I-1-1), WORK(IV2TCS+I-1-1), R )
+               dlartgp(B12BULGE, B12D(I-1), WORK(IV2TSN+I-1-1), WORK(IV2TCS+I-1-1), R );
             } else if ( RESTART12 .AND. .NOT. RESTART22 ) {
-               CALL DLARTGP( B22BULGE, B22D(I-1), WORK(IV2TSN+I-1-1), WORK(IV2TCS+I-1-1), R )
+               dlartgp(B22BULGE, B22D(I-1), WORK(IV2TSN+I-1-1), WORK(IV2TCS+I-1-1), R );
             } else if ( NU .LT. MU ) {
-               CALL DLARTGS( B12E(I-1), B12D(I), NU, WORK(IV2TCS+I-1-1), WORK(IV2TSN+I-1-1) )
+               dlartgs(B12E(I-1), B12D(I), NU, WORK(IV2TCS+I-1-1), WORK(IV2TSN+I-1-1) );
             } else {
-               CALL DLARTGS( B22E(I-1), B22D(I), MU, WORK(IV2TCS+I-1-1), WORK(IV2TSN+I-1-1) )
+               dlartgs(B22E(I-1), B22D(I), MU, WORK(IV2TCS+I-1-1), WORK(IV2TSN+I-1-1) );
             }
 
             TEMP = WORK(IV1TCS+I-1)*B11D(I) + WORK(IV1TSN+I-1)*B11E(I)
@@ -387,26 +387,26 @@
             // chasing by applying the original shift again.
 
             if ( .NOT. RESTART11 .AND. .NOT. RESTART12 ) {
-               CALL DLARTGP( X2, X1, WORK(IU1SN+I-1), WORK(IU1CS+I-1), R )
+               dlartgp(X2, X1, WORK(IU1SN+I-1), WORK(IU1CS+I-1), R );
             } else if ( .NOT. RESTART11 .AND. RESTART12 ) {
-               CALL DLARTGP( B11BULGE, B11D(I), WORK(IU1SN+I-1), WORK(IU1CS+I-1), R )
+               dlartgp(B11BULGE, B11D(I), WORK(IU1SN+I-1), WORK(IU1CS+I-1), R );
             } else if ( RESTART11 .AND. .NOT. RESTART12 ) {
-               CALL DLARTGP( B12BULGE, B12E(I-1), WORK(IU1SN+I-1), WORK(IU1CS+I-1), R )
+               dlartgp(B12BULGE, B12E(I-1), WORK(IU1SN+I-1), WORK(IU1CS+I-1), R );
             } else if ( MU .LE. NU ) {
-               CALL DLARTGS( B11E(I), B11D(I+1), MU, WORK(IU1CS+I-1), WORK(IU1SN+I-1) )
+               dlartgs(B11E(I), B11D(I+1), MU, WORK(IU1CS+I-1), WORK(IU1SN+I-1) );
             } else {
-               CALL DLARTGS( B12D(I), B12E(I), NU, WORK(IU1CS+I-1), WORK(IU1SN+I-1) )
+               dlartgs(B12D(I), B12E(I), NU, WORK(IU1CS+I-1), WORK(IU1SN+I-1) );
             }
             if ( .NOT. RESTART21 .AND. .NOT. RESTART22 ) {
-               CALL DLARTGP( Y2, Y1, WORK(IU2SN+I-1), WORK(IU2CS+I-1), R )
+               dlartgp(Y2, Y1, WORK(IU2SN+I-1), WORK(IU2CS+I-1), R );
             } else if ( .NOT. RESTART21 .AND. RESTART22 ) {
-               CALL DLARTGP( B21BULGE, B21D(I), WORK(IU2SN+I-1), WORK(IU2CS+I-1), R )
+               dlartgp(B21BULGE, B21D(I), WORK(IU2SN+I-1), WORK(IU2CS+I-1), R );
             } else if ( RESTART21 .AND. .NOT. RESTART22 ) {
-               CALL DLARTGP( B22BULGE, B22E(I-1), WORK(IU2SN+I-1), WORK(IU2CS+I-1), R )
+               dlartgp(B22BULGE, B22E(I-1), WORK(IU2SN+I-1), WORK(IU2CS+I-1), R );
             } else if ( NU .LT. MU ) {
-               CALL DLARTGS( B21E(I), B21E(I+1), NU, WORK(IU2CS+I-1), WORK(IU2SN+I-1) )
+               dlartgs(B21E(I), B21E(I+1), NU, WORK(IU2CS+I-1), WORK(IU2SN+I-1) );
             } else {
-               CALL DLARTGS( B22D(I), B22E(I), MU, WORK(IU2CS+I-1), WORK(IU2SN+I-1) )
+               dlartgs(B22D(I), B22E(I), MU, WORK(IU2CS+I-1), WORK(IU2SN+I-1) );
             }
             WORK(IU2CS+I-1) = -WORK(IU2CS+I-1)
             WORK(IU2SN+I-1) = -WORK(IU2SN+I-1)
@@ -451,15 +451,15 @@
          RESTART22 = B22D(IMAX-1)**2 + B22BULGE**2 .LE. THRESH**2
 
          if ( .NOT. RESTART12 .AND. .NOT. RESTART22 ) {
-            CALL DLARTGP( Y2, Y1, WORK(IV2TSN+IMAX-1-1), WORK(IV2TCS+IMAX-1-1), R )
+            dlartgp(Y2, Y1, WORK(IV2TSN+IMAX-1-1), WORK(IV2TCS+IMAX-1-1), R );
          } else if ( .NOT. RESTART12 .AND. RESTART22 ) {
-            CALL DLARTGP( B12BULGE, B12D(IMAX-1), WORK(IV2TSN+IMAX-1-1), WORK(IV2TCS+IMAX-1-1), R )
+            dlartgp(B12BULGE, B12D(IMAX-1), WORK(IV2TSN+IMAX-1-1), WORK(IV2TCS+IMAX-1-1), R );
          } else if ( RESTART12 .AND. .NOT. RESTART22 ) {
-            CALL DLARTGP( B22BULGE, B22D(IMAX-1), WORK(IV2TSN+IMAX-1-1), WORK(IV2TCS+IMAX-1-1), R )
+            dlartgp(B22BULGE, B22D(IMAX-1), WORK(IV2TSN+IMAX-1-1), WORK(IV2TCS+IMAX-1-1), R );
          } else if ( NU .LT. MU ) {
-            CALL DLARTGS( B12E(IMAX-1), B12D(IMAX), NU, WORK(IV2TCS+IMAX-1-1), WORK(IV2TSN+IMAX-1-1) )
+            dlartgs(B12E(IMAX-1), B12D(IMAX), NU, WORK(IV2TCS+IMAX-1-1), WORK(IV2TSN+IMAX-1-1) );
          } else {
-            CALL DLARTGS( B22E(IMAX-1), B22D(IMAX), MU, WORK(IV2TCS+IMAX-1-1), WORK(IV2TSN+IMAX-1-1) )
+            dlartgs(B22E(IMAX-1), B22D(IMAX), MU, WORK(IV2TCS+IMAX-1-1), WORK(IV2TSN+IMAX-1-1) );
          }
 
          TEMP = WORK(IV2TCS+IMAX-1-1)*B12E(IMAX-1) + WORK(IV2TSN+IMAX-1-1)*B12D(IMAX)          B12D(IMAX) = WORK(IV2TCS+IMAX-1-1)*B12D(IMAX) - WORK(IV2TSN+IMAX-1-1)*B12E(IMAX-1)
@@ -471,30 +471,30 @@
 
          if ( WANTU1 ) {
             if ( COLMAJOR ) {
-               CALL DLASR( 'R', 'V', 'F', P, IMAX-IMIN+1, WORK(IU1CS+IMIN-1), WORK(IU1SN+IMIN-1), U1(1,IMIN), LDU1 )
+               dlasr('R', 'V', 'F', P, IMAX-IMIN+1, WORK(IU1CS+IMIN-1), WORK(IU1SN+IMIN-1), U1(1,IMIN), LDU1 );
             } else {
-               CALL DLASR( 'L', 'V', 'F', IMAX-IMIN+1, P, WORK(IU1CS+IMIN-1), WORK(IU1SN+IMIN-1), U1(IMIN,1), LDU1 )
+               dlasr('L', 'V', 'F', IMAX-IMIN+1, P, WORK(IU1CS+IMIN-1), WORK(IU1SN+IMIN-1), U1(IMIN,1), LDU1 );
             }
          }
          if ( WANTU2 ) {
             if ( COLMAJOR ) {
-               CALL DLASR( 'R', 'V', 'F', M-P, IMAX-IMIN+1, WORK(IU2CS+IMIN-1), WORK(IU2SN+IMIN-1), U2(1,IMIN), LDU2 )
+               dlasr('R', 'V', 'F', M-P, IMAX-IMIN+1, WORK(IU2CS+IMIN-1), WORK(IU2SN+IMIN-1), U2(1,IMIN), LDU2 );
             } else {
-               CALL DLASR( 'L', 'V', 'F', IMAX-IMIN+1, M-P, WORK(IU2CS+IMIN-1), WORK(IU2SN+IMIN-1), U2(IMIN,1), LDU2 )
+               dlasr('L', 'V', 'F', IMAX-IMIN+1, M-P, WORK(IU2CS+IMIN-1), WORK(IU2SN+IMIN-1), U2(IMIN,1), LDU2 );
             }
          }
          if ( WANTV1T ) {
             if ( COLMAJOR ) {
-               CALL DLASR( 'L', 'V', 'F', IMAX-IMIN+1, Q, WORK(IV1TCS+IMIN-1), WORK(IV1TSN+IMIN-1), V1T(IMIN,1), LDV1T )
+               dlasr('L', 'V', 'F', IMAX-IMIN+1, Q, WORK(IV1TCS+IMIN-1), WORK(IV1TSN+IMIN-1), V1T(IMIN,1), LDV1T );
             } else {
-               CALL DLASR( 'R', 'V', 'F', Q, IMAX-IMIN+1, WORK(IV1TCS+IMIN-1), WORK(IV1TSN+IMIN-1), V1T(1,IMIN), LDV1T )
+               dlasr('R', 'V', 'F', Q, IMAX-IMIN+1, WORK(IV1TCS+IMIN-1), WORK(IV1TSN+IMIN-1), V1T(1,IMIN), LDV1T );
             }
          }
          if ( WANTV2T ) {
             if ( COLMAJOR ) {
-               CALL DLASR( 'L', 'V', 'F', IMAX-IMIN+1, M-Q, WORK(IV2TCS+IMIN-1), WORK(IV2TSN+IMIN-1), V2T(IMIN,1), LDV2T )
+               dlasr('L', 'V', 'F', IMAX-IMIN+1, M-Q, WORK(IV2TCS+IMIN-1), WORK(IV2TSN+IMIN-1), V2T(IMIN,1), LDV2T );
             } else {
-               CALL DLASR( 'R', 'V', 'F', M-Q, IMAX-IMIN+1, WORK(IV2TCS+IMIN-1), WORK(IV2TSN+IMIN-1), V2T(1,IMIN), LDV2T )
+               dlasr('R', 'V', 'F', M-Q, IMAX-IMIN+1, WORK(IV2TCS+IMIN-1), WORK(IV2TSN+IMIN-1), V2T(1,IMIN), LDV2T );
             }
          }
 
@@ -505,9 +505,9 @@
             B21D(IMAX) = -B21D(IMAX)
             if ( WANTV1T ) {
                if ( COLMAJOR ) {
-                  CALL DSCAL( Q, NEGONE, V1T(IMAX,1), LDV1T )
+                  dscal(Q, NEGONE, V1T(IMAX,1), LDV1T );
                } else {
-                  CALL DSCAL( Q, NEGONE, V1T(1,IMAX), 1 )
+                  dscal(Q, NEGONE, V1T(1,IMAX), 1 );
                }
             }
          }
@@ -525,9 +525,9 @@
             B12D(IMAX) = -B12D(IMAX)
             if ( WANTU1 ) {
                if ( COLMAJOR ) {
-                  CALL DSCAL( P, NEGONE, U1(1,IMAX), 1 )
+                  dscal(P, NEGONE, U1(1,IMAX), 1 );
                } else {
-                  CALL DSCAL( P, NEGONE, U1(IMAX,1), LDU1 )
+                  dscal(P, NEGONE, U1(IMAX,1), LDU1 );
                }
             }
          }
@@ -535,9 +535,9 @@
             B22D(IMAX) = -B22D(IMAX)
             if ( WANTU2 ) {
                if ( COLMAJOR ) {
-                  CALL DSCAL( M-P, NEGONE, U2(1,IMAX), 1 )
+                  dscal(M-P, NEGONE, U2(1,IMAX), 1 );
                } else {
-                  CALL DSCAL( M-P, NEGONE, U2(IMAX,1), LDU2 )
+                  dscal(M-P, NEGONE, U2(IMAX,1), LDU2 );
                }
             }
          }
@@ -547,9 +547,9 @@
          if ( B12D(IMAX)+B22D(IMAX) .LT. 0 ) {
             if ( WANTV2T ) {
                if ( COLMAJOR ) {
-                  CALL DSCAL( M-Q, NEGONE, V2T(IMAX,1), LDV2T )
+                  dscal(M-Q, NEGONE, V2T(IMAX,1), LDV2T );
                } else {
-                  CALL DSCAL( M-Q, NEGONE, V2T(1,IMAX), 1 )
+                  dscal(M-Q, NEGONE, V2T(1,IMAX), 1 );
                }
             }
          }

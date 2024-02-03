@@ -74,7 +74,7 @@
             BIGNUM = ONE / SMLNUM
    10       CONTINUE
             KNT = KNT + 1
-            CALL DSCAL( N-1, BIGNUM, X, INCX )
+            dscal(N-1, BIGNUM, X, INCX );
             BETA = BETA*BIGNUM
             ALPHA = ALPHA*BIGNUM
             IF( (ABS( BETA ).LT.SMLNUM) .AND. (KNT .LT. 20) ) GO TO 10
@@ -118,7 +118,7 @@
 
             // This is the general case.
 
-            CALL DSCAL( N-1, ONE / ALPHA, X, INCX )
+            dscal(N-1, ONE / ALPHA, X, INCX );
 
          }
 

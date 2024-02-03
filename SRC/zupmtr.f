@@ -63,7 +63,7 @@
          INFO = -9
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'ZUPMTR', -INFO )
+         xerbla('ZUPMTR', -INFO );
          RETURN
       }
 
@@ -117,7 +117,7 @@
             }
             AII = AP( II )
             AP( II ) = ONE
-            CALL ZLARF( SIDE, MI, NI, AP( II-I+1 ), 1, TAUI, C, LDC, WORK )
+            zlarf(SIDE, MI, NI, AP( II-I+1 ), 1, TAUI, C, LDC, WORK );
             AP( II ) = AII
 
             if ( FORWRD ) {
@@ -176,7 +176,7 @@
             } else {
                TAUI = DCONJG( TAU( I ) )
             }
-            CALL ZLARF( SIDE, MI, NI, AP( II ), 1, TAUI, C( IC, JC ), LDC, WORK )
+            zlarf(SIDE, MI, NI, AP( II ), 1, TAUI, C( IC, JC ), LDC, WORK );
             AP( II ) = AII
 
             if ( FORWRD ) {

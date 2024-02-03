@@ -40,7 +40,7 @@
          INFO = -3
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'ZPOEQU', -INFO )
+         xerbla('ZPOEQU', -INFO );
          RETURN
       }
 

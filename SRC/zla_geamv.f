@@ -62,7 +62,7 @@
          INFO = 11
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'ZLA_GEAMV ', INFO )
+         xerbla('ZLA_GEAMV ', INFO );
          RETURN
       }
 

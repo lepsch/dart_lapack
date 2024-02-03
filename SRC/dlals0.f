@@ -64,7 +64,7 @@
          INFO = -20
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'DLALS0', -INFO )
+         xerbla('DLALS0', -INFO );
          RETURN
       }
 
@@ -78,23 +78,23 @@
          // Step (1L): apply back the Givens rotations performed.
 
          DO 10 I = 1, GIVPTR
-            CALL DROT( NRHS, B( GIVCOL( I, 2 ), 1 ), LDB, B( GIVCOL( I, 1 ), 1 ), LDB, GIVNUM( I, 2 ), GIVNUM( I, 1 ) )
+            drot(NRHS, B( GIVCOL( I, 2 ), 1 ), LDB, B( GIVCOL( I, 1 ), 1 ), LDB, GIVNUM( I, 2 ), GIVNUM( I, 1 ) );
    10    CONTINUE
 
          // Step (2L): permute rows of B.
 
-         CALL DCOPY( NRHS, B( NLP1, 1 ), LDB, BX( 1, 1 ), LDBX )
+         dcopy(NRHS, B( NLP1, 1 ), LDB, BX( 1, 1 ), LDBX );
          DO 20 I = 2, N
-            CALL DCOPY( NRHS, B( PERM( I ), 1 ), LDB, BX( I, 1 ), LDBX )
+            dcopy(NRHS, B( PERM( I ), 1 ), LDB, BX( I, 1 ), LDBX );
    20    CONTINUE
 
          // Step (3L): apply the inverse of the left singular vector
          // matrix to BX.
 
          if ( K.EQ.1 ) {
-            CALL DCOPY( NRHS, BX, LDBX, B, LDB )
+            dcopy(NRHS, BX, LDBX, B, LDB );
             if ( Z( 1 ).LT.ZERO ) {
-               CALL DSCAL( NRHS, NEGONE, B, LDB )
+               dscal(NRHS, NEGONE, B, LDB );
             }
          } else {
             DO 50 J = 1, K
@@ -131,7 +131,7 @@
    40          CONTINUE
                WORK( 1 ) = NEGONE
                TEMP = DNRM2( K, WORK, 1 )
-               CALL DGEMV( 'T', K, NRHS, ONE, BX, LDBX, WORK, 1, ZERO, B( J, 1 ), LDB )                CALL DLASCL( 'G', 0, 0, TEMP, ONE, 1, NRHS, B( J, 1 ), LDB, INFO )
+               dgemv('T', K, NRHS, ONE, BX, LDBX, WORK, 1, ZERO, B( J, 1 ), LDB )                CALL DLASCL( 'G', 0, 0, TEMP, ONE, 1, NRHS, B( J, 1 ), LDB, INFO );
    50       CONTINUE
          }
 
@@ -146,7 +146,7 @@
          // to B.
 
          if ( K.EQ.1 ) {
-            CALL DCOPY( NRHS, B, LDB, BX, LDBX )
+            dcopy(NRHS, B, LDB, BX, LDBX );
          } else {
             DO 80 J = 1, K
                DSIGJ = POLES( J, 2 )
@@ -174,7 +174,7 @@
                      WORK( I ) = Z( J ) / ( DLAMC3( DSIGJ, -POLES( I, 2 ) )-DIFL( I ) ) / ( DSIGJ+POLES( I, 1 ) ) / DIFR( I, 2 )
                   }
    70          CONTINUE
-               CALL DGEMV( 'T', K, NRHS, ONE, B, LDB, WORK, 1, ZERO, BX( J, 1 ), LDBX )
+               dgemv('T', K, NRHS, ONE, B, LDB, WORK, 1, ZERO, BX( J, 1 ), LDBX );
    80       CONTINUE
          }
 
@@ -182,25 +182,25 @@
          // related to the right null space of the subproblem.
 
          if ( SQRE.EQ.1 ) {
-            CALL DCOPY( NRHS, B( M, 1 ), LDB, BX( M, 1 ), LDBX )
-            CALL DROT( NRHS, BX( 1, 1 ), LDBX, BX( M, 1 ), LDBX, C, S )
+            dcopy(NRHS, B( M, 1 ), LDB, BX( M, 1 ), LDBX );
+            drot(NRHS, BX( 1, 1 ), LDBX, BX( M, 1 ), LDBX, C, S );
          }
          IF( K.LT.MAX( M, N ) ) CALL DLACPY( 'A', N-K, NRHS, B( K+1, 1 ), LDB, BX( K+1, 1 ), LDBX )
 
          // Step (3R): permute rows of B.
 
-         CALL DCOPY( NRHS, BX( 1, 1 ), LDBX, B( NLP1, 1 ), LDB )
+         dcopy(NRHS, BX( 1, 1 ), LDBX, B( NLP1, 1 ), LDB );
          if ( SQRE.EQ.1 ) {
-            CALL DCOPY( NRHS, BX( M, 1 ), LDBX, B( M, 1 ), LDB )
+            dcopy(NRHS, BX( M, 1 ), LDBX, B( M, 1 ), LDB );
          }
          DO 90 I = 2, N
-            CALL DCOPY( NRHS, BX( I, 1 ), LDBX, B( PERM( I ), 1 ), LDB )
+            dcopy(NRHS, BX( I, 1 ), LDBX, B( PERM( I ), 1 ), LDB );
    90    CONTINUE
 
          // Step (4R): apply back the Givens rotations performed.
 
          DO 100 I = GIVPTR, 1, -1
-            CALL DROT( NRHS, B( GIVCOL( I, 2 ), 1 ), LDB, B( GIVCOL( I, 1 ), 1 ), LDB, GIVNUM( I, 2 ), -GIVNUM( I, 1 ) )
+            drot(NRHS, B( GIVCOL( I, 2 ), 1 ), LDB, B( GIVCOL( I, 1 ), 1 ), LDB, GIVNUM( I, 2 ), -GIVNUM( I, 1 ) );
   100    CONTINUE
       }
 

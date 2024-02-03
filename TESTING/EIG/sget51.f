@@ -59,16 +59,16 @@
 
             // ITYPE=1: Compute W = A - UBV'
 
-            CALL SLACPY( ' ', N, N, A, LDA, WORK, N )
-            CALL SGEMM( 'N', 'N', N, N, N, ONE, U, LDU, B, LDB, ZERO, WORK( N**2+1 ), N )
+            slacpy(' ', N, N, A, LDA, WORK, N );
+            sgemm('N', 'N', N, N, N, ONE, U, LDU, B, LDB, ZERO, WORK( N**2+1 ), N );
 
-            CALL SGEMM( 'N', 'C', N, N, N, -ONE, WORK( N**2+1 ), N, V, LDV, ONE, WORK, N )
+            sgemm('N', 'C', N, N, N, -ONE, WORK( N**2+1 ), N, V, LDV, ONE, WORK, N );
 
          } else {
 
             // ITYPE=2: Compute W = A - B
 
-            CALL SLACPY( ' ', N, N, B, LDB, WORK, N )
+            slacpy(' ', N, N, B, LDB, WORK, N );
 
             DO 20 JCOL = 1, N
                DO 10 JROW = 1, N
@@ -97,7 +97,7 @@
 
          // ITYPE=3: Compute  UU' - I
 
-         CALL SGEMM( 'N', 'C', N, N, N, ONE, U, LDU, U, LDU, ZERO, WORK, N )
+         sgemm('N', 'C', N, N, N, ONE, U, LDU, U, LDU, ZERO, WORK, N );
 
          DO 30 JDIAG = 1, N
             WORK( ( N+1 )*( JDIAG-1 )+1 ) = WORK( ( N+1 )*( JDIAG-1 )+ 1 ) - ONE

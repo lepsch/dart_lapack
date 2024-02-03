@@ -89,7 +89,7 @@
          INFO = -14
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'DHSEIN', -INFO )
+         xerbla('DHSEIN', -INFO );
          RETURN
       }
 
@@ -189,7 +189,7 @@
 
                // Compute left eigenvector.
 
-               CALL DLAEIN( .FALSE., NOINIT, N-KL+1, H( KL, KL ), LDH, WKR, WKI, VL( KL, KSR ), VL( KL, KSI ), WORK, LDWORK, WORK( N*N+N+1 ), EPS3, SMLNUM, BIGNUM, IINFO )
+               dlaein(.FALSE., NOINIT, N-KL+1, H( KL, KL ), LDH, WKR, WKI, VL( KL, KSR ), VL( KL, KSI ), WORK, LDWORK, WORK( N*N+N+1 ), EPS3, SMLNUM, BIGNUM, IINFO );
                if ( IINFO.GT.0 ) {
                   if ( PAIR ) {
                      INFO = INFO + 2
@@ -215,7 +215,7 @@
 
                // Compute right eigenvector.
 
-               CALL DLAEIN( .TRUE., NOINIT, KR, H, LDH, WKR, WKI, VR( 1, KSR ), VR( 1, KSI ), WORK, LDWORK, WORK( N*N+N+1 ), EPS3, SMLNUM, BIGNUM, IINFO )
+               dlaein(.TRUE., NOINIT, KR, H, LDH, WKR, WKI, VR( 1, KSR ), VR( 1, KSI ), WORK, LDWORK, WORK( N*N+N+1 ), EPS3, SMLNUM, BIGNUM, IINFO );
                if ( IINFO.GT.0 ) {
                   if ( PAIR ) {
                      INFO = INFO + 2

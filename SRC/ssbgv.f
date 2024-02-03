@@ -52,7 +52,7 @@
          INFO = -12
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'SSBGV', -INFO )
+         xerbla('SSBGV', -INFO );
          RETURN
       }
 
@@ -62,7 +62,7 @@
 
       // Form a split Cholesky factorization of B.
 
-      CALL SPBSTF( UPLO, N, KB, BB, LDBB, INFO )
+      spbstf(UPLO, N, KB, BB, LDBB, INFO );
       if ( INFO.NE.0 ) {
          INFO = N + INFO
          RETURN
@@ -72,7 +72,7 @@
 
       INDE = 1
       INDWRK = INDE + N
-      CALL SSBGST( JOBZ, UPLO, N, KA, KB, AB, LDAB, BB, LDBB, Z, LDZ, WORK( INDWRK ), IINFO )
+      ssbgst(JOBZ, UPLO, N, KA, KB, AB, LDAB, BB, LDBB, Z, LDZ, WORK( INDWRK ), IINFO );
 
       // Reduce to tridiagonal form.
 
@@ -81,14 +81,14 @@
       } else {
          VECT = 'N'
       }
-      CALL SSBTRD( VECT, UPLO, N, KA, AB, LDAB, W, WORK( INDE ), Z, LDZ, WORK( INDWRK ), IINFO )
+      ssbtrd(VECT, UPLO, N, KA, AB, LDAB, W, WORK( INDE ), Z, LDZ, WORK( INDWRK ), IINFO );
 
       // For eigenvalues only, call SSTERF.  For eigenvectors, call SSTEQR.
 
       if ( .NOT.WANTZ ) {
-         CALL SSTERF( N, W, WORK( INDE ), INFO )
+         ssterf(N, W, WORK( INDE ), INFO );
       } else {
-         CALL SSTEQR( JOBZ, N, W, WORK( INDE ), Z, LDZ, WORK( INDWRK ), INFO )
+         ssteqr(JOBZ, N, W, WORK( INDE ), Z, LDZ, WORK( INDWRK ), INFO );
       }
       RETURN
 

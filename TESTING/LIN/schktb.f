@@ -126,7 +126,7 @@
                   // Call SLATTB to generate a triangular test matrix.
 
                   SRNAMT = 'SLATTB'
-                  CALL SLATTB( IMAT, UPLO, 'No transpose', DIAG, ISEED, N, KD, AB, LDAB, X, WORK, INFO )
+                  slattb(IMAT, UPLO, 'No transpose', DIAG, ISEED, N, KD, AB, LDAB, X, WORK, INFO );
 
                   // Set IDIAG = 1 for non-unit matrices, 2 for unit.
 
@@ -139,14 +139,14 @@
                   // Form the inverse of A so we can get a good estimate
                   // of RCONDC = 1/(norm(A) * norm(inv(A))).
 
-                  CALL SLASET( 'Full', N, N, ZERO, ONE, AINV, LDA )
+                  slaset('Full', N, N, ZERO, ONE, AINV, LDA );
                   if ( LSAME( UPLO, 'U' ) ) {
                      DO 20 J = 1, N
-                        CALL STBSV( UPLO, 'No transpose', DIAG, J, KD, AB, LDAB, AINV( ( J-1 )*LDA+1 ), 1 )
+                        stbsv(UPLO, 'No transpose', DIAG, J, KD, AB, LDAB, AINV( ( J-1 )*LDA+1 ), 1 );
    20                CONTINUE
                   } else {
                      DO 30 J = 1, N
-                        CALL STBSV( UPLO, 'No transpose', DIAG, N-J+1, KD, AB( ( J-1 )*LDAB+1 ), LDAB, AINV( ( J-1 )*LDA+J ), 1 )
+                        stbsv(UPLO, 'No transpose', DIAG, N-J+1, KD, AB( ( J-1 )*LDAB+1 ), LDAB, AINV( ( J-1 )*LDA+J ), 1 );
    30                CONTINUE
                   }
 
@@ -189,36 +189,36 @@
                      // Solve and compute residual for op(A)*x = b.
 
                         SRNAMT = 'SLARHS'
-                        CALL SLARHS( PATH, XTYPE, UPLO, TRANS, N, N, KD, IDIAG, NRHS, AB, LDAB, XACT, LDA, B, LDA, ISEED, INFO )
+                        slarhs(PATH, XTYPE, UPLO, TRANS, N, N, KD, IDIAG, NRHS, AB, LDAB, XACT, LDA, B, LDA, ISEED, INFO );
                         XTYPE = 'C'
-                        CALL SLACPY( 'Full', N, NRHS, B, LDA, X, LDA )
+                        slacpy('Full', N, NRHS, B, LDA, X, LDA );
 
                         SRNAMT = 'STBTRS'
-                        CALL STBTRS( UPLO, TRANS, DIAG, N, KD, NRHS, AB, LDAB, X, LDA, INFO )
+                        stbtrs(UPLO, TRANS, DIAG, N, KD, NRHS, AB, LDAB, X, LDA, INFO );
 
                      // Check error code from STBTRS.
 
                         IF( INFO.NE.0 ) CALL ALAERH( PATH, 'STBTRS', INFO, 0, UPLO // TRANS // DIAG, N, N, KD, KD, NRHS, IMAT, NFAIL, NERRS, NOUT )
 
-                        CALL STBT02( UPLO, TRANS, DIAG, N, KD, NRHS, AB, LDAB, X, LDA, B, LDA, WORK, RESULT( 1 ) )
+                        stbt02(UPLO, TRANS, DIAG, N, KD, NRHS, AB, LDAB, X, LDA, B, LDA, WORK, RESULT( 1 ) );
 
 *+    TEST 2
                      // Check solution from generated exact solution.
 
-                        CALL SGET04( N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 2 ) )
+                        sget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 2 ) );
 
 *+    TESTS 3, 4, and 5
                      // Use iterative refinement to improve the solution
                      // and compute error bounds.
 
                         SRNAMT = 'STBRFS'
-                        CALL STBRFS( UPLO, TRANS, DIAG, N, KD, NRHS, AB, LDAB, B, LDA, X, LDA, RWORK, RWORK( NRHS+1 ), WORK, IWORK, INFO )
+                        stbrfs(UPLO, TRANS, DIAG, N, KD, NRHS, AB, LDAB, B, LDA, X, LDA, RWORK, RWORK( NRHS+1 ), WORK, IWORK, INFO );
 
                      // Check error code from STBRFS.
 
                         IF( INFO.NE.0 ) CALL ALAERH( PATH, 'STBRFS', INFO, 0, UPLO // TRANS // DIAG, N, N, KD, KD, NRHS, IMAT, NFAIL, NERRS, NOUT )
 
-                        CALL SGET04( N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 3 ) )                         CALL STBT05( UPLO, TRANS, DIAG, N, KD, NRHS, AB, LDAB, B, LDA, X, LDA, XACT, LDA, RWORK, RWORK( NRHS+1 ), RESULT( 4 ) )
+                        sget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 3 ) )                         CALL STBT05( UPLO, TRANS, DIAG, N, KD, NRHS, AB, LDAB, B, LDA, X, LDA, XACT, LDA, RWORK, RWORK( NRHS+1 ), RESULT( 4 ) );
 
                         // Print information about the tests that did not
                         // pass the threshold.
@@ -245,13 +245,13 @@
                         RCONDC = RCONDI
                      }
                      SRNAMT = 'STBCON'
-                     CALL STBCON( NORM, UPLO, DIAG, N, KD, AB, LDAB, RCOND, WORK, IWORK, INFO )
+                     stbcon(NORM, UPLO, DIAG, N, KD, AB, LDAB, RCOND, WORK, IWORK, INFO );
 
                      // Check error code from STBCON.
 
                      IF( INFO.NE.0 ) CALL ALAERH( PATH, 'STBCON', INFO, 0, NORM // UPLO // DIAG, N, N, KD, KD, -1, IMAT, NFAIL, NERRS, NOUT )
 
-                     CALL STBT06( RCOND, RCONDC, UPLO, DIAG, N, KD, AB, LDAB, RWORK, RESULT( 6 ) )
+                     stbt06(RCOND, RCONDC, UPLO, DIAG, N, KD, AB, LDAB, RWORK, RESULT( 6 ) );
 
                      // Print information about the tests that did not pass
                      // the threshold.
@@ -287,32 +287,32 @@
                      // Call SLATTB to generate a triangular test matrix.
 
                      SRNAMT = 'SLATTB'
-                     CALL SLATTB( IMAT, UPLO, TRANS, DIAG, ISEED, N, KD, AB, LDAB, X, WORK, INFO )
+                     slattb(IMAT, UPLO, TRANS, DIAG, ISEED, N, KD, AB, LDAB, X, WORK, INFO );
 
 *+    TEST 7
                      // Solve the system op(A)*x = b
 
                      SRNAMT = 'SLATBS'
-                     CALL SCOPY( N, X, 1, B, 1 )
-                     CALL SLATBS( UPLO, TRANS, DIAG, 'N', N, KD, AB, LDAB, B, SCALE, RWORK, INFO )
+                     scopy(N, X, 1, B, 1 );
+                     slatbs(UPLO, TRANS, DIAG, 'N', N, KD, AB, LDAB, B, SCALE, RWORK, INFO );
 
                      // Check error code from SLATBS.
 
                      IF( INFO.NE.0 ) CALL ALAERH( PATH, 'SLATBS', INFO, 0, UPLO // TRANS // DIAG // 'N', N, N, KD, KD, -1, IMAT, NFAIL, NERRS, NOUT )
 
-                     CALL STBT03( UPLO, TRANS, DIAG, N, KD, 1, AB, LDAB, SCALE, RWORK, ONE, B, LDA, X, LDA, WORK, RESULT( 7 ) )
+                     stbt03(UPLO, TRANS, DIAG, N, KD, 1, AB, LDAB, SCALE, RWORK, ONE, B, LDA, X, LDA, WORK, RESULT( 7 ) );
 
 *+    TEST 8
                      // Solve op(A)*x = b again with NORMIN = 'Y'.
 
-                     CALL SCOPY( N, X, 1, B, 1 )
-                     CALL SLATBS( UPLO, TRANS, DIAG, 'Y', N, KD, AB, LDAB, B, SCALE, RWORK, INFO )
+                     scopy(N, X, 1, B, 1 );
+                     slatbs(UPLO, TRANS, DIAG, 'Y', N, KD, AB, LDAB, B, SCALE, RWORK, INFO );
 
                      // Check error code from SLATBS.
 
                      IF( INFO.NE.0 ) CALL ALAERH( PATH, 'SLATBS', INFO, 0, UPLO // TRANS // DIAG // 'Y', N, N, KD, KD, -1, IMAT, NFAIL, NERRS, NOUT )
 
-                     CALL STBT03( UPLO, TRANS, DIAG, N, KD, 1, AB, LDAB, SCALE, RWORK, ONE, B, LDA, X, LDA, WORK, RESULT( 8 ) )
+                     stbt03(UPLO, TRANS, DIAG, N, KD, 1, AB, LDAB, SCALE, RWORK, ONE, B, LDA, X, LDA, WORK, RESULT( 8 ) );
 
                      // Print information about the tests that did not pass
                      // the threshold.
@@ -334,7 +334,7 @@
 
       // Print a summary of the results.
 
-      CALL ALASUM( PATH, NOUT, NFAIL, NRUN, NERRS )
+      alasum(PATH, NOUT, NFAIL, NRUN, NERRS );
 
  9999 FORMAT( ' UPLO=''', A1, ''', TRANS=''', A1, ''', DIAG=''', A1, ''', N=', I5, ', KD=', I5, ', NRHS=', I5, ', type ', I2, ', test(', I2, ')=', G12.5 )
  9998 FORMAT( 1X, A, '( ''', A1, ''', ''', A1, ''', ''', A1, ''',', I5, ',', I5, ',  ... ), type ', I2, ', test(', I2, ')=', G12.5 )

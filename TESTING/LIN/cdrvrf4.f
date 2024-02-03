@@ -155,22 +155,22 @@
                         NORMC = CLANGE( 'I', N, N, C1, LDC, S_WORK_CLANGE )
 
                         SRNAMT = 'CTRTTF'
-                        CALL CTRTTF( CFORM, UPLO, N, C1, LDC, CRF, INFO )
+                        ctrttf(CFORM, UPLO, N, C1, LDC, CRF, INFO );
 
                         // call zherk the BLAS routine -> gives C1
 
                         SRNAMT = 'CHERK '
-                        CALL CHERK( UPLO, TRANS, N, K, ALPHA, A, LDA, BETA, C1, LDC )
+                        cherk(UPLO, TRANS, N, K, ALPHA, A, LDA, BETA, C1, LDC );
 
                         // call zhfrk the RFP routine -> gives CRF
 
                         SRNAMT = 'CHFRK '
-                        CALL CHFRK( CFORM, UPLO, TRANS, N, K, ALPHA, A, LDA, BETA, CRF )
+                        chfrk(CFORM, UPLO, TRANS, N, K, ALPHA, A, LDA, BETA, CRF );
 
                         // convert CRF in full format -> gives C2
 
                         SRNAMT = 'CTFTTR'
-                        CALL CTFTTR( CFORM, UPLO, N, CRF, C2, LDC, INFO )
+                        ctfttr(CFORM, UPLO, N, CRF, C2, LDC, INFO );
 
                         // compare C1 and C2
 

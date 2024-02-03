@@ -78,7 +78,7 @@
       IF( LWORK.LT.MINWRK ) INFO = -24
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'DDRGVX', -INFO )
+         xerbla('DDRGVX', -INFO );
          RETURN
       }
 
@@ -108,16 +108,16 @@
 
                      // generated a test matrix pair
 
-                     CALL DLATM6( IPTYPE, 5, A, LDA, B, VR, LDA, VL, LDA, WEIGHT( IWA ), WEIGHT( IWB ), WEIGHT( IWX ), WEIGHT( IWY ), DTRU, DIFTRU )
+                     dlatm6(IPTYPE, 5, A, LDA, B, VR, LDA, VL, LDA, WEIGHT( IWA ), WEIGHT( IWB ), WEIGHT( IWX ), WEIGHT( IWY ), DTRU, DIFTRU );
 
                      // Compute eigenvalues/eigenvectors of (A, B).
                      // Compute eigenvalue/eigenvector condition numbers
                      // using computed eigenvectors.
 
-                     CALL DLACPY( 'F', N, N, A, LDA, AI, LDA )
-                     CALL DLACPY( 'F', N, N, B, LDA, BI, LDA )
+                     dlacpy('F', N, N, A, LDA, AI, LDA );
+                     dlacpy('F', N, N, B, LDA, BI, LDA );
 
-                     CALL DGGEVX( 'N', 'V', 'V', 'B', N, AI, LDA, BI, LDA, ALPHAR, ALPHAI, BETA, VL, LDA, VR, LDA, ILO, IHI, LSCALE, RSCALE, ANORM, BNORM, S, DIF, WORK, LWORK, IWORK, BWORK, LINFO )
+                     dggevx('N', 'V', 'V', 'B', N, AI, LDA, BI, LDA, ALPHAR, ALPHAI, BETA, VL, LDA, VR, LDA, ILO, IHI, LSCALE, RSCALE, ANORM, BNORM, S, DIF, WORK, LWORK, IWORK, BWORK, LINFO );
                      if ( LINFO.NE.0 ) {
                         RESULT( 1 ) = ULPINV
                         WRITE( NOUT, FMT = 9999 )'DGGEVX', LINFO, N, IPTYPE
@@ -126,20 +126,20 @@
 
                      // Compute the norm(A, B)
 
-                     CALL DLACPY( 'Full', N, N, AI, LDA, WORK, N )
-                     CALL DLACPY( 'Full', N, N, BI, LDA, WORK( N*N+1 ), N )
+                     dlacpy('Full', N, N, AI, LDA, WORK, N );
+                     dlacpy('Full', N, N, BI, LDA, WORK( N*N+1 ), N );
                      ABNORM = DLANGE( 'Fro', N, 2*N, WORK, N, WORK )
 
                      // Tests (1) and (2)
 
                      RESULT( 1 ) = ZERO
-                     CALL DGET52( .TRUE., N, A, LDA, B, LDA, VL, LDA, ALPHAR, ALPHAI, BETA, WORK, RESULT( 1 ) )
+                     dget52(.TRUE., N, A, LDA, B, LDA, VL, LDA, ALPHAR, ALPHAI, BETA, WORK, RESULT( 1 ) );
                      if ( RESULT( 2 ).GT.THRESH ) {
                         WRITE( NOUT, FMT = 9998 )'Left', 'DGGEVX', RESULT( 2 ), N, IPTYPE, IWA, IWB, IWX, IWY
                      }
 
                      RESULT( 2 ) = ZERO
-                     CALL DGET52( .FALSE., N, A, LDA, B, LDA, VR, LDA, ALPHAR, ALPHAI, BETA, WORK, RESULT( 2 ) )
+                     dget52(.FALSE., N, A, LDA, B, LDA, VR, LDA, ALPHAR, ALPHAI, BETA, WORK, RESULT( 2 ) );
                      if ( RESULT( 3 ).GT.THRESH ) {
                         WRITE( NOUT, FMT = 9998 )'Right', 'DGGEVX', RESULT( 3 ), N, IPTYPE, IWA, IWB, IWX, IWY
                      }
@@ -241,10 +241,10 @@
       // Compute eigenvalue/eigenvector condition numbers
       // using computed eigenvectors.
 
-      CALL DLACPY( 'F', N, N, A, LDA, AI, LDA )
-      CALL DLACPY( 'F', N, N, B, LDA, BI, LDA )
+      dlacpy('F', N, N, A, LDA, AI, LDA );
+      dlacpy('F', N, N, B, LDA, BI, LDA );
 
-      CALL DGGEVX( 'N', 'V', 'V', 'B', N, AI, LDA, BI, LDA, ALPHAR, ALPHAI, BETA, VL, LDA, VR, LDA, ILO, IHI, LSCALE, RSCALE, ANORM, BNORM, S, DIF, WORK, LWORK, IWORK, BWORK, LINFO )
+      dggevx('N', 'V', 'V', 'B', N, AI, LDA, BI, LDA, ALPHAR, ALPHAI, BETA, VL, LDA, VR, LDA, ILO, IHI, LSCALE, RSCALE, ANORM, BNORM, S, DIF, WORK, LWORK, IWORK, BWORK, LINFO );
 
       if ( LINFO.NE.0 ) {
          RESULT( 1 ) = ULPINV
@@ -254,20 +254,20 @@
 
       // Compute the norm(A, B)
 
-      CALL DLACPY( 'Full', N, N, AI, LDA, WORK, N )
-      CALL DLACPY( 'Full', N, N, BI, LDA, WORK( N*N+1 ), N )
+      dlacpy('Full', N, N, AI, LDA, WORK, N );
+      dlacpy('Full', N, N, BI, LDA, WORK( N*N+1 ), N );
       ABNORM = DLANGE( 'Fro', N, 2*N, WORK, N, WORK )
 
       // Tests (1) and (2)
 
       RESULT( 1 ) = ZERO
-      CALL DGET52( .TRUE., N, A, LDA, B, LDA, VL, LDA, ALPHAR, ALPHAI, BETA, WORK, RESULT( 1 ) )
+      dget52(.TRUE., N, A, LDA, B, LDA, VL, LDA, ALPHAR, ALPHAI, BETA, WORK, RESULT( 1 ) );
       if ( RESULT( 2 ).GT.THRESH ) {
          WRITE( NOUT, FMT = 9986 )'Left', 'DGGEVX', RESULT( 2 ), N, NPTKNT
       }
 
       RESULT( 2 ) = ZERO
-      CALL DGET52( .FALSE., N, A, LDA, B, LDA, VR, LDA, ALPHAR, ALPHAI, BETA, WORK, RESULT( 2 ) )
+      dget52(.FALSE., N, A, LDA, B, LDA, VR, LDA, ALPHAR, ALPHAI, BETA, WORK, RESULT( 2 ) );
       if ( RESULT( 3 ).GT.THRESH ) {
          WRITE( NOUT, FMT = 9986 )'Right', 'DGGEVX', RESULT( 3 ), N, NPTKNT
       }
@@ -342,7 +342,7 @@
 
       // Summary
 
-      CALL ALASVM( 'DXV', NOUT, NERRS, NTESTT, 0 )
+      alasvm('DXV', NOUT, NERRS, NTESTT, 0 );
 
       WORK( 1 ) = MAXWRK
 

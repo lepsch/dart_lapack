@@ -74,7 +74,7 @@
 
          // Copy column K of A to column KW of W and update it
 
-         CALL SCOPY( K, A( 1, K ), 1, W( 1, KW ), 1 )
+         scopy(K, A( 1, K ), 1, W( 1, KW ), 1 );
          IF( K.LT.N ) CALL SGEMV( 'No transpose', K, N-K, -ONE, A( 1, K+1 ), LDA, W( K, KW+1 ), LDW, ONE, W( 1, KW ), 1 )
 
          // Determine rows and columns to be interchanged and whether
@@ -99,7 +99,7 @@
 
             IF( INFO.EQ.0 ) INFO = K
             KP = K
-            CALL SCOPY( K, W( 1, KW ), 1, A( 1, K ), 1 )
+            scopy(K, W( 1, KW ), 1, A( 1, K ), 1 );
          } else {
 
             // ============================================================
@@ -128,8 +128,8 @@
 
                   // Copy column IMAX to column KW-1 of W and update it
 
-                  CALL SCOPY( IMAX, A( 1, IMAX ), 1, W( 1, KW-1 ), 1 )
-                  CALL SCOPY( K-IMAX, A( IMAX, IMAX+1 ), LDA, W( IMAX+1, KW-1 ), 1 )
+                  scopy(IMAX, A( 1, IMAX ), 1, W( 1, KW-1 ), 1 );
+                  scopy(K-IMAX, A( IMAX, IMAX+1 ), LDA, W( IMAX+1, KW-1 ), 1 );
 
                   IF( K.LT.N ) CALL SGEMV( 'No transpose', K, N-K, -ONE, A( 1, K+1 ), LDA, W( IMAX, KW+1 ), LDW, ONE, W( 1, KW-1 ), 1 )
 
@@ -166,7 +166,7 @@
 
                      // copy column KW-1 of W to column KW of W
 
-                     CALL SCOPY( K, W( 1, KW-1 ), 1, W( 1, KW ), 1 )
+                     scopy(K, W( 1, KW-1 ), 1, W( 1, KW ), 1 );
 
                      DONE = .TRUE.
 
@@ -191,7 +191,7 @@
 
                      // Copy updated JMAXth (next IMAXth) column to Kth of W
 
-                     CALL SCOPY( K, W( 1, KW-1 ), 1, W( 1, KW ), 1 )
+                     scopy(K, W( 1, KW-1 ), 1, W( 1, KW ), 1 );
 
                   }
 
@@ -213,14 +213,14 @@
 
                // Copy non-updated column K to column P
 
-               CALL SCOPY( K-P, A( P+1, K ), 1, A( P, P+1 ), LDA )
-               CALL SCOPY( P, A( 1, K ), 1, A( 1, P ), 1 )
+               scopy(K-P, A( P+1, K ), 1, A( P, P+1 ), LDA );
+               scopy(P, A( 1, K ), 1, A( 1, P ), 1 );
 
                // Interchange rows K and P in last N-K+1 columns of A
                // and last N-K+2 columns of W
 
-               CALL SSWAP( N-K+1, A( K, K ), LDA, A( P, K ), LDA )
-               CALL SSWAP( N-KK+1, W( K, KKW ), LDW, W( P, KKW ), LDW )
+               sswap(N-K+1, A( K, K ), LDA, A( P, K ), LDA );
+               sswap(N-KK+1, W( K, KKW ), LDW, W( P, KKW ), LDW );
             }
 
             // Updated column KP is already stored in column KKW of W
@@ -230,14 +230,14 @@
                // Copy non-updated column KK to column KP
 
                A( KP, K ) = A( KK, K )
-               CALL SCOPY( K-1-KP, A( KP+1, KK ), 1, A( KP, KP+1 ), LDA )
-               CALL SCOPY( KP, A( 1, KK ), 1, A( 1, KP ), 1 )
+               scopy(K-1-KP, A( KP+1, KK ), 1, A( KP, KP+1 ), LDA );
+               scopy(KP, A( 1, KK ), 1, A( 1, KP ), 1 );
 
                // Interchange rows KK and KP in last N-KK+1 columns
                // of A and W
 
-               CALL SSWAP( N-KK+1, A( KK, KK ), LDA, A( KP, KK ), LDA )
-               CALL SSWAP( N-KK+1, W( KK, KKW ), LDW, W( KP, KKW ), LDW )
+               sswap(N-KK+1, A( KK, KK ), LDA, A( KP, KK ), LDA );
+               sswap(N-KK+1, W( KK, KKW ), LDW, W( KP, KKW ), LDW );
             }
 
             if ( KSTEP.EQ.1 ) {
@@ -250,11 +250,11 @@
 
                // Store U(k) in column k of A
 
-               CALL SCOPY( K, W( 1, KW ), 1, A( 1, K ), 1 )
+               scopy(K, W( 1, KW ), 1, A( 1, K ), 1 );
                if ( K.GT.1 ) {
                   if ( ABS( A( K, K ) ).GE.SFMIN ) {
                      R1 = ONE / A( K, K )
-                     CALL SSCAL( K-1, R1, A( 1, K ), 1 )
+                     sscal(K-1, R1, A( 1, K ), 1 );
                   } else if ( A( K, K ).NE.ZERO ) {
                      DO 14 II = 1, K - 1
                         A( II, K ) = A( II, K ) / A( K, K )
@@ -321,7 +321,7 @@
             // Update the upper triangle of the diagonal block
 
             DO 40 JJ = J, J + JB - 1
-               CALL SGEMV( 'No transpose', JJ-J+1, N-K, -ONE, A( J, K+1 ), LDA, W( JJ, KW+1 ), LDW, ONE, A( J, JJ ), 1 )
+               sgemv('No transpose', JJ-J+1, N-K, -ONE, A( J, K+1 ), LDA, W( JJ, KW+1 ), LDW, ONE, A( J, JJ ), 1 );
    40       CONTINUE
 
             // Update the rectangular superdiagonal block
@@ -375,7 +375,7 @@
 
          // Copy column K of A to column K of W and update it
 
-         CALL SCOPY( N-K+1, A( K, K ), 1, W( K, K ), 1 )
+         scopy(N-K+1, A( K, K ), 1, W( K, K ), 1 );
          IF( K.GT.1 ) CALL SGEMV( 'No transpose', N-K+1, K-1, -ONE, A( K, 1 ), LDA, W( K, 1 ), LDW, ONE, W( K, K ), 1 )
 
          // Determine rows and columns to be interchanged and whether
@@ -400,7 +400,7 @@
 
             IF( INFO.EQ.0 ) INFO = K
             KP = K
-            CALL SCOPY( N-K+1, W( K, K ), 1, A( K, K ), 1 )
+            scopy(N-K+1, W( K, K ), 1, A( K, K ), 1 );
          } else {
 
             // ============================================================
@@ -429,8 +429,8 @@
 
                   // Copy column IMAX to column K+1 of W and update it
 
-                  CALL SCOPY( IMAX-K, A( IMAX, K ), LDA, W( K, K+1 ), 1)
-                  CALL SCOPY( N-IMAX+1, A( IMAX, IMAX ), 1, W( IMAX, K+1 ), 1 )                   IF( K.GT.1 ) CALL SGEMV( 'No transpose', N-K+1, K-1, -ONE, A( K, 1 ), LDA, W( IMAX, 1 ), LDW, ONE, W( K, K+1 ), 1 )
+                  scopy(IMAX-K, A( IMAX, K ), LDA, W( K, K+1 ), 1);
+                  scopy(N-IMAX+1, A( IMAX, IMAX ), 1, W( IMAX, K+1 ), 1 )                   IF( K.GT.1 ) CALL SGEMV( 'No transpose', N-K+1, K-1, -ONE, A( K, 1 ), LDA, W( IMAX, 1 ), LDW, ONE, W( K, K+1 ), 1 );
 
                   // JMAX is the column-index of the largest off-diagonal
                   // element in row IMAX, and ROWMAX is its absolute value.
@@ -465,7 +465,7 @@
 
                      // copy column K+1 of W to column K of W
 
-                     CALL SCOPY( N-K+1, W( K, K+1 ), 1, W( K, K ), 1 )
+                     scopy(N-K+1, W( K, K+1 ), 1, W( K, K ), 1 );
 
                      DONE = .TRUE.
 
@@ -490,7 +490,7 @@
 
                      // Copy updated JMAXth (next IMAXth) column to Kth of W
 
-                     CALL SCOPY( N-K+1, W( K, K+1 ), 1, W( K, K ), 1 )
+                     scopy(N-K+1, W( K, K+1 ), 1, W( K, K ), 1 );
 
                   }
 
@@ -508,14 +508,14 @@
 
                // Copy non-updated column K to column P
 
-               CALL SCOPY( P-K, A( K, K ), 1, A( P, K ), LDA )
-               CALL SCOPY( N-P+1, A( P, K ), 1, A( P, P ), 1 )
+               scopy(P-K, A( K, K ), 1, A( P, K ), LDA );
+               scopy(N-P+1, A( P, K ), 1, A( P, P ), 1 );
 
                // Interchange rows K and P in first K columns of A
                // and first K+1 columns of W
 
-               CALL SSWAP( K, A( K, 1 ), LDA, A( P, 1 ), LDA )
-               CALL SSWAP( KK, W( K, 1 ), LDW, W( P, 1 ), LDW )
+               sswap(K, A( K, 1 ), LDA, A( P, 1 ), LDA );
+               sswap(KK, W( K, 1 ), LDW, W( P, 1 ), LDW );
             }
 
             // Updated column KP is already stored in column KK of W
@@ -525,13 +525,13 @@
                // Copy non-updated column KK to column KP
 
                A( KP, K ) = A( KK, K )
-               CALL SCOPY( KP-K-1, A( K+1, KK ), 1, A( KP, K+1 ), LDA )
-               CALL SCOPY( N-KP+1, A( KP, KK ), 1, A( KP, KP ), 1 )
+               scopy(KP-K-1, A( K+1, KK ), 1, A( KP, K+1 ), LDA );
+               scopy(N-KP+1, A( KP, KK ), 1, A( KP, KP ), 1 );
 
                // Interchange rows KK and KP in first KK columns of A and W
 
-               CALL SSWAP( KK, A( KK, 1 ), LDA, A( KP, 1 ), LDA )
-               CALL SSWAP( KK, W( KK, 1 ), LDW, W( KP, 1 ), LDW )
+               sswap(KK, A( KK, 1 ), LDA, A( KP, 1 ), LDA );
+               sswap(KK, W( KK, 1 ), LDW, W( KP, 1 ), LDW );
             }
 
             if ( KSTEP.EQ.1 ) {
@@ -544,11 +544,11 @@
 
                // Store L(k) in column k of A
 
-               CALL SCOPY( N-K+1, W( K, K ), 1, A( K, K ), 1 )
+               scopy(N-K+1, W( K, K ), 1, A( K, K ), 1 );
                if ( K.LT.N ) {
                   if ( ABS( A( K, K ) ).GE.SFMIN ) {
                      R1 = ONE / A( K, K )
-                     CALL SSCAL( N-K, R1, A( K+1, K ), 1 )
+                     sscal(N-K, R1, A( K+1, K ), 1 );
                   } else if ( A( K, K ).NE.ZERO ) {
                      DO 74 II = K + 1, N
                         A( II, K ) = A( II, K ) / A( K, K )
@@ -614,7 +614,7 @@
             // Update the lower triangle of the diagonal block
 
             DO 100 JJ = J, J + JB - 1
-               CALL SGEMV( 'No transpose', J+JB-JJ, K-1, -ONE, A( JJ, 1 ), LDA, W( JJ, 1 ), LDW, ONE, A( JJ, JJ ), 1 )
+               sgemv('No transpose', J+JB-JJ, K-1, -ONE, A( JJ, 1 ), LDA, W( JJ, 1 ), LDW, ONE, A( JJ, JJ ), 1 );
   100       CONTINUE
 
             // Update the rectangular subdiagonal block

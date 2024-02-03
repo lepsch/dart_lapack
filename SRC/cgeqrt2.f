@@ -39,7 +39,7 @@
          INFO = -6
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'CGEQRT2', -INFO )
+         xerbla('CGEQRT2', -INFO );
          RETURN
       }
 
@@ -49,7 +49,7 @@
 
          // Generate elem. refl. H(i) to annihilate A(i+1:m,i), tau(I) -> T(I,1)
 
-         CALL CLARFG( M-I+1, A( I, I ), A( MIN( I+1, M ), I ), 1, T( I, 1 ) )
+         clarfg(M-I+1, A( I, I ), A( MIN( I+1, M ), I ), 1, T( I, 1 ) );
          if ( I.LT.N ) {
 
             // Apply H(i) to A(I:M,I+1:N) from the left
@@ -59,12 +59,12 @@
 
             // W(1:N-I) := A(I:M,I+1:N)**H * A(I:M,I) [W = T(:,N)]
 
-            CALL CGEMV( 'C',M-I+1, N-I, ONE, A( I, I+1 ), LDA, A( I, I ), 1, ZERO, T( 1, N ), 1 )
+            cgemv('C',M-I+1, N-I, ONE, A( I, I+1 ), LDA, A( I, I ), 1, ZERO, T( 1, N ), 1 );
 
             // A(I:M,I+1:N) = A(I:m,I+1:N) + alpha*A(I:M,I)*W(1:N-1)**H
 
             ALPHA = -CONJG(T( I, 1 ))
-            CALL CGERC( M-I+1, N-I, ALPHA, A( I, I ), 1, T( 1, N ), 1, A( I, I+1 ), LDA )
+            cgerc(M-I+1, N-I, ALPHA, A( I, I ), 1, T( 1, N ), 1, A( I, I+1 ), LDA );
             A( I, I ) = AII
          }
       END DO
@@ -76,12 +76,12 @@
          // T(1:I-1,I) := alpha * A(I:M,1:I-1)**H * A(I:M,I)
 
          ALPHA = -T( I, 1 )
-         CALL CGEMV( 'C', M-I+1, I-1, ALPHA, A( I, 1 ), LDA, A( I, I ), 1, ZERO, T( 1, I ), 1 )
+         cgemv('C', M-I+1, I-1, ALPHA, A( I, 1 ), LDA, A( I, I ), 1, ZERO, T( 1, I ), 1 );
          A( I, I ) = AII
 
          // T(1:I-1,I) := T(1:I-1,1:I-1) * T(1:I-1,I)
 
-         CALL CTRMV( 'U', 'N', 'N', I-1, T, LDT, T( 1, I ), 1 )
+         ctrmv('U', 'N', 'N', I-1, T, LDT, T( 1, I ), 1 );
 
             // T(I,I) = tau(I)
 

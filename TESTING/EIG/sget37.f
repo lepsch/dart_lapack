@@ -87,16 +87,16 @@
          // Scale input matrix
 
          KNT = KNT + 1
-         CALL SLACPY( 'F', N, N, TMP, LDT, T, LDT )
+         slacpy('F', N, N, TMP, LDT, T, LDT );
          VMUL = VAL( ISCL )
          DO 40 I = 1, N
-            CALL SSCAL( N, VMUL, T( 1, I ), 1 )
+            sscal(N, VMUL, T( 1, I ), 1 );
    40    CONTINUE
          IF( TNRM.EQ.ZERO ) VMUL = ONE
 
          // Compute eigenvalues and eigenvectors
 
-         CALL SGEHRD( N, 1, N, T, LDT, WORK( 1 ), WORK( N+1 ), LWORK-N, INFO )
+         sgehrd(N, 1, N, T, LDT, WORK( 1 ), WORK( N+1 ), LWORK-N, INFO );
          if ( INFO.NE.0 ) {
             LMAX( 1 ) = KNT
             NINFO( 1 ) = NINFO( 1 ) + 1
@@ -110,7 +110,7 @@
 
          // Compute Schur form
 
-         CALL SHSEQR( 'S', 'N', N, 1, N, T, LDT, WR, WI, DUM, 1, WORK, LWORK, INFO )
+         shseqr('S', 'N', N, 1, N, T, LDT, WR, WI, DUM, 1, WORK, LWORK, INFO );
          if ( INFO.NE.0 ) {
             LMAX( 2 ) = KNT
             NINFO( 2 ) = NINFO( 2 ) + 1
@@ -119,11 +119,11 @@
 
          // Compute eigenvectors
 
-         CALL STREVC( 'Both', 'All', SELECT, N, T, LDT, LE, LDT, RE, LDT, N, M, WORK, INFO )
+         strevc('Both', 'All', SELECT, N, T, LDT, LE, LDT, RE, LDT, N, M, WORK, INFO );
 
          // Compute condition numbers
 
-         CALL STRSNA( 'Both', 'All', SELECT, N, T, LDT, LE, LDT, RE, LDT, S, SEP, N, M, WORK, N, IWORK, INFO )
+         strsna('Both', 'All', SELECT, N, T, LDT, LE, LDT, RE, LDT, S, SEP, N, M, WORK, N, IWORK, INFO );
          if ( INFO.NE.0 ) {
             LMAX( 3 ) = KNT
             NINFO( 3 ) = NINFO( 3 ) + 1
@@ -133,11 +133,11 @@
          // Sort eigenvalues and condition numbers lexicographically
          // to compare with inputs
 
-         CALL SCOPY( N, WR, 1, WRTMP, 1 )
-         CALL SCOPY( N, WI, 1, WITMP, 1 )
-         CALL SCOPY( N, S, 1, STMP, 1 )
-         CALL SCOPY( N, SEP, 1, SEPTMP, 1 )
-         CALL SSCAL( N, ONE / VMUL, SEPTMP, 1 )
+         scopy(N, WR, 1, WRTMP, 1 );
+         scopy(N, WI, 1, WITMP, 1 );
+         scopy(N, S, 1, STMP, 1 );
+         scopy(N, SEP, 1, SEPTMP, 1 );
+         sscal(N, ONE / VMUL, SEPTMP, 1 );
          DO 80 I = 1, N - 1
             KMIN = I
             VRMIN = WRTMP( I )
@@ -279,9 +279,9 @@
 
          VMAX = ZERO
          DUM( 1 ) = -ONE
-         CALL SCOPY( N, DUM, 0, STMP, 1 )
-         CALL SCOPY( N, DUM, 0, SEPTMP, 1 )
-         CALL STRSNA( 'Eigcond', 'All', SELECT, N, T, LDT, LE, LDT, RE, LDT, STMP, SEPTMP, N, M, WORK, N, IWORK, INFO )
+         scopy(N, DUM, 0, STMP, 1 );
+         scopy(N, DUM, 0, SEPTMP, 1 );
+         strsna('Eigcond', 'All', SELECT, N, T, LDT, LE, LDT, RE, LDT, STMP, SEPTMP, N, M, WORK, N, IWORK, INFO );
          if ( INFO.NE.0 ) {
             LMAX( 3 ) = KNT
             NINFO( 3 ) = NINFO( 3 ) + 1
@@ -293,9 +293,9 @@
 
          // Compute eigenvector condition numbers only and compare
 
-         CALL SCOPY( N, DUM, 0, STMP, 1 )
-         CALL SCOPY( N, DUM, 0, SEPTMP, 1 )
-         CALL STRSNA( 'Veccond', 'All', SELECT, N, T, LDT, LE, LDT, RE, LDT, STMP, SEPTMP, N, M, WORK, N, IWORK, INFO )
+         scopy(N, DUM, 0, STMP, 1 );
+         scopy(N, DUM, 0, SEPTMP, 1 );
+         strsna('Veccond', 'All', SELECT, N, T, LDT, LE, LDT, RE, LDT, STMP, SEPTMP, N, M, WORK, N, IWORK, INFO );
          if ( INFO.NE.0 ) {
             LMAX( 3 ) = KNT
             NINFO( 3 ) = NINFO( 3 ) + 1
@@ -310,9 +310,9 @@
          DO 150 I = 1, N
             SELECT( I ) = .TRUE.
   150    CONTINUE
-         CALL SCOPY( N, DUM, 0, STMP, 1 )
-         CALL SCOPY( N, DUM, 0, SEPTMP, 1 )
-         CALL STRSNA( 'Bothcond', 'Some', SELECT, N, T, LDT, LE, LDT, RE, LDT, STMP, SEPTMP, N, M, WORK, N, IWORK, INFO )
+         scopy(N, DUM, 0, STMP, 1 );
+         scopy(N, DUM, 0, SEPTMP, 1 );
+         strsna('Bothcond', 'Some', SELECT, N, T, LDT, LE, LDT, RE, LDT, STMP, SEPTMP, N, M, WORK, N, IWORK, INFO );
          if ( INFO.NE.0 ) {
             LMAX( 3 ) = KNT
             NINFO( 3 ) = NINFO( 3 ) + 1
@@ -324,9 +324,9 @@
 
          // Compute eigenvalue condition numbers using SELECT and compare
 
-         CALL SCOPY( N, DUM, 0, STMP, 1 )
-         CALL SCOPY( N, DUM, 0, SEPTMP, 1 )
-         CALL STRSNA( 'Eigcond', 'Some', SELECT, N, T, LDT, LE, LDT, RE, LDT, STMP, SEPTMP, N, M, WORK, N, IWORK, INFO )
+         scopy(N, DUM, 0, STMP, 1 );
+         scopy(N, DUM, 0, SEPTMP, 1 );
+         strsna('Eigcond', 'Some', SELECT, N, T, LDT, LE, LDT, RE, LDT, STMP, SEPTMP, N, M, WORK, N, IWORK, INFO );
          if ( INFO.NE.0 ) {
             LMAX( 3 ) = KNT
             NINFO( 3 ) = NINFO( 3 ) + 1
@@ -338,9 +338,9 @@
 
          // Compute eigenvector condition numbers using SELECT and compare
 
-         CALL SCOPY( N, DUM, 0, STMP, 1 )
-         CALL SCOPY( N, DUM, 0, SEPTMP, 1 )
-         CALL STRSNA( 'Veccond', 'Some', SELECT, N, T, LDT, LE, LDT, RE, LDT, STMP, SEPTMP, N, M, WORK, N, IWORK, INFO )
+         scopy(N, DUM, 0, STMP, 1 );
+         scopy(N, DUM, 0, SEPTMP, 1 );
+         strsna('Veccond', 'Some', SELECT, N, T, LDT, LE, LDT, RE, LDT, STMP, SEPTMP, N, M, WORK, N, IWORK, INFO );
          if ( INFO.NE.0 ) {
             LMAX( 3 ) = KNT
             NINFO( 3 ) = NINFO( 3 ) + 1
@@ -366,10 +366,10 @@
                   IFND = 1
                   LCMP( 2 ) = I
                   LCMP( 3 ) = I + 1
-                  CALL SCOPY( N, RE( 1, I ), 1, RE( 1, 2 ), 1 )
-                  CALL SCOPY( N, RE( 1, I+1 ), 1, RE( 1, 3 ), 1 )
-                  CALL SCOPY( N, LE( 1, I ), 1, LE( 1, 2 ), 1 )
-                  CALL SCOPY( N, LE( 1, I+1 ), 1, LE( 1, 3 ), 1 )
+                  scopy(N, RE( 1, I ), 1, RE( 1, 2 ), 1 );
+                  scopy(N, RE( 1, I+1 ), 1, RE( 1, 3 ), 1 );
+                  scopy(N, LE( 1, I ), 1, LE( 1, 2 ), 1 );
+                  scopy(N, LE( 1, I+1 ), 1, LE( 1, 3 ), 1 );
                }
   190       CONTINUE
             if ( IFND.EQ.0 ) {
@@ -387,8 +387,8 @@
                } else {
                   LCMP( 3 ) = I
                   IFND = 1
-                  CALL SCOPY( N, RE( 1, I ), 1, RE( 1, 3 ), 1 )
-                  CALL SCOPY( N, LE( 1, I ), 1, LE( 1, 3 ), 1 )
+                  scopy(N, RE( 1, I ), 1, RE( 1, 3 ), 1 );
+                  scopy(N, LE( 1, I ), 1, LE( 1, 3 ), 1 );
                }
   200       CONTINUE
             if ( IFND.EQ.0 ) {
@@ -400,9 +400,9 @@
 
          // Compute all selected condition numbers
 
-         CALL SCOPY( ICMP, DUM, 0, STMP, 1 )
-         CALL SCOPY( ICMP, DUM, 0, SEPTMP, 1 )
-         CALL STRSNA( 'Bothcond', 'Some', SELECT, N, T, LDT, LE, LDT, RE, LDT, STMP, SEPTMP, N, M, WORK, N, IWORK, INFO )
+         scopy(ICMP, DUM, 0, STMP, 1 );
+         scopy(ICMP, DUM, 0, SEPTMP, 1 );
+         strsna('Bothcond', 'Some', SELECT, N, T, LDT, LE, LDT, RE, LDT, STMP, SEPTMP, N, M, WORK, N, IWORK, INFO );
          if ( INFO.NE.0 ) {
             LMAX( 3 ) = KNT
             NINFO( 3 ) = NINFO( 3 ) + 1
@@ -415,9 +415,9 @@
 
          // Compute selected eigenvalue condition numbers
 
-         CALL SCOPY( ICMP, DUM, 0, STMP, 1 )
-         CALL SCOPY( ICMP, DUM, 0, SEPTMP, 1 )
-         CALL STRSNA( 'Eigcond', 'Some', SELECT, N, T, LDT, LE, LDT, RE, LDT, STMP, SEPTMP, N, M, WORK, N, IWORK, INFO )
+         scopy(ICMP, DUM, 0, STMP, 1 );
+         scopy(ICMP, DUM, 0, SEPTMP, 1 );
+         strsna('Eigcond', 'Some', SELECT, N, T, LDT, LE, LDT, RE, LDT, STMP, SEPTMP, N, M, WORK, N, IWORK, INFO );
          if ( INFO.NE.0 ) {
             LMAX( 3 ) = KNT
             NINFO( 3 ) = NINFO( 3 ) + 1
@@ -430,9 +430,9 @@
 
          // Compute selected eigenvector condition numbers
 
-         CALL SCOPY( ICMP, DUM, 0, STMP, 1 )
-         CALL SCOPY( ICMP, DUM, 0, SEPTMP, 1 )
-         CALL STRSNA( 'Veccond', 'Some', SELECT, N, T, LDT, LE, LDT, RE, LDT, STMP, SEPTMP, N, M, WORK, N, IWORK, INFO )
+         scopy(ICMP, DUM, 0, STMP, 1 );
+         scopy(ICMP, DUM, 0, SEPTMP, 1 );
+         strsna('Veccond', 'Some', SELECT, N, T, LDT, LE, LDT, RE, LDT, STMP, SEPTMP, N, M, WORK, N, IWORK, INFO );
          if ( INFO.NE.0 ) {
             LMAX( 3 ) = KNT
             NINFO( 3 ) = NINFO( 3 ) + 1

@@ -44,8 +44,8 @@
 
       // The first half of the routine checks the 2-by-2 CSD
 
-      CALL SLASET( 'Full', M, M, ZERO, ONE, WORK, LDX )
-      CALL SSYRK( 'Upper', 'Conjugate transpose', M, M, -ONE, X, LDX, ONE, WORK, LDX )
+      slaset('Full', M, M, ZERO, ONE, WORK, LDX );
+      ssyrk('Upper', 'Conjugate transpose', M, M, -ONE, X, LDX, ONE, WORK, LDX );
       if (M.GT.0) {
          EPS2 = MAX( ULP, SLANGE( '1', M, M, WORK, LDX, RWORK ) / REAL( M ) )
       } else {
@@ -55,19 +55,19 @@
 
       // Copy the matrix X to the array XF.
 
-      CALL SLACPY( 'Full', M, M, X, LDX, XF, LDX )
+      slacpy('Full', M, M, X, LDX, XF, LDX );
 
       // Compute the CSD
 
-      CALL SORCSD( 'Y', 'Y', 'Y', 'Y', 'N', 'D', M, P, Q, XF(1,1), LDX, XF(1,Q+1), LDX, XF(P+1,1), LDX, XF(P+1,Q+1), LDX, THETA, U1, LDU1, U2, LDU2, V1T, LDV1T, V2T, LDV2T, WORK, LWORK, IWORK, INFO )
+      sorcsd('Y', 'Y', 'Y', 'Y', 'N', 'D', M, P, Q, XF(1,1), LDX, XF(1,Q+1), LDX, XF(P+1,1), LDX, XF(P+1,Q+1), LDX, THETA, U1, LDU1, U2, LDU2, V1T, LDV1T, V2T, LDV2T, WORK, LWORK, IWORK, INFO );
 
       // Compute XF := diag(U1,U2)'*X*diag(V1,V2) - [D11 D12; D21 D22]
 
-      CALL SLACPY( 'Full', M, M, X, LDX, XF, LDX )
+      slacpy('Full', M, M, X, LDX, XF, LDX );
 
-      CALL SGEMM( 'No transpose', 'Conjugate transpose', P, Q, Q, ONE, XF, LDX, V1T, LDV1T, ZERO, WORK, LDX )
+      sgemm('No transpose', 'Conjugate transpose', P, Q, Q, ONE, XF, LDX, V1T, LDV1T, ZERO, WORK, LDX );
 
-      CALL SGEMM( 'Conjugate transpose', 'No transpose', P, Q, P, ONE, U1, LDU1, WORK, LDX, ZERO, XF, LDX )
+      sgemm('Conjugate transpose', 'No transpose', P, Q, P, ONE, U1, LDU1, WORK, LDX, ZERO, XF, LDX );
 
       DO I = 1, MIN(P,Q)-R
          XF(I,I) = XF(I,I) - ONE
@@ -76,9 +76,9 @@
          XF(MIN(P,Q)-R+I,MIN(P,Q)-R+I) = XF(MIN(P,Q)-R+I,MIN(P,Q)-R+I) - COS(THETA(I))
       END DO
 
-      CALL SGEMM( 'No transpose', 'Conjugate transpose', P, M-Q, M-Q, ONE, XF(1,Q+1), LDX, V2T, LDV2T, ZERO, WORK, LDX )
+      sgemm('No transpose', 'Conjugate transpose', P, M-Q, M-Q, ONE, XF(1,Q+1), LDX, V2T, LDV2T, ZERO, WORK, LDX );
 
-      CALL SGEMM( 'Conjugate transpose', 'No transpose', P, M-Q, P, ONE, U1, LDU1, WORK, LDX, ZERO, XF(1,Q+1), LDX )
+      sgemm('Conjugate transpose', 'No transpose', P, M-Q, P, ONE, U1, LDU1, WORK, LDX, ZERO, XF(1,Q+1), LDX );
 
       DO I = 1, MIN(P,M-Q)-R
          XF(P-I+1,M-I+1) = XF(P-I+1,M-I+1) + ONE
@@ -87,9 +87,9 @@
          XF(P-(MIN(P,M-Q)-R)+1-I,M-(MIN(P,M-Q)-R)+1-I) = XF(P-(MIN(P,M-Q)-R)+1-I,M-(MIN(P,M-Q)-R)+1-I) + SIN(THETA(R-I+1))
       END DO
 
-      CALL SGEMM( 'No transpose', 'Conjugate transpose', M-P, Q, Q, ONE, XF(P+1,1), LDX, V1T, LDV1T, ZERO, WORK, LDX )
+      sgemm('No transpose', 'Conjugate transpose', M-P, Q, Q, ONE, XF(P+1,1), LDX, V1T, LDV1T, ZERO, WORK, LDX );
 
-      CALL SGEMM( 'Conjugate transpose', 'No transpose', M-P, Q, M-P, ONE, U2, LDU2, WORK, LDX, ZERO, XF(P+1,1), LDX )
+      sgemm('Conjugate transpose', 'No transpose', M-P, Q, M-P, ONE, U2, LDU2, WORK, LDX, ZERO, XF(P+1,1), LDX );
 
       DO I = 1, MIN(M-P,Q)-R
          XF(M-I+1,Q-I+1) = XF(M-I+1,Q-I+1) - ONE
@@ -98,9 +98,9 @@
          XF(M-(MIN(M-P,Q)-R)+1-I,Q-(MIN(M-P,Q)-R)+1-I) = XF(M-(MIN(M-P,Q)-R)+1-I,Q-(MIN(M-P,Q)-R)+1-I) - SIN(THETA(R-I+1))
       END DO
 
-      CALL SGEMM( 'No transpose', 'Conjugate transpose', M-P, M-Q, M-Q, ONE, XF(P+1,Q+1), LDX, V2T, LDV2T, ZERO, WORK, LDX )
+      sgemm('No transpose', 'Conjugate transpose', M-P, M-Q, M-Q, ONE, XF(P+1,Q+1), LDX, V2T, LDV2T, ZERO, WORK, LDX );
 
-      CALL SGEMM( 'Conjugate transpose', 'No transpose', M-P, M-Q, M-P, ONE, U2, LDU2, WORK, LDX, ZERO, XF(P+1,Q+1), LDX )
+      sgemm('Conjugate transpose', 'No transpose', M-P, M-Q, M-P, ONE, U2, LDU2, WORK, LDX, ZERO, XF(P+1,Q+1), LDX );
 
       DO I = 1, MIN(M-P,M-Q)-R
          XF(P+I,Q+I) = XF(P+I,Q+I) - ONE
@@ -131,8 +131,8 @@
 
       // Compute I - U1'*U1
 
-      CALL SLASET( 'Full', P, P, ZERO, ONE, WORK, LDU1 )
-      CALL SSYRK( 'Upper', 'Conjugate transpose', P, P, -ONE, U1, LDU1, ONE, WORK, LDU1 )
+      slaset('Full', P, P, ZERO, ONE, WORK, LDU1 );
+      ssyrk('Upper', 'Conjugate transpose', P, P, -ONE, U1, LDU1, ONE, WORK, LDU1 );
 
       // Compute norm( I - U'*U ) / ( MAX(1,P) * ULP ) .
 
@@ -141,8 +141,8 @@
 
       // Compute I - U2'*U2
 
-      CALL SLASET( 'Full', M-P, M-P, ZERO, ONE, WORK, LDU2 )
-      CALL SSYRK( 'Upper', 'Conjugate transpose', M-P, M-P, -ONE, U2, LDU2, ONE, WORK, LDU2 )
+      slaset('Full', M-P, M-P, ZERO, ONE, WORK, LDU2 );
+      ssyrk('Upper', 'Conjugate transpose', M-P, M-P, -ONE, U2, LDU2, ONE, WORK, LDU2 );
 
       // Compute norm( I - U2'*U2 ) / ( MAX(1,M-P) * ULP ) .
 
@@ -151,8 +151,8 @@
 
       // Compute I - V1T*V1T'
 
-      CALL SLASET( 'Full', Q, Q, ZERO, ONE, WORK, LDV1T )
-      CALL SSYRK( 'Upper', 'No transpose', Q, Q, -ONE, V1T, LDV1T, ONE, WORK, LDV1T )
+      slaset('Full', Q, Q, ZERO, ONE, WORK, LDV1T );
+      ssyrk('Upper', 'No transpose', Q, Q, -ONE, V1T, LDV1T, ONE, WORK, LDV1T );
 
       // Compute norm( I - V1T*V1T' ) / ( MAX(1,Q) * ULP ) .
 
@@ -161,8 +161,8 @@
 
       // Compute I - V2T*V2T'
 
-      CALL SLASET( 'Full', M-Q, M-Q, ZERO, ONE, WORK, LDV2T )
-      CALL SSYRK( 'Upper', 'No transpose', M-Q, M-Q, -ONE, V2T, LDV2T, ONE, WORK, LDV2T )
+      slaset('Full', M-Q, M-Q, ZERO, ONE, WORK, LDV2T );
+      ssyrk('Upper', 'No transpose', M-Q, M-Q, -ONE, V2T, LDV2T, ONE, WORK, LDV2T );
 
       // Compute norm( I - V2T*V2T' ) / ( MAX(1,M-Q) * ULP ) .
 
@@ -185,8 +185,8 @@
 
       // The second half of the routine checks the 2-by-1 CSD
 
-      CALL SLASET( 'Full', Q, Q, ZERO, ONE, WORK, LDX )
-      CALL SSYRK( 'Upper', 'Conjugate transpose', Q, M, -ONE, X, LDX, ONE, WORK, LDX )
+      slaset('Full', Q, Q, ZERO, ONE, WORK, LDX );
+      ssyrk('Upper', 'Conjugate transpose', Q, M, -ONE, X, LDX, ONE, WORK, LDX );
       if (M.GT.0) {
          EPS2 = MAX( ULP, SLANGE( '1', Q, Q, WORK, LDX, RWORK ) / REAL( M ) )
       } else {
@@ -196,17 +196,17 @@
 
       // Copy the matrix [X11;X21] to the array XF.
 
-      CALL SLACPY( 'Full', M, Q, X, LDX, XF, LDX )
+      slacpy('Full', M, Q, X, LDX, XF, LDX );
 
       // Compute the CSD
 
-      CALL SORCSD2BY1( 'Y', 'Y', 'Y', M, P, Q, XF(1,1), LDX, XF(P+1,1), LDX, THETA, U1, LDU1, U2, LDU2, V1T, LDV1T, WORK, LWORK, IWORK, INFO )
+      sorcsd2by1('Y', 'Y', 'Y', M, P, Q, XF(1,1), LDX, XF(P+1,1), LDX, THETA, U1, LDU1, U2, LDU2, V1T, LDV1T, WORK, LWORK, IWORK, INFO );
 
       // Compute [X11;X21] := diag(U1,U2)'*[X11;X21]*V1 - [D11;D21]
 
-      CALL SGEMM( 'No transpose', 'Conjugate transpose', P, Q, Q, ONE, X, LDX, V1T, LDV1T, ZERO, WORK, LDX )
+      sgemm('No transpose', 'Conjugate transpose', P, Q, Q, ONE, X, LDX, V1T, LDV1T, ZERO, WORK, LDX );
 
-      CALL SGEMM( 'Conjugate transpose', 'No transpose', P, Q, P, ONE, U1, LDU1, WORK, LDX, ZERO, X, LDX )
+      sgemm('Conjugate transpose', 'No transpose', P, Q, P, ONE, U1, LDU1, WORK, LDX, ZERO, X, LDX );
 
       DO I = 1, MIN(P,Q)-R
          X(I,I) = X(I,I) - ONE
@@ -215,9 +215,9 @@
          X(MIN(P,Q)-R+I,MIN(P,Q)-R+I) = X(MIN(P,Q)-R+I,MIN(P,Q)-R+I) - COS(THETA(I))
       END DO
 
-      CALL SGEMM( 'No transpose', 'Conjugate transpose', M-P, Q, Q, ONE, X(P+1,1), LDX, V1T, LDV1T, ZERO, WORK, LDX )
+      sgemm('No transpose', 'Conjugate transpose', M-P, Q, Q, ONE, X(P+1,1), LDX, V1T, LDV1T, ZERO, WORK, LDX );
 
-      CALL SGEMM( 'Conjugate transpose', 'No transpose', M-P, Q, M-P, ONE, U2, LDU2, WORK, LDX, ZERO, X(P+1,1), LDX )
+      sgemm('Conjugate transpose', 'No transpose', M-P, Q, M-P, ONE, U2, LDU2, WORK, LDX, ZERO, X(P+1,1), LDX );
 
       DO I = 1, MIN(M-P,Q)-R
          X(M-I+1,Q-I+1) = X(M-I+1,Q-I+1) - ONE
@@ -238,8 +238,8 @@
 
       // Compute I - U1'*U1
 
-      CALL SLASET( 'Full', P, P, ZERO, ONE, WORK, LDU1 )
-      CALL SSYRK( 'Upper', 'Conjugate transpose', P, P, -ONE, U1, LDU1, ONE, WORK, LDU1 )
+      slaset('Full', P, P, ZERO, ONE, WORK, LDU1 );
+      ssyrk('Upper', 'Conjugate transpose', P, P, -ONE, U1, LDU1, ONE, WORK, LDU1 );
 
       // Compute norm( I - U1'*U1 ) / ( MAX(1,P) * ULP ) .
 
@@ -248,8 +248,8 @@
 
       // Compute I - U2'*U2
 
-      CALL SLASET( 'Full', M-P, M-P, ZERO, ONE, WORK, LDU2 )
-      CALL SSYRK( 'Upper', 'Conjugate transpose', M-P, M-P, -ONE, U2, LDU2, ONE, WORK, LDU2 )
+      slaset('Full', M-P, M-P, ZERO, ONE, WORK, LDU2 );
+      ssyrk('Upper', 'Conjugate transpose', M-P, M-P, -ONE, U2, LDU2, ONE, WORK, LDU2 );
 
       // Compute norm( I - U2'*U2 ) / ( MAX(1,M-P) * ULP ) .
 
@@ -258,8 +258,8 @@
 
       // Compute I - V1T*V1T'
 
-      CALL SLASET( 'Full', Q, Q, ZERO, ONE, WORK, LDV1T )
-      CALL SSYRK( 'Upper', 'No transpose', Q, Q, -ONE, V1T, LDV1T, ONE, WORK, LDV1T )
+      slaset('Full', Q, Q, ZERO, ONE, WORK, LDV1T );
+      ssyrk('Upper', 'No transpose', Q, Q, -ONE, V1T, LDV1T, ONE, WORK, LDV1T );
 
       // Compute norm( I - V1T*V1T' ) / ( MAX(1,Q) * ULP ) .
 

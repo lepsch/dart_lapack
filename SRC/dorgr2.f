@@ -41,7 +41,7 @@
          INFO = -5
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'DORGR2', -INFO )
+         xerbla('DORGR2', -INFO );
          RETURN
       }
 
@@ -67,8 +67,8 @@
          // Apply H(i) to A(1:m-k+i,1:n-k+i) from the right
 
          A( II, N-M+II ) = ONE
-         CALL DLARF( 'Right', II-1, N-M+II, A( II, 1 ), LDA, TAU( I ), A, LDA, WORK )
-         CALL DSCAL( N-M+II-1, -TAU( I ), A( II, 1 ), LDA )
+         dlarf('Right', II-1, N-M+II, A( II, 1 ), LDA, TAU( I ), A, LDA, WORK );
+         dscal(N-M+II-1, -TAU( I ), A( II, 1 ), LDA );
          A( II, N-M+II ) = ONE - TAU( I )
 
          // Set A(m-k+i,n-k+i+1:n) to zero

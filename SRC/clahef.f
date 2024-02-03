@@ -76,10 +76,10 @@
 
          // Copy column K of A to column KW of W and update it
 
-         CALL CCOPY( K-1, A( 1, K ), 1, W( 1, KW ), 1 )
+         ccopy(K-1, A( 1, K ), 1, W( 1, KW ), 1 );
          W( K, KW ) = REAL( A( K, K ) )
          if ( K.LT.N ) {
-            CALL CGEMV( 'No transpose', K, N-K, -CONE, A( 1, K+1 ), LDA, W( K, KW+1 ), LDW, CONE, W( 1, KW ), 1 )
+            cgemv('No transpose', K, N-K, -CONE, A( 1, K+1 ), LDA, W( K, KW+1 ), LDW, CONE, W( 1, KW ), 1 );
             W( K, KW ) = REAL( W( K, KW ) )
          }
 
@@ -125,12 +125,12 @@
 
                // Copy column IMAX to column KW-1 of W and update it
 
-               CALL CCOPY( IMAX-1, A( 1, IMAX ), 1, W( 1, KW-1 ), 1 )
+               ccopy(IMAX-1, A( 1, IMAX ), 1, W( 1, KW-1 ), 1 );
                W( IMAX, KW-1 ) = REAL( A( IMAX, IMAX ) )
-               CALL CCOPY( K-IMAX, A( IMAX, IMAX+1 ), LDA, W( IMAX+1, KW-1 ), 1 )
-               CALL CLACGV( K-IMAX, W( IMAX+1, KW-1 ), 1 )
+               ccopy(K-IMAX, A( IMAX, IMAX+1 ), LDA, W( IMAX+1, KW-1 ), 1 );
+               clacgv(K-IMAX, W( IMAX+1, KW-1 ), 1 );
                if ( K.LT.N ) {
-                  CALL CGEMV( 'No transpose', K, N-K, -CONE, A( 1, K+1 ), LDA, W( IMAX, KW+1 ), LDW, CONE, W( 1, KW-1 ), 1 )
+                  cgemv('No transpose', K, N-K, -CONE, A( 1, K+1 ), LDA, W( IMAX, KW+1 ), LDW, CONE, W( 1, KW-1 ), 1 );
                   W( IMAX, KW-1 ) = REAL( W( IMAX, KW-1 ) )
                }
 
@@ -162,7 +162,7 @@
 
                   // copy column KW-1 of W to column KW of W
 
-                  CALL CCOPY( K, W( 1, KW-1 ), 1, W( 1, KW ), 1 )
+                  ccopy(K, W( 1, KW-1 ), 1, W( 1, KW ), 1 );
 
                // Case(4)
                } else {
@@ -202,8 +202,8 @@
                // will be later overwritten.
 
                A( KP, KP ) = REAL( A( KK, KK ) )
-               CALL CCOPY( KK-1-KP, A( KP+1, KK ), 1, A( KP, KP+1 ), LDA )
-               CALL CLACGV( KK-1-KP, A( KP, KP+1 ), LDA )
+               ccopy(KK-1-KP, A( KP+1, KK ), 1, A( KP, KP+1 ), LDA );
+               clacgv(KK-1-KP, A( KP, KP+1 ), LDA );
                IF( KP.GT.1 ) CALL CCOPY( KP-1, A( 1, KK ), 1, A( 1, KP ), 1 )
 
                // Interchange rows KK and KP in last K+1 to N columns of A
@@ -212,7 +212,7 @@
                // in last KKW to NB columns of W.
 
                IF( K.LT.N ) CALL CSWAP( N-K, A( KK, K+1 ), LDA, A( KP, K+1 ), LDA )
-               CALL CSWAP( N-KK+1, W( KK, KKW ), LDW, W( KP, KKW ), LDW )
+               cswap(N-KK+1, W( KK, KKW ), LDW, W( KP, KKW ), LDW );
             }
 
             if ( KSTEP.EQ.1 ) {
@@ -233,7 +233,7 @@
                // (NOTE: No need to use for Hermitian matrix
                // A( K, K ) = DBLE( W( K, K) ) to separately copy diagonal
                // element D(k,k) from W (potentially saves only one load))
-               CALL CCOPY( K, W( 1, KW ), 1, A( 1, K ), 1 )
+               ccopy(K, W( 1, KW ), 1, A( 1, K ), 1 );
                if ( K.GT.1 ) {
 
                   // (NOTE: No need to check if A(k,k) is NOT ZERO,
@@ -241,11 +241,11 @@
                    // case A(k,k) = 0 falls into 2x2 pivot case(4))
 
                   R1 = ONE / REAL( A( K, K ) )
-                  CALL CSSCAL( K-1, R1, A( 1, K ), 1 )
+                  csscal(K-1, R1, A( 1, K ), 1 );
 
                   // (2) Conjugate column W(kw)
 
-                  CALL CLACGV( K-1, W( 1, KW ), 1 )
+                  clacgv(K-1, W( 1, KW ), 1 );
                }
 
             } else {
@@ -333,8 +333,8 @@
 
                // (2) Conjugate columns W(kw) and W(kw-1)
 
-               CALL CLACGV( K-1, W( 1, KW ), 1 )
-               CALL CLACGV( K-2, W( 1, KW-1 ), 1 )
+               clacgv(K-1, W( 1, KW ), 1 );
+               clacgv(K-2, W( 1, KW-1 ), 1 );
 
             }
 
@@ -370,13 +370,13 @@
 
             DO 40 JJ = J, J + JB - 1
                A( JJ, JJ ) = REAL( A( JJ, JJ ) )
-               CALL CGEMV( 'No transpose', JJ-J+1, N-K, -CONE, A( J, K+1 ), LDA, W( JJ, KW+1 ), LDW, CONE, A( J, JJ ), 1 )
+               cgemv('No transpose', JJ-J+1, N-K, -CONE, A( J, K+1 ), LDA, W( JJ, KW+1 ), LDW, CONE, A( J, JJ ), 1 );
                A( JJ, JJ ) = REAL( A( JJ, JJ ) )
    40       CONTINUE
 
             // Update the rectangular superdiagonal block
 
-            CALL CGEMM( 'No transpose', 'Transpose', J-1, JB, N-K, -CONE, A( 1, K+1 ), LDA, W( J, KW+1 ), LDW, CONE, A( 1, J ), LDA )
+            cgemm('No transpose', 'Transpose', J-1, JB, N-K, -CONE, A( 1, K+1 ), LDA, W( J, KW+1 ), LDW, CONE, A( 1, J ), LDA );
    50    CONTINUE
 
          // Put U12 in standard form by partially undoing the interchanges
@@ -470,8 +470,8 @@
 
                // Copy column IMAX to column K+1 of W and update it
 
-               CALL CCOPY( IMAX-K, A( IMAX, K ), LDA, W( K, K+1 ), 1 )
-               CALL CLACGV( IMAX-K, W( K, K+1 ), 1 )
+               ccopy(IMAX-K, A( IMAX, K ), LDA, W( K, K+1 ), 1 );
+               clacgv(IMAX-K, W( K, K+1 ), 1 );
                W( IMAX, K+1 ) = REAL( A( IMAX, IMAX ) )
                IF( IMAX.LT.N ) CALL CCOPY( N-IMAX, A( IMAX+1, IMAX ), 1, W( IMAX+1, K+1 ), 1 )                CALL CGEMV( 'No transpose', N-K+1, K-1, -CONE, A( K, 1 ), LDA, W( IMAX, 1 ), LDW, CONE, W( K, K+1 ), 1 )
                W( IMAX, K+1 ) = REAL( W( IMAX, K+1 ) )
@@ -504,7 +504,7 @@
 
                   // copy column K+1 of W to column K of W
 
-                  CALL CCOPY( N-K+1, W( K, K+1 ), 1, W( K, K ), 1 )
+                  ccopy(N-K+1, W( K, K+1 ), 1, W( K, K ), 1 );
 
                // Case(4)
                } else {
@@ -540,8 +540,8 @@
                // will be later overwritten.
 
                A( KP, KP ) = REAL( A( KK, KK ) )
-               CALL CCOPY( KP-KK-1, A( KK+1, KK ), 1, A( KP, KK+1 ), LDA )
-               CALL CLACGV( KP-KK-1, A( KP, KK+1 ), LDA )
+               ccopy(KP-KK-1, A( KK+1, KK ), 1, A( KP, KK+1 ), LDA );
+               clacgv(KP-KK-1, A( KP, KK+1 ), LDA );
                IF( KP.LT.N ) CALL CCOPY( N-KP, A( KP+1, KK ), 1, A( KP+1, KP ), 1 )
 
                // Interchange rows KK and KP in first K-1 columns of A
@@ -550,7 +550,7 @@
                // in first KK columns of W.
 
                IF( K.GT.1 ) CALL CSWAP( K-1, A( KK, 1 ), LDA, A( KP, 1 ), LDA )
-               CALL CSWAP( KK, W( KK, 1 ), LDW, W( KP, 1 ), LDW )
+               cswap(KK, W( KK, 1 ), LDW, W( KP, 1 ), LDW );
             }
 
             if ( KSTEP.EQ.1 ) {
@@ -571,7 +571,7 @@
                // (NOTE: No need to use for Hermitian matrix
                // A( K, K ) = DBLE( W( K, K) ) to separately copy diagonal
                // element D(k,k) from W (potentially saves only one load))
-               CALL CCOPY( N-K+1, W( K, K ), 1, A( K, K ), 1 )
+               ccopy(N-K+1, W( K, K ), 1, A( K, K ), 1 );
                if ( K.LT.N ) {
 
                   // (NOTE: No need to check if A(k,k) is NOT ZERO,
@@ -579,11 +579,11 @@
                    // case A(k,k) = 0 falls into 2x2 pivot case(4))
 
                   R1 = ONE / REAL( A( K, K ) )
-                  CALL CSSCAL( N-K, R1, A( K+1, K ), 1 )
+                  csscal(N-K, R1, A( K+1, K ), 1 );
 
                   // (2) Conjugate column W(k)
 
-                  CALL CLACGV( N-K, W( K+1, K ), 1 )
+                  clacgv(N-K, W( K+1, K ), 1 );
                }
 
             } else {
@@ -671,8 +671,8 @@
 
                // (2) Conjugate columns W(k) and W(k+1)
 
-               CALL CLACGV( N-K, W( K+1, K ), 1 )
-               CALL CLACGV( N-K-1, W( K+2, K+1 ), 1 )
+               clacgv(N-K, W( K+1, K ), 1 );
+               clacgv(N-K-1, W( K+2, K+1 ), 1 );
 
             }
 
@@ -708,7 +708,7 @@
 
             DO 100 JJ = J, J + JB - 1
                A( JJ, JJ ) = REAL( A( JJ, JJ ) )
-               CALL CGEMV( 'No transpose', J+JB-JJ, K-1, -CONE, A( JJ, 1 ), LDA, W( JJ, 1 ), LDW, CONE, A( JJ, JJ ), 1 )
+               cgemv('No transpose', J+JB-JJ, K-1, -CONE, A( JJ, 1 ), LDA, W( JJ, 1 ), LDW, CONE, A( JJ, JJ ), 1 );
                A( JJ, JJ ) = REAL( A( JJ, JJ ) )
   100       CONTINUE
 

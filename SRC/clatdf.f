@@ -49,7 +49,7 @@
 
          // Apply permutations IPIV to RHS
 
-         CALL CLASWP( 1, RHS, LDZ, 1, N-1, IPIV, 1 )
+         claswp(1, RHS, LDZ, 1, N-1, IPIV, 1 );
 
          // Solve for L-part choosing RHS either to +1 or -1.
 
@@ -84,7 +84,7 @@
             // Compute the remaining r.h.s.
 
             TEMP = -RHS( J )
-            CALL CAXPY( N-J, TEMP, Z( J+1, J ), 1, RHS( J+1 ), 1 )
+            caxpy(N-J, TEMP, Z( J+1, J ), 1, RHS( J+1 ), 1 );
    10    CONTINUE
 
          // Solve for U- part, lockahead for RHS(N) = +-1. This is not done
@@ -92,7 +92,7 @@
          // any ill-conditioning of the original matrix is transferred to U
          // and not to L. U(N, N) is an approximation to sigma_min(LU).
 
-         CALL CCOPY( N-1, RHS, 1, WORK, 1 )
+         ccopy(N-1, RHS, 1, WORK, 1 );
          WORK( N ) = RHS( N ) + CONE
          RHS( N ) = RHS( N ) - CONE
          SPLUS = ZERO
@@ -112,11 +112,11 @@
 
          // Apply the permutations JPIV to the computed solution (RHS)
 
-         CALL CLASWP( 1, RHS, LDZ, 1, N-1, JPIV, -1 )
+         claswp(1, RHS, LDZ, 1, N-1, JPIV, -1 );
 
          // Compute the sum of squares
 
-         CALL CLASSQ( N, RHS, 1, RDSCAL, RDSUM )
+         classq(N, RHS, 1, RDSCAL, RDSUM );
          RETURN
       }
 
@@ -124,24 +124,24 @@
 
       // Compute approximate nullvector XM of Z
 
-      CALL CGECON( 'I', N, Z, LDZ, ONE, RTEMP, WORK, RWORK, INFO )
-      CALL CCOPY( N, WORK( N+1 ), 1, XM, 1 )
+      cgecon('I', N, Z, LDZ, ONE, RTEMP, WORK, RWORK, INFO );
+      ccopy(N, WORK( N+1 ), 1, XM, 1 );
 
       // Compute RHS
 
-      CALL CLASWP( 1, XM, LDZ, 1, N-1, IPIV, -1 )
+      claswp(1, XM, LDZ, 1, N-1, IPIV, -1 );
       TEMP = CONE / SQRT( CDOTC( N, XM, 1, XM, 1 ) )
-      CALL CSCAL( N, TEMP, XM, 1 )
-      CALL CCOPY( N, XM, 1, XP, 1 )
-      CALL CAXPY( N, CONE, RHS, 1, XP, 1 )
-      CALL CAXPY( N, -CONE, XM, 1, RHS, 1 )
-      CALL CGESC2( N, Z, LDZ, RHS, IPIV, JPIV, SCALE )
-      CALL CGESC2( N, Z, LDZ, XP, IPIV, JPIV, SCALE )
+      cscal(N, TEMP, XM, 1 );
+      ccopy(N, XM, 1, XP, 1 );
+      caxpy(N, CONE, RHS, 1, XP, 1 );
+      caxpy(N, -CONE, XM, 1, RHS, 1 );
+      cgesc2(N, Z, LDZ, RHS, IPIV, JPIV, SCALE );
+      cgesc2(N, Z, LDZ, XP, IPIV, JPIV, SCALE );
       IF( SCASUM( N, XP, 1 ).GT.SCASUM( N, RHS, 1 ) ) CALL CCOPY( N, XP, 1, RHS, 1 )
 
       // Compute the sum of squares
 
-      CALL CLASSQ( N, RHS, 1, RDSCAL, RDSUM )
+      classq(N, RHS, 1, RDSCAL, RDSUM );
       RETURN
 
       // End of CLATDF

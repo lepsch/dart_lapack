@@ -53,14 +53,14 @@
          if ( N.EQ.0 ) {
             LWKOPT = 1
          } else {
-            CALL ZSYTRF( UPLO, N, A, LDA, IPIV, WORK, -1, INFO )
+            zsytrf(UPLO, N, A, LDA, IPIV, WORK, -1, INFO );
             LWKOPT = INT( DBLE( WORK( 1 ) ) )
          }
          WORK( 1 ) = LWKOPT
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'ZSYSV ', -INFO )
+         xerbla('ZSYSV ', -INFO );
          RETURN
       } else if ( LQUERY ) {
          RETURN
@@ -68,7 +68,7 @@
 
       // Compute the factorization A = U*D*U**T or A = L*D*L**T.
 
-      CALL ZSYTRF( UPLO, N, A, LDA, IPIV, WORK, LWORK, INFO )
+      zsytrf(UPLO, N, A, LDA, IPIV, WORK, LWORK, INFO );
       if ( INFO.EQ.0 ) {
 
          // Solve the system A*X = B, overwriting B with X.
@@ -77,13 +77,13 @@
 
          // Solve with TRS ( Use Level BLAS 2)
 
-            CALL ZSYTRS( UPLO, N, NRHS, A, LDA, IPIV, B, LDB, INFO )
+            zsytrs(UPLO, N, NRHS, A, LDA, IPIV, B, LDB, INFO );
 
          } else {
 
          // Solve with TRS2 ( Use Level BLAS 3)
 
-            CALL ZSYTRS2( UPLO,N,NRHS,A,LDA,IPIV,B,LDB,WORK,INFO )
+            zsytrs2(UPLO,N,NRHS,A,LDA,IPIV,B,LDB,WORK,INFO );
 
          }
 

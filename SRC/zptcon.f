@@ -44,7 +44,7 @@
          INFO = -4
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'ZPTCON', -INFO )
+         xerbla('ZPTCON', -INFO );
          RETURN
       }
 

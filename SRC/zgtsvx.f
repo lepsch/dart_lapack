@@ -56,7 +56,7 @@
          INFO = -16
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'ZGTSVX', -INFO )
+         xerbla('ZGTSVX', -INFO );
          RETURN
       }
 
@@ -64,12 +64,12 @@
 
          // Compute the LU factorization of A.
 
-         CALL ZCOPY( N, D, 1, DF, 1 )
+         zcopy(N, D, 1, DF, 1 );
          if ( N.GT.1 ) {
-            CALL ZCOPY( N-1, DL, 1, DLF, 1 )
-            CALL ZCOPY( N-1, DU, 1, DUF, 1 )
+            zcopy(N-1, DL, 1, DLF, 1 );
+            zcopy(N-1, DU, 1, DUF, 1 );
          }
-         CALL ZGTTRF( N, DLF, DF, DUF, DU2, IPIV, INFO )
+         zgttrf(N, DLF, DF, DUF, DU2, IPIV, INFO );
 
          // Return if INFO is non-zero.
 
@@ -90,17 +90,17 @@
 
       // Compute the reciprocal of the condition number of A.
 
-      CALL ZGTCON( NORM, N, DLF, DF, DUF, DU2, IPIV, ANORM, RCOND, WORK, INFO )
+      zgtcon(NORM, N, DLF, DF, DUF, DU2, IPIV, ANORM, RCOND, WORK, INFO );
 
       // Compute the solution vectors X.
 
-      CALL ZLACPY( 'Full', N, NRHS, B, LDB, X, LDX )
-      CALL ZGTTRS( TRANS, N, NRHS, DLF, DF, DUF, DU2, IPIV, X, LDX, INFO )
+      zlacpy('Full', N, NRHS, B, LDB, X, LDX );
+      zgttrs(TRANS, N, NRHS, DLF, DF, DUF, DU2, IPIV, X, LDX, INFO );
 
       // Use iterative refinement to improve the computed solutions and
       // compute error bounds and backward error estimates for them.
 
-      CALL ZGTRFS( TRANS, N, NRHS, DL, D, DU, DLF, DF, DUF, DU2, IPIV, B, LDB, X, LDX, FERR, BERR, WORK, RWORK, INFO )
+      zgtrfs(TRANS, N, NRHS, DL, D, DU, DLF, DF, DUF, DU2, IPIV, B, LDB, X, LDX, FERR, BERR, WORK, RWORK, INFO );
 
       // Set INFO = N+1 if the matrix is singular to working precision.
 

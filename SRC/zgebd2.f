@@ -41,7 +41,7 @@
          INFO = -4
       }
       if ( INFO.LT.0 ) {
-         CALL XERBLA( 'ZGEBD2', -INFO )
+         xerbla('ZGEBD2', -INFO );
          RETURN
       }
 
@@ -54,7 +54,7 @@
             // Generate elementary reflector H(i) to annihilate A(i+1:m,i)
 
             ALPHA = A( I, I )
-            CALL ZLARFG( M-I+1, ALPHA, A( MIN( I+1, M ), I ), 1, TAUQ( I ) )
+            zlarfg(M-I+1, ALPHA, A( MIN( I+1, M ), I ), 1, TAUQ( I ) );
             D( I ) = DBLE( ALPHA )
             A( I, I ) = ONE
 
@@ -68,16 +68,16 @@
                // Generate elementary reflector G(i) to annihilate
                // A(i,i+2:n)
 
-               CALL ZLACGV( N-I, A( I, I+1 ), LDA )
+               zlacgv(N-I, A( I, I+1 ), LDA );
                ALPHA = A( I, I+1 )
-               CALL ZLARFG( N-I, ALPHA, A( I, MIN( I+2, N ) ), LDA, TAUP( I ) )
+               zlarfg(N-I, ALPHA, A( I, MIN( I+2, N ) ), LDA, TAUP( I ) );
                E( I ) = DBLE( ALPHA )
                A( I, I+1 ) = ONE
 
                // Apply G(i) to A(i+1:m,i+1:n) from the right
 
-               CALL ZLARF( 'Right', M-I, N-I, A( I, I+1 ), LDA, TAUP( I ), A( I+1, I+1 ), LDA, WORK )
-               CALL ZLACGV( N-I, A( I, I+1 ), LDA )
+               zlarf('Right', M-I, N-I, A( I, I+1 ), LDA, TAUP( I ), A( I+1, I+1 ), LDA, WORK );
+               zlacgv(N-I, A( I, I+1 ), LDA );
                A( I, I+1 ) = E( I )
             } else {
                TAUP( I ) = ZERO
@@ -91,16 +91,16 @@
 
             // Generate elementary reflector G(i) to annihilate A(i,i+1:n)
 
-            CALL ZLACGV( N-I+1, A( I, I ), LDA )
+            zlacgv(N-I+1, A( I, I ), LDA );
             ALPHA = A( I, I )
-            CALL ZLARFG( N-I+1, ALPHA, A( I, MIN( I+1, N ) ), LDA, TAUP( I ) )
+            zlarfg(N-I+1, ALPHA, A( I, MIN( I+1, N ) ), LDA, TAUP( I ) );
             D( I ) = DBLE( ALPHA )
             A( I, I ) = ONE
 
             // Apply G(i) to A(i+1:m,i:n) from the right
 
             IF( I.LT.M ) CALL ZLARF( 'Right', M-I, N-I+1, A( I, I ), LDA, TAUP( I ), A( I+1, I ), LDA, WORK )
-            CALL ZLACGV( N-I+1, A( I, I ), LDA )
+            zlacgv(N-I+1, A( I, I ), LDA );
             A( I, I ) = D( I )
 
             if ( I.LT.M ) {
@@ -109,13 +109,13 @@
                // A(i+2:m,i)
 
                ALPHA = A( I+1, I )
-               CALL ZLARFG( M-I, ALPHA, A( MIN( I+2, M ), I ), 1, TAUQ( I ) )
+               zlarfg(M-I, ALPHA, A( MIN( I+2, M ), I ), 1, TAUQ( I ) );
                E( I ) = DBLE( ALPHA )
                A( I+1, I ) = ONE
 
                // Apply H(i)**H to A(i+1:m,i+1:n) from the left
 
-               CALL ZLARF( 'Left', M-I, N-I, A( I+1, I ), 1, DCONJG( TAUQ( I ) ), A( I+1, I+1 ), LDA, WORK )
+               zlarf('Left', M-I, N-I, A( I+1, I ), 1, DCONJG( TAUQ( I ) ), A( I+1, I+1 ), LDA, WORK );
                A( I+1, I ) = E( I )
             } else {
                TAUQ( I ) = ZERO

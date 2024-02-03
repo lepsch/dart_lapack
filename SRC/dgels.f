@@ -90,7 +90,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'DGELS ', -INFO )
+         xerbla('DGELS ', -INFO );
          RETURN
       } else if ( LQUERY ) {
          RETURN
@@ -99,7 +99,7 @@
       // Quick return if possible
 
       if ( MIN( M, N, NRHS ).EQ.0 ) {
-         CALL DLASET( 'Full', MAX( M, N ), NRHS, ZERO, ZERO, B, LDB )
+         dlaset('Full', MAX( M, N ), NRHS, ZERO, ZERO, B, LDB );
          RETURN
       }
 
@@ -116,19 +116,19 @@
 
          // Scale matrix norm up to SMLNUM
 
-         CALL DLASCL( 'G', 0, 0, ANRM, SMLNUM, M, N, A, LDA, INFO )
+         dlascl('G', 0, 0, ANRM, SMLNUM, M, N, A, LDA, INFO );
          IASCL = 1
       } else if ( ANRM.GT.BIGNUM ) {
 
          // Scale matrix norm down to BIGNUM
 
-         CALL DLASCL( 'G', 0, 0, ANRM, BIGNUM, M, N, A, LDA, INFO )
+         dlascl('G', 0, 0, ANRM, BIGNUM, M, N, A, LDA, INFO );
          IASCL = 2
       } else if ( ANRM.EQ.ZERO ) {
 
          // Matrix all zero. Return zero solution.
 
-         CALL DLASET( 'F', MAX( M, N ), NRHS, ZERO, ZERO, B, LDB )
+         dlaset('F', MAX( M, N ), NRHS, ZERO, ZERO, B, LDB );
          GO TO 50
       }
 
@@ -140,13 +140,13 @@
 
          // Scale matrix norm up to SMLNUM
 
-         CALL DLASCL( 'G', 0, 0, BNRM, SMLNUM, BROW, NRHS, B, LDB, INFO )
+         dlascl('G', 0, 0, BNRM, SMLNUM, BROW, NRHS, B, LDB, INFO );
          IBSCL = 1
       } else if ( BNRM.GT.BIGNUM ) {
 
          // Scale matrix norm down to BIGNUM
 
-         CALL DLASCL( 'G', 0, 0, BNRM, BIGNUM, BROW, NRHS, B, LDB, INFO )
+         dlascl('G', 0, 0, BNRM, BIGNUM, BROW, NRHS, B, LDB, INFO );
          IBSCL = 2
       }
 
@@ -154,7 +154,7 @@
 
          // compute QR factorization of A
 
-         CALL DGEQRF( M, N, A, LDA, WORK( 1 ), WORK( MN+1 ), LWORK-MN, INFO )
+         dgeqrf(M, N, A, LDA, WORK( 1 ), WORK( MN+1 ), LWORK-MN, INFO );
 
          // workspace at least N, optimally N*NB
 
@@ -164,13 +164,13 @@
 
             // B(1:M,1:NRHS) := Q**T * B(1:M,1:NRHS)
 
-            CALL DORMQR( 'Left', 'Transpose', M, NRHS, N, A, LDA, WORK( 1 ), B, LDB, WORK( MN+1 ), LWORK-MN, INFO )
+            dormqr('Left', 'Transpose', M, NRHS, N, A, LDA, WORK( 1 ), B, LDB, WORK( MN+1 ), LWORK-MN, INFO );
 
             // workspace at least NRHS, optimally NRHS*NB
 
             // B(1:N,1:NRHS) := inv(R) * B(1:N,1:NRHS)
 
-            CALL DTRTRS( 'Upper', 'No transpose', 'Non-unit', N, NRHS, A, LDA, B, LDB, INFO )
+            dtrtrs('Upper', 'No transpose', 'Non-unit', N, NRHS, A, LDA, B, LDB, INFO );
 
             if ( INFO.GT.0 ) {
                RETURN
@@ -184,7 +184,7 @@
 
             // B(1:N,1:NRHS) := inv(R**T) * B(1:N,1:NRHS)
 
-            CALL DTRTRS( 'Upper', 'Transpose', 'Non-unit', N, NRHS, A, LDA, B, LDB, INFO )
+            dtrtrs('Upper', 'Transpose', 'Non-unit', N, NRHS, A, LDA, B, LDB, INFO );
 
             if ( INFO.GT.0 ) {
                RETURN
@@ -200,7 +200,7 @@
 
             // B(1:M,1:NRHS) := Q(1:N,:) * B(1:N,1:NRHS)
 
-            CALL DORMQR( 'Left', 'No transpose', M, NRHS, N, A, LDA, WORK( 1 ), B, LDB, WORK( MN+1 ), LWORK-MN, INFO )
+            dormqr('Left', 'No transpose', M, NRHS, N, A, LDA, WORK( 1 ), B, LDB, WORK( MN+1 ), LWORK-MN, INFO );
 
             // workspace at least NRHS, optimally NRHS*NB
 
@@ -212,7 +212,7 @@
 
          // Compute LQ factorization of A
 
-         CALL DGELQF( M, N, A, LDA, WORK( 1 ), WORK( MN+1 ), LWORK-MN, INFO )
+         dgelqf(M, N, A, LDA, WORK( 1 ), WORK( MN+1 ), LWORK-MN, INFO );
 
          // workspace at least M, optimally M*NB.
 
@@ -222,7 +222,7 @@
 
             // B(1:M,1:NRHS) := inv(L) * B(1:M,1:NRHS)
 
-            CALL DTRTRS( 'Lower', 'No transpose', 'Non-unit', M, NRHS, A, LDA, B, LDB, INFO )
+            dtrtrs('Lower', 'No transpose', 'Non-unit', M, NRHS, A, LDA, B, LDB, INFO );
 
             if ( INFO.GT.0 ) {
                RETURN
@@ -238,7 +238,7 @@
 
             // B(1:N,1:NRHS) := Q(1:N,:)**T * B(1:M,1:NRHS)
 
-            CALL DORMLQ( 'Left', 'Transpose', N, NRHS, M, A, LDA, WORK( 1 ), B, LDB, WORK( MN+1 ), LWORK-MN, INFO )
+            dormlq('Left', 'Transpose', N, NRHS, M, A, LDA, WORK( 1 ), B, LDB, WORK( MN+1 ), LWORK-MN, INFO );
 
             // workspace at least NRHS, optimally NRHS*NB
 
@@ -250,13 +250,13 @@
 
             // B(1:N,1:NRHS) := Q * B(1:N,1:NRHS)
 
-            CALL DORMLQ( 'Left', 'No transpose', N, NRHS, M, A, LDA, WORK( 1 ), B, LDB, WORK( MN+1 ), LWORK-MN, INFO )
+            dormlq('Left', 'No transpose', N, NRHS, M, A, LDA, WORK( 1 ), B, LDB, WORK( MN+1 ), LWORK-MN, INFO );
 
             // workspace at least NRHS, optimally NRHS*NB
 
             // B(1:M,1:NRHS) := inv(L**T) * B(1:M,1:NRHS)
 
-            CALL DTRTRS( 'Lower', 'Transpose', 'Non-unit', M, NRHS, A, LDA, B, LDB, INFO )
+            dtrtrs('Lower', 'Transpose', 'Non-unit', M, NRHS, A, LDA, B, LDB, INFO );
 
             if ( INFO.GT.0 ) {
                RETURN
@@ -271,14 +271,14 @@
       // Undo scaling
 
       if ( IASCL.EQ.1 ) {
-         CALL DLASCL( 'G', 0, 0, ANRM, SMLNUM, SCLLEN, NRHS, B, LDB, INFO )
+         dlascl('G', 0, 0, ANRM, SMLNUM, SCLLEN, NRHS, B, LDB, INFO );
       } else if ( IASCL.EQ.2 ) {
-         CALL DLASCL( 'G', 0, 0, ANRM, BIGNUM, SCLLEN, NRHS, B, LDB, INFO )
+         dlascl('G', 0, 0, ANRM, BIGNUM, SCLLEN, NRHS, B, LDB, INFO );
       }
       if ( IBSCL.EQ.1 ) {
-         CALL DLASCL( 'G', 0, 0, SMLNUM, BNRM, SCLLEN, NRHS, B, LDB, INFO )
+         dlascl('G', 0, 0, SMLNUM, BNRM, SCLLEN, NRHS, B, LDB, INFO );
       } else if ( IBSCL.EQ.2 ) {
-         CALL DLASCL( 'G', 0, 0, BIGNUM, BNRM, SCLLEN, NRHS, B, LDB, INFO )
+         dlascl('G', 0, 0, BIGNUM, BNRM, SCLLEN, NRHS, B, LDB, INFO );
       }
 
    50 CONTINUE

@@ -49,7 +49,7 @@
 
       // a) Revert to multipliers of L
 
-      CALL ZSYCONVF_ROOK( UPLO, 'R', N, AFAC, LDAFAC, E, IPIV, INFO )
+      zsyconvf_rook(UPLO, 'R', N, AFAC, LDAFAC, E, IPIV, INFO );
 
       // 1) Determine EPS and the norm of A.
 
@@ -58,15 +58,15 @@
 
       // 2) Initialize C to the identity matrix.
 
-      CALL ZLASET( 'Full', N, N, CZERO, CONE, C, LDC )
+      zlaset('Full', N, N, CZERO, CONE, C, LDC );
 
       // 3) Call ZLAVSY_ROOK to form the product D * U' (or D * L' ).
 
-      CALL ZLAVSY_ROOK( UPLO, 'Transpose', 'Non-unit', N, N, AFAC, LDAFAC, IPIV, C, LDC, INFO )
+      zlavsy_rook(UPLO, 'Transpose', 'Non-unit', N, N, AFAC, LDAFAC, IPIV, C, LDC, INFO );
 
       // 4) Call ZLAVSY_ROOK again to multiply by U (or L ).
 
-      CALL ZLAVSY_ROOK( UPLO, 'No transpose', 'Unit', N, N, AFAC, LDAFAC, IPIV, C, LDC, INFO )
+      zlavsy_rook(UPLO, 'No transpose', 'Unit', N, N, AFAC, LDAFAC, IPIV, C, LDC, INFO );
 
       // 5) Compute the difference  C - A .
 
@@ -97,7 +97,7 @@
 
       // b) Convert to factor of L (or U)
 
-      CALL ZSYCONVF_ROOK( UPLO, 'C', N, AFAC, LDAFAC, E, IPIV, INFO )
+      zsyconvf_rook(UPLO, 'C', N, AFAC, LDAFAC, E, IPIV, INFO );
 
       RETURN
 

@@ -48,7 +48,7 @@
          INFO = -4
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'SSYTD2', -INFO )
+         xerbla('SSYTD2', -INFO );
          RETURN
       }
 
@@ -65,7 +65,7 @@
             // Generate elementary reflector H(i) = I - tau * v * v**T
             // to annihilate A(1:i-1,i+1)
 
-            CALL SLARFG( I, A( I, I+1 ), A( 1, I+1 ), 1, TAUI )
+            slarfg(I, A( I, I+1 ), A( 1, I+1 ), 1, TAUI );
             E( I ) = A( I, I+1 )
 
             if ( TAUI.NE.ZERO ) {
@@ -76,17 +76,17 @@
 
                // Compute  x := tau * A * v  storing x in TAU(1:i)
 
-               CALL SSYMV( UPLO, I, TAUI, A, LDA, A( 1, I+1 ), 1, ZERO, TAU, 1 )
+               ssymv(UPLO, I, TAUI, A, LDA, A( 1, I+1 ), 1, ZERO, TAU, 1 );
 
                // Compute  w := x - 1/2 * tau * (x**T * v) * v
 
                ALPHA = -HALF*TAUI*SDOT( I, TAU, 1, A( 1, I+1 ), 1 )
-               CALL SAXPY( I, ALPHA, A( 1, I+1 ), 1, TAU, 1 )
+               saxpy(I, ALPHA, A( 1, I+1 ), 1, TAU, 1 );
 
                // Apply the transformation as a rank-2 update:
                   // A := A - v * w**T - w * v**T
 
-               CALL SSYR2( UPLO, I, -ONE, A( 1, I+1 ), 1, TAU, 1, A, LDA )
+               ssyr2(UPLO, I, -ONE, A( 1, I+1 ), 1, TAU, 1, A, LDA );
 
                A( I, I+1 ) = E( I )
             }
@@ -103,7 +103,7 @@
             // Generate elementary reflector H(i) = I - tau * v * v**T
             // to annihilate A(i+2:n,i)
 
-            CALL SLARFG( N-I, A( I+1, I ), A( MIN( I+2, N ), I ), 1, TAUI )
+            slarfg(N-I, A( I+1, I ), A( MIN( I+2, N ), I ), 1, TAUI );
             E( I ) = A( I+1, I )
 
             if ( TAUI.NE.ZERO ) {
@@ -114,17 +114,17 @@
 
                // Compute  x := tau * A * v  storing y in TAU(i:n-1)
 
-               CALL SSYMV( UPLO, N-I, TAUI, A( I+1, I+1 ), LDA, A( I+1, I ), 1, ZERO, TAU( I ), 1 )
+               ssymv(UPLO, N-I, TAUI, A( I+1, I+1 ), LDA, A( I+1, I ), 1, ZERO, TAU( I ), 1 );
 
                // Compute  w := x - 1/2 * tau * (x**T * v) * v
 
                ALPHA = -HALF*TAUI*SDOT( N-I, TAU( I ), 1, A( I+1, I ), 1 )
-               CALL SAXPY( N-I, ALPHA, A( I+1, I ), 1, TAU( I ), 1 )
+               saxpy(N-I, ALPHA, A( I+1, I ), 1, TAU( I ), 1 );
 
                // Apply the transformation as a rank-2 update:
                   // A := A - v * w**T - w * v**T
 
-               CALL SSYR2( UPLO, N-I, -ONE, A( I+1, I ), 1, TAU( I ), 1, A( I+1, I+1 ), LDA )
+               ssyr2(UPLO, N-I, -ONE, A( I+1, I ), 1, TAU( I ), 1, A( I+1, I+1 ), LDA );
 
                A( I+1, I ) = E( I )
             }

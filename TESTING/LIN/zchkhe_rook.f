@@ -99,7 +99,7 @@
       // Set the minimum block size for which the block routine should
       // be used, which will be later returned by ILAENV
 
-      CALL XLAENV( 2, 2 )
+      xlaenv(2, 2 );
 
       // Do for each value of N in NVAL
 
@@ -135,17 +135,17 @@
                   // Set up parameters with ZLATB4 for the matrix generator
                   // based on the type of matrix to be generated.
 
-                  CALL ZLATB4( MATPATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST )
+                  zlatb4(MATPATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST );
 
                   // Generate a matrix with ZLATMS.
 
                   SRNAMT = 'ZLATMS'
-                  CALL ZLATMS( N, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KL, KU, UPLO, A, LDA, WORK, INFO )
+                  zlatms(N, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KL, KU, UPLO, A, LDA, WORK, INFO );
 
                   // Check error code from ZLATMS and handle error.
 
                   if ( INFO.NE.0 ) {
-                     CALL ALAERH( PATH, 'ZLATMS', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT )
+                     alaerh(PATH, 'ZLATMS', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
 
                      // Skip all tests for this generated matrix
 
@@ -232,13 +232,13 @@
                   // returned by ILAENV.
 
                   NB = NBVAL( INB )
-                  CALL XLAENV( 1, NB )
+                  xlaenv(1, NB );
 
                   // Copy the test matrix A into matrix AFAC which
                   // will be factorized in place. This is needed to
                   // preserve the test matrix A for subsequent tests.
 
-                  CALL ZLACPY( UPLO, N, N, A, LDA, AFAC, LDA )
+                  zlacpy(UPLO, N, N, A, LDA, AFAC, LDA );
 
                   // Compute the L*D*L**T or U*D*U**T factorization of the
                   // matrix. IWORK stores details of the interchanges and
@@ -247,7 +247,7 @@
 
                   LWORK = MAX( 2, NB )*LDA
                   SRNAMT = 'ZHETRF_ROOK'
-                  CALL ZHETRF_ROOK( UPLO, N, AFAC, LDA, IWORK, AINV, LWORK, INFO )
+                  zhetrf_rook(UPLO, N, AFAC, LDA, IWORK, AINV, LWORK, INFO );
 
                   // Adjust the expected value of INFO to account for
                   // pivoting.
@@ -281,7 +281,7 @@
 *+    TEST 1
                   // Reconstruct matrix from factors and compute residual.
 
-                  CALL ZHET01_ROOK( UPLO, N, A, LDA, AFAC, LDA, IWORK, AINV, LDA, RWORK, RESULT( 1 ) )
+                  zhet01_rook(UPLO, N, A, LDA, AFAC, LDA, IWORK, AINV, LDA, RWORK, RESULT( 1 ) );
                   NT = 1
 
 *+    TEST 2
@@ -291,9 +291,9 @@
                   // Do it only for the first block size.
 
                   if ( INB.EQ.1 .AND. .NOT.TRFCON ) {
-                     CALL ZLACPY( UPLO, N, N, AFAC, LDA, AINV, LDA )
+                     zlacpy(UPLO, N, N, AFAC, LDA, AINV, LDA );
                      SRNAMT = 'ZHETRI_ROOK'
-                     CALL ZHETRI_ROOK( UPLO, N, AINV, LDA, IWORK, WORK, INFO )
+                     zhetri_rook(UPLO, N, AINV, LDA, IWORK, WORK, INFO );
 
                      // Check error code from ZHETRI_ROOK and handle error.
 
@@ -302,7 +302,7 @@
                      // Compute the residual for a Hermitian matrix times
                      // its inverse.
 
-                     CALL ZPOT03( UPLO, N, A, LDA, AINV, LDA, WORK, LDA, RWORK, RCONDC, RESULT( 2 ) )
+                     zpot03(UPLO, N, A, LDA, AINV, LDA, WORK, LDA, RWORK, RCONDC, RESULT( 2 ) );
                      NT = 2
                   }
 
@@ -403,7 +403,7 @@
                   DTEMP = ZERO
 
                   CONST = ( ( ALPHA**2-ONE ) / ( ALPHA**2-ONEHALF ) )* ( ( ONE + ALPHA ) / ( ONE - ALPHA ) )
-                  CALL ZLACPY( UPLO, N, N, AFAC, LDA, AINV, LDA )
+                  zlacpy(UPLO, N, N, AFAC, LDA, AINV, LDA );
 
                   if ( IUPLO.EQ.1 ) {
 
@@ -424,7 +424,7 @@
                         BLOCK( 2, 1 ) = CONJG( BLOCK( 1, 2 ) )
                         BLOCK( 2, 2 ) = AFAC( (K-1)*LDA+K )
 
-                        CALL ZGESVD( 'N', 'N', 2, 2, BLOCK, 2, RWORK, ZDUMMY, 1, ZDUMMY, 1, WORK, 6, RWORK( 3 ), INFO )
+                        zgesvd('N', 'N', 2, 2, BLOCK, 2, RWORK, ZDUMMY, 1, ZDUMMY, 1, WORK, 6, RWORK( 3 ), INFO );
 
 
                         SING_MAX = RWORK( 1 )
@@ -464,7 +464,7 @@
                         BLOCK( 1, 2 ) = CONJG( BLOCK( 2, 1 ) )
                         BLOCK( 2, 2 ) = AFAC( K*LDA+K+1 )
 
-                        CALL ZGESVD( 'N', 'N', 2, 2, BLOCK, 2, RWORK, ZDUMMY, 1, ZDUMMY, 1, WORK, 6, RWORK(3), INFO )
+                        zgesvd('N', 'N', 2, 2, BLOCK, 2, RWORK, ZDUMMY, 1, ZDUMMY, 1, WORK, 6, RWORK(3), INFO );
 
                         SING_MAX = RWORK( 1 )
                         SING_MIN = RWORK( 2 )
@@ -523,26 +523,26 @@
                      // stored in XACT and set up the right hand side B
 
                      SRNAMT = 'ZLARHS'
-                     CALL ZLARHS( MATPATH, XTYPE, UPLO, ' ', N, N, KL, KU, NRHS, A, LDA, XACT, LDA, B, LDA, ISEED, INFO )
-                     CALL ZLACPY( 'Full', N, NRHS, B, LDA, X, LDA )
+                     zlarhs(MATPATH, XTYPE, UPLO, ' ', N, N, KL, KU, NRHS, A, LDA, XACT, LDA, B, LDA, ISEED, INFO );
+                     zlacpy('Full', N, NRHS, B, LDA, X, LDA );
 
                      SRNAMT = 'ZHETRS_ROOK'
-                     CALL ZHETRS_ROOK( UPLO, N, NRHS, AFAC, LDA, IWORK, X, LDA, INFO )
+                     zhetrs_rook(UPLO, N, NRHS, AFAC, LDA, IWORK, X, LDA, INFO );
 
                      // Check error code from ZHETRS_ROOK and handle error.
 
                      IF( INFO.NE.0 ) CALL ALAERH( PATH, 'ZHETRS_ROOK', INFO, 0, UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT )
 
-                     CALL ZLACPY( 'Full', N, NRHS, B, LDA, WORK, LDA )
+                     zlacpy('Full', N, NRHS, B, LDA, WORK, LDA );
 
                      // Compute the residual for the solution
 
-                     CALL ZPOT02( UPLO, N, NRHS, A, LDA, X, LDA, WORK, LDA, RWORK, RESULT( 5 ) )
+                     zpot02(UPLO, N, NRHS, A, LDA, X, LDA, WORK, LDA, RWORK, RESULT( 5 ) );
 
 *+    TEST 6
                   // Check solution from generated exact solution.
 
-                     CALL ZGET04( N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 6 ) )
+                     zget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 6 ) );
 
                      // Print information about the tests that did not pass
                      // the threshold.
@@ -565,7 +565,7 @@
   230             CONTINUE
                   ANORM = ZLANHE( '1', UPLO, N, A, LDA, RWORK )
                   SRNAMT = 'ZHECON_ROOK'
-                  CALL ZHECON_ROOK( UPLO, N, AFAC, LDA, IWORK, ANORM, RCOND, WORK, INFO )
+                  zhecon_rook(UPLO, N, AFAC, LDA, IWORK, ANORM, RCOND, WORK, INFO );
 
                   // Check error code from ZHECON_ROOK and handle error.
 
@@ -591,7 +591,7 @@
 
       // Print a summary of the results.
 
-      CALL ALASUM( PATH, NOUT, NFAIL, NRUN, NERRS )
+      alasum(PATH, NOUT, NFAIL, NRUN, NERRS );
 
  9999 FORMAT( ' UPLO = ''', A1, ''', N =', I5, ', NB =', I4, ', type ', I2, ', test ', I2, ', ratio =', G12.5 )
  9998 FORMAT( ' UPLO = ''', A1, ''', N =', I5, ', NRHS=', I3, ', type ', I2, ', test ', I2, ', ratio =', G12.5 )

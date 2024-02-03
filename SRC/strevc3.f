@@ -112,7 +112,7 @@
          }
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'STREVC3', -INFO )
+         xerbla('STREVC3', -INFO );
          RETURN
       } else if ( LQUERY ) {
          RETURN
@@ -128,7 +128,7 @@
       if ( OVER .AND. LWORK .GE. N + 2*N*NBMIN ) {
          NB = (LWORK - N) / (2*N)
          NB = MIN( NB, NBMAX )
-         CALL SLASET( 'F', N, 1+2*NB, ZERO, ZERO, WORK, N )
+         slaset('F', N, 1+2*NB, ZERO, ZERO, WORK, N );
       } else {
          NB = 1
       }
@@ -240,7 +240,7 @@
 
                      // 1-by-1 diagonal block
 
-                     CALL SLALN2( .FALSE., 1, 1, SMIN, ONE, T( J, J ), LDT, ONE, ONE, WORK( J+IV*N ), N, WR, ZERO, X, 2, SCALE, XNORM, IERR )
+                     slaln2(.FALSE., 1, 1, SMIN, ONE, T( J, J ), LDT, ONE, ONE, WORK( J+IV*N ), N, WR, ZERO, X, 2, SCALE, XNORM, IERR );
 
                      // Scale X(1,1) to avoid overflow when updating
                      // the right-hand side.
@@ -259,13 +259,13 @@
 
                      // Update right-hand side
 
-                     CALL SAXPY( J-1, -X( 1, 1 ), T( 1, J ), 1, WORK( 1+IV*N ), 1 )
+                     saxpy(J-1, -X( 1, 1 ), T( 1, J ), 1, WORK( 1+IV*N ), 1 );
 
                   } else {
 
                      // 2-by-2 diagonal block
 
-                     CALL SLALN2( .FALSE., 2, 1, SMIN, ONE, T( J-1, J-1 ), LDT, ONE, ONE, WORK( J-1+IV*N ), N, WR, ZERO, X, 2, SCALE, XNORM, IERR )
+                     slaln2(.FALSE., 2, 1, SMIN, ONE, T( J-1, J-1 ), LDT, ONE, ONE, WORK( J-1+IV*N ), N, WR, ZERO, X, 2, SCALE, XNORM, IERR );
 
                      // Scale X(1,1) and X(2,1) to avoid overflow when
                      // updating the right-hand side.
@@ -287,7 +287,7 @@
 
                      // Update right-hand side
 
-                     CALL SAXPY( J-2, -X( 1, 1 ), T( 1, J-1 ), 1, WORK( 1+IV*N ), 1 )                      CALL SAXPY( J-2, -X( 2, 1 ), T( 1, J ), 1, WORK( 1+IV*N ), 1 )
+                     saxpy(J-2, -X( 1, 1 ), T( 1, J-1 ), 1, WORK( 1+IV*N ), 1 )                      CALL SAXPY( J-2, -X( 2, 1 ), T( 1, J ), 1, WORK( 1+IV*N ), 1 );
                   }
    60          CONTINUE
 
@@ -296,11 +296,11 @@
                if ( .NOT.OVER ) {
                   // ------------------------------
                   // no back-transform: copy x to VR and normalize.
-                  CALL SCOPY( KI, WORK( 1 + IV*N ), 1, VR( 1, IS ), 1 )
+                  scopy(KI, WORK( 1 + IV*N ), 1, VR( 1, IS ), 1 );
 
                   II = ISAMAX( KI, VR( 1, IS ), 1 )
                   REMAX = ONE / ABS( VR( II, IS ) )
-                  CALL SSCAL( KI, REMAX, VR( 1, IS ), 1 )
+                  sscal(KI, REMAX, VR( 1, IS ), 1 );
 
                   DO 70 K = KI + 1, N
                      VR( K, IS ) = ZERO
@@ -313,7 +313,7 @@
 
                   II = ISAMAX( N, VR( 1, KI ), 1 )
                   REMAX = ONE / ABS( VR( II, KI ) )
-                  CALL SSCAL( N, REMAX, VR( 1, KI ), 1 )
+                  sscal(N, REMAX, VR( 1, KI ), 1 );
 
                } else {
                   // ------------------------------
@@ -371,7 +371,7 @@
 
                      // 1-by-1 diagonal block
 
-                     CALL SLALN2( .FALSE., 1, 2, SMIN, ONE, T( J, J ), LDT, ONE, ONE, WORK( J+(IV-1)*N ), N, WR, WI, X, 2, SCALE, XNORM, IERR )
+                     slaln2(.FALSE., 1, 2, SMIN, ONE, T( J, J ), LDT, ONE, ONE, WORK( J+(IV-1)*N ), N, WR, WI, X, 2, SCALE, XNORM, IERR );
 
                      // Scale X(1,1) and X(1,2) to avoid overflow when
                      // updating the right-hand side.
@@ -387,21 +387,21 @@
                      // Scale if necessary
 
                      if ( SCALE.NE.ONE ) {
-                        CALL SSCAL( KI, SCALE, WORK( 1+(IV-1)*N ), 1 )
-                        CALL SSCAL( KI, SCALE, WORK( 1+(IV  )*N ), 1 )
+                        sscal(KI, SCALE, WORK( 1+(IV-1)*N ), 1 );
+                        sscal(KI, SCALE, WORK( 1+(IV  )*N ), 1 );
                      }
                      WORK( J+(IV-1)*N ) = X( 1, 1 )
                      WORK( J+(IV  )*N ) = X( 1, 2 )
 
                      // Update the right-hand side
 
-                     CALL SAXPY( J-1, -X( 1, 1 ), T( 1, J ), 1, WORK( 1+(IV-1)*N ), 1 )                      CALL SAXPY( J-1, -X( 1, 2 ), T( 1, J ), 1, WORK( 1+(IV  )*N ), 1 )
+                     saxpy(J-1, -X( 1, 1 ), T( 1, J ), 1, WORK( 1+(IV-1)*N ), 1 )                      CALL SAXPY( J-1, -X( 1, 2 ), T( 1, J ), 1, WORK( 1+(IV  )*N ), 1 );
 
                   } else {
 
                      // 2-by-2 diagonal block
 
-                     CALL SLALN2( .FALSE., 2, 2, SMIN, ONE, T( J-1, J-1 ), LDT, ONE, ONE, WORK( J-1+(IV-1)*N ), N, WR, WI, X, 2, SCALE, XNORM, IERR )
+                     slaln2(.FALSE., 2, 2, SMIN, ONE, T( J-1, J-1 ), LDT, ONE, ONE, WORK( J-1+(IV-1)*N ), N, WR, WI, X, 2, SCALE, XNORM, IERR );
 
                      // Scale X to avoid overflow when updating
                      // the right-hand side.
@@ -421,8 +421,8 @@
                      // Scale if necessary
 
                      if ( SCALE.NE.ONE ) {
-                        CALL SSCAL( KI, SCALE, WORK( 1+(IV-1)*N ), 1 )
-                        CALL SSCAL( KI, SCALE, WORK( 1+(IV  )*N ), 1 )
+                        sscal(KI, SCALE, WORK( 1+(IV-1)*N ), 1 );
+                        sscal(KI, SCALE, WORK( 1+(IV  )*N ), 1 );
                      }
                      WORK( J-1+(IV-1)*N ) = X( 1, 1 )
                      WORK( J  +(IV-1)*N ) = X( 2, 1 )
@@ -431,7 +431,7 @@
 
                      // Update the right-hand side
 
-                     CALL SAXPY( J-2, -X( 1, 1 ), T( 1, J-1 ), 1, WORK( 1+(IV-1)*N   ), 1 )                      CALL SAXPY( J-2, -X( 2, 1 ), T( 1, J ), 1, WORK( 1+(IV-1)*N   ), 1 )                      CALL SAXPY( J-2, -X( 1, 2 ), T( 1, J-1 ), 1, WORK( 1+(IV  )*N ), 1 )                      CALL SAXPY( J-2, -X( 2, 2 ), T( 1, J ), 1, WORK( 1+(IV  )*N ), 1 )
+                     saxpy(J-2, -X( 1, 1 ), T( 1, J-1 ), 1, WORK( 1+(IV-1)*N   ), 1 )                      CALL SAXPY( J-2, -X( 2, 1 ), T( 1, J ), 1, WORK( 1+(IV-1)*N   ), 1 )                      CALL SAXPY( J-2, -X( 1, 2 ), T( 1, J-1 ), 1, WORK( 1+(IV  )*N ), 1 )                      CALL SAXPY( J-2, -X( 2, 2 ), T( 1, J ), 1, WORK( 1+(IV  )*N ), 1 );
                   }
    90          CONTINUE
 
@@ -440,16 +440,16 @@
                if ( .NOT.OVER ) {
                   // ------------------------------
                   // no back-transform: copy x to VR and normalize.
-                  CALL SCOPY( KI, WORK( 1+(IV-1)*N ), 1, VR(1,IS-1), 1 )
-                  CALL SCOPY( KI, WORK( 1+(IV  )*N ), 1, VR(1,IS  ), 1 )
+                  scopy(KI, WORK( 1+(IV-1)*N ), 1, VR(1,IS-1), 1 );
+                  scopy(KI, WORK( 1+(IV  )*N ), 1, VR(1,IS  ), 1 );
 
                   EMAX = ZERO
                   DO 100 K = 1, KI
                      EMAX = MAX( EMAX, ABS( VR( K, IS-1 ) )+ ABS( VR( K, IS   ) ) )
   100             CONTINUE
                   REMAX = ONE / EMAX
-                  CALL SSCAL( KI, REMAX, VR( 1, IS-1 ), 1 )
-                  CALL SSCAL( KI, REMAX, VR( 1, IS   ), 1 )
+                  sscal(KI, REMAX, VR( 1, IS-1 ), 1 );
+                  sscal(KI, REMAX, VR( 1, IS   ), 1 );
 
                   DO 110 K = KI + 1, N
                      VR( K, IS-1 ) = ZERO
@@ -460,10 +460,10 @@
                   // ------------------------------
                   // version 1: back-transform each vector with GEMV, Q*x.
                   if ( KI.GT.2 ) {
-                     CALL SGEMV( 'N', N, KI-2, ONE, VR, LDVR, WORK( 1    + (IV-1)*N ), 1, WORK( KI-1 + (IV-1)*N ), VR(1,KI-1), 1)                      CALL SGEMV( 'N', N, KI-2, ONE, VR, LDVR, WORK( 1  + (IV)*N ), 1, WORK( KI + (IV)*N ), VR( 1, KI ), 1 )
+                     sgemv('N', N, KI-2, ONE, VR, LDVR, WORK( 1    + (IV-1)*N ), 1, WORK( KI-1 + (IV-1)*N ), VR(1,KI-1), 1)                      CALL SGEMV( 'N', N, KI-2, ONE, VR, LDVR, WORK( 1  + (IV)*N ), 1, WORK( KI + (IV)*N ), VR( 1, KI ), 1 );
                   } else {
-                     CALL SSCAL( N, WORK(KI-1+(IV-1)*N), VR(1,KI-1), 1)
-                     CALL SSCAL( N, WORK(KI  +(IV  )*N), VR(1,KI  ), 1)
+                     sscal(N, WORK(KI-1+(IV-1)*N), VR(1,KI-1), 1);
+                     sscal(N, WORK(KI  +(IV  )*N), VR(1,KI  ), 1);
                   }
 
                   EMAX = ZERO
@@ -471,8 +471,8 @@
                      EMAX = MAX( EMAX, ABS( VR( K, KI-1 ) )+ ABS( VR( K, KI   ) ) )
   120             CONTINUE
                   REMAX = ONE / EMAX
-                  CALL SSCAL( N, REMAX, VR( 1, KI-1 ), 1 )
-                  CALL SSCAL( N, REMAX, VR( 1, KI   ), 1 )
+                  sscal(N, REMAX, VR( 1, KI-1 ), 1 );
+                  sscal(N, REMAX, VR( 1, KI   ), 1 );
 
                } else {
                   // ------------------------------
@@ -503,7 +503,7 @@
                // When the number of vectors stored reaches NB-1 or NB,
                // or if this was last vector, do the GEMM
                if ( (IV.LE.2) .OR. (KI2.EQ.1) ) {
-                  CALL SGEMM( 'N', 'N', N, NB-IV+1, KI2+NB-IV, ONE, VR, LDVR, WORK( 1 + (IV)*N    ), N, ZERO, WORK( 1 + (NB+IV)*N ), N )
+                  sgemm('N', 'N', N, NB-IV+1, KI2+NB-IV, ONE, VR, LDVR, WORK( 1 + (IV)*N    ), N, ZERO, WORK( 1 + (NB+IV)*N ), N );
                   // normalize vectors
                   DO K = IV, NB
                      if ( ISCOMPLEX(K).EQ.0 ) {
@@ -521,9 +521,9 @@
                         // second eigenvector of conjugate pair
                         // reuse same REMAX as previous K
                      }
-                     CALL SSCAL( N, REMAX, WORK( 1 + (NB+K)*N ), 1 )
+                     sscal(N, REMAX, WORK( 1 + (NB+K)*N ), 1 );
                   END DO
-                  CALL SLACPY( 'F', N, NB-IV+1, WORK( 1 + (NB+IV)*N ), N, VR( 1, KI2 ), LDVR )
+                  slacpy('F', N, NB-IV+1, WORK( 1 + (NB+IV)*N ), N, VR( 1, KI2 ), LDVR );
                   IV = NB
                } else {
                   IV = IV - 1
@@ -617,7 +617,7 @@
 
                      if ( WORK( J ).GT.VCRIT ) {
                         REC = ONE / VMAX
-                        CALL SSCAL( N-KI+1, REC, WORK( KI+IV*N ), 1 )
+                        sscal(N-KI+1, REC, WORK( KI+IV*N ), 1 );
                         VMAX = ONE
                         VCRIT = BIGNUM
                      }
@@ -626,7 +626,7 @@
 
                      // Solve [ T(J,J) - WR ]**T * X = WORK
 
-                     CALL SLALN2( .FALSE., 1, 1, SMIN, ONE, T( J, J ), LDT, ONE, ONE, WORK( J+IV*N ), N, WR, ZERO, X, 2, SCALE, XNORM, IERR )
+                     slaln2(.FALSE., 1, 1, SMIN, ONE, T( J, J ), LDT, ONE, ONE, WORK( J+IV*N ), N, WR, ZERO, X, 2, SCALE, XNORM, IERR );
 
                      // Scale if necessary
 
@@ -645,7 +645,7 @@
                      BETA = MAX( WORK( J ), WORK( J+1 ) )
                      if ( BETA.GT.VCRIT ) {
                         REC = ONE / VMAX
-                        CALL SSCAL( N-KI+1, REC, WORK( KI+IV*N ), 1 )
+                        sscal(N-KI+1, REC, WORK( KI+IV*N ), 1 );
                         VMAX = ONE
                         VCRIT = BIGNUM
                      }
@@ -658,7 +658,7 @@
                      // [ T(J,J)-WR   T(J,J+1)      ]**T * X = SCALE*( WORK1 )
                      // [ T(J+1,J)    T(J+1,J+1)-WR ]                ( WORK2 )
 
-                     CALL SLALN2( .TRUE., 2, 1, SMIN, ONE, T( J, J ), LDT, ONE, ONE, WORK( J+IV*N ), N, WR, ZERO, X, 2, SCALE, XNORM, IERR )
+                     slaln2(.TRUE., 2, 1, SMIN, ONE, T( J, J ), LDT, ONE, ONE, WORK( J+IV*N ), N, WR, ZERO, X, 2, SCALE, XNORM, IERR );
 
                      // Scale if necessary
 
@@ -677,11 +677,11 @@
                if ( .NOT.OVER ) {
                   // ------------------------------
                   // no back-transform: copy x to VL and normalize.
-                  CALL SCOPY( N-KI+1, WORK( KI + IV*N ), 1, VL( KI, IS ), 1 )
+                  scopy(N-KI+1, WORK( KI + IV*N ), 1, VL( KI, IS ), 1 );
 
                   II = ISAMAX( N-KI+1, VL( KI, IS ), 1 ) + KI - 1
                   REMAX = ONE / ABS( VL( II, IS ) )
-                  CALL SSCAL( N-KI+1, REMAX, VL( KI, IS ), 1 )
+                  sscal(N-KI+1, REMAX, VL( KI, IS ), 1 );
 
                   DO 180 K = 1, KI - 1
                      VL( K, IS ) = ZERO
@@ -694,7 +694,7 @@
 
                   II = ISAMAX( N, VL( 1, KI ), 1 )
                   REMAX = ONE / ABS( VL( II, KI ) )
-                  CALL SSCAL( N, REMAX, VL( 1, KI ), 1 )
+                  sscal(N, REMAX, VL( 1, KI ), 1 );
 
                } else {
                   // ------------------------------
@@ -761,8 +761,8 @@
 
                      if ( WORK( J ).GT.VCRIT ) {
                         REC = ONE / VMAX
-                        CALL SSCAL( N-KI+1, REC, WORK(KI+(IV  )*N), 1 )
-                        CALL SSCAL( N-KI+1, REC, WORK(KI+(IV+1)*N), 1 )
+                        sscal(N-KI+1, REC, WORK(KI+(IV  )*N), 1 );
+                        sscal(N-KI+1, REC, WORK(KI+(IV+1)*N), 1 );
                         VMAX = ONE
                         VCRIT = BIGNUM
                      }
@@ -771,13 +771,13 @@
 
                      // Solve [ T(J,J)-(WR-i*WI) ]*(X11+i*X12)= WK+I*WK2
 
-                     CALL SLALN2( .FALSE., 1, 2, SMIN, ONE, T( J, J ), LDT, ONE, ONE, WORK( J+IV*N ), N, WR, -WI, X, 2, SCALE, XNORM, IERR )
+                     slaln2(.FALSE., 1, 2, SMIN, ONE, T( J, J ), LDT, ONE, ONE, WORK( J+IV*N ), N, WR, -WI, X, 2, SCALE, XNORM, IERR );
 
                      // Scale if necessary
 
                      if ( SCALE.NE.ONE ) {
-                        CALL SSCAL( N-KI+1, SCALE, WORK(KI+(IV  )*N), 1)
-                        CALL SSCAL( N-KI+1, SCALE, WORK(KI+(IV+1)*N), 1)
+                        sscal(N-KI+1, SCALE, WORK(KI+(IV  )*N), 1);
+                        sscal(N-KI+1, SCALE, WORK(KI+(IV+1)*N), 1);
                      }
                      WORK( J+(IV  )*N ) = X( 1, 1 )
                      WORK( J+(IV+1)*N ) = X( 1, 2 )
@@ -794,8 +794,8 @@
                      BETA = MAX( WORK( J ), WORK( J+1 ) )
                      if ( BETA.GT.VCRIT ) {
                         REC = ONE / VMAX
-                        CALL SSCAL( N-KI+1, REC, WORK(KI+(IV  )*N), 1 )
-                        CALL SSCAL( N-KI+1, REC, WORK(KI+(IV+1)*N), 1 )
+                        sscal(N-KI+1, REC, WORK(KI+(IV  )*N), 1 );
+                        sscal(N-KI+1, REC, WORK(KI+(IV+1)*N), 1 );
                         VMAX = ONE
                         VCRIT = BIGNUM
                      }
@@ -812,13 +812,13 @@
                      // [ (T(j,j)   T(j,j+1)  )**T - (wr-i*wi)*I ]*X = SCALE*B
                      // [ (T(j+1,j) T(j+1,j+1))                  ]
 
-                     CALL SLALN2( .TRUE., 2, 2, SMIN, ONE, T( J, J ), LDT, ONE, ONE, WORK( J+IV*N ), N, WR, -WI, X, 2, SCALE, XNORM, IERR )
+                     slaln2(.TRUE., 2, 2, SMIN, ONE, T( J, J ), LDT, ONE, ONE, WORK( J+IV*N ), N, WR, -WI, X, 2, SCALE, XNORM, IERR );
 
                      // Scale if necessary
 
                      if ( SCALE.NE.ONE ) {
-                        CALL SSCAL( N-KI+1, SCALE, WORK(KI+(IV  )*N), 1)
-                        CALL SSCAL( N-KI+1, SCALE, WORK(KI+(IV+1)*N), 1)
+                        sscal(N-KI+1, SCALE, WORK(KI+(IV  )*N), 1);
+                        sscal(N-KI+1, SCALE, WORK(KI+(IV+1)*N), 1);
                      }
                      WORK( J  +(IV  )*N ) = X( 1, 1 )
                      WORK( J  +(IV+1)*N ) = X( 1, 2 )
@@ -835,15 +835,15 @@
                if ( .NOT.OVER ) {
                   // ------------------------------
                   // no back-transform: copy x to VL and normalize.
-                  CALL SCOPY( N-KI+1, WORK( KI + (IV  )*N ), 1, VL( KI, IS   ), 1 )                   CALL SCOPY( N-KI+1, WORK( KI + (IV+1)*N ), 1, VL( KI, IS+1 ), 1 )
+                  scopy(N-KI+1, WORK( KI + (IV  )*N ), 1, VL( KI, IS   ), 1 )                   CALL SCOPY( N-KI+1, WORK( KI + (IV+1)*N ), 1, VL( KI, IS+1 ), 1 );
 
                   EMAX = ZERO
                   DO 220 K = KI, N
                      EMAX = MAX( EMAX, ABS( VL( K, IS   ) )+ ABS( VL( K, IS+1 ) ) )
   220             CONTINUE
                   REMAX = ONE / EMAX
-                  CALL SSCAL( N-KI+1, REMAX, VL( KI, IS   ), 1 )
-                  CALL SSCAL( N-KI+1, REMAX, VL( KI, IS+1 ), 1 )
+                  sscal(N-KI+1, REMAX, VL( KI, IS   ), 1 );
+                  sscal(N-KI+1, REMAX, VL( KI, IS+1 ), 1 );
 
                   DO 230 K = 1, KI - 1
                      VL( K, IS   ) = ZERO
@@ -854,10 +854,10 @@
                   // ------------------------------
                   // version 1: back-transform each vector with GEMV, Q*x.
                   if ( KI.LT.N-1 ) {
-                     CALL SGEMV( 'N', N, N-KI-1, ONE, VL( 1, KI+2 ), LDVL, WORK( KI+2 + (IV)*N ), 1, WORK( KI   + (IV)*N ), VL( 1, KI ), 1 )                      CALL SGEMV( 'N', N, N-KI-1, ONE, VL( 1, KI+2 ), LDVL, WORK( KI+2 + (IV+1)*N ), 1, WORK( KI+1 + (IV+1)*N ), VL( 1, KI+1 ), 1 )
+                     sgemv('N', N, N-KI-1, ONE, VL( 1, KI+2 ), LDVL, WORK( KI+2 + (IV)*N ), 1, WORK( KI   + (IV)*N ), VL( 1, KI ), 1 )                      CALL SGEMV( 'N', N, N-KI-1, ONE, VL( 1, KI+2 ), LDVL, WORK( KI+2 + (IV+1)*N ), 1, WORK( KI+1 + (IV+1)*N ), VL( 1, KI+1 ), 1 );
                   } else {
-                     CALL SSCAL( N, WORK(KI+  (IV  )*N), VL(1, KI  ), 1)
-                     CALL SSCAL( N, WORK(KI+1+(IV+1)*N), VL(1, KI+1), 1)
+                     sscal(N, WORK(KI+  (IV  )*N), VL(1, KI  ), 1);
+                     sscal(N, WORK(KI+1+(IV+1)*N), VL(1, KI+1), 1);
                   }
 
                   EMAX = ZERO
@@ -865,8 +865,8 @@
                      EMAX = MAX( EMAX, ABS( VL( K, KI   ) )+ ABS( VL( K, KI+1 ) ) )
   240             CONTINUE
                   REMAX = ONE / EMAX
-                  CALL SSCAL( N, REMAX, VL( 1, KI   ), 1 )
-                  CALL SSCAL( N, REMAX, VL( 1, KI+1 ), 1 )
+                  sscal(N, REMAX, VL( 1, KI   ), 1 );
+                  sscal(N, REMAX, VL( 1, KI+1 ), 1 );
 
                } else {
                   // ------------------------------
@@ -898,7 +898,7 @@
                // When the number of vectors stored reaches NB-1 or NB,
                // or if this was last vector, do the GEMM
                if ( (IV.GE.NB-1) .OR. (KI2.EQ.N) ) {
-                  CALL SGEMM( 'N', 'N', N, IV, N-KI2+IV, ONE, VL( 1, KI2-IV+1 ), LDVL, WORK( KI2-IV+1 + (1)*N ), N, ZERO, WORK( 1 + (NB+1)*N ), N )
+                  sgemm('N', 'N', N, IV, N-KI2+IV, ONE, VL( 1, KI2-IV+1 ), LDVL, WORK( KI2-IV+1 + (1)*N ), N, ZERO, WORK( 1 + (NB+1)*N ), N );
                   // normalize vectors
                   DO K = 1, IV
                      if ( ISCOMPLEX(K).EQ.0) {
@@ -916,9 +916,9 @@
                         // second eigenvector of conjugate pair
                         // reuse same REMAX as previous K
                      }
-                     CALL SSCAL( N, REMAX, WORK( 1 + (NB+K)*N ), 1 )
+                     sscal(N, REMAX, WORK( 1 + (NB+K)*N ), 1 );
                   END DO
-                  CALL SLACPY( 'F', N, IV, WORK( 1 + (NB+1)*N ), N, VL( 1, KI2-IV+1 ), LDVL )
+                  slacpy('F', N, IV, WORK( 1 + (NB+1)*N ), N, VL( 1, KI2-IV+1 ), LDVL );
                   IV = 1
                } else {
                   IV = IV + 1

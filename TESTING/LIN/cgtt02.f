@@ -60,7 +60,7 @@
 
       // Compute B - op(A)*X and store in B.
 
-      CALL CLAGTM( TRANS, N, NRHS, -ONE, DL, D, DU, X, LDX, ONE, B, LDB )
+      clagtm(TRANS, N, NRHS, -ONE, DL, D, DU, X, LDX, ONE, B, LDB );
 
       DO 10 J = 1, NRHS
          BNORM = SCASUM( N, B( 1, J ), 1 )

@@ -68,7 +68,7 @@
          }
       }
       if ( INFO .NE. 0 ) {
-         CALL XERBLA( 'ZUNBDB4', -INFO )
+         xerbla('ZUNBDB4', -INFO );
          RETURN
       } else if ( LQUERY ) {
          RETURN
@@ -82,36 +82,36 @@
             DO J = 1, M
                PHANTOM(J) = ZERO
             END DO
-            CALL ZUNBDB5( P, M-P, Q, PHANTOM(1), 1, PHANTOM(P+1), 1, X11, LDX11, X21, LDX21, WORK(IORBDB5), LORBDB5, CHILDINFO )
-            CALL ZSCAL( P, NEGONE, PHANTOM(1), 1 )
-            CALL ZLARFGP( P, PHANTOM(1), PHANTOM(2), 1, TAUP1(1) )
-            CALL ZLARFGP( M-P, PHANTOM(P+1), PHANTOM(P+2), 1, TAUP2(1) )
+            zunbdb5(P, M-P, Q, PHANTOM(1), 1, PHANTOM(P+1), 1, X11, LDX11, X21, LDX21, WORK(IORBDB5), LORBDB5, CHILDINFO );
+            zscal(P, NEGONE, PHANTOM(1), 1 );
+            zlarfgp(P, PHANTOM(1), PHANTOM(2), 1, TAUP1(1) );
+            zlarfgp(M-P, PHANTOM(P+1), PHANTOM(P+2), 1, TAUP2(1) );
             THETA(I) = ATAN2( DBLE( PHANTOM(1) ), DBLE( PHANTOM(P+1) ) )
             C = COS( THETA(I) )
             S = SIN( THETA(I) )
             PHANTOM(1) = ONE
             PHANTOM(P+1) = ONE
-            CALL ZLARF( 'L', P, Q, PHANTOM(1), 1, DCONJG(TAUP1(1)), X11, LDX11, WORK(ILARF) )             CALL ZLARF( 'L', M-P, Q, PHANTOM(P+1), 1, DCONJG(TAUP2(1)), X21, LDX21, WORK(ILARF) )
+            zlarf('L', P, Q, PHANTOM(1), 1, DCONJG(TAUP1(1)), X11, LDX11, WORK(ILARF) )             CALL ZLARF( 'L', M-P, Q, PHANTOM(P+1), 1, DCONJG(TAUP2(1)), X21, LDX21, WORK(ILARF) );
          } else {
-            CALL ZUNBDB5( P-I+1, M-P-I+1, Q-I+1, X11(I,I-1), 1, X21(I,I-1), 1, X11(I,I), LDX11, X21(I,I), LDX21, WORK(IORBDB5), LORBDB5, CHILDINFO )
-            CALL ZSCAL( P-I+1, NEGONE, X11(I,I-1), 1 )
-            CALL ZLARFGP( P-I+1, X11(I,I-1), X11(I+1,I-1), 1, TAUP1(I) )
-            CALL ZLARFGP( M-P-I+1, X21(I,I-1), X21(I+1,I-1), 1, TAUP2(I) )
+            zunbdb5(P-I+1, M-P-I+1, Q-I+1, X11(I,I-1), 1, X21(I,I-1), 1, X11(I,I), LDX11, X21(I,I), LDX21, WORK(IORBDB5), LORBDB5, CHILDINFO );
+            zscal(P-I+1, NEGONE, X11(I,I-1), 1 );
+            zlarfgp(P-I+1, X11(I,I-1), X11(I+1,I-1), 1, TAUP1(I) );
+            zlarfgp(M-P-I+1, X21(I,I-1), X21(I+1,I-1), 1, TAUP2(I) );
             THETA(I) = ATAN2( DBLE( X11(I,I-1) ), DBLE( X21(I,I-1) ) )
             C = COS( THETA(I) )
             S = SIN( THETA(I) )
             X11(I,I-1) = ONE
             X21(I,I-1) = ONE
-            CALL ZLARF( 'L', P-I+1, Q-I+1, X11(I,I-1), 1, DCONJG(TAUP1(I)), X11(I,I), LDX11, WORK(ILARF) )             CALL ZLARF( 'L', M-P-I+1, Q-I+1, X21(I,I-1), 1, DCONJG(TAUP2(I)), X21(I,I), LDX21, WORK(ILARF) )
+            zlarf('L', P-I+1, Q-I+1, X11(I,I-1), 1, DCONJG(TAUP1(I)), X11(I,I), LDX11, WORK(ILARF) )             CALL ZLARF( 'L', M-P-I+1, Q-I+1, X21(I,I-1), 1, DCONJG(TAUP2(I)), X21(I,I), LDX21, WORK(ILARF) );
          }
 
-         CALL ZDROT( Q-I+1, X11(I,I), LDX11, X21(I,I), LDX21, S, -C )
-         CALL ZLACGV( Q-I+1, X21(I,I), LDX21 )
-         CALL ZLARFGP( Q-I+1, X21(I,I), X21(I,I+1), LDX21, TAUQ1(I) )
+         zdrot(Q-I+1, X11(I,I), LDX11, X21(I,I), LDX21, S, -C );
+         zlacgv(Q-I+1, X21(I,I), LDX21 );
+         zlarfgp(Q-I+1, X21(I,I), X21(I,I+1), LDX21, TAUQ1(I) );
          C = DBLE( X21(I,I) )
          X21(I,I) = ONE
-         CALL ZLARF( 'R', P-I, Q-I+1, X21(I,I), LDX21, TAUQ1(I), X11(I+1,I), LDX11, WORK(ILARF) )          CALL ZLARF( 'R', M-P-I, Q-I+1, X21(I,I), LDX21, TAUQ1(I), X21(I+1,I), LDX21, WORK(ILARF) )
-         CALL ZLACGV( Q-I+1, X21(I,I), LDX21 )
+         zlarf('R', P-I, Q-I+1, X21(I,I), LDX21, TAUQ1(I), X11(I+1,I), LDX11, WORK(ILARF) )          CALL ZLARF( 'R', M-P-I, Q-I+1, X21(I,I), LDX21, TAUQ1(I), X21(I+1,I), LDX21, WORK(ILARF) );
+         zlacgv(Q-I+1, X21(I,I), LDX21 );
          if ( I .LT. M-Q ) {
             S = SQRT( DZNRM2( P-I, X11(I+1,I), 1 )**2 + DZNRM2( M-P-I, X21(I+1,I), 1 )**2 )
             PHI(I) = ATAN2( S, C )
@@ -122,21 +122,21 @@
       // Reduce the bottom-right portion of X11 to [ I 0 ]
 
       DO I = M - Q + 1, P
-         CALL ZLACGV( Q-I+1, X11(I,I), LDX11 )
-         CALL ZLARFGP( Q-I+1, X11(I,I), X11(I,I+1), LDX11, TAUQ1(I) )
+         zlacgv(Q-I+1, X11(I,I), LDX11 );
+         zlarfgp(Q-I+1, X11(I,I), X11(I,I+1), LDX11, TAUQ1(I) );
          X11(I,I) = ONE
-         CALL ZLARF( 'R', P-I, Q-I+1, X11(I,I), LDX11, TAUQ1(I), X11(I+1,I), LDX11, WORK(ILARF) )          CALL ZLARF( 'R', Q-P, Q-I+1, X11(I,I), LDX11, TAUQ1(I), X21(M-Q+1,I), LDX21, WORK(ILARF) )
-         CALL ZLACGV( Q-I+1, X11(I,I), LDX11 )
+         zlarf('R', P-I, Q-I+1, X11(I,I), LDX11, TAUQ1(I), X11(I+1,I), LDX11, WORK(ILARF) )          CALL ZLARF( 'R', Q-P, Q-I+1, X11(I,I), LDX11, TAUQ1(I), X21(M-Q+1,I), LDX21, WORK(ILARF) );
+         zlacgv(Q-I+1, X11(I,I), LDX11 );
       END DO
 
       // Reduce the bottom-right portion of X21 to [ 0 I ]
 
       DO I = P + 1, Q
-         CALL ZLACGV( Q-I+1, X21(M-Q+I-P,I), LDX21 )
-         CALL ZLARFGP( Q-I+1, X21(M-Q+I-P,I), X21(M-Q+I-P,I+1), LDX21, TAUQ1(I) )
+         zlacgv(Q-I+1, X21(M-Q+I-P,I), LDX21 );
+         zlarfgp(Q-I+1, X21(M-Q+I-P,I), X21(M-Q+I-P,I+1), LDX21, TAUQ1(I) );
          X21(M-Q+I-P,I) = ONE
-         CALL ZLARF( 'R', Q-I, Q-I+1, X21(M-Q+I-P,I), LDX21, TAUQ1(I), X21(M-Q+I-P+1,I), LDX21, WORK(ILARF) )
-         CALL ZLACGV( Q-I+1, X21(M-Q+I-P,I), LDX21 )
+         zlarf('R', Q-I, Q-I+1, X21(M-Q+I-P,I), LDX21, TAUQ1(I), X21(M-Q+I-P+1,I), LDX21, WORK(ILARF) );
+         zlacgv(Q-I+1, X21(M-Q+I-P,I), LDX21 );
       END DO
 
       RETURN

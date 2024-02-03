@@ -44,17 +44,17 @@
 
          // ==== Workspace query call to DGEHRD ====
 
-         CALL DGEHRD( JW, 1, JW-1, T, LDT, WORK, WORK, -1, INFO )
+         dgehrd(JW, 1, JW-1, T, LDT, WORK, WORK, -1, INFO );
          LWK1 = INT( WORK( 1 ) )
 
          // ==== Workspace query call to DORMHR ====
 
-         CALL DORMHR( 'R', 'N', JW, JW, 1, JW-1, T, LDT, WORK, V, LDV, WORK, -1, INFO )
+         dormhr('R', 'N', JW, JW, 1, JW-1, T, LDT, WORK, V, LDV, WORK, -1, INFO );
          LWK2 = INT( WORK( 1 ) )
 
          // ==== Workspace query call to DLAQR4 ====
 
-         CALL DLAQR4( .true., .true., JW, 1, JW, T, LDT, SR, SI, 1, JW, V, LDV, WORK, -1, INFQR )
+         dlaqr4(.true., .true., JW, 1, JW, T, LDT, SR, SI, 1, JW, V, LDV, WORK, -1, INFQR );
          LWK3 = INT( WORK( 1 ) )
 
          // ==== Optimal workspace ====
@@ -118,15 +118,15 @@
       // .    the deflation window that converged using INFQR
       // .    here and there to keep track.) ====
 
-      CALL DLACPY( 'U', JW, JW, H( KWTOP, KWTOP ), LDH, T, LDT )
-      CALL DCOPY( JW-1, H( KWTOP+1, KWTOP ), LDH+1, T( 2, 1 ), LDT+1 )
+      dlacpy('U', JW, JW, H( KWTOP, KWTOP ), LDH, T, LDT );
+      dcopy(JW-1, H( KWTOP+1, KWTOP ), LDH+1, T( 2, 1 ), LDT+1 );
 
-      CALL DLASET( 'A', JW, JW, ZERO, ONE, V, LDV )
+      dlaset('A', JW, JW, ZERO, ONE, V, LDV );
       NMIN = ILAENV( 12, 'DLAQR3', 'SV', JW, 1, JW, LWORK )
       if ( JW.GT.NMIN ) {
-         CALL DLAQR4( .true., .true., JW, 1, JW, T, LDT, SR( KWTOP ), SI( KWTOP ), 1, JW, V, LDV, WORK, LWORK, INFQR )
+         dlaqr4(.true., .true., JW, 1, JW, T, LDT, SR( KWTOP ), SI( KWTOP ), 1, JW, V, LDV, WORK, LWORK, INFQR );
       } else {
-         CALL DLAHQR( .true., .true., JW, 1, JW, T, LDT, SR( KWTOP ), SI( KWTOP ), 1, JW, V, LDV, INFQR )
+         dlahqr(.true., .true., JW, 1, JW, T, LDT, SR( KWTOP ), SI( KWTOP ), 1, JW, V, LDV, INFQR );
       }
 
       // ==== DTREXC needs a clean margin near the diagonal ====
@@ -168,7 +168,7 @@
                // .    (DTREXC can not fail in this case.) ====
 
                IFST = NS
-               CALL DTREXC( 'V', JW, T, LDT, V, LDV, IFST, ILST, WORK, INFO )
+               dtrexc('V', JW, T, LDT, V, LDV, IFST, ILST, WORK, INFO );
                ILST = ILST + 1
             }
          } else {
@@ -187,7 +187,7 @@
                // .    ILST in case of a rare exchange failure. ====
 
                IFST = NS
-               CALL DTREXC( 'V', JW, T, LDT, V, LDV, IFST, ILST, WORK, INFO )
+               dtrexc('V', JW, T, LDT, V, LDV, IFST, ILST, WORK, INFO );
                ILST = ILST + 2
             }
          }
@@ -244,7 +244,7 @@
                SORTED = .false.
                IFST = I
                ILST = K
-               CALL DTREXC( 'V', JW, T, LDT, V, LDV, IFST, ILST, WORK, INFO )
+               dtrexc('V', JW, T, LDT, V, LDV, IFST, ILST, WORK, INFO );
                if ( INFO.EQ.0 ) {
                   I = ILST
                } else {
@@ -282,7 +282,7 @@
             CC = T( I, I-1 )
             BB = T( I-1, I )
             DD = T( I, I )
-            CALL DLANV2( AA, BB, CC, DD, SR( KWTOP+I-2 ), SI( KWTOP+I-2 ), SR( KWTOP+I-1 ), SI( KWTOP+I-1 ), CS, SN )
+            dlanv2(AA, BB, CC, DD, SR( KWTOP+I-2 ), SI( KWTOP+I-2 ), SR( KWTOP+I-1 ), SI( KWTOP+I-1 ), CS, SN );
             I = I - 2
          }
          GO TO 60
@@ -293,23 +293,23 @@
 
             // ==== Reflect spike back into lower triangle ====
 
-            CALL DCOPY( NS, V, LDV, WORK, 1 )
+            dcopy(NS, V, LDV, WORK, 1 );
             BETA = WORK( 1 )
-            CALL DLARFG( NS, BETA, WORK( 2 ), 1, TAU )
+            dlarfg(NS, BETA, WORK( 2 ), 1, TAU );
             WORK( 1 ) = ONE
 
-            CALL DLASET( 'L', JW-2, JW-2, ZERO, ZERO, T( 3, 1 ), LDT )
+            dlaset('L', JW-2, JW-2, ZERO, ZERO, T( 3, 1 ), LDT );
 
-            CALL DLARF( 'L', NS, JW, WORK, 1, TAU, T, LDT, WORK( JW+1 ) )             CALL DLARF( 'R', NS, NS, WORK, 1, TAU, T, LDT, WORK( JW+1 ) )             CALL DLARF( 'R', JW, NS, WORK, 1, TAU, V, LDV, WORK( JW+1 ) )
+            dlarf('L', NS, JW, WORK, 1, TAU, T, LDT, WORK( JW+1 ) )             CALL DLARF( 'R', NS, NS, WORK, 1, TAU, T, LDT, WORK( JW+1 ) )             CALL DLARF( 'R', JW, NS, WORK, 1, TAU, V, LDV, WORK( JW+1 ) );
 
-            CALL DGEHRD( JW, 1, NS, T, LDT, WORK, WORK( JW+1 ), LWORK-JW, INFO )
+            dgehrd(JW, 1, NS, T, LDT, WORK, WORK( JW+1 ), LWORK-JW, INFO );
          }
 
          // ==== Copy updated reduced window into place ====
 
          IF( KWTOP.GT.1 ) H( KWTOP, KWTOP-1 ) = S*V( 1, 1 )
-         CALL DLACPY( 'U', JW, JW, T, LDT, H( KWTOP, KWTOP ), LDH )
-         CALL DCOPY( JW-1, T( 2, 1 ), LDT+1, H( KWTOP+1, KWTOP ), LDH+1 )
+         dlacpy('U', JW, JW, T, LDT, H( KWTOP, KWTOP ), LDH );
+         dcopy(JW-1, T( 2, 1 ), LDT+1, H( KWTOP+1, KWTOP ), LDH+1 );
 
          // ==== Accumulate orthogonal matrix in order update
          // .    H and Z, if requested.  ====
@@ -325,8 +325,8 @@
          }
          DO 70 KROW = LTOP, KWTOP - 1, NV
             KLN = MIN( NV, KWTOP-KROW )
-            CALL DGEMM( 'N', 'N', KLN, JW, JW, ONE, H( KROW, KWTOP ), LDH, V, LDV, ZERO, WV, LDWV )
-            CALL DLACPY( 'A', KLN, JW, WV, LDWV, H( KROW, KWTOP ), LDH )
+            dgemm('N', 'N', KLN, JW, JW, ONE, H( KROW, KWTOP ), LDH, V, LDV, ZERO, WV, LDWV );
+            dlacpy('A', KLN, JW, WV, LDWV, H( KROW, KWTOP ), LDH );
    70    CONTINUE
 
          // ==== Update horizontal slab in H ====
@@ -334,7 +334,7 @@
          if ( WANTT ) {
             DO 80 KCOL = KBOT + 1, N, NH
                KLN = MIN( NH, N-KCOL+1 )
-               CALL DGEMM( 'C', 'N', JW, KLN, JW, ONE, V, LDV, H( KWTOP, KCOL ), LDH, ZERO, T, LDT )                CALL DLACPY( 'A', JW, KLN, T, LDT, H( KWTOP, KCOL ), LDH )
+               dgemm('C', 'N', JW, KLN, JW, ONE, V, LDV, H( KWTOP, KCOL ), LDH, ZERO, T, LDT )                CALL DLACPY( 'A', JW, KLN, T, LDT, H( KWTOP, KCOL ), LDH );
    80       CONTINUE
          }
 
@@ -343,7 +343,7 @@
          if ( WANTZ ) {
             DO 90 KROW = ILOZ, IHIZ, NV
                KLN = MIN( NV, IHIZ-KROW+1 )
-               CALL DGEMM( 'N', 'N', KLN, JW, JW, ONE, Z( KROW, KWTOP ), LDZ, V, LDV, ZERO, WV, LDWV )                CALL DLACPY( 'A', KLN, JW, WV, LDWV, Z( KROW, KWTOP ), LDZ )
+               dgemm('N', 'N', KLN, JW, JW, ONE, Z( KROW, KWTOP ), LDZ, V, LDV, ZERO, WV, LDWV )                CALL DLACPY( 'A', KLN, JW, WV, LDWV, Z( KROW, KWTOP ), LDZ );
    90       CONTINUE
          }
       }

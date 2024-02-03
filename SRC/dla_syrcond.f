@@ -48,7 +48,7 @@
          INFO = -6
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'DLA_SYRCOND', -INFO )
+         xerbla('DLA_SYRCOND', -INFO );
          RETURN
       }
       if ( N.EQ.0 ) {
@@ -125,7 +125,7 @@
 
       KASE = 0
    10 CONTINUE
-      CALL DLACN2( N, WORK( N+1 ), WORK, IWORK, AINVNM, KASE, ISAVE )
+      dlacn2(N, WORK( N+1 ), WORK, IWORK, AINVNM, KASE, ISAVE );
       if ( KASE.NE.0 ) {
          if ( KASE.EQ.2 ) {
 
@@ -136,9 +136,9 @@
             END DO
 
             if ( UP ) {
-               CALL DSYTRS( 'U', N, 1, AF, LDAF, IPIV, WORK, N, INFO )
+               dsytrs('U', N, 1, AF, LDAF, IPIV, WORK, N, INFO );
             } else {
-               CALL DSYTRS( 'L', N, 1, AF, LDAF, IPIV, WORK, N, INFO )
+               dsytrs('L', N, 1, AF, LDAF, IPIV, WORK, N, INFO );
             ENDIF
 
             // Multiply by inv(C).
@@ -167,9 +167,9 @@
             }
 
             if ( UP ) {
-               CALL DSYTRS( 'U', N, 1, AF, LDAF, IPIV, WORK, N, INFO )
+               dsytrs('U', N, 1, AF, LDAF, IPIV, WORK, N, INFO );
             } else {
-               CALL DSYTRS( 'L', N, 1, AF, LDAF, IPIV, WORK, N, INFO )
+               dsytrs('L', N, 1, AF, LDAF, IPIV, WORK, N, INFO );
             ENDIF
 
             // Multiply by R.

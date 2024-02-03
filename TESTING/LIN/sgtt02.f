@@ -60,7 +60,7 @@
 
       // Compute B - op(A)*X and store in B.
 
-      CALL SLAGTM( TRANS, N, NRHS, -ONE, DL, D, DU, X, LDX, ONE, B, LDB )
+      slagtm(TRANS, N, NRHS, -ONE, DL, D, DU, X, LDX, ONE, B, LDB );
 
       DO 10 J = 1, NRHS
          BNORM = SASUM( N, B( 1, J ), 1 )

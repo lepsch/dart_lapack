@@ -106,7 +106,7 @@
             DO M = 32, MAXM, 51
                KLA = 0
                KUA = M - 1
-               CALL ZLATMR( M, M, 'S', ISEED, 'N', D, 6, ONE, CONE, 'T', 'N', DUML, 1, ONE, DUMR, 1, ONE, 'N', IWORK, KLA, KUA, ZERO, ONE, 'NO', A, MAXM, IWORK, IINFO )
+               zlatmr(M, M, 'S', ISEED, 'N', D, 6, ONE, CONE, 'T', 'N', DUML, 1, ONE, DUMR, 1, ONE, 'N', IWORK, KLA, KUA, ZERO, ONE, 'NO', A, MAXM, IWORK, IINFO );
                DO I = 1, M
                   A( I, I ) = A( I, I ) * VM( J )
                END DO
@@ -114,22 +114,22 @@
                DO N = 51, MAXN, 47
                   KLB = 0
                   KUB = N - 1
-                  CALL ZLATMR( N, N, 'S', ISEED, 'N', D, 6, ONE, CONE, 'T', 'N', DUML, 1, ONE, DUMR, 1, ONE, 'N', IWORK, KLB, KUB, ZERO, ONE, 'NO', B, MAXN, IWORK, IINFO )
+                  zlatmr(N, N, 'S', ISEED, 'N', D, 6, ONE, CONE, 'T', 'N', DUML, 1, ONE, DUMR, 1, ONE, 'N', IWORK, KLB, KUB, ZERO, ONE, 'NO', B, MAXN, IWORK, IINFO );
                   DO I = 1, N
                      B( I, I ) = B( I, I ) * VM ( J )
                   END DO
                   BNRM = ZLANGE( 'M', N, N, B, MAXN, DUM )
                   TNRM = MAX( ANRM, BNRM )
-                  CALL ZLATMR( M, N, 'S', ISEED, 'N', D, 6, ONE, CONE, 'T', 'N', DUML, 1, ONE, DUMR, 1, ONE, 'N', IWORK, M, N, ZERO, ONE, 'NO', C, MAXM, IWORK, IINFO )
+                  zlatmr(M, N, 'S', ISEED, 'N', D, 6, ONE, CONE, 'T', 'N', DUML, 1, ONE, DUMR, 1, ONE, 'N', IWORK, M, N, ZERO, ONE, 'NO', C, MAXM, IWORK, IINFO );
                   DO ITRANA = 1, 2
                      IF( ITRANA.EQ.1 ) TRANA = 'N'                      IF( ITRANA.EQ.2 ) TRANA = 'C'
                      DO ITRANB = 1, 2
                         IF( ITRANB.EQ.1 ) TRANB = 'N'                         IF( ITRANB.EQ.2 ) TRANB = 'C'
                         KNT = KNT + 1
 
-                        CALL ZLACPY( 'All', M, N, C, MAXM, X, MAXM)
-                        CALL ZLACPY( 'All', M, N, C, MAXM, CC, MAXM)
-                        CALL ZTRSYL( TRANA, TRANB, ISGN, M, N,  A, MAXM, B, MAXN, X, MAXM, SCALE, IINFO )
+                        zlacpy('All', M, N, C, MAXM, X, MAXM);
+                        zlacpy('All', M, N, C, MAXM, CC, MAXM);
+                        ztrsyl(TRANA, TRANB, ISGN, M, N,  A, MAXM, B, MAXN, X, MAXM, SCALE, IINFO );
                         IF( IINFO.NE.0 ) NINFO( 1 ) = NINFO( 1 ) + 1
                         XNRM = ZLANGE( 'M', M, N, X, MAXM, DUM )
                         RMUL = CONE
@@ -138,13 +138,13 @@
                               RMUL = CONE / MAX( XNRM, TNRM )
                            }
                         }
-                        CALL ZGEMM( TRANA, 'N', M, N, M, RMUL, A, MAXM, X, MAXM, -SCALE*RMUL, CC, MAXM )                         CALL ZGEMM( 'N', TRANB, M, N, N, DBLE( ISGN )*RMUL, X, MAXM, B, MAXN, CONE, CC, MAXM )
+                        zgemm(TRANA, 'N', M, N, M, RMUL, A, MAXM, X, MAXM, -SCALE*RMUL, CC, MAXM )                         CALL ZGEMM( 'N', TRANB, M, N, N, DBLE( ISGN )*RMUL, X, MAXM, B, MAXN, CONE, CC, MAXM );
                         RES1 = ZLANGE( 'M', M, N, CC, MAXM, DUM )
                         RES = RES1 / MAX( SMLNUM, SMLNUM*XNRM, ( ( ABS( RMUL )*TNRM )*EPS )*XNRM )                         IF( RES.GT.THRESH ) NFAIL( 1 ) = NFAIL( 1 ) + 1                         IF( RES.GT.RMAX( 1 ) ) RMAX( 1 ) = RES
 
-                        CALL ZLACPY( 'All', M, N, C, MAXM, X, MAXM )
-                        CALL ZLACPY( 'All', M, N, C, MAXM, CC, MAXM )
-                        CALL ZTRSYL3( TRANA, TRANB, ISGN, M, N, A, MAXM, B, MAXN, X, MAXM, SCALE3, SWORK, LDSWORK, INFO)
+                        zlacpy('All', M, N, C, MAXM, X, MAXM );
+                        zlacpy('All', M, N, C, MAXM, CC, MAXM );
+                        ztrsyl3(TRANA, TRANB, ISGN, M, N, A, MAXM, B, MAXN, X, MAXM, SCALE3, SWORK, LDSWORK, INFO);
                         IF( INFO.NE.0 ) NINFO( 2 ) = NINFO( 2 ) + 1
                         XNRM = ZLANGE( 'M', M, N, X, MAXM, DUM )
                         RMUL = CONE
@@ -153,7 +153,7 @@
                               RMUL = CONE / MAX( XNRM, TNRM )
                            }
                         }
-                        CALL ZGEMM( TRANA, 'N', M, N, M, RMUL, A, MAXM, X, MAXM, -SCALE3*RMUL, CC, MAXM )                         CALL ZGEMM( 'N', TRANB, M, N, N, DBLE( ISGN )*RMUL, X, MAXM, B, MAXN, CONE, CC, MAXM )
+                        zgemm(TRANA, 'N', M, N, M, RMUL, A, MAXM, X, MAXM, -SCALE3*RMUL, CC, MAXM )                         CALL ZGEMM( 'N', TRANB, M, N, N, DBLE( ISGN )*RMUL, X, MAXM, B, MAXN, CONE, CC, MAXM );
                         RES1 = ZLANGE( 'M', M, N, CC, MAXM, DUM )
                         RES = RES1 / MAX( SMLNUM, SMLNUM*XNRM, ( ( ABS( RMUL )*TNRM )*EPS )*XNRM )
                         // Verify that TRSYL3 only flushes if TRSYL flushes (but

@@ -54,10 +54,10 @@
 
       // ITYPE=1: error = U**H A U - S
 
-      CALL CHEMM( 'L', UPLO, N, M, CONE, A, LDA, U, LDU, CZERO, WORK, N )
+      chemm('L', UPLO, N, M, CONE, A, LDA, U, LDU, CZERO, WORK, N );
       NN = N*N
       NNP1 = NN + 1
-      CALL CGEMM( 'C', 'N', M, M, N, CONE, U, LDU, WORK, N, CZERO, WORK( NNP1 ), N )
+      cgemm('C', 'N', M, M, N, CONE, U, LDU, WORK, N, CZERO, WORK( NNP1 ), N );
       DO 10 J = 1, M
          JJ = NN + ( J-1 )*N + J
          WORK( JJ ) = WORK( JJ ) - D( J )

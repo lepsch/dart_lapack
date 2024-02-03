@@ -64,7 +64,7 @@
 
             // Compute the rest of column K.
 
-            CALL DTRMV( 'Upper', 'Transpose', 'Non-unit', K-1, AFAC, LDAFAC, AFAC( 1, K ), 1 )
+            dtrmv('Upper', 'Transpose', 'Non-unit', K-1, AFAC, LDAFAC, AFAC( 1, K ), 1 );
 
    10    CONTINUE
 
@@ -81,7 +81,7 @@
             // Scale column K by the diagonal element.
 
             T = AFAC( K, K )
-            CALL DSCAL( N-K+1, T, AFAC( K, K ), 1 )
+            dscal(N-K+1, T, AFAC( K, K ), 1 );
 
    20    CONTINUE
       }

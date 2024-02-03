@@ -58,18 +58,18 @@
          WORK( 1 ) = 1
          if ( WANTQ ) {
             if ( M.GE.K ) {
-               CALL DORGQR( M, N, K, A, LDA, TAU, WORK, -1, IINFO )
+               dorgqr(M, N, K, A, LDA, TAU, WORK, -1, IINFO );
             } else {
                if ( M.GT.1 ) {
-                  CALL DORGQR( M-1, M-1, M-1, A, LDA, TAU, WORK, -1, IINFO )
+                  dorgqr(M-1, M-1, M-1, A, LDA, TAU, WORK, -1, IINFO );
                }
             }
          } else {
             if ( K.LT.N ) {
-               CALL DORGLQ( M, N, K, A, LDA, TAU, WORK, -1, IINFO )
+               dorglq(M, N, K, A, LDA, TAU, WORK, -1, IINFO );
             } else {
                if ( N.GT.1 ) {
-                  CALL DORGLQ( N-1, N-1, N-1, A, LDA, TAU, WORK, -1, IINFO )
+                  dorglq(N-1, N-1, N-1, A, LDA, TAU, WORK, -1, IINFO );
                }
             }
          }
@@ -78,7 +78,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'DORGBR', -INFO )
+         xerbla('DORGBR', -INFO );
          RETURN
       } else if ( LQUERY ) {
          WORK( 1 ) = LWKOPT
@@ -101,7 +101,7 @@
 
             // If m >= k, assume m >= n >= k
 
-            CALL DORGQR( M, N, K, A, LDA, TAU, WORK, LWORK, IINFO )
+            dorgqr(M, N, K, A, LDA, TAU, WORK, LWORK, IINFO );
 
          } else {
 
@@ -125,7 +125,7 @@
 
                // Form Q(2:m,2:m)
 
-               CALL DORGQR( M-1, M-1, M-1, A( 2, 2 ), LDA, TAU, WORK, LWORK, IINFO )
+               dorgqr(M-1, M-1, M-1, A( 2, 2 ), LDA, TAU, WORK, LWORK, IINFO );
             }
          }
       } else {
@@ -137,7 +137,7 @@
 
             // If k < n, assume k <= m <= n
 
-            CALL DORGLQ( M, N, K, A, LDA, TAU, WORK, LWORK, IINFO )
+            dorglq(M, N, K, A, LDA, TAU, WORK, LWORK, IINFO );
 
          } else {
 
@@ -161,7 +161,7 @@
 
                // Form P**T(2:n,2:n)
 
-               CALL DORGLQ( N-1, N-1, N-1, A( 2, 2 ), LDA, TAU, WORK, LWORK, IINFO )
+               dorglq(N-1, N-1, N-1, A( 2, 2 ), LDA, TAU, WORK, LWORK, IINFO );
             }
          }
       }

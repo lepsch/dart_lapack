@@ -66,7 +66,7 @@
          INFO = -6
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'ZLAROR', -INFO )
+         xerbla('ZLAROR', -INFO );
          RETURN
       }
 
@@ -114,7 +114,7 @@
          FACTOR = XNORM*( XNORM+XABS )
          if ( ABS( FACTOR ).LT.TOOSML ) {
             INFO = 1
-            CALL XERBLA( 'ZLAROR', -INFO )
+            xerbla('ZLAROR', -INFO );
             RETURN
          } else {
             FACTOR = ONE / FACTOR
@@ -127,7 +127,7 @@
 
             // Apply H(k) on the left of A
 
-            CALL ZGEMV( 'C', IXFRM, N, CONE, A( KBEG, 1 ), LDA, X( KBEG ), 1, CZERO, X( 2*NXFRM+1 ), 1 )             CALL ZGERC( IXFRM, N, -DCMPLX( FACTOR ), X( KBEG ), 1, X( 2*NXFRM+1 ), 1, A( KBEG, 1 ), LDA )
+            zgemv('C', IXFRM, N, CONE, A( KBEG, 1 ), LDA, X( KBEG ), 1, CZERO, X( 2*NXFRM+1 ), 1 )             CALL ZGERC( IXFRM, N, -DCMPLX( FACTOR ), X( KBEG ), 1, X( 2*NXFRM+1 ), 1, A( KBEG, 1 ), LDA );
 
          }
 
@@ -136,10 +136,10 @@
             // Apply H(k)* (or H(k)') on the right of A
 
             if ( ITYPE.EQ.4 ) {
-               CALL ZLACGV( IXFRM, X( KBEG ), 1 )
+               zlacgv(IXFRM, X( KBEG ), 1 );
             }
 
-            CALL ZGEMV( 'N', M, IXFRM, CONE, A( 1, KBEG ), LDA, X( KBEG ), 1, CZERO, X( 2*NXFRM+1 ), 1 )             CALL ZGERC( M, IXFRM, -DCMPLX( FACTOR ), X( 2*NXFRM+1 ), 1, X( KBEG ), 1, A( 1, KBEG ), LDA )
+            zgemv('N', M, IXFRM, CONE, A( 1, KBEG ), LDA, X( KBEG ), 1, CZERO, X( 2*NXFRM+1 ), 1 )             CALL ZGERC( M, IXFRM, -DCMPLX( FACTOR ), X( 2*NXFRM+1 ), 1, X( KBEG ), 1, A( 1, KBEG ), LDA );
 
          }
    30 CONTINUE
@@ -157,19 +157,19 @@
 
       if ( ITYPE.EQ.1 .OR. ITYPE.EQ.3 .OR. ITYPE.EQ.4 ) {
          DO 40 IROW = 1, M
-            CALL ZSCAL( N, DCONJG( X( NXFRM+IROW ) ), A( IROW, 1 ), LDA )
+            zscal(N, DCONJG( X( NXFRM+IROW ) ), A( IROW, 1 ), LDA );
    40    CONTINUE
       }
 
       if ( ITYPE.EQ.2 .OR. ITYPE.EQ.3 ) {
          DO 50 JCOL = 1, N
-            CALL ZSCAL( M, X( NXFRM+JCOL ), A( 1, JCOL ), 1 )
+            zscal(M, X( NXFRM+JCOL ), A( 1, JCOL ), 1 );
    50    CONTINUE
       }
 
       if ( ITYPE.EQ.4 ) {
          DO 60 JCOL = 1, N
-            CALL ZSCAL( M, DCONJG( X( NXFRM+JCOL ) ), A( 1, JCOL ), 1 )
+            zscal(M, DCONJG( X( NXFRM+JCOL ) ), A( 1, JCOL ), 1 );
    60    CONTINUE
       }
       RETURN

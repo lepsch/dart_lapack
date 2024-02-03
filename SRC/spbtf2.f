@@ -49,7 +49,7 @@
          INFO = -5
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'SPBTF2', -INFO )
+         xerbla('SPBTF2', -INFO );
          RETURN
       }
 
@@ -77,8 +77,8 @@
 
             KN = MIN( KD, N-J )
             if ( KN.GT.0 ) {
-               CALL SSCAL( KN, ONE / AJJ, AB( KD, J+1 ), KLD )
-               CALL SSYR( 'Upper', KN, -ONE, AB( KD, J+1 ), KLD, AB( KD+1, J+1 ), KLD )
+               sscal(KN, ONE / AJJ, AB( KD, J+1 ), KLD );
+               ssyr('Upper', KN, -ONE, AB( KD, J+1 ), KLD, AB( KD+1, J+1 ), KLD );
             }
    10    CONTINUE
       } else {
@@ -99,8 +99,8 @@
 
             KN = MIN( KD, N-J )
             if ( KN.GT.0 ) {
-               CALL SSCAL( KN, ONE / AJJ, AB( 2, J ), 1 )
-               CALL SSYR( 'Lower', KN, -ONE, AB( 2, J ), 1, AB( 1, J+1 ), KLD )
+               sscal(KN, ONE / AJJ, AB( 2, J ), 1 );
+               ssyr('Lower', KN, -ONE, AB( 2, J ), 1, AB( 1, J+1 ), KLD );
             }
    20    CONTINUE
       }

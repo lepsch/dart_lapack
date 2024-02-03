@@ -94,7 +94,7 @@
 
             // Set up parameters with ZLATB4.
 
-            CALL ZLATB4( PATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, COND, DIST )
+            zlatb4(PATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, COND, DIST );
 
             ZEROT = IMAT.GE.8 .AND. IMAT.LE.10
             if ( IMAT.LE.6 ) {
@@ -103,21 +103,21 @@
 
                KOFF = MAX( 2-KU, 3-MAX( 1, N ) )
                SRNAMT = 'ZLATMS'
-               CALL ZLATMS( N, N, DIST, ISEED, TYPE, RWORK, MODE, COND, ANORM, KL, KU, 'Z', AF( KOFF ), 3, WORK, INFO )
+               zlatms(N, N, DIST, ISEED, TYPE, RWORK, MODE, COND, ANORM, KL, KU, 'Z', AF( KOFF ), 3, WORK, INFO );
 
                // Check the error code from ZLATMS.
 
                if ( INFO.NE.0 ) {
-                  CALL ALAERH( PATH, 'ZLATMS', INFO, 0, ' ', N, N, KL, KU, -1, IMAT, NFAIL, NERRS, NOUT )
+                  alaerh(PATH, 'ZLATMS', INFO, 0, ' ', N, N, KL, KU, -1, IMAT, NFAIL, NERRS, NOUT );
                   GO TO 130
                }
                IZERO = 0
 
                if ( N.GT.1 ) {
-                  CALL ZCOPY( N-1, AF( 4 ), 3, A, 1 )
-                  CALL ZCOPY( N-1, AF( 3 ), 3, A( N+M+1 ), 1 )
+                  zcopy(N-1, AF( 4 ), 3, A, 1 );
+                  zcopy(N-1, AF( 3 ), 3, A( N+M+1 ), 1 );
                }
-               CALL ZCOPY( N, AF( 2 ), 3, A( M+1 ), 1 )
+               zcopy(N, AF( 2 ), 3, A( M+1 ), 1 );
             } else {
 
                // Types 7-12:  generate tridiagonal matrices with
@@ -127,7 +127,7 @@
 
                   // Generate a matrix with elements from [-1,1].
 
-                  CALL ZLARNV( 2, ISEED, N+2*M, A )
+                  zlarnv(2, ISEED, N+2*M, A );
                   IF( ANORM.NE.ONE ) CALL ZDSCAL( N+2*M, ANORM, A, 1 )
                } else if ( IZERO.GT.0 ) {
 
@@ -193,7 +193,7 @@
                   RCONDI = ZERO
 
                } else if ( IFACT.EQ.1 ) {
-                  CALL ZCOPY( N+2*M, A, 1, AF, 1 )
+                  zcopy(N+2*M, A, 1, AF, 1 );
 
                   // Compute the 1-norm and infinity-norm of A.
 
@@ -202,7 +202,7 @@
 
                   // Factor the matrix A.
 
-                  CALL ZGTTRF( N, AF, AF( M+1 ), AF( N+M+1 ), AF( N+2*M+1 ), IWORK, INFO )
+                  zgttrf(N, AF, AF( M+1 ), AF( N+M+1 ), AF( N+2*M+1 ), IWORK, INFO );
 
                   // Use ZGTTRS to solve for one column at a time of
                   // inv(A), computing the maximum column sum as we go.
@@ -213,7 +213,7 @@
                         X( J ) = ZERO
    30                CONTINUE
                      X( I ) = ONE
-                     CALL ZGTTRS( 'No transpose', N, 1, AF, AF( M+1 ), AF( N+M+1 ), AF( N+2*M+1 ), IWORK, X, LDA, INFO )
+                     zgttrs('No transpose', N, 1, AF, AF( M+1 ), AF( N+M+1 ), AF( N+2*M+1 ), IWORK, X, LDA, INFO );
                      AINVNM = MAX( AINVNM, DZASUM( N, X, 1 ) )
    40             CONTINUE
 
@@ -234,7 +234,7 @@
                         X( J ) = ZERO
    50                CONTINUE
                      X( I ) = ONE
-                     CALL ZGTTRS( 'Conjugate transpose', N, 1, AF, AF( M+1 ), AF( N+M+1 ), AF( N+2*M+1 ), IWORK, X, LDA, INFO )
+                     zgttrs('Conjugate transpose', N, 1, AF, AF( M+1 ), AF( N+M+1 ), AF( N+2*M+1 ), IWORK, X, LDA, INFO );
                      AINVNM = MAX( AINVNM, DZASUM( N, X, 1 ) )
    60             CONTINUE
 
@@ -259,13 +259,13 @@
 
                   IX = 1
                   DO 70 J = 1, NRHS
-                     CALL ZLARNV( 2, ISEED, N, XACT( IX ) )
+                     zlarnv(2, ISEED, N, XACT( IX ) );
                      IX = IX + LDA
    70             CONTINUE
 
                   // Set the right hand side.
 
-                  CALL ZLAGTM( TRANS, N, NRHS, ONE, A, A( M+1 ), A( N+M+1 ), XACT, LDA, ZERO, B, LDA )
+                  zlagtm(TRANS, N, NRHS, ONE, A, A( M+1 ), A( N+M+1 ), XACT, LDA, ZERO, B, LDA );
 
                   if ( IFACT.EQ.2 .AND. ITRAN.EQ.1 ) {
 
@@ -274,11 +274,11 @@
                      // Solve the system using Gaussian elimination with
                      // partial pivoting.
 
-                     CALL ZCOPY( N+2*M, A, 1, AF, 1 )
-                     CALL ZLACPY( 'Full', N, NRHS, B, LDA, X, LDA )
+                     zcopy(N+2*M, A, 1, AF, 1 );
+                     zlacpy('Full', N, NRHS, B, LDA, X, LDA );
 
                      SRNAMT = 'ZGTSV '
-                     CALL ZGTSV( N, NRHS, AF, AF( M+1 ), AF( N+M+1 ), X, LDA, INFO )
+                     zgtsv(N, NRHS, AF, AF( M+1 ), AF( N+M+1 ), X, LDA, INFO );
 
                      // Check error code from ZGTSV .
 
@@ -288,11 +288,11 @@
 
                         // Check residual of computed solution.
 
-                        CALL ZLACPY( 'Full', N, NRHS, B, LDA, WORK, LDA )                         CALL ZGTT02( TRANS, N, NRHS, A, A( M+1 ), A( N+M+1 ), X, LDA, WORK, LDA, RESULT( 2 ) )
+                        zlacpy('Full', N, NRHS, B, LDA, WORK, LDA )                         CALL ZGTT02( TRANS, N, NRHS, A, A( M+1 ), A( N+M+1 ), X, LDA, WORK, LDA, RESULT( 2 ) );
 
                         // Check solution from generated exact solution.
 
-                        CALL ZGET04( N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 3 ) )
+                        zget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 3 ) );
                         NT = 3
                      }
 
@@ -318,13 +318,13 @@
                         AF( I ) = ZERO
    90                CONTINUE
                   }
-                  CALL ZLASET( 'Full', N, NRHS, DCMPLX( ZERO ), DCMPLX( ZERO ), X, LDA )
+                  zlaset('Full', N, NRHS, DCMPLX( ZERO ), DCMPLX( ZERO ), X, LDA );
 
                   // Solve the system and compute the condition number and
                   // error bounds using ZGTSVX.
 
                   SRNAMT = 'ZGTSVX'
-                  CALL ZGTSVX( FACT, TRANS, N, NRHS, A, A( M+1 ), A( N+M+1 ), AF, AF( M+1 ), AF( N+M+1 ), AF( N+2*M+1 ), IWORK, B, LDA, X, LDA, RCOND, RWORK, RWORK( NRHS+1 ), WORK, RWORK( 2*NRHS+1 ), INFO )
+                  zgtsvx(FACT, TRANS, N, NRHS, A, A( M+1 ), A( N+M+1 ), AF, AF( M+1 ), AF( N+M+1 ), AF( N+2*M+1 ), IWORK, B, LDA, X, LDA, RCOND, RWORK, RWORK( NRHS+1 ), WORK, RWORK( 2*NRHS+1 ), INFO );
 
                   // Check the error code from ZGTSVX.
 
@@ -335,7 +335,7 @@
                      // Reconstruct matrix from factors and compute
                      // residual.
 
-                     CALL ZGTT01( N, A, A( M+1 ), A( N+M+1 ), AF, AF( M+1 ), AF( N+M+1 ), AF( N+2*M+1 ), IWORK, WORK, LDA, RWORK, RESULT( 1 ) )
+                     zgtt01(N, A, A( M+1 ), A( N+M+1 ), AF, AF( M+1 ), AF( N+M+1 ), AF( N+2*M+1 ), IWORK, WORK, LDA, RWORK, RESULT( 1 ) );
                      K1 = 1
                   } else {
                      K1 = 2
@@ -346,16 +346,16 @@
 
                      // Check residual of computed solution.
 
-                     CALL ZLACPY( 'Full', N, NRHS, B, LDA, WORK, LDA )
-                     CALL ZGTT02( TRANS, N, NRHS, A, A( M+1 ), A( N+M+1 ), X, LDA, WORK, LDA, RESULT( 2 ) )
+                     zlacpy('Full', N, NRHS, B, LDA, WORK, LDA );
+                     zgtt02(TRANS, N, NRHS, A, A( M+1 ), A( N+M+1 ), X, LDA, WORK, LDA, RESULT( 2 ) );
 
                      // Check solution from generated exact solution.
 
-                     CALL ZGET04( N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 3 ) )
+                     zget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 3 ) );
 
                      // Check the error bounds from iterative refinement.
 
-                     CALL ZGTT05( TRANS, N, NRHS, A, A( M+1 ), A( N+M+1 ), B, LDA, X, LDA, XACT, LDA, RWORK, RWORK( NRHS+1 ), RESULT( 4 ) )
+                     zgtt05(TRANS, N, NRHS, A, A( M+1 ), A( N+M+1 ), B, LDA, X, LDA, XACT, LDA, RWORK, RWORK( NRHS+1 ), RESULT( 4 ) );
                      NT = 5
                   }
 
@@ -385,7 +385,7 @@
 
       // Print a summary of the results.
 
-      CALL ALASVM( PATH, NOUT, NFAIL, NRUN, NERRS )
+      alasvm(PATH, NOUT, NFAIL, NRUN, NERRS );
 
  9999 FORMAT( 1X, A, ', N =', I5, ', type ', I2, ', test ', I2, ', ratio = ', G12.5 )
  9998 FORMAT( 1X, A, ', FACT=''', A1, ''', TRANS=''', A1, ''', N =', I5, ', type ', I2, ', test ', I2, ', ratio = ', G12.5 )

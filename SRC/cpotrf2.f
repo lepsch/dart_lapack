@@ -49,7 +49,7 @@
          INFO = -4
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'CPOTRF2', -INFO )
+         xerbla('CPOTRF2', -INFO );
          RETURN
       }
 
@@ -81,7 +81,7 @@
 
          // Factor A11
 
-         CALL CPOTRF2( UPLO, N1, A( 1, 1 ), LDA, IINFO )
+         cpotrf2(UPLO, N1, A( 1, 1 ), LDA, IINFO );
          if ( IINFO.NE.0 ) {
             INFO = IINFO
             RETURN
@@ -93,13 +93,13 @@
 
             // Update and scale A12
 
-            CALL CTRSM( 'L', 'U', 'C', 'N', N1, N2, CONE, A( 1, 1 ), LDA, A( 1, N1+1 ), LDA )
+            ctrsm('L', 'U', 'C', 'N', N1, N2, CONE, A( 1, 1 ), LDA, A( 1, N1+1 ), LDA );
 
             // Update and factor A22
 
-            CALL CHERK( UPLO, 'C', N2, N1, -ONE, A( 1, N1+1 ), LDA, ONE, A( N1+1, N1+1 ), LDA )
+            cherk(UPLO, 'C', N2, N1, -ONE, A( 1, N1+1 ), LDA, ONE, A( N1+1, N1+1 ), LDA );
 
-            CALL CPOTRF2( UPLO, N2, A( N1+1, N1+1 ), LDA, IINFO )
+            cpotrf2(UPLO, N2, A( N1+1, N1+1 ), LDA, IINFO );
 
             if ( IINFO.NE.0 ) {
                INFO = IINFO + N1
@@ -112,13 +112,13 @@
 
             // Update and scale A21
 
-            CALL CTRSM( 'R', 'L', 'C', 'N', N2, N1, CONE, A( 1, 1 ), LDA, A( N1+1, 1 ), LDA )
+            ctrsm('R', 'L', 'C', 'N', N2, N1, CONE, A( 1, 1 ), LDA, A( N1+1, 1 ), LDA );
 
             // Update and factor A22
 
-            CALL CHERK( UPLO, 'N', N2, N1, -ONE, A( N1+1, 1 ), LDA, ONE, A( N1+1, N1+1 ), LDA )
+            cherk(UPLO, 'N', N2, N1, -ONE, A( N1+1, 1 ), LDA, ONE, A( N1+1, N1+1 ), LDA );
 
-            CALL CPOTRF2( UPLO, N2, A( N1+1, N1+1 ), LDA, IINFO )
+            cpotrf2(UPLO, N2, A( N1+1, N1+1 ), LDA, IINFO );
 
             if ( IINFO.NE.0 ) {
                INFO = IINFO + N1

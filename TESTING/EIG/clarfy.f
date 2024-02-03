@@ -35,14 +35,14 @@
 
       // Form  w:= C * v
 
-      CALL CHEMV( UPLO, N, ONE, C, LDC, V, INCV, ZERO, WORK, 1 )
+      chemv(UPLO, N, ONE, C, LDC, V, INCV, ZERO, WORK, 1 );
 
       ALPHA = -HALF*TAU*CDOTC( N, WORK, 1, V, INCV )
-      CALL CAXPY( N, ALPHA, V, INCV, WORK, 1 )
+      caxpy(N, ALPHA, V, INCV, WORK, 1 );
 
       // C := C - v * w' - w * v'
 
-      CALL CHER2( UPLO, N, -TAU, V, INCV, WORK, 1, C, LDC )
+      cher2(UPLO, N, -TAU, V, INCV, WORK, 1, C, LDC );
 
       RETURN
 

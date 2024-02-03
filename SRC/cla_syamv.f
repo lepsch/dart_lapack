@@ -60,7 +60,7 @@
          INFO = 10
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'CLA_SYAMV', INFO )
+         xerbla('CLA_SYAMV', INFO );
          RETURN
       }
 

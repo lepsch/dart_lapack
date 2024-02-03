@@ -75,7 +75,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'CHEGV_2STAGE ', -INFO )
+         xerbla('CHEGV_2STAGE ', -INFO );
          RETURN
       } else if ( LQUERY ) {
          RETURN
@@ -87,7 +87,7 @@
 
       // Form a Cholesky factorization of B.
 
-      CALL CPOTRF( UPLO, N, B, LDB, INFO )
+      cpotrf(UPLO, N, B, LDB, INFO );
       if ( INFO.NE.0 ) {
          INFO = N + INFO
          RETURN
@@ -95,8 +95,8 @@
 
       // Transform problem to standard eigenvalue problem and solve.
 
-      CALL CHEGST( ITYPE, UPLO, N, A, LDA, B, LDB, INFO )
-      CALL CHEEV_2STAGE( JOBZ, UPLO, N, A, LDA, W, WORK, LWORK, RWORK, INFO )
+      chegst(ITYPE, UPLO, N, A, LDA, B, LDB, INFO );
+      cheev_2stage(JOBZ, UPLO, N, A, LDA, W, WORK, LWORK, RWORK, INFO );
 
       if ( WANTZ ) {
 
@@ -115,7 +115,7 @@
                TRANS = 'C'
             }
 
-            CALL CTRSM( 'Left', UPLO, TRANS, 'Non-unit', N, NEIG, ONE, B, LDB, A, LDA )
+            ctrsm('Left', UPLO, TRANS, 'Non-unit', N, NEIG, ONE, B, LDB, A, LDA );
 
          } else if ( ITYPE.EQ.3 ) {
 
@@ -128,7 +128,7 @@
                TRANS = 'N'
             }
 
-            CALL CTRMM( 'Left', UPLO, TRANS, 'Non-unit', N, NEIG, ONE, B, LDB, A, LDA )
+            ctrmm('Left', UPLO, TRANS, 'Non-unit', N, NEIG, ONE, B, LDB, A, LDA );
          }
       }
 

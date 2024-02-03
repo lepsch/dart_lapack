@@ -91,7 +91,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'ZHEGVX', -INFO )
+         xerbla('ZHEGVX', -INFO );
          RETURN
       } else if ( LQUERY ) {
          RETURN
@@ -106,7 +106,7 @@
 
       // Form a Cholesky factorization of B.
 
-      CALL ZPOTRF( UPLO, N, B, LDB, INFO )
+      zpotrf(UPLO, N, B, LDB, INFO );
       if ( INFO.NE.0 ) {
          INFO = N + INFO
          RETURN
@@ -114,8 +114,8 @@
 
       // Transform problem to standard eigenvalue problem and solve.
 
-      CALL ZHEGST( ITYPE, UPLO, N, A, LDA, B, LDB, INFO )
-      CALL ZHEEVX( JOBZ, RANGE, UPLO, N, A, LDA, VL, VU, IL, IU, ABSTOL, M, W, Z, LDZ, WORK, LWORK, RWORK, IWORK, IFAIL, INFO )
+      zhegst(ITYPE, UPLO, N, A, LDA, B, LDB, INFO );
+      zheevx(JOBZ, RANGE, UPLO, N, A, LDA, VL, VU, IL, IU, ABSTOL, M, W, Z, LDZ, WORK, LWORK, RWORK, IWORK, IFAIL, INFO );
 
       if ( WANTZ ) {
 
@@ -133,7 +133,7 @@
                TRANS = 'C'
             }
 
-            CALL ZTRSM( 'Left', UPLO, TRANS, 'Non-unit', N, M, CONE, B, LDB, Z, LDZ )
+            ztrsm('Left', UPLO, TRANS, 'Non-unit', N, M, CONE, B, LDB, Z, LDZ );
 
          } else if ( ITYPE.EQ.3 ) {
 
@@ -146,7 +146,7 @@
                TRANS = 'N'
             }
 
-            CALL ZTRMM( 'Left', UPLO, TRANS, 'Non-unit', N, M, CONE, B, LDB, Z, LDZ )
+            ztrmm('Left', UPLO, TRANS, 'Non-unit', N, M, CONE, B, LDB, Z, LDZ );
          }
       }
 

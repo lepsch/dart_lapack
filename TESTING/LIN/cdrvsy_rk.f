@@ -94,8 +94,8 @@
 
       NB = 1
       NBMIN = 2
-      CALL XLAENV( 1, NB )
-      CALL XLAENV( 2, NBMIN )
+      xlaenv(1, NB );
+      xlaenv(2, NBMIN );
 
       // Do for each value of N in NVAL
 
@@ -129,17 +129,17 @@
                   // Set up parameters with CLATB4 for the matrix generator
                   // based on the type of matrix to be generated.
 
-                  CALL CLATB4( MATPATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST )
+                  clatb4(MATPATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST );
 
                   // Generate a matrix with CLATMS.
 
                   SRNAMT = 'CLATMS'
-                  CALL CLATMS( N, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KL, KU, UPLO, A, LDA, WORK, INFO )
+                  clatms(N, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KL, KU, UPLO, A, LDA, WORK, INFO );
 
                   // Check error code from CLATMS and handle error.
 
                   if ( INFO.NE.0 ) {
-                     CALL ALAERH( PATH, 'CLATMS', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT )
+                     alaerh(PATH, 'CLATMS', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
                      GO TO 160
                   }
 
@@ -218,7 +218,7 @@
                   // IMAT = NTYPES:  Use a special block diagonal matrix to
                   // test alternate code for the 2-by-2 blocks.
 
-                  CALL CLATSY( UPLO, N, A, LDA, ISEED )
+                  clatsy(UPLO, N, A, LDA, ISEED );
                }
 
                DO 150 IFACT = 1, NFACT
@@ -242,18 +242,18 @@
                      // Factor the matrix A.
 
 
-                     CALL CLACPY( UPLO, N, N, A, LDA, AFAC, LDA )
-                     CALL CSYTRF_RK( UPLO, N, AFAC, LDA, E, IWORK, WORK, LWORK, INFO )
+                     clacpy(UPLO, N, N, A, LDA, AFAC, LDA );
+                     csytrf_rk(UPLO, N, AFAC, LDA, E, IWORK, WORK, LWORK, INFO );
 
                      // Compute inv(A) and take its norm.
 
-                     CALL CLACPY( UPLO, N, N, AFAC, LDA, AINV, LDA )
+                     clacpy(UPLO, N, N, AFAC, LDA, AINV, LDA );
                      LWORK = (N+NB+1)*(NB+3)
 
                      // We need to compute the inverse to compute
                      // RCONDC that is used later in TEST3.
 
-                     CALL CSYTRI_3( UPLO, N, AINV, LDA, E, IWORK, WORK, LWORK, INFO )
+                     csytri_3(UPLO, N, AINV, LDA, E, IWORK, WORK, LWORK, INFO );
                      AINVNM = CLANSY( '1', UPLO, N, AINV, LDA, RWORK )
 
                      // Compute the 1-norm condition number of A.
@@ -268,20 +268,20 @@
                   // Form an exact solution and set the right hand side.
 
                   SRNAMT = 'CLARHS'
-                  CALL CLARHS( MATPATH, XTYPE, UPLO, ' ', N, N, KL, KU, NRHS, A, LDA, XACT, LDA, B, LDA, ISEED, INFO )
+                  clarhs(MATPATH, XTYPE, UPLO, ' ', N, N, KL, KU, NRHS, A, LDA, XACT, LDA, B, LDA, ISEED, INFO );
                   XTYPE = 'C'
 
                   // --- Test CSYSV_RK  ---
 
                   if ( IFACT.EQ.2 ) {
-                     CALL CLACPY( UPLO, N, N, A, LDA, AFAC, LDA )
-                     CALL CLACPY( 'Full', N, NRHS, B, LDA, X, LDA )
+                     clacpy(UPLO, N, N, A, LDA, AFAC, LDA );
+                     clacpy('Full', N, NRHS, B, LDA, X, LDA );
 
                      // Factor the matrix and solve the system using
                      // CSYSV_RK.
 
                      SRNAMT = 'CSYSV_RK'
-                     CALL CSYSV_RK( UPLO, N, NRHS, AFAC, LDA, E, IWORK, X, LDA, WORK, LWORK, INFO )
+                     csysv_rk(UPLO, N, NRHS, AFAC, LDA, E, IWORK, X, LDA, WORK, LWORK, INFO );
 
                      // Adjust the expected value of INFO to account for
                      // pivoting.
@@ -303,7 +303,7 @@
                      // Check error code from CSYSV_RK and handle error.
 
                      if ( INFO.NE.K ) {
-                        CALL ALAERH( PATH, 'CSYSV_RK', INFO, K, UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT )
+                        alaerh(PATH, 'CSYSV_RK', INFO, K, UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
                         GO TO 120
                      } else if ( INFO.NE.0 ) {
                         GO TO 120
@@ -312,17 +312,17 @@
 *+    TEST 1      Reconstruct matrix from factors and compute
                   // residual.
 
-                     CALL CSYT01_3( UPLO, N, A, LDA, AFAC, LDA, E, IWORK, AINV, LDA, RWORK, RESULT( 1 ) )
+                     csyt01_3(UPLO, N, A, LDA, AFAC, LDA, E, IWORK, AINV, LDA, RWORK, RESULT( 1 ) );
 
 *+    TEST 2      Compute residual of the computed solution.
 
-                     CALL CLACPY( 'Full', N, NRHS, B, LDA, WORK, LDA )
-                     CALL CSYT02( UPLO, N, NRHS, A, LDA, X, LDA, WORK, LDA, RWORK, RESULT( 2 ) )
+                     clacpy('Full', N, NRHS, B, LDA, WORK, LDA );
+                     csyt02(UPLO, N, NRHS, A, LDA, X, LDA, WORK, LDA, RWORK, RESULT( 2 ) );
 
 *+    TEST 3
                   // Check solution from generated exact solution.
 
-                     CALL CGET04( N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 3 ) )
+                     cget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 3 ) );
                      NT = 3
 
                      // Print information about the tests that did not pass
@@ -346,7 +346,7 @@
 
       // Print a summary of the results.
 
-      CALL ALASVM( PATH, NOUT, NFAIL, NRUN, NERRS )
+      alasvm(PATH, NOUT, NFAIL, NRUN, NERRS );
 
  9999 FORMAT( 1X, A, ', UPLO=''', A1, ''', N =', I5, ', type ', I2, ', test ', I2, ', ratio =', G12.5 )
       RETURN

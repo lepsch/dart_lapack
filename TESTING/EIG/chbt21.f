@@ -95,12 +95,12 @@
    50 CONTINUE
 
       DO 60 J = 1, N
-         CALL CHPR( CUPLO, N, -D( J ), U( 1, J ), 1, WORK )
+         chpr(CUPLO, N, -D( J ), U( 1, J ), 1, WORK );
    60 CONTINUE
 
       if ( N.GT.1 .AND. KS.EQ.1 ) {
          DO 70 J = 1, N - 1
-            CALL CHPR2( CUPLO, N, -CMPLX( E( J ) ), U( 1, J ), 1, U( 1, J+1 ), 1, WORK )
+            chpr2(CUPLO, N, -CMPLX( E( J ) ), U( 1, J ), 1, U( 1, J+1 ), 1, WORK );
    70    CONTINUE
       }
       WNORM = CLANHP( '1', CUPLO, N, WORK, RWORK )
@@ -119,7 +119,7 @@
 
       // Compute  U U**H - I
 
-      CALL CGEMM( 'N', 'C', N, N, N, CONE, U, LDU, U, LDU, CZERO, WORK, N )
+      cgemm('N', 'C', N, N, N, CONE, U, LDU, U, LDU, CZERO, WORK, N );
 
       DO 80 J = 1, N
          WORK( ( N+1 )*( J-1 )+1 ) = WORK( ( N+1 )*( J-1 )+1 ) - CONE

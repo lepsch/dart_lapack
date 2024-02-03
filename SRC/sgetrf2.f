@@ -46,7 +46,7 @@
          INFO = -4
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'SGETRF2', -INFO )
+         xerbla('SGETRF2', -INFO );
          RETURN
       }
 
@@ -88,7 +88,7 @@
             // Compute elements 2:M of the column
 
             if ( ABS(A( 1, 1 )) .GE. SFMIN ) {
-               CALL SSCAL( M-1, ONE / A( 1, 1 ), A( 2, 1 ), 1 )
+               sscal(M-1, ONE / A( 1, 1 ), A( 2, 1 ), 1 );
             } else {
                DO 10 I = 1, M-1
                   A( 1+I, 1 ) = A( 1+I, 1 ) / A( 1, 1 )
@@ -110,26 +110,26 @@
          // Factor [ --- ]
                 // [ A21 ]
 
-         CALL SGETRF2( m, n1, A, lda, ipiv, iinfo )
+         sgetrf2(m, n1, A, lda, ipiv, iinfo );
           IF ( info.EQ.0 .AND. iinfo.GT.0 ) info = iinfo
 
                                // [ A12 ]
          // Apply interchanges to [ --- ]
                                // [ A22 ]
 
-         CALL SLASWP( N2, A( 1, N1+1 ), LDA, 1, N1, IPIV, 1 )
+         slaswp(N2, A( 1, N1+1 ), LDA, 1, N1, IPIV, 1 );
 
          // Solve A12
 
-         CALL STRSM( 'L', 'L', 'N', 'U', N1, N2, ONE, A, LDA, A( 1, N1+1 ), LDA )
+         strsm('L', 'L', 'N', 'U', N1, N2, ONE, A, LDA, A( 1, N1+1 ), LDA );
 
          // Update A22
 
-         CALL SGEMM( 'N', 'N', M-N1, N2, N1, -ONE, A( N1+1, 1 ), LDA, A( 1, N1+1 ), LDA, ONE, A( N1+1, N1+1 ), LDA )
+         sgemm('N', 'N', M-N1, N2, N1, -ONE, A( N1+1, 1 ), LDA, A( 1, N1+1 ), LDA, ONE, A( N1+1, N1+1 ), LDA );
 
          // Factor A22
 
-         CALL SGETRF2( M-N1, N2, A( N1+1, N1+1 ), LDA, IPIV( N1+1 ), IINFO )
+         sgetrf2(M-N1, N2, A( N1+1, N1+1 ), LDA, IPIV( N1+1 ), IINFO );
 
          // Adjust INFO and the pivot indices
 
@@ -140,7 +140,7 @@
 
          // Apply interchanges to A21
 
-         CALL SLASWP( N1, A( 1, 1 ), LDA, N1+1, MIN( M, N), IPIV, 1 )
+         slaswp(N1, A( 1, 1 ), LDA, N1+1, MIN( M, N), IPIV, 1 );
 
       }
       RETURN

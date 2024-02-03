@@ -88,7 +88,7 @@
          INFO = -13
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'SGGHRD', -INFO )
+         xerbla('SGGHRD', -INFO );
          RETURN
       }
 
@@ -117,17 +117,17 @@
             // Step 1: rotate rows JROW-1, JROW to kill A(JROW,JCOL)
 
             TEMP = A( JROW-1, JCOL )
-            CALL SLARTG( TEMP, A( JROW, JCOL ), C, S, A( JROW-1, JCOL ) )
+            slartg(TEMP, A( JROW, JCOL ), C, S, A( JROW-1, JCOL ) );
             A( JROW, JCOL ) = ZERO
-            CALL SROT( N-JCOL, A( JROW-1, JCOL+1 ), LDA, A( JROW, JCOL+1 ), LDA, C, S )             CALL SROT( N+2-JROW, B( JROW-1, JROW-1 ), LDB, B( JROW, JROW-1 ), LDB, C, S )             IF( ILQ ) CALL SROT( N, Q( 1, JROW-1 ), 1, Q( 1, JROW ), 1, C, S )
+            srot(N-JCOL, A( JROW-1, JCOL+1 ), LDA, A( JROW, JCOL+1 ), LDA, C, S )             CALL SROT( N+2-JROW, B( JROW-1, JROW-1 ), LDB, B( JROW, JROW-1 ), LDB, C, S )             IF( ILQ ) CALL SROT( N, Q( 1, JROW-1 ), 1, Q( 1, JROW ), 1, C, S );
 
             // Step 2: rotate columns JROW, JROW-1 to kill B(JROW,JROW-1)
 
             TEMP = B( JROW, JROW )
-            CALL SLARTG( TEMP, B( JROW, JROW-1 ), C, S, B( JROW, JROW ) )
+            slartg(TEMP, B( JROW, JROW-1 ), C, S, B( JROW, JROW ) );
             B( JROW, JROW-1 ) = ZERO
-            CALL SROT( IHI, A( 1, JROW ), 1, A( 1, JROW-1 ), 1, C, S )
-            CALL SROT( JROW-1, B( 1, JROW ), 1, B( 1, JROW-1 ), 1, C, S )             IF( ILZ ) CALL SROT( N, Z( 1, JROW ), 1, Z( 1, JROW-1 ), 1, C, S )
+            srot(IHI, A( 1, JROW ), 1, A( 1, JROW-1 ), 1, C, S );
+            srot(JROW-1, B( 1, JROW ), 1, B( 1, JROW-1 ), 1, C, S )             IF( ILZ ) CALL SROT( N, Z( 1, JROW ), 1, Z( 1, JROW-1 ), 1, C, S );
    30    CONTINUE
    40 CONTINUE
 

@@ -43,13 +43,13 @@
       // Copy the matrices A and B to the arrays AF and BF,
       // and the vector D the array DF.
 
-      CALL DLACPY( 'Full', N, M, A, LDA, AF, LDA )
-      CALL DLACPY( 'Full', N, P, B, LDB, BF, LDB )
-      CALL DCOPY( N, D, 1, DF, 1 )
+      dlacpy('Full', N, M, A, LDA, AF, LDA );
+      dlacpy('Full', N, P, B, LDB, BF, LDB );
+      dcopy(N, D, 1, DF, 1 );
 
       // Solve GLM problem
 
-      CALL DGGGLM( N, M, P, AF, LDA, BF, LDB, DF, X, U, WORK, LWORK, INFO )
+      dggglm(N, M, P, AF, LDA, BF, LDB, DF, X, U, WORK, LWORK, INFO );
 
       // Test the residual for the solution of LSE
 
@@ -57,10 +57,10 @@
         // RESULT = -----------------------------------------
                  // (norm(A)+norm(B))*(norm(x)+norm(u))*EPS
 
-      CALL DCOPY( N, D, 1, DF, 1 )
-      CALL DGEMV( 'No transpose', N, M, -ONE, A, LDA, X, 1, ONE, DF, 1 )
+      dcopy(N, D, 1, DF, 1 );
+      dgemv('No transpose', N, M, -ONE, A, LDA, X, 1, ONE, DF, 1 );
 
-      CALL DGEMV( 'No transpose', N, P, -ONE, B, LDB, U, 1, ONE, DF, 1 )
+      dgemv('No transpose', N, P, -ONE, B, LDB, U, 1, ONE, DF, 1 );
 
       DNORM = DASUM( N, DF, 1 )
       XNORM = DASUM( M, X, 1 ) + DASUM( P, U, 1 )

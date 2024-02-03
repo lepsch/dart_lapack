@@ -70,7 +70,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'DSTEVD', -INFO )
+         xerbla('DSTEVD', -INFO );
          RETURN
       } else if ( LQUERY ) {
          RETURN
@@ -106,17 +106,17 @@
          SIGMA = RMAX / TNRM
       }
       if ( ISCALE.EQ.1 ) {
-         CALL DSCAL( N, SIGMA, D, 1 )
-         CALL DSCAL( N-1, SIGMA, E( 1 ), 1 )
+         dscal(N, SIGMA, D, 1 );
+         dscal(N-1, SIGMA, E( 1 ), 1 );
       }
 
       // For eigenvalues only, call DSTERF.  For eigenvalues and
       // eigenvectors, call DSTEDC.
 
       if ( .NOT.WANTZ ) {
-         CALL DSTERF( N, D, E, INFO )
+         dsterf(N, D, E, INFO );
       } else {
-         CALL DSTEDC( 'I', N, D, E, Z, LDZ, WORK, LWORK, IWORK, LIWORK, INFO )
+         dstedc('I', N, D, E, Z, LDZ, WORK, LWORK, IWORK, LIWORK, INFO );
       }
 
       // If matrix was scaled, then rescale eigenvalues appropriately.

@@ -47,7 +47,7 @@
          INFO = -4
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'SPOTRF', -INFO )
+         xerbla('SPOTRF', -INFO );
          RETURN
       }
 
@@ -62,7 +62,7 @@
 
          // Use unblocked code.
 
-         CALL SPOTRF2( UPLO, N, A, LDA, INFO )
+         spotrf2(UPLO, N, A, LDA, INFO );
       } else {
 
          // Use blocked code.
@@ -77,12 +77,12 @@
 
                // Compute the current block.
 
-               CALL STRSM( 'Left', 'Upper', 'Transpose', 'Non-unit', J-1, JB, ONE, A( 1, 1 ), LDA, A( 1, J ), LDA )                 CALL SSYRK( 'Upper', 'Transpose', JB, J-1, -ONE, A( 1, J ), LDA, ONE, A( J, J ), LDA )
+               strsm('Left', 'Upper', 'Transpose', 'Non-unit', J-1, JB, ONE, A( 1, 1 ), LDA, A( 1, J ), LDA )                 CALL SSYRK( 'Upper', 'Transpose', JB, J-1, -ONE, A( 1, J ), LDA, ONE, A( J, J ), LDA );
 
                // Update and factorize the current diagonal block and test
                // for non-positive-definiteness.
 
-               CALL SPOTRF2( 'Upper', JB, A( J, J ), LDA, INFO )
+               spotrf2('Upper', JB, A( J, J ), LDA, INFO );
                IF( INFO.NE.0 ) GO TO 30
 
    10       CONTINUE
@@ -97,12 +97,12 @@
 
                // Compute the current block.
 
-               CALL STRSM( 'Right', 'Lower', 'Transpose', 'Non-unit', JB, J-1, ONE, A( 1, 1 ), LDA, A( J, 1 ), LDA )                 CALL SSYRK( 'Lower', 'No Transpose', JB, J-1, -ONE, A( J, 1 ), LDA, ONE, A( J, J ), LDA )
+               strsm('Right', 'Lower', 'Transpose', 'Non-unit', JB, J-1, ONE, A( 1, 1 ), LDA, A( J, 1 ), LDA )                 CALL SSYRK( 'Lower', 'No Transpose', JB, J-1, -ONE, A( J, 1 ), LDA, ONE, A( J, J ), LDA );
 
                // Update and factorize the current diagonal block and test
                // for non-positive-definiteness.
 
-               CALL SPOTRF2( 'Lower', JB, A( J, J ), LDA, INFO )
+               spotrf2('Lower', JB, A( J, J ), LDA, INFO );
                IF( INFO.NE.0 ) GO TO 30
 
    20       CONTINUE

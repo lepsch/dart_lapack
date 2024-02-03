@@ -39,21 +39,21 @@
 
       // Compute the QR factorization of the N-by-2 matrix ( X Y )
 
-      CALL SLARFG( N, X( 1 ), X( 1+INCX ), INCX, TAU )
+      slarfg(N, X( 1 ), X( 1+INCX ), INCX, TAU );
       A11 = X( 1 )
       X( 1 ) = ONE
 
       C = -TAU*SDOT( N, X, INCX, Y, INCY )
-      CALL SAXPY( N, C, X, INCX, Y, INCY )
+      saxpy(N, C, X, INCX, Y, INCY );
 
-      CALL SLARFG( N-1, Y( 1+INCY ), Y( 1+2*INCY ), INCY, TAU )
+      slarfg(N-1, Y( 1+INCY ), Y( 1+2*INCY ), INCY, TAU );
 
       A12 = Y( 1 )
       A22 = Y( 1+INCY )
 
       // Compute the SVD of 2-by-2 Upper triangular matrix.
 
-      CALL SLAS2( A11, A12, A22, SSMIN, SSMAX )
+      slas2(A11, A12, A22, SSMIN, SSMAX );
 
       RETURN
 

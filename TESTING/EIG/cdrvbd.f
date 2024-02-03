@@ -109,7 +109,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'CDRVBD', -INFO )
+         xerbla('CDRVBD', -INFO );
          RETURN
       }
 
@@ -156,7 +156,7 @@
 
                // Zero matrix
 
-               CALL CLASET( 'Full', M, N, CZERO, CZERO, A, LDA )
+               claset('Full', M, N, CZERO, CZERO, A, LDA );
                DO 30 I = 1, MIN( M, N )
                   S( I ) = ZERO
    30          CONTINUE
@@ -165,7 +165,7 @@
 
                // Identity matrix
 
-               CALL CLASET( 'Full', M, N, CZERO, CONE, A, LDA )
+               claset('Full', M, N, CZERO, CONE, A, LDA );
                DO 40 I = 1, MIN( M, N )
                   S( I ) = ONE
    40          CONTINUE
@@ -183,7 +183,7 @@
             }
 
    50       CONTINUE
-            CALL CLACPY( 'F', M, N, A, LDA, ASAV, LDA )
+            clacpy('F', M, N, A, LDA, ASAV, LDA );
 
             // Do for minimal and adequate (for blocking) workspace
 
@@ -205,7 +205,7 @@
 
                IF( IWSPC.GT.1 ) CALL CLACPY( 'F', M, N, ASAV, LDA, A, LDA )
                SRNAMT = 'CGESVD'
-               CALL CGESVD( 'A', 'A', M, N, A, LDA, SSAV, USAV, LDU, VTSAV, LDVT, WORK, LSWORK, RWORK, IINFO )
+               cgesvd('A', 'A', M, N, A, LDA, SSAV, USAV, LDU, VTSAV, LDVT, WORK, LSWORK, RWORK, IINFO );
                if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9995 )'GESVD', IINFO, M, N, JTYPE, LSWORK, IOLDSD
                   INFO = ABS( IINFO )
@@ -214,9 +214,9 @@
 
                // Do tests 1--4
 
-               CALL CBDT01( M, N, 0, ASAV, LDA, USAV, LDU, SSAV, E, VTSAV, LDVT, WORK, RWORK, RESULT( 1 ) )
+               cbdt01(M, N, 0, ASAV, LDA, USAV, LDU, SSAV, E, VTSAV, LDVT, WORK, RWORK, RESULT( 1 ) );
                if ( M.NE.0 .AND. N.NE.0 ) {
-                  CALL CUNT01( 'Columns', MNMIN, M, USAV, LDU, WORK, LWORK, RWORK, RESULT( 2 ) )                   CALL CUNT01( 'Rows', MNMIN, N, VTSAV, LDVT, WORK, LWORK, RWORK, RESULT( 3 ) )
+                  cunt01('Columns', MNMIN, M, USAV, LDU, WORK, LWORK, RWORK, RESULT( 2 ) )                   CALL CUNT01( 'Rows', MNMIN, N, VTSAV, LDVT, WORK, LWORK, RWORK, RESULT( 3 ) );
                }
                RESULT( 4 ) = 0
                DO 70 I = 1, MNMIN - 1
@@ -236,20 +236,20 @@
                      IF( ( IJU.EQ.3 .AND. IJVT.EQ.3 ) .OR. ( IJU.EQ.1 .AND. IJVT.EQ.1 ) )GO TO 90
                      JOBU = CJOB( IJU+1 )
                      JOBVT = CJOB( IJVT+1 )
-                     CALL CLACPY( 'F', M, N, ASAV, LDA, A, LDA )
+                     clacpy('F', M, N, ASAV, LDA, A, LDA );
                      SRNAMT = 'CGESVD'
-                     CALL CGESVD( JOBU, JOBVT, M, N, A, LDA, S, U, LDU, VT, LDVT, WORK, LSWORK, RWORK, IINFO )
+                     cgesvd(JOBU, JOBVT, M, N, A, LDA, S, U, LDU, VT, LDVT, WORK, LSWORK, RWORK, IINFO );
 
                      // Compare U
 
                      DIF = ZERO
                      if ( M.GT.0 .AND. N.GT.0 ) {
                         if ( IJU.EQ.1 ) {
-                           CALL CUNT03( 'C', M, MNMIN, M, MNMIN, USAV, LDU, A, LDA, WORK, LWORK, RWORK, DIF, IINFO )
+                           cunt03('C', M, MNMIN, M, MNMIN, USAV, LDU, A, LDA, WORK, LWORK, RWORK, DIF, IINFO );
                         } else if ( IJU.EQ.2 ) {
-                           CALL CUNT03( 'C', M, MNMIN, M, MNMIN, USAV, LDU, U, LDU, WORK, LWORK, RWORK, DIF, IINFO )
+                           cunt03('C', M, MNMIN, M, MNMIN, USAV, LDU, U, LDU, WORK, LWORK, RWORK, DIF, IINFO );
                         } else if ( IJU.EQ.3 ) {
-                           CALL CUNT03( 'C', M, M, M, MNMIN, USAV, LDU, U, LDU, WORK, LWORK, RWORK, DIF, IINFO )
+                           cunt03('C', M, M, M, MNMIN, USAV, LDU, U, LDU, WORK, LWORK, RWORK, DIF, IINFO );
                         }
                      }
                      RESULT( 5 ) = MAX( RESULT( 5 ), DIF )
@@ -259,11 +259,11 @@
                      DIF = ZERO
                      if ( M.GT.0 .AND. N.GT.0 ) {
                         if ( IJVT.EQ.1 ) {
-                           CALL CUNT03( 'R', N, MNMIN, N, MNMIN, VTSAV, LDVT, A, LDA, WORK, LWORK, RWORK, DIF, IINFO )
+                           cunt03('R', N, MNMIN, N, MNMIN, VTSAV, LDVT, A, LDA, WORK, LWORK, RWORK, DIF, IINFO );
                         } else if ( IJVT.EQ.2 ) {
-                           CALL CUNT03( 'R', N, MNMIN, N, MNMIN, VTSAV, LDVT, VT, LDVT, WORK, LWORK, RWORK, DIF, IINFO )
+                           cunt03('R', N, MNMIN, N, MNMIN, VTSAV, LDVT, VT, LDVT, WORK, LWORK, RWORK, DIF, IINFO );
                         } else if ( IJVT.EQ.3 ) {
-                           CALL CUNT03( 'R', N, N, N, MNMIN, VTSAV, LDVT, VT, LDVT, WORK, LWORK, RWORK, DIF, IINFO )
+                           cunt03('R', N, N, N, MNMIN, VTSAV, LDVT, VT, LDVT, WORK, LWORK, RWORK, DIF, IINFO );
                         }
                      }
                      RESULT( 6 ) = MAX( RESULT( 6 ), DIF )
@@ -290,9 +290,9 @@
 
                // Factorize A
 
-               CALL CLACPY( 'F', M, N, ASAV, LDA, A, LDA )
+               clacpy('F', M, N, ASAV, LDA, A, LDA );
                SRNAMT = 'CGESDD'
-               CALL CGESDD( 'A', M, N, A, LDA, SSAV, USAV, LDU, VTSAV, LDVT, WORK, LSWORK, RWORK, IWORK, IINFO )
+               cgesdd('A', M, N, A, LDA, SSAV, USAV, LDU, VTSAV, LDVT, WORK, LSWORK, RWORK, IWORK, IINFO );
                if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9995 )'GESDD', IINFO, M, N, JTYPE, LSWORK, IOLDSD
                   INFO = ABS( IINFO )
@@ -301,9 +301,9 @@
 
                // Do tests 1--4
 
-               CALL CBDT01( M, N, 0, ASAV, LDA, USAV, LDU, SSAV, E, VTSAV, LDVT, WORK, RWORK, RESULT( 8 ) )
+               cbdt01(M, N, 0, ASAV, LDA, USAV, LDU, SSAV, E, VTSAV, LDVT, WORK, RWORK, RESULT( 8 ) );
                if ( M.NE.0 .AND. N.NE.0 ) {
-                  CALL CUNT01( 'Columns', MNMIN, M, USAV, LDU, WORK, LWORK, RWORK, RESULT( 9 ) )                   CALL CUNT01( 'Rows', MNMIN, N, VTSAV, LDVT, WORK, LWORK, RWORK, RESULT( 10 ) )
+                  cunt01('Columns', MNMIN, M, USAV, LDU, WORK, LWORK, RWORK, RESULT( 9 ) )                   CALL CUNT01( 'Rows', MNMIN, N, VTSAV, LDVT, WORK, LWORK, RWORK, RESULT( 10 ) );
                }
                RESULT( 11 ) = 0
                DO 110 I = 1, MNMIN - 1
@@ -320,9 +320,9 @@
                RESULT( 14 ) = ZERO
                DO 130 IJQ = 0, 2
                   JOBQ = CJOB( IJQ+1 )
-                  CALL CLACPY( 'F', M, N, ASAV, LDA, A, LDA )
+                  clacpy('F', M, N, ASAV, LDA, A, LDA );
                   SRNAMT = 'CGESDD'
-                  CALL CGESDD( JOBQ, M, N, A, LDA, S, U, LDU, VT, LDVT, WORK, LSWORK, RWORK, IWORK, IINFO )
+                  cgesdd(JOBQ, M, N, A, LDA, S, U, LDU, VT, LDVT, WORK, LSWORK, RWORK, IWORK, IINFO );
 
                   // Compare U
 
@@ -330,12 +330,12 @@
                   if ( M.GT.0 .AND. N.GT.0 ) {
                      if ( IJQ.EQ.1 ) {
                         if ( M.GE.N ) {
-                           CALL CUNT03( 'C', M, MNMIN, M, MNMIN, USAV, LDU, A, LDA, WORK, LWORK, RWORK, DIF, IINFO )
+                           cunt03('C', M, MNMIN, M, MNMIN, USAV, LDU, A, LDA, WORK, LWORK, RWORK, DIF, IINFO );
                         } else {
-                           CALL CUNT03( 'C', M, MNMIN, M, MNMIN, USAV, LDU, U, LDU, WORK, LWORK, RWORK, DIF, IINFO )
+                           cunt03('C', M, MNMIN, M, MNMIN, USAV, LDU, U, LDU, WORK, LWORK, RWORK, DIF, IINFO );
                         }
                      } else if ( IJQ.EQ.2 ) {
-                        CALL CUNT03( 'C', M, MNMIN, M, MNMIN, USAV, LDU, U, LDU, WORK, LWORK, RWORK, DIF, IINFO )
+                        cunt03('C', M, MNMIN, M, MNMIN, USAV, LDU, U, LDU, WORK, LWORK, RWORK, DIF, IINFO );
                      }
                   }
                   RESULT( 12 ) = MAX( RESULT( 12 ), DIF )
@@ -346,12 +346,12 @@
                   if ( M.GT.0 .AND. N.GT.0 ) {
                      if ( IJQ.EQ.1 ) {
                         if ( M.GE.N ) {
-                           CALL CUNT03( 'R', N, MNMIN, N, MNMIN, VTSAV, LDVT, VT, LDVT, WORK, LWORK, RWORK, DIF, IINFO )
+                           cunt03('R', N, MNMIN, N, MNMIN, VTSAV, LDVT, VT, LDVT, WORK, LWORK, RWORK, DIF, IINFO );
                         } else {
-                           CALL CUNT03( 'R', N, MNMIN, N, MNMIN, VTSAV, LDVT, A, LDA, WORK, LWORK, RWORK, DIF, IINFO )
+                           cunt03('R', N, MNMIN, N, MNMIN, VTSAV, LDVT, A, LDA, WORK, LWORK, RWORK, DIF, IINFO );
                         }
                      } else if ( IJQ.EQ.2 ) {
-                        CALL CUNT03( 'R', N, MNMIN, N, MNMIN, VTSAV, LDVT, VT, LDVT, WORK, LWORK, RWORK, DIF, IINFO )
+                        cunt03('R', N, MNMIN, N, MNMIN, VTSAV, LDVT, VT, LDVT, WORK, LWORK, RWORK, DIF, IINFO );
                      }
                   }
                   RESULT( 13 ) = MAX( RESULT( 13 ), DIF )
@@ -383,12 +383,12 @@
                   LSWORK = MAX( LSWORK, 1 )
                   IF( IWSPC.EQ.4 ) LSWORK = LWORK
 
-                  CALL CLACPY( 'F', M, N, ASAV, LDA, A, LDA )
+                  clacpy('F', M, N, ASAV, LDA, A, LDA );
                   SRNAMT = 'CGESVDQ'
 
                   LRWORK = MAX(2, M, 5*N)
                   LIWORK = MAX( N, 1 )
-                  CALL CGESVDQ( 'H', 'N', 'N', 'A', 'A',  M, N, A, LDA, SSAV, USAV, LDU, VTSAV, LDVT, NUMRANK, IWORK, LIWORK, WORK, LWORK, RWORK, LRWORK, IINFO )
+                  cgesvdq('H', 'N', 'N', 'A', 'A',  M, N, A, LDA, SSAV, USAV, LDU, VTSAV, LDVT, NUMRANK, IWORK, LIWORK, WORK, LWORK, RWORK, LRWORK, IINFO );
 
                   if ( IINFO.NE.0 ) {
                      WRITE( NOUNIT, FMT = 9995 )'CGESVDQ', IINFO, M, N, JTYPE, LSWORK, IOLDSD
@@ -398,9 +398,9 @@
 
                   // Do tests 36--39
 
-                  CALL CBDT01( M, N, 0, ASAV, LDA, USAV, LDU, SSAV, E, VTSAV, LDVT, WORK, RWORK, RESULT( 36 ) )
+                  cbdt01(M, N, 0, ASAV, LDA, USAV, LDU, SSAV, E, VTSAV, LDVT, WORK, RWORK, RESULT( 36 ) );
                   if ( M.NE.0 .AND. N.NE.0 ) {
-                     CALL CUNT01( 'Columns', M, M, USAV, LDU, WORK, LWORK, RWORK, RESULT( 37 ) )                      CALL CUNT01( 'Rows', N, N, VTSAV, LDVT, WORK, LWORK, RWORK, RESULT( 38 ) )
+                     cunt01('Columns', M, M, USAV, LDU, WORK, LWORK, RWORK, RESULT( 37 ) )                      CALL CUNT01( 'Rows', N, N, VTSAV, LDVT, WORK, LWORK, RWORK, RESULT( 38 ) );
                   }
                   RESULT( 39 ) = ZERO
                   DO 199 I = 1, MNMIN - 1
@@ -427,9 +427,9 @@
                   LRWORK = MAX(6,N)
                   IF( IWSPC.EQ.4 ) LSWORK = LWORK
 
-                  CALL CLACPY( 'F', M, N, ASAV, LDA, USAV, LDA )
+                  clacpy('F', M, N, ASAV, LDA, USAV, LDA );
                   SRNAMT = 'CGESVJ'
-                  CALL CGESVJ( 'G', 'U', 'V', M, N, USAV, LDA, SSAV, 0, A, LDVT, WORK, LWORK, RWORK, LRWORK, IINFO )
+                  cgesvj('G', 'U', 'V', M, N, USAV, LDA, SSAV, 0, A, LDVT, WORK, LWORK, RWORK, LRWORK, IINFO );
 
                   // CGESVJ returns V not VH
 
@@ -447,9 +447,9 @@
 
                   // Do tests 15--18
 
-                  CALL CBDT01( M, N, 0, ASAV, LDA, USAV, LDU, SSAV, E, VTSAV, LDVT, WORK, RWORK, RESULT( 15 ) )
+                  cbdt01(M, N, 0, ASAV, LDA, USAV, LDU, SSAV, E, VTSAV, LDVT, WORK, RWORK, RESULT( 15 ) );
                   if ( M.NE.0 .AND. N.NE.0 ) {
-                     CALL CUNT01( 'Columns', M, M, USAV, LDU, WORK, LWORK, RWORK, RESULT( 16 ) )                      CALL CUNT01( 'Rows', N, N, VTSAV, LDVT, WORK, LWORK, RWORK, RESULT( 17 ) )
+                     cunt01('Columns', M, M, USAV, LDU, WORK, LWORK, RWORK, RESULT( 16 ) )                      CALL CUNT01( 'Rows', N, N, VTSAV, LDVT, WORK, LWORK, RWORK, RESULT( 17 ) );
                   }
                   RESULT( 18 ) = ZERO
                   DO 131 I = 1, MNMIN - 1
@@ -475,9 +475,9 @@
                   IF( IWSPC.EQ.4 ) LSWORK = LWORK
                   LRWORK = MAX( 7, N + 2*M)
 
-                  CALL CLACPY( 'F', M, N, ASAV, LDA, VTSAV, LDA )
+                  clacpy('F', M, N, ASAV, LDA, VTSAV, LDA );
                   SRNAMT = 'CGEJSV'
-                  CALL CGEJSV( 'G', 'U', 'V', 'R', 'N', 'N', M, N, VTSAV, LDA, SSAV, USAV, LDU, A, LDVT, WORK, LWORK, RWORK, LRWORK, IWORK, IINFO )
+                  cgejsv('G', 'U', 'V', 'R', 'N', 'N', M, N, VTSAV, LDA, SSAV, USAV, LDU, A, LDVT, WORK, LWORK, RWORK, LRWORK, IWORK, IINFO );
 
                   // CGEJSV returns V not VH
 
@@ -495,9 +495,9 @@
 
                   // Do tests 19--22
 
-                  CALL CBDT01( M, N, 0, ASAV, LDA, USAV, LDU, SSAV, E, VTSAV, LDVT, WORK, RWORK, RESULT( 19 ) )
+                  cbdt01(M, N, 0, ASAV, LDA, USAV, LDU, SSAV, E, VTSAV, LDVT, WORK, RWORK, RESULT( 19 ) );
                   if ( M.NE.0 .AND. N.NE.0 ) {
-                     CALL CUNT01( 'Columns', M, M, USAV, LDU, WORK, LWORK, RWORK, RESULT( 20 ) )                      CALL CUNT01( 'Rows', N, N, VTSAV, LDVT, WORK, LWORK, RWORK, RESULT( 21 ) )
+                     cunt01('Columns', M, M, USAV, LDU, WORK, LWORK, RWORK, RESULT( 20 ) )                      CALL CUNT01( 'Rows', N, N, VTSAV, LDVT, WORK, LWORK, RWORK, RESULT( 21 ) );
                   }
                   RESULT( 22 ) = ZERO
                   DO 134 I = 1, MNMIN - 1
@@ -512,9 +512,9 @@
 
                // Factorize A
 
-               CALL CLACPY( 'F', M, N, ASAV, LDA, A, LDA )
+               clacpy('F', M, N, ASAV, LDA, A, LDA );
                SRNAMT = 'CGESVDX'
-               CALL CGESVDX( 'V', 'V', 'A', M, N, A, LDA, VL, VU, IL, IU, NS, SSAV, USAV, LDU, VTSAV, LDVT, WORK, LWORK, RWORK, IWORK, IINFO )
+               cgesvdx('V', 'V', 'A', M, N, A, LDA, VL, VU, IL, IU, NS, SSAV, USAV, LDU, VTSAV, LDVT, WORK, LWORK, RWORK, IWORK, IINFO );
                if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9995 )'GESVDX', IINFO, M, N, JTYPE, LSWORK, IOLDSD
                   INFO = ABS( IINFO )
@@ -526,9 +526,9 @@
                RESULT( 23 ) = ZERO
                RESULT( 24 ) = ZERO
                RESULT( 25 ) = ZERO
-               CALL CBDT01( M, N, 0, ASAV, LDA, USAV, LDU, SSAV, E, VTSAV, LDVT, WORK, RWORK, RESULT( 23 ) )
+               cbdt01(M, N, 0, ASAV, LDA, USAV, LDU, SSAV, E, VTSAV, LDVT, WORK, RWORK, RESULT( 23 ) );
                if ( M.NE.0 .AND. N.NE.0 ) {
-                  CALL CUNT01( 'Columns', MNMIN, M, USAV, LDU, WORK, LWORK, RWORK, RESULT( 24 ) )                   CALL CUNT01( 'Rows', MNMIN, N, VTSAV, LDVT, WORK, LWORK, RWORK, RESULT( 25 ) )
+                  cunt01('Columns', MNMIN, M, USAV, LDU, WORK, LWORK, RWORK, RESULT( 24 ) )                   CALL CUNT01( 'Rows', MNMIN, N, VTSAV, LDVT, WORK, LWORK, RWORK, RESULT( 25 ) );
                }
                RESULT( 26 ) = ZERO
                DO 140 I = 1, MNMIN - 1
@@ -549,16 +549,16 @@
                      JOBU = CJOBV( IJU+1 )
                      JOBVT = CJOBV( IJVT+1 )
                      RANGE = CJOBR( 1 )
-                     CALL CLACPY( 'F', M, N, ASAV, LDA, A, LDA )
+                     clacpy('F', M, N, ASAV, LDA, A, LDA );
                      SRNAMT = 'CGESVDX'
-                     CALL CGESVDX( JOBU, JOBVT, 'A', M, N, A, LDA, VL, VU, IL, IU, NS, SSAV, U, LDU, VT, LDVT, WORK, LWORK, RWORK, IWORK, IINFO )
+                     cgesvdx(JOBU, JOBVT, 'A', M, N, A, LDA, VL, VU, IL, IU, NS, SSAV, U, LDU, VT, LDVT, WORK, LWORK, RWORK, IWORK, IINFO );
 
                      // Compare U
 
                      DIF = ZERO
                      if ( M.GT.0 .AND. N.GT.0 ) {
                         if ( IJU.EQ.1 ) {
-                           CALL CUNT03( 'C', M, MNMIN, M, MNMIN, USAV, LDU, U, LDU, WORK, LWORK, RWORK, DIF, IINFO )
+                           cunt03('C', M, MNMIN, M, MNMIN, USAV, LDU, U, LDU, WORK, LWORK, RWORK, DIF, IINFO );
                         }
                      }
                      RESULT( 27 ) = MAX( RESULT( 27 ), DIF )
@@ -568,7 +568,7 @@
                      DIF = ZERO
                      if ( M.GT.0 .AND. N.GT.0 ) {
                         if ( IJVT.EQ.1 ) {
-                           CALL CUNT03( 'R', N, MNMIN, N, MNMIN, VTSAV, LDVT, VT, LDVT, WORK, LWORK, RWORK, DIF, IINFO )
+                           cunt03('R', N, MNMIN, N, MNMIN, VTSAV, LDVT, VT, LDVT, WORK, LWORK, RWORK, DIF, IINFO );
                         }
                      }
                      RESULT( 28 ) = MAX( RESULT( 28 ), DIF )
@@ -602,9 +602,9 @@
                      IL = ITEMP
                   }
                }
-               CALL CLACPY( 'F', M, N, ASAV, LDA, A, LDA )
+               clacpy('F', M, N, ASAV, LDA, A, LDA );
                SRNAMT = 'CGESVDX'
-               CALL CGESVDX( 'V', 'V', 'I', M, N, A, LDA, VL, VU, IL, IU, NSI, S, U, LDU, VT, LDVT, WORK, LWORK, RWORK, IWORK, IINFO )
+               cgesvdx('V', 'V', 'I', M, N, A, LDA, VL, VU, IL, IU, NSI, S, U, LDU, VT, LDVT, WORK, LWORK, RWORK, IWORK, IINFO );
                if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9995 )'GESVDX', IINFO, M, N, JTYPE, LSWORK, IOLDSD
                   INFO = ABS( IINFO )
@@ -614,9 +614,9 @@
                RESULT( 30 ) = ZERO
                RESULT( 31 ) = ZERO
                RESULT( 32 ) = ZERO
-               CALL CBDT05( M, N, ASAV, LDA, S, NSI, U, LDU, VT, LDVT, WORK, RESULT( 30 ) )
+               cbdt05(M, N, ASAV, LDA, S, NSI, U, LDU, VT, LDVT, WORK, RESULT( 30 ) );
                if ( M.NE.0 .AND. N.NE.0 ) {
-                  CALL CUNT01( 'Columns', M, NSI, U, LDU, WORK, LWORK, RWORK, RESULT( 31 ) )                   CALL CUNT01( 'Rows', NSI, N, VT, LDVT, WORK, LWORK, RWORK, RESULT( 32 ) )
+                  cunt01('Columns', M, NSI, U, LDU, WORK, LWORK, RWORK, RESULT( 31 ) )                   CALL CUNT01( 'Rows', NSI, N, VT, LDVT, WORK, LWORK, RWORK, RESULT( 32 ) );
                }
 
                // Do tests 11--13
@@ -639,9 +639,9 @@
                   VL = ZERO
                   VU = ONE
                }
-               CALL CLACPY( 'F', M, N, ASAV, LDA, A, LDA )
+               clacpy('F', M, N, ASAV, LDA, A, LDA );
                SRNAMT = 'CGESVDX'
-               CALL CGESVDX( 'V', 'V', 'V', M, N, A, LDA, VL, VU, IL, IU, NSV, S, U, LDU, VT, LDVT, WORK, LWORK, RWORK, IWORK, IINFO )
+               cgesvdx('V', 'V', 'V', M, N, A, LDA, VL, VU, IL, IU, NSV, S, U, LDU, VT, LDVT, WORK, LWORK, RWORK, IWORK, IINFO );
                if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9995 )'GESVDX', IINFO, M, N, JTYPE, LSWORK, IOLDSD
                   INFO = ABS( IINFO )
@@ -651,9 +651,9 @@
                RESULT( 33 ) = ZERO
                RESULT( 34 ) = ZERO
                RESULT( 35 ) = ZERO
-               CALL CBDT05( M, N, ASAV, LDA, S, NSV, U, LDU, VT, LDVT, WORK, RESULT( 33 ) )
+               cbdt05(M, N, ASAV, LDA, S, NSV, U, LDU, VT, LDVT, WORK, RESULT( 33 ) );
                if ( M.NE.0 .AND. N.NE.0 ) {
-                  CALL CUNT01( 'Columns', M, NSV, U, LDU, WORK, LWORK, RWORK, RESULT( 34 ) )                   CALL CUNT01( 'Rows', NSV, N, VT, LDVT, WORK, LWORK, RWORK, RESULT( 35 ) )
+                  cunt01('Columns', M, NSV, U, LDU, WORK, LWORK, RWORK, RESULT( 34 ) )                   CALL CUNT01( 'Rows', NSV, N, VT, LDVT, WORK, LWORK, RWORK, RESULT( 35 ) );
                }
 
                // End of Loop -- Check for RESULT(j) > THRESH
@@ -687,7 +687,7 @@
 
       // Summary
 
-      CALL ALASVM( 'CBD', NOUNIT, NERRS, NTESTT, 0 )
+      alasvm('CBD', NOUNIT, NERRS, NTESTT, 0 );
 
  9999 FORMAT( ' SVD -- Complex Singular Value Decomposition Driver ', / ' Matrix types (see CDRVBD for details):', / / ' 1 = Zero matrix', / ' 2 = Identity matrix', / ' 3 = Evenly spaced singular values near 1', / ' 4 = Evenly spaced singular values near underflow', / ' 5 = Evenly spaced singular values near overflow', / / ' Tests performed: ( A is dense, U and V are unitary,', / 19X, ' S is an array, and Upartial, VTpartial, and', / 19X, ' Spartial are partially computed U, VT and S),', / )
  9998 FORMAT( ' Tests performed with Test Threshold = ', F8.2, / ' CGESVD: ', / ' 1 = | A - U diag(S) VT | / ( |A| max(M,N) ulp ) ', / ' 2 = | I - U**T U | / ( M ulp ) ', / ' 3 = | I - VT VT**T | / ( N ulp ) ', / ' 4 = 0 if S contains min(M,N) nonnegative values in', ' decreasing order, else 1/ulp', / ' 5 = | U - Upartial | / ( M ulp )', / ' 6 = | VT - VTpartial | / ( N ulp )', / ' 7 = | S - Spartial | / ( min(M,N) ulp |S| )', / ' CGESDD: ', / ' 8 = | A - U diag(S) VT | / ( |A| max(M,N) ulp ) ', / ' 9 = | I - U**T U | / ( M ulp ) ', / '10 = | I - VT VT**T | / ( N ulp ) ', / '11 = 0 if S contains min(M,N) nonnegative values in', ' decreasing order, else 1/ulp', / '12 = | U - Upartial | / ( M ulp )', / '13 = | VT - VTpartial | / ( N ulp )', / '14 = | S - Spartial | / ( min(M,N) ulp |S| )', / ' CGESVJ: ', / / '15 = | A - U diag(S) VT | / ( |A| max(M,N) ulp ) ', / '16 = | I - U**T U | / ( M ulp ) ', / '17 = | I - VT VT**T | / ( N ulp ) ', / '18 = 0 if S contains min(M,N) nonnegative values in', ' decreasing order, else 1/ulp', / ' CGESJV: ', / / '19 = | A - U diag(S) VT | / ( |A| max(M,N) ulp )',/ '20 = | I - U**T U | / ( M ulp ) ',/ '21 = | I - VT VT**T | / ( N ulp ) ',/ '22 = 0 if S contains min(M,N) nonnegative values in',' decreasing order, else 1/ulp',/ ' CGESVDX(V,V,A): ', /  '23 = | A - U diag(S) VT | / ( |A| max(M,N) ulp ) ',/ '24 = | I - U**T U | / ( M ulp ) ',/ '25 = | I - VT VT**T | / ( N ulp ) ',/ '26 = 0 if S contains min(M,N) nonnegative values in',' decreasing order, else 1/ulp',/ '27 = | U - Upartial | / ( M ulp )',/ '28 = | VT - VTpartial | / ( N ulp )',/ '29 = | S - Spartial | / ( min(M,N) ulp |S| )',/ ' CGESVDX(V,V,I): ',/ '30 = | U**T A VT**T - diag(S) | / ( |A| max(M,N) ulp )',/ '31 = | I - U**T U | / ( M ulp ) ',/ '32 = | I - VT VT**T | / ( N ulp ) ',/ ' CGESVDX(V,V,V) ',/ '33 = | U**T A VT**T - diag(S) | / ( |A| max(M,N) ulp )',/ '34 = | I - U**T U | / ( M ulp ) ',/ '35 = | I - VT VT**T | / ( N ulp ) ',' CGESVDQ(H,N,N,A,A',/ '36 = | A - U diag(S) VT | / ( |A| max(M,N) ulp ) ',/ '37 = | I - U**T U | / ( M ulp ) ',/ '38 = | I - VT VT**T | / ( N ulp ) ',/ '39 = 0 if S contains min(M,N) nonnegative values in',' decreasing order, else 1/ulp',/ / )

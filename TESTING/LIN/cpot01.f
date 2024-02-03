@@ -77,7 +77,7 @@
 
             // Compute the rest of column K.
 
-            CALL CTRMV( 'Upper', 'Conjugate', 'Non-unit', K-1, AFAC, LDAFAC, AFAC( 1, K ), 1 )
+            ctrmv('Upper', 'Conjugate', 'Non-unit', K-1, AFAC, LDAFAC, AFAC( 1, K ), 1 );
 
    20    CONTINUE
 
@@ -94,7 +94,7 @@
             // Scale column K by the diagonal element.
 
             TC = AFAC( K, K )
-            CALL CSCAL( N-K+1, TC, AFAC( K, K ), 1 )
+            cscal(N-K+1, TC, AFAC( K, K ), 1 );
 
    30    CONTINUE
       }

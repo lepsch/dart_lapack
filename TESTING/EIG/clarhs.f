@@ -76,7 +76,7 @@
          INFO = -15
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'CLARHS', -INFO )
+         xerbla('CLARHS', -INFO );
          RETURN
       }
 
@@ -91,7 +91,7 @@
       }
       if ( .NOT.LSAME( XTYPE, 'C' ) ) {
          DO 10 J = 1, NRHS
-            CALL CLARNV( 2, ISEED, N, X( 1, J ) )
+            clarnv(2, ISEED, N, X( 1, J ) );
    10    CONTINUE
       }
 
@@ -102,26 +102,26 @@
 
          // General matrix
 
-         CALL CGEMM( TRANS, 'N', MB, NRHS, NX, ONE, A, LDA, X, LDX, ZERO, B, LDB )
+         cgemm(TRANS, 'N', MB, NRHS, NX, ONE, A, LDA, X, LDX, ZERO, B, LDB );
 
       } else if ( LSAMEN( 2, C2, 'PO' ) .OR. LSAMEN( 2, C2, 'HE' ) ) {
 
          // Hermitian matrix, 2-D storage
 
-         CALL CHEMM( 'Left', UPLO, N, NRHS, ONE, A, LDA, X, LDX, ZERO, B, LDB )
+         chemm('Left', UPLO, N, NRHS, ONE, A, LDA, X, LDX, ZERO, B, LDB );
 
       } else if ( LSAMEN( 2, C2, 'SY' ) ) {
 
          // Symmetric matrix, 2-D storage
 
-         CALL CSYMM( 'Left', UPLO, N, NRHS, ONE, A, LDA, X, LDX, ZERO, B, LDB )
+         csymm('Left', UPLO, N, NRHS, ONE, A, LDA, X, LDX, ZERO, B, LDB );
 
       } else if ( LSAMEN( 2, C2, 'GB' ) ) {
 
          // General matrix, band storage
 
          DO 20 J = 1, NRHS
-            CALL CGBMV( TRANS, M, N, KL, KU, ONE, A, LDA, X( 1, J ), 1, ZERO, B( 1, J ), 1 )
+            cgbmv(TRANS, M, N, KL, KU, ONE, A, LDA, X( 1, J ), 1, ZERO, B( 1, J ), 1 );
    20    CONTINUE
 
       } else if ( LSAMEN( 2, C2, 'PB' ) .OR. LSAMEN( 2, C2, 'HB' ) ) {
@@ -129,7 +129,7 @@
          // Hermitian matrix, band storage
 
          DO 30 J = 1, NRHS
-            CALL CHBMV( UPLO, N, KL, ONE, A, LDA, X( 1, J ), 1, ZERO, B( 1, J ), 1 )
+            chbmv(UPLO, N, KL, ONE, A, LDA, X( 1, J ), 1, ZERO, B( 1, J ), 1 );
    30    CONTINUE
 
       } else if ( LSAMEN( 2, C2, 'SB' ) ) {
@@ -137,7 +137,7 @@
          // Symmetric matrix, band storage
 
          DO 40 J = 1, NRHS
-            CALL CSBMV( UPLO, N, KL, ONE, A, LDA, X( 1, J ), 1, ZERO, B( 1, J ), 1 )
+            csbmv(UPLO, N, KL, ONE, A, LDA, X( 1, J ), 1, ZERO, B( 1, J ), 1 );
    40    CONTINUE
 
       } else if ( LSAMEN( 2, C2, 'PP' ) .OR. LSAMEN( 2, C2, 'HP' ) ) {
@@ -145,7 +145,7 @@
          // Hermitian matrix, packed storage
 
          DO 50 J = 1, NRHS
-            CALL CHPMV( UPLO, N, ONE, A, X( 1, J ), 1, ZERO, B( 1, J ), 1 )
+            chpmv(UPLO, N, ONE, A, X( 1, J ), 1, ZERO, B( 1, J ), 1 );
    50    CONTINUE
 
       } else if ( LSAMEN( 2, C2, 'SP' ) ) {
@@ -153,7 +153,7 @@
          // Symmetric matrix, packed storage
 
          DO 60 J = 1, NRHS
-            CALL CSPMV( UPLO, N, ONE, A, X( 1, J ), 1, ZERO, B( 1, J ), 1 )
+            cspmv(UPLO, N, ONE, A, X( 1, J ), 1, ZERO, B( 1, J ), 1 );
    60    CONTINUE
 
       } else if ( LSAMEN( 2, C2, 'TR' ) ) {
@@ -162,40 +162,40 @@
             // KU = 1 => non-unit triangular
             // KU = 2 => unit triangular
 
-         CALL CLACPY( 'Full', N, NRHS, X, LDX, B, LDB )
+         clacpy('Full', N, NRHS, X, LDX, B, LDB );
          if ( KU.EQ.2 ) {
             DIAG = 'U'
          } else {
             DIAG = 'N'
          }
-         CALL CTRMM( 'Left', UPLO, TRANS, DIAG, N, NRHS, ONE, A, LDA, B, LDB )
+         ctrmm('Left', UPLO, TRANS, DIAG, N, NRHS, ONE, A, LDA, B, LDB );
 
       } else if ( LSAMEN( 2, C2, 'TP' ) ) {
 
          // Triangular matrix, packed storage
 
-         CALL CLACPY( 'Full', N, NRHS, X, LDX, B, LDB )
+         clacpy('Full', N, NRHS, X, LDX, B, LDB );
          if ( KU.EQ.2 ) {
             DIAG = 'U'
          } else {
             DIAG = 'N'
          }
          DO 70 J = 1, NRHS
-            CALL CTPMV( UPLO, TRANS, DIAG, N, A, B( 1, J ), 1 )
+            ctpmv(UPLO, TRANS, DIAG, N, A, B( 1, J ), 1 );
    70    CONTINUE
 
       } else if ( LSAMEN( 2, C2, 'TB' ) ) {
 
          // Triangular matrix, banded storage
 
-         CALL CLACPY( 'Full', N, NRHS, X, LDX, B, LDB )
+         clacpy('Full', N, NRHS, X, LDX, B, LDB );
          if ( KU.EQ.2 ) {
             DIAG = 'U'
          } else {
             DIAG = 'N'
          }
          DO 80 J = 1, NRHS
-            CALL CTBMV( UPLO, TRANS, DIAG, N, KL, A, LDA, B( 1, J ), 1 )
+            ctbmv(UPLO, TRANS, DIAG, N, KL, A, LDA, B( 1, J ), 1 );
    80    CONTINUE
 
       } else {
@@ -203,7 +203,7 @@
          // If none of the above, set INFO = -1 and return
 
          INFO = -1
-         CALL XERBLA( 'CLARHS', -INFO )
+         xerbla('CLARHS', -INFO );
       }
 
       RETURN

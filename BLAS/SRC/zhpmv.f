@@ -49,7 +49,7 @@
           INFO = 9
       }
       if (INFO.NE.0) {
-          CALL XERBLA('ZHPMV ',INFO)
+          xerbla('ZHPMV ',INFO);
           RETURN
       }
 

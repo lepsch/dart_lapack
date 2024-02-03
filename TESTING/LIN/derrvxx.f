@@ -78,57 +78,57 @@
 
          SRNAMT = 'DGESV '
          INFOT = 1
-         CALL DGESV( -1, 0, A, 1, IP, B, 1, INFO )
-         CALL CHKXER( 'DGESV ', INFOT, NOUT, LERR, OK )
+         dgesv(-1, 0, A, 1, IP, B, 1, INFO );
+         chkxer('DGESV ', INFOT, NOUT, LERR, OK );
          INFOT = 2
-         CALL DGESV( 0, -1, A, 1, IP, B, 1, INFO )
-         CALL CHKXER( 'DGESV ', INFOT, NOUT, LERR, OK )
+         dgesv(0, -1, A, 1, IP, B, 1, INFO );
+         chkxer('DGESV ', INFOT, NOUT, LERR, OK );
          INFOT = 4
-         CALL DGESV( 2, 1, A, 1, IP, B, 2, INFO )
-         CALL CHKXER( 'DGESV ', INFOT, NOUT, LERR, OK )
+         dgesv(2, 1, A, 1, IP, B, 2, INFO );
+         chkxer('DGESV ', INFOT, NOUT, LERR, OK );
          INFOT = 7
-         CALL DGESV( 2, 1, A, 2, IP, B, 1, INFO )
-         CALL CHKXER( 'DGESV ', INFOT, NOUT, LERR, OK )
+         dgesv(2, 1, A, 2, IP, B, 1, INFO );
+         chkxer('DGESV ', INFOT, NOUT, LERR, OK );
 
          // DGESVX
 
          SRNAMT = 'DGESVX'
          INFOT = 1
-         CALL DGESVX( '/', 'N', 0, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, R1, R2, W, IW, INFO )
-         CALL CHKXER( 'DGESVX', INFOT, NOUT, LERR, OK )
+         dgesvx('/', 'N', 0, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, R1, R2, W, IW, INFO );
+         chkxer('DGESVX', INFOT, NOUT, LERR, OK );
          INFOT = 2
-         CALL DGESVX( 'N', '/', 0, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, R1, R2, W, IW, INFO )
-         CALL CHKXER( 'DGESVX', INFOT, NOUT, LERR, OK )
+         dgesvx('N', '/', 0, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, R1, R2, W, IW, INFO );
+         chkxer('DGESVX', INFOT, NOUT, LERR, OK );
          INFOT = 3
-         CALL DGESVX( 'N', 'N', -1, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, R1, R2, W, IW, INFO )
-         CALL CHKXER( 'DGESVX', INFOT, NOUT, LERR, OK )
+         dgesvx('N', 'N', -1, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, R1, R2, W, IW, INFO );
+         chkxer('DGESVX', INFOT, NOUT, LERR, OK );
          INFOT = 4
-         CALL DGESVX( 'N', 'N', 0, -1, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, R1, R2, W, IW, INFO )
-         CALL CHKXER( 'DGESVX', INFOT, NOUT, LERR, OK )
+         dgesvx('N', 'N', 0, -1, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, R1, R2, W, IW, INFO );
+         chkxer('DGESVX', INFOT, NOUT, LERR, OK );
          INFOT = 6
-         CALL DGESVX( 'N', 'N', 2, 1, A, 1, AF, 2, IP, EQ, R, C, B, 2, X, 2, RCOND, R1, R2, W, IW, INFO )
-         CALL CHKXER( 'DGESVX', INFOT, NOUT, LERR, OK )
+         dgesvx('N', 'N', 2, 1, A, 1, AF, 2, IP, EQ, R, C, B, 2, X, 2, RCOND, R1, R2, W, IW, INFO );
+         chkxer('DGESVX', INFOT, NOUT, LERR, OK );
          INFOT = 8
-         CALL DGESVX( 'N', 'N', 2, 1, A, 2, AF, 1, IP, EQ, R, C, B, 2, X, 2, RCOND, R1, R2, W, IW, INFO )
-         CALL CHKXER( 'DGESVX', INFOT, NOUT, LERR, OK )
+         dgesvx('N', 'N', 2, 1, A, 2, AF, 1, IP, EQ, R, C, B, 2, X, 2, RCOND, R1, R2, W, IW, INFO );
+         chkxer('DGESVX', INFOT, NOUT, LERR, OK );
          INFOT = 10
          EQ = '/'
-         CALL DGESVX( 'F', 'N', 0, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, R1, R2, W, IW, INFO )
-         CALL CHKXER( 'DGESVX', INFOT, NOUT, LERR, OK )
+         dgesvx('F', 'N', 0, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, R1, R2, W, IW, INFO );
+         chkxer('DGESVX', INFOT, NOUT, LERR, OK );
          INFOT = 11
          EQ = 'R'
-         CALL DGESVX( 'F', 'N', 1, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, R1, R2, W, IW, INFO )
-         CALL CHKXER( 'DGESVX', INFOT, NOUT, LERR, OK )
+         dgesvx('F', 'N', 1, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, R1, R2, W, IW, INFO );
+         chkxer('DGESVX', INFOT, NOUT, LERR, OK );
          INFOT = 12
          EQ = 'C'
-         CALL DGESVX( 'F', 'N', 1, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, R1, R2, W, IW, INFO )
-         CALL CHKXER( 'DGESVX', INFOT, NOUT, LERR, OK )
+         dgesvx('F', 'N', 1, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, R1, R2, W, IW, INFO );
+         chkxer('DGESVX', INFOT, NOUT, LERR, OK );
          INFOT = 14
-         CALL DGESVX( 'N', 'N', 2, 1, A, 2, AF, 2, IP, EQ, R, C, B, 1, X, 2, RCOND, R1, R2, W, IW, INFO )
-         CALL CHKXER( 'DGESVX', INFOT, NOUT, LERR, OK )
+         dgesvx('N', 'N', 2, 1, A, 2, AF, 2, IP, EQ, R, C, B, 1, X, 2, RCOND, R1, R2, W, IW, INFO );
+         chkxer('DGESVX', INFOT, NOUT, LERR, OK );
          INFOT = 16
-         CALL DGESVX( 'N', 'N', 2, 1, A, 2, AF, 2, IP, EQ, R, C, B, 2, X, 1, RCOND, R1, R2, W, IW, INFO )
-         CALL CHKXER( 'DGESVX', INFOT, NOUT, LERR, OK )
+         dgesvx('N', 'N', 2, 1, A, 2, AF, 2, IP, EQ, R, C, B, 2, X, 1, RCOND, R1, R2, W, IW, INFO );
+         chkxer('DGESVX', INFOT, NOUT, LERR, OK );
 
          // DGESVXX
 
@@ -136,41 +136,41 @@
          NPARAMS = 1
          SRNAMT = 'DGESVXX'
          INFOT = 1
-         CALL DGESVXX( '/', 'N', 0, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO )
-         CALL CHKXER( 'DGESVXX', INFOT, NOUT, LERR, OK )
+         dgesvxx('/', 'N', 0, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO );
+         chkxer('DGESVXX', INFOT, NOUT, LERR, OK );
          INFOT = 2
-         CALL DGESVXX( 'N', '/', 0, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO )
-         CALL CHKXER( 'DGESVXX', INFOT, NOUT, LERR, OK )
+         dgesvxx('N', '/', 0, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO );
+         chkxer('DGESVXX', INFOT, NOUT, LERR, OK );
          INFOT = 3
-         CALL DGESVXX( 'N', 'N', -1, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO )
-         CALL CHKXER( 'DGESVXX', INFOT, NOUT, LERR, OK )
+         dgesvxx('N', 'N', -1, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO );
+         chkxer('DGESVXX', INFOT, NOUT, LERR, OK );
          INFOT = 4
-         CALL DGESVXX( 'N', 'N', 0, -1, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO )
-         CALL CHKXER( 'DGESVXX', INFOT, NOUT, LERR, OK )
+         dgesvxx('N', 'N', 0, -1, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO );
+         chkxer('DGESVXX', INFOT, NOUT, LERR, OK );
          INFOT = 6
-         CALL DGESVXX( 'N', 'N', 2, 1, A, 1, AF, 2, IP, EQ, R, C, B, 2, X, 2, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO )
-         CALL CHKXER( 'DGESVXX', INFOT, NOUT, LERR, OK )
+         dgesvxx('N', 'N', 2, 1, A, 1, AF, 2, IP, EQ, R, C, B, 2, X, 2, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO );
+         chkxer('DGESVXX', INFOT, NOUT, LERR, OK );
          INFOT = 8
-         CALL DGESVXX( 'N', 'N', 2, 1, A, 2, AF, 1, IP, EQ, R, C, B, 2, X, 2, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO )
-         CALL CHKXER( 'DGESVXX', INFOT, NOUT, LERR, OK )
+         dgesvxx('N', 'N', 2, 1, A, 2, AF, 1, IP, EQ, R, C, B, 2, X, 2, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO );
+         chkxer('DGESVXX', INFOT, NOUT, LERR, OK );
          INFOT = 10
          EQ = '/'
-         CALL DGESVXX( 'F', 'N', 0, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO )
-         CALL CHKXER( 'DGESVXX', INFOT, NOUT, LERR, OK )
+         dgesvxx('F', 'N', 0, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO );
+         chkxer('DGESVXX', INFOT, NOUT, LERR, OK );
          INFOT = 11
          EQ = 'R'
-         CALL DGESVXX( 'F', 'N', 1, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO )
-         CALL CHKXER( 'DGESVXX', INFOT, NOUT, LERR, OK )
+         dgesvxx('F', 'N', 1, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO );
+         chkxer('DGESVXX', INFOT, NOUT, LERR, OK );
          INFOT = 12
          EQ = 'C'
-         CALL DGESVXX( 'F', 'N', 1, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO )
-         CALL CHKXER( 'DGESVXX', INFOT, NOUT, LERR, OK )
+         dgesvxx('F', 'N', 1, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO );
+         chkxer('DGESVXX', INFOT, NOUT, LERR, OK );
          INFOT = 14
-         CALL DGESVXX( 'N', 'N', 2, 1, A, 2, AF, 2, IP, EQ, R, C, B, 1, X, 2, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO )
-         CALL CHKXER( 'DGESVXX', INFOT, NOUT, LERR, OK )
+         dgesvxx('N', 'N', 2, 1, A, 2, AF, 2, IP, EQ, R, C, B, 1, X, 2, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO );
+         chkxer('DGESVXX', INFOT, NOUT, LERR, OK );
          INFOT = 16
-         CALL DGESVXX( 'N', 'N', 2, 1, A, 2, AF, 2, IP, EQ, R, C, B, 2, X, 1, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO )
-         CALL CHKXER( 'DGESVXX', INFOT, NOUT, LERR, OK )
+         dgesvxx('N', 'N', 2, 1, A, 2, AF, 2, IP, EQ, R, C, B, 2, X, 1, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO );
+         chkxer('DGESVXX', INFOT, NOUT, LERR, OK );
 
       } else if ( LSAMEN( 2, C2, 'GB' ) ) {
 
@@ -178,69 +178,69 @@
 
          SRNAMT = 'DGBSV '
          INFOT = 1
-         CALL DGBSV( -1, 0, 0, 0, A, 1, IP, B, 1, INFO )
-         CALL CHKXER( 'DGBSV ', INFOT, NOUT, LERR, OK )
+         dgbsv(-1, 0, 0, 0, A, 1, IP, B, 1, INFO );
+         chkxer('DGBSV ', INFOT, NOUT, LERR, OK );
          INFOT = 2
-         CALL DGBSV( 1, -1, 0, 0, A, 1, IP, B, 1, INFO )
-         CALL CHKXER( 'DGBSV ', INFOT, NOUT, LERR, OK )
+         dgbsv(1, -1, 0, 0, A, 1, IP, B, 1, INFO );
+         chkxer('DGBSV ', INFOT, NOUT, LERR, OK );
          INFOT = 3
-         CALL DGBSV( 1, 0, -1, 0, A, 1, IP, B, 1, INFO )
-         CALL CHKXER( 'DGBSV ', INFOT, NOUT, LERR, OK )
+         dgbsv(1, 0, -1, 0, A, 1, IP, B, 1, INFO );
+         chkxer('DGBSV ', INFOT, NOUT, LERR, OK );
          INFOT = 4
-         CALL DGBSV( 0, 0, 0, -1, A, 1, IP, B, 1, INFO )
-         CALL CHKXER( 'DGBSV ', INFOT, NOUT, LERR, OK )
+         dgbsv(0, 0, 0, -1, A, 1, IP, B, 1, INFO );
+         chkxer('DGBSV ', INFOT, NOUT, LERR, OK );
          INFOT = 6
-         CALL DGBSV( 1, 1, 1, 0, A, 3, IP, B, 1, INFO )
-         CALL CHKXER( 'DGBSV ', INFOT, NOUT, LERR, OK )
+         dgbsv(1, 1, 1, 0, A, 3, IP, B, 1, INFO );
+         chkxer('DGBSV ', INFOT, NOUT, LERR, OK );
          INFOT = 9
-         CALL DGBSV( 2, 0, 0, 0, A, 1, IP, B, 1, INFO )
-         CALL CHKXER( 'DGBSV ', INFOT, NOUT, LERR, OK )
+         dgbsv(2, 0, 0, 0, A, 1, IP, B, 1, INFO );
+         chkxer('DGBSV ', INFOT, NOUT, LERR, OK );
 
          // DGBSVX
 
          SRNAMT = 'DGBSVX'
          INFOT = 1
-         CALL DGBSVX( '/', 'N', 0, 0, 0, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, R1, R2, W, IW, INFO )
-         CALL CHKXER( 'DGBSVX', INFOT, NOUT, LERR, OK )
+         dgbsvx('/', 'N', 0, 0, 0, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, R1, R2, W, IW, INFO );
+         chkxer('DGBSVX', INFOT, NOUT, LERR, OK );
          INFOT = 2
-         CALL DGBSVX( 'N', '/', 0, 0, 0, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, R1, R2, W, IW, INFO )
-         CALL CHKXER( 'DGBSVX', INFOT, NOUT, LERR, OK )
+         dgbsvx('N', '/', 0, 0, 0, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, R1, R2, W, IW, INFO );
+         chkxer('DGBSVX', INFOT, NOUT, LERR, OK );
          INFOT = 3
-         CALL DGBSVX( 'N', 'N', -1, 0, 0, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, R1, R2, W, IW, INFO )
-         CALL CHKXER( 'DGBSVX', INFOT, NOUT, LERR, OK )
+         dgbsvx('N', 'N', -1, 0, 0, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, R1, R2, W, IW, INFO );
+         chkxer('DGBSVX', INFOT, NOUT, LERR, OK );
          INFOT = 4
-         CALL DGBSVX( 'N', 'N', 1, -1, 0, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, R1, R2, W, IW, INFO )
-         CALL CHKXER( 'DGBSVX', INFOT, NOUT, LERR, OK )
+         dgbsvx('N', 'N', 1, -1, 0, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, R1, R2, W, IW, INFO );
+         chkxer('DGBSVX', INFOT, NOUT, LERR, OK );
          INFOT = 5
-         CALL DGBSVX( 'N', 'N', 1, 0, -1, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, R1, R2, W, IW, INFO )
-         CALL CHKXER( 'DGBSVX', INFOT, NOUT, LERR, OK )
+         dgbsvx('N', 'N', 1, 0, -1, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, R1, R2, W, IW, INFO );
+         chkxer('DGBSVX', INFOT, NOUT, LERR, OK );
          INFOT = 6
-         CALL DGBSVX( 'N', 'N', 0, 0, 0, -1, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, R1, R2, W, IW, INFO )
-         CALL CHKXER( 'DGBSVX', INFOT, NOUT, LERR, OK )
+         dgbsvx('N', 'N', 0, 0, 0, -1, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, R1, R2, W, IW, INFO );
+         chkxer('DGBSVX', INFOT, NOUT, LERR, OK );
          INFOT = 8
-         CALL DGBSVX( 'N', 'N', 1, 1, 1, 0, A, 2, AF, 4, IP, EQ, R, C, B, 1, X, 1, RCOND, R1, R2, W, IW, INFO )
-         CALL CHKXER( 'DGBSVX', INFOT, NOUT, LERR, OK )
+         dgbsvx('N', 'N', 1, 1, 1, 0, A, 2, AF, 4, IP, EQ, R, C, B, 1, X, 1, RCOND, R1, R2, W, IW, INFO );
+         chkxer('DGBSVX', INFOT, NOUT, LERR, OK );
          INFOT = 10
-         CALL DGBSVX( 'N', 'N', 1, 1, 1, 0, A, 3, AF, 3, IP, EQ, R, C, B, 1, X, 1, RCOND, R1, R2, W, IW, INFO )
-         CALL CHKXER( 'DGBSVX', INFOT, NOUT, LERR, OK )
+         dgbsvx('N', 'N', 1, 1, 1, 0, A, 3, AF, 3, IP, EQ, R, C, B, 1, X, 1, RCOND, R1, R2, W, IW, INFO );
+         chkxer('DGBSVX', INFOT, NOUT, LERR, OK );
          INFOT = 12
          EQ = '/'
-         CALL DGBSVX( 'F', 'N', 0, 0, 0, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, R1, R2, W, IW, INFO )
-         CALL CHKXER( 'DGBSVX', INFOT, NOUT, LERR, OK )
+         dgbsvx('F', 'N', 0, 0, 0, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, R1, R2, W, IW, INFO );
+         chkxer('DGBSVX', INFOT, NOUT, LERR, OK );
          INFOT = 13
          EQ = 'R'
-         CALL DGBSVX( 'F', 'N', 1, 0, 0, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, R1, R2, W, IW, INFO )
-         CALL CHKXER( 'DGBSVX', INFOT, NOUT, LERR, OK )
+         dgbsvx('F', 'N', 1, 0, 0, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, R1, R2, W, IW, INFO );
+         chkxer('DGBSVX', INFOT, NOUT, LERR, OK );
          INFOT = 14
          EQ = 'C'
-         CALL DGBSVX( 'F', 'N', 1, 0, 0, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, R1, R2, W, IW, INFO )
-         CALL CHKXER( 'DGBSVX', INFOT, NOUT, LERR, OK )
+         dgbsvx('F', 'N', 1, 0, 0, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, R1, R2, W, IW, INFO );
+         chkxer('DGBSVX', INFOT, NOUT, LERR, OK );
          INFOT = 16
-         CALL DGBSVX( 'N', 'N', 2, 0, 0, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 2, RCOND, R1, R2, W, IW, INFO )
-         CALL CHKXER( 'DGBSVX', INFOT, NOUT, LERR, OK )
+         dgbsvx('N', 'N', 2, 0, 0, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 2, RCOND, R1, R2, W, IW, INFO );
+         chkxer('DGBSVX', INFOT, NOUT, LERR, OK );
          INFOT = 18
-         CALL DGBSVX( 'N', 'N', 2, 0, 0, 0, A, 1, AF, 1, IP, EQ, R, C, B, 2, X, 1, RCOND, R1, R2, W, IW, INFO )
-         CALL CHKXER( 'DGBSVX', INFOT, NOUT, LERR, OK )
+         dgbsvx('N', 'N', 2, 0, 0, 0, A, 1, AF, 1, IP, EQ, R, C, B, 2, X, 1, RCOND, R1, R2, W, IW, INFO );
+         chkxer('DGBSVX', INFOT, NOUT, LERR, OK );
 
          // DGBSVXX
 
@@ -248,47 +248,47 @@
          NPARAMS = 1
          SRNAMT = 'DGBSVXX'
          INFOT = 1
-         CALL DGBSVXX( '/', 'N', 0, 0, 0, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO )
-         CALL CHKXER( 'DGBSVXX', INFOT, NOUT, LERR, OK )
+         dgbsvxx('/', 'N', 0, 0, 0, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO );
+         chkxer('DGBSVXX', INFOT, NOUT, LERR, OK );
          INFOT = 2
-         CALL DGBSVXX( 'N', '/', 0, 1, 1, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO )
-         CALL CHKXER( 'DGBSVXX', INFOT, NOUT, LERR, OK )
+         dgbsvxx('N', '/', 0, 1, 1, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO );
+         chkxer('DGBSVXX', INFOT, NOUT, LERR, OK );
          INFOT = 3
-         CALL DGBSVXX( 'N', 'N', -1, 1, 1, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO )
-         CALL CHKXER( 'DGBSVXX', INFOT, NOUT, LERR, OK )
+         dgbsvxx('N', 'N', -1, 1, 1, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO );
+         chkxer('DGBSVXX', INFOT, NOUT, LERR, OK );
          INFOT = 4
-         CALL DGBSVXX( 'N', 'N', 2, -1, 1, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO )
-         CALL CHKXER( 'DGBSVXX', INFOT, NOUT, LERR, OK )
+         dgbsvxx('N', 'N', 2, -1, 1, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO );
+         chkxer('DGBSVXX', INFOT, NOUT, LERR, OK );
          INFOT = 5
-         CALL DGBSVXX( 'N', 'N', 2, 1, -1, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO )
-         CALL CHKXER( 'DGBSVXX', INFOT, NOUT, LERR, OK )
+         dgbsvxx('N', 'N', 2, 1, -1, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO );
+         chkxer('DGBSVXX', INFOT, NOUT, LERR, OK );
          INFOT = 6
-         CALL DGBSVXX( 'N', 'N', 0, 1, 1, -1, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO )
-         CALL CHKXER( 'DGBSVXX', INFOT, NOUT, LERR, OK )
+         dgbsvxx('N', 'N', 0, 1, 1, -1, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO );
+         chkxer('DGBSVXX', INFOT, NOUT, LERR, OK );
          INFOT = 8
-         CALL DGBSVXX( 'N', 'N', 2, 1, 1, 1, A, 2, AF, 2, IP, EQ, R, C, B, 2, X, 2, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO )
-         CALL CHKXER( 'DGBSVXX', INFOT, NOUT, LERR, OK )
+         dgbsvxx('N', 'N', 2, 1, 1, 1, A, 2, AF, 2, IP, EQ, R, C, B, 2, X, 2, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO );
+         chkxer('DGBSVXX', INFOT, NOUT, LERR, OK );
          INFOT = 10
-         CALL DGBSVXX( 'N', 'N', 2, 1, 1, 1, A, 3, AF, 3, IP, EQ, R, C, B, 2, X, 2, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO )
-         CALL CHKXER( 'DGBSVXX', INFOT, NOUT, LERR, OK )
+         dgbsvxx('N', 'N', 2, 1, 1, 1, A, 3, AF, 3, IP, EQ, R, C, B, 2, X, 2, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO );
+         chkxer('DGBSVXX', INFOT, NOUT, LERR, OK );
          INFOT = 12
          EQ = '/'
-         CALL DGBSVXX( 'F', 'N', 0, 1, 1, 0, A, 3, AF, 4, IP, EQ, R, C, B, 1, X, 1, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO )
-         CALL CHKXER( 'DGBSVXX', INFOT, NOUT, LERR, OK )
+         dgbsvxx('F', 'N', 0, 1, 1, 0, A, 3, AF, 4, IP, EQ, R, C, B, 1, X, 1, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO );
+         chkxer('DGBSVXX', INFOT, NOUT, LERR, OK );
          INFOT = 13
          EQ = 'R'
-         CALL DGBSVXX( 'F', 'N', 1, 1, 1, 0, A, 3, AF, 4, IP, EQ, R, C, B, 1, X, 1, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO )
-         CALL CHKXER( 'DGBSVXX', INFOT, NOUT, LERR, OK )
+         dgbsvxx('F', 'N', 1, 1, 1, 0, A, 3, AF, 4, IP, EQ, R, C, B, 1, X, 1, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO );
+         chkxer('DGBSVXX', INFOT, NOUT, LERR, OK );
          INFOT = 14
          EQ = 'C'
-         CALL DGBSVXX( 'F', 'N', 1, 1, 1, 0, A, 3, AF, 4, IP, EQ, R, C, B, 1, X, 1, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO )
-         CALL CHKXER( 'DGBSVXX', INFOT, NOUT, LERR, OK )
+         dgbsvxx('F', 'N', 1, 1, 1, 0, A, 3, AF, 4, IP, EQ, R, C, B, 1, X, 1, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO );
+         chkxer('DGBSVXX', INFOT, NOUT, LERR, OK );
          INFOT = 15
-         CALL DGBSVXX( 'N', 'N', 2, 1, 1, 1, A, 3, AF, 4, IP, EQ, R, C, B, 1, X, 2, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO )
-         CALL CHKXER( 'DGBSVXX', INFOT, NOUT, LERR, OK )
+         dgbsvxx('N', 'N', 2, 1, 1, 1, A, 3, AF, 4, IP, EQ, R, C, B, 1, X, 2, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO );
+         chkxer('DGBSVXX', INFOT, NOUT, LERR, OK );
          INFOT = 16
-         CALL DGBSVXX( 'N', 'N', 2, 1, 1, 1, A, 3, AF, 4, IP, EQ, R, C, B, 2, X, 1, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO )
-         CALL CHKXER( 'DGBSVXX', INFOT, NOUT, LERR, OK )
+         dgbsvxx('N', 'N', 2, 1, 1, 1, A, 3, AF, 4, IP, EQ, R, C, B, 2, X, 1, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO );
+         chkxer('DGBSVXX', INFOT, NOUT, LERR, OK );
 
       } else if ( LSAMEN( 2, C2, 'GT' ) ) {
 
@@ -296,36 +296,36 @@
 
          SRNAMT = 'DGTSV '
          INFOT = 1
-         CALL DGTSV( -1, 0, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), B, 1, INFO )
-         CALL CHKXER( 'DGTSV ', INFOT, NOUT, LERR, OK )
+         dgtsv(-1, 0, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), B, 1, INFO );
+         chkxer('DGTSV ', INFOT, NOUT, LERR, OK );
          INFOT = 2
-         CALL DGTSV( 0, -1, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), B, 1, INFO )
-         CALL CHKXER( 'DGTSV ', INFOT, NOUT, LERR, OK )
+         dgtsv(0, -1, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), B, 1, INFO );
+         chkxer('DGTSV ', INFOT, NOUT, LERR, OK );
          INFOT = 7
-         CALL DGTSV( 2, 0, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), B, 1, INFO )
-         CALL CHKXER( 'DGTSV ', INFOT, NOUT, LERR, OK )
+         dgtsv(2, 0, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), B, 1, INFO );
+         chkxer('DGTSV ', INFOT, NOUT, LERR, OK );
 
          // DGTSVX
 
          SRNAMT = 'DGTSVX'
          INFOT = 1
-         CALL DGTSVX( '/', 'N', 0, 0, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), AF( 1, 1 ), AF( 1, 2 ), AF( 1, 3 ), AF( 1, 4 ), IP, B, 1, X, 1, RCOND, R1, R2, W, IW, INFO )
-         CALL CHKXER( 'DGTSVX', INFOT, NOUT, LERR, OK )
+         dgtsvx('/', 'N', 0, 0, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), AF( 1, 1 ), AF( 1, 2 ), AF( 1, 3 ), AF( 1, 4 ), IP, B, 1, X, 1, RCOND, R1, R2, W, IW, INFO );
+         chkxer('DGTSVX', INFOT, NOUT, LERR, OK );
          INFOT = 2
-         CALL DGTSVX( 'N', '/', 0, 0, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), AF( 1, 1 ), AF( 1, 2 ), AF( 1, 3 ), AF( 1, 4 ), IP, B, 1, X, 1, RCOND, R1, R2, W, IW, INFO )
-         CALL CHKXER( 'DGTSVX', INFOT, NOUT, LERR, OK )
+         dgtsvx('N', '/', 0, 0, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), AF( 1, 1 ), AF( 1, 2 ), AF( 1, 3 ), AF( 1, 4 ), IP, B, 1, X, 1, RCOND, R1, R2, W, IW, INFO );
+         chkxer('DGTSVX', INFOT, NOUT, LERR, OK );
          INFOT = 3
-         CALL DGTSVX( 'N', 'N', -1, 0, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), AF( 1, 1 ), AF( 1, 2 ), AF( 1, 3 ), AF( 1, 4 ), IP, B, 1, X, 1, RCOND, R1, R2, W, IW, INFO )
-         CALL CHKXER( 'DGTSVX', INFOT, NOUT, LERR, OK )
+         dgtsvx('N', 'N', -1, 0, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), AF( 1, 1 ), AF( 1, 2 ), AF( 1, 3 ), AF( 1, 4 ), IP, B, 1, X, 1, RCOND, R1, R2, W, IW, INFO );
+         chkxer('DGTSVX', INFOT, NOUT, LERR, OK );
          INFOT = 4
-         CALL DGTSVX( 'N', 'N', 0, -1, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), AF( 1, 1 ), AF( 1, 2 ), AF( 1, 3 ), AF( 1, 4 ), IP, B, 1, X, 1, RCOND, R1, R2, W, IW, INFO )
-         CALL CHKXER( 'DGTSVX', INFOT, NOUT, LERR, OK )
+         dgtsvx('N', 'N', 0, -1, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), AF( 1, 1 ), AF( 1, 2 ), AF( 1, 3 ), AF( 1, 4 ), IP, B, 1, X, 1, RCOND, R1, R2, W, IW, INFO );
+         chkxer('DGTSVX', INFOT, NOUT, LERR, OK );
          INFOT = 14
-         CALL DGTSVX( 'N', 'N', 2, 0, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), AF( 1, 1 ), AF( 1, 2 ), AF( 1, 3 ), AF( 1, 4 ), IP, B, 1, X, 2, RCOND, R1, R2, W, IW, INFO )
-         CALL CHKXER( 'DGTSVX', INFOT, NOUT, LERR, OK )
+         dgtsvx('N', 'N', 2, 0, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), AF( 1, 1 ), AF( 1, 2 ), AF( 1, 3 ), AF( 1, 4 ), IP, B, 1, X, 2, RCOND, R1, R2, W, IW, INFO );
+         chkxer('DGTSVX', INFOT, NOUT, LERR, OK );
          INFOT = 16
-         CALL DGTSVX( 'N', 'N', 2, 0, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), AF( 1, 1 ), AF( 1, 2 ), AF( 1, 3 ), AF( 1, 4 ), IP, B, 2, X, 1, RCOND, R1, R2, W, IW, INFO )
-         CALL CHKXER( 'DGTSVX', INFOT, NOUT, LERR, OK )
+         dgtsvx('N', 'N', 2, 0, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), AF( 1, 1 ), AF( 1, 2 ), AF( 1, 3 ), AF( 1, 4 ), IP, B, 2, X, 1, RCOND, R1, R2, W, IW, INFO );
+         chkxer('DGTSVX', INFOT, NOUT, LERR, OK );
 
       } else if ( LSAMEN( 2, C2, 'PO' ) ) {
 
@@ -333,56 +333,56 @@
 
          SRNAMT = 'DPOSV '
          INFOT = 1
-         CALL DPOSV( '/', 0, 0, A, 1, B, 1, INFO )
-         CALL CHKXER( 'DPOSV ', INFOT, NOUT, LERR, OK )
+         dposv('/', 0, 0, A, 1, B, 1, INFO );
+         chkxer('DPOSV ', INFOT, NOUT, LERR, OK );
          INFOT = 2
-         CALL DPOSV( 'U', -1, 0, A, 1, B, 1, INFO )
-         CALL CHKXER( 'DPOSV ', INFOT, NOUT, LERR, OK )
+         dposv('U', -1, 0, A, 1, B, 1, INFO );
+         chkxer('DPOSV ', INFOT, NOUT, LERR, OK );
          INFOT = 3
-         CALL DPOSV( 'U', 0, -1, A, 1, B, 1, INFO )
-         CALL CHKXER( 'DPOSV ', INFOT, NOUT, LERR, OK )
+         dposv('U', 0, -1, A, 1, B, 1, INFO );
+         chkxer('DPOSV ', INFOT, NOUT, LERR, OK );
          INFOT = 5
-         CALL DPOSV( 'U', 2, 0, A, 1, B, 2, INFO )
-         CALL CHKXER( 'DPOSV ', INFOT, NOUT, LERR, OK )
+         dposv('U', 2, 0, A, 1, B, 2, INFO );
+         chkxer('DPOSV ', INFOT, NOUT, LERR, OK );
          INFOT = 7
-         CALL DPOSV( 'U', 2, 0, A, 2, B, 1, INFO )
-         CALL CHKXER( 'DPOSV ', INFOT, NOUT, LERR, OK )
+         dposv('U', 2, 0, A, 2, B, 1, INFO );
+         chkxer('DPOSV ', INFOT, NOUT, LERR, OK );
 
          // DPOSVX
 
          SRNAMT = 'DPOSVX'
          INFOT = 1
-         CALL DPOSVX( '/', 'U', 0, 0, A, 1, AF, 1, EQ, C, B, 1, X, 1, RCOND, R1, R2, W, IW, INFO )
-         CALL CHKXER( 'DPOSVX', INFOT, NOUT, LERR, OK )
+         dposvx('/', 'U', 0, 0, A, 1, AF, 1, EQ, C, B, 1, X, 1, RCOND, R1, R2, W, IW, INFO );
+         chkxer('DPOSVX', INFOT, NOUT, LERR, OK );
          INFOT = 2
-         CALL DPOSVX( 'N', '/', 0, 0, A, 1, AF, 1, EQ, C, B, 1, X, 1, RCOND, R1, R2, W, IW, INFO )
-         CALL CHKXER( 'DPOSVX', INFOT, NOUT, LERR, OK )
+         dposvx('N', '/', 0, 0, A, 1, AF, 1, EQ, C, B, 1, X, 1, RCOND, R1, R2, W, IW, INFO );
+         chkxer('DPOSVX', INFOT, NOUT, LERR, OK );
          INFOT = 3
-         CALL DPOSVX( 'N', 'U', -1, 0, A, 1, AF, 1, EQ, C, B, 1, X, 1, RCOND, R1, R2, W, IW, INFO )
-         CALL CHKXER( 'DPOSVX', INFOT, NOUT, LERR, OK )
+         dposvx('N', 'U', -1, 0, A, 1, AF, 1, EQ, C, B, 1, X, 1, RCOND, R1, R2, W, IW, INFO );
+         chkxer('DPOSVX', INFOT, NOUT, LERR, OK );
          INFOT = 4
-         CALL DPOSVX( 'N', 'U', 0, -1, A, 1, AF, 1, EQ, C, B, 1, X, 1, RCOND, R1, R2, W, IW, INFO )
-         CALL CHKXER( 'DPOSVX', INFOT, NOUT, LERR, OK )
+         dposvx('N', 'U', 0, -1, A, 1, AF, 1, EQ, C, B, 1, X, 1, RCOND, R1, R2, W, IW, INFO );
+         chkxer('DPOSVX', INFOT, NOUT, LERR, OK );
          INFOT = 6
-         CALL DPOSVX( 'N', 'U', 2, 0, A, 1, AF, 2, EQ, C, B, 2, X, 2, RCOND, R1, R2, W, IW, INFO )
-         CALL CHKXER( 'DPOSVX', INFOT, NOUT, LERR, OK )
+         dposvx('N', 'U', 2, 0, A, 1, AF, 2, EQ, C, B, 2, X, 2, RCOND, R1, R2, W, IW, INFO );
+         chkxer('DPOSVX', INFOT, NOUT, LERR, OK );
          INFOT = 8
-         CALL DPOSVX( 'N', 'U', 2, 0, A, 2, AF, 1, EQ, C, B, 2, X, 2, RCOND, R1, R2, W, IW, INFO )
-         CALL CHKXER( 'DPOSVX', INFOT, NOUT, LERR, OK )
+         dposvx('N', 'U', 2, 0, A, 2, AF, 1, EQ, C, B, 2, X, 2, RCOND, R1, R2, W, IW, INFO );
+         chkxer('DPOSVX', INFOT, NOUT, LERR, OK );
          INFOT = 9
          EQ = '/'
-         CALL DPOSVX( 'F', 'U', 0, 0, A, 1, AF, 1, EQ, C, B, 1, X, 1, RCOND, R1, R2, W, IW, INFO )
-         CALL CHKXER( 'DPOSVX', INFOT, NOUT, LERR, OK )
+         dposvx('F', 'U', 0, 0, A, 1, AF, 1, EQ, C, B, 1, X, 1, RCOND, R1, R2, W, IW, INFO );
+         chkxer('DPOSVX', INFOT, NOUT, LERR, OK );
          INFOT = 10
          EQ = 'Y'
-         CALL DPOSVX( 'F', 'U', 1, 0, A, 1, AF, 1, EQ, C, B, 1, X, 1, RCOND, R1, R2, W, IW, INFO )
-         CALL CHKXER( 'DPOSVX', INFOT, NOUT, LERR, OK )
+         dposvx('F', 'U', 1, 0, A, 1, AF, 1, EQ, C, B, 1, X, 1, RCOND, R1, R2, W, IW, INFO );
+         chkxer('DPOSVX', INFOT, NOUT, LERR, OK );
          INFOT = 12
-         CALL DPOSVX( 'N', 'U', 2, 0, A, 2, AF, 2, EQ, C, B, 1, X, 2, RCOND, R1, R2, W, IW, INFO )
-         CALL CHKXER( 'DPOSVX', INFOT, NOUT, LERR, OK )
+         dposvx('N', 'U', 2, 0, A, 2, AF, 2, EQ, C, B, 1, X, 2, RCOND, R1, R2, W, IW, INFO );
+         chkxer('DPOSVX', INFOT, NOUT, LERR, OK );
          INFOT = 14
-         CALL DPOSVX( 'N', 'U', 2, 0, A, 2, AF, 2, EQ, C, B, 2, X, 1, RCOND, R1, R2, W, IW, INFO )
-         CALL CHKXER( 'DPOSVX', INFOT, NOUT, LERR, OK )
+         dposvx('N', 'U', 2, 0, A, 2, AF, 2, EQ, C, B, 2, X, 1, RCOND, R1, R2, W, IW, INFO );
+         chkxer('DPOSVX', INFOT, NOUT, LERR, OK );
 
          // DPOSVXX
 
@@ -390,37 +390,37 @@
          NPARAMS = 1
          SRNAMT = 'DPOSVXX'
          INFOT = 1
-         CALL DPOSVXX( '/', 'U', 0, 0, A, 1, AF, 1, EQ, C, B, 1, X, 1, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO )
-         CALL CHKXER( 'DPOSVXX', INFOT, NOUT, LERR, OK )
+         dposvxx('/', 'U', 0, 0, A, 1, AF, 1, EQ, C, B, 1, X, 1, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO );
+         chkxer('DPOSVXX', INFOT, NOUT, LERR, OK );
          INFOT = 2
-         CALL DPOSVXX( 'N', '/', 0, 0, A, 1, AF, 1, EQ, C, B, 1, X, 1, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO )
-         CALL CHKXER( 'DPOSVXX', INFOT, NOUT, LERR, OK )
+         dposvxx('N', '/', 0, 0, A, 1, AF, 1, EQ, C, B, 1, X, 1, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO );
+         chkxer('DPOSVXX', INFOT, NOUT, LERR, OK );
          INFOT = 3
-         CALL DPOSVXX( 'N', 'U', -1, 0, A, 1, AF, 1, EQ, C, B, 1, X, 1, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO )
-         CALL CHKXER( 'DPOSVXX', INFOT, NOUT, LERR, OK )
+         dposvxx('N', 'U', -1, 0, A, 1, AF, 1, EQ, C, B, 1, X, 1, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO );
+         chkxer('DPOSVXX', INFOT, NOUT, LERR, OK );
          INFOT = 4
-         CALL DPOSVXX( 'N', 'U', 0, -1, A, 1, AF, 1, EQ, C, B, 1, X, 1, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO )
-         CALL CHKXER( 'DPOSVXX', INFOT, NOUT, LERR, OK )
+         dposvxx('N', 'U', 0, -1, A, 1, AF, 1, EQ, C, B, 1, X, 1, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO );
+         chkxer('DPOSVXX', INFOT, NOUT, LERR, OK );
          INFOT = 6
-         CALL DPOSVXX( 'N', 'U', 2, 0, A, 1, AF, 2, EQ, C, B, 2, X, 2, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO )
-         CALL CHKXER( 'DPOSVXX', INFOT, NOUT, LERR, OK )
+         dposvxx('N', 'U', 2, 0, A, 1, AF, 2, EQ, C, B, 2, X, 2, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO );
+         chkxer('DPOSVXX', INFOT, NOUT, LERR, OK );
          INFOT = 8
-         CALL DPOSVXX( 'N', 'U', 2, 0, A, 2, AF, 1, EQ, C, B, 2, X, 2, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO )
-         CALL CHKXER( 'DPOSVXX', INFOT, NOUT, LERR, OK )
+         dposvxx('N', 'U', 2, 0, A, 2, AF, 1, EQ, C, B, 2, X, 2, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO );
+         chkxer('DPOSVXX', INFOT, NOUT, LERR, OK );
          INFOT = 9
          EQ = '/'
-         CALL DPOSVXX( 'F', 'U', 0, 0, A, 1, AF, 1, EQ, C, B, 1, X, 1, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO )
-         CALL CHKXER( 'DPOSVXX', INFOT, NOUT, LERR, OK )
+         dposvxx('F', 'U', 0, 0, A, 1, AF, 1, EQ, C, B, 1, X, 1, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO );
+         chkxer('DPOSVXX', INFOT, NOUT, LERR, OK );
          INFOT = 10
          EQ = 'Y'
-         CALL DPOSVXX( 'F', 'U', 1, 0, A, 1, AF, 1, EQ, C, B, 1, X, 1, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO )
-         CALL CHKXER( 'DPOSVXX', INFOT, NOUT, LERR, OK )
+         dposvxx('F', 'U', 1, 0, A, 1, AF, 1, EQ, C, B, 1, X, 1, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO );
+         chkxer('DPOSVXX', INFOT, NOUT, LERR, OK );
          INFOT = 12
-         CALL DPOSVXX( 'N', 'U', 2, 0, A, 2, AF, 2, EQ, C, B, 1, X, 2, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO )
-         CALL CHKXER( 'DPOSVXX', INFOT, NOUT, LERR, OK )
+         dposvxx('N', 'U', 2, 0, A, 2, AF, 2, EQ, C, B, 1, X, 2, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO );
+         chkxer('DPOSVXX', INFOT, NOUT, LERR, OK );
          INFOT = 14
-         CALL DPOSVXX( 'N', 'U', 2, 0, A, 2, AF, 2, EQ, C, B, 2, X, 1, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO )
-         CALL CHKXER( 'DPOSVXX', INFOT, NOUT, LERR, OK )
+         dposvxx('N', 'U', 2, 0, A, 2, AF, 2, EQ, C, B, 2, X, 1, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO );
+         chkxer('DPOSVXX', INFOT, NOUT, LERR, OK );
 
       } else if ( LSAMEN( 2, C2, 'PP' ) ) {
 
@@ -428,47 +428,47 @@
 
          SRNAMT = 'DPPSV '
          INFOT = 1
-         CALL DPPSV( '/', 0, 0, A, B, 1, INFO )
-         CALL CHKXER( 'DPPSV ', INFOT, NOUT, LERR, OK )
+         dppsv('/', 0, 0, A, B, 1, INFO );
+         chkxer('DPPSV ', INFOT, NOUT, LERR, OK );
          INFOT = 2
-         CALL DPPSV( 'U', -1, 0, A, B, 1, INFO )
-         CALL CHKXER( 'DPPSV ', INFOT, NOUT, LERR, OK )
+         dppsv('U', -1, 0, A, B, 1, INFO );
+         chkxer('DPPSV ', INFOT, NOUT, LERR, OK );
          INFOT = 3
-         CALL DPPSV( 'U', 0, -1, A, B, 1, INFO )
-         CALL CHKXER( 'DPPSV ', INFOT, NOUT, LERR, OK )
+         dppsv('U', 0, -1, A, B, 1, INFO );
+         chkxer('DPPSV ', INFOT, NOUT, LERR, OK );
          INFOT = 6
-         CALL DPPSV( 'U', 2, 0, A, B, 1, INFO )
-         CALL CHKXER( 'DPPSV ', INFOT, NOUT, LERR, OK )
+         dppsv('U', 2, 0, A, B, 1, INFO );
+         chkxer('DPPSV ', INFOT, NOUT, LERR, OK );
 
          // DPPSVX
 
          SRNAMT = 'DPPSVX'
          INFOT = 1
-         CALL DPPSVX( '/', 'U', 0, 0, A, AF, EQ, C, B, 1, X, 1, RCOND, R1, R2, W, IW, INFO )
-         CALL CHKXER( 'DPPSVX', INFOT, NOUT, LERR, OK )
+         dppsvx('/', 'U', 0, 0, A, AF, EQ, C, B, 1, X, 1, RCOND, R1, R2, W, IW, INFO );
+         chkxer('DPPSVX', INFOT, NOUT, LERR, OK );
          INFOT = 2
-         CALL DPPSVX( 'N', '/', 0, 0, A, AF, EQ, C, B, 1, X, 1, RCOND, R1, R2, W, IW, INFO )
-         CALL CHKXER( 'DPPSVX', INFOT, NOUT, LERR, OK )
+         dppsvx('N', '/', 0, 0, A, AF, EQ, C, B, 1, X, 1, RCOND, R1, R2, W, IW, INFO );
+         chkxer('DPPSVX', INFOT, NOUT, LERR, OK );
          INFOT = 3
-         CALL DPPSVX( 'N', 'U', -1, 0, A, AF, EQ, C, B, 1, X, 1, RCOND, R1, R2, W, IW, INFO )
-         CALL CHKXER( 'DPPSVX', INFOT, NOUT, LERR, OK )
+         dppsvx('N', 'U', -1, 0, A, AF, EQ, C, B, 1, X, 1, RCOND, R1, R2, W, IW, INFO );
+         chkxer('DPPSVX', INFOT, NOUT, LERR, OK );
          INFOT = 4
-         CALL DPPSVX( 'N', 'U', 0, -1, A, AF, EQ, C, B, 1, X, 1, RCOND, R1, R2, W, IW, INFO )
-         CALL CHKXER( 'DPPSVX', INFOT, NOUT, LERR, OK )
+         dppsvx('N', 'U', 0, -1, A, AF, EQ, C, B, 1, X, 1, RCOND, R1, R2, W, IW, INFO );
+         chkxer('DPPSVX', INFOT, NOUT, LERR, OK );
          INFOT = 7
          EQ = '/'
-         CALL DPPSVX( 'F', 'U', 0, 0, A, AF, EQ, C, B, 1, X, 1, RCOND, R1, R2, W, IW, INFO )
-         CALL CHKXER( 'DPPSVX', INFOT, NOUT, LERR, OK )
+         dppsvx('F', 'U', 0, 0, A, AF, EQ, C, B, 1, X, 1, RCOND, R1, R2, W, IW, INFO );
+         chkxer('DPPSVX', INFOT, NOUT, LERR, OK );
          INFOT = 8
          EQ = 'Y'
-         CALL DPPSVX( 'F', 'U', 1, 0, A, AF, EQ, C, B, 1, X, 1, RCOND, R1, R2, W, IW, INFO )
-         CALL CHKXER( 'DPPSVX', INFOT, NOUT, LERR, OK )
+         dppsvx('F', 'U', 1, 0, A, AF, EQ, C, B, 1, X, 1, RCOND, R1, R2, W, IW, INFO );
+         chkxer('DPPSVX', INFOT, NOUT, LERR, OK );
          INFOT = 10
-         CALL DPPSVX( 'N', 'U', 2, 0, A, AF, EQ, C, B, 1, X, 2, RCOND, R1, R2, W, IW, INFO )
-         CALL CHKXER( 'DPPSVX', INFOT, NOUT, LERR, OK )
+         dppsvx('N', 'U', 2, 0, A, AF, EQ, C, B, 1, X, 2, RCOND, R1, R2, W, IW, INFO );
+         chkxer('DPPSVX', INFOT, NOUT, LERR, OK );
          INFOT = 12
-         CALL DPPSVX( 'N', 'U', 2, 0, A, AF, EQ, C, B, 2, X, 1, RCOND, R1, R2, W, IW, INFO )
-         CALL CHKXER( 'DPPSVX', INFOT, NOUT, LERR, OK )
+         dppsvx('N', 'U', 2, 0, A, AF, EQ, C, B, 2, X, 1, RCOND, R1, R2, W, IW, INFO );
+         chkxer('DPPSVX', INFOT, NOUT, LERR, OK );
 
       } else if ( LSAMEN( 2, C2, 'PB' ) ) {
 
@@ -476,62 +476,62 @@
 
          SRNAMT = 'DPBSV '
          INFOT = 1
-         CALL DPBSV( '/', 0, 0, 0, A, 1, B, 1, INFO )
-         CALL CHKXER( 'DPBSV ', INFOT, NOUT, LERR, OK )
+         dpbsv('/', 0, 0, 0, A, 1, B, 1, INFO );
+         chkxer('DPBSV ', INFOT, NOUT, LERR, OK );
          INFOT = 2
-         CALL DPBSV( 'U', -1, 0, 0, A, 1, B, 1, INFO )
-         CALL CHKXER( 'DPBSV ', INFOT, NOUT, LERR, OK )
+         dpbsv('U', -1, 0, 0, A, 1, B, 1, INFO );
+         chkxer('DPBSV ', INFOT, NOUT, LERR, OK );
          INFOT = 3
-         CALL DPBSV( 'U', 1, -1, 0, A, 1, B, 1, INFO )
-         CALL CHKXER( 'DPBSV ', INFOT, NOUT, LERR, OK )
+         dpbsv('U', 1, -1, 0, A, 1, B, 1, INFO );
+         chkxer('DPBSV ', INFOT, NOUT, LERR, OK );
          INFOT = 4
-         CALL DPBSV( 'U', 0, 0, -1, A, 1, B, 1, INFO )
-         CALL CHKXER( 'DPBSV ', INFOT, NOUT, LERR, OK )
+         dpbsv('U', 0, 0, -1, A, 1, B, 1, INFO );
+         chkxer('DPBSV ', INFOT, NOUT, LERR, OK );
          INFOT = 6
-         CALL DPBSV( 'U', 1, 1, 0, A, 1, B, 2, INFO )
-         CALL CHKXER( 'DPBSV ', INFOT, NOUT, LERR, OK )
+         dpbsv('U', 1, 1, 0, A, 1, B, 2, INFO );
+         chkxer('DPBSV ', INFOT, NOUT, LERR, OK );
          INFOT = 8
-         CALL DPBSV( 'U', 2, 0, 0, A, 1, B, 1, INFO )
-         CALL CHKXER( 'DPBSV ', INFOT, NOUT, LERR, OK )
+         dpbsv('U', 2, 0, 0, A, 1, B, 1, INFO );
+         chkxer('DPBSV ', INFOT, NOUT, LERR, OK );
 
          // DPBSVX
 
          SRNAMT = 'DPBSVX'
          INFOT = 1
-         CALL DPBSVX( '/', 'U', 0, 0, 0, A, 1, AF, 1, EQ, C, B, 1, X, 1, RCOND, R1, R2, W, IW, INFO )
-         CALL CHKXER( 'DPBSVX', INFOT, NOUT, LERR, OK )
+         dpbsvx('/', 'U', 0, 0, 0, A, 1, AF, 1, EQ, C, B, 1, X, 1, RCOND, R1, R2, W, IW, INFO );
+         chkxer('DPBSVX', INFOT, NOUT, LERR, OK );
          INFOT = 2
-         CALL DPBSVX( 'N', '/', 0, 0, 0, A, 1, AF, 1, EQ, C, B, 1, X, 1, RCOND, R1, R2, W, IW, INFO )
-         CALL CHKXER( 'DPBSVX', INFOT, NOUT, LERR, OK )
+         dpbsvx('N', '/', 0, 0, 0, A, 1, AF, 1, EQ, C, B, 1, X, 1, RCOND, R1, R2, W, IW, INFO );
+         chkxer('DPBSVX', INFOT, NOUT, LERR, OK );
          INFOT = 3
-         CALL DPBSVX( 'N', 'U', -1, 0, 0, A, 1, AF, 1, EQ, C, B, 1, X, 1, RCOND, R1, R2, W, IW, INFO )
-         CALL CHKXER( 'DPBSVX', INFOT, NOUT, LERR, OK )
+         dpbsvx('N', 'U', -1, 0, 0, A, 1, AF, 1, EQ, C, B, 1, X, 1, RCOND, R1, R2, W, IW, INFO );
+         chkxer('DPBSVX', INFOT, NOUT, LERR, OK );
          INFOT = 4
-         CALL DPBSVX( 'N', 'U', 1, -1, 0, A, 1, AF, 1, EQ, C, B, 1, X, 1, RCOND, R1, R2, W, IW, INFO )
-         CALL CHKXER( 'DPBSVX', INFOT, NOUT, LERR, OK )
+         dpbsvx('N', 'U', 1, -1, 0, A, 1, AF, 1, EQ, C, B, 1, X, 1, RCOND, R1, R2, W, IW, INFO );
+         chkxer('DPBSVX', INFOT, NOUT, LERR, OK );
          INFOT = 5
-         CALL DPBSVX( 'N', 'U', 0, 0, -1, A, 1, AF, 1, EQ, C, B, 1, X, 1, RCOND, R1, R2, W, IW, INFO )
-         CALL CHKXER( 'DPBSVX', INFOT, NOUT, LERR, OK )
+         dpbsvx('N', 'U', 0, 0, -1, A, 1, AF, 1, EQ, C, B, 1, X, 1, RCOND, R1, R2, W, IW, INFO );
+         chkxer('DPBSVX', INFOT, NOUT, LERR, OK );
          INFOT = 7
-         CALL DPBSVX( 'N', 'U', 1, 1, 0, A, 1, AF, 2, EQ, C, B, 2, X, 2, RCOND, R1, R2, W, IW, INFO )
-         CALL CHKXER( 'DPBSVX', INFOT, NOUT, LERR, OK )
+         dpbsvx('N', 'U', 1, 1, 0, A, 1, AF, 2, EQ, C, B, 2, X, 2, RCOND, R1, R2, W, IW, INFO );
+         chkxer('DPBSVX', INFOT, NOUT, LERR, OK );
          INFOT = 9
-         CALL DPBSVX( 'N', 'U', 1, 1, 0, A, 2, AF, 1, EQ, C, B, 2, X, 2, RCOND, R1, R2, W, IW, INFO )
-         CALL CHKXER( 'DPBSVX', INFOT, NOUT, LERR, OK )
+         dpbsvx('N', 'U', 1, 1, 0, A, 2, AF, 1, EQ, C, B, 2, X, 2, RCOND, R1, R2, W, IW, INFO );
+         chkxer('DPBSVX', INFOT, NOUT, LERR, OK );
          INFOT = 10
          EQ = '/'
-         CALL DPBSVX( 'F', 'U', 0, 0, 0, A, 1, AF, 1, EQ, C, B, 1, X, 1, RCOND, R1, R2, W, IW, INFO )
-         CALL CHKXER( 'DPBSVX', INFOT, NOUT, LERR, OK )
+         dpbsvx('F', 'U', 0, 0, 0, A, 1, AF, 1, EQ, C, B, 1, X, 1, RCOND, R1, R2, W, IW, INFO );
+         chkxer('DPBSVX', INFOT, NOUT, LERR, OK );
          INFOT = 11
          EQ = 'Y'
-         CALL DPBSVX( 'F', 'U', 1, 0, 0, A, 1, AF, 1, EQ, C, B, 1, X, 1, RCOND, R1, R2, W, IW, INFO )
-         CALL CHKXER( 'DPBSVX', INFOT, NOUT, LERR, OK )
+         dpbsvx('F', 'U', 1, 0, 0, A, 1, AF, 1, EQ, C, B, 1, X, 1, RCOND, R1, R2, W, IW, INFO );
+         chkxer('DPBSVX', INFOT, NOUT, LERR, OK );
          INFOT = 13
-         CALL DPBSVX( 'N', 'U', 2, 0, 0, A, 1, AF, 1, EQ, C, B, 1, X, 2, RCOND, R1, R2, W, IW, INFO )
-         CALL CHKXER( 'DPBSVX', INFOT, NOUT, LERR, OK )
+         dpbsvx('N', 'U', 2, 0, 0, A, 1, AF, 1, EQ, C, B, 1, X, 2, RCOND, R1, R2, W, IW, INFO );
+         chkxer('DPBSVX', INFOT, NOUT, LERR, OK );
          INFOT = 15
-         CALL DPBSVX( 'N', 'U', 2, 0, 0, A, 1, AF, 1, EQ, C, B, 2, X, 1, RCOND, R1, R2, W, IW, INFO )
-         CALL CHKXER( 'DPBSVX', INFOT, NOUT, LERR, OK )
+         dpbsvx('N', 'U', 2, 0, 0, A, 1, AF, 1, EQ, C, B, 2, X, 1, RCOND, R1, R2, W, IW, INFO );
+         chkxer('DPBSVX', INFOT, NOUT, LERR, OK );
 
       } else if ( LSAMEN( 2, C2, 'PT' ) ) {
 
@@ -539,33 +539,33 @@
 
          SRNAMT = 'DPTSV '
          INFOT = 1
-         CALL DPTSV( -1, 0, A( 1, 1 ), A( 1, 2 ), B, 1, INFO )
-         CALL CHKXER( 'DPTSV ', INFOT, NOUT, LERR, OK )
+         dptsv(-1, 0, A( 1, 1 ), A( 1, 2 ), B, 1, INFO );
+         chkxer('DPTSV ', INFOT, NOUT, LERR, OK );
          INFOT = 2
-         CALL DPTSV( 0, -1, A( 1, 1 ), A( 1, 2 ), B, 1, INFO )
-         CALL CHKXER( 'DPTSV ', INFOT, NOUT, LERR, OK )
+         dptsv(0, -1, A( 1, 1 ), A( 1, 2 ), B, 1, INFO );
+         chkxer('DPTSV ', INFOT, NOUT, LERR, OK );
          INFOT = 6
-         CALL DPTSV( 2, 0, A( 1, 1 ), A( 1, 2 ), B, 1, INFO )
-         CALL CHKXER( 'DPTSV ', INFOT, NOUT, LERR, OK )
+         dptsv(2, 0, A( 1, 1 ), A( 1, 2 ), B, 1, INFO );
+         chkxer('DPTSV ', INFOT, NOUT, LERR, OK );
 
          // DPTSVX
 
          SRNAMT = 'DPTSVX'
          INFOT = 1
-         CALL DPTSVX( '/', 0, 0, A( 1, 1 ), A( 1, 2 ), AF( 1, 1 ), AF( 1, 2 ), B, 1, X, 1, RCOND, R1, R2, W, INFO )
-         CALL CHKXER( 'DPTSVX', INFOT, NOUT, LERR, OK )
+         dptsvx('/', 0, 0, A( 1, 1 ), A( 1, 2 ), AF( 1, 1 ), AF( 1, 2 ), B, 1, X, 1, RCOND, R1, R2, W, INFO );
+         chkxer('DPTSVX', INFOT, NOUT, LERR, OK );
          INFOT = 2
-         CALL DPTSVX( 'N', -1, 0, A( 1, 1 ), A( 1, 2 ), AF( 1, 1 ), AF( 1, 2 ), B, 1, X, 1, RCOND, R1, R2, W, INFO )
-         CALL CHKXER( 'DPTSVX', INFOT, NOUT, LERR, OK )
+         dptsvx('N', -1, 0, A( 1, 1 ), A( 1, 2 ), AF( 1, 1 ), AF( 1, 2 ), B, 1, X, 1, RCOND, R1, R2, W, INFO );
+         chkxer('DPTSVX', INFOT, NOUT, LERR, OK );
          INFOT = 3
-         CALL DPTSVX( 'N', 0, -1, A( 1, 1 ), A( 1, 2 ), AF( 1, 1 ), AF( 1, 2 ), B, 1, X, 1, RCOND, R1, R2, W, INFO )
-         CALL CHKXER( 'DPTSVX', INFOT, NOUT, LERR, OK )
+         dptsvx('N', 0, -1, A( 1, 1 ), A( 1, 2 ), AF( 1, 1 ), AF( 1, 2 ), B, 1, X, 1, RCOND, R1, R2, W, INFO );
+         chkxer('DPTSVX', INFOT, NOUT, LERR, OK );
          INFOT = 9
-         CALL DPTSVX( 'N', 2, 0, A( 1, 1 ), A( 1, 2 ), AF( 1, 1 ), AF( 1, 2 ), B, 1, X, 2, RCOND, R1, R2, W, INFO )
-         CALL CHKXER( 'DPTSVX', INFOT, NOUT, LERR, OK )
+         dptsvx('N', 2, 0, A( 1, 1 ), A( 1, 2 ), AF( 1, 1 ), AF( 1, 2 ), B, 1, X, 2, RCOND, R1, R2, W, INFO );
+         chkxer('DPTSVX', INFOT, NOUT, LERR, OK );
          INFOT = 11
-         CALL DPTSVX( 'N', 2, 0, A( 1, 1 ), A( 1, 2 ), AF( 1, 1 ), AF( 1, 2 ), B, 2, X, 1, RCOND, R1, R2, W, INFO )
-         CALL CHKXER( 'DPTSVX', INFOT, NOUT, LERR, OK )
+         dptsvx('N', 2, 0, A( 1, 1 ), A( 1, 2 ), AF( 1, 1 ), AF( 1, 2 ), B, 2, X, 1, RCOND, R1, R2, W, INFO );
+         chkxer('DPTSVX', INFOT, NOUT, LERR, OK );
 
       } else if ( LSAMEN( 2, C2, 'SY' ) ) {
 
@@ -573,57 +573,57 @@
 
          SRNAMT = 'DSYSV '
          INFOT = 1
-         CALL DSYSV( '/', 0, 0, A, 1, IP, B, 1, W, 1, INFO )
-         CALL CHKXER( 'DSYSV ', INFOT, NOUT, LERR, OK )
+         dsysv('/', 0, 0, A, 1, IP, B, 1, W, 1, INFO );
+         chkxer('DSYSV ', INFOT, NOUT, LERR, OK );
          INFOT = 2
-         CALL DSYSV( 'U', -1, 0, A, 1, IP, B, 1, W, 1, INFO )
-         CALL CHKXER( 'DSYSV ', INFOT, NOUT, LERR, OK )
+         dsysv('U', -1, 0, A, 1, IP, B, 1, W, 1, INFO );
+         chkxer('DSYSV ', INFOT, NOUT, LERR, OK );
          INFOT = 3
-         CALL DSYSV( 'U', 0, -1, A, 1, IP, B, 1, W, 1, INFO )
-         CALL CHKXER( 'DSYSV ', INFOT, NOUT, LERR, OK )
+         dsysv('U', 0, -1, A, 1, IP, B, 1, W, 1, INFO );
+         chkxer('DSYSV ', INFOT, NOUT, LERR, OK );
          INFOT = 5
-         CALL DSYSV( 'U', 2, 0, A, 1, IP, B, 2, W, 1, INFO )
-         CALL CHKXER( 'DSYSV_ROOK', INFOT, NOUT, LERR, OK )
+         dsysv('U', 2, 0, A, 1, IP, B, 2, W, 1, INFO );
+         chkxer('DSYSV_ROOK', INFOT, NOUT, LERR, OK );
          INFOT = 8
-         CALL DSYSV( 'U', 2, 0, A, 2, IP, B, 1, W, 1, INFO )
-         CALL CHKXER( 'DSYSV ', INFOT, NOUT, LERR, OK )
+         dsysv('U', 2, 0, A, 2, IP, B, 1, W, 1, INFO );
+         chkxer('DSYSV ', INFOT, NOUT, LERR, OK );
          INFOT = 10
-         CALL DSYSV( 'U', 0, 0, A, 1, IP, B, 1, W, 0, INFO )
-         CALL CHKXER( 'DSYSV ', INFOT, NOUT, LERR, OK )
+         dsysv('U', 0, 0, A, 1, IP, B, 1, W, 0, INFO );
+         chkxer('DSYSV ', INFOT, NOUT, LERR, OK );
          INFOT = 10
-         CALL DSYSV( 'U', 0, 0, A, 1, IP, B, 1, W, -2, INFO )
-         CALL CHKXER( 'DSYSV ', INFOT, NOUT, LERR, OK )
+         dsysv('U', 0, 0, A, 1, IP, B, 1, W, -2, INFO );
+         chkxer('DSYSV ', INFOT, NOUT, LERR, OK );
 
          // DSYSVX
 
          SRNAMT = 'DSYSVX'
          INFOT = 1
-         CALL DSYSVX( '/', 'U', 0, 0, A, 1, AF, 1, IP, B, 1, X, 1, RCOND, R1, R2, W, 1, IW, INFO )
-         CALL CHKXER( 'DSYSVX', INFOT, NOUT, LERR, OK )
+         dsysvx('/', 'U', 0, 0, A, 1, AF, 1, IP, B, 1, X, 1, RCOND, R1, R2, W, 1, IW, INFO );
+         chkxer('DSYSVX', INFOT, NOUT, LERR, OK );
          INFOT = 2
-         CALL DSYSVX( 'N', '/', 0, 0, A, 1, AF, 1, IP, B, 1, X, 1, RCOND, R1, R2, W, 1, IW, INFO )
-         CALL CHKXER( 'DSYSVX', INFOT, NOUT, LERR, OK )
+         dsysvx('N', '/', 0, 0, A, 1, AF, 1, IP, B, 1, X, 1, RCOND, R1, R2, W, 1, IW, INFO );
+         chkxer('DSYSVX', INFOT, NOUT, LERR, OK );
          INFOT = 3
-         CALL DSYSVX( 'N', 'U', -1, 0, A, 1, AF, 1, IP, B, 1, X, 1, RCOND, R1, R2, W, 1, IW, INFO )
-         CALL CHKXER( 'DSYSVX', INFOT, NOUT, LERR, OK )
+         dsysvx('N', 'U', -1, 0, A, 1, AF, 1, IP, B, 1, X, 1, RCOND, R1, R2, W, 1, IW, INFO );
+         chkxer('DSYSVX', INFOT, NOUT, LERR, OK );
          INFOT = 4
-         CALL DSYSVX( 'N', 'U', 0, -1, A, 1, AF, 1, IP, B, 1, X, 1, RCOND, R1, R2, W, 1, IW, INFO )
-         CALL CHKXER( 'DSYSVX', INFOT, NOUT, LERR, OK )
+         dsysvx('N', 'U', 0, -1, A, 1, AF, 1, IP, B, 1, X, 1, RCOND, R1, R2, W, 1, IW, INFO );
+         chkxer('DSYSVX', INFOT, NOUT, LERR, OK );
          INFOT = 6
-         CALL DSYSVX( 'N', 'U', 2, 0, A, 1, AF, 2, IP, B, 2, X, 2, RCOND, R1, R2, W, 4, IW, INFO )
-         CALL CHKXER( 'DSYSVX', INFOT, NOUT, LERR, OK )
+         dsysvx('N', 'U', 2, 0, A, 1, AF, 2, IP, B, 2, X, 2, RCOND, R1, R2, W, 4, IW, INFO );
+         chkxer('DSYSVX', INFOT, NOUT, LERR, OK );
          INFOT = 8
-         CALL DSYSVX( 'N', 'U', 2, 0, A, 2, AF, 1, IP, B, 2, X, 2, RCOND, R1, R2, W, 4, IW, INFO )
-         CALL CHKXER( 'DSYSVX', INFOT, NOUT, LERR, OK )
+         dsysvx('N', 'U', 2, 0, A, 2, AF, 1, IP, B, 2, X, 2, RCOND, R1, R2, W, 4, IW, INFO );
+         chkxer('DSYSVX', INFOT, NOUT, LERR, OK );
          INFOT = 11
-         CALL DSYSVX( 'N', 'U', 2, 0, A, 2, AF, 2, IP, B, 1, X, 2, RCOND, R1, R2, W, 4, IW, INFO )
-         CALL CHKXER( 'DSYSVX', INFOT, NOUT, LERR, OK )
+         dsysvx('N', 'U', 2, 0, A, 2, AF, 2, IP, B, 1, X, 2, RCOND, R1, R2, W, 4, IW, INFO );
+         chkxer('DSYSVX', INFOT, NOUT, LERR, OK );
          INFOT = 13
-         CALL DSYSVX( 'N', 'U', 2, 0, A, 2, AF, 2, IP, B, 2, X, 1, RCOND, R1, R2, W, 4, IW, INFO )
-         CALL CHKXER( 'DSYSVX', INFOT, NOUT, LERR, OK )
+         dsysvx('N', 'U', 2, 0, A, 2, AF, 2, IP, B, 2, X, 1, RCOND, R1, R2, W, 4, IW, INFO );
+         chkxer('DSYSVX', INFOT, NOUT, LERR, OK );
          INFOT = 18
-         CALL DSYSVX( 'N', 'U', 2, 0, A, 2, AF, 2, IP, B, 2, X, 2, RCOND, R1, R2, W, 3, IW, INFO )
-         CALL CHKXER( 'DSYSVX', INFOT, NOUT, LERR, OK )
+         dsysvx('N', 'U', 2, 0, A, 2, AF, 2, IP, B, 2, X, 2, RCOND, R1, R2, W, 3, IW, INFO );
+         chkxer('DSYSVX', INFOT, NOUT, LERR, OK );
 
          // DSYSVXX
 
@@ -632,44 +632,44 @@
          SRNAMT = 'DSYSVXX'
          INFOT = 1
          EQ = 'N'
-         CALL DSYSVXX( '/', 'U', 0, 0, A, 1, AF, 1, IP, EQ, R, B, 1, X, 1, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C,  NPARAMS, PARAMS, W, IW, INFO )
-         CALL CHKXER( 'DSYSVXX', INFOT, NOUT, LERR, OK )
+         dsysvxx('/', 'U', 0, 0, A, 1, AF, 1, IP, EQ, R, B, 1, X, 1, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C,  NPARAMS, PARAMS, W, IW, INFO );
+         chkxer('DSYSVXX', INFOT, NOUT, LERR, OK );
          INFOT = 2
-         CALL DSYSVXX( 'N', '/', 0, 0, A, 1, AF, 1, IP, EQ, R, B, 1, X, 1, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO )
-         CALL CHKXER( 'DSYSVXX', INFOT, NOUT, LERR, OK )
+         dsysvxx('N', '/', 0, 0, A, 1, AF, 1, IP, EQ, R, B, 1, X, 1, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO );
+         chkxer('DSYSVXX', INFOT, NOUT, LERR, OK );
          INFOT = 3
-         CALL DSYSVXX( 'N', 'U', -1, 0, A, 1, AF, 1, IP, EQ, R, B, 1, X, 1, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C,  NPARAMS, PARAMS, W, IW, INFO )
-         CALL CHKXER( 'DSYSVXX', INFOT, NOUT, LERR, OK )
+         dsysvxx('N', 'U', -1, 0, A, 1, AF, 1, IP, EQ, R, B, 1, X, 1, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C,  NPARAMS, PARAMS, W, IW, INFO );
+         chkxer('DSYSVXX', INFOT, NOUT, LERR, OK );
          INFOT = 4
          EQ = '/'
-         CALL DSYSVXX( 'N', 'U', 0, -1, A, 1, AF, 1, IP, EQ, R, B, 1, X, 1, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO )
-         CALL CHKXER( 'DSYSVXX', INFOT, NOUT, LERR, OK )
+         dsysvxx('N', 'U', 0, -1, A, 1, AF, 1, IP, EQ, R, B, 1, X, 1, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO );
+         chkxer('DSYSVXX', INFOT, NOUT, LERR, OK );
          EQ = 'Y'
          INFOT = 6
-         CALL DSYSVXX( 'N', 'U', 2, 0, A, 1, AF, 2, IP, EQ, R, B, 2, X, 2, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO )
-         CALL CHKXER( 'DSYSVXX', INFOT, NOUT, LERR, OK )
+         dsysvxx('N', 'U', 2, 0, A, 1, AF, 2, IP, EQ, R, B, 2, X, 2, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO );
+         chkxer('DSYSVXX', INFOT, NOUT, LERR, OK );
          INFOT = 8
-         CALL DSYSVXX( 'N', 'U', 2, 0, A, 2, AF, 1, IP, EQ, R, B, 2, X, 2, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO )
-         CALL CHKXER( 'DSYSVXX', INFOT, NOUT, LERR, OK )
+         dsysvxx('N', 'U', 2, 0, A, 2, AF, 1, IP, EQ, R, B, 2, X, 2, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO );
+         chkxer('DSYSVXX', INFOT, NOUT, LERR, OK );
          INFOT = 10
-         CALL DSYSVXX( 'F', 'U', 2, 0, A, 2, AF, 2, IP, 'A', R, B, 2, X, 2, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO )
-         CALL CHKXER( 'DSYSVXX', INFOT, NOUT, LERR, OK )
+         dsysvxx('F', 'U', 2, 0, A, 2, AF, 2, IP, 'A', R, B, 2, X, 2, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO );
+         chkxer('DSYSVXX', INFOT, NOUT, LERR, OK );
          INFOT = 11
          EQ='Y'
-         CALL DSYSVXX( 'F', 'U', 2, 0, A, 2, AF, 2, IP, EQ, R, B, 2, X, 2, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO )
-         CALL CHKXER( 'DSYSVXX', INFOT, NOUT, LERR, OK )
+         dsysvxx('F', 'U', 2, 0, A, 2, AF, 2, IP, EQ, R, B, 2, X, 2, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO );
+         chkxer('DSYSVXX', INFOT, NOUT, LERR, OK );
          INFOT = 11
          EQ='Y'
          R(1) = -ONE
-         CALL DSYSVXX( 'F', 'U', 2, 0, A, 2, AF, 2, IP, EQ, R, B, 2, X, 2, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO )
-         CALL CHKXER( 'DSYSVXX', INFOT, NOUT, LERR, OK )
+         dsysvxx('F', 'U', 2, 0, A, 2, AF, 2, IP, EQ, R, B, 2, X, 2, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO );
+         chkxer('DSYSVXX', INFOT, NOUT, LERR, OK );
          INFOT = 13
          EQ = 'N'
-         CALL DSYSVXX( 'N', 'U', 2, 0, A, 2, AF, 2, IP, EQ, R, B, 1, X, 2, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO )
-         CALL CHKXER( 'DSYSVXX', INFOT, NOUT, LERR, OK )
+         dsysvxx('N', 'U', 2, 0, A, 2, AF, 2, IP, EQ, R, B, 1, X, 2, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO );
+         chkxer('DSYSVXX', INFOT, NOUT, LERR, OK );
          INFOT = 15
-         CALL DSYSVXX( 'N', 'U', 2, 0, A, 2, AF, 2, IP, EQ, R, B, 2, X, 1, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO )
-         CALL CHKXER( 'DSYSVXX', INFOT, NOUT, LERR, OK )
+         dsysvxx('N', 'U', 2, 0, A, 2, AF, 2, IP, EQ, R, B, 2, X, 1, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO );
+         chkxer('DSYSVXX', INFOT, NOUT, LERR, OK );
 
       } else if ( LSAMEN( 2, C2, 'SR' ) ) {
 
@@ -677,26 +677,26 @@
 
          SRNAMT = 'DSYSV_ROOK'
          INFOT = 1
-         CALL DSYSV_ROOK( '/', 0, 0, A, 1, IP, B, 1, W, 1, INFO )
-         CALL CHKXER( 'DSYSV_ROOK', INFOT, NOUT, LERR, OK )
+         dsysv_rook('/', 0, 0, A, 1, IP, B, 1, W, 1, INFO );
+         chkxer('DSYSV_ROOK', INFOT, NOUT, LERR, OK );
          INFOT = 2
-         CALL DSYSV_ROOK( 'U', -1, 0, A, 1, IP, B, 1, W, 1, INFO )
-         CALL CHKXER( 'DSYSV_ROOK', INFOT, NOUT, LERR, OK )
+         dsysv_rook('U', -1, 0, A, 1, IP, B, 1, W, 1, INFO );
+         chkxer('DSYSV_ROOK', INFOT, NOUT, LERR, OK );
          INFOT = 3
-         CALL DSYSV_ROOK( 'U', 0, -1, A, 1, IP, B, 1, W, 1, INFO )
-         CALL CHKXER( 'DSYSV_ROOK', INFOT, NOUT, LERR, OK )
+         dsysv_rook('U', 0, -1, A, 1, IP, B, 1, W, 1, INFO );
+         chkxer('DSYSV_ROOK', INFOT, NOUT, LERR, OK );
          INFOT = 5
-         CALL DSYSV_ROOK( 'U', 2, 0, A, 1, IP, B, 2, W, 1, INFO )
-         CALL CHKXER( 'DSYSV_ROOK', INFOT, NOUT, LERR, OK )
+         dsysv_rook('U', 2, 0, A, 1, IP, B, 2, W, 1, INFO );
+         chkxer('DSYSV_ROOK', INFOT, NOUT, LERR, OK );
          INFOT = 8
-         CALL DSYSV_ROOK( 'U', 2, 0, A, 2, IP, B, 1, W, 1, INFO )
-         CALL CHKXER( 'DSYSV_ROOK', INFOT, NOUT, LERR, OK )
+         dsysv_rook('U', 2, 0, A, 2, IP, B, 1, W, 1, INFO );
+         chkxer('DSYSV_ROOK', INFOT, NOUT, LERR, OK );
          INFOT = 10
-         CALL DSYSV_ROOK( 'U', 0, 0, A, 1, IP, B, 1, W, 0, INFO )
-         CALL CHKXER( 'DSYSV_ROOK', INFOT, NOUT, LERR, OK )
+         dsysv_rook('U', 0, 0, A, 1, IP, B, 1, W, 0, INFO );
+         chkxer('DSYSV_ROOK', INFOT, NOUT, LERR, OK );
          INFOT = 10
-         CALL DSYSV_ROOK( 'U', 0, 0, A, 1, IP, B, 1, W, -2, INFO )
-         CALL CHKXER( 'DSYSV_ROOK', INFOT, NOUT, LERR, OK )
+         dsysv_rook('U', 0, 0, A, 1, IP, B, 1, W, -2, INFO );
+         chkxer('DSYSV_ROOK', INFOT, NOUT, LERR, OK );
 
       } else if ( LSAMEN( 2, C2, 'SK' ) ) {
 
@@ -712,26 +712,26 @@
 
          SRNAMT = 'DSYSV_RK'
          INFOT = 1
-         CALL DSYSV_RK( '/', 0, 0, A, 1, E, IP, B, 1, W, 1, INFO )
-         CALL CHKXER( 'DSYSV_RK', INFOT, NOUT, LERR, OK )
+         dsysv_rk('/', 0, 0, A, 1, E, IP, B, 1, W, 1, INFO );
+         chkxer('DSYSV_RK', INFOT, NOUT, LERR, OK );
          INFOT = 2
-         CALL DSYSV_RK( 'U', -1, 0, A, 1, E, IP, B, 1, W, 1, INFO )
-         CALL CHKXER( 'DSYSV_RK', INFOT, NOUT, LERR, OK )
+         dsysv_rk('U', -1, 0, A, 1, E, IP, B, 1, W, 1, INFO );
+         chkxer('DSYSV_RK', INFOT, NOUT, LERR, OK );
          INFOT = 3
-         CALL DSYSV_RK( 'U', 0, -1, A, 1, E, IP, B, 1, W, 1, INFO )
-         CALL CHKXER( 'DSYSV_RK', INFOT, NOUT, LERR, OK )
+         dsysv_rk('U', 0, -1, A, 1, E, IP, B, 1, W, 1, INFO );
+         chkxer('DSYSV_RK', INFOT, NOUT, LERR, OK );
          INFOT = 5
-         CALL DSYSV_RK( 'U', 2, 0, A, 1, E, IP, B, 2, W, 1, INFO )
-         CALL CHKXER( 'DSYSV_RK', INFOT, NOUT, LERR, OK )
+         dsysv_rk('U', 2, 0, A, 1, E, IP, B, 2, W, 1, INFO );
+         chkxer('DSYSV_RK', INFOT, NOUT, LERR, OK );
          INFOT = 9
-         CALL DSYSV_RK( 'U', 2, 0, A, 2, E, IP, B, 1, W, 1, INFO )
-         CALL CHKXER( 'DSYSV_RK', INFOT, NOUT, LERR, OK )
+         dsysv_rk('U', 2, 0, A, 2, E, IP, B, 1, W, 1, INFO );
+         chkxer('DSYSV_RK', INFOT, NOUT, LERR, OK );
          INFOT = 11
-         CALL DSYSV_RK( 'U', 0, 0, A, 1, E, IP, B, 1, W, 0, INFO )
-         CALL CHKXER( 'DSYSV_RK', INFOT, NOUT, LERR, OK )
+         dsysv_rk('U', 0, 0, A, 1, E, IP, B, 1, W, 0, INFO );
+         chkxer('DSYSV_RK', INFOT, NOUT, LERR, OK );
          INFOT = 11
-         CALL DSYSV_RK( 'U', 0, 0, A, 1, E, IP, B, 1, W, -2, INFO )
-         CALL CHKXER( 'DSYSV_RK', INFOT, NOUT, LERR, OK )
+         dsysv_rk('U', 0, 0, A, 1, E, IP, B, 1, W, -2, INFO );
+         chkxer('DSYSV_RK', INFOT, NOUT, LERR, OK );
 
       } else if ( LSAMEN( 2, C2, 'SP' ) ) {
 
@@ -739,39 +739,39 @@
 
          SRNAMT = 'DSPSV '
          INFOT = 1
-         CALL DSPSV( '/', 0, 0, A, IP, B, 1, INFO )
-         CALL CHKXER( 'DSPSV ', INFOT, NOUT, LERR, OK )
+         dspsv('/', 0, 0, A, IP, B, 1, INFO );
+         chkxer('DSPSV ', INFOT, NOUT, LERR, OK );
          INFOT = 2
-         CALL DSPSV( 'U', -1, 0, A, IP, B, 1, INFO )
-         CALL CHKXER( 'DSPSV ', INFOT, NOUT, LERR, OK )
+         dspsv('U', -1, 0, A, IP, B, 1, INFO );
+         chkxer('DSPSV ', INFOT, NOUT, LERR, OK );
          INFOT = 3
-         CALL DSPSV( 'U', 0, -1, A, IP, B, 1, INFO )
-         CALL CHKXER( 'DSPSV ', INFOT, NOUT, LERR, OK )
+         dspsv('U', 0, -1, A, IP, B, 1, INFO );
+         chkxer('DSPSV ', INFOT, NOUT, LERR, OK );
          INFOT = 7
-         CALL DSPSV( 'U', 2, 0, A, IP, B, 1, INFO )
-         CALL CHKXER( 'DSPSV ', INFOT, NOUT, LERR, OK )
+         dspsv('U', 2, 0, A, IP, B, 1, INFO );
+         chkxer('DSPSV ', INFOT, NOUT, LERR, OK );
 
          // DSPSVX
 
          SRNAMT = 'DSPSVX'
          INFOT = 1
-         CALL DSPSVX( '/', 'U', 0, 0, A, AF, IP, B, 1, X, 1, RCOND, R1, R2, W, IW, INFO )
-         CALL CHKXER( 'DSPSVX', INFOT, NOUT, LERR, OK )
+         dspsvx('/', 'U', 0, 0, A, AF, IP, B, 1, X, 1, RCOND, R1, R2, W, IW, INFO );
+         chkxer('DSPSVX', INFOT, NOUT, LERR, OK );
          INFOT = 2
-         CALL DSPSVX( 'N', '/', 0, 0, A, AF, IP, B, 1, X, 1, RCOND, R1, R2, W, IW, INFO )
-         CALL CHKXER( 'DSPSVX', INFOT, NOUT, LERR, OK )
+         dspsvx('N', '/', 0, 0, A, AF, IP, B, 1, X, 1, RCOND, R1, R2, W, IW, INFO );
+         chkxer('DSPSVX', INFOT, NOUT, LERR, OK );
          INFOT = 3
-         CALL DSPSVX( 'N', 'U', -1, 0, A, AF, IP, B, 1, X, 1, RCOND, R1, R2, W, IW, INFO )
-         CALL CHKXER( 'DSPSVX', INFOT, NOUT, LERR, OK )
+         dspsvx('N', 'U', -1, 0, A, AF, IP, B, 1, X, 1, RCOND, R1, R2, W, IW, INFO );
+         chkxer('DSPSVX', INFOT, NOUT, LERR, OK );
          INFOT = 4
-         CALL DSPSVX( 'N', 'U', 0, -1, A, AF, IP, B, 1, X, 1, RCOND, R1, R2, W, IW, INFO )
-         CALL CHKXER( 'DSPSVX', INFOT, NOUT, LERR, OK )
+         dspsvx('N', 'U', 0, -1, A, AF, IP, B, 1, X, 1, RCOND, R1, R2, W, IW, INFO );
+         chkxer('DSPSVX', INFOT, NOUT, LERR, OK );
          INFOT = 9
-         CALL DSPSVX( 'N', 'U', 2, 0, A, AF, IP, B, 1, X, 2, RCOND, R1, R2, W, IW, INFO )
-         CALL CHKXER( 'DSPSVX', INFOT, NOUT, LERR, OK )
+         dspsvx('N', 'U', 2, 0, A, AF, IP, B, 1, X, 2, RCOND, R1, R2, W, IW, INFO );
+         chkxer('DSPSVX', INFOT, NOUT, LERR, OK );
          INFOT = 11
-         CALL DSPSVX( 'N', 'U', 2, 0, A, AF, IP, B, 2, X, 1, RCOND, R1, R2, W, IW, INFO )
-         CALL CHKXER( 'DSPSVX', INFOT, NOUT, LERR, OK )
+         dspsvx('N', 'U', 2, 0, A, AF, IP, B, 2, X, 1, RCOND, R1, R2, W, IW, INFO );
+         chkxer('DSPSVX', INFOT, NOUT, LERR, OK );
       }
 
       // Print a summary line.

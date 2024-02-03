@@ -107,7 +107,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'DDRVBD', -INFO )
+         xerbla('DDRVBD', -INFO );
          RETURN
       }
 
@@ -152,13 +152,13 @@
 
                // Zero matrix
 
-               CALL DLASET( 'Full', M, N, ZERO, ZERO, A, LDA )
+               dlaset('Full', M, N, ZERO, ZERO, A, LDA );
 
             } else if ( JTYPE.EQ.2 ) {
 
                // Identity matrix
 
-               CALL DLASET( 'Full', M, N, ZERO, ONE, A, LDA )
+               dlaset('Full', M, N, ZERO, ONE, A, LDA );
 
             } else {
 
@@ -173,7 +173,7 @@
             }
 
    30       CONTINUE
-            CALL DLACPY( 'F', M, N, A, LDA, ASAV, LDA )
+            dlacpy('F', M, N, A, LDA, ASAV, LDA );
 
             // Do for minimal and adequate (for blocking) workspace
 
@@ -193,7 +193,7 @@
 
                IF( IWS.GT.1 ) CALL DLACPY( 'F', M, N, ASAV, LDA, A, LDA )
                SRNAMT = 'DGESVD'
-               CALL DGESVD( 'A', 'A', M, N, A, LDA, SSAV, USAV, LDU, VTSAV, LDVT, WORK, LSWORK, IINFO )
+               dgesvd('A', 'A', M, N, A, LDA, SSAV, USAV, LDU, VTSAV, LDVT, WORK, LSWORK, IINFO );
                if ( IINFO.NE.0 ) {
                   WRITE( NOUT, FMT = 9995 )'GESVD', IINFO, M, N, JTYPE, LSWORK, IOLDSD
                   INFO = ABS( IINFO )
@@ -202,9 +202,9 @@
 
                // Do tests 1--4
 
-               CALL DBDT01( M, N, 0, ASAV, LDA, USAV, LDU, SSAV, E, VTSAV, LDVT, WORK, RESULT( 1 ) )
+               dbdt01(M, N, 0, ASAV, LDA, USAV, LDU, SSAV, E, VTSAV, LDVT, WORK, RESULT( 1 ) );
                if ( M.NE.0 .AND. N.NE.0 ) {
-                  CALL DORT01( 'Columns', M, M, USAV, LDU, WORK, LWORK, RESULT( 2 ) )                   CALL DORT01( 'Rows', N, N, VTSAV, LDVT, WORK, LWORK, RESULT( 3 ) )
+                  dort01('Columns', M, M, USAV, LDU, WORK, LWORK, RESULT( 2 ) )                   CALL DORT01( 'Rows', N, N, VTSAV, LDVT, WORK, LWORK, RESULT( 3 ) );
                }
                RESULT( 4 ) = ZERO
                DO 50 I = 1, MNMIN - 1
@@ -224,20 +224,20 @@
                      IF( ( IJU.EQ.3 .AND. IJVT.EQ.3 ) .OR. ( IJU.EQ.1 .AND. IJVT.EQ.1 ) )GO TO 70
                      JOBU = CJOB( IJU+1 )
                      JOBVT = CJOB( IJVT+1 )
-                     CALL DLACPY( 'F', M, N, ASAV, LDA, A, LDA )
+                     dlacpy('F', M, N, ASAV, LDA, A, LDA );
                      SRNAMT = 'DGESVD'
-                     CALL DGESVD( JOBU, JOBVT, M, N, A, LDA, S, U, LDU, VT, LDVT, WORK, LSWORK, IINFO )
+                     dgesvd(JOBU, JOBVT, M, N, A, LDA, S, U, LDU, VT, LDVT, WORK, LSWORK, IINFO );
 
                      // Compare U
 
                      DIF = ZERO
                      if ( M.GT.0 .AND. N.GT.0 ) {
                         if ( IJU.EQ.1 ) {
-                           CALL DORT03( 'C', M, MNMIN, M, MNMIN, USAV, LDU, A, LDA, WORK, LWORK, DIF, IINFO )
+                           dort03('C', M, MNMIN, M, MNMIN, USAV, LDU, A, LDA, WORK, LWORK, DIF, IINFO );
                         } else if ( IJU.EQ.2 ) {
-                           CALL DORT03( 'C', M, MNMIN, M, MNMIN, USAV, LDU, U, LDU, WORK, LWORK, DIF, IINFO )
+                           dort03('C', M, MNMIN, M, MNMIN, USAV, LDU, U, LDU, WORK, LWORK, DIF, IINFO );
                         } else if ( IJU.EQ.3 ) {
-                           CALL DORT03( 'C', M, M, M, MNMIN, USAV, LDU, U, LDU, WORK, LWORK, DIF, IINFO )
+                           dort03('C', M, M, M, MNMIN, USAV, LDU, U, LDU, WORK, LWORK, DIF, IINFO );
                         }
                      }
                      RESULT( 5 ) = MAX( RESULT( 5 ), DIF )
@@ -247,11 +247,11 @@
                      DIF = ZERO
                      if ( M.GT.0 .AND. N.GT.0 ) {
                         if ( IJVT.EQ.1 ) {
-                           CALL DORT03( 'R', N, MNMIN, N, MNMIN, VTSAV, LDVT, A, LDA, WORK, LWORK, DIF, IINFO )
+                           dort03('R', N, MNMIN, N, MNMIN, VTSAV, LDVT, A, LDA, WORK, LWORK, DIF, IINFO );
                         } else if ( IJVT.EQ.2 ) {
-                           CALL DORT03( 'R', N, MNMIN, N, MNMIN, VTSAV, LDVT, VT, LDVT, WORK, LWORK, DIF, IINFO )
+                           dort03('R', N, MNMIN, N, MNMIN, VTSAV, LDVT, VT, LDVT, WORK, LWORK, DIF, IINFO );
                         } else if ( IJVT.EQ.3 ) {
-                           CALL DORT03( 'R', N, N, N, MNMIN, VTSAV, LDVT, VT, LDVT, WORK, LWORK, DIF, IINFO )
+                           dort03('R', N, N, N, MNMIN, VTSAV, LDVT, VT, LDVT, WORK, LWORK, DIF, IINFO );
                         }
                      }
                      RESULT( 6 ) = MAX( RESULT( 6 ), DIF )
@@ -276,9 +276,9 @@
                LSWORK = MAX( LSWORK, 1 )
                IF( IWS.EQ.4 ) LSWORK = LWORK
 
-               CALL DLACPY( 'F', M, N, ASAV, LDA, A, LDA )
+               dlacpy('F', M, N, ASAV, LDA, A, LDA );
                SRNAMT = 'DGESDD'
-               CALL DGESDD( 'A', M, N, A, LDA, SSAV, USAV, LDU, VTSAV, LDVT, WORK, LSWORK, IWORK, IINFO )
+               dgesdd('A', M, N, A, LDA, SSAV, USAV, LDU, VTSAV, LDVT, WORK, LSWORK, IWORK, IINFO );
                if ( IINFO.NE.0 ) {
                   WRITE( NOUT, FMT = 9995 )'GESDD', IINFO, M, N, JTYPE, LSWORK, IOLDSD
                   INFO = ABS( IINFO )
@@ -287,9 +287,9 @@
 
                // Do tests 8--11
 
-               CALL DBDT01( M, N, 0, ASAV, LDA, USAV, LDU, SSAV, E, VTSAV, LDVT, WORK, RESULT( 8 ) )
+               dbdt01(M, N, 0, ASAV, LDA, USAV, LDU, SSAV, E, VTSAV, LDVT, WORK, RESULT( 8 ) );
                if ( M.NE.0 .AND. N.NE.0 ) {
-                  CALL DORT01( 'Columns', M, M, USAV, LDU, WORK, LWORK, RESULT( 9 ) )                   CALL DORT01( 'Rows', N, N, VTSAV, LDVT, WORK, LWORK, RESULT( 10 ) )
+                  dort01('Columns', M, M, USAV, LDU, WORK, LWORK, RESULT( 9 ) )                   CALL DORT01( 'Rows', N, N, VTSAV, LDVT, WORK, LWORK, RESULT( 10 ) );
                }
                RESULT( 11 ) = ZERO
                DO 90 I = 1, MNMIN - 1
@@ -306,9 +306,9 @@
                RESULT( 14 ) = ZERO
                DO 110 IJQ = 0, 2
                   JOBQ = CJOB( IJQ+1 )
-                  CALL DLACPY( 'F', M, N, ASAV, LDA, A, LDA )
+                  dlacpy('F', M, N, ASAV, LDA, A, LDA );
                   SRNAMT = 'DGESDD'
-                  CALL DGESDD( JOBQ, M, N, A, LDA, S, U, LDU, VT, LDVT, WORK, LSWORK, IWORK, IINFO )
+                  dgesdd(JOBQ, M, N, A, LDA, S, U, LDU, VT, LDVT, WORK, LSWORK, IWORK, IINFO );
 
                   // Compare U
 
@@ -316,12 +316,12 @@
                   if ( M.GT.0 .AND. N.GT.0 ) {
                      if ( IJQ.EQ.1 ) {
                         if ( M.GE.N ) {
-                           CALL DORT03( 'C', M, MNMIN, M, MNMIN, USAV, LDU, A, LDA, WORK, LWORK, DIF, INFO )
+                           dort03('C', M, MNMIN, M, MNMIN, USAV, LDU, A, LDA, WORK, LWORK, DIF, INFO );
                         } else {
-                           CALL DORT03( 'C', M, MNMIN, M, MNMIN, USAV, LDU, U, LDU, WORK, LWORK, DIF, INFO )
+                           dort03('C', M, MNMIN, M, MNMIN, USAV, LDU, U, LDU, WORK, LWORK, DIF, INFO );
                         }
                      } else if ( IJQ.EQ.2 ) {
-                        CALL DORT03( 'C', M, MNMIN, M, MNMIN, USAV, LDU, U, LDU, WORK, LWORK, DIF, INFO )
+                        dort03('C', M, MNMIN, M, MNMIN, USAV, LDU, U, LDU, WORK, LWORK, DIF, INFO );
                      }
                   }
                   RESULT( 12 ) = MAX( RESULT( 12 ), DIF )
@@ -332,12 +332,12 @@
                   if ( M.GT.0 .AND. N.GT.0 ) {
                      if ( IJQ.EQ.1 ) {
                         if ( M.GE.N ) {
-                           CALL DORT03( 'R', N, MNMIN, N, MNMIN, VTSAV, LDVT, VT, LDVT, WORK, LWORK, DIF, INFO )
+                           dort03('R', N, MNMIN, N, MNMIN, VTSAV, LDVT, VT, LDVT, WORK, LWORK, DIF, INFO );
                         } else {
-                           CALL DORT03( 'R', N, MNMIN, N, MNMIN, VTSAV, LDVT, A, LDA, WORK, LWORK, DIF, INFO )
+                           dort03('R', N, MNMIN, N, MNMIN, VTSAV, LDVT, A, LDA, WORK, LWORK, DIF, INFO );
                         }
                      } else if ( IJQ.EQ.2 ) {
-                        CALL DORT03( 'R', N, MNMIN, N, MNMIN, VTSAV, LDVT, VT, LDVT, WORK, LWORK, DIF, INFO )
+                        dort03('R', N, MNMIN, N, MNMIN, VTSAV, LDVT, VT, LDVT, WORK, LWORK, DIF, INFO );
                      }
                   }
                   RESULT( 13 ) = MAX( RESULT( 13 ), DIF )
@@ -368,12 +368,12 @@
                   LSWORK = MAX( LSWORK, 1 )
                   IF( IWS.EQ.4 ) LSWORK = LWORK
 
-                  CALL DLACPY( 'F', M, N, ASAV, LDA, A, LDA )
+                  dlacpy('F', M, N, ASAV, LDA, A, LDA );
                   SRNAMT = 'DGESVDQ'
 
                   LRWORK = 2
                   LIWORK = MAX( N, 1 )
-                  CALL DGESVDQ( 'H', 'N', 'N', 'A', 'A',  M, N, A, LDA, SSAV, USAV, LDU, VTSAV, LDVT, NUMRANK, IWORK, LIWORK, WORK, LWORK, RWORK, LRWORK, IINFO )
+                  dgesvdq('H', 'N', 'N', 'A', 'A',  M, N, A, LDA, SSAV, USAV, LDU, VTSAV, LDVT, NUMRANK, IWORK, LIWORK, WORK, LWORK, RWORK, LRWORK, IINFO );
 
                   if ( IINFO.NE.0 ) {
                      WRITE( NOUT, FMT = 9995 )'DGESVDQ', IINFO, M, N, JTYPE, LSWORK, IOLDSD
@@ -383,9 +383,9 @@
 
                   // Do tests 36--39
 
-                  CALL DBDT01( M, N, 0, ASAV, LDA, USAV, LDU, SSAV, E, VTSAV, LDVT, WORK, RESULT( 36 ) )
+                  dbdt01(M, N, 0, ASAV, LDA, USAV, LDU, SSAV, E, VTSAV, LDVT, WORK, RESULT( 36 ) );
                   if ( M.NE.0 .AND. N.NE.0 ) {
-                     CALL DORT01( 'Columns', M, M, USAV, LDU, WORK, LWORK, RESULT( 37 ) )                      CALL DORT01( 'Rows', N, N, VTSAV, LDVT, WORK, LWORK, RESULT( 38 ) )
+                     dort01('Columns', M, M, USAV, LDU, WORK, LWORK, RESULT( 37 ) )                      CALL DORT01( 'Rows', N, N, VTSAV, LDVT, WORK, LWORK, RESULT( 38 ) );
                   }
                   RESULT( 39 ) = ZERO
                   DO 199 I = 1, MNMIN - 1
@@ -411,9 +411,9 @@
                   LSWORK = MAX( LSWORK, 1 )
                   IF( IWS.EQ.4 ) LSWORK = LWORK
 
-                  CALL DLACPY( 'F', M, N, ASAV, LDA, USAV, LDA )
+                  dlacpy('F', M, N, ASAV, LDA, USAV, LDA );
                   SRNAMT = 'DGESVJ'
-                  CALL DGESVJ( 'G', 'U', 'V', M, N, USAV, LDA, SSAV, 0, A, LDVT, WORK, LWORK, INFO )
+                  dgesvj('G', 'U', 'V', M, N, USAV, LDA, SSAV, 0, A, LDVT, WORK, LWORK, INFO );
 
                   // DGESVJ returns V not VT
 
@@ -431,9 +431,9 @@
 
                   // Do tests 15--18
 
-                  CALL DBDT01( M, N, 0, ASAV, LDA, USAV, LDU, SSAV, E, VTSAV, LDVT, WORK, RESULT( 15 ) )
+                  dbdt01(M, N, 0, ASAV, LDA, USAV, LDU, SSAV, E, VTSAV, LDVT, WORK, RESULT( 15 ) );
                   if ( M.NE.0 .AND. N.NE.0 ) {
-                     CALL DORT01( 'Columns', M, M, USAV, LDU, WORK, LWORK, RESULT( 16 ) )                      CALL DORT01( 'Rows', N, N, VTSAV, LDVT, WORK, LWORK, RESULT( 17 ) )
+                     dort01('Columns', M, M, USAV, LDU, WORK, LWORK, RESULT( 16 ) )                      CALL DORT01( 'Rows', N, N, VTSAV, LDVT, WORK, LWORK, RESULT( 17 ) );
                   }
                   RESULT( 18 ) = ZERO
                   DO 120 I = 1, MNMIN - 1
@@ -458,9 +458,9 @@
                   LSWORK = MAX( LSWORK, 1 )
                   IF( IWS.EQ.4 ) LSWORK = LWORK
 
-                  CALL DLACPY( 'F', M, N, ASAV, LDA, VTSAV, LDA )
+                  dlacpy('F', M, N, ASAV, LDA, VTSAV, LDA );
                   SRNAMT = 'DGEJSV'
-                  CALL DGEJSV( 'G', 'U', 'V', 'R', 'N', 'N', M, N, VTSAV, LDA, SSAV, USAV, LDU, A, LDVT, WORK, LWORK, IWORK, INFO )
+                  dgejsv('G', 'U', 'V', 'R', 'N', 'N', M, N, VTSAV, LDA, SSAV, USAV, LDU, A, LDVT, WORK, LWORK, IWORK, INFO );
 
                   // DGEJSV returns V not VT
 
@@ -478,9 +478,9 @@
 
                   // Do tests 19--22
 
-                  CALL DBDT01( M, N, 0, ASAV, LDA, USAV, LDU, SSAV, E, VTSAV, LDVT, WORK, RESULT( 19 ) )
+                  dbdt01(M, N, 0, ASAV, LDA, USAV, LDU, SSAV, E, VTSAV, LDVT, WORK, RESULT( 19 ) );
                   if ( M.NE.0 .AND. N.NE.0 ) {
-                     CALL DORT01( 'Columns', M, M, USAV, LDU, WORK, LWORK, RESULT( 20 ) )                      CALL DORT01( 'Rows', N, N, VTSAV, LDVT, WORK, LWORK, RESULT( 21 ) )
+                     dort01('Columns', M, M, USAV, LDU, WORK, LWORK, RESULT( 20 ) )                      CALL DORT01( 'Rows', N, N, VTSAV, LDVT, WORK, LWORK, RESULT( 21 ) );
                   }
                   RESULT( 22 ) = ZERO
                   DO 150 I = 1, MNMIN - 1
@@ -493,8 +493,8 @@
 
                // Test DGESVDX
 
-               CALL DLACPY( 'F', M, N, ASAV, LDA, A, LDA )
-               CALL DGESVDX( 'V', 'V', 'A', M, N, A, LDA, VL, VU, IL, IU, NS, SSAV, USAV, LDU, VTSAV, LDVT, WORK, LWORK, IWORK, IINFO )
+               dlacpy('F', M, N, ASAV, LDA, A, LDA );
+               dgesvdx('V', 'V', 'A', M, N, A, LDA, VL, VU, IL, IU, NS, SSAV, USAV, LDU, VTSAV, LDVT, WORK, LWORK, IWORK, IINFO );
                if ( IINFO.NE.0 ) {
                   WRITE( NOUT, FMT = 9995 )'GESVDX', IINFO, M, N, JTYPE, LSWORK, IOLDSD
                   INFO = ABS( IINFO )
@@ -506,9 +506,9 @@
                RESULT( 23 ) = ZERO
                RESULT( 24 ) = ZERO
                RESULT( 25 ) = ZERO
-               CALL DBDT01( M, N, 0, ASAV, LDA, USAV, LDU, SSAV, E, VTSAV, LDVT, WORK, RESULT( 23 ) )
+               dbdt01(M, N, 0, ASAV, LDA, USAV, LDU, SSAV, E, VTSAV, LDVT, WORK, RESULT( 23 ) );
                if ( M.NE.0 .AND. N.NE.0 ) {
-                  CALL DORT01( 'Columns', M, M, USAV, LDU, WORK, LWORK, RESULT( 24 ) )                   CALL DORT01( 'Rows', N, N, VTSAV, LDVT, WORK, LWORK, RESULT( 25 ) )
+                  dort01('Columns', M, M, USAV, LDU, WORK, LWORK, RESULT( 24 ) )                   CALL DORT01( 'Rows', N, N, VTSAV, LDVT, WORK, LWORK, RESULT( 25 ) );
                }
                RESULT( 26 ) = ZERO
                DO 160 I = 1, MNMIN - 1
@@ -529,15 +529,15 @@
                      JOBU = CJOBV( IJU+1 )
                      JOBVT = CJOBV( IJVT+1 )
                      RANGE = CJOBR( 1 )
-                     CALL DLACPY( 'F', M, N, ASAV, LDA, A, LDA )
-                     CALL DGESVDX( JOBU, JOBVT, RANGE, M, N, A, LDA, VL, VU, IL, IU, NS, S, U, LDU, VT, LDVT, WORK, LWORK, IWORK, IINFO )
+                     dlacpy('F', M, N, ASAV, LDA, A, LDA );
+                     dgesvdx(JOBU, JOBVT, RANGE, M, N, A, LDA, VL, VU, IL, IU, NS, S, U, LDU, VT, LDVT, WORK, LWORK, IWORK, IINFO );
 
                      // Compare U
 
                      DIF = ZERO
                      if ( M.GT.0 .AND. N.GT.0 ) {
                         if ( IJU.EQ.1 ) {
-                           CALL DORT03( 'C', M, MNMIN, M, MNMIN, USAV, LDU, U, LDU, WORK, LWORK, DIF, IINFO )
+                           dort03('C', M, MNMIN, M, MNMIN, USAV, LDU, U, LDU, WORK, LWORK, DIF, IINFO );
                         }
                      }
                      RESULT( 27 ) = MAX( RESULT( 27 ), DIF )
@@ -547,7 +547,7 @@
                      DIF = ZERO
                      if ( M.GT.0 .AND. N.GT.0 ) {
                         if ( IJVT.EQ.1 ) {
-                           CALL DORT03( 'R', N, MNMIN, N, MNMIN, VTSAV, LDVT, VT, LDVT, WORK, LWORK, DIF, IINFO )
+                           dort03('R', N, MNMIN, N, MNMIN, VTSAV, LDVT, VT, LDVT, WORK, LWORK, DIF, IINFO );
                         }
                      }
                      RESULT( 28 ) = MAX( RESULT( 28 ), DIF )
@@ -581,8 +581,8 @@
                      IL = ITEMP
                   }
                }
-               CALL DLACPY( 'F', M, N, ASAV, LDA, A, LDA )
-               CALL DGESVDX( 'V', 'V', 'I', M, N, A, LDA, VL, VU, IL, IU, NSI, S, U, LDU, VT, LDVT, WORK, LWORK, IWORK, IINFO )
+               dlacpy('F', M, N, ASAV, LDA, A, LDA );
+               dgesvdx('V', 'V', 'I', M, N, A, LDA, VL, VU, IL, IU, NSI, S, U, LDU, VT, LDVT, WORK, LWORK, IWORK, IINFO );
                if ( IINFO.NE.0 ) {
                   WRITE( NOUT, FMT = 9995 )'GESVDX', IINFO, M, N, JTYPE, LSWORK, IOLDSD
                   INFO = ABS( IINFO )
@@ -592,7 +592,7 @@
                RESULT( 30 ) = ZERO
                RESULT( 31 ) = ZERO
                RESULT( 32 ) = ZERO
-               CALL DBDT05( M, N, ASAV, LDA, S, NSI, U, LDU, VT, LDVT, WORK, RESULT( 30 ) )                CALL DORT01( 'Columns', M, NSI, U, LDU, WORK, LWORK, RESULT( 31 ) )                CALL DORT01( 'Rows', NSI, N, VT, LDVT, WORK, LWORK, RESULT( 32 ) )
+               dbdt05(M, N, ASAV, LDA, S, NSI, U, LDU, VT, LDVT, WORK, RESULT( 30 ) )                CALL DORT01( 'Columns', M, NSI, U, LDU, WORK, LWORK, RESULT( 31 ) )                CALL DORT01( 'Rows', NSI, N, VT, LDVT, WORK, LWORK, RESULT( 32 ) );
 
                // Do tests 33--35: DGESVDX( 'V', 'V', 'V' )
 
@@ -614,8 +614,8 @@
                   VL = ZERO
                   VU = ONE
                }
-               CALL DLACPY( 'F', M, N, ASAV, LDA, A, LDA )
-               CALL DGESVDX( 'V', 'V', 'V', M, N, A, LDA, VL, VU, IL, IU, NSV, S, U, LDU, VT, LDVT, WORK, LWORK, IWORK, IINFO )
+               dlacpy('F', M, N, ASAV, LDA, A, LDA );
+               dgesvdx('V', 'V', 'V', M, N, A, LDA, VL, VU, IL, IU, NSV, S, U, LDU, VT, LDVT, WORK, LWORK, IWORK, IINFO );
                if ( IINFO.NE.0 ) {
                   WRITE( NOUT, FMT = 9995 )'GESVDX', IINFO, M, N, JTYPE, LSWORK, IOLDSD
                   INFO = ABS( IINFO )
@@ -625,7 +625,7 @@
                RESULT( 33 ) = ZERO
                RESULT( 34 ) = ZERO
                RESULT( 35 ) = ZERO
-               CALL DBDT05( M, N, ASAV, LDA, S, NSV, U, LDU, VT, LDVT, WORK, RESULT( 33 ) )                CALL DORT01( 'Columns', M, NSV, U, LDU, WORK, LWORK, RESULT( 34 ) )                CALL DORT01( 'Rows', NSV, N, VT, LDVT, WORK, LWORK, RESULT( 35 ) )
+               dbdt05(M, N, ASAV, LDA, S, NSV, U, LDU, VT, LDVT, WORK, RESULT( 33 ) )                CALL DORT01( 'Columns', M, NSV, U, LDU, WORK, LWORK, RESULT( 34 ) )                CALL DORT01( 'Rows', NSV, N, VT, LDVT, WORK, LWORK, RESULT( 35 ) );
 
                // End of Loop -- Check for RESULT(j) > THRESH
 
@@ -646,7 +646,7 @@
 
       // Summary
 
-      CALL ALASVM( PATH, NOUT, NFAIL, NTEST, 0 )
+      alasvm(PATH, NOUT, NFAIL, NTEST, 0 );
 
  9999 FORMAT( ' SVD -- Real Singular Value Decomposition Driver ', / ' Matrix types (see DDRVBD for details):', / / ' 1 = Zero matrix', / ' 2 = Identity matrix', / ' 3 = Evenly spaced singular values near 1', / ' 4 = Evenly spaced singular values near underflow', / ' 5 = Evenly spaced singular values near overflow', / / ' Tests performed: ( A is dense, U and V are orthogonal,', / 19X, ' S is an array, and Upartial, VTpartial, and', / 19X, ' Spartial are partially computed U, VT and S),', / )
  9998 FORMAT( ' 1 = | A - U diag(S) VT | / ( |A| max(M,N) ulp ) ', / ' 2 = | I - U**T U | / ( M ulp ) ', / ' 3 = | I - VT VT**T | / ( N ulp ) ', / ' 4 = 0 if S contains min(M,N) nonnegative values in', ' decreasing order, else 1/ulp', / ' 5 = | U - Upartial | / ( M ulp )', / ' 6 = | VT - VTpartial | / ( N ulp )', / ' 7 = | S - Spartial | / ( min(M,N) ulp |S| )', / ' 8 = | A - U diag(S) VT | / ( |A| max(M,N) ulp ) ', / ' 9 = | I - U**T U | / ( M ulp ) ', / '10 = | I - VT VT**T | / ( N ulp ) ', / '11 = 0 if S contains min(M,N) nonnegative values in', ' decreasing order, else 1/ulp', / '12 = | U - Upartial | / ( M ulp )', / '13 = | VT - VTpartial | / ( N ulp )', / '14 = | S - Spartial | / ( min(M,N) ulp |S| )', / '15 = | A - U diag(S) VT | / ( |A| max(M,N) ulp ) ', / '16 = | I - U**T U | / ( M ulp ) ', / '17 = | I - VT VT**T | / ( N ulp ) ', / '18 = 0 if S contains min(M,N) nonnegative values in', ' decreasing order, else 1/ulp', / '19 = | U - Upartial | / ( M ulp )', / '20 = | VT - VTpartial | / ( N ulp )',/ '21 = | S - Spartial | / ( min(M,N) ulp |S| )',/ '22 = 0 if S contains min(M,N) nonnegative values in',' decreasing order, else 1/ulp',/ '23 = | A - U diag(S) VT | / ( |A| max(M,N) ulp ),',' DGESVDX(V,V,A) ',/ '24 = | I - U**T U | / ( M ulp ) ',/ '25 = | I - VT VT**T | / ( N ulp ) ',/ '26 = 0 if S contains min(M,N) nonnegative values in',' decreasing order, else 1/ulp',/ '27 = | U - Upartial | / ( M ulp )',/ '28 = | VT - VTpartial | / ( N ulp )',/ '29 = | S - Spartial | / ( min(M,N) ulp |S| )',/ '30 = | U**T A VT**T - diag(S) | / ( |A| max(M,N) ulp ),',' DGESVDX(V,V,I) ',/ '31 = | I - U**T U | / ( M ulp ) ',/ '32 = | I - VT VT**T | / ( N ulp ) ',/ '33 = | U**T A VT**T - diag(S) | / ( |A| max(M,N) ulp ),',' DGESVDX(V,V,V) ',/ '34 = | I - U**T U | / ( M ulp ) ',/ '35 = | I - VT VT**T | / ( N ulp ) ',' DGESVDQ(H,N,N,A,A',/ '36 = | A - U diag(S) VT | / ( |A| max(M,N) ulp ) ',/ '37 = | I - U**T U | / ( M ulp ) ',/ '38 = | I - VT VT**T | / ( N ulp ) ',/ '39 = 0 if S contains min(M,N) nonnegative values in',' decreasing order, else 1/ulp',/ / )

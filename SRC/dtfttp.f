@@ -44,7 +44,7 @@
          INFO = -3
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'DTFTTP', -INFO )
+         xerbla('DTFTTP', -INFO );
          RETURN
       }
 

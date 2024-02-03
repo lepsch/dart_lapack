@@ -111,7 +111,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'ZGEGV ', -INFO )
+         xerbla('ZGEGV ', -INFO );
          RETURN
       } else if ( LQUERY ) {
          RETURN
@@ -141,7 +141,7 @@
       }
 
       if ( ANRM.GT.ZERO ) {
-         CALL ZLASCL( 'G', -1, -1, ANRM, ONE, N, N, A, LDA, IINFO )
+         zlascl('G', -1, -1, ANRM, ONE, N, N, A, LDA, IINFO );
          if ( IINFO.NE.0 ) {
             INFO = N + 10
             RETURN
@@ -161,7 +161,7 @@
       }
 
       if ( BNRM.GT.ZERO ) {
-         CALL ZLASCL( 'G', -1, -1, BNRM, ONE, N, N, B, LDB, IINFO )
+         zlascl('G', -1, -1, BNRM, ONE, N, N, B, LDB, IINFO );
          if ( IINFO.NE.0 ) {
             INFO = N + 10
             RETURN
@@ -174,7 +174,7 @@
       ILEFT = 1
       IRIGHT = N + 1
       IRWORK = IRIGHT + N
-      CALL ZGGBAL( 'P', N, A, LDA, B, LDB, ILO, IHI, RWORK( ILEFT ), RWORK( IRIGHT ), RWORK( IRWORK ), IINFO )
+      zggbal('P', N, A, LDA, B, LDB, ILO, IHI, RWORK( ILEFT ), RWORK( IRIGHT ), RWORK( IRWORK ), IINFO );
       if ( IINFO.NE.0 ) {
          INFO = N + 1
          GO TO 80
@@ -190,13 +190,13 @@
       }
       ITAU = 1
       IWORK = ITAU + IROWS
-      CALL ZGEQRF( IROWS, ICOLS, B( ILO, ILO ), LDB, WORK( ITAU ), WORK( IWORK ), LWORK+1-IWORK, IINFO )       IF( IINFO.GE.0 ) LWKOPT = MAX( LWKOPT, INT( WORK( IWORK ) )+IWORK-1 )
+      zgeqrf(IROWS, ICOLS, B( ILO, ILO ), LDB, WORK( ITAU ), WORK( IWORK ), LWORK+1-IWORK, IINFO )       IF( IINFO.GE.0 ) LWKOPT = MAX( LWKOPT, INT( WORK( IWORK ) )+IWORK-1 );
       if ( IINFO.NE.0 ) {
          INFO = N + 2
          GO TO 80
       }
 
-      CALL ZUNMQR( 'L', 'C', IROWS, ICOLS, IROWS, B( ILO, ILO ), LDB, WORK( ITAU ), A( ILO, ILO ), LDA, WORK( IWORK ), LWORK+1-IWORK, IINFO )
+      zunmqr('L', 'C', IROWS, ICOLS, IROWS, B( ILO, ILO ), LDB, WORK( ITAU ), A( ILO, ILO ), LDA, WORK( IWORK ), LWORK+1-IWORK, IINFO );
       IF( IINFO.GE.0 ) LWKOPT = MAX( LWKOPT, INT( WORK( IWORK ) )+IWORK-1 )
       if ( IINFO.NE.0 ) {
          INFO = N + 3
@@ -204,8 +204,8 @@
       }
 
       if ( ILVL ) {
-         CALL ZLASET( 'Full', N, N, CZERO, CONE, VL, LDVL )
-         CALL ZLACPY( 'L', IROWS-1, IROWS-1, B( ILO+1, ILO ), LDB, VL( ILO+1, ILO ), LDVL )          CALL ZUNGQR( IROWS, IROWS, IROWS, VL( ILO, ILO ), LDVL, WORK( ITAU ), WORK( IWORK ), LWORK+1-IWORK, IINFO )
+         zlaset('Full', N, N, CZERO, CONE, VL, LDVL );
+         zlacpy('L', IROWS-1, IROWS-1, B( ILO+1, ILO ), LDB, VL( ILO+1, ILO ), LDVL )          CALL ZUNGQR( IROWS, IROWS, IROWS, VL( ILO, ILO ), LDVL, WORK( ITAU ), WORK( IWORK ), LWORK+1-IWORK, IINFO );
          IF( IINFO.GE.0 ) LWKOPT = MAX( LWKOPT, INT( WORK( IWORK ) )+IWORK-1 )
          if ( IINFO.NE.0 ) {
             INFO = N + 4
@@ -221,9 +221,9 @@
 
          // Eigenvectors requested -- work on whole matrix.
 
-         CALL ZGGHRD( JOBVL, JOBVR, N, ILO, IHI, A, LDA, B, LDB, VL, LDVL, VR, LDVR, IINFO )
+         zgghrd(JOBVL, JOBVR, N, ILO, IHI, A, LDA, B, LDB, VL, LDVL, VR, LDVR, IINFO );
       } else {
-         CALL ZGGHRD( 'N', 'N', IROWS, 1, IROWS, A( ILO, ILO ), LDA, B( ILO, ILO ), LDB, VL, LDVL, VR, LDVR, IINFO )
+         zgghrd('N', 'N', IROWS, 1, IROWS, A( ILO, ILO ), LDA, B( ILO, ILO ), LDB, VL, LDVL, VR, LDVR, IINFO );
       }
       if ( IINFO.NE.0 ) {
          INFO = N + 5
@@ -238,7 +238,7 @@
       } else {
          CHTEMP = 'E'
       }
-      CALL ZHGEQZ( CHTEMP, JOBVL, JOBVR, N, ILO, IHI, A, LDA, B, LDB, ALPHA, BETA, VL, LDVL, VR, LDVR, WORK( IWORK ), LWORK+1-IWORK, RWORK( IRWORK ), IINFO )
+      zhgeqz(CHTEMP, JOBVL, JOBVR, N, ILO, IHI, A, LDA, B, LDB, ALPHA, BETA, VL, LDVL, VR, LDVR, WORK( IWORK ), LWORK+1-IWORK, RWORK( IRWORK ), IINFO );
       IF( IINFO.GE.0 ) LWKOPT = MAX( LWKOPT, INT( WORK( IWORK ) )+IWORK-1 )
       if ( IINFO.NE.0 ) {
          if ( IINFO.GT.0 .AND. IINFO.LE.N ) {
@@ -265,7 +265,7 @@
             CHTEMP = 'R'
          }
 
-         CALL ZTGEVC( CHTEMP, 'B', LDUMMA, N, A, LDA, B, LDB, VL, LDVL, VR, LDVR, N, IN, WORK( IWORK ), RWORK( IRWORK ), IINFO )
+         ztgevc(CHTEMP, 'B', LDUMMA, N, A, LDA, B, LDB, VL, LDVL, VR, LDVR, N, IN, WORK( IWORK ), RWORK( IRWORK ), IINFO );
          if ( IINFO.NE.0 ) {
             INFO = N + 7
             GO TO 80
@@ -274,7 +274,7 @@
          // Undo balancing on VL and VR, rescale
 
          if ( ILVL ) {
-            CALL ZGGBAK( 'P', 'L', N, ILO, IHI, RWORK( ILEFT ), RWORK( IRIGHT ), N, VL, LDVL, IINFO )
+            zggbak('P', 'L', N, ILO, IHI, RWORK( ILEFT ), RWORK( IRIGHT ), N, VL, LDVL, IINFO );
             if ( IINFO.NE.0 ) {
                INFO = N + 8
                GO TO 80
@@ -292,7 +292,7 @@
    30       CONTINUE
          }
          if ( ILVR ) {
-            CALL ZGGBAK( 'P', 'R', N, ILO, IHI, RWORK( ILEFT ), RWORK( IRIGHT ), N, VR, LDVR, IINFO )
+            zggbak('P', 'R', N, ILO, IHI, RWORK( ILEFT ), RWORK( IRIGHT ), N, VR, LDVR, IINFO );
             if ( IINFO.NE.0 ) {
                INFO = N + 9
                GO TO 80

@@ -73,7 +73,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'DGGGLM', -INFO )
+         xerbla('DGGGLM', -INFO );
          RETURN
       } else if ( LQUERY ) {
          RETURN
@@ -100,26 +100,26 @@
       // where R11 and T22 are upper triangular, and Q and Z are
       // orthogonal.
 
-      CALL DGGQRF( N, M, P, A, LDA, WORK, B, LDB, WORK( M+1 ), WORK( M+NP+1 ), LWORK-M-NP, INFO )
+      dggqrf(N, M, P, A, LDA, WORK, B, LDB, WORK( M+1 ), WORK( M+NP+1 ), LWORK-M-NP, INFO );
       LOPT = INT( WORK( M+NP+1 ) )
 
       // Update left-hand-side vector d = Q**T*d = ( d1 ) M
                                                 // ( d2 ) N-M
 
-      CALL DORMQR( 'Left', 'Transpose', N, 1, M, A, LDA, WORK, D, MAX( 1, N ), WORK( M+NP+1 ), LWORK-M-NP, INFO )
+      dormqr('Left', 'Transpose', N, 1, M, A, LDA, WORK, D, MAX( 1, N ), WORK( M+NP+1 ), LWORK-M-NP, INFO );
       LOPT = MAX( LOPT, INT( WORK( M+NP+1 ) ) )
 
       // Solve T22*y2 = d2 for y2
 
       if ( N.GT.M ) {
-         CALL DTRTRS( 'Upper', 'No transpose', 'Non unit', N-M, 1, B( M+1, M+P-N+1 ), LDB, D( M+1 ), N-M, INFO )
+         dtrtrs('Upper', 'No transpose', 'Non unit', N-M, 1, B( M+1, M+P-N+1 ), LDB, D( M+1 ), N-M, INFO );
 
          if ( INFO.GT.0 ) {
             INFO = 1
             RETURN
          }
 
-         CALL DCOPY( N-M, D( M+1 ), 1, Y( M+P-N+1 ), 1 )
+         dcopy(N-M, D( M+1 ), 1, Y( M+P-N+1 ), 1 );
       }
 
       // Set y1 = 0
@@ -130,12 +130,12 @@
 
       // Update d1 = d1 - T12*y2
 
-      CALL DGEMV( 'No transpose', M, N-M, -ONE, B( 1, M+P-N+1 ), LDB, Y( M+P-N+1 ), 1, ONE, D, 1 )
+      dgemv('No transpose', M, N-M, -ONE, B( 1, M+P-N+1 ), LDB, Y( M+P-N+1 ), 1, ONE, D, 1 );
 
       // Solve triangular system: R11*x = d1
 
       if ( M.GT.0 ) {
-         CALL DTRTRS( 'Upper', 'No Transpose', 'Non unit', M, 1, A, LDA, D, M, INFO )
+         dtrtrs('Upper', 'No Transpose', 'Non unit', M, 1, A, LDA, D, M, INFO );
 
          if ( INFO.GT.0 ) {
             INFO = 2
@@ -144,12 +144,12 @@
 
          // Copy D to X
 
-         CALL DCOPY( M, D, 1, X, 1 )
+         dcopy(M, D, 1, X, 1 );
       }
 
       // Backward transformation y = Z**T *y
 
-      CALL DORMRQ( 'Left', 'Transpose', P, 1, NP, B( MAX( 1, N-P+1 ), 1 ), LDB, WORK( M+1 ), Y, MAX( 1, P ), WORK( M+NP+1 ), LWORK-M-NP, INFO )
+      dormrq('Left', 'Transpose', P, 1, NP, B( MAX( 1, N-P+1 ), 1 ), LDB, WORK( M+1 ), Y, MAX( 1, P ), WORK( M+NP+1 ), LWORK-M-NP, INFO );
       WORK( 1 ) = M + NP + MAX( LOPT, INT( WORK( M+NP+1 ) ) )
 
       RETURN

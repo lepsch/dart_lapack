@@ -49,7 +49,7 @@
          INFO = -4
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'DSYTRI', -INFO )
+         xerbla('DSYTRI', -INFO );
          RETURN
       }
 
@@ -101,8 +101,8 @@
             // Compute column K of the inverse.
 
             if ( K.GT.1 ) {
-               CALL DCOPY( K-1, A( 1, K ), 1, WORK, 1 )
-               CALL DSYMV( UPLO, K-1, -ONE, A, LDA, WORK, 1, ZERO, A( 1, K ), 1 )                A( K, K ) = A( K, K ) - DDOT( K-1, WORK, 1, A( 1, K ), 1 )
+               dcopy(K-1, A( 1, K ), 1, WORK, 1 );
+               dsymv(UPLO, K-1, -ONE, A, LDA, WORK, 1, ZERO, A( 1, K ), 1 )                A( K, K ) = A( K, K ) - DDOT( K-1, WORK, 1, A( 1, K ), 1 );
             }
             KSTEP = 1
          } else {
@@ -123,10 +123,10 @@
             // Compute columns K and K+1 of the inverse.
 
             if ( K.GT.1 ) {
-               CALL DCOPY( K-1, A( 1, K ), 1, WORK, 1 )
-               CALL DSYMV( UPLO, K-1, -ONE, A, LDA, WORK, 1, ZERO, A( 1, K ), 1 )                A( K, K ) = A( K, K ) - DDOT( K-1, WORK, 1, A( 1, K ), 1 )                A( K, K+1 ) = A( K, K+1 ) - DDOT( K-1, A( 1, K ), 1, A( 1, K+1 ), 1 )
-               CALL DCOPY( K-1, A( 1, K+1 ), 1, WORK, 1 )
-               CALL DSYMV( UPLO, K-1, -ONE, A, LDA, WORK, 1, ZERO, A( 1, K+1 ), 1 )                A( K+1, K+1 ) = A( K+1, K+1 ) - DDOT( K-1, WORK, 1, A( 1, K+1 ), 1 )
+               dcopy(K-1, A( 1, K ), 1, WORK, 1 );
+               dsymv(UPLO, K-1, -ONE, A, LDA, WORK, 1, ZERO, A( 1, K ), 1 )                A( K, K ) = A( K, K ) - DDOT( K-1, WORK, 1, A( 1, K ), 1 )                A( K, K+1 ) = A( K, K+1 ) - DDOT( K-1, A( 1, K ), 1, A( 1, K+1 ), 1 );
+               dcopy(K-1, A( 1, K+1 ), 1, WORK, 1 );
+               dsymv(UPLO, K-1, -ONE, A, LDA, WORK, 1, ZERO, A( 1, K+1 ), 1 )                A( K+1, K+1 ) = A( K+1, K+1 ) - DDOT( K-1, WORK, 1, A( 1, K+1 ), 1 );
             }
             KSTEP = 2
          }
@@ -137,8 +137,8 @@
             // Interchange rows and columns K and KP in the leading
             // submatrix A(1:k+1,1:k+1)
 
-            CALL DSWAP( KP-1, A( 1, K ), 1, A( 1, KP ), 1 )
-            CALL DSWAP( K-KP-1, A( KP+1, K ), 1, A( KP, KP+1 ), LDA )
+            dswap(KP-1, A( 1, K ), 1, A( 1, KP ), 1 );
+            dswap(K-KP-1, A( KP+1, K ), 1, A( KP, KP+1 ), LDA );
             TEMP = A( K, K )
             A( K, K ) = A( KP, KP )
             A( KP, KP ) = TEMP
@@ -178,8 +178,8 @@
             // Compute column K of the inverse.
 
             if ( K.LT.N ) {
-               CALL DCOPY( N-K, A( K+1, K ), 1, WORK, 1 )
-               CALL DSYMV( UPLO, N-K, -ONE, A( K+1, K+1 ), LDA, WORK, 1, ZERO, A( K+1, K ), 1 )                A( K, K ) = A( K, K ) - DDOT( N-K, WORK, 1, A( K+1, K ), 1 )
+               dcopy(N-K, A( K+1, K ), 1, WORK, 1 );
+               dsymv(UPLO, N-K, -ONE, A( K+1, K+1 ), LDA, WORK, 1, ZERO, A( K+1, K ), 1 )                A( K, K ) = A( K, K ) - DDOT( N-K, WORK, 1, A( K+1, K ), 1 );
             }
             KSTEP = 1
          } else {
@@ -200,10 +200,10 @@
             // Compute columns K-1 and K of the inverse.
 
             if ( K.LT.N ) {
-               CALL DCOPY( N-K, A( K+1, K ), 1, WORK, 1 )
-               CALL DSYMV( UPLO, N-K, -ONE, A( K+1, K+1 ), LDA, WORK, 1, ZERO, A( K+1, K ), 1 )                A( K, K ) = A( K, K ) - DDOT( N-K, WORK, 1, A( K+1, K ), 1 )                A( K, K-1 ) = A( K, K-1 ) - DDOT( N-K, A( K+1, K ), 1, A( K+1, K-1 ), 1 )
-               CALL DCOPY( N-K, A( K+1, K-1 ), 1, WORK, 1 )
-               CALL DSYMV( UPLO, N-K, -ONE, A( K+1, K+1 ), LDA, WORK, 1, ZERO, A( K+1, K-1 ), 1 )                A( K-1, K-1 ) = A( K-1, K-1 ) - DDOT( N-K, WORK, 1, A( K+1, K-1 ), 1 )
+               dcopy(N-K, A( K+1, K ), 1, WORK, 1 );
+               dsymv(UPLO, N-K, -ONE, A( K+1, K+1 ), LDA, WORK, 1, ZERO, A( K+1, K ), 1 )                A( K, K ) = A( K, K ) - DDOT( N-K, WORK, 1, A( K+1, K ), 1 )                A( K, K-1 ) = A( K, K-1 ) - DDOT( N-K, A( K+1, K ), 1, A( K+1, K-1 ), 1 );
+               dcopy(N-K, A( K+1, K-1 ), 1, WORK, 1 );
+               dsymv(UPLO, N-K, -ONE, A( K+1, K+1 ), LDA, WORK, 1, ZERO, A( K+1, K-1 ), 1 )                A( K-1, K-1 ) = A( K-1, K-1 ) - DDOT( N-K, WORK, 1, A( K+1, K-1 ), 1 );
             }
             KSTEP = 2
          }
@@ -215,7 +215,7 @@
             // submatrix A(k-1:n,k-1:n)
 
             IF( KP.LT.N ) CALL DSWAP( N-KP, A( KP+1, K ), 1, A( KP+1, KP ), 1 )
-            CALL DSWAP( KP-K-1, A( K+1, K ), 1, A( KP, K+1 ), LDA )
+            dswap(KP-K-1, A( K+1, K ), 1, A( KP, K+1 ), LDA );
             TEMP = A( K, K )
             A( K, K ) = A( KP, KP )
             A( KP, KP ) = TEMP

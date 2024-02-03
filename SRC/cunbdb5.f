@@ -57,7 +57,7 @@
       }
 
       if ( INFO .NE. 0 ) {
-         CALL XERBLA( 'CUNBDB5', -INFO )
+         xerbla('CUNBDB5', -INFO );
          RETURN
       }
 
@@ -67,8 +67,8 @@
 
       SCL = REALZERO
       SSQ = REALZERO
-      CALL CLASSQ( M1, X1, INCX1, SCL, SSQ )
-      CALL CLASSQ( M2, X2, INCX2, SCL, SSQ )
+      classq(M1, X1, INCX1, SCL, SSQ );
+      classq(M2, X2, INCX2, SCL, SSQ );
       NORM = SCL * SQRT( SSQ )
 
       if ( NORM .GT. N * EPS ) {
@@ -77,9 +77,9 @@
           // * xLASCL cannot be used because of the vector increments and
           // * the round-off error has a negligible impact on
             // orthogonalization.
-         CALL CSCAL( M1, ONE / NORM, X1, INCX1 )
-         CALL CSCAL( M2, ONE / NORM, X2, INCX2 )
-         CALL CUNBDB6( M1, M2, N, X1, INCX1, X2, INCX2, Q1, LDQ1, Q2, LDQ2, WORK, LWORK, CHILDINFO )
+         cscal(M1, ONE / NORM, X1, INCX1 );
+         cscal(M2, ONE / NORM, X2, INCX2 );
+         cunbdb6(M1, M2, N, X1, INCX1, X2, INCX2, Q1, LDQ1, Q2, LDQ2, WORK, LWORK, CHILDINFO );
 
          // If the projection is nonzero, then return
 

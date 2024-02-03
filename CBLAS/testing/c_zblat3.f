@@ -219,14 +219,14 @@
       // the result computed by ZMMCH.
       TRANSA = 'N'
       TRANSB = 'N'
-      CALL ZMMCH( TRANSA, TRANSB, N, 1, N, ONE, AB, NMAX, AB( 1, NMAX + 1 ), NMAX, ZERO, C, NMAX, CT, G, CC, NMAX, EPS, ERR, FATAL, NOUT, .TRUE. )
+      zmmch(TRANSA, TRANSB, N, 1, N, ONE, AB, NMAX, AB( 1, NMAX + 1 ), NMAX, ZERO, C, NMAX, CT, G, CC, NMAX, EPS, ERR, FATAL, NOUT, .TRUE. );
       SAME = LZE( CC, CT, N )
       if ( .NOT.SAME.OR.ERR.NE.RZERO ) {
          WRITE( NOUT, FMT = 9989 )TRANSA, TRANSB, SAME, ERR
          STOP
       }
       TRANSB = 'C'
-      CALL ZMMCH( TRANSA, TRANSB, N, 1, N, ONE, AB, NMAX, AB( 1, NMAX + 1 ), NMAX, ZERO, C, NMAX, CT, G, CC, NMAX, EPS, ERR, FATAL, NOUT, .TRUE. )
+      zmmch(TRANSA, TRANSB, N, 1, N, ONE, AB, NMAX, AB( 1, NMAX + 1 ), NMAX, ZERO, C, NMAX, CT, G, CC, NMAX, EPS, ERR, FATAL, NOUT, .TRUE. );
       SAME = LZE( CC, CT, N )
       if ( .NOT.SAME.OR.ERR.NE.RZERO ) {
          WRITE( NOUT, FMT = 9989 )TRANSA, TRANSB, SAME, ERR
@@ -241,14 +241,14 @@
   130 CONTINUE
       TRANSA = 'C'
       TRANSB = 'N'
-      CALL ZMMCH( TRANSA, TRANSB, N, 1, N, ONE, AB, NMAX, AB( 1, NMAX + 1 ), NMAX, ZERO, C, NMAX, CT, G, CC, NMAX, EPS, ERR, FATAL, NOUT, .TRUE. )
+      zmmch(TRANSA, TRANSB, N, 1, N, ONE, AB, NMAX, AB( 1, NMAX + 1 ), NMAX, ZERO, C, NMAX, CT, G, CC, NMAX, EPS, ERR, FATAL, NOUT, .TRUE. );
       SAME = LZE( CC, CT, N )
       if ( .NOT.SAME.OR.ERR.NE.RZERO ) {
          WRITE( NOUT, FMT = 9989 )TRANSA, TRANSB, SAME, ERR
          STOP
       }
       TRANSB = 'C'
-      CALL ZMMCH( TRANSA, TRANSB, N, 1, N, ONE, AB, NMAX, AB( 1, NMAX + 1 ), NMAX, ZERO, C, NMAX, CT, G, CC, NMAX, EPS, ERR, FATAL, NOUT, .TRUE. )
+      zmmch(TRANSA, TRANSB, N, 1, N, ONE, AB, NMAX, AB( 1, NMAX + 1 ), NMAX, ZERO, C, NMAX, CT, G, CC, NMAX, EPS, ERR, FATAL, NOUT, .TRUE. );
       SAME = LZE( CC, CT, N )
       if ( .NOT.SAME.OR.ERR.NE.RZERO ) {
          WRITE( NOUT, FMT = 9989 )TRANSA, TRANSB, SAME, ERR
@@ -266,7 +266,7 @@
             SRNAMT = SNAMES( ISNUM )
             // Test error exits.
             if ( TSTERR ) {
-               CALL CZ3CHKE( SNAMES( ISNUM ) )
+               cz3chke(SNAMES( ISNUM ) );
                WRITE( NOUT, FMT = * )
             }
             // Test computations.
@@ -276,42 +276,42 @@
             GO TO ( 140, 150, 150, 160, 160, 170, 170, 180, 180 )ISNUM
             // Test ZGEMM, 01.
   140       IF (CORDER) THEN
-            CALL ZCHK1(SNAMES( ISNUM ), EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NBET, BET, NMAX, AB, AA, AS, AB( 1, NMAX + 1 ), BB, BS, C, CC, CS, CT, G, 0 )
+            zchk1(SNAMES( ISNUM ), EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NBET, BET, NMAX, AB, AA, AS, AB( 1, NMAX + 1 ), BB, BS, C, CC, CS, CT, G, 0 );
             }
             if (RORDER) {
-            CALL ZCHK1(SNAMES( ISNUM ), EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NBET, BET, NMAX, AB, AA, AS, AB( 1, NMAX + 1 ), BB, BS, C, CC, CS, CT, G, 1 )
+            zchk1(SNAMES( ISNUM ), EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NBET, BET, NMAX, AB, AA, AS, AB( 1, NMAX + 1 ), BB, BS, C, CC, CS, CT, G, 1 );
             }
             GO TO 190
             // Test ZHEMM, 02, ZSYMM, 03.
   150       IF (CORDER) THEN
-            CALL ZCHK2(SNAMES( ISNUM ), EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NBET, BET, NMAX, AB, AA, AS, AB( 1, NMAX + 1 ), BB, BS, C, CC, CS, CT, G, 0 )
+            zchk2(SNAMES( ISNUM ), EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NBET, BET, NMAX, AB, AA, AS, AB( 1, NMAX + 1 ), BB, BS, C, CC, CS, CT, G, 0 );
             }
             if (RORDER) {
-            CALL ZCHK2(SNAMES( ISNUM ), EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NBET, BET, NMAX, AB, AA, AS, AB( 1, NMAX + 1 ), BB, BS, C, CC, CS, CT, G, 1 )
+            zchk2(SNAMES( ISNUM ), EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NBET, BET, NMAX, AB, AA, AS, AB( 1, NMAX + 1 ), BB, BS, C, CC, CS, CT, G, 1 );
             }
             GO TO 190
             // Test ZTRMM, 04, ZTRSM, 05.
   160       IF (CORDER) THEN
-            CALL ZCHK3(SNAMES( ISNUM ), EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NMAX, AB, AA, AS, AB( 1, NMAX + 1 ), BB, BS, CT, G, C, 0 )
+            zchk3(SNAMES( ISNUM ), EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NMAX, AB, AA, AS, AB( 1, NMAX + 1 ), BB, BS, CT, G, C, 0 );
             }
             if (RORDER) {
-            CALL ZCHK3(SNAMES( ISNUM ), EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NMAX, AB, AA, AS, AB( 1, NMAX + 1 ), BB, BS, CT, G, C, 1 )
+            zchk3(SNAMES( ISNUM ), EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NMAX, AB, AA, AS, AB( 1, NMAX + 1 ), BB, BS, CT, G, C, 1 );
             }
             GO TO 190
             // Test ZHERK, 06, ZSYRK, 07.
   170       IF (CORDER) THEN
-            CALL ZCHK4(SNAMES( ISNUM ), EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NBET, BET, NMAX, AB, AA, AS, AB( 1, NMAX + 1 ), BB, BS, C, CC, CS, CT, G, 0 )
+            zchk4(SNAMES( ISNUM ), EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NBET, BET, NMAX, AB, AA, AS, AB( 1, NMAX + 1 ), BB, BS, C, CC, CS, CT, G, 0 );
             }
             if (RORDER) {
-            CALL ZCHK4(SNAMES( ISNUM ), EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NBET, BET, NMAX, AB, AA, AS, AB( 1, NMAX + 1 ), BB, BS, C, CC, CS, CT, G, 1 )
+            zchk4(SNAMES( ISNUM ), EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NBET, BET, NMAX, AB, AA, AS, AB( 1, NMAX + 1 ), BB, BS, C, CC, CS, CT, G, 1 );
             }
             GO TO 190
             // Test ZHER2K, 08, ZSYR2K, 09.
   180       IF (CORDER) THEN
-            CALL ZCHK5(SNAMES( ISNUM ), EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NBET, BET, NMAX, AB, AA, AS, BB, BS, C, CC, CS, CT, G, W, 0 )
+            zchk5(SNAMES( ISNUM ), EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NBET, BET, NMAX, AB, AA, AS, BB, BS, C, CC, CS, CT, G, W, 0 );
             }
             if (RORDER) {
-            CALL ZCHK5(SNAMES( ISNUM ), EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NBET, BET, NMAX, AB, AA, AS, BB, BS, C, CC, CS, CT, G, W, 1 )
+            zchk5(SNAMES( ISNUM ), EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NBET, BET, NMAX, AB, AA, AS, BB, BS, C, CC, CS, CT, G, W, 1 );
             }
             GO TO 190
 
@@ -448,7 +448,7 @@
 
                   // Generate the matrix A.
 
-                  CALL ZMAKE( 'ge', ' ', ' ', MA, NA, A, NMAX, AA, LDA, RESET, ZERO )
+                  zmake('ge', ' ', ' ', MA, NA, A, NMAX, AA, LDA, RESET, ZERO );
 
                   DO 70 ICB = 1, 3
                      TRANSB = ICH( ICB: ICB )
@@ -470,7 +470,7 @@
 
                      // Generate the matrix B.
 
-                     CALL ZMAKE( 'ge', ' ', ' ', MB, NB, B, NMAX, BB, LDB, RESET, ZERO )
+                     zmake('ge', ' ', ' ', MB, NB, B, NMAX, BB, LDB, RESET, ZERO );
 
                      DO 60 IA = 1, NALF
                         ALPHA = ALF( IA )
@@ -480,7 +480,7 @@
 
                            // Generate the matrix C.
 
-                           CALL ZMAKE( 'ge', ' ', ' ', M, N, C, NMAX, CC, LDC, RESET, ZERO )
+                           zmake('ge', ' ', ' ', M, N, C, NMAX, CC, LDC, RESET, ZERO );
 
                            NC = NC + 1
 
@@ -557,7 +557,7 @@
 
                               // Check the result.
 
-                             CALL ZMMCH( TRANSA, TRANSB, M, N, K, ALPHA, A, NMAX, B, NMAX, BETA, C, NMAX, CT, G, CC, LDC, EPS, ERR, FATAL, NOUT, .TRUE. )
+                             zmmch(TRANSA, TRANSB, M, N, K, ALPHA, A, NMAX, B, NMAX, BETA, C, NMAX, CT, G, CC, LDC, EPS, ERR, FATAL, NOUT, .TRUE. );
                               ERRMAX = MAX( ERRMAX, ERR )
                               // If got really bad answer, report and
                               // return.
@@ -591,7 +591,7 @@
 
   120 CONTINUE
       WRITE( NOUT, FMT = 9996 )SNAME
-      CALL ZPRCN1(NOUT, NC, SNAME, IORDER, TRANSA, TRANSB, M, N, K, ALPHA, LDA, LDB, BETA, LDC)
+      zprcn1(NOUT, NC, SNAME, IORDER, TRANSA, TRANSB, M, N, K, ALPHA, LDA, LDB, BETA, LDC);
 
   130 CONTINUE
       RETURN
@@ -720,7 +720,7 @@
 
             // Generate the matrix B.
 
-            CALL ZMAKE( 'ge', ' ', ' ', M, N, B, NMAX, BB, LDB, RESET, ZERO )
+            zmake('ge', ' ', ' ', M, N, B, NMAX, BB, LDB, RESET, ZERO );
 
             DO 80 ICS = 1, 2
                SIDE = ICHS( ICS: ICS )
@@ -743,7 +743,7 @@
 
                   // Generate the hermitian or symmetric matrix A.
 
-                  CALL ZMAKE(SNAME( 8: 9 ), UPLO, ' ', NA, NA, A, NMAX, AA, LDA, RESET, ZERO )
+                  zmake(SNAME( 8: 9 ), UPLO, ' ', NA, NA, A, NMAX, AA, LDA, RESET, ZERO );
 
                   DO 60 IA = 1, NALF
                      ALPHA = ALF( IA )
@@ -753,7 +753,7 @@
 
                         // Generate the matrix C.
 
-                        CALL ZMAKE( 'ge', ' ', ' ', M, N, C, NMAX, CC, LDC, RESET, ZERO )
+                        zmake('ge', ' ', ' ', M, N, C, NMAX, CC, LDC, RESET, ZERO );
 
                         NC = NC + 1
 
@@ -784,9 +784,9 @@
                         IF( TRACE ) CALL ZPRCN2(NTRA, NC, SNAME, IORDER, SIDE, UPLO, M, N, ALPHA, LDA, LDB, BETA, LDC)
                         IF( REWI ) REWIND NTRA
                         if ( CONJ ) {
-                           CALL CZHEMM( IORDER, SIDE, UPLO, M, N, ALPHA, AA, LDA, BB, LDB, BETA, CC, LDC )
+                           czhemm(IORDER, SIDE, UPLO, M, N, ALPHA, AA, LDA, BB, LDB, BETA, CC, LDC );
                         } else {
-                           CALL CZSYMM( IORDER, SIDE, UPLO, M, N, ALPHA, AA, LDA, BB, LDB, BETA, CC, LDC )
+                           czsymm(IORDER, SIDE, UPLO, M, N, ALPHA, AA, LDA, BB, LDB, BETA, CC, LDC );
                         }
 
                         // Check if error-exit was taken incorrectly.
@@ -834,9 +834,9 @@
                            // Check the result.
 
                            if ( LEFT ) {
-                              CALL ZMMCH( 'N', 'N', M, N, M, ALPHA, A, NMAX, B, NMAX, BETA, C, NMAX, CT, G, CC, LDC, EPS, ERR, FATAL, NOUT, .TRUE. )
+                              zmmch('N', 'N', M, N, M, ALPHA, A, NMAX, B, NMAX, BETA, C, NMAX, CT, G, CC, LDC, EPS, ERR, FATAL, NOUT, .TRUE. );
                            } else {
-                              CALL ZMMCH( 'N', 'N', M, N, N, ALPHA, B, NMAX, A, NMAX, BETA, C, NMAX, CT, G, CC, LDC, EPS, ERR, FATAL, NOUT, .TRUE. )
+                              zmmch('N', 'N', M, N, N, ALPHA, B, NMAX, A, NMAX, BETA, C, NMAX, CT, G, CC, LDC, EPS, ERR, FATAL, NOUT, .TRUE. );
                            }
                            ERRMAX = MAX( ERRMAX, ERR )
                            // If got really bad answer, report and
@@ -869,7 +869,7 @@
 
   110 CONTINUE
       WRITE( NOUT, FMT = 9996 )SNAME
-      CALL ZPRCN2(NOUT, NC, SNAME, IORDER, SIDE, UPLO, M, N, ALPHA, LDA, LDB, BETA, LDC)
+      zprcn2(NOUT, NC, SNAME, IORDER, SIDE, UPLO, M, N, ALPHA, LDA, LDB, BETA, LDC);
 
   120 CONTINUE
       RETURN
@@ -1021,11 +1021,11 @@
 
                            // Generate the matrix A.
 
-                           CALL ZMAKE( 'tr', UPLO, DIAG, NA, NA, A, NMAX, AA, LDA, RESET, ZERO )
+                           zmake('tr', UPLO, DIAG, NA, NA, A, NMAX, AA, LDA, RESET, ZERO );
 
                            // Generate the matrix B.
 
-                           CALL ZMAKE( 'ge', ' ', ' ', M, N, B, NMAX, BB, LDB, RESET, ZERO )
+                           zmake('ge', ' ', ' ', M, N, B, NMAX, BB, LDB, RESET, ZERO );
 
                            NC = NC + 1
 
@@ -1103,9 +1103,9 @@
                                  // Check the result.
 
                                  if ( LEFT ) {
-                                   CALL ZMMCH( TRANSA, 'N', M, N, M, ALPHA, A, NMAX, B, NMAX, ZERO, C, NMAX, CT, G, BB, LDB, EPS, ERR, FATAL, NOUT, .TRUE. )
+                                   zmmch(TRANSA, 'N', M, N, M, ALPHA, A, NMAX, B, NMAX, ZERO, C, NMAX, CT, G, BB, LDB, EPS, ERR, FATAL, NOUT, .TRUE. );
                                  } else {
-                                   CALL ZMMCH( 'N', TRANSA, M, N, N, ALPHA, B, NMAX, A, NMAX, ZERO, C, NMAX, CT, G, BB, LDB, EPS, ERR, FATAL, NOUT, .TRUE. )
+                                   zmmch('N', TRANSA, M, N, N, ALPHA, B, NMAX, A, NMAX, ZERO, C, NMAX, CT, G, BB, LDB, EPS, ERR, FATAL, NOUT, .TRUE. );
                                  }
                               } else if ( SNAME( 10: 11 ).EQ.'sm' ) {
 
@@ -1119,9 +1119,9 @@
    70                            CONTINUE
 
                                  if ( LEFT ) {
-                                    CALL ZMMCH( TRANSA, 'N', M, N, M, ONE, A, NMAX, C, NMAX, ZERO, B, NMAX, CT, G, BB, LDB, EPS, ERR, FATAL, NOUT, .FALSE. )
+                                    zmmch(TRANSA, 'N', M, N, M, ONE, A, NMAX, C, NMAX, ZERO, B, NMAX, CT, G, BB, LDB, EPS, ERR, FATAL, NOUT, .FALSE. );
                                  } else {
-                                    CALL ZMMCH( 'N', TRANSA, M, N, N, ONE, C, NMAX, A, NMAX, ZERO, B, NMAX, CT, G, BB, LDB, EPS, ERR, FATAL, NOUT, .FALSE. )
+                                    zmmch('N', TRANSA, M, N, N, ONE, C, NMAX, A, NMAX, ZERO, B, NMAX, CT, G, BB, LDB, EPS, ERR, FATAL, NOUT, .FALSE. );
                                  }
                               }
                               ERRMAX = MAX( ERRMAX, ERR )
@@ -1305,7 +1305,7 @@
 
                // Generate the matrix A.
 
-               CALL ZMAKE( 'ge', ' ', ' ', MA, NA, A, NMAX, AA, LDA, RESET, ZERO )
+               zmake('ge', ' ', ' ', MA, NA, A, NMAX, AA, LDA, RESET, ZERO );
 
                DO 70 ICU = 1, 2
                   UPLO = ICHU( ICU: ICU )
@@ -1329,7 +1329,7 @@
 
                         // Generate the matrix C.
 
-                        CALL ZMAKE( SNAME( 8: 9 ), UPLO, ' ', N, N, C, NMAX, CC, LDC, RESET, ZERO )
+                        zmake(SNAME( 8: 9 ), UPLO, ' ', N, N, C, NMAX, CC, LDC, RESET, ZERO );
 
                         NC = NC + 1
 
@@ -1433,9 +1433,9 @@
                                  LJ = N - J + 1
                               }
                               if ( TRAN ) {
-                                 CALL ZMMCH( TRANST, 'N', LJ, 1, K, ALPHA, A( 1, JJ ), NMAX, A( 1, J ), NMAX, BETA, C( JJ, J ), NMAX, CT, G, CC( JC ), LDC, EPS, ERR, FATAL, NOUT, .TRUE. )
+                                 zmmch(TRANST, 'N', LJ, 1, K, ALPHA, A( 1, JJ ), NMAX, A( 1, J ), NMAX, BETA, C( JJ, J ), NMAX, CT, G, CC( JC ), LDC, EPS, ERR, FATAL, NOUT, .TRUE. );
                               } else {
-                                 CALL ZMMCH( 'N', TRANST, LJ, 1, K, ALPHA, A( JJ, 1 ), NMAX, A( J, 1 ), NMAX, BETA, C( JJ, J ), NMAX, CT, G, CC( JC ), LDC, EPS, ERR, FATAL, NOUT, .TRUE. )
+                                 zmmch('N', TRANST, LJ, 1, K, ALPHA, A( JJ, 1 ), NMAX, A( J, 1 ), NMAX, BETA, C( JJ, J ), NMAX, CT, G, CC( JC ), LDC, EPS, ERR, FATAL, NOUT, .TRUE. );
                               }
                               if ( UPPER ) {
                                  JC = JC + LDC
@@ -1478,9 +1478,9 @@
   120 CONTINUE
       WRITE( NOUT, FMT = 9996 )SNAME
       if ( CONJ ) {
-      CALL ZPRCN6( NOUT, NC, SNAME, IORDER, UPLO, TRANS, N, K, RALPHA, LDA, rBETA, LDC)
+      zprcn6(NOUT, NC, SNAME, IORDER, UPLO, TRANS, N, K, RALPHA, LDA, rBETA, LDC);
       } else {
-      CALL ZPRCN4( NOUT, NC, SNAME, IORDER, UPLO, TRANS, N, K, ALPHA, LDA, BETA, LDC)
+      zprcn4(NOUT, NC, SNAME, IORDER, UPLO, TRANS, N, K, ALPHA, LDA, BETA, LDC);
       }
 
   130 CONTINUE
@@ -1654,9 +1654,9 @@
                // Generate the matrix A.
 
                if ( TRAN ) {
-                  CALL ZMAKE( 'ge', ' ', ' ', MA, NA, AB, 2*NMAX, AA, LDA, RESET, ZERO )
+                  zmake('ge', ' ', ' ', MA, NA, AB, 2*NMAX, AA, LDA, RESET, ZERO );
                } else {
-                 CALL ZMAKE( 'ge', ' ', ' ', MA, NA, AB, NMAX, AA, LDA, RESET, ZERO )
+                 zmake('ge', ' ', ' ', MA, NA, AB, NMAX, AA, LDA, RESET, ZERO );
                }
 
                // Generate the matrix B.
@@ -1664,9 +1664,9 @@
                LDB = LDA
                LBB = LAA
                if ( TRAN ) {
-                  CALL ZMAKE( 'ge', ' ', ' ', MA, NA, AB( K + 1 ), 2*NMAX, BB, LDB, RESET, ZERO )
+                  zmake('ge', ' ', ' ', MA, NA, AB( K + 1 ), 2*NMAX, BB, LDB, RESET, ZERO );
                } else {
-                  CALL ZMAKE( 'ge', ' ', ' ', MA, NA, AB( K*NMAX + 1 ), NMAX, BB, LDB, RESET, ZERO )
+                  zmake('ge', ' ', ' ', MA, NA, AB( K*NMAX + 1 ), NMAX, BB, LDB, RESET, ZERO );
                }
 
                DO 100 ICU = 1, 2
@@ -1687,7 +1687,7 @@
 
                         // Generate the matrix C.
 
-                        CALL ZMAKE( SNAME( 8: 9 ), UPLO, ' ', N, N, C, NMAX, CC, LDC, RESET, ZERO )
+                        zmake(SNAME( 8: 9 ), UPLO, ' ', N, N, C, NMAX, CC, LDC, RESET, ZERO );
 
                         NC = NC + 1
 
@@ -1798,7 +1798,7 @@
                                        W( K + I ) = ALPHA* AB( ( J - 1 )*2* NMAX + I )
                                     }
    50                            CONTINUE
-                                 CALL ZMMCH( TRANST, 'N', LJ, 1, 2*K, ONE, AB( JJAB ), 2*NMAX, W, 2*NMAX, BETA, C( JJ, J ), NMAX, CT, G, CC( JC ), LDC, EPS, ERR, FATAL, NOUT, .TRUE. )
+                                 zmmch(TRANST, 'N', LJ, 1, 2*K, ONE, AB( JJAB ), 2*NMAX, W, 2*NMAX, BETA, C( JJ, J ), NMAX, CT, G, CC( JC ), LDC, EPS, ERR, FATAL, NOUT, .TRUE. );
                               } else {
                                  DO 60 I = 1, K
                                     if ( CONJ ) {
@@ -1807,7 +1807,7 @@
                                       W( I ) = ALPHA*AB( ( K + I - 1 )* NMAX + J )                                       W( K + I ) = ALPHA* AB( ( I - 1 )*NMAX + J )
                                     }
    60                            CONTINUE
-                                 CALL ZMMCH( 'N', 'N', LJ, 1, 2*K, ONE, AB( JJ ), NMAX, W, 2*NMAX, BETA, C( JJ, J ), NMAX, CT, G, CC( JC ), LDC, EPS, ERR, FATAL, NOUT, .TRUE. )
+                                 zmmch('N', 'N', LJ, 1, 2*K, ONE, AB( JJ ), NMAX, W, 2*NMAX, BETA, C( JJ, J ), NMAX, CT, G, CC( JC ), LDC, EPS, ERR, FATAL, NOUT, .TRUE. );
                               }
                               if ( UPPER ) {
                                  JC = JC + LDC
@@ -1851,9 +1851,9 @@
   150 CONTINUE
       WRITE( NOUT, FMT = 9996 )SNAME
       if ( CONJ ) {
-         CALL ZPRCN7( NOUT, NC, SNAME, IORDER, UPLO, TRANS, N, K, ALPHA, LDA, LDB, RBETA, LDC)
+         zprcn7(NOUT, NC, SNAME, IORDER, UPLO, TRANS, N, K, ALPHA, LDA, LDB, RBETA, LDC);
       } else {
-         CALL ZPRCN5( NOUT, NC, SNAME, IORDER, UPLO, TRANS, N, K, ALPHA, LDA, LDB, BETA, LDC)
+         zprcn5(NOUT, NC, SNAME, IORDER, UPLO, TRANS, N, K, ALPHA, LDA, LDB, BETA, LDC);
       }
 
   160 CONTINUE

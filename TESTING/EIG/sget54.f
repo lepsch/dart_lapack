@@ -46,23 +46,23 @@
 
       // compute the norm of (A,B)
 
-      CALL SLACPY( 'Full', N, N, A, LDA, WORK, N )
-      CALL SLACPY( 'Full', N, N, B, LDB, WORK( N*N+1 ), N )
+      slacpy('Full', N, N, A, LDA, WORK, N );
+      slacpy('Full', N, N, B, LDB, WORK( N*N+1 ), N );
       ABNORM = MAX( SLANGE( '1', N, 2*N, WORK, N, DUM ), UNFL )
 
       // Compute W1 = A - U*S*V', and put in the array WORK(1:N*N)
 
-      CALL SLACPY( ' ', N, N, A, LDA, WORK, N )
-      CALL SGEMM( 'N', 'N', N, N, N, ONE, U, LDU, S, LDS, ZERO, WORK( N*N+1 ), N )
+      slacpy(' ', N, N, A, LDA, WORK, N );
+      sgemm('N', 'N', N, N, N, ONE, U, LDU, S, LDS, ZERO, WORK( N*N+1 ), N );
 
-      CALL SGEMM( 'N', 'C', N, N, N, -ONE, WORK( N*N+1 ), N, V, LDV, ONE, WORK, N )
+      sgemm('N', 'C', N, N, N, -ONE, WORK( N*N+1 ), N, V, LDV, ONE, WORK, N );
 
       // Compute W2 = B - U*T*V', and put in the workarray W(N*N+1:2*N*N)
 
-      CALL SLACPY( ' ', N, N, B, LDB, WORK( N*N+1 ), N )
-      CALL SGEMM( 'N', 'N', N, N, N, ONE, U, LDU, T, LDT, ZERO, WORK( 2*N*N+1 ), N )
+      slacpy(' ', N, N, B, LDB, WORK( N*N+1 ), N );
+      sgemm('N', 'N', N, N, N, ONE, U, LDU, T, LDT, ZERO, WORK( 2*N*N+1 ), N );
 
-      CALL SGEMM( 'N', 'C', N, N, N, -ONE, WORK( 2*N*N+1 ), N, V, LDV, ONE, WORK( N*N+1 ), N )
+      sgemm('N', 'C', N, N, N, -ONE, WORK( 2*N*N+1 ), N, V, LDV, ONE, WORK( N*N+1 ), N );
 
       // Compute norm(W)/ ( ulp*norm((A,B)) )
 

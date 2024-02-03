@@ -97,15 +97,15 @@
          SUM = ONE
          if ( LSAME( UPLO, 'U' ) ) {
             DO 110 J = 2, N
-               CALL DLASSQ( J-1, A( 1, J ), 1, SCALE, SUM )
+               dlassq(J-1, A( 1, J ), 1, SCALE, SUM );
   110       CONTINUE
          } else {
             DO 120 J = 1, N - 1
-               CALL DLASSQ( N-J, A( J+1, J ), 1, SCALE, SUM )
+               dlassq(N-J, A( J+1, J ), 1, SCALE, SUM );
   120       CONTINUE
          }
          SUM = 2*SUM
-         CALL DLASSQ( N, A, LDA+1, SCALE, SUM )
+         dlassq(N, A, LDA+1, SCALE, SUM );
          VALUE = SCALE*SQRT( SUM )
       }
 

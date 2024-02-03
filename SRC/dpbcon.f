@@ -59,7 +59,7 @@
          INFO = -6
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'DPBCON', -INFO )
+         xerbla('DPBCON', -INFO );
          RETURN
       }
 
@@ -80,28 +80,28 @@
       KASE = 0
       NORMIN = 'N'
    10 CONTINUE
-      CALL DLACN2( N, WORK( N+1 ), WORK, IWORK, AINVNM, KASE, ISAVE )
+      dlacn2(N, WORK( N+1 ), WORK, IWORK, AINVNM, KASE, ISAVE );
       if ( KASE.NE.0 ) {
          if ( UPPER ) {
 
             // Multiply by inv(U**T).
 
-            CALL DLATBS( 'Upper', 'Transpose', 'Non-unit', NORMIN, N, KD, AB, LDAB, WORK, SCALEL, WORK( 2*N+1 ), INFO )
+            dlatbs('Upper', 'Transpose', 'Non-unit', NORMIN, N, KD, AB, LDAB, WORK, SCALEL, WORK( 2*N+1 ), INFO );
             NORMIN = 'Y'
 
             // Multiply by inv(U).
 
-            CALL DLATBS( 'Upper', 'No transpose', 'Non-unit', NORMIN, N, KD, AB, LDAB, WORK, SCALEU, WORK( 2*N+1 ), INFO )
+            dlatbs('Upper', 'No transpose', 'Non-unit', NORMIN, N, KD, AB, LDAB, WORK, SCALEU, WORK( 2*N+1 ), INFO );
          } else {
 
             // Multiply by inv(L).
 
-            CALL DLATBS( 'Lower', 'No transpose', 'Non-unit', NORMIN, N, KD, AB, LDAB, WORK, SCALEL, WORK( 2*N+1 ), INFO )
+            dlatbs('Lower', 'No transpose', 'Non-unit', NORMIN, N, KD, AB, LDAB, WORK, SCALEL, WORK( 2*N+1 ), INFO );
             NORMIN = 'Y'
 
             // Multiply by inv(L**T).
 
-            CALL DLATBS( 'Lower', 'Transpose', 'Non-unit', NORMIN, N, KD, AB, LDAB, WORK, SCALEU, WORK( 2*N+1 ), INFO )
+            dlatbs('Lower', 'Transpose', 'Non-unit', NORMIN, N, KD, AB, LDAB, WORK, SCALEU, WORK( 2*N+1 ), INFO );
          }
 
          // Multiply by 1/SCALE if doing so will not cause overflow.
@@ -110,7 +110,7 @@
          if ( SCALE.NE.ONE ) {
             IX = IDAMAX( N, WORK, 1 )
             IF( SCALE.LT.ABS( WORK( IX ) )*SMLNUM .OR. SCALE.EQ.ZERO ) GO TO 20
-            CALL DRSCL( N, SCALE, WORK, 1 )
+            drscl(N, SCALE, WORK, 1 );
          }
          GO TO 10
       }

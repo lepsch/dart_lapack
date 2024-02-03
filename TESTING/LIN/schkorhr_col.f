@@ -94,7 +94,7 @@
 
                               // Test SORHR_COL
 
-                              CALL SORHR_COL01( M, N, MB1, NB1, NB2, RESULT )
+                              sorhr_col01(M, N, MB1, NB1, NB2, RESULT );
 
                               // Print information about the tests that did
                               // not pass the threshold.
@@ -152,7 +152,7 @@
 
                               // Test SORHR_COL
 
-                              CALL SORHR_COL02( M, N, MB1, NB1, NB2, RESULT )
+                              sorhr_col02(M, N, MB1, NB1, NB2, RESULT );
 
                               // Print information about the tests that did
                               // not pass the threshold.
@@ -175,7 +175,7 @@
 
       // Print a summary of the results.
 
-      CALL ALASUM( PATH, NOUT, NFAIL, NRUN, NERRS )
+      alasum(PATH, NOUT, NFAIL, NRUN, NERRS );
 
  9999 FORMAT( 'SORGTSQR and SORHR_COL: M=', I5, ', N=', I5, ', MB1=', I5, ', NB1=', I5, ', NB2=', I5, ' test(', I2, ')=', G12.5 )
  9998 FORMAT( 'SORGTSQR_ROW and SORHR_COL: M=', I5, ', N=', I5, ', MB1=', I5, ', NB1=', I5, ', NB2=', I5, ' test(', I2, ')=', G12.5 )

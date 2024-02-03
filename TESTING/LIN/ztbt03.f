@@ -73,13 +73,13 @@
 
       RESID = ZERO
       DO 40 J = 1, NRHS
-         CALL ZCOPY( N, X( 1, J ), 1, WORK, 1 )
+         zcopy(N, X( 1, J ), 1, WORK, 1 );
          IX = IZAMAX( N, WORK, 1 )
          XNORM = MAX( ONE, ABS( X( IX, J ) ) )
          XSCAL = ( ONE / XNORM ) / DBLE( KD+1 )
-         CALL ZDSCAL( N, XSCAL, WORK, 1 )
-         CALL ZTBMV( UPLO, TRANS, DIAG, N, KD, AB, LDAB, WORK, 1 )
-         CALL ZAXPY( N, DCMPLX( -SCALE*XSCAL ), B( 1, J ), 1, WORK, 1 )
+         zdscal(N, XSCAL, WORK, 1 );
+         ztbmv(UPLO, TRANS, DIAG, N, KD, AB, LDAB, WORK, 1 );
+         zaxpy(N, DCMPLX( -SCALE*XSCAL ), B( 1, J ), 1, WORK, 1 );
          IX = IZAMAX( N, WORK, 1 )
          ERR = TSCAL*ABS( WORK( IX ) )
          IX = IZAMAX( N, X( 1, J ), 1 )

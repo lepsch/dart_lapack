@@ -73,7 +73,7 @@
 
       KNT = KNT + 1
 
-      CALL DGGBAL( 'B', N, A, LDA, B, LDB, ILO, IHI, LSCALE, RSCALE, WORK, INFO )
+      dggbal('B', N, A, LDA, B, LDB, ILO, IHI, LSCALE, RSCALE, WORK, INFO );
 
       if ( INFO.NE.0 ) {
          NINFO = NINFO + 1

@@ -55,7 +55,7 @@
          INFO = -10
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'SPTRFS', -INFO )
+         xerbla('SPTRFS', -INFO );
          RETURN
       }
 
@@ -145,8 +145,8 @@
 
             // Update solution and try again.
 
-            CALL SPTTRS( N, 1, DF, EF, WORK( N+1 ), N, INFO )
-            CALL SAXPY( N, ONE, WORK( N+1 ), 1, X( 1, J ), 1 )
+            spttrs(N, 1, DF, EF, WORK( N+1 ), N, INFO );
+            saxpy(N, ONE, WORK( N+1 ), 1, X( 1, J ), 1 );
             LSTRES = BERR( J )
             COUNT = COUNT + 1
             GO TO 20

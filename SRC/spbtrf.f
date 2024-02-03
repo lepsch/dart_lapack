@@ -52,7 +52,7 @@
          INFO = -5
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'SPBTRF', -INFO )
+         xerbla('SPBTRF', -INFO );
          RETURN
       }
 
@@ -73,7 +73,7 @@
 
          // Use unblocked code
 
-         CALL SPBTF2( UPLO, N, KD, AB, LDAB, INFO )
+         spbtf2(UPLO, N, KD, AB, LDAB, INFO );
       } else {
 
          // Use blocked code
@@ -99,7 +99,7 @@
 
                // Factorize the diagonal block
 
-               CALL SPOTF2( UPLO, IB, AB( KD+1, I ), LDAB-1, II )
+               spotf2(UPLO, IB, AB( KD+1, I ), LDAB-1, II );
                if ( II.NE.0 ) {
                   INFO = I + II - 1
                   GO TO 150
@@ -127,11 +127,11 @@
 
                      // Update A12
 
-                     CALL STRSM( 'Left', 'Upper', 'Transpose', 'Non-unit', IB, I2, ONE, AB( KD+1, I ), LDAB-1, AB( KD+1-IB, I+IB ), LDAB-1 )
+                     strsm('Left', 'Upper', 'Transpose', 'Non-unit', IB, I2, ONE, AB( KD+1, I ), LDAB-1, AB( KD+1-IB, I+IB ), LDAB-1 );
 
                      // Update A22
 
-                     CALL SSYRK( 'Upper', 'Transpose', I2, IB, -ONE, AB( KD+1-IB, I+IB ), LDAB-1, ONE, AB( KD+1, I+IB ), LDAB-1 )
+                     ssyrk('Upper', 'Transpose', I2, IB, -ONE, AB( KD+1-IB, I+IB ), LDAB-1, ONE, AB( KD+1, I+IB ), LDAB-1 );
                   }
 
                   if ( I3.GT.0 ) {
@@ -146,7 +146,7 @@
 
                      // Update A13 (in the work array).
 
-                     CALL STRSM( 'Left', 'Upper', 'Transpose', 'Non-unit', IB, I3, ONE, AB( KD+1, I ), LDAB-1, WORK, LDWORK )
+                     strsm('Left', 'Upper', 'Transpose', 'Non-unit', IB, I3, ONE, AB( KD+1, I ), LDAB-1, WORK, LDWORK );
 
                      // Update A23
 
@@ -154,7 +154,7 @@
 
                      // Update A33
 
-                     CALL SSYRK( 'Upper', 'Transpose', I3, IB, -ONE, WORK, LDWORK, ONE, AB( KD+1, I+KD ), LDAB-1 )
+                     ssyrk('Upper', 'Transpose', I3, IB, -ONE, WORK, LDWORK, ONE, AB( KD+1, I+KD ), LDAB-1 );
 
                      // Copy the lower triangle of A13 back into place.
 
@@ -187,7 +187,7 @@
 
                // Factorize the diagonal block
 
-               CALL SPOTF2( UPLO, IB, AB( 1, I ), LDAB-1, II )
+               spotf2(UPLO, IB, AB( 1, I ), LDAB-1, II );
                if ( II.NE.0 ) {
                   INFO = I + II - 1
                   GO TO 150
@@ -215,11 +215,11 @@
 
                      // Update A21
 
-                     CALL STRSM( 'Right', 'Lower', 'Transpose', 'Non-unit', I2, IB, ONE, AB( 1, I ), LDAB-1, AB( 1+IB, I ), LDAB-1 )
+                     strsm('Right', 'Lower', 'Transpose', 'Non-unit', I2, IB, ONE, AB( 1, I ), LDAB-1, AB( 1+IB, I ), LDAB-1 );
 
                      // Update A22
 
-                     CALL SSYRK( 'Lower', 'No Transpose', I2, IB, -ONE, AB( 1+IB, I ), LDAB-1, ONE, AB( 1, I+IB ), LDAB-1 )
+                     ssyrk('Lower', 'No Transpose', I2, IB, -ONE, AB( 1+IB, I ), LDAB-1, ONE, AB( 1, I+IB ), LDAB-1 );
                   }
 
                   if ( I3.GT.0 ) {
@@ -234,7 +234,7 @@
 
                      // Update A31 (in the work array).
 
-                     CALL STRSM( 'Right', 'Lower', 'Transpose', 'Non-unit', I3, IB, ONE, AB( 1, I ), LDAB-1, WORK, LDWORK )
+                     strsm('Right', 'Lower', 'Transpose', 'Non-unit', I3, IB, ONE, AB( 1, I ), LDAB-1, WORK, LDWORK );
 
                      // Update A32
 
@@ -242,7 +242,7 @@
 
                      // Update A33
 
-                     CALL SSYRK( 'Lower', 'No Transpose', I3, IB, -ONE, WORK, LDWORK, ONE, AB( 1, I+KD ), LDAB-1 )
+                     ssyrk('Lower', 'No Transpose', I3, IB, -ONE, WORK, LDWORK, ONE, AB( 1, I+KD ), LDAB-1 );
 
                      // Copy the upper triangle of A31 back into place.
 

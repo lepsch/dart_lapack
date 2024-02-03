@@ -67,9 +67,9 @@
          S  = S * BE
       }
       if ( ABS( D ).LE.ABS( C ) ) {
-         CALL DLADIV1(AA, BB, CC, DD, P, Q)
+         dladiv1(AA, BB, CC, DD, P, Q);
       } else {
-         CALL DLADIV1(BB, AA, DD, CC, P, Q)
+         dladiv1(BB, AA, DD, CC, P, Q);
          Q = -Q
       }
       P = P * S

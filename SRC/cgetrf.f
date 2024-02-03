@@ -44,7 +44,7 @@
          INFO = -4
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'CGETRF', -INFO )
+         xerbla('CGETRF', -INFO );
          RETURN
       }
 
@@ -59,7 +59,7 @@
 
          // Use unblocked code.
 
-         CALL CGETRF2( M, N, A, LDA, IPIV, INFO )
+         cgetrf2(M, N, A, LDA, IPIV, INFO );
       } else {
 
          // Use blocked code.
@@ -70,7 +70,7 @@
             // Factor diagonal and subdiagonal blocks and test for exact
             // singularity.
 
-            CALL CGETRF2( M-J+1, JB, A( J, J ), LDA, IPIV( J ), IINFO )
+            cgetrf2(M-J+1, JB, A( J, J ), LDA, IPIV( J ), IINFO );
 
             // Adjust INFO and the pivot indices.
 
@@ -81,22 +81,22 @@
 
             // Apply interchanges to columns 1:J-1.
 
-            CALL CLASWP( J-1, A, LDA, J, J+JB-1, IPIV, 1 )
+            claswp(J-1, A, LDA, J, J+JB-1, IPIV, 1 );
 
             if ( J+JB.LE.N ) {
 
                // Apply interchanges to columns J+JB:N.
 
-               CALL CLASWP( N-J-JB+1, A( 1, J+JB ), LDA, J, J+JB-1, IPIV, 1 )
+               claswp(N-J-JB+1, A( 1, J+JB ), LDA, J, J+JB-1, IPIV, 1 );
 
                // Compute block row of U.
 
-               CALL CTRSM( 'Left', 'Lower', 'No transpose', 'Unit', JB, N-J-JB+1, ONE, A( J, J ), LDA, A( J, J+JB ), LDA )
+               ctrsm('Left', 'Lower', 'No transpose', 'Unit', JB, N-J-JB+1, ONE, A( J, J ), LDA, A( J, J+JB ), LDA );
                if ( J+JB.LE.M ) {
 
                   // Update trailing submatrix.
 
-                  CALL CGEMM( 'No transpose', 'No transpose', M-J-JB+1, N-J-JB+1, JB, -ONE, A( J+JB, J ), LDA, A( J, J+JB ), LDA, ONE, A( J+JB, J+JB ), LDA )
+                  cgemm('No transpose', 'No transpose', M-J-JB+1, N-J-JB+1, JB, -ONE, A( J+JB, J ), LDA, A( J, J+JB ), LDA, ONE, A( J+JB, J+JB ), LDA );
                }
             }
    20    CONTINUE

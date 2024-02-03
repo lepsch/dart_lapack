@@ -84,7 +84,7 @@
       // Handle error in the input parameters and return workspace query.
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'SORGTSQR', -INFO )
+         xerbla('SORGTSQR', -INFO );
          RETURN
       } else if ( LQUERY ) {
          WORK( 1 ) = SROUNDUP_LWORK( LWORKOPT )
@@ -109,21 +109,21 @@
       // (1a) Form M-by-N matrix in the array WORK(1:LDC*N) with ones
       // on the diagonal and zeros elsewhere.
 
-      CALL SLASET( 'F', M, N, ZERO, ONE, WORK, LDC )
+      slaset('F', M, N, ZERO, ONE, WORK, LDC );
 
       // (1b)  On input, WORK(1:LDC*N) stores ( I );
                                            // ( 0 )
 
             // On output, WORK(1:LDC*N) stores Q1_in.
 
-      CALL SLAMTSQR( 'L', 'N', M, N, N, MB, NBLOCAL, A, LDA, T, LDT, WORK, LDC, WORK( LC+1 ), LW, IINFO )
+      slamtsqr('L', 'N', M, N, N, MB, NBLOCAL, A, LDA, T, LDT, WORK, LDC, WORK( LC+1 ), LW, IINFO );
 
       // (2) Copy the result from the part of the work array (1:M,1:N)
       // with the leading dimension LDC that starts at WORK(1) into
       // the output array A(1:M,1:N) column-by-column.
 
       DO J = 1, N
-         CALL SCOPY( M, WORK( (J-1)*LDC + 1 ), 1, A( 1, J ), 1 )
+         scopy(M, WORK( (J-1)*LDC + 1 ), 1, A( 1, J ), 1 );
       END DO
 
       WORK( 1 ) = SROUNDUP_LWORK( LWORKOPT )

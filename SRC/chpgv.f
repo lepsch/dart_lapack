@@ -47,7 +47,7 @@
          INFO = -9
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'CHPGV ', -INFO )
+         xerbla('CHPGV ', -INFO );
          RETURN
       }
 
@@ -57,7 +57,7 @@
 
       // Form a Cholesky factorization of B.
 
-      CALL CPPTRF( UPLO, N, BP, INFO )
+      cpptrf(UPLO, N, BP, INFO );
       if ( INFO.NE.0 ) {
          INFO = N + INFO
          RETURN
@@ -65,8 +65,8 @@
 
       // Transform problem to standard eigenvalue problem and solve.
 
-      CALL CHPGST( ITYPE, UPLO, N, AP, BP, INFO )
-      CALL CHPEV( JOBZ, UPLO, N, AP, W, Z, LDZ, WORK, RWORK, INFO )
+      chpgst(ITYPE, UPLO, N, AP, BP, INFO );
+      chpev(JOBZ, UPLO, N, AP, W, Z, LDZ, WORK, RWORK, INFO );
 
       if ( WANTZ ) {
 
@@ -86,7 +86,7 @@
             }
 
             DO 10 J = 1, NEIG
-               CALL CTPSV( UPLO, TRANS, 'Non-unit', N, BP, Z( 1, J ), 1 )
+               ctpsv(UPLO, TRANS, 'Non-unit', N, BP, Z( 1, J ), 1 );
    10       CONTINUE
 
          } else if ( ITYPE.EQ.3 ) {
@@ -101,7 +101,7 @@
             }
 
             DO 20 J = 1, NEIG
-               CALL CTPMV( UPLO, TRANS, 'Non-unit', N, BP, Z( 1, J ), 1 )
+               ctpmv(UPLO, TRANS, 'Non-unit', N, BP, Z( 1, J ), 1 );
    20       CONTINUE
          }
       }

@@ -64,56 +64,56 @@
 
          SRNAMT = 'SGTTRF'
          INFOT = 1
-         CALL SGTTRF( -1, C, D, E, F, IP, INFO )
-         CALL CHKXER( 'SGTTRF', INFOT, NOUT, LERR, OK )
+         sgttrf(-1, C, D, E, F, IP, INFO );
+         chkxer('SGTTRF', INFOT, NOUT, LERR, OK );
 
          // SGTTRS
 
          SRNAMT = 'SGTTRS'
          INFOT = 1
-         CALL SGTTRS( '/', 0, 0, C, D, E, F, IP, X, 1, INFO )
-         CALL CHKXER( 'SGTTRS', INFOT, NOUT, LERR, OK )
+         sgttrs('/', 0, 0, C, D, E, F, IP, X, 1, INFO );
+         chkxer('SGTTRS', INFOT, NOUT, LERR, OK );
          INFOT = 2
-         CALL SGTTRS( 'N', -1, 0, C, D, E, F, IP, X, 1, INFO )
-         CALL CHKXER( 'SGTTRS', INFOT, NOUT, LERR, OK )
+         sgttrs('N', -1, 0, C, D, E, F, IP, X, 1, INFO );
+         chkxer('SGTTRS', INFOT, NOUT, LERR, OK );
          INFOT = 3
-         CALL SGTTRS( 'N', 0, -1, C, D, E, F, IP, X, 1, INFO )
-         CALL CHKXER( 'SGTTRS', INFOT, NOUT, LERR, OK )
+         sgttrs('N', 0, -1, C, D, E, F, IP, X, 1, INFO );
+         chkxer('SGTTRS', INFOT, NOUT, LERR, OK );
          INFOT = 10
-         CALL SGTTRS( 'N', 2, 1, C, D, E, F, IP, X, 1, INFO )
-         CALL CHKXER( 'SGTTRS', INFOT, NOUT, LERR, OK )
+         sgttrs('N', 2, 1, C, D, E, F, IP, X, 1, INFO );
+         chkxer('SGTTRS', INFOT, NOUT, LERR, OK );
 
          // SGTRFS
 
          SRNAMT = 'SGTRFS'
          INFOT = 1
-         CALL SGTRFS( '/', 0, 0, C, D, E, CF, DF, EF, F, IP, B, 1, X, 1, R1, R2, W, IW, INFO )
-         CALL CHKXER( 'SGTRFS', INFOT, NOUT, LERR, OK )
+         sgtrfs('/', 0, 0, C, D, E, CF, DF, EF, F, IP, B, 1, X, 1, R1, R2, W, IW, INFO );
+         chkxer('SGTRFS', INFOT, NOUT, LERR, OK );
          INFOT = 2
-         CALL SGTRFS( 'N', -1, 0, C, D, E, CF, DF, EF, F, IP, B, 1, X, 1, R1, R2, W, IW, INFO )
-         CALL CHKXER( 'SGTRFS', INFOT, NOUT, LERR, OK )
+         sgtrfs('N', -1, 0, C, D, E, CF, DF, EF, F, IP, B, 1, X, 1, R1, R2, W, IW, INFO );
+         chkxer('SGTRFS', INFOT, NOUT, LERR, OK );
          INFOT = 3
-         CALL SGTRFS( 'N', 0, -1, C, D, E, CF, DF, EF, F, IP, B, 1, X, 1, R1, R2, W, IW, INFO )
-         CALL CHKXER( 'SGTRFS', INFOT, NOUT, LERR, OK )
+         sgtrfs('N', 0, -1, C, D, E, CF, DF, EF, F, IP, B, 1, X, 1, R1, R2, W, IW, INFO );
+         chkxer('SGTRFS', INFOT, NOUT, LERR, OK );
          INFOT = 13
-         CALL SGTRFS( 'N', 2, 1, C, D, E, CF, DF, EF, F, IP, B, 1, X, 2, R1, R2, W, IW, INFO )
-         CALL CHKXER( 'SGTRFS', INFOT, NOUT, LERR, OK )
+         sgtrfs('N', 2, 1, C, D, E, CF, DF, EF, F, IP, B, 1, X, 2, R1, R2, W, IW, INFO );
+         chkxer('SGTRFS', INFOT, NOUT, LERR, OK );
          INFOT = 15
-         CALL SGTRFS( 'N', 2, 1, C, D, E, CF, DF, EF, F, IP, B, 2, X, 1, R1, R2, W, IW, INFO )
-         CALL CHKXER( 'SGTRFS', INFOT, NOUT, LERR, OK )
+         sgtrfs('N', 2, 1, C, D, E, CF, DF, EF, F, IP, B, 2, X, 1, R1, R2, W, IW, INFO );
+         chkxer('SGTRFS', INFOT, NOUT, LERR, OK );
 
          // SGTCON
 
          SRNAMT = 'SGTCON'
          INFOT = 1
-         CALL SGTCON( '/', 0, C, D, E, F, IP, ANORM, RCOND, W, IW, INFO )
-         CALL CHKXER( 'SGTCON', INFOT, NOUT, LERR, OK )
+         sgtcon('/', 0, C, D, E, F, IP, ANORM, RCOND, W, IW, INFO );
+         chkxer('SGTCON', INFOT, NOUT, LERR, OK );
          INFOT = 2
-         CALL SGTCON( 'I', -1, C, D, E, F, IP, ANORM, RCOND, W, IW, INFO )
-         CALL CHKXER( 'SGTCON', INFOT, NOUT, LERR, OK )
+         sgtcon('I', -1, C, D, E, F, IP, ANORM, RCOND, W, IW, INFO );
+         chkxer('SGTCON', INFOT, NOUT, LERR, OK );
          INFOT = 8
-         CALL SGTCON( 'I', 0, C, D, E, F, IP, -ANORM, RCOND, W, IW, INFO )
-         CALL CHKXER( 'SGTCON', INFOT, NOUT, LERR, OK )
+         sgtcon('I', 0, C, D, E, F, IP, -ANORM, RCOND, W, IW, INFO );
+         chkxer('SGTCON', INFOT, NOUT, LERR, OK );
 
       } else if ( LSAMEN( 2, C2, 'PT' ) ) {
 
@@ -124,52 +124,52 @@
 
          SRNAMT = 'SPTTRF'
          INFOT = 1
-         CALL SPTTRF( -1, D, E, INFO )
-         CALL CHKXER( 'SPTTRF', INFOT, NOUT, LERR, OK )
+         spttrf(-1, D, E, INFO );
+         chkxer('SPTTRF', INFOT, NOUT, LERR, OK );
 
          // SPTTRS
 
          SRNAMT = 'SPTTRS'
          INFOT = 1
-         CALL SPTTRS( -1, 0, D, E, X, 1, INFO )
-         CALL CHKXER( 'SPTTRS', INFOT, NOUT, LERR, OK )
+         spttrs(-1, 0, D, E, X, 1, INFO );
+         chkxer('SPTTRS', INFOT, NOUT, LERR, OK );
          INFOT = 2
-         CALL SPTTRS( 0, -1, D, E, X, 1, INFO )
-         CALL CHKXER( 'SPTTRS', INFOT, NOUT, LERR, OK )
+         spttrs(0, -1, D, E, X, 1, INFO );
+         chkxer('SPTTRS', INFOT, NOUT, LERR, OK );
          INFOT = 6
-         CALL SPTTRS( 2, 1, D, E, X, 1, INFO )
-         CALL CHKXER( 'SPTTRS', INFOT, NOUT, LERR, OK )
+         spttrs(2, 1, D, E, X, 1, INFO );
+         chkxer('SPTTRS', INFOT, NOUT, LERR, OK );
 
          // SPTRFS
 
          SRNAMT = 'SPTRFS'
          INFOT = 1
-         CALL SPTRFS( -1, 0, D, E, DF, EF, B, 1, X, 1, R1, R2, W, INFO )
-         CALL CHKXER( 'SPTRFS', INFOT, NOUT, LERR, OK )
+         sptrfs(-1, 0, D, E, DF, EF, B, 1, X, 1, R1, R2, W, INFO );
+         chkxer('SPTRFS', INFOT, NOUT, LERR, OK );
          INFOT = 2
-         CALL SPTRFS( 0, -1, D, E, DF, EF, B, 1, X, 1, R1, R2, W, INFO )
-         CALL CHKXER( 'SPTRFS', INFOT, NOUT, LERR, OK )
+         sptrfs(0, -1, D, E, DF, EF, B, 1, X, 1, R1, R2, W, INFO );
+         chkxer('SPTRFS', INFOT, NOUT, LERR, OK );
          INFOT = 8
-         CALL SPTRFS( 2, 1, D, E, DF, EF, B, 1, X, 2, R1, R2, W, INFO )
-         CALL CHKXER( 'SPTRFS', INFOT, NOUT, LERR, OK )
+         sptrfs(2, 1, D, E, DF, EF, B, 1, X, 2, R1, R2, W, INFO );
+         chkxer('SPTRFS', INFOT, NOUT, LERR, OK );
          INFOT = 10
-         CALL SPTRFS( 2, 1, D, E, DF, EF, B, 2, X, 1, R1, R2, W, INFO )
-         CALL CHKXER( 'SPTRFS', INFOT, NOUT, LERR, OK )
+         sptrfs(2, 1, D, E, DF, EF, B, 2, X, 1, R1, R2, W, INFO );
+         chkxer('SPTRFS', INFOT, NOUT, LERR, OK );
 
          // SPTCON
 
          SRNAMT = 'SPTCON'
          INFOT = 1
-         CALL SPTCON( -1, D, E, ANORM, RCOND, W, INFO )
-         CALL CHKXER( 'SPTCON', INFOT, NOUT, LERR, OK )
+         sptcon(-1, D, E, ANORM, RCOND, W, INFO );
+         chkxer('SPTCON', INFOT, NOUT, LERR, OK );
          INFOT = 4
-         CALL SPTCON( 0, D, E, -ANORM, RCOND, W, INFO )
-         CALL CHKXER( 'SPTCON', INFOT, NOUT, LERR, OK )
+         sptcon(0, D, E, -ANORM, RCOND, W, INFO );
+         chkxer('SPTCON', INFOT, NOUT, LERR, OK );
       }
 
       // Print a summary line.
 
-      CALL ALAESM( PATH, OK, NOUT )
+      alaesm(PATH, OK, NOUT );
 
       RETURN
 

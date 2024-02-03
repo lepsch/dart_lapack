@@ -23,12 +23,12 @@
 
          // Shift is located on the edge of the matrix, remove it
 
-         CALL ZLARTG( B( IHI, IHI ), B( IHI, IHI-1 ), C, S, TEMP )
+         zlartg(B( IHI, IHI ), B( IHI, IHI-1 ), C, S, TEMP );
          B( IHI, IHI ) = TEMP
          B( IHI, IHI-1 ) = CZERO
-         CALL ZROT( IHI-ISTARTM, B( ISTARTM, IHI ), 1, B( ISTARTM, IHI-1 ), 1, C, S )          CALL ZROT( IHI-ISTARTM+1, A( ISTARTM, IHI ), 1, A( ISTARTM, IHI-1 ), 1, C, S )
+         zrot(IHI-ISTARTM, B( ISTARTM, IHI ), 1, B( ISTARTM, IHI-1 ), 1, C, S )          CALL ZROT( IHI-ISTARTM+1, A( ISTARTM, IHI ), 1, A( ISTARTM, IHI-1 ), 1, C, S );
          if ( ILZ ) {
-            CALL ZROT( NZ, Z( 1, IHI-ZSTART+1 ), 1, Z( 1, IHI-1-ZSTART+ 1 ), 1, C, S )
+            zrot(NZ, Z( 1, IHI-ZSTART+1 ), 1, Z( 1, IHI-1-ZSTART+ 1 ), 1, C, S );
          }
 
       } else {
@@ -38,22 +38,22 @@
 
          // Apply transformation from the right
 
-         CALL ZLARTG( B( K+1, K+1 ), B( K+1, K ), C, S, TEMP )
+         zlartg(B( K+1, K+1 ), B( K+1, K ), C, S, TEMP );
          B( K+1, K+1 ) = TEMP
          B( K+1, K ) = CZERO
-         CALL ZROT( K+2-ISTARTM+1, A( ISTARTM, K+1 ), 1, A( ISTARTM, K ), 1, C, S )          CALL ZROT( K-ISTARTM+1, B( ISTARTM, K+1 ), 1, B( ISTARTM, K ), 1, C, S )
+         zrot(K+2-ISTARTM+1, A( ISTARTM, K+1 ), 1, A( ISTARTM, K ), 1, C, S )          CALL ZROT( K-ISTARTM+1, B( ISTARTM, K+1 ), 1, B( ISTARTM, K ), 1, C, S );
          if ( ILZ ) {
-            CALL ZROT( NZ, Z( 1, K+1-ZSTART+1 ), 1, Z( 1, K-ZSTART+1 ), 1, C, S )
+            zrot(NZ, Z( 1, K+1-ZSTART+1 ), 1, Z( 1, K-ZSTART+1 ), 1, C, S );
          }
 
          // Apply transformation from the left
 
-         CALL ZLARTG( A( K+1, K ), A( K+2, K ), C, S, TEMP )
+         zlartg(A( K+1, K ), A( K+2, K ), C, S, TEMP );
          A( K+1, K ) = TEMP
          A( K+2, K ) = CZERO
-         CALL ZROT( ISTOPM-K, A( K+1, K+1 ), LDA, A( K+2, K+1 ), LDA, C, S )          CALL ZROT( ISTOPM-K, B( K+1, K+1 ), LDB, B( K+2, K+1 ), LDB, C, S )
+         zrot(ISTOPM-K, A( K+1, K+1 ), LDA, A( K+2, K+1 ), LDA, C, S )          CALL ZROT( ISTOPM-K, B( K+1, K+1 ), LDB, B( K+2, K+1 ), LDB, C, S );
          if ( ILQ ) {
-            CALL ZROT( NQ, Q( 1, K+1-QSTART+1 ), 1, Q( 1, K+2-QSTART+ 1 ), 1, C, DCONJG( S ) )
+            zrot(NQ, Q( 1, K+1-QSTART+1 ), 1, Q( 1, K+2-QSTART+ 1 ), 1, C, DCONJG( S ) );
          }
 
       }

@@ -100,12 +100,12 @@
          if ( K.GT.0 ) {
             if ( LSAME( UPLO, 'U' ) ) {
                DO 110 J = 2, N
-                  CALL SLASSQ( MIN( J-1, K ), AB( MAX( K+2-J, 1 ), J ), 1, SCALE, SUM )
+                  slassq(MIN( J-1, K ), AB( MAX( K+2-J, 1 ), J ), 1, SCALE, SUM );
   110          CONTINUE
                L = K + 1
             } else {
                DO 120 J = 1, N - 1
-                  CALL SLASSQ( MIN( N-J, K ), AB( 2, J ), 1, SCALE, SUM )
+                  slassq(MIN( N-J, K ), AB( 2, J ), 1, SCALE, SUM );
   120          CONTINUE
                L = 1
             }
@@ -113,7 +113,7 @@
          } else {
             L = 1
          }
-         CALL SLASSQ( N, AB( L, 1 ), LDAB, SCALE, SUM )
+         slassq(N, AB( L, 1 ), LDAB, SCALE, SUM );
          VALUE = SCALE*SQRT( SUM )
       }
 

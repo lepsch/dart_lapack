@@ -51,12 +51,12 @@
                // Update A(1:i,i)
 
                A( I, I ) = DBLE( A( I, I ) )
-               CALL ZLACGV( N-I, W( I, IW+1 ), LDW )
-               CALL ZGEMV( 'No transpose', I, N-I, -ONE, A( 1, I+1 ), LDA, W( I, IW+1 ), LDW, ONE, A( 1, I ), 1 )
-               CALL ZLACGV( N-I, W( I, IW+1 ), LDW )
-               CALL ZLACGV( N-I, A( I, I+1 ), LDA )
-               CALL ZGEMV( 'No transpose', I, N-I, -ONE, W( 1, IW+1 ), LDW, A( I, I+1 ), LDA, ONE, A( 1, I ), 1 )
-               CALL ZLACGV( N-I, A( I, I+1 ), LDA )
+               zlacgv(N-I, W( I, IW+1 ), LDW );
+               zgemv('No transpose', I, N-I, -ONE, A( 1, I+1 ), LDA, W( I, IW+1 ), LDW, ONE, A( 1, I ), 1 );
+               zlacgv(N-I, W( I, IW+1 ), LDW );
+               zlacgv(N-I, A( I, I+1 ), LDA );
+               zgemv('No transpose', I, N-I, -ONE, W( 1, IW+1 ), LDW, A( I, I+1 ), LDA, ONE, A( 1, I ), 1 );
+               zlacgv(N-I, A( I, I+1 ), LDA );
                A( I, I ) = DBLE( A( I, I ) )
             }
             if ( I.GT.1 ) {
@@ -65,19 +65,19 @@
                // A(1:i-2,i)
 
                ALPHA = A( I-1, I )
-               CALL ZLARFG( I-1, ALPHA, A( 1, I ), 1, TAU( I-1 ) )
+               zlarfg(I-1, ALPHA, A( 1, I ), 1, TAU( I-1 ) );
                E( I-1 ) = DBLE( ALPHA )
                A( I-1, I ) = ONE
 
                // Compute W(1:i-1,i)
 
-               CALL ZHEMV( 'Upper', I-1, ONE, A, LDA, A( 1, I ), 1, ZERO, W( 1, IW ), 1 )
+               zhemv('Upper', I-1, ONE, A, LDA, A( 1, I ), 1, ZERO, W( 1, IW ), 1 );
                if ( I.LT.N ) {
-                  CALL ZGEMV( 'Conjugate transpose', I-1, N-I, ONE, W( 1, IW+1 ), LDW, A( 1, I ), 1, ZERO, W( I+1, IW ), 1 )                   CALL ZGEMV( 'No transpose', I-1, N-I, -ONE, A( 1, I+1 ), LDA, W( I+1, IW ), 1, ONE, W( 1, IW ), 1 )                   CALL ZGEMV( 'Conjugate transpose', I-1, N-I, ONE, A( 1, I+1 ), LDA, A( 1, I ), 1, ZERO, W( I+1, IW ), 1 )                   CALL ZGEMV( 'No transpose', I-1, N-I, -ONE, W( 1, IW+1 ), LDW, W( I+1, IW ), 1, ONE, W( 1, IW ), 1 )
+                  zgemv('Conjugate transpose', I-1, N-I, ONE, W( 1, IW+1 ), LDW, A( 1, I ), 1, ZERO, W( I+1, IW ), 1 )                   CALL ZGEMV( 'No transpose', I-1, N-I, -ONE, A( 1, I+1 ), LDA, W( I+1, IW ), 1, ONE, W( 1, IW ), 1 )                   CALL ZGEMV( 'Conjugate transpose', I-1, N-I, ONE, A( 1, I+1 ), LDA, A( 1, I ), 1, ZERO, W( I+1, IW ), 1 )                   CALL ZGEMV( 'No transpose', I-1, N-I, -ONE, W( 1, IW+1 ), LDW, W( I+1, IW ), 1, ONE, W( 1, IW ), 1 );
                }
-               CALL ZSCAL( I-1, TAU( I-1 ), W( 1, IW ), 1 )
+               zscal(I-1, TAU( I-1 ), W( 1, IW ), 1 );
                ALPHA = -HALF*TAU( I-1 )*ZDOTC( I-1, W( 1, IW ), 1, A( 1, I ), 1 )
-               CALL ZAXPY( I-1, ALPHA, A( 1, I ), 1, W( 1, IW ), 1 )
+               zaxpy(I-1, ALPHA, A( 1, I ), 1, W( 1, IW ), 1 );
             }
 
    10    CONTINUE
@@ -90,12 +90,12 @@
             // Update A(i:n,i)
 
             A( I, I ) = DBLE( A( I, I ) )
-            CALL ZLACGV( I-1, W( I, 1 ), LDW )
-            CALL ZGEMV( 'No transpose', N-I+1, I-1, -ONE, A( I, 1 ), LDA, W( I, 1 ), LDW, ONE, A( I, I ), 1 )
-            CALL ZLACGV( I-1, W( I, 1 ), LDW )
-            CALL ZLACGV( I-1, A( I, 1 ), LDA )
-            CALL ZGEMV( 'No transpose', N-I+1, I-1, -ONE, W( I, 1 ), LDW, A( I, 1 ), LDA, ONE, A( I, I ), 1 )
-            CALL ZLACGV( I-1, A( I, 1 ), LDA )
+            zlacgv(I-1, W( I, 1 ), LDW );
+            zgemv('No transpose', N-I+1, I-1, -ONE, A( I, 1 ), LDA, W( I, 1 ), LDW, ONE, A( I, I ), 1 );
+            zlacgv(I-1, W( I, 1 ), LDW );
+            zlacgv(I-1, A( I, 1 ), LDA );
+            zgemv('No transpose', N-I+1, I-1, -ONE, W( I, 1 ), LDW, A( I, 1 ), LDA, ONE, A( I, I ), 1 );
+            zlacgv(I-1, A( I, 1 ), LDA );
             A( I, I ) = DBLE( A( I, I ) )
             if ( I.LT.N ) {
 
@@ -103,17 +103,17 @@
                // A(i+2:n,i)
 
                ALPHA = A( I+1, I )
-               CALL ZLARFG( N-I, ALPHA, A( MIN( I+2, N ), I ), 1, TAU( I ) )
+               zlarfg(N-I, ALPHA, A( MIN( I+2, N ), I ), 1, TAU( I ) );
                E( I ) = DBLE( ALPHA )
                A( I+1, I ) = ONE
 
                // Compute W(i+1:n,i)
 
-               CALL ZHEMV( 'Lower', N-I, ONE, A( I+1, I+1 ), LDA, A( I+1, I ), 1, ZERO, W( I+1, I ), 1 )                CALL ZGEMV( 'Conjugate transpose', N-I, I-1, ONE, W( I+1, 1 ), LDW, A( I+1, I ), 1, ZERO, W( 1, I ), 1 )                CALL ZGEMV( 'No transpose', N-I, I-1, -ONE, A( I+1, 1 ), LDA, W( 1, I ), 1, ONE, W( I+1, I ), 1 )                CALL ZGEMV( 'Conjugate transpose', N-I, I-1, ONE, A( I+1, 1 ), LDA, A( I+1, I ), 1, ZERO, W( 1, I ), 1 )
-               CALL ZGEMV( 'No transpose', N-I, I-1, -ONE, W( I+1, 1 ), LDW, W( 1, I ), 1, ONE, W( I+1, I ), 1 )
-               CALL ZSCAL( N-I, TAU( I ), W( I+1, I ), 1 )
+               zhemv('Lower', N-I, ONE, A( I+1, I+1 ), LDA, A( I+1, I ), 1, ZERO, W( I+1, I ), 1 )                CALL ZGEMV( 'Conjugate transpose', N-I, I-1, ONE, W( I+1, 1 ), LDW, A( I+1, I ), 1, ZERO, W( 1, I ), 1 )                CALL ZGEMV( 'No transpose', N-I, I-1, -ONE, A( I+1, 1 ), LDA, W( 1, I ), 1, ONE, W( I+1, I ), 1 )                CALL ZGEMV( 'Conjugate transpose', N-I, I-1, ONE, A( I+1, 1 ), LDA, A( I+1, I ), 1, ZERO, W( 1, I ), 1 );
+               zgemv('No transpose', N-I, I-1, -ONE, W( I+1, 1 ), LDW, W( 1, I ), 1, ONE, W( I+1, I ), 1 );
+               zscal(N-I, TAU( I ), W( I+1, I ), 1 );
                ALPHA = -HALF*TAU( I )*ZDOTC( N-I, W( I+1, I ), 1, A( I+1, I ), 1 )
-               CALL ZAXPY( N-I, ALPHA, A( I+1, I ), 1, W( I+1, I ), 1 )
+               zaxpy(N-I, ALPHA, A( I+1, I ), 1, W( I+1, I ), 1 );
             }
 
    20    CONTINUE

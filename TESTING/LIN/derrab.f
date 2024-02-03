@@ -63,20 +63,20 @@
 
       SRNAMT = 'DSGESV'
       INFOT = 1
-      CALL DSGESV(-1,0,A,1,IP,B,1,X,1,WORK,SWORK,ITER,INFO)
-      CALL CHKXER( 'DSGESV', INFOT, NOUT, LERR, OK )
+      dsgesv(-1,0,A,1,IP,B,1,X,1,WORK,SWORK,ITER,INFO);
+      chkxer('DSGESV', INFOT, NOUT, LERR, OK );
       INFOT = 2
-      CALL DSGESV(0,-1,A,1,IP,B,1,X,1,WORK,SWORK,ITER,INFO)
-      CALL CHKXER( 'DSGESV', INFOT, NOUT, LERR, OK )
+      dsgesv(0,-1,A,1,IP,B,1,X,1,WORK,SWORK,ITER,INFO);
+      chkxer('DSGESV', INFOT, NOUT, LERR, OK );
       INFOT = 4
-      CALL DSGESV(2,1,A,1,IP,B,2,X,2,WORK,SWORK,ITER,INFO)
-      CALL CHKXER( 'DSGESV', INFOT, NOUT, LERR, OK )
+      dsgesv(2,1,A,1,IP,B,2,X,2,WORK,SWORK,ITER,INFO);
+      chkxer('DSGESV', INFOT, NOUT, LERR, OK );
       INFOT = 7
-      CALL DSGESV(2,1,A,2,IP,B,1,X,2,WORK,SWORK,ITER,INFO)
-      CALL CHKXER( 'DSGESV', INFOT, NOUT, LERR, OK )
+      dsgesv(2,1,A,2,IP,B,1,X,2,WORK,SWORK,ITER,INFO);
+      chkxer('DSGESV', INFOT, NOUT, LERR, OK );
       INFOT = 9
-      CALL DSGESV(2,1,A,2,IP,B,2,X,1,WORK,SWORK,ITER,INFO)
-      CALL CHKXER( 'DSGESV', INFOT, NOUT, LERR, OK )
+      dsgesv(2,1,A,2,IP,B,2,X,1,WORK,SWORK,ITER,INFO);
+      chkxer('DSGESV', INFOT, NOUT, LERR, OK );
 
       // Print a summary line.
 

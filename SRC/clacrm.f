@@ -40,7 +40,7 @@
    20 CONTINUE
 
       L = M*N + 1
-      CALL SGEMM( 'N', 'N', M, N, N, ONE, RWORK, M, B, LDB, ZERO, RWORK( L ), M )
+      sgemm('N', 'N', M, N, N, ONE, RWORK, M, B, LDB, ZERO, RWORK( L ), M );
       DO 40 J = 1, N
          DO 30 I = 1, M
             C( I, J ) = RWORK( L+( J-1 )*M+I-1 )
@@ -52,7 +52,7 @@
             RWORK( ( J-1 )*M+I ) = AIMAG( A( I, J ) )
    50    CONTINUE
    60 CONTINUE
-      CALL SGEMM( 'N', 'N', M, N, N, ONE, RWORK, M, B, LDB, ZERO, RWORK( L ), M )
+      sgemm('N', 'N', M, N, N, ONE, RWORK, M, B, LDB, ZERO, RWORK( L ), M );
       DO 80 J = 1, N
          DO 70 I = 1, M
             C( I, J ) = CMPLX( REAL( C( I, J ) ), RWORK( L+( J-1 )*M+I-1 ) )

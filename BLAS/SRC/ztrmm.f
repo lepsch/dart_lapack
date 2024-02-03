@@ -68,7 +68,7 @@
           INFO = 11
       }
       if (INFO.NE.0) {
-          CALL XERBLA('ZTRMM ',INFO)
+          xerbla('ZTRMM ',INFO);
           RETURN
       }
 

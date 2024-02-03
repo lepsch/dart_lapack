@@ -60,94 +60,94 @@
 
       SRNAMT = 'STPLQT'
       INFOT = 1
-      CALL STPLQT( -1, 1, 0, 1, A, 1, B, 1, T, 1, W, INFO )
-      CALL CHKXER( 'STPLQT', INFOT, NOUT, LERR, OK )
+      stplqt(-1, 1, 0, 1, A, 1, B, 1, T, 1, W, INFO );
+      chkxer('STPLQT', INFOT, NOUT, LERR, OK );
       INFOT = 2
-      CALL STPLQT( 1, -1, 0, 1, A, 1, B, 1, T, 1, W, INFO )
-      CALL CHKXER( 'STPLQT', INFOT, NOUT, LERR, OK )
+      stplqt(1, -1, 0, 1, A, 1, B, 1, T, 1, W, INFO );
+      chkxer('STPLQT', INFOT, NOUT, LERR, OK );
       INFOT = 3
-      CALL STPLQT( 0, 1, -1, 1, A, 1, B, 1, T, 1, W, INFO )
-      CALL CHKXER( 'STPLQT', INFOT, NOUT, LERR, OK )
+      stplqt(0, 1, -1, 1, A, 1, B, 1, T, 1, W, INFO );
+      chkxer('STPLQT', INFOT, NOUT, LERR, OK );
       INFOT = 3
-      CALL STPLQT( 0, 1, 1, 1, A, 1, B, 1, T, 1, W, INFO )
-      CALL CHKXER( 'STPLQT', INFOT, NOUT, LERR, OK )
+      stplqt(0, 1, 1, 1, A, 1, B, 1, T, 1, W, INFO );
+      chkxer('STPLQT', INFOT, NOUT, LERR, OK );
       INFOT = 4
-      CALL STPLQT( 0, 1, 0, 0, A, 1, B, 1, T, 1, W, INFO )
-      CALL CHKXER( 'STPLQT', INFOT, NOUT, LERR, OK )
+      stplqt(0, 1, 0, 0, A, 1, B, 1, T, 1, W, INFO );
+      chkxer('STPLQT', INFOT, NOUT, LERR, OK );
       INFOT = 4
-      CALL STPLQT( 1, 1, 0, 2, A, 1, B, 1, T, 1, W, INFO )
-      CALL CHKXER( 'STPLQT', INFOT, NOUT, LERR, OK )
+      stplqt(1, 1, 0, 2, A, 1, B, 1, T, 1, W, INFO );
+      chkxer('STPLQT', INFOT, NOUT, LERR, OK );
       INFOT = 6
-      CALL STPLQT( 2, 1, 0, 2, A, 1, B, 1, T, 1, W, INFO )
-      CALL CHKXER( 'STPLQT', INFOT, NOUT, LERR, OK )
+      stplqt(2, 1, 0, 2, A, 1, B, 1, T, 1, W, INFO );
+      chkxer('STPLQT', INFOT, NOUT, LERR, OK );
       INFOT = 8
-      CALL STPLQT( 2, 1, 0, 1, A, 2, B, 1, T, 1, W, INFO )
-      CALL CHKXER( 'STPLQT', INFOT, NOUT, LERR, OK )
+      stplqt(2, 1, 0, 1, A, 2, B, 1, T, 1, W, INFO );
+      chkxer('STPLQT', INFOT, NOUT, LERR, OK );
       INFOT = 10
-      CALL STPLQT( 2, 2, 1, 2, A, 2, B, 2, T, 1, W, INFO )
-      CALL CHKXER( 'STPLQT', INFOT, NOUT, LERR, OK )
+      stplqt(2, 2, 1, 2, A, 2, B, 2, T, 1, W, INFO );
+      chkxer('STPLQT', INFOT, NOUT, LERR, OK );
 
       // STPLQT2
 
       SRNAMT = 'STPLQT2'
       INFOT = 1
-      CALL STPLQT2( -1, 0, 0, A, 1, B, 1, T, 1, INFO )
-      CALL CHKXER( 'STPLQT2', INFOT, NOUT, LERR, OK )
+      stplqt2(-1, 0, 0, A, 1, B, 1, T, 1, INFO );
+      chkxer('STPLQT2', INFOT, NOUT, LERR, OK );
       INFOT = 2
-      CALL STPLQT2( 0, -1, 0, A, 1, B, 1, T, 1, INFO )
-      CALL CHKXER( 'STPLQT2', INFOT, NOUT, LERR, OK )
+      stplqt2(0, -1, 0, A, 1, B, 1, T, 1, INFO );
+      chkxer('STPLQT2', INFOT, NOUT, LERR, OK );
       INFOT = 3
-      CALL STPLQT2( 0, 0, -1, A, 1, B, 1, T, 1, INFO )
-      CALL CHKXER( 'STPLQT2', INFOT, NOUT, LERR, OK )
+      stplqt2(0, 0, -1, A, 1, B, 1, T, 1, INFO );
+      chkxer('STPLQT2', INFOT, NOUT, LERR, OK );
       INFOT = 5
-      CALL STPLQT2( 2, 2, 0, A, 1, B, 2, T, 2, INFO )
-      CALL CHKXER( 'STPLQT2', INFOT, NOUT, LERR, OK )
+      stplqt2(2, 2, 0, A, 1, B, 2, T, 2, INFO );
+      chkxer('STPLQT2', INFOT, NOUT, LERR, OK );
       INFOT = 7
-      CALL STPLQT2( 2, 2, 0, A, 2, B, 1, T, 2, INFO )
-      CALL CHKXER( 'STPLQT2', INFOT, NOUT, LERR, OK )
+      stplqt2(2, 2, 0, A, 2, B, 1, T, 2, INFO );
+      chkxer('STPLQT2', INFOT, NOUT, LERR, OK );
       INFOT = 9
-      CALL STPLQT2( 2, 2, 0, A, 2, B, 2, T, 1, INFO )
-      CALL CHKXER( 'STPLQT2', INFOT, NOUT, LERR, OK )
+      stplqt2(2, 2, 0, A, 2, B, 2, T, 1, INFO );
+      chkxer('STPLQT2', INFOT, NOUT, LERR, OK );
 
       // STPMLQT
 
       SRNAMT = 'STPMLQT'
       INFOT = 1
-      CALL STPMLQT( '/', 'N', 0, 0, 0, 0, 1, A, 1, T, 1, B, 1, C, 1, W, INFO )
-      CALL CHKXER( 'STPMLQT', INFOT, NOUT, LERR, OK )
+      stpmlqt('/', 'N', 0, 0, 0, 0, 1, A, 1, T, 1, B, 1, C, 1, W, INFO );
+      chkxer('STPMLQT', INFOT, NOUT, LERR, OK );
       INFOT = 2
-      CALL STPMLQT( 'L', '/', 0, 0, 0, 0, 1, A, 1, T, 1, B, 1, C, 1, W, INFO )
-      CALL CHKXER( 'STPMLQT', INFOT, NOUT, LERR, OK )
+      stpmlqt('L', '/', 0, 0, 0, 0, 1, A, 1, T, 1, B, 1, C, 1, W, INFO );
+      chkxer('STPMLQT', INFOT, NOUT, LERR, OK );
       INFOT = 3
-      CALL STPMLQT( 'L', 'N', -1, 0, 0, 0, 1, A, 1, T, 1, B, 1, C, 1, W, INFO )
-      CALL CHKXER( 'STPMLQT', INFOT, NOUT, LERR, OK )
+      stpmlqt('L', 'N', -1, 0, 0, 0, 1, A, 1, T, 1, B, 1, C, 1, W, INFO );
+      chkxer('STPMLQT', INFOT, NOUT, LERR, OK );
       INFOT = 4
-      CALL STPMLQT( 'L', 'N', 0, -1, 0, 0, 1, A, 1, T, 1, B, 1, C, 1, W, INFO )
-      CALL CHKXER( 'STPMLQT', INFOT, NOUT, LERR, OK )
+      stpmlqt('L', 'N', 0, -1, 0, 0, 1, A, 1, T, 1, B, 1, C, 1, W, INFO );
+      chkxer('STPMLQT', INFOT, NOUT, LERR, OK );
       INFOT = 5
-      CALL STPMLQT( 'L', 'N', 0, 0, -1, 0, 1, A, 1, T, 1, B, 1, C, 1, W, INFO )
+      stpmlqt('L', 'N', 0, 0, -1, 0, 1, A, 1, T, 1, B, 1, C, 1, W, INFO );
       INFOT = 6
-      CALL STPMLQT( 'L', 'N', 0, 0, 0, -1, 1, A, 1, T, 1, B, 1, C, 1, W, INFO )
-      CALL CHKXER( 'STPMLQT', INFOT, NOUT, LERR, OK )
+      stpmlqt('L', 'N', 0, 0, 0, -1, 1, A, 1, T, 1, B, 1, C, 1, W, INFO );
+      chkxer('STPMLQT', INFOT, NOUT, LERR, OK );
       INFOT = 7
-      CALL STPMLQT( 'L', 'N', 0, 0, 0, 0, 0, A, 1, T, 1, B, 1, C, 1, W, INFO )
-      CALL CHKXER( 'STPMLQT', INFOT, NOUT, LERR, OK )
+      stpmlqt('L', 'N', 0, 0, 0, 0, 0, A, 1, T, 1, B, 1, C, 1, W, INFO );
+      chkxer('STPMLQT', INFOT, NOUT, LERR, OK );
       INFOT = 9
-      CALL STPMLQT( 'R', 'N', 2, 2, 2, 1, 1, A, 1, T, 1, B, 1, C, 1, W, INFO )
-      CALL CHKXER( 'STPMLQT', INFOT, NOUT, LERR, OK )
+      stpmlqt('R', 'N', 2, 2, 2, 1, 1, A, 1, T, 1, B, 1, C, 1, W, INFO );
+      chkxer('STPMLQT', INFOT, NOUT, LERR, OK );
       INFOT = 11
-      CALL STPMLQT( 'R', 'N', 1, 1, 1, 1, 1, A, 1, T, 0, B, 1, C, 1, W, INFO )
-      CALL CHKXER( 'STPMLQT', INFOT, NOUT, LERR, OK )
+      stpmlqt('R', 'N', 1, 1, 1, 1, 1, A, 1, T, 0, B, 1, C, 1, W, INFO );
+      chkxer('STPMLQT', INFOT, NOUT, LERR, OK );
       INFOT = 13
-      CALL STPMLQT( 'L', 'N', 1, 1, 1, 1, 1, A, 1, T, 1, B, 0, C, 1, W, INFO )
-      CALL CHKXER( 'STPMLQT', INFOT, NOUT, LERR, OK )
+      stpmlqt('L', 'N', 1, 1, 1, 1, 1, A, 1, T, 1, B, 0, C, 1, W, INFO );
+      chkxer('STPMLQT', INFOT, NOUT, LERR, OK );
       INFOT = 15
-      CALL STPMLQT( 'L', 'N', 1, 1, 1, 1, 1, A, 1, T, 1, B, 1, C, 0, W, INFO )
-      CALL CHKXER( 'STPMLQT', INFOT, NOUT, LERR, OK )
+      stpmlqt('L', 'N', 1, 1, 1, 1, 1, A, 1, T, 1, B, 1, C, 0, W, INFO );
+      chkxer('STPMLQT', INFOT, NOUT, LERR, OK );
 
       // Print a summary line.
 
-      CALL ALAESM( PATH, OK, NOUT )
+      alaesm(PATH, OK, NOUT );
 
       RETURN
 

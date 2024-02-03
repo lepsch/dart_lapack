@@ -52,7 +52,7 @@
          INFO = -8
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'ZGTCON', -INFO )
+         xerbla('ZGTCON', -INFO );
          RETURN
       }
 
@@ -80,18 +80,18 @@
       }
       KASE = 0
    20 CONTINUE
-      CALL ZLACN2( N, WORK( N+1 ), WORK, AINVNM, KASE, ISAVE )
+      zlacn2(N, WORK( N+1 ), WORK, AINVNM, KASE, ISAVE );
       if ( KASE.NE.0 ) {
          if ( KASE.EQ.KASE1 ) {
 
             // Multiply by inv(U)*inv(L).
 
-            CALL ZGTTRS( 'No transpose', N, 1, DL, D, DU, DU2, IPIV, WORK, N, INFO )
+            zgttrs('No transpose', N, 1, DL, D, DU, DU2, IPIV, WORK, N, INFO );
          } else {
 
             // Multiply by inv(L**H)*inv(U**H).
 
-            CALL ZGTTRS( 'Conjugate transpose', N, 1, DL, D, DU, DU2, IPIV, WORK, N, INFO )
+            zgttrs('Conjugate transpose', N, 1, DL, D, DU, DU2, IPIV, WORK, N, INFO );
          }
          GO TO 20
       }

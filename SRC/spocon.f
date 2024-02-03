@@ -57,7 +57,7 @@
          INFO = -5
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'SPOCON', -INFO )
+         xerbla('SPOCON', -INFO );
          RETURN
       }
 
@@ -78,28 +78,28 @@
       KASE = 0
       NORMIN = 'N'
    10 CONTINUE
-      CALL SLACN2( N, WORK( N+1 ), WORK, IWORK, AINVNM, KASE, ISAVE )
+      slacn2(N, WORK( N+1 ), WORK, IWORK, AINVNM, KASE, ISAVE );
       if ( KASE.NE.0 ) {
          if ( UPPER ) {
 
             // Multiply by inv(U**T).
 
-            CALL SLATRS( 'Upper', 'Transpose', 'Non-unit', NORMIN, N, A, LDA, WORK, SCALEL, WORK( 2*N+1 ), INFO )
+            slatrs('Upper', 'Transpose', 'Non-unit', NORMIN, N, A, LDA, WORK, SCALEL, WORK( 2*N+1 ), INFO );
             NORMIN = 'Y'
 
             // Multiply by inv(U).
 
-            CALL SLATRS( 'Upper', 'No transpose', 'Non-unit', NORMIN, N, A, LDA, WORK, SCALEU, WORK( 2*N+1 ), INFO )
+            slatrs('Upper', 'No transpose', 'Non-unit', NORMIN, N, A, LDA, WORK, SCALEU, WORK( 2*N+1 ), INFO );
          } else {
 
             // Multiply by inv(L).
 
-            CALL SLATRS( 'Lower', 'No transpose', 'Non-unit', NORMIN, N, A, LDA, WORK, SCALEL, WORK( 2*N+1 ), INFO )
+            slatrs('Lower', 'No transpose', 'Non-unit', NORMIN, N, A, LDA, WORK, SCALEL, WORK( 2*N+1 ), INFO );
             NORMIN = 'Y'
 
             // Multiply by inv(L**T).
 
-            CALL SLATRS( 'Lower', 'Transpose', 'Non-unit', NORMIN, N, A, LDA, WORK, SCALEU, WORK( 2*N+1 ), INFO )
+            slatrs('Lower', 'Transpose', 'Non-unit', NORMIN, N, A, LDA, WORK, SCALEU, WORK( 2*N+1 ), INFO );
          }
 
          // Multiply by 1/SCALE if doing so will not cause overflow.
@@ -108,7 +108,7 @@
          if ( SCALE.NE.ONE ) {
             IX = ISAMAX( N, WORK, 1 )
             IF( SCALE.LT.ABS( WORK( IX ) )*SMLNUM .OR. SCALE.EQ.ZERO ) GO TO 20
-            CALL SRSCL( N, SCALE, WORK, 1 )
+            srscl(N, SCALE, WORK, 1 );
          }
          GO TO 10
       }

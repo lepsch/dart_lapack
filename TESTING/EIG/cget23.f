@@ -80,7 +80,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'CGET23', -INFO )
+         xerbla('CGET23', -INFO );
          RETURN
       }
 
@@ -107,8 +107,8 @@
          SENSE = 'E'
          ISENSM = 1
       }
-      CALL CLACPY( 'F', N, N, A, LDA, H, LDA )
-      CALL CGEEVX( BALANC, 'V', 'V', SENSE, N, H, LDA, W, VL, LDVL, VR, LDVR, ILO, IHI, SCALE, ABNRM, RCONDE, RCONDV, WORK, LWORK, RWORK, IINFO )
+      clacpy('F', N, N, A, LDA, H, LDA );
+      cgeevx(BALANC, 'V', 'V', SENSE, N, H, LDA, W, VL, LDVL, VR, LDVR, ILO, IHI, SCALE, ABNRM, RCONDE, RCONDV, WORK, LWORK, RWORK, IINFO );
       if ( IINFO.NE.0 ) {
          RESULT( 1 ) = ULPINV
          if ( JTYPE.NE.22 ) {
@@ -122,12 +122,12 @@
 
       // Do Test (1)
 
-      CALL CGET22( 'N', 'N', 'N', N, A, LDA, VR, LDVR, W, WORK, RWORK, RES )
+      cget22('N', 'N', 'N', N, A, LDA, VR, LDVR, W, WORK, RWORK, RES );
       RESULT( 1 ) = RES( 1 )
 
       // Do Test (2)
 
-      CALL CGET22( 'C', 'N', 'C', N, A, LDA, VL, LDVL, W, WORK, RWORK, RES )
+      cget22('C', 'N', 'C', N, A, LDA, VL, LDVL, W, WORK, RWORK, RES );
       RESULT( 2 ) = RES( 1 )
 
       // Do Test (3)
@@ -166,8 +166,8 @@
 
          // Compute eigenvalues only, and test them
 
-         CALL CLACPY( 'F', N, N, A, LDA, H, LDA )
-         CALL CGEEVX( BALANC, 'N', 'N', SENSE, N, H, LDA, W1, CDUM, 1, CDUM, 1, ILO1, IHI1, SCALE1, ABNRM1, RCNDE1, RCNDV1, WORK, LWORK, RWORK, IINFO )
+         clacpy('F', N, N, A, LDA, H, LDA );
+         cgeevx(BALANC, 'N', 'N', SENSE, N, H, LDA, W1, CDUM, 1, CDUM, 1, ILO1, IHI1, SCALE1, ABNRM1, RCNDE1, RCNDV1, WORK, LWORK, RWORK, IINFO );
          if ( IINFO.NE.0 ) {
             RESULT( 1 ) = ULPINV
             if ( JTYPE.NE.22 ) {
@@ -204,8 +204,8 @@
 
          // Compute eigenvalues and right eigenvectors, and test them
 
-         CALL CLACPY( 'F', N, N, A, LDA, H, LDA )
-         CALL CGEEVX( BALANC, 'N', 'V', SENSE, N, H, LDA, W1, CDUM, 1, LRE, LDLRE, ILO1, IHI1, SCALE1, ABNRM1, RCNDE1, RCNDV1, WORK, LWORK, RWORK, IINFO )
+         clacpy('F', N, N, A, LDA, H, LDA );
+         cgeevx(BALANC, 'N', 'V', SENSE, N, H, LDA, W1, CDUM, 1, LRE, LDLRE, ILO1, IHI1, SCALE1, ABNRM1, RCNDE1, RCNDV1, WORK, LWORK, RWORK, IINFO );
          if ( IINFO.NE.0 ) {
             RESULT( 1 ) = ULPINV
             if ( JTYPE.NE.22 ) {
@@ -250,8 +250,8 @@
 
          // Compute eigenvalues and left eigenvectors, and test them
 
-         CALL CLACPY( 'F', N, N, A, LDA, H, LDA )
-         CALL CGEEVX( BALANC, 'V', 'N', SENSE, N, H, LDA, W1, LRE, LDLRE, CDUM, 1, ILO1, IHI1, SCALE1, ABNRM1, RCNDE1, RCNDV1, WORK, LWORK, RWORK, IINFO )
+         clacpy('F', N, N, A, LDA, H, LDA );
+         cgeevx(BALANC, 'V', 'N', SENSE, N, H, LDA, W1, LRE, LDLRE, CDUM, 1, ILO1, IHI1, SCALE1, ABNRM1, RCNDE1, RCNDV1, WORK, LWORK, RWORK, IINFO );
          if ( IINFO.NE.0 ) {
             RESULT( 1 ) = ULPINV
             if ( JTYPE.NE.22 ) {
@@ -301,8 +301,8 @@
       // If COMP, compare condition numbers to precomputed ones
 
       if ( COMP ) {
-         CALL CLACPY( 'F', N, N, A, LDA, H, LDA )
-         CALL CGEEVX( 'N', 'V', 'V', 'B', N, H, LDA, W, VL, LDVL, VR, LDVR, ILO, IHI, SCALE, ABNRM, RCONDE, RCONDV, WORK, LWORK, RWORK, IINFO )
+         clacpy('F', N, N, A, LDA, H, LDA );
+         cgeevx('N', 'V', 'V', 'B', N, H, LDA, W, VL, LDVL, VR, LDVR, ILO, IHI, SCALE, ABNRM, RCONDE, RCONDV, WORK, LWORK, RWORK, IINFO );
          if ( IINFO.NE.0 ) {
             RESULT( 1 ) = ULPINV
             WRITE( NOUNIT, FMT = 9999 )'CGEEVX5', IINFO, N, ISEED( 1 )

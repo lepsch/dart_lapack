@@ -67,7 +67,7 @@
          }
       }
       if ( INFO .NE. 0 ) {
-         CALL XERBLA( 'DORBDB3', -INFO )
+         xerbla('DORBDB3', -INFO );
          RETURN
       } else if ( LQUERY ) {
          RETURN
@@ -78,36 +78,36 @@
       DO I = 1, M-P
 
          if ( I .GT. 1 ) {
-            CALL DROT( Q-I+1, X11(I-1,I), LDX11, X21(I,I), LDX11, C, S )
+            drot(Q-I+1, X11(I-1,I), LDX11, X21(I,I), LDX11, C, S );
          }
 
-         CALL DLARFGP( Q-I+1, X21(I,I), X21(I,I+1), LDX21, TAUQ1(I) )
+         dlarfgp(Q-I+1, X21(I,I), X21(I,I+1), LDX21, TAUQ1(I) );
          S = X21(I,I)
          X21(I,I) = ONE
-         CALL DLARF( 'R', P-I+1, Q-I+1, X21(I,I), LDX21, TAUQ1(I), X11(I,I), LDX11, WORK(ILARF) )          CALL DLARF( 'R', M-P-I, Q-I+1, X21(I,I), LDX21, TAUQ1(I), X21(I+1,I), LDX21, WORK(ILARF) )          C = SQRT( DNRM2( P-I+1, X11(I,I), 1 )**2 + DNRM2( M-P-I, X21(I+1,I), 1 )**2 )
+         dlarf('R', P-I+1, Q-I+1, X21(I,I), LDX21, TAUQ1(I), X11(I,I), LDX11, WORK(ILARF) )          CALL DLARF( 'R', M-P-I, Q-I+1, X21(I,I), LDX21, TAUQ1(I), X21(I+1,I), LDX21, WORK(ILARF) )          C = SQRT( DNRM2( P-I+1, X11(I,I), 1 )**2 + DNRM2( M-P-I, X21(I+1,I), 1 )**2 );
          THETA(I) = ATAN2( S, C )
 
-         CALL DORBDB5( P-I+1, M-P-I, Q-I, X11(I,I), 1, X21(I+1,I), 1, X11(I,I+1), LDX11, X21(I+1,I+1), LDX21, WORK(IORBDB5), LORBDB5, CHILDINFO )
-         CALL DLARFGP( P-I+1, X11(I,I), X11(I+1,I), 1, TAUP1(I) )
+         dorbdb5(P-I+1, M-P-I, Q-I, X11(I,I), 1, X21(I+1,I), 1, X11(I,I+1), LDX11, X21(I+1,I+1), LDX21, WORK(IORBDB5), LORBDB5, CHILDINFO );
+         dlarfgp(P-I+1, X11(I,I), X11(I+1,I), 1, TAUP1(I) );
          if ( I .LT. M-P ) {
-            CALL DLARFGP( M-P-I, X21(I+1,I), X21(I+2,I), 1, TAUP2(I) )
+            dlarfgp(M-P-I, X21(I+1,I), X21(I+2,I), 1, TAUP2(I) );
             PHI(I) = ATAN2( X21(I+1,I), X11(I,I) )
             C = COS( PHI(I) )
             S = SIN( PHI(I) )
             X21(I+1,I) = ONE
-            CALL DLARF( 'L', M-P-I, Q-I, X21(I+1,I), 1, TAUP2(I), X21(I+1,I+1), LDX21, WORK(ILARF) )
+            dlarf('L', M-P-I, Q-I, X21(I+1,I), 1, TAUP2(I), X21(I+1,I+1), LDX21, WORK(ILARF) );
          }
          X11(I,I) = ONE
-         CALL DLARF( 'L', P-I+1, Q-I, X11(I,I), 1, TAUP1(I), X11(I,I+1), LDX11, WORK(ILARF) )
+         dlarf('L', P-I+1, Q-I, X11(I,I), 1, TAUP1(I), X11(I,I+1), LDX11, WORK(ILARF) );
 
       END DO
 
       // Reduce the bottom-right portion of X11 to the identity matrix
 
       DO I = M-P + 1, Q
-         CALL DLARFGP( P-I+1, X11(I,I), X11(I+1,I), 1, TAUP1(I) )
+         dlarfgp(P-I+1, X11(I,I), X11(I+1,I), 1, TAUP1(I) );
          X11(I,I) = ONE
-         CALL DLARF( 'L', P-I+1, Q-I, X11(I,I), 1, TAUP1(I), X11(I,I+1), LDX11, WORK(ILARF) )
+         dlarf('L', P-I+1, Q-I, X11(I,I), 1, TAUP1(I), X11(I,I+1), LDX11, WORK(ILARF) );
       END DO
 
       RETURN

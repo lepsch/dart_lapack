@@ -94,7 +94,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'ZHEEVD', -INFO )
+         xerbla('ZHEEVD', -INFO );
          RETURN
       } else if ( LQUERY ) {
          RETURN
@@ -142,7 +142,7 @@
       LLWORK = LWORK - INDWRK + 1
       LLWRK2 = LWORK - INDWK2 + 1
       LLRWK = LRWORK - INDRWK + 1
-      CALL ZHETRD( UPLO, N, A, LDA, W, RWORK( INDE ), WORK( INDTAU ), WORK( INDWRK ), LLWORK, IINFO )
+      zhetrd(UPLO, N, A, LDA, W, RWORK( INDE ), WORK( INDTAU ), WORK( INDWRK ), LLWORK, IINFO );
 
       // For eigenvalues only, call DSTERF.  For eigenvectors, first call
       // ZSTEDC to generate the eigenvector matrix, WORK(INDWRK), of the
@@ -151,11 +151,11 @@
       // A.
 
       if ( .NOT.WANTZ ) {
-         CALL DSTERF( N, W, RWORK( INDE ), INFO )
+         dsterf(N, W, RWORK( INDE ), INFO );
       } else {
-         CALL ZSTEDC( 'I', N, W, RWORK( INDE ), WORK( INDWRK ), N, WORK( INDWK2 ), LLWRK2, RWORK( INDRWK ), LLRWK, IWORK, LIWORK, INFO )
-         CALL ZUNMTR( 'L', UPLO, 'N', N, N, A, LDA, WORK( INDTAU ), WORK( INDWRK ), N, WORK( INDWK2 ), LLWRK2, IINFO )
-         CALL ZLACPY( 'A', N, N, WORK( INDWRK ), N, A, LDA )
+         zstedc('I', N, W, RWORK( INDE ), WORK( INDWRK ), N, WORK( INDWK2 ), LLWRK2, RWORK( INDRWK ), LLRWK, IWORK, LIWORK, INFO );
+         zunmtr('L', UPLO, 'N', N, N, A, LDA, WORK( INDTAU ), WORK( INDWRK ), N, WORK( INDWK2 ), LLWRK2, IINFO );
+         zlacpy('A', N, N, WORK( INDWRK ), N, A, LDA );
       }
 
       // If matrix was scaled, then rescale eigenvalues appropriately.
@@ -166,7 +166,7 @@
          } else {
             IMAX = INFO - 1
          }
-         CALL DSCAL( IMAX, ONE / SIGMA, W, 1 )
+         dscal(IMAX, ONE / SIGMA, W, 1 );
       }
 
       WORK( 1 ) = LOPT

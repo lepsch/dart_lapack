@@ -64,32 +64,32 @@
 
       SRNAMT = 'SPSTRF'
       INFOT = 1
-      CALL SPSTRF( '/', 0, A, 1, PIV, RANK, -1.0, WORK, INFO )
-      CALL CHKXER( 'SPSTRF', INFOT, NOUT, LERR, OK )
+      spstrf('/', 0, A, 1, PIV, RANK, -1.0, WORK, INFO );
+      chkxer('SPSTRF', INFOT, NOUT, LERR, OK );
       INFOT = 2
-      CALL SPSTRF( 'U', -1, A, 1, PIV, RANK, -1.0, WORK, INFO )
-      CALL CHKXER( 'SPSTRF', INFOT, NOUT, LERR, OK )
+      spstrf('U', -1, A, 1, PIV, RANK, -1.0, WORK, INFO );
+      chkxer('SPSTRF', INFOT, NOUT, LERR, OK );
       INFOT = 4
-      CALL SPSTRF( 'U', 2, A, 1, PIV, RANK, -1.0, WORK, INFO )
-      CALL CHKXER( 'SPSTRF', INFOT, NOUT, LERR, OK )
+      spstrf('U', 2, A, 1, PIV, RANK, -1.0, WORK, INFO );
+      chkxer('SPSTRF', INFOT, NOUT, LERR, OK );
 
          // SPSTF2
 
       SRNAMT = 'SPSTF2'
       INFOT = 1
-      CALL SPSTF2( '/', 0, A, 1, PIV, RANK, -1.0, WORK, INFO )
-      CALL CHKXER( 'SPSTF2', INFOT, NOUT, LERR, OK )
+      spstf2('/', 0, A, 1, PIV, RANK, -1.0, WORK, INFO );
+      chkxer('SPSTF2', INFOT, NOUT, LERR, OK );
       INFOT = 2
-      CALL SPSTF2( 'U', -1, A, 1, PIV, RANK, -1.0, WORK, INFO )
-      CALL CHKXER( 'SPSTF2', INFOT, NOUT, LERR, OK )
+      spstf2('U', -1, A, 1, PIV, RANK, -1.0, WORK, INFO );
+      chkxer('SPSTF2', INFOT, NOUT, LERR, OK );
       INFOT = 4
-      CALL SPSTF2( 'U', 2, A, 1, PIV, RANK, -1.0, WORK, INFO )
-      CALL CHKXER( 'SPSTF2', INFOT, NOUT, LERR, OK )
+      spstf2('U', 2, A, 1, PIV, RANK, -1.0, WORK, INFO );
+      chkxer('SPSTF2', INFOT, NOUT, LERR, OK );
 
 
       // Print a summary line.
 
-      CALL ALAESM( PATH, OK, NOUT )
+      alaesm(PATH, OK, NOUT );
 
       RETURN
 

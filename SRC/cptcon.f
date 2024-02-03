@@ -44,7 +44,7 @@
          INFO = -4
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'CPTCON', -INFO )
+         xerbla('CPTCON', -INFO );
          RETURN
       }
 

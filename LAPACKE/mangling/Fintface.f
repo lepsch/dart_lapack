@@ -2,7 +2,7 @@
        external c_intface
        int     i;
 
-       call c_intface(i)
+       c_intface(i);
 
        stop
        end

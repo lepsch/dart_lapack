@@ -54,13 +54,13 @@
 
       // Copy the first k rows of the factorization to the array Q
 
-      CALL ZLASET( 'Full', N, N, ROGUE, ROGUE, Q, LDA )
-      CALL ZLACPY( 'Upper', K, N-1, AF( 1, 2 ), LDA, Q( 1, 2 ), LDA )
+      zlaset('Full', N, N, ROGUE, ROGUE, Q, LDA );
+      zlacpy('Upper', K, N-1, AF( 1, 2 ), LDA, Q( 1, 2 ), LDA );
 
       // Generate the n-by-n matrix Q
 
       SRNAMT = 'ZUNGLQ'
-      CALL ZUNGLQ( N, N, K, Q, LDA, TAU, WORK, LWORK, INFO )
+      zunglq(N, N, K, Q, LDA, TAU, WORK, LWORK, INFO );
 
       DO 30 ISIDE = 1, 2
          if ( ISIDE.EQ.1 ) {
@@ -76,7 +76,7 @@
          // Generate MC by NC matrix C
 
          DO 10 J = 1, NC
-            CALL ZLARNV( 2, ISEED, MC, C( 1, J ) )
+            zlarnv(2, ISEED, MC, C( 1, J ) );
    10    CONTINUE
          CNORM = ZLANGE( '1', MC, NC, C, LDA, RWORK )
          IF( CNORM.EQ.ZERO ) CNORM = ONE
@@ -90,19 +90,19 @@
 
             // Copy C
 
-            CALL ZLACPY( 'Full', MC, NC, C, LDA, CC, LDA )
+            zlacpy('Full', MC, NC, C, LDA, CC, LDA );
 
             // Apply Q or Q' to C
 
             SRNAMT = 'ZUNMLQ'
-            CALL ZUNMLQ( SIDE, TRANS, MC, NC, K, AF, LDA, TAU, CC, LDA, WORK, LWORK, INFO )
+            zunmlq(SIDE, TRANS, MC, NC, K, AF, LDA, TAU, CC, LDA, WORK, LWORK, INFO );
 
             // Form explicit product and subtract
 
             if ( LSAME( SIDE, 'L' ) ) {
-               CALL ZGEMM( TRANS, 'No transpose', MC, NC, MC, DCMPLX( -ONE ), Q, LDA, C, LDA, DCMPLX( ONE ), CC, LDA )
+               zgemm(TRANS, 'No transpose', MC, NC, MC, DCMPLX( -ONE ), Q, LDA, C, LDA, DCMPLX( ONE ), CC, LDA );
             } else {
-               CALL ZGEMM( 'No transpose', TRANS, MC, NC, NC, DCMPLX( -ONE ), C, LDA, Q, LDA, DCMPLX( ONE ), CC, LDA )
+               zgemm('No transpose', TRANS, MC, NC, NC, DCMPLX( -ONE ), C, LDA, Q, LDA, DCMPLX( ONE ), CC, LDA );
             }
 
             // Compute error in the difference

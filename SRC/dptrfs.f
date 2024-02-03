@@ -55,7 +55,7 @@
          INFO = -10
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'DPTRFS', -INFO )
+         xerbla('DPTRFS', -INFO );
          RETURN
       }
 
@@ -145,8 +145,8 @@
 
             // Update solution and try again.
 
-            CALL DPTTRS( N, 1, DF, EF, WORK( N+1 ), N, INFO )
-            CALL DAXPY( N, ONE, WORK( N+1 ), 1, X( 1, J ), 1 )
+            dpttrs(N, 1, DF, EF, WORK( N+1 ), N, INFO );
+            daxpy(N, ONE, WORK( N+1 ), 1, X( 1, J ), 1 );
             LSTRES = BERR( J )
             COUNT = COUNT + 1
             GO TO 20

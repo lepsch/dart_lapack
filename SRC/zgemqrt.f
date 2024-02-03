@@ -67,7 +67,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'ZGEMQRT', -INFO )
+         xerbla('ZGEMQRT', -INFO );
          RETURN
       }
 
@@ -79,14 +79,14 @@
 
          DO I = 1, K, NB
             IB = MIN( NB, K-I+1 )
-            CALL ZLARFB( 'L', 'C', 'F', 'C', M-I+1, N, IB, V( I, I ), LDV, T( 1, I ), LDT, C( I, 1 ), LDC, WORK, LDWORK )
+            zlarfb('L', 'C', 'F', 'C', M-I+1, N, IB, V( I, I ), LDV, T( 1, I ), LDT, C( I, 1 ), LDC, WORK, LDWORK );
          END DO
 
       } else if ( RIGHT .AND. NOTRAN ) {
 
          DO I = 1, K, NB
             IB = MIN( NB, K-I+1 )
-            CALL ZLARFB( 'R', 'N', 'F', 'C', M, N-I+1, IB, V( I, I ), LDV, T( 1, I ), LDT, C( 1, I ), LDC, WORK, LDWORK )
+            zlarfb('R', 'N', 'F', 'C', M, N-I+1, IB, V( I, I ), LDV, T( 1, I ), LDT, C( 1, I ), LDC, WORK, LDWORK );
          END DO
 
       } else if ( LEFT .AND. NOTRAN ) {
@@ -94,7 +94,7 @@
          KF = ((K-1)/NB)*NB+1
          DO I = KF, 1, -NB
             IB = MIN( NB, K-I+1 )
-            CALL ZLARFB( 'L', 'N', 'F', 'C', M-I+1, N, IB, V( I, I ), LDV, T( 1, I ), LDT, C( I, 1 ), LDC, WORK, LDWORK )
+            zlarfb('L', 'N', 'F', 'C', M-I+1, N, IB, V( I, I ), LDV, T( 1, I ), LDT, C( I, 1 ), LDC, WORK, LDWORK );
          END DO
 
       } else if ( RIGHT .AND. TRAN ) {
@@ -102,7 +102,7 @@
          KF = ((K-1)/NB)*NB+1
          DO I = KF, 1, -NB
             IB = MIN( NB, K-I+1 )
-            CALL ZLARFB( 'R', 'C', 'F', 'C', M, N-I+1, IB, V( I, I ), LDV, T( 1, I ), LDT, C( 1, I ), LDC, WORK, LDWORK )
+            zlarfb('R', 'C', 'F', 'C', M, N-I+1, IB, V( I, I ), LDV, T( 1, I ), LDT, C( 1, I ), LDC, WORK, LDWORK );
          END DO
 
       }

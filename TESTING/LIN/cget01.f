@@ -58,15 +58,15 @@
 
       DO 10 K = N, 1, -1
          if ( K.GT.M ) {
-            CALL CTRMV( 'Lower', 'No transpose', 'Unit', M, AFAC, LDAFAC, AFAC( 1, K ), 1 )
+            ctrmv('Lower', 'No transpose', 'Unit', M, AFAC, LDAFAC, AFAC( 1, K ), 1 );
          } else {
 
             // Compute elements (K+1:M,K)
 
             T = AFAC( K, K )
             if ( K+1.LE.M ) {
-               CALL CSCAL( M-K, T, AFAC( K+1, K ), 1 )
-               CALL CGEMV( 'No transpose', M-K, K-1, CONE, AFAC( K+1, 1 ), LDAFAC, AFAC( 1, K ), 1, CONE, AFAC( K+1, K ), 1 )
+               cscal(M-K, T, AFAC( K+1, K ), 1 );
+               cgemv('No transpose', M-K, K-1, CONE, AFAC( K+1, 1 ), LDAFAC, AFAC( 1, K ), 1, CONE, AFAC( K+1, K ), 1 );
             }
 
             // Compute the (K,K) element
@@ -75,10 +75,10 @@
 
             // Compute elements (1:K-1,K)
 
-            CALL CTRMV( 'Lower', 'No transpose', 'Unit', K-1, AFAC, LDAFAC, AFAC( 1, K ), 1 )
+            ctrmv('Lower', 'No transpose', 'Unit', K-1, AFAC, LDAFAC, AFAC( 1, K ), 1 );
          }
    10 CONTINUE
-      CALL CLASWP( N, AFAC, LDAFAC, 1, MIN( M, N ), IPIV, -1 )
+      claswp(N, AFAC, LDAFAC, 1, MIN( M, N ), IPIV, -1 );
 
       // Compute the difference  L*U - A  and store in AFAC.
 

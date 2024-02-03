@@ -47,7 +47,7 @@
          INFO = -4
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'SPOTRF', -INFO )
+         xerbla('SPOTRF', -INFO );
          RETURN
       }
 
@@ -62,7 +62,7 @@
 
          // Use unblocked code.
 
-         CALL SPOTRF2( UPLO, N, A, LDA, INFO )
+         spotrf2(UPLO, N, A, LDA, INFO );
       } else {
 
          // Use blocked code.
@@ -77,14 +77,14 @@
                // for non-positive-definiteness.
 
                JB = MIN( NB, N-J+1 )
-               CALL SSYRK( 'Upper', 'Transpose', JB, J-1, -ONE, A( 1, J ), LDA, ONE, A( J, J ), LDA )
-               CALL SPOTRF2( 'Upper', JB, A( J, J ), LDA, INFO )
+               ssyrk('Upper', 'Transpose', JB, J-1, -ONE, A( 1, J ), LDA, ONE, A( J, J ), LDA );
+               spotrf2('Upper', JB, A( J, J ), LDA, INFO );
                IF( INFO.NE.0 ) GO TO 30
                if ( J+JB.LE.N ) {
 
                   // Compute the current block row.
 
-                  CALL SGEMM( 'Transpose', 'No transpose', JB, N-J-JB+1, J-1, -ONE, A( 1, J ), LDA, A( 1, J+JB ), LDA, ONE, A( J, J+JB ), LDA )                   CALL STRSM( 'Left', 'Upper', 'Transpose', 'Non-unit', JB, N-J-JB+1, ONE, A( J, J ), LDA, A( J, J+JB ), LDA )
+                  sgemm('Transpose', 'No transpose', JB, N-J-JB+1, J-1, -ONE, A( 1, J ), LDA, A( 1, J+JB ), LDA, ONE, A( J, J+JB ), LDA )                   CALL STRSM( 'Left', 'Upper', 'Transpose', 'Non-unit', JB, N-J-JB+1, ONE, A( J, J ), LDA, A( J, J+JB ), LDA );
                }
    10       CONTINUE
 
@@ -98,14 +98,14 @@
                // for non-positive-definiteness.
 
                JB = MIN( NB, N-J+1 )
-               CALL SSYRK( 'Lower', 'No transpose', JB, J-1, -ONE, A( J, 1 ), LDA, ONE, A( J, J ), LDA )
-               CALL SPOTRF2( 'Lower', JB, A( J, J ), LDA, INFO )
+               ssyrk('Lower', 'No transpose', JB, J-1, -ONE, A( J, 1 ), LDA, ONE, A( J, J ), LDA );
+               spotrf2('Lower', JB, A( J, J ), LDA, INFO );
                IF( INFO.NE.0 ) GO TO 30
                if ( J+JB.LE.N ) {
 
                   // Compute the current block column.
 
-                  CALL SGEMM( 'No transpose', 'Transpose', N-J-JB+1, JB, J-1, -ONE, A( J+JB, 1 ), LDA, A( J, 1 ), LDA, ONE, A( J+JB, J ), LDA )                   CALL STRSM( 'Right', 'Lower', 'Transpose', 'Non-unit', N-J-JB+1, JB, ONE, A( J, J ), LDA, A( J+JB, J ), LDA )
+                  sgemm('No transpose', 'Transpose', N-J-JB+1, JB, J-1, -ONE, A( J+JB, 1 ), LDA, A( J, 1 ), LDA, ONE, A( J+JB, J ), LDA )                   CALL STRSM( 'Right', 'Lower', 'Transpose', 'Non-unit', N-J-JB+1, JB, ONE, A( J, J ), LDA, A( J+JB, J ), LDA );
                }
    20       CONTINUE
          }

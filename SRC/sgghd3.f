@@ -79,7 +79,7 @@
          INFO = -15
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'SGGHD3', -INFO )
+         xerbla('SGGHD3', -INFO );
          RETURN
       } else if ( LQUERY ) {
          RETURN
@@ -151,10 +151,10 @@
 
             N2NB = ( IHI-JCOL-1 ) / NNB - 1
             NBLST = IHI - JCOL - N2NB*NNB
-            CALL SLASET( 'All', NBLST, NBLST, ZERO, ONE, WORK, NBLST )
+            slaset('All', NBLST, NBLST, ZERO, ONE, WORK, NBLST );
             PW = NBLST * NBLST + 1
             DO I = 1, N2NB
-               CALL SLASET( 'All', 2*NNB, 2*NNB, ZERO, ONE, WORK( PW ), 2*NNB )
+               slaset('All', 2*NNB, 2*NNB, ZERO, ONE, WORK( PW ), 2*NNB );
                PW = PW + 4*NNB*NNB
             END DO
 
@@ -167,7 +167,7 @@
 
                DO I = IHI, J+2, -1
                   TEMP = A( I-1, J )
-                  CALL SLARTG( TEMP, A( I, J ), C, S, A( I-1, J ) )
+                  slartg(TEMP, A( I, J ), C, S, A( I-1, J ) );
                   A( I, J ) = C
                   B( I, J ) = S
                END DO
@@ -236,9 +236,9 @@
 
                   if ( JJ.LT.IHI ) {
                      TEMP = B( JJ+1, JJ+1 )
-                     CALL SLARTG( TEMP, B( JJ+1, JJ ), C, S, B( JJ+1, JJ+1 ) )
+                     slartg(TEMP, B( JJ+1, JJ ), C, S, B( JJ+1, JJ+1 ) );
                      B( JJ+1, JJ ) = ZERO
-                     CALL SROT( JJ-TOP, B( TOP+1, JJ+1 ), 1, B( TOP+1, JJ ), 1, C, S )
+                     srot(JJ-TOP, B( TOP+1, JJ+1 ), 1, B( TOP+1, JJ ), 1, C, S );
                      A( JJ+1, J ) = C
                      B( JJ+1, J ) = -S
                   }
@@ -276,7 +276,7 @@
 
                if ( JJ.GT.0 ) {
                   DO I = JJ, 1, -1
-                     CALL SROT( IHI-TOP, A( TOP+1, J+I+1 ), 1, A( TOP+1, J+I ), 1, A( J+1+I, J ), -B( J+1+I, J ) )
+                     srot(IHI-TOP, A( TOP+1, J+I+1 ), 1, A( TOP+1, J+I ), 1, A( J+1+I, J ), -B( J+1+I, J ) );
                   END DO
                }
 
@@ -296,13 +296,13 @@
                   // triangular.
 
                   JROW = IHI - NBLST + 1
-                  CALL SGEMV( 'Transpose', NBLST, LEN, ONE, WORK, NBLST, A( JROW, J+1 ), 1, ZERO, WORK( PW ), 1 )
+                  sgemv('Transpose', NBLST, LEN, ONE, WORK, NBLST, A( JROW, J+1 ), 1, ZERO, WORK( PW ), 1 );
                   PPW = PW + LEN
                   DO I = JROW, JROW+NBLST-LEN-1
                      WORK( PPW ) = A( I, J+1 )
                      PPW = PPW + 1
                   END DO
-                  CALL STRMV( 'Lower', 'Transpose', 'Non-unit', NBLST-LEN, WORK( LEN*NBLST + 1 ), NBLST, WORK( PW+LEN ), 1 )                   CALL SGEMV( 'Transpose', LEN, NBLST-LEN, ONE, WORK( (LEN+1)*NBLST - LEN + 1 ), NBLST, A( JROW+NBLST-LEN, J+1 ), 1, ONE, WORK( PW+LEN ), 1 )
+                  strmv('Lower', 'Transpose', 'Non-unit', NBLST-LEN, WORK( LEN*NBLST + 1 ), NBLST, WORK( PW+LEN ), 1 )                   CALL SGEMV( 'Transpose', LEN, NBLST-LEN, ONE, WORK( (LEN+1)*NBLST - LEN + 1 ), NBLST, A( JROW+NBLST-LEN, J+1 ), 1, ONE, WORK( PW+LEN ), 1 );
                   PPW = PW
                   DO I = JROW, JROW+NBLST-1
                      A( I, J+1 ) = WORK( PPW )
@@ -335,7 +335,7 @@
                         WORK( PPW ) = A( I, J+1 )
                         PPW = PPW + 1
                      END DO
-                     CALL STRMV( 'Upper', 'Transpose', 'Non-unit', LEN, WORK( PPWO + NNB ), 2*NNB, WORK( PW ), 1 )                      CALL STRMV( 'Lower', 'Transpose', 'Non-unit', NNB, WORK( PPWO + 2*LEN*NNB ), 2*NNB, WORK( PW + LEN ), 1 )                      CALL SGEMV( 'Transpose', NNB, LEN, ONE, WORK( PPWO ), 2*NNB, A( JROW, J+1 ), 1, ONE, WORK( PW ), 1 )                      CALL SGEMV( 'Transpose', LEN, NNB, ONE, WORK( PPWO + 2*LEN*NNB + NNB ), 2*NNB, A( JROW+NNB, J+1 ), 1, ONE, WORK( PW+LEN ), 1 )
+                     strmv('Upper', 'Transpose', 'Non-unit', LEN, WORK( PPWO + NNB ), 2*NNB, WORK( PW ), 1 )                      CALL STRMV( 'Lower', 'Transpose', 'Non-unit', NNB, WORK( PPWO + 2*LEN*NNB ), 2*NNB, WORK( PW + LEN ), 1 )                      CALL SGEMV( 'Transpose', NNB, LEN, ONE, WORK( PPWO ), 2*NNB, A( JROW, J+1 ), 1, ONE, WORK( PW ), 1 )                      CALL SGEMV( 'Transpose', LEN, NNB, ONE, WORK( PPWO + 2*LEN*NNB + NNB ), 2*NNB, A( JROW+NNB, J+1 ), 1, ONE, WORK( PW+LEN ), 1 );
                      PPW = PW
                      DO I = JROW, JROW+LEN+NNB-1
                         A( I, J+1 ) = WORK( PPW )
@@ -350,8 +350,8 @@
 
             COLA = N - JCOL - NNB + 1
             J = IHI - NBLST + 1
-            CALL SGEMM( 'Transpose', 'No Transpose', NBLST, COLA, NBLST, ONE, WORK, NBLST, A( J, JCOL+NNB ), LDA, ZERO, WORK( PW ), NBLST )
-            CALL SLACPY( 'All', NBLST, COLA, WORK( PW ), NBLST, A( J, JCOL+NNB ), LDA )
+            sgemm('Transpose', 'No Transpose', NBLST, COLA, NBLST, ONE, WORK, NBLST, A( J, JCOL+NNB ), LDA, ZERO, WORK( PW ), NBLST );
+            slacpy('All', NBLST, COLA, WORK( PW ), NBLST, A( J, JCOL+NNB ), LDA );
             PPWO = NBLST*NBLST + 1
             J0 = J - NNB
             DO J = J0, JCOL+1, -NNB
@@ -366,13 +366,13 @@
                   // where all blocks are NNB-by-NNB, U21 is upper
                   // triangular and U12 is lower triangular.
 
-                  CALL SORM22( 'Left', 'Transpose', 2*NNB, COLA, NNB, NNB, WORK( PPWO ), 2*NNB, A( J, JCOL+NNB ), LDA, WORK( PW ), LWORK-PW+1, IERR )
+                  sorm22('Left', 'Transpose', 2*NNB, COLA, NNB, NNB, WORK( PPWO ), 2*NNB, A( J, JCOL+NNB ), LDA, WORK( PW ), LWORK-PW+1, IERR );
                } else {
 
                   // Ignore the structure of U.
 
-                  CALL SGEMM( 'Transpose', 'No Transpose', 2*NNB, COLA, 2*NNB, ONE, WORK( PPWO ), 2*NNB, A( J, JCOL+NNB ), LDA, ZERO, WORK( PW ), 2*NNB )
-                  CALL SLACPY( 'All', 2*NNB, COLA, WORK( PW ), 2*NNB, A( J, JCOL+NNB ), LDA )
+                  sgemm('Transpose', 'No Transpose', 2*NNB, COLA, 2*NNB, ONE, WORK( PPWO ), 2*NNB, A( J, JCOL+NNB ), LDA, ZERO, WORK( PW ), 2*NNB );
+                  slacpy('All', 2*NNB, COLA, WORK( PW ), 2*NNB, A( J, JCOL+NNB ), LDA );
                }
                PPWO = PPWO + 4*NNB*NNB
             END DO
@@ -388,8 +388,8 @@
                   TOPQ = 1
                   NH = N
                }
-               CALL SGEMM( 'No Transpose', 'No Transpose', NH, NBLST, NBLST, ONE, Q( TOPQ, J ), LDQ, WORK, NBLST, ZERO, WORK( PW ), NH )
-               CALL SLACPY( 'All', NH, NBLST, WORK( PW ), NH, Q( TOPQ, J ), LDQ )
+               sgemm('No Transpose', 'No Transpose', NH, NBLST, NBLST, ONE, Q( TOPQ, J ), LDQ, WORK, NBLST, ZERO, WORK( PW ), NH );
+               slacpy('All', NH, NBLST, WORK( PW ), NH, Q( TOPQ, J ), LDQ );
                PPWO = NBLST*NBLST + 1
                J0 = J - NNB
                DO J = J0, JCOL+1, -NNB
@@ -401,13 +401,13 @@
 
                      // Exploit the structure of U.
 
-                     CALL SORM22( 'Right', 'No Transpose', NH, 2*NNB, NNB, NNB, WORK( PPWO ), 2*NNB, Q( TOPQ, J ), LDQ, WORK( PW ), LWORK-PW+1, IERR )
+                     sorm22('Right', 'No Transpose', NH, 2*NNB, NNB, NNB, WORK( PPWO ), 2*NNB, Q( TOPQ, J ), LDQ, WORK( PW ), LWORK-PW+1, IERR );
                   } else {
 
                      // Ignore the structure of U.
 
-                     CALL SGEMM( 'No Transpose', 'No Transpose', NH, 2*NNB, 2*NNB, ONE, Q( TOPQ, J ), LDQ, WORK( PPWO ), 2*NNB, ZERO, WORK( PW ), NH )
-                     CALL SLACPY( 'All', NH, 2*NNB, WORK( PW ), NH, Q( TOPQ, J ), LDQ )
+                     sgemm('No Transpose', 'No Transpose', NH, 2*NNB, 2*NNB, ONE, Q( TOPQ, J ), LDQ, WORK( PPWO ), 2*NNB, ZERO, WORK( PW ), NH );
+                     slacpy('All', NH, 2*NNB, WORK( PW ), NH, Q( TOPQ, J ), LDQ );
                   }
                   PPWO = PPWO + 4*NNB*NNB
                END DO
@@ -420,10 +420,10 @@
                // Initialize small orthogonal factors that will hold the
                // accumulated Givens rotations in workspace.
 
-               CALL SLASET( 'All', NBLST, NBLST, ZERO, ONE, WORK, NBLST )
+               slaset('All', NBLST, NBLST, ZERO, ONE, WORK, NBLST );
                PW = NBLST * NBLST + 1
                DO I = 1, N2NB
-                  CALL SLASET( 'All', 2*NNB, 2*NNB, ZERO, ONE, WORK( PW ), 2*NNB )
+                  slaset('All', 2*NNB, 2*NNB, ZERO, ONE, WORK( PW ), 2*NNB );
                   PW = PW + 4*NNB*NNB
                END DO
 
@@ -470,15 +470,15 @@
                END DO
             } else {
 
-               CALL SLASET( 'Lower', IHI - JCOL - 1, NNB, ZERO, ZERO, A( JCOL + 2, JCOL ), LDA )                CALL SLASET( 'Lower', IHI - JCOL - 1, NNB, ZERO, ZERO, B( JCOL + 2, JCOL ), LDB )
+               slaset('Lower', IHI - JCOL - 1, NNB, ZERO, ZERO, A( JCOL + 2, JCOL ), LDA )                CALL SLASET( 'Lower', IHI - JCOL - 1, NNB, ZERO, ZERO, B( JCOL + 2, JCOL ), LDB );
             }
 
             // Apply accumulated orthogonal matrices to A and B.
 
             if ( TOP.GT.0 ) {
                J = IHI - NBLST + 1
-               CALL SGEMM( 'No Transpose', 'No Transpose', TOP, NBLST, NBLST, ONE, A( 1, J ), LDA, WORK, NBLST, ZERO, WORK( PW ), TOP )
-               CALL SLACPY( 'All', TOP, NBLST, WORK( PW ), TOP, A( 1, J ), LDA )
+               sgemm('No Transpose', 'No Transpose', TOP, NBLST, NBLST, ONE, A( 1, J ), LDA, WORK, NBLST, ZERO, WORK( PW ), TOP );
+               slacpy('All', TOP, NBLST, WORK( PW ), TOP, A( 1, J ), LDA );
                PPWO = NBLST*NBLST + 1
                J0 = J - NNB
                DO J = J0, JCOL+1, -NNB
@@ -486,20 +486,20 @@
 
                      // Exploit the structure of U.
 
-                     CALL SORM22( 'Right', 'No Transpose', TOP, 2*NNB, NNB, NNB, WORK( PPWO ), 2*NNB, A( 1, J ), LDA, WORK( PW ), LWORK-PW+1, IERR )
+                     sorm22('Right', 'No Transpose', TOP, 2*NNB, NNB, NNB, WORK( PPWO ), 2*NNB, A( 1, J ), LDA, WORK( PW ), LWORK-PW+1, IERR );
                   } else {
 
                      // Ignore the structure of U.
 
-                     CALL SGEMM( 'No Transpose', 'No Transpose', TOP, 2*NNB, 2*NNB, ONE, A( 1, J ), LDA, WORK( PPWO ), 2*NNB, ZERO, WORK( PW ), TOP )
-                     CALL SLACPY( 'All', TOP, 2*NNB, WORK( PW ), TOP, A( 1, J ), LDA )
+                     sgemm('No Transpose', 'No Transpose', TOP, 2*NNB, 2*NNB, ONE, A( 1, J ), LDA, WORK( PPWO ), 2*NNB, ZERO, WORK( PW ), TOP );
+                     slacpy('All', TOP, 2*NNB, WORK( PW ), TOP, A( 1, J ), LDA );
                   }
                   PPWO = PPWO + 4*NNB*NNB
                END DO
 
                J = IHI - NBLST + 1
-               CALL SGEMM( 'No Transpose', 'No Transpose', TOP, NBLST, NBLST, ONE, B( 1, J ), LDB, WORK, NBLST, ZERO, WORK( PW ), TOP )
-               CALL SLACPY( 'All', TOP, NBLST, WORK( PW ), TOP, B( 1, J ), LDB )
+               sgemm('No Transpose', 'No Transpose', TOP, NBLST, NBLST, ONE, B( 1, J ), LDB, WORK, NBLST, ZERO, WORK( PW ), TOP );
+               slacpy('All', TOP, NBLST, WORK( PW ), TOP, B( 1, J ), LDB );
                PPWO = NBLST*NBLST + 1
                J0 = J - NNB
                DO J = J0, JCOL+1, -NNB
@@ -507,13 +507,13 @@
 
                      // Exploit the structure of U.
 
-                     CALL SORM22( 'Right', 'No Transpose', TOP, 2*NNB, NNB, NNB, WORK( PPWO ), 2*NNB, B( 1, J ), LDB, WORK( PW ), LWORK-PW+1, IERR )
+                     sorm22('Right', 'No Transpose', TOP, 2*NNB, NNB, NNB, WORK( PPWO ), 2*NNB, B( 1, J ), LDB, WORK( PW ), LWORK-PW+1, IERR );
                   } else {
 
                      // Ignore the structure of U.
 
-                     CALL SGEMM( 'No Transpose', 'No Transpose', TOP, 2*NNB, 2*NNB, ONE, B( 1, J ), LDB, WORK( PPWO ), 2*NNB, ZERO, WORK( PW ), TOP )
-                     CALL SLACPY( 'All', TOP, 2*NNB, WORK( PW ), TOP, B( 1, J ), LDB )
+                     sgemm('No Transpose', 'No Transpose', TOP, 2*NNB, 2*NNB, ONE, B( 1, J ), LDB, WORK( PPWO ), 2*NNB, ZERO, WORK( PW ), TOP );
+                     slacpy('All', TOP, 2*NNB, WORK( PW ), TOP, B( 1, J ), LDB );
                   }
                   PPWO = PPWO + 4*NNB*NNB
                END DO
@@ -530,8 +530,8 @@
                   TOPQ = 1
                   NH = N
                }
-               CALL SGEMM( 'No Transpose', 'No Transpose', NH, NBLST, NBLST, ONE, Z( TOPQ, J ), LDZ, WORK, NBLST, ZERO, WORK( PW ), NH )
-               CALL SLACPY( 'All', NH, NBLST, WORK( PW ), NH, Z( TOPQ, J ), LDZ )
+               sgemm('No Transpose', 'No Transpose', NH, NBLST, NBLST, ONE, Z( TOPQ, J ), LDZ, WORK, NBLST, ZERO, WORK( PW ), NH );
+               slacpy('All', NH, NBLST, WORK( PW ), NH, Z( TOPQ, J ), LDZ );
                PPWO = NBLST*NBLST + 1
                J0 = J - NNB
                DO J = J0, JCOL+1, -NNB
@@ -543,13 +543,13 @@
 
                      // Exploit the structure of U.
 
-                     CALL SORM22( 'Right', 'No Transpose', NH, 2*NNB, NNB, NNB, WORK( PPWO ), 2*NNB, Z( TOPQ, J ), LDZ, WORK( PW ), LWORK-PW+1, IERR )
+                     sorm22('Right', 'No Transpose', NH, 2*NNB, NNB, NNB, WORK( PPWO ), 2*NNB, Z( TOPQ, J ), LDZ, WORK( PW ), LWORK-PW+1, IERR );
                   } else {
 
                      // Ignore the structure of U.
 
-                     CALL SGEMM( 'No Transpose', 'No Transpose', NH, 2*NNB, 2*NNB, ONE, Z( TOPQ, J ), LDZ, WORK( PPWO ), 2*NNB, ZERO, WORK( PW ), NH )
-                     CALL SLACPY( 'All', NH, 2*NNB, WORK( PW ), NH, Z( TOPQ, J ), LDZ )
+                     sgemm('No Transpose', 'No Transpose', NH, 2*NNB, 2*NNB, ONE, Z( TOPQ, J ), LDZ, WORK( PPWO ), 2*NNB, ZERO, WORK( PW ), NH );
+                     slacpy('All', NH, 2*NNB, WORK( PW ), NH, Z( TOPQ, J ), LDZ );
                   }
                   PPWO = PPWO + 4*NNB*NNB
                END DO

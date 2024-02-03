@@ -57,7 +57,7 @@
       // Compute  B - A*X  for the matrix of right hand sides B.
 
       DO 10 J = 1, NRHS
-         CALL CHPMV( UPLO, N, -CONE, A, X( 1, J ), 1, CONE, B( 1, J ), 1 )
+         chpmv(UPLO, N, -CONE, A, X( 1, J ), 1, CONE, B( 1, J ), 1 );
    10 CONTINUE
 
       // Compute the maximum over the number of right hand sides of

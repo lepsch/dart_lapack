@@ -48,7 +48,7 @@
          INFO = -5
       }
       if ( INFO.LT.0 ) {
-         CALL XERBLA( 'CLAGHE', -INFO )
+         xerbla('CLAGHE', -INFO );
          RETURN
       }
 
@@ -69,14 +69,14 @@
 
          // generate random reflection
 
-         CALL CLARNV( 3, ISEED, N-I+1, WORK )
+         clarnv(3, ISEED, N-I+1, WORK );
          WN = SCNRM2( N-I+1, WORK, 1 )
          WA = ( WN / ABS( WORK( 1 ) ) )*WORK( 1 )
          if ( WN.EQ.ZERO ) {
             TAU = ZERO
          } else {
             WB = WORK( 1 ) + WA
-            CALL CSCAL( N-I, ONE / WB, WORK( 2 ), 1 )
+            cscal(N-I, ONE / WB, WORK( 2 ), 1 );
             WORK( 1 ) = ONE
             TAU = REAL( WB / WA )
          }
@@ -86,16 +86,16 @@
 
          // compute  y := tau * A * u
 
-         CALL CHEMV( 'Lower', N-I+1, TAU, A( I, I ), LDA, WORK, 1, ZERO, WORK( N+1 ), 1 )
+         chemv('Lower', N-I+1, TAU, A( I, I ), LDA, WORK, 1, ZERO, WORK( N+1 ), 1 );
 
          // compute  v := y - 1/2 * tau * ( y, u ) * u
 
          ALPHA = -HALF*TAU*CDOTC( N-I+1, WORK( N+1 ), 1, WORK, 1 )
-         CALL CAXPY( N-I+1, ALPHA, WORK, 1, WORK( N+1 ), 1 )
+         caxpy(N-I+1, ALPHA, WORK, 1, WORK( N+1 ), 1 );
 
          // apply the transformation as a rank-2 update to A(i:n,i:n)
 
-         CALL CHER2( 'Lower', N-I+1, -ONE, WORK, 1, WORK( N+1 ), 1, A( I, I ), LDA )
+         cher2('Lower', N-I+1, -ONE, WORK, 1, WORK( N+1 ), 1, A( I, I ), LDA );
    40 CONTINUE
 
       // Reduce number of subdiagonals to K
@@ -110,29 +110,29 @@
             TAU = ZERO
          } else {
             WB = A( K+I, I ) + WA
-            CALL CSCAL( N-K-I, ONE / WB, A( K+I+1, I ), 1 )
+            cscal(N-K-I, ONE / WB, A( K+I+1, I ), 1 );
             A( K+I, I ) = ONE
             TAU = REAL( WB / WA )
          }
 
          // apply reflection to A(k+i:n,i+1:k+i-1) from the left
 
-         CALL CGEMV( 'Conjugate transpose', N-K-I+1, K-1, ONE, A( K+I, I+1 ), LDA, A( K+I, I ), 1, ZERO, WORK, 1 )          CALL CGERC( N-K-I+1, K-1, -TAU, A( K+I, I ), 1, WORK, 1, A( K+I, I+1 ), LDA )
+         cgemv('Conjugate transpose', N-K-I+1, K-1, ONE, A( K+I, I+1 ), LDA, A( K+I, I ), 1, ZERO, WORK, 1 )          CALL CGERC( N-K-I+1, K-1, -TAU, A( K+I, I ), 1, WORK, 1, A( K+I, I+1 ), LDA );
 
          // apply reflection to A(k+i:n,k+i:n) from the left and the right
 
          // compute  y := tau * A * u
 
-         CALL CHEMV( 'Lower', N-K-I+1, TAU, A( K+I, K+I ), LDA, A( K+I, I ), 1, ZERO, WORK, 1 )
+         chemv('Lower', N-K-I+1, TAU, A( K+I, K+I ), LDA, A( K+I, I ), 1, ZERO, WORK, 1 );
 
          // compute  v := y - 1/2 * tau * ( y, u ) * u
 
          ALPHA = -HALF*TAU*CDOTC( N-K-I+1, WORK, 1, A( K+I, I ), 1 )
-         CALL CAXPY( N-K-I+1, ALPHA, A( K+I, I ), 1, WORK, 1 )
+         caxpy(N-K-I+1, ALPHA, A( K+I, I ), 1, WORK, 1 );
 
          // apply hermitian rank-2 update to A(k+i:n,k+i:n)
 
-         CALL CHER2( 'Lower', N-K-I+1, -ONE, A( K+I, I ), 1, WORK, 1, A( K+I, K+I ), LDA )
+         cher2('Lower', N-K-I+1, -ONE, A( K+I, I ), 1, WORK, 1, A( K+I, K+I ), LDA );
 
          A( K+I, I ) = -WA
          DO 50 J = K + I + 1, N

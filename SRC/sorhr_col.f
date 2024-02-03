@@ -47,7 +47,7 @@
       // Handle error in the input parameters.
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'SORHR_COL', -INFO )
+         xerbla('SORHR_COL', -INFO );
          RETURN
       }
 
@@ -70,12 +70,12 @@
 
       // (1-1) Factor V1 and U.
 
-      CALL SLAORHR_COL_GETRFNP( N, N, A, LDA, D, IINFO )
+      slaorhr_col_getrfnp(N, N, A, LDA, D, IINFO );
 
       // (1-2) Solve for V2.
 
       if ( M.GT.N ) {
-         CALL STRSM( 'R', 'U', 'N', 'N', M-N, N, ONE, A, LDA, A( N+1, 1 ), LDA )
+         strsm('R', 'U', 'N', 'N', M-N, N, ONE, A, LDA, A( N+1, 1 ), LDA );
       }
 
       // (2) Reconstruct the block reflector T stored in T(1:NB, 1:N)
@@ -101,7 +101,7 @@
 
          JBTEMP1 = JB - 1
          DO J = JB, JB+JNB-1
-            CALL SCOPY( J-JBTEMP1, A( JB, J ), 1, T( 1, J ), 1 )
+            scopy(J-JBTEMP1, A( JB, J ), 1, T( 1, J ), 1 );
          END DO
 
          // (2-2) Perform on the upper-triangular part of the current
@@ -117,7 +117,7 @@
 
          DO J = JB, JB+JNB-1
             if ( D( J ).EQ.ONE ) {
-               CALL SSCAL( J-JBTEMP1, -ONE, T( 1, J ), 1 )
+               sscal(J-JBTEMP1, -ONE, T( 1, J ), 1 );
             }
          END DO
 
@@ -166,7 +166,7 @@
 
          // (2-3b) Perform the triangular solve.
 
-         CALL STRSM( 'R', 'L', 'T', 'U', JNB, JNB, ONE, A( JB, JB ), LDA, T( 1, JB ), LDT )
+         strsm('R', 'L', 'T', 'U', JNB, JNB, ONE, A( JB, JB ), LDA, T( 1, JB ), LDT );
 
       END DO
 

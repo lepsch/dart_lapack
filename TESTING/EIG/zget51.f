@@ -62,16 +62,16 @@
 
             // ITYPE=1: Compute W = A - U B V**H
 
-            CALL ZLACPY( ' ', N, N, A, LDA, WORK, N )
-            CALL ZGEMM( 'N', 'N', N, N, N, CONE, U, LDU, B, LDB, CZERO, WORK( N**2+1 ), N )
+            zlacpy(' ', N, N, A, LDA, WORK, N );
+            zgemm('N', 'N', N, N, N, CONE, U, LDU, B, LDB, CZERO, WORK( N**2+1 ), N );
 
-            CALL ZGEMM( 'N', 'C', N, N, N, -CONE, WORK( N**2+1 ), N, V, LDV, CONE, WORK, N )
+            zgemm('N', 'C', N, N, N, -CONE, WORK( N**2+1 ), N, V, LDV, CONE, WORK, N );
 
          } else {
 
             // ITYPE=2: Compute W = A - B
 
-            CALL ZLACPY( ' ', N, N, B, LDB, WORK, N )
+            zlacpy(' ', N, N, B, LDB, WORK, N );
 
             DO 20 JCOL = 1, N
                DO 10 JROW = 1, N
@@ -100,7 +100,7 @@
 
          // ITYPE=3: Compute  U U**H - I
 
-         CALL ZGEMM( 'N', 'C', N, N, N, CONE, U, LDU, U, LDU, CZERO, WORK, N )
+         zgemm('N', 'C', N, N, N, CONE, U, LDU, U, LDU, CZERO, WORK, N );
 
          DO 30 JDIAG = 1, N
             WORK( ( N+1 )*( JDIAG-1 )+1 ) = WORK( ( N+1 )*( JDIAG-1 )+ 1 ) - CONE

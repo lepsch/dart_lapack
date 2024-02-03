@@ -47,7 +47,7 @@
          INFO = -4
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'SPOTRF', -INFO )
+         xerbla('SPOTRF', -INFO );
          RETURN
       }
 
@@ -62,7 +62,7 @@
 
          // Use unblocked code.
 
-         CALL SPOTRF2( UPLO, N, A, LDA, INFO )
+         spotrf2(UPLO, N, A, LDA, INFO );
       } else {
 
          // Use blocked code.
@@ -78,14 +78,14 @@
 
                JB = MIN( NB, N-J+1 )
 
-               CALL SPOTRF2( 'Upper', JB, A( J, J ), LDA, INFO )
+               spotrf2('Upper', JB, A( J, J ), LDA, INFO );
                 IF( INFO.NE.0 ) GO TO 30
 
                if ( J+JB.LE.N ) {
 
                   // Updating the trailing submatrix.
 
-                  CALL STRSM( 'Left', 'Upper', 'Transpose', 'Non-unit', JB, N-J-JB+1, ONE, A( J, J ), LDA, A( J, J+JB ), LDA )                   CALL SSYRK( 'Upper', 'Transpose', N-J-JB+1, JB, -ONE, A( J, J+JB ), LDA, ONE, A( J+JB, J+JB ), LDA )
+                  strsm('Left', 'Upper', 'Transpose', 'Non-unit', JB, N-J-JB+1, ONE, A( J, J ), LDA, A( J, J+JB ), LDA )                   CALL SSYRK( 'Upper', 'Transpose', N-J-JB+1, JB, -ONE, A( J, J+JB ), LDA, ONE, A( J+JB, J+JB ), LDA );
                }
    10       CONTINUE
 
@@ -100,14 +100,14 @@
 
                JB = MIN( NB, N-J+1 )
 
-               CALL SPOTRF2( 'Lower', JB, A( J, J ), LDA, INFO )
+               spotrf2('Lower', JB, A( J, J ), LDA, INFO );
                 IF( INFO.NE.0 ) GO TO 30
 
                if ( J+JB.LE.N ) {
 
                  // Updating the trailing submatrix.
 
-                 CALL STRSM( 'Right', 'Lower', 'Transpose', 'Non-unit', N-J-JB+1, JB, ONE, A( J, J ), LDA, A( J+JB, J ), LDA )                   CALL SSYRK( 'Lower', 'No Transpose', N-J-JB+1, JB, -ONE, A( J+JB, J ), LDA, ONE, A( J+JB, J+JB ), LDA )
+                 strsm('Right', 'Lower', 'Transpose', 'Non-unit', N-J-JB+1, JB, ONE, A( J, J ), LDA, A( J+JB, J ), LDA )                   CALL SSYRK( 'Lower', 'No Transpose', N-J-JB+1, JB, -ONE, A( J+JB, J ), LDA, ONE, A( J+JB, J+JB ), LDA );
                }
    20       CONTINUE
          }

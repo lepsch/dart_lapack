@@ -63,56 +63,56 @@
 
          SRNAMT = 'ZGTTRF'
          INFOT = 1
-         CALL ZGTTRF( -1, DL, E, DU, DU2, IP, INFO )
-         CALL CHKXER( 'ZGTTRF', INFOT, NOUT, LERR, OK )
+         zgttrf(-1, DL, E, DU, DU2, IP, INFO );
+         chkxer('ZGTTRF', INFOT, NOUT, LERR, OK );
 
          // ZGTTRS
 
          SRNAMT = 'ZGTTRS'
          INFOT = 1
-         CALL ZGTTRS( '/', 0, 0, DL, E, DU, DU2, IP, X, 1, INFO )
-         CALL CHKXER( 'ZGTTRS', INFOT, NOUT, LERR, OK )
+         zgttrs('/', 0, 0, DL, E, DU, DU2, IP, X, 1, INFO );
+         chkxer('ZGTTRS', INFOT, NOUT, LERR, OK );
          INFOT = 2
-         CALL ZGTTRS( 'N', -1, 0, DL, E, DU, DU2, IP, X, 1, INFO )
-         CALL CHKXER( 'ZGTTRS', INFOT, NOUT, LERR, OK )
+         zgttrs('N', -1, 0, DL, E, DU, DU2, IP, X, 1, INFO );
+         chkxer('ZGTTRS', INFOT, NOUT, LERR, OK );
          INFOT = 3
-         CALL ZGTTRS( 'N', 0, -1, DL, E, DU, DU2, IP, X, 1, INFO )
-         CALL CHKXER( 'ZGTTRS', INFOT, NOUT, LERR, OK )
+         zgttrs('N', 0, -1, DL, E, DU, DU2, IP, X, 1, INFO );
+         chkxer('ZGTTRS', INFOT, NOUT, LERR, OK );
          INFOT = 10
-         CALL ZGTTRS( 'N', 2, 1, DL, E, DU, DU2, IP, X, 1, INFO )
-         CALL CHKXER( 'ZGTTRS', INFOT, NOUT, LERR, OK )
+         zgttrs('N', 2, 1, DL, E, DU, DU2, IP, X, 1, INFO );
+         chkxer('ZGTTRS', INFOT, NOUT, LERR, OK );
 
          // ZGTRFS
 
          SRNAMT = 'ZGTRFS'
          INFOT = 1
-         CALL ZGTRFS( '/', 0, 0, DL, E, DU, DLF, EF, DUF, DU2, IP, B, 1, X, 1, R1, R2, W, RW, INFO )
-         CALL CHKXER( 'ZGTRFS', INFOT, NOUT, LERR, OK )
+         zgtrfs('/', 0, 0, DL, E, DU, DLF, EF, DUF, DU2, IP, B, 1, X, 1, R1, R2, W, RW, INFO );
+         chkxer('ZGTRFS', INFOT, NOUT, LERR, OK );
          INFOT = 2
-         CALL ZGTRFS( 'N', -1, 0, DL, E, DU, DLF, EF, DUF, DU2, IP, B, 1, X, 1, R1, R2, W, RW, INFO )
-         CALL CHKXER( 'ZGTRFS', INFOT, NOUT, LERR, OK )
+         zgtrfs('N', -1, 0, DL, E, DU, DLF, EF, DUF, DU2, IP, B, 1, X, 1, R1, R2, W, RW, INFO );
+         chkxer('ZGTRFS', INFOT, NOUT, LERR, OK );
          INFOT = 3
-         CALL ZGTRFS( 'N', 0, -1, DL, E, DU, DLF, EF, DUF, DU2, IP, B, 1, X, 1, R1, R2, W, RW, INFO )
-         CALL CHKXER( 'ZGTRFS', INFOT, NOUT, LERR, OK )
+         zgtrfs('N', 0, -1, DL, E, DU, DLF, EF, DUF, DU2, IP, B, 1, X, 1, R1, R2, W, RW, INFO );
+         chkxer('ZGTRFS', INFOT, NOUT, LERR, OK );
          INFOT = 13
-         CALL ZGTRFS( 'N', 2, 1, DL, E, DU, DLF, EF, DUF, DU2, IP, B, 1, X, 2, R1, R2, W, RW, INFO )
-         CALL CHKXER( 'ZGTRFS', INFOT, NOUT, LERR, OK )
+         zgtrfs('N', 2, 1, DL, E, DU, DLF, EF, DUF, DU2, IP, B, 1, X, 2, R1, R2, W, RW, INFO );
+         chkxer('ZGTRFS', INFOT, NOUT, LERR, OK );
          INFOT = 15
-         CALL ZGTRFS( 'N', 2, 1, DL, E, DU, DLF, EF, DUF, DU2, IP, B, 2, X, 1, R1, R2, W, RW, INFO )
-         CALL CHKXER( 'ZGTRFS', INFOT, NOUT, LERR, OK )
+         zgtrfs('N', 2, 1, DL, E, DU, DLF, EF, DUF, DU2, IP, B, 2, X, 1, R1, R2, W, RW, INFO );
+         chkxer('ZGTRFS', INFOT, NOUT, LERR, OK );
 
          // ZGTCON
 
          SRNAMT = 'ZGTCON'
          INFOT = 1
-         CALL ZGTCON( '/', 0, DL, E, DU, DU2, IP, ANORM, RCOND, W, INFO )
-         CALL CHKXER( 'ZGTCON', INFOT, NOUT, LERR, OK )
+         zgtcon('/', 0, DL, E, DU, DU2, IP, ANORM, RCOND, W, INFO );
+         chkxer('ZGTCON', INFOT, NOUT, LERR, OK );
          INFOT = 2
-         CALL ZGTCON( 'I', -1, DL, E, DU, DU2, IP, ANORM, RCOND, W, INFO )
-         CALL CHKXER( 'ZGTCON', INFOT, NOUT, LERR, OK )
+         zgtcon('I', -1, DL, E, DU, DU2, IP, ANORM, RCOND, W, INFO );
+         chkxer('ZGTCON', INFOT, NOUT, LERR, OK );
          INFOT = 8
-         CALL ZGTCON( 'I', 0, DL, E, DU, DU2, IP, -ANORM, RCOND, W, INFO )
-         CALL CHKXER( 'ZGTCON', INFOT, NOUT, LERR, OK )
+         zgtcon('I', 0, DL, E, DU, DU2, IP, -ANORM, RCOND, W, INFO );
+         chkxer('ZGTCON', INFOT, NOUT, LERR, OK );
 
       } else if ( LSAMEN( 2, C2, 'PT' ) ) {
 
@@ -123,58 +123,58 @@
 
          SRNAMT = 'ZPTTRF'
          INFOT = 1
-         CALL ZPTTRF( -1, D, E, INFO )
-         CALL CHKXER( 'ZPTTRF', INFOT, NOUT, LERR, OK )
+         zpttrf(-1, D, E, INFO );
+         chkxer('ZPTTRF', INFOT, NOUT, LERR, OK );
 
          // ZPTTRS
 
          SRNAMT = 'ZPTTRS'
          INFOT = 1
-         CALL ZPTTRS( '/', 1, 0, D, E, X, 1, INFO )
-         CALL CHKXER( 'ZPTTRS', INFOT, NOUT, LERR, OK )
+         zpttrs('/', 1, 0, D, E, X, 1, INFO );
+         chkxer('ZPTTRS', INFOT, NOUT, LERR, OK );
          INFOT = 2
-         CALL ZPTTRS( 'U', -1, 0, D, E, X, 1, INFO )
-         CALL CHKXER( 'ZPTTRS', INFOT, NOUT, LERR, OK )
+         zpttrs('U', -1, 0, D, E, X, 1, INFO );
+         chkxer('ZPTTRS', INFOT, NOUT, LERR, OK );
          INFOT = 3
-         CALL ZPTTRS( 'U', 0, -1, D, E, X, 1, INFO )
-         CALL CHKXER( 'ZPTTRS', INFOT, NOUT, LERR, OK )
+         zpttrs('U', 0, -1, D, E, X, 1, INFO );
+         chkxer('ZPTTRS', INFOT, NOUT, LERR, OK );
          INFOT = 7
-         CALL ZPTTRS( 'U', 2, 1, D, E, X, 1, INFO )
-         CALL CHKXER( 'ZPTTRS', INFOT, NOUT, LERR, OK )
+         zpttrs('U', 2, 1, D, E, X, 1, INFO );
+         chkxer('ZPTTRS', INFOT, NOUT, LERR, OK );
 
          // ZPTRFS
 
          SRNAMT = 'ZPTRFS'
          INFOT = 1
-         CALL ZPTRFS( '/', 1, 0, D, E, DF, EF, B, 1, X, 1, R1, R2, W, RW, INFO )
-         CALL CHKXER( 'ZPTRFS', INFOT, NOUT, LERR, OK )
+         zptrfs('/', 1, 0, D, E, DF, EF, B, 1, X, 1, R1, R2, W, RW, INFO );
+         chkxer('ZPTRFS', INFOT, NOUT, LERR, OK );
          INFOT = 2
-         CALL ZPTRFS( 'U', -1, 0, D, E, DF, EF, B, 1, X, 1, R1, R2, W, RW, INFO )
-         CALL CHKXER( 'ZPTRFS', INFOT, NOUT, LERR, OK )
+         zptrfs('U', -1, 0, D, E, DF, EF, B, 1, X, 1, R1, R2, W, RW, INFO );
+         chkxer('ZPTRFS', INFOT, NOUT, LERR, OK );
          INFOT = 3
-         CALL ZPTRFS( 'U', 0, -1, D, E, DF, EF, B, 1, X, 1, R1, R2, W, RW, INFO )
-         CALL CHKXER( 'ZPTRFS', INFOT, NOUT, LERR, OK )
+         zptrfs('U', 0, -1, D, E, DF, EF, B, 1, X, 1, R1, R2, W, RW, INFO );
+         chkxer('ZPTRFS', INFOT, NOUT, LERR, OK );
          INFOT = 9
-         CALL ZPTRFS( 'U', 2, 1, D, E, DF, EF, B, 1, X, 2, R1, R2, W, RW, INFO )
-         CALL CHKXER( 'ZPTRFS', INFOT, NOUT, LERR, OK )
+         zptrfs('U', 2, 1, D, E, DF, EF, B, 1, X, 2, R1, R2, W, RW, INFO );
+         chkxer('ZPTRFS', INFOT, NOUT, LERR, OK );
          INFOT = 11
-         CALL ZPTRFS( 'U', 2, 1, D, E, DF, EF, B, 2, X, 1, R1, R2, W, RW, INFO )
-         CALL CHKXER( 'ZPTRFS', INFOT, NOUT, LERR, OK )
+         zptrfs('U', 2, 1, D, E, DF, EF, B, 2, X, 1, R1, R2, W, RW, INFO );
+         chkxer('ZPTRFS', INFOT, NOUT, LERR, OK );
 
          // ZPTCON
 
          SRNAMT = 'ZPTCON'
          INFOT = 1
-         CALL ZPTCON( -1, D, E, ANORM, RCOND, RW, INFO )
-         CALL CHKXER( 'ZPTCON', INFOT, NOUT, LERR, OK )
+         zptcon(-1, D, E, ANORM, RCOND, RW, INFO );
+         chkxer('ZPTCON', INFOT, NOUT, LERR, OK );
          INFOT = 4
-         CALL ZPTCON( 0, D, E, -ANORM, RCOND, RW, INFO )
-         CALL CHKXER( 'ZPTCON', INFOT, NOUT, LERR, OK )
+         zptcon(0, D, E, -ANORM, RCOND, RW, INFO );
+         chkxer('ZPTCON', INFOT, NOUT, LERR, OK );
       }
 
       // Print a summary line.
 
-      CALL ALAESM( PATH, OK, NOUT )
+      alaesm(PATH, OK, NOUT );
 
       RETURN
 

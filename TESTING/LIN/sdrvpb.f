@@ -85,8 +85,8 @@
 
       NB = 1
       NBMIN = 2
-      CALL XLAENV( 1, NB )
-      CALL XLAENV( 2, NBMIN )
+      xlaenv(1, NB );
+      xlaenv(2, NBMIN );
 
       // Do for each value of N in NVAL
 
@@ -143,15 +143,15 @@
                      // Set up parameters with SLATB4 and generate a test
                      // matrix with SLATMS.
 
-                     CALL SLATB4( PATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST )
+                     slatb4(PATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST );
 
                      SRNAMT = 'SLATMS'
-                     CALL SLATMS( N, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KD, KD, PACKIT, A( KOFF ), LDAB, WORK, INFO )
+                     slatms(N, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KD, KD, PACKIT, A( KOFF ), LDAB, WORK, INFO );
 
                      // Check error code from SLATMS.
 
                      if ( INFO.NE.0 ) {
-                        CALL ALAERH( PATH, 'SLATMS', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT )
+                        alaerh(PATH, 'SLATMS', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
                         GO TO 80
                      }
                   } else if ( IZERO.GT.0 ) {
@@ -162,15 +162,15 @@
                      IW = 2*LDA + 1
                      if ( IUPLO.EQ.1 ) {
                         IOFF = ( IZERO-1 )*LDAB + KD + 1
-                        CALL SCOPY( IZERO-I1, WORK( IW ), 1, A( IOFF-IZERO+I1 ), 1 )
+                        scopy(IZERO-I1, WORK( IW ), 1, A( IOFF-IZERO+I1 ), 1 );
                         IW = IW + IZERO - I1
-                        CALL SCOPY( I2-IZERO+1, WORK( IW ), 1, A( IOFF ), MAX( LDAB-1, 1 ) )
+                        scopy(I2-IZERO+1, WORK( IW ), 1, A( IOFF ), MAX( LDAB-1, 1 ) );
                      } else {
                         IOFF = ( I1-1 )*LDAB + 1
-                        CALL SCOPY( IZERO-I1, WORK( IW ), 1, A( IOFF+IZERO-I1 ), MAX( LDAB-1, 1 ) )
+                        scopy(IZERO-I1, WORK( IW ), 1, A( IOFF+IZERO-I1 ), MAX( LDAB-1, 1 ) );
                         IOFF = ( IZERO-1 )*LDAB + 1
                         IW = IW + IZERO - I1
-                        CALL SCOPY( I2-IZERO+1, WORK( IW ), 1, A( IOFF ), 1 )
+                        scopy(I2-IZERO+1, WORK( IW ), 1, A( IOFF ), 1 );
                      }
                   }
 
@@ -199,21 +199,21 @@
 
                      if ( IUPLO.EQ.1 ) {
                         IOFF = ( IZERO-1 )*LDAB + KD + 1
-                        CALL SSWAP( IZERO-I1, A( IOFF-IZERO+I1 ), 1, WORK( IW ), 1 )
+                        sswap(IZERO-I1, A( IOFF-IZERO+I1 ), 1, WORK( IW ), 1 );
                         IW = IW + IZERO - I1
-                        CALL SSWAP( I2-IZERO+1, A( IOFF ), MAX( LDAB-1, 1 ), WORK( IW ), 1 )
+                        sswap(I2-IZERO+1, A( IOFF ), MAX( LDAB-1, 1 ), WORK( IW ), 1 );
                      } else {
                         IOFF = ( I1-1 )*LDAB + 1
-                        CALL SSWAP( IZERO-I1, A( IOFF+IZERO-I1 ), MAX( LDAB-1, 1 ), WORK( IW ), 1 )
+                        sswap(IZERO-I1, A( IOFF+IZERO-I1 ), MAX( LDAB-1, 1 ), WORK( IW ), 1 );
                         IOFF = ( IZERO-1 )*LDAB + 1
                         IW = IW + IZERO - I1
-                        CALL SSWAP( I2-IZERO+1, A( IOFF ), 1, WORK( IW ), 1 )
+                        sswap(I2-IZERO+1, A( IOFF ), 1, WORK( IW ), 1 );
                      }
                   }
 
                   // Save a copy of the matrix A in ASAV.
 
-                  CALL SLACPY( 'Full', KD+1, N, A, LDAB, ASAV, LDAB )
+                  slacpy('Full', KD+1, N, A, LDAB, ASAV, LDAB );
 
                   DO 70 IEQUED = 1, 2
                      EQUED = EQUEDS( IEQUED )
@@ -240,19 +240,19 @@
                            // 'N' reuses the condition number from the
                            // previous iteration with FACT = 'F').
 
-                           CALL SLACPY( 'Full', KD+1, N, ASAV, LDAB, AFAC, LDAB )
+                           slacpy('Full', KD+1, N, ASAV, LDAB, AFAC, LDAB );
                            if ( EQUIL .OR. IEQUED.GT.1 ) {
 
                               // Compute row and column scale factors to
                               // equilibrate the matrix A.
 
-                              CALL SPBEQU( UPLO, N, KD, AFAC, LDAB, S, SCOND, AMAX, INFO )
+                              spbequ(UPLO, N, KD, AFAC, LDAB, S, SCOND, AMAX, INFO );
                               if ( INFO.EQ.0 .AND. N.GT.0 ) {
                                  IF( IEQUED.GT.1 ) SCOND = ZERO
 
                                  // Equilibrate the matrix.
 
-                                 CALL SLAQSB( UPLO, N, KD, AFAC, LDAB, S, SCOND, AMAX, EQUED )
+                                 slaqsb(UPLO, N, KD, AFAC, LDAB, S, SCOND, AMAX, EQUED );
                               }
                            }
 
@@ -267,13 +267,13 @@
 
                            // Factor the matrix A.
 
-                           CALL SPBTRF( UPLO, N, KD, AFAC, LDAB, INFO )
+                           spbtrf(UPLO, N, KD, AFAC, LDAB, INFO );
 
                            // Form the inverse of A.
 
-                           CALL SLASET( 'Full', N, N, ZERO, ONE, A, LDA )
+                           slaset('Full', N, N, ZERO, ONE, A, LDA );
                            SRNAMT = 'SPBTRS'
-                           CALL SPBTRS( UPLO, N, KD, N, AFAC, LDAB, A, LDA, INFO )
+                           spbtrs(UPLO, N, KD, N, AFAC, LDAB, A, LDA, INFO );
 
                            // Compute the 1-norm condition number of A.
 
@@ -287,15 +287,15 @@
 
                         // Restore the matrix A.
 
-                        CALL SLACPY( 'Full', KD+1, N, ASAV, LDAB, A, LDAB )
+                        slacpy('Full', KD+1, N, ASAV, LDAB, A, LDAB );
 
                         // Form an exact solution and set the right hand
                         // side.
 
                         SRNAMT = 'SLARHS'
-                        CALL SLARHS( PATH, XTYPE, UPLO, ' ', N, N, KD, KD, NRHS, A, LDAB, XACT, LDA, B, LDA, ISEED, INFO )
+                        slarhs(PATH, XTYPE, UPLO, ' ', N, N, KD, KD, NRHS, A, LDAB, XACT, LDA, B, LDA, ISEED, INFO );
                         XTYPE = 'C'
-                        CALL SLACPY( 'Full', N, NRHS, B, LDA, BSAV, LDA )
+                        slacpy('Full', N, NRHS, B, LDA, BSAV, LDA );
 
                         if ( NOFACT ) {
 
@@ -304,15 +304,15 @@
                            // Compute the L*L' or U'*U factorization of the
                            // matrix and solve the system.
 
-                           CALL SLACPY( 'Full', KD+1, N, A, LDAB, AFAC, LDAB )                            CALL SLACPY( 'Full', N, NRHS, B, LDA, X, LDA )
+                           slacpy('Full', KD+1, N, A, LDAB, AFAC, LDAB )                            CALL SLACPY( 'Full', N, NRHS, B, LDA, X, LDA );
 
                            SRNAMT = 'SPBSV '
-                           CALL SPBSV( UPLO, N, KD, NRHS, AFAC, LDAB, X, LDA, INFO )
+                           spbsv(UPLO, N, KD, NRHS, AFAC, LDAB, X, LDA, INFO );
 
                            // Check error code from SPBSV .
 
                            if ( INFO.NE.IZERO ) {
-                              CALL ALAERH( PATH, 'SPBSV ', INFO, IZERO, UPLO, N, N, KD, KD, NRHS, IMAT, NFAIL, NERRS, NOUT )
+                              alaerh(PATH, 'SPBSV ', INFO, IZERO, UPLO, N, N, KD, KD, NRHS, IMAT, NFAIL, NERRS, NOUT );
                               GO TO 40
                            } else if ( INFO.NE.0 ) {
                               GO TO 40
@@ -321,15 +321,15 @@
                            // Reconstruct matrix from factors and compute
                            // residual.
 
-                           CALL SPBT01( UPLO, N, KD, A, LDAB, AFAC, LDAB, RWORK, RESULT( 1 ) )
+                           spbt01(UPLO, N, KD, A, LDAB, AFAC, LDAB, RWORK, RESULT( 1 ) );
 
                            // Compute residual of the computed solution.
 
-                           CALL SLACPY( 'Full', N, NRHS, B, LDA, WORK, LDA )                            CALL SPBT02( UPLO, N, KD, NRHS, A, LDAB, X, LDA, WORK, LDA, RWORK, RESULT( 2 ) )
+                           slacpy('Full', N, NRHS, B, LDA, WORK, LDA )                            CALL SPBT02( UPLO, N, KD, NRHS, A, LDAB, X, LDA, WORK, LDA, RWORK, RESULT( 2 ) );
 
                            // Check solution from generated exact solution.
 
-                           CALL SGET04( N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 3 ) )
+                           sget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 3 ) );
                            NT = 3
 
                            // Print information about the tests that did
@@ -348,25 +348,25 @@
                         // --- Test SPBSVX ---
 
                         IF( .NOT.PREFAC ) CALL SLASET( 'Full', KD+1, N, ZERO, ZERO, AFAC, LDAB )
-                        CALL SLASET( 'Full', N, NRHS, ZERO, ZERO, X, LDA )
+                        slaset('Full', N, NRHS, ZERO, ZERO, X, LDA );
                         if ( IEQUED.GT.1 .AND. N.GT.0 ) {
 
                            // Equilibrate the matrix if FACT='F' and
                            // EQUED='Y'
 
-                           CALL SLAQSB( UPLO, N, KD, A, LDAB, S, SCOND, AMAX, EQUED )
+                           slaqsb(UPLO, N, KD, A, LDAB, S, SCOND, AMAX, EQUED );
                         }
 
                         // Solve the system and compute the condition
                         // number and error bounds using SPBSVX.
 
                         SRNAMT = 'SPBSVX'
-                        CALL SPBSVX( FACT, UPLO, N, KD, NRHS, A, LDAB, AFAC, LDAB, EQUED, S, B, LDA, X, LDA, RCOND, RWORK, RWORK( NRHS+1 ), WORK, IWORK, INFO )
+                        spbsvx(FACT, UPLO, N, KD, NRHS, A, LDAB, AFAC, LDAB, EQUED, S, B, LDA, X, LDA, RCOND, RWORK, RWORK( NRHS+1 ), WORK, IWORK, INFO );
 
                         // Check the error code from SPBSVX.
 
                         if ( INFO.NE.IZERO ) {
-                           CALL ALAERH( PATH, 'SPBSVX', INFO, IZERO, FACT // UPLO, N, N, KD, KD, NRHS, IMAT, NFAIL, NERRS, NOUT )
+                           alaerh(PATH, 'SPBSVX', INFO, IZERO, FACT // UPLO, N, N, KD, KD, NRHS, IMAT, NFAIL, NERRS, NOUT );
                            GO TO 60
                         }
 
@@ -376,7 +376,7 @@
                               // Reconstruct matrix from factors and
                               // compute residual.
 
-                              CALL SPBT01( UPLO, N, KD, A, LDAB, AFAC, LDAB, RWORK( 2*NRHS+1 ), RESULT( 1 ) )
+                              spbt01(UPLO, N, KD, A, LDAB, AFAC, LDAB, RWORK( 2*NRHS+1 ), RESULT( 1 ) );
                               K1 = 1
                            } else {
                               K1 = 2
@@ -384,19 +384,19 @@
 
                            // Compute residual of the computed solution.
 
-                           CALL SLACPY( 'Full', N, NRHS, BSAV, LDA, WORK, LDA )                            CALL SPBT02( UPLO, N, KD, NRHS, ASAV, LDAB, X, LDA, WORK, LDA, RWORK( 2*NRHS+1 ), RESULT( 2 ) )
+                           slacpy('Full', N, NRHS, BSAV, LDA, WORK, LDA )                            CALL SPBT02( UPLO, N, KD, NRHS, ASAV, LDAB, X, LDA, WORK, LDA, RWORK( 2*NRHS+1 ), RESULT( 2 ) );
 
                            // Check solution from generated exact solution.
 
                            IF( NOFACT .OR. ( PREFAC .AND. LSAME( EQUED, 'N' ) ) ) THEN                               CALL SGET04( N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 3 ) )
                            } else {
-                              CALL SGET04( N, NRHS, X, LDA, XACT, LDA, ROLDC, RESULT( 3 ) )
+                              sget04(N, NRHS, X, LDA, XACT, LDA, ROLDC, RESULT( 3 ) );
                            }
 
                            // Check the error bounds from iterative
                            // refinement.
 
-                           CALL SPBT05( UPLO, N, KD, NRHS, ASAV, LDAB, B, LDA, X, LDA, XACT, LDA, RWORK, RWORK( NRHS+1 ), RESULT( 4 ) )
+                           spbt05(UPLO, N, KD, NRHS, ASAV, LDAB, B, LDA, X, LDA, XACT, LDA, RWORK, RWORK( NRHS+1 ), RESULT( 4 ) );
                         } else {
                            K1 = 6
                         }
@@ -430,7 +430,7 @@
 
       // Print a summary of the results.
 
-      CALL ALASVM( PATH, NOUT, NFAIL, NRUN, NERRS )
+      alasvm(PATH, NOUT, NFAIL, NRUN, NERRS );
 
  9999 FORMAT( 1X, A, ', UPLO=''', A1, ''', N =', I5, ', KD =', I5, ', type ', I1, ', test(', I1, ')=', G12.5 )
  9998 FORMAT( 1X, A, '( ''', A1, ''', ''', A1, ''', ', I5, ', ', I5, ', ... ), type ', I1, ', test(', I1, ')=', G12.5 )

@@ -56,7 +56,7 @@
          INFO = -6
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'ZLA_PORCOND_X', -INFO )
+         xerbla('ZLA_PORCOND_X', -INFO );
          RETURN
       }
       UP = .FALSE.
@@ -106,7 +106,7 @@
 
       KASE = 0
    10 CONTINUE
-      CALL ZLACN2( N, WORK( N+1 ), WORK, AINVNM, KASE, ISAVE )
+      zlacn2(N, WORK( N+1 ), WORK, AINVNM, KASE, ISAVE );
       if ( KASE.NE.0 ) {
          if ( KASE.EQ.2 ) {
 
@@ -117,9 +117,9 @@
             END DO
 
             if ( UP ) {
-               CALL ZPOTRS( 'U', N, 1, AF, LDAF, WORK, N, INFO )
+               zpotrs('U', N, 1, AF, LDAF, WORK, N, INFO );
             } else {
-               CALL ZPOTRS( 'L', N, 1, AF, LDAF, WORK, N, INFO )
+               zpotrs('L', N, 1, AF, LDAF, WORK, N, INFO );
             ENDIF
 
             // Multiply by inv(X).
@@ -136,9 +136,9 @@
             END DO
 
             if ( UP ) {
-               CALL ZPOTRS( 'U', N, 1, AF, LDAF, WORK, N, INFO )
+               zpotrs('U', N, 1, AF, LDAF, WORK, N, INFO );
             } else {
-               CALL ZPOTRS( 'L', N, 1, AF, LDAF, WORK, N, INFO )
+               zpotrs('L', N, 1, AF, LDAF, WORK, N, INFO );
             }
 
             // Multiply by R.

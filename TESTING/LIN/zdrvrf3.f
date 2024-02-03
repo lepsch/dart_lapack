@@ -153,7 +153,7 @@
                                  // -> QR factorization.
 
                                  SRNAMT = 'ZGEQRF'
-                                 CALL ZGEQRF( NA, NA, A, LDA, TAU, Z_WORK_ZGEQRF, LDA, INFO )
+                                 zgeqrf(NA, NA, A, LDA, TAU, Z_WORK_ZGEQRF, LDA, INFO );
 
                                  // Forcing main diagonal of test matrix to
                                  // be unit makes it ill-conditioned for
@@ -173,7 +173,7 @@
                                  // -> QL factorization.
 
                                  SRNAMT = 'ZGELQF'
-                                 CALL ZGELQF( NA, NA, A, LDA, TAU, Z_WORK_ZGEQRF, LDA, INFO )
+                                 zgelqf(NA, NA, A, LDA, TAU, Z_WORK_ZGEQRF, LDA, INFO );
 
                                  // Forcing main diagonal of test matrix to
                                  // be unit makes it ill-conditioned for
@@ -201,7 +201,7 @@
                               // Store a copy of A in RFP format (in ARF).
 
                               SRNAMT = 'ZTRTTF'
-                              CALL ZTRTTF( CFORM, UPLO, NA, A, LDA, ARF, INFO )
+                              ztrttf(CFORM, UPLO, NA, A, LDA, ARF, INFO );
 
                               // Generate B1 our M--by--N right-hand side
                               // and store a copy in B2.
@@ -217,13 +217,13 @@
                               // with ZTRSM
 
                               SRNAMT = 'ZTRSM'
-                              CALL ZTRSM( SIDE, UPLO, TRANS, DIAG, M, N, ALPHA, A, LDA, B1, LDA )
+                              ztrsm(SIDE, UPLO, TRANS, DIAG, M, N, ALPHA, A, LDA, B1, LDA );
 
                               // Solve op( A ) X = B or X op( A ) = B
                               // with ZTFSM
 
                               SRNAMT = 'ZTFSM'
-                              CALL ZTFSM( CFORM, SIDE, UPLO, TRANS, DIAG, M, N, ALPHA, ARF, B2, LDA )
+                              ztfsm(CFORM, SIDE, UPLO, TRANS, DIAG, M, N, ALPHA, ARF, B2, LDA );
 
                               // Check that the result agrees.
 

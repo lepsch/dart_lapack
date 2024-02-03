@@ -78,7 +78,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'ZUNMHR', -INFO )
+         xerbla('ZUNMHR', -INFO );
          RETURN
       } else if ( LQUERY ) {
          RETURN
@@ -103,7 +103,7 @@
          I2 = ILO + 1
       }
 
-      CALL ZUNMQR( SIDE, TRANS, MI, NI, NH, A( ILO+1, ILO ), LDA, TAU( ILO ), C( I1, I2 ), LDC, WORK, LWORK, IINFO )
+      zunmqr(SIDE, TRANS, MI, NI, NH, A( ILO+1, ILO ), LDA, TAU( ILO ), C( I1, I2 ), LDC, WORK, LWORK, IINFO );
 
       WORK( 1 ) = LWKOPT
       RETURN

@@ -61,15 +61,15 @@
 
       UPPER = LSAME( UPLO, 'U' )
       if ( UPPER ) {
-         CALL SLATB4( PATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST )
+         slatb4(PATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST );
       } else {
-         CALL SLATB4( PATH, -IMAT, N, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST )
+         slatb4(PATH, -IMAT, N, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST );
       }
 
       // IMAT <= 6:  Non-unit triangular matrix
 
       if ( IMAT.LE.6 ) {
-         CALL SLATMS( N, N, DIST, ISEED, TYPE, B, MODE, CNDNUM, ANORM, KL, KU, 'No packing', A, LDA, WORK, INFO )
+         slatms(N, N, DIST, ISEED, TYPE, B, MODE, CNDNUM, ANORM, KL, KU, 'No packing', A, LDA, WORK, INFO );
 
       // IMAT > 6:  Unit triangular matrix
       // The diagonal is deliberately set to something other than 1.
@@ -205,7 +205,7 @@
 
          if ( UPPER ) {
             if ( N.GT.3 ) {
-               CALL SCOPY( N-3, WORK, 1, A( 2, 3 ), LDA+1 )
+               scopy(N-3, WORK, 1, A( 2, 3 ), LDA+1 );
                IF( N.GT.4 ) CALL SCOPY( N-4, WORK( N+1 ), 1, A( 2, 4 ), LDA+1 )
             }
             DO 100 J = 2, N - 1
@@ -215,7 +215,7 @@
             A( 1, N ) = Z
          } else {
             if ( N.GT.3 ) {
-               CALL SCOPY( N-3, WORK, 1, A( 3, 2 ), LDA+1 )
+               scopy(N-3, WORK, 1, A( 3, 2 ), LDA+1 );
                IF( N.GT.4 ) CALL SCOPY( N-4, WORK( N+1 ), 1, A( 4, 2 ), LDA+1 )
             }
             DO 110 J = 2, N - 1
@@ -231,7 +231,7 @@
             DO 120 J = 1, N - 1
                RA = A( J, J+1 )
                RB = 2.0
-               CALL SROTG( RA, RB, C, S )
+               srotg(RA, RB, C, S );
 
                // Multiply by [ c  s; -s  c] on the left.
 
@@ -249,7 +249,7 @@
             DO 130 J = 1, N - 1
                RA = A( J+1, J )
                RB = 2.0
-               CALL SROTG( RA, RB, C, S )
+               srotg(RA, RB, C, S );
 
                // Multiply by [ c -s;  s  c] on the right.
 
@@ -277,23 +277,23 @@
 
          if ( UPPER ) {
             DO 140 J = 1, N
-               CALL SLARNV( 2, ISEED, J, A( 1, J ) )
+               slarnv(2, ISEED, J, A( 1, J ) );
                A( J, J ) = SIGN( TWO, A( J, J ) )
   140       CONTINUE
          } else {
             DO 150 J = 1, N
-               CALL SLARNV( 2, ISEED, N-J+1, A( J, J ) )
+               slarnv(2, ISEED, N-J+1, A( J, J ) );
                A( J, J ) = SIGN( TWO, A( J, J ) )
   150       CONTINUE
          }
 
          // Set the right hand side so that the largest value is BIGNUM.
 
-         CALL SLARNV( 2, ISEED, N, B )
+         slarnv(2, ISEED, N, B );
          IY = ISAMAX( N, B, 1 )
          BNORM = ABS( B( IY ) )
          BSCAL = BIGNUM / MAX( ONE, BNORM )
-         CALL SSCAL( N, BSCAL, B, 1 )
+         sscal(N, BSCAL, B, 1 );
 
       } else if ( IMAT.EQ.12 ) {
 
@@ -301,18 +301,18 @@
          // cause immediate overflow when dividing by T(j,j).
          // In type 12, the offdiagonal elements are small (CNORM(j) < 1).
 
-         CALL SLARNV( 2, ISEED, N, B )
+         slarnv(2, ISEED, N, B );
          TSCAL = ONE / MAX( ONE, REAL( N-1 ) )
          if ( UPPER ) {
             DO 160 J = 1, N
-               CALL SLARNV( 2, ISEED, J, A( 1, J ) )
-               CALL SSCAL( J-1, TSCAL, A( 1, J ), 1 )
+               slarnv(2, ISEED, J, A( 1, J ) );
+               sscal(J-1, TSCAL, A( 1, J ), 1 );
                A( J, J ) = SIGN( ONE, A( J, J ) )
   160       CONTINUE
             A( N, N ) = SMLNUM*A( N, N )
          } else {
             DO 170 J = 1, N
-               CALL SLARNV( 2, ISEED, N-J+1, A( J, J ) )
+               slarnv(2, ISEED, N-J+1, A( J, J ) );
                IF( N.GT.J ) CALL SSCAL( N-J, TSCAL, A( J+1, J ), 1 )
                A( J, J ) = SIGN( ONE, A( J, J ) )
   170       CONTINUE
@@ -325,16 +325,16 @@
          // cause immediate overflow when dividing by T(j,j).
          // In type 13, the offdiagonal elements are O(1) (CNORM(j) > 1).
 
-         CALL SLARNV( 2, ISEED, N, B )
+         slarnv(2, ISEED, N, B );
          if ( UPPER ) {
             DO 180 J = 1, N
-               CALL SLARNV( 2, ISEED, J, A( 1, J ) )
+               slarnv(2, ISEED, J, A( 1, J ) );
                A( J, J ) = SIGN( ONE, A( J, J ) )
   180       CONTINUE
             A( N, N ) = SMLNUM*A( N, N )
          } else {
             DO 190 J = 1, N
-               CALL SLARNV( 2, ISEED, N-J+1, A( J, J ) )
+               slarnv(2, ISEED, N-J+1, A( J, J ) );
                A( J, J ) = SIGN( ONE, A( J, J ) )
   190       CONTINUE
             A( 1, 1 ) = SMLNUM*A( 1, 1 )
@@ -400,7 +400,7 @@
 
          TEXP = ONE / MAX( ONE, REAL( N-1 ) )
          TSCAL = SMLNUM**TEXP
-         CALL SLARNV( 2, ISEED, N, B )
+         slarnv(2, ISEED, N, B );
          if ( UPPER ) {
             DO 270 J = 1, N
                DO 260 I = 1, J - 2
@@ -428,7 +428,7 @@
          IY = N / 2 + 1
          if ( UPPER ) {
             DO 300 J = 1, N
-               CALL SLARNV( 2, ISEED, J, A( 1, J ) )
+               slarnv(2, ISEED, J, A( 1, J ) );
                if ( J.NE.IY ) {
                   A( J, J ) = SIGN( TWO, A( J, J ) )
                } else {
@@ -437,7 +437,7 @@
   300       CONTINUE
          } else {
             DO 310 J = 1, N
-               CALL SLARNV( 2, ISEED, N-J+1, A( J, J ) )
+               slarnv(2, ISEED, N-J+1, A( J, J ) );
                if ( J.NE.IY ) {
                   A( J, J ) = SIGN( TWO, A( J, J ) )
                } else {
@@ -445,8 +445,8 @@
                }
   310       CONTINUE
          }
-         CALL SLARNV( 2, ISEED, N, B )
-         CALL SSCAL( N, TWO, B, 1 )
+         slarnv(2, ISEED, N, B );
+         sscal(N, TWO, B, 1 );
 
       } else if ( IMAT.EQ.17 ) {
 
@@ -495,7 +495,7 @@
 
          if ( UPPER ) {
             DO 360 J = 1, N
-               CALL SLARNV( 2, ISEED, J-1, A( 1, J ) )
+               slarnv(2, ISEED, J-1, A( 1, J ) );
                A( J, J ) = ZERO
   360       CONTINUE
          } else {
@@ -507,11 +507,11 @@
 
          // Set the right hand side so that the largest value is BIGNUM.
 
-         CALL SLARNV( 2, ISEED, N, B )
+         slarnv(2, ISEED, N, B );
          IY = ISAMAX( N, B, 1 )
          BNORM = ABS( B( IY ) )
          BSCAL = BIGNUM / MAX( ONE, BNORM )
-         CALL SSCAL( N, BSCAL, B, 1 )
+         sscal(N, BSCAL, B, 1 );
 
       } else if ( IMAT.EQ.19 ) {
 
@@ -524,21 +524,21 @@
          TSCAL = BIGNUM*( REAL( N-1 ) / MAX( ONE, REAL( N ) ) )
          if ( UPPER ) {
             DO 390 J = 1, N
-               CALL SLARNV( 2, ISEED, J, A( 1, J ) )
+               slarnv(2, ISEED, J, A( 1, J ) );
                DO 380 I = 1, J
                   A( I, J ) = SIGN( TLEFT, A( I, J ) ) + TSCAL*A( I, J )
   380          CONTINUE
   390       CONTINUE
          } else {
             DO 410 J = 1, N
-               CALL SLARNV( 2, ISEED, N-J+1, A( J, J ) )
+               slarnv(2, ISEED, N-J+1, A( J, J ) );
                DO 400 I = J, N
                   A( I, J ) = SIGN( TLEFT, A( I, J ) ) + TSCAL*A( I, J )
   400          CONTINUE
   410       CONTINUE
          }
-         CALL SLARNV( 2, ISEED, N, B )
-         CALL SSCAL( N, TWO, B, 1 )
+         slarnv(2, ISEED, N, B );
+         sscal(N, TWO, B, 1 );
       }
 
       // Flip the matrix if the transpose will be used.
@@ -546,11 +546,11 @@
       if ( .NOT.LSAME( TRANS, 'N' ) ) {
          if ( UPPER ) {
             DO 420 J = 1, N / 2
-               CALL SSWAP( N-2*J+1, A( J, J ), LDA, A( J+1, N-J+1 ), -1 )
+               sswap(N-2*J+1, A( J, J ), LDA, A( J+1, N-J+1 ), -1 );
   420       CONTINUE
          } else {
             DO 430 J = 1, N / 2
-               CALL SSWAP( N-2*J+1, A( J, J ), 1, A( N-J+1, J+1 ), -LDA )
+               sswap(N-2*J+1, A( J, J ), 1, A( N-J+1, J+1 ), -LDA );
   430       CONTINUE
          }
       }

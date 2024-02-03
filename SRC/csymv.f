@@ -52,7 +52,7 @@
          INFO = 10
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'CSYMV ', INFO )
+         xerbla('CSYMV ', INFO );
          RETURN
       }
 

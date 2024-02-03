@@ -63,7 +63,7 @@
          INFO = -15
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'DGTRFS', -INFO )
+         xerbla('DGTRFS', -INFO );
          RETURN
       }
 
@@ -106,8 +106,8 @@
          // Compute residual R = B - op(A) * X,
          // where op(A) = A, A**T, or A**H, depending on TRANS.
 
-         CALL DCOPY( N, B( 1, J ), 1, WORK( N+1 ), 1 )
-         CALL DLAGTM( TRANS, N, 1, -ONE, DL, D, DU, X( 1, J ), LDX, ONE, WORK( N+1 ), N )
+         dcopy(N, B( 1, J ), 1, WORK( N+1 ), 1 );
+         dlagtm(TRANS, N, 1, -ONE, DL, D, DU, X( 1, J ), LDX, ONE, WORK( N+1 ), N );
 
          // Compute abs(op(A))*abs(x) + abs(b) for use in the backward
          // error bound.
@@ -163,8 +163,8 @@
 
             // Update solution and try again.
 
-            CALL DGTTRS( TRANS, N, 1, DLF, DF, DUF, DU2, IPIV, WORK( N+1 ), N, INFO )
-            CALL DAXPY( N, ONE, WORK( N+1 ), 1, X( 1, J ), 1 )
+            dgttrs(TRANS, N, 1, DLF, DF, DUF, DU2, IPIV, WORK( N+1 ), N, INFO );
+            daxpy(N, ONE, WORK( N+1 ), 1, X( 1, J ), 1 );
             LSTRES = BERR( J )
             COUNT = COUNT + 1
             GO TO 20
@@ -202,13 +202,13 @@
 
          KASE = 0
    70    CONTINUE
-         CALL DLACN2( N, WORK( 2*N+1 ), WORK( N+1 ), IWORK, FERR( J ), KASE, ISAVE )
+         dlacn2(N, WORK( 2*N+1 ), WORK( N+1 ), IWORK, FERR( J ), KASE, ISAVE );
          if ( KASE.NE.0 ) {
             if ( KASE.EQ.1 ) {
 
                // Multiply by diag(W)*inv(op(A)**T).
 
-               CALL DGTTRS( TRANST, N, 1, DLF, DF, DUF, DU2, IPIV, WORK( N+1 ), N, INFO )
+               dgttrs(TRANST, N, 1, DLF, DF, DUF, DU2, IPIV, WORK( N+1 ), N, INFO );
                DO 80 I = 1, N
                   WORK( N+I ) = WORK( I )*WORK( N+I )
    80          CONTINUE
@@ -219,7 +219,7 @@
                DO 90 I = 1, N
                   WORK( N+I ) = WORK( I )*WORK( N+I )
    90          CONTINUE
-               CALL DGTTRS( TRANSN, N, 1, DLF, DF, DUF, DU2, IPIV, WORK( N+1 ), N, INFO )
+               dgttrs(TRANSN, N, 1, DLF, DF, DUF, DU2, IPIV, WORK( N+1 ), N, INFO );
             }
             GO TO 70
          }

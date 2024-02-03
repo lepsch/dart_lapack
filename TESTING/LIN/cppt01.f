@@ -91,7 +91,7 @@
             // Compute the rest of column K.
 
             if ( K.GT.1 ) {
-               CALL CTPMV( 'Upper', 'Conjugate', 'Non-unit', K-1, AFAC, AFAC( KC ), 1 )
+               ctpmv('Upper', 'Conjugate', 'Non-unit', K-1, AFAC, AFAC( KC ), 1 );
                KC = KC - ( K-1 )
             }
    30    CONTINUE
@@ -121,7 +121,7 @@
             // Scale column K by the diagonal element.
 
             TC = AFAC( KC )
-            CALL CSCAL( N-K+1, TC, AFAC( KC ), 1 )
+            cscal(N-K+1, TC, AFAC( KC ), 1 );
 
             KC = KC - ( N-K+2 )
    60    CONTINUE

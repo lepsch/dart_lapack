@@ -67,7 +67,7 @@
 
             // Form the j-th column of A*AINV
 
-            CALL DTPMV( 'Upper', 'No transpose', DIAG, J, AP, AINVP( JC ), 1 )
+            dtpmv('Upper', 'No transpose', DIAG, J, AP, AINVP( JC ), 1 );
 
             // Subtract 1 from the diagonal
 
@@ -81,7 +81,7 @@
 
             // Form the j-th column of A*AINV
 
-            CALL DTPMV( 'Lower', 'No transpose', DIAG, N-J+1, AP( JC ), AINVP( JC ), 1 )
+            dtpmv('Lower', 'No transpose', DIAG, N-J+1, AP( JC ), AINVP( JC ), 1 );
 
             // Subtract 1 from the diagonal
 

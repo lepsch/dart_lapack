@@ -56,7 +56,7 @@
       }
 
       if ( INFO .NE. 0 ) {
-         CALL XERBLA( 'DORBDB6', -INFO )
+         xerbla('DORBDB6', -INFO );
          RETURN
       }
 
@@ -66,8 +66,8 @@
 
       SCL = REALZERO
       SSQ = REALZERO
-      CALL DLASSQ( M1, X1, INCX1, SCL, SSQ )
-      CALL DLASSQ( M2, X2, INCX2, SCL, SSQ )
+      dlassq(M1, X1, INCX1, SCL, SSQ );
+      dlassq(M2, X2, INCX2, SCL, SSQ );
       NORM = SCL * SQRT( SSQ )
 
       // First, project X onto the orthogonal complement of Q's column
@@ -78,17 +78,17 @@
             WORK(I) = ZERO
          END DO
       } else {
-         CALL DGEMV( 'C', M1, N, ONE, Q1, LDQ1, X1, INCX1, ZERO, WORK, 1 )
+         dgemv('C', M1, N, ONE, Q1, LDQ1, X1, INCX1, ZERO, WORK, 1 );
       }
 
-      CALL DGEMV( 'C', M2, N, ONE, Q2, LDQ2, X2, INCX2, ONE, WORK, 1 )
+      dgemv('C', M2, N, ONE, Q2, LDQ2, X2, INCX2, ONE, WORK, 1 );
 
-      CALL DGEMV( 'N', M1, N, NEGONE, Q1, LDQ1, WORK, 1, ONE, X1, INCX1 )       CALL DGEMV( 'N', M2, N, NEGONE, Q2, LDQ2, WORK, 1, ONE, X2, INCX2 )
+      dgemv('N', M1, N, NEGONE, Q1, LDQ1, WORK, 1, ONE, X1, INCX1 )       CALL DGEMV( 'N', M2, N, NEGONE, Q2, LDQ2, WORK, 1, ONE, X2, INCX2 );
 
       SCL = REALZERO
       SSQ = REALZERO
-      CALL DLASSQ( M1, X1, INCX1, SCL, SSQ )
-      CALL DLASSQ( M2, X2, INCX2, SCL, SSQ )
+      dlassq(M1, X1, INCX1, SCL, SSQ );
+      dlassq(M2, X2, INCX2, SCL, SSQ );
       NORM_NEW = SCL * SQRT(SSQ)
 
       // If projection is sufficiently large in norm, then stop.
@@ -120,17 +120,17 @@
             WORK(I) = ZERO
          END DO
       } else {
-         CALL DGEMV( 'C', M1, N, ONE, Q1, LDQ1, X1, INCX1, ZERO, WORK, 1 )
+         dgemv('C', M1, N, ONE, Q1, LDQ1, X1, INCX1, ZERO, WORK, 1 );
       }
 
-      CALL DGEMV( 'C', M2, N, ONE, Q2, LDQ2, X2, INCX2, ONE, WORK, 1 )
+      dgemv('C', M2, N, ONE, Q2, LDQ2, X2, INCX2, ONE, WORK, 1 );
 
-      CALL DGEMV( 'N', M1, N, NEGONE, Q1, LDQ1, WORK, 1, ONE, X1, INCX1 )       CALL DGEMV( 'N', M2, N, NEGONE, Q2, LDQ2, WORK, 1, ONE, X2, INCX2 )
+      dgemv('N', M1, N, NEGONE, Q1, LDQ1, WORK, 1, ONE, X1, INCX1 )       CALL DGEMV( 'N', M2, N, NEGONE, Q2, LDQ2, WORK, 1, ONE, X2, INCX2 );
 
       SCL = REALZERO
       SSQ = REALZERO
-      CALL DLASSQ( M1, X1, INCX1, SCL, SSQ )
-      CALL DLASSQ( M2, X2, INCX2, SCL, SSQ )
+      dlassq(M1, X1, INCX1, SCL, SSQ );
+      dlassq(M2, X2, INCX2, SCL, SSQ );
       NORM_NEW = SCL * SQRT(SSQ)
 
       // If second projection is sufficiently large in norm, then do

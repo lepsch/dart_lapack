@@ -49,7 +49,7 @@
          INFO = -7
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'ZPOTRS', -INFO )
+         xerbla('ZPOTRS', -INFO );
          RETURN
       }
 
@@ -63,22 +63,22 @@
 
          // Solve U**H *X = B, overwriting B with X.
 
-         CALL ZTRSM( 'Left', 'Upper', 'Conjugate transpose', 'Non-unit', N, NRHS, ONE, A, LDA, B, LDB )
+         ztrsm('Left', 'Upper', 'Conjugate transpose', 'Non-unit', N, NRHS, ONE, A, LDA, B, LDB );
 
          // Solve U*X = B, overwriting B with X.
 
-         CALL ZTRSM( 'Left', 'Upper', 'No transpose', 'Non-unit', N, NRHS, ONE, A, LDA, B, LDB )
+         ztrsm('Left', 'Upper', 'No transpose', 'Non-unit', N, NRHS, ONE, A, LDA, B, LDB );
       } else {
 
          // Solve A*X = B where A = L*L**H.
 
          // Solve L*X = B, overwriting B with X.
 
-         CALL ZTRSM( 'Left', 'Lower', 'No transpose', 'Non-unit', N, NRHS, ONE, A, LDA, B, LDB )
+         ztrsm('Left', 'Lower', 'No transpose', 'Non-unit', N, NRHS, ONE, A, LDA, B, LDB );
 
          // Solve L**H *X = B, overwriting B with X.
 
-         CALL ZTRSM( 'Left', 'Lower', 'Conjugate transpose', 'Non-unit', N, NRHS, ONE, A, LDA, B, LDB )
+         ztrsm('Left', 'Lower', 'Conjugate transpose', 'Non-unit', N, NRHS, ONE, A, LDA, B, LDB );
       }
 
       RETURN

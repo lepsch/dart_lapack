@@ -45,7 +45,7 @@
          INFO = -9
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'SLASD8', -INFO )
+         xerbla('SLASD8', -INFO );
          RETURN
       }
 
@@ -72,18 +72,18 @@
       // Normalize Z.
 
       RHO = SNRM2( K, Z, 1 )
-      CALL SLASCL( 'G', 0, 0, RHO, ONE, K, 1, Z, K, INFO )
+      slascl('G', 0, 0, RHO, ONE, K, 1, Z, K, INFO );
       RHO = RHO*RHO
 
       // Initialize WORK(IWK3).
 
-      CALL SLASET( 'A', K, 1, ONE, ONE, WORK( IWK3 ), K )
+      slaset('A', K, 1, ONE, ONE, WORK( IWK3 ), K );
 
       // Compute the updated singular values, the arrays DIFL, DIFR,
       // and the updated Z.
 
       DO 40 J = 1, K
-         CALL SLASD4( K, J, DSIGMA, Z, WORK( IWK1 ), RHO, D( J ), WORK( IWK2 ), INFO )
+         slasd4(K, J, DSIGMA, Z, WORK( IWK1 ), RHO, D( J ), WORK( IWK2 ), INFO );
 
          // If the root finder fails, report the convergence failure.
 
@@ -137,8 +137,8 @@
          }
    80 CONTINUE
 
-      CALL SCOPY( K, WORK( IWK2 ), 1, VF, 1 )
-      CALL SCOPY( K, WORK( IWK3 ), 1, VL, 1 )
+      scopy(K, WORK( IWK2 ), 1, VF, 1 );
+      scopy(K, WORK( IWK3 ), 1, VL, 1 );
 
       RETURN
 

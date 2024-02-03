@@ -71,17 +71,17 @@
                   A( OFDPOS-I, ST+I ) = ZERO
    10         CONTINUE
               CTMP = ( A( OFDPOS, ST ) )
-              CALL SLARFG( LM, CTMP, V( VPOS+1 ), 1, TAU( TAUPOS ) )
+              slarfg(LM, CTMP, V( VPOS+1 ), 1, TAU( TAUPOS ) );
               A( OFDPOS, ST ) = CTMP
 
               LM = ED - ST + 1
-              CALL SLARFY( UPLO, LM, V( VPOS ), 1, ( TAU( TAUPOS ) ), A( DPOS, ST ), LDA-1, WORK)
+              slarfy(UPLO, LM, V( VPOS ), 1, ( TAU( TAUPOS ) ), A( DPOS, ST ), LDA-1, WORK);
           ENDIF
 
           if ( TTYPE.EQ.3 ) {
 
               LM = ED - ST + 1
-              CALL SLARFY( UPLO, LM, V( VPOS ), 1, ( TAU( TAUPOS ) ), A( DPOS, ST ), LDA-1, WORK)
+              slarfy(UPLO, LM, V( VPOS ), 1, ( TAU( TAUPOS ) ), A( DPOS, ST ), LDA-1, WORK);
           ENDIF
 
           if ( TTYPE.EQ.2 ) {
@@ -90,7 +90,7 @@
               LN = ED-ST+1
               LM = J2-J1+1
               if ( LM.GT.0) {
-                  CALL SLARFX( 'Left', LN, LM, V( VPOS ), ( TAU( TAUPOS ) ), A( DPOS-NB, J1 ), LDA-1, WORK)
+                  slarfx('Left', LN, LM, V( VPOS ), ( TAU( TAUPOS ) ), A( DPOS-NB, J1 ), LDA-1, WORK);
 
                   if ( WANTZ ) {
                       VPOS   = MOD( SWEEP-1, 2 ) * N + J1
@@ -106,10 +106,10 @@
                       A( DPOS-NB-I, J1+I ) = ZERO
    30             CONTINUE
                   CTMP = ( A( DPOS-NB, J1 ) )
-                  CALL SLARFG( LM, CTMP, V( VPOS+1 ), 1, TAU( TAUPOS ) )
+                  slarfg(LM, CTMP, V( VPOS+1 ), 1, TAU( TAUPOS ) );
                   A( DPOS-NB, J1 ) = CTMP
 
-                  CALL SLARFX( 'Right', LN-1, LM, V( VPOS ), TAU( TAUPOS ), A( DPOS-NB+1, J1 ), LDA-1, WORK)
+                  slarfx('Right', LN-1, LM, V( VPOS ), TAU( TAUPOS ), A( DPOS-NB+1, J1 ), LDA-1, WORK);
               ENDIF
           ENDIF
 
@@ -133,18 +133,18 @@
                   V( VPOS+I )         = A( OFDPOS+I, ST-1 )
                   A( OFDPOS+I, ST-1 ) = ZERO
    20         CONTINUE
-              CALL SLARFG( LM, A( OFDPOS, ST-1 ), V( VPOS+1 ), 1, TAU( TAUPOS ) )
+              slarfg(LM, A( OFDPOS, ST-1 ), V( VPOS+1 ), 1, TAU( TAUPOS ) );
 
               LM = ED - ST + 1
 
-              CALL SLARFY( UPLO, LM, V( VPOS ), 1, ( TAU( TAUPOS ) ), A( DPOS, ST ), LDA-1, WORK)
+              slarfy(UPLO, LM, V( VPOS ), 1, ( TAU( TAUPOS ) ), A( DPOS, ST ), LDA-1, WORK);
 
           ENDIF
 
           if ( TTYPE.EQ.3 ) {
               LM = ED - ST + 1
 
-              CALL SLARFY( UPLO, LM, V( VPOS ), 1, ( TAU( TAUPOS ) ), A( DPOS, ST ), LDA-1, WORK)
+              slarfy(UPLO, LM, V( VPOS ), 1, ( TAU( TAUPOS ) ), A( DPOS, ST ), LDA-1, WORK);
 
           ENDIF
 
@@ -155,7 +155,7 @@
               LM = J2-J1+1
 
               if ( LM.GT.0) {
-                  CALL SLARFX( 'Right', LM, LN, V( VPOS ), TAU( TAUPOS ), A( DPOS+NB, ST ), LDA-1, WORK)
+                  slarfx('Right', LM, LN, V( VPOS ), TAU( TAUPOS ), A( DPOS+NB, ST ), LDA-1, WORK);
 
                   if ( WANTZ ) {
                       VPOS   = MOD( SWEEP-1, 2 ) * N + J1
@@ -170,9 +170,9 @@
                       V( VPOS+I )        = A( DPOS+NB+I, ST )
                       A( DPOS+NB+I, ST ) = ZERO
    40             CONTINUE
-                  CALL SLARFG( LM, A( DPOS+NB, ST ), V( VPOS+1 ), 1, TAU( TAUPOS ) )
+                  slarfg(LM, A( DPOS+NB, ST ), V( VPOS+1 ), 1, TAU( TAUPOS ) );
 
-                  CALL SLARFX( 'Left', LM, LN-1, V( VPOS ), ( TAU( TAUPOS ) ), A( DPOS+NB-1, ST+1 ), LDA-1, WORK)
+                  slarfx('Left', LM, LN-1, V( VPOS ), ( TAU( TAUPOS ) ), A( DPOS+NB-1, ST+1 ), LDA-1, WORK);
 
               ENDIF
           ENDIF

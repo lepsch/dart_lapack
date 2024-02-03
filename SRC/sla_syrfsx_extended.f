@@ -71,7 +71,7 @@
          INFO = -15
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'SLA_SYRFSX_EXTENDED', -INFO )
+         xerbla('SLA_SYRFSX_EXTENDED', -INFO );
          RETURN
       }
       EPS = SLAMCH( 'Epsilon' )
@@ -115,18 +115,18 @@
          // Compute residual RES = B_s - op(A_s) * Y,
              // op(A) = A, A**T, or A**H depending on TRANS (and type).
 
-            CALL SCOPY( N, B( 1, J ), 1, RES, 1 )
+            scopy(N, B( 1, J ), 1, RES, 1 );
             if (Y_PREC_STATE .EQ. BASE_RESIDUAL) {
-               CALL SSYMV( UPLO, N, -1.0, A, LDA, Y(1,J), 1, 1.0, RES, 1 )
+               ssymv(UPLO, N, -1.0, A, LDA, Y(1,J), 1, 1.0, RES, 1 );
             } else if (Y_PREC_STATE .EQ. EXTRA_RESIDUAL) {
-               CALL BLAS_SSYMV_X( UPLO2, N, -1.0, A, LDA, Y( 1, J ), 1, 1.0, RES, 1, PREC_TYPE )
+               blas_ssymv_x(UPLO2, N, -1.0, A, LDA, Y( 1, J ), 1, 1.0, RES, 1, PREC_TYPE );
             } else {
-               CALL BLAS_SSYMV2_X(UPLO2, N, -1.0, A, LDA, Y(1, J), Y_TAIL, 1, 1.0, RES, 1, PREC_TYPE)
+               blas_ssymv2_x(UPLO2, N, -1.0, A, LDA, Y(1, J), Y_TAIL, 1, 1.0, RES, 1, PREC_TYPE);
             }
 
           // XXX: RES is no longer needed.
-            CALL SCOPY( N, RES, 1, DY, 1 )
-            CALL SSYTRS( UPLO, N, 1, AF, LDAF, IPIV, DY, N, INFO )
+            scopy(N, RES, 1, DY, 1 );
+            ssytrs(UPLO, N, 1, AF, LDAF, IPIV, DY, N, INFO );
 
           // Calculate relative changes DX_X, DZ_Z and ratios DXRAT, DZRAT.
 
@@ -223,9 +223,9 @@
             // Update solution.
 
             if (Y_PREC_STATE .LT. EXTRA_Y) {
-               CALL SAXPY( N, 1.0, DY, 1, Y(1,J), 1 )
+               saxpy(N, 1.0, DY, 1, Y(1,J), 1 );
             } else {
-               CALL SLA_WWADDW( N, Y(1,J), Y_TAIL, DY )
+               sla_wwaddw(N, Y(1,J), Y_TAIL, DY );
             }
 
          END DO
@@ -253,8 +253,8 @@
 
          // Compute residual RES = B_s - op(A_s) * Y,
              // op(A) = A, A**T, or A**H depending on TRANS (and type).
-         CALL SCOPY( N, B( 1, J ), 1, RES, 1 )
-         CALL SSYMV( UPLO, N, -1.0, A, LDA, Y(1,J), 1, 1.0, RES, 1 )
+         scopy(N, B( 1, J ), 1, RES, 1 );
+         ssymv(UPLO, N, -1.0, A, LDA, Y(1,J), 1, 1.0, RES, 1 );
 
          DO I = 1, N
             AYB( I ) = ABS( B( I, J ) )
@@ -262,9 +262,9 @@
 
       // Compute abs(op(A_s))*abs(Y) + abs(B_s).
 
-         CALL SLA_SYAMV( UPLO2, N, 1.0, A, LDA, Y(1, J), 1, 1.0, AYB, 1 )
+         sla_syamv(UPLO2, N, 1.0, A, LDA, Y(1, J), 1, 1.0, AYB, 1 );
 
-         CALL SLA_LIN_BERR( N, N, 1, RES, AYB, BERR_OUT( J ) )
+         sla_lin_berr(N, N, 1, RES, AYB, BERR_OUT( J ) );
 
       // End of loop for each RHS.
 

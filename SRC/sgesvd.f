@@ -90,21 +90,21 @@
             MNTHR = ILAENV( 6, 'SGESVD', JOBU // JOBVT, M, N, 0, 0 )
             BDSPAC = 5*N
             // Compute space needed for SGEQRF
-            CALL SGEQRF( M, N, A, LDA, DUM(1), DUM(1), -1, IERR )
+            sgeqrf(M, N, A, LDA, DUM(1), DUM(1), -1, IERR );
             LWORK_SGEQRF = INT( DUM(1) )
             // Compute space needed for SORGQR
-            CALL SORGQR( M, N, N, A, LDA, DUM(1), DUM(1), -1, IERR )
+            sorgqr(M, N, N, A, LDA, DUM(1), DUM(1), -1, IERR );
             LWORK_SORGQR_N = INT( DUM(1) )
-            CALL SORGQR( M, M, N, A, LDA, DUM(1), DUM(1), -1, IERR )
+            sorgqr(M, M, N, A, LDA, DUM(1), DUM(1), -1, IERR );
             LWORK_SORGQR_M = INT( DUM(1) )
             // Compute space needed for SGEBRD
-            CALL SGEBRD( N, N, A, LDA, S, DUM(1), DUM(1), DUM(1), DUM(1), -1, IERR )
+            sgebrd(N, N, A, LDA, S, DUM(1), DUM(1), DUM(1), DUM(1), -1, IERR );
             LWORK_SGEBRD = INT( DUM(1) )
             // Compute space needed for SORGBR P
-            CALL SORGBR( 'P', N, N, N, A, LDA, DUM(1), DUM(1), -1, IERR )
+            sorgbr('P', N, N, N, A, LDA, DUM(1), DUM(1), -1, IERR );
             LWORK_SORGBR_P = INT( DUM(1) )
             // Compute space needed for SORGBR Q
-            CALL SORGBR( 'Q', N, N, N, A, LDA, DUM(1), DUM(1), -1, IERR )
+            sorgbr('Q', N, N, N, A, LDA, DUM(1), DUM(1), -1, IERR );
             LWORK_SORGBR_Q = INT( DUM(1) )
 
             if ( M.GE.MNTHR ) {
@@ -218,16 +218,16 @@
 
                // Path 10 (M at least N, but not much larger)
 
-               CALL SGEBRD( M, N, A, LDA, S, DUM(1), DUM(1), DUM(1), DUM(1), -1, IERR )
+               sgebrd(M, N, A, LDA, S, DUM(1), DUM(1), DUM(1), DUM(1), -1, IERR );
                LWORK_SGEBRD = INT( DUM(1) )
                MAXWRK = 3*N + LWORK_SGEBRD
                if ( WNTUS .OR. WNTUO ) {
-                  CALL SORGBR( 'Q', M, N, N, A, LDA, DUM(1), DUM(1), -1, IERR )
+                  sorgbr('Q', M, N, N, A, LDA, DUM(1), DUM(1), -1, IERR );
                   LWORK_SORGBR_Q = INT( DUM(1) )
                   MAXWRK = MAX( MAXWRK, 3*N+LWORK_SORGBR_Q )
                }
                if ( WNTUA ) {
-                  CALL SORGBR( 'Q', M, M, N, A, LDA, DUM(1), DUM(1), -1, IERR )
+                  sorgbr('Q', M, M, N, A, LDA, DUM(1), DUM(1), -1, IERR );
                   LWORK_SORGBR_Q = INT( DUM(1) )
                   MAXWRK = MAX( MAXWRK, 3*N+LWORK_SORGBR_Q )
                }
@@ -244,21 +244,21 @@
             MNTHR = ILAENV( 6, 'SGESVD', JOBU // JOBVT, M, N, 0, 0 )
             BDSPAC = 5*M
             // Compute space needed for SGELQF
-            CALL SGELQF( M, N, A, LDA, DUM(1), DUM(1), -1, IERR )
+            sgelqf(M, N, A, LDA, DUM(1), DUM(1), -1, IERR );
             LWORK_SGELQF = INT( DUM(1) )
             // Compute space needed for SORGLQ
-            CALL SORGLQ( N, N, M, DUM(1), N, DUM(1), DUM(1), -1, IERR )
+            sorglq(N, N, M, DUM(1), N, DUM(1), DUM(1), -1, IERR );
             LWORK_SORGLQ_N = INT( DUM(1) )
-            CALL SORGLQ( M, N, M, A, LDA, DUM(1), DUM(1), -1, IERR )
+            sorglq(M, N, M, A, LDA, DUM(1), DUM(1), -1, IERR );
             LWORK_SORGLQ_M = INT( DUM(1) )
             // Compute space needed for SGEBRD
-            CALL SGEBRD( M, M, A, LDA, S, DUM(1), DUM(1), DUM(1), DUM(1), -1, IERR )
+            sgebrd(M, M, A, LDA, S, DUM(1), DUM(1), DUM(1), DUM(1), -1, IERR );
             LWORK_SGEBRD = INT( DUM(1) )
              // Compute space needed for SORGBR P
-            CALL SORGBR( 'P', M, M, M, A, N, DUM(1), DUM(1), -1, IERR )
+            sorgbr('P', M, M, M, A, N, DUM(1), DUM(1), -1, IERR );
             LWORK_SORGBR_P = INT( DUM(1) )
             // Compute space needed for SORGBR Q
-            CALL SORGBR( 'Q', M, M, M, A, N, DUM(1), DUM(1), -1, IERR )
+            sorgbr('Q', M, M, M, A, N, DUM(1), DUM(1), -1, IERR );
             LWORK_SORGBR_Q = INT( DUM(1) )
             if ( N.GE.MNTHR ) {
                if ( WNTVN ) {
@@ -372,17 +372,17 @@
 
                // Path 10t(N greater than M, but not much larger)
 
-               CALL SGEBRD( M, N, A, LDA, S, DUM(1), DUM(1), DUM(1), DUM(1), -1, IERR )
+               sgebrd(M, N, A, LDA, S, DUM(1), DUM(1), DUM(1), DUM(1), -1, IERR );
                LWORK_SGEBRD = INT( DUM(1) )
                MAXWRK = 3*M + LWORK_SGEBRD
                if ( WNTVS .OR. WNTVO ) {
                  // Compute space needed for SORGBR P
-                 CALL SORGBR( 'P', M, N, M, A, N, DUM(1), DUM(1), -1, IERR )
+                 sorgbr('P', M, N, M, A, N, DUM(1), DUM(1), -1, IERR );
                  LWORK_SORGBR_P = INT( DUM(1) )
                  MAXWRK = MAX( MAXWRK, 3*M+LWORK_SORGBR_P )
                }
                if ( WNTVA ) {
-                 CALL SORGBR( 'P', N, N, M, A, N, DUM(1), DUM(1), -1, IERR )
+                 sorgbr('P', N, N, M, A, N, DUM(1), DUM(1), -1, IERR );
                  LWORK_SORGBR_P = INT( DUM(1) )
                  MAXWRK = MAX( MAXWRK, 3*M+LWORK_SORGBR_P )
                }
@@ -402,7 +402,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'SGESVD', -INFO )
+         xerbla('SGESVD', -INFO );
          RETURN
       } else if ( LQUERY ) {
          RETURN
@@ -426,10 +426,10 @@
       ISCL = 0
       if ( ANRM.GT.ZERO .AND. ANRM.LT.SMLNUM ) {
          ISCL = 1
-         CALL SLASCL( 'G', 0, 0, ANRM, SMLNUM, M, N, A, LDA, IERR )
+         slascl('G', 0, 0, ANRM, SMLNUM, M, N, A, LDA, IERR );
       } else if ( ANRM.GT.BIGNUM ) {
          ISCL = 1
-         CALL SLASCL( 'G', 0, 0, ANRM, BIGNUM, M, N, A, LDA, IERR )
+         slascl('G', 0, 0, ANRM, BIGNUM, M, N, A, LDA, IERR );
       }
 
       if ( M.GE.N ) {
@@ -451,12 +451,12 @@
                // Compute A=Q*R
                // (Workspace: need 2*N, prefer N+N*NB)
 
-               CALL SGEQRF( M, N, A, LDA, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR )
+               sgeqrf(M, N, A, LDA, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR );
 
                // Zero out below R
 
                if ( N .GT. 1 ) {
-                  CALL SLASET( 'L', N-1, N-1, ZERO, ZERO, A( 2, 1 ), LDA )
+                  slaset('L', N-1, N-1, ZERO, ZERO, A( 2, 1 ), LDA );
                }
                IE = 1
                ITAUQ = IE + N
@@ -466,14 +466,14 @@
                // Bidiagonalize R in A
                // (Workspace: need 4*N, prefer 3*N+2*N*NB)
 
-               CALL SGEBRD( N, N, A, LDA, S, WORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR )
+               sgebrd(N, N, A, LDA, S, WORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR );
                NCVT = 0
                if ( WNTVO .OR. WNTVAS ) {
 
                   // If right singular vectors desired, generate P'.
                   // (Workspace: need 4*N-1, prefer 3*N+(N-1)*NB)
 
-                  CALL SORGBR( 'P', N, N, N, A, LDA, WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR )
+                  sorgbr('P', N, N, N, A, LDA, WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR );
                   NCVT = N
                }
                IWORK = IE + N
@@ -482,7 +482,7 @@
                // singular vectors of A in A if desired
                // (Workspace: need BDSPAC)
 
-               CALL SBDSQR( 'U', N, NCVT, 0, 0, S, WORK( IE ), A, LDA, DUM, 1, DUM, 1, WORK( IWORK ), INFO )
+               sbdsqr('U', N, NCVT, 0, 0, S, WORK( IE ), A, LDA, DUM, 1, DUM, 1, WORK( IWORK ), INFO );
 
                // If right singular vectors desired in VT, copy them there
 
@@ -524,17 +524,17 @@
                   // Compute A=Q*R
                   // (Workspace: need N*N+2*N, prefer N*N+N+N*NB)
 
-                  CALL SGEQRF( M, N, A, LDA, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR )
+                  sgeqrf(M, N, A, LDA, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR );
 
                   // Copy R to WORK(IR) and zero out below it
 
-                  CALL SLACPY( 'U', N, N, A, LDA, WORK( IR ), LDWRKR )
-                  CALL SLASET( 'L', N-1, N-1, ZERO, ZERO, WORK( IR+1 ), LDWRKR )
+                  slacpy('U', N, N, A, LDA, WORK( IR ), LDWRKR );
+                  slaset('L', N-1, N-1, ZERO, ZERO, WORK( IR+1 ), LDWRKR );
 
                   // Generate Q in A
                   // (Workspace: need N*N+2*N, prefer N*N+N+N*NB)
 
-                  CALL SORGQR( M, N, N, A, LDA, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR )
+                  sorgqr(M, N, N, A, LDA, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR );
                   IE = ITAU
                   ITAUQ = IE + N
                   ITAUP = ITAUQ + N
@@ -543,19 +543,19 @@
                   // Bidiagonalize R in WORK(IR)
                   // (Workspace: need N*N+4*N, prefer N*N+3*N+2*N*NB)
 
-                  CALL SGEBRD( N, N, WORK( IR ), LDWRKR, S, WORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR )
+                  sgebrd(N, N, WORK( IR ), LDWRKR, S, WORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR );
 
                   // Generate left vectors bidiagonalizing R
                   // (Workspace: need N*N+4*N, prefer N*N+3*N+N*NB)
 
-                  CALL SORGBR( 'Q', N, N, N, WORK( IR ), LDWRKR, WORK( ITAUQ ), WORK( IWORK ), LWORK-IWORK+1, IERR )
+                  sorgbr('Q', N, N, N, WORK( IR ), LDWRKR, WORK( ITAUQ ), WORK( IWORK ), LWORK-IWORK+1, IERR );
                   IWORK = IE + N
 
                   // Perform bidiagonal QR iteration, computing left
                   // singular vectors of R in WORK(IR)
                   // (Workspace: need N*N+BDSPAC)
 
-                  CALL SBDSQR( 'U', N, 0, N, 0, S, WORK( IE ), DUM, 1, WORK( IR ), LDWRKR, DUM, 1, WORK( IWORK ), INFO )
+                  sbdsqr('U', N, 0, N, 0, S, WORK( IE ), DUM, 1, WORK( IR ), LDWRKR, DUM, 1, WORK( IWORK ), INFO );
                   IU = IE + N
 
                   // Multiply Q in A by left singular vectors of R in
@@ -564,8 +564,8 @@
 
                   DO 10 I = 1, M, LDWRKU
                      CHUNK = MIN( M-I+1, LDWRKU )
-                     CALL SGEMM( 'N', 'N', CHUNK, N, N, ONE, A( I, 1 ), LDA, WORK( IR ), LDWRKR, ZERO, WORK( IU ), LDWRKU )
-                     CALL SLACPY( 'F', CHUNK, N, WORK( IU ), LDWRKU, A( I, 1 ), LDA )
+                     sgemm('N', 'N', CHUNK, N, N, ONE, A( I, 1 ), LDA, WORK( IR ), LDWRKR, ZERO, WORK( IU ), LDWRKU );
+                     slacpy('F', CHUNK, N, WORK( IU ), LDWRKU, A( I, 1 ), LDA );
    10             CONTINUE
 
                } else {
@@ -580,19 +580,19 @@
                   // Bidiagonalize A
                   // (Workspace: need 3*N+M, prefer 3*N+(M+N)*NB)
 
-                  CALL SGEBRD( M, N, A, LDA, S, WORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR )
+                  sgebrd(M, N, A, LDA, S, WORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR );
 
                   // Generate left vectors bidiagonalizing A
                   // (Workspace: need 4*N, prefer 3*N+N*NB)
 
-                  CALL SORGBR( 'Q', M, N, N, A, LDA, WORK( ITAUQ ), WORK( IWORK ), LWORK-IWORK+1, IERR )
+                  sorgbr('Q', M, N, N, A, LDA, WORK( ITAUQ ), WORK( IWORK ), LWORK-IWORK+1, IERR );
                   IWORK = IE + N
 
                   // Perform bidiagonal QR iteration, computing left
                   // singular vectors of A in A
                   // (Workspace: need BDSPAC)
 
-                  CALL SBDSQR( 'U', N, 0, M, 0, S, WORK( IE ), DUM, 1, A, LDA, DUM, 1, WORK( IWORK ), INFO )
+                  sbdsqr('U', N, 0, M, 0, S, WORK( IE ), DUM, 1, A, LDA, DUM, 1, WORK( IWORK ), INFO );
 
                }
 
@@ -632,17 +632,17 @@
                   // Compute A=Q*R
                   // (Workspace: need N*N+2*N, prefer N*N+N+N*NB)
 
-                  CALL SGEQRF( M, N, A, LDA, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR )
+                  sgeqrf(M, N, A, LDA, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR );
 
                   // Copy R to VT, zeroing out below it
 
-                  CALL SLACPY( 'U', N, N, A, LDA, VT, LDVT )
+                  slacpy('U', N, N, A, LDA, VT, LDVT );
                   IF( N.GT.1 ) CALL SLASET( 'L', N-1, N-1, ZERO, ZERO, VT( 2, 1 ), LDVT )
 
                   // Generate Q in A
                   // (Workspace: need N*N+2*N, prefer N*N+N+N*NB)
 
-                  CALL SORGQR( M, N, N, A, LDA, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR )
+                  sorgqr(M, N, N, A, LDA, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR );
                   IE = ITAU
                   ITAUQ = IE + N
                   ITAUP = ITAUQ + N
@@ -651,18 +651,18 @@
                   // Bidiagonalize R in VT, copying result to WORK(IR)
                   // (Workspace: need N*N+4*N, prefer N*N+3*N+2*N*NB)
 
-                  CALL SGEBRD( N, N, VT, LDVT, S, WORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR )
-                  CALL SLACPY( 'L', N, N, VT, LDVT, WORK( IR ), LDWRKR )
+                  sgebrd(N, N, VT, LDVT, S, WORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR );
+                  slacpy('L', N, N, VT, LDVT, WORK( IR ), LDWRKR );
 
                   // Generate left vectors bidiagonalizing R in WORK(IR)
                   // (Workspace: need N*N+4*N, prefer N*N+3*N+N*NB)
 
-                  CALL SORGBR( 'Q', N, N, N, WORK( IR ), LDWRKR, WORK( ITAUQ ), WORK( IWORK ), LWORK-IWORK+1, IERR )
+                  sorgbr('Q', N, N, N, WORK( IR ), LDWRKR, WORK( ITAUQ ), WORK( IWORK ), LWORK-IWORK+1, IERR );
 
                   // Generate right vectors bidiagonalizing R in VT
                   // (Workspace: need N*N+4*N-1, prefer N*N+3*N+(N-1)*NB)
 
-                  CALL SORGBR( 'P', N, N, N, VT, LDVT, WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR )
+                  sorgbr('P', N, N, N, VT, LDVT, WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR );
                   IWORK = IE + N
 
                   // Perform bidiagonal QR iteration, computing left
@@ -670,7 +670,7 @@
                   // singular vectors of R in VT
                   // (Workspace: need N*N+BDSPAC)
 
-                  CALL SBDSQR( 'U', N, N, N, 0, S, WORK( IE ), VT, LDVT, WORK( IR ), LDWRKR, DUM, 1, WORK( IWORK ), INFO )
+                  sbdsqr('U', N, N, N, 0, S, WORK( IE ), VT, LDVT, WORK( IR ), LDWRKR, DUM, 1, WORK( IWORK ), INFO );
                   IU = IE + N
 
                   // Multiply Q in A by left singular vectors of R in
@@ -679,8 +679,8 @@
 
                   DO 20 I = 1, M, LDWRKU
                      CHUNK = MIN( M-I+1, LDWRKU )
-                     CALL SGEMM( 'N', 'N', CHUNK, N, N, ONE, A( I, 1 ), LDA, WORK( IR ), LDWRKR, ZERO, WORK( IU ), LDWRKU )
-                     CALL SLACPY( 'F', CHUNK, N, WORK( IU ), LDWRKU, A( I, 1 ), LDA )
+                     sgemm('N', 'N', CHUNK, N, N, ONE, A( I, 1 ), LDA, WORK( IR ), LDWRKR, ZERO, WORK( IU ), LDWRKU );
+                     slacpy('F', CHUNK, N, WORK( IU ), LDWRKU, A( I, 1 ), LDA );
    20             CONTINUE
 
                } else {
@@ -693,17 +693,17 @@
                   // Compute A=Q*R
                   // (Workspace: need 2*N, prefer N+N*NB)
 
-                  CALL SGEQRF( M, N, A, LDA, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR )
+                  sgeqrf(M, N, A, LDA, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR );
 
                   // Copy R to VT, zeroing out below it
 
-                  CALL SLACPY( 'U', N, N, A, LDA, VT, LDVT )
+                  slacpy('U', N, N, A, LDA, VT, LDVT );
                   IF( N.GT.1 ) CALL SLASET( 'L', N-1, N-1, ZERO, ZERO, VT( 2, 1 ), LDVT )
 
                   // Generate Q in A
                   // (Workspace: need 2*N, prefer N+N*NB)
 
-                  CALL SORGQR( M, N, N, A, LDA, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR )
+                  sorgqr(M, N, N, A, LDA, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR );
                   IE = ITAU
                   ITAUQ = IE + N
                   ITAUP = ITAUQ + N
@@ -712,17 +712,17 @@
                   // Bidiagonalize R in VT
                   // (Workspace: need 4*N, prefer 3*N+2*N*NB)
 
-                  CALL SGEBRD( N, N, VT, LDVT, S, WORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR )
+                  sgebrd(N, N, VT, LDVT, S, WORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR );
 
                   // Multiply Q in A by left vectors bidiagonalizing R
                   // (Workspace: need 3*N+M, prefer 3*N+M*NB)
 
-                  CALL SORMBR( 'Q', 'R', 'N', M, N, N, VT, LDVT, WORK( ITAUQ ), A, LDA, WORK( IWORK ), LWORK-IWORK+1, IERR )
+                  sormbr('Q', 'R', 'N', M, N, N, VT, LDVT, WORK( ITAUQ ), A, LDA, WORK( IWORK ), LWORK-IWORK+1, IERR );
 
                   // Generate right vectors bidiagonalizing R in VT
                   // (Workspace: need 4*N-1, prefer 3*N+(N-1)*NB)
 
-                  CALL SORGBR( 'P', N, N, N, VT, LDVT, WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR )
+                  sorgbr('P', N, N, N, VT, LDVT, WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR );
                   IWORK = IE + N
 
                   // Perform bidiagonal QR iteration, computing left
@@ -730,7 +730,7 @@
                   // singular vectors of A in VT
                   // (Workspace: need BDSPAC)
 
-                  CALL SBDSQR( 'U', N, N, M, 0, S, WORK( IE ), VT, LDVT, A, LDA, DUM, 1, WORK( IWORK ), INFO )
+                  sbdsqr('U', N, N, M, 0, S, WORK( IE ), VT, LDVT, A, LDA, DUM, 1, WORK( IWORK ), INFO );
 
                }
 
@@ -764,16 +764,16 @@
                      // Compute A=Q*R
                      // (Workspace: need N*N+2*N, prefer N*N+N+N*NB)
 
-                     CALL SGEQRF( M, N, A, LDA, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR )
+                     sgeqrf(M, N, A, LDA, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR );
 
                      // Copy R to WORK(IR), zeroing out below it
 
-                     CALL SLACPY( 'U', N, N, A, LDA, WORK( IR ), LDWRKR )                      CALL SLASET( 'L', N-1, N-1, ZERO, ZERO, WORK( IR+1 ), LDWRKR )
+                     slacpy('U', N, N, A, LDA, WORK( IR ), LDWRKR )                      CALL SLASET( 'L', N-1, N-1, ZERO, ZERO, WORK( IR+1 ), LDWRKR );
 
                      // Generate Q in A
                      // (Workspace: need N*N+2*N, prefer N*N+N+N*NB)
 
-                     CALL SORGQR( M, N, N, A, LDA, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR )
+                     sorgqr(M, N, N, A, LDA, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR );
                      IE = ITAU
                      ITAUQ = IE + N
                      ITAUP = ITAUQ + N
@@ -782,25 +782,25 @@
                      // Bidiagonalize R in WORK(IR)
                      // (Workspace: need N*N+4*N, prefer N*N+3*N+2*N*NB)
 
-                     CALL SGEBRD( N, N, WORK( IR ), LDWRKR, S, WORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR )
+                     sgebrd(N, N, WORK( IR ), LDWRKR, S, WORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR );
 
                      // Generate left vectors bidiagonalizing R in WORK(IR)
                      // (Workspace: need N*N+4*N, prefer N*N+3*N+N*NB)
 
-                     CALL SORGBR( 'Q', N, N, N, WORK( IR ), LDWRKR, WORK( ITAUQ ), WORK( IWORK ), LWORK-IWORK+1, IERR )
+                     sorgbr('Q', N, N, N, WORK( IR ), LDWRKR, WORK( ITAUQ ), WORK( IWORK ), LWORK-IWORK+1, IERR );
                      IWORK = IE + N
 
                      // Perform bidiagonal QR iteration, computing left
                      // singular vectors of R in WORK(IR)
                      // (Workspace: need N*N+BDSPAC)
 
-                     CALL SBDSQR( 'U', N, 0, N, 0, S, WORK( IE ), DUM, 1, WORK( IR ), LDWRKR, DUM, 1, WORK( IWORK ), INFO )
+                     sbdsqr('U', N, 0, N, 0, S, WORK( IE ), DUM, 1, WORK( IR ), LDWRKR, DUM, 1, WORK( IWORK ), INFO );
 
                      // Multiply Q in A by left singular vectors of R in
                      // WORK(IR), storing result in U
                      // (Workspace: need N*N)
 
-                     CALL SGEMM( 'N', 'N', M, N, N, ONE, A, LDA, WORK( IR ), LDWRKR, ZERO, U, LDU )
+                     sgemm('N', 'N', M, N, N, ONE, A, LDA, WORK( IR ), LDWRKR, ZERO, U, LDU );
 
                   } else {
 
@@ -812,13 +812,13 @@
                      // Compute A=Q*R, copying result to U
                      // (Workspace: need 2*N, prefer N+N*NB)
 
-                     CALL SGEQRF( M, N, A, LDA, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR )
-                     CALL SLACPY( 'L', M, N, A, LDA, U, LDU )
+                     sgeqrf(M, N, A, LDA, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR );
+                     slacpy('L', M, N, A, LDA, U, LDU );
 
                      // Generate Q in U
                      // (Workspace: need 2*N, prefer N+N*NB)
 
-                     CALL SORGQR( M, N, N, U, LDU, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR )
+                     sorgqr(M, N, N, U, LDU, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR );
                      IE = ITAU
                      ITAUQ = IE + N
                      ITAUP = ITAUQ + N
@@ -827,25 +827,25 @@
                      // Zero out below R in A
 
                      if ( N .GT. 1 ) {
-                        CALL SLASET( 'L', N-1, N-1, ZERO, ZERO, A( 2, 1 ), LDA )
+                        slaset('L', N-1, N-1, ZERO, ZERO, A( 2, 1 ), LDA );
                      }
 
                      // Bidiagonalize R in A
                      // (Workspace: need 4*N, prefer 3*N+2*N*NB)
 
-                     CALL SGEBRD( N, N, A, LDA, S, WORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR )
+                     sgebrd(N, N, A, LDA, S, WORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR );
 
                      // Multiply Q in U by left vectors bidiagonalizing R
                      // (Workspace: need 3*N+M, prefer 3*N+M*NB)
 
-                     CALL SORMBR( 'Q', 'R', 'N', M, N, N, A, LDA, WORK( ITAUQ ), U, LDU, WORK( IWORK ), LWORK-IWORK+1, IERR )
+                     sormbr('Q', 'R', 'N', M, N, N, A, LDA, WORK( ITAUQ ), U, LDU, WORK( IWORK ), LWORK-IWORK+1, IERR );
                      IWORK = IE + N
 
                      // Perform bidiagonal QR iteration, computing left
                      // singular vectors of A in U
                      // (Workspace: need BDSPAC)
 
-                     CALL SBDSQR( 'U', N, 0, M, 0, S, WORK( IE ), DUM, 1, U, LDU, DUM, 1, WORK( IWORK ), INFO )
+                     sbdsqr('U', N, 0, M, 0, S, WORK( IE ), DUM, 1, U, LDU, DUM, 1, WORK( IWORK ), INFO );
 
                   }
 
@@ -888,16 +888,16 @@
                      // Compute A=Q*R
                      // (Workspace: need 2*N*N+2*N, prefer 2*N*N+N+N*NB)
 
-                     CALL SGEQRF( M, N, A, LDA, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR )
+                     sgeqrf(M, N, A, LDA, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR );
 
                      // Copy R to WORK(IU), zeroing out below it
 
-                     CALL SLACPY( 'U', N, N, A, LDA, WORK( IU ), LDWRKU )                      CALL SLASET( 'L', N-1, N-1, ZERO, ZERO, WORK( IU+1 ), LDWRKU )
+                     slacpy('U', N, N, A, LDA, WORK( IU ), LDWRKU )                      CALL SLASET( 'L', N-1, N-1, ZERO, ZERO, WORK( IU+1 ), LDWRKU );
 
                      // Generate Q in A
                      // (Workspace: need 2*N*N+2*N, prefer 2*N*N+N+N*NB)
 
-                     CALL SORGQR( M, N, N, A, LDA, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR )
+                     sorgqr(M, N, N, A, LDA, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR );
                      IE = ITAU
                      ITAUQ = IE + N
                      ITAUP = ITAUQ + N
@@ -908,19 +908,19 @@
                      // (Workspace: need 2*N*N+4*N,
                                  // prefer 2*N*N+3*N+2*N*NB)
 
-                     CALL SGEBRD( N, N, WORK( IU ), LDWRKU, S, WORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR )
-                     CALL SLACPY( 'U', N, N, WORK( IU ), LDWRKU, WORK( IR ), LDWRKR )
+                     sgebrd(N, N, WORK( IU ), LDWRKU, S, WORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR );
+                     slacpy('U', N, N, WORK( IU ), LDWRKU, WORK( IR ), LDWRKR );
 
                      // Generate left bidiagonalizing vectors in WORK(IU)
                      // (Workspace: need 2*N*N+4*N, prefer 2*N*N+3*N+N*NB)
 
-                     CALL SORGBR( 'Q', N, N, N, WORK( IU ), LDWRKU, WORK( ITAUQ ), WORK( IWORK ), LWORK-IWORK+1, IERR )
+                     sorgbr('Q', N, N, N, WORK( IU ), LDWRKU, WORK( ITAUQ ), WORK( IWORK ), LWORK-IWORK+1, IERR );
 
                      // Generate right bidiagonalizing vectors in WORK(IR)
                      // (Workspace: need 2*N*N+4*N-1,
                                  // prefer 2*N*N+3*N+(N-1)*NB)
 
-                     CALL SORGBR( 'P', N, N, N, WORK( IR ), LDWRKR, WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR )
+                     sorgbr('P', N, N, N, WORK( IR ), LDWRKR, WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR );
                      IWORK = IE + N
 
                      // Perform bidiagonal QR iteration, computing left
@@ -928,18 +928,18 @@
                      // right singular vectors of R in WORK(IR)
                      // (Workspace: need 2*N*N+BDSPAC)
 
-                     CALL SBDSQR( 'U', N, N, N, 0, S, WORK( IE ), WORK( IR ), LDWRKR, WORK( IU ), LDWRKU, DUM, 1, WORK( IWORK ), INFO )
+                     sbdsqr('U', N, N, N, 0, S, WORK( IE ), WORK( IR ), LDWRKR, WORK( IU ), LDWRKU, DUM, 1, WORK( IWORK ), INFO );
 
                      // Multiply Q in A by left singular vectors of R in
                      // WORK(IU), storing result in U
                      // (Workspace: need N*N)
 
-                     CALL SGEMM( 'N', 'N', M, N, N, ONE, A, LDA, WORK( IU ), LDWRKU, ZERO, U, LDU )
+                     sgemm('N', 'N', M, N, N, ONE, A, LDA, WORK( IU ), LDWRKU, ZERO, U, LDU );
 
                      // Copy right singular vectors of R to A
                      // (Workspace: need N*N)
 
-                     CALL SLACPY( 'F', N, N, WORK( IR ), LDWRKR, A, LDA )
+                     slacpy('F', N, N, WORK( IR ), LDWRKR, A, LDA );
 
                   } else {
 
@@ -951,13 +951,13 @@
                      // Compute A=Q*R, copying result to U
                      // (Workspace: need 2*N, prefer N+N*NB)
 
-                     CALL SGEQRF( M, N, A, LDA, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR )
-                     CALL SLACPY( 'L', M, N, A, LDA, U, LDU )
+                     sgeqrf(M, N, A, LDA, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR );
+                     slacpy('L', M, N, A, LDA, U, LDU );
 
                      // Generate Q in U
                      // (Workspace: need 2*N, prefer N+N*NB)
 
-                     CALL SORGQR( M, N, N, U, LDU, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR )
+                     sorgqr(M, N, N, U, LDU, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR );
                      IE = ITAU
                      ITAUQ = IE + N
                      ITAUP = ITAUQ + N
@@ -966,23 +966,23 @@
                      // Zero out below R in A
 
                      if ( N .GT. 1 ) {
-                        CALL SLASET( 'L', N-1, N-1, ZERO, ZERO, A( 2, 1 ), LDA )
+                        slaset('L', N-1, N-1, ZERO, ZERO, A( 2, 1 ), LDA );
                      }
 
                      // Bidiagonalize R in A
                      // (Workspace: need 4*N, prefer 3*N+2*N*NB)
 
-                     CALL SGEBRD( N, N, A, LDA, S, WORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR )
+                     sgebrd(N, N, A, LDA, S, WORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR );
 
                      // Multiply Q in U by left vectors bidiagonalizing R
                      // (Workspace: need 3*N+M, prefer 3*N+M*NB)
 
-                     CALL SORMBR( 'Q', 'R', 'N', M, N, N, A, LDA, WORK( ITAUQ ), U, LDU, WORK( IWORK ), LWORK-IWORK+1, IERR )
+                     sormbr('Q', 'R', 'N', M, N, N, A, LDA, WORK( ITAUQ ), U, LDU, WORK( IWORK ), LWORK-IWORK+1, IERR );
 
                      // Generate right vectors bidiagonalizing R in A
                      // (Workspace: need 4*N-1, prefer 3*N+(N-1)*NB)
 
-                     CALL SORGBR( 'P', N, N, N, A, LDA, WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR )
+                     sorgbr('P', N, N, N, A, LDA, WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR );
                      IWORK = IE + N
 
                      // Perform bidiagonal QR iteration, computing left
@@ -990,7 +990,7 @@
                      // singular vectors of A in A
                      // (Workspace: need BDSPAC)
 
-                     CALL SBDSQR( 'U', N, N, M, 0, S, WORK( IE ), A, LDA, U, LDU, DUM, 1, WORK( IWORK ), INFO )
+                     sbdsqr('U', N, N, M, 0, S, WORK( IE ), A, LDA, U, LDU, DUM, 1, WORK( IWORK ), INFO );
 
                   }
 
@@ -1023,16 +1023,16 @@
                      // Compute A=Q*R
                      // (Workspace: need N*N+2*N, prefer N*N+N+N*NB)
 
-                     CALL SGEQRF( M, N, A, LDA, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR )
+                     sgeqrf(M, N, A, LDA, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR );
 
                      // Copy R to WORK(IU), zeroing out below it
 
-                     CALL SLACPY( 'U', N, N, A, LDA, WORK( IU ), LDWRKU )                      CALL SLASET( 'L', N-1, N-1, ZERO, ZERO, WORK( IU+1 ), LDWRKU )
+                     slacpy('U', N, N, A, LDA, WORK( IU ), LDWRKU )                      CALL SLASET( 'L', N-1, N-1, ZERO, ZERO, WORK( IU+1 ), LDWRKU );
 
                      // Generate Q in A
                      // (Workspace: need N*N+2*N, prefer N*N+N+N*NB)
 
-                     CALL SORGQR( M, N, N, A, LDA, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR )
+                     sorgqr(M, N, N, A, LDA, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR );
                      IE = ITAU
                      ITAUQ = IE + N
                      ITAUP = ITAUQ + N
@@ -1041,19 +1041,19 @@
                      // Bidiagonalize R in WORK(IU), copying result to VT
                      // (Workspace: need N*N+4*N, prefer N*N+3*N+2*N*NB)
 
-                     CALL SGEBRD( N, N, WORK( IU ), LDWRKU, S, WORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR )
-                     CALL SLACPY( 'U', N, N, WORK( IU ), LDWRKU, VT, LDVT )
+                     sgebrd(N, N, WORK( IU ), LDWRKU, S, WORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR );
+                     slacpy('U', N, N, WORK( IU ), LDWRKU, VT, LDVT );
 
                      // Generate left bidiagonalizing vectors in WORK(IU)
                      // (Workspace: need N*N+4*N, prefer N*N+3*N+N*NB)
 
-                     CALL SORGBR( 'Q', N, N, N, WORK( IU ), LDWRKU, WORK( ITAUQ ), WORK( IWORK ), LWORK-IWORK+1, IERR )
+                     sorgbr('Q', N, N, N, WORK( IU ), LDWRKU, WORK( ITAUQ ), WORK( IWORK ), LWORK-IWORK+1, IERR );
 
                      // Generate right bidiagonalizing vectors in VT
                      // (Workspace: need N*N+4*N-1,
                                  // prefer N*N+3*N+(N-1)*NB)
 
-                     CALL SORGBR( 'P', N, N, N, VT, LDVT, WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR )
+                     sorgbr('P', N, N, N, VT, LDVT, WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR );
                      IWORK = IE + N
 
                      // Perform bidiagonal QR iteration, computing left
@@ -1061,13 +1061,13 @@
                      // right singular vectors of R in VT
                      // (Workspace: need N*N+BDSPAC)
 
-                     CALL SBDSQR( 'U', N, N, N, 0, S, WORK( IE ), VT, LDVT, WORK( IU ), LDWRKU, DUM, 1, WORK( IWORK ), INFO )
+                     sbdsqr('U', N, N, N, 0, S, WORK( IE ), VT, LDVT, WORK( IU ), LDWRKU, DUM, 1, WORK( IWORK ), INFO );
 
                      // Multiply Q in A by left singular vectors of R in
                      // WORK(IU), storing result in U
                      // (Workspace: need N*N)
 
-                     CALL SGEMM( 'N', 'N', M, N, N, ONE, A, LDA, WORK( IU ), LDWRKU, ZERO, U, LDU )
+                     sgemm('N', 'N', M, N, N, ONE, A, LDA, WORK( IU ), LDWRKU, ZERO, U, LDU );
 
                   } else {
 
@@ -1079,17 +1079,17 @@
                      // Compute A=Q*R, copying result to U
                      // (Workspace: need 2*N, prefer N+N*NB)
 
-                     CALL SGEQRF( M, N, A, LDA, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR )
-                     CALL SLACPY( 'L', M, N, A, LDA, U, LDU )
+                     sgeqrf(M, N, A, LDA, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR );
+                     slacpy('L', M, N, A, LDA, U, LDU );
 
                      // Generate Q in U
                      // (Workspace: need 2*N, prefer N+N*NB)
 
-                     CALL SORGQR( M, N, N, U, LDU, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR )
+                     sorgqr(M, N, N, U, LDU, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR );
 
                      // Copy R to VT, zeroing out below it
 
-                     CALL SLACPY( 'U', N, N, A, LDA, VT, LDVT )
+                     slacpy('U', N, N, A, LDA, VT, LDVT );
                      IF( N.GT.1 ) CALL SLASET( 'L', N-1, N-1, ZERO, ZERO, VT( 2, 1 ), LDVT )
                      IE = ITAU
                      ITAUQ = IE + N
@@ -1099,18 +1099,18 @@
                      // Bidiagonalize R in VT
                      // (Workspace: need 4*N, prefer 3*N+2*N*NB)
 
-                     CALL SGEBRD( N, N, VT, LDVT, S, WORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR )
+                     sgebrd(N, N, VT, LDVT, S, WORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR );
 
                      // Multiply Q in U by left bidiagonalizing vectors
                      // in VT
                      // (Workspace: need 3*N+M, prefer 3*N+M*NB)
 
-                     CALL SORMBR( 'Q', 'R', 'N', M, N, N, VT, LDVT, WORK( ITAUQ ), U, LDU, WORK( IWORK ), LWORK-IWORK+1, IERR )
+                     sormbr('Q', 'R', 'N', M, N, N, VT, LDVT, WORK( ITAUQ ), U, LDU, WORK( IWORK ), LWORK-IWORK+1, IERR );
 
                      // Generate right bidiagonalizing vectors in VT
                      // (Workspace: need 4*N-1, prefer 3*N+(N-1)*NB)
 
-                     CALL SORGBR( 'P', N, N, N, VT, LDVT, WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR )
+                     sorgbr('P', N, N, N, VT, LDVT, WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR );
                      IWORK = IE + N
 
                      // Perform bidiagonal QR iteration, computing left
@@ -1118,7 +1118,7 @@
                      // singular vectors of A in VT
                      // (Workspace: need BDSPAC)
 
-                     CALL SBDSQR( 'U', N, N, M, 0, S, WORK( IE ), VT, LDVT, U, LDU, DUM, 1, WORK( IWORK ), INFO )
+                     sbdsqr('U', N, N, M, 0, S, WORK( IE ), VT, LDVT, U, LDU, DUM, 1, WORK( IWORK ), INFO );
 
                   }
 
@@ -1154,17 +1154,17 @@
                      // Compute A=Q*R, copying result to U
                      // (Workspace: need N*N+2*N, prefer N*N+N+N*NB)
 
-                     CALL SGEQRF( M, N, A, LDA, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR )
-                     CALL SLACPY( 'L', M, N, A, LDA, U, LDU )
+                     sgeqrf(M, N, A, LDA, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR );
+                     slacpy('L', M, N, A, LDA, U, LDU );
 
                      // Copy R to WORK(IR), zeroing out below it
 
-                     CALL SLACPY( 'U', N, N, A, LDA, WORK( IR ), LDWRKR )                      CALL SLASET( 'L', N-1, N-1, ZERO, ZERO, WORK( IR+1 ), LDWRKR )
+                     slacpy('U', N, N, A, LDA, WORK( IR ), LDWRKR )                      CALL SLASET( 'L', N-1, N-1, ZERO, ZERO, WORK( IR+1 ), LDWRKR );
 
                      // Generate Q in U
                      // (Workspace: need N*N+N+M, prefer N*N+N+M*NB)
 
-                     CALL SORGQR( M, M, N, U, LDU, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR )
+                     sorgqr(M, M, N, U, LDU, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR );
                      IE = ITAU
                      ITAUQ = IE + N
                      ITAUP = ITAUQ + N
@@ -1173,29 +1173,29 @@
                      // Bidiagonalize R in WORK(IR)
                      // (Workspace: need N*N+4*N, prefer N*N+3*N+2*N*NB)
 
-                     CALL SGEBRD( N, N, WORK( IR ), LDWRKR, S, WORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR )
+                     sgebrd(N, N, WORK( IR ), LDWRKR, S, WORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR );
 
                      // Generate left bidiagonalizing vectors in WORK(IR)
                      // (Workspace: need N*N+4*N, prefer N*N+3*N+N*NB)
 
-                     CALL SORGBR( 'Q', N, N, N, WORK( IR ), LDWRKR, WORK( ITAUQ ), WORK( IWORK ), LWORK-IWORK+1, IERR )
+                     sorgbr('Q', N, N, N, WORK( IR ), LDWRKR, WORK( ITAUQ ), WORK( IWORK ), LWORK-IWORK+1, IERR );
                      IWORK = IE + N
 
                      // Perform bidiagonal QR iteration, computing left
                      // singular vectors of R in WORK(IR)
                      // (Workspace: need N*N+BDSPAC)
 
-                     CALL SBDSQR( 'U', N, 0, N, 0, S, WORK( IE ), DUM, 1, WORK( IR ), LDWRKR, DUM, 1, WORK( IWORK ), INFO )
+                     sbdsqr('U', N, 0, N, 0, S, WORK( IE ), DUM, 1, WORK( IR ), LDWRKR, DUM, 1, WORK( IWORK ), INFO );
 
                      // Multiply Q in U by left singular vectors of R in
                      // WORK(IR), storing result in A
                      // (Workspace: need N*N)
 
-                     CALL SGEMM( 'N', 'N', M, N, N, ONE, U, LDU, WORK( IR ), LDWRKR, ZERO, A, LDA )
+                     sgemm('N', 'N', M, N, N, ONE, U, LDU, WORK( IR ), LDWRKR, ZERO, A, LDA );
 
                      // Copy left singular vectors of A from A to U
 
-                     CALL SLACPY( 'F', M, N, A, LDA, U, LDU )
+                     slacpy('F', M, N, A, LDA, U, LDU );
 
                   } else {
 
@@ -1207,13 +1207,13 @@
                      // Compute A=Q*R, copying result to U
                      // (Workspace: need 2*N, prefer N+N*NB)
 
-                     CALL SGEQRF( M, N, A, LDA, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR )
-                     CALL SLACPY( 'L', M, N, A, LDA, U, LDU )
+                     sgeqrf(M, N, A, LDA, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR );
+                     slacpy('L', M, N, A, LDA, U, LDU );
 
                      // Generate Q in U
                      // (Workspace: need N+M, prefer N+M*NB)
 
-                     CALL SORGQR( M, M, N, U, LDU, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR )
+                     sorgqr(M, M, N, U, LDU, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR );
                      IE = ITAU
                      ITAUQ = IE + N
                      ITAUP = ITAUQ + N
@@ -1222,26 +1222,26 @@
                      // Zero out below R in A
 
                      if ( N .GT. 1 ) {
-                        CALL SLASET( 'L', N-1, N-1, ZERO, ZERO, A( 2, 1 ), LDA )
+                        slaset('L', N-1, N-1, ZERO, ZERO, A( 2, 1 ), LDA );
                      }
 
                      // Bidiagonalize R in A
                      // (Workspace: need 4*N, prefer 3*N+2*N*NB)
 
-                     CALL SGEBRD( N, N, A, LDA, S, WORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR )
+                     sgebrd(N, N, A, LDA, S, WORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR );
 
                      // Multiply Q in U by left bidiagonalizing vectors
                      // in A
                      // (Workspace: need 3*N+M, prefer 3*N+M*NB)
 
-                     CALL SORMBR( 'Q', 'R', 'N', M, N, N, A, LDA, WORK( ITAUQ ), U, LDU, WORK( IWORK ), LWORK-IWORK+1, IERR )
+                     sormbr('Q', 'R', 'N', M, N, N, A, LDA, WORK( ITAUQ ), U, LDU, WORK( IWORK ), LWORK-IWORK+1, IERR );
                      IWORK = IE + N
 
                      // Perform bidiagonal QR iteration, computing left
                      // singular vectors of A in U
                      // (Workspace: need BDSPAC)
 
-                     CALL SBDSQR( 'U', N, 0, M, 0, S, WORK( IE ), DUM, 1, U, LDU, DUM, 1, WORK( IWORK ), INFO )
+                     sbdsqr('U', N, 0, M, 0, S, WORK( IE ), DUM, 1, U, LDU, DUM, 1, WORK( IWORK ), INFO );
 
                   }
 
@@ -1284,17 +1284,17 @@
                      // Compute A=Q*R, copying result to U
                      // (Workspace: need 2*N*N+2*N, prefer 2*N*N+N+N*NB)
 
-                     CALL SGEQRF( M, N, A, LDA, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR )
-                     CALL SLACPY( 'L', M, N, A, LDA, U, LDU )
+                     sgeqrf(M, N, A, LDA, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR );
+                     slacpy('L', M, N, A, LDA, U, LDU );
 
                      // Generate Q in U
                      // (Workspace: need 2*N*N+N+M, prefer 2*N*N+N+M*NB)
 
-                     CALL SORGQR( M, M, N, U, LDU, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR )
+                     sorgqr(M, M, N, U, LDU, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR );
 
                      // Copy R to WORK(IU), zeroing out below it
 
-                     CALL SLACPY( 'U', N, N, A, LDA, WORK( IU ), LDWRKU )                      CALL SLASET( 'L', N-1, N-1, ZERO, ZERO, WORK( IU+1 ), LDWRKU )
+                     slacpy('U', N, N, A, LDA, WORK( IU ), LDWRKU )                      CALL SLASET( 'L', N-1, N-1, ZERO, ZERO, WORK( IU+1 ), LDWRKU );
                      IE = ITAU
                      ITAUQ = IE + N
                      ITAUP = ITAUQ + N
@@ -1305,19 +1305,19 @@
                      // (Workspace: need 2*N*N+4*N,
                                  // prefer 2*N*N+3*N+2*N*NB)
 
-                     CALL SGEBRD( N, N, WORK( IU ), LDWRKU, S, WORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR )
-                     CALL SLACPY( 'U', N, N, WORK( IU ), LDWRKU, WORK( IR ), LDWRKR )
+                     sgebrd(N, N, WORK( IU ), LDWRKU, S, WORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR );
+                     slacpy('U', N, N, WORK( IU ), LDWRKU, WORK( IR ), LDWRKR );
 
                      // Generate left bidiagonalizing vectors in WORK(IU)
                      // (Workspace: need 2*N*N+4*N, prefer 2*N*N+3*N+N*NB)
 
-                     CALL SORGBR( 'Q', N, N, N, WORK( IU ), LDWRKU, WORK( ITAUQ ), WORK( IWORK ), LWORK-IWORK+1, IERR )
+                     sorgbr('Q', N, N, N, WORK( IU ), LDWRKU, WORK( ITAUQ ), WORK( IWORK ), LWORK-IWORK+1, IERR );
 
                      // Generate right bidiagonalizing vectors in WORK(IR)
                      // (Workspace: need 2*N*N+4*N-1,
                                  // prefer 2*N*N+3*N+(N-1)*NB)
 
-                     CALL SORGBR( 'P', N, N, N, WORK( IR ), LDWRKR, WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR )
+                     sorgbr('P', N, N, N, WORK( IR ), LDWRKR, WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR );
                      IWORK = IE + N
 
                      // Perform bidiagonal QR iteration, computing left
@@ -1325,21 +1325,21 @@
                      // right singular vectors of R in WORK(IR)
                      // (Workspace: need 2*N*N+BDSPAC)
 
-                     CALL SBDSQR( 'U', N, N, N, 0, S, WORK( IE ), WORK( IR ), LDWRKR, WORK( IU ), LDWRKU, DUM, 1, WORK( IWORK ), INFO )
+                     sbdsqr('U', N, N, N, 0, S, WORK( IE ), WORK( IR ), LDWRKR, WORK( IU ), LDWRKU, DUM, 1, WORK( IWORK ), INFO );
 
                      // Multiply Q in U by left singular vectors of R in
                      // WORK(IU), storing result in A
                      // (Workspace: need N*N)
 
-                     CALL SGEMM( 'N', 'N', M, N, N, ONE, U, LDU, WORK( IU ), LDWRKU, ZERO, A, LDA )
+                     sgemm('N', 'N', M, N, N, ONE, U, LDU, WORK( IU ), LDWRKU, ZERO, A, LDA );
 
                      // Copy left singular vectors of A from A to U
 
-                     CALL SLACPY( 'F', M, N, A, LDA, U, LDU )
+                     slacpy('F', M, N, A, LDA, U, LDU );
 
                      // Copy right singular vectors of R from WORK(IR) to A
 
-                     CALL SLACPY( 'F', N, N, WORK( IR ), LDWRKR, A, LDA )
+                     slacpy('F', N, N, WORK( IR ), LDWRKR, A, LDA );
 
                   } else {
 
@@ -1351,13 +1351,13 @@
                      // Compute A=Q*R, copying result to U
                      // (Workspace: need 2*N, prefer N+N*NB)
 
-                     CALL SGEQRF( M, N, A, LDA, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR )
-                     CALL SLACPY( 'L', M, N, A, LDA, U, LDU )
+                     sgeqrf(M, N, A, LDA, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR );
+                     slacpy('L', M, N, A, LDA, U, LDU );
 
                      // Generate Q in U
                      // (Workspace: need N+M, prefer N+M*NB)
 
-                     CALL SORGQR( M, M, N, U, LDU, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR )
+                     sorgqr(M, M, N, U, LDU, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR );
                      IE = ITAU
                      ITAUQ = IE + N
                      ITAUP = ITAUQ + N
@@ -1366,24 +1366,24 @@
                      // Zero out below R in A
 
                      if ( N .GT. 1 ) {
-                        CALL SLASET( 'L', N-1, N-1, ZERO, ZERO, A( 2, 1 ), LDA )
+                        slaset('L', N-1, N-1, ZERO, ZERO, A( 2, 1 ), LDA );
                      }
 
                      // Bidiagonalize R in A
                      // (Workspace: need 4*N, prefer 3*N+2*N*NB)
 
-                     CALL SGEBRD( N, N, A, LDA, S, WORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR )
+                     sgebrd(N, N, A, LDA, S, WORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR );
 
                      // Multiply Q in U by left bidiagonalizing vectors
                      // in A
                      // (Workspace: need 3*N+M, prefer 3*N+M*NB)
 
-                     CALL SORMBR( 'Q', 'R', 'N', M, N, N, A, LDA, WORK( ITAUQ ), U, LDU, WORK( IWORK ), LWORK-IWORK+1, IERR )
+                     sormbr('Q', 'R', 'N', M, N, N, A, LDA, WORK( ITAUQ ), U, LDU, WORK( IWORK ), LWORK-IWORK+1, IERR );
 
                      // Generate right bidiagonalizing vectors in A
                      // (Workspace: need 4*N-1, prefer 3*N+(N-1)*NB)
 
-                     CALL SORGBR( 'P', N, N, N, A, LDA, WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR )
+                     sorgbr('P', N, N, N, A, LDA, WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR );
                      IWORK = IE + N
 
                      // Perform bidiagonal QR iteration, computing left
@@ -1391,7 +1391,7 @@
                      // singular vectors of A in A
                      // (Workspace: need BDSPAC)
 
-                     CALL SBDSQR( 'U', N, N, M, 0, S, WORK( IE ), A, LDA, U, LDU, DUM, 1, WORK( IWORK ), INFO )
+                     sbdsqr('U', N, N, M, 0, S, WORK( IE ), A, LDA, U, LDU, DUM, 1, WORK( IWORK ), INFO );
 
                   }
 
@@ -1424,17 +1424,17 @@
                      // Compute A=Q*R, copying result to U
                      // (Workspace: need N*N+2*N, prefer N*N+N+N*NB)
 
-                     CALL SGEQRF( M, N, A, LDA, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR )
-                     CALL SLACPY( 'L', M, N, A, LDA, U, LDU )
+                     sgeqrf(M, N, A, LDA, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR );
+                     slacpy('L', M, N, A, LDA, U, LDU );
 
                      // Generate Q in U
                      // (Workspace: need N*N+N+M, prefer N*N+N+M*NB)
 
-                     CALL SORGQR( M, M, N, U, LDU, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR )
+                     sorgqr(M, M, N, U, LDU, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR );
 
                      // Copy R to WORK(IU), zeroing out below it
 
-                     CALL SLACPY( 'U', N, N, A, LDA, WORK( IU ), LDWRKU )                      CALL SLASET( 'L', N-1, N-1, ZERO, ZERO, WORK( IU+1 ), LDWRKU )
+                     slacpy('U', N, N, A, LDA, WORK( IU ), LDWRKU )                      CALL SLASET( 'L', N-1, N-1, ZERO, ZERO, WORK( IU+1 ), LDWRKU );
                      IE = ITAU
                      ITAUQ = IE + N
                      ITAUP = ITAUQ + N
@@ -1443,19 +1443,19 @@
                      // Bidiagonalize R in WORK(IU), copying result to VT
                      // (Workspace: need N*N+4*N, prefer N*N+3*N+2*N*NB)
 
-                     CALL SGEBRD( N, N, WORK( IU ), LDWRKU, S, WORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR )
-                     CALL SLACPY( 'U', N, N, WORK( IU ), LDWRKU, VT, LDVT )
+                     sgebrd(N, N, WORK( IU ), LDWRKU, S, WORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR );
+                     slacpy('U', N, N, WORK( IU ), LDWRKU, VT, LDVT );
 
                      // Generate left bidiagonalizing vectors in WORK(IU)
                      // (Workspace: need N*N+4*N, prefer N*N+3*N+N*NB)
 
-                     CALL SORGBR( 'Q', N, N, N, WORK( IU ), LDWRKU, WORK( ITAUQ ), WORK( IWORK ), LWORK-IWORK+1, IERR )
+                     sorgbr('Q', N, N, N, WORK( IU ), LDWRKU, WORK( ITAUQ ), WORK( IWORK ), LWORK-IWORK+1, IERR );
 
                      // Generate right bidiagonalizing vectors in VT
                      // (Workspace: need N*N+4*N-1,
                                  // prefer N*N+3*N+(N-1)*NB)
 
-                     CALL SORGBR( 'P', N, N, N, VT, LDVT, WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR )
+                     sorgbr('P', N, N, N, VT, LDVT, WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR );
                      IWORK = IE + N
 
                      // Perform bidiagonal QR iteration, computing left
@@ -1463,17 +1463,17 @@
                      // right singular vectors of R in VT
                      // (Workspace: need N*N+BDSPAC)
 
-                     CALL SBDSQR( 'U', N, N, N, 0, S, WORK( IE ), VT, LDVT, WORK( IU ), LDWRKU, DUM, 1, WORK( IWORK ), INFO )
+                     sbdsqr('U', N, N, N, 0, S, WORK( IE ), VT, LDVT, WORK( IU ), LDWRKU, DUM, 1, WORK( IWORK ), INFO );
 
                      // Multiply Q in U by left singular vectors of R in
                      // WORK(IU), storing result in A
                      // (Workspace: need N*N)
 
-                     CALL SGEMM( 'N', 'N', M, N, N, ONE, U, LDU, WORK( IU ), LDWRKU, ZERO, A, LDA )
+                     sgemm('N', 'N', M, N, N, ONE, U, LDU, WORK( IU ), LDWRKU, ZERO, A, LDA );
 
                      // Copy left singular vectors of A from A to U
 
-                     CALL SLACPY( 'F', M, N, A, LDA, U, LDU )
+                     slacpy('F', M, N, A, LDA, U, LDU );
 
                   } else {
 
@@ -1485,17 +1485,17 @@
                      // Compute A=Q*R, copying result to U
                      // (Workspace: need 2*N, prefer N+N*NB)
 
-                     CALL SGEQRF( M, N, A, LDA, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR )
-                     CALL SLACPY( 'L', M, N, A, LDA, U, LDU )
+                     sgeqrf(M, N, A, LDA, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR );
+                     slacpy('L', M, N, A, LDA, U, LDU );
 
                      // Generate Q in U
                      // (Workspace: need N+M, prefer N+M*NB)
 
-                     CALL SORGQR( M, M, N, U, LDU, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR )
+                     sorgqr(M, M, N, U, LDU, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR );
 
                      // Copy R from A to VT, zeroing out below it
 
-                     CALL SLACPY( 'U', N, N, A, LDA, VT, LDVT )
+                     slacpy('U', N, N, A, LDA, VT, LDVT );
                      IF( N.GT.1 ) CALL SLASET( 'L', N-1, N-1, ZERO, ZERO, VT( 2, 1 ), LDVT )
                      IE = ITAU
                      ITAUQ = IE + N
@@ -1505,18 +1505,18 @@
                      // Bidiagonalize R in VT
                      // (Workspace: need 4*N, prefer 3*N+2*N*NB)
 
-                     CALL SGEBRD( N, N, VT, LDVT, S, WORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR )
+                     sgebrd(N, N, VT, LDVT, S, WORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR );
 
                      // Multiply Q in U by left bidiagonalizing vectors
                      // in VT
                      // (Workspace: need 3*N+M, prefer 3*N+M*NB)
 
-                     CALL SORMBR( 'Q', 'R', 'N', M, N, N, VT, LDVT, WORK( ITAUQ ), U, LDU, WORK( IWORK ), LWORK-IWORK+1, IERR )
+                     sormbr('Q', 'R', 'N', M, N, N, VT, LDVT, WORK( ITAUQ ), U, LDU, WORK( IWORK ), LWORK-IWORK+1, IERR );
 
                      // Generate right bidiagonalizing vectors in VT
                      // (Workspace: need 4*N-1, prefer 3*N+(N-1)*NB)
 
-                     CALL SORGBR( 'P', N, N, N, VT, LDVT, WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR )
+                     sorgbr('P', N, N, N, VT, LDVT, WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR );
                      IWORK = IE + N
 
                      // Perform bidiagonal QR iteration, computing left
@@ -1524,7 +1524,7 @@
                      // singular vectors of A in VT
                      // (Workspace: need BDSPAC)
 
-                     CALL SBDSQR( 'U', N, N, M, 0, S, WORK( IE ), VT, LDVT, U, LDU, DUM, 1, WORK( IWORK ), INFO )
+                     sbdsqr('U', N, N, M, 0, S, WORK( IE ), VT, LDVT, U, LDU, DUM, 1, WORK( IWORK ), INFO );
 
                   }
 
@@ -1547,14 +1547,14 @@
             // Bidiagonalize A
             // (Workspace: need 3*N+M, prefer 3*N+(M+N)*NB)
 
-            CALL SGEBRD( M, N, A, LDA, S, WORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR )
+            sgebrd(M, N, A, LDA, S, WORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR );
             if ( WNTUAS ) {
 
                // If left singular vectors desired in U, copy result to U
                // and generate left bidiagonalizing vectors in U
                // (Workspace: need 3*N+NCU, prefer 3*N+NCU*NB)
 
-               CALL SLACPY( 'L', M, N, A, LDA, U, LDU )
+               slacpy('L', M, N, A, LDA, U, LDU );
                IF( WNTUS ) NCU = N                IF( WNTUA ) NCU = M                CALL SORGBR( 'Q', M, NCU, N, U, LDU, WORK( ITAUQ ), WORK( IWORK ), LWORK-IWORK+1, IERR )
             }
             if ( WNTVAS ) {
@@ -1563,8 +1563,8 @@
                // VT and generate right bidiagonalizing vectors in VT
                // (Workspace: need 4*N-1, prefer 3*N+(N-1)*NB)
 
-               CALL SLACPY( 'U', N, N, A, LDA, VT, LDVT )
-               CALL SORGBR( 'P', N, N, N, VT, LDVT, WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR )
+               slacpy('U', N, N, A, LDA, VT, LDVT );
+               sorgbr('P', N, N, N, VT, LDVT, WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR );
             }
             if ( WNTUO ) {
 
@@ -1572,7 +1572,7 @@
                // bidiagonalizing vectors in A
                // (Workspace: need 4*N, prefer 3*N+N*NB)
 
-               CALL SORGBR( 'Q', M, N, N, A, LDA, WORK( ITAUQ ), WORK( IWORK ), LWORK-IWORK+1, IERR )
+               sorgbr('Q', M, N, N, A, LDA, WORK( ITAUQ ), WORK( IWORK ), LWORK-IWORK+1, IERR );
             }
             if ( WNTVO ) {
 
@@ -1580,7 +1580,7 @@
                // bidiagonalizing vectors in A
                // (Workspace: need 4*N-1, prefer 3*N+(N-1)*NB)
 
-               CALL SORGBR( 'P', N, N, N, A, LDA, WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR )
+               sorgbr('P', N, N, N, A, LDA, WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR );
             }
             IWORK = IE + N
             IF( WNTUAS .OR. WNTUO ) NRU = M             IF( WNTUN ) NRU = 0             IF( WNTVAS .OR. WNTVO ) NCVT = N             IF( WNTVN ) NCVT = 0
@@ -1591,7 +1591,7 @@
                // vectors in VT
                // (Workspace: need BDSPAC)
 
-               CALL SBDSQR( 'U', N, NCVT, NRU, 0, S, WORK( IE ), VT, LDVT, U, LDU, DUM, 1, WORK( IWORK ), INFO )
+               sbdsqr('U', N, NCVT, NRU, 0, S, WORK( IE ), VT, LDVT, U, LDU, DUM, 1, WORK( IWORK ), INFO );
             } else if ( ( .NOT.WNTUO ) .AND. WNTVO ) {
 
                // Perform bidiagonal QR iteration, if desired, computing
@@ -1599,7 +1599,7 @@
                // vectors in A
                // (Workspace: need BDSPAC)
 
-               CALL SBDSQR( 'U', N, NCVT, NRU, 0, S, WORK( IE ), A, LDA, U, LDU, DUM, 1, WORK( IWORK ), INFO )
+               sbdsqr('U', N, NCVT, NRU, 0, S, WORK( IE ), A, LDA, U, LDU, DUM, 1, WORK( IWORK ), INFO );
             } else {
 
                // Perform bidiagonal QR iteration, if desired, computing
@@ -1607,7 +1607,7 @@
                // vectors in VT
                // (Workspace: need BDSPAC)
 
-               CALL SBDSQR( 'U', N, NCVT, NRU, 0, S, WORK( IE ), VT, LDVT, A, LDA, DUM, 1, WORK( IWORK ), INFO )
+               sbdsqr('U', N, NCVT, NRU, 0, S, WORK( IE ), VT, LDVT, A, LDA, DUM, 1, WORK( IWORK ), INFO );
             }
 
          }
@@ -1631,11 +1631,11 @@
                // Compute A=L*Q
                // (Workspace: need 2*M, prefer M+M*NB)
 
-               CALL SGELQF( M, N, A, LDA, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR )
+               sgelqf(M, N, A, LDA, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR );
 
                // Zero out above L
 
-               CALL SLASET( 'U', M-1, M-1, ZERO, ZERO, A( 1, 2 ), LDA )
+               slaset('U', M-1, M-1, ZERO, ZERO, A( 1, 2 ), LDA );
                IE = 1
                ITAUQ = IE + M
                ITAUP = ITAUQ + M
@@ -1644,13 +1644,13 @@
                // Bidiagonalize L in A
                // (Workspace: need 4*M, prefer 3*M+2*M*NB)
 
-               CALL SGEBRD( M, M, A, LDA, S, WORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR )
+               sgebrd(M, M, A, LDA, S, WORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR );
                if ( WNTUO .OR. WNTUAS ) {
 
                   // If left singular vectors desired, generate Q
                   // (Workspace: need 4*M, prefer 3*M+M*NB)
 
-                  CALL SORGBR( 'Q', M, M, M, A, LDA, WORK( ITAUQ ), WORK( IWORK ), LWORK-IWORK+1, IERR )
+                  sorgbr('Q', M, M, M, A, LDA, WORK( ITAUQ ), WORK( IWORK ), LWORK-IWORK+1, IERR );
                }
                IWORK = IE + M
                NRU = 0
@@ -1660,7 +1660,7 @@
                // vectors of A in A if desired
                // (Workspace: need BDSPAC)
 
-               CALL SBDSQR( 'U', M, 0, NRU, 0, S, WORK( IE ), DUM, 1, A, LDA, DUM, 1, WORK( IWORK ), INFO )
+               sbdsqr('U', M, 0, NRU, 0, S, WORK( IE ), DUM, 1, A, LDA, DUM, 1, WORK( IWORK ), INFO );
 
                // If left singular vectors desired in U, copy them there
 
@@ -1705,17 +1705,17 @@
                   // Compute A=L*Q
                   // (Workspace: need M*M+2*M, prefer M*M+M+M*NB)
 
-                  CALL SGELQF( M, N, A, LDA, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR )
+                  sgelqf(M, N, A, LDA, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR );
 
                   // Copy L to WORK(IR) and zero out above it
 
-                  CALL SLACPY( 'L', M, M, A, LDA, WORK( IR ), LDWRKR )
-                  CALL SLASET( 'U', M-1, M-1, ZERO, ZERO, WORK( IR+LDWRKR ), LDWRKR )
+                  slacpy('L', M, M, A, LDA, WORK( IR ), LDWRKR );
+                  slaset('U', M-1, M-1, ZERO, ZERO, WORK( IR+LDWRKR ), LDWRKR );
 
                   // Generate Q in A
                   // (Workspace: need M*M+2*M, prefer M*M+M+M*NB)
 
-                  CALL SORGLQ( M, N, M, A, LDA, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR )
+                  sorglq(M, N, M, A, LDA, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR );
                   IE = ITAU
                   ITAUQ = IE + M
                   ITAUP = ITAUQ + M
@@ -1724,19 +1724,19 @@
                   // Bidiagonalize L in WORK(IR)
                   // (Workspace: need M*M+4*M, prefer M*M+3*M+2*M*NB)
 
-                  CALL SGEBRD( M, M, WORK( IR ), LDWRKR, S, WORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR )
+                  sgebrd(M, M, WORK( IR ), LDWRKR, S, WORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR );
 
                   // Generate right vectors bidiagonalizing L
                   // (Workspace: need M*M+4*M-1, prefer M*M+3*M+(M-1)*NB)
 
-                  CALL SORGBR( 'P', M, M, M, WORK( IR ), LDWRKR, WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR )
+                  sorgbr('P', M, M, M, WORK( IR ), LDWRKR, WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR );
                   IWORK = IE + M
 
                   // Perform bidiagonal QR iteration, computing right
                   // singular vectors of L in WORK(IR)
                   // (Workspace: need M*M+BDSPAC)
 
-                  CALL SBDSQR( 'U', M, M, 0, 0, S, WORK( IE ), WORK( IR ), LDWRKR, DUM, 1, DUM, 1, WORK( IWORK ), INFO )
+                  sbdsqr('U', M, M, 0, 0, S, WORK( IE ), WORK( IR ), LDWRKR, DUM, 1, DUM, 1, WORK( IWORK ), INFO );
                   IU = IE + M
 
                   // Multiply right singular vectors of L in WORK(IR) by Q
@@ -1745,8 +1745,8 @@
 
                   DO 30 I = 1, N, CHUNK
                      BLK = MIN( N-I+1, CHUNK )
-                     CALL SGEMM( 'N', 'N', M, BLK, M, ONE, WORK( IR ), LDWRKR, A( 1, I ), LDA, ZERO, WORK( IU ), LDWRKU )
-                     CALL SLACPY( 'F', M, BLK, WORK( IU ), LDWRKU, A( 1, I ), LDA )
+                     sgemm('N', 'N', M, BLK, M, ONE, WORK( IR ), LDWRKR, A( 1, I ), LDA, ZERO, WORK( IU ), LDWRKU );
+                     slacpy('F', M, BLK, WORK( IU ), LDWRKU, A( 1, I ), LDA );
    30             CONTINUE
 
                } else {
@@ -1761,19 +1761,19 @@
                   // Bidiagonalize A
                   // (Workspace: need 3*M+N, prefer 3*M+(M+N)*NB)
 
-                  CALL SGEBRD( M, N, A, LDA, S, WORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR )
+                  sgebrd(M, N, A, LDA, S, WORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR );
 
                   // Generate right vectors bidiagonalizing A
                   // (Workspace: need 4*M, prefer 3*M+M*NB)
 
-                  CALL SORGBR( 'P', M, N, M, A, LDA, WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR )
+                  sorgbr('P', M, N, M, A, LDA, WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR );
                   IWORK = IE + M
 
                   // Perform bidiagonal QR iteration, computing right
                   // singular vectors of A in A
                   // (Workspace: need BDSPAC)
 
-                  CALL SBDSQR( 'L', M, N, 0, 0, S, WORK( IE ), A, LDA, DUM, 1, DUM, 1, WORK( IWORK ), INFO )
+                  sbdsqr('L', M, N, 0, 0, S, WORK( IE ), A, LDA, DUM, 1, DUM, 1, WORK( IWORK ), INFO );
 
                }
 
@@ -1816,17 +1816,17 @@
                   // Compute A=L*Q
                   // (Workspace: need M*M+2*M, prefer M*M+M+M*NB)
 
-                  CALL SGELQF( M, N, A, LDA, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR )
+                  sgelqf(M, N, A, LDA, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR );
 
                   // Copy L to U, zeroing about above it
 
-                  CALL SLACPY( 'L', M, M, A, LDA, U, LDU )
-                  CALL SLASET( 'U', M-1, M-1, ZERO, ZERO, U( 1, 2 ), LDU )
+                  slacpy('L', M, M, A, LDA, U, LDU );
+                  slaset('U', M-1, M-1, ZERO, ZERO, U( 1, 2 ), LDU );
 
                   // Generate Q in A
                   // (Workspace: need M*M+2*M, prefer M*M+M+M*NB)
 
-                  CALL SORGLQ( M, N, M, A, LDA, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR )
+                  sorglq(M, N, M, A, LDA, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR );
                   IE = ITAU
                   ITAUQ = IE + M
                   ITAUP = ITAUQ + M
@@ -1835,18 +1835,18 @@
                   // Bidiagonalize L in U, copying result to WORK(IR)
                   // (Workspace: need M*M+4*M, prefer M*M+3*M+2*M*NB)
 
-                  CALL SGEBRD( M, M, U, LDU, S, WORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR )
-                  CALL SLACPY( 'U', M, M, U, LDU, WORK( IR ), LDWRKR )
+                  sgebrd(M, M, U, LDU, S, WORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR );
+                  slacpy('U', M, M, U, LDU, WORK( IR ), LDWRKR );
 
                   // Generate right vectors bidiagonalizing L in WORK(IR)
                   // (Workspace: need M*M+4*M-1, prefer M*M+3*M+(M-1)*NB)
 
-                  CALL SORGBR( 'P', M, M, M, WORK( IR ), LDWRKR, WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR )
+                  sorgbr('P', M, M, M, WORK( IR ), LDWRKR, WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR );
 
                   // Generate left vectors bidiagonalizing L in U
                   // (Workspace: need M*M+4*M, prefer M*M+3*M+M*NB)
 
-                  CALL SORGBR( 'Q', M, M, M, U, LDU, WORK( ITAUQ ), WORK( IWORK ), LWORK-IWORK+1, IERR )
+                  sorgbr('Q', M, M, M, U, LDU, WORK( ITAUQ ), WORK( IWORK ), LWORK-IWORK+1, IERR );
                   IWORK = IE + M
 
                   // Perform bidiagonal QR iteration, computing left
@@ -1854,7 +1854,7 @@
                   // singular vectors of L in WORK(IR)
                   // (Workspace: need M*M+BDSPAC)
 
-                  CALL SBDSQR( 'U', M, M, M, 0, S, WORK( IE ), WORK( IR ), LDWRKR, U, LDU, DUM, 1, WORK( IWORK ), INFO )
+                  sbdsqr('U', M, M, M, 0, S, WORK( IE ), WORK( IR ), LDWRKR, U, LDU, DUM, 1, WORK( IWORK ), INFO );
                   IU = IE + M
 
                   // Multiply right singular vectors of L in WORK(IR) by Q
@@ -1863,8 +1863,8 @@
 
                   DO 40 I = 1, N, CHUNK
                      BLK = MIN( N-I+1, CHUNK )
-                     CALL SGEMM( 'N', 'N', M, BLK, M, ONE, WORK( IR ), LDWRKR, A( 1, I ), LDA, ZERO, WORK( IU ), LDWRKU )
-                     CALL SLACPY( 'F', M, BLK, WORK( IU ), LDWRKU, A( 1, I ), LDA )
+                     sgemm('N', 'N', M, BLK, M, ONE, WORK( IR ), LDWRKR, A( 1, I ), LDA, ZERO, WORK( IU ), LDWRKU );
+                     slacpy('F', M, BLK, WORK( IU ), LDWRKU, A( 1, I ), LDA );
    40             CONTINUE
 
                } else {
@@ -1877,17 +1877,17 @@
                   // Compute A=L*Q
                   // (Workspace: need 2*M, prefer M+M*NB)
 
-                  CALL SGELQF( M, N, A, LDA, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR )
+                  sgelqf(M, N, A, LDA, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR );
 
                   // Copy L to U, zeroing out above it
 
-                  CALL SLACPY( 'L', M, M, A, LDA, U, LDU )
-                  CALL SLASET( 'U', M-1, M-1, ZERO, ZERO, U( 1, 2 ), LDU )
+                  slacpy('L', M, M, A, LDA, U, LDU );
+                  slaset('U', M-1, M-1, ZERO, ZERO, U( 1, 2 ), LDU );
 
                   // Generate Q in A
                   // (Workspace: need 2*M, prefer M+M*NB)
 
-                  CALL SORGLQ( M, N, M, A, LDA, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR )
+                  sorglq(M, N, M, A, LDA, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR );
                   IE = ITAU
                   ITAUQ = IE + M
                   ITAUP = ITAUQ + M
@@ -1896,17 +1896,17 @@
                   // Bidiagonalize L in U
                   // (Workspace: need 4*M, prefer 3*M+2*M*NB)
 
-                  CALL SGEBRD( M, M, U, LDU, S, WORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR )
+                  sgebrd(M, M, U, LDU, S, WORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR );
 
                   // Multiply right vectors bidiagonalizing L by Q in A
                   // (Workspace: need 3*M+N, prefer 3*M+N*NB)
 
-                  CALL SORMBR( 'P', 'L', 'T', M, N, M, U, LDU, WORK( ITAUP ), A, LDA, WORK( IWORK ), LWORK-IWORK+1, IERR )
+                  sormbr('P', 'L', 'T', M, N, M, U, LDU, WORK( ITAUP ), A, LDA, WORK( IWORK ), LWORK-IWORK+1, IERR );
 
                   // Generate left vectors bidiagonalizing L in U
                   // (Workspace: need 4*M, prefer 3*M+M*NB)
 
-                  CALL SORGBR( 'Q', M, M, M, U, LDU, WORK( ITAUQ ), WORK( IWORK ), LWORK-IWORK+1, IERR )
+                  sorgbr('Q', M, M, M, U, LDU, WORK( ITAUQ ), WORK( IWORK ), LWORK-IWORK+1, IERR );
                   IWORK = IE + M
 
                   // Perform bidiagonal QR iteration, computing left
@@ -1914,7 +1914,7 @@
                   // singular vectors of A in A
                   // (Workspace: need BDSPAC)
 
-                  CALL SBDSQR( 'U', M, N, M, 0, S, WORK( IE ), A, LDA, U, LDU, DUM, 1, WORK( IWORK ), INFO )
+                  sbdsqr('U', M, N, M, 0, S, WORK( IE ), A, LDA, U, LDU, DUM, 1, WORK( IWORK ), INFO );
 
                }
 
@@ -1948,16 +1948,16 @@
                      // Compute A=L*Q
                      // (Workspace: need M*M+2*M, prefer M*M+M+M*NB)
 
-                     CALL SGELQF( M, N, A, LDA, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR )
+                     sgelqf(M, N, A, LDA, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR );
 
                      // Copy L to WORK(IR), zeroing out above it
 
-                     CALL SLACPY( 'L', M, M, A, LDA, WORK( IR ), LDWRKR )                      CALL SLASET( 'U', M-1, M-1, ZERO, ZERO, WORK( IR+LDWRKR ), LDWRKR )
+                     slacpy('L', M, M, A, LDA, WORK( IR ), LDWRKR )                      CALL SLASET( 'U', M-1, M-1, ZERO, ZERO, WORK( IR+LDWRKR ), LDWRKR );
 
                      // Generate Q in A
                      // (Workspace: need M*M+2*M, prefer M*M+M+M*NB)
 
-                     CALL SORGLQ( M, N, M, A, LDA, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR )
+                     sorglq(M, N, M, A, LDA, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR );
                      IE = ITAU
                      ITAUQ = IE + M
                      ITAUP = ITAUQ + M
@@ -1966,26 +1966,26 @@
                      // Bidiagonalize L in WORK(IR)
                      // (Workspace: need M*M+4*M, prefer M*M+3*M+2*M*NB)
 
-                     CALL SGEBRD( M, M, WORK( IR ), LDWRKR, S, WORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR )
+                     sgebrd(M, M, WORK( IR ), LDWRKR, S, WORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR );
 
                      // Generate right vectors bidiagonalizing L in
                      // WORK(IR)
                      // (Workspace: need M*M+4*M, prefer M*M+3*M+(M-1)*NB)
 
-                     CALL SORGBR( 'P', M, M, M, WORK( IR ), LDWRKR, WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR )
+                     sorgbr('P', M, M, M, WORK( IR ), LDWRKR, WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR );
                      IWORK = IE + M
 
                      // Perform bidiagonal QR iteration, computing right
                      // singular vectors of L in WORK(IR)
                      // (Workspace: need M*M+BDSPAC)
 
-                     CALL SBDSQR( 'U', M, M, 0, 0, S, WORK( IE ), WORK( IR ), LDWRKR, DUM, 1, DUM, 1, WORK( IWORK ), INFO )
+                     sbdsqr('U', M, M, 0, 0, S, WORK( IE ), WORK( IR ), LDWRKR, DUM, 1, DUM, 1, WORK( IWORK ), INFO );
 
                      // Multiply right singular vectors of L in WORK(IR) by
                      // Q in A, storing result in VT
                      // (Workspace: need M*M)
 
-                     CALL SGEMM( 'N', 'N', M, N, M, ONE, WORK( IR ), LDWRKR, A, LDA, ZERO, VT, LDVT )
+                     sgemm('N', 'N', M, N, M, ONE, WORK( IR ), LDWRKR, A, LDA, ZERO, VT, LDVT );
 
                   } else {
 
@@ -1997,16 +1997,16 @@
                      // Compute A=L*Q
                      // (Workspace: need 2*M, prefer M+M*NB)
 
-                     CALL SGELQF( M, N, A, LDA, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR )
+                     sgelqf(M, N, A, LDA, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR );
 
                      // Copy result to VT
 
-                     CALL SLACPY( 'U', M, N, A, LDA, VT, LDVT )
+                     slacpy('U', M, N, A, LDA, VT, LDVT );
 
                      // Generate Q in VT
                      // (Workspace: need 2*M, prefer M+M*NB)
 
-                     CALL SORGLQ( M, N, M, VT, LDVT, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR )
+                     sorglq(M, N, M, VT, LDVT, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR );
                      IE = ITAU
                      ITAUQ = IE + M
                      ITAUP = ITAUQ + M
@@ -2014,24 +2014,24 @@
 
                      // Zero out above L in A
 
-                     CALL SLASET( 'U', M-1, M-1, ZERO, ZERO, A( 1, 2 ), LDA )
+                     slaset('U', M-1, M-1, ZERO, ZERO, A( 1, 2 ), LDA );
 
                      // Bidiagonalize L in A
                      // (Workspace: need 4*M, prefer 3*M+2*M*NB)
 
-                     CALL SGEBRD( M, M, A, LDA, S, WORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR )
+                     sgebrd(M, M, A, LDA, S, WORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR );
 
                      // Multiply right vectors bidiagonalizing L by Q in VT
                      // (Workspace: need 3*M+N, prefer 3*M+N*NB)
 
-                     CALL SORMBR( 'P', 'L', 'T', M, N, M, A, LDA, WORK( ITAUP ), VT, LDVT, WORK( IWORK ), LWORK-IWORK+1, IERR )
+                     sormbr('P', 'L', 'T', M, N, M, A, LDA, WORK( ITAUP ), VT, LDVT, WORK( IWORK ), LWORK-IWORK+1, IERR );
                      IWORK = IE + M
 
                      // Perform bidiagonal QR iteration, computing right
                      // singular vectors of A in VT
                      // (Workspace: need BDSPAC)
 
-                     CALL SBDSQR( 'U', M, N, 0, 0, S, WORK( IE ), VT, LDVT, DUM, 1, DUM, 1, WORK( IWORK ), INFO )
+                     sbdsqr('U', M, N, 0, 0, S, WORK( IE ), VT, LDVT, DUM, 1, DUM, 1, WORK( IWORK ), INFO );
 
                   }
 
@@ -2074,16 +2074,16 @@
                      // Compute A=L*Q
                      // (Workspace: need 2*M*M+2*M, prefer 2*M*M+M+M*NB)
 
-                     CALL SGELQF( M, N, A, LDA, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR )
+                     sgelqf(M, N, A, LDA, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR );
 
                      // Copy L to WORK(IU), zeroing out below it
 
-                     CALL SLACPY( 'L', M, M, A, LDA, WORK( IU ), LDWRKU )                      CALL SLASET( 'U', M-1, M-1, ZERO, ZERO, WORK( IU+LDWRKU ), LDWRKU )
+                     slacpy('L', M, M, A, LDA, WORK( IU ), LDWRKU )                      CALL SLASET( 'U', M-1, M-1, ZERO, ZERO, WORK( IU+LDWRKU ), LDWRKU );
 
                      // Generate Q in A
                      // (Workspace: need 2*M*M+2*M, prefer 2*M*M+M+M*NB)
 
-                     CALL SORGLQ( M, N, M, A, LDA, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR )
+                     sorglq(M, N, M, A, LDA, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR );
                      IE = ITAU
                      ITAUQ = IE + M
                      ITAUP = ITAUQ + M
@@ -2094,19 +2094,19 @@
                      // (Workspace: need 2*M*M+4*M,
                                  // prefer 2*M*M+3*M+2*M*NB)
 
-                     CALL SGEBRD( M, M, WORK( IU ), LDWRKU, S, WORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR )
-                     CALL SLACPY( 'L', M, M, WORK( IU ), LDWRKU, WORK( IR ), LDWRKR )
+                     sgebrd(M, M, WORK( IU ), LDWRKU, S, WORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR );
+                     slacpy('L', M, M, WORK( IU ), LDWRKU, WORK( IR ), LDWRKR );
 
                      // Generate right bidiagonalizing vectors in WORK(IU)
                      // (Workspace: need 2*M*M+4*M-1,
                                  // prefer 2*M*M+3*M+(M-1)*NB)
 
-                     CALL SORGBR( 'P', M, M, M, WORK( IU ), LDWRKU, WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR )
+                     sorgbr('P', M, M, M, WORK( IU ), LDWRKU, WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR );
 
                      // Generate left bidiagonalizing vectors in WORK(IR)
                      // (Workspace: need 2*M*M+4*M, prefer 2*M*M+3*M+M*NB)
 
-                     CALL SORGBR( 'Q', M, M, M, WORK( IR ), LDWRKR, WORK( ITAUQ ), WORK( IWORK ), LWORK-IWORK+1, IERR )
+                     sorgbr('Q', M, M, M, WORK( IR ), LDWRKR, WORK( ITAUQ ), WORK( IWORK ), LWORK-IWORK+1, IERR );
                      IWORK = IE + M
 
                      // Perform bidiagonal QR iteration, computing left
@@ -2114,18 +2114,18 @@
                      // right singular vectors of L in WORK(IU)
                      // (Workspace: need 2*M*M+BDSPAC)
 
-                     CALL SBDSQR( 'U', M, M, M, 0, S, WORK( IE ), WORK( IU ), LDWRKU, WORK( IR ), LDWRKR, DUM, 1, WORK( IWORK ), INFO )
+                     sbdsqr('U', M, M, M, 0, S, WORK( IE ), WORK( IU ), LDWRKU, WORK( IR ), LDWRKR, DUM, 1, WORK( IWORK ), INFO );
 
                      // Multiply right singular vectors of L in WORK(IU) by
                      // Q in A, storing result in VT
                      // (Workspace: need M*M)
 
-                     CALL SGEMM( 'N', 'N', M, N, M, ONE, WORK( IU ), LDWRKU, A, LDA, ZERO, VT, LDVT )
+                     sgemm('N', 'N', M, N, M, ONE, WORK( IU ), LDWRKU, A, LDA, ZERO, VT, LDVT );
 
                      // Copy left singular vectors of L to A
                      // (Workspace: need M*M)
 
-                     CALL SLACPY( 'F', M, M, WORK( IR ), LDWRKR, A, LDA )
+                     slacpy('F', M, M, WORK( IR ), LDWRKR, A, LDA );
 
                   } else {
 
@@ -2137,13 +2137,13 @@
                      // Compute A=L*Q, copying result to VT
                      // (Workspace: need 2*M, prefer M+M*NB)
 
-                     CALL SGELQF( M, N, A, LDA, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR )
-                     CALL SLACPY( 'U', M, N, A, LDA, VT, LDVT )
+                     sgelqf(M, N, A, LDA, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR );
+                     slacpy('U', M, N, A, LDA, VT, LDVT );
 
                      // Generate Q in VT
                      // (Workspace: need 2*M, prefer M+M*NB)
 
-                     CALL SORGLQ( M, N, M, VT, LDVT, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR )
+                     sorglq(M, N, M, VT, LDVT, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR );
                      IE = ITAU
                      ITAUQ = IE + M
                      ITAUP = ITAUQ + M
@@ -2151,22 +2151,22 @@
 
                      // Zero out above L in A
 
-                     CALL SLASET( 'U', M-1, M-1, ZERO, ZERO, A( 1, 2 ), LDA )
+                     slaset('U', M-1, M-1, ZERO, ZERO, A( 1, 2 ), LDA );
 
                      // Bidiagonalize L in A
                      // (Workspace: need 4*M, prefer 3*M+2*M*NB)
 
-                     CALL SGEBRD( M, M, A, LDA, S, WORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR )
+                     sgebrd(M, M, A, LDA, S, WORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR );
 
                      // Multiply right vectors bidiagonalizing L by Q in VT
                      // (Workspace: need 3*M+N, prefer 3*M+N*NB)
 
-                     CALL SORMBR( 'P', 'L', 'T', M, N, M, A, LDA, WORK( ITAUP ), VT, LDVT, WORK( IWORK ), LWORK-IWORK+1, IERR )
+                     sormbr('P', 'L', 'T', M, N, M, A, LDA, WORK( ITAUP ), VT, LDVT, WORK( IWORK ), LWORK-IWORK+1, IERR );
 
                      // Generate left bidiagonalizing vectors of L in A
                      // (Workspace: need 4*M, prefer 3*M+M*NB)
 
-                     CALL SORGBR( 'Q', M, M, M, A, LDA, WORK( ITAUQ ), WORK( IWORK ), LWORK-IWORK+1, IERR )
+                     sorgbr('Q', M, M, M, A, LDA, WORK( ITAUQ ), WORK( IWORK ), LWORK-IWORK+1, IERR );
                      IWORK = IE + M
 
                      // Perform bidiagonal QR iteration, compute left
@@ -2174,7 +2174,7 @@
                      // singular vectors of A in VT
                      // (Workspace: need BDSPAC)
 
-                     CALL SBDSQR( 'U', M, N, M, 0, S, WORK( IE ), VT, LDVT, A, LDA, DUM, 1, WORK( IWORK ), INFO )
+                     sbdsqr('U', M, N, M, 0, S, WORK( IE ), VT, LDVT, A, LDA, DUM, 1, WORK( IWORK ), INFO );
 
                   }
 
@@ -2207,16 +2207,16 @@
                      // Compute A=L*Q
                      // (Workspace: need M*M+2*M, prefer M*M+M+M*NB)
 
-                     CALL SGELQF( M, N, A, LDA, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR )
+                     sgelqf(M, N, A, LDA, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR );
 
                      // Copy L to WORK(IU), zeroing out above it
 
-                     CALL SLACPY( 'L', M, M, A, LDA, WORK( IU ), LDWRKU )                      CALL SLASET( 'U', M-1, M-1, ZERO, ZERO, WORK( IU+LDWRKU ), LDWRKU )
+                     slacpy('L', M, M, A, LDA, WORK( IU ), LDWRKU )                      CALL SLASET( 'U', M-1, M-1, ZERO, ZERO, WORK( IU+LDWRKU ), LDWRKU );
 
                      // Generate Q in A
                      // (Workspace: need M*M+2*M, prefer M*M+M+M*NB)
 
-                     CALL SORGLQ( M, N, M, A, LDA, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR )
+                     sorglq(M, N, M, A, LDA, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR );
                      IE = ITAU
                      ITAUQ = IE + M
                      ITAUP = ITAUQ + M
@@ -2225,19 +2225,19 @@
                      // Bidiagonalize L in WORK(IU), copying result to U
                      // (Workspace: need M*M+4*M, prefer M*M+3*M+2*M*NB)
 
-                     CALL SGEBRD( M, M, WORK( IU ), LDWRKU, S, WORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR )
-                     CALL SLACPY( 'L', M, M, WORK( IU ), LDWRKU, U, LDU )
+                     sgebrd(M, M, WORK( IU ), LDWRKU, S, WORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR );
+                     slacpy('L', M, M, WORK( IU ), LDWRKU, U, LDU );
 
                      // Generate right bidiagonalizing vectors in WORK(IU)
                      // (Workspace: need M*M+4*M-1,
                                  // prefer M*M+3*M+(M-1)*NB)
 
-                     CALL SORGBR( 'P', M, M, M, WORK( IU ), LDWRKU, WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR )
+                     sorgbr('P', M, M, M, WORK( IU ), LDWRKU, WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR );
 
                      // Generate left bidiagonalizing vectors in U
                      // (Workspace: need M*M+4*M, prefer M*M+3*M+M*NB)
 
-                     CALL SORGBR( 'Q', M, M, M, U, LDU, WORK( ITAUQ ), WORK( IWORK ), LWORK-IWORK+1, IERR )
+                     sorgbr('Q', M, M, M, U, LDU, WORK( ITAUQ ), WORK( IWORK ), LWORK-IWORK+1, IERR );
                      IWORK = IE + M
 
                      // Perform bidiagonal QR iteration, computing left
@@ -2245,13 +2245,13 @@
                      // singular vectors of L in WORK(IU)
                      // (Workspace: need M*M+BDSPAC)
 
-                     CALL SBDSQR( 'U', M, M, M, 0, S, WORK( IE ), WORK( IU ), LDWRKU, U, LDU, DUM, 1, WORK( IWORK ), INFO )
+                     sbdsqr('U', M, M, M, 0, S, WORK( IE ), WORK( IU ), LDWRKU, U, LDU, DUM, 1, WORK( IWORK ), INFO );
 
                      // Multiply right singular vectors of L in WORK(IU) by
                      // Q in A, storing result in VT
                      // (Workspace: need M*M)
 
-                     CALL SGEMM( 'N', 'N', M, N, M, ONE, WORK( IU ), LDWRKU, A, LDA, ZERO, VT, LDVT )
+                     sgemm('N', 'N', M, N, M, ONE, WORK( IU ), LDWRKU, A, LDA, ZERO, VT, LDVT );
 
                   } else {
 
@@ -2263,18 +2263,18 @@
                      // Compute A=L*Q, copying result to VT
                      // (Workspace: need 2*M, prefer M+M*NB)
 
-                     CALL SGELQF( M, N, A, LDA, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR )
-                     CALL SLACPY( 'U', M, N, A, LDA, VT, LDVT )
+                     sgelqf(M, N, A, LDA, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR );
+                     slacpy('U', M, N, A, LDA, VT, LDVT );
 
                      // Generate Q in VT
                      // (Workspace: need 2*M, prefer M+M*NB)
 
-                     CALL SORGLQ( M, N, M, VT, LDVT, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR )
+                     sorglq(M, N, M, VT, LDVT, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR );
 
                      // Copy L to U, zeroing out above it
 
-                     CALL SLACPY( 'L', M, M, A, LDA, U, LDU )
-                     CALL SLASET( 'U', M-1, M-1, ZERO, ZERO, U( 1, 2 ), LDU )
+                     slacpy('L', M, M, A, LDA, U, LDU );
+                     slaset('U', M-1, M-1, ZERO, ZERO, U( 1, 2 ), LDU );
                      IE = ITAU
                      ITAUQ = IE + M
                      ITAUP = ITAUQ + M
@@ -2283,18 +2283,18 @@
                      // Bidiagonalize L in U
                      // (Workspace: need 4*M, prefer 3*M+2*M*NB)
 
-                     CALL SGEBRD( M, M, U, LDU, S, WORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR )
+                     sgebrd(M, M, U, LDU, S, WORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR );
 
                      // Multiply right bidiagonalizing vectors in U by Q
                      // in VT
                      // (Workspace: need 3*M+N, prefer 3*M+N*NB)
 
-                     CALL SORMBR( 'P', 'L', 'T', M, N, M, U, LDU, WORK( ITAUP ), VT, LDVT, WORK( IWORK ), LWORK-IWORK+1, IERR )
+                     sormbr('P', 'L', 'T', M, N, M, U, LDU, WORK( ITAUP ), VT, LDVT, WORK( IWORK ), LWORK-IWORK+1, IERR );
 
                      // Generate left bidiagonalizing vectors in U
                      // (Workspace: need 4*M, prefer 3*M+M*NB)
 
-                     CALL SORGBR( 'Q', M, M, M, U, LDU, WORK( ITAUQ ), WORK( IWORK ), LWORK-IWORK+1, IERR )
+                     sorgbr('Q', M, M, M, U, LDU, WORK( ITAUQ ), WORK( IWORK ), LWORK-IWORK+1, IERR );
                      IWORK = IE + M
 
                      // Perform bidiagonal QR iteration, computing left
@@ -2302,7 +2302,7 @@
                      // singular vectors of A in VT
                      // (Workspace: need BDSPAC)
 
-                     CALL SBDSQR( 'U', M, N, M, 0, S, WORK( IE ), VT, LDVT, U, LDU, DUM, 1, WORK( IWORK ), INFO )
+                     sbdsqr('U', M, N, M, 0, S, WORK( IE ), VT, LDVT, U, LDU, DUM, 1, WORK( IWORK ), INFO );
 
                   }
 
@@ -2338,17 +2338,17 @@
                      // Compute A=L*Q, copying result to VT
                      // (Workspace: need M*M+2*M, prefer M*M+M+M*NB)
 
-                     CALL SGELQF( M, N, A, LDA, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR )
-                     CALL SLACPY( 'U', M, N, A, LDA, VT, LDVT )
+                     sgelqf(M, N, A, LDA, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR );
+                     slacpy('U', M, N, A, LDA, VT, LDVT );
 
                      // Copy L to WORK(IR), zeroing out above it
 
-                     CALL SLACPY( 'L', M, M, A, LDA, WORK( IR ), LDWRKR )                      CALL SLASET( 'U', M-1, M-1, ZERO, ZERO, WORK( IR+LDWRKR ), LDWRKR )
+                     slacpy('L', M, M, A, LDA, WORK( IR ), LDWRKR )                      CALL SLASET( 'U', M-1, M-1, ZERO, ZERO, WORK( IR+LDWRKR ), LDWRKR );
 
                      // Generate Q in VT
                      // (Workspace: need M*M+M+N, prefer M*M+M+N*NB)
 
-                     CALL SORGLQ( N, N, M, VT, LDVT, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR )
+                     sorglq(N, N, M, VT, LDVT, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR );
                      IE = ITAU
                      ITAUQ = IE + M
                      ITAUP = ITAUQ + M
@@ -2357,30 +2357,30 @@
                      // Bidiagonalize L in WORK(IR)
                      // (Workspace: need M*M+4*M, prefer M*M+3*M+2*M*NB)
 
-                     CALL SGEBRD( M, M, WORK( IR ), LDWRKR, S, WORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR )
+                     sgebrd(M, M, WORK( IR ), LDWRKR, S, WORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR );
 
                      // Generate right bidiagonalizing vectors in WORK(IR)
                      // (Workspace: need M*M+4*M-1,
                                  // prefer M*M+3*M+(M-1)*NB)
 
-                     CALL SORGBR( 'P', M, M, M, WORK( IR ), LDWRKR, WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR )
+                     sorgbr('P', M, M, M, WORK( IR ), LDWRKR, WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR );
                      IWORK = IE + M
 
                      // Perform bidiagonal QR iteration, computing right
                      // singular vectors of L in WORK(IR)
                      // (Workspace: need M*M+BDSPAC)
 
-                     CALL SBDSQR( 'U', M, M, 0, 0, S, WORK( IE ), WORK( IR ), LDWRKR, DUM, 1, DUM, 1, WORK( IWORK ), INFO )
+                     sbdsqr('U', M, M, 0, 0, S, WORK( IE ), WORK( IR ), LDWRKR, DUM, 1, DUM, 1, WORK( IWORK ), INFO );
 
                      // Multiply right singular vectors of L in WORK(IR) by
                      // Q in VT, storing result in A
                      // (Workspace: need M*M)
 
-                     CALL SGEMM( 'N', 'N', M, N, M, ONE, WORK( IR ), LDWRKR, VT, LDVT, ZERO, A, LDA )
+                     sgemm('N', 'N', M, N, M, ONE, WORK( IR ), LDWRKR, VT, LDVT, ZERO, A, LDA );
 
                      // Copy right singular vectors of A from A to VT
 
-                     CALL SLACPY( 'F', M, N, A, LDA, VT, LDVT )
+                     slacpy('F', M, N, A, LDA, VT, LDVT );
 
                   } else {
 
@@ -2392,13 +2392,13 @@
                      // Compute A=L*Q, copying result to VT
                      // (Workspace: need 2*M, prefer M+M*NB)
 
-                     CALL SGELQF( M, N, A, LDA, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR )
-                     CALL SLACPY( 'U', M, N, A, LDA, VT, LDVT )
+                     sgelqf(M, N, A, LDA, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR );
+                     slacpy('U', M, N, A, LDA, VT, LDVT );
 
                      // Generate Q in VT
                      // (Workspace: need M+N, prefer M+N*NB)
 
-                     CALL SORGLQ( N, N, M, VT, LDVT, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR )
+                     sorglq(N, N, M, VT, LDVT, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR );
                      IE = ITAU
                      ITAUQ = IE + M
                      ITAUP = ITAUQ + M
@@ -2406,25 +2406,25 @@
 
                      // Zero out above L in A
 
-                     CALL SLASET( 'U', M-1, M-1, ZERO, ZERO, A( 1, 2 ), LDA )
+                     slaset('U', M-1, M-1, ZERO, ZERO, A( 1, 2 ), LDA );
 
                      // Bidiagonalize L in A
                      // (Workspace: need 4*M, prefer 3*M+2*M*NB)
 
-                     CALL SGEBRD( M, M, A, LDA, S, WORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR )
+                     sgebrd(M, M, A, LDA, S, WORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR );
 
                      // Multiply right bidiagonalizing vectors in A by Q
                      // in VT
                      // (Workspace: need 3*M+N, prefer 3*M+N*NB)
 
-                     CALL SORMBR( 'P', 'L', 'T', M, N, M, A, LDA, WORK( ITAUP ), VT, LDVT, WORK( IWORK ), LWORK-IWORK+1, IERR )
+                     sormbr('P', 'L', 'T', M, N, M, A, LDA, WORK( ITAUP ), VT, LDVT, WORK( IWORK ), LWORK-IWORK+1, IERR );
                      IWORK = IE + M
 
                      // Perform bidiagonal QR iteration, computing right
                      // singular vectors of A in VT
                      // (Workspace: need BDSPAC)
 
-                     CALL SBDSQR( 'U', M, N, 0, 0, S, WORK( IE ), VT, LDVT, DUM, 1, DUM, 1, WORK( IWORK ), INFO )
+                     sbdsqr('U', M, N, 0, 0, S, WORK( IE ), VT, LDVT, DUM, 1, DUM, 1, WORK( IWORK ), INFO );
 
                   }
 
@@ -2467,17 +2467,17 @@
                      // Compute A=L*Q, copying result to VT
                      // (Workspace: need 2*M*M+2*M, prefer 2*M*M+M+M*NB)
 
-                     CALL SGELQF( M, N, A, LDA, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR )
-                     CALL SLACPY( 'U', M, N, A, LDA, VT, LDVT )
+                     sgelqf(M, N, A, LDA, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR );
+                     slacpy('U', M, N, A, LDA, VT, LDVT );
 
                      // Generate Q in VT
                      // (Workspace: need 2*M*M+M+N, prefer 2*M*M+M+N*NB)
 
-                     CALL SORGLQ( N, N, M, VT, LDVT, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR )
+                     sorglq(N, N, M, VT, LDVT, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR );
 
                      // Copy L to WORK(IU), zeroing out above it
 
-                     CALL SLACPY( 'L', M, M, A, LDA, WORK( IU ), LDWRKU )                      CALL SLASET( 'U', M-1, M-1, ZERO, ZERO, WORK( IU+LDWRKU ), LDWRKU )
+                     slacpy('L', M, M, A, LDA, WORK( IU ), LDWRKU )                      CALL SLASET( 'U', M-1, M-1, ZERO, ZERO, WORK( IU+LDWRKU ), LDWRKU );
                      IE = ITAU
                      ITAUQ = IE + M
                      ITAUP = ITAUQ + M
@@ -2488,19 +2488,19 @@
                      // (Workspace: need 2*M*M+4*M,
                                  // prefer 2*M*M+3*M+2*M*NB)
 
-                     CALL SGEBRD( M, M, WORK( IU ), LDWRKU, S, WORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR )
-                     CALL SLACPY( 'L', M, M, WORK( IU ), LDWRKU, WORK( IR ), LDWRKR )
+                     sgebrd(M, M, WORK( IU ), LDWRKU, S, WORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR );
+                     slacpy('L', M, M, WORK( IU ), LDWRKU, WORK( IR ), LDWRKR );
 
                      // Generate right bidiagonalizing vectors in WORK(IU)
                      // (Workspace: need 2*M*M+4*M-1,
                                  // prefer 2*M*M+3*M+(M-1)*NB)
 
-                     CALL SORGBR( 'P', M, M, M, WORK( IU ), LDWRKU, WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR )
+                     sorgbr('P', M, M, M, WORK( IU ), LDWRKU, WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR );
 
                      // Generate left bidiagonalizing vectors in WORK(IR)
                      // (Workspace: need 2*M*M+4*M, prefer 2*M*M+3*M+M*NB)
 
-                     CALL SORGBR( 'Q', M, M, M, WORK( IR ), LDWRKR, WORK( ITAUQ ), WORK( IWORK ), LWORK-IWORK+1, IERR )
+                     sorgbr('Q', M, M, M, WORK( IR ), LDWRKR, WORK( ITAUQ ), WORK( IWORK ), LWORK-IWORK+1, IERR );
                      IWORK = IE + M
 
                      // Perform bidiagonal QR iteration, computing left
@@ -2508,21 +2508,21 @@
                      // right singular vectors of L in WORK(IU)
                      // (Workspace: need 2*M*M+BDSPAC)
 
-                     CALL SBDSQR( 'U', M, M, M, 0, S, WORK( IE ), WORK( IU ), LDWRKU, WORK( IR ), LDWRKR, DUM, 1, WORK( IWORK ), INFO )
+                     sbdsqr('U', M, M, M, 0, S, WORK( IE ), WORK( IU ), LDWRKU, WORK( IR ), LDWRKR, DUM, 1, WORK( IWORK ), INFO );
 
                      // Multiply right singular vectors of L in WORK(IU) by
                      // Q in VT, storing result in A
                      // (Workspace: need M*M)
 
-                     CALL SGEMM( 'N', 'N', M, N, M, ONE, WORK( IU ), LDWRKU, VT, LDVT, ZERO, A, LDA )
+                     sgemm('N', 'N', M, N, M, ONE, WORK( IU ), LDWRKU, VT, LDVT, ZERO, A, LDA );
 
                      // Copy right singular vectors of A from A to VT
 
-                     CALL SLACPY( 'F', M, N, A, LDA, VT, LDVT )
+                     slacpy('F', M, N, A, LDA, VT, LDVT );
 
                      // Copy left singular vectors of A from WORK(IR) to A
 
-                     CALL SLACPY( 'F', M, M, WORK( IR ), LDWRKR, A, LDA )
+                     slacpy('F', M, M, WORK( IR ), LDWRKR, A, LDA );
 
                   } else {
 
@@ -2534,13 +2534,13 @@
                      // Compute A=L*Q, copying result to VT
                      // (Workspace: need 2*M, prefer M+M*NB)
 
-                     CALL SGELQF( M, N, A, LDA, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR )
-                     CALL SLACPY( 'U', M, N, A, LDA, VT, LDVT )
+                     sgelqf(M, N, A, LDA, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR );
+                     slacpy('U', M, N, A, LDA, VT, LDVT );
 
                      // Generate Q in VT
                      // (Workspace: need M+N, prefer M+N*NB)
 
-                     CALL SORGLQ( N, N, M, VT, LDVT, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR )
+                     sorglq(N, N, M, VT, LDVT, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR );
                      IE = ITAU
                      ITAUQ = IE + M
                      ITAUP = ITAUQ + M
@@ -2548,23 +2548,23 @@
 
                      // Zero out above L in A
 
-                     CALL SLASET( 'U', M-1, M-1, ZERO, ZERO, A( 1, 2 ), LDA )
+                     slaset('U', M-1, M-1, ZERO, ZERO, A( 1, 2 ), LDA );
 
                      // Bidiagonalize L in A
                      // (Workspace: need 4*M, prefer 3*M+2*M*NB)
 
-                     CALL SGEBRD( M, M, A, LDA, S, WORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR )
+                     sgebrd(M, M, A, LDA, S, WORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR );
 
                      // Multiply right bidiagonalizing vectors in A by Q
                      // in VT
                      // (Workspace: need 3*M+N, prefer 3*M+N*NB)
 
-                     CALL SORMBR( 'P', 'L', 'T', M, N, M, A, LDA, WORK( ITAUP ), VT, LDVT, WORK( IWORK ), LWORK-IWORK+1, IERR )
+                     sormbr('P', 'L', 'T', M, N, M, A, LDA, WORK( ITAUP ), VT, LDVT, WORK( IWORK ), LWORK-IWORK+1, IERR );
 
                      // Generate left bidiagonalizing vectors in A
                      // (Workspace: need 4*M, prefer 3*M+M*NB)
 
-                     CALL SORGBR( 'Q', M, M, M, A, LDA, WORK( ITAUQ ), WORK( IWORK ), LWORK-IWORK+1, IERR )
+                     sorgbr('Q', M, M, M, A, LDA, WORK( ITAUQ ), WORK( IWORK ), LWORK-IWORK+1, IERR );
                      IWORK = IE + M
 
                      // Perform bidiagonal QR iteration, computing left
@@ -2572,7 +2572,7 @@
                      // singular vectors of A in VT
                      // (Workspace: need BDSPAC)
 
-                     CALL SBDSQR( 'U', M, N, M, 0, S, WORK( IE ), VT, LDVT, A, LDA, DUM, 1, WORK( IWORK ), INFO )
+                     sbdsqr('U', M, N, M, 0, S, WORK( IE ), VT, LDVT, A, LDA, DUM, 1, WORK( IWORK ), INFO );
 
                   }
 
@@ -2605,17 +2605,17 @@
                      // Compute A=L*Q, copying result to VT
                      // (Workspace: need M*M+2*M, prefer M*M+M+M*NB)
 
-                     CALL SGELQF( M, N, A, LDA, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR )
-                     CALL SLACPY( 'U', M, N, A, LDA, VT, LDVT )
+                     sgelqf(M, N, A, LDA, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR );
+                     slacpy('U', M, N, A, LDA, VT, LDVT );
 
                      // Generate Q in VT
                      // (Workspace: need M*M+M+N, prefer M*M+M+N*NB)
 
-                     CALL SORGLQ( N, N, M, VT, LDVT, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR )
+                     sorglq(N, N, M, VT, LDVT, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR );
 
                      // Copy L to WORK(IU), zeroing out above it
 
-                     CALL SLACPY( 'L', M, M, A, LDA, WORK( IU ), LDWRKU )                      CALL SLASET( 'U', M-1, M-1, ZERO, ZERO, WORK( IU+LDWRKU ), LDWRKU )
+                     slacpy('L', M, M, A, LDA, WORK( IU ), LDWRKU )                      CALL SLASET( 'U', M-1, M-1, ZERO, ZERO, WORK( IU+LDWRKU ), LDWRKU );
                      IE = ITAU
                      ITAUQ = IE + M
                      ITAUP = ITAUQ + M
@@ -2624,18 +2624,18 @@
                      // Bidiagonalize L in WORK(IU), copying result to U
                      // (Workspace: need M*M+4*M, prefer M*M+3*M+2*M*NB)
 
-                     CALL SGEBRD( M, M, WORK( IU ), LDWRKU, S, WORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR )
-                     CALL SLACPY( 'L', M, M, WORK( IU ), LDWRKU, U, LDU )
+                     sgebrd(M, M, WORK( IU ), LDWRKU, S, WORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR );
+                     slacpy('L', M, M, WORK( IU ), LDWRKU, U, LDU );
 
                      // Generate right bidiagonalizing vectors in WORK(IU)
                      // (Workspace: need M*M+4*M, prefer M*M+3*M+(M-1)*NB)
 
-                     CALL SORGBR( 'P', M, M, M, WORK( IU ), LDWRKU, WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR )
+                     sorgbr('P', M, M, M, WORK( IU ), LDWRKU, WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR );
 
                      // Generate left bidiagonalizing vectors in U
                      // (Workspace: need M*M+4*M, prefer M*M+3*M+M*NB)
 
-                     CALL SORGBR( 'Q', M, M, M, U, LDU, WORK( ITAUQ ), WORK( IWORK ), LWORK-IWORK+1, IERR )
+                     sorgbr('Q', M, M, M, U, LDU, WORK( ITAUQ ), WORK( IWORK ), LWORK-IWORK+1, IERR );
                      IWORK = IE + M
 
                      // Perform bidiagonal QR iteration, computing left
@@ -2643,17 +2643,17 @@
                      // singular vectors of L in WORK(IU)
                      // (Workspace: need M*M+BDSPAC)
 
-                     CALL SBDSQR( 'U', M, M, M, 0, S, WORK( IE ), WORK( IU ), LDWRKU, U, LDU, DUM, 1, WORK( IWORK ), INFO )
+                     sbdsqr('U', M, M, M, 0, S, WORK( IE ), WORK( IU ), LDWRKU, U, LDU, DUM, 1, WORK( IWORK ), INFO );
 
                      // Multiply right singular vectors of L in WORK(IU) by
                      // Q in VT, storing result in A
                      // (Workspace: need M*M)
 
-                     CALL SGEMM( 'N', 'N', M, N, M, ONE, WORK( IU ), LDWRKU, VT, LDVT, ZERO, A, LDA )
+                     sgemm('N', 'N', M, N, M, ONE, WORK( IU ), LDWRKU, VT, LDVT, ZERO, A, LDA );
 
                      // Copy right singular vectors of A from A to VT
 
-                     CALL SLACPY( 'F', M, N, A, LDA, VT, LDVT )
+                     slacpy('F', M, N, A, LDA, VT, LDVT );
 
                   } else {
 
@@ -2665,18 +2665,18 @@
                      // Compute A=L*Q, copying result to VT
                      // (Workspace: need 2*M, prefer M+M*NB)
 
-                     CALL SGELQF( M, N, A, LDA, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR )
-                     CALL SLACPY( 'U', M, N, A, LDA, VT, LDVT )
+                     sgelqf(M, N, A, LDA, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR );
+                     slacpy('U', M, N, A, LDA, VT, LDVT );
 
                      // Generate Q in VT
                      // (Workspace: need M+N, prefer M+N*NB)
 
-                     CALL SORGLQ( N, N, M, VT, LDVT, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR )
+                     sorglq(N, N, M, VT, LDVT, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR );
 
                      // Copy L to U, zeroing out above it
 
-                     CALL SLACPY( 'L', M, M, A, LDA, U, LDU )
-                     CALL SLASET( 'U', M-1, M-1, ZERO, ZERO, U( 1, 2 ), LDU )
+                     slacpy('L', M, M, A, LDA, U, LDU );
+                     slaset('U', M-1, M-1, ZERO, ZERO, U( 1, 2 ), LDU );
                      IE = ITAU
                      ITAUQ = IE + M
                      ITAUP = ITAUQ + M
@@ -2685,18 +2685,18 @@
                      // Bidiagonalize L in U
                      // (Workspace: need 4*M, prefer 3*M+2*M*NB)
 
-                     CALL SGEBRD( M, M, U, LDU, S, WORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR )
+                     sgebrd(M, M, U, LDU, S, WORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR );
 
                      // Multiply right bidiagonalizing vectors in U by Q
                      // in VT
                      // (Workspace: need 3*M+N, prefer 3*M+N*NB)
 
-                     CALL SORMBR( 'P', 'L', 'T', M, N, M, U, LDU, WORK( ITAUP ), VT, LDVT, WORK( IWORK ), LWORK-IWORK+1, IERR )
+                     sormbr('P', 'L', 'T', M, N, M, U, LDU, WORK( ITAUP ), VT, LDVT, WORK( IWORK ), LWORK-IWORK+1, IERR );
 
                      // Generate left bidiagonalizing vectors in U
                      // (Workspace: need 4*M, prefer 3*M+M*NB)
 
-                     CALL SORGBR( 'Q', M, M, M, U, LDU, WORK( ITAUQ ), WORK( IWORK ), LWORK-IWORK+1, IERR )
+                     sorgbr('Q', M, M, M, U, LDU, WORK( ITAUQ ), WORK( IWORK ), LWORK-IWORK+1, IERR );
                      IWORK = IE + M
 
                      // Perform bidiagonal QR iteration, computing left
@@ -2704,7 +2704,7 @@
                      // singular vectors of A in VT
                      // (Workspace: need BDSPAC)
 
-                     CALL SBDSQR( 'U', M, N, M, 0, S, WORK( IE ), VT, LDVT, U, LDU, DUM, 1, WORK( IWORK ), INFO )
+                     sbdsqr('U', M, N, M, 0, S, WORK( IE ), VT, LDVT, U, LDU, DUM, 1, WORK( IWORK ), INFO );
 
                   }
 
@@ -2727,15 +2727,15 @@
             // Bidiagonalize A
             // (Workspace: need 3*M+N, prefer 3*M+(M+N)*NB)
 
-            CALL SGEBRD( M, N, A, LDA, S, WORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR )
+            sgebrd(M, N, A, LDA, S, WORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR );
             if ( WNTUAS ) {
 
                // If left singular vectors desired in U, copy result to U
                // and generate left bidiagonalizing vectors in U
                // (Workspace: need 4*M-1, prefer 3*M+(M-1)*NB)
 
-               CALL SLACPY( 'L', M, M, A, LDA, U, LDU )
-               CALL SORGBR( 'Q', M, M, N, U, LDU, WORK( ITAUQ ), WORK( IWORK ), LWORK-IWORK+1, IERR )
+               slacpy('L', M, M, A, LDA, U, LDU );
+               sorgbr('Q', M, M, N, U, LDU, WORK( ITAUQ ), WORK( IWORK ), LWORK-IWORK+1, IERR );
             }
             if ( WNTVAS ) {
 
@@ -2743,7 +2743,7 @@
                // VT and generate right bidiagonalizing vectors in VT
                // (Workspace: need 3*M+NRVT, prefer 3*M+NRVT*NB)
 
-               CALL SLACPY( 'U', M, N, A, LDA, VT, LDVT )
+               slacpy('U', M, N, A, LDA, VT, LDVT );
                IF( WNTVA ) NRVT = N                IF( WNTVS ) NRVT = M                CALL SORGBR( 'P', NRVT, N, M, VT, LDVT, WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR )
             }
             if ( WNTUO ) {
@@ -2752,7 +2752,7 @@
                // bidiagonalizing vectors in A
                // (Workspace: need 4*M-1, prefer 3*M+(M-1)*NB)
 
-               CALL SORGBR( 'Q', M, M, N, A, LDA, WORK( ITAUQ ), WORK( IWORK ), LWORK-IWORK+1, IERR )
+               sorgbr('Q', M, M, N, A, LDA, WORK( ITAUQ ), WORK( IWORK ), LWORK-IWORK+1, IERR );
             }
             if ( WNTVO ) {
 
@@ -2760,7 +2760,7 @@
                // bidiagonalizing vectors in A
                // (Workspace: need 4*M, prefer 3*M+M*NB)
 
-               CALL SORGBR( 'P', M, N, M, A, LDA, WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR )
+               sorgbr('P', M, N, M, A, LDA, WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR );
             }
             IWORK = IE + M
             IF( WNTUAS .OR. WNTUO ) NRU = M             IF( WNTUN ) NRU = 0             IF( WNTVAS .OR. WNTVO ) NCVT = N             IF( WNTVN ) NCVT = 0
@@ -2771,7 +2771,7 @@
                // vectors in VT
                // (Workspace: need BDSPAC)
 
-               CALL SBDSQR( 'L', M, NCVT, NRU, 0, S, WORK( IE ), VT, LDVT, U, LDU, DUM, 1, WORK( IWORK ), INFO )
+               sbdsqr('L', M, NCVT, NRU, 0, S, WORK( IE ), VT, LDVT, U, LDU, DUM, 1, WORK( IWORK ), INFO );
             } else if ( ( .NOT.WNTUO ) .AND. WNTVO ) {
 
                // Perform bidiagonal QR iteration, if desired, computing
@@ -2779,7 +2779,7 @@
                // vectors in A
                // (Workspace: need BDSPAC)
 
-               CALL SBDSQR( 'L', M, NCVT, NRU, 0, S, WORK( IE ), A, LDA, U, LDU, DUM, 1, WORK( IWORK ), INFO )
+               sbdsqr('L', M, NCVT, NRU, 0, S, WORK( IE ), A, LDA, U, LDU, DUM, 1, WORK( IWORK ), INFO );
             } else {
 
                // Perform bidiagonal QR iteration, if desired, computing
@@ -2787,7 +2787,7 @@
                // vectors in VT
                // (Workspace: need BDSPAC)
 
-               CALL SBDSQR( 'L', M, NCVT, NRU, 0, S, WORK( IE ), VT, LDVT, A, LDA, DUM, 1, WORK( IWORK ), INFO )
+               sbdsqr('L', M, NCVT, NRU, 0, S, WORK( IE ), VT, LDVT, A, LDA, DUM, 1, WORK( IWORK ), INFO );
             }
 
          }

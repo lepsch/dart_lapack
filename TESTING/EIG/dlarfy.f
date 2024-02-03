@@ -35,14 +35,14 @@
 
       // Form  w:= C * v
 
-      CALL DSYMV( UPLO, N, ONE, C, LDC, V, INCV, ZERO, WORK, 1 )
+      dsymv(UPLO, N, ONE, C, LDC, V, INCV, ZERO, WORK, 1 );
 
       ALPHA = -HALF*TAU*DDOT( N, WORK, 1, V, INCV )
-      CALL DAXPY( N, ALPHA, V, INCV, WORK, 1 )
+      daxpy(N, ALPHA, V, INCV, WORK, 1 );
 
       // C := C - v * w' - w * v'
 
-      CALL DSYR2( UPLO, N, -TAU, V, INCV, WORK, 1, C, LDC )
+      dsyr2(UPLO, N, -TAU, V, INCV, WORK, 1, C, LDC );
 
       RETURN
 

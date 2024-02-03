@@ -69,7 +69,7 @@
          INFO = -12
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'SGERFS', -INFO )
+         xerbla('SGERFS', -INFO );
          RETURN
       }
 
@@ -110,8 +110,8 @@
          // Compute residual R = B - op(A) * X,
          // where op(A) = A, A**T, or A**H, depending on TRANS.
 
-         CALL SCOPY( N, B( 1, J ), 1, WORK( N+1 ), 1 )
-         CALL SGEMV( TRANS, N, N, -ONE, A, LDA, X( 1, J ), 1, ONE, WORK( N+1 ), 1 )
+         scopy(N, B( 1, J ), 1, WORK( N+1 ), 1 );
+         sgemv(TRANS, N, N, -ONE, A, LDA, X( 1, J ), 1, ONE, WORK( N+1 ), 1 );
 
          // Compute componentwise relative backward error from formula
 
@@ -164,8 +164,8 @@
 
             // Update solution and try again.
 
-            CALL SGETRS( TRANS, N, 1, AF, LDAF, IPIV, WORK( N+1 ), N, INFO )
-            CALL SAXPY( N, ONE, WORK( N+1 ), 1, X( 1, J ), 1 )
+            sgetrs(TRANS, N, 1, AF, LDAF, IPIV, WORK( N+1 ), N, INFO );
+            saxpy(N, ONE, WORK( N+1 ), 1, X( 1, J ), 1 );
             LSTRES = BERR( J )
             COUNT = COUNT + 1
             GO TO 20
@@ -203,13 +203,13 @@
 
          KASE = 0
   100    CONTINUE
-         CALL SLACN2( N, WORK( 2*N+1 ), WORK( N+1 ), IWORK, FERR( J ), KASE, ISAVE )
+         slacn2(N, WORK( 2*N+1 ), WORK( N+1 ), IWORK, FERR( J ), KASE, ISAVE );
          if ( KASE.NE.0 ) {
             if ( KASE.EQ.1 ) {
 
                // Multiply by diag(W)*inv(op(A)**T).
 
-               CALL SGETRS( TRANST, N, 1, AF, LDAF, IPIV, WORK( N+1 ), N, INFO )
+               sgetrs(TRANST, N, 1, AF, LDAF, IPIV, WORK( N+1 ), N, INFO );
                DO 110 I = 1, N
                   WORK( N+I ) = WORK( I )*WORK( N+I )
   110          CONTINUE
@@ -220,7 +220,7 @@
                DO 120 I = 1, N
                   WORK( N+I ) = WORK( I )*WORK( N+I )
   120          CONTINUE
-               CALL SGETRS( TRANS, N, 1, AF, LDAF, IPIV, WORK( N+1 ), N, INFO )
+               sgetrs(TRANS, N, 1, AF, LDAF, IPIV, WORK( N+1 ), N, INFO );
             }
             GO TO 100
          }

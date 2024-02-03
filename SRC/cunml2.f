@@ -64,7 +64,7 @@
          INFO = -10
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'CUNML2', -INFO )
+         xerbla('CUNML2', -INFO );
          RETURN
       }
 
@@ -115,7 +115,7 @@
          IF( I.LT.NQ ) CALL CLACGV( NQ-I, A( I, I+1 ), LDA )
          AII = A( I, I )
          A( I, I ) = ONE
-         CALL CLARF( SIDE, MI, NI, A( I, I ), LDA, TAUI, C( IC, JC ), LDC, WORK )
+         clarf(SIDE, MI, NI, A( I, I ), LDA, TAUI, C( IC, JC ), LDC, WORK );
          A( I, I ) = AII
          IF( I.LT.NQ ) CALL CLACGV( NQ-I, A( I, I+1 ), LDA )
    10 CONTINUE

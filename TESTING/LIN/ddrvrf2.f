@@ -79,13 +79,13 @@
                END DO
 
                SRNAMT = 'DTRTTF'
-               CALL DTRTTF( CFORM, UPLO, N, A, LDA, ARF, INFO )
+               dtrttf(CFORM, UPLO, N, A, LDA, ARF, INFO );
 
                SRNAMT = 'DTFTTP'
-               CALL DTFTTP( CFORM, UPLO, N, ARF, AP, INFO )
+               dtfttp(CFORM, UPLO, N, ARF, AP, INFO );
 
                SRNAMT = 'DTPTTR'
-               CALL DTPTTR( UPLO, N, AP, ASAV, LDA, INFO )
+               dtpttr(UPLO, N, AP, ASAV, LDA, INFO );
 
                OK1 = .TRUE.
                if ( LOWER ) {
@@ -109,13 +109,13 @@
                NRUN = NRUN + 1
 
                SRNAMT = 'DTRTTP'
-               CALL DTRTTP( UPLO, N, A, LDA, AP, INFO )
+               dtrttp(UPLO, N, A, LDA, AP, INFO );
 
                SRNAMT = 'DTPTTF'
-               CALL DTPTTF( CFORM, UPLO, N, AP, ARF, INFO )
+               dtpttf(CFORM, UPLO, N, AP, ARF, INFO );
 
                SRNAMT = 'DTFTTR'
-               CALL DTFTTR( CFORM, UPLO, N, ARF, ASAV, LDA, INFO )
+               dtfttr(CFORM, UPLO, N, ARF, ASAV, LDA, INFO );
 
                OK2 = .TRUE.
                if ( LOWER ) {

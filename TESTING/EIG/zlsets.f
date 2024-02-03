@@ -25,26 +25,26 @@
       // Copy the matrices A and B to the arrays AF and BF,
       // and the vectors C and D to the arrays CF and DF,
 
-      CALL ZLACPY( 'Full', M, N, A, LDA, AF, LDA )
-      CALL ZLACPY( 'Full', P, N, B, LDB, BF, LDB )
-      CALL ZCOPY( M, C, 1, CF, 1 )
-      CALL ZCOPY( P, D, 1, DF, 1 )
+      zlacpy('Full', M, N, A, LDA, AF, LDA );
+      zlacpy('Full', P, N, B, LDB, BF, LDB );
+      zcopy(M, C, 1, CF, 1 );
+      zcopy(P, D, 1, DF, 1 );
 
       // Solve LSE problem
 
-      CALL ZGGLSE( M, N, P, AF, LDA, BF, LDB, CF, DF, X, WORK, LWORK, INFO )
+      zgglse(M, N, P, AF, LDA, BF, LDB, CF, DF, X, WORK, LWORK, INFO );
 
       // Test the residual for the solution of LSE
 
       // Compute RESULT(1) = norm( A*x - c ) / norm(A)*norm(X)*EPS
 
-      CALL ZCOPY( M, C, 1, CF, 1 )
-      CALL ZCOPY( P, D, 1, DF, 1 )
-      CALL ZGET02( 'No transpose', M, N, 1, A, LDA, X, N, CF, M, RWORK, RESULT( 1 ) )
+      zcopy(M, C, 1, CF, 1 );
+      zcopy(P, D, 1, DF, 1 );
+      zget02('No transpose', M, N, 1, A, LDA, X, N, CF, M, RWORK, RESULT( 1 ) );
 
       // Compute result(2) = norm( B*x - d ) / norm(B)*norm(X)*EPS
 
-      CALL ZGET02( 'No transpose', P, N, 1, B, LDB, X, N, DF, P, RWORK, RESULT( 2 ) )
+      zget02('No transpose', P, N, 1, B, LDB, X, N, DF, P, RWORK, RESULT( 2 ) );
 
       RETURN
 

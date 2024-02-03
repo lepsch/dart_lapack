@@ -50,7 +50,7 @@
          INFO = -8
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'DSYTRS2', -INFO )
+         xerbla('DSYTRS2', -INFO );
          RETURN
       }
 
@@ -60,7 +60,7 @@
 
       // Convert A
 
-      CALL DSYCONV( UPLO, 'C', N, A, LDA, IPIV, WORK, IINFO )
+      dsyconv(UPLO, 'C', N, A, LDA, IPIV, WORK, IINFO );
 
       if ( UPPER ) {
 
@@ -86,14 +86,14 @@
 
 *  Compute (U \P**T * B) -> B    [ (U \P**T * B) ]
 
-        CALL DTRSM('L','U','N','U',N,NRHS,ONE,A,LDA,B,LDB)
+        dtrsm('L','U','N','U',N,NRHS,ONE,A,LDA,B,LDB);
 
 *  Compute D \ B -> B   [ D \ (U \P**T * B) ]
 
          I=N
          DO WHILE ( I .GE. 1 )
             if ( IPIV(I) .GT. 0 ) {
-              CALL DSCAL( NRHS, ONE / A( I, I ), B( I, 1 ), LDB )
+              dscal(NRHS, ONE / A( I, I ), B( I, 1 ), LDB );
             ELSEIF ( I .GT. 1) THEN
                if ( IPIV(I-1) .EQ. IPIV(I) ) {
                   AKM1K = WORK(I)
@@ -114,7 +114,7 @@
 
        // Compute (U**T \ B) -> B   [ U**T \ (D \ (U \P**T * B) ) ]
 
-         CALL DTRSM('L','U','T','U',N,NRHS,ONE,A,LDA,B,LDB)
+         dtrsm('L','U','T','U',N,NRHS,ONE,A,LDA,B,LDB);
 
         // P * B  [ P * (U**T \ (D \ (U \P**T * B) )) ]
 
@@ -159,14 +159,14 @@
 
 *  Compute (L \P**T * B) -> B    [ (L \P**T * B) ]
 
-        CALL DTRSM('L','L','N','U',N,NRHS,ONE,A,LDA,B,LDB)
+        dtrsm('L','L','N','U',N,NRHS,ONE,A,LDA,B,LDB);
 
 *  Compute D \ B -> B   [ D \ (L \P**T * B) ]
 
          I=1
          DO WHILE ( I .LE. N )
             if ( IPIV(I) .GT. 0 ) {
-              CALL DSCAL( NRHS, ONE / A( I, I ), B( I, 1 ), LDB )
+              dscal(NRHS, ONE / A( I, I ), B( I, 1 ), LDB );
             } else {
                   AKM1K = WORK(I)
                   AKM1 = A( I, I ) / AKM1K
@@ -185,7 +185,7 @@
 
 *  Compute (L**T \ B) -> B   [ L**T \ (D \ (L \P**T * B) ) ]
 
-        CALL DTRSM('L','L','T','U',N,NRHS,ONE,A,LDA,B,LDB)
+        dtrsm('L','L','T','U',N,NRHS,ONE,A,LDA,B,LDB);
 
         // P * B  [ P * (L**T \ (D \ (L \P**T * B) )) ]
 
@@ -210,7 +210,7 @@
 
       // Revert A
 
-      CALL DSYCONV( UPLO, 'R', N, A, LDA, IPIV, WORK, IINFO )
+      dsyconv(UPLO, 'R', N, A, LDA, IPIV, WORK, IINFO );
 
       RETURN
 

@@ -55,15 +55,15 @@
       DO 20 I = 1, N
          READ( NIN, FMT = * )( TMP( I, J ), J = 1, N )
    20 CONTINUE
-      CALL DLACPY( 'F', N, N, TMP, LDT, T, LDT )
-      CALL DLACPY( 'F', N, N, TMP, LDT, T1, LDT )
-      CALL DLACPY( 'F', N, N, TMP, LDT, T2, LDT )
+      dlacpy('F', N, N, TMP, LDT, T, LDT );
+      dlacpy('F', N, N, TMP, LDT, T1, LDT );
+      dlacpy('F', N, N, TMP, LDT, T2, LDT );
       DO 25 I = 1, N
          READ( NIN, FMT = * )( TMP( I, J ), J = 1, N )
    25 CONTINUE
-      CALL DLACPY( 'F', N, N, TMP, LDT, S, LDT )
-      CALL DLACPY( 'F', N, N, TMP, LDT, S1, LDT )
-      CALL DLACPY( 'F', N, N, TMP, LDT, S2, LDT )
+      dlacpy('F', N, N, TMP, LDT, S, LDT );
+      dlacpy('F', N, N, TMP, LDT, S1, LDT );
+      dlacpy('F', N, N, TMP, LDT, S2, LDT );
       IFSTSV = IFST
       ILSTSV = ILST
       IFST1 = IFST
@@ -74,9 +74,9 @@
 
       // Test without accumulating Q and Z
 
-      CALL DLASET( 'Full', N, N, ZERO, ONE, Q, LDT )
-      CALL DLASET( 'Full', N, N, ZERO, ONE, Z, LDT )
-      CALL DTGEXC( .FALSE., .FALSE., N, T1, LDT, S1, LDT, Q, LDT, Z, LDT, IFST1, ILST1, WORK, LWORK, NINFO ( 1 ) )
+      dlaset('Full', N, N, ZERO, ONE, Q, LDT );
+      dlaset('Full', N, N, ZERO, ONE, Z, LDT );
+      dtgexc(.FALSE., .FALSE., N, T1, LDT, S1, LDT, Q, LDT, Z, LDT, IFST1, ILST1, WORK, LWORK, NINFO ( 1 ) );
       DO 40 I = 1, N
          DO 30 J = 1, N
             IF( I.EQ.J .AND. Q( I, J ).NE.ONE ) RES = RES + ONE / EPS             IF( I.NE.J .AND. Q( I, J ).NE.ZERO ) RES = RES + ONE / EPS             IF( I.EQ.J .AND. Z( I, J ).NE.ONE ) RES = RES + ONE / EPS             IF( I.NE.J .AND. Z( I, J ).NE.ZERO ) RES = RES + ONE / EPS
@@ -85,9 +85,9 @@
 
       // Test with accumulating Q
 
-      CALL DLASET( 'Full', N, N, ZERO, ONE, Q, LDT )
-      CALL DLASET( 'Full', N, N, ZERO, ONE, Z, LDT )
-      CALL DTGEXC( .TRUE., .TRUE., N, T2, LDT, S2, LDT, Q, LDT, Z, LDT, IFST2, ILST2, WORK, LWORK, NINFO ( 2 ) )
+      dlaset('Full', N, N, ZERO, ONE, Q, LDT );
+      dlaset('Full', N, N, ZERO, ONE, Z, LDT );
+      dtgexc(.TRUE., .TRUE., N, T2, LDT, S2, LDT, Q, LDT, Z, LDT, IFST2, ILST2, WORK, LWORK, NINFO ( 2 ) );
 
       // Compare T1 with T2 and S1 with S2
 
@@ -100,7 +100,7 @@
 
       // Test orthogonality of Q and Z and backward error on T2 and S2
 
-      CALL DGET51( 1, N, T, LDT, T2, LDT, Q, LDT, Z, LDT, WORK, RESULT( 1 ) )       CALL DGET51( 1, N, S, LDT, S2, LDT, Q, LDT, Z, LDT, WORK, RESULT( 2 ) )       CALL DGET51( 3, N, T, LDT, T2, LDT, Q, LDT, Q, LDT, WORK, RESULT( 3 ) )       CALL DGET51( 3, N, T, LDT, T2, LDT, Z, LDT, Z, LDT, WORK, RESULT( 4 ) )
+      dget51(1, N, T, LDT, T2, LDT, Q, LDT, Z, LDT, WORK, RESULT( 1 ) )       CALL DGET51( 1, N, S, LDT, S2, LDT, Q, LDT, Z, LDT, WORK, RESULT( 2 ) )       CALL DGET51( 3, N, T, LDT, T2, LDT, Q, LDT, Q, LDT, WORK, RESULT( 3 ) )       CALL DGET51( 3, N, T, LDT, T2, LDT, Z, LDT, Z, LDT, WORK, RESULT( 4 ) );
       RES = RES + RESULT( 1 ) + RESULT( 2 ) + RESULT( 3 ) + RESULT( 4 )
 
       // Read next matrix pair

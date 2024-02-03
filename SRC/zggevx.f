@@ -142,7 +142,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'ZGGEVX', -INFO )
+         xerbla('ZGGEVX', -INFO );
          RETURN
       } else if ( LQUERY ) {
          RETURN
@@ -189,21 +189,21 @@
       // Permute and/or balance the matrix pair (A,B)
       // (Real Workspace: need 6*N if BALANC = 'S' or 'B', 1 otherwise)
 
-      CALL ZGGBAL( BALANC, N, A, LDA, B, LDB, ILO, IHI, LSCALE, RSCALE, RWORK, IERR )
+      zggbal(BALANC, N, A, LDA, B, LDB, ILO, IHI, LSCALE, RSCALE, RWORK, IERR );
 
       // Compute ABNRM and BBNRM
 
       ABNRM = ZLANGE( '1', N, N, A, LDA, RWORK( 1 ) )
       if ( ILASCL ) {
          RWORK( 1 ) = ABNRM
-         CALL DLASCL( 'G', 0, 0, ANRMTO, ANRM, 1, 1, RWORK( 1 ), 1, IERR )
+         dlascl('G', 0, 0, ANRMTO, ANRM, 1, 1, RWORK( 1 ), 1, IERR );
          ABNRM = RWORK( 1 )
       }
 
       BBNRM = ZLANGE( '1', N, N, B, LDB, RWORK( 1 ) )
       if ( ILBSCL ) {
          RWORK( 1 ) = BBNRM
-         CALL DLASCL( 'G', 0, 0, BNRMTO, BNRM, 1, 1, RWORK( 1 ), 1, IERR )
+         dlascl('G', 0, 0, BNRMTO, BNRM, 1, 1, RWORK( 1 ), 1, IERR );
          BBNRM = RWORK( 1 )
       }
 
@@ -218,22 +218,22 @@
       }
       ITAU = 1
       IWRK = ITAU + IROWS
-      CALL ZGEQRF( IROWS, ICOLS, B( ILO, ILO ), LDB, WORK( ITAU ), WORK( IWRK ), LWORK+1-IWRK, IERR )
+      zgeqrf(IROWS, ICOLS, B( ILO, ILO ), LDB, WORK( ITAU ), WORK( IWRK ), LWORK+1-IWRK, IERR );
 
       // Apply the unitary transformation to A
       // (Complex Workspace: need N, prefer N*NB)
 
-      CALL ZUNMQR( 'L', 'C', IROWS, ICOLS, IROWS, B( ILO, ILO ), LDB, WORK( ITAU ), A( ILO, ILO ), LDA, WORK( IWRK ), LWORK+1-IWRK, IERR )
+      zunmqr('L', 'C', IROWS, ICOLS, IROWS, B( ILO, ILO ), LDB, WORK( ITAU ), A( ILO, ILO ), LDA, WORK( IWRK ), LWORK+1-IWRK, IERR );
 
       // Initialize VL and/or VR
       // (Workspace: need N, prefer N*NB)
 
       if ( ILVL ) {
-         CALL ZLASET( 'Full', N, N, CZERO, CONE, VL, LDVL )
+         zlaset('Full', N, N, CZERO, CONE, VL, LDVL );
          if ( IROWS.GT.1 ) {
-            CALL ZLACPY( 'L', IROWS-1, IROWS-1, B( ILO+1, ILO ), LDB, VL( ILO+1, ILO ), LDVL )
+            zlacpy('L', IROWS-1, IROWS-1, B( ILO+1, ILO ), LDB, VL( ILO+1, ILO ), LDVL );
          }
-         CALL ZUNGQR( IROWS, IROWS, IROWS, VL( ILO, ILO ), LDVL, WORK( ITAU ), WORK( IWRK ), LWORK+1-IWRK, IERR )
+         zungqr(IROWS, IROWS, IROWS, VL( ILO, ILO ), LDVL, WORK( ITAU ), WORK( IWRK ), LWORK+1-IWRK, IERR );
       }
 
       IF( ILVR ) CALL ZLASET( 'Full', N, N, CZERO, CONE, VR, LDVR )
@@ -245,9 +245,9 @@
 
          // Eigenvectors requested -- work on whole matrix.
 
-         CALL ZGGHRD( JOBVL, JOBVR, N, ILO, IHI, A, LDA, B, LDB, VL, LDVL, VR, LDVR, IERR )
+         zgghrd(JOBVL, JOBVR, N, ILO, IHI, A, LDA, B, LDB, VL, LDVL, VR, LDVR, IERR );
       } else {
-         CALL ZGGHRD( 'N', 'N', IROWS, 1, IROWS, A( ILO, ILO ), LDA, B( ILO, ILO ), LDB, VL, LDVL, VR, LDVR, IERR )
+         zgghrd('N', 'N', IROWS, 1, IROWS, A( ILO, ILO ), LDA, B( ILO, ILO ), LDB, VL, LDVL, VR, LDVR, IERR );
       }
 
       // Perform QZ algorithm (Compute eigenvalues, and optionally, the
@@ -262,7 +262,7 @@
          CHTEMP = 'E'
       }
 
-      CALL ZHGEQZ( CHTEMP, JOBVL, JOBVR, N, ILO, IHI, A, LDA, B, LDB, ALPHA, BETA, VL, LDVL, VR, LDVR, WORK( IWRK ), LWORK+1-IWRK, RWORK, IERR )
+      zhgeqz(CHTEMP, JOBVL, JOBVR, N, ILO, IHI, A, LDA, B, LDB, ALPHA, BETA, VL, LDVL, VR, LDVR, WORK( IWRK ), LWORK+1-IWRK, RWORK, IERR );
       if ( IERR.NE.0 ) {
          if ( IERR.GT.0 .AND. IERR.LE.N ) {
             INFO = IERR
@@ -292,7 +292,7 @@
                CHTEMP = 'R'
             }
 
-            CALL ZTGEVC( CHTEMP, 'B', LDUMMA, N, A, LDA, B, LDB, VL, LDVL, VR, LDVR, N, IN, WORK( IWRK ), RWORK, IERR )
+            ztgevc(CHTEMP, 'B', LDUMMA, N, A, LDA, B, LDB, VL, LDVL, VR, LDVR, N, IN, WORK( IWRK ), RWORK, IERR );
             if ( IERR.NE.0 ) {
                INFO = N + 2
                GO TO 90
@@ -321,14 +321,14 @@
                IWRK1 = IWRK + N
 
                if ( WANTSE .OR. WANTSB ) {
-                  CALL ZTGEVC( 'B', 'S', BWORK, N, A, LDA, B, LDB, WORK( 1 ), N, WORK( IWRK ), N, 1, M, WORK( IWRK1 ), RWORK, IERR )
+                  ztgevc('B', 'S', BWORK, N, A, LDA, B, LDB, WORK( 1 ), N, WORK( IWRK ), N, 1, M, WORK( IWRK1 ), RWORK, IERR );
                   if ( IERR.NE.0 ) {
                      INFO = N + 2
                      GO TO 90
                   }
                }
 
-               CALL ZTGSNA( SENSE, 'S', BWORK, N, A, LDA, B, LDB, WORK( 1 ), N, WORK( IWRK ), N, RCONDE( I ), RCONDV( I ), 1, M, WORK( IWRK1 ), LWORK-IWRK1+1, IWORK, IERR )
+               ztgsna(SENSE, 'S', BWORK, N, A, LDA, B, LDB, WORK( 1 ), N, WORK( IWRK ), N, RCONDE( I ), RCONDV( I ), 1, M, WORK( IWRK1 ), LWORK-IWRK1+1, IWORK, IERR );
 
    20       CONTINUE
          }
@@ -338,7 +338,7 @@
       // (Workspace: none needed)
 
       if ( ILVL ) {
-         CALL ZGGBAK( BALANC, 'L', N, ILO, IHI, LSCALE, RSCALE, N, VL, LDVL, IERR )
+         zggbak(BALANC, 'L', N, ILO, IHI, LSCALE, RSCALE, N, VL, LDVL, IERR );
 
          DO 50 JC = 1, N
             TEMP = ZERO
@@ -354,7 +354,7 @@
       }
 
       if ( ILVR ) {
-         CALL ZGGBAK( BALANC, 'R', N, ILO, IHI, LSCALE, RSCALE, N, VR, LDVR, IERR )
+         zggbak(BALANC, 'R', N, ILO, IHI, LSCALE, RSCALE, N, VR, LDVR, IERR );
          DO 80 JC = 1, N
             TEMP = ZERO
             DO 60 JR = 1, N

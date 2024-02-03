@@ -39,21 +39,21 @@
 
       // Compute the QR factorization of the N-by-2 matrix ( X Y )
 
-      CALL DLARFG( N, X( 1 ), X( 1+INCX ), INCX, TAU )
+      dlarfg(N, X( 1 ), X( 1+INCX ), INCX, TAU );
       A11 = X( 1 )
       X( 1 ) = ONE
 
       C = -TAU*DDOT( N, X, INCX, Y, INCY )
-      CALL DAXPY( N, C, X, INCX, Y, INCY )
+      daxpy(N, C, X, INCX, Y, INCY );
 
-      CALL DLARFG( N-1, Y( 1+INCY ), Y( 1+2*INCY ), INCY, TAU )
+      dlarfg(N-1, Y( 1+INCY ), Y( 1+2*INCY ), INCY, TAU );
 
       A12 = Y( 1 )
       A22 = Y( 1+INCY )
 
       // Compute the SVD of 2-by-2 Upper triangular matrix.
 
-      CALL DLAS2( A11, A12, A22, SSMIN, SSMAX )
+      dlas2(A11, A12, A22, SSMIN, SSMAX );
 
       RETURN
 

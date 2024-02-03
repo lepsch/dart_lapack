@@ -47,7 +47,7 @@
          INFO = -4
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'DLAUUM', -INFO )
+         xerbla('DLAUUM', -INFO );
          RETURN
       }
 
@@ -63,7 +63,7 @@
 
          // Use unblocked code
 
-         CALL DLAUU2( UPLO, N, A, LDA, INFO )
+         dlauu2(UPLO, N, A, LDA, INFO );
       } else {
 
          // Use blocked code
@@ -74,10 +74,10 @@
 
             DO 10 I = 1, N, NB
                IB = MIN( NB, N-I+1 )
-               CALL DTRMM( 'Right', 'Upper', 'Transpose', 'Non-unit', I-1, IB, ONE, A( I, I ), LDA, A( 1, I ), LDA )
-               CALL DLAUU2( 'Upper', IB, A( I, I ), LDA, INFO )
+               dtrmm('Right', 'Upper', 'Transpose', 'Non-unit', I-1, IB, ONE, A( I, I ), LDA, A( 1, I ), LDA );
+               dlauu2('Upper', IB, A( I, I ), LDA, INFO );
                if ( I+IB.LE.N ) {
-                  CALL DGEMM( 'No transpose', 'Transpose', I-1, IB, N-I-IB+1, ONE, A( 1, I+IB ), LDA, A( I, I+IB ), LDA, ONE, A( 1, I ), LDA )                   CALL DSYRK( 'Upper', 'No transpose', IB, N-I-IB+1, ONE, A( I, I+IB ), LDA, ONE, A( I, I ), LDA )
+                  dgemm('No transpose', 'Transpose', I-1, IB, N-I-IB+1, ONE, A( 1, I+IB ), LDA, A( I, I+IB ), LDA, ONE, A( 1, I ), LDA )                   CALL DSYRK( 'Upper', 'No transpose', IB, N-I-IB+1, ONE, A( I, I+IB ), LDA, ONE, A( I, I ), LDA );
                }
    10       CONTINUE
          } else {
@@ -86,11 +86,11 @@
 
             DO 20 I = 1, N, NB
                IB = MIN( NB, N-I+1 )
-               CALL DTRMM( 'Left', 'Lower', 'Transpose', 'Non-unit', IB, I-1, ONE, A( I, I ), LDA, A( I, 1 ), LDA )
-               CALL DLAUU2( 'Lower', IB, A( I, I ), LDA, INFO )
+               dtrmm('Left', 'Lower', 'Transpose', 'Non-unit', IB, I-1, ONE, A( I, I ), LDA, A( I, 1 ), LDA );
+               dlauu2('Lower', IB, A( I, I ), LDA, INFO );
                if ( I+IB.LE.N ) {
-                  CALL DGEMM( 'Transpose', 'No transpose', IB, I-1, N-I-IB+1, ONE, A( I+IB, I ), LDA, A( I+IB, 1 ), LDA, ONE, A( I, 1 ), LDA )
-                  CALL DSYRK( 'Lower', 'Transpose', IB, N-I-IB+1, ONE, A( I+IB, I ), LDA, ONE, A( I, I ), LDA )
+                  dgemm('Transpose', 'No transpose', IB, I-1, N-I-IB+1, ONE, A( I+IB, I ), LDA, A( I+IB, 1 ), LDA, ONE, A( I, 1 ), LDA );
+                  dsyrk('Lower', 'Transpose', IB, N-I-IB+1, ONE, A( I+IB, I ), LDA, ONE, A( I, I ), LDA );
                }
    20       CONTINUE
          }

@@ -126,13 +126,13 @@
 
       // Choose a shift.
 
-      CALL SLASQ4( I0, N0, Z, PP, N0IN, DMIN, DMIN1, DMIN2, DN, DN1, DN2, TAU, TTYPE, G )
+      slasq4(I0, N0, Z, PP, N0IN, DMIN, DMIN1, DMIN2, DN, DN1, DN2, TAU, TTYPE, G );
 
       // Call dqds until DMIN > 0.
 
    70 CONTINUE
 
-      CALL SLASQ5( I0, N0, Z, PP, TAU, SIGMA, DMIN, DMIN1, DMIN2, DN, DN1, DN2, IEEE, EPS )
+      slasq5(I0, N0, Z, PP, TAU, SIGMA, DMIN, DMIN1, DMIN2, DN, DN1, DN2, IEEE, EPS );
 
       NDIV = NDIV + ( N0-I0+2 )
       ITER = ITER + 1
@@ -196,7 +196,7 @@
       // Risk of underflow.
 
    80 CONTINUE
-      CALL SLASQ6( I0, N0, Z, PP, DMIN, DMIN1, DMIN2, DN, DN1, DN2 )
+      slasq6(I0, N0, Z, PP, DMIN, DMIN1, DMIN2, DN, DN1, DN2 );
       NDIV = NDIV + ( N0-I0+2 )
       ITER = ITER + 1
       TAU = ZERO

@@ -49,7 +49,7 @@
          INFO = -4
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'ZPOTRF2', -INFO )
+         xerbla('ZPOTRF2', -INFO );
          RETURN
       }
 
@@ -81,7 +81,7 @@
 
          // Factor A11
 
-         CALL ZPOTRF2( UPLO, N1, A( 1, 1 ), LDA, IINFO )
+         zpotrf2(UPLO, N1, A( 1, 1 ), LDA, IINFO );
          if ( IINFO.NE.0 ) {
             INFO = IINFO
             RETURN
@@ -93,12 +93,12 @@
 
             // Update and scale A12
 
-            CALL ZTRSM( 'L', 'U', 'C', 'N', N1, N2, CONE, A( 1, 1 ), LDA, A( 1, N1+1 ), LDA )
+            ztrsm('L', 'U', 'C', 'N', N1, N2, CONE, A( 1, 1 ), LDA, A( 1, N1+1 ), LDA );
 
             // Update and factor A22
 
-            CALL ZHERK( UPLO, 'C', N2, N1, -ONE, A( 1, N1+1 ), LDA, ONE, A( N1+1, N1+1 ), LDA )
-            CALL ZPOTRF2( UPLO, N2, A( N1+1, N1+1 ), LDA, IINFO )
+            zherk(UPLO, 'C', N2, N1, -ONE, A( 1, N1+1 ), LDA, ONE, A( N1+1, N1+1 ), LDA );
+            zpotrf2(UPLO, N2, A( N1+1, N1+1 ), LDA, IINFO );
             if ( IINFO.NE.0 ) {
                INFO = IINFO + N1
                RETURN
@@ -110,12 +110,12 @@
 
             // Update and scale A21
 
-            CALL ZTRSM( 'R', 'L', 'C', 'N', N2, N1, CONE, A( 1, 1 ), LDA, A( N1+1, 1 ), LDA )
+            ztrsm('R', 'L', 'C', 'N', N2, N1, CONE, A( 1, 1 ), LDA, A( N1+1, 1 ), LDA );
 
             // Update and factor A22
 
-            CALL ZHERK( UPLO, 'N', N2, N1, -ONE, A( N1+1, 1 ), LDA, ONE, A( N1+1, N1+1 ), LDA )
-            CALL ZPOTRF2( UPLO, N2, A( N1+1, N1+1 ), LDA, IINFO )
+            zherk(UPLO, 'N', N2, N1, -ONE, A( N1+1, 1 ), LDA, ONE, A( N1+1, N1+1 ), LDA );
+            zpotrf2(UPLO, N2, A( N1+1, N1+1 ), LDA, IINFO );
             if ( IINFO.NE.0 ) {
                INFO = IINFO + N1
                RETURN

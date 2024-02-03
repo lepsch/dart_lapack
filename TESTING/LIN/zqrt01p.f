@@ -47,31 +47,31 @@
 
       // Copy the matrix A to the array AF.
 
-      CALL ZLACPY( 'Full', M, N, A, LDA, AF, LDA )
+      zlacpy('Full', M, N, A, LDA, AF, LDA );
 
       // Factorize the matrix A in the array AF.
 
       SRNAMT = 'ZGEQRFP'
-      CALL ZGEQRFP( M, N, AF, LDA, TAU, WORK, LWORK, INFO )
+      zgeqrfp(M, N, AF, LDA, TAU, WORK, LWORK, INFO );
 
       // Copy details of Q
 
-      CALL ZLASET( 'Full', M, M, ROGUE, ROGUE, Q, LDA )
-      CALL ZLACPY( 'Lower', M-1, N, AF( 2, 1 ), LDA, Q( 2, 1 ), LDA )
+      zlaset('Full', M, M, ROGUE, ROGUE, Q, LDA );
+      zlacpy('Lower', M-1, N, AF( 2, 1 ), LDA, Q( 2, 1 ), LDA );
 
       // Generate the m-by-m matrix Q
 
       SRNAMT = 'ZUNGQR'
-      CALL ZUNGQR( M, M, MINMN, Q, LDA, TAU, WORK, LWORK, INFO )
+      zungqr(M, M, MINMN, Q, LDA, TAU, WORK, LWORK, INFO );
 
       // Copy R
 
-      CALL ZLASET( 'Full', M, N, DCMPLX( ZERO ), DCMPLX( ZERO ), R, LDA )
-      CALL ZLACPY( 'Upper', M, N, AF, LDA, R, LDA )
+      zlaset('Full', M, N, DCMPLX( ZERO ), DCMPLX( ZERO ), R, LDA );
+      zlacpy('Upper', M, N, AF, LDA, R, LDA );
 
       // Compute R - Q'*A
 
-      CALL ZGEMM( 'Conjugate transpose', 'No transpose', M, N, M, DCMPLX( -ONE ), Q, LDA, A, LDA, DCMPLX( ONE ), R, LDA )
+      zgemm('Conjugate transpose', 'No transpose', M, N, M, DCMPLX( -ONE ), Q, LDA, A, LDA, DCMPLX( ONE ), R, LDA );
 
       // Compute norm( R - Q'*A ) / ( M * norm(A) * EPS ) .
 
@@ -85,8 +85,8 @@
 
       // Compute I - Q'*Q
 
-      CALL ZLASET( 'Full', M, M, DCMPLX( ZERO ), DCMPLX( ONE ), R, LDA )
-      CALL ZHERK( 'Upper', 'Conjugate transpose', M, M, -ONE, Q, LDA, ONE, R, LDA )
+      zlaset('Full', M, M, DCMPLX( ZERO ), DCMPLX( ONE ), R, LDA );
+      zherk('Upper', 'Conjugate transpose', M, M, -ONE, Q, LDA, ONE, R, LDA );
 
       // Compute norm( I - Q'*Q ) / ( M * EPS ) .
 

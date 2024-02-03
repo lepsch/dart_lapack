@@ -130,7 +130,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'CGELSD', -INFO )
+         xerbla('CGELSD', -INFO );
          RETURN
       } else if ( LQUERY ) {
          RETURN
@@ -158,20 +158,20 @@
 
          // Scale matrix norm up to SMLNUM
 
-         CALL CLASCL( 'G', 0, 0, ANRM, SMLNUM, M, N, A, LDA, INFO )
+         clascl('G', 0, 0, ANRM, SMLNUM, M, N, A, LDA, INFO );
          IASCL = 1
       } else if ( ANRM.GT.BIGNUM ) {
 
          // Scale matrix norm down to BIGNUM.
 
-         CALL CLASCL( 'G', 0, 0, ANRM, BIGNUM, M, N, A, LDA, INFO )
+         clascl('G', 0, 0, ANRM, BIGNUM, M, N, A, LDA, INFO );
          IASCL = 2
       } else if ( ANRM.EQ.ZERO ) {
 
          // Matrix all zero. Return zero solution.
 
-         CALL CLASET( 'F', MAX( M, N ), NRHS, CZERO, CZERO, B, LDB )
-         CALL SLASET( 'F', MINMN, 1, ZERO, ZERO, S, 1 )
+         claset('F', MAX( M, N ), NRHS, CZERO, CZERO, B, LDB );
+         slaset('F', MINMN, 1, ZERO, ZERO, S, 1 );
          RANK = 0
          GO TO 10
       }
@@ -184,13 +184,13 @@
 
          // Scale matrix norm up to SMLNUM.
 
-         CALL CLASCL( 'G', 0, 0, BNRM, SMLNUM, M, NRHS, B, LDB, INFO )
+         clascl('G', 0, 0, BNRM, SMLNUM, M, NRHS, B, LDB, INFO );
          IBSCL = 1
       } else if ( BNRM.GT.BIGNUM ) {
 
          // Scale matrix norm down to BIGNUM.
 
-         CALL CLASCL( 'G', 0, 0, BNRM, BIGNUM, M, NRHS, B, LDB, INFO )
+         clascl('G', 0, 0, BNRM, BIGNUM, M, NRHS, B, LDB, INFO );
          IBSCL = 2
       }
 
@@ -217,18 +217,18 @@
             // (RWorkspace: need N)
             // (CWorkspace: need N, prefer N*NB)
 
-            CALL CGEQRF( M, N, A, LDA, WORK( ITAU ), WORK( NWORK ), LWORK-NWORK+1, INFO )
+            cgeqrf(M, N, A, LDA, WORK( ITAU ), WORK( NWORK ), LWORK-NWORK+1, INFO );
 
             // Multiply B by transpose(Q).
             // (RWorkspace: need N)
             // (CWorkspace: need NRHS, prefer NRHS*NB)
 
-            CALL CUNMQR( 'L', 'C', M, NRHS, N, A, LDA, WORK( ITAU ), B, LDB, WORK( NWORK ), LWORK-NWORK+1, INFO )
+            cunmqr('L', 'C', M, NRHS, N, A, LDA, WORK( ITAU ), B, LDB, WORK( NWORK ), LWORK-NWORK+1, INFO );
 
             // Zero out below R.
 
             if ( N.GT.1 ) {
-               CALL CLASET( 'L', N-1, N-1, CZERO, CZERO, A( 2, 1 ), LDA )
+               claset('L', N-1, N-1, CZERO, CZERO, A( 2, 1 ), LDA );
             }
          }
 
@@ -242,23 +242,23 @@
          // (RWorkspace: need N)
          // (CWorkspace: need 2*N+MM, prefer 2*N+(MM+N)*NB)
 
-         CALL CGEBRD( MM, N, A, LDA, S, RWORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( NWORK ), LWORK-NWORK+1, INFO )
+         cgebrd(MM, N, A, LDA, S, RWORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( NWORK ), LWORK-NWORK+1, INFO );
 
          // Multiply B by transpose of left bidiagonalizing vectors of R.
          // (CWorkspace: need 2*N+NRHS, prefer 2*N+NRHS*NB)
 
-         CALL CUNMBR( 'Q', 'L', 'C', MM, NRHS, N, A, LDA, WORK( ITAUQ ), B, LDB, WORK( NWORK ), LWORK-NWORK+1, INFO )
+         cunmbr('Q', 'L', 'C', MM, NRHS, N, A, LDA, WORK( ITAUQ ), B, LDB, WORK( NWORK ), LWORK-NWORK+1, INFO );
 
          // Solve the bidiagonal least squares problem.
 
-         CALL CLALSD( 'U', SMLSIZ, N, NRHS, S, RWORK( IE ), B, LDB, RCOND, RANK, WORK( NWORK ), RWORK( NRWORK ), IWORK, INFO )
+         clalsd('U', SMLSIZ, N, NRHS, S, RWORK( IE ), B, LDB, RCOND, RANK, WORK( NWORK ), RWORK( NRWORK ), IWORK, INFO );
          if ( INFO.NE.0 ) {
             GO TO 10
          }
 
          // Multiply B by right bidiagonalizing vectors of R.
 
-         CALL CUNMBR( 'P', 'L', 'N', N, NRHS, N, A, LDA, WORK( ITAUP ), B, LDB, WORK( NWORK ), LWORK-NWORK+1, INFO )
+         cunmbr('P', 'L', 'N', N, NRHS, N, A, LDA, WORK( ITAUP ), B, LDB, WORK( NWORK ), LWORK-NWORK+1, INFO );
 
       } else if ( N.GE.MNTHR .AND. LWORK.GE.4*M+M*M+ MAX( M, 2*M-4, NRHS, N-3*M ) ) {
 
@@ -273,13 +273,13 @@
          // Compute A=L*Q.
          // (CWorkspace: need 2*M, prefer M+M*NB)
 
-         CALL CGELQF( M, N, A, LDA, WORK( ITAU ), WORK( NWORK ), LWORK-NWORK+1, INFO )
+         cgelqf(M, N, A, LDA, WORK( ITAU ), WORK( NWORK ), LWORK-NWORK+1, INFO );
          IL = NWORK
 
          // Copy L to WORK(IL), zeroing out above its diagonal.
 
-         CALL CLACPY( 'L', M, M, A, LDA, WORK( IL ), LDWORK )
-         CALL CLASET( 'U', M-1, M-1, CZERO, CZERO, WORK( IL+LDWORK ), LDWORK )
+         clacpy('L', M, M, A, LDA, WORK( IL ), LDWORK );
+         claset('U', M-1, M-1, CZERO, CZERO, WORK( IL+LDWORK ), LDWORK );
          ITAUQ = IL + LDWORK*M
          ITAUP = ITAUQ + M
          NWORK = ITAUP + M
@@ -290,33 +290,33 @@
          // (RWorkspace: need M)
          // (CWorkspace: need M*M+4*M, prefer M*M+4*M+2*M*NB)
 
-         CALL CGEBRD( M, M, WORK( IL ), LDWORK, S, RWORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( NWORK ), LWORK-NWORK+1, INFO )
+         cgebrd(M, M, WORK( IL ), LDWORK, S, RWORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( NWORK ), LWORK-NWORK+1, INFO );
 
          // Multiply B by transpose of left bidiagonalizing vectors of L.
          // (CWorkspace: need M*M+4*M+NRHS, prefer M*M+4*M+NRHS*NB)
 
-         CALL CUNMBR( 'Q', 'L', 'C', M, NRHS, M, WORK( IL ), LDWORK, WORK( ITAUQ ), B, LDB, WORK( NWORK ), LWORK-NWORK+1, INFO )
+         cunmbr('Q', 'L', 'C', M, NRHS, M, WORK( IL ), LDWORK, WORK( ITAUQ ), B, LDB, WORK( NWORK ), LWORK-NWORK+1, INFO );
 
          // Solve the bidiagonal least squares problem.
 
-         CALL CLALSD( 'U', SMLSIZ, M, NRHS, S, RWORK( IE ), B, LDB, RCOND, RANK, WORK( NWORK ), RWORK( NRWORK ), IWORK, INFO )
+         clalsd('U', SMLSIZ, M, NRHS, S, RWORK( IE ), B, LDB, RCOND, RANK, WORK( NWORK ), RWORK( NRWORK ), IWORK, INFO );
          if ( INFO.NE.0 ) {
             GO TO 10
          }
 
          // Multiply B by right bidiagonalizing vectors of L.
 
-         CALL CUNMBR( 'P', 'L', 'N', M, NRHS, M, WORK( IL ), LDWORK, WORK( ITAUP ), B, LDB, WORK( NWORK ), LWORK-NWORK+1, INFO )
+         cunmbr('P', 'L', 'N', M, NRHS, M, WORK( IL ), LDWORK, WORK( ITAUP ), B, LDB, WORK( NWORK ), LWORK-NWORK+1, INFO );
 
          // Zero out below first M rows of B.
 
-         CALL CLASET( 'F', N-M, NRHS, CZERO, CZERO, B( M+1, 1 ), LDB )
+         claset('F', N-M, NRHS, CZERO, CZERO, B( M+1, 1 ), LDB );
          NWORK = ITAU + M
 
          // Multiply transpose(Q) by B.
          // (CWorkspace: need NRHS, prefer NRHS*NB)
 
-         CALL CUNMLQ( 'L', 'C', N, NRHS, M, A, LDA, WORK( ITAU ), B, LDB, WORK( NWORK ), LWORK-NWORK+1, INFO )
+         cunmlq('L', 'C', N, NRHS, M, A, LDA, WORK( ITAU ), B, LDB, WORK( NWORK ), LWORK-NWORK+1, INFO );
 
       } else {
 
@@ -332,39 +332,39 @@
          // (RWorkspace: need M)
          // (CWorkspace: need 2*M+N, prefer 2*M+(M+N)*NB)
 
-         CALL CGEBRD( M, N, A, LDA, S, RWORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( NWORK ), LWORK-NWORK+1, INFO )
+         cgebrd(M, N, A, LDA, S, RWORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( NWORK ), LWORK-NWORK+1, INFO );
 
          // Multiply B by transpose of left bidiagonalizing vectors.
          // (CWorkspace: need 2*M+NRHS, prefer 2*M+NRHS*NB)
 
-         CALL CUNMBR( 'Q', 'L', 'C', M, NRHS, N, A, LDA, WORK( ITAUQ ), B, LDB, WORK( NWORK ), LWORK-NWORK+1, INFO )
+         cunmbr('Q', 'L', 'C', M, NRHS, N, A, LDA, WORK( ITAUQ ), B, LDB, WORK( NWORK ), LWORK-NWORK+1, INFO );
 
          // Solve the bidiagonal least squares problem.
 
-         CALL CLALSD( 'L', SMLSIZ, M, NRHS, S, RWORK( IE ), B, LDB, RCOND, RANK, WORK( NWORK ), RWORK( NRWORK ), IWORK, INFO )
+         clalsd('L', SMLSIZ, M, NRHS, S, RWORK( IE ), B, LDB, RCOND, RANK, WORK( NWORK ), RWORK( NRWORK ), IWORK, INFO );
          if ( INFO.NE.0 ) {
             GO TO 10
          }
 
          // Multiply B by right bidiagonalizing vectors of A.
 
-         CALL CUNMBR( 'P', 'L', 'N', N, NRHS, M, A, LDA, WORK( ITAUP ), B, LDB, WORK( NWORK ), LWORK-NWORK+1, INFO )
+         cunmbr('P', 'L', 'N', N, NRHS, M, A, LDA, WORK( ITAUP ), B, LDB, WORK( NWORK ), LWORK-NWORK+1, INFO );
 
       }
 
       // Undo scaling.
 
       if ( IASCL.EQ.1 ) {
-         CALL CLASCL( 'G', 0, 0, ANRM, SMLNUM, N, NRHS, B, LDB, INFO )
-         CALL SLASCL( 'G', 0, 0, SMLNUM, ANRM, MINMN, 1, S, MINMN, INFO )
+         clascl('G', 0, 0, ANRM, SMLNUM, N, NRHS, B, LDB, INFO );
+         slascl('G', 0, 0, SMLNUM, ANRM, MINMN, 1, S, MINMN, INFO );
       } else if ( IASCL.EQ.2 ) {
-         CALL CLASCL( 'G', 0, 0, ANRM, BIGNUM, N, NRHS, B, LDB, INFO )
-         CALL SLASCL( 'G', 0, 0, BIGNUM, ANRM, MINMN, 1, S, MINMN, INFO )
+         clascl('G', 0, 0, ANRM, BIGNUM, N, NRHS, B, LDB, INFO );
+         slascl('G', 0, 0, BIGNUM, ANRM, MINMN, 1, S, MINMN, INFO );
       }
       if ( IBSCL.EQ.1 ) {
-         CALL CLASCL( 'G', 0, 0, SMLNUM, BNRM, N, NRHS, B, LDB, INFO )
+         clascl('G', 0, 0, SMLNUM, BNRM, N, NRHS, B, LDB, INFO );
       } else if ( IBSCL.EQ.2 ) {
-         CALL CLASCL( 'G', 0, 0, BIGNUM, BNRM, N, NRHS, B, LDB, INFO )
+         clascl('G', 0, 0, BIGNUM, BNRM, N, NRHS, B, LDB, INFO );
       }
 
    10 CONTINUE

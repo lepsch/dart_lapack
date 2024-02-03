@@ -60,7 +60,7 @@
 
       // Compute  B - A*X  (or  B - A'*X ) and store in B.
 
-      CALL ZGEMM( TRANS, 'No transpose', N1, NRHS, N2, -CONE, A, LDA, X, LDX, CONE, B, LDB )
+      zgemm(TRANS, 'No transpose', N1, NRHS, N2, -CONE, A, LDA, X, LDX, CONE, B, LDB );
 
       // Compute the maximum over the number of right hand sides of
          // norm(B - A*X) / ( max(m,n) * norm(A) * norm(X) * EPS ) .

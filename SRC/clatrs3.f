@@ -106,7 +106,7 @@
          INFO = -14
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'CLATRS3', -INFO )
+         xerbla('CLATRS3', -INFO );
          RETURN
       } else if ( LQUERY ) {
          RETURN
@@ -130,9 +130,9 @@
       // Use unblocked code for small problems
 
       if ( NRHS.LT.NRHSMIN ) {
-         CALL CLATRS( UPLO, TRANS, DIAG, NORMIN, N, A, LDA, X( 1, 1 ), SCALE( 1 ), CNORM, INFO )
+         clatrs(UPLO, TRANS, DIAG, NORMIN, N, A, LDA, X( 1, 1 ), SCALE( 1 ), CNORM, INFO );
          DO K = 2, NRHS
-            CALL CLATRS( UPLO, TRANS, DIAG, 'Y', N, A, LDA, X( 1, K ), SCALE( K ), CNORM, INFO )
+            clatrs(UPLO, TRANS, DIAG, 'Y', N, A, LDA, X( 1, K ), SCALE( K ), CNORM, INFO );
          END DO
          RETURN
       }
@@ -178,7 +178,7 @@
          // in the computation of the column norms CNORM.
 
          DO K = 1, NRHS
-            CALL CLATRS( UPLO, TRANS, DIAG, 'N', N, A, LDA, X( 1, K ), SCALE( K ), CNORM, INFO )
+            clatrs(UPLO, TRANS, DIAG, 'N', N, A, LDA, X( 1, K ), SCALE( K ), CNORM, INFO );
          END DO
          RETURN
       }
@@ -245,9 +245,9 @@
             DO KK = 1, K2-K1
                RHS = K1 + KK - 1
                if ( KK.EQ.1 ) {
-                  CALL CLATRS( UPLO, TRANS, DIAG, 'N', J2-J1, A( J1, J1 ), LDA, X( J1, RHS ), SCALOC, CNORM, INFO )
+                  clatrs(UPLO, TRANS, DIAG, 'N', J2-J1, A( J1, J1 ), LDA, X( J1, RHS ), SCALOC, CNORM, INFO );
                } else {
-                  CALL CLATRS( UPLO, TRANS, DIAG, 'Y', J2-J1, A( J1, J1 ), LDA, X( J1, RHS ), SCALOC, CNORM, INFO )
+                  clatrs(UPLO, TRANS, DIAG, 'Y', J2-J1, A( J1, J1 ), LDA, X( J1, RHS ), SCALOC, CNORM, INFO );
                }
                // Find largest absolute value entry in the vector segment
                // X( J1:J2-1, RHS ) as an upper bound for the worst case
@@ -287,7 +287,7 @@
                   RSCAL = ONE / SCALOC
                   if ( XNRM( KK )*RSCAL .LE. BIGNUM ) {
                      XNRM( KK ) = XNRM( KK ) * RSCAL
-                     CALL CSSCAL( J2-J1, RSCAL, X( J1, RHS ), 1 )
+                     csscal(J2-J1, RSCAL, X( J1, RHS ), 1 );
                      SCALOC = ONE
                   } else {
                      // The system op(A) * x = b is badly scaled and its
@@ -366,13 +366,13 @@
 
                   SCAL = ( SCAMIN / WORK( I+KK*LDS) )*SCALOC
                   if ( SCAL.NE.ONE ) {
-                     CALL CSSCAL( I2-I1, SCAL, X( I1, RHS ), 1 )
+                     csscal(I2-I1, SCAL, X( I1, RHS ), 1 );
                      WORK( I+KK*LDS ) = SCAMIN*SCALOC
                   }
 
                   SCAL = ( SCAMIN / WORK( J+KK*LDS ) )*SCALOC
                   if ( SCAL.NE.ONE ) {
-                     CALL CSSCAL( J2-J1, SCAL, X( J1, RHS ), 1 )
+                     csscal(J2-J1, SCAL, X( J1, RHS ), 1 );
                      WORK( J+KK*LDS ) = SCAMIN*SCALOC
                   }
                END DO
@@ -381,17 +381,17 @@
 
                   // B( I, K ) := B( I, K ) - A( I, J ) * X( J, K )
 
-                  CALL CGEMM( 'N', 'N', I2-I1, K2-K1, J2-J1, -CONE, A( I1, J1 ), LDA, X( J1, K1 ), LDX, CONE, X( I1, K1 ), LDX )
+                  cgemm('N', 'N', I2-I1, K2-K1, J2-J1, -CONE, A( I1, J1 ), LDA, X( J1, K1 ), LDX, CONE, X( I1, K1 ), LDX );
                } else if ( LSAME( TRANS, 'T' ) ) {
 
                   // B( I, K ) := B( I, K ) - A( I, J )**T * X( J, K )
 
-                  CALL CGEMM( 'T', 'N', I2-I1, K2-K1, J2-J1, -CONE, A( J1, I1 ), LDA, X( J1, K1 ), LDX, CONE, X( I1, K1 ), LDX )
+                  cgemm('T', 'N', I2-I1, K2-K1, J2-J1, -CONE, A( J1, I1 ), LDA, X( J1, K1 ), LDX, CONE, X( I1, K1 ), LDX );
                } else {
 
                   // B( I, K ) := B( I, K ) - A( I, J )**H * X( J, K )
 
-                  CALL CGEMM( 'C', 'N', I2-I1, K2-K1, J2-J1, -CONE, A( J1, I1 ), LDA, X( J1, K1 ), LDX, CONE, X( I1, K1 ), LDX )
+                  cgemm('C', 'N', I2-I1, K2-K1, J2-J1, -CONE, A( J1, I1 ), LDA, X( J1, K1 ), LDX, CONE, X( I1, K1 ), LDX );
                }
             END DO
          END DO

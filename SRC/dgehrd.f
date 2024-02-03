@@ -67,7 +67,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'DGEHRD', -INFO )
+         xerbla('DGEHRD', -INFO );
          RETURN
       } else if ( LQUERY ) {
          RETURN
@@ -138,7 +138,7 @@
             // matrices V and T of the block reflector H = I - V*T*V**T
             // which performs the reduction, and also the matrix Y = A*V*T
 
-            CALL DLAHR2( IHI, I, IB, A( 1, I ), LDA, TAU( I ), WORK( IWT ), LDT, WORK, LDWORK )
+            dlahr2(IHI, I, IB, A( 1, I ), LDA, TAU( I ), WORK( IWT ), LDT, WORK, LDWORK );
 
             // Apply the block reflector H to A(1:ihi,i+ib:ihi) from the
             // right, computing  A := A - Y * V**T. V(i+ib,ib-1) must be set
@@ -146,27 +146,27 @@
 
             EI = A( I+IB, I+IB-1 )
             A( I+IB, I+IB-1 ) = ONE
-            CALL DGEMM( 'No transpose', 'Transpose', IHI, IHI-I-IB+1, IB, -ONE, WORK, LDWORK, A( I+IB, I ), LDA, ONE, A( 1, I+IB ), LDA )
+            dgemm('No transpose', 'Transpose', IHI, IHI-I-IB+1, IB, -ONE, WORK, LDWORK, A( I+IB, I ), LDA, ONE, A( 1, I+IB ), LDA );
             A( I+IB, I+IB-1 ) = EI
 
             // Apply the block reflector H to A(1:i,i+1:i+ib-1) from the
             // right
 
-            CALL DTRMM( 'Right', 'Lower', 'Transpose', 'Unit', I, IB-1, ONE, A( I+1, I ), LDA, WORK, LDWORK )
+            dtrmm('Right', 'Lower', 'Transpose', 'Unit', I, IB-1, ONE, A( I+1, I ), LDA, WORK, LDWORK );
             DO 30 J = 0, IB-2
-               CALL DAXPY( I, -ONE, WORK( LDWORK*J+1 ), 1, A( 1, I+J+1 ), 1 )
+               daxpy(I, -ONE, WORK( LDWORK*J+1 ), 1, A( 1, I+J+1 ), 1 );
    30       CONTINUE
 
             // Apply the block reflector H to A(i+1:ihi,i+ib:n) from the
             // left
 
-            CALL DLARFB( 'Left', 'Transpose', 'Forward', 'Columnwise', IHI-I, N-I-IB+1, IB, A( I+1, I ), LDA, WORK( IWT ), LDT, A( I+1, I+IB ), LDA, WORK, LDWORK )
+            dlarfb('Left', 'Transpose', 'Forward', 'Columnwise', IHI-I, N-I-IB+1, IB, A( I+1, I ), LDA, WORK( IWT ), LDT, A( I+1, I+IB ), LDA, WORK, LDWORK );
    40    CONTINUE
       }
 
       // Use unblocked code to reduce the rest of the matrix
 
-      CALL DGEHD2( N, I, IHI, A, LDA, TAU, WORK, IINFO )
+      dgehd2(N, I, IHI, A, LDA, TAU, WORK, IINFO );
 
       WORK( 1 ) = LWKOPT
 

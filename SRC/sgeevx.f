@@ -91,20 +91,20 @@
             MAXWRK = N + N*ILAENV( 1, 'SGEHRD', ' ', N, 1, N, 0 )
 
             if ( WANTVL ) {
-               CALL STREVC3( 'L', 'B', SELECT, N, A, LDA, VL, LDVL, VR, LDVR, N, NOUT, WORK, -1, IERR )
+               strevc3('L', 'B', SELECT, N, A, LDA, VL, LDVL, VR, LDVR, N, NOUT, WORK, -1, IERR );
                LWORK_TREVC = INT( WORK(1) )
                MAXWRK = MAX( MAXWRK, N + LWORK_TREVC )
-               CALL SHSEQR( 'S', 'V', N, 1, N, A, LDA, WR, WI, VL, LDVL, WORK, -1, INFO )
+               shseqr('S', 'V', N, 1, N, A, LDA, WR, WI, VL, LDVL, WORK, -1, INFO );
             } else if ( WANTVR ) {
-               CALL STREVC3( 'R', 'B', SELECT, N, A, LDA, VL, LDVL, VR, LDVR, N, NOUT, WORK, -1, IERR )
+               strevc3('R', 'B', SELECT, N, A, LDA, VL, LDVL, VR, LDVR, N, NOUT, WORK, -1, IERR );
                LWORK_TREVC = INT( WORK(1) )
                MAXWRK = MAX( MAXWRK, N + LWORK_TREVC )
-               CALL SHSEQR( 'S', 'V', N, 1, N, A, LDA, WR, WI, VR, LDVR, WORK, -1, INFO )
+               shseqr('S', 'V', N, 1, N, A, LDA, WR, WI, VR, LDVR, WORK, -1, INFO );
             } else {
                if ( WNTSNN ) {
-                  CALL SHSEQR( 'E', 'N', N, 1, N, A, LDA, WR, WI, VR, LDVR, WORK, -1, INFO )
+                  shseqr('E', 'N', N, 1, N, A, LDA, WR, WI, VR, LDVR, WORK, -1, INFO );
                } else {
-                  CALL SHSEQR( 'S', 'N', N, 1, N, A, LDA, WR, WI, VR, LDVR, WORK, -1, INFO )
+                  shseqr('S', 'N', N, 1, N, A, LDA, WR, WI, VR, LDVR, WORK, -1, INFO );
                }
             }
             HSWORK = INT( WORK(1) )
@@ -131,7 +131,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'SGEEVX', -INFO )
+         xerbla('SGEEVX', -INFO );
          RETURN
       } else if ( LQUERY ) {
          RETURN
@@ -165,11 +165,11 @@
 
       // Balance the matrix and compute ABNRM
 
-      CALL SGEBAL( BALANC, N, A, LDA, ILO, IHI, SCALE, IERR )
+      sgebal(BALANC, N, A, LDA, ILO, IHI, SCALE, IERR );
       ABNRM = SLANGE( '1', N, N, A, LDA, DUM )
       if ( SCALEA ) {
          DUM( 1 ) = ABNRM
-         CALL SLASCL( 'G', 0, 0, CSCALE, ANRM, 1, 1, DUM, 1, IERR )
+         slascl('G', 0, 0, CSCALE, ANRM, 1, 1, DUM, 1, IERR );
          ABNRM = DUM( 1 )
       }
 
@@ -178,7 +178,7 @@
 
       ITAU = 1
       IWRK = ITAU + N
-      CALL SGEHRD( N, ILO, IHI, A, LDA, WORK( ITAU ), WORK( IWRK ), LWORK-IWRK+1, IERR )
+      sgehrd(N, ILO, IHI, A, LDA, WORK( ITAU ), WORK( IWRK ), LWORK-IWRK+1, IERR );
 
       if ( WANTVL ) {
 
@@ -186,18 +186,18 @@
          // Copy Householder vectors to VL
 
          SIDE = 'L'
-         CALL SLACPY( 'L', N, N, A, LDA, VL, LDVL )
+         slacpy('L', N, N, A, LDA, VL, LDVL );
 
          // Generate orthogonal matrix in VL
          // (Workspace: need 2*N-1, prefer N+(N-1)*NB)
 
-         CALL SORGHR( N, ILO, IHI, VL, LDVL, WORK( ITAU ), WORK( IWRK ), LWORK-IWRK+1, IERR )
+         sorghr(N, ILO, IHI, VL, LDVL, WORK( ITAU ), WORK( IWRK ), LWORK-IWRK+1, IERR );
 
          // Perform QR iteration, accumulating Schur vectors in VL
          // (Workspace: need 1, prefer HSWORK (see comments) )
 
          IWRK = ITAU
-         CALL SHSEQR( 'S', 'V', N, ILO, IHI, A, LDA, WR, WI, VL, LDVL, WORK( IWRK ), LWORK-IWRK+1, INFO )
+         shseqr('S', 'V', N, ILO, IHI, A, LDA, WR, WI, VL, LDVL, WORK( IWRK ), LWORK-IWRK+1, INFO );
 
          if ( WANTVR ) {
 
@@ -205,7 +205,7 @@
             // Copy Schur vectors to VR
 
             SIDE = 'B'
-            CALL SLACPY( 'F', N, N, VL, LDVL, VR, LDVR )
+            slacpy('F', N, N, VL, LDVL, VR, LDVR );
          }
 
       } else if ( WANTVR ) {
@@ -214,18 +214,18 @@
          // Copy Householder vectors to VR
 
          SIDE = 'R'
-         CALL SLACPY( 'L', N, N, A, LDA, VR, LDVR )
+         slacpy('L', N, N, A, LDA, VR, LDVR );
 
          // Generate orthogonal matrix in VR
          // (Workspace: need 2*N-1, prefer N+(N-1)*NB)
 
-         CALL SORGHR( N, ILO, IHI, VR, LDVR, WORK( ITAU ), WORK( IWRK ), LWORK-IWRK+1, IERR )
+         sorghr(N, ILO, IHI, VR, LDVR, WORK( ITAU ), WORK( IWRK ), LWORK-IWRK+1, IERR );
 
          // Perform QR iteration, accumulating Schur vectors in VR
          // (Workspace: need 1, prefer HSWORK (see comments) )
 
          IWRK = ITAU
-         CALL SHSEQR( 'S', 'V', N, ILO, IHI, A, LDA, WR, WI, VR, LDVR, WORK( IWRK ), LWORK-IWRK+1, INFO )
+         shseqr('S', 'V', N, ILO, IHI, A, LDA, WR, WI, VR, LDVR, WORK( IWRK ), LWORK-IWRK+1, INFO );
 
       } else {
 
@@ -241,7 +241,7 @@
          // (Workspace: need 1, prefer HSWORK (see comments) )
 
          IWRK = ITAU
-         CALL SHSEQR( JOB, 'N', N, ILO, IHI, A, LDA, WR, WI, VR, LDVR, WORK( IWRK ), LWORK-IWRK+1, INFO )
+         shseqr(JOB, 'N', N, ILO, IHI, A, LDA, WR, WI, VR, LDVR, WORK( IWRK ), LWORK-IWRK+1, INFO );
       }
 
       // If INFO .NE. 0 from SHSEQR, then quit
@@ -253,38 +253,38 @@
          // Compute left and/or right eigenvectors
          // (Workspace: need 3*N, prefer N + 2*N*NB)
 
-         CALL STREVC3( SIDE, 'B', SELECT, N, A, LDA, VL, LDVL, VR, LDVR, N, NOUT, WORK( IWRK ), LWORK-IWRK+1, IERR )
+         strevc3(SIDE, 'B', SELECT, N, A, LDA, VL, LDVL, VR, LDVR, N, NOUT, WORK( IWRK ), LWORK-IWRK+1, IERR );
       }
 
       // Compute condition numbers if desired
       // (Workspace: need N*N+6*N unless SENSE = 'E')
 
       if ( .NOT.WNTSNN ) {
-         CALL STRSNA( SENSE, 'A', SELECT, N, A, LDA, VL, LDVL, VR, LDVR, RCONDE, RCONDV, N, NOUT, WORK( IWRK ), N, IWORK, ICOND )
+         strsna(SENSE, 'A', SELECT, N, A, LDA, VL, LDVL, VR, LDVR, RCONDE, RCONDV, N, NOUT, WORK( IWRK ), N, IWORK, ICOND );
       }
 
       if ( WANTVL ) {
 
          // Undo balancing of left eigenvectors
 
-         CALL SGEBAK( BALANC, 'L', N, ILO, IHI, SCALE, N, VL, LDVL, IERR )
+         sgebak(BALANC, 'L', N, ILO, IHI, SCALE, N, VL, LDVL, IERR );
 
          // Normalize left eigenvectors and make largest component real
 
          DO 20 I = 1, N
             if ( WI( I ).EQ.ZERO ) {
                SCL = ONE / SNRM2( N, VL( 1, I ), 1 )
-               CALL SSCAL( N, SCL, VL( 1, I ), 1 )
+               sscal(N, SCL, VL( 1, I ), 1 );
             } else if ( WI( I ).GT.ZERO ) {
                SCL = ONE / SLAPY2( SNRM2( N, VL( 1, I ), 1 ), SNRM2( N, VL( 1, I+1 ), 1 ) )
-               CALL SSCAL( N, SCL, VL( 1, I ), 1 )
-               CALL SSCAL( N, SCL, VL( 1, I+1 ), 1 )
+               sscal(N, SCL, VL( 1, I ), 1 );
+               sscal(N, SCL, VL( 1, I+1 ), 1 );
                DO 10 K = 1, N
                   WORK( K ) = VL( K, I )**2 + VL( K, I+1 )**2
    10          CONTINUE
                K = ISAMAX( N, WORK, 1 )
-               CALL SLARTG( VL( K, I ), VL( K, I+1 ), CS, SN, R )
-               CALL SROT( N, VL( 1, I ), 1, VL( 1, I+1 ), 1, CS, SN )
+               slartg(VL( K, I ), VL( K, I+1 ), CS, SN, R );
+               srot(N, VL( 1, I ), 1, VL( 1, I+1 ), 1, CS, SN );
                VL( K, I+1 ) = ZERO
             }
    20    CONTINUE
@@ -294,24 +294,24 @@
 
          // Undo balancing of right eigenvectors
 
-         CALL SGEBAK( BALANC, 'R', N, ILO, IHI, SCALE, N, VR, LDVR, IERR )
+         sgebak(BALANC, 'R', N, ILO, IHI, SCALE, N, VR, LDVR, IERR );
 
          // Normalize right eigenvectors and make largest component real
 
          DO 40 I = 1, N
             if ( WI( I ).EQ.ZERO ) {
                SCL = ONE / SNRM2( N, VR( 1, I ), 1 )
-               CALL SSCAL( N, SCL, VR( 1, I ), 1 )
+               sscal(N, SCL, VR( 1, I ), 1 );
             } else if ( WI( I ).GT.ZERO ) {
                SCL = ONE / SLAPY2( SNRM2( N, VR( 1, I ), 1 ), SNRM2( N, VR( 1, I+1 ), 1 ) )
-               CALL SSCAL( N, SCL, VR( 1, I ), 1 )
-               CALL SSCAL( N, SCL, VR( 1, I+1 ), 1 )
+               sscal(N, SCL, VR( 1, I ), 1 );
+               sscal(N, SCL, VR( 1, I+1 ), 1 );
                DO 30 K = 1, N
                   WORK( K ) = VR( K, I )**2 + VR( K, I+1 )**2
    30          CONTINUE
                K = ISAMAX( N, WORK, 1 )
-               CALL SLARTG( VR( K, I ), VR( K, I+1 ), CS, SN, R )
-               CALL SROT( N, VR( 1, I ), 1, VR( 1, I+1 ), 1, CS, SN )
+               slartg(VR( K, I ), VR( K, I+1 ), CS, SN, R );
+               srot(N, VR( 1, I ), 1, VR( 1, I+1 ), 1, CS, SN );
                VR( K, I+1 ) = ZERO
             }
    40    CONTINUE
@@ -321,11 +321,11 @@
 
    50 CONTINUE
       if ( SCALEA ) {
-         CALL SLASCL( 'G', 0, 0, CSCALE, ANRM, N-INFO, 1, WR( INFO+1 ), MAX( N-INFO, 1 ), IERR )          CALL SLASCL( 'G', 0, 0, CSCALE, ANRM, N-INFO, 1, WI( INFO+1 ), MAX( N-INFO, 1 ), IERR )
+         slascl('G', 0, 0, CSCALE, ANRM, N-INFO, 1, WR( INFO+1 ), MAX( N-INFO, 1 ), IERR )          CALL SLASCL( 'G', 0, 0, CSCALE, ANRM, N-INFO, 1, WI( INFO+1 ), MAX( N-INFO, 1 ), IERR );
          if ( INFO.EQ.0 ) {
             IF( ( WNTSNV .OR. WNTSNB ) .AND. ICOND.EQ.0 ) CALL SLASCL( 'G', 0, 0, CSCALE, ANRM, N, 1, RCONDV, N, IERR )
          } else {
-            CALL SLASCL( 'G', 0, 0, CSCALE, ANRM, ILO-1, 1, WR, N, IERR )             CALL SLASCL( 'G', 0, 0, CSCALE, ANRM, ILO-1, 1, WI, N, IERR )
+            slascl('G', 0, 0, CSCALE, ANRM, ILO-1, 1, WR, N, IERR )             CALL SLASCL( 'G', 0, 0, CSCALE, ANRM, ILO-1, 1, WI, N, IERR );
          }
       }
 

@@ -47,12 +47,12 @@
          NROWS = N
          NCOLS = M
       } else {
-         CALL XERBLA( 'DQRT17', 1 )
+         xerbla('DQRT17', 1 );
          RETURN
       }
 
       if ( LWORK.LT.NCOLS*NRHS ) {
-         CALL XERBLA( 'DQRT17', 13 )
+         xerbla('DQRT17', 13 );
          RETURN
       }
 
@@ -66,17 +66,17 @@
 
       // compute residual and scale it
 
-      CALL DLACPY( 'All', NROWS, NRHS, B, LDB, C, LDB )
-      CALL DGEMM( TRANS, 'No transpose', NROWS, NRHS, NCOLS, -ONE, A, LDA, X, LDX, ONE, C, LDB )
+      dlacpy('All', NROWS, NRHS, B, LDB, C, LDB );
+      dgemm(TRANS, 'No transpose', NROWS, NRHS, NCOLS, -ONE, A, LDA, X, LDX, ONE, C, LDB );
       NORMRS = DLANGE( 'Max', NROWS, NRHS, C, LDB, RWORK )
       if ( NORMRS.GT.SMLNUM ) {
          ISCL = 1
-         CALL DLASCL( 'General', 0, 0, NORMRS, ONE, NROWS, NRHS, C, LDB, INFO )
+         dlascl('General', 0, 0, NORMRS, ONE, NROWS, NRHS, C, LDB, INFO );
       }
 
       // compute R**T * op(A)
 
-      CALL DGEMM( 'Transpose', TRANS, NRHS, NCOLS, NROWS, ONE, C, LDB, A, LDA, ZERO, WORK, NRHS )
+      dgemm('Transpose', TRANS, NRHS, NCOLS, NROWS, ONE, C, LDB, A, LDA, ZERO, WORK, NRHS );
 
       // compute and properly scale error
 

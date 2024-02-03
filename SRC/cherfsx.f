@@ -126,7 +126,7 @@
         INFO = -14
       }
       if ( INFO.NE.0 ) {
-        CALL XERBLA( 'CHERFSX', -INFO )
+        xerbla('CHERFSX', -INFO );
         RETURN
       }
 
@@ -176,14 +176,14 @@
 
       NORM = 'I'
       ANORM = CLANHE( NORM, UPLO, N, A, LDA, RWORK )
-      CALL CHECON( UPLO, N, AF, LDAF, IPIV, ANORM, RCOND, WORK, INFO )
+      checon(UPLO, N, AF, LDAF, IPIV, ANORM, RCOND, WORK, INFO );
 
       // Perform refinement on each right-hand side
 
       if ( REF_TYPE .NE. 0 ) {
 
          PREC_TYPE = ILAPREC( 'D' )
-          CALL CLA_HERFSX_EXTENDED( PREC_TYPE, UPLO,  N, NRHS, A, LDA, AF, LDAF, IPIV, RCEQU, S, B, LDB, X, LDX, BERR, N_NORMS, ERR_BNDS_NORM, ERR_BNDS_COMP, WORK, RWORK, WORK(N+1), TRANSFER (RWORK(1:2*N), (/ (ZERO, ZERO) /), N), RCOND, ITHRESH, RTHRESH, UNSTABLE_THRESH, IGNORE_CWISE, INFO )
+          cla_herfsx_extended(PREC_TYPE, UPLO,  N, NRHS, A, LDA, AF, LDAF, IPIV, RCEQU, S, B, LDB, X, LDX, BERR, N_NORMS, ERR_BNDS_NORM, ERR_BNDS_COMP, WORK, RWORK, WORK(N+1), TRANSFER (RWORK(1:2*N), (/ (ZERO, ZERO) /), N), RCOND, ITHRESH, RTHRESH, UNSTABLE_THRESH, IGNORE_CWISE, INFO );
       }
 
       ERR_LBND = MAX( 10.0, SQRT( REAL( N ) ) ) * SLAMCH( 'Epsilon' )

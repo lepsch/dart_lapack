@@ -45,7 +45,7 @@
          INFO = -17
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'SLASDA', -INFO )
+         xerbla('SLASDA', -INFO );
          RETURN
       }
 
@@ -55,9 +55,9 @@
 
       if ( N.LE.SMLSIZ ) {
          if ( ICOMPQ.EQ.0 ) {
-            CALL SLASDQ( 'U', SQRE, N, 0, 0, 0, D, E, VT, LDU, U, LDU, U, LDU, WORK, INFO )
+            slasdq('U', SQRE, N, 0, 0, 0, D, E, VT, LDU, U, LDU, U, LDU, WORK, INFO );
          } else {
-            CALL SLASDQ( 'U', SQRE, N, M, N, 0, D, E, VT, LDU, U, LDU, U, LDU, WORK, INFO )
+            slasdq('U', SQRE, N, M, N, 0, D, E, VT, LDU, U, LDU, U, LDU, WORK, INFO );
          }
          RETURN
       }
@@ -79,7 +79,7 @@
       NWORK1 = VL + M
       NWORK2 = NWORK1 + SMLSZP*SMLSZP
 
-      CALL SLASDT( N, NLVL, ND, IWORK( INODE ), IWORK( NDIML ), IWORK( NDIMR ), SMLSIZ )
+      slasdt(N, NLVL, ND, IWORK( INODE ), IWORK( NDIML ), IWORK( NDIMR ), SMLSIZ );
 
       // for the nodes on bottom level of the tree, solve
       // their subproblems by SLASDQ.
@@ -105,16 +105,16 @@
          VLI = VL + NLF - 1
          SQREI = 1
          if ( ICOMPQ.EQ.0 ) {
-            CALL SLASET( 'A', NLP1, NLP1, ZERO, ONE, WORK( NWORK1 ), SMLSZP )             CALL SLASDQ( 'U', SQREI, NL, NLP1, NRU, NCC, D( NLF ), E( NLF ), WORK( NWORK1 ), SMLSZP, WORK( NWORK2 ), NL, WORK( NWORK2 ), NL, WORK( NWORK2 ), INFO )
+            slaset('A', NLP1, NLP1, ZERO, ONE, WORK( NWORK1 ), SMLSZP )             CALL SLASDQ( 'U', SQREI, NL, NLP1, NRU, NCC, D( NLF ), E( NLF ), WORK( NWORK1 ), SMLSZP, WORK( NWORK2 ), NL, WORK( NWORK2 ), NL, WORK( NWORK2 ), INFO );
             ITEMP = NWORK1 + NL*SMLSZP
-            CALL SCOPY( NLP1, WORK( NWORK1 ), 1, WORK( VFI ), 1 )
-            CALL SCOPY( NLP1, WORK( ITEMP ), 1, WORK( VLI ), 1 )
+            scopy(NLP1, WORK( NWORK1 ), 1, WORK( VFI ), 1 );
+            scopy(NLP1, WORK( ITEMP ), 1, WORK( VLI ), 1 );
          } else {
-            CALL SLASET( 'A', NL, NL, ZERO, ONE, U( NLF, 1 ), LDU )
-            CALL SLASET( 'A', NLP1, NLP1, ZERO, ONE, VT( NLF, 1 ), LDU )
-            CALL SLASDQ( 'U', SQREI, NL, NLP1, NL, NCC, D( NLF ), E( NLF ), VT( NLF, 1 ), LDU, U( NLF, 1 ), LDU, U( NLF, 1 ), LDU, WORK( NWORK1 ), INFO )
-            CALL SCOPY( NLP1, VT( NLF, 1 ), 1, WORK( VFI ), 1 )
-            CALL SCOPY( NLP1, VT( NLF, NLP1 ), 1, WORK( VLI ), 1 )
+            slaset('A', NL, NL, ZERO, ONE, U( NLF, 1 ), LDU );
+            slaset('A', NLP1, NLP1, ZERO, ONE, VT( NLF, 1 ), LDU );
+            slasdq('U', SQREI, NL, NLP1, NL, NCC, D( NLF ), E( NLF ), VT( NLF, 1 ), LDU, U( NLF, 1 ), LDU, U( NLF, 1 ), LDU, WORK( NWORK1 ), INFO );
+            scopy(NLP1, VT( NLF, 1 ), 1, WORK( VFI ), 1 );
+            scopy(NLP1, VT( NLF, NLP1 ), 1, WORK( VLI ), 1 );
          }
          if ( INFO.NE.0 ) {
             RETURN
@@ -132,16 +132,16 @@
          VLI = VLI + NLP1
          NRP1 = NR + SQREI
          if ( ICOMPQ.EQ.0 ) {
-            CALL SLASET( 'A', NRP1, NRP1, ZERO, ONE, WORK( NWORK1 ), SMLSZP )             CALL SLASDQ( 'U', SQREI, NR, NRP1, NRU, NCC, D( NRF ), E( NRF ), WORK( NWORK1 ), SMLSZP, WORK( NWORK2 ), NR, WORK( NWORK2 ), NR, WORK( NWORK2 ), INFO )
+            slaset('A', NRP1, NRP1, ZERO, ONE, WORK( NWORK1 ), SMLSZP )             CALL SLASDQ( 'U', SQREI, NR, NRP1, NRU, NCC, D( NRF ), E( NRF ), WORK( NWORK1 ), SMLSZP, WORK( NWORK2 ), NR, WORK( NWORK2 ), NR, WORK( NWORK2 ), INFO );
             ITEMP = NWORK1 + ( NRP1-1 )*SMLSZP
-            CALL SCOPY( NRP1, WORK( NWORK1 ), 1, WORK( VFI ), 1 )
-            CALL SCOPY( NRP1, WORK( ITEMP ), 1, WORK( VLI ), 1 )
+            scopy(NRP1, WORK( NWORK1 ), 1, WORK( VFI ), 1 );
+            scopy(NRP1, WORK( ITEMP ), 1, WORK( VLI ), 1 );
          } else {
-            CALL SLASET( 'A', NR, NR, ZERO, ONE, U( NRF, 1 ), LDU )
-            CALL SLASET( 'A', NRP1, NRP1, ZERO, ONE, VT( NRF, 1 ), LDU )
-            CALL SLASDQ( 'U', SQREI, NR, NRP1, NR, NCC, D( NRF ), E( NRF ), VT( NRF, 1 ), LDU, U( NRF, 1 ), LDU, U( NRF, 1 ), LDU, WORK( NWORK1 ), INFO )
-            CALL SCOPY( NRP1, VT( NRF, 1 ), 1, WORK( VFI ), 1 )
-            CALL SCOPY( NRP1, VT( NRF, NRP1 ), 1, WORK( VLI ), 1 )
+            slaset('A', NR, NR, ZERO, ONE, U( NRF, 1 ), LDU );
+            slaset('A', NRP1, NRP1, ZERO, ONE, VT( NRF, 1 ), LDU );
+            slasdq('U', SQREI, NR, NRP1, NR, NCC, D( NRF ), E( NRF ), VT( NRF, 1 ), LDU, U( NRF, 1 ), LDU, U( NRF, 1 ), LDU, WORK( NWORK1 ), INFO );
+            scopy(NRP1, VT( NRF, 1 ), 1, WORK( VFI ), 1 );
+            scopy(NRP1, VT( NRF, NRP1 ), 1, WORK( VLI ), 1 );
          }
          if ( INFO.NE.0 ) {
             RETURN
@@ -185,10 +185,10 @@
             ALPHA = D( IC )
             BETA = E( IC )
             if ( ICOMPQ.EQ.0 ) {
-               CALL SLASD6( ICOMPQ, NL, NR, SQREI, D( NLF ), WORK( VFI ), WORK( VLI ), ALPHA, BETA, IWORK( IDXQI ), PERM, GIVPTR( 1 ), GIVCOL, LDGCOL, GIVNUM, LDU, POLES, DIFL, DIFR, Z, K( 1 ), C( 1 ), S( 1 ), WORK( NWORK1 ), IWORK( IWK ), INFO )
+               slasd6(ICOMPQ, NL, NR, SQREI, D( NLF ), WORK( VFI ), WORK( VLI ), ALPHA, BETA, IWORK( IDXQI ), PERM, GIVPTR( 1 ), GIVCOL, LDGCOL, GIVNUM, LDU, POLES, DIFL, DIFR, Z, K( 1 ), C( 1 ), S( 1 ), WORK( NWORK1 ), IWORK( IWK ), INFO );
             } else {
                J = J - 1
-               CALL SLASD6( ICOMPQ, NL, NR, SQREI, D( NLF ), WORK( VFI ), WORK( VLI ), ALPHA, BETA, IWORK( IDXQI ), PERM( NLF, LVL ), GIVPTR( J ), GIVCOL( NLF, LVL2 ), LDGCOL, GIVNUM( NLF, LVL2 ), LDU, POLES( NLF, LVL2 ), DIFL( NLF, LVL ), DIFR( NLF, LVL2 ), Z( NLF, LVL ), K( J ), C( J ), S( J ), WORK( NWORK1 ), IWORK( IWK ), INFO )
+               slasd6(ICOMPQ, NL, NR, SQREI, D( NLF ), WORK( VFI ), WORK( VLI ), ALPHA, BETA, IWORK( IDXQI ), PERM( NLF, LVL ), GIVPTR( J ), GIVCOL( NLF, LVL2 ), LDGCOL, GIVNUM( NLF, LVL2 ), LDU, POLES( NLF, LVL2 ), DIFL( NLF, LVL ), DIFR( NLF, LVL2 ), Z( NLF, LVL ), K( J ), C( J ), S( J ), WORK( NWORK1 ), IWORK( IWK ), INFO );
             }
             if ( INFO.NE.0 ) {
                RETURN

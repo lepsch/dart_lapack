@@ -66,139 +66,139 @@
 
          SRNAMT = 'CGEBRD'
          INFOT = 1
-         CALL CGEBRD( -1, 0, A, 1, D, E, TQ, TP, W, 1, INFO )
-         CALL CHKXER( 'CGEBRD', INFOT, NOUT, LERR, OK )
+         cgebrd(-1, 0, A, 1, D, E, TQ, TP, W, 1, INFO );
+         chkxer('CGEBRD', INFOT, NOUT, LERR, OK );
          INFOT = 2
-         CALL CGEBRD( 0, -1, A, 1, D, E, TQ, TP, W, 1, INFO )
-         CALL CHKXER( 'CGEBRD', INFOT, NOUT, LERR, OK )
+         cgebrd(0, -1, A, 1, D, E, TQ, TP, W, 1, INFO );
+         chkxer('CGEBRD', INFOT, NOUT, LERR, OK );
          INFOT = 4
-         CALL CGEBRD( 2, 1, A, 1, D, E, TQ, TP, W, 2, INFO )
-         CALL CHKXER( 'CGEBRD', INFOT, NOUT, LERR, OK )
+         cgebrd(2, 1, A, 1, D, E, TQ, TP, W, 2, INFO );
+         chkxer('CGEBRD', INFOT, NOUT, LERR, OK );
          INFOT = 10
-         CALL CGEBRD( 2, 1, A, 2, D, E, TQ, TP, W, 1, INFO )
-         CALL CHKXER( 'CGEBRD', INFOT, NOUT, LERR, OK )
+         cgebrd(2, 1, A, 2, D, E, TQ, TP, W, 1, INFO );
+         chkxer('CGEBRD', INFOT, NOUT, LERR, OK );
          NT = NT + 4
 
          // CGEBD2
 
          SRNAMT = 'CGEBD2'
          INFOT = 1
-         CALL CGEBD2( -1, 0, A, 1, D, E, TQ, TP, W, INFO )
-         CALL CHKXER( 'CGEBD2', INFOT, NOUT, LERR, OK )
+         cgebd2(-1, 0, A, 1, D, E, TQ, TP, W, INFO );
+         chkxer('CGEBD2', INFOT, NOUT, LERR, OK );
          INFOT = 2
-         CALL CGEBD2( 0, -1, A, 1, D, E, TQ, TP, W, INFO )
-         CALL CHKXER( 'CGEBD2', INFOT, NOUT, LERR, OK )
+         cgebd2(0, -1, A, 1, D, E, TQ, TP, W, INFO );
+         chkxer('CGEBD2', INFOT, NOUT, LERR, OK );
          INFOT = 4
-         CALL CGEBD2( 2, 1, A, 1, D, E, TQ, TP, W, INFO )
-         CALL CHKXER( 'CGEBD2', INFOT, NOUT, LERR, OK )
+         cgebd2(2, 1, A, 1, D, E, TQ, TP, W, INFO );
+         chkxer('CGEBD2', INFOT, NOUT, LERR, OK );
          NT = NT + 3
 
          // CUNGBR
 
          SRNAMT = 'CUNGBR'
          INFOT = 1
-         CALL CUNGBR( '/', 0, 0, 0, A, 1, TQ, W, 1, INFO )
-         CALL CHKXER( 'CUNGBR', INFOT, NOUT, LERR, OK )
+         cungbr('/', 0, 0, 0, A, 1, TQ, W, 1, INFO );
+         chkxer('CUNGBR', INFOT, NOUT, LERR, OK );
          INFOT = 2
-         CALL CUNGBR( 'Q', -1, 0, 0, A, 1, TQ, W, 1, INFO )
-         CALL CHKXER( 'CUNGBR', INFOT, NOUT, LERR, OK )
+         cungbr('Q', -1, 0, 0, A, 1, TQ, W, 1, INFO );
+         chkxer('CUNGBR', INFOT, NOUT, LERR, OK );
          INFOT = 3
-         CALL CUNGBR( 'Q', 0, -1, 0, A, 1, TQ, W, 1, INFO )
-         CALL CHKXER( 'CUNGBR', INFOT, NOUT, LERR, OK )
+         cungbr('Q', 0, -1, 0, A, 1, TQ, W, 1, INFO );
+         chkxer('CUNGBR', INFOT, NOUT, LERR, OK );
          INFOT = 3
-         CALL CUNGBR( 'Q', 0, 1, 0, A, 1, TQ, W, 1, INFO )
-         CALL CHKXER( 'CUNGBR', INFOT, NOUT, LERR, OK )
+         cungbr('Q', 0, 1, 0, A, 1, TQ, W, 1, INFO );
+         chkxer('CUNGBR', INFOT, NOUT, LERR, OK );
          INFOT = 3
-         CALL CUNGBR( 'Q', 1, 0, 1, A, 1, TQ, W, 1, INFO )
-         CALL CHKXER( 'CUNGBR', INFOT, NOUT, LERR, OK )
+         cungbr('Q', 1, 0, 1, A, 1, TQ, W, 1, INFO );
+         chkxer('CUNGBR', INFOT, NOUT, LERR, OK );
          INFOT = 3
-         CALL CUNGBR( 'P', 1, 0, 0, A, 1, TQ, W, 1, INFO )
-         CALL CHKXER( 'CUNGBR', INFOT, NOUT, LERR, OK )
+         cungbr('P', 1, 0, 0, A, 1, TQ, W, 1, INFO );
+         chkxer('CUNGBR', INFOT, NOUT, LERR, OK );
          INFOT = 3
-         CALL CUNGBR( 'P', 0, 1, 1, A, 1, TQ, W, 1, INFO )
-         CALL CHKXER( 'CUNGBR', INFOT, NOUT, LERR, OK )
+         cungbr('P', 0, 1, 1, A, 1, TQ, W, 1, INFO );
+         chkxer('CUNGBR', INFOT, NOUT, LERR, OK );
          INFOT = 4
-         CALL CUNGBR( 'Q', 0, 0, -1, A, 1, TQ, W, 1, INFO )
-         CALL CHKXER( 'CUNGBR', INFOT, NOUT, LERR, OK )
+         cungbr('Q', 0, 0, -1, A, 1, TQ, W, 1, INFO );
+         chkxer('CUNGBR', INFOT, NOUT, LERR, OK );
          INFOT = 6
-         CALL CUNGBR( 'Q', 2, 1, 1, A, 1, TQ, W, 1, INFO )
-         CALL CHKXER( 'CUNGBR', INFOT, NOUT, LERR, OK )
+         cungbr('Q', 2, 1, 1, A, 1, TQ, W, 1, INFO );
+         chkxer('CUNGBR', INFOT, NOUT, LERR, OK );
          INFOT = 9
-         CALL CUNGBR( 'Q', 2, 2, 1, A, 2, TQ, W, 1, INFO )
-         CALL CHKXER( 'CUNGBR', INFOT, NOUT, LERR, OK )
+         cungbr('Q', 2, 2, 1, A, 2, TQ, W, 1, INFO );
+         chkxer('CUNGBR', INFOT, NOUT, LERR, OK );
          NT = NT + 10
 
          // CUNMBR
 
          SRNAMT = 'CUNMBR'
          INFOT = 1
-         CALL CUNMBR( '/', 'L', 'T', 0, 0, 0, A, 1, TQ, U, 1, W, 1, INFO )
-         CALL CHKXER( 'CUNMBR', INFOT, NOUT, LERR, OK )
+         cunmbr('/', 'L', 'T', 0, 0, 0, A, 1, TQ, U, 1, W, 1, INFO );
+         chkxer('CUNMBR', INFOT, NOUT, LERR, OK );
          INFOT = 2
-         CALL CUNMBR( 'Q', '/', 'T', 0, 0, 0, A, 1, TQ, U, 1, W, 1, INFO )
-         CALL CHKXER( 'CUNMBR', INFOT, NOUT, LERR, OK )
+         cunmbr('Q', '/', 'T', 0, 0, 0, A, 1, TQ, U, 1, W, 1, INFO );
+         chkxer('CUNMBR', INFOT, NOUT, LERR, OK );
          INFOT = 3
-         CALL CUNMBR( 'Q', 'L', '/', 0, 0, 0, A, 1, TQ, U, 1, W, 1, INFO )
-         CALL CHKXER( 'CUNMBR', INFOT, NOUT, LERR, OK )
+         cunmbr('Q', 'L', '/', 0, 0, 0, A, 1, TQ, U, 1, W, 1, INFO );
+         chkxer('CUNMBR', INFOT, NOUT, LERR, OK );
          INFOT = 4
-         CALL CUNMBR( 'Q', 'L', 'C', -1, 0, 0, A, 1, TQ, U, 1, W, 1, INFO )
-         CALL CHKXER( 'CUNMBR', INFOT, NOUT, LERR, OK )
+         cunmbr('Q', 'L', 'C', -1, 0, 0, A, 1, TQ, U, 1, W, 1, INFO );
+         chkxer('CUNMBR', INFOT, NOUT, LERR, OK );
          INFOT = 5
-         CALL CUNMBR( 'Q', 'L', 'C', 0, -1, 0, A, 1, TQ, U, 1, W, 1, INFO )
-         CALL CHKXER( 'CUNMBR', INFOT, NOUT, LERR, OK )
+         cunmbr('Q', 'L', 'C', 0, -1, 0, A, 1, TQ, U, 1, W, 1, INFO );
+         chkxer('CUNMBR', INFOT, NOUT, LERR, OK );
          INFOT = 6
-         CALL CUNMBR( 'Q', 'L', 'C', 0, 0, -1, A, 1, TQ, U, 1, W, 1, INFO )
-         CALL CHKXER( 'CUNMBR', INFOT, NOUT, LERR, OK )
+         cunmbr('Q', 'L', 'C', 0, 0, -1, A, 1, TQ, U, 1, W, 1, INFO );
+         chkxer('CUNMBR', INFOT, NOUT, LERR, OK );
          INFOT = 8
-         CALL CUNMBR( 'Q', 'L', 'C', 2, 0, 0, A, 1, TQ, U, 2, W, 1, INFO )
-         CALL CHKXER( 'CUNMBR', INFOT, NOUT, LERR, OK )
+         cunmbr('Q', 'L', 'C', 2, 0, 0, A, 1, TQ, U, 2, W, 1, INFO );
+         chkxer('CUNMBR', INFOT, NOUT, LERR, OK );
          INFOT = 8
-         CALL CUNMBR( 'Q', 'R', 'C', 0, 2, 0, A, 1, TQ, U, 1, W, 1, INFO )
-         CALL CHKXER( 'CUNMBR', INFOT, NOUT, LERR, OK )
+         cunmbr('Q', 'R', 'C', 0, 2, 0, A, 1, TQ, U, 1, W, 1, INFO );
+         chkxer('CUNMBR', INFOT, NOUT, LERR, OK );
          INFOT = 8
-         CALL CUNMBR( 'P', 'L', 'C', 2, 0, 2, A, 1, TQ, U, 2, W, 1, INFO )
-         CALL CHKXER( 'CUNMBR', INFOT, NOUT, LERR, OK )
+         cunmbr('P', 'L', 'C', 2, 0, 2, A, 1, TQ, U, 2, W, 1, INFO );
+         chkxer('CUNMBR', INFOT, NOUT, LERR, OK );
          INFOT = 8
-         CALL CUNMBR( 'P', 'R', 'C', 0, 2, 2, A, 1, TQ, U, 1, W, 1, INFO )
-         CALL CHKXER( 'CUNMBR', INFOT, NOUT, LERR, OK )
+         cunmbr('P', 'R', 'C', 0, 2, 2, A, 1, TQ, U, 1, W, 1, INFO );
+         chkxer('CUNMBR', INFOT, NOUT, LERR, OK );
          INFOT = 11
-         CALL CUNMBR( 'Q', 'R', 'C', 2, 0, 0, A, 1, TQ, U, 1, W, 1, INFO )
-         CALL CHKXER( 'CUNMBR', INFOT, NOUT, LERR, OK )
+         cunmbr('Q', 'R', 'C', 2, 0, 0, A, 1, TQ, U, 1, W, 1, INFO );
+         chkxer('CUNMBR', INFOT, NOUT, LERR, OK );
          INFOT = 13
-         CALL CUNMBR( 'Q', 'L', 'C', 0, 2, 0, A, 1, TQ, U, 1, W, 0, INFO )
-         CALL CHKXER( 'CUNMBR', INFOT, NOUT, LERR, OK )
+         cunmbr('Q', 'L', 'C', 0, 2, 0, A, 1, TQ, U, 1, W, 0, INFO );
+         chkxer('CUNMBR', INFOT, NOUT, LERR, OK );
          INFOT = 13
-         CALL CUNMBR( 'Q', 'R', 'C', 2, 0, 0, A, 1, TQ, U, 2, W, 0, INFO )
-         CALL CHKXER( 'CUNMBR', INFOT, NOUT, LERR, OK )
+         cunmbr('Q', 'R', 'C', 2, 0, 0, A, 1, TQ, U, 2, W, 0, INFO );
+         chkxer('CUNMBR', INFOT, NOUT, LERR, OK );
          NT = NT + 13
 
          // CBDSQR
 
          SRNAMT = 'CBDSQR'
          INFOT = 1
-         CALL CBDSQR( '/', 0, 0, 0, 0, D, E, V, 1, U, 1, A, 1, RW, INFO )
-         CALL CHKXER( 'CBDSQR', INFOT, NOUT, LERR, OK )
+         cbdsqr('/', 0, 0, 0, 0, D, E, V, 1, U, 1, A, 1, RW, INFO );
+         chkxer('CBDSQR', INFOT, NOUT, LERR, OK );
          INFOT = 2
-         CALL CBDSQR( 'U', -1, 0, 0, 0, D, E, V, 1, U, 1, A, 1, RW, INFO )
-         CALL CHKXER( 'CBDSQR', INFOT, NOUT, LERR, OK )
+         cbdsqr('U', -1, 0, 0, 0, D, E, V, 1, U, 1, A, 1, RW, INFO );
+         chkxer('CBDSQR', INFOT, NOUT, LERR, OK );
          INFOT = 3
-         CALL CBDSQR( 'U', 0, -1, 0, 0, D, E, V, 1, U, 1, A, 1, RW, INFO )
-         CALL CHKXER( 'CBDSQR', INFOT, NOUT, LERR, OK )
+         cbdsqr('U', 0, -1, 0, 0, D, E, V, 1, U, 1, A, 1, RW, INFO );
+         chkxer('CBDSQR', INFOT, NOUT, LERR, OK );
          INFOT = 4
-         CALL CBDSQR( 'U', 0, 0, -1, 0, D, E, V, 1, U, 1, A, 1, RW, INFO )
-         CALL CHKXER( 'CBDSQR', INFOT, NOUT, LERR, OK )
+         cbdsqr('U', 0, 0, -1, 0, D, E, V, 1, U, 1, A, 1, RW, INFO );
+         chkxer('CBDSQR', INFOT, NOUT, LERR, OK );
          INFOT = 5
-         CALL CBDSQR( 'U', 0, 0, 0, -1, D, E, V, 1, U, 1, A, 1, RW, INFO )
-         CALL CHKXER( 'CBDSQR', INFOT, NOUT, LERR, OK )
+         cbdsqr('U', 0, 0, 0, -1, D, E, V, 1, U, 1, A, 1, RW, INFO );
+         chkxer('CBDSQR', INFOT, NOUT, LERR, OK );
          INFOT = 9
-         CALL CBDSQR( 'U', 2, 1, 0, 0, D, E, V, 1, U, 1, A, 1, RW, INFO )
-         CALL CHKXER( 'CBDSQR', INFOT, NOUT, LERR, OK )
+         cbdsqr('U', 2, 1, 0, 0, D, E, V, 1, U, 1, A, 1, RW, INFO );
+         chkxer('CBDSQR', INFOT, NOUT, LERR, OK );
          INFOT = 11
-         CALL CBDSQR( 'U', 0, 0, 2, 0, D, E, V, 1, U, 1, A, 1, RW, INFO )
-         CALL CHKXER( 'CBDSQR', INFOT, NOUT, LERR, OK )
+         cbdsqr('U', 0, 0, 2, 0, D, E, V, 1, U, 1, A, 1, RW, INFO );
+         chkxer('CBDSQR', INFOT, NOUT, LERR, OK );
          INFOT = 13
-         CALL CBDSQR( 'U', 2, 0, 0, 1, D, E, V, 1, U, 1, A, 1, RW, INFO )
-         CALL CHKXER( 'CBDSQR', INFOT, NOUT, LERR, OK )
+         cbdsqr('U', 2, 0, 0, 1, D, E, V, 1, U, 1, A, 1, RW, INFO );
+         chkxer('CBDSQR', INFOT, NOUT, LERR, OK );
          NT = NT + 8
       }
 

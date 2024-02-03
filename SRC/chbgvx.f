@@ -86,7 +86,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'CHBGVX', -INFO )
+         xerbla('CHBGVX', -INFO );
          RETURN
       }
 
@@ -97,7 +97,7 @@
 
       // Form a split Cholesky factorization of B.
 
-      CALL CPBSTF( UPLO, N, KB, BB, LDBB, INFO )
+      cpbstf(UPLO, N, KB, BB, LDBB, INFO );
       if ( INFO.NE.0 ) {
          INFO = N + INFO
          RETURN
@@ -105,7 +105,7 @@
 
       // Transform problem to standard eigenvalue problem.
 
-      CALL CHBGST( JOBZ, UPLO, N, KA, KB, AB, LDAB, BB, LDBB, Q, LDQ, WORK, RWORK, IINFO )
+      chbgst(JOBZ, UPLO, N, KA, KB, AB, LDAB, BB, LDBB, Q, LDQ, WORK, RWORK, IINFO );
 
       // Solve the standard eigenvalue problem.
       // Reduce Hermitian band matrix to tridiagonal form.
@@ -119,7 +119,7 @@
       } else {
          VECT = 'N'
       }
-      CALL CHBTRD( VECT, UPLO, N, KA, AB, LDAB, RWORK( INDD ), RWORK( INDE ), Q, LDQ, WORK( INDWRK ), IINFO )
+      chbtrd(VECT, UPLO, N, KA, AB, LDAB, RWORK( INDD ), RWORK( INDE ), Q, LDQ, WORK( INDWRK ), IINFO );
 
       // If all eigenvalues are desired and ABSTOL is less than or equal
       // to zero, then call SSTERF or CSTEQR.  If this fails for some
@@ -132,14 +132,14 @@
          }
       }
       if ( ( ALLEIG .OR. TEST ) .AND. ( ABSTOL.LE.ZERO ) ) {
-         CALL SCOPY( N, RWORK( INDD ), 1, W, 1 )
+         scopy(N, RWORK( INDD ), 1, W, 1 );
          INDEE = INDRWK + 2*N
-         CALL SCOPY( N-1, RWORK( INDE ), 1, RWORK( INDEE ), 1 )
+         scopy(N-1, RWORK( INDE ), 1, RWORK( INDEE ), 1 );
          if ( .NOT.WANTZ ) {
-            CALL SSTERF( N, W, RWORK( INDEE ), INFO )
+            ssterf(N, W, RWORK( INDEE ), INFO );
          } else {
-            CALL CLACPY( 'A', N, N, Q, LDQ, Z, LDZ )
-            CALL CSTEQR( JOBZ, N, W, RWORK( INDEE ), Z, LDZ, RWORK( INDRWK ), INFO )
+            clacpy('A', N, N, Q, LDQ, Z, LDZ );
+            csteqr(JOBZ, N, W, RWORK( INDEE ), Z, LDZ, RWORK( INDRWK ), INFO );
             if ( INFO.EQ.0 ) {
                DO 10 I = 1, N
                   IFAIL( I ) = 0
@@ -163,17 +163,17 @@
       }
       INDISP = 1 + N
       INDIWK = INDISP + N
-      CALL SSTEBZ( RANGE, ORDER, N, VL, VU, IL, IU, ABSTOL, RWORK( INDD ), RWORK( INDE ), M, NSPLIT, W, IWORK( 1 ), IWORK( INDISP ), RWORK( INDRWK ), IWORK( INDIWK ), INFO )
+      sstebz(RANGE, ORDER, N, VL, VU, IL, IU, ABSTOL, RWORK( INDD ), RWORK( INDE ), M, NSPLIT, W, IWORK( 1 ), IWORK( INDISP ), RWORK( INDRWK ), IWORK( INDIWK ), INFO );
 
       if ( WANTZ ) {
-         CALL CSTEIN( N, RWORK( INDD ), RWORK( INDE ), M, W, IWORK( 1 ), IWORK( INDISP ), Z, LDZ, RWORK( INDRWK ), IWORK( INDIWK ), IFAIL, INFO )
+         cstein(N, RWORK( INDD ), RWORK( INDE ), M, W, IWORK( 1 ), IWORK( INDISP ), Z, LDZ, RWORK( INDRWK ), IWORK( INDIWK ), IFAIL, INFO );
 
          // Apply unitary matrix used in reduction to tridiagonal
          // form to eigenvectors returned by CSTEIN.
 
          DO 20 J = 1, M
-            CALL CCOPY( N, Z( 1, J ), 1, WORK( 1 ), 1 )
-            CALL CGEMV( 'N', N, N, CONE, Q, LDQ, WORK, 1, CZERO, Z( 1, J ), 1 )
+            ccopy(N, Z( 1, J ), 1, WORK( 1 ), 1 );
+            cgemv('N', N, N, CONE, Q, LDQ, WORK, 1, CZERO, Z( 1, J ), 1 );
    20    CONTINUE
       }
 
@@ -199,7 +199,7 @@
                IWORK( 1 + I-1 ) = IWORK( 1 + J-1 )
                W( J ) = TMP1
                IWORK( 1 + J-1 ) = ITMP1
-               CALL CSWAP( N, Z( 1, I ), 1, Z( 1, J ), 1 )
+               cswap(N, Z( 1, I ), 1, Z( 1, J ), 1 );
                if ( INFO.NE.0 ) {
                   ITMP1 = IFAIL( I )
                   IFAIL( I ) = IFAIL( J )

@@ -64,9 +64,9 @@
 
       RESID = ZERO
       DO 10 J = 1, NRHS
-         CALL DCOPY( N, X( 1, J ), 1, WORK, 1 )
-         CALL DTPMV( UPLO, TRANS, DIAG, N, AP, WORK, 1 )
-         CALL DAXPY( N, -ONE, B( 1, J ), 1, WORK, 1 )
+         dcopy(N, X( 1, J ), 1, WORK, 1 );
+         dtpmv(UPLO, TRANS, DIAG, N, AP, WORK, 1 );
+         daxpy(N, -ONE, B( 1, J ), 1, WORK, 1 );
          BNORM = DASUM( N, WORK, 1 )
          XNORM = DASUM( N, X( 1, J ), 1 )
          if ( XNORM.LE.ZERO ) {

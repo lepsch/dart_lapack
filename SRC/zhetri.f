@@ -51,7 +51,7 @@
          INFO = -4
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'ZHETRI', -INFO )
+         xerbla('ZHETRI', -INFO );
          RETURN
       }
 
@@ -103,8 +103,8 @@
             // Compute column K of the inverse.
 
             if ( K.GT.1 ) {
-               CALL ZCOPY( K-1, A( 1, K ), 1, WORK, 1 )
-               CALL ZHEMV( UPLO, K-1, -CONE, A, LDA, WORK, 1, ZERO, A( 1, K ), 1 )                A( K, K ) = A( K, K ) - DBLE( ZDOTC( K-1, WORK, 1, A( 1, K ), 1 ) )
+               zcopy(K-1, A( 1, K ), 1, WORK, 1 );
+               zhemv(UPLO, K-1, -CONE, A, LDA, WORK, 1, ZERO, A( 1, K ), 1 )                A( K, K ) = A( K, K ) - DBLE( ZDOTC( K-1, WORK, 1, A( 1, K ), 1 ) );
             }
             KSTEP = 1
          } else {
@@ -125,10 +125,10 @@
             // Compute columns K and K+1 of the inverse.
 
             if ( K.GT.1 ) {
-               CALL ZCOPY( K-1, A( 1, K ), 1, WORK, 1 )
-               CALL ZHEMV( UPLO, K-1, -CONE, A, LDA, WORK, 1, ZERO, A( 1, K ), 1 )                A( K, K ) = A( K, K ) - DBLE( ZDOTC( K-1, WORK, 1, A( 1, K ), 1 ) )                A( K, K+1 ) = A( K, K+1 ) - ZDOTC( K-1, A( 1, K ), 1, A( 1, K+1 ), 1 )
-               CALL ZCOPY( K-1, A( 1, K+1 ), 1, WORK, 1 )
-               CALL ZHEMV( UPLO, K-1, -CONE, A, LDA, WORK, 1, ZERO, A( 1, K+1 ), 1 )                A( K+1, K+1 ) = A( K+1, K+1 ) - DBLE( ZDOTC( K-1, WORK, 1, A( 1, K+1 ), 1 ) )
+               zcopy(K-1, A( 1, K ), 1, WORK, 1 );
+               zhemv(UPLO, K-1, -CONE, A, LDA, WORK, 1, ZERO, A( 1, K ), 1 )                A( K, K ) = A( K, K ) - DBLE( ZDOTC( K-1, WORK, 1, A( 1, K ), 1 ) )                A( K, K+1 ) = A( K, K+1 ) - ZDOTC( K-1, A( 1, K ), 1, A( 1, K+1 ), 1 );
+               zcopy(K-1, A( 1, K+1 ), 1, WORK, 1 );
+               zhemv(UPLO, K-1, -CONE, A, LDA, WORK, 1, ZERO, A( 1, K+1 ), 1 )                A( K+1, K+1 ) = A( K+1, K+1 ) - DBLE( ZDOTC( K-1, WORK, 1, A( 1, K+1 ), 1 ) );
             }
             KSTEP = 2
          }
@@ -139,7 +139,7 @@
             // Interchange rows and columns K and KP in the leading
             // submatrix A(1:k+1,1:k+1)
 
-            CALL ZSWAP( KP-1, A( 1, K ), 1, A( 1, KP ), 1 )
+            zswap(KP-1, A( 1, K ), 1, A( 1, KP ), 1 );
             DO 40 J = KP + 1, K - 1
                TEMP = DCONJG( A( J, K ) )
                A( J, K ) = DCONJG( A( KP, J ) )
@@ -185,8 +185,8 @@
             // Compute column K of the inverse.
 
             if ( K.LT.N ) {
-               CALL ZCOPY( N-K, A( K+1, K ), 1, WORK, 1 )
-               CALL ZHEMV( UPLO, N-K, -CONE, A( K+1, K+1 ), LDA, WORK, 1, ZERO, A( K+1, K ), 1 )                A( K, K ) = A( K, K ) - DBLE( ZDOTC( N-K, WORK, 1, A( K+1, K ), 1 ) )
+               zcopy(N-K, A( K+1, K ), 1, WORK, 1 );
+               zhemv(UPLO, N-K, -CONE, A( K+1, K+1 ), LDA, WORK, 1, ZERO, A( K+1, K ), 1 )                A( K, K ) = A( K, K ) - DBLE( ZDOTC( N-K, WORK, 1, A( K+1, K ), 1 ) );
             }
             KSTEP = 1
          } else {
@@ -207,10 +207,10 @@
             // Compute columns K-1 and K of the inverse.
 
             if ( K.LT.N ) {
-               CALL ZCOPY( N-K, A( K+1, K ), 1, WORK, 1 )
-               CALL ZHEMV( UPLO, N-K, -CONE, A( K+1, K+1 ), LDA, WORK, 1, ZERO, A( K+1, K ), 1 )                A( K, K ) = A( K, K ) - DBLE( ZDOTC( N-K, WORK, 1, A( K+1, K ), 1 ) )                A( K, K-1 ) = A( K, K-1 ) - ZDOTC( N-K, A( K+1, K ), 1, A( K+1, K-1 ), 1 )
-               CALL ZCOPY( N-K, A( K+1, K-1 ), 1, WORK, 1 )
-               CALL ZHEMV( UPLO, N-K, -CONE, A( K+1, K+1 ), LDA, WORK, 1, ZERO, A( K+1, K-1 ), 1 )                A( K-1, K-1 ) = A( K-1, K-1 ) - DBLE( ZDOTC( N-K, WORK, 1, A( K+1, K-1 ), 1 ) )
+               zcopy(N-K, A( K+1, K ), 1, WORK, 1 );
+               zhemv(UPLO, N-K, -CONE, A( K+1, K+1 ), LDA, WORK, 1, ZERO, A( K+1, K ), 1 )                A( K, K ) = A( K, K ) - DBLE( ZDOTC( N-K, WORK, 1, A( K+1, K ), 1 ) )                A( K, K-1 ) = A( K, K-1 ) - ZDOTC( N-K, A( K+1, K ), 1, A( K+1, K-1 ), 1 );
+               zcopy(N-K, A( K+1, K-1 ), 1, WORK, 1 );
+               zhemv(UPLO, N-K, -CONE, A( K+1, K+1 ), LDA, WORK, 1, ZERO, A( K+1, K-1 ), 1 )                A( K-1, K-1 ) = A( K-1, K-1 ) - DBLE( ZDOTC( N-K, WORK, 1, A( K+1, K-1 ), 1 ) );
             }
             KSTEP = 2
          }

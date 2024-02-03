@@ -59,150 +59,150 @@
 
          SRNAMT = 'SGELS '
          INFOT = 1
-         CALL SGELS( '/', 0, 0, 0, A, 1, B, 1, W, 1, INFO )
-         CALL CHKXER( 'SGELS ', INFOT, NOUT, LERR, OK )
+         sgels('/', 0, 0, 0, A, 1, B, 1, W, 1, INFO );
+         chkxer('SGELS ', INFOT, NOUT, LERR, OK );
          INFOT = 2
-         CALL SGELS( 'N', -1, 0, 0, A, 1, B, 1, W, 1, INFO )
-         CALL CHKXER( 'SGELS ', INFOT, NOUT, LERR, OK )
+         sgels('N', -1, 0, 0, A, 1, B, 1, W, 1, INFO );
+         chkxer('SGELS ', INFOT, NOUT, LERR, OK );
          INFOT = 3
-         CALL SGELS( 'N', 0, -1, 0, A, 1, B, 1, W, 1, INFO )
-         CALL CHKXER( 'SGELS ', INFOT, NOUT, LERR, OK )
+         sgels('N', 0, -1, 0, A, 1, B, 1, W, 1, INFO );
+         chkxer('SGELS ', INFOT, NOUT, LERR, OK );
          INFOT = 4
-         CALL SGELS( 'N', 0, 0, -1, A, 1, B, 1, W, 1, INFO )
-         CALL CHKXER( 'SGELS ', INFOT, NOUT, LERR, OK )
+         sgels('N', 0, 0, -1, A, 1, B, 1, W, 1, INFO );
+         chkxer('SGELS ', INFOT, NOUT, LERR, OK );
          INFOT = 6
-         CALL SGELS( 'N', 2, 0, 0, A, 1, B, 2, W, 2, INFO )
-         CALL CHKXER( 'SGELS ', INFOT, NOUT, LERR, OK )
+         sgels('N', 2, 0, 0, A, 1, B, 2, W, 2, INFO );
+         chkxer('SGELS ', INFOT, NOUT, LERR, OK );
          INFOT = 8
-         CALL SGELS( 'N', 2, 0, 0, A, 2, B, 1, W, 2, INFO )
-         CALL CHKXER( 'SGELS ', INFOT, NOUT, LERR, OK )
+         sgels('N', 2, 0, 0, A, 2, B, 1, W, 2, INFO );
+         chkxer('SGELS ', INFOT, NOUT, LERR, OK );
          INFOT = 8
-         CALL SGELS( 'N', 0, 2, 0, A, 1, B, 1, W, 2, INFO )
-         CALL CHKXER( 'DGELS', INFOT, NOUT, LERR, OK )
+         sgels('N', 0, 2, 0, A, 1, B, 1, W, 2, INFO );
+         chkxer('DGELS', INFOT, NOUT, LERR, OK );
          INFOT = 10
-         CALL SGELS( 'N', 1, 1, 0, A, 1, B, 1, W, 1, INFO )
-         CALL CHKXER( 'SGELS ', INFOT, NOUT, LERR, OK )
+         sgels('N', 1, 1, 0, A, 1, B, 1, W, 1, INFO );
+         chkxer('SGELS ', INFOT, NOUT, LERR, OK );
 
          // SGELST
 
          SRNAMT = 'SGELST'
          INFOT = 1
-         CALL SGELST( '/', 0, 0, 0, A, 1, B, 1, W, 1, INFO )
-         CALL CHKXER( 'SGELST', INFOT, NOUT, LERR, OK )
+         sgelst('/', 0, 0, 0, A, 1, B, 1, W, 1, INFO );
+         chkxer('SGELST', INFOT, NOUT, LERR, OK );
          INFOT = 2
-         CALL SGELST( 'N', -1, 0, 0, A, 1, B, 1, W, 1, INFO )
-         CALL CHKXER( 'SGELST', INFOT, NOUT, LERR, OK )
+         sgelst('N', -1, 0, 0, A, 1, B, 1, W, 1, INFO );
+         chkxer('SGELST', INFOT, NOUT, LERR, OK );
          INFOT = 3
-         CALL SGELST( 'N', 0, -1, 0, A, 1, B, 1, W, 1, INFO )
-         CALL CHKXER( 'SGELST', INFOT, NOUT, LERR, OK )
+         sgelst('N', 0, -1, 0, A, 1, B, 1, W, 1, INFO );
+         chkxer('SGELST', INFOT, NOUT, LERR, OK );
          INFOT = 4
-         CALL SGELST( 'N', 0, 0, -1, A, 1, B, 1, W, 1, INFO )
-         CALL CHKXER( 'SGELST', INFOT, NOUT, LERR, OK )
+         sgelst('N', 0, 0, -1, A, 1, B, 1, W, 1, INFO );
+         chkxer('SGELST', INFOT, NOUT, LERR, OK );
          INFOT = 6
-         CALL SGELST( 'N', 2, 0, 0, A, 1, B, 2, W, 2, INFO )
-         CALL CHKXER( 'SGELST', INFOT, NOUT, LERR, OK )
+         sgelst('N', 2, 0, 0, A, 1, B, 2, W, 2, INFO );
+         chkxer('SGELST', INFOT, NOUT, LERR, OK );
          INFOT = 8
-         CALL SGELST( 'N', 2, 0, 0, A, 2, B, 1, W, 2, INFO )
-         CALL CHKXER( 'SGELST', INFOT, NOUT, LERR, OK )
+         sgelst('N', 2, 0, 0, A, 2, B, 1, W, 2, INFO );
+         chkxer('SGELST', INFOT, NOUT, LERR, OK );
          INFOT = 8
-         CALL SGELST( 'N', 0, 2, 0, A, 1, B, 1, W, 2, INFO )
-         CALL CHKXER( 'SGELST', INFOT, NOUT, LERR, OK )
+         sgelst('N', 0, 2, 0, A, 1, B, 1, W, 2, INFO );
+         chkxer('SGELST', INFOT, NOUT, LERR, OK );
          INFOT = 10
-         CALL SGELST( 'N', 1, 1, 0, A, 1, B, 1, W, 1, INFO )
-         CALL CHKXER( 'SGELST', INFOT, NOUT, LERR, OK )
+         sgelst('N', 1, 1, 0, A, 1, B, 1, W, 1, INFO );
+         chkxer('SGELST', INFOT, NOUT, LERR, OK );
 
          // SGETSLS
 
          SRNAMT = 'SGETSLS'
          INFOT = 1
-         CALL SGETSLS( '/', 0, 0, 0, A, 1, B, 1, W, 1, INFO )
-         CALL CHKXER( 'SGETSLS', INFOT, NOUT, LERR, OK )
+         sgetsls('/', 0, 0, 0, A, 1, B, 1, W, 1, INFO );
+         chkxer('SGETSLS', INFOT, NOUT, LERR, OK );
          INFOT = 2
-         CALL SGETSLS( 'N', -1, 0, 0, A, 1, B, 1, W, 1, INFO )
-         CALL CHKXER( 'SGETSLS', INFOT, NOUT, LERR, OK )
+         sgetsls('N', -1, 0, 0, A, 1, B, 1, W, 1, INFO );
+         chkxer('SGETSLS', INFOT, NOUT, LERR, OK );
          INFOT = 3
-         CALL SGETSLS( 'N', 0, -1, 0, A, 1, B, 1, W, 1, INFO )
-         CALL CHKXER( 'SGETSLS', INFOT, NOUT, LERR, OK )
+         sgetsls('N', 0, -1, 0, A, 1, B, 1, W, 1, INFO );
+         chkxer('SGETSLS', INFOT, NOUT, LERR, OK );
          INFOT = 4
-         CALL SGETSLS( 'N', 0, 0, -1, A, 1, B, 1, W, 1, INFO )
-         CALL CHKXER( 'SGETSLS', INFOT, NOUT, LERR, OK )
+         sgetsls('N', 0, 0, -1, A, 1, B, 1, W, 1, INFO );
+         chkxer('SGETSLS', INFOT, NOUT, LERR, OK );
          INFOT = 6
-         CALL SGETSLS( 'N', 2, 0, 0, A, 1, B, 2, W, 2, INFO )
-         CALL CHKXER( 'SGETSLS', INFOT, NOUT, LERR, OK )
+         sgetsls('N', 2, 0, 0, A, 1, B, 2, W, 2, INFO );
+         chkxer('SGETSLS', INFOT, NOUT, LERR, OK );
          INFOT = 8
-         CALL SGETSLS( 'N', 2, 0, 0, A, 2, B, 1, W, 2, INFO )
-         CALL CHKXER( 'SGETSLS', INFOT, NOUT, LERR, OK )
+         sgetsls('N', 2, 0, 0, A, 2, B, 1, W, 2, INFO );
+         chkxer('SGETSLS', INFOT, NOUT, LERR, OK );
          INFOT = 8
-         CALL SGETSLS( 'N', 0, 2, 0, A, 1, B, 1, W, 2, INFO )
-         CALL CHKXER( 'SGETSLS', INFOT, NOUT, LERR, OK )
+         sgetsls('N', 0, 2, 0, A, 1, B, 1, W, 2, INFO );
+         chkxer('SGETSLS', INFOT, NOUT, LERR, OK );
 
          // SGELSS
 
          SRNAMT = 'SGELSS'
          INFOT = 1
-         CALL SGELSS( -1, 0, 0, A, 1, B, 1, S, RCOND, IRNK, W, 1, INFO )
-         CALL CHKXER( 'SGELSS', INFOT, NOUT, LERR, OK )
+         sgelss(-1, 0, 0, A, 1, B, 1, S, RCOND, IRNK, W, 1, INFO );
+         chkxer('SGELSS', INFOT, NOUT, LERR, OK );
          INFOT = 2
-         CALL SGELSS( 0, -1, 0, A, 1, B, 1, S, RCOND, IRNK, W, 1, INFO )
-         CALL CHKXER( 'SGELSS', INFOT, NOUT, LERR, OK )
+         sgelss(0, -1, 0, A, 1, B, 1, S, RCOND, IRNK, W, 1, INFO );
+         chkxer('SGELSS', INFOT, NOUT, LERR, OK );
          INFOT = 3
-         CALL SGELSS( 0, 0, -1, A, 1, B, 1, S, RCOND, IRNK, W, 1, INFO )
-         CALL CHKXER( 'SGELSS', INFOT, NOUT, LERR, OK )
+         sgelss(0, 0, -1, A, 1, B, 1, S, RCOND, IRNK, W, 1, INFO );
+         chkxer('SGELSS', INFOT, NOUT, LERR, OK );
          INFOT = 5
-         CALL SGELSS( 2, 0, 0, A, 1, B, 2, S, RCOND, IRNK, W, 2, INFO )
-         CALL CHKXER( 'SGELSS', INFOT, NOUT, LERR, OK )
+         sgelss(2, 0, 0, A, 1, B, 2, S, RCOND, IRNK, W, 2, INFO );
+         chkxer('SGELSS', INFOT, NOUT, LERR, OK );
          INFOT = 7
-         CALL SGELSS( 2, 0, 0, A, 2, B, 1, S, RCOND, IRNK, W, 2, INFO )
-         CALL CHKXER( 'SGELSS', INFOT, NOUT, LERR, OK )
+         sgelss(2, 0, 0, A, 2, B, 1, S, RCOND, IRNK, W, 2, INFO );
+         chkxer('SGELSS', INFOT, NOUT, LERR, OK );
 
          // SGELSY
 
          SRNAMT = 'SGELSY'
          INFOT = 1
-         CALL SGELSY( -1, 0, 0, A, 1, B, 1, IP, RCOND, IRNK, W, 10, INFO )
-         CALL CHKXER( 'SGELSY', INFOT, NOUT, LERR, OK )
+         sgelsy(-1, 0, 0, A, 1, B, 1, IP, RCOND, IRNK, W, 10, INFO );
+         chkxer('SGELSY', INFOT, NOUT, LERR, OK );
          INFOT = 2
-         CALL SGELSY( 0, -1, 0, A, 1, B, 1, IP, RCOND, IRNK, W, 10, INFO )
-         CALL CHKXER( 'SGELSY', INFOT, NOUT, LERR, OK )
+         sgelsy(0, -1, 0, A, 1, B, 1, IP, RCOND, IRNK, W, 10, INFO );
+         chkxer('SGELSY', INFOT, NOUT, LERR, OK );
          INFOT = 3
-         CALL SGELSY( 0, 0, -1, A, 1, B, 1, IP, RCOND, IRNK, W, 10, INFO )
-         CALL CHKXER( 'SGELSY', INFOT, NOUT, LERR, OK )
+         sgelsy(0, 0, -1, A, 1, B, 1, IP, RCOND, IRNK, W, 10, INFO );
+         chkxer('SGELSY', INFOT, NOUT, LERR, OK );
          INFOT = 5
-         CALL SGELSY( 2, 0, 0, A, 1, B, 2, IP, RCOND, IRNK, W, 10, INFO )
-         CALL CHKXER( 'SGELSY', INFOT, NOUT, LERR, OK )
+         sgelsy(2, 0, 0, A, 1, B, 2, IP, RCOND, IRNK, W, 10, INFO );
+         chkxer('SGELSY', INFOT, NOUT, LERR, OK );
          INFOT = 7
-         CALL SGELSY( 2, 0, 0, A, 2, B, 1, IP, RCOND, IRNK, W, 10, INFO )
-         CALL CHKXER( 'SGELSY', INFOT, NOUT, LERR, OK )
+         sgelsy(2, 0, 0, A, 2, B, 1, IP, RCOND, IRNK, W, 10, INFO );
+         chkxer('SGELSY', INFOT, NOUT, LERR, OK );
          INFOT = 12
-         CALL SGELSY( 2, 2, 1, A, 2, B, 2, IP, RCOND, IRNK, W, 1, INFO )
-         CALL CHKXER( 'SGELSY', INFOT, NOUT, LERR, OK )
+         sgelsy(2, 2, 1, A, 2, B, 2, IP, RCOND, IRNK, W, 1, INFO );
+         chkxer('SGELSY', INFOT, NOUT, LERR, OK );
 
          // SGELSD
 
          SRNAMT = 'SGELSD'
          INFOT = 1
-         CALL SGELSD( -1, 0, 0, A, 1, B, 1, S, RCOND, IRNK, W, 10, IP, INFO )
-         CALL CHKXER( 'SGELSD', INFOT, NOUT, LERR, OK )
+         sgelsd(-1, 0, 0, A, 1, B, 1, S, RCOND, IRNK, W, 10, IP, INFO );
+         chkxer('SGELSD', INFOT, NOUT, LERR, OK );
          INFOT = 2
-         CALL SGELSD( 0, -1, 0, A, 1, B, 1, S, RCOND, IRNK, W, 10, IP, INFO )
-         CALL CHKXER( 'SGELSD', INFOT, NOUT, LERR, OK )
+         sgelsd(0, -1, 0, A, 1, B, 1, S, RCOND, IRNK, W, 10, IP, INFO );
+         chkxer('SGELSD', INFOT, NOUT, LERR, OK );
          INFOT = 3
-         CALL SGELSD( 0, 0, -1, A, 1, B, 1, S, RCOND, IRNK, W, 10, IP, INFO )
-         CALL CHKXER( 'SGELSD', INFOT, NOUT, LERR, OK )
+         sgelsd(0, 0, -1, A, 1, B, 1, S, RCOND, IRNK, W, 10, IP, INFO );
+         chkxer('SGELSD', INFOT, NOUT, LERR, OK );
          INFOT = 5
-         CALL SGELSD( 2, 0, 0, A, 1, B, 2, S, RCOND, IRNK, W, 10, IP, INFO )
-         CALL CHKXER( 'SGELSD', INFOT, NOUT, LERR, OK )
+         sgelsd(2, 0, 0, A, 1, B, 2, S, RCOND, IRNK, W, 10, IP, INFO );
+         chkxer('SGELSD', INFOT, NOUT, LERR, OK );
          INFOT = 7
-         CALL SGELSD( 2, 0, 0, A, 2, B, 1, S, RCOND, IRNK, W, 10, IP, INFO )
-         CALL CHKXER( 'SGELSD', INFOT, NOUT, LERR, OK )
+         sgelsd(2, 0, 0, A, 2, B, 1, S, RCOND, IRNK, W, 10, IP, INFO );
+         chkxer('SGELSD', INFOT, NOUT, LERR, OK );
          INFOT = 12
-         CALL SGELSD( 2, 2, 1, A, 2, B, 2, S, RCOND, IRNK, W, 1, IP, INFO )
-         CALL CHKXER( 'SGELSD', INFOT, NOUT, LERR, OK )
+         sgelsd(2, 2, 1, A, 2, B, 2, S, RCOND, IRNK, W, 1, IP, INFO );
+         chkxer('SGELSD', INFOT, NOUT, LERR, OK );
       }
 
       // Print a summary line.
 
-      CALL ALAESM( PATH, OK, NOUT )
+      alaesm(PATH, OK, NOUT );
 
       RETURN
 

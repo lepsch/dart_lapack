@@ -93,7 +93,7 @@
 
             // Set up parameters with ZLATB4.
 
-            CALL ZLATB4( PATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, COND, DIST )
+            zlatb4(PATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, COND, DIST );
 
             ZEROT = IMAT.GE.8 .AND. IMAT.LE.10
             if ( IMAT.LE.6 ) {
@@ -102,12 +102,12 @@
                // known condition number in lower triangular band storage.
 
                SRNAMT = 'ZLATMS'
-               CALL ZLATMS( N, N, DIST, ISEED, TYPE, RWORK, MODE, COND, ANORM, KL, KU, 'B', A, 2, WORK, INFO )
+               zlatms(N, N, DIST, ISEED, TYPE, RWORK, MODE, COND, ANORM, KL, KU, 'B', A, 2, WORK, INFO );
 
                // Check the error code from ZLATMS.
 
                if ( INFO.NE.0 ) {
-                  CALL ALAERH( PATH, 'ZLATMS', INFO, 0, ' ', N, N, KL, KU, -1, IMAT, NFAIL, NERRS, NOUT )
+                  alaerh(PATH, 'ZLATMS', INFO, 0, ' ', N, N, KL, KU, -1, IMAT, NFAIL, NERRS, NOUT );
                   GO TO 110
                }
                IZERO = 0
@@ -130,8 +130,8 @@
 
                   // Let D and E have values from [-1,1].
 
-                  CALL DLARNV( 2, ISEED, N, D )
-                  CALL ZLARNV( 2, ISEED, N-1, E )
+                  dlarnv(2, ISEED, N, D );
+                  zlarnv(2, ISEED, N-1, E );
 
                   // Make the tridiagonal matrix diagonally dominant.
 
@@ -149,7 +149,7 @@
 
                   IX = IDAMAX( N, D, 1 )
                   DMAX = D( IX )
-                  CALL DSCAL( N, ANORM / DMAX, D, 1 )
+                  dscal(N, ANORM / DMAX, D, 1 );
                   IF( N.GT.1 ) CALL ZDSCAL( N-1, ANORM / DMAX, E, 1 )
 
                } else if ( IZERO.GT.0 ) {
@@ -207,13 +207,13 @@
 
             IX = 1
             DO 40 J = 1, NRHS
-               CALL ZLARNV( 2, ISEED, N, XACT( IX ) )
+               zlarnv(2, ISEED, N, XACT( IX ) );
                IX = IX + LDA
    40       CONTINUE
 
             // Set the right hand side.
 
-            CALL ZLAPTM( 'Lower', N, NRHS, ONE, D, E, XACT, LDA, ZERO, B, LDA )
+            zlaptm('Lower', N, NRHS, ONE, D, E, XACT, LDA, ZERO, B, LDA );
 
             DO 100 IFACT = 1, 2
                if ( IFACT.EQ.1 ) {
@@ -235,12 +235,12 @@
 
                   ANORM = ZLANHT( '1', N, D, E )
 
-                  CALL DCOPY( N, D, 1, D( N+1 ), 1 )
+                  dcopy(N, D, 1, D( N+1 ), 1 );
                   IF( N.GT.1 ) CALL ZCOPY( N-1, E, 1, E( N+1 ), 1 )
 
                   // Factor the matrix A.
 
-                  CALL ZPTTRF( N, D( N+1 ), E( N+1 ), INFO )
+                  zpttrf(N, D( N+1 ), E( N+1 ), INFO );
 
                   // Use ZPTTRS to solve for one column at a time of
                   // inv(A), computing the maximum column sum as we go.
@@ -251,7 +251,7 @@
                         X( J ) = ZERO
    50                CONTINUE
                      X( I ) = ONE
-                     CALL ZPTTRS( 'Lower', N, 1, D( N+1 ), E( N+1 ), X, LDA, INFO )
+                     zpttrs('Lower', N, 1, D( N+1 ), E( N+1 ), X, LDA, INFO );
                      AINVNM = MAX( AINVNM, DZASUM( N, X, 1 ) )
    60             CONTINUE
 
@@ -268,14 +268,14 @@
 
                   // --- Test ZPTSV --
 
-                  CALL DCOPY( N, D, 1, D( N+1 ), 1 )
+                  dcopy(N, D, 1, D( N+1 ), 1 );
                   IF( N.GT.1 ) CALL ZCOPY( N-1, E, 1, E( N+1 ), 1 )
-                  CALL ZLACPY( 'Full', N, NRHS, B, LDA, X, LDA )
+                  zlacpy('Full', N, NRHS, B, LDA, X, LDA );
 
                   // Factor A as L*D*L' and solve the system A*X = B.
 
                   SRNAMT = 'ZPTSV '
-                  CALL ZPTSV( N, NRHS, D( N+1 ), E( N+1 ), X, LDA, INFO )
+                  zptsv(N, NRHS, D( N+1 ), E( N+1 ), X, LDA, INFO );
 
                   // Check error code from ZPTSV .
 
@@ -286,16 +286,16 @@
                      // Check the factorization by computing the ratio
                         // norm(L*D*L' - A) / (n * norm(A) * EPS )
 
-                     CALL ZPTT01( N, D, E, D( N+1 ), E( N+1 ), WORK, RESULT( 1 ) )
+                     zptt01(N, D, E, D( N+1 ), E( N+1 ), WORK, RESULT( 1 ) );
 
                      // Compute the residual in the solution.
 
-                     CALL ZLACPY( 'Full', N, NRHS, B, LDA, WORK, LDA )
-                     CALL ZPTT02( 'Lower', N, NRHS, D, E, X, LDA, WORK, LDA, RESULT( 2 ) )
+                     zlacpy('Full', N, NRHS, B, LDA, WORK, LDA );
+                     zptt02('Lower', N, NRHS, D, E, X, LDA, WORK, LDA, RESULT( 2 ) );
 
                      // Check solution from generated exact solution.
 
-                     CALL ZGET04( N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 3 ) )
+                     zget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 3 ) );
                      NT = 3
                   }
 
@@ -324,13 +324,13 @@
                   IF( N.GT.0 ) D( N+N ) = ZERO
                }
 
-               CALL ZLASET( 'Full', N, NRHS, DCMPLX( ZERO ), DCMPLX( ZERO ), X, LDA )
+               zlaset('Full', N, NRHS, DCMPLX( ZERO ), DCMPLX( ZERO ), X, LDA );
 
                // Solve the system and compute the condition number and
                // error bounds using ZPTSVX.
 
                SRNAMT = 'ZPTSVX'
-               CALL ZPTSVX( FACT, N, NRHS, D, E, D( N+1 ), E( N+1 ), B, LDA, X, LDA, RCOND, RWORK, RWORK( NRHS+1 ), WORK, RWORK( 2*NRHS+1 ), INFO )
+               zptsvx(FACT, N, NRHS, D, E, D( N+1 ), E( N+1 ), B, LDA, X, LDA, RCOND, RWORK, RWORK( NRHS+1 ), WORK, RWORK( 2*NRHS+1 ), INFO );
 
                // Check the error code from ZPTSVX.
 
@@ -342,23 +342,23 @@
                         // norm(L*D*L' - A) / (n * norm(A) * EPS )
 
                      K1 = 1
-                     CALL ZPTT01( N, D, E, D( N+1 ), E( N+1 ), WORK, RESULT( 1 ) )
+                     zptt01(N, D, E, D( N+1 ), E( N+1 ), WORK, RESULT( 1 ) );
                   } else {
                      K1 = 2
                   }
 
                   // Compute the residual in the solution.
 
-                  CALL ZLACPY( 'Full', N, NRHS, B, LDA, WORK, LDA )
-                  CALL ZPTT02( 'Lower', N, NRHS, D, E, X, LDA, WORK, LDA, RESULT( 2 ) )
+                  zlacpy('Full', N, NRHS, B, LDA, WORK, LDA );
+                  zptt02('Lower', N, NRHS, D, E, X, LDA, WORK, LDA, RESULT( 2 ) );
 
                   // Check solution from generated exact solution.
 
-                  CALL ZGET04( N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 3 ) )
+                  zget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 3 ) );
 
                   // Check error bounds from iterative refinement.
 
-                  CALL ZPTT05( N, NRHS, D, E, B, LDA, X, LDA, XACT, LDA, RWORK, RWORK( NRHS+1 ), RESULT( 4 ) )
+                  zptt05(N, NRHS, D, E, B, LDA, X, LDA, XACT, LDA, RWORK, RWORK( NRHS+1 ), RESULT( 4 ) );
                } else {
                   K1 = 6
                }
@@ -383,7 +383,7 @@
 
       // Print a summary of the results.
 
-      CALL ALASVM( PATH, NOUT, NFAIL, NRUN, NERRS )
+      alasvm(PATH, NOUT, NFAIL, NRUN, NERRS );
 
  9999 FORMAT( 1X, A, ', N =', I5, ', type ', I2, ', test ', I2, ', ratio = ', G12.5 )
  9998 FORMAT( 1X, A, ', FACT=''', A1, ''', N =', I5, ', type ', I2, ', test ', I2, ', ratio = ', G12.5 )

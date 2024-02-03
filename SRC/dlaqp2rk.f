@@ -218,7 +218,7 @@
             // the original matrix A, not the block A(1:M,1:N).
 
          if ( KP.NE.KK ) {
-            CALL DSWAP( M, A( 1, KP ), 1, A( 1, KK ), 1 )
+            dswap(M, A( 1, KP ), 1, A( 1, KK ), 1 );
             VN1( KP ) = VN1( KK )
             VN2( KP ) = VN2( KK )
             ITEMP = JPIV( KP )
@@ -232,7 +232,7 @@
          // and TAU(KK) = ZERO.
 
          if ( I.LT.M ) {
-            CALL DLARFG( M-I+1, A( I, KK ), A( I+1, KK ), 1, TAU( KK ) )
+            dlarfg(M-I+1, A( I, KK ), A( I+1, KK ), 1, TAU( KK ) );
          } else {
             TAU( KK ) = ZERO
          }
@@ -277,7 +277,7 @@
          if ( KK.LT.MINMNUPDT ) {
             AIKK = A( I, KK )
             A( I, KK ) = ONE
-            CALL DLARF( 'Left', M-I+1, N+NRHS-KK, A( I, KK ), 1, TAU( KK ), A( I, KK+1 ), LDA, WORK( 1 ) )
+            dlarf('Left', M-I+1, N+NRHS-KK, A( I, KK ), 1, TAU( KK ), A( I, KK+1 ), LDA, WORK( 1 ) );
             A( I, KK ) = AIKK
          }
 

@@ -69,11 +69,11 @@
 
       if ( LSAME( UPLO, 'U' ) ) {
          DO 20 J = 1, N
-            CALL CTRMV( 'Upper', 'No transpose', DIAG, J, A, LDA, AINV( 1, J ), 1 )
+            ctrmv('Upper', 'No transpose', DIAG, J, A, LDA, AINV( 1, J ), 1 );
    20    CONTINUE
       } else {
          DO 30 J = 1, N
-            CALL CTRMV( 'Lower', 'No transpose', DIAG, N-J+1, A( J, J ), LDA, AINV( J, J ), 1 )
+            ctrmv('Lower', 'No transpose', DIAG, N-J+1, A( J, J ), LDA, AINV( J, J ), 1 );
    30    CONTINUE
       }
 

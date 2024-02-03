@@ -51,15 +51,15 @@
 
       // Initialize C to the identity matrix.
 
-      CALL SLASET( 'Full', N, N, ZERO, ONE, C, LDC )
+      slaset('Full', N, N, ZERO, ONE, C, LDC );
 
       // Call SLAVSP to form the product D * U' (or D * L' ).
 
-      CALL SLAVSP( UPLO, 'Transpose', 'Non-unit', N, N, AFAC, IPIV, C, LDC, INFO )
+      slavsp(UPLO, 'Transpose', 'Non-unit', N, N, AFAC, IPIV, C, LDC, INFO );
 
       // Call SLAVSP again to multiply by U ( or L ).
 
-      CALL SLAVSP( UPLO, 'No transpose', 'Unit', N, N, AFAC, IPIV, C, LDC, INFO )
+      slavsp(UPLO, 'No transpose', 'Unit', N, N, AFAC, IPIV, C, LDC, INFO );
 
       // Compute the difference  C - A .
 

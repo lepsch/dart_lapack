@@ -42,7 +42,7 @@
          // Call DLARUV to generate 2*IL real numbers from a uniform (0,1)
          // distribution (2*IL <= LV)
 
-         CALL DLARUV( ISEED, 2*IL, U )
+         dlaruv(ISEED, 2*IL, U );
 
          if ( IDIST.EQ.1 ) {
 

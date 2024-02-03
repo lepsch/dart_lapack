@@ -75,7 +75,7 @@
 
       IF( TSTERR ) CALL SERRPO( PATH, NOUT )
       INFOT = 0
-      CALL XLAENV( 2, 2 )
+      xlaenv(2, 2 );
       KDVAL( 1 ) = 0
 
       // Do for each value of N in NVAL
@@ -133,15 +133,15 @@
                      // Set up parameters with SLATB4 and generate a test
                      // matrix with SLATMS.
 
-                     CALL SLATB4( PATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST )
+                     slatb4(PATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST );
 
                      SRNAMT = 'SLATMS'
-                     CALL SLATMS( N, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KD, KD, PACKIT, A( KOFF ), LDAB, WORK, INFO )
+                     slatms(N, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KD, KD, PACKIT, A( KOFF ), LDAB, WORK, INFO );
 
                      // Check error code from SLATMS.
 
                      if ( INFO.NE.0 ) {
-                        CALL ALAERH( PATH, 'SLATMS', INFO, 0, UPLO, N, N, KD, KD, -1, IMAT, NFAIL, NERRS, NOUT )
+                        alaerh(PATH, 'SLATMS', INFO, 0, UPLO, N, N, KD, KD, -1, IMAT, NFAIL, NERRS, NOUT );
                         GO TO 60
                      }
                   } else if ( IZERO.GT.0 ) {
@@ -152,15 +152,15 @@
                      IW = 2*LDA + 1
                      if ( IUPLO.EQ.1 ) {
                         IOFF = ( IZERO-1 )*LDAB + KD + 1
-                        CALL SCOPY( IZERO-I1, WORK( IW ), 1, A( IOFF-IZERO+I1 ), 1 )
+                        scopy(IZERO-I1, WORK( IW ), 1, A( IOFF-IZERO+I1 ), 1 );
                         IW = IW + IZERO - I1
-                        CALL SCOPY( I2-IZERO+1, WORK( IW ), 1, A( IOFF ), MAX( LDAB-1, 1 ) )
+                        scopy(I2-IZERO+1, WORK( IW ), 1, A( IOFF ), MAX( LDAB-1, 1 ) );
                      } else {
                         IOFF = ( I1-1 )*LDAB + 1
-                        CALL SCOPY( IZERO-I1, WORK( IW ), 1, A( IOFF+IZERO-I1 ), MAX( LDAB-1, 1 ) )
+                        scopy(IZERO-I1, WORK( IW ), 1, A( IOFF+IZERO-I1 ), MAX( LDAB-1, 1 ) );
                         IOFF = ( IZERO-1 )*LDAB + 1
                         IW = IW + IZERO - I1
-                        CALL SCOPY( I2-IZERO+1, WORK( IW ), 1, A( IOFF ), 1 )
+                        scopy(I2-IZERO+1, WORK( IW ), 1, A( IOFF ), 1 );
                      }
                   }
 
@@ -189,15 +189,15 @@
 
                      if ( IUPLO.EQ.1 ) {
                         IOFF = ( IZERO-1 )*LDAB + KD + 1
-                        CALL SSWAP( IZERO-I1, A( IOFF-IZERO+I1 ), 1, WORK( IW ), 1 )
+                        sswap(IZERO-I1, A( IOFF-IZERO+I1 ), 1, WORK( IW ), 1 );
                         IW = IW + IZERO - I1
-                        CALL SSWAP( I2-IZERO+1, A( IOFF ), MAX( LDAB-1, 1 ), WORK( IW ), 1 )
+                        sswap(I2-IZERO+1, A( IOFF ), MAX( LDAB-1, 1 ), WORK( IW ), 1 );
                      } else {
                         IOFF = ( I1-1 )*LDAB + 1
-                        CALL SSWAP( IZERO-I1, A( IOFF+IZERO-I1 ), MAX( LDAB-1, 1 ), WORK( IW ), 1 )
+                        sswap(IZERO-I1, A( IOFF+IZERO-I1 ), MAX( LDAB-1, 1 ), WORK( IW ), 1 );
                         IOFF = ( IZERO-1 )*LDAB + 1
                         IW = IW + IZERO - I1
-                        CALL SSWAP( I2-IZERO+1, A( IOFF ), 1, WORK( IW ), 1 )
+                        sswap(I2-IZERO+1, A( IOFF ), 1, WORK( IW ), 1 );
                      }
                   }
 
@@ -205,19 +205,19 @@
 
                   DO 50 INB = 1, NNB
                      NB = NBVAL( INB )
-                     CALL XLAENV( 1, NB )
+                     xlaenv(1, NB );
 
                      // Compute the L*L' or U'*U factorization of the band
                      // matrix.
 
-                     CALL SLACPY( 'Full', KD+1, N, A, LDAB, AFAC, LDAB )
+                     slacpy('Full', KD+1, N, A, LDAB, AFAC, LDAB );
                      SRNAMT = 'SPBTRF'
-                     CALL SPBTRF( UPLO, N, KD, AFAC, LDAB, INFO )
+                     spbtrf(UPLO, N, KD, AFAC, LDAB, INFO );
 
                      // Check error code from SPBTRF.
 
                      if ( INFO.NE.IZERO ) {
-                        CALL ALAERH( PATH, 'SPBTRF', INFO, IZERO, UPLO, N, N, KD, KD, NB, IMAT, NFAIL, NERRS, NOUT )
+                        alaerh(PATH, 'SPBTRF', INFO, IZERO, UPLO, N, N, KD, KD, NB, IMAT, NFAIL, NERRS, NOUT );
                         GO TO 50
                      }
 
@@ -229,7 +229,7 @@
                      // Reconstruct matrix from factors and compute
                      // residual.
 
-                     CALL SLACPY( 'Full', KD+1, N, AFAC, LDAB, AINV, LDAB )                      CALL SPBT01( UPLO, N, KD, A, LDAB, AINV, LDAB, RWORK, RESULT( 1 ) )
+                     slacpy('Full', KD+1, N, AFAC, LDAB, AINV, LDAB )                      CALL SPBT01( UPLO, N, KD, A, LDAB, AINV, LDAB, RWORK, RESULT( 1 ) );
 
                      // Print the test ratio if it is .GE. THRESH.
 
@@ -246,9 +246,9 @@
                      // Form the inverse of A so we can get a good estimate
                      // of RCONDC = 1/(norm(A) * norm(inv(A))).
 
-                     CALL SLASET( 'Full', N, N, ZERO, ONE, AINV, LDA )
+                     slaset('Full', N, N, ZERO, ONE, AINV, LDA );
                      SRNAMT = 'SPBTRS'
-                     CALL SPBTRS( UPLO, N, KD, N, AFAC, LDAB, AINV, LDA, INFO )
+                     spbtrs(UPLO, N, KD, N, AFAC, LDAB, AINV, LDA, INFO );
 
                      // Compute RCONDC = 1/(norm(A) * norm(inv(A))).
 
@@ -267,34 +267,34 @@
                      // Solve and compute residual for A * X = B.
 
                         SRNAMT = 'SLARHS'
-                        CALL SLARHS( PATH, XTYPE, UPLO, ' ', N, N, KD, KD, NRHS, A, LDAB, XACT, LDA, B, LDA, ISEED, INFO )
-                        CALL SLACPY( 'Full', N, NRHS, B, LDA, X, LDA )
+                        slarhs(PATH, XTYPE, UPLO, ' ', N, N, KD, KD, NRHS, A, LDAB, XACT, LDA, B, LDA, ISEED, INFO );
+                        slacpy('Full', N, NRHS, B, LDA, X, LDA );
 
                         SRNAMT = 'SPBTRS'
-                        CALL SPBTRS( UPLO, N, KD, NRHS, AFAC, LDAB, X, LDA, INFO )
+                        spbtrs(UPLO, N, KD, NRHS, AFAC, LDAB, X, LDA, INFO );
 
                      // Check error code from SPBTRS.
 
                         IF( INFO.NE.0 ) CALL ALAERH( PATH, 'SPBTRS', INFO, 0, UPLO, N, N, KD, KD, NRHS, IMAT, NFAIL, NERRS, NOUT )
 
-                        CALL SLACPY( 'Full', N, NRHS, B, LDA, WORK, LDA )                         CALL SPBT02( UPLO, N, KD, NRHS, A, LDAB, X, LDA, WORK, LDA, RWORK, RESULT( 2 ) )
+                        slacpy('Full', N, NRHS, B, LDA, WORK, LDA )                         CALL SPBT02( UPLO, N, KD, NRHS, A, LDAB, X, LDA, WORK, LDA, RWORK, RESULT( 2 ) );
 
 *+    TEST 3
                      // Check solution from generated exact solution.
 
-                        CALL SGET04( N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 3 ) )
+                        sget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 3 ) );
 
 *+    TESTS 4, 5, and 6
                      // Use iterative refinement to improve the solution.
 
                         SRNAMT = 'SPBRFS'
-                        CALL SPBRFS( UPLO, N, KD, NRHS, A, LDAB, AFAC, LDAB, B, LDA, X, LDA, RWORK, RWORK( NRHS+1 ), WORK, IWORK, INFO )
+                        spbrfs(UPLO, N, KD, NRHS, A, LDAB, AFAC, LDAB, B, LDA, X, LDA, RWORK, RWORK( NRHS+1 ), WORK, IWORK, INFO );
 
                      // Check error code from SPBRFS.
 
                         IF( INFO.NE.0 ) CALL ALAERH( PATH, 'SPBRFS', INFO, 0, UPLO, N, N, KD, KD, NRHS, IMAT, NFAIL, NERRS, NOUT )
 
-                        CALL SGET04( N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 4 ) )                         CALL SPBT05( UPLO, N, KD, NRHS, A, LDAB, B, LDA, X, LDA, XACT, LDA, RWORK, RWORK( NRHS+1 ), RESULT( 5 ) )
+                        sget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 4 ) )                         CALL SPBT05( UPLO, N, KD, NRHS, A, LDAB, B, LDA, X, LDA, XACT, LDA, RWORK, RWORK( NRHS+1 ), RESULT( 5 ) );
 
                         // Print information about the tests that did not
                         // pass the threshold.
@@ -312,7 +312,7 @@
                      // Get an estimate of RCOND = 1/CNDNUM.
 
                      SRNAMT = 'SPBCON'
-                     CALL SPBCON( UPLO, N, KD, AFAC, LDAB, ANORM, RCOND, WORK, IWORK, INFO )
+                     spbcon(UPLO, N, KD, AFAC, LDAB, ANORM, RCOND, WORK, IWORK, INFO );
 
                      // Check error code from SPBCON.
 
@@ -335,7 +335,7 @@
 
       // Print a summary of the results.
 
-      CALL ALASUM( PATH, NOUT, NFAIL, NRUN, NERRS )
+      alasum(PATH, NOUT, NFAIL, NRUN, NERRS );
 
  9999 FORMAT( ' UPLO=''', A1, ''', N=', I5, ', KD=', I5, ', NB=', I4, ', type ', I2, ', test ', I2, ', ratio= ', G12.5 )
  9998 FORMAT( ' UPLO=''', A1, ''', N=', I5, ', KD=', I5, ', NRHS=', I3, ', type ', I2, ', test(', I2, ') = ', G12.5 )

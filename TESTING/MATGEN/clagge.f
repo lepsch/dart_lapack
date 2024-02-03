@@ -51,7 +51,7 @@
          INFO = -7
       }
       if ( INFO.LT.0 ) {
-         CALL XERBLA( 'CLAGGE', -INFO )
+         xerbla('CLAGGE', -INFO );
          RETURN
       }
 
@@ -77,41 +77,41 @@
 
             // generate random reflection
 
-            CALL CLARNV( 3, ISEED, M-I+1, WORK )
+            clarnv(3, ISEED, M-I+1, WORK );
             WN = SCNRM2( M-I+1, WORK, 1 )
             WA = ( WN / ABS( WORK( 1 ) ) )*WORK( 1 )
             if ( WN.EQ.ZERO ) {
                TAU = ZERO
             } else {
                WB = WORK( 1 ) + WA
-               CALL CSCAL( M-I, ONE / WB, WORK( 2 ), 1 )
+               cscal(M-I, ONE / WB, WORK( 2 ), 1 );
                WORK( 1 ) = ONE
                TAU = REAL( WB / WA )
             }
 
             // multiply A(i:m,i:n) by random reflection from the left
 
-            CALL CGEMV( 'Conjugate transpose', M-I+1, N-I+1, ONE, A( I, I ), LDA, WORK, 1, ZERO, WORK( M+1 ), 1 )             CALL CGERC( M-I+1, N-I+1, -TAU, WORK, 1, WORK( M+1 ), 1, A( I, I ), LDA )
+            cgemv('Conjugate transpose', M-I+1, N-I+1, ONE, A( I, I ), LDA, WORK, 1, ZERO, WORK( M+1 ), 1 )             CALL CGERC( M-I+1, N-I+1, -TAU, WORK, 1, WORK( M+1 ), 1, A( I, I ), LDA );
          }
          if ( I.LT.N ) {
 
             // generate random reflection
 
-            CALL CLARNV( 3, ISEED, N-I+1, WORK )
+            clarnv(3, ISEED, N-I+1, WORK );
             WN = SCNRM2( N-I+1, WORK, 1 )
             WA = ( WN / ABS( WORK( 1 ) ) )*WORK( 1 )
             if ( WN.EQ.ZERO ) {
                TAU = ZERO
             } else {
                WB = WORK( 1 ) + WA
-               CALL CSCAL( N-I, ONE / WB, WORK( 2 ), 1 )
+               cscal(N-I, ONE / WB, WORK( 2 ), 1 );
                WORK( 1 ) = ONE
                TAU = REAL( WB / WA )
             }
 
             // multiply A(i:m,i:n) by random reflection from the right
 
-            CALL CGEMV( 'No transpose', M-I+1, N-I+1, ONE, A( I, I ), LDA, WORK, 1, ZERO, WORK( N+1 ), 1 )             CALL CGERC( M-I+1, N-I+1, -TAU, WORK( N+1 ), 1, WORK, 1, A( I, I ), LDA )
+            cgemv('No transpose', M-I+1, N-I+1, ONE, A( I, I ), LDA, WORK, 1, ZERO, WORK( N+1 ), 1 )             CALL CGERC( M-I+1, N-I+1, -TAU, WORK( N+1 ), 1, WORK, 1, A( I, I ), LDA );
          }
    40 CONTINUE
 
@@ -133,15 +133,15 @@
                   TAU = ZERO
                } else {
                   WB = A( KL+I, I ) + WA
-                  CALL CSCAL( M-KL-I, ONE / WB, A( KL+I+1, I ), 1 )
+                  cscal(M-KL-I, ONE / WB, A( KL+I+1, I ), 1 );
                   A( KL+I, I ) = ONE
                   TAU = REAL( WB / WA )
                }
 
                // apply reflection to A(kl+i:m,i+1:n) from the left
 
-               CALL CGEMV( 'Conjugate transpose', M-KL-I+1, N-I, ONE, A( KL+I, I+1 ), LDA, A( KL+I, I ), 1, ZERO, WORK, 1 )
-               CALL CGERC( M-KL-I+1, N-I, -TAU, A( KL+I, I ), 1, WORK, 1, A( KL+I, I+1 ), LDA )
+               cgemv('Conjugate transpose', M-KL-I+1, N-I, ONE, A( KL+I, I+1 ), LDA, A( KL+I, I ), 1, ZERO, WORK, 1 );
+               cgerc(M-KL-I+1, N-I, -TAU, A( KL+I, I ), 1, WORK, 1, A( KL+I, I+1 ), LDA );
                A( KL+I, I ) = -WA
             }
 
@@ -155,16 +155,16 @@
                   TAU = ZERO
                } else {
                   WB = A( I, KU+I ) + WA
-                  CALL CSCAL( N-KU-I, ONE / WB, A( I, KU+I+1 ), LDA )
+                  cscal(N-KU-I, ONE / WB, A( I, KU+I+1 ), LDA );
                   A( I, KU+I ) = ONE
                   TAU = REAL( WB / WA )
                }
 
                // apply reflection to A(i+1:m,ku+i:n) from the right
 
-               CALL CLACGV( N-KU-I+1, A( I, KU+I ), LDA )
-               CALL CGEMV( 'No transpose', M-I, N-KU-I+1, ONE, A( I+1, KU+I ), LDA, A( I, KU+I ), LDA, ZERO, WORK, 1 )
-               CALL CGERC( M-I, N-KU-I+1, -TAU, WORK, 1, A( I, KU+I ), LDA, A( I+1, KU+I ), LDA )
+               clacgv(N-KU-I+1, A( I, KU+I ), LDA );
+               cgemv('No transpose', M-I, N-KU-I+1, ONE, A( I+1, KU+I ), LDA, A( I, KU+I ), LDA, ZERO, WORK, 1 );
+               cgerc(M-I, N-KU-I+1, -TAU, WORK, 1, A( I, KU+I ), LDA, A( I+1, KU+I ), LDA );
                A( I, KU+I ) = -WA
             }
          } else {
@@ -182,16 +182,16 @@
                   TAU = ZERO
                } else {
                   WB = A( I, KU+I ) + WA
-                  CALL CSCAL( N-KU-I, ONE / WB, A( I, KU+I+1 ), LDA )
+                  cscal(N-KU-I, ONE / WB, A( I, KU+I+1 ), LDA );
                   A( I, KU+I ) = ONE
                   TAU = REAL( WB / WA )
                }
 
                // apply reflection to A(i+1:m,ku+i:n) from the right
 
-               CALL CLACGV( N-KU-I+1, A( I, KU+I ), LDA )
-               CALL CGEMV( 'No transpose', M-I, N-KU-I+1, ONE, A( I+1, KU+I ), LDA, A( I, KU+I ), LDA, ZERO, WORK, 1 )
-               CALL CGERC( M-I, N-KU-I+1, -TAU, WORK, 1, A( I, KU+I ), LDA, A( I+1, KU+I ), LDA )
+               clacgv(N-KU-I+1, A( I, KU+I ), LDA );
+               cgemv('No transpose', M-I, N-KU-I+1, ONE, A( I+1, KU+I ), LDA, A( I, KU+I ), LDA, ZERO, WORK, 1 );
+               cgerc(M-I, N-KU-I+1, -TAU, WORK, 1, A( I, KU+I ), LDA, A( I+1, KU+I ), LDA );
                A( I, KU+I ) = -WA
             }
 
@@ -205,15 +205,15 @@
                   TAU = ZERO
                } else {
                   WB = A( KL+I, I ) + WA
-                  CALL CSCAL( M-KL-I, ONE / WB, A( KL+I+1, I ), 1 )
+                  cscal(M-KL-I, ONE / WB, A( KL+I+1, I ), 1 );
                   A( KL+I, I ) = ONE
                   TAU = REAL( WB / WA )
                }
 
                // apply reflection to A(kl+i:m,i+1:n) from the left
 
-               CALL CGEMV( 'Conjugate transpose', M-KL-I+1, N-I, ONE, A( KL+I, I+1 ), LDA, A( KL+I, I ), 1, ZERO, WORK, 1 )
-               CALL CGERC( M-KL-I+1, N-I, -TAU, A( KL+I, I ), 1, WORK, 1, A( KL+I, I+1 ), LDA )
+               cgemv('Conjugate transpose', M-KL-I+1, N-I, ONE, A( KL+I, I+1 ), LDA, A( KL+I, I ), 1, ZERO, WORK, 1 );
+               cgerc(M-KL-I+1, N-I, -TAU, A( KL+I, I ), 1, WORK, 1, A( KL+I, I+1 ), LDA );
                A( KL+I, I ) = -WA
             }
          }

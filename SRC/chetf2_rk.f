@@ -62,7 +62,7 @@
          INFO = -4
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'CHETF2_RK', -INFO )
+         xerbla('CHETF2_RK', -INFO );
          RETURN
       }
 
@@ -307,11 +307,11 @@
                         // = A - W(k)*1/D(k)*W(k)**T
 
                      D11 = ONE / REAL( A( K, K ) )
-                     CALL CHER( UPLO, K-1, -D11, A( 1, K ), 1, A, LDA )
+                     cher(UPLO, K-1, -D11, A( 1, K ), 1, A, LDA );
 
                      // Store U(k) in column k
 
-                     CALL CSSCAL( K-1, D11, A( 1, K ), 1 )
+                     csscal(K-1, D11, A( 1, K ), 1 );
                   } else {
 
                      // Store L(k) in column K
@@ -326,7 +326,7 @@
                         // = A - W(k)*(1/D(k))*W(k)**T
                         // = A - (W(k)/D(k))*(D(k))*(W(k)/D(K))**T
 
-                     CALL CHER( UPLO, K-1, -D11, A( 1, K ), 1, A, LDA )
+                     cher(UPLO, K-1, -D11, A( 1, K ), 1, A, LDA );
                   }
 
                   // Store the superdiagonal element of D in array E
@@ -647,11 +647,11 @@
                         // = A - W(k)*(1/D(k))*W(k)**T
 
                      D11 = ONE / REAL( A( K, K ) )
-                     CALL CHER( UPLO, N-K, -D11, A( K+1, K ), 1, A( K+1, K+1 ), LDA )
+                     cher(UPLO, N-K, -D11, A( K+1, K ), 1, A( K+1, K+1 ), LDA );
 
                      // Store L(k) in column k
 
-                     CALL CSSCAL( N-K, D11, A( K+1, K ), 1 )
+                     csscal(N-K, D11, A( K+1, K ), 1 );
                   } else {
 
                      // Store L(k) in column k
@@ -666,7 +666,7 @@
                         // = A - W(k)*(1/D(k))*W(k)**T
                         // = A - (W(k)/D(k))*(D(k))*(W(k)/D(K))**T
 
-                     CALL CHER( UPLO, N-K, -D11, A( K+1, K ), 1, A( K+1, K+1 ), LDA )
+                     cher(UPLO, N-K, -D11, A( K+1, K ), 1, A( K+1, K+1 ), LDA );
                   }
 
                   // Store the subdiagonal element of D in array E

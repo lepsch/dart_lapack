@@ -46,7 +46,7 @@
          INFO = -4
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'DGETF2', -INFO )
+         xerbla('DGETF2', -INFO );
          RETURN
       }
 
@@ -74,7 +74,7 @@
 
             if ( J.LT.M ) {
                if ( ABS(A( J, J )) .GE. SFMIN ) {
-                  CALL DSCAL( M-J, ONE / A( J, J ), A( J+1, J ), 1 )
+                  dscal(M-J, ONE / A( J, J ), A( J+1, J ), 1 );
                } else {
                  DO 20 I = 1, M-J
                     A( J+I, J ) = A( J+I, J ) / A( J, J )
@@ -91,7 +91,7 @@
 
             // Update trailing submatrix.
 
-            CALL DGER( M-J, N-J, -ONE, A( J+1, J ), 1, A( J, J+1 ), LDA, A( J+1, J+1 ), LDA )
+            dger(M-J, N-J, -ONE, A( J+1, J ), 1, A( J, J+1 ), LDA, A( J+1, J+1 ), LDA );
          }
    10 CONTINUE
       RETURN

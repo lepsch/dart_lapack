@@ -54,7 +54,7 @@
          INFO = -6
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'CSYCON', -INFO )
+         xerbla('CSYCON', -INFO );
          RETURN
       }
 
@@ -90,12 +90,12 @@
 
       KASE = 0
    30 CONTINUE
-      CALL CLACN2( N, WORK( N+1 ), WORK, AINVNM, KASE, ISAVE )
+      clacn2(N, WORK( N+1 ), WORK, AINVNM, KASE, ISAVE );
       if ( KASE.NE.0 ) {
 
          // Multiply by inv(L*D*L**T) or inv(U*D*U**T).
 
-         CALL CSYTRS( UPLO, N, 1, A, LDA, IPIV, WORK, N, INFO )
+         csytrs(UPLO, N, 1, A, LDA, IPIV, WORK, N, INFO );
          GO TO 30
       }
 

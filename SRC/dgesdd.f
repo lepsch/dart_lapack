@@ -93,34 +93,34 @@
             }
 
             // Compute space preferred for each routine
-            CALL DGEBRD( M, N, DUM(1), M, DUM(1), DUM(1), DUM(1), DUM(1), DUM(1), -1, IERR )
+            dgebrd(M, N, DUM(1), M, DUM(1), DUM(1), DUM(1), DUM(1), DUM(1), -1, IERR );
             LWORK_DGEBRD_MN = INT( DUM(1) )
 
-            CALL DGEBRD( N, N, DUM(1), N, DUM(1), DUM(1), DUM(1), DUM(1), DUM(1), -1, IERR )
+            dgebrd(N, N, DUM(1), N, DUM(1), DUM(1), DUM(1), DUM(1), DUM(1), -1, IERR );
             LWORK_DGEBRD_NN = INT( DUM(1) )
 
-            CALL DGEQRF( M, N, DUM(1), M, DUM(1), DUM(1), -1, IERR )
+            dgeqrf(M, N, DUM(1), M, DUM(1), DUM(1), -1, IERR );
             LWORK_DGEQRF_MN = INT( DUM(1) )
 
-            CALL DORGBR( 'Q', N, N, N, DUM(1), N, DUM(1), DUM(1), -1, IERR )
+            dorgbr('Q', N, N, N, DUM(1), N, DUM(1), DUM(1), -1, IERR );
             LWORK_DORGBR_Q_NN = INT( DUM(1) )
 
-            CALL DORGQR( M, M, N, DUM(1), M, DUM(1), DUM(1), -1, IERR )
+            dorgqr(M, M, N, DUM(1), M, DUM(1), DUM(1), -1, IERR );
             LWORK_DORGQR_MM = INT( DUM(1) )
 
-            CALL DORGQR( M, N, N, DUM(1), M, DUM(1), DUM(1), -1, IERR )
+            dorgqr(M, N, N, DUM(1), M, DUM(1), DUM(1), -1, IERR );
             LWORK_DORGQR_MN = INT( DUM(1) )
 
-            CALL DORMBR( 'P', 'R', 'T', N, N, N, DUM(1), N, DUM(1), DUM(1), N, DUM(1), -1, IERR )
+            dormbr('P', 'R', 'T', N, N, N, DUM(1), N, DUM(1), DUM(1), N, DUM(1), -1, IERR );
             LWORK_DORMBR_PRT_NN = INT( DUM(1) )
 
-            CALL DORMBR( 'Q', 'L', 'N', N, N, N, DUM(1), N, DUM(1), DUM(1), N, DUM(1), -1, IERR )
+            dormbr('Q', 'L', 'N', N, N, N, DUM(1), N, DUM(1), DUM(1), N, DUM(1), -1, IERR );
             LWORK_DORMBR_QLN_NN = INT( DUM(1) )
 
-            CALL DORMBR( 'Q', 'L', 'N', M, N, N, DUM(1), M, DUM(1), DUM(1), M, DUM(1), -1, IERR )
+            dormbr('Q', 'L', 'N', M, N, N, DUM(1), M, DUM(1), DUM(1), M, DUM(1), -1, IERR );
             LWORK_DORMBR_QLN_MN = INT( DUM(1) )
 
-            CALL DORMBR( 'Q', 'L', 'N', M, M, N, DUM(1), M, DUM(1), DUM(1), M, DUM(1), -1, IERR )
+            dormbr('Q', 'L', 'N', M, M, N, DUM(1), M, DUM(1), DUM(1), M, DUM(1), -1, IERR );
             LWORK_DORMBR_QLN_MM = INT( DUM(1) )
 
             if ( M.GE.MNTHR ) {
@@ -212,34 +212,34 @@
             }
 
             // Compute space preferred for each routine
-            CALL DGEBRD( M, N, DUM(1), M, DUM(1), DUM(1), DUM(1), DUM(1), DUM(1), -1, IERR )
+            dgebrd(M, N, DUM(1), M, DUM(1), DUM(1), DUM(1), DUM(1), DUM(1), -1, IERR );
             LWORK_DGEBRD_MN = INT( DUM(1) )
 
-            CALL DGEBRD( M, M, A, M, S, DUM(1), DUM(1), DUM(1), DUM(1), -1, IERR )
+            dgebrd(M, M, A, M, S, DUM(1), DUM(1), DUM(1), DUM(1), -1, IERR );
             LWORK_DGEBRD_MM = INT( DUM(1) )
 
-            CALL DGELQF( M, N, A, M, DUM(1), DUM(1), -1, IERR )
+            dgelqf(M, N, A, M, DUM(1), DUM(1), -1, IERR );
             LWORK_DGELQF_MN = INT( DUM(1) )
 
-            CALL DORGLQ( N, N, M, DUM(1), N, DUM(1), DUM(1), -1, IERR )
+            dorglq(N, N, M, DUM(1), N, DUM(1), DUM(1), -1, IERR );
             LWORK_DORGLQ_NN = INT( DUM(1) )
 
-            CALL DORGLQ( M, N, M, A, M, DUM(1), DUM(1), -1, IERR )
+            dorglq(M, N, M, A, M, DUM(1), DUM(1), -1, IERR );
             LWORK_DORGLQ_MN = INT( DUM(1) )
 
-            CALL DORGBR( 'P', M, M, M, A, N, DUM(1), DUM(1), -1, IERR )
+            dorgbr('P', M, M, M, A, N, DUM(1), DUM(1), -1, IERR );
             LWORK_DORGBR_P_MM = INT( DUM(1) )
 
-            CALL DORMBR( 'P', 'R', 'T', M, M, M, DUM(1), M, DUM(1), DUM(1), M, DUM(1), -1, IERR )
+            dormbr('P', 'R', 'T', M, M, M, DUM(1), M, DUM(1), DUM(1), M, DUM(1), -1, IERR );
             LWORK_DORMBR_PRT_MM = INT( DUM(1) )
 
-            CALL DORMBR( 'P', 'R', 'T', M, N, M, DUM(1), M, DUM(1), DUM(1), M, DUM(1), -1, IERR )
+            dormbr('P', 'R', 'T', M, N, M, DUM(1), M, DUM(1), DUM(1), M, DUM(1), -1, IERR );
             LWORK_DORMBR_PRT_MN = INT( DUM(1) )
 
-            CALL DORMBR( 'P', 'R', 'T', N, N, M, DUM(1), N, DUM(1), DUM(1), N, DUM(1), -1, IERR )
+            dormbr('P', 'R', 'T', N, N, M, DUM(1), N, DUM(1), DUM(1), N, DUM(1), -1, IERR );
             LWORK_DORMBR_PRT_NN = INT( DUM(1) )
 
-            CALL DORMBR( 'Q', 'L', 'N', M, M, M, DUM(1), M, DUM(1), DUM(1), M, DUM(1), -1, IERR )
+            dormbr('Q', 'L', 'N', M, M, M, DUM(1), M, DUM(1), DUM(1), M, DUM(1), -1, IERR );
             LWORK_DORMBR_QLN_MM = INT( DUM(1) )
 
             if ( N.GE.MNTHR ) {
@@ -329,7 +329,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'DGESDD', -INFO )
+         xerbla('DGESDD', -INFO );
          RETURN
       } else if ( LQUERY ) {
          RETURN
@@ -357,10 +357,10 @@
       ISCL = 0
       if ( ANRM.GT.ZERO .AND. ANRM.LT.SMLNUM ) {
          ISCL = 1
-         CALL DLASCL( 'G', 0, 0, ANRM, SMLNUM, M, N, A, LDA, IERR )
+         dlascl('G', 0, 0, ANRM, SMLNUM, M, N, A, LDA, IERR );
       } else if ( ANRM.GT.BIGNUM ) {
          ISCL = 1
-         CALL DLASCL( 'G', 0, 0, ANRM, BIGNUM, M, N, A, LDA, IERR )
+         dlascl('G', 0, 0, ANRM, BIGNUM, M, N, A, LDA, IERR );
       }
 
       if ( M.GE.N ) {
@@ -383,11 +383,11 @@
                // Workspace: need   N [tau] + N    [work]
                // Workspace: prefer N [tau] + N*NB [work]
 
-               CALL DGEQRF( M, N, A, LDA, WORK( ITAU ), WORK( NWORK ), LWORK - NWORK + 1, IERR )
+               dgeqrf(M, N, A, LDA, WORK( ITAU ), WORK( NWORK ), LWORK - NWORK + 1, IERR );
 
                // Zero out below R
 
-               CALL DLASET( 'L', N-1, N-1, ZERO, ZERO, A( 2, 1 ), LDA )
+               dlaset('L', N-1, N-1, ZERO, ZERO, A( 2, 1 ), LDA );
                IE = 1
                ITAUQ = IE + N
                ITAUP = ITAUQ + N
@@ -397,13 +397,13 @@
                // Workspace: need   3*N [e, tauq, taup] + N      [work]
                // Workspace: prefer 3*N [e, tauq, taup] + 2*N*NB [work]
 
-               CALL DGEBRD( N, N, A, LDA, S, WORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( NWORK ), LWORK-NWORK+1, IERR )
+               dgebrd(N, N, A, LDA, S, WORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( NWORK ), LWORK-NWORK+1, IERR );
                NWORK = IE + N
 
                // Perform bidiagonal SVD, computing singular values only
                // Workspace: need   N [e] + BDSPAC
 
-               CALL DBDSDC( 'U', 'N', N, S, WORK( IE ), DUM, 1, DUM, 1, DUM, IDUM, WORK( NWORK ), IWORK, INFO )
+               dbdsdc('U', 'N', N, S, WORK( IE ), DUM, 1, DUM, 1, DUM, IDUM, WORK( NWORK ), IWORK, INFO );
 
             } else if ( WNTQO ) {
 
@@ -427,18 +427,18 @@
                // Workspace: need   N*N [R] + N [tau] + N    [work]
                // Workspace: prefer N*N [R] + N [tau] + N*NB [work]
 
-               CALL DGEQRF( M, N, A, LDA, WORK( ITAU ), WORK( NWORK ), LWORK - NWORK + 1, IERR )
+               dgeqrf(M, N, A, LDA, WORK( ITAU ), WORK( NWORK ), LWORK - NWORK + 1, IERR );
 
                // Copy R to WORK(IR), zeroing out below it
 
-               CALL DLACPY( 'U', N, N, A, LDA, WORK( IR ), LDWRKR )
-               CALL DLASET( 'L', N - 1, N - 1, ZERO, ZERO, WORK(IR+1), LDWRKR )
+               dlacpy('U', N, N, A, LDA, WORK( IR ), LDWRKR );
+               dlaset('L', N - 1, N - 1, ZERO, ZERO, WORK(IR+1), LDWRKR );
 
                // Generate Q in A
                // Workspace: need   N*N [R] + N [tau] + N    [work]
                // Workspace: prefer N*N [R] + N [tau] + N*NB [work]
 
-               CALL DORGQR( M, N, N, A, LDA, WORK( ITAU ), WORK( NWORK ), LWORK - NWORK + 1, IERR )
+               dorgqr(M, N, N, A, LDA, WORK( ITAU ), WORK( NWORK ), LWORK - NWORK + 1, IERR );
                IE = ITAU
                ITAUQ = IE + N
                ITAUP = ITAUQ + N
@@ -448,7 +448,7 @@
                // Workspace: need   N*N [R] + 3*N [e, tauq, taup] + N      [work]
                // Workspace: prefer N*N [R] + 3*N [e, tauq, taup] + 2*N*NB [work]
 
-               CALL DGEBRD( N, N, WORK( IR ), LDWRKR, S, WORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( NWORK ), LWORK - NWORK + 1, IERR )
+               dgebrd(N, N, WORK( IR ), LDWRKR, S, WORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( NWORK ), LWORK - NWORK + 1, IERR );
 
                // WORK(IU) is N by N
 
@@ -460,14 +460,14 @@
                // singular vectors of bidiagonal matrix in VT
                // Workspace: need   N*N [R] + 3*N [e, tauq, taup] + N*N [U] + BDSPAC
 
-               CALL DBDSDC( 'U', 'I', N, S, WORK( IE ), WORK( IU ), N, VT, LDVT, DUM, IDUM, WORK( NWORK ), IWORK, INFO )
+               dbdsdc('U', 'I', N, S, WORK( IE ), WORK( IU ), N, VT, LDVT, DUM, IDUM, WORK( NWORK ), IWORK, INFO );
 
                // Overwrite WORK(IU) by left singular vectors of R
                // and VT by right singular vectors of R
                // Workspace: need   N*N [R] + 3*N [e, tauq, taup] + N*N [U] + N    [work]
                // Workspace: prefer N*N [R] + 3*N [e, tauq, taup] + N*N [U] + N*NB [work]
 
-               CALL DORMBR( 'Q', 'L', 'N', N, N, N, WORK( IR ), LDWRKR, WORK( ITAUQ ), WORK( IU ), N, WORK( NWORK ), LWORK - NWORK + 1, IERR )                CALL DORMBR( 'P', 'R', 'T', N, N, N, WORK( IR ), LDWRKR, WORK( ITAUP ), VT, LDVT, WORK( NWORK ), LWORK - NWORK + 1, IERR )
+               dormbr('Q', 'L', 'N', N, N, N, WORK( IR ), LDWRKR, WORK( ITAUQ ), WORK( IU ), N, WORK( NWORK ), LWORK - NWORK + 1, IERR )                CALL DORMBR( 'P', 'R', 'T', N, N, N, WORK( IR ), LDWRKR, WORK( ITAUP ), VT, LDVT, WORK( NWORK ), LWORK - NWORK + 1, IERR );
 
                // Multiply Q in A by left singular vectors of R in
                // WORK(IU), storing result in WORK(IR) and copying to A
@@ -476,8 +476,8 @@
 
                DO 10 I = 1, M, LDWRKR
                   CHUNK = MIN( M - I + 1, LDWRKR )
-                  CALL DGEMM( 'N', 'N', CHUNK, N, N, ONE, A( I, 1 ), LDA, WORK( IU ), N, ZERO, WORK( IR ), LDWRKR )
-                  CALL DLACPY( 'F', CHUNK, N, WORK( IR ), LDWRKR, A( I, 1 ), LDA )
+                  dgemm('N', 'N', CHUNK, N, N, ONE, A( I, 1 ), LDA, WORK( IU ), N, ZERO, WORK( IR ), LDWRKR );
+                  dlacpy('F', CHUNK, N, WORK( IR ), LDWRKR, A( I, 1 ), LDA );
    10          CONTINUE
 
             } else if ( WNTQS ) {
@@ -498,18 +498,18 @@
                // Workspace: need   N*N [R] + N [tau] + N    [work]
                // Workspace: prefer N*N [R] + N [tau] + N*NB [work]
 
-               CALL DGEQRF( M, N, A, LDA, WORK( ITAU ), WORK( NWORK ), LWORK - NWORK + 1, IERR )
+               dgeqrf(M, N, A, LDA, WORK( ITAU ), WORK( NWORK ), LWORK - NWORK + 1, IERR );
 
                // Copy R to WORK(IR), zeroing out below it
 
-               CALL DLACPY( 'U', N, N, A, LDA, WORK( IR ), LDWRKR )
-               CALL DLASET( 'L', N - 1, N - 1, ZERO, ZERO, WORK(IR+1), LDWRKR )
+               dlacpy('U', N, N, A, LDA, WORK( IR ), LDWRKR );
+               dlaset('L', N - 1, N - 1, ZERO, ZERO, WORK(IR+1), LDWRKR );
 
                // Generate Q in A
                // Workspace: need   N*N [R] + N [tau] + N    [work]
                // Workspace: prefer N*N [R] + N [tau] + N*NB [work]
 
-               CALL DORGQR( M, N, N, A, LDA, WORK( ITAU ), WORK( NWORK ), LWORK - NWORK + 1, IERR )
+               dorgqr(M, N, N, A, LDA, WORK( ITAU ), WORK( NWORK ), LWORK - NWORK + 1, IERR );
                IE = ITAU
                ITAUQ = IE + N
                ITAUP = ITAUQ + N
@@ -519,30 +519,30 @@
                // Workspace: need   N*N [R] + 3*N [e, tauq, taup] + N      [work]
                // Workspace: prefer N*N [R] + 3*N [e, tauq, taup] + 2*N*NB [work]
 
-               CALL DGEBRD( N, N, WORK( IR ), LDWRKR, S, WORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( NWORK ), LWORK - NWORK + 1, IERR )
+               dgebrd(N, N, WORK( IR ), LDWRKR, S, WORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( NWORK ), LWORK - NWORK + 1, IERR );
 
                // Perform bidiagonal SVD, computing left singular vectors
                // of bidiagoal matrix in U and computing right singular
                // vectors of bidiagonal matrix in VT
                // Workspace: need   N*N [R] + 3*N [e, tauq, taup] + BDSPAC
 
-               CALL DBDSDC( 'U', 'I', N, S, WORK( IE ), U, LDU, VT, LDVT, DUM, IDUM, WORK( NWORK ), IWORK, INFO )
+               dbdsdc('U', 'I', N, S, WORK( IE ), U, LDU, VT, LDVT, DUM, IDUM, WORK( NWORK ), IWORK, INFO );
 
                // Overwrite U by left singular vectors of R and VT
                // by right singular vectors of R
                // Workspace: need   N*N [R] + 3*N [e, tauq, taup] + N    [work]
                // Workspace: prefer N*N [R] + 3*N [e, tauq, taup] + N*NB [work]
 
-               CALL DORMBR( 'Q', 'L', 'N', N, N, N, WORK( IR ), LDWRKR, WORK( ITAUQ ), U, LDU, WORK( NWORK ), LWORK - NWORK + 1, IERR )
+               dormbr('Q', 'L', 'N', N, N, N, WORK( IR ), LDWRKR, WORK( ITAUQ ), U, LDU, WORK( NWORK ), LWORK - NWORK + 1, IERR );
 
-               CALL DORMBR( 'P', 'R', 'T', N, N, N, WORK( IR ), LDWRKR, WORK( ITAUP ), VT, LDVT, WORK( NWORK ), LWORK - NWORK + 1, IERR )
+               dormbr('P', 'R', 'T', N, N, N, WORK( IR ), LDWRKR, WORK( ITAUP ), VT, LDVT, WORK( NWORK ), LWORK - NWORK + 1, IERR );
 
                // Multiply Q in A by left singular vectors of R in
                // WORK(IR), storing result in U
                // Workspace: need   N*N [R]
 
-               CALL DLACPY( 'F', N, N, U, LDU, WORK( IR ), LDWRKR )
-               CALL DGEMM( 'N', 'N', M, N, N, ONE, A, LDA, WORK( IR ), LDWRKR, ZERO, U, LDU )
+               dlacpy('F', N, N, U, LDU, WORK( IR ), LDWRKR );
+               dgemm('N', 'N', M, N, N, ONE, A, LDA, WORK( IR ), LDWRKR, ZERO, U, LDU );
 
             } else if ( WNTQA ) {
 
@@ -562,17 +562,17 @@
                // Workspace: need   N*N [U] + N [tau] + N    [work]
                // Workspace: prefer N*N [U] + N [tau] + N*NB [work]
 
-               CALL DGEQRF( M, N, A, LDA, WORK( ITAU ), WORK( NWORK ), LWORK - NWORK + 1, IERR )
-               CALL DLACPY( 'L', M, N, A, LDA, U, LDU )
+               dgeqrf(M, N, A, LDA, WORK( ITAU ), WORK( NWORK ), LWORK - NWORK + 1, IERR );
+               dlacpy('L', M, N, A, LDA, U, LDU );
 
                // Generate Q in U
                // Workspace: need   N*N [U] + N [tau] + M    [work]
                // Workspace: prefer N*N [U] + N [tau] + M*NB [work]
-               CALL DORGQR( M, M, N, U, LDU, WORK( ITAU ), WORK( NWORK ), LWORK - NWORK + 1, IERR )
+               dorgqr(M, M, N, U, LDU, WORK( ITAU ), WORK( NWORK ), LWORK - NWORK + 1, IERR );
 
                // Produce R in A, zeroing out other entries
 
-               CALL DLASET( 'L', N-1, N-1, ZERO, ZERO, A( 2, 1 ), LDA )
+               dlaset('L', N-1, N-1, ZERO, ZERO, A( 2, 1 ), LDA );
                IE = ITAU
                ITAUQ = IE + N
                ITAUP = ITAUQ + N
@@ -582,31 +582,31 @@
                // Workspace: need   N*N [U] + 3*N [e, tauq, taup] + N      [work]
                // Workspace: prefer N*N [U] + 3*N [e, tauq, taup] + 2*N*NB [work]
 
-               CALL DGEBRD( N, N, A, LDA, S, WORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( NWORK ), LWORK-NWORK+1, IERR )
+               dgebrd(N, N, A, LDA, S, WORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( NWORK ), LWORK-NWORK+1, IERR );
 
                // Perform bidiagonal SVD, computing left singular vectors
                // of bidiagonal matrix in WORK(IU) and computing right
                // singular vectors of bidiagonal matrix in VT
                // Workspace: need   N*N [U] + 3*N [e, tauq, taup] + BDSPAC
 
-               CALL DBDSDC( 'U', 'I', N, S, WORK( IE ), WORK( IU ), N, VT, LDVT, DUM, IDUM, WORK( NWORK ), IWORK, INFO )
+               dbdsdc('U', 'I', N, S, WORK( IE ), WORK( IU ), N, VT, LDVT, DUM, IDUM, WORK( NWORK ), IWORK, INFO );
 
                // Overwrite WORK(IU) by left singular vectors of R and VT
                // by right singular vectors of R
                // Workspace: need   N*N [U] + 3*N [e, tauq, taup] + N    [work]
                // Workspace: prefer N*N [U] + 3*N [e, tauq, taup] + N*NB [work]
 
-               CALL DORMBR( 'Q', 'L', 'N', N, N, N, A, LDA, WORK( ITAUQ ), WORK( IU ), LDWRKU, WORK( NWORK ), LWORK - NWORK + 1, IERR )                CALL DORMBR( 'P', 'R', 'T', N, N, N, A, LDA, WORK( ITAUP ), VT, LDVT, WORK( NWORK ), LWORK - NWORK + 1, IERR )
+               dormbr('Q', 'L', 'N', N, N, N, A, LDA, WORK( ITAUQ ), WORK( IU ), LDWRKU, WORK( NWORK ), LWORK - NWORK + 1, IERR )                CALL DORMBR( 'P', 'R', 'T', N, N, N, A, LDA, WORK( ITAUP ), VT, LDVT, WORK( NWORK ), LWORK - NWORK + 1, IERR );
 
                // Multiply Q in U by left singular vectors of R in
                // WORK(IU), storing result in A
                // Workspace: need   N*N [U]
 
-               CALL DGEMM( 'N', 'N', M, N, N, ONE, U, LDU, WORK( IU ), LDWRKU, ZERO, A, LDA )
+               dgemm('N', 'N', M, N, N, ONE, U, LDU, WORK( IU ), LDWRKU, ZERO, A, LDA );
 
                // Copy left singular vectors of A from A to U
 
-               CALL DLACPY( 'F', M, N, A, LDA, U, LDU )
+               dlacpy('F', M, N, A, LDA, U, LDU );
 
             }
 
@@ -626,14 +626,14 @@
             // Workspace: need   3*N [e, tauq, taup] + M        [work]
             // Workspace: prefer 3*N [e, tauq, taup] + (M+N)*NB [work]
 
-            CALL DGEBRD( M, N, A, LDA, S, WORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( NWORK ), LWORK-NWORK+1, IERR )
+            dgebrd(M, N, A, LDA, S, WORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( NWORK ), LWORK-NWORK+1, IERR );
             if ( WNTQN ) {
 
                // Path 5n (M >= N, JOBZ='N')
                // Perform bidiagonal SVD, only computing singular values
                // Workspace: need   3*N [e, tauq, taup] + BDSPAC
 
-               CALL DBDSDC( 'U', 'N', N, S, WORK( IE ), DUM, 1, DUM, 1, DUM, IDUM, WORK( NWORK ), IWORK, INFO )
+               dbdsdc('U', 'N', N, S, WORK( IE ), DUM, 1, DUM, 1, DUM, IDUM, WORK( NWORK ), IWORK, INFO );
             } else if ( WNTQO ) {
                // Path 5o (M >= N, JOBZ='O')
                IU = NWORK
@@ -643,7 +643,7 @@
 
                   LDWRKU = M
                   NWORK = IU + LDWRKU*N
-                  CALL DLASET( 'F', M, N, ZERO, ZERO, WORK( IU ), LDWRKU )
+                  dlaset('F', M, N, ZERO, ZERO, WORK( IU ), LDWRKU );
                   // IR is unused; silence compile warnings
                   IR = -1
                } else {
@@ -665,13 +665,13 @@
                // singular vectors of bidiagonal matrix in VT
                // Workspace: need   3*N [e, tauq, taup] + N*N [U] + BDSPAC
 
-               CALL DBDSDC( 'U', 'I', N, S, WORK( IE ), WORK( IU ), LDWRKU, VT, LDVT, DUM, IDUM, WORK( NWORK ), IWORK, INFO )
+               dbdsdc('U', 'I', N, S, WORK( IE ), WORK( IU ), LDWRKU, VT, LDVT, DUM, IDUM, WORK( NWORK ), IWORK, INFO );
 
                // Overwrite VT by right singular vectors of A
                // Workspace: need   3*N [e, tauq, taup] + N*N [U] + N    [work]
                // Workspace: prefer 3*N [e, tauq, taup] + N*N [U] + N*NB [work]
 
-               CALL DORMBR( 'P', 'R', 'T', N, N, N, A, LDA, WORK( ITAUP ), VT, LDVT, WORK( NWORK ), LWORK - NWORK + 1, IERR )
+               dormbr('P', 'R', 'T', N, N, N, A, LDA, WORK( ITAUP ), VT, LDVT, WORK( NWORK ), LWORK - NWORK + 1, IERR );
 
                if ( LWORK .GE. M*N + 3*N + BDSPAC ) {
 
@@ -680,11 +680,11 @@
                   // Workspace: need   3*N [e, tauq, taup] + M*N [U] + N    [work]
                   // Workspace: prefer 3*N [e, tauq, taup] + M*N [U] + N*NB [work]
 
-                  CALL DORMBR( 'Q', 'L', 'N', M, N, N, A, LDA, WORK( ITAUQ ), WORK( IU ), LDWRKU, WORK( NWORK ), LWORK - NWORK + 1, IERR )
+                  dormbr('Q', 'L', 'N', M, N, N, A, LDA, WORK( ITAUQ ), WORK( IU ), LDWRKU, WORK( NWORK ), LWORK - NWORK + 1, IERR );
 
                   // Copy left singular vectors of A from WORK(IU) to A
 
-                  CALL DLACPY( 'F', M, N, WORK( IU ), LDWRKU, A, LDA )
+                  dlacpy('F', M, N, WORK( IU ), LDWRKU, A, LDA );
                } else {
 
                   // Path 5o-slow
@@ -692,7 +692,7 @@
                   // Workspace: need   3*N [e, tauq, taup] + N*N [U] + N    [work]
                   // Workspace: prefer 3*N [e, tauq, taup] + N*N [U] + N*NB [work]
 
-                  CALL DORGBR( 'Q', M, N, N, A, LDA, WORK( ITAUQ ), WORK( NWORK ), LWORK - NWORK + 1, IERR )
+                  dorgbr('Q', M, N, N, A, LDA, WORK( ITAUQ ), WORK( NWORK ), LWORK - NWORK + 1, IERR );
 
                   // Multiply Q in A by left singular vectors of
                   // bidiagonal matrix in WORK(IU), storing result in
@@ -702,8 +702,8 @@
 
                   DO 20 I = 1, M, LDWRKR
                      CHUNK = MIN( M - I + 1, LDWRKR )
-                     CALL DGEMM( 'N', 'N', CHUNK, N, N, ONE, A( I, 1 ), LDA, WORK( IU ), LDWRKU, ZERO, WORK( IR ), LDWRKR )
-                     CALL DLACPY( 'F', CHUNK, N, WORK( IR ), LDWRKR, A( I, 1 ), LDA )
+                     dgemm('N', 'N', CHUNK, N, N, ONE, A( I, 1 ), LDA, WORK( IU ), LDWRKU, ZERO, WORK( IR ), LDWRKR );
+                     dlacpy('F', CHUNK, N, WORK( IR ), LDWRKR, A( I, 1 ), LDA );
    20             CONTINUE
                }
 
@@ -715,15 +715,15 @@
                // vectors of bidiagonal matrix in VT
                // Workspace: need   3*N [e, tauq, taup] + BDSPAC
 
-               CALL DLASET( 'F', M, N, ZERO, ZERO, U, LDU )
-               CALL DBDSDC( 'U', 'I', N, S, WORK( IE ), U, LDU, VT, LDVT, DUM, IDUM, WORK( NWORK ), IWORK, INFO )
+               dlaset('F', M, N, ZERO, ZERO, U, LDU );
+               dbdsdc('U', 'I', N, S, WORK( IE ), U, LDU, VT, LDVT, DUM, IDUM, WORK( NWORK ), IWORK, INFO );
 
                // Overwrite U by left singular vectors of A and VT
                // by right singular vectors of A
                // Workspace: need   3*N [e, tauq, taup] + N    [work]
                // Workspace: prefer 3*N [e, tauq, taup] + N*NB [work]
 
-               CALL DORMBR( 'Q', 'L', 'N', M, N, N, A, LDA, WORK( ITAUQ ), U, LDU, WORK( NWORK ), LWORK - NWORK + 1, IERR )                CALL DORMBR( 'P', 'R', 'T', N, N, N, A, LDA, WORK( ITAUP ), VT, LDVT, WORK( NWORK ), LWORK - NWORK + 1, IERR )
+               dormbr('Q', 'L', 'N', M, N, N, A, LDA, WORK( ITAUQ ), U, LDU, WORK( NWORK ), LWORK - NWORK + 1, IERR )                CALL DORMBR( 'P', 'R', 'T', N, N, N, A, LDA, WORK( ITAUP ), VT, LDVT, WORK( NWORK ), LWORK - NWORK + 1, IERR );
             } else if ( WNTQA ) {
 
                // Path 5a (M >= N, JOBZ='A')
@@ -732,13 +732,13 @@
                // vectors of bidiagonal matrix in VT
                // Workspace: need   3*N [e, tauq, taup] + BDSPAC
 
-               CALL DLASET( 'F', M, M, ZERO, ZERO, U, LDU )
-               CALL DBDSDC( 'U', 'I', N, S, WORK( IE ), U, LDU, VT, LDVT, DUM, IDUM, WORK( NWORK ), IWORK, INFO )
+               dlaset('F', M, M, ZERO, ZERO, U, LDU );
+               dbdsdc('U', 'I', N, S, WORK( IE ), U, LDU, VT, LDVT, DUM, IDUM, WORK( NWORK ), IWORK, INFO );
 
                // Set the right corner of U to identity matrix
 
                if ( M.GT.N ) {
-                  CALL DLASET( 'F', M - N, M - N, ZERO, ONE, U(N+1,N+1), LDU )
+                  dlaset('F', M - N, M - N, ZERO, ONE, U(N+1,N+1), LDU );
                }
 
                // Overwrite U by left singular vectors of A and VT
@@ -746,7 +746,7 @@
                // Workspace: need   3*N [e, tauq, taup] + M    [work]
                // Workspace: prefer 3*N [e, tauq, taup] + M*NB [work]
 
-               CALL DORMBR( 'Q', 'L', 'N', M, M, N, A, LDA, WORK( ITAUQ ), U, LDU, WORK( NWORK ), LWORK - NWORK + 1, IERR )                CALL DORMBR( 'P', 'R', 'T', N, N, M, A, LDA, WORK( ITAUP ), VT, LDVT, WORK( NWORK ), LWORK - NWORK + 1, IERR )
+               dormbr('Q', 'L', 'N', M, M, N, A, LDA, WORK( ITAUQ ), U, LDU, WORK( NWORK ), LWORK - NWORK + 1, IERR )                CALL DORMBR( 'P', 'R', 'T', N, N, M, A, LDA, WORK( ITAUP ), VT, LDVT, WORK( NWORK ), LWORK - NWORK + 1, IERR );
             }
 
          }
@@ -771,11 +771,11 @@
                // Workspace: need   M [tau] + M [work]
                // Workspace: prefer M [tau] + M*NB [work]
 
-               CALL DGELQF( M, N, A, LDA, WORK( ITAU ), WORK( NWORK ), LWORK - NWORK + 1, IERR )
+               dgelqf(M, N, A, LDA, WORK( ITAU ), WORK( NWORK ), LWORK - NWORK + 1, IERR );
 
                // Zero out above L
 
-               CALL DLASET( 'U', M-1, M-1, ZERO, ZERO, A( 1, 2 ), LDA )
+               dlaset('U', M-1, M-1, ZERO, ZERO, A( 1, 2 ), LDA );
                IE = 1
                ITAUQ = IE + M
                ITAUP = ITAUQ + M
@@ -785,13 +785,13 @@
                // Workspace: need   3*M [e, tauq, taup] + M      [work]
                // Workspace: prefer 3*M [e, tauq, taup] + 2*M*NB [work]
 
-               CALL DGEBRD( M, M, A, LDA, S, WORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( NWORK ), LWORK-NWORK+1, IERR )
+               dgebrd(M, M, A, LDA, S, WORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( NWORK ), LWORK-NWORK+1, IERR );
                NWORK = IE + M
 
                // Perform bidiagonal SVD, computing singular values only
                // Workspace: need   M [e] + BDSPAC
 
-               CALL DBDSDC( 'U', 'N', M, S, WORK( IE ), DUM, 1, DUM, 1, DUM, IDUM, WORK( NWORK ), IWORK, INFO )
+               dbdsdc('U', 'N', M, S, WORK( IE ), DUM, 1, DUM, 1, DUM, IDUM, WORK( NWORK ), IWORK, INFO );
 
             } else if ( WNTQO ) {
 
@@ -819,18 +819,18 @@
                // Workspace: need   M*M [VT] + M*M [L] + M [tau] + M    [work]
                // Workspace: prefer M*M [VT] + M*M [L] + M [tau] + M*NB [work]
 
-               CALL DGELQF( M, N, A, LDA, WORK( ITAU ), WORK( NWORK ), LWORK - NWORK + 1, IERR )
+               dgelqf(M, N, A, LDA, WORK( ITAU ), WORK( NWORK ), LWORK - NWORK + 1, IERR );
 
                // Copy L to WORK(IL), zeroing about above it
 
-               CALL DLACPY( 'L', M, M, A, LDA, WORK( IL ), LDWRKL )
-               CALL DLASET( 'U', M - 1, M - 1, ZERO, ZERO, WORK( IL + LDWRKL ), LDWRKL )
+               dlacpy('L', M, M, A, LDA, WORK( IL ), LDWRKL );
+               dlaset('U', M - 1, M - 1, ZERO, ZERO, WORK( IL + LDWRKL ), LDWRKL );
 
                // Generate Q in A
                // Workspace: need   M*M [VT] + M*M [L] + M [tau] + M    [work]
                // Workspace: prefer M*M [VT] + M*M [L] + M [tau] + M*NB [work]
 
-               CALL DORGLQ( M, N, M, A, LDA, WORK( ITAU ), WORK( NWORK ), LWORK - NWORK + 1, IERR )
+               dorglq(M, N, M, A, LDA, WORK( ITAU ), WORK( NWORK ), LWORK - NWORK + 1, IERR );
                IE = ITAU
                ITAUQ = IE + M
                ITAUP = ITAUQ + M
@@ -840,21 +840,21 @@
                // Workspace: need   M*M [VT] + M*M [L] + 3*M [e, tauq, taup] + M      [work]
                // Workspace: prefer M*M [VT] + M*M [L] + 3*M [e, tauq, taup] + 2*M*NB [work]
 
-               CALL DGEBRD( M, M, WORK( IL ), LDWRKL, S, WORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( NWORK ), LWORK - NWORK + 1, IERR )
+               dgebrd(M, M, WORK( IL ), LDWRKL, S, WORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( NWORK ), LWORK - NWORK + 1, IERR );
 
                // Perform bidiagonal SVD, computing left singular vectors
                // of bidiagonal matrix in U, and computing right singular
                // vectors of bidiagonal matrix in WORK(IVT)
                // Workspace: need   M*M [VT] + M*M [L] + 3*M [e, tauq, taup] + BDSPAC
 
-               CALL DBDSDC( 'U', 'I', M, S, WORK( IE ), U, LDU, WORK( IVT ), M, DUM, IDUM, WORK( NWORK ), IWORK, INFO )
+               dbdsdc('U', 'I', M, S, WORK( IE ), U, LDU, WORK( IVT ), M, DUM, IDUM, WORK( NWORK ), IWORK, INFO );
 
                // Overwrite U by left singular vectors of L and WORK(IVT)
                // by right singular vectors of L
                // Workspace: need   M*M [VT] + M*M [L] + 3*M [e, tauq, taup] + M    [work]
                // Workspace: prefer M*M [VT] + M*M [L] + 3*M [e, tauq, taup] + M*NB [work]
 
-               CALL DORMBR( 'Q', 'L', 'N', M, M, M, WORK( IL ), LDWRKL, WORK( ITAUQ ), U, LDU, WORK( NWORK ), LWORK - NWORK + 1, IERR )                CALL DORMBR( 'P', 'R', 'T', M, M, M, WORK( IL ), LDWRKL, WORK( ITAUP ), WORK( IVT ), M, WORK( NWORK ), LWORK - NWORK + 1, IERR )
+               dormbr('Q', 'L', 'N', M, M, M, WORK( IL ), LDWRKL, WORK( ITAUQ ), U, LDU, WORK( NWORK ), LWORK - NWORK + 1, IERR )                CALL DORMBR( 'P', 'R', 'T', M, M, M, WORK( IL ), LDWRKL, WORK( ITAUP ), WORK( IVT ), M, WORK( NWORK ), LWORK - NWORK + 1, IERR );
 
                // Multiply right singular vectors of L in WORK(IVT) by Q
                // in A, storing result in WORK(IL) and copying to A
@@ -864,7 +864,7 @@
 
                DO 30 I = 1, N, CHUNK
                   BLK = MIN( N - I + 1, CHUNK )
-                  CALL DGEMM( 'N', 'N', M, BLK, M, ONE, WORK( IVT ), M, A( 1, I ), LDA, ZERO, WORK( IL ), LDWRKL )                   CALL DLACPY( 'F', M, BLK, WORK( IL ), LDWRKL, A( 1, I ), LDA )
+                  dgemm('N', 'N', M, BLK, M, ONE, WORK( IVT ), M, A( 1, I ), LDA, ZERO, WORK( IL ), LDWRKL )                   CALL DLACPY( 'F', M, BLK, WORK( IL ), LDWRKL, A( 1, I ), LDA );
    30          CONTINUE
 
             } else if ( WNTQS ) {
@@ -885,18 +885,18 @@
                // Workspace: need   M*M [L] + M [tau] + M    [work]
                // Workspace: prefer M*M [L] + M [tau] + M*NB [work]
 
-               CALL DGELQF( M, N, A, LDA, WORK( ITAU ), WORK( NWORK ), LWORK - NWORK + 1, IERR )
+               dgelqf(M, N, A, LDA, WORK( ITAU ), WORK( NWORK ), LWORK - NWORK + 1, IERR );
 
                // Copy L to WORK(IL), zeroing out above it
 
-               CALL DLACPY( 'L', M, M, A, LDA, WORK( IL ), LDWRKL )
-               CALL DLASET( 'U', M - 1, M - 1, ZERO, ZERO, WORK( IL + LDWRKL ), LDWRKL )
+               dlacpy('L', M, M, A, LDA, WORK( IL ), LDWRKL );
+               dlaset('U', M - 1, M - 1, ZERO, ZERO, WORK( IL + LDWRKL ), LDWRKL );
 
                // Generate Q in A
                // Workspace: need   M*M [L] + M [tau] + M    [work]
                // Workspace: prefer M*M [L] + M [tau] + M*NB [work]
 
-               CALL DORGLQ( M, N, M, A, LDA, WORK( ITAU ), WORK( NWORK ), LWORK - NWORK + 1, IERR )
+               dorglq(M, N, M, A, LDA, WORK( ITAU ), WORK( NWORK ), LWORK - NWORK + 1, IERR );
                IE = ITAU
                ITAUQ = IE + M
                ITAUP = ITAUQ + M
@@ -906,28 +906,28 @@
                // Workspace: need   M*M [L] + 3*M [e, tauq, taup] + M      [work]
                // Workspace: prefer M*M [L] + 3*M [e, tauq, taup] + 2*M*NB [work]
 
-               CALL DGEBRD( M, M, WORK( IL ), LDWRKL, S, WORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( NWORK ), LWORK - NWORK + 1, IERR )
+               dgebrd(M, M, WORK( IL ), LDWRKL, S, WORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( NWORK ), LWORK - NWORK + 1, IERR );
 
                // Perform bidiagonal SVD, computing left singular vectors
                // of bidiagonal matrix in U and computing right singular
                // vectors of bidiagonal matrix in VT
                // Workspace: need   M*M [L] + 3*M [e, tauq, taup] + BDSPAC
 
-               CALL DBDSDC( 'U', 'I', M, S, WORK( IE ), U, LDU, VT, LDVT, DUM, IDUM, WORK( NWORK ), IWORK, INFO )
+               dbdsdc('U', 'I', M, S, WORK( IE ), U, LDU, VT, LDVT, DUM, IDUM, WORK( NWORK ), IWORK, INFO );
 
                // Overwrite U by left singular vectors of L and VT
                // by right singular vectors of L
                // Workspace: need   M*M [L] + 3*M [e, tauq, taup] + M    [work]
                // Workspace: prefer M*M [L] + 3*M [e, tauq, taup] + M*NB [work]
 
-               CALL DORMBR( 'Q', 'L', 'N', M, M, M, WORK( IL ), LDWRKL, WORK( ITAUQ ), U, LDU, WORK( NWORK ), LWORK - NWORK + 1, IERR )                CALL DORMBR( 'P', 'R', 'T', M, M, M, WORK( IL ), LDWRKL, WORK( ITAUP ), VT, LDVT, WORK( NWORK ), LWORK - NWORK + 1, IERR )
+               dormbr('Q', 'L', 'N', M, M, M, WORK( IL ), LDWRKL, WORK( ITAUQ ), U, LDU, WORK( NWORK ), LWORK - NWORK + 1, IERR )                CALL DORMBR( 'P', 'R', 'T', M, M, M, WORK( IL ), LDWRKL, WORK( ITAUP ), VT, LDVT, WORK( NWORK ), LWORK - NWORK + 1, IERR );
 
                // Multiply right singular vectors of L in WORK(IL) by
                // Q in A, storing result in VT
                // Workspace: need   M*M [L]
 
-               CALL DLACPY( 'F', M, M, VT, LDVT, WORK( IL ), LDWRKL )
-               CALL DGEMM( 'N', 'N', M, N, M, ONE, WORK( IL ), LDWRKL, A, LDA, ZERO, VT, LDVT )
+               dlacpy('F', M, M, VT, LDVT, WORK( IL ), LDWRKL );
+               dgemm('N', 'N', M, N, M, ONE, WORK( IL ), LDWRKL, A, LDA, ZERO, VT, LDVT );
 
             } else if ( WNTQA ) {
 
@@ -947,18 +947,18 @@
                // Workspace: need   M*M [VT] + M [tau] + M    [work]
                // Workspace: prefer M*M [VT] + M [tau] + M*NB [work]
 
-               CALL DGELQF( M, N, A, LDA, WORK( ITAU ), WORK( NWORK ), LWORK - NWORK + 1, IERR )
-               CALL DLACPY( 'U', M, N, A, LDA, VT, LDVT )
+               dgelqf(M, N, A, LDA, WORK( ITAU ), WORK( NWORK ), LWORK - NWORK + 1, IERR );
+               dlacpy('U', M, N, A, LDA, VT, LDVT );
 
                // Generate Q in VT
                // Workspace: need   M*M [VT] + M [tau] + N    [work]
                // Workspace: prefer M*M [VT] + M [tau] + N*NB [work]
 
-               CALL DORGLQ( N, N, M, VT, LDVT, WORK( ITAU ), WORK( NWORK ), LWORK - NWORK + 1, IERR )
+               dorglq(N, N, M, VT, LDVT, WORK( ITAU ), WORK( NWORK ), LWORK - NWORK + 1, IERR );
 
                // Produce L in A, zeroing out other entries
 
-               CALL DLASET( 'U', M-1, M-1, ZERO, ZERO, A( 1, 2 ), LDA )
+               dlaset('U', M-1, M-1, ZERO, ZERO, A( 1, 2 ), LDA );
                IE = ITAU
                ITAUQ = IE + M
                ITAUP = ITAUQ + M
@@ -968,31 +968,31 @@
                // Workspace: need   M*M [VT] + 3*M [e, tauq, taup] + M      [work]
                // Workspace: prefer M*M [VT] + 3*M [e, tauq, taup] + 2*M*NB [work]
 
-               CALL DGEBRD( M, M, A, LDA, S, WORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( NWORK ), LWORK-NWORK+1, IERR )
+               dgebrd(M, M, A, LDA, S, WORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( NWORK ), LWORK-NWORK+1, IERR );
 
                // Perform bidiagonal SVD, computing left singular vectors
                // of bidiagonal matrix in U and computing right singular
                // vectors of bidiagonal matrix in WORK(IVT)
                // Workspace: need   M*M [VT] + 3*M [e, tauq, taup] + BDSPAC
 
-               CALL DBDSDC( 'U', 'I', M, S, WORK( IE ), U, LDU, WORK( IVT ), LDWKVT, DUM, IDUM, WORK( NWORK ), IWORK, INFO )
+               dbdsdc('U', 'I', M, S, WORK( IE ), U, LDU, WORK( IVT ), LDWKVT, DUM, IDUM, WORK( NWORK ), IWORK, INFO );
 
                // Overwrite U by left singular vectors of L and WORK(IVT)
                // by right singular vectors of L
                // Workspace: need   M*M [VT] + 3*M [e, tauq, taup]+ M    [work]
                // Workspace: prefer M*M [VT] + 3*M [e, tauq, taup]+ M*NB [work]
 
-               CALL DORMBR( 'Q', 'L', 'N', M, M, M, A, LDA, WORK( ITAUQ ), U, LDU, WORK( NWORK ), LWORK - NWORK + 1, IERR )                CALL DORMBR( 'P', 'R', 'T', M, M, M, A, LDA, WORK( ITAUP ), WORK( IVT ), LDWKVT, WORK( NWORK ), LWORK - NWORK + 1, IERR )
+               dormbr('Q', 'L', 'N', M, M, M, A, LDA, WORK( ITAUQ ), U, LDU, WORK( NWORK ), LWORK - NWORK + 1, IERR )                CALL DORMBR( 'P', 'R', 'T', M, M, M, A, LDA, WORK( ITAUP ), WORK( IVT ), LDWKVT, WORK( NWORK ), LWORK - NWORK + 1, IERR );
 
                // Multiply right singular vectors of L in WORK(IVT) by
                // Q in VT, storing result in A
                // Workspace: need   M*M [VT]
 
-               CALL DGEMM( 'N', 'N', M, N, M, ONE, WORK( IVT ), LDWKVT, VT, LDVT, ZERO, A, LDA )
+               dgemm('N', 'N', M, N, M, ONE, WORK( IVT ), LDWKVT, VT, LDVT, ZERO, A, LDA );
 
                // Copy right singular vectors of A from A to VT
 
-               CALL DLACPY( 'F', M, N, A, LDA, VT, LDVT )
+               dlacpy('F', M, N, A, LDA, VT, LDVT );
 
             }
 
@@ -1012,14 +1012,14 @@
             // Workspace: need   3*M [e, tauq, taup] + N        [work]
             // Workspace: prefer 3*M [e, tauq, taup] + (M+N)*NB [work]
 
-            CALL DGEBRD( M, N, A, LDA, S, WORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( NWORK ), LWORK-NWORK+1, IERR )
+            dgebrd(M, N, A, LDA, S, WORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( NWORK ), LWORK-NWORK+1, IERR );
             if ( WNTQN ) {
 
                // Path 5tn (N > M, JOBZ='N')
                // Perform bidiagonal SVD, only computing singular values
                // Workspace: need   3*M [e, tauq, taup] + BDSPAC
 
-               CALL DBDSDC( 'L', 'N', M, S, WORK( IE ), DUM, 1, DUM, 1, DUM, IDUM, WORK( NWORK ), IWORK, INFO )
+               dbdsdc('L', 'N', M, S, WORK( IE ), DUM, 1, DUM, 1, DUM, IDUM, WORK( NWORK ), IWORK, INFO );
             } else if ( WNTQO ) {
                // Path 5to (N > M, JOBZ='O')
                LDWKVT = M
@@ -1028,7 +1028,7 @@
 
                   // WORK( IVT ) is M by N
 
-                  CALL DLASET( 'F', M, N, ZERO, ZERO, WORK( IVT ), LDWKVT )
+                  dlaset('F', M, N, ZERO, ZERO, WORK( IVT ), LDWKVT );
                   NWORK = IVT + LDWKVT*N
                   // IL is unused; silence compile warnings
                   IL = -1
@@ -1049,13 +1049,13 @@
                // vectors of bidiagonal matrix in WORK(IVT)
                // Workspace: need   3*M [e, tauq, taup] + M*M [VT] + BDSPAC
 
-               CALL DBDSDC( 'L', 'I', M, S, WORK( IE ), U, LDU, WORK( IVT ), LDWKVT, DUM, IDUM, WORK( NWORK ), IWORK, INFO )
+               dbdsdc('L', 'I', M, S, WORK( IE ), U, LDU, WORK( IVT ), LDWKVT, DUM, IDUM, WORK( NWORK ), IWORK, INFO );
 
                // Overwrite U by left singular vectors of A
                // Workspace: need   3*M [e, tauq, taup] + M*M [VT] + M    [work]
                // Workspace: prefer 3*M [e, tauq, taup] + M*M [VT] + M*NB [work]
 
-               CALL DORMBR( 'Q', 'L', 'N', M, M, N, A, LDA, WORK( ITAUQ ), U, LDU, WORK( NWORK ), LWORK - NWORK + 1, IERR )
+               dormbr('Q', 'L', 'N', M, M, N, A, LDA, WORK( ITAUQ ), U, LDU, WORK( NWORK ), LWORK - NWORK + 1, IERR );
 
                if ( LWORK .GE. M*N + 3*M + BDSPAC ) {
 
@@ -1064,11 +1064,11 @@
                   // Workspace: need   3*M [e, tauq, taup] + M*N [VT] + M    [work]
                   // Workspace: prefer 3*M [e, tauq, taup] + M*N [VT] + M*NB [work]
 
-                  CALL DORMBR( 'P', 'R', 'T', M, N, M, A, LDA, WORK( ITAUP ), WORK( IVT ), LDWKVT, WORK( NWORK ), LWORK - NWORK + 1, IERR )
+                  dormbr('P', 'R', 'T', M, N, M, A, LDA, WORK( ITAUP ), WORK( IVT ), LDWKVT, WORK( NWORK ), LWORK - NWORK + 1, IERR );
 
                   // Copy right singular vectors of A from WORK(IVT) to A
 
-                  CALL DLACPY( 'F', M, N, WORK( IVT ), LDWKVT, A, LDA )
+                  dlacpy('F', M, N, WORK( IVT ), LDWKVT, A, LDA );
                } else {
 
                   // Path 5to-slow
@@ -1076,7 +1076,7 @@
                   // Workspace: need   3*M [e, tauq, taup] + M*M [VT] + M    [work]
                   // Workspace: prefer 3*M [e, tauq, taup] + M*M [VT] + M*NB [work]
 
-                  CALL DORGBR( 'P', M, N, M, A, LDA, WORK( ITAUP ), WORK( NWORK ), LWORK - NWORK + 1, IERR )
+                  dorgbr('P', M, N, M, A, LDA, WORK( ITAUP ), WORK( NWORK ), LWORK - NWORK + 1, IERR );
 
                   // Multiply Q in A by right singular vectors of
                   // bidiagonal matrix in WORK(IVT), storing result in
@@ -1086,8 +1086,8 @@
 
                   DO 40 I = 1, N, CHUNK
                      BLK = MIN( N - I + 1, CHUNK )
-                     CALL DGEMM( 'N', 'N', M, BLK, M, ONE, WORK( IVT ), LDWKVT, A( 1, I ), LDA, ZERO, WORK( IL ), M )
-                     CALL DLACPY( 'F', M, BLK, WORK( IL ), M, A( 1, I ), LDA )
+                     dgemm('N', 'N', M, BLK, M, ONE, WORK( IVT ), LDWKVT, A( 1, I ), LDA, ZERO, WORK( IL ), M );
+                     dlacpy('F', M, BLK, WORK( IL ), M, A( 1, I ), LDA );
    40             CONTINUE
                }
             } else if ( WNTQS ) {
@@ -1098,15 +1098,15 @@
                // vectors of bidiagonal matrix in VT
                // Workspace: need   3*M [e, tauq, taup] + BDSPAC
 
-               CALL DLASET( 'F', M, N, ZERO, ZERO, VT, LDVT )
-               CALL DBDSDC( 'L', 'I', M, S, WORK( IE ), U, LDU, VT, LDVT, DUM, IDUM, WORK( NWORK ), IWORK, INFO )
+               dlaset('F', M, N, ZERO, ZERO, VT, LDVT );
+               dbdsdc('L', 'I', M, S, WORK( IE ), U, LDU, VT, LDVT, DUM, IDUM, WORK( NWORK ), IWORK, INFO );
 
                // Overwrite U by left singular vectors of A and VT
                // by right singular vectors of A
                // Workspace: need   3*M [e, tauq, taup] + M    [work]
                // Workspace: prefer 3*M [e, tauq, taup] + M*NB [work]
 
-               CALL DORMBR( 'Q', 'L', 'N', M, M, N, A, LDA, WORK( ITAUQ ), U, LDU, WORK( NWORK ), LWORK - NWORK + 1, IERR )                CALL DORMBR( 'P', 'R', 'T', M, N, M, A, LDA, WORK( ITAUP ), VT, LDVT, WORK( NWORK ), LWORK - NWORK + 1, IERR )
+               dormbr('Q', 'L', 'N', M, M, N, A, LDA, WORK( ITAUQ ), U, LDU, WORK( NWORK ), LWORK - NWORK + 1, IERR )                CALL DORMBR( 'P', 'R', 'T', M, N, M, A, LDA, WORK( ITAUP ), VT, LDVT, WORK( NWORK ), LWORK - NWORK + 1, IERR );
             } else if ( WNTQA ) {
 
                // Path 5ta (N > M, JOBZ='A')
@@ -1115,13 +1115,13 @@
                // vectors of bidiagonal matrix in VT
                // Workspace: need   3*M [e, tauq, taup] + BDSPAC
 
-               CALL DLASET( 'F', N, N, ZERO, ZERO, VT, LDVT )
-               CALL DBDSDC( 'L', 'I', M, S, WORK( IE ), U, LDU, VT, LDVT, DUM, IDUM, WORK( NWORK ), IWORK, INFO )
+               dlaset('F', N, N, ZERO, ZERO, VT, LDVT );
+               dbdsdc('L', 'I', M, S, WORK( IE ), U, LDU, VT, LDVT, DUM, IDUM, WORK( NWORK ), IWORK, INFO );
 
                // Set the right corner of VT to identity matrix
 
                if ( N.GT.M ) {
-                  CALL DLASET( 'F', N-M, N-M, ZERO, ONE, VT(M+1,M+1), LDVT )
+                  dlaset('F', N-M, N-M, ZERO, ONE, VT(M+1,M+1), LDVT );
                }
 
                // Overwrite U by left singular vectors of A and VT
@@ -1129,7 +1129,7 @@
                // Workspace: need   3*M [e, tauq, taup] + N    [work]
                // Workspace: prefer 3*M [e, tauq, taup] + N*NB [work]
 
-               CALL DORMBR( 'Q', 'L', 'N', M, M, N, A, LDA, WORK( ITAUQ ), U, LDU, WORK( NWORK ), LWORK - NWORK + 1, IERR )                CALL DORMBR( 'P', 'R', 'T', N, N, M, A, LDA, WORK( ITAUP ), VT, LDVT, WORK( NWORK ), LWORK - NWORK + 1, IERR )
+               dormbr('Q', 'L', 'N', M, M, N, A, LDA, WORK( ITAUQ ), U, LDU, WORK( NWORK ), LWORK - NWORK + 1, IERR )                CALL DORMBR( 'P', 'R', 'T', N, N, M, A, LDA, WORK( ITAUP ), VT, LDVT, WORK( NWORK ), LWORK - NWORK + 1, IERR );
             }
 
          }

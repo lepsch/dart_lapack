@@ -61,7 +61,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'ZHESV_ROOK ', -INFO )
+         xerbla('ZHESV_ROOK ', -INFO );
          RETURN
       } else if ( LQUERY ) {
          RETURN
@@ -69,14 +69,14 @@
 
       // Compute the factorization A = U*D*U**H or A = L*D*L**H.
 
-      CALL ZHETRF_ROOK( UPLO, N, A, LDA, IPIV, WORK, LWORK, INFO )
+      zhetrf_rook(UPLO, N, A, LDA, IPIV, WORK, LWORK, INFO );
       if ( INFO.EQ.0 ) {
 
          // Solve the system A*X = B, overwriting B with X.
 
          // Solve with TRS ( Use Level BLAS 2)
 
-         CALL ZHETRS_ROOK( UPLO, N, NRHS, A, LDA, IPIV, B, LDB, INFO )
+         zhetrs_rook(UPLO, N, NRHS, A, LDA, IPIV, B, LDB, INFO );
 
       }
 

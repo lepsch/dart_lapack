@@ -54,15 +54,15 @@
 
       // Initialize C to the identity matrix.
 
-      CALL CLASET( 'Full', N, N, CZERO, CONE, C, LDC )
+      claset('Full', N, N, CZERO, CONE, C, LDC );
 
       // Call CLAVSP to form the product D * U' (or D * L' ).
 
-      CALL CLAVSP( UPLO, 'Transpose', 'Non-unit', N, N, AFAC, IPIV, C, LDC, INFO )
+      clavsp(UPLO, 'Transpose', 'Non-unit', N, N, AFAC, IPIV, C, LDC, INFO );
 
       // Call CLAVSP again to multiply by U ( or L ).
 
-      CALL CLAVSP( UPLO, 'No transpose', 'Unit', N, N, AFAC, IPIV, C, LDC, INFO )
+      clavsp(UPLO, 'No transpose', 'Unit', N, N, AFAC, IPIV, C, LDC, INFO );
 
       // Compute the difference  C - A .
 

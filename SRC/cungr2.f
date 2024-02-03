@@ -41,7 +41,7 @@
          INFO = -5
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'CUNGR2', -INFO )
+         xerbla('CUNGR2', -INFO );
          RETURN
       }
 
@@ -66,11 +66,11 @@
 
          // Apply H(i)**H to A(1:m-k+i,1:n-k+i) from the right
 
-         CALL CLACGV( N-M+II-1, A( II, 1 ), LDA )
+         clacgv(N-M+II-1, A( II, 1 ), LDA );
          A( II, N-M+II ) = ONE
-         CALL CLARF( 'Right', II-1, N-M+II, A( II, 1 ), LDA, CONJG( TAU( I ) ), A, LDA, WORK )
-         CALL CSCAL( N-M+II-1, -TAU( I ), A( II, 1 ), LDA )
-         CALL CLACGV( N-M+II-1, A( II, 1 ), LDA )
+         clarf('Right', II-1, N-M+II, A( II, 1 ), LDA, CONJG( TAU( I ) ), A, LDA, WORK );
+         cscal(N-M+II-1, -TAU( I ), A( II, 1 ), LDA );
+         clacgv(N-M+II-1, A( II, 1 ), LDA );
          A( II, N-M+II ) = ONE - CONJG( TAU( I ) )
 
          // Set A(m-k+i,n-k+i+1:n) to zero

@@ -84,8 +84,8 @@
             SC = H( I, I-1 ) / CABS1( H( I, I-1 ) )
             SC = DCONJG( SC ) / ABS( SC )
             H( I, I-1 ) = ABS( H( I, I-1 ) )
-            CALL ZSCAL( JHI-I+1, SC, H( I, I ), LDH )
-            CALL ZSCAL( MIN( JHI, I+1 )-JLO+1, DCONJG( SC ), H( JLO, I ), 1 )             IF( WANTZ ) CALL ZSCAL( IHIZ-ILOZ+1, DCONJG( SC ), Z( ILOZ, I ), 1 )
+            zscal(JHI-I+1, SC, H( I, I ), LDH );
+            zscal(MIN( JHI, I+1 )-JLO+1, DCONJG( SC ), H( JLO, I ), 1 )             IF( WANTZ ) CALL ZSCAL( IHIZ-ILOZ+1, DCONJG( SC ), Z( ILOZ, I ), 1 );
          }
    20 CONTINUE
 
@@ -255,7 +255,7 @@
             // after the call T2 ( = T1*V(2) ) is also real.
 
             IF( K.GT.M ) CALL ZCOPY( 2, H( K, K-1 ), 1, V, 1 )
-            CALL ZLARFG( 2, V( 1 ), V( 2 ), 1, T1 )
+            zlarfg(2, V( 1 ), V( 2 ), 1, T1 );
             if ( K.GT.M ) {
                H( K, K-1 ) = V( 1 )
                H( K+1, K-1 ) = ZERO
@@ -306,9 +306,9 @@
                DO 110 J = M, I
                   if ( J.NE.M+1 ) {
                      IF( I2.GT.J ) CALL ZSCAL( I2-J, TEMP, H( J, J+1 ), LDH )
-                     CALL ZSCAL( J-I1, DCONJG( TEMP ), H( I1, J ), 1 )
+                     zscal(J-I1, DCONJG( TEMP ), H( I1, J ), 1 );
                      if ( WANTZ ) {
-                        CALL ZSCAL( NZ, DCONJG( TEMP ), Z( ILOZ, J ), 1 )
+                        zscal(NZ, DCONJG( TEMP ), Z( ILOZ, J ), 1 );
                      }
                   }
   110          CONTINUE
@@ -323,9 +323,9 @@
             H( I, I-1 ) = RTEMP
             TEMP = TEMP / RTEMP
             IF( I2.GT.I ) CALL ZSCAL( I2-I, DCONJG( TEMP ), H( I, I+1 ), LDH )
-            CALL ZSCAL( I-I1, TEMP, H( I1, I ), 1 )
+            zscal(I-I1, TEMP, H( I1, I ), 1 );
             if ( WANTZ ) {
-               CALL ZSCAL( NZ, TEMP, Z( ILOZ, I ), 1 )
+               zscal(NZ, TEMP, Z( ILOZ, I ), 1 );
             }
          }
 

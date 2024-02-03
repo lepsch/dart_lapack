@@ -49,7 +49,7 @@
          INFO = -5
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'SPBSTF', -INFO )
+         xerbla('SPBSTF', -INFO );
          RETURN
       }
 
@@ -80,8 +80,8 @@
             // Compute elements j-km:j-1 of the j-th column and update the
             // the leading submatrix within the band.
 
-            CALL SSCAL( KM, ONE / AJJ, AB( KD+1-KM, J ), 1 )
-            CALL SSYR( 'Upper', KM, -ONE, AB( KD+1-KM, J ), 1, AB( KD+1, J-KM ), KLD )
+            sscal(KM, ONE / AJJ, AB( KD+1-KM, J ), 1 );
+            ssyr('Upper', KM, -ONE, AB( KD+1-KM, J ), 1, AB( KD+1, J-KM ), KLD );
    10    CONTINUE
 
          // Factorize the updated submatrix A(1:m,1:m) as U**T*U.
@@ -100,8 +100,8 @@
             // trailing submatrix within the band.
 
             if ( KM.GT.0 ) {
-               CALL SSCAL( KM, ONE / AJJ, AB( KD, J+1 ), KLD )
-               CALL SSYR( 'Upper', KM, -ONE, AB( KD, J+1 ), KLD, AB( KD+1, J+1 ), KLD )
+               sscal(KM, ONE / AJJ, AB( KD, J+1 ), KLD );
+               ssyr('Upper', KM, -ONE, AB( KD, J+1 ), KLD, AB( KD+1, J+1 ), KLD );
             }
    20    CONTINUE
       } else {
@@ -121,8 +121,8 @@
             // Compute elements j-km:j-1 of the j-th row and update the
             // trailing submatrix within the band.
 
-            CALL SSCAL( KM, ONE / AJJ, AB( KM+1, J-KM ), KLD )
-            CALL SSYR( 'Lower', KM, -ONE, AB( KM+1, J-KM ), KLD, AB( 1, J-KM ), KLD )
+            sscal(KM, ONE / AJJ, AB( KM+1, J-KM ), KLD );
+            ssyr('Lower', KM, -ONE, AB( KM+1, J-KM ), KLD, AB( 1, J-KM ), KLD );
    30    CONTINUE
 
          // Factorize the updated submatrix A(1:m,1:m) as U**T*U.
@@ -141,8 +141,8 @@
             // trailing submatrix within the band.
 
             if ( KM.GT.0 ) {
-               CALL SSCAL( KM, ONE / AJJ, AB( 2, J ), 1 )
-               CALL SSYR( 'Lower', KM, -ONE, AB( 2, J ), 1, AB( 1, J+1 ), KLD )
+               sscal(KM, ONE / AJJ, AB( 2, J ), 1 );
+               ssyr('Lower', KM, -ONE, AB( 2, J ), 1, AB( 1, J+1 ), KLD );
             }
    40    CONTINUE
       }

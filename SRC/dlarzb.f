@@ -44,7 +44,7 @@
          INFO = -4
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'DLARZB', -INFO )
+         xerbla('DLARZB', -INFO );
          RETURN
       }
 
@@ -61,7 +61,7 @@
          // W( 1:n, 1:k ) = C( 1:k, 1:n )**T
 
          DO 10 J = 1, K
-            CALL DCOPY( N, C( J, 1 ), LDC, WORK( 1, J ), 1 )
+            dcopy(N, C( J, 1 ), LDC, WORK( 1, J ), 1 );
    10    CONTINUE
 
          // W( 1:n, 1:k ) = W( 1:n, 1:k ) + ...
@@ -71,7 +71,7 @@
 
          // W( 1:n, 1:k ) = W( 1:n, 1:k ) * T**T  or  W( 1:m, 1:k ) * T
 
-         CALL DTRMM( 'Right', 'Lower', TRANST, 'Non-unit', N, K, ONE, T, LDT, WORK, LDWORK )
+         dtrmm('Right', 'Lower', TRANST, 'Non-unit', N, K, ONE, T, LDT, WORK, LDWORK );
 
          // C( 1:k, 1:n ) = C( 1:k, 1:n ) - W( 1:n, 1:k )**T
 
@@ -93,7 +93,7 @@
          // W( 1:m, 1:k ) = C( 1:m, 1:k )
 
          DO 40 J = 1, K
-            CALL DCOPY( M, C( 1, J ), 1, WORK( 1, J ), 1 )
+            dcopy(M, C( 1, J ), 1, WORK( 1, J ), 1 );
    40    CONTINUE
 
          // W( 1:m, 1:k ) = W( 1:m, 1:k ) + ...
@@ -103,7 +103,7 @@
 
          // W( 1:m, 1:k ) = W( 1:m, 1:k ) * T  or  W( 1:m, 1:k ) * T**T
 
-         CALL DTRMM( 'Right', 'Lower', TRANS, 'Non-unit', M, K, ONE, T, LDT, WORK, LDWORK )
+         dtrmm('Right', 'Lower', TRANS, 'Non-unit', M, K, ONE, T, LDT, WORK, LDWORK );
 
          // C( 1:m, 1:k ) = C( 1:m, 1:k ) - W( 1:m, 1:k )
 

@@ -100,7 +100,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'ZDRVEV', -INFO )
+         xerbla('ZDRVEV', -INFO );
          RETURN
       }
 
@@ -177,7 +177,7 @@
 
    60       CONTINUE
 
-            CALL ZLASET( 'Full', LDA, N, CZERO, CZERO, A, LDA )
+            zlaset('Full', LDA, N, CZERO, CZERO, A, LDA );
             IINFO = 0
             COND = ULPINV
 
@@ -209,13 +209,13 @@
 
                // Diagonal Matrix, [Eigen]values Specified
 
-               CALL ZLATMS( N, N, 'S', ISEED, 'H', RWORK, IMODE, COND, ANORM, 0, 0, 'N', A, LDA, WORK( N+1 ), IINFO )
+               zlatms(N, N, 'S', ISEED, 'H', RWORK, IMODE, COND, ANORM, 0, 0, 'N', A, LDA, WORK( N+1 ), IINFO );
 
             } else if ( ITYPE.EQ.5 ) {
 
                // Hermitian, eigenvalues specified
 
-               CALL ZLATMS( N, N, 'S', ISEED, 'H', RWORK, IMODE, COND, ANORM, N, N, 'N', A, LDA, WORK( N+1 ), IINFO )
+               zlatms(N, N, 'S', ISEED, 'H', RWORK, IMODE, COND, ANORM, N, N, 'N', A, LDA, WORK( N+1 ), IINFO );
 
             } else if ( ITYPE.EQ.6 ) {
 
@@ -229,35 +229,35 @@
                   CONDS = ZERO
                }
 
-               CALL ZLATME( N, 'D', ISEED, WORK, IMODE, COND, CONE, 'T', 'T', 'T', RWORK, 4, CONDS, N, N, ANORM, A, LDA, WORK( 2*N+1 ), IINFO )
+               zlatme(N, 'D', ISEED, WORK, IMODE, COND, CONE, 'T', 'T', 'T', RWORK, 4, CONDS, N, N, ANORM, A, LDA, WORK( 2*N+1 ), IINFO );
 
             } else if ( ITYPE.EQ.7 ) {
 
                // Diagonal, random eigenvalues
 
-               CALL ZLATMR( N, N, 'D', ISEED, 'N', WORK, 6, ONE, CONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, 0, 0, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO )
+               zlatmr(N, N, 'D', ISEED, 'N', WORK, 6, ONE, CONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, 0, 0, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO );
 
             } else if ( ITYPE.EQ.8 ) {
 
                // Symmetric, random eigenvalues
 
-               CALL ZLATMR( N, N, 'D', ISEED, 'H', WORK, 6, ONE, CONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, N, N, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO )
+               zlatmr(N, N, 'D', ISEED, 'H', WORK, 6, ONE, CONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, N, N, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO );
 
             } else if ( ITYPE.EQ.9 ) {
 
                // General, random eigenvalues
 
-               CALL ZLATMR( N, N, 'D', ISEED, 'N', WORK, 6, ONE, CONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, N, N, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO )
+               zlatmr(N, N, 'D', ISEED, 'N', WORK, 6, ONE, CONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, N, N, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO );
                if ( N.GE.4 ) {
-                  CALL ZLASET( 'Full', 2, N, CZERO, CZERO, A, LDA )
-                  CALL ZLASET( 'Full', N-3, 1, CZERO, CZERO, A( 3, 1 ), LDA )                   CALL ZLASET( 'Full', N-3, 2, CZERO, CZERO, A( 3, N-1 ), LDA )                   CALL ZLASET( 'Full', 1, N, CZERO, CZERO, A( N, 1 ), LDA )
+                  zlaset('Full', 2, N, CZERO, CZERO, A, LDA );
+                  zlaset('Full', N-3, 1, CZERO, CZERO, A( 3, 1 ), LDA )                   CALL ZLASET( 'Full', N-3, 2, CZERO, CZERO, A( 3, N-1 ), LDA )                   CALL ZLASET( 'Full', 1, N, CZERO, CZERO, A( N, 1 ), LDA );
                }
 
             } else if ( ITYPE.EQ.10 ) {
 
                // Triangular, random eigenvalues
 
-               CALL ZLATMR( N, N, 'D', ISEED, 'N', WORK, 6, ONE, CONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, N, 0, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO )
+               zlatmr(N, N, 'D', ISEED, 'N', WORK, 6, ONE, CONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, N, 0, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO );
 
             } else {
 
@@ -290,8 +290,8 @@
 
                // Compute eigenvalues and eigenvectors, and test them
 
-               CALL ZLACPY( 'F', N, N, A, LDA, H, LDA )
-               CALL ZGEEV( 'V', 'V', N, H, LDA, W, VL, LDVL, VR, LDVR, WORK, NNWORK, RWORK, IINFO )
+               zlacpy('F', N, N, A, LDA, H, LDA );
+               zgeev('V', 'V', N, H, LDA, W, VL, LDVL, VR, LDVR, WORK, NNWORK, RWORK, IINFO );
                if ( IINFO.NE.0 ) {
                   RESULT( 1 ) = ULPINV
                   WRITE( NOUNIT, FMT = 9993 )'ZGEEV1', IINFO, N, JTYPE, IOLDSD
@@ -301,12 +301,12 @@
 
                // Do Test (1)
 
-               CALL ZGET22( 'N', 'N', 'N', N, A, LDA, VR, LDVR, W, WORK, RWORK, RES )
+               zget22('N', 'N', 'N', N, A, LDA, VR, LDVR, W, WORK, RWORK, RES );
                RESULT( 1 ) = RES( 1 )
 
                // Do Test (2)
 
-               CALL ZGET22( 'C', 'N', 'C', N, A, LDA, VL, LDVL, W, WORK, RWORK, RES )
+               zget22('C', 'N', 'C', N, A, LDA, VL, LDVL, W, WORK, RWORK, RES );
                RESULT( 2 ) = RES( 1 )
 
                // Do Test (3)
@@ -339,8 +339,8 @@
 
                // Compute eigenvalues only, and test them
 
-               CALL ZLACPY( 'F', N, N, A, LDA, H, LDA )
-               CALL ZGEEV( 'N', 'N', N, H, LDA, W1, DUM, 1, DUM, 1, WORK, NNWORK, RWORK, IINFO )
+               zlacpy('F', N, N, A, LDA, H, LDA );
+               zgeev('N', 'N', N, H, LDA, W1, DUM, 1, DUM, 1, WORK, NNWORK, RWORK, IINFO );
                if ( IINFO.NE.0 ) {
                   RESULT( 1 ) = ULPINV
                   WRITE( NOUNIT, FMT = 9993 )'ZGEEV2', IINFO, N, JTYPE, IOLDSD
@@ -356,8 +356,8 @@
 
                // Compute eigenvalues and right eigenvectors, and test them
 
-               CALL ZLACPY( 'F', N, N, A, LDA, H, LDA )
-               CALL ZGEEV( 'N', 'V', N, H, LDA, W1, DUM, 1, LRE, LDLRE, WORK, NNWORK, RWORK, IINFO )
+               zlacpy('F', N, N, A, LDA, H, LDA );
+               zgeev('N', 'V', N, H, LDA, W1, DUM, 1, LRE, LDLRE, WORK, NNWORK, RWORK, IINFO );
                if ( IINFO.NE.0 ) {
                   RESULT( 1 ) = ULPINV
                   WRITE( NOUNIT, FMT = 9993 )'ZGEEV3', IINFO, N, JTYPE, IOLDSD
@@ -381,8 +381,8 @@
 
                // Compute eigenvalues and left eigenvectors, and test them
 
-               CALL ZLACPY( 'F', N, N, A, LDA, H, LDA )
-               CALL ZGEEV( 'V', 'N', N, H, LDA, W1, LRE, LDLRE, DUM, 1, WORK, NNWORK, RWORK, IINFO )
+               zlacpy('F', N, N, A, LDA, H, LDA );
+               zgeev('V', 'N', N, H, LDA, W1, LRE, LDLRE, DUM, 1, WORK, NNWORK, RWORK, IINFO );
                if ( IINFO.NE.0 ) {
                   RESULT( 1 ) = ULPINV
                   WRITE( NOUNIT, FMT = 9993 )'ZGEEV4', IINFO, N, JTYPE, IOLDSD
@@ -439,7 +439,7 @@
 
       // Summary
 
-      CALL DLASUM( PATH, NOUNIT, NERRS, NTESTT )
+      dlasum(PATH, NOUNIT, NERRS, NTESTT );
 
  9999 FORMAT( / 1X, A3, ' -- Complex Eigenvalue-Eigenvector ', 'Decomposition Driver', / ' Matrix types (see ZDRVEV for details): ' )
 

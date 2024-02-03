@@ -42,7 +42,7 @@
          INFO = -10
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'DGEQRS', -INFO )
+         xerbla('DGEQRS', -INFO );
          RETURN
       }
 
@@ -52,11 +52,11 @@
 
       // B := Q' * B
 
-      CALL DORMQR( 'Left', 'Transpose', M, NRHS, N, A, LDA, TAU, B, LDB, WORK, LWORK, INFO )
+      dormqr('Left', 'Transpose', M, NRHS, N, A, LDA, TAU, B, LDB, WORK, LWORK, INFO );
 
       // Solve R*X = B(1:n,:)
 
-      CALL DTRSM( 'Left', 'Upper', 'No transpose', 'Non-unit', N, NRHS, ONE, A, LDA, B, LDB )
+      dtrsm('Left', 'Upper', 'No transpose', 'Non-unit', N, NRHS, ONE, A, LDA, B, LDB );
 
       RETURN
 

@@ -79,7 +79,7 @@
       IF( LWORK.LT.MINWRK ) INFO = -23
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'ZDRGVX', -INFO )
+         xerbla('ZDRGVX', -INFO );
          RETURN
       }
 
@@ -109,16 +109,16 @@
 
                      // generated a pair of test matrix
 
-                     CALL ZLATM6( IPTYPE, 5, A, LDA, B, VR, LDA, VL, LDA, WEIGHT( IWA ), WEIGHT( IWB ), WEIGHT( IWX ), WEIGHT( IWY ), DTRU, DIFTRU )
+                     zlatm6(IPTYPE, 5, A, LDA, B, VR, LDA, VL, LDA, WEIGHT( IWA ), WEIGHT( IWB ), WEIGHT( IWX ), WEIGHT( IWY ), DTRU, DIFTRU );
 
                      // Compute eigenvalues/eigenvectors of (A, B).
                      // Compute eigenvalue/eigenvector condition numbers
                      // using computed eigenvectors.
 
-                     CALL ZLACPY( 'F', N, N, A, LDA, AI, LDA )
-                     CALL ZLACPY( 'F', N, N, B, LDA, BI, LDA )
+                     zlacpy('F', N, N, A, LDA, AI, LDA );
+                     zlacpy('F', N, N, B, LDA, BI, LDA );
 
-                     CALL ZGGEVX( 'N', 'V', 'V', 'B', N, AI, LDA, BI, LDA, ALPHA, BETA, VL, LDA, VR, LDA, ILO, IHI, LSCALE, RSCALE, ANORM, BNORM, S, DIF, WORK, LWORK, RWORK, IWORK, BWORK, LINFO )
+                     zggevx('N', 'V', 'V', 'B', N, AI, LDA, BI, LDA, ALPHA, BETA, VL, LDA, VR, LDA, ILO, IHI, LSCALE, RSCALE, ANORM, BNORM, S, DIF, WORK, LWORK, RWORK, IWORK, BWORK, LINFO );
                      if ( LINFO.NE.0 ) {
                         WRITE( NOUT, FMT = 9999 )'ZGGEVX', LINFO, N, IPTYPE, IWA, IWB, IWX, IWY
                         GO TO 30
@@ -126,20 +126,20 @@
 
                      // Compute the norm(A, B)
 
-                     CALL ZLACPY( 'Full', N, N, AI, LDA, WORK, N )
-                     CALL ZLACPY( 'Full', N, N, BI, LDA, WORK( N*N+1 ), N )
+                     zlacpy('Full', N, N, AI, LDA, WORK, N );
+                     zlacpy('Full', N, N, BI, LDA, WORK( N*N+1 ), N );
                      ABNORM = ZLANGE( 'Fro', N, 2*N, WORK, N, RWORK )
 
                      // Tests (1) and (2)
 
                      RESULT( 1 ) = ZERO
-                     CALL ZGET52( .TRUE., N, A, LDA, B, LDA, VL, LDA, ALPHA, BETA, WORK, RWORK, RESULT( 1 ) )
+                     zget52(.TRUE., N, A, LDA, B, LDA, VL, LDA, ALPHA, BETA, WORK, RWORK, RESULT( 1 ) );
                      if ( RESULT( 2 ).GT.THRESH ) {
                         WRITE( NOUT, FMT = 9998 )'Left', 'ZGGEVX', RESULT( 2 ), N, IPTYPE, IWA, IWB, IWX, IWY
                      }
 
                      RESULT( 2 ) = ZERO
-                     CALL ZGET52( .FALSE., N, A, LDA, B, LDA, VR, LDA, ALPHA, BETA, WORK, RWORK, RESULT( 2 ) )
+                     zget52(.FALSE., N, A, LDA, B, LDA, VR, LDA, ALPHA, BETA, WORK, RWORK, RESULT( 2 ) );
                      if ( RESULT( 3 ).GT.THRESH ) {
                         WRITE( NOUT, FMT = 9998 )'Right', 'ZGGEVX', RESULT( 3 ), N, IPTYPE, IWA, IWB, IWX, IWY
                      }
@@ -241,10 +241,10 @@
       // Compute eigenvalue/eigenvector condition numbers
       // using computed eigenvectors.
 
-      CALL ZLACPY( 'F', N, N, A, LDA, AI, LDA )
-      CALL ZLACPY( 'F', N, N, B, LDA, BI, LDA )
+      zlacpy('F', N, N, A, LDA, AI, LDA );
+      zlacpy('F', N, N, B, LDA, BI, LDA );
 
-      CALL ZGGEVX( 'N', 'V', 'V', 'B', N, AI, LDA, BI, LDA, ALPHA, BETA, VL, LDA, VR, LDA, ILO, IHI, LSCALE, RSCALE, ANORM, BNORM, S, DIF, WORK, LWORK, RWORK, IWORK, BWORK, LINFO )
+      zggevx('N', 'V', 'V', 'B', N, AI, LDA, BI, LDA, ALPHA, BETA, VL, LDA, VR, LDA, ILO, IHI, LSCALE, RSCALE, ANORM, BNORM, S, DIF, WORK, LWORK, RWORK, IWORK, BWORK, LINFO );
 
       if ( LINFO.NE.0 ) {
          WRITE( NOUT, FMT = 9987 )'ZGGEVX', LINFO, N, NPTKNT
@@ -253,20 +253,20 @@
 
       // Compute the norm(A, B)
 
-      CALL ZLACPY( 'Full', N, N, AI, LDA, WORK, N )
-      CALL ZLACPY( 'Full', N, N, BI, LDA, WORK( N*N+1 ), N )
+      zlacpy('Full', N, N, AI, LDA, WORK, N );
+      zlacpy('Full', N, N, BI, LDA, WORK( N*N+1 ), N );
       ABNORM = ZLANGE( 'Fro', N, 2*N, WORK, N, RWORK )
 
       // Tests (1) and (2)
 
       RESULT( 1 ) = ZERO
-      CALL ZGET52( .TRUE., N, A, LDA, B, LDA, VL, LDA, ALPHA, BETA, WORK, RWORK, RESULT( 1 ) )
+      zget52(.TRUE., N, A, LDA, B, LDA, VL, LDA, ALPHA, BETA, WORK, RWORK, RESULT( 1 ) );
       if ( RESULT( 2 ).GT.THRESH ) {
          WRITE( NOUT, FMT = 9986 )'Left', 'ZGGEVX', RESULT( 2 ), N, NPTKNT
       }
 
       RESULT( 2 ) = ZERO
-      CALL ZGET52( .FALSE., N, A, LDA, B, LDA, VR, LDA, ALPHA, BETA, WORK, RWORK, RESULT( 2 ) )
+      zget52(.FALSE., N, A, LDA, B, LDA, VR, LDA, ALPHA, BETA, WORK, RWORK, RESULT( 2 ) );
       if ( RESULT( 3 ).GT.THRESH ) {
          WRITE( NOUT, FMT = 9986 )'Right', 'ZGGEVX', RESULT( 3 ), N, NPTKNT
       }
@@ -341,7 +341,7 @@
 
       // Summary
 
-      CALL ALASVM( 'ZXV', NOUT, NERRS, NTESTT, 0 )
+      alasvm('ZXV', NOUT, NERRS, NTESTT, 0 );
 
       WORK( 1 ) = MAXWRK
 

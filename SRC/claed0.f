@@ -55,7 +55,7 @@
          INFO = -8
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'CLAED0', -INFO )
+         xerbla('CLAED0', -INFO );
          RETURN
       }
 
@@ -133,7 +133,7 @@
             MATSIZ = IWORK( I+1 ) - IWORK( I )
          }
          LL = IQ - 1 + IWORK( IQPTR+CURR )
-         CALL SSTEQR( 'I', MATSIZ, D( SUBMAT ), E( SUBMAT ), RWORK( LL ), MATSIZ, RWORK, INFO )          CALL CLACRM( QSIZ, MATSIZ, Q( 1, SUBMAT ), LDQ, RWORK( LL ), MATSIZ, QSTORE( 1, SUBMAT ), LDQS, RWORK( IWREM ) )
+         ssteqr('I', MATSIZ, D( SUBMAT ), E( SUBMAT ), RWORK( LL ), MATSIZ, RWORK, INFO )          CALL CLACRM( QSIZ, MATSIZ, Q( 1, SUBMAT ), LDQ, RWORK( LL ), MATSIZ, QSTORE( 1, SUBMAT ), LDQS, RWORK( IWREM ) );
          IWORK( IQPTR+CURR+1 ) = IWORK( IQPTR+CURR ) + MATSIZ**2
          CURR = CURR + 1
          if ( INFO.GT.0 ) {
@@ -176,7 +176,7 @@
 
       // I am free to use Q as a valuable working space until Loop 150.
 
-            CALL CLAED7( MATSIZ, MSD2, QSIZ, TLVLS, CURLVL, CURPRB, D( SUBMAT ), QSTORE( 1, SUBMAT ), LDQS, E( SUBMAT+MSD2-1 ), IWORK( INDXQ+SUBMAT ), RWORK( IQ ), IWORK( IQPTR ), IWORK( IPRMPT ), IWORK( IPERM ), IWORK( IGIVPT ), IWORK( IGIVCL ), RWORK( IGIVNM ), Q( 1, SUBMAT ), RWORK( IWREM ), IWORK( SUBPBS+1 ), INFO )
+            claed7(MATSIZ, MSD2, QSIZ, TLVLS, CURLVL, CURPRB, D( SUBMAT ), QSTORE( 1, SUBMAT ), LDQS, E( SUBMAT+MSD2-1 ), IWORK( INDXQ+SUBMAT ), RWORK( IQ ), IWORK( IQPTR ), IWORK( IPRMPT ), IWORK( IPERM ), IWORK( IGIVPT ), IWORK( IGIVCL ), RWORK( IGIVNM ), Q( 1, SUBMAT ), RWORK( IWREM ), IWORK( SUBPBS+1 ), INFO );
             if ( INFO.GT.0 ) {
                INFO = SUBMAT*( N+1 ) + SUBMAT + MATSIZ - 1
                RETURN
@@ -196,9 +196,9 @@
       DO 100 I = 1, N
          J = IWORK( INDXQ+I )
          RWORK( I ) = D( J )
-         CALL CCOPY( QSIZ, QSTORE( 1, J ), 1, Q( 1, I ), 1 )
+         ccopy(QSIZ, QSTORE( 1, J ), 1, Q( 1, I ), 1 );
   100 CONTINUE
-      CALL SCOPY( N, RWORK, 1, D, 1 )
+      scopy(N, RWORK, 1, D, 1 );
 
       RETURN
 

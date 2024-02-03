@@ -33,18 +33,18 @@
          INFO = -6
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'ZPTSV ', -INFO )
+         xerbla('ZPTSV ', -INFO );
          RETURN
       }
 
       // Compute the L*D*L**H (or U**H*D*U) factorization of A.
 
-      CALL ZPTTRF( N, D, E, INFO )
+      zpttrf(N, D, E, INFO );
       if ( INFO.EQ.0 ) {
 
          // Solve the system A*X = B, overwriting B with X.
 
-         CALL ZPTTRS( 'Lower', N, NRHS, D, E, B, LDB, INFO )
+         zpttrs('Lower', N, NRHS, D, E, B, LDB, INFO );
       }
       RETURN
 

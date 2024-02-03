@@ -68,7 +68,7 @@
           INFO = 11
       }
       if (INFO.NE.0) {
-          CALL XERBLA('CTRSM ',INFO)
+          xerbla('CTRSM ',INFO);
           RETURN
       }
 

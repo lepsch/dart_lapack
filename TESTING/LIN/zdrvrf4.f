@@ -155,22 +155,22 @@
                         NORMC = ZLANGE( 'I', N, N, C1, LDC, D_WORK_ZLANGE )
 
                         SRNAMT = 'ZTRTTF'
-                        CALL ZTRTTF( CFORM, UPLO, N, C1, LDC, CRF, INFO )
+                        ztrttf(CFORM, UPLO, N, C1, LDC, CRF, INFO );
 
                         // call zherk the BLAS routine -> gives C1
 
                         SRNAMT = 'ZHERK '
-                        CALL ZHERK( UPLO, TRANS, N, K, ALPHA, A, LDA, BETA, C1, LDC )
+                        zherk(UPLO, TRANS, N, K, ALPHA, A, LDA, BETA, C1, LDC );
 
                         // call zhfrk the RFP routine -> gives CRF
 
                         SRNAMT = 'ZHFRK '
-                        CALL ZHFRK( CFORM, UPLO, TRANS, N, K, ALPHA, A, LDA, BETA, CRF )
+                        zhfrk(CFORM, UPLO, TRANS, N, K, ALPHA, A, LDA, BETA, CRF );
 
                         // convert CRF in full format -> gives C2
 
                         SRNAMT = 'ZTFTTR'
-                        CALL ZTFTTR( CFORM, UPLO, N, CRF, C2, LDC, INFO )
+                        ztfttr(CFORM, UPLO, N, CRF, C2, LDC, INFO );
 
                         // compare C1 and C2
 

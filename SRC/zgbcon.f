@@ -70,7 +70,7 @@
          INFO = -8
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'ZGBCON', -INFO )
+         xerbla('ZGBCON', -INFO );
          RETURN
       }
 
@@ -99,7 +99,7 @@
       LNOTI = KL.GT.0
       KASE = 0
    10 CONTINUE
-      CALL ZLACN2( N, WORK( N+1 ), WORK, AINVNM, KASE, ISAVE )
+      zlacn2(N, WORK( N+1 ), WORK, AINVNM, KASE, ISAVE );
       if ( KASE.NE.0 ) {
          if ( KASE.EQ.KASE1 ) {
 
@@ -114,18 +114,18 @@
                      WORK( JP ) = WORK( J )
                      WORK( J ) = T
                   }
-                  CALL ZAXPY( LM, -T, AB( KD+1, J ), 1, WORK( J+1 ), 1 )
+                  zaxpy(LM, -T, AB( KD+1, J ), 1, WORK( J+1 ), 1 );
    20          CONTINUE
             }
 
             // Multiply by inv(U).
 
-            CALL ZLATBS( 'Upper', 'No transpose', 'Non-unit', NORMIN, N, KL+KU, AB, LDAB, WORK, SCALE, RWORK, INFO )
+            zlatbs('Upper', 'No transpose', 'Non-unit', NORMIN, N, KL+KU, AB, LDAB, WORK, SCALE, RWORK, INFO );
          } else {
 
             // Multiply by inv(U**H).
 
-            CALL ZLATBS( 'Upper', 'Conjugate transpose', 'Non-unit', NORMIN, N, KL+KU, AB, LDAB, WORK, SCALE, RWORK, INFO )
+            zlatbs('Upper', 'Conjugate transpose', 'Non-unit', NORMIN, N, KL+KU, AB, LDAB, WORK, SCALE, RWORK, INFO );
 
             // Multiply by inv(L**H).
 
@@ -149,7 +149,7 @@
          if ( SCALE.NE.ONE ) {
             IX = IZAMAX( N, WORK, 1 )
             IF( SCALE.LT.CABS1( WORK( IX ) )*SMLNUM .OR. SCALE.EQ.ZERO ) GO TO 40
-            CALL ZDRSCL( N, SCALE, WORK, 1 )
+            zdrscl(N, SCALE, WORK, 1 );
          }
          GO TO 10
       }

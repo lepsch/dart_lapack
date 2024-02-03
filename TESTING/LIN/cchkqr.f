@@ -75,7 +75,7 @@
 
       IF( TSTERR ) CALL CERRQR( PATH, NOUT )
       INFOT = 0
-      CALL XLAENV( 2, 2 )
+      xlaenv(2, 2 );
 
       LDA = NMAX
       LWORK = NMAX*MAX( NMAX, NRHS )
@@ -99,15 +99,15 @@
                // Set up parameters with CLATB4 and generate a test matrix
                // with CLATMS.
 
-               CALL CLATB4( PATH, IMAT, M, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST )
+               clatb4(PATH, IMAT, M, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST );
 
                SRNAMT = 'CLATMS'
-               CALL CLATMS( M, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KL, KU, 'No packing', A, LDA, WORK, INFO )
+               clatms(M, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KL, KU, 'No packing', A, LDA, WORK, INFO );
 
                // Check error code from CLATMS.
 
                if ( INFO.NE.0 ) {
-                  CALL ALAERH( PATH, 'CLATMS', INFO, 0, ' ', M, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT )
+                  alaerh(PATH, 'CLATMS', INFO, 0, ' ', M, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
                   GO TO 50
                }
 
@@ -138,9 +138,9 @@
 
                   DO 30 INB = 1, NNB
                      NB = NBVAL( INB )
-                     CALL XLAENV( 1, NB )
+                     xlaenv(1, NB );
                      NX = NXVAL( INB )
-                     CALL XLAENV( 3, NX )
+                     xlaenv(3, NX );
                      DO I = 1, NTESTS
                         RESULT( I ) = ZERO
                      END DO
@@ -149,11 +149,11 @@
 
                         // Test CGEQRF
 
-                        CALL CQRT01( M, N, A, AF, AQ, AR, LDA, TAU, WORK, LWORK, RWORK, RESULT( 1 ) )
+                        cqrt01(M, N, A, AF, AQ, AR, LDA, TAU, WORK, LWORK, RWORK, RESULT( 1 ) );
 
                         // Test CGEQRFP
 
-                        CALL CQRT01P( M, N, A, AF, AQ, AR, LDA, TAU, WORK, LWORK, RWORK, RESULT( 8 ) )
+                        cqrt01p(M, N, A, AF, AQ, AR, LDA, TAU, WORK, LWORK, RWORK, RESULT( 8 ) );
                           IF( .NOT. CGENND( M, N, AF, LDA ) ) RESULT( 9 ) = 2*THRESH
                         NT = NT + 1
                      } else if ( M.GE.N ) {
@@ -161,14 +161,14 @@
                         // Test CUNGQR, using factorization
                         // returned by CQRT01
 
-                        CALL CQRT02( M, N, K, A, AF, AQ, AR, LDA, TAU, WORK, LWORK, RWORK, RESULT( 1 ) )
+                        cqrt02(M, N, K, A, AF, AQ, AR, LDA, TAU, WORK, LWORK, RWORK, RESULT( 1 ) );
                      }
                      if ( M.GE.K ) {
 
                         // Test CUNMQR, using factorization returned
                         // by CQRT01
 
-                        CALL CQRT03( M, N, K, AF, AC, AR, AQ, LDA, TAU, WORK, LWORK, RWORK, RESULT( 3 ) )
+                        cqrt03(M, N, K, AF, AC, AR, AQ, LDA, TAU, WORK, LWORK, RWORK, RESULT( 3 ) );
                         NT = NT + 4
 
                         // If M>=N and K=N, call CGELS to solve a system
@@ -181,23 +181,23 @@
                            // hand side.
 
                            SRNAMT = 'CLARHS'
-                           CALL CLARHS( PATH, 'New', 'Full', 'No transpose', M, N, 0, 0, NRHS, A, LDA, XACT, LDA, B, LDA, ISEED, INFO )
+                           clarhs(PATH, 'New', 'Full', 'No transpose', M, N, 0, 0, NRHS, A, LDA, XACT, LDA, B, LDA, ISEED, INFO );
 
-                           CALL CLACPY( 'Full', M, NRHS, B, LDA, X, LDA )
+                           clacpy('Full', M, NRHS, B, LDA, X, LDA );
 
                            // Reset AF to the original matrix. CGELS
                            // factors the matrix before solving the system.
 
-                           CALL CLACPY( 'Full', M, N, A, LDA, AF, LDA )
+                           clacpy('Full', M, N, A, LDA, AF, LDA );
 
                            SRNAMT = 'CGELS'
-                           CALL CGELS( 'No transpose', M, N, NRHS, AF, LDA, X, LDA, WORK, LWORK, INFO )
+                           cgels('No transpose', M, N, NRHS, AF, LDA, X, LDA, WORK, LWORK, INFO );
 
                            // Check error code from CGELS.
 
                            IF( INFO.NE.0 ) CALL ALAERH( PATH, 'CGELS', INFO, 0, 'N', M, N, NRHS, -1, NB, IMAT, NFAIL, NERRS, NOUT )
 
-                           CALL CGET02( 'No transpose', M, N, NRHS, A, LDA, X, LDA, B, LDA, RWORK, RESULT( 7 ) )
+                           cget02('No transpose', M, N, NRHS, A, LDA, X, LDA, B, LDA, RWORK, RESULT( 7 ) );
                            NT = NT + 1
                         }
                      }
@@ -220,7 +220,7 @@
 
       // Print a summary of the results.
 
-      CALL ALASUM( PATH, NOUT, NFAIL, NRUN, NERRS )
+      alasum(PATH, NOUT, NFAIL, NRUN, NERRS );
 
  9999 FORMAT( ' M=', I5, ', N=', I5, ', K=', I5, ', NB=', I4, ', NX=', I5, ', type ', I2, ', test(', I2, ')=', G12.5 )
       RETURN

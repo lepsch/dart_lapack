@@ -38,7 +38,7 @@
       // .. Executable Statements ..
 
       IF( N.LE.0 ) RETURN
-      CALL DLASET( 'Full', N, N, ZERO, ZERO, A, LDA )
+      dlaset('Full', N, N, ZERO, ZERO, A, LDA );
 
       // Insure a correct ISEED
 

@@ -64,7 +64,7 @@
          INFO = -10
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'CUNM2L', -INFO )
+         xerbla('CUNM2L', -INFO );
          RETURN
       }
 
@@ -110,7 +110,7 @@
          }
          AII = A( NQ-K+I, I )
          A( NQ-K+I, I ) = ONE
-         CALL CLARF( SIDE, MI, NI, A( 1, I ), 1, TAUI, C, LDC, WORK )
+         clarf(SIDE, MI, NI, A( 1, I ), 1, TAUI, C, LDC, WORK );
          A( NQ-K+I, I ) = AII
    10 CONTINUE
       RETURN

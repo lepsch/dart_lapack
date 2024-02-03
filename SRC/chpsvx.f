@@ -56,7 +56,7 @@
          INFO = -11
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'CHPSVX', -INFO )
+         xerbla('CHPSVX', -INFO );
          RETURN
       }
 
@@ -64,8 +64,8 @@
 
          // Compute the factorization A = U*D*U**H or A = L*D*L**H.
 
-         CALL CCOPY( N*( N+1 ) / 2, AP, 1, AFP, 1 )
-         CALL CHPTRF( UPLO, N, AFP, IPIV, INFO )
+         ccopy(N*( N+1 ) / 2, AP, 1, AFP, 1 );
+         chptrf(UPLO, N, AFP, IPIV, INFO );
 
          // Return if INFO is non-zero.
 
@@ -81,17 +81,17 @@
 
       // Compute the reciprocal of the condition number of A.
 
-      CALL CHPCON( UPLO, N, AFP, IPIV, ANORM, RCOND, WORK, INFO )
+      chpcon(UPLO, N, AFP, IPIV, ANORM, RCOND, WORK, INFO );
 
       // Compute the solution vectors X.
 
-      CALL CLACPY( 'Full', N, NRHS, B, LDB, X, LDX )
-      CALL CHPTRS( UPLO, N, NRHS, AFP, IPIV, X, LDX, INFO )
+      clacpy('Full', N, NRHS, B, LDB, X, LDX );
+      chptrs(UPLO, N, NRHS, AFP, IPIV, X, LDX, INFO );
 
       // Use iterative refinement to improve the computed solutions and
       // compute error bounds and backward error estimates for them.
 
-      CALL CHPRFS( UPLO, N, NRHS, AP, AFP, IPIV, B, LDB, X, LDX, FERR, BERR, WORK, RWORK, INFO )
+      chprfs(UPLO, N, NRHS, AP, AFP, IPIV, B, LDB, X, LDX, FERR, BERR, WORK, RWORK, INFO );
 
       // Set INFO = N+1 if the matrix is singular to working precision.
 

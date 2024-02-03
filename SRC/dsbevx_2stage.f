@@ -95,7 +95,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'DSBEVX_2STAGE ', -INFO )
+         xerbla('DSBEVX_2STAGE ', -INFO );
          RETURN
       } else if ( LQUERY ) {
          RETURN
@@ -153,9 +153,9 @@
       }
       if ( ISCALE.EQ.1 ) {
          if ( LOWER ) {
-            CALL DLASCL( 'B', KD, KD, ONE, SIGMA, N, N, AB, LDAB, INFO )
+            dlascl('B', KD, KD, ONE, SIGMA, N, N, AB, LDAB, INFO );
          } else {
-            CALL DLASCL( 'Q', KD, KD, ONE, SIGMA, N, N, AB, LDAB, INFO )
+            dlascl('Q', KD, KD, ONE, SIGMA, N, N, AB, LDAB, INFO );
          }
          IF( ABSTOL.GT.0 ) ABSTLL = ABSTOL*SIGMA
          if ( VALEIG ) {
@@ -172,7 +172,7 @@
       INDWRK  = INDHOUS + LHTRD
       LLWORK  = LWORK - INDWRK + 1
 
-      CALL DSYTRD_SB2ST( "N", JOBZ, UPLO, N, KD, AB, LDAB, WORK( INDD ), WORK( INDE ), WORK( INDHOUS ), LHTRD, WORK( INDWRK ), LLWORK, IINFO )
+      dsytrd_sb2st("N", JOBZ, UPLO, N, KD, AB, LDAB, WORK( INDD ), WORK( INDE ), WORK( INDHOUS ), LHTRD, WORK( INDWRK ), LLWORK, IINFO );
 
       // If all eigenvalues are desired and ABSTOL is less than or equal
       // to zero, then call DSTERF or SSTEQR.  If this fails for some
@@ -185,15 +185,15 @@
          }
       }
       if ((ALLEIG .OR. TEST) .AND. (ABSTOL.LE.ZERO)) {
-         CALL DCOPY( N, WORK( INDD ), 1, W, 1 )
+         dcopy(N, WORK( INDD ), 1, W, 1 );
          INDEE = INDWRK + 2*N
          if ( .NOT.WANTZ ) {
-            CALL DCOPY( N-1, WORK( INDE ), 1, WORK( INDEE ), 1 )
-            CALL DSTERF( N, W, WORK( INDEE ), INFO )
+            dcopy(N-1, WORK( INDE ), 1, WORK( INDEE ), 1 );
+            dsterf(N, W, WORK( INDEE ), INFO );
          } else {
-            CALL DLACPY( 'A', N, N, Q, LDQ, Z, LDZ )
-            CALL DCOPY( N-1, WORK( INDE ), 1, WORK( INDEE ), 1 )
-            CALL DSTEQR( JOBZ, N, W, WORK( INDEE ), Z, LDZ, WORK( INDWRK ), INFO )
+            dlacpy('A', N, N, Q, LDQ, Z, LDZ );
+            dcopy(N-1, WORK( INDE ), 1, WORK( INDEE ), 1 );
+            dsteqr(JOBZ, N, W, WORK( INDEE ), Z, LDZ, WORK( INDWRK ), INFO );
             if ( INFO.EQ.0 ) {
                DO 10 I = 1, N
                   IFAIL( I ) = 0
@@ -217,17 +217,17 @@
       INDIBL = 1
       INDISP = INDIBL + N
       INDIWO = INDISP + N
-      CALL DSTEBZ( RANGE, ORDER, N, VLL, VUU, IL, IU, ABSTLL, WORK( INDD ), WORK( INDE ), M, NSPLIT, W, IWORK( INDIBL ), IWORK( INDISP ), WORK( INDWRK ), IWORK( INDIWO ), INFO )
+      dstebz(RANGE, ORDER, N, VLL, VUU, IL, IU, ABSTLL, WORK( INDD ), WORK( INDE ), M, NSPLIT, W, IWORK( INDIBL ), IWORK( INDISP ), WORK( INDWRK ), IWORK( INDIWO ), INFO );
 
       if ( WANTZ ) {
-         CALL DSTEIN( N, WORK( INDD ), WORK( INDE ), M, W, IWORK( INDIBL ), IWORK( INDISP ), Z, LDZ, WORK( INDWRK ), IWORK( INDIWO ), IFAIL, INFO )
+         dstein(N, WORK( INDD ), WORK( INDE ), M, W, IWORK( INDIBL ), IWORK( INDISP ), Z, LDZ, WORK( INDWRK ), IWORK( INDIWO ), IFAIL, INFO );
 
          // Apply orthogonal matrix used in reduction to tridiagonal
          // form to eigenvectors returned by DSTEIN.
 
          DO 20 J = 1, M
-            CALL DCOPY( N, Z( 1, J ), 1, WORK( 1 ), 1 )
-            CALL DGEMV( 'N', N, N, ONE, Q, LDQ, WORK, 1, ZERO, Z( 1, J ), 1 )
+            dcopy(N, Z( 1, J ), 1, WORK( 1 ), 1 );
+            dgemv('N', N, N, ONE, Q, LDQ, WORK, 1, ZERO, Z( 1, J ), 1 );
    20    CONTINUE
       }
 
@@ -240,7 +240,7 @@
          } else {
             IMAX = INFO - 1
          }
-         CALL DSCAL( IMAX, ONE / SIGMA, W, 1 )
+         dscal(IMAX, ONE / SIGMA, W, 1 );
       }
 
       // If eigenvalues are not in order, then sort them, along with
@@ -263,7 +263,7 @@
                IWORK( INDIBL+I-1 ) = IWORK( INDIBL+J-1 )
                W( J ) = TMP1
                IWORK( INDIBL+J-1 ) = ITMP1
-               CALL DSWAP( N, Z( 1, I ), 1, Z( 1, J ), 1 )
+               dswap(N, Z( 1, I ), 1, Z( 1, J ), 1 );
                if ( INFO.NE.0 ) {
                   ITMP1 = IFAIL( I )
                   IFAIL( I ) = IFAIL( J )

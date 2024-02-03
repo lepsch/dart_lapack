@@ -47,7 +47,7 @@
          INFO = -2
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'CHPTRD', -INFO )
+         xerbla('CHPTRD', -INFO );
          RETURN
       }
 
@@ -68,7 +68,7 @@
             // to annihilate A(1:i-1,i+1)
 
             ALPHA = AP( I1+I-1 )
-            CALL CLARFG( I, ALPHA, AP( I1 ), 1, TAUI )
+            clarfg(I, ALPHA, AP( I1 ), 1, TAUI );
             E( I ) = REAL( ALPHA )
 
             if ( TAUI.NE.ZERO ) {
@@ -79,17 +79,17 @@
 
                // Compute  y := tau * A * v  storing y in TAU(1:i)
 
-               CALL CHPMV( UPLO, I, TAUI, AP, AP( I1 ), 1, ZERO, TAU, 1 )
+               chpmv(UPLO, I, TAUI, AP, AP( I1 ), 1, ZERO, TAU, 1 );
 
                // Compute  w := y - 1/2 * tau * (y**H *v) * v
 
                ALPHA = -HALF*TAUI*CDOTC( I, TAU, 1, AP( I1 ), 1 )
-               CALL CAXPY( I, ALPHA, AP( I1 ), 1, TAU, 1 )
+               caxpy(I, ALPHA, AP( I1 ), 1, TAU, 1 );
 
                // Apply the transformation as a rank-2 update:
                   // A := A - v * w**H - w * v**H
 
-               CALL CHPR2( UPLO, I, -ONE, AP( I1 ), 1, TAU, 1, AP )
+               chpr2(UPLO, I, -ONE, AP( I1 ), 1, TAU, 1, AP );
 
             }
             AP( I1+I-1 ) = E( I )
@@ -112,7 +112,7 @@
             // to annihilate A(i+2:n,i)
 
             ALPHA = AP( II+1 )
-            CALL CLARFG( N-I, ALPHA, AP( II+2 ), 1, TAUI )
+            clarfg(N-I, ALPHA, AP( II+2 ), 1, TAUI );
             E( I ) = REAL( ALPHA )
 
             if ( TAUI.NE.ZERO ) {
@@ -123,17 +123,17 @@
 
                // Compute  y := tau * A * v  storing y in TAU(i:n-1)
 
-               CALL CHPMV( UPLO, N-I, TAUI, AP( I1I1 ), AP( II+1 ), 1, ZERO, TAU( I ), 1 )
+               chpmv(UPLO, N-I, TAUI, AP( I1I1 ), AP( II+1 ), 1, ZERO, TAU( I ), 1 );
 
                // Compute  w := y - 1/2 * tau * (y**H *v) * v
 
                ALPHA = -HALF*TAUI*CDOTC( N-I, TAU( I ), 1, AP( II+1 ), 1 )
-               CALL CAXPY( N-I, ALPHA, AP( II+1 ), 1, TAU( I ), 1 )
+               caxpy(N-I, ALPHA, AP( II+1 ), 1, TAU( I ), 1 );
 
                // Apply the transformation as a rank-2 update:
                   // A := A - v * w**H - w * v**H
 
-               CALL CHPR2( UPLO, N-I, -ONE, AP( II+1 ), 1, TAU( I ), 1, AP( I1I1 ) )
+               chpr2(UPLO, N-I, -ONE, AP( II+1 ), 1, TAU( I ), 1, AP( I1I1 ) );
 
             }
             AP( II+1 ) = E( I )

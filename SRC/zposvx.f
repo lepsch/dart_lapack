@@ -92,7 +92,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'ZPOSVX', -INFO )
+         xerbla('ZPOSVX', -INFO );
          RETURN
       }
 
@@ -100,12 +100,12 @@
 
          // Compute row and column scalings to equilibrate the matrix A.
 
-         CALL ZPOEQU( N, A, LDA, S, SCOND, AMAX, INFEQU )
+         zpoequ(N, A, LDA, S, SCOND, AMAX, INFEQU );
          if ( INFEQU.EQ.0 ) {
 
             // Equilibrate the matrix.
 
-            CALL ZLAQHE( UPLO, N, A, LDA, S, SCOND, AMAX, EQUED )
+            zlaqhe(UPLO, N, A, LDA, S, SCOND, AMAX, EQUED );
             RCEQU = LSAME( EQUED, 'Y' )
          }
       }
@@ -124,8 +124,8 @@
 
          // Compute the Cholesky factorization A = U**H *U or A = L*L**H.
 
-         CALL ZLACPY( UPLO, N, N, A, LDA, AF, LDAF )
-         CALL ZPOTRF( UPLO, N, AF, LDAF, INFO )
+         zlacpy(UPLO, N, N, A, LDA, AF, LDAF );
+         zpotrf(UPLO, N, AF, LDAF, INFO );
 
          // Return if INFO is non-zero.
 
@@ -141,17 +141,17 @@
 
       // Compute the reciprocal of the condition number of A.
 
-      CALL ZPOCON( UPLO, N, AF, LDAF, ANORM, RCOND, WORK, RWORK, INFO )
+      zpocon(UPLO, N, AF, LDAF, ANORM, RCOND, WORK, RWORK, INFO );
 
       // Compute the solution matrix X.
 
-      CALL ZLACPY( 'Full', N, NRHS, B, LDB, X, LDX )
-      CALL ZPOTRS( UPLO, N, NRHS, AF, LDAF, X, LDX, INFO )
+      zlacpy('Full', N, NRHS, B, LDB, X, LDX );
+      zpotrs(UPLO, N, NRHS, AF, LDAF, X, LDX, INFO );
 
       // Use iterative refinement to improve the computed solution and
       // compute error bounds and backward error estimates for it.
 
-      CALL ZPORFS( UPLO, N, NRHS, A, LDA, AF, LDAF, B, LDB, X, LDX, FERR, BERR, WORK, RWORK, INFO )
+      zporfs(UPLO, N, NRHS, A, LDA, AF, LDAF, B, LDB, X, LDX, FERR, BERR, WORK, RWORK, INFO );
 
       // Transform the solution matrix X to a solution of the original
       // system.

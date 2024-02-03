@@ -59,7 +59,7 @@
          INFO = -6
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'DGBTRF', -INFO )
+         xerbla('DGBTRF', -INFO );
          RETURN
       }
 
@@ -80,7 +80,7 @@
 
          // Use unblocked code
 
-         CALL DGBTF2( M, N, KL, KU, AB, LDAB, IPIV, INFO )
+         dgbtf2(M, N, KL, KU, AB, LDAB, IPIV, INFO );
       } else {
 
          // Use blocked code
@@ -162,19 +162,19 @@
 
                      if ( JP+JJ-1.LT.J+KL ) {
 
-                        CALL DSWAP( JB, AB( KV+1+JJ-J, J ), LDAB-1, AB( KV+JP+JJ-J, J ), LDAB-1 )
+                        dswap(JB, AB( KV+1+JJ-J, J ), LDAB-1, AB( KV+JP+JJ-J, J ), LDAB-1 );
                      } else {
 
                         // The interchange affects columns J to JJ-1 of A31
                         // which are stored in the work array WORK31
 
-                        CALL DSWAP( JJ-J, AB( KV+1+JJ-J, J ), LDAB-1, WORK31( JP+JJ-J-KL, 1 ), LDWORK )                         CALL DSWAP( J+JB-JJ, AB( KV+1, JJ ), LDAB-1, AB( KV+JP, JJ ), LDAB-1 )
+                        dswap(JJ-J, AB( KV+1+JJ-J, J ), LDAB-1, WORK31( JP+JJ-J-KL, 1 ), LDWORK )                         CALL DSWAP( J+JB-JJ, AB( KV+1, JJ ), LDAB-1, AB( KV+JP, JJ ), LDAB-1 );
                      }
                   }
 
                   // Compute multipliers
 
-                  CALL DSCAL( KM, ONE / AB( KV+1, JJ ), AB( KV+2, JJ ), 1 )
+                  dscal(KM, ONE / AB( KV+1, JJ ), AB( KV+2, JJ ), 1 );
 
                   // Update trailing submatrix within the band and within
                   // the current block. JM is the index of the last column
@@ -205,7 +205,7 @@
                // Use DLASWP to apply the row interchanges to A12, A22, and
                // A32.
 
-               CALL DLASWP( J2, AB( KV+1-JB, J+JB ), LDAB-1, 1, JB, IPIV( J ), 1 )
+               dlaswp(J2, AB( KV+1-JB, J+JB ), LDAB-1, 1, JB, IPIV( J ), 1 );
 
                // Adjust the pivot indices.
 
@@ -235,20 +235,20 @@
 
                   // Update A12
 
-                  CALL DTRSM( 'Left', 'Lower', 'No transpose', 'Unit', JB, J2, ONE, AB( KV+1, J ), LDAB-1, AB( KV+1-JB, J+JB ), LDAB-1 )
+                  dtrsm('Left', 'Lower', 'No transpose', 'Unit', JB, J2, ONE, AB( KV+1, J ), LDAB-1, AB( KV+1-JB, J+JB ), LDAB-1 );
 
                   if ( I2.GT.0 ) {
 
                      // Update A22
 
-                     CALL DGEMM( 'No transpose', 'No transpose', I2, J2, JB, -ONE, AB( KV+1+JB, J ), LDAB-1, AB( KV+1-JB, J+JB ), LDAB-1, ONE, AB( KV+1, J+JB ), LDAB-1 )
+                     dgemm('No transpose', 'No transpose', I2, J2, JB, -ONE, AB( KV+1+JB, J ), LDAB-1, AB( KV+1-JB, J+JB ), LDAB-1, ONE, AB( KV+1, J+JB ), LDAB-1 );
                   }
 
                   if ( I3.GT.0 ) {
 
                      // Update A32
 
-                     CALL DGEMM( 'No transpose', 'No transpose', I3, J2, JB, -ONE, WORK31, LDWORK, AB( KV+1-JB, J+JB ), LDAB-1, ONE, AB( KV+KL+1-JB, J+JB ), LDAB-1 )
+                     dgemm('No transpose', 'No transpose', I3, J2, JB, -ONE, WORK31, LDWORK, AB( KV+1-JB, J+JB ), LDAB-1, ONE, AB( KV+KL+1-JB, J+JB ), LDAB-1 );
                   }
                }
 
@@ -265,20 +265,20 @@
 
                   // Update A13 in the work array
 
-                  CALL DTRSM( 'Left', 'Lower', 'No transpose', 'Unit', JB, J3, ONE, AB( KV+1, J ), LDAB-1, WORK13, LDWORK )
+                  dtrsm('Left', 'Lower', 'No transpose', 'Unit', JB, J3, ONE, AB( KV+1, J ), LDAB-1, WORK13, LDWORK );
 
                   if ( I2.GT.0 ) {
 
                      // Update A23
 
-                     CALL DGEMM( 'No transpose', 'No transpose', I2, J3, JB, -ONE, AB( KV+1+JB, J ), LDAB-1, WORK13, LDWORK, ONE, AB( 1+JB, J+KV ), LDAB-1 )
+                     dgemm('No transpose', 'No transpose', I2, J3, JB, -ONE, AB( KV+1+JB, J ), LDAB-1, WORK13, LDWORK, ONE, AB( 1+JB, J+KV ), LDAB-1 );
                   }
 
                   if ( I3.GT.0 ) {
 
                      // Update A33
 
-                     CALL DGEMM( 'No transpose', 'No transpose', I3, J3, JB, -ONE, WORK31, LDWORK, WORK13, LDWORK, ONE, AB( 1+KL, J+KV ), LDAB-1 )
+                     dgemm('No transpose', 'No transpose', I3, J3, JB, -ONE, WORK31, LDWORK, WORK13, LDWORK, ONE, AB( 1+KL, J+KV ), LDAB-1 );
                   }
 
                   // Copy the lower triangle of A13 back into place
@@ -312,12 +312,12 @@
 
                      // The interchange does not affect A31
 
-                     CALL DSWAP( JJ-J, AB( KV+1+JJ-J, J ), LDAB-1, AB( KV+JP+JJ-J, J ), LDAB-1 )
+                     dswap(JJ-J, AB( KV+1+JJ-J, J ), LDAB-1, AB( KV+JP+JJ-J, J ), LDAB-1 );
                   } else {
 
                      // The interchange does affect A31
 
-                     CALL DSWAP( JJ-J, AB( KV+1+JJ-J, J ), LDAB-1, WORK31( JP+JJ-J-KL, 1 ), LDWORK )
+                     dswap(JJ-J, AB( KV+1+JJ-J, J ), LDAB-1, WORK31( JP+JJ-J-KL, 1 ), LDWORK );
                   }
                }
 

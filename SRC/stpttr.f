@@ -41,7 +41,7 @@
          INFO = -5
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'STPTTR', -INFO )
+         xerbla('STPTTR', -INFO );
          RETURN
       }
 

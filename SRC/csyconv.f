@@ -46,7 +46,7 @@
 
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'CSYCONV', -INFO )
+         xerbla('CSYCONV', -INFO );
          RETURN
       }
 

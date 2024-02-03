@@ -51,7 +51,7 @@
          INFO = -4
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'CHETRI_ROOK', -INFO )
+         xerbla('CHETRI_ROOK', -INFO );
          RETURN
       }
 
@@ -103,8 +103,8 @@
             // Compute column K of the inverse.
 
             if ( K.GT.1 ) {
-               CALL CCOPY( K-1, A( 1, K ), 1, WORK, 1 )
-               CALL CHEMV( UPLO, K-1, -CONE, A, LDA, WORK, 1, CZERO, A( 1, K ), 1 )                A( K, K ) = A( K, K ) - REAL( CDOTC( K-1, WORK, 1, A( 1, K ), 1 ) )
+               ccopy(K-1, A( 1, K ), 1, WORK, 1 );
+               chemv(UPLO, K-1, -CONE, A, LDA, WORK, 1, CZERO, A( 1, K ), 1 )                A( K, K ) = A( K, K ) - REAL( CDOTC( K-1, WORK, 1, A( 1, K ), 1 ) );
             }
             KSTEP = 1
          } else {
@@ -125,10 +125,10 @@
             // Compute columns K and K+1 of the inverse.
 
             if ( K.GT.1 ) {
-               CALL CCOPY( K-1, A( 1, K ), 1, WORK, 1 )
-               CALL CHEMV( UPLO, K-1, -CONE, A, LDA, WORK, 1, CZERO, A( 1, K ), 1 )                A( K, K ) = A( K, K ) - REAL( CDOTC( K-1, WORK, 1, A( 1, K ), 1 ) )                A( K, K+1 ) = A( K, K+1 ) - CDOTC( K-1, A( 1, K ), 1, A( 1, K+1 ), 1 )
-               CALL CCOPY( K-1, A( 1, K+1 ), 1, WORK, 1 )
-               CALL CHEMV( UPLO, K-1, -CONE, A, LDA, WORK, 1, CZERO, A( 1, K+1 ), 1 )                A( K+1, K+1 ) = A( K+1, K+1 ) - REAL( CDOTC( K-1, WORK, 1, A( 1, K+1 ), 1 ) )
+               ccopy(K-1, A( 1, K ), 1, WORK, 1 );
+               chemv(UPLO, K-1, -CONE, A, LDA, WORK, 1, CZERO, A( 1, K ), 1 )                A( K, K ) = A( K, K ) - REAL( CDOTC( K-1, WORK, 1, A( 1, K ), 1 ) )                A( K, K+1 ) = A( K, K+1 ) - CDOTC( K-1, A( 1, K ), 1, A( 1, K+1 ), 1 );
+               ccopy(K-1, A( 1, K+1 ), 1, WORK, 1 );
+               chemv(UPLO, K-1, -CONE, A, LDA, WORK, 1, CZERO, A( 1, K+1 ), 1 )                A( K+1, K+1 ) = A( K+1, K+1 ) - REAL( CDOTC( K-1, WORK, 1, A( 1, K+1 ), 1 ) );
             }
             KSTEP = 2
          }
@@ -235,8 +235,8 @@
             // Compute column K of the inverse.
 
             if ( K.LT.N ) {
-               CALL CCOPY( N-K, A( K+1, K ), 1, WORK, 1 )
-               CALL CHEMV( UPLO, N-K, -CONE, A( K+1, K+1 ), LDA, WORK, 1, CZERO, A( K+1, K ), 1 )                A( K, K ) = A( K, K ) - REAL( CDOTC( N-K, WORK, 1, A( K+1, K ), 1 ) )
+               ccopy(N-K, A( K+1, K ), 1, WORK, 1 );
+               chemv(UPLO, N-K, -CONE, A( K+1, K+1 ), LDA, WORK, 1, CZERO, A( K+1, K ), 1 )                A( K, K ) = A( K, K ) - REAL( CDOTC( N-K, WORK, 1, A( K+1, K ), 1 ) );
             }
             KSTEP = 1
          } else {
@@ -257,10 +257,10 @@
             // Compute columns K-1 and K of the inverse.
 
             if ( K.LT.N ) {
-               CALL CCOPY( N-K, A( K+1, K ), 1, WORK, 1 )
-               CALL CHEMV( UPLO, N-K, -CONE, A( K+1, K+1 ), LDA, WORK, 1, CZERO, A( K+1, K ), 1 )                A( K, K ) = A( K, K ) - REAL( CDOTC( N-K, WORK, 1, A( K+1, K ), 1 ) )                A( K, K-1 ) = A( K, K-1 ) - CDOTC( N-K, A( K+1, K ), 1, A( K+1, K-1 ), 1 )
-               CALL CCOPY( N-K, A( K+1, K-1 ), 1, WORK, 1 )
-               CALL CHEMV( UPLO, N-K, -CONE, A( K+1, K+1 ), LDA, WORK, 1, CZERO, A( K+1, K-1 ), 1 )                A( K-1, K-1 ) = A( K-1, K-1 ) - REAL( CDOTC( N-K, WORK, 1, A( K+1, K-1 ), 1 ) )
+               ccopy(N-K, A( K+1, K ), 1, WORK, 1 );
+               chemv(UPLO, N-K, -CONE, A( K+1, K+1 ), LDA, WORK, 1, CZERO, A( K+1, K ), 1 )                A( K, K ) = A( K, K ) - REAL( CDOTC( N-K, WORK, 1, A( K+1, K ), 1 ) )                A( K, K-1 ) = A( K, K-1 ) - CDOTC( N-K, A( K+1, K ), 1, A( K+1, K-1 ), 1 );
+               ccopy(N-K, A( K+1, K-1 ), 1, WORK, 1 );
+               chemv(UPLO, N-K, -CONE, A( K+1, K+1 ), LDA, WORK, 1, CZERO, A( K+1, K-1 ), 1 )                A( K-1, K-1 ) = A( K-1, K-1 ) - REAL( CDOTC( N-K, WORK, 1, A( K+1, K-1 ), 1 ) );
             }
             KSTEP = 2
          }

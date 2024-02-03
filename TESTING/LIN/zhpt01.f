@@ -76,15 +76,15 @@
 
       // Initialize C to the identity matrix.
 
-      CALL ZLASET( 'Full', N, N, CZERO, CONE, C, LDC )
+      zlaset('Full', N, N, CZERO, CONE, C, LDC );
 
       // Call ZLAVHP to form the product D * U' (or D * L' ).
 
-      CALL ZLAVHP( UPLO, 'Conjugate', 'Non-unit', N, N, AFAC, IPIV, C, LDC, INFO )
+      zlavhp(UPLO, 'Conjugate', 'Non-unit', N, N, AFAC, IPIV, C, LDC, INFO );
 
       // Call ZLAVHP again to multiply by U ( or L ).
 
-      CALL ZLAVHP( UPLO, 'No transpose', 'Unit', N, N, AFAC, IPIV, C, LDC, INFO )
+      zlavhp(UPLO, 'No transpose', 'Unit', N, N, AFAC, IPIV, C, LDC, INFO );
 
       // Compute the difference  C - A .
 

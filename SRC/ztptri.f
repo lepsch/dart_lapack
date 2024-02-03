@@ -45,7 +45,7 @@
          INFO = -3
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'ZTPTRI', -INFO )
+         xerbla('ZTPTRI', -INFO );
          RETURN
       }
 
@@ -83,8 +83,8 @@
 
             // Compute elements 1:j-1 of j-th column.
 
-            CALL ZTPMV( 'Upper', 'No transpose', DIAG, J-1, AP, AP( JC ), 1 )
-            CALL ZSCAL( J-1, AJJ, AP( JC ), 1 )
+            ztpmv('Upper', 'No transpose', DIAG, J-1, AP, AP( JC ), 1 );
+            zscal(J-1, AJJ, AP( JC ), 1 );
             JC = JC + J
    30    CONTINUE
 
@@ -104,8 +104,8 @@
 
                // Compute elements j+1:n of j-th column.
 
-               CALL ZTPMV( 'Lower', 'No transpose', DIAG, N-J, AP( JCLAST ), AP( JC+1 ), 1 )
-               CALL ZSCAL( N-J, AJJ, AP( JC+1 ), 1 )
+               ztpmv('Lower', 'No transpose', DIAG, N-J, AP( JCLAST ), AP( JC+1 ), 1 );
+               zscal(N-J, AJJ, AP( JC+1 ), 1 );
             }
             JCLAST = JC
             JC = JC - N + J - 2

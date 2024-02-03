@@ -69,7 +69,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'DTPMLQT', -INFO )
+         xerbla('DTPMLQT', -INFO );
          RETURN
       }
 
@@ -87,7 +87,7 @@
             } else {
                LB = 0
             }
-            CALL DTPRFB( 'L', 'T', 'F', 'R', NB, N, IB, LB, V( I, 1 ), LDV, T( 1, I ), LDT, A( I, 1 ), LDA, B, LDB, WORK, IB )
+            dtprfb('L', 'T', 'F', 'R', NB, N, IB, LB, V( I, 1 ), LDV, T( 1, I ), LDT, A( I, 1 ), LDA, B, LDB, WORK, IB );
          END DO
 
       } else if ( RIGHT .AND. TRAN ) {
@@ -100,7 +100,7 @@
             } else {
                LB = NB-N+L-I+1
             }
-            CALL DTPRFB( 'R', 'N', 'F', 'R', M, NB, IB, LB, V( I, 1 ), LDV, T( 1, I ), LDT, A( 1, I ), LDA, B, LDB, WORK, M )
+            dtprfb('R', 'N', 'F', 'R', M, NB, IB, LB, V( I, 1 ), LDV, T( 1, I ), LDT, A( 1, I ), LDA, B, LDB, WORK, M );
          END DO
 
       } else if ( LEFT .AND. TRAN ) {
@@ -114,7 +114,7 @@
             } else {
                LB = 0
             }
-            CALL DTPRFB( 'L', 'N', 'F', 'R', NB, N, IB, LB, V( I, 1 ), LDV, T( 1, I ), LDT, A( I, 1 ), LDA, B, LDB, WORK, IB )
+            dtprfb('L', 'N', 'F', 'R', NB, N, IB, LB, V( I, 1 ), LDV, T( 1, I ), LDT, A( I, 1 ), LDA, B, LDB, WORK, IB );
          END DO
 
       } else if ( RIGHT .AND. NOTRAN ) {
@@ -128,7 +128,7 @@
             } else {
                LB = NB-N+L-I+1
             }
-            CALL DTPRFB( 'R', 'T', 'F', 'R', M, NB, IB, LB, V( I, 1 ), LDV, T( 1, I ), LDT, A( 1, I ), LDA, B, LDB, WORK, M )
+            dtprfb('R', 'T', 'F', 'R', M, NB, IB, LB, V( I, 1 ), LDV, T( 1, I ), LDT, A( 1, I ), LDA, B, LDB, WORK, M );
          END DO
 
       }

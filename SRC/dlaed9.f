@@ -48,7 +48,7 @@
          INFO = -12
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'DLAED9', -INFO )
+         xerbla('DLAED9', -INFO );
          RETURN
       }
 
@@ -57,7 +57,7 @@
       IF( K.EQ.0 ) RETURN
 
       DO 20 J = KSTART, KSTOP
-         CALL DLAED4( K, J, DLAMBDA, W, Q( 1, J ), RHO, D( J ), INFO )
+         dlaed4(K, J, DLAMBDA, W, Q( 1, J ), RHO, D( J ), INFO );
 
          // If the zero finder fails, the computation is terminated.
 
@@ -75,11 +75,11 @@
 
       // Compute updated W.
 
-      CALL DCOPY( K, W, 1, S, 1 )
+      dcopy(K, W, 1, S, 1 );
 
       // Initialize W(I) = Q(I,I)
 
-      CALL DCOPY( K, Q, LDQ+1, W, 1 )
+      dcopy(K, Q, LDQ+1, W, 1 );
       DO 70 J = 1, K
          DO 50 I = 1, J - 1
             W( I ) = W( I )*( Q( I, J )/( DLAMBDA( I )-DLAMBDA( J ) ) )

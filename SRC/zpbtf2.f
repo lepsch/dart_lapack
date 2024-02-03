@@ -49,7 +49,7 @@
          INFO = -5
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'ZPBTF2', -INFO )
+         xerbla('ZPBTF2', -INFO );
          RETURN
       }
 
@@ -80,10 +80,10 @@
 
             KN = MIN( KD, N-J )
             if ( KN.GT.0 ) {
-               CALL ZDSCAL( KN, ONE / AJJ, AB( KD, J+1 ), KLD )
-               CALL ZLACGV( KN, AB( KD, J+1 ), KLD )
-               CALL ZHER( 'Upper', KN, -ONE, AB( KD, J+1 ), KLD, AB( KD+1, J+1 ), KLD )
-               CALL ZLACGV( KN, AB( KD, J+1 ), KLD )
+               zdscal(KN, ONE / AJJ, AB( KD, J+1 ), KLD );
+               zlacgv(KN, AB( KD, J+1 ), KLD );
+               zher('Upper', KN, -ONE, AB( KD, J+1 ), KLD, AB( KD+1, J+1 ), KLD );
+               zlacgv(KN, AB( KD, J+1 ), KLD );
             }
    10    CONTINUE
       } else {
@@ -107,8 +107,8 @@
 
             KN = MIN( KD, N-J )
             if ( KN.GT.0 ) {
-               CALL ZDSCAL( KN, ONE / AJJ, AB( 2, J ), 1 )
-               CALL ZHER( 'Lower', KN, -ONE, AB( 2, J ), 1, AB( 1, J+1 ), KLD )
+               zdscal(KN, ONE / AJJ, AB( 2, J ), 1 );
+               zher('Lower', KN, -ONE, AB( 2, J ), 1, AB( 1, J+1 ), KLD );
             }
    20    CONTINUE
       }

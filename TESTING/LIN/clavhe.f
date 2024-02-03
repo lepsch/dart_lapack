@@ -53,7 +53,7 @@
          INFO = -9
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'CLAVHE ', -INFO )
+         xerbla('CLAVHE ', -INFO );
          RETURN
       }
 
@@ -93,7 +93,7 @@
 
                   // Apply the transformation.
 
-                  CALL CGERU( K-1, NRHS, ONE, A( 1, K ), 1, B( K, 1 ), LDB, B( 1, 1 ), LDB )
+                  cgeru(K-1, NRHS, ONE, A( 1, K ), 1, B( K, 1 ), LDB, B( 1, 1 ), LDB );
 
                   // Interchange if P(K) != I.
 
@@ -126,7 +126,7 @@
 
                   // Apply the transformations.
 
-                  CALL CGERU( K-1, NRHS, ONE, A( 1, K ), 1, B( K, 1 ), LDB, B( 1, 1 ), LDB )                   CALL CGERU( K-1, NRHS, ONE, A( 1, K+1 ), 1, B( K+1, 1 ), LDB, B( 1, 1 ), LDB )
+                  cgeru(K-1, NRHS, ONE, A( 1, K ), 1, B( K, 1 ), LDB, B( 1, 1 ), LDB )                   CALL CGERU( K-1, NRHS, ONE, A( 1, K+1 ), 1, B( K+1, 1 ), LDB, B( 1, 1 ), LDB );
 
                   // Interchange if P(K) != I.
 
@@ -167,7 +167,7 @@
 
                   // Apply the transformation.
 
-                  CALL CGERU( N-K, NRHS, ONE, A( K+1, K ), 1, B( K, 1 ), LDB, B( K+1, 1 ), LDB )
+                  cgeru(N-K, NRHS, ONE, A( K+1, K ), 1, B( K, 1 ), LDB, B( K+1, 1 ), LDB );
 
                   // Interchange if a permutation was applied at the
                   // K-th step of the factorization.
@@ -201,7 +201,7 @@
 
                   // Apply the transformation.
 
-                  CALL CGERU( N-K, NRHS, ONE, A( K+1, K ), 1, B( K, 1 ), LDB, B( K+1, 1 ), LDB )                   CALL CGERU( N-K, NRHS, ONE, A( K+1, K-1 ), 1, B( K-1, 1 ), LDB, B( K+1, 1 ), LDB )
+                  cgeru(N-K, NRHS, ONE, A( K+1, K ), 1, B( K, 1 ), LDB, B( K+1, 1 ), LDB )                   CALL CGERU( N-K, NRHS, ONE, A( K+1, K-1 ), 1, B( K-1, 1 ), LDB, B( K+1, 1 ), LDB );
 
                   // Interchange if a permutation was applied at the
                   // K-th step of the factorization.
@@ -246,9 +246,9 @@
                      // y = y - B' conjg(x),
                   // where x is a column of A and y is a row of B.
 
-                  CALL CLACGV( NRHS, B( K, 1 ), LDB )
-                  CALL CGEMV( 'Conjugate', K-1, NRHS, ONE, B, LDB, A( 1, K ), 1, ONE, B( K, 1 ), LDB )
-                  CALL CLACGV( NRHS, B( K, 1 ), LDB )
+                  clacgv(NRHS, B( K, 1 ), LDB );
+                  cgemv('Conjugate', K-1, NRHS, ONE, B, LDB, A( 1, K ), 1, ONE, B( K, 1 ), LDB );
+                  clacgv(NRHS, B( K, 1 ), LDB );
                }
                IF( NOUNIT ) CALL CSCAL( NRHS, A( K, K ), B( K, 1 ), LDB )
                K = K - 1
@@ -268,13 +268,13 @@
                   // where x is a block column of A and y is a block
                   // row of B.
 
-                  CALL CLACGV( NRHS, B( K, 1 ), LDB )
-                  CALL CGEMV( 'Conjugate', K-2, NRHS, ONE, B, LDB, A( 1, K ), 1, ONE, B( K, 1 ), LDB )
-                  CALL CLACGV( NRHS, B( K, 1 ), LDB )
+                  clacgv(NRHS, B( K, 1 ), LDB );
+                  cgemv('Conjugate', K-2, NRHS, ONE, B, LDB, A( 1, K ), 1, ONE, B( K, 1 ), LDB );
+                  clacgv(NRHS, B( K, 1 ), LDB );
 
-                  CALL CLACGV( NRHS, B( K-1, 1 ), LDB )
-                  CALL CGEMV( 'Conjugate', K-2, NRHS, ONE, B, LDB, A( 1, K-1 ), 1, ONE, B( K-1, 1 ), LDB )
-                  CALL CLACGV( NRHS, B( K-1, 1 ), LDB )
+                  clacgv(NRHS, B( K-1, 1 ), LDB );
+                  cgemv('Conjugate', K-2, NRHS, ONE, B, LDB, A( 1, K-1 ), 1, ONE, B( K-1, 1 ), LDB );
+                  clacgv(NRHS, B( K-1, 1 ), LDB );
                }
 
                // Multiply by the diagonal block if non-unit.
@@ -320,9 +320,9 @@
 
                   // Apply the transformation
 
-                  CALL CLACGV( NRHS, B( K, 1 ), LDB )
-                  CALL CGEMV( 'Conjugate', N-K, NRHS, ONE, B( K+1, 1 ), LDB, A( K+1, K ), 1, ONE, B( K, 1 ), LDB )
-                  CALL CLACGV( NRHS, B( K, 1 ), LDB )
+                  clacgv(NRHS, B( K, 1 ), LDB );
+                  cgemv('Conjugate', N-K, NRHS, ONE, B( K+1, 1 ), LDB, A( K+1, K ), 1, ONE, B( K, 1 ), LDB );
+                  clacgv(NRHS, B( K, 1 ), LDB );
                }
                IF( NOUNIT ) CALL CSCAL( NRHS, A( K, K ), B( K, 1 ), LDB )
                K = K + 1
@@ -339,13 +339,13 @@
 
                   // Apply the transformation
 
-                  CALL CLACGV( NRHS, B( K+1, 1 ), LDB )
-                  CALL CGEMV( 'Conjugate', N-K-1, NRHS, ONE, B( K+2, 1 ), LDB, A( K+2, K+1 ), 1, ONE, B( K+1, 1 ), LDB )
-                  CALL CLACGV( NRHS, B( K+1, 1 ), LDB )
+                  clacgv(NRHS, B( K+1, 1 ), LDB );
+                  cgemv('Conjugate', N-K-1, NRHS, ONE, B( K+2, 1 ), LDB, A( K+2, K+1 ), 1, ONE, B( K+1, 1 ), LDB );
+                  clacgv(NRHS, B( K+1, 1 ), LDB );
 
-                  CALL CLACGV( NRHS, B( K, 1 ), LDB )
-                  CALL CGEMV( 'Conjugate', N-K-1, NRHS, ONE, B( K+2, 1 ), LDB, A( K+2, K ), 1, ONE, B( K, 1 ), LDB )
-                  CALL CLACGV( NRHS, B( K, 1 ), LDB )
+                  clacgv(NRHS, B( K, 1 ), LDB );
+                  cgemv('Conjugate', N-K-1, NRHS, ONE, B( K+2, 1 ), LDB, A( K+2, K ), 1, ONE, B( K, 1 ), LDB );
+                  clacgv(NRHS, B( K, 1 ), LDB );
                }
 
                // Multiply by the diagonal block if non-unit.

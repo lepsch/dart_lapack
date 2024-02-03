@@ -38,7 +38,7 @@
       DRZT02 = ZERO
 
       if ( LWORK.LT.N*N+N ) {
-         CALL XERBLA( 'DRZT02', 7 )
+         xerbla('DRZT02', 7 );
          RETURN
       }
 
@@ -48,15 +48,15 @@
 
       // Q := I
 
-      CALL DLASET( 'Full', N, N, ZERO, ONE, WORK, N )
+      dlaset('Full', N, N, ZERO, ONE, WORK, N );
 
       // Q := P(1) * ... * P(m) * Q
 
-      CALL DORMRZ( 'Left', 'No transpose', N, N, M, N-M, AF, LDA, TAU, WORK, N, WORK( N*N+1 ), LWORK-N*N, INFO )
+      dormrz('Left', 'No transpose', N, N, M, N-M, AF, LDA, TAU, WORK, N, WORK( N*N+1 ), LWORK-N*N, INFO );
 
       // Q := P(m) * ... * P(1) * Q
 
-      CALL DORMRZ( 'Left', 'Transpose', N, N, M, N-M, AF, LDA, TAU, WORK, N, WORK( N*N+1 ), LWORK-N*N, INFO )
+      dormrz('Left', 'Transpose', N, N, M, N-M, AF, LDA, TAU, WORK, N, WORK( N*N+1 ), LWORK-N*N, INFO );
 
       // Q := Q - I
 

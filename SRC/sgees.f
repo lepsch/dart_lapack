@@ -82,7 +82,7 @@
             MAXWRK = 2*N + N*ILAENV( 1, 'SGEHRD', ' ', N, 1, N, 0 )
             MINWRK = 3*N
 
-            CALL SHSEQR( 'S', JOBVS, N, 1, N, A, LDA, WR, WI, VS, LDVS, WORK, -1, IEVAL )
+            shseqr('S', JOBVS, N, 1, N, A, LDA, WR, WI, VS, LDVS, WORK, -1, IEVAL );
             HSWORK = INT( WORK( 1 ) )
 
             if ( .NOT.WANTVS ) {
@@ -100,7 +100,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'SGEES ', -INFO )
+         xerbla('SGEES ', -INFO );
          RETURN
       } else if ( LQUERY ) {
          RETURN
@@ -138,25 +138,25 @@
       // (Workspace: need N)
 
       IBAL = 1
-      CALL SGEBAL( 'P', N, A, LDA, ILO, IHI, WORK( IBAL ), IERR )
+      sgebal('P', N, A, LDA, ILO, IHI, WORK( IBAL ), IERR );
 
       // Reduce to upper Hessenberg form
       // (Workspace: need 3*N, prefer 2*N+N*NB)
 
       ITAU = N + IBAL
       IWRK = N + ITAU
-      CALL SGEHRD( N, ILO, IHI, A, LDA, WORK( ITAU ), WORK( IWRK ), LWORK-IWRK+1, IERR )
+      sgehrd(N, ILO, IHI, A, LDA, WORK( ITAU ), WORK( IWRK ), LWORK-IWRK+1, IERR );
 
       if ( WANTVS ) {
 
          // Copy Householder vectors to VS
 
-         CALL SLACPY( 'L', N, N, A, LDA, VS, LDVS )
+         slacpy('L', N, N, A, LDA, VS, LDVS );
 
          // Generate orthogonal matrix in VS
          // (Workspace: need 3*N-1, prefer 2*N+(N-1)*NB)
 
-         CALL SORGHR( N, ILO, IHI, VS, LDVS, WORK( ITAU ), WORK( IWRK ), LWORK-IWRK+1, IERR )
+         sorghr(N, ILO, IHI, VS, LDVS, WORK( ITAU ), WORK( IWRK ), LWORK-IWRK+1, IERR );
       }
 
       SDIM = 0
@@ -171,8 +171,8 @@
 
       if ( WANTST .AND. INFO.EQ.0 ) {
          if ( SCALEA ) {
-            CALL SLASCL( 'G', 0, 0, CSCALE, ANRM, N, 1, WR, N, IERR )
-            CALL SLASCL( 'G', 0, 0, CSCALE, ANRM, N, 1, WI, N, IERR )
+            slascl('G', 0, 0, CSCALE, ANRM, N, 1, WR, N, IERR );
+            slascl('G', 0, 0, CSCALE, ANRM, N, 1, WI, N, IERR );
          }
          DO 10 I = 1, N
             BWORK( I ) = SELECT( WR( I ), WI( I ) )
@@ -181,7 +181,7 @@
          // Reorder eigenvalues and transform Schur vectors
          // (Workspace: none needed)
 
-         CALL STRSEN( 'N', JOBVS, BWORK, N, A, LDA, VS, LDVS, WR, WI, SDIM, S, SEP, WORK( IWRK ), LWORK-IWRK+1, IDUM, 1, ICOND )
+         strsen('N', JOBVS, BWORK, N, A, LDA, VS, LDVS, WR, WI, SDIM, S, SEP, WORK( IWRK ), LWORK-IWRK+1, IDUM, 1, ICOND );
          IF( ICOND.GT.0 ) INFO = N + ICOND
       }
 
@@ -190,15 +190,15 @@
          // Undo balancing
          // (Workspace: need N)
 
-         CALL SGEBAK( 'P', 'R', N, ILO, IHI, WORK( IBAL ), N, VS, LDVS, IERR )
+         sgebak('P', 'R', N, ILO, IHI, WORK( IBAL ), N, VS, LDVS, IERR );
       }
 
       if ( SCALEA ) {
 
          // Undo scaling for the Schur form of A
 
-         CALL SLASCL( 'H', 0, 0, CSCALE, ANRM, N, N, A, LDA, IERR )
-         CALL SCOPY( N, A, LDA+1, WR, 1 )
+         slascl('H', 0, 0, CSCALE, ANRM, N, N, A, LDA, IERR );
+         scopy(N, A, LDA+1, WR, 1 );
          if ( CSCALE.EQ.SMLNUM ) {
 
             // If scaling back towards underflow, adjust WI if an
@@ -208,7 +208,7 @@
             if ( IEVAL.GT.0 ) {
                I1 = IEVAL + 1
                I2 = IHI - 1
-               CALL SLASCL( 'G', 0, 0, CSCALE, ANRM, ILO-1, 1, WI, MAX( ILO-1, 1 ), IERR )
+               slascl('G', 0, 0, CSCALE, ANRM, ILO-1, 1, WI, MAX( ILO-1, 1 ), IERR );
             } else if ( WANTST ) {
                I1 = 1
                I2 = N - 1
@@ -230,7 +230,7 @@
                      WI( I+1 ) = ZERO
                      IF( I.GT.1 ) CALL SSWAP( I-1, A( 1, I ), 1, A( 1, I+1 ), 1 )                      IF( N.GT.I+1 ) CALL SSWAP( N-I-1, A( I, I+2 ), LDA, A( I+1, I+2 ), LDA )
                      if ( WANTVS ) {
-                        CALL SSWAP( N, VS( 1, I ), 1, VS( 1, I+1 ), 1 )
+                        sswap(N, VS( 1, I ), 1, VS( 1, I+1 ), 1 );
                      }
                      A( I, I+1 ) = A( I+1, I )
                      A( I+1, I ) = ZERO
@@ -242,7 +242,7 @@
 
          // Undo scaling for the imaginary part of the eigenvalues
 
-         CALL SLASCL( 'G', 0, 0, CSCALE, ANRM, N-IEVAL, 1, WI( IEVAL+1 ), MAX( N-IEVAL, 1 ), IERR )
+         slascl('G', 0, 0, CSCALE, ANRM, N-IEVAL, 1, WI( IEVAL+1 ), MAX( N-IEVAL, 1 ), IERR );
       }
 
       if ( WANTST .AND. INFO.EQ.0 ) {

@@ -171,19 +171,19 @@
                         // Set up parameters with CLATB4 and generate a
                         // test matrix with CLATMS.
 
-                        CALL CLATB4( PATH, IMAT, M, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST )
+                        clatb4(PATH, IMAT, M, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST );
 
                         KOFF = MAX( 1, KU+2-N )
                         DO 20 I = 1, KOFF - 1
                            A( I ) = ZERO
    20                   CONTINUE
                         SRNAMT = 'CLATMS'
-                        CALL CLATMS( M, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KL, KU, 'Z', A( KOFF ), LDA, WORK, INFO )
+                        clatms(M, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KL, KU, 'Z', A( KOFF ), LDA, WORK, INFO );
 
                         // Check the error code from CLATMS.
 
                         if ( INFO.NE.0 ) {
-                           CALL ALAERH( PATH, 'CLATMS', INFO, 0, ' ', M, N, KL, KU, -1, IMAT, NFAIL, NERRS, NOUT )
+                           alaerh(PATH, 'CLATMS', INFO, 0, ' ', M, N, KL, KU, -1, IMAT, NFAIL, NERRS, NOUT );
                            GO TO 120
                         }
                      } else if ( IZERO.GT.0 ) {
@@ -191,7 +191,7 @@
                         // Use the same matrix for types 3 and 4 as for
                         // type 2 by copying back the zeroed out column.
 
-                        CALL CCOPY( I2-I1+1, B, 1, A( IOFF+I1 ), 1 )
+                        ccopy(I2-I1+1, B, 1, A( IOFF+I1 ), 1 );
                      }
 
                      // For types 2, 3, and 4, zero one or more columns of
@@ -213,7 +213,7 @@
 
                            I1 = MAX( 1, KU+2-IZERO )
                            I2 = MIN( KL+KU+1, KU+1+( M-IZERO ) )
-                           CALL CCOPY( I2-I1+1, A( IOFF+I1 ), 1, B, 1 )
+                           ccopy(I2-I1+1, A( IOFF+I1 ), 1, B, 1 );
 
                            DO 30 I = I1, I2
                               A( IOFF+I ) = ZERO
@@ -239,13 +239,13 @@
 
                      DO 110 INB = 1, NNB
                         NB = NBVAL( INB )
-                        CALL XLAENV( 1, NB )
+                        xlaenv(1, NB );
 
                         // Compute the LU factorization of the band matrix.
 
                         IF( M.GT.0 .AND. N.GT.0 ) CALL CLACPY( 'Full', KL+KU+1, N, A, LDA, AFAC( KL+1 ), LDAFAC )
                         SRNAMT = 'CGBTRF'
-                        CALL CGBTRF( M, N, KL, KU, AFAC, LDAFAC, IWORK, INFO )
+                        cgbtrf(M, N, KL, KU, AFAC, LDAFAC, IWORK, INFO );
 
                         // Check error code from CGBTRF.
 
@@ -256,7 +256,7 @@
                         // Reconstruct matrix from factors and compute
                         // residual.
 
-                        CALL CGBT01( M, N, KL, KU, A, LDA, AFAC, LDAFAC, IWORK, WORK, RESULT( 1 ) )
+                        cgbt01(M, N, KL, KU, A, LDA, AFAC, LDAFAC, IWORK, WORK, RESULT( 1 ) );
 
                         // Print information about the tests so far that
                         // did not pass the threshold.
@@ -281,9 +281,9 @@
                            // estimate of CNDNUM = norm(A) * norm(inv(A)).
 
                            LDB = MAX( 1, N )
-                           CALL CLASET( 'Full', N, N, CMPLX( ZERO ), CMPLX( ONE ), WORK, LDB )
+                           claset('Full', N, N, CMPLX( ZERO ), CMPLX( ONE ), WORK, LDB );
                            SRNAMT = 'CGBTRS'
-                           CALL CGBTRS( 'No transpose', N, KL, KU, N, AFAC, LDAFAC, IWORK, WORK, LDB, INFO )
+                           cgbtrs('No transpose', N, KL, KU, N, AFAC, LDAFAC, IWORK, WORK, LDB, INFO );
 
                            // Compute the 1-norm condition number of A.
 
@@ -334,37 +334,37 @@
                               // Solve and compute residual for op(A) * X = B.
 
                               SRNAMT = 'CLARHS'
-                              CALL CLARHS( PATH, XTYPE, ' ', TRANS, N, N, KL, KU, NRHS, A, LDA, XACT, LDB, B, LDB, ISEED, INFO )
+                              clarhs(PATH, XTYPE, ' ', TRANS, N, N, KL, KU, NRHS, A, LDA, XACT, LDB, B, LDB, ISEED, INFO );
                               XTYPE = 'C'
-                              CALL CLACPY( 'Full', N, NRHS, B, LDB, X, LDB )
+                              clacpy('Full', N, NRHS, B, LDB, X, LDB );
 
                               SRNAMT = 'CGBTRS'
-                              CALL CGBTRS( TRANS, N, KL, KU, NRHS, AFAC, LDAFAC, IWORK, X, LDB, INFO )
+                              cgbtrs(TRANS, N, KL, KU, NRHS, AFAC, LDAFAC, IWORK, X, LDB, INFO );
 
                               // Check error code from CGBTRS.
 
                               IF( INFO.NE.0 ) CALL ALAERH( PATH, 'CGBTRS', INFO, 0, TRANS, N, N, KL, KU, -1, IMAT, NFAIL, NERRS, NOUT )
 
-                              CALL CLACPY( 'Full', N, NRHS, B, LDB, WORK, LDB )                               CALL CGBT02( TRANS, M, N, KL, KU, NRHS, A, LDA, X, LDB, WORK, LDB, RWORK, RESULT( 2 ) )
+                              clacpy('Full', N, NRHS, B, LDB, WORK, LDB )                               CALL CGBT02( TRANS, M, N, KL, KU, NRHS, A, LDA, X, LDB, WORK, LDB, RWORK, RESULT( 2 ) );
 
 *+    TEST 3:
                               // Check solution from generated exact
                               // solution.
 
-                              CALL CGET04( N, NRHS, X, LDB, XACT, LDB, RCONDC, RESULT( 3 ) )
+                              cget04(N, NRHS, X, LDB, XACT, LDB, RCONDC, RESULT( 3 ) );
 
 *+    TESTS 4, 5, 6:
                               // Use iterative refinement to improve the
                               // solution.
 
                               SRNAMT = 'CGBRFS'
-                              CALL CGBRFS( TRANS, N, KL, KU, NRHS, A, LDA, AFAC, LDAFAC, IWORK, B, LDB, X, LDB, RWORK, RWORK( NRHS+1 ), WORK, RWORK( 2*NRHS+1 ), INFO )
+                              cgbrfs(TRANS, N, KL, KU, NRHS, A, LDA, AFAC, LDAFAC, IWORK, B, LDB, X, LDB, RWORK, RWORK( NRHS+1 ), WORK, RWORK( 2*NRHS+1 ), INFO );
 
                               // Check error code from CGBRFS.
 
                               IF( INFO.NE.0 ) CALL ALAERH( PATH, 'CGBRFS', INFO, 0, TRANS, N, N, KL, KU, NRHS, IMAT, NFAIL, NERRS, NOUT )
 
-                              CALL CGET04( N, NRHS, X, LDB, XACT, LDB, RCONDC, RESULT( 4 ) )                               CALL CGBT05( TRANS, N, KL, KU, NRHS, A, LDA, B, LDB, X, LDB, XACT, LDB, RWORK, RWORK( NRHS+1 ), RESULT( 5 ) )
+                              cget04(N, NRHS, X, LDB, XACT, LDB, RCONDC, RESULT( 4 ) )                               CALL CGBT05( TRANS, N, KL, KU, NRHS, A, LDA, B, LDB, X, LDB, XACT, LDB, RWORK, RWORK( NRHS+1 ), RESULT( 5 ) );
 
                               // Print information about the tests that did
                               // not pass the threshold.
@@ -394,7 +394,7 @@
                               NORM = 'I'
                            }
                            SRNAMT = 'CGBCON'
-                           CALL CGBCON( NORM, N, KL, KU, AFAC, LDAFAC, IWORK, ANORM, RCOND, WORK, RWORK, INFO )
+                           cgbcon(NORM, N, KL, KU, AFAC, LDAFAC, IWORK, ANORM, RCOND, WORK, RWORK, INFO );
 
                               // Check error code from CGBCON.
 
@@ -420,7 +420,7 @@
 
       // Print a summary of the results.
 
-      CALL ALASUM( PATH, NOUT, NFAIL, NRUN, NERRS )
+      alasum(PATH, NOUT, NFAIL, NRUN, NERRS );
 
  9999 FORMAT( ' *** In CCHKGB, LA=', I5, ' is too small for M=', I5, ', N=', I5, ', KL=', I4, ', KU=', I4, / ' ==> Increase LA to at least ', I5 )
  9998 FORMAT( ' *** In CCHKGB, LAFAC=', I5, ' is too small for M=', I5, ', N=', I5, ', KL=', I4, ', KU=', I4, / ' ==> Increase LAFAC to at least ', I5 )

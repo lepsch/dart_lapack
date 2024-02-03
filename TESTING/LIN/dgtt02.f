@@ -60,7 +60,7 @@
 
       // Compute B - op(A)*X and store in B.
 
-      CALL DLAGTM( TRANS, N, NRHS, -ONE, DL, D, DU, X, LDX, ONE, B, LDB )
+      dlagtm(TRANS, N, NRHS, -ONE, DL, D, DU, X, LDX, ONE, B, LDB );
 
       DO 10 J = 1, NRHS
          BNORM = DASUM( N, B( 1, J ), 1 )

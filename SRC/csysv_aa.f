@@ -52,16 +52,16 @@
       }
 
       if ( INFO.EQ.0 ) {
-         CALL CSYTRF_AA( UPLO, N, A, LDA, IPIV, WORK, -1, INFO )
+         csytrf_aa(UPLO, N, A, LDA, IPIV, WORK, -1, INFO );
          LWKOPT_SYTRF = INT( WORK(1) )
-         CALL CSYTRS_AA( UPLO, N, NRHS, A, LDA, IPIV, B, LDB, WORK, -1, INFO )
+         csytrs_aa(UPLO, N, NRHS, A, LDA, IPIV, B, LDB, WORK, -1, INFO );
          LWKOPT_SYTRS = INT( WORK(1) )
          LWKOPT = MAX( LWKOPT_SYTRF, LWKOPT_SYTRS )
          WORK( 1 ) = SROUNDUP_LWORK(LWKOPT)
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'CSYSV_AA ', -INFO )
+         xerbla('CSYSV_AA ', -INFO );
          RETURN
       } else if ( LQUERY ) {
          RETURN
@@ -69,12 +69,12 @@
 
       // Compute the factorization A = U**T*T*U or A = L*T*L**T.
 
-      CALL CSYTRF_AA( UPLO, N, A, LDA, IPIV, WORK, LWORK, INFO )
+      csytrf_aa(UPLO, N, A, LDA, IPIV, WORK, LWORK, INFO );
       if ( INFO.EQ.0 ) {
 
          // Solve the system A*X = B, overwriting B with X.
 
-         CALL CSYTRS_AA( UPLO, N, NRHS, A, LDA, IPIV, B, LDB, WORK, LWORK, INFO )
+         csytrs_aa(UPLO, N, NRHS, A, LDA, IPIV, B, LDB, WORK, LWORK, INFO );
 
       }
 

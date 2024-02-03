@@ -90,7 +90,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'CTRSEN', -INFO )
+         xerbla('CTRSEN', -INFO );
          RETURN
       } else if ( LQUERY ) {
          RETURN
@@ -122,8 +122,8 @@
 
             // T11*R - R*T22 = scale*T12
 
-         CALL CLACPY( 'F', N1, N2, T( 1, N1+1 ), LDT, WORK, N1 )
-         CALL CTRSYL( 'N', 'N', -1, N1, N2, T, LDT, T( N1+1, N1+1 ), LDT, WORK, N1, SCALE, IERR )
+         clacpy('F', N1, N2, T( 1, N1+1 ), LDT, WORK, N1 );
+         ctrsyl('N', 'N', -1, N1, N2, T, LDT, T( N1+1, N1+1 ), LDT, WORK, N1, SCALE, IERR );
 
          // Estimate the reciprocal of the condition number of the cluster
          // of eigenvalues.
@@ -143,18 +143,18 @@
          EST = ZERO
          KASE = 0
    30    CONTINUE
-         CALL CLACN2( NN, WORK( NN+1 ), WORK, EST, KASE, ISAVE )
+         clacn2(NN, WORK( NN+1 ), WORK, EST, KASE, ISAVE );
          if ( KASE.NE.0 ) {
             if ( KASE.EQ.1 ) {
 
                // Solve T11*R - R*T22 = scale*X.
 
-               CALL CTRSYL( 'N', 'N', -1, N1, N2, T, LDT, T( N1+1, N1+1 ), LDT, WORK, N1, SCALE, IERR )
+               ctrsyl('N', 'N', -1, N1, N2, T, LDT, T( N1+1, N1+1 ), LDT, WORK, N1, SCALE, IERR );
             } else {
 
                // Solve T11**H*R - R*T22**H = scale*X.
 
-               CALL CTRSYL( 'C', 'C', -1, N1, N2, T, LDT, T( N1+1, N1+1 ), LDT, WORK, N1, SCALE, IERR )
+               ctrsyl('C', 'C', -1, N1, N2, T, LDT, T( N1+1, N1+1 ), LDT, WORK, N1, SCALE, IERR );
             }
             GO TO 30
          }

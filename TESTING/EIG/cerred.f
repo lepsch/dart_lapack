@@ -77,26 +77,26 @@
 
          SRNAMT = 'CGEEV '
          INFOT = 1
-         CALL CGEEV( 'X', 'N', 0, A, 1, X, VL, 1, VR, 1, W, 1, RW, INFO )
-         CALL CHKXER( 'CGEEV ', INFOT, NOUT, LERR, OK )
+         cgeev('X', 'N', 0, A, 1, X, VL, 1, VR, 1, W, 1, RW, INFO );
+         chkxer('CGEEV ', INFOT, NOUT, LERR, OK );
          INFOT = 2
-         CALL CGEEV( 'N', 'X', 0, A, 1, X, VL, 1, VR, 1, W, 1, RW, INFO )
-         CALL CHKXER( 'CGEEV ', INFOT, NOUT, LERR, OK )
+         cgeev('N', 'X', 0, A, 1, X, VL, 1, VR, 1, W, 1, RW, INFO );
+         chkxer('CGEEV ', INFOT, NOUT, LERR, OK );
          INFOT = 3
-         CALL CGEEV( 'N', 'N', -1, A, 1, X, VL, 1, VR, 1, W, 1, RW, INFO )
-         CALL CHKXER( 'CGEEV ', INFOT, NOUT, LERR, OK )
+         cgeev('N', 'N', -1, A, 1, X, VL, 1, VR, 1, W, 1, RW, INFO );
+         chkxer('CGEEV ', INFOT, NOUT, LERR, OK );
          INFOT = 5
-         CALL CGEEV( 'N', 'N', 2, A, 1, X, VL, 1, VR, 1, W, 4, RW, INFO )
-         CALL CHKXER( 'CGEEV ', INFOT, NOUT, LERR, OK )
+         cgeev('N', 'N', 2, A, 1, X, VL, 1, VR, 1, W, 4, RW, INFO );
+         chkxer('CGEEV ', INFOT, NOUT, LERR, OK );
          INFOT = 8
-         CALL CGEEV( 'V', 'N', 2, A, 2, X, VL, 1, VR, 1, W, 4, RW, INFO )
-         CALL CHKXER( 'CGEEV ', INFOT, NOUT, LERR, OK )
+         cgeev('V', 'N', 2, A, 2, X, VL, 1, VR, 1, W, 4, RW, INFO );
+         chkxer('CGEEV ', INFOT, NOUT, LERR, OK );
          INFOT = 10
-         CALL CGEEV( 'N', 'V', 2, A, 2, X, VL, 1, VR, 1, W, 4, RW, INFO )
-         CALL CHKXER( 'CGEEV ', INFOT, NOUT, LERR, OK )
+         cgeev('N', 'V', 2, A, 2, X, VL, 1, VR, 1, W, 4, RW, INFO );
+         chkxer('CGEEV ', INFOT, NOUT, LERR, OK );
          INFOT = 12
-         CALL CGEEV( 'V', 'V', 1, A, 1, X, VL, 1, VR, 1, W, 1, RW, INFO )
-         CALL CHKXER( 'CGEEV ', INFOT, NOUT, LERR, OK )
+         cgeev('V', 'V', 1, A, 1, X, VL, 1, VR, 1, W, 1, RW, INFO );
+         chkxer('CGEEV ', INFOT, NOUT, LERR, OK );
          NT = NT + 7
 
       } else if ( LSAMEN( 2, C2, 'ES' ) ) {
@@ -105,23 +105,23 @@
 
          SRNAMT = 'CGEES '
          INFOT = 1
-         CALL CGEES( 'X', 'N', CSLECT, 0, A, 1, SDIM, X, VL, 1, W, 1, RW, B, INFO )
-         CALL CHKXER( 'CGEES ', INFOT, NOUT, LERR, OK )
+         cgees('X', 'N', CSLECT, 0, A, 1, SDIM, X, VL, 1, W, 1, RW, B, INFO );
+         chkxer('CGEES ', INFOT, NOUT, LERR, OK );
          INFOT = 2
-         CALL CGEES( 'N', 'X', CSLECT, 0, A, 1, SDIM, X, VL, 1, W, 1, RW, B, INFO )
-         CALL CHKXER( 'CGEES ', INFOT, NOUT, LERR, OK )
+         cgees('N', 'X', CSLECT, 0, A, 1, SDIM, X, VL, 1, W, 1, RW, B, INFO );
+         chkxer('CGEES ', INFOT, NOUT, LERR, OK );
          INFOT = 4
-         CALL CGEES( 'N', 'S', CSLECT, -1, A, 1, SDIM, X, VL, 1, W, 1, RW, B, INFO )
-         CALL CHKXER( 'CGEES ', INFOT, NOUT, LERR, OK )
+         cgees('N', 'S', CSLECT, -1, A, 1, SDIM, X, VL, 1, W, 1, RW, B, INFO );
+         chkxer('CGEES ', INFOT, NOUT, LERR, OK );
          INFOT = 6
-         CALL CGEES( 'N', 'S', CSLECT, 2, A, 1, SDIM, X, VL, 1, W, 4, RW, B, INFO )
-         CALL CHKXER( 'CGEES ', INFOT, NOUT, LERR, OK )
+         cgees('N', 'S', CSLECT, 2, A, 1, SDIM, X, VL, 1, W, 4, RW, B, INFO );
+         chkxer('CGEES ', INFOT, NOUT, LERR, OK );
          INFOT = 10
-         CALL CGEES( 'V', 'S', CSLECT, 2, A, 2, SDIM, X, VL, 1, W, 4, RW, B, INFO )
-         CALL CHKXER( 'CGEES ', INFOT, NOUT, LERR, OK )
+         cgees('V', 'S', CSLECT, 2, A, 2, SDIM, X, VL, 1, W, 4, RW, B, INFO );
+         chkxer('CGEES ', INFOT, NOUT, LERR, OK );
          INFOT = 12
-         CALL CGEES( 'N', 'S', CSLECT, 1, A, 1, SDIM, X, VL, 1, W, 1, RW, B, INFO )
-         CALL CHKXER( 'CGEES ', INFOT, NOUT, LERR, OK )
+         cgees('N', 'S', CSLECT, 1, A, 1, SDIM, X, VL, 1, W, 1, RW, B, INFO );
+         chkxer('CGEES ', INFOT, NOUT, LERR, OK );
          NT = NT + 6
 
       } else if ( LSAMEN( 2, C2, 'VX' ) ) {
@@ -130,35 +130,35 @@
 
          SRNAMT = 'CGEEVX'
          INFOT = 1
-         CALL CGEEVX( 'X', 'N', 'N', 'N', 0, A, 1, X, VL, 1, VR, 1, ILO, IHI, S, ABNRM, R1, R2, W, 1, RW, INFO )
-         CALL CHKXER( 'CGEEVX', INFOT, NOUT, LERR, OK )
+         cgeevx('X', 'N', 'N', 'N', 0, A, 1, X, VL, 1, VR, 1, ILO, IHI, S, ABNRM, R1, R2, W, 1, RW, INFO );
+         chkxer('CGEEVX', INFOT, NOUT, LERR, OK );
          INFOT = 2
-         CALL CGEEVX( 'N', 'X', 'N', 'N', 0, A, 1, X, VL, 1, VR, 1, ILO, IHI, S, ABNRM, R1, R2, W, 1, RW, INFO )
-         CALL CHKXER( 'CGEEVX', INFOT, NOUT, LERR, OK )
+         cgeevx('N', 'X', 'N', 'N', 0, A, 1, X, VL, 1, VR, 1, ILO, IHI, S, ABNRM, R1, R2, W, 1, RW, INFO );
+         chkxer('CGEEVX', INFOT, NOUT, LERR, OK );
          INFOT = 3
-         CALL CGEEVX( 'N', 'N', 'X', 'N', 0, A, 1, X, VL, 1, VR, 1, ILO, IHI, S, ABNRM, R1, R2, W, 1, RW, INFO )
-         CALL CHKXER( 'CGEEVX', INFOT, NOUT, LERR, OK )
+         cgeevx('N', 'N', 'X', 'N', 0, A, 1, X, VL, 1, VR, 1, ILO, IHI, S, ABNRM, R1, R2, W, 1, RW, INFO );
+         chkxer('CGEEVX', INFOT, NOUT, LERR, OK );
          INFOT = 4
-         CALL CGEEVX( 'N', 'N', 'N', 'X', 0, A, 1, X, VL, 1, VR, 1, ILO, IHI, S, ABNRM, R1, R2, W, 1, RW, INFO )
-         CALL CHKXER( 'CGEEVX', INFOT, NOUT, LERR, OK )
+         cgeevx('N', 'N', 'N', 'X', 0, A, 1, X, VL, 1, VR, 1, ILO, IHI, S, ABNRM, R1, R2, W, 1, RW, INFO );
+         chkxer('CGEEVX', INFOT, NOUT, LERR, OK );
          INFOT = 5
-         CALL CGEEVX( 'N', 'N', 'N', 'N', -1, A, 1, X, VL, 1, VR, 1, ILO, IHI, S, ABNRM, R1, R2, W, 1, RW, INFO )
-         CALL CHKXER( 'CGEEVX', INFOT, NOUT, LERR, OK )
+         cgeevx('N', 'N', 'N', 'N', -1, A, 1, X, VL, 1, VR, 1, ILO, IHI, S, ABNRM, R1, R2, W, 1, RW, INFO );
+         chkxer('CGEEVX', INFOT, NOUT, LERR, OK );
          INFOT = 7
-         CALL CGEEVX( 'N', 'N', 'N', 'N', 2, A, 1, X, VL, 1, VR, 1, ILO, IHI, S, ABNRM, R1, R2, W, 4, RW, INFO )
-         CALL CHKXER( 'CGEEVX', INFOT, NOUT, LERR, OK )
+         cgeevx('N', 'N', 'N', 'N', 2, A, 1, X, VL, 1, VR, 1, ILO, IHI, S, ABNRM, R1, R2, W, 4, RW, INFO );
+         chkxer('CGEEVX', INFOT, NOUT, LERR, OK );
          INFOT = 10
-         CALL CGEEVX( 'N', 'V', 'N', 'N', 2, A, 2, X, VL, 1, VR, 1, ILO, IHI, S, ABNRM, R1, R2, W, 4, RW, INFO )
-         CALL CHKXER( 'CGEEVX', INFOT, NOUT, LERR, OK )
+         cgeevx('N', 'V', 'N', 'N', 2, A, 2, X, VL, 1, VR, 1, ILO, IHI, S, ABNRM, R1, R2, W, 4, RW, INFO );
+         chkxer('CGEEVX', INFOT, NOUT, LERR, OK );
          INFOT = 12
-         CALL CGEEVX( 'N', 'N', 'V', 'N', 2, A, 2, X, VL, 1, VR, 1, ILO, IHI, S, ABNRM, R1, R2, W, 4, RW, INFO )
-         CALL CHKXER( 'CGEEVX', INFOT, NOUT, LERR, OK )
+         cgeevx('N', 'N', 'V', 'N', 2, A, 2, X, VL, 1, VR, 1, ILO, IHI, S, ABNRM, R1, R2, W, 4, RW, INFO );
+         chkxer('CGEEVX', INFOT, NOUT, LERR, OK );
          INFOT = 20
-         CALL CGEEVX( 'N', 'N', 'N', 'N', 1, A, 1, X, VL, 1, VR, 1, ILO, IHI, S, ABNRM, R1, R2, W, 1, RW, INFO )
-         CALL CHKXER( 'CGEEVX', INFOT, NOUT, LERR, OK )
+         cgeevx('N', 'N', 'N', 'N', 1, A, 1, X, VL, 1, VR, 1, ILO, IHI, S, ABNRM, R1, R2, W, 1, RW, INFO );
+         chkxer('CGEEVX', INFOT, NOUT, LERR, OK );
          INFOT = 20
-         CALL CGEEVX( 'N', 'N', 'V', 'V', 1, A, 1, X, VL, 1, VR, 1, ILO, IHI, S, ABNRM, R1, R2, W, 2, RW, INFO )
-         CALL CHKXER( 'CGEEVX', INFOT, NOUT, LERR, OK )
+         cgeevx('N', 'N', 'V', 'V', 1, A, 1, X, VL, 1, VR, 1, ILO, IHI, S, ABNRM, R1, R2, W, 2, RW, INFO );
+         chkxer('CGEEVX', INFOT, NOUT, LERR, OK );
          NT = NT + 10
 
       } else if ( LSAMEN( 2, C2, 'SX' ) ) {
@@ -167,26 +167,26 @@
 
          SRNAMT = 'CGEESX'
          INFOT = 1
-         CALL CGEESX( 'X', 'N', CSLECT, 'N', 0, A, 1, SDIM, X, VL, 1, R1( 1 ), R2( 1 ), W, 1, RW, B, INFO )
-         CALL CHKXER( 'CGEESX', INFOT, NOUT, LERR, OK )
+         cgeesx('X', 'N', CSLECT, 'N', 0, A, 1, SDIM, X, VL, 1, R1( 1 ), R2( 1 ), W, 1, RW, B, INFO );
+         chkxer('CGEESX', INFOT, NOUT, LERR, OK );
          INFOT = 2
-         CALL CGEESX( 'N', 'X', CSLECT, 'N', 0, A, 1, SDIM, X, VL, 1, R1( 1 ), R2( 1 ), W, 1, RW, B, INFO )
-         CALL CHKXER( 'CGEESX', INFOT, NOUT, LERR, OK )
+         cgeesx('N', 'X', CSLECT, 'N', 0, A, 1, SDIM, X, VL, 1, R1( 1 ), R2( 1 ), W, 1, RW, B, INFO );
+         chkxer('CGEESX', INFOT, NOUT, LERR, OK );
          INFOT = 4
-         CALL CGEESX( 'N', 'N', CSLECT, 'X', 0, A, 1, SDIM, X, VL, 1, R1( 1 ), R2( 1 ), W, 1, RW, B, INFO )
-         CALL CHKXER( 'CGEESX', INFOT, NOUT, LERR, OK )
+         cgeesx('N', 'N', CSLECT, 'X', 0, A, 1, SDIM, X, VL, 1, R1( 1 ), R2( 1 ), W, 1, RW, B, INFO );
+         chkxer('CGEESX', INFOT, NOUT, LERR, OK );
          INFOT = 5
-         CALL CGEESX( 'N', 'N', CSLECT, 'N', -1, A, 1, SDIM, X, VL, 1, R1( 1 ), R2( 1 ), W, 1, RW, B, INFO )
-         CALL CHKXER( 'CGEESX', INFOT, NOUT, LERR, OK )
+         cgeesx('N', 'N', CSLECT, 'N', -1, A, 1, SDIM, X, VL, 1, R1( 1 ), R2( 1 ), W, 1, RW, B, INFO );
+         chkxer('CGEESX', INFOT, NOUT, LERR, OK );
          INFOT = 7
-         CALL CGEESX( 'N', 'N', CSLECT, 'N', 2, A, 1, SDIM, X, VL, 1, R1( 1 ), R2( 1 ), W, 4, RW, B, INFO )
-         CALL CHKXER( 'CGEESX', INFOT, NOUT, LERR, OK )
+         cgeesx('N', 'N', CSLECT, 'N', 2, A, 1, SDIM, X, VL, 1, R1( 1 ), R2( 1 ), W, 4, RW, B, INFO );
+         chkxer('CGEESX', INFOT, NOUT, LERR, OK );
          INFOT = 11
-         CALL CGEESX( 'V', 'N', CSLECT, 'N', 2, A, 2, SDIM, X, VL, 1, R1( 1 ), R2( 1 ), W, 4, RW, B, INFO )
-         CALL CHKXER( 'CGEESX', INFOT, NOUT, LERR, OK )
+         cgeesx('V', 'N', CSLECT, 'N', 2, A, 2, SDIM, X, VL, 1, R1( 1 ), R2( 1 ), W, 4, RW, B, INFO );
+         chkxer('CGEESX', INFOT, NOUT, LERR, OK );
          INFOT = 15
-         CALL CGEESX( 'N', 'N', CSLECT, 'N', 1, A, 1, SDIM, X, VL, 1, R1( 1 ), R2( 1 ), W, 1, RW, B, INFO )
-         CALL CHKXER( 'CGEESX', INFOT, NOUT, LERR, OK )
+         cgeesx('N', 'N', CSLECT, 'N', 1, A, 1, SDIM, X, VL, 1, R1( 1 ), R2( 1 ), W, 1, RW, B, INFO );
+         chkxer('CGEESX', INFOT, NOUT, LERR, OK );
          NT = NT + 7
 
       } else if ( LSAMEN( 2, C2, 'BD' ) ) {
@@ -195,29 +195,29 @@
 
          SRNAMT = 'CGESVD'
          INFOT = 1
-         CALL CGESVD( 'X', 'N', 0, 0, A, 1, S, U, 1, VT, 1, W, 1, RW, INFO )
-         CALL CHKXER( 'CGESVD', INFOT, NOUT, LERR, OK )
+         cgesvd('X', 'N', 0, 0, A, 1, S, U, 1, VT, 1, W, 1, RW, INFO );
+         chkxer('CGESVD', INFOT, NOUT, LERR, OK );
          INFOT = 2
-         CALL CGESVD( 'N', 'X', 0, 0, A, 1, S, U, 1, VT, 1, W, 1, RW, INFO )
-         CALL CHKXER( 'CGESVD', INFOT, NOUT, LERR, OK )
+         cgesvd('N', 'X', 0, 0, A, 1, S, U, 1, VT, 1, W, 1, RW, INFO );
+         chkxer('CGESVD', INFOT, NOUT, LERR, OK );
          INFOT = 2
-         CALL CGESVD( 'O', 'O', 0, 0, A, 1, S, U, 1, VT, 1, W, 1, RW, INFO )
-         CALL CHKXER( 'CGESVD', INFOT, NOUT, LERR, OK )
+         cgesvd('O', 'O', 0, 0, A, 1, S, U, 1, VT, 1, W, 1, RW, INFO );
+         chkxer('CGESVD', INFOT, NOUT, LERR, OK );
          INFOT = 3
-         CALL CGESVD( 'N', 'N', -1, 0, A, 1, S, U, 1, VT, 1, W, 1, RW, INFO )
-         CALL CHKXER( 'CGESVD', INFOT, NOUT, LERR, OK )
+         cgesvd('N', 'N', -1, 0, A, 1, S, U, 1, VT, 1, W, 1, RW, INFO );
+         chkxer('CGESVD', INFOT, NOUT, LERR, OK );
          INFOT = 4
-         CALL CGESVD( 'N', 'N', 0, -1, A, 1, S, U, 1, VT, 1, W, 1, RW, INFO )
-         CALL CHKXER( 'CGESVD', INFOT, NOUT, LERR, OK )
+         cgesvd('N', 'N', 0, -1, A, 1, S, U, 1, VT, 1, W, 1, RW, INFO );
+         chkxer('CGESVD', INFOT, NOUT, LERR, OK );
          INFOT = 6
-         CALL CGESVD( 'N', 'N', 2, 1, A, 1, S, U, 1, VT, 1, W, 5, RW, INFO )
-         CALL CHKXER( 'CGESVD', INFOT, NOUT, LERR, OK )
+         cgesvd('N', 'N', 2, 1, A, 1, S, U, 1, VT, 1, W, 5, RW, INFO );
+         chkxer('CGESVD', INFOT, NOUT, LERR, OK );
          INFOT = 9
-         CALL CGESVD( 'A', 'N', 2, 1, A, 2, S, U, 1, VT, 1, W, 5, RW, INFO )
-         CALL CHKXER( 'CGESVD', INFOT, NOUT, LERR, OK )
+         cgesvd('A', 'N', 2, 1, A, 2, S, U, 1, VT, 1, W, 5, RW, INFO );
+         chkxer('CGESVD', INFOT, NOUT, LERR, OK );
          INFOT = 11
-         CALL CGESVD( 'N', 'A', 1, 2, A, 1, S, U, 1, VT, 1, W, 5, RW, INFO )
-         CALL CHKXER( 'CGESVD', INFOT, NOUT, LERR, OK )
+         cgesvd('N', 'A', 1, 2, A, 1, S, U, 1, VT, 1, W, 5, RW, INFO );
+         chkxer('CGESVD', INFOT, NOUT, LERR, OK );
          NT = NT + 8
          if ( OK ) {
             WRITE( NOUT, FMT = 9999 )SRNAMT( 1:LEN_TRIM( SRNAMT ) ), NT
@@ -229,23 +229,23 @@
 
          SRNAMT = 'CGESDD'
          INFOT = 1
-         CALL CGESDD( 'X', 0, 0, A, 1, S, U, 1, VT, 1, W, 1, RW, IW, INFO )
-         CALL CHKXER( 'CGESDD', INFOT, NOUT, LERR, OK )
+         cgesdd('X', 0, 0, A, 1, S, U, 1, VT, 1, W, 1, RW, IW, INFO );
+         chkxer('CGESDD', INFOT, NOUT, LERR, OK );
          INFOT = 2
-         CALL CGESDD( 'N', -1, 0, A, 1, S, U, 1, VT, 1, W, 1, RW, IW, INFO )
-         CALL CHKXER( 'CGESDD', INFOT, NOUT, LERR, OK )
+         cgesdd('N', -1, 0, A, 1, S, U, 1, VT, 1, W, 1, RW, IW, INFO );
+         chkxer('CGESDD', INFOT, NOUT, LERR, OK );
          INFOT = 3
-         CALL CGESDD( 'N', 0, -1, A, 1, S, U, 1, VT, 1, W, 1, RW, IW, INFO )
-         CALL CHKXER( 'CGESDD', INFOT, NOUT, LERR, OK )
+         cgesdd('N', 0, -1, A, 1, S, U, 1, VT, 1, W, 1, RW, IW, INFO );
+         chkxer('CGESDD', INFOT, NOUT, LERR, OK );
          INFOT = 5
-         CALL CGESDD( 'N', 2, 1, A, 1, S, U, 1, VT, 1, W, 5, RW, IW, INFO )
-         CALL CHKXER( 'CGESDD', INFOT, NOUT, LERR, OK )
+         cgesdd('N', 2, 1, A, 1, S, U, 1, VT, 1, W, 5, RW, IW, INFO );
+         chkxer('CGESDD', INFOT, NOUT, LERR, OK );
          INFOT = 8
-         CALL CGESDD( 'A', 2, 1, A, 2, S, U, 1, VT, 1, W, 5, RW, IW, INFO )
-         CALL CHKXER( 'CGESDD', INFOT, NOUT, LERR, OK )
+         cgesdd('A', 2, 1, A, 2, S, U, 1, VT, 1, W, 5, RW, IW, INFO );
+         chkxer('CGESDD', INFOT, NOUT, LERR, OK );
          INFOT = 10
-         CALL CGESDD( 'A', 1, 2, A, 1, S, U, 1, VT, 1, W, 5, RW, IW, INFO )
-         CALL CHKXER( 'CGESDD', INFOT, NOUT, LERR, OK )
+         cgesdd('A', 1, 2, A, 1, S, U, 1, VT, 1, W, 5, RW, IW, INFO );
+         chkxer('CGESDD', INFOT, NOUT, LERR, OK );
          NT = NT - 2
          if ( OK ) {
             WRITE( NOUT, FMT = 9999 )SRNAMT( 1:LEN_TRIM( SRNAMT ) ), NT
@@ -257,38 +257,38 @@
 
          SRNAMT = 'CGEJSV'
          INFOT = 1
-         CALL CGEJSV( 'X', 'U', 'V', 'R', 'N', 'N', 0, 0, A, 1, S, U, 1, VT, 1, W, 1, RW, 1, IW, INFO)
-         CALL CHKXER( 'CGEJSV', INFOT, NOUT, LERR, OK )
+         cgejsv('X', 'U', 'V', 'R', 'N', 'N', 0, 0, A, 1, S, U, 1, VT, 1, W, 1, RW, 1, IW, INFO);
+         chkxer('CGEJSV', INFOT, NOUT, LERR, OK );
          INFOT = 2
-         CALL CGEJSV( 'G', 'X', 'V', 'R', 'N', 'N', 0, 0, A, 1, S, U, 1, VT, 1, W, 1, RW, 1, IW, INFO)
-         CALL CHKXER( 'CGEJSV', INFOT, NOUT, LERR, OK )
+         cgejsv('G', 'X', 'V', 'R', 'N', 'N', 0, 0, A, 1, S, U, 1, VT, 1, W, 1, RW, 1, IW, INFO);
+         chkxer('CGEJSV', INFOT, NOUT, LERR, OK );
          INFOT = 3
-         CALL CGEJSV( 'G', 'U', 'X', 'R', 'N', 'N', 0, 0, A, 1, S, U, 1, VT, 1, W, 1, RW, 1, IW, INFO)
-         CALL CHKXER( 'CGEJSV', INFOT, NOUT, LERR, OK )
+         cgejsv('G', 'U', 'X', 'R', 'N', 'N', 0, 0, A, 1, S, U, 1, VT, 1, W, 1, RW, 1, IW, INFO);
+         chkxer('CGEJSV', INFOT, NOUT, LERR, OK );
          INFOT = 4
-         CALL CGEJSV( 'G', 'U', 'V', 'X', 'N', 'N', 0, 0, A, 1, S, U, 1, VT, 1, W, 1, RW, 1, IW, INFO)
-         CALL CHKXER( 'CGEJSV', INFOT, NOUT, LERR, OK )
+         cgejsv('G', 'U', 'V', 'X', 'N', 'N', 0, 0, A, 1, S, U, 1, VT, 1, W, 1, RW, 1, IW, INFO);
+         chkxer('CGEJSV', INFOT, NOUT, LERR, OK );
          INFOT = 5
-         CALL CGEJSV( 'G', 'U', 'V', 'R', 'X', 'N', 0, 0, A, 1, S, U, 1, VT, 1, W, 1, RW, 1, IW, INFO)
-         CALL CHKXER( 'CGEJSV', INFOT, NOUT, LERR, OK )
+         cgejsv('G', 'U', 'V', 'R', 'X', 'N', 0, 0, A, 1, S, U, 1, VT, 1, W, 1, RW, 1, IW, INFO);
+         chkxer('CGEJSV', INFOT, NOUT, LERR, OK );
          INFOT = 6
-         CALL CGEJSV( 'G', 'U', 'V', 'R', 'N', 'X', 0, 0, A, 1, S, U, 1, VT, 1, W, 1, RW, 1, IW, INFO)
-         CALL CHKXER( 'CGEJSV', INFOT, NOUT, LERR, OK )
+         cgejsv('G', 'U', 'V', 'R', 'N', 'X', 0, 0, A, 1, S, U, 1, VT, 1, W, 1, RW, 1, IW, INFO);
+         chkxer('CGEJSV', INFOT, NOUT, LERR, OK );
          INFOT = 7
-         CALL CGEJSV( 'G', 'U', 'V', 'R', 'N', 'N', -1, 0, A, 1, S, U, 1, VT, 1, W, 1, RW, 1, IW, INFO)
-         CALL CHKXER( 'CGEJSV', INFOT, NOUT, LERR, OK )
+         cgejsv('G', 'U', 'V', 'R', 'N', 'N', -1, 0, A, 1, S, U, 1, VT, 1, W, 1, RW, 1, IW, INFO);
+         chkxer('CGEJSV', INFOT, NOUT, LERR, OK );
          INFOT = 8
-         CALL CGEJSV( 'G', 'U', 'V', 'R', 'N', 'N', 0, -1, A, 1, S, U, 1, VT, 1, W, 1, RW, 1, IW, INFO)
-         CALL CHKXER( 'CGEJSV', INFOT, NOUT, LERR, OK )
+         cgejsv('G', 'U', 'V', 'R', 'N', 'N', 0, -1, A, 1, S, U, 1, VT, 1, W, 1, RW, 1, IW, INFO);
+         chkxer('CGEJSV', INFOT, NOUT, LERR, OK );
          INFOT = 10
-         CALL CGEJSV( 'G', 'U', 'V', 'R', 'N', 'N', 2, 1, A, 1, S, U, 1, VT, 1, W, 1, RW, 1, IW, INFO)
-         CALL CHKXER( 'CGEJSV', INFOT, NOUT, LERR, OK )
+         cgejsv('G', 'U', 'V', 'R', 'N', 'N', 2, 1, A, 1, S, U, 1, VT, 1, W, 1, RW, 1, IW, INFO);
+         chkxer('CGEJSV', INFOT, NOUT, LERR, OK );
          INFOT = 13
-         CALL CGEJSV( 'G', 'U', 'V', 'R', 'N', 'N', 2, 2, A, 2, S, U, 1, VT, 2, W, 1, RW, 1, IW, INFO)
-         CALL CHKXER( 'CGEJSV', INFOT, NOUT, LERR, OK )
+         cgejsv('G', 'U', 'V', 'R', 'N', 'N', 2, 2, A, 2, S, U, 1, VT, 2, W, 1, RW, 1, IW, INFO);
+         chkxer('CGEJSV', INFOT, NOUT, LERR, OK );
          INFOT = 15
-         CALL CGEJSV( 'G', 'U', 'V', 'R', 'N', 'N', 2, 2, A, 2, S, U, 2, VT, 1, W, 1, RW, 1, IW, INFO)
-         CALL CHKXER( 'CGEJSV', INFOT, NOUT, LERR, OK )
+         cgejsv('G', 'U', 'V', 'R', 'N', 'N', 2, 2, A, 2, S, U, 2, VT, 1, W, 1, RW, 1, IW, INFO);
+         chkxer('CGEJSV', INFOT, NOUT, LERR, OK );
          NT = 11
          if ( OK ) {
             WRITE( NOUT, FMT = 9999 )SRNAMT( 1:LEN_TRIM( SRNAMT ) ), NT
@@ -300,41 +300,41 @@
 
          SRNAMT = 'CGESVDX'
          INFOT = 1
-         CALL CGESVDX( 'X', 'N', 'A', 0, 0, A, 1, ZERO, ZERO, 0, 0, NS, S, U, 1, VT, 1, W, 1, RW, IW, INFO )
-         CALL CHKXER( 'CGESVDX', INFOT, NOUT, LERR, OK )
+         cgesvdx('X', 'N', 'A', 0, 0, A, 1, ZERO, ZERO, 0, 0, NS, S, U, 1, VT, 1, W, 1, RW, IW, INFO );
+         chkxer('CGESVDX', INFOT, NOUT, LERR, OK );
          INFOT = 2
-         CALL CGESVDX( 'N', 'X', 'A', 0, 0, A, 1, ZERO, ZERO, 0, 0, NS, S, U, 1, VT, 1, W, 1, RW, IW, INFO )
-         CALL CHKXER( 'CGESVDX', INFOT, NOUT, LERR, OK )
+         cgesvdx('N', 'X', 'A', 0, 0, A, 1, ZERO, ZERO, 0, 0, NS, S, U, 1, VT, 1, W, 1, RW, IW, INFO );
+         chkxer('CGESVDX', INFOT, NOUT, LERR, OK );
          INFOT = 3
-         CALL CGESVDX( 'N', 'N', 'X', 0, 0, A, 1, ZERO, ZERO, 0, 0, NS, S, U, 1, VT, 1, W, 1, RW, IW, INFO )
-         CALL CHKXER( 'CGESVDX', INFOT, NOUT, LERR, OK )
+         cgesvdx('N', 'N', 'X', 0, 0, A, 1, ZERO, ZERO, 0, 0, NS, S, U, 1, VT, 1, W, 1, RW, IW, INFO );
+         chkxer('CGESVDX', INFOT, NOUT, LERR, OK );
          INFOT = 4
-         CALL CGESVDX( 'N', 'N', 'A', -1, 0, A, 1, ZERO, ZERO, 0, 0, NS, S, U, 1, VT, 1, W, 1, RW, IW, INFO )
-         CALL CHKXER( 'CGESVDX', INFOT, NOUT, LERR, OK )
+         cgesvdx('N', 'N', 'A', -1, 0, A, 1, ZERO, ZERO, 0, 0, NS, S, U, 1, VT, 1, W, 1, RW, IW, INFO );
+         chkxer('CGESVDX', INFOT, NOUT, LERR, OK );
          INFOT = 5
-         CALL CGESVDX( 'N', 'N', 'A', 0, -1, A, 1, ZERO, ZERO, 0, 0, NS, S, U, 1, VT, 1, W, 1, RW, IW, INFO )
-         CALL CHKXER( 'CGESVDX', INFOT, NOUT, LERR, OK )
+         cgesvdx('N', 'N', 'A', 0, -1, A, 1, ZERO, ZERO, 0, 0, NS, S, U, 1, VT, 1, W, 1, RW, IW, INFO );
+         chkxer('CGESVDX', INFOT, NOUT, LERR, OK );
          INFOT = 7
-         CALL CGESVDX( 'N', 'N', 'A', 2, 1, A, 1, ZERO, ZERO, 0, 0, NS, S, U, 1, VT, 1, W, 1, RW, IW, INFO )
-         CALL CHKXER( 'CGESVDX', INFOT, NOUT, LERR, OK )
+         cgesvdx('N', 'N', 'A', 2, 1, A, 1, ZERO, ZERO, 0, 0, NS, S, U, 1, VT, 1, W, 1, RW, IW, INFO );
+         chkxer('CGESVDX', INFOT, NOUT, LERR, OK );
          INFOT = 8
-         CALL CGESVDX( 'N', 'N', 'V', 2, 1, A, 2, -ONE, ZERO, 0, 0, NS, S, U, 1, VT, 1, W, 1, RW, IW, INFO )
-         CALL CHKXER( 'CGESVDX', INFOT, NOUT, LERR, OK )
+         cgesvdx('N', 'N', 'V', 2, 1, A, 2, -ONE, ZERO, 0, 0, NS, S, U, 1, VT, 1, W, 1, RW, IW, INFO );
+         chkxer('CGESVDX', INFOT, NOUT, LERR, OK );
          INFOT = 9
-         CALL CGESVDX( 'N', 'N', 'V', 2, 1, A, 2, ONE, ZERO, 0, 0, NS, S, U, 1, VT, 1, W, 1, RW, IW, INFO )
-         CALL CHKXER( 'CGESVDX', INFOT, NOUT, LERR, OK )
+         cgesvdx('N', 'N', 'V', 2, 1, A, 2, ONE, ZERO, 0, 0, NS, S, U, 1, VT, 1, W, 1, RW, IW, INFO );
+         chkxer('CGESVDX', INFOT, NOUT, LERR, OK );
          INFOT = 10
-         CALL CGESVDX( 'N', 'N', 'I', 2, 2, A, 2, ZERO, ZERO, 0, 1, NS, S, U, 1, VT, 1, W, 1, RW, IW, INFO )
-         CALL CHKXER( 'CGESVDX', INFOT, NOUT, LERR, OK )
+         cgesvdx('N', 'N', 'I', 2, 2, A, 2, ZERO, ZERO, 0, 1, NS, S, U, 1, VT, 1, W, 1, RW, IW, INFO );
+         chkxer('CGESVDX', INFOT, NOUT, LERR, OK );
          INFOT = 11
-         CALL CGESVDX( 'V', 'N', 'I', 2, 2, A, 2, ZERO, ZERO, 1, 0, NS, S, U, 1, VT, 1, W, 1, RW, IW, INFO )
-         CALL CHKXER( 'CGESVDX', INFOT, NOUT, LERR, OK )
+         cgesvdx('V', 'N', 'I', 2, 2, A, 2, ZERO, ZERO, 1, 0, NS, S, U, 1, VT, 1, W, 1, RW, IW, INFO );
+         chkxer('CGESVDX', INFOT, NOUT, LERR, OK );
          INFOT = 15
-         CALL CGESVDX( 'V', 'N', 'A', 2, 2, A, 2, ZERO, ZERO, 0, 0, NS, S, U, 1, VT, 1, W, 1, RW, IW, INFO )
-         CALL CHKXER( 'CGESVDX', INFOT, NOUT, LERR, OK )
+         cgesvdx('V', 'N', 'A', 2, 2, A, 2, ZERO, ZERO, 0, 0, NS, S, U, 1, VT, 1, W, 1, RW, IW, INFO );
+         chkxer('CGESVDX', INFOT, NOUT, LERR, OK );
          INFOT = 17
-         CALL CGESVDX( 'N', 'V', 'A', 2, 2, A, 2, ZERO, ZERO, 0, 0, NS, S, U, 1, VT, 1, W, 1, RW, IW, INFO )
-         CALL CHKXER( 'CGESVDX', INFOT, NOUT, LERR, OK )
+         cgesvdx('N', 'V', 'A', 2, 2, A, 2, ZERO, ZERO, 0, 0, NS, S, U, 1, VT, 1, W, 1, RW, IW, INFO );
+         chkxer('CGESVDX', INFOT, NOUT, LERR, OK );
          NT = 12
          if ( OK ) {
             WRITE( NOUT, FMT = 9999 )SRNAMT( 1:LEN_TRIM( SRNAMT ) ), NT
@@ -346,38 +346,38 @@
 
          SRNAMT = 'CGESVDQ'
          INFOT = 1
-         CALL CGESVDQ( 'X', 'P', 'T', 'A', 'A', 0, 0, A, 1, S, U, 0, VT, 0, NS, IW, 1, W, 1, RW, 1, INFO )
-         CALL CHKXER( 'CGESVDQ', INFOT, NOUT, LERR, OK )
+         cgesvdq('X', 'P', 'T', 'A', 'A', 0, 0, A, 1, S, U, 0, VT, 0, NS, IW, 1, W, 1, RW, 1, INFO );
+         chkxer('CGESVDQ', INFOT, NOUT, LERR, OK );
          INFOT = 2
-         CALL CGESVDQ( 'A', 'X', 'T', 'A', 'A', 0, 0, A, 1, S, U, 0, VT, 0, NS, IW, 1, W, 1, RW, 1, INFO )
-         CALL CHKXER( 'CGESVDQ', INFOT, NOUT, LERR, OK )
+         cgesvdq('A', 'X', 'T', 'A', 'A', 0, 0, A, 1, S, U, 0, VT, 0, NS, IW, 1, W, 1, RW, 1, INFO );
+         chkxer('CGESVDQ', INFOT, NOUT, LERR, OK );
          INFOT = 3
-         CALL CGESVDQ( 'A', 'P', 'X', 'A', 'A', 0, 0, A, 1, S, U, 0, VT, 0, NS, IW, 1, W, 1, RW, 1, INFO )
-         CALL CHKXER( 'CGESVDQ', INFOT, NOUT, LERR, OK )
+         cgesvdq('A', 'P', 'X', 'A', 'A', 0, 0, A, 1, S, U, 0, VT, 0, NS, IW, 1, W, 1, RW, 1, INFO );
+         chkxer('CGESVDQ', INFOT, NOUT, LERR, OK );
          INFOT = 4
-         CALL CGESVDQ( 'A', 'P', 'T', 'X', 'A', 0, 0, A, 1, S, U, 0, VT, 0, NS, IW, 1, W, 1, RW, 1, INFO )
-         CALL CHKXER( 'CGESVDQ', INFOT, NOUT, LERR, OK )
+         cgesvdq('A', 'P', 'T', 'X', 'A', 0, 0, A, 1, S, U, 0, VT, 0, NS, IW, 1, W, 1, RW, 1, INFO );
+         chkxer('CGESVDQ', INFOT, NOUT, LERR, OK );
          INFOT = 5
-         CALL CGESVDQ( 'A', 'P', 'T', 'A', 'X', 0, 0, A, 1, S, U, 0, VT, 0, NS, IW, 1, W, 1, RW, 1, INFO )
-         CALL CHKXER( 'CGESVDQ', INFOT, NOUT, LERR, OK )
+         cgesvdq('A', 'P', 'T', 'A', 'X', 0, 0, A, 1, S, U, 0, VT, 0, NS, IW, 1, W, 1, RW, 1, INFO );
+         chkxer('CGESVDQ', INFOT, NOUT, LERR, OK );
          INFOT = 6
-         CALL CGESVDQ( 'A', 'P', 'T', 'A', 'A', -1, 0, A, 1, S, U, 0, VT, 0, NS, IW, 1, W, 1, RW, 1, INFO )
-         CALL CHKXER( 'CGESVDQ', INFOT, NOUT, LERR, OK )
+         cgesvdq('A', 'P', 'T', 'A', 'A', -1, 0, A, 1, S, U, 0, VT, 0, NS, IW, 1, W, 1, RW, 1, INFO );
+         chkxer('CGESVDQ', INFOT, NOUT, LERR, OK );
          INFOT = 7
-         CALL CGESVDQ( 'A', 'P', 'T', 'A', 'A', 0, 1, A, 1, S, U, 0, VT, 0, NS, IW, 1, W, 1, RW, 1, INFO )
-         CALL CHKXER( 'CGESVDQ', INFOT, NOUT, LERR, OK )
+         cgesvdq('A', 'P', 'T', 'A', 'A', 0, 1, A, 1, S, U, 0, VT, 0, NS, IW, 1, W, 1, RW, 1, INFO );
+         chkxer('CGESVDQ', INFOT, NOUT, LERR, OK );
          INFOT = 9
-         CALL CGESVDQ( 'A', 'P', 'T', 'A', 'A', 1, 1, A, 0, S, U, 0, VT, 0, NS, IW, 1, W, 1, RW, 1, INFO )
-         CALL CHKXER( 'CGESVDQ', INFOT, NOUT, LERR, OK )
+         cgesvdq('A', 'P', 'T', 'A', 'A', 1, 1, A, 0, S, U, 0, VT, 0, NS, IW, 1, W, 1, RW, 1, INFO );
+         chkxer('CGESVDQ', INFOT, NOUT, LERR, OK );
          INFOT = 12
-         CALL CGESVDQ( 'A', 'P', 'T', 'A', 'A', 1, 1, A, 1, S, U, -1, VT, 0, NS, IW, 1, W, 1, RW, 1, INFO )
-         CALL CHKXER( 'CGESVDQ', INFOT, NOUT, LERR, OK )
+         cgesvdq('A', 'P', 'T', 'A', 'A', 1, 1, A, 1, S, U, -1, VT, 0, NS, IW, 1, W, 1, RW, 1, INFO );
+         chkxer('CGESVDQ', INFOT, NOUT, LERR, OK );
          INFOT = 14
-         CALL CGESVDQ( 'A', 'P', 'T', 'A', 'A', 1, 1, A, 1, S, U, 1, VT, -1, NS, IW, 1, W, 1, RW, 1, INFO )
-         CALL CHKXER( 'CGESVDQ', INFOT, NOUT, LERR, OK )
+         cgesvdq('A', 'P', 'T', 'A', 'A', 1, 1, A, 1, S, U, 1, VT, -1, NS, IW, 1, W, 1, RW, 1, INFO );
+         chkxer('CGESVDQ', INFOT, NOUT, LERR, OK );
          INFOT = 17
-         CALL CGESVDQ( 'A', 'P', 'T', 'A', 'A', 1, 1, A, 1, S, U, 1, VT, 1, NS, IW, -5, W, 1, RW, 1, INFO )
-         CALL CHKXER( 'CGESVDQ', INFOT, NOUT, LERR, OK )
+         cgesvdq('A', 'P', 'T', 'A', 'A', 1, 1, A, 1, S, U, 1, VT, 1, NS, IW, -5, W, 1, RW, 1, INFO );
+         chkxer('CGESVDQ', INFOT, NOUT, LERR, OK );
          NT = 11
          if ( OK ) {
             WRITE( NOUT, FMT = 9999 )SRNAMT( 1:LEN_TRIM( SRNAMT ) ), NT

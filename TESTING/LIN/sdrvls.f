@@ -81,16 +81,16 @@
 
       // Test the error exits
 
-      CALL XLAENV( 2, 2 )
-      CALL XLAENV( 9, SMLSIZ )
+      xlaenv(2, 2 );
+      xlaenv(9, SMLSIZ );
       IF( TSTERR ) CALL SERRLS( PATH, NOUT )
 
       // Print the header if NM = 0 or NN = 0 and THRESH = 0.
 
       IF( ( NM.EQ.0 .OR. NN.EQ.0 ) .AND. THRESH.EQ.ZERO ) CALL ALAHD( NOUT, PATH )
       INFOT = 0
-      CALL XLAENV( 2, 2 )
-      CALL XLAENV( 9, SMLSIZ )
+      xlaenv(2, 2 );
+      xlaenv(9, SMLSIZ );
 
       // Compute maximal workspace needed for all routines
 
@@ -149,24 +149,24 @@
                               }
 
                               // Compute workspace needed for SGELS
-                              CALL SGELS( TRANS, M, N, NRHS, A, LDA, B, LDB, WQ( 1 ), -1, INFO )
+                              sgels(TRANS, M, N, NRHS, A, LDA, B, LDB, WQ( 1 ), -1, INFO );
                               LWORK_SGELS = INT ( WQ( 1 ) )
                               // Compute workspace needed for SGELST
-                              CALL SGELST( TRANS, M, N, NRHS, A, LDA, B, LDB, WQ, -1, INFO )
+                              sgelst(TRANS, M, N, NRHS, A, LDA, B, LDB, WQ, -1, INFO );
                               LWORK_SGELST = INT ( WQ ( 1 ) )
                               // Compute workspace needed for SGETSLS
-                              CALL SGETSLS( TRANS, M, N, NRHS, A, LDA, B, LDB, WQ( 1 ), -1, INFO )
+                              sgetsls(TRANS, M, N, NRHS, A, LDA, B, LDB, WQ( 1 ), -1, INFO );
                               LWORK_SGETSLS = INT( WQ( 1 ) )
                            ENDDO
                         }
                         // Compute workspace needed for SGELSY
-                        CALL SGELSY( M, N, NRHS, A, LDA, B, LDB, IWQ, RCOND, CRANK, WQ, -1, INFO )
+                        sgelsy(M, N, NRHS, A, LDA, B, LDB, IWQ, RCOND, CRANK, WQ, -1, INFO );
                         LWORK_SGELSY = INT( WQ( 1 ) )
                         // Compute workspace needed for SGELSS
-                        CALL SGELSS( M, N, NRHS, A, LDA, B, LDB, S, RCOND, CRANK, WQ, -1 , INFO )
+                        sgelss(M, N, NRHS, A, LDA, B, LDB, S, RCOND, CRANK, WQ, -1 , INFO );
                         LWORK_SGELSS = INT( WQ( 1 ) )
                         // Compute workspace needed for SGELSD
-                        CALL SGELSD( M, N, NRHS, A, LDA, B, LDB, S, RCOND, CRANK, WQ, -1, IWQ, INFO )
+                        sgelsd(M, N, NRHS, A, LDA, B, LDB, S, RCOND, CRANK, WQ, -1, IWQ, INFO );
                         LWORK_SGELSD = INT( WQ( 1 ) )
                         // Compute LIWORK workspace needed for SGELSY and SGELSD
                         LIWORK = MAX( LIWORK, N, IWQ( 1 ) )
@@ -208,14 +208,14 @@
 
                         // Generate a matrix of scaling type ISCALE
 
-                        CALL SQRT13( ISCALE, M, N, COPYA, LDA, NORMA, ISEED )
+                        sqrt13(ISCALE, M, N, COPYA, LDA, NORMA, ISEED );
 
                         // Loop for testing different block sizes.
 
                         DO INB = 1, NNB
                            NB = NBVAL( INB )
-                           CALL XLAENV( 1, NB )
-                           CALL XLAENV( 3, NXVAL( INB ) )
+                           xlaenv(1, NB );
+                           xlaenv(3, NXVAL( INB ) );
 
                            // Loop for testing non-transposed and transposed.
 
@@ -234,18 +234,18 @@
                               // Set up a consistent rhs
 
                               if ( NCOLS.GT.0 ) {
-                                 CALL SLARNV( 2, ISEED, NCOLS*NRHS, WORK )                                  CALL SSCAL( NCOLS*NRHS, ONE / REAL( NCOLS ), WORK, 1 )
+                                 slarnv(2, ISEED, NCOLS*NRHS, WORK )                                  CALL SSCAL( NCOLS*NRHS, ONE / REAL( NCOLS ), WORK, 1 );
                               }
-                              CALL SGEMM( TRANS, 'No transpose', NROWS, NRHS, NCOLS, ONE, COPYA, LDA, WORK, LDWORK, ZERO, B, LDB )
-                              CALL SLACPY( 'Full', NROWS, NRHS, B, LDB, COPYB, LDB )
+                              sgemm(TRANS, 'No transpose', NROWS, NRHS, NCOLS, ONE, COPYA, LDA, WORK, LDWORK, ZERO, B, LDB );
+                              slacpy('Full', NROWS, NRHS, B, LDB, COPYB, LDB );
 
                               // Solve LS or overdetermined system
 
                               if ( M.GT.0 .AND. N.GT.0 ) {
-                                 CALL SLACPY( 'Full', M, N, COPYA, LDA, A, LDA )                                  CALL SLACPY( 'Full', NROWS, NRHS, COPYB, LDB, B, LDB )
+                                 slacpy('Full', M, N, COPYA, LDA, A, LDA )                                  CALL SLACPY( 'Full', NROWS, NRHS, COPYB, LDB, B, LDB );
                               }
                               SRNAMT = 'SGELS '
-                              CALL SGELS( TRANS, M, N, NRHS, A, LDA, B, LDB, WORK, LWORK, INFO )                               IF( INFO.NE.0 ) CALL ALAERH( PATH, 'SGELS ', INFO, 0, TRANS, M, N, NRHS, -1, NB, ITYPE, NFAIL, NERRS, NOUT )
+                              sgels(TRANS, M, N, NRHS, A, LDA, B, LDB, WORK, LWORK, INFO )                               IF( INFO.NE.0 ) CALL ALAERH( PATH, 'SGELS ', INFO, 0, TRANS, M, N, NRHS, -1, NB, ITYPE, NFAIL, NERRS, NOUT );
 
                               // Test 1: Check correctness of results
                               // for SGELS, compute the residual:
@@ -294,13 +294,13 @@
 
                         // Generate a matrix of scaling type ISCALE
 
-                        CALL SQRT13( ISCALE, M, N, COPYA, LDA, NORMA, ISEED )
+                        sqrt13(ISCALE, M, N, COPYA, LDA, NORMA, ISEED );
 
                         // Loop for testing different block sizes.
 
                         DO INB = 1, NNB
                            NB = NBVAL( INB )
-                           CALL XLAENV( 1, NB )
+                           xlaenv(1, NB );
 
                            // Loop for testing non-transposed and transposed.
 
@@ -319,18 +319,18 @@
                               // Set up a consistent rhs
 
                               if ( NCOLS.GT.0 ) {
-                                 CALL SLARNV( 2, ISEED, NCOLS*NRHS, WORK )                                  CALL SSCAL( NCOLS*NRHS, ONE / REAL( NCOLS ), WORK, 1 )
+                                 slarnv(2, ISEED, NCOLS*NRHS, WORK )                                  CALL SSCAL( NCOLS*NRHS, ONE / REAL( NCOLS ), WORK, 1 );
                               }
-                              CALL SGEMM( TRANS, 'No transpose', NROWS, NRHS, NCOLS, ONE, COPYA, LDA, WORK, LDWORK, ZERO, B, LDB )
-                              CALL SLACPY( 'Full', NROWS, NRHS, B, LDB, COPYB, LDB )
+                              sgemm(TRANS, 'No transpose', NROWS, NRHS, NCOLS, ONE, COPYA, LDA, WORK, LDWORK, ZERO, B, LDB );
+                              slacpy('Full', NROWS, NRHS, B, LDB, COPYB, LDB );
 
                               // Solve LS or overdetermined system
 
                               if ( M.GT.0 .AND. N.GT.0 ) {
-                                 CALL SLACPY( 'Full', M, N, COPYA, LDA, A, LDA )                                  CALL SLACPY( 'Full', NROWS, NRHS, COPYB, LDB, B, LDB )
+                                 slacpy('Full', M, N, COPYA, LDA, A, LDA )                                  CALL SLACPY( 'Full', NROWS, NRHS, COPYB, LDB, B, LDB );
                               }
                               SRNAMT = 'SGELST'
-                              CALL SGELST( TRANS, M, N, NRHS, A, LDA, B, LDB, WORK, LWORK, INFO )                               IF( INFO.NE.0 ) CALL ALAERH( PATH, 'SGELST', INFO, 0, TRANS, M, N, NRHS, -1, NB, ITYPE, NFAIL, NERRS, NOUT )
+                              sgelst(TRANS, M, N, NRHS, A, LDA, B, LDB, WORK, LWORK, INFO )                               IF( INFO.NE.0 ) CALL ALAERH( PATH, 'SGELST', INFO, 0, TRANS, M, N, NRHS, -1, NB, ITYPE, NFAIL, NERRS, NOUT );
 
                               // Test 3: Check correctness of results
                               // for SGELST, compute the residual:
@@ -379,19 +379,19 @@
 
                         // Generate a matrix of scaling type ISCALE
 
-                        CALL SQRT13( ISCALE, M, N, COPYA, LDA, NORMA, ISEED )
+                        sqrt13(ISCALE, M, N, COPYA, LDA, NORMA, ISEED );
 
                         // Loop for testing different block sizes MB.
 
                         DO IMB = 1, NNB
                            MB = NBVAL( IMB )
-                           CALL XLAENV( 1, MB )
+                           xlaenv(1, MB );
 
                            // Loop for testing different block sizes NB.
 
                            DO INB = 1, NNB
                               NB = NBVAL( INB )
-                              CALL XLAENV( 2, NB )
+                              xlaenv(2, NB );
 
                               // Loop for testing non-transposed
                               // and transposed.
@@ -411,18 +411,18 @@
                                  // Set up a consistent rhs
 
                                  if ( NCOLS.GT.0 ) {
-                                    CALL SLARNV( 2, ISEED, NCOLS*NRHS, WORK )                                     CALL SSCAL( NCOLS*NRHS, ONE / REAL( NCOLS ), WORK, 1 )
+                                    slarnv(2, ISEED, NCOLS*NRHS, WORK )                                     CALL SSCAL( NCOLS*NRHS, ONE / REAL( NCOLS ), WORK, 1 );
                                  }
-                                 CALL SGEMM( TRANS, 'No transpose', NROWS, NRHS, NCOLS, ONE, COPYA, LDA, WORK, LDWORK, ZERO, B, LDB )
-                                 CALL SLACPY( 'Full', NROWS, NRHS, B, LDB, COPYB, LDB )
+                                 sgemm(TRANS, 'No transpose', NROWS, NRHS, NCOLS, ONE, COPYA, LDA, WORK, LDWORK, ZERO, B, LDB );
+                                 slacpy('Full', NROWS, NRHS, B, LDB, COPYB, LDB );
 
                                  // Solve LS or overdetermined system
 
                                  if ( M.GT.0 .AND. N.GT.0 ) {
-                                    CALL SLACPY( 'Full', M, N, COPYA, LDA, A, LDA )                                     CALL SLACPY( 'Full', NROWS, NRHS, COPYB, LDB, B, LDB )
+                                    slacpy('Full', M, N, COPYA, LDA, A, LDA )                                     CALL SLACPY( 'Full', NROWS, NRHS, COPYB, LDB, B, LDB );
                                  }
                                  SRNAMT = 'SGETSLS'
-                                 CALL SGETSLS( TRANS, M, N, NRHS, A, LDA, B, LDB, WORK, LWORK, INFO )                                  IF( INFO.NE.0 ) CALL ALAERH( PATH, 'SGETSLS', INFO, 0, TRANS, M, N, NRHS, -1, NB, ITYPE, NFAIL, NERRS, NOUT )
+                                 sgetsls(TRANS, M, N, NRHS, A, LDA, B, LDB, WORK, LWORK, INFO )                                  IF( INFO.NE.0 ) CALL ALAERH( PATH, 'SGETSLS', INFO, 0, TRANS, M, N, NRHS, -1, NB, ITYPE, NFAIL, NERRS, NOUT );
 
                               // Test 5: Check correctness of results
                               // for SGETSLS, compute the residual:
@@ -469,7 +469,7 @@
                      // Generate a matrix of scaling type ISCALE and rank
                      // type IRANK.
 
-                     CALL SQRT15( ISCALE, IRANK, M, N, NRHS, COPYA, LDA, COPYB, LDB, COPYS, RANK, NORMA, NORMB, ISEED, WORK, LWORK )
+                     sqrt15(ISCALE, IRANK, M, N, NRHS, COPYA, LDA, COPYB, LDB, COPYS, RANK, NORMA, NORMB, ISEED, WORK, LWORK );
 
                      // workspace used: MAX(M+MIN(M,N),NRHS*MIN(M,N),2*N+M)
 
@@ -479,8 +479,8 @@
 
                      DO 100 INB = 1, NNB
                         NB = NBVAL( INB )
-                        CALL XLAENV( 1, NB )
-                        CALL XLAENV( 3, NXVAL( INB ) )
+                        xlaenv(1, NB );
+                        xlaenv(3, NXVAL( INB ) );
 
                         // Test SGELSY
 
@@ -495,11 +495,11 @@
                            IWORK( J ) = 0
    70                   CONTINUE
 
-                        CALL SLACPY( 'Full', M, N, COPYA, LDA, A, LDA )
-                        CALL SLACPY( 'Full', M, NRHS, COPYB, LDB, B, LDB )
+                        slacpy('Full', M, N, COPYA, LDA, A, LDA );
+                        slacpy('Full', M, NRHS, COPYB, LDB, B, LDB );
 
                         SRNAMT = 'SGELSY'
-                        CALL SGELSY( M, N, NRHS, A, LDA, B, LDB, IWORK, RCOND, CRANK, WORK, LWLSY, INFO )                         IF( INFO.NE.0 ) CALL ALAERH( PATH, 'SGELSY', INFO, 0, ' ', M, N, NRHS, -1, NB, ITYPE, NFAIL, NERRS, NOUT )
+                        sgelsy(M, N, NRHS, A, LDA, B, LDB, IWORK, RCOND, CRANK, WORK, LWLSY, INFO )                         IF( INFO.NE.0 ) CALL ALAERH( PATH, 'SGELSY', INFO, 0, ' ', M, N, NRHS, -1, NB, ITYPE, NFAIL, NERRS, NOUT );
 
                         // Test 7:  Compute relative error in svd
                                  // workspace: M*N + 4*MIN(M,N) + MAX(M,N)
@@ -509,7 +509,7 @@
                         // Test 8:  Compute error in solution
                                  // workspace:  M*NRHS + M
 
-                        CALL SLACPY( 'Full', M, NRHS, COPYB, LDB, WORK, LDWORK )                         CALL SQRT16( 'No transpose', M, N, NRHS, COPYA, LDA, B, LDB, WORK, LDWORK, WORK( M*NRHS+1 ), RESULT( 8 ) )
+                        slacpy('Full', M, NRHS, COPYB, LDB, WORK, LDWORK )                         CALL SQRT16( 'No transpose', M, N, NRHS, COPYA, LDA, B, LDB, WORK, LDWORK, WORK( M*NRHS+1 ), RESULT( 8 ) );
 
                         // Test 9:  Check norm of r'*A
                                  // workspace: NRHS*(M+N)
@@ -530,10 +530,10 @@
                         // to min( norm( A * X - B ) )
                         // using the SVD.
 
-                        CALL SLACPY( 'Full', M, N, COPYA, LDA, A, LDA )
-                        CALL SLACPY( 'Full', M, NRHS, COPYB, LDB, B, LDB )
+                        slacpy('Full', M, N, COPYA, LDA, A, LDA );
+                        slacpy('Full', M, NRHS, COPYB, LDB, B, LDB );
                         SRNAMT = 'SGELSS'
-                        CALL SGELSS( M, N, NRHS, A, LDA, B, LDB, S, RCOND, CRANK, WORK, LWORK, INFO )                         IF( INFO.NE.0 ) CALL ALAERH( PATH, 'SGELSS', INFO, 0, ' ', M, N, NRHS, -1, NB, ITYPE, NFAIL, NERRS, NOUT )
+                        sgelss(M, N, NRHS, A, LDA, B, LDB, S, RCOND, CRANK, WORK, LWORK, INFO )                         IF( INFO.NE.0 ) CALL ALAERH( PATH, 'SGELSS', INFO, 0, ' ', M, N, NRHS, -1, NB, ITYPE, NFAIL, NERRS, NOUT );
 
                         // workspace used: 3*min(m,n) +
                                         // max(2*min(m,n),nrhs,max(m,n))
@@ -541,7 +541,7 @@
                         // Test 11:  Compute relative error in svd
 
                         if ( RANK.GT.0 ) {
-                           CALL SAXPY( MNMIN, -ONE, COPYS, 1, S, 1 )
+                           saxpy(MNMIN, -ONE, COPYS, 1, S, 1 );
                            RESULT( 11 ) = SASUM( MNMIN, S, 1 ) / SASUM( MNMIN, COPYS, 1 ) / ( EPS*REAL( MNMIN ) )
                         } else {
                            RESULT( 11 ) = ZERO
@@ -549,7 +549,7 @@
 
                         // Test 12:  Compute error in solution
 
-                        CALL SLACPY( 'Full', M, NRHS, COPYB, LDB, WORK, LDWORK )                         CALL SQRT16( 'No transpose', M, N, NRHS, COPYA, LDA, B, LDB, WORK, LDWORK, WORK( M*NRHS+1 ), RESULT( 12 ) )
+                        slacpy('Full', M, NRHS, COPYB, LDB, WORK, LDWORK )                         CALL SQRT16( 'No transpose', M, N, NRHS, COPYA, LDA, B, LDB, WORK, LDWORK, WORK( M*NRHS+1 ), RESULT( 12 ) );
 
                         // Test 13:  Check norm of r'*A
 
@@ -573,16 +573,16 @@
                            IWORK( J ) = 0
    80                   CONTINUE
 
-                        CALL SLACPY( 'Full', M, N, COPYA, LDA, A, LDA )
-                        CALL SLACPY( 'Full', M, NRHS, COPYB, LDB, B, LDB )
+                        slacpy('Full', M, N, COPYA, LDA, A, LDA );
+                        slacpy('Full', M, NRHS, COPYB, LDB, B, LDB );
 
                         SRNAMT = 'SGELSD'
-                        CALL SGELSD( M, N, NRHS, A, LDA, B, LDB, S, RCOND, CRANK, WORK, LWORK, IWORK, INFO )                         IF( INFO.NE.0 ) CALL ALAERH( PATH, 'SGELSD', INFO, 0, ' ', M, N, NRHS, -1, NB, ITYPE, NFAIL, NERRS, NOUT )
+                        sgelsd(M, N, NRHS, A, LDA, B, LDB, S, RCOND, CRANK, WORK, LWORK, IWORK, INFO )                         IF( INFO.NE.0 ) CALL ALAERH( PATH, 'SGELSD', INFO, 0, ' ', M, N, NRHS, -1, NB, ITYPE, NFAIL, NERRS, NOUT );
 
                         // Test 15:  Compute relative error in svd
 
                         if ( RANK.GT.0 ) {
-                           CALL SAXPY( MNMIN, -ONE, COPYS, 1, S, 1 )
+                           saxpy(MNMIN, -ONE, COPYS, 1, S, 1 );
                            RESULT( 15 ) = SASUM( MNMIN, S, 1 ) / SASUM( MNMIN, COPYS, 1 ) / ( EPS*REAL( MNMIN ) )
                         } else {
                            RESULT( 15 ) = ZERO
@@ -590,7 +590,7 @@
 
                         // Test 16:  Compute error in solution
 
-                        CALL SLACPY( 'Full', M, NRHS, COPYB, LDB, WORK, LDWORK )                         CALL SQRT16( 'No transpose', M, N, NRHS, COPYA, LDA, B, LDB, WORK, LDWORK, WORK( M*NRHS+1 ), RESULT( 16 ) )
+                        slacpy('Full', M, NRHS, COPYB, LDB, WORK, LDWORK )                         CALL SQRT16( 'No transpose', M, N, NRHS, COPYA, LDA, B, LDB, WORK, LDWORK, WORK( M*NRHS+1 ), RESULT( 16 ) );
 
                         // Test 17:  Check norm of r'*A
 
@@ -622,7 +622,7 @@
 
       // Print a summary of the results.
 
-      CALL ALASVM( PATH, NOUT, NFAIL, NRUN, NERRS )
+      alasvm(PATH, NOUT, NFAIL, NRUN, NERRS );
 
  9999 FORMAT( ' TRANS=''', A1, ''', M=', I5, ', N=', I5, ', NRHS=', I4, ', NB=', I4, ', type', I2, ', test(', I2, ')=', G12.5 )
  9998 FORMAT( ' M=', I5, ', N=', I5, ', NRHS=', I4, ', NB=', I4, ', type', I2, ', test(', I2, ')=', G12.5 )

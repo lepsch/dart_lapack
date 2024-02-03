@@ -60,184 +60,184 @@
 
       SRNAMT = 'CGEQRF'
       INFOT = 1
-      CALL CGEQRF( -1, 0, A, 1, B, W, 1, INFO )
-      CALL CHKXER( 'CGEQRF', INFOT, NOUT, LERR, OK )
+      cgeqrf(-1, 0, A, 1, B, W, 1, INFO );
+      chkxer('CGEQRF', INFOT, NOUT, LERR, OK );
       INFOT = 2
-      CALL CGEQRF( 0, -1, A, 1, B, W, 1, INFO )
-      CALL CHKXER( 'CGEQRF', INFOT, NOUT, LERR, OK )
+      cgeqrf(0, -1, A, 1, B, W, 1, INFO );
+      chkxer('CGEQRF', INFOT, NOUT, LERR, OK );
       INFOT = 4
-      CALL CGEQRF( 2, 1, A, 1, B, W, 1, INFO )
-      CALL CHKXER( 'CGEQRF', INFOT, NOUT, LERR, OK )
+      cgeqrf(2, 1, A, 1, B, W, 1, INFO );
+      chkxer('CGEQRF', INFOT, NOUT, LERR, OK );
       INFOT = 7
-      CALL CGEQRF( 1, 2, A, 1, B, W, 1, INFO )
-      CALL CHKXER( 'CGEQRF', INFOT, NOUT, LERR, OK )
+      cgeqrf(1, 2, A, 1, B, W, 1, INFO );
+      chkxer('CGEQRF', INFOT, NOUT, LERR, OK );
 
       // CGEQRFP
 
       SRNAMT = 'CGEQRFP'
       INFOT = 1
-      CALL CGEQRFP( -1, 0, A, 1, B, W, 1, INFO )
-      CALL CHKXER( 'CGEQRFP', INFOT, NOUT, LERR, OK )
+      cgeqrfp(-1, 0, A, 1, B, W, 1, INFO );
+      chkxer('CGEQRFP', INFOT, NOUT, LERR, OK );
       INFOT = 2
-      CALL CGEQRFP( 0, -1, A, 1, B, W, 1, INFO )
-      CALL CHKXER( 'CGEQRFP', INFOT, NOUT, LERR, OK )
+      cgeqrfp(0, -1, A, 1, B, W, 1, INFO );
+      chkxer('CGEQRFP', INFOT, NOUT, LERR, OK );
       INFOT = 4
-      CALL CGEQRFP( 2, 1, A, 1, B, W, 1, INFO )
-      CALL CHKXER( 'CGEQRFP', INFOT, NOUT, LERR, OK )
+      cgeqrfp(2, 1, A, 1, B, W, 1, INFO );
+      chkxer('CGEQRFP', INFOT, NOUT, LERR, OK );
       INFOT = 7
-      CALL CGEQRFP( 1, 2, A, 1, B, W, 1, INFO )
-      CALL CHKXER( 'CGEQRFP', INFOT, NOUT, LERR, OK )
+      cgeqrfp(1, 2, A, 1, B, W, 1, INFO );
+      chkxer('CGEQRFP', INFOT, NOUT, LERR, OK );
 
       // CGEQR2
 
       SRNAMT = 'CGEQR2'
       INFOT = 1
-      CALL CGEQR2( -1, 0, A, 1, B, W, INFO )
-      CALL CHKXER( 'CGEQR2', INFOT, NOUT, LERR, OK )
+      cgeqr2(-1, 0, A, 1, B, W, INFO );
+      chkxer('CGEQR2', INFOT, NOUT, LERR, OK );
       INFOT = 2
-      CALL CGEQR2( 0, -1, A, 1, B, W, INFO )
-      CALL CHKXER( 'CGEQR2', INFOT, NOUT, LERR, OK )
+      cgeqr2(0, -1, A, 1, B, W, INFO );
+      chkxer('CGEQR2', INFOT, NOUT, LERR, OK );
       INFOT = 4
-      CALL CGEQR2( 2, 1, A, 1, B, W, INFO )
-      CALL CHKXER( 'CGEQR2', INFOT, NOUT, LERR, OK )
+      cgeqr2(2, 1, A, 1, B, W, INFO );
+      chkxer('CGEQR2', INFOT, NOUT, LERR, OK );
 
       // CGEQR2P
 
       SRNAMT = 'CGEQR2P'
       INFOT = 1
-      CALL CGEQR2P( -1, 0, A, 1, B, W, INFO )
-      CALL CHKXER( 'CGEQR2P', INFOT, NOUT, LERR, OK )
+      cgeqr2p(-1, 0, A, 1, B, W, INFO );
+      chkxer('CGEQR2P', INFOT, NOUT, LERR, OK );
       INFOT = 2
-      CALL CGEQR2P( 0, -1, A, 1, B, W, INFO )
-      CALL CHKXER( 'CGEQR2P', INFOT, NOUT, LERR, OK )
+      cgeqr2p(0, -1, A, 1, B, W, INFO );
+      chkxer('CGEQR2P', INFOT, NOUT, LERR, OK );
       INFOT = 4
-      CALL CGEQR2P( 2, 1, A, 1, B, W, INFO )
-      CALL CHKXER( 'CGEQR2P', INFOT, NOUT, LERR, OK )
+      cgeqr2p(2, 1, A, 1, B, W, INFO );
+      chkxer('CGEQR2P', INFOT, NOUT, LERR, OK );
 
       // CUNGQR
 
       SRNAMT = 'CUNGQR'
       INFOT = 1
-      CALL CUNGQR( -1, 0, 0, A, 1, X, W, 1, INFO )
-      CALL CHKXER( 'CUNGQR', INFOT, NOUT, LERR, OK )
+      cungqr(-1, 0, 0, A, 1, X, W, 1, INFO );
+      chkxer('CUNGQR', INFOT, NOUT, LERR, OK );
       INFOT = 2
-      CALL CUNGQR( 0, -1, 0, A, 1, X, W, 1, INFO )
-      CALL CHKXER( 'CUNGQR', INFOT, NOUT, LERR, OK )
+      cungqr(0, -1, 0, A, 1, X, W, 1, INFO );
+      chkxer('CUNGQR', INFOT, NOUT, LERR, OK );
       INFOT = 2
-      CALL CUNGQR( 1, 2, 0, A, 1, X, W, 2, INFO )
-      CALL CHKXER( 'CUNGQR', INFOT, NOUT, LERR, OK )
+      cungqr(1, 2, 0, A, 1, X, W, 2, INFO );
+      chkxer('CUNGQR', INFOT, NOUT, LERR, OK );
       INFOT = 3
-      CALL CUNGQR( 0, 0, -1, A, 1, X, W, 1, INFO )
-      CALL CHKXER( 'CUNGQR', INFOT, NOUT, LERR, OK )
+      cungqr(0, 0, -1, A, 1, X, W, 1, INFO );
+      chkxer('CUNGQR', INFOT, NOUT, LERR, OK );
       INFOT = 3
-      CALL CUNGQR( 1, 1, 2, A, 1, X, W, 1, INFO )
-      CALL CHKXER( 'CUNGQR', INFOT, NOUT, LERR, OK )
+      cungqr(1, 1, 2, A, 1, X, W, 1, INFO );
+      chkxer('CUNGQR', INFOT, NOUT, LERR, OK );
       INFOT = 5
-      CALL CUNGQR( 2, 2, 0, A, 1, X, W, 2, INFO )
-      CALL CHKXER( 'CUNGQR', INFOT, NOUT, LERR, OK )
+      cungqr(2, 2, 0, A, 1, X, W, 2, INFO );
+      chkxer('CUNGQR', INFOT, NOUT, LERR, OK );
       INFOT = 8
-      CALL CUNGQR( 2, 2, 0, A, 2, X, W, 1, INFO )
-      CALL CHKXER( 'CUNGQR', INFOT, NOUT, LERR, OK )
+      cungqr(2, 2, 0, A, 2, X, W, 1, INFO );
+      chkxer('CUNGQR', INFOT, NOUT, LERR, OK );
 
       // CUNG2R
 
       SRNAMT = 'CUNG2R'
       INFOT = 1
-      CALL CUNG2R( -1, 0, 0, A, 1, X, W, INFO )
-      CALL CHKXER( 'CUNG2R', INFOT, NOUT, LERR, OK )
+      cung2r(-1, 0, 0, A, 1, X, W, INFO );
+      chkxer('CUNG2R', INFOT, NOUT, LERR, OK );
       INFOT = 2
-      CALL CUNG2R( 0, -1, 0, A, 1, X, W, INFO )
-      CALL CHKXER( 'CUNG2R', INFOT, NOUT, LERR, OK )
+      cung2r(0, -1, 0, A, 1, X, W, INFO );
+      chkxer('CUNG2R', INFOT, NOUT, LERR, OK );
       INFOT = 2
-      CALL CUNG2R( 1, 2, 0, A, 1, X, W, INFO )
-      CALL CHKXER( 'CUNG2R', INFOT, NOUT, LERR, OK )
+      cung2r(1, 2, 0, A, 1, X, W, INFO );
+      chkxer('CUNG2R', INFOT, NOUT, LERR, OK );
       INFOT = 3
-      CALL CUNG2R( 0, 0, -1, A, 1, X, W, INFO )
-      CALL CHKXER( 'CUNG2R', INFOT, NOUT, LERR, OK )
+      cung2r(0, 0, -1, A, 1, X, W, INFO );
+      chkxer('CUNG2R', INFOT, NOUT, LERR, OK );
       INFOT = 3
-      CALL CUNG2R( 2, 1, 2, A, 2, X, W, INFO )
-      CALL CHKXER( 'CUNG2R', INFOT, NOUT, LERR, OK )
+      cung2r(2, 1, 2, A, 2, X, W, INFO );
+      chkxer('CUNG2R', INFOT, NOUT, LERR, OK );
       INFOT = 5
-      CALL CUNG2R( 2, 1, 0, A, 1, X, W, INFO )
-      CALL CHKXER( 'CUNG2R', INFOT, NOUT, LERR, OK )
+      cung2r(2, 1, 0, A, 1, X, W, INFO );
+      chkxer('CUNG2R', INFOT, NOUT, LERR, OK );
 
       // CUNMQR
 
       SRNAMT = 'CUNMQR'
       INFOT = 1
-      CALL CUNMQR( '/', 'N', 0, 0, 0, A, 1, X, AF, 1, W, 1, INFO )
-      CALL CHKXER( 'CUNMQR', INFOT, NOUT, LERR, OK )
+      cunmqr('/', 'N', 0, 0, 0, A, 1, X, AF, 1, W, 1, INFO );
+      chkxer('CUNMQR', INFOT, NOUT, LERR, OK );
       INFOT = 2
-      CALL CUNMQR( 'L', '/', 0, 0, 0, A, 1, X, AF, 1, W, 1, INFO )
-      CALL CHKXER( 'CUNMQR', INFOT, NOUT, LERR, OK )
+      cunmqr('L', '/', 0, 0, 0, A, 1, X, AF, 1, W, 1, INFO );
+      chkxer('CUNMQR', INFOT, NOUT, LERR, OK );
       INFOT = 3
-      CALL CUNMQR( 'L', 'N', -1, 0, 0, A, 1, X, AF, 1, W, 1, INFO )
-      CALL CHKXER( 'CUNMQR', INFOT, NOUT, LERR, OK )
+      cunmqr('L', 'N', -1, 0, 0, A, 1, X, AF, 1, W, 1, INFO );
+      chkxer('CUNMQR', INFOT, NOUT, LERR, OK );
       INFOT = 4
-      CALL CUNMQR( 'L', 'N', 0, -1, 0, A, 1, X, AF, 1, W, 1, INFO )
-      CALL CHKXER( 'CUNMQR', INFOT, NOUT, LERR, OK )
+      cunmqr('L', 'N', 0, -1, 0, A, 1, X, AF, 1, W, 1, INFO );
+      chkxer('CUNMQR', INFOT, NOUT, LERR, OK );
       INFOT = 5
-      CALL CUNMQR( 'L', 'N', 0, 0, -1, A, 1, X, AF, 1, W, 1, INFO )
-      CALL CHKXER( 'CUNMQR', INFOT, NOUT, LERR, OK )
+      cunmqr('L', 'N', 0, 0, -1, A, 1, X, AF, 1, W, 1, INFO );
+      chkxer('CUNMQR', INFOT, NOUT, LERR, OK );
       INFOT = 5
-      CALL CUNMQR( 'L', 'N', 0, 1, 1, A, 1, X, AF, 1, W, 1, INFO )
-      CALL CHKXER( 'CUNMQR', INFOT, NOUT, LERR, OK )
+      cunmqr('L', 'N', 0, 1, 1, A, 1, X, AF, 1, W, 1, INFO );
+      chkxer('CUNMQR', INFOT, NOUT, LERR, OK );
       INFOT = 5
-      CALL CUNMQR( 'R', 'N', 1, 0, 1, A, 1, X, AF, 1, W, 1, INFO )
-      CALL CHKXER( 'CUNMQR', INFOT, NOUT, LERR, OK )
+      cunmqr('R', 'N', 1, 0, 1, A, 1, X, AF, 1, W, 1, INFO );
+      chkxer('CUNMQR', INFOT, NOUT, LERR, OK );
       INFOT = 7
-      CALL CUNMQR( 'L', 'N', 2, 1, 0, A, 1, X, AF, 2, W, 1, INFO )
-      CALL CHKXER( 'CUNMQR', INFOT, NOUT, LERR, OK )
+      cunmqr('L', 'N', 2, 1, 0, A, 1, X, AF, 2, W, 1, INFO );
+      chkxer('CUNMQR', INFOT, NOUT, LERR, OK );
       INFOT = 7
-      CALL CUNMQR( 'R', 'N', 1, 2, 0, A, 1, X, AF, 1, W, 1, INFO )
-      CALL CHKXER( 'CUNMQR', INFOT, NOUT, LERR, OK )
+      cunmqr('R', 'N', 1, 2, 0, A, 1, X, AF, 1, W, 1, INFO );
+      chkxer('CUNMQR', INFOT, NOUT, LERR, OK );
       INFOT = 10
-      CALL CUNMQR( 'L', 'N', 2, 1, 0, A, 2, X, AF, 1, W, 1, INFO )
-      CALL CHKXER( 'CUNMQR', INFOT, NOUT, LERR, OK )
+      cunmqr('L', 'N', 2, 1, 0, A, 2, X, AF, 1, W, 1, INFO );
+      chkxer('CUNMQR', INFOT, NOUT, LERR, OK );
       INFOT = 12
-      CALL CUNMQR( 'L', 'N', 1, 2, 0, A, 1, X, AF, 1, W, 1, INFO )
-      CALL CHKXER( 'CUNMQR', INFOT, NOUT, LERR, OK )
+      cunmqr('L', 'N', 1, 2, 0, A, 1, X, AF, 1, W, 1, INFO );
+      chkxer('CUNMQR', INFOT, NOUT, LERR, OK );
       INFOT = 12
-      CALL CUNMQR( 'R', 'N', 2, 1, 0, A, 1, X, AF, 2, W, 1, INFO )
-      CALL CHKXER( 'CUNMQR', INFOT, NOUT, LERR, OK )
+      cunmqr('R', 'N', 2, 1, 0, A, 1, X, AF, 2, W, 1, INFO );
+      chkxer('CUNMQR', INFOT, NOUT, LERR, OK );
 
       // CUNM2R
 
       SRNAMT = 'CUNM2R'
       INFOT = 1
-      CALL CUNM2R( '/', 'N', 0, 0, 0, A, 1, X, AF, 1, W, INFO )
-      CALL CHKXER( 'CUNM2R', INFOT, NOUT, LERR, OK )
+      cunm2r('/', 'N', 0, 0, 0, A, 1, X, AF, 1, W, INFO );
+      chkxer('CUNM2R', INFOT, NOUT, LERR, OK );
       INFOT = 2
-      CALL CUNM2R( 'L', '/', 0, 0, 0, A, 1, X, AF, 1, W, INFO )
-      CALL CHKXER( 'CUNM2R', INFOT, NOUT, LERR, OK )
+      cunm2r('L', '/', 0, 0, 0, A, 1, X, AF, 1, W, INFO );
+      chkxer('CUNM2R', INFOT, NOUT, LERR, OK );
       INFOT = 3
-      CALL CUNM2R( 'L', 'N', -1, 0, 0, A, 1, X, AF, 1, W, INFO )
-      CALL CHKXER( 'CUNM2R', INFOT, NOUT, LERR, OK )
+      cunm2r('L', 'N', -1, 0, 0, A, 1, X, AF, 1, W, INFO );
+      chkxer('CUNM2R', INFOT, NOUT, LERR, OK );
       INFOT = 4
-      CALL CUNM2R( 'L', 'N', 0, -1, 0, A, 1, X, AF, 1, W, INFO )
-      CALL CHKXER( 'CUNM2R', INFOT, NOUT, LERR, OK )
+      cunm2r('L', 'N', 0, -1, 0, A, 1, X, AF, 1, W, INFO );
+      chkxer('CUNM2R', INFOT, NOUT, LERR, OK );
       INFOT = 5
-      CALL CUNM2R( 'L', 'N', 0, 0, -1, A, 1, X, AF, 1, W, INFO )
-      CALL CHKXER( 'CUNM2R', INFOT, NOUT, LERR, OK )
+      cunm2r('L', 'N', 0, 0, -1, A, 1, X, AF, 1, W, INFO );
+      chkxer('CUNM2R', INFOT, NOUT, LERR, OK );
       INFOT = 5
-      CALL CUNM2R( 'L', 'N', 0, 1, 1, A, 1, X, AF, 1, W, INFO )
-      CALL CHKXER( 'CUNM2R', INFOT, NOUT, LERR, OK )
+      cunm2r('L', 'N', 0, 1, 1, A, 1, X, AF, 1, W, INFO );
+      chkxer('CUNM2R', INFOT, NOUT, LERR, OK );
       INFOT = 5
-      CALL CUNM2R( 'R', 'N', 1, 0, 1, A, 1, X, AF, 1, W, INFO )
-      CALL CHKXER( 'CUNM2R', INFOT, NOUT, LERR, OK )
+      cunm2r('R', 'N', 1, 0, 1, A, 1, X, AF, 1, W, INFO );
+      chkxer('CUNM2R', INFOT, NOUT, LERR, OK );
       INFOT = 7
-      CALL CUNM2R( 'L', 'N', 2, 1, 0, A, 1, X, AF, 2, W, INFO )
-      CALL CHKXER( 'CUNM2R', INFOT, NOUT, LERR, OK )
+      cunm2r('L', 'N', 2, 1, 0, A, 1, X, AF, 2, W, INFO );
+      chkxer('CUNM2R', INFOT, NOUT, LERR, OK );
       INFOT = 7
-      CALL CUNM2R( 'R', 'N', 1, 2, 0, A, 1, X, AF, 1, W, INFO )
-      CALL CHKXER( 'CUNM2R', INFOT, NOUT, LERR, OK )
+      cunm2r('R', 'N', 1, 2, 0, A, 1, X, AF, 1, W, INFO );
+      chkxer('CUNM2R', INFOT, NOUT, LERR, OK );
       INFOT = 10
-      CALL CUNM2R( 'L', 'N', 2, 1, 0, A, 2, X, AF, 1, W, INFO )
-      CALL CHKXER( 'CUNM2R', INFOT, NOUT, LERR, OK )
+      cunm2r('L', 'N', 2, 1, 0, A, 2, X, AF, 1, W, INFO );
+      chkxer('CUNM2R', INFOT, NOUT, LERR, OK );
 
       // Print a summary line.
 
-      CALL ALAESM( PATH, OK, NOUT )
+      alaesm(PATH, OK, NOUT );
 
       RETURN
 

@@ -56,7 +56,7 @@
          RETURN
       }
       if ( N.EQ.2 ) {
-         CALL DLASD5( I, D, Z, DELTA, RHO, SIGMA, WORK )
+         dlasd5(I, D, Z, DELTA, RHO, SIGMA, WORK );
          RETURN
       }
 
@@ -523,7 +523,7 @@
             DD( 1 ) = DTIIM
             DD( 2 ) = DELTA( II )*WORK( II )
             DD( 3 ) = DTIIP
-            CALL DLAED6( NITER, ORGATI, C, DD, ZZ, W, ETA, INFO )
+            dlaed6(NITER, ORGATI, C, DD, ZZ, W, ETA, INFO );
 
             if ( INFO.NE.0 ) {
 
@@ -734,7 +734,7 @@
                DD( 1 ) = DTIIM
                DD( 2 ) = DELTA( II )*WORK( II )
                DD( 3 ) = DTIIP
-               CALL DLAED6( NITER, ORGATI, C, DD, ZZ, W, ETA, INFO )
+               dlaed6(NITER, ORGATI, C, DD, ZZ, W, ETA, INFO );
 
                if ( INFO.NE.0 ) {
 

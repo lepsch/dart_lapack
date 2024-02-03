@@ -87,7 +87,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'ZHBGVD', -INFO )
+         xerbla('ZHBGVD', -INFO );
          RETURN
       } else if ( LQUERY ) {
          RETURN
@@ -99,7 +99,7 @@
 
       // Form a split Cholesky factorization of B.
 
-      CALL ZPBSTF( UPLO, N, KB, BB, LDBB, INFO )
+      zpbstf(UPLO, N, KB, BB, LDBB, INFO );
       if ( INFO.NE.0 ) {
          INFO = N + INFO
          RETURN
@@ -112,7 +112,7 @@
       INDWK2 = 1 + N*N
       LLWK2 = LWORK - INDWK2 + 2
       LLRWK = LRWORK - INDWRK + 2
-      CALL ZHBGST( JOBZ, UPLO, N, KA, KB, AB, LDAB, BB, LDBB, Z, LDZ, WORK, RWORK, IINFO )
+      zhbgst(JOBZ, UPLO, N, KA, KB, AB, LDAB, BB, LDBB, Z, LDZ, WORK, RWORK, IINFO );
 
       // Reduce Hermitian band matrix to tridiagonal form.
 
@@ -121,16 +121,16 @@
       } else {
          VECT = 'N'
       }
-      CALL ZHBTRD( VECT, UPLO, N, KA, AB, LDAB, W, RWORK( INDE ), Z, LDZ, WORK, IINFO )
+      zhbtrd(VECT, UPLO, N, KA, AB, LDAB, W, RWORK( INDE ), Z, LDZ, WORK, IINFO );
 
       // For eigenvalues only, call DSTERF.  For eigenvectors, call ZSTEDC.
 
       if ( .NOT.WANTZ ) {
-         CALL DSTERF( N, W, RWORK( INDE ), INFO )
+         dsterf(N, W, RWORK( INDE ), INFO );
       } else {
-         CALL ZSTEDC( 'I', N, W, RWORK( INDE ), WORK, N, WORK( INDWK2 ), LLWK2, RWORK( INDWRK ), LLRWK, IWORK, LIWORK, INFO )
-         CALL ZGEMM( 'N', 'N', N, N, N, CONE, Z, LDZ, WORK, N, CZERO, WORK( INDWK2 ), N )
-         CALL ZLACPY( 'A', N, N, WORK( INDWK2 ), N, Z, LDZ )
+         zstedc('I', N, W, RWORK( INDE ), WORK, N, WORK( INDWK2 ), LLWK2, RWORK( INDWRK ), LLRWK, IWORK, LIWORK, INFO );
+         zgemm('N', 'N', N, N, N, CONE, Z, LDZ, WORK, N, CZERO, WORK( INDWK2 ), N );
+         zlacpy('A', N, N, WORK( INDWK2 ), N, Z, LDZ );
       }
 
       WORK( 1 ) = LWMIN

@@ -51,15 +51,15 @@
 
       // Initialize C to the identity matrix.
 
-      CALL DLASET( 'Full', N, N, ZERO, ONE, C, LDC )
+      dlaset('Full', N, N, ZERO, ONE, C, LDC );
 
       // Call DLAVSY to form the product D * U' (or D * L' ).
 
-      CALL DLAVSY( UPLO, 'Transpose', 'Non-unit', N, N, AFAC, LDAFAC, IPIV, C, LDC, INFO )
+      dlavsy(UPLO, 'Transpose', 'Non-unit', N, N, AFAC, LDAFAC, IPIV, C, LDC, INFO );
 
       // Call DLAVSY again to multiply by U (or L ).
 
-      CALL DLAVSY( UPLO, 'No transpose', 'Unit', N, N, AFAC, LDAFAC, IPIV, C, LDC, INFO )
+      dlavsy(UPLO, 'No transpose', 'Unit', N, N, AFAC, LDAFAC, IPIV, C, LDC, INFO );
 
       // Compute the difference  C - A .
 

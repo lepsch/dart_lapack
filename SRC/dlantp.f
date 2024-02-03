@@ -188,7 +188,7 @@
                SUM = N
                K = 2
                DO 280 J = 2, N
-                  CALL DLASSQ( J-1, AP( K ), 1, SCALE, SUM )
+                  dlassq(J-1, AP( K ), 1, SCALE, SUM );
                   K = K + J
   280          CONTINUE
             } else {
@@ -196,7 +196,7 @@
                SUM = ONE
                K = 1
                DO 290 J = 1, N
-                  CALL DLASSQ( J, AP( K ), 1, SCALE, SUM )
+                  dlassq(J, AP( K ), 1, SCALE, SUM );
                   K = K + J
   290          CONTINUE
             }
@@ -206,7 +206,7 @@
                SUM = N
                K = 2
                DO 300 J = 1, N - 1
-                  CALL DLASSQ( N-J, AP( K ), 1, SCALE, SUM )
+                  dlassq(N-J, AP( K ), 1, SCALE, SUM );
                   K = K + N - J + 1
   300          CONTINUE
             } else {
@@ -214,7 +214,7 @@
                SUM = ONE
                K = 1
                DO 310 J = 1, N
-                  CALL DLASSQ( N-J+1, AP( K ), 1, SCALE, SUM )
+                  dlassq(N-J+1, AP( K ), 1, SCALE, SUM );
                   K = K + N - J + 1
   310          CONTINUE
             }

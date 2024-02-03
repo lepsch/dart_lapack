@@ -42,7 +42,7 @@
          INFO = -10
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'DGERQS', -INFO )
+         xerbla('DGERQS', -INFO );
          RETURN
       }
 
@@ -52,15 +52,15 @@
 
       // Solve R*X = B(n-m+1:n,:)
 
-      CALL DTRSM( 'Left', 'Upper', 'No transpose', 'Non-unit', M, NRHS, ONE, A( 1, N-M+1 ), LDA, B( N-M+1, 1 ), LDB )
+      dtrsm('Left', 'Upper', 'No transpose', 'Non-unit', M, NRHS, ONE, A( 1, N-M+1 ), LDA, B( N-M+1, 1 ), LDB );
 
       // Set B(1:n-m,:) to zero
 
-      CALL DLASET( 'Full', N-M, NRHS, ZERO, ZERO, B, LDB )
+      dlaset('Full', N-M, NRHS, ZERO, ZERO, B, LDB );
 
       // B := Q' * B
 
-      CALL DORMRQ( 'Left', 'Transpose', N, NRHS, M, A, LDA, TAU, B, LDB, WORK, LWORK, INFO )
+      dormrq('Left', 'Transpose', N, NRHS, M, A, LDA, TAU, B, LDB, WORK, LWORK, INFO );
 
       RETURN
 

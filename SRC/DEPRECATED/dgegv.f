@@ -101,7 +101,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'DGEGV ', -INFO )
+         xerbla('DGEGV ', -INFO );
          RETURN
       } else if ( LQUERY ) {
          RETURN
@@ -132,7 +132,7 @@
       }
 
       if ( ANRM.GT.ZERO ) {
-         CALL DLASCL( 'G', -1, -1, ANRM, ONE, N, N, A, LDA, IINFO )
+         dlascl('G', -1, -1, ANRM, ONE, N, N, A, LDA, IINFO );
          if ( IINFO.NE.0 ) {
             INFO = N + 10
             RETURN
@@ -152,7 +152,7 @@
       }
 
       if ( BNRM.GT.ZERO ) {
-         CALL DLASCL( 'G', -1, -1, BNRM, ONE, N, N, B, LDB, IINFO )
+         dlascl('G', -1, -1, BNRM, ONE, N, N, B, LDB, IINFO );
          if ( IINFO.NE.0 ) {
             INFO = N + 10
             RETURN
@@ -166,7 +166,7 @@
       ILEFT = 1
       IRIGHT = N + 1
       IWORK = IRIGHT + N
-      CALL DGGBAL( 'P', N, A, LDA, B, LDB, ILO, IHI, WORK( ILEFT ), WORK( IRIGHT ), WORK( IWORK ), IINFO )
+      dggbal('P', N, A, LDA, B, LDB, ILO, IHI, WORK( ILEFT ), WORK( IRIGHT ), WORK( IWORK ), IINFO );
       if ( IINFO.NE.0 ) {
          INFO = N + 1
          GO TO 120
@@ -184,13 +184,13 @@
       }
       ITAU = IWORK
       IWORK = ITAU + IROWS
-      CALL DGEQRF( IROWS, ICOLS, B( ILO, ILO ), LDB, WORK( ITAU ), WORK( IWORK ), LWORK+1-IWORK, IINFO )       IF( IINFO.GE.0 ) LWKOPT = MAX( LWKOPT, INT( WORK( IWORK ) )+IWORK-1 )
+      dgeqrf(IROWS, ICOLS, B( ILO, ILO ), LDB, WORK( ITAU ), WORK( IWORK ), LWORK+1-IWORK, IINFO )       IF( IINFO.GE.0 ) LWKOPT = MAX( LWKOPT, INT( WORK( IWORK ) )+IWORK-1 );
       if ( IINFO.NE.0 ) {
          INFO = N + 2
          GO TO 120
       }
 
-      CALL DORMQR( 'L', 'T', IROWS, ICOLS, IROWS, B( ILO, ILO ), LDB, WORK( ITAU ), A( ILO, ILO ), LDA, WORK( IWORK ), LWORK+1-IWORK, IINFO )
+      dormqr('L', 'T', IROWS, ICOLS, IROWS, B( ILO, ILO ), LDB, WORK( ITAU ), A( ILO, ILO ), LDA, WORK( IWORK ), LWORK+1-IWORK, IINFO );
       IF( IINFO.GE.0 ) LWKOPT = MAX( LWKOPT, INT( WORK( IWORK ) )+IWORK-1 )
       if ( IINFO.NE.0 ) {
          INFO = N + 3
@@ -198,8 +198,8 @@
       }
 
       if ( ILVL ) {
-         CALL DLASET( 'Full', N, N, ZERO, ONE, VL, LDVL )
-         CALL DLACPY( 'L', IROWS-1, IROWS-1, B( ILO+1, ILO ), LDB, VL( ILO+1, ILO ), LDVL )          CALL DORGQR( IROWS, IROWS, IROWS, VL( ILO, ILO ), LDVL, WORK( ITAU ), WORK( IWORK ), LWORK+1-IWORK, IINFO )
+         dlaset('Full', N, N, ZERO, ONE, VL, LDVL );
+         dlacpy('L', IROWS-1, IROWS-1, B( ILO+1, ILO ), LDB, VL( ILO+1, ILO ), LDVL )          CALL DORGQR( IROWS, IROWS, IROWS, VL( ILO, ILO ), LDVL, WORK( ITAU ), WORK( IWORK ), LWORK+1-IWORK, IINFO );
          IF( IINFO.GE.0 ) LWKOPT = MAX( LWKOPT, INT( WORK( IWORK ) )+IWORK-1 )
          if ( IINFO.NE.0 ) {
             INFO = N + 4
@@ -215,9 +215,9 @@
 
          // Eigenvectors requested -- work on whole matrix.
 
-         CALL DGGHRD( JOBVL, JOBVR, N, ILO, IHI, A, LDA, B, LDB, VL, LDVL, VR, LDVR, IINFO )
+         dgghrd(JOBVL, JOBVR, N, ILO, IHI, A, LDA, B, LDB, VL, LDVL, VR, LDVR, IINFO );
       } else {
-         CALL DGGHRD( 'N', 'N', IROWS, 1, IROWS, A( ILO, ILO ), LDA, B( ILO, ILO ), LDB, VL, LDVL, VR, LDVR, IINFO )
+         dgghrd('N', 'N', IROWS, 1, IROWS, A( ILO, ILO ), LDA, B( ILO, ILO ), LDB, VL, LDVL, VR, LDVR, IINFO );
       }
       if ( IINFO.NE.0 ) {
          INFO = N + 5
@@ -234,7 +234,7 @@
       } else {
          CHTEMP = 'E'
       }
-      CALL DHGEQZ( CHTEMP, JOBVL, JOBVR, N, ILO, IHI, A, LDA, B, LDB, ALPHAR, ALPHAI, BETA, VL, LDVL, VR, LDVR, WORK( IWORK ), LWORK+1-IWORK, IINFO )
+      dhgeqz(CHTEMP, JOBVL, JOBVR, N, ILO, IHI, A, LDA, B, LDB, ALPHAR, ALPHAI, BETA, VL, LDVL, VR, LDVR, WORK( IWORK ), LWORK+1-IWORK, IINFO );
       IF( IINFO.GE.0 ) LWKOPT = MAX( LWKOPT, INT( WORK( IWORK ) )+IWORK-1 )
       if ( IINFO.NE.0 ) {
          if ( IINFO.GT.0 .AND. IINFO.LE.N ) {
@@ -261,7 +261,7 @@
             CHTEMP = 'R'
          }
 
-         CALL DTGEVC( CHTEMP, 'B', LDUMMA, N, A, LDA, B, LDB, VL, LDVL, VR, LDVR, N, IN, WORK( IWORK ), IINFO )
+         dtgevc(CHTEMP, 'B', LDUMMA, N, A, LDA, B, LDB, VL, LDVL, VR, LDVR, N, IN, WORK( IWORK ), IINFO );
          if ( IINFO.NE.0 ) {
             INFO = N + 7
             GO TO 120
@@ -270,7 +270,7 @@
          // Undo balancing on VL and VR, rescale
 
          if ( ILVL ) {
-            CALL DGGBAK( 'P', 'L', N, ILO, IHI, WORK( ILEFT ), WORK( IRIGHT ), N, VL, LDVL, IINFO )
+            dggbak('P', 'L', N, ILO, IHI, WORK( ILEFT ), WORK( IRIGHT ), N, VL, LDVL, IINFO );
             if ( IINFO.NE.0 ) {
                INFO = N + 8
                GO TO 120
@@ -302,7 +302,7 @@
    50       CONTINUE
          }
          if ( ILVR ) {
-            CALL DGGBAK( 'P', 'R', N, ILO, IHI, WORK( ILEFT ), WORK( IRIGHT ), N, VR, LDVR, IINFO )
+            dggbak('P', 'R', N, ILO, IHI, WORK( ILEFT ), WORK( IRIGHT ), N, VR, LDVR, IINFO );
             if ( IINFO.NE.0 ) {
                INFO = N + 9
                GO TO 120

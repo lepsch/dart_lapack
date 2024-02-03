@@ -44,8 +44,8 @@
       // Compute norm(B - U * C)
 
       DO 10 J = 1, N
-         CALL SCOPY( M, B( 1, J ), 1, WORK, 1 )
-         CALL SGEMV( 'No transpose', M, M, -ONE, U, LDU, C( 1, J ), 1, ONE, WORK, 1 )
+         scopy(M, B( 1, J ), 1, WORK, 1 );
+         sgemv('No transpose', M, M, -ONE, U, LDU, C( 1, J ), 1, ONE, WORK, 1 );
          RESID = MAX( RESID, SASUM( M, WORK, 1 ) )
    10 CONTINUE
 

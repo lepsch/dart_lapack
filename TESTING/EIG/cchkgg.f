@@ -92,7 +92,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'CCHKGG', -INFO )
+         xerbla('CCHKGG', -INFO );
          RETURN
       }
 
@@ -179,7 +179,7 @@
                } else {
                   IN = N
                }
-               CALL CLATM4( KATYPE( JTYPE ), IN, KZ1( KAZERO( JTYPE ) ), KZ2( KAZERO( JTYPE ) ), LASIGN( JTYPE ), RMAGN( KAMAGN( JTYPE ) ), ULP, RMAGN( KTRIAN( JTYPE )*KAMAGN( JTYPE ) ), 4, ISEED, A, LDA )
+               clatm4(KATYPE( JTYPE ), IN, KZ1( KAZERO( JTYPE ) ), KZ2( KAZERO( JTYPE ) ), LASIGN( JTYPE ), RMAGN( KAMAGN( JTYPE ) ), ULP, RMAGN( KTRIAN( JTYPE )*KAMAGN( JTYPE ) ), 4, ISEED, A, LDA );
                IADD = KADD( KAZERO( JTYPE ) )
                IF( IADD.GT.0 .AND. IADD.LE.N ) A( IADD, IADD ) = RMAGN( KAMAGN( JTYPE ) )
 
@@ -191,7 +191,7 @@
                } else {
                   IN = N
                }
-               CALL CLATM4( KBTYPE( JTYPE ), IN, KZ1( KBZERO( JTYPE ) ), KZ2( KBZERO( JTYPE ) ), LBSIGN( JTYPE ), RMAGN( KBMAGN( JTYPE ) ), ONE, RMAGN( KTRIAN( JTYPE )*KBMAGN( JTYPE ) ), 4, ISEED, B, LDA )
+               clatm4(KBTYPE( JTYPE ), IN, KZ1( KBZERO( JTYPE ) ), KZ2( KBZERO( JTYPE ) ), LBSIGN( JTYPE ), RMAGN( KBMAGN( JTYPE ) ), ONE, RMAGN( KTRIAN( JTYPE )*KBMAGN( JTYPE ) ), 4, ISEED, B, LDA );
                IADD = KADD( KBZERO( JTYPE ) )
                IF( IADD.NE.0 ) B( IADD, IADD ) = RMAGN( KBMAGN( JTYPE ) )
 
@@ -208,10 +208,10 @@
                         U( JR, JC ) = CLARND( 3, ISEED )
                         V( JR, JC ) = CLARND( 3, ISEED )
    40                CONTINUE
-                     CALL CLARFG( N+1-JC, U( JC, JC ), U( JC+1, JC ), 1, WORK( JC ) )
+                     clarfg(N+1-JC, U( JC, JC ), U( JC+1, JC ), 1, WORK( JC ) );
                      WORK( 2*N+JC ) = SIGN( ONE, REAL( U( JC, JC ) ) )
                      U( JC, JC ) = CONE
-                     CALL CLARFG( N+1-JC, V( JC, JC ), V( JC+1, JC ), 1, WORK( N+JC ) )
+                     clarfg(N+1-JC, V( JC, JC ), V( JC+1, JC ), 1, WORK( N+JC ) );
                      WORK( 3*N+JC ) = SIGN( ONE, REAL( V( JC, JC ) ) )
                      V( JC, JC ) = CONE
    50             CONTINUE
@@ -259,34 +259,34 @@
 
             // Call CGEQR2, CUNM2R, and CGGHRD to compute H, T, U, and V
 
-            CALL CLACPY( ' ', N, N, A, LDA, H, LDA )
-            CALL CLACPY( ' ', N, N, B, LDA, T, LDA )
+            clacpy(' ', N, N, A, LDA, H, LDA );
+            clacpy(' ', N, N, B, LDA, T, LDA );
             NTEST = 1
             RESULT( 1 ) = ULPINV
 
-            CALL CGEQR2( N, N, T, LDA, WORK, WORK( N+1 ), IINFO )
+            cgeqr2(N, N, T, LDA, WORK, WORK( N+1 ), IINFO );
             if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'CGEQR2', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                GO TO 210
             }
 
-            CALL CUNM2R( 'L', 'C', N, N, N, T, LDA, WORK, H, LDA, WORK( N+1 ), IINFO )
+            cunm2r('L', 'C', N, N, N, T, LDA, WORK, H, LDA, WORK( N+1 ), IINFO );
             if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'CUNM2R', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                GO TO 210
             }
 
-            CALL CLASET( 'Full', N, N, CZERO, CONE, U, LDU )
-            CALL CUNM2R( 'R', 'N', N, N, N, T, LDA, WORK, U, LDU, WORK( N+1 ), IINFO )
+            claset('Full', N, N, CZERO, CONE, U, LDU );
+            cunm2r('R', 'N', N, N, N, T, LDA, WORK, U, LDU, WORK( N+1 ), IINFO );
             if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'CUNM2R', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                GO TO 210
             }
 
-            CALL CGGHRD( 'V', 'I', N, 1, N, H, LDA, T, LDA, U, LDU, V, LDU, IINFO )
+            cgghrd('V', 'I', N, 1, N, H, LDA, T, LDA, U, LDU, V, LDU, IINFO );
             if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'CGGHRD', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
@@ -296,7 +296,7 @@
 
             // Do tests 1--4
 
-            CALL CGET51( 1, N, A, LDA, H, LDA, U, LDU, V, LDU, WORK, RWORK, RESULT( 1 ) )             CALL CGET51( 1, N, B, LDA, T, LDA, U, LDU, V, LDU, WORK, RWORK, RESULT( 2 ) )             CALL CGET51( 3, N, B, LDA, T, LDA, U, LDU, U, LDU, WORK, RWORK, RESULT( 3 ) )             CALL CGET51( 3, N, B, LDA, T, LDA, V, LDU, V, LDU, WORK, RWORK, RESULT( 4 ) )
+            cget51(1, N, A, LDA, H, LDA, U, LDU, V, LDU, WORK, RWORK, RESULT( 1 ) )             CALL CGET51( 1, N, B, LDA, T, LDA, U, LDU, V, LDU, WORK, RWORK, RESULT( 2 ) )             CALL CGET51( 3, N, B, LDA, T, LDA, U, LDU, U, LDU, WORK, RWORK, RESULT( 3 ) )             CALL CGET51( 3, N, B, LDA, T, LDA, V, LDU, V, LDU, WORK, RWORK, RESULT( 4 ) );
 
             // Call CHGEQZ to compute S1, P1, S2, P2, Q, and Z, do tests.
 
@@ -304,12 +304,12 @@
 
             // Eigenvalues only
 
-            CALL CLACPY( ' ', N, N, H, LDA, S2, LDA )
-            CALL CLACPY( ' ', N, N, T, LDA, P2, LDA )
+            clacpy(' ', N, N, H, LDA, S2, LDA );
+            clacpy(' ', N, N, T, LDA, P2, LDA );
             NTEST = 5
             RESULT( 5 ) = ULPINV
 
-            CALL CHGEQZ( 'E', 'N', 'N', N, 1, N, S2, LDA, P2, LDA, ALPHA3, BETA3, Q, LDU, Z, LDU, WORK, LWORK, RWORK, IINFO )
+            chgeqz('E', 'N', 'N', N, 1, N, S2, LDA, P2, LDA, ALPHA3, BETA3, Q, LDU, Z, LDU, WORK, LWORK, RWORK, IINFO );
             if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'CHGEQZ(E)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
@@ -318,10 +318,10 @@
 
             // Eigenvalues and Full Schur Form
 
-            CALL CLACPY( ' ', N, N, H, LDA, S2, LDA )
-            CALL CLACPY( ' ', N, N, T, LDA, P2, LDA )
+            clacpy(' ', N, N, H, LDA, S2, LDA );
+            clacpy(' ', N, N, T, LDA, P2, LDA );
 
-            CALL CHGEQZ( 'S', 'N', 'N', N, 1, N, S2, LDA, P2, LDA, ALPHA1, BETA1, Q, LDU, Z, LDU, WORK, LWORK, RWORK, IINFO )
+            chgeqz('S', 'N', 'N', N, 1, N, S2, LDA, P2, LDA, ALPHA1, BETA1, Q, LDU, Z, LDU, WORK, LWORK, RWORK, IINFO );
             if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'CHGEQZ(S)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
@@ -330,10 +330,10 @@
 
             // Eigenvalues, Schur Form, and Schur Vectors
 
-            CALL CLACPY( ' ', N, N, H, LDA, S1, LDA )
-            CALL CLACPY( ' ', N, N, T, LDA, P1, LDA )
+            clacpy(' ', N, N, H, LDA, S1, LDA );
+            clacpy(' ', N, N, T, LDA, P1, LDA );
 
-            CALL CHGEQZ( 'S', 'I', 'I', N, 1, N, S1, LDA, P1, LDA, ALPHA1, BETA1, Q, LDU, Z, LDU, WORK, LWORK, RWORK, IINFO )
+            chgeqz('S', 'I', 'I', N, 1, N, S1, LDA, P1, LDA, ALPHA1, BETA1, Q, LDU, Z, LDU, WORK, LWORK, RWORK, IINFO );
             if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'CHGEQZ(V)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
@@ -344,7 +344,7 @@
 
             // Do Tests 5--8
 
-            CALL CGET51( 1, N, H, LDA, S1, LDA, Q, LDU, Z, LDU, WORK, RWORK, RESULT( 5 ) )             CALL CGET51( 1, N, T, LDA, P1, LDA, Q, LDU, Z, LDU, WORK, RWORK, RESULT( 6 ) )             CALL CGET51( 3, N, T, LDA, P1, LDA, Q, LDU, Q, LDU, WORK, RWORK, RESULT( 7 ) )             CALL CGET51( 3, N, T, LDA, P1, LDA, Z, LDU, Z, LDU, WORK, RWORK, RESULT( 8 ) )
+            cget51(1, N, H, LDA, S1, LDA, Q, LDU, Z, LDU, WORK, RWORK, RESULT( 5 ) )             CALL CGET51( 1, N, T, LDA, P1, LDA, Q, LDU, Z, LDU, WORK, RWORK, RESULT( 6 ) )             CALL CGET51( 3, N, T, LDA, P1, LDA, Q, LDU, Q, LDU, WORK, RWORK, RESULT( 7 ) )             CALL CGET51( 3, N, T, LDA, P1, LDA, Z, LDU, Z, LDU, WORK, RWORK, RESULT( 8 ) );
 
             // Compute the Left and Right Eigenvectors of (S1,P1)
 
@@ -365,7 +365,7 @@
                LLWORK( J ) = .FALSE.
   130       CONTINUE
 
-            CALL CTGEVC( 'L', 'S', LLWORK, N, S1, LDA, P1, LDA, EVECTL, LDU, CDUMMA, LDU, N, IN, WORK, RWORK, IINFO )
+            ctgevc('L', 'S', LLWORK, N, S1, LDA, P1, LDA, EVECTL, LDU, CDUMMA, LDU, N, IN, WORK, RWORK, IINFO );
             if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'CTGEVC(L,S1)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
@@ -380,14 +380,14 @@
                LLWORK( J ) = .TRUE.
   150       CONTINUE
 
-            CALL CTGEVC( 'L', 'S', LLWORK, N, S1, LDA, P1, LDA, EVECTL( 1, I1+1 ), LDU, CDUMMA, LDU, N, IN, WORK, RWORK, IINFO )
+            ctgevc('L', 'S', LLWORK, N, S1, LDA, P1, LDA, EVECTL( 1, I1+1 ), LDU, CDUMMA, LDU, N, IN, WORK, RWORK, IINFO );
             if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'CTGEVC(L,S2)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                GO TO 210
             }
 
-            CALL CGET52( .TRUE., N, S1, LDA, P1, LDA, EVECTL, LDU, ALPHA1, BETA1, WORK, RWORK, DUMMA( 1 ) )
+            cget52(.TRUE., N, S1, LDA, P1, LDA, EVECTL, LDU, ALPHA1, BETA1, WORK, RWORK, DUMMA( 1 ) );
             RESULT( 9 ) = DUMMA( 1 )
             if ( DUMMA( 2 ).GT.THRSHN ) {
                WRITE( NOUNIT, FMT = 9998 )'Left', 'CTGEVC(HOWMNY=S)', DUMMA( 2 ), N, JTYPE, IOLDSD
@@ -398,15 +398,15 @@
 
             NTEST = 10
             RESULT( 10 ) = ULPINV
-            CALL CLACPY( 'F', N, N, Q, LDU, EVECTL, LDU )
-            CALL CTGEVC( 'L', 'B', LLWORK, N, S1, LDA, P1, LDA, EVECTL, LDU, CDUMMA, LDU, N, IN, WORK, RWORK, IINFO )
+            clacpy('F', N, N, Q, LDU, EVECTL, LDU );
+            ctgevc('L', 'B', LLWORK, N, S1, LDA, P1, LDA, EVECTL, LDU, CDUMMA, LDU, N, IN, WORK, RWORK, IINFO );
             if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'CTGEVC(L,B)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                GO TO 210
             }
 
-            CALL CGET52( .TRUE., N, H, LDA, T, LDA, EVECTL, LDU, ALPHA1, BETA1, WORK, RWORK, DUMMA( 1 ) )
+            cget52(.TRUE., N, H, LDA, T, LDA, EVECTL, LDU, ALPHA1, BETA1, WORK, RWORK, DUMMA( 1 ) );
             RESULT( 10 ) = DUMMA( 1 )
             if ( DUMMA( 2 ).GT.THRSHN ) {
                WRITE( NOUNIT, FMT = 9998 )'Left', 'CTGEVC(HOWMNY=B)', DUMMA( 2 ), N, JTYPE, IOLDSD
@@ -429,7 +429,7 @@
                LLWORK( J ) = .FALSE.
   170       CONTINUE
 
-            CALL CTGEVC( 'R', 'S', LLWORK, N, S1, LDA, P1, LDA, CDUMMA, LDU, EVECTR, LDU, N, IN, WORK, RWORK, IINFO )
+            ctgevc('R', 'S', LLWORK, N, S1, LDA, P1, LDA, CDUMMA, LDU, EVECTR, LDU, N, IN, WORK, RWORK, IINFO );
             if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'CTGEVC(R,S1)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
@@ -444,14 +444,14 @@
                LLWORK( J ) = .TRUE.
   190       CONTINUE
 
-            CALL CTGEVC( 'R', 'S', LLWORK, N, S1, LDA, P1, LDA, CDUMMA, LDU, EVECTR( 1, I1+1 ), LDU, N, IN, WORK, RWORK, IINFO )
+            ctgevc('R', 'S', LLWORK, N, S1, LDA, P1, LDA, CDUMMA, LDU, EVECTR( 1, I1+1 ), LDU, N, IN, WORK, RWORK, IINFO );
             if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'CTGEVC(R,S2)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                GO TO 210
             }
 
-            CALL CGET52( .FALSE., N, S1, LDA, P1, LDA, EVECTR, LDU, ALPHA1, BETA1, WORK, RWORK, DUMMA( 1 ) )
+            cget52(.FALSE., N, S1, LDA, P1, LDA, EVECTR, LDU, ALPHA1, BETA1, WORK, RWORK, DUMMA( 1 ) );
             RESULT( 11 ) = DUMMA( 1 )
             if ( DUMMA( 2 ).GT.THRESH ) {
                WRITE( NOUNIT, FMT = 9998 )'Right', 'CTGEVC(HOWMNY=S)', DUMMA( 2 ), N, JTYPE, IOLDSD
@@ -462,15 +462,15 @@
 
             NTEST = 12
             RESULT( 12 ) = ULPINV
-            CALL CLACPY( 'F', N, N, Z, LDU, EVECTR, LDU )
-            CALL CTGEVC( 'R', 'B', LLWORK, N, S1, LDA, P1, LDA, CDUMMA, LDU, EVECTR, LDU, N, IN, WORK, RWORK, IINFO )
+            clacpy('F', N, N, Z, LDU, EVECTR, LDU );
+            ctgevc('R', 'B', LLWORK, N, S1, LDA, P1, LDA, CDUMMA, LDU, EVECTR, LDU, N, IN, WORK, RWORK, IINFO );
             if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'CTGEVC(R,B)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                GO TO 210
             }
 
-            CALL CGET52( .FALSE., N, H, LDA, T, LDA, EVECTR, LDU, ALPHA1, BETA1, WORK, RWORK, DUMMA( 1 ) )
+            cget52(.FALSE., N, H, LDA, T, LDA, EVECTR, LDU, ALPHA1, BETA1, WORK, RWORK, DUMMA( 1 ) );
             RESULT( 12 ) = DUMMA( 1 )
             if ( DUMMA( 2 ).GT.THRESH ) {
                WRITE( NOUNIT, FMT = 9998 )'Right', 'CTGEVC(HOWMNY=B)', DUMMA( 2 ), N, JTYPE, IOLDSD
@@ -482,7 +482,7 @@
 
                // Do Tests 13--14
 
-               CALL CGET51( 2, N, S1, LDA, S2, LDA, Q, LDU, Z, LDU, WORK, RWORK, RESULT( 13 ) )                CALL CGET51( 2, N, P1, LDA, P2, LDA, Q, LDU, Z, LDU, WORK, RWORK, RESULT( 14 ) )
+               cget51(2, N, S1, LDA, S2, LDA, Q, LDU, Z, LDU, WORK, RWORK, RESULT( 13 ) )                CALL CGET51( 2, N, P1, LDA, P2, LDA, Q, LDU, Z, LDU, WORK, RWORK, RESULT( 14 ) );
 
                // Do Test 15
 
@@ -546,7 +546,7 @@
 
       // Summary
 
-      CALL SLASUM( 'CGG', NOUNIT, NERRS, NTESTT )
+      slasum('CGG', NOUNIT, NERRS, NTESTT );
       RETURN
 
  9999 FORMAT( ' CCHKGG: ', A, ' returned INFO=', I6, '.', / 9X, 'N=', I6, ', JTYPE=', I6, ', ISEED=(', 3( I5, ',' ), I5, ')' )

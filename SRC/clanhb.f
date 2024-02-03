@@ -105,12 +105,12 @@
          if ( K.GT.0 ) {
             if ( LSAME( UPLO, 'U' ) ) {
                DO 110 J = 2, N
-                  CALL CLASSQ( MIN( J-1, K ), AB( MAX( K+2-J, 1 ), J ), 1, SCALE, SUM )
+                  classq(MIN( J-1, K ), AB( MAX( K+2-J, 1 ), J ), 1, SCALE, SUM );
   110          CONTINUE
                L = K + 1
             } else {
                DO 120 J = 1, N - 1
-                  CALL CLASSQ( MIN( N-J, K ), AB( 2, J ), 1, SCALE, SUM )
+                  classq(MIN( N-J, K ), AB( 2, J ), 1, SCALE, SUM );
   120          CONTINUE
                L = 1
             }

@@ -68,7 +68,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'DSYEV_2STAGE ', -INFO )
+         xerbla('DSYEV_2STAGE ', -INFO );
          RETURN
       } else if ( LQUERY ) {
          RETURN
@@ -117,18 +117,18 @@
       INDWRK  = INDHOUS + LHTRD
       LLWORK  = LWORK - INDWRK + 1
 
-      CALL DSYTRD_2STAGE( JOBZ, UPLO, N, A, LDA, W, WORK( INDE ), WORK( INDTAU ), WORK( INDHOUS ), LHTRD, WORK( INDWRK ), LLWORK, IINFO )
+      dsytrd_2stage(JOBZ, UPLO, N, A, LDA, W, WORK( INDE ), WORK( INDTAU ), WORK( INDHOUS ), LHTRD, WORK( INDWRK ), LLWORK, IINFO );
 
       // For eigenvalues only, call DSTERF.  For eigenvectors, first call
       // DORGTR to generate the orthogonal matrix, then call DSTEQR.
 
       if ( .NOT.WANTZ ) {
-         CALL DSTERF( N, W, WORK( INDE ), INFO )
+         dsterf(N, W, WORK( INDE ), INFO );
       } else {
          // Not available in this release, and argument checking should not
          // let it getting here
          RETURN
-         CALL DORGTR( UPLO, N, A, LDA, WORK( INDTAU ), WORK( INDWRK ), LLWORK, IINFO )          CALL DSTEQR( JOBZ, N, W, WORK( INDE ), A, LDA, WORK( INDTAU ), INFO )
+         dorgtr(UPLO, N, A, LDA, WORK( INDTAU ), WORK( INDWRK ), LLWORK, IINFO )          CALL DSTEQR( JOBZ, N, W, WORK( INDE ), A, LDA, WORK( INDTAU ), INFO );
       }
 
       // If matrix was scaled, then rescale eigenvalues appropriately.
@@ -139,7 +139,7 @@
          } else {
             IMAX = INFO - 1
          }
-         CALL DSCAL( IMAX, ONE / SIGMA, W, 1 )
+         dscal(IMAX, ONE / SIGMA, W, 1 );
       }
 
       // Set WORK(1) to optimal workspace size.

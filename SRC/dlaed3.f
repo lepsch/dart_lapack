@@ -47,7 +47,7 @@
          INFO = -6
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'DLAED3', -INFO )
+         xerbla('DLAED3', -INFO );
          RETURN
       }
 
@@ -57,7 +57,7 @@
 
 
       DO 20 J = 1, K
-         CALL DLAED4( K, J, DLAMBDA, W, Q( 1, J ), RHO, D( J ), INFO )
+         dlaed4(K, J, DLAMBDA, W, Q( 1, J ), RHO, D( J ), INFO );
 
          // If the zero finder fails, the computation is terminated.
 
@@ -79,11 +79,11 @@
 
       // Compute updated W.
 
-      CALL DCOPY( K, W, 1, S, 1 )
+      dcopy(K, W, 1, S, 1 );
 
       // Initialize W(I) = Q(I,I)
 
-      CALL DCOPY( K, Q, LDQ+1, W, 1 )
+      dcopy(K, Q, LDQ+1, W, 1 );
       DO 60 J = 1, K
          DO 40 I = 1, J - 1
             W( I ) = W( I )*( Q( I, J )/( DLAMBDA( I )-DLAMBDA( J ) ) )
@@ -117,19 +117,19 @@
       N12 = CTOT( 1 ) + CTOT( 2 )
       N23 = CTOT( 2 ) + CTOT( 3 )
 
-      CALL DLACPY( 'A', N23, K, Q( CTOT( 1 )+1, 1 ), LDQ, S, N23 )
+      dlacpy('A', N23, K, Q( CTOT( 1 )+1, 1 ), LDQ, S, N23 );
       IQ2 = N1*N12 + 1
       if ( N23.NE.0 ) {
-         CALL DGEMM( 'N', 'N', N2, K, N23, ONE, Q2( IQ2 ), N2, S, N23, ZERO, Q( N1+1, 1 ), LDQ )
+         dgemm('N', 'N', N2, K, N23, ONE, Q2( IQ2 ), N2, S, N23, ZERO, Q( N1+1, 1 ), LDQ );
       } else {
-         CALL DLASET( 'A', N2, K, ZERO, ZERO, Q( N1+1, 1 ), LDQ )
+         dlaset('A', N2, K, ZERO, ZERO, Q( N1+1, 1 ), LDQ );
       }
 
-      CALL DLACPY( 'A', N12, K, Q, LDQ, S, N12 )
+      dlacpy('A', N12, K, Q, LDQ, S, N12 );
       if ( N12.NE.0 ) {
-         CALL DGEMM( 'N', 'N', N1, K, N12, ONE, Q2, N1, S, N12, ZERO, Q, LDQ )
+         dgemm('N', 'N', N1, K, N12, ONE, Q2, N1, S, N12, ZERO, Q, LDQ );
       } else {
-         CALL DLASET( 'A', N1, K, ZERO, ZERO, Q( 1, 1 ), LDQ )
+         dlaset('A', N1, K, ZERO, ZERO, Q( 1, 1 ), LDQ );
       }
 
 

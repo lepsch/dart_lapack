@@ -79,7 +79,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'DBDSVDX', -INFO )
+         xerbla('DBDSVDX', -INFO );
          RETURN
       }
 
@@ -183,9 +183,9 @@
          VLTGK = -VU
          VUTGK = -VL
          WORK( IDTGK:IDTGK+2*N-1 ) = ZERO
-         CALL DCOPY( N, D, 1, WORK( IETGK ), 2 )
-         CALL DCOPY( N-1, E, 1, WORK( IETGK+1 ), 2 )
-         CALL DSTEVX( 'N', 'V', N*2, WORK( IDTGK ), WORK( IETGK ), VLTGK, VUTGK, ILTGK, ILTGK, ABSTOL, NS, S, Z, LDZ, WORK( ITEMP ), IWORK( IIWORK ), IWORK( IIFAIL ), INFO )
+         dcopy(N, D, 1, WORK( IETGK ), 2 );
+         dcopy(N-1, E, 1, WORK( IETGK+1 ), 2 );
+         dstevx('N', 'V', N*2, WORK( IDTGK ), WORK( IETGK ), VLTGK, VUTGK, ILTGK, ILTGK, ABSTOL, NS, S, Z, LDZ, WORK( ITEMP ), IWORK( IIWORK ), IWORK( IIFAIL ), INFO );
          if ( NS.EQ.0 ) {
             RETURN
          } else {
@@ -204,14 +204,14 @@
          IUTGK = IU
          RNGVX = 'V'
          WORK( IDTGK:IDTGK+2*N-1 ) = ZERO
-         CALL DCOPY( N, D, 1, WORK( IETGK ), 2 )
-         CALL DCOPY( N-1, E, 1, WORK( IETGK+1 ), 2 )
-         CALL DSTEVX( 'N', 'I', N*2, WORK( IDTGK ), WORK( IETGK ), VLTGK, VLTGK, ILTGK, ILTGK, ABSTOL, NS, S, Z, LDZ, WORK( ITEMP ), IWORK( IIWORK ), IWORK( IIFAIL ), INFO )
+         dcopy(N, D, 1, WORK( IETGK ), 2 );
+         dcopy(N-1, E, 1, WORK( IETGK+1 ), 2 );
+         dstevx('N', 'I', N*2, WORK( IDTGK ), WORK( IETGK ), VLTGK, VLTGK, ILTGK, ILTGK, ABSTOL, NS, S, Z, LDZ, WORK( ITEMP ), IWORK( IIWORK ), IWORK( IIFAIL ), INFO );
          VLTGK = S( 1 ) - FUDGE*SMAX*ULP*N
          WORK( IDTGK:IDTGK+2*N-1 ) = ZERO
-         CALL DCOPY( N, D, 1, WORK( IETGK ), 2 )
-         CALL DCOPY( N-1, E, 1, WORK( IETGK+1 ), 2 )
-         CALL DSTEVX( 'N', 'I', N*2, WORK( IDTGK ), WORK( IETGK ), VUTGK, VUTGK, IUTGK, IUTGK, ABSTOL, NS, S, Z, LDZ, WORK( ITEMP ), IWORK( IIWORK ), IWORK( IIFAIL ), INFO )
+         dcopy(N, D, 1, WORK( IETGK ), 2 );
+         dcopy(N-1, E, 1, WORK( IETGK+1 ), 2 );
+         dstevx('N', 'I', N*2, WORK( IDTGK ), WORK( IETGK ), VUTGK, VUTGK, IUTGK, IUTGK, ABSTOL, NS, S, Z, LDZ, WORK( ITEMP ), IWORK( IIWORK ), IWORK( IIFAIL ), INFO );
          VUTGK = S( 1 ) + FUDGE*SMAX*ULP*N
          VUTGK = MIN( VUTGK, ZERO )
 
@@ -247,8 +247,8 @@
       S( 1:N ) = ZERO
       WORK( IETGK+2*N-1 ) = ZERO
       WORK( IDTGK:IDTGK+2*N-1 ) = ZERO
-      CALL DCOPY( N, D, 1, WORK( IETGK ), 2 )
-      CALL DCOPY( N-1, E, 1, WORK( IETGK+1 ), 2 )
+      dcopy(N, D, 1, WORK( IETGK ), 2 );
+      dcopy(N-1, E, 1, WORK( IETGK+1 ), 2 );
 
 
       // Check for splits in two levels, outer level
@@ -345,7 +345,7 @@
                   // WORK( ITEMP: ): 2*5*NTGK
                   // IWORK( 1: ): 2*6*NTGK
 
-                  CALL DSTEVX( JOBZ, RNGVX, NTGK, WORK( IDTGK+ISPLT-1 ), WORK( IETGK+ISPLT-1 ), VLTGK, VUTGK, ILTGK, IUTGK, ABSTOL, NSL, S( ISBEG ), Z( IROWZ,ICOLZ ), LDZ, WORK( ITEMP ), IWORK( IIWORK ), IWORK( IIFAIL ), INFO )
+                  dstevx(JOBZ, RNGVX, NTGK, WORK( IDTGK+ISPLT-1 ), WORK( IETGK+ISPLT-1 ), VLTGK, VUTGK, ILTGK, IUTGK, ABSTOL, NSL, S( ISBEG ), Z( IROWZ,ICOLZ ), LDZ, WORK( ITEMP ), IWORK( IIWORK ), IWORK( IIFAIL ), INFO );
                   if ( INFO.NE.0 ) {
                      // Exit with the error code from DSTEVX.
                      RETURN
@@ -388,7 +388,7 @@
                               ZJTJI = -DDOT( NRU, Z( IROWU, ICOLZ+J ), 2, Z( IROWU, ICOLZ+I ), 2 )                               CALL DAXPY( NRU, ZJTJI, Z( IROWU, ICOLZ+J ), 2, Z( IROWU, ICOLZ+I ), 2 )
                            END DO
                            NRMU = DNRM2( NRU, Z( IROWU, ICOLZ+I ), 2 )
-                           CALL DSCAL( NRU, ONE/NRMU, Z( IROWU,ICOLZ+I ), 2 )
+                           dscal(NRU, ONE/NRMU, Z( IROWU,ICOLZ+I ), 2 );
                         }
                      END DO
                      DO I = 0, MIN( NSL-1, NRV-1 )
@@ -402,7 +402,7 @@
                               ZJTJI = -DDOT( NRV, Z( IROWV, ICOLZ+J ), 2, Z( IROWV, ICOLZ+I ), 2 )                               CALL DAXPY( NRU, ZJTJI, Z( IROWV, ICOLZ+J ), 2, Z( IROWV, ICOLZ+I ), 2 )
                            END DO
                            NRMV = DNRM2( NRV, Z( IROWV, ICOLZ+I ), 2 )
-                           CALL DSCAL( NRV, ONE/NRMV, Z( IROWV,ICOLZ+I ), 2 )
+                           dscal(NRV, ONE/NRMV, Z( IROWV,ICOLZ+I ), 2 );
                         }
                      END DO
                      if ( VUTGK.EQ.ZERO .AND. IDPTR.LT.IDEND .AND. MOD(NTGK,2).GT.0 ) {
@@ -493,13 +493,13 @@
 
       if ( WANTZ ) {
       DO I = 1, NS
-         CALL DCOPY( N*2, Z( 1,I ), 1, WORK, 1 )
+         dcopy(N*2, Z( 1,I ), 1, WORK, 1 );
          if ( LOWER ) {
-            CALL DCOPY( N, WORK( 2 ), 2, Z( N+1,I ), 1 )
-            CALL DCOPY( N, WORK( 1 ), 2, Z( 1  ,I ), 1 )
+            dcopy(N, WORK( 2 ), 2, Z( N+1,I ), 1 );
+            dcopy(N, WORK( 1 ), 2, Z( 1  ,I ), 1 );
          } else {
-            CALL DCOPY( N, WORK( 2 ), 2, Z( 1  ,I ), 1 )
-            CALL DCOPY( N, WORK( 1 ), 2, Z( N+1,I ), 1 )
+            dcopy(N, WORK( 2 ), 2, Z( 1  ,I ), 1 );
+            dcopy(N, WORK( 1 ), 2, Z( N+1,I ), 1 );
          }
       END DO
       }

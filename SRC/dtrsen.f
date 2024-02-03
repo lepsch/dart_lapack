@@ -113,7 +113,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'DTRSEN', -INFO )
+         xerbla('DTRSEN', -INFO );
          RETURN
       } else if ( LQUERY ) {
          RETURN
@@ -168,8 +168,8 @@
 
             // T11*R - R*T22 = scale*T12
 
-         CALL DLACPY( 'F', N1, N2, T( 1, N1+1 ), LDT, WORK, N1 )
-         CALL DTRSYL( 'N', 'N', -1, N1, N2, T, LDT, T( N1+1, N1+1 ), LDT, WORK, N1, SCALE, IERR )
+         dlacpy('F', N1, N2, T( 1, N1+1 ), LDT, WORK, N1 );
+         dtrsyl('N', 'N', -1, N1, N2, T, LDT, T( N1+1, N1+1 ), LDT, WORK, N1, SCALE, IERR );
 
          // Estimate the reciprocal of the condition number of the cluster
          // of eigenvalues.
@@ -189,18 +189,18 @@
          EST = ZERO
          KASE = 0
    30    CONTINUE
-         CALL DLACN2( NN, WORK( NN+1 ), WORK, IWORK, EST, KASE, ISAVE )
+         dlacn2(NN, WORK( NN+1 ), WORK, IWORK, EST, KASE, ISAVE );
          if ( KASE.NE.0 ) {
             if ( KASE.EQ.1 ) {
 
                // Solve  T11*R - R*T22 = scale*X.
 
-               CALL DTRSYL( 'N', 'N', -1, N1, N2, T, LDT, T( N1+1, N1+1 ), LDT, WORK, N1, SCALE, IERR )
+               dtrsyl('N', 'N', -1, N1, N2, T, LDT, T( N1+1, N1+1 ), LDT, WORK, N1, SCALE, IERR );
             } else {
 
                // Solve T11**T*R - R*T22**T = scale*X.
 
-               CALL DTRSYL( 'T', 'T', -1, N1, N2, T, LDT, T( N1+1, N1+1 ), LDT, WORK, N1, SCALE, IERR )
+               dtrsyl('T', 'T', -1, N1, N2, T, LDT, T( N1+1, N1+1 ), LDT, WORK, N1, SCALE, IERR );
             }
             GO TO 30
          }

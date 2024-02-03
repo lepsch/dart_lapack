@@ -48,7 +48,7 @@
          INFO = -4
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'CPOTRF', -INFO )
+         xerbla('CPOTRF', -INFO );
          RETURN
       }
 
@@ -63,7 +63,7 @@
 
          // Use unblocked code.
 
-         CALL CPOTRF2( UPLO, N, A, LDA, INFO )
+         cpotrf2(UPLO, N, A, LDA, INFO );
       } else {
 
          // Use blocked code.
@@ -78,15 +78,15 @@
                // for non-positive-definiteness.
 
                JB = MIN( NB, N-J+1 )
-               CALL CHERK( 'Upper', 'Conjugate transpose', JB, J-1, -ONE, A( 1, J ), LDA, ONE, A( J, J ), LDA )
-               CALL CPOTRF2( 'Upper', JB, A( J, J ), LDA, INFO )
+               cherk('Upper', 'Conjugate transpose', JB, J-1, -ONE, A( 1, J ), LDA, ONE, A( J, J ), LDA );
+               cpotrf2('Upper', JB, A( J, J ), LDA, INFO );
                IF( INFO.NE.0 ) GO TO 30
                if ( J+JB.LE.N ) {
 
                   // Compute the current block row.
 
-                  CALL CGEMM( 'Conjugate transpose', 'No transpose', JB, N-J-JB+1, J-1, -CONE, A( 1, J ), LDA, A( 1, J+JB ), LDA, CONE, A( J, J+JB ), LDA )
-                  CALL CTRSM( 'Left', 'Upper', 'Conjugate transpose', 'Non-unit', JB, N-J-JB+1, CONE, A( J, J ), LDA, A( J, J+JB ), LDA )
+                  cgemm('Conjugate transpose', 'No transpose', JB, N-J-JB+1, J-1, -CONE, A( 1, J ), LDA, A( 1, J+JB ), LDA, CONE, A( J, J+JB ), LDA );
+                  ctrsm('Left', 'Upper', 'Conjugate transpose', 'Non-unit', JB, N-J-JB+1, CONE, A( J, J ), LDA, A( J, J+JB ), LDA );
                }
    10       CONTINUE
 
@@ -100,15 +100,15 @@
                // for non-positive-definiteness.
 
                JB = MIN( NB, N-J+1 )
-               CALL CHERK( 'Lower', 'No transpose', JB, J-1, -ONE, A( J, 1 ), LDA, ONE, A( J, J ), LDA )
-               CALL CPOTRF2( 'Lower', JB, A( J, J ), LDA, INFO )
+               cherk('Lower', 'No transpose', JB, J-1, -ONE, A( J, 1 ), LDA, ONE, A( J, J ), LDA );
+               cpotrf2('Lower', JB, A( J, J ), LDA, INFO );
                IF( INFO.NE.0 ) GO TO 30
                if ( J+JB.LE.N ) {
 
                   // Compute the current block column.
 
-                  CALL CGEMM( 'No transpose', 'Conjugate transpose', N-J-JB+1, JB, J-1, -CONE, A( J+JB, 1 ), LDA, A( J, 1 ), LDA, CONE, A( J+JB, J ), LDA )
-                  CALL CTRSM( 'Right', 'Lower', 'Conjugate transpose', 'Non-unit', N-J-JB+1, JB, CONE, A( J, J ), LDA, A( J+JB, J ), LDA )
+                  cgemm('No transpose', 'Conjugate transpose', N-J-JB+1, JB, J-1, -CONE, A( J+JB, 1 ), LDA, A( J, 1 ), LDA, CONE, A( J+JB, J ), LDA );
+                  ctrsm('Right', 'Lower', 'Conjugate transpose', 'Non-unit', N-J-JB+1, JB, CONE, A( J, J ), LDA, A( J+JB, J ), LDA );
                }
    20       CONTINUE
          }

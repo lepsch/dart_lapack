@@ -85,16 +85,16 @@
 
          // ITYPE=1: error = A - U S U**H
 
-         CALL CLASET( 'Full', N, N, CZERO, CZERO, WORK, N )
-         CALL CCOPY( LAP, AP, 1, WORK, 1 )
+         claset('Full', N, N, CZERO, CZERO, WORK, N );
+         ccopy(LAP, AP, 1, WORK, 1 );
 
          DO 10 J = 1, N
-            CALL CHPR( CUPLO, N, -D( J ), U( 1, J ), 1, WORK )
+            chpr(CUPLO, N, -D( J ), U( 1, J ), 1, WORK );
    10    CONTINUE
 
          if ( N.GT.1 .AND. KBAND.EQ.1 ) {
             DO 20 J = 2, N - 1
-               CALL CHPR2( CUPLO, N, -CMPLX( E( J ) ), U( 1, J ), 1, U( 1, J-1 ), 1, WORK )
+               chpr2(CUPLO, N, -CMPLX( E( J ) ), U( 1, J ), 1, U( 1, J-1 ), 1, WORK );
    20       CONTINUE
          }
          WNORM = CLANHP( '1', CUPLO, N, WORK, RWORK )
@@ -103,7 +103,7 @@
 
          // ITYPE=2: error = V S V**H - A
 
-         CALL CLASET( 'Full', N, N, CZERO, CZERO, WORK, N )
+         claset('Full', N, N, CZERO, CZERO, WORK, N );
 
          if ( LOWER ) {
             WORK( LAP ) = D( N )
@@ -120,7 +120,7 @@
                if ( TAU( J ).NE.CZERO ) {
                   VSAVE = VP( JP+J+1 )
                   VP( JP+J+1 ) = CONE
-                  CALL CHPMV( 'L', N-J, CONE, WORK( JP1+J+1 ), VP( JP+J+1 ), 1, CZERO, WORK( LAP+1 ), 1 )                   TEMP = -HALF*TAU( J )*CDOTC( N-J, WORK( LAP+1 ), 1, VP( JP+J+1 ), 1 )                   CALL CAXPY( N-J, TEMP, VP( JP+J+1 ), 1, WORK( LAP+1 ), 1 )                   CALL CHPR2( 'L', N-J, -TAU( J ), VP( JP+J+1 ), 1, WORK( LAP+1 ), 1, WORK( JP1+J+1 ) )
+                  chpmv('L', N-J, CONE, WORK( JP1+J+1 ), VP( JP+J+1 ), 1, CZERO, WORK( LAP+1 ), 1 )                   TEMP = -HALF*TAU( J )*CDOTC( N-J, WORK( LAP+1 ), 1, VP( JP+J+1 ), 1 )                   CALL CAXPY( N-J, TEMP, VP( JP+J+1 ), 1, WORK( LAP+1 ), 1 )                   CALL CHPR2( 'L', N-J, -TAU( J ), VP( JP+J+1 ), 1, WORK( LAP+1 ), 1, WORK( JP1+J+1 ) );
 
                   VP( JP+J+1 ) = VSAVE
                }
@@ -141,7 +141,7 @@
                if ( TAU( J ).NE.CZERO ) {
                   VSAVE = VP( JP1+J )
                   VP( JP1+J ) = CONE
-                  CALL CHPMV( 'U', J, CONE, WORK, VP( JP1+1 ), 1, CZERO, WORK( LAP+1 ), 1 )                   TEMP = -HALF*TAU( J )*CDOTC( J, WORK( LAP+1 ), 1, VP( JP1+1 ), 1 )                   CALL CAXPY( J, TEMP, VP( JP1+1 ), 1, WORK( LAP+1 ), 1 )                   CALL CHPR2( 'U', J, -TAU( J ), VP( JP1+1 ), 1, WORK( LAP+1 ), 1, WORK )
+                  chpmv('U', J, CONE, WORK, VP( JP1+1 ), 1, CZERO, WORK( LAP+1 ), 1 )                   TEMP = -HALF*TAU( J )*CDOTC( J, WORK( LAP+1 ), 1, VP( JP1+1 ), 1 )                   CALL CAXPY( J, TEMP, VP( JP1+1 ), 1, WORK( LAP+1 ), 1 )                   CALL CHPR2( 'U', J, -TAU( J ), VP( JP1+1 ), 1, WORK( LAP+1 ), 1, WORK );
                   VP( JP1+J ) = VSAVE
                }
                WORK( JP1+J+1 ) = D( J+1 )
@@ -158,8 +158,8 @@
          // ITYPE=3: error = U V**H - I
 
          IF( N.LT.2 ) RETURN
-         CALL CLACPY( ' ', N, N, U, LDU, WORK, N )
-         CALL CUPMTR( 'R', CUPLO, 'C', N, N, VP, TAU, WORK, N, WORK( N**2+1 ), IINFO )
+         clacpy(' ', N, N, U, LDU, WORK, N );
+         cupmtr('R', CUPLO, 'C', N, N, VP, TAU, WORK, N, WORK( N**2+1 ), IINFO );
          if ( IINFO.NE.0 ) {
             RESULT( 1 ) = TEN / ULP
             RETURN
@@ -187,7 +187,7 @@
       // Compute  U U**H - I
 
       if ( ITYPE.EQ.1 ) {
-         CALL CGEMM( 'N', 'C', N, N, N, CONE, U, LDU, U, LDU, CZERO, WORK, N )
+         cgemm('N', 'C', N, N, N, CONE, U, LDU, U, LDU, CZERO, WORK, N );
 
          DO 90 J = 1, N
             WORK( ( N+1 )*( J-1 )+1 ) = WORK( ( N+1 )*( J-1 )+1 ) - CONE

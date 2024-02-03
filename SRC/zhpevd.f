@@ -86,7 +86,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'ZHPEVD', -INFO )
+         xerbla('ZHPEVD', -INFO );
          RETURN
       } else if ( LQUERY ) {
          RETURN
@@ -123,7 +123,7 @@
          SIGMA = RMAX / ANRM
       }
       if ( ISCALE.EQ.1 ) {
-         CALL ZDSCAL( ( N*( N+1 ) ) / 2, SIGMA, AP, 1 )
+         zdscal(( N*( N+1 ) ) / 2, SIGMA, AP, 1 );
       }
 
       // Call ZHPTRD to reduce Hermitian packed matrix to tridiagonal form.
@@ -134,16 +134,16 @@
       INDWRK = INDTAU + N
       LLWRK = LWORK - INDWRK + 1
       LLRWK = LRWORK - INDRWK + 1
-      CALL ZHPTRD( UPLO, N, AP, W, RWORK( INDE ), WORK( INDTAU ), IINFO )
+      zhptrd(UPLO, N, AP, W, RWORK( INDE ), WORK( INDTAU ), IINFO );
 
       // For eigenvalues only, call DSTERF.  For eigenvectors, first call
       // ZUPGTR to generate the orthogonal matrix, then call ZSTEDC.
 
       if ( .NOT.WANTZ ) {
-         CALL DSTERF( N, W, RWORK( INDE ), INFO )
+         dsterf(N, W, RWORK( INDE ), INFO );
       } else {
-         CALL ZSTEDC( 'I', N, W, RWORK( INDE ), Z, LDZ, WORK( INDWRK ), LLWRK, RWORK( INDRWK ), LLRWK, IWORK, LIWORK, INFO )
-         CALL ZUPMTR( 'L', UPLO, 'N', N, N, AP, WORK( INDTAU ), Z, LDZ, WORK( INDWRK ), IINFO )
+         zstedc('I', N, W, RWORK( INDE ), Z, LDZ, WORK( INDWRK ), LLWRK, RWORK( INDRWK ), LLRWK, IWORK, LIWORK, INFO );
+         zupmtr('L', UPLO, 'N', N, N, AP, WORK( INDTAU ), Z, LDZ, WORK( INDWRK ), IINFO );
       }
 
       // If matrix was scaled, then rescale eigenvalues appropriately.
@@ -154,7 +154,7 @@
          } else {
             IMAX = INFO - 1
          }
-         CALL DSCAL( IMAX, ONE / SIGMA, W, 1 )
+         dscal(IMAX, ONE / SIGMA, W, 1 );
       }
 
       WORK( 1 ) = LWMIN

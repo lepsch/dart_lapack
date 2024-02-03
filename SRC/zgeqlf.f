@@ -57,7 +57,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'ZGEQLF', -INFO )
+         xerbla('ZGEQLF', -INFO );
          RETURN
       } else if ( LQUERY ) {
          RETURN
@@ -108,17 +108,17 @@
             // Compute the QL factorization of the current block
             // A(1:m-k+i+ib-1,n-k+i:n-k+i+ib-1)
 
-            CALL ZGEQL2( M-K+I+IB-1, IB, A( 1, N-K+I ), LDA, TAU( I ), WORK, IINFO )
+            zgeql2(M-K+I+IB-1, IB, A( 1, N-K+I ), LDA, TAU( I ), WORK, IINFO );
             if ( N-K+I.GT.1 ) {
 
                // Form the triangular factor of the block reflector
                // H = H(i+ib-1) . . . H(i+1) H(i)
 
-               CALL ZLARFT( 'Backward', 'Columnwise', M-K+I+IB-1, IB, A( 1, N-K+I ), LDA, TAU( I ), WORK, LDWORK )
+               zlarft('Backward', 'Columnwise', M-K+I+IB-1, IB, A( 1, N-K+I ), LDA, TAU( I ), WORK, LDWORK );
 
                // Apply H**H to A(1:m-k+i+ib-1,1:n-k+i-1) from the left
 
-               CALL ZLARFB( 'Left', 'Conjugate transpose', 'Backward', 'Columnwise', M-K+I+IB-1, N-K+I-1, IB, A( 1, N-K+I ), LDA, WORK, LDWORK, A, LDA, WORK( IB+1 ), LDWORK )
+               zlarfb('Left', 'Conjugate transpose', 'Backward', 'Columnwise', M-K+I+IB-1, N-K+I-1, IB, A( 1, N-K+I ), LDA, WORK, LDWORK, A, LDA, WORK( IB+1 ), LDWORK );
             }
    10    CONTINUE
          MU = M - K + I + NB - 1

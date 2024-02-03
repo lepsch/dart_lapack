@@ -75,7 +75,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'ZSYSVX', -INFO )
+         xerbla('ZSYSVX', -INFO );
          RETURN
       } else if ( LQUERY ) {
          RETURN
@@ -85,8 +85,8 @@
 
          // Compute the factorization A = U*D*U**T or A = L*D*L**T.
 
-         CALL ZLACPY( UPLO, N, N, A, LDA, AF, LDAF )
-         CALL ZSYTRF( UPLO, N, AF, LDAF, IPIV, WORK, LWORK, INFO )
+         zlacpy(UPLO, N, N, A, LDA, AF, LDAF );
+         zsytrf(UPLO, N, AF, LDAF, IPIV, WORK, LWORK, INFO );
 
          // Return if INFO is non-zero.
 
@@ -102,17 +102,17 @@
 
       // Compute the reciprocal of the condition number of A.
 
-      CALL ZSYCON( UPLO, N, AF, LDAF, IPIV, ANORM, RCOND, WORK, INFO )
+      zsycon(UPLO, N, AF, LDAF, IPIV, ANORM, RCOND, WORK, INFO );
 
       // Compute the solution vectors X.
 
-      CALL ZLACPY( 'Full', N, NRHS, B, LDB, X, LDX )
-      CALL ZSYTRS( UPLO, N, NRHS, AF, LDAF, IPIV, X, LDX, INFO )
+      zlacpy('Full', N, NRHS, B, LDB, X, LDX );
+      zsytrs(UPLO, N, NRHS, AF, LDAF, IPIV, X, LDX, INFO );
 
       // Use iterative refinement to improve the computed solutions and
       // compute error bounds and backward error estimates for them.
 
-      CALL ZSYRFS( UPLO, N, NRHS, A, LDA, AF, LDAF, IPIV, B, LDB, X, LDX, FERR, BERR, WORK, RWORK, INFO )
+      zsyrfs(UPLO, N, NRHS, A, LDA, AF, LDAF, IPIV, B, LDB, X, LDX, FERR, BERR, WORK, RWORK, INFO );
 
       // Set INFO = N+1 if the matrix is singular to working precision.
 

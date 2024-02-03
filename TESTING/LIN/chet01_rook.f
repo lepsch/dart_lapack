@@ -64,15 +64,15 @@
 
       // Initialize C to the identity matrix.
 
-      CALL CLASET( 'Full', N, N, CZERO, CONE, C, LDC )
+      claset('Full', N, N, CZERO, CONE, C, LDC );
 
       // Call CLAVHE_ROOK to form the product D * U' (or D * L' ).
 
-      CALL CLAVHE_ROOK( UPLO, 'Conjugate', 'Non-unit', N, N, AFAC, LDAFAC, IPIV, C, LDC, INFO )
+      clavhe_rook(UPLO, 'Conjugate', 'Non-unit', N, N, AFAC, LDAFAC, IPIV, C, LDC, INFO );
 
       // Call CLAVHE_ROOK again to multiply by U (or L ).
 
-      CALL CLAVHE_ROOK( UPLO, 'No transpose', 'Unit', N, N, AFAC, LDAFAC, IPIV, C, LDC, INFO )
+      clavhe_rook(UPLO, 'No transpose', 'Unit', N, N, AFAC, LDAFAC, IPIV, C, LDC, INFO );
 
       // Compute the difference  C - A .
 

@@ -114,15 +114,15 @@
                      // Set up parameters with SLATB4 and generate a test
                      // matrix with SLATMS.
 
-                     CALL SLATB4( 'SPO', IMAT, N, N, CTYPE, KL, KU, ANORM, MODE, CNDNUM, DIST )
+                     slatb4('SPO', IMAT, N, N, CTYPE, KL, KU, ANORM, MODE, CNDNUM, DIST );
 
                      SRNAMT = 'SLATMS'
-                     CALL SLATMS( N, N, DIST, ISEED, CTYPE, S_WORK_SLATMS, MODE, CNDNUM, ANORM, KL, KU, UPLO, A, LDA, S_WORK_SLATMS, INFO )
+                     slatms(N, N, DIST, ISEED, CTYPE, S_WORK_SLATMS, MODE, CNDNUM, ANORM, KL, KU, UPLO, A, LDA, S_WORK_SLATMS, INFO );
 
                      // Check error code from SLATMS.
 
                      if ( INFO.NE.0 ) {
-                        CALL ALAERH( 'SPF', 'SLATMS', INFO, 0, UPLO, N, N, -1, -1, -1, IIT, NFAIL, NERRS, NOUT )
+                        alaerh('SPF', 'SLATMS', INFO, 0, UPLO, N, N, -1, -1, -1, IIT, NFAIL, NERRS, NOUT );
                         GO TO 100
                      }
 
@@ -168,7 +168,7 @@
 
                      // Save a copy of the matrix A in ASAV.
 
-                     CALL SLACPY( UPLO, N, N, A, LDA, ASAV, LDA )
+                     slacpy(UPLO, N, N, A, LDA, ASAV, LDA );
 
                      // Compute the condition number of A (RCONDC).
 
@@ -182,11 +182,11 @@
 
                         // Factor the matrix A.
 
-                        CALL SPOTRF( UPLO, N, A, LDA, INFO )
+                        spotrf(UPLO, N, A, LDA, INFO );
 
                         // Form the inverse of A.
 
-                        CALL SPOTRI( UPLO, N, A, LDA, INFO )
+                        spotri(UPLO, N, A, LDA, INFO );
 
                         if ( N .NE. 0 ) {
 
@@ -197,7 +197,7 @@
 
                            // Restore the matrix A.
 
-                           CALL SLACPY( UPLO, N, N, ASAV, LDA, A, LDA )
+                           slacpy(UPLO, N, N, ASAV, LDA, A, LDA );
                         }
 
                      }
@@ -205,19 +205,19 @@
                      // Form an exact solution and set the right hand side.
 
                      SRNAMT = 'SLARHS'
-                     CALL SLARHS( 'SPO', 'N', UPLO, ' ', N, N, KL, KU, NRHS, A, LDA, XACT, LDA, B, LDA, ISEED, INFO )
-                     CALL SLACPY( 'Full', N, NRHS, B, LDA, BSAV, LDA )
+                     slarhs('SPO', 'N', UPLO, ' ', N, N, KL, KU, NRHS, A, LDA, XACT, LDA, B, LDA, ISEED, INFO );
+                     slacpy('Full', N, NRHS, B, LDA, BSAV, LDA );
 
                      // Compute the L*L' or U'*U factorization of the
                      // matrix and solve the system.
 
-                     CALL SLACPY( UPLO, N, N, A, LDA, AFAC, LDA )
-                     CALL SLACPY( 'Full', N, NRHS, B, LDB, X, LDB )
+                     slacpy(UPLO, N, N, A, LDA, AFAC, LDA );
+                     slacpy('Full', N, NRHS, B, LDB, X, LDB );
 
                      SRNAMT = 'STRTTF'
-                     CALL STRTTF( CFORM, UPLO, N, AFAC, LDA, ARF, INFO )
+                     strttf(CFORM, UPLO, N, AFAC, LDA, ARF, INFO );
                      SRNAMT = 'SPFTRF'
-                     CALL SPFTRF( CFORM, UPLO, N, ARF, INFO )
+                     spftrf(CFORM, UPLO, N, ARF, INFO );
 
                      // Check error code from SPFTRF.
 
@@ -227,7 +227,7 @@
                         // always be INFO however if INFO is ZERO, ALAERH does not
                         // complain.
 
-                         CALL ALAERH( 'SPF', 'SPFSV ', INFO, IZERO, UPLO, N, N, -1, -1, NRHS, IIT, NFAIL, NERRS, NOUT )
+                         alaerh('SPF', 'SPFSV ', INFO, IZERO, UPLO, N, N, -1, -1, NRHS, IIT, NFAIL, NERRS, NOUT );
                          GO TO 100
                       }
 
@@ -238,44 +238,44 @@
                      }
 
                      SRNAMT = 'SPFTRS'
-                     CALL SPFTRS( CFORM, UPLO, N, NRHS, ARF, X, LDB, INFO )
+                     spftrs(CFORM, UPLO, N, NRHS, ARF, X, LDB, INFO );
 
                      SRNAMT = 'STFTTR'
-                     CALL STFTTR( CFORM, UPLO, N, ARF, AFAC, LDA, INFO )
+                     stfttr(CFORM, UPLO, N, ARF, AFAC, LDA, INFO );
 
                      // Reconstruct matrix from factors and compute
                      // residual.
 
-                     CALL SLACPY( UPLO, N, N, AFAC, LDA, ASAV, LDA )
-                     CALL SPOT01( UPLO, N, A, LDA, AFAC, LDA, S_WORK_SPOT01, RESULT( 1 ) )
-                     CALL SLACPY( UPLO, N, N, ASAV, LDA, AFAC, LDA )
+                     slacpy(UPLO, N, N, AFAC, LDA, ASAV, LDA );
+                     spot01(UPLO, N, A, LDA, AFAC, LDA, S_WORK_SPOT01, RESULT( 1 ) );
+                     slacpy(UPLO, N, N, ASAV, LDA, AFAC, LDA );
 
                      // Form the inverse and compute the residual.
 
                      if (MOD(N,2).EQ.0) {
-                        CALL SLACPY( 'A', N+1, N/2, ARF, N+1, ARFINV, N+1 )
+                        slacpy('A', N+1, N/2, ARF, N+1, ARFINV, N+1 );
                      } else {
-                        CALL SLACPY( 'A', N, (N+1)/2, ARF, N, ARFINV, N )
+                        slacpy('A', N, (N+1)/2, ARF, N, ARFINV, N );
                      }
 
                      SRNAMT = 'SPFTRI'
-                     CALL SPFTRI( CFORM, UPLO, N, ARFINV , INFO )
+                     spftri(CFORM, UPLO, N, ARFINV , INFO );
 
                      SRNAMT = 'STFTTR'
-                     CALL STFTTR( CFORM, UPLO, N, ARFINV, AINV, LDA, INFO )
+                     stfttr(CFORM, UPLO, N, ARFINV, AINV, LDA, INFO );
 
                      // Check error code from SPFTRI.
 
                      IF( INFO.NE.0 ) CALL ALAERH( 'SPO', 'SPFTRI', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT )
 
-                     CALL SPOT03( UPLO, N, A, LDA, AINV, LDA, S_TEMP_SPOT03, LDA, S_WORK_SPOT03, RCONDC, RESULT( 2 ) )
+                     spot03(UPLO, N, A, LDA, AINV, LDA, S_TEMP_SPOT03, LDA, S_WORK_SPOT03, RCONDC, RESULT( 2 ) );
 
                      // Compute residual of the computed solution.
 
-                     CALL SLACPY( 'Full', N, NRHS, B, LDA, S_TEMP_SPOT02, LDA )                      CALL SPOT02( UPLO, N, NRHS, A, LDA, X, LDA, S_TEMP_SPOT02, LDA, S_WORK_SPOT02, RESULT( 3 ) )
+                     slacpy('Full', N, NRHS, B, LDA, S_TEMP_SPOT02, LDA )                      CALL SPOT02( UPLO, N, NRHS, A, LDA, X, LDA, S_TEMP_SPOT02, LDA, S_WORK_SPOT02, RESULT( 3 ) );
 
                      // Check solution from generated exact solution.
-                      CALL SGET04( N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 4 ) )
+                      sget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 4 ) );
                      NT = 4
 
                      // Print information about the tests that did not
@@ -296,7 +296,7 @@
 
       // Print a summary of the results.
 
-      CALL ALASVM( 'SPF', NOUT, NFAIL, NRUN, NERRS )
+      alasvm('SPF', NOUT, NFAIL, NRUN, NERRS );
 
  9999 FORMAT( 1X, A6, ', UPLO=''', A1, ''', N =', I5, ', type ', I1, ', test(', I1, ')=', G12.5 )
 

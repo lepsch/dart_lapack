@@ -84,16 +84,16 @@
          // Scale input matrix
 
          KNT = KNT + 1
-         CALL ZLACPY( 'F', N, N, TMP, LDT, T, LDT )
+         zlacpy('F', N, N, TMP, LDT, T, LDT );
          VMUL = VAL( ISCL )
          DO 40 I = 1, N
-            CALL ZDSCAL( N, VMUL, T( 1, I ), 1 )
+            zdscal(N, VMUL, T( 1, I ), 1 );
    40    CONTINUE
          IF( TNRM.EQ.ZERO ) VMUL = ONE
 
          // Compute eigenvalues and eigenvectors
 
-         CALL ZGEHRD( N, 1, N, T, LDT, WORK( 1 ), WORK( N+1 ), LWORK-N, INFO )
+         zgehrd(N, 1, N, T, LDT, WORK( 1 ), WORK( N+1 ), LWORK-N, INFO );
          if ( INFO.NE.0 ) {
             LMAX( 1 ) = KNT
             NINFO( 1 ) = NINFO( 1 ) + 1
@@ -107,7 +107,7 @@
 
          // Compute Schur form
 
-         CALL ZHSEQR( 'S', 'N', N, 1, N, T, LDT, W, CDUM, 1, WORK, LWORK, INFO )
+         zhseqr('S', 'N', N, 1, N, T, LDT, W, CDUM, 1, WORK, LWORK, INFO );
          if ( INFO.NE.0 ) {
             LMAX( 2 ) = KNT
             NINFO( 2 ) = NINFO( 2 ) + 1
@@ -119,11 +119,11 @@
          DO 70 I = 1, N
             SELECT( I ) = .TRUE.
    70    CONTINUE
-         CALL ZTREVC( 'B', 'A', SELECT, N, T, LDT, LE, LDT, RE, LDT, N, M, WORK, RWORK, INFO )
+         ztrevc('B', 'A', SELECT, N, T, LDT, LE, LDT, RE, LDT, N, M, WORK, RWORK, INFO );
 
          // Compute condition numbers
 
-         CALL ZTRSNA( 'B', 'A', SELECT, N, T, LDT, LE, LDT, RE, LDT, S, SEP, N, M, WORK, N, RWORK, INFO )
+         ztrsna('B', 'A', SELECT, N, T, LDT, LE, LDT, RE, LDT, S, SEP, N, M, WORK, N, RWORK, INFO );
          if ( INFO.NE.0 ) {
             LMAX( 3 ) = KNT
             NINFO( 3 ) = NINFO( 3 ) + 1
@@ -133,7 +133,7 @@
          // Sort eigenvalues and condition numbers lexicographically
          // to compare with inputs
 
-         CALL ZCOPY( N, W, 1, WTMP, 1 )
+         zcopy(N, W, 1, WTMP, 1 );
          if ( ISRT.EQ.0 ) {
 
             // Sort by increasing real part
@@ -149,9 +149,9 @@
                WSRT( I ) = DIMAG( W( I ) )
    90       CONTINUE
          }
-         CALL DCOPY( N, S, 1, STMP, 1 )
-         CALL DCOPY( N, SEP, 1, SEPTMP, 1 )
-         CALL DSCAL( N, ONE / VMUL, SEPTMP, 1 )
+         dcopy(N, S, 1, STMP, 1 );
+         dcopy(N, SEP, 1, SEPTMP, 1 );
+         dscal(N, ONE / VMUL, SEPTMP, 1 );
          DO 110 I = 1, N - 1
             KMIN = I
             VMIN = WSRT( I )
@@ -292,9 +292,9 @@
 
          VMAX = ZERO
          DUM( 1 ) = -ONE
-         CALL DCOPY( N, DUM, 0, STMP, 1 )
-         CALL DCOPY( N, DUM, 0, SEPTMP, 1 )
-         CALL ZTRSNA( 'E', 'A', SELECT, N, T, LDT, LE, LDT, RE, LDT, STMP, SEPTMP, N, M, WORK, N, RWORK, INFO )
+         dcopy(N, DUM, 0, STMP, 1 );
+         dcopy(N, DUM, 0, SEPTMP, 1 );
+         ztrsna('E', 'A', SELECT, N, T, LDT, LE, LDT, RE, LDT, STMP, SEPTMP, N, M, WORK, N, RWORK, INFO );
          if ( INFO.NE.0 ) {
             LMAX( 3 ) = KNT
             NINFO( 3 ) = NINFO( 3 ) + 1
@@ -306,9 +306,9 @@
 
          // Compute eigenvector condition numbers only and compare
 
-         CALL DCOPY( N, DUM, 0, STMP, 1 )
-         CALL DCOPY( N, DUM, 0, SEPTMP, 1 )
-         CALL ZTRSNA( 'V', 'A', SELECT, N, T, LDT, LE, LDT, RE, LDT, STMP, SEPTMP, N, M, WORK, N, RWORK, INFO )
+         dcopy(N, DUM, 0, STMP, 1 );
+         dcopy(N, DUM, 0, SEPTMP, 1 );
+         ztrsna('V', 'A', SELECT, N, T, LDT, LE, LDT, RE, LDT, STMP, SEPTMP, N, M, WORK, N, RWORK, INFO );
          if ( INFO.NE.0 ) {
             LMAX( 3 ) = KNT
             NINFO( 3 ) = NINFO( 3 ) + 1
@@ -323,9 +323,9 @@
          DO 180 I = 1, N
             SELECT( I ) = .TRUE.
   180    CONTINUE
-         CALL DCOPY( N, DUM, 0, STMP, 1 )
-         CALL DCOPY( N, DUM, 0, SEPTMP, 1 )
-         CALL ZTRSNA( 'B', 'S', SELECT, N, T, LDT, LE, LDT, RE, LDT, STMP, SEPTMP, N, M, WORK, N, RWORK, INFO )
+         dcopy(N, DUM, 0, STMP, 1 );
+         dcopy(N, DUM, 0, SEPTMP, 1 );
+         ztrsna('B', 'S', SELECT, N, T, LDT, LE, LDT, RE, LDT, STMP, SEPTMP, N, M, WORK, N, RWORK, INFO );
          if ( INFO.NE.0 ) {
             LMAX( 3 ) = KNT
             NINFO( 3 ) = NINFO( 3 ) + 1
@@ -337,9 +337,9 @@
 
          // Compute eigenvalue condition numbers using SELECT and compare
 
-         CALL DCOPY( N, DUM, 0, STMP, 1 )
-         CALL DCOPY( N, DUM, 0, SEPTMP, 1 )
-         CALL ZTRSNA( 'E', 'S', SELECT, N, T, LDT, LE, LDT, RE, LDT, STMP, SEPTMP, N, M, WORK, N, RWORK, INFO )
+         dcopy(N, DUM, 0, STMP, 1 );
+         dcopy(N, DUM, 0, SEPTMP, 1 );
+         ztrsna('E', 'S', SELECT, N, T, LDT, LE, LDT, RE, LDT, STMP, SEPTMP, N, M, WORK, N, RWORK, INFO );
          if ( INFO.NE.0 ) {
             LMAX( 3 ) = KNT
             NINFO( 3 ) = NINFO( 3 ) + 1
@@ -351,9 +351,9 @@
 
          // Compute eigenvector condition numbers using SELECT and compare
 
-         CALL DCOPY( N, DUM, 0, STMP, 1 )
-         CALL DCOPY( N, DUM, 0, SEPTMP, 1 )
-         CALL ZTRSNA( 'V', 'S', SELECT, N, T, LDT, LE, LDT, RE, LDT, STMP, SEPTMP, N, M, WORK, N, RWORK, INFO )
+         dcopy(N, DUM, 0, STMP, 1 );
+         dcopy(N, DUM, 0, SEPTMP, 1 );
+         ztrsna('V', 'S', SELECT, N, T, LDT, LE, LDT, RE, LDT, STMP, SEPTMP, N, M, WORK, N, RWORK, INFO );
          if ( INFO.NE.0 ) {
             LMAX( 3 ) = KNT
             NINFO( 3 ) = NINFO( 3 ) + 1
@@ -377,22 +377,22 @@
             ICMP = 1
             LCMP( 1 ) = 2
             SELECT( 2 ) = .TRUE.
-            CALL ZCOPY( N, RE( 1, 2 ), 1, RE( 1, 1 ), 1 )
-            CALL ZCOPY( N, LE( 1, 2 ), 1, LE( 1, 1 ), 1 )
+            zcopy(N, RE( 1, 2 ), 1, RE( 1, 1 ), 1 );
+            zcopy(N, LE( 1, 2 ), 1, LE( 1, 1 ), 1 );
          }
          if ( N.GT.3 ) {
             ICMP = 2
             LCMP( 2 ) = N - 1
             SELECT( N-1 ) = .TRUE.
-            CALL ZCOPY( N, RE( 1, N-1 ), 1, RE( 1, 2 ), 1 )
-            CALL ZCOPY( N, LE( 1, N-1 ), 1, LE( 1, 2 ), 1 )
+            zcopy(N, RE( 1, N-1 ), 1, RE( 1, 2 ), 1 );
+            zcopy(N, LE( 1, N-1 ), 1, LE( 1, 2 ), 1 );
          }
 
          // Compute all selected condition numbers
 
-         CALL DCOPY( ICMP, DUM, 0, STMP, 1 )
-         CALL DCOPY( ICMP, DUM, 0, SEPTMP, 1 )
-         CALL ZTRSNA( 'B', 'S', SELECT, N, T, LDT, LE, LDT, RE, LDT, STMP, SEPTMP, N, M, WORK, N, RWORK, INFO )
+         dcopy(ICMP, DUM, 0, STMP, 1 );
+         dcopy(ICMP, DUM, 0, SEPTMP, 1 );
+         ztrsna('B', 'S', SELECT, N, T, LDT, LE, LDT, RE, LDT, STMP, SEPTMP, N, M, WORK, N, RWORK, INFO );
          if ( INFO.NE.0 ) {
             LMAX( 3 ) = KNT
             NINFO( 3 ) = NINFO( 3 ) + 1
@@ -405,9 +405,9 @@
 
          // Compute selected eigenvalue condition numbers
 
-         CALL DCOPY( ICMP, DUM, 0, STMP, 1 )
-         CALL DCOPY( ICMP, DUM, 0, SEPTMP, 1 )
-         CALL ZTRSNA( 'E', 'S', SELECT, N, T, LDT, LE, LDT, RE, LDT, STMP, SEPTMP, N, M, WORK, N, RWORK, INFO )
+         dcopy(ICMP, DUM, 0, STMP, 1 );
+         dcopy(ICMP, DUM, 0, SEPTMP, 1 );
+         ztrsna('E', 'S', SELECT, N, T, LDT, LE, LDT, RE, LDT, STMP, SEPTMP, N, M, WORK, N, RWORK, INFO );
          if ( INFO.NE.0 ) {
             LMAX( 3 ) = KNT
             NINFO( 3 ) = NINFO( 3 ) + 1
@@ -420,9 +420,9 @@
 
          // Compute selected eigenvector condition numbers
 
-         CALL DCOPY( ICMP, DUM, 0, STMP, 1 )
-         CALL DCOPY( ICMP, DUM, 0, SEPTMP, 1 )
-         CALL ZTRSNA( 'V', 'S', SELECT, N, T, LDT, LE, LDT, RE, LDT, STMP, SEPTMP, N, M, WORK, N, RWORK, INFO )
+         dcopy(ICMP, DUM, 0, STMP, 1 );
+         dcopy(ICMP, DUM, 0, SEPTMP, 1 );
+         ztrsna('V', 'S', SELECT, N, T, LDT, LE, LDT, RE, LDT, STMP, SEPTMP, N, M, WORK, N, RWORK, INFO );
          if ( INFO.NE.0 ) {
             LMAX( 3 ) = KNT
             NINFO( 3 ) = NINFO( 3 ) + 1

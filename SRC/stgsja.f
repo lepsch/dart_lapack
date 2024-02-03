@@ -76,7 +76,7 @@
          INFO = -22
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'STGSJA', -INFO )
+         xerbla('STGSJA', -INFO );
          RETURN
       }
 
@@ -110,7 +110,7 @@
                   B2 = B( J, N-L+I )
                }
 
-               CALL SLAGS2( UPPER, A1, A2, A3, B1, B2, B3, CSU, SNU, CSV, SNV, CSQ, SNQ )
+               slags2(UPPER, A1, A2, A3, B1, B2, B3, CSU, SNU, CSV, SNV, CSQ, SNQ );
 
                // Update (K+I)-th and (K+J)-th rows of matrix A: U**T *A
 
@@ -118,14 +118,14 @@
 
                // Update I-th and J-th rows of matrix B: V**T *B
 
-               CALL SROT( L, B( J, N-L+1 ), LDB, B( I, N-L+1 ), LDB, CSV, SNV )
+               srot(L, B( J, N-L+1 ), LDB, B( I, N-L+1 ), LDB, CSV, SNV );
 
                // Update (N-L+I)-th and (N-L+J)-th columns of matrices
                // A and B: A*Q and B*Q
 
-               CALL SROT( MIN( K+L, M ), A( 1, N-L+J ), 1, A( 1, N-L+I ), 1, CSQ, SNQ )
+               srot(MIN( K+L, M ), A( 1, N-L+J ), 1, A( 1, N-L+I ), 1, CSQ, SNQ );
 
-               CALL SROT( L, B( 1, N-L+J ), 1, B( 1, N-L+I ), 1, CSQ, SNQ )
+               srot(L, B( 1, N-L+J ), 1, B( 1, N-L+I ), 1, CSQ, SNQ );
 
                if ( UPPER ) {
                   IF( K+I.LE.M ) A( K+I, N-L+J ) = ZERO
@@ -156,9 +156,9 @@
 
             ERROR = ZERO
             DO 30 I = 1, MIN( L, M-K )
-               CALL SCOPY( L-I+1, A( K+I, N-L+I ), LDA, WORK, 1 )
-               CALL SCOPY( L-I+1, B( I, N-L+I ), LDB, WORK( L+1 ), 1 )
-               CALL SLAPLL( L-I+1, WORK, 1, WORK( L+1 ), 1, SSMIN )
+               scopy(L-I+1, A( K+I, N-L+I ), LDA, WORK, 1 );
+               scopy(L-I+1, B( I, N-L+I ), LDB, WORK( L+1 ), 1 );
+               slapll(L-I+1, WORK, 1, WORK( L+1 ), 1, SSMIN );
                ERROR = MAX( ERROR, SSMIN )
    30       CONTINUE
 
@@ -196,23 +196,23 @@
             // change sign if necessary
 
             if ( GAMMA.LT.ZERO ) {
-               CALL SSCAL( L-I+1, -ONE, B( I, N-L+I ), LDB )
+               sscal(L-I+1, -ONE, B( I, N-L+I ), LDB );
                IF( WANTV ) CALL SSCAL( P, -ONE, V( 1, I ), 1 )
             }
 
-            CALL SLARTG( ABS( GAMMA ), ONE, BETA( K+I ), ALPHA( K+I ), RWK )
+            slartg(ABS( GAMMA ), ONE, BETA( K+I ), ALPHA( K+I ), RWK );
 
             if ( ALPHA( K+I ).GE.BETA( K+I ) ) {
-               CALL SSCAL( L-I+1, ONE / ALPHA( K+I ), A( K+I, N-L+I ), LDA )
+               sscal(L-I+1, ONE / ALPHA( K+I ), A( K+I, N-L+I ), LDA );
             } else {
-               CALL SSCAL( L-I+1, ONE / BETA( K+I ), B( I, N-L+I ), LDB )                CALL SCOPY( L-I+1, B( I, N-L+I ), LDB, A( K+I, N-L+I ), LDA )
+               sscal(L-I+1, ONE / BETA( K+I ), B( I, N-L+I ), LDB )                CALL SCOPY( L-I+1, B( I, N-L+I ), LDB, A( K+I, N-L+I ), LDA );
             }
 
          } else {
 
             ALPHA( K+I ) = ZERO
             BETA( K+I ) = ONE
-            CALL SCOPY( L-I+1, B( I, N-L+I ), LDB, A( K+I, N-L+I ), LDA )
+            scopy(L-I+1, B( I, N-L+I ), LDB, A( K+I, N-L+I ), LDA );
 
          }
 

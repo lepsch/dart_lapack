@@ -127,7 +127,7 @@
         INFO = -13
       }
       if ( INFO.NE.0 ) {
-        CALL XERBLA( 'SPORFSX', -INFO )
+        xerbla('SPORFSX', -INFO );
         RETURN
       }
 
@@ -177,14 +177,14 @@
 
       NORM = 'I'
       ANORM = SLANSY( NORM, UPLO, N, A, LDA, WORK )
-      CALL SPOCON( UPLO, N, AF, LDAF, ANORM, RCOND, WORK, IWORK, INFO )
+      spocon(UPLO, N, AF, LDAF, ANORM, RCOND, WORK, IWORK, INFO );
 
       // Perform refinement on each right-hand side
 
       if ( REF_TYPE .NE. 0 ) {
 
          PREC_TYPE = ILAPREC( 'D' )
-          CALL SLA_PORFSX_EXTENDED( PREC_TYPE, UPLO,  N, NRHS, A, LDA, AF, LDAF, RCEQU, S, B, LDB, X, LDX, BERR, N_NORMS, ERR_BNDS_NORM, ERR_BNDS_COMP, WORK( N+1 ), WORK( 1 ), WORK( 2*N+1 ), WORK( 1 ), RCOND, ITHRESH, RTHRESH, UNSTABLE_THRESH, IGNORE_CWISE, INFO )
+          sla_porfsx_extended(PREC_TYPE, UPLO,  N, NRHS, A, LDA, AF, LDAF, RCEQU, S, B, LDB, X, LDX, BERR, N_NORMS, ERR_BNDS_NORM, ERR_BNDS_COMP, WORK( N+1 ), WORK( 1 ), WORK( 2*N+1 ), WORK( 1 ), RCOND, ITHRESH, RTHRESH, UNSTABLE_THRESH, IGNORE_CWISE, INFO );
       }
 
       ERR_LBND = MAX( 10.0, SQRT( REAL( N ) ) ) * SLAMCH( 'Epsilon' )

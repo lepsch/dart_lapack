@@ -77,7 +77,7 @@
          INFO = -12
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'ZTBRFS', -INFO )
+         xerbla('ZTBRFS', -INFO );
          RETURN
       }
 
@@ -114,9 +114,9 @@
          // Compute residual R = B - op(A) * X,
          // where op(A) = A, A**T, or A**H, depending on TRANS.
 
-         CALL ZCOPY( N, X( 1, J ), 1, WORK, 1 )
-         CALL ZTBMV( UPLO, TRANS, DIAG, N, KD, AB, LDAB, WORK, 1 )
-         CALL ZAXPY( N, -ONE, B( 1, J ), 1, WORK, 1 )
+         zcopy(N, X( 1, J ), 1, WORK, 1 );
+         ztbmv(UPLO, TRANS, DIAG, N, KD, AB, LDAB, WORK, 1 );
+         zaxpy(N, -ONE, B( 1, J ), 1, WORK, 1 );
 
          // Compute componentwise relative backward error from formula
 
@@ -254,13 +254,13 @@
 
          KASE = 0
   210    CONTINUE
-         CALL ZLACN2( N, WORK( N+1 ), WORK, FERR( J ), KASE, ISAVE )
+         zlacn2(N, WORK( N+1 ), WORK, FERR( J ), KASE, ISAVE );
          if ( KASE.NE.0 ) {
             if ( KASE.EQ.1 ) {
 
                // Multiply by diag(W)*inv(op(A)**H).
 
-               CALL ZTBSV( UPLO, TRANST, DIAG, N, KD, AB, LDAB, WORK, 1 )
+               ztbsv(UPLO, TRANST, DIAG, N, KD, AB, LDAB, WORK, 1 );
                DO 220 I = 1, N
                   WORK( I ) = RWORK( I )*WORK( I )
   220          CONTINUE
@@ -271,7 +271,7 @@
                DO 230 I = 1, N
                   WORK( I ) = RWORK( I )*WORK( I )
   230          CONTINUE
-               CALL ZTBSV( UPLO, TRANSN, DIAG, N, KD, AB, LDAB, WORK, 1 )
+               ztbsv(UPLO, TRANSN, DIAG, N, KD, AB, LDAB, WORK, 1 );
             }
             GO TO 210
          }

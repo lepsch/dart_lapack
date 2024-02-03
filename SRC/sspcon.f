@@ -49,7 +49,7 @@
          INFO = -5
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'SSPCON', -INFO )
+         xerbla('SSPCON', -INFO );
          RETURN
       }
 
@@ -89,12 +89,12 @@
 
       KASE = 0
    30 CONTINUE
-      CALL SLACN2( N, WORK( N+1 ), WORK, IWORK, AINVNM, KASE, ISAVE )
+      slacn2(N, WORK( N+1 ), WORK, IWORK, AINVNM, KASE, ISAVE );
       if ( KASE.NE.0 ) {
 
          // Multiply by inv(L*D*L**T) or inv(U*D*U**T).
 
-         CALL SSPTRS( UPLO, N, 1, AP, IPIV, WORK, N, INFO )
+         ssptrs(UPLO, N, 1, AP, IPIV, WORK, N, INFO );
          GO TO 30
       }
 

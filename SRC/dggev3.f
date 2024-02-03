@@ -91,23 +91,23 @@
       // Compute workspace
 
       if ( INFO.EQ.0 ) {
-         CALL DGEQRF( N, N, B, LDB, WORK, WORK, -1, IERR )
+         dgeqrf(N, N, B, LDB, WORK, WORK, -1, IERR );
          LWKOPT = MAX( LWKMIN, 3*N+INT( WORK( 1 ) ) )
-         CALL DORMQR( 'L', 'T', N, N, N, B, LDB, WORK, A, LDA, WORK, -1, IERR )
+         dormqr('L', 'T', N, N, N, B, LDB, WORK, A, LDA, WORK, -1, IERR );
          LWKOPT = MAX( LWKOPT, 3*N+INT( WORK( 1 ) ) )
          if ( ILVL ) {
-            CALL DORGQR( N, N, N, VL, LDVL, WORK, WORK, -1, IERR )
+            dorgqr(N, N, N, VL, LDVL, WORK, WORK, -1, IERR );
             LWKOPT = MAX( LWKOPT, 3*N+INT( WORK( 1 ) ) )
          }
          if ( ILV ) {
-            CALL DGGHD3( JOBVL, JOBVR, N, 1, N, A, LDA, B, LDB, VL, LDVL, VR, LDVR, WORK, -1, IERR )
+            dgghd3(JOBVL, JOBVR, N, 1, N, A, LDA, B, LDB, VL, LDVL, VR, LDVR, WORK, -1, IERR );
             LWKOPT = MAX( LWKOPT, 3*N+INT( WORK ( 1 ) ) )
-            CALL DLAQZ0( 'S', JOBVL, JOBVR, N, 1, N, A, LDA, B, LDB, ALPHAR, ALPHAI, BETA, VL, LDVL, VR, LDVR, WORK, -1, 0, IERR )
+            dlaqz0('S', JOBVL, JOBVR, N, 1, N, A, LDA, B, LDB, ALPHAR, ALPHAI, BETA, VL, LDVL, VR, LDVR, WORK, -1, 0, IERR );
             LWKOPT = MAX( LWKOPT, 2*N+INT( WORK( 1 ) ) )
          } else {
-            CALL DGGHD3( 'N', 'N', N, 1, N, A, LDA, B, LDB, VL, LDVL, VR, LDVR, WORK, -1, IERR )
+            dgghd3('N', 'N', N, 1, N, A, LDA, B, LDB, VL, LDVL, VR, LDVR, WORK, -1, IERR );
             LWKOPT = MAX( LWKOPT, 3*N+INT( WORK( 1 ) ) )
-            CALL DLAQZ0( 'E', JOBVL, JOBVR, N, 1, N, A, LDA, B, LDB, ALPHAR, ALPHAI, BETA, VL, LDVL, VR, LDVR, WORK, -1, 0, IERR )
+            dlaqz0('E', JOBVL, JOBVR, N, 1, N, A, LDA, B, LDB, ALPHAR, ALPHAI, BETA, VL, LDVL, VR, LDVR, WORK, -1, 0, IERR );
             LWKOPT = MAX( LWKOPT, 2*N+INT( WORK( 1 ) ) )
          }
          if ( N.EQ.0 ) {
@@ -118,7 +118,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'DGGEV3 ', -INFO )
+         xerbla('DGGEV3 ', -INFO );
          RETURN
       } else if ( LQUERY ) {
          RETURN
@@ -167,7 +167,7 @@
       ILEFT = 1
       IRIGHT = N + 1
       IWRK = IRIGHT + N
-      CALL DGGBAL( 'P', N, A, LDA, B, LDB, ILO, IHI, WORK( ILEFT ), WORK( IRIGHT ), WORK( IWRK ), IERR )
+      dggbal('P', N, A, LDA, B, LDB, ILO, IHI, WORK( ILEFT ), WORK( IRIGHT ), WORK( IWRK ), IERR );
 
       // Reduce B to triangular form (QR decomposition of B)
 
@@ -179,20 +179,20 @@
       }
       ITAU = IWRK
       IWRK = ITAU + IROWS
-      CALL DGEQRF( IROWS, ICOLS, B( ILO, ILO ), LDB, WORK( ITAU ), WORK( IWRK ), LWORK+1-IWRK, IERR )
+      dgeqrf(IROWS, ICOLS, B( ILO, ILO ), LDB, WORK( ITAU ), WORK( IWRK ), LWORK+1-IWRK, IERR );
 
       // Apply the orthogonal transformation to matrix A
 
-      CALL DORMQR( 'L', 'T', IROWS, ICOLS, IROWS, B( ILO, ILO ), LDB, WORK( ITAU ), A( ILO, ILO ), LDA, WORK( IWRK ), LWORK+1-IWRK, IERR )
+      dormqr('L', 'T', IROWS, ICOLS, IROWS, B( ILO, ILO ), LDB, WORK( ITAU ), A( ILO, ILO ), LDA, WORK( IWRK ), LWORK+1-IWRK, IERR );
 
       // Initialize VL
 
       if ( ILVL ) {
-         CALL DLASET( 'Full', N, N, ZERO, ONE, VL, LDVL )
+         dlaset('Full', N, N, ZERO, ONE, VL, LDVL );
          if ( IROWS.GT.1 ) {
-            CALL DLACPY( 'L', IROWS-1, IROWS-1, B( ILO+1, ILO ), LDB, VL( ILO+1, ILO ), LDVL )
+            dlacpy('L', IROWS-1, IROWS-1, B( ILO+1, ILO ), LDB, VL( ILO+1, ILO ), LDVL );
          }
-         CALL DORGQR( IROWS, IROWS, IROWS, VL( ILO, ILO ), LDVL, WORK( ITAU ), WORK( IWRK ), LWORK+1-IWRK, IERR )
+         dorgqr(IROWS, IROWS, IROWS, VL( ILO, ILO ), LDVL, WORK( ITAU ), WORK( IWRK ), LWORK+1-IWRK, IERR );
       }
 
       // Initialize VR
@@ -205,9 +205,9 @@
 
          // Eigenvectors requested -- work on whole matrix.
 
-         CALL DGGHD3( JOBVL, JOBVR, N, ILO, IHI, A, LDA, B, LDB, VL, LDVL, VR, LDVR, WORK( IWRK ), LWORK+1-IWRK, IERR )
+         dgghd3(JOBVL, JOBVR, N, ILO, IHI, A, LDA, B, LDB, VL, LDVL, VR, LDVR, WORK( IWRK ), LWORK+1-IWRK, IERR );
       } else {
-         CALL DGGHD3( 'N', 'N', IROWS, 1, IROWS, A( ILO, ILO ), LDA, B( ILO, ILO ), LDB, VL, LDVL, VR, LDVR, WORK( IWRK ), LWORK+1-IWRK, IERR )
+         dgghd3('N', 'N', IROWS, 1, IROWS, A( ILO, ILO ), LDA, B( ILO, ILO ), LDB, VL, LDVL, VR, LDVR, WORK( IWRK ), LWORK+1-IWRK, IERR );
       }
 
       // Perform QZ algorithm (Compute eigenvalues, and optionally, the
@@ -219,7 +219,7 @@
       } else {
          CHTEMP = 'E'
       }
-      CALL DLAQZ0( CHTEMP, JOBVL, JOBVR, N, ILO, IHI, A, LDA, B, LDB, ALPHAR, ALPHAI, BETA, VL, LDVL, VR, LDVR, WORK( IWRK ), LWORK+1-IWRK, 0, IERR )
+      dlaqz0(CHTEMP, JOBVL, JOBVR, N, ILO, IHI, A, LDA, B, LDB, ALPHAR, ALPHAI, BETA, VL, LDVL, VR, LDVR, WORK( IWRK ), LWORK+1-IWRK, 0, IERR );
       if ( IERR.NE.0 ) {
          if ( IERR.GT.0 .AND. IERR.LE.N ) {
             INFO = IERR
@@ -243,7 +243,7 @@
          } else {
             CHTEMP = 'R'
          }
-         CALL DTGEVC( CHTEMP, 'B', LDUMMA, N, A, LDA, B, LDB, VL, LDVL, VR, LDVR, N, IN, WORK( IWRK ), IERR )
+         dtgevc(CHTEMP, 'B', LDUMMA, N, A, LDA, B, LDB, VL, LDVL, VR, LDVR, N, IN, WORK( IWRK ), IERR );
          if ( IERR.NE.0 ) {
             INFO = N + 2
             GO TO 110
@@ -252,7 +252,7 @@
          // Undo balancing on VL and VR and normalization
 
          if ( ILVL ) {
-            CALL DGGBAK( 'P', 'L', N, ILO, IHI, WORK( ILEFT ), WORK( IRIGHT ), N, VL, LDVL, IERR )
+            dggbak('P', 'L', N, ILO, IHI, WORK( ILEFT ), WORK( IRIGHT ), N, VL, LDVL, IERR );
             DO 50 JC = 1, N
                IF( ALPHAI( JC ).LT.ZERO ) GO TO 50
                TEMP = ZERO
@@ -280,7 +280,7 @@
    50       CONTINUE
          }
          if ( ILVR ) {
-            CALL DGGBAK( 'P', 'R', N, ILO, IHI, WORK( ILEFT ), WORK( IRIGHT ), N, VR, LDVR, IERR )
+            dggbak('P', 'R', N, ILO, IHI, WORK( ILEFT ), WORK( IRIGHT ), N, VR, LDVR, IERR );
             DO 100 JC = 1, N
                IF( ALPHAI( JC ).LT.ZERO ) GO TO 100
                TEMP = ZERO
@@ -317,12 +317,12 @@
   110 CONTINUE
 
       if ( ILASCL ) {
-         CALL DLASCL( 'G', 0, 0, ANRMTO, ANRM, N, 1, ALPHAR, N, IERR )
-         CALL DLASCL( 'G', 0, 0, ANRMTO, ANRM, N, 1, ALPHAI, N, IERR )
+         dlascl('G', 0, 0, ANRMTO, ANRM, N, 1, ALPHAR, N, IERR );
+         dlascl('G', 0, 0, ANRMTO, ANRM, N, 1, ALPHAI, N, IERR );
       }
 
       if ( ILBSCL ) {
-         CALL DLASCL( 'G', 0, 0, BNRMTO, BNRM, N, 1, BETA, N, IERR )
+         dlascl('G', 0, 0, BNRMTO, BNRM, N, 1, BETA, N, IERR );
       }
 
       WORK( 1 ) = LWKOPT

@@ -84,8 +84,8 @@
 
       // Count singular values in interval [ LOWER, UPPER ]
 
-      CALL DSVDCT( N, S, E, LOWER, NUML )
-      CALL DSVDCT( N, S, E, UPPER, NUMU )
+      dsvdct(N, S, E, LOWER, NUML );
+      dsvdct(N, S, E, UPPER, NUMU );
       COUNT = NUMU - NUML
       IF( LOWER.LT.ZERO ) COUNT = COUNT / 2
       if ( COUNT.NE.BPNT-TPNT+1 ) {

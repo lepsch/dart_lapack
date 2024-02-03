@@ -48,7 +48,7 @@
          INFO = 7
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'CSYR  ', INFO )
+         xerbla('CSYR  ', INFO );
          RETURN
       }
 

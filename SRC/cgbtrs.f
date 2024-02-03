@@ -55,7 +55,7 @@
          INFO = -10
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'CGBTRS', -INFO )
+         xerbla('CGBTRS', -INFO );
          RETURN
       }
 
@@ -89,7 +89,7 @@
 
             // Solve U*X = B, overwriting B with X.
 
-            CALL CTBSV( 'Upper', 'No transpose', 'Non-unit', N, KL+KU, AB, LDAB, B( 1, I ), 1 )
+            ctbsv('Upper', 'No transpose', 'Non-unit', N, KL+KU, AB, LDAB, B( 1, I ), 1 );
    20    CONTINUE
 
       } else if ( LSAME( TRANS, 'T' ) ) {
@@ -100,7 +100,7 @@
 
             // Solve U**T * X = B, overwriting B with X.
 
-            CALL CTBSV( 'Upper', 'Transpose', 'Non-unit', N, KL+KU, AB, LDAB, B( 1, I ), 1 )
+            ctbsv('Upper', 'Transpose', 'Non-unit', N, KL+KU, AB, LDAB, B( 1, I ), 1 );
    30    CONTINUE
 
          // Solve L**T * X = B, overwriting B with X.
@@ -108,7 +108,7 @@
          if ( LNOTI ) {
             DO 40 J = N - 1, 1, -1
                LM = MIN( KL, N-J )
-               CALL CGEMV( 'Transpose', LM, NRHS, -ONE, B( J+1, 1 ), LDB, AB( KD+1, J ), 1, ONE, B( J, 1 ), LDB )
+               cgemv('Transpose', LM, NRHS, -ONE, B( J+1, 1 ), LDB, AB( KD+1, J ), 1, ONE, B( J, 1 ), LDB );
                L = IPIV( J )
                IF( L.NE.J ) CALL CSWAP( NRHS, B( L, 1 ), LDB, B( J, 1 ), LDB )
    40       CONTINUE
@@ -122,7 +122,7 @@
 
             // Solve U**H * X = B, overwriting B with X.
 
-            CALL CTBSV( 'Upper', 'Conjugate transpose', 'Non-unit', N, KL+KU, AB, LDAB, B( 1, I ), 1 )
+            ctbsv('Upper', 'Conjugate transpose', 'Non-unit', N, KL+KU, AB, LDAB, B( 1, I ), 1 );
    50    CONTINUE
 
          // Solve L**H * X = B, overwriting B with X.
@@ -130,9 +130,9 @@
          if ( LNOTI ) {
             DO 60 J = N - 1, 1, -1
                LM = MIN( KL, N-J )
-               CALL CLACGV( NRHS, B( J, 1 ), LDB )
-               CALL CGEMV( 'Conjugate transpose', LM, NRHS, -ONE, B( J+1, 1 ), LDB, AB( KD+1, J ), 1, ONE, B( J, 1 ), LDB )
-               CALL CLACGV( NRHS, B( J, 1 ), LDB )
+               clacgv(NRHS, B( J, 1 ), LDB );
+               cgemv('Conjugate transpose', LM, NRHS, -ONE, B( J+1, 1 ), LDB, AB( KD+1, J ), 1, ONE, B( J, 1 ), LDB );
+               clacgv(NRHS, B( J, 1 ), LDB );
                L = IPIV( J )
                IF( L.NE.J ) CALL CSWAP( NRHS, B( L, 1 ), LDB, B( J, 1 ), LDB )
    60       CONTINUE

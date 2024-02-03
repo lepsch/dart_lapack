@@ -46,7 +46,7 @@
          INFO = -2
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'ZPPTRF', -INFO )
+         xerbla('ZPPTRF', -INFO );
          RETURN
       }
 
@@ -97,8 +97,8 @@
             // submatrix.
 
             if ( J.LT.N ) {
-               CALL ZDSCAL( N-J, ONE / AJJ, AP( JJ+1 ), 1 )
-               CALL ZHPR( 'Lower', N-J, -ONE, AP( JJ+1 ), 1, AP( JJ+N-J+1 ) )
+               zdscal(N-J, ONE / AJJ, AP( JJ+1 ), 1 );
+               zhpr('Lower', N-J, -ONE, AP( JJ+1 ), 1, AP( JJ+N-J+1 ) );
                JJ = JJ + N - J + 1
             }
    20    CONTINUE

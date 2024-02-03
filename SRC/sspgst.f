@@ -45,7 +45,7 @@
          INFO = -3
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'SSPGST', -INFO )
+         xerbla('SSPGST', -INFO );
          RETURN
       }
 
@@ -64,8 +64,8 @@
                // Compute the j-th column of the upper triangle of A
 
                BJJ = BP( JJ )
-               CALL STPSV( UPLO, 'Transpose', 'Nonunit', J, BP, AP( J1 ), 1 )                CALL SSPMV( UPLO, J-1, -ONE, AP, BP( J1 ), 1, ONE, AP( J1 ), 1 )
-               CALL SSCAL( J-1, ONE / BJJ, AP( J1 ), 1 )
+               stpsv(UPLO, 'Transpose', 'Nonunit', J, BP, AP( J1 ), 1 )                CALL SSPMV( UPLO, J-1, -ONE, AP, BP( J1 ), 1, ONE, AP( J1 ), 1 );
+               sscal(J-1, ONE / BJJ, AP( J1 ), 1 );
                AP( JJ ) = ( AP( JJ )-SDOT( J-1, AP( J1 ), 1, BP( J1 ), 1 ) ) / BJJ
    10       CONTINUE
          } else {
@@ -85,12 +85,12 @@
                AKK = AKK / BKK**2
                AP( KK ) = AKK
                if ( K.LT.N ) {
-                  CALL SSCAL( N-K, ONE / BKK, AP( KK+1 ), 1 )
+                  sscal(N-K, ONE / BKK, AP( KK+1 ), 1 );
                   CT = -HALF*AKK
-                  CALL SAXPY( N-K, CT, BP( KK+1 ), 1, AP( KK+1 ), 1 )
-                  CALL SSPR2( UPLO, N-K, -ONE, AP( KK+1 ), 1, BP( KK+1 ), 1, AP( K1K1 ) )
-                  CALL SAXPY( N-K, CT, BP( KK+1 ), 1, AP( KK+1 ), 1 )
-                  CALL STPSV( UPLO, 'No transpose', 'Non-unit', N-K, BP( K1K1 ), AP( KK+1 ), 1 )
+                  saxpy(N-K, CT, BP( KK+1 ), 1, AP( KK+1 ), 1 );
+                  sspr2(UPLO, N-K, -ONE, AP( KK+1 ), 1, BP( KK+1 ), 1, AP( K1K1 ) );
+                  saxpy(N-K, CT, BP( KK+1 ), 1, AP( KK+1 ), 1 );
+                  stpsv(UPLO, 'No transpose', 'Non-unit', N-K, BP( K1K1 ), AP( KK+1 ), 1 );
                }
                KK = K1K1
    20       CONTINUE
@@ -111,12 +111,12 @@
 
                AKK = AP( KK )
                BKK = BP( KK )
-               CALL STPMV( UPLO, 'No transpose', 'Non-unit', K-1, BP, AP( K1 ), 1 )
+               stpmv(UPLO, 'No transpose', 'Non-unit', K-1, BP, AP( K1 ), 1 );
                CT = HALF*AKK
-               CALL SAXPY( K-1, CT, BP( K1 ), 1, AP( K1 ), 1 )
-               CALL SSPR2( UPLO, K-1, ONE, AP( K1 ), 1, BP( K1 ), 1, AP )
-               CALL SAXPY( K-1, CT, BP( K1 ), 1, AP( K1 ), 1 )
-               CALL SSCAL( K-1, BKK, AP( K1 ), 1 )
+               saxpy(K-1, CT, BP( K1 ), 1, AP( K1 ), 1 );
+               sspr2(UPLO, K-1, ONE, AP( K1 ), 1, BP( K1 ), 1, AP );
+               saxpy(K-1, CT, BP( K1 ), 1, AP( K1 ), 1 );
+               sscal(K-1, BKK, AP( K1 ), 1 );
                AP( KK ) = AKK*BKK**2
    30       CONTINUE
          } else {
@@ -134,8 +134,8 @@
                AJJ = AP( JJ )
                BJJ = BP( JJ )
                AP( JJ ) = AJJ*BJJ + SDOT( N-J, AP( JJ+1 ), 1, BP( JJ+1 ), 1 )
-               CALL SSCAL( N-J, BJJ, AP( JJ+1 ), 1 )
-               CALL SSPMV( UPLO, N-J, ONE, AP( J1J1 ), BP( JJ+1 ), 1, ONE, AP( JJ+1 ), 1 )                CALL STPMV( UPLO, 'Transpose', 'Non-unit', N-J+1, BP( JJ ), AP( JJ ), 1 )
+               sscal(N-J, BJJ, AP( JJ+1 ), 1 );
+               sspmv(UPLO, N-J, ONE, AP( J1J1 ), BP( JJ+1 ), 1, ONE, AP( JJ+1 ), 1 )                CALL STPMV( UPLO, 'Transpose', 'Non-unit', N-J+1, BP( JJ ), AP( JJ ), 1 );
                JJ = J1J1
    40       CONTINUE
          }

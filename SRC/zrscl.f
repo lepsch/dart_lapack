@@ -53,19 +53,19 @@
 
       if ( AI.EQ.ZERO ) {
          // If alpha is real, then we can use csrscl
-         CALL ZDRSCL( N, AR, X, INCX )
+         zdrscl(N, AR, X, INCX );
 
       } else if ( AR.EQ.ZERO ) {
          // If alpha has a zero real part, then we follow the same rules as if
          // alpha were real.
          if ( ABSI.GT.SAFMAX ) {
-            CALL ZDSCAL( N, SAFMIN, X, INCX )
-            CALL ZSCAL( N, DCMPLX( ZERO, -SAFMAX / AI ), X, INCX )
+            zdscal(N, SAFMIN, X, INCX );
+            zscal(N, DCMPLX( ZERO, -SAFMAX / AI ), X, INCX );
          } else if ( ABSI.LT.SAFMIN ) {
-            CALL ZSCAL( N, DCMPLX( ZERO, -SAFMIN / AI ), X, INCX )
-            CALL ZDSCAL( N, SAFMAX, X, INCX )
+            zscal(N, DCMPLX( ZERO, -SAFMIN / AI ), X, INCX );
+            zdscal(N, SAFMAX, X, INCX );
          } else {
-            CALL ZSCAL( N, DCMPLX( ZERO, -ONE / AI ), X, INCX )
+            zscal(N, DCMPLX( ZERO, -ONE / AI ), X, INCX );
          }
 
       } else {
@@ -81,14 +81,14 @@
 
          if ( (ABS( UR ).LT.SAFMIN).OR.(ABS( UI ).LT.SAFMIN) ) {
             // This means that both alphaR and alphaI are very small.
-            CALL ZSCAL( N, DCMPLX( SAFMIN / UR, -SAFMIN / UI ), X, INCX )
-            CALL ZDSCAL( N, SAFMAX, X, INCX )
+            zscal(N, DCMPLX( SAFMIN / UR, -SAFMIN / UI ), X, INCX );
+            zdscal(N, SAFMAX, X, INCX );
          } else if ( (ABS( UR ).GT.SAFMAX).OR.(ABS( UI ).GT.SAFMAX) ) {
             if ( (ABSR.GT.OV).OR.(ABSI.GT.OV) ) {
                // This means that a and b are both Inf. No need for scaling.
-               CALL ZSCAL( N, DCMPLX( ONE / UR, -ONE / UI ), X, INCX )
+               zscal(N, DCMPLX( ONE / UR, -ONE / UI ), X, INCX );
             } else {
-               CALL ZDSCAL( N, SAFMIN, X, INCX )
+               zdscal(N, SAFMIN, X, INCX );
                if ( (ABS( UR ).GT.OV).OR.(ABS( UI ).GT.OV) ) {
                   // Infs were generated. We do proper scaling to avoid them.
                   if ( ABSR.GE.ABSI ) {
@@ -100,13 +100,13 @@
                      UR = (SAFMIN * AR) + AI * ( (SAFMIN * AI) / AR )
                      UI = (SAFMIN * AI) + SAFMIN * (AR * ( AR / AI ))
                   }
-                  CALL ZSCAL( N, DCMPLX( ONE / UR, -ONE / UI ), X, INCX )
+                  zscal(N, DCMPLX( ONE / UR, -ONE / UI ), X, INCX );
                } else {
-                  CALL ZSCAL( N, DCMPLX( SAFMAX / UR, -SAFMAX / UI ), X, INCX )
+                  zscal(N, DCMPLX( SAFMAX / UR, -SAFMAX / UI ), X, INCX );
                }
             }
          } else {
-            CALL ZSCAL( N, DCMPLX( ONE / UR, -ONE / UI ), X, INCX )
+            zscal(N, DCMPLX( ONE / UR, -ONE / UI ), X, INCX );
          }
       }
 

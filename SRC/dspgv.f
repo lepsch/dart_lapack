@@ -46,7 +46,7 @@
          INFO = -9
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'DSPGV ', -INFO )
+         xerbla('DSPGV ', -INFO );
          RETURN
       }
 
@@ -56,7 +56,7 @@
 
       // Form a Cholesky factorization of B.
 
-      CALL DPPTRF( UPLO, N, BP, INFO )
+      dpptrf(UPLO, N, BP, INFO );
       if ( INFO.NE.0 ) {
          INFO = N + INFO
          RETURN
@@ -64,8 +64,8 @@
 
       // Transform problem to standard eigenvalue problem and solve.
 
-      CALL DSPGST( ITYPE, UPLO, N, AP, BP, INFO )
-      CALL DSPEV( JOBZ, UPLO, N, AP, W, Z, LDZ, WORK, INFO )
+      dspgst(ITYPE, UPLO, N, AP, BP, INFO );
+      dspev(JOBZ, UPLO, N, AP, W, Z, LDZ, WORK, INFO );
 
       if ( WANTZ ) {
 
@@ -85,7 +85,7 @@
             }
 
             DO 10 J = 1, NEIG
-               CALL DTPSV( UPLO, TRANS, 'Non-unit', N, BP, Z( 1, J ), 1 )
+               dtpsv(UPLO, TRANS, 'Non-unit', N, BP, Z( 1, J ), 1 );
    10       CONTINUE
 
          } else if ( ITYPE.EQ.3 ) {
@@ -100,7 +100,7 @@
             }
 
             DO 20 J = 1, NEIG
-               CALL DTPMV( UPLO, TRANS, 'Non-unit', N, BP, Z( 1, J ), 1 )
+               dtpmv(UPLO, TRANS, 'Non-unit', N, BP, Z( 1, J ), 1 );
    20       CONTINUE
          }
       }

@@ -46,7 +46,7 @@
          IF( LWORK.LE.0 .OR. ( M.GT.0 .AND. LWORK.LT.MAX( 1, N ) ) ) INFO = -7
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'SGEQRF', -INFO )
+         xerbla('SGEQRF', -INFO );
          RETURN
       } else if ( LQUERY ) {
          if ( K.EQ.0 ) {
@@ -100,17 +100,17 @@
             // Compute the QR factorization of the current block
             // A(i:m,i:i+ib-1)
 
-            CALL SGEQR2( M-I+1, IB, A( I, I ), LDA, TAU( I ), WORK, IINFO )
+            sgeqr2(M-I+1, IB, A( I, I ), LDA, TAU( I ), WORK, IINFO );
             if ( I+IB.LE.N ) {
 
                // Form the triangular factor of the block reflector
                // H = H(i) H(i+1) . . . H(i+ib-1)
 
-               CALL SLARFT( 'Forward', 'Columnwise', M-I+1, IB, A( I, I ), LDA, TAU( I ), WORK, LDWORK )
+               slarft('Forward', 'Columnwise', M-I+1, IB, A( I, I ), LDA, TAU( I ), WORK, LDWORK );
 
                // Apply H**T to A(i:m,i+ib:n) from the left
 
-               CALL SLARFB( 'Left', 'Transpose', 'Forward', 'Columnwise', M-I+1, N-I-IB+1, IB, A( I, I ), LDA, WORK, LDWORK, A( I, I+IB ), LDA, WORK( IB+1 ), LDWORK )
+               slarfb('Left', 'Transpose', 'Forward', 'Columnwise', M-I+1, N-I-IB+1, IB, A( I, I ), LDA, WORK, LDWORK, A( I, I+IB ), LDA, WORK( IB+1 ), LDWORK );
             }
    10    CONTINUE
       } else {

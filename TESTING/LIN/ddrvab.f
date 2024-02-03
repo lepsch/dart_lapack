@@ -97,15 +97,15 @@
             // Set up parameters with DLATB4 and generate a test matrix
             // with DLATMS.
 
-            CALL DLATB4( PATH, IMAT, M, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST )
+            dlatb4(PATH, IMAT, M, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST );
 
             SRNAMT = 'DLATMS'
-            CALL DLATMS( M, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KL, KU, 'No packing', A, LDA, WORK, INFO )
+            dlatms(M, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KL, KU, 'No packing', A, LDA, WORK, INFO );
 
             // Check error code from DLATMS.
 
             if ( INFO.NE.0 ) {
-               CALL ALAERH( PATH, 'DLATMS', INFO, 0, ' ', M, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT )
+               alaerh(PATH, 'DLATMS', INFO, 0, ' ', M, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
                GO TO 100
             }
 
@@ -126,7 +126,7 @@
                      A( IOFF+I ) = ZERO
    20             CONTINUE
                } else {
-                  CALL DLASET( 'Full', M, N-IZERO+1, ZERO, ZERO, A( IOFF+1 ), LDA )
+                  dlaset('Full', M, N-IZERO+1, ZERO, ZERO, A( IOFF+1 ), LDA );
                }
             } else {
                IZERO = 0
@@ -138,18 +138,18 @@
                TRANS = 'N'
 
                SRNAMT = 'DLARHS'
-               CALL DLARHS( PATH, XTYPE, ' ', TRANS, N, N, KL, KU, NRHS, A, LDA, X, LDA, B, LDA, ISEED, INFO )
+               dlarhs(PATH, XTYPE, ' ', TRANS, N, N, KL, KU, NRHS, A, LDA, X, LDA, B, LDA, ISEED, INFO );
 
                SRNAMT = 'DSGESV'
 
                KASE = KASE + 1
 
-               CALL DLACPY( 'Full', M, N, A, LDA, AFAC, LDA )
+               dlacpy('Full', M, N, A, LDA, AFAC, LDA );
 
-               CALL DSGESV( N, NRHS, A, LDA, IWORK, B, LDA, X, LDA, WORK, SWORK, ITER, INFO)
+               dsgesv(N, NRHS, A, LDA, IWORK, B, LDA, X, LDA, WORK, SWORK, ITER, INFO);
 
                if (ITER.LT.0) {
-                   CALL DLACPY( 'Full', M, N, AFAC, LDA, A, LDA )
+                   dlacpy('Full', M, N, AFAC, LDA, A, LDA );
                ENDIF
 
                // Check error code from DSGESV. This should be the same as
@@ -173,9 +173,9 @@
 
                // Check the quality of the solution
 
-               CALL DLACPY( 'Full', N, NRHS, B, LDA, WORK, LDA )
+               dlacpy('Full', N, NRHS, B, LDA, WORK, LDA );
 
-               CALL DGET08( TRANS, N, N, NRHS, A, LDA, X, LDA, WORK, LDA, RWORK, RESULT( 1 ) )
+               dget08(TRANS, N, N, NRHS, A, LDA, X, LDA, WORK, LDA, RWORK, RESULT( 1 ) );
 
                // Check if the test passes the testing.
                // Print information about the tests that did not

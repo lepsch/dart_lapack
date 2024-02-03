@@ -81,7 +81,7 @@
          INFO = -15
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'CGGHD3', -INFO )
+         xerbla('CGGHD3', -INFO );
          RETURN
       } else if ( LQUERY ) {
          RETURN
@@ -153,10 +153,10 @@
 
             N2NB = ( IHI-JCOL-1 ) / NNB - 1
             NBLST = IHI - JCOL - N2NB*NNB
-            CALL CLASET( 'All', NBLST, NBLST, CZERO, CONE, WORK, NBLST )
+            claset('All', NBLST, NBLST, CZERO, CONE, WORK, NBLST );
             PW = NBLST * NBLST + 1
             DO I = 1, N2NB
-               CALL CLASET( 'All', 2*NNB, 2*NNB, CZERO, CONE, WORK( PW ), 2*NNB )
+               claset('All', 2*NNB, 2*NNB, CZERO, CONE, WORK( PW ), 2*NNB );
                PW = PW + 4*NNB*NNB
             END DO
 
@@ -169,7 +169,7 @@
 
                DO I = IHI, J+2, -1
                   TEMP = A( I-1, J )
-                  CALL CLARTG( TEMP, A( I, J ), C, S, A( I-1, J ) )
+                  clartg(TEMP, A( I, J ), C, S, A( I-1, J ) );
                   A( I, J ) = CMPLX( C )
                   B( I, J ) = S
                END DO
@@ -238,9 +238,9 @@
 
                   if ( JJ.LT.IHI ) {
                      TEMP = B( JJ+1, JJ+1 )
-                     CALL CLARTG( TEMP, B( JJ+1, JJ ), C, S, B( JJ+1, JJ+1 ) )
+                     clartg(TEMP, B( JJ+1, JJ ), C, S, B( JJ+1, JJ+1 ) );
                      B( JJ+1, JJ ) = CZERO
-                     CALL CROT( JJ-TOP, B( TOP+1, JJ+1 ), 1, B( TOP+1, JJ ), 1, C, S )
+                     crot(JJ-TOP, B( TOP+1, JJ+1 ), 1, B( TOP+1, JJ ), 1, C, S );
                      A( JJ+1, J ) = CMPLX( C )
                      B( JJ+1, J ) = -CONJG( S )
                   }
@@ -274,7 +274,7 @@
                if ( JJ.GT.0 ) {
                   DO I = JJ, 1, -1
                      C = REAL( A( J+1+I, J ) )
-                     CALL CROT( IHI-TOP, A( TOP+1, J+I+1 ), 1, A( TOP+1, J+I ), 1, C, -CONJG( B( J+1+I, J ) ) )
+                     crot(IHI-TOP, A( TOP+1, J+I+1 ), 1, A( TOP+1, J+I ), 1, C, -CONJG( B( J+1+I, J ) ) );
                   END DO
                }
 
@@ -294,13 +294,13 @@
                   // triangular.
 
                   JROW = IHI - NBLST + 1
-                  CALL CGEMV( 'Conjugate', NBLST, LEN, CONE, WORK, NBLST, A( JROW, J+1 ), 1, CZERO, WORK( PW ), 1 )
+                  cgemv('Conjugate', NBLST, LEN, CONE, WORK, NBLST, A( JROW, J+1 ), 1, CZERO, WORK( PW ), 1 );
                   PPW = PW + LEN
                   DO I = JROW, JROW+NBLST-LEN-1
                      WORK( PPW ) = A( I, J+1 )
                      PPW = PPW + 1
                   END DO
-                  CALL CTRMV( 'Lower', 'Conjugate', 'Non-unit', NBLST-LEN, WORK( LEN*NBLST + 1 ), NBLST, WORK( PW+LEN ), 1 )                   CALL CGEMV( 'Conjugate', LEN, NBLST-LEN, CONE, WORK( (LEN+1)*NBLST - LEN + 1 ), NBLST, A( JROW+NBLST-LEN, J+1 ), 1, CONE, WORK( PW+LEN ), 1 )
+                  ctrmv('Lower', 'Conjugate', 'Non-unit', NBLST-LEN, WORK( LEN*NBLST + 1 ), NBLST, WORK( PW+LEN ), 1 )                   CALL CGEMV( 'Conjugate', LEN, NBLST-LEN, CONE, WORK( (LEN+1)*NBLST - LEN + 1 ), NBLST, A( JROW+NBLST-LEN, J+1 ), 1, CONE, WORK( PW+LEN ), 1 );
                   PPW = PW
                   DO I = JROW, JROW+NBLST-1
                      A( I, J+1 ) = WORK( PPW )
@@ -333,7 +333,7 @@
                         WORK( PPW ) = A( I, J+1 )
                         PPW = PPW + 1
                      END DO
-                     CALL CTRMV( 'Upper', 'Conjugate', 'Non-unit', LEN, WORK( PPWO + NNB ), 2*NNB, WORK( PW ), 1 )                      CALL CTRMV( 'Lower', 'Conjugate', 'Non-unit', NNB, WORK( PPWO + 2*LEN*NNB ), 2*NNB, WORK( PW + LEN ), 1 )                      CALL CGEMV( 'Conjugate', NNB, LEN, CONE, WORK( PPWO ), 2*NNB, A( JROW, J+1 ), 1, CONE, WORK( PW ), 1 )                      CALL CGEMV( 'Conjugate', LEN, NNB, CONE, WORK( PPWO + 2*LEN*NNB + NNB ), 2*NNB, A( JROW+NNB, J+1 ), 1, CONE, WORK( PW+LEN ), 1 )
+                     ctrmv('Upper', 'Conjugate', 'Non-unit', LEN, WORK( PPWO + NNB ), 2*NNB, WORK( PW ), 1 )                      CALL CTRMV( 'Lower', 'Conjugate', 'Non-unit', NNB, WORK( PPWO + 2*LEN*NNB ), 2*NNB, WORK( PW + LEN ), 1 )                      CALL CGEMV( 'Conjugate', NNB, LEN, CONE, WORK( PPWO ), 2*NNB, A( JROW, J+1 ), 1, CONE, WORK( PW ), 1 )                      CALL CGEMV( 'Conjugate', LEN, NNB, CONE, WORK( PPWO + 2*LEN*NNB + NNB ), 2*NNB, A( JROW+NNB, J+1 ), 1, CONE, WORK( PW+LEN ), 1 );
                      PPW = PW
                      DO I = JROW, JROW+LEN+NNB-1
                         A( I, J+1 ) = WORK( PPW )
@@ -348,8 +348,8 @@
 
             COLA = N - JCOL - NNB + 1
             J = IHI - NBLST + 1
-            CALL CGEMM( 'Conjugate', 'No Transpose', NBLST, COLA, NBLST, CONE, WORK, NBLST, A( J, JCOL+NNB ), LDA, CZERO, WORK( PW ), NBLST )
-            CALL CLACPY( 'All', NBLST, COLA, WORK( PW ), NBLST, A( J, JCOL+NNB ), LDA )
+            cgemm('Conjugate', 'No Transpose', NBLST, COLA, NBLST, CONE, WORK, NBLST, A( J, JCOL+NNB ), LDA, CZERO, WORK( PW ), NBLST );
+            clacpy('All', NBLST, COLA, WORK( PW ), NBLST, A( J, JCOL+NNB ), LDA );
             PPWO = NBLST*NBLST + 1
             J0 = J - NNB
             DO J = J0, JCOL+1, -NNB
@@ -364,13 +364,13 @@
                   // where all blocks are NNB-by-NNB, U21 is upper
                   // triangular and U12 is lower triangular.
 
-                  CALL CUNM22( 'Left', 'Conjugate', 2*NNB, COLA, NNB, NNB, WORK( PPWO ), 2*NNB, A( J, JCOL+NNB ), LDA, WORK( PW ), LWORK-PW+1, IERR )
+                  cunm22('Left', 'Conjugate', 2*NNB, COLA, NNB, NNB, WORK( PPWO ), 2*NNB, A( J, JCOL+NNB ), LDA, WORK( PW ), LWORK-PW+1, IERR );
                } else {
 
                   // Ignore the structure of U.
 
-                  CALL CGEMM( 'Conjugate', 'No Transpose', 2*NNB, COLA, 2*NNB, CONE, WORK( PPWO ), 2*NNB, A( J, JCOL+NNB ), LDA, CZERO, WORK( PW ), 2*NNB )
-                  CALL CLACPY( 'All', 2*NNB, COLA, WORK( PW ), 2*NNB, A( J, JCOL+NNB ), LDA )
+                  cgemm('Conjugate', 'No Transpose', 2*NNB, COLA, 2*NNB, CONE, WORK( PPWO ), 2*NNB, A( J, JCOL+NNB ), LDA, CZERO, WORK( PW ), 2*NNB );
+                  clacpy('All', 2*NNB, COLA, WORK( PW ), 2*NNB, A( J, JCOL+NNB ), LDA );
                }
                PPWO = PPWO + 4*NNB*NNB
             END DO
@@ -386,8 +386,8 @@
                   TOPQ = 1
                   NH = N
                }
-               CALL CGEMM( 'No Transpose', 'No Transpose', NH, NBLST, NBLST, CONE, Q( TOPQ, J ), LDQ, WORK, NBLST, CZERO, WORK( PW ), NH )
-               CALL CLACPY( 'All', NH, NBLST, WORK( PW ), NH, Q( TOPQ, J ), LDQ )
+               cgemm('No Transpose', 'No Transpose', NH, NBLST, NBLST, CONE, Q( TOPQ, J ), LDQ, WORK, NBLST, CZERO, WORK( PW ), NH );
+               clacpy('All', NH, NBLST, WORK( PW ), NH, Q( TOPQ, J ), LDQ );
                PPWO = NBLST*NBLST + 1
                J0 = J - NNB
                DO J = J0, JCOL+1, -NNB
@@ -399,13 +399,13 @@
 
                      // Exploit the structure of U.
 
-                     CALL CUNM22( 'Right', 'No Transpose', NH, 2*NNB, NNB, NNB, WORK( PPWO ), 2*NNB, Q( TOPQ, J ), LDQ, WORK( PW ), LWORK-PW+1, IERR )
+                     cunm22('Right', 'No Transpose', NH, 2*NNB, NNB, NNB, WORK( PPWO ), 2*NNB, Q( TOPQ, J ), LDQ, WORK( PW ), LWORK-PW+1, IERR );
                   } else {
 
                      // Ignore the structure of U.
 
-                     CALL CGEMM( 'No Transpose', 'No Transpose', NH, 2*NNB, 2*NNB, CONE, Q( TOPQ, J ), LDQ, WORK( PPWO ), 2*NNB, CZERO, WORK( PW ), NH )
-                     CALL CLACPY( 'All', NH, 2*NNB, WORK( PW ), NH, Q( TOPQ, J ), LDQ )
+                     cgemm('No Transpose', 'No Transpose', NH, 2*NNB, 2*NNB, CONE, Q( TOPQ, J ), LDQ, WORK( PPWO ), 2*NNB, CZERO, WORK( PW ), NH );
+                     clacpy('All', NH, 2*NNB, WORK( PW ), NH, Q( TOPQ, J ), LDQ );
                   }
                   PPWO = PPWO + 4*NNB*NNB
                END DO
@@ -418,10 +418,10 @@
                // Initialize small unitary factors that will hold the
                // accumulated Givens rotations in workspace.
 
-               CALL CLASET( 'All', NBLST, NBLST, CZERO, CONE, WORK, NBLST )
+               claset('All', NBLST, NBLST, CZERO, CONE, WORK, NBLST );
                PW = NBLST * NBLST + 1
                DO I = 1, N2NB
-                  CALL CLASET( 'All', 2*NNB, 2*NNB, CZERO, CONE, WORK( PW ), 2*NNB )
+                  claset('All', 2*NNB, 2*NNB, CZERO, CONE, WORK( PW ), 2*NNB );
                   PW = PW + 4*NNB*NNB
                END DO
 
@@ -468,15 +468,15 @@
                END DO
             } else {
 
-               CALL CLASET( 'Lower', IHI - JCOL - 1, NNB, CZERO, CZERO, A( JCOL + 2, JCOL ), LDA )                CALL CLASET( 'Lower', IHI - JCOL - 1, NNB, CZERO, CZERO, B( JCOL + 2, JCOL ), LDB )
+               claset('Lower', IHI - JCOL - 1, NNB, CZERO, CZERO, A( JCOL + 2, JCOL ), LDA )                CALL CLASET( 'Lower', IHI - JCOL - 1, NNB, CZERO, CZERO, B( JCOL + 2, JCOL ), LDB );
             }
 
             // Apply accumulated unitary matrices to A and B.
 
             if ( TOP.GT.0 ) {
                J = IHI - NBLST + 1
-               CALL CGEMM( 'No Transpose', 'No Transpose', TOP, NBLST, NBLST, CONE, A( 1, J ), LDA, WORK, NBLST, CZERO, WORK( PW ), TOP )
-               CALL CLACPY( 'All', TOP, NBLST, WORK( PW ), TOP, A( 1, J ), LDA )
+               cgemm('No Transpose', 'No Transpose', TOP, NBLST, NBLST, CONE, A( 1, J ), LDA, WORK, NBLST, CZERO, WORK( PW ), TOP );
+               clacpy('All', TOP, NBLST, WORK( PW ), TOP, A( 1, J ), LDA );
                PPWO = NBLST*NBLST + 1
                J0 = J - NNB
                DO J = J0, JCOL+1, -NNB
@@ -484,20 +484,20 @@
 
                      // Exploit the structure of U.
 
-                     CALL CUNM22( 'Right', 'No Transpose', TOP, 2*NNB, NNB, NNB, WORK( PPWO ), 2*NNB, A( 1, J ), LDA, WORK( PW ), LWORK-PW+1, IERR )
+                     cunm22('Right', 'No Transpose', TOP, 2*NNB, NNB, NNB, WORK( PPWO ), 2*NNB, A( 1, J ), LDA, WORK( PW ), LWORK-PW+1, IERR );
                   } else {
 
                      // Ignore the structure of U.
 
-                     CALL CGEMM( 'No Transpose', 'No Transpose', TOP, 2*NNB, 2*NNB, CONE, A( 1, J ), LDA, WORK( PPWO ), 2*NNB, CZERO, WORK( PW ), TOP )
-                     CALL CLACPY( 'All', TOP, 2*NNB, WORK( PW ), TOP, A( 1, J ), LDA )
+                     cgemm('No Transpose', 'No Transpose', TOP, 2*NNB, 2*NNB, CONE, A( 1, J ), LDA, WORK( PPWO ), 2*NNB, CZERO, WORK( PW ), TOP );
+                     clacpy('All', TOP, 2*NNB, WORK( PW ), TOP, A( 1, J ), LDA );
                   }
                   PPWO = PPWO + 4*NNB*NNB
                END DO
 
                J = IHI - NBLST + 1
-               CALL CGEMM( 'No Transpose', 'No Transpose', TOP, NBLST, NBLST, CONE, B( 1, J ), LDB, WORK, NBLST, CZERO, WORK( PW ), TOP )
-               CALL CLACPY( 'All', TOP, NBLST, WORK( PW ), TOP, B( 1, J ), LDB )
+               cgemm('No Transpose', 'No Transpose', TOP, NBLST, NBLST, CONE, B( 1, J ), LDB, WORK, NBLST, CZERO, WORK( PW ), TOP );
+               clacpy('All', TOP, NBLST, WORK( PW ), TOP, B( 1, J ), LDB );
                PPWO = NBLST*NBLST + 1
                J0 = J - NNB
                DO J = J0, JCOL+1, -NNB
@@ -505,13 +505,13 @@
 
                      // Exploit the structure of U.
 
-                     CALL CUNM22( 'Right', 'No Transpose', TOP, 2*NNB, NNB, NNB, WORK( PPWO ), 2*NNB, B( 1, J ), LDB, WORK( PW ), LWORK-PW+1, IERR )
+                     cunm22('Right', 'No Transpose', TOP, 2*NNB, NNB, NNB, WORK( PPWO ), 2*NNB, B( 1, J ), LDB, WORK( PW ), LWORK-PW+1, IERR );
                   } else {
 
                      // Ignore the structure of U.
 
-                     CALL CGEMM( 'No Transpose', 'No Transpose', TOP, 2*NNB, 2*NNB, CONE, B( 1, J ), LDB, WORK( PPWO ), 2*NNB, CZERO, WORK( PW ), TOP )
-                     CALL CLACPY( 'All', TOP, 2*NNB, WORK( PW ), TOP, B( 1, J ), LDB )
+                     cgemm('No Transpose', 'No Transpose', TOP, 2*NNB, 2*NNB, CONE, B( 1, J ), LDB, WORK( PPWO ), 2*NNB, CZERO, WORK( PW ), TOP );
+                     clacpy('All', TOP, 2*NNB, WORK( PW ), TOP, B( 1, J ), LDB );
                   }
                   PPWO = PPWO + 4*NNB*NNB
                END DO
@@ -528,8 +528,8 @@
                   TOPQ = 1
                   NH = N
                }
-               CALL CGEMM( 'No Transpose', 'No Transpose', NH, NBLST, NBLST, CONE, Z( TOPQ, J ), LDZ, WORK, NBLST, CZERO, WORK( PW ), NH )
-               CALL CLACPY( 'All', NH, NBLST, WORK( PW ), NH, Z( TOPQ, J ), LDZ )
+               cgemm('No Transpose', 'No Transpose', NH, NBLST, NBLST, CONE, Z( TOPQ, J ), LDZ, WORK, NBLST, CZERO, WORK( PW ), NH );
+               clacpy('All', NH, NBLST, WORK( PW ), NH, Z( TOPQ, J ), LDZ );
                PPWO = NBLST*NBLST + 1
                J0 = J - NNB
                DO J = J0, JCOL+1, -NNB
@@ -541,13 +541,13 @@
 
                      // Exploit the structure of U.
 
-                     CALL CUNM22( 'Right', 'No Transpose', NH, 2*NNB, NNB, NNB, WORK( PPWO ), 2*NNB, Z( TOPQ, J ), LDZ, WORK( PW ), LWORK-PW+1, IERR )
+                     cunm22('Right', 'No Transpose', NH, 2*NNB, NNB, NNB, WORK( PPWO ), 2*NNB, Z( TOPQ, J ), LDZ, WORK( PW ), LWORK-PW+1, IERR );
                   } else {
 
                      // Ignore the structure of U.
 
-                     CALL CGEMM( 'No Transpose', 'No Transpose', NH, 2*NNB, 2*NNB, CONE, Z( TOPQ, J ), LDZ, WORK( PPWO ), 2*NNB, CZERO, WORK( PW ), NH )
-                     CALL CLACPY( 'All', NH, 2*NNB, WORK( PW ), NH, Z( TOPQ, J ), LDZ )
+                     cgemm('No Transpose', 'No Transpose', NH, 2*NNB, 2*NNB, CONE, Z( TOPQ, J ), LDZ, WORK( PPWO ), 2*NNB, CZERO, WORK( PW ), NH );
+                     clacpy('All', NH, 2*NNB, WORK( PW ), NH, Z( TOPQ, J ), LDZ );
                   }
                   PPWO = PPWO + 4*NNB*NNB
                END DO

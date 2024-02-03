@@ -85,17 +85,17 @@
          // Scale input matrix
 
          KNT = KNT + 1
-         CALL CLACPY( 'F', N, N, TMP, LDT, T, LDT )
+         clacpy('F', N, N, TMP, LDT, T, LDT );
          VMUL = VAL( ISCL )
          DO 30 I = 1, N
-            CALL CSSCAL( N, VMUL, T( 1, I ), 1 )
+            csscal(N, VMUL, T( 1, I ), 1 );
    30    CONTINUE
          IF( TNRM.EQ.ZERO ) VMUL = ONE
-         CALL CLACPY( 'F', N, N, T, LDT, TSAV, LDT )
+         clacpy('F', N, N, T, LDT, TSAV, LDT );
 
          // Compute Schur form
 
-         CALL CGEHRD( N, 1, N, T, LDT, WORK( 1 ), WORK( N+1 ), LWORK-N, INFO )
+         cgehrd(N, 1, N, T, LDT, WORK( 1 ), WORK( N+1 ), LWORK-N, INFO );
          if ( INFO.NE.0 ) {
             LMAX( 1 ) = KNT
             NINFO( 1 ) = NINFO( 1 ) + 1
@@ -104,8 +104,8 @@
 
          // Generate unitary matrix
 
-         CALL CLACPY( 'L', N, N, T, LDT, Q, LDT )
-         CALL CUNGHR( N, 1, N, Q, LDT, WORK( 1 ), WORK( N+1 ), LWORK-N, INFO )
+         clacpy('L', N, N, T, LDT, Q, LDT );
+         cunghr(N, 1, N, Q, LDT, WORK( 1 ), WORK( N+1 ), LWORK-N, INFO );
 
          // Compute Schur form
 
@@ -114,7 +114,7 @@
                T( I, J ) = CZERO
    40       CONTINUE
    50    CONTINUE
-         CALL CHSEQR( 'S', 'V', N, 1, N, T, LDT, W, Q, LDT, WORK, LWORK, INFO )
+         chseqr('S', 'V', N, 1, N, T, LDT, W, Q, LDT, WORK, LWORK, INFO );
          if ( INFO.NE.0 ) {
             LMAX( 2 ) = KNT
             NINFO( 2 ) = NINFO( 2 ) + 1
@@ -157,9 +157,9 @@
 
          // Compute condition numbers
 
-         CALL CLACPY( 'F', N, N, Q, LDT, QSAV, LDT )
-         CALL CLACPY( 'F', N, N, T, LDT, TSAV1, LDT )
-         CALL CTRSEN( 'B', 'V', SELECT, N, T, LDT, Q, LDT, WTMP, M, S, SEP, WORK, LWORK, INFO )
+         clacpy('F', N, N, Q, LDT, QSAV, LDT );
+         clacpy('F', N, N, T, LDT, TSAV1, LDT );
+         ctrsen('B', 'V', SELECT, N, T, LDT, Q, LDT, WTMP, M, S, SEP, WORK, LWORK, INFO );
          if ( INFO.NE.0 ) {
             LMAX( 3 ) = KNT
             NINFO( 3 ) = NINFO( 3 ) + 1
@@ -170,7 +170,7 @@
 
          // Compute residuals
 
-         CALL CHST01( N, 1, N, TSAV, LDT, T, LDT, Q, LDT, WORK, LWORK, RWORK, RESULT )
+         chst01(N, 1, N, TSAV, LDT, T, LDT, Q, LDT, WORK, LWORK, RWORK, RESULT );
          VMAX = MAX( RESULT( 1 ), RESULT( 2 ) )
          if ( VMAX.GT.RMAX( 1 ) ) {
             RMAX( 1 ) = VMAX
@@ -287,11 +287,11 @@
          // Update Q
 
          VMAX = ZERO
-         CALL CLACPY( 'F', N, N, TSAV1, LDT, TTMP, LDT )
-         CALL CLACPY( 'F', N, N, QSAV, LDT, QTMP, LDT )
+         clacpy('F', N, N, TSAV1, LDT, TTMP, LDT );
+         clacpy('F', N, N, QSAV, LDT, QTMP, LDT );
          SEPTMP = -ONE
          STMP = -ONE
-         CALL CTRSEN( 'E', 'V', SELECT, N, TTMP, LDT, QTMP, LDT, WTMP, M, STMP, SEPTMP, WORK, LWORK, INFO )
+         ctrsen('E', 'V', SELECT, N, TTMP, LDT, QTMP, LDT, WTMP, M, STMP, SEPTMP, WORK, LWORK, INFO );
          if ( INFO.NE.0 ) {
             LMAX( 3 ) = KNT
             NINFO( 3 ) = NINFO( 3 ) + 1
@@ -307,11 +307,11 @@
          // Compute invariant subspace condition number only and compare
          // Update Q
 
-         CALL CLACPY( 'F', N, N, TSAV1, LDT, TTMP, LDT )
-         CALL CLACPY( 'F', N, N, QSAV, LDT, QTMP, LDT )
+         clacpy('F', N, N, TSAV1, LDT, TTMP, LDT );
+         clacpy('F', N, N, QSAV, LDT, QTMP, LDT );
          SEPTMP = -ONE
          STMP = -ONE
-         CALL CTRSEN( 'V', 'V', SELECT, N, TTMP, LDT, QTMP, LDT, WTMP, M, STMP, SEPTMP, WORK, LWORK, INFO )
+         ctrsen('V', 'V', SELECT, N, TTMP, LDT, QTMP, LDT, WTMP, M, STMP, SEPTMP, WORK, LWORK, INFO );
          if ( INFO.NE.0 ) {
             LMAX( 3 ) = KNT
             NINFO( 3 ) = NINFO( 3 ) + 1
@@ -327,11 +327,11 @@
          // Compute eigenvalue condition number only and compare
          // Do not update Q
 
-         CALL CLACPY( 'F', N, N, TSAV1, LDT, TTMP, LDT )
-         CALL CLACPY( 'F', N, N, QSAV, LDT, QTMP, LDT )
+         clacpy('F', N, N, TSAV1, LDT, TTMP, LDT );
+         clacpy('F', N, N, QSAV, LDT, QTMP, LDT );
          SEPTMP = -ONE
          STMP = -ONE
-         CALL CTRSEN( 'E', 'N', SELECT, N, TTMP, LDT, QTMP, LDT, WTMP, M, STMP, SEPTMP, WORK, LWORK, INFO )
+         ctrsen('E', 'N', SELECT, N, TTMP, LDT, QTMP, LDT, WTMP, M, STMP, SEPTMP, WORK, LWORK, INFO );
          if ( INFO.NE.0 ) {
             LMAX( 3 ) = KNT
             NINFO( 3 ) = NINFO( 3 ) + 1
@@ -347,11 +347,11 @@
          // Compute invariant subspace condition number only and compare
          // Do not update Q
 
-         CALL CLACPY( 'F', N, N, TSAV1, LDT, TTMP, LDT )
-         CALL CLACPY( 'F', N, N, QSAV, LDT, QTMP, LDT )
+         clacpy('F', N, N, TSAV1, LDT, TTMP, LDT );
+         clacpy('F', N, N, QSAV, LDT, QTMP, LDT );
          SEPTMP = -ONE
          STMP = -ONE
-         CALL CTRSEN( 'V', 'N', SELECT, N, TTMP, LDT, QTMP, LDT, WTMP, M, STMP, SEPTMP, WORK, LWORK, INFO )
+         ctrsen('V', 'N', SELECT, N, TTMP, LDT, QTMP, LDT, WTMP, M, STMP, SEPTMP, WORK, LWORK, INFO );
          if ( INFO.NE.0 ) {
             LMAX( 3 ) = KNT
             NINFO( 3 ) = NINFO( 3 ) + 1

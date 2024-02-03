@@ -54,13 +54,13 @@
 
       // Copy the first k rows of the factorization to the array Q
 
-      CALL CLASET( 'Full', N, N, ROGUE, ROGUE, Q, LDA )
-      CALL CLACPY( 'Upper', K, N-1, AF( 1, 2 ), LDA, Q( 1, 2 ), LDA )
+      claset('Full', N, N, ROGUE, ROGUE, Q, LDA );
+      clacpy('Upper', K, N-1, AF( 1, 2 ), LDA, Q( 1, 2 ), LDA );
 
       // Generate the n-by-n matrix Q
 
       SRNAMT = 'CUNGLQ'
-      CALL CUNGLQ( N, N, K, Q, LDA, TAU, WORK, LWORK, INFO )
+      cunglq(N, N, K, Q, LDA, TAU, WORK, LWORK, INFO );
 
       DO 30 ISIDE = 1, 2
          if ( ISIDE.EQ.1 ) {
@@ -76,7 +76,7 @@
          // Generate MC by NC matrix C
 
          DO 10 J = 1, NC
-            CALL CLARNV( 2, ISEED, MC, C( 1, J ) )
+            clarnv(2, ISEED, MC, C( 1, J ) );
    10    CONTINUE
          CNORM = CLANGE( '1', MC, NC, C, LDA, RWORK )
          IF( CNORM.EQ.ZERO ) CNORM = ONE
@@ -90,19 +90,19 @@
 
             // Copy C
 
-            CALL CLACPY( 'Full', MC, NC, C, LDA, CC, LDA )
+            clacpy('Full', MC, NC, C, LDA, CC, LDA );
 
             // Apply Q or Q' to C
 
             SRNAMT = 'CUNMLQ'
-            CALL CUNMLQ( SIDE, TRANS, MC, NC, K, AF, LDA, TAU, CC, LDA, WORK, LWORK, INFO )
+            cunmlq(SIDE, TRANS, MC, NC, K, AF, LDA, TAU, CC, LDA, WORK, LWORK, INFO );
 
             // Form explicit product and subtract
 
             if ( LSAME( SIDE, 'L' ) ) {
-               CALL CGEMM( TRANS, 'No transpose', MC, NC, MC, CMPLX( -ONE ), Q, LDA, C, LDA, CMPLX( ONE ), CC, LDA )
+               cgemm(TRANS, 'No transpose', MC, NC, MC, CMPLX( -ONE ), Q, LDA, C, LDA, CMPLX( ONE ), CC, LDA );
             } else {
-               CALL CGEMM( 'No transpose', TRANS, MC, NC, NC, CMPLX( -ONE ), C, LDA, Q, LDA, CMPLX( ONE ), CC, LDA )
+               cgemm('No transpose', TRANS, MC, NC, NC, CMPLX( -ONE ), C, LDA, Q, LDA, CMPLX( ONE ), CC, LDA );
             }
 
             // Compute error in the difference

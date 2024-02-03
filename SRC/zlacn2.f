@@ -98,7 +98,7 @@
       // X HAS BEEN OVERWRITTEN BY A*X.
 
    70 CONTINUE
-      CALL ZCOPY( N, X, 1, V, 1 )
+      zcopy(N, X, 1, V, 1 );
       ESTOLD = EST
       EST = DZSUM1( N, V, 1 )
 
@@ -146,7 +146,7 @@
   120 CONTINUE
       TEMP = TWO*( DZSUM1( N, X, 1 ) / DBLE( 3*N ) )
       if ( TEMP.GT.EST ) {
-         CALL ZCOPY( N, X, 1, V, 1 )
+         zcopy(N, X, 1, V, 1 );
          EST = TEMP
       }
 

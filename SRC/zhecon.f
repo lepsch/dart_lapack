@@ -54,7 +54,7 @@
          INFO = -6
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'ZHECON', -INFO )
+         xerbla('ZHECON', -INFO );
          RETURN
       }
 
@@ -90,12 +90,12 @@
 
       KASE = 0
    30 CONTINUE
-      CALL ZLACN2( N, WORK( N+1 ), WORK, AINVNM, KASE, ISAVE )
+      zlacn2(N, WORK( N+1 ), WORK, AINVNM, KASE, ISAVE );
       if ( KASE.NE.0 ) {
 
          // Multiply by inv(L*D*L**H) or inv(U*D*U**H).
 
-         CALL ZHETRS( UPLO, N, 1, A, LDA, IPIV, WORK, N, INFO )
+         zhetrs(UPLO, N, 1, A, LDA, IPIV, WORK, N, INFO );
          GO TO 30
       }
 

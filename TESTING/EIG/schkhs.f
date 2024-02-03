@@ -80,7 +80,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'SCHKHS', -INFO )
+         xerbla('SCHKHS', -INFO );
          RETURN
       }
 
@@ -172,7 +172,7 @@
 
    70       CONTINUE
 
-            CALL SLASET( 'Full', LDA, N, ZERO, ZERO, A, LDA )
+            slaset('Full', LDA, N, ZERO, ZERO, A, LDA );
             IINFO = 0
             COND = ULPINV
 
@@ -205,13 +205,13 @@
 
                // Diagonal Matrix, [Eigen]values Specified
 
-               CALL SLATMS( N, N, 'S', ISEED, 'S', WORK, IMODE, COND, ANORM, 0, 0, 'N', A, LDA, WORK( N+1 ), IINFO )
+               slatms(N, N, 'S', ISEED, 'S', WORK, IMODE, COND, ANORM, 0, 0, 'N', A, LDA, WORK( N+1 ), IINFO );
 
             } else if ( ITYPE.EQ.5 ) {
 
                // Symmetric, eigenvalues specified
 
-               CALL SLATMS( N, N, 'S', ISEED, 'S', WORK, IMODE, COND, ANORM, N, N, 'N', A, LDA, WORK( N+1 ), IINFO )
+               slatms(N, N, 'S', ISEED, 'S', WORK, IMODE, COND, ANORM, N, N, 'N', A, LDA, WORK( N+1 ), IINFO );
 
             } else if ( ITYPE.EQ.6 ) {
 
@@ -226,31 +226,31 @@
                }
 
                ADUMMA( 1 ) = ' '
-               CALL SLATME( N, 'S', ISEED, WORK, IMODE, COND, ONE, ADUMMA, 'T', 'T', 'T', WORK( N+1 ), 4, CONDS, N, N, ANORM, A, LDA, WORK( 2*N+1 ), IINFO )
+               slatme(N, 'S', ISEED, WORK, IMODE, COND, ONE, ADUMMA, 'T', 'T', 'T', WORK( N+1 ), 4, CONDS, N, N, ANORM, A, LDA, WORK( 2*N+1 ), IINFO );
 
             } else if ( ITYPE.EQ.7 ) {
 
                // Diagonal, random eigenvalues
 
-               CALL SLATMR( N, N, 'S', ISEED, 'S', WORK, 6, ONE, ONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, 0, 0, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO )
+               slatmr(N, N, 'S', ISEED, 'S', WORK, 6, ONE, ONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, 0, 0, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO );
 
             } else if ( ITYPE.EQ.8 ) {
 
                // Symmetric, random eigenvalues
 
-               CALL SLATMR( N, N, 'S', ISEED, 'S', WORK, 6, ONE, ONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, N, N, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO )
+               slatmr(N, N, 'S', ISEED, 'S', WORK, 6, ONE, ONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, N, N, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO );
 
             } else if ( ITYPE.EQ.9 ) {
 
                // General, random eigenvalues
 
-               CALL SLATMR( N, N, 'S', ISEED, 'N', WORK, 6, ONE, ONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, N, N, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO )
+               slatmr(N, N, 'S', ISEED, 'N', WORK, 6, ONE, ONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, N, N, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO );
 
             } else if ( ITYPE.EQ.10 ) {
 
                // Triangular, random eigenvalues
 
-               CALL SLATMR( N, N, 'S', ISEED, 'N', WORK, 6, ONE, ONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, N, 0, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO )
+               slatmr(N, N, 'S', ISEED, 'N', WORK, 6, ONE, ONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, N, 0, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO );
 
             } else {
 
@@ -267,14 +267,14 @@
 
             // Call SGEHRD to compute H and U, do tests.
 
-            CALL SLACPY( ' ', N, N, A, LDA, H, LDA )
+            slacpy(' ', N, N, A, LDA, H, LDA );
 
             NTEST = 1
 
             ILO = 1
             IHI = N
 
-            CALL SGEHRD( N, ILO, IHI, H, LDA, WORK, WORK( N+1 ), NWORK-N, IINFO )
+            sgehrd(N, ILO, IHI, H, LDA, WORK, WORK( N+1 ), NWORK-N, IINFO );
 
             if ( IINFO.NE.0 ) {
                RESULT( 1 ) = ULPINV
@@ -291,21 +291,21 @@
                   H( I, J ) = ZERO
   110          CONTINUE
   120       CONTINUE
-            CALL SCOPY( N-1, WORK, 1, TAU, 1 )
-            CALL SORGHR( N, ILO, IHI, U, LDU, WORK, WORK( N+1 ), NWORK-N, IINFO )
+            scopy(N-1, WORK, 1, TAU, 1 );
+            sorghr(N, ILO, IHI, U, LDU, WORK, WORK( N+1 ), NWORK-N, IINFO );
             NTEST = 2
 
-            CALL SHST01( N, ILO, IHI, A, LDA, H, LDA, U, LDU, WORK, NWORK, RESULT( 1 ) )
+            shst01(N, ILO, IHI, A, LDA, H, LDA, U, LDU, WORK, NWORK, RESULT( 1 ) );
 
             // Call SHSEQR to compute T1, T2 and Z, do tests.
 
             // Eigenvalues only (WR3,WI3)
 
-            CALL SLACPY( ' ', N, N, H, LDA, T2, LDA )
+            slacpy(' ', N, N, H, LDA, T2, LDA );
             NTEST = 3
             RESULT( 3 ) = ULPINV
 
-            CALL SHSEQR( 'E', 'N', N, ILO, IHI, T2, LDA, WR3, WI3, UZ, LDU, WORK, NWORK, IINFO )
+            shseqr('E', 'N', N, ILO, IHI, T2, LDA, WR3, WI3, UZ, LDU, WORK, NWORK, IINFO );
             if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'SHSEQR(E)', IINFO, N, JTYPE, IOLDSD
                if ( IINFO.LE.N+2 ) {
@@ -316,9 +316,9 @@
 
             // Eigenvalues (WR2,WI2) and Full Schur Form (T2)
 
-            CALL SLACPY( ' ', N, N, H, LDA, T2, LDA )
+            slacpy(' ', N, N, H, LDA, T2, LDA );
 
-            CALL SHSEQR( 'S', 'N', N, ILO, IHI, T2, LDA, WR2, WI2, UZ, LDU, WORK, NWORK, IINFO )
+            shseqr('S', 'N', N, ILO, IHI, T2, LDA, WR2, WI2, UZ, LDU, WORK, NWORK, IINFO );
             if ( IINFO.NE.0 .AND. IINFO.LE.N+2 ) {
                WRITE( NOUNIT, FMT = 9999 )'SHSEQR(S)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
@@ -328,10 +328,10 @@
             // Eigenvalues (WR1,WI1), Schur Form (T1), and Schur vectors
             // (UZ)
 
-            CALL SLACPY( ' ', N, N, H, LDA, T1, LDA )
-            CALL SLACPY( ' ', N, N, U, LDU, UZ, LDU )
+            slacpy(' ', N, N, H, LDA, T1, LDA );
+            slacpy(' ', N, N, U, LDU, UZ, LDU );
 
-            CALL SHSEQR( 'S', 'V', N, ILO, IHI, T1, LDA, WR1, WI1, UZ, LDU, WORK, NWORK, IINFO )
+            shseqr('S', 'V', N, ILO, IHI, T1, LDA, WR1, WI1, UZ, LDU, WORK, NWORK, IINFO );
             if ( IINFO.NE.0 .AND. IINFO.LE.N+2 ) {
                WRITE( NOUNIT, FMT = 9999 )'SHSEQR(V)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
@@ -340,22 +340,22 @@
 
             // Compute Z = U' UZ
 
-            CALL SGEMM( 'T', 'N', N, N, N, ONE, U, LDU, UZ, LDU, ZERO, Z, LDU )
+            sgemm('T', 'N', N, N, N, ONE, U, LDU, UZ, LDU, ZERO, Z, LDU );
             NTEST = 8
 
             // Do Tests 3: | H - Z T Z' | / ( |H| n ulp )
                  // and 4: | I - Z Z' | / ( n ulp )
 
-            CALL SHST01( N, ILO, IHI, H, LDA, T1, LDA, Z, LDU, WORK, NWORK, RESULT( 3 ) )
+            shst01(N, ILO, IHI, H, LDA, T1, LDA, Z, LDU, WORK, NWORK, RESULT( 3 ) );
 
             // Do Tests 5: | A - UZ T (UZ)' | / ( |A| n ulp )
                  // and 6: | I - UZ (UZ)' | / ( n ulp )
 
-            CALL SHST01( N, ILO, IHI, A, LDA, T1, LDA, UZ, LDU, WORK, NWORK, RESULT( 5 ) )
+            shst01(N, ILO, IHI, A, LDA, T1, LDA, UZ, LDU, WORK, NWORK, RESULT( 5 ) );
 
             // Do Test 7: | T2 - T1 | / ( |T| n ulp )
 
-            CALL SGET10( N, N, T2, LDA, T1, LDA, WORK, RESULT( 7 ) )
+            sget10(N, N, T2, LDA, T1, LDA, WORK, RESULT( 7 ) );
 
             // Do Test 8: | W2 - W1 | / ( max(|W1|,|W2|) ulp )
 
@@ -401,7 +401,7 @@
             }
             IF( J.GT.0 ) GO TO 140
 
-            CALL STREVC( 'Right', 'All', SELECT, N, T1, LDA, DUMMA, LDU, EVECTR, LDU, N, IN, WORK, IINFO )
+            strevc('Right', 'All', SELECT, N, T1, LDA, DUMMA, LDU, EVECTR, LDU, N, IN, WORK, IINFO );
             if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'STREVC(R,A)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
@@ -410,7 +410,7 @@
 
             // Test 9:  | TR - RW | / ( |T| |R| ulp )
 
-            CALL SGET22( 'N', 'N', 'N', N, T1, LDA, EVECTR, LDU, WR1, WI1, WORK, DUMMA( 1 ) )
+            sget22('N', 'N', 'N', N, T1, LDA, EVECTR, LDU, WR1, WI1, WORK, DUMMA( 1 ) );
             RESULT( 9 ) = DUMMA( 1 )
             if ( DUMMA( 2 ).GT.THRESH ) {
                WRITE( NOUNIT, FMT = 9998 )'Right', 'STREVC', DUMMA( 2 ), N, JTYPE, IOLDSD
@@ -419,7 +419,7 @@
             // Compute selected right eigenvectors and confirm that
             // they agree with previous right eigenvectors
 
-            CALL STREVC( 'Right', 'Some', SELECT, N, T1, LDA, DUMMA, LDU, EVECTL, LDU, N, IN, WORK, IINFO )
+            strevc('Right', 'Some', SELECT, N, T1, LDA, DUMMA, LDU, EVECTL, LDU, N, IN, WORK, IINFO );
             if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'STREVC(R,S)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
@@ -454,7 +454,7 @@
 
             NTEST = 10
             RESULT( 10 ) = ULPINV
-            CALL STREVC( 'Left', 'All', SELECT, N, T1, LDA, EVECTL, LDU, DUMMA, LDU, N, IN, WORK, IINFO )
+            strevc('Left', 'All', SELECT, N, T1, LDA, EVECTL, LDU, DUMMA, LDU, N, IN, WORK, IINFO );
             if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'STREVC(L,A)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
@@ -463,7 +463,7 @@
 
             // Test 10:  | LT - WL | / ( |T| |L| ulp )
 
-            CALL SGET22( 'Trans', 'N', 'Conj', N, T1, LDA, EVECTL, LDU, WR1, WI1, WORK, DUMMA( 3 ) )
+            sget22('Trans', 'N', 'Conj', N, T1, LDA, EVECTL, LDU, WR1, WI1, WORK, DUMMA( 3 ) );
             RESULT( 10 ) = DUMMA( 3 )
             if ( DUMMA( 4 ).GT.THRESH ) {
                WRITE( NOUNIT, FMT = 9998 )'Left', 'STREVC', DUMMA( 4 ), N, JTYPE, IOLDSD
@@ -472,7 +472,7 @@
             // Compute selected left eigenvectors and confirm that
             // they agree with previous left eigenvectors
 
-            CALL STREVC( 'Left', 'Some', SELECT, N, T1, LDA, EVECTR, LDU, DUMMA, LDU, N, IN, WORK, IINFO )
+            strevc('Left', 'Some', SELECT, N, T1, LDA, EVECTR, LDU, DUMMA, LDU, N, IN, WORK, IINFO );
             if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'STREVC(L,S)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
@@ -511,7 +511,7 @@
                SELECT( J ) = .TRUE.
   230       CONTINUE
 
-            CALL SHSEIN( 'Right', 'Qr', 'Ninitv', SELECT, N, H, LDA, WR3, WI3, DUMMA, LDU, EVECTX, LDU, N1, IN, WORK, IWORK, IWORK, IINFO )
+            shsein('Right', 'Qr', 'Ninitv', SELECT, N, H, LDA, WR3, WI3, DUMMA, LDU, EVECTX, LDU, N1, IN, WORK, IWORK, IWORK, IINFO );
             if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'SHSEIN(R)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
@@ -536,7 +536,7 @@
                SELECT( J ) = .TRUE.
   240       CONTINUE
 
-            CALL SHSEIN( 'Left', 'Qr', 'Ninitv', SELECT, N, H, LDA, WR3, WI3, EVECTY, LDU, DUMMA, LDU, N1, IN, WORK, IWORK, IWORK, IINFO )
+            shsein('Left', 'Qr', 'Ninitv', SELECT, N, H, LDA, WR3, WI3, EVECTY, LDU, DUMMA, LDU, N1, IN, WORK, IWORK, IWORK, IINFO );
             if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'SHSEIN(L)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
@@ -558,7 +558,7 @@
             NTEST = 13
             RESULT( 13 ) = ULPINV
 
-            CALL SORMHR( 'Left', 'No transpose', N, N, ILO, IHI, UU, LDU, TAU, EVECTX, LDU, WORK, NWORK, IINFO )
+            sormhr('Left', 'No transpose', N, N, ILO, IHI, UU, LDU, TAU, EVECTX, LDU, WORK, NWORK, IINFO );
             if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'SORMHR(R)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
@@ -577,7 +577,7 @@
             NTEST = 14
             RESULT( 14 ) = ULPINV
 
-            CALL SORMHR( 'Left', 'No transpose', N, N, ILO, IHI, UU, LDU, TAU, EVECTY, LDU, WORK, NWORK, IINFO )
+            sormhr('Left', 'No transpose', N, N, ILO, IHI, UU, LDU, TAU, EVECTY, LDU, WORK, NWORK, IINFO );
             if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'SORMHR(L)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
@@ -598,9 +598,9 @@
             NTEST = 15
             RESULT( 15 ) = ULPINV
 
-            CALL SLACPY( ' ', N, N, UZ, LDU, EVECTR, LDU )
+            slacpy(' ', N, N, UZ, LDU, EVECTR, LDU );
 
-            CALL STREVC3( 'Right', 'Back', SELECT, N, T1, LDA, DUMMA, LDU, EVECTR, LDU, N, IN, WORK, NWORK, IINFO )
+            strevc3('Right', 'Back', SELECT, N, T1, LDA, DUMMA, LDU, EVECTR, LDU, N, IN, WORK, NWORK, IINFO );
             if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'STREVC3(R,B)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
@@ -611,7 +611,7 @@
 
                       // (from Schur decomposition)
 
-            CALL SGET22( 'N', 'N', 'N', N, A, LDA, EVECTR, LDU, WR1, WI1, WORK, DUMMA( 1 ) )
+            sget22('N', 'N', 'N', N, A, LDA, EVECTR, LDU, WR1, WI1, WORK, DUMMA( 1 ) );
             RESULT( 15 ) = DUMMA( 1 )
             if ( DUMMA( 2 ).GT.THRESH ) {
                WRITE( NOUNIT, FMT = 9998 )'Right', 'STREVC3', DUMMA( 2 ), N, JTYPE, IOLDSD
@@ -622,9 +622,9 @@
             NTEST = 16
             RESULT( 16 ) = ULPINV
 
-            CALL SLACPY( ' ', N, N, UZ, LDU, EVECTL, LDU )
+            slacpy(' ', N, N, UZ, LDU, EVECTL, LDU );
 
-            CALL STREVC3( 'Left', 'Back', SELECT, N, T1, LDA, EVECTL, LDU, DUMMA, LDU, N, IN, WORK, NWORK, IINFO )
+            strevc3('Left', 'Back', SELECT, N, T1, LDA, EVECTL, LDU, DUMMA, LDU, N, IN, WORK, NWORK, IINFO );
             if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'STREVC3(L,B)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
@@ -635,7 +635,7 @@
 
                       // (from Schur decomposition)
 
-            CALL SGET22( 'Trans', 'N', 'Conj', N, A, LDA, EVECTL, LDU, WR1, WI1, WORK, DUMMA( 3 ) )
+            sget22('Trans', 'N', 'Conj', N, A, LDA, EVECTL, LDU, WR1, WI1, WORK, DUMMA( 3 ) );
             RESULT( 16 ) = DUMMA( 3 )
             if ( DUMMA( 4 ).GT.THRESH ) {
                WRITE( NOUNIT, FMT = 9998 )'Left', 'STREVC3', DUMMA( 4 ), N, JTYPE, IOLDSD
@@ -646,14 +646,14 @@
   250       CONTINUE
 
             NTESTT = NTESTT + NTEST
-            CALL SLAFTS( 'SHS', N, N, JTYPE, NTEST, RESULT, IOLDSD, THRESH, NOUNIT, NERRS )
+            slafts('SHS', N, N, JTYPE, NTEST, RESULT, IOLDSD, THRESH, NOUNIT, NERRS );
 
   260    CONTINUE
   270 CONTINUE
 
       // Summary
 
-      CALL SLASUM( 'SHS', NOUNIT, NERRS, NTESTT )
+      slasum('SHS', NOUNIT, NERRS, NTESTT );
 
       RETURN
 

@@ -54,15 +54,15 @@
 
       // Initialize C to the identity matrix.
 
-      CALL CLASET( 'Full', N, N, CZERO, CONE, C, LDC )
+      claset('Full', N, N, CZERO, CONE, C, LDC );
 
       // Call CLAVSY to form the product D * U' (or D * L' ).
 
-      CALL CLAVSY( UPLO, 'Transpose', 'Non-unit', N, N, AFAC, LDAFAC, IPIV, C, LDC, INFO )
+      clavsy(UPLO, 'Transpose', 'Non-unit', N, N, AFAC, LDAFAC, IPIV, C, LDC, INFO );
 
       // Call CLAVSY again to multiply by U (or L ).
 
-      CALL CLAVSY( UPLO, 'No transpose', 'Unit', N, N, AFAC, LDAFAC, IPIV, C, LDC, INFO )
+      clavsy(UPLO, 'No transpose', 'Unit', N, N, AFAC, LDAFAC, IPIV, C, LDC, INFO );
 
       // Compute the difference  C - A .
 

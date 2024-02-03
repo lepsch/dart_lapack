@@ -80,7 +80,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'ZGET23', -INFO )
+         xerbla('ZGET23', -INFO );
          RETURN
       }
 
@@ -107,8 +107,8 @@
          SENSE = 'E'
          ISENSM = 1
       }
-      CALL ZLACPY( 'F', N, N, A, LDA, H, LDA )
-      CALL ZGEEVX( BALANC, 'V', 'V', SENSE, N, H, LDA, W, VL, LDVL, VR, LDVR, ILO, IHI, SCALE, ABNRM, RCONDE, RCONDV, WORK, LWORK, RWORK, IINFO )
+      zlacpy('F', N, N, A, LDA, H, LDA );
+      zgeevx(BALANC, 'V', 'V', SENSE, N, H, LDA, W, VL, LDVL, VR, LDVR, ILO, IHI, SCALE, ABNRM, RCONDE, RCONDV, WORK, LWORK, RWORK, IINFO );
       if ( IINFO.NE.0 ) {
          RESULT( 1 ) = ULPINV
          if ( JTYPE.NE.22 ) {
@@ -122,12 +122,12 @@
 
       // Do Test (1)
 
-      CALL ZGET22( 'N', 'N', 'N', N, A, LDA, VR, LDVR, W, WORK, RWORK, RES )
+      zget22('N', 'N', 'N', N, A, LDA, VR, LDVR, W, WORK, RWORK, RES );
       RESULT( 1 ) = RES( 1 )
 
       // Do Test (2)
 
-      CALL ZGET22( 'C', 'N', 'C', N, A, LDA, VL, LDVL, W, WORK, RWORK, RES )
+      zget22('C', 'N', 'C', N, A, LDA, VL, LDVL, W, WORK, RWORK, RES );
       RESULT( 2 ) = RES( 1 )
 
       // Do Test (3)
@@ -166,8 +166,8 @@
 
          // Compute eigenvalues only, and test them
 
-         CALL ZLACPY( 'F', N, N, A, LDA, H, LDA )
-         CALL ZGEEVX( BALANC, 'N', 'N', SENSE, N, H, LDA, W1, CDUM, 1, CDUM, 1, ILO1, IHI1, SCALE1, ABNRM1, RCNDE1, RCNDV1, WORK, LWORK, RWORK, IINFO )
+         zlacpy('F', N, N, A, LDA, H, LDA );
+         zgeevx(BALANC, 'N', 'N', SENSE, N, H, LDA, W1, CDUM, 1, CDUM, 1, ILO1, IHI1, SCALE1, ABNRM1, RCNDE1, RCNDV1, WORK, LWORK, RWORK, IINFO );
          if ( IINFO.NE.0 ) {
             RESULT( 1 ) = ULPINV
             if ( JTYPE.NE.22 ) {
@@ -204,8 +204,8 @@
 
          // Compute eigenvalues and right eigenvectors, and test them
 
-         CALL ZLACPY( 'F', N, N, A, LDA, H, LDA )
-         CALL ZGEEVX( BALANC, 'N', 'V', SENSE, N, H, LDA, W1, CDUM, 1, LRE, LDLRE, ILO1, IHI1, SCALE1, ABNRM1, RCNDE1, RCNDV1, WORK, LWORK, RWORK, IINFO )
+         zlacpy('F', N, N, A, LDA, H, LDA );
+         zgeevx(BALANC, 'N', 'V', SENSE, N, H, LDA, W1, CDUM, 1, LRE, LDLRE, ILO1, IHI1, SCALE1, ABNRM1, RCNDE1, RCNDV1, WORK, LWORK, RWORK, IINFO );
          if ( IINFO.NE.0 ) {
             RESULT( 1 ) = ULPINV
             if ( JTYPE.NE.22 ) {
@@ -250,8 +250,8 @@
 
          // Compute eigenvalues and left eigenvectors, and test them
 
-         CALL ZLACPY( 'F', N, N, A, LDA, H, LDA )
-         CALL ZGEEVX( BALANC, 'V', 'N', SENSE, N, H, LDA, W1, LRE, LDLRE, CDUM, 1, ILO1, IHI1, SCALE1, ABNRM1, RCNDE1, RCNDV1, WORK, LWORK, RWORK, IINFO )
+         zlacpy('F', N, N, A, LDA, H, LDA );
+         zgeevx(BALANC, 'V', 'N', SENSE, N, H, LDA, W1, LRE, LDLRE, CDUM, 1, ILO1, IHI1, SCALE1, ABNRM1, RCNDE1, RCNDV1, WORK, LWORK, RWORK, IINFO );
          if ( IINFO.NE.0 ) {
             RESULT( 1 ) = ULPINV
             if ( JTYPE.NE.22 ) {
@@ -301,8 +301,8 @@
       // If COMP, compare condition numbers to precomputed ones
 
       if ( COMP ) {
-         CALL ZLACPY( 'F', N, N, A, LDA, H, LDA )
-         CALL ZGEEVX( 'N', 'V', 'V', 'B', N, H, LDA, W, VL, LDVL, VR, LDVR, ILO, IHI, SCALE, ABNRM, RCONDE, RCONDV, WORK, LWORK, RWORK, IINFO )
+         zlacpy('F', N, N, A, LDA, H, LDA );
+         zgeevx('N', 'V', 'V', 'B', N, H, LDA, W, VL, LDVL, VR, LDVR, ILO, IHI, SCALE, ABNRM, RCONDE, RCONDV, WORK, LWORK, RWORK, IINFO );
          if ( IINFO.NE.0 ) {
             RESULT( 1 ) = ULPINV
             WRITE( NOUNIT, FMT = 9999 )'ZGEEVX5', IINFO, N, ISEED( 1 )

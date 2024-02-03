@@ -81,7 +81,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'DSBGVD', -INFO )
+         xerbla('DSBGVD', -INFO );
          RETURN
       } else if ( LQUERY ) {
          RETURN
@@ -93,7 +93,7 @@
 
       // Form a split Cholesky factorization of B.
 
-      CALL DPBSTF( UPLO, N, KB, BB, LDBB, INFO )
+      dpbstf(UPLO, N, KB, BB, LDBB, INFO );
       if ( INFO.NE.0 ) {
          INFO = N + INFO
          RETURN
@@ -105,7 +105,7 @@
       INDWRK = INDE + N
       INDWK2 = INDWRK + N*N
       LLWRK2 = LWORK - INDWK2 + 1
-      CALL DSBGST( JOBZ, UPLO, N, KA, KB, AB, LDAB, BB, LDBB, Z, LDZ, WORK, IINFO )
+      dsbgst(JOBZ, UPLO, N, KA, KB, AB, LDAB, BB, LDBB, Z, LDZ, WORK, IINFO );
 
       // Reduce to tridiagonal form.
 
@@ -114,15 +114,15 @@
       } else {
          VECT = 'N'
       }
-      CALL DSBTRD( VECT, UPLO, N, KA, AB, LDAB, W, WORK( INDE ), Z, LDZ, WORK( INDWRK ), IINFO )
+      dsbtrd(VECT, UPLO, N, KA, AB, LDAB, W, WORK( INDE ), Z, LDZ, WORK( INDWRK ), IINFO );
 
       // For eigenvalues only, call DSTERF. For eigenvectors, call SSTEDC.
 
       if ( .NOT.WANTZ ) {
-         CALL DSTERF( N, W, WORK( INDE ), INFO )
+         dsterf(N, W, WORK( INDE ), INFO );
       } else {
-         CALL DSTEDC( 'I', N, W, WORK( INDE ), WORK( INDWRK ), N, WORK( INDWK2 ), LLWRK2, IWORK, LIWORK, INFO )          CALL DGEMM( 'N', 'N', N, N, N, ONE, Z, LDZ, WORK( INDWRK ), N, ZERO, WORK( INDWK2 ), N )
-         CALL DLACPY( 'A', N, N, WORK( INDWK2 ), N, Z, LDZ )
+         dstedc('I', N, W, WORK( INDE ), WORK( INDWRK ), N, WORK( INDWK2 ), LLWRK2, IWORK, LIWORK, INFO )          CALL DGEMM( 'N', 'N', N, N, N, ONE, Z, LDZ, WORK( INDWRK ), N, ZERO, WORK( INDWK2 ), N );
+         dlacpy('A', N, N, WORK( INDWK2 ), N, Z, LDZ );
       }
 
       WORK( 1 ) = LWMIN

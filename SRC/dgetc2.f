@@ -96,7 +96,7 @@
          DO 30 J = I + 1, N
             A( J, I ) = A( J, I ) / A( I, I )
    30    CONTINUE
-         CALL DGER( N-I, N-I, -ONE, A( I+1, I ), 1, A( I, I+1 ), LDA, A( I+1, I+1 ), LDA )
+         dger(N-I, N-I, -ONE, A( I+1, I ), 1, A( I, I+1 ), LDA, A( I+1, I+1 ), LDA );
    40 CONTINUE
 
       if ( ABS( A( N, N ) ).LT.SMIN ) {

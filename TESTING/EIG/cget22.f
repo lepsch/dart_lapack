@@ -112,7 +112,7 @@
 
       // Error =  AE - EW
 
-      CALL CLASET( 'Full', N, N, CZERO, CZERO, WORK, N )
+      claset('Full', N, N, CZERO, CZERO, WORK, N );
 
       JOFF = 0
       DO 100 JCOL = 1, N
@@ -138,7 +138,7 @@
          JOFF = JOFF + N
   100 CONTINUE
 
-      CALL CGEMM( TRANSA, TRANSE, N, N, N, CONE, A, LDA, E, LDE, -CONE, WORK, N )
+      cgemm(TRANSA, TRANSE, N, N, N, CONE, A, LDA, E, LDE, -CONE, WORK, N );
 
       ERRNRM = CLANGE( 'One', N, N, WORK, N, RWORK ) / ENORM
 

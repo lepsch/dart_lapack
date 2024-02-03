@@ -43,18 +43,18 @@
          INFO = -8
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'ZPBSV ', -INFO )
+         xerbla('ZPBSV ', -INFO );
          RETURN
       }
 
       // Compute the Cholesky factorization A = U**H *U or A = L*L**H.
 
-      CALL ZPBTRF( UPLO, N, KD, AB, LDAB, INFO )
+      zpbtrf(UPLO, N, KD, AB, LDAB, INFO );
       if ( INFO.EQ.0 ) {
 
          // Solve the system A*X = B, overwriting B with X.
 
-         CALL ZPBTRS( UPLO, N, KD, NRHS, AB, LDAB, B, LDB, INFO )
+         zpbtrs(UPLO, N, KD, NRHS, AB, LDAB, B, LDB, INFO );
 
       }
       RETURN

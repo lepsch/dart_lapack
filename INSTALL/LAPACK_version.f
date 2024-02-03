@@ -9,7 +9,7 @@
       // .. External Subroutines ..
       // EXTERNAL ILAVER
 
-      CALL ILAVER ( MAJOR, MINOR, PATCH )
+      ilaver(MAJOR, MINOR, PATCH );
       WRITE(*,*) "LAPACK ",MAJOR,".",MINOR,".",PATCH
 
       }

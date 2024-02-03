@@ -76,57 +76,57 @@
 
          SRNAMT = 'ZGESV '
          INFOT = 1
-         CALL ZGESV( -1, 0, A, 1, IP, B, 1, INFO )
-         CALL CHKXER( 'ZGESV ', INFOT, NOUT, LERR, OK )
+         zgesv(-1, 0, A, 1, IP, B, 1, INFO );
+         chkxer('ZGESV ', INFOT, NOUT, LERR, OK );
          INFOT = 2
-         CALL ZGESV( 0, -1, A, 1, IP, B, 1, INFO )
-         CALL CHKXER( 'ZGESV ', INFOT, NOUT, LERR, OK )
+         zgesv(0, -1, A, 1, IP, B, 1, INFO );
+         chkxer('ZGESV ', INFOT, NOUT, LERR, OK );
          INFOT = 4
-         CALL ZGESV( 2, 1, A, 1, IP, B, 2, INFO )
-         CALL CHKXER( 'ZGESV ', INFOT, NOUT, LERR, OK )
+         zgesv(2, 1, A, 1, IP, B, 2, INFO );
+         chkxer('ZGESV ', INFOT, NOUT, LERR, OK );
          INFOT = 7
-         CALL ZGESV( 2, 1, A, 2, IP, B, 1, INFO )
-         CALL CHKXER( 'ZGESV ', INFOT, NOUT, LERR, OK )
+         zgesv(2, 1, A, 2, IP, B, 1, INFO );
+         chkxer('ZGESV ', INFOT, NOUT, LERR, OK );
 
          // ZGESVX
 
          SRNAMT = 'ZGESVX'
          INFOT = 1
-         CALL ZGESVX( '/', 'N', 0, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO )
-         CALL CHKXER( 'ZGESVX', INFOT, NOUT, LERR, OK )
+         zgesvx('/', 'N', 0, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO );
+         chkxer('ZGESVX', INFOT, NOUT, LERR, OK );
          INFOT = 2
-         CALL ZGESVX( 'N', '/', 0, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO )
-         CALL CHKXER( 'ZGESVX', INFOT, NOUT, LERR, OK )
+         zgesvx('N', '/', 0, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO );
+         chkxer('ZGESVX', INFOT, NOUT, LERR, OK );
          INFOT = 3
-         CALL ZGESVX( 'N', 'N', -1, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO )
-         CALL CHKXER( 'ZGESVX', INFOT, NOUT, LERR, OK )
+         zgesvx('N', 'N', -1, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO );
+         chkxer('ZGESVX', INFOT, NOUT, LERR, OK );
          INFOT = 4
-         CALL ZGESVX( 'N', 'N', 0, -1, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO )
-         CALL CHKXER( 'ZGESVX', INFOT, NOUT, LERR, OK )
+         zgesvx('N', 'N', 0, -1, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO );
+         chkxer('ZGESVX', INFOT, NOUT, LERR, OK );
          INFOT = 6
-         CALL ZGESVX( 'N', 'N', 2, 1, A, 1, AF, 2, IP, EQ, R, C, B, 2, X, 2, RCOND, R1, R2, W, RW, INFO )
-         CALL CHKXER( 'ZGESVX', INFOT, NOUT, LERR, OK )
+         zgesvx('N', 'N', 2, 1, A, 1, AF, 2, IP, EQ, R, C, B, 2, X, 2, RCOND, R1, R2, W, RW, INFO );
+         chkxer('ZGESVX', INFOT, NOUT, LERR, OK );
          INFOT = 8
-         CALL ZGESVX( 'N', 'N', 2, 1, A, 2, AF, 1, IP, EQ, R, C, B, 2, X, 2, RCOND, R1, R2, W, RW, INFO )
-         CALL CHKXER( 'ZGESVX', INFOT, NOUT, LERR, OK )
+         zgesvx('N', 'N', 2, 1, A, 2, AF, 1, IP, EQ, R, C, B, 2, X, 2, RCOND, R1, R2, W, RW, INFO );
+         chkxer('ZGESVX', INFOT, NOUT, LERR, OK );
          INFOT = 10
          EQ = '/'
-         CALL ZGESVX( 'F', 'N', 0, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO )
-         CALL CHKXER( 'ZGESVX', INFOT, NOUT, LERR, OK )
+         zgesvx('F', 'N', 0, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO );
+         chkxer('ZGESVX', INFOT, NOUT, LERR, OK );
          INFOT = 11
          EQ = 'R'
-         CALL ZGESVX( 'F', 'N', 1, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO )
-         CALL CHKXER( 'ZGESVX', INFOT, NOUT, LERR, OK )
+         zgesvx('F', 'N', 1, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO );
+         chkxer('ZGESVX', INFOT, NOUT, LERR, OK );
          INFOT = 12
          EQ = 'C'
-         CALL ZGESVX( 'F', 'N', 1, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO )
-         CALL CHKXER( 'ZGESVX', INFOT, NOUT, LERR, OK )
+         zgesvx('F', 'N', 1, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO );
+         chkxer('ZGESVX', INFOT, NOUT, LERR, OK );
          INFOT = 14
-         CALL ZGESVX( 'N', 'N', 2, 1, A, 2, AF, 2, IP, EQ, R, C, B, 1, X, 2, RCOND, R1, R2, W, RW, INFO )
-         CALL CHKXER( 'ZGESVX', INFOT, NOUT, LERR, OK )
+         zgesvx('N', 'N', 2, 1, A, 2, AF, 2, IP, EQ, R, C, B, 1, X, 2, RCOND, R1, R2, W, RW, INFO );
+         chkxer('ZGESVX', INFOT, NOUT, LERR, OK );
          INFOT = 16
-         CALL ZGESVX( 'N', 'N', 2, 1, A, 2, AF, 2, IP, EQ, R, C, B, 2, X, 1, RCOND, R1, R2, W, RW, INFO )
-         CALL CHKXER( 'ZGESVX', INFOT, NOUT, LERR, OK )
+         zgesvx('N', 'N', 2, 1, A, 2, AF, 2, IP, EQ, R, C, B, 2, X, 1, RCOND, R1, R2, W, RW, INFO );
+         chkxer('ZGESVX', INFOT, NOUT, LERR, OK );
 
       } else if ( LSAMEN( 2, C2, 'GB' ) ) {
 
@@ -134,69 +134,69 @@
 
          SRNAMT = 'ZGBSV '
          INFOT = 1
-         CALL ZGBSV( -1, 0, 0, 0, A, 1, IP, B, 1, INFO )
-         CALL CHKXER( 'ZGBSV ', INFOT, NOUT, LERR, OK )
+         zgbsv(-1, 0, 0, 0, A, 1, IP, B, 1, INFO );
+         chkxer('ZGBSV ', INFOT, NOUT, LERR, OK );
          INFOT = 2
-         CALL ZGBSV( 1, -1, 0, 0, A, 1, IP, B, 1, INFO )
-         CALL CHKXER( 'ZGBSV ', INFOT, NOUT, LERR, OK )
+         zgbsv(1, -1, 0, 0, A, 1, IP, B, 1, INFO );
+         chkxer('ZGBSV ', INFOT, NOUT, LERR, OK );
          INFOT = 3
-         CALL ZGBSV( 1, 0, -1, 0, A, 1, IP, B, 1, INFO )
-         CALL CHKXER( 'ZGBSV ', INFOT, NOUT, LERR, OK )
+         zgbsv(1, 0, -1, 0, A, 1, IP, B, 1, INFO );
+         chkxer('ZGBSV ', INFOT, NOUT, LERR, OK );
          INFOT = 4
-         CALL ZGBSV( 0, 0, 0, -1, A, 1, IP, B, 1, INFO )
-         CALL CHKXER( 'ZGBSV ', INFOT, NOUT, LERR, OK )
+         zgbsv(0, 0, 0, -1, A, 1, IP, B, 1, INFO );
+         chkxer('ZGBSV ', INFOT, NOUT, LERR, OK );
          INFOT = 6
-         CALL ZGBSV( 1, 1, 1, 0, A, 3, IP, B, 1, INFO )
-         CALL CHKXER( 'ZGBSV ', INFOT, NOUT, LERR, OK )
+         zgbsv(1, 1, 1, 0, A, 3, IP, B, 1, INFO );
+         chkxer('ZGBSV ', INFOT, NOUT, LERR, OK );
          INFOT = 9
-         CALL ZGBSV( 2, 0, 0, 0, A, 1, IP, B, 1, INFO )
-         CALL CHKXER( 'ZGBSV ', INFOT, NOUT, LERR, OK )
+         zgbsv(2, 0, 0, 0, A, 1, IP, B, 1, INFO );
+         chkxer('ZGBSV ', INFOT, NOUT, LERR, OK );
 
          // ZGBSVX
 
          SRNAMT = 'ZGBSVX'
          INFOT = 1
-         CALL ZGBSVX( '/', 'N', 0, 0, 0, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO )
-         CALL CHKXER( 'ZGBSVX', INFOT, NOUT, LERR, OK )
+         zgbsvx('/', 'N', 0, 0, 0, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO );
+         chkxer('ZGBSVX', INFOT, NOUT, LERR, OK );
          INFOT = 2
-         CALL ZGBSVX( 'N', '/', 0, 0, 0, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO )
-         CALL CHKXER( 'ZGBSVX', INFOT, NOUT, LERR, OK )
+         zgbsvx('N', '/', 0, 0, 0, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO );
+         chkxer('ZGBSVX', INFOT, NOUT, LERR, OK );
          INFOT = 3
-         CALL ZGBSVX( 'N', 'N', -1, 0, 0, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO )
-         CALL CHKXER( 'ZGBSVX', INFOT, NOUT, LERR, OK )
+         zgbsvx('N', 'N', -1, 0, 0, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO );
+         chkxer('ZGBSVX', INFOT, NOUT, LERR, OK );
          INFOT = 4
-         CALL ZGBSVX( 'N', 'N', 1, -1, 0, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO )
-         CALL CHKXER( 'ZGBSVX', INFOT, NOUT, LERR, OK )
+         zgbsvx('N', 'N', 1, -1, 0, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO );
+         chkxer('ZGBSVX', INFOT, NOUT, LERR, OK );
          INFOT = 5
-         CALL ZGBSVX( 'N', 'N', 1, 0, -1, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO )
-         CALL CHKXER( 'ZGBSVX', INFOT, NOUT, LERR, OK )
+         zgbsvx('N', 'N', 1, 0, -1, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO );
+         chkxer('ZGBSVX', INFOT, NOUT, LERR, OK );
          INFOT = 6
-         CALL ZGBSVX( 'N', 'N', 0, 0, 0, -1, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO )
-         CALL CHKXER( 'ZGBSVX', INFOT, NOUT, LERR, OK )
+         zgbsvx('N', 'N', 0, 0, 0, -1, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO );
+         chkxer('ZGBSVX', INFOT, NOUT, LERR, OK );
          INFOT = 8
-         CALL ZGBSVX( 'N', 'N', 1, 1, 1, 0, A, 2, AF, 4, IP, EQ, R, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO )
-         CALL CHKXER( 'ZGBSVX', INFOT, NOUT, LERR, OK )
+         zgbsvx('N', 'N', 1, 1, 1, 0, A, 2, AF, 4, IP, EQ, R, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO );
+         chkxer('ZGBSVX', INFOT, NOUT, LERR, OK );
          INFOT = 10
-         CALL ZGBSVX( 'N', 'N', 1, 1, 1, 0, A, 3, AF, 3, IP, EQ, R, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO )
-         CALL CHKXER( 'ZGBSVX', INFOT, NOUT, LERR, OK )
+         zgbsvx('N', 'N', 1, 1, 1, 0, A, 3, AF, 3, IP, EQ, R, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO );
+         chkxer('ZGBSVX', INFOT, NOUT, LERR, OK );
          INFOT = 12
          EQ = '/'
-         CALL ZGBSVX( 'F', 'N', 0, 0, 0, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO )
-         CALL CHKXER( 'ZGBSVX', INFOT, NOUT, LERR, OK )
+         zgbsvx('F', 'N', 0, 0, 0, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO );
+         chkxer('ZGBSVX', INFOT, NOUT, LERR, OK );
          INFOT = 13
          EQ = 'R'
-         CALL ZGBSVX( 'F', 'N', 1, 0, 0, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO )
-         CALL CHKXER( 'ZGBSVX', INFOT, NOUT, LERR, OK )
+         zgbsvx('F', 'N', 1, 0, 0, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO );
+         chkxer('ZGBSVX', INFOT, NOUT, LERR, OK );
          INFOT = 14
          EQ = 'C'
-         CALL ZGBSVX( 'F', 'N', 1, 0, 0, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO )
-         CALL CHKXER( 'ZGBSVX', INFOT, NOUT, LERR, OK )
+         zgbsvx('F', 'N', 1, 0, 0, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO );
+         chkxer('ZGBSVX', INFOT, NOUT, LERR, OK );
          INFOT = 16
-         CALL ZGBSVX( 'N', 'N', 2, 0, 0, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 2, RCOND, R1, R2, W, RW, INFO )
-         CALL CHKXER( 'ZGBSVX', INFOT, NOUT, LERR, OK )
+         zgbsvx('N', 'N', 2, 0, 0, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 2, RCOND, R1, R2, W, RW, INFO );
+         chkxer('ZGBSVX', INFOT, NOUT, LERR, OK );
          INFOT = 18
-         CALL ZGBSVX( 'N', 'N', 2, 0, 0, 0, A, 1, AF, 1, IP, EQ, R, C, B, 2, X, 1, RCOND, R1, R2, W, RW, INFO )
-         CALL CHKXER( 'ZGBSVX', INFOT, NOUT, LERR, OK )
+         zgbsvx('N', 'N', 2, 0, 0, 0, A, 1, AF, 1, IP, EQ, R, C, B, 2, X, 1, RCOND, R1, R2, W, RW, INFO );
+         chkxer('ZGBSVX', INFOT, NOUT, LERR, OK );
 
       } else if ( LSAMEN( 2, C2, 'GT' ) ) {
 
@@ -204,36 +204,36 @@
 
          SRNAMT = 'ZGTSV '
          INFOT = 1
-         CALL ZGTSV( -1, 0, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), B, 1, INFO )
-         CALL CHKXER( 'ZGTSV ', INFOT, NOUT, LERR, OK )
+         zgtsv(-1, 0, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), B, 1, INFO );
+         chkxer('ZGTSV ', INFOT, NOUT, LERR, OK );
          INFOT = 2
-         CALL ZGTSV( 0, -1, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), B, 1, INFO )
-         CALL CHKXER( 'ZGTSV ', INFOT, NOUT, LERR, OK )
+         zgtsv(0, -1, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), B, 1, INFO );
+         chkxer('ZGTSV ', INFOT, NOUT, LERR, OK );
          INFOT = 7
-         CALL ZGTSV( 2, 0, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), B, 1, INFO )
-         CALL CHKXER( 'ZGTSV ', INFOT, NOUT, LERR, OK )
+         zgtsv(2, 0, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), B, 1, INFO );
+         chkxer('ZGTSV ', INFOT, NOUT, LERR, OK );
 
          // ZGTSVX
 
          SRNAMT = 'ZGTSVX'
          INFOT = 1
-         CALL ZGTSVX( '/', 'N', 0, 0, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), AF( 1, 1 ), AF( 1, 2 ), AF( 1, 3 ), AF( 1, 4 ), IP, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO )
-         CALL CHKXER( 'ZGTSVX', INFOT, NOUT, LERR, OK )
+         zgtsvx('/', 'N', 0, 0, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), AF( 1, 1 ), AF( 1, 2 ), AF( 1, 3 ), AF( 1, 4 ), IP, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO );
+         chkxer('ZGTSVX', INFOT, NOUT, LERR, OK );
          INFOT = 2
-         CALL ZGTSVX( 'N', '/', 0, 0, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), AF( 1, 1 ), AF( 1, 2 ), AF( 1, 3 ), AF( 1, 4 ), IP, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO )
-         CALL CHKXER( 'ZGTSVX', INFOT, NOUT, LERR, OK )
+         zgtsvx('N', '/', 0, 0, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), AF( 1, 1 ), AF( 1, 2 ), AF( 1, 3 ), AF( 1, 4 ), IP, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO );
+         chkxer('ZGTSVX', INFOT, NOUT, LERR, OK );
          INFOT = 3
-         CALL ZGTSVX( 'N', 'N', -1, 0, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), AF( 1, 1 ), AF( 1, 2 ), AF( 1, 3 ), AF( 1, 4 ), IP, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO )
-         CALL CHKXER( 'ZGTSVX', INFOT, NOUT, LERR, OK )
+         zgtsvx('N', 'N', -1, 0, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), AF( 1, 1 ), AF( 1, 2 ), AF( 1, 3 ), AF( 1, 4 ), IP, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO );
+         chkxer('ZGTSVX', INFOT, NOUT, LERR, OK );
          INFOT = 4
-         CALL ZGTSVX( 'N', 'N', 0, -1, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), AF( 1, 1 ), AF( 1, 2 ), AF( 1, 3 ), AF( 1, 4 ), IP, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO )
-         CALL CHKXER( 'ZGTSVX', INFOT, NOUT, LERR, OK )
+         zgtsvx('N', 'N', 0, -1, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), AF( 1, 1 ), AF( 1, 2 ), AF( 1, 3 ), AF( 1, 4 ), IP, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO );
+         chkxer('ZGTSVX', INFOT, NOUT, LERR, OK );
          INFOT = 14
-         CALL ZGTSVX( 'N', 'N', 2, 0, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), AF( 1, 1 ), AF( 1, 2 ), AF( 1, 3 ), AF( 1, 4 ), IP, B, 1, X, 2, RCOND, R1, R2, W, RW, INFO )
-         CALL CHKXER( 'ZGTSVX', INFOT, NOUT, LERR, OK )
+         zgtsvx('N', 'N', 2, 0, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), AF( 1, 1 ), AF( 1, 2 ), AF( 1, 3 ), AF( 1, 4 ), IP, B, 1, X, 2, RCOND, R1, R2, W, RW, INFO );
+         chkxer('ZGTSVX', INFOT, NOUT, LERR, OK );
          INFOT = 16
-         CALL ZGTSVX( 'N', 'N', 2, 0, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), AF( 1, 1 ), AF( 1, 2 ), AF( 1, 3 ), AF( 1, 4 ), IP, B, 2, X, 1, RCOND, R1, R2, W, RW, INFO )
-         CALL CHKXER( 'ZGTSVX', INFOT, NOUT, LERR, OK )
+         zgtsvx('N', 'N', 2, 0, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), AF( 1, 1 ), AF( 1, 2 ), AF( 1, 3 ), AF( 1, 4 ), IP, B, 2, X, 1, RCOND, R1, R2, W, RW, INFO );
+         chkxer('ZGTSVX', INFOT, NOUT, LERR, OK );
 
       } else if ( LSAMEN( 2, C2, 'PO' ) ) {
 
@@ -241,56 +241,56 @@
 
          SRNAMT = 'ZPOSV '
          INFOT = 1
-         CALL ZPOSV( '/', 0, 0, A, 1, B, 1, INFO )
-         CALL CHKXER( 'ZPOSV ', INFOT, NOUT, LERR, OK )
+         zposv('/', 0, 0, A, 1, B, 1, INFO );
+         chkxer('ZPOSV ', INFOT, NOUT, LERR, OK );
          INFOT = 2
-         CALL ZPOSV( 'U', -1, 0, A, 1, B, 1, INFO )
-         CALL CHKXER( 'ZPOSV ', INFOT, NOUT, LERR, OK )
+         zposv('U', -1, 0, A, 1, B, 1, INFO );
+         chkxer('ZPOSV ', INFOT, NOUT, LERR, OK );
          INFOT = 3
-         CALL ZPOSV( 'U', 0, -1, A, 1, B, 1, INFO )
-         CALL CHKXER( 'ZPOSV ', INFOT, NOUT, LERR, OK )
+         zposv('U', 0, -1, A, 1, B, 1, INFO );
+         chkxer('ZPOSV ', INFOT, NOUT, LERR, OK );
          INFOT = 5
-         CALL ZPOSV( 'U', 2, 0, A, 1, B, 2, INFO )
-         CALL CHKXER( 'ZPOSV ', INFOT, NOUT, LERR, OK )
+         zposv('U', 2, 0, A, 1, B, 2, INFO );
+         chkxer('ZPOSV ', INFOT, NOUT, LERR, OK );
          INFOT = 7
-         CALL ZPOSV( 'U', 2, 0, A, 2, B, 1, INFO )
-         CALL CHKXER( 'ZPOSV ', INFOT, NOUT, LERR, OK )
+         zposv('U', 2, 0, A, 2, B, 1, INFO );
+         chkxer('ZPOSV ', INFOT, NOUT, LERR, OK );
 
          // ZPOSVX
 
          SRNAMT = 'ZPOSVX'
          INFOT = 1
-         CALL ZPOSVX( '/', 'U', 0, 0, A, 1, AF, 1, EQ, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO )
-         CALL CHKXER( 'ZPOSVX', INFOT, NOUT, LERR, OK )
+         zposvx('/', 'U', 0, 0, A, 1, AF, 1, EQ, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO );
+         chkxer('ZPOSVX', INFOT, NOUT, LERR, OK );
          INFOT = 2
-         CALL ZPOSVX( 'N', '/', 0, 0, A, 1, AF, 1, EQ, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO )
-         CALL CHKXER( 'ZPOSVX', INFOT, NOUT, LERR, OK )
+         zposvx('N', '/', 0, 0, A, 1, AF, 1, EQ, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO );
+         chkxer('ZPOSVX', INFOT, NOUT, LERR, OK );
          INFOT = 3
-         CALL ZPOSVX( 'N', 'U', -1, 0, A, 1, AF, 1, EQ, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO )
-         CALL CHKXER( 'ZPOSVX', INFOT, NOUT, LERR, OK )
+         zposvx('N', 'U', -1, 0, A, 1, AF, 1, EQ, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO );
+         chkxer('ZPOSVX', INFOT, NOUT, LERR, OK );
          INFOT = 4
-         CALL ZPOSVX( 'N', 'U', 0, -1, A, 1, AF, 1, EQ, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO )
-         CALL CHKXER( 'ZPOSVX', INFOT, NOUT, LERR, OK )
+         zposvx('N', 'U', 0, -1, A, 1, AF, 1, EQ, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO );
+         chkxer('ZPOSVX', INFOT, NOUT, LERR, OK );
          INFOT = 6
-         CALL ZPOSVX( 'N', 'U', 2, 0, A, 1, AF, 2, EQ, C, B, 2, X, 2, RCOND, R1, R2, W, RW, INFO )
-         CALL CHKXER( 'ZPOSVX', INFOT, NOUT, LERR, OK )
+         zposvx('N', 'U', 2, 0, A, 1, AF, 2, EQ, C, B, 2, X, 2, RCOND, R1, R2, W, RW, INFO );
+         chkxer('ZPOSVX', INFOT, NOUT, LERR, OK );
          INFOT = 8
-         CALL ZPOSVX( 'N', 'U', 2, 0, A, 2, AF, 1, EQ, C, B, 2, X, 2, RCOND, R1, R2, W, RW, INFO )
-         CALL CHKXER( 'ZPOSVX', INFOT, NOUT, LERR, OK )
+         zposvx('N', 'U', 2, 0, A, 2, AF, 1, EQ, C, B, 2, X, 2, RCOND, R1, R2, W, RW, INFO );
+         chkxer('ZPOSVX', INFOT, NOUT, LERR, OK );
          INFOT = 9
          EQ = '/'
-         CALL ZPOSVX( 'F', 'U', 0, 0, A, 1, AF, 1, EQ, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO )
-         CALL CHKXER( 'ZPOSVX', INFOT, NOUT, LERR, OK )
+         zposvx('F', 'U', 0, 0, A, 1, AF, 1, EQ, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO );
+         chkxer('ZPOSVX', INFOT, NOUT, LERR, OK );
          INFOT = 10
          EQ = 'Y'
-         CALL ZPOSVX( 'F', 'U', 1, 0, A, 1, AF, 1, EQ, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO )
-         CALL CHKXER( 'ZPOSVX', INFOT, NOUT, LERR, OK )
+         zposvx('F', 'U', 1, 0, A, 1, AF, 1, EQ, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO );
+         chkxer('ZPOSVX', INFOT, NOUT, LERR, OK );
          INFOT = 12
-         CALL ZPOSVX( 'N', 'U', 2, 0, A, 2, AF, 2, EQ, C, B, 1, X, 2, RCOND, R1, R2, W, RW, INFO )
-         CALL CHKXER( 'ZPOSVX', INFOT, NOUT, LERR, OK )
+         zposvx('N', 'U', 2, 0, A, 2, AF, 2, EQ, C, B, 1, X, 2, RCOND, R1, R2, W, RW, INFO );
+         chkxer('ZPOSVX', INFOT, NOUT, LERR, OK );
          INFOT = 14
-         CALL ZPOSVX( 'N', 'U', 2, 0, A, 2, AF, 2, EQ, C, B, 2, X, 1, RCOND, R1, R2, W, RW, INFO )
-         CALL CHKXER( 'ZPOSVX', INFOT, NOUT, LERR, OK )
+         zposvx('N', 'U', 2, 0, A, 2, AF, 2, EQ, C, B, 2, X, 1, RCOND, R1, R2, W, RW, INFO );
+         chkxer('ZPOSVX', INFOT, NOUT, LERR, OK );
 
       } else if ( LSAMEN( 2, C2, 'PP' ) ) {
 
@@ -298,47 +298,47 @@
 
          SRNAMT = 'ZPPSV '
          INFOT = 1
-         CALL ZPPSV( '/', 0, 0, A, B, 1, INFO )
-         CALL CHKXER( 'ZPPSV ', INFOT, NOUT, LERR, OK )
+         zppsv('/', 0, 0, A, B, 1, INFO );
+         chkxer('ZPPSV ', INFOT, NOUT, LERR, OK );
          INFOT = 2
-         CALL ZPPSV( 'U', -1, 0, A, B, 1, INFO )
-         CALL CHKXER( 'ZPPSV ', INFOT, NOUT, LERR, OK )
+         zppsv('U', -1, 0, A, B, 1, INFO );
+         chkxer('ZPPSV ', INFOT, NOUT, LERR, OK );
          INFOT = 3
-         CALL ZPPSV( 'U', 0, -1, A, B, 1, INFO )
-         CALL CHKXER( 'ZPPSV ', INFOT, NOUT, LERR, OK )
+         zppsv('U', 0, -1, A, B, 1, INFO );
+         chkxer('ZPPSV ', INFOT, NOUT, LERR, OK );
          INFOT = 6
-         CALL ZPPSV( 'U', 2, 0, A, B, 1, INFO )
-         CALL CHKXER( 'ZPPSV ', INFOT, NOUT, LERR, OK )
+         zppsv('U', 2, 0, A, B, 1, INFO );
+         chkxer('ZPPSV ', INFOT, NOUT, LERR, OK );
 
          // ZPPSVX
 
          SRNAMT = 'ZPPSVX'
          INFOT = 1
-         CALL ZPPSVX( '/', 'U', 0, 0, A, AF, EQ, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO )
-         CALL CHKXER( 'ZPPSVX', INFOT, NOUT, LERR, OK )
+         zppsvx('/', 'U', 0, 0, A, AF, EQ, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO );
+         chkxer('ZPPSVX', INFOT, NOUT, LERR, OK );
          INFOT = 2
-         CALL ZPPSVX( 'N', '/', 0, 0, A, AF, EQ, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO )
-         CALL CHKXER( 'ZPPSVX', INFOT, NOUT, LERR, OK )
+         zppsvx('N', '/', 0, 0, A, AF, EQ, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO );
+         chkxer('ZPPSVX', INFOT, NOUT, LERR, OK );
          INFOT = 3
-         CALL ZPPSVX( 'N', 'U', -1, 0, A, AF, EQ, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO )
-         CALL CHKXER( 'ZPPSVX', INFOT, NOUT, LERR, OK )
+         zppsvx('N', 'U', -1, 0, A, AF, EQ, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO );
+         chkxer('ZPPSVX', INFOT, NOUT, LERR, OK );
          INFOT = 4
-         CALL ZPPSVX( 'N', 'U', 0, -1, A, AF, EQ, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO )
-         CALL CHKXER( 'ZPPSVX', INFOT, NOUT, LERR, OK )
+         zppsvx('N', 'U', 0, -1, A, AF, EQ, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO );
+         chkxer('ZPPSVX', INFOT, NOUT, LERR, OK );
          INFOT = 7
          EQ = '/'
-         CALL ZPPSVX( 'F', 'U', 0, 0, A, AF, EQ, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO )
-         CALL CHKXER( 'ZPPSVX', INFOT, NOUT, LERR, OK )
+         zppsvx('F', 'U', 0, 0, A, AF, EQ, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO );
+         chkxer('ZPPSVX', INFOT, NOUT, LERR, OK );
          INFOT = 8
          EQ = 'Y'
-         CALL ZPPSVX( 'F', 'U', 1, 0, A, AF, EQ, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO )
-         CALL CHKXER( 'ZPPSVX', INFOT, NOUT, LERR, OK )
+         zppsvx('F', 'U', 1, 0, A, AF, EQ, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO );
+         chkxer('ZPPSVX', INFOT, NOUT, LERR, OK );
          INFOT = 10
-         CALL ZPPSVX( 'N', 'U', 2, 0, A, AF, EQ, C, B, 1, X, 2, RCOND, R1, R2, W, RW, INFO )
-         CALL CHKXER( 'ZPPSVX', INFOT, NOUT, LERR, OK )
+         zppsvx('N', 'U', 2, 0, A, AF, EQ, C, B, 1, X, 2, RCOND, R1, R2, W, RW, INFO );
+         chkxer('ZPPSVX', INFOT, NOUT, LERR, OK );
          INFOT = 12
-         CALL ZPPSVX( 'N', 'U', 2, 0, A, AF, EQ, C, B, 2, X, 1, RCOND, R1, R2, W, RW, INFO )
-         CALL CHKXER( 'ZPPSVX', INFOT, NOUT, LERR, OK )
+         zppsvx('N', 'U', 2, 0, A, AF, EQ, C, B, 2, X, 1, RCOND, R1, R2, W, RW, INFO );
+         chkxer('ZPPSVX', INFOT, NOUT, LERR, OK );
 
       } else if ( LSAMEN( 2, C2, 'PB' ) ) {
 
@@ -346,62 +346,62 @@
 
          SRNAMT = 'ZPBSV '
          INFOT = 1
-         CALL ZPBSV( '/', 0, 0, 0, A, 1, B, 1, INFO )
-         CALL CHKXER( 'ZPBSV ', INFOT, NOUT, LERR, OK )
+         zpbsv('/', 0, 0, 0, A, 1, B, 1, INFO );
+         chkxer('ZPBSV ', INFOT, NOUT, LERR, OK );
          INFOT = 2
-         CALL ZPBSV( 'U', -1, 0, 0, A, 1, B, 1, INFO )
-         CALL CHKXER( 'ZPBSV ', INFOT, NOUT, LERR, OK )
+         zpbsv('U', -1, 0, 0, A, 1, B, 1, INFO );
+         chkxer('ZPBSV ', INFOT, NOUT, LERR, OK );
          INFOT = 3
-         CALL ZPBSV( 'U', 1, -1, 0, A, 1, B, 1, INFO )
-         CALL CHKXER( 'ZPBSV ', INFOT, NOUT, LERR, OK )
+         zpbsv('U', 1, -1, 0, A, 1, B, 1, INFO );
+         chkxer('ZPBSV ', INFOT, NOUT, LERR, OK );
          INFOT = 4
-         CALL ZPBSV( 'U', 0, 0, -1, A, 1, B, 1, INFO )
-         CALL CHKXER( 'ZPBSV ', INFOT, NOUT, LERR, OK )
+         zpbsv('U', 0, 0, -1, A, 1, B, 1, INFO );
+         chkxer('ZPBSV ', INFOT, NOUT, LERR, OK );
          INFOT = 6
-         CALL ZPBSV( 'U', 1, 1, 0, A, 1, B, 2, INFO )
-         CALL CHKXER( 'ZPBSV ', INFOT, NOUT, LERR, OK )
+         zpbsv('U', 1, 1, 0, A, 1, B, 2, INFO );
+         chkxer('ZPBSV ', INFOT, NOUT, LERR, OK );
          INFOT = 8
-         CALL ZPBSV( 'U', 2, 0, 0, A, 1, B, 1, INFO )
-         CALL CHKXER( 'ZPBSV ', INFOT, NOUT, LERR, OK )
+         zpbsv('U', 2, 0, 0, A, 1, B, 1, INFO );
+         chkxer('ZPBSV ', INFOT, NOUT, LERR, OK );
 
          // ZPBSVX
 
          SRNAMT = 'ZPBSVX'
          INFOT = 1
-         CALL ZPBSVX( '/', 'U', 0, 0, 0, A, 1, AF, 1, EQ, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO )
-         CALL CHKXER( 'ZPBSVX', INFOT, NOUT, LERR, OK )
+         zpbsvx('/', 'U', 0, 0, 0, A, 1, AF, 1, EQ, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO );
+         chkxer('ZPBSVX', INFOT, NOUT, LERR, OK );
          INFOT = 2
-         CALL ZPBSVX( 'N', '/', 0, 0, 0, A, 1, AF, 1, EQ, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO )
-         CALL CHKXER( 'ZPBSVX', INFOT, NOUT, LERR, OK )
+         zpbsvx('N', '/', 0, 0, 0, A, 1, AF, 1, EQ, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO );
+         chkxer('ZPBSVX', INFOT, NOUT, LERR, OK );
          INFOT = 3
-         CALL ZPBSVX( 'N', 'U', -1, 0, 0, A, 1, AF, 1, EQ, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO )
-         CALL CHKXER( 'ZPBSVX', INFOT, NOUT, LERR, OK )
+         zpbsvx('N', 'U', -1, 0, 0, A, 1, AF, 1, EQ, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO );
+         chkxer('ZPBSVX', INFOT, NOUT, LERR, OK );
          INFOT = 4
-         CALL ZPBSVX( 'N', 'U', 1, -1, 0, A, 1, AF, 1, EQ, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO )
-         CALL CHKXER( 'ZPBSVX', INFOT, NOUT, LERR, OK )
+         zpbsvx('N', 'U', 1, -1, 0, A, 1, AF, 1, EQ, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO );
+         chkxer('ZPBSVX', INFOT, NOUT, LERR, OK );
          INFOT = 5
-         CALL ZPBSVX( 'N', 'U', 0, 0, -1, A, 1, AF, 1, EQ, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO )
-         CALL CHKXER( 'ZPBSVX', INFOT, NOUT, LERR, OK )
+         zpbsvx('N', 'U', 0, 0, -1, A, 1, AF, 1, EQ, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO );
+         chkxer('ZPBSVX', INFOT, NOUT, LERR, OK );
          INFOT = 7
-         CALL ZPBSVX( 'N', 'U', 1, 1, 0, A, 1, AF, 2, EQ, C, B, 2, X, 2, RCOND, R1, R2, W, RW, INFO )
-         CALL CHKXER( 'ZPBSVX', INFOT, NOUT, LERR, OK )
+         zpbsvx('N', 'U', 1, 1, 0, A, 1, AF, 2, EQ, C, B, 2, X, 2, RCOND, R1, R2, W, RW, INFO );
+         chkxer('ZPBSVX', INFOT, NOUT, LERR, OK );
          INFOT = 9
-         CALL ZPBSVX( 'N', 'U', 1, 1, 0, A, 2, AF, 1, EQ, C, B, 2, X, 2, RCOND, R1, R2, W, RW, INFO )
-         CALL CHKXER( 'ZPBSVX', INFOT, NOUT, LERR, OK )
+         zpbsvx('N', 'U', 1, 1, 0, A, 2, AF, 1, EQ, C, B, 2, X, 2, RCOND, R1, R2, W, RW, INFO );
+         chkxer('ZPBSVX', INFOT, NOUT, LERR, OK );
          INFOT = 10
          EQ = '/'
-         CALL ZPBSVX( 'F', 'U', 0, 0, 0, A, 1, AF, 1, EQ, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO )
-         CALL CHKXER( 'ZPBSVX', INFOT, NOUT, LERR, OK )
+         zpbsvx('F', 'U', 0, 0, 0, A, 1, AF, 1, EQ, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO );
+         chkxer('ZPBSVX', INFOT, NOUT, LERR, OK );
          INFOT = 11
          EQ = 'Y'
-         CALL ZPBSVX( 'F', 'U', 1, 0, 0, A, 1, AF, 1, EQ, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO )
-         CALL CHKXER( 'ZPBSVX', INFOT, NOUT, LERR, OK )
+         zpbsvx('F', 'U', 1, 0, 0, A, 1, AF, 1, EQ, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO );
+         chkxer('ZPBSVX', INFOT, NOUT, LERR, OK );
          INFOT = 13
-         CALL ZPBSVX( 'N', 'U', 2, 0, 0, A, 1, AF, 1, EQ, C, B, 1, X, 2, RCOND, R1, R2, W, RW, INFO )
-         CALL CHKXER( 'ZPBSVX', INFOT, NOUT, LERR, OK )
+         zpbsvx('N', 'U', 2, 0, 0, A, 1, AF, 1, EQ, C, B, 1, X, 2, RCOND, R1, R2, W, RW, INFO );
+         chkxer('ZPBSVX', INFOT, NOUT, LERR, OK );
          INFOT = 15
-         CALL ZPBSVX( 'N', 'U', 2, 0, 0, A, 1, AF, 1, EQ, C, B, 2, X, 1, RCOND, R1, R2, W, RW, INFO )
-         CALL CHKXER( 'ZPBSVX', INFOT, NOUT, LERR, OK )
+         zpbsvx('N', 'U', 2, 0, 0, A, 1, AF, 1, EQ, C, B, 2, X, 1, RCOND, R1, R2, W, RW, INFO );
+         chkxer('ZPBSVX', INFOT, NOUT, LERR, OK );
 
       } else if ( LSAMEN( 2, C2, 'PT' ) ) {
 
@@ -409,33 +409,33 @@
 
          SRNAMT = 'ZPTSV '
          INFOT = 1
-         CALL ZPTSV( -1, 0, R, A( 1, 1 ), B, 1, INFO )
-         CALL CHKXER( 'ZPTSV ', INFOT, NOUT, LERR, OK )
+         zptsv(-1, 0, R, A( 1, 1 ), B, 1, INFO );
+         chkxer('ZPTSV ', INFOT, NOUT, LERR, OK );
          INFOT = 2
-         CALL ZPTSV( 0, -1, R, A( 1, 1 ), B, 1, INFO )
-         CALL CHKXER( 'ZPTSV ', INFOT, NOUT, LERR, OK )
+         zptsv(0, -1, R, A( 1, 1 ), B, 1, INFO );
+         chkxer('ZPTSV ', INFOT, NOUT, LERR, OK );
          INFOT = 6
-         CALL ZPTSV( 2, 0, R, A( 1, 1 ), B, 1, INFO )
-         CALL CHKXER( 'ZPTSV ', INFOT, NOUT, LERR, OK )
+         zptsv(2, 0, R, A( 1, 1 ), B, 1, INFO );
+         chkxer('ZPTSV ', INFOT, NOUT, LERR, OK );
 
          // ZPTSVX
 
          SRNAMT = 'ZPTSVX'
          INFOT = 1
-         CALL ZPTSVX( '/', 0, 0, R, A( 1, 1 ), RF, AF( 1, 1 ), B, 1, X, 1, RCOND, R1, R2, W, RW, INFO )
-         CALL CHKXER( 'ZPTSVX', INFOT, NOUT, LERR, OK )
+         zptsvx('/', 0, 0, R, A( 1, 1 ), RF, AF( 1, 1 ), B, 1, X, 1, RCOND, R1, R2, W, RW, INFO );
+         chkxer('ZPTSVX', INFOT, NOUT, LERR, OK );
          INFOT = 2
-         CALL ZPTSVX( 'N', -1, 0, R, A( 1, 1 ), RF, AF( 1, 1 ), B, 1, X, 1, RCOND, R1, R2, W, RW, INFO )
-         CALL CHKXER( 'ZPTSVX', INFOT, NOUT, LERR, OK )
+         zptsvx('N', -1, 0, R, A( 1, 1 ), RF, AF( 1, 1 ), B, 1, X, 1, RCOND, R1, R2, W, RW, INFO );
+         chkxer('ZPTSVX', INFOT, NOUT, LERR, OK );
          INFOT = 3
-         CALL ZPTSVX( 'N', 0, -1, R, A( 1, 1 ), RF, AF( 1, 1 ), B, 1, X, 1, RCOND, R1, R2, W, RW, INFO )
-         CALL CHKXER( 'ZPTSVX', INFOT, NOUT, LERR, OK )
+         zptsvx('N', 0, -1, R, A( 1, 1 ), RF, AF( 1, 1 ), B, 1, X, 1, RCOND, R1, R2, W, RW, INFO );
+         chkxer('ZPTSVX', INFOT, NOUT, LERR, OK );
          INFOT = 9
-         CALL ZPTSVX( 'N', 2, 0, R, A( 1, 1 ), RF, AF( 1, 1 ), B, 1, X, 2, RCOND, R1, R2, W, RW, INFO )
-         CALL CHKXER( 'ZPTSVX', INFOT, NOUT, LERR, OK )
+         zptsvx('N', 2, 0, R, A( 1, 1 ), RF, AF( 1, 1 ), B, 1, X, 2, RCOND, R1, R2, W, RW, INFO );
+         chkxer('ZPTSVX', INFOT, NOUT, LERR, OK );
          INFOT = 11
-         CALL ZPTSVX( 'N', 2, 0, R, A( 1, 1 ), RF, AF( 1, 1 ), B, 2, X, 1, RCOND, R1, R2, W, RW, INFO )
-         CALL CHKXER( 'ZPTSVX', INFOT, NOUT, LERR, OK )
+         zptsvx('N', 2, 0, R, A( 1, 1 ), RF, AF( 1, 1 ), B, 2, X, 1, RCOND, R1, R2, W, RW, INFO );
+         chkxer('ZPTSVX', INFOT, NOUT, LERR, OK );
 
       } else if ( LSAMEN( 2, C2, 'HE' ) ) {
 
@@ -443,57 +443,57 @@
 
          SRNAMT = 'ZHESV '
          INFOT = 1
-         CALL ZHESV( '/', 0, 0, A, 1, IP, B, 1, W, 1, INFO )
-         CALL CHKXER( 'ZHESV ', INFOT, NOUT, LERR, OK )
+         zhesv('/', 0, 0, A, 1, IP, B, 1, W, 1, INFO );
+         chkxer('ZHESV ', INFOT, NOUT, LERR, OK );
          INFOT = 2
-         CALL ZHESV( 'U', -1, 0, A, 1, IP, B, 1, W, 1, INFO )
-         CALL CHKXER( 'ZHESV ', INFOT, NOUT, LERR, OK )
+         zhesv('U', -1, 0, A, 1, IP, B, 1, W, 1, INFO );
+         chkxer('ZHESV ', INFOT, NOUT, LERR, OK );
          INFOT = 3
-         CALL ZHESV( 'U', 0, -1, A, 1, IP, B, 1, W, 1, INFO )
-         CALL CHKXER( 'ZHESV ', INFOT, NOUT, LERR, OK )
+         zhesv('U', 0, -1, A, 1, IP, B, 1, W, 1, INFO );
+         chkxer('ZHESV ', INFOT, NOUT, LERR, OK );
          INFOT = 5
-         CALL ZHESV( 'U', 2, 0, A, 1, IP, B, 2, W, 1, INFO )
-         CALL CHKXER( 'ZHESV ', INFOT, NOUT, LERR, OK )
+         zhesv('U', 2, 0, A, 1, IP, B, 2, W, 1, INFO );
+         chkxer('ZHESV ', INFOT, NOUT, LERR, OK );
          INFOT = 8
-         CALL ZHESV( 'U', 2, 0, A, 2, IP, B, 1, W, 1, INFO )
-         CALL CHKXER( 'ZHESV ', INFOT, NOUT, LERR, OK )
+         zhesv('U', 2, 0, A, 2, IP, B, 1, W, 1, INFO );
+         chkxer('ZHESV ', INFOT, NOUT, LERR, OK );
          INFOT = 10
-         CALL ZHESV( 'U', 0, 0, A, 1, IP, B, 1, W, 0, INFO )
-         CALL CHKXER( 'ZHESV ', INFOT, NOUT, LERR, OK )
+         zhesv('U', 0, 0, A, 1, IP, B, 1, W, 0, INFO );
+         chkxer('ZHESV ', INFOT, NOUT, LERR, OK );
          INFOT = 10
-         CALL ZHESV( 'U', 0, 0, A, 1, IP, B, 1, W, -2, INFO )
-         CALL CHKXER( 'ZHESV ', INFOT, NOUT, LERR, OK )
+         zhesv('U', 0, 0, A, 1, IP, B, 1, W, -2, INFO );
+         chkxer('ZHESV ', INFOT, NOUT, LERR, OK );
 
          // ZHESVX
 
          SRNAMT = 'ZHESVX'
          INFOT = 1
-         CALL ZHESVX( '/', 'U', 0, 0, A, 1, AF, 1, IP, B, 1, X, 1, RCOND, R1, R2, W, 1, RW, INFO )
-         CALL CHKXER( 'ZHESVX', INFOT, NOUT, LERR, OK )
+         zhesvx('/', 'U', 0, 0, A, 1, AF, 1, IP, B, 1, X, 1, RCOND, R1, R2, W, 1, RW, INFO );
+         chkxer('ZHESVX', INFOT, NOUT, LERR, OK );
          INFOT = 2
-         CALL ZHESVX( 'N', '/', 0, 0, A, 1, AF, 1, IP, B, 1, X, 1, RCOND, R1, R2, W, 1, RW, INFO )
-         CALL CHKXER( 'ZHESVX', INFOT, NOUT, LERR, OK )
+         zhesvx('N', '/', 0, 0, A, 1, AF, 1, IP, B, 1, X, 1, RCOND, R1, R2, W, 1, RW, INFO );
+         chkxer('ZHESVX', INFOT, NOUT, LERR, OK );
          INFOT = 3
-         CALL ZHESVX( 'N', 'U', -1, 0, A, 1, AF, 1, IP, B, 1, X, 1, RCOND, R1, R2, W, 1, RW, INFO )
-         CALL CHKXER( 'ZHESVX', INFOT, NOUT, LERR, OK )
+         zhesvx('N', 'U', -1, 0, A, 1, AF, 1, IP, B, 1, X, 1, RCOND, R1, R2, W, 1, RW, INFO );
+         chkxer('ZHESVX', INFOT, NOUT, LERR, OK );
          INFOT = 4
-         CALL ZHESVX( 'N', 'U', 0, -1, A, 1, AF, 1, IP, B, 1, X, 1, RCOND, R1, R2, W, 1, RW, INFO )
-         CALL CHKXER( 'ZHESVX', INFOT, NOUT, LERR, OK )
+         zhesvx('N', 'U', 0, -1, A, 1, AF, 1, IP, B, 1, X, 1, RCOND, R1, R2, W, 1, RW, INFO );
+         chkxer('ZHESVX', INFOT, NOUT, LERR, OK );
          INFOT = 6
-         CALL ZHESVX( 'N', 'U', 2, 0, A, 1, AF, 2, IP, B, 2, X, 2, RCOND, R1, R2, W, 4, RW, INFO )
-         CALL CHKXER( 'ZHESVX', INFOT, NOUT, LERR, OK )
+         zhesvx('N', 'U', 2, 0, A, 1, AF, 2, IP, B, 2, X, 2, RCOND, R1, R2, W, 4, RW, INFO );
+         chkxer('ZHESVX', INFOT, NOUT, LERR, OK );
          INFOT = 8
-         CALL ZHESVX( 'N', 'U', 2, 0, A, 2, AF, 1, IP, B, 2, X, 2, RCOND, R1, R2, W, 4, RW, INFO )
-         CALL CHKXER( 'ZHESVX', INFOT, NOUT, LERR, OK )
+         zhesvx('N', 'U', 2, 0, A, 2, AF, 1, IP, B, 2, X, 2, RCOND, R1, R2, W, 4, RW, INFO );
+         chkxer('ZHESVX', INFOT, NOUT, LERR, OK );
          INFOT = 11
-         CALL ZHESVX( 'N', 'U', 2, 0, A, 2, AF, 2, IP, B, 1, X, 2, RCOND, R1, R2, W, 4, RW, INFO )
-         CALL CHKXER( 'ZHESVX', INFOT, NOUT, LERR, OK )
+         zhesvx('N', 'U', 2, 0, A, 2, AF, 2, IP, B, 1, X, 2, RCOND, R1, R2, W, 4, RW, INFO );
+         chkxer('ZHESVX', INFOT, NOUT, LERR, OK );
          INFOT = 13
-         CALL ZHESVX( 'N', 'U', 2, 0, A, 2, AF, 2, IP, B, 2, X, 1, RCOND, R1, R2, W, 4, RW, INFO )
-         CALL CHKXER( 'ZHESVX', INFOT, NOUT, LERR, OK )
+         zhesvx('N', 'U', 2, 0, A, 2, AF, 2, IP, B, 2, X, 1, RCOND, R1, R2, W, 4, RW, INFO );
+         chkxer('ZHESVX', INFOT, NOUT, LERR, OK );
          INFOT = 18
-         CALL ZHESVX( 'N', 'U', 2, 0, A, 2, AF, 2, IP, B, 2, X, 2, RCOND, R1, R2, W, 3, RW, INFO )
-         CALL CHKXER( 'ZHESVX', INFOT, NOUT, LERR, OK )
+         zhesvx('N', 'U', 2, 0, A, 2, AF, 2, IP, B, 2, X, 2, RCOND, R1, R2, W, 3, RW, INFO );
+         chkxer('ZHESVX', INFOT, NOUT, LERR, OK );
 
       } else if ( LSAMEN( 2, C2, 'HR' ) ) {
 
@@ -501,26 +501,26 @@
 
          SRNAMT = 'ZHESV_ROOK'
          INFOT = 1
-         CALL ZHESV_ROOK( '/', 0, 0, A, 1, IP, B, 1, W, 1, INFO )
-         CALL CHKXER( 'ZHESV_ROOK', INFOT, NOUT, LERR, OK )
+         zhesv_rook('/', 0, 0, A, 1, IP, B, 1, W, 1, INFO );
+         chkxer('ZHESV_ROOK', INFOT, NOUT, LERR, OK );
          INFOT = 2
-         CALL ZHESV_ROOK( 'U', -1, 0, A, 1, IP, B, 1, W, 1, INFO )
-         CALL CHKXER( 'ZHESV_ROOK', INFOT, NOUT, LERR, OK )
+         zhesv_rook('U', -1, 0, A, 1, IP, B, 1, W, 1, INFO );
+         chkxer('ZHESV_ROOK', INFOT, NOUT, LERR, OK );
          INFOT = 3
-         CALL ZHESV_ROOK( 'U', 0, -1, A, 1, IP, B, 1, W, 1, INFO )
-         CALL CHKXER( 'ZHESV_ROOK', INFOT, NOUT, LERR, OK )
+         zhesv_rook('U', 0, -1, A, 1, IP, B, 1, W, 1, INFO );
+         chkxer('ZHESV_ROOK', INFOT, NOUT, LERR, OK );
          INFOT = 5
-         CALL ZHESV_ROOK( 'U', 2, 0, A, 1, IP, B, 2, W, 1, INFO )
-         CALL CHKXER( 'ZHESV_ROOK', INFOT, NOUT, LERR, OK )
+         zhesv_rook('U', 2, 0, A, 1, IP, B, 2, W, 1, INFO );
+         chkxer('ZHESV_ROOK', INFOT, NOUT, LERR, OK );
          INFOT = 8
-         CALL ZHESV_ROOK( 'U', 2, 0, A, 2, IP, B, 1, W, 1, INFO )
-         CALL CHKXER( 'ZHESV_ROOK', INFOT, NOUT, LERR, OK )
+         zhesv_rook('U', 2, 0, A, 2, IP, B, 1, W, 1, INFO );
+         chkxer('ZHESV_ROOK', INFOT, NOUT, LERR, OK );
          INFOT = 10
-         CALL ZHESV_ROOK( 'U', 0, 0, A, 1, IP, B, 1, W, 0, INFO )
-         CALL CHKXER( 'ZHESV_ROOK', INFOT, NOUT, LERR, OK )
+         zhesv_rook('U', 0, 0, A, 1, IP, B, 1, W, 0, INFO );
+         chkxer('ZHESV_ROOK', INFOT, NOUT, LERR, OK );
          INFOT = 10
-         CALL ZHESV_ROOK( 'U', 0, 0, A, 1, IP, B, 1, W, -2, INFO )
-         CALL CHKXER( 'ZHESV_ROOK', INFOT, NOUT, LERR, OK )
+         zhesv_rook('U', 0, 0, A, 1, IP, B, 1, W, -2, INFO );
+         chkxer('ZHESV_ROOK', INFOT, NOUT, LERR, OK );
 
       } else if ( LSAMEN( 2, C2, 'HK' ) ) {
 
@@ -536,26 +536,26 @@
 
          SRNAMT = 'ZHESV_RK'
          INFOT = 1
-         CALL ZHESV_RK( '/', 0, 0, A, 1, E, IP, B, 1, W, 1, INFO )
-         CALL CHKXER( 'ZHESV_RK', INFOT, NOUT, LERR, OK )
+         zhesv_rk('/', 0, 0, A, 1, E, IP, B, 1, W, 1, INFO );
+         chkxer('ZHESV_RK', INFOT, NOUT, LERR, OK );
          INFOT = 2
-         CALL ZHESV_RK( 'U', -1, 0, A, 1, E, IP, B, 1, W, 1, INFO )
-         CALL CHKXER( 'ZHESV_RK', INFOT, NOUT, LERR, OK )
+         zhesv_rk('U', -1, 0, A, 1, E, IP, B, 1, W, 1, INFO );
+         chkxer('ZHESV_RK', INFOT, NOUT, LERR, OK );
          INFOT = 3
-         CALL ZHESV_RK( 'U', 0, -1, A, 1, E, IP, B, 1, W, 1, INFO )
-         CALL CHKXER( 'ZHESV_RK', INFOT, NOUT, LERR, OK )
+         zhesv_rk('U', 0, -1, A, 1, E, IP, B, 1, W, 1, INFO );
+         chkxer('ZHESV_RK', INFOT, NOUT, LERR, OK );
          INFOT = 5
-         CALL ZHESV_RK( 'U', 2, 0, A, 1, E, IP, B, 2, W, 1, INFO )
-         CALL CHKXER( 'ZHESV_RK', INFOT, NOUT, LERR, OK )
+         zhesv_rk('U', 2, 0, A, 1, E, IP, B, 2, W, 1, INFO );
+         chkxer('ZHESV_RK', INFOT, NOUT, LERR, OK );
          INFOT = 9
-         CALL ZHESV_RK( 'U', 2, 0, A, 2, E, IP, B, 1, W, 1, INFO )
-         CALL CHKXER( 'ZHESV_RK', INFOT, NOUT, LERR, OK )
+         zhesv_rk('U', 2, 0, A, 2, E, IP, B, 1, W, 1, INFO );
+         chkxer('ZHESV_RK', INFOT, NOUT, LERR, OK );
          INFOT = 11
-         CALL ZHESV_RK( 'U', 0, 0, A, 1, E, IP, B, 1, W, 0, INFO )
-         CALL CHKXER( 'ZHESV_RK', INFOT, NOUT, LERR, OK )
+         zhesv_rk('U', 0, 0, A, 1, E, IP, B, 1, W, 0, INFO );
+         chkxer('ZHESV_RK', INFOT, NOUT, LERR, OK );
          INFOT = 11
-         CALL ZHESV_RK( 'U', 0, 0, A, 1, E, IP, B, 1, W, -2, INFO )
-         CALL CHKXER( 'ZHESV_RK', INFOT, NOUT, LERR, OK )
+         zhesv_rk('U', 0, 0, A, 1, E, IP, B, 1, W, -2, INFO );
+         chkxer('ZHESV_RK', INFOT, NOUT, LERR, OK );
 
       } else if ( LSAMEN( 2, C2, 'HA' ) ) {
 
@@ -563,23 +563,23 @@
 
          SRNAMT = 'ZHESV_AA'
          INFOT = 1
-         CALL ZHESV_AA( '/', 0, 0, A, 1, IP, B, 1, W, 1, INFO )
-         CALL CHKXER( 'ZHESV_AA', INFOT, NOUT, LERR, OK )
+         zhesv_aa('/', 0, 0, A, 1, IP, B, 1, W, 1, INFO );
+         chkxer('ZHESV_AA', INFOT, NOUT, LERR, OK );
          INFOT = 2
-         CALL ZHESV_AA( 'U', -1, 0, A, 1, IP, B, 1, W, 1, INFO )
-         CALL CHKXER( 'ZHESV_AA', INFOT, NOUT, LERR, OK )
+         zhesv_aa('U', -1, 0, A, 1, IP, B, 1, W, 1, INFO );
+         chkxer('ZHESV_AA', INFOT, NOUT, LERR, OK );
          INFOT = 3
-         CALL ZHESV_AA( 'U', 0, -1, A, 1, IP, B, 1, W, 1, INFO )
-         CALL CHKXER( 'ZHESV_AA', INFOT, NOUT, LERR, OK )
+         zhesv_aa('U', 0, -1, A, 1, IP, B, 1, W, 1, INFO );
+         chkxer('ZHESV_AA', INFOT, NOUT, LERR, OK );
          INFOT = 5
-         CALL ZHESV_AA( 'U', 2, 0, A, 1, IP, B, 2, W, 1, INFO )
-         CALL CHKXER( 'ZHESV_AA', INFOT, NOUT, LERR, OK )
+         zhesv_aa('U', 2, 0, A, 1, IP, B, 2, W, 1, INFO );
+         chkxer('ZHESV_AA', INFOT, NOUT, LERR, OK );
          INFOT = 8
-         CALL ZHESV_AA( 'U', 2, 0, A, 2, IP, B, 1, W, 1, INFO )
-         CALL CHKXER( 'ZHESV_AA', INFOT, NOUT, LERR, OK )
+         zhesv_aa('U', 2, 0, A, 2, IP, B, 1, W, 1, INFO );
+         chkxer('ZHESV_AA', INFOT, NOUT, LERR, OK );
          INFOT = 10
-         CALL ZHESV_AA( 'U', 3, 1, A, 3, IP, B, 3, W, 6, INFO )
-         CALL CHKXER( 'ZHESV_AA', INFOT, NOUT, LERR, OK )
+         zhesv_aa('U', 3, 1, A, 3, IP, B, 3, W, 6, INFO );
+         chkxer('ZHESV_AA', INFOT, NOUT, LERR, OK );
 
       } else if ( LSAMEN( 2, C2, 'H2' ) ) {
 
@@ -587,26 +587,26 @@
 
          SRNAMT = 'ZHESV_AA_2STAGE'
          INFOT = 1
-         CALL ZHESV_AA_2STAGE( '/', 0, 0, A, 1, A, 1, IP, IP, B, 1, W, 1, INFO )
-         CALL CHKXER( 'ZHESV_AA_2STAGE', INFOT, NOUT, LERR, OK )
+         zhesv_aa_2stage('/', 0, 0, A, 1, A, 1, IP, IP, B, 1, W, 1, INFO );
+         chkxer('ZHESV_AA_2STAGE', INFOT, NOUT, LERR, OK );
          INFOT = 2
-         CALL ZHESV_AA_2STAGE( 'U', -1, 0, A, 1, A, 1, IP, IP, B, 1, W, 1, INFO )
-         CALL CHKXER( 'ZHESV_AA_2STAGE', INFOT, NOUT, LERR, OK )
+         zhesv_aa_2stage('U', -1, 0, A, 1, A, 1, IP, IP, B, 1, W, 1, INFO );
+         chkxer('ZHESV_AA_2STAGE', INFOT, NOUT, LERR, OK );
          INFOT = 3
-         CALL ZHESV_AA_2STAGE( 'U', 0, -1, A, 1, A, 1, IP, IP, B, 1, W, 1, INFO )
-         CALL CHKXER( 'ZHESV_AA_2STAGE', INFOT, NOUT, LERR, OK )
+         zhesv_aa_2stage('U', 0, -1, A, 1, A, 1, IP, IP, B, 1, W, 1, INFO );
+         chkxer('ZHESV_AA_2STAGE', INFOT, NOUT, LERR, OK );
          INFOT = 5
-         CALL ZHESV_AA_2STAGE( 'U', 2, 1, A, 1, A, 1, IP, IP, B, 1, W, 1, INFO )
-         CALL CHKXER( 'ZHESV_AA_2STAGE', INFOT, NOUT, LERR, OK )
+         zhesv_aa_2stage('U', 2, 1, A, 1, A, 1, IP, IP, B, 1, W, 1, INFO );
+         chkxer('ZHESV_AA_2STAGE', INFOT, NOUT, LERR, OK );
          INFOT = 7
-         CALL ZHESV_AA_2STAGE( 'U', 2, 1, A, 2, A, 1, IP, IP, B, 2, W, 1, INFO )
-         CALL CHKXER( 'ZHESV_AA_2STAGE', INFOT, NOUT, LERR, OK )
+         zhesv_aa_2stage('U', 2, 1, A, 2, A, 1, IP, IP, B, 2, W, 1, INFO );
+         chkxer('ZHESV_AA_2STAGE', INFOT, NOUT, LERR, OK );
          INFOT = 11
-         CALL ZHESV_AA_2STAGE( 'U', 2, 1, A, 2, A, 8, IP, IP, B, 1, W, 1, INFO )
-         CALL CHKXER( 'ZHESV_AA_2STAGE', INFOT, NOUT, LERR, OK )
+         zhesv_aa_2stage('U', 2, 1, A, 2, A, 8, IP, IP, B, 1, W, 1, INFO );
+         chkxer('ZHESV_AA_2STAGE', INFOT, NOUT, LERR, OK );
          INFOT = 13
-         CALL ZHESV_AA_2STAGE( 'U', 2, 1, A, 2, A, 8, IP, IP, B, 2, W, 1, INFO )
-         CALL CHKXER( 'ZHESV_AA_2STAGE', INFOT, NOUT, LERR, OK )
+         zhesv_aa_2stage('U', 2, 1, A, 2, A, 8, IP, IP, B, 2, W, 1, INFO );
+         chkxer('ZHESV_AA_2STAGE', INFOT, NOUT, LERR, OK );
 
       } else if ( LSAMEN( 2, C2, 'SA' ) ) {
 
@@ -614,23 +614,23 @@
 
          SRNAMT = 'ZSYSV_AA'
          INFOT = 1
-         CALL ZSYSV_AA( '/', 0, 0, A, 1, IP, B, 1, W, 1, INFO )
-         CALL CHKXER( 'ZSYSV_AA', INFOT, NOUT, LERR, OK )
+         zsysv_aa('/', 0, 0, A, 1, IP, B, 1, W, 1, INFO );
+         chkxer('ZSYSV_AA', INFOT, NOUT, LERR, OK );
          INFOT = 2
-         CALL ZSYSV_AA( 'U', -1, 0, A, 1, IP, B, 1, W, 1, INFO )
-         CALL CHKXER( 'ZSYSV_AA', INFOT, NOUT, LERR, OK )
+         zsysv_aa('U', -1, 0, A, 1, IP, B, 1, W, 1, INFO );
+         chkxer('ZSYSV_AA', INFOT, NOUT, LERR, OK );
          INFOT = 3
-         CALL ZSYSV_AA( 'U', 0, -1, A, 1, IP, B, 1, W, 1, INFO )
-         CALL CHKXER( 'ZSYSV_AA', INFOT, NOUT, LERR, OK )
+         zsysv_aa('U', 0, -1, A, 1, IP, B, 1, W, 1, INFO );
+         chkxer('ZSYSV_AA', INFOT, NOUT, LERR, OK );
          INFOT = 5
-         CALL ZSYSV_AA( 'U', 2, 0, A, 1, IP, B, 2, W, 1, INFO )
-         CALL CHKXER( 'ZSYSV_AA', INFOT, NOUT, LERR, OK )
+         zsysv_aa('U', 2, 0, A, 1, IP, B, 2, W, 1, INFO );
+         chkxer('ZSYSV_AA', INFOT, NOUT, LERR, OK );
          INFOT = 8
-         CALL ZSYSV_AA( 'U', 2, 0, A, 2, IP, B, 1, W, 1, INFO )
-         CALL CHKXER( 'ZSYSV_AA', INFOT, NOUT, LERR, OK )
+         zsysv_aa('U', 2, 0, A, 2, IP, B, 1, W, 1, INFO );
+         chkxer('ZSYSV_AA', INFOT, NOUT, LERR, OK );
          INFOT = 10
-         CALL ZSYSV_AA( 'U', 3, 1, A, 3, IP, B, 3, W, 6, INFO )
-         CALL CHKXER( 'ZSYSV_AA', INFOT, NOUT, LERR, OK )
+         zsysv_aa('U', 3, 1, A, 3, IP, B, 3, W, 6, INFO );
+         chkxer('ZSYSV_AA', INFOT, NOUT, LERR, OK );
 
       } else if ( LSAMEN( 2, C2, 'S2' ) ) {
 
@@ -638,26 +638,26 @@
 
          SRNAMT = 'ZSYSV_AA_2STAGE'
          INFOT = 1
-         CALL ZSYSV_AA_2STAGE( '/', 0, 0, A, 1, A, 1, IP, IP, B, 1, W, 1, INFO )
-         CALL CHKXER( 'ZSYSV_AA_2STAGE', INFOT, NOUT, LERR, OK )
+         zsysv_aa_2stage('/', 0, 0, A, 1, A, 1, IP, IP, B, 1, W, 1, INFO );
+         chkxer('ZSYSV_AA_2STAGE', INFOT, NOUT, LERR, OK );
          INFOT = 2
-         CALL ZSYSV_AA_2STAGE( 'U', -1, 0, A, 1, A, 1, IP, IP, B, 1, W, 1, INFO )
-         CALL CHKXER( 'ZSYSV_AA_2STAGE', INFOT, NOUT, LERR, OK )
+         zsysv_aa_2stage('U', -1, 0, A, 1, A, 1, IP, IP, B, 1, W, 1, INFO );
+         chkxer('ZSYSV_AA_2STAGE', INFOT, NOUT, LERR, OK );
          INFOT = 3
-         CALL ZSYSV_AA_2STAGE( 'U', 0, -1, A, 1, A, 1, IP, IP, B, 1, W, 1, INFO )
-         CALL CHKXER( 'ZSYSV_AA_2STAGE', INFOT, NOUT, LERR, OK )
+         zsysv_aa_2stage('U', 0, -1, A, 1, A, 1, IP, IP, B, 1, W, 1, INFO );
+         chkxer('ZSYSV_AA_2STAGE', INFOT, NOUT, LERR, OK );
          INFOT = 5
-         CALL ZSYSV_AA_2STAGE( 'U', 2, 1, A, 1, A, 1, IP, IP, B, 1, W, 1, INFO )
-         CALL CHKXER( 'ZSYSV_AA_2STAGE', INFOT, NOUT, LERR, OK )
+         zsysv_aa_2stage('U', 2, 1, A, 1, A, 1, IP, IP, B, 1, W, 1, INFO );
+         chkxer('ZSYSV_AA_2STAGE', INFOT, NOUT, LERR, OK );
          INFOT = 7
-         CALL ZSYSV_AA_2STAGE( 'U', 2, 1, A, 2, A, 1, IP, IP, B, 2, W, 1, INFO )
-         CALL CHKXER( 'ZSYSV_AA_2STAGE', INFOT, NOUT, LERR, OK )
+         zsysv_aa_2stage('U', 2, 1, A, 2, A, 1, IP, IP, B, 2, W, 1, INFO );
+         chkxer('ZSYSV_AA_2STAGE', INFOT, NOUT, LERR, OK );
          INFOT = 11
-         CALL ZSYSV_AA_2STAGE( 'U', 2, 1, A, 2, A, 8, IP, IP, B, 1, W, 1, INFO )
-         CALL CHKXER( 'ZSYSV_AA_2STAGE', INFOT, NOUT, LERR, OK )
+         zsysv_aa_2stage('U', 2, 1, A, 2, A, 8, IP, IP, B, 1, W, 1, INFO );
+         chkxer('ZSYSV_AA_2STAGE', INFOT, NOUT, LERR, OK );
          INFOT = 13
-         CALL ZSYSV_AA_2STAGE( 'U', 2, 1, A, 2, A, 8, IP, IP, B, 2, W, 1, INFO )
-         CALL CHKXER( 'ZSYSV_AA_2STAGE', INFOT, NOUT, LERR, OK )
+         zsysv_aa_2stage('U', 2, 1, A, 2, A, 8, IP, IP, B, 2, W, 1, INFO );
+         chkxer('ZSYSV_AA_2STAGE', INFOT, NOUT, LERR, OK );
 
       } else if ( LSAMEN( 2, C2, 'HP' ) ) {
 
@@ -665,39 +665,39 @@
 
          SRNAMT = 'ZHPSV '
          INFOT = 1
-         CALL ZHPSV( '/', 0, 0, A, IP, B, 1, INFO )
-         CALL CHKXER( 'ZHPSV ', INFOT, NOUT, LERR, OK )
+         zhpsv('/', 0, 0, A, IP, B, 1, INFO );
+         chkxer('ZHPSV ', INFOT, NOUT, LERR, OK );
          INFOT = 2
-         CALL ZHPSV( 'U', -1, 0, A, IP, B, 1, INFO )
-         CALL CHKXER( 'ZHPSV ', INFOT, NOUT, LERR, OK )
+         zhpsv('U', -1, 0, A, IP, B, 1, INFO );
+         chkxer('ZHPSV ', INFOT, NOUT, LERR, OK );
          INFOT = 3
-         CALL ZHPSV( 'U', 0, -1, A, IP, B, 1, INFO )
-         CALL CHKXER( 'ZHPSV ', INFOT, NOUT, LERR, OK )
+         zhpsv('U', 0, -1, A, IP, B, 1, INFO );
+         chkxer('ZHPSV ', INFOT, NOUT, LERR, OK );
          INFOT = 7
-         CALL ZHPSV( 'U', 2, 0, A, IP, B, 1, INFO )
-         CALL CHKXER( 'ZHPSV ', INFOT, NOUT, LERR, OK )
+         zhpsv('U', 2, 0, A, IP, B, 1, INFO );
+         chkxer('ZHPSV ', INFOT, NOUT, LERR, OK );
 
          // ZHPSVX
 
          SRNAMT = 'ZHPSVX'
          INFOT = 1
-         CALL ZHPSVX( '/', 'U', 0, 0, A, AF, IP, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO )
-         CALL CHKXER( 'ZHPSVX', INFOT, NOUT, LERR, OK )
+         zhpsvx('/', 'U', 0, 0, A, AF, IP, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO );
+         chkxer('ZHPSVX', INFOT, NOUT, LERR, OK );
          INFOT = 2
-         CALL ZHPSVX( 'N', '/', 0, 0, A, AF, IP, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO )
-         CALL CHKXER( 'ZHPSVX', INFOT, NOUT, LERR, OK )
+         zhpsvx('N', '/', 0, 0, A, AF, IP, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO );
+         chkxer('ZHPSVX', INFOT, NOUT, LERR, OK );
          INFOT = 3
-         CALL ZHPSVX( 'N', 'U', -1, 0, A, AF, IP, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO )
-         CALL CHKXER( 'ZHPSVX', INFOT, NOUT, LERR, OK )
+         zhpsvx('N', 'U', -1, 0, A, AF, IP, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO );
+         chkxer('ZHPSVX', INFOT, NOUT, LERR, OK );
          INFOT = 4
-         CALL ZHPSVX( 'N', 'U', 0, -1, A, AF, IP, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO )
-         CALL CHKXER( 'ZHPSVX', INFOT, NOUT, LERR, OK )
+         zhpsvx('N', 'U', 0, -1, A, AF, IP, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO );
+         chkxer('ZHPSVX', INFOT, NOUT, LERR, OK );
          INFOT = 9
-         CALL ZHPSVX( 'N', 'U', 2, 0, A, AF, IP, B, 1, X, 2, RCOND, R1, R2, W, RW, INFO )
-         CALL CHKXER( 'ZHPSVX', INFOT, NOUT, LERR, OK )
+         zhpsvx('N', 'U', 2, 0, A, AF, IP, B, 1, X, 2, RCOND, R1, R2, W, RW, INFO );
+         chkxer('ZHPSVX', INFOT, NOUT, LERR, OK );
          INFOT = 11
-         CALL ZHPSVX( 'N', 'U', 2, 0, A, AF, IP, B, 2, X, 1, RCOND, R1, R2, W, RW, INFO )
-         CALL CHKXER( 'ZHPSVX', INFOT, NOUT, LERR, OK )
+         zhpsvx('N', 'U', 2, 0, A, AF, IP, B, 2, X, 1, RCOND, R1, R2, W, RW, INFO );
+         chkxer('ZHPSVX', INFOT, NOUT, LERR, OK );
 
       } else if ( LSAMEN( 2, C2, 'SY' ) ) {
 
@@ -705,57 +705,57 @@
 
          SRNAMT = 'ZSYSV '
          INFOT = 1
-         CALL ZSYSV( '/', 0, 0, A, 1, IP, B, 1, W, 1, INFO )
-         CALL CHKXER( 'ZSYSV ', INFOT, NOUT, LERR, OK )
+         zsysv('/', 0, 0, A, 1, IP, B, 1, W, 1, INFO );
+         chkxer('ZSYSV ', INFOT, NOUT, LERR, OK );
          INFOT = 2
-         CALL ZSYSV( 'U', -1, 0, A, 1, IP, B, 1, W, 1, INFO )
-         CALL CHKXER( 'ZSYSV ', INFOT, NOUT, LERR, OK )
+         zsysv('U', -1, 0, A, 1, IP, B, 1, W, 1, INFO );
+         chkxer('ZSYSV ', INFOT, NOUT, LERR, OK );
          INFOT = 3
-         CALL ZSYSV( 'U', 0, -1, A, 1, IP, B, 1, W, 1, INFO )
-         CALL CHKXER( 'ZSYSV ', INFOT, NOUT, LERR, OK )
+         zsysv('U', 0, -1, A, 1, IP, B, 1, W, 1, INFO );
+         chkxer('ZSYSV ', INFOT, NOUT, LERR, OK );
          INFOT = 5
-         CALL ZSYSV( 'U', 2, 0, A, 1, IP, B, 2, W, 1, INFO )
-         CALL CHKXER( 'ZSYSV ', INFOT, NOUT, LERR, OK )
+         zsysv('U', 2, 0, A, 1, IP, B, 2, W, 1, INFO );
+         chkxer('ZSYSV ', INFOT, NOUT, LERR, OK );
          INFOT = 8
-         CALL ZSYSV( 'U', 2, 0, A, 2, IP, B, 1, W, 1, INFO )
-         CALL CHKXER( 'ZSYSV ', INFOT, NOUT, LERR, OK )
+         zsysv('U', 2, 0, A, 2, IP, B, 1, W, 1, INFO );
+         chkxer('ZSYSV ', INFOT, NOUT, LERR, OK );
          INFOT = 10
-         CALL ZSYSV( 'U', 0, 0, A, 1, IP, B, 1, W, 0, INFO )
-         CALL CHKXER( 'ZSYSV ', INFOT, NOUT, LERR, OK )
+         zsysv('U', 0, 0, A, 1, IP, B, 1, W, 0, INFO );
+         chkxer('ZSYSV ', INFOT, NOUT, LERR, OK );
          INFOT = 10
-         CALL ZSYSV( 'U', 0, 0, A, 1, IP, B, 1, W, -2, INFO )
-         CALL CHKXER( 'ZSYSV ', INFOT, NOUT, LERR, OK )
+         zsysv('U', 0, 0, A, 1, IP, B, 1, W, -2, INFO );
+         chkxer('ZSYSV ', INFOT, NOUT, LERR, OK );
 
          // ZSYSVX
 
          SRNAMT = 'ZSYSVX'
          INFOT = 1
-         CALL ZSYSVX( '/', 'U', 0, 0, A, 1, AF, 1, IP, B, 1, X, 1, RCOND, R1, R2, W, 1, RW, INFO )
-         CALL CHKXER( 'ZSYSVX', INFOT, NOUT, LERR, OK )
+         zsysvx('/', 'U', 0, 0, A, 1, AF, 1, IP, B, 1, X, 1, RCOND, R1, R2, W, 1, RW, INFO );
+         chkxer('ZSYSVX', INFOT, NOUT, LERR, OK );
          INFOT = 2
-         CALL ZSYSVX( 'N', '/', 0, 0, A, 1, AF, 1, IP, B, 1, X, 1, RCOND, R1, R2, W, 1, RW, INFO )
-         CALL CHKXER( 'ZSYSVX', INFOT, NOUT, LERR, OK )
+         zsysvx('N', '/', 0, 0, A, 1, AF, 1, IP, B, 1, X, 1, RCOND, R1, R2, W, 1, RW, INFO );
+         chkxer('ZSYSVX', INFOT, NOUT, LERR, OK );
          INFOT = 3
-         CALL ZSYSVX( 'N', 'U', -1, 0, A, 1, AF, 1, IP, B, 1, X, 1, RCOND, R1, R2, W, 1, RW, INFO )
-         CALL CHKXER( 'ZSYSVX', INFOT, NOUT, LERR, OK )
+         zsysvx('N', 'U', -1, 0, A, 1, AF, 1, IP, B, 1, X, 1, RCOND, R1, R2, W, 1, RW, INFO );
+         chkxer('ZSYSVX', INFOT, NOUT, LERR, OK );
          INFOT = 4
-         CALL ZSYSVX( 'N', 'U', 0, -1, A, 1, AF, 1, IP, B, 1, X, 1, RCOND, R1, R2, W, 1, RW, INFO )
-         CALL CHKXER( 'ZSYSVX', INFOT, NOUT, LERR, OK )
+         zsysvx('N', 'U', 0, -1, A, 1, AF, 1, IP, B, 1, X, 1, RCOND, R1, R2, W, 1, RW, INFO );
+         chkxer('ZSYSVX', INFOT, NOUT, LERR, OK );
          INFOT = 6
-         CALL ZSYSVX( 'N', 'U', 2, 0, A, 1, AF, 2, IP, B, 2, X, 2, RCOND, R1, R2, W, 4, RW, INFO )
-         CALL CHKXER( 'ZSYSVX', INFOT, NOUT, LERR, OK )
+         zsysvx('N', 'U', 2, 0, A, 1, AF, 2, IP, B, 2, X, 2, RCOND, R1, R2, W, 4, RW, INFO );
+         chkxer('ZSYSVX', INFOT, NOUT, LERR, OK );
          INFOT = 8
-         CALL ZSYSVX( 'N', 'U', 2, 0, A, 2, AF, 1, IP, B, 2, X, 2, RCOND, R1, R2, W, 4, RW, INFO )
-         CALL CHKXER( 'ZSYSVX', INFOT, NOUT, LERR, OK )
+         zsysvx('N', 'U', 2, 0, A, 2, AF, 1, IP, B, 2, X, 2, RCOND, R1, R2, W, 4, RW, INFO );
+         chkxer('ZSYSVX', INFOT, NOUT, LERR, OK );
          INFOT = 11
-         CALL ZSYSVX( 'N', 'U', 2, 0, A, 2, AF, 2, IP, B, 1, X, 2, RCOND, R1, R2, W, 4, RW, INFO )
-         CALL CHKXER( 'ZSYSVX', INFOT, NOUT, LERR, OK )
+         zsysvx('N', 'U', 2, 0, A, 2, AF, 2, IP, B, 1, X, 2, RCOND, R1, R2, W, 4, RW, INFO );
+         chkxer('ZSYSVX', INFOT, NOUT, LERR, OK );
          INFOT = 13
-         CALL ZSYSVX( 'N', 'U', 2, 0, A, 2, AF, 2, IP, B, 2, X, 1, RCOND, R1, R2, W, 4, RW, INFO )
-         CALL CHKXER( 'ZSYSVX', INFOT, NOUT, LERR, OK )
+         zsysvx('N', 'U', 2, 0, A, 2, AF, 2, IP, B, 2, X, 1, RCOND, R1, R2, W, 4, RW, INFO );
+         chkxer('ZSYSVX', INFOT, NOUT, LERR, OK );
          INFOT = 18
-         CALL ZSYSVX( 'N', 'U', 2, 0, A, 2, AF, 2, IP, B, 2, X, 2, RCOND, R1, R2, W, 3, RW, INFO )
-         CALL CHKXER( 'ZSYSVX', INFOT, NOUT, LERR, OK )
+         zsysvx('N', 'U', 2, 0, A, 2, AF, 2, IP, B, 2, X, 2, RCOND, R1, R2, W, 3, RW, INFO );
+         chkxer('ZSYSVX', INFOT, NOUT, LERR, OK );
 
       } else if ( LSAMEN( 2, C2, 'SR' ) ) {
 
@@ -763,25 +763,25 @@
 
          SRNAMT = 'ZSYSV_ROOK'
          INFOT = 1
-         CALL ZSYSV_ROOK( '/', 0, 0, A, 1, IP, B, 1, W, 1, INFO )
-         CALL CHKXER( 'ZSYSV_ROOK', INFOT, NOUT, LERR, OK )
+         zsysv_rook('/', 0, 0, A, 1, IP, B, 1, W, 1, INFO );
+         chkxer('ZSYSV_ROOK', INFOT, NOUT, LERR, OK );
          INFOT = 2
-         CALL ZSYSV_ROOK( 'U', -1, 0, A, 1, IP, B, 1, W, 1, INFO )
-         CALL CHKXER( 'ZSYSV_ROOK', INFOT, NOUT, LERR, OK )
+         zsysv_rook('U', -1, 0, A, 1, IP, B, 1, W, 1, INFO );
+         chkxer('ZSYSV_ROOK', INFOT, NOUT, LERR, OK );
          INFOT = 3
-         CALL ZSYSV_ROOK( 'U', 0, -1, A, 1, IP, B, 1, W, 1, INFO )
-         CALL CHKXER( 'ZSYSV_ROOK', INFOT, NOUT, LERR, OK )
+         zsysv_rook('U', 0, -1, A, 1, IP, B, 1, W, 1, INFO );
+         chkxer('ZSYSV_ROOK', INFOT, NOUT, LERR, OK );
          INFOT = 5
-         CALL ZSYSV_ROOK( 'U', 2, 0, A, 1, IP, B, 2, W, 1, INFO )
-         CALL CHKXER( 'ZSYSV_ROOK', INFOT, NOUT, LERR, OK )
+         zsysv_rook('U', 2, 0, A, 1, IP, B, 2, W, 1, INFO );
+         chkxer('ZSYSV_ROOK', INFOT, NOUT, LERR, OK );
          INFOT = 8
-         CALL ZSYSV_ROOK( 'U', 2, 0, A, 2, IP, B, 1, W, 1, INFO )
-         CALL CHKXER( 'ZSYSV_ROOK', INFOT, NOUT, LERR, OK )
+         zsysv_rook('U', 2, 0, A, 2, IP, B, 1, W, 1, INFO );
+         chkxer('ZSYSV_ROOK', INFOT, NOUT, LERR, OK );
          INFOT = 10
-         CALL ZSYSV_ROOK( 'U', 0, 0, A, 1, IP, B, 1, W, 0, INFO )
-         CALL CHKXER( 'ZSYSV_ROOK', INFOT, NOUT, LERR, OK )
+         zsysv_rook('U', 0, 0, A, 1, IP, B, 1, W, 0, INFO );
+         chkxer('ZSYSV_ROOK', INFOT, NOUT, LERR, OK );
          INFOT = 10
-         CALL ZSYSV_ROOK( 'U', 0, 0, A, 1, IP, B, 1, W, -2, INFO )
+         zsysv_rook('U', 0, 0, A, 1, IP, B, 1, W, -2, INFO );
 
       } else if ( LSAMEN( 2, C2, 'SK' ) ) {
 
@@ -797,26 +797,26 @@
 
          SRNAMT = 'ZSYSV_RK'
          INFOT = 1
-         CALL ZSYSV_RK( '/', 0, 0, A, 1, E, IP, B, 1, W, 1, INFO )
-         CALL CHKXER( 'ZSYSV_RK', INFOT, NOUT, LERR, OK )
+         zsysv_rk('/', 0, 0, A, 1, E, IP, B, 1, W, 1, INFO );
+         chkxer('ZSYSV_RK', INFOT, NOUT, LERR, OK );
          INFOT = 2
-         CALL ZSYSV_RK( 'U', -1, 0, A, 1, E, IP, B, 1, W, 1, INFO )
-         CALL CHKXER( 'ZSYSV_RK', INFOT, NOUT, LERR, OK )
+         zsysv_rk('U', -1, 0, A, 1, E, IP, B, 1, W, 1, INFO );
+         chkxer('ZSYSV_RK', INFOT, NOUT, LERR, OK );
          INFOT = 3
-         CALL ZSYSV_RK( 'U', 0, -1, A, 1, E, IP, B, 1, W, 1, INFO )
-         CALL CHKXER( 'ZSYSV_RK', INFOT, NOUT, LERR, OK )
+         zsysv_rk('U', 0, -1, A, 1, E, IP, B, 1, W, 1, INFO );
+         chkxer('ZSYSV_RK', INFOT, NOUT, LERR, OK );
          INFOT = 5
-         CALL ZSYSV_RK( 'U', 2, 0, A, 1, E, IP, B, 2, W, 1, INFO )
-         CALL CHKXER( 'ZSYSV_RK', INFOT, NOUT, LERR, OK )
+         zsysv_rk('U', 2, 0, A, 1, E, IP, B, 2, W, 1, INFO );
+         chkxer('ZSYSV_RK', INFOT, NOUT, LERR, OK );
          INFOT = 9
-         CALL ZSYSV_RK( 'U', 2, 0, A, 2, E, IP, B, 1, W, 1, INFO )
-         CALL CHKXER( 'ZSYSV_RK', INFOT, NOUT, LERR, OK )
+         zsysv_rk('U', 2, 0, A, 2, E, IP, B, 1, W, 1, INFO );
+         chkxer('ZSYSV_RK', INFOT, NOUT, LERR, OK );
          INFOT = 11
-         CALL ZSYSV_RK( 'U', 0, 0, A, 1, E, IP, B, 1, W, 0, INFO )
-         CALL CHKXER( 'ZSYSV_RK', INFOT, NOUT, LERR, OK )
+         zsysv_rk('U', 0, 0, A, 1, E, IP, B, 1, W, 0, INFO );
+         chkxer('ZSYSV_RK', INFOT, NOUT, LERR, OK );
          INFOT = 11
-         CALL ZSYSV_RK( 'U', 0, 0, A, 1, E, IP, B, 1, W, -2, INFO )
-         CALL CHKXER( 'ZSYSV_RK', INFOT, NOUT, LERR, OK )
+         zsysv_rk('U', 0, 0, A, 1, E, IP, B, 1, W, -2, INFO );
+         chkxer('ZSYSV_RK', INFOT, NOUT, LERR, OK );
 
       } else if ( LSAMEN( 2, C2, 'SP' ) ) {
 
@@ -824,39 +824,39 @@
 
          SRNAMT = 'ZSPSV '
          INFOT = 1
-         CALL ZSPSV( '/', 0, 0, A, IP, B, 1, INFO )
-         CALL CHKXER( 'ZSPSV ', INFOT, NOUT, LERR, OK )
+         zspsv('/', 0, 0, A, IP, B, 1, INFO );
+         chkxer('ZSPSV ', INFOT, NOUT, LERR, OK );
          INFOT = 2
-         CALL ZSPSV( 'U', -1, 0, A, IP, B, 1, INFO )
-         CALL CHKXER( 'ZSPSV ', INFOT, NOUT, LERR, OK )
+         zspsv('U', -1, 0, A, IP, B, 1, INFO );
+         chkxer('ZSPSV ', INFOT, NOUT, LERR, OK );
          INFOT = 3
-         CALL ZSPSV( 'U', 0, -1, A, IP, B, 1, INFO )
-         CALL CHKXER( 'ZSPSV ', INFOT, NOUT, LERR, OK )
+         zspsv('U', 0, -1, A, IP, B, 1, INFO );
+         chkxer('ZSPSV ', INFOT, NOUT, LERR, OK );
          INFOT = 7
-         CALL ZSPSV( 'U', 2, 0, A, IP, B, 1, INFO )
-         CALL CHKXER( 'ZSPSV ', INFOT, NOUT, LERR, OK )
+         zspsv('U', 2, 0, A, IP, B, 1, INFO );
+         chkxer('ZSPSV ', INFOT, NOUT, LERR, OK );
 
          // ZSPSVX
 
          SRNAMT = 'ZSPSVX'
          INFOT = 1
-         CALL ZSPSVX( '/', 'U', 0, 0, A, AF, IP, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO )
-         CALL CHKXER( 'ZSPSVX', INFOT, NOUT, LERR, OK )
+         zspsvx('/', 'U', 0, 0, A, AF, IP, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO );
+         chkxer('ZSPSVX', INFOT, NOUT, LERR, OK );
          INFOT = 2
-         CALL ZSPSVX( 'N', '/', 0, 0, A, AF, IP, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO )
-         CALL CHKXER( 'ZSPSVX', INFOT, NOUT, LERR, OK )
+         zspsvx('N', '/', 0, 0, A, AF, IP, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO );
+         chkxer('ZSPSVX', INFOT, NOUT, LERR, OK );
          INFOT = 3
-         CALL ZSPSVX( 'N', 'U', -1, 0, A, AF, IP, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO )
-         CALL CHKXER( 'ZSPSVX', INFOT, NOUT, LERR, OK )
+         zspsvx('N', 'U', -1, 0, A, AF, IP, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO );
+         chkxer('ZSPSVX', INFOT, NOUT, LERR, OK );
          INFOT = 4
-         CALL ZSPSVX( 'N', 'U', 0, -1, A, AF, IP, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO )
-         CALL CHKXER( 'ZSPSVX', INFOT, NOUT, LERR, OK )
+         zspsvx('N', 'U', 0, -1, A, AF, IP, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO );
+         chkxer('ZSPSVX', INFOT, NOUT, LERR, OK );
          INFOT = 9
-         CALL ZSPSVX( 'N', 'U', 2, 0, A, AF, IP, B, 1, X, 2, RCOND, R1, R2, W, RW, INFO )
-         CALL CHKXER( 'ZSPSVX', INFOT, NOUT, LERR, OK )
+         zspsvx('N', 'U', 2, 0, A, AF, IP, B, 1, X, 2, RCOND, R1, R2, W, RW, INFO );
+         chkxer('ZSPSVX', INFOT, NOUT, LERR, OK );
          INFOT = 11
-         CALL ZSPSVX( 'N', 'U', 2, 0, A, AF, IP, B, 2, X, 1, RCOND, R1, R2, W, RW, INFO )
-         CALL CHKXER( 'ZSPSVX', INFOT, NOUT, LERR, OK )
+         zspsvx('N', 'U', 2, 0, A, AF, IP, B, 2, X, 1, RCOND, R1, R2, W, RW, INFO );
+         chkxer('ZSPSVX', INFOT, NOUT, LERR, OK );
       }
 
       // Print a summary line.

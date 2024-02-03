@@ -91,19 +91,19 @@
       // Compute workspace
 
       if ( INFO.EQ.0 ) {
-         CALL SGEQRF( N, N, B, LDB, WORK, WORK, -1, IERR )
+         sgeqrf(N, N, B, LDB, WORK, WORK, -1, IERR );
          LWKOPT = MAX( LWKMIN, 3*N+INT( WORK( 1 ) ) )
-         CALL SORMQR( 'L', 'T', N, N, N, B, LDB, WORK, A, LDA, WORK, -1, IERR )
+         sormqr('L', 'T', N, N, N, B, LDB, WORK, A, LDA, WORK, -1, IERR );
          LWKOPT = MAX( LWKOPT, 3*N+INT( WORK( 1 ) ) )
-         CALL SGGHD3( JOBVL, JOBVR, N, 1, N, A, LDA, B, LDB, VL, LDVL, VR, LDVR, WORK, -1, IERR )
+         sgghd3(JOBVL, JOBVR, N, 1, N, A, LDA, B, LDB, VL, LDVL, VR, LDVR, WORK, -1, IERR );
          LWKOPT = MAX( LWKOPT, 3*N+INT( WORK( 1 ) ) )
          if ( ILVL ) {
-            CALL SORGQR( N, N, N, VL, LDVL, WORK, WORK, -1, IERR )
+            sorgqr(N, N, N, VL, LDVL, WORK, WORK, -1, IERR );
             LWKOPT = MAX( LWKOPT, 3*N+INT( WORK( 1 ) ) )
-            CALL SLAQZ0( 'S', JOBVL, JOBVR, N, 1, N, A, LDA, B, LDB, ALPHAR, ALPHAI, BETA, VL, LDVL, VR, LDVR, WORK, -1, 0, IERR )
+            slaqz0('S', JOBVL, JOBVR, N, 1, N, A, LDA, B, LDB, ALPHAR, ALPHAI, BETA, VL, LDVL, VR, LDVR, WORK, -1, 0, IERR );
             LWKOPT = MAX( LWKOPT, 2*N+INT( WORK( 1 ) ) )
          } else {
-            CALL SLAQZ0( 'E', JOBVL, JOBVR, N, 1, N, A, LDA, B, LDB, ALPHAR, ALPHAI, BETA, VL, LDVL, VR, LDVR, WORK, -1, 0, IERR )
+            slaqz0('E', JOBVL, JOBVR, N, 1, N, A, LDA, B, LDB, ALPHAR, ALPHAI, BETA, VL, LDVL, VR, LDVR, WORK, -1, 0, IERR );
             LWKOPT = MAX( LWKOPT, 2*N+INT( WORK( 1 ) ) )
          }
          if ( N.EQ.0 ) {
@@ -114,7 +114,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'SGGEV3 ', -INFO )
+         xerbla('SGGEV3 ', -INFO );
          RETURN
       } else if ( LQUERY ) {
          RETURN
@@ -163,7 +163,7 @@
       ILEFT = 1
       IRIGHT = N + 1
       IWRK = IRIGHT + N
-      CALL SGGBAL( 'P', N, A, LDA, B, LDB, ILO, IHI, WORK( ILEFT ), WORK( IRIGHT ), WORK( IWRK ), IERR )
+      sggbal('P', N, A, LDA, B, LDB, ILO, IHI, WORK( ILEFT ), WORK( IRIGHT ), WORK( IWRK ), IERR );
 
       // Reduce B to triangular form (QR decomposition of B)
 
@@ -175,20 +175,20 @@
       }
       ITAU = IWRK
       IWRK = ITAU + IROWS
-      CALL SGEQRF( IROWS, ICOLS, B( ILO, ILO ), LDB, WORK( ITAU ), WORK( IWRK ), LWORK+1-IWRK, IERR )
+      sgeqrf(IROWS, ICOLS, B( ILO, ILO ), LDB, WORK( ITAU ), WORK( IWRK ), LWORK+1-IWRK, IERR );
 
       // Apply the orthogonal transformation to matrix A
 
-      CALL SORMQR( 'L', 'T', IROWS, ICOLS, IROWS, B( ILO, ILO ), LDB, WORK( ITAU ), A( ILO, ILO ), LDA, WORK( IWRK ), LWORK+1-IWRK, IERR )
+      sormqr('L', 'T', IROWS, ICOLS, IROWS, B( ILO, ILO ), LDB, WORK( ITAU ), A( ILO, ILO ), LDA, WORK( IWRK ), LWORK+1-IWRK, IERR );
 
       // Initialize VL
 
       if ( ILVL ) {
-         CALL SLASET( 'Full', N, N, ZERO, ONE, VL, LDVL )
+         slaset('Full', N, N, ZERO, ONE, VL, LDVL );
          if ( IROWS.GT.1 ) {
-            CALL SLACPY( 'L', IROWS-1, IROWS-1, B( ILO+1, ILO ), LDB, VL( ILO+1, ILO ), LDVL )
+            slacpy('L', IROWS-1, IROWS-1, B( ILO+1, ILO ), LDB, VL( ILO+1, ILO ), LDVL );
          }
-         CALL SORGQR( IROWS, IROWS, IROWS, VL( ILO, ILO ), LDVL, WORK( ITAU ), WORK( IWRK ), LWORK+1-IWRK, IERR )
+         sorgqr(IROWS, IROWS, IROWS, VL( ILO, ILO ), LDVL, WORK( ITAU ), WORK( IWRK ), LWORK+1-IWRK, IERR );
       }
 
       // Initialize VR
@@ -201,9 +201,9 @@
 
          // Eigenvectors requested -- work on whole matrix.
 
-         CALL SGGHD3( JOBVL, JOBVR, N, ILO, IHI, A, LDA, B, LDB, VL, LDVL, VR, LDVR, WORK( IWRK ), LWORK+1-IWRK, IERR )
+         sgghd3(JOBVL, JOBVR, N, ILO, IHI, A, LDA, B, LDB, VL, LDVL, VR, LDVR, WORK( IWRK ), LWORK+1-IWRK, IERR );
       } else {
-         CALL SGGHD3( 'N', 'N', IROWS, 1, IROWS, A( ILO, ILO ), LDA, B( ILO, ILO ), LDB, VL, LDVL, VR, LDVR, WORK( IWRK ), LWORK+1-IWRK, IERR )
+         sgghd3('N', 'N', IROWS, 1, IROWS, A( ILO, ILO ), LDA, B( ILO, ILO ), LDB, VL, LDVL, VR, LDVR, WORK( IWRK ), LWORK+1-IWRK, IERR );
       }
 
       // Perform QZ algorithm (Compute eigenvalues, and optionally, the
@@ -215,7 +215,7 @@
       } else {
          CHTEMP = 'E'
       }
-      CALL SLAQZ0( CHTEMP, JOBVL, JOBVR, N, ILO, IHI, A, LDA, B, LDB, ALPHAR, ALPHAI, BETA, VL, LDVL, VR, LDVR, WORK( IWRK ), LWORK+1-IWRK, 0, IERR )
+      slaqz0(CHTEMP, JOBVL, JOBVR, N, ILO, IHI, A, LDA, B, LDB, ALPHAR, ALPHAI, BETA, VL, LDVL, VR, LDVR, WORK( IWRK ), LWORK+1-IWRK, 0, IERR );
       if ( IERR.NE.0 ) {
          if ( IERR.GT.0 .AND. IERR.LE.N ) {
             INFO = IERR
@@ -239,7 +239,7 @@
          } else {
             CHTEMP = 'R'
          }
-         CALL STGEVC( CHTEMP, 'B', LDUMMA, N, A, LDA, B, LDB, VL, LDVL, VR, LDVR, N, IN, WORK( IWRK ), IERR )
+         stgevc(CHTEMP, 'B', LDUMMA, N, A, LDA, B, LDB, VL, LDVL, VR, LDVR, N, IN, WORK( IWRK ), IERR );
          if ( IERR.NE.0 ) {
             INFO = N + 2
             GO TO 110
@@ -248,7 +248,7 @@
          // Undo balancing on VL and VR and normalization
 
          if ( ILVL ) {
-            CALL SGGBAK( 'P', 'L', N, ILO, IHI, WORK( ILEFT ), WORK( IRIGHT ), N, VL, LDVL, IERR )
+            sggbak('P', 'L', N, ILO, IHI, WORK( ILEFT ), WORK( IRIGHT ), N, VL, LDVL, IERR );
             DO 50 JC = 1, N
                IF( ALPHAI( JC ).LT.ZERO ) GO TO 50
                TEMP = ZERO
@@ -276,7 +276,7 @@
    50       CONTINUE
          }
          if ( ILVR ) {
-            CALL SGGBAK( 'P', 'R', N, ILO, IHI, WORK( ILEFT ), WORK( IRIGHT ), N, VR, LDVR, IERR )
+            sggbak('P', 'R', N, ILO, IHI, WORK( ILEFT ), WORK( IRIGHT ), N, VR, LDVR, IERR );
             DO 100 JC = 1, N
                IF( ALPHAI( JC ).LT.ZERO ) GO TO 100
                TEMP = ZERO
@@ -313,12 +313,12 @@
   110 CONTINUE
 
       if ( ILASCL ) {
-         CALL SLASCL( 'G', 0, 0, ANRMTO, ANRM, N, 1, ALPHAR, N, IERR )
-         CALL SLASCL( 'G', 0, 0, ANRMTO, ANRM, N, 1, ALPHAI, N, IERR )
+         slascl('G', 0, 0, ANRMTO, ANRM, N, 1, ALPHAR, N, IERR );
+         slascl('G', 0, 0, ANRMTO, ANRM, N, 1, ALPHAI, N, IERR );
       }
 
       if ( ILBSCL ) {
-         CALL SLASCL( 'G', 0, 0, BNRMTO, BNRM, N, 1, BETA, N, IERR )
+         slascl('G', 0, 0, BNRMTO, BNRM, N, 1, BETA, N, IERR );
       }
 
       WORK( 1 ) = SROUNDUP_LWORK( LWKOPT )

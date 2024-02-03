@@ -46,7 +46,7 @@
          INFO = -6
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'ZUPGTR', -INFO )
+         xerbla('ZUPGTR', -INFO );
          RETURN
       }
 
@@ -78,7 +78,7 @@
 
          // Generate Q(1:n-1,1:n-1)
 
-         CALL ZUNG2L( N-1, N-1, N-1, Q, LDQ, TAU, WORK, IINFO )
+         zung2l(N-1, N-1, N-1, Q, LDQ, TAU, WORK, IINFO );
 
       } else {
 
@@ -105,7 +105,7 @@
 
             // Generate Q(2:n,2:n)
 
-            CALL ZUNG2R( N-1, N-1, N-1, Q( 2, 2 ), LDQ, TAU, WORK, IINFO )
+            zung2r(N-1, N-1, N-1, Q( 2, 2 ), LDQ, TAU, WORK, IINFO );
          }
       }
       RETURN

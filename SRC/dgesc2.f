@@ -44,7 +44,7 @@
 
       // Apply permutations IPIV to RHS
 
-      CALL DLASWP( 1, RHS, LDA, 1, N-1, IPIV, 1 )
+      dlaswp(1, RHS, LDA, 1, N-1, IPIV, 1 );
 
       // Solve for L part
 
@@ -63,7 +63,7 @@
       I = IDAMAX( N, RHS, 1 )
       if ( TWO*SMLNUM*ABS( RHS( I ) ).GT.ABS( A( N, N ) ) ) {
          TEMP = ( ONE / TWO ) / ABS( RHS( I ) )
-         CALL DSCAL( N, TEMP, RHS( 1 ), 1 )
+         dscal(N, TEMP, RHS( 1 ), 1 );
          SCALE = SCALE*TEMP
       }
 
@@ -77,7 +77,7 @@
 
       // Apply permutations JPIV to the solution (RHS)
 
-      CALL DLASWP( 1, RHS, LDA, 1, N-1, JPIV, -1 )
+      dlaswp(1, RHS, LDA, 1, N-1, JPIV, -1 );
       RETURN
 
       // End of DGESC2

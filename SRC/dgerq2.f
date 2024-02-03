@@ -40,7 +40,7 @@
          INFO = -4
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'DGERQ2', -INFO )
+         xerbla('DGERQ2', -INFO );
          RETURN
       }
 
@@ -51,13 +51,13 @@
          // Generate elementary reflector H(i) to annihilate
          // A(m-k+i,1:n-k+i-1)
 
-         CALL DLARFG( N-K+I, A( M-K+I, N-K+I ), A( M-K+I, 1 ), LDA, TAU( I ) )
+         dlarfg(N-K+I, A( M-K+I, N-K+I ), A( M-K+I, 1 ), LDA, TAU( I ) );
 
          // Apply H(i) to A(1:m-k+i-1,1:n-k+i) from the right
 
          AII = A( M-K+I, N-K+I )
          A( M-K+I, N-K+I ) = ONE
-         CALL DLARF( 'Right', M-K+I-1, N-K+I, A( M-K+I, 1 ), LDA, TAU( I ), A, LDA, WORK )
+         dlarf('Right', M-K+I-1, N-K+I, A( M-K+I, 1 ), LDA, TAU( I ), A, LDA, WORK );
          A( M-K+I, N-K+I ) = AII
    10 CONTINUE
       RETURN

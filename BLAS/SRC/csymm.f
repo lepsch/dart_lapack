@@ -65,7 +65,7 @@
           INFO = 12
       }
       if (INFO.NE.0) {
-          CALL XERBLA('CSYMM ',INFO)
+          xerbla('CSYMM ',INFO);
           RETURN
       }
 

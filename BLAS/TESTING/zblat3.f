@@ -161,14 +161,14 @@
       // the result computed by ZMMCH.
       TRANSA = 'N'
       TRANSB = 'N'
-      CALL ZMMCH( TRANSA, TRANSB, N, 1, N, ONE, AB, NMAX, AB( 1, NMAX + 1 ), NMAX, ZERO, C, NMAX, CT, G, CC, NMAX, EPS, ERR, FATAL, NOUT, .TRUE. )
+      zmmch(TRANSA, TRANSB, N, 1, N, ONE, AB, NMAX, AB( 1, NMAX + 1 ), NMAX, ZERO, C, NMAX, CT, G, CC, NMAX, EPS, ERR, FATAL, NOUT, .TRUE. );
       SAME = LZE( CC, CT, N )
       if ( .NOT.SAME.OR.ERR.NE.RZERO ) {
          WRITE( NOUT, FMT = 9989 )TRANSA, TRANSB, SAME, ERR
          STOP
       }
       TRANSB = 'C'
-      CALL ZMMCH( TRANSA, TRANSB, N, 1, N, ONE, AB, NMAX, AB( 1, NMAX + 1 ), NMAX, ZERO, C, NMAX, CT, G, CC, NMAX, EPS, ERR, FATAL, NOUT, .TRUE. )
+      zmmch(TRANSA, TRANSB, N, 1, N, ONE, AB, NMAX, AB( 1, NMAX + 1 ), NMAX, ZERO, C, NMAX, CT, G, CC, NMAX, EPS, ERR, FATAL, NOUT, .TRUE. );
       SAME = LZE( CC, CT, N )
       if ( .NOT.SAME.OR.ERR.NE.RZERO ) {
          WRITE( NOUT, FMT = 9989 )TRANSA, TRANSB, SAME, ERR
@@ -183,14 +183,14 @@
   130 CONTINUE
       TRANSA = 'C'
       TRANSB = 'N'
-      CALL ZMMCH( TRANSA, TRANSB, N, 1, N, ONE, AB, NMAX, AB( 1, NMAX + 1 ), NMAX, ZERO, C, NMAX, CT, G, CC, NMAX, EPS, ERR, FATAL, NOUT, .TRUE. )
+      zmmch(TRANSA, TRANSB, N, 1, N, ONE, AB, NMAX, AB( 1, NMAX + 1 ), NMAX, ZERO, C, NMAX, CT, G, CC, NMAX, EPS, ERR, FATAL, NOUT, .TRUE. );
       SAME = LZE( CC, CT, N )
       if ( .NOT.SAME.OR.ERR.NE.RZERO ) {
          WRITE( NOUT, FMT = 9989 )TRANSA, TRANSB, SAME, ERR
          STOP
       }
       TRANSB = 'C'
-      CALL ZMMCH( TRANSA, TRANSB, N, 1, N, ONE, AB, NMAX, AB( 1, NMAX + 1 ), NMAX, ZERO, C, NMAX, CT, G, CC, NMAX, EPS, ERR, FATAL, NOUT, .TRUE. )
+      zmmch(TRANSA, TRANSB, N, 1, N, ONE, AB, NMAX, AB( 1, NMAX + 1 ), NMAX, ZERO, C, NMAX, CT, G, CC, NMAX, EPS, ERR, FATAL, NOUT, .TRUE. );
       SAME = LZE( CC, CT, N )
       if ( .NOT.SAME.OR.ERR.NE.RZERO ) {
          WRITE( NOUT, FMT = 9989 )TRANSA, TRANSB, SAME, ERR
@@ -208,7 +208,7 @@
             SRNAMT = SNAMES( ISNUM )
             // Test error exits.
             if ( TSTERR ) {
-               CALL ZCHKE( ISNUM, SNAMES( ISNUM ), NOUT )
+               zchke(ISNUM, SNAMES( ISNUM ), NOUT );
                WRITE( NOUT, FMT = * )
             }
             // Test computations.
@@ -362,7 +362,7 @@
 
                   // Generate the matrix A.
 
-                  CALL ZMAKE( 'GE', ' ', ' ', MA, NA, A, NMAX, AA, LDA, RESET, ZERO )
+                  zmake('GE', ' ', ' ', MA, NA, A, NMAX, AA, LDA, RESET, ZERO );
 
                   DO 70 ICB = 1, 3
                      TRANSB = ICH( ICB: ICB )
@@ -384,7 +384,7 @@
 
                      // Generate the matrix B.
 
-                     CALL ZMAKE( 'GE', ' ', ' ', MB, NB, B, NMAX, BB, LDB, RESET, ZERO )
+                     zmake('GE', ' ', ' ', MB, NB, B, NMAX, BB, LDB, RESET, ZERO );
 
                      DO 60 IA = 1, NALF
                         ALPHA = ALF( IA )
@@ -394,7 +394,7 @@
 
                            // Generate the matrix C.
 
-                           CALL ZMAKE( 'GE', ' ', ' ', M, N, C, NMAX, CC, LDC, RESET, ZERO )
+                           zmake('GE', ' ', ' ', M, N, C, NMAX, CC, LDC, RESET, ZERO );
 
                            NC = NC + 1
 
@@ -471,7 +471,7 @@
 
                               // Check the result.
 
-                              CALL ZMMCH( TRANSA, TRANSB, M, N, K, ALPHA, A, NMAX, B, NMAX, BETA, C, NMAX, CT, G, CC, LDC, EPS, ERR, FATAL, NOUT, .TRUE. )
+                              zmmch(TRANSA, TRANSB, M, N, K, ALPHA, A, NMAX, B, NMAX, BETA, C, NMAX, CT, G, CC, LDC, EPS, ERR, FATAL, NOUT, .TRUE. );
                               ERRMAX = MAX( ERRMAX, ERR )
                               // If got really bad answer, report and
                               // return.
@@ -596,7 +596,7 @@
 
             // Generate the matrix B.
 
-            CALL ZMAKE( 'GE', ' ', ' ', M, N, B, NMAX, BB, LDB, RESET, ZERO )
+            zmake('GE', ' ', ' ', M, N, B, NMAX, BB, LDB, RESET, ZERO );
 
             DO 80 ICS = 1, 2
                SIDE = ICHS( ICS: ICS )
@@ -619,7 +619,7 @@
 
                   // Generate the hermitian or symmetric matrix A.
 
-                  CALL ZMAKE( SNAME( 2: 3 ), UPLO, ' ', NA, NA, A, NMAX, AA, LDA, RESET, ZERO )
+                  zmake(SNAME( 2: 3 ), UPLO, ' ', NA, NA, A, NMAX, AA, LDA, RESET, ZERO );
 
                   DO 60 IA = 1, NALF
                      ALPHA = ALF( IA )
@@ -629,7 +629,7 @@
 
                         // Generate the matrix C.
 
-                        CALL ZMAKE( 'GE', ' ', ' ', M, N, C, NMAX, CC, LDC, RESET, ZERO )
+                        zmake('GE', ' ', ' ', M, N, C, NMAX, CC, LDC, RESET, ZERO );
 
                         NC = NC + 1
 
@@ -660,9 +660,9 @@
                         IF( TRACE ) WRITE( NTRA, FMT = 9995 )NC, SNAME, SIDE, UPLO, M, N, ALPHA, LDA, LDB, BETA, LDC
                         IF( REWI ) REWIND NTRA
                         if ( CONJ ) {
-                           CALL ZHEMM( SIDE, UPLO, M, N, ALPHA, AA, LDA, BB, LDB, BETA, CC, LDC )
+                           zhemm(SIDE, UPLO, M, N, ALPHA, AA, LDA, BB, LDB, BETA, CC, LDC );
                         } else {
-                           CALL ZSYMM( SIDE, UPLO, M, N, ALPHA, AA, LDA, BB, LDB, BETA, CC, LDC )
+                           zsymm(SIDE, UPLO, M, N, ALPHA, AA, LDA, BB, LDB, BETA, CC, LDC );
                         }
 
                         // Check if error-exit was taken incorrectly.
@@ -710,9 +710,9 @@
                            // Check the result.
 
                            if ( LEFT ) {
-                              CALL ZMMCH( 'N', 'N', M, N, M, ALPHA, A, NMAX, B, NMAX, BETA, C, NMAX, CT, G, CC, LDC, EPS, ERR, FATAL, NOUT, .TRUE. )
+                              zmmch('N', 'N', M, N, M, ALPHA, A, NMAX, B, NMAX, BETA, C, NMAX, CT, G, CC, LDC, EPS, ERR, FATAL, NOUT, .TRUE. );
                            } else {
-                              CALL ZMMCH( 'N', 'N', M, N, N, ALPHA, B, NMAX, A, NMAX, BETA, C, NMAX, CT, G, CC, LDC, EPS, ERR, FATAL, NOUT, .TRUE. )
+                              zmmch('N', 'N', M, N, N, ALPHA, B, NMAX, A, NMAX, BETA, C, NMAX, CT, G, CC, LDC, EPS, ERR, FATAL, NOUT, .TRUE. );
                            }
                            ERRMAX = MAX( ERRMAX, ERR )
                            // If got really bad answer, report and
@@ -863,11 +863,11 @@
 
                            // Generate the matrix A.
 
-                           CALL ZMAKE( 'TR', UPLO, DIAG, NA, NA, A, NMAX, AA, LDA, RESET, ZERO )
+                           zmake('TR', UPLO, DIAG, NA, NA, A, NMAX, AA, LDA, RESET, ZERO );
 
                            // Generate the matrix B.
 
-                           CALL ZMAKE( 'GE', ' ', ' ', M, N, B, NMAX, BB, LDB, RESET, ZERO )
+                           zmake('GE', ' ', ' ', M, N, B, NMAX, BB, LDB, RESET, ZERO );
 
                            NC = NC + 1
 
@@ -945,9 +945,9 @@
                                  // Check the result.
 
                                  if ( LEFT ) {
-                                    CALL ZMMCH( TRANSA, 'N', M, N, M, ALPHA, A, NMAX, B, NMAX, ZERO, C, NMAX, CT, G, BB, LDB, EPS, ERR, FATAL, NOUT, .TRUE. )
+                                    zmmch(TRANSA, 'N', M, N, M, ALPHA, A, NMAX, B, NMAX, ZERO, C, NMAX, CT, G, BB, LDB, EPS, ERR, FATAL, NOUT, .TRUE. );
                                  } else {
-                                    CALL ZMMCH( 'N', TRANSA, M, N, N, ALPHA, B, NMAX, A, NMAX, ZERO, C, NMAX, CT, G, BB, LDB, EPS, ERR, FATAL, NOUT, .TRUE. )
+                                    zmmch('N', TRANSA, M, N, N, ALPHA, B, NMAX, A, NMAX, ZERO, C, NMAX, CT, G, BB, LDB, EPS, ERR, FATAL, NOUT, .TRUE. );
                                  }
                               } else if ( SNAME( 4: 5 ).EQ.'SM' ) {
 
@@ -961,9 +961,9 @@
    70                            CONTINUE
 
                                  if ( LEFT ) {
-                                    CALL ZMMCH( TRANSA, 'N', M, N, M, ONE, A, NMAX, C, NMAX, ZERO, B, NMAX, CT, G, BB, LDB, EPS, ERR, FATAL, NOUT, .FALSE. )
+                                    zmmch(TRANSA, 'N', M, N, M, ONE, A, NMAX, C, NMAX, ZERO, B, NMAX, CT, G, BB, LDB, EPS, ERR, FATAL, NOUT, .FALSE. );
                                  } else {
-                                    CALL ZMMCH( 'N', TRANSA, M, N, N, ONE, C, NMAX, A, NMAX, ZERO, B, NMAX, CT, G, BB, LDB, EPS, ERR, FATAL, NOUT, .FALSE. )
+                                    zmmch('N', TRANSA, M, N, N, ONE, C, NMAX, A, NMAX, ZERO, B, NMAX, CT, G, BB, LDB, EPS, ERR, FATAL, NOUT, .FALSE. );
                                  }
                               }
                               ERRMAX = MAX( ERRMAX, ERR )
@@ -1101,7 +1101,7 @@
 
                // Generate the matrix A.
 
-               CALL ZMAKE( 'GE', ' ', ' ', MA, NA, A, NMAX, AA, LDA, RESET, ZERO )
+               zmake('GE', ' ', ' ', MA, NA, A, NMAX, AA, LDA, RESET, ZERO );
 
                DO 70 ICU = 1, 2
                   UPLO = ICHU( ICU: ICU )
@@ -1125,7 +1125,7 @@
 
                         // Generate the matrix C.
 
-                        CALL ZMAKE( SNAME( 2: 3 ), UPLO, ' ', N, N, C, NMAX, CC, LDC, RESET, ZERO )
+                        zmake(SNAME( 2: 3 ), UPLO, ' ', N, N, C, NMAX, CC, LDC, RESET, ZERO );
 
                         NC = NC + 1
 
@@ -1229,9 +1229,9 @@
                                  LJ = N - J + 1
                               }
                               if ( TRAN ) {
-                                 CALL ZMMCH( TRANST, 'N', LJ, 1, K, ALPHA, A( 1, JJ ), NMAX, A( 1, J ), NMAX, BETA, C( JJ, J ), NMAX, CT, G, CC( JC ), LDC, EPS, ERR, FATAL, NOUT, .TRUE. )
+                                 zmmch(TRANST, 'N', LJ, 1, K, ALPHA, A( 1, JJ ), NMAX, A( 1, J ), NMAX, BETA, C( JJ, J ), NMAX, CT, G, CC( JC ), LDC, EPS, ERR, FATAL, NOUT, .TRUE. );
                               } else {
-                                 CALL ZMMCH( 'N', TRANST, LJ, 1, K, ALPHA, A( JJ, 1 ), NMAX, A( J, 1 ), NMAX, BETA, C( JJ, J ), NMAX, CT, G, CC( JC ), LDC, EPS, ERR, FATAL, NOUT, .TRUE. )
+                                 zmmch('N', TRANST, LJ, 1, K, ALPHA, A( JJ, 1 ), NMAX, A( J, 1 ), NMAX, BETA, C( JJ, J ), NMAX, CT, G, CC( JC ), LDC, EPS, ERR, FATAL, NOUT, .TRUE. );
                               }
                               if ( UPPER ) {
                                  JC = JC + LDC
@@ -1382,9 +1382,9 @@
                // Generate the matrix A.
 
                if ( TRAN ) {
-                  CALL ZMAKE( 'GE', ' ', ' ', MA, NA, AB, 2*NMAX, AA, LDA, RESET, ZERO )
+                  zmake('GE', ' ', ' ', MA, NA, AB, 2*NMAX, AA, LDA, RESET, ZERO );
                } else {
-                  CALL ZMAKE( 'GE', ' ', ' ', MA, NA, AB, NMAX, AA, LDA, RESET, ZERO )
+                  zmake('GE', ' ', ' ', MA, NA, AB, NMAX, AA, LDA, RESET, ZERO );
                }
 
                // Generate the matrix B.
@@ -1392,9 +1392,9 @@
                LDB = LDA
                LBB = LAA
                if ( TRAN ) {
-                  CALL ZMAKE( 'GE', ' ', ' ', MA, NA, AB( K + 1 ), 2*NMAX, BB, LDB, RESET, ZERO )
+                  zmake('GE', ' ', ' ', MA, NA, AB( K + 1 ), 2*NMAX, BB, LDB, RESET, ZERO );
                } else {
-                  CALL ZMAKE( 'GE', ' ', ' ', MA, NA, AB( K*NMAX + 1 ), NMAX, BB, LDB, RESET, ZERO )
+                  zmake('GE', ' ', ' ', MA, NA, AB( K*NMAX + 1 ), NMAX, BB, LDB, RESET, ZERO );
                }
 
                DO 100 ICU = 1, 2
@@ -1415,7 +1415,7 @@
 
                         // Generate the matrix C.
 
-                        CALL ZMAKE( SNAME( 2: 3 ), UPLO, ' ', N, N, C, NMAX, CC, LDC, RESET, ZERO )
+                        zmake(SNAME( 2: 3 ), UPLO, ' ', N, N, C, NMAX, CC, LDC, RESET, ZERO );
 
                         NC = NC + 1
 
@@ -1526,7 +1526,7 @@
                                        W( K + I ) = ALPHA* AB( ( J - 1 )*2* NMAX + I )
                                     }
    50                            CONTINUE
-                                 CALL ZMMCH( TRANST, 'N', LJ, 1, 2*K, ONE, AB( JJAB ), 2*NMAX, W, 2*NMAX, BETA, C( JJ, J ), NMAX, CT, G, CC( JC ), LDC, EPS, ERR, FATAL, NOUT, .TRUE. )
+                                 zmmch(TRANST, 'N', LJ, 1, 2*K, ONE, AB( JJAB ), 2*NMAX, W, 2*NMAX, BETA, C( JJ, J ), NMAX, CT, G, CC( JC ), LDC, EPS, ERR, FATAL, NOUT, .TRUE. );
                               } else {
                                  DO 60 I = 1, K
                                     if ( CONJ ) {
@@ -1535,7 +1535,7 @@
                                        W( I ) = ALPHA*AB( ( K + I - 1 )* NMAX + J )                                        W( K + I ) = ALPHA* AB( ( I - 1 )*NMAX + J )
                                     }
    60                            CONTINUE
-                                 CALL ZMMCH( 'N', 'N', LJ, 1, 2*K, ONE, AB( JJ ), NMAX, W, 2*NMAX, BETA, C( JJ, J ), NMAX, CT, G, CC( JC ), LDC, EPS, ERR, FATAL, NOUT, .TRUE. )
+                                 zmmch('N', 'N', LJ, 1, 2*K, ONE, AB( JJ ), NMAX, W, 2*NMAX, BETA, C( JJ, J ), NMAX, CT, G, CC( JC ), LDC, EPS, ERR, FATAL, NOUT, .TRUE. );
                               }
                               if ( UPPER ) {
                                  JC = JC + LDC
@@ -1653,877 +1653,877 @@
 
       GO TO ( 10, 20, 30, 40, 50, 60, 70, 80, 90 )ISNUM
    10 INFOT = 1
-      CALL ZGEMM( '/', 'N', 0, 0, 0, ALPHA, A, 1, B, 1, BETA, C, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zgemm('/', 'N', 0, 0, 0, ALPHA, A, 1, B, 1, BETA, C, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 1
-      CALL ZGEMM( '/', 'C', 0, 0, 0, ALPHA, A, 1, B, 1, BETA, C, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zgemm('/', 'C', 0, 0, 0, ALPHA, A, 1, B, 1, BETA, C, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 1
-      CALL ZGEMM( '/', 'T', 0, 0, 0, ALPHA, A, 1, B, 1, BETA, C, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zgemm('/', 'T', 0, 0, 0, ALPHA, A, 1, B, 1, BETA, C, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 2
-      CALL ZGEMM( 'N', '/', 0, 0, 0, ALPHA, A, 1, B, 1, BETA, C, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zgemm('N', '/', 0, 0, 0, ALPHA, A, 1, B, 1, BETA, C, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 2
-      CALL ZGEMM( 'C', '/', 0, 0, 0, ALPHA, A, 1, B, 1, BETA, C, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zgemm('C', '/', 0, 0, 0, ALPHA, A, 1, B, 1, BETA, C, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 2
-      CALL ZGEMM( 'T', '/', 0, 0, 0, ALPHA, A, 1, B, 1, BETA, C, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zgemm('T', '/', 0, 0, 0, ALPHA, A, 1, B, 1, BETA, C, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 3
-      CALL ZGEMM( 'N', 'N', -1, 0, 0, ALPHA, A, 1, B, 1, BETA, C, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zgemm('N', 'N', -1, 0, 0, ALPHA, A, 1, B, 1, BETA, C, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 3
-      CALL ZGEMM( 'N', 'C', -1, 0, 0, ALPHA, A, 1, B, 1, BETA, C, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zgemm('N', 'C', -1, 0, 0, ALPHA, A, 1, B, 1, BETA, C, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 3
-      CALL ZGEMM( 'N', 'T', -1, 0, 0, ALPHA, A, 1, B, 1, BETA, C, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zgemm('N', 'T', -1, 0, 0, ALPHA, A, 1, B, 1, BETA, C, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 3
-      CALL ZGEMM( 'C', 'N', -1, 0, 0, ALPHA, A, 1, B, 1, BETA, C, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zgemm('C', 'N', -1, 0, 0, ALPHA, A, 1, B, 1, BETA, C, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 3
-      CALL ZGEMM( 'C', 'C', -1, 0, 0, ALPHA, A, 1, B, 1, BETA, C, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zgemm('C', 'C', -1, 0, 0, ALPHA, A, 1, B, 1, BETA, C, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 3
-      CALL ZGEMM( 'C', 'T', -1, 0, 0, ALPHA, A, 1, B, 1, BETA, C, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zgemm('C', 'T', -1, 0, 0, ALPHA, A, 1, B, 1, BETA, C, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 3
-      CALL ZGEMM( 'T', 'N', -1, 0, 0, ALPHA, A, 1, B, 1, BETA, C, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zgemm('T', 'N', -1, 0, 0, ALPHA, A, 1, B, 1, BETA, C, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 3
-      CALL ZGEMM( 'T', 'C', -1, 0, 0, ALPHA, A, 1, B, 1, BETA, C, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zgemm('T', 'C', -1, 0, 0, ALPHA, A, 1, B, 1, BETA, C, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 3
-      CALL ZGEMM( 'T', 'T', -1, 0, 0, ALPHA, A, 1, B, 1, BETA, C, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zgemm('T', 'T', -1, 0, 0, ALPHA, A, 1, B, 1, BETA, C, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 4
-      CALL ZGEMM( 'N', 'N', 0, -1, 0, ALPHA, A, 1, B, 1, BETA, C, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zgemm('N', 'N', 0, -1, 0, ALPHA, A, 1, B, 1, BETA, C, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 4
-      CALL ZGEMM( 'N', 'C', 0, -1, 0, ALPHA, A, 1, B, 1, BETA, C, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zgemm('N', 'C', 0, -1, 0, ALPHA, A, 1, B, 1, BETA, C, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 4
-      CALL ZGEMM( 'N', 'T', 0, -1, 0, ALPHA, A, 1, B, 1, BETA, C, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zgemm('N', 'T', 0, -1, 0, ALPHA, A, 1, B, 1, BETA, C, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 4
-      CALL ZGEMM( 'C', 'N', 0, -1, 0, ALPHA, A, 1, B, 1, BETA, C, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zgemm('C', 'N', 0, -1, 0, ALPHA, A, 1, B, 1, BETA, C, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 4
-      CALL ZGEMM( 'C', 'C', 0, -1, 0, ALPHA, A, 1, B, 1, BETA, C, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zgemm('C', 'C', 0, -1, 0, ALPHA, A, 1, B, 1, BETA, C, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 4
-      CALL ZGEMM( 'C', 'T', 0, -1, 0, ALPHA, A, 1, B, 1, BETA, C, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zgemm('C', 'T', 0, -1, 0, ALPHA, A, 1, B, 1, BETA, C, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 4
-      CALL ZGEMM( 'T', 'N', 0, -1, 0, ALPHA, A, 1, B, 1, BETA, C, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zgemm('T', 'N', 0, -1, 0, ALPHA, A, 1, B, 1, BETA, C, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 4
-      CALL ZGEMM( 'T', 'C', 0, -1, 0, ALPHA, A, 1, B, 1, BETA, C, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zgemm('T', 'C', 0, -1, 0, ALPHA, A, 1, B, 1, BETA, C, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 4
-      CALL ZGEMM( 'T', 'T', 0, -1, 0, ALPHA, A, 1, B, 1, BETA, C, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zgemm('T', 'T', 0, -1, 0, ALPHA, A, 1, B, 1, BETA, C, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 5
-      CALL ZGEMM( 'N', 'N', 0, 0, -1, ALPHA, A, 1, B, 1, BETA, C, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zgemm('N', 'N', 0, 0, -1, ALPHA, A, 1, B, 1, BETA, C, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 5
-      CALL ZGEMM( 'N', 'C', 0, 0, -1, ALPHA, A, 1, B, 1, BETA, C, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zgemm('N', 'C', 0, 0, -1, ALPHA, A, 1, B, 1, BETA, C, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 5
-      CALL ZGEMM( 'N', 'T', 0, 0, -1, ALPHA, A, 1, B, 1, BETA, C, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zgemm('N', 'T', 0, 0, -1, ALPHA, A, 1, B, 1, BETA, C, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 5
-      CALL ZGEMM( 'C', 'N', 0, 0, -1, ALPHA, A, 1, B, 1, BETA, C, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zgemm('C', 'N', 0, 0, -1, ALPHA, A, 1, B, 1, BETA, C, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 5
-      CALL ZGEMM( 'C', 'C', 0, 0, -1, ALPHA, A, 1, B, 1, BETA, C, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zgemm('C', 'C', 0, 0, -1, ALPHA, A, 1, B, 1, BETA, C, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 5
-      CALL ZGEMM( 'C', 'T', 0, 0, -1, ALPHA, A, 1, B, 1, BETA, C, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zgemm('C', 'T', 0, 0, -1, ALPHA, A, 1, B, 1, BETA, C, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 5
-      CALL ZGEMM( 'T', 'N', 0, 0, -1, ALPHA, A, 1, B, 1, BETA, C, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zgemm('T', 'N', 0, 0, -1, ALPHA, A, 1, B, 1, BETA, C, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 5
-      CALL ZGEMM( 'T', 'C', 0, 0, -1, ALPHA, A, 1, B, 1, BETA, C, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zgemm('T', 'C', 0, 0, -1, ALPHA, A, 1, B, 1, BETA, C, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 5
-      CALL ZGEMM( 'T', 'T', 0, 0, -1, ALPHA, A, 1, B, 1, BETA, C, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zgemm('T', 'T', 0, 0, -1, ALPHA, A, 1, B, 1, BETA, C, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 8
-      CALL ZGEMM( 'N', 'N', 2, 0, 0, ALPHA, A, 1, B, 1, BETA, C, 2 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zgemm('N', 'N', 2, 0, 0, ALPHA, A, 1, B, 1, BETA, C, 2 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 8
-      CALL ZGEMM( 'N', 'C', 2, 0, 0, ALPHA, A, 1, B, 1, BETA, C, 2 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zgemm('N', 'C', 2, 0, 0, ALPHA, A, 1, B, 1, BETA, C, 2 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 8
-      CALL ZGEMM( 'N', 'T', 2, 0, 0, ALPHA, A, 1, B, 1, BETA, C, 2 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zgemm('N', 'T', 2, 0, 0, ALPHA, A, 1, B, 1, BETA, C, 2 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 8
-      CALL ZGEMM( 'C', 'N', 0, 0, 2, ALPHA, A, 1, B, 2, BETA, C, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zgemm('C', 'N', 0, 0, 2, ALPHA, A, 1, B, 2, BETA, C, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 8
-      CALL ZGEMM( 'C', 'C', 0, 0, 2, ALPHA, A, 1, B, 1, BETA, C, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zgemm('C', 'C', 0, 0, 2, ALPHA, A, 1, B, 1, BETA, C, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 8
-      CALL ZGEMM( 'C', 'T', 0, 0, 2, ALPHA, A, 1, B, 1, BETA, C, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zgemm('C', 'T', 0, 0, 2, ALPHA, A, 1, B, 1, BETA, C, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 8
-      CALL ZGEMM( 'T', 'N', 0, 0, 2, ALPHA, A, 1, B, 2, BETA, C, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zgemm('T', 'N', 0, 0, 2, ALPHA, A, 1, B, 2, BETA, C, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 8
-      CALL ZGEMM( 'T', 'C', 0, 0, 2, ALPHA, A, 1, B, 1, BETA, C, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zgemm('T', 'C', 0, 0, 2, ALPHA, A, 1, B, 1, BETA, C, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 8
-      CALL ZGEMM( 'T', 'T', 0, 0, 2, ALPHA, A, 1, B, 1, BETA, C, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zgemm('T', 'T', 0, 0, 2, ALPHA, A, 1, B, 1, BETA, C, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 10
-      CALL ZGEMM( 'N', 'N', 0, 0, 2, ALPHA, A, 1, B, 1, BETA, C, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zgemm('N', 'N', 0, 0, 2, ALPHA, A, 1, B, 1, BETA, C, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 10
-      CALL ZGEMM( 'C', 'N', 0, 0, 2, ALPHA, A, 2, B, 1, BETA, C, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zgemm('C', 'N', 0, 0, 2, ALPHA, A, 2, B, 1, BETA, C, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 10
-      CALL ZGEMM( 'T', 'N', 0, 0, 2, ALPHA, A, 2, B, 1, BETA, C, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zgemm('T', 'N', 0, 0, 2, ALPHA, A, 2, B, 1, BETA, C, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 10
-      CALL ZGEMM( 'N', 'C', 0, 2, 0, ALPHA, A, 1, B, 1, BETA, C, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zgemm('N', 'C', 0, 2, 0, ALPHA, A, 1, B, 1, BETA, C, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 10
-      CALL ZGEMM( 'C', 'C', 0, 2, 0, ALPHA, A, 1, B, 1, BETA, C, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zgemm('C', 'C', 0, 2, 0, ALPHA, A, 1, B, 1, BETA, C, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 10
-      CALL ZGEMM( 'T', 'C', 0, 2, 0, ALPHA, A, 1, B, 1, BETA, C, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zgemm('T', 'C', 0, 2, 0, ALPHA, A, 1, B, 1, BETA, C, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 10
-      CALL ZGEMM( 'N', 'T', 0, 2, 0, ALPHA, A, 1, B, 1, BETA, C, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zgemm('N', 'T', 0, 2, 0, ALPHA, A, 1, B, 1, BETA, C, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 10
-      CALL ZGEMM( 'C', 'T', 0, 2, 0, ALPHA, A, 1, B, 1, BETA, C, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zgemm('C', 'T', 0, 2, 0, ALPHA, A, 1, B, 1, BETA, C, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 10
-      CALL ZGEMM( 'T', 'T', 0, 2, 0, ALPHA, A, 1, B, 1, BETA, C, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zgemm('T', 'T', 0, 2, 0, ALPHA, A, 1, B, 1, BETA, C, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 13
-      CALL ZGEMM( 'N', 'N', 2, 0, 0, ALPHA, A, 2, B, 1, BETA, C, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zgemm('N', 'N', 2, 0, 0, ALPHA, A, 2, B, 1, BETA, C, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 13
-      CALL ZGEMM( 'N', 'C', 2, 0, 0, ALPHA, A, 2, B, 1, BETA, C, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zgemm('N', 'C', 2, 0, 0, ALPHA, A, 2, B, 1, BETA, C, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 13
-      CALL ZGEMM( 'N', 'T', 2, 0, 0, ALPHA, A, 2, B, 1, BETA, C, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zgemm('N', 'T', 2, 0, 0, ALPHA, A, 2, B, 1, BETA, C, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 13
-      CALL ZGEMM( 'C', 'N', 2, 0, 0, ALPHA, A, 1, B, 1, BETA, C, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zgemm('C', 'N', 2, 0, 0, ALPHA, A, 1, B, 1, BETA, C, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 13
-      CALL ZGEMM( 'C', 'C', 2, 0, 0, ALPHA, A, 1, B, 1, BETA, C, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zgemm('C', 'C', 2, 0, 0, ALPHA, A, 1, B, 1, BETA, C, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 13
-      CALL ZGEMM( 'C', 'T', 2, 0, 0, ALPHA, A, 1, B, 1, BETA, C, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zgemm('C', 'T', 2, 0, 0, ALPHA, A, 1, B, 1, BETA, C, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 13
-      CALL ZGEMM( 'T', 'N', 2, 0, 0, ALPHA, A, 1, B, 1, BETA, C, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zgemm('T', 'N', 2, 0, 0, ALPHA, A, 1, B, 1, BETA, C, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 13
-      CALL ZGEMM( 'T', 'C', 2, 0, 0, ALPHA, A, 1, B, 1, BETA, C, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zgemm('T', 'C', 2, 0, 0, ALPHA, A, 1, B, 1, BETA, C, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 13
-      CALL ZGEMM( 'T', 'T', 2, 0, 0, ALPHA, A, 1, B, 1, BETA, C, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zgemm('T', 'T', 2, 0, 0, ALPHA, A, 1, B, 1, BETA, C, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       GO TO 100
    20 INFOT = 1
-      CALL ZHEMM( '/', 'U', 0, 0, ALPHA, A, 1, B, 1, BETA, C, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zhemm('/', 'U', 0, 0, ALPHA, A, 1, B, 1, BETA, C, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 2
-      CALL ZHEMM( 'L', '/', 0, 0, ALPHA, A, 1, B, 1, BETA, C, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zhemm('L', '/', 0, 0, ALPHA, A, 1, B, 1, BETA, C, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 3
-      CALL ZHEMM( 'L', 'U', -1, 0, ALPHA, A, 1, B, 1, BETA, C, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zhemm('L', 'U', -1, 0, ALPHA, A, 1, B, 1, BETA, C, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 3
-      CALL ZHEMM( 'R', 'U', -1, 0, ALPHA, A, 1, B, 1, BETA, C, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zhemm('R', 'U', -1, 0, ALPHA, A, 1, B, 1, BETA, C, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 3
-      CALL ZHEMM( 'L', 'L', -1, 0, ALPHA, A, 1, B, 1, BETA, C, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zhemm('L', 'L', -1, 0, ALPHA, A, 1, B, 1, BETA, C, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 3
-      CALL ZHEMM( 'R', 'L', -1, 0, ALPHA, A, 1, B, 1, BETA, C, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zhemm('R', 'L', -1, 0, ALPHA, A, 1, B, 1, BETA, C, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 4
-      CALL ZHEMM( 'L', 'U', 0, -1, ALPHA, A, 1, B, 1, BETA, C, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zhemm('L', 'U', 0, -1, ALPHA, A, 1, B, 1, BETA, C, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 4
-      CALL ZHEMM( 'R', 'U', 0, -1, ALPHA, A, 1, B, 1, BETA, C, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zhemm('R', 'U', 0, -1, ALPHA, A, 1, B, 1, BETA, C, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 4
-      CALL ZHEMM( 'L', 'L', 0, -1, ALPHA, A, 1, B, 1, BETA, C, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zhemm('L', 'L', 0, -1, ALPHA, A, 1, B, 1, BETA, C, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 4
-      CALL ZHEMM( 'R', 'L', 0, -1, ALPHA, A, 1, B, 1, BETA, C, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zhemm('R', 'L', 0, -1, ALPHA, A, 1, B, 1, BETA, C, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 7
-      CALL ZHEMM( 'L', 'U', 2, 0, ALPHA, A, 1, B, 2, BETA, C, 2 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zhemm('L', 'U', 2, 0, ALPHA, A, 1, B, 2, BETA, C, 2 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 7
-      CALL ZHEMM( 'R', 'U', 0, 2, ALPHA, A, 1, B, 1, BETA, C, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zhemm('R', 'U', 0, 2, ALPHA, A, 1, B, 1, BETA, C, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 7
-      CALL ZHEMM( 'L', 'L', 2, 0, ALPHA, A, 1, B, 2, BETA, C, 2 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zhemm('L', 'L', 2, 0, ALPHA, A, 1, B, 2, BETA, C, 2 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 7
-      CALL ZHEMM( 'R', 'L', 0, 2, ALPHA, A, 1, B, 1, BETA, C, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zhemm('R', 'L', 0, 2, ALPHA, A, 1, B, 1, BETA, C, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 9
-      CALL ZHEMM( 'L', 'U', 2, 0, ALPHA, A, 2, B, 1, BETA, C, 2 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zhemm('L', 'U', 2, 0, ALPHA, A, 2, B, 1, BETA, C, 2 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 9
-      CALL ZHEMM( 'R', 'U', 2, 0, ALPHA, A, 1, B, 1, BETA, C, 2 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zhemm('R', 'U', 2, 0, ALPHA, A, 1, B, 1, BETA, C, 2 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 9
-      CALL ZHEMM( 'L', 'L', 2, 0, ALPHA, A, 2, B, 1, BETA, C, 2 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zhemm('L', 'L', 2, 0, ALPHA, A, 2, B, 1, BETA, C, 2 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 9
-      CALL ZHEMM( 'R', 'L', 2, 0, ALPHA, A, 1, B, 1, BETA, C, 2 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zhemm('R', 'L', 2, 0, ALPHA, A, 1, B, 1, BETA, C, 2 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 12
-      CALL ZHEMM( 'L', 'U', 2, 0, ALPHA, A, 2, B, 2, BETA, C, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zhemm('L', 'U', 2, 0, ALPHA, A, 2, B, 2, BETA, C, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 12
-      CALL ZHEMM( 'R', 'U', 2, 0, ALPHA, A, 1, B, 2, BETA, C, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zhemm('R', 'U', 2, 0, ALPHA, A, 1, B, 2, BETA, C, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 12
-      CALL ZHEMM( 'L', 'L', 2, 0, ALPHA, A, 2, B, 2, BETA, C, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zhemm('L', 'L', 2, 0, ALPHA, A, 2, B, 2, BETA, C, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 12
-      CALL ZHEMM( 'R', 'L', 2, 0, ALPHA, A, 1, B, 2, BETA, C, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zhemm('R', 'L', 2, 0, ALPHA, A, 1, B, 2, BETA, C, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       GO TO 100
    30 INFOT = 1
-      CALL ZSYMM( '/', 'U', 0, 0, ALPHA, A, 1, B, 1, BETA, C, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zsymm('/', 'U', 0, 0, ALPHA, A, 1, B, 1, BETA, C, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 2
-      CALL ZSYMM( 'L', '/', 0, 0, ALPHA, A, 1, B, 1, BETA, C, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zsymm('L', '/', 0, 0, ALPHA, A, 1, B, 1, BETA, C, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 3
-      CALL ZSYMM( 'L', 'U', -1, 0, ALPHA, A, 1, B, 1, BETA, C, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zsymm('L', 'U', -1, 0, ALPHA, A, 1, B, 1, BETA, C, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 3
-      CALL ZSYMM( 'R', 'U', -1, 0, ALPHA, A, 1, B, 1, BETA, C, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zsymm('R', 'U', -1, 0, ALPHA, A, 1, B, 1, BETA, C, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 3
-      CALL ZSYMM( 'L', 'L', -1, 0, ALPHA, A, 1, B, 1, BETA, C, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zsymm('L', 'L', -1, 0, ALPHA, A, 1, B, 1, BETA, C, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 3
-      CALL ZSYMM( 'R', 'L', -1, 0, ALPHA, A, 1, B, 1, BETA, C, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zsymm('R', 'L', -1, 0, ALPHA, A, 1, B, 1, BETA, C, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 4
-      CALL ZSYMM( 'L', 'U', 0, -1, ALPHA, A, 1, B, 1, BETA, C, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zsymm('L', 'U', 0, -1, ALPHA, A, 1, B, 1, BETA, C, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 4
-      CALL ZSYMM( 'R', 'U', 0, -1, ALPHA, A, 1, B, 1, BETA, C, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zsymm('R', 'U', 0, -1, ALPHA, A, 1, B, 1, BETA, C, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 4
-      CALL ZSYMM( 'L', 'L', 0, -1, ALPHA, A, 1, B, 1, BETA, C, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zsymm('L', 'L', 0, -1, ALPHA, A, 1, B, 1, BETA, C, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 4
-      CALL ZSYMM( 'R', 'L', 0, -1, ALPHA, A, 1, B, 1, BETA, C, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zsymm('R', 'L', 0, -1, ALPHA, A, 1, B, 1, BETA, C, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 7
-      CALL ZSYMM( 'L', 'U', 2, 0, ALPHA, A, 1, B, 2, BETA, C, 2 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zsymm('L', 'U', 2, 0, ALPHA, A, 1, B, 2, BETA, C, 2 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 7
-      CALL ZSYMM( 'R', 'U', 0, 2, ALPHA, A, 1, B, 1, BETA, C, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zsymm('R', 'U', 0, 2, ALPHA, A, 1, B, 1, BETA, C, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 7
-      CALL ZSYMM( 'L', 'L', 2, 0, ALPHA, A, 1, B, 2, BETA, C, 2 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zsymm('L', 'L', 2, 0, ALPHA, A, 1, B, 2, BETA, C, 2 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 7
-      CALL ZSYMM( 'R', 'L', 0, 2, ALPHA, A, 1, B, 1, BETA, C, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zsymm('R', 'L', 0, 2, ALPHA, A, 1, B, 1, BETA, C, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 9
-      CALL ZSYMM( 'L', 'U', 2, 0, ALPHA, A, 2, B, 1, BETA, C, 2 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zsymm('L', 'U', 2, 0, ALPHA, A, 2, B, 1, BETA, C, 2 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 9
-      CALL ZSYMM( 'R', 'U', 2, 0, ALPHA, A, 1, B, 1, BETA, C, 2 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zsymm('R', 'U', 2, 0, ALPHA, A, 1, B, 1, BETA, C, 2 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 9
-      CALL ZSYMM( 'L', 'L', 2, 0, ALPHA, A, 2, B, 1, BETA, C, 2 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zsymm('L', 'L', 2, 0, ALPHA, A, 2, B, 1, BETA, C, 2 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 9
-      CALL ZSYMM( 'R', 'L', 2, 0, ALPHA, A, 1, B, 1, BETA, C, 2 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zsymm('R', 'L', 2, 0, ALPHA, A, 1, B, 1, BETA, C, 2 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 12
-      CALL ZSYMM( 'L', 'U', 2, 0, ALPHA, A, 2, B, 2, BETA, C, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zsymm('L', 'U', 2, 0, ALPHA, A, 2, B, 2, BETA, C, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 12
-      CALL ZSYMM( 'R', 'U', 2, 0, ALPHA, A, 1, B, 2, BETA, C, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zsymm('R', 'U', 2, 0, ALPHA, A, 1, B, 2, BETA, C, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 12
-      CALL ZSYMM( 'L', 'L', 2, 0, ALPHA, A, 2, B, 2, BETA, C, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zsymm('L', 'L', 2, 0, ALPHA, A, 2, B, 2, BETA, C, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 12
-      CALL ZSYMM( 'R', 'L', 2, 0, ALPHA, A, 1, B, 2, BETA, C, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zsymm('R', 'L', 2, 0, ALPHA, A, 1, B, 2, BETA, C, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       GO TO 100
    40 INFOT = 1
-      CALL ZTRMM( '/', 'U', 'N', 'N', 0, 0, ALPHA, A, 1, B, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ztrmm('/', 'U', 'N', 'N', 0, 0, ALPHA, A, 1, B, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 2
-      CALL ZTRMM( 'L', '/', 'N', 'N', 0, 0, ALPHA, A, 1, B, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ztrmm('L', '/', 'N', 'N', 0, 0, ALPHA, A, 1, B, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 3
-      CALL ZTRMM( 'L', 'U', '/', 'N', 0, 0, ALPHA, A, 1, B, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ztrmm('L', 'U', '/', 'N', 0, 0, ALPHA, A, 1, B, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 4
-      CALL ZTRMM( 'L', 'U', 'N', '/', 0, 0, ALPHA, A, 1, B, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ztrmm('L', 'U', 'N', '/', 0, 0, ALPHA, A, 1, B, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 5
-      CALL ZTRMM( 'L', 'U', 'N', 'N', -1, 0, ALPHA, A, 1, B, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ztrmm('L', 'U', 'N', 'N', -1, 0, ALPHA, A, 1, B, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 5
-      CALL ZTRMM( 'L', 'U', 'C', 'N', -1, 0, ALPHA, A, 1, B, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ztrmm('L', 'U', 'C', 'N', -1, 0, ALPHA, A, 1, B, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 5
-      CALL ZTRMM( 'L', 'U', 'T', 'N', -1, 0, ALPHA, A, 1, B, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ztrmm('L', 'U', 'T', 'N', -1, 0, ALPHA, A, 1, B, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 5
-      CALL ZTRMM( 'R', 'U', 'N', 'N', -1, 0, ALPHA, A, 1, B, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ztrmm('R', 'U', 'N', 'N', -1, 0, ALPHA, A, 1, B, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 5
-      CALL ZTRMM( 'R', 'U', 'C', 'N', -1, 0, ALPHA, A, 1, B, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ztrmm('R', 'U', 'C', 'N', -1, 0, ALPHA, A, 1, B, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 5
-      CALL ZTRMM( 'R', 'U', 'T', 'N', -1, 0, ALPHA, A, 1, B, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ztrmm('R', 'U', 'T', 'N', -1, 0, ALPHA, A, 1, B, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 5
-      CALL ZTRMM( 'L', 'L', 'N', 'N', -1, 0, ALPHA, A, 1, B, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ztrmm('L', 'L', 'N', 'N', -1, 0, ALPHA, A, 1, B, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 5
-      CALL ZTRMM( 'L', 'L', 'C', 'N', -1, 0, ALPHA, A, 1, B, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ztrmm('L', 'L', 'C', 'N', -1, 0, ALPHA, A, 1, B, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 5
-      CALL ZTRMM( 'L', 'L', 'T', 'N', -1, 0, ALPHA, A, 1, B, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ztrmm('L', 'L', 'T', 'N', -1, 0, ALPHA, A, 1, B, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 5
-      CALL ZTRMM( 'R', 'L', 'N', 'N', -1, 0, ALPHA, A, 1, B, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ztrmm('R', 'L', 'N', 'N', -1, 0, ALPHA, A, 1, B, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 5
-      CALL ZTRMM( 'R', 'L', 'C', 'N', -1, 0, ALPHA, A, 1, B, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ztrmm('R', 'L', 'C', 'N', -1, 0, ALPHA, A, 1, B, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 5
-      CALL ZTRMM( 'R', 'L', 'T', 'N', -1, 0, ALPHA, A, 1, B, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ztrmm('R', 'L', 'T', 'N', -1, 0, ALPHA, A, 1, B, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 6
-      CALL ZTRMM( 'L', 'U', 'N', 'N', 0, -1, ALPHA, A, 1, B, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ztrmm('L', 'U', 'N', 'N', 0, -1, ALPHA, A, 1, B, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 6
-      CALL ZTRMM( 'L', 'U', 'C', 'N', 0, -1, ALPHA, A, 1, B, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ztrmm('L', 'U', 'C', 'N', 0, -1, ALPHA, A, 1, B, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 6
-      CALL ZTRMM( 'L', 'U', 'T', 'N', 0, -1, ALPHA, A, 1, B, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ztrmm('L', 'U', 'T', 'N', 0, -1, ALPHA, A, 1, B, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 6
-      CALL ZTRMM( 'R', 'U', 'N', 'N', 0, -1, ALPHA, A, 1, B, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ztrmm('R', 'U', 'N', 'N', 0, -1, ALPHA, A, 1, B, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 6
-      CALL ZTRMM( 'R', 'U', 'C', 'N', 0, -1, ALPHA, A, 1, B, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ztrmm('R', 'U', 'C', 'N', 0, -1, ALPHA, A, 1, B, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 6
-      CALL ZTRMM( 'R', 'U', 'T', 'N', 0, -1, ALPHA, A, 1, B, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ztrmm('R', 'U', 'T', 'N', 0, -1, ALPHA, A, 1, B, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 6
-      CALL ZTRMM( 'L', 'L', 'N', 'N', 0, -1, ALPHA, A, 1, B, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ztrmm('L', 'L', 'N', 'N', 0, -1, ALPHA, A, 1, B, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 6
-      CALL ZTRMM( 'L', 'L', 'C', 'N', 0, -1, ALPHA, A, 1, B, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ztrmm('L', 'L', 'C', 'N', 0, -1, ALPHA, A, 1, B, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 6
-      CALL ZTRMM( 'L', 'L', 'T', 'N', 0, -1, ALPHA, A, 1, B, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ztrmm('L', 'L', 'T', 'N', 0, -1, ALPHA, A, 1, B, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 6
-      CALL ZTRMM( 'R', 'L', 'N', 'N', 0, -1, ALPHA, A, 1, B, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ztrmm('R', 'L', 'N', 'N', 0, -1, ALPHA, A, 1, B, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 6
-      CALL ZTRMM( 'R', 'L', 'C', 'N', 0, -1, ALPHA, A, 1, B, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ztrmm('R', 'L', 'C', 'N', 0, -1, ALPHA, A, 1, B, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 6
-      CALL ZTRMM( 'R', 'L', 'T', 'N', 0, -1, ALPHA, A, 1, B, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ztrmm('R', 'L', 'T', 'N', 0, -1, ALPHA, A, 1, B, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 9
-      CALL ZTRMM( 'L', 'U', 'N', 'N', 2, 0, ALPHA, A, 1, B, 2 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ztrmm('L', 'U', 'N', 'N', 2, 0, ALPHA, A, 1, B, 2 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 9
-      CALL ZTRMM( 'L', 'U', 'C', 'N', 2, 0, ALPHA, A, 1, B, 2 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ztrmm('L', 'U', 'C', 'N', 2, 0, ALPHA, A, 1, B, 2 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 9
-      CALL ZTRMM( 'L', 'U', 'T', 'N', 2, 0, ALPHA, A, 1, B, 2 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ztrmm('L', 'U', 'T', 'N', 2, 0, ALPHA, A, 1, B, 2 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 9
-      CALL ZTRMM( 'R', 'U', 'N', 'N', 0, 2, ALPHA, A, 1, B, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ztrmm('R', 'U', 'N', 'N', 0, 2, ALPHA, A, 1, B, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 9
-      CALL ZTRMM( 'R', 'U', 'C', 'N', 0, 2, ALPHA, A, 1, B, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ztrmm('R', 'U', 'C', 'N', 0, 2, ALPHA, A, 1, B, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 9
-      CALL ZTRMM( 'R', 'U', 'T', 'N', 0, 2, ALPHA, A, 1, B, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ztrmm('R', 'U', 'T', 'N', 0, 2, ALPHA, A, 1, B, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 9
-      CALL ZTRMM( 'L', 'L', 'N', 'N', 2, 0, ALPHA, A, 1, B, 2 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ztrmm('L', 'L', 'N', 'N', 2, 0, ALPHA, A, 1, B, 2 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 9
-      CALL ZTRMM( 'L', 'L', 'C', 'N', 2, 0, ALPHA, A, 1, B, 2 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ztrmm('L', 'L', 'C', 'N', 2, 0, ALPHA, A, 1, B, 2 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 9
-      CALL ZTRMM( 'L', 'L', 'T', 'N', 2, 0, ALPHA, A, 1, B, 2 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ztrmm('L', 'L', 'T', 'N', 2, 0, ALPHA, A, 1, B, 2 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 9
-      CALL ZTRMM( 'R', 'L', 'N', 'N', 0, 2, ALPHA, A, 1, B, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ztrmm('R', 'L', 'N', 'N', 0, 2, ALPHA, A, 1, B, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 9
-      CALL ZTRMM( 'R', 'L', 'C', 'N', 0, 2, ALPHA, A, 1, B, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ztrmm('R', 'L', 'C', 'N', 0, 2, ALPHA, A, 1, B, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 9
-      CALL ZTRMM( 'R', 'L', 'T', 'N', 0, 2, ALPHA, A, 1, B, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ztrmm('R', 'L', 'T', 'N', 0, 2, ALPHA, A, 1, B, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 11
-      CALL ZTRMM( 'L', 'U', 'N', 'N', 2, 0, ALPHA, A, 2, B, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ztrmm('L', 'U', 'N', 'N', 2, 0, ALPHA, A, 2, B, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 11
-      CALL ZTRMM( 'L', 'U', 'C', 'N', 2, 0, ALPHA, A, 2, B, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ztrmm('L', 'U', 'C', 'N', 2, 0, ALPHA, A, 2, B, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 11
-      CALL ZTRMM( 'L', 'U', 'T', 'N', 2, 0, ALPHA, A, 2, B, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ztrmm('L', 'U', 'T', 'N', 2, 0, ALPHA, A, 2, B, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 11
-      CALL ZTRMM( 'R', 'U', 'N', 'N', 2, 0, ALPHA, A, 1, B, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ztrmm('R', 'U', 'N', 'N', 2, 0, ALPHA, A, 1, B, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 11
-      CALL ZTRMM( 'R', 'U', 'C', 'N', 2, 0, ALPHA, A, 1, B, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ztrmm('R', 'U', 'C', 'N', 2, 0, ALPHA, A, 1, B, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 11
-      CALL ZTRMM( 'R', 'U', 'T', 'N', 2, 0, ALPHA, A, 1, B, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ztrmm('R', 'U', 'T', 'N', 2, 0, ALPHA, A, 1, B, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 11
-      CALL ZTRMM( 'L', 'L', 'N', 'N', 2, 0, ALPHA, A, 2, B, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ztrmm('L', 'L', 'N', 'N', 2, 0, ALPHA, A, 2, B, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 11
-      CALL ZTRMM( 'L', 'L', 'C', 'N', 2, 0, ALPHA, A, 2, B, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ztrmm('L', 'L', 'C', 'N', 2, 0, ALPHA, A, 2, B, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 11
-      CALL ZTRMM( 'L', 'L', 'T', 'N', 2, 0, ALPHA, A, 2, B, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ztrmm('L', 'L', 'T', 'N', 2, 0, ALPHA, A, 2, B, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 11
-      CALL ZTRMM( 'R', 'L', 'N', 'N', 2, 0, ALPHA, A, 1, B, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ztrmm('R', 'L', 'N', 'N', 2, 0, ALPHA, A, 1, B, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 11
-      CALL ZTRMM( 'R', 'L', 'C', 'N', 2, 0, ALPHA, A, 1, B, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ztrmm('R', 'L', 'C', 'N', 2, 0, ALPHA, A, 1, B, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 11
-      CALL ZTRMM( 'R', 'L', 'T', 'N', 2, 0, ALPHA, A, 1, B, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ztrmm('R', 'L', 'T', 'N', 2, 0, ALPHA, A, 1, B, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       GO TO 100
    50 INFOT = 1
-      CALL ZTRSM( '/', 'U', 'N', 'N', 0, 0, ALPHA, A, 1, B, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ztrsm('/', 'U', 'N', 'N', 0, 0, ALPHA, A, 1, B, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 2
-      CALL ZTRSM( 'L', '/', 'N', 'N', 0, 0, ALPHA, A, 1, B, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ztrsm('L', '/', 'N', 'N', 0, 0, ALPHA, A, 1, B, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 3
-      CALL ZTRSM( 'L', 'U', '/', 'N', 0, 0, ALPHA, A, 1, B, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ztrsm('L', 'U', '/', 'N', 0, 0, ALPHA, A, 1, B, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 4
-      CALL ZTRSM( 'L', 'U', 'N', '/', 0, 0, ALPHA, A, 1, B, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ztrsm('L', 'U', 'N', '/', 0, 0, ALPHA, A, 1, B, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 5
-      CALL ZTRSM( 'L', 'U', 'N', 'N', -1, 0, ALPHA, A, 1, B, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ztrsm('L', 'U', 'N', 'N', -1, 0, ALPHA, A, 1, B, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 5
-      CALL ZTRSM( 'L', 'U', 'C', 'N', -1, 0, ALPHA, A, 1, B, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ztrsm('L', 'U', 'C', 'N', -1, 0, ALPHA, A, 1, B, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 5
-      CALL ZTRSM( 'L', 'U', 'T', 'N', -1, 0, ALPHA, A, 1, B, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ztrsm('L', 'U', 'T', 'N', -1, 0, ALPHA, A, 1, B, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 5
-      CALL ZTRSM( 'R', 'U', 'N', 'N', -1, 0, ALPHA, A, 1, B, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ztrsm('R', 'U', 'N', 'N', -1, 0, ALPHA, A, 1, B, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 5
-      CALL ZTRSM( 'R', 'U', 'C', 'N', -1, 0, ALPHA, A, 1, B, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ztrsm('R', 'U', 'C', 'N', -1, 0, ALPHA, A, 1, B, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 5
-      CALL ZTRSM( 'R', 'U', 'T', 'N', -1, 0, ALPHA, A, 1, B, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ztrsm('R', 'U', 'T', 'N', -1, 0, ALPHA, A, 1, B, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 5
-      CALL ZTRSM( 'L', 'L', 'N', 'N', -1, 0, ALPHA, A, 1, B, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ztrsm('L', 'L', 'N', 'N', -1, 0, ALPHA, A, 1, B, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 5
-      CALL ZTRSM( 'L', 'L', 'C', 'N', -1, 0, ALPHA, A, 1, B, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ztrsm('L', 'L', 'C', 'N', -1, 0, ALPHA, A, 1, B, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 5
-      CALL ZTRSM( 'L', 'L', 'T', 'N', -1, 0, ALPHA, A, 1, B, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ztrsm('L', 'L', 'T', 'N', -1, 0, ALPHA, A, 1, B, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 5
-      CALL ZTRSM( 'R', 'L', 'N', 'N', -1, 0, ALPHA, A, 1, B, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ztrsm('R', 'L', 'N', 'N', -1, 0, ALPHA, A, 1, B, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 5
-      CALL ZTRSM( 'R', 'L', 'C', 'N', -1, 0, ALPHA, A, 1, B, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ztrsm('R', 'L', 'C', 'N', -1, 0, ALPHA, A, 1, B, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 5
-      CALL ZTRSM( 'R', 'L', 'T', 'N', -1, 0, ALPHA, A, 1, B, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ztrsm('R', 'L', 'T', 'N', -1, 0, ALPHA, A, 1, B, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 6
-      CALL ZTRSM( 'L', 'U', 'N', 'N', 0, -1, ALPHA, A, 1, B, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ztrsm('L', 'U', 'N', 'N', 0, -1, ALPHA, A, 1, B, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 6
-      CALL ZTRSM( 'L', 'U', 'C', 'N', 0, -1, ALPHA, A, 1, B, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ztrsm('L', 'U', 'C', 'N', 0, -1, ALPHA, A, 1, B, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 6
-      CALL ZTRSM( 'L', 'U', 'T', 'N', 0, -1, ALPHA, A, 1, B, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ztrsm('L', 'U', 'T', 'N', 0, -1, ALPHA, A, 1, B, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 6
-      CALL ZTRSM( 'R', 'U', 'N', 'N', 0, -1, ALPHA, A, 1, B, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ztrsm('R', 'U', 'N', 'N', 0, -1, ALPHA, A, 1, B, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 6
-      CALL ZTRSM( 'R', 'U', 'C', 'N', 0, -1, ALPHA, A, 1, B, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ztrsm('R', 'U', 'C', 'N', 0, -1, ALPHA, A, 1, B, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 6
-      CALL ZTRSM( 'R', 'U', 'T', 'N', 0, -1, ALPHA, A, 1, B, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ztrsm('R', 'U', 'T', 'N', 0, -1, ALPHA, A, 1, B, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 6
-      CALL ZTRSM( 'L', 'L', 'N', 'N', 0, -1, ALPHA, A, 1, B, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ztrsm('L', 'L', 'N', 'N', 0, -1, ALPHA, A, 1, B, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 6
-      CALL ZTRSM( 'L', 'L', 'C', 'N', 0, -1, ALPHA, A, 1, B, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ztrsm('L', 'L', 'C', 'N', 0, -1, ALPHA, A, 1, B, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 6
-      CALL ZTRSM( 'L', 'L', 'T', 'N', 0, -1, ALPHA, A, 1, B, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ztrsm('L', 'L', 'T', 'N', 0, -1, ALPHA, A, 1, B, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 6
-      CALL ZTRSM( 'R', 'L', 'N', 'N', 0, -1, ALPHA, A, 1, B, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ztrsm('R', 'L', 'N', 'N', 0, -1, ALPHA, A, 1, B, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 6
-      CALL ZTRSM( 'R', 'L', 'C', 'N', 0, -1, ALPHA, A, 1, B, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ztrsm('R', 'L', 'C', 'N', 0, -1, ALPHA, A, 1, B, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 6
-      CALL ZTRSM( 'R', 'L', 'T', 'N', 0, -1, ALPHA, A, 1, B, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ztrsm('R', 'L', 'T', 'N', 0, -1, ALPHA, A, 1, B, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 9
-      CALL ZTRSM( 'L', 'U', 'N', 'N', 2, 0, ALPHA, A, 1, B, 2 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ztrsm('L', 'U', 'N', 'N', 2, 0, ALPHA, A, 1, B, 2 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 9
-      CALL ZTRSM( 'L', 'U', 'C', 'N', 2, 0, ALPHA, A, 1, B, 2 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ztrsm('L', 'U', 'C', 'N', 2, 0, ALPHA, A, 1, B, 2 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 9
-      CALL ZTRSM( 'L', 'U', 'T', 'N', 2, 0, ALPHA, A, 1, B, 2 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ztrsm('L', 'U', 'T', 'N', 2, 0, ALPHA, A, 1, B, 2 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 9
-      CALL ZTRSM( 'R', 'U', 'N', 'N', 0, 2, ALPHA, A, 1, B, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ztrsm('R', 'U', 'N', 'N', 0, 2, ALPHA, A, 1, B, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 9
-      CALL ZTRSM( 'R', 'U', 'C', 'N', 0, 2, ALPHA, A, 1, B, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ztrsm('R', 'U', 'C', 'N', 0, 2, ALPHA, A, 1, B, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 9
-      CALL ZTRSM( 'R', 'U', 'T', 'N', 0, 2, ALPHA, A, 1, B, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ztrsm('R', 'U', 'T', 'N', 0, 2, ALPHA, A, 1, B, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 9
-      CALL ZTRSM( 'L', 'L', 'N', 'N', 2, 0, ALPHA, A, 1, B, 2 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ztrsm('L', 'L', 'N', 'N', 2, 0, ALPHA, A, 1, B, 2 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 9
-      CALL ZTRSM( 'L', 'L', 'C', 'N', 2, 0, ALPHA, A, 1, B, 2 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ztrsm('L', 'L', 'C', 'N', 2, 0, ALPHA, A, 1, B, 2 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 9
-      CALL ZTRSM( 'L', 'L', 'T', 'N', 2, 0, ALPHA, A, 1, B, 2 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ztrsm('L', 'L', 'T', 'N', 2, 0, ALPHA, A, 1, B, 2 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 9
-      CALL ZTRSM( 'R', 'L', 'N', 'N', 0, 2, ALPHA, A, 1, B, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ztrsm('R', 'L', 'N', 'N', 0, 2, ALPHA, A, 1, B, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 9
-      CALL ZTRSM( 'R', 'L', 'C', 'N', 0, 2, ALPHA, A, 1, B, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ztrsm('R', 'L', 'C', 'N', 0, 2, ALPHA, A, 1, B, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 9
-      CALL ZTRSM( 'R', 'L', 'T', 'N', 0, 2, ALPHA, A, 1, B, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ztrsm('R', 'L', 'T', 'N', 0, 2, ALPHA, A, 1, B, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 11
-      CALL ZTRSM( 'L', 'U', 'N', 'N', 2, 0, ALPHA, A, 2, B, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ztrsm('L', 'U', 'N', 'N', 2, 0, ALPHA, A, 2, B, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 11
-      CALL ZTRSM( 'L', 'U', 'C', 'N', 2, 0, ALPHA, A, 2, B, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ztrsm('L', 'U', 'C', 'N', 2, 0, ALPHA, A, 2, B, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 11
-      CALL ZTRSM( 'L', 'U', 'T', 'N', 2, 0, ALPHA, A, 2, B, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ztrsm('L', 'U', 'T', 'N', 2, 0, ALPHA, A, 2, B, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 11
-      CALL ZTRSM( 'R', 'U', 'N', 'N', 2, 0, ALPHA, A, 1, B, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ztrsm('R', 'U', 'N', 'N', 2, 0, ALPHA, A, 1, B, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 11
-      CALL ZTRSM( 'R', 'U', 'C', 'N', 2, 0, ALPHA, A, 1, B, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ztrsm('R', 'U', 'C', 'N', 2, 0, ALPHA, A, 1, B, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 11
-      CALL ZTRSM( 'R', 'U', 'T', 'N', 2, 0, ALPHA, A, 1, B, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ztrsm('R', 'U', 'T', 'N', 2, 0, ALPHA, A, 1, B, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 11
-      CALL ZTRSM( 'L', 'L', 'N', 'N', 2, 0, ALPHA, A, 2, B, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ztrsm('L', 'L', 'N', 'N', 2, 0, ALPHA, A, 2, B, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 11
-      CALL ZTRSM( 'L', 'L', 'C', 'N', 2, 0, ALPHA, A, 2, B, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ztrsm('L', 'L', 'C', 'N', 2, 0, ALPHA, A, 2, B, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 11
-      CALL ZTRSM( 'L', 'L', 'T', 'N', 2, 0, ALPHA, A, 2, B, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ztrsm('L', 'L', 'T', 'N', 2, 0, ALPHA, A, 2, B, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 11
-      CALL ZTRSM( 'R', 'L', 'N', 'N', 2, 0, ALPHA, A, 1, B, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ztrsm('R', 'L', 'N', 'N', 2, 0, ALPHA, A, 1, B, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 11
-      CALL ZTRSM( 'R', 'L', 'C', 'N', 2, 0, ALPHA, A, 1, B, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ztrsm('R', 'L', 'C', 'N', 2, 0, ALPHA, A, 1, B, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 11
-      CALL ZTRSM( 'R', 'L', 'T', 'N', 2, 0, ALPHA, A, 1, B, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ztrsm('R', 'L', 'T', 'N', 2, 0, ALPHA, A, 1, B, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       GO TO 100
    60 INFOT = 1
-      CALL ZHERK( '/', 'N', 0, 0, RALPHA, A, 1, RBETA, C, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zherk('/', 'N', 0, 0, RALPHA, A, 1, RBETA, C, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 2
-      CALL ZHERK( 'U', 'T', 0, 0, RALPHA, A, 1, RBETA, C, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zherk('U', 'T', 0, 0, RALPHA, A, 1, RBETA, C, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 3
-      CALL ZHERK( 'U', 'N', -1, 0, RALPHA, A, 1, RBETA, C, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zherk('U', 'N', -1, 0, RALPHA, A, 1, RBETA, C, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 3
-      CALL ZHERK( 'U', 'C', -1, 0, RALPHA, A, 1, RBETA, C, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zherk('U', 'C', -1, 0, RALPHA, A, 1, RBETA, C, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 3
-      CALL ZHERK( 'L', 'N', -1, 0, RALPHA, A, 1, RBETA, C, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zherk('L', 'N', -1, 0, RALPHA, A, 1, RBETA, C, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 3
-      CALL ZHERK( 'L', 'C', -1, 0, RALPHA, A, 1, RBETA, C, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zherk('L', 'C', -1, 0, RALPHA, A, 1, RBETA, C, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 4
-      CALL ZHERK( 'U', 'N', 0, -1, RALPHA, A, 1, RBETA, C, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zherk('U', 'N', 0, -1, RALPHA, A, 1, RBETA, C, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 4
-      CALL ZHERK( 'U', 'C', 0, -1, RALPHA, A, 1, RBETA, C, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zherk('U', 'C', 0, -1, RALPHA, A, 1, RBETA, C, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 4
-      CALL ZHERK( 'L', 'N', 0, -1, RALPHA, A, 1, RBETA, C, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zherk('L', 'N', 0, -1, RALPHA, A, 1, RBETA, C, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 4
-      CALL ZHERK( 'L', 'C', 0, -1, RALPHA, A, 1, RBETA, C, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zherk('L', 'C', 0, -1, RALPHA, A, 1, RBETA, C, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 7
-      CALL ZHERK( 'U', 'N', 2, 0, RALPHA, A, 1, RBETA, C, 2 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zherk('U', 'N', 2, 0, RALPHA, A, 1, RBETA, C, 2 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 7
-      CALL ZHERK( 'U', 'C', 0, 2, RALPHA, A, 1, RBETA, C, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zherk('U', 'C', 0, 2, RALPHA, A, 1, RBETA, C, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 7
-      CALL ZHERK( 'L', 'N', 2, 0, RALPHA, A, 1, RBETA, C, 2 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zherk('L', 'N', 2, 0, RALPHA, A, 1, RBETA, C, 2 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 7
-      CALL ZHERK( 'L', 'C', 0, 2, RALPHA, A, 1, RBETA, C, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zherk('L', 'C', 0, 2, RALPHA, A, 1, RBETA, C, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 10
-      CALL ZHERK( 'U', 'N', 2, 0, RALPHA, A, 2, RBETA, C, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zherk('U', 'N', 2, 0, RALPHA, A, 2, RBETA, C, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 10
-      CALL ZHERK( 'U', 'C', 2, 0, RALPHA, A, 1, RBETA, C, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zherk('U', 'C', 2, 0, RALPHA, A, 1, RBETA, C, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 10
-      CALL ZHERK( 'L', 'N', 2, 0, RALPHA, A, 2, RBETA, C, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zherk('L', 'N', 2, 0, RALPHA, A, 2, RBETA, C, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 10
-      CALL ZHERK( 'L', 'C', 2, 0, RALPHA, A, 1, RBETA, C, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zherk('L', 'C', 2, 0, RALPHA, A, 1, RBETA, C, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       GO TO 100
    70 INFOT = 1
-      CALL ZSYRK( '/', 'N', 0, 0, ALPHA, A, 1, BETA, C, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zsyrk('/', 'N', 0, 0, ALPHA, A, 1, BETA, C, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 2
-      CALL ZSYRK( 'U', 'C', 0, 0, ALPHA, A, 1, BETA, C, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zsyrk('U', 'C', 0, 0, ALPHA, A, 1, BETA, C, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 3
-      CALL ZSYRK( 'U', 'N', -1, 0, ALPHA, A, 1, BETA, C, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zsyrk('U', 'N', -1, 0, ALPHA, A, 1, BETA, C, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 3
-      CALL ZSYRK( 'U', 'T', -1, 0, ALPHA, A, 1, BETA, C, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zsyrk('U', 'T', -1, 0, ALPHA, A, 1, BETA, C, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 3
-      CALL ZSYRK( 'L', 'N', -1, 0, ALPHA, A, 1, BETA, C, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zsyrk('L', 'N', -1, 0, ALPHA, A, 1, BETA, C, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 3
-      CALL ZSYRK( 'L', 'T', -1, 0, ALPHA, A, 1, BETA, C, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zsyrk('L', 'T', -1, 0, ALPHA, A, 1, BETA, C, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 4
-      CALL ZSYRK( 'U', 'N', 0, -1, ALPHA, A, 1, BETA, C, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zsyrk('U', 'N', 0, -1, ALPHA, A, 1, BETA, C, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 4
-      CALL ZSYRK( 'U', 'T', 0, -1, ALPHA, A, 1, BETA, C, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zsyrk('U', 'T', 0, -1, ALPHA, A, 1, BETA, C, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 4
-      CALL ZSYRK( 'L', 'N', 0, -1, ALPHA, A, 1, BETA, C, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zsyrk('L', 'N', 0, -1, ALPHA, A, 1, BETA, C, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 4
-      CALL ZSYRK( 'L', 'T', 0, -1, ALPHA, A, 1, BETA, C, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zsyrk('L', 'T', 0, -1, ALPHA, A, 1, BETA, C, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 7
-      CALL ZSYRK( 'U', 'N', 2, 0, ALPHA, A, 1, BETA, C, 2 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zsyrk('U', 'N', 2, 0, ALPHA, A, 1, BETA, C, 2 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 7
-      CALL ZSYRK( 'U', 'T', 0, 2, ALPHA, A, 1, BETA, C, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zsyrk('U', 'T', 0, 2, ALPHA, A, 1, BETA, C, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 7
-      CALL ZSYRK( 'L', 'N', 2, 0, ALPHA, A, 1, BETA, C, 2 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zsyrk('L', 'N', 2, 0, ALPHA, A, 1, BETA, C, 2 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 7
-      CALL ZSYRK( 'L', 'T', 0, 2, ALPHA, A, 1, BETA, C, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zsyrk('L', 'T', 0, 2, ALPHA, A, 1, BETA, C, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 10
-      CALL ZSYRK( 'U', 'N', 2, 0, ALPHA, A, 2, BETA, C, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zsyrk('U', 'N', 2, 0, ALPHA, A, 2, BETA, C, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 10
-      CALL ZSYRK( 'U', 'T', 2, 0, ALPHA, A, 1, BETA, C, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zsyrk('U', 'T', 2, 0, ALPHA, A, 1, BETA, C, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 10
-      CALL ZSYRK( 'L', 'N', 2, 0, ALPHA, A, 2, BETA, C, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zsyrk('L', 'N', 2, 0, ALPHA, A, 2, BETA, C, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 10
-      CALL ZSYRK( 'L', 'T', 2, 0, ALPHA, A, 1, BETA, C, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zsyrk('L', 'T', 2, 0, ALPHA, A, 1, BETA, C, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       GO TO 100
    80 INFOT = 1
-      CALL ZHER2K( '/', 'N', 0, 0, ALPHA, A, 1, B, 1, RBETA, C, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zher2k('/', 'N', 0, 0, ALPHA, A, 1, B, 1, RBETA, C, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 2
-      CALL ZHER2K( 'U', 'T', 0, 0, ALPHA, A, 1, B, 1, RBETA, C, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zher2k('U', 'T', 0, 0, ALPHA, A, 1, B, 1, RBETA, C, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 3
-      CALL ZHER2K( 'U', 'N', -1, 0, ALPHA, A, 1, B, 1, RBETA, C, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zher2k('U', 'N', -1, 0, ALPHA, A, 1, B, 1, RBETA, C, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 3
-      CALL ZHER2K( 'U', 'C', -1, 0, ALPHA, A, 1, B, 1, RBETA, C, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zher2k('U', 'C', -1, 0, ALPHA, A, 1, B, 1, RBETA, C, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 3
-      CALL ZHER2K( 'L', 'N', -1, 0, ALPHA, A, 1, B, 1, RBETA, C, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zher2k('L', 'N', -1, 0, ALPHA, A, 1, B, 1, RBETA, C, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 3
-      CALL ZHER2K( 'L', 'C', -1, 0, ALPHA, A, 1, B, 1, RBETA, C, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zher2k('L', 'C', -1, 0, ALPHA, A, 1, B, 1, RBETA, C, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 4
-      CALL ZHER2K( 'U', 'N', 0, -1, ALPHA, A, 1, B, 1, RBETA, C, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zher2k('U', 'N', 0, -1, ALPHA, A, 1, B, 1, RBETA, C, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 4
-      CALL ZHER2K( 'U', 'C', 0, -1, ALPHA, A, 1, B, 1, RBETA, C, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zher2k('U', 'C', 0, -1, ALPHA, A, 1, B, 1, RBETA, C, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 4
-      CALL ZHER2K( 'L', 'N', 0, -1, ALPHA, A, 1, B, 1, RBETA, C, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zher2k('L', 'N', 0, -1, ALPHA, A, 1, B, 1, RBETA, C, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 4
-      CALL ZHER2K( 'L', 'C', 0, -1, ALPHA, A, 1, B, 1, RBETA, C, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zher2k('L', 'C', 0, -1, ALPHA, A, 1, B, 1, RBETA, C, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 7
-      CALL ZHER2K( 'U', 'N', 2, 0, ALPHA, A, 1, B, 1, RBETA, C, 2 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zher2k('U', 'N', 2, 0, ALPHA, A, 1, B, 1, RBETA, C, 2 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 7
-      CALL ZHER2K( 'U', 'C', 0, 2, ALPHA, A, 1, B, 1, RBETA, C, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zher2k('U', 'C', 0, 2, ALPHA, A, 1, B, 1, RBETA, C, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 7
-      CALL ZHER2K( 'L', 'N', 2, 0, ALPHA, A, 1, B, 1, RBETA, C, 2 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zher2k('L', 'N', 2, 0, ALPHA, A, 1, B, 1, RBETA, C, 2 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 7
-      CALL ZHER2K( 'L', 'C', 0, 2, ALPHA, A, 1, B, 1, RBETA, C, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zher2k('L', 'C', 0, 2, ALPHA, A, 1, B, 1, RBETA, C, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 9
-      CALL ZHER2K( 'U', 'N', 2, 0, ALPHA, A, 2, B, 1, RBETA, C, 2 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zher2k('U', 'N', 2, 0, ALPHA, A, 2, B, 1, RBETA, C, 2 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 9
-      CALL ZHER2K( 'U', 'C', 0, 2, ALPHA, A, 2, B, 1, RBETA, C, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zher2k('U', 'C', 0, 2, ALPHA, A, 2, B, 1, RBETA, C, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 9
-      CALL ZHER2K( 'L', 'N', 2, 0, ALPHA, A, 2, B, 1, RBETA, C, 2 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zher2k('L', 'N', 2, 0, ALPHA, A, 2, B, 1, RBETA, C, 2 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 9
-      CALL ZHER2K( 'L', 'C', 0, 2, ALPHA, A, 2, B, 1, RBETA, C, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zher2k('L', 'C', 0, 2, ALPHA, A, 2, B, 1, RBETA, C, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 12
-      CALL ZHER2K( 'U', 'N', 2, 0, ALPHA, A, 2, B, 2, RBETA, C, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zher2k('U', 'N', 2, 0, ALPHA, A, 2, B, 2, RBETA, C, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 12
-      CALL ZHER2K( 'U', 'C', 2, 0, ALPHA, A, 1, B, 1, RBETA, C, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zher2k('U', 'C', 2, 0, ALPHA, A, 1, B, 1, RBETA, C, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 12
-      CALL ZHER2K( 'L', 'N', 2, 0, ALPHA, A, 2, B, 2, RBETA, C, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zher2k('L', 'N', 2, 0, ALPHA, A, 2, B, 2, RBETA, C, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 12
-      CALL ZHER2K( 'L', 'C', 2, 0, ALPHA, A, 1, B, 1, RBETA, C, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zher2k('L', 'C', 2, 0, ALPHA, A, 1, B, 1, RBETA, C, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       GO TO 100
    90 INFOT = 1
-      CALL ZSYR2K( '/', 'N', 0, 0, ALPHA, A, 1, B, 1, BETA, C, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zsyr2k('/', 'N', 0, 0, ALPHA, A, 1, B, 1, BETA, C, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 2
-      CALL ZSYR2K( 'U', 'C', 0, 0, ALPHA, A, 1, B, 1, BETA, C, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zsyr2k('U', 'C', 0, 0, ALPHA, A, 1, B, 1, BETA, C, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 3
-      CALL ZSYR2K( 'U', 'N', -1, 0, ALPHA, A, 1, B, 1, BETA, C, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zsyr2k('U', 'N', -1, 0, ALPHA, A, 1, B, 1, BETA, C, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 3
-      CALL ZSYR2K( 'U', 'T', -1, 0, ALPHA, A, 1, B, 1, BETA, C, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zsyr2k('U', 'T', -1, 0, ALPHA, A, 1, B, 1, BETA, C, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 3
-      CALL ZSYR2K( 'L', 'N', -1, 0, ALPHA, A, 1, B, 1, BETA, C, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zsyr2k('L', 'N', -1, 0, ALPHA, A, 1, B, 1, BETA, C, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 3
-      CALL ZSYR2K( 'L', 'T', -1, 0, ALPHA, A, 1, B, 1, BETA, C, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zsyr2k('L', 'T', -1, 0, ALPHA, A, 1, B, 1, BETA, C, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 4
-      CALL ZSYR2K( 'U', 'N', 0, -1, ALPHA, A, 1, B, 1, BETA, C, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zsyr2k('U', 'N', 0, -1, ALPHA, A, 1, B, 1, BETA, C, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 4
-      CALL ZSYR2K( 'U', 'T', 0, -1, ALPHA, A, 1, B, 1, BETA, C, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zsyr2k('U', 'T', 0, -1, ALPHA, A, 1, B, 1, BETA, C, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 4
-      CALL ZSYR2K( 'L', 'N', 0, -1, ALPHA, A, 1, B, 1, BETA, C, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zsyr2k('L', 'N', 0, -1, ALPHA, A, 1, B, 1, BETA, C, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 4
-      CALL ZSYR2K( 'L', 'T', 0, -1, ALPHA, A, 1, B, 1, BETA, C, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zsyr2k('L', 'T', 0, -1, ALPHA, A, 1, B, 1, BETA, C, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 7
-      CALL ZSYR2K( 'U', 'N', 2, 0, ALPHA, A, 1, B, 1, BETA, C, 2 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zsyr2k('U', 'N', 2, 0, ALPHA, A, 1, B, 1, BETA, C, 2 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 7
-      CALL ZSYR2K( 'U', 'T', 0, 2, ALPHA, A, 1, B, 1, BETA, C, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zsyr2k('U', 'T', 0, 2, ALPHA, A, 1, B, 1, BETA, C, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 7
-      CALL ZSYR2K( 'L', 'N', 2, 0, ALPHA, A, 1, B, 1, BETA, C, 2 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zsyr2k('L', 'N', 2, 0, ALPHA, A, 1, B, 1, BETA, C, 2 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 7
-      CALL ZSYR2K( 'L', 'T', 0, 2, ALPHA, A, 1, B, 1, BETA, C, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zsyr2k('L', 'T', 0, 2, ALPHA, A, 1, B, 1, BETA, C, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 9
-      CALL ZSYR2K( 'U', 'N', 2, 0, ALPHA, A, 2, B, 1, BETA, C, 2 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zsyr2k('U', 'N', 2, 0, ALPHA, A, 2, B, 1, BETA, C, 2 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 9
-      CALL ZSYR2K( 'U', 'T', 0, 2, ALPHA, A, 2, B, 1, BETA, C, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zsyr2k('U', 'T', 0, 2, ALPHA, A, 2, B, 1, BETA, C, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 9
-      CALL ZSYR2K( 'L', 'N', 2, 0, ALPHA, A, 2, B, 1, BETA, C, 2 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zsyr2k('L', 'N', 2, 0, ALPHA, A, 2, B, 1, BETA, C, 2 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 9
-      CALL ZSYR2K( 'L', 'T', 0, 2, ALPHA, A, 2, B, 1, BETA, C, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zsyr2k('L', 'T', 0, 2, ALPHA, A, 2, B, 1, BETA, C, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 12
-      CALL ZSYR2K( 'U', 'N', 2, 0, ALPHA, A, 2, B, 2, BETA, C, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zsyr2k('U', 'N', 2, 0, ALPHA, A, 2, B, 2, BETA, C, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 12
-      CALL ZSYR2K( 'U', 'T', 2, 0, ALPHA, A, 1, B, 1, BETA, C, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zsyr2k('U', 'T', 2, 0, ALPHA, A, 1, B, 1, BETA, C, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 12
-      CALL ZSYR2K( 'L', 'N', 2, 0, ALPHA, A, 2, B, 2, BETA, C, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zsyr2k('L', 'N', 2, 0, ALPHA, A, 2, B, 2, BETA, C, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 12
-      CALL ZSYR2K( 'L', 'T', 2, 0, ALPHA, A, 1, B, 1, BETA, C, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      zsyr2k('L', 'T', 2, 0, ALPHA, A, 1, B, 1, BETA, C, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
 
   100 IF( OK )THEN
          WRITE( NOUT, FMT = 9999 )SRNAMT

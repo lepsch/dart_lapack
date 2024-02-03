@@ -84,7 +84,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'ZDRVSG', -INFO )
+         xerbla('ZDRVSG', -INFO );
          RETURN
       }
 
@@ -180,7 +180,7 @@
 
                KA = 0
                KB = 0
-               CALL ZLASET( 'Full', LDA, N, CZERO, CZERO, A, LDA )
+               zlaset('Full', LDA, N, CZERO, CZERO, A, LDA );
 
             } else if ( ITYPE.EQ.2 ) {
 
@@ -188,7 +188,7 @@
 
                KA = 0
                KB = 0
-               CALL ZLASET( 'Full', LDA, N, CZERO, CZERO, A, LDA )
+               zlaset('Full', LDA, N, CZERO, CZERO, A, LDA );
                DO 80 JCOL = 1, N
                   A( JCOL, JCOL ) = ANORM
    80          CONTINUE
@@ -199,7 +199,7 @@
 
                KA = 0
                KB = 0
-               CALL ZLATMS( N, N, 'S', ISEED, 'H', RWORK, IMODE, COND, ANORM, 0, 0, 'N', A, LDA, WORK, IINFO )
+               zlatms(N, N, 'S', ISEED, 'H', RWORK, IMODE, COND, ANORM, 0, 0, 'N', A, LDA, WORK, IINFO );
 
             } else if ( ITYPE.EQ.5 ) {
 
@@ -207,7 +207,7 @@
 
                KA = MAX( 0, N-1 )
                KB = KA
-               CALL ZLATMS( N, N, 'S', ISEED, 'H', RWORK, IMODE, COND, ANORM, N, N, 'N', A, LDA, WORK, IINFO )
+               zlatms(N, N, 'S', ISEED, 'H', RWORK, IMODE, COND, ANORM, N, N, 'N', A, LDA, WORK, IINFO );
 
             } else if ( ITYPE.EQ.7 ) {
 
@@ -215,7 +215,7 @@
 
                KA = 0
                KB = 0
-               CALL ZLATMR( N, N, 'S', ISEED, 'H', WORK, 6, ONE, CONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, 0, 0, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO )
+               zlatmr(N, N, 'S', ISEED, 'H', WORK, 6, ONE, CONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, 0, 0, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO );
 
             } else if ( ITYPE.EQ.8 ) {
 
@@ -223,7 +223,7 @@
 
                KA = MAX( 0, N-1 )
                KB = KA
-               CALL ZLATMR( N, N, 'S', ISEED, 'H', WORK, 6, ONE, CONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, N, N, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO )
+               zlatmr(N, N, 'S', ISEED, 'H', WORK, 6, ONE, CONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, N, N, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO );
 
             } else if ( ITYPE.EQ.9 ) {
 
@@ -245,7 +245,7 @@
                }
                KA = MAX( 0, MIN( N-1, KA9 ) )
                KB = MAX( 0, MIN( N-1, KB9 ) )
-               CALL ZLATMS( N, N, 'S', ISEED, 'H', RWORK, IMODE, COND, ANORM, KA, KA, 'N', A, LDA, WORK, IINFO )
+               zlatms(N, N, 'S', ISEED, 'H', RWORK, IMODE, COND, ANORM, KA, KA, 'N', A, LDA, WORK, IINFO );
 
             } else {
 
@@ -292,16 +292,16 @@
                   // Generate random well-conditioned positive definite
                   // matrix B, of bandwidth not greater than that of A.
 
-                  CALL ZLATMS( N, N, 'U', ISEED, 'P', RWORK, 5, TEN, ONE, KB, KB, UPLO, B, LDB, WORK( N+1 ), IINFO )
+                  zlatms(N, N, 'U', ISEED, 'P', RWORK, 5, TEN, ONE, KB, KB, UPLO, B, LDB, WORK( N+1 ), IINFO );
 
                   // Test ZHEGV
 
                   NTEST = NTEST + 1
 
-                  CALL ZLACPY( ' ', N, N, A, LDA, Z, LDZ )
-                  CALL ZLACPY( UPLO, N, N, B, LDB, BB, LDB )
+                  zlacpy(' ', N, N, A, LDA, Z, LDZ );
+                  zlacpy(UPLO, N, N, B, LDB, BB, LDB );
 
-                  CALL ZHEGV( IBTYPE, 'V', UPLO, N, Z, LDZ, BB, LDB, D, WORK, NWORK, RWORK, IINFO )
+                  zhegv(IBTYPE, 'V', UPLO, N, Z, LDZ, BB, LDB, D, WORK, NWORK, RWORK, IINFO );
                   if ( IINFO.NE.0 ) {
                      WRITE( NOUNIT, FMT = 9999 )'ZHEGV(V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                      INFO = ABS( IINFO )
@@ -315,16 +315,16 @@
 
                   // Do Test
 
-                  CALL ZSGT01( IBTYPE, UPLO, N, N, A, LDA, B, LDB, Z, LDZ, D, WORK, RWORK, RESULT( NTEST ) )
+                  zsgt01(IBTYPE, UPLO, N, N, A, LDA, B, LDB, Z, LDZ, D, WORK, RWORK, RESULT( NTEST ) );
 
                   // Test ZHEGVD
 
                   NTEST = NTEST + 1
 
-                  CALL ZLACPY( ' ', N, N, A, LDA, Z, LDZ )
-                  CALL ZLACPY( UPLO, N, N, B, LDB, BB, LDB )
+                  zlacpy(' ', N, N, A, LDA, Z, LDZ );
+                  zlacpy(UPLO, N, N, B, LDB, BB, LDB );
 
-                  CALL ZHEGVD( IBTYPE, 'V', UPLO, N, Z, LDZ, BB, LDB, D, WORK, NWORK, RWORK, LRWORK, IWORK, LIWORK, IINFO )
+                  zhegvd(IBTYPE, 'V', UPLO, N, Z, LDZ, BB, LDB, D, WORK, NWORK, RWORK, LRWORK, IWORK, LIWORK, IINFO );
                   if ( IINFO.NE.0 ) {
                      WRITE( NOUNIT, FMT = 9999 )'ZHEGVD(V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                      INFO = ABS( IINFO )
@@ -338,16 +338,16 @@
 
                   // Do Test
 
-                  CALL ZSGT01( IBTYPE, UPLO, N, N, A, LDA, B, LDB, Z, LDZ, D, WORK, RWORK, RESULT( NTEST ) )
+                  zsgt01(IBTYPE, UPLO, N, N, A, LDA, B, LDB, Z, LDZ, D, WORK, RWORK, RESULT( NTEST ) );
 
                   // Test ZHEGVX
 
                   NTEST = NTEST + 1
 
-                  CALL ZLACPY( ' ', N, N, A, LDA, AB, LDA )
-                  CALL ZLACPY( UPLO, N, N, B, LDB, BB, LDB )
+                  zlacpy(' ', N, N, A, LDA, AB, LDA );
+                  zlacpy(UPLO, N, N, B, LDB, BB, LDB );
 
-                  CALL ZHEGVX( IBTYPE, 'V', 'A', UPLO, N, AB, LDA, BB, LDB, VL, VU, IL, IU, ABSTOL, M, D, Z, LDZ, WORK, NWORK, RWORK, IWORK( N+1 ), IWORK, IINFO )
+                  zhegvx(IBTYPE, 'V', 'A', UPLO, N, AB, LDA, BB, LDB, VL, VU, IL, IU, ABSTOL, M, D, Z, LDZ, WORK, NWORK, RWORK, IWORK( N+1 ), IWORK, IINFO );
                   if ( IINFO.NE.0 ) {
                      WRITE( NOUNIT, FMT = 9999 )'ZHEGVX(V,A' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                      INFO = ABS( IINFO )
@@ -361,12 +361,12 @@
 
                   // Do Test
 
-                  CALL ZSGT01( IBTYPE, UPLO, N, N, A, LDA, B, LDB, Z, LDZ, D, WORK, RWORK, RESULT( NTEST ) )
+                  zsgt01(IBTYPE, UPLO, N, N, A, LDA, B, LDB, Z, LDZ, D, WORK, RWORK, RESULT( NTEST ) );
 
                   NTEST = NTEST + 1
 
-                  CALL ZLACPY( ' ', N, N, A, LDA, AB, LDA )
-                  CALL ZLACPY( UPLO, N, N, B, LDB, BB, LDB )
+                  zlacpy(' ', N, N, A, LDA, AB, LDA );
+                  zlacpy(UPLO, N, N, B, LDB, BB, LDB );
 
                   // since we do not know the exact eigenvalues of this
                   // eigenpair, we just set VL and VU as constants.
@@ -375,7 +375,7 @@
 
                   VL = ZERO
                   VU = ANORM
-                  CALL ZHEGVX( IBTYPE, 'V', 'V', UPLO, N, AB, LDA, BB, LDB, VL, VU, IL, IU, ABSTOL, M, D, Z, LDZ, WORK, NWORK, RWORK, IWORK( N+1 ), IWORK, IINFO )
+                  zhegvx(IBTYPE, 'V', 'V', UPLO, N, AB, LDA, BB, LDB, VL, VU, IL, IU, ABSTOL, M, D, Z, LDZ, WORK, NWORK, RWORK, IWORK( N+1 ), IWORK, IINFO );
                   if ( IINFO.NE.0 ) {
                      WRITE( NOUNIT, FMT = 9999 )'ZHEGVX(V,V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                      INFO = ABS( IINFO )
@@ -389,14 +389,14 @@
 
                   // Do Test
 
-                  CALL ZSGT01( IBTYPE, UPLO, N, M, A, LDA, B, LDB, Z, LDZ, D, WORK, RWORK, RESULT( NTEST ) )
+                  zsgt01(IBTYPE, UPLO, N, M, A, LDA, B, LDB, Z, LDZ, D, WORK, RWORK, RESULT( NTEST ) );
 
                   NTEST = NTEST + 1
 
-                  CALL ZLACPY( ' ', N, N, A, LDA, AB, LDA )
-                  CALL ZLACPY( UPLO, N, N, B, LDB, BB, LDB )
+                  zlacpy(' ', N, N, A, LDA, AB, LDA );
+                  zlacpy(UPLO, N, N, B, LDB, BB, LDB );
 
-                  CALL ZHEGVX( IBTYPE, 'V', 'I', UPLO, N, AB, LDA, BB, LDB, VL, VU, IL, IU, ABSTOL, M, D, Z, LDZ, WORK, NWORK, RWORK, IWORK( N+1 ), IWORK, IINFO )
+                  zhegvx(IBTYPE, 'V', 'I', UPLO, N, AB, LDA, BB, LDB, VL, VU, IL, IU, ABSTOL, M, D, Z, LDZ, WORK, NWORK, RWORK, IWORK( N+1 ), IWORK, IINFO );
                   if ( IINFO.NE.0 ) {
                      WRITE( NOUNIT, FMT = 9999 )'ZHEGVX(V,I,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                      INFO = ABS( IINFO )
@@ -410,7 +410,7 @@
 
                   // Do Test
 
-                  CALL ZSGT01( IBTYPE, UPLO, N, M, A, LDA, B, LDB, Z, LDZ, D, WORK, RWORK, RESULT( NTEST ) )
+                  zsgt01(IBTYPE, UPLO, N, M, A, LDA, B, LDB, Z, LDZ, D, WORK, RWORK, RESULT( NTEST ) );
 
   100             CONTINUE
 
@@ -440,7 +440,7 @@
   140                CONTINUE
                   }
 
-                  CALL ZHPGV( IBTYPE, 'V', UPLO, N, AP, BP, D, Z, LDZ, WORK, RWORK, IINFO )
+                  zhpgv(IBTYPE, 'V', UPLO, N, AP, BP, D, Z, LDZ, WORK, RWORK, IINFO );
                   if ( IINFO.NE.0 ) {
                      WRITE( NOUNIT, FMT = 9999 )'ZHPGV(V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                      INFO = ABS( IINFO )
@@ -454,7 +454,7 @@
 
                   // Do Test
 
-                  CALL ZSGT01( IBTYPE, UPLO, N, N, A, LDA, B, LDB, Z, LDZ, D, WORK, RWORK, RESULT( NTEST ) )
+                  zsgt01(IBTYPE, UPLO, N, N, A, LDA, B, LDB, Z, LDZ, D, WORK, RWORK, RESULT( NTEST ) );
 
                   // Test ZHPGVD
 
@@ -482,7 +482,7 @@
   180                CONTINUE
                   }
 
-                  CALL ZHPGVD( IBTYPE, 'V', UPLO, N, AP, BP, D, Z, LDZ, WORK, NWORK, RWORK, LRWORK, IWORK, LIWORK, IINFO )
+                  zhpgvd(IBTYPE, 'V', UPLO, N, AP, BP, D, Z, LDZ, WORK, NWORK, RWORK, LRWORK, IWORK, LIWORK, IINFO );
                   if ( IINFO.NE.0 ) {
                      WRITE( NOUNIT, FMT = 9999 )'ZHPGVD(V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                      INFO = ABS( IINFO )
@@ -496,7 +496,7 @@
 
                   // Do Test
 
-                  CALL ZSGT01( IBTYPE, UPLO, N, N, A, LDA, B, LDB, Z, LDZ, D, WORK, RWORK, RESULT( NTEST ) )
+                  zsgt01(IBTYPE, UPLO, N, N, A, LDA, B, LDB, Z, LDZ, D, WORK, RWORK, RESULT( NTEST ) );
 
                   // Test ZHPGVX
 
@@ -524,7 +524,7 @@
   220                CONTINUE
                   }
 
-                  CALL ZHPGVX( IBTYPE, 'V', 'A', UPLO, N, AP, BP, VL, VU, IL, IU, ABSTOL, M, D, Z, LDZ, WORK, RWORK, IWORK( N+1 ), IWORK, INFO )
+                  zhpgvx(IBTYPE, 'V', 'A', UPLO, N, AP, BP, VL, VU, IL, IU, ABSTOL, M, D, Z, LDZ, WORK, RWORK, IWORK( N+1 ), IWORK, INFO );
                   if ( IINFO.NE.0 ) {
                      WRITE( NOUNIT, FMT = 9999 )'ZHPGVX(V,A' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                      INFO = ABS( IINFO )
@@ -538,7 +538,7 @@
 
                   // Do Test
 
-                  CALL ZSGT01( IBTYPE, UPLO, N, N, A, LDA, B, LDB, Z, LDZ, D, WORK, RWORK, RESULT( NTEST ) )
+                  zsgt01(IBTYPE, UPLO, N, N, A, LDA, B, LDB, Z, LDZ, D, WORK, RWORK, RESULT( NTEST ) );
 
                   NTEST = NTEST + 1
 
@@ -566,7 +566,7 @@
 
                   VL = ZERO
                   VU = ANORM
-                  CALL ZHPGVX( IBTYPE, 'V', 'V', UPLO, N, AP, BP, VL, VU, IL, IU, ABSTOL, M, D, Z, LDZ, WORK, RWORK, IWORK( N+1 ), IWORK, INFO )
+                  zhpgvx(IBTYPE, 'V', 'V', UPLO, N, AP, BP, VL, VU, IL, IU, ABSTOL, M, D, Z, LDZ, WORK, RWORK, IWORK( N+1 ), IWORK, INFO );
                   if ( IINFO.NE.0 ) {
                      WRITE( NOUNIT, FMT = 9999 )'ZHPGVX(V,V' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                      INFO = ABS( IINFO )
@@ -580,7 +580,7 @@
 
                   // Do Test
 
-                  CALL ZSGT01( IBTYPE, UPLO, N, M, A, LDA, B, LDB, Z, LDZ, D, WORK, RWORK, RESULT( NTEST ) )
+                  zsgt01(IBTYPE, UPLO, N, M, A, LDA, B, LDB, Z, LDZ, D, WORK, RWORK, RESULT( NTEST ) );
 
                   NTEST = NTEST + 1
 
@@ -606,7 +606,7 @@
   300                CONTINUE
                   }
 
-                  CALL ZHPGVX( IBTYPE, 'V', 'I', UPLO, N, AP, BP, VL, VU, IL, IU, ABSTOL, M, D, Z, LDZ, WORK, RWORK, IWORK( N+1 ), IWORK, INFO )
+                  zhpgvx(IBTYPE, 'V', 'I', UPLO, N, AP, BP, VL, VU, IL, IU, ABSTOL, M, D, Z, LDZ, WORK, RWORK, IWORK( N+1 ), IWORK, INFO );
                   if ( IINFO.NE.0 ) {
                      WRITE( NOUNIT, FMT = 9999 )'ZHPGVX(V,I' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                      INFO = ABS( IINFO )
@@ -620,7 +620,7 @@
 
                   // Do Test
 
-                  CALL ZSGT01( IBTYPE, UPLO, N, M, A, LDA, B, LDB, Z, LDZ, D, WORK, RWORK, RESULT( NTEST ) )
+                  zsgt01(IBTYPE, UPLO, N, M, A, LDA, B, LDB, Z, LDZ, D, WORK, RWORK, RESULT( NTEST ) );
 
   310             CONTINUE
 
@@ -652,7 +652,7 @@
   370                   CONTINUE
                      }
 
-                     CALL ZHBGV( 'V', UPLO, N, KA, KB, AB, LDA, BB, LDB, D, Z, LDZ, WORK, RWORK, IINFO )
+                     zhbgv('V', UPLO, N, KA, KB, AB, LDA, BB, LDB, D, Z, LDZ, WORK, RWORK, IINFO );
                      if ( IINFO.NE.0 ) {
                         WRITE( NOUNIT, FMT = 9999 )'ZHBGV(V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                         INFO = ABS( IINFO )
@@ -666,7 +666,7 @@
 
                      // Do Test
 
-                     CALL ZSGT01( IBTYPE, UPLO, N, N, A, LDA, B, LDB, Z, LDZ, D, WORK, RWORK, RESULT( NTEST ) )
+                     zsgt01(IBTYPE, UPLO, N, N, A, LDA, B, LDB, Z, LDZ, D, WORK, RWORK, RESULT( NTEST ) );
 
                      // TEST ZHBGVD
 
@@ -694,7 +694,7 @@
   430                   CONTINUE
                      }
 
-                     CALL ZHBGVD( 'V', UPLO, N, KA, KB, AB, LDA, BB, LDB, D, Z, LDZ, WORK, NWORK, RWORK, LRWORK, IWORK, LIWORK, IINFO )
+                     zhbgvd('V', UPLO, N, KA, KB, AB, LDA, BB, LDB, D, Z, LDZ, WORK, NWORK, RWORK, LRWORK, IWORK, LIWORK, IINFO );
                      if ( IINFO.NE.0 ) {
                         WRITE( NOUNIT, FMT = 9999 )'ZHBGVD(V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                         INFO = ABS( IINFO )
@@ -708,7 +708,7 @@
 
                      // Do Test
 
-                     CALL ZSGT01( IBTYPE, UPLO, N, N, A, LDA, B, LDB, Z, LDZ, D, WORK, RWORK, RESULT( NTEST ) )
+                     zsgt01(IBTYPE, UPLO, N, N, A, LDA, B, LDB, Z, LDZ, D, WORK, RWORK, RESULT( NTEST ) );
 
                      // Test ZHBGVX
 
@@ -736,7 +736,7 @@
   490                   CONTINUE
                      }
 
-                     CALL ZHBGVX( 'V', 'A', UPLO, N, KA, KB, AB, LDA, BB, LDB, BP, MAX( 1, N ), VL, VU, IL, IU, ABSTOL, M, D, Z, LDZ, WORK, RWORK, IWORK( N+1 ), IWORK, IINFO )
+                     zhbgvx('V', 'A', UPLO, N, KA, KB, AB, LDA, BB, LDB, BP, MAX( 1, N ), VL, VU, IL, IU, ABSTOL, M, D, Z, LDZ, WORK, RWORK, IWORK( N+1 ), IWORK, IINFO );
                      if ( IINFO.NE.0 ) {
                         WRITE( NOUNIT, FMT = 9999 )'ZHBGVX(V,A' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                         INFO = ABS( IINFO )
@@ -750,7 +750,7 @@
 
                      // Do Test
 
-                     CALL ZSGT01( IBTYPE, UPLO, N, N, A, LDA, B, LDB, Z, LDZ, D, WORK, RWORK, RESULT( NTEST ) )
+                     zsgt01(IBTYPE, UPLO, N, N, A, LDA, B, LDB, Z, LDZ, D, WORK, RWORK, RESULT( NTEST ) );
 
                      NTEST = NTEST + 1
 
@@ -778,7 +778,7 @@
 
                      VL = ZERO
                      VU = ANORM
-                     CALL ZHBGVX( 'V', 'V', UPLO, N, KA, KB, AB, LDA, BB, LDB, BP, MAX( 1, N ), VL, VU, IL, IU, ABSTOL, M, D, Z, LDZ, WORK, RWORK, IWORK( N+1 ), IWORK, IINFO )
+                     zhbgvx('V', 'V', UPLO, N, KA, KB, AB, LDA, BB, LDB, BP, MAX( 1, N ), VL, VU, IL, IU, ABSTOL, M, D, Z, LDZ, WORK, RWORK, IWORK( N+1 ), IWORK, IINFO );
                      if ( IINFO.NE.0 ) {
                         WRITE( NOUNIT, FMT = 9999 )'ZHBGVX(V,V' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                         INFO = ABS( IINFO )
@@ -792,7 +792,7 @@
 
                      // Do Test
 
-                     CALL ZSGT01( IBTYPE, UPLO, N, M, A, LDA, B, LDB, Z, LDZ, D, WORK, RWORK, RESULT( NTEST ) )
+                     zsgt01(IBTYPE, UPLO, N, M, A, LDA, B, LDB, Z, LDZ, D, WORK, RWORK, RESULT( NTEST ) );
 
                      NTEST = NTEST + 1
 
@@ -818,7 +818,7 @@
   610                   CONTINUE
                      }
 
-                     CALL ZHBGVX( 'V', 'I', UPLO, N, KA, KB, AB, LDA, BB, LDB, BP, MAX( 1, N ), VL, VU, IL, IU, ABSTOL, M, D, Z, LDZ, WORK, RWORK, IWORK( N+1 ), IWORK, IINFO )
+                     zhbgvx('V', 'I', UPLO, N, KA, KB, AB, LDA, BB, LDB, BP, MAX( 1, N ), VL, VU, IL, IU, ABSTOL, M, D, Z, LDZ, WORK, RWORK, IWORK( N+1 ), IWORK, IINFO );
                      if ( IINFO.NE.0 ) {
                         WRITE( NOUNIT, FMT = 9999 )'ZHBGVX(V,I' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                         INFO = ABS( IINFO )
@@ -832,7 +832,7 @@
 
                      // Do Test
 
-                     CALL ZSGT01( IBTYPE, UPLO, N, M, A, LDA, B, LDB, Z, LDZ, D, WORK, RWORK, RESULT( NTEST ) )
+                     zsgt01(IBTYPE, UPLO, N, M, A, LDA, B, LDB, Z, LDZ, D, WORK, RWORK, RESULT( NTEST ) );
 
                   }
 
@@ -842,13 +842,13 @@
             // End of Loop -- Check for RESULT(j) > THRESH
 
             NTESTT = NTESTT + NTEST
-            CALL DLAFTS( 'ZSG', N, N, JTYPE, NTEST, RESULT, IOLDSD, THRESH, NOUNIT, NERRS )
+            dlafts('ZSG', N, N, JTYPE, NTEST, RESULT, IOLDSD, THRESH, NOUNIT, NERRS );
   640    CONTINUE
   650 CONTINUE
 
       // Summary
 
-      CALL DLASUM( 'ZSG', NOUNIT, NERRS, NTESTT )
+      dlasum('ZSG', NOUNIT, NERRS, NTESTT );
 
       RETURN
 

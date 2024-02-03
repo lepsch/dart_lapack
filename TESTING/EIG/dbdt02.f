@@ -44,8 +44,8 @@
       // Compute norm(B - U * C)
 
       DO 10 J = 1, N
-         CALL DCOPY( M, B( 1, J ), 1, WORK, 1 )
-         CALL DGEMV( 'No transpose', M, M, -ONE, U, LDU, C( 1, J ), 1, ONE, WORK, 1 )
+         dcopy(M, B( 1, J ), 1, WORK, 1 );
+         dgemv('No transpose', M, M, -ONE, U, LDU, C( 1, J ), 1, ONE, WORK, 1 );
          RESID = MAX( RESID, DASUM( M, WORK, 1 ) )
    10 CONTINUE
 

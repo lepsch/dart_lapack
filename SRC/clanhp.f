@@ -112,12 +112,12 @@
          K = 2
          if ( LSAME( UPLO, 'U' ) ) {
             DO 110 J = 2, N
-               CALL CLASSQ( J-1, AP( K ), 1, SCALE, SUM )
+               classq(J-1, AP( K ), 1, SCALE, SUM );
                K = K + J
   110       CONTINUE
          } else {
             DO 120 J = 1, N - 1
-               CALL CLASSQ( N-J, AP( K ), 1, SCALE, SUM )
+               classq(N-J, AP( K ), 1, SCALE, SUM );
                K = K + N - J + 1
   120       CONTINUE
          }

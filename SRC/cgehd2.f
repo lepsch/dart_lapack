@@ -42,7 +42,7 @@
          INFO = -5
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'CGEHD2', -INFO )
+         xerbla('CGEHD2', -INFO );
          RETURN
       }
 
@@ -51,16 +51,16 @@
          // Compute elementary reflector H(i) to annihilate A(i+2:ihi,i)
 
          ALPHA = A( I+1, I )
-         CALL CLARFG( IHI-I, ALPHA, A( MIN( I+2, N ), I ), 1, TAU( I ) )
+         clarfg(IHI-I, ALPHA, A( MIN( I+2, N ), I ), 1, TAU( I ) );
          A( I+1, I ) = ONE
 
          // Apply H(i) to A(1:ihi,i+1:ihi) from the right
 
-         CALL CLARF( 'Right', IHI, IHI-I, A( I+1, I ), 1, TAU( I ), A( 1, I+1 ), LDA, WORK )
+         clarf('Right', IHI, IHI-I, A( I+1, I ), 1, TAU( I ), A( 1, I+1 ), LDA, WORK );
 
          // Apply H(i)**H to A(i+1:ihi,i+1:n) from the left
 
-         CALL CLARF( 'Left', IHI-I, N-I, A( I+1, I ), 1, CONJG( TAU( I ) ), A( I+1, I+1 ), LDA, WORK )
+         clarf('Left', IHI-I, N-I, A( I+1, I ), 1, CONJG( TAU( I ) ), A( I+1, I+1 ), LDA, WORK );
 
          A( I+1, I ) = ALPHA
    10 CONTINUE

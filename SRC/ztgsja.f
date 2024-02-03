@@ -80,7 +80,7 @@
          INFO = -22
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'ZTGSJA', -INFO )
+         xerbla('ZTGSJA', -INFO );
          RETURN
       }
 
@@ -114,7 +114,7 @@
                   B2 = B( J, N-L+I )
                }
 
-               CALL ZLAGS2( UPPER, A1, A2, A3, B1, B2, B3, CSU, SNU, CSV, SNV, CSQ, SNQ )
+               zlags2(UPPER, A1, A2, A3, B1, B2, B3, CSU, SNU, CSV, SNV, CSQ, SNQ );
 
                // Update (K+I)-th and (K+J)-th rows of matrix A: U**H *A
 
@@ -122,14 +122,14 @@
 
                // Update I-th and J-th rows of matrix B: V**H *B
 
-               CALL ZROT( L, B( J, N-L+1 ), LDB, B( I, N-L+1 ), LDB, CSV, DCONJG( SNV ) )
+               zrot(L, B( J, N-L+1 ), LDB, B( I, N-L+1 ), LDB, CSV, DCONJG( SNV ) );
 
                // Update (N-L+I)-th and (N-L+J)-th columns of matrices
                // A and B: A*Q and B*Q
 
-               CALL ZROT( MIN( K+L, M ), A( 1, N-L+J ), 1, A( 1, N-L+I ), 1, CSQ, SNQ )
+               zrot(MIN( K+L, M ), A( 1, N-L+J ), 1, A( 1, N-L+I ), 1, CSQ, SNQ );
 
-               CALL ZROT( L, B( 1, N-L+J ), 1, B( 1, N-L+I ), 1, CSQ, SNQ )
+               zrot(L, B( 1, N-L+J ), 1, B( 1, N-L+I ), 1, CSQ, SNQ );
 
                if ( UPPER ) {
                   IF( K+I.LE.M ) A( K+I, N-L+J ) = CZERO
@@ -166,9 +166,9 @@
 
             ERROR = ZERO
             DO 30 I = 1, MIN( L, M-K )
-               CALL ZCOPY( L-I+1, A( K+I, N-L+I ), LDA, WORK, 1 )
-               CALL ZCOPY( L-I+1, B( I, N-L+I ), LDB, WORK( L+1 ), 1 )
-               CALL ZLAPLL( L-I+1, WORK, 1, WORK( L+1 ), 1, SSMIN )
+               zcopy(L-I+1, A( K+I, N-L+I ), LDA, WORK, 1 );
+               zcopy(L-I+1, B( I, N-L+I ), LDB, WORK( L+1 ), 1 );
+               zlapll(L-I+1, WORK, 1, WORK( L+1 ), 1, SSMIN );
                ERROR = MAX( ERROR, SSMIN )
    30       CONTINUE
 
@@ -204,23 +204,23 @@
          if ( (GAMMA.LE.HUGENUM).AND.(GAMMA.GE.-HUGENUM) ) {
 
             if ( GAMMA.LT.ZERO ) {
-               CALL ZDSCAL( L-I+1, -ONE, B( I, N-L+I ), LDB )
+               zdscal(L-I+1, -ONE, B( I, N-L+I ), LDB );
                IF( WANTV ) CALL ZDSCAL( P, -ONE, V( 1, I ), 1 )
             }
 
-            CALL DLARTG( ABS( GAMMA ), ONE, BETA( K+I ), ALPHA( K+I ), RWK )
+            dlartg(ABS( GAMMA ), ONE, BETA( K+I ), ALPHA( K+I ), RWK );
 
             if ( ALPHA( K+I ).GE.BETA( K+I ) ) {
-               CALL ZDSCAL( L-I+1, ONE / ALPHA( K+I ), A( K+I, N-L+I ), LDA )
+               zdscal(L-I+1, ONE / ALPHA( K+I ), A( K+I, N-L+I ), LDA );
             } else {
-               CALL ZDSCAL( L-I+1, ONE / BETA( K+I ), B( I, N-L+I ), LDB )                CALL ZCOPY( L-I+1, B( I, N-L+I ), LDB, A( K+I, N-L+I ), LDA )
+               zdscal(L-I+1, ONE / BETA( K+I ), B( I, N-L+I ), LDB )                CALL ZCOPY( L-I+1, B( I, N-L+I ), LDB, A( K+I, N-L+I ), LDA );
             }
 
          } else {
 
             ALPHA( K+I ) = ZERO
             BETA( K+I ) = ONE
-            CALL ZCOPY( L-I+1, B( I, N-L+I ), LDB, A( K+I, N-L+I ), LDA )
+            zcopy(L-I+1, B( I, N-L+I ), LDB, A( K+I, N-L+I ), LDA );
          }
    70 CONTINUE
 

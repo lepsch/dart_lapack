@@ -114,15 +114,15 @@
                      // Set up parameters with DLATB4 and generate a test
                      // matrix with DLATMS.
 
-                     CALL DLATB4( 'DPO', IMAT, N, N, CTYPE, KL, KU, ANORM, MODE, CNDNUM, DIST )
+                     dlatb4('DPO', IMAT, N, N, CTYPE, KL, KU, ANORM, MODE, CNDNUM, DIST );
 
                      SRNAMT = 'DLATMS'
-                     CALL DLATMS( N, N, DIST, ISEED, CTYPE, D_WORK_DLATMS, MODE, CNDNUM, ANORM, KL, KU, UPLO, A, LDA, D_WORK_DLATMS, INFO )
+                     dlatms(N, N, DIST, ISEED, CTYPE, D_WORK_DLATMS, MODE, CNDNUM, ANORM, KL, KU, UPLO, A, LDA, D_WORK_DLATMS, INFO );
 
                      // Check error code from DLATMS.
 
                      if ( INFO.NE.0 ) {
-                        CALL ALAERH( 'DPF', 'DLATMS', INFO, 0, UPLO, N, N, -1, -1, -1, IIT, NFAIL, NERRS, NOUT )
+                        alaerh('DPF', 'DLATMS', INFO, 0, UPLO, N, N, -1, -1, -1, IIT, NFAIL, NERRS, NOUT );
                         GO TO 100
                      }
 
@@ -168,7 +168,7 @@
 
                      // Save a copy of the matrix A in ASAV.
 
-                     CALL DLACPY( UPLO, N, N, A, LDA, ASAV, LDA )
+                     dlacpy(UPLO, N, N, A, LDA, ASAV, LDA );
 
                      // Compute the condition number of A (RCONDC).
 
@@ -182,11 +182,11 @@
 
                         // Factor the matrix A.
 
-                        CALL DPOTRF( UPLO, N, A, LDA, INFO )
+                        dpotrf(UPLO, N, A, LDA, INFO );
 
                         // Form the inverse of A.
 
-                        CALL DPOTRI( UPLO, N, A, LDA, INFO )
+                        dpotri(UPLO, N, A, LDA, INFO );
 
                         if ( N .NE. 0 ) {
 
@@ -197,7 +197,7 @@
 
                            // Restore the matrix A.
 
-                           CALL DLACPY( UPLO, N, N, ASAV, LDA, A, LDA )
+                           dlacpy(UPLO, N, N, ASAV, LDA, A, LDA );
                         }
 
                      }
@@ -205,19 +205,19 @@
                      // Form an exact solution and set the right hand side.
 
                      SRNAMT = 'DLARHS'
-                     CALL DLARHS( 'DPO', 'N', UPLO, ' ', N, N, KL, KU, NRHS, A, LDA, XACT, LDA, B, LDA, ISEED, INFO )
-                     CALL DLACPY( 'Full', N, NRHS, B, LDA, BSAV, LDA )
+                     dlarhs('DPO', 'N', UPLO, ' ', N, N, KL, KU, NRHS, A, LDA, XACT, LDA, B, LDA, ISEED, INFO );
+                     dlacpy('Full', N, NRHS, B, LDA, BSAV, LDA );
 
                      // Compute the L*L' or U'*U factorization of the
                      // matrix and solve the system.
 
-                     CALL DLACPY( UPLO, N, N, A, LDA, AFAC, LDA )
-                     CALL DLACPY( 'Full', N, NRHS, B, LDB, X, LDB )
+                     dlacpy(UPLO, N, N, A, LDA, AFAC, LDA );
+                     dlacpy('Full', N, NRHS, B, LDB, X, LDB );
 
                      SRNAMT = 'DTRTTF'
-                     CALL DTRTTF( CFORM, UPLO, N, AFAC, LDA, ARF, INFO )
+                     dtrttf(CFORM, UPLO, N, AFAC, LDA, ARF, INFO );
                      SRNAMT = 'DPFTRF'
-                     CALL DPFTRF( CFORM, UPLO, N, ARF, INFO )
+                     dpftrf(CFORM, UPLO, N, ARF, INFO );
 
                      // Check error code from DPFTRF.
 
@@ -227,7 +227,7 @@
                         // always be INFO however if INFO is ZERO, ALAERH does not
                         // complain.
 
-                         CALL ALAERH( 'DPF', 'DPFSV ', INFO, IZERO, UPLO, N, N, -1, -1, NRHS, IIT, NFAIL, NERRS, NOUT )
+                         alaerh('DPF', 'DPFSV ', INFO, IZERO, UPLO, N, N, -1, -1, NRHS, IIT, NFAIL, NERRS, NOUT );
                          GO TO 100
                       }
 
@@ -238,44 +238,44 @@
                      }
 
                      SRNAMT = 'DPFTRS'
-                     CALL DPFTRS( CFORM, UPLO, N, NRHS, ARF, X, LDB, INFO )
+                     dpftrs(CFORM, UPLO, N, NRHS, ARF, X, LDB, INFO );
 
                      SRNAMT = 'DTFTTR'
-                     CALL DTFTTR( CFORM, UPLO, N, ARF, AFAC, LDA, INFO )
+                     dtfttr(CFORM, UPLO, N, ARF, AFAC, LDA, INFO );
 
                      // Reconstruct matrix from factors and compute
                      // residual.
 
-                     CALL DLACPY( UPLO, N, N, AFAC, LDA, ASAV, LDA )
-                     CALL DPOT01( UPLO, N, A, LDA, AFAC, LDA, D_WORK_DPOT01, RESULT( 1 ) )
-                     CALL DLACPY( UPLO, N, N, ASAV, LDA, AFAC, LDA )
+                     dlacpy(UPLO, N, N, AFAC, LDA, ASAV, LDA );
+                     dpot01(UPLO, N, A, LDA, AFAC, LDA, D_WORK_DPOT01, RESULT( 1 ) );
+                     dlacpy(UPLO, N, N, ASAV, LDA, AFAC, LDA );
 
                      // Form the inverse and compute the residual.
 
                      if (MOD(N,2).EQ.0) {
-                        CALL DLACPY( 'A', N+1, N/2, ARF, N+1, ARFINV, N+1 )
+                        dlacpy('A', N+1, N/2, ARF, N+1, ARFINV, N+1 );
                      } else {
-                        CALL DLACPY( 'A', N, (N+1)/2, ARF, N, ARFINV, N )
+                        dlacpy('A', N, (N+1)/2, ARF, N, ARFINV, N );
                      }
 
                      SRNAMT = 'DPFTRI'
-                     CALL DPFTRI( CFORM, UPLO, N, ARFINV , INFO )
+                     dpftri(CFORM, UPLO, N, ARFINV , INFO );
 
                      SRNAMT = 'DTFTTR'
-                     CALL DTFTTR( CFORM, UPLO, N, ARFINV, AINV, LDA, INFO )
+                     dtfttr(CFORM, UPLO, N, ARFINV, AINV, LDA, INFO );
 
                      // Check error code from DPFTRI.
 
                      IF( INFO.NE.0 ) CALL ALAERH( 'DPO', 'DPFTRI', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT )
 
-                     CALL DPOT03( UPLO, N, A, LDA, AINV, LDA, D_TEMP_DPOT03, LDA, D_WORK_DPOT03, RCONDC, RESULT( 2 ) )
+                     dpot03(UPLO, N, A, LDA, AINV, LDA, D_TEMP_DPOT03, LDA, D_WORK_DPOT03, RCONDC, RESULT( 2 ) );
 
                      // Compute residual of the computed solution.
 
-                     CALL DLACPY( 'Full', N, NRHS, B, LDA, D_TEMP_DPOT02, LDA )                      CALL DPOT02( UPLO, N, NRHS, A, LDA, X, LDA, D_TEMP_DPOT02, LDA, D_WORK_DPOT02, RESULT( 3 ) )
+                     dlacpy('Full', N, NRHS, B, LDA, D_TEMP_DPOT02, LDA )                      CALL DPOT02( UPLO, N, NRHS, A, LDA, X, LDA, D_TEMP_DPOT02, LDA, D_WORK_DPOT02, RESULT( 3 ) );
 
                      // Check solution from generated exact solution.
-                      CALL DGET04( N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 4 ) )
+                      dget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 4 ) );
                      NT = 4
 
                      // Print information about the tests that did not
@@ -296,7 +296,7 @@
 
       // Print a summary of the results.
 
-      CALL ALASVM( 'DPF', NOUT, NFAIL, NRUN, NERRS )
+      alasvm('DPF', NOUT, NFAIL, NRUN, NERRS );
 
  9999 FORMAT( 1X, A6, ', UPLO=''', A1, ''', N =', I5, ', type ', I1, ', test(', I1, ')=', G12.5 )
 

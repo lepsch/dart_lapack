@@ -58,7 +58,7 @@
           INFO = 13
       }
       if (INFO.NE.0) {
-          CALL XERBLA('CGBMV ',INFO)
+          xerbla('CGBMV ',INFO);
           RETURN
       }
 

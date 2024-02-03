@@ -133,15 +133,15 @@
                      // Set up parameters with CLATB4 and generate a test
                      // matrix with CLATMS.
 
-                     CALL CLATB4( PATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST )
+                     clatb4(PATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST );
 
                      SRNAMT = 'CLATMS'
-                     CALL CLATMS( N, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KD, KD, PACKIT, A( KOFF ), LDAB, WORK, INFO )
+                     clatms(N, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KD, KD, PACKIT, A( KOFF ), LDAB, WORK, INFO );
 
                      // Check error code from CLATMS.
 
                      if ( INFO.NE.0 ) {
-                        CALL ALAERH( PATH, 'CLATMS', INFO, 0, UPLO, N, N, KD, KD, -1, IMAT, NFAIL, NERRS, NOUT )
+                        alaerh(PATH, 'CLATMS', INFO, 0, UPLO, N, N, KD, KD, -1, IMAT, NFAIL, NERRS, NOUT );
                         GO TO 60
                      }
                   } else if ( IZERO.GT.0 ) {
@@ -152,15 +152,15 @@
                      IW = 2*LDA + 1
                      if ( IUPLO.EQ.1 ) {
                         IOFF = ( IZERO-1 )*LDAB + KD + 1
-                        CALL CCOPY( IZERO-I1, WORK( IW ), 1, A( IOFF-IZERO+I1 ), 1 )
+                        ccopy(IZERO-I1, WORK( IW ), 1, A( IOFF-IZERO+I1 ), 1 );
                         IW = IW + IZERO - I1
-                        CALL CCOPY( I2-IZERO+1, WORK( IW ), 1, A( IOFF ), MAX( LDAB-1, 1 ) )
+                        ccopy(I2-IZERO+1, WORK( IW ), 1, A( IOFF ), MAX( LDAB-1, 1 ) );
                      } else {
                         IOFF = ( I1-1 )*LDAB + 1
-                        CALL CCOPY( IZERO-I1, WORK( IW ), 1, A( IOFF+IZERO-I1 ), MAX( LDAB-1, 1 ) )
+                        ccopy(IZERO-I1, WORK( IW ), 1, A( IOFF+IZERO-I1 ), MAX( LDAB-1, 1 ) );
                         IOFF = ( IZERO-1 )*LDAB + 1
                         IW = IW + IZERO - I1
-                        CALL CCOPY( I2-IZERO+1, WORK( IW ), 1, A( IOFF ), 1 )
+                        ccopy(I2-IZERO+1, WORK( IW ), 1, A( IOFF ), 1 );
                      }
                   }
 
@@ -189,43 +189,43 @@
 
                      if ( IUPLO.EQ.1 ) {
                         IOFF = ( IZERO-1 )*LDAB + KD + 1
-                        CALL CSWAP( IZERO-I1, A( IOFF-IZERO+I1 ), 1, WORK( IW ), 1 )
+                        cswap(IZERO-I1, A( IOFF-IZERO+I1 ), 1, WORK( IW ), 1 );
                         IW = IW + IZERO - I1
-                        CALL CSWAP( I2-IZERO+1, A( IOFF ), MAX( LDAB-1, 1 ), WORK( IW ), 1 )
+                        cswap(I2-IZERO+1, A( IOFF ), MAX( LDAB-1, 1 ), WORK( IW ), 1 );
                      } else {
                         IOFF = ( I1-1 )*LDAB + 1
-                        CALL CSWAP( IZERO-I1, A( IOFF+IZERO-I1 ), MAX( LDAB-1, 1 ), WORK( IW ), 1 )
+                        cswap(IZERO-I1, A( IOFF+IZERO-I1 ), MAX( LDAB-1, 1 ), WORK( IW ), 1 );
                         IOFF = ( IZERO-1 )*LDAB + 1
                         IW = IW + IZERO - I1
-                        CALL CSWAP( I2-IZERO+1, A( IOFF ), 1, WORK( IW ), 1 )
+                        cswap(I2-IZERO+1, A( IOFF ), 1, WORK( IW ), 1 );
                      }
                   }
 
                   // Set the imaginary part of the diagonals.
 
                   if ( IUPLO.EQ.1 ) {
-                     CALL CLAIPD( N, A( KD+1 ), LDAB, 0 )
+                     claipd(N, A( KD+1 ), LDAB, 0 );
                   } else {
-                     CALL CLAIPD( N, A( 1 ), LDAB, 0 )
+                     claipd(N, A( 1 ), LDAB, 0 );
                   }
 
                   // Do for each value of NB in NBVAL
 
                   DO 50 INB = 1, NNB
                      NB = NBVAL( INB )
-                     CALL XLAENV( 1, NB )
+                     xlaenv(1, NB );
 
                      // Compute the L*L' or U'*U factorization of the band
                      // matrix.
 
-                     CALL CLACPY( 'Full', KD+1, N, A, LDAB, AFAC, LDAB )
+                     clacpy('Full', KD+1, N, A, LDAB, AFAC, LDAB );
                      SRNAMT = 'CPBTRF'
-                     CALL CPBTRF( UPLO, N, KD, AFAC, LDAB, INFO )
+                     cpbtrf(UPLO, N, KD, AFAC, LDAB, INFO );
 
                      // Check error code from CPBTRF.
 
                      if ( INFO.NE.IZERO ) {
-                        CALL ALAERH( PATH, 'CPBTRF', INFO, IZERO, UPLO, N, N, KD, KD, NB, IMAT, NFAIL, NERRS, NOUT )
+                        alaerh(PATH, 'CPBTRF', INFO, IZERO, UPLO, N, N, KD, KD, NB, IMAT, NFAIL, NERRS, NOUT );
                         GO TO 50
                      }
 
@@ -237,7 +237,7 @@
                      // Reconstruct matrix from factors and compute
                      // residual.
 
-                     CALL CLACPY( 'Full', KD+1, N, AFAC, LDAB, AINV, LDAB )                      CALL CPBT01( UPLO, N, KD, A, LDAB, AINV, LDAB, RWORK, RESULT( 1 ) )
+                     clacpy('Full', KD+1, N, AFAC, LDAB, AINV, LDAB )                      CALL CPBT01( UPLO, N, KD, A, LDAB, AINV, LDAB, RWORK, RESULT( 1 ) );
 
                      // Print the test ratio if it is .GE. THRESH.
 
@@ -254,9 +254,9 @@
                      // Form the inverse of A so we can get a good estimate
                      // of RCONDC = 1/(norm(A) * norm(inv(A))).
 
-                     CALL CLASET( 'Full', N, N, CMPLX( ZERO ), CMPLX( ONE ), AINV, LDA )
+                     claset('Full', N, N, CMPLX( ZERO ), CMPLX( ONE ), AINV, LDA );
                      SRNAMT = 'CPBTRS'
-                     CALL CPBTRS( UPLO, N, KD, N, AFAC, LDAB, AINV, LDA, INFO )
+                     cpbtrs(UPLO, N, KD, N, AFAC, LDAB, AINV, LDA, INFO );
 
                      // Compute RCONDC = 1/(norm(A) * norm(inv(A))).
 
@@ -275,34 +275,34 @@
                      // Solve and compute residual for A * X = B.
 
                         SRNAMT = 'CLARHS'
-                        CALL CLARHS( PATH, XTYPE, UPLO, ' ', N, N, KD, KD, NRHS, A, LDAB, XACT, LDA, B, LDA, ISEED, INFO )
-                        CALL CLACPY( 'Full', N, NRHS, B, LDA, X, LDA )
+                        clarhs(PATH, XTYPE, UPLO, ' ', N, N, KD, KD, NRHS, A, LDAB, XACT, LDA, B, LDA, ISEED, INFO );
+                        clacpy('Full', N, NRHS, B, LDA, X, LDA );
 
                         SRNAMT = 'CPBTRS'
-                        CALL CPBTRS( UPLO, N, KD, NRHS, AFAC, LDAB, X, LDA, INFO )
+                        cpbtrs(UPLO, N, KD, NRHS, AFAC, LDAB, X, LDA, INFO );
 
                      // Check error code from CPBTRS.
 
                         IF( INFO.NE.0 ) CALL ALAERH( PATH, 'CPBTRS', INFO, 0, UPLO, N, N, KD, KD, NRHS, IMAT, NFAIL, NERRS, NOUT )
 
-                        CALL CLACPY( 'Full', N, NRHS, B, LDA, WORK, LDA )                         CALL CPBT02( UPLO, N, KD, NRHS, A, LDAB, X, LDA, WORK, LDA, RWORK, RESULT( 2 ) )
+                        clacpy('Full', N, NRHS, B, LDA, WORK, LDA )                         CALL CPBT02( UPLO, N, KD, NRHS, A, LDAB, X, LDA, WORK, LDA, RWORK, RESULT( 2 ) );
 
 *+    TEST 3
                      // Check solution from generated exact solution.
 
-                        CALL CGET04( N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 3 ) )
+                        cget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 3 ) );
 
 *+    TESTS 4, 5, and 6
                      // Use iterative refinement to improve the solution.
 
                         SRNAMT = 'CPBRFS'
-                        CALL CPBRFS( UPLO, N, KD, NRHS, A, LDAB, AFAC, LDAB, B, LDA, X, LDA, RWORK, RWORK( NRHS+1 ), WORK, RWORK( 2*NRHS+1 ), INFO )
+                        cpbrfs(UPLO, N, KD, NRHS, A, LDAB, AFAC, LDAB, B, LDA, X, LDA, RWORK, RWORK( NRHS+1 ), WORK, RWORK( 2*NRHS+1 ), INFO );
 
                      // Check error code from CPBRFS.
 
                         IF( INFO.NE.0 ) CALL ALAERH( PATH, 'CPBRFS', INFO, 0, UPLO, N, N, KD, KD, NRHS, IMAT, NFAIL, NERRS, NOUT )
 
-                        CALL CGET04( N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 4 ) )                         CALL CPBT05( UPLO, N, KD, NRHS, A, LDAB, B, LDA, X, LDA, XACT, LDA, RWORK, RWORK( NRHS+1 ), RESULT( 5 ) )
+                        cget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 4 ) )                         CALL CPBT05( UPLO, N, KD, NRHS, A, LDAB, B, LDA, X, LDA, XACT, LDA, RWORK, RWORK( NRHS+1 ), RESULT( 5 ) );
 
                         // Print information about the tests that did not
                         // pass the threshold.
@@ -320,7 +320,7 @@
                      // Get an estimate of RCOND = 1/CNDNUM.
 
                      SRNAMT = 'CPBCON'
-                     CALL CPBCON( UPLO, N, KD, AFAC, LDAB, ANORM, RCOND, WORK, RWORK, INFO )
+                     cpbcon(UPLO, N, KD, AFAC, LDAB, ANORM, RCOND, WORK, RWORK, INFO );
 
                      // Check error code from CPBCON.
 
@@ -343,7 +343,7 @@
 
       // Print a summary of the results.
 
-      CALL ALASUM( PATH, NOUT, NFAIL, NRUN, NERRS )
+      alasum(PATH, NOUT, NFAIL, NRUN, NERRS );
 
  9999 FORMAT( ' UPLO=''', A1, ''', N=', I5, ', KD=', I5, ', NB=', I4, ', type ', I2, ', test ', I2, ', ratio= ', G12.5 )
  9998 FORMAT( ' UPLO=''', A1, ''', N=', I5, ', KD=', I5, ', NRHS=', I3, ', type ', I2, ', test(', I2, ') = ', G12.5 )

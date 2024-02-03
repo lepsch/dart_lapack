@@ -60,7 +60,7 @@
          INFO = -11
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'CTFSM ', -INFO )
+         xerbla('CTFSM ', -INFO );
          RETURN
       }
 
@@ -119,9 +119,9 @@
                      // TRANS = 'N'
 
                      if ( M.EQ.1 ) {
-                        CALL CTRSM( 'L', 'L', 'N', DIAG, M1, N, ALPHA, A, M, B, LDB )
+                        ctrsm('L', 'L', 'N', DIAG, M1, N, ALPHA, A, M, B, LDB );
                      } else {
-                        CALL CTRSM( 'L', 'L', 'N', DIAG, M1, N, ALPHA, A( 0 ), M, B, LDB )                         CALL CGEMM( 'N', 'N', M2, N, M1, -CONE, A( M1 ), M, B, LDB, ALPHA, B( M1, 0 ), LDB )                         CALL CTRSM( 'L', 'U', 'C', DIAG, M2, N, CONE, A( M ), M, B( M1, 0 ), LDB )
+                        ctrsm('L', 'L', 'N', DIAG, M1, N, ALPHA, A( 0 ), M, B, LDB )                         CALL CGEMM( 'N', 'N', M2, N, M1, -CONE, A( M1 ), M, B, LDB, ALPHA, B( M1, 0 ), LDB )                         CALL CTRSM( 'L', 'U', 'C', DIAG, M2, N, CONE, A( M ), M, B( M1, 0 ), LDB );
                      }
 
                   } else {
@@ -130,9 +130,9 @@
                      // TRANS = 'C'
 
                      if ( M.EQ.1 ) {
-                        CALL CTRSM( 'L', 'L', 'C', DIAG, M1, N, ALPHA, A( 0 ), M, B, LDB )
+                        ctrsm('L', 'L', 'C', DIAG, M1, N, ALPHA, A( 0 ), M, B, LDB );
                      } else {
-                        CALL CTRSM( 'L', 'U', 'N', DIAG, M2, N, ALPHA, A( M ), M, B( M1, 0 ), LDB )                         CALL CGEMM( 'C', 'N', M1, N, M2, -CONE, A( M1 ), M, B( M1, 0 ), LDB, ALPHA, B, LDB )                         CALL CTRSM( 'L', 'L', 'C', DIAG, M1, N, CONE, A( 0 ), M, B, LDB )
+                        ctrsm('L', 'U', 'N', DIAG, M2, N, ALPHA, A( M ), M, B( M1, 0 ), LDB )                         CALL CGEMM( 'C', 'N', M1, N, M2, -CONE, A( M1 ), M, B( M1, 0 ), LDB, ALPHA, B, LDB )                         CALL CTRSM( 'L', 'L', 'C', DIAG, M1, N, CONE, A( 0 ), M, B, LDB );
                      }
 
                   }
@@ -146,14 +146,14 @@
                      // SIDE  ='L', N is odd, TRANSR = 'N', UPLO = 'U', and
                      // TRANS = 'N'
 
-                     CALL CTRSM( 'L', 'L', 'N', DIAG, M1, N, ALPHA, A( M2 ), M, B, LDB )                      CALL CGEMM( 'C', 'N', M2, N, M1, -CONE, A( 0 ), M, B, LDB, ALPHA, B( M1, 0 ), LDB )                      CALL CTRSM( 'L', 'U', 'C', DIAG, M2, N, CONE, A( M1 ), M, B( M1, 0 ), LDB )
+                     ctrsm('L', 'L', 'N', DIAG, M1, N, ALPHA, A( M2 ), M, B, LDB )                      CALL CGEMM( 'C', 'N', M2, N, M1, -CONE, A( 0 ), M, B, LDB, ALPHA, B( M1, 0 ), LDB )                      CALL CTRSM( 'L', 'U', 'C', DIAG, M2, N, CONE, A( M1 ), M, B( M1, 0 ), LDB );
 
                   } else {
 
                      // SIDE  ='L', N is odd, TRANSR = 'N', UPLO = 'U', and
                      // TRANS = 'C'
 
-                     CALL CTRSM( 'L', 'U', 'N', DIAG, M2, N, ALPHA, A( M1 ), M, B( M1, 0 ), LDB )                      CALL CGEMM( 'N', 'N', M1, N, M2, -CONE, A( 0 ), M, B( M1, 0 ), LDB, ALPHA, B, LDB )                      CALL CTRSM( 'L', 'L', 'C', DIAG, M1, N, CONE, A( M2 ), M, B, LDB )
+                     ctrsm('L', 'U', 'N', DIAG, M2, N, ALPHA, A( M1 ), M, B( M1, 0 ), LDB )                      CALL CGEMM( 'N', 'N', M1, N, M2, -CONE, A( 0 ), M, B( M1, 0 ), LDB, ALPHA, B, LDB )                      CALL CTRSM( 'L', 'L', 'C', DIAG, M1, N, CONE, A( M2 ), M, B, LDB );
 
                   }
 
@@ -173,10 +173,10 @@
                      // TRANS = 'N'
 
                      if ( M.EQ.1 ) {
-                        CALL CTRSM( 'L', 'U', 'C', DIAG, M1, N, ALPHA, A( 0 ), M1, B, LDB )
+                        ctrsm('L', 'U', 'C', DIAG, M1, N, ALPHA, A( 0 ), M1, B, LDB );
                      } else {
-                        CALL CTRSM( 'L', 'U', 'C', DIAG, M1, N, ALPHA, A( 0 ), M1, B, LDB )                         CALL CGEMM( 'C', 'N', M2, N, M1, -CONE, A( M1*M1 ), M1, B, LDB, ALPHA, B( M1, 0 ), LDB )
-                        CALL CTRSM( 'L', 'L', 'N', DIAG, M2, N, CONE, A( 1 ), M1, B( M1, 0 ), LDB )
+                        ctrsm('L', 'U', 'C', DIAG, M1, N, ALPHA, A( 0 ), M1, B, LDB )                         CALL CGEMM( 'C', 'N', M2, N, M1, -CONE, A( M1*M1 ), M1, B, LDB, ALPHA, B( M1, 0 ), LDB );
+                        ctrsm('L', 'L', 'N', DIAG, M2, N, CONE, A( 1 ), M1, B( M1, 0 ), LDB );
                      }
 
                   } else {
@@ -185,10 +185,10 @@
                      // TRANS = 'C'
 
                      if ( M.EQ.1 ) {
-                        CALL CTRSM( 'L', 'U', 'N', DIAG, M1, N, ALPHA, A( 0 ), M1, B, LDB )
+                        ctrsm('L', 'U', 'N', DIAG, M1, N, ALPHA, A( 0 ), M1, B, LDB );
                      } else {
-                        CALL CTRSM( 'L', 'L', 'C', DIAG, M2, N, ALPHA, A( 1 ), M1, B( M1, 0 ), LDB )                         CALL CGEMM( 'N', 'N', M1, N, M2, -CONE, A( M1*M1 ), M1, B( M1, 0 ), LDB, ALPHA, B, LDB )
-                        CALL CTRSM( 'L', 'U', 'N', DIAG, M1, N, CONE, A( 0 ), M1, B, LDB )
+                        ctrsm('L', 'L', 'C', DIAG, M2, N, ALPHA, A( 1 ), M1, B( M1, 0 ), LDB )                         CALL CGEMM( 'N', 'N', M1, N, M2, -CONE, A( M1*M1 ), M1, B( M1, 0 ), LDB, ALPHA, B, LDB );
+                        ctrsm('L', 'U', 'N', DIAG, M1, N, CONE, A( 0 ), M1, B, LDB );
                      }
 
                   }
@@ -202,14 +202,14 @@
                      // SIDE  ='L', N is odd, TRANSR = 'C', UPLO = 'U', and
                      // TRANS = 'N'
 
-                     CALL CTRSM( 'L', 'U', 'C', DIAG, M1, N, ALPHA, A( M2*M2 ), M2, B, LDB )                      CALL CGEMM( 'N', 'N', M2, N, M1, -CONE, A( 0 ), M2, B, LDB, ALPHA, B( M1, 0 ), LDB )                      CALL CTRSM( 'L', 'L', 'N', DIAG, M2, N, CONE, A( M1*M2 ), M2, B( M1, 0 ), LDB )
+                     ctrsm('L', 'U', 'C', DIAG, M1, N, ALPHA, A( M2*M2 ), M2, B, LDB )                      CALL CGEMM( 'N', 'N', M2, N, M1, -CONE, A( 0 ), M2, B, LDB, ALPHA, B( M1, 0 ), LDB )                      CALL CTRSM( 'L', 'L', 'N', DIAG, M2, N, CONE, A( M1*M2 ), M2, B( M1, 0 ), LDB );
 
                   } else {
 
                      // SIDE  ='L', N is odd, TRANSR = 'C', UPLO = 'U', and
                      // TRANS = 'C'
 
-                     CALL CTRSM( 'L', 'L', 'C', DIAG, M2, N, ALPHA, A( M1*M2 ), M2, B( M1, 0 ), LDB )                      CALL CGEMM( 'C', 'N', M1, N, M2, -CONE, A( 0 ), M2, B( M1, 0 ), LDB, ALPHA, B, LDB )                      CALL CTRSM( 'L', 'U', 'N', DIAG, M1, N, CONE, A( M2*M2 ), M2, B, LDB )
+                     ctrsm('L', 'L', 'C', DIAG, M2, N, ALPHA, A( M1*M2 ), M2, B( M1, 0 ), LDB )                      CALL CGEMM( 'C', 'N', M1, N, M2, -CONE, A( 0 ), M2, B( M1, 0 ), LDB, ALPHA, B, LDB )                      CALL CTRSM( 'L', 'U', 'N', DIAG, M1, N, CONE, A( M2*M2 ), M2, B, LDB );
 
                   }
 
@@ -234,14 +234,14 @@
                      // SIDE  ='L', N is even, TRANSR = 'N', UPLO = 'L',
                      // and TRANS = 'N'
 
-                     CALL CTRSM( 'L', 'L', 'N', DIAG, K, N, ALPHA, A( 1 ), M+1, B, LDB )                      CALL CGEMM( 'N', 'N', K, N, K, -CONE, A( K+1 ), M+1, B, LDB, ALPHA, B( K, 0 ), LDB )                      CALL CTRSM( 'L', 'U', 'C', DIAG, K, N, CONE, A( 0 ), M+1, B( K, 0 ), LDB )
+                     ctrsm('L', 'L', 'N', DIAG, K, N, ALPHA, A( 1 ), M+1, B, LDB )                      CALL CGEMM( 'N', 'N', K, N, K, -CONE, A( K+1 ), M+1, B, LDB, ALPHA, B( K, 0 ), LDB )                      CALL CTRSM( 'L', 'U', 'C', DIAG, K, N, CONE, A( 0 ), M+1, B( K, 0 ), LDB );
 
                   } else {
 
                      // SIDE  ='L', N is even, TRANSR = 'N', UPLO = 'L',
                      // and TRANS = 'C'
 
-                     CALL CTRSM( 'L', 'U', 'N', DIAG, K, N, ALPHA, A( 0 ), M+1, B( K, 0 ), LDB )                      CALL CGEMM( 'C', 'N', K, N, K, -CONE, A( K+1 ), M+1, B( K, 0 ), LDB, ALPHA, B, LDB )                      CALL CTRSM( 'L', 'L', 'C', DIAG, K, N, CONE, A( 1 ), M+1, B, LDB )
+                     ctrsm('L', 'U', 'N', DIAG, K, N, ALPHA, A( 0 ), M+1, B( K, 0 ), LDB )                      CALL CGEMM( 'C', 'N', K, N, K, -CONE, A( K+1 ), M+1, B( K, 0 ), LDB, ALPHA, B, LDB )                      CALL CTRSM( 'L', 'L', 'C', DIAG, K, N, CONE, A( 1 ), M+1, B, LDB );
 
                   }
 
@@ -254,13 +254,13 @@
                      // SIDE  ='L', N is even, TRANSR = 'N', UPLO = 'U',
                      // and TRANS = 'N'
 
-                     CALL CTRSM( 'L', 'L', 'N', DIAG, K, N, ALPHA, A( K+1 ), M+1, B, LDB )                      CALL CGEMM( 'C', 'N', K, N, K, -CONE, A( 0 ), M+1, B, LDB, ALPHA, B( K, 0 ), LDB )                      CALL CTRSM( 'L', 'U', 'C', DIAG, K, N, CONE, A( K ), M+1, B( K, 0 ), LDB )
+                     ctrsm('L', 'L', 'N', DIAG, K, N, ALPHA, A( K+1 ), M+1, B, LDB )                      CALL CGEMM( 'C', 'N', K, N, K, -CONE, A( 0 ), M+1, B, LDB, ALPHA, B( K, 0 ), LDB )                      CALL CTRSM( 'L', 'U', 'C', DIAG, K, N, CONE, A( K ), M+1, B( K, 0 ), LDB );
 
                   } else {
 
                      // SIDE  ='L', N is even, TRANSR = 'N', UPLO = 'U',
                      // and TRANS = 'C'
-                     CALL CTRSM( 'L', 'U', 'N', DIAG, K, N, ALPHA, A( K ), M+1, B( K, 0 ), LDB )                      CALL CGEMM( 'N', 'N', K, N, K, -CONE, A( 0 ), M+1, B( K, 0 ), LDB, ALPHA, B, LDB )                      CALL CTRSM( 'L', 'L', 'C', DIAG, K, N, CONE, A( K+1 ), M+1, B, LDB )
+                     ctrsm('L', 'U', 'N', DIAG, K, N, ALPHA, A( K ), M+1, B( K, 0 ), LDB )                      CALL CGEMM( 'N', 'N', K, N, K, -CONE, A( 0 ), M+1, B( K, 0 ), LDB, ALPHA, B, LDB )                      CALL CTRSM( 'L', 'L', 'C', DIAG, K, N, CONE, A( K+1 ), M+1, B, LDB );
 
                   }
 
@@ -279,16 +279,16 @@
                      // SIDE  ='L', N is even, TRANSR = 'C', UPLO = 'L',
                      // and TRANS = 'N'
 
-                     CALL CTRSM( 'L', 'U', 'C', DIAG, K, N, ALPHA, A( K ), K, B, LDB )                      CALL CGEMM( 'C', 'N', K, N, K, -CONE, A( K*( K+1 ) ), K, B, LDB, ALPHA, B( K, 0 ), LDB )
-                     CALL CTRSM( 'L', 'L', 'N', DIAG, K, N, CONE, A( 0 ), K, B( K, 0 ), LDB )
+                     ctrsm('L', 'U', 'C', DIAG, K, N, ALPHA, A( K ), K, B, LDB )                      CALL CGEMM( 'C', 'N', K, N, K, -CONE, A( K*( K+1 ) ), K, B, LDB, ALPHA, B( K, 0 ), LDB );
+                     ctrsm('L', 'L', 'N', DIAG, K, N, CONE, A( 0 ), K, B( K, 0 ), LDB );
 
                   } else {
 
                      // SIDE  ='L', N is even, TRANSR = 'C', UPLO = 'L',
                      // and TRANS = 'C'
 
-                     CALL CTRSM( 'L', 'L', 'C', DIAG, K, N, ALPHA, A( 0 ), K, B( K, 0 ), LDB )                      CALL CGEMM( 'N', 'N', K, N, K, -CONE, A( K*( K+1 ) ), K, B( K, 0 ), LDB, ALPHA, B, LDB )
-                     CALL CTRSM( 'L', 'U', 'N', DIAG, K, N, CONE, A( K ), K, B, LDB )
+                     ctrsm('L', 'L', 'C', DIAG, K, N, ALPHA, A( 0 ), K, B( K, 0 ), LDB )                      CALL CGEMM( 'N', 'N', K, N, K, -CONE, A( K*( K+1 ) ), K, B( K, 0 ), LDB, ALPHA, B, LDB );
+                     ctrsm('L', 'U', 'N', DIAG, K, N, CONE, A( K ), K, B, LDB );
 
                   }
 
@@ -301,14 +301,14 @@
                      // SIDE  ='L', N is even, TRANSR = 'C', UPLO = 'U',
                      // and TRANS = 'N'
 
-                     CALL CTRSM( 'L', 'U', 'C', DIAG, K, N, ALPHA, A( K*( K+1 ) ), K, B, LDB )                      CALL CGEMM( 'N', 'N', K, N, K, -CONE, A( 0 ), K, B, LDB, ALPHA, B( K, 0 ), LDB )                      CALL CTRSM( 'L', 'L', 'N', DIAG, K, N, CONE, A( K*K ), K, B( K, 0 ), LDB )
+                     ctrsm('L', 'U', 'C', DIAG, K, N, ALPHA, A( K*( K+1 ) ), K, B, LDB )                      CALL CGEMM( 'N', 'N', K, N, K, -CONE, A( 0 ), K, B, LDB, ALPHA, B( K, 0 ), LDB )                      CALL CTRSM( 'L', 'L', 'N', DIAG, K, N, CONE, A( K*K ), K, B( K, 0 ), LDB );
 
                   } else {
 
                      // SIDE  ='L', N is even, TRANSR = 'C', UPLO = 'U',
                      // and TRANS = 'C'
 
-                     CALL CTRSM( 'L', 'L', 'C', DIAG, K, N, ALPHA, A( K*K ), K, B( K, 0 ), LDB )                      CALL CGEMM( 'C', 'N', K, N, K, -CONE, A( 0 ), K, B( K, 0 ), LDB, ALPHA, B, LDB )                      CALL CTRSM( 'L', 'U', 'N', DIAG, K, N, CONE, A( K*( K+1 ) ), K, B, LDB )
+                     ctrsm('L', 'L', 'C', DIAG, K, N, ALPHA, A( K*K ), K, B( K, 0 ), LDB )                      CALL CGEMM( 'C', 'N', K, N, K, -CONE, A( 0 ), K, B( K, 0 ), LDB, ALPHA, B, LDB )                      CALL CTRSM( 'L', 'U', 'N', DIAG, K, N, CONE, A( K*( K+1 ) ), K, B, LDB );
 
                   }
 
@@ -357,16 +357,16 @@
                      // SIDE  ='R', N is odd, TRANSR = 'N', UPLO = 'L', and
                      // TRANS = 'N'
 
-                     CALL CTRSM( 'R', 'U', 'C', DIAG, M, N2, ALPHA, A( N ), N, B( 0, N1 ), LDB )                      CALL CGEMM( 'N', 'N', M, N1, N2, -CONE, B( 0, N1 ), LDB, A( N1 ), N, ALPHA, B( 0, 0 ), LDB )
-                     CALL CTRSM( 'R', 'L', 'N', DIAG, M, N1, CONE, A( 0 ), N, B( 0, 0 ), LDB )
+                     ctrsm('R', 'U', 'C', DIAG, M, N2, ALPHA, A( N ), N, B( 0, N1 ), LDB )                      CALL CGEMM( 'N', 'N', M, N1, N2, -CONE, B( 0, N1 ), LDB, A( N1 ), N, ALPHA, B( 0, 0 ), LDB );
+                     ctrsm('R', 'L', 'N', DIAG, M, N1, CONE, A( 0 ), N, B( 0, 0 ), LDB );
 
                   } else {
 
                      // SIDE  ='R', N is odd, TRANSR = 'N', UPLO = 'L', and
                      // TRANS = 'C'
 
-                     CALL CTRSM( 'R', 'L', 'C', DIAG, M, N1, ALPHA, A( 0 ), N, B( 0, 0 ), LDB )                      CALL CGEMM( 'N', 'C', M, N2, N1, -CONE, B( 0, 0 ), LDB, A( N1 ), N, ALPHA, B( 0, N1 ), LDB )
-                     CALL CTRSM( 'R', 'U', 'N', DIAG, M, N2, CONE, A( N ), N, B( 0, N1 ), LDB )
+                     ctrsm('R', 'L', 'C', DIAG, M, N1, ALPHA, A( 0 ), N, B( 0, 0 ), LDB )                      CALL CGEMM( 'N', 'C', M, N2, N1, -CONE, B( 0, 0 ), LDB, A( N1 ), N, ALPHA, B( 0, N1 ), LDB );
+                     ctrsm('R', 'U', 'N', DIAG, M, N2, CONE, A( N ), N, B( 0, N1 ), LDB );
 
                   }
 
@@ -379,15 +379,15 @@
                      // SIDE  ='R', N is odd, TRANSR = 'N', UPLO = 'U', and
                      // TRANS = 'N'
 
-                     CALL CTRSM( 'R', 'L', 'C', DIAG, M, N1, ALPHA, A( N2 ), N, B( 0, 0 ), LDB )                      CALL CGEMM( 'N', 'N', M, N2, N1, -CONE, B( 0, 0 ), LDB, A( 0 ), N, ALPHA, B( 0, N1 ), LDB )
-                     CALL CTRSM( 'R', 'U', 'N', DIAG, M, N2, CONE, A( N1 ), N, B( 0, N1 ), LDB )
+                     ctrsm('R', 'L', 'C', DIAG, M, N1, ALPHA, A( N2 ), N, B( 0, 0 ), LDB )                      CALL CGEMM( 'N', 'N', M, N2, N1, -CONE, B( 0, 0 ), LDB, A( 0 ), N, ALPHA, B( 0, N1 ), LDB );
+                     ctrsm('R', 'U', 'N', DIAG, M, N2, CONE, A( N1 ), N, B( 0, N1 ), LDB );
 
                   } else {
 
                      // SIDE  ='R', N is odd, TRANSR = 'N', UPLO = 'U', and
                      // TRANS = 'C'
 
-                     CALL CTRSM( 'R', 'U', 'C', DIAG, M, N2, ALPHA, A( N1 ), N, B( 0, N1 ), LDB )                      CALL CGEMM( 'N', 'C', M, N1, N2, -CONE, B( 0, N1 ), LDB, A( 0 ), N, ALPHA, B( 0, 0 ), LDB )                      CALL CTRSM( 'R', 'L', 'N', DIAG, M, N1, CONE, A( N2 ), N, B( 0, 0 ), LDB )
+                     ctrsm('R', 'U', 'C', DIAG, M, N2, ALPHA, A( N1 ), N, B( 0, N1 ), LDB )                      CALL CGEMM( 'N', 'C', M, N1, N2, -CONE, B( 0, N1 ), LDB, A( 0 ), N, ALPHA, B( 0, 0 ), LDB )                      CALL CTRSM( 'R', 'L', 'N', DIAG, M, N1, CONE, A( N2 ), N, B( 0, 0 ), LDB );
 
                   }
 
@@ -406,16 +406,16 @@
                      // SIDE  ='R', N is odd, TRANSR = 'C', UPLO = 'L', and
                      // TRANS = 'N'
 
-                     CALL CTRSM( 'R', 'L', 'N', DIAG, M, N2, ALPHA, A( 1 ), N1, B( 0, N1 ), LDB )                      CALL CGEMM( 'N', 'C', M, N1, N2, -CONE, B( 0, N1 ), LDB, A( N1*N1 ), N1, ALPHA, B( 0, 0 ), LDB )
-                     CALL CTRSM( 'R', 'U', 'C', DIAG, M, N1, CONE, A( 0 ), N1, B( 0, 0 ), LDB )
+                     ctrsm('R', 'L', 'N', DIAG, M, N2, ALPHA, A( 1 ), N1, B( 0, N1 ), LDB )                      CALL CGEMM( 'N', 'C', M, N1, N2, -CONE, B( 0, N1 ), LDB, A( N1*N1 ), N1, ALPHA, B( 0, 0 ), LDB );
+                     ctrsm('R', 'U', 'C', DIAG, M, N1, CONE, A( 0 ), N1, B( 0, 0 ), LDB );
 
                   } else {
 
                      // SIDE  ='R', N is odd, TRANSR = 'C', UPLO = 'L', and
                      // TRANS = 'C'
 
-                     CALL CTRSM( 'R', 'U', 'N', DIAG, M, N1, ALPHA, A( 0 ), N1, B( 0, 0 ), LDB )                      CALL CGEMM( 'N', 'N', M, N2, N1, -CONE, B( 0, 0 ), LDB, A( N1*N1 ), N1, ALPHA, B( 0, N1 ), LDB )
-                     CALL CTRSM( 'R', 'L', 'C', DIAG, M, N2, CONE, A( 1 ), N1, B( 0, N1 ), LDB )
+                     ctrsm('R', 'U', 'N', DIAG, M, N1, ALPHA, A( 0 ), N1, B( 0, 0 ), LDB )                      CALL CGEMM( 'N', 'N', M, N2, N1, -CONE, B( 0, 0 ), LDB, A( N1*N1 ), N1, ALPHA, B( 0, N1 ), LDB );
+                     ctrsm('R', 'L', 'C', DIAG, M, N2, CONE, A( 1 ), N1, B( 0, N1 ), LDB );
 
                   }
 
@@ -428,16 +428,16 @@
                      // SIDE  ='R', N is odd, TRANSR = 'C', UPLO = 'U', and
                      // TRANS = 'N'
 
-                     CALL CTRSM( 'R', 'U', 'N', DIAG, M, N1, ALPHA, A( N2*N2 ), N2, B( 0, 0 ), LDB )                      CALL CGEMM( 'N', 'C', M, N2, N1, -CONE, B( 0, 0 ), LDB, A( 0 ), N2, ALPHA, B( 0, N1 ), LDB )
-                     CALL CTRSM( 'R', 'L', 'C', DIAG, M, N2, CONE, A( N1*N2 ), N2, B( 0, N1 ), LDB )
+                     ctrsm('R', 'U', 'N', DIAG, M, N1, ALPHA, A( N2*N2 ), N2, B( 0, 0 ), LDB )                      CALL CGEMM( 'N', 'C', M, N2, N1, -CONE, B( 0, 0 ), LDB, A( 0 ), N2, ALPHA, B( 0, N1 ), LDB );
+                     ctrsm('R', 'L', 'C', DIAG, M, N2, CONE, A( N1*N2 ), N2, B( 0, N1 ), LDB );
 
                   } else {
 
                      // SIDE  ='R', N is odd, TRANSR = 'C', UPLO = 'U', and
                      // TRANS = 'C'
 
-                     CALL CTRSM( 'R', 'L', 'N', DIAG, M, N2, ALPHA, A( N1*N2 ), N2, B( 0, N1 ), LDB )                      CALL CGEMM( 'N', 'N', M, N1, N2, -CONE, B( 0, N1 ), LDB, A( 0 ), N2, ALPHA, B( 0, 0 ), LDB )
-                     CALL CTRSM( 'R', 'U', 'C', DIAG, M, N1, CONE, A( N2*N2 ), N2, B( 0, 0 ), LDB )
+                     ctrsm('R', 'L', 'N', DIAG, M, N2, ALPHA, A( N1*N2 ), N2, B( 0, N1 ), LDB )                      CALL CGEMM( 'N', 'N', M, N1, N2, -CONE, B( 0, N1 ), LDB, A( 0 ), N2, ALPHA, B( 0, 0 ), LDB );
+                     ctrsm('R', 'U', 'C', DIAG, M, N1, CONE, A( N2*N2 ), N2, B( 0, 0 ), LDB );
 
                   }
 
@@ -462,16 +462,16 @@
                      // SIDE  ='R', N is even, TRANSR = 'N', UPLO = 'L',
                      // and TRANS = 'N'
 
-                     CALL CTRSM( 'R', 'U', 'C', DIAG, M, K, ALPHA, A( 0 ), N+1, B( 0, K ), LDB )                      CALL CGEMM( 'N', 'N', M, K, K, -CONE, B( 0, K ), LDB, A( K+1 ), N+1, ALPHA, B( 0, 0 ), LDB )
-                     CALL CTRSM( 'R', 'L', 'N', DIAG, M, K, CONE, A( 1 ), N+1, B( 0, 0 ), LDB )
+                     ctrsm('R', 'U', 'C', DIAG, M, K, ALPHA, A( 0 ), N+1, B( 0, K ), LDB )                      CALL CGEMM( 'N', 'N', M, K, K, -CONE, B( 0, K ), LDB, A( K+1 ), N+1, ALPHA, B( 0, 0 ), LDB );
+                     ctrsm('R', 'L', 'N', DIAG, M, K, CONE, A( 1 ), N+1, B( 0, 0 ), LDB );
 
                   } else {
 
                      // SIDE  ='R', N is even, TRANSR = 'N', UPLO = 'L',
                      // and TRANS = 'C'
 
-                     CALL CTRSM( 'R', 'L', 'C', DIAG, M, K, ALPHA, A( 1 ), N+1, B( 0, 0 ), LDB )                      CALL CGEMM( 'N', 'C', M, K, K, -CONE, B( 0, 0 ), LDB, A( K+1 ), N+1, ALPHA, B( 0, K ), LDB )
-                     CALL CTRSM( 'R', 'U', 'N', DIAG, M, K, CONE, A( 0 ), N+1, B( 0, K ), LDB )
+                     ctrsm('R', 'L', 'C', DIAG, M, K, ALPHA, A( 1 ), N+1, B( 0, 0 ), LDB )                      CALL CGEMM( 'N', 'C', M, K, K, -CONE, B( 0, 0 ), LDB, A( K+1 ), N+1, ALPHA, B( 0, K ), LDB );
+                     ctrsm('R', 'U', 'N', DIAG, M, K, CONE, A( 0 ), N+1, B( 0, K ), LDB );
 
                   }
 
@@ -484,16 +484,16 @@
                      // SIDE  ='R', N is even, TRANSR = 'N', UPLO = 'U',
                      // and TRANS = 'N'
 
-                     CALL CTRSM( 'R', 'L', 'C', DIAG, M, K, ALPHA, A( K+1 ), N+1, B( 0, 0 ), LDB )                      CALL CGEMM( 'N', 'N', M, K, K, -CONE, B( 0, 0 ), LDB, A( 0 ), N+1, ALPHA, B( 0, K ), LDB )
-                     CALL CTRSM( 'R', 'U', 'N', DIAG, M, K, CONE, A( K ), N+1, B( 0, K ), LDB )
+                     ctrsm('R', 'L', 'C', DIAG, M, K, ALPHA, A( K+1 ), N+1, B( 0, 0 ), LDB )                      CALL CGEMM( 'N', 'N', M, K, K, -CONE, B( 0, 0 ), LDB, A( 0 ), N+1, ALPHA, B( 0, K ), LDB );
+                     ctrsm('R', 'U', 'N', DIAG, M, K, CONE, A( K ), N+1, B( 0, K ), LDB );
 
                   } else {
 
                      // SIDE  ='R', N is even, TRANSR = 'N', UPLO = 'U',
                      // and TRANS = 'C'
 
-                     CALL CTRSM( 'R', 'U', 'C', DIAG, M, K, ALPHA, A( K ), N+1, B( 0, K ), LDB )                      CALL CGEMM( 'N', 'C', M, K, K, -CONE, B( 0, K ), LDB, A( 0 ), N+1, ALPHA, B( 0, 0 ), LDB )
-                     CALL CTRSM( 'R', 'L', 'N', DIAG, M, K, CONE, A( K+1 ), N+1, B( 0, 0 ), LDB )
+                     ctrsm('R', 'U', 'C', DIAG, M, K, ALPHA, A( K ), N+1, B( 0, K ), LDB )                      CALL CGEMM( 'N', 'C', M, K, K, -CONE, B( 0, K ), LDB, A( 0 ), N+1, ALPHA, B( 0, 0 ), LDB );
+                     ctrsm('R', 'L', 'N', DIAG, M, K, CONE, A( K+1 ), N+1, B( 0, 0 ), LDB );
 
                   }
 
@@ -512,16 +512,16 @@
                      // SIDE  ='R', N is even, TRANSR = 'C', UPLO = 'L',
                      // and TRANS = 'N'
 
-                     CALL CTRSM( 'R', 'L', 'N', DIAG, M, K, ALPHA, A( 0 ), K, B( 0, K ), LDB )                      CALL CGEMM( 'N', 'C', M, K, K, -CONE, B( 0, K ), LDB, A( ( K+1 )*K ), K, ALPHA, B( 0, 0 ), LDB )
-                     CALL CTRSM( 'R', 'U', 'C', DIAG, M, K, CONE, A( K ), K, B( 0, 0 ), LDB )
+                     ctrsm('R', 'L', 'N', DIAG, M, K, ALPHA, A( 0 ), K, B( 0, K ), LDB )                      CALL CGEMM( 'N', 'C', M, K, K, -CONE, B( 0, K ), LDB, A( ( K+1 )*K ), K, ALPHA, B( 0, 0 ), LDB );
+                     ctrsm('R', 'U', 'C', DIAG, M, K, CONE, A( K ), K, B( 0, 0 ), LDB );
 
                   } else {
 
                      // SIDE  ='R', N is even, TRANSR = 'C', UPLO = 'L',
                      // and TRANS = 'C'
 
-                     CALL CTRSM( 'R', 'U', 'N', DIAG, M, K, ALPHA, A( K ), K, B( 0, 0 ), LDB )                      CALL CGEMM( 'N', 'N', M, K, K, -CONE, B( 0, 0 ), LDB, A( ( K+1 )*K ), K, ALPHA, B( 0, K ), LDB )
-                     CALL CTRSM( 'R', 'L', 'C', DIAG, M, K, CONE, A( 0 ), K, B( 0, K ), LDB )
+                     ctrsm('R', 'U', 'N', DIAG, M, K, ALPHA, A( K ), K, B( 0, 0 ), LDB )                      CALL CGEMM( 'N', 'N', M, K, K, -CONE, B( 0, 0 ), LDB, A( ( K+1 )*K ), K, ALPHA, B( 0, K ), LDB );
+                     ctrsm('R', 'L', 'C', DIAG, M, K, CONE, A( 0 ), K, B( 0, K ), LDB );
 
                   }
 
@@ -534,14 +534,14 @@
                      // SIDE  ='R', N is even, TRANSR = 'C', UPLO = 'U',
                      // and TRANS = 'N'
 
-                     CALL CTRSM( 'R', 'U', 'N', DIAG, M, K, ALPHA, A( ( K+1 )*K ), K, B( 0, 0 ), LDB )                      CALL CGEMM( 'N', 'C', M, K, K, -CONE, B( 0, 0 ), LDB, A( 0 ), K, ALPHA, B( 0, K ), LDB )                      CALL CTRSM( 'R', 'L', 'C', DIAG, M, K, CONE, A( K*K ), K, B( 0, K ), LDB )
+                     ctrsm('R', 'U', 'N', DIAG, M, K, ALPHA, A( ( K+1 )*K ), K, B( 0, 0 ), LDB )                      CALL CGEMM( 'N', 'C', M, K, K, -CONE, B( 0, 0 ), LDB, A( 0 ), K, ALPHA, B( 0, K ), LDB )                      CALL CTRSM( 'R', 'L', 'C', DIAG, M, K, CONE, A( K*K ), K, B( 0, K ), LDB );
 
                   } else {
 
                      // SIDE  ='R', N is even, TRANSR = 'C', UPLO = 'U',
                      // and TRANS = 'C'
 
-                     CALL CTRSM( 'R', 'L', 'N', DIAG, M, K, ALPHA, A( K*K ), K, B( 0, K ), LDB )                      CALL CGEMM( 'N', 'N', M, K, K, -CONE, B( 0, K ), LDB, A( 0 ), K, ALPHA, B( 0, 0 ), LDB )                      CALL CTRSM( 'R', 'U', 'C', DIAG, M, K, CONE, A( ( K+1 )*K ), K, B( 0, 0 ), LDB )
+                     ctrsm('R', 'L', 'N', DIAG, M, K, ALPHA, A( K*K ), K, B( 0, K ), LDB )                      CALL CGEMM( 'N', 'N', M, K, K, -CONE, B( 0, K ), LDB, A( 0 ), K, ALPHA, B( 0, 0 ), LDB )                      CALL CTRSM( 'R', 'U', 'C', DIAG, M, K, CONE, A( ( K+1 )*K ), K, B( 0, 0 ), LDB );
 
                   }
 

@@ -73,7 +73,7 @@
 
          // Copy column K of A to column KW of W and update it
 
-         CALL ZCOPY( K, A( 1, K ), 1, W( 1, KW ), 1 )
+         zcopy(K, A( 1, K ), 1, W( 1, KW ), 1 );
          IF( K.LT.N ) CALL ZGEMV( 'No transpose', K, N-K, -CONE, A( 1, K+1 ), LDA, W( K, KW+1 ), LDW, CONE, W( 1, KW ), 1 )
 
          KSTEP = 1
@@ -109,8 +109,8 @@
 
                // Copy column IMAX to column KW-1 of W and update it
 
-               CALL ZCOPY( IMAX, A( 1, IMAX ), 1, W( 1, KW-1 ), 1 )
-               CALL ZCOPY( K-IMAX, A( IMAX, IMAX+1 ), LDA, W( IMAX+1, KW-1 ), 1 )                IF( K.LT.N ) CALL ZGEMV( 'No transpose', K, N-K, -CONE, A( 1, K+1 ), LDA, W( IMAX, KW+1 ), LDW, CONE, W( 1, KW-1 ), 1 )
+               zcopy(IMAX, A( 1, IMAX ), 1, W( 1, KW-1 ), 1 );
+               zcopy(K-IMAX, A( IMAX, IMAX+1 ), LDA, W( IMAX+1, KW-1 ), 1 )                IF( K.LT.N ) CALL ZGEMV( 'No transpose', K, N-K, -CONE, A( 1, K+1 ), LDA, W( IMAX, KW+1 ), LDW, CONE, W( 1, KW-1 ), 1 );
 
                // JMAX is the column-index of the largest off-diagonal
                // element in row IMAX, and ROWMAX is its absolute value
@@ -136,7 +136,7 @@
 
                   // copy column KW-1 of W to column KW of W
 
-                  CALL ZCOPY( K, W( 1, KW-1 ), 1, W( 1, KW ), 1 )
+                  zcopy(K, W( 1, KW-1 ), 1, W( 1, KW ), 1 );
                } else {
 
                   // interchange rows and columns K-1 and IMAX, use 2-by-2
@@ -168,7 +168,7 @@
                // will be later overwritten.
 
                A( KP, KP ) = A( KK, KK )
-               CALL ZCOPY( KK-1-KP, A( KP+1, KK ), 1, A( KP, KP+1 ), LDA )                IF( KP.GT.1 ) CALL ZCOPY( KP-1, A( 1, KK ), 1, A( 1, KP ), 1 )
+               zcopy(KK-1-KP, A( KP+1, KK ), 1, A( KP, KP+1 ), LDA )                IF( KP.GT.1 ) CALL ZCOPY( KP-1, A( 1, KK ), 1, A( 1, KP ), 1 );
 
                // Interchange rows KK and KP in last K+1 to N columns of A
                // (columns K (or K and K-1 for 2-by-2 pivot) of A will be
@@ -176,7 +176,7 @@
                // in last KKW to NB columns of W.
 
                IF( K.LT.N ) CALL ZSWAP( N-K, A( KK, K+1 ), LDA, A( KP, K+1 ), LDA )
-               CALL ZSWAP( N-KK+1, W( KK, KKW ), LDW, W( KP, KKW ), LDW )
+               zswap(N-KK+1, W( KK, KKW ), LDW, W( KP, KKW ), LDW );
             }
 
             if ( KSTEP.EQ.1 ) {
@@ -194,9 +194,9 @@
                   // A(k,k) := D(k,k) = W(k,kw)
                   // A(1:k-1,k) := U(1:k-1,k) = W(1:k-1,kw)/D(k,k)
 
-               CALL ZCOPY( K, W( 1, KW ), 1, A( 1, K ), 1 )
+               zcopy(K, W( 1, KW ), 1, A( 1, K ), 1 );
                R1 = CONE / A( K, K )
-               CALL ZSCAL( K-1, R1, A( 1, K ), 1 )
+               zscal(K-1, R1, A( 1, K ), 1 );
 
             } else {
 
@@ -296,12 +296,12 @@
             // Update the upper triangle of the diagonal block
 
             DO 40 JJ = J, J + JB - 1
-               CALL ZGEMV( 'No transpose', JJ-J+1, N-K, -CONE, A( J, K+1 ), LDA, W( JJ, KW+1 ), LDW, CONE, A( J, JJ ), 1 )
+               zgemv('No transpose', JJ-J+1, N-K, -CONE, A( J, K+1 ), LDA, W( JJ, KW+1 ), LDW, CONE, A( J, JJ ), 1 );
    40       CONTINUE
 
             // Update the rectangular superdiagonal block
 
-            CALL ZGEMM( 'No transpose', 'Transpose', J-1, JB, N-K, -CONE, A( 1, K+1 ), LDA, W( J, KW+1 ), LDW, CONE, A( 1, J ), LDA )
+            zgemm('No transpose', 'Transpose', J-1, JB, N-K, -CONE, A( 1, K+1 ), LDA, W( J, KW+1 ), LDW, CONE, A( 1, J ), LDA );
    50    CONTINUE
 
          // Put U12 in standard form by partially undoing the interchanges
@@ -347,8 +347,8 @@
 
          // Copy column K of A to column K of W and update it
 
-         CALL ZCOPY( N-K+1, A( K, K ), 1, W( K, K ), 1 )
-         CALL ZGEMV( 'No transpose', N-K+1, K-1, -CONE, A( K, 1 ), LDA, W( K, 1 ), LDW, CONE, W( K, K ), 1 )
+         zcopy(N-K+1, A( K, K ), 1, W( K, K ), 1 );
+         zgemv('No transpose', N-K+1, K-1, -CONE, A( K, 1 ), LDA, W( K, 1 ), LDW, CONE, W( K, K ), 1 );
 
          KSTEP = 1
 
@@ -383,8 +383,8 @@
 
                // Copy column IMAX to column K+1 of W and update it
 
-               CALL ZCOPY( IMAX-K, A( IMAX, K ), LDA, W( K, K+1 ), 1 )
-               CALL ZCOPY( N-IMAX+1, A( IMAX, IMAX ), 1, W( IMAX, K+1 ), 1 )                CALL ZGEMV( 'No transpose', N-K+1, K-1, -CONE, A( K, 1 ), LDA, W( IMAX, 1 ), LDW, CONE, W( K, K+1 ), 1 )
+               zcopy(IMAX-K, A( IMAX, K ), LDA, W( K, K+1 ), 1 );
+               zcopy(N-IMAX+1, A( IMAX, IMAX ), 1, W( IMAX, K+1 ), 1 )                CALL ZGEMV( 'No transpose', N-K+1, K-1, -CONE, A( K, 1 ), LDA, W( IMAX, 1 ), LDW, CONE, W( K, K+1 ), 1 );
 
                // JMAX is the column-index of the largest off-diagonal
                // element in row IMAX, and ROWMAX is its absolute value
@@ -410,7 +410,7 @@
 
                   // copy column K+1 of W to column K of W
 
-                  CALL ZCOPY( N-K+1, W( K, K+1 ), 1, W( K, K ), 1 )
+                  zcopy(N-K+1, W( K, K+1 ), 1, W( K, K ), 1 );
                } else {
 
                   // interchange rows and columns K+1 and IMAX, use 2-by-2
@@ -438,7 +438,7 @@
                // will be later overwritten.
 
                A( KP, KP ) = A( KK, KK )
-               CALL ZCOPY( KP-KK-1, A( KK+1, KK ), 1, A( KP, KK+1 ), LDA )                IF( KP.LT.N ) CALL ZCOPY( N-KP, A( KP+1, KK ), 1, A( KP+1, KP ), 1 )
+               zcopy(KP-KK-1, A( KK+1, KK ), 1, A( KP, KK+1 ), LDA )                IF( KP.LT.N ) CALL ZCOPY( N-KP, A( KP+1, KK ), 1, A( KP+1, KP ), 1 );
 
                // Interchange rows KK and KP in first K-1 columns of A
                // (columns K (or K and K+1 for 2-by-2 pivot) of A will be
@@ -446,7 +446,7 @@
                // in first KK columns of W.
 
                IF( K.GT.1 ) CALL ZSWAP( K-1, A( KK, 1 ), LDA, A( KP, 1 ), LDA )
-               CALL ZSWAP( KK, W( KK, 1 ), LDW, W( KP, 1 ), LDW )
+               zswap(KK, W( KK, 1 ), LDW, W( KP, 1 ), LDW );
             }
 
             if ( KSTEP.EQ.1 ) {
@@ -464,10 +464,10 @@
                   // A(k,k) := D(k,k) = W(k,k)
                   // A(k+1:N,k) := L(k+1:N,k) = W(k+1:N,k)/D(k,k)
 
-               CALL ZCOPY( N-K+1, W( K, K ), 1, A( K, K ), 1 )
+               zcopy(N-K+1, W( K, K ), 1, A( K, K ), 1 );
                if ( K.LT.N ) {
                   R1 = CONE / A( K, K )
-                  CALL ZSCAL( N-K, R1, A( K+1, K ), 1 )
+                  zscal(N-K, R1, A( K+1, K ), 1 );
                }
 
             } else {
@@ -568,7 +568,7 @@
             // Update the lower triangle of the diagonal block
 
             DO 100 JJ = J, J + JB - 1
-               CALL ZGEMV( 'No transpose', J+JB-JJ, K-1, -CONE, A( JJ, 1 ), LDA, W( JJ, 1 ), LDW, CONE, A( JJ, JJ ), 1 )
+               zgemv('No transpose', J+JB-JJ, K-1, -CONE, A( JJ, 1 ), LDA, W( JJ, 1 ), LDW, CONE, A( JJ, JJ ), 1 );
   100       CONTINUE
 
             // Update the rectangular subdiagonal block

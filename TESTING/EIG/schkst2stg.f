@@ -91,7 +91,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'SCHKST2STG', -INFO )
+         xerbla('SCHKST2STG', -INFO );
          RETURN
       }
 
@@ -185,7 +185,7 @@
 
    70       CONTINUE
 
-            CALL SLASET( 'Full', LDA, N, ZERO, ZERO, A, LDA )
+            slaset('Full', LDA, N, ZERO, ZERO, A, LDA );
             IINFO = 0
             if ( JTYPE.LE.15 ) {
                COND = ULPINV
@@ -212,38 +212,38 @@
 
                // Diagonal Matrix, [Eigen]values Specified
 
-               CALL SLATMS( N, N, 'S', ISEED, 'S', WORK, IMODE, COND, ANORM, 0, 0, 'N', A, LDA, WORK( N+1 ), IINFO )
+               slatms(N, N, 'S', ISEED, 'S', WORK, IMODE, COND, ANORM, 0, 0, 'N', A, LDA, WORK( N+1 ), IINFO );
 
 
             } else if ( ITYPE.EQ.5 ) {
 
                // Symmetric, eigenvalues specified
 
-               CALL SLATMS( N, N, 'S', ISEED, 'S', WORK, IMODE, COND, ANORM, N, N, 'N', A, LDA, WORK( N+1 ), IINFO )
+               slatms(N, N, 'S', ISEED, 'S', WORK, IMODE, COND, ANORM, N, N, 'N', A, LDA, WORK( N+1 ), IINFO );
 
             } else if ( ITYPE.EQ.7 ) {
 
                // Diagonal, random eigenvalues
 
-               CALL SLATMR( N, N, 'S', ISEED, 'S', WORK, 6, ONE, ONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, 0, 0, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO )
+               slatmr(N, N, 'S', ISEED, 'S', WORK, 6, ONE, ONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, 0, 0, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO );
 
             } else if ( ITYPE.EQ.8 ) {
 
                // Symmetric, random eigenvalues
 
-               CALL SLATMR( N, N, 'S', ISEED, 'S', WORK, 6, ONE, ONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, N, N, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO )
+               slatmr(N, N, 'S', ISEED, 'S', WORK, 6, ONE, ONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, N, N, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO );
 
             } else if ( ITYPE.EQ.9 ) {
 
                // Positive definite, eigenvalues specified.
 
-               CALL SLATMS( N, N, 'S', ISEED, 'P', WORK, IMODE, COND, ANORM, N, N, 'N', A, LDA, WORK( N+1 ), IINFO )
+               slatms(N, N, 'S', ISEED, 'P', WORK, IMODE, COND, ANORM, N, N, 'N', A, LDA, WORK( N+1 ), IINFO );
 
             } else if ( ITYPE.EQ.10 ) {
 
                // Positive definite tridiagonal, eigenvalues specified.
 
-               CALL SLATMS( N, N, 'S', ISEED, 'P', WORK, IMODE, COND, ANORM, 1, 1, 'N', A, LDA, WORK( N+1 ), IINFO )
+               slatms(N, N, 'S', ISEED, 'P', WORK, IMODE, COND, ANORM, 1, 1, 'N', A, LDA, WORK( N+1 ), IINFO );
                DO 90 I = 2, N
                   TEMP1 = ABS( A( I-1, I ) ) / SQRT( ABS( A( I-1, I-1 )*A( I, I ) ) )
                   if ( TEMP1.GT.HALF ) {
@@ -268,10 +268,10 @@
             // Call SSYTRD and SORGTR to compute S and U from
             // upper triangle.
 
-            CALL SLACPY( 'U', N, N, A, LDA, V, LDU )
+            slacpy('U', N, N, A, LDA, V, LDU );
 
             NTEST = 1
-            CALL SSYTRD( 'U', N, V, LDU, SD, SE, TAU, WORK, LWORK, IINFO )
+            ssytrd('U', N, V, LDU, SD, SE, TAU, WORK, LWORK, IINFO );
 
             if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'SSYTRD(U)', IINFO, N, JTYPE, IOLDSD
@@ -284,10 +284,10 @@
                }
             }
 
-            CALL SLACPY( 'U', N, N, V, LDU, U, LDU )
+            slacpy('U', N, N, V, LDU, U, LDU );
 
             NTEST = 2
-            CALL SORGTR( 'U', N, U, LDU, TAU, WORK, LWORK, IINFO )
+            sorgtr('U', N, U, LDU, TAU, WORK, LWORK, IINFO );
             if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'SORGTR(U)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
@@ -301,7 +301,7 @@
 
             // Do tests 1 and 2
 
-            CALL SSYT21( 2, 'Upper', N, 1, A, LDA, SD, SE, U, LDU, V, LDU, TAU, WORK, RESULT( 1 ) )             CALL SSYT21( 3, 'Upper', N, 1, A, LDA, SD, SE, U, LDU, V, LDU, TAU, WORK, RESULT( 2 ) )
+            ssyt21(2, 'Upper', N, 1, A, LDA, SD, SE, U, LDU, V, LDU, TAU, WORK, RESULT( 1 ) )             CALL SSYT21( 3, 'Upper', N, 1, A, LDA, SD, SE, U, LDU, V, LDU, TAU, WORK, RESULT( 2 ) );
 
             // Compute D1 the eigenvalues resulting from the tridiagonal
             // form using the standard 1-stage algorithm and use it as a
@@ -310,10 +310,10 @@
             // Compute D1 from the 1-stage and used as reference for the
             // 2-stage
 
-            CALL SCOPY( N, SD, 1, D1, 1 )
+            scopy(N, SD, 1, D1, 1 );
             IF( N.GT.0 ) CALL SCOPY( N-1, SE, 1, WORK, 1 )
 
-            CALL SSTEQR( 'N', N, D1, WORK, WORK( N+1 ), LDU, WORK( N+1 ), IINFO )
+            ssteqr('N', N, D1, WORK, WORK( N+1 ), LDU, WORK( N+1 ), IINFO );
             if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'SSTEQR(N)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
@@ -330,19 +330,19 @@
             // the one from above. Compare it with D1 computed
             // using the 1-stage.
 
-            CALL SLASET( 'Full', N, 1, ZERO, ZERO, SD, N )
-            CALL SLASET( 'Full', N, 1, ZERO, ZERO, SE, N )
-            CALL SLACPY( "U", N, N, A, LDA, V, LDU )
+            slaset('Full', N, 1, ZERO, ZERO, SD, N );
+            slaset('Full', N, 1, ZERO, ZERO, SE, N );
+            slacpy("U", N, N, A, LDA, V, LDU );
             LH = MAX(1, 4*N)
             LW = LWORK - LH
-            CALL SSYTRD_2STAGE( 'N', "U", N, V, LDU, SD, SE, TAU,  WORK, LH, WORK( LH+1 ), LW, IINFO )
+            ssytrd_2stage('N', "U", N, V, LDU, SD, SE, TAU,  WORK, LH, WORK( LH+1 ), LW, IINFO );
 
             // Compute D2 from the 2-stage Upper case
 
-            CALL SCOPY( N, SD, 1, D2, 1 )
+            scopy(N, SD, 1, D2, 1 );
             IF( N.GT.0 ) CALL SCOPY( N-1, SE, 1, WORK, 1 )
 
-            CALL SSTEQR( 'N', N, D2, WORK, WORK( N+1 ), LDU, WORK( N+1 ), IINFO )
+            ssteqr('N', N, D2, WORK, WORK( N+1 ), LDU, WORK( N+1 ), IINFO );
             if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'SSTEQR(N)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
@@ -359,17 +359,17 @@
             // the one from above. Compare it with D1 computed
             // using the 1-stage.
 
-            CALL SLASET( 'Full', N, 1, ZERO, ZERO, SD, N )
-            CALL SLASET( 'Full', N, 1, ZERO, ZERO, SE, N )
-            CALL SLACPY( "L", N, N, A, LDA, V, LDU )
-            CALL SSYTRD_2STAGE( 'N', "L", N, V, LDU, SD, SE, TAU,  WORK, LH, WORK( LH+1 ), LW, IINFO )
+            slaset('Full', N, 1, ZERO, ZERO, SD, N );
+            slaset('Full', N, 1, ZERO, ZERO, SE, N );
+            slacpy("L", N, N, A, LDA, V, LDU );
+            ssytrd_2stage('N', "L", N, V, LDU, SD, SE, TAU,  WORK, LH, WORK( LH+1 ), LW, IINFO );
 
             // Compute D3 from the 2-stage Upper case
 
-            CALL SCOPY( N, SD, 1, D3, 1 )
+            scopy(N, SD, 1, D3, 1 );
             IF( N.GT.0 ) CALL SCOPY( N-1, SE, 1, WORK, 1 )
 
-            CALL SSTEQR( 'N', N, D3, WORK, WORK( N+1 ), LDU, WORK( N+1 ), IINFO )
+            ssteqr('N', N, D3, WORK, WORK( N+1 ), LDU, WORK( N+1 ), IINFO );
             if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'SSTEQR(N)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
@@ -412,10 +412,10 @@
 
             // Call SSPTRD and SOPGTR to compute S and U from AP
 
-            CALL SCOPY( NAP, AP, 1, VP, 1 )
+            scopy(NAP, AP, 1, VP, 1 );
 
             NTEST = 5
-            CALL SSPTRD( 'U', N, VP, SD, SE, TAU, IINFO )
+            ssptrd('U', N, VP, SD, SE, TAU, IINFO );
 
             if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'SSPTRD(U)', IINFO, N, JTYPE, IOLDSD
@@ -429,7 +429,7 @@
             }
 
             NTEST = 6
-            CALL SOPGTR( 'U', N, VP, TAU, U, LDU, WORK, IINFO )
+            sopgtr('U', N, VP, TAU, U, LDU, WORK, IINFO );
             if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'SOPGTR(U)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
@@ -443,7 +443,7 @@
 
             // Do tests 5 and 6
 
-            CALL SSPT21( 2, 'Upper', N, 1, AP, SD, SE, U, LDU, VP, TAU, WORK, RESULT( 5 ) )             CALL SSPT21( 3, 'Upper', N, 1, AP, SD, SE, U, LDU, VP, TAU, WORK, RESULT( 6 ) )
+            sspt21(2, 'Upper', N, 1, AP, SD, SE, U, LDU, VP, TAU, WORK, RESULT( 5 ) )             CALL SSPT21( 3, 'Upper', N, 1, AP, SD, SE, U, LDU, VP, TAU, WORK, RESULT( 6 ) );
 
             // Store the lower triangle of A in AP
 
@@ -457,10 +457,10 @@
 
             // Call SSPTRD and SOPGTR to compute S and U from AP
 
-            CALL SCOPY( NAP, AP, 1, VP, 1 )
+            scopy(NAP, AP, 1, VP, 1 );
 
             NTEST = 7
-            CALL SSPTRD( 'L', N, VP, SD, SE, TAU, IINFO )
+            ssptrd('L', N, VP, SD, SE, TAU, IINFO );
 
             if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'SSPTRD(L)', IINFO, N, JTYPE, IOLDSD
@@ -474,7 +474,7 @@
             }
 
             NTEST = 8
-            CALL SOPGTR( 'L', N, VP, TAU, U, LDU, WORK, IINFO )
+            sopgtr('L', N, VP, TAU, U, LDU, WORK, IINFO );
             if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'SOPGTR(L)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
@@ -486,18 +486,18 @@
                }
             }
 
-            CALL SSPT21( 2, 'Lower', N, 1, AP, SD, SE, U, LDU, VP, TAU, WORK, RESULT( 7 ) )             CALL SSPT21( 3, 'Lower', N, 1, AP, SD, SE, U, LDU, VP, TAU, WORK, RESULT( 8 ) )
+            sspt21(2, 'Lower', N, 1, AP, SD, SE, U, LDU, VP, TAU, WORK, RESULT( 7 ) )             CALL SSPT21( 3, 'Lower', N, 1, AP, SD, SE, U, LDU, VP, TAU, WORK, RESULT( 8 ) );
 
             // Call SSTEQR to compute D1, D2, and Z, do tests.
 
             // Compute D1 and Z
 
-            CALL SCOPY( N, SD, 1, D1, 1 )
+            scopy(N, SD, 1, D1, 1 );
             IF( N.GT.0 ) CALL SCOPY( N-1, SE, 1, WORK, 1 )
-            CALL SLASET( 'Full', N, N, ZERO, ONE, Z, LDU )
+            slaset('Full', N, N, ZERO, ONE, Z, LDU );
 
             NTEST = 9
-            CALL SSTEQR( 'V', N, D1, WORK, Z, LDU, WORK( N+1 ), IINFO )
+            ssteqr('V', N, D1, WORK, Z, LDU, WORK( N+1 ), IINFO );
             if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'SSTEQR(V)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
@@ -511,11 +511,11 @@
 
             // Compute D2
 
-            CALL SCOPY( N, SD, 1, D2, 1 )
+            scopy(N, SD, 1, D2, 1 );
             IF( N.GT.0 ) CALL SCOPY( N-1, SE, 1, WORK, 1 )
 
             NTEST = 11
-            CALL SSTEQR( 'N', N, D2, WORK, WORK( N+1 ), LDU, WORK( N+1 ), IINFO )
+            ssteqr('N', N, D2, WORK, WORK( N+1 ), LDU, WORK( N+1 ), IINFO );
             if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'SSTEQR(N)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
@@ -529,11 +529,11 @@
 
             // Compute D3 (using PWK method)
 
-            CALL SCOPY( N, SD, 1, D3, 1 )
+            scopy(N, SD, 1, D3, 1 );
             IF( N.GT.0 ) CALL SCOPY( N-1, SE, 1, WORK, 1 )
 
             NTEST = 12
-            CALL SSTERF( N, D3, WORK, IINFO )
+            ssterf(N, D3, WORK, IINFO );
             if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'SSTERF', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
@@ -547,7 +547,7 @@
 
             // Do Tests 9 and 10
 
-            CALL SSTT21( N, 0, SD, SE, D1, DUMMA, Z, LDU, WORK, RESULT( 9 ) )
+            sstt21(N, 0, SD, SE, D1, DUMMA, Z, LDU, WORK, RESULT( 9 ) );
 
             // Do Tests 11 and 12
 
@@ -573,7 +573,7 @@
             TEMP1 = THRESH*( HALF-ULP )
 
             DO 160 J = 0, LOG2UI
-               CALL SSTECH( N, SD, SE, D1, TEMP1, WORK, IINFO )
+               sstech(N, SD, SE, D1, TEMP1, WORK, IINFO );
                IF( IINFO.EQ.0 ) GO TO 170
                TEMP1 = TEMP1*TWO
   160       CONTINUE
@@ -588,12 +588,12 @@
 
                // Compute D4 and Z4
 
-               CALL SCOPY( N, SD, 1, D4, 1 )
+               scopy(N, SD, 1, D4, 1 );
                IF( N.GT.0 ) CALL SCOPY( N-1, SE, 1, WORK, 1 )
-               CALL SLASET( 'Full', N, N, ZERO, ONE, Z, LDU )
+               slaset('Full', N, N, ZERO, ONE, Z, LDU );
 
                NTEST = 14
-               CALL SPTEQR( 'V', N, D4, WORK, Z, LDU, WORK( N+1 ), IINFO )
+               spteqr('V', N, D4, WORK, Z, LDU, WORK( N+1 ), IINFO );
                if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'SPTEQR(V)', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
@@ -607,15 +607,15 @@
 
                // Do Tests 14 and 15
 
-               CALL SSTT21( N, 0, SD, SE, D4, DUMMA, Z, LDU, WORK, RESULT( 14 ) )
+               sstt21(N, 0, SD, SE, D4, DUMMA, Z, LDU, WORK, RESULT( 14 ) );
 
                // Compute D5
 
-               CALL SCOPY( N, SD, 1, D5, 1 )
+               scopy(N, SD, 1, D5, 1 );
                IF( N.GT.0 ) CALL SCOPY( N-1, SE, 1, WORK, 1 )
 
                NTEST = 16
-               CALL SPTEQR( 'N', N, D5, WORK, Z, LDU, WORK( N+1 ), IINFO )
+               spteqr('N', N, D5, WORK, Z, LDU, WORK( N+1 ), IINFO );
                if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'SPTEQR(N)', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
@@ -655,7 +655,7 @@
             if ( JTYPE.EQ.21 ) {
                NTEST = 17
                ABSTOL = UNFL + UNFL
-               CALL SSTEBZ( 'A', 'E', N, VL, VU, IL, IU, ABSTOL, SD, SE, M, NSPLIT, WR, IWORK( 1 ), IWORK( N+1 ), WORK, IWORK( 2*N+1 ), IINFO )
+               sstebz('A', 'E', N, VL, VU, IL, IU, ABSTOL, SD, SE, M, NSPLIT, WR, IWORK( 1 ), IWORK( N+1 ), WORK, IWORK( 2*N+1 ), IINFO );
                if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'SSTEBZ(A,rel)', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
@@ -685,7 +685,7 @@
 
             NTEST = 18
             ABSTOL = UNFL + UNFL
-            CALL SSTEBZ( 'A', 'E', N, VL, VU, IL, IU, ABSTOL, SD, SE, M, NSPLIT, WA1, IWORK( 1 ), IWORK( N+1 ), WORK, IWORK( 2*N+1 ), IINFO )
+            sstebz('A', 'E', N, VL, VU, IL, IU, ABSTOL, SD, SE, M, NSPLIT, WA1, IWORK( 1 ), IWORK( N+1 ), WORK, IWORK( 2*N+1 ), IINFO );
             if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'SSTEBZ(A)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
@@ -725,7 +725,7 @@
                }
             }
 
-            CALL SSTEBZ( 'I', 'E', N, VL, VU, IL, IU, ABSTOL, SD, SE, M2, NSPLIT, WA2, IWORK( 1 ), IWORK( N+1 ), WORK, IWORK( 2*N+1 ), IINFO )
+            sstebz('I', 'E', N, VL, VU, IL, IU, ABSTOL, SD, SE, M2, NSPLIT, WA2, IWORK( 1 ), IWORK( N+1 ), WORK, IWORK( 2*N+1 ), IINFO );
             if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'SSTEBZ(I)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
@@ -756,7 +756,7 @@
                VU = ONE
             }
 
-            CALL SSTEBZ( 'V', 'E', N, VL, VU, IL, IU, ABSTOL, SD, SE, M3, NSPLIT, WA3, IWORK( 1 ), IWORK( N+1 ), WORK, IWORK( 2*N+1 ), IINFO )
+            sstebz('V', 'E', N, VL, VU, IL, IU, ABSTOL, SD, SE, M3, NSPLIT, WA3, IWORK( 1 ), IWORK( N+1 ), WORK, IWORK( 2*N+1 ), IINFO );
             if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'SSTEBZ(V)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
@@ -790,7 +790,7 @@
             // it returns these eigenvalues in the correct order.)
 
             NTEST = 21
-            CALL SSTEBZ( 'A', 'B', N, VL, VU, IL, IU, ABSTOL, SD, SE, M, NSPLIT, WA1, IWORK( 1 ), IWORK( N+1 ), WORK, IWORK( 2*N+1 ), IINFO )
+            sstebz('A', 'B', N, VL, VU, IL, IU, ABSTOL, SD, SE, M, NSPLIT, WA1, IWORK( 1 ), IWORK( N+1 ), WORK, IWORK( 2*N+1 ), IINFO );
             if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'SSTEBZ(A,B)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
@@ -803,7 +803,7 @@
                }
             }
 
-            CALL SSTEIN( N, SD, SE, M, WA1, IWORK( 1 ), IWORK( N+1 ), Z, LDU, WORK, IWORK( 2*N+1 ), IWORK( 3*N+1 ), IINFO )
+            sstein(N, SD, SE, M, WA1, IWORK( 1 ), IWORK( N+1 ), Z, LDU, WORK, IWORK( 2*N+1 ), IWORK( 3*N+1 ), IINFO );
             if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'SSTEIN', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
@@ -818,18 +818,18 @@
 
             // Do tests 20 and 21
 
-            CALL SSTT21( N, 0, SD, SE, WA1, DUMMA, Z, LDU, WORK, RESULT( 20 ) )
+            sstt21(N, 0, SD, SE, WA1, DUMMA, Z, LDU, WORK, RESULT( 20 ) );
 
             // Call SSTEDC(I) to compute D1 and Z, do tests.
 
             // Compute D1 and Z
 
-            CALL SCOPY( N, SD, 1, D1, 1 )
+            scopy(N, SD, 1, D1, 1 );
             IF( N.GT.0 ) CALL SCOPY( N-1, SE, 1, WORK, 1 )
-            CALL SLASET( 'Full', N, N, ZERO, ONE, Z, LDU )
+            slaset('Full', N, N, ZERO, ONE, Z, LDU );
 
             NTEST = 22
-            CALL SSTEDC( 'I', N, D1, WORK, Z, LDU, WORK( N+1 ), LWEDC-N, IWORK, LIWEDC, IINFO )
+            sstedc('I', N, D1, WORK, Z, LDU, WORK( N+1 ), LWEDC-N, IWORK, LIWEDC, IINFO );
             if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'SSTEDC(I)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
@@ -843,18 +843,18 @@
 
             // Do Tests 22 and 23
 
-            CALL SSTT21( N, 0, SD, SE, D1, DUMMA, Z, LDU, WORK, RESULT( 22 ) )
+            sstt21(N, 0, SD, SE, D1, DUMMA, Z, LDU, WORK, RESULT( 22 ) );
 
             // Call SSTEDC(V) to compute D1 and Z, do tests.
 
             // Compute D1 and Z
 
-            CALL SCOPY( N, SD, 1, D1, 1 )
+            scopy(N, SD, 1, D1, 1 );
             IF( N.GT.0 ) CALL SCOPY( N-1, SE, 1, WORK, 1 )
-            CALL SLASET( 'Full', N, N, ZERO, ONE, Z, LDU )
+            slaset('Full', N, N, ZERO, ONE, Z, LDU );
 
             NTEST = 24
-            CALL SSTEDC( 'V', N, D1, WORK, Z, LDU, WORK( N+1 ), LWEDC-N, IWORK, LIWEDC, IINFO )
+            sstedc('V', N, D1, WORK, Z, LDU, WORK( N+1 ), LWEDC-N, IWORK, LIWEDC, IINFO );
             if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'SSTEDC(V)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
@@ -868,18 +868,18 @@
 
             // Do Tests 24 and 25
 
-            CALL SSTT21( N, 0, SD, SE, D1, DUMMA, Z, LDU, WORK, RESULT( 24 ) )
+            sstt21(N, 0, SD, SE, D1, DUMMA, Z, LDU, WORK, RESULT( 24 ) );
 
             // Call SSTEDC(N) to compute D2, do tests.
 
             // Compute D2
 
-            CALL SCOPY( N, SD, 1, D2, 1 )
+            scopy(N, SD, 1, D2, 1 );
             IF( N.GT.0 ) CALL SCOPY( N-1, SE, 1, WORK, 1 )
-            CALL SLASET( 'Full', N, N, ZERO, ONE, Z, LDU )
+            slaset('Full', N, N, ZERO, ONE, Z, LDU );
 
             NTEST = 26
-            CALL SSTEDC( 'N', N, D2, WORK, Z, LDU, WORK( N+1 ), LWEDC-N, IWORK, LIWEDC, IINFO )
+            sstedc('N', N, D2, WORK, Z, LDU, WORK( N+1 ), LWEDC-N, IWORK, LIWEDC, IINFO );
             if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'SSTEDC(N)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
@@ -919,7 +919,7 @@
                if ( JTYPE.EQ.21 .AND. SREL ) {
                   NTEST = 27
                   ABSTOL = UNFL + UNFL
-                  CALL SSTEMR( 'V', 'A', N, SD, SE, VL, VU, IL, IU, M, WR, Z, LDU, N, IWORK( 1 ), TRYRAC, WORK, LWORK, IWORK( 2*N+1 ), LWORK-2*N, IINFO )
+                  sstemr('V', 'A', N, SD, SE, VL, VU, IL, IU, M, WR, Z, LDU, N, IWORK( 1 ), TRYRAC, WORK, LWORK, IWORK( 2*N+1 ), LWORK-2*N, IINFO );
                   if ( IINFO.NE.0 ) {
                      WRITE( NOUNIT, FMT = 9999 )'SSTEMR(V,A,rel)', IINFO, N, JTYPE, IOLDSD
                      INFO = ABS( IINFO )
@@ -953,7 +953,7 @@
                   if ( SRANGE ) {
                      NTEST = 28
                      ABSTOL = UNFL + UNFL
-                     CALL SSTEMR( 'V', 'I', N, SD, SE, VL, VU, IL, IU, M, WR, Z, LDU, N, IWORK( 1 ), TRYRAC, WORK, LWORK, IWORK( 2*N+1 ), LWORK-2*N, IINFO )
+                     sstemr('V', 'I', N, SD, SE, VL, VU, IL, IU, M, WR, Z, LDU, N, IWORK( 1 ), TRYRAC, WORK, LWORK, IWORK( 2*N+1 ), LWORK-2*N, IINFO );
 
                      if ( IINFO.NE.0 ) {
                         WRITE( NOUNIT, FMT = 9999 )'SSTEMR(V,I,rel)', IINFO, N, JTYPE, IOLDSD
@@ -988,9 +988,9 @@
 
             // Compute D1 and Z
 
-               CALL SCOPY( N, SD, 1, D5, 1 )
+               scopy(N, SD, 1, D5, 1 );
                IF( N.GT.0 ) CALL SCOPY( N-1, SE, 1, WORK, 1 )
-               CALL SLASET( 'Full', N, N, ZERO, ONE, Z, LDU )
+               slaset('Full', N, N, ZERO, ONE, Z, LDU );
 
                if ( SRANGE ) {
                   NTEST = 29
@@ -1001,7 +1001,7 @@
                      IU = IL
                      IL = ITEMP
                   }
-                  CALL SSTEMR( 'V', 'I', N, D5, WORK, VL, VU, IL, IU, M, D1, Z, LDU, N, IWORK( 1 ), TRYRAC, WORK( N+1 ), LWORK-N, IWORK( 2*N+1 ), LIWORK-2*N, IINFO )
+                  sstemr('V', 'I', N, D5, WORK, VL, VU, IL, IU, M, D1, Z, LDU, N, IWORK( 1 ), TRYRAC, WORK( N+1 ), LWORK-N, IWORK( 2*N+1 ), LIWORK-2*N, IINFO );
                   if ( IINFO.NE.0 ) {
                      WRITE( NOUNIT, FMT = 9999 )'SSTEMR(V,I)', IINFO, N, JTYPE, IOLDSD
                      INFO = ABS( IINFO )
@@ -1015,17 +1015,17 @@
 
             // Do Tests 29 and 30
 
-                  CALL SSTT22( N, M, 0, SD, SE, D1, DUMMA, Z, LDU, WORK, M, RESULT( 29 ) )
+                  sstt22(N, M, 0, SD, SE, D1, DUMMA, Z, LDU, WORK, M, RESULT( 29 ) );
 
             // Call SSTEMR to compute D2, do tests.
 
             // Compute D2
 
-                  CALL SCOPY( N, SD, 1, D5, 1 )
+                  scopy(N, SD, 1, D5, 1 );
                   IF( N.GT.0 ) CALL SCOPY( N-1, SE, 1, WORK, 1 )
 
                   NTEST = 31
-                  CALL SSTEMR( 'N', 'I', N, D5, WORK, VL, VU, IL, IU, M, D2, Z, LDU, N, IWORK( 1 ), TRYRAC, WORK( N+1 ), LWORK-N, IWORK( 2*N+1 ), LIWORK-2*N, IINFO )
+                  sstemr('N', 'I', N, D5, WORK, VL, VU, IL, IU, M, D2, Z, LDU, N, IWORK( 1 ), TRYRAC, WORK( N+1 ), LWORK-N, IWORK( 2*N+1 ), LIWORK-2*N, IINFO );
                   if ( IINFO.NE.0 ) {
                      WRITE( NOUNIT, FMT = 9999 )'SSTEMR(N,I)', IINFO, N, JTYPE, IOLDSD
                      INFO = ABS( IINFO )
@@ -1053,9 +1053,9 @@
 
             // Compute D1 and Z
 
-                  CALL SCOPY( N, SD, 1, D5, 1 )
+                  scopy(N, SD, 1, D5, 1 );
                   IF( N.GT.0 ) CALL SCOPY( N-1, SE, 1, WORK, 1 )
-                  CALL SLASET( 'Full', N, N, ZERO, ONE, Z, LDU )
+                  slaset('Full', N, N, ZERO, ONE, Z, LDU );
 
                   NTEST = 32
 
@@ -1075,7 +1075,7 @@
                      VU = ONE
                   }
 
-                  CALL SSTEMR( 'V', 'V', N, D5, WORK, VL, VU, IL, IU, M, D1, Z, LDU, N, IWORK( 1 ), TRYRAC, WORK( N+1 ), LWORK-N, IWORK( 2*N+1 ), LIWORK-2*N, IINFO )
+                  sstemr('V', 'V', N, D5, WORK, VL, VU, IL, IU, M, D1, Z, LDU, N, IWORK( 1 ), TRYRAC, WORK( N+1 ), LWORK-N, IWORK( 2*N+1 ), LIWORK-2*N, IINFO );
                   if ( IINFO.NE.0 ) {
                      WRITE( NOUNIT, FMT = 9999 )'SSTEMR(V,V)', IINFO, N, JTYPE, IOLDSD
                      INFO = ABS( IINFO )
@@ -1089,17 +1089,17 @@
 
             // Do Tests 32 and 33
 
-                  CALL SSTT22( N, M, 0, SD, SE, D1, DUMMA, Z, LDU, WORK, M, RESULT( 32 ) )
+                  sstt22(N, M, 0, SD, SE, D1, DUMMA, Z, LDU, WORK, M, RESULT( 32 ) );
 
             // Call SSTEMR to compute D2, do tests.
 
             // Compute D2
 
-                  CALL SCOPY( N, SD, 1, D5, 1 )
+                  scopy(N, SD, 1, D5, 1 );
                   IF( N.GT.0 ) CALL SCOPY( N-1, SE, 1, WORK, 1 )
 
                   NTEST = 34
-                  CALL SSTEMR( 'N', 'V', N, D5, WORK, VL, VU, IL, IU, M, D2, Z, LDU, N, IWORK( 1 ), TRYRAC, WORK( N+1 ), LWORK-N, IWORK( 2*N+1 ), LIWORK-2*N, IINFO )
+                  sstemr('N', 'V', N, D5, WORK, VL, VU, IL, IU, M, D2, Z, LDU, N, IWORK( 1 ), TRYRAC, WORK( N+1 ), LWORK-N, IWORK( 2*N+1 ), LIWORK-2*N, IINFO );
                   if ( IINFO.NE.0 ) {
                      WRITE( NOUNIT, FMT = 9999 )'SSTEMR(N,V)', IINFO, N, JTYPE, IOLDSD
                      INFO = ABS( IINFO )
@@ -1135,12 +1135,12 @@
 
             // Compute D1 and Z
 
-               CALL SCOPY( N, SD, 1, D5, 1 )
+               scopy(N, SD, 1, D5, 1 );
                IF( N.GT.0 ) CALL SCOPY( N-1, SE, 1, WORK, 1 )
 
                NTEST = 35
 
-               CALL SSTEMR( 'V', 'A', N, D5, WORK, VL, VU, IL, IU, M, D1, Z, LDU, N, IWORK( 1 ), TRYRAC, WORK( N+1 ), LWORK-N, IWORK( 2*N+1 ), LIWORK-2*N, IINFO )
+               sstemr('V', 'A', N, D5, WORK, VL, VU, IL, IU, M, D1, Z, LDU, N, IWORK( 1 ), TRYRAC, WORK( N+1 ), LWORK-N, IWORK( 2*N+1 ), LIWORK-2*N, IINFO );
                if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'SSTEMR(V,A)', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
@@ -1154,17 +1154,17 @@
 
             // Do Tests 35 and 36
 
-               CALL SSTT22( N, M, 0, SD, SE, D1, DUMMA, Z, LDU, WORK, M, RESULT( 35 ) )
+               sstt22(N, M, 0, SD, SE, D1, DUMMA, Z, LDU, WORK, M, RESULT( 35 ) );
 
             // Call SSTEMR to compute D2, do tests.
 
             // Compute D2
 
-               CALL SCOPY( N, SD, 1, D5, 1 )
+               scopy(N, SD, 1, D5, 1 );
                IF( N.GT.0 ) CALL SCOPY( N-1, SE, 1, WORK, 1 )
 
                NTEST = 37
-               CALL SSTEMR( 'N', 'A', N, D5, WORK, VL, VU, IL, IU, M, D2, Z, LDU, N, IWORK( 1 ), TRYRAC, WORK( N+1 ), LWORK-N, IWORK( 2*N+1 ), LIWORK-2*N, IINFO )
+               sstemr('N', 'A', N, D5, WORK, VL, VU, IL, IU, M, D2, Z, LDU, N, IWORK( 1 ), TRYRAC, WORK( N+1 ), LWORK-N, IWORK( 2*N+1 ), LIWORK-2*N, IINFO );
                if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'SSTEMR(N,A)', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
@@ -1222,7 +1222,7 @@
 
       // Summary
 
-      CALL SLASUM( 'SST', NOUNIT, NERRS, NTESTT )
+      slasum('SST', NOUNIT, NERRS, NTESTT );
       RETURN
 
  9999 FORMAT( ' SCHKST2STG: ', A, ' returned INFO=', I6, '.', / 9X, 'N=', I6, ', JTYPE=', I6, ', ISEED=(', 3( I5, ',' ), I5, ')' )

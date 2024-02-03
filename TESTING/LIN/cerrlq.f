@@ -60,155 +60,155 @@
 
       SRNAMT = 'CGELQF'
       INFOT = 1
-      CALL CGELQF( -1, 0, A, 1, B, W, 1, INFO )
-      CALL CHKXER( 'CGELQF', INFOT, NOUT, LERR, OK )
+      cgelqf(-1, 0, A, 1, B, W, 1, INFO );
+      chkxer('CGELQF', INFOT, NOUT, LERR, OK );
       INFOT = 2
-      CALL CGELQF( 0, -1, A, 1, B, W, 1, INFO )
-      CALL CHKXER( 'CGELQF', INFOT, NOUT, LERR, OK )
+      cgelqf(0, -1, A, 1, B, W, 1, INFO );
+      chkxer('CGELQF', INFOT, NOUT, LERR, OK );
       INFOT = 4
-      CALL CGELQF( 2, 1, A, 1, B, W, 2, INFO )
-      CALL CHKXER( 'CGELQF', INFOT, NOUT, LERR, OK )
+      cgelqf(2, 1, A, 1, B, W, 2, INFO );
+      chkxer('CGELQF', INFOT, NOUT, LERR, OK );
       INFOT = 7
-      CALL CGELQF( 2, 1, A, 2, B, W, 1, INFO )
-      CALL CHKXER( 'CGELQF', INFOT, NOUT, LERR, OK )
+      cgelqf(2, 1, A, 2, B, W, 1, INFO );
+      chkxer('CGELQF', INFOT, NOUT, LERR, OK );
 
       // CGELQ2
 
       SRNAMT = 'CGELQ2'
       INFOT = 1
-      CALL CGELQ2( -1, 0, A, 1, B, W, INFO )
-      CALL CHKXER( 'CGELQ2', INFOT, NOUT, LERR, OK )
+      cgelq2(-1, 0, A, 1, B, W, INFO );
+      chkxer('CGELQ2', INFOT, NOUT, LERR, OK );
       INFOT = 2
-      CALL CGELQ2( 0, -1, A, 1, B, W, INFO )
-      CALL CHKXER( 'CGELQ2', INFOT, NOUT, LERR, OK )
+      cgelq2(0, -1, A, 1, B, W, INFO );
+      chkxer('CGELQ2', INFOT, NOUT, LERR, OK );
       INFOT = 4
-      CALL CGELQ2( 2, 1, A, 1, B, W, INFO )
-      CALL CHKXER( 'CGELQ2', INFOT, NOUT, LERR, OK )
+      cgelq2(2, 1, A, 1, B, W, INFO );
+      chkxer('CGELQ2', INFOT, NOUT, LERR, OK );
 
       // CUNGLQ
 
       SRNAMT = 'CUNGLQ'
       INFOT = 1
-      CALL CUNGLQ( -1, 0, 0, A, 1, X, W, 1, INFO )
-      CALL CHKXER( 'CUNGLQ', INFOT, NOUT, LERR, OK )
+      cunglq(-1, 0, 0, A, 1, X, W, 1, INFO );
+      chkxer('CUNGLQ', INFOT, NOUT, LERR, OK );
       INFOT = 2
-      CALL CUNGLQ( 0, -1, 0, A, 1, X, W, 1, INFO )
-      CALL CHKXER( 'CUNGLQ', INFOT, NOUT, LERR, OK )
+      cunglq(0, -1, 0, A, 1, X, W, 1, INFO );
+      chkxer('CUNGLQ', INFOT, NOUT, LERR, OK );
       INFOT = 2
-      CALL CUNGLQ( 2, 1, 0, A, 2, X, W, 2, INFO )
-      CALL CHKXER( 'CUNGLQ', INFOT, NOUT, LERR, OK )
+      cunglq(2, 1, 0, A, 2, X, W, 2, INFO );
+      chkxer('CUNGLQ', INFOT, NOUT, LERR, OK );
       INFOT = 3
-      CALL CUNGLQ( 0, 0, -1, A, 1, X, W, 1, INFO )
-      CALL CHKXER( 'CUNGLQ', INFOT, NOUT, LERR, OK )
+      cunglq(0, 0, -1, A, 1, X, W, 1, INFO );
+      chkxer('CUNGLQ', INFOT, NOUT, LERR, OK );
       INFOT = 3
-      CALL CUNGLQ( 1, 1, 2, A, 1, X, W, 1, INFO )
-      CALL CHKXER( 'CUNGLQ', INFOT, NOUT, LERR, OK )
+      cunglq(1, 1, 2, A, 1, X, W, 1, INFO );
+      chkxer('CUNGLQ', INFOT, NOUT, LERR, OK );
       INFOT = 5
-      CALL CUNGLQ( 2, 2, 0, A, 1, X, W, 2, INFO )
-      CALL CHKXER( 'CUNGLQ', INFOT, NOUT, LERR, OK )
+      cunglq(2, 2, 0, A, 1, X, W, 2, INFO );
+      chkxer('CUNGLQ', INFOT, NOUT, LERR, OK );
       INFOT = 8
-      CALL CUNGLQ( 2, 2, 0, A, 2, X, W, 1, INFO )
-      CALL CHKXER( 'CUNGLQ', INFOT, NOUT, LERR, OK )
+      cunglq(2, 2, 0, A, 2, X, W, 1, INFO );
+      chkxer('CUNGLQ', INFOT, NOUT, LERR, OK );
 
       // CUNGL2
 
       SRNAMT = 'CUNGL2'
       INFOT = 1
-      CALL CUNGL2( -1, 0, 0, A, 1, X, W, INFO )
-      CALL CHKXER( 'CUNGL2', INFOT, NOUT, LERR, OK )
+      cungl2(-1, 0, 0, A, 1, X, W, INFO );
+      chkxer('CUNGL2', INFOT, NOUT, LERR, OK );
       INFOT = 2
-      CALL CUNGL2( 0, -1, 0, A, 1, X, W, INFO )
-      CALL CHKXER( 'CUNGL2', INFOT, NOUT, LERR, OK )
+      cungl2(0, -1, 0, A, 1, X, W, INFO );
+      chkxer('CUNGL2', INFOT, NOUT, LERR, OK );
       INFOT = 2
-      CALL CUNGL2( 2, 1, 0, A, 2, X, W, INFO )
-      CALL CHKXER( 'CUNGL2', INFOT, NOUT, LERR, OK )
+      cungl2(2, 1, 0, A, 2, X, W, INFO );
+      chkxer('CUNGL2', INFOT, NOUT, LERR, OK );
       INFOT = 3
-      CALL CUNGL2( 0, 0, -1, A, 1, X, W, INFO )
-      CALL CHKXER( 'CUNGL2', INFOT, NOUT, LERR, OK )
+      cungl2(0, 0, -1, A, 1, X, W, INFO );
+      chkxer('CUNGL2', INFOT, NOUT, LERR, OK );
       INFOT = 3
-      CALL CUNGL2( 1, 1, 2, A, 1, X, W, INFO )
-      CALL CHKXER( 'CUNGL2', INFOT, NOUT, LERR, OK )
+      cungl2(1, 1, 2, A, 1, X, W, INFO );
+      chkxer('CUNGL2', INFOT, NOUT, LERR, OK );
       INFOT = 5
-      CALL CUNGL2( 2, 2, 0, A, 1, X, W, INFO )
-      CALL CHKXER( 'CUNGL2', INFOT, NOUT, LERR, OK )
+      cungl2(2, 2, 0, A, 1, X, W, INFO );
+      chkxer('CUNGL2', INFOT, NOUT, LERR, OK );
 
       // CUNMLQ
 
       SRNAMT = 'CUNMLQ'
       INFOT = 1
-      CALL CUNMLQ( '/', 'N', 0, 0, 0, A, 1, X, AF, 1, W, 1, INFO )
-      CALL CHKXER( 'CUNMLQ', INFOT, NOUT, LERR, OK )
+      cunmlq('/', 'N', 0, 0, 0, A, 1, X, AF, 1, W, 1, INFO );
+      chkxer('CUNMLQ', INFOT, NOUT, LERR, OK );
       INFOT = 2
-      CALL CUNMLQ( 'L', '/', 0, 0, 0, A, 1, X, AF, 1, W, 1, INFO )
-      CALL CHKXER( 'CUNMLQ', INFOT, NOUT, LERR, OK )
+      cunmlq('L', '/', 0, 0, 0, A, 1, X, AF, 1, W, 1, INFO );
+      chkxer('CUNMLQ', INFOT, NOUT, LERR, OK );
       INFOT = 3
-      CALL CUNMLQ( 'L', 'N', -1, 0, 0, A, 1, X, AF, 1, W, 1, INFO )
-      CALL CHKXER( 'CUNMLQ', INFOT, NOUT, LERR, OK )
+      cunmlq('L', 'N', -1, 0, 0, A, 1, X, AF, 1, W, 1, INFO );
+      chkxer('CUNMLQ', INFOT, NOUT, LERR, OK );
       INFOT = 4
-      CALL CUNMLQ( 'L', 'N', 0, -1, 0, A, 1, X, AF, 1, W, 1, INFO )
-      CALL CHKXER( 'CUNMLQ', INFOT, NOUT, LERR, OK )
+      cunmlq('L', 'N', 0, -1, 0, A, 1, X, AF, 1, W, 1, INFO );
+      chkxer('CUNMLQ', INFOT, NOUT, LERR, OK );
       INFOT = 5
-      CALL CUNMLQ( 'L', 'N', 0, 0, -1, A, 1, X, AF, 1, W, 1, INFO )
-      CALL CHKXER( 'CUNMLQ', INFOT, NOUT, LERR, OK )
+      cunmlq('L', 'N', 0, 0, -1, A, 1, X, AF, 1, W, 1, INFO );
+      chkxer('CUNMLQ', INFOT, NOUT, LERR, OK );
       INFOT = 5
-      CALL CUNMLQ( 'L', 'N', 0, 1, 1, A, 1, X, AF, 1, W, 1, INFO )
-      CALL CHKXER( 'CUNMLQ', INFOT, NOUT, LERR, OK )
+      cunmlq('L', 'N', 0, 1, 1, A, 1, X, AF, 1, W, 1, INFO );
+      chkxer('CUNMLQ', INFOT, NOUT, LERR, OK );
       INFOT = 5
-      CALL CUNMLQ( 'R', 'N', 1, 0, 1, A, 1, X, AF, 1, W, 1, INFO )
-      CALL CHKXER( 'CUNMLQ', INFOT, NOUT, LERR, OK )
+      cunmlq('R', 'N', 1, 0, 1, A, 1, X, AF, 1, W, 1, INFO );
+      chkxer('CUNMLQ', INFOT, NOUT, LERR, OK );
       INFOT = 7
-      CALL CUNMLQ( 'L', 'N', 2, 0, 2, A, 1, X, AF, 2, W, 1, INFO )
-      CALL CHKXER( 'CUNMLQ', INFOT, NOUT, LERR, OK )
+      cunmlq('L', 'N', 2, 0, 2, A, 1, X, AF, 2, W, 1, INFO );
+      chkxer('CUNMLQ', INFOT, NOUT, LERR, OK );
       INFOT = 7
-      CALL CUNMLQ( 'R', 'N', 0, 2, 2, A, 1, X, AF, 1, W, 1, INFO )
-      CALL CHKXER( 'CUNMLQ', INFOT, NOUT, LERR, OK )
+      cunmlq('R', 'N', 0, 2, 2, A, 1, X, AF, 1, W, 1, INFO );
+      chkxer('CUNMLQ', INFOT, NOUT, LERR, OK );
       INFOT = 10
-      CALL CUNMLQ( 'L', 'N', 2, 1, 0, A, 2, X, AF, 1, W, 1, INFO )
-      CALL CHKXER( 'CUNMLQ', INFOT, NOUT, LERR, OK )
+      cunmlq('L', 'N', 2, 1, 0, A, 2, X, AF, 1, W, 1, INFO );
+      chkxer('CUNMLQ', INFOT, NOUT, LERR, OK );
       INFOT = 12
-      CALL CUNMLQ( 'L', 'N', 1, 2, 0, A, 1, X, AF, 1, W, 1, INFO )
-      CALL CHKXER( 'CUNMLQ', INFOT, NOUT, LERR, OK )
+      cunmlq('L', 'N', 1, 2, 0, A, 1, X, AF, 1, W, 1, INFO );
+      chkxer('CUNMLQ', INFOT, NOUT, LERR, OK );
       INFOT = 12
-      CALL CUNMLQ( 'R', 'N', 2, 1, 0, A, 1, X, AF, 2, W, 1, INFO )
-      CALL CHKXER( 'CUNMLQ', INFOT, NOUT, LERR, OK )
+      cunmlq('R', 'N', 2, 1, 0, A, 1, X, AF, 2, W, 1, INFO );
+      chkxer('CUNMLQ', INFOT, NOUT, LERR, OK );
 
       // CUNML2
 
       SRNAMT = 'CUNML2'
       INFOT = 1
-      CALL CUNML2( '/', 'N', 0, 0, 0, A, 1, X, AF, 1, W, INFO )
-      CALL CHKXER( 'CUNML2', INFOT, NOUT, LERR, OK )
+      cunml2('/', 'N', 0, 0, 0, A, 1, X, AF, 1, W, INFO );
+      chkxer('CUNML2', INFOT, NOUT, LERR, OK );
       INFOT = 2
-      CALL CUNML2( 'L', '/', 0, 0, 0, A, 1, X, AF, 1, W, INFO )
-      CALL CHKXER( 'CUNML2', INFOT, NOUT, LERR, OK )
+      cunml2('L', '/', 0, 0, 0, A, 1, X, AF, 1, W, INFO );
+      chkxer('CUNML2', INFOT, NOUT, LERR, OK );
       INFOT = 3
-      CALL CUNML2( 'L', 'N', -1, 0, 0, A, 1, X, AF, 1, W, INFO )
-      CALL CHKXER( 'CUNML2', INFOT, NOUT, LERR, OK )
+      cunml2('L', 'N', -1, 0, 0, A, 1, X, AF, 1, W, INFO );
+      chkxer('CUNML2', INFOT, NOUT, LERR, OK );
       INFOT = 4
-      CALL CUNML2( 'L', 'N', 0, -1, 0, A, 1, X, AF, 1, W, INFO )
-      CALL CHKXER( 'CUNML2', INFOT, NOUT, LERR, OK )
+      cunml2('L', 'N', 0, -1, 0, A, 1, X, AF, 1, W, INFO );
+      chkxer('CUNML2', INFOT, NOUT, LERR, OK );
       INFOT = 5
-      CALL CUNML2( 'L', 'N', 0, 0, -1, A, 1, X, AF, 1, W, INFO )
-      CALL CHKXER( 'CUNML2', INFOT, NOUT, LERR, OK )
+      cunml2('L', 'N', 0, 0, -1, A, 1, X, AF, 1, W, INFO );
+      chkxer('CUNML2', INFOT, NOUT, LERR, OK );
       INFOT = 5
-      CALL CUNML2( 'L', 'N', 0, 1, 1, A, 1, X, AF, 1, W, INFO )
-      CALL CHKXER( 'CUNML2', INFOT, NOUT, LERR, OK )
+      cunml2('L', 'N', 0, 1, 1, A, 1, X, AF, 1, W, INFO );
+      chkxer('CUNML2', INFOT, NOUT, LERR, OK );
       INFOT = 5
-      CALL CUNML2( 'R', 'N', 1, 0, 1, A, 1, X, AF, 1, W, INFO )
-      CALL CHKXER( 'CUNML2', INFOT, NOUT, LERR, OK )
+      cunml2('R', 'N', 1, 0, 1, A, 1, X, AF, 1, W, INFO );
+      chkxer('CUNML2', INFOT, NOUT, LERR, OK );
       INFOT = 7
-      CALL CUNML2( 'L', 'N', 2, 1, 2, A, 1, X, AF, 2, W, INFO )
-      CALL CHKXER( 'CUNML2', INFOT, NOUT, LERR, OK )
+      cunml2('L', 'N', 2, 1, 2, A, 1, X, AF, 2, W, INFO );
+      chkxer('CUNML2', INFOT, NOUT, LERR, OK );
       INFOT = 7
-      CALL CUNML2( 'R', 'N', 1, 2, 2, A, 1, X, AF, 1, W, INFO )
-      CALL CHKXER( 'CUNML2', INFOT, NOUT, LERR, OK )
+      cunml2('R', 'N', 1, 2, 2, A, 1, X, AF, 1, W, INFO );
+      chkxer('CUNML2', INFOT, NOUT, LERR, OK );
       INFOT = 10
-      CALL CUNML2( 'L', 'N', 2, 1, 0, A, 2, X, AF, 1, W, INFO )
-      CALL CHKXER( 'CUNML2', INFOT, NOUT, LERR, OK )
+      cunml2('L', 'N', 2, 1, 0, A, 2, X, AF, 1, W, INFO );
+      chkxer('CUNML2', INFOT, NOUT, LERR, OK );
 
       // Print a summary line.
 
-      CALL ALAESM( PATH, OK, NOUT )
+      alaesm(PATH, OK, NOUT );
 
       RETURN
 

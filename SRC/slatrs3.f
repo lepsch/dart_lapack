@@ -103,7 +103,7 @@
          INFO = -14
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'SLATRS3', -INFO )
+         xerbla('SLATRS3', -INFO );
          RETURN
       } else if ( LQUERY ) {
          RETURN
@@ -127,9 +127,9 @@
       // Use unblocked code for small problems
 
       if ( NRHS.LT.NRHSMIN ) {
-         CALL SLATRS( UPLO, TRANS, DIAG, NORMIN, N, A, LDA, X( 1, 1), SCALE( 1 ), CNORM, INFO )
+         slatrs(UPLO, TRANS, DIAG, NORMIN, N, A, LDA, X( 1, 1), SCALE( 1 ), CNORM, INFO );
          DO K = 2, NRHS
-            CALL SLATRS( UPLO, TRANS, DIAG, 'Y', N, A, LDA, X( 1, K ), SCALE( K ), CNORM, INFO )
+            slatrs(UPLO, TRANS, DIAG, 'Y', N, A, LDA, X( 1, K ), SCALE( K ), CNORM, INFO );
          END DO
          RETURN
       }
@@ -175,7 +175,7 @@
          // in the computation of the column norms CNORM.
 
          DO K = 1, NRHS
-            CALL SLATRS( UPLO, TRANS, DIAG, 'N', N, A, LDA, X( 1, K ), SCALE( K ), CNORM, INFO )
+            slatrs(UPLO, TRANS, DIAG, 'N', N, A, LDA, X( 1, K ), SCALE( K ), CNORM, INFO );
          END DO
          RETURN
       }
@@ -243,9 +243,9 @@
             DO KK = 1, K2-K1
                RHS = K1 + KK - 1
                if ( KK.EQ.1 ) {
-                  CALL SLATRS( UPLO, TRANS, DIAG, 'N', J2-J1, A( J1, J1 ), LDA, X( J1, RHS ), SCALOC, CNORM, INFO )
+                  slatrs(UPLO, TRANS, DIAG, 'N', J2-J1, A( J1, J1 ), LDA, X( J1, RHS ), SCALOC, CNORM, INFO );
                } else {
-                  CALL SLATRS( UPLO, TRANS, DIAG, 'Y', J2-J1, A( J1, J1 ), LDA, X( J1, RHS ), SCALOC, CNORM, INFO )
+                  slatrs(UPLO, TRANS, DIAG, 'Y', J2-J1, A( J1, J1 ), LDA, X( J1, RHS ), SCALOC, CNORM, INFO );
                }
                // Find largest absolute value entry in the vector segment
                // X( J1:J2-1, RHS ) as an upper bound for the worst case
@@ -285,7 +285,7 @@
                   RSCAL = ONE / SCALOC
                   if ( XNRM( KK )*RSCAL .LE. BIGNUM ) {
                      XNRM( KK ) = XNRM( KK ) * RSCAL
-                     CALL SSCAL( J2-J1, RSCAL, X( J1, RHS ), 1 )
+                     sscal(J2-J1, RSCAL, X( J1, RHS ), 1 );
                      SCALOC = ONE
                   } else {
                      // The system op(A) * x = b is badly scaled and its
@@ -364,13 +364,13 @@
 
                   SCAL = ( SCAMIN / WORK( I+KK*LDS) )*SCALOC
                   if ( SCAL.NE.ONE ) {
-                     CALL SSCAL( I2-I1, SCAL, X( I1, RHS ), 1 )
+                     sscal(I2-I1, SCAL, X( I1, RHS ), 1 );
                      WORK( I+KK*LDS ) = SCAMIN*SCALOC
                   }
 
                   SCAL = ( SCAMIN / WORK( J+KK*LDS ) )*SCALOC
                   if ( SCAL.NE.ONE ) {
-                     CALL SSCAL( J2-J1, SCAL, X( J1, RHS ), 1 )
+                     sscal(J2-J1, SCAL, X( J1, RHS ), 1 );
                      WORK( J+KK*LDS ) = SCAMIN*SCALOC
                   }
                END DO
@@ -379,12 +379,12 @@
 
                   // B( I, K ) := B( I, K ) - A( I, J ) * X( J, K )
 
-                  CALL SGEMM( 'N', 'N', I2-I1, K2-K1, J2-J1, -ONE, A( I1, J1 ), LDA, X( J1, K1 ), LDX, ONE, X( I1, K1 ), LDX )
+                  sgemm('N', 'N', I2-I1, K2-K1, J2-J1, -ONE, A( I1, J1 ), LDA, X( J1, K1 ), LDX, ONE, X( I1, K1 ), LDX );
                } else {
 
                   // B( I, K ) := B( I, K ) - A( I, J )**T * X( J, K )
 
-                  CALL SGEMM( 'T', 'N', I2-I1, K2-K1, J2-J1, -ONE, A( J1, I1 ), LDA, X( J1, K1 ), LDX, ONE, X( I1, K1 ), LDX )
+                  sgemm('T', 'N', I2-I1, K2-K1, J2-J1, -ONE, A( J1, I1 ), LDA, X( J1, K1 ), LDX, ONE, X( I1, K1 ), LDX );
                }
             END DO
          END DO

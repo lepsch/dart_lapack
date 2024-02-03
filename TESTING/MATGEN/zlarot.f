@@ -62,11 +62,11 @@
       // Check for errors
 
       if ( NL.LT.NT ) {
-         CALL XERBLA( 'ZLAROT', 4 )
+         xerbla('ZLAROT', 4 );
          RETURN
       }
       if ( LDA.LE.0 .OR. ( .NOT.LROWS .AND. LDA.LT.NL-NT ) ) {
-         CALL XERBLA( 'ZLAROT', 8 )
+         xerbla('ZLAROT', 8 );
          RETURN
       }
 

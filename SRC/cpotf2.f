@@ -50,7 +50,7 @@
          INFO = -4
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'CPOTF2', -INFO )
+         xerbla('CPOTF2', -INFO );
          RETURN
       }
 
@@ -77,10 +77,10 @@
             // Compute elements J+1:N of row J.
 
             if ( J.LT.N ) {
-               CALL CLACGV( J-1, A( 1, J ), 1 )
-               CALL CGEMV( 'Transpose', J-1, N-J, -CONE, A( 1, J+1 ), LDA, A( 1, J ), 1, CONE, A( J, J+1 ), LDA )
-               CALL CLACGV( J-1, A( 1, J ), 1 )
-               CALL CSSCAL( N-J, ONE / AJJ, A( J, J+1 ), LDA )
+               clacgv(J-1, A( 1, J ), 1 );
+               cgemv('Transpose', J-1, N-J, -CONE, A( 1, J+1 ), LDA, A( 1, J ), 1, CONE, A( J, J+1 ), LDA );
+               clacgv(J-1, A( 1, J ), 1 );
+               csscal(N-J, ONE / AJJ, A( J, J+1 ), LDA );
             }
    10    CONTINUE
       } else {
@@ -102,10 +102,10 @@
             // Compute elements J+1:N of column J.
 
             if ( J.LT.N ) {
-               CALL CLACGV( J-1, A( J, 1 ), LDA )
-               CALL CGEMV( 'No transpose', N-J, J-1, -CONE, A( J+1, 1 ), LDA, A( J, 1 ), LDA, CONE, A( J+1, J ), 1 )
-               CALL CLACGV( J-1, A( J, 1 ), LDA )
-               CALL CSSCAL( N-J, ONE / AJJ, A( J+1, J ), 1 )
+               clacgv(J-1, A( J, 1 ), LDA );
+               cgemv('No transpose', N-J, J-1, -CONE, A( J+1, 1 ), LDA, A( J, 1 ), LDA, CONE, A( J+1, J ), 1 );
+               clacgv(J-1, A( J, 1 ), LDA );
+               csscal(N-J, ONE / AJJ, A( J+1, J ), 1 );
             }
    20    CONTINUE
       }

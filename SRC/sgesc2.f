@@ -44,7 +44,7 @@
 
       // Apply permutations IPIV to RHS
 
-      CALL SLASWP( 1, RHS, LDA, 1, N-1, IPIV, 1 )
+      slaswp(1, RHS, LDA, 1, N-1, IPIV, 1 );
 
       // Solve for L part
 
@@ -63,7 +63,7 @@
       I = ISAMAX( N, RHS, 1 )
       if ( TWO*SMLNUM*ABS( RHS( I ) ).GT.ABS( A( N, N ) ) ) {
          TEMP = ( ONE / TWO ) / ABS( RHS( I ) )
-         CALL SSCAL( N, TEMP, RHS( 1 ), 1 )
+         sscal(N, TEMP, RHS( 1 ), 1 );
          SCALE = SCALE*TEMP
       }
 
@@ -77,7 +77,7 @@
 
       // Apply permutations JPIV to the solution (RHS)
 
-      CALL SLASWP( 1, RHS, LDA, 1, N-1, JPIV, -1 )
+      slaswp(1, RHS, LDA, 1, N-1, JPIV, -1 );
       RETURN
 
       // End of SGESC2

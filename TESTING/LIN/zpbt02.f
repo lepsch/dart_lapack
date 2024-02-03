@@ -57,7 +57,7 @@
       // Compute  B - A*X
 
       DO 10 J = 1, NRHS
-         CALL ZHBMV( UPLO, N, KD, -CONE, A, LDA, X( 1, J ), 1, CONE, B( 1, J ), 1 )
+         zhbmv(UPLO, N, KD, -CONE, A, LDA, X( 1, J ), 1, CONE, B( 1, J ), 1 );
    10 CONTINUE
 
       // Compute the maximum over the number of right hand sides of

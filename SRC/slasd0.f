@@ -43,14 +43,14 @@
          INFO = -9
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'SLASD0', -INFO )
+         xerbla('SLASD0', -INFO );
          RETURN
       }
 
       // If the input matrix is too small, call SLASDQ to find the SVD.
 
       if ( N.LE.SMLSIZ ) {
-         CALL SLASDQ( 'U', SQRE, N, M, N, 0, D, E, VT, LDVT, U, LDU, U, LDU, WORK, INFO )
+         slasdq('U', SQRE, N, M, N, 0, D, E, VT, LDVT, U, LDU, U, LDU, WORK, INFO );
          RETURN
       }
 
@@ -61,7 +61,7 @@
       NDIMR = NDIML + N
       IDXQ = NDIMR + N
       IWK = IDXQ + N
-      CALL SLASDT( N, NLVL, ND, IWORK( INODE ), IWORK( NDIML ), IWORK( NDIMR ), SMLSIZ )
+      slasdt(N, NLVL, ND, IWORK( INODE ), IWORK( NDIML ), IWORK( NDIMR ), SMLSIZ );
 
       // For the nodes on bottom level of the tree, solve
       // their subproblems by SLASDQ.
@@ -85,7 +85,7 @@
          NLF = IC - NL
          NRF = IC + 1
          SQREI = 1
-         CALL SLASDQ( 'U', SQREI, NL, NLP1, NL, NCC, D( NLF ), E( NLF ), VT( NLF, NLF ), LDVT, U( NLF, NLF ), LDU, U( NLF, NLF ), LDU, WORK, INFO )
+         slasdq('U', SQREI, NL, NLP1, NL, NCC, D( NLF ), E( NLF ), VT( NLF, NLF ), LDVT, U( NLF, NLF ), LDU, U( NLF, NLF ), LDU, WORK, INFO );
          if ( INFO.NE.0 ) {
             RETURN
          }
@@ -99,7 +99,7 @@
             SQREI = 1
          }
          NRP1 = NR + SQREI
-         CALL SLASDQ( 'U', SQREI, NR, NRP1, NR, NCC, D( NRF ), E( NRF ), VT( NRF, NRF ), LDVT, U( NRF, NRF ), LDU, U( NRF, NRF ), LDU, WORK, INFO )
+         slasdq('U', SQREI, NR, NRP1, NR, NCC, D( NRF ), E( NRF ), VT( NRF, NRF ), LDVT, U( NRF, NRF ), LDU, U( NRF, NRF ), LDU, WORK, INFO );
          if ( INFO.NE.0 ) {
             RETURN
          }
@@ -137,7 +137,7 @@
             IDXQC = IDXQ + NLF - 1
             ALPHA = D( IC )
             BETA = E( IC )
-            CALL SLASD1( NL, NR, SQREI, D( NLF ), ALPHA, BETA, U( NLF, NLF ), LDU, VT( NLF, NLF ), LDVT, IWORK( IDXQC ), IWORK( IWK ), WORK, INFO )
+            slasd1(NL, NR, SQREI, D( NLF ), ALPHA, BETA, U( NLF, NLF ), LDU, VT( NLF, NLF ), LDVT, IWORK( IDXQC ), IWORK( IWK ), WORK, INFO );
 
       // Report the possible convergence failure.
 

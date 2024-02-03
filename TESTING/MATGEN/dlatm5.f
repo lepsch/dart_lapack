@@ -214,10 +214,10 @@
 
       // Compute rhs (C, F)
 
-      CALL DGEMM( 'N', 'N', M, N, M, ONE, A, LDA, R, LDR, ZERO, C, LDC )
-      CALL DGEMM( 'N', 'N', M, N, N, -ONE, L, LDL, B, LDB, ONE, C, LDC )
-      CALL DGEMM( 'N', 'N', M, N, M, ONE, D, LDD, R, LDR, ZERO, F, LDF )
-      CALL DGEMM( 'N', 'N', M, N, N, -ONE, L, LDL, E, LDE, ONE, F, LDF )
+      dgemm('N', 'N', M, N, M, ONE, A, LDA, R, LDR, ZERO, C, LDC );
+      dgemm('N', 'N', M, N, N, -ONE, L, LDL, B, LDB, ONE, C, LDC );
+      dgemm('N', 'N', M, N, M, ONE, D, LDD, R, LDR, ZERO, F, LDF );
+      dgemm('N', 'N', M, N, N, -ONE, L, LDL, E, LDE, ONE, F, LDF );
 
       // End of DLATM5
 

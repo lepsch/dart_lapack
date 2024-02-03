@@ -91,7 +91,7 @@
          INFO = -17
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'ZLAQZ0', -INFO )
+         xerbla('ZLAQZ0', -INFO );
          RETURN
       }
 
@@ -128,7 +128,7 @@
       NBR = NSR+ITEMP1
 
       if ( N .LT. NMIN .OR. REC .GE. 2 ) {
-         CALL ZHGEQZ( WANTS, WANTQ, WANTZ, N, ILO, IHI, A, LDA, B, LDB, ALPHA, BETA, Q, LDQ, Z, LDZ, WORK, LWORK, RWORK, INFO )
+         zhgeqz(WANTS, WANTQ, WANTZ, N, ILO, IHI, A, LDA, B, LDB, ALPHA, BETA, Q, LDQ, Z, LDZ, WORK, LWORK, RWORK, INFO );
          RETURN
       }
 
@@ -138,10 +138,10 @@
 
       // Workspace query to ZLAQZ2
       NW = MAX( NWR, NMIN )
-      CALL ZLAQZ2( ILSCHUR, ILQ, ILZ, N, ILO, IHI, NW, A, LDA, B, LDB, Q, LDQ, Z, LDZ, N_UNDEFLATED, N_DEFLATED, ALPHA, BETA, WORK, NW, WORK, NW, WORK, -1, RWORK, REC, AED_INFO )
+      zlaqz2(ILSCHUR, ILQ, ILZ, N, ILO, IHI, NW, A, LDA, B, LDB, Q, LDQ, Z, LDZ, N_UNDEFLATED, N_DEFLATED, ALPHA, BETA, WORK, NW, WORK, NW, WORK, -1, RWORK, REC, AED_INFO );
       ITEMP1 = INT( WORK( 1 ) )
       // Workspace query to ZLAQZ3
-      CALL ZLAQZ3( ILSCHUR, ILQ, ILZ, N, ILO, IHI, NSR, NBR, ALPHA, BETA, A, LDA, B, LDB, Q, LDQ, Z, LDZ, WORK, NBR, WORK, NBR, WORK, -1, SWEEP_INFO )
+      zlaqz3(ILSCHUR, ILQ, ILZ, N, ILO, IHI, NSR, NBR, ALPHA, BETA, A, LDA, B, LDB, Q, LDQ, Z, LDZ, WORK, NBR, WORK, NBR, WORK, -1, SWEEP_INFO );
       ITEMP2 = INT( WORK( 1 ) )
 
       LWORKREQ = MAX( ITEMP1+2*NW**2, ITEMP2+2*NBR**2 )
@@ -152,7 +152,7 @@
          INFO = -19
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'ZLAQZ0', INFO )
+         xerbla('ZLAQZ0', INFO );
          RETURN
       }
 
@@ -232,33 +232,33 @@
                // to the top and deflate it
 
                DO K2 = K, ISTART2+1, -1
-                  CALL ZLARTG( B( K2-1, K2 ), B( K2-1, K2-1 ), C1, S1, TEMP )
+                  zlartg(B( K2-1, K2 ), B( K2-1, K2-1 ), C1, S1, TEMP );
                   B( K2-1, K2 ) = TEMP
                   B( K2-1, K2-1 ) = CZERO
-                   CALL ZROT( K2-2-ISTARTM+1, B( ISTARTM, K2 ), 1, B( ISTARTM, K2-1 ), 1, C1, S1 )                   CALL ZROT( MIN( K2+1, ISTOP )-ISTARTM+1, A( ISTARTM, K2 ), 1, A( ISTARTM, K2-1 ), 1, C1, S1 )
+                   zrot(K2-2-ISTARTM+1, B( ISTARTM, K2 ), 1, B( ISTARTM, K2-1 ), 1, C1, S1 )                   CALL ZROT( MIN( K2+1, ISTOP )-ISTARTM+1, A( ISTARTM, K2 ), 1, A( ISTARTM, K2-1 ), 1, C1, S1 );
                   if ( ILZ ) {
-                     CALL ZROT( N, Z( 1, K2 ), 1, Z( 1, K2-1 ), 1, C1, S1 )
+                     zrot(N, Z( 1, K2 ), 1, Z( 1, K2-1 ), 1, C1, S1 );
                   }
 
                   if ( K2.LT.ISTOP ) {
-                     CALL ZLARTG( A( K2, K2-1 ), A( K2+1, K2-1 ), C1, S1, TEMP )
+                     zlartg(A( K2, K2-1 ), A( K2+1, K2-1 ), C1, S1, TEMP );
                      A( K2, K2-1 ) = TEMP
                      A( K2+1, K2-1 ) = CZERO
-                      CALL ZROT( ISTOPM-K2+1, A( K2, K2 ), LDA, A( K2+1, K2 ), LDA, C1, S1 )                      CALL ZROT( ISTOPM-K2+1, B( K2, K2 ), LDB, B( K2+1, K2 ), LDB, C1, S1 )
+                      zrot(ISTOPM-K2+1, A( K2, K2 ), LDA, A( K2+1, K2 ), LDA, C1, S1 )                      CALL ZROT( ISTOPM-K2+1, B( K2, K2 ), LDB, B( K2+1, K2 ), LDB, C1, S1 );
                      if ( ILQ ) {
-                        CALL ZROT( N, Q( 1, K2 ), 1, Q( 1, K2+1 ), 1, C1, DCONJG( S1 ) )
+                        zrot(N, Q( 1, K2 ), 1, Q( 1, K2+1 ), 1, C1, DCONJG( S1 ) );
                      }
                   }
 
                END DO
 
                if ( ISTART2.LT.ISTOP ) {
-                  CALL ZLARTG( A( ISTART2, ISTART2 ), A( ISTART2+1, ISTART2 ), C1, S1, TEMP )
+                  zlartg(A( ISTART2, ISTART2 ), A( ISTART2+1, ISTART2 ), C1, S1, TEMP );
                   A( ISTART2, ISTART2 ) = TEMP
                   A( ISTART2+1, ISTART2 ) = CZERO
-                   CALL ZROT( ISTOPM-( ISTART2+1 )+1, A( ISTART2, ISTART2+1 ), LDA, A( ISTART2+1, ISTART2+1 ), LDA, C1, S1 )                   CALL ZROT( ISTOPM-( ISTART2+1 )+1, B( ISTART2, ISTART2+1 ), LDB, B( ISTART2+1, ISTART2+1 ), LDB, C1, S1 )
+                   zrot(ISTOPM-( ISTART2+1 )+1, A( ISTART2, ISTART2+1 ), LDA, A( ISTART2+1, ISTART2+1 ), LDA, C1, S1 )                   CALL ZROT( ISTOPM-( ISTART2+1 )+1, B( ISTART2, ISTART2+1 ), LDB, B( ISTART2+1, ISTART2+1 ), LDB, C1, S1 );
                   if ( ILQ ) {
-                     CALL ZROT( N, Q( 1, ISTART2 ), 1, Q( 1, ISTART2+1 ), 1, C1, DCONJG( S1 ) )
+                     zrot(N, Q( 1, ISTART2 ), 1, Q( 1, ISTART2+1 ), 1, C1, DCONJG( S1 ) );
                   }
                }
 
@@ -296,7 +296,7 @@
 
          // Time for AED
 
-         CALL ZLAQZ2( ILSCHUR, ILQ, ILZ, N, ISTART2, ISTOP, NW, A, LDA, B, LDB, Q, LDQ, Z, LDZ, N_UNDEFLATED, N_DEFLATED, ALPHA, BETA, WORK, NW, WORK( NW**2+1 ), NW, WORK( 2*NW**2+1 ), LWORK-2*NW**2, RWORK, REC, AED_INFO )
+         zlaqz2(ILSCHUR, ILQ, ILZ, N, ISTART2, ISTOP, NW, A, LDA, B, LDB, Q, LDQ, Z, LDZ, N_UNDEFLATED, N_DEFLATED, ALPHA, BETA, WORK, NW, WORK( NW**2+1 ), NW, WORK( 2*NW**2+1 ), LWORK-2*NW**2, RWORK, REC, AED_INFO );
 
          if ( N_DEFLATED > 0 ) {
             ISTOP = ISTOP-N_DEFLATED
@@ -332,7 +332,7 @@
 
          // Time for a QZ sweep
 
-         CALL ZLAQZ3( ILSCHUR, ILQ, ILZ, N, ISTART2, ISTOP, NS, NBLOCK, ALPHA( SHIFTPOS ), BETA( SHIFTPOS ), A, LDA, B, LDB, Q, LDQ, Z, LDZ, WORK, NBLOCK, WORK( NBLOCK** 2+1 ), NBLOCK, WORK( 2*NBLOCK**2+1 ), LWORK-2*NBLOCK**2, SWEEP_INFO )
+         zlaqz3(ILSCHUR, ILQ, ILZ, N, ISTART2, ISTOP, NS, NBLOCK, ALPHA( SHIFTPOS ), BETA( SHIFTPOS ), A, LDA, B, LDB, Q, LDQ, Z, LDZ, WORK, NBLOCK, WORK( NBLOCK** 2+1 ), NBLOCK, WORK( 2*NBLOCK**2+1 ), LWORK-2*NBLOCK**2, SWEEP_INFO );
 
       END DO
 

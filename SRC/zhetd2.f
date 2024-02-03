@@ -49,7 +49,7 @@
          INFO = -4
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'ZHETD2', -INFO )
+         xerbla('ZHETD2', -INFO );
          RETURN
       }
 
@@ -68,7 +68,7 @@
             // to annihilate A(1:i-1,i+1)
 
             ALPHA = A( I, I+1 )
-            CALL ZLARFG( I, ALPHA, A( 1, I+1 ), 1, TAUI )
+            zlarfg(I, ALPHA, A( 1, I+1 ), 1, TAUI );
             E( I ) = DBLE( ALPHA )
 
             if ( TAUI.NE.ZERO ) {
@@ -79,17 +79,17 @@
 
                // Compute  x := tau * A * v  storing x in TAU(1:i)
 
-               CALL ZHEMV( UPLO, I, TAUI, A, LDA, A( 1, I+1 ), 1, ZERO, TAU, 1 )
+               zhemv(UPLO, I, TAUI, A, LDA, A( 1, I+1 ), 1, ZERO, TAU, 1 );
 
                // Compute  w := x - 1/2 * tau * (x**H * v) * v
 
                ALPHA = -HALF*TAUI*ZDOTC( I, TAU, 1, A( 1, I+1 ), 1 )
-               CALL ZAXPY( I, ALPHA, A( 1, I+1 ), 1, TAU, 1 )
+               zaxpy(I, ALPHA, A( 1, I+1 ), 1, TAU, 1 );
 
                // Apply the transformation as a rank-2 update:
                   // A := A - v * w**H - w * v**H
 
-               CALL ZHER2( UPLO, I, -ONE, A( 1, I+1 ), 1, TAU, 1, A, LDA )
+               zher2(UPLO, I, -ONE, A( 1, I+1 ), 1, TAU, 1, A, LDA );
 
             } else {
                A( I, I ) = DBLE( A( I, I ) )
@@ -110,7 +110,7 @@
             // to annihilate A(i+2:n,i)
 
             ALPHA = A( I+1, I )
-            CALL ZLARFG( N-I, ALPHA, A( MIN( I+2, N ), I ), 1, TAUI )
+            zlarfg(N-I, ALPHA, A( MIN( I+2, N ), I ), 1, TAUI );
             E( I ) = DBLE( ALPHA )
 
             if ( TAUI.NE.ZERO ) {
@@ -121,17 +121,17 @@
 
                // Compute  x := tau * A * v  storing y in TAU(i:n-1)
 
-               CALL ZHEMV( UPLO, N-I, TAUI, A( I+1, I+1 ), LDA, A( I+1, I ), 1, ZERO, TAU( I ), 1 )
+               zhemv(UPLO, N-I, TAUI, A( I+1, I+1 ), LDA, A( I+1, I ), 1, ZERO, TAU( I ), 1 );
 
                // Compute  w := x - 1/2 * tau * (x**H * v) * v
 
                ALPHA = -HALF*TAUI*ZDOTC( N-I, TAU( I ), 1, A( I+1, I ), 1 )
-               CALL ZAXPY( N-I, ALPHA, A( I+1, I ), 1, TAU( I ), 1 )
+               zaxpy(N-I, ALPHA, A( I+1, I ), 1, TAU( I ), 1 );
 
                // Apply the transformation as a rank-2 update:
                   // A := A - v * w**H - w * v**H
 
-               CALL ZHER2( UPLO, N-I, -ONE, A( I+1, I ), 1, TAU( I ), 1, A( I+1, I+1 ), LDA )
+               zher2(UPLO, N-I, -ONE, A( I+1, I ), 1, TAU( I ), 1, A( I+1, I+1 ), LDA );
 
             } else {
                A( I+1, I+1 ) = DBLE( A( I+1, I+1 ) )

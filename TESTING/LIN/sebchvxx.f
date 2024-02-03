@@ -64,10 +64,10 @@
 
          // Generate the Hilbert matrix, its inverse, and the
          // right hand side, all scaled by the LCM(1,..,2N-1).
-         CALL SLAHILB(N, N, A, LDA, INVHILB, LDA, B, LDA, WORK, INFO)
+         slahilb(N, N, A, LDA, INVHILB, LDA, B, LDA, WORK, INFO);
 
          // Copy A into ACOPY.
-         CALL SLACPY('ALL', N, N, A, NMAX, ACOPY, NMAX)
+         slacpy('ALL', N, N, A, NMAX, ACOPY, NMAX);
 
          // Store A in band format for GB tests
          DO J = 1, N
@@ -87,17 +87,17 @@
                ABCOPY( I, J ) = 0.0E+0
             END DO
          END DO
-         CALL SLACPY('ALL', KL+KU+1, N, AB, LDAB, ABCOPY, LDAB)
+         slacpy('ALL', KL+KU+1, N, AB, LDAB, ABCOPY, LDAB);
 
          // Call S**SVXX with default PARAMS and N_ERR_BND = 3.
          if ( LSAMEN( 2, C2, 'SY' ) ) {
-            CALL SSYSVXX(FACT, UPLO, N, NRHS, ACOPY, LDA, AF, LDA, IPIV, EQUED, S, B, LDA, X, LDA, ORCOND, RPVGRW, BERR, NERRBND, ERRBND_N, ERRBND_C, NPARAMS, PARAMS, WORK, IWORK, INFO)
+            ssysvxx(FACT, UPLO, N, NRHS, ACOPY, LDA, AF, LDA, IPIV, EQUED, S, B, LDA, X, LDA, ORCOND, RPVGRW, BERR, NERRBND, ERRBND_N, ERRBND_C, NPARAMS, PARAMS, WORK, IWORK, INFO);
          } else if ( LSAMEN( 2, C2, 'PO' ) ) {
-            CALL SPOSVXX(FACT, UPLO, N, NRHS, ACOPY, LDA, AF, LDA, EQUED, S, B, LDA, X, LDA, ORCOND, RPVGRW, BERR, NERRBND, ERRBND_N, ERRBND_C, NPARAMS, PARAMS, WORK, IWORK, INFO)
+            sposvxx(FACT, UPLO, N, NRHS, ACOPY, LDA, AF, LDA, EQUED, S, B, LDA, X, LDA, ORCOND, RPVGRW, BERR, NERRBND, ERRBND_N, ERRBND_C, NPARAMS, PARAMS, WORK, IWORK, INFO);
          } else if ( LSAMEN( 2, C2, 'GB' ) ) {
-            CALL SGBSVXX(FACT, TRANS, N, KL, KU, NRHS, ABCOPY, LDAB, AFB, LDAFB, IPIV, EQUED, R, C, B, LDA, X, LDA, ORCOND, RPVGRW, BERR, NERRBND, ERRBND_N, ERRBND_C, NPARAMS, PARAMS, WORK, IWORK, INFO)
+            sgbsvxx(FACT, TRANS, N, KL, KU, NRHS, ABCOPY, LDAB, AFB, LDAFB, IPIV, EQUED, R, C, B, LDA, X, LDA, ORCOND, RPVGRW, BERR, NERRBND, ERRBND_N, ERRBND_C, NPARAMS, PARAMS, WORK, IWORK, INFO);
          } else {
-            CALL SGESVXX(FACT, TRANS, N, NRHS, ACOPY, LDA, AF, LDA, IPIV, EQUED, R, C, B, LDA, X, LDA, ORCOND, RPVGRW, BERR, NERRBND, ERRBND_N, ERRBND_C, NPARAMS, PARAMS, WORK, IWORK, INFO)
+            sgesvxx(FACT, TRANS, N, NRHS, ACOPY, LDA, AF, LDA, IPIV, EQUED, R, C, B, LDA, X, LDA, ORCOND, RPVGRW, BERR, NERRBND, ERRBND_N, ERRBND_C, NPARAMS, PARAMS, WORK, IWORK, INFO);
          }
 
          N_AUX_TESTS = N_AUX_TESTS + 1

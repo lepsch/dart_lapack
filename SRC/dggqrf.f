@@ -53,7 +53,7 @@
          INFO = -11
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'DGGQRF', -INFO )
+         xerbla('DGGQRF', -INFO );
          RETURN
       } else if ( LQUERY ) {
          RETURN
@@ -61,17 +61,17 @@
 
       // QR factorization of N-by-M matrix A: A = Q*R
 
-      CALL DGEQRF( N, M, A, LDA, TAUA, WORK, LWORK, INFO )
+      dgeqrf(N, M, A, LDA, TAUA, WORK, LWORK, INFO );
       LOPT = INT( WORK( 1 ) )
 
       // Update B := Q**T*B.
 
-      CALL DORMQR( 'Left', 'Transpose', N, P, MIN( N, M ), A, LDA, TAUA, B, LDB, WORK, LWORK, INFO )
+      dormqr('Left', 'Transpose', N, P, MIN( N, M ), A, LDA, TAUA, B, LDB, WORK, LWORK, INFO );
       LOPT = MAX( LOPT, INT( WORK( 1 ) ) )
 
       // RQ factorization of N-by-P matrix B: B = T*Z.
 
-      CALL DGERQF( N, P, B, LDB, TAUB, WORK, LWORK, INFO )
+      dgerqf(N, P, B, LDB, TAUB, WORK, LWORK, INFO );
 
       WORK( 1 ) = MAX( LOPT, INT( WORK( 1 ) ) )
 

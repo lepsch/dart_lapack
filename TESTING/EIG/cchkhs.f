@@ -83,7 +83,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'CCHKHS', -INFO )
+         xerbla('CCHKHS', -INFO );
          RETURN
       }
 
@@ -175,7 +175,7 @@
 
    70       CONTINUE
 
-            CALL CLASET( 'Full', LDA, N, CZERO, CZERO, A, LDA )
+            claset('Full', LDA, N, CZERO, CZERO, A, LDA );
             IINFO = 0
             COND = ULPINV
 
@@ -207,13 +207,13 @@
 
                // Diagonal Matrix, [Eigen]values Specified
 
-               CALL CLATMR( N, N, 'D', ISEED, 'N', WORK, IMODE, COND, CONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, 0, 0, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO )
+               clatmr(N, N, 'D', ISEED, 'N', WORK, IMODE, COND, CONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, 0, 0, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO );
 
             } else if ( ITYPE.EQ.5 ) {
 
                // Hermitian, eigenvalues specified
 
-               CALL CLATMS( N, N, 'D', ISEED, 'H', RWORK, IMODE, COND, ANORM, N, N, 'N', A, LDA, WORK, IINFO )
+               clatms(N, N, 'D', ISEED, 'H', RWORK, IMODE, COND, ANORM, N, N, 'N', A, LDA, WORK, IINFO );
 
             } else if ( ITYPE.EQ.6 ) {
 
@@ -227,31 +227,31 @@
                   CONDS = ZERO
                }
 
-               CALL CLATME( N, 'D', ISEED, WORK, IMODE, COND, CONE, 'T', 'T', 'T', RWORK, 4, CONDS, N, N, ANORM, A, LDA, WORK( N+1 ), IINFO )
+               clatme(N, 'D', ISEED, WORK, IMODE, COND, CONE, 'T', 'T', 'T', RWORK, 4, CONDS, N, N, ANORM, A, LDA, WORK( N+1 ), IINFO );
 
             } else if ( ITYPE.EQ.7 ) {
 
                // Diagonal, random eigenvalues
 
-               CALL CLATMR( N, N, 'D', ISEED, 'N', WORK, 6, ONE, CONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, 0, 0, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO )
+               clatmr(N, N, 'D', ISEED, 'N', WORK, 6, ONE, CONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, 0, 0, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO );
 
             } else if ( ITYPE.EQ.8 ) {
 
                // Hermitian, random eigenvalues
 
-               CALL CLATMR( N, N, 'D', ISEED, 'H', WORK, 6, ONE, CONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, N, N, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO )
+               clatmr(N, N, 'D', ISEED, 'H', WORK, 6, ONE, CONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, N, N, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO );
 
             } else if ( ITYPE.EQ.9 ) {
 
                // General, random eigenvalues
 
-               CALL CLATMR( N, N, 'D', ISEED, 'N', WORK, 6, ONE, CONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, N, N, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO )
+               clatmr(N, N, 'D', ISEED, 'N', WORK, 6, ONE, CONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, N, N, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO );
 
             } else if ( ITYPE.EQ.10 ) {
 
                // Triangular, random eigenvalues
 
-               CALL CLATMR( N, N, 'D', ISEED, 'N', WORK, 6, ONE, CONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, N, 0, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO )
+               clatmr(N, N, 'D', ISEED, 'N', WORK, 6, ONE, CONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, N, 0, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO );
 
             } else {
 
@@ -268,13 +268,13 @@
 
             // Call CGEHRD to compute H and U, do tests.
 
-            CALL CLACPY( ' ', N, N, A, LDA, H, LDA )
+            clacpy(' ', N, N, A, LDA, H, LDA );
             NTEST = 1
 
             ILO = 1
             IHI = N
 
-            CALL CGEHRD( N, ILO, IHI, H, LDA, WORK, WORK( N+1 ), NWORK-N, IINFO )
+            cgehrd(N, ILO, IHI, H, LDA, WORK, WORK( N+1 ), NWORK-N, IINFO );
 
             if ( IINFO.NE.0 ) {
                RESULT( 1 ) = ULPINV
@@ -291,21 +291,21 @@
                   H( I, J ) = CZERO
   110          CONTINUE
   120       CONTINUE
-            CALL CCOPY( N-1, WORK, 1, TAU, 1 )
-            CALL CUNGHR( N, ILO, IHI, U, LDU, WORK, WORK( N+1 ), NWORK-N, IINFO )
+            ccopy(N-1, WORK, 1, TAU, 1 );
+            cunghr(N, ILO, IHI, U, LDU, WORK, WORK( N+1 ), NWORK-N, IINFO );
             NTEST = 2
 
-            CALL CHST01( N, ILO, IHI, A, LDA, H, LDA, U, LDU, WORK, NWORK, RWORK, RESULT( 1 ) )
+            chst01(N, ILO, IHI, A, LDA, H, LDA, U, LDU, WORK, NWORK, RWORK, RESULT( 1 ) );
 
             // Call CHSEQR to compute T1, T2 and Z, do tests.
 
             // Eigenvalues only (W3)
 
-            CALL CLACPY( ' ', N, N, H, LDA, T2, LDA )
+            clacpy(' ', N, N, H, LDA, T2, LDA );
             NTEST = 3
             RESULT( 3 ) = ULPINV
 
-            CALL CHSEQR( 'E', 'N', N, ILO, IHI, T2, LDA, W3, UZ, LDU, WORK, NWORK, IINFO )
+            chseqr('E', 'N', N, ILO, IHI, T2, LDA, W3, UZ, LDU, WORK, NWORK, IINFO );
             if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'CHSEQR(E)', IINFO, N, JTYPE, IOLDSD
                if ( IINFO.LE.N+2 ) {
@@ -316,9 +316,9 @@
 
             // Eigenvalues (W1) and Full Schur Form (T2)
 
-            CALL CLACPY( ' ', N, N, H, LDA, T2, LDA )
+            clacpy(' ', N, N, H, LDA, T2, LDA );
 
-            CALL CHSEQR( 'S', 'N', N, ILO, IHI, T2, LDA, W1, UZ, LDU, WORK, NWORK, IINFO )
+            chseqr('S', 'N', N, ILO, IHI, T2, LDA, W1, UZ, LDU, WORK, NWORK, IINFO );
             if ( IINFO.NE.0 .AND. IINFO.LE.N+2 ) {
                WRITE( NOUNIT, FMT = 9999 )'CHSEQR(S)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
@@ -327,10 +327,10 @@
 
             // Eigenvalues (W1), Schur Form (T1), and Schur Vectors (UZ)
 
-            CALL CLACPY( ' ', N, N, H, LDA, T1, LDA )
-            CALL CLACPY( ' ', N, N, U, LDU, UZ, LDU )
+            clacpy(' ', N, N, H, LDA, T1, LDA );
+            clacpy(' ', N, N, U, LDU, UZ, LDU );
 
-            CALL CHSEQR( 'S', 'V', N, ILO, IHI, T1, LDA, W1, UZ, LDU, WORK, NWORK, IINFO )
+            chseqr('S', 'V', N, ILO, IHI, T1, LDA, W1, UZ, LDU, WORK, NWORK, IINFO );
             if ( IINFO.NE.0 .AND. IINFO.LE.N+2 ) {
                WRITE( NOUNIT, FMT = 9999 )'CHSEQR(V)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
@@ -339,22 +339,22 @@
 
             // Compute Z = U' UZ
 
-            CALL CGEMM( 'C', 'N', N, N, N, CONE, U, LDU, UZ, LDU, CZERO, Z, LDU )
+            cgemm('C', 'N', N, N, N, CONE, U, LDU, UZ, LDU, CZERO, Z, LDU );
             NTEST = 8
 
             // Do Tests 3: | H - Z T Z' | / ( |H| n ulp )
                  // and 4: | I - Z Z' | / ( n ulp )
 
-            CALL CHST01( N, ILO, IHI, H, LDA, T1, LDA, Z, LDU, WORK, NWORK, RWORK, RESULT( 3 ) )
+            chst01(N, ILO, IHI, H, LDA, T1, LDA, Z, LDU, WORK, NWORK, RWORK, RESULT( 3 ) );
 
             // Do Tests 5: | A - UZ T (UZ)' | / ( |A| n ulp )
                  // and 6: | I - UZ (UZ)' | / ( n ulp )
 
-            CALL CHST01( N, ILO, IHI, A, LDA, T1, LDA, UZ, LDU, WORK, NWORK, RWORK, RESULT( 5 ) )
+            chst01(N, ILO, IHI, A, LDA, T1, LDA, UZ, LDU, WORK, NWORK, RWORK, RESULT( 5 ) );
 
             // Do Test 7: | T2 - T1 | / ( |T| n ulp )
 
-            CALL CGET10( N, N, T2, LDA, T1, LDA, WORK, RWORK, RESULT( 7 ) )
+            cget10(N, N, T2, LDA, T1, LDA, WORK, RWORK, RESULT( 7 ) );
 
             // Do Test 8: | W3 - W1 | / ( max(|W1|,|W3|) ulp )
 
@@ -382,7 +382,7 @@
             DO 150 J = 1, N, 2
                SELECT( J ) = .TRUE.
   150       CONTINUE
-            CALL CTREVC( 'Right', 'All', SELECT, N, T1, LDA, CDUMMA, LDU, EVECTR, LDU, N, IN, WORK, RWORK, IINFO )
+            ctrevc('Right', 'All', SELECT, N, T1, LDA, CDUMMA, LDU, EVECTR, LDU, N, IN, WORK, RWORK, IINFO );
             if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'CTREVC(R,A)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
@@ -391,7 +391,7 @@
 
             // Test 9:  | TR - RW | / ( |T| |R| ulp )
 
-            CALL CGET22( 'N', 'N', 'N', N, T1, LDA, EVECTR, LDU, W1, WORK, RWORK, DUMMA( 1 ) )
+            cget22('N', 'N', 'N', N, T1, LDA, EVECTR, LDU, W1, WORK, RWORK, DUMMA( 1 ) );
             RESULT( 9 ) = DUMMA( 1 )
             if ( DUMMA( 2 ).GT.THRESH ) {
                WRITE( NOUNIT, FMT = 9998 )'Right', 'CTREVC', DUMMA( 2 ), N, JTYPE, IOLDSD
@@ -400,7 +400,7 @@
             // Compute selected right eigenvectors and confirm that
             // they agree with previous right eigenvectors
 
-            CALL CTREVC( 'Right', 'Some', SELECT, N, T1, LDA, CDUMMA, LDU, EVECTL, LDU, N, IN, WORK, RWORK, IINFO )
+            ctrevc('Right', 'Some', SELECT, N, T1, LDA, CDUMMA, LDU, EVECTL, LDU, N, IN, WORK, RWORK, IINFO );
             if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'CTREVC(R,S)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
@@ -427,7 +427,7 @@
 
             NTEST = 10
             RESULT( 10 ) = ULPINV
-            CALL CTREVC( 'Left', 'All', SELECT, N, T1, LDA, EVECTL, LDU, CDUMMA, LDU, N, IN, WORK, RWORK, IINFO )
+            ctrevc('Left', 'All', SELECT, N, T1, LDA, EVECTL, LDU, CDUMMA, LDU, N, IN, WORK, RWORK, IINFO );
             if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'CTREVC(L,A)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
@@ -436,7 +436,7 @@
 
             // Test 10:  | LT - WL | / ( |T| |L| ulp )
 
-            CALL CGET22( 'C', 'N', 'C', N, T1, LDA, EVECTL, LDU, W1, WORK, RWORK, DUMMA( 3 ) )
+            cget22('C', 'N', 'C', N, T1, LDA, EVECTL, LDU, W1, WORK, RWORK, DUMMA( 3 ) );
             RESULT( 10 ) = DUMMA( 3 )
             if ( DUMMA( 4 ).GT.THRESH ) {
                WRITE( NOUNIT, FMT = 9998 )'Left', 'CTREVC', DUMMA( 4 ), N, JTYPE, IOLDSD
@@ -445,7 +445,7 @@
             // Compute selected left eigenvectors and confirm that
             // they agree with previous left eigenvectors
 
-            CALL CTREVC( 'Left', 'Some', SELECT, N, T1, LDA, EVECTR, LDU, CDUMMA, LDU, N, IN, WORK, RWORK, IINFO )
+            ctrevc('Left', 'Some', SELECT, N, T1, LDA, EVECTR, LDU, CDUMMA, LDU, N, IN, WORK, RWORK, IINFO );
             if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'CTREVC(L,S)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
@@ -476,7 +476,7 @@
                SELECT( J ) = .TRUE.
   220       CONTINUE
 
-            CALL CHSEIN( 'Right', 'Qr', 'Ninitv', SELECT, N, H, LDA, W3, CDUMMA, LDU, EVECTX, LDU, N1, IN, WORK, RWORK, IWORK, IWORK, IINFO )
+            chsein('Right', 'Qr', 'Ninitv', SELECT, N, H, LDA, W3, CDUMMA, LDU, EVECTX, LDU, N1, IN, WORK, RWORK, IWORK, IWORK, IINFO );
             if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'CHSEIN(R)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
@@ -501,7 +501,7 @@
                SELECT( J ) = .TRUE.
   230       CONTINUE
 
-            CALL CHSEIN( 'Left', 'Qr', 'Ninitv', SELECT, N, H, LDA, W3, EVECTY, LDU, CDUMMA, LDU, N1, IN, WORK, RWORK, IWORK, IWORK, IINFO )
+            chsein('Left', 'Qr', 'Ninitv', SELECT, N, H, LDA, W3, EVECTY, LDU, CDUMMA, LDU, N1, IN, WORK, RWORK, IWORK, IWORK, IINFO );
             if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'CHSEIN(L)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
@@ -523,7 +523,7 @@
             NTEST = 13
             RESULT( 13 ) = ULPINV
 
-            CALL CUNMHR( 'Left', 'No transpose', N, N, ILO, IHI, UU, LDU, TAU, EVECTX, LDU, WORK, NWORK, IINFO )
+            cunmhr('Left', 'No transpose', N, N, ILO, IHI, UU, LDU, TAU, EVECTX, LDU, WORK, NWORK, IINFO );
             if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'CUNMHR(L)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
@@ -542,7 +542,7 @@
             NTEST = 14
             RESULT( 14 ) = ULPINV
 
-            CALL CUNMHR( 'Left', 'No transpose', N, N, ILO, IHI, UU, LDU, TAU, EVECTY, LDU, WORK, NWORK, IINFO )
+            cunmhr('Left', 'No transpose', N, N, ILO, IHI, UU, LDU, TAU, EVECTY, LDU, WORK, NWORK, IINFO );
             if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'CUNMHR(L)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
@@ -563,9 +563,9 @@
             NTEST = 15
             RESULT( 15 ) = ULPINV
 
-            CALL CLACPY( ' ', N, N, UZ, LDU, EVECTR, LDU )
+            clacpy(' ', N, N, UZ, LDU, EVECTR, LDU );
 
-            CALL CTREVC3( 'Right', 'Back', SELECT, N, T1, LDA, CDUMMA, LDU, EVECTR, LDU, N, IN, WORK, NWORK, RWORK, N, IINFO )
+            ctrevc3('Right', 'Back', SELECT, N, T1, LDA, CDUMMA, LDU, EVECTR, LDU, N, IN, WORK, NWORK, RWORK, N, IINFO );
             if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'CTREVC3(R,B)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
@@ -576,7 +576,7 @@
 
                       // (from Schur decomposition)
 
-            CALL CGET22( 'N', 'N', 'N', N, A, LDA, EVECTR, LDU, W1, WORK, RWORK, DUMMA( 1 ) )
+            cget22('N', 'N', 'N', N, A, LDA, EVECTR, LDU, W1, WORK, RWORK, DUMMA( 1 ) );
             RESULT( 15 ) = DUMMA( 1 )
             if ( DUMMA( 2 ).GT.THRESH ) {
                WRITE( NOUNIT, FMT = 9998 )'Right', 'CTREVC3', DUMMA( 2 ), N, JTYPE, IOLDSD
@@ -587,9 +587,9 @@
             NTEST = 16
             RESULT( 16 ) = ULPINV
 
-            CALL CLACPY( ' ', N, N, UZ, LDU, EVECTL, LDU )
+            clacpy(' ', N, N, UZ, LDU, EVECTL, LDU );
 
-            CALL CTREVC3( 'Left', 'Back', SELECT, N, T1, LDA, EVECTL, LDU, CDUMMA, LDU, N, IN, WORK, NWORK, RWORK, N, IINFO )
+            ctrevc3('Left', 'Back', SELECT, N, T1, LDA, EVECTL, LDU, CDUMMA, LDU, N, IN, WORK, NWORK, RWORK, N, IINFO );
             if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'CTREVC3(L,B)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
@@ -600,7 +600,7 @@
 
                       // (from Schur decomposition)
 
-            CALL CGET22( 'Conj', 'N', 'Conj', N, A, LDA, EVECTL, LDU, W1, WORK, RWORK, DUMMA( 3 ) )
+            cget22('Conj', 'N', 'Conj', N, A, LDA, EVECTL, LDU, W1, WORK, RWORK, DUMMA( 3 ) );
             RESULT( 16 ) = DUMMA( 3 )
             if ( DUMMA( 4 ).GT.THRESH ) {
                WRITE( NOUNIT, FMT = 9998 )'Left', 'CTREVC3', DUMMA( 4 ), N, JTYPE, IOLDSD
@@ -611,14 +611,14 @@
   240       CONTINUE
 
             NTESTT = NTESTT + NTEST
-            CALL SLAFTS( 'CHS', N, N, JTYPE, NTEST, RESULT, IOLDSD, THRESH, NOUNIT, NERRS )
+            slafts('CHS', N, N, JTYPE, NTEST, RESULT, IOLDSD, THRESH, NOUNIT, NERRS );
 
   250    CONTINUE
   260 CONTINUE
 
       // Summary
 
-      CALL SLASUM( 'CHS', NOUNIT, NERRS, NTESTT )
+      slasum('CHS', NOUNIT, NERRS, NTESTT );
 
       RETURN
 

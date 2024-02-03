@@ -98,15 +98,15 @@
          SUM = ONE
          if ( LSAME( UPLO, 'U' ) ) {
             DO 110 J = 2, N
-               CALL CLASSQ( J-1, A( 1, J ), 1, SCALE, SUM )
+               classq(J-1, A( 1, J ), 1, SCALE, SUM );
   110       CONTINUE
          } else {
             DO 120 J = 1, N - 1
-               CALL CLASSQ( N-J, A( J+1, J ), 1, SCALE, SUM )
+               classq(N-J, A( J+1, J ), 1, SCALE, SUM );
   120       CONTINUE
          }
          SUM = 2*SUM
-         CALL CLASSQ( N, A, LDA+1, SCALE, SUM )
+         classq(N, A, LDA+1, SCALE, SUM );
          VALUE = SCALE*SQRT( SUM )
       }
 

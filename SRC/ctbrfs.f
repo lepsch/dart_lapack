@@ -77,7 +77,7 @@
          INFO = -12
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'CTBRFS', -INFO )
+         xerbla('CTBRFS', -INFO );
          RETURN
       }
 
@@ -114,9 +114,9 @@
          // Compute residual R = B - op(A) * X,
          // where op(A) = A, A**T, or A**H, depending on TRANS.
 
-         CALL CCOPY( N, X( 1, J ), 1, WORK, 1 )
-         CALL CTBMV( UPLO, TRANS, DIAG, N, KD, AB, LDAB, WORK, 1 )
-         CALL CAXPY( N, -ONE, B( 1, J ), 1, WORK, 1 )
+         ccopy(N, X( 1, J ), 1, WORK, 1 );
+         ctbmv(UPLO, TRANS, DIAG, N, KD, AB, LDAB, WORK, 1 );
+         caxpy(N, -ONE, B( 1, J ), 1, WORK, 1 );
 
          // Compute componentwise relative backward error from formula
 
@@ -254,13 +254,13 @@
 
          KASE = 0
   210    CONTINUE
-         CALL CLACN2( N, WORK( N+1 ), WORK, FERR( J ), KASE, ISAVE )
+         clacn2(N, WORK( N+1 ), WORK, FERR( J ), KASE, ISAVE );
          if ( KASE.NE.0 ) {
             if ( KASE.EQ.1 ) {
 
                // Multiply by diag(W)*inv(op(A)**H).
 
-               CALL CTBSV( UPLO, TRANST, DIAG, N, KD, AB, LDAB, WORK, 1 )
+               ctbsv(UPLO, TRANST, DIAG, N, KD, AB, LDAB, WORK, 1 );
                DO 220 I = 1, N
                   WORK( I ) = RWORK( I )*WORK( I )
   220          CONTINUE
@@ -271,7 +271,7 @@
                DO 230 I = 1, N
                   WORK( I ) = RWORK( I )*WORK( I )
   230          CONTINUE
-               CALL CTBSV( UPLO, TRANSN, DIAG, N, KD, AB, LDAB, WORK, 1 )
+               ctbsv(UPLO, TRANSN, DIAG, N, KD, AB, LDAB, WORK, 1 );
             }
             GO TO 210
          }

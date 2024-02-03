@@ -41,7 +41,7 @@
       // Test that enough workspace is supplied
 
       if ( LWORK.LT.MAX( M*N+4*MIN( M, N )+MAX( M, N ), M*N+2*MIN( M, N )+4*N) ) {
-         CALL XERBLA( 'DQRT12', 7 )
+         xerbla('DQRT12', 7 );
          RETURN
       }
 
@@ -54,7 +54,7 @@
 
       // Copy upper triangle of A into work
 
-      CALL DLASET( 'Full', M, N, ZERO, ZERO, WORK, M )
+      dlaset('Full', M, N, ZERO, ZERO, WORK, M );
       DO J = 1, N
          DO I = 1, MIN( J, M )
             WORK( ( J-1 )*M+I ) = A( I, J )
@@ -74,13 +74,13 @@
 
          // Scale matrix norm up to SMLNUM
 
-         CALL DLASCL( 'G', 0, 0, ANRM, SMLNUM, M, N, WORK, M, INFO )
+         dlascl('G', 0, 0, ANRM, SMLNUM, M, N, WORK, M, INFO );
          ISCL = 1
       } else if ( ANRM.GT.BIGNUM ) {
 
          // Scale matrix norm down to BIGNUM
 
-         CALL DLASCL( 'G', 0, 0, ANRM, BIGNUM, M, N, WORK, M, INFO )
+         dlascl('G', 0, 0, ANRM, BIGNUM, M, N, WORK, M, INFO );
          ISCL = 1
       }
 
@@ -88,14 +88,14 @@
 
          // Compute SVD of work
 
-         CALL DGEBD2( M, N, WORK, M, WORK( M*N+1 ), WORK( M*N+MN+1 ), WORK( M*N+2*MN+1 ), WORK( M*N+3*MN+1 ), WORK( M*N+4*MN+1 ), INFO )          CALL DBDSQR( 'Upper', MN, 0, 0, 0, WORK( M*N+1 ), WORK( M*N+MN+1 ), DUMMY, MN, DUMMY, 1, DUMMY, MN, WORK( M*N+2*MN+1 ), INFO )
+         dgebd2(M, N, WORK, M, WORK( M*N+1 ), WORK( M*N+MN+1 ), WORK( M*N+2*MN+1 ), WORK( M*N+3*MN+1 ), WORK( M*N+4*MN+1 ), INFO )          CALL DBDSQR( 'Upper', MN, 0, 0, 0, WORK( M*N+1 ), WORK( M*N+MN+1 ), DUMMY, MN, DUMMY, 1, DUMMY, MN, WORK( M*N+2*MN+1 ), INFO );
 
          if ( ISCL.EQ.1 ) {
             if ( ANRM.GT.BIGNUM ) {
-               CALL DLASCL( 'G', 0, 0, BIGNUM, ANRM, MN, 1, WORK( M*N+1 ), MN, INFO )
+               dlascl('G', 0, 0, BIGNUM, ANRM, MN, 1, WORK( M*N+1 ), MN, INFO );
             }
             if ( ANRM.LT.SMLNUM ) {
-               CALL DLASCL( 'G', 0, 0, SMLNUM, ANRM, MN, 1, WORK( M*N+1 ), MN, INFO )
+               dlascl('G', 0, 0, SMLNUM, ANRM, MN, 1, WORK( M*N+1 ), MN, INFO );
             }
          }
 
@@ -108,7 +108,7 @@
 
       // Compare s and singular values of work
 
-      CALL DAXPY( MN, -ONE, S, 1, WORK( M*N+1 ), 1 )
+      daxpy(MN, -ONE, S, 1, WORK( M*N+1 ), 1 );
 
       DQRT12 = DASUM( MN, WORK( M*N+1 ), 1 ) / ( DLAMCH('Epsilon') * DBLE( MAX( M, N ) ) )
 

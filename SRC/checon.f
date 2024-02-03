@@ -54,7 +54,7 @@
          INFO = -6
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'CHECON', -INFO )
+         xerbla('CHECON', -INFO );
          RETURN
       }
 
@@ -90,12 +90,12 @@
 
       KASE = 0
    30 CONTINUE
-      CALL CLACN2( N, WORK( N+1 ), WORK, AINVNM, KASE, ISAVE )
+      clacn2(N, WORK( N+1 ), WORK, AINVNM, KASE, ISAVE );
       if ( KASE.NE.0 ) {
 
          // Multiply by inv(L*D*L**H) or inv(U*D*U**H).
 
-         CALL CHETRS( UPLO, N, 1, A, LDA, IPIV, WORK, N, INFO )
+         chetrs(UPLO, N, 1, A, LDA, IPIV, WORK, N, INFO );
          GO TO 30
       }
 

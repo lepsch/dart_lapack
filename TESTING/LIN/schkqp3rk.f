@@ -96,17 +96,17 @@
                   // Random matrix, CNDNUM = 2, NORM = ONE,
                   // MODE = 3 (geometric distribution of singular values).
 
-                  CALL SLATB4( PATH, 14, M, NRHS, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST )
+                  slatb4(PATH, 14, M, NRHS, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST );
 
                   SRNAMT = 'SLATMS'
-                  CALL SLATMS( M, NRHS, DIST, ISEED, TYPE, S, MODE, CNDNUM, ANORM, KL, KU, 'No packing', COPYB, LDA, WORK, INFO )
+                  slatms(M, NRHS, DIST, ISEED, TYPE, S, MODE, CNDNUM, ANORM, KL, KU, 'No packing', COPYB, LDA, WORK, INFO );
 
 
 
                   // Check error code from SLATMS.
 
                   if ( INFO.NE.0 ) {
-                     CALL ALAERH( PATH, 'SLATMS', INFO, 0, ' ', M, NRHS, -1, -1, -1, 6, NFAIL, NERRS, NOUT )
+                     alaerh(PATH, 'SLATMS', INFO, 0, ' ', M, NRHS, -1, -1, -1, 6, NFAIL, NERRS, NOUT );
                      CYCLE
                   }
 
@@ -147,7 +147,7 @@
 
                   // Matrix 1: Zero matrix
 
-                  CALL SLASET( 'Full', M, N, ZERO, ZERO, COPYA, LDA )
+                  slaset('Full', M, N, ZERO, ZERO, COPYA, LDA );
                   DO I = 1, MINMN
                      S( I ) = ZERO
                   END DO
@@ -159,19 +159,19 @@
                   // Set up parameters with SLATB4 and generate a test
                   // matrix with SLATMS.
 
-                  CALL SLATB4( PATH, IMAT, M, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST )
+                  slatb4(PATH, IMAT, M, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST );
 
                   SRNAMT = 'SLATMS'
-                  CALL SLATMS( M, N, DIST, ISEED, TYPE, S, MODE, CNDNUM, ANORM, KL, KU, 'No packing', COPYA, LDA, WORK, INFO )
+                  slatms(M, N, DIST, ISEED, TYPE, S, MODE, CNDNUM, ANORM, KL, KU, 'No packing', COPYA, LDA, WORK, INFO );
 
                   // Check error code from SLATMS.
 
                   if ( INFO.NE.0 ) {
-                     CALL ALAERH( PATH, 'SLATMS', INFO, 0, ' ', M, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT )
+                     alaerh(PATH, 'SLATMS', INFO, 0, ' ', M, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
                      CYCLE
                   }
 
-                  CALL SLAORD( 'Decreasing', MINMN, S, 1 )
+                  slaord('Decreasing', MINMN, S, 1 );
 
                } else if ( MINMN.GE.2 .AND. IMAT.GE.5 .AND. IMAT.LE.13 ) {
 
@@ -270,24 +270,24 @@
                   // 1) Set the first NB_ZERO columns in COPYA(1:M,1:N)
                      // to zero.
 
-                  CALL SLASET( 'Full', M, NB_ZERO, ZERO, ZERO, COPYA, LDA )
+                  slaset('Full', M, NB_ZERO, ZERO, ZERO, COPYA, LDA );
 
                      // 2) Generate an M-by-(N-NB_ZERO) matrix with the
                         // chosen singular value distribution
                         // in COPYA(1:M,NB_ZERO+1:N).
 
-                  CALL SLATB4( PATH, IMAT, M, NB_GEN, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST )
+                  slatb4(PATH, IMAT, M, NB_GEN, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST );
 
                   SRNAMT = 'SLATMS'
 
                   IND_OFFSET_GEN = NB_ZERO * LDA
 
-                  CALL SLATMS( M, NB_GEN, DIST, ISEED, TYPE, S, MODE, CNDNUM, ANORM, KL, KU, 'No packing', COPYA( IND_OFFSET_GEN + 1 ), LDA, WORK, INFO )
+                  slatms(M, NB_GEN, DIST, ISEED, TYPE, S, MODE, CNDNUM, ANORM, KL, KU, 'No packing', COPYA( IND_OFFSET_GEN + 1 ), LDA, WORK, INFO );
 
                   // Check error code from SLATMS.
 
                   if ( INFO.NE.0 ) {
-                     CALL ALAERH( PATH, 'SLATMS', INFO, 0, ' ', M, NB_GEN, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT )
+                     alaerh(PATH, 'SLATMS', INFO, 0, ' ', M, NB_GEN, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
                      CYCLE
                   }
 
@@ -303,7 +303,7 @@
                      // into columns (1:JB_ZERO-1).
 
                      DO J = 1, JB_ZERO-1, 1
-                        CALL SSWAP( M, COPYA( ( NB_ZERO+J-1)*LDA+1), 1, COPYA( (J-1)*LDA + 1 ), 1 )
+                        sswap(M, COPYA( ( NB_ZERO+J-1)*LDA+1), 1, COPYA( (J-1)*LDA + 1 ), 1 );
                      END DO
 
                   } else if ( IMAT.EQ.12 .OR. IMAT.EQ.13 ) {
@@ -354,9 +354,9 @@
                   // Do for each pair of values (NB,NX) in NBVAL and NXVAL.
 
                   NB = NBVAL( INB )
-                  CALL XLAENV( 1, NB )
+                  xlaenv(1, NB );
                   NX = NXVAL( INB )
-                  CALL XLAENV( 3, NX )
+                  xlaenv(3, NX );
 
                   // We do MIN(M,N)+1 because we need a test for KMAX > N,
                   // when KMAX is larger than MIN(M,N), KMAX should be
@@ -372,9 +372,9 @@
                   // NOTE: IWORK(2N+1:3N) is going to be used as a WORK array
                   // for the routine.
 
-                  CALL SLACPY( 'All', M, N, COPYA, LDA, A, LDA )
-                  CALL SLACPY( 'All', M, NRHS, COPYB, LDA, A( LDA*N + 1 ),  LDA )                   CALL SLACPY( 'All', M, NRHS, COPYB, LDA, B,  LDA )
-                  CALL ICOPY( N, IWORK( 1 ), 1, IWORK( N+1 ), 1 )
+                  slacpy('All', M, N, COPYA, LDA, A, LDA );
+                  slacpy('All', M, NRHS, COPYB, LDA, A( LDA*N + 1 ),  LDA )                   CALL SLACPY( 'All', M, NRHS, COPYB, LDA, B,  LDA );
+                  icopy(N, IWORK( 1 ), 1, IWORK( N+1 ), 1 );
 
                   ABSTOL = -1.0
                   RELTOL = -1.0
@@ -386,7 +386,7 @@
                   // Compute SGEQP3RK factorization of A.
 
                   SRNAMT = 'SGEQP3RK'
-                  CALL SGEQP3RK( M, N, NRHS, KMAX, ABSTOL, RELTOL, A, LDA, KFACT, MAXC2NRMK, RELMAXC2NRMK, IWORK( N+1 ), TAU, WORK, LW, IWORK( 2*N+1 ), INFO )
+                  sgeqp3rk(M, N, NRHS, KMAX, ABSTOL, RELTOL, A, LDA, KFACT, MAXC2NRMK, RELMAXC2NRMK, IWORK( N+1 ), TAU, WORK, LW, IWORK( 2*N+1 ), INFO );
 
                   // Check error code from SGEQP3RK.
 
@@ -501,13 +501,13 @@
                   if ( MINMN.GT.0 ) {
 
                      LWORK_MQR = MAX(1, NRHS)
-                     CALL SORMQR( 'Left', 'Transpose', M, NRHS, KFACT, A, LDA, TAU, B, LDA, WORK, LWORK_MQR, INFO )
+                     sormqr('Left', 'Transpose', M, NRHS, KFACT, A, LDA, TAU, B, LDA, WORK, LWORK_MQR, INFO );
 
                      DO I = 1, NRHS
 
                         // Compare N+J-th column of A and J-column of B.
 
-                        CALL SAXPY( M, -ONE, A( ( N+I-1 )*LDA+1 ), 1, B( ( I-1 )*LDA+1 ), 1 )
+                        saxpy(M, -ONE, A( ( N+I-1 )*LDA+1 ), 1, B( ( I-1 )*LDA+1 ), 1 );
                      END DO
 
                    RESULT( 5 ) = ABS( SLANGE( 'One-norm', M, NRHS, B, LDA, RDUMMY ) / ( REAL( M )*SLAMCH( 'Epsilon' ) ) )
@@ -553,7 +553,7 @@
 
       // Print a summary of the results.
 
-      CALL ALASUM( PATH, NOUT, NFAIL, NRUN, NERRS )
+      alasum(PATH, NOUT, NFAIL, NRUN, NERRS );
 
  9999 FORMAT( 1X, A, ' M =', I5, ', N =', I5, ', NRHS =', I5, ', KMAX =', I5, ', ABSTOL =', G12.5, ', RELTOL =', G12.5, ', NB =', I4, ', NX =', I4, ', type ', I2, ', test ', I2, ', ratio =', G12.5 )
 

@@ -91,7 +91,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'DCHKST2STG', -INFO )
+         xerbla('DCHKST2STG', -INFO );
          RETURN
       }
 
@@ -185,7 +185,7 @@
 
    70       CONTINUE
 
-            CALL DLASET( 'Full', LDA, N, ZERO, ZERO, A, LDA )
+            dlaset('Full', LDA, N, ZERO, ZERO, A, LDA );
             IINFO = 0
             if ( JTYPE.LE.15 ) {
                COND = ULPINV
@@ -212,38 +212,38 @@
 
                // Diagonal Matrix, [Eigen]values Specified
 
-               CALL DLATMS( N, N, 'S', ISEED, 'S', WORK, IMODE, COND, ANORM, 0, 0, 'N', A, LDA, WORK( N+1 ), IINFO )
+               dlatms(N, N, 'S', ISEED, 'S', WORK, IMODE, COND, ANORM, 0, 0, 'N', A, LDA, WORK( N+1 ), IINFO );
 
 
             } else if ( ITYPE.EQ.5 ) {
 
                // Symmetric, eigenvalues specified
 
-               CALL DLATMS( N, N, 'S', ISEED, 'S', WORK, IMODE, COND, ANORM, N, N, 'N', A, LDA, WORK( N+1 ), IINFO )
+               dlatms(N, N, 'S', ISEED, 'S', WORK, IMODE, COND, ANORM, N, N, 'N', A, LDA, WORK( N+1 ), IINFO );
 
             } else if ( ITYPE.EQ.7 ) {
 
                // Diagonal, random eigenvalues
 
-               CALL DLATMR( N, N, 'S', ISEED, 'S', WORK, 6, ONE, ONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, 0, 0, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO )
+               dlatmr(N, N, 'S', ISEED, 'S', WORK, 6, ONE, ONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, 0, 0, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO );
 
             } else if ( ITYPE.EQ.8 ) {
 
                // Symmetric, random eigenvalues
 
-               CALL DLATMR( N, N, 'S', ISEED, 'S', WORK, 6, ONE, ONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, N, N, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO )
+               dlatmr(N, N, 'S', ISEED, 'S', WORK, 6, ONE, ONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, N, N, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO );
 
             } else if ( ITYPE.EQ.9 ) {
 
                // Positive definite, eigenvalues specified.
 
-               CALL DLATMS( N, N, 'S', ISEED, 'P', WORK, IMODE, COND, ANORM, N, N, 'N', A, LDA, WORK( N+1 ), IINFO )
+               dlatms(N, N, 'S', ISEED, 'P', WORK, IMODE, COND, ANORM, N, N, 'N', A, LDA, WORK( N+1 ), IINFO );
 
             } else if ( ITYPE.EQ.10 ) {
 
                // Positive definite tridiagonal, eigenvalues specified.
 
-               CALL DLATMS( N, N, 'S', ISEED, 'P', WORK, IMODE, COND, ANORM, 1, 1, 'N', A, LDA, WORK( N+1 ), IINFO )
+               dlatms(N, N, 'S', ISEED, 'P', WORK, IMODE, COND, ANORM, 1, 1, 'N', A, LDA, WORK( N+1 ), IINFO );
                DO 90 I = 2, N
                   TEMP1 = ABS( A( I-1, I ) ) / SQRT( ABS( A( I-1, I-1 )*A( I, I ) ) )
                   if ( TEMP1.GT.HALF ) {
@@ -268,10 +268,10 @@
             // Call DSYTRD and DORGTR to compute S and U from
             // upper triangle.
 
-            CALL DLACPY( 'U', N, N, A, LDA, V, LDU )
+            dlacpy('U', N, N, A, LDA, V, LDU );
 
             NTEST = 1
-            CALL DSYTRD( 'U', N, V, LDU, SD, SE, TAU, WORK, LWORK, IINFO )
+            dsytrd('U', N, V, LDU, SD, SE, TAU, WORK, LWORK, IINFO );
 
             if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'DSYTRD(U)', IINFO, N, JTYPE, IOLDSD
@@ -284,10 +284,10 @@
                }
             }
 
-            CALL DLACPY( 'U', N, N, V, LDU, U, LDU )
+            dlacpy('U', N, N, V, LDU, U, LDU );
 
             NTEST = 2
-            CALL DORGTR( 'U', N, U, LDU, TAU, WORK, LWORK, IINFO )
+            dorgtr('U', N, U, LDU, TAU, WORK, LWORK, IINFO );
             if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'DORGTR(U)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
@@ -301,7 +301,7 @@
 
             // Do tests 1 and 2
 
-            CALL DSYT21( 2, 'Upper', N, 1, A, LDA, SD, SE, U, LDU, V, LDU, TAU, WORK, RESULT( 1 ) )             CALL DSYT21( 3, 'Upper', N, 1, A, LDA, SD, SE, U, LDU, V, LDU, TAU, WORK, RESULT( 2 ) )
+            dsyt21(2, 'Upper', N, 1, A, LDA, SD, SE, U, LDU, V, LDU, TAU, WORK, RESULT( 1 ) )             CALL DSYT21( 3, 'Upper', N, 1, A, LDA, SD, SE, U, LDU, V, LDU, TAU, WORK, RESULT( 2 ) );
 
             // Compute D1 the eigenvalues resulting from the tridiagonal
             // form using the standard 1-stage algorithm and use it as a
@@ -310,10 +310,10 @@
             // Compute D1 from the 1-stage and used as reference for the
             // 2-stage
 
-            CALL DCOPY( N, SD, 1, D1, 1 )
+            dcopy(N, SD, 1, D1, 1 );
             IF( N.GT.0 ) CALL DCOPY( N-1, SE, 1, WORK, 1 )
 
-            CALL DSTEQR( 'N', N, D1, WORK, WORK( N+1 ), LDU, WORK( N+1 ), IINFO )
+            dsteqr('N', N, D1, WORK, WORK( N+1 ), LDU, WORK( N+1 ), IINFO );
             if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'DSTEQR(N)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
@@ -330,19 +330,19 @@
             // the one from above. Compare it with D1 computed
             // using the 1-stage.
 
-            CALL DLASET( 'Full', N, 1, ZERO, ZERO, SD, N )
-            CALL DLASET( 'Full', N, 1, ZERO, ZERO, SE, N )
-            CALL DLACPY( "U", N, N, A, LDA, V, LDU )
+            dlaset('Full', N, 1, ZERO, ZERO, SD, N );
+            dlaset('Full', N, 1, ZERO, ZERO, SE, N );
+            dlacpy("U", N, N, A, LDA, V, LDU );
             LH = MAX(1, 4*N)
             LW = LWORK - LH
-            CALL DSYTRD_2STAGE( 'N', "U", N, V, LDU, SD, SE, TAU,  WORK, LH, WORK( LH+1 ), LW, IINFO )
+            dsytrd_2stage('N', "U", N, V, LDU, SD, SE, TAU,  WORK, LH, WORK( LH+1 ), LW, IINFO );
 
             // Compute D2 from the 2-stage Upper case
 
-            CALL DCOPY( N, SD, 1, D2, 1 )
+            dcopy(N, SD, 1, D2, 1 );
             IF( N.GT.0 ) CALL DCOPY( N-1, SE, 1, WORK, 1 )
 
-            CALL DSTEQR( 'N', N, D2, WORK, WORK( N+1 ), LDU, WORK( N+1 ), IINFO )
+            dsteqr('N', N, D2, WORK, WORK( N+1 ), LDU, WORK( N+1 ), IINFO );
             if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'DSTEQR(N)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
@@ -359,17 +359,17 @@
             // the one from above. Compare it with D1 computed
             // using the 1-stage.
 
-            CALL DLASET( 'Full', N, 1, ZERO, ZERO, SD, N )
-            CALL DLASET( 'Full', N, 1, ZERO, ZERO, SE, N )
-            CALL DLACPY( "L", N, N, A, LDA, V, LDU )
-            CALL DSYTRD_2STAGE( 'N', "L", N, V, LDU, SD, SE, TAU,  WORK, LH, WORK( LH+1 ), LW, IINFO )
+            dlaset('Full', N, 1, ZERO, ZERO, SD, N );
+            dlaset('Full', N, 1, ZERO, ZERO, SE, N );
+            dlacpy("L", N, N, A, LDA, V, LDU );
+            dsytrd_2stage('N', "L", N, V, LDU, SD, SE, TAU,  WORK, LH, WORK( LH+1 ), LW, IINFO );
 
             // Compute D3 from the 2-stage Upper case
 
-            CALL DCOPY( N, SD, 1, D3, 1 )
+            dcopy(N, SD, 1, D3, 1 );
             IF( N.GT.0 ) CALL DCOPY( N-1, SE, 1, WORK, 1 )
 
-            CALL DSTEQR( 'N', N, D3, WORK, WORK( N+1 ), LDU, WORK( N+1 ), IINFO )
+            dsteqr('N', N, D3, WORK, WORK( N+1 ), LDU, WORK( N+1 ), IINFO );
             if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'DSTEQR(N)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
@@ -412,10 +412,10 @@
 
             // Call DSPTRD and DOPGTR to compute S and U from AP
 
-            CALL DCOPY( NAP, AP, 1, VP, 1 )
+            dcopy(NAP, AP, 1, VP, 1 );
 
             NTEST = 5
-            CALL DSPTRD( 'U', N, VP, SD, SE, TAU, IINFO )
+            dsptrd('U', N, VP, SD, SE, TAU, IINFO );
 
             if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'DSPTRD(U)', IINFO, N, JTYPE, IOLDSD
@@ -429,7 +429,7 @@
             }
 
             NTEST = 6
-            CALL DOPGTR( 'U', N, VP, TAU, U, LDU, WORK, IINFO )
+            dopgtr('U', N, VP, TAU, U, LDU, WORK, IINFO );
             if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'DOPGTR(U)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
@@ -443,7 +443,7 @@
 
             // Do tests 5 and 6
 
-            CALL DSPT21( 2, 'Upper', N, 1, AP, SD, SE, U, LDU, VP, TAU, WORK, RESULT( 5 ) )             CALL DSPT21( 3, 'Upper', N, 1, AP, SD, SE, U, LDU, VP, TAU, WORK, RESULT( 6 ) )
+            dspt21(2, 'Upper', N, 1, AP, SD, SE, U, LDU, VP, TAU, WORK, RESULT( 5 ) )             CALL DSPT21( 3, 'Upper', N, 1, AP, SD, SE, U, LDU, VP, TAU, WORK, RESULT( 6 ) );
 
             // Store the lower triangle of A in AP
 
@@ -457,10 +457,10 @@
 
             // Call DSPTRD and DOPGTR to compute S and U from AP
 
-            CALL DCOPY( NAP, AP, 1, VP, 1 )
+            dcopy(NAP, AP, 1, VP, 1 );
 
             NTEST = 7
-            CALL DSPTRD( 'L', N, VP, SD, SE, TAU, IINFO )
+            dsptrd('L', N, VP, SD, SE, TAU, IINFO );
 
             if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'DSPTRD(L)', IINFO, N, JTYPE, IOLDSD
@@ -474,7 +474,7 @@
             }
 
             NTEST = 8
-            CALL DOPGTR( 'L', N, VP, TAU, U, LDU, WORK, IINFO )
+            dopgtr('L', N, VP, TAU, U, LDU, WORK, IINFO );
             if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'DOPGTR(L)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
@@ -486,18 +486,18 @@
                }
             }
 
-            CALL DSPT21( 2, 'Lower', N, 1, AP, SD, SE, U, LDU, VP, TAU, WORK, RESULT( 7 ) )             CALL DSPT21( 3, 'Lower', N, 1, AP, SD, SE, U, LDU, VP, TAU, WORK, RESULT( 8 ) )
+            dspt21(2, 'Lower', N, 1, AP, SD, SE, U, LDU, VP, TAU, WORK, RESULT( 7 ) )             CALL DSPT21( 3, 'Lower', N, 1, AP, SD, SE, U, LDU, VP, TAU, WORK, RESULT( 8 ) );
 
             // Call DSTEQR to compute D1, D2, and Z, do tests.
 
             // Compute D1 and Z
 
-            CALL DCOPY( N, SD, 1, D1, 1 )
+            dcopy(N, SD, 1, D1, 1 );
             IF( N.GT.0 ) CALL DCOPY( N-1, SE, 1, WORK, 1 )
-            CALL DLASET( 'Full', N, N, ZERO, ONE, Z, LDU )
+            dlaset('Full', N, N, ZERO, ONE, Z, LDU );
 
             NTEST = 9
-            CALL DSTEQR( 'V', N, D1, WORK, Z, LDU, WORK( N+1 ), IINFO )
+            dsteqr('V', N, D1, WORK, Z, LDU, WORK( N+1 ), IINFO );
             if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'DSTEQR(V)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
@@ -511,11 +511,11 @@
 
             // Compute D2
 
-            CALL DCOPY( N, SD, 1, D2, 1 )
+            dcopy(N, SD, 1, D2, 1 );
             IF( N.GT.0 ) CALL DCOPY( N-1, SE, 1, WORK, 1 )
 
             NTEST = 11
-            CALL DSTEQR( 'N', N, D2, WORK, WORK( N+1 ), LDU, WORK( N+1 ), IINFO )
+            dsteqr('N', N, D2, WORK, WORK( N+1 ), LDU, WORK( N+1 ), IINFO );
             if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'DSTEQR(N)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
@@ -529,11 +529,11 @@
 
             // Compute D3 (using PWK method)
 
-            CALL DCOPY( N, SD, 1, D3, 1 )
+            dcopy(N, SD, 1, D3, 1 );
             IF( N.GT.0 ) CALL DCOPY( N-1, SE, 1, WORK, 1 )
 
             NTEST = 12
-            CALL DSTERF( N, D3, WORK, IINFO )
+            dsterf(N, D3, WORK, IINFO );
             if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'DSTERF', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
@@ -547,7 +547,7 @@
 
             // Do Tests 9 and 10
 
-            CALL DSTT21( N, 0, SD, SE, D1, DUMMA, Z, LDU, WORK, RESULT( 9 ) )
+            dstt21(N, 0, SD, SE, D1, DUMMA, Z, LDU, WORK, RESULT( 9 ) );
 
             // Do Tests 11 and 12
 
@@ -573,7 +573,7 @@
             TEMP1 = THRESH*( HALF-ULP )
 
             DO 160 J = 0, LOG2UI
-               CALL DSTECH( N, SD, SE, D1, TEMP1, WORK, IINFO )
+               dstech(N, SD, SE, D1, TEMP1, WORK, IINFO );
                IF( IINFO.EQ.0 ) GO TO 170
                TEMP1 = TEMP1*TWO
   160       CONTINUE
@@ -588,12 +588,12 @@
 
                // Compute D4 and Z4
 
-               CALL DCOPY( N, SD, 1, D4, 1 )
+               dcopy(N, SD, 1, D4, 1 );
                IF( N.GT.0 ) CALL DCOPY( N-1, SE, 1, WORK, 1 )
-               CALL DLASET( 'Full', N, N, ZERO, ONE, Z, LDU )
+               dlaset('Full', N, N, ZERO, ONE, Z, LDU );
 
                NTEST = 14
-               CALL DPTEQR( 'V', N, D4, WORK, Z, LDU, WORK( N+1 ), IINFO )
+               dpteqr('V', N, D4, WORK, Z, LDU, WORK( N+1 ), IINFO );
                if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'DPTEQR(V)', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
@@ -607,15 +607,15 @@
 
                // Do Tests 14 and 15
 
-               CALL DSTT21( N, 0, SD, SE, D4, DUMMA, Z, LDU, WORK, RESULT( 14 ) )
+               dstt21(N, 0, SD, SE, D4, DUMMA, Z, LDU, WORK, RESULT( 14 ) );
 
                // Compute D5
 
-               CALL DCOPY( N, SD, 1, D5, 1 )
+               dcopy(N, SD, 1, D5, 1 );
                IF( N.GT.0 ) CALL DCOPY( N-1, SE, 1, WORK, 1 )
 
                NTEST = 16
-               CALL DPTEQR( 'N', N, D5, WORK, Z, LDU, WORK( N+1 ), IINFO )
+               dpteqr('N', N, D5, WORK, Z, LDU, WORK( N+1 ), IINFO );
                if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'DPTEQR(N)', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
@@ -655,7 +655,7 @@
             if ( JTYPE.EQ.21 ) {
                NTEST = 17
                ABSTOL = UNFL + UNFL
-               CALL DSTEBZ( 'A', 'E', N, VL, VU, IL, IU, ABSTOL, SD, SE, M, NSPLIT, WR, IWORK( 1 ), IWORK( N+1 ), WORK, IWORK( 2*N+1 ), IINFO )
+               dstebz('A', 'E', N, VL, VU, IL, IU, ABSTOL, SD, SE, M, NSPLIT, WR, IWORK( 1 ), IWORK( N+1 ), WORK, IWORK( 2*N+1 ), IINFO );
                if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'DSTEBZ(A,rel)', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
@@ -685,7 +685,7 @@
 
             NTEST = 18
             ABSTOL = UNFL + UNFL
-            CALL DSTEBZ( 'A', 'E', N, VL, VU, IL, IU, ABSTOL, SD, SE, M, NSPLIT, WA1, IWORK( 1 ), IWORK( N+1 ), WORK, IWORK( 2*N+1 ), IINFO )
+            dstebz('A', 'E', N, VL, VU, IL, IU, ABSTOL, SD, SE, M, NSPLIT, WA1, IWORK( 1 ), IWORK( N+1 ), WORK, IWORK( 2*N+1 ), IINFO );
             if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'DSTEBZ(A)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
@@ -725,7 +725,7 @@
                }
             }
 
-            CALL DSTEBZ( 'I', 'E', N, VL, VU, IL, IU, ABSTOL, SD, SE, M2, NSPLIT, WA2, IWORK( 1 ), IWORK( N+1 ), WORK, IWORK( 2*N+1 ), IINFO )
+            dstebz('I', 'E', N, VL, VU, IL, IU, ABSTOL, SD, SE, M2, NSPLIT, WA2, IWORK( 1 ), IWORK( N+1 ), WORK, IWORK( 2*N+1 ), IINFO );
             if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'DSTEBZ(I)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
@@ -756,7 +756,7 @@
                VU = ONE
             }
 
-            CALL DSTEBZ( 'V', 'E', N, VL, VU, IL, IU, ABSTOL, SD, SE, M3, NSPLIT, WA3, IWORK( 1 ), IWORK( N+1 ), WORK, IWORK( 2*N+1 ), IINFO )
+            dstebz('V', 'E', N, VL, VU, IL, IU, ABSTOL, SD, SE, M3, NSPLIT, WA3, IWORK( 1 ), IWORK( N+1 ), WORK, IWORK( 2*N+1 ), IINFO );
             if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'DSTEBZ(V)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
@@ -790,7 +790,7 @@
             // it returns these eigenvalues in the correct order.)
 
             NTEST = 21
-            CALL DSTEBZ( 'A', 'B', N, VL, VU, IL, IU, ABSTOL, SD, SE, M, NSPLIT, WA1, IWORK( 1 ), IWORK( N+1 ), WORK, IWORK( 2*N+1 ), IINFO )
+            dstebz('A', 'B', N, VL, VU, IL, IU, ABSTOL, SD, SE, M, NSPLIT, WA1, IWORK( 1 ), IWORK( N+1 ), WORK, IWORK( 2*N+1 ), IINFO );
             if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'DSTEBZ(A,B)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
@@ -803,7 +803,7 @@
                }
             }
 
-            CALL DSTEIN( N, SD, SE, M, WA1, IWORK( 1 ), IWORK( N+1 ), Z, LDU, WORK, IWORK( 2*N+1 ), IWORK( 3*N+1 ), IINFO )
+            dstein(N, SD, SE, M, WA1, IWORK( 1 ), IWORK( N+1 ), Z, LDU, WORK, IWORK( 2*N+1 ), IWORK( 3*N+1 ), IINFO );
             if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'DSTEIN', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
@@ -818,18 +818,18 @@
 
             // Do tests 20 and 21
 
-            CALL DSTT21( N, 0, SD, SE, WA1, DUMMA, Z, LDU, WORK, RESULT( 20 ) )
+            dstt21(N, 0, SD, SE, WA1, DUMMA, Z, LDU, WORK, RESULT( 20 ) );
 
             // Call DSTEDC(I) to compute D1 and Z, do tests.
 
             // Compute D1 and Z
 
-            CALL DCOPY( N, SD, 1, D1, 1 )
+            dcopy(N, SD, 1, D1, 1 );
             IF( N.GT.0 ) CALL DCOPY( N-1, SE, 1, WORK, 1 )
-            CALL DLASET( 'Full', N, N, ZERO, ONE, Z, LDU )
+            dlaset('Full', N, N, ZERO, ONE, Z, LDU );
 
             NTEST = 22
-            CALL DSTEDC( 'I', N, D1, WORK, Z, LDU, WORK( N+1 ), LWEDC-N, IWORK, LIWEDC, IINFO )
+            dstedc('I', N, D1, WORK, Z, LDU, WORK( N+1 ), LWEDC-N, IWORK, LIWEDC, IINFO );
             if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'DSTEDC(I)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
@@ -843,18 +843,18 @@
 
             // Do Tests 22 and 23
 
-            CALL DSTT21( N, 0, SD, SE, D1, DUMMA, Z, LDU, WORK, RESULT( 22 ) )
+            dstt21(N, 0, SD, SE, D1, DUMMA, Z, LDU, WORK, RESULT( 22 ) );
 
             // Call DSTEDC(V) to compute D1 and Z, do tests.
 
             // Compute D1 and Z
 
-            CALL DCOPY( N, SD, 1, D1, 1 )
+            dcopy(N, SD, 1, D1, 1 );
             IF( N.GT.0 ) CALL DCOPY( N-1, SE, 1, WORK, 1 )
-            CALL DLASET( 'Full', N, N, ZERO, ONE, Z, LDU )
+            dlaset('Full', N, N, ZERO, ONE, Z, LDU );
 
             NTEST = 24
-            CALL DSTEDC( 'V', N, D1, WORK, Z, LDU, WORK( N+1 ), LWEDC-N, IWORK, LIWEDC, IINFO )
+            dstedc('V', N, D1, WORK, Z, LDU, WORK( N+1 ), LWEDC-N, IWORK, LIWEDC, IINFO );
             if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'DSTEDC(V)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
@@ -868,18 +868,18 @@
 
             // Do Tests 24 and 25
 
-            CALL DSTT21( N, 0, SD, SE, D1, DUMMA, Z, LDU, WORK, RESULT( 24 ) )
+            dstt21(N, 0, SD, SE, D1, DUMMA, Z, LDU, WORK, RESULT( 24 ) );
 
             // Call DSTEDC(N) to compute D2, do tests.
 
             // Compute D2
 
-            CALL DCOPY( N, SD, 1, D2, 1 )
+            dcopy(N, SD, 1, D2, 1 );
             IF( N.GT.0 ) CALL DCOPY( N-1, SE, 1, WORK, 1 )
-            CALL DLASET( 'Full', N, N, ZERO, ONE, Z, LDU )
+            dlaset('Full', N, N, ZERO, ONE, Z, LDU );
 
             NTEST = 26
-            CALL DSTEDC( 'N', N, D2, WORK, Z, LDU, WORK( N+1 ), LWEDC-N, IWORK, LIWEDC, IINFO )
+            dstedc('N', N, D2, WORK, Z, LDU, WORK( N+1 ), LWEDC-N, IWORK, LIWEDC, IINFO );
             if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'DSTEDC(N)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
@@ -919,7 +919,7 @@
                if ( JTYPE.EQ.21 .AND. SREL ) {
                   NTEST = 27
                   ABSTOL = UNFL + UNFL
-                  CALL DSTEMR( 'V', 'A', N, SD, SE, VL, VU, IL, IU, M, WR, Z, LDU, N, IWORK( 1 ), TRYRAC, WORK, LWORK, IWORK( 2*N+1 ), LWORK-2*N, IINFO )
+                  dstemr('V', 'A', N, SD, SE, VL, VU, IL, IU, M, WR, Z, LDU, N, IWORK( 1 ), TRYRAC, WORK, LWORK, IWORK( 2*N+1 ), LWORK-2*N, IINFO );
                   if ( IINFO.NE.0 ) {
                      WRITE( NOUNIT, FMT = 9999 )'DSTEMR(V,A,rel)', IINFO, N, JTYPE, IOLDSD
                      INFO = ABS( IINFO )
@@ -953,7 +953,7 @@
                   if ( SRANGE ) {
                      NTEST = 28
                      ABSTOL = UNFL + UNFL
-                     CALL DSTEMR( 'V', 'I', N, SD, SE, VL, VU, IL, IU, M, WR, Z, LDU, N, IWORK( 1 ), TRYRAC, WORK, LWORK, IWORK( 2*N+1 ), LWORK-2*N, IINFO )
+                     dstemr('V', 'I', N, SD, SE, VL, VU, IL, IU, M, WR, Z, LDU, N, IWORK( 1 ), TRYRAC, WORK, LWORK, IWORK( 2*N+1 ), LWORK-2*N, IINFO );
 
                      if ( IINFO.NE.0 ) {
                         WRITE( NOUNIT, FMT = 9999 )'DSTEMR(V,I,rel)', IINFO, N, JTYPE, IOLDSD
@@ -988,9 +988,9 @@
 
             // Compute D1 and Z
 
-               CALL DCOPY( N, SD, 1, D5, 1 )
+               dcopy(N, SD, 1, D5, 1 );
                IF( N.GT.0 ) CALL DCOPY( N-1, SE, 1, WORK, 1 )
-               CALL DLASET( 'Full', N, N, ZERO, ONE, Z, LDU )
+               dlaset('Full', N, N, ZERO, ONE, Z, LDU );
 
                if ( SRANGE ) {
                   NTEST = 29
@@ -1001,7 +1001,7 @@
                      IU = IL
                      IL = ITEMP
                   }
-                  CALL DSTEMR( 'V', 'I', N, D5, WORK, VL, VU, IL, IU, M, D1, Z, LDU, N, IWORK( 1 ), TRYRAC, WORK( N+1 ), LWORK-N, IWORK( 2*N+1 ), LIWORK-2*N, IINFO )
+                  dstemr('V', 'I', N, D5, WORK, VL, VU, IL, IU, M, D1, Z, LDU, N, IWORK( 1 ), TRYRAC, WORK( N+1 ), LWORK-N, IWORK( 2*N+1 ), LIWORK-2*N, IINFO );
                   if ( IINFO.NE.0 ) {
                      WRITE( NOUNIT, FMT = 9999 )'DSTEMR(V,I)', IINFO, N, JTYPE, IOLDSD
                      INFO = ABS( IINFO )
@@ -1015,17 +1015,17 @@
 
             // Do Tests 29 and 30
 
-                  CALL DSTT22( N, M, 0, SD, SE, D1, DUMMA, Z, LDU, WORK, M, RESULT( 29 ) )
+                  dstt22(N, M, 0, SD, SE, D1, DUMMA, Z, LDU, WORK, M, RESULT( 29 ) );
 
             // Call DSTEMR to compute D2, do tests.
 
             // Compute D2
 
-                  CALL DCOPY( N, SD, 1, D5, 1 )
+                  dcopy(N, SD, 1, D5, 1 );
                   IF( N.GT.0 ) CALL DCOPY( N-1, SE, 1, WORK, 1 )
 
                   NTEST = 31
-                  CALL DSTEMR( 'N', 'I', N, D5, WORK, VL, VU, IL, IU, M, D2, Z, LDU, N, IWORK( 1 ), TRYRAC, WORK( N+1 ), LWORK-N, IWORK( 2*N+1 ), LIWORK-2*N, IINFO )
+                  dstemr('N', 'I', N, D5, WORK, VL, VU, IL, IU, M, D2, Z, LDU, N, IWORK( 1 ), TRYRAC, WORK( N+1 ), LWORK-N, IWORK( 2*N+1 ), LIWORK-2*N, IINFO );
                   if ( IINFO.NE.0 ) {
                      WRITE( NOUNIT, FMT = 9999 )'DSTEMR(N,I)', IINFO, N, JTYPE, IOLDSD
                      INFO = ABS( IINFO )
@@ -1053,9 +1053,9 @@
 
             // Compute D1 and Z
 
-                  CALL DCOPY( N, SD, 1, D5, 1 )
+                  dcopy(N, SD, 1, D5, 1 );
                   IF( N.GT.0 ) CALL DCOPY( N-1, SE, 1, WORK, 1 )
-                  CALL DLASET( 'Full', N, N, ZERO, ONE, Z, LDU )
+                  dlaset('Full', N, N, ZERO, ONE, Z, LDU );
 
                   NTEST = 32
 
@@ -1075,7 +1075,7 @@
                      VU = ONE
                   }
 
-                  CALL DSTEMR( 'V', 'V', N, D5, WORK, VL, VU, IL, IU, M, D1, Z, LDU, N, IWORK( 1 ), TRYRAC, WORK( N+1 ), LWORK-N, IWORK( 2*N+1 ), LIWORK-2*N, IINFO )
+                  dstemr('V', 'V', N, D5, WORK, VL, VU, IL, IU, M, D1, Z, LDU, N, IWORK( 1 ), TRYRAC, WORK( N+1 ), LWORK-N, IWORK( 2*N+1 ), LIWORK-2*N, IINFO );
                   if ( IINFO.NE.0 ) {
                      WRITE( NOUNIT, FMT = 9999 )'DSTEMR(V,V)', IINFO, N, JTYPE, IOLDSD
                      INFO = ABS( IINFO )
@@ -1089,17 +1089,17 @@
 
             // Do Tests 32 and 33
 
-                  CALL DSTT22( N, M, 0, SD, SE, D1, DUMMA, Z, LDU, WORK, M, RESULT( 32 ) )
+                  dstt22(N, M, 0, SD, SE, D1, DUMMA, Z, LDU, WORK, M, RESULT( 32 ) );
 
             // Call DSTEMR to compute D2, do tests.
 
             // Compute D2
 
-                  CALL DCOPY( N, SD, 1, D5, 1 )
+                  dcopy(N, SD, 1, D5, 1 );
                   IF( N.GT.0 ) CALL DCOPY( N-1, SE, 1, WORK, 1 )
 
                   NTEST = 34
-                  CALL DSTEMR( 'N', 'V', N, D5, WORK, VL, VU, IL, IU, M, D2, Z, LDU, N, IWORK( 1 ), TRYRAC, WORK( N+1 ), LWORK-N, IWORK( 2*N+1 ), LIWORK-2*N, IINFO )
+                  dstemr('N', 'V', N, D5, WORK, VL, VU, IL, IU, M, D2, Z, LDU, N, IWORK( 1 ), TRYRAC, WORK( N+1 ), LWORK-N, IWORK( 2*N+1 ), LIWORK-2*N, IINFO );
                   if ( IINFO.NE.0 ) {
                      WRITE( NOUNIT, FMT = 9999 )'DSTEMR(N,V)', IINFO, N, JTYPE, IOLDSD
                      INFO = ABS( IINFO )
@@ -1135,12 +1135,12 @@
 
             // Compute D1 and Z
 
-               CALL DCOPY( N, SD, 1, D5, 1 )
+               dcopy(N, SD, 1, D5, 1 );
                IF( N.GT.0 ) CALL DCOPY( N-1, SE, 1, WORK, 1 )
 
                NTEST = 35
 
-               CALL DSTEMR( 'V', 'A', N, D5, WORK, VL, VU, IL, IU, M, D1, Z, LDU, N, IWORK( 1 ), TRYRAC, WORK( N+1 ), LWORK-N, IWORK( 2*N+1 ), LIWORK-2*N, IINFO )
+               dstemr('V', 'A', N, D5, WORK, VL, VU, IL, IU, M, D1, Z, LDU, N, IWORK( 1 ), TRYRAC, WORK( N+1 ), LWORK-N, IWORK( 2*N+1 ), LIWORK-2*N, IINFO );
                if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'DSTEMR(V,A)', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
@@ -1154,17 +1154,17 @@
 
             // Do Tests 35 and 36
 
-               CALL DSTT22( N, M, 0, SD, SE, D1, DUMMA, Z, LDU, WORK, M, RESULT( 35 ) )
+               dstt22(N, M, 0, SD, SE, D1, DUMMA, Z, LDU, WORK, M, RESULT( 35 ) );
 
             // Call DSTEMR to compute D2, do tests.
 
             // Compute D2
 
-               CALL DCOPY( N, SD, 1, D5, 1 )
+               dcopy(N, SD, 1, D5, 1 );
                IF( N.GT.0 ) CALL DCOPY( N-1, SE, 1, WORK, 1 )
 
                NTEST = 37
-               CALL DSTEMR( 'N', 'A', N, D5, WORK, VL, VU, IL, IU, M, D2, Z, LDU, N, IWORK( 1 ), TRYRAC, WORK( N+1 ), LWORK-N, IWORK( 2*N+1 ), LIWORK-2*N, IINFO )
+               dstemr('N', 'A', N, D5, WORK, VL, VU, IL, IU, M, D2, Z, LDU, N, IWORK( 1 ), TRYRAC, WORK( N+1 ), LWORK-N, IWORK( 2*N+1 ), LIWORK-2*N, IINFO );
                if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'DSTEMR(N,A)', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
@@ -1222,7 +1222,7 @@
 
       // Summary
 
-      CALL DLASUM( 'DST', NOUNIT, NERRS, NTESTT )
+      dlasum('DST', NOUNIT, NERRS, NTESTT );
       RETURN
 
  9999 FORMAT( ' DCHKST2STG: ', A, ' returned INFO=', I6, '.', / 9X, 'N=', I6, ', JTYPE=', I6, ', ISEED=(', 3( I5, ',' ), I5, ')' )

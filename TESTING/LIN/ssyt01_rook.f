@@ -51,15 +51,15 @@
 
       // Initialize C to the identity matrix.
 
-      CALL SLASET( 'Full', N, N, ZERO, ONE, C, LDC )
+      slaset('Full', N, N, ZERO, ONE, C, LDC );
 
       // Call SLAVSY_ROOK to form the product D * U' (or D * L' ).
 
-      CALL SLAVSY_ROOK( UPLO, 'Transpose', 'Non-unit', N, N, AFAC, LDAFAC, IPIV, C, LDC, INFO )
+      slavsy_rook(UPLO, 'Transpose', 'Non-unit', N, N, AFAC, LDAFAC, IPIV, C, LDC, INFO );
 
       // Call SLAVSY_ROOK again to multiply by U (or L ).
 
-      CALL SLAVSY_ROOK( UPLO, 'No transpose', 'Unit', N, N, AFAC, LDAFAC, IPIV, C, LDC, INFO )
+      slavsy_rook(UPLO, 'No transpose', 'Unit', N, N, AFAC, LDAFAC, IPIV, C, LDC, INFO );
 
       // Compute the difference  C - A .
 

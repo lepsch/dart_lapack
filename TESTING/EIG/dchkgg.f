@@ -89,7 +89,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'DCHKGG', -INFO )
+         xerbla('DCHKGG', -INFO );
          RETURN
       }
 
@@ -178,7 +178,7 @@
                } else {
                   IN = N
                }
-               CALL DLATM4( KATYPE( JTYPE ), IN, KZ1( KAZERO( JTYPE ) ), KZ2( KAZERO( JTYPE ) ), IASIGN( JTYPE ), RMAGN( KAMAGN( JTYPE ) ), ULP, RMAGN( KTRIAN( JTYPE )*KAMAGN( JTYPE ) ), 2, ISEED, A, LDA )
+               dlatm4(KATYPE( JTYPE ), IN, KZ1( KAZERO( JTYPE ) ), KZ2( KAZERO( JTYPE ) ), IASIGN( JTYPE ), RMAGN( KAMAGN( JTYPE ) ), ULP, RMAGN( KTRIAN( JTYPE )*KAMAGN( JTYPE ) ), 2, ISEED, A, LDA );
                IADD = KADD( KAZERO( JTYPE ) )
                IF( IADD.GT.0 .AND. IADD.LE.N ) A( IADD, IADD ) = RMAGN( KAMAGN( JTYPE ) )
 
@@ -190,7 +190,7 @@
                } else {
                   IN = N
                }
-               CALL DLATM4( KBTYPE( JTYPE ), IN, KZ1( KBZERO( JTYPE ) ), KZ2( KBZERO( JTYPE ) ), IBSIGN( JTYPE ), RMAGN( KBMAGN( JTYPE ) ), ONE, RMAGN( KTRIAN( JTYPE )*KBMAGN( JTYPE ) ), 2, ISEED, B, LDA )
+               dlatm4(KBTYPE( JTYPE ), IN, KZ1( KBZERO( JTYPE ) ), KZ2( KBZERO( JTYPE ) ), IBSIGN( JTYPE ), RMAGN( KBMAGN( JTYPE ) ), ONE, RMAGN( KTRIAN( JTYPE )*KBMAGN( JTYPE ) ), 2, ISEED, B, LDA );
                IADD = KADD( KBZERO( JTYPE ) )
                IF( IADD.NE.0 .AND. IADD.LE.N ) B( IADD, IADD ) = RMAGN( KBMAGN( JTYPE ) )
 
@@ -206,10 +206,10 @@
                         U( JR, JC ) = DLARND( 3, ISEED )
                         V( JR, JC ) = DLARND( 3, ISEED )
    40                CONTINUE
-                     CALL DLARFG( N+1-JC, U( JC, JC ), U( JC+1, JC ), 1, WORK( JC ) )
+                     dlarfg(N+1-JC, U( JC, JC ), U( JC+1, JC ), 1, WORK( JC ) );
                      WORK( 2*N+JC ) = SIGN( ONE, U( JC, JC ) )
                      U( JC, JC ) = ONE
-                     CALL DLARFG( N+1-JC, V( JC, JC ), V( JC+1, JC ), 1, WORK( N+JC ) )
+                     dlarfg(N+1-JC, V( JC, JC ), V( JC+1, JC ), 1, WORK( N+JC ) );
                      WORK( 3*N+JC ) = SIGN( ONE, V( JC, JC ) )
                      V( JC, JC ) = ONE
    50             CONTINUE
@@ -255,34 +255,34 @@
 
             // Call DGEQR2, DORM2R, and DGGHRD to compute H, T, U, and V
 
-            CALL DLACPY( ' ', N, N, A, LDA, H, LDA )
-            CALL DLACPY( ' ', N, N, B, LDA, T, LDA )
+            dlacpy(' ', N, N, A, LDA, H, LDA );
+            dlacpy(' ', N, N, B, LDA, T, LDA );
             NTEST = 1
             RESULT( 1 ) = ULPINV
 
-            CALL DGEQR2( N, N, T, LDA, WORK, WORK( N+1 ), IINFO )
+            dgeqr2(N, N, T, LDA, WORK, WORK( N+1 ), IINFO );
             if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'DGEQR2', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                GO TO 210
             }
 
-            CALL DORM2R( 'L', 'T', N, N, N, T, LDA, WORK, H, LDA, WORK( N+1 ), IINFO )
+            dorm2r('L', 'T', N, N, N, T, LDA, WORK, H, LDA, WORK( N+1 ), IINFO );
             if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'DORM2R', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                GO TO 210
             }
 
-            CALL DLASET( 'Full', N, N, ZERO, ONE, U, LDU )
-            CALL DORM2R( 'R', 'N', N, N, N, T, LDA, WORK, U, LDU, WORK( N+1 ), IINFO )
+            dlaset('Full', N, N, ZERO, ONE, U, LDU );
+            dorm2r('R', 'N', N, N, N, T, LDA, WORK, U, LDU, WORK( N+1 ), IINFO );
             if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'DORM2R', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                GO TO 210
             }
 
-            CALL DGGHRD( 'V', 'I', N, 1, N, H, LDA, T, LDA, U, LDU, V, LDU, IINFO )
+            dgghrd('V', 'I', N, 1, N, H, LDA, T, LDA, U, LDU, V, LDU, IINFO );
             if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'DGGHRD', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
@@ -292,7 +292,7 @@
 
             // Do tests 1--4
 
-            CALL DGET51( 1, N, A, LDA, H, LDA, U, LDU, V, LDU, WORK, RESULT( 1 ) )             CALL DGET51( 1, N, B, LDA, T, LDA, U, LDU, V, LDU, WORK, RESULT( 2 ) )             CALL DGET51( 3, N, B, LDA, T, LDA, U, LDU, U, LDU, WORK, RESULT( 3 ) )             CALL DGET51( 3, N, B, LDA, T, LDA, V, LDU, V, LDU, WORK, RESULT( 4 ) )
+            dget51(1, N, A, LDA, H, LDA, U, LDU, V, LDU, WORK, RESULT( 1 ) )             CALL DGET51( 1, N, B, LDA, T, LDA, U, LDU, V, LDU, WORK, RESULT( 2 ) )             CALL DGET51( 3, N, B, LDA, T, LDA, U, LDU, U, LDU, WORK, RESULT( 3 ) )             CALL DGET51( 3, N, B, LDA, T, LDA, V, LDU, V, LDU, WORK, RESULT( 4 ) );
 
             // Call DHGEQZ to compute S1, P1, S2, P2, Q, and Z, do tests.
 
@@ -300,12 +300,12 @@
 
             // Eigenvalues only
 
-            CALL DLACPY( ' ', N, N, H, LDA, S2, LDA )
-            CALL DLACPY( ' ', N, N, T, LDA, P2, LDA )
+            dlacpy(' ', N, N, H, LDA, S2, LDA );
+            dlacpy(' ', N, N, T, LDA, P2, LDA );
             NTEST = 5
             RESULT( 5 ) = ULPINV
 
-            CALL DHGEQZ( 'E', 'N', 'N', N, 1, N, S2, LDA, P2, LDA, ALPHR3, ALPHI3, BETA3, Q, LDU, Z, LDU, WORK, LWORK, IINFO )
+            dhgeqz('E', 'N', 'N', N, 1, N, S2, LDA, P2, LDA, ALPHR3, ALPHI3, BETA3, Q, LDU, Z, LDU, WORK, LWORK, IINFO );
             if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'DHGEQZ(E)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
@@ -314,10 +314,10 @@
 
             // Eigenvalues and Full Schur Form
 
-            CALL DLACPY( ' ', N, N, H, LDA, S2, LDA )
-            CALL DLACPY( ' ', N, N, T, LDA, P2, LDA )
+            dlacpy(' ', N, N, H, LDA, S2, LDA );
+            dlacpy(' ', N, N, T, LDA, P2, LDA );
 
-            CALL DHGEQZ( 'S', 'N', 'N', N, 1, N, S2, LDA, P2, LDA, ALPHR1, ALPHI1, BETA1, Q, LDU, Z, LDU, WORK, LWORK, IINFO )
+            dhgeqz('S', 'N', 'N', N, 1, N, S2, LDA, P2, LDA, ALPHR1, ALPHI1, BETA1, Q, LDU, Z, LDU, WORK, LWORK, IINFO );
             if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'DHGEQZ(S)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
@@ -326,10 +326,10 @@
 
             // Eigenvalues, Schur Form, and Schur Vectors
 
-            CALL DLACPY( ' ', N, N, H, LDA, S1, LDA )
-            CALL DLACPY( ' ', N, N, T, LDA, P1, LDA )
+            dlacpy(' ', N, N, H, LDA, S1, LDA );
+            dlacpy(' ', N, N, T, LDA, P1, LDA );
 
-            CALL DHGEQZ( 'S', 'I', 'I', N, 1, N, S1, LDA, P1, LDA, ALPHR1, ALPHI1, BETA1, Q, LDU, Z, LDU, WORK, LWORK, IINFO )
+            dhgeqz('S', 'I', 'I', N, 1, N, S1, LDA, P1, LDA, ALPHR1, ALPHI1, BETA1, Q, LDU, Z, LDU, WORK, LWORK, IINFO );
             if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'DHGEQZ(V)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
@@ -340,7 +340,7 @@
 
             // Do Tests 5--8
 
-            CALL DGET51( 1, N, H, LDA, S1, LDA, Q, LDU, Z, LDU, WORK, RESULT( 5 ) )             CALL DGET51( 1, N, T, LDA, P1, LDA, Q, LDU, Z, LDU, WORK, RESULT( 6 ) )             CALL DGET51( 3, N, T, LDA, P1, LDA, Q, LDU, Q, LDU, WORK, RESULT( 7 ) )             CALL DGET51( 3, N, T, LDA, P1, LDA, Z, LDU, Z, LDU, WORK, RESULT( 8 ) )
+            dget51(1, N, H, LDA, S1, LDA, Q, LDU, Z, LDU, WORK, RESULT( 5 ) )             CALL DGET51( 1, N, T, LDA, P1, LDA, Q, LDU, Z, LDU, WORK, RESULT( 6 ) )             CALL DGET51( 3, N, T, LDA, P1, LDA, Q, LDU, Q, LDU, WORK, RESULT( 7 ) )             CALL DGET51( 3, N, T, LDA, P1, LDA, Z, LDU, Z, LDU, WORK, RESULT( 8 ) );
 
             // Compute the Left and Right Eigenvectors of (S1,P1)
 
@@ -361,7 +361,7 @@
                LLWORK( J ) = .FALSE.
   130       CONTINUE
 
-            CALL DTGEVC( 'L', 'S', LLWORK, N, S1, LDA, P1, LDA, EVECTL, LDU, DUMMA, LDU, N, IN, WORK, IINFO )
+            dtgevc('L', 'S', LLWORK, N, S1, LDA, P1, LDA, EVECTL, LDU, DUMMA, LDU, N, IN, WORK, IINFO );
             if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'DTGEVC(L,S1)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
@@ -376,14 +376,14 @@
                LLWORK( J ) = .TRUE.
   150       CONTINUE
 
-            CALL DTGEVC( 'L', 'S', LLWORK, N, S1, LDA, P1, LDA, EVECTL( 1, I1+1 ), LDU, DUMMA, LDU, N, IN, WORK, IINFO )
+            dtgevc('L', 'S', LLWORK, N, S1, LDA, P1, LDA, EVECTL( 1, I1+1 ), LDU, DUMMA, LDU, N, IN, WORK, IINFO );
             if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'DTGEVC(L,S2)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                GO TO 210
             }
 
-            CALL DGET52( .TRUE., N, S1, LDA, P1, LDA, EVECTL, LDU, ALPHR1, ALPHI1, BETA1, WORK, DUMMA( 1 ) )
+            dget52(.TRUE., N, S1, LDA, P1, LDA, EVECTL, LDU, ALPHR1, ALPHI1, BETA1, WORK, DUMMA( 1 ) );
             RESULT( 9 ) = DUMMA( 1 )
             if ( DUMMA( 2 ).GT.THRSHN ) {
                WRITE( NOUNIT, FMT = 9998 )'Left', 'DTGEVC(HOWMNY=S)', DUMMA( 2 ), N, JTYPE, IOLDSD
@@ -394,15 +394,15 @@
 
             NTEST = 10
             RESULT( 10 ) = ULPINV
-            CALL DLACPY( 'F', N, N, Q, LDU, EVECTL, LDU )
-            CALL DTGEVC( 'L', 'B', LLWORK, N, S1, LDA, P1, LDA, EVECTL, LDU, DUMMA, LDU, N, IN, WORK, IINFO )
+            dlacpy('F', N, N, Q, LDU, EVECTL, LDU );
+            dtgevc('L', 'B', LLWORK, N, S1, LDA, P1, LDA, EVECTL, LDU, DUMMA, LDU, N, IN, WORK, IINFO );
             if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'DTGEVC(L,B)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                GO TO 210
             }
 
-            CALL DGET52( .TRUE., N, H, LDA, T, LDA, EVECTL, LDU, ALPHR1, ALPHI1, BETA1, WORK, DUMMA( 1 ) )
+            dget52(.TRUE., N, H, LDA, T, LDA, EVECTL, LDU, ALPHR1, ALPHI1, BETA1, WORK, DUMMA( 1 ) );
             RESULT( 10 ) = DUMMA( 1 )
             if ( DUMMA( 2 ).GT.THRSHN ) {
                WRITE( NOUNIT, FMT = 9998 )'Left', 'DTGEVC(HOWMNY=B)', DUMMA( 2 ), N, JTYPE, IOLDSD
@@ -425,7 +425,7 @@
                LLWORK( J ) = .FALSE.
   170       CONTINUE
 
-            CALL DTGEVC( 'R', 'S', LLWORK, N, S1, LDA, P1, LDA, DUMMA, LDU, EVECTR, LDU, N, IN, WORK, IINFO )
+            dtgevc('R', 'S', LLWORK, N, S1, LDA, P1, LDA, DUMMA, LDU, EVECTR, LDU, N, IN, WORK, IINFO );
             if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'DTGEVC(R,S1)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
@@ -440,14 +440,14 @@
                LLWORK( J ) = .TRUE.
   190       CONTINUE
 
-            CALL DTGEVC( 'R', 'S', LLWORK, N, S1, LDA, P1, LDA, DUMMA, LDU, EVECTR( 1, I1+1 ), LDU, N, IN, WORK, IINFO )
+            dtgevc('R', 'S', LLWORK, N, S1, LDA, P1, LDA, DUMMA, LDU, EVECTR( 1, I1+1 ), LDU, N, IN, WORK, IINFO );
             if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'DTGEVC(R,S2)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                GO TO 210
             }
 
-            CALL DGET52( .FALSE., N, S1, LDA, P1, LDA, EVECTR, LDU, ALPHR1, ALPHI1, BETA1, WORK, DUMMA( 1 ) )
+            dget52(.FALSE., N, S1, LDA, P1, LDA, EVECTR, LDU, ALPHR1, ALPHI1, BETA1, WORK, DUMMA( 1 ) );
             RESULT( 11 ) = DUMMA( 1 )
             if ( DUMMA( 2 ).GT.THRESH ) {
                WRITE( NOUNIT, FMT = 9998 )'Right', 'DTGEVC(HOWMNY=S)', DUMMA( 2 ), N, JTYPE, IOLDSD
@@ -458,15 +458,15 @@
 
             NTEST = 12
             RESULT( 12 ) = ULPINV
-            CALL DLACPY( 'F', N, N, Z, LDU, EVECTR, LDU )
-            CALL DTGEVC( 'R', 'B', LLWORK, N, S1, LDA, P1, LDA, DUMMA, LDU, EVECTR, LDU, N, IN, WORK, IINFO )
+            dlacpy('F', N, N, Z, LDU, EVECTR, LDU );
+            dtgevc('R', 'B', LLWORK, N, S1, LDA, P1, LDA, DUMMA, LDU, EVECTR, LDU, N, IN, WORK, IINFO );
             if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'DTGEVC(R,B)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                GO TO 210
             }
 
-            CALL DGET52( .FALSE., N, H, LDA, T, LDA, EVECTR, LDU, ALPHR1, ALPHI1, BETA1, WORK, DUMMA( 1 ) )
+            dget52(.FALSE., N, H, LDA, T, LDA, EVECTR, LDU, ALPHR1, ALPHI1, BETA1, WORK, DUMMA( 1 ) );
             RESULT( 12 ) = DUMMA( 1 )
             if ( DUMMA( 2 ).GT.THRESH ) {
                WRITE( NOUNIT, FMT = 9998 )'Right', 'DTGEVC(HOWMNY=B)', DUMMA( 2 ), N, JTYPE, IOLDSD
@@ -478,7 +478,7 @@
 
                // Do Tests 13--14
 
-               CALL DGET51( 2, N, S1, LDA, S2, LDA, Q, LDU, Z, LDU, WORK, RESULT( 13 ) )                CALL DGET51( 2, N, P1, LDA, P2, LDA, Q, LDU, Z, LDU, WORK, RESULT( 14 ) )
+               dget51(2, N, S1, LDA, S2, LDA, Q, LDU, Z, LDU, WORK, RESULT( 13 ) )                CALL DGET51( 2, N, P1, LDA, P2, LDA, Q, LDU, Z, LDU, WORK, RESULT( 14 ) );
 
                // Do Test 15
 
@@ -542,7 +542,7 @@
 
       // Summary
 
-      CALL DLASUM( 'DGG', NOUNIT, NERRS, NTESTT )
+      dlasum('DGG', NOUNIT, NERRS, NTESTT );
       RETURN
 
  9999 FORMAT( ' DCHKGG: ', A, ' returned INFO=', I6, '.', / 9X, 'N=', I6, ', JTYPE=', I6, ', ISEED=(', 3( I5, ',' ), I5, ')' )

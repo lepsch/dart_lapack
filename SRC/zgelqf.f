@@ -45,7 +45,7 @@
          IF( LWORK.LE.0 .OR. ( N.GT.0 .AND. LWORK.LT.MAX( 1, M ) ) ) INFO = -7
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'ZGELQF', -INFO )
+         xerbla('ZGELQF', -INFO );
          RETURN
       } else if ( LQUERY ) {
          if ( K.EQ.0 ) {
@@ -99,17 +99,17 @@
             // Compute the LQ factorization of the current block
             // A(i:i+ib-1,i:n)
 
-            CALL ZGELQ2( IB, N-I+1, A( I, I ), LDA, TAU( I ), WORK, IINFO )
+            zgelq2(IB, N-I+1, A( I, I ), LDA, TAU( I ), WORK, IINFO );
             if ( I+IB.LE.M ) {
 
                // Form the triangular factor of the block reflector
                // H = H(i) H(i+1) . . . H(i+ib-1)
 
-               CALL ZLARFT( 'Forward', 'Rowwise', N-I+1, IB, A( I, I ), LDA, TAU( I ), WORK, LDWORK )
+               zlarft('Forward', 'Rowwise', N-I+1, IB, A( I, I ), LDA, TAU( I ), WORK, LDWORK );
 
                // Apply H to A(i+ib:m,i:n) from the right
 
-               CALL ZLARFB( 'Right', 'No transpose', 'Forward', 'Rowwise', M-I-IB+1, N-I+1, IB, A( I, I ), LDA, WORK, LDWORK, A( I+IB, I ), LDA, WORK( IB+1 ), LDWORK )
+               zlarfb('Right', 'No transpose', 'Forward', 'Rowwise', M-I-IB+1, N-I+1, IB, A( I, I ), LDA, WORK, LDWORK, A( I+IB, I ), LDA, WORK( IB+1 ), LDWORK );
             }
    10    CONTINUE
       } else {

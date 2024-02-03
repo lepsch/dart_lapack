@@ -63,7 +63,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'SGEQP3', -INFO )
+         xerbla('SGEQP3', -INFO );
          RETURN
       } else if ( LQUERY ) {
          RETURN
@@ -75,7 +75,7 @@
       DO 10 J = 1, N
          if ( JPVT( J ).NE.0 ) {
             if ( J.NE.NFXD ) {
-               CALL SSWAP( M, A( 1, J ), 1, A( 1, NFXD ), 1 )
+               sswap(M, A( 1, J ), 1, A( 1, NFXD ), 1 );
                JPVT( J ) = JPVT( NFXD )
                JPVT( NFXD ) = J
             } else {
@@ -97,12 +97,12 @@
       if ( NFXD.GT.0 ) {
          NA = MIN( M, NFXD )
 *CC      CALL SGEQR2( M, NA, A, LDA, TAU, WORK, INFO )
-         CALL SGEQRF( M, NA, A, LDA, TAU, WORK, LWORK, INFO )
+         sgeqrf(M, NA, A, LDA, TAU, WORK, LWORK, INFO );
          IWS = MAX( IWS, INT( WORK( 1 ) ) )
          if ( NA.LT.N ) {
 *CC         CALL SORM2R( 'Left', 'Transpose', M, N-NA, NA, A, LDA,
 *CC  $                   TAU, A( 1, NA+1 ), LDA, WORK, INFO )
-            CALL SORMQR( 'Left', 'Transpose', M, N-NA, NA, A, LDA, TAU, A( 1, NA+1 ), LDA, WORK, LWORK, INFO )
+            sormqr('Left', 'Transpose', M, N-NA, NA, A, LDA, TAU, A( 1, NA+1 ), LDA, WORK, LWORK, INFO );
             IWS = MAX( IWS, INT( WORK( 1 ) ) )
          }
       }
@@ -172,7 +172,7 @@
 
                // Factorize JB columns among columns J:N.
 
-               CALL SLAQPS( M, N-J+1, J-1, JB, FJB, A( 1, J ), LDA, JPVT( J ), TAU( J ), WORK( J ), WORK( N+J ), WORK( 2*N+1 ), WORK( 2*N+JB+1 ), N-J+1 )
+               slaqps(M, N-J+1, J-1, JB, FJB, A( 1, J ), LDA, JPVT( J ), TAU( J ), WORK( J ), WORK( N+J ), WORK( 2*N+1 ), WORK( 2*N+JB+1 ), N-J+1 );
 
                J = J + FJB
                GO TO 30

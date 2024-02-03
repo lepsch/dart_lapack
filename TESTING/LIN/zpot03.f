@@ -75,7 +75,7 @@
    30       CONTINUE
    40    CONTINUE
       }
-      CALL ZHEMM( 'Left', UPLO, N, N, -CONE, A, LDA, AINV, LDAINV, CZERO, WORK, LDWORK )
+      zhemm('Left', UPLO, N, N, -CONE, A, LDA, AINV, LDAINV, CZERO, WORK, LDWORK );
 
       // Add the identity matrix to WORK .
 

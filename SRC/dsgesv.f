@@ -62,7 +62,7 @@
          INFO = -9
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'DSGESV', -INFO )
+         xerbla('DSGESV', -INFO );
          RETURN
       }
 
@@ -92,7 +92,7 @@
       // Convert B from double precision to single precision and store the
       // result in SX.
 
-      CALL DLAG2S( N, NRHS, B, LDB, SWORK( PTSX ), N, INFO )
+      dlag2s(N, NRHS, B, LDB, SWORK( PTSX ), N, INFO );
 
       if ( INFO.NE.0 ) {
          ITER = -2
@@ -102,7 +102,7 @@
       // Convert A from double precision to single precision and store the
       // result in SA.
 
-      CALL DLAG2S( N, N, A, LDA, SWORK( PTSA ), N, INFO )
+      dlag2s(N, N, A, LDA, SWORK( PTSA ), N, INFO );
 
       if ( INFO.NE.0 ) {
          ITER = -2
@@ -111,7 +111,7 @@
 
       // Compute the LU factorization of SA.
 
-      CALL SGETRF( N, N, SWORK( PTSA ), N, IPIV, INFO )
+      sgetrf(N, N, SWORK( PTSA ), N, IPIV, INFO );
 
       if ( INFO.NE.0 ) {
          ITER = -3
@@ -120,17 +120,17 @@
 
       // Solve the system SA*SX = SB.
 
-      CALL SGETRS( 'No transpose', N, NRHS, SWORK( PTSA ), N, IPIV, SWORK( PTSX ), N, INFO )
+      sgetrs('No transpose', N, NRHS, SWORK( PTSA ), N, IPIV, SWORK( PTSX ), N, INFO );
 
       // Convert SX back to double precision
 
-      CALL SLAG2D( N, NRHS, SWORK( PTSX ), N, X, LDX, INFO )
+      slag2d(N, NRHS, SWORK( PTSX ), N, X, LDX, INFO );
 
       // Compute R = B - AX (R is WORK).
 
-      CALL DLACPY( 'All', N, NRHS, B, LDB, WORK, N )
+      dlacpy('All', N, NRHS, B, LDB, WORK, N );
 
-      CALL DGEMM( 'No Transpose', 'No Transpose', N, NRHS, N, NEGONE, A, LDA, X, LDX, ONE, WORK, N )
+      dgemm('No Transpose', 'No Transpose', N, NRHS, N, NEGONE, A, LDA, X, LDX, ONE, WORK, N );
 
       // Check whether the NRHS normwise backward errors satisfy the
       // stopping criterion. If yes, set ITER=0 and return.
@@ -154,7 +154,7 @@
          // Convert R (in WORK) from double precision to single precision
          // and store the result in SX.
 
-         CALL DLAG2S( N, NRHS, WORK, N, SWORK( PTSX ), N, INFO )
+         dlag2s(N, NRHS, WORK, N, SWORK( PTSX ), N, INFO );
 
          if ( INFO.NE.0 ) {
             ITER = -2
@@ -163,22 +163,22 @@
 
          // Solve the system SA*SX = SR.
 
-         CALL SGETRS( 'No transpose', N, NRHS, SWORK( PTSA ), N, IPIV, SWORK( PTSX ), N, INFO )
+         sgetrs('No transpose', N, NRHS, SWORK( PTSA ), N, IPIV, SWORK( PTSX ), N, INFO );
 
          // Convert SX back to double precision and update the current
          // iterate.
 
-         CALL SLAG2D( N, NRHS, SWORK( PTSX ), N, WORK, N, INFO )
+         slag2d(N, NRHS, SWORK( PTSX ), N, WORK, N, INFO );
 
          DO I = 1, NRHS
-            CALL DAXPY( N, ONE, WORK( 1, I ), 1, X( 1, I ), 1 )
+            daxpy(N, ONE, WORK( 1, I ), 1, X( 1, I ), 1 );
          END DO
 
          // Compute R = B - AX (R is WORK).
 
-         CALL DLACPY( 'All', N, NRHS, B, LDB, WORK, N )
+         dlacpy('All', N, NRHS, B, LDB, WORK, N );
 
-         CALL DGEMM( 'No Transpose', 'No Transpose', N, NRHS, N, NEGONE, A, LDA, X, LDX, ONE, WORK, N )
+         dgemm('No Transpose', 'No Transpose', N, NRHS, N, NEGONE, A, LDA, X, LDX, ONE, WORK, N );
 
          // Check whether the NRHS normwise backward errors satisfy the
          // stopping criterion. If yes, set ITER=IITER>0 and return.
@@ -212,12 +212,12 @@
       // Single-precision iterative refinement failed to converge to a
       // satisfactory solution, so we resort to double precision.
 
-      CALL DGETRF( N, N, A, LDA, IPIV, INFO )
+      dgetrf(N, N, A, LDA, IPIV, INFO );
 
       IF( INFO.NE.0 ) RETURN
 
-      CALL DLACPY( 'All', N, NRHS, B, LDB, X, LDX )
-      CALL DGETRS( 'No transpose', N, NRHS, A, LDA, IPIV, X, LDX, INFO )
+      dlacpy('All', N, NRHS, B, LDB, X, LDX );
+      dgetrs('No transpose', N, NRHS, A, LDA, IPIV, X, LDX, INFO );
 
       RETURN
 

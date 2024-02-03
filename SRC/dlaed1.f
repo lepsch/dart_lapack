@@ -38,7 +38,7 @@
          INFO = -7
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'DLAED1', -INFO )
+         xerbla('DLAED1', -INFO );
          RETURN
       }
 
@@ -64,13 +64,13 @@
       // Form the z-vector which consists of the last row of Q_1 and the
       // first row of Q_2.
 
-      CALL DCOPY( CUTPNT, Q( CUTPNT, 1 ), LDQ, WORK( IZ ), 1 )
+      dcopy(CUTPNT, Q( CUTPNT, 1 ), LDQ, WORK( IZ ), 1 );
       ZPP1 = CUTPNT + 1
-      CALL DCOPY( N-CUTPNT, Q( ZPP1, ZPP1 ), LDQ, WORK( IZ+CUTPNT ), 1 )
+      dcopy(N-CUTPNT, Q( ZPP1, ZPP1 ), LDQ, WORK( IZ+CUTPNT ), 1 );
 
       // Deflate eigenvalues.
 
-      CALL DLAED2( K, N, CUTPNT, D, Q, LDQ, INDXQ, RHO, WORK( IZ ), WORK( IDLMDA ), WORK( IW ), WORK( IQ2 ), IWORK( INDX ), IWORK( INDXC ), IWORK( INDXP ), IWORK( COLTYP ), INFO )
+      dlaed2(K, N, CUTPNT, D, Q, LDQ, INDXQ, RHO, WORK( IZ ), WORK( IDLMDA ), WORK( IW ), WORK( IQ2 ), IWORK( INDX ), IWORK( INDXC ), IWORK( INDXP ), IWORK( COLTYP ), INFO );
 
       IF( INFO.NE.0 ) GO TO 20
 
@@ -84,7 +84,7 @@
 
          N1 = K
          N2 = N - K
-         CALL DLAMRG( N1, N2, D, 1, -1, INDXQ )
+         dlamrg(N1, N2, D, 1, -1, INDXQ );
       } else {
          DO 10 I = 1, N
             INDXQ( I ) = I

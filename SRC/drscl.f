@@ -75,7 +75,7 @@
 
       // Scale the vector X by MUL
 
-      CALL DSCAL( N, MUL, SX, INCX )
+      dscal(N, MUL, SX, INCX );
 
       IF( .NOT.DONE ) GO TO 10
 

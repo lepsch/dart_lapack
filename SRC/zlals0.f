@@ -65,7 +65,7 @@
          INFO = -20
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'ZLALS0', -INFO )
+         xerbla('ZLALS0', -INFO );
          RETURN
       }
 
@@ -79,23 +79,23 @@
          // Step (1L): apply back the Givens rotations performed.
 
          DO 10 I = 1, GIVPTR
-            CALL ZDROT( NRHS, B( GIVCOL( I, 2 ), 1 ), LDB, B( GIVCOL( I, 1 ), 1 ), LDB, GIVNUM( I, 2 ), GIVNUM( I, 1 ) )
+            zdrot(NRHS, B( GIVCOL( I, 2 ), 1 ), LDB, B( GIVCOL( I, 1 ), 1 ), LDB, GIVNUM( I, 2 ), GIVNUM( I, 1 ) );
    10    CONTINUE
 
          // Step (2L): permute rows of B.
 
-         CALL ZCOPY( NRHS, B( NLP1, 1 ), LDB, BX( 1, 1 ), LDBX )
+         zcopy(NRHS, B( NLP1, 1 ), LDB, BX( 1, 1 ), LDBX );
          DO 20 I = 2, N
-            CALL ZCOPY( NRHS, B( PERM( I ), 1 ), LDB, BX( I, 1 ), LDBX )
+            zcopy(NRHS, B( PERM( I ), 1 ), LDB, BX( I, 1 ), LDBX );
    20    CONTINUE
 
          // Step (3L): apply the inverse of the left singular vector
          // matrix to BX.
 
          if ( K.EQ.1 ) {
-            CALL ZCOPY( NRHS, BX, LDBX, B, LDB )
+            zcopy(NRHS, BX, LDBX, B, LDB );
             if ( Z( 1 ).LT.ZERO ) {
-               CALL ZDSCAL( NRHS, NEGONE, B, LDB )
+               zdscal(NRHS, NEGONE, B, LDB );
             }
          } else {
             DO 100 J = 1, K
@@ -146,7 +146,7 @@
                      RWORK( I ) = DBLE( BX( JROW, JCOL ) )
    50             CONTINUE
    60          CONTINUE
-               CALL DGEMV( 'T', K, NRHS, ONE, RWORK( 1+K+NRHS*2 ), K, RWORK( 1 ), 1, ZERO, RWORK( 1+K ), 1 )
+               dgemv('T', K, NRHS, ONE, RWORK( 1+K+NRHS*2 ), K, RWORK( 1 ), 1, ZERO, RWORK( 1+K ), 1 );
                I = K + NRHS*2
                DO 80 JCOL = 1, NRHS
                   DO 70 JROW = 1, K
@@ -154,11 +154,11 @@
                      RWORK( I ) = DIMAG( BX( JROW, JCOL ) )
    70             CONTINUE
    80          CONTINUE
-               CALL DGEMV( 'T', K, NRHS, ONE, RWORK( 1+K+NRHS*2 ), K, RWORK( 1 ), 1, ZERO, RWORK( 1+K+NRHS ), 1 )
+               dgemv('T', K, NRHS, ONE, RWORK( 1+K+NRHS*2 ), K, RWORK( 1 ), 1, ZERO, RWORK( 1+K+NRHS ), 1 );
                DO 90 JCOL = 1, NRHS
                   B( J, JCOL ) = DCMPLX( RWORK( JCOL+K ), RWORK( JCOL+K+NRHS ) )
    90          CONTINUE
-               CALL ZLASCL( 'G', 0, 0, TEMP, ONE, 1, NRHS, B( J, 1 ), LDB, INFO )
+               zlascl('G', 0, 0, TEMP, ONE, 1, NRHS, B( J, 1 ), LDB, INFO );
   100       CONTINUE
          }
 
@@ -173,7 +173,7 @@
          // to B.
 
          if ( K.EQ.1 ) {
-            CALL ZCOPY( NRHS, B, LDB, BX, LDBX )
+            zcopy(NRHS, B, LDB, BX, LDBX );
          } else {
             DO 180 J = 1, K
                DSIGJ = POLES( J, 2 )
@@ -215,7 +215,7 @@
                      RWORK( I ) = DBLE( B( JROW, JCOL ) )
   130             CONTINUE
   140          CONTINUE
-               CALL DGEMV( 'T', K, NRHS, ONE, RWORK( 1+K+NRHS*2 ), K, RWORK( 1 ), 1, ZERO, RWORK( 1+K ), 1 )
+               dgemv('T', K, NRHS, ONE, RWORK( 1+K+NRHS*2 ), K, RWORK( 1 ), 1, ZERO, RWORK( 1+K ), 1 );
                I = K + NRHS*2
                DO 160 JCOL = 1, NRHS
                   DO 150 JROW = 1, K
@@ -223,7 +223,7 @@
                      RWORK( I ) = DIMAG( B( JROW, JCOL ) )
   150             CONTINUE
   160          CONTINUE
-               CALL DGEMV( 'T', K, NRHS, ONE, RWORK( 1+K+NRHS*2 ), K, RWORK( 1 ), 1, ZERO, RWORK( 1+K+NRHS ), 1 )
+               dgemv('T', K, NRHS, ONE, RWORK( 1+K+NRHS*2 ), K, RWORK( 1 ), 1, ZERO, RWORK( 1+K+NRHS ), 1 );
                DO 170 JCOL = 1, NRHS
                   BX( J, JCOL ) = DCMPLX( RWORK( JCOL+K ), RWORK( JCOL+K+NRHS ) )
   170          CONTINUE
@@ -234,25 +234,25 @@
          // related to the right null space of the subproblem.
 
          if ( SQRE.EQ.1 ) {
-            CALL ZCOPY( NRHS, B( M, 1 ), LDB, BX( M, 1 ), LDBX )
-            CALL ZDROT( NRHS, BX( 1, 1 ), LDBX, BX( M, 1 ), LDBX, C, S )
+            zcopy(NRHS, B( M, 1 ), LDB, BX( M, 1 ), LDBX );
+            zdrot(NRHS, BX( 1, 1 ), LDBX, BX( M, 1 ), LDBX, C, S );
          }
          IF( K.LT.MAX( M, N ) ) CALL ZLACPY( 'A', N-K, NRHS, B( K+1, 1 ), LDB, BX( K+1, 1 ), LDBX )
 
          // Step (3R): permute rows of B.
 
-         CALL ZCOPY( NRHS, BX( 1, 1 ), LDBX, B( NLP1, 1 ), LDB )
+         zcopy(NRHS, BX( 1, 1 ), LDBX, B( NLP1, 1 ), LDB );
          if ( SQRE.EQ.1 ) {
-            CALL ZCOPY( NRHS, BX( M, 1 ), LDBX, B( M, 1 ), LDB )
+            zcopy(NRHS, BX( M, 1 ), LDBX, B( M, 1 ), LDB );
          }
          DO 190 I = 2, N
-            CALL ZCOPY( NRHS, BX( I, 1 ), LDBX, B( PERM( I ), 1 ), LDB )
+            zcopy(NRHS, BX( I, 1 ), LDBX, B( PERM( I ), 1 ), LDB );
   190    CONTINUE
 
          // Step (4R): apply back the Givens rotations performed.
 
          DO 200 I = GIVPTR, 1, -1
-            CALL ZDROT( NRHS, B( GIVCOL( I, 2 ), 1 ), LDB, B( GIVCOL( I, 1 ), 1 ), LDB, GIVNUM( I, 2 ), -GIVNUM( I, 1 ) )
+            zdrot(NRHS, B( GIVCOL( I, 2 ), 1 ), LDB, B( GIVCOL( I, 1 ), 1 ), LDB, GIVNUM( I, 2 ), -GIVNUM( I, 1 ) );
   200    CONTINUE
       }
 

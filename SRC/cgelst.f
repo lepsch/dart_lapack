@@ -79,7 +79,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'CGELST ', -INFO )
+         xerbla('CGELST ', -INFO );
          RETURN
       } else if ( LQUERY ) {
          RETURN
@@ -88,7 +88,7 @@
       // Quick return if possible
 
       if ( MIN( M, N, NRHS ).EQ.0 ) {
-         CALL CLASET( 'Full', MAX( M, N ), NRHS, CZERO, CZERO, B, LDB )
+         claset('Full', MAX( M, N ), NRHS, CZERO, CZERO, B, LDB );
          WORK( 1 ) = SROUNDUP_LWORK( LWOPT )
          RETURN
       }
@@ -124,19 +124,19 @@
 
          // Scale matrix norm up to SMLNUM
 
-         CALL CLASCL( 'G', 0, 0, ANRM, SMLNUM, M, N, A, LDA, INFO )
+         clascl('G', 0, 0, ANRM, SMLNUM, M, N, A, LDA, INFO );
          IASCL = 1
       } else if ( ANRM.GT.BIGNUM ) {
 
          // Scale matrix norm down to BIGNUM
 
-         CALL CLASCL( 'G', 0, 0, ANRM, BIGNUM, M, N, A, LDA, INFO )
+         clascl('G', 0, 0, ANRM, BIGNUM, M, N, A, LDA, INFO );
          IASCL = 2
       } else if ( ANRM.EQ.ZERO ) {
 
          // Matrix all zero. Return zero solution.
 
-         CALL CLASET( 'Full', MAX( M, N ), NRHS, CZERO, CZERO, B, LDB )
+         claset('Full', MAX( M, N ), NRHS, CZERO, CZERO, B, LDB );
          WORK( 1 ) = SROUNDUP_LWORK( LWOPT )
          RETURN
       }
@@ -149,13 +149,13 @@
 
          // Scale matrix norm up to SMLNUM
 
-         CALL CLASCL( 'G', 0, 0, BNRM, SMLNUM, BROW, NRHS, B, LDB, INFO )
+         clascl('G', 0, 0, BNRM, SMLNUM, BROW, NRHS, B, LDB, INFO );
          IBSCL = 1
       } else if ( BNRM.GT.BIGNUM ) {
 
          // Scale matrix norm down to BIGNUM
 
-         CALL CLASCL( 'G', 0, 0, BNRM, BIGNUM, BROW, NRHS, B, LDB, INFO )
+         clascl('G', 0, 0, BNRM, BIGNUM, BROW, NRHS, B, LDB, INFO );
          IBSCL = 2
       }
 
@@ -166,7 +166,7 @@
          // using the compact WY representation of Q,
          // workspace at least N, optimally N*NB.
 
-         CALL CGEQRT( M, N, NB, A, LDA, WORK( 1 ), NB, WORK( MN*NB+1 ), INFO )
+         cgeqrt(M, N, NB, A, LDA, WORK( 1 ), NB, WORK( MN*NB+1 ), INFO );
 
          if ( .NOT.TPSD ) {
 
@@ -178,11 +178,11 @@
             // using the compact WY representation of Q,
             // workspace at least NRHS, optimally NRHS*NB.
 
-            CALL CGEMQRT( 'Left', 'Conjugate transpose', M, NRHS, N, NB, A, LDA, WORK( 1 ), NB, B, LDB, WORK( MN*NB+1 ), INFO )
+            cgemqrt('Left', 'Conjugate transpose', M, NRHS, N, NB, A, LDA, WORK( 1 ), NB, B, LDB, WORK( MN*NB+1 ), INFO );
 
             // Compute B(1:N,1:NRHS) := inv(R) * B(1:N,1:NRHS)
 
-            CALL CTRTRS( 'Upper', 'No transpose', 'Non-unit', N, NRHS, A, LDA, B, LDB, INFO )
+            ctrtrs('Upper', 'No transpose', 'Non-unit', N, NRHS, A, LDA, B, LDB, INFO );
 
             if ( INFO.GT.0 ) {
                RETURN
@@ -200,7 +200,7 @@
 
             // Block 1: B(1:N,1:NRHS) := inv(R**T) * B(1:N,1:NRHS)
 
-            CALL CTRTRS( 'Upper', 'Conjugate transpose', 'Non-unit', N, NRHS, A, LDA, B, LDB, INFO )
+            ctrtrs('Upper', 'Conjugate transpose', 'Non-unit', N, NRHS, A, LDA, B, LDB, INFO );
 
             if ( INFO.GT.0 ) {
                RETURN
@@ -219,7 +219,7 @@
             // using the compact WY representation of Q,
             // workspace at least NRHS, optimally NRHS*NB.
 
-            CALL CGEMQRT( 'Left', 'No transpose', M, NRHS, N, NB, A, LDA, WORK( 1 ), NB, B, LDB, WORK( MN*NB+1 ), INFO )
+            cgemqrt('Left', 'No transpose', M, NRHS, N, NB, A, LDA, WORK( 1 ), NB, B, LDB, WORK( MN*NB+1 ), INFO );
 
             SCLLEN = M
 
@@ -232,7 +232,7 @@
          // using the compact WY representation of Q,
          // workspace at least M, optimally M*NB.
 
-         CALL CGELQT( M, N, NB, A, LDA, WORK( 1 ), NB, WORK( MN*NB+1 ), INFO )
+         cgelqt(M, N, NB, A, LDA, WORK( 1 ), NB, WORK( MN*NB+1 ), INFO );
 
          if ( .NOT.TPSD ) {
 
@@ -244,7 +244,7 @@
 
             // Block 1: B(1:M,1:NRHS) := inv(L) * B(1:M,1:NRHS)
 
-            CALL CTRTRS( 'Lower', 'No transpose', 'Non-unit', M, NRHS, A, LDA, B, LDB, INFO )
+            ctrtrs('Lower', 'No transpose', 'Non-unit', M, NRHS, A, LDA, B, LDB, INFO );
 
             if ( INFO.GT.0 ) {
                RETURN
@@ -263,7 +263,7 @@
             // using the compact WY representation of Q,
             // workspace at least NRHS, optimally NRHS*NB.
 
-            CALL CGEMLQT( 'Left', 'Conjugate transpose', N, NRHS, M, NB, A, LDA, WORK( 1 ), NB, B, LDB, WORK( MN*NB+1 ), INFO )
+            cgemlqt('Left', 'Conjugate transpose', N, NRHS, M, NB, A, LDA, WORK( 1 ), NB, B, LDB, WORK( MN*NB+1 ), INFO );
 
             SCLLEN = N
 
@@ -277,11 +277,11 @@
             // using the compact WY representation of Q,
             // workspace at least NRHS, optimally NRHS*NB.
 
-            CALL CGEMLQT( 'Left', 'No transpose', N, NRHS, M, NB, A, LDA, WORK( 1 ), NB, B, LDB, WORK( MN*NB+1), INFO )
+            cgemlqt('Left', 'No transpose', N, NRHS, M, NB, A, LDA, WORK( 1 ), NB, B, LDB, WORK( MN*NB+1), INFO );
 
             // Compute B(1:M,1:NRHS) := inv(L**T) * B(1:M,1:NRHS)
 
-            CALL CTRTRS( 'Lower', 'Conjugate transpose', 'Non-unit', M, NRHS, A, LDA, B, LDB, INFO )
+            ctrtrs('Lower', 'Conjugate transpose', 'Non-unit', M, NRHS, A, LDA, B, LDB, INFO );
 
             if ( INFO.GT.0 ) {
                RETURN
@@ -296,14 +296,14 @@
       // Undo scaling
 
       if ( IASCL.EQ.1 ) {
-         CALL CLASCL( 'G', 0, 0, ANRM, SMLNUM, SCLLEN, NRHS, B, LDB, INFO )
+         clascl('G', 0, 0, ANRM, SMLNUM, SCLLEN, NRHS, B, LDB, INFO );
       } else if ( IASCL.EQ.2 ) {
-         CALL CLASCL( 'G', 0, 0, ANRM, BIGNUM, SCLLEN, NRHS, B, LDB, INFO )
+         clascl('G', 0, 0, ANRM, BIGNUM, SCLLEN, NRHS, B, LDB, INFO );
       }
       if ( IBSCL.EQ.1 ) {
-         CALL CLASCL( 'G', 0, 0, SMLNUM, BNRM, SCLLEN, NRHS, B, LDB, INFO )
+         clascl('G', 0, 0, SMLNUM, BNRM, SCLLEN, NRHS, B, LDB, INFO );
       } else if ( IBSCL.EQ.2 ) {
-         CALL CLASCL( 'G', 0, 0, BIGNUM, BNRM, SCLLEN, NRHS, B, LDB, INFO )
+         clascl('G', 0, 0, BIGNUM, BNRM, SCLLEN, NRHS, B, LDB, INFO );
       }
 
       WORK( 1 ) = SROUNDUP_LWORK( LWOPT )

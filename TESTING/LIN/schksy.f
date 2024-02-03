@@ -81,7 +81,7 @@
       // Set the minimum block size for which the block routine should
       // be used, which will be later returned by ILAENV
 
-      CALL XLAENV( 2, 2 )
+      xlaenv(2, 2 );
 
       // Do for each value of N in NVAL
 
@@ -117,17 +117,17 @@
                // Set up parameters with SLATB4 for the matrix generator
                // based on the type of matrix to be generated.
 
-               CALL SLATB4( PATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST )
+               slatb4(PATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST );
 
                // Generate a matrix with SLATMS.
 
                SRNAMT = 'SLATMS'
-               CALL SLATMS( N, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KL, KU, UPLO, A, LDA, WORK, INFO )
+               slatms(N, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KL, KU, UPLO, A, LDA, WORK, INFO );
 
                // Check error code from SLATMS and handle error.
 
                if ( INFO.NE.0 ) {
-                  CALL ALAERH( PATH, 'SLATMS', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT )
+                  alaerh(PATH, 'SLATMS', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
 
                   // Skip all tests for this generated matrix
 
@@ -214,13 +214,13 @@
                   // returned by ILAENV.
 
                   NB = NBVAL( INB )
-                  CALL XLAENV( 1, NB )
+                  xlaenv(1, NB );
 
                   // Copy the test matrix A into matrix AFAC which
                   // will be factorized in place. This is needed to
                   // preserve the test matrix A for subsequent tests.
 
-                  CALL SLACPY( UPLO, N, N, A, LDA, AFAC, LDA )
+                  slacpy(UPLO, N, N, A, LDA, AFAC, LDA );
 
                   // Compute the L*D*L**T or U*D*U**T factorization of the
                   // matrix. IWORK stores details of the interchanges and
@@ -229,7 +229,7 @@
 
                   LWORK = MAX( 2, NB )*LDA
                   SRNAMT = 'SSYTRF'
-                  CALL SSYTRF( UPLO, N, AFAC, LDA, IWORK, AINV, LWORK, INFO )
+                  ssytrf(UPLO, N, AFAC, LDA, IWORK, AINV, LWORK, INFO );
 
                   // Adjust the expected value of INFO to account for
                   // pivoting.
@@ -263,7 +263,7 @@
 *+    TEST 1
                   // Reconstruct matrix from factors and compute residual.
 
-                  CALL SSYT01( UPLO, N, A, LDA, AFAC, LDA, IWORK, AINV, LDA, RWORK, RESULT( 1 ) )
+                  ssyt01(UPLO, N, A, LDA, AFAC, LDA, IWORK, AINV, LDA, RWORK, RESULT( 1 ) );
                   NT = 1
 
 *+    TEST 2
@@ -273,10 +273,10 @@
                   // Do it only for the first block size.
 
                   if ( INB.EQ.1 .AND. .NOT.TRFCON ) {
-                     CALL SLACPY( UPLO, N, N, AFAC, LDA, AINV, LDA )
+                     slacpy(UPLO, N, N, AFAC, LDA, AINV, LDA );
                      SRNAMT = 'SSYTRI2'
                      LWORK = (N+NB+1)*(NB+3)
-                     CALL SSYTRI2( UPLO, N, AINV, LDA, IWORK, WORK, LWORK, INFO )
+                     ssytri2(UPLO, N, AINV, LDA, IWORK, WORK, LWORK, INFO );
 
                      // Check error code from SSYTRI2 and handle error.
 
@@ -285,7 +285,7 @@
                      // Compute the residual for a symmetric matrix times
                      // its inverse.
 
-                     CALL SPOT03( UPLO, N, A, LDA, AINV, LDA, WORK, LDA, RWORK, RCONDC, RESULT( 2 ) )
+                     spot03(UPLO, N, A, LDA, AINV, LDA, WORK, LDA, RWORK, RCONDC, RESULT( 2 ) );
                      NT = 2
                   }
 
@@ -324,21 +324,21 @@
                      // stored in XACT and set up the right hand side B
 
                      SRNAMT = 'SLARHS'
-                     CALL SLARHS( PATH, XTYPE, UPLO, ' ', N, N, KL, KU, NRHS, A, LDA, XACT, LDA, B, LDA, ISEED, INFO )
-                     CALL SLACPY( 'Full', N, NRHS, B, LDA, X, LDA )
+                     slarhs(PATH, XTYPE, UPLO, ' ', N, N, KL, KU, NRHS, A, LDA, XACT, LDA, B, LDA, ISEED, INFO );
+                     slacpy('Full', N, NRHS, B, LDA, X, LDA );
 
                      SRNAMT = 'SSYTRS'
-                     CALL SSYTRS( UPLO, N, NRHS, AFAC, LDA, IWORK, X, LDA, INFO )
+                     ssytrs(UPLO, N, NRHS, AFAC, LDA, IWORK, X, LDA, INFO );
 
                      // Check error code from SSYTRS and handle error.
 
                      IF( INFO.NE.0 ) CALL ALAERH( PATH, 'SSYTRS', INFO, 0, UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT )
 
-                     CALL SLACPY( 'Full', N, NRHS, B, LDA, WORK, LDA )
+                     slacpy('Full', N, NRHS, B, LDA, WORK, LDA );
 
                      // Compute the residual for the solution
 
-                     CALL SPOT02( UPLO, N, NRHS, A, LDA, X, LDA, WORK, LDA, RWORK, RESULT( 3 ) )
+                     spot02(UPLO, N, NRHS, A, LDA, X, LDA, WORK, LDA, RWORK, RESULT( 3 ) );
 
 *+    TEST 4 (Using DSYTRS2)
                   // Solve and compute residual for  A * X = B.
@@ -347,38 +347,38 @@
                      // stored in XACT and set up the right hand side B
 
                      SRNAMT = 'SLARHS'
-                     CALL SLARHS( PATH, XTYPE, UPLO, ' ', N, N, KL, KU, NRHS, A, LDA, XACT, LDA, B, LDA, ISEED, INFO )
-                     CALL SLACPY( 'Full', N, NRHS, B, LDA, X, LDA )
+                     slarhs(PATH, XTYPE, UPLO, ' ', N, N, KL, KU, NRHS, A, LDA, XACT, LDA, B, LDA, ISEED, INFO );
+                     slacpy('Full', N, NRHS, B, LDA, X, LDA );
 
                      SRNAMT = 'DSYTRS2'
-                     CALL SSYTRS2( UPLO, N, NRHS, AFAC, LDA, IWORK, X, LDA, WORK, INFO )
+                     ssytrs2(UPLO, N, NRHS, AFAC, LDA, IWORK, X, LDA, WORK, INFO );
 
                      // Check error code from SSYTRS2 and handle error.
 
                      IF( INFO.NE.0 ) CALL ALAERH( PATH, 'SSYTRS2', INFO, 0, UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT )
 
-                     CALL SLACPY( 'Full', N, NRHS, B, LDA, WORK, LDA )
+                     slacpy('Full', N, NRHS, B, LDA, WORK, LDA );
 
                      // Compute the residual for the solution
 
-                     CALL SPOT02( UPLO, N, NRHS, A, LDA, X, LDA, WORK, LDA, RWORK, RESULT( 4 ) )
+                     spot02(UPLO, N, NRHS, A, LDA, X, LDA, WORK, LDA, RWORK, RESULT( 4 ) );
 
 *+    TEST 5
                   // Check solution from generated exact solution.
 
-                     CALL SGET04( N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 5 ) )
+                     sget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 5 ) );
 
 *+    TESTS 6, 7, and 8
                   // Use iterative refinement to improve the solution.
 
                      SRNAMT = 'SSYRFS'
-                     CALL SSYRFS( UPLO, N, NRHS, A, LDA, AFAC, LDA, IWORK, B, LDA, X, LDA, RWORK, RWORK( NRHS+1 ), WORK, IWORK( N+1 ), INFO )
+                     ssyrfs(UPLO, N, NRHS, A, LDA, AFAC, LDA, IWORK, B, LDA, X, LDA, RWORK, RWORK( NRHS+1 ), WORK, IWORK( N+1 ), INFO );
 
                      // Check error code from SSYRFS and handle error.
 
                      IF( INFO.NE.0 ) CALL ALAERH( PATH, 'SSYRFS', INFO, 0, UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT )
 
-                     CALL SGET04( N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 6 ) )                      CALL SPOT05( UPLO, N, NRHS, A, LDA, B, LDA, X, LDA, XACT, LDA, RWORK, RWORK( NRHS+1 ), RESULT( 7 ) )
+                     sget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 6 ) )                      CALL SPOT05( UPLO, N, NRHS, A, LDA, B, LDA, X, LDA, XACT, LDA, RWORK, RWORK( NRHS+1 ), RESULT( 7 ) );
 
                      // Print information about the tests that did not pass
                      // the threshold.
@@ -401,7 +401,7 @@
   140             CONTINUE
                   ANORM = SLANSY( '1', UPLO, N, A, LDA, RWORK )
                   SRNAMT = 'SSYCON'
-                  CALL SSYCON( UPLO, N, AFAC, LDA, IWORK, ANORM, RCOND, WORK, IWORK( N+1 ), INFO )
+                  ssycon(UPLO, N, AFAC, LDA, IWORK, ANORM, RCOND, WORK, IWORK( N+1 ), INFO );
 
                   // Check error code from SSYCON and handle error.
 
@@ -427,7 +427,7 @@
 
       // Print a summary of the results.
 
-      CALL ALASUM( PATH, NOUT, NFAIL, NRUN, NERRS )
+      alasum(PATH, NOUT, NFAIL, NRUN, NERRS );
 
  9999 FORMAT( ' UPLO = ''', A1, ''', N =', I5, ', NB =', I4, ', type ', I2, ', test ', I2, ', ratio =', G12.5 )
  9998 FORMAT( ' UPLO = ''', A1, ''', N =', I5, ', NRHS=', I3, ', type ', I2, ', test(', I2, ') =', G12.5 )

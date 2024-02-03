@@ -80,16 +80,16 @@
 
          // ITYPE=1: error = A - U S U**T
 
-         CALL DLASET( 'Full', N, N, ZERO, ZERO, WORK, N )
-         CALL DCOPY( LAP, AP, 1, WORK, 1 )
+         dlaset('Full', N, N, ZERO, ZERO, WORK, N );
+         dcopy(LAP, AP, 1, WORK, 1 );
 
          DO 10 J = 1, N
-            CALL DSPR( CUPLO, N, -D( J ), U( 1, J ), 1, WORK )
+            dspr(CUPLO, N, -D( J ), U( 1, J ), 1, WORK );
    10    CONTINUE
 
          if ( N.GT.1 .AND. KBAND.EQ.1 ) {
             DO 20 J = 1, N - 1
-               CALL DSPR2( CUPLO, N, -E( J ), U( 1, J ), 1, U( 1, J+1 ), 1, WORK )
+               dspr2(CUPLO, N, -E( J ), U( 1, J ), 1, U( 1, J+1 ), 1, WORK );
    20       CONTINUE
          }
          WNORM = DLANSP( '1', CUPLO, N, WORK, WORK( N**2+1 ) )
@@ -98,7 +98,7 @@
 
          // ITYPE=2: error = V S V**T - A
 
-         CALL DLASET( 'Full', N, N, ZERO, ZERO, WORK, N )
+         dlaset('Full', N, N, ZERO, ZERO, WORK, N );
 
          if ( LOWER ) {
             WORK( LAP ) = D( N )
@@ -115,7 +115,7 @@
                if ( TAU( J ).NE.ZERO ) {
                   VSAVE = VP( JP+J+1 )
                   VP( JP+J+1 ) = ONE
-                  CALL DSPMV( 'L', N-J, ONE, WORK( JP1+J+1 ), VP( JP+J+1 ), 1, ZERO, WORK( LAP+1 ), 1 )                   TEMP = -HALF*TAU( J )*DDOT( N-J, WORK( LAP+1 ), 1, VP( JP+J+1 ), 1 )                   CALL DAXPY( N-J, TEMP, VP( JP+J+1 ), 1, WORK( LAP+1 ), 1 )                   CALL DSPR2( 'L', N-J, -TAU( J ), VP( JP+J+1 ), 1, WORK( LAP+1 ), 1, WORK( JP1+J+1 ) )
+                  dspmv('L', N-J, ONE, WORK( JP1+J+1 ), VP( JP+J+1 ), 1, ZERO, WORK( LAP+1 ), 1 )                   TEMP = -HALF*TAU( J )*DDOT( N-J, WORK( LAP+1 ), 1, VP( JP+J+1 ), 1 )                   CALL DAXPY( N-J, TEMP, VP( JP+J+1 ), 1, WORK( LAP+1 ), 1 )                   CALL DSPR2( 'L', N-J, -TAU( J ), VP( JP+J+1 ), 1, WORK( LAP+1 ), 1, WORK( JP1+J+1 ) );
                   VP( JP+J+1 ) = VSAVE
                }
                WORK( JP+J ) = D( J )
@@ -135,7 +135,7 @@
                if ( TAU( J ).NE.ZERO ) {
                   VSAVE = VP( JP1+J )
                   VP( JP1+J ) = ONE
-                  CALL DSPMV( 'U', J, ONE, WORK, VP( JP1+1 ), 1, ZERO, WORK( LAP+1 ), 1 )                   TEMP = -HALF*TAU( J )*DDOT( J, WORK( LAP+1 ), 1, VP( JP1+1 ), 1 )                   CALL DAXPY( J, TEMP, VP( JP1+1 ), 1, WORK( LAP+1 ), 1 )                   CALL DSPR2( 'U', J, -TAU( J ), VP( JP1+1 ), 1, WORK( LAP+1 ), 1, WORK )
+                  dspmv('U', J, ONE, WORK, VP( JP1+1 ), 1, ZERO, WORK( LAP+1 ), 1 )                   TEMP = -HALF*TAU( J )*DDOT( J, WORK( LAP+1 ), 1, VP( JP1+1 ), 1 )                   CALL DAXPY( J, TEMP, VP( JP1+1 ), 1, WORK( LAP+1 ), 1 )                   CALL DSPR2( 'U', J, -TAU( J ), VP( JP1+1 ), 1, WORK( LAP+1 ), 1, WORK );
                   VP( JP1+J ) = VSAVE
                }
                WORK( JP1+J+1 ) = D( J+1 )
@@ -152,8 +152,8 @@
          // ITYPE=3: error = U V**T - I
 
          IF( N.LT.2 ) RETURN
-         CALL DLACPY( ' ', N, N, U, LDU, WORK, N )
-         CALL DOPMTR( 'R', CUPLO, 'T', N, N, VP, TAU, WORK, N, WORK( N**2+1 ), IINFO )
+         dlacpy(' ', N, N, U, LDU, WORK, N );
+         dopmtr('R', CUPLO, 'T', N, N, VP, TAU, WORK, N, WORK( N**2+1 ), IINFO );
          if ( IINFO.NE.0 ) {
             RESULT( 1 ) = TEN / ULP
             RETURN
@@ -181,7 +181,7 @@
       // Compute  U U**T - I
 
       if ( ITYPE.EQ.1 ) {
-         CALL DGEMM( 'N', 'C', N, N, N, ONE, U, LDU, U, LDU, ZERO, WORK, N )
+         dgemm('N', 'C', N, N, N, ONE, U, LDU, U, LDU, ZERO, WORK, N );
 
          DO 90 J = 1, N
             WORK( ( N+1 )*( J-1 )+1 ) = WORK( ( N+1 )*( J-1 )+1 ) - ONE

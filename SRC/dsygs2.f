@@ -51,7 +51,7 @@
          INFO = -7
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'DSYGS2', -INFO )
+         xerbla('DSYGS2', -INFO );
          RETURN
       }
 
@@ -69,9 +69,9 @@
                AKK = AKK / BKK**2
                A( K, K ) = AKK
                if ( K.LT.N ) {
-                  CALL DSCAL( N-K, ONE / BKK, A( K, K+1 ), LDA )
+                  dscal(N-K, ONE / BKK, A( K, K+1 ), LDA );
                   CT = -HALF*AKK
-                  CALL DAXPY( N-K, CT, B( K, K+1 ), LDB, A( K, K+1 ), LDA )                   CALL DSYR2( UPLO, N-K, -ONE, A( K, K+1 ), LDA, B( K, K+1 ), LDB, A( K+1, K+1 ), LDA )                   CALL DAXPY( N-K, CT, B( K, K+1 ), LDB, A( K, K+1 ), LDA )                   CALL DTRSV( UPLO, 'Transpose', 'Non-unit', N-K, B( K+1, K+1 ), LDB, A( K, K+1 ), LDA )
+                  daxpy(N-K, CT, B( K, K+1 ), LDB, A( K, K+1 ), LDA )                   CALL DSYR2( UPLO, N-K, -ONE, A( K, K+1 ), LDA, B( K, K+1 ), LDB, A( K+1, K+1 ), LDA )                   CALL DAXPY( N-K, CT, B( K, K+1 ), LDB, A( K, K+1 ), LDA )                   CALL DTRSV( UPLO, 'Transpose', 'Non-unit', N-K, B( K+1, K+1 ), LDB, A( K, K+1 ), LDA );
                }
    10       CONTINUE
          } else {
@@ -87,12 +87,12 @@
                AKK = AKK / BKK**2
                A( K, K ) = AKK
                if ( K.LT.N ) {
-                  CALL DSCAL( N-K, ONE / BKK, A( K+1, K ), 1 )
+                  dscal(N-K, ONE / BKK, A( K+1, K ), 1 );
                   CT = -HALF*AKK
-                  CALL DAXPY( N-K, CT, B( K+1, K ), 1, A( K+1, K ), 1 )
-                  CALL DSYR2( UPLO, N-K, -ONE, A( K+1, K ), 1, B( K+1, K ), 1, A( K+1, K+1 ), LDA )
-                  CALL DAXPY( N-K, CT, B( K+1, K ), 1, A( K+1, K ), 1 )
-                  CALL DTRSV( UPLO, 'No transpose', 'Non-unit', N-K, B( K+1, K+1 ), LDB, A( K+1, K ), 1 )
+                  daxpy(N-K, CT, B( K+1, K ), 1, A( K+1, K ), 1 );
+                  dsyr2(UPLO, N-K, -ONE, A( K+1, K ), 1, B( K+1, K ), 1, A( K+1, K+1 ), LDA );
+                  daxpy(N-K, CT, B( K+1, K ), 1, A( K+1, K ), 1 );
+                  dtrsv(UPLO, 'No transpose', 'Non-unit', N-K, B( K+1, K+1 ), LDB, A( K+1, K ), 1 );
                }
    20       CONTINUE
          }
@@ -107,12 +107,12 @@
 
                AKK = A( K, K )
                BKK = B( K, K )
-               CALL DTRMV( UPLO, 'No transpose', 'Non-unit', K-1, B, LDB, A( 1, K ), 1 )
+               dtrmv(UPLO, 'No transpose', 'Non-unit', K-1, B, LDB, A( 1, K ), 1 );
                CT = HALF*AKK
-               CALL DAXPY( K-1, CT, B( 1, K ), 1, A( 1, K ), 1 )
-               CALL DSYR2( UPLO, K-1, ONE, A( 1, K ), 1, B( 1, K ), 1, A, LDA )
-               CALL DAXPY( K-1, CT, B( 1, K ), 1, A( 1, K ), 1 )
-               CALL DSCAL( K-1, BKK, A( 1, K ), 1 )
+               daxpy(K-1, CT, B( 1, K ), 1, A( 1, K ), 1 );
+               dsyr2(UPLO, K-1, ONE, A( 1, K ), 1, B( 1, K ), 1, A, LDA );
+               daxpy(K-1, CT, B( 1, K ), 1, A( 1, K ), 1 );
+               dscal(K-1, BKK, A( 1, K ), 1 );
                A( K, K ) = AKK*BKK**2
    30       CONTINUE
          } else {
@@ -125,12 +125,12 @@
 
                AKK = A( K, K )
                BKK = B( K, K )
-               CALL DTRMV( UPLO, 'Transpose', 'Non-unit', K-1, B, LDB, A( K, 1 ), LDA )
+               dtrmv(UPLO, 'Transpose', 'Non-unit', K-1, B, LDB, A( K, 1 ), LDA );
                CT = HALF*AKK
-               CALL DAXPY( K-1, CT, B( K, 1 ), LDB, A( K, 1 ), LDA )
-               CALL DSYR2( UPLO, K-1, ONE, A( K, 1 ), LDA, B( K, 1 ), LDB, A, LDA )
-               CALL DAXPY( K-1, CT, B( K, 1 ), LDB, A( K, 1 ), LDA )
-               CALL DSCAL( K-1, BKK, A( K, 1 ), LDA )
+               daxpy(K-1, CT, B( K, 1 ), LDB, A( K, 1 ), LDA );
+               dsyr2(UPLO, K-1, ONE, A( K, 1 ), LDA, B( K, 1 ), LDB, A, LDA );
+               daxpy(K-1, CT, B( K, 1 ), LDB, A( K, 1 ), LDA );
+               dscal(K-1, BKK, A( K, 1 ), LDA );
                A( K, K ) = AKK*BKK**2
    40       CONTINUE
          }

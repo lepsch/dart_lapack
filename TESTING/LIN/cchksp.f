@@ -115,15 +115,15 @@
                   // Set up parameters with CLATB4 and generate a test
                   // matrix with CLATMS.
 
-                  CALL CLATB4( PATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST )
+                  clatb4(PATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST );
 
                   SRNAMT = 'CLATMS'
-                  CALL CLATMS( N, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KL, KU, PACKIT, A, LDA, WORK, INFO )
+                  clatms(N, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KL, KU, PACKIT, A, LDA, WORK, INFO );
 
                   // Check error code from CLATMS.
 
                   if ( INFO.NE.0 ) {
-                     CALL ALAERH( PATH, 'CLATMS', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT )
+                     alaerh(PATH, 'CLATMS', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
                      GO TO 150
                   }
 
@@ -199,15 +199,15 @@
                   // Use a special block diagonal matrix to test alternate
                   // code for the 2 x 2 blocks.
 
-                  CALL CLATSP( UPLO, N, A, ISEED )
+                  clatsp(UPLO, N, A, ISEED );
                }
 
                // Compute the L*D*L' or U*D*U' factorization of the matrix.
 
                NPP = N*( N+1 ) / 2
-               CALL CCOPY( NPP, A, 1, AFAC, 1 )
+               ccopy(NPP, A, 1, AFAC, 1 );
                SRNAMT = 'CSPTRF'
-               CALL CSPTRF( UPLO, N, AFAC, IWORK, INFO )
+               csptrf(UPLO, N, AFAC, IWORK, INFO );
 
                // Adjust the expected value of INFO to account for
                // pivoting.
@@ -238,22 +238,22 @@
 *+    TEST 1
                // Reconstruct matrix from factors and compute residual.
 
-               CALL CSPT01( UPLO, N, A, AFAC, IWORK, AINV, LDA, RWORK, RESULT( 1 ) )
+               cspt01(UPLO, N, A, AFAC, IWORK, AINV, LDA, RWORK, RESULT( 1 ) );
                NT = 1
 
 *+    TEST 2
                // Form the inverse and compute the residual.
 
                if ( .NOT.TRFCON ) {
-                  CALL CCOPY( NPP, AFAC, 1, AINV, 1 )
+                  ccopy(NPP, AFAC, 1, AINV, 1 );
                   SRNAMT = 'CSPTRI'
-                  CALL CSPTRI( UPLO, N, AINV, IWORK, WORK, INFO )
+                  csptri(UPLO, N, AINV, IWORK, WORK, INFO );
 
                // Check error code from CSPTRI.
 
                   IF( INFO.NE.0 ) CALL ALAERH( PATH, 'CSPTRI', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT )
 
-                  CALL CSPT03( UPLO, N, A, AINV, WORK, LDA, RWORK, RCONDC, RESULT( 2 ) )
+                  cspt03(UPLO, N, A, AINV, WORK, LDA, RWORK, RCONDC, RESULT( 2 ) );
                   NT = 2
                }
 
@@ -282,35 +282,35 @@
                // Solve and compute residual for  A * X = B.
 
                   SRNAMT = 'CLARHS'
-                  CALL CLARHS( PATH, XTYPE, UPLO, ' ', N, N, KL, KU, NRHS, A, LDA, XACT, LDA, B, LDA, ISEED, INFO )
-                  CALL CLACPY( 'Full', N, NRHS, B, LDA, X, LDA )
+                  clarhs(PATH, XTYPE, UPLO, ' ', N, N, KL, KU, NRHS, A, LDA, XACT, LDA, B, LDA, ISEED, INFO );
+                  clacpy('Full', N, NRHS, B, LDA, X, LDA );
 
                   SRNAMT = 'CSPTRS'
-                  CALL CSPTRS( UPLO, N, NRHS, AFAC, IWORK, X, LDA, INFO )
+                  csptrs(UPLO, N, NRHS, AFAC, IWORK, X, LDA, INFO );
 
                // Check error code from CSPTRS.
 
                   IF( INFO.NE.0 ) CALL ALAERH( PATH, 'CSPTRS', INFO, 0, UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT )
 
-                  CALL CLACPY( 'Full', N, NRHS, B, LDA, WORK, LDA )
-                  CALL CSPT02( UPLO, N, NRHS, A, X, LDA, WORK, LDA, RWORK, RESULT( 3 ) )
+                  clacpy('Full', N, NRHS, B, LDA, WORK, LDA );
+                  cspt02(UPLO, N, NRHS, A, X, LDA, WORK, LDA, RWORK, RESULT( 3 ) );
 
 *+    TEST 4
                // Check solution from generated exact solution.
 
-                  CALL CGET04( N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 4 ) )
+                  cget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 4 ) );
 
 *+    TESTS 5, 6, and 7
                // Use iterative refinement to improve the solution.
 
                   SRNAMT = 'CSPRFS'
-                  CALL CSPRFS( UPLO, N, NRHS, A, AFAC, IWORK, B, LDA, X, LDA, RWORK, RWORK( NRHS+1 ), WORK, RWORK( 2*NRHS+1 ), INFO )
+                  csprfs(UPLO, N, NRHS, A, AFAC, IWORK, B, LDA, X, LDA, RWORK, RWORK( NRHS+1 ), WORK, RWORK( 2*NRHS+1 ), INFO );
 
                // Check error code from CSPRFS.
 
                   IF( INFO.NE.0 ) CALL ALAERH( PATH, 'CSPRFS', INFO, 0, UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT )
 
-                  CALL CGET04( N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 5 ) )                   CALL CPPT05( UPLO, N, NRHS, A, B, LDA, X, LDA, XACT, LDA, RWORK, RWORK( NRHS+1 ), RESULT( 6 ) )
+                  cget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 5 ) )                   CALL CPPT05( UPLO, N, NRHS, A, B, LDA, X, LDA, XACT, LDA, RWORK, RWORK( NRHS+1 ), RESULT( 6 ) );
 
                   // Print information about the tests that did not pass
                   // the threshold.
@@ -330,7 +330,7 @@
   140          CONTINUE
                ANORM = CLANSP( '1', UPLO, N, A, RWORK )
                SRNAMT = 'CSPCON'
-               CALL CSPCON( UPLO, N, AFAC, IWORK, ANORM, RCOND, WORK, INFO )
+               cspcon(UPLO, N, AFAC, IWORK, ANORM, RCOND, WORK, INFO );
 
                // Check error code from CSPCON.
 
@@ -351,7 +351,7 @@
 
       // Print a summary of the results.
 
-      CALL ALASUM( PATH, NOUT, NFAIL, NRUN, NERRS )
+      alasum(PATH, NOUT, NFAIL, NRUN, NERRS );
 
  9999 FORMAT( ' UPLO = ''', A1, ''', N =', I5, ', type ', I2, ', test ', I2, ', ratio =', G12.5 )
  9998 FORMAT( ' UPLO = ''', A1, ''', N =', I5, ', NRHS=', I3, ', type ', I2, ', test(', I2, ') =', G12.5 )

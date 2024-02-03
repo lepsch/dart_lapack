@@ -87,18 +87,18 @@
          // Compute residual RES = B_s - op(A_s) * Y,
              // op(A) = A, A**T, or A**H depending on TRANS (and type).
 
-            CALL SCOPY( N, B( 1, J ), 1, RES, 1 )
+            scopy(N, B( 1, J ), 1, RES, 1 );
             if ( Y_PREC_STATE .EQ. BASE_RESIDUAL ) {
-               CALL SGBMV( TRANS, M, N, KL, KU, -1.0, AB, LDAB, Y( 1, J ), 1, 1.0, RES, 1 )
+               sgbmv(TRANS, M, N, KL, KU, -1.0, AB, LDAB, Y( 1, J ), 1, 1.0, RES, 1 );
             } else if ( Y_PREC_STATE .EQ. EXTRA_RESIDUAL ) {
-               CALL BLAS_SGBMV_X( TRANS_TYPE, N, N, KL, KU, -1.0, AB, LDAB, Y( 1, J ), 1, 1.0, RES, 1, PREC_TYPE )
+               blas_sgbmv_x(TRANS_TYPE, N, N, KL, KU, -1.0, AB, LDAB, Y( 1, J ), 1, 1.0, RES, 1, PREC_TYPE );
             } else {
-               CALL BLAS_SGBMV2_X( TRANS_TYPE, N, N, KL, KU, -1.0, AB, LDAB, Y( 1, J ), Y_TAIL, 1, 1.0, RES, 1, PREC_TYPE )
+               blas_sgbmv2_x(TRANS_TYPE, N, N, KL, KU, -1.0, AB, LDAB, Y( 1, J ), Y_TAIL, 1, 1.0, RES, 1, PREC_TYPE );
             }
 
          // XXX: RES is no longer needed.
-            CALL SCOPY( N, RES, 1, DY, 1 )
-            CALL SGBTRS( TRANS, N, KL, KU, 1, AFB, LDAFB, IPIV, DY, N, INFO )
+            scopy(N, RES, 1, DY, 1 );
+            sgbtrs(TRANS, N, KL, KU, 1, AFB, LDAFB, IPIV, DY, N, INFO );
 
           // Calculate relative changes DX_X, DZ_Z and ratios DXRAT, DZRAT.
 
@@ -204,9 +204,9 @@
             // Update solution.
 
             if (Y_PREC_STATE .LT. EXTRA_Y) {
-               CALL SAXPY( N, 1.0, DY, 1, Y(1,J), 1 )
+               saxpy(N, 1.0, DY, 1, Y(1,J), 1 );
             } else {
-               CALL SLA_WWADDW( N, Y(1,J), Y_TAIL, DY )
+               sla_wwaddw(N, Y(1,J), Y_TAIL, DY );
             }
 
          END DO
@@ -235,8 +235,8 @@
          // Compute residual RES = B_s - op(A_s) * Y,
              // op(A) = A, A**T, or A**H depending on TRANS (and type).
 
-         CALL SCOPY( N, B( 1, J ), 1, RES, 1 )
-         CALL SGBMV(TRANS, N, N, KL, KU, -1.0, AB, LDAB, Y(1,J), 1, 1.0, RES, 1 )
+         scopy(N, B( 1, J ), 1, RES, 1 );
+         sgbmv(TRANS, N, N, KL, KU, -1.0, AB, LDAB, Y(1,J), 1, 1.0, RES, 1 );
 
          DO I = 1, N
             AYB( I ) = ABS( B( I, J ) )
@@ -244,9 +244,9 @@
 
       // Compute abs(op(A_s))*abs(Y) + abs(B_s).
 
-        CALL SLA_GBAMV( TRANS_TYPE, N, N, KL, KU, 1.0, AB, LDAB, Y(1, J), 1, 1.0, AYB, 1 )
+        sla_gbamv(TRANS_TYPE, N, N, KL, KU, 1.0, AB, LDAB, Y(1, J), 1, 1.0, AYB, 1 );
 
-         CALL SLA_LIN_BERR( N, N, 1, RES, AYB, BERR_OUT( J ) )
+         sla_lin_berr(N, N, 1, RES, AYB, BERR_OUT( J ) );
 
       // End of loop for each RHS
 

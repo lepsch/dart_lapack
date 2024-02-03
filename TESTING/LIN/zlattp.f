@@ -64,17 +64,17 @@
 
       UPPER = LSAME( UPLO, 'U' )
       if ( UPPER ) {
-         CALL ZLATB4( PATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST )
+         zlatb4(PATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST );
          PACKIT = 'C'
       } else {
-         CALL ZLATB4( PATH, -IMAT, N, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST )
+         zlatb4(PATH, -IMAT, N, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST );
          PACKIT = 'R'
       }
 
       // IMAT <= 6:  Non-unit triangular matrix
 
       if ( IMAT.LE.6 ) {
-         CALL ZLATMS( N, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KL, KU, PACKIT, AP, N, WORK, INFO )
+         zlatms(N, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KL, KU, PACKIT, AP, N, WORK, INFO );
 
       // IMAT > 6:  Unit triangular matrix
       // The diagonal is deliberately set to something other than 1.
@@ -257,7 +257,7 @@
                JCNEXT = JC + J
                RA = AP( JCNEXT+J-1 )
                RB = TWO
-               CALL ZROTG( RA, RB, C, S )
+               zrotg(RA, RB, C, S );
 
                // Multiply by [ c  s; -conjg(s)  c] on the left.
 
@@ -286,7 +286,7 @@
                JCNEXT = JC + N - J + 1
                RA = AP( JC+1 )
                RB = TWO
-               CALL ZROTG( RA, RB, C, S )
+               zrotg(RA, RB, C, S );
                S = DCONJG( S )
 
                // Multiply by [ c -s;  conjg(s) c] on the right.
@@ -325,7 +325,7 @@
          if ( UPPER ) {
             JC = 1
             DO 180 J = 1, N
-               CALL ZLARNV( 4, ISEED, J-1, AP( JC ) )
+               zlarnv(4, ISEED, J-1, AP( JC ) );
                AP( JC+J-1 ) = ZLARND( 5, ISEED )*TWO
                JC = JC + J
   180       CONTINUE
@@ -340,11 +340,11 @@
 
          // Set the right hand side so that the largest value is BIGNUM.
 
-         CALL ZLARNV( 2, ISEED, N, B )
+         zlarnv(2, ISEED, N, B );
          IY = IZAMAX( N, B, 1 )
          BNORM = ABS( B( IY ) )
          BSCAL = BIGNUM / MAX( ONE, BNORM )
-         CALL ZDSCAL( N, BSCAL, B, 1 )
+         zdscal(N, BSCAL, B, 1 );
 
       } else if ( IMAT.EQ.12 ) {
 
@@ -352,13 +352,13 @@
          // cause immediate overflow when dividing by T(j,j).
          // In type 12, the offdiagonal elements are small (CNORM(j) < 1).
 
-         CALL ZLARNV( 2, ISEED, N, B )
+         zlarnv(2, ISEED, N, B );
          TSCAL = ONE / MAX( ONE, DBLE( N-1 ) )
          if ( UPPER ) {
             JC = 1
             DO 200 J = 1, N
-               CALL ZLARNV( 4, ISEED, J-1, AP( JC ) )
-               CALL ZDSCAL( J-1, TSCAL, AP( JC ), 1 )
+               zlarnv(4, ISEED, J-1, AP( JC ) );
+               zdscal(J-1, TSCAL, AP( JC ), 1 );
                AP( JC+J-1 ) = ZLARND( 5, ISEED )
                JC = JC + J
   200       CONTINUE
@@ -366,8 +366,8 @@
          } else {
             JC = 1
             DO 210 J = 1, N
-               CALL ZLARNV( 2, ISEED, N-J, AP( JC+1 ) )
-               CALL ZDSCAL( N-J, TSCAL, AP( JC+1 ), 1 )
+               zlarnv(2, ISEED, N-J, AP( JC+1 ) );
+               zdscal(N-J, TSCAL, AP( JC+1 ), 1 );
                AP( JC ) = ZLARND( 5, ISEED )
                JC = JC + N - J + 1
   210       CONTINUE
@@ -380,11 +380,11 @@
          // cause immediate overflow when dividing by T(j,j).
          // In type 13, the offdiagonal elements are O(1) (CNORM(j) > 1).
 
-         CALL ZLARNV( 2, ISEED, N, B )
+         zlarnv(2, ISEED, N, B );
          if ( UPPER ) {
             JC = 1
             DO 220 J = 1, N
-               CALL ZLARNV( 4, ISEED, J-1, AP( JC ) )
+               zlarnv(4, ISEED, J-1, AP( JC ) );
                AP( JC+J-1 ) = ZLARND( 5, ISEED )
                JC = JC + J
   220       CONTINUE
@@ -392,7 +392,7 @@
          } else {
             JC = 1
             DO 230 J = 1, N
-               CALL ZLARNV( 4, ISEED, N-J, AP( JC+1 ) )
+               zlarnv(4, ISEED, N-J, AP( JC+1 ) );
                AP( JC ) = ZLARND( 5, ISEED )
                JC = JC + N - J + 1
   230       CONTINUE
@@ -463,7 +463,7 @@
 
          TEXP = ONE / MAX( ONE, DBLE( N-1 ) )
          TSCAL = SMLNUM**TEXP
-         CALL ZLARNV( 4, ISEED, N, B )
+         zlarnv(4, ISEED, N, B );
          if ( UPPER ) {
             JC = 1
             DO 310 J = 1, N
@@ -496,7 +496,7 @@
          if ( UPPER ) {
             JC = 1
             DO 340 J = 1, N
-               CALL ZLARNV( 4, ISEED, J, AP( JC ) )
+               zlarnv(4, ISEED, J, AP( JC ) );
                if ( J.NE.IY ) {
                   AP( JC+J-1 ) = ZLARND( 5, ISEED )*TWO
                } else {
@@ -507,7 +507,7 @@
          } else {
             JC = 1
             DO 350 J = 1, N
-               CALL ZLARNV( 4, ISEED, N-J+1, AP( JC ) )
+               zlarnv(4, ISEED, N-J+1, AP( JC ) );
                if ( J.NE.IY ) {
                   AP( JC ) = ZLARND( 5, ISEED )*TWO
                } else {
@@ -516,8 +516,8 @@
                JC = JC + N - J + 1
   350       CONTINUE
          }
-         CALL ZLARNV( 2, ISEED, N, B )
-         CALL ZDSCAL( N, TWO, B, 1 )
+         zlarnv(2, ISEED, N, B );
+         zdscal(N, TWO, B, 1 );
 
       } else if ( IMAT.EQ.17 ) {
 
@@ -571,7 +571,7 @@
          if ( UPPER ) {
             JC = 1
             DO 390 J = 1, N
-               CALL ZLARNV( 4, ISEED, J-1, AP( JC ) )
+               zlarnv(4, ISEED, J-1, AP( JC ) );
                AP( JC+J-1 ) = ZERO
                JC = JC + J
   390       CONTINUE
@@ -586,11 +586,11 @@
 
          // Set the right hand side so that the largest value is BIGNUM.
 
-         CALL ZLARNV( 2, ISEED, N, B )
+         zlarnv(2, ISEED, N, B );
          IY = IZAMAX( N, B, 1 )
          BNORM = ABS( B( IY ) )
          BSCAL = BIGNUM / MAX( ONE, BNORM )
-         CALL ZDSCAL( N, BSCAL, B, 1 )
+         zdscal(N, BSCAL, B, 1 );
 
       } else if ( IMAT.EQ.19 ) {
 
@@ -604,8 +604,8 @@
          if ( UPPER ) {
             JC = 1
             DO 420 J = 1, N
-               CALL ZLARNV( 5, ISEED, J, AP( JC ) )
-               CALL DLARNV( 1, ISEED, J, RWORK )
+               zlarnv(5, ISEED, J, AP( JC ) );
+               dlarnv(1, ISEED, J, RWORK );
                DO 410 I = 1, J
                   AP( JC+I-1 ) = AP( JC+I-1 )*( TLEFT+RWORK( I )*TSCAL )
   410          CONTINUE
@@ -614,16 +614,16 @@
          } else {
             JC = 1
             DO 440 J = 1, N
-               CALL ZLARNV( 5, ISEED, N-J+1, AP( JC ) )
-               CALL DLARNV( 1, ISEED, N-J+1, RWORK )
+               zlarnv(5, ISEED, N-J+1, AP( JC ) );
+               dlarnv(1, ISEED, N-J+1, RWORK );
                DO 430 I = J, N
                   AP( JC+I-J ) = AP( JC+I-J )* ( TLEFT+RWORK( I-J+1 )*TSCAL )
   430          CONTINUE
                JC = JC + N - J + 1
   440       CONTINUE
          }
-         CALL ZLARNV( 2, ISEED, N, B )
-         CALL ZDSCAL( N, TWO, B, 1 )
+         zlarnv(2, ISEED, N, B );
+         zdscal(N, TWO, B, 1 );
       }
 
       // Flip the matrix across its counter-diagonal if the transpose will

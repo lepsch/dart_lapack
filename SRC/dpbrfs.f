@@ -70,7 +70,7 @@
          INFO = -12
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'DPBRFS', -INFO )
+         xerbla('DPBRFS', -INFO );
          RETURN
       }
 
@@ -104,8 +104,8 @@
 
          // Compute residual R = B - A * X
 
-         CALL DCOPY( N, B( 1, J ), 1, WORK( N+1 ), 1 )
-         CALL DSBMV( UPLO, N, KD, -ONE, AB, LDAB, X( 1, J ), 1, ONE, WORK( N+1 ), 1 )
+         dcopy(N, B( 1, J ), 1, WORK( N+1 ), 1 );
+         dsbmv(UPLO, N, KD, -ONE, AB, LDAB, X( 1, J ), 1, ONE, WORK( N+1 ), 1 );
 
          // Compute componentwise relative backward error from formula
 
@@ -166,8 +166,8 @@
 
             // Update solution and try again.
 
-            CALL DPBTRS( UPLO, N, KD, 1, AFB, LDAFB, WORK( N+1 ), N, INFO )
-            CALL DAXPY( N, ONE, WORK( N+1 ), 1, X( 1, J ), 1 )
+            dpbtrs(UPLO, N, KD, 1, AFB, LDAFB, WORK( N+1 ), N, INFO );
+            daxpy(N, ONE, WORK( N+1 ), 1, X( 1, J ), 1 );
             LSTRES = BERR( J )
             COUNT = COUNT + 1
             GO TO 20
@@ -205,13 +205,13 @@
 
          KASE = 0
   100    CONTINUE
-         CALL DLACN2( N, WORK( 2*N+1 ), WORK( N+1 ), IWORK, FERR( J ), KASE, ISAVE )
+         dlacn2(N, WORK( 2*N+1 ), WORK( N+1 ), IWORK, FERR( J ), KASE, ISAVE );
          if ( KASE.NE.0 ) {
             if ( KASE.EQ.1 ) {
 
                // Multiply by diag(W)*inv(A**T).
 
-               CALL DPBTRS( UPLO, N, KD, 1, AFB, LDAFB, WORK( N+1 ), N, INFO )
+               dpbtrs(UPLO, N, KD, 1, AFB, LDAFB, WORK( N+1 ), N, INFO );
                DO 110 I = 1, N
                   WORK( N+I ) = WORK( N+I )*WORK( I )
   110          CONTINUE
@@ -222,7 +222,7 @@
                DO 120 I = 1, N
                   WORK( N+I ) = WORK( N+I )*WORK( I )
   120          CONTINUE
-               CALL DPBTRS( UPLO, N, KD, 1, AFB, LDAFB, WORK( N+1 ), N, INFO )
+               dpbtrs(UPLO, N, KD, 1, AFB, LDAFB, WORK( N+1 ), N, INFO );
             }
             GO TO 100
          }

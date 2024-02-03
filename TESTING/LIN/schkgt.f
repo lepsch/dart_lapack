@@ -93,7 +93,7 @@
 
             // Set up parameters with SLATB4.
 
-            CALL SLATB4( PATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, COND, DIST )
+            slatb4(PATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, COND, DIST );
 
             ZEROT = IMAT.GE.8 .AND. IMAT.LE.10
             if ( IMAT.LE.6 ) {
@@ -102,21 +102,21 @@
 
                KOFF = MAX( 2-KU, 3-MAX( 1, N ) )
                SRNAMT = 'SLATMS'
-               CALL SLATMS( N, N, DIST, ISEED, TYPE, RWORK, MODE, COND, ANORM, KL, KU, 'Z', AF( KOFF ), 3, WORK, INFO )
+               slatms(N, N, DIST, ISEED, TYPE, RWORK, MODE, COND, ANORM, KL, KU, 'Z', AF( KOFF ), 3, WORK, INFO );
 
                // Check the error code from SLATMS.
 
                if ( INFO.NE.0 ) {
-                  CALL ALAERH( PATH, 'SLATMS', INFO, 0, ' ', N, N, KL, KU, -1, IMAT, NFAIL, NERRS, NOUT )
+                  alaerh(PATH, 'SLATMS', INFO, 0, ' ', N, N, KL, KU, -1, IMAT, NFAIL, NERRS, NOUT );
                   GO TO 100
                }
                IZERO = 0
 
                if ( N.GT.1 ) {
-                  CALL SCOPY( N-1, AF( 4 ), 3, A, 1 )
-                  CALL SCOPY( N-1, AF( 3 ), 3, A( N+M+1 ), 1 )
+                  scopy(N-1, AF( 4 ), 3, A, 1 );
+                  scopy(N-1, AF( 3 ), 3, A( N+M+1 ), 1 );
                }
-               CALL SCOPY( N, AF( 2 ), 3, A( M+1 ), 1 )
+               scopy(N, AF( 2 ), 3, A( M+1 ), 1 );
             } else {
 
                // Types 7-12:  generate tridiagonal matrices with
@@ -126,7 +126,7 @@
 
                   // Generate a matrix with elements from [-1,1].
 
-                  CALL SLARNV( 2, ISEED, N+2*M, A )
+                  slarnv(2, ISEED, N+2*M, A );
                   IF( ANORM.NE.ONE ) CALL SSCAL( N+2*M, ANORM, A, 1 )
                } else if ( IZERO.GT.0 ) {
 
@@ -180,16 +180,16 @@
             // Factor A as L*U and compute the ratio
                // norm(L*U - A) / (n * norm(A) * EPS )
 
-            CALL SCOPY( N+2*M, A, 1, AF, 1 )
+            scopy(N+2*M, A, 1, AF, 1 );
             SRNAMT = 'SGTTRF'
-            CALL SGTTRF( N, AF, AF( M+1 ), AF( N+M+1 ), AF( N+2*M+1 ), IWORK, INFO )
+            sgttrf(N, AF, AF( M+1 ), AF( N+M+1 ), AF( N+2*M+1 ), IWORK, INFO );
 
             // Check error code from SGTTRF.
 
             IF( INFO.NE.IZERO ) CALL ALAERH( PATH, 'SGTTRF', INFO, IZERO, ' ', N, N, 1, 1, -1, IMAT, NFAIL, NERRS, NOUT )
             TRFCON = INFO.NE.0
 
-            CALL SGTT01( N, A, A( M+1 ), A( N+M+1 ), AF, AF( M+1 ), AF( N+M+1 ), AF( N+2*M+1 ), IWORK, WORK, LDA, RWORK, RESULT( 1 ) )
+            sgtt01(N, A, A( M+1 ), A( N+M+1 ), AF, AF( M+1 ), AF( N+M+1 ), AF( N+2*M+1 ), IWORK, WORK, LDA, RWORK, RESULT( 1 ) );
 
             // Print the test ratio if it is .GE. THRESH.
 
@@ -221,7 +221,7 @@
                         X( J ) = ZERO
    30                CONTINUE
                      X( I ) = ONE
-                     CALL SGTTRS( TRANS, N, 1, AF, AF( M+1 ), AF( N+M+1 ), AF( N+2*M+1 ), IWORK, X, LDA, INFO )
+                     sgttrs(TRANS, N, 1, AF, AF( M+1 ), AF( N+M+1 ), AF( N+2*M+1 ), IWORK, X, LDA, INFO );
                      AINVNM = MAX( AINVNM, SASUM( N, X, 1 ) )
    40             CONTINUE
 
@@ -246,7 +246,7 @@
                // matrix.
 
                SRNAMT = 'SGTCON'
-               CALL SGTCON( NORM, N, AF, AF( M+1 ), AF( N+M+1 ), AF( N+2*M+1 ), IWORK, ANORM, RCOND, WORK, IWORK( N+1 ), INFO )
+               sgtcon(NORM, N, AF, AF( M+1 ), AF( N+M+1 ), AF( N+2*M+1 ), IWORK, ANORM, RCOND, WORK, IWORK( N+1 ), INFO );
 
                // Check error code from SGTCON.
 
@@ -274,7 +274,7 @@
 
                IX = 1
                DO 60 J = 1, NRHS
-                  CALL SLARNV( 2, ISEED, N, XACT( IX ) )
+                  slarnv(2, ISEED, N, XACT( IX ) );
                   IX = IX + LDA
    60          CONTINUE
 
@@ -288,38 +288,38 @@
 
                   // Set the right hand side.
 
-                  CALL SLAGTM( TRANS, N, NRHS, ONE, A, A( M+1 ), A( N+M+1 ), XACT, LDA, ZERO, B, LDA )
+                  slagtm(TRANS, N, NRHS, ONE, A, A( M+1 ), A( N+M+1 ), XACT, LDA, ZERO, B, LDA );
 
 *+    TEST 2
                   // Solve op(A) * X = B and compute the residual.
 
-                  CALL SLACPY( 'Full', N, NRHS, B, LDA, X, LDA )
+                  slacpy('Full', N, NRHS, B, LDA, X, LDA );
                   SRNAMT = 'SGTTRS'
-                  CALL SGTTRS( TRANS, N, NRHS, AF, AF( M+1 ), AF( N+M+1 ), AF( N+2*M+1 ), IWORK, X, LDA, INFO )
+                  sgttrs(TRANS, N, NRHS, AF, AF( M+1 ), AF( N+M+1 ), AF( N+2*M+1 ), IWORK, X, LDA, INFO );
 
                   // Check error code from SGTTRS.
 
                   IF( INFO.NE.0 ) CALL ALAERH( PATH, 'SGTTRS', INFO, 0, TRANS, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT )
 
-                  CALL SLACPY( 'Full', N, NRHS, B, LDA, WORK, LDA )
-                  CALL SGTT02( TRANS, N, NRHS, A, A( M+1 ), A( N+M+1 ), X, LDA, WORK, LDA, RESULT( 2 ) )
+                  slacpy('Full', N, NRHS, B, LDA, WORK, LDA );
+                  sgtt02(TRANS, N, NRHS, A, A( M+1 ), A( N+M+1 ), X, LDA, WORK, LDA, RESULT( 2 ) );
 
 *+    TEST 3
                   // Check solution from generated exact solution.
 
-                  CALL SGET04( N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 3 ) )
+                  sget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 3 ) );
 
 *+    TESTS 4, 5, and 6
                   // Use iterative refinement to improve the solution.
 
                   SRNAMT = 'SGTRFS'
-                  CALL SGTRFS( TRANS, N, NRHS, A, A( M+1 ), A( N+M+1 ), AF, AF( M+1 ), AF( N+M+1 ), AF( N+2*M+1 ), IWORK, B, LDA, X, LDA, RWORK, RWORK( NRHS+1 ), WORK, IWORK( N+1 ), INFO )
+                  sgtrfs(TRANS, N, NRHS, A, A( M+1 ), A( N+M+1 ), AF, AF( M+1 ), AF( N+M+1 ), AF( N+2*M+1 ), IWORK, B, LDA, X, LDA, RWORK, RWORK( NRHS+1 ), WORK, IWORK( N+1 ), INFO );
 
                   // Check error code from SGTRFS.
 
                   IF( INFO.NE.0 ) CALL ALAERH( PATH, 'SGTRFS', INFO, 0, TRANS, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT )
 
-                  CALL SGET04( N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 4 ) )                   CALL SGTT05( TRANS, N, NRHS, A, A( M+1 ), A( N+M+1 ), B, LDA, X, LDA, XACT, LDA, RWORK, RWORK( NRHS+1 ), RESULT( 5 ) )
+                  sget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 4 ) )                   CALL SGTT05( TRANS, N, NRHS, A, A( M+1 ), A( N+M+1 ), B, LDA, X, LDA, XACT, LDA, RWORK, RWORK( NRHS+1 ), RESULT( 5 ) );
 
                   // Print information about the tests that did not pass
                   // the threshold.
@@ -339,7 +339,7 @@
 
       // Print a summary of the results.
 
-      CALL ALASUM( PATH, NOUT, NFAIL, NRUN, NERRS )
+      alasum(PATH, NOUT, NFAIL, NRUN, NERRS );
 
  9999 FORMAT( 12X, 'N =', I5, ',', 10X, ' type ', I2, ', test(', I2, ') = ', G12.5 )
  9998 FORMAT( ' TRANS=''', A1, ''', N =', I5, ', NRHS=', I3, ', type ', I2, ', test(', I2, ') = ', G12.5 )

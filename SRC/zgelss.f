@@ -81,10 +81,10 @@
                          // columns
 
                // Compute space needed for ZGEQRF
-               CALL ZGEQRF( M, N, A, LDA, DUM(1), DUM(1), -1, INFO )
+               zgeqrf(M, N, A, LDA, DUM(1), DUM(1), -1, INFO );
                LWORK_ZGEQRF = INT( DUM(1) )
                // Compute space needed for ZUNMQR
-               CALL ZUNMQR( 'L', 'C', M, NRHS, N, A, LDA, DUM(1), B, LDB, DUM(1), -1, INFO )
+               zunmqr('L', 'C', M, NRHS, N, A, LDA, DUM(1), B, LDB, DUM(1), -1, INFO );
                LWORK_ZUNMQR = INT( DUM(1) )
                MM = N
                MAXWRK = MAX( MAXWRK, N + N*ILAENV( 1, 'ZGEQRF', ' ', M, N, -1, -1 ) )                MAXWRK = MAX( MAXWRK, N + NRHS*ILAENV( 1, 'ZUNMQR', 'LC', M, NRHS, N, -1 ) )
@@ -94,13 +94,13 @@
                // Path 1 - overdetermined or exactly determined
 
                // Compute space needed for ZGEBRD
-               CALL ZGEBRD( MM, N, A, LDA, S, S, DUM(1), DUM(1), DUM(1), -1, INFO )
+               zgebrd(MM, N, A, LDA, S, S, DUM(1), DUM(1), DUM(1), -1, INFO );
                LWORK_ZGEBRD = INT( DUM(1) )
                // Compute space needed for ZUNMBR
-               CALL ZUNMBR( 'Q', 'L', 'C', MM, NRHS, N, A, LDA, DUM(1), B, LDB, DUM(1), -1, INFO )
+               zunmbr('Q', 'L', 'C', MM, NRHS, N, A, LDA, DUM(1), B, LDB, DUM(1), -1, INFO );
                LWORK_ZUNMBR = INT( DUM(1) )
                // Compute space needed for ZUNGBR
-               CALL ZUNGBR( 'P', N, N, N, A, LDA, DUM(1), DUM(1), -1, INFO )
+               zungbr('P', N, N, N, A, LDA, DUM(1), DUM(1), -1, INFO );
                LWORK_ZUNGBR = INT( DUM(1) )
                // Compute total workspace needed
                MAXWRK = MAX( MAXWRK, 2*N + LWORK_ZGEBRD )
@@ -117,19 +117,19 @@
                   // than rows
 
                   // Compute space needed for ZGELQF
-                  CALL ZGELQF( M, N, A, LDA, DUM(1), DUM(1), -1, INFO )
+                  zgelqf(M, N, A, LDA, DUM(1), DUM(1), -1, INFO );
                   LWORK_ZGELQF = INT( DUM(1) )
                   // Compute space needed for ZGEBRD
-                  CALL ZGEBRD( M, M, A, LDA, S, S, DUM(1), DUM(1), DUM(1), -1, INFO )
+                  zgebrd(M, M, A, LDA, S, S, DUM(1), DUM(1), DUM(1), -1, INFO );
                   LWORK_ZGEBRD = INT( DUM(1) )
                   // Compute space needed for ZUNMBR
-                  CALL ZUNMBR( 'Q', 'L', 'C', M, NRHS, N, A, LDA, DUM(1), B, LDB, DUM(1), -1, INFO )
+                  zunmbr('Q', 'L', 'C', M, NRHS, N, A, LDA, DUM(1), B, LDB, DUM(1), -1, INFO );
                   LWORK_ZUNMBR = INT( DUM(1) )
                   // Compute space needed for ZUNGBR
-                  CALL ZUNGBR( 'P', M, M, M, A, LDA, DUM(1), DUM(1), -1, INFO )
+                  zungbr('P', M, M, M, A, LDA, DUM(1), DUM(1), -1, INFO );
                   LWORK_ZUNGBR = INT( DUM(1) )
                   // Compute space needed for ZUNMLQ
-                  CALL ZUNMLQ( 'L', 'C', N, NRHS, M, A, LDA, DUM(1), B, LDB, DUM(1), -1, INFO )
+                  zunmlq('L', 'C', N, NRHS, M, A, LDA, DUM(1), B, LDB, DUM(1), -1, INFO );
                   LWORK_ZUNMLQ = INT( DUM(1) )
                   // Compute total workspace needed
                   MAXWRK = M + LWORK_ZGELQF
@@ -147,13 +147,13 @@
                   // Path 2 - underdetermined
 
                   // Compute space needed for ZGEBRD
-                  CALL ZGEBRD( M, N, A, LDA, S, S, DUM(1), DUM(1), DUM(1), -1, INFO )
+                  zgebrd(M, N, A, LDA, S, S, DUM(1), DUM(1), DUM(1), -1, INFO );
                   LWORK_ZGEBRD = INT( DUM(1) )
                   // Compute space needed for ZUNMBR
-                  CALL ZUNMBR( 'Q', 'L', 'C', M, NRHS, M, A, LDA, DUM(1), B, LDB, DUM(1), -1, INFO )
+                  zunmbr('Q', 'L', 'C', M, NRHS, M, A, LDA, DUM(1), B, LDB, DUM(1), -1, INFO );
                   LWORK_ZUNMBR = INT( DUM(1) )
                   // Compute space needed for ZUNGBR
-                  CALL ZUNGBR( 'P', M, N, M, A, LDA, DUM(1), DUM(1), -1, INFO )
+                  zungbr('P', M, N, M, A, LDA, DUM(1), DUM(1), -1, INFO );
                   LWORK_ZUNGBR = INT( DUM(1) )
                   MAXWRK = 2*M + LWORK_ZGEBRD
                   MAXWRK = MAX( MAXWRK, 2*M + LWORK_ZUNMBR )
@@ -169,7 +169,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'ZGELSS', -INFO )
+         xerbla('ZGELSS', -INFO );
          RETURN
       } else if ( LQUERY ) {
          RETURN
@@ -197,20 +197,20 @@
 
          // Scale matrix norm up to SMLNUM
 
-         CALL ZLASCL( 'G', 0, 0, ANRM, SMLNUM, M, N, A, LDA, INFO )
+         zlascl('G', 0, 0, ANRM, SMLNUM, M, N, A, LDA, INFO );
          IASCL = 1
       } else if ( ANRM.GT.BIGNUM ) {
 
          // Scale matrix norm down to BIGNUM
 
-         CALL ZLASCL( 'G', 0, 0, ANRM, BIGNUM, M, N, A, LDA, INFO )
+         zlascl('G', 0, 0, ANRM, BIGNUM, M, N, A, LDA, INFO );
          IASCL = 2
       } else if ( ANRM.EQ.ZERO ) {
 
          // Matrix all zero. Return zero solution.
 
-         CALL ZLASET( 'F', MAX( M, N ), NRHS, CZERO, CZERO, B, LDB )
-         CALL DLASET( 'F', MINMN, 1, ZERO, ZERO, S, MINMN )
+         zlaset('F', MAX( M, N ), NRHS, CZERO, CZERO, B, LDB );
+         dlaset('F', MINMN, 1, ZERO, ZERO, S, MINMN );
          RANK = 0
          GO TO 70
       }
@@ -223,13 +223,13 @@
 
          // Scale matrix norm up to SMLNUM
 
-         CALL ZLASCL( 'G', 0, 0, BNRM, SMLNUM, M, NRHS, B, LDB, INFO )
+         zlascl('G', 0, 0, BNRM, SMLNUM, M, NRHS, B, LDB, INFO );
          IBSCL = 1
       } else if ( BNRM.GT.BIGNUM ) {
 
          // Scale matrix norm down to BIGNUM
 
-         CALL ZLASCL( 'G', 0, 0, BNRM, BIGNUM, M, NRHS, B, LDB, INFO )
+         zlascl('G', 0, 0, BNRM, BIGNUM, M, NRHS, B, LDB, INFO );
          IBSCL = 2
       }
 
@@ -252,13 +252,13 @@
             // (CWorkspace: need 2*N, prefer N+N*NB)
             // (RWorkspace: none)
 
-            CALL ZGEQRF( M, N, A, LDA, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, INFO )
+            zgeqrf(M, N, A, LDA, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, INFO );
 
             // Multiply B by transpose(Q)
             // (CWorkspace: need N+NRHS, prefer N+NRHS*NB)
             // (RWorkspace: none)
 
-            CALL ZUNMQR( 'L', 'C', M, NRHS, N, A, LDA, WORK( ITAU ), B, LDB, WORK( IWORK ), LWORK-IWORK+1, INFO )
+            zunmqr('L', 'C', M, NRHS, N, A, LDA, WORK( ITAU ), B, LDB, WORK( IWORK ), LWORK-IWORK+1, INFO );
 
             // Zero out below R
 
@@ -274,19 +274,19 @@
          // (CWorkspace: need 2*N+MM, prefer 2*N+(MM+N)*NB)
          // (RWorkspace: need N)
 
-         CALL ZGEBRD( MM, N, A, LDA, S, RWORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, INFO )
+         zgebrd(MM, N, A, LDA, S, RWORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, INFO );
 
          // Multiply B by transpose of left bidiagonalizing vectors of R
          // (CWorkspace: need 2*N+NRHS, prefer 2*N+NRHS*NB)
          // (RWorkspace: none)
 
-         CALL ZUNMBR( 'Q', 'L', 'C', MM, NRHS, N, A, LDA, WORK( ITAUQ ), B, LDB, WORK( IWORK ), LWORK-IWORK+1, INFO )
+         zunmbr('Q', 'L', 'C', MM, NRHS, N, A, LDA, WORK( ITAUQ ), B, LDB, WORK( IWORK ), LWORK-IWORK+1, INFO );
 
          // Generate right bidiagonalizing vectors of R in A
          // (CWorkspace: need 3*N-1, prefer 2*N+(N-1)*NB)
          // (RWorkspace: none)
 
-         CALL ZUNGBR( 'P', N, N, N, A, LDA, WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, INFO )
+         zungbr('P', N, N, N, A, LDA, WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, INFO );
          IRWORK = IE + N
 
          // Perform bidiagonal QR iteration
@@ -304,10 +304,10 @@
          RANK = 0
          DO 10 I = 1, N
             if ( S( I ).GT.THR ) {
-               CALL ZDRSCL( NRHS, S( I ), B( I, 1 ), LDB )
+               zdrscl(NRHS, S( I ), B( I, 1 ), LDB );
                RANK = RANK + 1
             } else {
-               CALL ZLASET( 'F', 1, NRHS, CZERO, CZERO, B( I, 1 ), LDB )
+               zlaset('F', 1, NRHS, CZERO, CZERO, B( I, 1 ), LDB );
             }
    10    CONTINUE
 
@@ -316,18 +316,18 @@
          // (RWorkspace: none)
 
          if ( LWORK.GE.LDB*NRHS .AND. NRHS.GT.1 ) {
-            CALL ZGEMM( 'C', 'N', N, NRHS, N, CONE, A, LDA, B, LDB, CZERO, WORK, LDB )
-            CALL ZLACPY( 'G', N, NRHS, WORK, LDB, B, LDB )
+            zgemm('C', 'N', N, NRHS, N, CONE, A, LDA, B, LDB, CZERO, WORK, LDB );
+            zlacpy('G', N, NRHS, WORK, LDB, B, LDB );
          } else if ( NRHS.GT.1 ) {
             CHUNK = LWORK / N
             DO 20 I = 1, NRHS, CHUNK
                BL = MIN( NRHS-I+1, CHUNK )
-               CALL ZGEMM( 'C', 'N', N, BL, N, CONE, A, LDA, B( 1, I ), LDB, CZERO, WORK, N )
-               CALL ZLACPY( 'G', N, BL, WORK, N, B( 1, I ), LDB )
+               zgemm('C', 'N', N, BL, N, CONE, A, LDA, B( 1, I ), LDB, CZERO, WORK, N );
+               zlacpy('G', N, BL, WORK, N, B( 1, I ), LDB );
    20       CONTINUE
          } else if ( NRHS.EQ.1 ) {
-            CALL ZGEMV( 'C', N, N, CONE, A, LDA, B, 1, CZERO, WORK, 1 )
-            CALL ZCOPY( N, WORK, 1, B, 1 )
+            zgemv('C', N, N, CONE, A, LDA, B, 1, CZERO, WORK, 1 );
+            zcopy(N, WORK, 1, B, 1 );
          }
 
       } else if ( N.GE.MNTHR .AND. LWORK.GE.3*M+M*M+MAX( M, NRHS, N-2*M ) ) {
@@ -346,13 +346,13 @@
          // (CWorkspace: need 2*M, prefer M+M*NB)
          // (RWorkspace: none)
 
-         CALL ZGELQF( M, N, A, LDA, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, INFO )
+         zgelqf(M, N, A, LDA, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, INFO );
          IL = IWORK
 
          // Copy L to WORK(IL), zeroing out above it
 
-         CALL ZLACPY( 'L', M, M, A, LDA, WORK( IL ), LDWORK )
-         CALL ZLASET( 'U', M-1, M-1, CZERO, CZERO, WORK( IL+LDWORK ), LDWORK )
+         zlacpy('L', M, M, A, LDA, WORK( IL ), LDWORK );
+         zlaset('U', M-1, M-1, CZERO, CZERO, WORK( IL+LDWORK ), LDWORK );
          IE = 1
          ITAUQ = IL + LDWORK*M
          ITAUP = ITAUQ + M
@@ -362,19 +362,19 @@
          // (CWorkspace: need M*M+4*M, prefer M*M+3*M+2*M*NB)
          // (RWorkspace: need M)
 
-         CALL ZGEBRD( M, M, WORK( IL ), LDWORK, S, RWORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, INFO )
+         zgebrd(M, M, WORK( IL ), LDWORK, S, RWORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, INFO );
 
          // Multiply B by transpose of left bidiagonalizing vectors of L
          // (CWorkspace: need M*M+3*M+NRHS, prefer M*M+3*M+NRHS*NB)
          // (RWorkspace: none)
 
-         CALL ZUNMBR( 'Q', 'L', 'C', M, NRHS, M, WORK( IL ), LDWORK, WORK( ITAUQ ), B, LDB, WORK( IWORK ), LWORK-IWORK+1, INFO )
+         zunmbr('Q', 'L', 'C', M, NRHS, M, WORK( IL ), LDWORK, WORK( ITAUQ ), B, LDB, WORK( IWORK ), LWORK-IWORK+1, INFO );
 
          // Generate right bidiagonalizing vectors of R in WORK(IL)
          // (CWorkspace: need M*M+4*M-1, prefer M*M+3*M+(M-1)*NB)
          // (RWorkspace: none)
 
-         CALL ZUNGBR( 'P', M, M, M, WORK( IL ), LDWORK, WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, INFO )
+         zungbr('P', M, M, M, WORK( IL ), LDWORK, WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, INFO );
          IRWORK = IE + M
 
          // Perform bidiagonal QR iteration, computing right singular
@@ -392,10 +392,10 @@
          RANK = 0
          DO 30 I = 1, M
             if ( S( I ).GT.THR ) {
-               CALL ZDRSCL( NRHS, S( I ), B( I, 1 ), LDB )
+               zdrscl(NRHS, S( I ), B( I, 1 ), LDB );
                RANK = RANK + 1
             } else {
-               CALL ZLASET( 'F', 1, NRHS, CZERO, CZERO, B( I, 1 ), LDB )
+               zlaset('F', 1, NRHS, CZERO, CZERO, B( I, 1 ), LDB );
             }
    30    CONTINUE
          IWORK = IL + M*LDWORK
@@ -405,29 +405,29 @@
          // (RWorkspace: none)
 
          if ( LWORK.GE.LDB*NRHS+IWORK-1 .AND. NRHS.GT.1 ) {
-            CALL ZGEMM( 'C', 'N', M, NRHS, M, CONE, WORK( IL ), LDWORK, B, LDB, CZERO, WORK( IWORK ), LDB )
-            CALL ZLACPY( 'G', M, NRHS, WORK( IWORK ), LDB, B, LDB )
+            zgemm('C', 'N', M, NRHS, M, CONE, WORK( IL ), LDWORK, B, LDB, CZERO, WORK( IWORK ), LDB );
+            zlacpy('G', M, NRHS, WORK( IWORK ), LDB, B, LDB );
          } else if ( NRHS.GT.1 ) {
             CHUNK = ( LWORK-IWORK+1 ) / M
             DO 40 I = 1, NRHS, CHUNK
                BL = MIN( NRHS-I+1, CHUNK )
-               CALL ZGEMM( 'C', 'N', M, BL, M, CONE, WORK( IL ), LDWORK, B( 1, I ), LDB, CZERO, WORK( IWORK ), M )                CALL ZLACPY( 'G', M, BL, WORK( IWORK ), M, B( 1, I ), LDB )
+               zgemm('C', 'N', M, BL, M, CONE, WORK( IL ), LDWORK, B( 1, I ), LDB, CZERO, WORK( IWORK ), M )                CALL ZLACPY( 'G', M, BL, WORK( IWORK ), M, B( 1, I ), LDB );
    40       CONTINUE
          } else if ( NRHS.EQ.1 ) {
-            CALL ZGEMV( 'C', M, M, CONE, WORK( IL ), LDWORK, B( 1, 1 ), 1, CZERO, WORK( IWORK ), 1 )
-            CALL ZCOPY( M, WORK( IWORK ), 1, B( 1, 1 ), 1 )
+            zgemv('C', M, M, CONE, WORK( IL ), LDWORK, B( 1, 1 ), 1, CZERO, WORK( IWORK ), 1 );
+            zcopy(M, WORK( IWORK ), 1, B( 1, 1 ), 1 );
          }
 
          // Zero out below first M rows of B
 
-         CALL ZLASET( 'F', N-M, NRHS, CZERO, CZERO, B( M+1, 1 ), LDB )
+         zlaset('F', N-M, NRHS, CZERO, CZERO, B( M+1, 1 ), LDB );
          IWORK = ITAU + M
 
          // Multiply transpose(Q) by B
          // (CWorkspace: need M+NRHS, prefer M+NHRS*NB)
          // (RWorkspace: none)
 
-         CALL ZUNMLQ( 'L', 'C', N, NRHS, M, A, LDA, WORK( ITAU ), B, LDB, WORK( IWORK ), LWORK-IWORK+1, INFO )
+         zunmlq('L', 'C', N, NRHS, M, A, LDA, WORK( ITAU ), B, LDB, WORK( IWORK ), LWORK-IWORK+1, INFO );
 
       } else {
 
@@ -442,19 +442,19 @@
          // (CWorkspace: need 3*M, prefer 2*M+(M+N)*NB)
          // (RWorkspace: need N)
 
-         CALL ZGEBRD( M, N, A, LDA, S, RWORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, INFO )
+         zgebrd(M, N, A, LDA, S, RWORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, INFO );
 
          // Multiply B by transpose of left bidiagonalizing vectors
          // (CWorkspace: need 2*M+NRHS, prefer 2*M+NRHS*NB)
          // (RWorkspace: none)
 
-         CALL ZUNMBR( 'Q', 'L', 'C', M, NRHS, N, A, LDA, WORK( ITAUQ ), B, LDB, WORK( IWORK ), LWORK-IWORK+1, INFO )
+         zunmbr('Q', 'L', 'C', M, NRHS, N, A, LDA, WORK( ITAUQ ), B, LDB, WORK( IWORK ), LWORK-IWORK+1, INFO );
 
          // Generate right bidiagonalizing vectors in A
          // (CWorkspace: need 3*M, prefer 2*M+M*NB)
          // (RWorkspace: none)
 
-         CALL ZUNGBR( 'P', M, N, M, A, LDA, WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, INFO )
+         zungbr('P', M, N, M, A, LDA, WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, INFO );
          IRWORK = IE + M
 
          // Perform bidiagonal QR iteration,
@@ -472,10 +472,10 @@
          RANK = 0
          DO 50 I = 1, M
             if ( S( I ).GT.THR ) {
-               CALL ZDRSCL( NRHS, S( I ), B( I, 1 ), LDB )
+               zdrscl(NRHS, S( I ), B( I, 1 ), LDB );
                RANK = RANK + 1
             } else {
-               CALL ZLASET( 'F', 1, NRHS, CZERO, CZERO, B( I, 1 ), LDB )
+               zlaset('F', 1, NRHS, CZERO, CZERO, B( I, 1 ), LDB );
             }
    50    CONTINUE
 
@@ -484,34 +484,34 @@
          // (RWorkspace: none)
 
          if ( LWORK.GE.LDB*NRHS .AND. NRHS.GT.1 ) {
-            CALL ZGEMM( 'C', 'N', N, NRHS, M, CONE, A, LDA, B, LDB, CZERO, WORK, LDB )
-            CALL ZLACPY( 'G', N, NRHS, WORK, LDB, B, LDB )
+            zgemm('C', 'N', N, NRHS, M, CONE, A, LDA, B, LDB, CZERO, WORK, LDB );
+            zlacpy('G', N, NRHS, WORK, LDB, B, LDB );
          } else if ( NRHS.GT.1 ) {
             CHUNK = LWORK / N
             DO 60 I = 1, NRHS, CHUNK
                BL = MIN( NRHS-I+1, CHUNK )
-               CALL ZGEMM( 'C', 'N', N, BL, M, CONE, A, LDA, B( 1, I ), LDB, CZERO, WORK, N )
-               CALL ZLACPY( 'F', N, BL, WORK, N, B( 1, I ), LDB )
+               zgemm('C', 'N', N, BL, M, CONE, A, LDA, B( 1, I ), LDB, CZERO, WORK, N );
+               zlacpy('F', N, BL, WORK, N, B( 1, I ), LDB );
    60       CONTINUE
          } else if ( NRHS.EQ.1 ) {
-            CALL ZGEMV( 'C', M, N, CONE, A, LDA, B, 1, CZERO, WORK, 1 )
-            CALL ZCOPY( N, WORK, 1, B, 1 )
+            zgemv('C', M, N, CONE, A, LDA, B, 1, CZERO, WORK, 1 );
+            zcopy(N, WORK, 1, B, 1 );
          }
       }
 
       // Undo scaling
 
       if ( IASCL.EQ.1 ) {
-         CALL ZLASCL( 'G', 0, 0, ANRM, SMLNUM, N, NRHS, B, LDB, INFO )
-         CALL DLASCL( 'G', 0, 0, SMLNUM, ANRM, MINMN, 1, S, MINMN, INFO )
+         zlascl('G', 0, 0, ANRM, SMLNUM, N, NRHS, B, LDB, INFO );
+         dlascl('G', 0, 0, SMLNUM, ANRM, MINMN, 1, S, MINMN, INFO );
       } else if ( IASCL.EQ.2 ) {
-         CALL ZLASCL( 'G', 0, 0, ANRM, BIGNUM, N, NRHS, B, LDB, INFO )
-         CALL DLASCL( 'G', 0, 0, BIGNUM, ANRM, MINMN, 1, S, MINMN, INFO )
+         zlascl('G', 0, 0, ANRM, BIGNUM, N, NRHS, B, LDB, INFO );
+         dlascl('G', 0, 0, BIGNUM, ANRM, MINMN, 1, S, MINMN, INFO );
       }
       if ( IBSCL.EQ.1 ) {
-         CALL ZLASCL( 'G', 0, 0, SMLNUM, BNRM, N, NRHS, B, LDB, INFO )
+         zlascl('G', 0, 0, SMLNUM, BNRM, N, NRHS, B, LDB, INFO );
       } else if ( IBSCL.EQ.2 ) {
-         CALL ZLASCL( 'G', 0, 0, BIGNUM, BNRM, N, NRHS, B, LDB, INFO )
+         zlascl('G', 0, 0, BIGNUM, BNRM, N, NRHS, B, LDB, INFO );
       }
    70 CONTINUE
       WORK( 1 ) = MAXWRK

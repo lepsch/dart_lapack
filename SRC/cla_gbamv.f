@@ -65,7 +65,7 @@
          INFO = 11
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'CLA_GBAMV ', INFO )
+         xerbla('CLA_GBAMV ', INFO );
          RETURN
       }
 

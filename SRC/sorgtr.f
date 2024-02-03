@@ -62,7 +62,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'SORGTR', -INFO )
+         xerbla('SORGTR', -INFO );
          RETURN
       } else if ( LQUERY ) {
          RETURN
@@ -96,7 +96,7 @@
 
          // Generate Q(1:n-1,1:n-1)
 
-         CALL SORGQL( N-1, N-1, N-1, A, LDA, TAU, WORK, LWORK, IINFO )
+         sorgql(N-1, N-1, N-1, A, LDA, TAU, WORK, LWORK, IINFO );
 
       } else {
 
@@ -120,7 +120,7 @@
 
             // Generate Q(2:n,2:n)
 
-            CALL SORGQR( N-1, N-1, N-1, A( 2, 2 ), LDA, TAU, WORK, LWORK, IINFO )
+            sorgqr(N-1, N-1, N-1, A( 2, 2 ), LDA, TAU, WORK, LWORK, IINFO );
          }
       }
       WORK( 1 ) = SROUNDUP_LWORK(LWKOPT)

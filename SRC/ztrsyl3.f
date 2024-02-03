@@ -83,7 +83,7 @@
          INFO = -11
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'ZTRSYL3', -INFO )
+         xerbla('ZTRSYL3', -INFO );
          RETURN
       } else if ( LQUERY ) {
          RETURN
@@ -98,7 +98,7 @@
       // workspace is provided
 
       if ( MIN( NBA, NBB ).EQ.1 .OR. LDSWORK.LT.MAX( NBA, NBB ) ) {
-        CALL ZTRSYL( TRANA, TRANB, ISGN, M, N, A, LDA, B, LDB, C, LDC, SCALE, INFO )
+        ztrsyl(TRANA, TRANB, ISGN, M, N, A, LDA, B, LDB, C, LDC, SCALE, INFO );
         RETURN
       }
 
@@ -187,7 +187,7 @@
                L1 = (L - 1) * NB + 1
                L2 = MIN( L * NB, N ) + 1
 
-               CALL ZTRSYL( TRANA, TRANB, ISGN, K2-K1, L2-L1, A( K1, K1 ), LDA, B( L1, L1 ), LDB, C( K1, L1 ), LDC, SCALOC, IINFO )
+               ztrsyl(TRANA, TRANB, ISGN, K2-K1, L2-L1, A( K1, K1 ), LDA, B( L1, L1 ), LDB, C( K1, L1 ), LDC, SCALOC, IINFO );
                INFO = MAX( INFO, IINFO )
 
                if ( SCALOC * SWORK( K, L ) .EQ. ZERO ) {
@@ -248,14 +248,14 @@
                   SCAL = ( SCAMIN / SWORK( K, L ) ) * SCALOC
                   if ( SCAL .NE. ONE ) {
                       DO JJ = L1, L2-1
-                         CALL ZDSCAL( K2-K1, SCAL, C( K1, JJ ), 1)
+                         zdscal(K2-K1, SCAL, C( K1, JJ ), 1);
                       END DO
                   ENDIF
 
                   SCAL = ( SCAMIN / SWORK( I, L ) ) * SCALOC
                   if ( SCAL .NE. ONE ) {
                       DO LL = L1, L2-1
-                         CALL ZDSCAL( I2-I1, SCAL, C( I1, LL ), 1)
+                         zdscal(I2-I1, SCAL, C( I1, LL ), 1);
                       END DO
                   ENDIF
 
@@ -264,7 +264,7 @@
                   SWORK( K, L ) = SCAMIN * SCALOC
                   SWORK( I, L ) = SCAMIN * SCALOC
 
-                  CALL ZGEMM( 'N', 'N', I2-I1, L2-L1, K2-K1, -CONE, A( I1, K1 ), LDA, C( K1, L1 ), LDC, CONE, C( I1, L1 ), LDC )
+                  zgemm('N', 'N', I2-I1, L2-L1, K2-K1, -CONE, A( I1, K1 ), LDA, C( K1, L1 ), LDC, CONE, C( I1, L1 ), LDC );
 
                END DO
 
@@ -304,14 +304,14 @@
                   SCAL = ( SCAMIN / SWORK( K, L ) ) * SCALOC
                   if ( SCAL .NE. ONE ) {
                      DO LL = L1, L2-1
-                        CALL ZDSCAL( K2-K1, SCAL, C( K1, LL ), 1 )
+                        zdscal(K2-K1, SCAL, C( K1, LL ), 1 );
                      END DO
                   ENDIF
 
                   SCAL = ( SCAMIN / SWORK( K, J ) ) * SCALOC
                   if ( SCAL .NE. ONE ) {
                       DO JJ = J1, J2-1
-                         CALL ZDSCAL( K2-K1, SCAL, C( K1, JJ ), 1 )
+                         zdscal(K2-K1, SCAL, C( K1, JJ ), 1 );
                       END DO
                   ENDIF
 
@@ -320,7 +320,7 @@
                   SWORK( K, L ) = SCAMIN * SCALOC
                   SWORK( K, J ) = SCAMIN * SCALOC
 
-                  CALL ZGEMM( 'N', 'N', K2-K1, J2-J1, L2-L1, -CSGN, C( K1, L1 ), LDC, B( L1, J1 ), LDB, CONE, C( K1, J1 ), LDC )
+                  zgemm('N', 'N', K2-K1, J2-J1, L2-L1, -CSGN, C( K1, L1 ), LDC, B( L1, J1 ), LDB, CONE, C( K1, J1 ), LDC );
                END DO
             END DO
          END DO
@@ -357,7 +357,7 @@
                L1 = (L - 1) * NB + 1
                L2 = MIN( L * NB, N ) + 1
 
-               CALL ZTRSYL( TRANA, TRANB, ISGN, K2-K1, L2-L1, A( K1, K1 ), LDA, B( L1, L1 ), LDB, C( K1, L1 ), LDC, SCALOC, IINFO )
+               ztrsyl(TRANA, TRANB, ISGN, K2-K1, L2-L1, A( K1, K1 ), LDA, B( L1, L1 ), LDB, C( K1, L1 ), LDC, SCALOC, IINFO );
                INFO = MAX( INFO, IINFO )
 
                if ( SCALOC * SWORK( K, L ) .EQ. ZERO ) {
@@ -419,14 +419,14 @@
                   SCAL = ( SCAMIN / SWORK( K, L ) ) * SCALOC
                   if ( SCAL .NE. ONE ) {
                      DO LL = L1, L2-1
-                        CALL ZDSCAL( K2-K1, SCAL, C( K1, LL ), 1 )
+                        zdscal(K2-K1, SCAL, C( K1, LL ), 1 );
                      END DO
                   ENDIF
 
                   SCAL = ( SCAMIN / SWORK( I, L ) ) * SCALOC
                   if ( SCAL .NE. ONE ) {
                      DO LL = L1, L2-1
-                        CALL ZDSCAL( I2-I1, SCAL, C( I1, LL ), 1 )
+                        zdscal(I2-I1, SCAL, C( I1, LL ), 1 );
                      END DO
                   ENDIF
 
@@ -435,7 +435,7 @@
                   SWORK( K, L ) = SCAMIN * SCALOC
                   SWORK( I, L ) = SCAMIN * SCALOC
 
-                  CALL ZGEMM( 'C', 'N', I2-I1, L2-L1, K2-K1, -CONE, A( K1, I1 ), LDA, C( K1, L1 ), LDC, CONE, C( I1, L1 ), LDC )
+                  zgemm('C', 'N', I2-I1, L2-L1, K2-K1, -CONE, A( K1, I1 ), LDA, C( K1, L1 ), LDC, CONE, C( I1, L1 ), LDC );
                END DO
 
                DO J = L + 1, NBB
@@ -474,14 +474,14 @@
                   SCAL = ( SCAMIN / SWORK( K, L ) ) * SCALOC
                   if ( SCAL .NE. ONE ) {
                       DO LL = L1, L2-1
-                         CALL ZDSCAL( K2-K1, SCAL, C( K1, LL ), 1 )
+                         zdscal(K2-K1, SCAL, C( K1, LL ), 1 );
                       END DO
                   ENDIF
 
                   SCAL = ( SCAMIN / SWORK( K, J ) ) * SCALOC
                   if ( SCAL .NE. ONE ) {
                      DO JJ = J1, J2-1
-                        CALL ZDSCAL( K2-K1, SCAL, C( K1, JJ ), 1 )
+                        zdscal(K2-K1, SCAL, C( K1, JJ ), 1 );
                      END DO
                   ENDIF
 
@@ -490,7 +490,7 @@
                   SWORK( K, L ) = SCAMIN * SCALOC
                   SWORK( K, J ) = SCAMIN * SCALOC
 
-                  CALL ZGEMM( 'N', 'N', K2-K1, J2-J1, L2-L1, -CSGN, C( K1, L1 ), LDC, B( L1, J1 ), LDB, CONE, C( K1, J1 ), LDC )
+                  zgemm('N', 'N', K2-K1, J2-J1, L2-L1, -CSGN, C( K1, L1 ), LDC, B( L1, J1 ), LDB, CONE, C( K1, J1 ), LDC );
                END DO
             END DO
          END DO
@@ -527,7 +527,7 @@
                L1 = (L - 1) * NB + 1
                L2 = MIN( L * NB, N ) + 1
 
-               CALL ZTRSYL( TRANA, TRANB, ISGN, K2-K1, L2-L1, A( K1, K1 ), LDA, B( L1, L1 ), LDB, C( K1, L1 ), LDC, SCALOC, IINFO )
+               ztrsyl(TRANA, TRANB, ISGN, K2-K1, L2-L1, A( K1, K1 ), LDA, B( L1, L1 ), LDB, C( K1, L1 ), LDC, SCALOC, IINFO );
                INFO = MAX( INFO, IINFO )
 
                if ( SCALOC * SWORK( K, L ) .EQ. ZERO ) {
@@ -589,14 +589,14 @@
                   SCAL = ( SCAMIN / SWORK( K, L ) ) * SCALOC
                   if ( SCAL .NE. ONE ) {
                      DO LL = L1, L2-1
-                        CALL ZDSCAL( K2-K1, SCAL, C( K1, LL ), 1 )
+                        zdscal(K2-K1, SCAL, C( K1, LL ), 1 );
                      END DO
                   ENDIF
 
                   SCAL = ( SCAMIN / SWORK( I, L ) ) * SCALOC
                   if ( SCAL .NE. ONE ) {
                      DO LL = L1, L2-1
-                        CALL ZDSCAL( I2-I1, SCAL, C( I1, LL ), 1 )
+                        zdscal(I2-I1, SCAL, C( I1, LL ), 1 );
                      END DO
                   ENDIF
 
@@ -605,7 +605,7 @@
                   SWORK( K, L ) = SCAMIN * SCALOC
                   SWORK( I, L ) = SCAMIN * SCALOC
 
-                  CALL ZGEMM( 'C', 'N', I2-I1, L2-L1, K2-K1, -CONE, A( K1, I1 ), LDA, C( K1, L1 ), LDC, CONE, C( I1, L1 ), LDC )
+                  zgemm('C', 'N', I2-I1, L2-L1, K2-K1, -CONE, A( K1, I1 ), LDA, C( K1, L1 ), LDC, CONE, C( I1, L1 ), LDC );
                END DO
 
                DO J = 1, L - 1
@@ -644,14 +644,14 @@
                   SCAL = ( SCAMIN / SWORK( K, L ) ) * SCALOC
                   if ( SCAL .NE. ONE ) {
                      DO LL = L1, L2-1
-                        CALL ZDSCAL( K2-K1, SCAL, C( K1, LL ), 1)
+                        zdscal(K2-K1, SCAL, C( K1, LL ), 1);
                      END DO
                   ENDIF
 
                   SCAL = ( SCAMIN / SWORK( K, J ) ) * SCALOC
                   if ( SCAL .NE. ONE ) {
                      DO JJ = J1, J2-1
-                        CALL ZDSCAL( K2-K1, SCAL, C( K1, JJ ), 1 )
+                        zdscal(K2-K1, SCAL, C( K1, JJ ), 1 );
                      END DO
                   ENDIF
 
@@ -660,7 +660,7 @@
                   SWORK( K, L ) = SCAMIN * SCALOC
                   SWORK( K, J ) = SCAMIN * SCALOC
 
-                  CALL ZGEMM( 'N', 'C', K2-K1, J2-J1, L2-L1, -CSGN, C( K1, L1 ), LDC, B( J1, L1 ), LDB, CONE, C( K1, J1 ), LDC )
+                  zgemm('N', 'C', K2-K1, J2-J1, L2-L1, -CSGN, C( K1, L1 ), LDC, B( J1, L1 ), LDB, CONE, C( K1, J1 ), LDC );
                END DO
             END DO
          END DO
@@ -697,7 +697,7 @@
                L1 = (L - 1) * NB + 1
                L2 = MIN( L * NB, N ) + 1
 
-               CALL ZTRSYL( TRANA, TRANB, ISGN, K2-K1, L2-L1, A( K1, K1 ), LDA, B( L1, L1 ), LDB, C( K1, L1 ), LDC, SCALOC, IINFO )
+               ztrsyl(TRANA, TRANB, ISGN, K2-K1, L2-L1, A( K1, K1 ), LDA, B( L1, L1 ), LDB, C( K1, L1 ), LDC, SCALOC, IINFO );
                INFO = MAX( INFO, IINFO )
 
                if ( SCALOC * SWORK( K, L ) .EQ. ZERO ) {
@@ -759,14 +759,14 @@
                   SCAL = ( SCAMIN / SWORK( K, L ) ) * SCALOC
                   if ( SCAL .NE. ONE ) {
                      DO LL = L1, L2-1
-                        CALL ZDSCAL( K2-K1, SCAL, C( K1, LL ), 1 )
+                        zdscal(K2-K1, SCAL, C( K1, LL ), 1 );
                      END DO
                   ENDIF
 
                   SCAL = ( SCAMIN / SWORK( I, L ) ) * SCALOC
                   if ( SCAL .NE. ONE ) {
                      DO LL = L1, L2-1
-                        CALL ZDSCAL( I2-I1, SCAL, C( I1, LL ), 1 )
+                        zdscal(I2-I1, SCAL, C( I1, LL ), 1 );
                      END DO
                   ENDIF
 
@@ -775,7 +775,7 @@
                   SWORK( K, L ) = SCAMIN * SCALOC
                   SWORK( I, L ) = SCAMIN * SCALOC
 
-                  CALL ZGEMM( 'N', 'N', I2-I1, L2-L1, K2-K1, -CONE, A( I1, K1 ), LDA, C( K1, L1 ), LDC, CONE, C( I1, L1 ), LDC )
+                  zgemm('N', 'N', I2-I1, L2-L1, K2-K1, -CONE, A( I1, K1 ), LDA, C( K1, L1 ), LDC, CONE, C( I1, L1 ), LDC );
 
                END DO
 
@@ -815,14 +815,14 @@
                   SCAL = ( SCAMIN / SWORK( K, L ) ) * SCALOC
                   if ( SCAL .NE. ONE ) {
                      DO JJ = L1, L2-1
-                        CALL ZDSCAL( K2-K1, SCAL, C( K1, JJ ), 1 )
+                        zdscal(K2-K1, SCAL, C( K1, JJ ), 1 );
                      END DO
                   ENDIF
 
                   SCAL = ( SCAMIN / SWORK( K, J ) ) * SCALOC
                   if ( SCAL .NE. ONE ) {
                      DO JJ = J1, J2-1
-                        CALL ZDSCAL( K2-K1, SCAL, C( K1, JJ ), 1 )
+                        zdscal(K2-K1, SCAL, C( K1, JJ ), 1 );
                      END DO
                   ENDIF
 
@@ -831,7 +831,7 @@
                   SWORK( K, L ) = SCAMIN * SCALOC
                   SWORK( K, J ) = SCAMIN * SCALOC
 
-                  CALL ZGEMM( 'N', 'C', K2-K1, J2-J1, L2-L1, -CSGN, C( K1, L1 ), LDC, B( J1, L1 ), LDB, CONE, C( K1, J1 ), LDC )
+                  zgemm('N', 'C', K2-K1, J2-J1, L2-L1, -CSGN, C( K1, L1 ), LDC, B( J1, L1 ), LDB, CONE, C( K1, J1 ), LDC );
                END DO
             END DO
          END DO
@@ -869,7 +869,7 @@
             SCAL = SCALE / SWORK( K, L )
             if ( SCAL .NE. ONE ) {
                DO LL = L1, L2-1
-                  CALL ZDSCAL( K2-K1, SCAL, C( K1, LL ), 1 )
+                  zdscal(K2-K1, SCAL, C( K1, LL ), 1 );
                END DO
             ENDIF
          END DO
@@ -905,7 +905,7 @@
 
          SCALOC = MIN( BIGNUM / SCAL, ONE / BUF )
          BUF = BUF * SCALOC
-         CALL ZLASCL( 'G', -1, -1, ONE, SCALOC, M, N, C, LDC, IINFO )
+         zlascl('G', -1, -1, ONE, SCALOC, M, N, C, LDC, IINFO );
       }
 
       // Combine with buffer scaling factor. SCALE will be flushed if

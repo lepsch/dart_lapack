@@ -57,7 +57,7 @@
          INFO = -6
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'ZLA_GERCOND_C', -INFO )
+         xerbla('ZLA_GERCOND_C', -INFO );
          RETURN
       }
 
@@ -111,7 +111,7 @@
 
       KASE = 0
    10 CONTINUE
-      CALL ZLACN2( N, WORK( N+1 ), WORK, AINVNM, KASE, ISAVE )
+      zlacn2(N, WORK( N+1 ), WORK, AINVNM, KASE, ISAVE );
       if ( KASE.NE.0 ) {
          if ( KASE.EQ.2 ) {
 
@@ -122,9 +122,9 @@
             END DO
 
             if (NOTRANS) {
-               CALL ZGETRS( 'No transpose', N, 1, AF, LDAF, IPIV, WORK, N, INFO )
+               zgetrs('No transpose', N, 1, AF, LDAF, IPIV, WORK, N, INFO );
             } else {
-               CALL ZGETRS( 'Conjugate transpose', N, 1, AF, LDAF, IPIV, WORK, N, INFO )
+               zgetrs('Conjugate transpose', N, 1, AF, LDAF, IPIV, WORK, N, INFO );
             ENDIF
 
             // Multiply by inv(C).
@@ -145,9 +145,9 @@
             }
 
             if ( NOTRANS ) {
-               CALL ZGETRS( 'Conjugate transpose', N, 1, AF, LDAF, IPIV, WORK, N, INFO )
+               zgetrs('Conjugate transpose', N, 1, AF, LDAF, IPIV, WORK, N, INFO );
             } else {
-               CALL ZGETRS( 'No transpose', N, 1, AF, LDAF, IPIV, WORK, N, INFO )
+               zgetrs('No transpose', N, 1, AF, LDAF, IPIV, WORK, N, INFO );
             }
 
             // Multiply by R.

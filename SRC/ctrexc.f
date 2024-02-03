@@ -50,7 +50,7 @@
          INFO = -8
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'CTREXC', -INFO )
+         xerbla('CTREXC', -INFO );
          RETURN
       }
 
@@ -83,12 +83,12 @@
 
          // Determine the transformation to perform the interchange.
 
-         CALL CLARTG( T( K, K+1 ), T22-T11, CS, SN, TEMP )
+         clartg(T( K, K+1 ), T22-T11, CS, SN, TEMP );
 
          // Apply transformation to the matrix T.
 
          IF( K+2.LE.N ) CALL CROT( N-K-1, T( K, K+2 ), LDT, T( K+1, K+2 ), LDT, CS, SN )
-         CALL CROT( K-1, T( 1, K ), 1, T( 1, K+1 ), 1, CS, CONJG( SN ) )
+         crot(K-1, T( 1, K ), 1, T( 1, K+1 ), 1, CS, CONJG( SN ) );
 
          T( K, K ) = T22
          T( K+1, K+1 ) = T11
@@ -97,7 +97,7 @@
 
             // Accumulate transformation in the matrix Q.
 
-            CALL CROT( N, Q( 1, K ), 1, Q( 1, K+1 ), 1, CS, CONJG( SN ) )
+            crot(N, Q( 1, K ), 1, Q( 1, K+1 ), 1, CS, CONJG( SN ) );
          }
 
    10 CONTINUE

@@ -48,7 +48,7 @@
          INFO = -8
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'DPBTRS', -INFO )
+         xerbla('DPBTRS', -INFO );
          RETURN
       }
 
@@ -64,11 +64,11 @@
 
             // Solve U**T *X = B, overwriting B with X.
 
-            CALL DTBSV( 'Upper', 'Transpose', 'Non-unit', N, KD, AB, LDAB, B( 1, J ), 1 )
+            dtbsv('Upper', 'Transpose', 'Non-unit', N, KD, AB, LDAB, B( 1, J ), 1 );
 
             // Solve U*X = B, overwriting B with X.
 
-            CALL DTBSV( 'Upper', 'No transpose', 'Non-unit', N, KD, AB, LDAB, B( 1, J ), 1 )
+            dtbsv('Upper', 'No transpose', 'Non-unit', N, KD, AB, LDAB, B( 1, J ), 1 );
    10    CONTINUE
       } else {
 
@@ -78,11 +78,11 @@
 
             // Solve L*X = B, overwriting B with X.
 
-            CALL DTBSV( 'Lower', 'No transpose', 'Non-unit', N, KD, AB, LDAB, B( 1, J ), 1 )
+            dtbsv('Lower', 'No transpose', 'Non-unit', N, KD, AB, LDAB, B( 1, J ), 1 );
 
             // Solve L**T *X = B, overwriting B with X.
 
-            CALL DTBSV( 'Lower', 'Transpose', 'Non-unit', N, KD, AB, LDAB, B( 1, J ), 1 )
+            dtbsv('Lower', 'Transpose', 'Non-unit', N, KD, AB, LDAB, B( 1, J ), 1 );
    20    CONTINUE
       }
 

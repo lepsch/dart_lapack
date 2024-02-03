@@ -41,174 +41,174 @@
 
       SRNAMT = 'DPFTRF'
       INFOT = 1
-      CALL DPFTRF( '/', 'U', 0, A, INFO )
-      CALL CHKXER( 'DPFTRF', INFOT, NOUT, LERR, OK )
+      dpftrf('/', 'U', 0, A, INFO );
+      chkxer('DPFTRF', INFOT, NOUT, LERR, OK );
       INFOT = 2
-      CALL DPFTRF( 'N', '/', 0, A, INFO )
-      CALL CHKXER( 'DPFTRF', INFOT, NOUT, LERR, OK )
+      dpftrf('N', '/', 0, A, INFO );
+      chkxer('DPFTRF', INFOT, NOUT, LERR, OK );
       INFOT = 3
-      CALL DPFTRF( 'N', 'U', -1, A, INFO )
-      CALL CHKXER( 'DPFTRF', INFOT, NOUT, LERR, OK )
+      dpftrf('N', 'U', -1, A, INFO );
+      chkxer('DPFTRF', INFOT, NOUT, LERR, OK );
 
       SRNAMT = 'DPFTRS'
       INFOT = 1
-      CALL DPFTRS( '/', 'U', 0, 0, A, B, 1, INFO )
-      CALL CHKXER( 'DPFTRS', INFOT, NOUT, LERR, OK )
+      dpftrs('/', 'U', 0, 0, A, B, 1, INFO );
+      chkxer('DPFTRS', INFOT, NOUT, LERR, OK );
       INFOT = 2
-      CALL DPFTRS( 'N', '/', 0, 0, A, B, 1, INFO )
-      CALL CHKXER( 'DPFTRS', INFOT, NOUT, LERR, OK )
+      dpftrs('N', '/', 0, 0, A, B, 1, INFO );
+      chkxer('DPFTRS', INFOT, NOUT, LERR, OK );
       INFOT = 3
-      CALL DPFTRS( 'N', 'U', -1, 0, A, B, 1, INFO )
-      CALL CHKXER( 'DPFTRS', INFOT, NOUT, LERR, OK )
+      dpftrs('N', 'U', -1, 0, A, B, 1, INFO );
+      chkxer('DPFTRS', INFOT, NOUT, LERR, OK );
       INFOT = 4
-      CALL DPFTRS( 'N', 'U', 0, -1, A, B, 1, INFO )
-      CALL CHKXER( 'DPFTRS', INFOT, NOUT, LERR, OK )
+      dpftrs('N', 'U', 0, -1, A, B, 1, INFO );
+      chkxer('DPFTRS', INFOT, NOUT, LERR, OK );
       INFOT = 7
-      CALL DPFTRS( 'N', 'U', 0, 0, A, B, 0, INFO )
-      CALL CHKXER( 'DPFTRS', INFOT, NOUT, LERR, OK )
+      dpftrs('N', 'U', 0, 0, A, B, 0, INFO );
+      chkxer('DPFTRS', INFOT, NOUT, LERR, OK );
 
       SRNAMT = 'DPFTRI'
       INFOT = 1
-      CALL DPFTRI( '/', 'U', 0, A, INFO )
-      CALL CHKXER( 'DPFTRI', INFOT, NOUT, LERR, OK )
+      dpftri('/', 'U', 0, A, INFO );
+      chkxer('DPFTRI', INFOT, NOUT, LERR, OK );
       INFOT = 2
-      CALL DPFTRI( 'N', '/', 0, A, INFO )
-      CALL CHKXER( 'DPFTRI', INFOT, NOUT, LERR, OK )
+      dpftri('N', '/', 0, A, INFO );
+      chkxer('DPFTRI', INFOT, NOUT, LERR, OK );
       INFOT = 3
-      CALL DPFTRI( 'N', 'U', -1, A, INFO )
-      CALL CHKXER( 'DPFTRI', INFOT, NOUT, LERR, OK )
+      dpftri('N', 'U', -1, A, INFO );
+      chkxer('DPFTRI', INFOT, NOUT, LERR, OK );
 
       SRNAMT = 'DTFSM '
       INFOT = 1
-      CALL DTFSM( '/', 'L', 'U', 'T', 'U', 0, 0, ALPHA, A, B, 1 )
-      CALL CHKXER( 'DTFSM ', INFOT, NOUT, LERR, OK )
+      dtfsm('/', 'L', 'U', 'T', 'U', 0, 0, ALPHA, A, B, 1 );
+      chkxer('DTFSM ', INFOT, NOUT, LERR, OK );
       INFOT = 2
-      CALL DTFSM( 'N', '/', 'U', 'T', 'U', 0, 0, ALPHA, A, B, 1 )
-      CALL CHKXER( 'DTFSM ', INFOT, NOUT, LERR, OK )
+      dtfsm('N', '/', 'U', 'T', 'U', 0, 0, ALPHA, A, B, 1 );
+      chkxer('DTFSM ', INFOT, NOUT, LERR, OK );
       INFOT = 3
-      CALL DTFSM( 'N', 'L', '/', 'T', 'U', 0, 0, ALPHA, A, B, 1 )
-      CALL CHKXER( 'DTFSM ', INFOT, NOUT, LERR, OK )
+      dtfsm('N', 'L', '/', 'T', 'U', 0, 0, ALPHA, A, B, 1 );
+      chkxer('DTFSM ', INFOT, NOUT, LERR, OK );
       INFOT = 4
-      CALL DTFSM( 'N', 'L', 'U', '/', 'U', 0, 0, ALPHA, A, B, 1 )
-      CALL CHKXER( 'DTFSM ', INFOT, NOUT, LERR, OK )
+      dtfsm('N', 'L', 'U', '/', 'U', 0, 0, ALPHA, A, B, 1 );
+      chkxer('DTFSM ', INFOT, NOUT, LERR, OK );
       INFOT = 5
-      CALL DTFSM( 'N', 'L', 'U', 'T', '/', 0, 0, ALPHA, A, B, 1 )
-      CALL CHKXER( 'DTFSM ', INFOT, NOUT, LERR, OK )
+      dtfsm('N', 'L', 'U', 'T', '/', 0, 0, ALPHA, A, B, 1 );
+      chkxer('DTFSM ', INFOT, NOUT, LERR, OK );
       INFOT = 6
-      CALL DTFSM( 'N', 'L', 'U', 'T', 'U', -1, 0, ALPHA, A, B, 1 )
-      CALL CHKXER( 'DTFSM ', INFOT, NOUT, LERR, OK )
+      dtfsm('N', 'L', 'U', 'T', 'U', -1, 0, ALPHA, A, B, 1 );
+      chkxer('DTFSM ', INFOT, NOUT, LERR, OK );
       INFOT = 7
-      CALL DTFSM( 'N', 'L', 'U', 'T', 'U', 0, -1, ALPHA, A, B, 1 )
-      CALL CHKXER( 'DTFSM ', INFOT, NOUT, LERR, OK )
+      dtfsm('N', 'L', 'U', 'T', 'U', 0, -1, ALPHA, A, B, 1 );
+      chkxer('DTFSM ', INFOT, NOUT, LERR, OK );
       INFOT = 11
-      CALL DTFSM( 'N', 'L', 'U', 'T', 'U', 0, 0, ALPHA, A, B, 0 )
-      CALL CHKXER( 'DTFSM ', INFOT, NOUT, LERR, OK )
+      dtfsm('N', 'L', 'U', 'T', 'U', 0, 0, ALPHA, A, B, 0 );
+      chkxer('DTFSM ', INFOT, NOUT, LERR, OK );
 
       SRNAMT = 'DTFTRI'
       INFOT = 1
-      CALL DTFTRI( '/', 'L', 'N', 0, A, INFO )
-      CALL CHKXER( 'DTFTRI', INFOT, NOUT, LERR, OK )
+      dtftri('/', 'L', 'N', 0, A, INFO );
+      chkxer('DTFTRI', INFOT, NOUT, LERR, OK );
       INFOT = 2
-      CALL DTFTRI( 'N', '/', 'N', 0, A, INFO )
-      CALL CHKXER( 'DTFTRI', INFOT, NOUT, LERR, OK )
+      dtftri('N', '/', 'N', 0, A, INFO );
+      chkxer('DTFTRI', INFOT, NOUT, LERR, OK );
       INFOT = 3
-      CALL DTFTRI( 'N', 'L', '/', 0, A, INFO )
-      CALL CHKXER( 'DTFTRI', INFOT, NOUT, LERR, OK )
+      dtftri('N', 'L', '/', 0, A, INFO );
+      chkxer('DTFTRI', INFOT, NOUT, LERR, OK );
       INFOT = 4
-      CALL DTFTRI( 'N', 'L', 'N', -1, A, INFO )
-      CALL CHKXER( 'DTFTRI', INFOT, NOUT, LERR, OK )
+      dtftri('N', 'L', 'N', -1, A, INFO );
+      chkxer('DTFTRI', INFOT, NOUT, LERR, OK );
 
       SRNAMT = 'DTFTTR'
       INFOT = 1
-      CALL DTFTTR( '/', 'U', 0, A, B, 1, INFO )
-      CALL CHKXER( 'DTFTTR', INFOT, NOUT, LERR, OK )
+      dtfttr('/', 'U', 0, A, B, 1, INFO );
+      chkxer('DTFTTR', INFOT, NOUT, LERR, OK );
       INFOT = 2
-      CALL DTFTTR( 'N', '/', 0, A, B, 1, INFO )
-      CALL CHKXER( 'DTFTTR', INFOT, NOUT, LERR, OK )
+      dtfttr('N', '/', 0, A, B, 1, INFO );
+      chkxer('DTFTTR', INFOT, NOUT, LERR, OK );
       INFOT = 3
-      CALL DTFTTR( 'N', 'U', -1, A, B, 1, INFO )
-      CALL CHKXER( 'DTFTTR', INFOT, NOUT, LERR, OK )
+      dtfttr('N', 'U', -1, A, B, 1, INFO );
+      chkxer('DTFTTR', INFOT, NOUT, LERR, OK );
       INFOT = 6
-      CALL DTFTTR( 'N', 'U', 0, A, B, 0, INFO )
-      CALL CHKXER( 'DTFTTR', INFOT, NOUT, LERR, OK )
+      dtfttr('N', 'U', 0, A, B, 0, INFO );
+      chkxer('DTFTTR', INFOT, NOUT, LERR, OK );
 
       SRNAMT = 'DTRTTF'
       INFOT = 1
-      CALL DTRTTF( '/', 'U', 0, A, 1, B, INFO )
-      CALL CHKXER( 'DTRTTF', INFOT, NOUT, LERR, OK )
+      dtrttf('/', 'U', 0, A, 1, B, INFO );
+      chkxer('DTRTTF', INFOT, NOUT, LERR, OK );
       INFOT = 2
-      CALL DTRTTF( 'N', '/', 0, A, 1, B, INFO )
-      CALL CHKXER( 'DTRTTF', INFOT, NOUT, LERR, OK )
+      dtrttf('N', '/', 0, A, 1, B, INFO );
+      chkxer('DTRTTF', INFOT, NOUT, LERR, OK );
       INFOT = 3
-      CALL DTRTTF( 'N', 'U', -1, A, 1, B, INFO )
-      CALL CHKXER( 'DTRTTF', INFOT, NOUT, LERR, OK )
+      dtrttf('N', 'U', -1, A, 1, B, INFO );
+      chkxer('DTRTTF', INFOT, NOUT, LERR, OK );
       INFOT = 5
-      CALL DTRTTF( 'N', 'U', 0, A, 0, B, INFO )
-      CALL CHKXER( 'DTRTTF', INFOT, NOUT, LERR, OK )
+      dtrttf('N', 'U', 0, A, 0, B, INFO );
+      chkxer('DTRTTF', INFOT, NOUT, LERR, OK );
 
       SRNAMT = 'DTFTTP'
       INFOT = 1
-      CALL DTFTTP( '/', 'U', 0, A, B, INFO )
-      CALL CHKXER( 'DTFTTP', INFOT, NOUT, LERR, OK )
+      dtfttp('/', 'U', 0, A, B, INFO );
+      chkxer('DTFTTP', INFOT, NOUT, LERR, OK );
       INFOT = 2
-      CALL DTFTTP( 'N', '/', 0, A, B, INFO )
-      CALL CHKXER( 'DTFTTP', INFOT, NOUT, LERR, OK )
+      dtfttp('N', '/', 0, A, B, INFO );
+      chkxer('DTFTTP', INFOT, NOUT, LERR, OK );
       INFOT = 3
-      CALL DTFTTP( 'N', 'U', -1, A, B, INFO )
-      CALL CHKXER( 'DTFTTP', INFOT, NOUT, LERR, OK )
+      dtfttp('N', 'U', -1, A, B, INFO );
+      chkxer('DTFTTP', INFOT, NOUT, LERR, OK );
 
       SRNAMT = 'DTPTTF'
       INFOT = 1
-      CALL DTPTTF( '/', 'U', 0, A, B, INFO )
-      CALL CHKXER( 'DTPTTF', INFOT, NOUT, LERR, OK )
+      dtpttf('/', 'U', 0, A, B, INFO );
+      chkxer('DTPTTF', INFOT, NOUT, LERR, OK );
       INFOT = 2
-      CALL DTPTTF( 'N', '/', 0, A, B, INFO )
-      CALL CHKXER( 'DTPTTF', INFOT, NOUT, LERR, OK )
+      dtpttf('N', '/', 0, A, B, INFO );
+      chkxer('DTPTTF', INFOT, NOUT, LERR, OK );
       INFOT = 3
-      CALL DTPTTF( 'N', 'U', -1, A, B, INFO )
-      CALL CHKXER( 'DTPTTF', INFOT, NOUT, LERR, OK )
+      dtpttf('N', 'U', -1, A, B, INFO );
+      chkxer('DTPTTF', INFOT, NOUT, LERR, OK );
 
       SRNAMT = 'DTRTTP'
       INFOT = 1
-      CALL DTRTTP( '/', 0, A, 1,  B, INFO )
-      CALL CHKXER( 'DTRTTP', INFOT, NOUT, LERR, OK )
+      dtrttp('/', 0, A, 1,  B, INFO );
+      chkxer('DTRTTP', INFOT, NOUT, LERR, OK );
       INFOT = 2
-      CALL DTRTTP( 'U', -1, A, 1,  B, INFO )
-      CALL CHKXER( 'DTRTTP', INFOT, NOUT, LERR, OK )
+      dtrttp('U', -1, A, 1,  B, INFO );
+      chkxer('DTRTTP', INFOT, NOUT, LERR, OK );
       INFOT = 4
-      CALL DTRTTP( 'U', 0, A, 0,  B, INFO )
-      CALL CHKXER( 'DTRTTP', INFOT, NOUT, LERR, OK )
+      dtrttp('U', 0, A, 0,  B, INFO );
+      chkxer('DTRTTP', INFOT, NOUT, LERR, OK );
 
       SRNAMT = 'DTPTTR'
       INFOT = 1
-      CALL DTPTTR( '/', 0, A, B, 1,  INFO )
-      CALL CHKXER( 'DTPTTR', INFOT, NOUT, LERR, OK )
+      dtpttr('/', 0, A, B, 1,  INFO );
+      chkxer('DTPTTR', INFOT, NOUT, LERR, OK );
       INFOT = 2
-      CALL DTPTTR( 'U', -1, A, B, 1,  INFO )
-      CALL CHKXER( 'DTPTTR', INFOT, NOUT, LERR, OK )
+      dtpttr('U', -1, A, B, 1,  INFO );
+      chkxer('DTPTTR', INFOT, NOUT, LERR, OK );
       INFOT = 5
-      CALL DTPTTR( 'U', 0, A, B, 0, INFO )
-      CALL CHKXER( 'DTPTTR', INFOT, NOUT, LERR, OK )
+      dtpttr('U', 0, A, B, 0, INFO );
+      chkxer('DTPTTR', INFOT, NOUT, LERR, OK );
 
       SRNAMT = 'DSFRK '
       INFOT = 1
-      CALL DSFRK( '/', 'U', 'N', 0, 0, ALPHA, A, 1, BETA, B )
-      CALL CHKXER( 'DSFRK ', INFOT, NOUT, LERR, OK )
+      dsfrk('/', 'U', 'N', 0, 0, ALPHA, A, 1, BETA, B );
+      chkxer('DSFRK ', INFOT, NOUT, LERR, OK );
       INFOT = 2
-      CALL DSFRK( 'N', '/', 'N', 0, 0, ALPHA, A, 1, BETA, B )
-      CALL CHKXER( 'DSFRK ', INFOT, NOUT, LERR, OK )
+      dsfrk('N', '/', 'N', 0, 0, ALPHA, A, 1, BETA, B );
+      chkxer('DSFRK ', INFOT, NOUT, LERR, OK );
       INFOT = 3
-      CALL DSFRK( 'N', 'U', '/', 0, 0, ALPHA, A, 1, BETA, B )
-      CALL CHKXER( 'DSFRK ', INFOT, NOUT, LERR, OK )
+      dsfrk('N', 'U', '/', 0, 0, ALPHA, A, 1, BETA, B );
+      chkxer('DSFRK ', INFOT, NOUT, LERR, OK );
       INFOT = 4
-      CALL DSFRK( 'N', 'U', 'N', -1, 0, ALPHA, A, 1, BETA, B )
-      CALL CHKXER( 'DSFRK ', INFOT, NOUT, LERR, OK )
+      dsfrk('N', 'U', 'N', -1, 0, ALPHA, A, 1, BETA, B );
+      chkxer('DSFRK ', INFOT, NOUT, LERR, OK );
       INFOT = 5
-      CALL DSFRK( 'N', 'U', 'N', 0, -1, ALPHA, A, 1, BETA, B )
-      CALL CHKXER( 'DSFRK ', INFOT, NOUT, LERR, OK )
+      dsfrk('N', 'U', 'N', 0, -1, ALPHA, A, 1, BETA, B );
+      chkxer('DSFRK ', INFOT, NOUT, LERR, OK );
       INFOT = 8
-      CALL DSFRK( 'N', 'U', 'N', 0, 0, ALPHA, A, 0, BETA, B )
-      CALL CHKXER( 'DSFRK ', INFOT, NOUT, LERR, OK )
+      dsfrk('N', 'U', 'N', 0, 0, ALPHA, A, 0, BETA, B );
+      chkxer('DSFRK ', INFOT, NOUT, LERR, OK );
 
       // Print a summary line.
 

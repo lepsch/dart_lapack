@@ -56,8 +56,8 @@
       DO 20 I = 1, N
          READ( NIN, FMT = * )( TMP( I, J ), J = 1, N )
    20 CONTINUE
-      CALL DLACPY( 'F', N, N, TMP, LDT, T1, LDT )
-      CALL DLACPY( 'F', N, N, TMP, LDT, T2, LDT )
+      dlacpy('F', N, N, TMP, LDT, T1, LDT );
+      dlacpy('F', N, N, TMP, LDT, T2, LDT );
       IFSTSV = IFST
       ILSTSV = ILST
       IFST1 = IFST
@@ -68,8 +68,8 @@
 
       // Test without accumulating Q
 
-      CALL DLASET( 'Full', N, N, ZERO, ONE, Q, LDT )
-      CALL DTREXC( 'N', N, T1, LDT, Q, LDT, IFST1, ILST1, WORK, INFO1 )
+      dlaset('Full', N, N, ZERO, ONE, Q, LDT );
+      dtrexc('N', N, T1, LDT, Q, LDT, IFST1, ILST1, WORK, INFO1 );
       DO 40 I = 1, N
          DO 30 J = 1, N
             IF( I.EQ.J .AND. Q( I, J ).NE.ONE ) RES = RES + ONE / EPS             IF( I.NE.J .AND. Q( I, J ).NE.ZERO ) RES = RES + ONE / EPS
@@ -78,8 +78,8 @@
 
       // Test with accumulating Q
 
-      CALL DLASET( 'Full', N, N, ZERO, ONE, Q, LDT )
-      CALL DTREXC( 'V', N, T2, LDT, Q, LDT, IFST2, ILST2, WORK, INFO2 )
+      dlaset('Full', N, N, ZERO, ONE, Q, LDT );
+      dtrexc('V', N, T2, LDT, Q, LDT, IFST2, ILST2, WORK, INFO2 );
 
       // Compare T1 with T2
 
@@ -100,7 +100,7 @@
 
       // Test for small residual, and orthogonality of Q
 
-      CALL DHST01( N, 1, N, TMP, LDT, T2, LDT, Q, LDT, WORK, LWORK, RESULT )
+      dhst01(N, 1, N, TMP, LDT, T2, LDT, Q, LDT, WORK, LWORK, RESULT );
       RES = RES + RESULT( 1 ) + RESULT( 2 )
 
       // Test for T2 being in Schur form

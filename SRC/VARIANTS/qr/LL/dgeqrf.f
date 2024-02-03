@@ -99,7 +99,7 @@
          IF( LWORK.LE.0 .OR. ( M.GT.0 .AND. LWORK.LT.MAX( 1, N ) ) ) INFO = -7
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'DGEQRF', -INFO )
+         xerbla('DGEQRF', -INFO );
          RETURN
       } else if ( LQUERY ) {
          RETURN
@@ -151,21 +151,21 @@
 
                // Apply H' to A(J:M,I:I+IB-1) from the left
 
-               CALL DLARFB( 'Left', 'Transpose', 'Forward', 'Columnwise', M-J+1, IB, NB, A( J, J ), LDA, WORK(J), LBWORK, A( J, I ), LDA, WORK(LBWORK*NB+NT*NT+1), IB)
+               dlarfb('Left', 'Transpose', 'Forward', 'Columnwise', M-J+1, IB, NB, A( J, J ), LDA, WORK(J), LBWORK, A( J, I ), LDA, WORK(LBWORK*NB+NT*NT+1), IB);
 
 20          CONTINUE
 
             // Compute the QR factorization of the current block
             // A(I:M,I:I+IB-1)
 
-            CALL DGEQR2( M-I+1, IB, A( I, I ), LDA, TAU( I ), WORK(LBWORK*NB+NT*NT+1), IINFO )
+            dgeqr2(M-I+1, IB, A( I, I ), LDA, TAU( I ), WORK(LBWORK*NB+NT*NT+1), IINFO );
 
             if ( I+IB.LE.N ) {
 
                // Form the triangular factor of the block reflector
                // H = H(i) H(i+1) . . . H(i+ib-1)
 
-               CALL DLARFT( 'Forward', 'Columnwise', M-I+1, IB, A( I, I ), LDA, TAU( I ), WORK(I), LBWORK )
+               dlarft('Forward', 'Columnwise', M-I+1, IB, A( I, I ), LDA, TAU( I ), WORK(I), LBWORK );
 
             }
    10    CONTINUE
@@ -183,15 +183,15 @@
 
                  // Apply H' to A(J:M,I:K) from the left
 
-                 CALL DLARFB( 'Left', 'Transpose', 'Forward', 'Columnwise', M-J+1, K-I+1, NB, A( J, J ), LDA, WORK(J), LBWORK, A( J, I ), LDA, WORK(LBWORK*NB+NT*NT+1), K-I+1)
+                 dlarfb('Left', 'Transpose', 'Forward', 'Columnwise', M-J+1, K-I+1, NB, A( J, J ), LDA, WORK(J), LBWORK, A( J, I ), LDA, WORK(LBWORK*NB+NT*NT+1), K-I+1);
 30           CONTINUE
-              CALL DGEQR2( M-I+1, K-I+1, A( I, I ), LDA, TAU( I ), WORK(LBWORK*NB+NT*NT+1),IINFO )
+              dgeqr2(M-I+1, K-I+1, A( I, I ), LDA, TAU( I ), WORK(LBWORK*NB+NT*NT+1),IINFO );
 
          } else {
 
          // Use unblocked code to factor the last or only block.
 
-         CALL DGEQR2( M-I+1, N-I+1, A( I, I ), LDA, TAU( I ), WORK,IINFO )
+         dgeqr2(M-I+1, N-I+1, A( I, I ), LDA, TAU( I ), WORK,IINFO );
 
          }
       }
@@ -206,9 +206,9 @@
           // H = H(i) H(i+1) . . . H(i+ib-1)
 
           if ( NT .LE. NB ) {
-               CALL DLARFT( 'Forward', 'Columnwise', M-I+1, K-I+1, A( I, I ), LDA, TAU( I ), WORK(I), LBWORK )
+               dlarft('Forward', 'Columnwise', M-I+1, K-I+1, A( I, I ), LDA, TAU( I ), WORK(I), LBWORK );
           } else {
-               CALL DLARFT( 'Forward', 'Columnwise', M-I+1, K-I+1, A( I, I ), LDA, TAU( I ), WORK(LBWORK*NB+1), NT )
+               dlarft('Forward', 'Columnwise', M-I+1, K-I+1, A( I, I ), LDA, TAU( I ), WORK(LBWORK*NB+1), NT );
           }
 
 
@@ -217,14 +217,14 @@
           DO 40 J = 1, K-NX, NB
 
                IB = MIN( K-J+1, NB )
-                CALL DLARFB( 'Left', 'Transpose', 'Forward', 'Columnwise', M-J+1, N-M, IB, A( J, J ), LDA, WORK(J), LBWORK, A( J, M+1 ), LDA, WORK(LBWORK*NB+NT*NT+1), N-M)
+                dlarfb('Left', 'Transpose', 'Forward', 'Columnwise', M-J+1, N-M, IB, A( J, J ), LDA, WORK(J), LBWORK, A( J, M+1 ), LDA, WORK(LBWORK*NB+NT*NT+1), N-M);
 
 40       CONTINUE
 
          if ( NT.LE.NB ) {
-             CALL DLARFB( 'Left', 'Transpose', 'Forward', 'Columnwise', M-J+1, N-M, K-J+1, A( J, J ), LDA, WORK(J), LBWORK, A( J, M+1 ), LDA, WORK(LBWORK*NB+NT*NT+1), N-M)
+             dlarfb('Left', 'Transpose', 'Forward', 'Columnwise', M-J+1, N-M, K-J+1, A( J, J ), LDA, WORK(J), LBWORK, A( J, M+1 ), LDA, WORK(LBWORK*NB+NT*NT+1), N-M);
          } else {
-             CALL DLARFB( 'Left', 'Transpose', 'Forward', 'Columnwise', M-J+1, N-M, K-J+1, A( J, J ), LDA, WORK(LBWORK*NB+1), NT, A( J, M+1 ), LDA, WORK(LBWORK*NB+NT*NT+1), N-M)
+             dlarfb('Left', 'Transpose', 'Forward', 'Columnwise', M-J+1, N-M, K-J+1, A( J, J ), LDA, WORK(LBWORK*NB+1), NT, A( J, M+1 ), LDA, WORK(LBWORK*NB+NT*NT+1), N-M);
          }
 
       }

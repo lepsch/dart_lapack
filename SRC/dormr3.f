@@ -61,7 +61,7 @@
          INFO = -11
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'DORMR3', -INFO )
+         xerbla('DORMR3', -INFO );
          RETURN
       }
 
@@ -106,7 +106,7 @@
 
          // Apply H(i) or H(i)**T
 
-         CALL DLARZ( SIDE, MI, NI, L, A( I, JA ), LDA, TAU( I ), C( IC, JC ), LDC, WORK )
+         dlarz(SIDE, MI, NI, L, A( I, JA ), LDA, TAU( I ), C( IC, JC ), LDC, WORK );
 
    10 CONTINUE
 

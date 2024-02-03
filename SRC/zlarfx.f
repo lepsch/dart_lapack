@@ -44,7 +44,7 @@
 
          // Code for general M
 
-         CALL ZLARF( SIDE, M, N, V, 1, TAU, C, LDC, WORK )
+         zlarf(SIDE, M, N, V, 1, TAU, C, LDC, WORK );
          GO TO 410
    10    CONTINUE
 
@@ -297,7 +297,7 @@
 
          // Code for general N
 
-         CALL ZLARF( SIDE, M, N, V, 1, TAU, C, LDC, WORK )
+         zlarf(SIDE, M, N, V, 1, TAU, C, LDC, WORK );
          GO TO 410
   210    CONTINUE
 

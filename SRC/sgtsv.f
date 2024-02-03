@@ -38,7 +38,7 @@
          INFO = -7
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'SGTSV ', -INFO )
+         xerbla('SGTSV ', -INFO );
          RETURN
       }
 

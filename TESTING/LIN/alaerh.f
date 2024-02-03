@@ -38,9 +38,9 @@
 
       if ( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) {
          if ( LSAMEN( 3, C3, 'SV ' ) .OR. LSAMEN( 3, C3, 'SVX' ) ) {
-            CALL ALADHD( NOUT, PATH )
+            aladhd(NOUT, PATH );
          } else {
-            CALL ALAHD( NOUT, PATH )
+            alahd(NOUT, PATH );
          }
       }
       NERRS = NERRS + 1

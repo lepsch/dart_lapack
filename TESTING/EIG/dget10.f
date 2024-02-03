@@ -46,8 +46,8 @@
 
       WNORM = ZERO
       DO 10 J = 1, N
-         CALL DCOPY( M, A( 1, J ), 1, WORK, 1 )
-         CALL DAXPY( M, -ONE, B( 1, J ), 1, WORK, 1 )
+         dcopy(M, A( 1, J ), 1, WORK, 1 );
+         daxpy(M, -ONE, B( 1, J ), 1, WORK, 1 );
          WNORM = MAX( WNORM, DASUM( N, WORK, 1 ) )
    10 CONTINUE
 

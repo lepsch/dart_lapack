@@ -59,7 +59,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'SSYTRF_AA_2STAGE', -INFO )
+         xerbla('SSYTRF_AA_2STAGE', -INFO );
          RETURN
       }
 
@@ -129,7 +129,7 @@
                   } else {
                      JB = 2*NB
                   }
-                  CALL SGEMM( 'NoTranspose', 'NoTranspose', NB, KB, JB, ONE, TB( TD+1 + (I*NB)*LDTB ), LDTB-1, A( (I-1)*NB+1, J*NB+1 ), LDA, ZERO, WORK( I*NB+1 ), N )
+                  sgemm('NoTranspose', 'NoTranspose', NB, KB, JB, ONE, TB( TD+1 + (I*NB)*LDTB ), LDTB-1, A( (I-1)*NB+1, J*NB+1 ), LDA, ZERO, WORK( I*NB+1 ), N );
                } else {
                   // H(I,J) = T(I,I-1)*U(I-1,J) + T(I,I)*U(I,J) + T(I,I+1)*U(I+1,J)
                   if ( I .EQ. J-1) {
@@ -137,21 +137,21 @@
                   } else {
                      JB = 3*NB
                   }
-                  CALL SGEMM( 'NoTranspose', 'NoTranspose', NB, KB, JB, ONE,  TB( TD+NB+1 + ((I-1)*NB)*LDTB ), LDTB-1, A( (I-2)*NB+1, J*NB+1 ), LDA, ZERO, WORK( I*NB+1 ), N )
+                  sgemm('NoTranspose', 'NoTranspose', NB, KB, JB, ONE,  TB( TD+NB+1 + ((I-1)*NB)*LDTB ), LDTB-1, A( (I-2)*NB+1, J*NB+1 ), LDA, ZERO, WORK( I*NB+1 ), N );
                }
             END DO
 
             // Compute T(J,J)
 
-            CALL SLACPY( 'Upper', KB, KB, A( J*NB+1, J*NB+1 ), LDA, TB( TD+1 + (J*NB)*LDTB ), LDTB-1 )
+            slacpy('Upper', KB, KB, A( J*NB+1, J*NB+1 ), LDA, TB( TD+1 + (J*NB)*LDTB ), LDTB-1 );
             if ( J.GT.1 ) {
                // T(J,J) = U(1:J,J)'*H(1:J)
-               CALL SGEMM( 'Transpose', 'NoTranspose', KB, KB, (J-1)*NB, -ONE, A( 1, J*NB+1 ), LDA, WORK( NB+1 ), N, ONE, TB( TD+1 + (J*NB)*LDTB ), LDTB-1 )
+               sgemm('Transpose', 'NoTranspose', KB, KB, (J-1)*NB, -ONE, A( 1, J*NB+1 ), LDA, WORK( NB+1 ), N, ONE, TB( TD+1 + (J*NB)*LDTB ), LDTB-1 );
                // T(J,J) += U(J,J)'*T(J,J-1)*U(J-1,J)
-               CALL SGEMM( 'Transpose', 'NoTranspose', KB, NB, KB, ONE,  A( (J-1)*NB+1, J*NB+1 ), LDA, TB( TD+NB+1 + ((J-1)*NB)*LDTB ), LDTB-1, ZERO, WORK( 1 ), N )                CALL SGEMM( 'NoTranspose', 'NoTranspose', KB, KB, NB, -ONE, WORK( 1 ), N, A( (J-2)*NB+1, J*NB+1 ), LDA, ONE, TB( TD+1 + (J*NB)*LDTB ), LDTB-1 )
+               sgemm('Transpose', 'NoTranspose', KB, NB, KB, ONE,  A( (J-1)*NB+1, J*NB+1 ), LDA, TB( TD+NB+1 + ((J-1)*NB)*LDTB ), LDTB-1, ZERO, WORK( 1 ), N )                CALL SGEMM( 'NoTranspose', 'NoTranspose', KB, KB, NB, -ONE, WORK( 1 ), N, A( (J-2)*NB+1, J*NB+1 ), LDA, ONE, TB( TD+1 + (J*NB)*LDTB ), LDTB-1 );
             }
             if ( J.GT.0 ) {
-               CALL SSYGST( 1, 'Upper', KB,  TB( TD+1 + (J*NB)*LDTB ), LDTB-1, A( (J-1)*NB+1, J*NB+1 ), LDA, IINFO )
+               ssygst(1, 'Upper', KB,  TB( TD+1 + (J*NB)*LDTB ), LDTB-1, A( (J-1)*NB+1, J*NB+1 ), LDA, IINFO );
             }
 
             // Expand T(J,J) into full format
@@ -168,25 +168,25 @@
                   // Compute H(J,J)
 
                   if ( J.EQ.1 ) {
-                     CALL SGEMM( 'NoTranspose', 'NoTranspose', KB, KB, KB, ONE,  TB( TD+1 + (J*NB)*LDTB ), LDTB-1, A( (J-1)*NB+1, J*NB+1 ), LDA, ZERO, WORK( J*NB+1 ), N )
+                     sgemm('NoTranspose', 'NoTranspose', KB, KB, KB, ONE,  TB( TD+1 + (J*NB)*LDTB ), LDTB-1, A( (J-1)*NB+1, J*NB+1 ), LDA, ZERO, WORK( J*NB+1 ), N );
                   } else {
-                     CALL SGEMM( 'NoTranspose', 'NoTranspose', KB, KB, NB+KB, ONE, TB( TD+NB+1 + ((J-1)*NB)*LDTB ), LDTB-1, A( (J-2)*NB+1, J*NB+1 ), LDA, ZERO, WORK( J*NB+1 ), N )
+                     sgemm('NoTranspose', 'NoTranspose', KB, KB, NB+KB, ONE, TB( TD+NB+1 + ((J-1)*NB)*LDTB ), LDTB-1, A( (J-2)*NB+1, J*NB+1 ), LDA, ZERO, WORK( J*NB+1 ), N );
                   }
 
                   // Update with the previous column
 
-                  CALL SGEMM( 'Transpose', 'NoTranspose', NB, N-(J+1)*NB, J*NB, -ONE, WORK( NB+1 ), N, A( 1, (J+1)*NB+1 ), LDA, ONE, A( J*NB+1, (J+1)*NB+1 ), LDA )
+                  sgemm('Transpose', 'NoTranspose', NB, N-(J+1)*NB, J*NB, -ONE, WORK( NB+1 ), N, A( 1, (J+1)*NB+1 ), LDA, ONE, A( J*NB+1, (J+1)*NB+1 ), LDA );
                }
 
                // Copy panel to workspace to call SGETRF
 
                DO K = 1, NB
-                   CALL SCOPY( N-(J+1)*NB, A( J*NB+K, (J+1)*NB+1 ), LDA, WORK( 1+(K-1)*N ), 1 )
+                   scopy(N-(J+1)*NB, A( J*NB+K, (J+1)*NB+1 ), LDA, WORK( 1+(K-1)*N ), 1 );
                END DO
 
                // Factorize panel
 
-               CALL SGETRF( N-(J+1)*NB, NB,  WORK, N, IPIV( (J+1)*NB+1 ), IINFO )
+               sgetrf(N-(J+1)*NB, NB,  WORK, N, IPIV( (J+1)*NB+1 ), IINFO );
                 // IF (IINFO.NE.0 .AND. INFO.EQ.0) THEN
                    // INFO = IINFO+(J+1)*NB
                 // END IF
@@ -194,15 +194,15 @@
                // Copy panel back
 
                DO K = 1, NB
-                   CALL SCOPY( N-(J+1)*NB, WORK( 1+(K-1)*N ), 1, A( J*NB+K, (J+1)*NB+1 ), LDA )
+                   scopy(N-(J+1)*NB, WORK( 1+(K-1)*N ), 1, A( J*NB+K, (J+1)*NB+1 ), LDA );
                END DO
 
                // Compute T(J+1, J), zero out for GEMM update
 
                KB = MIN(NB, N-(J+1)*NB)
-               CALL SLASET( 'Full', KB, NB, ZERO, ZERO,  TB( TD+NB+1 + (J*NB)*LDTB), LDTB-1 )                CALL SLACPY( 'Upper', KB, NB, WORK, N, TB( TD+NB+1 + (J*NB)*LDTB ), LDTB-1 )
+               slaset('Full', KB, NB, ZERO, ZERO,  TB( TD+NB+1 + (J*NB)*LDTB), LDTB-1 )                CALL SLACPY( 'Upper', KB, NB, WORK, N, TB( TD+NB+1 + (J*NB)*LDTB ), LDTB-1 );
                if ( J.GT.0 ) {
-                  CALL STRSM( 'R', 'U', 'N', 'U', KB, NB, ONE, A( (J-1)*NB+1, J*NB+1 ), LDA, TB( TD+NB+1 + (J*NB)*LDTB ), LDTB-1 )
+                  strsm('R', 'U', 'N', 'U', KB, NB, ONE, A( (J-1)*NB+1, J*NB+1 ), LDA, TB( TD+NB+1 + (J*NB)*LDTB ), LDTB-1 );
                }
 
                // Copy T(J,J+1) into T(J+1, J), both upper/lower for GEMM
@@ -213,7 +213,7 @@
                      TB( TD-NB+K-I+1 + (J*NB+NB+I-1)*LDTB ) = TB( TD+NB+I-K+1 + (J*NB+K-1)*LDTB )
                   END DO
                END DO
-               CALL SLASET( 'Lower', KB, NB, ZERO, ONE,  A( J*NB+1, (J+1)*NB+1), LDA )
+               slaset('Lower', KB, NB, ZERO, ONE,  A( J*NB+1, (J+1)*NB+1), LDA );
 
                // Apply pivots to trailing submatrix of A
 
@@ -225,7 +225,7 @@
                   I2 = IPIV( (J+1)*NB+K )
                   if ( I1.NE.I2 ) {
                      // > Apply pivots to previous columns of L
-                     CALL SSWAP( K-1, A( (J+1)*NB+1, I1 ), 1,  A( (J+1)*NB+1, I2 ), 1 )
+                     sswap(K-1, A( (J+1)*NB+1, I1 ), 1,  A( (J+1)*NB+1, I2 ), 1 );
                      // > Swap A(I1+1:M, I1) with A(I2, I1+1:M)
                      IF( I2.GT.(I1+1) ) CALL SSWAP( I2-I1-1, A( I1, I1+1 ), LDA, A( I1+1, I2 ), 1 )
                      // > Swap A(I2+1:M, I1) with A(I2+1:M, I2)
@@ -236,7 +236,7 @@
                      A( I2, I2 ) = PIV
                      // > Apply pivots to previous columns of L
                      if ( J.GT.0 ) {
-                        CALL SSWAP( J*NB, A( 1, I1 ), 1, A( 1, I2 ), 1 )
+                        sswap(J*NB, A( 1, I1 ), 1, A( 1, I2 ), 1 );
                      }
                   ENDIF
                END DO
@@ -261,7 +261,7 @@
                   } else {
                      JB = 2*NB
                   }
-                  CALL SGEMM( 'NoTranspose', 'Transpose', NB, KB, JB, ONE, TB( TD+1 + (I*NB)*LDTB ), LDTB-1, A( J*NB+1, (I-1)*NB+1 ), LDA, ZERO, WORK( I*NB+1 ), N )
+                  sgemm('NoTranspose', 'Transpose', NB, KB, JB, ONE, TB( TD+1 + (I*NB)*LDTB ), LDTB-1, A( J*NB+1, (I-1)*NB+1 ), LDA, ZERO, WORK( I*NB+1 ), N );
                } else {
                   // H(I,J) = T(I,I-1)*L(J,I-1)' + T(I,I)*L(J,I)' + T(I,I+1)*L(J,I+1)'
                   if ( I .EQ. J-1) {
@@ -269,21 +269,21 @@
                   } else {
                      JB = 3*NB
                   }
-                  CALL SGEMM( 'NoTranspose', 'Transpose', NB, KB, JB, ONE,  TB( TD+NB+1 + ((I-1)*NB)*LDTB ), LDTB-1, A( J*NB+1, (I-2)*NB+1 ), LDA, ZERO, WORK( I*NB+1 ), N )
+                  sgemm('NoTranspose', 'Transpose', NB, KB, JB, ONE,  TB( TD+NB+1 + ((I-1)*NB)*LDTB ), LDTB-1, A( J*NB+1, (I-2)*NB+1 ), LDA, ZERO, WORK( I*NB+1 ), N );
                }
             END DO
 
             // Compute T(J,J)
 
-            CALL SLACPY( 'Lower', KB, KB, A( J*NB+1, J*NB+1 ), LDA, TB( TD+1 + (J*NB)*LDTB ), LDTB-1 )
+            slacpy('Lower', KB, KB, A( J*NB+1, J*NB+1 ), LDA, TB( TD+1 + (J*NB)*LDTB ), LDTB-1 );
             if ( J.GT.1 ) {
                // T(J,J) = L(J,1:J)*H(1:J)
-               CALL SGEMM( 'NoTranspose', 'NoTranspose', KB, KB, (J-1)*NB, -ONE, A( J*NB+1, 1 ), LDA, WORK( NB+1 ), N, ONE, TB( TD+1 + (J*NB)*LDTB ), LDTB-1 )
+               sgemm('NoTranspose', 'NoTranspose', KB, KB, (J-1)*NB, -ONE, A( J*NB+1, 1 ), LDA, WORK( NB+1 ), N, ONE, TB( TD+1 + (J*NB)*LDTB ), LDTB-1 );
                // T(J,J) += L(J,J)*T(J,J-1)*L(J,J-1)'
-               CALL SGEMM( 'NoTranspose', 'NoTranspose', KB, NB, KB, ONE,  A( J*NB+1, (J-1)*NB+1 ), LDA, TB( TD+NB+1 + ((J-1)*NB)*LDTB ), LDTB-1, ZERO, WORK( 1 ), N )                CALL SGEMM( 'NoTranspose', 'Transpose', KB, KB, NB, -ONE, WORK( 1 ), N, A( J*NB+1, (J-2)*NB+1 ), LDA, ONE, TB( TD+1 + (J*NB)*LDTB ), LDTB-1 )
+               sgemm('NoTranspose', 'NoTranspose', KB, NB, KB, ONE,  A( J*NB+1, (J-1)*NB+1 ), LDA, TB( TD+NB+1 + ((J-1)*NB)*LDTB ), LDTB-1, ZERO, WORK( 1 ), N )                CALL SGEMM( 'NoTranspose', 'Transpose', KB, KB, NB, -ONE, WORK( 1 ), N, A( J*NB+1, (J-2)*NB+1 ), LDA, ONE, TB( TD+1 + (J*NB)*LDTB ), LDTB-1 );
             }
             if ( J.GT.0 ) {
-               CALL SSYGST( 1, 'Lower', KB,  TB( TD+1 + (J*NB)*LDTB ), LDTB-1, A( J*NB+1, (J-1)*NB+1 ), LDA, IINFO )
+               ssygst(1, 'Lower', KB,  TB( TD+1 + (J*NB)*LDTB ), LDTB-1, A( J*NB+1, (J-1)*NB+1 ), LDA, IINFO );
             }
 
             // Expand T(J,J) into full format
@@ -300,19 +300,19 @@
                   // Compute H(J,J)
 
                   if ( J.EQ.1 ) {
-                     CALL SGEMM( 'NoTranspose', 'Transpose', KB, KB, KB, ONE,  TB( TD+1 + (J*NB)*LDTB ), LDTB-1, A( J*NB+1, (J-1)*NB+1 ), LDA, ZERO, WORK( J*NB+1 ), N )
+                     sgemm('NoTranspose', 'Transpose', KB, KB, KB, ONE,  TB( TD+1 + (J*NB)*LDTB ), LDTB-1, A( J*NB+1, (J-1)*NB+1 ), LDA, ZERO, WORK( J*NB+1 ), N );
                   } else {
-                     CALL SGEMM( 'NoTranspose', 'Transpose', KB, KB, NB+KB, ONE, TB( TD+NB+1 + ((J-1)*NB)*LDTB ), LDTB-1, A( J*NB+1, (J-2)*NB+1 ), LDA, ZERO, WORK( J*NB+1 ), N )
+                     sgemm('NoTranspose', 'Transpose', KB, KB, NB+KB, ONE, TB( TD+NB+1 + ((J-1)*NB)*LDTB ), LDTB-1, A( J*NB+1, (J-2)*NB+1 ), LDA, ZERO, WORK( J*NB+1 ), N );
                   }
 
                   // Update with the previous column
 
-                  CALL SGEMM( 'NoTranspose', 'NoTranspose', N-(J+1)*NB, NB, J*NB, -ONE, A( (J+1)*NB+1, 1 ), LDA, WORK( NB+1 ), N, ONE, A( (J+1)*NB+1, J*NB+1 ), LDA )
+                  sgemm('NoTranspose', 'NoTranspose', N-(J+1)*NB, NB, J*NB, -ONE, A( (J+1)*NB+1, 1 ), LDA, WORK( NB+1 ), N, ONE, A( (J+1)*NB+1, J*NB+1 ), LDA );
                }
 
                // Factorize panel
 
-               CALL SGETRF( N-(J+1)*NB, NB,  A( (J+1)*NB+1, J*NB+1 ), LDA, IPIV( (J+1)*NB+1 ), IINFO )
+               sgetrf(N-(J+1)*NB, NB,  A( (J+1)*NB+1, J*NB+1 ), LDA, IPIV( (J+1)*NB+1 ), IINFO );
                 // IF (IINFO.NE.0 .AND. INFO.EQ.0) THEN
                    // INFO = IINFO+(J+1)*NB
                 // END IF
@@ -320,9 +320,9 @@
                // Compute T(J+1, J), zero out for GEMM update
 
                KB = MIN(NB, N-(J+1)*NB)
-               CALL SLASET( 'Full', KB, NB, ZERO, ZERO,  TB( TD+NB+1 + (J*NB)*LDTB), LDTB-1 )                CALL SLACPY( 'Upper', KB, NB, A( (J+1)*NB+1, J*NB+1 ), LDA, TB( TD+NB+1 + (J*NB)*LDTB ), LDTB-1 )
+               slaset('Full', KB, NB, ZERO, ZERO,  TB( TD+NB+1 + (J*NB)*LDTB), LDTB-1 )                CALL SLACPY( 'Upper', KB, NB, A( (J+1)*NB+1, J*NB+1 ), LDA, TB( TD+NB+1 + (J*NB)*LDTB ), LDTB-1 );
                if ( J.GT.0 ) {
-                  CALL STRSM( 'R', 'L', 'T', 'U', KB, NB, ONE, A( J*NB+1, (J-1)*NB+1 ), LDA, TB( TD+NB+1 + (J*NB)*LDTB ), LDTB-1 )
+                  strsm('R', 'L', 'T', 'U', KB, NB, ONE, A( J*NB+1, (J-1)*NB+1 ), LDA, TB( TD+NB+1 + (J*NB)*LDTB ), LDTB-1 );
                }
 
                // Copy T(J+1,J) into T(J, J+1), both upper/lower for GEMM
@@ -333,7 +333,7 @@
                      TB( TD-NB+K-I+1 + (J*NB+NB+I-1)*LDTB ) = TB( TD+NB+I-K+1 + (J*NB+K-1)*LDTB )
                   END DO
                END DO
-               CALL SLASET( 'Upper', KB, NB, ZERO, ONE,  A( (J+1)*NB+1, J*NB+1), LDA )
+               slaset('Upper', KB, NB, ZERO, ONE,  A( (J+1)*NB+1, J*NB+1), LDA );
 
                // Apply pivots to trailing submatrix of A
 
@@ -345,7 +345,7 @@
                   I2 = IPIV( (J+1)*NB+K )
                   if ( I1.NE.I2 ) {
                      // > Apply pivots to previous columns of L
-                     CALL SSWAP( K-1, A( I1, (J+1)*NB+1 ), LDA,  A( I2, (J+1)*NB+1 ), LDA )
+                     sswap(K-1, A( I1, (J+1)*NB+1 ), LDA,  A( I2, (J+1)*NB+1 ), LDA );
                      // > Swap A(I1+1:M, I1) with A(I2, I1+1:M)
                      IF( I2.GT.(I1+1) ) CALL SSWAP( I2-I1-1, A( I1+1, I1 ), 1, A( I2, I1+1 ), LDA )
                      // > Swap A(I2+1:M, I1) with A(I2+1:M, I2)
@@ -356,7 +356,7 @@
                      A( I2, I2 ) = PIV
                      // > Apply pivots to previous columns of L
                      if ( J.GT.0 ) {
-                        CALL SSWAP( J*NB, A( I1, 1 ), LDA, A( I2, 1 ), LDA )
+                        sswap(J*NB, A( I1, 1 ), LDA, A( I2, 1 ), LDA );
                      }
                   ENDIF
                END DO
@@ -370,7 +370,7 @@
       }
 
       // Factor the band matrix
-      CALL SGBTRF( N, N, NB, NB, TB, LDTB, IPIV2, INFO )
+      sgbtrf(N, N, NB, NB, TB, LDTB, IPIV2, INFO );
 
       RETURN
 

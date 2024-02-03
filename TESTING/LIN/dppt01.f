@@ -66,7 +66,7 @@
             // Compute the rest of column K.
 
             if ( K.GT.1 ) {
-               CALL DTPMV( 'Upper', 'Transpose', 'Non-unit', K-1, AFAC, AFAC( KC ), 1 )
+               dtpmv('Upper', 'Transpose', 'Non-unit', K-1, AFAC, AFAC( KC ), 1 );
                KC = KC - ( K-1 )
             }
    10    CONTINUE
@@ -85,7 +85,7 @@
             // Scale column K by the diagonal element.
 
             T = AFAC( KC )
-            CALL DSCAL( N-K+1, T, AFAC( KC ), 1 )
+            dscal(N-K+1, T, AFAC( KC ), 1 );
 
             KC = KC - ( N-K+2 )
    20    CONTINUE

@@ -54,8 +54,8 @@
 
          PVT = ( K-1 ) + IDAMAX( N-K+1, VN1( K ), 1 )
          if ( PVT.NE.K ) {
-            CALL ZSWAP( M, A( 1, PVT ), 1, A( 1, K ), 1 )
-            CALL ZSWAP( K-1, F( PVT, 1 ), LDF, F( K, 1 ), LDF )
+            zswap(M, A( 1, PVT ), 1, A( 1, K ), 1 );
+            zswap(K-1, F( PVT, 1 ), LDF, F( K, 1 ), LDF );
             ITEMP = JPVT( PVT )
             JPVT( PVT ) = JPVT( K )
             JPVT( K ) = ITEMP
@@ -70,7 +70,7 @@
             DO 20 J = 1, K - 1
                F( K, J ) = DCONJG( F( K, J ) )
    20       CONTINUE
-            CALL ZGEMV( 'No transpose', M-RK+1, K-1, -CONE, A( RK, 1 ), LDA, F( K, 1 ), LDF, CONE, A( RK, K ), 1 )
+            zgemv('No transpose', M-RK+1, K-1, -CONE, A( RK, 1 ), LDA, F( K, 1 ), LDF, CONE, A( RK, K ), 1 );
             DO 30 J = 1, K - 1
                F( K, J ) = DCONJG( F( K, J ) )
    30       CONTINUE
@@ -79,9 +79,9 @@
          // Generate elementary reflector H(k).
 
          if ( RK.LT.M ) {
-            CALL ZLARFG( M-RK+1, A( RK, K ), A( RK+1, K ), 1, TAU( K ) )
+            zlarfg(M-RK+1, A( RK, K ), A( RK+1, K ), 1, TAU( K ) );
          } else {
-            CALL ZLARFG( 1, A( RK, K ), A( RK, K ), 1, TAU( K ) )
+            zlarfg(1, A( RK, K ), A( RK, K ), 1, TAU( K ) );
          }
 
          AKK = A( RK, K )
@@ -92,7 +92,7 @@
          // Compute  F(K+1:N,K) := tau(K)*A(RK:M,K+1:N)**H*A(RK:M,K).
 
          if ( K.LT.N ) {
-            CALL ZGEMV( 'Conjugate transpose', M-RK+1, N-K, TAU( K ), A( RK, K+1 ), LDA, A( RK, K ), 1, CZERO, F( K+1, K ), 1 )
+            zgemv('Conjugate transpose', M-RK+1, N-K, TAU( K ), A( RK, K+1 ), LDA, A( RK, K ), 1, CZERO, F( K+1, K ), 1 );
          }
 
          // Padding F(1:K,K) with zeros.
@@ -106,16 +106,16 @@
                      // *A(RK:M,K).
 
          if ( K.GT.1 ) {
-            CALL ZGEMV( 'Conjugate transpose', M-RK+1, K-1, -TAU( K ), A( RK, 1 ), LDA, A( RK, K ), 1, CZERO, AUXV( 1 ), 1 )
+            zgemv('Conjugate transpose', M-RK+1, K-1, -TAU( K ), A( RK, 1 ), LDA, A( RK, K ), 1, CZERO, AUXV( 1 ), 1 );
 
-            CALL ZGEMV( 'No transpose', N, K-1, CONE, F( 1, 1 ), LDF, AUXV( 1 ), 1, CONE, F( 1, K ), 1 )
+            zgemv('No transpose', N, K-1, CONE, F( 1, 1 ), LDF, AUXV( 1 ), 1, CONE, F( 1, K ), 1 );
          }
 
          // Update the current row of A:
          // A(RK,K+1:N) := A(RK,K+1:N) - A(RK,1:K)*F(K+1:N,1:K)**H.
 
          if ( K.LT.N ) {
-            CALL ZGEMM( 'No transpose', 'Conjugate transpose', 1, N-K, K, -CONE, A( RK, 1 ), LDA, F( K+1, 1 ), LDF, CONE, A( RK, K+1 ), LDA )
+            zgemm('No transpose', 'Conjugate transpose', 1, N-K, K, -CONE, A( RK, 1 ), LDA, F( K+1, 1 ), LDF, CONE, A( RK, K+1 ), LDA );
          }
 
          // Update partial column norms.
@@ -154,7 +154,7 @@
                           // A(OFFSET+KB+1:M,1:KB)*F(KB+1:N,1:KB)**H.
 
       if ( KB.LT.MIN( N, M-OFFSET ) ) {
-         CALL ZGEMM( 'No transpose', 'Conjugate transpose', M-RK, N-KB, KB, -CONE, A( RK+1, 1 ), LDA, F( KB+1, 1 ), LDF, CONE, A( RK+1, KB+1 ), LDA )
+         zgemm('No transpose', 'Conjugate transpose', M-RK, N-KB, KB, -CONE, A( RK+1, 1 ), LDA, F( KB+1, 1 ), LDF, CONE, A( RK+1, KB+1 ), LDA );
       }
 
       // Recomputation of difficult columns.

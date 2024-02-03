@@ -66,7 +66,7 @@
          INFO = -6
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'CLAROR', -INFO )
+         xerbla('CLAROR', -INFO );
          RETURN
       }
 
@@ -114,7 +114,7 @@
          FACTOR = XNORM*( XNORM+XABS )
          if ( ABS( FACTOR ).LT.TOOSML ) {
             INFO = 1
-            CALL XERBLA( 'CLAROR', -INFO )
+            xerbla('CLAROR', -INFO );
             RETURN
          } else {
             FACTOR = ONE / FACTOR
@@ -127,7 +127,7 @@
 
             // Apply H(k) on the left of A
 
-            CALL CGEMV( 'C', IXFRM, N, CONE, A( KBEG, 1 ), LDA, X( KBEG ), 1, CZERO, X( 2*NXFRM+1 ), 1 )             CALL CGERC( IXFRM, N, -CMPLX( FACTOR ), X( KBEG ), 1, X( 2*NXFRM+1 ), 1, A( KBEG, 1 ), LDA )
+            cgemv('C', IXFRM, N, CONE, A( KBEG, 1 ), LDA, X( KBEG ), 1, CZERO, X( 2*NXFRM+1 ), 1 )             CALL CGERC( IXFRM, N, -CMPLX( FACTOR ), X( KBEG ), 1, X( 2*NXFRM+1 ), 1, A( KBEG, 1 ), LDA );
 
          }
 
@@ -136,10 +136,10 @@
             // Apply H(k)* (or H(k)') on the right of A
 
             if ( ITYPE.EQ.4 ) {
-               CALL CLACGV( IXFRM, X( KBEG ), 1 )
+               clacgv(IXFRM, X( KBEG ), 1 );
             }
 
-            CALL CGEMV( 'N', M, IXFRM, CONE, A( 1, KBEG ), LDA, X( KBEG ), 1, CZERO, X( 2*NXFRM+1 ), 1 )             CALL CGERC( M, IXFRM, -CMPLX( FACTOR ), X( 2*NXFRM+1 ), 1, X( KBEG ), 1, A( 1, KBEG ), LDA )
+            cgemv('N', M, IXFRM, CONE, A( 1, KBEG ), LDA, X( KBEG ), 1, CZERO, X( 2*NXFRM+1 ), 1 )             CALL CGERC( M, IXFRM, -CMPLX( FACTOR ), X( 2*NXFRM+1 ), 1, X( KBEG ), 1, A( 1, KBEG ), LDA );
 
          }
    60 CONTINUE
@@ -157,19 +157,19 @@
 
       if ( ITYPE.EQ.1 .OR. ITYPE.EQ.3 .OR. ITYPE.EQ.4 ) {
          DO 70 IROW = 1, M
-            CALL CSCAL( N, CONJG( X( NXFRM+IROW ) ), A( IROW, 1 ), LDA )
+            cscal(N, CONJG( X( NXFRM+IROW ) ), A( IROW, 1 ), LDA );
    70    CONTINUE
       }
 
       if ( ITYPE.EQ.2 .OR. ITYPE.EQ.3 ) {
          DO 80 JCOL = 1, N
-            CALL CSCAL( M, X( NXFRM+JCOL ), A( 1, JCOL ), 1 )
+            cscal(M, X( NXFRM+JCOL ), A( 1, JCOL ), 1 );
    80    CONTINUE
       }
 
       if ( ITYPE.EQ.4 ) {
          DO 90 JCOL = 1, N
-            CALL CSCAL( M, CONJG( X( NXFRM+JCOL ) ), A( 1, JCOL ), 1 )
+            cscal(M, CONJG( X( NXFRM+JCOL ) ), A( 1, JCOL ), 1 );
    90    CONTINUE
       }
       RETURN

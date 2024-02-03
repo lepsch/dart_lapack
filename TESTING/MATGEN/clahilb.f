@@ -61,7 +61,7 @@
          INFO = -8
       }
       if (INFO .LT. 0) {
-         CALL XERBLA('CLAHILB', -INFO)
+         xerbla('CLAHILB', -INFO);
          RETURN
       }
       if (N .GT. NMAX_EXACT) {
@@ -103,7 +103,7 @@
       // Generate matrix B as simply the first NRHS columns of M * the
       // identity.
       TMP = REAL(M)
-      CALL CLASET('Full', N, NRHS, (0.0,0.0), TMP, B, LDB)
+      claset('Full', N, NRHS, (0.0,0.0), TMP, B, LDB);
 
       // Generate the true solutions in X.  Because B = the first NRHS
       // columns of M*I, the true solutions are just the first NRHS columns

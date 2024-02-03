@@ -119,7 +119,7 @@
          INFO = -18
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'CHGEQZ', -INFO )
+         xerbla('CHGEQZ', -INFO );
          RETURN
       } else if ( LQUERY ) {
          RETURN
@@ -158,10 +158,10 @@
             SIGNBC = CONJG( T( J, J ) / ABSB )
             T( J, J ) = ABSB
             if ( ILSCHR ) {
-               CALL CSCAL( J-1, SIGNBC, T( 1, J ), 1 )
-               CALL CSCAL( J, SIGNBC, H( 1, J ), 1 )
+               cscal(J-1, SIGNBC, T( 1, J ), 1 );
+               cscal(J, SIGNBC, H( 1, J ), 1 );
             } else {
-               CALL CSCAL( 1, SIGNBC, H( J, J ), 1 )
+               cscal(1, SIGNBC, H( J, J ), 1 );
             }
             IF( ILZ ) CALL CSCAL( N, SIGNBC, Z( 1, J ), 1 )
          } else {
@@ -268,9 +268,9 @@
                if ( ILAZRO .OR. ILAZR2 ) {
                   DO 20 JCH = J, ILAST - 1
                      CTEMP = H( JCH, JCH )
-                     CALL CLARTG( CTEMP, H( JCH+1, JCH ), C, S, H( JCH, JCH ) )
+                     clartg(CTEMP, H( JCH+1, JCH ), C, S, H( JCH, JCH ) );
                      H( JCH+1, JCH ) = CZERO
-                     CALL CROT( ILASTM-JCH, H( JCH, JCH+1 ), LDH, H( JCH+1, JCH+1 ), LDH, C, S )                      CALL CROT( ILASTM-JCH, T( JCH, JCH+1 ), LDT, T( JCH+1, JCH+1 ), LDT, C, S )                      IF( ILQ ) CALL CROT( N, Q( 1, JCH ), 1, Q( 1, JCH+1 ), 1, C, CONJG( S ) )
+                     crot(ILASTM-JCH, H( JCH, JCH+1 ), LDH, H( JCH+1, JCH+1 ), LDH, C, S )                      CALL CROT( ILASTM-JCH, T( JCH, JCH+1 ), LDT, T( JCH+1, JCH+1 ), LDT, C, S )                      IF( ILQ ) CALL CROT( N, Q( 1, JCH ), 1, Q( 1, JCH+1 ), 1, C, CONJG( S ) );
                      IF( ILAZR2 ) H( JCH, JCH-1 ) = H( JCH, JCH-1 )*C
                      ILAZR2 = .FALSE.
                      if ( ABS1( T( JCH+1, JCH+1 ) ).GE.BTOL ) {
@@ -291,13 +291,13 @@
 
                   DO 30 JCH = J, ILAST - 1
                      CTEMP = T( JCH, JCH+1 )
-                     CALL CLARTG( CTEMP, T( JCH+1, JCH+1 ), C, S, T( JCH, JCH+1 ) )
+                     clartg(CTEMP, T( JCH+1, JCH+1 ), C, S, T( JCH, JCH+1 ) );
                      T( JCH+1, JCH+1 ) = CZERO
                      IF( JCH.LT.ILASTM-1 ) CALL CROT( ILASTM-JCH-1, T( JCH, JCH+2 ), LDT, T( JCH+1, JCH+2 ), LDT, C, S )                      CALL CROT( ILASTM-JCH+2, H( JCH, JCH-1 ), LDH, H( JCH+1, JCH-1 ), LDH, C, S )                      IF( ILQ ) CALL CROT( N, Q( 1, JCH ), 1, Q( 1, JCH+1 ), 1, C, CONJG( S ) )
                      CTEMP = H( JCH+1, JCH )
-                     CALL CLARTG( CTEMP, H( JCH+1, JCH-1 ), C, S, H( JCH+1, JCH ) )
+                     clartg(CTEMP, H( JCH+1, JCH-1 ), C, S, H( JCH+1, JCH ) );
                      H( JCH+1, JCH-1 ) = CZERO
-                     CALL CROT( JCH+1-IFRSTM, H( IFRSTM, JCH ), 1, H( IFRSTM, JCH-1 ), 1, C, S )                      CALL CROT( JCH-IFRSTM, T( IFRSTM, JCH ), 1, T( IFRSTM, JCH-1 ), 1, C, S )                      IF( ILZ ) CALL CROT( N, Z( 1, JCH ), 1, Z( 1, JCH-1 ), 1, C, S )
+                     crot(JCH+1-IFRSTM, H( IFRSTM, JCH ), 1, H( IFRSTM, JCH-1 ), 1, C, S )                      CALL CROT( JCH-IFRSTM, T( IFRSTM, JCH ), 1, T( IFRSTM, JCH-1 ), 1, C, S )                      IF( ILZ ) CALL CROT( N, Z( 1, JCH ), 1, Z( 1, JCH-1 ), 1, C, S );
    30             CONTINUE
                   GO TO 50
                }
@@ -323,9 +323,9 @@
 
    50    CONTINUE
          CTEMP = H( ILAST, ILAST )
-         CALL CLARTG( CTEMP, H( ILAST, ILAST-1 ), C, S, H( ILAST, ILAST ) )
+         clartg(CTEMP, H( ILAST, ILAST-1 ), C, S, H( ILAST, ILAST ) );
          H( ILAST, ILAST-1 ) = CZERO
-         CALL CROT( ILAST-IFRSTM, H( IFRSTM, ILAST ), 1, H( IFRSTM, ILAST-1 ), 1, C, S )          CALL CROT( ILAST-IFRSTM, T( IFRSTM, ILAST ), 1, T( IFRSTM, ILAST-1 ), 1, C, S )          IF( ILZ ) CALL CROT( N, Z( 1, ILAST ), 1, Z( 1, ILAST-1 ), 1, C, S )
+         crot(ILAST-IFRSTM, H( IFRSTM, ILAST ), 1, H( IFRSTM, ILAST-1 ), 1, C, S )          CALL CROT( ILAST-IFRSTM, T( IFRSTM, ILAST ), 1, T( IFRSTM, ILAST-1 ), 1, C, S )          IF( ILZ ) CALL CROT( N, Z( 1, ILAST ), 1, Z( 1, ILAST-1 ), 1, C, S );
 
          // H(ILAST,ILAST-1)=0 -- Standardize B, set ALPHA and BETA
 
@@ -335,10 +335,10 @@
             SIGNBC = CONJG( T( ILAST, ILAST ) / ABSB )
             T( ILAST, ILAST ) = ABSB
             if ( ILSCHR ) {
-               CALL CSCAL( ILAST-IFRSTM, SIGNBC, T( IFRSTM, ILAST ), 1 )
-               CALL CSCAL( ILAST+1-IFRSTM, SIGNBC, H( IFRSTM, ILAST ), 1 )
+               cscal(ILAST-IFRSTM, SIGNBC, T( IFRSTM, ILAST ), 1 );
+               cscal(ILAST+1-IFRSTM, SIGNBC, H( IFRSTM, ILAST ), 1 );
             } else {
-               CALL CSCAL( 1, SIGNBC, H( ILAST, ILAST ), 1 )
+               cscal(1, SIGNBC, H( ILAST, ILAST ), 1 );
             }
             IF( ILZ ) CALL CSCAL( N, SIGNBC, Z( 1, ILAST ), 1 )
          } else {
@@ -440,14 +440,14 @@
          // Initial Q
 
          CTEMP2 = ASCALE*H( ISTART+1, ISTART )
-         CALL CLARTG( CTEMP, CTEMP2, C, S, CTEMP3 )
+         clartg(CTEMP, CTEMP2, C, S, CTEMP3 );
 
          // Sweep
 
          DO 150 J = ISTART, ILAST - 1
             if ( J.GT.ISTART ) {
                CTEMP = H( J, J-1 )
-               CALL CLARTG( CTEMP, H( J+1, J-1 ), C, S, H( J, J-1 ) )
+               clartg(CTEMP, H( J+1, J-1 ), C, S, H( J, J-1 ) );
                H( J+1, J-1 ) = CZERO
             }
 
@@ -468,7 +468,7 @@
             }
 
             CTEMP = T( J+1, J+1 )
-            CALL CLARTG( CTEMP, T( J+1, J ), C, S, T( J+1, J+1 ) )
+            clartg(CTEMP, T( J+1, J ), C, S, T( J+1, J+1 ) );
             T( J+1, J ) = CZERO
 
             DO 120 JR = IFRSTM, MIN( J+2, ILAST )
@@ -512,10 +512,10 @@
             SIGNBC = CONJG( T( J, J ) / ABSB )
             T( J, J ) = ABSB
             if ( ILSCHR ) {
-               CALL CSCAL( J-1, SIGNBC, T( 1, J ), 1 )
-               CALL CSCAL( J, SIGNBC, H( 1, J ), 1 )
+               cscal(J-1, SIGNBC, T( 1, J ), 1 );
+               cscal(J, SIGNBC, H( 1, J ), 1 );
             } else {
-               CALL CSCAL( 1, SIGNBC, H( J, J ), 1 )
+               cscal(1, SIGNBC, H( J, J ), 1 );
             }
             IF( ILZ ) CALL CSCAL( N, SIGNBC, Z( 1, J ), 1 )
          } else {

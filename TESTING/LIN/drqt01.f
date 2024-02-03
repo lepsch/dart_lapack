@@ -46,16 +46,16 @@
 
       // Copy the matrix A to the array AF.
 
-      CALL DLACPY( 'Full', M, N, A, LDA, AF, LDA )
+      dlacpy('Full', M, N, A, LDA, AF, LDA );
 
       // Factorize the matrix A in the array AF.
 
       SRNAMT = 'DGERQF'
-      CALL DGERQF( M, N, AF, LDA, TAU, WORK, LWORK, INFO )
+      dgerqf(M, N, AF, LDA, TAU, WORK, LWORK, INFO );
 
       // Copy details of Q
 
-      CALL DLASET( 'Full', N, N, ROGUE, ROGUE, Q, LDA )
+      dlaset('Full', N, N, ROGUE, ROGUE, Q, LDA );
       if ( M.LE.N ) {
          IF( M.GT.0 .AND. M.LT.N ) CALL DLACPY( 'Full', M, N-M, AF, LDA, Q( N-M+1, 1 ), LDA )          IF( M.GT.1 ) CALL DLACPY( 'Lower', M-1, M-1, AF( 2, N-M+1 ), LDA, Q( N-M+2, N-M+1 ), LDA )
       } else {
@@ -65,11 +65,11 @@
       // Generate the n-by-n matrix Q
 
       SRNAMT = 'DORGRQ'
-      CALL DORGRQ( N, N, MINMN, Q, LDA, TAU, WORK, LWORK, INFO )
+      dorgrq(N, N, MINMN, Q, LDA, TAU, WORK, LWORK, INFO );
 
       // Copy R
 
-      CALL DLASET( 'Full', M, N, ZERO, ZERO, R, LDA )
+      dlaset('Full', M, N, ZERO, ZERO, R, LDA );
       if ( M.LE.N ) {
          IF( M.GT.0 ) CALL DLACPY( 'Upper', M, M, AF( 1, N-M+1 ), LDA, R( 1, N-M+1 ), LDA )
       } else {
@@ -78,7 +78,7 @@
 
       // Compute R - A*Q'
 
-      CALL DGEMM( 'No transpose', 'Transpose', M, N, N, -ONE, A, LDA, Q, LDA, ONE, R, LDA )
+      dgemm('No transpose', 'Transpose', M, N, N, -ONE, A, LDA, Q, LDA, ONE, R, LDA );
 
       // Compute norm( R - Q'*A ) / ( N * norm(A) * EPS ) .
 
@@ -92,8 +92,8 @@
 
       // Compute I - Q*Q'
 
-      CALL DLASET( 'Full', N, N, ZERO, ONE, R, LDA )
-      CALL DSYRK( 'Upper', 'No transpose', N, N, -ONE, Q, LDA, ONE, R, LDA )
+      dlaset('Full', N, N, ZERO, ONE, R, LDA );
+      dsyrk('Upper', 'No transpose', N, N, -ONE, Q, LDA, ONE, R, LDA );
 
       // Compute norm( I - Q*Q' ) / ( N * EPS ) .
 

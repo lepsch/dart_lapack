@@ -70,7 +70,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'ZHETRD_2STAGE', -INFO )
+         xerbla('ZHETRD_2STAGE', -INFO );
          RETURN
       } else if ( LQUERY ) {
          RETURN
@@ -89,14 +89,14 @@
       LWRK  = LWORK-LDAB*N
       ABPOS = 1
       WPOS  = ABPOS + LDAB*N
-      CALL ZHETRD_HE2HB( UPLO, N, KD, A, LDA, WORK( ABPOS ), LDAB, TAU, WORK( WPOS ), LWRK, INFO )
+      zhetrd_he2hb(UPLO, N, KD, A, LDA, WORK( ABPOS ), LDAB, TAU, WORK( WPOS ), LWRK, INFO );
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'ZHETRD_HE2HB', -INFO )
+         xerbla('ZHETRD_HE2HB', -INFO );
          RETURN
       }
-      CALL ZHETRD_HB2ST( 'Y', VECT, UPLO, N, KD, WORK( ABPOS ), LDAB, D, E, HOUS2, LHOUS2, WORK( WPOS ), LWRK, INFO )
+      zhetrd_hb2st('Y', VECT, UPLO, N, KD, WORK( ABPOS ), LDAB, D, E, HOUS2, LHOUS2, WORK( WPOS ), LWRK, INFO );
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'ZHETRD_HB2ST', -INFO )
+         xerbla('ZHETRD_HB2ST', -INFO );
          RETURN
       }
 

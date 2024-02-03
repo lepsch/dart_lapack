@@ -48,7 +48,7 @@
          INFO = -4
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'SPOTF2', -INFO )
+         xerbla('SPOTF2', -INFO );
          RETURN
       }
 
@@ -75,8 +75,8 @@
             // Compute elements J+1:N of row J.
 
             if ( J.LT.N ) {
-               CALL SGEMV( 'Transpose', J-1, N-J, -ONE, A( 1, J+1 ), LDA, A( 1, J ), 1, ONE, A( J, J+1 ), LDA )
-               CALL SSCAL( N-J, ONE / AJJ, A( J, J+1 ), LDA )
+               sgemv('Transpose', J-1, N-J, -ONE, A( 1, J+1 ), LDA, A( 1, J ), 1, ONE, A( J, J+1 ), LDA );
+               sscal(N-J, ONE / AJJ, A( J, J+1 ), LDA );
             }
    10    CONTINUE
       } else {
@@ -98,8 +98,8 @@
             // Compute elements J+1:N of column J.
 
             if ( J.LT.N ) {
-               CALL SGEMV( 'No transpose', N-J, J-1, -ONE, A( J+1, 1 ), LDA, A( J, 1 ), LDA, ONE, A( J+1, J ), 1 )
-               CALL SSCAL( N-J, ONE / AJJ, A( J+1, J ), 1 )
+               sgemv('No transpose', N-J, J-1, -ONE, A( J+1, 1 ), LDA, A( J, 1 ), LDA, ONE, A( J+1, J ), 1 );
+               sscal(N-J, ONE / AJJ, A( J+1, J ), 1 );
             }
    20    CONTINUE
       }

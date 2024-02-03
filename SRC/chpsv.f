@@ -40,18 +40,18 @@
          INFO = -7
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'CHPSV ', -INFO )
+         xerbla('CHPSV ', -INFO );
          RETURN
       }
 
       // Compute the factorization A = U*D*U**H or A = L*D*L**H.
 
-      CALL CHPTRF( UPLO, N, AP, IPIV, INFO )
+      chptrf(UPLO, N, AP, IPIV, INFO );
       if ( INFO.EQ.0 ) {
 
          // Solve the system A*X = B, overwriting B with X.
 
-         CALL CHPTRS( UPLO, N, NRHS, AP, IPIV, B, LDB, INFO )
+         chptrs(UPLO, N, NRHS, AP, IPIV, B, LDB, INFO );
 
       }
       RETURN

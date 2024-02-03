@@ -56,7 +56,7 @@
 
       // Compute I - A * AINV
 
-      CALL DGEMM( 'No transpose', 'No transpose', N, N, N, -ONE, AINV, LDAINV, A, LDA, ZERO, WORK, LDWORK )
+      dgemm('No transpose', 'No transpose', N, N, N, -ONE, AINV, LDAINV, A, LDA, ZERO, WORK, LDWORK );
       DO 10 I = 1, N
          WORK( I, I ) = ONE + WORK( I, I )
    10 CONTINUE

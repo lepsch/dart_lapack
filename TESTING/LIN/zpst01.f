@@ -89,7 +89,7 @@
 
             // Compute the rest of column K.
 
-            CALL ZTRMV( 'Upper', 'Conjugate', 'Non-unit', K-1, AFAC, LDAFAC, AFAC( 1, K ), 1 )
+            ztrmv('Upper', 'Conjugate', 'Non-unit', K-1, AFAC, LDAFAC, AFAC( 1, K ), 1 );
 
   130    CONTINUE
 
@@ -114,7 +114,7 @@
             // Scale column K by the diagonal element.
 
             TC = AFAC( K, K )
-            CALL ZSCAL( N-K+1, TC, AFAC( K, K ), 1 )
+            zscal(N-K+1, TC, AFAC( K, K ), 1 );
   160    CONTINUE
 
       }

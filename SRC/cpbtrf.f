@@ -54,7 +54,7 @@
          INFO = -5
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'CPBTRF', -INFO )
+         xerbla('CPBTRF', -INFO );
          RETURN
       }
 
@@ -75,7 +75,7 @@
 
          // Use unblocked code
 
-         CALL CPBTF2( UPLO, N, KD, AB, LDAB, INFO )
+         cpbtf2(UPLO, N, KD, AB, LDAB, INFO );
       } else {
 
          // Use blocked code
@@ -101,7 +101,7 @@
 
                // Factorize the diagonal block
 
-               CALL CPOTF2( UPLO, IB, AB( KD+1, I ), LDAB-1, II )
+               cpotf2(UPLO, IB, AB( KD+1, I ), LDAB-1, II );
                if ( II.NE.0 ) {
                   INFO = I + II - 1
                   GO TO 150
@@ -129,11 +129,11 @@
 
                      // Update A12
 
-                     CALL CTRSM( 'Left', 'Upper', 'Conjugate transpose', 'Non-unit', IB, I2, CONE, AB( KD+1, I ), LDAB-1, AB( KD+1-IB, I+IB ), LDAB-1 )
+                     ctrsm('Left', 'Upper', 'Conjugate transpose', 'Non-unit', IB, I2, CONE, AB( KD+1, I ), LDAB-1, AB( KD+1-IB, I+IB ), LDAB-1 );
 
                      // Update A22
 
-                     CALL CHERK( 'Upper', 'Conjugate transpose', I2, IB, -ONE, AB( KD+1-IB, I+IB ), LDAB-1, ONE, AB( KD+1, I+IB ), LDAB-1 )
+                     cherk('Upper', 'Conjugate transpose', I2, IB, -ONE, AB( KD+1-IB, I+IB ), LDAB-1, ONE, AB( KD+1, I+IB ), LDAB-1 );
                   }
 
                   if ( I3.GT.0 ) {
@@ -148,7 +148,7 @@
 
                      // Update A13 (in the work array).
 
-                     CALL CTRSM( 'Left', 'Upper', 'Conjugate transpose', 'Non-unit', IB, I3, CONE, AB( KD+1, I ), LDAB-1, WORK, LDWORK )
+                     ctrsm('Left', 'Upper', 'Conjugate transpose', 'Non-unit', IB, I3, CONE, AB( KD+1, I ), LDAB-1, WORK, LDWORK );
 
                      // Update A23
 
@@ -156,7 +156,7 @@
 
                      // Update A33
 
-                     CALL CHERK( 'Upper', 'Conjugate transpose', I3, IB, -ONE, WORK, LDWORK, ONE, AB( KD+1, I+KD ), LDAB-1 )
+                     cherk('Upper', 'Conjugate transpose', I3, IB, -ONE, WORK, LDWORK, ONE, AB( KD+1, I+KD ), LDAB-1 );
 
                      // Copy the lower triangle of A13 back into place.
 
@@ -189,7 +189,7 @@
 
                // Factorize the diagonal block
 
-               CALL CPOTF2( UPLO, IB, AB( 1, I ), LDAB-1, II )
+               cpotf2(UPLO, IB, AB( 1, I ), LDAB-1, II );
                if ( II.NE.0 ) {
                   INFO = I + II - 1
                   GO TO 150
@@ -217,11 +217,11 @@
 
                      // Update A21
 
-                     CALL CTRSM( 'Right', 'Lower', 'Conjugate transpose', 'Non-unit', I2, IB, CONE, AB( 1, I ), LDAB-1, AB( 1+IB, I ), LDAB-1 )
+                     ctrsm('Right', 'Lower', 'Conjugate transpose', 'Non-unit', I2, IB, CONE, AB( 1, I ), LDAB-1, AB( 1+IB, I ), LDAB-1 );
 
                      // Update A22
 
-                     CALL CHERK( 'Lower', 'No transpose', I2, IB, -ONE, AB( 1+IB, I ), LDAB-1, ONE, AB( 1, I+IB ), LDAB-1 )
+                     cherk('Lower', 'No transpose', I2, IB, -ONE, AB( 1+IB, I ), LDAB-1, ONE, AB( 1, I+IB ), LDAB-1 );
                   }
 
                   if ( I3.GT.0 ) {
@@ -236,7 +236,7 @@
 
                      // Update A31 (in the work array).
 
-                     CALL CTRSM( 'Right', 'Lower', 'Conjugate transpose', 'Non-unit', I3, IB, CONE, AB( 1, I ), LDAB-1, WORK, LDWORK )
+                     ctrsm('Right', 'Lower', 'Conjugate transpose', 'Non-unit', I3, IB, CONE, AB( 1, I ), LDAB-1, WORK, LDWORK );
 
                      // Update A32
 
@@ -244,7 +244,7 @@
 
                      // Update A33
 
-                     CALL CHERK( 'Lower', 'No transpose', I3, IB, -ONE, WORK, LDWORK, ONE, AB( 1, I+KD ), LDAB-1 )
+                     cherk('Lower', 'No transpose', I3, IB, -ONE, WORK, LDWORK, ONE, AB( 1, I+KD ), LDAB-1 );
 
                      // Copy the upper triangle of A31 back into place.
 

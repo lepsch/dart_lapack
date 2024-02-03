@@ -98,15 +98,15 @@
          SUM = ONE
          if ( LSAME( UPLO, 'U' ) ) {
             DO 110 J = 2, N
-               CALL ZLASSQ( J-1, A( 1, J ), 1, SCALE, SUM )
+               zlassq(J-1, A( 1, J ), 1, SCALE, SUM );
   110       CONTINUE
          } else {
             DO 120 J = 1, N - 1
-               CALL ZLASSQ( N-J, A( J+1, J ), 1, SCALE, SUM )
+               zlassq(N-J, A( J+1, J ), 1, SCALE, SUM );
   120       CONTINUE
          }
          SUM = 2*SUM
-         CALL ZLASSQ( N, A, LDA+1, SCALE, SUM )
+         zlassq(N, A, LDA+1, SCALE, SUM );
          VALUE = SCALE*SQRT( SUM )
       }
 

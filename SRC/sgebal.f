@@ -50,7 +50,7 @@
          INFO = -4
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'SGEBAL', -INFO )
+         xerbla('SGEBAL', -INFO );
          RETURN
       }
 
@@ -98,8 +98,8 @@
                if ( CANSWAP ) {
                   SCALE( L ) = I
                   if ( I.NE.L ) {
-                     CALL SSWAP( L, A( 1, I ), 1, A( 1, L ), 1 )
-                     CALL SSWAP( N-K+1, A( I, K ), LDA, A( L, K ), LDA )
+                     sswap(L, A( 1, I ), 1, A( 1, L ), 1 );
+                     sswap(N-K+1, A( I, K ), LDA, A( L, K ), LDA );
                   }
                   NOCONV = .TRUE.
 
@@ -133,8 +133,8 @@
                if ( CANSWAP ) {
                   SCALE( K ) = J
                   if ( J.NE.K ) {
-                     CALL SSWAP( L, A( 1, J ), 1, A( 1, K ), 1 )
-                     CALL SSWAP( N-K+1, A( J, K ), LDA, A( K, K ), LDA )
+                     sswap(L, A( 1, J ), 1, A( 1, K ), 1 );
+                     sswap(N-K+1, A( J, K ), LDA, A( K, K ), LDA );
                   }
                   NOCONV = .TRUE.
 
@@ -190,7 +190,7 @@
 
             if ( SISNAN( C+CA+R+RA ) ) {
                INFO = -3
-               CALL XERBLA( 'SGEBAL', -INFO )
+               xerbla('SGEBAL', -INFO );
                RETURN
             }
 
@@ -231,8 +231,8 @@
             SCALE( I ) = SCALE( I )*F
             NOCONV = .TRUE.
 
-            CALL SSCAL( N-K+1, G, A( I, K ), LDA )
-            CALL SSCAL( L, F, A( 1, I ), 1 )
+            sscal(N-K+1, G, A( I, K ), LDA );
+            sscal(L, F, A( 1, I ), 1 );
 
          END DO
 

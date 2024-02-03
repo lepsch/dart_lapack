@@ -25,7 +25,7 @@
       WRITE (NOUT,99999)
       DO 20 IC = 1, 10
          ICASE = IC
-         CALL HEADER
+         header();
 
          // Initialize PASS, INCX, INCY, and MODE for a new case.
          // The value 9999 for INCX, INCY or MODE will appear in the
@@ -37,9 +37,9 @@
          INCY = 9999
          MODE = 9999
          if (ICASE.LE.5) {
-            CALL CHECK2(SFAC)
+            check2(SFAC);
          } else if (ICASE.GE.6) {
-            CALL CHECK1(SFAC)
+            check1(SFAC);
          }
          // -- Print
          IF (PASS) WRITE (NOUT,99998)
@@ -133,28 +133,28 @@
             if (ICASE.EQ.6) {
                // .. DZNRM2 ..
                // Test scaling when some entries are tiny or huge
-               CALL ZB1NRM2(N,(INCX-2)*2,THRESH)
-               CALL ZB1NRM2(N,INCX,THRESH)
+               zb1nrm2(N,(INCX-2)*2,THRESH);
+               zb1nrm2(N,INCX,THRESH);
                // Test with hardcoded mid range entries
-               CALL STEST1(DZNRM2(N,CX,INCX),STRUE2(NP1),STRUE2(NP1), SFAC)
+               stest1(DZNRM2(N,CX,INCX),STRUE2(NP1),STRUE2(NP1), SFAC);
             } else if (ICASE.EQ.7) {
                // .. DZASUM ..
-               CALL STEST1(DZASUM(N,CX,INCX),STRUE4(NP1),STRUE4(NP1), SFAC)
+               stest1(DZASUM(N,CX,INCX),STRUE4(NP1),STRUE4(NP1), SFAC);
             } else if (ICASE.EQ.8) {
                // .. ZSCAL ..
-               CALL ZSCAL(N,CA,CX,INCX)
-               CALL CTEST(LEN,CX,CTRUE5(1,NP1,INCX),CTRUE5(1,NP1,INCX), SFAC)
+               zscal(N,CA,CX,INCX);
+               ctest(LEN,CX,CTRUE5(1,NP1,INCX),CTRUE5(1,NP1,INCX), SFAC);
             } else if (ICASE.EQ.9) {
                // .. ZDSCAL ..
-               CALL ZDSCAL(N,SA,CX,INCX)
-               CALL CTEST(LEN,CX,CTRUE6(1,NP1,INCX),CTRUE6(1,NP1,INCX), SFAC)
+               zdscal(N,SA,CX,INCX);
+               ctest(LEN,CX,CTRUE6(1,NP1,INCX),CTRUE6(1,NP1,INCX), SFAC);
             } else if (ICASE.EQ.10) {
                // .. IZAMAX ..
-               CALL ITEST1(IZAMAX(N,CX,INCX),ITRUE3(NP1))
+               itest1(IZAMAX(N,CX,INCX),ITRUE3(NP1));
                DO 160 I = 1, LEN
                   CX(I) = (42.0D0,43.0D0)
   160          CONTINUE
-               CALL ITEST1(IZAMAX(N,CX,INCX),ITRUEC(NP1))
+               itest1(IZAMAX(N,CX,INCX),ITRUEC(NP1));
             } else {
                WRITE (NOUT,*) ' Shouldn''t be here in CHECK1'
                STOP
@@ -168,7 +168,7 @@
                CXR(IX) = CVR(I)
                IX = IX + INCX
   180       CONTINUE
-            CALL ITEST1(IZAMAX(N,CXR,INCX),3)
+            itest1(IZAMAX(N,CXR,INCX),3);
          }
    60 CONTINUE
 
@@ -181,8 +181,8 @@
             MWPCT(I) = (0.0D0,0.0D0)
             MWPCS(I) = (1.0D0,1.0D0)
    80    CONTINUE
-         CALL ZSCAL(5,CA,CX,INCX)
-         CALL CTEST(5,CX,MWPCT,MWPCS,SFAC)
+         zscal(5,CA,CX,INCX);
+         ctest(5,CX,MWPCT,MWPCS,SFAC);
       } else if (ICASE.EQ.9) {
          // ZDSCAL
          // Add a test for alpha equal to zero.
@@ -191,24 +191,24 @@
             MWPCT(I) = (0.0D0,0.0D0)
             MWPCS(I) = (1.0D0,1.0D0)
   100    CONTINUE
-         CALL ZDSCAL(5,SA,CX,INCX)
-         CALL CTEST(5,CX,MWPCT,MWPCS,SFAC)
+         zdscal(5,SA,CX,INCX);
+         ctest(5,CX,MWPCT,MWPCS,SFAC);
          // Add a test for alpha equal to one.
          SA = 1.0D0
          DO 120 I = 1, 5
             MWPCT(I) = CX(I)
             MWPCS(I) = CX(I)
   120    CONTINUE
-         CALL ZDSCAL(5,SA,CX,INCX)
-         CALL CTEST(5,CX,MWPCT,MWPCS,SFAC)
+         zdscal(5,SA,CX,INCX);
+         ctest(5,CX,MWPCT,MWPCS,SFAC);
          // Add a test for alpha equal to minus one.
          SA = -1.0D0
          DO 140 I = 1, 5
             MWPCT(I) = -CX(I)
             MWPCS(I) = -CX(I)
   140    CONTINUE
-         CALL ZDSCAL(5,SA,CX,INCX)
-         CALL CTEST(5,CX,MWPCT,MWPCS,SFAC)
+         zdscal(5,SA,CX,INCX);
+         ctest(5,CX,MWPCT,MWPCS,SFAC);
       }
       RETURN
 
@@ -268,19 +268,19 @@
             if (ICASE.EQ.1) {
                // .. ZDOTC ..
                CDOT(1) = ZDOTC(N,CX,INCX,CY,INCY)
-               CALL CTEST(1,CDOT,CT6(KN,KI),CSIZE1(KN),SFAC)
+               ctest(1,CDOT,CT6(KN,KI),CSIZE1(KN),SFAC);
             } else if (ICASE.EQ.2) {
                // .. ZDOTU ..
                CDOT(1) = ZDOTU(N,CX,INCX,CY,INCY)
-               CALL CTEST(1,CDOT,CT7(KN,KI),CSIZE1(KN),SFAC)
+               ctest(1,CDOT,CT7(KN,KI),CSIZE1(KN),SFAC);
             } else if (ICASE.EQ.3) {
                // .. ZAXPY ..
-               CALL ZAXPY(N,CA,CX,INCX,CY,INCY)
-               CALL CTEST(LENY,CY,CT8(1,KN,KI),CSIZE2(1,KSIZE),SFAC)
+               zaxpy(N,CA,CX,INCX,CY,INCY);
+               ctest(LENY,CY,CT8(1,KN,KI),CSIZE2(1,KSIZE),SFAC);
             } else if (ICASE.EQ.4) {
                // .. ZCOPY ..
-               CALL ZCOPY(N,CX,INCX,CY,INCY)
-               CALL CTEST(LENY,CY,CT10Y(1,KN,KI),CSIZE3,1.0D0)
+               zcopy(N,CX,INCX,CY,INCY);
+               ctest(LENY,CY,CT10Y(1,KN,KI),CSIZE3,1.0D0);
                if (KI.EQ.1) {
                   CX0(1) = (42.0D0,43.0D0)
                   CY0(1) = (44.0D0,45.0D0)
@@ -293,16 +293,16 @@
                   INCX = 0
                   LINCY = INCY
                   INCY = 0
-                  CALL ZCOPY(N,CX0,INCX,CY0,INCY)
-                  CALL CTEST(1,CY0,CTY0,CSIZE3,1.0D0)
+                  zcopy(N,CX0,INCX,CY0,INCY);
+                  ctest(1,CY0,CTY0,CSIZE3,1.0D0);
                   INCX = LINCX
                   INCY = LINCY
                }
             } else if (ICASE.EQ.5) {
                // .. ZSWAP ..
-               CALL ZSWAP(N,CX,INCX,CY,INCY)
-               CALL CTEST(LENX,CX,CT10X(1,KN,KI),CSIZE3,1.0D0)
-               CALL CTEST(LENY,CY,CT10Y(1,KN,KI),CSIZE3,1.0D0)
+               zswap(N,CX,INCX,CY,INCY);
+               ctest(LENX,CX,CT10X(1,KN,KI),CSIZE3,1.0D0);
+               ctest(LENY,CY,CT10Y(1,KN,KI),CSIZE3,1.0D0);
             } else {
                WRITE (NOUT,*) ' Shouldn''t be here in CHECK2'
                STOP
@@ -391,7 +391,7 @@
 
       SCOMP(1) = SCOMP1
       STRUE(1) = STRUE1
-      CALL STEST(1,SCOMP,STRUE,SSIZE,SFAC)
+      stest(1,SCOMP,STRUE,SSIZE,SFAC);
 
       RETURN
 
@@ -439,7 +439,7 @@
          SSIZE(2*I) = DIMAG(CSIZE(I))
    20 CONTINUE
 
-      CALL STEST(2*LEN,SCOMP,STRUE,SSIZE,SFAC)
+      stest(2*LEN,SCOMP,STRUE,SSIZE,SFAC);
       RETURN
 
       // End of CTEST
@@ -558,7 +558,7 @@
 
       KS = 2*(N-1)
       DO I = 1, KS
-         CALL RANDOM_NUMBER(WORK(I))
+         random_number(WORK(I));
          WORK(I) = ONE - TWO*WORK(I)
       END DO
 

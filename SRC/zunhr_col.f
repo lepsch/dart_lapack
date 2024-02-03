@@ -47,7 +47,7 @@
       // Handle error in the input parameters.
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'ZUNHR_COL', -INFO )
+         xerbla('ZUNHR_COL', -INFO );
          RETURN
       }
 
@@ -70,12 +70,12 @@
 
       // (1-1) Factor V1 and U.
 
-      CALL ZLAUNHR_COL_GETRFNP( N, N, A, LDA, D, IINFO )
+      zlaunhr_col_getrfnp(N, N, A, LDA, D, IINFO );
 
       // (1-2) Solve for V2.
 
       if ( M.GT.N ) {
-         CALL ZTRSM( 'R', 'U', 'N', 'N', M-N, N, CONE, A, LDA, A( N+1, 1 ), LDA )
+         ztrsm('R', 'U', 'N', 'N', M-N, N, CONE, A, LDA, A( N+1, 1 ), LDA );
       }
 
       // (2) Reconstruct the block reflector T stored in T(1:NB, 1:N)
@@ -101,7 +101,7 @@
 
          JBTEMP1 = JB - 1
          DO J = JB, JB+JNB-1
-            CALL ZCOPY( J-JBTEMP1, A( JB, J ), 1, T( 1, J ), 1 )
+            zcopy(J-JBTEMP1, A( JB, J ), 1, T( 1, J ), 1 );
          END DO
 
          // (2-2) Perform on the upper-triangular part of the current
@@ -117,7 +117,7 @@
 
          DO J = JB, JB+JNB-1
             if ( D( J ).EQ.CONE ) {
-               CALL ZSCAL( J-JBTEMP1, -CONE, T( 1, J ), 1 )
+               zscal(J-JBTEMP1, -CONE, T( 1, J ), 1 );
             }
          END DO
 
@@ -166,7 +166,7 @@
 
          // (2-3b) Perform the triangular solve.
 
-         CALL ZTRSM( 'R', 'L', 'C', 'U', JNB, JNB, CONE, A( JB, JB ), LDA, T( 1, JB ), LDT )
+         ztrsm('R', 'L', 'C', 'U', JNB, JNB, CONE, A( JB, JB ), LDA, T( 1, JB ), LDT );
 
       END DO
 

@@ -57,7 +57,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'DSYTRF_ROOK', -INFO )
+         xerbla('DSYTRF_ROOK', -INFO );
          RETURN
       } else if ( LQUERY ) {
          RETURN
@@ -96,12 +96,12 @@
             // Factorize columns k-kb+1:k of A and use blocked code to
             // update columns 1:k-kb
 
-            CALL DLASYF_ROOK( UPLO, K, NB, KB, A, LDA, IPIV, WORK, LDWORK, IINFO )
+            dlasyf_rook(UPLO, K, NB, KB, A, LDA, IPIV, WORK, LDWORK, IINFO );
          } else {
 
             // Use unblocked code to factorize columns 1:k of A
 
-            CALL DSYTF2_ROOK( UPLO, K, A, LDA, IPIV, IINFO )
+            dsytf2_rook(UPLO, K, A, LDA, IPIV, IINFO );
             KB = K
          }
 
@@ -136,12 +136,12 @@
             // Factorize columns k:k+kb-1 of A and use blocked code to
             // update columns k+kb:n
 
-            CALL DLASYF_ROOK( UPLO, N-K+1, NB, KB, A( K, K ), LDA, IPIV( K ), WORK, LDWORK, IINFO )
+            dlasyf_rook(UPLO, N-K+1, NB, KB, A( K, K ), LDA, IPIV( K ), WORK, LDWORK, IINFO );
          } else {
 
             // Use unblocked code to factorize columns k:n of A
 
-            CALL DSYTF2_ROOK( UPLO, N-K+1, A( K, K ), LDA, IPIV( K ), IINFO )
+            dsytf2_rook(UPLO, N-K+1, A( K, K ), LDA, IPIV( K ), IINFO );
             KB = N - K + 1
          }
 

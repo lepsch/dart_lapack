@@ -65,7 +65,7 @@
          INFO = -16
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'SLASD3', -INFO )
+         xerbla('SLASD3', -INFO );
          RETURN
       }
 
@@ -73,9 +73,9 @@
 
       if ( K.EQ.1 ) {
          D( 1 ) = ABS( Z( 1 ) )
-         CALL SCOPY( M, VT2( 1, 1 ), LDVT2, VT( 1, 1 ), LDVT )
+         scopy(M, VT2( 1, 1 ), LDVT2, VT( 1, 1 ), LDVT );
          if ( Z( 1 ).GT.ZERO ) {
-            CALL SCOPY( N, U2( 1, 1 ), 1, U( 1, 1 ), 1 )
+            scopy(N, U2( 1, 1 ), 1, U( 1, 1 ), 1 );
          } else {
             DO 10 I = 1, N
                U( I, 1 ) = -U2( I, 1 )
@@ -86,18 +86,18 @@
 
       // Keep a copy of Z.
 
-      CALL SCOPY( K, Z, 1, Q, 1 )
+      scopy(K, Z, 1, Q, 1 );
 
       // Normalize Z.
 
       RHO = SNRM2( K, Z, 1 )
-      CALL SLASCL( 'G', 0, 0, RHO, ONE, K, 1, Z, K, INFO )
+      slascl('G', 0, 0, RHO, ONE, K, 1, Z, K, INFO );
       RHO = RHO*RHO
 
       // Find the new singular values.
 
       DO 30 J = 1, K
-         CALL SLASD4( K, J, DSIGMA, Z, U( 1, J ), RHO, D( J ), VT( 1, J ), INFO )
+         slasd4(K, J, DSIGMA, Z, U( 1, J ), RHO, D( J ), VT( 1, J ), INFO );
 
          // If the zero finder fails, report the convergence failure.
 
@@ -140,25 +140,25 @@
       // Update the left singular vector matrix.
 
       if ( K.EQ.2 ) {
-         CALL SGEMM( 'N', 'N', N, K, K, ONE, U2, LDU2, Q, LDQ, ZERO, U, LDU )
+         sgemm('N', 'N', N, K, K, ONE, U2, LDU2, Q, LDQ, ZERO, U, LDU );
          GO TO 100
       }
       if ( CTOT( 1 ).GT.0 ) {
-         CALL SGEMM( 'N', 'N', NL, K, CTOT( 1 ), ONE, U2( 1, 2 ), LDU2, Q( 2, 1 ), LDQ, ZERO, U( 1, 1 ), LDU )
+         sgemm('N', 'N', NL, K, CTOT( 1 ), ONE, U2( 1, 2 ), LDU2, Q( 2, 1 ), LDQ, ZERO, U( 1, 1 ), LDU );
          if ( CTOT( 3 ).GT.0 ) {
             KTEMP = 2 + CTOT( 1 ) + CTOT( 2 )
-            CALL SGEMM( 'N', 'N', NL, K, CTOT( 3 ), ONE, U2( 1, KTEMP ), LDU2, Q( KTEMP, 1 ), LDQ, ONE, U( 1, 1 ), LDU )
+            sgemm('N', 'N', NL, K, CTOT( 3 ), ONE, U2( 1, KTEMP ), LDU2, Q( KTEMP, 1 ), LDQ, ONE, U( 1, 1 ), LDU );
          }
       } else if ( CTOT( 3 ).GT.0 ) {
          KTEMP = 2 + CTOT( 1 ) + CTOT( 2 )
-         CALL SGEMM( 'N', 'N', NL, K, CTOT( 3 ), ONE, U2( 1, KTEMP ), LDU2, Q( KTEMP, 1 ), LDQ, ZERO, U( 1, 1 ), LDU )
+         sgemm('N', 'N', NL, K, CTOT( 3 ), ONE, U2( 1, KTEMP ), LDU2, Q( KTEMP, 1 ), LDQ, ZERO, U( 1, 1 ), LDU );
       } else {
-         CALL SLACPY( 'F', NL, K, U2, LDU2, U, LDU )
+         slacpy('F', NL, K, U2, LDU2, U, LDU );
       }
-      CALL SCOPY( K, Q( 1, 1 ), LDQ, U( NLP1, 1 ), LDU )
+      scopy(K, Q( 1, 1 ), LDQ, U( NLP1, 1 ), LDU );
       KTEMP = 2 + CTOT( 1 )
       CTEMP = CTOT( 2 ) + CTOT( 3 )
-      CALL SGEMM( 'N', 'N', NR, K, CTEMP, ONE, U2( NLP2, KTEMP ), LDU2, Q( KTEMP, 1 ), LDQ, ZERO, U( NLP2, 1 ), LDU )
+      sgemm('N', 'N', NR, K, CTEMP, ONE, U2( NLP2, KTEMP ), LDU2, Q( KTEMP, 1 ), LDQ, ZERO, U( NLP2, 1 ), LDU );
 
       // Generate the right singular vectors.
 
@@ -175,11 +175,11 @@
       // Update the right singular vector matrix.
 
       if ( K.EQ.2 ) {
-         CALL SGEMM( 'N', 'N', K, M, K, ONE, Q, LDQ, VT2, LDVT2, ZERO, VT, LDVT )
+         sgemm('N', 'N', K, M, K, ONE, Q, LDQ, VT2, LDVT2, ZERO, VT, LDVT );
          RETURN
       }
       KTEMP = 1 + CTOT( 1 )
-      CALL SGEMM( 'N', 'N', K, NLP1, KTEMP, ONE, Q( 1, 1 ), LDQ, VT2( 1, 1 ), LDVT2, ZERO, VT( 1, 1 ), LDVT )
+      sgemm('N', 'N', K, NLP1, KTEMP, ONE, Q( 1, 1 ), LDQ, VT2( 1, 1 ), LDVT2, ZERO, VT( 1, 1 ), LDVT );
       KTEMP = 2 + CTOT( 1 ) + CTOT( 2 )
       IF( KTEMP.LE.LDVT2 ) CALL SGEMM( 'N', 'N', K, NLP1, CTOT( 3 ), ONE, Q( 1, KTEMP ), LDQ, VT2( KTEMP, 1 ), LDVT2, ONE, VT( 1, 1 ), LDVT )
 
@@ -194,7 +194,7 @@
   140    CONTINUE
       }
       CTEMP = 1 + CTOT( 2 ) + CTOT( 3 )
-      CALL SGEMM( 'N', 'N', K, NRP1, CTEMP, ONE, Q( 1, KTEMP ), LDQ, VT2( KTEMP, NLP2 ), LDVT2, ZERO, VT( 1, NLP2 ), LDVT )
+      sgemm('N', 'N', K, NRP1, CTEMP, ONE, Q( 1, KTEMP ), LDQ, VT2( KTEMP, NLP2 ), LDVT2, ZERO, VT( 1, NLP2 ), LDVT );
 
       RETURN
 

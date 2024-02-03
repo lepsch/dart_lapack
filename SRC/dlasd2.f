@@ -63,7 +63,7 @@
          INFO = -17
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'DLASD2', -INFO )
+         xerbla('DLASD2', -INFO );
          RETURN
       }
 
@@ -111,7 +111,7 @@
          IDXC( I ) = COLTYP( IDXQ( I ) )
    60 CONTINUE
 
-      CALL DLAMRG( NL, NR, DSIGMA( 2 ), 1, 1, IDX( 2 ) )
+      dlamrg(NL, NR, DSIGMA( 2 ), 1, 1, IDX( 2 ) );
 
       DO 70 I = 2, N
          IDXI = 1 + IDX( I )
@@ -204,8 +204,8 @@
             if ( IDXJ.LE.NLP1 ) {
                IDXJ = IDXJ - 1
             }
-            CALL DROT( N, U( 1, IDXJP ), 1, U( 1, IDXJ ), 1, C, S )
-            CALL DROT( M, VT( IDXJP, 1 ), LDVT, VT( IDXJ, 1 ), LDVT, C, S )
+            drot(N, U( 1, IDXJP ), 1, U( 1, IDXJ ), 1, C, S );
+            drot(M, VT( IDXJP, 1 ), LDVT, VT( IDXJ, 1 ), LDVT, C, S );
             if ( COLTYP( J ).NE.COLTYP( JPREV ) ) {
                COLTYP( J ) = 3
             }
@@ -279,8 +279,8 @@
          if ( IDXJ.LE.NLP1 ) {
             IDXJ = IDXJ - 1
          }
-         CALL DCOPY( N, U( 1, IDXJ ), 1, U2( 1, J ), 1 )
-         CALL DCOPY( M, VT( IDXJ, 1 ), LDVT, VT2( J, 1 ), LDVT2 )
+         dcopy(N, U( 1, IDXJ ), 1, U2( 1, J ), 1 );
+         dcopy(M, VT( IDXJ, 1 ), LDVT, VT2( J, 1 ), LDVT2 );
   160 CONTINUE
 
       // Determine DSIGMA(1), DSIGMA(2) and Z(1)
@@ -308,12 +308,12 @@
 
       // Move the rest of the updating row to Z.
 
-      CALL DCOPY( K-1, U2( 2, 1 ), 1, Z( 2 ), 1 )
+      dcopy(K-1, U2( 2, 1 ), 1, Z( 2 ), 1 );
 
       // Determine the first column of U2, the first row of VT2 and the
       // last row of VT.
 
-      CALL DLASET( 'A', N, 1, ZERO, ZERO, U2, LDU2 )
+      dlaset('A', N, 1, ZERO, ZERO, U2, LDU2 );
       U2( NLP1, 1 ) = ONE
       if ( M.GT.N ) {
          DO 170 I = 1, NLP1
@@ -325,18 +325,18 @@
             VT( M, I ) = C*VT( M, I )
   180    CONTINUE
       } else {
-         CALL DCOPY( M, VT( NLP1, 1 ), LDVT, VT2( 1, 1 ), LDVT2 )
+         dcopy(M, VT( NLP1, 1 ), LDVT, VT2( 1, 1 ), LDVT2 );
       }
       if ( M.GT.N ) {
-         CALL DCOPY( M, VT( M, 1 ), LDVT, VT2( M, 1 ), LDVT2 )
+         dcopy(M, VT( M, 1 ), LDVT, VT2( M, 1 ), LDVT2 );
       }
 
       // The deflated singular values and their corresponding vectors go
       // into the back of D, U, and V respectively.
 
       if ( N.GT.K ) {
-         CALL DCOPY( N-K, DSIGMA( K+1 ), 1, D( K+1 ), 1 )
-         CALL DLACPY( 'A', N, N-K, U2( 1, K+1 ), LDU2, U( 1, K+1 ), LDU )          CALL DLACPY( 'A', N-K, M, VT2( K+1, 1 ), LDVT2, VT( K+1, 1 ), LDVT )
+         dcopy(N-K, DSIGMA( K+1 ), 1, D( K+1 ), 1 );
+         dlacpy('A', N, N-K, U2( 1, K+1 ), LDU2, U( 1, K+1 ), LDU )          CALL DLACPY( 'A', N-K, M, VT2( K+1, 1 ), LDVT2, VT( K+1, 1 ), LDVT );
       }
 
       // Copy CTOT into COLTYP for referencing in DLASD3.

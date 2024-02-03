@@ -64,7 +64,7 @@
          INFO = -10
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'CUNMR2', -INFO )
+         xerbla('CUNMR2', -INFO );
          RETURN
       }
 
@@ -108,12 +108,12 @@
          } else {
             TAUI = TAU( I )
          }
-         CALL CLACGV( NQ-K+I-1, A( I, 1 ), LDA )
+         clacgv(NQ-K+I-1, A( I, 1 ), LDA );
          AII = A( I, NQ-K+I )
          A( I, NQ-K+I ) = ONE
-         CALL CLARF( SIDE, MI, NI, A( I, 1 ), LDA, TAUI, C, LDC, WORK )
+         clarf(SIDE, MI, NI, A( I, 1 ), LDA, TAUI, C, LDC, WORK );
          A( I, NQ-K+I ) = AII
-         CALL CLACGV( NQ-K+I-1, A( I, 1 ), LDA )
+         clacgv(NQ-K+I-1, A( I, 1 ), LDA );
    10 CONTINUE
       RETURN
 

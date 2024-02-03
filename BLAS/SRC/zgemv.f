@@ -54,7 +54,7 @@
           INFO = 11
       }
       if (INFO.NE.0) {
-          CALL XERBLA('ZGEMV ',INFO)
+          xerbla('ZGEMV ',INFO);
           RETURN
       }
 

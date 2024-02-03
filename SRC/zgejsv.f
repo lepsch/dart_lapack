@@ -123,11 +123,11 @@
           LRWCON  = N
           LRWSVDJ = N
           if ( LQUERY ) {
-              CALL ZGEQP3( M, N, A, LDA, IWORK, CDUMMY, CDUMMY, -1,  RDUMMY, IERR )
+              zgeqp3(M, N, A, LDA, IWORK, CDUMMY, CDUMMY, -1,  RDUMMY, IERR );
               LWRK_ZGEQP3 = INT( CDUMMY(1) )
-              CALL ZGEQRF( N, N, A, LDA, CDUMMY, CDUMMY,-1, IERR )
+              zgeqrf(N, N, A, LDA, CDUMMY, CDUMMY,-1, IERR );
               LWRK_ZGEQRF = INT( CDUMMY(1) )
-              CALL ZGELQF( N, N, A, LDA, CDUMMY, CDUMMY,-1, IERR )
+              zgelqf(N, N, A, LDA, CDUMMY, CDUMMY,-1, IERR );
               LWRK_ZGELQF = INT( CDUMMY(1) )
           }
           MINWRK  = 2
@@ -142,7 +142,7 @@
                   MINWRK = MAX( N+LWQP3, N+LWQRF, LWSVDJ )
               }
               if ( LQUERY ) {
-                  CALL ZGESVJ( 'L', 'N', 'N', N, N, A, LDA, SVA, N, V,  LDV, CDUMMY, -1, RDUMMY, -1, IERR )
+                  zgesvj('L', 'N', 'N', N, N, A, LDA, SVA, N, V,  LDV, CDUMMY, -1, RDUMMY, -1, IERR );
                   LWRK_ZGESVJ = INT( CDUMMY(1) )
                   if ( ERREST ) {
                       OPTWRK = MAX( N+LWRK_ZGEQP3, N**2+LWCON,  N+LWRK_ZGEQRF, LWRK_ZGESVJ )
@@ -173,9 +173,9 @@
                  MINWRK = MAX( N+LWQP3, LWSVDJ, N+LWLQF, 2*N+LWQRF,  N+LWSVDJ, N+LWUNMLQ )
              }
              if ( LQUERY ) {
-                 CALL ZGESVJ( 'L', 'U', 'N', N,N, U, LDU, SVA, N, A, LDA, CDUMMY, -1, RDUMMY, -1, IERR )
+                 zgesvj('L', 'U', 'N', N,N, U, LDU, SVA, N, A, LDA, CDUMMY, -1, RDUMMY, -1, IERR );
                  LWRK_ZGESVJ = INT( CDUMMY(1) )
-                 CALL ZUNMLQ( 'L', 'C', N, N, N, A, LDA, CDUMMY, V, LDV, CDUMMY, -1, IERR )
+                 zunmlq('L', 'C', N, N, N, A, LDA, CDUMMY, V, LDV, CDUMMY, -1, IERR );
                  LWRK_ZUNMLQ = INT( CDUMMY(1) )
                  if ( ERREST ) {
                  OPTWRK = MAX( N+LWRK_ZGEQP3, LWCON, LWRK_ZGESVJ,  N+LWRK_ZGELQF, 2*N+LWRK_ZGEQRF, N+LWRK_ZGESVJ,  N+LWRK_ZUNMLQ )
@@ -206,9 +206,9 @@
                  MINWRK = N + MAX( LWQP3, N+LWQRF, LWSVDJ, LWUNMQRM )
              }
              if ( LQUERY ) {
-                 CALL ZGESVJ( 'L', 'U', 'N', N,N, U, LDU, SVA, N, A, LDA, CDUMMY, -1, RDUMMY, -1, IERR )
+                 zgesvj('L', 'U', 'N', N,N, U, LDU, SVA, N, A, LDA, CDUMMY, -1, RDUMMY, -1, IERR );
                  LWRK_ZGESVJ = INT( CDUMMY(1) )
-                 CALL ZUNMQR( 'L', 'N', M, N, N, A, LDA, CDUMMY, U, LDU, CDUMMY, -1, IERR )
+                 zunmqr('L', 'N', M, N, N, A, LDA, CDUMMY, U, LDU, CDUMMY, -1, IERR );
                  LWRK_ZUNMQRM = INT( CDUMMY(1) )
                  if ( ERREST ) {
                  OPTWRK = N + MAX( LWRK_ZGEQP3, LWCON, N+LWRK_ZGEQRF, LWRK_ZGESVJ, LWRK_ZUNMQRM )
@@ -250,20 +250,20 @@
                  IF ( ROWPIV .OR. L2TRAN ) MINIWRK = MINIWRK + M
              }
              if ( LQUERY ) {
-                 CALL ZUNMQR( 'L', 'N', M, N, N, A, LDA, CDUMMY, U, LDU, CDUMMY, -1, IERR )
+                 zunmqr('L', 'N', M, N, N, A, LDA, CDUMMY, U, LDU, CDUMMY, -1, IERR );
                  LWRK_ZUNMQRM = INT( CDUMMY(1) )
-                 CALL ZUNMQR( 'L', 'N', N, N, N, A, LDA, CDUMMY, U, LDU, CDUMMY, -1, IERR )
+                 zunmqr('L', 'N', N, N, N, A, LDA, CDUMMY, U, LDU, CDUMMY, -1, IERR );
                  LWRK_ZUNMQR = INT( CDUMMY(1) )
                  if ( .NOT. JRACC ) {
-                     CALL ZGEQP3( N,N, A, LDA, IWORK, CDUMMY,CDUMMY, -1, RDUMMY, IERR )
+                     zgeqp3(N,N, A, LDA, IWORK, CDUMMY,CDUMMY, -1, RDUMMY, IERR );
                      LWRK_ZGEQP3N = INT( CDUMMY(1) )
-                     CALL ZGESVJ( 'L', 'U', 'N', N, N, U, LDU, SVA, N, V, LDV, CDUMMY, -1, RDUMMY, -1, IERR )
+                     zgesvj('L', 'U', 'N', N, N, U, LDU, SVA, N, V, LDV, CDUMMY, -1, RDUMMY, -1, IERR );
                      LWRK_ZGESVJ = INT( CDUMMY(1) )
-                     CALL ZGESVJ( 'U', 'U', 'N', N, N, U, LDU, SVA, N, V, LDV, CDUMMY, -1, RDUMMY, -1, IERR )
+                     zgesvj('U', 'U', 'N', N, N, U, LDU, SVA, N, V, LDV, CDUMMY, -1, RDUMMY, -1, IERR );
                      LWRK_ZGESVJU = INT( CDUMMY(1) )
-                     CALL ZGESVJ( 'L', 'U', 'V', N, N, U, LDU, SVA, N, V, LDV, CDUMMY, -1, RDUMMY, -1, IERR )
+                     zgesvj('L', 'U', 'V', N, N, U, LDU, SVA, N, V, LDV, CDUMMY, -1, RDUMMY, -1, IERR );
                      LWRK_ZGESVJV = INT( CDUMMY(1) )
-                     CALL ZUNMLQ( 'L', 'C', N, N, N, A, LDA, CDUMMY, V, LDV, CDUMMY, -1, IERR )
+                     zunmlq('L', 'C', N, N, N, A, LDA, CDUMMY, V, LDV, CDUMMY, -1, IERR );
                      LWRK_ZUNMLQ = INT( CDUMMY(1) )
                      if ( ERREST ) {
                        OPTWRK = MAX( N+LWRK_ZGEQP3, N+LWCON,  2*N+N**2+LWCON, 2*N+LWRK_ZGEQRF, 2*N+LWRK_ZGEQP3N, 2*N+N**2+N+LWRK_ZGELQF, 2*N+N**2+N+N**2+LWCON, 2*N+N**2+N+LWRK_ZGESVJ, 2*N+N**2+N+LWRK_ZGESVJV, 2*N+N**2+N+LWRK_ZUNMQR, 2*N+N**2+N+LWRK_ZUNMLQ, N+N**2+LWRK_ZGESVJU, N+LWRK_ZUNMQRM )
@@ -271,11 +271,11 @@
                        OPTWRK = MAX( N+LWRK_ZGEQP3,   2*N+N**2+LWCON, 2*N+LWRK_ZGEQRF, 2*N+LWRK_ZGEQP3N, 2*N+N**2+N+LWRK_ZGELQF, 2*N+N**2+N+N**2+LWCON, 2*N+N**2+N+LWRK_ZGESVJ, 2*N+N**2+N+LWRK_ZGESVJV, 2*N+N**2+N+LWRK_ZUNMQR, 2*N+N**2+N+LWRK_ZUNMLQ, N+N**2+LWRK_ZGESVJU, N+LWRK_ZUNMQRM )
                      }
                  } else {
-                     CALL ZGESVJ( 'L', 'U', 'V', N, N, U, LDU, SVA, N, V, LDV, CDUMMY, -1, RDUMMY, -1, IERR )
+                     zgesvj('L', 'U', 'V', N, N, U, LDU, SVA, N, V, LDV, CDUMMY, -1, RDUMMY, -1, IERR );
                      LWRK_ZGESVJV = INT( CDUMMY(1) )
-                     CALL ZUNMQR( 'L', 'N', N, N, N, CDUMMY, N, CDUMMY, V, LDV, CDUMMY, -1, IERR )
+                     zunmqr('L', 'N', N, N, N, CDUMMY, N, CDUMMY, V, LDV, CDUMMY, -1, IERR );
                      LWRK_ZUNMQR = INT( CDUMMY(1) )
-                     CALL ZUNMQR( 'L', 'N', M, N, N, A, LDA, CDUMMY, U, LDU, CDUMMY, -1, IERR )
+                     zunmqr('L', 'N', M, N, N, A, LDA, CDUMMY, U, LDU, CDUMMY, -1, IERR );
                      LWRK_ZUNMQRM = INT( CDUMMY(1) )
                      if ( ERREST ) {
                         OPTWRK = MAX( N+LWRK_ZGEQP3, N+LWCON,    2*N+LWRK_ZGEQRF, 2*N+N**2, 2*N+N**2+LWRK_ZGESVJV, 2*N+N**2+N+LWRK_ZUNMQR,N+LWRK_ZUNMQRM )
@@ -298,7 +298,7 @@
 
       if ( INFO .NE. 0 ) {
         // #:(
-         CALL XERBLA( 'ZGEJSV', - INFO )
+         xerbla('ZGEJSV', - INFO );
          RETURN
       } else if ( LQUERY ) {
           CWORK(1) = OPTWRK
@@ -345,10 +345,10 @@
       DO 1874 p = 1, N
          AAPP = ZERO
          AAQQ = ONE
-         CALL ZLASSQ( M, A(1,p), 1, AAPP, AAQQ )
+         zlassq(M, A(1,p), 1, AAPP, AAQQ );
          if ( AAPP .GT. BIG ) {
             INFO = - 9
-            CALL XERBLA( 'ZGEJSV', -INFO )
+            xerbla('ZGEJSV', -INFO );
             RETURN
          }
          AAQQ = SQRT(AAQQ)
@@ -359,7 +359,7 @@
             SVA(p)  = AAPP * ( AAQQ * SCALEM )
             if ( GOSCAL ) {
                GOSCAL = .FALSE.
-               CALL DSCAL( p-1, SCALEM, SVA, 1 )
+               dscal(p-1, SCALEM, SVA, 1 );
             }
          }
  1874 CONTINUE
@@ -412,13 +412,13 @@
       if ( N .EQ. 1 ) {
 
          if ( LSVEC ) {
-            CALL ZLASCL( 'G',0,0,SVA(1),SCALEM, M,1,A(1,1),LDA,IERR )
-            CALL ZLACPY( 'A', M, 1, A, LDA, U, LDU )
+            zlascl('G',0,0,SVA(1),SCALEM, M,1,A(1,1),LDA,IERR );
+            zlacpy('A', M, 1, A, LDA, U, LDU );
             // computing all M left singular vectors of the M x 1 matrix
             if ( N1 .NE. N  ) {
-              CALL ZGEQRF( M, N, U,LDU, CWORK, CWORK(N+1),LWORK-N,IERR )
-              CALL ZUNGQR( M,N1,1, U,LDU,CWORK,CWORK(N+1),LWORK-N,IERR )
-              CALL ZCOPY( M, A(1,1), 1, U(1,1), 1 )
+              zgeqrf(M, N, U,LDU, CWORK, CWORK(N+1),LWORK-N,IERR );
+              zungqr(M,N1,1, U,LDU,CWORK,CWORK(N+1),LWORK-N,IERR );
+              zcopy(M, A(1,1), 1, U(1,1), 1 );
             }
          }
          if ( RSVEC ) {
@@ -471,7 +471,7 @@
             DO 1950 p = 1, M
                XSC   = ZERO
                TEMP1 = ONE
-               CALL ZLASSQ( N, A(p,1), LDA, XSC, TEMP1 )
+               zlassq(N, A(p,1), LDA, XSC, TEMP1 );
                // ZLASSQ gets both the ell_2 and the ell_infinity norm
                // in one pass through the vector
                RWORK(M+p)  = XSC * SCALEM
@@ -502,7 +502,7 @@
 
          XSC   = ZERO
          TEMP1 = ONE
-         CALL DLASSQ( N, SVA, 1, XSC, TEMP1 )
+         dlassq(N, SVA, 1, XSC, TEMP1 );
          TEMP1 = ONE / TEMP1
 
          ENTRA = ZERO
@@ -582,14 +582,14 @@
       TEMP1  = SQRT( BIG / DBLE(N) )
        // TEMP1  = BIG/DBLE(N)
 
-      CALL DLASCL( 'G', 0, 0, AAPP, TEMP1, N, 1, SVA, N, IERR )
+      dlascl('G', 0, 0, AAPP, TEMP1, N, 1, SVA, N, IERR );
       if ( AAQQ .GT. (AAPP * SFMIN) ) {
           AAQQ = ( AAQQ / AAPP ) * TEMP1
       } else {
           AAQQ = ( AAQQ * TEMP1 ) / AAPP
       }
       TEMP1 = TEMP1 * SCALEM
-      CALL ZLASCL( 'G', 0, 0, AAPP, TEMP1, M, N, A, LDA, IERR )
+      zlascl('G', 0, 0, AAPP, TEMP1, M, N, A, LDA, IERR );
 
       // To undo scaling at the end of this procedure, multiply the
       // computed singular values with USCAL2 / USCAL1.
@@ -621,7 +621,7 @@
       if ( AAQQ .LT. XSC ) {
          DO 700 p = 1, N
             if ( SVA(p) .LT. XSC ) {
-               CALL ZLASET( 'A', M, 1, CZERO, CZERO, A(1,p), LDA )
+               zlaset('A', M, 1, CZERO, CZERO, A(1,p), LDA );
                SVA(p) = ZERO
             }
  700     CONTINUE
@@ -649,7 +649,7 @@
                RWORK(M+q) = TEMP1
             }
  1952    CONTINUE
-         CALL ZLASWP( N, A, LDA, 1, M-1, IWORK(IWOFF+1), 1 )
+         zlaswp(N, A, LDA, 1, M-1, IWORK(IWOFF+1), 1 );
       }
 
       // End of the preparation phase (scaling, optional sorting and
@@ -671,7 +671,7 @@
          // .. all columns are free columns
          IWORK(p) = 0
  1963 CONTINUE
-      CALL ZGEQP3( M, N, A, LDA, IWORK, CWORK, CWORK(N+1), LWORK-N, RWORK, IERR )
+      zgeqp3(M, N, A, LDA, IWORK, CWORK, CWORK(N+1), LWORK-N, RWORK, IERR );
 
       // The upper triangular matrix R1 from the first QRF is inspected for
       // rank deficiency and possibilities for deflation, or possible
@@ -743,39 +743,39 @@
          if ( N .EQ. NR ) {
             if ( RSVEC ) {
                // .. V is available as workspace
-               CALL ZLACPY( 'U', N, N, A, LDA, V, LDV )
+               zlacpy('U', N, N, A, LDA, V, LDV );
                DO 3053 p = 1, N
                   TEMP1 = SVA(IWORK(p))
-                  CALL ZDSCAL( p, ONE/TEMP1, V(1,p), 1 )
+                  zdscal(p, ONE/TEMP1, V(1,p), 1 );
  3053          CONTINUE
                if ( LSVEC ) {
-                   CALL ZPOCON( 'U', N, V, LDV, ONE, TEMP1, CWORK(N+1), RWORK, IERR )
+                   zpocon('U', N, V, LDV, ONE, TEMP1, CWORK(N+1), RWORK, IERR );
                } else {
-                   CALL ZPOCON( 'U', N, V, LDV, ONE, TEMP1, CWORK, RWORK, IERR )
+                   zpocon('U', N, V, LDV, ONE, TEMP1, CWORK, RWORK, IERR );
                }
 
             } else if ( LSVEC ) {
                // .. U is available as workspace
-               CALL ZLACPY( 'U', N, N, A, LDA, U, LDU )
+               zlacpy('U', N, N, A, LDA, U, LDU );
                DO 3054 p = 1, N
                   TEMP1 = SVA(IWORK(p))
-                  CALL ZDSCAL( p, ONE/TEMP1, U(1,p), 1 )
+                  zdscal(p, ONE/TEMP1, U(1,p), 1 );
  3054          CONTINUE
-               CALL ZPOCON( 'U', N, U, LDU, ONE, TEMP1, CWORK(N+1), RWORK, IERR )
+               zpocon('U', N, U, LDU, ONE, TEMP1, CWORK(N+1), RWORK, IERR );
             } else {
-               CALL ZLACPY( 'U', N, N, A, LDA, CWORK, N )
+               zlacpy('U', N, N, A, LDA, CWORK, N );
 *[]            CALL ZLACPY( 'U', N, N, A, LDA, CWORK(N+1), N )
                // Change: here index shifted by N to the left, CWORK(1:N)
                // not needed for SIGMA only computation
                DO 3052 p = 1, N
                   TEMP1 = SVA(IWORK(p))
 *[]               CALL ZDSCAL( p, ONE/TEMP1, CWORK(N+(p-1)*N+1), 1 )
-                  CALL ZDSCAL( p, ONE/TEMP1, CWORK((p-1)*N+1), 1 )
+                  zdscal(p, ONE/TEMP1, CWORK((p-1)*N+1), 1 );
  3052          CONTINUE
             // .. the columns of R are scaled to have unit Euclidean lengths.
 *[]               CALL ZPOCON( 'U', N, CWORK(N+1), N, ONE, TEMP1,
 *[]     $              CWORK(N+N*N+1), RWORK, IERR )
-               CALL ZPOCON( 'U', N, CWORK, N, ONE, TEMP1, CWORK(N*N+1), RWORK, IERR )
+               zpocon('U', N, CWORK, N, ONE, TEMP1, CWORK(N*N+1), RWORK, IERR );
 
             }
             if ( TEMP1 .NE. ZERO ) {
@@ -801,8 +801,8 @@
 
           // .. transpose A(1:NR,1:N)
          DO 1946 p = 1, MIN( N-1, NR )
-            CALL ZCOPY( N-p, A(p,p+1), LDA, A(p+1,p), 1 )
-            CALL ZLACGV( N-p+1, A(p,p), 1 )
+            zcopy(N-p, A(p,p+1), LDA, A(p+1,p), 1 );
+            zlacgv(N-p+1, A(p,p), 1 );
  1946    CONTINUE
          IF ( NR .EQ. N ) A(N,N) = CONJG(A(N,N))
 
@@ -831,17 +831,17 @@
  4949             CONTINUE
  4947          CONTINUE
             } else {
-               CALL ZLASET( 'U', NR-1,NR-1, CZERO,CZERO, A(1,2),LDA )
+               zlaset('U', NR-1,NR-1, CZERO,CZERO, A(1,2),LDA );
             }
 
              // .. second preconditioning using the QR factorization
 
-            CALL ZGEQRF( N,NR, A,LDA, CWORK, CWORK(N+1),LWORK-N, IERR )
+            zgeqrf(N,NR, A,LDA, CWORK, CWORK(N+1),LWORK-N, IERR );
 
             // .. and transpose upper to lower triangular
             DO 1948 p = 1, NR - 1
-               CALL ZCOPY( NR-p, A(p,p+1), LDA, A(p+1,p), 1 )
-               CALL ZLACGV( NR-p+1, A(p,p), 1 )
+               zcopy(NR-p, A(p,p+1), LDA, A(p+1,p), 1 );
+               zlacgv(NR-p+1, A(p,p), 1 );
  1948       CONTINUE
 
       }
@@ -861,14 +861,14 @@
  1949             CONTINUE
  1947          CONTINUE
             } else {
-               CALL ZLASET( 'U', NR-1, NR-1, CZERO, CZERO, A(1,2), LDA )
+               zlaset('U', NR-1, NR-1, CZERO, CZERO, A(1,2), LDA );
             }
 
             // .. and one-sided Jacobi rotations are started on a lower
             // triangular matrix (plus perturbation which is ignored in
             // the part which destroys triangular form (confusing?!))
 
-            CALL ZGESVJ( 'L', 'N', 'N', NR, NR, A, LDA, SVA, N, V, LDV, CWORK, LWORK, RWORK, LRWORK, INFO )
+            zgesvj('L', 'N', 'N', NR, NR, A, LDA, SVA, N, V, LDV, CWORK, LWORK, RWORK, LRWORK, INFO );
 
             SCALEM  = RWORK(1)
             NUMRANK = NINT(RWORK(2))
@@ -882,12 +882,12 @@
 
             // .. in this case NR equals N
             DO 1998 p = 1, NR
-               CALL ZCOPY( N-p+1, A(p,p), LDA, V(p,p), 1 )
-               CALL ZLACGV( N-p+1, V(p,p), 1 )
+               zcopy(N-p+1, A(p,p), LDA, V(p,p), 1 );
+               zlacgv(N-p+1, V(p,p), 1 );
  1998       CONTINUE
-            CALL ZLASET( 'U', NR-1,NR-1, CZERO, CZERO, V(1,2), LDV )
+            zlaset('U', NR-1,NR-1, CZERO, CZERO, V(1,2), LDV );
 
-            CALL ZGESVJ( 'L','U','N', N, NR, V, LDV, SVA, NR, A, LDA, CWORK, LWORK, RWORK, LRWORK, INFO )
+            zgesvj('L','U','N', N, NR, V, LDV, SVA, NR, A, LDA, CWORK, LWORK, RWORK, LRWORK, INFO );
             SCALEM  = RWORK(1)
             NUMRANK = NINT(RWORK(2))
 
@@ -896,27 +896,27 @@
          // .. two more QR factorizations ( one QRF is not enough, two require
          // accumulated product of Jacobi rotations, three are perfect )
 
-            CALL ZLASET( 'L', NR-1,NR-1, CZERO, CZERO, A(2,1), LDA )
-            CALL ZGELQF( NR,N, A, LDA, CWORK, CWORK(N+1), LWORK-N, IERR)
-            CALL ZLACPY( 'L', NR, NR, A, LDA, V, LDV )
-            CALL ZLASET( 'U', NR-1,NR-1, CZERO, CZERO, V(1,2), LDV )
-            CALL ZGEQRF( NR, NR, V, LDV, CWORK(N+1), CWORK(2*N+1), LWORK-2*N, IERR )
+            zlaset('L', NR-1,NR-1, CZERO, CZERO, A(2,1), LDA );
+            zgelqf(NR,N, A, LDA, CWORK, CWORK(N+1), LWORK-N, IERR);
+            zlacpy('L', NR, NR, A, LDA, V, LDV );
+            zlaset('U', NR-1,NR-1, CZERO, CZERO, V(1,2), LDV );
+            zgeqrf(NR, NR, V, LDV, CWORK(N+1), CWORK(2*N+1), LWORK-2*N, IERR );
             DO 8998 p = 1, NR
-               CALL ZCOPY( NR-p+1, V(p,p), LDV, V(p,p), 1 )
-               CALL ZLACGV( NR-p+1, V(p,p), 1 )
+               zcopy(NR-p+1, V(p,p), LDV, V(p,p), 1 );
+               zlacgv(NR-p+1, V(p,p), 1 );
  8998       CONTINUE
-            CALL ZLASET('U', NR-1, NR-1, CZERO, CZERO, V(1,2), LDV)
+            zlaset('U', NR-1, NR-1, CZERO, CZERO, V(1,2), LDV);
 
-            CALL ZGESVJ( 'L', 'U','N', NR, NR, V,LDV, SVA, NR, U, LDU, CWORK(N+1), LWORK-N, RWORK, LRWORK, INFO )
+            zgesvj('L', 'U','N', NR, NR, V,LDV, SVA, NR, U, LDU, CWORK(N+1), LWORK-N, RWORK, LRWORK, INFO );
             SCALEM  = RWORK(1)
             NUMRANK = NINT(RWORK(2))
             if ( NR .LT. N ) {
-               CALL ZLASET( 'A',N-NR, NR, CZERO,CZERO, V(NR+1,1),  LDV )
-               CALL ZLASET( 'A',NR, N-NR, CZERO,CZERO, V(1,NR+1),  LDV )
-               CALL ZLASET( 'A',N-NR,N-NR,CZERO,CONE, V(NR+1,NR+1),LDV )
+               zlaset('A',N-NR, NR, CZERO,CZERO, V(NR+1,1),  LDV );
+               zlaset('A',NR, N-NR, CZERO,CZERO, V(1,NR+1),  LDV );
+               zlaset('A',N-NR,N-NR,CZERO,CONE, V(NR+1,NR+1),LDV );
             }
 
-         CALL ZUNMLQ( 'L', 'C', N, N, NR, A, LDA, CWORK, V, LDV, CWORK(N+1), LWORK-N, IERR )
+         zunmlq('L', 'C', N, N, NR, A, LDA, CWORK, V, LDV, CWORK(N+1), LWORK-N, IERR );
 
          }
           // .. permute the rows of V
@@ -924,20 +924,20 @@
              // CALL ZCOPY( N, V(p,1), LDV, A(IWORK(p),1), LDA )
 * 8991    CONTINUE
           // CALL ZLACPY( 'All', N, N, A, LDA, V, LDV )
-         CALL ZLAPMR( .FALSE., N, N, V, LDV, IWORK )
+         zlapmr(.FALSE., N, N, V, LDV, IWORK );
 
           if ( TRANSP ) {
-            CALL ZLACPY( 'A', N, N, V, LDV, U, LDU )
+            zlacpy('A', N, N, V, LDV, U, LDU );
           }
 
       } else if ( JRACC .AND. (.NOT. LSVEC) .AND. ( NR.EQ. N ) ) {
 
-         CALL ZLASET( 'L', N-1,N-1, CZERO, CZERO, A(2,1), LDA )
+         zlaset('L', N-1,N-1, CZERO, CZERO, A(2,1), LDA );
 
-         CALL ZGESVJ( 'U','N','V', N, N, A, LDA, SVA, N, V, LDV, CWORK, LWORK, RWORK, LRWORK, INFO )
+         zgesvj('U','N','V', N, N, A, LDA, SVA, N, V, LDV, CWORK, LWORK, RWORK, LRWORK, INFO );
           SCALEM  = RWORK(1)
           NUMRANK = NINT(RWORK(2))
-          CALL ZLAPMR( .FALSE., N, N, V, LDV, IWORK )
+          zlapmr(.FALSE., N, N, V, LDV, IWORK );
 
       } else if ( LSVEC .AND. ( .NOT. RSVEC ) ) {
 
@@ -946,42 +946,42 @@
          // .. second preconditioning step to avoid need to accumulate
          // Jacobi rotations in the Jacobi iterations.
          DO 1965 p = 1, NR
-            CALL ZCOPY( N-p+1, A(p,p), LDA, U(p,p), 1 )
-            CALL ZLACGV( N-p+1, U(p,p), 1 )
+            zcopy(N-p+1, A(p,p), LDA, U(p,p), 1 );
+            zlacgv(N-p+1, U(p,p), 1 );
  1965    CONTINUE
-         CALL ZLASET( 'U', NR-1, NR-1, CZERO, CZERO, U(1,2), LDU )
+         zlaset('U', NR-1, NR-1, CZERO, CZERO, U(1,2), LDU );
 
-         CALL ZGEQRF( N, NR, U, LDU, CWORK(N+1), CWORK(2*N+1), LWORK-2*N, IERR )
+         zgeqrf(N, NR, U, LDU, CWORK(N+1), CWORK(2*N+1), LWORK-2*N, IERR );
 
          DO 1967 p = 1, NR - 1
-            CALL ZCOPY( NR-p, U(p,p+1), LDU, U(p+1,p), 1 )
-            CALL ZLACGV( N-p+1, U(p,p), 1 )
+            zcopy(NR-p, U(p,p+1), LDU, U(p+1,p), 1 );
+            zlacgv(N-p+1, U(p,p), 1 );
  1967    CONTINUE
-         CALL ZLASET( 'U', NR-1, NR-1, CZERO, CZERO, U(1,2), LDU )
+         zlaset('U', NR-1, NR-1, CZERO, CZERO, U(1,2), LDU );
 
-         CALL ZGESVJ( 'L', 'U', 'N', NR,NR, U, LDU, SVA, NR, A, LDA, CWORK(N+1), LWORK-N, RWORK, LRWORK, INFO )
+         zgesvj('L', 'U', 'N', NR,NR, U, LDU, SVA, NR, A, LDA, CWORK(N+1), LWORK-N, RWORK, LRWORK, INFO );
          SCALEM  = RWORK(1)
          NUMRANK = NINT(RWORK(2))
 
          if ( NR .LT. M ) {
-            CALL ZLASET( 'A',  M-NR, NR,CZERO, CZERO, U(NR+1,1), LDU )
+            zlaset('A',  M-NR, NR,CZERO, CZERO, U(NR+1,1), LDU );
             if ( NR .LT. N1 ) {
-               CALL ZLASET( 'A',NR, N1-NR, CZERO, CZERO, U(1,NR+1),LDU )
-               CALL ZLASET( 'A',M-NR,N1-NR,CZERO,CONE,U(NR+1,NR+1),LDU )
+               zlaset('A',NR, N1-NR, CZERO, CZERO, U(1,NR+1),LDU );
+               zlaset('A',M-NR,N1-NR,CZERO,CONE,U(NR+1,NR+1),LDU );
             }
          }
 
-         CALL ZUNMQR( 'L', 'N', M, N1, N, A, LDA, CWORK, U, LDU, CWORK(N+1), LWORK-N, IERR )
+         zunmqr('L', 'N', M, N1, N, A, LDA, CWORK, U, LDU, CWORK(N+1), LWORK-N, IERR );
 
          IF ( ROWPIV ) CALL ZLASWP( N1, U, LDU, 1, M-1, IWORK(IWOFF+1), -1 )
 
          DO 1974 p = 1, N1
             XSC = ONE / DZNRM2( M, U(1,p), 1 )
-            CALL ZDSCAL( M, XSC, U(1,p), 1 )
+            zdscal(M, XSC, U(1,p), 1 );
  1974    CONTINUE
 
          if ( TRANSP ) {
-            CALL ZLACPY( 'A', N, N, U, LDU, V, LDV )
+            zlacpy('A', N, N, U, LDU, V, LDV );
          }
 
       } else {
@@ -1000,8 +1000,8 @@
             // optimized implementation of ZGEJSV.
 
             DO 1968 p = 1, NR
-               CALL ZCOPY( N-p+1, A(p,p), LDA, V(p,p), 1 )
-               CALL ZLACGV( N-p+1, V(p,p), 1 )
+               zcopy(N-p+1, A(p,p), LDA, V(p,p), 1 );
+               zlacgv(N-p+1, V(p,p), 1 );
  1968       CONTINUE
 
             // .. the following two loops perturb small entries to avoid
@@ -1027,19 +1027,19 @@
  2968             CONTINUE
  2969          CONTINUE
             } else {
-               CALL ZLASET( 'U', NR-1, NR-1, CZERO, CZERO, V(1,2), LDV )
+               zlaset('U', NR-1, NR-1, CZERO, CZERO, V(1,2), LDV );
             }
 
             // Estimate the row scaled condition number of R1
             // (If R1 is rectangular, N > NR, then the condition number
             // of the leading NR x NR submatrix is estimated.)
 
-            CALL ZLACPY( 'L', NR, NR, V, LDV, CWORK(2*N+1), NR )
+            zlacpy('L', NR, NR, V, LDV, CWORK(2*N+1), NR );
             DO 3950 p = 1, NR
                TEMP1 = DZNRM2(NR-p+1,CWORK(2*N+(p-1)*NR+p),1)
-               CALL ZDSCAL(NR-p+1,ONE/TEMP1,CWORK(2*N+(p-1)*NR+p),1)
+               zdscal(NR-p+1,ONE/TEMP1,CWORK(2*N+(p-1)*NR+p),1);
  3950       CONTINUE
-            CALL ZPOCON('L',NR,CWORK(2*N+1),NR,ONE,TEMP1, CWORK(2*N+NR*NR+1),RWORK,IERR)
+            zpocon('L',NR,CWORK(2*N+1),NR,ONE,TEMP1, CWORK(2*N+NR*NR+1),RWORK,IERR);
             CONDR1 = ONE / SQRT(TEMP1)
             // .. here need a second opinion on the condition number
             // .. then assume worst case scenario
@@ -1054,7 +1054,7 @@
                // implementation, this QRF should be implemented as the QRF
                // of a lower triangular matrix.
                // R1^* = Q2 * R2
-               CALL ZGEQRF( N, NR, V, LDV, CWORK(N+1), CWORK(2*N+1), LWORK-2*N, IERR )
+               zgeqrf(N, NR, V, LDV, CWORK(N+1), CWORK(2*N+1), LWORK-2*N, IERR );
 
                if ( L2PERT ) {
                   XSC = SQRT(SMALL)/EPSLN
@@ -1072,8 +1072,8 @@
 
             // .. this transposed copy should be better than naive
                DO 1969 p = 1, NR - 1
-                  CALL ZCOPY( NR-p, V(p,p+1), LDV, V(p+1,p), 1 )
-                  CALL ZLACGV(NR-p+1, V(p,p), 1 )
+                  zcopy(NR-p, V(p,p+1), LDV, V(p+1,p), 1 );
+                  zlacgv(NR-p+1, V(p,p), 1 );
  1969          CONTINUE
                V(NR,NR)=CONJG(V(NR,NR))
 
@@ -1092,7 +1092,7 @@
                DO 3003 p = 1, NR
                   IWORK(N+p) = 0
  3003          CONTINUE
-               CALL ZGEQP3( N, NR, V, LDV, IWORK(N+1), CWORK(N+1), CWORK(2*N+1), LWORK-2*N, RWORK, IERR )
+               zgeqp3(N, NR, V, LDV, IWORK(N+1), CWORK(N+1), CWORK(2*N+1), LWORK-2*N, RWORK, IERR );
 **               CALL ZGEQRF( N, NR, V, LDV, CWORK(N+1), CWORK(2*N+1),
 **     $              LWORK-2*N, IERR )
                if ( L2PERT ) {
@@ -1106,7 +1106,7 @@
  3969             CONTINUE
                }
 
-               CALL ZLACPY( 'A', N, NR, V, LDV, CWORK(2*N+1), N )
+               zlacpy('A', N, NR, V, LDV, CWORK(2*N+1), N );
 
                if ( L2PERT ) {
                   XSC = SQRT(SMALL)
@@ -1118,17 +1118,17 @@
  8971                CONTINUE
  8970             CONTINUE
                } else {
-                  CALL ZLASET( 'L',NR-1,NR-1,CZERO,CZERO,V(2,1),LDV )
+                  zlaset('L',NR-1,NR-1,CZERO,CZERO,V(2,1),LDV );
                }
                // Now, compute R2 = L3 * Q3, the LQ factorization.
-               CALL ZGELQF( NR, NR, V, LDV, CWORK(2*N+N*NR+1), CWORK(2*N+N*NR+NR+1), LWORK-2*N-N*NR-NR, IERR )
+               zgelqf(NR, NR, V, LDV, CWORK(2*N+N*NR+1), CWORK(2*N+N*NR+NR+1), LWORK-2*N-N*NR-NR, IERR );
                // .. and estimate the condition number
-               CALL ZLACPY( 'L',NR,NR,V,LDV,CWORK(2*N+N*NR+NR+1),NR )
+               zlacpy('L',NR,NR,V,LDV,CWORK(2*N+N*NR+NR+1),NR );
                DO 4950 p = 1, NR
                   TEMP1 = DZNRM2( p, CWORK(2*N+N*NR+NR+p), NR )
-                  CALL ZDSCAL( p, ONE/TEMP1, CWORK(2*N+N*NR+NR+p), NR )
+                  zdscal(p, ONE/TEMP1, CWORK(2*N+N*NR+NR+p), NR );
  4950          CONTINUE
-               CALL ZPOCON( 'L',NR,CWORK(2*N+N*NR+NR+1),NR,ONE,TEMP1, CWORK(2*N+N*NR+NR+NR*NR+1),RWORK,IERR )
+               zpocon('L',NR,CWORK(2*N+N*NR+NR+1),NR,ONE,TEMP1, CWORK(2*N+N*NR+NR+NR*NR+1),RWORK,IERR );
                CONDR2 = ONE / SQRT(TEMP1)
 
 
@@ -1137,7 +1137,7 @@
                   // (this overwrites the copy of R2, as it will not be
                   // needed in this branch, but it does not overwrite the
                   // Huseholder vectors of Q2.).
-                  CALL ZLACPY( 'U', NR, NR, V, LDV, CWORK(2*N+1), N )
+                  zlacpy('U', NR, NR, V, LDV, CWORK(2*N+1), N );
                   // .. and the rest of the information on Q3 is in
                   // WORK(2*N+N*NR+1:2*N+N*NR+N)
                }
@@ -1154,7 +1154,7 @@
  4969             CONTINUE
  4968          CONTINUE
             } else {
-               CALL ZLASET( 'U', NR-1,NR-1, CZERO,CZERO, V(1,2), LDV )
+               zlaset('U', NR-1,NR-1, CZERO,CZERO, V(1,2), LDV );
             }
 
          // Second preconditioning finished; continue with Jacobi SVD
@@ -1165,12 +1165,12 @@
 
             if ( CONDR1 .LT. COND_OK ) {
 
-               CALL ZGESVJ( 'L','U','N',NR,NR,V,LDV,SVA,NR,U, LDU, CWORK(2*N+N*NR+NR+1),LWORK-2*N-N*NR-NR,RWORK, LRWORK, INFO )
+               zgesvj('L','U','N',NR,NR,V,LDV,SVA,NR,U, LDU, CWORK(2*N+N*NR+NR+1),LWORK-2*N-N*NR-NR,RWORK, LRWORK, INFO );
                SCALEM  = RWORK(1)
                NUMRANK = NINT(RWORK(2))
                DO 3970 p = 1, NR
-                  CALL ZCOPY(  NR, V(1,p), 1, U(1,p), 1 )
-                  CALL ZDSCAL( NR, SVA(p),    V(1,p), 1 )
+                  zcopy(NR, V(1,p), 1, U(1,p), 1 );
+                  zdscal(NR, SVA(p),    V(1,p), 1 );
  3970          CONTINUE
 
          // .. pick the right matrix equation and solve it
@@ -1180,19 +1180,19 @@
                   // equation is Q2*V2 = the product of the Jacobi rotations
                   // used in ZGESVJ, premultiplied with the orthogonal matrix
                   // from the second QR factorization.
-                  CALL ZTRSM('L','U','N','N', NR,NR,CONE, A,LDA, V,LDV)
+                  ztrsm('L','U','N','N', NR,NR,CONE, A,LDA, V,LDV);
                } else {
                   // .. R1 is well conditioned, but non-square. Adjoint of R2
                   // is inverted to get the product of the Jacobi rotations
                   // used in ZGESVJ. The Q-factor from the second QR
                   // factorization is then built in explicitly.
-                  CALL ZTRSM('L','U','C','N',NR,NR,CONE,CWORK(2*N+1), N,V,LDV)
+                  ztrsm('L','U','C','N',NR,NR,CONE,CWORK(2*N+1), N,V,LDV);
                   if ( NR .LT. N ) {
-                  CALL ZLASET('A',N-NR,NR,CZERO,CZERO,V(NR+1,1),LDV)
-                  CALL ZLASET('A',NR,N-NR,CZERO,CZERO,V(1,NR+1),LDV)
-                  CALL ZLASET('A',N-NR,N-NR,CZERO,CONE,V(NR+1,NR+1),LDV)
+                  zlaset('A',N-NR,NR,CZERO,CZERO,V(NR+1,1),LDV);
+                  zlaset('A',NR,N-NR,CZERO,CZERO,V(1,NR+1),LDV);
+                  zlaset('A',N-NR,N-NR,CZERO,CONE,V(NR+1,NR+1),LDV);
                   }
-                  CALL ZUNMQR('L','N',N,N,NR,CWORK(2*N+1),N,CWORK(N+1), V,LDV,CWORK(2*N+N*NR+NR+1),LWORK-2*N-N*NR-NR,IERR)
+                  zunmqr('L','N',N,N,NR,CWORK(2*N+1),N,CWORK(N+1), V,LDV,CWORK(2*N+N*NR+NR+1),LWORK-2*N-N*NR-NR,IERR);
                }
 
             } else if ( CONDR2 .LT. COND_OK ) {
@@ -1201,14 +1201,14 @@
                // is Q3^* * V3 = the product of the Jacobi rotations (applied to
                // the lower triangular L3 from the LQ factorization of
                // R2=L3*Q3), pre-multiplied with the transposed Q3.
-               CALL ZGESVJ( 'L', 'U', 'N', NR, NR, V, LDV, SVA, NR, U, LDU, CWORK(2*N+N*NR+NR+1), LWORK-2*N-N*NR-NR, RWORK, LRWORK, INFO )
+               zgesvj('L', 'U', 'N', NR, NR, V, LDV, SVA, NR, U, LDU, CWORK(2*N+N*NR+NR+1), LWORK-2*N-N*NR-NR, RWORK, LRWORK, INFO );
                SCALEM  = RWORK(1)
                NUMRANK = NINT(RWORK(2))
                DO 3870 p = 1, NR
-                  CALL ZCOPY( NR, V(1,p), 1, U(1,p), 1 )
-                  CALL ZDSCAL( NR, SVA(p),    U(1,p), 1 )
+                  zcopy(NR, V(1,p), 1, U(1,p), 1 );
+                  zdscal(NR, SVA(p),    U(1,p), 1 );
  3870          CONTINUE
-               CALL ZTRSM('L','U','N','N',NR,NR,CONE,CWORK(2*N+1),N, U,LDU)
+               ztrsm('L','U','N','N',NR,NR,CONE,CWORK(2*N+1),N, U,LDU);
                // .. apply the permutation from the second QR factorization
                DO 873 q = 1, NR
                   DO 872 p = 1, NR
@@ -1219,11 +1219,11 @@
  874              CONTINUE
  873           CONTINUE
                if ( NR .LT. N ) {
-                  CALL ZLASET( 'A',N-NR,NR,CZERO,CZERO,V(NR+1,1),LDV )
-                  CALL ZLASET( 'A',NR,N-NR,CZERO,CZERO,V(1,NR+1),LDV )
-                  CALL ZLASET('A',N-NR,N-NR,CZERO,CONE,V(NR+1,NR+1),LDV)
+                  zlaset('A',N-NR,NR,CZERO,CZERO,V(NR+1,1),LDV );
+                  zlaset('A',NR,N-NR,CZERO,CZERO,V(1,NR+1),LDV );
+                  zlaset('A',N-NR,N-NR,CZERO,CONE,V(NR+1,NR+1),LDV);
                }
-               CALL ZUNMQR( 'L','N',N,N,NR,CWORK(2*N+1),N,CWORK(N+1), V,LDV,CWORK(2*N+N*NR+NR+1),LWORK-2*N-N*NR-NR,IERR )
+               zunmqr('L','N',N,N,NR,CWORK(2*N+1),N,CWORK(N+1), V,LDV,CWORK(2*N+N*NR+NR+1),LWORK-2*N-N*NR-NR,IERR );
             } else {
                // Last line of defense.
 * #:(          This is a rather pathological case: no scaled condition
@@ -1236,17 +1236,17 @@
                // defense ensures that ZGEJSV completes the task.
                // Compute the full SVD of L3 using ZGESVJ with explicit
                // accumulation of Jacobi rotations.
-               CALL ZGESVJ( 'L', 'U', 'V', NR, NR, V, LDV, SVA, NR, U, LDU, CWORK(2*N+N*NR+NR+1), LWORK-2*N-N*NR-NR, RWORK, LRWORK, INFO )
+               zgesvj('L', 'U', 'V', NR, NR, V, LDV, SVA, NR, U, LDU, CWORK(2*N+N*NR+NR+1), LWORK-2*N-N*NR-NR, RWORK, LRWORK, INFO );
                SCALEM  = RWORK(1)
                NUMRANK = NINT(RWORK(2))
                if ( NR .LT. N ) {
-                  CALL ZLASET( 'A',N-NR,NR,CZERO,CZERO,V(NR+1,1),LDV )
-                  CALL ZLASET( 'A',NR,N-NR,CZERO,CZERO,V(1,NR+1),LDV )
-                  CALL ZLASET('A',N-NR,N-NR,CZERO,CONE,V(NR+1,NR+1),LDV)
+                  zlaset('A',N-NR,NR,CZERO,CZERO,V(NR+1,1),LDV );
+                  zlaset('A',NR,N-NR,CZERO,CZERO,V(1,NR+1),LDV );
+                  zlaset('A',N-NR,N-NR,CZERO,CONE,V(NR+1,NR+1),LDV);
                }
-               CALL ZUNMQR( 'L','N',N,N,NR,CWORK(2*N+1),N,CWORK(N+1), V,LDV,CWORK(2*N+N*NR+NR+1),LWORK-2*N-N*NR-NR,IERR )
+               zunmqr('L','N',N,N,NR,CWORK(2*N+1),N,CWORK(N+1), V,LDV,CWORK(2*N+N*NR+NR+1),LWORK-2*N-N*NR-NR,IERR );
 
-               CALL ZUNMLQ( 'L', 'C', NR, NR, NR, CWORK(2*N+1), N, CWORK(2*N+N*NR+1), U, LDU, CWORK(2*N+N*NR+NR+1), LWORK-2*N-N*NR-NR, IERR )
+               zunmlq('L', 'C', NR, NR, NR, CWORK(2*N+1), N, CWORK(2*N+N*NR+1), U, LDU, CWORK(2*N+N*NR+NR+1), LWORK-2*N-N*NR-NR, IERR );
                DO 773 q = 1, NR
                   DO 772 p = 1, NR
                      CWORK(2*N+N*NR+NR+IWORK(N+p)) = U(p,q)
@@ -1276,17 +1276,17 @@
             // At this moment, V contains the right singular vectors of A.
             // Next, assemble the left singular vector matrix U (M x N).
             if ( NR .LT. M ) {
-               CALL ZLASET('A', M-NR, NR, CZERO, CZERO, U(NR+1,1), LDU)
+               zlaset('A', M-NR, NR, CZERO, CZERO, U(NR+1,1), LDU);
                if ( NR .LT. N1 ) {
-                  CALL ZLASET('A',NR,N1-NR,CZERO,CZERO,U(1,NR+1),LDU)
-                  CALL ZLASET('A',M-NR,N1-NR,CZERO,CONE, U(NR+1,NR+1),LDU)
+                  zlaset('A',NR,N1-NR,CZERO,CZERO,U(1,NR+1),LDU);
+                  zlaset('A',M-NR,N1-NR,CZERO,CONE, U(NR+1,NR+1),LDU);
                }
             }
 
             // The Q matrix from the first QRF is built into the left singular
             // matrix U. This applies to all cases.
 
-            CALL ZUNMQR( 'L', 'N', M, N1, N, A, LDA, CWORK, U, LDU, CWORK(N+1), LWORK-N, IERR )
+            zunmqr('L', 'N', M, N1, N, A, LDA, CWORK, U, LDU, CWORK(N+1), LWORK-N, IERR );
 
             // The columns of U are normalized. The cost is O(M*N) flops.
             TEMP1 = SQRT(DBLE(M)) * EPSLN
@@ -1305,7 +1305,7 @@
          // .. the initial matrix A has almost orthogonal columns and
          // the second QRF is not needed
 
-            CALL ZLACPY( 'U', N, N, A, LDA, CWORK(N+1), N )
+            zlacpy('U', N, N, A, LDA, CWORK(N+1), N );
             if ( L2PERT ) {
                XSC = SQRT(SMALL)
                DO 5970 p = 2, N
@@ -1317,21 +1317,21 @@
  5971             CONTINUE
  5970          CONTINUE
             } else {
-               CALL ZLASET( 'L',N-1,N-1,CZERO,CZERO,CWORK(N+2),N )
+               zlaset('L',N-1,N-1,CZERO,CZERO,CWORK(N+2),N );
             }
 
-            CALL ZGESVJ( 'U', 'U', 'N', N, N, CWORK(N+1), N, SVA, N, U, LDU, CWORK(N+N*N+1), LWORK-N-N*N, RWORK, LRWORK, INFO )
+            zgesvj('U', 'U', 'N', N, N, CWORK(N+1), N, SVA, N, U, LDU, CWORK(N+N*N+1), LWORK-N-N*N, RWORK, LRWORK, INFO );
 
             SCALEM  = RWORK(1)
             NUMRANK = NINT(RWORK(2))
             DO 6970 p = 1, N
-               CALL ZCOPY( N, CWORK(N+(p-1)*N+1), 1, U(1,p), 1 )
-               CALL ZDSCAL( N, SVA(p), CWORK(N+(p-1)*N+1), 1 )
+               zcopy(N, CWORK(N+(p-1)*N+1), 1, U(1,p), 1 );
+               zdscal(N, SVA(p), CWORK(N+(p-1)*N+1), 1 );
  6970       CONTINUE
 
-            CALL ZTRSM( 'L', 'U', 'N', 'N', N, N, CONE, A, LDA, CWORK(N+1), N )
+            ztrsm('L', 'U', 'N', 'N', N, N, CONE, A, LDA, CWORK(N+1), N );
             DO 6972 p = 1, N
-               CALL ZCOPY( N, CWORK(N+p), N, V(IWORK(p),1), LDV )
+               zcopy(N, CWORK(N+p), N, V(IWORK(p),1), LDV );
  6972       CONTINUE
             TEMP1 = SQRT(DBLE(N))*EPSLN
             DO 6971 p = 1, N
@@ -1342,13 +1342,13 @@
             // Assemble the left singular vector matrix U (M x N).
 
             if ( N .LT. M ) {
-               CALL ZLASET( 'A',  M-N, N, CZERO, CZERO, U(N+1,1), LDU )
+               zlaset('A',  M-N, N, CZERO, CZERO, U(N+1,1), LDU );
                if ( N .LT. N1 ) {
-                  CALL ZLASET('A',N,  N1-N, CZERO, CZERO,  U(1,N+1),LDU)
-                  CALL ZLASET( 'A',M-N,N1-N, CZERO, CONE,U(N+1,N+1),LDU)
+                  zlaset('A',N,  N1-N, CZERO, CZERO,  U(1,N+1),LDU);
+                  zlaset('A',M-N,N1-N, CZERO, CONE,U(N+1,N+1),LDU);
                }
             }
-            CALL ZUNMQR( 'L', 'N', M, N1, N, A, LDA, CWORK, U, LDU, CWORK(N+1), LWORK-N, IERR )
+            zunmqr('L', 'N', M, N1, N, A, LDA, CWORK, U, LDU, CWORK(N+1), LWORK-N, IERR );
             TEMP1 = SQRT(DBLE(M))*EPSLN
             DO 6973 p = 1, N1
                XSC = ONE / DZNRM2( M, U(1,p), 1 )
@@ -1375,8 +1375,8 @@
          // the underflow to the overflow threshold.
 
          DO 7968 p = 1, NR
-            CALL ZCOPY( N-p+1, A(p,p), LDA, V(p,p), 1 )
-            CALL ZLACGV( N-p+1, V(p,p), 1 )
+            zcopy(N-p+1, A(p,p), LDA, V(p,p), 1 );
+            zlacgv(N-p+1, V(p,p), 1 );
  7968    CONTINUE
 
          if ( L2PERT ) {
@@ -1390,14 +1390,14 @@
  5968          CONTINUE
  5969       CONTINUE
          } else {
-            CALL ZLASET( 'U', NR-1, NR-1, CZERO, CZERO, V(1,2), LDV )
+            zlaset('U', NR-1, NR-1, CZERO, CZERO, V(1,2), LDV );
          }
-          CALL ZGEQRF( N, NR, V, LDV, CWORK(N+1), CWORK(2*N+1), LWORK-2*N, IERR )
-         CALL ZLACPY( 'L', N, NR, V, LDV, CWORK(2*N+1), N )
+          zgeqrf(N, NR, V, LDV, CWORK(N+1), CWORK(2*N+1), LWORK-2*N, IERR );
+         zlacpy('L', N, NR, V, LDV, CWORK(2*N+1), N );
 
          DO 7969 p = 1, NR
-            CALL ZCOPY( NR-p+1, V(p,p), LDV, U(p,p), 1 )
-            CALL ZLACGV( NR-p+1, U(p,p), 1 )
+            zcopy(NR-p+1, V(p,p), LDV, U(p,p), 1 );
+            zlacgv(NR-p+1, U(p,p), 1 );
  7969    CONTINUE
 
          if ( L2PERT ) {
@@ -1410,18 +1410,18 @@
  9971          CONTINUE
  9970       CONTINUE
          } else {
-            CALL ZLASET('U', NR-1, NR-1, CZERO, CZERO, U(1,2), LDU )
+            zlaset('U', NR-1, NR-1, CZERO, CZERO, U(1,2), LDU );
          }
-          CALL ZGESVJ( 'L', 'U', 'V', NR, NR, U, LDU, SVA, N, V, LDV, CWORK(2*N+N*NR+1), LWORK-2*N-N*NR, RWORK, LRWORK, INFO )
+          zgesvj('L', 'U', 'V', NR, NR, U, LDU, SVA, N, V, LDV, CWORK(2*N+N*NR+1), LWORK-2*N-N*NR, RWORK, LRWORK, INFO );
          SCALEM  = RWORK(1)
          NUMRANK = NINT(RWORK(2))
 
          if ( NR .LT. N ) {
-            CALL ZLASET( 'A',N-NR,NR,CZERO,CZERO,V(NR+1,1),LDV )
-            CALL ZLASET( 'A',NR,N-NR,CZERO,CZERO,V(1,NR+1),LDV )
-            CALL ZLASET( 'A',N-NR,N-NR,CZERO,CONE,V(NR+1,NR+1),LDV )
+            zlaset('A',N-NR,NR,CZERO,CZERO,V(NR+1,1),LDV );
+            zlaset('A',NR,N-NR,CZERO,CZERO,V(1,NR+1),LDV );
+            zlaset('A',N-NR,N-NR,CZERO,CONE,V(NR+1,NR+1),LDV );
          }
-          CALL ZUNMQR( 'L','N',N,N,NR,CWORK(2*N+1),N,CWORK(N+1), V,LDV,CWORK(2*N+N*NR+NR+1),LWORK-2*N-N*NR-NR,IERR )
+          zunmqr('L','N',N,N,NR,CWORK(2*N+1),N,CWORK(N+1), V,LDV,CWORK(2*N+N*NR+NR+1),LWORK-2*N-N*NR-NR,IERR );
 
             // Permute the rows of V using the (column) permutation from the
             // first QRF. Also, scale the columns to make them unit in
@@ -1443,14 +1443,14 @@
             // Next, assemble the left singular vector matrix U (M x N).
 
          if ( NR .LT. M ) {
-            CALL ZLASET( 'A',  M-NR, NR, CZERO, CZERO, U(NR+1,1), LDU )
+            zlaset('A',  M-NR, NR, CZERO, CZERO, U(NR+1,1), LDU );
             if ( NR .LT. N1 ) {
-               CALL ZLASET('A',NR,  N1-NR, CZERO, CZERO,  U(1,NR+1),LDU)
-               CALL ZLASET('A',M-NR,N1-NR, CZERO, CONE,U(NR+1,NR+1),LDU)
+               zlaset('A',NR,  N1-NR, CZERO, CZERO,  U(1,NR+1),LDU);
+               zlaset('A',M-NR,N1-NR, CZERO, CONE,U(NR+1,NR+1),LDU);
             }
          }
 
-         CALL ZUNMQR( 'L', 'N', M, N1, N, A, LDA, CWORK, U, LDU, CWORK(N+1), LWORK-N, IERR )
+         zunmqr('L', 'N', M, N1, N, A, LDA, CWORK, U, LDU, CWORK(N+1), LWORK-N, IERR );
 
             IF ( ROWPIV ) CALL ZLASWP( N1, U, LDU, 1, M-1, IWORK(IWOFF+1), -1 )
 
@@ -1459,7 +1459,7 @@
          if ( TRANSP ) {
             // .. swap U and V because the procedure worked on A^*
             DO 6974 p = 1, N
-               CALL ZSWAP( N, U(1,p), 1, V(1,p), 1 )
+               zswap(N, U(1,p), 1, V(1,p), 1 );
  6974       CONTINUE
          }
 
@@ -1469,7 +1469,7 @@
       // Undo scaling, if necessary (and possible)
 
       if ( USCAL2 .LE. (BIG/SVA(1))*USCAL1 ) {
-         CALL DLASCL( 'G', 0, 0, USCAL1, USCAL2, NR, 1, SVA, N, IERR )
+         dlascl('G', 0, 0, USCAL1, USCAL2, NR, 1, SVA, N, IERR );
          USCAL1 = ONE
          USCAL2 = ONE
       }

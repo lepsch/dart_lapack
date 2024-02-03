@@ -41,13 +41,13 @@
       // Copy the matrices A and B to the arrays AF and BF,
       // and the vector D the array DF.
 
-      CALL SLACPY( 'Full', N, M, A, LDA, AF, LDA )
-      CALL SLACPY( 'Full', N, P, B, LDB, BF, LDB )
-      CALL SCOPY( N, D, 1, DF, 1 )
+      slacpy('Full', N, M, A, LDA, AF, LDA );
+      slacpy('Full', N, P, B, LDB, BF, LDB );
+      scopy(N, D, 1, DF, 1 );
 
       // Solve GLM problem
 
-      CALL SGGGLM( N, M, P, AF, LDA, BF, LDB, DF, X, U, WORK, LWORK, INFO )
+      sggglm(N, M, P, AF, LDA, BF, LDB, DF, X, U, WORK, LWORK, INFO );
 
       // Test the residual for the solution of LSE
 
@@ -55,10 +55,10 @@
         // RESULT = -----------------------------------------
                  // (norm(A)+norm(B))*(norm(x)+norm(u))*EPS
 
-      CALL SCOPY( N, D, 1, DF, 1 )
-      CALL SGEMV( 'No transpose', N, M, -ONE, A, LDA, X, 1, ONE, DF, 1 )
+      scopy(N, D, 1, DF, 1 );
+      sgemv('No transpose', N, M, -ONE, A, LDA, X, 1, ONE, DF, 1 );
 
-      CALL SGEMV( 'No transpose', N, P, -ONE, B, LDB, U, 1, ONE, DF, 1 )
+      sgemv('No transpose', N, P, -ONE, B, LDB, U, 1, ONE, DF, 1 );
 
       DNORM = SASUM( N, DF, 1 )
       XNORM = SASUM( M, X, 1 ) + SASUM( P, U, 1 )

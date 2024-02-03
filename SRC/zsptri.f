@@ -47,7 +47,7 @@
          INFO = -2
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'ZSPTRI', -INFO )
+         xerbla('ZSPTRI', -INFO );
          RETURN
       }
 
@@ -105,8 +105,8 @@
             // Compute column K of the inverse.
 
             if ( K.GT.1 ) {
-               CALL ZCOPY( K-1, AP( KC ), 1, WORK, 1 )
-               CALL ZSPMV( UPLO, K-1, -ONE, AP, WORK, 1, ZERO, AP( KC ), 1 )                AP( KC+K-1 ) = AP( KC+K-1 ) - ZDOTU( K-1, WORK, 1, AP( KC ), 1 )
+               zcopy(K-1, AP( KC ), 1, WORK, 1 );
+               zspmv(UPLO, K-1, -ONE, AP, WORK, 1, ZERO, AP( KC ), 1 )                AP( KC+K-1 ) = AP( KC+K-1 ) - ZDOTU( K-1, WORK, 1, AP( KC ), 1 );
             }
             KSTEP = 1
          } else {
@@ -127,10 +127,10 @@
             // Compute columns K and K+1 of the inverse.
 
             if ( K.GT.1 ) {
-               CALL ZCOPY( K-1, AP( KC ), 1, WORK, 1 )
-               CALL ZSPMV( UPLO, K-1, -ONE, AP, WORK, 1, ZERO, AP( KC ), 1 )                AP( KC+K-1 ) = AP( KC+K-1 ) - ZDOTU( K-1, WORK, 1, AP( KC ), 1 )                AP( KCNEXT+K-1 ) = AP( KCNEXT+K-1 ) - ZDOTU( K-1, AP( KC ), 1, AP( KCNEXT ), 1 )
-               CALL ZCOPY( K-1, AP( KCNEXT ), 1, WORK, 1 )
-               CALL ZSPMV( UPLO, K-1, -ONE, AP, WORK, 1, ZERO, AP( KCNEXT ), 1 )                AP( KCNEXT+K ) = AP( KCNEXT+K ) - ZDOTU( K-1, WORK, 1, AP( KCNEXT ), 1 )
+               zcopy(K-1, AP( KC ), 1, WORK, 1 );
+               zspmv(UPLO, K-1, -ONE, AP, WORK, 1, ZERO, AP( KC ), 1 )                AP( KC+K-1 ) = AP( KC+K-1 ) - ZDOTU( K-1, WORK, 1, AP( KC ), 1 )                AP( KCNEXT+K-1 ) = AP( KCNEXT+K-1 ) - ZDOTU( K-1, AP( KC ), 1, AP( KCNEXT ), 1 );
+               zcopy(K-1, AP( KCNEXT ), 1, WORK, 1 );
+               zspmv(UPLO, K-1, -ONE, AP, WORK, 1, ZERO, AP( KCNEXT ), 1 )                AP( KCNEXT+K ) = AP( KCNEXT+K ) - ZDOTU( K-1, WORK, 1, AP( KCNEXT ), 1 );
             }
             KSTEP = 2
             KCNEXT = KCNEXT + K + 1
@@ -143,7 +143,7 @@
             // submatrix A(1:k+1,1:k+1)
 
             KPC = ( KP-1 )*KP / 2 + 1
-            CALL ZSWAP( KP-1, AP( KC ), 1, AP( KPC ), 1 )
+            zswap(KP-1, AP( KC ), 1, AP( KPC ), 1 );
             KX = KPC + KP - 1
             DO 40 J = KP + 1, K - 1
                KX = KX + J - 1
@@ -194,8 +194,8 @@
             // Compute column K of the inverse.
 
             if ( K.LT.N ) {
-               CALL ZCOPY( N-K, AP( KC+1 ), 1, WORK, 1 )
-               CALL ZSPMV( UPLO, N-K, -ONE, AP( KC+N-K+1 ), WORK, 1, ZERO, AP( KC+1 ), 1 )                AP( KC ) = AP( KC ) - ZDOTU( N-K, WORK, 1, AP( KC+1 ), 1 )
+               zcopy(N-K, AP( KC+1 ), 1, WORK, 1 );
+               zspmv(UPLO, N-K, -ONE, AP( KC+N-K+1 ), WORK, 1, ZERO, AP( KC+1 ), 1 )                AP( KC ) = AP( KC ) - ZDOTU( N-K, WORK, 1, AP( KC+1 ), 1 );
             }
             KSTEP = 1
          } else {
@@ -216,10 +216,10 @@
             // Compute columns K-1 and K of the inverse.
 
             if ( K.LT.N ) {
-               CALL ZCOPY( N-K, AP( KC+1 ), 1, WORK, 1 )
-               CALL ZSPMV( UPLO, N-K, -ONE, AP( KC+( N-K+1 ) ), WORK, 1, ZERO, AP( KC+1 ), 1 )                AP( KC ) = AP( KC ) - ZDOTU( N-K, WORK, 1, AP( KC+1 ), 1 )                AP( KCNEXT+1 ) = AP( KCNEXT+1 ) - ZDOTU( N-K, AP( KC+1 ), 1, AP( KCNEXT+2 ), 1 )
-               CALL ZCOPY( N-K, AP( KCNEXT+2 ), 1, WORK, 1 )
-               CALL ZSPMV( UPLO, N-K, -ONE, AP( KC+( N-K+1 ) ), WORK, 1, ZERO, AP( KCNEXT+2 ), 1 )                AP( KCNEXT ) = AP( KCNEXT ) - ZDOTU( N-K, WORK, 1, AP( KCNEXT+2 ), 1 )
+               zcopy(N-K, AP( KC+1 ), 1, WORK, 1 );
+               zspmv(UPLO, N-K, -ONE, AP( KC+( N-K+1 ) ), WORK, 1, ZERO, AP( KC+1 ), 1 )                AP( KC ) = AP( KC ) - ZDOTU( N-K, WORK, 1, AP( KC+1 ), 1 )                AP( KCNEXT+1 ) = AP( KCNEXT+1 ) - ZDOTU( N-K, AP( KC+1 ), 1, AP( KCNEXT+2 ), 1 );
+               zcopy(N-K, AP( KCNEXT+2 ), 1, WORK, 1 );
+               zspmv(UPLO, N-K, -ONE, AP( KC+( N-K+1 ) ), WORK, 1, ZERO, AP( KCNEXT+2 ), 1 )                AP( KCNEXT ) = AP( KCNEXT ) - ZDOTU( N-K, WORK, 1, AP( KCNEXT+2 ), 1 );
             }
             KSTEP = 2
             KCNEXT = KCNEXT - ( N-K+3 )

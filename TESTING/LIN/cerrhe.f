@@ -79,132 +79,132 @@
 
          SRNAMT = 'CHETRF'
          INFOT = 1
-         CALL CHETRF( '/', 0, A, 1, IP, W, 1, INFO )
-         CALL CHKXER( 'CHETRF', INFOT, NOUT, LERR, OK )
+         chetrf('/', 0, A, 1, IP, W, 1, INFO );
+         chkxer('CHETRF', INFOT, NOUT, LERR, OK );
          INFOT = 2
-         CALL CHETRF( 'U', -1, A, 1, IP, W, 1, INFO )
-         CALL CHKXER( 'CHETRF', INFOT, NOUT, LERR, OK )
+         chetrf('U', -1, A, 1, IP, W, 1, INFO );
+         chkxer('CHETRF', INFOT, NOUT, LERR, OK );
          INFOT = 4
-         CALL CHETRF( 'U', 2, A, 1, IP, W, 4, INFO )
-         CALL CHKXER( 'CHETRF', INFOT, NOUT, LERR, OK )
+         chetrf('U', 2, A, 1, IP, W, 4, INFO );
+         chkxer('CHETRF', INFOT, NOUT, LERR, OK );
          INFOT = 7
-         CALL CHETRF( 'U', 0, A, 1, IP, W, 0, INFO )
-         CALL CHKXER( 'CHETRF', INFOT, NOUT, LERR, OK )
+         chetrf('U', 0, A, 1, IP, W, 0, INFO );
+         chkxer('CHETRF', INFOT, NOUT, LERR, OK );
          INFOT = 7
-         CALL CHETRF( 'U', 0, A, 1, IP, W, -2, INFO )
-         CALL CHKXER( 'CHETRF', INFOT, NOUT, LERR, OK )
+         chetrf('U', 0, A, 1, IP, W, -2, INFO );
+         chkxer('CHETRF', INFOT, NOUT, LERR, OK );
 
          // CHETF2
 
          SRNAMT = 'CHETF2'
          INFOT = 1
-         CALL CHETF2( '/', 0, A, 1, IP, INFO )
-         CALL CHKXER( 'CHETF2', INFOT, NOUT, LERR, OK )
+         chetf2('/', 0, A, 1, IP, INFO );
+         chkxer('CHETF2', INFOT, NOUT, LERR, OK );
          INFOT = 2
-         CALL CHETF2( 'U', -1, A, 1, IP, INFO )
-         CALL CHKXER( 'CHETF2', INFOT, NOUT, LERR, OK )
+         chetf2('U', -1, A, 1, IP, INFO );
+         chkxer('CHETF2', INFOT, NOUT, LERR, OK );
          INFOT = 4
-         CALL CHETF2( 'U', 2, A, 1, IP, INFO )
-         CALL CHKXER( 'CHETF2', INFOT, NOUT, LERR, OK )
+         chetf2('U', 2, A, 1, IP, INFO );
+         chkxer('CHETF2', INFOT, NOUT, LERR, OK );
 
          // CHETRI
 
          SRNAMT = 'CHETRI'
          INFOT = 1
-         CALL CHETRI( '/', 0, A, 1, IP, W, INFO )
-         CALL CHKXER( 'CHETRI', INFOT, NOUT, LERR, OK )
+         chetri('/', 0, A, 1, IP, W, INFO );
+         chkxer('CHETRI', INFOT, NOUT, LERR, OK );
          INFOT = 2
-         CALL CHETRI( 'U', -1, A, 1, IP, W, INFO )
-         CALL CHKXER( 'CHETRI', INFOT, NOUT, LERR, OK )
+         chetri('U', -1, A, 1, IP, W, INFO );
+         chkxer('CHETRI', INFOT, NOUT, LERR, OK );
          INFOT = 4
-         CALL CHETRI( 'U', 2, A, 1, IP, W, INFO )
-         CALL CHKXER( 'CHETRI', INFOT, NOUT, LERR, OK )
+         chetri('U', 2, A, 1, IP, W, INFO );
+         chkxer('CHETRI', INFOT, NOUT, LERR, OK );
 
          // CHETRI2
 
          SRNAMT = 'CHETRI2'
          INFOT = 1
-         CALL CHETRI2( '/', 0, A, 1, IP, W, 1, INFO )
-         CALL CHKXER( 'CHETRI2', INFOT, NOUT, LERR, OK )
+         chetri2('/', 0, A, 1, IP, W, 1, INFO );
+         chkxer('CHETRI2', INFOT, NOUT, LERR, OK );
          INFOT = 2
-         CALL CHETRI2( 'U', -1, A, 1, IP, W, 1, INFO )
-         CALL CHKXER( 'CHETRI2', INFOT, NOUT, LERR, OK )
+         chetri2('U', -1, A, 1, IP, W, 1, INFO );
+         chkxer('CHETRI2', INFOT, NOUT, LERR, OK );
          INFOT = 4
-         CALL CHETRI2( 'U', 2, A, 1, IP, W, 1, INFO )
-         CALL CHKXER( 'CHETRI2', INFOT, NOUT, LERR, OK )
+         chetri2('U', 2, A, 1, IP, W, 1, INFO );
+         chkxer('CHETRI2', INFOT, NOUT, LERR, OK );
 
          // CHETRI2X
 
          SRNAMT = 'CHETRI2X'
          INFOT = 1
-         CALL CHETRI2X( '/', 0, A, 1, IP, W, 1, INFO )
-         CALL CHKXER( 'CHETRI2X', INFOT, NOUT, LERR, OK )
+         chetri2x('/', 0, A, 1, IP, W, 1, INFO );
+         chkxer('CHETRI2X', INFOT, NOUT, LERR, OK );
          INFOT = 2
-         CALL CHETRI2X( 'U', -1, A, 1, IP, W, 1, INFO )
-         CALL CHKXER( 'CHETRI2X', INFOT, NOUT, LERR, OK )
+         chetri2x('U', -1, A, 1, IP, W, 1, INFO );
+         chkxer('CHETRI2X', INFOT, NOUT, LERR, OK );
          INFOT = 4
-         CALL CHETRI2X( 'U', 2, A, 1, IP, W, 1, INFO )
-         CALL CHKXER( 'CHETRI2X', INFOT, NOUT, LERR, OK )
+         chetri2x('U', 2, A, 1, IP, W, 1, INFO );
+         chkxer('CHETRI2X', INFOT, NOUT, LERR, OK );
 
          // CHETRS
 
          SRNAMT = 'CHETRS'
          INFOT = 1
-         CALL CHETRS( '/', 0, 0, A, 1, IP, B, 1, INFO )
-         CALL CHKXER( 'CHETRS', INFOT, NOUT, LERR, OK )
+         chetrs('/', 0, 0, A, 1, IP, B, 1, INFO );
+         chkxer('CHETRS', INFOT, NOUT, LERR, OK );
          INFOT = 2
-         CALL CHETRS( 'U', -1, 0, A, 1, IP, B, 1, INFO )
-         CALL CHKXER( 'CHETRS', INFOT, NOUT, LERR, OK )
+         chetrs('U', -1, 0, A, 1, IP, B, 1, INFO );
+         chkxer('CHETRS', INFOT, NOUT, LERR, OK );
          INFOT = 3
-         CALL CHETRS( 'U', 0, -1, A, 1, IP, B, 1, INFO )
-         CALL CHKXER( 'CHETRS', INFOT, NOUT, LERR, OK )
+         chetrs('U', 0, -1, A, 1, IP, B, 1, INFO );
+         chkxer('CHETRS', INFOT, NOUT, LERR, OK );
          INFOT = 5
-         CALL CHETRS( 'U', 2, 1, A, 1, IP, B, 2, INFO )
-         CALL CHKXER( 'CHETRS', INFOT, NOUT, LERR, OK )
+         chetrs('U', 2, 1, A, 1, IP, B, 2, INFO );
+         chkxer('CHETRS', INFOT, NOUT, LERR, OK );
          INFOT = 8
-         CALL CHETRS( 'U', 2, 1, A, 2, IP, B, 1, INFO )
-         CALL CHKXER( 'CHETRS', INFOT, NOUT, LERR, OK )
+         chetrs('U', 2, 1, A, 2, IP, B, 1, INFO );
+         chkxer('CHETRS', INFOT, NOUT, LERR, OK );
 
          // CHERFS
 
          SRNAMT = 'CHERFS'
          INFOT = 1
-         CALL CHERFS( '/', 0, 0, A, 1, AF, 1, IP, B, 1, X, 1, R1, R2, W, R, INFO )
-         CALL CHKXER( 'CHERFS', INFOT, NOUT, LERR, OK )
+         cherfs('/', 0, 0, A, 1, AF, 1, IP, B, 1, X, 1, R1, R2, W, R, INFO );
+         chkxer('CHERFS', INFOT, NOUT, LERR, OK );
          INFOT = 2
-         CALL CHERFS( 'U', -1, 0, A, 1, AF, 1, IP, B, 1, X, 1, R1, R2, W, R, INFO )
-         CALL CHKXER( 'CHERFS', INFOT, NOUT, LERR, OK )
+         cherfs('U', -1, 0, A, 1, AF, 1, IP, B, 1, X, 1, R1, R2, W, R, INFO );
+         chkxer('CHERFS', INFOT, NOUT, LERR, OK );
          INFOT = 3
-         CALL CHERFS( 'U', 0, -1, A, 1, AF, 1, IP, B, 1, X, 1, R1, R2, W, R, INFO )
-         CALL CHKXER( 'CHERFS', INFOT, NOUT, LERR, OK )
+         cherfs('U', 0, -1, A, 1, AF, 1, IP, B, 1, X, 1, R1, R2, W, R, INFO );
+         chkxer('CHERFS', INFOT, NOUT, LERR, OK );
          INFOT = 5
-         CALL CHERFS( 'U', 2, 1, A, 1, AF, 2, IP, B, 2, X, 2, R1, R2, W, R, INFO )
-         CALL CHKXER( 'CHERFS', INFOT, NOUT, LERR, OK )
+         cherfs('U', 2, 1, A, 1, AF, 2, IP, B, 2, X, 2, R1, R2, W, R, INFO );
+         chkxer('CHERFS', INFOT, NOUT, LERR, OK );
          INFOT = 7
-         CALL CHERFS( 'U', 2, 1, A, 2, AF, 1, IP, B, 2, X, 2, R1, R2, W, R, INFO )
-         CALL CHKXER( 'CHERFS', INFOT, NOUT, LERR, OK )
+         cherfs('U', 2, 1, A, 2, AF, 1, IP, B, 2, X, 2, R1, R2, W, R, INFO );
+         chkxer('CHERFS', INFOT, NOUT, LERR, OK );
          INFOT = 10
-         CALL CHERFS( 'U', 2, 1, A, 2, AF, 2, IP, B, 1, X, 2, R1, R2, W, R, INFO )
-         CALL CHKXER( 'CHERFS', INFOT, NOUT, LERR, OK )
+         cherfs('U', 2, 1, A, 2, AF, 2, IP, B, 1, X, 2, R1, R2, W, R, INFO );
+         chkxer('CHERFS', INFOT, NOUT, LERR, OK );
          INFOT = 12
-         CALL CHERFS( 'U', 2, 1, A, 2, AF, 2, IP, B, 2, X, 1, R1, R2, W, R, INFO )
-         CALL CHKXER( 'CHERFS', INFOT, NOUT, LERR, OK )
+         cherfs('U', 2, 1, A, 2, AF, 2, IP, B, 2, X, 1, R1, R2, W, R, INFO );
+         chkxer('CHERFS', INFOT, NOUT, LERR, OK );
 
          // CHECON
 
          SRNAMT = 'CHECON'
          INFOT = 1
-         CALL CHECON( '/', 0, A, 1, IP, ANRM, RCOND, W, INFO )
-         CALL CHKXER( 'CHECON', INFOT, NOUT, LERR, OK )
+         checon('/', 0, A, 1, IP, ANRM, RCOND, W, INFO );
+         chkxer('CHECON', INFOT, NOUT, LERR, OK );
          INFOT = 2
-         CALL CHECON( 'U', -1, A, 1, IP, ANRM, RCOND, W, INFO )
-         CALL CHKXER( 'CHECON', INFOT, NOUT, LERR, OK )
+         checon('U', -1, A, 1, IP, ANRM, RCOND, W, INFO );
+         chkxer('CHECON', INFOT, NOUT, LERR, OK );
          INFOT = 4
-         CALL CHECON( 'U', 2, A, 1, IP, ANRM, RCOND, W, INFO )
-         CALL CHKXER( 'CHECON', INFOT, NOUT, LERR, OK )
+         checon('U', 2, A, 1, IP, ANRM, RCOND, W, INFO );
+         chkxer('CHECON', INFOT, NOUT, LERR, OK );
          INFOT = 6
-         CALL CHECON( 'U', 1, A, 1, IP, -ANRM, RCOND, W, INFO )
-         CALL CHKXER( 'CHECON', INFOT, NOUT, LERR, OK )
+         checon('U', 1, A, 1, IP, -ANRM, RCOND, W, INFO );
+         chkxer('CHECON', INFOT, NOUT, LERR, OK );
 
       } else if ( LSAMEN( 2, C2, 'HR' ) ) {
 
@@ -216,81 +216,81 @@
 
          SRNAMT = 'CHETRF_ROOK'
          INFOT = 1
-         CALL CHETRF_ROOK( '/', 0, A, 1, IP, W, 1, INFO )
-         CALL CHKXER( 'CHETRF_ROOK', INFOT, NOUT, LERR, OK )
+         chetrf_rook('/', 0, A, 1, IP, W, 1, INFO );
+         chkxer('CHETRF_ROOK', INFOT, NOUT, LERR, OK );
          INFOT = 2
-         CALL CHETRF_ROOK( 'U', -1, A, 1, IP, W, 1, INFO )
-         CALL CHKXER( 'CHETRF_ROOK', INFOT, NOUT, LERR, OK )
+         chetrf_rook('U', -1, A, 1, IP, W, 1, INFO );
+         chkxer('CHETRF_ROOK', INFOT, NOUT, LERR, OK );
          INFOT = 4
-         CALL CHETRF_ROOK( 'U', 2, A, 1, IP, W, 4, INFO )
-         CALL CHKXER( 'CHETRF_ROOK', INFOT, NOUT, LERR, OK )
+         chetrf_rook('U', 2, A, 1, IP, W, 4, INFO );
+         chkxer('CHETRF_ROOK', INFOT, NOUT, LERR, OK );
          INFOT = 7
-         CALL CHETRF_ROOK( 'U', 0, A, 1, IP, W, 0, INFO )
-         CALL CHKXER( 'CHETRF_ROOK', INFOT, NOUT, LERR, OK )
+         chetrf_rook('U', 0, A, 1, IP, W, 0, INFO );
+         chkxer('CHETRF_ROOK', INFOT, NOUT, LERR, OK );
          INFOT = 7
-         CALL CHETRF_ROOK( 'U', 0, A, 1, IP, W, -2, INFO )
-         CALL CHKXER( 'CHETRF_ROOK', INFOT, NOUT, LERR, OK )
+         chetrf_rook('U', 0, A, 1, IP, W, -2, INFO );
+         chkxer('CHETRF_ROOK', INFOT, NOUT, LERR, OK );
 
          // CHETF2_ROOK
 
          SRNAMT = 'CHETF2_ROOK'
          INFOT = 1
-         CALL CHETF2_ROOK( '/', 0, A, 1, IP, INFO )
-         CALL CHKXER( 'CHETF2_ROOK', INFOT, NOUT, LERR, OK )
+         chetf2_rook('/', 0, A, 1, IP, INFO );
+         chkxer('CHETF2_ROOK', INFOT, NOUT, LERR, OK );
          INFOT = 2
-         CALL CHETF2_ROOK( 'U', -1, A, 1, IP, INFO )
-         CALL CHKXER( 'CHETF2_ROOK', INFOT, NOUT, LERR, OK )
+         chetf2_rook('U', -1, A, 1, IP, INFO );
+         chkxer('CHETF2_ROOK', INFOT, NOUT, LERR, OK );
          INFOT = 4
-         CALL CHETF2_ROOK( 'U', 2, A, 1, IP, INFO )
-         CALL CHKXER( 'CHETF2_ROOK', INFOT, NOUT, LERR, OK )
+         chetf2_rook('U', 2, A, 1, IP, INFO );
+         chkxer('CHETF2_ROOK', INFOT, NOUT, LERR, OK );
 
          // CHETRI_ROOK
 
          SRNAMT = 'CHETRI_ROOK'
          INFOT = 1
-         CALL CHETRI_ROOK( '/', 0, A, 1, IP, W, INFO )
-         CALL CHKXER( 'CHETRI_ROOK', INFOT, NOUT, LERR, OK )
+         chetri_rook('/', 0, A, 1, IP, W, INFO );
+         chkxer('CHETRI_ROOK', INFOT, NOUT, LERR, OK );
          INFOT = 2
-         CALL CHETRI_ROOK( 'U', -1, A, 1, IP, W, INFO )
-         CALL CHKXER( 'CHETRI_ROOK', INFOT, NOUT, LERR, OK )
+         chetri_rook('U', -1, A, 1, IP, W, INFO );
+         chkxer('CHETRI_ROOK', INFOT, NOUT, LERR, OK );
          INFOT = 4
-         CALL CHETRI_ROOK( 'U', 2, A, 1, IP, W, INFO )
-         CALL CHKXER( 'CHETRI_ROOK', INFOT, NOUT, LERR, OK )
+         chetri_rook('U', 2, A, 1, IP, W, INFO );
+         chkxer('CHETRI_ROOK', INFOT, NOUT, LERR, OK );
 
          // CHETRS_ROOK
 
          SRNAMT = 'CHETRS_ROOK'
          INFOT = 1
-         CALL CHETRS_ROOK( '/', 0, 0, A, 1, IP, B, 1, INFO )
-         CALL CHKXER( 'CHETRS_ROOK', INFOT, NOUT, LERR, OK )
+         chetrs_rook('/', 0, 0, A, 1, IP, B, 1, INFO );
+         chkxer('CHETRS_ROOK', INFOT, NOUT, LERR, OK );
          INFOT = 2
-         CALL CHETRS_ROOK( 'U', -1, 0, A, 1, IP, B, 1, INFO )
-         CALL CHKXER( 'CHETRS_ROOK', INFOT, NOUT, LERR, OK )
+         chetrs_rook('U', -1, 0, A, 1, IP, B, 1, INFO );
+         chkxer('CHETRS_ROOK', INFOT, NOUT, LERR, OK );
          INFOT = 3
-         CALL CHETRS_ROOK( 'U', 0, -1, A, 1, IP, B, 1, INFO )
-         CALL CHKXER( 'CHETRS_ROOK', INFOT, NOUT, LERR, OK )
+         chetrs_rook('U', 0, -1, A, 1, IP, B, 1, INFO );
+         chkxer('CHETRS_ROOK', INFOT, NOUT, LERR, OK );
          INFOT = 5
-         CALL CHETRS_ROOK( 'U', 2, 1, A, 1, IP, B, 2, INFO )
-         CALL CHKXER( 'CHETRS_ROOK', INFOT, NOUT, LERR, OK )
+         chetrs_rook('U', 2, 1, A, 1, IP, B, 2, INFO );
+         chkxer('CHETRS_ROOK', INFOT, NOUT, LERR, OK );
          INFOT = 8
-         CALL CHETRS_ROOK( 'U', 2, 1, A, 2, IP, B, 1, INFO )
-         CALL CHKXER( 'CHETRS_ROOK', INFOT, NOUT, LERR, OK )
+         chetrs_rook('U', 2, 1, A, 2, IP, B, 1, INFO );
+         chkxer('CHETRS_ROOK', INFOT, NOUT, LERR, OK );
 
          // CHECON_ROOK
 
          SRNAMT = 'CHECON_ROOK'
          INFOT = 1
-         CALL CHECON_ROOK( '/', 0, A, 1, IP, ANRM, RCOND, W, INFO )
-         CALL CHKXER( 'CHECON_ROOK', INFOT, NOUT, LERR, OK )
+         checon_rook('/', 0, A, 1, IP, ANRM, RCOND, W, INFO );
+         chkxer('CHECON_ROOK', INFOT, NOUT, LERR, OK );
          INFOT = 2
-         CALL CHECON_ROOK( 'U', -1, A, 1, IP, ANRM, RCOND, W, INFO )
-         CALL CHKXER( 'CHECON_ROOK', INFOT, NOUT, LERR, OK )
+         checon_rook('U', -1, A, 1, IP, ANRM, RCOND, W, INFO );
+         chkxer('CHECON_ROOK', INFOT, NOUT, LERR, OK );
          INFOT = 4
-         CALL CHECON_ROOK( 'U', 2, A, 1, IP, ANRM, RCOND, W, INFO )
-         CALL CHKXER( 'CHECON_ROOK', INFOT, NOUT, LERR, OK )
+         checon_rook('U', 2, A, 1, IP, ANRM, RCOND, W, INFO );
+         chkxer('CHECON_ROOK', INFOT, NOUT, LERR, OK );
          INFOT = 6
-         CALL CHECON_ROOK( 'U', 1, A, 1, IP, -ANRM, RCOND, W, INFO )
-         CALL CHKXER( 'CHECON_ROOK', INFOT, NOUT, LERR, OK )
+         checon_rook('U', 1, A, 1, IP, -ANRM, RCOND, W, INFO );
+         chkxer('CHECON_ROOK', INFOT, NOUT, LERR, OK );
 
       } else if ( LSAMEN( 2, C2, 'HK' ) ) {
 
@@ -306,100 +306,100 @@
 
          SRNAMT = 'CHETRF_RK'
          INFOT = 1
-         CALL CHETRF_RK( '/', 0, A, 1, E, IP, W, 1, INFO )
-         CALL CHKXER( 'CHETRF_RK', INFOT, NOUT, LERR, OK )
+         chetrf_rk('/', 0, A, 1, E, IP, W, 1, INFO );
+         chkxer('CHETRF_RK', INFOT, NOUT, LERR, OK );
          INFOT = 2
-         CALL CHETRF_RK( 'U', -1, A, 1, E, IP, W, 1, INFO )
-         CALL CHKXER( 'CHETRF_RK', INFOT, NOUT, LERR, OK )
+         chetrf_rk('U', -1, A, 1, E, IP, W, 1, INFO );
+         chkxer('CHETRF_RK', INFOT, NOUT, LERR, OK );
          INFOT = 4
-         CALL CHETRF_RK( 'U', 2, A, 1, E, IP, W, 4, INFO )
-         CALL CHKXER( 'CHETRF_RK', INFOT, NOUT, LERR, OK )
+         chetrf_rk('U', 2, A, 1, E, IP, W, 4, INFO );
+         chkxer('CHETRF_RK', INFOT, NOUT, LERR, OK );
          INFOT = 8
-         CALL CHETRF_RK( 'U', 0, A, 1, E, IP, W, 0, INFO )
-         CALL CHKXER( 'CHETRF_RK', INFOT, NOUT, LERR, OK )
+         chetrf_rk('U', 0, A, 1, E, IP, W, 0, INFO );
+         chkxer('CHETRF_RK', INFOT, NOUT, LERR, OK );
          INFOT = 8
-         CALL CHETRF_RK( 'U', 0, A, 1, E, IP, W, -2, INFO )
-         CALL CHKXER( 'CHETRF_RK', INFOT, NOUT, LERR, OK )
+         chetrf_rk('U', 0, A, 1, E, IP, W, -2, INFO );
+         chkxer('CHETRF_RK', INFOT, NOUT, LERR, OK );
 
          // CHETF2_RK
 
          SRNAMT = 'CHETF2_RK'
          INFOT = 1
-         CALL CHETF2_RK( '/', 0, A, 1, E, IP, INFO )
-         CALL CHKXER( 'CHETF2_RK', INFOT, NOUT, LERR, OK )
+         chetf2_rk('/', 0, A, 1, E, IP, INFO );
+         chkxer('CHETF2_RK', INFOT, NOUT, LERR, OK );
          INFOT = 2
-         CALL CHETF2_RK( 'U', -1, A, 1, E, IP, INFO )
-         CALL CHKXER( 'CHETF2_RK', INFOT, NOUT, LERR, OK )
+         chetf2_rk('U', -1, A, 1, E, IP, INFO );
+         chkxer('CHETF2_RK', INFOT, NOUT, LERR, OK );
          INFOT = 4
-         CALL CHETF2_RK( 'U', 2, A, 1, E, IP, INFO )
-         CALL CHKXER( 'CHETF2_RK', INFOT, NOUT, LERR, OK )
+         chetf2_rk('U', 2, A, 1, E, IP, INFO );
+         chkxer('CHETF2_RK', INFOT, NOUT, LERR, OK );
 
          // CHETRI_3
 
          SRNAMT = 'CHETRI_3'
          INFOT = 1
-         CALL CHETRI_3( '/', 0, A, 1, E, IP, W, 1, INFO )
-         CALL CHKXER( 'CHETRI_3', INFOT, NOUT, LERR, OK )
+         chetri_3('/', 0, A, 1, E, IP, W, 1, INFO );
+         chkxer('CHETRI_3', INFOT, NOUT, LERR, OK );
          INFOT = 2
-         CALL CHETRI_3( 'U', -1, A, 1, E, IP, W, 1, INFO )
-         CALL CHKXER( 'CHETRI_3', INFOT, NOUT, LERR, OK )
+         chetri_3('U', -1, A, 1, E, IP, W, 1, INFO );
+         chkxer('CHETRI_3', INFOT, NOUT, LERR, OK );
          INFOT = 4
-         CALL CHETRI_3( 'U', 2, A, 1, E, IP, W, 1, INFO )
-         CALL CHKXER( 'CHETRI_3', INFOT, NOUT, LERR, OK )
+         chetri_3('U', 2, A, 1, E, IP, W, 1, INFO );
+         chkxer('CHETRI_3', INFOT, NOUT, LERR, OK );
          INFOT = 8
-         CALL CHETRI_3( 'U', 0, A, 1, E, IP, W, 0, INFO )
-         CALL CHKXER( 'CHETRI_3', INFOT, NOUT, LERR, OK )
+         chetri_3('U', 0, A, 1, E, IP, W, 0, INFO );
+         chkxer('CHETRI_3', INFOT, NOUT, LERR, OK );
          INFOT = 8
-         CALL CHETRI_3( 'U', 0, A, 1, E, IP, W, -2, INFO )
-         CALL CHKXER( 'CHETRI_3', INFOT, NOUT, LERR, OK )
+         chetri_3('U', 0, A, 1, E, IP, W, -2, INFO );
+         chkxer('CHETRI_3', INFOT, NOUT, LERR, OK );
 
          // CHETRI_3X
 
          SRNAMT = 'CHETRI_3X'
          INFOT = 1
-         CALL CHETRI_3X( '/', 0, A, 1, E, IP, W, 1, INFO )
-         CALL CHKXER( 'CHETRI_3X', INFOT, NOUT, LERR, OK )
+         chetri_3x('/', 0, A, 1, E, IP, W, 1, INFO );
+         chkxer('CHETRI_3X', INFOT, NOUT, LERR, OK );
          INFOT = 2
-         CALL CHETRI_3X( 'U', -1, A, 1, E, IP, W, 1, INFO )
-         CALL CHKXER( 'CHETRI_3X', INFOT, NOUT, LERR, OK )
+         chetri_3x('U', -1, A, 1, E, IP, W, 1, INFO );
+         chkxer('CHETRI_3X', INFOT, NOUT, LERR, OK );
          INFOT = 4
-         CALL CHETRI_3X( 'U', 2, A, 1, E, IP, W, 1, INFO )
-         CALL CHKXER( 'CHETRI_3X', INFOT, NOUT, LERR, OK )
+         chetri_3x('U', 2, A, 1, E, IP, W, 1, INFO );
+         chkxer('CHETRI_3X', INFOT, NOUT, LERR, OK );
 
          // CHETRS_3
 
          SRNAMT = 'CHETRS_3'
          INFOT = 1
-         CALL CHETRS_3( '/', 0, 0, A, 1, E, IP, B, 1, INFO )
-         CALL CHKXER( 'CHETRS_3', INFOT, NOUT, LERR, OK )
+         chetrs_3('/', 0, 0, A, 1, E, IP, B, 1, INFO );
+         chkxer('CHETRS_3', INFOT, NOUT, LERR, OK );
          INFOT = 2
-         CALL CHETRS_3( 'U', -1, 0, A, 1, E, IP, B, 1, INFO )
-         CALL CHKXER( 'CHETRS_3', INFOT, NOUT, LERR, OK )
+         chetrs_3('U', -1, 0, A, 1, E, IP, B, 1, INFO );
+         chkxer('CHETRS_3', INFOT, NOUT, LERR, OK );
          INFOT = 3
-         CALL CHETRS_3( 'U', 0, -1, A, 1, E, IP, B, 1, INFO )
-         CALL CHKXER( 'CHETRS_3', INFOT, NOUT, LERR, OK )
+         chetrs_3('U', 0, -1, A, 1, E, IP, B, 1, INFO );
+         chkxer('CHETRS_3', INFOT, NOUT, LERR, OK );
          INFOT = 5
-         CALL CHETRS_3( 'U', 2, 1, A, 1, E, IP, B, 2, INFO )
-         CALL CHKXER( 'CHETRS_3', INFOT, NOUT, LERR, OK )
+         chetrs_3('U', 2, 1, A, 1, E, IP, B, 2, INFO );
+         chkxer('CHETRS_3', INFOT, NOUT, LERR, OK );
          INFOT = 9
-         CALL CHETRS_3( 'U', 2, 1, A, 2, E, IP, B, 1, INFO )
-         CALL CHKXER( 'CHETRS_3', INFOT, NOUT, LERR, OK )
+         chetrs_3('U', 2, 1, A, 2, E, IP, B, 1, INFO );
+         chkxer('CHETRS_3', INFOT, NOUT, LERR, OK );
 
          // CHECON_3
 
          SRNAMT = 'CHECON_3'
          INFOT = 1
-         CALL CHECON_3( '/', 0, A, 1,  E, IP, ANRM, RCOND, W, INFO )
-         CALL CHKXER( 'CHECON_3', INFOT, NOUT, LERR, OK )
+         checon_3('/', 0, A, 1,  E, IP, ANRM, RCOND, W, INFO );
+         chkxer('CHECON_3', INFOT, NOUT, LERR, OK );
          INFOT = 2
-         CALL CHECON_3( 'U', -1, A, 1, E, IP, ANRM, RCOND, W, INFO )
-         CALL CHKXER( 'CHECON_3', INFOT, NOUT, LERR, OK )
+         checon_3('U', -1, A, 1, E, IP, ANRM, RCOND, W, INFO );
+         chkxer('CHECON_3', INFOT, NOUT, LERR, OK );
          INFOT = 4
-         CALL CHECON_3( 'U', 2, A, 1, E, IP, ANRM, RCOND, W, INFO )
-         CALL CHKXER( 'CHECON_3', INFOT, NOUT, LERR, OK )
+         checon_3('U', 2, A, 1, E, IP, ANRM, RCOND, W, INFO );
+         chkxer('CHECON_3', INFOT, NOUT, LERR, OK );
          INFOT = 7
-         CALL CHECON_3( 'U', 1, A, 1, E, IP, -1.0E0, RCOND, W, INFO)
-         CALL CHKXER( 'CHECON_3', INFOT, NOUT, LERR, OK )
+         checon_3('U', 1, A, 1, E, IP, -1.0E0, RCOND, W, INFO);
+         chkxer('CHECON_3', INFOT, NOUT, LERR, OK );
 
       } else if ( LSAMEN( 2, C2, 'HA' ) ) {
 
@@ -410,45 +410,45 @@
 
          SRNAMT = 'CHETRF_AA'
          INFOT = 1
-         CALL CHETRF_AA( '/', 0, A, 1, IP, W, 1, INFO )
-         CALL CHKXER( 'CHETRF_AA', INFOT, NOUT, LERR, OK )
+         chetrf_aa('/', 0, A, 1, IP, W, 1, INFO );
+         chkxer('CHETRF_AA', INFOT, NOUT, LERR, OK );
          INFOT = 2
-         CALL CHETRF_AA( 'U', -1, A, 1, IP, W, 1, INFO )
-         CALL CHKXER( 'CHETRF_AA', INFOT, NOUT, LERR, OK )
+         chetrf_aa('U', -1, A, 1, IP, W, 1, INFO );
+         chkxer('CHETRF_AA', INFOT, NOUT, LERR, OK );
          INFOT = 4
-         CALL CHETRF_AA( 'U', 2, A, 1, IP, W, 4, INFO )
-         CALL CHKXER( 'CHETRF_AA', INFOT, NOUT, LERR, OK )
+         chetrf_aa('U', 2, A, 1, IP, W, 4, INFO );
+         chkxer('CHETRF_AA', INFOT, NOUT, LERR, OK );
          INFOT = 7
-         CALL CHETRF_AA( 'U', 2, A, 2, IP, W, 0, INFO )
-         CALL CHKXER( 'CHETRF_AA', INFOT, NOUT, LERR, OK )
+         chetrf_aa('U', 2, A, 2, IP, W, 0, INFO );
+         chkxer('CHETRF_AA', INFOT, NOUT, LERR, OK );
          INFOT = 7
-         CALL CHETRF_AA( 'U', 2, A, 2, IP, W, -2, INFO )
-         CALL CHKXER( 'CHETRF_AA', INFOT, NOUT, LERR, OK )
+         chetrf_aa('U', 2, A, 2, IP, W, -2, INFO );
+         chkxer('CHETRF_AA', INFOT, NOUT, LERR, OK );
 
          // CHETRS_AA
 
          SRNAMT = 'CHETRS_AA'
          INFOT = 1
-         CALL CHETRS_AA( '/', 0, 0, A, 1, IP, B, 1, W, 1, INFO )
-         CALL CHKXER( 'CHETRS_AA', INFOT, NOUT, LERR, OK )
+         chetrs_aa('/', 0, 0, A, 1, IP, B, 1, W, 1, INFO );
+         chkxer('CHETRS_AA', INFOT, NOUT, LERR, OK );
          INFOT = 2
-         CALL CHETRS_AA( 'U', -1, 0, A, 1, IP, B, 1, W, 1, INFO )
-         CALL CHKXER( 'CHETRS_AA', INFOT, NOUT, LERR, OK )
+         chetrs_aa('U', -1, 0, A, 1, IP, B, 1, W, 1, INFO );
+         chkxer('CHETRS_AA', INFOT, NOUT, LERR, OK );
          INFOT = 3
-         CALL CHETRS_AA( 'U', 0, -1, A, 1, IP, B, 1, W, 1, INFO )
-         CALL CHKXER( 'CHETRS_AA', INFOT, NOUT, LERR, OK )
+         chetrs_aa('U', 0, -1, A, 1, IP, B, 1, W, 1, INFO );
+         chkxer('CHETRS_AA', INFOT, NOUT, LERR, OK );
          INFOT = 5
-         CALL CHETRS_AA( 'U', 2, 1, A, 1, IP, B, 2, W, 1, INFO )
-         CALL CHKXER( 'CHETRS_AA', INFOT, NOUT, LERR, OK )
+         chetrs_aa('U', 2, 1, A, 1, IP, B, 2, W, 1, INFO );
+         chkxer('CHETRS_AA', INFOT, NOUT, LERR, OK );
          INFOT = 8
-         CALL CHETRS_AA( 'U', 2, 1, A, 2, IP, B, 1, W, 1, INFO )
-         CALL CHKXER( 'CHETRS_AA', INFOT, NOUT, LERR, OK )
+         chetrs_aa('U', 2, 1, A, 2, IP, B, 1, W, 1, INFO );
+         chkxer('CHETRS_AA', INFOT, NOUT, LERR, OK );
          INFOT = 10
-         CALL CHETRS_AA( 'U', 2, 1, A, 2, IP, B, 2, W, 0, INFO )
-         CALL CHKXER( 'CHETRS_AA', INFOT, NOUT, LERR, OK )
+         chetrs_aa('U', 2, 1, A, 2, IP, B, 2, W, 0, INFO );
+         chkxer('CHETRS_AA', INFOT, NOUT, LERR, OK );
          INFOT = 10
-         CALL CHETRS_AA( 'U', 2, 1, A, 2, IP, B, 2, W, -2, INFO )
-         CALL CHKXER( 'CHETRS_AA', INFOT, NOUT, LERR, OK )
+         chetrs_aa('U', 2, 1, A, 2, IP, B, 2, W, -2, INFO );
+         chkxer('CHETRS_AA', INFOT, NOUT, LERR, OK );
 
       } else if ( LSAMEN( 2, C2, 'H2' ) ) {
 
@@ -459,42 +459,42 @@
 
          SRNAMT = 'CHETRF_AA_2STAGE'
          INFOT = 1
-         CALL CHETRF_AA_2STAGE( '/', 0, A, 1, A, 1, IP, IP, W, 1, INFO )
-         CALL CHKXER( 'CHETRF_AA_2STAGE', INFOT, NOUT, LERR, OK )
+         chetrf_aa_2stage('/', 0, A, 1, A, 1, IP, IP, W, 1, INFO );
+         chkxer('CHETRF_AA_2STAGE', INFOT, NOUT, LERR, OK );
          INFOT = 2
-         CALL CHETRF_AA_2STAGE( 'U', -1, A, 1, A, 1, IP, IP, W, 1, INFO )
-         CALL CHKXER( 'CHETRF_AA_2STAGE', INFOT, NOUT, LERR, OK )
+         chetrf_aa_2stage('U', -1, A, 1, A, 1, IP, IP, W, 1, INFO );
+         chkxer('CHETRF_AA_2STAGE', INFOT, NOUT, LERR, OK );
          INFOT = 4
-         CALL CHETRF_AA_2STAGE( 'U', 2, A, 1, A, 2, IP, IP, W, 1, INFO )
-         CALL CHKXER( 'CHETRF_AA_2STAGE', INFOT, NOUT, LERR, OK )
+         chetrf_aa_2stage('U', 2, A, 1, A, 2, IP, IP, W, 1, INFO );
+         chkxer('CHETRF_AA_2STAGE', INFOT, NOUT, LERR, OK );
          INFOT = 6
-         CALL CHETRF_AA_2STAGE( 'U', 2, A, 2, A, 1, IP, IP, W, 1, INFO )
-         CALL CHKXER( 'CHETRF_AA_2STAGE', INFOT, NOUT, LERR, OK )
+         chetrf_aa_2stage('U', 2, A, 2, A, 1, IP, IP, W, 1, INFO );
+         chkxer('CHETRF_AA_2STAGE', INFOT, NOUT, LERR, OK );
          INFOT = 10
-         CALL CHETRF_AA_2STAGE( 'U', 2, A, 2, A, 8, IP, IP, W, 0, INFO )
-         CALL CHKXER( 'CHETRF_AA_2STAGE', INFOT, NOUT, LERR, OK )
+         chetrf_aa_2stage('U', 2, A, 2, A, 8, IP, IP, W, 0, INFO );
+         chkxer('CHETRF_AA_2STAGE', INFOT, NOUT, LERR, OK );
 
          // CHETRS_AA_2STAGE
 
          SRNAMT = 'CHETRS_AA_2STAGE'
          INFOT = 1
-         CALL CHETRS_AA_2STAGE( '/', 0, 0, A, 1, A, 1, IP, IP, B, 1, INFO )
-         CALL CHKXER( 'CHETRS_AA_2STAGE', INFOT, NOUT, LERR, OK )
+         chetrs_aa_2stage('/', 0, 0, A, 1, A, 1, IP, IP, B, 1, INFO );
+         chkxer('CHETRS_AA_2STAGE', INFOT, NOUT, LERR, OK );
          INFOT = 2
-         CALL CHETRS_AA_2STAGE( 'U', -1, 0, A, 1, A, 1, IP, IP, B, 1, INFO )
-         CALL CHKXER( 'CHETRS_AA_2STAGE', INFOT, NOUT, LERR, OK )
+         chetrs_aa_2stage('U', -1, 0, A, 1, A, 1, IP, IP, B, 1, INFO );
+         chkxer('CHETRS_AA_2STAGE', INFOT, NOUT, LERR, OK );
          INFOT = 3
-         CALL CHETRS_AA_2STAGE( 'U', 0, -1, A, 1, A, 1, IP, IP, B, 1, INFO )
-         CALL CHKXER( 'CHETRS_AA_2STAGE', INFOT, NOUT, LERR, OK )
+         chetrs_aa_2stage('U', 0, -1, A, 1, A, 1, IP, IP, B, 1, INFO );
+         chkxer('CHETRS_AA_2STAGE', INFOT, NOUT, LERR, OK );
          INFOT = 5
-         CALL CHETRS_AA_2STAGE( 'U', 2, 1, A, 1, A, 1, IP, IP, B, 1, INFO )
-         CALL CHKXER( 'CHETRS_AA_2STAGE', INFOT, NOUT, LERR, OK )
+         chetrs_aa_2stage('U', 2, 1, A, 1, A, 1, IP, IP, B, 1, INFO );
+         chkxer('CHETRS_AA_2STAGE', INFOT, NOUT, LERR, OK );
          INFOT = 7
-         CALL CHETRS_AA_2STAGE( 'U', 2, 1, A, 2, A, 1, IP, IP, B, 1, INFO )
-         CALL CHKXER( 'CHETRS_AA_2STAGE', INFOT, NOUT, LERR, OK )
+         chetrs_aa_2stage('U', 2, 1, A, 2, A, 1, IP, IP, B, 1, INFO );
+         chkxer('CHETRS_AA_2STAGE', INFOT, NOUT, LERR, OK );
          INFOT = 11
-         CALL CHETRS_AA_2STAGE( 'U', 2, 1, A, 2, A, 8, IP, IP, B, 1, INFO )
-         CALL CHKXER( 'CHETRS_AA_STAGE', INFOT, NOUT, LERR, OK )
+         chetrs_aa_2stage('U', 2, 1, A, 2, A, 8, IP, IP, B, 1, INFO );
+         chkxer('CHETRS_AA_STAGE', INFOT, NOUT, LERR, OK );
 
          // Test error exits of the routines that use factorization
          // of a Hermitian indefinite packed matrix with partial
@@ -506,74 +506,74 @@
 
          SRNAMT = 'CHPTRF'
          INFOT = 1
-         CALL CHPTRF( '/', 0, A, IP, INFO )
-         CALL CHKXER( 'CHPTRF', INFOT, NOUT, LERR, OK )
+         chptrf('/', 0, A, IP, INFO );
+         chkxer('CHPTRF', INFOT, NOUT, LERR, OK );
          INFOT = 2
-         CALL CHPTRF( 'U', -1, A, IP, INFO )
-         CALL CHKXER( 'CHPTRF', INFOT, NOUT, LERR, OK )
+         chptrf('U', -1, A, IP, INFO );
+         chkxer('CHPTRF', INFOT, NOUT, LERR, OK );
 
          // CHPTRI
 
          SRNAMT = 'CHPTRI'
          INFOT = 1
-         CALL CHPTRI( '/', 0, A, IP, W, INFO )
-         CALL CHKXER( 'CHPTRI', INFOT, NOUT, LERR, OK )
+         chptri('/', 0, A, IP, W, INFO );
+         chkxer('CHPTRI', INFOT, NOUT, LERR, OK );
          INFOT = 2
-         CALL CHPTRI( 'U', -1, A, IP, W, INFO )
-         CALL CHKXER( 'CHPTRI', INFOT, NOUT, LERR, OK )
+         chptri('U', -1, A, IP, W, INFO );
+         chkxer('CHPTRI', INFOT, NOUT, LERR, OK );
 
          // CHPTRS
 
          SRNAMT = 'CHPTRS'
          INFOT = 1
-         CALL CHPTRS( '/', 0, 0, A, IP, B, 1, INFO )
-         CALL CHKXER( 'CHPTRS', INFOT, NOUT, LERR, OK )
+         chptrs('/', 0, 0, A, IP, B, 1, INFO );
+         chkxer('CHPTRS', INFOT, NOUT, LERR, OK );
          INFOT = 2
-         CALL CHPTRS( 'U', -1, 0, A, IP, B, 1, INFO )
-         CALL CHKXER( 'CHPTRS', INFOT, NOUT, LERR, OK )
+         chptrs('U', -1, 0, A, IP, B, 1, INFO );
+         chkxer('CHPTRS', INFOT, NOUT, LERR, OK );
          INFOT = 3
-         CALL CHPTRS( 'U', 0, -1, A, IP, B, 1, INFO )
-         CALL CHKXER( 'CHPTRS', INFOT, NOUT, LERR, OK )
+         chptrs('U', 0, -1, A, IP, B, 1, INFO );
+         chkxer('CHPTRS', INFOT, NOUT, LERR, OK );
          INFOT = 7
-         CALL CHPTRS( 'U', 2, 1, A, IP, B, 1, INFO )
-         CALL CHKXER( 'CHPTRS', INFOT, NOUT, LERR, OK )
+         chptrs('U', 2, 1, A, IP, B, 1, INFO );
+         chkxer('CHPTRS', INFOT, NOUT, LERR, OK );
 
          // CHPRFS
 
          SRNAMT = 'CHPRFS'
          INFOT = 1
-         CALL CHPRFS( '/', 0, 0, A, AF, IP, B, 1, X, 1, R1, R2, W, R, INFO )
-         CALL CHKXER( 'CHPRFS', INFOT, NOUT, LERR, OK )
+         chprfs('/', 0, 0, A, AF, IP, B, 1, X, 1, R1, R2, W, R, INFO );
+         chkxer('CHPRFS', INFOT, NOUT, LERR, OK );
          INFOT = 2
-         CALL CHPRFS( 'U', -1, 0, A, AF, IP, B, 1, X, 1, R1, R2, W, R, INFO )
-         CALL CHKXER( 'CHPRFS', INFOT, NOUT, LERR, OK )
+         chprfs('U', -1, 0, A, AF, IP, B, 1, X, 1, R1, R2, W, R, INFO );
+         chkxer('CHPRFS', INFOT, NOUT, LERR, OK );
          INFOT = 3
-         CALL CHPRFS( 'U', 0, -1, A, AF, IP, B, 1, X, 1, R1, R2, W, R, INFO )
-         CALL CHKXER( 'CHPRFS', INFOT, NOUT, LERR, OK )
+         chprfs('U', 0, -1, A, AF, IP, B, 1, X, 1, R1, R2, W, R, INFO );
+         chkxer('CHPRFS', INFOT, NOUT, LERR, OK );
          INFOT = 8
-         CALL CHPRFS( 'U', 2, 1, A, AF, IP, B, 1, X, 2, R1, R2, W, R, INFO )
-         CALL CHKXER( 'CHPRFS', INFOT, NOUT, LERR, OK )
+         chprfs('U', 2, 1, A, AF, IP, B, 1, X, 2, R1, R2, W, R, INFO );
+         chkxer('CHPRFS', INFOT, NOUT, LERR, OK );
          INFOT = 10
-         CALL CHPRFS( 'U', 2, 1, A, AF, IP, B, 2, X, 1, R1, R2, W, R, INFO )
-         CALL CHKXER( 'CHPRFS', INFOT, NOUT, LERR, OK )
+         chprfs('U', 2, 1, A, AF, IP, B, 2, X, 1, R1, R2, W, R, INFO );
+         chkxer('CHPRFS', INFOT, NOUT, LERR, OK );
 
          // CHPCON
 
          SRNAMT = 'CHPCON'
          INFOT = 1
-         CALL CHPCON( '/', 0, A, IP, ANRM, RCOND, W, INFO )
-         CALL CHKXER( 'CHPCON', INFOT, NOUT, LERR, OK )
+         chpcon('/', 0, A, IP, ANRM, RCOND, W, INFO );
+         chkxer('CHPCON', INFOT, NOUT, LERR, OK );
          INFOT = 2
-         CALL CHPCON( 'U', -1, A, IP, ANRM, RCOND, W, INFO )
-         CALL CHKXER( 'CHPCON', INFOT, NOUT, LERR, OK )
+         chpcon('U', -1, A, IP, ANRM, RCOND, W, INFO );
+         chkxer('CHPCON', INFOT, NOUT, LERR, OK );
          INFOT = 5
-         CALL CHPCON( 'U', 1, A, IP, -ANRM, RCOND, W, INFO )
-         CALL CHKXER( 'CHPCON', INFOT, NOUT, LERR, OK )
+         chpcon('U', 1, A, IP, -ANRM, RCOND, W, INFO );
+         chkxer('CHPCON', INFOT, NOUT, LERR, OK );
       }
 
       // Print a summary line.
 
-      CALL ALAESM( PATH, OK, NOUT )
+      alaesm(PATH, OK, NOUT );
 
       RETURN
 

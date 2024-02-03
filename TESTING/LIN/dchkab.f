@@ -70,7 +70,7 @@
 
       // Report values of parameters.
 
-      CALL ILAVER( VERS_MAJOR, VERS_MINOR, VERS_PATCH )
+      ilaver(VERS_MAJOR, VERS_MINOR, VERS_PATCH );
       WRITE( NOUT, FMT = 9994 ) VERS_MAJOR, VERS_MINOR, VERS_PATCH
 
       // Read the values of M
@@ -210,14 +210,14 @@
          // GE:  general matrices
 
          NTYPES = 11
-         CALL ALAREQ( 'DGE', NMATS, DOTYPE, NTYPES, NIN, NOUT )
+         alareq('DGE', NMATS, DOTYPE, NTYPES, NIN, NOUT );
 
          // Test the error exits
 
          IF( TSTERR ) CALL DERRAB( NOUT )
 
          if ( TSTDRV ) {
-            CALL DDRVAB( DOTYPE, NM, MVAL, NNS, NSVAL, THRESH, LDA, A( 1, 1 ), A( 1, 2 ), B( 1, 1 ), B( 1, 2 ), WORK, RWORK, SWORK, IWORK, NOUT )
+            ddrvab(DOTYPE, NM, MVAL, NNS, NSVAL, THRESH, LDA, A( 1, 1 ), A( 1, 2 ), B( 1, 1 ), B( 1, 2 ), WORK, RWORK, SWORK, IWORK, NOUT );
          } else {
             WRITE( NOUT, FMT = 9989 )'DSGESV'
          }
@@ -227,14 +227,14 @@
          // PO:  positive definite matrices
 
          NTYPES = 9
-         CALL ALAREQ( 'DPO', NMATS, DOTYPE, NTYPES, NIN, NOUT )
+         alareq('DPO', NMATS, DOTYPE, NTYPES, NIN, NOUT );
 
 
          IF( TSTERR ) CALL DERRAC( NOUT )
 
 
          if ( TSTDRV ) {
-            CALL DDRVAC( DOTYPE, NM, MVAL, NNS, NSVAL, THRESH, LDA, A( 1, 1 ), A( 1, 2 ), B( 1, 1 ), B( 1, 2 ), WORK, RWORK, SWORK, NOUT )
+            ddrvac(DOTYPE, NM, MVAL, NNS, NSVAL, THRESH, LDA, A( 1, 1 ), A( 1, 2 ), B( 1, 1 ), B( 1, 2 ), WORK, RWORK, SWORK, NOUT );
          } else {
             WRITE( NOUT, FMT = 9989 )PATH
          }

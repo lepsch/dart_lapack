@@ -74,7 +74,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'CGGGLM', -INFO )
+         xerbla('CGGGLM', -INFO );
          RETURN
       } else if ( LQUERY ) {
          RETURN
@@ -101,26 +101,26 @@
       // where R11 and T22 are upper triangular, and Q and Z are
       // unitary.
 
-      CALL CGGQRF( N, M, P, A, LDA, WORK, B, LDB, WORK( M+1 ), WORK( M+NP+1 ), LWORK-M-NP, INFO )
+      cggqrf(N, M, P, A, LDA, WORK, B, LDB, WORK( M+1 ), WORK( M+NP+1 ), LWORK-M-NP, INFO );
       LOPT = INT( WORK( M+NP+1 ) )
 
       // Update left-hand-side vector d = Q**H*d = ( d1 ) M
                                                 // ( d2 ) N-M
 
-      CALL CUNMQR( 'Left', 'Conjugate transpose', N, 1, M, A, LDA, WORK, D, MAX( 1, N ), WORK( M+NP+1 ), LWORK-M-NP, INFO )
+      cunmqr('Left', 'Conjugate transpose', N, 1, M, A, LDA, WORK, D, MAX( 1, N ), WORK( M+NP+1 ), LWORK-M-NP, INFO );
       LOPT = MAX( LOPT, INT( WORK( M+NP+1 ) ) )
 
       // Solve T22*y2 = d2 for y2
 
       if ( N.GT.M ) {
-         CALL CTRTRS( 'Upper', 'No transpose', 'Non unit', N-M, 1, B( M+1, M+P-N+1 ), LDB, D( M+1 ), N-M, INFO )
+         ctrtrs('Upper', 'No transpose', 'Non unit', N-M, 1, B( M+1, M+P-N+1 ), LDB, D( M+1 ), N-M, INFO );
 
          if ( INFO.GT.0 ) {
             INFO = 1
             RETURN
          }
 
-         CALL CCOPY( N-M, D( M+1 ), 1, Y( M+P-N+1 ), 1 )
+         ccopy(N-M, D( M+1 ), 1, Y( M+P-N+1 ), 1 );
       }
 
       // Set y1 = 0
@@ -131,12 +131,12 @@
 
       // Update d1 = d1 - T12*y2
 
-      CALL CGEMV( 'No transpose', M, N-M, -CONE, B( 1, M+P-N+1 ), LDB, Y( M+P-N+1 ), 1, CONE, D, 1 )
+      cgemv('No transpose', M, N-M, -CONE, B( 1, M+P-N+1 ), LDB, Y( M+P-N+1 ), 1, CONE, D, 1 );
 
       // Solve triangular system: R11*x = d1
 
       if ( M.GT.0 ) {
-         CALL CTRTRS( 'Upper', 'No Transpose', 'Non unit', M, 1, A, LDA, D, M, INFO )
+         ctrtrs('Upper', 'No Transpose', 'Non unit', M, 1, A, LDA, D, M, INFO );
 
          if ( INFO.GT.0 ) {
             INFO = 2
@@ -145,12 +145,12 @@
 
          // Copy D to X
 
-         CALL CCOPY( M, D, 1, X, 1 )
+         ccopy(M, D, 1, X, 1 );
       }
 
       // Backward transformation y = Z**H *y
 
-      CALL CUNMRQ( 'Left', 'Conjugate transpose', P, 1, NP, B( MAX( 1, N-P+1 ), 1 ), LDB, WORK( M+1 ), Y, MAX( 1, P ), WORK( M+NP+1 ), LWORK-M-NP, INFO )
+      cunmrq('Left', 'Conjugate transpose', P, 1, NP, B( MAX( 1, N-P+1 ), 1 ), LDB, WORK( M+1 ), Y, MAX( 1, P ), WORK( M+NP+1 ), LWORK-M-NP, INFO );
       WORK( 1 ) = M + NP + MAX( LOPT, INT( WORK( M+NP+1 ) ) )
 
       RETURN

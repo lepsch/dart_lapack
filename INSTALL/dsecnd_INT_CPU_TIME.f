@@ -16,7 +16,7 @@
 
 * .. Executable Statements .. *
 
-      CALL CPU_TIME( T )
+      cpu_time(T );
       DSECND = T
       RETURN
 

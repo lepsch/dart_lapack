@@ -40,7 +40,7 @@
          INFO = -4
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'CGELQ2', -INFO )
+         xerbla('CGELQ2', -INFO );
          RETURN
       }
 
@@ -50,18 +50,18 @@
 
          // Generate elementary reflector H(i) to annihilate A(i,i+1:n)
 
-         CALL CLACGV( N-I+1, A( I, I ), LDA )
+         clacgv(N-I+1, A( I, I ), LDA );
          ALPHA = A( I, I )
-         CALL CLARFG( N-I+1, ALPHA, A( I, MIN( I+1, N ) ), LDA, TAU( I ) )
+         clarfg(N-I+1, ALPHA, A( I, MIN( I+1, N ) ), LDA, TAU( I ) );
          if ( I.LT.M ) {
 
             // Apply H(i) to A(i+1:m,i:n) from the right
 
             A( I, I ) = ONE
-            CALL CLARF( 'Right', M-I, N-I+1, A( I, I ), LDA, TAU( I ), A( I+1, I ), LDA, WORK )
+            clarf('Right', M-I, N-I+1, A( I, I ), LDA, TAU( I ), A( I+1, I ), LDA, WORK );
          }
          A( I, I ) = ALPHA
-         CALL CLACGV( N-I+1, A( I, I ), LDA )
+         clacgv(N-I+1, A( I, I ), LDA );
    10 CONTINUE
       RETURN
 

@@ -62,8 +62,8 @@
 
          // Compute I - U*U' or I - U'*U.
 
-         CALL SLASET( 'Upper', MNMIN, MNMIN, ZERO, ONE, WORK, LDWORK )
-         CALL SSYRK( 'Upper', TRANSU, MNMIN, K, -ONE, U, LDU, ONE, WORK, LDWORK )
+         slaset('Upper', MNMIN, MNMIN, ZERO, ONE, WORK, LDWORK );
+         ssyrk('Upper', TRANSU, MNMIN, K, -ONE, U, LDU, ONE, WORK, LDWORK );
 
          // Compute norm( I - U*U' ) / ( K * EPS ) .
 

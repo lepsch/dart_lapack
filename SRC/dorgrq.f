@@ -62,7 +62,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'DORGRQ', -INFO )
+         xerbla('DORGRQ', -INFO );
          RETURN
       } else if ( LQUERY ) {
          RETURN
@@ -119,7 +119,7 @@
 
       // Use unblocked code for the first or only block.
 
-      CALL DORGR2( M-KK, N-KK, K-KK, A, LDA, TAU, WORK, IINFO )
+      dorgr2(M-KK, N-KK, K-KK, A, LDA, TAU, WORK, IINFO );
 
       if ( KK.GT.0 ) {
 
@@ -133,16 +133,16 @@
                // Form the triangular factor of the block reflector
                // H = H(i+ib-1) . . . H(i+1) H(i)
 
-               CALL DLARFT( 'Backward', 'Rowwise', N-K+I+IB-1, IB, A( II, 1 ), LDA, TAU( I ), WORK, LDWORK )
+               dlarft('Backward', 'Rowwise', N-K+I+IB-1, IB, A( II, 1 ), LDA, TAU( I ), WORK, LDWORK );
 
                // Apply H**T to A(1:m-k+i-1,1:n-k+i+ib-1) from the right
 
-               CALL DLARFB( 'Right', 'Transpose', 'Backward', 'Rowwise', II-1, N-K+I+IB-1, IB, A( II, 1 ), LDA, WORK, LDWORK, A, LDA, WORK( IB+1 ), LDWORK )
+               dlarfb('Right', 'Transpose', 'Backward', 'Rowwise', II-1, N-K+I+IB-1, IB, A( II, 1 ), LDA, WORK, LDWORK, A, LDA, WORK( IB+1 ), LDWORK );
             }
 
             // Apply H**T to columns 1:n-k+i+ib-1 of current block
 
-            CALL DORGR2( IB, N-K+I+IB-1, IB, A( II, 1 ), LDA, TAU( I ), WORK, IINFO )
+            dorgr2(IB, N-K+I+IB-1, IB, A( II, 1 ), LDA, TAU( I ), WORK, IINFO );
 
             // Set columns n-k+i+ib:n of current block to zero
 

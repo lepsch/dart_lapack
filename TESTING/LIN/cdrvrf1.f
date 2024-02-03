@@ -117,7 +117,7 @@
                   CFORM = FORMS( IFORM )
 
                   SRNAMT = 'CTRTTF'
-                  CALL CTRTTF( CFORM, UPLO, N, A, LDA, ARF, INFO )
+                  ctrttf(CFORM, UPLO, N, A, LDA, ARF, INFO );
 
                   // Check error code from CTRTTF
 

@@ -187,14 +187,14 @@
       // YY holds the exact result. On exit from CMVCH YT holds
       // the result computed by CMVCH.
       TRANS = 'N'
-      CALL CMVCH( TRANS, N, N, ONE, A, NMAX, X, 1, ZERO, Y, 1, YT, G, YY, EPS, ERR, FATAL, NOUT, .TRUE. )
+      cmvch(TRANS, N, N, ONE, A, NMAX, X, 1, ZERO, Y, 1, YT, G, YY, EPS, ERR, FATAL, NOUT, .TRUE. );
       SAME = LCE( YY, YT, N )
       if ( .NOT.SAME.OR.ERR.NE.RZERO ) {
          WRITE( NOUT, FMT = 9985 )TRANS, SAME, ERR
          STOP
       }
       TRANS = 'T'
-      CALL CMVCH( TRANS, N, N, ONE, A, NMAX, X, -1, ZERO, Y, -1, YT, G, YY, EPS, ERR, FATAL, NOUT, .TRUE. )
+      cmvch(TRANS, N, N, ONE, A, NMAX, X, -1, ZERO, Y, -1, YT, G, YY, EPS, ERR, FATAL, NOUT, .TRUE. );
       SAME = LCE( YY, YT, N )
       if ( .NOT.SAME.OR.ERR.NE.RZERO ) {
          WRITE( NOUT, FMT = 9985 )TRANS, SAME, ERR
@@ -212,7 +212,7 @@
             SRNAMT = SNAMES( ISNUM )
             // Test error exits.
             if ( TSTERR ) {
-               CALL CCHKE( ISNUM, SNAMES( ISNUM ), NOUT )
+               cchke(ISNUM, SNAMES( ISNUM ), NOUT );
                WRITE( NOUT, FMT = * )
             }
             // Test computations.
@@ -377,7 +377,7 @@
                // Generate the matrix A.
 
                TRANSL = ZERO
-               CALL CMAKE( SNAME( 2: 3 ), ' ', ' ', M, N, A, NMAX, AA, LDA, KL, KU, RESET, TRANSL )
+               cmake(SNAME( 2: 3 ), ' ', ' ', M, N, A, NMAX, AA, LDA, KL, KU, RESET, TRANSL );
 
                DO 90 IC = 1, 3
                   TRANS = ICH( IC: IC )
@@ -398,7 +398,7 @@
                      // Generate the vector X.
 
                      TRANSL = HALF
-                     CALL CMAKE( 'GE', ' ', ' ', 1, NL, X, 1, XX, ABS( INCX ), 0, NL - 1, RESET, TRANSL )
+                     cmake('GE', ' ', ' ', 1, NL, X, 1, XX, ABS( INCX ), 0, NL - 1, RESET, TRANSL );
                      if ( NL.GT.1 ) {
                         X( NL/2 ) = ZERO
                         XX( 1 + ABS( INCX )*( NL/2 - 1 ) ) = ZERO
@@ -417,7 +417,7 @@
                               // Generate the vector Y.
 
                               TRANSL = ZERO
-                              CALL CMAKE( 'GE', ' ', ' ', 1, ML, Y, 1, YY, ABS( INCY ), 0, ML - 1, RESET, TRANSL )
+                              cmake('GE', ' ', ' ', 1, ML, Y, 1, YY, ABS( INCY ), 0, ML - 1, RESET, TRANSL );
 
                               NC = NC + 1
 
@@ -514,7 +514,7 @@
 
                                  // Check the result.
 
-                                 CALL CMVCH( TRANS, M, N, ALPHA, A, NMAX, X, INCX, BETA, Y, INCY, YT, G, YY, EPS, ERR, FATAL, NOUT, .TRUE. )
+                                 cmvch(TRANS, M, N, ALPHA, A, NMAX, X, INCX, BETA, Y, INCY, YT, G, YY, EPS, ERR, FATAL, NOUT, .TRUE. );
                                  ERRMAX = MAX( ERRMAX, ERR )
                                  // If got really bad answer, report and
                                  // return.
@@ -543,7 +543,7 @@
 
       // Regression test to verify preservation of y when m zero, n nonzero.
 
-      CALL CREGR1( TRANS, M, N, LY, KL, KU, ALPHA, AA, LDA, XX, INCX, BETA, YY, INCY, YS )
+      cregr1(TRANS, M, N, LY, KL, KU, ALPHA, AA, LDA, XX, INCX, BETA, YY, INCY, YS );
       if ( FULL ) {
          IF( TRACE ) WRITE( NTRA, FMT = 9994 )NC, SNAME, TRANS, M, N, ALPHA, LDA, INCX, BETA, INCY
          IF( REWI ) REWIND NTRA          CALL CGEMV( TRANS, M, N, ALPHA, AA, LDA, XX, INCX, BETA, YY, INCY )
@@ -689,7 +689,7 @@
                // Generate the matrix A.
 
                TRANSL = ZERO
-               CALL CMAKE( SNAME( 2: 3 ), UPLO, ' ', N, N, A, NMAX, AA, LDA, K, K, RESET, TRANSL )
+               cmake(SNAME( 2: 3 ), UPLO, ' ', N, N, A, NMAX, AA, LDA, K, K, RESET, TRANSL );
 
                DO 80 IX = 1, NINC
                   INCX = INC( IX )
@@ -698,7 +698,7 @@
                   // Generate the vector X.
 
                   TRANSL = HALF
-                  CALL CMAKE( 'GE', ' ', ' ', 1, N, X, 1, XX, ABS( INCX ), 0, N - 1, RESET, TRANSL )
+                  cmake('GE', ' ', ' ', 1, N, X, 1, XX, ABS( INCX ), 0, N - 1, RESET, TRANSL );
                   if ( N.GT.1 ) {
                      X( N/2 ) = ZERO
                      XX( 1 + ABS( INCX )*( N/2 - 1 ) ) = ZERO
@@ -717,7 +717,7 @@
                            // Generate the vector Y.
 
                            TRANSL = ZERO
-                           CALL CMAKE( 'GE', ' ', ' ', 1, N, Y, 1, YY, ABS( INCY ), 0, N - 1, RESET, TRANSL )
+                           cmake('GE', ' ', ' ', 1, N, Y, 1, YY, ABS( INCY ), 0, N - 1, RESET, TRANSL );
 
                            NC = NC + 1
 
@@ -825,7 +825,7 @@
 
                               // Check the result.
 
-                              CALL CMVCH( 'N', N, N, ALPHA, A, NMAX, X, INCX, BETA, Y, INCY, YT, G, YY, EPS, ERR, FATAL, NOUT, .TRUE. )
+                              cmvch('N', N, N, ALPHA, A, NMAX, X, INCX, BETA, Y, INCY, YT, G, YY, EPS, ERR, FATAL, NOUT, .TRUE. );
                               ERRMAX = MAX( ERRMAX, ERR )
                               // If got really bad answer, report and
                               // return.
@@ -994,7 +994,7 @@
                      // Generate the matrix A.
 
                      TRANSL = ZERO
-                     CALL CMAKE( SNAME( 2: 3 ), UPLO, DIAG, N, N, A, NMAX, AA, LDA, K, K, RESET, TRANSL )
+                     cmake(SNAME( 2: 3 ), UPLO, DIAG, N, N, A, NMAX, AA, LDA, K, K, RESET, TRANSL );
 
                      DO 60 IX = 1, NINC
                         INCX = INC( IX )
@@ -1003,7 +1003,7 @@
                         // Generate the vector X.
 
                         TRANSL = HALF
-                        CALL CMAKE( 'GE', ' ', ' ', 1, N, X, 1, XX, ABS( INCX ), 0, N - 1, RESET, TRANSL )
+                        cmake('GE', ' ', ' ', 1, N, X, 1, XX, ABS( INCX ), 0, N - 1, RESET, TRANSL );
                         if ( N.GT.1 ) {
                            X( N/2 ) = ZERO
                            XX( 1 + ABS( INCX )*( N/2 - 1 ) ) = ZERO
@@ -1114,7 +1114,7 @@
 
                               // Check the result.
 
-                              CALL CMVCH( TRANS, N, N, ONE, A, NMAX, X, INCX, ZERO, Z, INCX, XT, G, XX, EPS, ERR, FATAL, NOUT, .TRUE. )
+                              cmvch(TRANS, N, N, ONE, A, NMAX, X, INCX, ZERO, Z, INCX, XT, G, XX, EPS, ERR, FATAL, NOUT, .TRUE. );
                            } else if ( SNAME( 4: 5 ).EQ.'SV' ) {
 
                               // Compute approximation to original vector.
@@ -1122,7 +1122,7 @@
                               DO 50 I = 1, N
                                  Z( I ) = XX( 1 + ( I - 1 )* ABS( INCX ) )                                  XX( 1 + ( I - 1 )*ABS( INCX ) ) = X( I )
    50                         CONTINUE
-                              CALL CMVCH( TRANS, N, N, ONE, A, NMAX, Z, INCX, ZERO, X, INCX, XT, G, XX, EPS, ERR, FATAL, NOUT, .FALSE. )
+                              cmvch(TRANS, N, N, ONE, A, NMAX, Z, INCX, ZERO, X, INCX, XT, G, XX, EPS, ERR, FATAL, NOUT, .FALSE. );
                            }
                            ERRMAX = MAX( ERRMAX, ERR )
                            // If got really bad answer, report and return.
@@ -1253,7 +1253,7 @@
                // Generate the vector X.
 
                TRANSL = HALF
-               CALL CMAKE( 'GE', ' ', ' ', 1, M, X, 1, XX, ABS( INCX ), 0, M - 1, RESET, TRANSL )
+               cmake('GE', ' ', ' ', 1, M, X, 1, XX, ABS( INCX ), 0, M - 1, RESET, TRANSL );
                if ( M.GT.1 ) {
                   X( M/2 ) = ZERO
                   XX( 1 + ABS( INCX )*( M/2 - 1 ) ) = ZERO
@@ -1266,7 +1266,7 @@
                   // Generate the vector Y.
 
                   TRANSL = ZERO
-                  CALL CMAKE( 'GE', ' ', ' ', 1, N, Y, 1, YY, ABS( INCY ), 0, N - 1, RESET, TRANSL )
+                  cmake('GE', ' ', ' ', 1, N, Y, 1, YY, ABS( INCY ), 0, N - 1, RESET, TRANSL );
                   if ( N.GT.1 ) {
                      Y( N/2 ) = ZERO
                      YY( 1 + ABS( INCY )*( N/2 - 1 ) ) = ZERO
@@ -1278,7 +1278,7 @@
                      // Generate the matrix A.
 
                      TRANSL = ZERO
-                     CALL CMAKE( SNAME( 2: 3 ), ' ', ' ', M, N, A, NMAX, AA, LDA, M - 1, N - 1, RESET, TRANSL )
+                     cmake(SNAME( 2: 3 ), ' ', ' ', M, N, A, NMAX, AA, LDA, M - 1, N - 1, RESET, TRANSL );
 
                      NC = NC + 1
 
@@ -1500,7 +1500,7 @@
                // Generate the vector X.
 
                TRANSL = HALF
-               CALL CMAKE( 'GE', ' ', ' ', 1, N, X, 1, XX, ABS( INCX ), 0, N - 1, RESET, TRANSL )
+               cmake('GE', ' ', ' ', 1, N, X, 1, XX, ABS( INCX ), 0, N - 1, RESET, TRANSL );
                if ( N.GT.1 ) {
                   X( N/2 ) = ZERO
                   XX( 1 + ABS( INCX )*( N/2 - 1 ) ) = ZERO
@@ -1514,7 +1514,7 @@
                   // Generate the matrix A.
 
                   TRANSL = ZERO
-                  CALL CMAKE( SNAME( 2: 3 ), UPLO, ' ', N, N, A, NMAX, AA, LDA, N - 1, N - 1, RESET, TRANSL )
+                  cmake(SNAME( 2: 3 ), UPLO, ' ', N, N, A, NMAX, AA, LDA, N - 1, N - 1, RESET, TRANSL );
 
                   NC = NC + 1
 
@@ -1537,11 +1537,11 @@
                   if ( FULL ) {
                      IF( TRACE ) WRITE( NTRA, FMT = 9993 )NC, SNAME, UPLO, N, RALPHA, INCX, LDA
                      IF( REWI ) REWIND NTRA
-                     CALL CHER( UPLO, N, RALPHA, XX, INCX, AA, LDA )
+                     cher(UPLO, N, RALPHA, XX, INCX, AA, LDA );
                   } else if ( PACKED ) {
                      IF( TRACE ) WRITE( NTRA, FMT = 9994 )NC, SNAME, UPLO, N, RALPHA, INCX
                      IF( REWI ) REWIND NTRA
-                     CALL CHPR( UPLO, N, RALPHA, XX, INCX, AA )
+                     chpr(UPLO, N, RALPHA, XX, INCX, AA );
                   }
 
                   // Check if error-exit was taken incorrectly.
@@ -1603,7 +1603,7 @@
                            JJ = J
                            LJ = N - J + 1
                         }
-                        CALL CMVCH( 'N', LJ, 1, ALPHA, Z( JJ ), LJ, W, 1, ONE, A( JJ, J ), 1, YT, G, AA( JA ), EPS, ERR, FATAL, NOUT, .TRUE. )
+                        cmvch('N', LJ, 1, ALPHA, Z( JJ ), LJ, W, 1, ONE, A( JJ, J ), 1, YT, G, AA( JA ), EPS, ERR, FATAL, NOUT, .TRUE. );
                         if ( FULL ) {
                            if ( UPPER ) {
                               JA = JA + LDA
@@ -1751,7 +1751,7 @@
                // Generate the vector X.
 
                TRANSL = HALF
-               CALL CMAKE( 'GE', ' ', ' ', 1, N, X, 1, XX, ABS( INCX ), 0, N - 1, RESET, TRANSL )
+               cmake('GE', ' ', ' ', 1, N, X, 1, XX, ABS( INCX ), 0, N - 1, RESET, TRANSL );
                if ( N.GT.1 ) {
                   X( N/2 ) = ZERO
                   XX( 1 + ABS( INCX )*( N/2 - 1 ) ) = ZERO
@@ -1764,7 +1764,7 @@
                   // Generate the vector Y.
 
                   TRANSL = ZERO
-                  CALL CMAKE( 'GE', ' ', ' ', 1, N, Y, 1, YY, ABS( INCY ), 0, N - 1, RESET, TRANSL )
+                  cmake('GE', ' ', ' ', 1, N, Y, 1, YY, ABS( INCY ), 0, N - 1, RESET, TRANSL );
                   if ( N.GT.1 ) {
                      Y( N/2 ) = ZERO
                      YY( 1 + ABS( INCY )*( N/2 - 1 ) ) = ZERO
@@ -1777,7 +1777,7 @@
                      // Generate the matrix A.
 
                      TRANSL = ZERO
-                     CALL CMAKE( SNAME( 2: 3 ), UPLO, ' ', N, N, A, NMAX, AA, LDA, N - 1, N - 1, RESET, TRANSL )
+                     cmake(SNAME( 2: 3 ), UPLO, ' ', N, N, A, NMAX, AA, LDA, N - 1, N - 1, RESET, TRANSL );
 
                      NC = NC + 1
 
@@ -1880,7 +1880,7 @@
                               JJ = J
                               LJ = N - J + 1
                            }
-                           CALL CMVCH( 'N', LJ, 2, ONE, Z( JJ, 1 ), NMAX, W, 1, ONE, A( JJ, J ), 1, YT, G, AA( JA ), EPS, ERR, FATAL, NOUT, .TRUE. )
+                           cmvch('N', LJ, 2, ONE, Z( JJ, 1 ), NMAX, W, 1, ONE, A( JJ, J ), 1, YT, G, AA( JA ), EPS, ERR, FATAL, NOUT, .TRUE. );
                            if ( FULL ) {
                               if ( UPPER ) {
                                  JA = JA + LDA
@@ -1980,294 +1980,294 @@
       LERR = .FALSE.
       GO TO ( 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150, 160, 170 )ISNUM
    10 INFOT = 1
-      CALL CGEMV( '/', 0, 0, ALPHA, A, 1, X, 1, BETA, Y, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      cgemv('/', 0, 0, ALPHA, A, 1, X, 1, BETA, Y, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 2
-      CALL CGEMV( 'N', -1, 0, ALPHA, A, 1, X, 1, BETA, Y, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      cgemv('N', -1, 0, ALPHA, A, 1, X, 1, BETA, Y, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 3
-      CALL CGEMV( 'N', 0, -1, ALPHA, A, 1, X, 1, BETA, Y, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      cgemv('N', 0, -1, ALPHA, A, 1, X, 1, BETA, Y, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 6
-      CALL CGEMV( 'N', 2, 0, ALPHA, A, 1, X, 1, BETA, Y, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      cgemv('N', 2, 0, ALPHA, A, 1, X, 1, BETA, Y, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 8
-      CALL CGEMV( 'N', 0, 0, ALPHA, A, 1, X, 0, BETA, Y, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      cgemv('N', 0, 0, ALPHA, A, 1, X, 0, BETA, Y, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 11
-      CALL CGEMV( 'N', 0, 0, ALPHA, A, 1, X, 1, BETA, Y, 0 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      cgemv('N', 0, 0, ALPHA, A, 1, X, 1, BETA, Y, 0 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       GO TO 180
    20 INFOT = 1
-      CALL CGBMV( '/', 0, 0, 0, 0, ALPHA, A, 1, X, 1, BETA, Y, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      cgbmv('/', 0, 0, 0, 0, ALPHA, A, 1, X, 1, BETA, Y, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 2
-      CALL CGBMV( 'N', -1, 0, 0, 0, ALPHA, A, 1, X, 1, BETA, Y, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      cgbmv('N', -1, 0, 0, 0, ALPHA, A, 1, X, 1, BETA, Y, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 3
-      CALL CGBMV( 'N', 0, -1, 0, 0, ALPHA, A, 1, X, 1, BETA, Y, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      cgbmv('N', 0, -1, 0, 0, ALPHA, A, 1, X, 1, BETA, Y, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 4
-      CALL CGBMV( 'N', 0, 0, -1, 0, ALPHA, A, 1, X, 1, BETA, Y, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      cgbmv('N', 0, 0, -1, 0, ALPHA, A, 1, X, 1, BETA, Y, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 5
-      CALL CGBMV( 'N', 2, 0, 0, -1, ALPHA, A, 1, X, 1, BETA, Y, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      cgbmv('N', 2, 0, 0, -1, ALPHA, A, 1, X, 1, BETA, Y, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 8
-      CALL CGBMV( 'N', 0, 0, 1, 0, ALPHA, A, 1, X, 1, BETA, Y, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      cgbmv('N', 0, 0, 1, 0, ALPHA, A, 1, X, 1, BETA, Y, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 10
-      CALL CGBMV( 'N', 0, 0, 0, 0, ALPHA, A, 1, X, 0, BETA, Y, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      cgbmv('N', 0, 0, 0, 0, ALPHA, A, 1, X, 0, BETA, Y, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 13
-      CALL CGBMV( 'N', 0, 0, 0, 0, ALPHA, A, 1, X, 1, BETA, Y, 0 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      cgbmv('N', 0, 0, 0, 0, ALPHA, A, 1, X, 1, BETA, Y, 0 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       GO TO 180
    30 INFOT = 1
-      CALL CHEMV( '/', 0, ALPHA, A, 1, X, 1, BETA, Y, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      chemv('/', 0, ALPHA, A, 1, X, 1, BETA, Y, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 2
-      CALL CHEMV( 'U', -1, ALPHA, A, 1, X, 1, BETA, Y, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      chemv('U', -1, ALPHA, A, 1, X, 1, BETA, Y, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 5
-      CALL CHEMV( 'U', 2, ALPHA, A, 1, X, 1, BETA, Y, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      chemv('U', 2, ALPHA, A, 1, X, 1, BETA, Y, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 7
-      CALL CHEMV( 'U', 0, ALPHA, A, 1, X, 0, BETA, Y, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      chemv('U', 0, ALPHA, A, 1, X, 0, BETA, Y, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 10
-      CALL CHEMV( 'U', 0, ALPHA, A, 1, X, 1, BETA, Y, 0 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      chemv('U', 0, ALPHA, A, 1, X, 1, BETA, Y, 0 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       GO TO 180
    40 INFOT = 1
-      CALL CHBMV( '/', 0, 0, ALPHA, A, 1, X, 1, BETA, Y, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      chbmv('/', 0, 0, ALPHA, A, 1, X, 1, BETA, Y, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 2
-      CALL CHBMV( 'U', -1, 0, ALPHA, A, 1, X, 1, BETA, Y, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      chbmv('U', -1, 0, ALPHA, A, 1, X, 1, BETA, Y, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 3
-      CALL CHBMV( 'U', 0, -1, ALPHA, A, 1, X, 1, BETA, Y, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      chbmv('U', 0, -1, ALPHA, A, 1, X, 1, BETA, Y, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 6
-      CALL CHBMV( 'U', 0, 1, ALPHA, A, 1, X, 1, BETA, Y, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      chbmv('U', 0, 1, ALPHA, A, 1, X, 1, BETA, Y, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 8
-      CALL CHBMV( 'U', 0, 0, ALPHA, A, 1, X, 0, BETA, Y, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      chbmv('U', 0, 0, ALPHA, A, 1, X, 0, BETA, Y, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 11
-      CALL CHBMV( 'U', 0, 0, ALPHA, A, 1, X, 1, BETA, Y, 0 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      chbmv('U', 0, 0, ALPHA, A, 1, X, 1, BETA, Y, 0 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       GO TO 180
    50 INFOT = 1
-      CALL CHPMV( '/', 0, ALPHA, A, X, 1, BETA, Y, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      chpmv('/', 0, ALPHA, A, X, 1, BETA, Y, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 2
-      CALL CHPMV( 'U', -1, ALPHA, A, X, 1, BETA, Y, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      chpmv('U', -1, ALPHA, A, X, 1, BETA, Y, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 6
-      CALL CHPMV( 'U', 0, ALPHA, A, X, 0, BETA, Y, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      chpmv('U', 0, ALPHA, A, X, 0, BETA, Y, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 9
-      CALL CHPMV( 'U', 0, ALPHA, A, X, 1, BETA, Y, 0 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      chpmv('U', 0, ALPHA, A, X, 1, BETA, Y, 0 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       GO TO 180
    60 INFOT = 1
-      CALL CTRMV( '/', 'N', 'N', 0, A, 1, X, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ctrmv('/', 'N', 'N', 0, A, 1, X, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 2
-      CALL CTRMV( 'U', '/', 'N', 0, A, 1, X, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ctrmv('U', '/', 'N', 0, A, 1, X, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 3
-      CALL CTRMV( 'U', 'N', '/', 0, A, 1, X, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ctrmv('U', 'N', '/', 0, A, 1, X, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 4
-      CALL CTRMV( 'U', 'N', 'N', -1, A, 1, X, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ctrmv('U', 'N', 'N', -1, A, 1, X, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 6
-      CALL CTRMV( 'U', 'N', 'N', 2, A, 1, X, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ctrmv('U', 'N', 'N', 2, A, 1, X, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 8
-      CALL CTRMV( 'U', 'N', 'N', 0, A, 1, X, 0 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ctrmv('U', 'N', 'N', 0, A, 1, X, 0 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       GO TO 180
    70 INFOT = 1
-      CALL CTBMV( '/', 'N', 'N', 0, 0, A, 1, X, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ctbmv('/', 'N', 'N', 0, 0, A, 1, X, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 2
-      CALL CTBMV( 'U', '/', 'N', 0, 0, A, 1, X, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ctbmv('U', '/', 'N', 0, 0, A, 1, X, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 3
-      CALL CTBMV( 'U', 'N', '/', 0, 0, A, 1, X, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ctbmv('U', 'N', '/', 0, 0, A, 1, X, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 4
-      CALL CTBMV( 'U', 'N', 'N', -1, 0, A, 1, X, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ctbmv('U', 'N', 'N', -1, 0, A, 1, X, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 5
-      CALL CTBMV( 'U', 'N', 'N', 0, -1, A, 1, X, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ctbmv('U', 'N', 'N', 0, -1, A, 1, X, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 7
-      CALL CTBMV( 'U', 'N', 'N', 0, 1, A, 1, X, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ctbmv('U', 'N', 'N', 0, 1, A, 1, X, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 9
-      CALL CTBMV( 'U', 'N', 'N', 0, 0, A, 1, X, 0 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ctbmv('U', 'N', 'N', 0, 0, A, 1, X, 0 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       GO TO 180
    80 INFOT = 1
-      CALL CTPMV( '/', 'N', 'N', 0, A, X, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ctpmv('/', 'N', 'N', 0, A, X, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 2
-      CALL CTPMV( 'U', '/', 'N', 0, A, X, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ctpmv('U', '/', 'N', 0, A, X, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 3
-      CALL CTPMV( 'U', 'N', '/', 0, A, X, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ctpmv('U', 'N', '/', 0, A, X, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 4
-      CALL CTPMV( 'U', 'N', 'N', -1, A, X, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ctpmv('U', 'N', 'N', -1, A, X, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 7
-      CALL CTPMV( 'U', 'N', 'N', 0, A, X, 0 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ctpmv('U', 'N', 'N', 0, A, X, 0 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       GO TO 180
    90 INFOT = 1
-      CALL CTRSV( '/', 'N', 'N', 0, A, 1, X, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ctrsv('/', 'N', 'N', 0, A, 1, X, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 2
-      CALL CTRSV( 'U', '/', 'N', 0, A, 1, X, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ctrsv('U', '/', 'N', 0, A, 1, X, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 3
-      CALL CTRSV( 'U', 'N', '/', 0, A, 1, X, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ctrsv('U', 'N', '/', 0, A, 1, X, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 4
-      CALL CTRSV( 'U', 'N', 'N', -1, A, 1, X, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ctrsv('U', 'N', 'N', -1, A, 1, X, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 6
-      CALL CTRSV( 'U', 'N', 'N', 2, A, 1, X, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ctrsv('U', 'N', 'N', 2, A, 1, X, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 8
-      CALL CTRSV( 'U', 'N', 'N', 0, A, 1, X, 0 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ctrsv('U', 'N', 'N', 0, A, 1, X, 0 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       GO TO 180
   100 INFOT = 1
-      CALL CTBSV( '/', 'N', 'N', 0, 0, A, 1, X, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ctbsv('/', 'N', 'N', 0, 0, A, 1, X, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 2
-      CALL CTBSV( 'U', '/', 'N', 0, 0, A, 1, X, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ctbsv('U', '/', 'N', 0, 0, A, 1, X, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 3
-      CALL CTBSV( 'U', 'N', '/', 0, 0, A, 1, X, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ctbsv('U', 'N', '/', 0, 0, A, 1, X, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 4
-      CALL CTBSV( 'U', 'N', 'N', -1, 0, A, 1, X, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ctbsv('U', 'N', 'N', -1, 0, A, 1, X, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 5
-      CALL CTBSV( 'U', 'N', 'N', 0, -1, A, 1, X, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ctbsv('U', 'N', 'N', 0, -1, A, 1, X, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 7
-      CALL CTBSV( 'U', 'N', 'N', 0, 1, A, 1, X, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ctbsv('U', 'N', 'N', 0, 1, A, 1, X, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 9
-      CALL CTBSV( 'U', 'N', 'N', 0, 0, A, 1, X, 0 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ctbsv('U', 'N', 'N', 0, 0, A, 1, X, 0 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       GO TO 180
   110 INFOT = 1
-      CALL CTPSV( '/', 'N', 'N', 0, A, X, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ctpsv('/', 'N', 'N', 0, A, X, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 2
-      CALL CTPSV( 'U', '/', 'N', 0, A, X, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ctpsv('U', '/', 'N', 0, A, X, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 3
-      CALL CTPSV( 'U', 'N', '/', 0, A, X, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ctpsv('U', 'N', '/', 0, A, X, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 4
-      CALL CTPSV( 'U', 'N', 'N', -1, A, X, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ctpsv('U', 'N', 'N', -1, A, X, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 7
-      CALL CTPSV( 'U', 'N', 'N', 0, A, X, 0 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      ctpsv('U', 'N', 'N', 0, A, X, 0 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       GO TO 180
   120 INFOT = 1
-      CALL CGERC( -1, 0, ALPHA, X, 1, Y, 1, A, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      cgerc(-1, 0, ALPHA, X, 1, Y, 1, A, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 2
-      CALL CGERC( 0, -1, ALPHA, X, 1, Y, 1, A, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      cgerc(0, -1, ALPHA, X, 1, Y, 1, A, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 5
-      CALL CGERC( 0, 0, ALPHA, X, 0, Y, 1, A, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      cgerc(0, 0, ALPHA, X, 0, Y, 1, A, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 7
-      CALL CGERC( 0, 0, ALPHA, X, 1, Y, 0, A, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      cgerc(0, 0, ALPHA, X, 1, Y, 0, A, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 9
-      CALL CGERC( 2, 0, ALPHA, X, 1, Y, 1, A, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      cgerc(2, 0, ALPHA, X, 1, Y, 1, A, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       GO TO 180
   130 INFOT = 1
-      CALL CGERU( -1, 0, ALPHA, X, 1, Y, 1, A, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      cgeru(-1, 0, ALPHA, X, 1, Y, 1, A, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 2
-      CALL CGERU( 0, -1, ALPHA, X, 1, Y, 1, A, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      cgeru(0, -1, ALPHA, X, 1, Y, 1, A, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 5
-      CALL CGERU( 0, 0, ALPHA, X, 0, Y, 1, A, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      cgeru(0, 0, ALPHA, X, 0, Y, 1, A, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 7
-      CALL CGERU( 0, 0, ALPHA, X, 1, Y, 0, A, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      cgeru(0, 0, ALPHA, X, 1, Y, 0, A, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 9
-      CALL CGERU( 2, 0, ALPHA, X, 1, Y, 1, A, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      cgeru(2, 0, ALPHA, X, 1, Y, 1, A, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       GO TO 180
   140 INFOT = 1
-      CALL CHER( '/', 0, RALPHA, X, 1, A, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      cher('/', 0, RALPHA, X, 1, A, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 2
-      CALL CHER( 'U', -1, RALPHA, X, 1, A, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      cher('U', -1, RALPHA, X, 1, A, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 5
-      CALL CHER( 'U', 0, RALPHA, X, 0, A, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      cher('U', 0, RALPHA, X, 0, A, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 7
-      CALL CHER( 'U', 2, RALPHA, X, 1, A, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      cher('U', 2, RALPHA, X, 1, A, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       GO TO 180
   150 INFOT = 1
-      CALL CHPR( '/', 0, RALPHA, X, 1, A )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      chpr('/', 0, RALPHA, X, 1, A );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 2
-      CALL CHPR( 'U', -1, RALPHA, X, 1, A )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      chpr('U', -1, RALPHA, X, 1, A );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 5
-      CALL CHPR( 'U', 0, RALPHA, X, 0, A )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      chpr('U', 0, RALPHA, X, 0, A );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       GO TO 180
   160 INFOT = 1
-      CALL CHER2( '/', 0, ALPHA, X, 1, Y, 1, A, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      cher2('/', 0, ALPHA, X, 1, Y, 1, A, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 2
-      CALL CHER2( 'U', -1, ALPHA, X, 1, Y, 1, A, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      cher2('U', -1, ALPHA, X, 1, Y, 1, A, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 5
-      CALL CHER2( 'U', 0, ALPHA, X, 0, Y, 1, A, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      cher2('U', 0, ALPHA, X, 0, Y, 1, A, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 7
-      CALL CHER2( 'U', 0, ALPHA, X, 1, Y, 0, A, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      cher2('U', 0, ALPHA, X, 1, Y, 0, A, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 9
-      CALL CHER2( 'U', 2, ALPHA, X, 1, Y, 1, A, 1 )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      cher2('U', 2, ALPHA, X, 1, Y, 1, A, 1 );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       GO TO 180
   170 INFOT = 1
-      CALL CHPR2( '/', 0, ALPHA, X, 1, Y, 1, A )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      chpr2('/', 0, ALPHA, X, 1, Y, 1, A );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 2
-      CALL CHPR2( 'U', -1, ALPHA, X, 1, Y, 1, A )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      chpr2('U', -1, ALPHA, X, 1, Y, 1, A );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 5
-      CALL CHPR2( 'U', 0, ALPHA, X, 0, Y, 1, A )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      chpr2('U', 0, ALPHA, X, 0, Y, 1, A );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
       INFOT = 7
-      CALL CHPR2( 'U', 0, ALPHA, X, 1, Y, 0, A )
-      CALL CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
+      chpr2('U', 0, ALPHA, X, 1, Y, 0, A );
+      chkxer(SRNAMT, INFOT, NOUT, LERR, OK );
 
   180 IF( OK )THEN
          WRITE( NOUT, FMT = 9999 )SRNAMT

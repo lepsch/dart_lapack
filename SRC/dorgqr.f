@@ -52,7 +52,7 @@
          INFO = -8
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'DORGQR', -INFO )
+         xerbla('DORGQR', -INFO );
          RETURN
       } else if ( LQUERY ) {
          RETURN
@@ -124,16 +124,16 @@
                // Form the triangular factor of the block reflector
                // H = H(i) H(i+1) . . . H(i+ib-1)
 
-               CALL DLARFT( 'Forward', 'Columnwise', M-I+1, IB, A( I, I ), LDA, TAU( I ), WORK, LDWORK )
+               dlarft('Forward', 'Columnwise', M-I+1, IB, A( I, I ), LDA, TAU( I ), WORK, LDWORK );
 
                // Apply H to A(i:m,i+ib:n) from the left
 
-               CALL DLARFB( 'Left', 'No transpose', 'Forward', 'Columnwise', M-I+1, N-I-IB+1, IB, A( I, I ), LDA, WORK, LDWORK, A( I, I+IB ), LDA, WORK( IB+1 ), LDWORK )
+               dlarfb('Left', 'No transpose', 'Forward', 'Columnwise', M-I+1, N-I-IB+1, IB, A( I, I ), LDA, WORK, LDWORK, A( I, I+IB ), LDA, WORK( IB+1 ), LDWORK );
             }
 
             // Apply H to rows i:m of current block
 
-            CALL DORG2R( M-I+1, IB, IB, A( I, I ), LDA, TAU( I ), WORK, IINFO )
+            dorg2r(M-I+1, IB, IB, A( I, I ), LDA, TAU( I ), WORK, IINFO );
 
             // Set rows 1:i-1 of current block to zero
 

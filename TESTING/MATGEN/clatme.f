@@ -144,7 +144,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'CLATME', -INFO )
+         xerbla('CLATME', -INFO );
          RETURN
       }
 
@@ -160,7 +160,7 @@
 
               // Compute D according to COND and MODE
 
-      CALL CLATM1( MODE, COND, IRSIGN, IDIST, ISEED, D, N, IINFO )
+      clatm1(MODE, COND, IRSIGN, IDIST, ISEED, D, N, IINFO );
       if ( IINFO.NE.0 ) {
          INFO = 1
          RETURN
@@ -181,18 +181,18 @@
             RETURN
          }
 
-         CALL CSCAL( N, ALPHA, D, 1 )
+         cscal(N, ALPHA, D, 1 );
 
       }
 
-      CALL CLASET( 'Full', N, N, CZERO, CZERO, A, LDA )
-      CALL CCOPY( N, D, 1, A, LDA+1 )
+      claset('Full', N, N, CZERO, CZERO, A, LDA );
+      ccopy(N, D, 1, A, LDA+1 );
 
       // 3)      If UPPER='T', set upper triangle of A to random numbers.
 
       if ( IUPPER.NE.0 ) {
          DO 40 JC = 2, N
-            CALL CLARNV( IDIST, ISEED, JC-1, A( 1, JC ) )
+            clarnv(IDIST, ISEED, JC-1, A( 1, JC ) );
    40    CONTINUE
       }
 
@@ -208,7 +208,7 @@
          // Compute S (singular values of the eigenvector matrix)
          // according to CONDS and MODES
 
-         CALL SLATM1( MODES, CONDS, 0, 0, ISEED, DS, N, IINFO )
+         slatm1(MODES, CONDS, 0, 0, ISEED, DS, N, IINFO );
          if ( IINFO.NE.0 ) {
             INFO = 3
             RETURN
@@ -216,7 +216,7 @@
 
          // Multiply by V and V'
 
-         CALL CLARGE( N, A, LDA, ISEED, WORK, IINFO )
+         clarge(N, A, LDA, ISEED, WORK, IINFO );
          if ( IINFO.NE.0 ) {
             INFO = 4
             RETURN
@@ -225,9 +225,9 @@
          // Multiply by S and (1/S)
 
          DO 50 J = 1, N
-            CALL CSSCAL( N, DS( J ), A( J, 1 ), LDA )
+            csscal(N, DS( J ), A( J, 1 ), LDA );
             if ( DS( J ).NE.ZERO ) {
-               CALL CSSCAL( N, ONE / DS( J ), A( 1, J ), 1 )
+               csscal(N, ONE / DS( J ), A( 1, J ), 1 );
             } else {
                INFO = 5
                RETURN
@@ -236,7 +236,7 @@
 
          // Multiply by U and U'
 
-         CALL CLARGE( N, A, LDA, ISEED, WORK, IINFO )
+         clarge(N, A, LDA, ISEED, WORK, IINFO );
          if ( IINFO.NE.0 ) {
             INFO = 4
             RETURN
@@ -254,22 +254,22 @@
             IROWS = N + 1 - JCR
             ICOLS = N + KL - JCR
 
-            CALL CCOPY( IROWS, A( JCR, IC ), 1, WORK, 1 )
+            ccopy(IROWS, A( JCR, IC ), 1, WORK, 1 );
             XNORMS = WORK( 1 )
-            CALL CLARFG( IROWS, XNORMS, WORK( 2 ), 1, TAU )
+            clarfg(IROWS, XNORMS, WORK( 2 ), 1, TAU );
             TAU = CONJG( TAU )
             WORK( 1 ) = CONE
             ALPHA = CLARND( 5, ISEED )
 
-            CALL CGEMV( 'C', IROWS, ICOLS, CONE, A( JCR, IC+1 ), LDA, WORK, 1, CZERO, WORK( IROWS+1 ), 1 )             CALL CGERC( IROWS, ICOLS, -TAU, WORK, 1, WORK( IROWS+1 ), 1, A( JCR, IC+1 ), LDA )
+            cgemv('C', IROWS, ICOLS, CONE, A( JCR, IC+1 ), LDA, WORK, 1, CZERO, WORK( IROWS+1 ), 1 )             CALL CGERC( IROWS, ICOLS, -TAU, WORK, 1, WORK( IROWS+1 ), 1, A( JCR, IC+1 ), LDA );
 
-            CALL CGEMV( 'N', N, IROWS, CONE, A( 1, JCR ), LDA, WORK, 1, CZERO, WORK( IROWS+1 ), 1 )             CALL CGERC( N, IROWS, -CONJG( TAU ), WORK( IROWS+1 ), 1, WORK, 1, A( 1, JCR ), LDA )
+            cgemv('N', N, IROWS, CONE, A( 1, JCR ), LDA, WORK, 1, CZERO, WORK( IROWS+1 ), 1 )             CALL CGERC( N, IROWS, -CONJG( TAU ), WORK( IROWS+1 ), 1, WORK, 1, A( 1, JCR ), LDA );
 
             A( JCR, IC ) = XNORMS
-            CALL CLASET( 'Full', IROWS-1, 1, CZERO, CZERO, A( JCR+1, IC ), LDA )
+            claset('Full', IROWS-1, 1, CZERO, CZERO, A( JCR+1, IC ), LDA );
 
-            CALL CSCAL( ICOLS+1, ALPHA, A( JCR, IC ), LDA )
-            CALL CSCAL( N, CONJG( ALPHA ), A( 1, JCR ), 1 )
+            cscal(ICOLS+1, ALPHA, A( JCR, IC ), LDA );
+            cscal(N, CONJG( ALPHA ), A( 1, JCR ), 1 );
    60    CONTINUE
       } else if ( KU.LT.N-1 ) {
 
@@ -280,23 +280,23 @@
             IROWS = N + KU - JCR
             ICOLS = N + 1 - JCR
 
-            CALL CCOPY( ICOLS, A( IR, JCR ), LDA, WORK, 1 )
+            ccopy(ICOLS, A( IR, JCR ), LDA, WORK, 1 );
             XNORMS = WORK( 1 )
-            CALL CLARFG( ICOLS, XNORMS, WORK( 2 ), 1, TAU )
+            clarfg(ICOLS, XNORMS, WORK( 2 ), 1, TAU );
             TAU = CONJG( TAU )
             WORK( 1 ) = CONE
-            CALL CLACGV( ICOLS-1, WORK( 2 ), 1 )
+            clacgv(ICOLS-1, WORK( 2 ), 1 );
             ALPHA = CLARND( 5, ISEED )
 
-            CALL CGEMV( 'N', IROWS, ICOLS, CONE, A( IR+1, JCR ), LDA, WORK, 1, CZERO, WORK( ICOLS+1 ), 1 )             CALL CGERC( IROWS, ICOLS, -TAU, WORK( ICOLS+1 ), 1, WORK, 1, A( IR+1, JCR ), LDA )
+            cgemv('N', IROWS, ICOLS, CONE, A( IR+1, JCR ), LDA, WORK, 1, CZERO, WORK( ICOLS+1 ), 1 )             CALL CGERC( IROWS, ICOLS, -TAU, WORK( ICOLS+1 ), 1, WORK, 1, A( IR+1, JCR ), LDA );
 
-            CALL CGEMV( 'C', ICOLS, N, CONE, A( JCR, 1 ), LDA, WORK, 1, CZERO, WORK( ICOLS+1 ), 1 )             CALL CGERC( ICOLS, N, -CONJG( TAU ), WORK, 1, WORK( ICOLS+1 ), 1, A( JCR, 1 ), LDA )
+            cgemv('C', ICOLS, N, CONE, A( JCR, 1 ), LDA, WORK, 1, CZERO, WORK( ICOLS+1 ), 1 )             CALL CGERC( ICOLS, N, -CONJG( TAU ), WORK, 1, WORK( ICOLS+1 ), 1, A( JCR, 1 ), LDA );
 
             A( IR, JCR ) = XNORMS
-            CALL CLASET( 'Full', 1, ICOLS-1, CZERO, CZERO, A( IR, JCR+1 ), LDA )
+            claset('Full', 1, ICOLS-1, CZERO, CZERO, A( IR, JCR+1 ), LDA );
 
-            CALL CSCAL( IROWS+1, ALPHA, A( IR, JCR ), 1 )
-            CALL CSCAL( N, CONJG( ALPHA ), A( JCR, 1 ), LDA )
+            cscal(IROWS+1, ALPHA, A( IR, JCR ), 1 );
+            cscal(N, CONJG( ALPHA ), A( JCR, 1 ), LDA );
    70    CONTINUE
       }
 
@@ -307,7 +307,7 @@
          if ( TEMP.GT.ZERO ) {
             RALPHA = ANORM / TEMP
             DO 80 J = 1, N
-               CALL CSSCAL( N, RALPHA, A( 1, J ), 1 )
+               csscal(N, RALPHA, A( 1, J ), 1 );
    80       CONTINUE
          }
       }

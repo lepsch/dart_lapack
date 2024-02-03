@@ -72,7 +72,7 @@
    30       CONTINUE
    40    CONTINUE
       }
-      CALL DSYMM( 'Left', UPLO, N, N, -ONE, A, LDA, AINV, LDAINV, ZERO, WORK, LDWORK )
+      dsymm('Left', UPLO, N, N, -ONE, A, LDA, AINV, LDAINV, ZERO, WORK, LDWORK );
 
       // Add the identity matrix to WORK .
 

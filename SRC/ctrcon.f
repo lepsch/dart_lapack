@@ -69,7 +69,7 @@
          INFO = -6
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'CTRCON', -INFO )
+         xerbla('CTRCON', -INFO );
          RETURN
       }
 
@@ -102,18 +102,18 @@
          }
          KASE = 0
    10    CONTINUE
-         CALL CLACN2( N, WORK( N+1 ), WORK, AINVNM, KASE, ISAVE )
+         clacn2(N, WORK( N+1 ), WORK, AINVNM, KASE, ISAVE );
          if ( KASE.NE.0 ) {
             if ( KASE.EQ.KASE1 ) {
 
                // Multiply by inv(A).
 
-               CALL CLATRS( UPLO, 'No transpose', DIAG, NORMIN, N, A, LDA, WORK, SCALE, RWORK, INFO )
+               clatrs(UPLO, 'No transpose', DIAG, NORMIN, N, A, LDA, WORK, SCALE, RWORK, INFO );
             } else {
 
                // Multiply by inv(A**H).
 
-               CALL CLATRS( UPLO, 'Conjugate transpose', DIAG, NORMIN, N, A, LDA, WORK, SCALE, RWORK, INFO )
+               clatrs(UPLO, 'Conjugate transpose', DIAG, NORMIN, N, A, LDA, WORK, SCALE, RWORK, INFO );
             }
             NORMIN = 'Y'
 
@@ -123,7 +123,7 @@
                IX = ICAMAX( N, WORK, 1 )
                XNORM = CABS1( WORK( IX ) )
                IF( SCALE.LT.XNORM*SMLNUM .OR. SCALE.EQ.ZERO ) GO TO 20
-               CALL CSRSCL( N, SCALE, WORK, 1 )
+               csrscl(N, SCALE, WORK, 1 );
             }
             GO TO 10
          }

@@ -47,7 +47,7 @@
       NRUN = 0
       NFAIL = 0
       FIRSTT = .TRUE.
-      CALL ALAREQ( PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT )
+      alareq(PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT );
       LDA = NMAX
       LDB = NMAX
       LWORK = NMAX*NMAX
@@ -78,11 +78,11 @@
                   // Set up parameters with SLATB9 and generate test
                   // matrices A and B with SLATMS.
 
-                  CALL SLATB9( 'GRQ', IMAT, M, P, N, TYPE, KLA, KUA, KLB, KUB, ANORM, BNORM, MODEA, MODEB, CNDNMA, CNDNMB, DISTA, DISTB )
+                  slatb9('GRQ', IMAT, M, P, N, TYPE, KLA, KUA, KLB, KUB, ANORM, BNORM, MODEA, MODEB, CNDNMA, CNDNMB, DISTA, DISTB );
 
                   // Generate M by N matrix A
 
-                  CALL SLATMS( M, N, DISTA, ISEED, TYPE, RWORK, MODEA, CNDNMA, ANORM, KLA, KUA, 'No packing', A, LDA, WORK, IINFO )
+                  slatms(M, N, DISTA, ISEED, TYPE, RWORK, MODEA, CNDNMA, ANORM, KLA, KUA, 'No packing', A, LDA, WORK, IINFO );
                   if ( IINFO.NE.0 ) {
                      WRITE( NOUT, FMT = 9999 )IINFO
                      INFO = ABS( IINFO )
@@ -91,7 +91,7 @@
 
                   // Generate P by N matrix B
 
-                  CALL SLATMS( P, N, DISTB, ISEED, TYPE, RWORK, MODEB, CNDNMB, BNORM, KLB, KUB, 'No packing', B, LDB, WORK, IINFO )
+                  slatms(P, N, DISTB, ISEED, TYPE, RWORK, MODEB, CNDNMB, BNORM, KLB, KUB, 'No packing', B, LDB, WORK, IINFO );
                   if ( IINFO.NE.0 ) {
                      WRITE( NOUT, FMT = 9999 )IINFO
                      INFO = ABS( IINFO )
@@ -100,7 +100,7 @@
 
                   NT = 4
 
-                  CALL SGRQTS( M, P, N, A, AF, AQ, AR, LDA, TAUA, B, BF, BZ, BT, BWK, LDB, TAUB, WORK, LWORK, RWORK, RESULT )
+                  sgrqts(M, P, N, A, AF, AQ, AR, LDA, TAUA, B, BF, BZ, BT, BWK, LDB, TAUB, WORK, LWORK, RWORK, RESULT );
 
                   // Print information about the tests that did not
                   // pass the threshold.
@@ -109,7 +109,7 @@
                      if ( RESULT( I ).GE.THRESH ) {
                         if ( NFAIL.EQ.0 .AND. FIRSTT ) {
                            FIRSTT = .FALSE.
-                           CALL ALAHDG( NOUT, 'GRQ' )
+                           alahdg(NOUT, 'GRQ' );
                         }
                         WRITE( NOUT, FMT = 9998 )M, P, N, IMAT, I, RESULT( I )
                         NFAIL = NFAIL + 1
@@ -122,11 +122,11 @@
                   // Set up parameters with SLATB9 and generate test
                   // matrices A and B with SLATMS.
 
-                  CALL SLATB9( 'GQR', IMAT, M, P, N, TYPE, KLA, KUA, KLB, KUB, ANORM, BNORM, MODEA, MODEB, CNDNMA, CNDNMB, DISTA, DISTB )
+                  slatb9('GQR', IMAT, M, P, N, TYPE, KLA, KUA, KLB, KUB, ANORM, BNORM, MODEA, MODEB, CNDNMA, CNDNMB, DISTA, DISTB );
 
                   // Generate N-by-M matrix  A
 
-                  CALL SLATMS( N, M, DISTA, ISEED, TYPE, RWORK, MODEA, CNDNMA, ANORM, KLA, KUA, 'No packing', A, LDA, WORK, IINFO )
+                  slatms(N, M, DISTA, ISEED, TYPE, RWORK, MODEA, CNDNMA, ANORM, KLA, KUA, 'No packing', A, LDA, WORK, IINFO );
                   if ( IINFO.NE.0 ) {
                      WRITE( NOUT, FMT = 9999 )IINFO
                      INFO = ABS( IINFO )
@@ -135,7 +135,7 @@
 
                   // Generate N-by-P matrix  B
 
-                  CALL SLATMS( N, P, DISTB, ISEED, TYPE, RWORK, MODEA, CNDNMA, BNORM, KLB, KUB, 'No packing', B, LDB, WORK, IINFO )
+                  slatms(N, P, DISTB, ISEED, TYPE, RWORK, MODEA, CNDNMA, BNORM, KLB, KUB, 'No packing', B, LDB, WORK, IINFO );
                   if ( IINFO.NE.0 ) {
                      WRITE( NOUT, FMT = 9999 )IINFO
                      INFO = ABS( IINFO )
@@ -144,7 +144,7 @@
 
                   NT = 4
 
-                  CALL SGQRTS( N, M, P, A, AF, AQ, AR, LDA, TAUA, B, BF, BZ, BT, BWK, LDB, TAUB, WORK, LWORK, RWORK, RESULT )
+                  sgqrts(N, M, P, A, AF, AQ, AR, LDA, TAUA, B, BF, BZ, BT, BWK, LDB, TAUB, WORK, LWORK, RWORK, RESULT );
 
                   // Print information about the tests that did not
                   // pass the threshold.
@@ -153,7 +153,7 @@
                      if ( RESULT( I ).GE.THRESH ) {
                         if ( NFAIL.EQ.0 .AND. FIRSTT ) {
                            FIRSTT = .FALSE.
-                           CALL ALAHDG( NOUT, PATH )
+                           alahdg(NOUT, PATH );
                         }
                         WRITE( NOUT, FMT = 9997 )N, M, P, IMAT, I, RESULT( I )
                         NFAIL = NFAIL + 1
@@ -168,7 +168,7 @@
 
       // Print a summary of the results.
 
-      CALL ALASUM( PATH, NOUT, NFAIL, NRUN, 0 )
+      alasum(PATH, NOUT, NFAIL, NRUN, 0 );
 
  9999 FORMAT( ' SLATMS in SCKGQR:    INFO = ', I5 )
  9998 FORMAT( ' M=', I4, ' P=', I4, ', N=', I4, ', type ', I2, ', test ', I2, ', ratio=', G13.6 )

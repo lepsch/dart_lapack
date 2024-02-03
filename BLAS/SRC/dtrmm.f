@@ -65,7 +65,7 @@
           INFO = 11
       }
       if (INFO.NE.0) {
-          CALL XERBLA('DTRMM ',INFO)
+          xerbla('DTRMM ',INFO);
           RETURN
       }
 

@@ -43,7 +43,7 @@
          INFO = -13
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'ZTGEXC', -INFO )
+         xerbla('ZTGEXC', -INFO );
          RETURN
       }
 
@@ -59,7 +59,7 @@
 
          // Swap with next one below
 
-         CALL ZTGEX2( WANTQ, WANTZ, N, A, LDA, B, LDB, Q, LDQ, Z, LDZ, HERE, INFO )
+         ztgex2(WANTQ, WANTZ, N, A, LDA, B, LDB, Q, LDQ, Z, LDZ, HERE, INFO );
          if ( INFO.NE.0 ) {
             ILST = HERE
             RETURN
@@ -74,7 +74,7 @@
 
          // Swap with next one above
 
-         CALL ZTGEX2( WANTQ, WANTZ, N, A, LDA, B, LDB, Q, LDQ, Z, LDZ, HERE, INFO )
+         ztgex2(WANTQ, WANTZ, N, A, LDA, B, LDB, Q, LDQ, Z, LDZ, HERE, INFO );
          if ( INFO.NE.0 ) {
             ILST = HERE
             RETURN

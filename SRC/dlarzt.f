@@ -39,7 +39,7 @@
          INFO = -2
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'DLARZT', -INFO )
+         xerbla('DLARZT', -INFO );
          RETURN
       }
 
@@ -59,11 +59,11 @@
 
                // T(i+1:k,i) = - tau(i) * V(i+1:k,1:n) * V(i,1:n)**T
 
-               CALL DGEMV( 'No transpose', K-I, N, -TAU( I ), V( I+1, 1 ), LDV, V( I, 1 ), LDV, ZERO, T( I+1, I ), 1 )
+               dgemv('No transpose', K-I, N, -TAU( I ), V( I+1, 1 ), LDV, V( I, 1 ), LDV, ZERO, T( I+1, I ), 1 );
 
                // T(i+1:k,i) = T(i+1:k,i+1:k) * T(i+1:k,i)
 
-               CALL DTRMV( 'Lower', 'No transpose', 'Non-unit', K-I, T( I+1, I+1 ), LDT, T( I+1, I ), 1 )
+               dtrmv('Lower', 'No transpose', 'Non-unit', K-I, T( I+1, I+1 ), LDT, T( I+1, I ), 1 );
             }
             T( I, I ) = TAU( I )
          }

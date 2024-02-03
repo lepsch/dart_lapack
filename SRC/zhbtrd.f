@@ -64,7 +64,7 @@
          INFO = -10
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'ZHBTRD', -INFO )
+         xerbla('ZHBTRD', -INFO );
          RETURN
       }
 
@@ -109,7 +109,7 @@
                      // generate plane rotations to annihilate nonzero
                      // elements which have been created outside the band
 
-                     CALL ZLARGV( NR, AB( 1, J1-1 ), INCA, WORK( J1 ), KD1, D( J1 ), KD1 )
+                     zlargv(NR, AB( 1, J1-1 ), INCA, WORK( J1 ), KD1, D( J1 ), KD1 );
 
                      // apply rotations from the right
 
@@ -119,13 +119,13 @@
 
                      if ( NR.GE.2*KD-1 ) {
                         DO 10 L = 1, KD - 1
-                           CALL ZLARTV( NR, AB( L+1, J1-1 ), INCA, AB( L, J1 ), INCA, D( J1 ), WORK( J1 ), KD1 )
+                           zlartv(NR, AB( L+1, J1-1 ), INCA, AB( L, J1 ), INCA, D( J1 ), WORK( J1 ), KD1 );
    10                   CONTINUE
 
                      } else {
                         JEND = J1 + ( NR-1 )*KD1
                         DO 20 JINC = J1, JEND, KD1
-                           CALL ZROT( KDM1, AB( 2, JINC-1 ), 1, AB( 1, JINC ), 1, D( JINC ), WORK( JINC ) )
+                           zrot(KDM1, AB( 2, JINC-1 ), 1, AB( 1, JINC ), 1, D( JINC ), WORK( JINC ) );
    20                   CONTINUE
                      }
                   }
@@ -137,12 +137,12 @@
                         // generate plane rotation to annihilate a(i,i+k-1)
                         // within the band
 
-                        CALL ZLARTG( AB( KD-K+3, I+K-2 ), AB( KD-K+2, I+K-1 ), D( I+K-1 ), WORK( I+K-1 ), TEMP )
+                        zlartg(AB( KD-K+3, I+K-2 ), AB( KD-K+2, I+K-1 ), D( I+K-1 ), WORK( I+K-1 ), TEMP );
                         AB( KD-K+3, I+K-2 ) = TEMP
 
                         // apply rotation from the right
 
-                        CALL ZROT( K-3, AB( KD-K+4, I+K-2 ), 1, AB( KD-K+3, I+K-1 ), 1, D( I+K-1 ), WORK( I+K-1 ) )
+                        zrot(K-3, AB( KD-K+4, I+K-2 ), 1, AB( KD-K+3, I+K-1 ), 1, D( I+K-1 ), WORK( I+K-1 ) );
                      }
                      NR = NR + 1
                      J1 = J1 - KDN - 1
@@ -156,7 +156,7 @@
                   // apply plane rotations from the left
 
                   if ( NR.GT.0 ) {
-                     CALL ZLACGV( NR, WORK( J1 ), KD1 )
+                     zlacgv(NR, WORK( J1 ), KD1 );
                      if ( 2*KD-1.LT.NR ) {
 
                      // Dependent on the the number of diagonals either
@@ -174,7 +174,7 @@
                         J1END = J1 + KD1*( NR-2 )
                         if ( J1END.GE.J1 ) {
                            DO 40 JIN = J1, J1END, KD1
-                              CALL ZROT( KD-1, AB( KD-1, JIN+1 ), INCX, AB( KD, JIN+1 ), INCX, D( JIN ), WORK( JIN ) )
+                              zrot(KD-1, AB( KD-1, JIN+1 ), INCX, AB( KD, JIN+1 ), INCX, D( JIN ), WORK( JIN ) );
    40                      CONTINUE
                         }
                         LEND = MIN( KDM1, N-J2 )
@@ -203,12 +203,12 @@
                            IQB = MAX( 1, J-IBL )
                            NQ = 1 + IQAEND - IQB
                            IQAEND = MIN( IQAEND+KD, IQEND )
-                           CALL ZROT( NQ, Q( IQB, J-1 ), 1, Q( IQB, J ), 1, D( J ), DCONJG( WORK( J ) ) )
+                           zrot(NQ, Q( IQB, J-1 ), 1, Q( IQB, J ), 1, D( J ), DCONJG( WORK( J ) ) );
    50                   CONTINUE
                      } else {
 
                         DO 60 J = J1, J2, KD1
-                           CALL ZROT( N, Q( 1, J-1 ), 1, Q( 1, J ), 1, D( J ), DCONJG( WORK( J ) ) )
+                           zrot(N, Q( 1, J-1 ), 1, Q( 1, J ), 1, D( J ), DCONJG( WORK( J ) ) );
    60                   CONTINUE
                      }
 
@@ -250,7 +250,7 @@
                }
                IF( I.LT.N-1 ) AB( KD, I+2 ) = AB( KD, I+2 )*T
                if ( WANTQ ) {
-                  CALL ZSCAL( N, DCONJG( T ), Q( 1, I+1 ), 1 )
+                  zscal(N, DCONJG( T ), Q( 1, I+1 ), 1 );
                }
   100       CONTINUE
          } else {
@@ -293,7 +293,7 @@
                      // generate plane rotations to annihilate nonzero
                      // elements which have been created outside the band
 
-                     CALL ZLARGV( NR, AB( KD1, J1-KD1 ), INCA, WORK( J1 ), KD1, D( J1 ), KD1 )
+                     zlargv(NR, AB( KD1, J1-KD1 ), INCA, WORK( J1 ), KD1, D( J1 ), KD1 );
 
                      // apply plane rotations from one side
 
@@ -303,12 +303,12 @@
 
                      if ( NR.GT.2*KD-1 ) {
                         DO 130 L = 1, KD - 1
-                           CALL ZLARTV( NR, AB( KD1-L, J1-KD1+L ), INCA, AB( KD1-L+1, J1-KD1+L ), INCA, D( J1 ), WORK( J1 ), KD1 )
+                           zlartv(NR, AB( KD1-L, J1-KD1+L ), INCA, AB( KD1-L+1, J1-KD1+L ), INCA, D( J1 ), WORK( J1 ), KD1 );
   130                   CONTINUE
                      } else {
                         JEND = J1 + KD1*( NR-1 )
                         DO 140 JINC = J1, JEND, KD1
-                           CALL ZROT( KDM1, AB( KD, JINC-KD ), INCX, AB( KD1, JINC-KD ), INCX, D( JINC ), WORK( JINC ) )
+                           zrot(KDM1, AB( KD, JINC-KD ), INCX, AB( KD1, JINC-KD ), INCX, D( JINC ), WORK( JINC ) );
   140                   CONTINUE
                      }
 
@@ -320,12 +320,12 @@
                         // generate plane rotation to annihilate a(i+k-1,i)
                         // within the band
 
-                        CALL ZLARTG( AB( K-1, I ), AB( K, I ), D( I+K-1 ), WORK( I+K-1 ), TEMP )
+                        zlartg(AB( K-1, I ), AB( K, I ), D( I+K-1 ), WORK( I+K-1 ), TEMP );
                         AB( K-1, I ) = TEMP
 
                         // apply rotation from the left
 
-                        CALL ZROT( K-3, AB( K-2, I+1 ), LDAB-1, AB( K-1, I+1 ), LDAB-1, D( I+K-1 ), WORK( I+K-1 ) )
+                        zrot(K-3, AB( K-2, I+1 ), LDAB-1, AB( K-1, I+1 ), LDAB-1, D( I+K-1 ), WORK( I+K-1 ) );
                      }
                      NR = NR + 1
                      J1 = J1 - KDN - 1
@@ -343,7 +343,7 @@
                      // ZLARTV or ZROT is used
 
                   if ( NR.GT.0 ) {
-                     CALL ZLACGV( NR, WORK( J1 ), KD1 )
+                     zlacgv(NR, WORK( J1 ), KD1 );
                      if ( NR.GT.2*KD-1 ) {
                         DO 150 L = 1, KD - 1
                            if ( J2+L.GT.N ) {
@@ -357,7 +357,7 @@
                         J1END = J1 + KD1*( NR-2 )
                         if ( J1END.GE.J1 ) {
                            DO 160 J1INC = J1, J1END, KD1
-                              CALL ZROT( KDM1, AB( 3, J1INC-1 ), 1, AB( 2, J1INC ), 1, D( J1INC ), WORK( J1INC ) )
+                              zrot(KDM1, AB( 3, J1INC-1 ), 1, AB( 2, J1INC ), 1, D( J1INC ), WORK( J1INC ) );
   160                      CONTINUE
                         }
                         LEND = MIN( KDM1, N-J2 )
@@ -388,12 +388,12 @@
                            IQB = MAX( 1, J-IBL )
                            NQ = 1 + IQAEND - IQB
                            IQAEND = MIN( IQAEND+KD, IQEND )
-                           CALL ZROT( NQ, Q( IQB, J-1 ), 1, Q( IQB, J ), 1, D( J ), WORK( J ) )
+                           zrot(NQ, Q( IQB, J-1 ), 1, Q( IQB, J ), 1, D( J ), WORK( J ) );
   170                   CONTINUE
                      } else {
 
                         DO 180 J = J1, J2, KD1
-                           CALL ZROT( N, Q( 1, J-1 ), 1, Q( 1, J ), 1, D( J ), WORK( J ) )
+                           zrot(N, Q( 1, J-1 ), 1, Q( 1, J ), 1, D( J ), WORK( J ) );
   180                   CONTINUE
                      }
                   }
@@ -434,7 +434,7 @@
                }
                IF( I.LT.N-1 ) AB( 2, I+1 ) = AB( 2, I+1 )*T
                if ( WANTQ ) {
-                  CALL ZSCAL( N, T, Q( 1, I+1 ), 1 )
+                  zscal(N, T, Q( 1, I+1 ), 1 );
                }
   220       CONTINUE
          } else {

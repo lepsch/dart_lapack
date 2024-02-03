@@ -48,23 +48,23 @@
 
       // compute the norm of (A,B)
 
-      CALL ZLACPY( 'Full', N, N, A, LDA, WORK, N )
-      CALL ZLACPY( 'Full', N, N, B, LDB, WORK( N*N+1 ), N )
+      zlacpy('Full', N, N, A, LDA, WORK, N );
+      zlacpy('Full', N, N, B, LDB, WORK( N*N+1 ), N );
       ABNORM = MAX( ZLANGE( '1', N, 2*N, WORK, N, DUM ), UNFL )
 
       // Compute W1 = A - U*S*V', and put in the array WORK(1:N*N)
 
-      CALL ZLACPY( ' ', N, N, A, LDA, WORK, N )
-      CALL ZGEMM( 'N', 'N', N, N, N, CONE, U, LDU, S, LDS, CZERO, WORK( N*N+1 ), N )
+      zlacpy(' ', N, N, A, LDA, WORK, N );
+      zgemm('N', 'N', N, N, N, CONE, U, LDU, S, LDS, CZERO, WORK( N*N+1 ), N );
 
-      CALL ZGEMM( 'N', 'C', N, N, N, -CONE, WORK( N*N+1 ), N, V, LDV, CONE, WORK, N )
+      zgemm('N', 'C', N, N, N, -CONE, WORK( N*N+1 ), N, V, LDV, CONE, WORK, N );
 
       // Compute W2 = B - U*T*V', and put in the workarray W(N*N+1:2*N*N)
 
-      CALL ZLACPY( ' ', N, N, B, LDB, WORK( N*N+1 ), N )
-      CALL ZGEMM( 'N', 'N', N, N, N, CONE, U, LDU, T, LDT, CZERO, WORK( 2*N*N+1 ), N )
+      zlacpy(' ', N, N, B, LDB, WORK( N*N+1 ), N );
+      zgemm('N', 'N', N, N, N, CONE, U, LDU, T, LDT, CZERO, WORK( 2*N*N+1 ), N );
 
-      CALL ZGEMM( 'N', 'C', N, N, N, -CONE, WORK( 2*N*N+1 ), N, V, LDV, CONE, WORK( N*N+1 ), N )
+      zgemm('N', 'C', N, N, N, -CONE, WORK( 2*N*N+1 ), N, V, LDV, CONE, WORK( N*N+1 ), N );
 
       // Compute norm(W)/ ( ulp*norm((A,B)) )
 

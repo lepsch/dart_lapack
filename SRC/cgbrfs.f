@@ -81,7 +81,7 @@
          INFO = -14
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'CGBRFS', -INFO )
+         xerbla('CGBRFS', -INFO );
          RETURN
       }
 
@@ -124,8 +124,8 @@
          // Compute residual R = B - op(A) * X,
          // where op(A) = A, A**T, or A**H, depending on TRANS.
 
-         CALL CCOPY( N, B( 1, J ), 1, WORK, 1 )
-         CALL CGBMV( TRANS, N, N, KL, KU, -CONE, AB, LDAB, X( 1, J ), 1, CONE, WORK, 1 )
+         ccopy(N, B( 1, J ), 1, WORK, 1 );
+         cgbmv(TRANS, N, N, KL, KU, -CONE, AB, LDAB, X( 1, J ), 1, CONE, WORK, 1 );
 
          // Compute componentwise relative backward error from formula
 
@@ -180,8 +180,8 @@
 
             // Update solution and try again.
 
-            CALL CGBTRS( TRANS, N, KL, KU, 1, AFB, LDAFB, IPIV, WORK, N, INFO )
-            CALL CAXPY( N, CONE, WORK, 1, X( 1, J ), 1 )
+            cgbtrs(TRANS, N, KL, KU, 1, AFB, LDAFB, IPIV, WORK, N, INFO );
+            caxpy(N, CONE, WORK, 1, X( 1, J ), 1 );
             LSTRES = BERR( J )
             COUNT = COUNT + 1
             GO TO 20
@@ -219,13 +219,13 @@
 
          KASE = 0
   100    CONTINUE
-         CALL CLACN2( N, WORK( N+1 ), WORK, FERR( J ), KASE, ISAVE )
+         clacn2(N, WORK( N+1 ), WORK, FERR( J ), KASE, ISAVE );
          if ( KASE.NE.0 ) {
             if ( KASE.EQ.1 ) {
 
                // Multiply by diag(W)*inv(op(A)**H).
 
-               CALL CGBTRS( TRANST, N, KL, KU, 1, AFB, LDAFB, IPIV, WORK, N, INFO )
+               cgbtrs(TRANST, N, KL, KU, 1, AFB, LDAFB, IPIV, WORK, N, INFO );
                DO 110 I = 1, N
                   WORK( I ) = RWORK( I )*WORK( I )
   110          CONTINUE
@@ -236,7 +236,7 @@
                DO 120 I = 1, N
                   WORK( I ) = RWORK( I )*WORK( I )
   120          CONTINUE
-               CALL CGBTRS( TRANSN, N, KL, KU, 1, AFB, LDAFB, IPIV, WORK, N, INFO )
+               cgbtrs(TRANSN, N, KL, KU, 1, AFB, LDAFB, IPIV, WORK, N, INFO );
             }
             GO TO 100
          }

@@ -76,7 +76,7 @@
                         TR( 1, 1 ) = VAL( ITR )
                         B( 1, 1 ) = VAL( IB )
                         KNT = KNT + 1
-                        CALL DLASY2( LTRANL, LTRANR, ISGN, N1, N2, TL, 2, TR, 2, B, 2, SCALE, X, 2, XNORM, INFO )
+                        dlasy2(LTRANL, LTRANR, ISGN, N1, N2, TL, 2, TR, 2, B, 2, SCALE, X, 2, XNORM, INFO );
                         IF( INFO.NE.0 ) NINFO = NINFO + 1                         RES = ABS( ( TL( 1, 1 )+SGN*TR( 1, 1 ) )* X( 1, 1 )-SCALE*B( 1, 1 ) )
                         if ( INFO.EQ.0 ) {
                            DEN = MAX( EPS*( ( ABS( TR( 1, 1 ) )+ABS( TL( 1, 1 ) ) )*ABS( X( 1, 1 ) ) ), SMLNUM )
@@ -105,7 +105,7 @@
                               TL( 1, 1 ) = ITVAL( 1, 1, ITL )* VAL( ITLSCL )                               TL( 2, 1 ) = ITVAL( 2, 1, ITL )* VAL( ITLSCL )                               TL( 1, 2 ) = ITVAL( 1, 2, ITL )* VAL( ITLSCL )                               TL( 2, 2 ) = ITVAL( 2, 2, ITL )* VAL( ITLSCL )
                               TR( 1, 1 ) = VAL( ITR )
                               KNT = KNT + 1
-                              CALL DLASY2( LTRANL, LTRANR, ISGN, N1, N2, TL, 2, TR, 2, B, 2, SCALE, X, 2, XNORM, INFO )
+                              dlasy2(LTRANL, LTRANR, ISGN, N1, N2, TL, 2, TR, 2, B, 2, SCALE, X, 2, XNORM, INFO );
                               IF( INFO.NE.0 ) NINFO = NINFO + 1
                               if ( LTRANL ) {
                                  TMP = TL( 1, 2 )
@@ -138,7 +138,7 @@
                               TR( 1, 1 ) = ITVAL( 1, 1, ITR )* VAL( ITRSCL )                               TR( 2, 1 ) = ITVAL( 2, 1, ITR )* VAL( ITRSCL )                               TR( 1, 2 ) = ITVAL( 1, 2, ITR )* VAL( ITRSCL )                               TR( 2, 2 ) = ITVAL( 2, 2, ITR )* VAL( ITRSCL )
                               TL( 1, 1 ) = VAL( ITL )
                               KNT = KNT + 1
-                              CALL DLASY2( LTRANL, LTRANR, ISGN, N1, N2, TL, 2, TR, 2, B, 2, SCALE, X, 2, XNORM, INFO )
+                              dlasy2(LTRANL, LTRANR, ISGN, N1, N2, TL, 2, TR, 2, B, 2, SCALE, X, 2, XNORM, INFO );
                               IF( INFO.NE.0 ) NINFO = NINFO + 1
                               if ( LTRANR ) {
                                  TMP = TR( 1, 2 )
@@ -176,7 +176,7 @@
                                     B( 2, 2 ) = EIGHT* MIN( VAL( IB1 ), VAL ( IB2 ), VAL( IB3 ) )
                                     TR( 1, 1 ) = ITVAL( 1, 1, ITR )* VAL( ITRSCL )                                     TR( 2, 1 ) = ITVAL( 2, 1, ITR )* VAL( ITRSCL )                                     TR( 1, 2 ) = ITVAL( 1, 2, ITR )* VAL( ITRSCL )                                     TR( 2, 2 ) = ITVAL( 2, 2, ITR )* VAL( ITRSCL )                                     TL( 1, 1 ) = ITVAL( 1, 1, ITL )* VAL( ITLSCL )                                     TL( 2, 1 ) = ITVAL( 2, 1, ITL )* VAL( ITLSCL )                                     TL( 1, 2 ) = ITVAL( 1, 2, ITL )* VAL( ITLSCL )                                     TL( 2, 2 ) = ITVAL( 2, 2, ITL )* VAL( ITLSCL )
                                     KNT = KNT + 1
-                                    CALL DLASY2( LTRANL, LTRANR, ISGN, N1, N2, TL, 2, TR, 2, B, 2, SCALE, X, 2, XNORM, INFO )
+                                    dlasy2(LTRANL, LTRANR, ISGN, N1, N2, TL, 2, TR, 2, B, 2, SCALE, X, 2, XNORM, INFO );
                                     IF( INFO.NE.0 ) NINFO = NINFO + 1
                                     if ( LTRANR ) {
                                        TMP = TR( 1, 2 )

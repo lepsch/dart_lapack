@@ -58,7 +58,7 @@
 
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'ZSYTRI2X', -INFO )
+         xerbla('ZSYTRI2X', -INFO );
          RETURN
       }
       IF( N.EQ.0 ) RETURN
@@ -66,7 +66,7 @@
       // Convert A
       // Workspace got Non-diag elements of D
 
-      CALL ZSYCONV( UPLO, 'C', N, A, LDA, IPIV, WORK, IINFO )
+      zsyconv(UPLO, 'C', N, A, LDA, IPIV, WORK, IINFO );
 
       // Check that the diagonal matrix D is nonsingular.
 
@@ -101,7 +101,7 @@
 
          // invA = P * inv(U**T)*inv(D)*inv(U)*P**T.
 
-        CALL ZTRTRI( UPLO, 'U', N, A, LDA, INFO )
+        ztrtri(UPLO, 'U', N, A, LDA, INFO );
 
         // inv(D) and inv(D)*inv(U)
 
@@ -208,7 +208,7 @@
 
         // U11**T*invD1*U11->U11
 
-        CALL ZTRMM('L','U','T','U',NNB, NNB, ONE,A(CUT+1,CUT+1),LDA,WORK(U11+1,1),N+NB+1)
+        ztrmm('L','U','T','U',NNB, NNB, ONE,A(CUT+1,CUT+1),LDA,WORK(U11+1,1),N+NB+1);
 
          DO I=1,NNB
             DO J=I,NNB
@@ -218,7 +218,7 @@
 
            // U01**T*invD*U01->A(CUT+I,CUT+J)
 
-         CALL ZGEMM('T','N',NNB,NNB,CUT,ONE,A(1,CUT+1),LDA, WORK,N+NB+1, ZERO, WORK(U11+1,1), N+NB+1)
+         zgemm('T','N',NNB,NNB,CUT,ONE,A(1,CUT+1),LDA, WORK,N+NB+1, ZERO, WORK(U11+1,1), N+NB+1);
 
          // U11 =  U11**T*invD1*U11 + U01**T*invD*U01
 
@@ -230,7 +230,7 @@
 
          // U01 =  U00**T*invD0*U01
 
-         CALL ZTRMM('L',UPLO,'T','U',CUT, NNB, ONE,A,LDA,WORK,N+NB+1)
+         ztrmm('L',UPLO,'T','U',CUT, NNB, ONE,A,LDA,WORK,N+NB+1);
 
 
          // Update U01
@@ -266,7 +266,7 @@
 
          // invA = P * inv(U**T)*inv(D)*inv(U)*P**T.
 
-         CALL ZTRTRI( UPLO, 'U', N, A, LDA, INFO )
+         ztrtri(UPLO, 'U', N, A, LDA, INFO );
 
         // inv(D) and inv(D)*inv(U)
 
@@ -367,7 +367,7 @@
 
         // L11**T*invD1*L11->L11
 
-        CALL ZTRMM('L',UPLO,'T','U',NNB, NNB, ONE,A(CUT+1,CUT+1),LDA,WORK(U11+1,1),N+NB+1)
+        ztrmm('L',UPLO,'T','U',NNB, NNB, ONE,A(CUT+1,CUT+1),LDA,WORK(U11+1,1),N+NB+1);
 
          DO I=1,NNB
             DO J=1,I
@@ -380,7 +380,7 @@
 
            // L21**T*invD2*L21->A(CUT+I,CUT+J)
 
-         CALL ZGEMM('T','N',NNB,NNB,N-NNB-CUT,ONE,A(CUT+NNB+1,CUT+1) ,LDA,WORK,N+NB+1, ZERO, WORK(U11+1,1), N+NB+1)
+         zgemm('T','N',NNB,NNB,N-NNB-CUT,ONE,A(CUT+NNB+1,CUT+1) ,LDA,WORK,N+NB+1, ZERO, WORK(U11+1,1), N+NB+1);
 
 
          // L11 =  L11**T*invD1*L11 + U01**T*invD*U01
@@ -393,7 +393,7 @@
 
          // U01 =  L22**T*invD2*L21
 
-         CALL ZTRMM('L',UPLO,'T','U', N-NNB-CUT, NNB, ONE,A(CUT+NNB+1,CUT+NNB+1),LDA,WORK,N+NB+1)
+         ztrmm('L',UPLO,'T','U', N-NNB-CUT, NNB, ONE,A(CUT+NNB+1,CUT+NNB+1),LDA,WORK,N+NB+1);
 
        // Update L21
          DO I=1,N-CUT-NNB

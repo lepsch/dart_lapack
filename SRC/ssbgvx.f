@@ -83,7 +83,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'SSBGVX', -INFO )
+         xerbla('SSBGVX', -INFO );
          RETURN
       }
 
@@ -94,7 +94,7 @@
 
       // Form a split Cholesky factorization of B.
 
-      CALL SPBSTF( UPLO, N, KB, BB, LDBB, INFO )
+      spbstf(UPLO, N, KB, BB, LDBB, INFO );
       if ( INFO.NE.0 ) {
          INFO = N + INFO
          RETURN
@@ -102,7 +102,7 @@
 
       // Transform problem to standard eigenvalue problem.
 
-      CALL SSBGST( JOBZ, UPLO, N, KA, KB, AB, LDAB, BB, LDBB, Q, LDQ, WORK, IINFO )
+      ssbgst(JOBZ, UPLO, N, KA, KB, AB, LDAB, BB, LDBB, Q, LDQ, WORK, IINFO );
 
       // Reduce symmetric band matrix to tridiagonal form.
 
@@ -114,7 +114,7 @@
       } else {
          VECT = 'N'
       }
-      CALL SSBTRD( VECT, UPLO, N, KA, AB, LDAB, WORK( INDD ), WORK( INDE ), Q, LDQ, WORK( INDWRK ), IINFO )
+      ssbtrd(VECT, UPLO, N, KA, AB, LDAB, WORK( INDD ), WORK( INDE ), Q, LDQ, WORK( INDWRK ), IINFO );
 
       // If all eigenvalues are desired and ABSTOL is less than or equal
       // to zero, then call SSTERF or SSTEQR.  If this fails for some
@@ -127,14 +127,14 @@
          }
       }
       if ( ( ALLEIG .OR. TEST ) .AND. ( ABSTOL.LE.ZERO ) ) {
-         CALL SCOPY( N, WORK( INDD ), 1, W, 1 )
+         scopy(N, WORK( INDD ), 1, W, 1 );
          INDEE = INDWRK + 2*N
-         CALL SCOPY( N-1, WORK( INDE ), 1, WORK( INDEE ), 1 )
+         scopy(N-1, WORK( INDE ), 1, WORK( INDEE ), 1 );
          if ( .NOT.WANTZ ) {
-            CALL SSTERF( N, W, WORK( INDEE ), INFO )
+            ssterf(N, W, WORK( INDEE ), INFO );
          } else {
-            CALL SLACPY( 'A', N, N, Q, LDQ, Z, LDZ )
-            CALL SSTEQR( JOBZ, N, W, WORK( INDEE ), Z, LDZ, WORK( INDWRK ), INFO )
+            slacpy('A', N, N, Q, LDQ, Z, LDZ );
+            ssteqr(JOBZ, N, W, WORK( INDEE ), Z, LDZ, WORK( INDWRK ), INFO );
             if ( INFO.EQ.0 ) {
                DO 10 I = 1, N
                   IFAIL( I ) = 0
@@ -158,17 +158,17 @@
       }
       INDISP = 1 + N
       INDIWO = INDISP + N
-      CALL SSTEBZ( RANGE, ORDER, N, VL, VU, IL, IU, ABSTOL, WORK( INDD ), WORK( INDE ), M, NSPLIT, W, IWORK( 1 ), IWORK( INDISP ), WORK( INDWRK ), IWORK( INDIWO ), INFO )
+      sstebz(RANGE, ORDER, N, VL, VU, IL, IU, ABSTOL, WORK( INDD ), WORK( INDE ), M, NSPLIT, W, IWORK( 1 ), IWORK( INDISP ), WORK( INDWRK ), IWORK( INDIWO ), INFO );
 
       if ( WANTZ ) {
-         CALL SSTEIN( N, WORK( INDD ), WORK( INDE ), M, W, IWORK( 1 ), IWORK( INDISP ), Z, LDZ, WORK( INDWRK ), IWORK( INDIWO ), IFAIL, INFO )
+         sstein(N, WORK( INDD ), WORK( INDE ), M, W, IWORK( 1 ), IWORK( INDISP ), Z, LDZ, WORK( INDWRK ), IWORK( INDIWO ), IFAIL, INFO );
 
          // Apply transformation matrix used in reduction to tridiagonal
          // form to eigenvectors returned by SSTEIN.
 
          DO 20 J = 1, M
-            CALL SCOPY( N, Z( 1, J ), 1, WORK( 1 ), 1 )
-            CALL SGEMV( 'N', N, N, ONE, Q, LDQ, WORK, 1, ZERO, Z( 1, J ), 1 )
+            scopy(N, Z( 1, J ), 1, WORK( 1 ), 1 );
+            sgemv('N', N, N, ONE, Q, LDQ, WORK, 1, ZERO, Z( 1, J ), 1 );
    20    CONTINUE
       }
 
@@ -194,7 +194,7 @@
                IWORK( 1 + I-1 ) = IWORK( 1 + J-1 )
                W( J ) = TMP1
                IWORK( 1 + J-1 ) = ITMP1
-               CALL SSWAP( N, Z( 1, I ), 1, Z( 1, J ), 1 )
+               sswap(N, Z( 1, I ), 1, Z( 1, J ), 1 );
                if ( INFO.NE.0 ) {
                   ITMP1 = IFAIL( I )
                   IFAIL( I ) = IFAIL( J )

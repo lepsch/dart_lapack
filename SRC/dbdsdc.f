@@ -67,7 +67,7 @@
          INFO = -9
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'DBDSDC', -INFO )
+         xerbla('DBDSDC', -INFO );
          RETURN
       }
 
@@ -94,14 +94,14 @@
       WSTART = 1
       QSTART = 3
       if ( ICOMPQ.EQ.1 ) {
-         CALL DCOPY( N, D, 1, Q( 1 ), 1 )
-         CALL DCOPY( N-1, E, 1, Q( N+1 ), 1 )
+         dcopy(N, D, 1, Q( 1 ), 1 );
+         dcopy(N-1, E, 1, Q( N+1 ), 1 );
       }
       if ( IUPLO.EQ.2 ) {
          QSTART = 5
          IF( ICOMPQ .EQ. 2 ) WSTART = 2*N - 1
          DO 10 I = 1, N - 1
-            CALL DLARTG( D( I ), E( I ), CS, SN, R )
+            dlartg(D( I ), E( I ), CS, SN, R );
             D( I ) = R
             E( I ) = SN*D( I+1 )
             D( I+1 ) = CS*D( I+1 )
@@ -121,7 +121,7 @@
          // Ignore WSTART, instead using WORK( 1 ), since the two vectors
          // for CS and -SN above are added only if ICOMPQ == 2,
          // and adding them exceeds documented WORK size of 4*n.
-         CALL DLASDQ( 'U', 0, N, 0, 0, 0, D, E, VT, LDVT, U, LDU, U, LDU, WORK( 1 ), INFO )
+         dlasdq('U', 0, N, 0, 0, 0, D, E, VT, LDVT, U, LDU, U, LDU, WORK( 1 ), INFO );
          GO TO 40
       }
 
@@ -130,28 +130,28 @@
 
       if ( N.LE.SMLSIZ ) {
          if ( ICOMPQ.EQ.2 ) {
-            CALL DLASET( 'A', N, N, ZERO, ONE, U, LDU )
-            CALL DLASET( 'A', N, N, ZERO, ONE, VT, LDVT )
-            CALL DLASDQ( 'U', 0, N, N, N, 0, D, E, VT, LDVT, U, LDU, U, LDU, WORK( WSTART ), INFO )
+            dlaset('A', N, N, ZERO, ONE, U, LDU );
+            dlaset('A', N, N, ZERO, ONE, VT, LDVT );
+            dlasdq('U', 0, N, N, N, 0, D, E, VT, LDVT, U, LDU, U, LDU, WORK( WSTART ), INFO );
          } else if ( ICOMPQ.EQ.1 ) {
             IU = 1
             IVT = IU + N
-            CALL DLASET( 'A', N, N, ZERO, ONE, Q( IU+( QSTART-1 )*N ), N )             CALL DLASET( 'A', N, N, ZERO, ONE, Q( IVT+( QSTART-1 )*N ), N )             CALL DLASDQ( 'U', 0, N, N, N, 0, D, E, Q( IVT+( QSTART-1 )*N ), N, Q( IU+( QSTART-1 )*N ), N, Q( IU+( QSTART-1 )*N ), N, WORK( WSTART ), INFO )
+            dlaset('A', N, N, ZERO, ONE, Q( IU+( QSTART-1 )*N ), N )             CALL DLASET( 'A', N, N, ZERO, ONE, Q( IVT+( QSTART-1 )*N ), N )             CALL DLASDQ( 'U', 0, N, N, N, 0, D, E, Q( IVT+( QSTART-1 )*N ), N, Q( IU+( QSTART-1 )*N ), N, Q( IU+( QSTART-1 )*N ), N, WORK( WSTART ), INFO );
          }
          GO TO 40
       }
 
       if ( ICOMPQ.EQ.2 ) {
-         CALL DLASET( 'A', N, N, ZERO, ONE, U, LDU )
-         CALL DLASET( 'A', N, N, ZERO, ONE, VT, LDVT )
+         dlaset('A', N, N, ZERO, ONE, U, LDU );
+         dlaset('A', N, N, ZERO, ONE, VT, LDVT );
       }
 
       // Scale.
 
       ORGNRM = DLANST( 'M', N, D, E )
       IF( ORGNRM.EQ.ZERO ) RETURN
-      CALL DLASCL( 'G', 0, 0, ORGNRM, ONE, N, 1, D, N, IERR )
-      CALL DLASCL( 'G', 0, 0, ORGNRM, ONE, NM1, 1, E, NM1, IERR )
+      dlascl('G', 0, 0, ORGNRM, ONE, N, 1, D, N, IERR );
+      dlascl('G', 0, 0, ORGNRM, ONE, NM1, 1, E, NM1, IERR );
 
       EPS = (0.9D+0)*DLAMCH( 'Epsilon' )
 
@@ -217,9 +217,9 @@
                D( N ) = ABS( D( N ) )
             }
             if ( ICOMPQ.EQ.2 ) {
-               CALL DLASD0( NSIZE, SQRE, D( START ), E( START ), U( START, START ), LDU, VT( START, START ), LDVT, SMLSIZ, IWORK, WORK( WSTART ), INFO )
+               dlasd0(NSIZE, SQRE, D( START ), E( START ), U( START, START ), LDU, VT( START, START ), LDVT, SMLSIZ, IWORK, WORK( WSTART ), INFO );
             } else {
-               CALL DLASDA( ICOMPQ, SMLSIZ, NSIZE, SQRE, D( START ), E( START ), Q( START+( IU+QSTART-2 )*N ), N, Q( START+( IVT+QSTART-2 )*N ), IQ( START+K*N ), Q( START+( DIFL+QSTART-2 )* N ), Q( START+( DIFR+QSTART-2 )*N ), Q( START+( Z+QSTART-2 )*N ), Q( START+( POLES+QSTART-2 )*N ), IQ( START+GIVPTR*N ), IQ( START+GIVCOL*N ), N, IQ( START+PERM*N ), Q( START+( GIVNUM+QSTART-2 )*N ), Q( START+( IC+QSTART-2 )*N ), Q( START+( IS+QSTART-2 )*N ), WORK( WSTART ), IWORK, INFO )
+               dlasda(ICOMPQ, SMLSIZ, NSIZE, SQRE, D( START ), E( START ), Q( START+( IU+QSTART-2 )*N ), N, Q( START+( IVT+QSTART-2 )*N ), IQ( START+K*N ), Q( START+( DIFL+QSTART-2 )* N ), Q( START+( DIFR+QSTART-2 )*N ), Q( START+( Z+QSTART-2 )*N ), Q( START+( POLES+QSTART-2 )*N ), IQ( START+GIVPTR*N ), IQ( START+GIVCOL*N ), N, IQ( START+PERM*N ), Q( START+( GIVNUM+QSTART-2 )*N ), Q( START+( IC+QSTART-2 )*N ), Q( START+( IS+QSTART-2 )*N ), WORK( WSTART ), IWORK, INFO );
             }
             if ( INFO.NE.0 ) {
                RETURN
@@ -230,7 +230,7 @@
 
       // Unscale
 
-      CALL DLASCL( 'G', 0, 0, ONE, ORGNRM, N, 1, D, N, IERR )
+      dlascl('G', 0, 0, ONE, ORGNRM, N, 1, D, N, IERR );
    40 CONTINUE
 
       // Use Selection Sort to minimize swaps of singular vectors
@@ -251,8 +251,8 @@
             if ( ICOMPQ.EQ.1 ) {
                IQ( I ) = KK
             } else if ( ICOMPQ.EQ.2 ) {
-               CALL DSWAP( N, U( 1, I ), 1, U( 1, KK ), 1 )
-               CALL DSWAP( N, VT( I, 1 ), LDVT, VT( KK, 1 ), LDVT )
+               dswap(N, U( 1, I ), 1, U( 1, KK ), 1 );
+               dswap(N, VT( I, 1 ), LDVT, VT( KK, 1 ), LDVT );
             }
          } else if ( ICOMPQ.EQ.1 ) {
             IQ( I ) = I

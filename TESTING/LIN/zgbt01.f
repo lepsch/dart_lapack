@@ -63,7 +63,7 @@
          JL = MIN( KL, M-J )
          LENJ = MIN( M, J ) - J + JU + 1
          if ( LENJ.GT.0 ) {
-            CALL ZCOPY( LENJ, AFAC( KD-JU, J ), 1, WORK, 1 )
+            zcopy(LENJ, AFAC( KD-JU, J ), 1, WORK, 1 );
             DO 20 I = LENJ + 1, JU + JL + 1
                WORK( I ) = ZERO
    20       CONTINUE
@@ -76,7 +76,7 @@
                if ( IL.GT.0 ) {
                   IW = I - J + JU + 1
                   T = WORK( IW )
-                  CALL ZAXPY( IL, T, AFAC( KD+1, I ), 1, WORK( IW+1 ), 1 )
+                  zaxpy(IL, T, AFAC( KD+1, I ), 1, WORK( IW+1 ), 1 );
                   IP = IPIV( I )
                   if ( I.NE.IP ) {
                      IP = IP - J + JU + 1

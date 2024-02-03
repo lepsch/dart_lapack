@@ -57,8 +57,8 @@
 
       // Make a local copy of selected block in (A, B)
 
-      CALL ZLACPY( 'Full', M, M, A( J1, J1 ), LDA, S, LDST )
-      CALL ZLACPY( 'Full', M, M, B( J1, J1 ), LDB, T, LDST )
+      zlacpy('Full', M, M, A( J1, J1 ), LDA, S, LDST );
+      zlacpy('Full', M, M, B( J1, J1 ), LDB, T, LDST );
 
       // Compute the threshold for testing the acceptance of swapping.
 
@@ -66,13 +66,13 @@
       SMLNUM = DLAMCH( 'S' ) / EPS
       SCALE = DBLE( CZERO )
       SUM = DBLE( CONE )
-      CALL ZLACPY( 'Full', M, M, S, LDST, WORK, M )
-      CALL ZLACPY( 'Full', M, M, T, LDST, WORK( M*M+1 ), M )
-      CALL ZLASSQ( M*M, WORK, 1, SCALE, SUM )
+      zlacpy('Full', M, M, S, LDST, WORK, M );
+      zlacpy('Full', M, M, T, LDST, WORK( M*M+1 ), M );
+      zlassq(M*M, WORK, 1, SCALE, SUM );
       SA = SCALE*SQRT( SUM )
       SCALE = DBLE( CZERO )
       SUM = DBLE( CONE )
-      CALL ZLASSQ( M*M, WORK(M*M+1), 1, SCALE, SUM )
+      zlassq(M*M, WORK(M*M+1), 1, SCALE, SUM );
       SB = SCALE*SQRT( SUM )
 
       // THRES has been changed from
@@ -93,17 +93,17 @@
       G = S( 2, 2 )*T( 1, 2 ) - T( 2, 2 )*S( 1, 2 )
       SA = ABS( S( 2, 2 ) ) * ABS( T( 1, 1 ) )
       SB = ABS( S( 1, 1 ) ) * ABS( T( 2, 2 ) )
-      CALL ZLARTG( G, F, CZ, SZ, CDUM )
+      zlartg(G, F, CZ, SZ, CDUM );
       SZ = -SZ
-      CALL ZROT( 2, S( 1, 1 ), 1, S( 1, 2 ), 1, CZ, DCONJG( SZ ) )
-      CALL ZROT( 2, T( 1, 1 ), 1, T( 1, 2 ), 1, CZ, DCONJG( SZ ) )
+      zrot(2, S( 1, 1 ), 1, S( 1, 2 ), 1, CZ, DCONJG( SZ ) );
+      zrot(2, T( 1, 1 ), 1, T( 1, 2 ), 1, CZ, DCONJG( SZ ) );
       if ( SA.GE.SB ) {
-         CALL ZLARTG( S( 1, 1 ), S( 2, 1 ), CQ, SQ, CDUM )
+         zlartg(S( 1, 1 ), S( 2, 1 ), CQ, SQ, CDUM );
       } else {
-         CALL ZLARTG( T( 1, 1 ), T( 2, 1 ), CQ, SQ, CDUM )
+         zlartg(T( 1, 1 ), T( 2, 1 ), CQ, SQ, CDUM );
       }
-      CALL ZROT( 2, S( 1, 1 ), LDST, S( 2, 1 ), LDST, CQ, SQ )
-      CALL ZROT( 2, T( 1, 1 ), LDST, T( 2, 1 ), LDST, CQ, SQ )
+      zrot(2, S( 1, 1 ), LDST, S( 2, 1 ), LDST, CQ, SQ );
+      zrot(2, T( 1, 1 ), LDST, T( 2, 1 ), LDST, CQ, SQ );
 
       // Weak stability test: |S21| <= O(EPS F-norm((A)))
                            // and  |T21| <= O(EPS F-norm((B)))
@@ -117,12 +117,12 @@
             // and
             // F-norm((B-QL**H*T*QR)) <= O(EPS*F-norm((B)))
 
-         CALL ZLACPY( 'Full', M, M, S, LDST, WORK, M )
-         CALL ZLACPY( 'Full', M, M, T, LDST, WORK( M*M+1 ), M )
-         CALL ZROT( 2, WORK, 1, WORK( 3 ), 1, CZ, -DCONJG( SZ ) )
-         CALL ZROT( 2, WORK( 5 ), 1, WORK( 7 ), 1, CZ, -DCONJG( SZ ) )
-         CALL ZROT( 2, WORK, 2, WORK( 2 ), 2, CQ, -SQ )
-         CALL ZROT( 2, WORK( 5 ), 2, WORK( 6 ), 2, CQ, -SQ )
+         zlacpy('Full', M, M, S, LDST, WORK, M );
+         zlacpy('Full', M, M, T, LDST, WORK( M*M+1 ), M );
+         zrot(2, WORK, 1, WORK( 3 ), 1, CZ, -DCONJG( SZ ) );
+         zrot(2, WORK( 5 ), 1, WORK( 7 ), 1, CZ, -DCONJG( SZ ) );
+         zrot(2, WORK, 2, WORK( 2 ), 2, CQ, -SQ );
+         zrot(2, WORK( 5 ), 2, WORK( 6 ), 2, CQ, -SQ );
          DO 10 I = 1, 2
             WORK( I ) = WORK( I ) - A( J1+I-1, J1 )
             WORK( I+2 ) = WORK( I+2 ) - A( J1+I-1, J1+1 )
@@ -131,11 +131,11 @@
    10    CONTINUE
          SCALE = DBLE( CZERO )
          SUM = DBLE( CONE )
-         CALL ZLASSQ( M*M, WORK, 1, SCALE, SUM )
+         zlassq(M*M, WORK, 1, SCALE, SUM );
          SA = SCALE*SQRT( SUM )
          SCALE = DBLE( CZERO )
          SUM = DBLE( CONE )
-         CALL ZLASSQ( M*M, WORK(M*M+1), 1, SCALE, SUM )
+         zlassq(M*M, WORK(M*M+1), 1, SCALE, SUM );
          SB = SCALE*SQRT( SUM )
          STRONG = SA.LE.THRESHA .AND. SB.LE.THRESHB
          IF( .NOT.STRONG ) GO TO 20
@@ -144,9 +144,9 @@
       // If the swap is accepted ("weakly" and "strongly"), apply the
       // equivalence transformations to the original matrix pair (A,B)
 
-      CALL ZROT( J1+1, A( 1, J1 ), 1, A( 1, J1+1 ), 1, CZ, DCONJG( SZ ) )       CALL ZROT( J1+1, B( 1, J1 ), 1, B( 1, J1+1 ), 1, CZ, DCONJG( SZ ) )
-      CALL ZROT( N-J1+1, A( J1, J1 ), LDA, A( J1+1, J1 ), LDA, CQ, SQ )
-      CALL ZROT( N-J1+1, B( J1, J1 ), LDB, B( J1+1, J1 ), LDB, CQ, SQ )
+      zrot(J1+1, A( 1, J1 ), 1, A( 1, J1+1 ), 1, CZ, DCONJG( SZ ) )       CALL ZROT( J1+1, B( 1, J1 ), 1, B( 1, J1+1 ), 1, CZ, DCONJG( SZ ) );
+      zrot(N-J1+1, A( J1, J1 ), LDA, A( J1+1, J1 ), LDA, CQ, SQ );
+      zrot(N-J1+1, B( J1, J1 ), LDB, B( J1+1, J1 ), LDB, CQ, SQ );
 
       // Set  N1 by N2 (2,1) blocks to 0
 

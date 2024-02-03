@@ -44,7 +44,7 @@
          INFO = -4
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'CGETRF', -INFO )
+         xerbla('CGETRF', -INFO );
          RETURN
       }
 
@@ -59,7 +59,7 @@
 
          // Use unblocked code.
 
-         CALL CGETF2( M, N, A, LDA, IPIV, INFO )
+         cgetf2(M, N, A, LDA, IPIV, INFO );
 
       } else {
 
@@ -75,21 +75,21 @@
 
                // Apply interchanges to rows K:K+NB-1.
 
-               CALL CLASWP( JB, A(1, J), LDA, K, K+NB-1, IPIV, 1 )
+               claswp(JB, A(1, J), LDA, K, K+NB-1, IPIV, 1 );
 
                // Compute block row of U.
 
-               CALL CTRSM( 'Left', 'Lower', 'No transpose', 'Unit', NB, JB, ONE, A( K, K ), LDA, A( K, J ), LDA )
+               ctrsm('Left', 'Lower', 'No transpose', 'Unit', NB, JB, ONE, A( K, K ), LDA, A( K, J ), LDA );
 
                // Update trailing submatrix.
 
-               CALL CGEMM( 'No transpose', 'No transpose', M-K-NB+1, JB, NB, -ONE, A( K+NB, K ), LDA, A( K, J ), LDA, ONE, A( K+NB, J ), LDA )
+               cgemm('No transpose', 'No transpose', M-K-NB+1, JB, NB, -ONE, A( K+NB, K ), LDA, A( K, J ), LDA, ONE, A( K+NB, J ), LDA );
    30       CONTINUE
 
             // Factor diagonal and subdiagonal blocks and test for exact
             // singularity.
 
-            CALL CGETF2( M-J+1, JB, A( J, J ), LDA, IPIV( J ), IINFO )
+            cgetf2(M-J+1, JB, A( J, J ), LDA, IPIV( J ), IINFO );
 
             // Adjust INFO and the pivot indices.
 
@@ -104,24 +104,24 @@
          // Apply interchanges to the left-overs
 
          DO 40 K = 1, MIN( M, N ), NB
-            CALL CLASWP( K-1, A( 1, 1 ), LDA, K, MIN (K+NB-1, MIN ( M, N )), IPIV, 1 )
+            claswp(K-1, A( 1, 1 ), LDA, K, MIN (K+NB-1, MIN ( M, N )), IPIV, 1 );
    40    CONTINUE
 
          // Apply update to the M+1:N columns when N > M
 
          if ( N.GT.M ) {
 
-            CALL CLASWP( N-M, A(1, M+1), LDA, 1, M, IPIV, 1 )
+            claswp(N-M, A(1, M+1), LDA, 1, M, IPIV, 1 );
 
             DO 50 K = 1, M, NB
 
                JB = MIN( M-K+1, NB )
 
-               CALL CTRSM( 'Left', 'Lower', 'No transpose', 'Unit', JB, N-M, ONE, A( K, K ), LDA, A( K, M+1 ), LDA )
+               ctrsm('Left', 'Lower', 'No transpose', 'Unit', JB, N-M, ONE, A( K, K ), LDA, A( K, M+1 ), LDA );
 
 
                if ( K+NB.LE.M ) {
-                    CALL CGEMM( 'No transpose', 'No transpose', M-K-NB+1, N-M, NB, -ONE, A( K+NB, K ), LDA, A( K, M+1 ), LDA, ONE, A( K+NB, M+1 ), LDA )
+                    cgemm('No transpose', 'No transpose', M-K-NB+1, N-M, NB, -ONE, A( K+NB, K ), LDA, A( K, M+1 ), LDA, ONE, A( K+NB, M+1 ), LDA );
                }
    50       CONTINUE
          }

@@ -75,25 +75,25 @@
       ANORM = DLANGE( 'M', N, N, A, LDA, WORK )
       BNORM = DLANGE( 'M', N, N, B, LDB, WORK )
 
-      CALL DLACPY( 'FULL', N, N, A, LDA, AF, LDA )
-      CALL DLACPY( 'FULL', N, N, B, LDB, BF, LDB )
+      dlacpy('FULL', N, N, A, LDA, AF, LDA );
+      dlacpy('FULL', N, N, B, LDB, BF, LDB );
 
-      CALL DGGBAL( 'B', N, A, LDA, B, LDB, ILO, IHI, LSCALE, RSCALE, WORK, INFO )
+      dggbal('B', N, A, LDA, B, LDB, ILO, IHI, LSCALE, RSCALE, WORK, INFO );
       if ( INFO.NE.0 ) {
          NINFO = NINFO + 1
          LMAX( 1 ) = KNT
       }
 
-      CALL DLACPY( 'FULL', N, M, VL, LDVL, VLF, LDVL )
-      CALL DLACPY( 'FULL', N, M, VR, LDVR, VRF, LDVR )
+      dlacpy('FULL', N, M, VL, LDVL, VLF, LDVL );
+      dlacpy('FULL', N, M, VR, LDVR, VRF, LDVR );
 
-      CALL DGGBAK( 'B', 'L', N, ILO, IHI, LSCALE, RSCALE, M, VL, LDVL, INFO )
+      dggbak('B', 'L', N, ILO, IHI, LSCALE, RSCALE, M, VL, LDVL, INFO );
       if ( INFO.NE.0 ) {
          NINFO = NINFO + 1
          LMAX( 2 ) = KNT
       }
 
-      CALL DGGBAK( 'B', 'R', N, ILO, IHI, LSCALE, RSCALE, M, VR, LDVR, INFO )
+      dggbak('B', 'R', N, ILO, IHI, LSCALE, RSCALE, M, VR, LDVR, INFO );
       if ( INFO.NE.0 ) {
          NINFO = NINFO + 1
          LMAX( 3 ) = KNT
@@ -104,9 +104,9 @@
       // Check tilde(VL)'*A*tilde(VR) - VL'*tilde(A)*VR
       // where tilde(A) denotes the transformed matrix.
 
-      CALL DGEMM( 'N', 'N', N, M, N, ONE, AF, LDA, VR, LDVR, ZERO, WORK, LDWORK )       CALL DGEMM( 'T', 'N', M, M, N, ONE, VL, LDVL, WORK, LDWORK, ZERO, E, LDE )
+      dgemm('N', 'N', N, M, N, ONE, AF, LDA, VR, LDVR, ZERO, WORK, LDWORK )       CALL DGEMM( 'T', 'N', M, M, N, ONE, VL, LDVL, WORK, LDWORK, ZERO, E, LDE );
 
-      CALL DGEMM( 'N', 'N', N, M, N, ONE, A, LDA, VRF, LDVR, ZERO, WORK, LDWORK )       CALL DGEMM( 'T', 'N', M, M, N, ONE, VLF, LDVL, WORK, LDWORK, ZERO, F, LDF )
+      dgemm('N', 'N', N, M, N, ONE, A, LDA, VRF, LDVR, ZERO, WORK, LDWORK )       CALL DGEMM( 'T', 'N', M, M, N, ONE, VLF, LDVL, WORK, LDWORK, ZERO, F, LDF );
 
       VMAX = ZERO
       DO 70 J = 1, M
@@ -122,9 +122,9 @@
 
       // Check tilde(VL)'*B*tilde(VR) - VL'*tilde(B)*VR
 
-      CALL DGEMM( 'N', 'N', N, M, N, ONE, BF, LDB, VR, LDVR, ZERO, WORK, LDWORK )       CALL DGEMM( 'T', 'N', M, M, N, ONE, VL, LDVL, WORK, LDWORK, ZERO, E, LDE )
+      dgemm('N', 'N', N, M, N, ONE, BF, LDB, VR, LDVR, ZERO, WORK, LDWORK )       CALL DGEMM( 'T', 'N', M, M, N, ONE, VL, LDVL, WORK, LDWORK, ZERO, E, LDE );
 
-      CALL DGEMM( 'N', 'N', N, M, N, ONE, B, LDB, VRF, LDVR, ZERO, WORK, LDWORK )       CALL DGEMM( 'T', 'N', M, M, N, ONE, VLF, LDVL, WORK, LDWORK, ZERO, F, LDF )
+      dgemm('N', 'N', N, M, N, ONE, B, LDB, VRF, LDVR, ZERO, WORK, LDWORK )       CALL DGEMM( 'T', 'N', M, M, N, ONE, VLF, LDVL, WORK, LDWORK, ZERO, F, LDF );
 
       VMAX = ZERO
       DO 90 J = 1, M

@@ -46,7 +46,7 @@
           INFO = 7
       }
       if (INFO.NE.0) {
-          CALL XERBLA('STPMV ',INFO)
+          xerbla('STPMV ',INFO);
           RETURN
       }
 

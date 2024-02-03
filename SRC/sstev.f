@@ -50,7 +50,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'SSTEV ', -INFO )
+         xerbla('SSTEV ', -INFO );
          RETURN
       }
 
@@ -84,17 +84,17 @@
          SIGMA = RMAX / TNRM
       }
       if ( ISCALE.EQ.1 ) {
-         CALL SSCAL( N, SIGMA, D, 1 )
-         CALL SSCAL( N-1, SIGMA, E( 1 ), 1 )
+         sscal(N, SIGMA, D, 1 );
+         sscal(N-1, SIGMA, E( 1 ), 1 );
       }
 
       // For eigenvalues only, call SSTERF.  For eigenvalues and
       // eigenvectors, call SSTEQR.
 
       if ( .NOT.WANTZ ) {
-         CALL SSTERF( N, D, E, INFO )
+         ssterf(N, D, E, INFO );
       } else {
-         CALL SSTEQR( 'I', N, D, E, Z, LDZ, WORK, INFO )
+         ssteqr('I', N, D, E, Z, LDZ, WORK, INFO );
       }
 
       // If matrix was scaled, then rescale eigenvalues appropriately.
@@ -105,7 +105,7 @@
          } else {
             IMAX = INFO - 1
          }
-         CALL SSCAL( IMAX, ONE / SIGMA, D, 1 )
+         sscal(IMAX, ONE / SIGMA, D, 1 );
       }
 
       RETURN

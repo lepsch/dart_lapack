@@ -92,8 +92,8 @@
 
       NB = 1
       NBMIN = 2
-      CALL XLAENV( 1, NB )
-      CALL XLAENV( 2, NBMIN )
+      xlaenv(1, NB );
+      xlaenv(2, NBMIN );
 
       // Do for each value of N in NVAL
 
@@ -125,17 +125,17 @@
                // Set up parameters with SLATB4 for the matrix generator
                // based on the type of matrix to be generated.
 
-               CALL SLATB4( MATPATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST )
+               slatb4(MATPATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST );
 
                // Generate a matrix with SLATMS.
 
                SRNAMT = 'SLATMS'
-               CALL SLATMS( N, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KL, KU, UPLO, A, LDA, WORK, INFO )
+               slatms(N, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KL, KU, UPLO, A, LDA, WORK, INFO );
 
                // Check error code from SLATMS and handle error.
 
                if ( INFO.NE.0 ) {
-                  CALL ALAERH( PATH, 'SLATMS', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT )
+                  alaerh(PATH, 'SLATMS', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
 
                   // Skip all tests for this generated matrix
 
@@ -231,18 +231,18 @@
 
                      // Factor the matrix A.
 
-                     CALL SLACPY( UPLO, N, N, A, LDA, AFAC, LDA )
-                     CALL SSYTRF_RK( UPLO, N, AFAC, LDA, E, IWORK, WORK, LWORK, INFO )
+                     slacpy(UPLO, N, N, A, LDA, AFAC, LDA );
+                     ssytrf_rk(UPLO, N, AFAC, LDA, E, IWORK, WORK, LWORK, INFO );
 
                      // Compute inv(A) and take its norm.
 
-                     CALL SLACPY( UPLO, N, N, AFAC, LDA, AINV, LDA )
+                     slacpy(UPLO, N, N, AFAC, LDA, AINV, LDA );
                      LWORK = (N+NB+1)*(NB+3)
 
                      // We need to compute the inverse to compute
                      // RCONDC that is used later in TEST3.
 
-                     CALL SSYTRI_3( UPLO, N, AINV, LDA, E, IWORK, WORK, LWORK, INFO )
+                     ssytri_3(UPLO, N, AINV, LDA, E, IWORK, WORK, LWORK, INFO );
                      AINVNM = SLANSY( '1', UPLO, N, AINV, LDA, RWORK )
 
                      // Compute the 1-norm condition number of A.
@@ -257,20 +257,20 @@
                   // Form an exact solution and set the right hand side.
 
                   SRNAMT = 'SLARHS'
-                  CALL SLARHS( MATPATH, XTYPE, UPLO, ' ', N, N, KL, KU, NRHS, A, LDA, XACT, LDA, B, LDA, ISEED, INFO )
+                  slarhs(MATPATH, XTYPE, UPLO, ' ', N, N, KL, KU, NRHS, A, LDA, XACT, LDA, B, LDA, ISEED, INFO );
                   XTYPE = 'C'
 
                   // --- Test SSYSV_RK  ---
 
                   if ( IFACT.EQ.2 ) {
-                     CALL SLACPY( UPLO, N, N, A, LDA, AFAC, LDA )
-                     CALL SLACPY( 'Full', N, NRHS, B, LDA, X, LDA )
+                     slacpy(UPLO, N, N, A, LDA, AFAC, LDA );
+                     slacpy('Full', N, NRHS, B, LDA, X, LDA );
 
                      // Factor the matrix and solve the system using
                      // SSYSV_RK.
 
                      SRNAMT = 'SSYSV_RK'
-                     CALL SSYSV_RK( UPLO, N, NRHS, AFAC, LDA, E, IWORK, X, LDA, WORK, LWORK, INFO )
+                     ssysv_rk(UPLO, N, NRHS, AFAC, LDA, E, IWORK, X, LDA, WORK, LWORK, INFO );
 
                      // Adjust the expected value of INFO to account for
                      // pivoting.
@@ -292,7 +292,7 @@
                      // Check error code from SSYSV_RK and handle error.
 
                      if ( INFO.NE.K ) {
-                        CALL ALAERH( PATH, 'SSYSV_RK', INFO, K, UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT )
+                        alaerh(PATH, 'SSYSV_RK', INFO, K, UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
                         GO TO 120
                      } else if ( INFO.NE.0 ) {
                         GO TO 120
@@ -301,17 +301,17 @@
 *+    TEST 1      Reconstruct matrix from factors and compute
                   // residual.
 
-                     CALL SSYT01_3( UPLO, N, A, LDA, AFAC, LDA, E, IWORK, AINV, LDA, RWORK, RESULT( 1 ) )
+                     ssyt01_3(UPLO, N, A, LDA, AFAC, LDA, E, IWORK, AINV, LDA, RWORK, RESULT( 1 ) );
 
 *+    TEST 2      Compute residual of the computed solution.
 
-                     CALL SLACPY( 'Full', N, NRHS, B, LDA, WORK, LDA )
-                     CALL SPOT02( UPLO, N, NRHS, A, LDA, X, LDA, WORK, LDA, RWORK, RESULT( 2 ) )
+                     slacpy('Full', N, NRHS, B, LDA, WORK, LDA );
+                     spot02(UPLO, N, NRHS, A, LDA, X, LDA, WORK, LDA, RWORK, RESULT( 2 ) );
 
 *+    TEST 3
                   // Check solution from generated exact solution.
 
-                     CALL SGET04( N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 3 ) )
+                     sget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 3 ) );
                      NT = 3
 
                      // Print information about the tests that did not pass
@@ -335,7 +335,7 @@
 
       // Print a summary of the results.
 
-      CALL ALASVM( PATH, NOUT, NFAIL, NRUN, NERRS )
+      alasvm(PATH, NOUT, NFAIL, NRUN, NERRS );
 
  9999 FORMAT( 1X, A, ', UPLO=''', A1, ''', N =', I5, ', type ', I2, ', test ', I2, ', ratio =', G12.5 )
       RETURN

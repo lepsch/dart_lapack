@@ -56,7 +56,7 @@
          INFO = -10
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'DGGBAK', -INFO )
+         xerbla('DGGBAK', -INFO );
          RETURN
       }
 
@@ -74,7 +74,7 @@
 
          if ( RIGHTV ) {
             DO 10 I = ILO, IHI
-               CALL DSCAL( M, RSCALE( I ), V( I, 1 ), LDV )
+               dscal(M, RSCALE( I ), V( I, 1 ), LDV );
    10       CONTINUE
          }
 
@@ -82,7 +82,7 @@
 
          if ( LEFTV ) {
             DO 20 I = ILO, IHI
-               CALL DSCAL( M, LSCALE( I ), V( I, 1 ), LDV )
+               dscal(M, LSCALE( I ), V( I, 1 ), LDV );
    20       CONTINUE
          }
       }
@@ -100,7 +100,7 @@
             DO 40 I = ILO - 1, 1, -1
                K = INT(RSCALE( I ))
                IF( K.EQ.I ) GO TO 40
-               CALL DSWAP( M, V( I, 1 ), LDV, V( K, 1 ), LDV )
+               dswap(M, V( I, 1 ), LDV, V( K, 1 ), LDV );
    40       CONTINUE
 
    50       CONTINUE
@@ -108,7 +108,7 @@
             DO 60 I = IHI + 1, N
                K = INT(RSCALE( I ))
                IF( K.EQ.I ) GO TO 60
-               CALL DSWAP( M, V( I, 1 ), LDV, V( K, 1 ), LDV )
+               dswap(M, V( I, 1 ), LDV, V( K, 1 ), LDV );
    60       CONTINUE
          }
 
@@ -120,7 +120,7 @@
             DO 80 I = ILO - 1, 1, -1
                K = INT(LSCALE( I ))
                IF( K.EQ.I ) GO TO 80
-               CALL DSWAP( M, V( I, 1 ), LDV, V( K, 1 ), LDV )
+               dswap(M, V( I, 1 ), LDV, V( K, 1 ), LDV );
    80       CONTINUE
 
    90       CONTINUE
@@ -128,7 +128,7 @@
             DO 100 I = IHI + 1, N
                K = INT(LSCALE( I ))
                IF( K.EQ.I ) GO TO 100
-               CALL DSWAP( M, V( I, 1 ), LDV, V( K, 1 ), LDV )
+               dswap(M, V( I, 1 ), LDV, V( K, 1 ), LDV );
   100       CONTINUE
          }
       }

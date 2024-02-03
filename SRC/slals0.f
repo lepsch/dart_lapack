@@ -64,7 +64,7 @@
          INFO = -20
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'SLALS0', -INFO )
+         xerbla('SLALS0', -INFO );
          RETURN
       }
 
@@ -78,23 +78,23 @@
          // Step (1L): apply back the Givens rotations performed.
 
          DO 10 I = 1, GIVPTR
-            CALL SROT( NRHS, B( GIVCOL( I, 2 ), 1 ), LDB, B( GIVCOL( I, 1 ), 1 ), LDB, GIVNUM( I, 2 ), GIVNUM( I, 1 ) )
+            srot(NRHS, B( GIVCOL( I, 2 ), 1 ), LDB, B( GIVCOL( I, 1 ), 1 ), LDB, GIVNUM( I, 2 ), GIVNUM( I, 1 ) );
    10    CONTINUE
 
          // Step (2L): permute rows of B.
 
-         CALL SCOPY( NRHS, B( NLP1, 1 ), LDB, BX( 1, 1 ), LDBX )
+         scopy(NRHS, B( NLP1, 1 ), LDB, BX( 1, 1 ), LDBX );
          DO 20 I = 2, N
-            CALL SCOPY( NRHS, B( PERM( I ), 1 ), LDB, BX( I, 1 ), LDBX )
+            scopy(NRHS, B( PERM( I ), 1 ), LDB, BX( I, 1 ), LDBX );
    20    CONTINUE
 
          // Step (3L): apply the inverse of the left singular vector
          // matrix to BX.
 
          if ( K.EQ.1 ) {
-            CALL SCOPY( NRHS, BX, LDBX, B, LDB )
+            scopy(NRHS, BX, LDBX, B, LDB );
             if ( Z( 1 ).LT.ZERO ) {
-               CALL SSCAL( NRHS, NEGONE, B, LDB )
+               sscal(NRHS, NEGONE, B, LDB );
             }
          } else {
             DO 50 J = 1, K
@@ -131,7 +131,7 @@
    40          CONTINUE
                WORK( 1 ) = NEGONE
                TEMP = SNRM2( K, WORK, 1 )
-               CALL SGEMV( 'T', K, NRHS, ONE, BX, LDBX, WORK, 1, ZERO, B( J, 1 ), LDB )                CALL SLASCL( 'G', 0, 0, TEMP, ONE, 1, NRHS, B( J, 1 ), LDB, INFO )
+               sgemv('T', K, NRHS, ONE, BX, LDBX, WORK, 1, ZERO, B( J, 1 ), LDB )                CALL SLASCL( 'G', 0, 0, TEMP, ONE, 1, NRHS, B( J, 1 ), LDB, INFO );
    50       CONTINUE
          }
 
@@ -146,7 +146,7 @@
          // to B.
 
          if ( K.EQ.1 ) {
-            CALL SCOPY( NRHS, B, LDB, BX, LDBX )
+            scopy(NRHS, B, LDB, BX, LDBX );
          } else {
             DO 80 J = 1, K
                DSIGJ = POLES( J, 2 )
@@ -174,7 +174,7 @@
                      WORK( I ) = Z( J ) / ( SLAMC3( DSIGJ, -POLES( I, 2 ) )-DIFL( I ) ) / ( DSIGJ+POLES( I, 1 ) ) / DIFR( I, 2 )
                   }
    70          CONTINUE
-               CALL SGEMV( 'T', K, NRHS, ONE, B, LDB, WORK, 1, ZERO, BX( J, 1 ), LDBX )
+               sgemv('T', K, NRHS, ONE, B, LDB, WORK, 1, ZERO, BX( J, 1 ), LDBX );
    80       CONTINUE
          }
 
@@ -182,25 +182,25 @@
          // related to the right null space of the subproblem.
 
          if ( SQRE.EQ.1 ) {
-            CALL SCOPY( NRHS, B( M, 1 ), LDB, BX( M, 1 ), LDBX )
-            CALL SROT( NRHS, BX( 1, 1 ), LDBX, BX( M, 1 ), LDBX, C, S )
+            scopy(NRHS, B( M, 1 ), LDB, BX( M, 1 ), LDBX );
+            srot(NRHS, BX( 1, 1 ), LDBX, BX( M, 1 ), LDBX, C, S );
          }
          IF( K.LT.MAX( M, N ) ) CALL SLACPY( 'A', N-K, NRHS, B( K+1, 1 ), LDB, BX( K+1, 1 ), LDBX )
 
          // Step (3R): permute rows of B.
 
-         CALL SCOPY( NRHS, BX( 1, 1 ), LDBX, B( NLP1, 1 ), LDB )
+         scopy(NRHS, BX( 1, 1 ), LDBX, B( NLP1, 1 ), LDB );
          if ( SQRE.EQ.1 ) {
-            CALL SCOPY( NRHS, BX( M, 1 ), LDBX, B( M, 1 ), LDB )
+            scopy(NRHS, BX( M, 1 ), LDBX, B( M, 1 ), LDB );
          }
          DO 90 I = 2, N
-            CALL SCOPY( NRHS, BX( I, 1 ), LDBX, B( PERM( I ), 1 ), LDB )
+            scopy(NRHS, BX( I, 1 ), LDBX, B( PERM( I ), 1 ), LDB );
    90    CONTINUE
 
          // Step (4R): apply back the Givens rotations performed.
 
          DO 100 I = GIVPTR, 1, -1
-            CALL SROT( NRHS, B( GIVCOL( I, 2 ), 1 ), LDB, B( GIVCOL( I, 1 ), 1 ), LDB, GIVNUM( I, 2 ), -GIVNUM( I, 1 ) )
+            srot(NRHS, B( GIVCOL( I, 2 ), 1 ), LDB, B( GIVCOL( I, 1 ), 1 ), LDB, GIVNUM( I, 2 ), -GIVNUM( I, 1 ) );
   100    CONTINUE
       }
 

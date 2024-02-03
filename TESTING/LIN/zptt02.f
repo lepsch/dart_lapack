@@ -57,7 +57,7 @@
 
       // Compute B - A*X.
 
-      CALL ZLAPTM( UPLO, N, NRHS, -ONE, D, E, X, LDX, ONE, B, LDB )
+      zlaptm(UPLO, N, NRHS, -ONE, D, E, X, LDX, ONE, B, LDB );
 
       // Compute the maximum over the number of right hand sides of
          // norm(B - A*X) / ( norm(A) * norm(X) * EPS ).

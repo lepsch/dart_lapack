@@ -58,7 +58,7 @@
          INFO = -6
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'CLA_PORCOND_C', -INFO )
+         xerbla('CLA_PORCOND_C', -INFO );
          RETURN
       }
       UP = .FALSE.
@@ -126,7 +126,7 @@
 
       KASE = 0
    10 CONTINUE
-      CALL CLACN2( N, WORK( N+1 ), WORK, AINVNM, KASE, ISAVE )
+      clacn2(N, WORK( N+1 ), WORK, AINVNM, KASE, ISAVE );
       if ( KASE.NE.0 ) {
          if ( KASE.EQ.2 ) {
 
@@ -137,9 +137,9 @@
             END DO
 
             if ( UP ) {
-               CALL CPOTRS( 'U', N, 1, AF, LDAF, WORK, N, INFO )
+               cpotrs('U', N, 1, AF, LDAF, WORK, N, INFO );
             } else {
-               CALL CPOTRS( 'L', N, 1, AF, LDAF, WORK, N, INFO )
+               cpotrs('L', N, 1, AF, LDAF, WORK, N, INFO );
             ENDIF
 
             // Multiply by inv(C).
@@ -160,9 +160,9 @@
             }
 
             if ( UP ) {
-               CALL CPOTRS( 'U', N, 1, AF, LDAF, WORK, N, INFO )
+               cpotrs('U', N, 1, AF, LDAF, WORK, N, INFO );
             } else {
-               CALL CPOTRS( 'L', N, 1, AF, LDAF, WORK, N, INFO )
+               cpotrs('L', N, 1, AF, LDAF, WORK, N, INFO );
             }
 
             // Multiply by R.

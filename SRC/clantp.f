@@ -189,7 +189,7 @@
                SUM = N
                K = 2
                DO 280 J = 2, N
-                  CALL CLASSQ( J-1, AP( K ), 1, SCALE, SUM )
+                  classq(J-1, AP( K ), 1, SCALE, SUM );
                   K = K + J
   280          CONTINUE
             } else {
@@ -197,7 +197,7 @@
                SUM = ONE
                K = 1
                DO 290 J = 1, N
-                  CALL CLASSQ( J, AP( K ), 1, SCALE, SUM )
+                  classq(J, AP( K ), 1, SCALE, SUM );
                   K = K + J
   290          CONTINUE
             }
@@ -207,7 +207,7 @@
                SUM = N
                K = 2
                DO 300 J = 1, N - 1
-                  CALL CLASSQ( N-J, AP( K ), 1, SCALE, SUM )
+                  classq(N-J, AP( K ), 1, SCALE, SUM );
                   K = K + N - J + 1
   300          CONTINUE
             } else {
@@ -215,7 +215,7 @@
                SUM = ONE
                K = 1
                DO 310 J = 1, N
-                  CALL CLASSQ( N-J+1, AP( K ), 1, SCALE, SUM )
+                  classq(N-J+1, AP( K ), 1, SCALE, SUM );
                   K = K + N - J + 1
   310          CONTINUE
             }

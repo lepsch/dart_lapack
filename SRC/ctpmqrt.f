@@ -71,7 +71,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'CTPMQRT', -INFO )
+         xerbla('CTPMQRT', -INFO );
          RETURN
       }
 
@@ -89,7 +89,7 @@
             } else {
                LB = MB-M+L-I+1
             }
-            CALL CTPRFB( 'L', 'C', 'F', 'C', MB, N, IB, LB, V( 1, I ), LDV, T( 1, I ), LDT, A( I, 1 ), LDA, B, LDB, WORK, IB )
+            ctprfb('L', 'C', 'F', 'C', MB, N, IB, LB, V( 1, I ), LDV, T( 1, I ), LDT, A( I, 1 ), LDA, B, LDB, WORK, IB );
          END DO
 
       } else if ( RIGHT .AND. NOTRAN ) {
@@ -102,7 +102,7 @@
             } else {
                LB = MB-N+L-I+1
             }
-            CALL CTPRFB( 'R', 'N', 'F', 'C', M, MB, IB, LB, V( 1, I ), LDV, T( 1, I ), LDT, A( 1, I ), LDA, B, LDB, WORK, M )
+            ctprfb('R', 'N', 'F', 'C', M, MB, IB, LB, V( 1, I ), LDV, T( 1, I ), LDT, A( 1, I ), LDA, B, LDB, WORK, M );
          END DO
 
       } else if ( LEFT .AND. NOTRAN ) {
@@ -116,7 +116,7 @@
             } else {
                LB = MB-M+L-I+1
             }
-            CALL CTPRFB( 'L', 'N', 'F', 'C', MB, N, IB, LB, V( 1, I ), LDV, T( 1, I ), LDT, A( I, 1 ), LDA, B, LDB, WORK, IB )
+            ctprfb('L', 'N', 'F', 'C', MB, N, IB, LB, V( 1, I ), LDV, T( 1, I ), LDT, A( I, 1 ), LDA, B, LDB, WORK, IB );
          END DO
 
       } else if ( RIGHT .AND. TRAN ) {
@@ -130,7 +130,7 @@
             } else {
                LB = MB-N+L-I+1
             }
-            CALL CTPRFB( 'R', 'C', 'F', 'C', M, MB, IB, LB, V( 1, I ), LDV, T( 1, I ), LDT, A( 1, I ), LDA, B, LDB, WORK, M )
+            ctprfb('R', 'C', 'F', 'C', M, MB, IB, LB, V( 1, I ), LDV, T( 1, I ), LDT, A( 1, I ), LDA, B, LDB, WORK, M );
          END DO
 
       }

@@ -44,7 +44,7 @@
          INFO = -6
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'SPPTRS', -INFO )
+         xerbla('SPPTRS', -INFO );
          RETURN
       }
 
@@ -60,11 +60,11 @@
 
             // Solve U**T *X = B, overwriting B with X.
 
-            CALL STPSV( 'Upper', 'Transpose', 'Non-unit', N, AP, B( 1, I ), 1 )
+            stpsv('Upper', 'Transpose', 'Non-unit', N, AP, B( 1, I ), 1 );
 
             // Solve U*X = B, overwriting B with X.
 
-            CALL STPSV( 'Upper', 'No transpose', 'Non-unit', N, AP, B( 1, I ), 1 )
+            stpsv('Upper', 'No transpose', 'Non-unit', N, AP, B( 1, I ), 1 );
    10    CONTINUE
       } else {
 
@@ -74,11 +74,11 @@
 
             // Solve L*Y = B, overwriting B with X.
 
-            CALL STPSV( 'Lower', 'No transpose', 'Non-unit', N, AP, B( 1, I ), 1 )
+            stpsv('Lower', 'No transpose', 'Non-unit', N, AP, B( 1, I ), 1 );
 
             // Solve L**T *X = Y, overwriting B with X.
 
-            CALL STPSV( 'Lower', 'Transpose', 'Non-unit', N, AP, B( 1, I ), 1 )
+            stpsv('Lower', 'Transpose', 'Non-unit', N, AP, B( 1, I ), 1 );
    20    CONTINUE
       }
 

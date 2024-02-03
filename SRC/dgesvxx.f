@@ -123,7 +123,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'DGESVXX', -INFO )
+         xerbla('DGESVXX', -INFO );
          RETURN
       }
 
@@ -131,12 +131,12 @@
 
       // Compute row and column scalings to equilibrate the matrix A.
 
-         CALL DGEEQUB( N, N, A, LDA, R, C, ROWCND, COLCND, AMAX, INFEQU )
+         dgeequb(N, N, A, LDA, R, C, ROWCND, COLCND, AMAX, INFEQU );
          if ( INFEQU.EQ.0 ) {
 
       // Equilibrate the matrix.
 
-            CALL DLAQGE( N, N, A, LDA, R, C, ROWCND, COLCND, AMAX, EQUED )
+            dlaqge(N, N, A, LDA, R, C, ROWCND, COLCND, AMAX, EQUED );
             ROWEQU = LSAME( EQUED, 'R' ) .OR. LSAME( EQUED, 'B' )
             COLEQU = LSAME( EQUED, 'C' ) .OR. LSAME( EQUED, 'B' )
          }
@@ -167,8 +167,8 @@
 
          // Compute the LU factorization of A.
 
-         CALL DLACPY( 'Full', N, N, A, LDA, AF, LDAF )
-         CALL DGETRF( N, N, AF, LDAF, IPIV, INFO )
+         dlacpy('Full', N, N, A, LDA, AF, LDAF );
+         dgetrf(N, N, AF, LDAF, IPIV, INFO );
 
          // Return if INFO is non-zero.
 
@@ -189,20 +189,20 @@
 
       // Compute the solution matrix X.
 
-      CALL DLACPY( 'Full', N, NRHS, B, LDB, X, LDX )
-      CALL DGETRS( TRANS, N, NRHS, AF, LDAF, IPIV, X, LDX, INFO )
+      dlacpy('Full', N, NRHS, B, LDB, X, LDX );
+      dgetrs(TRANS, N, NRHS, AF, LDAF, IPIV, X, LDX, INFO );
 
       // Use iterative refinement to improve the computed solution and
       // compute error bounds and backward error estimates for it.
 
-      CALL DGERFSX( TRANS, EQUED, N, NRHS, A, LDA, AF, LDAF, IPIV, R, C, B, LDB, X, LDX, RCOND, BERR, N_ERR_BNDS, ERR_BNDS_NORM, ERR_BNDS_COMP, NPARAMS, PARAMS, WORK, IWORK, INFO )
+      dgerfsx(TRANS, EQUED, N, NRHS, A, LDA, AF, LDAF, IPIV, R, C, B, LDB, X, LDX, RCOND, BERR, N_ERR_BNDS, ERR_BNDS_NORM, ERR_BNDS_COMP, NPARAMS, PARAMS, WORK, IWORK, INFO );
 
       // Scale solutions.
 
       if ( COLEQU .AND. NOTRAN ) {
-         CALL DLASCL2 ( N, NRHS, C, X, LDX )
+         dlascl2(N, NRHS, C, X, LDX );
       } else if ( ROWEQU .AND. .NOT.NOTRAN ) {
-         CALL DLASCL2 ( N, NRHS, R, X, LDX )
+         dlascl2(N, NRHS, R, X, LDX );
       }
 
       RETURN

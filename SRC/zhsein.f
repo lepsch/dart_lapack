@@ -85,7 +85,7 @@
          INFO = -13
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'ZHSEIN', -INFO )
+         xerbla('ZHSEIN', -INFO );
          RETURN
       }
 
@@ -177,7 +177,7 @@
 
                // Compute left eigenvector.
 
-               CALL ZLAEIN( .FALSE., NOINIT, N-KL+1, H( KL, KL ), LDH, WK, VL( KL, KS ), WORK, LDWORK, RWORK, EPS3, SMLNUM, IINFO )
+               zlaein(.FALSE., NOINIT, N-KL+1, H( KL, KL ), LDH, WK, VL( KL, KS ), WORK, LDWORK, RWORK, EPS3, SMLNUM, IINFO );
                if ( IINFO.GT.0 ) {
                   INFO = INFO + 1
                   IFAILL( KS ) = K
@@ -192,7 +192,7 @@
 
                // Compute right eigenvector.
 
-               CALL ZLAEIN( .TRUE., NOINIT, KR, H, LDH, WK, VR( 1, KS ), WORK, LDWORK, RWORK, EPS3, SMLNUM, IINFO )
+               zlaein(.TRUE., NOINIT, KR, H, LDH, WK, VR( 1, KS ), WORK, LDWORK, RWORK, EPS3, SMLNUM, IINFO );
                if ( IINFO.GT.0 ) {
                   INFO = INFO + 1
                   IFAILR( KS ) = K

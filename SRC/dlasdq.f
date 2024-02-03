@@ -60,7 +60,7 @@
          INFO = -14
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'DLASDQ', -INFO )
+         xerbla('DLASDQ', -INFO );
          RETURN
       }
       IF( N.EQ.0 ) RETURN
@@ -76,7 +76,7 @@
 
       if ( ( IUPLO.EQ.1 ) .AND. ( SQRE1.EQ.1 ) ) {
          DO 10 I = 1, N - 1
-            CALL DLARTG( D( I ), E( I ), CS, SN, R )
+            dlartg(D( I ), E( I ), CS, SN, R );
             D( I ) = R
             E( I ) = SN*D( I+1 )
             D( I+1 ) = CS*D( I+1 )
@@ -85,7 +85,7 @@
                WORK( N+I ) = SN
             }
    10    CONTINUE
-         CALL DLARTG( D( N ), E( N ), CS, SN, R )
+         dlartg(D( N ), E( N ), CS, SN, R );
          D( N ) = R
          E( N ) = ZERO
          if ( ROTATE ) {
@@ -105,7 +105,7 @@
 
       if ( IUPLO.EQ.2 ) {
          DO 20 I = 1, N - 1
-            CALL DLARTG( D( I ), E( I ), CS, SN, R )
+            dlartg(D( I ), E( I ), CS, SN, R );
             D( I ) = R
             E( I ) = SN*D( I+1 )
             D( I+1 ) = CS*D( I+1 )
@@ -119,7 +119,7 @@
          // rotation is needed.
 
          if ( SQRE1.EQ.1 ) {
-            CALL DLARTG( D( N ), E( N ), CS, SN, R )
+            dlartg(D( N ), E( N ), CS, SN, R );
             D( N ) = R
             if ( ROTATE ) {
                WORK( N ) = CS
@@ -131,16 +131,16 @@
 
          if ( NRU.GT.0 ) {
             if ( SQRE1.EQ.0 ) {
-               CALL DLASR( 'R', 'V', 'F', NRU, N, WORK( 1 ), WORK( NP1 ), U, LDU )
+               dlasr('R', 'V', 'F', NRU, N, WORK( 1 ), WORK( NP1 ), U, LDU );
             } else {
-               CALL DLASR( 'R', 'V', 'F', NRU, NP1, WORK( 1 ), WORK( NP1 ), U, LDU )
+               dlasr('R', 'V', 'F', NRU, NP1, WORK( 1 ), WORK( NP1 ), U, LDU );
             }
          }
          if ( NCC.GT.0 ) {
             if ( SQRE1.EQ.0 ) {
-               CALL DLASR( 'L', 'V', 'F', N, NCC, WORK( 1 ), WORK( NP1 ), C, LDC )
+               dlasr('L', 'V', 'F', N, NCC, WORK( 1 ), WORK( NP1 ), C, LDC );
             } else {
-               CALL DLASR( 'L', 'V', 'F', NP1, NCC, WORK( 1 ), WORK( NP1 ), C, LDC )
+               dlasr('L', 'V', 'F', NP1, NCC, WORK( 1 ), WORK( NP1 ), C, LDC );
             }
          }
       }
@@ -148,7 +148,7 @@
       // Call DBDSQR to compute the SVD of the reduced real
       // N-by-N upper bidiagonal matrix.
 
-      CALL DBDSQR( 'U', N, NCVT, NRU, NCC, D, E, VT, LDVT, U, LDU, C, LDC, WORK, INFO )
+      dbdsqr('U', N, NCVT, NRU, NCC, D, E, VT, LDVT, U, LDU, C, LDC, WORK, INFO );
 
       // Sort the singular values into ascending order (insertion sort on
       // singular values, but only one transposition per singular vector)

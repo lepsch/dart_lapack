@@ -49,7 +49,7 @@
          INFO = -5
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'CPBSTF', -INFO )
+         xerbla('CPBSTF', -INFO );
          RETURN
       }
 
@@ -83,8 +83,8 @@
             // Compute elements j-km:j-1 of the j-th column and update the
             // the leading submatrix within the band.
 
-            CALL CSSCAL( KM, ONE / AJJ, AB( KD+1-KM, J ), 1 )
-            CALL CHER( 'Upper', KM, -ONE, AB( KD+1-KM, J ), 1, AB( KD+1, J-KM ), KLD )
+            csscal(KM, ONE / AJJ, AB( KD+1-KM, J ), 1 );
+            cher('Upper', KM, -ONE, AB( KD+1-KM, J ), 1, AB( KD+1, J-KM ), KLD );
    10    CONTINUE
 
          // Factorize the updated submatrix A(1:m,1:m) as U**H*U.
@@ -106,10 +106,10 @@
             // trailing submatrix within the band.
 
             if ( KM.GT.0 ) {
-               CALL CSSCAL( KM, ONE / AJJ, AB( KD, J+1 ), KLD )
-               CALL CLACGV( KM, AB( KD, J+1 ), KLD )
-               CALL CHER( 'Upper', KM, -ONE, AB( KD, J+1 ), KLD, AB( KD+1, J+1 ), KLD )
-               CALL CLACGV( KM, AB( KD, J+1 ), KLD )
+               csscal(KM, ONE / AJJ, AB( KD, J+1 ), KLD );
+               clacgv(KM, AB( KD, J+1 ), KLD );
+               cher('Upper', KM, -ONE, AB( KD, J+1 ), KLD, AB( KD+1, J+1 ), KLD );
+               clacgv(KM, AB( KD, J+1 ), KLD );
             }
    20    CONTINUE
       } else {
@@ -132,10 +132,10 @@
             // Compute elements j-km:j-1 of the j-th row and update the
             // trailing submatrix within the band.
 
-            CALL CSSCAL( KM, ONE / AJJ, AB( KM+1, J-KM ), KLD )
-            CALL CLACGV( KM, AB( KM+1, J-KM ), KLD )
-            CALL CHER( 'Lower', KM, -ONE, AB( KM+1, J-KM ), KLD, AB( 1, J-KM ), KLD )
-            CALL CLACGV( KM, AB( KM+1, J-KM ), KLD )
+            csscal(KM, ONE / AJJ, AB( KM+1, J-KM ), KLD );
+            clacgv(KM, AB( KM+1, J-KM ), KLD );
+            cher('Lower', KM, -ONE, AB( KM+1, J-KM ), KLD, AB( 1, J-KM ), KLD );
+            clacgv(KM, AB( KM+1, J-KM ), KLD );
    30    CONTINUE
 
          // Factorize the updated submatrix A(1:m,1:m) as U**H*U.
@@ -157,8 +157,8 @@
             // trailing submatrix within the band.
 
             if ( KM.GT.0 ) {
-               CALL CSSCAL( KM, ONE / AJJ, AB( 2, J ), 1 )
-               CALL CHER( 'Lower', KM, -ONE, AB( 2, J ), 1, AB( 1, J+1 ), KLD )
+               csscal(KM, ONE / AJJ, AB( 2, J ), 1 );
+               cher('Lower', KM, -ONE, AB( 2, J ), 1, AB( 1, J+1 ), KLD );
             }
    40    CONTINUE
       }

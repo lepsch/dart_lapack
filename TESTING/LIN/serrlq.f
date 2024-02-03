@@ -60,155 +60,155 @@
 
       SRNAMT = 'SGELQF'
       INFOT = 1
-      CALL SGELQF( -1, 0, A, 1, B, W, 1, INFO )
-      CALL CHKXER( 'SGELQF', INFOT, NOUT, LERR, OK )
+      sgelqf(-1, 0, A, 1, B, W, 1, INFO );
+      chkxer('SGELQF', INFOT, NOUT, LERR, OK );
       INFOT = 2
-      CALL SGELQF( 0, -1, A, 1, B, W, 1, INFO )
-      CALL CHKXER( 'SGELQF', INFOT, NOUT, LERR, OK )
+      sgelqf(0, -1, A, 1, B, W, 1, INFO );
+      chkxer('SGELQF', INFOT, NOUT, LERR, OK );
       INFOT = 4
-      CALL SGELQF( 2, 1, A, 1, B, W, 2, INFO )
-      CALL CHKXER( 'SGELQF', INFOT, NOUT, LERR, OK )
+      sgelqf(2, 1, A, 1, B, W, 2, INFO );
+      chkxer('SGELQF', INFOT, NOUT, LERR, OK );
       INFOT = 7
-      CALL SGELQF( 2, 1, A, 2, B, W, 1, INFO )
-      CALL CHKXER( 'SGELQF', INFOT, NOUT, LERR, OK )
+      sgelqf(2, 1, A, 2, B, W, 1, INFO );
+      chkxer('SGELQF', INFOT, NOUT, LERR, OK );
 
       // SGELQ2
 
       SRNAMT = 'SGELQ2'
       INFOT = 1
-      CALL SGELQ2( -1, 0, A, 1, B, W, INFO )
-      CALL CHKXER( 'SGELQ2', INFOT, NOUT, LERR, OK )
+      sgelq2(-1, 0, A, 1, B, W, INFO );
+      chkxer('SGELQ2', INFOT, NOUT, LERR, OK );
       INFOT = 2
-      CALL SGELQ2( 0, -1, A, 1, B, W, INFO )
-      CALL CHKXER( 'SGELQ2', INFOT, NOUT, LERR, OK )
+      sgelq2(0, -1, A, 1, B, W, INFO );
+      chkxer('SGELQ2', INFOT, NOUT, LERR, OK );
       INFOT = 4
-      CALL SGELQ2( 2, 1, A, 1, B, W, INFO )
-      CALL CHKXER( 'SGELQ2', INFOT, NOUT, LERR, OK )
+      sgelq2(2, 1, A, 1, B, W, INFO );
+      chkxer('SGELQ2', INFOT, NOUT, LERR, OK );
 
       // SORGLQ
 
       SRNAMT = 'SORGLQ'
       INFOT = 1
-      CALL SORGLQ( -1, 0, 0, A, 1, X, W, 1, INFO )
-      CALL CHKXER( 'SORGLQ', INFOT, NOUT, LERR, OK )
+      sorglq(-1, 0, 0, A, 1, X, W, 1, INFO );
+      chkxer('SORGLQ', INFOT, NOUT, LERR, OK );
       INFOT = 2
-      CALL SORGLQ( 0, -1, 0, A, 1, X, W, 1, INFO )
-      CALL CHKXER( 'SORGLQ', INFOT, NOUT, LERR, OK )
+      sorglq(0, -1, 0, A, 1, X, W, 1, INFO );
+      chkxer('SORGLQ', INFOT, NOUT, LERR, OK );
       INFOT = 2
-      CALL SORGLQ( 2, 1, 0, A, 2, X, W, 2, INFO )
-      CALL CHKXER( 'SORGLQ', INFOT, NOUT, LERR, OK )
+      sorglq(2, 1, 0, A, 2, X, W, 2, INFO );
+      chkxer('SORGLQ', INFOT, NOUT, LERR, OK );
       INFOT = 3
-      CALL SORGLQ( 0, 0, -1, A, 1, X, W, 1, INFO )
-      CALL CHKXER( 'SORGLQ', INFOT, NOUT, LERR, OK )
+      sorglq(0, 0, -1, A, 1, X, W, 1, INFO );
+      chkxer('SORGLQ', INFOT, NOUT, LERR, OK );
       INFOT = 3
-      CALL SORGLQ( 1, 1, 2, A, 1, X, W, 1, INFO )
-      CALL CHKXER( 'SORGLQ', INFOT, NOUT, LERR, OK )
+      sorglq(1, 1, 2, A, 1, X, W, 1, INFO );
+      chkxer('SORGLQ', INFOT, NOUT, LERR, OK );
       INFOT = 5
-      CALL SORGLQ( 2, 2, 0, A, 1, X, W, 2, INFO )
-      CALL CHKXER( 'SORGLQ', INFOT, NOUT, LERR, OK )
+      sorglq(2, 2, 0, A, 1, X, W, 2, INFO );
+      chkxer('SORGLQ', INFOT, NOUT, LERR, OK );
       INFOT = 8
-      CALL SORGLQ( 2, 2, 0, A, 2, X, W, 1, INFO )
-      CALL CHKXER( 'SORGLQ', INFOT, NOUT, LERR, OK )
+      sorglq(2, 2, 0, A, 2, X, W, 1, INFO );
+      chkxer('SORGLQ', INFOT, NOUT, LERR, OK );
 
       // SORGL2
 
       SRNAMT = 'SORGL2'
       INFOT = 1
-      CALL SORGL2( -1, 0, 0, A, 1, X, W, INFO )
-      CALL CHKXER( 'SORGL2', INFOT, NOUT, LERR, OK )
+      sorgl2(-1, 0, 0, A, 1, X, W, INFO );
+      chkxer('SORGL2', INFOT, NOUT, LERR, OK );
       INFOT = 2
-      CALL SORGL2( 0, -1, 0, A, 1, X, W, INFO )
-      CALL CHKXER( 'SORGL2', INFOT, NOUT, LERR, OK )
+      sorgl2(0, -1, 0, A, 1, X, W, INFO );
+      chkxer('SORGL2', INFOT, NOUT, LERR, OK );
       INFOT = 2
-      CALL SORGL2( 2, 1, 0, A, 2, X, W, INFO )
-      CALL CHKXER( 'SORGL2', INFOT, NOUT, LERR, OK )
+      sorgl2(2, 1, 0, A, 2, X, W, INFO );
+      chkxer('SORGL2', INFOT, NOUT, LERR, OK );
       INFOT = 3
-      CALL SORGL2( 0, 0, -1, A, 1, X, W, INFO )
-      CALL CHKXER( 'SORGL2', INFOT, NOUT, LERR, OK )
+      sorgl2(0, 0, -1, A, 1, X, W, INFO );
+      chkxer('SORGL2', INFOT, NOUT, LERR, OK );
       INFOT = 3
-      CALL SORGL2( 1, 1, 2, A, 1, X, W, INFO )
-      CALL CHKXER( 'SORGL2', INFOT, NOUT, LERR, OK )
+      sorgl2(1, 1, 2, A, 1, X, W, INFO );
+      chkxer('SORGL2', INFOT, NOUT, LERR, OK );
       INFOT = 5
-      CALL SORGL2( 2, 2, 0, A, 1, X, W, INFO )
-      CALL CHKXER( 'SORGL2', INFOT, NOUT, LERR, OK )
+      sorgl2(2, 2, 0, A, 1, X, W, INFO );
+      chkxer('SORGL2', INFOT, NOUT, LERR, OK );
 
       // SORMLQ
 
       SRNAMT = 'SORMLQ'
       INFOT = 1
-      CALL SORMLQ( '/', 'N', 0, 0, 0, A, 1, X, AF, 1, W, 1, INFO )
-      CALL CHKXER( 'SORMLQ', INFOT, NOUT, LERR, OK )
+      sormlq('/', 'N', 0, 0, 0, A, 1, X, AF, 1, W, 1, INFO );
+      chkxer('SORMLQ', INFOT, NOUT, LERR, OK );
       INFOT = 2
-      CALL SORMLQ( 'L', '/', 0, 0, 0, A, 1, X, AF, 1, W, 1, INFO )
-      CALL CHKXER( 'SORMLQ', INFOT, NOUT, LERR, OK )
+      sormlq('L', '/', 0, 0, 0, A, 1, X, AF, 1, W, 1, INFO );
+      chkxer('SORMLQ', INFOT, NOUT, LERR, OK );
       INFOT = 3
-      CALL SORMLQ( 'L', 'N', -1, 0, 0, A, 1, X, AF, 1, W, 1, INFO )
-      CALL CHKXER( 'SORMLQ', INFOT, NOUT, LERR, OK )
+      sormlq('L', 'N', -1, 0, 0, A, 1, X, AF, 1, W, 1, INFO );
+      chkxer('SORMLQ', INFOT, NOUT, LERR, OK );
       INFOT = 4
-      CALL SORMLQ( 'L', 'N', 0, -1, 0, A, 1, X, AF, 1, W, 1, INFO )
-      CALL CHKXER( 'SORMLQ', INFOT, NOUT, LERR, OK )
+      sormlq('L', 'N', 0, -1, 0, A, 1, X, AF, 1, W, 1, INFO );
+      chkxer('SORMLQ', INFOT, NOUT, LERR, OK );
       INFOT = 5
-      CALL SORMLQ( 'L', 'N', 0, 0, -1, A, 1, X, AF, 1, W, 1, INFO )
-      CALL CHKXER( 'SORMLQ', INFOT, NOUT, LERR, OK )
+      sormlq('L', 'N', 0, 0, -1, A, 1, X, AF, 1, W, 1, INFO );
+      chkxer('SORMLQ', INFOT, NOUT, LERR, OK );
       INFOT = 5
-      CALL SORMLQ( 'L', 'N', 0, 1, 1, A, 1, X, AF, 1, W, 1, INFO )
-      CALL CHKXER( 'SORMLQ', INFOT, NOUT, LERR, OK )
+      sormlq('L', 'N', 0, 1, 1, A, 1, X, AF, 1, W, 1, INFO );
+      chkxer('SORMLQ', INFOT, NOUT, LERR, OK );
       INFOT = 5
-      CALL SORMLQ( 'R', 'N', 1, 0, 1, A, 1, X, AF, 1, W, 1, INFO )
-      CALL CHKXER( 'SORMLQ', INFOT, NOUT, LERR, OK )
+      sormlq('R', 'N', 1, 0, 1, A, 1, X, AF, 1, W, 1, INFO );
+      chkxer('SORMLQ', INFOT, NOUT, LERR, OK );
       INFOT = 7
-      CALL SORMLQ( 'L', 'N', 2, 0, 2, A, 1, X, AF, 2, W, 1, INFO )
-      CALL CHKXER( 'SORMLQ', INFOT, NOUT, LERR, OK )
+      sormlq('L', 'N', 2, 0, 2, A, 1, X, AF, 2, W, 1, INFO );
+      chkxer('SORMLQ', INFOT, NOUT, LERR, OK );
       INFOT = 7
-      CALL SORMLQ( 'R', 'N', 0, 2, 2, A, 1, X, AF, 1, W, 1, INFO )
-      CALL CHKXER( 'SORMLQ', INFOT, NOUT, LERR, OK )
+      sormlq('R', 'N', 0, 2, 2, A, 1, X, AF, 1, W, 1, INFO );
+      chkxer('SORMLQ', INFOT, NOUT, LERR, OK );
       INFOT = 10
-      CALL SORMLQ( 'L', 'N', 2, 1, 0, A, 2, X, AF, 1, W, 1, INFO )
-      CALL CHKXER( 'SORMLQ', INFOT, NOUT, LERR, OK )
+      sormlq('L', 'N', 2, 1, 0, A, 2, X, AF, 1, W, 1, INFO );
+      chkxer('SORMLQ', INFOT, NOUT, LERR, OK );
       INFOT = 12
-      CALL SORMLQ( 'L', 'N', 1, 2, 0, A, 1, X, AF, 1, W, 1, INFO )
-      CALL CHKXER( 'SORMLQ', INFOT, NOUT, LERR, OK )
+      sormlq('L', 'N', 1, 2, 0, A, 1, X, AF, 1, W, 1, INFO );
+      chkxer('SORMLQ', INFOT, NOUT, LERR, OK );
       INFOT = 12
-      CALL SORMLQ( 'R', 'N', 2, 1, 0, A, 1, X, AF, 2, W, 1, INFO )
-      CALL CHKXER( 'SORMLQ', INFOT, NOUT, LERR, OK )
+      sormlq('R', 'N', 2, 1, 0, A, 1, X, AF, 2, W, 1, INFO );
+      chkxer('SORMLQ', INFOT, NOUT, LERR, OK );
 
       // SORML2
 
       SRNAMT = 'SORML2'
       INFOT = 1
-      CALL SORML2( '/', 'N', 0, 0, 0, A, 1, X, AF, 1, W, INFO )
-      CALL CHKXER( 'SORML2', INFOT, NOUT, LERR, OK )
+      sorml2('/', 'N', 0, 0, 0, A, 1, X, AF, 1, W, INFO );
+      chkxer('SORML2', INFOT, NOUT, LERR, OK );
       INFOT = 2
-      CALL SORML2( 'L', '/', 0, 0, 0, A, 1, X, AF, 1, W, INFO )
-      CALL CHKXER( 'SORML2', INFOT, NOUT, LERR, OK )
+      sorml2('L', '/', 0, 0, 0, A, 1, X, AF, 1, W, INFO );
+      chkxer('SORML2', INFOT, NOUT, LERR, OK );
       INFOT = 3
-      CALL SORML2( 'L', 'N', -1, 0, 0, A, 1, X, AF, 1, W, INFO )
-      CALL CHKXER( 'SORML2', INFOT, NOUT, LERR, OK )
+      sorml2('L', 'N', -1, 0, 0, A, 1, X, AF, 1, W, INFO );
+      chkxer('SORML2', INFOT, NOUT, LERR, OK );
       INFOT = 4
-      CALL SORML2( 'L', 'N', 0, -1, 0, A, 1, X, AF, 1, W, INFO )
-      CALL CHKXER( 'SORML2', INFOT, NOUT, LERR, OK )
+      sorml2('L', 'N', 0, -1, 0, A, 1, X, AF, 1, W, INFO );
+      chkxer('SORML2', INFOT, NOUT, LERR, OK );
       INFOT = 5
-      CALL SORML2( 'L', 'N', 0, 0, -1, A, 1, X, AF, 1, W, INFO )
-      CALL CHKXER( 'SORML2', INFOT, NOUT, LERR, OK )
+      sorml2('L', 'N', 0, 0, -1, A, 1, X, AF, 1, W, INFO );
+      chkxer('SORML2', INFOT, NOUT, LERR, OK );
       INFOT = 5
-      CALL SORML2( 'L', 'N', 0, 1, 1, A, 1, X, AF, 1, W, INFO )
-      CALL CHKXER( 'SORML2', INFOT, NOUT, LERR, OK )
+      sorml2('L', 'N', 0, 1, 1, A, 1, X, AF, 1, W, INFO );
+      chkxer('SORML2', INFOT, NOUT, LERR, OK );
       INFOT = 5
-      CALL SORML2( 'R', 'N', 1, 0, 1, A, 1, X, AF, 1, W, INFO )
-      CALL CHKXER( 'SORML2', INFOT, NOUT, LERR, OK )
+      sorml2('R', 'N', 1, 0, 1, A, 1, X, AF, 1, W, INFO );
+      chkxer('SORML2', INFOT, NOUT, LERR, OK );
       INFOT = 7
-      CALL SORML2( 'L', 'N', 2, 1, 2, A, 1, X, AF, 2, W, INFO )
-      CALL CHKXER( 'SORML2', INFOT, NOUT, LERR, OK )
+      sorml2('L', 'N', 2, 1, 2, A, 1, X, AF, 2, W, INFO );
+      chkxer('SORML2', INFOT, NOUT, LERR, OK );
       INFOT = 7
-      CALL SORML2( 'R', 'N', 1, 2, 2, A, 1, X, AF, 1, W, INFO )
-      CALL CHKXER( 'SORML2', INFOT, NOUT, LERR, OK )
+      sorml2('R', 'N', 1, 2, 2, A, 1, X, AF, 1, W, INFO );
+      chkxer('SORML2', INFOT, NOUT, LERR, OK );
       INFOT = 10
-      CALL SORML2( 'L', 'N', 2, 1, 0, A, 2, X, AF, 1, W, INFO )
-      CALL CHKXER( 'SORML2', INFOT, NOUT, LERR, OK )
+      sorml2('L', 'N', 2, 1, 0, A, 2, X, AF, 1, W, INFO );
+      chkxer('SORML2', INFOT, NOUT, LERR, OK );
 
       // Print a summary line.
 
-      CALL ALAESM( PATH, OK, NOUT )
+      alaesm(PATH, OK, NOUT );
 
       RETURN
 

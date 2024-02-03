@@ -57,7 +57,7 @@
          INFO = -6
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'CGBEQUB', -INFO )
+         xerbla('CGBEQUB', -INFO );
          RETURN
       }
 

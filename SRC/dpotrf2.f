@@ -46,7 +46,7 @@
          INFO = -4
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'DPOTRF2', -INFO )
+         xerbla('DPOTRF2', -INFO );
          RETURN
       }
 
@@ -77,7 +77,7 @@
 
          // Factor A11
 
-         CALL DPOTRF2( UPLO, N1, A( 1, 1 ), LDA, IINFO )
+         dpotrf2(UPLO, N1, A( 1, 1 ), LDA, IINFO );
          if ( IINFO.NE.0 ) {
             INFO = IINFO
             RETURN
@@ -89,12 +89,12 @@
 
             // Update and scale A12
 
-            CALL DTRSM( 'L', 'U', 'T', 'N', N1, N2, ONE, A( 1, 1 ), LDA, A( 1, N1+1 ), LDA )
+            dtrsm('L', 'U', 'T', 'N', N1, N2, ONE, A( 1, 1 ), LDA, A( 1, N1+1 ), LDA );
 
             // Update and factor A22
 
-            CALL DSYRK( UPLO, 'T', N2, N1, -ONE, A( 1, N1+1 ), LDA, ONE, A( N1+1, N1+1 ), LDA )
-            CALL DPOTRF2( UPLO, N2, A( N1+1, N1+1 ), LDA, IINFO )
+            dsyrk(UPLO, 'T', N2, N1, -ONE, A( 1, N1+1 ), LDA, ONE, A( N1+1, N1+1 ), LDA );
+            dpotrf2(UPLO, N2, A( N1+1, N1+1 ), LDA, IINFO );
             if ( IINFO.NE.0 ) {
                INFO = IINFO + N1
                RETURN
@@ -106,12 +106,12 @@
 
             // Update and scale A21
 
-            CALL DTRSM( 'R', 'L', 'T', 'N', N2, N1, ONE, A( 1, 1 ), LDA, A( N1+1, 1 ), LDA )
+            dtrsm('R', 'L', 'T', 'N', N2, N1, ONE, A( 1, 1 ), LDA, A( N1+1, 1 ), LDA );
 
             // Update and factor A22
 
-            CALL DSYRK( UPLO, 'N', N2, N1, -ONE, A( N1+1, 1 ), LDA, ONE, A( N1+1, N1+1 ), LDA )
-            CALL DPOTRF2( UPLO, N2, A( N1+1, N1+1 ), LDA, IINFO )
+            dsyrk(UPLO, 'N', N2, N1, -ONE, A( N1+1, 1 ), LDA, ONE, A( N1+1, N1+1 ), LDA );
+            dpotrf2(UPLO, N2, A( N1+1, N1+1 ), LDA, IINFO );
             if ( IINFO.NE.0 ) {
                INFO = IINFO + N1
                RETURN

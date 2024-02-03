@@ -54,15 +54,15 @@
 
       DO 10 K = N, 1, -1
          if ( K.GT.M ) {
-            CALL STRMV( 'Lower', 'No transpose', 'Unit', M, AFAC, LDAFAC, AFAC( 1, K ), 1 )
+            strmv('Lower', 'No transpose', 'Unit', M, AFAC, LDAFAC, AFAC( 1, K ), 1 );
          } else {
 
             // Compute elements (K+1:M,K)
 
             T = AFAC( K, K )
             if ( K+1.LE.M ) {
-               CALL SSCAL( M-K, T, AFAC( K+1, K ), 1 )
-               CALL SGEMV( 'No transpose', M-K, K-1, ONE, AFAC( K+1, 1 ), LDAFAC, AFAC( 1, K ), 1, ONE, AFAC( K+1, K ), 1 )
+               sscal(M-K, T, AFAC( K+1, K ), 1 );
+               sgemv('No transpose', M-K, K-1, ONE, AFAC( K+1, 1 ), LDAFAC, AFAC( 1, K ), 1, ONE, AFAC( K+1, K ), 1 );
             }
 
             // Compute the (K,K) element
@@ -71,10 +71,10 @@
 
             // Compute elements (1:K-1,K)
 
-            CALL STRMV( 'Lower', 'No transpose', 'Unit', K-1, AFAC, LDAFAC, AFAC( 1, K ), 1 )
+            strmv('Lower', 'No transpose', 'Unit', K-1, AFAC, LDAFAC, AFAC( 1, K ), 1 );
          }
    10 CONTINUE
-      CALL SLASWP( N, AFAC, LDAFAC, 1, MIN( M, N ), IPIV, -1 )
+      slaswp(N, AFAC, LDAFAC, 1, MIN( M, N ), IPIV, -1 );
 
       // Compute the difference  L*U - A  and store in AFAC.
 

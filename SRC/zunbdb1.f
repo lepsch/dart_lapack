@@ -68,7 +68,7 @@
          }
       }
       if ( INFO .NE. 0 ) {
-         CALL XERBLA( 'ZUNBDB1', -INFO )
+         xerbla('ZUNBDB1', -INFO );
          RETURN
       } else if ( LQUERY ) {
          RETURN
@@ -78,26 +78,26 @@
 
       DO I = 1, Q
 
-         CALL ZLARFGP( P-I+1, X11(I,I), X11(I+1,I), 1, TAUP1(I) )
-         CALL ZLARFGP( M-P-I+1, X21(I,I), X21(I+1,I), 1, TAUP2(I) )
+         zlarfgp(P-I+1, X11(I,I), X11(I+1,I), 1, TAUP1(I) );
+         zlarfgp(M-P-I+1, X21(I,I), X21(I+1,I), 1, TAUP2(I) );
          THETA(I) = ATAN2( DBLE( X21(I,I) ), DBLE( X11(I,I) ) )
          C = COS( THETA(I) )
          S = SIN( THETA(I) )
          X11(I,I) = ONE
          X21(I,I) = ONE
-         CALL ZLARF( 'L', P-I+1, Q-I, X11(I,I), 1, DCONJG(TAUP1(I)), X11(I,I+1), LDX11, WORK(ILARF) )          CALL ZLARF( 'L', M-P-I+1, Q-I, X21(I,I), 1, DCONJG(TAUP2(I)), X21(I,I+1), LDX21, WORK(ILARF) )
+         zlarf('L', P-I+1, Q-I, X11(I,I), 1, DCONJG(TAUP1(I)), X11(I,I+1), LDX11, WORK(ILARF) )          CALL ZLARF( 'L', M-P-I+1, Q-I, X21(I,I), 1, DCONJG(TAUP2(I)), X21(I,I+1), LDX21, WORK(ILARF) );
 
          if ( I .LT. Q ) {
-            CALL ZDROT( Q-I, X11(I,I+1), LDX11, X21(I,I+1), LDX21, C, S )
-            CALL ZLACGV( Q-I, X21(I,I+1), LDX21 )
-            CALL ZLARFGP( Q-I, X21(I,I+1), X21(I,I+2), LDX21, TAUQ1(I) )
+            zdrot(Q-I, X11(I,I+1), LDX11, X21(I,I+1), LDX21, C, S );
+            zlacgv(Q-I, X21(I,I+1), LDX21 );
+            zlarfgp(Q-I, X21(I,I+1), X21(I,I+2), LDX21, TAUQ1(I) );
             S = DBLE( X21(I,I+1) )
             X21(I,I+1) = ONE
-            CALL ZLARF( 'R', P-I, Q-I, X21(I,I+1), LDX21, TAUQ1(I), X11(I+1,I+1), LDX11, WORK(ILARF) )             CALL ZLARF( 'R', M-P-I, Q-I, X21(I,I+1), LDX21, TAUQ1(I), X21(I+1,I+1), LDX21, WORK(ILARF) )
-            CALL ZLACGV( Q-I, X21(I,I+1), LDX21 )
+            zlarf('R', P-I, Q-I, X21(I,I+1), LDX21, TAUQ1(I), X11(I+1,I+1), LDX11, WORK(ILARF) )             CALL ZLARF( 'R', M-P-I, Q-I, X21(I,I+1), LDX21, TAUQ1(I), X21(I+1,I+1), LDX21, WORK(ILARF) );
+            zlacgv(Q-I, X21(I,I+1), LDX21 );
             C = SQRT( DZNRM2( P-I, X11(I+1,I+1), 1 )**2 + DZNRM2( M-P-I, X21(I+1,I+1), 1 )**2 )
             PHI(I) = ATAN2( S, C )
-            CALL ZUNBDB5( P-I, M-P-I, Q-I-1, X11(I+1,I+1), 1, X21(I+1,I+1), 1, X11(I+1,I+2), LDX11, X21(I+1,I+2), LDX21, WORK(IORBDB5), LORBDB5, CHILDINFO )
+            zunbdb5(P-I, M-P-I, Q-I-1, X11(I+1,I+1), 1, X21(I+1,I+1), 1, X11(I+1,I+2), LDX11, X21(I+1,I+2), LDX21, WORK(IORBDB5), LORBDB5, CHILDINFO );
          }
 
       END DO

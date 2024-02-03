@@ -59,25 +59,25 @@
 
          SRNAMT = 'DTZRZF'
          INFOT = 1
-         CALL DTZRZF( -1, 0, A, 1, TAU, W, 1, INFO )
-         CALL CHKXER( 'DTZRZF', INFOT, NOUT, LERR, OK )
+         dtzrzf(-1, 0, A, 1, TAU, W, 1, INFO );
+         chkxer('DTZRZF', INFOT, NOUT, LERR, OK );
          INFOT = 2
-         CALL DTZRZF( 1, 0, A, 1, TAU, W, 1, INFO )
-         CALL CHKXER( 'DTZRZF', INFOT, NOUT, LERR, OK )
+         dtzrzf(1, 0, A, 1, TAU, W, 1, INFO );
+         chkxer('DTZRZF', INFOT, NOUT, LERR, OK );
          INFOT = 4
-         CALL DTZRZF( 2, 2, A, 1, TAU, W, 1, INFO )
-         CALL CHKXER( 'DTZRZF', INFOT, NOUT, LERR, OK )
+         dtzrzf(2, 2, A, 1, TAU, W, 1, INFO );
+         chkxer('DTZRZF', INFOT, NOUT, LERR, OK );
          INFOT = 7
-         CALL DTZRZF( 2, 2, A, 2, TAU, W, 0, INFO )
-         CALL CHKXER( 'DTZRZF', INFOT, NOUT, LERR, OK )
+         dtzrzf(2, 2, A, 2, TAU, W, 0, INFO );
+         chkxer('DTZRZF', INFOT, NOUT, LERR, OK );
          INFOT = 7
-         CALL DTZRZF( 2, 3, A, 2, TAU, W, 1, INFO )
-         CALL CHKXER( 'DTZRZF', INFOT, NOUT, LERR, OK )
+         dtzrzf(2, 3, A, 2, TAU, W, 1, INFO );
+         chkxer('DTZRZF', INFOT, NOUT, LERR, OK );
       }
 
       // Print a summary line.
 
-      CALL ALAESM( PATH, OK, NOUT )
+      alaesm(PATH, OK, NOUT );
 
       RETURN
 

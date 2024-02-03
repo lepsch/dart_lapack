@@ -105,7 +105,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'ZHESVXX', -INFO )
+         xerbla('ZHESVXX', -INFO );
          RETURN
       }
 
@@ -113,12 +113,12 @@
 
       // Compute row and column scalings to equilibrate the matrix A.
 
-         CALL ZHEEQUB( UPLO, N, A, LDA, S, SCOND, AMAX, WORK, INFEQU )
+         zheequb(UPLO, N, A, LDA, S, SCOND, AMAX, WORK, INFEQU );
          if ( INFEQU.EQ.0 ) {
 
       // Equilibrate the matrix.
 
-            CALL ZLAQHE( UPLO, N, A, LDA, S, SCOND, AMAX, EQUED )
+            zlaqhe(UPLO, N, A, LDA, S, SCOND, AMAX, EQUED );
             RCEQU = LSAME( EQUED, 'Y' )
          }
       }
@@ -131,8 +131,8 @@
 
          // Compute the LDL^H or UDU^H factorization of A.
 
-         CALL ZLACPY( UPLO, N, N, A, LDA, AF, LDAF )
-         CALL ZHETRF( UPLO, N, AF, LDAF, IPIV, WORK, 5*MAX(1,N), INFO )
+         zlacpy(UPLO, N, N, A, LDA, AF, LDAF );
+         zhetrf(UPLO, N, AF, LDAF, IPIV, WORK, 5*MAX(1,N), INFO );
 
          // Return if INFO is non-zero.
 
@@ -153,18 +153,18 @@
 
       // Compute the solution matrix X.
 
-      CALL ZLACPY( 'Full', N, NRHS, B, LDB, X, LDX )
-      CALL ZHETRS( UPLO, N, NRHS, AF, LDAF, IPIV, X, LDX, INFO )
+      zlacpy('Full', N, NRHS, B, LDB, X, LDX );
+      zhetrs(UPLO, N, NRHS, AF, LDAF, IPIV, X, LDX, INFO );
 
       // Use iterative refinement to improve the computed solution and
       // compute error bounds and backward error estimates for it.
 
-      CALL ZHERFSX( UPLO, EQUED, N, NRHS, A, LDA, AF, LDAF, IPIV, S, B, LDB, X, LDX, RCOND, BERR, N_ERR_BNDS, ERR_BNDS_NORM, ERR_BNDS_COMP, NPARAMS, PARAMS, WORK, RWORK, INFO )
+      zherfsx(UPLO, EQUED, N, NRHS, A, LDA, AF, LDAF, IPIV, S, B, LDB, X, LDX, RCOND, BERR, N_ERR_BNDS, ERR_BNDS_NORM, ERR_BNDS_COMP, NPARAMS, PARAMS, WORK, RWORK, INFO );
 
       // Scale solutions.
 
       if ( RCEQU ) {
-         CALL ZLASCL2 ( N, NRHS, S, X, LDX )
+         zlascl2(N, NRHS, S, X, LDX );
       }
 
       RETURN

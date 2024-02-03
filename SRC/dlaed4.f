@@ -55,7 +55,7 @@
          RETURN
       }
       if ( N.EQ.2 ) {
-         CALL DLAED5( I, D, Z, DELTA, RHO, DLAM )
+         dlaed5(I, D, Z, DELTA, RHO, DLAM );
          RETURN
       }
 

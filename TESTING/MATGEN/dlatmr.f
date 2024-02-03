@@ -218,7 +218,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'DLATMR', -INFO )
+         xerbla('DLATMR', -INFO );
          RETURN
       }
 
@@ -239,7 +239,7 @@
 
               // Compute D according to COND and MODE
 
-      CALL DLATM1( MODE, COND, IRSIGN, IDIST, ISEED, D, MNMIN, INFO )
+      dlatm1(MODE, COND, IRSIGN, IDIST, ISEED, D, MNMIN, INFO );
       if ( INFO.NE.0 ) {
          INFO = 1
          RETURN
@@ -270,7 +270,7 @@
       // Compute DL if grading set
 
       if ( IGRADE.EQ.1 .OR. IGRADE.EQ.3 .OR. IGRADE.EQ.4 .OR. IGRADE.EQ. 5 ) {
-         CALL DLATM1( MODEL, CONDL, 0, IDIST, ISEED, DL, M, INFO )
+         dlatm1(MODEL, CONDL, 0, IDIST, ISEED, DL, M, INFO );
          if ( INFO.NE.0 ) {
             INFO = 3
             RETURN
@@ -280,7 +280,7 @@
       // Compute DR if grading set
 
       if ( IGRADE.EQ.2 .OR. IGRADE.EQ.3 ) {
-         CALL DLATM1( MODER, CONDR, 0, IDIST, ISEED, DR, N, INFO )
+         dlatm1(MODER, CONDR, 0, IDIST, ISEED, DR, N, INFO );
          if ( INFO.NE.0 ) {
             INFO = 4
             RETURN
@@ -622,20 +622,20 @@
 
             if ( IPACK.LE.2 ) {
                DO 510 J = 1, N
-                  CALL DSCAL( M, ONE / ONORM, A( 1, J ), 1 )
-                  CALL DSCAL( M, ANORM, A( 1, J ), 1 )
+                  dscal(M, ONE / ONORM, A( 1, J ), 1 );
+                  dscal(M, ANORM, A( 1, J ), 1 );
   510          CONTINUE
 
             } else if ( IPACK.EQ.3 .OR. IPACK.EQ.4 ) {
 
-               CALL DSCAL( N*( N+1 ) / 2, ONE / ONORM, A, 1 )
-               CALL DSCAL( N*( N+1 ) / 2, ANORM, A, 1 )
+               dscal(N*( N+1 ) / 2, ONE / ONORM, A, 1 );
+               dscal(N*( N+1 ) / 2, ANORM, A, 1 );
 
             } else if ( IPACK.GE.5 ) {
 
                DO 520 J = 1, N
-                  CALL DSCAL( KLL+KUU+1, ONE / ONORM, A( 1, J ), 1 )
-                  CALL DSCAL( KLL+KUU+1, ANORM, A( 1, J ), 1 )
+                  dscal(KLL+KUU+1, ONE / ONORM, A( 1, J ), 1 );
+                  dscal(KLL+KUU+1, ANORM, A( 1, J ), 1 );
   520          CONTINUE
 
             }
@@ -646,17 +646,17 @@
 
             if ( IPACK.LE.2 ) {
                DO 530 J = 1, N
-                  CALL DSCAL( M, ANORM / ONORM, A( 1, J ), 1 )
+                  dscal(M, ANORM / ONORM, A( 1, J ), 1 );
   530          CONTINUE
 
             } else if ( IPACK.EQ.3 .OR. IPACK.EQ.4 ) {
 
-               CALL DSCAL( N*( N+1 ) / 2, ANORM / ONORM, A, 1 )
+               dscal(N*( N+1 ) / 2, ANORM / ONORM, A, 1 );
 
             } else if ( IPACK.GE.5 ) {
 
                DO 540 J = 1, N
-                  CALL DSCAL( KLL+KUU+1, ANORM / ONORM, A( 1, J ), 1 )
+                  dscal(KLL+KUU+1, ANORM / ONORM, A( 1, J ), 1 );
   540          CONTINUE
             }
 

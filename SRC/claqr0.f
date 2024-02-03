@@ -129,7 +129,7 @@
 
          // ==== Workspace query call to CLAQR3 ====
 
-         CALL CLAQR3( WANTT, WANTZ, N, ILO, IHI, NWR+1, H, LDH, ILOZ, IHIZ, Z, LDZ, LS, LD, W, H, LDH, N, H, LDH, N, H, LDH, WORK, -1 )
+         claqr3(WANTT, WANTZ, N, ILO, IHI, NWR+1, H, LDH, ILOZ, IHIZ, Z, LDZ, LS, LD, W, H, LDH, N, H, LDH, N, H, LDH, WORK, -1 );
 
          // ==== Optimal workspace = MAX(CLAQR5, CLAQR3) ====
 
@@ -258,7 +258,7 @@
 
             // ==== Aggressive early deflation ====
 
-            CALL CLAQR3( WANTT, WANTZ, N, KTOP, KBOT, NW, H, LDH, ILOZ, IHIZ, Z, LDZ, LS, LD, W, H( KV, 1 ), LDH, NHO, H( KV, KT ), LDH, NVE, H( KWV, 1 ), LDH, WORK, LWORK )
+            claqr3(WANTT, WANTZ, N, KTOP, KBOT, NW, H, LDH, ILOZ, IHIZ, Z, LDZ, LS, LD, W, H( KV, 1 ), LDH, NHO, H( KV, KT ), LDH, NVE, H( KWV, 1 ), LDH, WORK, LWORK );
 
             // ==== Adjust KBOT accounting for new deflations. ====
 
@@ -307,11 +307,11 @@
                   if ( KBOT-KS+1.LE.NS / 2 ) {
                      KS = KBOT - NS + 1
                      KT = N - NS + 1
-                     CALL CLACPY( 'A', NS, NS, H( KS, KS ), LDH, H( KT, 1 ), LDH )
+                     clacpy('A', NS, NS, H( KS, KS ), LDH, H( KT, 1 ), LDH );
                      if ( NS.GT.NMIN ) {
-                        CALL CLAQR4( .false., .false., NS, 1, NS, H( KT, 1 ), LDH, W( KS ), 1, 1, ZDUM, 1, WORK, LWORK, INF )
+                        claqr4(.false., .false., NS, 1, NS, H( KT, 1 ), LDH, W( KS ), 1, 1, ZDUM, 1, WORK, LWORK, INF );
                      } else {
-                        CALL CLAHQR( .false., .false., NS, 1, NS, H( KT, 1 ), LDH, W( KS ), 1, 1, ZDUM, 1, INF )
+                        clahqr(.false., .false., NS, 1, NS, H( KT, 1 ), LDH, W( KS ), 1, 1, ZDUM, 1, INF );
                      }
                      KS = KS + INF
 
@@ -399,7 +399,7 @@
 
                // ==== Small-bulge multi-shift QR sweep ====
 
-               CALL CLAQR5( WANTT, WANTZ, KACC22, N, KTOP, KBOT, NS, W( KS ), H, LDH, ILOZ, IHIZ, Z, LDZ, WORK, 3, H( KU, 1 ), LDH, NVE, H( KWV, 1 ), LDH, NHO, H( KU, KWH ), LDH )
+               claqr5(WANTT, WANTZ, KACC22, N, KTOP, KBOT, NS, W( KS ), H, LDH, ILOZ, IHIZ, Z, LDZ, WORK, 3, H( KU, 1 ), LDH, NVE, H( KWV, 1 ), LDH, NHO, H( KU, KWH ), LDH );
             }
 
             // ==== Note progress (or the lack of it). ====

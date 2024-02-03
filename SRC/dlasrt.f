@@ -49,7 +49,7 @@
          INFO = -2
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'DLASRT', -INFO )
+         xerbla('DLASRT', -INFO );
          RETURN
       }
 

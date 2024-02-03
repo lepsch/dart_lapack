@@ -101,7 +101,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'SGEGV ', -INFO )
+         xerbla('SGEGV ', -INFO );
          RETURN
       } else if ( LQUERY ) {
          RETURN
@@ -132,7 +132,7 @@
       }
 
       if ( ANRM.GT.ZERO ) {
-         CALL SLASCL( 'G', -1, -1, ANRM, ONE, N, N, A, LDA, IINFO )
+         slascl('G', -1, -1, ANRM, ONE, N, N, A, LDA, IINFO );
          if ( IINFO.NE.0 ) {
             INFO = N + 10
             RETURN
@@ -152,7 +152,7 @@
       }
 
       if ( BNRM.GT.ZERO ) {
-         CALL SLASCL( 'G', -1, -1, BNRM, ONE, N, N, B, LDB, IINFO )
+         slascl('G', -1, -1, BNRM, ONE, N, N, B, LDB, IINFO );
          if ( IINFO.NE.0 ) {
             INFO = N + 10
             RETURN
@@ -166,7 +166,7 @@
       ILEFT = 1
       IRIGHT = N + 1
       IWORK = IRIGHT + N
-      CALL SGGBAL( 'P', N, A, LDA, B, LDB, ILO, IHI, WORK( ILEFT ), WORK( IRIGHT ), WORK( IWORK ), IINFO )
+      sggbal('P', N, A, LDA, B, LDB, ILO, IHI, WORK( ILEFT ), WORK( IRIGHT ), WORK( IWORK ), IINFO );
       if ( IINFO.NE.0 ) {
          INFO = N + 1
          GO TO 120
@@ -184,13 +184,13 @@
       }
       ITAU = IWORK
       IWORK = ITAU + IROWS
-      CALL SGEQRF( IROWS, ICOLS, B( ILO, ILO ), LDB, WORK( ITAU ), WORK( IWORK ), LWORK+1-IWORK, IINFO )       IF( IINFO.GE.0 ) LWKOPT = MAX( LWKOPT, INT( WORK( IWORK ) )+IWORK-1 )
+      sgeqrf(IROWS, ICOLS, B( ILO, ILO ), LDB, WORK( ITAU ), WORK( IWORK ), LWORK+1-IWORK, IINFO )       IF( IINFO.GE.0 ) LWKOPT = MAX( LWKOPT, INT( WORK( IWORK ) )+IWORK-1 );
       if ( IINFO.NE.0 ) {
          INFO = N + 2
          GO TO 120
       }
 
-      CALL SORMQR( 'L', 'T', IROWS, ICOLS, IROWS, B( ILO, ILO ), LDB, WORK( ITAU ), A( ILO, ILO ), LDA, WORK( IWORK ), LWORK+1-IWORK, IINFO )
+      sormqr('L', 'T', IROWS, ICOLS, IROWS, B( ILO, ILO ), LDB, WORK( ITAU ), A( ILO, ILO ), LDA, WORK( IWORK ), LWORK+1-IWORK, IINFO );
       IF( IINFO.GE.0 ) LWKOPT = MAX( LWKOPT, INT( WORK( IWORK ) )+IWORK-1 )
       if ( IINFO.NE.0 ) {
          INFO = N + 3
@@ -198,8 +198,8 @@
       }
 
       if ( ILVL ) {
-         CALL SLASET( 'Full', N, N, ZERO, ONE, VL, LDVL )
-         CALL SLACPY( 'L', IROWS-1, IROWS-1, B( ILO+1, ILO ), LDB, VL( ILO+1, ILO ), LDVL )          CALL SORGQR( IROWS, IROWS, IROWS, VL( ILO, ILO ), LDVL, WORK( ITAU ), WORK( IWORK ), LWORK+1-IWORK, IINFO )
+         slaset('Full', N, N, ZERO, ONE, VL, LDVL );
+         slacpy('L', IROWS-1, IROWS-1, B( ILO+1, ILO ), LDB, VL( ILO+1, ILO ), LDVL )          CALL SORGQR( IROWS, IROWS, IROWS, VL( ILO, ILO ), LDVL, WORK( ITAU ), WORK( IWORK ), LWORK+1-IWORK, IINFO );
          IF( IINFO.GE.0 ) LWKOPT = MAX( LWKOPT, INT( WORK( IWORK ) )+IWORK-1 )
          if ( IINFO.NE.0 ) {
             INFO = N + 4
@@ -215,9 +215,9 @@
 
          // Eigenvectors requested -- work on whole matrix.
 
-         CALL SGGHRD( JOBVL, JOBVR, N, ILO, IHI, A, LDA, B, LDB, VL, LDVL, VR, LDVR, IINFO )
+         sgghrd(JOBVL, JOBVR, N, ILO, IHI, A, LDA, B, LDB, VL, LDVL, VR, LDVR, IINFO );
       } else {
-         CALL SGGHRD( 'N', 'N', IROWS, 1, IROWS, A( ILO, ILO ), LDA, B( ILO, ILO ), LDB, VL, LDVL, VR, LDVR, IINFO )
+         sgghrd('N', 'N', IROWS, 1, IROWS, A( ILO, ILO ), LDA, B( ILO, ILO ), LDB, VL, LDVL, VR, LDVR, IINFO );
       }
       if ( IINFO.NE.0 ) {
          INFO = N + 5
@@ -234,7 +234,7 @@
       } else {
          CHTEMP = 'E'
       }
-      CALL SHGEQZ( CHTEMP, JOBVL, JOBVR, N, ILO, IHI, A, LDA, B, LDB, ALPHAR, ALPHAI, BETA, VL, LDVL, VR, LDVR, WORK( IWORK ), LWORK+1-IWORK, IINFO )
+      shgeqz(CHTEMP, JOBVL, JOBVR, N, ILO, IHI, A, LDA, B, LDB, ALPHAR, ALPHAI, BETA, VL, LDVL, VR, LDVR, WORK( IWORK ), LWORK+1-IWORK, IINFO );
       IF( IINFO.GE.0 ) LWKOPT = MAX( LWKOPT, INT( WORK( IWORK ) )+IWORK-1 )
       if ( IINFO.NE.0 ) {
          if ( IINFO.GT.0 .AND. IINFO.LE.N ) {
@@ -261,7 +261,7 @@
             CHTEMP = 'R'
          }
 
-         CALL STGEVC( CHTEMP, 'B', LDUMMA, N, A, LDA, B, LDB, VL, LDVL, VR, LDVR, N, IN, WORK( IWORK ), IINFO )
+         stgevc(CHTEMP, 'B', LDUMMA, N, A, LDA, B, LDB, VL, LDVL, VR, LDVR, N, IN, WORK( IWORK ), IINFO );
          if ( IINFO.NE.0 ) {
             INFO = N + 7
             GO TO 120
@@ -270,7 +270,7 @@
          // Undo balancing on VL and VR, rescale
 
          if ( ILVL ) {
-            CALL SGGBAK( 'P', 'L', N, ILO, IHI, WORK( ILEFT ), WORK( IRIGHT ), N, VL, LDVL, IINFO )
+            sggbak('P', 'L', N, ILO, IHI, WORK( ILEFT ), WORK( IRIGHT ), N, VL, LDVL, IINFO );
             if ( IINFO.NE.0 ) {
                INFO = N + 8
                GO TO 120
@@ -302,7 +302,7 @@
    50       CONTINUE
          }
          if ( ILVR ) {
-            CALL SGGBAK( 'P', 'R', N, ILO, IHI, WORK( ILEFT ), WORK( IRIGHT ), N, VR, LDVR, IINFO )
+            sggbak('P', 'R', N, ILO, IHI, WORK( ILEFT ), WORK( IRIGHT ), N, VR, LDVR, IINFO );
             if ( IINFO.NE.0 ) {
                INFO = N + 9
                GO TO 120

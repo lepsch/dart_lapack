@@ -60,20 +60,20 @@
 
       SRNAMT = 'SGEQR'
       INFOT = 1
-      CALL SGEQR( -1, 0, A, 1, TAU, 1, W, 1, INFO )
-      CALL CHKXER( 'SGEQR', INFOT, NOUT, LERR, OK )
+      sgeqr(-1, 0, A, 1, TAU, 1, W, 1, INFO );
+      chkxer('SGEQR', INFOT, NOUT, LERR, OK );
       INFOT = 2
-      CALL SGEQR( 0, -1, A, 1, TAU, 1, W, 1, INFO )
-      CALL CHKXER( 'SGEQR', INFOT, NOUT, LERR, OK )
+      sgeqr(0, -1, A, 1, TAU, 1, W, 1, INFO );
+      chkxer('SGEQR', INFOT, NOUT, LERR, OK );
       INFOT = 4
-      CALL SGEQR( 1, 1, A, 0, TAU, 1, W, 1, INFO )
-      CALL CHKXER( 'SGEQR', INFOT, NOUT, LERR, OK )
+      sgeqr(1, 1, A, 0, TAU, 1, W, 1, INFO );
+      chkxer('SGEQR', INFOT, NOUT, LERR, OK );
       INFOT = 6
-      CALL SGEQR( 3, 2, A, 3, TAU, 1, W, 1, INFO )
-      CALL CHKXER( 'SGEQR', INFOT, NOUT, LERR, OK )
+      sgeqr(3, 2, A, 3, TAU, 1, W, 1, INFO );
+      chkxer('SGEQR', INFOT, NOUT, LERR, OK );
       INFOT = 8
-      CALL SGEQR( 3, 2, A, 3, TAU, 7, W, 0, INFO )
-      CALL CHKXER( 'SGEQR', INFOT, NOUT, LERR, OK )
+      sgeqr(3, 2, A, 3, TAU, 7, W, 0, INFO );
+      chkxer('SGEQR', INFOT, NOUT, LERR, OK );
 
       // SLATSQR
 
@@ -81,28 +81,28 @@
       NB = 1
       SRNAMT = 'SLATSQR'
       INFOT = 1
-      CALL SLATSQR( -1, 0, MB, NB, A, 1, TAU, 1, W, 1, INFO )
-      CALL CHKXER( 'SLATSQR', INFOT, NOUT, LERR, OK )
+      slatsqr(-1, 0, MB, NB, A, 1, TAU, 1, W, 1, INFO );
+      chkxer('SLATSQR', INFOT, NOUT, LERR, OK );
       INFOT = 2
-      CALL SLATSQR( 1, 2, MB, NB, A, 1, TAU, 1, W, 1, INFO )
-      CALL CHKXER( 'SLATSQR', INFOT, NOUT, LERR, OK )
-      CALL SLATSQR( 0, -1, MB, NB, A, 1, TAU, 1, W, 1, INFO )
-      CALL CHKXER( 'SLATSQR', INFOT, NOUT, LERR, OK )
+      slatsqr(1, 2, MB, NB, A, 1, TAU, 1, W, 1, INFO );
+      chkxer('SLATSQR', INFOT, NOUT, LERR, OK );
+      slatsqr(0, -1, MB, NB, A, 1, TAU, 1, W, 1, INFO );
+      chkxer('SLATSQR', INFOT, NOUT, LERR, OK );
       INFOT = 3
-      CALL SLATSQR( 2, 1, -1, NB, A, 2, TAU, 1, W, 1, INFO )
-      CALL CHKXER( 'SLATSQR', INFOT, NOUT, LERR, OK )
+      slatsqr(2, 1, -1, NB, A, 2, TAU, 1, W, 1, INFO );
+      chkxer('SLATSQR', INFOT, NOUT, LERR, OK );
       INFOT = 4
-      CALL SLATSQR( 2, 1, MB, 2, A, 2, TAU, 1, W, 1, INFO )
-      CALL CHKXER( 'SLATSQR', INFOT, NOUT, LERR, OK )
+      slatsqr(2, 1, MB, 2, A, 2, TAU, 1, W, 1, INFO );
+      chkxer('SLATSQR', INFOT, NOUT, LERR, OK );
       INFOT = 6
-      CALL SLATSQR( 2, 1, MB, NB, A, 1, TAU, 1, W, 1, INFO )
-      CALL CHKXER( 'SLATSQR', INFOT, NOUT, LERR, OK )
+      slatsqr(2, 1, MB, NB, A, 1, TAU, 1, W, 1, INFO );
+      chkxer('SLATSQR', INFOT, NOUT, LERR, OK );
       INFOT = 8
-      CALL SLATSQR( 2, 1, MB, NB, A, 2, TAU, 0, W, 1, INFO )
-      CALL CHKXER( 'SLATSQR', INFOT, NOUT, LERR, OK )
+      slatsqr(2, 1, MB, NB, A, 2, TAU, 0, W, 1, INFO );
+      chkxer('SLATSQR', INFOT, NOUT, LERR, OK );
       INFOT = 10
-      CALL SLATSQR( 2, 1, MB, NB, A, 2, TAU, 2, W, 0, INFO )
-      CALL CHKXER( 'SLATSQR', INFOT, NOUT, LERR, OK )
+      slatsqr(2, 1, MB, NB, A, 2, TAU, 2, W, 0, INFO );
+      chkxer('SLATSQR', INFOT, NOUT, LERR, OK );
 
       // SGEMQR
 
@@ -113,57 +113,57 @@
       SRNAMT = 'SGEMQR'
       NB=1
       INFOT = 1
-      CALL SGEMQR( '/', 'N', 0, 0, 0, A, 1, TAU, 1, C, 1, W, 1,INFO)
-      CALL CHKXER( 'SGEMQR', INFOT, NOUT, LERR, OK )
+      sgemqr('/', 'N', 0, 0, 0, A, 1, TAU, 1, C, 1, W, 1,INFO);
+      chkxer('SGEMQR', INFOT, NOUT, LERR, OK );
       INFOT = 2
-      CALL SGEMQR( 'L', '/', 0, 0, 0, A, 1, TAU, 1, C, 1, W, 1,INFO)
-      CALL CHKXER( 'SGEMQR', INFOT, NOUT, LERR, OK )
+      sgemqr('L', '/', 0, 0, 0, A, 1, TAU, 1, C, 1, W, 1,INFO);
+      chkxer('SGEMQR', INFOT, NOUT, LERR, OK );
       INFOT = 3
-      CALL SGEMQR( 'L', 'N', -1, 0, 0, A, 1, TAU, 1, C, 1, W,1,INFO)
-      CALL CHKXER( 'SGEMQR', INFOT, NOUT, LERR, OK )
+      sgemqr('L', 'N', -1, 0, 0, A, 1, TAU, 1, C, 1, W,1,INFO);
+      chkxer('SGEMQR', INFOT, NOUT, LERR, OK );
       INFOT = 4
-      CALL SGEMQR( 'L', 'N', 0, -1, 0, A, 1, TAU, 1, C, 1, W,1,INFO)
-      CALL CHKXER( 'SGEMQR', INFOT, NOUT, LERR, OK )
+      sgemqr('L', 'N', 0, -1, 0, A, 1, TAU, 1, C, 1, W,1,INFO);
+      chkxer('SGEMQR', INFOT, NOUT, LERR, OK );
       INFOT = 5
-      CALL SGEMQR( 'L', 'N', 0, 0, -1, A, 1, TAU, 1, C, 1, W,1,INFO)
-      CALL CHKXER( 'SGEMQR', INFOT, NOUT, LERR, OK )
+      sgemqr('L', 'N', 0, 0, -1, A, 1, TAU, 1, C, 1, W,1,INFO);
+      chkxer('SGEMQR', INFOT, NOUT, LERR, OK );
       INFOT = 5
-      CALL SGEMQR( 'R', 'N', 0, 0, -1, A, 1, TAU, 1, C, 1, W,1,INFO)
-      CALL CHKXER( 'SGEMQR', INFOT, NOUT, LERR, OK )
+      sgemqr('R', 'N', 0, 0, -1, A, 1, TAU, 1, C, 1, W,1,INFO);
+      chkxer('SGEMQR', INFOT, NOUT, LERR, OK );
       INFOT = 7
-      CALL SGEMQR( 'L', 'N', 2, 1, 0, A, 0, TAU, 1, C, 1, W, 1,INFO)
-      CALL CHKXER( 'SGEMQR', INFOT, NOUT, LERR, OK )
+      sgemqr('L', 'N', 2, 1, 0, A, 0, TAU, 1, C, 1, W, 1,INFO);
+      chkxer('SGEMQR', INFOT, NOUT, LERR, OK );
       INFOT = 9
-      CALL SGEMQR( 'R', 'N', 2, 2, 1, A, 2, TAU, 0, C, 1, W, 1,INFO)
-      CALL CHKXER( 'SGEMQR', INFOT, NOUT, LERR, OK )
+      sgemqr('R', 'N', 2, 2, 1, A, 2, TAU, 0, C, 1, W, 1,INFO);
+      chkxer('SGEMQR', INFOT, NOUT, LERR, OK );
       INFOT = 9
-      CALL SGEMQR( 'L', 'N', 2, 2, 1, A, 2, TAU, 0, C, 1, W, 1,INFO)
-      CALL CHKXER( 'SGEMQR', INFOT, NOUT, LERR, OK )
+      sgemqr('L', 'N', 2, 2, 1, A, 2, TAU, 0, C, 1, W, 1,INFO);
+      chkxer('SGEMQR', INFOT, NOUT, LERR, OK );
       INFOT = 11
-      CALL SGEMQR( 'L', 'N', 2, 1, 1, A, 2, TAU, 6, C, 0, W, 1,INFO)
-      CALL CHKXER( 'SGEMQR', INFOT, NOUT, LERR, OK )
+      sgemqr('L', 'N', 2, 1, 1, A, 2, TAU, 6, C, 0, W, 1,INFO);
+      chkxer('SGEMQR', INFOT, NOUT, LERR, OK );
       INFOT = 13
-      CALL SGEMQR( 'L', 'N', 2, 2, 1, A, 2, TAU, 6, C, 2, W, 0,INFO)
-      CALL CHKXER( 'SGEMQR', INFOT, NOUT, LERR, OK )
+      sgemqr('L', 'N', 2, 2, 1, A, 2, TAU, 6, C, 2, W, 0,INFO);
+      chkxer('SGEMQR', INFOT, NOUT, LERR, OK );
 
       // SGELQ
 
       SRNAMT = 'SGELQ'
       INFOT = 1
-      CALL SGELQ( -1, 0, A, 1, TAU, 1, W, 1, INFO )
-      CALL CHKXER( 'SGELQ', INFOT, NOUT, LERR, OK )
+      sgelq(-1, 0, A, 1, TAU, 1, W, 1, INFO );
+      chkxer('SGELQ', INFOT, NOUT, LERR, OK );
       INFOT = 2
-      CALL SGELQ( 0, -1, A, 1, TAU, 1, W, 1, INFO )
-      CALL CHKXER( 'SGELQ', INFOT, NOUT, LERR, OK )
+      sgelq(0, -1, A, 1, TAU, 1, W, 1, INFO );
+      chkxer('SGELQ', INFOT, NOUT, LERR, OK );
       INFOT = 4
-      CALL SGELQ( 1, 1, A, 0, TAU, 1, W, 1, INFO )
-      CALL CHKXER( 'SGELQ', INFOT, NOUT, LERR, OK )
+      sgelq(1, 1, A, 0, TAU, 1, W, 1, INFO );
+      chkxer('SGELQ', INFOT, NOUT, LERR, OK );
       INFOT = 6
-      CALL SGELQ( 2, 3, A, 3, TAU, 1, W, 1, INFO )
-      CALL CHKXER( 'SGELQ', INFOT, NOUT, LERR, OK )
+      sgelq(2, 3, A, 3, TAU, 1, W, 1, INFO );
+      chkxer('SGELQ', INFOT, NOUT, LERR, OK );
       INFOT = 8
-      CALL SGELQ( 2, 3, A, 3, TAU, 7, W, 0, INFO )
-      CALL CHKXER( 'SGELQ', INFOT, NOUT, LERR, OK )
+      sgelq(2, 3, A, 3, TAU, 7, W, 0, INFO );
+      chkxer('SGELQ', INFOT, NOUT, LERR, OK );
 
       // SLASWLQ
 
@@ -171,30 +171,30 @@
       NB = 1
       SRNAMT = 'SLASWLQ'
       INFOT = 1
-      CALL SLASWLQ( -1, 0, MB, NB, A, 1, TAU, 1, W, 1, INFO )
-      CALL CHKXER( 'SLASWLQ', INFOT, NOUT, LERR, OK )
+      slaswlq(-1, 0, MB, NB, A, 1, TAU, 1, W, 1, INFO );
+      chkxer('SLASWLQ', INFOT, NOUT, LERR, OK );
       INFOT = 2
-      CALL SLASWLQ( 2, 1, MB, NB, A, 1, TAU, 1, W, 1, INFO )
-      CALL CHKXER( 'SLASWLQ', INFOT, NOUT, LERR, OK )
-      CALL SLASWLQ( 0, -1, MB, NB, A, 1, TAU, 1, W, 1, INFO )
-      CALL CHKXER( 'SLASWLQ', INFOT, NOUT, LERR, OK )
+      slaswlq(2, 1, MB, NB, A, 1, TAU, 1, W, 1, INFO );
+      chkxer('SLASWLQ', INFOT, NOUT, LERR, OK );
+      slaswlq(0, -1, MB, NB, A, 1, TAU, 1, W, 1, INFO );
+      chkxer('SLASWLQ', INFOT, NOUT, LERR, OK );
       INFOT = 3
-      CALL SLASWLQ( 1, 2, -1, NB, A, 1, TAU, 1, W, 1, INFO )
-      CALL CHKXER( 'SLASWLQ', INFOT, NOUT, LERR, OK )
-      CALL SLASWLQ( 1, 1, 2, NB, A, 1, TAU, 1, W, 1, INFO )
-      CALL CHKXER( 'SLASWLQ', INFOT, NOUT, LERR, OK )
+      slaswlq(1, 2, -1, NB, A, 1, TAU, 1, W, 1, INFO );
+      chkxer('SLASWLQ', INFOT, NOUT, LERR, OK );
+      slaswlq(1, 1, 2, NB, A, 1, TAU, 1, W, 1, INFO );
+      chkxer('SLASWLQ', INFOT, NOUT, LERR, OK );
       INFOT = 4
-      CALL SLASWLQ( 1, 2, MB, -1, A, 1, TAU, 1, W, 1, INFO )
-      CALL CHKXER( 'SLASWLQ', INFOT, NOUT, LERR, OK )
+      slaswlq(1, 2, MB, -1, A, 1, TAU, 1, W, 1, INFO );
+      chkxer('SLASWLQ', INFOT, NOUT, LERR, OK );
       INFOT = 6
-      CALL SLASWLQ( 1, 2, MB, NB, A, 0, TAU, 1, W, 1, INFO )
-      CALL CHKXER( 'SLASWLQ', INFOT, NOUT, LERR, OK )
+      slaswlq(1, 2, MB, NB, A, 0, TAU, 1, W, 1, INFO );
+      chkxer('SLASWLQ', INFOT, NOUT, LERR, OK );
       INFOT = 8
-      CALL SLASWLQ( 1, 2, MB, NB, A, 1, TAU, 0, W, 1, INFO )
-      CALL CHKXER( 'SLASWLQ', INFOT, NOUT, LERR, OK )
+      slaswlq(1, 2, MB, NB, A, 1, TAU, 0, W, 1, INFO );
+      chkxer('SLASWLQ', INFOT, NOUT, LERR, OK );
       INFOT = 10
-      CALL SLASWLQ( 1, 2, MB, NB, A, 1, TAU, 1, W, 0, INFO )
-      CALL CHKXER( 'SLASWLQ', INFOT, NOUT, LERR, OK )
+      slaswlq(1, 2, MB, NB, A, 1, TAU, 1, W, 0, INFO );
+      chkxer('SLASWLQ', INFOT, NOUT, LERR, OK );
 
       // SGEMLQ
 
@@ -203,42 +203,42 @@
       SRNAMT = 'SGEMLQ'
       NB=1
       INFOT = 1
-      CALL SGEMLQ( '/', 'N', 0, 0, 0, A, 1, TAU, 1, C, 1, W, 1,INFO)
-      CALL CHKXER( 'SGEMLQ', INFOT, NOUT, LERR, OK )
+      sgemlq('/', 'N', 0, 0, 0, A, 1, TAU, 1, C, 1, W, 1,INFO);
+      chkxer('SGEMLQ', INFOT, NOUT, LERR, OK );
       INFOT = 2
-      CALL SGEMLQ( 'L', '/', 0, 0, 0, A, 1, TAU, 1, C, 1, W, 1,INFO)
-      CALL CHKXER( 'SGEMLQ', INFOT, NOUT, LERR, OK )
+      sgemlq('L', '/', 0, 0, 0, A, 1, TAU, 1, C, 1, W, 1,INFO);
+      chkxer('SGEMLQ', INFOT, NOUT, LERR, OK );
       INFOT = 3
-      CALL SGEMLQ( 'L', 'N', -1, 0, 0, A, 1, TAU, 1, C, 1, W,1,INFO)
-      CALL CHKXER( 'SGEMLQ', INFOT, NOUT, LERR, OK )
+      sgemlq('L', 'N', -1, 0, 0, A, 1, TAU, 1, C, 1, W,1,INFO);
+      chkxer('SGEMLQ', INFOT, NOUT, LERR, OK );
       INFOT = 4
-      CALL SGEMLQ( 'L', 'N', 0, -1, 0, A, 1, TAU, 1, C, 1, W,1,INFO)
-      CALL CHKXER( 'SGEMLQ', INFOT, NOUT, LERR, OK )
+      sgemlq('L', 'N', 0, -1, 0, A, 1, TAU, 1, C, 1, W,1,INFO);
+      chkxer('SGEMLQ', INFOT, NOUT, LERR, OK );
       INFOT = 5
-      CALL SGEMLQ( 'L', 'N', 0, 0, -1, A, 1, TAU, 1, C, 1, W,1,INFO)
-      CALL CHKXER( 'SGEMLQ', INFOT, NOUT, LERR, OK )
+      sgemlq('L', 'N', 0, 0, -1, A, 1, TAU, 1, C, 1, W,1,INFO);
+      chkxer('SGEMLQ', INFOT, NOUT, LERR, OK );
       INFOT = 5
-      CALL SGEMLQ( 'R', 'N', 0, 0, -1, A, 1, TAU, 1, C, 1, W,1,INFO)
-      CALL CHKXER( 'SGEMLQ', INFOT, NOUT, LERR, OK )
+      sgemlq('R', 'N', 0, 0, -1, A, 1, TAU, 1, C, 1, W,1,INFO);
+      chkxer('SGEMLQ', INFOT, NOUT, LERR, OK );
       INFOT = 7
-      CALL SGEMLQ( 'L', 'N', 1, 2, 0, A, 0, TAU, 1, C, 1, W, 1,INFO)
-      CALL CHKXER( 'SGEMLQ', INFOT, NOUT, LERR, OK )
+      sgemlq('L', 'N', 1, 2, 0, A, 0, TAU, 1, C, 1, W, 1,INFO);
+      chkxer('SGEMLQ', INFOT, NOUT, LERR, OK );
       INFOT = 9
-      CALL SGEMLQ( 'R', 'N', 2, 2, 1, A, 1, TAU, 0, C, 1, W, 1,INFO)
-      CALL CHKXER( 'SGEMLQ', INFOT, NOUT, LERR, OK )
+      sgemlq('R', 'N', 2, 2, 1, A, 1, TAU, 0, C, 1, W, 1,INFO);
+      chkxer('SGEMLQ', INFOT, NOUT, LERR, OK );
       INFOT = 9
-      CALL SGEMLQ( 'L', 'N', 2, 2, 1, A, 1, TAU, 0, C, 1, W, 1,INFO)
-      CALL CHKXER( 'SGEMLQ', INFOT, NOUT, LERR, OK )
+      sgemlq('L', 'N', 2, 2, 1, A, 1, TAU, 0, C, 1, W, 1,INFO);
+      chkxer('SGEMLQ', INFOT, NOUT, LERR, OK );
       INFOT = 11
-      CALL SGEMLQ( 'L', 'N', 1, 2, 1, A, 1, TAU, 6, C, 0, W, 1,INFO)
-      CALL CHKXER( 'SGEMLQ', INFOT, NOUT, LERR, OK )
+      sgemlq('L', 'N', 1, 2, 1, A, 1, TAU, 6, C, 0, W, 1,INFO);
+      chkxer('SGEMLQ', INFOT, NOUT, LERR, OK );
       INFOT = 13
-      CALL SGEMLQ( 'L', 'N', 2, 2, 1, A, 2, TAU, 6, C, 2, W, 0,INFO)
-      CALL CHKXER( 'SGEMLQ', INFOT, NOUT, LERR, OK )
+      sgemlq('L', 'N', 2, 2, 1, A, 2, TAU, 6, C, 2, W, 0,INFO);
+      chkxer('SGEMLQ', INFOT, NOUT, LERR, OK );
 
       // Print a summary line.
 
-      CALL ALAESM( PATH, OK, NOUT )
+      alaesm(PATH, OK, NOUT );
 
       RETURN
 

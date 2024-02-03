@@ -59,7 +59,7 @@
          INFO = -4
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'ZHETF2', -INFO )
+         xerbla('ZHETF2', -INFO );
          RETURN
       }
 
@@ -161,7 +161,7 @@
                // Interchange rows and columns KK and KP in the leading
                // submatrix A(1:k,1:k)
 
-               CALL ZSWAP( KP-1, A( 1, KK ), 1, A( 1, KP ), 1 )
+               zswap(KP-1, A( 1, KK ), 1, A( 1, KP ), 1 );
                DO 20 J = KP + 1, KK - 1
                   T = DCONJG( A( J, KK ) )
                   A( J, KK ) = DCONJG( A( KP, J ) )
@@ -197,11 +197,11 @@
                // A := A - U(k)*D(k)*U(k)**H = A - W(k)*1/D(k)*W(k)**H
 
                R1 = ONE / DBLE( A( K, K ) )
-               CALL ZHER( UPLO, K-1, -R1, A( 1, K ), 1, A, LDA )
+               zher(UPLO, K-1, -R1, A( 1, K ), 1, A, LDA );
 
                // Store U(k) in column k
 
-               CALL ZDSCAL( K-1, R1, A( 1, K ), 1 )
+               zdscal(K-1, R1, A( 1, K ), 1 );
             } else {
 
                // 2-by-2 pivot block D(k): columns k and k-1 now hold
@@ -387,11 +387,11 @@
                   // A := A - L(k)*D(k)*L(k)**H = A - W(k)*(1/D(k))*W(k)**H
 
                   R1 = ONE / DBLE( A( K, K ) )
-                  CALL ZHER( UPLO, N-K, -R1, A( K+1, K ), 1, A( K+1, K+1 ), LDA )
+                  zher(UPLO, N-K, -R1, A( K+1, K ), 1, A( K+1, K+1 ), LDA );
 
                   // Store L(k) in column K
 
-                  CALL ZDSCAL( N-K, R1, A( K+1, K ), 1 )
+                  zdscal(N-K, R1, A( K+1, K ), 1 );
                }
             } else {
 

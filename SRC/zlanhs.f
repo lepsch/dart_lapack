@@ -84,7 +84,7 @@
          SCALE = ZERO
          SUM = ONE
          DO 90 J = 1, N
-            CALL ZLASSQ( MIN( N, J+1 ), A( 1, J ), 1, SCALE, SUM )
+            zlassq(MIN( N, J+1 ), A( 1, J ), 1, SCALE, SUM );
    90    CONTINUE
          VALUE = SCALE*SQRT( SUM )
       }

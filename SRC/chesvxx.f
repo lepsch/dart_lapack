@@ -104,7 +104,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'CHESVXX', -INFO )
+         xerbla('CHESVXX', -INFO );
          RETURN
       }
 
@@ -112,12 +112,12 @@
 
       // Compute row and column scalings to equilibrate the matrix A.
 
-         CALL CHEEQUB( UPLO, N, A, LDA, S, SCOND, AMAX, WORK, INFEQU )
+         cheequb(UPLO, N, A, LDA, S, SCOND, AMAX, WORK, INFEQU );
          if ( INFEQU.EQ.0 ) {
 
       // Equilibrate the matrix.
 
-            CALL CLAQHE( UPLO, N, A, LDA, S, SCOND, AMAX, EQUED )
+            claqhe(UPLO, N, A, LDA, S, SCOND, AMAX, EQUED );
             RCEQU = LSAME( EQUED, 'Y' )
          }
       }
@@ -130,8 +130,8 @@
 
          // Compute the LDL^H or UDU^H factorization of A.
 
-         CALL CLACPY( UPLO, N, N, A, LDA, AF, LDAF )
-         CALL CHETRF( UPLO, N, AF, LDAF, IPIV, WORK, 5*MAX(1,N), INFO )
+         clacpy(UPLO, N, N, A, LDA, AF, LDAF );
+         chetrf(UPLO, N, AF, LDAF, IPIV, WORK, 5*MAX(1,N), INFO );
 
          // Return if INFO is non-zero.
 
@@ -152,18 +152,18 @@
 
       // Compute the solution matrix X.
 
-      CALL CLACPY( 'Full', N, NRHS, B, LDB, X, LDX )
-      CALL CHETRS( UPLO, N, NRHS, AF, LDAF, IPIV, X, LDX, INFO )
+      clacpy('Full', N, NRHS, B, LDB, X, LDX );
+      chetrs(UPLO, N, NRHS, AF, LDAF, IPIV, X, LDX, INFO );
 
       // Use iterative refinement to improve the computed solution and
       // compute error bounds and backward error estimates for it.
 
-      CALL CHERFSX( UPLO, EQUED, N, NRHS, A, LDA, AF, LDAF, IPIV, S, B, LDB, X, LDX, RCOND, BERR, N_ERR_BNDS, ERR_BNDS_NORM, ERR_BNDS_COMP, NPARAMS, PARAMS, WORK, RWORK, INFO )
+      cherfsx(UPLO, EQUED, N, NRHS, A, LDA, AF, LDAF, IPIV, S, B, LDB, X, LDX, RCOND, BERR, N_ERR_BNDS, ERR_BNDS_NORM, ERR_BNDS_COMP, NPARAMS, PARAMS, WORK, RWORK, INFO );
 
       // Scale solutions.
 
       if ( RCEQU ) {
-         CALL CLASCL2 ( N, NRHS, S, X, LDX )
+         clascl2(N, NRHS, S, X, LDX );
       }
 
       RETURN

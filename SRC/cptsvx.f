@@ -52,7 +52,7 @@
          INFO = -11
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'CPTSVX', -INFO )
+         xerbla('CPTSVX', -INFO );
          RETURN
       }
 
@@ -60,9 +60,9 @@
 
          // Compute the L*D*L**H (or U**H*D*U) factorization of A.
 
-         CALL SCOPY( N, D, 1, DF, 1 )
+         scopy(N, D, 1, DF, 1 );
          IF( N.GT.1 ) CALL CCOPY( N-1, E, 1, EF, 1 )
-         CALL CPTTRF( N, DF, EF, INFO )
+         cpttrf(N, DF, EF, INFO );
 
          // Return if INFO is non-zero.
 
@@ -78,17 +78,17 @@
 
       // Compute the reciprocal of the condition number of A.
 
-      CALL CPTCON( N, DF, EF, ANORM, RCOND, RWORK, INFO )
+      cptcon(N, DF, EF, ANORM, RCOND, RWORK, INFO );
 
       // Compute the solution vectors X.
 
-      CALL CLACPY( 'Full', N, NRHS, B, LDB, X, LDX )
-      CALL CPTTRS( 'Lower', N, NRHS, DF, EF, X, LDX, INFO )
+      clacpy('Full', N, NRHS, B, LDB, X, LDX );
+      cpttrs('Lower', N, NRHS, DF, EF, X, LDX, INFO );
 
       // Use iterative refinement to improve the computed solutions and
       // compute error bounds and backward error estimates for them.
 
-      CALL CPTRFS( 'Lower', N, NRHS, D, E, DF, EF, B, LDB, X, LDX, FERR, BERR, WORK, RWORK, INFO )
+      cptrfs('Lower', N, NRHS, D, E, DF, EF, B, LDB, X, LDX, FERR, BERR, WORK, RWORK, INFO );
 
       // Set INFO = N+1 if the matrix is singular to working precision.
 

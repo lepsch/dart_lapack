@@ -40,15 +40,15 @@
 
       // Copy the matrix A to the array AF.
 
-      CALL DLACPY( 'Full', M, N, A, LDA, AF, LDA )
-      CALL DLACPY( 'Full', P, N, B, LDB, BF, LDB )
+      dlacpy('Full', M, N, A, LDA, AF, LDA );
+      dlacpy('Full', P, N, B, LDB, BF, LDB );
 
       ANORM = MAX( DLANGE( '1', M, N, A, LDA, RWORK ), UNFL )
       BNORM = MAX( DLANGE( '1', P, N, B, LDB, RWORK ), UNFL )
 
       // Factorize the matrices A and B in the arrays AF and BF.
 
-      CALL DGGSVD3( 'U', 'V', 'Q', M, N, P, K, L, AF, LDA, BF, LDB, ALPHA, BETA, U, LDU, V, LDV, Q, LDQ, WORK, LWORK, IWORK, INFO )
+      dggsvd3('U', 'V', 'Q', M, N, P, K, L, AF, LDA, BF, LDB, ALPHA, BETA, U, LDU, V, LDV, Q, LDQ, WORK, LWORK, IWORK, INFO );
 
       // Copy R
 
@@ -68,9 +68,9 @@
 
       // Compute A:= U'*A*Q - D1*R
 
-      CALL DGEMM( 'No transpose', 'No transpose', M, N, N, ONE, A, LDA, Q, LDQ, ZERO, WORK, LDA )
+      dgemm('No transpose', 'No transpose', M, N, N, ONE, A, LDA, Q, LDQ, ZERO, WORK, LDA );
 
-      CALL DGEMM( 'Transpose', 'No transpose', M, N, M, ONE, U, LDU, WORK, LDA, ZERO, A, LDA )
+      dgemm('Transpose', 'No transpose', M, N, M, ONE, U, LDU, WORK, LDA, ZERO, A, LDA );
 
       DO 60 I = 1, K
          DO 50 J = I, K + L
@@ -96,9 +96,9 @@
 
       // Compute B := V'*B*Q - D2*R
 
-      CALL DGEMM( 'No transpose', 'No transpose', P, N, N, ONE, B, LDB, Q, LDQ, ZERO, WORK, LDB )
+      dgemm('No transpose', 'No transpose', P, N, N, ONE, B, LDB, Q, LDQ, ZERO, WORK, LDB );
 
-      CALL DGEMM( 'Transpose', 'No transpose', P, N, P, ONE, V, LDV, WORK, LDB, ZERO, B, LDB )
+      dgemm('Transpose', 'No transpose', P, N, P, ONE, V, LDV, WORK, LDB, ZERO, B, LDB );
 
       DO 100 I = 1, L
          DO 90 J = I, L
@@ -117,8 +117,8 @@
 
       // Compute I - U'*U
 
-      CALL DLASET( 'Full', M, M, ZERO, ONE, WORK, LDQ )
-      CALL DSYRK( 'Upper', 'Transpose', M, M, -ONE, U, LDU, ONE, WORK, LDU )
+      dlaset('Full', M, M, ZERO, ONE, WORK, LDQ );
+      dsyrk('Upper', 'Transpose', M, M, -ONE, U, LDU, ONE, WORK, LDU );
 
       // Compute norm( I - U'*U ) / ( M * ULP ) .
 
@@ -127,8 +127,8 @@
 
       // Compute I - V'*V
 
-      CALL DLASET( 'Full', P, P, ZERO, ONE, WORK, LDV )
-      CALL DSYRK( 'Upper', 'Transpose', P, P, -ONE, V, LDV, ONE, WORK, LDV )
+      dlaset('Full', P, P, ZERO, ONE, WORK, LDV );
+      dsyrk('Upper', 'Transpose', P, P, -ONE, V, LDV, ONE, WORK, LDV );
 
       // Compute norm( I - V'*V ) / ( P * ULP ) .
 
@@ -137,8 +137,8 @@
 
       // Compute I - Q'*Q
 
-      CALL DLASET( 'Full', N, N, ZERO, ONE, WORK, LDQ )
-      CALL DSYRK( 'Upper', 'Transpose', N, N, -ONE, Q, LDQ, ONE, WORK, LDQ )
+      dlaset('Full', N, N, ZERO, ONE, WORK, LDQ );
+      dsyrk('Upper', 'Transpose', N, N, -ONE, Q, LDQ, ONE, WORK, LDQ );
 
       // Compute norm( I - Q'*Q ) / ( N * ULP ) .
 
@@ -147,7 +147,7 @@
 
       // Check sorting
 
-      CALL DCOPY( N, ALPHA, 1, WORK, 1 )
+      dcopy(N, ALPHA, 1, WORK, 1 );
       DO 110 I = K + 1, MIN( K+L, M )
          J = IWORK( I )
          if ( I.NE.J ) {

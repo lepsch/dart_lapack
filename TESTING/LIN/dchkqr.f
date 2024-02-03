@@ -74,7 +74,7 @@
 
       IF( TSTERR ) CALL DERRQR( PATH, NOUT )
       INFOT = 0
-      CALL XLAENV( 2, 2 )
+      xlaenv(2, 2 );
 
       LDA = NMAX
       LWORK = NMAX*MAX( NMAX, NRHS )
@@ -98,15 +98,15 @@
                // Set up parameters with DLATB4 and generate a test matrix
                // with DLATMS.
 
-               CALL DLATB4( PATH, IMAT, M, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST )
+               dlatb4(PATH, IMAT, M, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST );
 
                SRNAMT = 'DLATMS'
-               CALL DLATMS( M, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KL, KU, 'No packing', A, LDA, WORK, INFO )
+               dlatms(M, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KL, KU, 'No packing', A, LDA, WORK, INFO );
 
                // Check error code from DLATMS.
 
                if ( INFO.NE.0 ) {
-                  CALL ALAERH( PATH, 'DLATMS', INFO, 0, ' ', M, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT )
+                  alaerh(PATH, 'DLATMS', INFO, 0, ' ', M, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
                   GO TO 50
                }
 
@@ -137,9 +137,9 @@
 
                   DO 30 INB = 1, NNB
                      NB = NBVAL( INB )
-                     CALL XLAENV( 1, NB )
+                     xlaenv(1, NB );
                      NX = NXVAL( INB )
-                     CALL XLAENV( 3, NX )
+                     xlaenv(3, NX );
                      DO I = 1, NTESTS
                         RESULT( I ) = ZERO
                      END DO
@@ -148,12 +148,12 @@
 
                         // Test DGEQRF
 
-                        CALL DQRT01( M, N, A, AF, AQ, AR, LDA, TAU, WORK, LWORK, RWORK, RESULT( 1 ) )
+                        dqrt01(M, N, A, AF, AQ, AR, LDA, TAU, WORK, LWORK, RWORK, RESULT( 1 ) );
 
 
                         // Test DGEQRFP
 
-                        CALL DQRT01P( M, N, A, AF, AQ, AR, LDA, TAU, WORK, LWORK, RWORK, RESULT( 8 ) )
+                        dqrt01p(M, N, A, AF, AQ, AR, LDA, TAU, WORK, LWORK, RWORK, RESULT( 8 ) );
                           IF( .NOT. DGENND( M, N, AF, LDA ) ) RESULT( 9 ) = 2*THRESH
                         NT = NT + 1
                      } else if ( M.GE.N ) {
@@ -161,14 +161,14 @@
                         // Test DORGQR, using factorization
                         // returned by DQRT01
 
-                        CALL DQRT02( M, N, K, A, AF, AQ, AR, LDA, TAU, WORK, LWORK, RWORK, RESULT( 1 ) )
+                        dqrt02(M, N, K, A, AF, AQ, AR, LDA, TAU, WORK, LWORK, RWORK, RESULT( 1 ) );
                      }
                      if ( M.GE.K ) {
 
                         // Test DORMQR, using factorization returned
                         // by DQRT01
 
-                        CALL DQRT03( M, N, K, AF, AC, AR, AQ, LDA, TAU, WORK, LWORK, RWORK, RESULT( 3 ) )
+                        dqrt03(M, N, K, AF, AC, AR, AQ, LDA, TAU, WORK, LWORK, RWORK, RESULT( 3 ) );
                         NT = NT + 4
 
                         // If M>=N and K=N, call DGELS to solve a system
@@ -181,23 +181,23 @@
                            // hand side.
 
                            SRNAMT = 'DLARHS'
-                           CALL DLARHS( PATH, 'New', 'Full', 'No transpose', M, N, 0, 0, NRHS, A, LDA, XACT, LDA, B, LDA, ISEED, INFO )
+                           dlarhs(PATH, 'New', 'Full', 'No transpose', M, N, 0, 0, NRHS, A, LDA, XACT, LDA, B, LDA, ISEED, INFO );
 
-                           CALL DLACPY( 'Full', M, NRHS, B, LDA, X, LDA )
+                           dlacpy('Full', M, NRHS, B, LDA, X, LDA );
 
                            // Reset AF. DGELS overwrites the matrix with
                            // its factorization.
 
-                           CALL DLACPY( 'Full', M, N, A, LDA, AF, LDA )
+                           dlacpy('Full', M, N, A, LDA, AF, LDA );
 
                            SRNAMT = 'DGELS'
-                           CALL DGELS( 'No transpose', M, N, NRHS, AF, LDA, X, LDA, WORK, LWORK, INFO )
+                           dgels('No transpose', M, N, NRHS, AF, LDA, X, LDA, WORK, LWORK, INFO );
 
                            // Check error code from DGELS.
 
                            IF( INFO.NE.0 ) CALL ALAERH( PATH, 'DGELS', INFO, 0, 'N', M, N, NRHS, -1, NB, IMAT, NFAIL, NERRS, NOUT )
 
-                           CALL DGET02( 'No transpose', M, N, NRHS, A, LDA, X, LDA, B, LDA, RWORK, RESULT( 7 ) )
+                           dget02('No transpose', M, N, NRHS, A, LDA, X, LDA, B, LDA, RWORK, RESULT( 7 ) );
                            NT = NT + 1
                         }
                      }
@@ -220,7 +220,7 @@
 
       // Print a summary of the results.
 
-      CALL ALASUM( PATH, NOUT, NFAIL, NRUN, NERRS )
+      alasum(PATH, NOUT, NFAIL, NRUN, NERRS );
 
  9999 FORMAT( ' M=', I5, ', N=', I5, ', K=', I5, ', NB=', I4, ', NX=', I5, ', type ', I2, ', test(', I2, ')=', G12.5 )
       RETURN

@@ -46,7 +46,7 @@
           INFO = 7
       }
       if (INFO.NE.0) {
-          CALL XERBLA('DTPSV ',INFO)
+          xerbla('DTPSV ',INFO);
           RETURN
       }
 

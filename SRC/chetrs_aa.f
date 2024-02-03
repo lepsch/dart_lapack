@@ -60,7 +60,7 @@
          INFO = -10
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'CHETRS_AA', -INFO )
+         xerbla('CHETRS_AA', -INFO );
          RETURN
       } else if ( LQUERY ) {
          WORK( 1 ) = SROUNDUP_LWORK( LWKMIN )
@@ -90,20 +90,20 @@
 
             // Compute U**H \ B -> B    [ (U**H \P**T * B) ]
 
-            CALL CTRSM( 'L', 'U', 'C', 'U', N-1, NRHS, ONE, A( 1, 2 ), LDA, B( 2, 1 ), LDB)
+            ctrsm('L', 'U', 'C', 'U', N-1, NRHS, ONE, A( 1, 2 ), LDA, B( 2, 1 ), LDB);
          }
 
          // 2) Solve with triangular matrix T
 
          // Compute T \ B -> B   [ T \ (U**H \P**T * B) ]
 
-         CALL CLACPY( 'F', 1, N, A(1, 1), LDA+1, WORK(N), 1)
+         clacpy('F', 1, N, A(1, 1), LDA+1, WORK(N), 1);
          if ( N.GT.1 ) {
-             CALL CLACPY( 'F', 1, N-1, A( 1, 2 ), LDA+1, WORK( 2*N ), 1)
-             CALL CLACPY( 'F', 1, N-1, A( 1, 2 ), LDA+1, WORK( 1 ), 1)
-             CALL CLACGV( N-1, WORK( 1 ), 1 )
+             clacpy('F', 1, N-1, A( 1, 2 ), LDA+1, WORK( 2*N ), 1);
+             clacpy('F', 1, N-1, A( 1, 2 ), LDA+1, WORK( 1 ), 1);
+             clacgv(N-1, WORK( 1 ), 1 );
          }
-         CALL CGTSV(N, NRHS, WORK(1), WORK(N), WORK(2*N), B, LDB, INFO)
+         cgtsv(N, NRHS, WORK(1), WORK(N), WORK(2*N), B, LDB, INFO);
 
          // 3) Backward substitution with U
 
@@ -111,7 +111,7 @@
 
             // Compute U \ B -> B   [ U \ (T \ (U**H \P**T * B) ) ]
 
-            CALL CTRSM( 'L', 'U', 'N', 'U', N-1, NRHS, ONE, A( 1, 2 ), LDA, B(2, 1), LDB)
+            ctrsm('L', 'U', 'N', 'U', N-1, NRHS, ONE, A( 1, 2 ), LDA, B(2, 1), LDB);
 
             // Pivot, P * B  -> B [ P * (U \ (T \ (U**H \P**T * B) )) ]
 
@@ -142,20 +142,20 @@
 
             // Compute L \ B -> B    [ (L \P**T * B) ]
 
-            CALL CTRSM( 'L', 'L', 'N', 'U', N-1, NRHS, ONE, A( 2, 1), LDA, B(2, 1), LDB )
+            ctrsm('L', 'L', 'N', 'U', N-1, NRHS, ONE, A( 2, 1), LDA, B(2, 1), LDB );
          }
 
          // 2) Solve with triangular matrix T
 
          // Compute T \ B -> B   [ T \ (L \P**T * B) ]
 
-         CALL CLACPY( 'F', 1, N, A(1, 1), LDA+1, WORK(N), 1)
+         clacpy('F', 1, N, A(1, 1), LDA+1, WORK(N), 1);
          if ( N.GT.1 ) {
-             CALL CLACPY( 'F', 1, N-1, A( 2, 1 ), LDA+1, WORK( 1 ), 1 )
-             CALL CLACPY( 'F', 1, N-1, A( 2, 1 ), LDA+1, WORK( 2*N ), 1)
-             CALL CLACGV( N-1, WORK( 2*N ), 1 )
+             clacpy('F', 1, N-1, A( 2, 1 ), LDA+1, WORK( 1 ), 1 );
+             clacpy('F', 1, N-1, A( 2, 1 ), LDA+1, WORK( 2*N ), 1);
+             clacgv(N-1, WORK( 2*N ), 1 );
          }
-         CALL CGTSV(N, NRHS, WORK(1), WORK(N), WORK(2*N), B, LDB, INFO)
+         cgtsv(N, NRHS, WORK(1), WORK(N), WORK(2*N), B, LDB, INFO);
 
          // 3) Backward substitution with L**H
 
@@ -163,7 +163,7 @@
 
             // Compute (L**H \ B) -> B   [ L**H \ (T \ (L \P**T * B) ) ]
 
-            CALL CTRSM( 'L', 'L', 'C', 'U', N-1, NRHS, ONE, A( 2, 1 ), LDA, B( 2, 1 ), LDB )
+            ctrsm('L', 'L', 'C', 'U', N-1, NRHS, ONE, A( 2, 1 ), LDA, B( 2, 1 ), LDB );
 
             // Pivot, P * B -> B  [ P * (L**H \ (T \ (L \P**T * B) )) ]
 

@@ -61,7 +61,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'SSYTRD', -INFO )
+         xerbla('SSYTRD', -INFO );
          RETURN
       } else if ( LQUERY ) {
          RETURN
@@ -117,12 +117,12 @@
             // matrix W which is needed to update the unreduced part of
             // the matrix
 
-            CALL SLATRD( UPLO, I+NB-1, NB, A, LDA, E, TAU, WORK, LDWORK )
+            slatrd(UPLO, I+NB-1, NB, A, LDA, E, TAU, WORK, LDWORK );
 
             // Update the unreduced submatrix A(1:i-1,1:i-1), using an
             // update of the form:  A := A - V*W**T - W*V**T
 
-            CALL SSYR2K( UPLO, 'No transpose', I-1, NB, -ONE, A( 1, I ), LDA, WORK, LDWORK, ONE, A, LDA )
+            ssyr2k(UPLO, 'No transpose', I-1, NB, -ONE, A( 1, I ), LDA, WORK, LDWORK, ONE, A, LDA );
 
             // Copy superdiagonal elements back into A, and diagonal
             // elements into D
@@ -135,7 +135,7 @@
 
          // Use unblocked code to reduce the last or only block
 
-         CALL SSYTD2( UPLO, KK, A, LDA, D, E, TAU, IINFO )
+         ssytd2(UPLO, KK, A, LDA, D, E, TAU, IINFO );
       } else {
 
          // Reduce the lower triangle of A
@@ -146,12 +146,12 @@
             // matrix W which is needed to update the unreduced part of
             // the matrix
 
-            CALL SLATRD( UPLO, N-I+1, NB, A( I, I ), LDA, E( I ), TAU( I ), WORK, LDWORK )
+            slatrd(UPLO, N-I+1, NB, A( I, I ), LDA, E( I ), TAU( I ), WORK, LDWORK );
 
             // Update the unreduced submatrix A(i+ib:n,i+ib:n), using
             // an update of the form:  A := A - V*W**T - W*V**T
 
-            CALL SSYR2K( UPLO, 'No transpose', N-I-NB+1, NB, -ONE, A( I+NB, I ), LDA, WORK( NB+1 ), LDWORK, ONE, A( I+NB, I+NB ), LDA )
+            ssyr2k(UPLO, 'No transpose', N-I-NB+1, NB, -ONE, A( I+NB, I ), LDA, WORK( NB+1 ), LDWORK, ONE, A( I+NB, I+NB ), LDA );
 
             // Copy subdiagonal elements back into A, and diagonal
             // elements into D
@@ -164,7 +164,7 @@
 
          // Use unblocked code to reduce the last or only block
 
-         CALL SSYTD2( UPLO, N-I+1, A( I, I ), LDA, D( I ), E( I ), TAU( I ), IINFO )
+         ssytd2(UPLO, N-I+1, A( I, I ), LDA, D( I ), E( I ), TAU( I ), IINFO );
       }
 
       WORK( 1 ) = SROUNDUP_LWORK(LWKOPT)

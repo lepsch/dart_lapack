@@ -56,7 +56,7 @@
          INFO = -7
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'ZSYCON_3', -INFO )
+         xerbla('ZSYCON_3', -INFO );
          RETURN
       }
 
@@ -92,12 +92,12 @@
 
       KASE = 0
    30 CONTINUE
-      CALL ZLACN2( N, WORK( N+1 ), WORK, AINVNM, KASE, ISAVE )
+      zlacn2(N, WORK( N+1 ), WORK, AINVNM, KASE, ISAVE );
       if ( KASE.NE.0 ) {
 
          // Multiply by inv(L*D*L**T) or inv(U*D*U**T).
 
-         CALL ZSYTRS_3( UPLO, N, 1, A, LDA, E, IPIV, WORK, N, INFO )
+         zsytrs_3(UPLO, N, 1, A, LDA, E, IPIV, WORK, N, INFO );
          GO TO 30
       }
 

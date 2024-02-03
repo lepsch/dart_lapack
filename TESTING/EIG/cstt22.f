@@ -92,7 +92,7 @@
 
       // Compute  U*U - I
 
-      CALL CGEMM( 'T', 'N', M, M, N, CONE, U, LDU, U, LDU, CZERO, WORK, M )
+      cgemm('T', 'N', M, M, N, CONE, U, LDU, U, LDU, CZERO, WORK, M );
 
       DO 50 J = 1, M
          WORK( J, J ) = WORK( J, J ) - ONE

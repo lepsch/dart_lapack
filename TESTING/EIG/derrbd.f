@@ -68,200 +68,200 @@
 
          SRNAMT = 'DGEBRD'
          INFOT = 1
-         CALL DGEBRD( -1, 0, A, 1, D, E, TQ, TP, W, 1, INFO )
-         CALL CHKXER( 'DGEBRD', INFOT, NOUT, LERR, OK )
+         dgebrd(-1, 0, A, 1, D, E, TQ, TP, W, 1, INFO );
+         chkxer('DGEBRD', INFOT, NOUT, LERR, OK );
          INFOT = 2
-         CALL DGEBRD( 0, -1, A, 1, D, E, TQ, TP, W, 1, INFO )
-         CALL CHKXER( 'DGEBRD', INFOT, NOUT, LERR, OK )
+         dgebrd(0, -1, A, 1, D, E, TQ, TP, W, 1, INFO );
+         chkxer('DGEBRD', INFOT, NOUT, LERR, OK );
          INFOT = 4
-         CALL DGEBRD( 2, 1, A, 1, D, E, TQ, TP, W, 2, INFO )
-         CALL CHKXER( 'DGEBRD', INFOT, NOUT, LERR, OK )
+         dgebrd(2, 1, A, 1, D, E, TQ, TP, W, 2, INFO );
+         chkxer('DGEBRD', INFOT, NOUT, LERR, OK );
          INFOT = 10
-         CALL DGEBRD( 2, 1, A, 2, D, E, TQ, TP, W, 1, INFO )
-         CALL CHKXER( 'DGEBRD', INFOT, NOUT, LERR, OK )
+         dgebrd(2, 1, A, 2, D, E, TQ, TP, W, 1, INFO );
+         chkxer('DGEBRD', INFOT, NOUT, LERR, OK );
          NT = NT + 4
 
          // DGEBD2
 
          SRNAMT = 'DGEBD2'
          INFOT = 1
-         CALL DGEBD2( -1, 0, A, 1, D, E, TQ, TP, W, INFO )
-         CALL CHKXER( 'DGEBD2', INFOT, NOUT, LERR, OK )
+         dgebd2(-1, 0, A, 1, D, E, TQ, TP, W, INFO );
+         chkxer('DGEBD2', INFOT, NOUT, LERR, OK );
          INFOT = 2
-         CALL DGEBD2( 0, -1, A, 1, D, E, TQ, TP, W, INFO )
-         CALL CHKXER( 'DGEBD2', INFOT, NOUT, LERR, OK )
+         dgebd2(0, -1, A, 1, D, E, TQ, TP, W, INFO );
+         chkxer('DGEBD2', INFOT, NOUT, LERR, OK );
          INFOT = 4
-         CALL DGEBD2( 2, 1, A, 1, D, E, TQ, TP, W, INFO )
-         CALL CHKXER( 'DGEBD2', INFOT, NOUT, LERR, OK )
+         dgebd2(2, 1, A, 1, D, E, TQ, TP, W, INFO );
+         chkxer('DGEBD2', INFOT, NOUT, LERR, OK );
          NT = NT + 3
 
          // DORGBR
 
          SRNAMT = 'DORGBR'
          INFOT = 1
-         CALL DORGBR( '/', 0, 0, 0, A, 1, TQ, W, 1, INFO )
-         CALL CHKXER( 'DORGBR', INFOT, NOUT, LERR, OK )
+         dorgbr('/', 0, 0, 0, A, 1, TQ, W, 1, INFO );
+         chkxer('DORGBR', INFOT, NOUT, LERR, OK );
          INFOT = 2
-         CALL DORGBR( 'Q', -1, 0, 0, A, 1, TQ, W, 1, INFO )
-         CALL CHKXER( 'DORGBR', INFOT, NOUT, LERR, OK )
+         dorgbr('Q', -1, 0, 0, A, 1, TQ, W, 1, INFO );
+         chkxer('DORGBR', INFOT, NOUT, LERR, OK );
          INFOT = 3
-         CALL DORGBR( 'Q', 0, -1, 0, A, 1, TQ, W, 1, INFO )
-         CALL CHKXER( 'DORGBR', INFOT, NOUT, LERR, OK )
+         dorgbr('Q', 0, -1, 0, A, 1, TQ, W, 1, INFO );
+         chkxer('DORGBR', INFOT, NOUT, LERR, OK );
          INFOT = 3
-         CALL DORGBR( 'Q', 0, 1, 0, A, 1, TQ, W, 1, INFO )
-         CALL CHKXER( 'DORGBR', INFOT, NOUT, LERR, OK )
+         dorgbr('Q', 0, 1, 0, A, 1, TQ, W, 1, INFO );
+         chkxer('DORGBR', INFOT, NOUT, LERR, OK );
          INFOT = 3
-         CALL DORGBR( 'Q', 1, 0, 1, A, 1, TQ, W, 1, INFO )
-         CALL CHKXER( 'DORGBR', INFOT, NOUT, LERR, OK )
+         dorgbr('Q', 1, 0, 1, A, 1, TQ, W, 1, INFO );
+         chkxer('DORGBR', INFOT, NOUT, LERR, OK );
          INFOT = 3
-         CALL DORGBR( 'P', 1, 0, 0, A, 1, TQ, W, 1, INFO )
-         CALL CHKXER( 'DORGBR', INFOT, NOUT, LERR, OK )
+         dorgbr('P', 1, 0, 0, A, 1, TQ, W, 1, INFO );
+         chkxer('DORGBR', INFOT, NOUT, LERR, OK );
          INFOT = 3
-         CALL DORGBR( 'P', 0, 1, 1, A, 1, TQ, W, 1, INFO )
-         CALL CHKXER( 'DORGBR', INFOT, NOUT, LERR, OK )
+         dorgbr('P', 0, 1, 1, A, 1, TQ, W, 1, INFO );
+         chkxer('DORGBR', INFOT, NOUT, LERR, OK );
          INFOT = 4
-         CALL DORGBR( 'Q', 0, 0, -1, A, 1, TQ, W, 1, INFO )
-         CALL CHKXER( 'DORGBR', INFOT, NOUT, LERR, OK )
+         dorgbr('Q', 0, 0, -1, A, 1, TQ, W, 1, INFO );
+         chkxer('DORGBR', INFOT, NOUT, LERR, OK );
          INFOT = 6
-         CALL DORGBR( 'Q', 2, 1, 1, A, 1, TQ, W, 1, INFO )
-         CALL CHKXER( 'DORGBR', INFOT, NOUT, LERR, OK )
+         dorgbr('Q', 2, 1, 1, A, 1, TQ, W, 1, INFO );
+         chkxer('DORGBR', INFOT, NOUT, LERR, OK );
          INFOT = 9
-         CALL DORGBR( 'Q', 2, 2, 1, A, 2, TQ, W, 1, INFO )
-         CALL CHKXER( 'DORGBR', INFOT, NOUT, LERR, OK )
+         dorgbr('Q', 2, 2, 1, A, 2, TQ, W, 1, INFO );
+         chkxer('DORGBR', INFOT, NOUT, LERR, OK );
          NT = NT + 10
 
          // DORMBR
 
          SRNAMT = 'DORMBR'
          INFOT = 1
-         CALL DORMBR( '/', 'L', 'T', 0, 0, 0, A, 1, TQ, U, 1, W, 1, INFO )
-         CALL CHKXER( 'DORMBR', INFOT, NOUT, LERR, OK )
+         dormbr('/', 'L', 'T', 0, 0, 0, A, 1, TQ, U, 1, W, 1, INFO );
+         chkxer('DORMBR', INFOT, NOUT, LERR, OK );
          INFOT = 2
-         CALL DORMBR( 'Q', '/', 'T', 0, 0, 0, A, 1, TQ, U, 1, W, 1, INFO )
-         CALL CHKXER( 'DORMBR', INFOT, NOUT, LERR, OK )
+         dormbr('Q', '/', 'T', 0, 0, 0, A, 1, TQ, U, 1, W, 1, INFO );
+         chkxer('DORMBR', INFOT, NOUT, LERR, OK );
          INFOT = 3
-         CALL DORMBR( 'Q', 'L', '/', 0, 0, 0, A, 1, TQ, U, 1, W, 1, INFO )
-         CALL CHKXER( 'DORMBR', INFOT, NOUT, LERR, OK )
+         dormbr('Q', 'L', '/', 0, 0, 0, A, 1, TQ, U, 1, W, 1, INFO );
+         chkxer('DORMBR', INFOT, NOUT, LERR, OK );
          INFOT = 4
-         CALL DORMBR( 'Q', 'L', 'T', -1, 0, 0, A, 1, TQ, U, 1, W, 1, INFO )
-         CALL CHKXER( 'DORMBR', INFOT, NOUT, LERR, OK )
+         dormbr('Q', 'L', 'T', -1, 0, 0, A, 1, TQ, U, 1, W, 1, INFO );
+         chkxer('DORMBR', INFOT, NOUT, LERR, OK );
          INFOT = 5
-         CALL DORMBR( 'Q', 'L', 'T', 0, -1, 0, A, 1, TQ, U, 1, W, 1, INFO )
-         CALL CHKXER( 'DORMBR', INFOT, NOUT, LERR, OK )
+         dormbr('Q', 'L', 'T', 0, -1, 0, A, 1, TQ, U, 1, W, 1, INFO );
+         chkxer('DORMBR', INFOT, NOUT, LERR, OK );
          INFOT = 6
-         CALL DORMBR( 'Q', 'L', 'T', 0, 0, -1, A, 1, TQ, U, 1, W, 1, INFO )
-         CALL CHKXER( 'DORMBR', INFOT, NOUT, LERR, OK )
+         dormbr('Q', 'L', 'T', 0, 0, -1, A, 1, TQ, U, 1, W, 1, INFO );
+         chkxer('DORMBR', INFOT, NOUT, LERR, OK );
          INFOT = 8
-         CALL DORMBR( 'Q', 'L', 'T', 2, 0, 0, A, 1, TQ, U, 2, W, 1, INFO )
-         CALL CHKXER( 'DORMBR', INFOT, NOUT, LERR, OK )
+         dormbr('Q', 'L', 'T', 2, 0, 0, A, 1, TQ, U, 2, W, 1, INFO );
+         chkxer('DORMBR', INFOT, NOUT, LERR, OK );
          INFOT = 8
-         CALL DORMBR( 'Q', 'R', 'T', 0, 2, 0, A, 1, TQ, U, 1, W, 1, INFO )
-         CALL CHKXER( 'DORMBR', INFOT, NOUT, LERR, OK )
+         dormbr('Q', 'R', 'T', 0, 2, 0, A, 1, TQ, U, 1, W, 1, INFO );
+         chkxer('DORMBR', INFOT, NOUT, LERR, OK );
          INFOT = 8
-         CALL DORMBR( 'P', 'L', 'T', 2, 0, 2, A, 1, TQ, U, 2, W, 1, INFO )
-         CALL CHKXER( 'DORMBR', INFOT, NOUT, LERR, OK )
+         dormbr('P', 'L', 'T', 2, 0, 2, A, 1, TQ, U, 2, W, 1, INFO );
+         chkxer('DORMBR', INFOT, NOUT, LERR, OK );
          INFOT = 8
-         CALL DORMBR( 'P', 'R', 'T', 0, 2, 2, A, 1, TQ, U, 1, W, 1, INFO )
-         CALL CHKXER( 'DORMBR', INFOT, NOUT, LERR, OK )
+         dormbr('P', 'R', 'T', 0, 2, 2, A, 1, TQ, U, 1, W, 1, INFO );
+         chkxer('DORMBR', INFOT, NOUT, LERR, OK );
          INFOT = 11
-         CALL DORMBR( 'Q', 'R', 'T', 2, 0, 0, A, 1, TQ, U, 1, W, 1, INFO )
-         CALL CHKXER( 'DORMBR', INFOT, NOUT, LERR, OK )
+         dormbr('Q', 'R', 'T', 2, 0, 0, A, 1, TQ, U, 1, W, 1, INFO );
+         chkxer('DORMBR', INFOT, NOUT, LERR, OK );
          INFOT = 13
-         CALL DORMBR( 'Q', 'L', 'T', 0, 2, 0, A, 1, TQ, U, 1, W, 1, INFO )
-         CALL CHKXER( 'DORMBR', INFOT, NOUT, LERR, OK )
+         dormbr('Q', 'L', 'T', 0, 2, 0, A, 1, TQ, U, 1, W, 1, INFO );
+         chkxer('DORMBR', INFOT, NOUT, LERR, OK );
          INFOT = 13
-         CALL DORMBR( 'Q', 'R', 'T', 2, 0, 0, A, 1, TQ, U, 2, W, 1, INFO )
-         CALL CHKXER( 'DORMBR', INFOT, NOUT, LERR, OK )
+         dormbr('Q', 'R', 'T', 2, 0, 0, A, 1, TQ, U, 2, W, 1, INFO );
+         chkxer('DORMBR', INFOT, NOUT, LERR, OK );
          NT = NT + 13
 
          // DBDSQR
 
          SRNAMT = 'DBDSQR'
          INFOT = 1
-         CALL DBDSQR( '/', 0, 0, 0, 0, D, E, V, 1, U, 1, A, 1, W, INFO )
-         CALL CHKXER( 'DBDSQR', INFOT, NOUT, LERR, OK )
+         dbdsqr('/', 0, 0, 0, 0, D, E, V, 1, U, 1, A, 1, W, INFO );
+         chkxer('DBDSQR', INFOT, NOUT, LERR, OK );
          INFOT = 2
-         CALL DBDSQR( 'U', -1, 0, 0, 0, D, E, V, 1, U, 1, A, 1, W, INFO )
-         CALL CHKXER( 'DBDSQR', INFOT, NOUT, LERR, OK )
+         dbdsqr('U', -1, 0, 0, 0, D, E, V, 1, U, 1, A, 1, W, INFO );
+         chkxer('DBDSQR', INFOT, NOUT, LERR, OK );
          INFOT = 3
-         CALL DBDSQR( 'U', 0, -1, 0, 0, D, E, V, 1, U, 1, A, 1, W, INFO )
-         CALL CHKXER( 'DBDSQR', INFOT, NOUT, LERR, OK )
+         dbdsqr('U', 0, -1, 0, 0, D, E, V, 1, U, 1, A, 1, W, INFO );
+         chkxer('DBDSQR', INFOT, NOUT, LERR, OK );
          INFOT = 4
-         CALL DBDSQR( 'U', 0, 0, -1, 0, D, E, V, 1, U, 1, A, 1, W, INFO )
-         CALL CHKXER( 'DBDSQR', INFOT, NOUT, LERR, OK )
+         dbdsqr('U', 0, 0, -1, 0, D, E, V, 1, U, 1, A, 1, W, INFO );
+         chkxer('DBDSQR', INFOT, NOUT, LERR, OK );
          INFOT = 5
-         CALL DBDSQR( 'U', 0, 0, 0, -1, D, E, V, 1, U, 1, A, 1, W, INFO )
-         CALL CHKXER( 'DBDSQR', INFOT, NOUT, LERR, OK )
+         dbdsqr('U', 0, 0, 0, -1, D, E, V, 1, U, 1, A, 1, W, INFO );
+         chkxer('DBDSQR', INFOT, NOUT, LERR, OK );
          INFOT = 9
-         CALL DBDSQR( 'U', 2, 1, 0, 0, D, E, V, 1, U, 1, A, 1, W, INFO )
-         CALL CHKXER( 'DBDSQR', INFOT, NOUT, LERR, OK )
+         dbdsqr('U', 2, 1, 0, 0, D, E, V, 1, U, 1, A, 1, W, INFO );
+         chkxer('DBDSQR', INFOT, NOUT, LERR, OK );
          INFOT = 11
-         CALL DBDSQR( 'U', 0, 0, 2, 0, D, E, V, 1, U, 1, A, 1, W, INFO )
-         CALL CHKXER( 'DBDSQR', INFOT, NOUT, LERR, OK )
+         dbdsqr('U', 0, 0, 2, 0, D, E, V, 1, U, 1, A, 1, W, INFO );
+         chkxer('DBDSQR', INFOT, NOUT, LERR, OK );
          INFOT = 13
-         CALL DBDSQR( 'U', 2, 0, 0, 1, D, E, V, 1, U, 1, A, 1, W, INFO )
-         CALL CHKXER( 'DBDSQR', INFOT, NOUT, LERR, OK )
+         dbdsqr('U', 2, 0, 0, 1, D, E, V, 1, U, 1, A, 1, W, INFO );
+         chkxer('DBDSQR', INFOT, NOUT, LERR, OK );
          NT = NT + 8
 
          // DBDSDC
 
          SRNAMT = 'DBDSDC'
          INFOT = 1
-         CALL DBDSDC( '/', 'N', 0, D, E, U, 1, V, 1, Q, IQ, W, IW, INFO )
-         CALL CHKXER( 'DBDSDC', INFOT, NOUT, LERR, OK )
+         dbdsdc('/', 'N', 0, D, E, U, 1, V, 1, Q, IQ, W, IW, INFO );
+         chkxer('DBDSDC', INFOT, NOUT, LERR, OK );
          INFOT = 2
-         CALL DBDSDC( 'U', '/', 0, D, E, U, 1, V, 1, Q, IQ, W, IW, INFO )
-         CALL CHKXER( 'DBDSDC', INFOT, NOUT, LERR, OK )
+         dbdsdc('U', '/', 0, D, E, U, 1, V, 1, Q, IQ, W, IW, INFO );
+         chkxer('DBDSDC', INFOT, NOUT, LERR, OK );
          INFOT = 3
-         CALL DBDSDC( 'U', 'N', -1, D, E, U, 1, V, 1, Q, IQ, W, IW, INFO )
-         CALL CHKXER( 'DBDSDC', INFOT, NOUT, LERR, OK )
+         dbdsdc('U', 'N', -1, D, E, U, 1, V, 1, Q, IQ, W, IW, INFO );
+         chkxer('DBDSDC', INFOT, NOUT, LERR, OK );
          INFOT = 7
-         CALL DBDSDC( 'U', 'I', 2, D, E, U, 1, V, 1, Q, IQ, W, IW, INFO )
-         CALL CHKXER( 'DBDSDC', INFOT, NOUT, LERR, OK )
+         dbdsdc('U', 'I', 2, D, E, U, 1, V, 1, Q, IQ, W, IW, INFO );
+         chkxer('DBDSDC', INFOT, NOUT, LERR, OK );
          INFOT = 9
-         CALL DBDSDC( 'U', 'I', 2, D, E, U, 2, V, 1, Q, IQ, W, IW, INFO )
-         CALL CHKXER( 'DBDSDC', INFOT, NOUT, LERR, OK )
+         dbdsdc('U', 'I', 2, D, E, U, 2, V, 1, Q, IQ, W, IW, INFO );
+         chkxer('DBDSDC', INFOT, NOUT, LERR, OK );
          NT = NT + 5
 
          // DBDSVDX
 
          SRNAMT = 'DBDSVDX'
          INFOT = 1
-         CALL DBDSVDX( 'X', 'N', 'A', 1, D, E, ZERO, ONE, 0, 0, NS, S, Q, 1, W, IW, INFO)
-         CALL CHKXER( 'DBDSVDX', INFOT, NOUT, LERR, OK )
+         dbdsvdx('X', 'N', 'A', 1, D, E, ZERO, ONE, 0, 0, NS, S, Q, 1, W, IW, INFO);
+         chkxer('DBDSVDX', INFOT, NOUT, LERR, OK );
          INFOT = 2
-         CALL DBDSVDX( 'U', 'X', 'A', 1, D, E, ZERO, ONE, 0, 0, NS, S, Q, 1, W, IW, INFO)
-         CALL CHKXER( 'DBDSVDX', INFOT, NOUT, LERR, OK )
+         dbdsvdx('U', 'X', 'A', 1, D, E, ZERO, ONE, 0, 0, NS, S, Q, 1, W, IW, INFO);
+         chkxer('DBDSVDX', INFOT, NOUT, LERR, OK );
          INFOT = 3
-         CALL DBDSVDX( 'U', 'V', 'X', 1, D, E, ZERO, ONE, 0, 0, NS, S, Q, 1, W, IW, INFO)
-         CALL CHKXER( 'DBDSVDX', INFOT, NOUT, LERR, OK )
+         dbdsvdx('U', 'V', 'X', 1, D, E, ZERO, ONE, 0, 0, NS, S, Q, 1, W, IW, INFO);
+         chkxer('DBDSVDX', INFOT, NOUT, LERR, OK );
          INFOT = 4
-         CALL DBDSVDX( 'U', 'V', 'A', -1, D, E, ZERO, ONE, 0, 0, NS, S, Q, 1, W, IW, INFO)
-         CALL CHKXER( 'DBDSVDX', INFOT, NOUT, LERR, OK )
+         dbdsvdx('U', 'V', 'A', -1, D, E, ZERO, ONE, 0, 0, NS, S, Q, 1, W, IW, INFO);
+         chkxer('DBDSVDX', INFOT, NOUT, LERR, OK );
          INFOT = 7
-         CALL DBDSVDX( 'U', 'V', 'V', 2, D, E, -ONE, ZERO, 0, 0, NS, S, Q, 1, W, IW, INFO)
-         CALL CHKXER( 'DBDSVDX', INFOT, NOUT, LERR, OK )
+         dbdsvdx('U', 'V', 'V', 2, D, E, -ONE, ZERO, 0, 0, NS, S, Q, 1, W, IW, INFO);
+         chkxer('DBDSVDX', INFOT, NOUT, LERR, OK );
          INFOT = 8
-         CALL DBDSVDX( 'U', 'V', 'V', 2, D, E, ONE, ZERO, 0, 0, NS, S, Q, 1, W, IW, INFO)
-         CALL CHKXER( 'DBDSVDX', INFOT, NOUT, LERR, OK )
+         dbdsvdx('U', 'V', 'V', 2, D, E, ONE, ZERO, 0, 0, NS, S, Q, 1, W, IW, INFO);
+         chkxer('DBDSVDX', INFOT, NOUT, LERR, OK );
          INFOT = 9
-         CALL DBDSVDX( 'L', 'V', 'I', 2, D, E, ZERO, ZERO, 0, 2, NS, S, Q, 1, W, IW, INFO)
-         CALL CHKXER( 'DBDSVDX', INFOT, NOUT, LERR, OK )
+         dbdsvdx('L', 'V', 'I', 2, D, E, ZERO, ZERO, 0, 2, NS, S, Q, 1, W, IW, INFO);
+         chkxer('DBDSVDX', INFOT, NOUT, LERR, OK );
          INFOT = 9
-         CALL DBDSVDX( 'L', 'V', 'I', 4, D, E, ZERO, ZERO, 5, 2, NS, S, Q, 1, W, IW, INFO)
-         CALL CHKXER( 'DBDSVDX', INFOT, NOUT, LERR, OK )
+         dbdsvdx('L', 'V', 'I', 4, D, E, ZERO, ZERO, 5, 2, NS, S, Q, 1, W, IW, INFO);
+         chkxer('DBDSVDX', INFOT, NOUT, LERR, OK );
          INFOT = 10
-         CALL DBDSVDX( 'L', 'V', 'I', 4, D, E, ZERO, ZERO, 3, 2, NS, S, Q, 1, W, IW, INFO)
-         CALL CHKXER( 'DBDSVDX', INFOT, NOUT, LERR, OK )
+         dbdsvdx('L', 'V', 'I', 4, D, E, ZERO, ZERO, 3, 2, NS, S, Q, 1, W, IW, INFO);
+         chkxer('DBDSVDX', INFOT, NOUT, LERR, OK );
          INFOT = 10
-         CALL DBDSVDX( 'L', 'V', 'I', 4, D, E, ZERO, ZERO, 3, 5, NS, S, Q, 1, W, IW, INFO)
-         CALL CHKXER( 'DBDSVDX', INFOT, NOUT, LERR, OK )
+         dbdsvdx('L', 'V', 'I', 4, D, E, ZERO, ZERO, 3, 5, NS, S, Q, 1, W, IW, INFO);
+         chkxer('DBDSVDX', INFOT, NOUT, LERR, OK );
          INFOT = 14
-         CALL DBDSVDX( 'L', 'V', 'A', 4, D, E, ZERO, ZERO, 0, 0, NS, S, Q, 0, W, IW, INFO)
-         CALL CHKXER( 'DBDSVDX', INFOT, NOUT, LERR, OK )
+         dbdsvdx('L', 'V', 'A', 4, D, E, ZERO, ZERO, 0, 0, NS, S, Q, 0, W, IW, INFO);
+         chkxer('DBDSVDX', INFOT, NOUT, LERR, OK );
          INFOT = 14
-         CALL DBDSVDX( 'L', 'V', 'A', 4, D, E, ZERO, ZERO, 0, 0, NS, S, Q, 2, W, IW, INFO)
-         CALL CHKXER( 'DBDSVDX', INFOT, NOUT, LERR, OK )
+         dbdsvdx('L', 'V', 'A', 4, D, E, ZERO, ZERO, 0, 0, NS, S, Q, 2, W, IW, INFO);
+         chkxer('DBDSVDX', INFOT, NOUT, LERR, OK );
          NT = NT + 12
       }
 

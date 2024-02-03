@@ -29,7 +29,7 @@
 
       MN = M*N
       MN2 = 2*MN
-      CALL CLASET( 'Full', MN2, MN2, ZERO, ZERO, Z, LDZ )
+      claset('Full', MN2, MN2, ZERO, ZERO, Z, LDZ );
 
       IK = 1
       DO 50 L = 1, N

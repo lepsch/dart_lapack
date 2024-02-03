@@ -46,7 +46,7 @@
          INFO = -9
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'DTPQRT2', -INFO )
+         xerbla('DTPQRT2', -INFO );
          RETURN
       }
 
@@ -59,7 +59,7 @@
          // Generate elementary reflector H(I) to annihilate B(:,I)
 
          P = M-L+MIN( L, I )
-         CALL DLARFG( P+1, A( I, I ), B( 1, I ), 1, T( I, 1 ) )
+         dlarfg(P+1, A( I, I ), B( 1, I ), 1, T( I, 1 ) );
          if ( I.LT.N ) {
 
             // W(1:N-I) := C(I:M,I+1:N)^H * C(I:M,I) [use W = T(:,N)]
@@ -67,7 +67,7 @@
             DO J = 1, N-I
                T( J, N ) = (A( I, I+J ))
             END DO
-            CALL DGEMV( 'T', P, N-I, ONE, B( 1, I+1 ), LDB, B( 1, I ), 1, ONE, T( 1, N ), 1 )
+            dgemv('T', P, N-I, ONE, B( 1, I+1 ), LDB, B( 1, I ), 1, ONE, T( 1, N ), 1 );
 
             // C(I:M,I+1:N) = C(I:m,I+1:N) + alpha*C(I:M,I)*W(1:N-1)^H
 
@@ -75,7 +75,7 @@
             DO J = 1, N-I
                A( I, I+J ) = A( I, I+J ) + ALPHA*(T( J, N ))
             END DO
-            CALL DGER( P, N-I, ALPHA, B( 1, I ), 1, T( 1, N ), 1, B( 1, I+1 ), LDB )
+            dger(P, N-I, ALPHA, B( 1, I ), 1, T( 1, N ), 1, B( 1, I+1 ), LDB );
          }
       END DO
 
@@ -97,19 +97,19 @@
          DO J = 1, P
             T( J, I ) = ALPHA*B( M-L+J, I )
          END DO
-         CALL DTRMV( 'U', 'T', 'N', P, B( MP, 1 ), LDB, T( 1, I ), 1 )
+         dtrmv('U', 'T', 'N', P, B( MP, 1 ), LDB, T( 1, I ), 1 );
 
          // Rectangular part of B2
 
-         CALL DGEMV( 'T', L, I-1-P, ALPHA, B( MP, NP ), LDB, B( MP, I ), 1, ZERO, T( NP, I ), 1 )
+         dgemv('T', L, I-1-P, ALPHA, B( MP, NP ), LDB, B( MP, I ), 1, ZERO, T( NP, I ), 1 );
 
          // B1
 
-         CALL DGEMV( 'T', M-L, I-1, ALPHA, B, LDB, B( 1, I ), 1, ONE, T( 1, I ), 1 )
+         dgemv('T', M-L, I-1, ALPHA, B, LDB, B( 1, I ), 1, ONE, T( 1, I ), 1 );
 
          // T(1:I-1,I) := T(1:I-1,1:I-1) * T(1:I-1,I)
 
-         CALL DTRMV( 'U', 'N', 'N', I-1, T, LDT, T( 1, I ), 1 )
+         dtrmv('U', 'N', 'N', I-1, T, LDT, T( 1, I ), 1 );
 
          // T(I,I) = tau(I)
 

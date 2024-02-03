@@ -43,7 +43,7 @@
 
       if ( N.LT.0 ) {
          INFO = -1
-         CALL XERBLA( 'SSTERF', -INFO )
+         xerbla('SSTERF', -INFO );
          RETURN
       }
       IF( N.LE.1 ) RETURN
@@ -94,10 +94,10 @@
       IF( ANORM.EQ.ZERO ) GO TO 10
       if ( ANORM.GT.SSFMAX ) {
          ISCALE = 1
-         CALL SLASCL( 'G', 0, 0, ANORM, SSFMAX, LEND-L+1, 1, D( L ), N, INFO )          CALL SLASCL( 'G', 0, 0, ANORM, SSFMAX, LEND-L, 1, E( L ), N, INFO )
+         slascl('G', 0, 0, ANORM, SSFMAX, LEND-L+1, 1, D( L ), N, INFO )          CALL SLASCL( 'G', 0, 0, ANORM, SSFMAX, LEND-L, 1, E( L ), N, INFO );
       } else if ( ANORM.LT.SSFMIN ) {
          ISCALE = 2
-         CALL SLASCL( 'G', 0, 0, ANORM, SSFMIN, LEND-L+1, 1, D( L ), N, INFO )          CALL SLASCL( 'G', 0, 0, ANORM, SSFMIN, LEND-L, 1, E( L ), N, INFO )
+         slascl('G', 0, 0, ANORM, SSFMIN, LEND-L+1, 1, D( L ), N, INFO )          CALL SLASCL( 'G', 0, 0, ANORM, SSFMIN, LEND-L, 1, E( L ), N, INFO );
       }
 
       DO 40 I = L, LEND - 1
@@ -135,7 +135,7 @@
 
          if ( M.EQ.L+1 ) {
             RTE = SQRT( E( L ) )
-            CALL SLAE2( D( L ), RTE, D( L+1 ), RT1, RT2 )
+            slae2(D( L ), RTE, D( L+1 ), RT1, RT2 );
             D( L ) = RT1
             D( L+1 ) = RT2
             E( L ) = ZERO
@@ -214,7 +214,7 @@
 
          if ( M.EQ.L-1 ) {
             RTE = SQRT( E( L-1 ) )
-            CALL SLAE2( D( L ), RTE, D( L-1 ), RT1, RT2 )
+            slae2(D( L ), RTE, D( L-1 ), RT1, RT2 );
             D( L ) = RT1
             D( L-1 ) = RT2
             E( L-1 ) = ZERO
@@ -290,7 +290,7 @@
       // Sort eigenvalues in increasing order.
 
   170 CONTINUE
-      CALL SLASRT( 'I', N, D, INFO )
+      slasrt('I', N, D, INFO );
 
   180 CONTINUE
       RETURN

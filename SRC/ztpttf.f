@@ -46,7 +46,7 @@
          INFO = -3
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'ZTPTTF', -INFO )
+         xerbla('ZTPTTF', -INFO );
          RETURN
       }
 

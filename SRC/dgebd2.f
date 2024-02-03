@@ -39,7 +39,7 @@
          INFO = -4
       }
       if ( INFO.LT.0 ) {
-         CALL XERBLA( 'DGEBD2', -INFO )
+         xerbla('DGEBD2', -INFO );
          RETURN
       }
 
@@ -51,7 +51,7 @@
 
             // Generate elementary reflector H(i) to annihilate A(i+1:m,i)
 
-            CALL DLARFG( M-I+1, A( I, I ), A( MIN( I+1, M ), I ), 1, TAUQ( I ) )
+            dlarfg(M-I+1, A( I, I ), A( MIN( I+1, M ), I ), 1, TAUQ( I ) );
             D( I ) = A( I, I )
             A( I, I ) = ONE
 
@@ -65,13 +65,13 @@
                // Generate elementary reflector G(i) to annihilate
                // A(i,i+2:n)
 
-               CALL DLARFG( N-I, A( I, I+1 ), A( I, MIN( I+2, N ) ), LDA, TAUP( I ) )
+               dlarfg(N-I, A( I, I+1 ), A( I, MIN( I+2, N ) ), LDA, TAUP( I ) );
                E( I ) = A( I, I+1 )
                A( I, I+1 ) = ONE
 
                // Apply G(i) to A(i+1:m,i+1:n) from the right
 
-               CALL DLARF( 'Right', M-I, N-I, A( I, I+1 ), LDA, TAUP( I ), A( I+1, I+1 ), LDA, WORK )
+               dlarf('Right', M-I, N-I, A( I, I+1 ), LDA, TAUP( I ), A( I+1, I+1 ), LDA, WORK );
                A( I, I+1 ) = E( I )
             } else {
                TAUP( I ) = ZERO
@@ -85,7 +85,7 @@
 
             // Generate elementary reflector G(i) to annihilate A(i,i+1:n)
 
-            CALL DLARFG( N-I+1, A( I, I ), A( I, MIN( I+1, N ) ), LDA, TAUP( I ) )
+            dlarfg(N-I+1, A( I, I ), A( I, MIN( I+1, N ) ), LDA, TAUP( I ) );
             D( I ) = A( I, I )
             A( I, I ) = ONE
 
@@ -99,13 +99,13 @@
                // Generate elementary reflector H(i) to annihilate
                // A(i+2:m,i)
 
-               CALL DLARFG( M-I, A( I+1, I ), A( MIN( I+2, M ), I ), 1, TAUQ( I ) )
+               dlarfg(M-I, A( I+1, I ), A( MIN( I+2, M ), I ), 1, TAUQ( I ) );
                E( I ) = A( I+1, I )
                A( I+1, I ) = ONE
 
                // Apply H(i) to A(i+1:m,i+1:n) from the left
 
-               CALL DLARF( 'Left', M-I, N-I, A( I+1, I ), 1, TAUQ( I ), A( I+1, I+1 ), LDA, WORK )
+               dlarf('Left', M-I, N-I, A( I+1, I ), 1, TAUQ( I ), A( I+1, I+1 ), LDA, WORK );
                A( I+1, I ) = E( I )
             } else {
                TAUQ( I ) = ZERO

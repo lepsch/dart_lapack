@@ -42,7 +42,7 @@
          INFO = -2
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'DLA_PORCOND', -INFO )
+         xerbla('DLA_PORCOND', -INFO );
          RETURN
       }
 
@@ -118,7 +118,7 @@
 
       KASE = 0
    10 CONTINUE
-      CALL DLACN2( N, WORK( N+1 ), WORK, IWORK, AINVNM, KASE, ISAVE )
+      dlacn2(N, WORK( N+1 ), WORK, IWORK, AINVNM, KASE, ISAVE );
       if ( KASE.NE.0 ) {
          if ( KASE.EQ.2 ) {
 
@@ -129,9 +129,9 @@
             END DO
 
             if (UP) {
-               CALL DPOTRS( 'Upper', N, 1, AF, LDAF, WORK, N, INFO )
+               dpotrs('Upper', N, 1, AF, LDAF, WORK, N, INFO );
             } else {
-               CALL DPOTRS( 'Lower', N, 1, AF, LDAF, WORK, N, INFO )
+               dpotrs('Lower', N, 1, AF, LDAF, WORK, N, INFO );
             ENDIF
 
             // Multiply by inv(C).
@@ -160,9 +160,9 @@
             }
 
             if ( UP ) {
-               CALL DPOTRS( 'Upper', N, 1, AF, LDAF, WORK, N, INFO )
+               dpotrs('Upper', N, 1, AF, LDAF, WORK, N, INFO );
             } else {
-               CALL DPOTRS( 'Lower', N, 1, AF, LDAF, WORK, N, INFO )
+               dpotrs('Lower', N, 1, AF, LDAF, WORK, N, INFO );
             ENDIF
 
             // Multiply by R.

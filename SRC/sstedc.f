@@ -93,7 +93,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'SSTEDC', -INFO )
+         xerbla('SSTEDC', -INFO );
          RETURN
       } else if (LQUERY) {
          RETURN
@@ -119,7 +119,7 @@
       // If COMPZ = 'N', use SSTERF to compute the eigenvalues.
 
       if ( ICOMPZ.EQ.0 ) {
-         CALL SSTERF( N, D, E, INFO )
+         ssterf(N, D, E, INFO );
          GO TO 50
       }
 
@@ -128,7 +128,7 @@
 
       if ( N.LE.SMLSIZ ) {
 
-         CALL SSTEQR( COMPZ, N, D, E, Z, LDZ, WORK, INFO )
+         ssteqr(COMPZ, N, D, E, Z, LDZ, WORK, INFO );
 
       } else {
 
@@ -142,7 +142,7 @@
          }
 
          if ( ICOMPZ.EQ.2 ) {
-            CALL SLASET( 'Full', N, N, ZERO, ONE, Z, LDZ )
+            slaset('Full', N, N, ZERO, ONE, Z, LDZ );
          }
 
          // Scale.
@@ -187,14 +187,14 @@
                // Scale.
 
                ORGNRM = SLANST( 'M', M, D( START ), E( START ) )
-               CALL SLASCL( 'G', 0, 0, ORGNRM, ONE, M, 1, D( START ), M, INFO )                CALL SLASCL( 'G', 0, 0, ORGNRM, ONE, M-1, 1, E( START ), M-1, INFO )
+               slascl('G', 0, 0, ORGNRM, ONE, M, 1, D( START ), M, INFO )                CALL SLASCL( 'G', 0, 0, ORGNRM, ONE, M-1, 1, E( START ), M-1, INFO );
 
                if ( ICOMPZ.EQ.1 ) {
                   STRTRW = 1
                } else {
                   STRTRW = START
                }
-               CALL SLAED0( ICOMPZ, N, M, D( START ), E( START ), Z( STRTRW, START ), LDZ, WORK( 1 ), N, WORK( STOREZ ), IWORK, INFO )
+               slaed0(ICOMPZ, N, M, D( START ), E( START ), Z( STRTRW, START ), LDZ, WORK( 1 ), N, WORK( STOREZ ), IWORK, INFO );
                if ( INFO.NE.0 ) {
                   INFO = ( INFO / ( M+1 )+START-1 )*( N+1 ) + MOD( INFO, ( M+1 ) ) + START - 1
                   GO TO 50
@@ -202,7 +202,7 @@
 
                // Scale back.
 
-               CALL SLASCL( 'G', 0, 0, ONE, ORGNRM, M, 1, D( START ), M, INFO )
+               slascl('G', 0, 0, ONE, ORGNRM, M, 1, D( START ), M, INFO );
 
             } else {
                if ( ICOMPZ.EQ.1 ) {
@@ -211,11 +211,11 @@
                   // the length of D, we must solve the sub-problem in a
                   // workspace and then multiply back into Z.
 
-                  CALL SSTEQR( 'I', M, D( START ), E( START ), WORK, M, WORK( M*M+1 ), INFO )                   CALL SLACPY( 'A', N, M, Z( 1, START ), LDZ, WORK( STOREZ ), N )                   CALL SGEMM( 'N', 'N', N, M, M, ONE, WORK( STOREZ ), N, WORK, M, ZERO, Z( 1, START ), LDZ )
+                  ssteqr('I', M, D( START ), E( START ), WORK, M, WORK( M*M+1 ), INFO )                   CALL SLACPY( 'A', N, M, Z( 1, START ), LDZ, WORK( STOREZ ), N )                   CALL SGEMM( 'N', 'N', N, M, M, ONE, WORK( STOREZ ), N, WORK, M, ZERO, Z( 1, START ), LDZ );
                } else if ( ICOMPZ.EQ.2 ) {
-                  CALL SSTEQR( 'I', M, D( START ), E( START ), Z( START, START ), LDZ, WORK, INFO )
+                  ssteqr('I', M, D( START ), E( START ), Z( START, START ), LDZ, WORK, INFO );
                } else {
-                  CALL SSTERF( M, D( START ), E( START ), INFO )
+                  ssterf(M, D( START ), E( START ), INFO );
                }
                if ( INFO.NE.0 ) {
                   INFO = START*( N+1 ) + FINISH
@@ -233,7 +233,7 @@
 
            // Use Quick Sort
 
-           CALL SLASRT( 'I', N, D, INFO )
+           slasrt('I', N, D, INFO );
 
          } else {
 
@@ -252,7 +252,7 @@
               if ( K.NE.I ) {
                  D( K ) = D( I )
                  D( I ) = P
-                 CALL SSWAP( N, Z( 1, I ), 1, Z( 1, K ), 1 )
+                 sswap(N, Z( 1, I ), 1, Z( 1, K ), 1 );
               }
    40      CONTINUE
          }

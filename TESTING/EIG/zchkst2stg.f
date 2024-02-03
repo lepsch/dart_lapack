@@ -94,7 +94,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'ZCHKST2STG', -INFO )
+         xerbla('ZCHKST2STG', -INFO );
          RETURN
       }
 
@@ -190,7 +190,7 @@
 
    70       CONTINUE
 
-            CALL ZLASET( 'Full', LDA, N, CZERO, CZERO, A, LDA )
+            zlaset('Full', LDA, N, CZERO, CZERO, A, LDA );
             IINFO = 0
             if ( JTYPE.LE.15 ) {
                COND = ULPINV
@@ -217,38 +217,38 @@
 
                // Diagonal Matrix, [Eigen]values Specified
 
-               CALL ZLATMS( N, N, 'S', ISEED, 'H', RWORK, IMODE, COND, ANORM, 0, 0, 'N', A, LDA, WORK, IINFO )
+               zlatms(N, N, 'S', ISEED, 'H', RWORK, IMODE, COND, ANORM, 0, 0, 'N', A, LDA, WORK, IINFO );
 
 
             } else if ( ITYPE.EQ.5 ) {
 
                // Hermitian, eigenvalues specified
 
-               CALL ZLATMS( N, N, 'S', ISEED, 'H', RWORK, IMODE, COND, ANORM, N, N, 'N', A, LDA, WORK, IINFO )
+               zlatms(N, N, 'S', ISEED, 'H', RWORK, IMODE, COND, ANORM, N, N, 'N', A, LDA, WORK, IINFO );
 
             } else if ( ITYPE.EQ.7 ) {
 
                // Diagonal, random eigenvalues
 
-               CALL ZLATMR( N, N, 'S', ISEED, 'H', WORK, 6, ONE, CONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, 0, 0, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO )
+               zlatmr(N, N, 'S', ISEED, 'H', WORK, 6, ONE, CONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, 0, 0, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO );
 
             } else if ( ITYPE.EQ.8 ) {
 
                // Hermitian, random eigenvalues
 
-               CALL ZLATMR( N, N, 'S', ISEED, 'H', WORK, 6, ONE, CONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, N, N, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO )
+               zlatmr(N, N, 'S', ISEED, 'H', WORK, 6, ONE, CONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, N, N, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO );
 
             } else if ( ITYPE.EQ.9 ) {
 
                // Positive definite, eigenvalues specified.
 
-               CALL ZLATMS( N, N, 'S', ISEED, 'P', RWORK, IMODE, COND, ANORM, N, N, 'N', A, LDA, WORK, IINFO )
+               zlatms(N, N, 'S', ISEED, 'P', RWORK, IMODE, COND, ANORM, N, N, 'N', A, LDA, WORK, IINFO );
 
             } else if ( ITYPE.EQ.10 ) {
 
                // Positive definite tridiagonal, eigenvalues specified.
 
-               CALL ZLATMS( N, N, 'S', ISEED, 'P', RWORK, IMODE, COND, ANORM, 1, 1, 'N', A, LDA, WORK, IINFO )
+               zlatms(N, N, 'S', ISEED, 'P', RWORK, IMODE, COND, ANORM, 1, 1, 'N', A, LDA, WORK, IINFO );
                DO 90 I = 2, N
                   TEMP1 = ABS( A( I-1, I ) )
                   TEMP2 = SQRT( ABS( A( I-1, I-1 )*A( I, I ) ) )
@@ -274,10 +274,10 @@
             // Call ZHETRD and ZUNGTR to compute S and U from
             // upper triangle.
 
-            CALL ZLACPY( 'U', N, N, A, LDA, V, LDU )
+            zlacpy('U', N, N, A, LDA, V, LDU );
 
             NTEST = 1
-            CALL ZHETRD( 'U', N, V, LDU, SD, SE, TAU, WORK, LWORK, IINFO )
+            zhetrd('U', N, V, LDU, SD, SE, TAU, WORK, LWORK, IINFO );
 
             if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'ZHETRD(U)', IINFO, N, JTYPE, IOLDSD
@@ -290,10 +290,10 @@
                }
             }
 
-            CALL ZLACPY( 'U', N, N, V, LDU, U, LDU )
+            zlacpy('U', N, N, V, LDU, U, LDU );
 
             NTEST = 2
-            CALL ZUNGTR( 'U', N, U, LDU, TAU, WORK, LWORK, IINFO )
+            zungtr('U', N, U, LDU, TAU, WORK, LWORK, IINFO );
             if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'ZUNGTR(U)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
@@ -307,7 +307,7 @@
 
             // Do tests 1 and 2
 
-            CALL ZHET21( 2, 'Upper', N, 1, A, LDA, SD, SE, U, LDU, V, LDU, TAU, WORK, RWORK, RESULT( 1 ) )             CALL ZHET21( 3, 'Upper', N, 1, A, LDA, SD, SE, U, LDU, V, LDU, TAU, WORK, RWORK, RESULT( 2 ) )
+            zhet21(2, 'Upper', N, 1, A, LDA, SD, SE, U, LDU, V, LDU, TAU, WORK, RWORK, RESULT( 1 ) )             CALL ZHET21( 3, 'Upper', N, 1, A, LDA, SD, SE, U, LDU, V, LDU, TAU, WORK, RWORK, RESULT( 2 ) );
 
             // Compute D1 the eigenvalues resulting from the tridiagonal
             // form using the standard 1-stage algorithm and use it as a
@@ -316,10 +316,10 @@
             // Compute D1 from the 1-stage and used as reference for the
             // 2-stage
 
-            CALL DCOPY( N, SD, 1, D1, 1 )
+            dcopy(N, SD, 1, D1, 1 );
             IF( N.GT.0 ) CALL DCOPY( N-1, SE, 1, RWORK, 1 )
 
-            CALL ZSTEQR( 'N', N, D1, RWORK, WORK, LDU, RWORK( N+1 ), IINFO )
+            zsteqr('N', N, D1, RWORK, WORK, LDU, RWORK( N+1 ), IINFO );
             if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'ZSTEQR(N)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
@@ -336,20 +336,20 @@
             // the one from above. Compare it with D1 computed
             // using the 1-stage.
 
-            CALL DLASET( 'Full', N, 1, ZERO, ZERO, SD, N )
-            CALL DLASET( 'Full', N, 1, ZERO, ZERO, SE, N )
-            CALL ZLACPY( 'U', N, N, A, LDA, V, LDU )
+            dlaset('Full', N, 1, ZERO, ZERO, SD, N );
+            dlaset('Full', N, 1, ZERO, ZERO, SE, N );
+            zlacpy('U', N, N, A, LDA, V, LDU );
             LH = MAX(1, 4*N)
             LW = LWORK - LH
-            CALL ZHETRD_2STAGE( 'N', "U", N, V, LDU, SD, SE, TAU,  WORK, LH, WORK( LH+1 ), LW, IINFO )
+            zhetrd_2stage('N', "U", N, V, LDU, SD, SE, TAU,  WORK, LH, WORK( LH+1 ), LW, IINFO );
 
             // Compute D2 from the 2-stage Upper case
 
-            CALL DCOPY( N, SD, 1, D2, 1 )
+            dcopy(N, SD, 1, D2, 1 );
             IF( N.GT.0 ) CALL DCOPY( N-1, SE, 1, RWORK, 1 )
 
             NTEST = 3
-            CALL ZSTEQR( 'N', N, D2, RWORK, WORK, LDU, RWORK( N+1 ), IINFO )
+            zsteqr('N', N, D2, RWORK, WORK, LDU, RWORK( N+1 ), IINFO );
             if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'ZSTEQR(N)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
@@ -366,18 +366,18 @@
             // the one from above. Compare it with D1 computed
             // using the 1-stage.
 
-            CALL DLASET( 'Full', N, 1, ZERO, ZERO, SD, N )
-            CALL DLASET( 'Full', N, 1, ZERO, ZERO, SE, N )
-            CALL ZLACPY( 'L', N, N, A, LDA, V, LDU )
-            CALL ZHETRD_2STAGE( 'N', "L", N, V, LDU, SD, SE, TAU,  WORK, LH, WORK( LH+1 ), LW, IINFO )
+            dlaset('Full', N, 1, ZERO, ZERO, SD, N );
+            dlaset('Full', N, 1, ZERO, ZERO, SE, N );
+            zlacpy('L', N, N, A, LDA, V, LDU );
+            zhetrd_2stage('N', "L", N, V, LDU, SD, SE, TAU,  WORK, LH, WORK( LH+1 ), LW, IINFO );
 
             // Compute D3 from the 2-stage Upper case
 
-            CALL DCOPY( N, SD, 1, D3, 1 )
+            dcopy(N, SD, 1, D3, 1 );
             IF( N.GT.0 ) CALL DCOPY( N-1, SE, 1, RWORK, 1 )
 
             NTEST = 4
-            CALL ZSTEQR( 'N', N, D3, RWORK, WORK, LDU, RWORK( N+1 ), IINFO )
+            zsteqr('N', N, D3, RWORK, WORK, LDU, RWORK( N+1 ), IINFO );
             if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'ZSTEQR(N)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
@@ -420,10 +420,10 @@
 
             // Call ZHPTRD and ZUPGTR to compute S and U from AP
 
-            CALL ZCOPY( NAP, AP, 1, VP, 1 )
+            zcopy(NAP, AP, 1, VP, 1 );
 
             NTEST = 5
-            CALL ZHPTRD( 'U', N, VP, SD, SE, TAU, IINFO )
+            zhptrd('U', N, VP, SD, SE, TAU, IINFO );
 
             if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'ZHPTRD(U)', IINFO, N, JTYPE, IOLDSD
@@ -437,7 +437,7 @@
             }
 
             NTEST = 6
-            CALL ZUPGTR( 'U', N, VP, TAU, U, LDU, WORK, IINFO )
+            zupgtr('U', N, VP, TAU, U, LDU, WORK, IINFO );
             if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'ZUPGTR(U)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
@@ -451,7 +451,7 @@
 
             // Do tests 5 and 6
 
-            CALL ZHPT21( 2, 'Upper', N, 1, AP, SD, SE, U, LDU, VP, TAU, WORK, RWORK, RESULT( 5 ) )             CALL ZHPT21( 3, 'Upper', N, 1, AP, SD, SE, U, LDU, VP, TAU, WORK, RWORK, RESULT( 6 ) )
+            zhpt21(2, 'Upper', N, 1, AP, SD, SE, U, LDU, VP, TAU, WORK, RWORK, RESULT( 5 ) )             CALL ZHPT21( 3, 'Upper', N, 1, AP, SD, SE, U, LDU, VP, TAU, WORK, RWORK, RESULT( 6 ) );
 
             // Store the lower triangle of A in AP
 
@@ -465,10 +465,10 @@
 
             // Call ZHPTRD and ZUPGTR to compute S and U from AP
 
-            CALL ZCOPY( NAP, AP, 1, VP, 1 )
+            zcopy(NAP, AP, 1, VP, 1 );
 
             NTEST = 7
-            CALL ZHPTRD( 'L', N, VP, SD, SE, TAU, IINFO )
+            zhptrd('L', N, VP, SD, SE, TAU, IINFO );
 
             if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'ZHPTRD(L)', IINFO, N, JTYPE, IOLDSD
@@ -482,7 +482,7 @@
             }
 
             NTEST = 8
-            CALL ZUPGTR( 'L', N, VP, TAU, U, LDU, WORK, IINFO )
+            zupgtr('L', N, VP, TAU, U, LDU, WORK, IINFO );
             if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'ZUPGTR(L)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
@@ -494,18 +494,18 @@
                }
             }
 
-            CALL ZHPT21( 2, 'Lower', N, 1, AP, SD, SE, U, LDU, VP, TAU, WORK, RWORK, RESULT( 7 ) )             CALL ZHPT21( 3, 'Lower', N, 1, AP, SD, SE, U, LDU, VP, TAU, WORK, RWORK, RESULT( 8 ) )
+            zhpt21(2, 'Lower', N, 1, AP, SD, SE, U, LDU, VP, TAU, WORK, RWORK, RESULT( 7 ) )             CALL ZHPT21( 3, 'Lower', N, 1, AP, SD, SE, U, LDU, VP, TAU, WORK, RWORK, RESULT( 8 ) );
 
             // Call ZSTEQR to compute D1, D2, and Z, do tests.
 
             // Compute D1 and Z
 
-            CALL DCOPY( N, SD, 1, D1, 1 )
+            dcopy(N, SD, 1, D1, 1 );
             IF( N.GT.0 ) CALL DCOPY( N-1, SE, 1, RWORK, 1 )
-            CALL ZLASET( 'Full', N, N, CZERO, CONE, Z, LDU )
+            zlaset('Full', N, N, CZERO, CONE, Z, LDU );
 
             NTEST = 9
-            CALL ZSTEQR( 'V', N, D1, RWORK, Z, LDU, RWORK( N+1 ), IINFO )
+            zsteqr('V', N, D1, RWORK, Z, LDU, RWORK( N+1 ), IINFO );
             if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'ZSTEQR(V)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
@@ -519,11 +519,11 @@
 
             // Compute D2
 
-            CALL DCOPY( N, SD, 1, D2, 1 )
+            dcopy(N, SD, 1, D2, 1 );
             IF( N.GT.0 ) CALL DCOPY( N-1, SE, 1, RWORK, 1 )
 
             NTEST = 11
-            CALL ZSTEQR( 'N', N, D2, RWORK, WORK, LDU, RWORK( N+1 ), IINFO )
+            zsteqr('N', N, D2, RWORK, WORK, LDU, RWORK( N+1 ), IINFO );
             if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'ZSTEQR(N)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
@@ -537,11 +537,11 @@
 
             // Compute D3 (using PWK method)
 
-            CALL DCOPY( N, SD, 1, D3, 1 )
+            dcopy(N, SD, 1, D3, 1 );
             IF( N.GT.0 ) CALL DCOPY( N-1, SE, 1, RWORK, 1 )
 
             NTEST = 12
-            CALL DSTERF( N, D3, RWORK, IINFO )
+            dsterf(N, D3, RWORK, IINFO );
             if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'DSTERF', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
@@ -555,7 +555,7 @@
 
             // Do Tests 9 and 10
 
-            CALL ZSTT21( N, 0, SD, SE, D1, DUMMA, Z, LDU, WORK, RWORK, RESULT( 9 ) )
+            zstt21(N, 0, SD, SE, D1, DUMMA, Z, LDU, WORK, RWORK, RESULT( 9 ) );
 
             // Do Tests 11 and 12
 
@@ -581,7 +581,7 @@
             TEMP1 = THRESH*( HALF-ULP )
 
             DO 160 J = 0, LOG2UI
-               CALL DSTECH( N, SD, SE, D1, TEMP1, RWORK, IINFO )
+               dstech(N, SD, SE, D1, TEMP1, RWORK, IINFO );
                IF( IINFO.EQ.0 ) GO TO 170
                TEMP1 = TEMP1*TWO
   160       CONTINUE
@@ -596,12 +596,12 @@
 
                // Compute D4 and Z4
 
-               CALL DCOPY( N, SD, 1, D4, 1 )
+               dcopy(N, SD, 1, D4, 1 );
                IF( N.GT.0 ) CALL DCOPY( N-1, SE, 1, RWORK, 1 )
-               CALL ZLASET( 'Full', N, N, CZERO, CONE, Z, LDU )
+               zlaset('Full', N, N, CZERO, CONE, Z, LDU );
 
                NTEST = 14
-               CALL ZPTEQR( 'V', N, D4, RWORK, Z, LDU, RWORK( N+1 ), IINFO )
+               zpteqr('V', N, D4, RWORK, Z, LDU, RWORK( N+1 ), IINFO );
                if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'ZPTEQR(V)', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
@@ -615,15 +615,15 @@
 
                // Do Tests 14 and 15
 
-               CALL ZSTT21( N, 0, SD, SE, D4, DUMMA, Z, LDU, WORK, RWORK, RESULT( 14 ) )
+               zstt21(N, 0, SD, SE, D4, DUMMA, Z, LDU, WORK, RWORK, RESULT( 14 ) );
 
                // Compute D5
 
-               CALL DCOPY( N, SD, 1, D5, 1 )
+               dcopy(N, SD, 1, D5, 1 );
                IF( N.GT.0 ) CALL DCOPY( N-1, SE, 1, RWORK, 1 )
 
                NTEST = 16
-               CALL ZPTEQR( 'N', N, D5, RWORK, Z, LDU, RWORK( N+1 ), IINFO )
+               zpteqr('N', N, D5, RWORK, Z, LDU, RWORK( N+1 ), IINFO );
                if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'ZPTEQR(N)', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
@@ -663,7 +663,7 @@
             if ( JTYPE.EQ.21 ) {
                NTEST = 17
                ABSTOL = UNFL + UNFL
-               CALL DSTEBZ( 'A', 'E', N, VL, VU, IL, IU, ABSTOL, SD, SE, M, NSPLIT, WR, IWORK( 1 ), IWORK( N+1 ), RWORK, IWORK( 2*N+1 ), IINFO )
+               dstebz('A', 'E', N, VL, VU, IL, IU, ABSTOL, SD, SE, M, NSPLIT, WR, IWORK( 1 ), IWORK( N+1 ), RWORK, IWORK( 2*N+1 ), IINFO );
                if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'DSTEBZ(A,rel)', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
@@ -693,7 +693,7 @@
 
             NTEST = 18
             ABSTOL = UNFL + UNFL
-            CALL DSTEBZ( 'A', 'E', N, VL, VU, IL, IU, ABSTOL, SD, SE, M, NSPLIT, WA1, IWORK( 1 ), IWORK( N+1 ), RWORK, IWORK( 2*N+1 ), IINFO )
+            dstebz('A', 'E', N, VL, VU, IL, IU, ABSTOL, SD, SE, M, NSPLIT, WA1, IWORK( 1 ), IWORK( N+1 ), RWORK, IWORK( 2*N+1 ), IINFO );
             if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'DSTEBZ(A)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
@@ -733,7 +733,7 @@
                }
             }
 
-            CALL DSTEBZ( 'I', 'E', N, VL, VU, IL, IU, ABSTOL, SD, SE, M2, NSPLIT, WA2, IWORK( 1 ), IWORK( N+1 ), RWORK, IWORK( 2*N+1 ), IINFO )
+            dstebz('I', 'E', N, VL, VU, IL, IU, ABSTOL, SD, SE, M2, NSPLIT, WA2, IWORK( 1 ), IWORK( N+1 ), RWORK, IWORK( 2*N+1 ), IINFO );
             if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'DSTEBZ(I)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
@@ -764,7 +764,7 @@
                VU = ONE
             }
 
-            CALL DSTEBZ( 'V', 'E', N, VL, VU, IL, IU, ABSTOL, SD, SE, M3, NSPLIT, WA3, IWORK( 1 ), IWORK( N+1 ), RWORK, IWORK( 2*N+1 ), IINFO )
+            dstebz('V', 'E', N, VL, VU, IL, IU, ABSTOL, SD, SE, M3, NSPLIT, WA3, IWORK( 1 ), IWORK( N+1 ), RWORK, IWORK( 2*N+1 ), IINFO );
             if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'DSTEBZ(V)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
@@ -798,7 +798,7 @@
             // it returns these eigenvalues in the correct order.)
 
             NTEST = 21
-            CALL DSTEBZ( 'A', 'B', N, VL, VU, IL, IU, ABSTOL, SD, SE, M, NSPLIT, WA1, IWORK( 1 ), IWORK( N+1 ), RWORK, IWORK( 2*N+1 ), IINFO )
+            dstebz('A', 'B', N, VL, VU, IL, IU, ABSTOL, SD, SE, M, NSPLIT, WA1, IWORK( 1 ), IWORK( N+1 ), RWORK, IWORK( 2*N+1 ), IINFO );
             if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'DSTEBZ(A,B)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
@@ -811,7 +811,7 @@
                }
             }
 
-            CALL ZSTEIN( N, SD, SE, M, WA1, IWORK( 1 ), IWORK( N+1 ), Z, LDU, RWORK, IWORK( 2*N+1 ), IWORK( 3*N+1 ), IINFO )
+            zstein(N, SD, SE, M, WA1, IWORK( 1 ), IWORK( N+1 ), Z, LDU, RWORK, IWORK( 2*N+1 ), IWORK( 3*N+1 ), IINFO );
             if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'ZSTEIN', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
@@ -826,7 +826,7 @@
 
             // Do tests 20 and 21
 
-            CALL ZSTT21( N, 0, SD, SE, WA1, DUMMA, Z, LDU, WORK, RWORK, RESULT( 20 ) )
+            zstt21(N, 0, SD, SE, WA1, DUMMA, Z, LDU, WORK, RWORK, RESULT( 20 ) );
 
             // Call ZSTEDC(I) to compute D1 and Z, do tests.
 
@@ -834,12 +834,12 @@
 
             INDE = 1
             INDRWK = INDE + N
-            CALL DCOPY( N, SD, 1, D1, 1 )
+            dcopy(N, SD, 1, D1, 1 );
             IF( N.GT.0 ) CALL DCOPY( N-1, SE, 1, RWORK( INDE ), 1 )
-            CALL ZLASET( 'Full', N, N, CZERO, CONE, Z, LDU )
+            zlaset('Full', N, N, CZERO, CONE, Z, LDU );
 
             NTEST = 22
-            CALL ZSTEDC( 'I', N, D1, RWORK( INDE ), Z, LDU, WORK, LWEDC, RWORK( INDRWK ), LRWEDC, IWORK, LIWEDC, IINFO )
+            zstedc('I', N, D1, RWORK( INDE ), Z, LDU, WORK, LWEDC, RWORK( INDRWK ), LRWEDC, IWORK, LIWEDC, IINFO );
             if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'ZSTEDC(I)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
@@ -853,18 +853,18 @@
 
             // Do Tests 22 and 23
 
-            CALL ZSTT21( N, 0, SD, SE, D1, DUMMA, Z, LDU, WORK, RWORK, RESULT( 22 ) )
+            zstt21(N, 0, SD, SE, D1, DUMMA, Z, LDU, WORK, RWORK, RESULT( 22 ) );
 
             // Call ZSTEDC(V) to compute D1 and Z, do tests.
 
             // Compute D1 and Z
 
-            CALL DCOPY( N, SD, 1, D1, 1 )
+            dcopy(N, SD, 1, D1, 1 );
             IF( N.GT.0 ) CALL DCOPY( N-1, SE, 1, RWORK( INDE ), 1 )
-            CALL ZLASET( 'Full', N, N, CZERO, CONE, Z, LDU )
+            zlaset('Full', N, N, CZERO, CONE, Z, LDU );
 
             NTEST = 24
-            CALL ZSTEDC( 'V', N, D1, RWORK( INDE ), Z, LDU, WORK, LWEDC, RWORK( INDRWK ), LRWEDC, IWORK, LIWEDC, IINFO )
+            zstedc('V', N, D1, RWORK( INDE ), Z, LDU, WORK, LWEDC, RWORK( INDRWK ), LRWEDC, IWORK, LIWEDC, IINFO );
             if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'ZSTEDC(V)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
@@ -878,18 +878,18 @@
 
             // Do Tests 24 and 25
 
-            CALL ZSTT21( N, 0, SD, SE, D1, DUMMA, Z, LDU, WORK, RWORK, RESULT( 24 ) )
+            zstt21(N, 0, SD, SE, D1, DUMMA, Z, LDU, WORK, RWORK, RESULT( 24 ) );
 
             // Call ZSTEDC(N) to compute D2, do tests.
 
             // Compute D2
 
-            CALL DCOPY( N, SD, 1, D2, 1 )
+            dcopy(N, SD, 1, D2, 1 );
             IF( N.GT.0 ) CALL DCOPY( N-1, SE, 1, RWORK( INDE ), 1 )
-            CALL ZLASET( 'Full', N, N, CZERO, CONE, Z, LDU )
+            zlaset('Full', N, N, CZERO, CONE, Z, LDU );
 
             NTEST = 26
-            CALL ZSTEDC( 'N', N, D2, RWORK( INDE ), Z, LDU, WORK, LWEDC, RWORK( INDRWK ), LRWEDC, IWORK, LIWEDC, IINFO )
+            zstedc('N', N, D2, RWORK( INDE ), Z, LDU, WORK, LWEDC, RWORK( INDRWK ), LRWEDC, IWORK, LIWEDC, IINFO );
             if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'ZSTEDC(N)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
@@ -929,7 +929,7 @@
                if ( JTYPE.EQ.21 .AND. CREL ) {
                   NTEST = 27
                   ABSTOL = UNFL + UNFL
-                  CALL ZSTEMR( 'V', 'A', N, SD, SE, VL, VU, IL, IU, M, WR, Z, LDU, N, IWORK( 1 ), TRYRAC, RWORK, LRWORK, IWORK( 2*N+1 ), LWORK-2*N, IINFO )
+                  zstemr('V', 'A', N, SD, SE, VL, VU, IL, IU, M, WR, Z, LDU, N, IWORK( 1 ), TRYRAC, RWORK, LRWORK, IWORK( 2*N+1 ), LWORK-2*N, IINFO );
                   if ( IINFO.NE.0 ) {
                      WRITE( NOUNIT, FMT = 9999 )'ZSTEMR(V,A,rel)', IINFO, N, JTYPE, IOLDSD
                      INFO = ABS( IINFO )
@@ -963,7 +963,7 @@
                   if ( CRANGE ) {
                      NTEST = 28
                      ABSTOL = UNFL + UNFL
-                     CALL ZSTEMR( 'V', 'I', N, SD, SE, VL, VU, IL, IU, M, WR, Z, LDU, N, IWORK( 1 ), TRYRAC, RWORK, LRWORK, IWORK( 2*N+1 ), LWORK-2*N, IINFO )
+                     zstemr('V', 'I', N, SD, SE, VL, VU, IL, IU, M, WR, Z, LDU, N, IWORK( 1 ), TRYRAC, RWORK, LRWORK, IWORK( 2*N+1 ), LWORK-2*N, IINFO );
 
                      if ( IINFO.NE.0 ) {
                         WRITE( NOUNIT, FMT = 9999 )'ZSTEMR(V,I,rel)', IINFO, N, JTYPE, IOLDSD
@@ -998,9 +998,9 @@
 
             // Compute D1 and Z
 
-               CALL DCOPY( N, SD, 1, D5, 1 )
+               dcopy(N, SD, 1, D5, 1 );
                IF( N.GT.0 ) CALL DCOPY( N-1, SE, 1, RWORK, 1 )
-               CALL ZLASET( 'Full', N, N, CZERO, CONE, Z, LDU )
+               zlaset('Full', N, N, CZERO, CONE, Z, LDU );
 
                if ( CRANGE ) {
                   NTEST = 29
@@ -1011,7 +1011,7 @@
                      IU = IL
                      IL = ITEMP
                   }
-                  CALL ZSTEMR( 'V', 'I', N, D5, RWORK, VL, VU, IL, IU, M, D1, Z, LDU, N, IWORK( 1 ), TRYRAC, RWORK( N+1 ), LRWORK-N, IWORK( 2*N+1 ), LIWORK-2*N, IINFO )
+                  zstemr('V', 'I', N, D5, RWORK, VL, VU, IL, IU, M, D1, Z, LDU, N, IWORK( 1 ), TRYRAC, RWORK( N+1 ), LRWORK-N, IWORK( 2*N+1 ), LIWORK-2*N, IINFO );
                   if ( IINFO.NE.0 ) {
                      WRITE( NOUNIT, FMT = 9999 )'ZSTEMR(V,I)', IINFO, N, JTYPE, IOLDSD
                      INFO = ABS( IINFO )
@@ -1029,11 +1029,11 @@
 
             // Compute D2
 
-                  CALL DCOPY( N, SD, 1, D5, 1 )
+                  dcopy(N, SD, 1, D5, 1 );
                   IF( N.GT.0 ) CALL DCOPY( N-1, SE, 1, RWORK, 1 )
 
                   NTEST = 31
-                  CALL ZSTEMR( 'N', 'I', N, D5, RWORK, VL, VU, IL, IU, M, D2, Z, LDU, N, IWORK( 1 ), TRYRAC, RWORK( N+1 ), LRWORK-N, IWORK( 2*N+1 ), LIWORK-2*N, IINFO )
+                  zstemr('N', 'I', N, D5, RWORK, VL, VU, IL, IU, M, D2, Z, LDU, N, IWORK( 1 ), TRYRAC, RWORK( N+1 ), LRWORK-N, IWORK( 2*N+1 ), LIWORK-2*N, IINFO );
                   if ( IINFO.NE.0 ) {
                      WRITE( NOUNIT, FMT = 9999 )'ZSTEMR(N,I)', IINFO, N, JTYPE, IOLDSD
                      INFO = ABS( IINFO )
@@ -1061,9 +1061,9 @@
 
             // Compute D1 and Z
 
-                  CALL DCOPY( N, SD, 1, D5, 1 )
+                  dcopy(N, SD, 1, D5, 1 );
                   IF( N.GT.0 ) CALL DCOPY( N-1, SE, 1, RWORK, 1 )
-                  CALL ZLASET( 'Full', N, N, CZERO, CONE, Z, LDU )
+                  zlaset('Full', N, N, CZERO, CONE, Z, LDU );
 
                   NTEST = 32
 
@@ -1083,7 +1083,7 @@
                      VU = ONE
                   }
 
-                  CALL ZSTEMR( 'V', 'V', N, D5, RWORK, VL, VU, IL, IU, M, D1, Z, LDU, M, IWORK( 1 ), TRYRAC, RWORK( N+1 ), LRWORK-N, IWORK( 2*N+1 ), LIWORK-2*N, IINFO )
+                  zstemr('V', 'V', N, D5, RWORK, VL, VU, IL, IU, M, D1, Z, LDU, M, IWORK( 1 ), TRYRAC, RWORK( N+1 ), LRWORK-N, IWORK( 2*N+1 ), LIWORK-2*N, IINFO );
                   if ( IINFO.NE.0 ) {
                      WRITE( NOUNIT, FMT = 9999 )'ZSTEMR(V,V)', IINFO, N, JTYPE, IOLDSD
                      INFO = ABS( IINFO )
@@ -1097,17 +1097,17 @@
 
             // Do Tests 32 and 33
 
-                  CALL ZSTT22( N, M, 0, SD, SE, D1, DUMMA, Z, LDU, WORK, M, RWORK, RESULT( 32 ) )
+                  zstt22(N, M, 0, SD, SE, D1, DUMMA, Z, LDU, WORK, M, RWORK, RESULT( 32 ) );
 
             // Call ZSTEMR to compute D2, do tests.
 
             // Compute D2
 
-                  CALL DCOPY( N, SD, 1, D5, 1 )
+                  dcopy(N, SD, 1, D5, 1 );
                   IF( N.GT.0 ) CALL DCOPY( N-1, SE, 1, RWORK, 1 )
 
                   NTEST = 34
-                  CALL ZSTEMR( 'N', 'V', N, D5, RWORK, VL, VU, IL, IU, M, D2, Z, LDU, N, IWORK( 1 ), TRYRAC, RWORK( N+1 ), LRWORK-N, IWORK( 2*N+1 ), LIWORK-2*N, IINFO )
+                  zstemr('N', 'V', N, D5, RWORK, VL, VU, IL, IU, M, D2, Z, LDU, N, IWORK( 1 ), TRYRAC, RWORK( N+1 ), LRWORK-N, IWORK( 2*N+1 ), LIWORK-2*N, IINFO );
                   if ( IINFO.NE.0 ) {
                      WRITE( NOUNIT, FMT = 9999 )'ZSTEMR(N,V)', IINFO, N, JTYPE, IOLDSD
                      INFO = ABS( IINFO )
@@ -1143,12 +1143,12 @@
 
             // Compute D1 and Z
 
-               CALL DCOPY( N, SD, 1, D5, 1 )
+               dcopy(N, SD, 1, D5, 1 );
                IF( N.GT.0 ) CALL DCOPY( N-1, SE, 1, RWORK, 1 )
 
                NTEST = 35
 
-               CALL ZSTEMR( 'V', 'A', N, D5, RWORK, VL, VU, IL, IU, M, D1, Z, LDU, N, IWORK( 1 ), TRYRAC, RWORK( N+1 ), LRWORK-N, IWORK( 2*N+1 ), LIWORK-2*N, IINFO )
+               zstemr('V', 'A', N, D5, RWORK, VL, VU, IL, IU, M, D1, Z, LDU, N, IWORK( 1 ), TRYRAC, RWORK( N+1 ), LRWORK-N, IWORK( 2*N+1 ), LIWORK-2*N, IINFO );
                if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'ZSTEMR(V,A)', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
@@ -1162,17 +1162,17 @@
 
             // Do Tests 35 and 36
 
-               CALL ZSTT22( N, M, 0, SD, SE, D1, DUMMA, Z, LDU, WORK, M, RWORK, RESULT( 35 ) )
+               zstt22(N, M, 0, SD, SE, D1, DUMMA, Z, LDU, WORK, M, RWORK, RESULT( 35 ) );
 
             // Call ZSTEMR to compute D2, do tests.
 
             // Compute D2
 
-               CALL DCOPY( N, SD, 1, D5, 1 )
+               dcopy(N, SD, 1, D5, 1 );
                IF( N.GT.0 ) CALL DCOPY( N-1, SE, 1, RWORK, 1 )
 
                NTEST = 37
-               CALL ZSTEMR( 'N', 'A', N, D5, RWORK, VL, VU, IL, IU, M, D2, Z, LDU, N, IWORK( 1 ), TRYRAC, RWORK( N+1 ), LRWORK-N, IWORK( 2*N+1 ), LIWORK-2*N, IINFO )
+               zstemr('N', 'A', N, D5, RWORK, VL, VU, IL, IU, M, D2, Z, LDU, N, IWORK( 1 ), TRYRAC, RWORK( N+1 ), LRWORK-N, IWORK( 2*N+1 ), LIWORK-2*N, IINFO );
                if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9999 )'ZSTEMR(N,A)', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
@@ -1234,7 +1234,7 @@
 
       // Summary
 
-      CALL DLASUM( 'ZST', NOUNIT, NERRS, NTESTT )
+      dlasum('ZST', NOUNIT, NERRS, NTESTT );
       RETURN
 
  9999 FORMAT( ' ZCHKST2STG: ', A, ' returned INFO=', I6, '.', / 9X, 'N=', I6, ', JTYPE=', I6, ', ISEED=(', 3( I5, ',' ), I5, ')' )

@@ -50,7 +50,7 @@
          INFO = -8
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'DSYTRS_ROOK', -INFO )
+         xerbla('DSYTRS_ROOK', -INFO );
          RETURN
       }
 
@@ -86,11 +86,11 @@
             // Multiply by inv(U(K)), where U(K) is the transformation
             // stored in column K of A.
 
-            CALL DGER( K-1, NRHS, -ONE, A( 1, K ), 1, B( K, 1 ), LDB, B( 1, 1 ), LDB )
+            dger(K-1, NRHS, -ONE, A( 1, K ), 1, B( K, 1 ), LDB, B( 1, 1 ), LDB );
 
             // Multiply by the inverse of the diagonal block.
 
-            CALL DSCAL( NRHS, ONE / A( K, K ), B( K, 1 ), LDB )
+            dscal(NRHS, ONE / A( K, K ), B( K, 1 ), LDB );
             K = K - 1
          } else {
 
@@ -108,7 +108,7 @@
             // stored in columns K-1 and K of A.
 
             if ( K.GT.2 ) {
-               CALL DGER( K-2, NRHS, -ONE, A( 1, K ), 1, B( K, 1 ), LDB, B( 1, 1 ), LDB )                CALL DGER( K-2, NRHS, -ONE, A( 1, K-1 ), 1, B( K-1, 1 ), LDB, B( 1, 1 ), LDB )
+               dger(K-2, NRHS, -ONE, A( 1, K ), 1, B( K, 1 ), LDB, B( 1, 1 ), LDB )                CALL DGER( K-2, NRHS, -ONE, A( 1, K-1 ), 1, B( K-1, 1 ), LDB, B( 1, 1 ), LDB );
             }
 
             // Multiply by the inverse of the diagonal block.
@@ -163,7 +163,7 @@
             // stored in columns K and K+1 of A.
 
             if ( K.GT.1 ) {
-               CALL DGEMV( 'Transpose', K-1, NRHS, -ONE, B, LDB, A( 1, K ), 1, ONE, B( K, 1 ), LDB )                CALL DGEMV( 'Transpose', K-1, NRHS, -ONE, B, LDB, A( 1, K+1 ), 1, ONE, B( K+1, 1 ), LDB )
+               dgemv('Transpose', K-1, NRHS, -ONE, B, LDB, A( 1, K ), 1, ONE, B( K, 1 ), LDB )                CALL DGEMV( 'Transpose', K-1, NRHS, -ONE, B, LDB, A( 1, K+1 ), 1, ONE, B( K+1, 1 ), LDB );
             }
 
             // Interchange rows K and -IPIV(K) THEN K+1 and -IPIV(K+1).
@@ -212,7 +212,7 @@
 
             // Multiply by the inverse of the diagonal block.
 
-            CALL DSCAL( NRHS, ONE / A( K, K ), B( K, 1 ), LDB )
+            dscal(NRHS, ONE / A( K, K ), B( K, 1 ), LDB );
             K = K + 1
          } else {
 
@@ -230,7 +230,7 @@
             // stored in columns K and K+1 of A.
 
             if ( K.LT.N-1 ) {
-               CALL DGER( N-K-1, NRHS, -ONE, A( K+2, K ), 1, B( K, 1 ), LDB, B( K+2, 1 ), LDB )                CALL DGER( N-K-1, NRHS, -ONE, A( K+2, K+1 ), 1, B( K+1, 1 ), LDB, B( K+2, 1 ), LDB )
+               dger(N-K-1, NRHS, -ONE, A( K+2, K ), 1, B( K, 1 ), LDB, B( K+2, 1 ), LDB )                CALL DGER( N-K-1, NRHS, -ONE, A( K+2, K+1 ), 1, B( K+1, 1 ), LDB, B( K+2, 1 ), LDB );
             }
 
             // Multiply by the inverse of the diagonal block.
@@ -285,7 +285,7 @@
             // stored in columns K-1 and K of A.
 
             if ( K.LT.N ) {
-               CALL DGEMV( 'Transpose', N-K, NRHS, -ONE, B( K+1, 1 ), LDB, A( K+1, K ), 1, ONE, B( K, 1 ), LDB )                CALL DGEMV( 'Transpose', N-K, NRHS, -ONE, B( K+1, 1 ), LDB, A( K+1, K-1 ), 1, ONE, B( K-1, 1 ), LDB )
+               dgemv('Transpose', N-K, NRHS, -ONE, B( K+1, 1 ), LDB, A( K+1, K ), 1, ONE, B( K, 1 ), LDB )                CALL DGEMV( 'Transpose', N-K, NRHS, -ONE, B( K+1, 1 ), LDB, A( K+1, K-1 ), 1, ONE, B( K-1, 1 ), LDB );
             }
 
             // Interchange rows K and -IPIV(K) THEN K-1 and -IPIV(K-1)

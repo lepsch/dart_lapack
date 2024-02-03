@@ -82,7 +82,7 @@
 
       if ( XMAX.GT.BIGNUM ) {
          SCALE = BIGNUM / XMAX
-         CALL DSCAL( N1, SCALE, X, 1 )
+         dscal(N1, SCALE, X, 1 );
          XMAX = BIGNUM
       }
 
@@ -126,7 +126,7 @@
                   if ( TJJ.LT.ONE ) {
                      if ( XJ.GT.BIGNUM*TJJ ) {
                         REC = ONE / XJ
-                        CALL DSCAL( N, REC, X, 1 )
+                        dscal(N, REC, X, 1 );
                         SCALE = SCALE*REC
                         XMAX = XMAX*REC
                      }
@@ -140,12 +140,12 @@
                   if ( XJ.GT.ONE ) {
                      REC = ONE / XJ
                      if ( WORK( J1 ).GT.( BIGNUM-XMAX )*REC ) {
-                        CALL DSCAL( N, REC, X, 1 )
+                        dscal(N, REC, X, 1 );
                         SCALE = SCALE*REC
                      }
                   }
                   if ( J1.GT.1 ) {
-                     CALL DAXPY( J1-1, -X( J1 ), T( 1, J1 ), 1, X, 1 )
+                     daxpy(J1-1, -X( J1 ), T( 1, J1 ), 1, X, 1 );
                      K = IDAMAX( J1-1, X, 1 )
                      XMAX = ABS( X( K ) )
                   }
@@ -159,11 +159,11 @@
 
                   D( 1, 1 ) = X( J1 )
                   D( 2, 1 ) = X( J2 )
-                  CALL DLALN2( .FALSE., 2, 1, SMIN, ONE, T( J1, J1 ), LDT, ONE, ONE, D, 2, ZERO, ZERO, V, 2, SCALOC, XNORM, IERR )
+                  dlaln2(.FALSE., 2, 1, SMIN, ONE, T( J1, J1 ), LDT, ONE, ONE, D, 2, ZERO, ZERO, V, 2, SCALOC, XNORM, IERR );
                   IF( IERR.NE.0 ) INFO = 2
 
                   if ( SCALOC.NE.ONE ) {
-                     CALL DSCAL( N, SCALOC, X, 1 )
+                     dscal(N, SCALOC, X, 1 );
                      SCALE = SCALE*SCALOC
                   }
                   X( J1 ) = V( 1, 1 )
@@ -176,7 +176,7 @@
                   if ( XJ.GT.ONE ) {
                      REC = ONE / XJ
                      if ( MAX( WORK( J1 ), WORK( J2 ) ).GT. ( BIGNUM-XMAX )*REC ) {
-                        CALL DSCAL( N, REC, X, 1 )
+                        dscal(N, REC, X, 1 );
                         SCALE = SCALE*REC
                      }
                   }
@@ -184,8 +184,8 @@
                   // Update right-hand side
 
                   if ( J1.GT.1 ) {
-                     CALL DAXPY( J1-1, -X( J1 ), T( 1, J1 ), 1, X, 1 )
-                     CALL DAXPY( J1-1, -X( J2 ), T( 1, J2 ), 1, X, 1 )
+                     daxpy(J1-1, -X( J1 ), T( 1, J1 ), 1, X, 1 );
+                     daxpy(J1-1, -X( J2 ), T( 1, J2 ), 1, X, 1 );
                      K = IDAMAX( J1-1, X, 1 )
                      XMAX = ABS( X( K ) )
                   }
@@ -222,7 +222,7 @@
                   if ( XMAX.GT.ONE ) {
                      REC = ONE / XMAX
                      if ( WORK( J1 ).GT.( BIGNUM-XJ )*REC ) {
-                        CALL DSCAL( N, REC, X, 1 )
+                        dscal(N, REC, X, 1 );
                         SCALE = SCALE*REC
                         XMAX = XMAX*REC
                      }
@@ -242,7 +242,7 @@
                   if ( TJJ.LT.ONE ) {
                      if ( XJ.GT.BIGNUM*TJJ ) {
                         REC = ONE / XJ
-                        CALL DSCAL( N, REC, X, 1 )
+                        dscal(N, REC, X, 1 );
                         SCALE = SCALE*REC
                         XMAX = XMAX*REC
                      }
@@ -261,7 +261,7 @@
                   if ( XMAX.GT.ONE ) {
                      REC = ONE / XMAX
                      if ( MAX( WORK( J2 ), WORK( J1 ) ).GT.( BIGNUM-XJ )* REC ) {
-                        CALL DSCAL( N, REC, X, 1 )
+                        dscal(N, REC, X, 1 );
                         SCALE = SCALE*REC
                         XMAX = XMAX*REC
                      }
@@ -269,11 +269,11 @@
 
                   D( 1, 1 ) = X( J1 ) - DDOT( J1-1, T( 1, J1 ), 1, X, 1 )                   D( 2, 1 ) = X( J2 ) - DDOT( J1-1, T( 1, J2 ), 1, X, 1 )
 
-                  CALL DLALN2( .TRUE., 2, 1, SMIN, ONE, T( J1, J1 ), LDT, ONE, ONE, D, 2, ZERO, ZERO, V, 2, SCALOC, XNORM, IERR )
+                  dlaln2(.TRUE., 2, 1, SMIN, ONE, T( J1, J1 ), LDT, ONE, ONE, D, 2, ZERO, ZERO, V, 2, SCALOC, XNORM, IERR );
                   IF( IERR.NE.0 ) INFO = 2
 
                   if ( SCALOC.NE.ONE ) {
-                     CALL DSCAL( N, SCALOC, X, 1 )
+                     dscal(N, SCALOC, X, 1 );
                      SCALE = SCALE*SCALOC
                   }
                   X( J1 ) = V( 1, 1 )
@@ -326,12 +326,12 @@
                   if ( TJJ.LT.ONE ) {
                      if ( XJ.GT.BIGNUM*TJJ ) {
                         REC = ONE / XJ
-                        CALL DSCAL( N2, REC, X, 1 )
+                        dscal(N2, REC, X, 1 );
                         SCALE = SCALE*REC
                         XMAX = XMAX*REC
                      }
                   }
-                  CALL DLADIV( X( J1 ), X( N+J1 ), TMP, Z, SR, SI )
+                  dladiv(X( J1 ), X( N+J1 ), TMP, Z, SR, SI );
                   X( J1 ) = SR
                   X( N+J1 ) = SI
                   XJ = ABS( X( J1 ) ) + ABS( X( N+J1 ) )
@@ -342,14 +342,14 @@
                   if ( XJ.GT.ONE ) {
                      REC = ONE / XJ
                      if ( WORK( J1 ).GT.( BIGNUM-XMAX )*REC ) {
-                        CALL DSCAL( N2, REC, X, 1 )
+                        dscal(N2, REC, X, 1 );
                         SCALE = SCALE*REC
                      }
                   }
 
                   if ( J1.GT.1 ) {
-                     CALL DAXPY( J1-1, -X( J1 ), T( 1, J1 ), 1, X, 1 )
-                     CALL DAXPY( J1-1, -X( N+J1 ), T( 1, J1 ), 1, X( N+1 ), 1 )
+                     daxpy(J1-1, -X( J1 ), T( 1, J1 ), 1, X, 1 );
+                     daxpy(J1-1, -X( N+J1 ), T( 1, J1 ), 1, X( N+1 ), 1 );
 
                      X( 1 ) = X( 1 ) + B( J1 )*X( N+J1 )
                      X( N+1 ) = X( N+1 ) - B( J1 )*X( J1 )
@@ -368,11 +368,11 @@
                   D( 2, 1 ) = X( J2 )
                   D( 1, 2 ) = X( N+J1 )
                   D( 2, 2 ) = X( N+J2 )
-                  CALL DLALN2( .FALSE., 2, 2, SMINW, ONE, T( J1, J1 ), LDT, ONE, ONE, D, 2, ZERO, -W, V, 2, SCALOC, XNORM, IERR )
+                  dlaln2(.FALSE., 2, 2, SMINW, ONE, T( J1, J1 ), LDT, ONE, ONE, D, 2, ZERO, -W, V, 2, SCALOC, XNORM, IERR );
                   IF( IERR.NE.0 ) INFO = 2
 
                   if ( SCALOC.NE.ONE ) {
-                     CALL DSCAL( 2*N, SCALOC, X, 1 )
+                     dscal(2*N, SCALOC, X, 1 );
                      SCALE = SCALOC*SCALE
                   }
                   X( J1 ) = V( 1, 1 )
@@ -387,7 +387,7 @@
                   if ( XJ.GT.ONE ) {
                      REC = ONE / XJ
                      if ( MAX( WORK( J1 ), WORK( J2 ) ).GT. ( BIGNUM-XMAX )*REC ) {
-                        CALL DSCAL( N2, REC, X, 1 )
+                        dscal(N2, REC, X, 1 );
                         SCALE = SCALE*REC
                      }
                   }
@@ -395,10 +395,10 @@
                   // Update the right-hand side.
 
                   if ( J1.GT.1 ) {
-                     CALL DAXPY( J1-1, -X( J1 ), T( 1, J1 ), 1, X, 1 )
-                     CALL DAXPY( J1-1, -X( J2 ), T( 1, J2 ), 1, X, 1 )
+                     daxpy(J1-1, -X( J1 ), T( 1, J1 ), 1, X, 1 );
+                     daxpy(J1-1, -X( J2 ), T( 1, J2 ), 1, X, 1 );
 
-                     CALL DAXPY( J1-1, -X( N+J1 ), T( 1, J1 ), 1, X( N+1 ), 1 )                      CALL DAXPY( J1-1, -X( N+J2 ), T( 1, J2 ), 1, X( N+1 ), 1 )
+                     daxpy(J1-1, -X( N+J1 ), T( 1, J1 ), 1, X( N+1 ), 1 )                      CALL DAXPY( J1-1, -X( N+J2 ), T( 1, J2 ), 1, X( N+1 ), 1 );
 
                      X( 1 ) = X( 1 ) + B( J1 )*X( N+J1 ) + B( J2 )*X( N+J2 )                      X( N+1 ) = X( N+1 ) - B( J1 )*X( J1 ) - B( J2 )*X( J2 )
 
@@ -439,7 +439,7 @@
                   if ( XMAX.GT.ONE ) {
                      REC = ONE / XMAX
                      if ( WORK( J1 ).GT.( BIGNUM-XJ )*REC ) {
-                        CALL DSCAL( N2, REC, X, 1 )
+                        dscal(N2, REC, X, 1 );
                         SCALE = SCALE*REC
                         XMAX = XMAX*REC
                      }
@@ -470,12 +470,12 @@
                   if ( TJJ.LT.ONE ) {
                      if ( XJ.GT.BIGNUM*TJJ ) {
                         REC = ONE / XJ
-                        CALL DSCAL( N2, REC, X, 1 )
+                        dscal(N2, REC, X, 1 );
                         SCALE = SCALE*REC
                         XMAX = XMAX*REC
                      }
                   }
-                  CALL DLADIV( X( J1 ), X( N+J1 ), TMP, -Z, SR, SI )
+                  dladiv(X( J1 ), X( N+J1 ), TMP, -Z, SR, SI );
                   X( J1 ) = SR
                   X( J1+N ) = SI
                   XMAX = MAX( ABS( X( J1 ) )+ABS( X( J1+N ) ), XMAX )
@@ -491,7 +491,7 @@
                   if ( XMAX.GT.ONE ) {
                      REC = ONE / XMAX
                      if ( MAX( WORK( J1 ), WORK( J2 ) ).GT. ( BIGNUM-XJ ) / XMAX ) {
-                        CALL DSCAL( N2, REC, X, 1 )
+                        dscal(N2, REC, X, 1 );
                         SCALE = SCALE*REC
                         XMAX = XMAX*REC
                      }
@@ -503,11 +503,11 @@
                   D( 1, 2 ) = D( 1, 2 ) + B( J1 )*X( 1 )
                   D( 2, 2 ) = D( 2, 2 ) + B( J2 )*X( 1 )
 
-                  CALL DLALN2( .TRUE., 2, 2, SMINW, ONE, T( J1, J1 ), LDT, ONE, ONE, D, 2, ZERO, W, V, 2, SCALOC, XNORM, IERR )
+                  dlaln2(.TRUE., 2, 2, SMINW, ONE, T( J1, J1 ), LDT, ONE, ONE, D, 2, ZERO, W, V, 2, SCALOC, XNORM, IERR );
                   IF( IERR.NE.0 ) INFO = 2
 
                   if ( SCALOC.NE.ONE ) {
-                     CALL DSCAL( N2, SCALOC, X, 1 )
+                     dscal(N2, SCALOC, X, 1 );
                      SCALE = SCALOC*SCALE
                   }
                   X( J1 ) = V( 1, 1 )

@@ -66,7 +66,7 @@
          INFO = -9
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'CUNT03', -INFO )
+         xerbla('CUNT03', -INFO );
          RETURN
       }
 
@@ -105,7 +105,7 @@
 
          // Compute orthogonality of rows of V.
 
-         CALL CUNT01( 'Rows', MV, N, V, LDV, WORK, LWORK, RWORK, RES2 )
+         cunt01('Rows', MV, N, V, LDV, WORK, LWORK, RWORK, RES2 );
 
       } else {
 
@@ -133,7 +133,7 @@
 
          // Compute orthogonality of columns of V.
 
-         CALL CUNT01( 'Columns', N, MV, V, LDV, WORK, LWORK, RWORK, RES2 )
+         cunt01('Columns', N, MV, V, LDV, WORK, LWORK, RWORK, RES2 );
       }
 
       RESULT = MIN( MAX( RES1, RES2 ), ONE / ULP )

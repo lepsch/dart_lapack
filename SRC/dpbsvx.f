@@ -95,7 +95,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'DPBSVX', -INFO )
+         xerbla('DPBSVX', -INFO );
          RETURN
       }
 
@@ -103,12 +103,12 @@
 
          // Compute row and column scalings to equilibrate the matrix A.
 
-         CALL DPBEQU( UPLO, N, KD, AB, LDAB, S, SCOND, AMAX, INFEQU )
+         dpbequ(UPLO, N, KD, AB, LDAB, S, SCOND, AMAX, INFEQU );
          if ( INFEQU.EQ.0 ) {
 
             // Equilibrate the matrix.
 
-            CALL DLAQSB( UPLO, N, KD, AB, LDAB, S, SCOND, AMAX, EQUED )
+            dlaqsb(UPLO, N, KD, AB, LDAB, S, SCOND, AMAX, EQUED );
             RCEQU = LSAME( EQUED, 'Y' )
          }
       }
@@ -130,16 +130,16 @@
          if ( UPPER ) {
             DO 40 J = 1, N
                J1 = MAX( J-KD, 1 )
-               CALL DCOPY( J-J1+1, AB( KD+1-J+J1, J ), 1, AFB( KD+1-J+J1, J ), 1 )
+               dcopy(J-J1+1, AB( KD+1-J+J1, J ), 1, AFB( KD+1-J+J1, J ), 1 );
    40       CONTINUE
          } else {
             DO 50 J = 1, N
                J2 = MIN( J+KD, N )
-               CALL DCOPY( J2-J+1, AB( 1, J ), 1, AFB( 1, J ), 1 )
+               dcopy(J2-J+1, AB( 1, J ), 1, AFB( 1, J ), 1 );
    50       CONTINUE
          }
 
-         CALL DPBTRF( UPLO, N, KD, AFB, LDAFB, INFO )
+         dpbtrf(UPLO, N, KD, AFB, LDAFB, INFO );
 
          // Return if INFO is non-zero.
 
@@ -155,17 +155,17 @@
 
       // Compute the reciprocal of the condition number of A.
 
-      CALL DPBCON( UPLO, N, KD, AFB, LDAFB, ANORM, RCOND, WORK, IWORK, INFO )
+      dpbcon(UPLO, N, KD, AFB, LDAFB, ANORM, RCOND, WORK, IWORK, INFO );
 
       // Compute the solution matrix X.
 
-      CALL DLACPY( 'Full', N, NRHS, B, LDB, X, LDX )
-      CALL DPBTRS( UPLO, N, KD, NRHS, AFB, LDAFB, X, LDX, INFO )
+      dlacpy('Full', N, NRHS, B, LDB, X, LDX );
+      dpbtrs(UPLO, N, KD, NRHS, AFB, LDAFB, X, LDX, INFO );
 
       // Use iterative refinement to improve the computed solution and
       // compute error bounds and backward error estimates for it.
 
-      CALL DPBRFS( UPLO, N, KD, NRHS, AB, LDAB, AFB, LDAFB, B, LDB, X, LDX, FERR, BERR, WORK, IWORK, INFO )
+      dpbrfs(UPLO, N, KD, NRHS, AB, LDAB, AFB, LDAFB, B, LDB, X, LDX, FERR, BERR, WORK, IWORK, INFO );
 
       // Transform the solution matrix X to a solution of the original
       // system.

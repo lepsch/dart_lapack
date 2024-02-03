@@ -41,7 +41,7 @@
 
          // Code for general M
 
-         CALL SLARF( SIDE, M, N, V, 1, TAU, C, LDC, WORK )
+         slarf(SIDE, M, N, V, 1, TAU, C, LDC, WORK );
          GO TO 410
    10    CONTINUE
 
@@ -294,7 +294,7 @@
 
          // Code for general N
 
-         CALL SLARF( SIDE, M, N, V, 1, TAU, C, LDC, WORK )
+         slarf(SIDE, M, N, V, 1, TAU, C, LDC, WORK );
          GO TO 410
   210    CONTINUE
 

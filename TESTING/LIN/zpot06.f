@@ -68,7 +68,7 @@
       // Compute  B - A*X  and store in B.
       IFAIL=0
 
-      CALL ZHEMM( 'Left', UPLO, N, NRHS, NEGCONE, A, LDA, X, LDX, CONE, B, LDB )
+      zhemm('Left', UPLO, N, NRHS, NEGCONE, A, LDA, X, LDX, CONE, B, LDB );
 
       // Compute the maximum over the number of right hand sides of
          // norm(B - A*X) / ( norm(A) * norm(X) * EPS ) .

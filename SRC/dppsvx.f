@@ -88,7 +88,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'DPPSVX', -INFO )
+         xerbla('DPPSVX', -INFO );
          RETURN
       }
 
@@ -96,12 +96,12 @@
 
          // Compute row and column scalings to equilibrate the matrix A.
 
-         CALL DPPEQU( UPLO, N, AP, S, SCOND, AMAX, INFEQU )
+         dppequ(UPLO, N, AP, S, SCOND, AMAX, INFEQU );
          if ( INFEQU.EQ.0 ) {
 
             // Equilibrate the matrix.
 
-            CALL DLAQSP( UPLO, N, AP, S, SCOND, AMAX, EQUED )
+            dlaqsp(UPLO, N, AP, S, SCOND, AMAX, EQUED );
             RCEQU = LSAME( EQUED, 'Y' )
          }
       }
@@ -120,8 +120,8 @@
 
          // Compute the Cholesky factorization A = U**T * U or A = L * L**T.
 
-         CALL DCOPY( N*( N+1 ) / 2, AP, 1, AFP, 1 )
-         CALL DPPTRF( UPLO, N, AFP, INFO )
+         dcopy(N*( N+1 ) / 2, AP, 1, AFP, 1 );
+         dpptrf(UPLO, N, AFP, INFO );
 
          // Return if INFO is non-zero.
 
@@ -137,17 +137,17 @@
 
       // Compute the reciprocal of the condition number of A.
 
-      CALL DPPCON( UPLO, N, AFP, ANORM, RCOND, WORK, IWORK, INFO )
+      dppcon(UPLO, N, AFP, ANORM, RCOND, WORK, IWORK, INFO );
 
       // Compute the solution matrix X.
 
-      CALL DLACPY( 'Full', N, NRHS, B, LDB, X, LDX )
-      CALL DPPTRS( UPLO, N, NRHS, AFP, X, LDX, INFO )
+      dlacpy('Full', N, NRHS, B, LDB, X, LDX );
+      dpptrs(UPLO, N, NRHS, AFP, X, LDX, INFO );
 
       // Use iterative refinement to improve the computed solution and
       // compute error bounds and backward error estimates for it.
 
-      CALL DPPRFS( UPLO, N, NRHS, AP, AFP, B, LDB, X, LDX, FERR, BERR, WORK, IWORK, INFO )
+      dpprfs(UPLO, N, NRHS, AP, AFP, B, LDB, X, LDX, FERR, BERR, WORK, IWORK, INFO );
 
       // Transform the solution matrix X to a solution of the original
       // system.

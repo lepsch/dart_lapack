@@ -44,7 +44,7 @@
          INFO = -9
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'CLAED7', -INFO )
+         xerbla('CLAED7', -INFO );
          RETURN
       }
 
@@ -74,7 +74,7 @@
          PTR = PTR + 2**( TLVLS-I )
    10 CONTINUE
       CURR = PTR + CURPBM
-      CALL SLAEDA( N, TLVLS, CURLVL, CURPBM, PRMPTR, PERM, GIVPTR, GIVCOL, GIVNUM, QSTORE, QPTR, RWORK( IZ ), RWORK( IZ+N ), INFO )
+      slaeda(N, TLVLS, CURLVL, CURPBM, PRMPTR, PERM, GIVPTR, GIVCOL, GIVNUM, QSTORE, QPTR, RWORK( IZ ), RWORK( IZ+N ), INFO );
 
       // When solving the final problem, we no longer need the stored data,
       // so we will overwrite the data from this level onto the previously
@@ -88,15 +88,15 @@
 
       // Sort and Deflate eigenvalues.
 
-      CALL CLAED8( K, N, QSIZ, Q, LDQ, D, RHO, CUTPNT, RWORK( IZ ), RWORK( IDLMDA ), WORK, QSIZ, RWORK( IW ), IWORK( INDXP ), IWORK( INDX ), INDXQ, PERM( PRMPTR( CURR ) ), GIVPTR( CURR+1 ), GIVCOL( 1, GIVPTR( CURR ) ), GIVNUM( 1, GIVPTR( CURR ) ), INFO )
+      claed8(K, N, QSIZ, Q, LDQ, D, RHO, CUTPNT, RWORK( IZ ), RWORK( IDLMDA ), WORK, QSIZ, RWORK( IW ), IWORK( INDXP ), IWORK( INDX ), INDXQ, PERM( PRMPTR( CURR ) ), GIVPTR( CURR+1 ), GIVCOL( 1, GIVPTR( CURR ) ), GIVNUM( 1, GIVPTR( CURR ) ), INFO );
       PRMPTR( CURR+1 ) = PRMPTR( CURR ) + N
       GIVPTR( CURR+1 ) = GIVPTR( CURR+1 ) + GIVPTR( CURR )
 
       // Solve Secular Equation.
 
       if ( K.NE.0 ) {
-         CALL SLAED9( K, 1, K, N, D, RWORK( IQ ), K, RHO, RWORK( IDLMDA ), RWORK( IW ), QSTORE( QPTR( CURR ) ), K, INFO )
-         CALL CLACRM( QSIZ, K, WORK, QSIZ, QSTORE( QPTR( CURR ) ), K, Q, LDQ, RWORK( IQ ) )
+         slaed9(K, 1, K, N, D, RWORK( IQ ), K, RHO, RWORK( IDLMDA ), RWORK( IW ), QSTORE( QPTR( CURR ) ), K, INFO );
+         clacrm(QSIZ, K, WORK, QSIZ, QSTORE( QPTR( CURR ) ), K, Q, LDQ, RWORK( IQ ) );
          QPTR( CURR+1 ) = QPTR( CURR ) + K**2
          if ( INFO.NE.0 ) {
             RETURN
@@ -106,7 +106,7 @@
 
          N1 = K
          N2 = N - K
-         CALL SLAMRG( N1, N2, D, 1, -1, INDXQ )
+         slamrg(N1, N2, D, 1, -1, INDXQ );
       } else {
          QPTR( CURR+1 ) = QPTR( CURR )
          DO 20 I = 1, N

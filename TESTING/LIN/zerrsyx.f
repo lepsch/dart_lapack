@@ -79,116 +79,116 @@
 
          SRNAMT = 'ZSYTRF'
          INFOT = 1
-         CALL ZSYTRF( '/', 0, A, 1, IP, W, 1, INFO )
-         CALL CHKXER( 'ZSYTRF', INFOT, NOUT, LERR, OK )
+         zsytrf('/', 0, A, 1, IP, W, 1, INFO );
+         chkxer('ZSYTRF', INFOT, NOUT, LERR, OK );
          INFOT = 2
-         CALL ZSYTRF( 'U', -1, A, 1, IP, W, 1, INFO )
-         CALL CHKXER( 'ZSYTRF', INFOT, NOUT, LERR, OK )
+         zsytrf('U', -1, A, 1, IP, W, 1, INFO );
+         chkxer('ZSYTRF', INFOT, NOUT, LERR, OK );
          INFOT = 4
-         CALL ZSYTRF( 'U', 2, A, 1, IP, W, 4, INFO )
-         CALL CHKXER( 'ZSYTRF', INFOT, NOUT, LERR, OK )
+         zsytrf('U', 2, A, 1, IP, W, 4, INFO );
+         chkxer('ZSYTRF', INFOT, NOUT, LERR, OK );
          INFOT = 7
-         CALL ZSYTRF( 'U', 0, A, 1, IP, W, 0, INFO )
-         CALL CHKXER( 'ZSYTRF', INFOT, NOUT, LERR, OK )
+         zsytrf('U', 0, A, 1, IP, W, 0, INFO );
+         chkxer('ZSYTRF', INFOT, NOUT, LERR, OK );
          INFOT = 7
-         CALL ZSYTRF( 'U', 0, A, 1, IP, W, -2, INFO )
-         CALL CHKXER( 'ZSYTRF', INFOT, NOUT, LERR, OK )
+         zsytrf('U', 0, A, 1, IP, W, -2, INFO );
+         chkxer('ZSYTRF', INFOT, NOUT, LERR, OK );
 
          // ZSYTF2
 
          SRNAMT = 'ZSYTF2'
          INFOT = 1
-         CALL ZSYTF2( '/', 0, A, 1, IP, INFO )
-         CALL CHKXER( 'ZSYTF2', INFOT, NOUT, LERR, OK )
+         zsytf2('/', 0, A, 1, IP, INFO );
+         chkxer('ZSYTF2', INFOT, NOUT, LERR, OK );
          INFOT = 2
-         CALL ZSYTF2( 'U', -1, A, 1, IP, INFO )
-         CALL CHKXER( 'ZSYTF2', INFOT, NOUT, LERR, OK )
+         zsytf2('U', -1, A, 1, IP, INFO );
+         chkxer('ZSYTF2', INFOT, NOUT, LERR, OK );
          INFOT = 4
-         CALL ZSYTF2( 'U', 2, A, 1, IP, INFO )
-         CALL CHKXER( 'ZSYTF2', INFOT, NOUT, LERR, OK )
+         zsytf2('U', 2, A, 1, IP, INFO );
+         chkxer('ZSYTF2', INFOT, NOUT, LERR, OK );
 
          // ZSYTRI
 
          SRNAMT = 'ZSYTRI'
          INFOT = 1
-         CALL ZSYTRI( '/', 0, A, 1, IP, W, INFO )
-         CALL CHKXER( 'ZSYTRI', INFOT, NOUT, LERR, OK )
+         zsytri('/', 0, A, 1, IP, W, INFO );
+         chkxer('ZSYTRI', INFOT, NOUT, LERR, OK );
          INFOT = 2
-         CALL ZSYTRI( 'U', -1, A, 1, IP, W, INFO )
-         CALL CHKXER( 'ZSYTRI', INFOT, NOUT, LERR, OK )
+         zsytri('U', -1, A, 1, IP, W, INFO );
+         chkxer('ZSYTRI', INFOT, NOUT, LERR, OK );
          INFOT = 4
-         CALL ZSYTRI( 'U', 2, A, 1, IP, W, INFO )
-         CALL CHKXER( 'ZSYTRI', INFOT, NOUT, LERR, OK )
+         zsytri('U', 2, A, 1, IP, W, INFO );
+         chkxer('ZSYTRI', INFOT, NOUT, LERR, OK );
 
          // ZSYTRI2
 
          SRNAMT = 'ZSYTRI2'
          INFOT = 1
-         CALL ZSYTRI2( '/', 0, A, 1, IP, W, 1, INFO )
-         CALL CHKXER( 'ZSYTRI2', INFOT, NOUT, LERR, OK )
+         zsytri2('/', 0, A, 1, IP, W, 1, INFO );
+         chkxer('ZSYTRI2', INFOT, NOUT, LERR, OK );
          INFOT = 2
-         CALL ZSYTRI2( 'U', -1, A, 1, IP, W, 1, INFO )
-         CALL CHKXER( 'ZSYTRI2', INFOT, NOUT, LERR, OK )
+         zsytri2('U', -1, A, 1, IP, W, 1, INFO );
+         chkxer('ZSYTRI2', INFOT, NOUT, LERR, OK );
          INFOT = 4
-         CALL ZSYTRI2( 'U', 2, A, 1, IP, W, 1, INFO )
-         CALL CHKXER( 'ZSYTRI2', INFOT, NOUT, LERR, OK )
+         zsytri2('U', 2, A, 1, IP, W, 1, INFO );
+         chkxer('ZSYTRI2', INFOT, NOUT, LERR, OK );
 
          // ZSYTRI2X
 
          SRNAMT = 'ZSYTRI2X'
          INFOT = 1
-         CALL ZSYTRI2X( '/', 0, A, 1, IP, W, 1, INFO )
-         CALL CHKXER( 'ZSYTRI2X', INFOT, NOUT, LERR, OK )
+         zsytri2x('/', 0, A, 1, IP, W, 1, INFO );
+         chkxer('ZSYTRI2X', INFOT, NOUT, LERR, OK );
          INFOT = 2
-         CALL ZSYTRI2X( 'U', -1, A, 1, IP, W, 1, INFO )
-         CALL CHKXER( 'ZSYTRI2X', INFOT, NOUT, LERR, OK )
+         zsytri2x('U', -1, A, 1, IP, W, 1, INFO );
+         chkxer('ZSYTRI2X', INFOT, NOUT, LERR, OK );
          INFOT = 4
-         CALL ZSYTRI2X( 'U', 2, A, 1, IP, W, 1, INFO )
-         CALL CHKXER( 'ZSYTRI2X', INFOT, NOUT, LERR, OK )
+         zsytri2x('U', 2, A, 1, IP, W, 1, INFO );
+         chkxer('ZSYTRI2X', INFOT, NOUT, LERR, OK );
 
          // ZSYTRS
 
          SRNAMT = 'ZSYTRS'
          INFOT = 1
-         CALL ZSYTRS( '/', 0, 0, A, 1, IP, B, 1, INFO )
-         CALL CHKXER( 'ZSYTRS', INFOT, NOUT, LERR, OK )
+         zsytrs('/', 0, 0, A, 1, IP, B, 1, INFO );
+         chkxer('ZSYTRS', INFOT, NOUT, LERR, OK );
          INFOT = 2
-         CALL ZSYTRS( 'U', -1, 0, A, 1, IP, B, 1, INFO )
-         CALL CHKXER( 'ZSYTRS', INFOT, NOUT, LERR, OK )
+         zsytrs('U', -1, 0, A, 1, IP, B, 1, INFO );
+         chkxer('ZSYTRS', INFOT, NOUT, LERR, OK );
          INFOT = 3
-         CALL ZSYTRS( 'U', 0, -1, A, 1, IP, B, 1, INFO )
-         CALL CHKXER( 'ZSYTRS', INFOT, NOUT, LERR, OK )
+         zsytrs('U', 0, -1, A, 1, IP, B, 1, INFO );
+         chkxer('ZSYTRS', INFOT, NOUT, LERR, OK );
          INFOT = 5
-         CALL ZSYTRS( 'U', 2, 1, A, 1, IP, B, 2, INFO )
-         CALL CHKXER( 'ZSYTRS', INFOT, NOUT, LERR, OK )
+         zsytrs('U', 2, 1, A, 1, IP, B, 2, INFO );
+         chkxer('ZSYTRS', INFOT, NOUT, LERR, OK );
          INFOT = 8
-         CALL ZSYTRS( 'U', 2, 1, A, 2, IP, B, 1, INFO )
-         CALL CHKXER( 'ZSYTRS', INFOT, NOUT, LERR, OK )
+         zsytrs('U', 2, 1, A, 2, IP, B, 1, INFO );
+         chkxer('ZSYTRS', INFOT, NOUT, LERR, OK );
 
          // ZSYRFS
 
          SRNAMT = 'ZSYRFS'
          INFOT = 1
-         CALL ZSYRFS( '/', 0, 0, A, 1, AF, 1, IP, B, 1, X, 1, R1, R2, W, R, INFO )
-         CALL CHKXER( 'ZSYRFS', INFOT, NOUT, LERR, OK )
+         zsyrfs('/', 0, 0, A, 1, AF, 1, IP, B, 1, X, 1, R1, R2, W, R, INFO );
+         chkxer('ZSYRFS', INFOT, NOUT, LERR, OK );
          INFOT = 2
-         CALL ZSYRFS( 'U', -1, 0, A, 1, AF, 1, IP, B, 1, X, 1, R1, R2, W, R, INFO )
-         CALL CHKXER( 'ZSYRFS', INFOT, NOUT, LERR, OK )
+         zsyrfs('U', -1, 0, A, 1, AF, 1, IP, B, 1, X, 1, R1, R2, W, R, INFO );
+         chkxer('ZSYRFS', INFOT, NOUT, LERR, OK );
          INFOT = 3
-         CALL ZSYRFS( 'U', 0, -1, A, 1, AF, 1, IP, B, 1, X, 1, R1, R2, W, R, INFO )
-         CALL CHKXER( 'ZSYRFS', INFOT, NOUT, LERR, OK )
+         zsyrfs('U', 0, -1, A, 1, AF, 1, IP, B, 1, X, 1, R1, R2, W, R, INFO );
+         chkxer('ZSYRFS', INFOT, NOUT, LERR, OK );
          INFOT = 5
-         CALL ZSYRFS( 'U', 2, 1, A, 1, AF, 2, IP, B, 2, X, 2, R1, R2, W, R, INFO )
-         CALL CHKXER( 'ZSYRFS', INFOT, NOUT, LERR, OK )
+         zsyrfs('U', 2, 1, A, 1, AF, 2, IP, B, 2, X, 2, R1, R2, W, R, INFO );
+         chkxer('ZSYRFS', INFOT, NOUT, LERR, OK );
          INFOT = 7
-         CALL ZSYRFS( 'U', 2, 1, A, 2, AF, 1, IP, B, 2, X, 2, R1, R2, W, R, INFO )
-         CALL CHKXER( 'ZSYRFS', INFOT, NOUT, LERR, OK )
+         zsyrfs('U', 2, 1, A, 2, AF, 1, IP, B, 2, X, 2, R1, R2, W, R, INFO );
+         chkxer('ZSYRFS', INFOT, NOUT, LERR, OK );
          INFOT = 10
-         CALL ZSYRFS( 'U', 2, 1, A, 2, AF, 2, IP, B, 1, X, 2, R1, R2, W, R, INFO )
-         CALL CHKXER( 'ZSYRFS', INFOT, NOUT, LERR, OK )
+         zsyrfs('U', 2, 1, A, 2, AF, 2, IP, B, 1, X, 2, R1, R2, W, R, INFO );
+         chkxer('ZSYRFS', INFOT, NOUT, LERR, OK );
          INFOT = 12
-         CALL ZSYRFS( 'U', 2, 1, A, 2, AF, 2, IP, B, 2, X, 1, R1, R2, W, R, INFO )
-         CALL CHKXER( 'ZSYRFS', INFOT, NOUT, LERR, OK )
+         zsyrfs('U', 2, 1, A, 2, AF, 2, IP, B, 2, X, 1, R1, R2, W, R, INFO );
+         chkxer('ZSYRFS', INFOT, NOUT, LERR, OK );
 
          // ZSYRFSX
 
@@ -196,46 +196,46 @@
          NPARAMS = 0
          SRNAMT = 'ZSYRFSX'
          INFOT = 1
-         CALL ZSYRFSX( '/', EQ, 0, 0, A, 1, AF, 1, IP, S, B, 1, X, 1, RCOND, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, R, INFO )
-         CALL CHKXER( 'ZSYRFSX', INFOT, NOUT, LERR, OK )
+         zsyrfsx('/', EQ, 0, 0, A, 1, AF, 1, IP, S, B, 1, X, 1, RCOND, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, R, INFO );
+         chkxer('ZSYRFSX', INFOT, NOUT, LERR, OK );
          INFOT = 2
-         CALL ZSYRFSX( 'U', EQ, -1, 0, A, 1, AF, 1, IP, S, B, 1, X, 1, RCOND, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, R, INFO )
-         CALL CHKXER( 'ZSYRFSX', INFOT, NOUT, LERR, OK )
+         zsyrfsx('U', EQ, -1, 0, A, 1, AF, 1, IP, S, B, 1, X, 1, RCOND, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, R, INFO );
+         chkxer('ZSYRFSX', INFOT, NOUT, LERR, OK );
          EQ = 'N'
          INFOT = 3
-         CALL ZSYRFSX( 'U', EQ, -1, 0, A, 1, AF, 1, IP, S, B, 1, X, 1, RCOND, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, R, INFO )
-         CALL CHKXER( 'ZSYRFSX', INFOT, NOUT, LERR, OK )
+         zsyrfsx('U', EQ, -1, 0, A, 1, AF, 1, IP, S, B, 1, X, 1, RCOND, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, R, INFO );
+         chkxer('ZSYRFSX', INFOT, NOUT, LERR, OK );
          INFOT = 4
-         CALL ZSYRFSX( 'U', EQ, 0, -1, A, 1, AF, 1, IP, S, B, 1, X, 1, RCOND, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, R, INFO )
-         CALL CHKXER( 'ZSYRFSX', INFOT, NOUT, LERR, OK )
+         zsyrfsx('U', EQ, 0, -1, A, 1, AF, 1, IP, S, B, 1, X, 1, RCOND, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, R, INFO );
+         chkxer('ZSYRFSX', INFOT, NOUT, LERR, OK );
          INFOT = 6
-         CALL ZSYRFSX( 'U', EQ, 2, 1, A, 1, AF, 2, IP, S, B, 2, X, 2, RCOND, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, R, INFO )
-         CALL CHKXER( 'ZSYRFSX', INFOT, NOUT, LERR, OK )
+         zsyrfsx('U', EQ, 2, 1, A, 1, AF, 2, IP, S, B, 2, X, 2, RCOND, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, R, INFO );
+         chkxer('ZSYRFSX', INFOT, NOUT, LERR, OK );
          INFOT = 8
-         CALL ZSYRFSX( 'U', EQ, 2, 1, A, 2, AF, 1, IP, S, B, 2, X, 2, RCOND, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, R, INFO )
-         CALL CHKXER( 'ZSYRFSX', INFOT, NOUT, LERR, OK )
+         zsyrfsx('U', EQ, 2, 1, A, 2, AF, 1, IP, S, B, 2, X, 2, RCOND, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, R, INFO );
+         chkxer('ZSYRFSX', INFOT, NOUT, LERR, OK );
          INFOT = 12
-         CALL ZSYRFSX( 'U', EQ, 2, 1, A, 2, AF, 2, IP, S, B, 1, X, 2, RCOND, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, R, INFO )
-         CALL CHKXER( 'ZSYRFSX', INFOT, NOUT, LERR, OK )
+         zsyrfsx('U', EQ, 2, 1, A, 2, AF, 2, IP, S, B, 1, X, 2, RCOND, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, R, INFO );
+         chkxer('ZSYRFSX', INFOT, NOUT, LERR, OK );
          INFOT = 14
-         CALL ZSYRFSX( 'U', EQ, 2, 1, A, 2, AF, 2, IP, S, B, 2, X, 1, RCOND, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, R, INFO )
-         CALL CHKXER( 'ZSYRFSX', INFOT, NOUT, LERR, OK )
+         zsyrfsx('U', EQ, 2, 1, A, 2, AF, 2, IP, S, B, 2, X, 1, RCOND, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, R, INFO );
+         chkxer('ZSYRFSX', INFOT, NOUT, LERR, OK );
 
          // ZSYCON
 
          SRNAMT = 'ZSYCON'
          INFOT = 1
-         CALL ZSYCON( '/', 0, A, 1, IP, ANRM, RCOND, W, INFO )
-         CALL CHKXER( 'ZSYCON', INFOT, NOUT, LERR, OK )
+         zsycon('/', 0, A, 1, IP, ANRM, RCOND, W, INFO );
+         chkxer('ZSYCON', INFOT, NOUT, LERR, OK );
          INFOT = 2
-         CALL ZSYCON( 'U', -1, A, 1, IP, ANRM, RCOND, W, INFO )
-         CALL CHKXER( 'ZSYCON', INFOT, NOUT, LERR, OK )
+         zsycon('U', -1, A, 1, IP, ANRM, RCOND, W, INFO );
+         chkxer('ZSYCON', INFOT, NOUT, LERR, OK );
          INFOT = 4
-         CALL ZSYCON( 'U', 2, A, 1, IP, ANRM, RCOND, W, INFO )
-         CALL CHKXER( 'ZSYCON', INFOT, NOUT, LERR, OK )
+         zsycon('U', 2, A, 1, IP, ANRM, RCOND, W, INFO );
+         chkxer('ZSYCON', INFOT, NOUT, LERR, OK );
          INFOT = 6
-         CALL ZSYCON( 'U', 1, A, 1, IP, -ANRM, RCOND, W, INFO )
-         CALL CHKXER( 'ZSYCON', INFOT, NOUT, LERR, OK )
+         zsycon('U', 1, A, 1, IP, -ANRM, RCOND, W, INFO );
+         chkxer('ZSYCON', INFOT, NOUT, LERR, OK );
 
       } else if ( LSAMEN( 2, C2, 'SR' ) ) {
 
@@ -247,81 +247,81 @@
 
          SRNAMT = 'ZSYTRF_ROOK'
          INFOT = 1
-         CALL ZSYTRF_ROOK( '/', 0, A, 1, IP, W, 1, INFO )
-         CALL CHKXER( 'ZSYTRF_ROOK', INFOT, NOUT, LERR, OK )
+         zsytrf_rook('/', 0, A, 1, IP, W, 1, INFO );
+         chkxer('ZSYTRF_ROOK', INFOT, NOUT, LERR, OK );
          INFOT = 2
-         CALL ZSYTRF_ROOK( 'U', -1, A, 1, IP, W, 1, INFO )
-         CALL CHKXER( 'ZSYTRF_ROOK', INFOT, NOUT, LERR, OK )
+         zsytrf_rook('U', -1, A, 1, IP, W, 1, INFO );
+         chkxer('ZSYTRF_ROOK', INFOT, NOUT, LERR, OK );
          INFOT = 4
-         CALL ZSYTRF_ROOK( 'U', 2, A, 1, IP, W, 4, INFO )
-         CALL CHKXER( 'ZSYTRF_ROOK', INFOT, NOUT, LERR, OK )
+         zsytrf_rook('U', 2, A, 1, IP, W, 4, INFO );
+         chkxer('ZSYTRF_ROOK', INFOT, NOUT, LERR, OK );
          INFOT = 7
-         CALL ZSYTRF_ROOK( 'U', 0, A, 1, IP, W, 0, INFO )
-         CALL CHKXER( 'ZSYTRF_ROOK', INFOT, NOUT, LERR, OK )
+         zsytrf_rook('U', 0, A, 1, IP, W, 0, INFO );
+         chkxer('ZSYTRF_ROOK', INFOT, NOUT, LERR, OK );
          INFOT = 7
-         CALL ZSYTRF_ROOK( 'U', 0, A, 1, IP, W, -2, INFO )
-         CALL CHKXER( 'ZSYTRF_ROOK', INFOT, NOUT, LERR, OK )
+         zsytrf_rook('U', 0, A, 1, IP, W, -2, INFO );
+         chkxer('ZSYTRF_ROOK', INFOT, NOUT, LERR, OK );
 
          // ZSYTF2_ROOK
 
          SRNAMT = 'ZSYTF2_ROOK'
          INFOT = 1
-         CALL ZSYTF2_ROOK( '/', 0, A, 1, IP, INFO )
-         CALL CHKXER( 'ZSYTF2_ROOK', INFOT, NOUT, LERR, OK )
+         zsytf2_rook('/', 0, A, 1, IP, INFO );
+         chkxer('ZSYTF2_ROOK', INFOT, NOUT, LERR, OK );
          INFOT = 2
-         CALL ZSYTF2_ROOK( 'U', -1, A, 1, IP, INFO )
-         CALL CHKXER( 'ZSYTF2_ROOK', INFOT, NOUT, LERR, OK )
+         zsytf2_rook('U', -1, A, 1, IP, INFO );
+         chkxer('ZSYTF2_ROOK', INFOT, NOUT, LERR, OK );
          INFOT = 4
-         CALL ZSYTF2_ROOK( 'U', 2, A, 1, IP, INFO )
-         CALL CHKXER( 'ZSYTF2_ROOK', INFOT, NOUT, LERR, OK )
+         zsytf2_rook('U', 2, A, 1, IP, INFO );
+         chkxer('ZSYTF2_ROOK', INFOT, NOUT, LERR, OK );
 
          // ZSYTRI_ROOK
 
          SRNAMT = 'ZSYTRI_ROOK'
          INFOT = 1
-         CALL ZSYTRI_ROOK( '/', 0, A, 1, IP, W, INFO )
-         CALL CHKXER( 'ZSYTRI_ROOK', INFOT, NOUT, LERR, OK )
+         zsytri_rook('/', 0, A, 1, IP, W, INFO );
+         chkxer('ZSYTRI_ROOK', INFOT, NOUT, LERR, OK );
          INFOT = 2
-         CALL ZSYTRI_ROOK( 'U', -1, A, 1, IP, W, INFO )
-         CALL CHKXER( 'ZSYTRI_ROOK', INFOT, NOUT, LERR, OK )
+         zsytri_rook('U', -1, A, 1, IP, W, INFO );
+         chkxer('ZSYTRI_ROOK', INFOT, NOUT, LERR, OK );
          INFOT = 4
-         CALL ZSYTRI_ROOK( 'U', 2, A, 1, IP, W, INFO )
-         CALL CHKXER( 'ZSYTRI_ROOK', INFOT, NOUT, LERR, OK )
+         zsytri_rook('U', 2, A, 1, IP, W, INFO );
+         chkxer('ZSYTRI_ROOK', INFOT, NOUT, LERR, OK );
 
          // ZSYTRS_ROOK
 
          SRNAMT = 'ZSYTRS_ROOK'
          INFOT = 1
-         CALL ZSYTRS_ROOK( '/', 0, 0, A, 1, IP, B, 1, INFO )
-         CALL CHKXER( 'ZSYTRS_ROOK', INFOT, NOUT, LERR, OK )
+         zsytrs_rook('/', 0, 0, A, 1, IP, B, 1, INFO );
+         chkxer('ZSYTRS_ROOK', INFOT, NOUT, LERR, OK );
          INFOT = 2
-         CALL ZSYTRS_ROOK( 'U', -1, 0, A, 1, IP, B, 1, INFO )
-         CALL CHKXER( 'ZSYTRS_ROOK', INFOT, NOUT, LERR, OK )
+         zsytrs_rook('U', -1, 0, A, 1, IP, B, 1, INFO );
+         chkxer('ZSYTRS_ROOK', INFOT, NOUT, LERR, OK );
          INFOT = 3
-         CALL ZSYTRS_ROOK( 'U', 0, -1, A, 1, IP, B, 1, INFO )
-         CALL CHKXER( 'ZSYTRS_ROOK', INFOT, NOUT, LERR, OK )
+         zsytrs_rook('U', 0, -1, A, 1, IP, B, 1, INFO );
+         chkxer('ZSYTRS_ROOK', INFOT, NOUT, LERR, OK );
          INFOT = 5
-         CALL ZSYTRS_ROOK( 'U', 2, 1, A, 1, IP, B, 2, INFO )
-         CALL CHKXER( 'ZSYTRS_ROOK', INFOT, NOUT, LERR, OK )
+         zsytrs_rook('U', 2, 1, A, 1, IP, B, 2, INFO );
+         chkxer('ZSYTRS_ROOK', INFOT, NOUT, LERR, OK );
          INFOT = 8
-         CALL ZSYTRS_ROOK( 'U', 2, 1, A, 2, IP, B, 1, INFO )
-         CALL CHKXER( 'ZSYTRS_ROOK', INFOT, NOUT, LERR, OK )
+         zsytrs_rook('U', 2, 1, A, 2, IP, B, 1, INFO );
+         chkxer('ZSYTRS_ROOK', INFOT, NOUT, LERR, OK );
 
          // ZSYCON_ROOK
 
          SRNAMT = 'ZSYCON_ROOK'
          INFOT = 1
-         CALL ZSYCON_ROOK( '/', 0, A, 1, IP, ANRM, RCOND, W, INFO )
-         CALL CHKXER( 'ZSYCON_ROOK', INFOT, NOUT, LERR, OK )
+         zsycon_rook('/', 0, A, 1, IP, ANRM, RCOND, W, INFO );
+         chkxer('ZSYCON_ROOK', INFOT, NOUT, LERR, OK );
          INFOT = 2
-         CALL ZSYCON_ROOK( 'U', -1, A, 1, IP, ANRM, RCOND, W, INFO )
-         CALL CHKXER( 'ZSYCON_ROOK', INFOT, NOUT, LERR, OK )
+         zsycon_rook('U', -1, A, 1, IP, ANRM, RCOND, W, INFO );
+         chkxer('ZSYCON_ROOK', INFOT, NOUT, LERR, OK );
          INFOT = 4
-         CALL ZSYCON_ROOK( 'U', 2, A, 1, IP, ANRM, RCOND, W, INFO )
-         CALL CHKXER( 'ZSYCON_ROOK', INFOT, NOUT, LERR, OK )
+         zsycon_rook('U', 2, A, 1, IP, ANRM, RCOND, W, INFO );
+         chkxer('ZSYCON_ROOK', INFOT, NOUT, LERR, OK );
          INFOT = 6
-         CALL ZSYCON_ROOK( 'U', 1, A, 1, IP, -ANRM, RCOND, W, INFO )
-         CALL CHKXER( 'ZSYCON_ROOK', INFOT, NOUT, LERR, OK )
+         zsycon_rook('U', 1, A, 1, IP, -ANRM, RCOND, W, INFO );
+         chkxer('ZSYCON_ROOK', INFOT, NOUT, LERR, OK );
 
       } else if ( LSAMEN( 2, C2, 'SK' ) ) {
 
@@ -337,100 +337,100 @@
 
          SRNAMT = 'ZSYTRF_RK'
          INFOT = 1
-         CALL ZSYTRF_RK( '/', 0, A, 1, E, IP, W, 1, INFO )
-         CALL CHKXER( 'ZSYTRF_RK', INFOT, NOUT, LERR, OK )
+         zsytrf_rk('/', 0, A, 1, E, IP, W, 1, INFO );
+         chkxer('ZSYTRF_RK', INFOT, NOUT, LERR, OK );
          INFOT = 2
-         CALL ZSYTRF_RK( 'U', -1, A, 1, E, IP, W, 1, INFO )
-         CALL CHKXER( 'ZSYTRF_RK', INFOT, NOUT, LERR, OK )
+         zsytrf_rk('U', -1, A, 1, E, IP, W, 1, INFO );
+         chkxer('ZSYTRF_RK', INFOT, NOUT, LERR, OK );
          INFOT = 4
-         CALL ZSYTRF_RK( 'U', 2, A, 1, E, IP, W, 4, INFO )
-         CALL CHKXER( 'ZSYTRF_RK', INFOT, NOUT, LERR, OK )
+         zsytrf_rk('U', 2, A, 1, E, IP, W, 4, INFO );
+         chkxer('ZSYTRF_RK', INFOT, NOUT, LERR, OK );
          INFOT = 8
-         CALL ZSYTRF_RK( 'U', 0, A, 1, E, IP, W, 0, INFO )
-         CALL CHKXER( 'ZSYTRF_RK', INFOT, NOUT, LERR, OK )
+         zsytrf_rk('U', 0, A, 1, E, IP, W, 0, INFO );
+         chkxer('ZSYTRF_RK', INFOT, NOUT, LERR, OK );
          INFOT = 8
-         CALL ZSYTRF_RK( 'U', 0, A, 1, E, IP, W, -2, INFO )
-         CALL CHKXER( 'ZSYTRF_RK', INFOT, NOUT, LERR, OK )
+         zsytrf_rk('U', 0, A, 1, E, IP, W, -2, INFO );
+         chkxer('ZSYTRF_RK', INFOT, NOUT, LERR, OK );
 
          // ZSYTF2_RK
 
          SRNAMT = 'ZSYTF2_RK'
          INFOT = 1
-         CALL ZSYTF2_RK( '/', 0, A, 1, E, IP, INFO )
-         CALL CHKXER( 'ZSYTF2_RK', INFOT, NOUT, LERR, OK )
+         zsytf2_rk('/', 0, A, 1, E, IP, INFO );
+         chkxer('ZSYTF2_RK', INFOT, NOUT, LERR, OK );
          INFOT = 2
-         CALL ZSYTF2_RK( 'U', -1, A, 1, E, IP, INFO )
-         CALL CHKXER( 'ZSYTF2_RK', INFOT, NOUT, LERR, OK )
+         zsytf2_rk('U', -1, A, 1, E, IP, INFO );
+         chkxer('ZSYTF2_RK', INFOT, NOUT, LERR, OK );
          INFOT = 4
-         CALL ZSYTF2_RK( 'U', 2, A, 1, E, IP, INFO )
-         CALL CHKXER( 'ZSYTF2_RK', INFOT, NOUT, LERR, OK )
+         zsytf2_rk('U', 2, A, 1, E, IP, INFO );
+         chkxer('ZSYTF2_RK', INFOT, NOUT, LERR, OK );
 
          // ZSYTRI_3
 
          SRNAMT = 'ZSYTRI_3'
          INFOT = 1
-         CALL ZSYTRI_3( '/', 0, A, 1, E, IP, W, 1, INFO )
-         CALL CHKXER( 'ZSYTRI_3', INFOT, NOUT, LERR, OK )
+         zsytri_3('/', 0, A, 1, E, IP, W, 1, INFO );
+         chkxer('ZSYTRI_3', INFOT, NOUT, LERR, OK );
          INFOT = 2
-         CALL ZSYTRI_3( 'U', -1, A, 1, E, IP, W, 1, INFO )
-         CALL CHKXER( 'ZSYTRI_3', INFOT, NOUT, LERR, OK )
+         zsytri_3('U', -1, A, 1, E, IP, W, 1, INFO );
+         chkxer('ZSYTRI_3', INFOT, NOUT, LERR, OK );
          INFOT = 4
-         CALL ZSYTRI_3( 'U', 2, A, 1, E, IP, W, 1, INFO )
-         CALL CHKXER( 'ZSYTRI_3', INFOT, NOUT, LERR, OK )
+         zsytri_3('U', 2, A, 1, E, IP, W, 1, INFO );
+         chkxer('ZSYTRI_3', INFOT, NOUT, LERR, OK );
          INFOT = 8
-         CALL ZSYTRI_3( 'U', 0, A, 1, E, IP, W, 0, INFO )
-         CALL CHKXER( 'ZSYTRI_3', INFOT, NOUT, LERR, OK )
+         zsytri_3('U', 0, A, 1, E, IP, W, 0, INFO );
+         chkxer('ZSYTRI_3', INFOT, NOUT, LERR, OK );
          INFOT = 8
-         CALL ZSYTRI_3( 'U', 0, A, 1, E, IP, W, -2, INFO )
-         CALL CHKXER( 'ZSYTRI_3', INFOT, NOUT, LERR, OK )
+         zsytri_3('U', 0, A, 1, E, IP, W, -2, INFO );
+         chkxer('ZSYTRI_3', INFOT, NOUT, LERR, OK );
 
          // ZSYTRI_3X
 
          SRNAMT = 'ZSYTRI_3X'
          INFOT = 1
-         CALL ZSYTRI_3X( '/', 0, A, 1, E, IP, W, 1, INFO )
-         CALL CHKXER( 'ZSYTRI_3X', INFOT, NOUT, LERR, OK )
+         zsytri_3x('/', 0, A, 1, E, IP, W, 1, INFO );
+         chkxer('ZSYTRI_3X', INFOT, NOUT, LERR, OK );
          INFOT = 2
-         CALL ZSYTRI_3X( 'U', -1, A, 1, E, IP, W, 1, INFO )
-         CALL CHKXER( 'ZSYTRI_3X', INFOT, NOUT, LERR, OK )
+         zsytri_3x('U', -1, A, 1, E, IP, W, 1, INFO );
+         chkxer('ZSYTRI_3X', INFOT, NOUT, LERR, OK );
          INFOT = 4
-         CALL ZSYTRI_3X( 'U', 2, A, 1, E, IP, W, 1, INFO )
-         CALL CHKXER( 'ZSYTRI_3X', INFOT, NOUT, LERR, OK )
+         zsytri_3x('U', 2, A, 1, E, IP, W, 1, INFO );
+         chkxer('ZSYTRI_3X', INFOT, NOUT, LERR, OK );
 
          // ZSYTRS_3
 
          SRNAMT = 'ZSYTRS_3'
          INFOT = 1
-         CALL ZSYTRS_3( '/', 0, 0, A, 1, E, IP, B, 1, INFO )
-         CALL CHKXER( 'ZSYTRS_3', INFOT, NOUT, LERR, OK )
+         zsytrs_3('/', 0, 0, A, 1, E, IP, B, 1, INFO );
+         chkxer('ZSYTRS_3', INFOT, NOUT, LERR, OK );
          INFOT = 2
-         CALL ZSYTRS_3( 'U', -1, 0, A, 1, E, IP, B, 1, INFO )
-         CALL CHKXER( 'ZSYTRS_3', INFOT, NOUT, LERR, OK )
+         zsytrs_3('U', -1, 0, A, 1, E, IP, B, 1, INFO );
+         chkxer('ZSYTRS_3', INFOT, NOUT, LERR, OK );
          INFOT = 3
-         CALL ZSYTRS_3( 'U', 0, -1, A, 1, E, IP, B, 1, INFO )
-         CALL CHKXER( 'ZSYTRS_3', INFOT, NOUT, LERR, OK )
+         zsytrs_3('U', 0, -1, A, 1, E, IP, B, 1, INFO );
+         chkxer('ZSYTRS_3', INFOT, NOUT, LERR, OK );
          INFOT = 5
-         CALL ZSYTRS_3( 'U', 2, 1, A, 1, E, IP, B, 2, INFO )
-         CALL CHKXER( 'ZSYTRS_3', INFOT, NOUT, LERR, OK )
+         zsytrs_3('U', 2, 1, A, 1, E, IP, B, 2, INFO );
+         chkxer('ZSYTRS_3', INFOT, NOUT, LERR, OK );
          INFOT = 9
-         CALL ZSYTRS_3( 'U', 2, 1, A, 2, E, IP, B, 1, INFO )
-         CALL CHKXER( 'ZSYTRS_3', INFOT, NOUT, LERR, OK )
+         zsytrs_3('U', 2, 1, A, 2, E, IP, B, 1, INFO );
+         chkxer('ZSYTRS_3', INFOT, NOUT, LERR, OK );
 
          // ZSYCON_3
 
          SRNAMT = 'ZSYCON_3'
          INFOT = 1
-         CALL ZSYCON_3( '/', 0, A, 1,  E, IP, ANRM, RCOND, W, INFO )
-         CALL CHKXER( 'ZSYCON_3', INFOT, NOUT, LERR, OK )
+         zsycon_3('/', 0, A, 1,  E, IP, ANRM, RCOND, W, INFO );
+         chkxer('ZSYCON_3', INFOT, NOUT, LERR, OK );
          INFOT = 2
-         CALL ZSYCON_3( 'U', -1, A, 1, E, IP, ANRM, RCOND, W, INFO )
-         CALL CHKXER( 'ZSYCON_3', INFOT, NOUT, LERR, OK )
+         zsycon_3('U', -1, A, 1, E, IP, ANRM, RCOND, W, INFO );
+         chkxer('ZSYCON_3', INFOT, NOUT, LERR, OK );
          INFOT = 4
-         CALL ZSYCON_3( 'U', 2, A, 1, E, IP, ANRM, RCOND, W, INFO )
-         CALL CHKXER( 'ZSYCON_3', INFOT, NOUT, LERR, OK )
+         zsycon_3('U', 2, A, 1, E, IP, ANRM, RCOND, W, INFO );
+         chkxer('ZSYCON_3', INFOT, NOUT, LERR, OK );
          INFOT = 7
-         CALL ZSYCON_3( 'U', 1, A, 1, E, IP, -1.0D0, RCOND, W, INFO)
-         CALL CHKXER( 'ZSYCON_3', INFOT, NOUT, LERR, OK )
+         zsycon_3('U', 1, A, 1, E, IP, -1.0D0, RCOND, W, INFO);
+         chkxer('ZSYCON_3', INFOT, NOUT, LERR, OK );
 
       } else if ( LSAMEN( 2, C2, 'SP' ) ) {
 
@@ -442,74 +442,74 @@
 
          SRNAMT = 'ZSPTRF'
          INFOT = 1
-         CALL ZSPTRF( '/', 0, A, IP, INFO )
-         CALL CHKXER( 'ZSPTRF', INFOT, NOUT, LERR, OK )
+         zsptrf('/', 0, A, IP, INFO );
+         chkxer('ZSPTRF', INFOT, NOUT, LERR, OK );
          INFOT = 2
-         CALL ZSPTRF( 'U', -1, A, IP, INFO )
-         CALL CHKXER( 'ZSPTRF', INFOT, NOUT, LERR, OK )
+         zsptrf('U', -1, A, IP, INFO );
+         chkxer('ZSPTRF', INFOT, NOUT, LERR, OK );
 
          // ZSPTRI
 
          SRNAMT = 'ZSPTRI'
          INFOT = 1
-         CALL ZSPTRI( '/', 0, A, IP, W, INFO )
-         CALL CHKXER( 'ZSPTRI', INFOT, NOUT, LERR, OK )
+         zsptri('/', 0, A, IP, W, INFO );
+         chkxer('ZSPTRI', INFOT, NOUT, LERR, OK );
          INFOT = 2
-         CALL ZSPTRI( 'U', -1, A, IP, W, INFO )
-         CALL CHKXER( 'ZSPTRI', INFOT, NOUT, LERR, OK )
+         zsptri('U', -1, A, IP, W, INFO );
+         chkxer('ZSPTRI', INFOT, NOUT, LERR, OK );
 
          // ZSPTRS
 
          SRNAMT = 'ZSPTRS'
          INFOT = 1
-         CALL ZSPTRS( '/', 0, 0, A, IP, B, 1, INFO )
-         CALL CHKXER( 'ZSPTRS', INFOT, NOUT, LERR, OK )
+         zsptrs('/', 0, 0, A, IP, B, 1, INFO );
+         chkxer('ZSPTRS', INFOT, NOUT, LERR, OK );
          INFOT = 2
-         CALL ZSPTRS( 'U', -1, 0, A, IP, B, 1, INFO )
-         CALL CHKXER( 'ZSPTRS', INFOT, NOUT, LERR, OK )
+         zsptrs('U', -1, 0, A, IP, B, 1, INFO );
+         chkxer('ZSPTRS', INFOT, NOUT, LERR, OK );
          INFOT = 3
-         CALL ZSPTRS( 'U', 0, -1, A, IP, B, 1, INFO )
-         CALL CHKXER( 'ZSPTRS', INFOT, NOUT, LERR, OK )
+         zsptrs('U', 0, -1, A, IP, B, 1, INFO );
+         chkxer('ZSPTRS', INFOT, NOUT, LERR, OK );
          INFOT = 7
-         CALL ZSPTRS( 'U', 2, 1, A, IP, B, 1, INFO )
-         CALL CHKXER( 'ZSPTRS', INFOT, NOUT, LERR, OK )
+         zsptrs('U', 2, 1, A, IP, B, 1, INFO );
+         chkxer('ZSPTRS', INFOT, NOUT, LERR, OK );
 
          // ZSPRFS
 
          SRNAMT = 'ZSPRFS'
          INFOT = 1
-         CALL ZSPRFS( '/', 0, 0, A, AF, IP, B, 1, X, 1, R1, R2, W, R, INFO )
-         CALL CHKXER( 'ZSPRFS', INFOT, NOUT, LERR, OK )
+         zsprfs('/', 0, 0, A, AF, IP, B, 1, X, 1, R1, R2, W, R, INFO );
+         chkxer('ZSPRFS', INFOT, NOUT, LERR, OK );
          INFOT = 2
-         CALL ZSPRFS( 'U', -1, 0, A, AF, IP, B, 1, X, 1, R1, R2, W, R, INFO )
-         CALL CHKXER( 'ZSPRFS', INFOT, NOUT, LERR, OK )
+         zsprfs('U', -1, 0, A, AF, IP, B, 1, X, 1, R1, R2, W, R, INFO );
+         chkxer('ZSPRFS', INFOT, NOUT, LERR, OK );
          INFOT = 3
-         CALL ZSPRFS( 'U', 0, -1, A, AF, IP, B, 1, X, 1, R1, R2, W, R, INFO )
-         CALL CHKXER( 'ZSPRFS', INFOT, NOUT, LERR, OK )
+         zsprfs('U', 0, -1, A, AF, IP, B, 1, X, 1, R1, R2, W, R, INFO );
+         chkxer('ZSPRFS', INFOT, NOUT, LERR, OK );
          INFOT = 8
-         CALL ZSPRFS( 'U', 2, 1, A, AF, IP, B, 1, X, 2, R1, R2, W, R, INFO )
-         CALL CHKXER( 'ZSPRFS', INFOT, NOUT, LERR, OK )
+         zsprfs('U', 2, 1, A, AF, IP, B, 1, X, 2, R1, R2, W, R, INFO );
+         chkxer('ZSPRFS', INFOT, NOUT, LERR, OK );
          INFOT = 10
-         CALL ZSPRFS( 'U', 2, 1, A, AF, IP, B, 2, X, 1, R1, R2, W, R, INFO )
-         CALL CHKXER( 'ZSPRFS', INFOT, NOUT, LERR, OK )
+         zsprfs('U', 2, 1, A, AF, IP, B, 2, X, 1, R1, R2, W, R, INFO );
+         chkxer('ZSPRFS', INFOT, NOUT, LERR, OK );
 
          // ZSPCON
 
          SRNAMT = 'ZSPCON'
          INFOT = 1
-         CALL ZSPCON( '/', 0, A, IP, ANRM, RCOND, W, INFO )
-         CALL CHKXER( 'ZSPCON', INFOT, NOUT, LERR, OK )
+         zspcon('/', 0, A, IP, ANRM, RCOND, W, INFO );
+         chkxer('ZSPCON', INFOT, NOUT, LERR, OK );
          INFOT = 2
-         CALL ZSPCON( 'U', -1, A, IP, ANRM, RCOND, W, INFO )
-         CALL CHKXER( 'ZSPCON', INFOT, NOUT, LERR, OK )
+         zspcon('U', -1, A, IP, ANRM, RCOND, W, INFO );
+         chkxer('ZSPCON', INFOT, NOUT, LERR, OK );
          INFOT = 5
-         CALL ZSPCON( 'U', 1, A, IP, -ANRM, RCOND, W, INFO )
-         CALL CHKXER( 'ZSPCON', INFOT, NOUT, LERR, OK )
+         zspcon('U', 1, A, IP, -ANRM, RCOND, W, INFO );
+         chkxer('ZSPCON', INFOT, NOUT, LERR, OK );
       }
 
       // Print a summary line.
 
-      CALL ALAESM( PATH, OK, NOUT )
+      alaesm(PATH, OK, NOUT );
 
       RETURN
 

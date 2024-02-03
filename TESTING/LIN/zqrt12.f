@@ -42,7 +42,7 @@
       // Test that enough workspace is supplied
 
       if ( LWORK.LT.M*N+2*MIN( M, N )+MAX( M, N ) ) {
-         CALL XERBLA( 'ZQRT12', 7 )
+         xerbla('ZQRT12', 7 );
          RETURN
       }
 
@@ -55,7 +55,7 @@
 
       // Copy upper triangle of A into work
 
-      CALL ZLASET( 'Full', M, N, DCMPLX( ZERO ), DCMPLX( ZERO ), WORK, M )
+      zlaset('Full', M, N, DCMPLX( ZERO ), DCMPLX( ZERO ), WORK, M );
       DO J = 1, N
          DO I = 1, MIN( J, M )
             WORK( ( J-1 )*M+I ) = A( I, J )
@@ -75,13 +75,13 @@
 
          // Scale matrix norm up to SMLNUM
 
-         CALL ZLASCL( 'G', 0, 0, ANRM, SMLNUM, M, N, WORK, M, INFO )
+         zlascl('G', 0, 0, ANRM, SMLNUM, M, N, WORK, M, INFO );
          ISCL = 1
       } else if ( ANRM.GT.BIGNUM ) {
 
          // Scale matrix norm down to BIGNUM
 
-         CALL ZLASCL( 'G', 0, 0, ANRM, BIGNUM, M, N, WORK, M, INFO )
+         zlascl('G', 0, 0, ANRM, BIGNUM, M, N, WORK, M, INFO );
          ISCL = 1
       }
 
@@ -89,14 +89,14 @@
 
          // Compute SVD of work
 
-         CALL ZGEBD2( M, N, WORK, M, RWORK( 1 ), RWORK( MN+1 ), WORK( M*N+1 ), WORK( M*N+MN+1 ), WORK( M*N+2*MN+1 ), INFO )          CALL DBDSQR( 'Upper', MN, 0, 0, 0, RWORK( 1 ), RWORK( MN+1 ), DUMMY, MN, DUMMY, 1, DUMMY, MN, RWORK( 2*MN+1 ), INFO )
+         zgebd2(M, N, WORK, M, RWORK( 1 ), RWORK( MN+1 ), WORK( M*N+1 ), WORK( M*N+MN+1 ), WORK( M*N+2*MN+1 ), INFO )          CALL DBDSQR( 'Upper', MN, 0, 0, 0, RWORK( 1 ), RWORK( MN+1 ), DUMMY, MN, DUMMY, 1, DUMMY, MN, RWORK( 2*MN+1 ), INFO );
 
          if ( ISCL.EQ.1 ) {
             if ( ANRM.GT.BIGNUM ) {
-               CALL DLASCL( 'G', 0, 0, BIGNUM, ANRM, MN, 1, RWORK( 1 ), MN, INFO )
+               dlascl('G', 0, 0, BIGNUM, ANRM, MN, 1, RWORK( 1 ), MN, INFO );
             }
             if ( ANRM.LT.SMLNUM ) {
-               CALL DLASCL( 'G', 0, 0, SMLNUM, ANRM, MN, 1, RWORK( 1 ), MN, INFO )
+               dlascl('G', 0, 0, SMLNUM, ANRM, MN, 1, RWORK( 1 ), MN, INFO );
             }
          }
 
@@ -109,7 +109,7 @@
 
       // Compare s and singular values of work
 
-      CALL DAXPY( MN, -ONE, S, 1, RWORK( 1 ), 1 )
+      daxpy(MN, -ONE, S, 1, RWORK( 1 ), 1 );
       ZQRT12 = DASUM( MN, RWORK( 1 ), 1 ) / ( DLAMCH( 'Epsilon' )*DBLE( MAX( M, N ) ) )
 
       IF( NRMSVL.NE.ZERO ) ZQRT12 = ZQRT12 / NRMSVL

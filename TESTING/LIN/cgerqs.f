@@ -42,7 +42,7 @@
          INFO = -10
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'CGERQS', -INFO )
+         xerbla('CGERQS', -INFO );
          RETURN
       }
 
@@ -52,15 +52,15 @@
 
       // Solve R*X = B(n-m+1:n,:)
 
-      CALL CTRSM( 'Left', 'Upper', 'No transpose', 'Non-unit', M, NRHS, CONE, A( 1, N-M+1 ), LDA, B( N-M+1, 1 ), LDB )
+      ctrsm('Left', 'Upper', 'No transpose', 'Non-unit', M, NRHS, CONE, A( 1, N-M+1 ), LDA, B( N-M+1, 1 ), LDB );
 
       // Set B(1:n-m,:) to zero
 
-      CALL CLASET( 'Full', N-M, NRHS, CZERO, CZERO, B, LDB )
+      claset('Full', N-M, NRHS, CZERO, CZERO, B, LDB );
 
       // B := Q' * B
 
-      CALL CUNMRQ( 'Left', 'Conjugate transpose', N, NRHS, M, A, LDA, TAU, B, LDB, WORK, LWORK, INFO )
+      cunmrq('Left', 'Conjugate transpose', N, NRHS, M, A, LDA, TAU, B, LDB, WORK, LWORK, INFO );
 
       RETURN
 

@@ -44,7 +44,7 @@
          INFO = -4
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'ZLAUNHR_COL_GETRFNP', -INFO )
+         xerbla('ZLAUNHR_COL_GETRFNP', -INFO );
          RETURN
       }
 
@@ -61,7 +61,7 @@
 
          // Use unblocked code.
 
-         CALL ZLAUNHR_COL_GETRFNP2( M, N, A, LDA, D, INFO )
+         zlaunhr_col_getrfnp2(M, N, A, LDA, D, INFO );
       } else {
 
          // Use blocked code.
@@ -71,18 +71,18 @@
 
             // Factor diagonal and subdiagonal blocks.
 
-            CALL ZLAUNHR_COL_GETRFNP2( M-J+1, JB, A( J, J ), LDA, D( J ), IINFO )
+            zlaunhr_col_getrfnp2(M-J+1, JB, A( J, J ), LDA, D( J ), IINFO );
 
             if ( J+JB.LE.N ) {
 
                // Compute block row of U.
 
-               CALL ZTRSM( 'Left', 'Lower', 'No transpose', 'Unit', JB, N-J-JB+1, CONE, A( J, J ), LDA, A( J, J+JB ), LDA )
+               ztrsm('Left', 'Lower', 'No transpose', 'Unit', JB, N-J-JB+1, CONE, A( J, J ), LDA, A( J, J+JB ), LDA );
                if ( J+JB.LE.M ) {
 
                   // Update trailing submatrix.
 
-                  CALL ZGEMM( 'No transpose', 'No transpose', M-J-JB+1, N-J-JB+1, JB, -CONE, A( J+JB, J ), LDA, A( J, J+JB ), LDA, CONE, A( J+JB, J+JB ), LDA )
+                  zgemm('No transpose', 'No transpose', M-J-JB+1, N-J-JB+1, JB, -CONE, A( J+JB, J ), LDA, A( J, J+JB ), LDA, CONE, A( J+JB, J+JB ), LDA );
                }
             }
          END DO

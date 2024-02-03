@@ -51,7 +51,7 @@
          INFO = -9
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'ZHETRS_3', -INFO )
+         xerbla('ZHETRS_3', -INFO );
          RETURN
       }
 
@@ -77,13 +77,13 @@
          DO K = N, 1, -1
             KP = ABS( IPIV( K ) )
             if ( KP.NE.K ) {
-               CALL ZSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB )
+               zswap(NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
             }
          END DO
 
          // Compute (U \P**T * B) -> B    [ (U \P**T * B) ]
 
-         CALL ZTRSM( 'L', 'U', 'N', 'U', N, NRHS, ONE, A, LDA, B, LDB )
+         ztrsm('L', 'U', 'N', 'U', N, NRHS, ONE, A, LDA, B, LDB );
 
          // Compute D \ B -> B   [ D \ (U \P**T * B) ]
 
@@ -91,7 +91,7 @@
          DO WHILE ( I.GE.1 )
             if ( IPIV( I ).GT.0 ) {
                S = DBLE( ONE ) / DBLE( A( I, I ) )
-               CALL ZDSCAL( NRHS, S, B( I, 1 ), LDB )
+               zdscal(NRHS, S, B( I, 1 ), LDB );
             } else if ( I.GT.1 ) {
                AKM1K = E( I )
                AKM1 = A( I-1, I-1 ) / AKM1K
@@ -110,7 +110,7 @@
 
          // Compute (U**H \ B) -> B   [ U**H \ (D \ (U \P**T * B) ) ]
 
-         CALL ZTRSM( 'L', 'U', 'C', 'U', N, NRHS, ONE, A, LDA, B, LDB )
+         ztrsm('L', 'U', 'C', 'U', N, NRHS, ONE, A, LDA, B, LDB );
 
          // P * B  [ P * (U**H \ (D \ (U \P**T * B) )) ]
 
@@ -124,7 +124,7 @@
          DO K = 1, N, 1
             KP = ABS( IPIV( K ) )
             if ( KP.NE.K ) {
-               CALL ZSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB )
+               zswap(NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
             }
          END DO
 
@@ -145,13 +145,13 @@
          DO K = 1, N, 1
             KP = ABS( IPIV( K ) )
             if ( KP.NE.K ) {
-               CALL ZSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB )
+               zswap(NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
             }
          END DO
 
          // Compute (L \P**T * B) -> B    [ (L \P**T * B) ]
 
-         CALL ZTRSM( 'L', 'L', 'N', 'U', N, NRHS, ONE, A, LDA, B, LDB )
+         ztrsm('L', 'L', 'N', 'U', N, NRHS, ONE, A, LDA, B, LDB );
 
          // Compute D \ B -> B   [ D \ (L \P**T * B) ]
 
@@ -159,7 +159,7 @@
          DO WHILE ( I.LE.N )
             if ( IPIV( I ).GT.0 ) {
                S = DBLE( ONE ) / DBLE( A( I, I ) )
-               CALL ZDSCAL( NRHS, S, B( I, 1 ), LDB )
+               zdscal(NRHS, S, B( I, 1 ), LDB );
             } else if ( I.LT.N ) {
                AKM1K = E( I )
                AKM1 = A( I, I ) / DCONJG( AKM1K )
@@ -178,7 +178,7 @@
 
          // Compute (L**H \ B) -> B   [ L**H \ (D \ (L \P**T * B) ) ]
 
-         CALL ZTRSM('L', 'L', 'C', 'U', N, NRHS, ONE, A, LDA, B, LDB )
+         ztrsm('L', 'L', 'C', 'U', N, NRHS, ONE, A, LDA, B, LDB );
 
          // P * B  [ P * (L**H \ (D \ (L \P**T * B) )) ]
 
@@ -192,7 +192,7 @@
          DO K = N, 1, -1
             KP = ABS( IPIV( K ) )
             if ( KP.NE.K ) {
-               CALL ZSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB )
+               zswap(NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
             }
          END DO
 

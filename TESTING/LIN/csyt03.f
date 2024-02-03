@@ -76,7 +76,7 @@
    30       CONTINUE
    40    CONTINUE
       }
-      CALL CSYMM( 'Left', UPLO, N, N, -CONE, A, LDA, AINV, LDAINV, CZERO, WORK, LDWORK )
+      csymm('Left', UPLO, N, N, -CONE, A, LDA, AINV, LDAINV, CZERO, WORK, LDWORK );
 
       // Add the identity matrix to WORK .
 

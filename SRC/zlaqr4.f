@@ -130,7 +130,7 @@
 
          // ==== Workspace query call to ZLAQR2 ====
 
-         CALL ZLAQR2( WANTT, WANTZ, N, ILO, IHI, NWR+1, H, LDH, ILOZ, IHIZ, Z, LDZ, LS, LD, W, H, LDH, N, H, LDH, N, H, LDH, WORK, -1 )
+         zlaqr2(WANTT, WANTZ, N, ILO, IHI, NWR+1, H, LDH, ILOZ, IHIZ, Z, LDZ, LS, LD, W, H, LDH, N, H, LDH, N, H, LDH, WORK, -1 );
 
          // ==== Optimal workspace = MAX(ZLAQR5, ZLAQR2) ====
 
@@ -259,7 +259,7 @@
 
             // ==== Aggressive early deflation ====
 
-            CALL ZLAQR2( WANTT, WANTZ, N, KTOP, KBOT, NW, H, LDH, ILOZ, IHIZ, Z, LDZ, LS, LD, W, H( KV, 1 ), LDH, NHO, H( KV, KT ), LDH, NVE, H( KWV, 1 ), LDH, WORK, LWORK )
+            zlaqr2(WANTT, WANTZ, N, KTOP, KBOT, NW, H, LDH, ILOZ, IHIZ, Z, LDZ, LS, LD, W, H( KV, 1 ), LDH, NHO, H( KV, KT ), LDH, NVE, H( KWV, 1 ), LDH, WORK, LWORK );
 
             // ==== Adjust KBOT accounting for new deflations. ====
 
@@ -308,7 +308,7 @@
                   if ( KBOT-KS+1.LE.NS / 2 ) {
                      KS = KBOT - NS + 1
                      KT = N - NS + 1
-                     CALL ZLACPY( 'A', NS, NS, H( KS, KS ), LDH, H( KT, 1 ), LDH )                      CALL ZLAHQR( .false., .false., NS, 1, NS, H( KT, 1 ), LDH, W( KS ), 1, 1, ZDUM, 1, INF )
+                     zlacpy('A', NS, NS, H( KS, KS ), LDH, H( KT, 1 ), LDH )                      CALL ZLAHQR( .false., .false., NS, 1, NS, H( KT, 1 ), LDH, W( KS ), 1, 1, ZDUM, 1, INF );
                      KS = KS + INF
 
                      // ==== In case of a rare QR failure use
@@ -395,7 +395,7 @@
 
                // ==== Small-bulge multi-shift QR sweep ====
 
-               CALL ZLAQR5( WANTT, WANTZ, KACC22, N, KTOP, KBOT, NS, W( KS ), H, LDH, ILOZ, IHIZ, Z, LDZ, WORK, 3, H( KU, 1 ), LDH, NVE, H( KWV, 1 ), LDH, NHO, H( KU, KWH ), LDH )
+               zlaqr5(WANTT, WANTZ, KACC22, N, KTOP, KBOT, NS, W( KS ), H, LDH, ILOZ, IHIZ, Z, LDZ, WORK, 3, H( KU, 1 ), LDH, NVE, H( KWV, 1 ), LDH, NHO, H( KU, KWH ), LDH );
             }
 
             // ==== Note progress (or the lack of it). ====

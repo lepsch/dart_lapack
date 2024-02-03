@@ -64,7 +64,7 @@
       // Handle error in the input parameters and handle the workspace query.
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'CUNGTSQR_ROW', -INFO )
+         xerbla('CUNGTSQR_ROW', -INFO );
          RETURN
       } else if ( LQUERY ) {
          WORK( 1 ) = CMPLX( LWORKOPT )
@@ -81,7 +81,7 @@
       // (0) Set the upper-triangular part of the matrix A to zero and
       // its diagonal elements to one.
 
-      CALL CLASET('U', M, N, CZERO, CONE, A, LDA )
+      claset('U', M, N, CZERO, CONE, A, LDA );
 
       // KB_LAST is the column index of the last column block reflector
       // in the matrices T and V.
@@ -137,7 +137,7 @@
 
                KNB = MIN( NBLOCAL, N - KB + 1 )
 
-               CALL CLARFB_GETT( 'I', IMB, N-KB+1, KNB, T( 1, JB_T+KB-1 ), LDT, A( KB, KB ), LDA, A( IB, KB ), LDA, WORK, KNB )
+               clarfb_gett('I', IMB, N-KB+1, KNB, T( 1, JB_T+KB-1 ), LDT, A( KB, KB ), LDA, A( IB, KB ), LDA, WORK, KNB );
 
             END DO
 
@@ -169,9 +169,9 @@
             // does not exist, hence we need to pass a dummy array
             // reference DUMMY(1,1) to B with LDDUMMY=1.
 
-            CALL CLARFB_GETT( 'N', 0, N-KB+1, KNB, T( 1, KB ), LDT, A( KB, KB ), LDA, DUMMY( 1, 1 ), 1, WORK, KNB )
+            clarfb_gett('N', 0, N-KB+1, KNB, T( 1, KB ), LDT, A( KB, KB ), LDA, DUMMY( 1, 1 ), 1, WORK, KNB );
          } else {
-            CALL CLARFB_GETT( 'N', MB1-KB-KNB+1, N-KB+1, KNB, T( 1, KB ), LDT, A( KB, KB ), LDA, A( KB+KNB, KB), LDA, WORK, KNB )
+            clarfb_gett('N', MB1-KB-KNB+1, N-KB+1, KNB, T( 1, KB ), LDT, A( KB, KB ), LDA, A( KB+KNB, KB), LDA, WORK, KNB );
 
          }
 

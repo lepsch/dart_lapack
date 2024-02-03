@@ -86,17 +86,17 @@
          // Scale input matrix
 
          KNT = KNT + 1
-         CALL DLACPY( 'F', N, N, TMP, LDT, T, LDT )
+         dlacpy('F', N, N, TMP, LDT, T, LDT );
          VMUL = VAL( ISCL )
          DO 30 I = 1, N
-            CALL DSCAL( N, VMUL, T( 1, I ), 1 )
+            dscal(N, VMUL, T( 1, I ), 1 );
    30    CONTINUE
          IF( TNRM.EQ.ZERO ) VMUL = ONE
-         CALL DLACPY( 'F', N, N, T, LDT, TSAV, LDT )
+         dlacpy('F', N, N, T, LDT, TSAV, LDT );
 
          // Compute Schur form
 
-         CALL DGEHRD( N, 1, N, T, LDT, WORK( 1 ), WORK( N+1 ), LWORK-N, INFO )
+         dgehrd(N, 1, N, T, LDT, WORK( 1 ), WORK( N+1 ), LWORK-N, INFO );
          if ( INFO.NE.0 ) {
             LMAX( 1 ) = KNT
             NINFO( 1 ) = NINFO( 1 ) + 1
@@ -105,12 +105,12 @@
 
          // Generate orthogonal matrix
 
-         CALL DLACPY( 'L', N, N, T, LDT, Q, LDT )
-         CALL DORGHR( N, 1, N, Q, LDT, WORK( 1 ), WORK( N+1 ), LWORK-N, INFO )
+         dlacpy('L', N, N, T, LDT, Q, LDT );
+         dorghr(N, 1, N, Q, LDT, WORK( 1 ), WORK( N+1 ), LWORK-N, INFO );
 
          // Compute Schur form
 
-         CALL DHSEQR( 'S', 'V', N, 1, N, T, LDT, WR, WI, Q, LDT, WORK, LWORK, INFO )
+         dhseqr('S', 'V', N, 1, N, T, LDT, WR, WI, Q, LDT, WORK, LWORK, INFO );
          if ( INFO.NE.0 ) {
             LMAX( 2 ) = KNT
             NINFO( 2 ) = NINFO( 2 ) + 1
@@ -123,8 +123,8 @@
             IPNT( I ) = I
             SELECT( I ) = .FALSE.
    40    CONTINUE
-         CALL DCOPY( N, WR, 1, WRTMP, 1 )
-         CALL DCOPY( N, WI, 1, WITMP, 1 )
+         dcopy(N, WR, 1, WRTMP, 1 );
+         dcopy(N, WI, 1, WITMP, 1 );
          DO 60 I = 1, N - 1
             KMIN = I
             VRMIN = WRTMP( I )
@@ -150,9 +150,9 @@
 
          // Compute condition numbers
 
-         CALL DLACPY( 'F', N, N, Q, LDT, QSAV, LDT )
-         CALL DLACPY( 'F', N, N, T, LDT, TSAV1, LDT )
-         CALL DTRSEN( 'B', 'V', SELECT, N, T, LDT, Q, LDT, WRTMP, WITMP, M, S, SEP, WORK, LWORK, IWORK, LIWORK, INFO )
+         dlacpy('F', N, N, Q, LDT, QSAV, LDT );
+         dlacpy('F', N, N, T, LDT, TSAV1, LDT );
+         dtrsen('B', 'V', SELECT, N, T, LDT, Q, LDT, WRTMP, WITMP, M, S, SEP, WORK, LWORK, IWORK, LIWORK, INFO );
          if ( INFO.NE.0 ) {
             LMAX( 3 ) = KNT
             NINFO( 3 ) = NINFO( 3 ) + 1
@@ -163,7 +163,7 @@
 
          // Compute residuals
 
-         CALL DHST01( N, 1, N, TSAV, LDT, T, LDT, Q, LDT, WORK, LWORK, RESULT )
+         dhst01(N, 1, N, TSAV, LDT, T, LDT, Q, LDT, WORK, LWORK, RESULT );
          VMAX = MAX( RESULT( 1 ), RESULT( 2 ) )
          if ( VMAX.GT.RMAX( 1 ) ) {
             RMAX( 1 ) = VMAX
@@ -280,11 +280,11 @@
          // Update Q
 
          VMAX = ZERO
-         CALL DLACPY( 'F', N, N, TSAV1, LDT, TTMP, LDT )
-         CALL DLACPY( 'F', N, N, QSAV, LDT, QTMP, LDT )
+         dlacpy('F', N, N, TSAV1, LDT, TTMP, LDT );
+         dlacpy('F', N, N, QSAV, LDT, QTMP, LDT );
          SEPTMP = -ONE
          STMP = -ONE
-         CALL DTRSEN( 'E', 'V', SELECT, N, TTMP, LDT, QTMP, LDT, WRTMP, WITMP, M, STMP, SEPTMP, WORK, LWORK, IWORK, LIWORK, INFO )
+         dtrsen('E', 'V', SELECT, N, TTMP, LDT, QTMP, LDT, WRTMP, WITMP, M, STMP, SEPTMP, WORK, LWORK, IWORK, LIWORK, INFO );
          if ( INFO.NE.0 ) {
             LMAX( 3 ) = KNT
             NINFO( 3 ) = NINFO( 3 ) + 1
@@ -300,11 +300,11 @@
          // Compute invariant subspace condition number only and compare
          // Update Q
 
-         CALL DLACPY( 'F', N, N, TSAV1, LDT, TTMP, LDT )
-         CALL DLACPY( 'F', N, N, QSAV, LDT, QTMP, LDT )
+         dlacpy('F', N, N, TSAV1, LDT, TTMP, LDT );
+         dlacpy('F', N, N, QSAV, LDT, QTMP, LDT );
          SEPTMP = -ONE
          STMP = -ONE
-         CALL DTRSEN( 'V', 'V', SELECT, N, TTMP, LDT, QTMP, LDT, WRTMP, WITMP, M, STMP, SEPTMP, WORK, LWORK, IWORK, LIWORK, INFO )
+         dtrsen('V', 'V', SELECT, N, TTMP, LDT, QTMP, LDT, WRTMP, WITMP, M, STMP, SEPTMP, WORK, LWORK, IWORK, LIWORK, INFO );
          if ( INFO.NE.0 ) {
             LMAX( 3 ) = KNT
             NINFO( 3 ) = NINFO( 3 ) + 1
@@ -320,11 +320,11 @@
          // Compute eigenvalue condition number only and compare
          // Do not update Q
 
-         CALL DLACPY( 'F', N, N, TSAV1, LDT, TTMP, LDT )
-         CALL DLACPY( 'F', N, N, QSAV, LDT, QTMP, LDT )
+         dlacpy('F', N, N, TSAV1, LDT, TTMP, LDT );
+         dlacpy('F', N, N, QSAV, LDT, QTMP, LDT );
          SEPTMP = -ONE
          STMP = -ONE
-         CALL DTRSEN( 'E', 'N', SELECT, N, TTMP, LDT, QTMP, LDT, WRTMP, WITMP, M, STMP, SEPTMP, WORK, LWORK, IWORK, LIWORK, INFO )
+         dtrsen('E', 'N', SELECT, N, TTMP, LDT, QTMP, LDT, WRTMP, WITMP, M, STMP, SEPTMP, WORK, LWORK, IWORK, LIWORK, INFO );
          if ( INFO.NE.0 ) {
             LMAX( 3 ) = KNT
             NINFO( 3 ) = NINFO( 3 ) + 1
@@ -340,11 +340,11 @@
          // Compute invariant subspace condition number only and compare
          // Do not update Q
 
-         CALL DLACPY( 'F', N, N, TSAV1, LDT, TTMP, LDT )
-         CALL DLACPY( 'F', N, N, QSAV, LDT, QTMP, LDT )
+         dlacpy('F', N, N, TSAV1, LDT, TTMP, LDT );
+         dlacpy('F', N, N, QSAV, LDT, QTMP, LDT );
          SEPTMP = -ONE
          STMP = -ONE
-         CALL DTRSEN( 'V', 'N', SELECT, N, TTMP, LDT, QTMP, LDT, WRTMP, WITMP, M, STMP, SEPTMP, WORK, LWORK, IWORK, LIWORK, INFO )
+         dtrsen('V', 'N', SELECT, N, TTMP, LDT, QTMP, LDT, WRTMP, WITMP, M, STMP, SEPTMP, WORK, LWORK, IWORK, LIWORK, INFO );
          if ( INFO.NE.0 ) {
             LMAX( 3 ) = KNT
             NINFO( 3 ) = NINFO( 3 ) + 1

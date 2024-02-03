@@ -39,18 +39,18 @@
          INFO = -9
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'SGBSV ', -INFO )
+         xerbla('SGBSV ', -INFO );
          RETURN
       }
 
       // Compute the LU factorization of the band matrix A.
 
-      CALL SGBTRF( N, N, KL, KU, AB, LDAB, IPIV, INFO )
+      sgbtrf(N, N, KL, KU, AB, LDAB, IPIV, INFO );
       if ( INFO.EQ.0 ) {
 
          // Solve the system A*X = B, overwriting B with X.
 
-         CALL SGBTRS( 'No transpose', N, KL, KU, NRHS, AB, LDAB, IPIV, B, LDB, INFO )
+         sgbtrs('No transpose', N, KL, KU, NRHS, AB, LDAB, IPIV, B, LDB, INFO );
       }
       RETURN
 

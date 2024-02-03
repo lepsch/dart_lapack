@@ -104,7 +104,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'CSYSVXX', -INFO )
+         xerbla('CSYSVXX', -INFO );
          RETURN
       }
 
@@ -112,12 +112,12 @@
 
       // Compute row and column scalings to equilibrate the matrix A.
 
-         CALL CSYEQUB( UPLO, N, A, LDA, S, SCOND, AMAX, WORK, INFEQU )
+         csyequb(UPLO, N, A, LDA, S, SCOND, AMAX, WORK, INFEQU );
          if ( INFEQU.EQ.0 ) {
 
       // Equilibrate the matrix.
 
-            CALL CLAQSY( UPLO, N, A, LDA, S, SCOND, AMAX, EQUED )
+            claqsy(UPLO, N, A, LDA, S, SCOND, AMAX, EQUED );
             RCEQU = LSAME( EQUED, 'Y' )
          }
 
@@ -131,8 +131,8 @@
 
          // Compute the LDL^T or UDU^T factorization of A.
 
-         CALL CLACPY( UPLO, N, N, A, LDA, AF, LDAF )
-         CALL CSYTRF( UPLO, N, AF, LDAF, IPIV, WORK, 5*MAX(1,N), INFO )
+         clacpy(UPLO, N, N, A, LDA, AF, LDAF );
+         csytrf(UPLO, N, AF, LDAF, IPIV, WORK, 5*MAX(1,N), INFO );
 
          // Return if INFO is non-zero.
 
@@ -153,18 +153,18 @@
 
       // Compute the solution matrix X.
 
-      CALL CLACPY( 'Full', N, NRHS, B, LDB, X, LDX )
-      CALL CSYTRS( UPLO, N, NRHS, AF, LDAF, IPIV, X, LDX, INFO )
+      clacpy('Full', N, NRHS, B, LDB, X, LDX );
+      csytrs(UPLO, N, NRHS, AF, LDAF, IPIV, X, LDX, INFO );
 
       // Use iterative refinement to improve the computed solution and
       // compute error bounds and backward error estimates for it.
 
-      CALL CSYRFSX( UPLO, EQUED, N, NRHS, A, LDA, AF, LDAF, IPIV, S, B, LDB, X, LDX, RCOND, BERR, N_ERR_BNDS, ERR_BNDS_NORM, ERR_BNDS_COMP, NPARAMS, PARAMS, WORK, RWORK, INFO )
+      csyrfsx(UPLO, EQUED, N, NRHS, A, LDA, AF, LDAF, IPIV, S, B, LDB, X, LDX, RCOND, BERR, N_ERR_BNDS, ERR_BNDS_NORM, ERR_BNDS_COMP, NPARAMS, PARAMS, WORK, RWORK, INFO );
 
       // Scale solutions.
 
       if ( RCEQU ) {
-         CALL CLASCL2 (N, NRHS, S, X, LDX )
+         clascl2(N, NRHS, S, X, LDX );
       }
 
       RETURN

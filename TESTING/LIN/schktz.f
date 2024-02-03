@@ -107,25 +107,25 @@
                   // singular value distribution indicated by `mode'.
 
                   if ( MODE.EQ.0 ) {
-                     CALL SLASET( 'Full', M, N, ZERO, ZERO, A, LDA )
+                     slaset('Full', M, N, ZERO, ZERO, A, LDA );
                      DO 30 I = 1, MNMIN
                         S( I ) = ZERO
    30                CONTINUE
                   } else {
-                     CALL SLATMS( M, N, 'Uniform', ISEED, 'Nonsymmetric', S, IMODE, ONE / EPS, ONE, M, N, 'No packing', A, LDA, WORK, INFO )
-                     CALL SGEQR2( M, N, A, LDA, WORK, WORK( MNMIN+1 ), INFO )                      CALL SLASET( 'Lower', M-1, N, ZERO, ZERO, A( 2 ), LDA )
-                     CALL SLAORD( 'Decreasing', MNMIN, S, 1 )
+                     slatms(M, N, 'Uniform', ISEED, 'Nonsymmetric', S, IMODE, ONE / EPS, ONE, M, N, 'No packing', A, LDA, WORK, INFO );
+                     sgeqr2(M, N, A, LDA, WORK, WORK( MNMIN+1 ), INFO )                      CALL SLASET( 'Lower', M-1, N, ZERO, ZERO, A( 2 ), LDA );
+                     slaord('Decreasing', MNMIN, S, 1 );
                   }
 
                   // Save A and its singular values
 
-                  CALL SLACPY( 'All', M, N, A, LDA, COPYA, LDA )
+                  slacpy('All', M, N, A, LDA, COPYA, LDA );
 
                   // Call STZRZF to reduce the upper trapezoidal matrix to
                   // upper triangular form.
 
                   SRNAMT = 'STZRZF'
-                  CALL STZRZF( M, N, A, LDA, TAU, WORK, LWORK, INFO )
+                  stzrzf(M, N, A, LDA, TAU, WORK, LWORK, INFO );
 
                   // Compute norm(svd(a) - svd(r))
 
@@ -156,7 +156,7 @@
 
       // Print a summary of the results.
 
-      CALL ALASUM( PATH, NOUT, NFAIL, NRUN, NERRS )
+      alasum(PATH, NOUT, NFAIL, NRUN, NERRS );
 
  9999 FORMAT( ' M =', I5, ', N =', I5, ', type ', I2, ', test ', I2, ', ratio =', G12.5 )
 

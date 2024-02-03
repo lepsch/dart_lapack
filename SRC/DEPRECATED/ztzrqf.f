@@ -40,7 +40,7 @@
          INFO = -4
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'ZTZRQF', -INFO )
+         xerbla('ZTZRQF', -INFO );
          RETURN
       }
 
@@ -59,9 +59,9 @@
             // First set up the reflection.
 
             A( K, K ) = DCONJG( A( K, K ) )
-            CALL ZLACGV( N-M, A( K, M1 ), LDA )
+            zlacgv(N-M, A( K, M1 ), LDA );
             ALPHA = A( K, K )
-            CALL ZLARFG( N-M+1, ALPHA, A( K, M1 ), LDA, TAU( K ) )
+            zlarfg(N-M+1, ALPHA, A( K, M1 ), LDA, TAU( K ) );
             A( K, K ) = ALPHA
             TAU( K ) = DCONJG( TAU( K ) )
 
@@ -74,16 +74,16 @@
                // the  kth column  of  A.  Also  let  B  denote  the  first
                // ( k - 1 ) rows of the last ( n - m ) columns of A.
 
-               CALL ZCOPY( K-1, A( 1, K ), 1, TAU, 1 )
+               zcopy(K-1, A( 1, K ), 1, TAU, 1 );
 
                // Form   w = a( k ) + B*z( k )  in TAU.
 
-               CALL ZGEMV( 'No transpose', K-1, N-M, CONE, A( 1, M1 ), LDA, A( K, M1 ), LDA, CONE, TAU, 1 )
+               zgemv('No transpose', K-1, N-M, CONE, A( 1, M1 ), LDA, A( K, M1 ), LDA, CONE, TAU, 1 );
 
                // Now form  a( k ) := a( k ) - conjg(tau)*w
                // and       B      := B      - conjg(tau)*w*z( k )**H.
 
-               CALL ZAXPY( K-1, -DCONJG( TAU( K ) ), TAU, 1, A( 1, K ), 1 )                CALL ZGERC( K-1, N-M, -DCONJG( TAU( K ) ), TAU, 1, A( K, M1 ), LDA, A( 1, M1 ), LDA )
+               zaxpy(K-1, -DCONJG( TAU( K ) ), TAU, 1, A( 1, K ), 1 )                CALL ZGERC( K-1, N-M, -DCONJG( TAU( K ) ), TAU, 1, A( K, M1 ), LDA, A( 1, M1 ), LDA );
             }
    20    CONTINUE
       }

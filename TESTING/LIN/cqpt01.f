@@ -42,7 +42,7 @@
       // Test if there is enough workspace
 
       if ( LWORK.LT.M*N+N ) {
-         CALL XERBLA( 'CQPT01', 10 )
+         xerbla('CQPT01', 10 );
          RETURN
       }
 
@@ -61,16 +61,16 @@
          END DO
       END DO
       DO J = K + 1, N
-         CALL CCOPY( M, AF( 1, J ), 1, WORK( ( J-1 )*M+1 ), 1 )
+         ccopy(M, AF( 1, J ), 1, WORK( ( J-1 )*M+1 ), 1 );
       END DO
 
-      CALL CUNMQR( 'Left', 'No transpose', M, N, K, AF, LDA, TAU, WORK, M, WORK( M*N+1 ), LWORK-M*N, INFO )
+      cunmqr('Left', 'No transpose', M, N, K, AF, LDA, TAU, WORK, M, WORK( M*N+1 ), LWORK-M*N, INFO );
 
       DO J = 1, N
 
          // Compare i-th column of QR and jpvt(i)-th column of A
 
-         CALL CAXPY( M, CMPLX( -ONE ), A( 1, JPVT( J ) ), 1, WORK( ( J-1 )*M+1 ), 1 )
+         caxpy(M, CMPLX( -ONE ), A( 1, JPVT( J ) ), 1, WORK( ( J-1 )*M+1 ), 1 );
       END DO
 
       CQPT01 = CLANGE( 'One-norm', M, N, WORK, M, RWORK ) / ( REAL( MAX( M, N ) )*SLAMCH( 'Epsilon' ) )       IF( NORMA.NE.ZERO ) CQPT01 = CQPT01 / NORMA

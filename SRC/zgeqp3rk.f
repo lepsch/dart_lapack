@@ -123,7 +123,7 @@
              // the input parameters M, N, NRHS, KMAX, LDA are valid.
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'ZGEQP3RK', -INFO )
+         xerbla('ZGEQP3RK', -INFO );
          RETURN
       } else if ( LQUERY ) {
          RETURN
@@ -359,7 +359,7 @@
 
             // Factorize JB columns among the columns A(J:N).
 
-            CALL ZLAQP3RK( M, N_SUB, NRHS, IOFFSET, JB, ABSTOL, RELTOL, KP1, MAXC2NRM, A( 1, J ), LDA, DONE, JBF, MAXC2NRMK, RELMAXC2NRMK, JPIV( J ), TAU( J ), RWORK( J ), RWORK( N+J ), WORK( 1 ), WORK( JB+1 ), N+NRHS-J+1, IWORK, IINFO )
+            zlaqp3rk(M, N_SUB, NRHS, IOFFSET, JB, ABSTOL, RELTOL, KP1, MAXC2NRM, A( 1, J ), LDA, DONE, JBF, MAXC2NRMK, RELMAXC2NRMK, JPIV( J ), TAU( J ), RWORK( J ), RWORK( N+J ), WORK( 1 ), WORK( JB+1 ), N+NRHS-J+1, IWORK, IINFO );
 
             // Set INFO on the first occurence of Inf.
 
@@ -419,7 +419,7 @@
          N_SUB = N-J+1
          IOFFSET = J-1
 
-         CALL ZLAQP2RK( M, N_SUB, NRHS, IOFFSET, JMAX-J+1, ABSTOL, RELTOL, KP1, MAXC2NRM, A( 1, J ), LDA, KF, MAXC2NRMK, RELMAXC2NRMK, JPIV( J ), TAU( J ), RWORK( J ), RWORK( N+J ), WORK( 1 ), IINFO )
+         zlaqp2rk(M, N_SUB, NRHS, IOFFSET, JMAX-J+1, ABSTOL, RELTOL, KP1, MAXC2NRM, A( 1, J ), LDA, KF, MAXC2NRMK, RELMAXC2NRMK, JPIV( J ), TAU( J ), RWORK( J ), RWORK( N+J ), WORK( 1 ), IINFO );
 
          // ABSTOL or RELTOL criterion is satisfied when the number of
          // the factorized columns KF is smaller then the  number

@@ -44,7 +44,7 @@
          INFO = -6
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'ZPPTRS', -INFO )
+         xerbla('ZPPTRS', -INFO );
          RETURN
       }
 
@@ -60,11 +60,11 @@
 
             // Solve U**H *X = B, overwriting B with X.
 
-            CALL ZTPSV( 'Upper', 'Conjugate transpose', 'Non-unit', N, AP, B( 1, I ), 1 )
+            ztpsv('Upper', 'Conjugate transpose', 'Non-unit', N, AP, B( 1, I ), 1 );
 
             // Solve U*X = B, overwriting B with X.
 
-            CALL ZTPSV( 'Upper', 'No transpose', 'Non-unit', N, AP, B( 1, I ), 1 )
+            ztpsv('Upper', 'No transpose', 'Non-unit', N, AP, B( 1, I ), 1 );
    10    CONTINUE
       } else {
 
@@ -74,11 +74,11 @@
 
             // Solve L*Y = B, overwriting B with X.
 
-            CALL ZTPSV( 'Lower', 'No transpose', 'Non-unit', N, AP, B( 1, I ), 1 )
+            ztpsv('Lower', 'No transpose', 'Non-unit', N, AP, B( 1, I ), 1 );
 
             // Solve L**H *X = Y, overwriting B with X.
 
-            CALL ZTPSV( 'Lower', 'Conjugate transpose', 'Non-unit', N, AP, B( 1, I ), 1 )
+            ztpsv('Lower', 'Conjugate transpose', 'Non-unit', N, AP, B( 1, I ), 1 );
    20    CONTINUE
       }
 

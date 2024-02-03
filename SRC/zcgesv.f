@@ -70,7 +70,7 @@
          INFO = -9
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'ZCGESV', -INFO )
+         xerbla('ZCGESV', -INFO );
          RETURN
       }
 
@@ -100,7 +100,7 @@
       // Convert B from double precision to single precision and store the
       // result in SX.
 
-      CALL ZLAG2C( N, NRHS, B, LDB, SWORK( PTSX ), N, INFO )
+      zlag2c(N, NRHS, B, LDB, SWORK( PTSX ), N, INFO );
 
       if ( INFO.NE.0 ) {
          ITER = -2
@@ -110,7 +110,7 @@
       // Convert A from double precision to single precision and store the
       // result in SA.
 
-      CALL ZLAG2C( N, N, A, LDA, SWORK( PTSA ), N, INFO )
+      zlag2c(N, N, A, LDA, SWORK( PTSA ), N, INFO );
 
       if ( INFO.NE.0 ) {
          ITER = -2
@@ -119,7 +119,7 @@
 
       // Compute the LU factorization of SA.
 
-      CALL CGETRF( N, N, SWORK( PTSA ), N, IPIV, INFO )
+      cgetrf(N, N, SWORK( PTSA ), N, IPIV, INFO );
 
       if ( INFO.NE.0 ) {
          ITER = -3
@@ -128,17 +128,17 @@
 
       // Solve the system SA*SX = SB.
 
-      CALL CGETRS( 'No transpose', N, NRHS, SWORK( PTSA ), N, IPIV, SWORK( PTSX ), N, INFO )
+      cgetrs('No transpose', N, NRHS, SWORK( PTSA ), N, IPIV, SWORK( PTSX ), N, INFO );
 
       // Convert SX back to double precision
 
-      CALL CLAG2Z( N, NRHS, SWORK( PTSX ), N, X, LDX, INFO )
+      clag2z(N, NRHS, SWORK( PTSX ), N, X, LDX, INFO );
 
       // Compute R = B - AX (R is WORK).
 
-      CALL ZLACPY( 'All', N, NRHS, B, LDB, WORK, N )
+      zlacpy('All', N, NRHS, B, LDB, WORK, N );
 
-      CALL ZGEMM( 'No Transpose', 'No Transpose', N, NRHS, N, NEGONE, A, LDA, X, LDX, ONE, WORK, N )
+      zgemm('No Transpose', 'No Transpose', N, NRHS, N, NEGONE, A, LDA, X, LDX, ONE, WORK, N );
 
       // Check whether the NRHS normwise backward errors satisfy the
       // stopping criterion. If yes, set ITER=0 and return.
@@ -162,7 +162,7 @@
          // Convert R (in WORK) from double precision to single precision
          // and store the result in SX.
 
-         CALL ZLAG2C( N, NRHS, WORK, N, SWORK( PTSX ), N, INFO )
+         zlag2c(N, NRHS, WORK, N, SWORK( PTSX ), N, INFO );
 
          if ( INFO.NE.0 ) {
             ITER = -2
@@ -171,22 +171,22 @@
 
          // Solve the system SA*SX = SR.
 
-         CALL CGETRS( 'No transpose', N, NRHS, SWORK( PTSA ), N, IPIV, SWORK( PTSX ), N, INFO )
+         cgetrs('No transpose', N, NRHS, SWORK( PTSA ), N, IPIV, SWORK( PTSX ), N, INFO );
 
          // Convert SX back to double precision and update the current
          // iterate.
 
-         CALL CLAG2Z( N, NRHS, SWORK( PTSX ), N, WORK, N, INFO )
+         clag2z(N, NRHS, SWORK( PTSX ), N, WORK, N, INFO );
 
          DO I = 1, NRHS
-            CALL ZAXPY( N, ONE, WORK( 1, I ), 1, X( 1, I ), 1 )
+            zaxpy(N, ONE, WORK( 1, I ), 1, X( 1, I ), 1 );
          END DO
 
          // Compute R = B - AX (R is WORK).
 
-         CALL ZLACPY( 'All', N, NRHS, B, LDB, WORK, N )
+         zlacpy('All', N, NRHS, B, LDB, WORK, N );
 
-         CALL ZGEMM( 'No Transpose', 'No Transpose', N, NRHS, N, NEGONE, A, LDA, X, LDX, ONE, WORK, N )
+         zgemm('No Transpose', 'No Transpose', N, NRHS, N, NEGONE, A, LDA, X, LDX, ONE, WORK, N );
 
          // Check whether the NRHS normwise backward errors satisfy the
          // stopping criterion. If yes, set ITER=IITER>0 and return.
@@ -220,12 +220,12 @@
       // Single-precision iterative refinement failed to converge to a
       // satisfactory solution, so we resort to double precision.
 
-      CALL ZGETRF( N, N, A, LDA, IPIV, INFO )
+      zgetrf(N, N, A, LDA, IPIV, INFO );
 
       IF( INFO.NE.0 ) RETURN
 
-      CALL ZLACPY( 'All', N, NRHS, B, LDB, X, LDX )
-      CALL ZGETRS( 'No transpose', N, NRHS, A, LDA, IPIV, X, LDX, INFO )
+      zlacpy('All', N, NRHS, B, LDB, X, LDX );
+      zgetrs('No transpose', N, NRHS, A, LDA, IPIV, X, LDX, INFO );
 
       RETURN
 

@@ -79,7 +79,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'SDRVSG', -INFO )
+         xerbla('SDRVSG', -INFO );
          RETURN
       }
 
@@ -175,7 +175,7 @@
 
                KA = 0
                KB = 0
-               CALL SLASET( 'Full', LDA, N, ZERO, ZERO, A, LDA )
+               slaset('Full', LDA, N, ZERO, ZERO, A, LDA );
 
             } else if ( ITYPE.EQ.2 ) {
 
@@ -183,7 +183,7 @@
 
                KA = 0
                KB = 0
-               CALL SLASET( 'Full', LDA, N, ZERO, ZERO, A, LDA )
+               slaset('Full', LDA, N, ZERO, ZERO, A, LDA );
                DO 80 JCOL = 1, N
                   A( JCOL, JCOL ) = ANORM
    80          CONTINUE
@@ -194,7 +194,7 @@
 
                KA = 0
                KB = 0
-               CALL SLATMS( N, N, 'S', ISEED, 'S', WORK, IMODE, COND, ANORM, 0, 0, 'N', A, LDA, WORK( N+1 ), IINFO )
+               slatms(N, N, 'S', ISEED, 'S', WORK, IMODE, COND, ANORM, 0, 0, 'N', A, LDA, WORK( N+1 ), IINFO );
 
             } else if ( ITYPE.EQ.5 ) {
 
@@ -202,7 +202,7 @@
 
                KA = MAX( 0, N-1 )
                KB = KA
-               CALL SLATMS( N, N, 'S', ISEED, 'S', WORK, IMODE, COND, ANORM, N, N, 'N', A, LDA, WORK( N+1 ), IINFO )
+               slatms(N, N, 'S', ISEED, 'S', WORK, IMODE, COND, ANORM, N, N, 'N', A, LDA, WORK( N+1 ), IINFO );
 
             } else if ( ITYPE.EQ.7 ) {
 
@@ -210,7 +210,7 @@
 
                KA = 0
                KB = 0
-               CALL SLATMR( N, N, 'S', ISEED, 'S', WORK, 6, ONE, ONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, 0, 0, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO )
+               slatmr(N, N, 'S', ISEED, 'S', WORK, 6, ONE, ONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, 0, 0, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO );
 
             } else if ( ITYPE.EQ.8 ) {
 
@@ -218,7 +218,7 @@
 
                KA = MAX( 0, N-1 )
                KB = KA
-               CALL SLATMR( N, N, 'S', ISEED, 'H', WORK, 6, ONE, ONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, N, N, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO )
+               slatmr(N, N, 'S', ISEED, 'H', WORK, 6, ONE, ONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, N, N, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO );
 
             } else if ( ITYPE.EQ.9 ) {
 
@@ -240,7 +240,7 @@
                }
                KA = MAX( 0, MIN( N-1, KA9 ) )
                KB = MAX( 0, MIN( N-1, KB9 ) )
-               CALL SLATMS( N, N, 'S', ISEED, 'S', WORK, IMODE, COND, ANORM, KA, KA, 'N', A, LDA, WORK( N+1 ), IINFO )
+               slatms(N, N, 'S', ISEED, 'S', WORK, IMODE, COND, ANORM, KA, KA, 'N', A, LDA, WORK( N+1 ), IINFO );
 
             } else {
 
@@ -287,16 +287,16 @@
                   // Generate random well-conditioned positive definite
                   // matrix B, of bandwidth not greater than that of A.
 
-                  CALL SLATMS( N, N, 'U', ISEED, 'P', WORK, 5, TEN, ONE, KB, KB, UPLO, B, LDB, WORK( N+1 ), IINFO )
+                  slatms(N, N, 'U', ISEED, 'P', WORK, 5, TEN, ONE, KB, KB, UPLO, B, LDB, WORK( N+1 ), IINFO );
 
                   // Test SSYGV
 
                   NTEST = NTEST + 1
 
-                  CALL SLACPY( ' ', N, N, A, LDA, Z, LDZ )
-                  CALL SLACPY( UPLO, N, N, B, LDB, BB, LDB )
+                  slacpy(' ', N, N, A, LDA, Z, LDZ );
+                  slacpy(UPLO, N, N, B, LDB, BB, LDB );
 
-                  CALL SSYGV( IBTYPE, 'V', UPLO, N, Z, LDZ, BB, LDB, D, WORK, NWORK, IINFO )
+                  ssygv(IBTYPE, 'V', UPLO, N, Z, LDZ, BB, LDB, D, WORK, NWORK, IINFO );
                   if ( IINFO.NE.0 ) {
                      WRITE( NOUNIT, FMT = 9999 )'SSYGV(V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                      INFO = ABS( IINFO )
@@ -310,16 +310,16 @@
 
                   // Do Test
 
-                  CALL SSGT01( IBTYPE, UPLO, N, N, A, LDA, B, LDB, Z, LDZ, D, WORK, RESULT( NTEST ) )
+                  ssgt01(IBTYPE, UPLO, N, N, A, LDA, B, LDB, Z, LDZ, D, WORK, RESULT( NTEST ) );
 
                   // Test SSYGVD
 
                   NTEST = NTEST + 1
 
-                  CALL SLACPY( ' ', N, N, A, LDA, Z, LDZ )
-                  CALL SLACPY( UPLO, N, N, B, LDB, BB, LDB )
+                  slacpy(' ', N, N, A, LDA, Z, LDZ );
+                  slacpy(UPLO, N, N, B, LDB, BB, LDB );
 
-                  CALL SSYGVD( IBTYPE, 'V', UPLO, N, Z, LDZ, BB, LDB, D, WORK, NWORK, IWORK, LIWORK, IINFO )
+                  ssygvd(IBTYPE, 'V', UPLO, N, Z, LDZ, BB, LDB, D, WORK, NWORK, IWORK, LIWORK, IINFO );
                   if ( IINFO.NE.0 ) {
                      WRITE( NOUNIT, FMT = 9999 )'SSYGVD(V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                      INFO = ABS( IINFO )
@@ -333,16 +333,16 @@
 
                   // Do Test
 
-                  CALL SSGT01( IBTYPE, UPLO, N, N, A, LDA, B, LDB, Z, LDZ, D, WORK, RESULT( NTEST ) )
+                  ssgt01(IBTYPE, UPLO, N, N, A, LDA, B, LDB, Z, LDZ, D, WORK, RESULT( NTEST ) );
 
                   // Test SSYGVX
 
                   NTEST = NTEST + 1
 
-                  CALL SLACPY( ' ', N, N, A, LDA, AB, LDA )
-                  CALL SLACPY( UPLO, N, N, B, LDB, BB, LDB )
+                  slacpy(' ', N, N, A, LDA, AB, LDA );
+                  slacpy(UPLO, N, N, B, LDB, BB, LDB );
 
-                  CALL SSYGVX( IBTYPE, 'V', 'A', UPLO, N, AB, LDA, BB, LDB, VL, VU, IL, IU, ABSTOL, M, D, Z, LDZ, WORK, NWORK, IWORK( N+1 ), IWORK, IINFO )
+                  ssygvx(IBTYPE, 'V', 'A', UPLO, N, AB, LDA, BB, LDB, VL, VU, IL, IU, ABSTOL, M, D, Z, LDZ, WORK, NWORK, IWORK( N+1 ), IWORK, IINFO );
                   if ( IINFO.NE.0 ) {
                      WRITE( NOUNIT, FMT = 9999 )'SSYGVX(V,A' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                      INFO = ABS( IINFO )
@@ -356,12 +356,12 @@
 
                   // Do Test
 
-                  CALL SSGT01( IBTYPE, UPLO, N, N, A, LDA, B, LDB, Z, LDZ, D, WORK, RESULT( NTEST ) )
+                  ssgt01(IBTYPE, UPLO, N, N, A, LDA, B, LDB, Z, LDZ, D, WORK, RESULT( NTEST ) );
 
                   NTEST = NTEST + 1
 
-                  CALL SLACPY( ' ', N, N, A, LDA, AB, LDA )
-                  CALL SLACPY( UPLO, N, N, B, LDB, BB, LDB )
+                  slacpy(' ', N, N, A, LDA, AB, LDA );
+                  slacpy(UPLO, N, N, B, LDB, BB, LDB );
 
                   // since we do not know the exact eigenvalues of this
                   // eigenpair, we just set VL and VU as constants.
@@ -370,7 +370,7 @@
 
                   VL = ZERO
                   VU = ANORM
-                  CALL SSYGVX( IBTYPE, 'V', 'V', UPLO, N, AB, LDA, BB, LDB, VL, VU, IL, IU, ABSTOL, M, D, Z, LDZ, WORK, NWORK, IWORK( N+1 ), IWORK, IINFO )
+                  ssygvx(IBTYPE, 'V', 'V', UPLO, N, AB, LDA, BB, LDB, VL, VU, IL, IU, ABSTOL, M, D, Z, LDZ, WORK, NWORK, IWORK( N+1 ), IWORK, IINFO );
                   if ( IINFO.NE.0 ) {
                      WRITE( NOUNIT, FMT = 9999 )'SSYGVX(V,V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                      INFO = ABS( IINFO )
@@ -384,14 +384,14 @@
 
                   // Do Test
 
-                  CALL SSGT01( IBTYPE, UPLO, N, M, A, LDA, B, LDB, Z, LDZ, D, WORK, RESULT( NTEST ) )
+                  ssgt01(IBTYPE, UPLO, N, M, A, LDA, B, LDB, Z, LDZ, D, WORK, RESULT( NTEST ) );
 
                   NTEST = NTEST + 1
 
-                  CALL SLACPY( ' ', N, N, A, LDA, AB, LDA )
-                  CALL SLACPY( UPLO, N, N, B, LDB, BB, LDB )
+                  slacpy(' ', N, N, A, LDA, AB, LDA );
+                  slacpy(UPLO, N, N, B, LDB, BB, LDB );
 
-                  CALL SSYGVX( IBTYPE, 'V', 'I', UPLO, N, AB, LDA, BB, LDB, VL, VU, IL, IU, ABSTOL, M, D, Z, LDZ, WORK, NWORK, IWORK( N+1 ), IWORK, IINFO )
+                  ssygvx(IBTYPE, 'V', 'I', UPLO, N, AB, LDA, BB, LDB, VL, VU, IL, IU, ABSTOL, M, D, Z, LDZ, WORK, NWORK, IWORK( N+1 ), IWORK, IINFO );
                   if ( IINFO.NE.0 ) {
                      WRITE( NOUNIT, FMT = 9999 )'SSYGVX(V,I,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                      INFO = ABS( IINFO )
@@ -405,7 +405,7 @@
 
                   // Do Test
 
-                  CALL SSGT01( IBTYPE, UPLO, N, M, A, LDA, B, LDB, Z, LDZ, D, WORK, RESULT( NTEST ) )
+                  ssgt01(IBTYPE, UPLO, N, M, A, LDA, B, LDB, Z, LDZ, D, WORK, RESULT( NTEST ) );
 
   100             CONTINUE
 
@@ -435,7 +435,7 @@
   140                CONTINUE
                   }
 
-                  CALL SSPGV( IBTYPE, 'V', UPLO, N, AP, BP, D, Z, LDZ, WORK, IINFO )
+                  sspgv(IBTYPE, 'V', UPLO, N, AP, BP, D, Z, LDZ, WORK, IINFO );
                   if ( IINFO.NE.0 ) {
                      WRITE( NOUNIT, FMT = 9999 )'SSPGV(V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                      INFO = ABS( IINFO )
@@ -449,7 +449,7 @@
 
                   // Do Test
 
-                  CALL SSGT01( IBTYPE, UPLO, N, N, A, LDA, B, LDB, Z, LDZ, D, WORK, RESULT( NTEST ) )
+                  ssgt01(IBTYPE, UPLO, N, N, A, LDA, B, LDB, Z, LDZ, D, WORK, RESULT( NTEST ) );
 
                   // Test SSPGVD
 
@@ -477,7 +477,7 @@
   180                CONTINUE
                   }
 
-                  CALL SSPGVD( IBTYPE, 'V', UPLO, N, AP, BP, D, Z, LDZ, WORK, NWORK, IWORK, LIWORK, IINFO )
+                  sspgvd(IBTYPE, 'V', UPLO, N, AP, BP, D, Z, LDZ, WORK, NWORK, IWORK, LIWORK, IINFO );
                   if ( IINFO.NE.0 ) {
                      WRITE( NOUNIT, FMT = 9999 )'SSPGVD(V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                      INFO = ABS( IINFO )
@@ -491,7 +491,7 @@
 
                   // Do Test
 
-                  CALL SSGT01( IBTYPE, UPLO, N, N, A, LDA, B, LDB, Z, LDZ, D, WORK, RESULT( NTEST ) )
+                  ssgt01(IBTYPE, UPLO, N, N, A, LDA, B, LDB, Z, LDZ, D, WORK, RESULT( NTEST ) );
 
                   // Test SSPGVX
 
@@ -519,7 +519,7 @@
   220                CONTINUE
                   }
 
-                  CALL SSPGVX( IBTYPE, 'V', 'A', UPLO, N, AP, BP, VL, VU, IL, IU, ABSTOL, M, D, Z, LDZ, WORK, IWORK( N+1 ), IWORK, INFO )
+                  sspgvx(IBTYPE, 'V', 'A', UPLO, N, AP, BP, VL, VU, IL, IU, ABSTOL, M, D, Z, LDZ, WORK, IWORK( N+1 ), IWORK, INFO );
                   if ( IINFO.NE.0 ) {
                      WRITE( NOUNIT, FMT = 9999 )'SSPGVX(V,A' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                      INFO = ABS( IINFO )
@@ -533,7 +533,7 @@
 
                   // Do Test
 
-                  CALL SSGT01( IBTYPE, UPLO, N, M, A, LDA, B, LDB, Z, LDZ, D, WORK, RESULT( NTEST ) )
+                  ssgt01(IBTYPE, UPLO, N, M, A, LDA, B, LDB, Z, LDZ, D, WORK, RESULT( NTEST ) );
 
                   NTEST = NTEST + 1
 
@@ -561,7 +561,7 @@
 
                   VL = ZERO
                   VU = ANORM
-                  CALL SSPGVX( IBTYPE, 'V', 'V', UPLO, N, AP, BP, VL, VU, IL, IU, ABSTOL, M, D, Z, LDZ, WORK, IWORK( N+1 ), IWORK, INFO )
+                  sspgvx(IBTYPE, 'V', 'V', UPLO, N, AP, BP, VL, VU, IL, IU, ABSTOL, M, D, Z, LDZ, WORK, IWORK( N+1 ), IWORK, INFO );
                   if ( IINFO.NE.0 ) {
                      WRITE( NOUNIT, FMT = 9999 )'SSPGVX(V,V' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                      INFO = ABS( IINFO )
@@ -575,7 +575,7 @@
 
                   // Do Test
 
-                  CALL SSGT01( IBTYPE, UPLO, N, M, A, LDA, B, LDB, Z, LDZ, D, WORK, RESULT( NTEST ) )
+                  ssgt01(IBTYPE, UPLO, N, M, A, LDA, B, LDB, Z, LDZ, D, WORK, RESULT( NTEST ) );
 
                   NTEST = NTEST + 1
 
@@ -601,7 +601,7 @@
   300                CONTINUE
                   }
 
-                  CALL SSPGVX( IBTYPE, 'V', 'I', UPLO, N, AP, BP, VL, VU, IL, IU, ABSTOL, M, D, Z, LDZ, WORK, IWORK( N+1 ), IWORK, INFO )
+                  sspgvx(IBTYPE, 'V', 'I', UPLO, N, AP, BP, VL, VU, IL, IU, ABSTOL, M, D, Z, LDZ, WORK, IWORK( N+1 ), IWORK, INFO );
                   if ( IINFO.NE.0 ) {
                      WRITE( NOUNIT, FMT = 9999 )'SSPGVX(V,I' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                      INFO = ABS( IINFO )
@@ -615,7 +615,7 @@
 
                   // Do Test
 
-                  CALL SSGT01( IBTYPE, UPLO, N, M, A, LDA, B, LDB, Z, LDZ, D, WORK, RESULT( NTEST ) )
+                  ssgt01(IBTYPE, UPLO, N, M, A, LDA, B, LDB, Z, LDZ, D, WORK, RESULT( NTEST ) );
 
   310             CONTINUE
 
@@ -647,7 +647,7 @@
   370                   CONTINUE
                      }
 
-                     CALL SSBGV( 'V', UPLO, N, KA, KB, AB, LDA, BB, LDB, D, Z, LDZ, WORK, IINFO )
+                     ssbgv('V', UPLO, N, KA, KB, AB, LDA, BB, LDB, D, Z, LDZ, WORK, IINFO );
                      if ( IINFO.NE.0 ) {
                         WRITE( NOUNIT, FMT = 9999 )'SSBGV(V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                         INFO = ABS( IINFO )
@@ -661,7 +661,7 @@
 
                      // Do Test
 
-                     CALL SSGT01( IBTYPE, UPLO, N, N, A, LDA, B, LDB, Z, LDZ, D, WORK, RESULT( NTEST ) )
+                     ssgt01(IBTYPE, UPLO, N, N, A, LDA, B, LDB, Z, LDZ, D, WORK, RESULT( NTEST ) );
 
                      // TEST SSBGVD
 
@@ -689,7 +689,7 @@
   430                   CONTINUE
                      }
 
-                     CALL SSBGVD( 'V', UPLO, N, KA, KB, AB, LDA, BB, LDB, D, Z, LDZ, WORK, NWORK, IWORK, LIWORK, IINFO )
+                     ssbgvd('V', UPLO, N, KA, KB, AB, LDA, BB, LDB, D, Z, LDZ, WORK, NWORK, IWORK, LIWORK, IINFO );
                      if ( IINFO.NE.0 ) {
                         WRITE( NOUNIT, FMT = 9999 )'SSBGVD(V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                         INFO = ABS( IINFO )
@@ -703,7 +703,7 @@
 
                      // Do Test
 
-                     CALL SSGT01( IBTYPE, UPLO, N, N, A, LDA, B, LDB, Z, LDZ, D, WORK, RESULT( NTEST ) )
+                     ssgt01(IBTYPE, UPLO, N, N, A, LDA, B, LDB, Z, LDZ, D, WORK, RESULT( NTEST ) );
 
                      // Test SSBGVX
 
@@ -731,7 +731,7 @@
   490                   CONTINUE
                      }
 
-                     CALL SSBGVX( 'V', 'A', UPLO, N, KA, KB, AB, LDA, BB, LDB, BP, MAX( 1, N ), VL, VU, IL, IU, ABSTOL, M, D, Z, LDZ, WORK, IWORK( N+1 ), IWORK, IINFO )
+                     ssbgvx('V', 'A', UPLO, N, KA, KB, AB, LDA, BB, LDB, BP, MAX( 1, N ), VL, VU, IL, IU, ABSTOL, M, D, Z, LDZ, WORK, IWORK( N+1 ), IWORK, IINFO );
                      if ( IINFO.NE.0 ) {
                         WRITE( NOUNIT, FMT = 9999 )'SSBGVX(V,A' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                         INFO = ABS( IINFO )
@@ -745,7 +745,7 @@
 
                      // Do Test
 
-                     CALL SSGT01( IBTYPE, UPLO, N, M, A, LDA, B, LDB, Z, LDZ, D, WORK, RESULT( NTEST ) )
+                     ssgt01(IBTYPE, UPLO, N, M, A, LDA, B, LDB, Z, LDZ, D, WORK, RESULT( NTEST ) );
 
 
                      NTEST = NTEST + 1
@@ -774,7 +774,7 @@
 
                      VL = ZERO
                      VU = ANORM
-                     CALL SSBGVX( 'V', 'V', UPLO, N, KA, KB, AB, LDA, BB, LDB, BP, MAX( 1, N ), VL, VU, IL, IU, ABSTOL, M, D, Z, LDZ, WORK, IWORK( N+1 ), IWORK, IINFO )
+                     ssbgvx('V', 'V', UPLO, N, KA, KB, AB, LDA, BB, LDB, BP, MAX( 1, N ), VL, VU, IL, IU, ABSTOL, M, D, Z, LDZ, WORK, IWORK( N+1 ), IWORK, IINFO );
                      if ( IINFO.NE.0 ) {
                         WRITE( NOUNIT, FMT = 9999 )'SSBGVX(V,V' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                         INFO = ABS( IINFO )
@@ -788,7 +788,7 @@
 
                      // Do Test
 
-                     CALL SSGT01( IBTYPE, UPLO, N, M, A, LDA, B, LDB, Z, LDZ, D, WORK, RESULT( NTEST ) )
+                     ssgt01(IBTYPE, UPLO, N, M, A, LDA, B, LDB, Z, LDZ, D, WORK, RESULT( NTEST ) );
 
                      NTEST = NTEST + 1
 
@@ -814,7 +814,7 @@
   610                   CONTINUE
                      }
 
-                     CALL SSBGVX( 'V', 'I', UPLO, N, KA, KB, AB, LDA, BB, LDB, BP, MAX( 1, N ), VL, VU, IL, IU, ABSTOL, M, D, Z, LDZ, WORK, IWORK( N+1 ), IWORK, IINFO )
+                     ssbgvx('V', 'I', UPLO, N, KA, KB, AB, LDA, BB, LDB, BP, MAX( 1, N ), VL, VU, IL, IU, ABSTOL, M, D, Z, LDZ, WORK, IWORK( N+1 ), IWORK, IINFO );
                      if ( IINFO.NE.0 ) {
                         WRITE( NOUNIT, FMT = 9999 )'SSBGVX(V,I' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                         INFO = ABS( IINFO )
@@ -828,7 +828,7 @@
 
                      // Do Test
 
-                     CALL SSGT01( IBTYPE, UPLO, N, M, A, LDA, B, LDB, Z, LDZ, D, WORK, RESULT( NTEST ) )
+                     ssgt01(IBTYPE, UPLO, N, M, A, LDA, B, LDB, Z, LDZ, D, WORK, RESULT( NTEST ) );
 
                   }
 
@@ -838,13 +838,13 @@
             // End of Loop -- Check for RESULT(j) > THRESH
 
             NTESTT = NTESTT + NTEST
-            CALL SLAFTS( 'SSG', N, N, JTYPE, NTEST, RESULT, IOLDSD, THRESH, NOUNIT, NERRS )
+            slafts('SSG', N, N, JTYPE, NTEST, RESULT, IOLDSD, THRESH, NOUNIT, NERRS );
   640    CONTINUE
   650 CONTINUE
 
       // Summary
 
-      CALL SLASUM( 'SSG', NOUNIT, NERRS, NTESTT )
+      slasum('SSG', NOUNIT, NERRS, NTESTT );
 
       RETURN
 

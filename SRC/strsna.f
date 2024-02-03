@@ -98,7 +98,7 @@
          }
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'STRSNA', -INFO )
+         xerbla('STRSNA', -INFO );
          RETURN
       }
 
@@ -181,10 +181,10 @@
             // Copy the matrix T to the array WORK and swap the diagonal
             // block beginning at T(k,k) to the (1,1) position.
 
-            CALL SLACPY( 'Full', N, N, T, LDT, WORK, LDWORK )
+            slacpy('Full', N, N, T, LDT, WORK, LDWORK );
             IFST = K
             ILST = 1
-            CALL STREXC( 'No Q', N, WORK, LDWORK, DUMMY, 1, IFST, ILST, WORK( 1, N+1 ), IERR )
+            strexc('No Q', N, WORK, LDWORK, DUMMY, 1, IFST, ILST, WORK( 1, N+1 ), IERR );
 
             if ( IERR.EQ.1 .OR. IERR.EQ.2 ) {
 
@@ -250,33 +250,33 @@
                EST = ZERO
                KASE = 0
    50          CONTINUE
-               CALL SLACN2( NN, WORK( 1, N+2 ), WORK( 1, N+4 ), IWORK, EST, KASE, ISAVE )
+               slacn2(NN, WORK( 1, N+2 ), WORK( 1, N+4 ), IWORK, EST, KASE, ISAVE );
                if ( KASE.NE.0 ) {
                   if ( KASE.EQ.1 ) {
                      if ( N2.EQ.1 ) {
 
                         // Real eigenvalue: solve C**T*x = scale*c.
 
-                        CALL SLAQTR( .TRUE., .TRUE., N-1, WORK( 2, 2 ), LDWORK, DUMMY, DUMM, SCALE, WORK( 1, N+4 ), WORK( 1, N+6 ), IERR )
+                        slaqtr(.TRUE., .TRUE., N-1, WORK( 2, 2 ), LDWORK, DUMMY, DUMM, SCALE, WORK( 1, N+4 ), WORK( 1, N+6 ), IERR );
                      } else {
 
                         // Complex eigenvalue: solve
                         // C**T*(p+iq) = scale*(c+id) in real arithmetic.
 
-                        CALL SLAQTR( .TRUE., .FALSE., N-1, WORK( 2, 2 ), LDWORK, WORK( 1, N+1 ), MU, SCALE, WORK( 1, N+4 ), WORK( 1, N+6 ), IERR )
+                        slaqtr(.TRUE., .FALSE., N-1, WORK( 2, 2 ), LDWORK, WORK( 1, N+1 ), MU, SCALE, WORK( 1, N+4 ), WORK( 1, N+6 ), IERR );
                      }
                   } else {
                      if ( N2.EQ.1 ) {
 
                         // Real eigenvalue: solve C*x = scale*c.
 
-                        CALL SLAQTR( .FALSE., .TRUE., N-1, WORK( 2, 2 ), LDWORK, DUMMY, DUMM, SCALE, WORK( 1, N+4 ), WORK( 1, N+6 ), IERR )
+                        slaqtr(.FALSE., .TRUE., N-1, WORK( 2, 2 ), LDWORK, DUMMY, DUMM, SCALE, WORK( 1, N+4 ), WORK( 1, N+6 ), IERR );
                      } else {
 
                         // Complex eigenvalue: solve
                         // C*(p+iq) = scale*(c+id) in real arithmetic.
 
-                        CALL SLAQTR( .FALSE., .FALSE., N-1, WORK( 2, 2 ), LDWORK, WORK( 1, N+1 ), MU, SCALE, WORK( 1, N+4 ), WORK( 1, N+6 ), IERR )
+                        slaqtr(.FALSE., .FALSE., N-1, WORK( 2, 2 ), LDWORK, WORK( 1, N+1 ), MU, SCALE, WORK( 1, N+4 ), WORK( 1, N+6 ), IERR );
 
                      }
                   }

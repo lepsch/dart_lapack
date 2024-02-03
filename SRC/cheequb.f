@@ -58,7 +58,7 @@
          INFO = -4
       }
       if ( INFO .NE. 0 ) {
-         CALL XERBLA( 'CHEEQUB', -INFO )
+         xerbla('CHEEQUB', -INFO );
          RETURN
       }
 
@@ -140,7 +140,7 @@
          DO I = N+1, 2*N
             WORK( I ) = S( I-N ) * WORK( I-N ) - AVG
          END DO
-         CALL CLASSQ( N, WORK( N+1 ), 1, SCALE, SUMSQ )
+         classq(N, WORK( N+1 ), 1, SCALE, SUMSQ );
          STD = SCALE * SQRT( SUMSQ / N )
 
          IF ( STD .LT. TOL * AVG ) GOTO 999

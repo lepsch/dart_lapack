@@ -63,16 +63,16 @@
       // Put random numbers into A and copy to AF
 
       DO J = 1, N
-         CALL DLARNV( 2, ISEED, M, A( 1, J ) )
+         dlarnv(2, ISEED, M, A( 1, J ) );
       END DO
       if ( TESTZEROS ) {
          if ( M.GE.4 ) {
             DO J = 1, N
-               CALL DLARNV( 2, ISEED, M/2, A( M/4, J ) )
+               dlarnv(2, ISEED, M/2, A( M/4, J ) );
             END DO
          }
       }
-      CALL DLACPY( 'Full', M, N, A, M, AF, M )
+      dlacpy('Full', M, N, A, M, AF, M );
 
       // Number of row blocks in DLATSQR
 
@@ -92,9 +92,9 @@
 
       NB2_UB = MIN( NB2, N)
 
-      CALL DLATSQR( M, N, MB1, NB1_UB, AF, M, T1, NB1, WORKQUERY, -1, INFO )
+      dlatsqr(M, N, MB1, NB1_UB, AF, M, T1, NB1, WORKQUERY, -1, INFO );
       LWORK = INT( WORKQUERY( 1 ) )
-      CALL DORGTSQR( M, N, MB1, NB1, AF, M, T1, NB1, WORKQUERY, -1, INFO )
+      dorgtsqr(M, N, MB1, NB1, AF, M, T1, NB1, WORKQUERY, -1, INFO );
 
       LWORK = MAX( LWORK, INT( WORKQUERY( 1 ) ) )
 
@@ -113,23 +113,23 @@
       // Factor the matrix A in the array AF.
 
       SRNAMT = 'DLATSQR'
-      CALL DLATSQR( M, N, MB1, NB1_UB, AF, M, T1, NB1, WORK, LWORK, INFO )
+      dlatsqr(M, N, MB1, NB1_UB, AF, M, T1, NB1, WORK, LWORK, INFO );
 
       // Copy the factor R into the array R.
 
       SRNAMT = 'DLACPY'
-      CALL DLACPY( 'U', N, N, AF, M, R, M )
+      dlacpy('U', N, N, AF, M, R, M );
 
       // Reconstruct the orthogonal matrix Q.
 
       SRNAMT = 'DORGTSQR'
-      CALL DORGTSQR( M, N, MB1, NB1, AF, M, T1, NB1, WORK, LWORK, INFO )
+      dorgtsqr(M, N, MB1, NB1, AF, M, T1, NB1, WORK, LWORK, INFO );
 
       // Perform the Householder reconstruction, the result is stored
       // the arrays AF and T2.
 
       SRNAMT = 'DORHR_COL'
-      CALL DORHR_COL( M, N, NB2, AF, M, T2, NB2, DIAG, INFO )
+      dorhr_col(M, N, NB2, AF, M, T2, NB2, DIAG, INFO );
 
       // Compute the factor R_hr corresponding to the Householder
       // reconstructed Q_hr and place it in the upper triangle of AF to
@@ -139,11 +139,11 @@
       // matrix S.
 
       SRNAMT = 'DLACPY'
-      CALL DLACPY( 'U', N, N, R, M, AF, M )
+      dlacpy('U', N, N, R, M, AF, M );
 
       DO I = 1, N
          if ( DIAG( I ).EQ.-ONE ) {
-            CALL DSCAL( N+1-I, -ONE, AF( I, I ), M )
+            dscal(N+1-I, -ONE, AF( I, I ), M );
          }
       END DO
 
@@ -152,21 +152,21 @@
 
       // Generate the m-by-m matrix Q
 
-      CALL DLASET( 'Full', M, M, ZERO, ONE, Q, M )
+      dlaset('Full', M, M, ZERO, ONE, Q, M );
 
       SRNAMT = 'DGEMQRT'
-      CALL DGEMQRT( 'L', 'N', M, M, K, NB2_UB, AF, M, T2, NB2, Q, M, WORK, INFO )
+      dgemqrt('L', 'N', M, M, K, NB2_UB, AF, M, T2, NB2, Q, M, WORK, INFO );
 
       // Copy R
 
-      CALL DLASET( 'Full', M, N, ZERO, ZERO, R, M )
+      dlaset('Full', M, N, ZERO, ZERO, R, M );
 
-      CALL DLACPY( 'Upper', M, N, AF, M, R, M )
+      dlacpy('Upper', M, N, AF, M, R, M );
 
       // TEST 1
       // Compute |R - (Q**T)*A| / ( eps * m * |A| ) and store in RESULT(1)
 
-      CALL DGEMM( 'T', 'N', M, N, M, -ONE, Q, M, A, M, ONE, R, M )
+      dgemm('T', 'N', M, N, M, -ONE, Q, M, A, M, ONE, R, M );
 
       ANORM = DLANGE( '1', M, N, A, M, RWORK )
       RESID = DLANGE( '1', M, N, R, M, RWORK )
@@ -179,28 +179,28 @@
       // TEST 2
       // Compute |I - (Q**T)*Q| / ( eps * m ) and store in RESULT(2)
 
-      CALL DLASET( 'Full', M, M, ZERO, ONE, R, M )
-      CALL DSYRK( 'U', 'T', M, M, -ONE, Q, M, ONE, R, M )
+      dlaset('Full', M, M, ZERO, ONE, R, M );
+      dsyrk('U', 'T', M, M, -ONE, Q, M, ONE, R, M );
       RESID = DLANSY( '1', 'Upper', M, R, M, RWORK )
       RESULT( 2 ) = RESID / ( EPS * MAX( 1, M ) )
 
       // Generate random m-by-n matrix C
 
       DO J = 1, N
-         CALL DLARNV( 2, ISEED, M, C( 1, J ) )
+         dlarnv(2, ISEED, M, C( 1, J ) );
       END DO
       CNORM = DLANGE( '1', M, N, C, M, RWORK )
-      CALL DLACPY( 'Full', M, N, C, M, CF, M )
+      dlacpy('Full', M, N, C, M, CF, M );
 
       // Apply Q to C as Q*C = CF
 
       SRNAMT = 'DGEMQRT'
-      CALL DGEMQRT( 'L', 'N', M, N, K, NB2_UB, AF, M, T2, NB2, CF, M, WORK, INFO )
+      dgemqrt('L', 'N', M, N, K, NB2_UB, AF, M, T2, NB2, CF, M, WORK, INFO );
 
       // TEST 3
       // Compute |CF - Q*C| / ( eps *  m * |C| )
 
-      CALL DGEMM( 'N', 'N', M, N, M, -ONE, Q, M, C, M, ONE, CF, M )
+      dgemm('N', 'N', M, N, M, -ONE, Q, M, C, M, ONE, CF, M );
       RESID = DLANGE( '1', M, N, CF, M, RWORK )
       if ( CNORM.GT.ZERO ) {
          RESULT( 3 ) = RESID / ( EPS * MAX( 1, M ) * CNORM )
@@ -210,17 +210,17 @@
 
       // Copy C into CF again
 
-      CALL DLACPY( 'Full', M, N, C, M, CF, M )
+      dlacpy('Full', M, N, C, M, CF, M );
 
       // Apply Q to C as (Q**T)*C = CF
 
       SRNAMT = 'DGEMQRT'
-      CALL DGEMQRT( 'L', 'T', M, N, K, NB2_UB, AF, M, T2, NB2, CF, M, WORK, INFO )
+      dgemqrt('L', 'T', M, N, K, NB2_UB, AF, M, T2, NB2, CF, M, WORK, INFO );
 
       // TEST 4
       // Compute |CF - (Q**T)*C| / ( eps * m * |C|)
 
-      CALL DGEMM( 'T', 'N', M, N, M, -ONE, Q, M, C, M, ONE, CF, M )
+      dgemm('T', 'N', M, N, M, -ONE, Q, M, C, M, ONE, CF, M );
       RESID = DLANGE( '1', M, N, CF, M, RWORK )
       if ( CNORM.GT.ZERO ) {
          RESULT( 4 ) = RESID / ( EPS * MAX( 1, M ) * CNORM )
@@ -231,20 +231,20 @@
       // Generate random n-by-m matrix D and a copy DF
 
       DO J = 1, M
-         CALL DLARNV( 2, ISEED, N, D( 1, J ) )
+         dlarnv(2, ISEED, N, D( 1, J ) );
       END DO
       DNORM = DLANGE( '1', N, M, D, N, RWORK )
-      CALL DLACPY( 'Full', N, M, D, N, DF, N )
+      dlacpy('Full', N, M, D, N, DF, N );
 
       // Apply Q to D as D*Q = DF
 
       SRNAMT = 'DGEMQRT'
-      CALL DGEMQRT( 'R', 'N', N, M, K, NB2_UB, AF, M, T2, NB2, DF, N, WORK, INFO )
+      dgemqrt('R', 'N', N, M, K, NB2_UB, AF, M, T2, NB2, DF, N, WORK, INFO );
 
       // TEST 5
       // Compute |DF - D*Q| / ( eps * m * |D| )
 
-      CALL DGEMM( 'N', 'N', N, M, M, -ONE, D, N, Q, M, ONE, DF, N )
+      dgemm('N', 'N', N, M, M, -ONE, D, N, Q, M, ONE, DF, N );
       RESID = DLANGE( '1', N, M, DF, N, RWORK )
       if ( DNORM.GT.ZERO ) {
          RESULT( 5 ) = RESID / ( EPS * MAX( 1, M ) * DNORM )
@@ -254,17 +254,17 @@
 
       // Copy D into DF again
 
-      CALL DLACPY( 'Full', N, M, D, N, DF, N )
+      dlacpy('Full', N, M, D, N, DF, N );
 
       // Apply Q to D as D*QT = DF
 
       SRNAMT = 'DGEMQRT'
-      CALL DGEMQRT( 'R', 'T', N, M, K, NB2_UB, AF, M, T2, NB2, DF, N, WORK, INFO )
+      dgemqrt('R', 'T', N, M, K, NB2_UB, AF, M, T2, NB2, DF, N, WORK, INFO );
 
       // TEST 6
       // Compute |DF - D*(Q**T)| / ( eps * m * |D| )
 
-      CALL DGEMM( 'N', 'T', N, M, M, -ONE, D, N, Q, M, ONE, DF, N )
+      dgemm('N', 'T', N, M, M, -ONE, D, N, Q, M, ONE, DF, N );
       RESID = DLANGE( '1', N, M, DF, N, RWORK )
       if ( DNORM.GT.ZERO ) {
          RESULT( 6 ) = RESID / ( EPS * MAX( 1, M ) * DNORM )

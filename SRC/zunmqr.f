@@ -79,7 +79,7 @@
       }
 
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'ZUNMQR', -INFO )
+         xerbla('ZUNMQR', -INFO );
          RETURN
       } else if ( LQUERY ) {
          RETURN
@@ -105,7 +105,7 @@
 
          // Use unblocked code
 
-         CALL ZUNM2R( SIDE, TRANS, M, N, K, A, LDA, TAU, C, LDC, WORK, IINFO )
+         zunm2r(SIDE, TRANS, M, N, K, A, LDA, TAU, C, LDC, WORK, IINFO );
       } else {
 
          // Use blocked code
@@ -135,7 +135,7 @@
             // Form the triangular factor of the block reflector
             // H = H(i) H(i+1) . . . H(i+ib-1)
 
-            CALL ZLARFT( 'Forward', 'Columnwise', NQ-I+1, IB, A( I, I ), LDA, TAU( I ), WORK( IWT ), LDT )
+            zlarft('Forward', 'Columnwise', NQ-I+1, IB, A( I, I ), LDA, TAU( I ), WORK( IWT ), LDT );
             if ( LEFT ) {
 
                // H or H**H is applied to C(i:m,1:n)
@@ -152,7 +152,7 @@
 
             // Apply H or H**H
 
-            CALL ZLARFB( SIDE, TRANS, 'Forward', 'Columnwise', MI, NI, IB, A( I, I ), LDA, WORK( IWT ), LDT, C( IC, JC ), LDC, WORK, LDWORK )
+            zlarfb(SIDE, TRANS, 'Forward', 'Columnwise', MI, NI, IB, A( I, I ), LDA, WORK( IWT ), LDT, C( IC, JC ), LDC, WORK, LDWORK );
    10    CONTINUE
       }
       WORK( 1 ) = LWKOPT

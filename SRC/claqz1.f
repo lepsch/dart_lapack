@@ -23,12 +23,12 @@
 
          // Shift is located on the edge of the matrix, remove it
 
-         CALL CLARTG( B( IHI, IHI ), B( IHI, IHI-1 ), C, S, TEMP )
+         clartg(B( IHI, IHI ), B( IHI, IHI-1 ), C, S, TEMP );
          B( IHI, IHI ) = TEMP
          B( IHI, IHI-1 ) = CZERO
-         CALL CROT( IHI-ISTARTM, B( ISTARTM, IHI ), 1, B( ISTARTM, IHI-1 ), 1, C, S )          CALL CROT( IHI-ISTARTM+1, A( ISTARTM, IHI ), 1, A( ISTARTM, IHI-1 ), 1, C, S )
+         crot(IHI-ISTARTM, B( ISTARTM, IHI ), 1, B( ISTARTM, IHI-1 ), 1, C, S )          CALL CROT( IHI-ISTARTM+1, A( ISTARTM, IHI ), 1, A( ISTARTM, IHI-1 ), 1, C, S );
          if ( ILZ ) {
-            CALL CROT( NZ, Z( 1, IHI-ZSTART+1 ), 1, Z( 1, IHI-1-ZSTART+ 1 ), 1, C, S )
+            crot(NZ, Z( 1, IHI-ZSTART+1 ), 1, Z( 1, IHI-1-ZSTART+ 1 ), 1, C, S );
          }
 
       } else {
@@ -38,22 +38,22 @@
 
          // Apply transformation from the right
 
-         CALL CLARTG( B( K+1, K+1 ), B( K+1, K ), C, S, TEMP )
+         clartg(B( K+1, K+1 ), B( K+1, K ), C, S, TEMP );
          B( K+1, K+1 ) = TEMP
          B( K+1, K ) = CZERO
-         CALL CROT( K+2-ISTARTM+1, A( ISTARTM, K+1 ), 1, A( ISTARTM, K ), 1, C, S )          CALL CROT( K-ISTARTM+1, B( ISTARTM, K+1 ), 1, B( ISTARTM, K ), 1, C, S )
+         crot(K+2-ISTARTM+1, A( ISTARTM, K+1 ), 1, A( ISTARTM, K ), 1, C, S )          CALL CROT( K-ISTARTM+1, B( ISTARTM, K+1 ), 1, B( ISTARTM, K ), 1, C, S );
          if ( ILZ ) {
-            CALL CROT( NZ, Z( 1, K+1-ZSTART+1 ), 1, Z( 1, K-ZSTART+1 ), 1, C, S )
+            crot(NZ, Z( 1, K+1-ZSTART+1 ), 1, Z( 1, K-ZSTART+1 ), 1, C, S );
          }
 
          // Apply transformation from the left
 
-         CALL CLARTG( A( K+1, K ), A( K+2, K ), C, S, TEMP )
+         clartg(A( K+1, K ), A( K+2, K ), C, S, TEMP );
          A( K+1, K ) = TEMP
          A( K+2, K ) = CZERO
-         CALL CROT( ISTOPM-K, A( K+1, K+1 ), LDA, A( K+2, K+1 ), LDA, C, S )          CALL CROT( ISTOPM-K, B( K+1, K+1 ), LDB, B( K+2, K+1 ), LDB, C, S )
+         crot(ISTOPM-K, A( K+1, K+1 ), LDA, A( K+2, K+1 ), LDA, C, S )          CALL CROT( ISTOPM-K, B( K+1, K+1 ), LDB, B( K+2, K+1 ), LDB, C, S );
          if ( ILQ ) {
-            CALL CROT( NQ, Q( 1, K+1-QSTART+1 ), 1, Q( 1, K+2-QSTART+ 1 ), 1, C, CONJG( S ) )
+            crot(NQ, Q( 1, K+1-QSTART+1 ), 1, Q( 1, K+2-QSTART+ 1 ), 1, C, CONJG( S ) );
          }
 
       }

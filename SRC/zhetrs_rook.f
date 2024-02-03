@@ -51,7 +51,7 @@
          INFO = -8
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'ZHETRS_ROOK', -INFO )
+         xerbla('ZHETRS_ROOK', -INFO );
          RETURN
       }
 
@@ -87,12 +87,12 @@
             // Multiply by inv(U(K)), where U(K) is the transformation
             // stored in column K of A.
 
-            CALL ZGERU( K-1, NRHS, -ONE, A( 1, K ), 1, B( K, 1 ), LDB, B( 1, 1 ), LDB )
+            zgeru(K-1, NRHS, -ONE, A( 1, K ), 1, B( K, 1 ), LDB, B( 1, 1 ), LDB );
 
             // Multiply by the inverse of the diagonal block.
 
             S = DBLE( ONE ) / DBLE( A( K, K ) )
-            CALL ZDSCAL( NRHS, S, B( K, 1 ), LDB )
+            zdscal(NRHS, S, B( K, 1 ), LDB );
             K = K - 1
          } else {
 
@@ -109,7 +109,7 @@
             // Multiply by inv(U(K)), where U(K) is the transformation
             // stored in columns K-1 and K of A.
 
-            CALL ZGERU( K-2, NRHS, -ONE, A( 1, K ), 1, B( K, 1 ), LDB, B( 1, 1 ), LDB )             CALL ZGERU( K-2, NRHS, -ONE, A( 1, K-1 ), 1, B( K-1, 1 ), LDB, B( 1, 1 ), LDB )
+            zgeru(K-2, NRHS, -ONE, A( 1, K ), 1, B( K, 1 ), LDB, B( 1, 1 ), LDB )             CALL ZGERU( K-2, NRHS, -ONE, A( 1, K-1 ), 1, B( K-1, 1 ), LDB, B( 1, 1 ), LDB );
 
             // Multiply by the inverse of the diagonal block.
 
@@ -149,9 +149,9 @@
             // stored in column K of A.
 
             if ( K.GT.1 ) {
-               CALL ZLACGV( NRHS, B( K, 1 ), LDB )
-               CALL ZGEMV( 'Conjugate transpose', K-1, NRHS, -ONE, B, LDB, A( 1, K ), 1, ONE, B( K, 1 ), LDB )
-               CALL ZLACGV( NRHS, B( K, 1 ), LDB )
+               zlacgv(NRHS, B( K, 1 ), LDB );
+               zgemv('Conjugate transpose', K-1, NRHS, -ONE, B, LDB, A( 1, K ), 1, ONE, B( K, 1 ), LDB );
+               zlacgv(NRHS, B( K, 1 ), LDB );
             }
 
             // Interchange rows K and IPIV(K).
@@ -167,13 +167,13 @@
             // stored in columns K and K+1 of A.
 
             if ( K.GT.1 ) {
-               CALL ZLACGV( NRHS, B( K, 1 ), LDB )
-               CALL ZGEMV( 'Conjugate transpose', K-1, NRHS, -ONE, B, LDB, A( 1, K ), 1, ONE, B( K, 1 ), LDB )
-               CALL ZLACGV( NRHS, B( K, 1 ), LDB )
+               zlacgv(NRHS, B( K, 1 ), LDB );
+               zgemv('Conjugate transpose', K-1, NRHS, -ONE, B, LDB, A( 1, K ), 1, ONE, B( K, 1 ), LDB );
+               zlacgv(NRHS, B( K, 1 ), LDB );
 
-               CALL ZLACGV( NRHS, B( K+1, 1 ), LDB )
-               CALL ZGEMV( 'Conjugate transpose', K-1, NRHS, -ONE, B, LDB, A( 1, K+1 ), 1, ONE, B( K+1, 1 ), LDB )
-               CALL ZLACGV( NRHS, B( K+1, 1 ), LDB )
+               zlacgv(NRHS, B( K+1, 1 ), LDB );
+               zgemv('Conjugate transpose', K-1, NRHS, -ONE, B, LDB, A( 1, K+1 ), 1, ONE, B( K+1, 1 ), LDB );
+               zlacgv(NRHS, B( K+1, 1 ), LDB );
             }
 
             // Interchange rows K and -IPIV(K), then K+1 and -IPIV(K+1)
@@ -223,7 +223,7 @@
             // Multiply by the inverse of the diagonal block.
 
             S = DBLE( ONE ) / DBLE( A( K, K ) )
-            CALL ZDSCAL( NRHS, S, B( K, 1 ), LDB )
+            zdscal(NRHS, S, B( K, 1 ), LDB );
             K = K + 1
          } else {
 
@@ -241,7 +241,7 @@
             // stored in columns K and K+1 of A.
 
             if ( K.LT.N-1 ) {
-               CALL ZGERU( N-K-1, NRHS, -ONE, A( K+2, K ), 1, B( K, 1 ), LDB, B( K+2, 1 ), LDB )                CALL ZGERU( N-K-1, NRHS, -ONE, A( K+2, K+1 ), 1, B( K+1, 1 ), LDB, B( K+2, 1 ), LDB )
+               zgeru(N-K-1, NRHS, -ONE, A( K+2, K ), 1, B( K, 1 ), LDB, B( K+2, 1 ), LDB )                CALL ZGERU( N-K-1, NRHS, -ONE, A( K+2, K+1 ), 1, B( K+1, 1 ), LDB, B( K+2, 1 ), LDB );
             }
 
             // Multiply by the inverse of the diagonal block.
@@ -282,9 +282,9 @@
             // stored in column K of A.
 
             if ( K.LT.N ) {
-               CALL ZLACGV( NRHS, B( K, 1 ), LDB )
-               CALL ZGEMV( 'Conjugate transpose', N-K, NRHS, -ONE, B( K+1, 1 ), LDB, A( K+1, K ), 1, ONE, B( K, 1 ), LDB )
-               CALL ZLACGV( NRHS, B( K, 1 ), LDB )
+               zlacgv(NRHS, B( K, 1 ), LDB );
+               zgemv('Conjugate transpose', N-K, NRHS, -ONE, B( K+1, 1 ), LDB, A( K+1, K ), 1, ONE, B( K, 1 ), LDB );
+               zlacgv(NRHS, B( K, 1 ), LDB );
             }
 
             // Interchange rows K and IPIV(K).
@@ -300,13 +300,13 @@
             // stored in columns K-1 and K of A.
 
             if ( K.LT.N ) {
-               CALL ZLACGV( NRHS, B( K, 1 ), LDB )
-               CALL ZGEMV( 'Conjugate transpose', N-K, NRHS, -ONE, B( K+1, 1 ), LDB, A( K+1, K ), 1, ONE, B( K, 1 ), LDB )
-               CALL ZLACGV( NRHS, B( K, 1 ), LDB )
+               zlacgv(NRHS, B( K, 1 ), LDB );
+               zgemv('Conjugate transpose', N-K, NRHS, -ONE, B( K+1, 1 ), LDB, A( K+1, K ), 1, ONE, B( K, 1 ), LDB );
+               zlacgv(NRHS, B( K, 1 ), LDB );
 
-               CALL ZLACGV( NRHS, B( K-1, 1 ), LDB )
-               CALL ZGEMV( 'Conjugate transpose', N-K, NRHS, -ONE, B( K+1, 1 ), LDB, A( K+1, K-1 ), 1, ONE, B( K-1, 1 ), LDB )
-               CALL ZLACGV( NRHS, B( K-1, 1 ), LDB )
+               zlacgv(NRHS, B( K-1, 1 ), LDB );
+               zgemv('Conjugate transpose', N-K, NRHS, -ONE, B( K+1, 1 ), LDB, A( K+1, K-1 ), 1, ONE, B( K-1, 1 ), LDB );
+               zlacgv(NRHS, B( K-1, 1 ), LDB );
             }
 
             // Interchange rows K and -IPIV(K), then K-1 and -IPIV(K-1)

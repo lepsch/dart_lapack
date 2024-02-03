@@ -99,7 +99,7 @@
          INFO = -16
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'ZTREVC3', -INFO )
+         xerbla('ZTREVC3', -INFO );
          RETURN
       } else if ( LQUERY ) {
          RETURN
@@ -115,7 +115,7 @@
       if ( OVER .AND. LWORK .GE. N + 2*N*NBMIN ) {
          NB = (LWORK - N) / (2*N)
          NB = MIN( NB, NBMAX )
-         CALL ZLASET( 'F', N, 1+2*NB, CZERO, CZERO, WORK, N )
+         zlaset('F', N, 1+2*NB, CZERO, CZERO, WORK, N );
       } else {
          NB = 1
       }
@@ -178,7 +178,7 @@
    50       CONTINUE
 
             if ( KI.GT.1 ) {
-               CALL ZLATRS( 'Upper', 'No transpose', 'Non-unit', 'Y', KI-1, T, LDT, WORK( 1 + IV*N ), SCALE, RWORK, INFO )
+               zlatrs('Upper', 'No transpose', 'Non-unit', 'Y', KI-1, T, LDT, WORK( 1 + IV*N ), SCALE, RWORK, INFO );
                WORK( KI + IV*N ) = SCALE
             }
 
@@ -187,11 +187,11 @@
             if ( .NOT.OVER ) {
                // ------------------------------
                // no back-transform: copy x to VR and normalize.
-               CALL ZCOPY( KI, WORK( 1 + IV*N ), 1, VR( 1, IS ), 1 )
+               zcopy(KI, WORK( 1 + IV*N ), 1, VR( 1, IS ), 1 );
 
                II = IZAMAX( KI, VR( 1, IS ), 1 )
                REMAX = ONE / CABS1( VR( II, IS ) )
-               CALL ZDSCAL( KI, REMAX, VR( 1, IS ), 1 )
+               zdscal(KI, REMAX, VR( 1, IS ), 1 );
 
                DO 60 K = KI + 1, N
                   VR( K, IS ) = CZERO
@@ -204,7 +204,7 @@
 
                II = IZAMAX( N, VR( 1, KI ), 1 )
                REMAX = ONE / CABS1( VR( II, KI ) )
-               CALL ZDSCAL( N, REMAX, VR( 1, KI ), 1 )
+               zdscal(N, REMAX, VR( 1, KI ), 1 );
 
             } else {
                // ------------------------------
@@ -218,14 +218,14 @@
                // When the number of vectors stored reaches NB,
                // or if this was last vector, do the GEMM
                if ( (IV.EQ.1) .OR. (KI.EQ.1) ) {
-                  CALL ZGEMM( 'N', 'N', N, NB-IV+1, KI+NB-IV, CONE, VR, LDVR, WORK( 1 + (IV)*N    ), N, CZERO, WORK( 1 + (NB+IV)*N ), N )
+                  zgemm('N', 'N', N, NB-IV+1, KI+NB-IV, CONE, VR, LDVR, WORK( 1 + (IV)*N    ), N, CZERO, WORK( 1 + (NB+IV)*N ), N );
                   // normalize vectors
                   DO K = IV, NB
                      II = IZAMAX( N, WORK( 1 + (NB+K)*N ), 1 )
                      REMAX = ONE / CABS1( WORK( II + (NB+K)*N ) )
-                     CALL ZDSCAL( N, REMAX, WORK( 1 + (NB+K)*N ), 1 )
+                     zdscal(N, REMAX, WORK( 1 + (NB+K)*N ), 1 );
                   END DO
-                  CALL ZLACPY( 'F', N, NB-IV+1, WORK( 1 + (NB+IV)*N ), N, VR( 1, KI ), LDVR )
+                  zlacpy('F', N, NB-IV+1, WORK( 1 + (NB+IV)*N ), N, VR( 1, KI ), LDVR );
                   IV = NB
                } else {
                   IV = IV - 1
@@ -280,7 +280,7 @@
   100       CONTINUE
 
             if ( KI.LT.N ) {
-               CALL ZLATRS( 'Upper', 'Conjugate transpose', 'Non-unit', 'Y', N-KI, T( KI+1, KI+1 ), LDT, WORK( KI+1 + IV*N ), SCALE, RWORK, INFO )
+               zlatrs('Upper', 'Conjugate transpose', 'Non-unit', 'Y', N-KI, T( KI+1, KI+1 ), LDT, WORK( KI+1 + IV*N ), SCALE, RWORK, INFO );
                WORK( KI + IV*N ) = SCALE
             }
 
@@ -289,11 +289,11 @@
             if ( .NOT.OVER ) {
                // ------------------------------
                // no back-transform: copy x to VL and normalize.
-               CALL ZCOPY( N-KI+1, WORK( KI + IV*N ), 1, VL(KI,IS), 1 )
+               zcopy(N-KI+1, WORK( KI + IV*N ), 1, VL(KI,IS), 1 );
 
                II = IZAMAX( N-KI+1, VL( KI, IS ), 1 ) + KI - 1
                REMAX = ONE / CABS1( VL( II, IS ) )
-               CALL ZDSCAL( N-KI+1, REMAX, VL( KI, IS ), 1 )
+               zdscal(N-KI+1, REMAX, VL( KI, IS ), 1 );
 
                DO 110 K = 1, KI - 1
                   VL( K, IS ) = CZERO
@@ -306,7 +306,7 @@
 
                II = IZAMAX( N, VL( 1, KI ), 1 )
                REMAX = ONE / CABS1( VL( II, KI ) )
-               CALL ZDSCAL( N, REMAX, VL( 1, KI ), 1 )
+               zdscal(N, REMAX, VL( 1, KI ), 1 );
 
             } else {
                // ------------------------------
@@ -321,14 +321,14 @@
                // When the number of vectors stored reaches NB,
                // or if this was last vector, do the GEMM
                if ( (IV.EQ.NB) .OR. (KI.EQ.N) ) {
-                  CALL ZGEMM( 'N', 'N', N, IV, N-KI+IV, CONE, VL( 1, KI-IV+1 ), LDVL, WORK( KI-IV+1 + (1)*N ), N, CZERO, WORK( 1 + (NB+1)*N ), N )
+                  zgemm('N', 'N', N, IV, N-KI+IV, CONE, VL( 1, KI-IV+1 ), LDVL, WORK( KI-IV+1 + (1)*N ), N, CZERO, WORK( 1 + (NB+1)*N ), N );
                   // normalize vectors
                   DO K = 1, IV
                      II = IZAMAX( N, WORK( 1 + (NB+K)*N ), 1 )
                      REMAX = ONE / CABS1( WORK( II + (NB+K)*N ) )
-                     CALL ZDSCAL( N, REMAX, WORK( 1 + (NB+K)*N ), 1 )
+                     zdscal(N, REMAX, WORK( 1 + (NB+K)*N ), 1 );
                   END DO
-                  CALL ZLACPY( 'F', N, IV, WORK( 1 + (NB+1)*N ), N, VL( 1, KI-IV+1 ), LDVL )
+                  zlacpy('F', N, IV, WORK( 1 + (NB+1)*N ), N, VL( 1, KI-IV+1 ), LDVL );
                   IV = 1
                } else {
                   IV = IV + 1

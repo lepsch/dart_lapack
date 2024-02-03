@@ -107,15 +107,15 @@
                // Set up parameters with SLATB4 and generate a test matrix
                // with SLATMS.
 
-               CALL SLATB4( PATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST )
+               slatb4(PATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST );
 
                SRNAMT = 'SLATMS'
-               CALL SLATMS( N, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KL, KU, PACKIT, A, LDA, WORK, INFO )
+               slatms(N, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KL, KU, PACKIT, A, LDA, WORK, INFO );
 
                // Check error code from SLATMS.
 
                if ( INFO.NE.0 ) {
-                  CALL ALAERH( PATH, 'SLATMS', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT )
+                  alaerh(PATH, 'SLATMS', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
                   GO TO 90
                }
 
@@ -161,14 +161,14 @@
                // Compute the L*L' or U'*U factorization of the matrix.
 
                NPP = N*( N+1 ) / 2
-               CALL SCOPY( NPP, A, 1, AFAC, 1 )
+               scopy(NPP, A, 1, AFAC, 1 );
                SRNAMT = 'SPPTRF'
-               CALL SPPTRF( UPLO, N, AFAC, INFO )
+               spptrf(UPLO, N, AFAC, INFO );
 
                // Check error code from SPPTRF.
 
                if ( INFO.NE.IZERO ) {
-                  CALL ALAERH( PATH, 'SPPTRF', INFO, IZERO, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT )
+                  alaerh(PATH, 'SPPTRF', INFO, IZERO, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
                   GO TO 90
                }
 
@@ -179,21 +179,21 @@
 *+    TEST 1
                // Reconstruct matrix from factors and compute residual.
 
-               CALL SCOPY( NPP, AFAC, 1, AINV, 1 )
-               CALL SPPT01( UPLO, N, A, AINV, RWORK, RESULT( 1 ) )
+               scopy(NPP, AFAC, 1, AINV, 1 );
+               sppt01(UPLO, N, A, AINV, RWORK, RESULT( 1 ) );
 
 *+    TEST 2
                // Form the inverse and compute the residual.
 
-               CALL SCOPY( NPP, AFAC, 1, AINV, 1 )
+               scopy(NPP, AFAC, 1, AINV, 1 );
                SRNAMT = 'SPPTRI'
-               CALL SPPTRI( UPLO, N, AINV, INFO )
+               spptri(UPLO, N, AINV, INFO );
 
                // Check error code from SPPTRI.
 
                IF( INFO.NE.0 ) CALL ALAERH( PATH, 'SPPTRI', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT )
 
-               CALL SPPT03( UPLO, N, A, AINV, WORK, LDA, RWORK, RCONDC, RESULT( 2 ) )
+               sppt03(UPLO, N, A, AINV, WORK, LDA, RWORK, RCONDC, RESULT( 2 ) );
 
                // Print information about the tests that did not pass
                // the threshold.
@@ -213,35 +213,35 @@
                // Solve and compute residual for  A * X = B.
 
                   SRNAMT = 'SLARHS'
-                  CALL SLARHS( PATH, XTYPE, UPLO, ' ', N, N, KL, KU, NRHS, A, LDA, XACT, LDA, B, LDA, ISEED, INFO )
-                  CALL SLACPY( 'Full', N, NRHS, B, LDA, X, LDA )
+                  slarhs(PATH, XTYPE, UPLO, ' ', N, N, KL, KU, NRHS, A, LDA, XACT, LDA, B, LDA, ISEED, INFO );
+                  slacpy('Full', N, NRHS, B, LDA, X, LDA );
 
                   SRNAMT = 'SPPTRS'
-                  CALL SPPTRS( UPLO, N, NRHS, AFAC, X, LDA, INFO )
+                  spptrs(UPLO, N, NRHS, AFAC, X, LDA, INFO );
 
                // Check error code from SPPTRS.
 
                   IF( INFO.NE.0 ) CALL ALAERH( PATH, 'SPPTRS', INFO, 0, UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT )
 
-                  CALL SLACPY( 'Full', N, NRHS, B, LDA, WORK, LDA )
-                  CALL SPPT02( UPLO, N, NRHS, A, X, LDA, WORK, LDA, RWORK, RESULT( 3 ) )
+                  slacpy('Full', N, NRHS, B, LDA, WORK, LDA );
+                  sppt02(UPLO, N, NRHS, A, X, LDA, WORK, LDA, RWORK, RESULT( 3 ) );
 
 *+    TEST 4
                // Check solution from generated exact solution.
 
-                  CALL SGET04( N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 4 ) )
+                  sget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 4 ) );
 
 *+    TESTS 5, 6, and 7
                // Use iterative refinement to improve the solution.
 
                   SRNAMT = 'SPPRFS'
-                  CALL SPPRFS( UPLO, N, NRHS, A, AFAC, B, LDA, X, LDA, RWORK, RWORK( NRHS+1 ), WORK, IWORK, INFO )
+                  spprfs(UPLO, N, NRHS, A, AFAC, B, LDA, X, LDA, RWORK, RWORK( NRHS+1 ), WORK, IWORK, INFO );
 
                // Check error code from SPPRFS.
 
                   IF( INFO.NE.0 ) CALL ALAERH( PATH, 'SPPRFS', INFO, 0, UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT )
 
-                  CALL SGET04( N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 5 ) )                   CALL SPPT05( UPLO, N, NRHS, A, B, LDA, X, LDA, XACT, LDA, RWORK, RWORK( NRHS+1 ), RESULT( 6 ) )
+                  sget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 5 ) )                   CALL SPPT05( UPLO, N, NRHS, A, B, LDA, X, LDA, XACT, LDA, RWORK, RWORK( NRHS+1 ), RESULT( 6 ) );
 
                   // Print information about the tests that did not pass
                   // the threshold.
@@ -260,7 +260,7 @@
 
                ANORM = SLANSP( '1', UPLO, N, A, RWORK )
                SRNAMT = 'SPPCON'
-               CALL SPPCON( UPLO, N, AFAC, ANORM, RCOND, WORK, IWORK, INFO )
+               sppcon(UPLO, N, AFAC, ANORM, RCOND, WORK, IWORK, INFO );
 
                // Check error code from SPPCON.
 
@@ -281,7 +281,7 @@
 
       // Print a summary of the results.
 
-      CALL ALASUM( PATH, NOUT, NFAIL, NRUN, NERRS )
+      alasum(PATH, NOUT, NFAIL, NRUN, NERRS );
 
  9999 FORMAT( ' UPLO = ''', A1, ''', N =', I5, ', type ', I2, ', test ', I2, ', ratio =', G12.5 )
  9998 FORMAT( ' UPLO = ''', A1, ''', N =', I5, ', NRHS=', I3, ', type ', I2, ', test(', I2, ') =', G12.5 )

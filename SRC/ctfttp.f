@@ -49,7 +49,7 @@
          INFO = -3
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'CTFTTP', -INFO )
+         xerbla('CTFTTP', -INFO );
          RETURN
       }
 

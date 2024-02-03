@@ -94,7 +94,7 @@
 
                               // Test DORHR_COL
 
-                              CALL DORHR_COL01( M, N, MB1, NB1, NB2, RESULT )
+                              dorhr_col01(M, N, MB1, NB1, NB2, RESULT );
 
                               // Print information about the tests that did
                               // not pass the threshold.
@@ -152,7 +152,7 @@
 
                               // Test DORHR_COL
 
-                              CALL DORHR_COL02( M, N, MB1, NB1, NB2, RESULT )
+                              dorhr_col02(M, N, MB1, NB1, NB2, RESULT );
 
                               // Print information about the tests that did
                               // not pass the threshold.
@@ -175,7 +175,7 @@
 
       // Print a summary of the results.
 
-      CALL ALASUM( PATH, NOUT, NFAIL, NRUN, NERRS )
+      alasum(PATH, NOUT, NFAIL, NRUN, NERRS );
 
  9999 FORMAT( 'DORGTSQR and DORHR_COL: M=', I5, ', N=', I5, ', MB1=', I5, ', NB1=', I5, ', NB2=', I5, ' test(', I2, ')=', G12.5 )
  9998 FORMAT( 'DORGTSQR_ROW and DORHR_COL: M=', I5, ', N=', I5, ', MB1=', I5, ', NB1=', I5, ', NB2=', I5, ' test(', I2, ')=', G12.5 )

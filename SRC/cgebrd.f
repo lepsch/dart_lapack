@@ -59,7 +59,7 @@
          INFO = -10
       }
       if ( INFO.LT.0 ) {
-         CALL XERBLA( 'CGEBRD', -INFO )
+         xerbla('CGEBRD', -INFO );
          RETURN
       } else if ( LQUERY ) {
          RETURN
@@ -110,13 +110,13 @@
          // the matrices X and Y which are needed to update the unreduced
          // part of the matrix
 
-         CALL CLABRD( M-I+1, N-I+1, NB, A( I, I ), LDA, D( I ), E( I ), TAUQ( I ), TAUP( I ), WORK, LDWRKX, WORK( LDWRKX*NB+1 ), LDWRKY )
+         clabrd(M-I+1, N-I+1, NB, A( I, I ), LDA, D( I ), E( I ), TAUQ( I ), TAUP( I ), WORK, LDWRKX, WORK( LDWRKX*NB+1 ), LDWRKY );
 
          // Update the trailing submatrix A(i+ib:m,i+ib:n), using
          // an update of the form  A := A - V*Y**H - X*U**H
 
-         CALL CGEMM( 'No transpose', 'Conjugate transpose', M-I-NB+1, N-I-NB+1, NB, -ONE, A( I+NB, I ), LDA, WORK( LDWRKX*NB+NB+1 ), LDWRKY, ONE, A( I+NB, I+NB ), LDA )
-         CALL CGEMM( 'No transpose', 'No transpose', M-I-NB+1, N-I-NB+1, NB, -ONE, WORK( NB+1 ), LDWRKX, A( I, I+NB ), LDA, ONE, A( I+NB, I+NB ), LDA )
+         cgemm('No transpose', 'Conjugate transpose', M-I-NB+1, N-I-NB+1, NB, -ONE, A( I+NB, I ), LDA, WORK( LDWRKX*NB+NB+1 ), LDWRKY, ONE, A( I+NB, I+NB ), LDA );
+         cgemm('No transpose', 'No transpose', M-I-NB+1, N-I-NB+1, NB, -ONE, WORK( NB+1 ), LDWRKX, A( I, I+NB ), LDA, ONE, A( I+NB, I+NB ), LDA );
 
          // Copy diagonal and off-diagonal elements of B back into A
 
@@ -135,7 +135,7 @@
 
       // Use unblocked code to reduce the remainder of the matrix
 
-      CALL CGEBD2( M-I+1, N-I+1, A( I, I ), LDA, D( I ), E( I ), TAUQ( I ), TAUP( I ), WORK, IINFO )
+      cgebd2(M-I+1, N-I+1, A( I, I ), LDA, D( I ), E( I ), TAUQ( I ), TAUP( I ), WORK, IINFO );
       WORK( 1 ) = SROUNDUP_LWORK( WS )
       RETURN
 

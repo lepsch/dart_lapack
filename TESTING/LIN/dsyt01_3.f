@@ -46,7 +46,7 @@
 
       // a) Revert to multipliers of L
 
-      CALL DSYCONVF_ROOK( UPLO, 'R', N, AFAC, LDAFAC, E, IPIV, INFO )
+      dsyconvf_rook(UPLO, 'R', N, AFAC, LDAFAC, E, IPIV, INFO );
 
       // 1) Determine EPS and the norm of A.
 
@@ -55,15 +55,15 @@
 
       // 2) Initialize C to the identity matrix.
 
-      CALL DLASET( 'Full', N, N, ZERO, ONE, C, LDC )
+      dlaset('Full', N, N, ZERO, ONE, C, LDC );
 
       // 3) Call DLAVSY_ROOK to form the product D * U' (or D * L' ).
 
-      CALL DLAVSY_ROOK( UPLO, 'Transpose', 'Non-unit', N, N, AFAC, LDAFAC, IPIV, C, LDC, INFO )
+      dlavsy_rook(UPLO, 'Transpose', 'Non-unit', N, N, AFAC, LDAFAC, IPIV, C, LDC, INFO );
 
       // 4) Call DLAVSY_ROOK again to multiply by U (or L ).
 
-      CALL DLAVSY_ROOK( UPLO, 'No transpose', 'Unit', N, N, AFAC, LDAFAC, IPIV, C, LDC, INFO )
+      dlavsy_rook(UPLO, 'No transpose', 'Unit', N, N, AFAC, LDAFAC, IPIV, C, LDC, INFO );
 
       // 5) Compute the difference  C - A.
 
@@ -94,7 +94,7 @@
 
       // b) Convert to factor of L (or U)
 
-      CALL DSYCONVF_ROOK( UPLO, 'C', N, AFAC, LDAFAC, E, IPIV, INFO )
+      dsyconvf_rook(UPLO, 'C', N, AFAC, LDAFAC, E, IPIV, INFO );
 
       RETURN
 

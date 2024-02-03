@@ -85,7 +85,7 @@
             // Scale column K by the diagonal element.
 
             T = AFAC( 1, K )
-            CALL DSCAL( KLEN+1, T, AFAC( 1, K ), 1 )
+            dscal(KLEN+1, T, AFAC( 1, K ), 1 );
 
    20    CONTINUE
       }

@@ -69,7 +69,7 @@
          INFO = -11
       }
       if ( INFO.NE.0 ) {
-         CALL XERBLA( 'ZPTRFS', -INFO )
+         xerbla('ZPTRFS', -INFO );
          RETURN
       }
 
@@ -187,8 +187,8 @@
 
             // Update solution and try again.
 
-            CALL ZPTTRS( UPLO, N, 1, DF, EF, WORK, N, INFO )
-            CALL ZAXPY( N, DCMPLX( ONE ), WORK, 1, X( 1, J ), 1 )
+            zpttrs(UPLO, N, 1, DF, EF, WORK, N, INFO );
+            zaxpy(N, DCMPLX( ONE ), WORK, 1, X( 1, J ), 1 );
             LSTRES = BERR( J )
             COUNT = COUNT + 1
             GO TO 20

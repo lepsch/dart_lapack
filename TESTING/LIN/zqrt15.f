@@ -43,7 +43,7 @@
 
       MN = MIN( M, N )
       if ( LWORK.LT.MAX( M+MN, MN*NRHS, 2*N+M ) ) {
-         CALL XERBLA( 'ZQRT15', 16 )
+         xerbla('ZQRT15', 16 );
          RETURN
       }
 
@@ -63,7 +63,7 @@
             S( J ) = ZERO
    10    CONTINUE
       } else {
-         CALL XERBLA( 'ZQRT15', 2 )
+         xerbla('ZQRT15', 2 );
       }
 
       if ( RANK.GT.0 ) {
@@ -80,31 +80,31 @@
                GO TO 20
             }
    30    CONTINUE
-         CALL DLAORD( 'Decreasing', RANK, S, 1 )
+         dlaord('Decreasing', RANK, S, 1 );
 
          // Generate 'rank' columns of a random orthogonal matrix in A
 
-         CALL ZLARNV( 2, ISEED, M, WORK )
-         CALL ZDSCAL( M, ONE / DZNRM2( M, WORK, 1 ), WORK, 1 )
-         CALL ZLASET( 'Full', M, RANK, CZERO, CONE, A, LDA )
-         CALL ZLARF( 'Left', M, RANK, WORK, 1, DCMPLX( TWO ), A, LDA, WORK( M+1 ) )
+         zlarnv(2, ISEED, M, WORK );
+         zdscal(M, ONE / DZNRM2( M, WORK, 1 ), WORK, 1 );
+         zlaset('Full', M, RANK, CZERO, CONE, A, LDA );
+         zlarf('Left', M, RANK, WORK, 1, DCMPLX( TWO ), A, LDA, WORK( M+1 ) );
 
          // workspace used: m+mn
 
          // Generate consistent rhs in the range space of A
 
-         CALL ZLARNV( 2, ISEED, RANK*NRHS, WORK )
-         CALL ZGEMM( 'No transpose', 'No transpose', M, NRHS, RANK, CONE, A, LDA, WORK, RANK, CZERO, B, LDB )
+         zlarnv(2, ISEED, RANK*NRHS, WORK );
+         zgemm('No transpose', 'No transpose', M, NRHS, RANK, CONE, A, LDA, WORK, RANK, CZERO, B, LDB );
 
          // work space used: <= mn *nrhs
 
          // generate (unscaled) matrix A
 
          DO 40 J = 1, RANK
-            CALL ZDSCAL( M, S( J ), A( 1, J ), 1 )
+            zdscal(M, S( J ), A( 1, J ), 1 );
    40    CONTINUE
          IF( RANK.LT.N ) CALL ZLASET( 'Full', M, N-RANK, CZERO, CZERO, A( 1, RANK+1 ), LDA )
-         CALL ZLAROR( 'Right', 'No initialization', M, N, A, LDA, ISEED, WORK, INFO )
+         zlaror('Right', 'No initialization', M, N, A, LDA, ISEED, WORK, INFO );
 
       } else {
 
@@ -115,8 +115,8 @@
          DO 50 J = 1, MN
             S( J ) = ZERO
    50    CONTINUE
-         CALL ZLASET( 'Full', M, N, CZERO, CZERO, A, LDA )
-         CALL ZLASET( 'Full', M, NRHS, CZERO, CZERO, B, LDB )
+         zlaset('Full', M, N, CZERO, CZERO, A, LDA );
+         zlaset('Full', M, NRHS, CZERO, CZERO, B, LDB );
 
       }
 
@@ -129,14 +129,14 @@
 
                // matrix scaled up
 
-               CALL ZLASCL( 'General', 0, 0, NORMA, BIGNUM, M, N, A, LDA, INFO )                CALL DLASCL( 'General', 0, 0, NORMA, BIGNUM, MN, 1, S, MN, INFO )                CALL ZLASCL( 'General', 0, 0, NORMA, BIGNUM, M, NRHS, B, LDB, INFO )
+               zlascl('General', 0, 0, NORMA, BIGNUM, M, N, A, LDA, INFO )                CALL DLASCL( 'General', 0, 0, NORMA, BIGNUM, MN, 1, S, MN, INFO )                CALL ZLASCL( 'General', 0, 0, NORMA, BIGNUM, M, NRHS, B, LDB, INFO );
             } else if ( SCALE.EQ.3 ) {
 
                // matrix scaled down
 
-               CALL ZLASCL( 'General', 0, 0, NORMA, SMLNUM, M, N, A, LDA, INFO )                CALL DLASCL( 'General', 0, 0, NORMA, SMLNUM, MN, 1, S, MN, INFO )                CALL ZLASCL( 'General', 0, 0, NORMA, SMLNUM, M, NRHS, B, LDB, INFO )
+               zlascl('General', 0, 0, NORMA, SMLNUM, M, N, A, LDA, INFO )                CALL DLASCL( 'General', 0, 0, NORMA, SMLNUM, MN, 1, S, MN, INFO )                CALL ZLASCL( 'General', 0, 0, NORMA, SMLNUM, M, NRHS, B, LDB, INFO );
             } else {
-               CALL XERBLA( 'ZQRT15', 1 )
+               xerbla('ZQRT15', 1 );
                RETURN
             }
          }

@@ -77,10 +77,10 @@
 
       // Test the error exits
 
-      CALL XLAENV( 1, 1 )
+      xlaenv(1, 1 );
       IF( TSTERR ) CALL CERRGE( PATH, NOUT )
       INFOT = 0
-      CALL XLAENV( 2, 2 )
+      xlaenv(2, 2 );
 
       // Do for each value of M in MVAL
 
@@ -110,15 +110,15 @@
                // Set up parameters with CLATB4 and generate a test matrix
                // with CLATMS.
 
-               CALL CLATB4( PATH, IMAT, M, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST )
+               clatb4(PATH, IMAT, M, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST );
 
                SRNAMT = 'CLATMS'
-               CALL CLATMS( M, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KL, KU, 'No packing', A, LDA, WORK, INFO )
+               clatms(M, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KL, KU, 'No packing', A, LDA, WORK, INFO );
 
                // Check error code from CLATMS.
 
                if ( INFO.NE.0 ) {
-                  CALL ALAERH( PATH, 'CLATMS', INFO, 0, ' ', M, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT )
+                  alaerh(PATH, 'CLATMS', INFO, 0, ' ', M, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
                   GO TO 100
                }
 
@@ -139,7 +139,7 @@
                         A( IOFF+I ) = ZERO
    20                CONTINUE
                   } else {
-                     CALL CLASET( 'Full', M, N-IZERO+1, CMPLX( ZERO ), CMPLX( ZERO ), A( IOFF+1 ), LDA )
+                     claset('Full', M, N-IZERO+1, CMPLX( ZERO ), CMPLX( ZERO ), A( IOFF+1 ), LDA );
                   }
                } else {
                   IZERO = 0
@@ -155,13 +155,13 @@
 
                DO 90 INB = 1, NNB
                   NB = NBVAL( INB )
-                  CALL XLAENV( 1, NB )
+                  xlaenv(1, NB );
 
                   // Compute the LU factorization of the matrix.
 
-                  CALL CLACPY( 'Full', M, N, A, LDA, AFAC, LDA )
+                  clacpy('Full', M, N, A, LDA, AFAC, LDA );
                   SRNAMT = 'CGETRF'
-                  CALL CGETRF( M, N, AFAC, LDA, IWORK, INFO )
+                  cgetrf(M, N, AFAC, LDA, IWORK, INFO );
 
                   // Check error code from CGETRF.
 
@@ -171,8 +171,8 @@
 *+    TEST 1
                   // Reconstruct matrix from factors and compute residual.
 
-                  CALL CLACPY( 'Full', M, N, AFAC, LDA, AINV, LDA )
-                  CALL CGET01( M, N, A, LDA, AINV, LDA, IWORK, RWORK, RESULT( 1 ) )
+                  clacpy('Full', M, N, AFAC, LDA, AINV, LDA );
+                  cget01(M, N, A, LDA, AINV, LDA, IWORK, RWORK, RESULT( 1 ) );
                   NT = 1
 
 *+    TEST 2
@@ -180,11 +180,11 @@
                   // and compute the residual.
 
                   if ( M.EQ.N .AND. INFO.EQ.0 ) {
-                     CALL CLACPY( 'Full', N, N, AFAC, LDA, AINV, LDA )
+                     clacpy('Full', N, N, AFAC, LDA, AINV, LDA );
                      SRNAMT = 'CGETRI'
                      NRHS = NSVAL( 1 )
                      LWORK = NMAX*MAX( 3, NRHS )
-                     CALL CGETRI( N, AINV, LDA, IWORK, WORK, LWORK, INFO )
+                     cgetri(N, AINV, LDA, IWORK, WORK, LWORK, INFO );
 
                      // Check error code from CGETRI.
 
@@ -194,7 +194,7 @@
                      // inverse.  Also compute the 1-norm condition number
                      // of A.
 
-                     CALL CGET03( N, A, LDA, AINV, LDA, WORK, LDA, RWORK, RCONDO, RESULT( 2 ) )
+                     cget03(N, A, LDA, AINV, LDA, WORK, LDA, RWORK, RCONDO, RESULT( 2 ) );
                      ANORMO = CLANGE( 'O', M, N, A, LDA, RWORK )
 
                      // Compute the infinity-norm condition number of A.
@@ -251,36 +251,36 @@
                         // Solve and compute residual for A * X = B.
 
                         SRNAMT = 'CLARHS'
-                        CALL CLARHS( PATH, XTYPE, ' ', TRANS, N, N, KL, KU, NRHS, A, LDA, XACT, LDA, B, LDA, ISEED, INFO )
+                        clarhs(PATH, XTYPE, ' ', TRANS, N, N, KL, KU, NRHS, A, LDA, XACT, LDA, B, LDA, ISEED, INFO );
                         XTYPE = 'C'
 
-                        CALL CLACPY( 'Full', N, NRHS, B, LDA, X, LDA )
+                        clacpy('Full', N, NRHS, B, LDA, X, LDA );
                         SRNAMT = 'CGETRS'
-                        CALL CGETRS( TRANS, N, NRHS, AFAC, LDA, IWORK, X, LDA, INFO )
+                        cgetrs(TRANS, N, NRHS, AFAC, LDA, IWORK, X, LDA, INFO );
 
                         // Check error code from CGETRS.
 
                         IF( INFO.NE.0 ) CALL ALAERH( PATH, 'CGETRS', INFO, 0, TRANS, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT )
 
-                        CALL CLACPY( 'Full', N, NRHS, B, LDA, WORK, LDA )                         CALL CGET02( TRANS, N, N, NRHS, A, LDA, X, LDA, WORK, LDA, RWORK, RESULT( 3 ) )
+                        clacpy('Full', N, NRHS, B, LDA, WORK, LDA )                         CALL CGET02( TRANS, N, N, NRHS, A, LDA, X, LDA, WORK, LDA, RWORK, RESULT( 3 ) );
 
 *+    TEST 4
                         // Check solution from generated exact solution.
 
-                        CALL CGET04( N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 4 ) )
+                        cget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 4 ) );
 
 *+    TESTS 5, 6, and 7
                         // Use iterative refinement to improve the
                         // solution.
 
                         SRNAMT = 'CGERFS'
-                        CALL CGERFS( TRANS, N, NRHS, A, LDA, AFAC, LDA, IWORK, B, LDA, X, LDA, RWORK, RWORK( NRHS+1 ), WORK, RWORK( 2*NRHS+1 ), INFO )
+                        cgerfs(TRANS, N, NRHS, A, LDA, AFAC, LDA, IWORK, B, LDA, X, LDA, RWORK, RWORK( NRHS+1 ), WORK, RWORK( 2*NRHS+1 ), INFO );
 
                         // Check error code from CGERFS.
 
                         IF( INFO.NE.0 ) CALL ALAERH( PATH, 'CGERFS', INFO, 0, TRANS, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT )
 
-                        CALL CGET04( N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 5 ) )                         CALL CGET07( TRANS, N, NRHS, A, LDA, B, LDA, X, LDA, XACT, LDA, RWORK, .TRUE., RWORK( NRHS+1 ), RESULT( 6 ) )
+                        cget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 5 ) )                         CALL CGET07( TRANS, N, NRHS, A, LDA, B, LDA, X, LDA, XACT, LDA, RWORK, .TRUE., RWORK( NRHS+1 ), RESULT( 6 ) );
 
                         // Print information about the tests that did not
                         // pass the threshold.
@@ -310,7 +310,7 @@
                         NORM = 'I'
                      }
                      SRNAMT = 'CGECON'
-                     CALL CGECON( NORM, N, AFAC, LDA, ANORM, RCOND, WORK, RWORK, INFO )
+                     cgecon(NORM, N, AFAC, LDA, ANORM, RCOND, WORK, RWORK, INFO );
 
                         // Check error code from CGECON.
 
@@ -339,7 +339,7 @@
 
       // Print a summary of the results.
 
-      CALL ALASUM( PATH, NOUT, NFAIL, NRUN, NERRS )
+      alasum(PATH, NOUT, NFAIL, NRUN, NERRS );
 
  9999 FORMAT( ' M = ', I5, ', N =', I5, ', NB =', I4, ', type ', I2, ', test(', I2, ') =', G12.5 )
  9998 FORMAT( ' TRANS=''', A1, ''', N =', I5, ', NRHS=', I3, ', type ', I2, ', test(', I2, ') =', G12.5 )
