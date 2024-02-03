@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       LOGICAL            LERR, OK
-      CHARACTER*(*)      SRNAMT
+      List<String>         SRNAMT;
       int                INFOT, NOUT
 *     ..
 *     .. Intrinsic Functions ..

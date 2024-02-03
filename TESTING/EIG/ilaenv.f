@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      CHARACTER*( * )    NAME, OPTS
+      List<String>       NAME, OPTS;
       int                ISPEC, N1, N2, N3, N4
 *     ..
 *
@@ -99,7 +99,7 @@ C        ILAENV = 0
       END
       int     FUNCTION ILAENV2STAGE( ISPEC, NAME, OPTS, N1, N2, N3, N4 )
 *     .. Scalar Arguments ..
-      CHARACTER*( * )    NAME, OPTS
+      List<String>       NAME, OPTS;
       int                ISPEC, N1, N2, N3, N4
 *     ..
 *

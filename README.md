@@ -28,8 +28,8 @@
 
 ### CHARACTER*(*) -> List<String>
 ```
-^\s(.*)\bCHARACTER\b\*[0-9]\s(.*)$
- $1String      $2;
+^\s(.*)\bCHARACTER\b\s*\*\s*\(\s*\*\s*\)(.*)$
+ $1List<String>   $2;
 ```
 
 ### CHARACTER -> String

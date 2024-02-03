@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      CHARACTER*( * )    RC
+      List<String>       RC;
       int                INFO, K, LDU, LDV, LWORK, MU, MV, N
       DOUBLE PRECISION   RESULT
 *     ..

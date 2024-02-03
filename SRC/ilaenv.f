@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      CHARACTER*( * )    NAME, OPTS
+      List<String>       NAME, OPTS;
       int                ISPEC, N1, N2, N3, N4
 *     ..
 *
