@@ -62,7 +62,7 @@
          WORK(1)=MINSIZE
          RETURN
       }
-      IF( N.EQ.0 ) RETURN
+      if (N.EQ.0) RETURN;
 
       if ( NBMAX .GE. N ) {
          csytri(UPLO, N, A, LDA, IPIV, WORK, INFO );

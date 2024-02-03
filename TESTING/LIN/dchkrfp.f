@@ -89,7 +89,7 @@
             FATAL = .TRUE.
          }
       } // 10
-      IF( NN.GT.0 ) WRITE( NOUT, FMT = 9993 )'N   ', ( NVAL( I ), I = 1, NN )
+      if (NN.GT.0) WRITE( NOUT, FMT = 9993 )'N   ', ( NVAL( I ), I = 1, NN );
 
       // Read the values of NRHS
 
@@ -113,7 +113,7 @@
             FATAL = .TRUE.
          }
       } // 30
-      IF( NNS.GT.0 ) WRITE( NOUT, FMT = 9993 )'NRHS', ( NSVAL( I ), I = 1, NNS )
+      if (NNS.GT.0) WRITE( NOUT, FMT = 9993 )'NRHS', ( NSVAL( I ), I = 1, NNS );
 
       // Read the matrix types
 
@@ -137,7 +137,7 @@
             FATAL = .TRUE.
          }
       } // 320
-      IF( NNT.GT.0 ) WRITE( NOUT, FMT = 9993 )'TYPE', ( NTVAL( I ), I = 1, NNT )
+      if (NNT.GT.0) WRITE( NOUT, FMT = 9993 )'TYPE', ( NTVAL( I ), I = 1, NNT );
 
       // Read the threshold value for the test ratios.
 
@@ -165,7 +165,7 @@
 
       // Test the error exit of:
 
-      IF( TSTERR ) CALL DERRRFP( NOUT )
+      if (TSTERR) CALL DERRRFP( NOUT );
 
       // Test the routines: dpftrf, dpftri, dpftrs (as in DDRVPO).
       // This also tests the routines: dtfsm, dtftri, dtfttr, dtrttf.

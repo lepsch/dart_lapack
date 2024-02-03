@@ -161,7 +161,7 @@
 
       // [R11,R12] = [ T11, 0 ] * Y
 
-      IF( RANK.LT.N ) CALL STZRQF( RANK, N, A, LDA, WORK( MN+1 ), INFO )
+      if (RANK.LT.N) CALL STZRQF( RANK, N, A, LDA, WORK( MN+1 ), INFO );
 
       // Details of Householder rotations stored in WORK(MN+1:2*MN)
 

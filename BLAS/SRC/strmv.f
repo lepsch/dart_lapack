@@ -57,7 +57,7 @@
 
       // Quick return if possible.
 
-      IF (N.EQ.0) RETURN
+      if (N.EQ.0) RETURN;
 
       NOUNIT = LSAME(DIAG,'N')
 
@@ -85,7 +85,7 @@
                           for (I = 1; I <= J - 1; I++) { // 10
                               X(I) = X(I) + TEMP*A(I,J)
                           } // 10
-                          IF (NOUNIT) X(J) = X(J)*A(J,J)
+                          if (NOUNIT) X(J) = X(J)*A(J,J);
                       }
                   } // 20
               } else {
@@ -98,7 +98,7 @@
                               X(IX) = X(IX) + TEMP*A(I,J)
                               IX = IX + INCX
                           } // 30
-                          IF (NOUNIT) X(JX) = X(JX)*A(J,J)
+                          if (NOUNIT) X(JX) = X(JX)*A(J,J);
                       }
                       JX = JX + INCX
                   } // 40
@@ -111,7 +111,7 @@
                           DO 50 I = N,J + 1,-1
                               X(I) = X(I) + TEMP*A(I,J)
                           } // 50
-                          IF (NOUNIT) X(J) = X(J)*A(J,J)
+                          if (NOUNIT) X(J) = X(J)*A(J,J);
                       }
                   } // 60
               } else {
@@ -125,7 +125,7 @@
                               X(IX) = X(IX) + TEMP*A(I,J)
                               IX = IX - INCX
                           } // 70
-                          IF (NOUNIT) X(JX) = X(JX)*A(J,J)
+                          if (NOUNIT) X(JX) = X(JX)*A(J,J);
                       }
                       JX = JX - INCX
                   } // 80
@@ -139,7 +139,7 @@
               if (INCX.EQ.1) {
                   DO 100 J = N,1,-1
                       TEMP = X(J)
-                      IF (NOUNIT) TEMP = TEMP*A(J,J)
+                      if (NOUNIT) TEMP = TEMP*A(J,J);
                       DO 90 I = J - 1,1,-1
                           TEMP = TEMP + A(I,J)*X(I)
                       } // 90
@@ -150,7 +150,7 @@
                   DO 120 J = N,1,-1
                       TEMP = X(JX)
                       IX = JX
-                      IF (NOUNIT) TEMP = TEMP*A(J,J)
+                      if (NOUNIT) TEMP = TEMP*A(J,J);
                       DO 110 I = J - 1,1,-1
                           IX = IX - INCX
                           TEMP = TEMP + A(I,J)*X(IX)
@@ -163,7 +163,7 @@
               if (INCX.EQ.1) {
                   for (J = 1; J <= N; J++) { // 140
                       TEMP = X(J)
-                      IF (NOUNIT) TEMP = TEMP*A(J,J)
+                      if (NOUNIT) TEMP = TEMP*A(J,J);
                       for (I = J + 1; I <= N; I++) { // 130
                           TEMP = TEMP + A(I,J)*X(I)
                       } // 130
@@ -174,7 +174,7 @@
                   for (J = 1; J <= N; J++) { // 160
                       TEMP = X(JX)
                       IX = JX
-                      IF (NOUNIT) TEMP = TEMP*A(J,J)
+                      if (NOUNIT) TEMP = TEMP*A(J,J);
                       for (I = J + 1; I <= N; I++) { // 150
                           IX = IX + INCX
                           TEMP = TEMP + A(I,J)*X(IX)

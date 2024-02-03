@@ -82,7 +82,7 @@
 
          N = M
          NIMAT = NTYPES
-         IF( M.LE.0 .OR. N.LE.0 ) NIMAT = 1
+         if (M.LE.0 .OR. N.LE.0) NIMAT = 1;
 
          for (IMAT = 1; IMAT <= NIMAT; IMAT++) { // 100
 
@@ -93,7 +93,7 @@
             // Skip types 5, 6, or 7 if the matrix size is too small.
 
             ZEROT = IMAT.GE.5 .AND. IMAT.LE.7
-            IF( ZEROT .AND. N.LT.IMAT-4 ) GO TO 100
+            if (ZEROT .AND. N.LT.IMAT-4) GO TO 100;
 
             // Set up parameters with ZLATB4 and generate a test matrix
             // with ZLATMS.
@@ -158,7 +158,7 @@
 
                if ( INFO.NE.IZERO ) {
 
-                  IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )
+                  if (NFAIL.EQ.0 .AND. NERRS.EQ.0) CALL ALAHD( NOUT, PATH );
                   NERRS = NERRS + 1
 
                   if ( INFO.NE.IZERO .AND. IZERO.NE.0 ) {
@@ -170,7 +170,7 @@
 
                // Skip the remaining test if the matrix is singular.
 
-               IF( INFO.NE.0 ) GO TO 100
+               if (INFO.NE.0) GO TO 100;
 
                // Check the quality of the solution
 

@@ -86,7 +86,7 @@
       // Quick return if possible (N.LE.1)
 
       NS = 0
-      IF( N.EQ.0 ) RETURN
+      if (N.EQ.0) RETURN;
 
       if ( N.EQ.1 ) {
          if ( ALLSV .OR. INDSV ) {
@@ -133,7 +133,7 @@
          for (I = 2; I <= N; I++) {
             MU = ABS( D( I ) )*( MU / ( MU+ABS( E( I-1 ) ) ) )
             SMIN = MIN( SMIN, MU )
-            IF( SMIN.EQ.ZERO ) EXIT
+            if (SMIN.EQ.ZERO) EXIT;
          }
       }
       SMIN = SMIN / SQRT( REAL( N ) )
@@ -172,7 +172,7 @@
          // of the active submatrix.
 
          RNGVX = 'I'
-         IF( WANTZ ) CALL SLASET( 'F', N*2, N+1, ZERO, ZERO, Z, LDZ )
+         if (WANTZ) CALL SLASET( 'F', N*2, N+1, ZERO, ZERO, Z, LDZ );
       } else if ( VALSV ) {
 
          // Find singular values in a half-open interval. We aim
@@ -189,7 +189,7 @@
          if ( NS.EQ.0 ) {
             RETURN
          } else {
-            IF( WANTZ ) CALL SLASET( 'F', N*2, NS, ZERO, ZERO, Z, LDZ )
+            if (WANTZ) CALL SLASET( 'F', N*2, NS, ZERO, ZERO, Z, LDZ );
          }
       } else if ( INDSV ) {
 
@@ -218,9 +218,9 @@
          // If VLTGK=VUTGK, SSTEVX returns an error message,
          // so if needed we change VUTGK slightly.
 
-         IF( VLTGK.EQ.VUTGK ) VLTGK = VLTGK - TOL
+         if (VLTGK.EQ.VUTGK) VLTGK = VLTGK - TOL;
 
-         IF( WANTZ ) CALL SLASET( 'F', N*2, IU-IL+1, ZERO, ZERO, Z, LDZ)
+         if (WANTZ) CALL SLASET( 'F', N*2, IU-IL+1, ZERO, ZERO, Z, LDZ);
       }
 
       // Initialize variables and pointers for S, Z, and WORK.
@@ -473,7 +473,7 @@
          if ( K.NE.NS+1-I ) {
             S( K ) = S( NS+1-I )
             S( NS+1-I ) = SMIN
-            IF( WANTZ ) CALL SSWAP( N*2, Z( 1,K ), 1, Z( 1,NS+1-I ), 1 )
+            if (WANTZ) CALL SSWAP( N*2, Z( 1,K ), 1, Z( 1,NS+1-I ), 1 );
          }
       }
 
@@ -483,7 +483,7 @@
          K = IU - IL + 1
          if ( K.LT.NS ) {
             S( K+1:NS ) = ZERO
-            IF( WANTZ ) Z( 1:N*2,K+1:NS ) = ZERO
+            if (WANTZ) Z( 1:N*2,K+1:NS ) = ZERO;
             NS = K
          }
       }

@@ -49,7 +49,7 @@
       // Quick return if possible
 
       MN = MIN( M, N )
-      IF( MN.LE.ZERO ) RETURN
+      if (MN.LE.ZERO) RETURN;
 
       NRMSVL = DNRM2( MN, S, 1 )
 
@@ -112,7 +112,7 @@
       daxpy(MN, -ONE, S, 1, RWORK( 1 ), 1 );
       ZQRT12 = DASUM( MN, RWORK( 1 ), 1 ) / ( DLAMCH( 'Epsilon' )*DBLE( MAX( M, N ) ) )
 
-      IF( NRMSVL.NE.ZERO ) ZQRT12 = ZQRT12 / NRMSVL
+      if (NRMSVL.NE.ZERO) ZQRT12 = ZQRT12 / NRMSVL;
 
       RETURN
 

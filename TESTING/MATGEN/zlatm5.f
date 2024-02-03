@@ -101,13 +101,13 @@
          } // 120
 
          if ( PRTYPE.EQ.3 ) {
-            IF( QBLCKA.LE.1 ) QBLCKA = 2
+            if (QBLCKA.LE.1) QBLCKA = 2;
             DO 130 K = 1, M - 1, QBLCKA
                A( K+1, K+1 ) = A( K, K )
                A( K+1, K ) = -SIN( A( K, K+1 ) )
             } // 130
 
-            IF( QBLCKB.LE.1 ) QBLCKB = 2
+            if (QBLCKB.LE.1) QBLCKB = 2;
             DO 140 K = 1, N - 1, QBLCKB
                B( K+1, K+1 ) = B( K, K )
                B( K+1, K ) = -SIN( B( K, K+1 ) )
@@ -153,7 +153,7 @@
          for (I = 1; I <= M; I++) { // 240
             if ( I.LE.4 ) {
                A( I, I ) = ONE
-               IF( I.GT.2 ) A( I, I ) = ONE + REEPS
+               if (I.GT.2) A( I, I ) = ONE + REEPS;
                if ( MOD( I, 2 ).NE.0 .AND. I.LT.M ) {
                   A( I, I+1 ) = IMEPS
                } else if ( I.GT.1 ) {
@@ -184,7 +184,7 @@
             E( I, I ) = ONE
             if ( I.LE.4 ) {
                B( I, I ) = -ONE
-               IF( I.GT.2 ) B( I, I ) = ONE - REEPS
+               if (I.GT.2) B( I, I ) = ONE - REEPS;
                if ( MOD( I, 2 ).NE.0 .AND. I.LT.N ) {
                   B( I, I+1 ) = IMEPS
                } else if ( I.GT.1 ) {

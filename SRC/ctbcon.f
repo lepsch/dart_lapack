@@ -124,7 +124,7 @@
             if ( SCALE.NE.ONE ) {
                IX = ICAMAX( N, WORK, 1 )
                XNORM = CABS1( WORK( IX ) )
-               IF( SCALE.LT.XNORM*SMLNUM .OR. SCALE.EQ.ZERO ) GO TO 20
+               if (SCALE.LT.XNORM*SMLNUM .OR. SCALE.EQ.ZERO) GO TO 20;
                csrscl(N, SCALE, WORK, 1 );
             }
             GO TO 10
@@ -132,7 +132,7 @@
 
          // Compute the estimate of the reciprocal condition number.
 
-         IF( AINVNM.NE.ZERO ) RCOND = ( ONE / ANORM ) / AINVNM
+         if (AINVNM.NE.ZERO) RCOND = ( ONE / ANORM ) / AINVNM;
       }
 
       } // 20

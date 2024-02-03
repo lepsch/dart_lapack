@@ -121,7 +121,7 @@
 
       // Quick return if possible
 
-      IF( N.EQ.0 ) RETURN
+      if (N.EQ.0) RETURN;
 
       // Get machine constants
 
@@ -142,7 +142,7 @@
          SCALEA = .TRUE.
          CSCALE = BIGNUM
       }
-      IF( SCALEA ) CALL SLASCL( 'G', 0, 0, ANRM, CSCALE, N, N, A, LDA, IERR )
+      if (SCALEA) CALL SLASCL( 'G', 0, 0, ANRM, CSCALE, N, N, A, LDA, IERR );
 
       // Balance the matrix
       // (Workspace: need N)
@@ -215,7 +215,7 @@
 
       // If INFO .NE. 0 from SHSEQR, then quit
 
-      IF( INFO.NE.0 ) GO TO 50
+      if (INFO.NE.0) GO TO 50;
 
       if ( WANTVL .OR. WANTVR ) {
 

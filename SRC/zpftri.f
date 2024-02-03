@@ -53,12 +53,12 @@
 
       // Quick return if possible
 
-      IF( N.EQ.0 ) RETURN
+      if (N.EQ.0) RETURN;
 
       // Invert the triangular Cholesky factor U or L.
 
       ztftri(TRANSR, UPLO, 'N', N, A, INFO );
-      IF( INFO.GT.0 ) RETURN
+      if (INFO.GT.0) RETURN;
 
       // If N is odd, set NISODD = .TRUE.
       // If N is even, set K = N/2 and NISODD = .FALSE.

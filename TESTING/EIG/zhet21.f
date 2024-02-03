@@ -42,7 +42,7 @@
       // .. Executable Statements ..
 
       RESULT( 1 ) = ZERO
-      IF( ITYPE.EQ.1 ) RESULT( 2 ) = ZERO       IF( N.LE.0 ) RETURN
+      if (ITYPE.EQ.1) RESULT( 2 ) = ZERO       IF( N.LE.0 ) RETURN;
 
       if ( LSAME( UPLO, 'U' ) ) {
          LOWER = .FALSE.
@@ -149,7 +149,7 @@
 
          // ITYPE=3: error = U V**H - I
 
-         IF( N.LT.2 ) RETURN
+         if (N.LT.2) RETURN;
          zlacpy(' ', N, N, U, LDU, WORK, N );
          if ( LOWER ) {
             zunm2r('R', 'C', N, N-1, N-1, V( 2, 1 ), LDV, TAU, WORK( N+1 ), N, WORK( N**2+1 ), IINFO );

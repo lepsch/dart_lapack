@@ -49,7 +49,7 @@
       } // 10
 
       READ( NIN, FMT = * )N
-      IF( N.EQ.0 ) GO TO 90
+      if (N.EQ.0) GO TO 90;
       for (I = 1; I <= N; I++) { // 20
          READ( NIN, FMT = * )( A( I, J ), J = 1, N )
       } // 20

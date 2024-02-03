@@ -130,7 +130,7 @@
 
       // Use unblocked code to factor the last or only block
 
-      IF( MU.GT.0 .AND. NU.GT.0 ) CALL DGEQL2( MU, NU, A, LDA, TAU, WORK, IINFO )
+      if (MU.GT.0 .AND. NU.GT.0) CALL DGEQL2( MU, NU, A, LDA, TAU, WORK, IINFO );
 
       WORK( 1 ) = IWS
       RETURN

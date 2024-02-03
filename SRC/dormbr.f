@@ -97,7 +97,7 @@
       // Quick return if possible
 
       WORK( 1 ) = 1
-      IF( M.EQ.0 .OR. N.EQ.0 ) RETURN
+      if (M.EQ.0 .OR. N.EQ.0) RETURN;
 
       if ( APPLYQ ) {
 

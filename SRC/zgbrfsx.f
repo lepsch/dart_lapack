@@ -223,7 +223,7 @@
             if ( RCOND_TMP .LT. ILLRCOND_THRESH ) {
                ERR_BNDS_NORM( J, LA_LINRX_ERR_I ) = 1.0D+0
                ERR_BNDS_NORM( J, LA_LINRX_TRUST_I ) = 0.0D+0
-               IF ( INFO .LE. N ) INFO = N + J
+               if (INFO .LE. N) INFO = N + J;
             } else if ( ERR_BNDS_NORM( J, LA_LINRX_ERR_I ) .LT. ERR_LBND ) {
                ERR_BNDS_NORM( J, LA_LINRX_ERR_I ) = ERR_LBND
                ERR_BNDS_NORM( J, LA_LINRX_TRUST_I ) = 1.0D+0

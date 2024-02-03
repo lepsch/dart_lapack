@@ -108,7 +108,7 @@
 
       // Quick return if possible.
 
-      IF( N.EQ.0 ) RETURN
+      if (N.EQ.0) RETURN;
 
       // Set the constants to control overflow.
 
@@ -144,7 +144,7 @@
          IS = M
          DO 140 KI = N, 1, -1
 
-            IF( IP.EQ.1 ) GO TO 130             IF( KI.EQ.1 ) GO TO 40             IF( T( KI, KI-1 ).EQ.ZERO ) GO TO 40
+            if (IP.EQ.1) GO TO 130             IF( KI.EQ.1 ) GO TO 40             IF( T( KI, KI-1 ).EQ.ZERO ) GO TO 40;
             IP = -1
 
             } // 40
@@ -160,7 +160,7 @@
 
             WR = T( KI, KI )
             WI = ZERO
-            IF( IP.NE.0 ) WI = SQRT( ABS( T( KI, KI-1 ) ) )* SQRT( ABS( T( KI-1, KI ) ) )
+            if (IP.NE.0) WI = SQRT( ABS( T( KI, KI-1 ) ) )* SQRT( ABS( T( KI-1, KI ) ) );
             SMIN = MAX( ULP*( ABS( WR )+ABS( WI ) ), SMLNUM )
 
             if ( IP.EQ.0 ) {
@@ -180,7 +180,7 @@
 
                JNXT = KI - 1
                DO 60 J = KI - 1, 1, -1
-                  IF( J.GT.JNXT ) GO TO 60
+                  if (J.GT.JNXT) GO TO 60;
                   J1 = J
                   J2 = J
                   JNXT = J - 1
@@ -209,7 +209,7 @@
 
                      // Scale if necessary
 
-                     IF( SCALE.NE.ONE ) CALL DSCAL( KI, SCALE, WORK( 1+N ), 1 )
+                     if (SCALE.NE.ONE) CALL DSCAL( KI, SCALE, WORK( 1+N ), 1 );
                      WORK( J+N ) = X( 1, 1 )
 
                      // Update right-hand side
@@ -236,7 +236,7 @@
 
                      // Scale if necessary
 
-                     IF( SCALE.NE.ONE ) CALL DSCAL( KI, SCALE, WORK( 1+N ), 1 )
+                     if (SCALE.NE.ONE) CALL DSCAL( KI, SCALE, WORK( 1+N ), 1 );
                      WORK( J-1+N ) = X( 1, 1 )
                      WORK( J+N ) = X( 2, 1 )
 
@@ -259,7 +259,7 @@
                      VR( K, IS ) = ZERO
                   } // 70
                } else {
-                  IF( KI.GT.1 ) CALL DGEMV( 'N', N, KI-1, ONE, VR, LDVR, WORK( 1+N ), 1, WORK( KI+N ), VR( 1, KI ), 1 )
+                  if (KI.GT.1) CALL DGEMV( 'N', N, KI-1, ONE, VR, LDVR, WORK( 1+N ), 1, WORK( KI+N ), VR( 1, KI ), 1 );
 
                   II = IDAMAX( N, VR( 1, KI ), 1 )
                   REMAX = ONE / ABS( VR( II, KI ) )
@@ -296,7 +296,7 @@
 
                JNXT = KI - 2
                DO 90 J = KI - 2, 1, -1
-                  IF( J.GT.JNXT ) GO TO 90
+                  if (J.GT.JNXT) GO TO 90;
                   J1 = J
                   J2 = J
                   JNXT = J - 1
@@ -415,9 +415,9 @@
             }
 
             IS = IS - 1
-            IF( IP.NE.0 ) IS = IS - 1
+            if (IP.NE.0) IS = IS - 1;
             } // 130
-            IF( IP.EQ.1 ) IP = 0             IF( IP.EQ.-1 ) IP = 1
+            if (IP.EQ.1) IP = 0             IF( IP.EQ.-1 ) IP = 1;
          } // 140
       }
 
@@ -429,7 +429,7 @@
          IS = 1
          for (KI = 1; KI <= N; KI++) { // 260
 
-            IF( IP.EQ.-1 ) GO TO 250             IF( KI.EQ.N ) GO TO 150             IF( T( KI+1, KI ).EQ.ZERO ) GO TO 150
+            if (IP.EQ.-1) GO TO 250             IF( KI.EQ.N ) GO TO 150             IF( T( KI+1, KI ).EQ.ZERO ) GO TO 150;
             IP = 1
 
             } // 150
@@ -441,7 +441,7 @@
 
             WR = T( KI, KI )
             WI = ZERO
-            IF( IP.NE.0 ) WI = SQRT( ABS( T( KI, KI+1 ) ) )* SQRT( ABS( T( KI+1, KI ) ) )
+            if (IP.NE.0) WI = SQRT( ABS( T( KI, KI+1 ) ) )* SQRT( ABS( T( KI+1, KI ) ) );
             SMIN = MAX( ULP*( ABS( WR )+ABS( WI ) ), SMLNUM )
 
             if ( IP.EQ.0 ) {
@@ -464,7 +464,7 @@
 
                JNXT = KI + 1
                for (J = KI + 1; J <= N; J++) { // 170
-                  IF( J.LT.JNXT ) GO TO 170
+                  if (J.LT.JNXT) GO TO 170;
                   J1 = J
                   J2 = J
                   JNXT = J + 1
@@ -497,7 +497,7 @@
 
                      // Scale if necessary
 
-                     IF( SCALE.NE.ONE ) CALL DSCAL( N-KI+1, SCALE, WORK( KI+N ), 1 )
+                     if (SCALE.NE.ONE) CALL DSCAL( N-KI+1, SCALE, WORK( KI+N ), 1 );
                      WORK( J+N ) = X( 1, 1 )
                      VMAX = MAX( ABS( WORK( J+N ) ), VMAX )
                      VCRIT = BIGNUM / VMAX
@@ -529,7 +529,7 @@
 
                      // Scale if necessary
 
-                     IF( SCALE.NE.ONE ) CALL DSCAL( N-KI+1, SCALE, WORK( KI+N ), 1 )
+                     if (SCALE.NE.ONE) CALL DSCAL( N-KI+1, SCALE, WORK( KI+N ), 1 );
                      WORK( J+N ) = X( 1, 1 )
                      WORK( J+1+N ) = X( 2, 1 )
 
@@ -554,7 +554,7 @@
 
                } else {
 
-                  IF( KI.LT.N ) CALL DGEMV( 'N', N, N-KI, ONE, VL( 1, KI+1 ), LDVL, WORK( KI+1+N ), 1, WORK( KI+N ), VL( 1, KI ), 1 )
+                  if (KI.LT.N) CALL DGEMV( 'N', N, N-KI, ONE, VL( 1, KI+1 ), LDVL, WORK( KI+1+N ), 1, WORK( KI+N ), VL( 1, KI ), 1 );
 
                   II = IDAMAX( N, VL( 1, KI ), 1 )
                   REMAX = ONE / ABS( VL( II, KI ) )
@@ -595,7 +595,7 @@
 
                JNXT = KI + 2
                for (J = KI + 2; J <= N; J++) { // 200
-                  IF( J.LT.JNXT ) GO TO 200
+                  if (J.LT.JNXT) GO TO 200;
                   J1 = J
                   J2 = J
                   JNXT = J + 1
@@ -723,9 +723,9 @@
             }
 
             IS = IS + 1
-            IF( IP.NE.0 ) IS = IS + 1
+            if (IP.NE.0) IS = IS + 1;
             } // 250
-            IF( IP.EQ.-1 ) IP = 0             IF( IP.EQ.1 ) IP = -1
+            if (IP.EQ.-1) IP = 0             IF( IP.EQ.1 ) IP = -1;
 
          } // 260
 

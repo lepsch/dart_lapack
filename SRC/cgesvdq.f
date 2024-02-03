@@ -201,7 +201,7 @@
              // full SVD is requested
              if ( RTRANS ) {
                  MINWRK = MAX( LWQP3, LWSVD, LWUNQ )
-                 IF ( CONDA ) MINWRK = MAX( MINWRK, LWCON )
+                 if (CONDA) MINWRK = MAX( MINWRK, LWCON );
                  MINWRK = MINWRK + N
                  if ( WNTVA ) {
                     // .. minimal workspace length for N x N/2 CGEQRF
@@ -210,13 +210,13 @@
                     LWSVD2 = MAX( 3 * (N/2), 1 )
                     LWUNQ2 = MAX( N, 1 )
                     MINWRK2 = MAX( LWQP3, N/2+LWQRF, N/2+LWSVD2, N/2+LWUNQ2, LWUNQ )
-                    IF ( CONDA ) MINWRK2 = MAX( MINWRK2, LWCON )
+                    if (CONDA) MINWRK2 = MAX( MINWRK2, LWCON );
                     MINWRK2 = N + MINWRK2
                     MINWRK = MAX( MINWRK, MINWRK2 )
                  }
              } else {
                  MINWRK = MAX( LWQP3, LWSVD, LWUNQ )
-                 IF ( CONDA ) MINWRK = MAX( MINWRK, LWCON )
+                 if (CONDA) MINWRK = MAX( MINWRK, LWCON );
                  MINWRK = MINWRK + N
                  if ( WNTVA ) {
                     // .. minimal workspace length for N/2 x N CGELQF
@@ -224,7 +224,7 @@
                     LWSVD2 = MAX( 3 * (N/2), 1 )
                     LWUNLQ = MAX( N , 1 )
                     MINWRK2 = MAX( LWQP3, N/2+LWLQF, N/2+LWSVD2, N/2+LWUNLQ, LWUNQ )
-                    IF ( CONDA ) MINWRK2 = MAX( MINWRK2, LWCON )
+                    if (CONDA) MINWRK2 = MAX( MINWRK2, LWCON );
                     MINWRK2 = N + MINWRK2
                     MINWRK = MAX( MINWRK, MINWRK2 )
                  }
@@ -234,7 +234,7 @@
                    cgesvd('O', 'A', N, N, A, LDA, S, U, LDU, V, LDV, CDUMMY, -1, RDUMMY, IERR );
                    LWRK_CGESVD = INT( CDUMMY(1) )
                    OPTWRK = MAX(LWRK_CGEQP3,LWRK_CGESVD,LWRK_CUNMQR)
-                   IF ( CONDA ) OPTWRK = MAX( OPTWRK, LWCON )
+                   if (CONDA) OPTWRK = MAX( OPTWRK, LWCON );
                    OPTWRK = N + OPTWRK
                    if ( WNTVA ) {
                        cgeqrf(N,N/2,U,LDU,CDUMMY,CDUMMY,-1,IERR);
@@ -244,7 +244,7 @@
                        cunmqr('R', 'C', N, N, N/2, U, LDU, CDUMMY, V, LDV, CDUMMY, -1, IERR );
                        LWRK_CUNMQR2 = INT( CDUMMY(1) )
                        OPTWRK2 = MAX( LWRK_CGEQP3, N/2+LWRK_CGEQRF, N/2+LWRK_CGESVD2, N/2+LWRK_CUNMQR2 )
-                       IF ( CONDA ) OPTWRK2 = MAX( OPTWRK2, LWCON )
+                       if (CONDA) OPTWRK2 = MAX( OPTWRK2, LWCON );
                        OPTWRK2 = N + OPTWRK2
                        OPTWRK = MAX( OPTWRK, OPTWRK2 )
                    }
@@ -252,7 +252,7 @@
                    cgesvd('S', 'O', N, N, A, LDA, S, U, LDU, V, LDV, CDUMMY, -1, RDUMMY, IERR );
                    LWRK_CGESVD = INT( CDUMMY(1) )
                    OPTWRK = MAX(LWRK_CGEQP3,LWRK_CGESVD,LWRK_CUNMQR)
-                   IF ( CONDA ) OPTWRK = MAX( OPTWRK, LWCON )
+                   if (CONDA) OPTWRK = MAX( OPTWRK, LWCON );
                    OPTWRK = N + OPTWRK
                    if ( WNTVA ) {
                       cgelqf(N/2,N,U,LDU,CDUMMY,CDUMMY,-1,IERR);
@@ -262,7 +262,7 @@
                       cunmlq('R', 'N', N, N, N/2, U, LDU, CDUMMY, V, LDV, CDUMMY,-1,IERR );
                       LWRK_CUNMLQ = INT( CDUMMY(1) )
                       OPTWRK2 = MAX( LWRK_CGEQP3, N/2+LWRK_CGELQF, N/2+LWRK_CGESVD2, N/2+LWRK_CUNMLQ )
-                       IF ( CONDA ) OPTWRK2 = MAX( OPTWRK2, LWCON )
+                       if (CONDA) OPTWRK2 = MAX( OPTWRK2, LWCON );
                        OPTWRK2 = N + OPTWRK2
                        OPTWRK = MAX( OPTWRK, OPTWRK2 )
                    }
@@ -331,9 +331,9 @@
                // Quick return: A is the M x N zero matrix.
                NUMRANK = 0
                slaset('G', N, 1, ZERO, ZERO, S, N );
-               IF ( WNTUS ) CALL CLASET('G', M, N, CZERO, CONE, U, LDU)
-               IF ( WNTUA ) CALL CLASET('G', M, M, CZERO, CONE, U, LDU)
-               IF ( WNTVA ) CALL CLASET('G', N, N, CZERO, CONE, V, LDV)
+               if (WNTUS) CALL CLASET('G', M, N, CZERO, CONE, U, LDU);
+               if (WNTUA) CALL CLASET('G', M, M, CZERO, CONE, U, LDU);
+               if (WNTVA) CALL CLASET('G', N, N, CZERO, CONE, V, LDV);
                if ( WNTUF ) {
                    claset('G', N, 1, CZERO, CZERO, CWORK, N );
                    claset('G', M, N, CZERO, CONE, U, LDU );
@@ -346,7 +346,7 @@
                        IWORK(p) = p - N
                    } // 5002
                }
-               IF ( CONDA ) RWORK(1) = -1
+               if (CONDA) RWORK(1) = -1;
                RWORK(2) = -1
                RETURN
             }
@@ -488,7 +488,7 @@
                A(p,p) = CONJG(A(p,p))
                for (q = p + 1; q <= N; q++) { // 1147
                   A(q,p) = CONJG(A(p,q))
-                  IF ( q .LE. NR ) A(p,q) = CZERO
+                  if (q .LE. NR) A(p,q) = CZERO;
                } // 1147
             } // 1146
 
@@ -498,7 +498,7 @@
 
             // .. compute the singular values of R = [A](1:NR,1:N)
 
-            IF ( NR .GT. 1 ) CALL CLASET( 'L', NR-1,NR-1, CZERO,CZERO, A(2,1), LDA )             CALL CGESVD( 'N', 'N', NR, N, A, LDA, S, U, LDU, V, LDV, CWORK, LCWORK, RWORK, INFO )
+            if (NR .GT. 1) CALL CLASET( 'L', NR-1,NR-1, CZERO,CZERO, A(2,1), LDA )             CALL CGESVD( 'N', 'N', NR, N, A, LDA, S, U, LDU, V, LDV, CWORK, LCWORK, RWORK, INFO );
 
          }
 
@@ -515,7 +515,7 @@
                   U(q,p) = CONJG(A(p,q))
                } // 1193
             } // 1192
-            IF ( NR .GT. 1 ) CALL CLASET( 'U', NR-1,NR-1, CZERO,CZERO, U(1,2), LDU )
+            if (NR .GT. 1) CALL CLASET( 'U', NR-1,NR-1, CZERO,CZERO, U(1,2), LDU );
             // .. the left singular vectors not computed, the NR right singular
             // vectors overwrite [U](1:NR,1:NR) as conjugate transposed. These
             // will be pre-multiplied by Q to build the left singular vectors of A.
@@ -534,7 +534,7 @@
              // .. apply CGESVD to R
              // .. copy R into [U] and overwrite [U] with the left singular vectors
              clacpy('U', NR, N, A, LDA, U, LDU );
-             IF ( NR .GT. 1 ) CALL CLASET( 'L', NR-1, NR-1, CZERO, CZERO, U(2,1), LDU )
+             if (NR .GT. 1) CALL CLASET( 'L', NR-1, NR-1, CZERO, CZERO, U(2,1), LDU );
              // .. the right singular vectors not computed, the NR left singular
              // vectors overwrite [U](1:NR,1:NR)
                 cgesvd('O', 'N', NR, N, U, LDU, S, U, LDU, V, LDV, CWORK(N+1), LCWORK-N, RWORK, INFO );
@@ -556,8 +556,8 @@
             // The Q matrix from the first QRF is built into the left singular
             // vectors matrix U.
 
-         IF ( .NOT.WNTUF ) CALL CUNMQR( 'L', 'N', M, N1, N, A, LDA, CWORK, U, LDU, CWORK(N+1), LCWORK-N, IERR )
-         IF ( ROWPRM .AND. .NOT.WNTUF ) CALL CLASWP( N1, U, LDU, 1, M-1, IWORK(N+1), -1 )
+         if (.NOT.WNTUF) CALL CUNMQR( 'L', 'N', M, N1, N, A, LDA, CWORK, U, LDU, CWORK(N+1), LCWORK-N, IERR );
+         if (ROWPRM .AND. .NOT.WNTUF) CALL CLASWP( N1, U, LDU, 1, M-1, IWORK(N+1), -1 );
 
       } else if ( RSVEC .AND. ( .NOT. LSVEC ) ) {
 *.......................................................................
@@ -571,7 +571,7 @@
                   V(q,p) = CONJG(A(p,q))
                } // 1166
             } // 1165
-            IF ( NR .GT. 1 ) CALL CLASET( 'U', NR-1,NR-1, CZERO,CZERO, V(1,2), LDV )
+            if (NR .GT. 1) CALL CLASET( 'U', NR-1,NR-1, CZERO,CZERO, V(1,2), LDV );
             // .. the left singular vectors of R**H overwrite V, the right singular
             // vectors not computed
             if ( WNTVR .OR. ( NR .EQ. N ) ) {
@@ -618,7 +618,7 @@
              // .. aply CGESVD to R
              // .. copy R into V and overwrite V with the right singular vectors
              clacpy('U', NR, N, A, LDA, V, LDV );
-             IF ( NR .GT. 1 ) CALL CLASET( 'L', NR-1, NR-1, CZERO, CZERO, V(2,1), LDV )
+             if (NR .GT. 1) CALL CLASET( 'L', NR-1, NR-1, CZERO, CZERO, V(2,1), LDV );
              // .. the right singular vectors overwrite V, the NR left singular
              // vectors stored in U(1:NR,1:NR)
              if ( WNTVR .OR. ( NR .EQ. N ) ) {
@@ -655,7 +655,7 @@
                   V(q,p) = CONJG(A(p,q))
                } // 1169
             } // 1168
-            IF ( NR .GT. 1 ) CALL CLASET( 'U', NR-1,NR-1, CZERO,CZERO, V(1,2), LDV )
+            if (NR .GT. 1) CALL CLASET( 'U', NR-1,NR-1, CZERO,CZERO, V(1,2), LDV );
 
             // .. the left singular vectors of R**H overwrite [V], the NR right
             // singular vectors of R**H stored in [U](1:NR,1:NR) as conjugate
@@ -712,7 +712,7 @@
                          V(q,p) = CONJG(A(p,q))
                       } // 1199
                    } // 1198
-                   IF ( NR .GT. 1 ) CALL CLASET('U',NR-1,NR-1, CZERO,CZERO, V(1,2),LDV)
+                   if (NR .GT. 1) CALL CLASET('U',NR-1,NR-1, CZERO,CZERO, V(1,2),LDV);
 
                    claset('A',N,N-NR,CZERO,CZERO,V(1,NR+1),LDV);
                    cgesvd('O', 'A', N, N, V, LDV, S, V, LDV, U, LDU, CWORK(N+1), LCWORK-N, RWORK, INFO );
@@ -753,7 +753,7 @@
                          U(q,NR+p) = CONJG(A(p,q))
                       } // 1197
                    } // 1196
-                   IF ( NR .GT. 1 ) CALL CLASET('U',NR-1,NR-1,CZERO,CZERO,U(1,NR+2),LDU)                    CALL CGEQRF( N, NR, U(1,NR+1), LDU, CWORK(N+1), CWORK(N+NR+1), LCWORK-N-NR, IERR )
+                   if (NR .GT. 1) CALL CLASET('U',NR-1,NR-1,CZERO,CZERO,U(1,NR+2),LDU)                    CALL CGEQRF( N, NR, U(1,NR+1), LDU, CWORK(N+1), CWORK(N+NR+1), LCWORK-N-NR, IERR );
                    for (p = 1; p <= NR; p++) { // 1143
                        for (q = 1; q <= N; q++) { // 1144
                            V(q,p) = CONJG(U(p,NR+q))
@@ -785,7 +785,7 @@
              if ( WNTVR .OR. ( NR .EQ. N ) ) {
                  // .. copy R into [V] and overwrite V with the right singular vectors
                  clacpy('U', NR, N, A, LDA, V, LDV );
-                IF ( NR .GT. 1 ) CALL CLASET( 'L', NR-1,NR-1, CZERO,CZERO, V(2,1), LDV )
+                if (NR .GT. 1) CALL CLASET( 'L', NR-1,NR-1, CZERO,CZERO, V(2,1), LDV );
                 // .. the right singular vectors of R overwrite [V], the NR left
                 // singular vectors of R stored in [U](1:NR,1:NR)
                 cgesvd('S', 'O', NR, N, V, LDV, S, U, LDU, V, LDV, CWORK(N+1), LCWORK-N, RWORK, INFO );
@@ -813,7 +813,7 @@
                OPTRATIO = 2
                if ( OPTRATIO * NR .GT. N ) {
                   clacpy('U', NR, N, A, LDA, V, LDV );
-                  IF ( NR .GT. 1 ) CALL CLASET('L', NR-1,NR-1, CZERO,CZERO, V(2,1),LDV)
+                  if (NR .GT. 1) CALL CLASET('L', NR-1,NR-1, CZERO,CZERO, V(2,1),LDV);
                // .. the right singular vectors of R overwrite [V], the NR left
                   // singular vectors of R stored in [U](1:NR,1:NR)
                   claset('A', N-NR,N, CZERO,CZERO, V(NR+1,1),LDV);
@@ -833,9 +833,9 @@
                   }
                } else {
                   clacpy('U', NR, N, A, LDA, U(NR+1,1), LDU );
-                  IF ( NR .GT. 1 ) CALL CLASET('L',NR-1,NR-1,CZERO,CZERO,U(NR+2,1),LDU)                   CALL CGELQF( NR, N, U(NR+1,1), LDU, CWORK(N+1), CWORK(N+NR+1), LCWORK-N-NR, IERR )
+                  if (NR .GT. 1) CALL CLASET('L',NR-1,NR-1,CZERO,CZERO,U(NR+2,1),LDU)                   CALL CGELQF( NR, N, U(NR+1,1), LDU, CWORK(N+1), CWORK(N+NR+1), LCWORK-N-NR, IERR );
                   clacpy('L',NR,NR,U(NR+1,1),LDU,V,LDV);
-                  IF ( NR .GT. 1 ) CALL CLASET('U',NR-1,NR-1,CZERO,CZERO,V(1,2),LDV)                   CALL CGESVD( 'S', 'O', NR, NR, V, LDV, S, U, LDU, V, LDV, CWORK(N+NR+1), LCWORK-N-NR, RWORK, INFO )
+                  if (NR .GT. 1) CALL CLASET('U',NR-1,NR-1,CZERO,CZERO,V(1,2),LDV)                   CALL CGESVD( 'S', 'O', NR, NR, V, LDV, S, U, LDU, V, LDV, CWORK(N+NR+1), LCWORK-N-NR, RWORK, INFO );
                   claset('A',N-NR,NR,CZERO,CZERO,V(NR+1,1),LDV);
                   claset('A',NR,N-NR,CZERO,CZERO,V(1,NR+1),LDV);
                   claset('A',N-NR,N-NR,CZERO,CONE,V(NR+1,NR+1),LDV);
@@ -858,8 +858,8 @@
             // The Q matrix from the first QRF is built into the left singular
             // vectors matrix U.
 
-         IF ( .NOT. WNTUF ) CALL CUNMQR( 'L', 'N', M, N1, N, A, LDA, CWORK, U, LDU, CWORK(N+1), LCWORK-N, IERR )
-         IF ( ROWPRM .AND. .NOT.WNTUF ) CALL CLASWP( N1, U, LDU, 1, M-1, IWORK(N+1), -1 )
+         if (.NOT. WNTUF) CALL CUNMQR( 'L', 'N', M, N1, N, A, LDA, CWORK, U, LDU, CWORK(N+1), LCWORK-N, IERR );
+         if (ROWPRM .AND. .NOT.WNTUF) CALL CLASWP( N1, U, LDU, 1, M-1, IWORK(N+1), -1 );
 
       // ... end of the "full SVD" branch
       }
@@ -875,11 +875,11 @@
 
       // .. if numerical rank deficiency is detected, the truncated
       // singular values are set to zero.
-      IF ( NR .LT. N ) CALL SLASET( 'G', N-NR,1, ZERO,ZERO, S(NR+1), N )
+      if (NR .LT. N) CALL SLASET( 'G', N-NR,1, ZERO,ZERO, S(NR+1), N );
       // .. undo scaling; this may cause overflow in the largest singular
       // values.
-      IF ( ASCALED ) CALL SLASCL( 'G',0,0, ONE,SQRT(REAL(M)), NR,1, S, N, IERR )
-      IF ( CONDA ) RWORK(1) = SCONDA
+      if (ASCALED) CALL SLASCL( 'G',0,0, ONE,SQRT(REAL(M)), NR,1, S, N, IERR );
+      if (CONDA) RWORK(1) = SCONDA;
       RWORK(2) = p - NR
       // .. p-NR is the number of singular values that are computed as
       // exact zeros in CGESVD() applied to the (possibly truncated)

@@ -75,7 +75,7 @@
          WORK( 1 ) = MAXWRK
       }
 
-      IF( LWORK.LT.MINWRK ) INFO = -24
+      if (LWORK.LT.MINWRK) INFO = -24;
 
       if ( INFO.NE.0 ) {
          xerbla('SDRGVX', -INFO );
@@ -90,7 +90,7 @@
       NPTKNT = 0
       NTESTT = 0
 
-      IF( NSIZE.EQ.0 ) GO TO 90
+      if (NSIZE.EQ.0) GO TO 90;
 
       // Parameters used for generating test matrices.
 
@@ -225,7 +225,7 @@
       // Read input data until N=0
 
       READ( NIN, FMT = *, END = 150 )N
-      IF( N.EQ.0 ) GO TO 150
+      if (N.EQ.0) GO TO 150;
       for (I = 1; I <= N; I++) { // 100
          READ( NIN, FMT = * )( A( I, J ), J = 1, N )
       } // 100

@@ -145,7 +145,7 @@
       // Handle N = 0, 1, and 2 cases immediately
 
       M = 0
-      IF( N.EQ.0 ) RETURN
+      if (N.EQ.0) RETURN;
 
       if ( N.EQ.1 ) {
          if ( ALLEIG .OR. INDEIG ) {

@@ -88,14 +88,14 @@
          IX = ISAMAX( N, X( 1, J ), 1 )
          XNORM = ABS( X( IX, J ) )
          if ( ERR*SMLNUM.LE.XNORM ) {
-            IF( XNORM.GT.ZERO ) ERR = ERR / XNORM
+            if (XNORM.GT.ZERO) ERR = ERR / XNORM;
          } else {
-            IF( ERR.GT.ZERO ) ERR = ONE / EPS
+            if (ERR.GT.ZERO) ERR = ONE / EPS;
          }
          if ( ERR*SMLNUM.LE.TNORM ) {
-            IF( TNORM.GT.ZERO ) ERR = ERR / TNORM
+            if (TNORM.GT.ZERO) ERR = ERR / TNORM;
          } else {
-            IF( ERR.GT.ZERO ) ERR = ONE / EPS
+            if (ERR.GT.ZERO) ERR = ONE / EPS;
          }
          RESID = MAX( RESID, ERR )
       } // 40

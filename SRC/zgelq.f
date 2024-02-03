@@ -43,8 +43,8 @@
       MINT = .FALSE.
       MINW = .FALSE.
       if ( TSIZE.EQ.-2 .OR. LWORK.EQ.-2 ) {
-        IF( TSIZE.NE.-1 ) MINT = .TRUE.
-        IF( LWORK.NE.-1 ) MINW = .TRUE.
+        if (TSIZE.NE.-1) MINT = .TRUE.;
+        if (LWORK.NE.-1) MINW = .TRUE.;
       }
 
       // Determine the block size
@@ -57,7 +57,7 @@
         NB = N
       }
       IF( MB.GT.MIN( M, N ) .OR. MB.LT.1 ) MB = 1
-      IF( NB.GT.N .OR. NB.LE.M ) NB = N
+      if (NB.GT.N .OR. NB.LE.M) NB = N;
       MINTSZ = M + 5
       if ( NB.GT.M .AND. N.GT.M ) {
         if ( MOD( N - M, NB - M ).EQ.0 ) {

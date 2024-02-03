@@ -54,14 +54,14 @@
 
       // Quick return if possible
 
-      IF( K.EQ.0 ) RETURN
+      if (K.EQ.0) RETURN;
 
       for (J = KSTART; J <= KSTOP; J++) { // 20
          dlaed4(K, J, DLAMBDA, W, Q( 1, J ), RHO, D( J ), INFO );
 
          // If the zero finder fails, the computation is terminated.
 
-         IF( INFO.NE.0 ) GO TO 120
+         if (INFO.NE.0) GO TO 120;
       } // 20
 
       if ( K.EQ.1 .OR. K.EQ.2 ) {

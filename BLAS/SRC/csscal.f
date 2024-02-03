@@ -24,7 +24,7 @@
       // .. Intrinsic Functions ..
       // INTRINSIC AIMAG,CMPLX,REAL
       // ..
-      IF (N.LE.0 .OR. INCX.LE.0 .OR. SA.EQ.ONE) RETURN
+      if (N.LE.0 .OR. INCX.LE.0 .OR. SA.EQ.ONE) RETURN;
       if (INCX.EQ.1) {
 
          // code for increment equal to 1

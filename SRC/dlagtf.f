@@ -42,7 +42,7 @@
          RETURN
       }
 
-      IF( N.EQ.0 ) RETURN
+      if (N.EQ.0) RETURN;
 
       A( 1 ) = A( 1 ) - LAMBDA
       IN( N ) = 0

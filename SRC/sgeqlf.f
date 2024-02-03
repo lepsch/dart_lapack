@@ -131,7 +131,7 @@
 
       // Use unblocked code to factor the last or only block
 
-      IF( MU.GT.0 .AND. NU.GT.0 ) CALL SGEQL2( MU, NU, A, LDA, TAU, WORK, IINFO )
+      if (MU.GT.0 .AND. NU.GT.0) CALL SGEQL2( MU, NU, A, LDA, TAU, WORK, IINFO );
 
       WORK( 1 ) = SROUNDUP_LWORK(IWS)
       RETURN

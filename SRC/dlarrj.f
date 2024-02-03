@@ -85,10 +85,10 @@
             CNT = 0
             S = LEFT
             DPLUS = D( 1 ) - S
-            IF( DPLUS.LT.ZERO ) CNT = CNT + 1
+            if (DPLUS.LT.ZERO) CNT = CNT + 1;
             for (J = 2; J <= N; J++) { // 30
                DPLUS = D( J ) - S - E2( J-1 )/DPLUS
-               IF( DPLUS.LT.ZERO ) CNT = CNT + 1
+               if (DPLUS.LT.ZERO) CNT = CNT + 1;
             } // 30
             if ( CNT.GT.I-1 ) {
                LEFT = LEFT - WERR( II )*FAC
@@ -103,10 +103,10 @@
             CNT = 0
             S = RIGHT
             DPLUS = D( 1 ) - S
-            IF( DPLUS.LT.ZERO ) CNT = CNT + 1
+            if (DPLUS.LT.ZERO) CNT = CNT + 1;
             for (J = 2; J <= N; J++) { // 60
                DPLUS = D( J ) - S - E2( J-1 )/DPLUS
-               IF( DPLUS.LT.ZERO ) CNT = CNT + 1
+               if (DPLUS.LT.ZERO) CNT = CNT + 1;
             } // 60
             if ( CNT.LT.I ) {
                RIGHT = RIGHT + WERR( II )*FAC
@@ -153,7 +153,7 @@
                I1 = NEXT
             } else {
                // Prev holds the last unconverged interval previously examined
-               IF(PREV.GE.I1) IWORK( 2*PREV-1 ) = NEXT
+               if (PREV.GE.I1) IWORK( 2*PREV-1 ) = NEXT;
             }
             I = NEXT
             GO TO 100
@@ -165,10 +165,10 @@
          CNT = 0
          S = MID
          DPLUS = D( 1 ) - S
-         IF( DPLUS.LT.ZERO ) CNT = CNT + 1
+         if (DPLUS.LT.ZERO) CNT = CNT + 1;
          for (J = 2; J <= N; J++) { // 90
             DPLUS = D( J ) - S - E2( J-1 )/DPLUS
-            IF( DPLUS.LT.ZERO ) CNT = CNT + 1
+            if (DPLUS.LT.ZERO) CNT = CNT + 1;
          } // 90
          if ( CNT.LE.I-1 ) {
             WORK( K-1 ) = MID

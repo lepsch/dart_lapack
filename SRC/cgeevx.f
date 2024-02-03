@@ -140,7 +140,7 @@
 
       // Quick return if possible
 
-      IF( N.EQ.0 ) RETURN
+      if (N.EQ.0) RETURN;
 
       // Get machine constants
 
@@ -162,7 +162,7 @@
          SCALEA = .TRUE.
          CSCALE = BIGNUM
       }
-      IF( SCALEA ) CALL CLASCL( 'G', 0, 0, ANRM, CSCALE, N, N, A, LDA, IERR )
+      if (SCALEA) CALL CLASCL( 'G', 0, 0, ANRM, CSCALE, N, N, A, LDA, IERR );
 
       // Balance the matrix and compute ABNRM
 
@@ -253,7 +253,7 @@
 
       // If INFO .NE. 0 from CHSEQR, then quit
 
-      IF( INFO.NE.0 ) GO TO 50
+      if (INFO.NE.0) GO TO 50;
 
       if ( WANTVL .OR. WANTVR ) {
 

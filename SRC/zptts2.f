@@ -28,7 +28,7 @@
       // Quick return if possible
 
       if ( N.LE.1 ) {
-         IF( N.EQ.1 ) CALL ZDSCAL( NRHS, 1.D0 / D( 1 ), B, LDB )
+         if (N.EQ.1) CALL ZDSCAL( NRHS, 1.D0 / D( 1 ), B, LDB );
          RETURN
       }
 

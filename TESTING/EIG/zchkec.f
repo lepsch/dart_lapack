@@ -41,7 +41,7 @@
 
       // Test error exits if TSTERR is .TRUE.
 
-      IF( TSTERR ) CALL ZERREC( PATH, NOUT )
+      if (TSTERR) CALL ZERREC( PATH, NOUT );
 
       OK = .TRUE.
       zget35(RTRSYL( 1 ), LTRSYL, NTRSYL, KTRSYL, NIN );
@@ -83,7 +83,7 @@
       }
 
       NTESTS = KTRSYL + KTRSYL3 + KTREXC + KTRSNA + KTRSEN
-      IF( OK ) WRITE( NOUT, FMT = 9995 )PATH, NTESTS
+      if (OK) WRITE( NOUT, FMT = 9995 )PATH, NTESTS;
 
  9999 FORMAT( ' Error in ZTRSYL: RMAX =', D12.3, / ' LMAX = ', I8, ' NINFO=', I8, ' KNT=', I8 )
  9998 FORMAT( ' Error in ZTREXC: RMAX =', D12.3, / ' LMAX = ', I8, ' NINFO=', I8, ' KNT=', I8 )

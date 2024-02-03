@@ -58,7 +58,7 @@
 
       // Quick return if N.LE.0.
 
-      IF( N.LE.0 ) RETURN
+      if (N.LE.0) RETURN;
 
       // Call ZLATB4 to set parameters for CLATMS.
 
@@ -223,7 +223,7 @@
             JC = 1
             for (J = 2; J <= N; J++) { // 100
                AP( JC+1 ) = Y
-               IF( J.GT.2 ) AP( JC+J-1 ) = WORK( J-2 )                IF( J.GT.3 ) AP( JC+J-2 ) = WORK( N+J-3 )
+               if (J.GT.2) AP( JC+J-1 ) = WORK( J-2 )                IF( J.GT.3 ) AP( JC+J-2 ) = WORK( N+J-3 );
                JC = JC + J
             } // 100
             JC = JC - N
@@ -243,7 +243,7 @@
             JC = N + 1
             for (J = 2; J <= N - 1; J++) { // 130
                AP( JC+1 ) = WORK( J-1 )
-               IF( J.LT.N-1 ) AP( JC+2 ) = WORK( N+J-1 )
+               if (J.LT.N-1) AP( JC+2 ) = WORK( N+J-1 );
                AP( JC+N-J ) = Y
                JC = JC + N - J + 1
             } // 130
@@ -273,7 +273,7 @@
 
                // Multiply by [-c -s;  conjg(s) -c] on the right.
 
-               IF( J.GT.1 ) CALL ZROT( J-1, AP( JCNEXT ), 1, AP( JC ), 1, -C, -S )
+               if (J.GT.1) CALL ZROT( J-1, AP( JCNEXT ), 1, AP( JC ), 1, -C, -S );
 
                // Negate A(J,J+1).
 
@@ -291,7 +291,7 @@
 
                // Multiply by [ c -s;  conjg(s) c] on the right.
 
-               IF( N.GT.J+1 ) CALL ZROT( N-J-1, AP( JCNEXT+1 ), 1, AP( JC+2 ), 1, C, -S )
+               if (N.GT.J+1) CALL ZROT( N-J-1, AP( JCNEXT+1 ), 1, AP( JC+2 ), 1, C, -S );
 
                // Multiply by [-c  s; -conjg(s) -c] on the left.
 
@@ -332,7 +332,7 @@
          } else {
             JC = 1
             for (J = 1; J <= N; J++) { // 190
-               IF( J.LT.N ) CALL ZLARNV( 4, ISEED, N-J, AP( JC+1 ) )
+               if (J.LT.N) CALL ZLARNV( 4, ISEED, N-J, AP( JC+1 ) );
                AP( JC ) = ZLARND( 5, ISEED )*TWO
                JC = JC + N - J + 1
             } // 190
@@ -418,7 +418,7 @@
                   AP( JC+J-1 ) = ZLARND( 5, ISEED )
                }
                JCOUNT = JCOUNT + 1
-               IF( JCOUNT.GT.4 ) JCOUNT = 1
+               if (JCOUNT.GT.4) JCOUNT = 1;
                JC = JC - J + 1
             } // 250
          } else {
@@ -434,7 +434,7 @@
                   AP( JC ) = ZLARND( 5, ISEED )
                }
                JCOUNT = JCOUNT + 1
-               IF( JCOUNT.GT.4 ) JCOUNT = 1
+               if (JCOUNT.GT.4) JCOUNT = 1;
                JC = JC + N - J + 1
             } // 270
          }
@@ -470,7 +470,7 @@
                for (I = 1; I <= J - 2; I++) { // 300
                   AP( JC+I-1 ) = ZERO
                } // 300
-               IF( J.GT.1 ) AP( JC+J-2 ) = DCMPLX( -ONE, -ONE )
+               if (J.GT.1) AP( JC+J-2 ) = DCMPLX( -ONE, -ONE );
                AP( JC+J-1 ) = TSCAL*ZLARND( 5, ISEED )
                JC = JC + J
             } // 310
@@ -481,7 +481,7 @@
                for (I = J + 2; I <= N; I++) { // 320
                   AP( JC+I-J ) = ZERO
                } // 320
-               IF( J.LT.N ) AP( JC+1 ) = DCMPLX( -ONE, -ONE )
+               if (J.LT.N) AP( JC+1 ) = DCMPLX( -ONE, -ONE );
                AP( JC ) = TSCAL*ZLARND( 5, ISEED )
                JC = JC + N - J + 1
             } // 330
@@ -578,7 +578,7 @@
          } else {
             JC = 1
             for (J = 1; J <= N; J++) { // 400
-               IF( J.LT.N ) CALL ZLARNV( 4, ISEED, N-J, AP( JC+1 ) )
+               if (J.LT.N) CALL ZLARNV( 4, ISEED, N-J, AP( JC+1 ) );
                AP( JC ) = ZERO
                JC = JC + N - J + 1
             } // 400

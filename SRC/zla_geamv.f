@@ -124,7 +124,7 @@
                      Y( IY ) = Y( IY ) + ALPHA*CABS1( X( J ) )*TEMP
                   }
                }
-                IF ( .NOT.SYMB_ZERO ) Y( IY ) = Y( IY ) + SIGN( SAFE1, Y( IY ) )
+                if (.NOT.SYMB_ZERO) Y( IY ) = Y( IY ) + SIGN( SAFE1, Y( IY ) );
 
                IY = IY + INCY
             }
@@ -147,7 +147,7 @@
                      Y( IY ) = Y( IY ) + ALPHA*CABS1( X( J ) )*TEMP
                   }
                }
-                IF ( .NOT.SYMB_ZERO ) Y( IY ) = Y( IY ) + SIGN( SAFE1, Y( IY ) )
+                if (.NOT.SYMB_ZERO) Y( IY ) = Y( IY ) + SIGN( SAFE1, Y( IY ) );
 
                IY = IY + INCY
             }
@@ -174,7 +174,7 @@
                      JX = JX + INCX
                   }
                }
-                IF ( .NOT.SYMB_ZERO ) Y( IY ) = Y( IY ) + SIGN( SAFE1, Y( IY ) )
+                if (.NOT.SYMB_ZERO) Y( IY ) = Y( IY ) + SIGN( SAFE1, Y( IY ) );
 
                IY = IY + INCY
             }
@@ -199,7 +199,7 @@
                      JX = JX + INCX
                   }
                }
-                IF ( .NOT.SYMB_ZERO ) Y( IY ) = Y( IY ) + SIGN( SAFE1, Y( IY ) )
+                if (.NOT.SYMB_ZERO) Y( IY ) = Y( IY ) + SIGN( SAFE1, Y( IY ) );
 
                IY = IY + INCY
             }

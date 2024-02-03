@@ -122,7 +122,7 @@
 
       // Initialize Q and Z
 
-      IF( ICOMPQ.EQ.3 ) CALL SLASET( 'Full', N, N, ZERO, ONE, Q, LDQ )       IF( ICOMPZ.EQ.3 ) CALL SLASET( 'Full', N, N, ZERO, ONE, Z, LDZ )
+      if (ICOMPQ.EQ.3) CALL SLASET( 'Full', N, N, ZERO, ONE, Q, LDQ )       IF( ICOMPZ.EQ.3 ) CALL SLASET( 'Full', N, N, ZERO, ONE, Z, LDZ );
 
       // Machine Constants
 
@@ -163,7 +163,7 @@
 
       // If IHI < ILO, skip QZ steps
 
-      IF( IHI.LT.ILO ) GO TO 380
+      if (IHI.LT.ILO) GO TO 380;
 
       // MAIN QZ ITERATION LOOP
 
@@ -265,7 +265,7 @@
                      slartg(TEMP, H( JCH+1, JCH ), C, S, H( JCH, JCH ) );
                      H( JCH+1, JCH ) = ZERO
                      srot(ILASTM-JCH, H( JCH, JCH+1 ), LDH, H( JCH+1, JCH+1 ), LDH, C, S )                      CALL SROT( ILASTM-JCH, T( JCH, JCH+1 ), LDT, T( JCH+1, JCH+1 ), LDT, C, S )                      IF( ILQ ) CALL SROT( N, Q( 1, JCH ), 1, Q( 1, JCH+1 ), 1, C, S );
-                     IF( ILAZR2 ) H( JCH, JCH-1 ) = H( JCH, JCH-1 )*C
+                     if (ILAZR2) H( JCH, JCH-1 ) = H( JCH, JCH-1 )*C;
                      ILAZR2 = .FALSE.
                      if ( ABS( T( JCH+1, JCH+1 ) ).GE.BTOL ) {
                         if ( JCH+1.GE.ILAST ) {
@@ -287,7 +287,7 @@
                      TEMP = T( JCH, JCH+1 )
                      slartg(TEMP, T( JCH+1, JCH+1 ), C, S, T( JCH, JCH+1 ) );
                      T( JCH+1, JCH+1 ) = ZERO
-                     IF( JCH.LT.ILASTM-1 ) CALL SROT( ILASTM-JCH-1, T( JCH, JCH+2 ), LDT, T( JCH+1, JCH+2 ), LDT, C, S )                      CALL SROT( ILASTM-JCH+2, H( JCH, JCH-1 ), LDH, H( JCH+1, JCH-1 ), LDH, C, S )                      IF( ILQ ) CALL SROT( N, Q( 1, JCH ), 1, Q( 1, JCH+1 ), 1, C, S )
+                     if (JCH.LT.ILASTM-1) CALL SROT( ILASTM-JCH-1, T( JCH, JCH+2 ), LDT, T( JCH+1, JCH+2 ), LDT, C, S )                      CALL SROT( ILASTM-JCH+2, H( JCH, JCH-1 ), LDH, H( JCH+1, JCH-1 ), LDH, C, S )                      IF( ILQ ) CALL SROT( N, Q( 1, JCH ), 1, Q( 1, JCH+1 ), 1, C, S );
                      TEMP = H( JCH+1, JCH )
                      slartg(TEMP, H( JCH+1, JCH-1 ), C, S, H( JCH+1, JCH ) );
                      H( JCH+1, JCH-1 ) = ZERO
@@ -348,7 +348,7 @@
          // Go to next block -- exit if finished.
 
          ILAST = ILAST - 1
-         IF( ILAST.LT.ILO ) GO TO 380
+         if (ILAST.LT.ILO) GO TO 380;
 
          // Reset counters
 
@@ -356,7 +356,7 @@
          ESHIFT = ZERO
          if ( .NOT.ILSCHR ) {
             ILASTM = ILAST
-            IF( IFRSTM.GT.ILAST ) IFRSTM = ILO
+            if (IFRSTM.GT.ILAST) IFRSTM = ILO;
          }
          GO TO 350
 
@@ -406,7 +406,7 @@
                S2 = TEMP
             }
             TEMP = MAX( S1, SAFMIN*MAX( ONE, ABS( WR ), ABS( WI ) ) )
-            IF( WI.NE.ZERO ) GO TO 200
+            if (WI.NE.ZERO) GO TO 200;
          }
 
          // Fiddle with shift to avoid overflow
@@ -527,9 +527,9 @@
 
             srot(ILASTM+1-IFIRST, H( ILAST-1, ILAST-1 ), LDH, H( ILAST, ILAST-1 ), LDH, CL, SL )             CALL SROT( ILAST+1-IFRSTM, H( IFRSTM, ILAST-1 ), 1, H( IFRSTM, ILAST ), 1, CR, SR );
 
-            IF( ILAST.LT.ILASTM ) CALL SROT( ILASTM-ILAST, T( ILAST-1, ILAST+1 ), LDT, T( ILAST, ILAST+1 ), LDT, CL, SL )             IF( IFRSTM.LT.ILAST-1 ) CALL SROT( IFIRST-IFRSTM, T( IFRSTM, ILAST-1 ), 1, T( IFRSTM, ILAST ), 1, CR, SR )
+            if (ILAST.LT.ILASTM) CALL SROT( ILASTM-ILAST, T( ILAST-1, ILAST+1 ), LDT, T( ILAST, ILAST+1 ), LDT, CL, SL )             IF( IFRSTM.LT.ILAST-1 ) CALL SROT( IFIRST-IFRSTM, T( IFRSTM, ILAST-1 ), 1, T( IFRSTM, ILAST ), 1, CR, SR );
 
-            IF( ILQ ) CALL SROT( N, Q( 1, ILAST-1 ), 1, Q( 1, ILAST ), 1, CL, SL )             IF( ILZ ) CALL SROT( N, Z( 1, ILAST-1 ), 1, Z( 1, ILAST ), 1, CR, SR )
+            if (ILQ) CALL SROT( N, Q( 1, ILAST-1 ), 1, Q( 1, ILAST ), 1, CL, SL )             IF( ILZ ) CALL SROT( N, Z( 1, ILAST-1 ), 1, Z( 1, ILAST ), 1, CR, SR );
 
             T( ILAST-1, ILAST-1 ) = B11
             T( ILAST-1, ILAST ) = ZERO
@@ -561,7 +561,7 @@
             // If standardization has perturbed the shift onto real line,
             // do another (real single-shift) QR step.
 
-            IF( WI.EQ.ZERO ) GO TO 350
+            if (WI.EQ.ZERO) GO TO 350;
             S1INV = ONE / S1
 
             // Do EISPACK (QZVAL) computation of alpha and beta
@@ -663,7 +663,7 @@
             // Step 3: Go to next block -- exit if finished.
 
             ILAST = IFIRST - 1
-            IF( ILAST.LT.ILO ) GO TO 380
+            if (ILAST.LT.ILO) GO TO 380;
 
             // Reset counters
 
@@ -671,7 +671,7 @@
             ESHIFT = ZERO
             if ( .NOT.ILSCHR ) {
                ILASTM = ILAST
-               IF( IFRSTM.GT.ILAST ) IFRSTM = ILO
+               if (IFRSTM.GT.ILAST) IFRSTM = ILO;
             }
             GO TO 350
          } else {

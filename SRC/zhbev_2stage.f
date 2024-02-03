@@ -71,7 +71,7 @@
             WORK( 1 )  = LWMIN
          }
 
-         IF( LWORK.LT.LWMIN .AND. .NOT.LQUERY ) INFO = -11
+         if (LWORK.LT.LWMIN .AND. .NOT.LQUERY) INFO = -11;
       }
 
       if ( INFO.NE.0 ) {
@@ -83,7 +83,7 @@
 
       // Quick return if possible
 
-      IF( N.EQ.0 ) RETURN
+      if (N.EQ.0) RETURN;
 
       if ( N.EQ.1 ) {
          if ( LOWER ) {
@@ -91,7 +91,7 @@
          } else {
             W( 1 ) = DBLE( AB( KD+1, 1 ) )
          }
-         IF( WANTZ ) Z( 1, 1 ) = ONE
+         if (WANTZ) Z( 1, 1 ) = ONE;
          RETURN
       }
 

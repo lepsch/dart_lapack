@@ -57,7 +57,7 @@
 
             // Apply H(i) to A(i:m,i+1:n) from the left
 
-            IF( I.LT.N ) CALL DLARF( 'Left', M-I+1, N-I, A( I, I ), 1, TAUQ( I ), A( I, I+1 ), LDA, WORK )
+            if (I.LT.N) CALL DLARF( 'Left', M-I+1, N-I, A( I, I ), 1, TAUQ( I ), A( I, I+1 ), LDA, WORK );
             A( I, I ) = D( I )
 
             if ( I.LT.N ) {
@@ -91,7 +91,7 @@
 
             // Apply G(i) to A(i+1:m,i:n) from the right
 
-            IF( I.LT.M ) CALL DLARF( 'Right', M-I, N-I+1, A( I, I ), LDA, TAUP( I ), A( I+1, I ), LDA, WORK )
+            if (I.LT.M) CALL DLARF( 'Right', M-I, N-I+1, A( I, I ), LDA, TAUP( I ), A( I+1, I ), LDA, WORK );
             A( I, I ) = D( I )
 
             if ( I.LT.M ) {

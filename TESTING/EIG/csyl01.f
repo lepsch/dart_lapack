@@ -55,17 +55,17 @@
       // ..
       // .. Allocate memory dynamically ..
       ALLOCATE ( A( MAXM, MAXM ), STAT = AllocateStatus )
-      IF( AllocateStatus /= 0 ) STOP "*** Not enough memory ***"
+      if (AllocateStatus /= 0) STOP "*** Not enough memory ***";
       ALLOCATE ( B( MAXN, MAXN ), STAT = AllocateStatus )
-      IF( AllocateStatus /= 0 ) STOP "*** Not enough memory ***"
+      if (AllocateStatus /= 0) STOP "*** Not enough memory ***";
       ALLOCATE ( C( MAXM, MAXN ), STAT = AllocateStatus )
-      IF( AllocateStatus /= 0 ) STOP "*** Not enough memory ***"
+      if (AllocateStatus /= 0) STOP "*** Not enough memory ***";
       ALLOCATE ( CC( MAXM, MAXN ), STAT = AllocateStatus )
-      IF( AllocateStatus /= 0 ) STOP "*** Not enough memory ***"
+      if (AllocateStatus /= 0) STOP "*** Not enough memory ***";
       ALLOCATE ( X( MAXM, MAXN ), STAT = AllocateStatus )
-      IF( AllocateStatus /= 0 ) STOP "*** Not enough memory ***"
+      if (AllocateStatus /= 0) STOP "*** Not enough memory ***";
       ALLOCATE ( SWORK( LDSWORK, 54 ), STAT = AllocateStatus )
-      IF( AllocateStatus /= 0 ) STOP "*** Not enough memory ***"
+      if (AllocateStatus /= 0) STOP "*** Not enough memory ***";
       // ..
       // .. Executable Statements ..
 
@@ -122,15 +122,15 @@
                   TNRM = MAX( ANRM, BNRM )
                   clatmr(M, N, 'S', ISEED, 'N', D, 6, ONE, CONE, 'T', 'N', DUML, 1, ONE, DUMR, 1, ONE, 'N', IWORK, M, N, ZERO, ONE, 'NO', C, MAXM, IWORK, IINFO );
                   for (ITRANA = 1; ITRANA <= 2; ITRANA++) {
-                     IF( ITRANA.EQ.1 ) TRANA = 'N'                      IF( ITRANA.EQ.2 ) TRANA = 'C'
+                     if (ITRANA.EQ.1) TRANA = 'N'                      IF( ITRANA.EQ.2 ) TRANA = 'C';
                      for (ITRANB = 1; ITRANB <= 2; ITRANB++) {
-                        IF( ITRANB.EQ.1 ) TRANB = 'N'                         IF( ITRANB.EQ.2 ) TRANB = 'C'
+                        if (ITRANB.EQ.1) TRANB = 'N'                         IF( ITRANB.EQ.2 ) TRANB = 'C';
                         KNT = KNT + 1
 
                         clacpy('All', M, N, C, MAXM, X, MAXM);
                         clacpy('All', M, N, C, MAXM, CC, MAXM);
                         ctrsyl(TRANA, TRANB, ISGN, M, N,  A, MAXM, B, MAXN, X, MAXM, SCALE, IINFO );
-                        IF( IINFO.NE.0 ) NINFO( 1 ) = NINFO( 1 ) + 1
+                        if (IINFO.NE.0) NINFO( 1 ) = NINFO( 1 ) + 1;
                         XNRM = CLANGE( 'M', M, N, X, MAXM, DUM )
                         RMUL = CONE
                         if ( XNRM.GT.ONE .AND. TNRM.GT.ONE ) {
@@ -145,7 +145,7 @@
                         clacpy('All', M, N, C, MAXM, X, MAXM );
                         clacpy('All', M, N, C, MAXM, CC, MAXM );
                         ctrsyl3(TRANA, TRANB, ISGN, M, N, A, MAXM, B, MAXN, X, MAXM, SCALE3, SWORK, LDSWORK, INFO);
-                        IF( INFO.NE.0 ) NINFO( 2 ) = NINFO( 2 ) + 1
+                        if (INFO.NE.0) NINFO( 2 ) = NINFO( 2 ) + 1;
                         XNRM = CLANGE( 'M', M, N, X, MAXM, DUM )
                         RMUL = CONE
                         if ( XNRM.GT.ONE .AND. TNRM.GT.ONE ) {

@@ -46,7 +46,7 @@
 
       // Perform the factorization.
 
-      IF( M.EQ.0 ) RETURN
+      if (M.EQ.0) RETURN;
       if ( M.EQ.N ) {
          for (I = 1; I <= N; I++) { // 10
             TAU( I ) = CZERO

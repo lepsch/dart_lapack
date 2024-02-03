@@ -144,7 +144,7 @@
 
       // Compute the estimate of the reciprocal condition number.
 
-      IF( AINVNM .NE. 0.0D+0 ) ZLA_GERCOND_X = 1.0D+0 / AINVNM
+      if (AINVNM .NE. 0.0D+0) ZLA_GERCOND_X = 1.0D+0 / AINVNM;
 
       RETURN
 

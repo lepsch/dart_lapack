@@ -44,7 +44,7 @@
 
       // Test error exits if TSTERR is .TRUE.
 
-      IF( TSTERR ) CALL DERREC( PATH, NOUT )
+      if (TSTERR) CALL DERREC( PATH, NOUT );
 
       OK = .TRUE.
       dget31(RLALN2, LLALN2, NLALN2, KLALN2 );

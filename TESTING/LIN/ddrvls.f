@@ -83,7 +83,7 @@
 
       xlaenv(2, 2 );
       xlaenv(9, SMLSIZ );
-      IF( TSTERR ) CALL DERRLS( PATH, NOUT )
+      if (TSTERR) CALL DERRLS( PATH, NOUT );
 
       // Print the header if NM = 0 or NN = 0 and THRESH = 0.
 
@@ -252,7 +252,7 @@
                               // RESID = norm(B - A*X) /
                               // / ( max(m,n) * norm(A) * norm(X) * EPS )
 
-                              IF( NROWS.GT.0 .AND. NRHS.GT.0 ) CALL DLACPY( 'Full', NROWS, NRHS, COPYB, LDB, C, LDB )                               CALL DQRT16( TRANS, M, N, NRHS, COPYA, LDA, B, LDB, C, LDB, WORK, RESULT( 1 ) )
+                              if (NROWS.GT.0 .AND. NRHS.GT.0) CALL DLACPY( 'Full', NROWS, NRHS, COPYB, LDB, C, LDB )                               CALL DQRT16( TRANS, M, N, NRHS, COPYA, LDA, B, LDB, C, LDB, WORK, RESULT( 1 ) );
 
                               // Test 2: Check correctness of results
                               // for DGELS.
@@ -276,7 +276,7 @@
 
                               for (K = 1; K <= 2; K++) {
                                  if ( RESULT( K ).GE.THRESH ) {
-                                    IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                                     WRITE( NOUT, FMT = 9999 ) TRANS, M, N, NRHS, NB, ITYPE, K, RESULT( K )
+                                    if (NFAIL.EQ.0 .AND. NERRS.EQ.0) CALL ALAHD( NOUT, PATH )                                     WRITE( NOUT, FMT = 9999 ) TRANS, M, N, NRHS, NB, ITYPE, K, RESULT( K );
                                     NFAIL = NFAIL + 1
                                  }
                               }
@@ -337,7 +337,7 @@
                               // RESID = norm(B - A*X) /
                               // / ( max(m,n) * norm(A) * norm(X) * EPS )
 
-                              IF( NROWS.GT.0 .AND. NRHS.GT.0 ) CALL DLACPY( 'Full', NROWS, NRHS, COPYB, LDB, C, LDB )                               CALL DQRT16( TRANS, M, N, NRHS, COPYA, LDA, B, LDB, C, LDB, WORK, RESULT( 3 ) )
+                              if (NROWS.GT.0 .AND. NRHS.GT.0) CALL DLACPY( 'Full', NROWS, NRHS, COPYB, LDB, C, LDB )                               CALL DQRT16( TRANS, M, N, NRHS, COPYA, LDA, B, LDB, C, LDB, WORK, RESULT( 3 ) );
 
                               // Test 4: Check correctness of results
                               // for DGELST.
@@ -361,7 +361,7 @@
 
                               for (K = 3; K <= 4; K++) {
                                  if ( RESULT( K ).GE.THRESH ) {
-                                    IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                                     WRITE( NOUT, FMT = 9999 ) TRANS, M, N, NRHS, NB, ITYPE, K, RESULT( K )
+                                    if (NFAIL.EQ.0 .AND. NERRS.EQ.0) CALL ALAHD( NOUT, PATH )                                     WRITE( NOUT, FMT = 9999 ) TRANS, M, N, NRHS, NB, ITYPE, K, RESULT( K );
                                     NFAIL = NFAIL + 1
                                  }
                               }
@@ -429,7 +429,7 @@
                               // RESID = norm(B - A*X) /
                               // / ( max(m,n) * norm(A) * norm(X) * EPS )
 
-                                 IF( NROWS.GT.0 .AND. NRHS.GT.0 ) CALL DLACPY( 'Full', NROWS, NRHS, COPYB, LDB, C, LDB )                                  CALL DQRT16( TRANS, M, N, NRHS, COPYA, LDA, B, LDB, C, LDB, WORK, RESULT( 5 ) )
+                                 if (NROWS.GT.0 .AND. NRHS.GT.0) CALL DLACPY( 'Full', NROWS, NRHS, COPYB, LDB, C, LDB )                                  CALL DQRT16( TRANS, M, N, NRHS, COPYA, LDA, B, LDB, C, LDB, WORK, RESULT( 5 ) );
 
                               // Test 6: Check correctness of results
                               // for DGETSLS.
@@ -453,7 +453,7 @@
 
                                  for (K = 5; K <= 6; K++) {
                                     if ( RESULT( K ).GE.THRESH ) {
-                                       IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                                        WRITE( NOUT, FMT = 9997 ) TRANS, M, N, NRHS, MB, NB, ITYPE, K, RESULT( K )
+                                       if (NFAIL.EQ.0 .AND. NERRS.EQ.0) CALL ALAHD( NOUT, PATH )                                        WRITE( NOUT, FMT = 9997 ) TRANS, M, N, NRHS, MB, NB, ITYPE, K, RESULT( K );
                                        NFAIL = NFAIL + 1
                                     }
                                  }
@@ -515,14 +515,14 @@
                                  // workspace: NRHS*(M+N)
 
                         RESULT( 9 ) = ZERO
-                        IF( M.GT.CRANK ) RESULT( 9 ) = DQRT17( 'No transpose', 1, M, N, NRHS, COPYA, LDA, B, LDB, COPYB, LDB, C, WORK, LWORK )
+                        if (M.GT.CRANK) RESULT( 9 ) = DQRT17( 'No transpose', 1, M, N, NRHS, COPYA, LDA, B, LDB, COPYB, LDB, C, WORK, LWORK );
 
                         // Test 10:  Check if x is in the rowspace of A
                                  // workspace: (M+NRHS)*(N+2)
 
                         RESULT( 10 ) = ZERO
 
-                        IF( N.GT.CRANK ) RESULT( 10 ) = DQRT14( 'No transpose', M, N, NRHS, COPYA, LDA, B, LDB, WORK, LWORK )
+                        if (N.GT.CRANK) RESULT( 10 ) = DQRT14( 'No transpose', M, N, NRHS, COPYA, LDA, B, LDB, WORK, LWORK );
 
                         // Test DGELSS
 
@@ -554,12 +554,12 @@
                         // Test 13:  Check norm of r'*A
 
                         RESULT( 13 ) = ZERO
-                        IF( M.GT.CRANK ) RESULT( 13 ) = DQRT17( 'No transpose', 1, M, N, NRHS, COPYA, LDA, B, LDB, COPYB, LDB, C, WORK, LWORK )
+                        if (M.GT.CRANK) RESULT( 13 ) = DQRT17( 'No transpose', 1, M, N, NRHS, COPYA, LDA, B, LDB, COPYB, LDB, C, WORK, LWORK );
 
                         // Test 14:  Check if x is in the rowspace of A
 
                         RESULT( 14 ) = ZERO
-                        IF( N.GT.CRANK ) RESULT( 14 ) = DQRT14( 'No transpose', M, N, NRHS, COPYA, LDA, B, LDB, WORK, LWORK )
+                        if (N.GT.CRANK) RESULT( 14 ) = DQRT14( 'No transpose', M, N, NRHS, COPYA, LDA, B, LDB, WORK, LWORK );
 
                         // Test DGELSD
 
@@ -595,19 +595,19 @@
                         // Test 17:  Check norm of r'*A
 
                         RESULT( 17 ) = ZERO
-                        IF( M.GT.CRANK ) RESULT( 17 ) = DQRT17( 'No transpose', 1, M, N, NRHS, COPYA, LDA, B, LDB, COPYB, LDB, C, WORK, LWORK )
+                        if (M.GT.CRANK) RESULT( 17 ) = DQRT17( 'No transpose', 1, M, N, NRHS, COPYA, LDA, B, LDB, COPYB, LDB, C, WORK, LWORK );
 
                         // Test 18:  Check if x is in the rowspace of A
 
                         RESULT( 18 ) = ZERO
-                        IF( N.GT.CRANK ) RESULT( 18 ) = DQRT14( 'No transpose', M, N, NRHS, COPYA, LDA, B, LDB, WORK, LWORK )
+                        if (N.GT.CRANK) RESULT( 18 ) = DQRT14( 'No transpose', M, N, NRHS, COPYA, LDA, B, LDB, WORK, LWORK );
 
                         // Print information about the tests that did not
                         // pass the threshold.
 
                         for (K = 7; K <= 18; K++) { // 90
                            if ( RESULT( K ).GE.THRESH ) {
-                              IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                               WRITE( NOUT, FMT = 9998 )M, N, NRHS, NB, ITYPE, K, RESULT( K )
+                              if (NFAIL.EQ.0 .AND. NERRS.EQ.0) CALL ALAHD( NOUT, PATH )                               WRITE( NOUT, FMT = 9998 )M, N, NRHS, NB, ITYPE, K, RESULT( K );
                               NFAIL = NFAIL + 1
                            }
                         } // 90

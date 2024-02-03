@@ -87,10 +87,10 @@
       P = 0
       I = 1
       } // 10
-      IF( I.GT.M ) GO TO 20
+      if (I.GT.M) GO TO 20;
       P = P + 1
       IWORK( P ) = I
-      IF( I.EQ.M ) GO TO 20
+      if (I.EQ.M) GO TO 20;
       if ( A( I+1, I ).NE.ZERO ) {
          I = I + 2
       } else {
@@ -105,10 +105,10 @@
       Q = P + 1
       J = 1
       } // 30
-      IF( J.GT.N ) GO TO 40
+      if (J.GT.N) GO TO 40;
       Q = Q + 1
       IWORK( Q ) = J
-      IF( J.EQ.N ) GO TO 40
+      if (J.EQ.N) GO TO 40;
       if ( B( J+1, J ).NE.ZERO ) {
          J = J + 2
       } else {
@@ -158,7 +158,7 @@
                   // Solve Z * x = RHS
 
                   sgetc2(ZDIM, Z, LDZ, IPIV, JPIV, IERR );
-                  IF( IERR.GT.0 ) INFO = IERR
+                  if (IERR.GT.0) INFO = IERR;
 
                   if ( IJOB.EQ.0 ) {
                      sgesc2(ZDIM, Z, LDZ, RHS, IPIV, JPIV, SCALOC );
@@ -223,7 +223,7 @@
                   // Solve Z * x = RHS
 
                   sgetc2(ZDIM, Z, LDZ, IPIV, JPIV, IERR );
-                  IF( IERR.GT.0 ) INFO = IERR
+                  if (IERR.GT.0) INFO = IERR;
 
                   if ( IJOB.EQ.0 ) {
                      sgesc2(ZDIM, Z, LDZ, RHS, IPIV, JPIV, SCALOC );
@@ -289,7 +289,7 @@
                   // Solve Z * x = RHS
 
                   sgetc2(ZDIM, Z, LDZ, IPIV, JPIV, IERR );
-                  IF( IERR.GT.0 ) INFO = IERR
+                  if (IERR.GT.0) INFO = IERR;
                   if ( IJOB.EQ.0 ) {
                      sgesc2(ZDIM, Z, LDZ, RHS, IPIV, JPIV, SCALOC );
                      if ( SCALOC.NE.ONE ) {
@@ -376,7 +376,7 @@
                   // Solve Z * x = RHS
 
                   sgetc2(ZDIM, Z, LDZ, IPIV, JPIV, IERR );
-                  IF( IERR.GT.0 ) INFO = IERR
+                  if (IERR.GT.0) INFO = IERR;
                   if ( IJOB.EQ.0 ) {
                      sgesc2(ZDIM, Z, LDZ, RHS, IPIV, JPIV, SCALOC );
                      if ( SCALOC.NE.ONE ) {
@@ -455,7 +455,7 @@
                   // Solve Z**T * x = RHS
 
                   sgetc2(ZDIM, Z, LDZ, IPIV, JPIV, IERR );
-                  IF( IERR.GT.0 ) INFO = IERR
+                  if (IERR.GT.0) INFO = IERR;
 
                   sgesc2(ZDIM, Z, LDZ, RHS, IPIV, JPIV, SCALOC );
                   if ( SCALOC.NE.ONE ) {
@@ -521,7 +521,7 @@
                   // Solve Z**T * x = RHS
 
                   sgetc2(ZDIM, Z, LDZ, IPIV, JPIV, IERR );
-                  IF( IERR.GT.0 ) INFO = IERR
+                  if (IERR.GT.0) INFO = IERR;
                   sgesc2(ZDIM, Z, LDZ, RHS, IPIV, JPIV, SCALOC );
                   if ( SCALOC.NE.ONE ) {
                      for (K = 1; K <= N; K++) { // 140
@@ -582,7 +582,7 @@
                   // Solve Z**T * x = RHS
 
                   sgetc2(ZDIM, Z, LDZ, IPIV, JPIV, IERR );
-                  IF( IERR.GT.0 ) INFO = IERR
+                  if (IERR.GT.0) INFO = IERR;
 
                   sgesc2(ZDIM, Z, LDZ, RHS, IPIV, JPIV, SCALOC );
                   if ( SCALOC.NE.ONE ) {
@@ -667,7 +667,7 @@
                   // Solve Z**T * x = RHS
 
                   sgetc2(ZDIM, Z, LDZ, IPIV, JPIV, IERR );
-                  IF( IERR.GT.0 ) INFO = IERR
+                  if (IERR.GT.0) INFO = IERR;
 
                   sgesc2(ZDIM, Z, LDZ, RHS, IPIV, JPIV, SCALOC );
                   if ( SCALOC.NE.ONE ) {

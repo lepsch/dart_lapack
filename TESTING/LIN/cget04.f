@@ -67,12 +67,12 @@
             DIFFNM = MAX( DIFFNM, CABS1( X( I, J )-XACT( I, J ) ) )
          } // 10
          if ( XNORM.LE.ZERO ) {
-            IF( DIFFNM.GT.ZERO ) RESID = 1.0 / EPS
+            if (DIFFNM.GT.ZERO) RESID = 1.0 / EPS;
          } else {
             RESID = MAX( RESID, ( DIFFNM / XNORM )*RCOND )
          }
       } // 20
-      IF( RESID*EPS.LT.1.0 ) RESID = RESID / EPS
+      if (RESID*EPS.LT.1.0) RESID = RESID / EPS;
 
       RETURN
 

@@ -148,7 +148,7 @@
       // Quick return if possible
 
       M = IM
-      IF( N.EQ.0 ) RETURN
+      if (N.EQ.0) RETURN;
 
       // Machine Constants
 
@@ -165,7 +165,7 @@
       // triangular solver.
 
       ANORM = ABS( S( 1, 1 ) )
-      IF( N.GT.1 ) ANORM = ANORM + ABS( S( 2, 1 ) )
+      if (N.GT.1) ANORM = ANORM + ABS( S( 2, 1 ) );
       BNORM = ABS( P( 1, 1 ) )
       WORK( 1 ) = ZERO
       WORK( N+1 ) = ZERO
@@ -228,7 +228,7 @@
             } else {
                ILCOMP = SELECT( JE )
             }
-            IF( .NOT.ILCOMP ) GO TO 220
+            if (.NOT.ILCOMP) GO TO 220;
 
             // Decide if (a) singular pencil, (b) real eigenvalue, or
             // (c) complex eigenvalue.
@@ -309,7 +309,7 @@
                ACOEFA = ABS( ACOEF )
                BCOEFA = ABS( BCOEFR ) + ABS( BCOEFI )
                SCALE = ONE
-               IF( ACOEFA*ULP.LT.SAFMIN .AND. ACOEFA.GE.SAFMIN ) SCALE = ( SAFMIN / ULP ) / ACOEFA                IF( BCOEFA*ULP.LT.SAFMIN .AND. BCOEFA.GE.SAFMIN ) SCALE = MAX( SCALE, ( SAFMIN / ULP ) / BCOEFA )                IF( SAFMIN*ACOEFA.GT.ASCALE ) SCALE = ASCALE / ( SAFMIN*ACOEFA )                IF( SAFMIN*BCOEFA.GT.BSCALE ) SCALE = MIN( SCALE, BSCALE / ( SAFMIN*BCOEFA ) )
+               if (ACOEFA*ULP.LT.SAFMIN .AND. ACOEFA.GE.SAFMIN) SCALE = ( SAFMIN / ULP ) / ACOEFA                IF( BCOEFA*ULP.LT.SAFMIN .AND. BCOEFA.GE.SAFMIN ) SCALE = MAX( SCALE, ( SAFMIN / ULP ) / BCOEFA )                IF( SAFMIN*ACOEFA.GT.ASCALE ) SCALE = ASCALE / ( SAFMIN*ACOEFA )                IF( SAFMIN*BCOEFA.GT.BSCALE ) SCALE = MIN( SCALE, BSCALE / ( SAFMIN*BCOEFA ) );
                if ( SCALE.NE.ONE ) {
                   ACOEF = SCALE*ACOEF
                   ACOEFA = ABS( ACOEF )
@@ -506,7 +506,7 @@
             } else {
                ILCOMP = SELECT( JE )
             }
-            IF( .NOT.ILCOMP ) GO TO 500
+            if (.NOT.ILCOMP) GO TO 500;
 
             // Decide if (a) singular pencil, (b) real eigenvalue, or
             // (c) complex eigenvalue.
@@ -595,7 +595,7 @@
                ACOEFA = ABS( ACOEF )
                BCOEFA = ABS( BCOEFR ) + ABS( BCOEFI )
                SCALE = ONE
-               IF( ACOEFA*ULP.LT.SAFMIN .AND. ACOEFA.GE.SAFMIN ) SCALE = ( SAFMIN / ULP ) / ACOEFA                IF( BCOEFA*ULP.LT.SAFMIN .AND. BCOEFA.GE.SAFMIN ) SCALE = MAX( SCALE, ( SAFMIN / ULP ) / BCOEFA )                IF( SAFMIN*ACOEFA.GT.ASCALE ) SCALE = ASCALE / ( SAFMIN*ACOEFA )                IF( SAFMIN*BCOEFA.GT.BSCALE ) SCALE = MIN( SCALE, BSCALE / ( SAFMIN*BCOEFA ) )
+               if (ACOEFA*ULP.LT.SAFMIN .AND. ACOEFA.GE.SAFMIN) SCALE = ( SAFMIN / ULP ) / ACOEFA                IF( BCOEFA*ULP.LT.SAFMIN .AND. BCOEFA.GE.SAFMIN ) SCALE = MAX( SCALE, ( SAFMIN / ULP ) / BCOEFA )                IF( SAFMIN*ACOEFA.GT.ASCALE ) SCALE = ASCALE / ( SAFMIN*ACOEFA )                IF( SAFMIN*BCOEFA.GT.BSCALE ) SCALE = MIN( SCALE, BSCALE / ( SAFMIN*BCOEFA ) );
                if ( SCALE.NE.ONE ) {
                   ACOEF = SCALE*ACOEF
                   ACOEFA = ABS( ACOEF )
@@ -691,7 +691,7 @@
 
                   XSCALE = ONE / MAX( ONE, XMAX )
                   TEMP = ACOEFA*WORK( J ) + BCOEFA*WORK( N+J )
-                  IF( IL2BY2 ) TEMP = MAX( TEMP, ACOEFA*WORK( J+1 )+BCOEFA* WORK( N+J+1 ) )
+                  if (IL2BY2) TEMP = MAX( TEMP, ACOEFA*WORK( J+1 )+BCOEFA* WORK( N+J+1 ) );
                   TEMP = MAX( TEMP, ACOEFA, BCOEFA )
                   if ( TEMP.GT.BIGNUM*XSCALE ) {
 

@@ -124,7 +124,7 @@
                MAXWRK = MAX( MAXWRK, MINWRK - N + N*ILAENV( 1, 'SORGQR', ' ', N, 1, N, -1 ) )
             }
             LWRK = MAXWRK
-            IF( IJOB.GE.1 ) LWRK = MAX( LWRK, N*N/2 )
+            if (IJOB.GE.1) LWRK = MAX( LWRK, N*N/2 );
          } else {
             MINWRK = 1
             MAXWRK = 1
@@ -178,7 +178,7 @@
          ANRMTO = BIGNUM
          ILASCL = .TRUE.
       }
-      IF( ILASCL ) CALL SLASCL( 'G', 0, 0, ANRM, ANRMTO, N, N, A, LDA, IERR )
+      if (ILASCL) CALL SLASCL( 'G', 0, 0, ANRM, ANRMTO, N, N, A, LDA, IERR );
 
       // Scale B if max element outside range [SMLNUM,BIGNUM]
 
@@ -191,7 +191,7 @@
          BNRMTO = BIGNUM
          ILBSCL = .TRUE.
       }
-      IF( ILBSCL ) CALL SLASCL( 'G', 0, 0, BNRM, BNRMTO, N, N, B, LDB, IERR )
+      if (ILBSCL) CALL SLASCL( 'G', 0, 0, BNRM, BNRMTO, N, N, B, LDB, IERR );
 
       // Permute the matrix to make it more nearly triangular
       // (Workspace: need 6*N + 2*N for permutation parameters)
@@ -228,7 +228,7 @@
 
       // Initialize VSR
 
-      IF( ILVSR ) CALL SLASET( 'Full', N, N, ZERO, ONE, VSR, LDVSR )
+      if (ILVSR) CALL SLASET( 'Full', N, N, ZERO, ONE, VSR, LDVSR );
 
       // Reduce to generalized Hessenberg form
       // (Workspace: none needed)
@@ -265,7 +265,7 @@
          if ( ILASCL ) {
             slascl('G', 0, 0, ANRMTO, ANRM, N, 1, ALPHAR, N, IERR )             CALL SLASCL( 'G', 0, 0, ANRMTO, ANRM, N, 1, ALPHAI, N, IERR );
          }
-         IF( ILBSCL ) CALL SLASCL( 'G', 0, 0, BNRMTO, BNRM, N, 1, BETA, N, IERR )
+         if (ILBSCL) CALL SLASCL( 'G', 0, 0, BNRMTO, BNRM, N, 1, BETA, N, IERR );
 
          // Select eigenvalues
 
@@ -278,7 +278,7 @@
 
          stgsen(IJOB, ILVSL, ILVSR, BWORK, N, A, LDA, B, LDB, ALPHAR, ALPHAI, BETA, VSL, LDVSL, VSR, LDVSR, SDIM, PL, PR, DIF, WORK( IWRK ), LWORK-IWRK+1, IWORK, LIWORK, IERR );
 
-         IF( IJOB.GE.1 ) MAXWRK = MAX( MAXWRK, 2*SDIM*( N-SDIM ) )
+         if (IJOB.GE.1) MAXWRK = MAX( MAXWRK, 2*SDIM*( N-SDIM ) );
          if ( IERR.EQ.-22 ) {
 
              // not enough real workspace
@@ -293,7 +293,7 @@
                RCONDV( 1 ) = DIF( 1 )
                RCONDV( 2 ) = DIF( 2 )
             }
-            IF( IERR.EQ.1 ) INFO = N + 3
+            if (IERR.EQ.1) INFO = N + 3;
          }
 
       }
@@ -301,9 +301,9 @@
       // Apply permutation to VSL and VSR
       // (Workspace: none needed)
 
-      IF( ILVSL ) CALL SGGBAK( 'P', 'L', N, ILO, IHI, WORK( ILEFT ), WORK( IRIGHT ), N, VSL, LDVSL, IERR )
+      if (ILVSL) CALL SGGBAK( 'P', 'L', N, ILO, IHI, WORK( ILEFT ), WORK( IRIGHT ), N, VSL, LDVSL, IERR );
 
-      IF( ILVSR ) CALL SGGBAK( 'P', 'R', N, ILO, IHI, WORK( ILEFT ), WORK( IRIGHT ), N, VSR, LDVSR, IERR )
+      if (ILVSR) CALL SGGBAK( 'P', 'R', N, ILO, IHI, WORK( ILEFT ), WORK( IRIGHT ), N, VSR, LDVSR, IERR );
 
       // Check if unscaling would cause over/underflow, if so, rescale
       // (ALPHAR(I),ALPHAI(I),BETA(I)) so BETA(I) is on the order of
@@ -364,9 +364,9 @@
          for (I = 1; I <= N; I++) { // 40
             CURSL = SELCTG( ALPHAR( I ), ALPHAI( I ), BETA( I ) )
             if ( ALPHAI( I ).EQ.ZERO ) {
-               IF( CURSL ) SDIM = SDIM + 1
+               if (CURSL) SDIM = SDIM + 1;
                IP = 0
-               IF( CURSL .AND. .NOT.LASTSL ) INFO = N + 2
+               if (CURSL .AND. .NOT.LASTSL) INFO = N + 2;
             } else {
                if ( IP.EQ.1 ) {
 
@@ -374,9 +374,9 @@
 
                   CURSL = CURSL .OR. LASTSL
                   LASTSL = CURSL
-                  IF( CURSL ) SDIM = SDIM + 2
+                  if (CURSL) SDIM = SDIM + 2;
                   IP = -1
-                  IF( CURSL .AND. .NOT.LST2SL ) INFO = N + 2
+                  if (CURSL .AND. .NOT.LST2SL) INFO = N + 2;
                } else {
 
                   // First eigenvalue of conjugate pair

@@ -104,7 +104,7 @@
          // Copy the details of V, and form V.
 
          claset('Full', P, P, CZERO, CZERO, V, LDV );
-         IF( P.GT.1 ) CALL CLACPY( 'Lower', P-1, N, B( 2, 1 ), LDB, V( 2, 1 ), LDV )
+         if (P.GT.1) CALL CLACPY( 'Lower', P-1, N, B( 2, 1 ), LDB, V( 2, 1 ), LDV );
          cung2r(P, P, MIN( P, N ), V, LDV, TAU, WORK, INFO );
       }
 
@@ -115,7 +115,7 @@
             B( I, J ) = CZERO
          } // 30
       } // 40
-      IF( P.GT.L ) CALL CLASET( 'Full', P-L, N, CZERO, CZERO, B( L+1, 1 ), LDB )
+      if (P.GT.L) CALL CLASET( 'Full', P-L, N, CZERO, CZERO, B( L+1, 1 ), LDB );
 
       if ( WANTQ ) {
 
@@ -181,7 +181,7 @@
          // Copy the details of U, and form U
 
          claset('Full', M, M, CZERO, CZERO, U, LDU );
-         IF( M.GT.1 ) CALL CLACPY( 'Lower', M-1, N-L, A( 2, 1 ), LDA, U( 2, 1 ), LDU )
+         if (M.GT.1) CALL CLACPY( 'Lower', M-1, N-L, A( 2, 1 ), LDA, U( 2, 1 ), LDU );
          cung2r(M, M, MIN( M, N-L ), U, LDU, TAU, WORK, INFO );
       }
 
@@ -200,7 +200,7 @@
             A( I, J ) = CZERO
          } // 90
       } // 100
-      IF( M.GT.K ) CALL CLASET( 'Full', M-K, N-L, CZERO, CZERO, A( K+1, 1 ), LDA )
+      if (M.GT.K) CALL CLASET( 'Full', M-K, N-L, CZERO, CZERO, A( K+1, 1 ), LDA );
 
       if ( N-L.GT.K ) {
 

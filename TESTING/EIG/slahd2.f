@@ -22,7 +22,7 @@
       // ..
       // .. Executable Statements ..
 
-      IF( IOUNIT.LE.0 ) RETURN
+      if (IOUNIT.LE.0) RETURN;
       SORD = LSAME( PATH, 'S' ) .OR. LSAME( PATH, 'D' )
       CORZ = LSAME( PATH, 'C' ) .OR. LSAME( PATH, 'Z' )
       if ( .NOT.SORD .AND. .NOT.CORZ ) {

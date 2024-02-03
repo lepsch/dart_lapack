@@ -85,7 +85,7 @@
 
       // Quick return if possible
 
-      IF( NSIZES.EQ.0 .OR. NTYPES.EQ.0 ) RETURN
+      if (NSIZES.EQ.0 .OR. NTYPES.EQ.0) RETURN;
 
       // More Important constants
 
@@ -141,7 +141,7 @@
             // =8                      random hermitian
             // =9                      banded, w/ eigenvalues
 
-            IF( MTYPES.GT.MAXTYP ) GO TO 90
+            if (MTYPES.GT.MAXTYP) GO TO 90;
 
             ITYPE = KTYPE( JTYPE )
             IMODE = KMODE( JTYPE )
@@ -282,7 +282,7 @@
                // loop over the setting UPLO
 
                for (IBUPLO = 1; IBUPLO <= 2; IBUPLO++) { // 620
-                  IF( IBUPLO.EQ.1 ) UPLO = 'U'                   IF( IBUPLO.EQ.2 ) UPLO = 'L'
+                  if (IBUPLO.EQ.1) UPLO = 'U'                   IF( IBUPLO.EQ.2 ) UPLO = 'L';
 
                   // Generate random well-conditioned positive definite
                   // matrix B, of bandwidth not greater than that of A.

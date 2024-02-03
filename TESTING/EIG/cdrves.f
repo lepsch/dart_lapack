@@ -112,7 +112,7 @@
 
       // Quick return if nothing to do
 
-      IF( NSIZES.EQ.0 .OR. NTYPES.EQ.0 ) RETURN
+      if (NSIZES.EQ.0 .OR. NTYPES.EQ.0) RETURN;
 
       // More Important constants
 
@@ -160,7 +160,7 @@
         // =9                              random general
         // =10                             random triangular
 
-            IF( MTYPES.GT.MAXTYP ) GO TO 90
+            if (MTYPES.GT.MAXTYP) GO TO 90;
 
             ITYPE = KTYPE( JTYPE )
             IMODE = KMODE( JTYPE )
@@ -209,7 +209,7 @@
 
                for (JCOL = 1; JCOL <= N; JCOL++) { // 80
                   A( JCOL, JCOL ) = CMPLX( ANORM )
-                  IF( JCOL.GT.1 ) A( JCOL, JCOL-1 ) = CONE
+                  if (JCOL.GT.1) A( JCOL, JCOL-1 ) = CONE;
                } // 80
 
             } else if ( ITYPE.EQ.4 ) {
@@ -376,7 +376,7 @@
                            IF( CSLECT( W( I+1 ) ) .AND. ( .NOT.CSLECT( W( I ) ) ) )RESULT( 13 ) = ULPINV
                         }
                      } // 170
-                     IF( SDIM.NE.KNTEIG ) RESULT( 13 ) = ULPINV
+                     if (SDIM.NE.KNTEIG) RESULT( 13 ) = ULPINV;
                   }
 
                } // 180
@@ -391,7 +391,7 @@
                   IF( RESULT( J ).GE.ZERO ) NTEST = NTEST + 1                   IF( RESULT( J ).GE.THRESH ) NFAIL = NFAIL + 1
                } // 200
 
-               IF( NFAIL.GT.0 ) NTESTF = NTESTF + 1
+               if (NFAIL.GT.0) NTESTF = NTESTF + 1;
                if ( NTESTF.EQ.1 ) {
                   WRITE( NOUNIT, FMT = 9999 )PATH
                   WRITE( NOUNIT, FMT = 9998 )

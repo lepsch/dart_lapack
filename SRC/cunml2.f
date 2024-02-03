@@ -70,7 +70,7 @@
 
       // Quick return if possible
 
-      IF( M.EQ.0 .OR. N.EQ.0 .OR. K.EQ.0 ) RETURN
+      if (M.EQ.0 .OR. N.EQ.0 .OR. K.EQ.0) RETURN;
 
       if ( ( LEFT .AND. NOTRAN .OR. .NOT.LEFT .AND. .NOT.NOTRAN ) ) {
          I1 = 1
@@ -112,12 +112,12 @@
          } else {
             TAUI = TAU( I )
          }
-         IF( I.LT.NQ ) CALL CLACGV( NQ-I, A( I, I+1 ), LDA )
+         if (I.LT.NQ) CALL CLACGV( NQ-I, A( I, I+1 ), LDA );
          AII = A( I, I )
          A( I, I ) = ONE
          clarf(SIDE, MI, NI, A( I, I ), LDA, TAUI, C( IC, JC ), LDC, WORK );
          A( I, I ) = AII
-         IF( I.LT.NQ ) CALL CLACGV( NQ-I, A( I, I+1 ), LDA )
+         if (I.LT.NQ) CALL CLACGV( NQ-I, A( I, I+1 ), LDA );
       } // 10
       RETURN
 

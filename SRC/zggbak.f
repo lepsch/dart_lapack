@@ -63,9 +63,9 @@
 
       // Quick return if possible
 
-      IF( N.EQ.0 ) RETURN       IF( M.EQ.0 ) RETURN       IF( LSAME( JOB, 'N' ) ) RETURN
+      if (N.EQ.0) RETURN       IF( M.EQ.0 ) RETURN       IF( LSAME( JOB, 'N' ) ) RETURN;
 
-      IF( ILO.EQ.IHI ) GO TO 30
+      if (ILO.EQ.IHI) GO TO 30;
 
       // Backward balance
 
@@ -96,18 +96,18 @@
          // Backward permutation on right eigenvectors
 
          if ( RIGHTV ) {
-            IF( ILO.EQ.1 ) GO TO 50
+            if (ILO.EQ.1) GO TO 50;
             DO 40 I = ILO - 1, 1, -1
                K = INT(RSCALE( I ))
-               IF( K.EQ.I ) GO TO 40
+               if (K.EQ.I) GO TO 40;
                zswap(M, V( I, 1 ), LDV, V( K, 1 ), LDV );
             } // 40
 
             } // 50
-            IF( IHI.EQ.N ) GO TO 70
+            if (IHI.EQ.N) GO TO 70;
             for (I = IHI + 1; I <= N; I++) { // 60
                K = INT(RSCALE( I ))
-               IF( K.EQ.I ) GO TO 60
+               if (K.EQ.I) GO TO 60;
                zswap(M, V( I, 1 ), LDV, V( K, 1 ), LDV );
             } // 60
          }
@@ -116,18 +116,18 @@
 
          } // 70
          if ( LEFTV ) {
-            IF( ILO.EQ.1 ) GO TO 90
+            if (ILO.EQ.1) GO TO 90;
             DO 80 I = ILO - 1, 1, -1
                K = INT(LSCALE( I ))
-               IF( K.EQ.I ) GO TO 80
+               if (K.EQ.I) GO TO 80;
                zswap(M, V( I, 1 ), LDV, V( K, 1 ), LDV );
             } // 80
 
             } // 90
-            IF( IHI.EQ.N ) GO TO 110
+            if (IHI.EQ.N) GO TO 110;
             for (I = IHI + 1; I <= N; I++) { // 100
                K = INT(LSCALE( I ))
-               IF( K.EQ.I ) GO TO 100
+               if (K.EQ.I) GO TO 100;
                zswap(M, V( I, 1 ), LDV, V( K, 1 ), LDV );
             } // 100
          }

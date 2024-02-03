@@ -31,7 +31,7 @@
       // ..
       // .. Executable Statements ..
 
-      IF( TAU.EQ.ZERO ) RETURN
+      if (TAU.EQ.ZERO) RETURN;
 
       // Form  w:= C * v
 

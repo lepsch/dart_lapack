@@ -104,7 +104,7 @@
                MAXWRK = MAX( MAXWRK, HSWORK )
             }
             LWRK = MAXWRK
-            IF( .NOT.WANTSN ) LWRK = MAX( LWRK, ( N*N )/2 )
+            if (.NOT.WANTSN) LWRK = MAX( LWRK, ( N*N )/2 );
          }
          WORK( 1 ) = LWRK
 
@@ -146,7 +146,7 @@
          SCALEA = .TRUE.
          CSCALE = BIGNUM
       }
-      IF( SCALEA ) CALL ZLASCL( 'G', 0, 0, ANRM, CSCALE, N, N, A, LDA, IERR )
+      if (SCALEA) CALL ZLASCL( 'G', 0, 0, ANRM, CSCALE, N, N, A, LDA, IERR );
 
 
       // Permute the matrix to make it more nearly triangular
@@ -189,7 +189,7 @@
       // Sort eigenvalues if desired
 
       if ( WANTST .AND. INFO.EQ.0 ) {
-         IF( SCALEA ) CALL ZLASCL( 'G', 0, 0, CSCALE, ANRM, N, 1, W, N, IERR )
+         if (SCALEA) CALL ZLASCL( 'G', 0, 0, CSCALE, ANRM, N, 1, W, N, IERR );
          for (I = 1; I <= N; I++) { // 10
             BWORK( I ) = SELECT( W( I ) )
          } // 10
@@ -201,7 +201,7 @@
          // (RWorkspace: none)
 
          ztrsen(SENSE, JOBVS, BWORK, N, A, LDA, VS, LDVS, W, SDIM, RCONDE, RCONDV, WORK( IWRK ), LWORK-IWRK+1, ICOND );
-         IF( .NOT.WANTSN ) MAXWRK = MAX( MAXWRK, 2*SDIM*( N-SDIM ) )
+         if (.NOT.WANTSN) MAXWRK = MAX( MAXWRK, 2*SDIM*( N-SDIM ) );
          if ( ICOND.EQ.-14 ) {
 
             // Not enough complex workspace

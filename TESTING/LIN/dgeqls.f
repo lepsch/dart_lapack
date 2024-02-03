@@ -48,7 +48,7 @@
 
       // Quick return if possible
 
-      IF( N.EQ.0 .OR. NRHS.EQ.0 .OR. M.EQ.0 ) RETURN
+      if (N.EQ.0 .OR. NRHS.EQ.0 .OR. M.EQ.0) RETURN;
 
       // B := Q' * B
 

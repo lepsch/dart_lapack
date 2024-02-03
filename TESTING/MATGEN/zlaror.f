@@ -41,7 +41,7 @@
       // .. Executable Statements ..
 
       INFO = 0
-      IF( N.EQ.0 .OR. M.EQ.0 ) RETURN
+      if (N.EQ.0 .OR. M.EQ.0) RETURN;
 
       ITYPE = 0
       if ( LSAME( SIDE, 'L' ) ) {

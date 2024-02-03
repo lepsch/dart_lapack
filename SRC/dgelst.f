@@ -93,7 +93,7 @@
 
       // *GEQRT and *GELQT routines cannot accept NB larger than min(M,N)
 
-      IF( NB.GT.MN ) NB = MN
+      if (NB.GT.MN) NB = MN;
 
       // Determine the block size from the supplied LWORK
       // ( at this stage we know that LWORK >= (minimum required workspace,
@@ -140,7 +140,7 @@
       }
 
       BROW = M
-      IF( TPSD ) BROW = N
+      if (TPSD) BROW = N;
       BNRM = DLANGE( 'M', BROW, NRHS, B, LDB, RWORK )
       IBSCL = 0
       if ( BNRM.GT.ZERO .AND. BNRM.LT.SMLNUM ) {

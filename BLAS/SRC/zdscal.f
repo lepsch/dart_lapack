@@ -23,7 +23,7 @@
       // .. Intrinsic Functions ..
       // INTRINSIC DBLE, DCMPLX, DIMAG
       // ..
-      IF (N.LE.0 .OR. INCX.LE.0 .OR. DA.EQ.ONE) RETURN
+      if (N.LE.0 .OR. INCX.LE.0 .OR. DA.EQ.ONE) RETURN;
       if (INCX.EQ.1) {
 
          // code for increment equal to 1

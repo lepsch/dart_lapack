@@ -161,7 +161,7 @@
          ANRMTO = BIGNUM
          ILASCL = .TRUE.
       }
-      IF( ILASCL ) CALL SLASCL( 'G', 0, 0, ANRM, ANRMTO, N, N, A, LDA, IERR )
+      if (ILASCL) CALL SLASCL( 'G', 0, 0, ANRM, ANRMTO, N, N, A, LDA, IERR );
 
       // Scale B if max element outside range [SMLNUM,BIGNUM]
 
@@ -174,7 +174,7 @@
          BNRMTO = BIGNUM
          ILBSCL = .TRUE.
       }
-      IF( ILBSCL ) CALL SLASCL( 'G', 0, 0, BNRM, BNRMTO, N, N, B, LDB, IERR )
+      if (ILBSCL) CALL SLASCL( 'G', 0, 0, BNRM, BNRMTO, N, N, B, LDB, IERR );
 
       // Permute the matrix to make it more nearly triangular
 
@@ -207,7 +207,7 @@
 
       // Initialize VSR
 
-      IF( ILVSR ) CALL SLASET( 'Full', N, N, ZERO, ONE, VSR, LDVSR )
+      if (ILVSR) CALL SLASET( 'Full', N, N, ZERO, ONE, VSR, LDVSR );
 
       // Reduce to generalized Hessenberg form
 
@@ -238,7 +238,7 @@
          if ( ILASCL ) {
             slascl('G', 0, 0, ANRMTO, ANRM, N, 1, ALPHAR, N, IERR )             CALL SLASCL( 'G', 0, 0, ANRMTO, ANRM, N, 1, ALPHAI, N, IERR );
          }
-         IF( ILBSCL ) CALL SLASCL( 'G', 0, 0, BNRMTO, BNRM, N, 1, BETA, N, IERR )
+         if (ILBSCL) CALL SLASCL( 'G', 0, 0, BNRMTO, BNRM, N, 1, BETA, N, IERR );
 
          // Select eigenvalues
 
@@ -247,15 +247,15 @@
          } // 10
 
          stgsen(0, ILVSL, ILVSR, BWORK, N, A, LDA, B, LDB, ALPHAR, ALPHAI, BETA, VSL, LDVSL, VSR, LDVSR, SDIM, PVSL, PVSR, DIF, WORK( IWRK ), LWORK-IWRK+1, IDUM, 1, IERR );
-         IF( IERR.EQ.1 ) INFO = N + 3
+         if (IERR.EQ.1) INFO = N + 3;
 
       }
 
       // Apply back-permutation to VSL and VSR
 
-      IF( ILVSL ) CALL SGGBAK( 'P', 'L', N, ILO, IHI, WORK( ILEFT ), WORK( IRIGHT ), N, VSL, LDVSL, IERR )
+      if (ILVSL) CALL SGGBAK( 'P', 'L', N, ILO, IHI, WORK( ILEFT ), WORK( IRIGHT ), N, VSL, LDVSL, IERR );
 
-      IF( ILVSR ) CALL SGGBAK( 'P', 'R', N, ILO, IHI, WORK( ILEFT ), WORK( IRIGHT ), N, VSR, LDVSR, IERR )
+      if (ILVSR) CALL SGGBAK( 'P', 'R', N, ILO, IHI, WORK( ILEFT ), WORK( IRIGHT ), N, VSR, LDVSR, IERR );
 
       // Check if unscaling would cause over/underflow, if so, rescale
       // (ALPHAR(I),ALPHAI(I),BETA(I)) so BETA(I) is on the order of
@@ -316,9 +316,9 @@
          for (I = 1; I <= N; I++) { // 30
             CURSL = SELCTG( ALPHAR( I ), ALPHAI( I ), BETA( I ) )
             if ( ALPHAI( I ).EQ.ZERO ) {
-               IF( CURSL ) SDIM = SDIM + 1
+               if (CURSL) SDIM = SDIM + 1;
                IP = 0
-               IF( CURSL .AND. .NOT.LASTSL ) INFO = N + 2
+               if (CURSL .AND. .NOT.LASTSL) INFO = N + 2;
             } else {
                if ( IP.EQ.1 ) {
 
@@ -326,9 +326,9 @@
 
                   CURSL = CURSL .OR. LASTSL
                   LASTSL = CURSL
-                  IF( CURSL ) SDIM = SDIM + 2
+                  if (CURSL) SDIM = SDIM + 2;
                   IP = -1
-                  IF( CURSL .AND. .NOT.LST2SL ) INFO = N + 2
+                  if (CURSL .AND. .NOT.LST2SL) INFO = N + 2;
                } else {
 
                   // First eigenvalue of conjugate pair

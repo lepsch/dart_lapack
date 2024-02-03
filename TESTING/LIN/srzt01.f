@@ -45,7 +45,7 @@
 
       // Quick return if possible
 
-      IF( M.LE.0 .OR. N.LE.0 ) RETURN
+      if (M.LE.0 .OR. N.LE.0) RETURN;
 
       NORMA = SLANGE( 'One-norm', M, N, A, LDA, RWORK )
 
@@ -71,7 +71,7 @@
       SRZT01 = SLANGE( 'One-norm', M, N, WORK, M, RWORK )
 
       SRZT01 = SRZT01 / ( SLAMCH( 'Epsilon' )*REAL( MAX( M, N ) ) )
-      IF( NORMA.NE.ZERO ) SRZT01 = SRZT01 / NORMA
+      if (NORMA.NE.ZERO) SRZT01 = SRZT01 / NORMA;
 
       RETURN
 

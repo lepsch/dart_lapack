@@ -46,7 +46,7 @@
 
       // Quick return if possible
 
-      IF( M.LE.0 ) RETURN
+      if (M.LE.0) RETURN;
 
       dlaset('Full', M, M, ZERO, ONE, WORK, M );
 

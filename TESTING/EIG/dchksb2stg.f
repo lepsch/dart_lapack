@@ -97,7 +97,7 @@
 
       // Quick return if possible
 
-      IF( NSIZES.EQ.0 .OR. NTYPES.EQ.0 .OR. NWDTHS.EQ.0 ) RETURN
+      if (NSIZES.EQ.0 .OR. NTYPES.EQ.0 .OR. NWDTHS.EQ.0) RETURN;
 
       // More Important constants
 
@@ -119,7 +119,7 @@
 
          for (JWIDTH = 1; JWIDTH <= NWDTHS; JWIDTH++) { // 180
             K = KK( JWIDTH )
-            IF( K.GT.N ) GO TO 180
+            if (K.GT.N) GO TO 180;
             K = MAX( 0, MIN( N-1, K ) )
 
             if ( NSIZES.NE.1 ) {
@@ -154,7 +154,7 @@
                // =9                      positive definite
                // =10                     diagonally dominant tridiagonal
 
-               IF( MTYPES.GT.MAXTYP ) GO TO 100
+               if (MTYPES.GT.MAXTYP) GO TO 100;
 
                ITYPE = KTYPE( JTYPE )
                IMODE = KMODE( JTYPE )
@@ -234,7 +234,7 @@
 
                   // Positive definite tridiagonal, eigenvalues specified.
 
-                  IF( N.GT.1 ) K = MAX( 1, K )                   CALL DLATMS( N, N, 'S', ISEED, 'P', WORK, IMODE, COND, ANORM, 1, 1, 'Q', A( K, 1 ), LDA, WORK( N+1 ), IINFO )
+                  if (N.GT.1) K = MAX( 1, K )                   CALL DLATMS( N, N, 'S', ISEED, 'P', WORK, IMODE, COND, ANORM, 1, 1, 'Q', A( K, 1 ), LDA, WORK( N+1 ), IINFO );
                   for (I = 2; I <= N; I++) { // 90
                      TEMP1 = ABS( A( K, I ) ) / SQRT( ABS( A( K+1, I-1 )*A( K+1, I ) ) )
                      if ( TEMP1.GT.HALF ) {
@@ -290,7 +290,7 @@
                // DSYTRD_SB2ST
 
                dcopy(N, SD, 1, D1, 1 );
-               IF( N.GT.0 ) CALL DCOPY( N-1, SE, 1, WORK, 1 )
+               if (N.GT.0) CALL DCOPY( N-1, SE, 1, WORK, 1 );
 
                dsteqr('N', N, D1, WORK, WORK( N+1 ), LDU, WORK( N+1 ), IINFO );
                if ( IINFO.NE.0 ) {
@@ -319,7 +319,7 @@
                // Compute D2 from the DSYTRD_SB2ST Upper case
 
                dcopy(N, SD, 1, D2, 1 );
-               IF( N.GT.0 ) CALL DCOPY( N-1, SE, 1, WORK, 1 )
+               if (N.GT.0) CALL DCOPY( N-1, SE, 1, WORK, 1 );
 
                dsteqr('N', N, D2, WORK, WORK( N+1 ), LDU, WORK( N+1 ), IINFO );
                if ( IINFO.NE.0 ) {
@@ -385,7 +385,7 @@
                // Compute D3 from the 2-stage Upper case
 
                dcopy(N, SD, 1, D3, 1 );
-               IF( N.GT.0 ) CALL DCOPY( N-1, SE, 1, WORK, 1 )
+               if (N.GT.0) CALL DCOPY( N-1, SE, 1, WORK, 1 );
 
                dsteqr('N', N, D3, WORK, WORK( N+1 ), LDU, WORK( N+1 ), IINFO );
                if ( IINFO.NE.0 ) {

@@ -45,7 +45,7 @@
 
       // Quick return if possible
 
-      IF( M.LE.0 .OR. N.LE.0 ) RETURN
+      if (M.LE.0 .OR. N.LE.0) RETURN;
 
       NORMA = CLANGE( 'One-norm', M, N, A, LDA, RWORK )
 
@@ -71,7 +71,7 @@
       CRZT01 = CLANGE( 'One-norm', M, N, WORK, M, RWORK )
 
       CRZT01 = CRZT01 / ( SLAMCH( 'Epsilon' )*REAL( MAX( M, N ) ) )
-      IF( NORMA.NE.ZERO ) CRZT01 = CRZT01 / NORMA
+      if (NORMA.NE.ZERO) CRZT01 = CRZT01 / NORMA;
 
       RETURN
 

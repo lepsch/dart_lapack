@@ -60,9 +60,9 @@
 
       dlaset('Full', P, P, ROGUE, ROGUE, Z, LDB );
       if ( N.LE.P ) {
-         IF( N.GT.0 .AND. N.LT.P ) CALL DLACPY( 'Full', N, P-N, BF, LDB, Z( P-N+1, 1 ), LDB )          IF( N.GT.1 ) CALL DLACPY( 'Lower', N-1, N-1, BF( 2, P-N+1 ), LDB, Z( P-N+2, P-N+1 ), LDB )
+         if (N.GT.0 .AND. N.LT.P) CALL DLACPY( 'Full', N, P-N, BF, LDB, Z( P-N+1, 1 ), LDB )          IF( N.GT.1 ) CALL DLACPY( 'Lower', N-1, N-1, BF( 2, P-N+1 ), LDB, Z( P-N+2, P-N+1 ), LDB );
       } else {
-         IF( P.GT.1 ) CALL DLACPY( 'Lower', P-1, P-1, BF( N-P+2, 1 ), LDB, Z( 2, 1 ), LDB )
+         if (P.GT.1) CALL DLACPY( 'Lower', P-1, P-1, BF( N-P+2, 1 ), LDB, Z( 2, 1 ), LDB );
       }
       dorgrq(P, P, MIN( N, P ), Z, LDB, TAUB, WORK, LWORK, INFO );
 

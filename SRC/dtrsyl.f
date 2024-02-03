@@ -71,7 +71,7 @@
       // Quick return if possible
 
       SCALE = ONE
-      IF( M.EQ.0 .OR. N.EQ.0 ) RETURN
+      if (M.EQ.0 .OR. N.EQ.0) RETURN;
 
       // Set constants to control overflow
 
@@ -104,7 +104,7 @@
 
          LNEXT = 1
          for (L = 1; L <= N; L++) { // 60
-            IF( L.LT.LNEXT ) GO TO 60
+            if (L.LT.LNEXT) GO TO 60;
             if ( L.EQ.N ) {
                L1 = L
                L2 = L
@@ -125,7 +125,7 @@
 
             KNEXT = M
             DO 50 K = M, 1, -1
-               IF( K.GT.KNEXT ) GO TO 50
+               if (K.GT.KNEXT) GO TO 50;
                if ( K.EQ.1 ) {
                   K1 = K
                   K2 = K
@@ -156,7 +156,7 @@
                   }
                   DB = ABS( VEC( 1, 1 ) )
                   if ( DA11.LT.ONE .AND. DB.GT.ONE ) {
-                     IF( DB.GT.BIGNUM*DA11 ) SCALOC = ONE / DB
+                     if (DB.GT.BIGNUM*DA11) SCALOC = ONE / DB;
                   }
                   X( 1, 1 ) = ( VEC( 1, 1 )*SCALOC ) / A11
 
@@ -179,7 +179,7 @@
                   VEC( 2, 1 ) = C( K2, L1 ) - ( SUML+SGN*SUMR )
 
                   dlaln2(.FALSE., 2, 1, SMIN, ONE, A( K1, K1 ), LDA, ONE, ONE, VEC, 2, -SGN*B( L1, L1 ), ZERO, X, 2, SCALOC, XNORM, IERR );
-                  IF( IERR.NE.0 ) INFO = 1
+                  if (IERR.NE.0) INFO = 1;
 
                   if ( SCALOC.NE.ONE ) {
                      for (J = 1; J <= N; J++) { // 20
@@ -201,7 +201,7 @@
                   VEC( 2, 1 ) = SGN*( C( K1, L2 )-( SUML+SGN*SUMR ) )
 
                   dlaln2(.TRUE., 2, 1, SMIN, ONE, B( L1, L1 ), LDB, ONE, ONE, VEC, 2, -SGN*A( K1, K1 ), ZERO, X, 2, SCALOC, XNORM, IERR );
-                  IF( IERR.NE.0 ) INFO = 1
+                  if (IERR.NE.0) INFO = 1;
 
                   if ( SCALOC.NE.ONE ) {
                      for (J = 1; J <= N; J++) { // 30
@@ -231,7 +231,7 @@
                   VEC( 2, 2 ) = C( K2, L2 ) - ( SUML+SGN*SUMR )
 
                   dlasy2(.FALSE., .FALSE., ISGN, 2, 2, A( K1, K1 ), LDA, B( L1, L1 ), LDB, VEC, 2, SCALOC, X, 2, XNORM, IERR );
-                  IF( IERR.NE.0 ) INFO = 1
+                  if (IERR.NE.0) INFO = 1;
 
                   if ( SCALOC.NE.ONE ) {
                      for (J = 1; J <= N; J++) { // 40
@@ -268,7 +268,7 @@
 
          LNEXT = 1
          for (L = 1; L <= N; L++) { // 120
-            IF( L.LT.LNEXT ) GO TO 120
+            if (L.LT.LNEXT) GO TO 120;
             if ( L.EQ.N ) {
                L1 = L
                L2 = L
@@ -289,7 +289,7 @@
 
             KNEXT = 1
             for (K = 1; K <= M; K++) { // 110
-               IF( K.LT.KNEXT ) GO TO 110
+               if (K.LT.KNEXT) GO TO 110;
                if ( K.EQ.M ) {
                   K1 = K
                   K2 = K
@@ -320,7 +320,7 @@
                   }
                   DB = ABS( VEC( 1, 1 ) )
                   if ( DA11.LT.ONE .AND. DB.GT.ONE ) {
-                     IF( DB.GT.BIGNUM*DA11 ) SCALOC = ONE / DB
+                     if (DB.GT.BIGNUM*DA11) SCALOC = ONE / DB;
                   }
                   X( 1, 1 ) = ( VEC( 1, 1 )*SCALOC ) / A11
 
@@ -343,7 +343,7 @@
                   VEC( 2, 1 ) = C( K2, L1 ) - ( SUML+SGN*SUMR )
 
                   dlaln2(.TRUE., 2, 1, SMIN, ONE, A( K1, K1 ), LDA, ONE, ONE, VEC, 2, -SGN*B( L1, L1 ), ZERO, X, 2, SCALOC, XNORM, IERR );
-                  IF( IERR.NE.0 ) INFO = 1
+                  if (IERR.NE.0) INFO = 1;
 
                   if ( SCALOC.NE.ONE ) {
                      for (J = 1; J <= N; J++) { // 80
@@ -365,7 +365,7 @@
                   VEC( 2, 1 ) = SGN*( C( K1, L2 )-( SUML+SGN*SUMR ) )
 
                   dlaln2(.TRUE., 2, 1, SMIN, ONE, B( L1, L1 ), LDB, ONE, ONE, VEC, 2, -SGN*A( K1, K1 ), ZERO, X, 2, SCALOC, XNORM, IERR );
-                  IF( IERR.NE.0 ) INFO = 1
+                  if (IERR.NE.0) INFO = 1;
 
                   if ( SCALOC.NE.ONE ) {
                      for (J = 1; J <= N; J++) { // 90
@@ -395,7 +395,7 @@
                   VEC( 2, 2 ) = C( K2, L2 ) - ( SUML+SGN*SUMR )
 
                   dlasy2(.TRUE., .FALSE., ISGN, 2, 2, A( K1, K1 ), LDA, B( L1, L1 ), LDB, VEC, 2, SCALOC, X, 2, XNORM, IERR );
-                  IF( IERR.NE.0 ) INFO = 1
+                  if (IERR.NE.0) INFO = 1;
 
                   if ( SCALOC.NE.ONE ) {
                      for (J = 1; J <= N; J++) { // 100
@@ -431,7 +431,7 @@
 
          LNEXT = N
          DO 180 L = N, 1, -1
-            IF( L.GT.LNEXT ) GO TO 180
+            if (L.GT.LNEXT) GO TO 180;
             if ( L.EQ.1 ) {
                L1 = L
                L2 = L
@@ -452,7 +452,7 @@
 
             KNEXT = 1
             for (K = 1; K <= M; K++) { // 170
-               IF( K.LT.KNEXT ) GO TO 170
+               if (K.LT.KNEXT) GO TO 170;
                if ( K.EQ.M ) {
                   K1 = K
                   K2 = K
@@ -483,7 +483,7 @@
                   }
                   DB = ABS( VEC( 1, 1 ) )
                   if ( DA11.LT.ONE .AND. DB.GT.ONE ) {
-                     IF( DB.GT.BIGNUM*DA11 ) SCALOC = ONE / DB
+                     if (DB.GT.BIGNUM*DA11) SCALOC = ONE / DB;
                   }
                   X( 1, 1 ) = ( VEC( 1, 1 )*SCALOC ) / A11
 
@@ -506,7 +506,7 @@
                   VEC( 2, 1 ) = C( K2, L1 ) - ( SUML+SGN*SUMR )
 
                   dlaln2(.TRUE., 2, 1, SMIN, ONE, A( K1, K1 ), LDA, ONE, ONE, VEC, 2, -SGN*B( L1, L1 ), ZERO, X, 2, SCALOC, XNORM, IERR );
-                  IF( IERR.NE.0 ) INFO = 1
+                  if (IERR.NE.0) INFO = 1;
 
                   if ( SCALOC.NE.ONE ) {
                      for (J = 1; J <= N; J++) { // 140
@@ -528,7 +528,7 @@
                   VEC( 2, 1 ) = SGN*( C( K1, L2 )-( SUML+SGN*SUMR ) )
 
                   dlaln2(.FALSE., 2, 1, SMIN, ONE, B( L1, L1 ), LDB, ONE, ONE, VEC, 2, -SGN*A( K1, K1 ), ZERO, X, 2, SCALOC, XNORM, IERR );
-                  IF( IERR.NE.0 ) INFO = 1
+                  if (IERR.NE.0) INFO = 1;
 
                   if ( SCALOC.NE.ONE ) {
                      for (J = 1; J <= N; J++) { // 150
@@ -558,7 +558,7 @@
                   VEC( 2, 2 ) = C( K2, L2 ) - ( SUML+SGN*SUMR )
 
                   dlasy2(.TRUE., .TRUE., ISGN, 2, 2, A( K1, K1 ), LDA, B( L1, L1 ), LDB, VEC, 2, SCALOC, X, 2, XNORM, IERR );
-                  IF( IERR.NE.0 ) INFO = 1
+                  if (IERR.NE.0) INFO = 1;
 
                   if ( SCALOC.NE.ONE ) {
                      for (J = 1; J <= N; J++) { // 160
@@ -594,7 +594,7 @@
 
          LNEXT = N
          DO 240 L = N, 1, -1
-            IF( L.GT.LNEXT ) GO TO 240
+            if (L.GT.LNEXT) GO TO 240;
             if ( L.EQ.1 ) {
                L1 = L
                L2 = L
@@ -615,7 +615,7 @@
 
             KNEXT = M
             DO 230 K = M, 1, -1
-               IF( K.GT.KNEXT ) GO TO 230
+               if (K.GT.KNEXT) GO TO 230;
                if ( K.EQ.1 ) {
                   K1 = K
                   K2 = K
@@ -645,7 +645,7 @@
                   }
                   DB = ABS( VEC( 1, 1 ) )
                   if ( DA11.LT.ONE .AND. DB.GT.ONE ) {
-                     IF( DB.GT.BIGNUM*DA11 ) SCALOC = ONE / DB
+                     if (DB.GT.BIGNUM*DA11) SCALOC = ONE / DB;
                   }
                   X( 1, 1 ) = ( VEC( 1, 1 )*SCALOC ) / A11
 
@@ -666,7 +666,7 @@
                   VEC( 2, 1 ) = C( K2, L1 ) - ( SUML+SGN*SUMR )
 
                   dlaln2(.FALSE., 2, 1, SMIN, ONE, A( K1, K1 ), LDA, ONE, ONE, VEC, 2, -SGN*B( L1, L1 ), ZERO, X, 2, SCALOC, XNORM, IERR );
-                  IF( IERR.NE.0 ) INFO = 1
+                  if (IERR.NE.0) INFO = 1;
 
                   if ( SCALOC.NE.ONE ) {
                      for (J = 1; J <= N; J++) { // 200
@@ -686,7 +686,7 @@
                   VEC( 2, 1 ) = SGN*( C( K1, L2 )-( SUML+SGN*SUMR ) )
 
                   dlaln2(.FALSE., 2, 1, SMIN, ONE, B( L1, L1 ), LDB, ONE, ONE, VEC, 2, -SGN*A( K1, K1 ), ZERO, X, 2, SCALOC, XNORM, IERR );
-                  IF( IERR.NE.0 ) INFO = 1
+                  if (IERR.NE.0) INFO = 1;
 
                   if ( SCALOC.NE.ONE ) {
                      for (J = 1; J <= N; J++) { // 210
@@ -712,7 +712,7 @@
                   VEC( 2, 2 ) = C( K2, L2 ) - ( SUML+SGN*SUMR )
 
                   dlasy2(.FALSE., .TRUE., ISGN, 2, 2, A( K1, K1 ), LDA, B( L1, L1 ), LDB, VEC, 2, SCALOC, X, 2, XNORM, IERR );
-                  IF( IERR.NE.0 ) INFO = 1
+                  if (IERR.NE.0) INFO = 1;
 
                   if ( SCALOC.NE.ONE ) {
                      for (J = 1; J <= N; J++) { // 220

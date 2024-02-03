@@ -61,7 +61,7 @@
 
       // Quick return if possible
 
-      IF( N.EQ.0 .OR. NRHS.EQ.0 ) RETURN
+      if (N.EQ.0 .OR. NRHS.EQ.0) RETURN;
 
       KD = KU + KL + 1
       LNOTI = KL.GT.0
@@ -81,7 +81,7 @@
             for (J = 1; J <= N - 1; J++) { // 10
                LM = MIN( KL, N-J )
                L = IPIV( J )
-               IF( L.NE.J ) CALL DSWAP( NRHS, B( L, 1 ), LDB, B( J, 1 ), LDB )                CALL DGER( LM, NRHS, -ONE, AB( KD+1, J ), 1, B( J, 1 ), LDB, B( J+1, 1 ), LDB )
+               if (L.NE.J) CALL DSWAP( NRHS, B( L, 1 ), LDB, B( J, 1 ), LDB )                CALL DGER( LM, NRHS, -ONE, AB( KD+1, J ), 1, B( J, 1 ), LDB, B( J+1, 1 ), LDB );
             } // 10
          }
 
@@ -110,7 +110,7 @@
                LM = MIN( KL, N-J )
                dgemv('Transpose', LM, NRHS, -ONE, B( J+1, 1 ), LDB, AB( KD+1, J ), 1, ONE, B( J, 1 ), LDB );
                L = IPIV( J )
-               IF( L.NE.J ) CALL DSWAP( NRHS, B( L, 1 ), LDB, B( J, 1 ), LDB )
+               if (L.NE.J) CALL DSWAP( NRHS, B( L, 1 ), LDB, B( J, 1 ), LDB );
             } // 40
          }
       }

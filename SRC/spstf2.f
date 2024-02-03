@@ -56,7 +56,7 @@
 
       // Quick return if possible
 
-      IF( N.EQ.0 ) RETURN
+      if (N.EQ.0) RETURN;
 
       // Initialize PIV
 
@@ -129,7 +129,7 @@
 
                A( PVT, PVT ) = A( J, J )
                sswap(J-1, A( 1, J ), 1, A( 1, PVT ), 1 );
-               IF( PVT.LT.N ) CALL SSWAP( N-PVT, A( J, PVT+1 ), LDA, A( PVT, PVT+1 ), LDA )
+               if (PVT.LT.N) CALL SSWAP( N-PVT, A( J, PVT+1 ), LDA, A( PVT, PVT+1 ), LDA );
                sswap(PVT-J-1, A( J, J+1 ), LDA, A( J+1, PVT ), 1 );
 
                // Swap dot products and PIV
@@ -189,7 +189,7 @@
 
                A( PVT, PVT ) = A( J, J )
                sswap(J-1, A( J, 1 ), LDA, A( PVT, 1 ), LDA );
-               IF( PVT.LT.N ) CALL SSWAP( N-PVT, A( PVT+1, J ), 1, A( PVT+1, PVT ), 1 )
+               if (PVT.LT.N) CALL SSWAP( N-PVT, A( PVT+1, J ), 1, A( PVT+1, PVT ), 1 );
                sswap(PVT-J-1, A( J+1, J ), 1, A( PVT, J+1 ), LDA );
 
                // Swap dot products and PIV

@@ -23,7 +23,7 @@
       // ..
       // .. Executable Statements ..
 
-      IF( N.EQ.0 ) RETURN
+      if (N.EQ.0) RETURN;
 
       // Multiply B by BETA if BETA.NE.1.
 

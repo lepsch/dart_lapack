@@ -75,7 +75,7 @@
 
       // Test the error exits
 
-      IF( TSTERR ) CALL DERRPO( PATH, NOUT )
+      if (TSTERR) CALL DERRPO( PATH, NOUT );
       INFOT = 0
       xlaenv(2, 2 );
 
@@ -86,7 +86,7 @@
          LDA = MAX( N, 1 )
          XTYPE = 'N'
          NIMAT = NTYPES
-         IF( N.LE.0 ) NIMAT = 1
+         if (N.LE.0) NIMAT = 1;
 
          IZERO = 0
          for (IMAT = 1; IMAT <= NIMAT; IMAT++) { // 110
@@ -98,7 +98,7 @@
             // Skip types 3, 4, or 5 if the matrix size is too small.
 
             ZEROT = IMAT.GE.3 .AND. IMAT.LE.5
-            IF( ZEROT .AND. N.LT.IMAT-2 ) GO TO 110
+            if (ZEROT .AND. N.LT.IMAT-2) GO TO 110;
 
             // Do first for UPLO = 'U', then for UPLO = 'L'
 
@@ -180,7 +180,7 @@
 
                   // Skip the tests if INFO is not 0.
 
-                  IF( INFO.NE.0 ) GO TO 90
+                  if (INFO.NE.0) GO TO 90;
 
 *+    TEST 1
                   // Reconstruct matrix from factors and compute residual.
@@ -197,7 +197,7 @@
 
                   // Check error code from DPOTRI.
 
-                  IF( INFO.NE.0 ) CALL ALAERH( PATH, 'DPOTRI', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT )
+                  if (INFO.NE.0) CALL ALAERH( PATH, 'DPOTRI', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
 
                   dpot03(UPLO, N, A, LDA, AINV, LDA, WORK, LDA, RWORK, RCONDC, RESULT( 2 ) );
 
@@ -206,7 +206,7 @@
 
                   for (K = 1; K <= 2; K++) { // 60
                      if ( RESULT( K ).GE.THRESH ) {
-                        IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9999 )UPLO, N, NB, IMAT, K, RESULT( K )
+                        if (NFAIL.EQ.0 .AND. NERRS.EQ.0) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9999 )UPLO, N, NB, IMAT, K, RESULT( K );
                         NFAIL = NFAIL + 1
                      }
                   } // 60
@@ -215,7 +215,7 @@
                   // Skip the rest of the tests unless this is the first
                   // blocksize.
 
-                  IF( INB.NE.1 ) GO TO 90
+                  if (INB.NE.1) GO TO 90;
 
                   for (IRHS = 1; IRHS <= NNS; IRHS++) { // 80
                      NRHS = NSVAL( IRHS )
@@ -232,7 +232,7 @@
 
                   // Check error code from DPOTRS.
 
-                     IF( INFO.NE.0 ) CALL ALAERH( PATH, 'DPOTRS', INFO, 0, UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT )
+                     if (INFO.NE.0) CALL ALAERH( PATH, 'DPOTRS', INFO, 0, UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
 
                      dlacpy('Full', N, NRHS, B, LDA, WORK, LDA );
                      dpot02(UPLO, N, NRHS, A, LDA, X, LDA, WORK, LDA, RWORK, RESULT( 3 ) );
@@ -250,7 +250,7 @@
 
                   // Check error code from DPORFS.
 
-                     IF( INFO.NE.0 ) CALL ALAERH( PATH, 'DPORFS', INFO, 0, UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT )
+                     if (INFO.NE.0) CALL ALAERH( PATH, 'DPORFS', INFO, 0, UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
 
                      dget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 5 ) )                      CALL DPOT05( UPLO, N, NRHS, A, LDA, B, LDA, X, LDA, XACT, LDA, RWORK, RWORK( NRHS+1 ), RESULT( 6 ) );
 
@@ -259,7 +259,7 @@
 
                      for (K = 3; K <= 7; K++) { // 70
                         if ( RESULT( K ).GE.THRESH ) {
-                           IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                            WRITE( NOUT, FMT = 9998 )UPLO, N, NRHS, IMAT, K, RESULT( K )
+                           if (NFAIL.EQ.0 .AND. NERRS.EQ.0) CALL ALAHD( NOUT, PATH )                            WRITE( NOUT, FMT = 9998 )UPLO, N, NRHS, IMAT, K, RESULT( K );
                            NFAIL = NFAIL + 1
                         }
                      } // 70
@@ -275,14 +275,14 @@
 
                   // Check error code from DPOCON.
 
-                  IF( INFO.NE.0 ) CALL ALAERH( PATH, 'DPOCON', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT )
+                  if (INFO.NE.0) CALL ALAERH( PATH, 'DPOCON', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
 
                   RESULT( 8 ) = DGET06( RCOND, RCONDC )
 
                   // Print the test ratio if it is .GE. THRESH.
 
                   if ( RESULT( 8 ).GE.THRESH ) {
-                     IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                      WRITE( NOUT, FMT = 9997 )UPLO, N, IMAT, 8, RESULT( 8 )
+                     if (NFAIL.EQ.0 .AND. NERRS.EQ.0) CALL ALAHD( NOUT, PATH )                      WRITE( NOUT, FMT = 9997 )UPLO, N, IMAT, 8, RESULT( 8 );
                      NFAIL = NFAIL + 1
                   }
                   NRUN = NRUN + 1

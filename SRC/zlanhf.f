@@ -397,7 +397,7 @@
                      AA = ABS( DBLE( A( I+J*LDA ) ) )
                      // -> A(j+k,j+k)
                      WORK( J+K ) = S + AA
-                     IF( I.EQ.K+K ) GO TO 10
+                     if (I.EQ.K+K) GO TO 10;
                      I = I + 1
                      AA = ABS( DBLE( A( I+J*LDA ) ) )
                      // -> A(j,j)

@@ -80,7 +80,7 @@
          // Copy column K of A to column KW of W and update it
 
          dcopy(K, A( 1, K ), 1, W( 1, KW ), 1 );
-         IF( K.LT.N ) CALL DGEMV( 'No transpose', K, N-K, -ONE, A( 1, K+1 ), LDA, W( K, KW+1 ), LDW, ONE, W( 1, KW ), 1 )
+         if (K.LT.N) CALL DGEMV( 'No transpose', K, N-K, -ONE, A( 1, K+1 ), LDA, W( K, KW+1 ), LDW, ONE, W( 1, KW ), 1 );
 
          // Determine rows and columns to be interchanged and whether
          // a 1-by-1 or 2-by-2 pivot block will be used
@@ -102,13 +102,13 @@
 
             // Column K is zero or underflow: set INFO and continue
 
-            IF( INFO.EQ.0 ) INFO = K
+            if (INFO.EQ.0) INFO = K;
             KP = K
             dcopy(K, W( 1, KW ), 1, A( 1, K ), 1 );
 
             // Set E( K ) to zero
 
-            IF( K.GT.1 ) E( K ) = ZERO
+            if (K.GT.1) E( K ) = ZERO;
 
          } else {
 
@@ -141,7 +141,7 @@
                   dcopy(IMAX, A( 1, IMAX ), 1, W( 1, KW-1 ), 1 );
                   dcopy(K-IMAX, A( IMAX, IMAX+1 ), LDA, W( IMAX+1, KW-1 ), 1 );
 
-                  IF( K.LT.N ) CALL DGEMV( 'No transpose', K, N-K, -ONE, A( 1, K+1 ), LDA, W( IMAX, KW+1 ), LDW, ONE, W( 1, KW-1 ), 1 )
+                  if (K.LT.N) CALL DGEMV( 'No transpose', K, N-K, -ONE, A( 1, K+1 ), LDA, W( IMAX, KW+1 ), LDW, ONE, W( 1, KW-1 ), 1 );
 
                   // JMAX is the column-index of the largest off-diagonal
                   // element in row IMAX, and ROWMAX is its absolute value.
@@ -207,7 +207,7 @@
 
                   // End pivot search loop body
 
-               IF( .NOT. DONE ) GOTO 12
+               if (.NOT. DONE) GOTO 12;
 
             }
 
@@ -349,7 +349,7 @@
 
             // Update the rectangular superdiagonal block
 
-            IF( J.GE.2 ) CALL DGEMM( 'No transpose', 'Transpose', J-1, JB, N-K, -ONE, A( 1, K+1 ), LDA, W( J, KW+1 ), LDW, ONE, A( 1, J ), LDA )
+            if (J.GE.2) CALL DGEMM( 'No transpose', 'Transpose', J-1, JB, N-K, -ONE, A( 1, K+1 ), LDA, W( J, KW+1 ), LDW, ONE, A( 1, J ), LDA );
          } // 50
 
          // Set KB to the number of columns factorized
@@ -381,7 +381,7 @@
          // Copy column K of A to column K of W and update it
 
          dcopy(N-K+1, A( K, K ), 1, W( K, K ), 1 );
-         IF( K.GT.1 ) CALL DGEMV( 'No transpose', N-K+1, K-1, -ONE, A( K, 1 ), LDA, W( K, 1 ), LDW, ONE, W( K, K ), 1 )
+         if (K.GT.1) CALL DGEMV( 'No transpose', N-K+1, K-1, -ONE, A( K, 1 ), LDA, W( K, 1 ), LDW, ONE, W( K, K ), 1 );
 
          // Determine rows and columns to be interchanged and whether
          // a 1-by-1 or 2-by-2 pivot block will be used
@@ -403,13 +403,13 @@
 
             // Column K is zero or underflow: set INFO and continue
 
-            IF( INFO.EQ.0 ) INFO = K
+            if (INFO.EQ.0) INFO = K;
             KP = K
             dcopy(N-K+1, W( K, K ), 1, A( K, K ), 1 );
 
             // Set E( K ) to zero
 
-            IF( K.LT.N ) E( K ) = ZERO
+            if (K.LT.N) E( K ) = ZERO;
 
          } else {
 
@@ -506,7 +506,7 @@
 
                   // End pivot search loop body
 
-               IF( .NOT. DONE ) GOTO 72
+               if (.NOT. DONE) GOTO 72;
 
             }
 
@@ -642,7 +642,7 @@
 
             // Update the rectangular subdiagonal block
 
-            IF( J+JB.LE.N ) CALL DGEMM( 'No transpose', 'Transpose', N-J-JB+1, JB, K-1, -ONE, A( J+JB, 1 ), LDA, W( J, 1 ), LDW, ONE, A( J+JB, J ), LDA )
+            if (J+JB.LE.N) CALL DGEMM( 'No transpose', 'Transpose', N-J-JB+1, JB, K-1, -ONE, A( J+JB, 1 ), LDA, W( J, 1 ), LDW, ONE, A( J+JB, J ), LDA );
          } // 110
 
          // Set KB to the number of columns factorized

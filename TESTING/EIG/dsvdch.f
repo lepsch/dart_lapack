@@ -39,7 +39,7 @@
       // Get machine constants
 
       INFO = 0
-      IF( N.LE.0 ) RETURN
+      if (N.LE.0) RETURN;
       UNFL = DLAMCH( 'Safe minimum' )
       OVFL = DLAMCH( 'Overflow' )
       EPS = DLAMCH( 'Epsilon' )*DLAMCH( 'Base' )
@@ -65,20 +65,20 @@
       } // 10
       UPPER = ( ONE+EPS )*SVD( TPNT ) + UNFLEP
       LOWER = ( ONE-EPS )*SVD( BPNT ) - UNFLEP
-      IF( LOWER.LE.UNFLEP ) LOWER = -UPPER
+      if (LOWER.LE.UNFLEP) LOWER = -UPPER;
 
       // Begin loop merging overlapping intervals
 
       } // 20
-      IF( BPNT.EQ.N ) GO TO 30
+      if (BPNT.EQ.N) GO TO 30;
       TUPPR = ( ONE+EPS )*SVD( BPNT+1 ) + UNFLEP
-      IF( TUPPR.LT.LOWER ) GO TO 30
+      if (TUPPR.LT.LOWER) GO TO 30;
 
       // Merge
 
       BPNT = BPNT + 1
       LOWER = ( ONE-EPS )*SVD( BPNT ) - UNFLEP
-      IF( LOWER.LE.UNFLEP ) LOWER = -UPPER
+      if (LOWER.LE.UNFLEP) LOWER = -UPPER;
       GO TO 20
       } // 30
 
@@ -87,7 +87,7 @@
       dsvdct(N, S, E, LOWER, NUML );
       dsvdct(N, S, E, UPPER, NUMU );
       COUNT = NUMU - NUML
-      IF( LOWER.LT.ZERO ) COUNT = COUNT / 2
+      if (LOWER.LT.ZERO) COUNT = COUNT / 2;
       if ( COUNT.NE.BPNT-TPNT+1 ) {
 
          // Wrong number of singular values in interval
@@ -97,7 +97,7 @@
       }
       TPNT = BPNT + 1
       BPNT = TPNT
-      IF( TPNT.LE.N ) GO TO 10
+      if (TPNT.LE.N) GO TO 10;
       } // 40
       RETURN
 

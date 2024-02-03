@@ -143,7 +143,7 @@
       if ( IMIN .GT. 1 ) {
          DO WHILE( PHI(IMIN-1) .NE. ZERO )
             IMIN = IMIN - 1
-            IF  ( IMIN .LE. 1 ) EXIT
+            if (IMIN .LE. 1) EXIT;
          }
       }
 
@@ -575,14 +575,14 @@
          if (IMAX .GT. 1) {
             DO WHILE( PHI(IMAX-1) .EQ. ZERO )
                IMAX = IMAX - 1
-               IF (IMAX .LE. 1) EXIT
+               if (IMAX .LE. 1) EXIT;
             }
          }
-         IF( IMIN .GT. IMAX - 1 ) IMIN = IMAX - 1
+         if (IMIN .GT. IMAX - 1) IMIN = IMAX - 1;
          if (IMIN .GT. 1) {
             DO WHILE (PHI(IMIN-1) .NE. ZERO)
                 IMIN = IMIN - 1
-                IF (IMIN .LE. 1) EXIT
+                if (IMIN .LE. 1) EXIT;
             }
          }
 
@@ -607,9 +607,9 @@
             THETA(MINI) = THETA(I)
             THETA(I) = THETAMIN
             if ( COLMAJOR ) {
-               IF( WANTU1 ) CALL CSWAP( P, U1(1,I), 1, U1(1,MINI), 1 )                IF( WANTU2 ) CALL CSWAP( M-P, U2(1,I), 1, U2(1,MINI), 1 )                IF( WANTV1T ) CALL CSWAP( Q, V1T(I,1), LDV1T, V1T(MINI,1), LDV1T )                IF( WANTV2T ) CALL CSWAP( M-Q, V2T(I,1), LDV2T, V2T(MINI,1), LDV2T )
+               if (WANTU1) CALL CSWAP( P, U1(1,I), 1, U1(1,MINI), 1 )                IF( WANTU2 ) CALL CSWAP( M-P, U2(1,I), 1, U2(1,MINI), 1 )                IF( WANTV1T ) CALL CSWAP( Q, V1T(I,1), LDV1T, V1T(MINI,1), LDV1T )                IF( WANTV2T ) CALL CSWAP( M-Q, V2T(I,1), LDV2T, V2T(MINI,1), LDV2T );
             } else {
-               IF( WANTU1 ) CALL CSWAP( P, U1(I,1), LDU1, U1(MINI,1), LDU1 )                IF( WANTU2 ) CALL CSWAP( M-P, U2(I,1), LDU2, U2(MINI,1), LDU2 )                IF( WANTV1T ) CALL CSWAP( Q, V1T(1,I), 1, V1T(1,MINI), 1 )                IF( WANTV2T ) CALL CSWAP( M-Q, V2T(1,I), 1, V2T(1,MINI), 1 )
+               if (WANTU1) CALL CSWAP( P, U1(I,1), LDU1, U1(MINI,1), LDU1 )                IF( WANTU2 ) CALL CSWAP( M-P, U2(I,1), LDU2, U2(MINI,1), LDU2 )                IF( WANTV1T ) CALL CSWAP( Q, V1T(1,I), 1, V1T(1,MINI), 1 )                IF( WANTV2T ) CALL CSWAP( M-Q, V2T(1,I), 1, V2T(1,MINI), 1 );
             }
          }
 

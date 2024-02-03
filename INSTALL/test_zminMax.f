@@ -61,18 +61,18 @@
       for (i = 7; i <= 8; i++) { // 30
           nTests = nTests + 2
           R = MIN( X(i), Y(i) )
-          if( R .eq. R ) then
+          if (R .eq. R) then;
               nFailingTests = nFailingTests + 1
               WRITE( *, FMT = 9998 ) 'i',i, 'MIN', X(i), Y(i), R
           }
           R = MAX( X(i), Y(i) )
-          if( R .eq. R ) then
+          if (R .eq. R) then;
               nFailingTests = nFailingTests + 1
               WRITE( *, FMT = 9998 ) 'i',i, 'MAX', X(i), Y(i), R
           }
       } // 30
 
-      if( nFailingTests .gt. 0 ) then
+      if (nFailingTests .gt. 0) then;
          print *, "# ", nTests-nFailingTests, " tests out of ", nTests, " pass for intrinsic MIN and MAX,", nFailingTests," fail."
       else
          print *, "# All tests pass for intrinsic MIN and MAX."

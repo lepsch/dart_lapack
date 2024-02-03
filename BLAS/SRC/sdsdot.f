@@ -36,8 +36,8 @@
 
          KX = 1
          KY = 1
-         IF (INCX.LT.0) KX = 1 + (1-N)*INCX
-         IF (INCY.LT.0) KY = 1 + (1-N)*INCY
+         if (INCX.LT.0) KX = 1 + (1-N)*INCX;
+         if (INCY.LT.0) KY = 1 + (1-N)*INCY;
          for (I = 1; I <= N; I++) {
             DSDOT = DSDOT + DBLE(SX(KX))*DBLE(SY(KY))
             KX = KX + INCX

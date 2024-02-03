@@ -73,7 +73,7 @@
 
       // Test the error exits
 
-      IF( TSTERR ) CALL ZERRTZ( PATH, NOUT )
+      if (TSTERR) CALL ZERRTZ( PATH, NOUT );
       INFOT = 0
 
       for (IM = 1; IM <= NM; IM++) { // 70
@@ -145,7 +145,7 @@
 
                   for (K = 1; K <= NTESTS; K++) { // 40
                      if ( RESULT( K ).GE.THRESH ) {
-                        IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9999 )M, N, IMODE, K, RESULT( K )
+                        if (NFAIL.EQ.0 .AND. NERRS.EQ.0) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9999 )M, N, IMODE, K, RESULT( K );
                         NFAIL = NFAIL + 1
                      }
                   } // 40

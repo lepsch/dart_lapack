@@ -90,7 +90,7 @@
       // Quick return if possible
 
       SCALE = ONE
-      IF( M.EQ.0 .OR. N.EQ.0 ) RETURN
+      if (M.EQ.0 .OR. N.EQ.0) RETURN;
 
       // Use unblocked code for small problems or if insufficient
       // workspaces are provided

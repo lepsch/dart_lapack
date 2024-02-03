@@ -152,7 +152,7 @@
             sscal(M-Q-I+1, -Z1*Z4*SIN(THETA(I)), X12(I,I), LDX12 );
             saxpy(M-Q-I+1, Z2*Z4*COS(THETA(I)), X22(I,I), LDX22, X12(I,I), LDX12 );
 
-            IF( I .LT. Q ) PHI(I) = ATAN2( SNRM2( Q-I, X11(I,I+1), LDX11 ), SNRM2( M-Q-I+1, X12(I,I), LDX12 ) )
+            if (I .LT. Q) PHI(I) = ATAN2( SNRM2( Q-I, X11(I,I+1), LDX11 ), SNRM2( M-Q-I+1, X12(I,I), LDX12 ) );
 
             if ( I .LT. Q ) {
                if ( Q-I .EQ. 1 ) {
@@ -198,7 +198,7 @@
             if ( P .GT. I ) {
                slarf('R', P-I, M-Q-I+1, X12(I,I), LDX12, TAUQ2(I), X12(I+1,I), LDX12, WORK );
             }
-            IF( M-P-Q .GE. 1 ) CALL SLARF( 'R', M-P-Q, M-Q-I+1, X12(I,I), LDX12, TAUQ2(I), X22(Q+1,I), LDX22, WORK )
+            if (M-P-Q .GE. 1) CALL SLARF( 'R', M-P-Q, M-Q-I+1, X12(I,I), LDX12, TAUQ2(I), X22(Q+1,I), LDX22, WORK );
 
          }
 
@@ -269,7 +269,7 @@
             sscal(M-Q-I+1, -Z1*Z4*SIN(THETA(I)), X12(I,I), 1 );
             saxpy(M-Q-I+1, Z2*Z4*COS(THETA(I)), X22(I,I), 1, X12(I,I), 1 );
 
-            IF( I .LT. Q ) PHI(I) = ATAN2( SNRM2( Q-I, X11(I+1,I), 1 ), SNRM2( M-Q-I+1, X12(I,I), 1 ) )
+            if (I .LT. Q) PHI(I) = ATAN2( SNRM2( Q-I, X11(I+1,I), 1 ), SNRM2( M-Q-I+1, X12(I,I), 1 ) );
 
             if ( I .LT. Q ) {
                if ( Q-I .EQ. 1) {
@@ -307,7 +307,7 @@
             if ( P .GT. I ) {
                slarf('L', M-Q-I+1, P-I, X12(I,I), 1, TAUQ2(I), X12(I,I+1), LDX12, WORK );
             }
-            IF( M-P-Q .GE. 1 ) CALL SLARF( 'L', M-Q-I+1, M-P-Q, X12(I,I), 1, TAUQ2(I), X22(I,Q+1), LDX22, WORK )
+            if (M-P-Q .GE. 1) CALL SLARF( 'L', M-Q-I+1, M-P-Q, X12(I,I), 1, TAUQ2(I), X22(I,Q+1), LDX22, WORK );
 
          }
 

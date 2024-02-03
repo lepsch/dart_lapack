@@ -84,7 +84,7 @@
             K = 1
             DO WHILE ( K.LE.N )
                KP = IPIV( K )
-               IF( KP.NE.K ) CALL CSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB )
+               if (KP.NE.K) CALL CSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
                K = K + 1
             }
 
@@ -118,7 +118,7 @@
             K = N
             DO WHILE ( K.GE.1 )
                KP = IPIV( K )
-               IF( KP.NE.K ) CALL CSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB )
+               if (KP.NE.K) CALL CSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
                K = K - 1
             }
          }
@@ -136,7 +136,7 @@
             K = 1
             DO WHILE ( K.LE.N )
                KP = IPIV( K )
-               IF( KP.NE.K ) CALL CSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB )
+               if (KP.NE.K) CALL CSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
                K = K + 1
             }
 
@@ -170,7 +170,7 @@
             K = N
             DO WHILE ( K.GE.1 )
                KP = IPIV( K )
-               IF( KP.NE.K ) CALL CSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB )
+               if (KP.NE.K) CALL CSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
                K = K - 1
             }
          }

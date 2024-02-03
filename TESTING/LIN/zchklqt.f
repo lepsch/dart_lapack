@@ -51,7 +51,7 @@
 
       // Test the error exits
 
-      IF( TSTERR ) CALL ZERRLQT( PATH, NOUT )
+      if (TSTERR) CALL ZERRLQT( PATH, NOUT );
       INFOT = 0
 
       // Do for each value of M in MVAL.
@@ -80,7 +80,7 @@
 
                   for (T = 1; T <= NTESTS; T++) {
                      if ( RESULT( T ).GE.THRESH ) {
-                        IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9999 )M, N, NB, T, RESULT( T )
+                        if (NFAIL.EQ.0 .AND. NERRS.EQ.0) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9999 )M, N, NB, T, RESULT( T );
                         NFAIL = NFAIL + 1
                      }
                   }

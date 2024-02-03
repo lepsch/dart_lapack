@@ -155,8 +155,8 @@
 
       // Initialize Q and Z
 
-      IF( IWANTQ.EQ.3 ) CALL DLASET( 'FULL', N, N, ZERO, ONE, Q, LDQ )
-      IF( IWANTZ.EQ.3 ) CALL DLASET( 'FULL', N, N, ZERO, ONE, Z, LDZ )
+      if (IWANTQ.EQ.3) CALL DLASET( 'FULL', N, N, ZERO, ONE, Q, LDQ );
+      if (IWANTZ.EQ.3) CALL DLASET( 'FULL', N, N, ZERO, ONE, Z, LDZ );
 
       // Get machine constants
       SAFMIN = DLAMCH( 'SAFE MINIMUM' )

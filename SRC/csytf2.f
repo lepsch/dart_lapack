@@ -80,7 +80,7 @@
 
          // If K < 1, exit from loop
 
-         IF( K.LT.1 ) GO TO 70
+         if (K.LT.1) GO TO 70;
          KSTEP = 1
 
          // Determine rows and columns to be interchanged and whether
@@ -104,7 +104,7 @@
             // Column K is zero or underflow, or contains a NaN:
             // set INFO and continue
 
-            IF( INFO.EQ.0 ) INFO = K
+            if (INFO.EQ.0) INFO = K;
             KP = K
          } else {
             if ( ABSAKK.GE.ALPHA*COLMAX ) {
@@ -246,7 +246,7 @@
 
          // If K > N, exit from loop
 
-         IF( K.GT.N ) GO TO 70
+         if (K.GT.N) GO TO 70;
          KSTEP = 1
 
          // Determine rows and columns to be interchanged and whether
@@ -270,7 +270,7 @@
             // Column K is zero or underflow, or contains a NaN:
             // set INFO and continue
 
-            IF( INFO.EQ.0 ) INFO = K
+            if (INFO.EQ.0) INFO = K;
             KP = K
          } else {
             if ( ABSAKK.GE.ALPHA*COLMAX ) {
@@ -317,7 +317,7 @@
                // Interchange rows and columns KK and KP in the trailing
                // submatrix A(k:n,k:n)
 
-               IF( KP.LT.N ) CALL CSWAP( N-KP, A( KP+1, KK ), 1, A( KP+1, KP ), 1 )                CALL CSWAP( KP-KK-1, A( KK+1, KK ), 1, A( KP, KK+1 ), LDA )
+               if (KP.LT.N) CALL CSWAP( N-KP, A( KP+1, KK ), 1, A( KP+1, KP ), 1 )                CALL CSWAP( KP-KK-1, A( KK+1, KK ), 1, A( KP, KK+1 ), LDA );
                T = A( KK, KK )
                A( KK, KK ) = A( KP, KP )
                A( KP, KP ) = T

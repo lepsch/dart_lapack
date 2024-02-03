@@ -50,7 +50,7 @@
          // diagonal matrix diag(1,D1).
 
          D1 = ONE
-         IF( FB.NE.ZERO ) D1 = B / FB
+         if (FB.NE.ZERO) D1 = B / FB;
 
          // The SVD of real 2 by 2 triangular C
 
@@ -137,7 +137,7 @@
          // diagonal matrix diag(d1,1).
 
          D1 = ONE
-         IF( FC.NE.ZERO ) D1 = C / FC
+         if (FC.NE.ZERO) D1 = C / FC;
 
          // The SVD of real 2 by 2 triangular C
 

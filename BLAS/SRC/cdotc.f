@@ -22,7 +22,7 @@
       // ..
       CTEMP = (0.0,0.0)
       CDOTC = (0.0,0.0)
-      IF (N.LE.0) RETURN
+      if (N.LE.0) RETURN;
       if (INCX.EQ.1 .AND. INCY.EQ.1) {
 
          // code for both increments equal to 1
@@ -37,8 +37,8 @@
 
          IX = 1
          IY = 1
-         IF (INCX.LT.0) IX = (-N+1)*INCX + 1
-         IF (INCY.LT.0) IY = (-N+1)*INCY + 1
+         if (INCX.LT.0) IX = (-N+1)*INCX + 1;
+         if (INCY.LT.0) IY = (-N+1)*INCY + 1;
          for (I = 1; I <= N; I++) {
             CTEMP = CTEMP + CONJG(CX(IX))*CY(IY)
             IX = IX + INCX

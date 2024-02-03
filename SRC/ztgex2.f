@@ -49,7 +49,7 @@
 
       // Quick return if possible
 
-      IF( N.LE.1 ) RETURN
+      if (N.LE.1) RETURN;
 
       M = LDST
       WEAK = .FALSE.
@@ -138,7 +138,7 @@
          zlassq(M*M, WORK(M*M+1), 1, SCALE, SUM );
          SB = SCALE*SQRT( SUM )
          STRONG = SA.LE.THRESHA .AND. SB.LE.THRESHB
-         IF( .NOT.STRONG ) GO TO 20
+         if (.NOT.STRONG) GO TO 20;
       }
 
       // If the swap is accepted ("weakly" and "strongly"), apply the
@@ -155,7 +155,7 @@
 
       // Accumulate transformations into Q and Z if requested.
 
-      IF( WANTZ ) CALL ZROT( N, Z( 1, J1 ), 1, Z( 1, J1+1 ), 1, CZ, DCONJG( SZ ) )       IF( WANTQ ) CALL ZROT( N, Q( 1, J1 ), 1, Q( 1, J1+1 ), 1, CQ, DCONJG( SQ ) )
+      if (WANTZ) CALL ZROT( N, Z( 1, J1 ), 1, Z( 1, J1+1 ), 1, CZ, DCONJG( SZ ) )       IF( WANTQ ) CALL ZROT( N, Q( 1, J1 ), 1, Q( 1, J1+1 ), 1, CQ, DCONJG( SQ ) );
 
       // Exit with INFO = 0 if swap was successfully performed.
 

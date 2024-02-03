@@ -163,7 +163,7 @@
                      MINRWRK = MAX( 7, LRWQP3, LRWSVDJ )
                   }
               }
-              IF ( ROWPIV .OR. L2TRAN ) MINIWRK = MINIWRK + M
+              if (ROWPIV .OR. L2TRAN) MINIWRK = MINIWRK + M;
           } else if ( RSVEC .AND. (.NOT.LSVEC) ) {
              // .. minimal and optimal sizes of the complex workspace if the
              // singular values and the right singular vectors are requested
@@ -196,7 +196,7 @@
                      MINRWRK = MAX( 7, LRWQP3, LRWSVDJ )
                   }
              }
-             IF ( ROWPIV .OR. L2TRAN ) MINIWRK = MINIWRK + M
+             if (ROWPIV .OR. L2TRAN) MINIWRK = MINIWRK + M;
           } else if ( LSVEC .AND. (.NOT.RSVEC) ) {
              // .. minimal and optimal sizes of the complex workspace if the
              // singular values and the left singular vectors are requested
@@ -229,7 +229,7 @@
                     MINRWRK = MAX( 7, LRWQP3, LRWSVDJ )
                  }
              }
-             IF ( ROWPIV .OR. L2TRAN ) MINIWRK = MINIWRK + M
+             if (ROWPIV .OR. L2TRAN) MINIWRK = MINIWRK + M;
           } else {
              // .. minimal and optimal sizes of the complex workspace if the
              // full SVD is requested
@@ -240,14 +240,14 @@
                     MINWRK = MAX( N+LWQP3,        2*N+N**2+LWCON,  2*N+LWQRF,         2*N+LWQP3, 2*N+N**2+N+LWLQF,  2*N+N**2+N+N**2+LWCON, 2*N+N**2+N+LWSVDJ, 2*N+N**2+N+LWSVDJV, 2*N+N**2+N+LWUNMQR,2*N+N**2+N+LWUNMLQ, N+N**2+LWSVDJ,      N+LWUNMQRM )
                  }
                  MINIWRK = MINIWRK + N
-                 IF ( ROWPIV .OR. L2TRAN ) MINIWRK = MINIWRK + M
+                 if (ROWPIV .OR. L2TRAN) MINIWRK = MINIWRK + M;
              } else {
                  if ( ERREST ) {
                     MINWRK = MAX( N+LWQP3, N+LWCON, 2*N+LWQRF,  2*N+N**2+LWSVDJV, 2*N+N**2+N+LWUNMQR, N+LWUNMQRM )
                  } else {
                     MINWRK = MAX( N+LWQP3, 2*N+LWQRF,  2*N+N**2+LWSVDJV, 2*N+N**2+N+LWUNMQR, N+LWUNMQRM )
                  }
-                 IF ( ROWPIV .OR. L2TRAN ) MINIWRK = MINIWRK + M
+                 if (ROWPIV .OR. L2TRAN) MINIWRK = MINIWRK + M;
              }
              if ( LQUERY ) {
                  zunmqr('L', 'N', M, N, N, A, LDA, CDUMMY, U, LDU, CDUMMY, -1, IERR );
@@ -364,7 +364,7 @@
          }
       } // 1874
 
-      IF ( NOSCAL ) SCALEM = ONE
+      if (NOSCAL) SCALEM = ONE;
 
       AAPP = ZERO
       AAQQ = BIG
@@ -376,11 +376,11 @@
       // Quick return for zero M x N matrix
 * #:)
       if ( AAPP .EQ. ZERO ) {
-         IF ( LSVEC ) CALL ZLASET( 'G', M, N1, CZERO, CONE, U, LDU )
-         IF ( RSVEC ) CALL ZLASET( 'G', N, N,  CZERO, CONE, V, LDV )
+         if (LSVEC) CALL ZLASET( 'G', M, N1, CZERO, CONE, U, LDU );
+         if (RSVEC) CALL ZLASET( 'G', N, N,  CZERO, CONE, V, LDV );
          RWORK(1) = ONE
          RWORK(2) = ONE
-         IF ( ERREST ) RWORK(3) = ONE
+         if (ERREST) RWORK(3) = ONE;
          if ( LSVEC .AND. RSVEC ) {
             RWORK(4) = ONE
             RWORK(5) = ONE
@@ -443,7 +443,7 @@
          }
          IWORK(3) = 0
          IWORK(4) = -1
-         IF ( ERREST ) RWORK(3) = ONE
+         if (ERREST) RWORK(3) = ONE;
          if ( LSVEC .AND. RSVEC ) {
             RWORK(4) = ONE
             RWORK(5) = ONE
@@ -508,7 +508,7 @@
          ENTRA = ZERO
          for (p = 1; p <= N; p++) { // 1113
             BIG1  = ( ( SVA(p) / XSC )**2 ) * TEMP1
-            IF ( BIG1 .NE. ZERO ) ENTRA = ENTRA + BIG1 * DLOG(BIG1)
+            if (BIG1 .NE. ZERO) ENTRA = ENTRA + BIG1 * DLOG(BIG1);
          } // 1113
          ENTRA = - ENTRA / DLOG(DBLE(N))
 
@@ -521,7 +521,7 @@
          ENTRAT = ZERO
          for (p = 1; p <= M; p++) { // 1114
             BIG1 = ( ( RWORK(p) / XSC )**2 ) * TEMP1
-            IF ( BIG1 .NE. ZERO ) ENTRAT = ENTRAT + BIG1 * DLOG(BIG1)
+            if (BIG1 .NE. ZERO) ENTRAT = ENTRAT + BIG1 * DLOG(BIG1);
          } // 1114
          ENTRAT = - ENTRAT / DLOG(DBLE(M))
 
@@ -559,7 +559,7 @@
             KILL   = LSVEC
             LSVEC  = RSVEC
             RSVEC  = KILL
-            IF ( LSVEC ) N1 = N
+            if (LSVEC) N1 = N;
 
             ROWPIV = .TRUE.
          }
@@ -804,7 +804,7 @@
             zcopy(N-p, A(p,p+1), LDA, A(p+1,p), 1 );
             zlacgv(N-p+1, A(p,p), 1 );
          } // 1946
-         IF ( NR .EQ. N ) A(N,N) = CONJG(A(N,N))
+         if (NR .EQ. N) A(N,N) = CONJG(A(N,N));
 
          // The following two DO-loops introduce small relative perturbation
          // into the strict upper triangle of the lower triangular matrix.
@@ -973,7 +973,7 @@
 
          zunmqr('L', 'N', M, N1, N, A, LDA, CWORK, U, LDU, CWORK(N+1), LWORK-N, IERR );
 
-         IF ( ROWPIV ) CALL ZLASWP( N1, U, LDU, 1, M-1, IWORK(IWOFF+1), -1 )
+         if (ROWPIV) CALL ZLASWP( N1, U, LDU, 1, M-1, IWORK(IWOFF+1), -1 );
 
          for (p = 1; p <= N1; p++) { // 1974
             XSC = ONE / DZNRM2( M, U(1,p), 1 )
@@ -1023,7 +1023,7 @@
                   for (p = 1; p <= N; p++) { // 2968
                      IF ( ( p .GT. q ) .AND. ( ABS(V(p,q)) .LE. TEMP1 ) .OR. ( p .LT. q ) )
       // $                   V(p,q) = TEMP1 * ( V(p,q) / ABS(V(p,q)) ) V(p,q) = CTEMP
-                     IF ( p .LT. q ) V(p,q) = - V(p,q)
+                     if (p .LT. q) V(p,q) = - V(p,q);
                   } // 2968
                } // 2969
             } else {
@@ -1067,7 +1067,7 @@
                   } // 3959
                }
 
-               IF ( NR .NE. N ) CALL ZLACPY( 'A', N, NR, V, LDV, CWORK(2*N+1), N )
+               if (NR .NE. N) CALL ZLACPY( 'A', N, NR, V, LDV, CWORK(2*N+1), N );
                // .. save ...
 
             // .. this transposed copy should be better than naive
@@ -1298,7 +1298,7 @@
             // If the initial QRF is computed with row pivoting, the left
             // singular vectors must be adjusted.
 
-            IF ( ROWPIV ) CALL ZLASWP( N1, U, LDU, 1, M-1, IWORK(IWOFF+1), -1 )
+            if (ROWPIV) CALL ZLASWP( N1, U, LDU, 1, M-1, IWORK(IWOFF+1), -1 );
 
          } else {
 
@@ -1355,7 +1355,7 @@
                IF ( (XSC .LT. (ONE-TEMP1)) .OR. (XSC .GT. (ONE+TEMP1)) ) CALL ZDSCAL( M, XSC, U(1,p), 1 )
             } // 6973
 
-            IF ( ROWPIV ) CALL ZLASWP( N1, U, LDU, 1, M-1, IWORK(IWOFF+1), -1 )
+            if (ROWPIV) CALL ZLASWP( N1, U, LDU, 1, M-1, IWORK(IWOFF+1), -1 );
 
          }
 
@@ -1386,7 +1386,7 @@
                for (p = 1; p <= N; p++) { // 5968
                   IF ( ( p .GT. q ) .AND. ( ABS(V(p,q)) .LE. TEMP1 ) .OR. ( p .LT. q ) )
       // $                V(p,q) = TEMP1 * ( V(p,q) / ABS(V(p,q)) ) V(p,q) = CTEMP
-                  IF ( p .LT. q ) V(p,q) = - V(p,q)
+                  if (p .LT. q) V(p,q) = - V(p,q);
                } // 5968
             } // 5969
          } else {
@@ -1452,7 +1452,7 @@
 
          zunmqr('L', 'N', M, N1, N, A, LDA, CWORK, U, LDU, CWORK(N+1), LWORK-N, IERR );
 
-            IF ( ROWPIV ) CALL ZLASWP( N1, U, LDU, 1, M-1, IWORK(IWOFF+1), -1 )
+            if (ROWPIV) CALL ZLASWP( N1, U, LDU, 1, M-1, IWORK(IWOFF+1), -1 );
 
 
          }
@@ -1482,7 +1482,7 @@
 
       RWORK(1) = USCAL2 * SCALEM
       RWORK(2) = USCAL1
-      IF ( ERREST ) RWORK(3) = SCONDA
+      if (ERREST) RWORK(3) = SCONDA;
       if ( LSVEC .AND. RSVEC ) {
          RWORK(4) = CONDR1
          RWORK(5) = CONDR2

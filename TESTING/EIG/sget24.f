@@ -82,7 +82,7 @@
          RESULT( I ) = -ONE
       } // 10
 
-      IF( N.EQ.0 ) RETURN
+      if (N.EQ.0) RETURN;
 
       // Important constants
 
@@ -227,7 +227,7 @@
                   IF( ( SSLECT( WR( I+1 ), WI( I+1 ) ) .OR. SSLECT( WR( I+1 ), -WI( I+1 ) ) ) .AND. ( .NOT.( SSLECT( WR( I ), WI( I ) ) .OR. SSLECT( WR( I ), -WI( I ) ) ) ) .AND. IINFO.NE.N+2 )RESULT( 13 ) = ULPINV
                }
             } // 110
-            IF( SDIM.NE.KNTEIG ) RESULT( 13 ) = ULPINV
+            if (SDIM.NE.KNTEIG) RESULT( 13 ) = ULPINV;
          }
 
       } // 120
@@ -264,7 +264,7 @@
                IF( H( I, J ).NE.HT( I, J ) ) RESULT( 11 ) = ULPINV                IF( VS( I, J ).NE.VS1( I, J ) ) RESULT( 12 ) = ULPINV
             } // 130
          } // 140
-         IF( SDIM.NE.SDIM1 ) RESULT( 13 ) = ULPINV
+         if (SDIM.NE.SDIM1) RESULT( 13 ) = ULPINV;
 
          // Compute both RCONDE and RCONDV without VS, and compare
 
@@ -284,7 +284,7 @@
 
          // Perform tests (14) and (15)
 
-         IF( RCNDE1.NE.RCONDE ) RESULT( 14 ) = ULPINV          IF( RCNDV1.NE.RCONDV ) RESULT( 15 ) = ULPINV
+         if (RCNDE1.NE.RCONDE) RESULT( 14 ) = ULPINV          IF( RCNDV1.NE.RCONDV ) RESULT( 15 ) = ULPINV;
 
          // Perform tests (10), (11), (12), and (13)
 
@@ -294,7 +294,7 @@
                IF( H( I, J ).NE.HT( I, J ) ) RESULT( 11 ) = ULPINV                IF( VS( I, J ).NE.VS1( I, J ) ) RESULT( 12 ) = ULPINV
             } // 150
          } // 160
-         IF( SDIM.NE.SDIM1 ) RESULT( 13 ) = ULPINV
+         if (SDIM.NE.SDIM1) RESULT( 13 ) = ULPINV;
 
          // Compute RCONDE with VS, and compare
 
@@ -313,7 +313,7 @@
 
          // Perform test (14)
 
-         IF( RCNDE1.NE.RCONDE ) RESULT( 14 ) = ULPINV
+         if (RCNDE1.NE.RCONDE) RESULT( 14 ) = ULPINV;
 
          // Perform tests (10), (11), (12), and (13)
 
@@ -323,7 +323,7 @@
                IF( H( I, J ).NE.HT( I, J ) ) RESULT( 11 ) = ULPINV                IF( VS( I, J ).NE.VS1( I, J ) ) RESULT( 12 ) = ULPINV
             } // 170
          } // 180
-         IF( SDIM.NE.SDIM1 ) RESULT( 13 ) = ULPINV
+         if (SDIM.NE.SDIM1) RESULT( 13 ) = ULPINV;
 
          // Compute RCONDE without VS, and compare
 
@@ -342,7 +342,7 @@
 
          // Perform test (14)
 
-         IF( RCNDE1.NE.RCONDE ) RESULT( 14 ) = ULPINV
+         if (RCNDE1.NE.RCONDE) RESULT( 14 ) = ULPINV;
 
          // Perform tests (10), (11), (12), and (13)
 
@@ -352,7 +352,7 @@
                IF( H( I, J ).NE.HT( I, J ) ) RESULT( 11 ) = ULPINV                IF( VS( I, J ).NE.VS1( I, J ) ) RESULT( 12 ) = ULPINV
             } // 190
          } // 200
-         IF( SDIM.NE.SDIM1 ) RESULT( 13 ) = ULPINV
+         if (SDIM.NE.SDIM1) RESULT( 13 ) = ULPINV;
 
          // Compute RCONDV with VS, and compare
 
@@ -371,7 +371,7 @@
 
          // Perform test (15)
 
-         IF( RCNDV1.NE.RCONDV ) RESULT( 15 ) = ULPINV
+         if (RCNDV1.NE.RCONDV) RESULT( 15 ) = ULPINV;
 
          // Perform tests (10), (11), (12), and (13)
 
@@ -381,7 +381,7 @@
                IF( H( I, J ).NE.HT( I, J ) ) RESULT( 11 ) = ULPINV                IF( VS( I, J ).NE.VS1( I, J ) ) RESULT( 12 ) = ULPINV
             } // 210
          } // 220
-         IF( SDIM.NE.SDIM1 ) RESULT( 13 ) = ULPINV
+         if (SDIM.NE.SDIM1) RESULT( 13 ) = ULPINV;
 
          // Compute RCONDV without VS, and compare
 
@@ -400,7 +400,7 @@
 
          // Perform test (15)
 
-         IF( RCNDV1.NE.RCONDV ) RESULT( 15 ) = ULPINV
+         if (RCNDV1.NE.RCONDV) RESULT( 15 ) = ULPINV;
 
          // Perform tests (10), (11), (12), and (13)
 
@@ -410,7 +410,7 @@
                IF( H( I, J ).NE.HT( I, J ) ) RESULT( 11 ) = ULPINV                IF( VS( I, J ).NE.VS1( I, J ) ) RESULT( 12 ) = ULPINV
             } // 230
          } // 240
-         IF( SDIM.NE.SDIM1 ) RESULT( 13 ) = ULPINV
+         if (SDIM.NE.SDIM1) RESULT( 13 ) = ULPINV;
 
       }
 
@@ -474,7 +474,7 @@
 
          ANORM = SLANGE( '1', N, N, A, LDA, WORK )
          V = MAX( REAL( N )*EPS*ANORM, SMLNUM )
-         IF( ANORM.EQ.ZERO ) V = ONE
+         if (ANORM.EQ.ZERO) V = ONE;
          if ( V.GT.RCONDV ) {
             TOL = ONE
          } else {

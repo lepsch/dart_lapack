@@ -63,7 +63,7 @@
                   TTYPE = -2
                } else {
                   S = ZERO
-                  IF( DN.GT.B1 ) S = DN - B1                   IF( A2.GT.( B1+B2 ) ) S = MIN( S, A2-( B1+B2 ) )
+                  if (DN.GT.B1) S = DN - B1                   IF( A2.GT.( B1+B2 ) ) S = MIN( S, A2-( B1+B2 ) );
                   S = MAX( S, THIRD*DMIN )
                   TTYPE = -3
                }
@@ -93,7 +93,7 @@
 
                A2 = A2 + B2
                DO 10 I4 = NP, 4*I0 - 1 + PP, -4
-                  IF( B2.EQ.ZERO ) GO TO 20
+                  if (B2.EQ.ZERO) GO TO 20;
                   B1 = B2
                   IF( Z( I4 ) .GT. Z( I4-2 ) ) RETURN
                   B2 = B2*( Z( I4 ) / Z( I4-2 ) )
@@ -105,7 +105,7 @@
 
                // Rayleigh quotient residual bound.
 
-               IF( A2.LT.CNST1 ) S = GAM*( ONE-SQRT( A2 ) ) / ( ONE+A2 )
+               if (A2.LT.CNST1) S = GAM*( ONE-SQRT( A2 ) ) / ( ONE+A2 );
             }
          } else if ( DMIN.EQ.DN2 ) {
 
@@ -129,7 +129,7 @@
                B2 = Z( NN-13 ) / Z( NN-15 )
                A2 = A2 + B2
                DO 30 I4 = NN - 17, 4*I0 - 1 + PP, -4
-                  IF( B2.EQ.ZERO ) GO TO 40
+                  if (B2.EQ.ZERO) GO TO 40;
                   B1 = B2
                   IF( Z( I4 ) .GT. Z( I4-2 ) ) RETURN
                   B2 = B2*( Z( I4 ) / Z( I4-2 ) )
@@ -140,7 +140,7 @@
                A2 = CNST3*A2
             }
 
-            IF( A2.LT.CNST1 ) S = GAM*( ONE-SQRT( A2 ) ) / ( ONE+A2 )
+            if (A2.LT.CNST1) S = GAM*( ONE-SQRT( A2 ) ) / ( ONE+A2 );
          } else {
 
             // Case 6, no information to guide us.
@@ -169,7 +169,7 @@
             IF( Z( NN-5 ).GT.Z( NN-7 ) ) RETURN
             B1 = Z( NN-5 ) / Z( NN-7 )
             B2 = B1
-            IF( B2.EQ.ZERO ) GO TO 60
+            if (B2.EQ.ZERO) GO TO 60;
             DO 50 I4 = 4*N0 - 9 + PP, 4*I0 - 1 + PP, -4
                A2 = B1
                IF( Z( I4 ).GT.Z( I4-2 ) ) RETURN
@@ -192,7 +192,7 @@
             // Case 9.
 
             S = QURTR*DMIN1
-            IF( DMIN1.EQ.DN1 ) S = HALF*DMIN1
+            if (DMIN1.EQ.DN1) S = HALF*DMIN1;
             TTYPE = -9
          }
 
@@ -208,12 +208,12 @@
             IF( Z( NN-5 ).GT.Z( NN-7 ) ) RETURN
             B1 = Z( NN-5 ) / Z( NN-7 )
             B2 = B1
-            IF( B2.EQ.ZERO ) GO TO 80
+            if (B2.EQ.ZERO) GO TO 80;
             DO 70 I4 = 4*N0 - 9 + PP, 4*I0 - 1 + PP, -4
                IF( Z( I4 ).GT.Z( I4-2 ) ) RETURN
                B1 = B1*( Z( I4 ) / Z( I4-2 ) )
                B2 = B2 + B1
-               IF( HUNDRD*B1.LT.B2 ) GO TO 80
+               if (HUNDRD*B1.LT.B2) GO TO 80;
             } // 70
             } // 80
             B2 = SQRT( CNST3*B2 )

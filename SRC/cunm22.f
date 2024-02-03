@@ -52,7 +52,7 @@
          NQ = N
       }
       NW = NQ
-      IF( N1.EQ.0 .OR. N2.EQ.0 ) NW = 1
+      if (N1.EQ.0 .OR. N2.EQ.0) NW = 1;
       if ( .NOT.LEFT .AND. .NOT.LSAME( SIDE, 'R' ) ) {
          INFO = -1
       } else if ( .NOT.LSAME( TRANS, 'N' ) .AND. .NOT.LSAME( TRANS, 'C' ) ) {

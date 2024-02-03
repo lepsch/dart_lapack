@@ -31,7 +31,7 @@
       IF( ( N0-I0-1 ).LE.0 ) RETURN
 
       DTHRESH = EPS*(SIGMA+TAU)
-      IF( TAU.LT.DTHRESH*HALF ) TAU = ZERO
+      if (TAU.LT.DTHRESH*HALF) TAU = ZERO;
       if ( TAU.NE.ZERO ) {
       J4 = 4*I0 + PP - 3
       EMIN = Z( J4+4 )
@@ -156,7 +156,7 @@
                   Z( J4-2 ) = D + Z( J4-1 )
                   TEMP = Z( J4+1 ) / Z( J4-2 )
                   D = D*TEMP - TAU
-                  IF( D.LT.DTHRESH ) D = ZERO
+                  if (D.LT.DTHRESH) D = ZERO;
                   DMIN = MIN( DMIN, D )
                   Z( J4 ) = Z( J4-1 )*TEMP
                   EMIN = MIN( Z( J4 ), EMIN )
@@ -166,7 +166,7 @@
                   Z( J4-3 ) = D + Z( J4 )
                   TEMP = Z( J4+2 ) / Z( J4-3 )
                   D = D*TEMP - TAU
-                  IF( D.LT.DTHRESH ) D = ZERO
+                  if (D.LT.DTHRESH) D = ZERO;
                   DMIN = MIN( DMIN, D )
                   Z( J4-1 ) = Z( J4 )*TEMP
                   EMIN = MIN( Z( J4-1 ), EMIN )
@@ -205,7 +205,7 @@
                      Z( J4 ) = Z( J4+1 )*( Z( J4-1 ) / Z( J4-2 ) )
                      D = Z( J4+1 )*( D / Z( J4-2 ) ) - TAU
                   }
-                  IF( D.LT.DTHRESH) D = ZERO
+                  if (D.LT.DTHRESH) D = ZERO;
                   DMIN = MIN( DMIN, D )
                   EMIN = MIN( EMIN, Z( J4 ) )
                } // 70
@@ -218,7 +218,7 @@
                      Z( J4-1 ) = Z( J4+2 )*( Z( J4 ) / Z( J4-3 ) )
                      D = Z( J4+2 )*( D / Z( J4-3 ) ) - TAU
                   }
-                  IF( D.LT.DTHRESH) D = ZERO
+                  if (D.LT.DTHRESH) D = ZERO;
                   DMIN = MIN( DMIN, D )
                   EMIN = MIN( EMIN, Z( J4-1 ) )
                } // 80

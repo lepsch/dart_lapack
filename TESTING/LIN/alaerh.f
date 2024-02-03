@@ -30,7 +30,7 @@
       // ..
       // .. Executable Statements ..
 
-      IF( INFO.EQ.0 ) RETURN
+      if (INFO.EQ.0) RETURN;
       P2 = PATH( 2: 3 )
       C3 = SUBNAM( 4: 6 )
 
@@ -58,7 +58,7 @@
             } else {
                WRITE( NOUT, FMT = 9975 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, M, N, N5, IMAT
             }
-            IF( INFO.NE.0 ) WRITE( NOUT, FMT = 9949 )
+            if (INFO.NE.0) WRITE( NOUT, FMT = 9949 );
 
          } else if ( LSAMEN( 3, C3, 'SV ' ) ) {
 
@@ -111,7 +111,7 @@
             } else {
                WRITE( NOUT, FMT = 9976 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, M, N, KL, KU, N5, IMAT
             }
-            IF( INFO.NE.0 ) WRITE( NOUT, FMT = 9949 )
+            if (INFO.NE.0) WRITE( NOUT, FMT = 9949 );
 
          } else if ( LSAMEN( 3, C3, 'SV ' ) ) {
 
@@ -152,7 +152,7 @@
             } else {
                WRITE( NOUT, FMT = 9973 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, N, IMAT
             }
-            IF( INFO.NE.0 ) WRITE( NOUT, FMT = 9949 )
+            if (INFO.NE.0) WRITE( NOUT, FMT = 9949 );
 
          } else if ( LSAMEN( 3, C3, 'SV ' ) ) {
 
@@ -190,7 +190,7 @@
             } else {
                WRITE( NOUT, FMT = 9956 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, UPLO, M, N5, IMAT
             }
-            IF( INFO.NE.0 ) WRITE( NOUT, FMT = 9949 )
+            if (INFO.NE.0) WRITE( NOUT, FMT = 9949 );
 
          } else if ( LSAMEN( 3, C3, 'SV ' ) ) {
 
@@ -232,7 +232,7 @@
             } else {
                WRITE( NOUT, FMT = 9956 )SUBNAM, INFO, UPLO, M, N5, IMAT
             }
-            IF( INFO.NE.0 ) WRITE( NOUT, FMT = 9949 )
+            if (INFO.NE.0) WRITE( NOUT, FMT = 9949 );
 
          } else if ( LSAMEN( 3, C3, 'SV ' ) ) {
 
@@ -289,7 +289,7 @@
             } else {
                WRITE( NOUT, FMT = 9956 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, UPLO, M, N5, IMAT
             }
-            IF( INFO.NE.0 ) WRITE( NOUT, FMT = 9949 )
+            if (INFO.NE.0) WRITE( NOUT, FMT = 9949 );
 
          } else if ( LSAMEN( 2, C3, 'SV' ) ) {
 
@@ -327,7 +327,7 @@
             } else {
                WRITE( NOUT, FMT = 9960 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, UPLO, M, IMAT
             }
-            IF( INFO.NE.0 ) WRITE( NOUT, FMT = 9949 )
+            if (INFO.NE.0) WRITE( NOUT, FMT = 9949 );
 
          } else if ( LSAMEN( 3, C3, 'SV ' ) ) {
 
@@ -365,7 +365,7 @@
             } else {
                WRITE( NOUT, FMT = 9958 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, UPLO, M, KL, N5, IMAT
             }
-            IF( INFO.NE.0 ) WRITE( NOUT, FMT = 9949 )
+            if (INFO.NE.0) WRITE( NOUT, FMT = 9949 );
 
          } else if ( LSAMEN( 3, C3, 'SV ' ) ) {
 
@@ -402,7 +402,7 @@
             } else {
                WRITE( NOUT, FMT = 9973 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, N, IMAT
             }
-            IF( INFO.NE.0 ) WRITE( NOUT, FMT = 9949 )
+            if (INFO.NE.0) WRITE( NOUT, FMT = 9949 );
 
          } else if ( LSAMEN( 3, C3, 'SV ' ) ) {
 

@@ -59,7 +59,7 @@
 
       // Quick return if possible
 
-      IF( M.EQ.0 .OR. N.EQ.0 ) RETURN
+      if (M.EQ.0 .OR. N.EQ.0) RETURN;
 
       // Gaussian elimination with partial pivoting
 
@@ -97,7 +97,7 @@
 
             // Apply interchange to columns J to JU.
 
-            IF( JP.NE.1 ) CALL DSWAP( JU-J+1, AB( KV+JP, J ), LDAB-1, AB( KV+1, J ), LDAB-1 )
+            if (JP.NE.1) CALL DSWAP( JU-J+1, AB( KV+JP, J ), LDAB-1, AB( KV+1, J ), LDAB-1 );
 
             if ( KM.GT.0 ) {
 
@@ -107,14 +107,14 @@
 
                // Update trailing submatrix within the band.
 
-               IF( JU.GT.J ) CALL DGER( KM, JU-J, -ONE, AB( KV+2, J ), 1, AB( KV, J+1 ), LDAB-1, AB( KV+1, J+1 ), LDAB-1 )
+               if (JU.GT.J) CALL DGER( KM, JU-J, -ONE, AB( KV+2, J ), 1, AB( KV, J+1 ), LDAB-1, AB( KV+1, J+1 ), LDAB-1 );
             }
          } else {
 
             // If pivot is zero, set INFO to the index of the pivot
             // unless a zero pivot has already been found.
 
-            IF( INFO.EQ.0 ) INFO = J
+            if (INFO.EQ.0) INFO = J;
          }
       } // 40
       RETURN

@@ -415,7 +415,7 @@
          B = DLAMC3( THIRD, -HALF )
          B = DLAMC3( B, SIXTH )
          B = ABS( B )
-         IF( B.LT.LEPS ) B = LEPS
+         if (B.LT.LEPS) B = LEPS;
 
          LEPS = 1
 
@@ -432,7 +432,7 @@
          }
 *+       END WHILE
 
-         IF( A.LT.LEPS ) LEPS = A
+         if (A.LT.LEPS) LEPS = A;
 
          // Computation of EPS complete.
 
@@ -818,10 +818,10 @@
       Y = ZERO
       for (I = 1; I <= P; I++) { // 20
          Z = Z*RECBAS
-         IF( Y.LT.ONE ) OLDY = Y
+         if (Y.LT.ONE) OLDY = Y;
          Y = DLAMC3( Y, Z )
       } // 20
-      IF( Y.GE.ONE ) Y = OLDY
+      if (Y.GE.ONE) Y = OLDY;
 
       // Now multiply by BETA**EMAX to get RMAX.
 

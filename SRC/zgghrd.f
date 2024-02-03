@@ -95,11 +95,11 @@
 
       // Initialize Q and Z if desired.
 
-      IF( ICOMPQ.EQ.3 ) CALL ZLASET( 'Full', N, N, CZERO, CONE, Q, LDQ )       IF( ICOMPZ.EQ.3 ) CALL ZLASET( 'Full', N, N, CZERO, CONE, Z, LDZ )
+      if (ICOMPQ.EQ.3) CALL ZLASET( 'Full', N, N, CZERO, CONE, Q, LDQ )       IF( ICOMPZ.EQ.3 ) CALL ZLASET( 'Full', N, N, CZERO, CONE, Z, LDZ );
 
       // Quick return if possible
 
-      IF( N.LE.1 ) RETURN
+      if (N.LE.1) RETURN;
 
       // Zero out lower triangle of B
 

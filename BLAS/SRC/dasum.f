@@ -22,7 +22,7 @@
       // ..
       DASUM = 0.0d0
       DTEMP = 0.0d0
-      IF (N.LE.0 .OR. INCX.LE.0) RETURN
+      if (N.LE.0 .OR. INCX.LE.0) RETURN;
       if (INCX.EQ.1) {
          // code for increment equal to 1
 

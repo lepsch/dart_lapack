@@ -58,7 +58,7 @@
 
       // Quick return if N.LE.0.
 
-      IF( N.LE.0 ) RETURN
+      if (N.LE.0) RETURN;
 
       // Call CLATB4 to set parameters for CLATMS.
 
@@ -208,7 +208,7 @@
          if ( UPPER ) {
             if ( N.GT.3 ) {
                ccopy(N-3, WORK, 1, A( 2, 3 ), LDA+1 );
-               IF( N.GT.4 ) CALL CCOPY( N-4, WORK( N+1 ), 1, A( 2, 4 ), LDA+1 )
+               if (N.GT.4) CALL CCOPY( N-4, WORK( N+1 ), 1, A( 2, 4 ), LDA+1 );
             }
             for (J = 2; J <= N - 1; J++) { // 100
                A( 1, J ) = Y
@@ -218,7 +218,7 @@
          } else {
             if ( N.GT.3 ) {
                ccopy(N-3, WORK, 1, A( 3, 2 ), LDA+1 );
-               IF( N.GT.4 ) CALL CCOPY( N-4, WORK( N+1 ), 1, A( 4, 2 ), LDA+1 )
+               if (N.GT.4) CALL CCOPY( N-4, WORK( N+1 ), 1, A( 4, 2 ), LDA+1 );
             }
             for (J = 2; J <= N - 1; J++) { // 110
                A( J, 1 ) = Y
@@ -237,11 +237,11 @@
 
                // Multiply by [ c  s; -conjg(s)  c] on the left.
 
-               IF( N.GT.J+1 ) CALL CROT( N-J-1, A( J, J+2 ), LDA, A( J+1, J+2 ), LDA, C, S )
+               if (N.GT.J+1) CALL CROT( N-J-1, A( J, J+2 ), LDA, A( J+1, J+2 ), LDA, C, S );
 
                // Multiply by [-c -s;  conjg(s) -c] on the right.
 
-               IF( J.GT.1 ) CALL CROT( J-1, A( 1, J+1 ), 1, A( 1, J ), 1, -C, -S )
+               if (J.GT.1) CALL CROT( J-1, A( 1, J+1 ), 1, A( 1, J ), 1, -C, -S );
 
                // Negate A(J,J+1).
 
@@ -256,11 +256,11 @@
 
                // Multiply by [ c -s;  conjg(s) c] on the right.
 
-               IF( N.GT.J+1 ) CALL CROT( N-J-1, A( J+2, J+1 ), 1, A( J+2, J ), 1, C, -S )
+               if (N.GT.J+1) CALL CROT( N-J-1, A( J+2, J+1 ), 1, A( J+2, J ), 1, C, -S );
 
                // Multiply by [-c  s; -conjg(s) -c] on the left.
 
-               IF( J.GT.1 ) CALL CROT( J-1, A( J, 1 ), LDA, A( J+1, 1 ), LDA, -C, S )
+               if (J.GT.1) CALL CROT( J-1, A( J, 1 ), LDA, A( J+1, 1 ), LDA, -C, S );
 
                // Negate A(J+1,J).
 
@@ -285,7 +285,7 @@
             } // 140
          } else {
             for (J = 1; J <= N; J++) { // 150
-               IF( J.LT.N ) CALL CLARNV( 4, ISEED, N-J, A( J+1, J ) )
+               if (J.LT.N) CALL CLARNV( 4, ISEED, N-J, A( J+1, J ) );
                A( J, J ) = CLARND( 5, ISEED )*TWO
             } // 150
          }
@@ -339,7 +339,7 @@
             A( N, N ) = SMLNUM*A( N, N )
          } else {
             for (J = 1; J <= N; J++) { // 190
-               IF( J.LT.N ) CALL CLARNV( 4, ISEED, N-J, A( J+1, J ) )
+               if (J.LT.N) CALL CLARNV( 4, ISEED, N-J, A( J+1, J ) );
                A( J, J ) = CLARND( 5, ISEED )
             } // 190
             A( 1, 1 ) = SMLNUM*A( 1, 1 )
@@ -363,7 +363,7 @@
                   A( J, J ) = CLARND( 5, ISEED )
                }
                JCOUNT = JCOUNT + 1
-               IF( JCOUNT.GT.4 ) JCOUNT = 1
+               if (JCOUNT.GT.4) JCOUNT = 1;
             } // 210
          } else {
             JCOUNT = 1
@@ -377,7 +377,7 @@
                   A( J, J ) = CLARND( 5, ISEED )
                }
                JCOUNT = JCOUNT + 1
-               IF( JCOUNT.GT.4 ) JCOUNT = 1
+               if (JCOUNT.GT.4) JCOUNT = 1;
             } // 230
          }
 
@@ -411,7 +411,7 @@
                for (I = 1; I <= J - 2; I++) { // 260
                   A( I, J ) = 0.
                } // 260
-               IF( J.GT.1 ) A( J-1, J ) = CMPLX( -ONE, -ONE )
+               if (J.GT.1) A( J-1, J ) = CMPLX( -ONE, -ONE );
                A( J, J ) = TSCAL*CLARND( 5, ISEED )
             } // 270
             B( N ) = CMPLX( ONE, ONE )
@@ -420,7 +420,7 @@
                for (I = J + 2; I <= N; I++) { // 280
                   A( I, J ) = 0.
                } // 280
-               IF( J.LT.N ) A( J+1, J ) = CMPLX( -ONE, -ONE )
+               if (J.LT.N) A( J+1, J ) = CMPLX( -ONE, -ONE );
                A( J, J ) = TSCAL*CLARND( 5, ISEED )
             } // 290
             B( 1 ) = CMPLX( ONE, ONE )
@@ -442,7 +442,7 @@
             } // 300
          } else {
             for (J = 1; J <= N; J++) { // 310
-               IF( J.LT.N ) CALL CLARNV( 4, ISEED, N-J, A( J+1, J ) )
+               if (J.LT.N) CALL CLARNV( 4, ISEED, N-J, A( J+1, J ) );
                if ( J.NE.IY ) {
                   A( J, J ) = CLARND( 5, ISEED )*TWO
                } else {
@@ -505,7 +505,7 @@
             } // 360
          } else {
             for (J = 1; J <= N; J++) { // 370
-               IF( J.LT.N ) CALL CLARNV( 4, ISEED, N-J, A( J+1, J ) )
+               if (J.LT.N) CALL CLARNV( 4, ISEED, N-J, A( J+1, J ) );
                A( J, J ) = ZERO
             } // 370
          }

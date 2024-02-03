@@ -45,7 +45,7 @@
 
       // Quick return if possible
 
-      IF( N.EQ.0 ) RETURN
+      if (N.EQ.0) RETURN;
 
       // Set INFO if an error
 
@@ -145,7 +145,7 @@
          if ( ( MODE.NE.-6 .AND. MODE.NE.0 .AND. MODE.NE.6 ) .AND. IRSIGN.EQ.1 ) {
             for (I = 1; I <= N; I++) { // 250
                TEMP = DLARAN( ISEED )
-               IF( TEMP.GT.HALF ) D( I ) = -D( I )
+               if (TEMP.GT.HALF) D( I ) = -D( I );
             } // 250
          }
 

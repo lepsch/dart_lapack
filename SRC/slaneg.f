@@ -48,7 +48,7 @@
          BSAV = T
          DO 21 J = BJ, MIN(BJ+BLKLEN-1, R-1)
             DPLUS = D( J ) + T
-            IF( DPLUS.LT.ZERO ) NEG1 = NEG1 + 1
+            if (DPLUS.LT.ZERO) NEG1 = NEG1 + 1;
             TMP = T / DPLUS
             T = TMP * LLD( J ) - SIGMA
          } // 21
@@ -62,7 +62,7 @@
             T = BSAV
             DO 22 J = BJ, MIN(BJ+BLKLEN-1, R-1)
                DPLUS = D( J ) + T
-               IF( DPLUS.LT.ZERO ) NEG1 = NEG1 + 1
+               if (DPLUS.LT.ZERO) NEG1 = NEG1 + 1;
                TMP = T / DPLUS
                IF (SISNAN(TMP)) TMP = ONE
                T = TMP * LLD(J) - SIGMA
@@ -78,7 +78,7 @@
          BSAV = P
          DO 23 J = BJ, MAX(BJ-BLKLEN+1, R), -1
             DMINUS = LLD( J ) + P
-            IF( DMINUS.LT.ZERO ) NEG2 = NEG2 + 1
+            if (DMINUS.LT.ZERO) NEG2 = NEG2 + 1;
             TMP = P / DMINUS
             P = TMP * D( J ) - SIGMA
          } // 23
@@ -90,7 +90,7 @@
             P = BSAV
             DO 24 J = BJ, MAX(BJ-BLKLEN+1, R), -1
                DMINUS = LLD( J ) + P
-               IF( DMINUS.LT.ZERO ) NEG2 = NEG2 + 1
+               if (DMINUS.LT.ZERO) NEG2 = NEG2 + 1;
                TMP = P / DMINUS
                IF (SISNAN(TMP)) TMP = ONE
                P = TMP * D(J) - SIGMA
@@ -102,7 +102,7 @@
       // III) Twist index
         // T was shifted by SIGMA initially.
       GAMMA = (T + SIGMA) + P
-      IF( GAMMA.LT.ZERO ) NEGCNT = NEGCNT+1
+      if (GAMMA.LT.ZERO) NEGCNT = NEGCNT+1;
 
       SLANEG = NEGCNT
       }

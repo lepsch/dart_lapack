@@ -74,9 +74,9 @@
       NS = 0
       ND = 0
       WORK( 1 ) = ONE
-      IF( KTOP.GT.KBOT ) RETURN
+      if (KTOP.GT.KBOT) RETURN;
       // ... nor for an empty deflation window. ====
-      IF( NW.LT.1 ) RETURN
+      if (NW.LT.1) RETURN;
 
       // ==== Machine constants ====
 
@@ -106,7 +106,7 @@
          if ( ABS( S ).LE.MAX( SMLNUM, ULP*ABS( H( KWTOP, KWTOP ) ) ) ) {
             NS = 0
             ND = 1
-            IF( KWTOP.GT.KTOP ) H( KWTOP, KWTOP-1 ) = ZERO
+            if (KWTOP.GT.KTOP) H( KWTOP, KWTOP-1 ) = ZERO;
          }
          WORK( 1 ) = ONE
          RETURN
@@ -135,7 +135,7 @@
          T( J+2, J ) = ZERO
          T( J+3, J ) = ZERO
       } // 10
-      IF( JW.GT.2 ) T( JW, JW-2 ) = ZERO
+      if (JW.GT.2) T( JW, JW-2 ) = ZERO;
 
       // ==== Deflation detection loop ====
 
@@ -156,7 +156,7 @@
             // ==== Real eigenvalue ====
 
             FOO = ABS( T( NS, NS ) )
-            IF( FOO.EQ.ZERO ) FOO = ABS( S )
+            if (FOO.EQ.ZERO) FOO = ABS( S );
             if ( ABS( S*V( 1, NS ) ).LE.MAX( SMLNUM, ULP*FOO ) ) {
 
                // ==== Deflatable ====
@@ -199,7 +199,7 @@
 
          // ==== Return to Hessenberg form ====
 
-      IF( NS.EQ.0 ) S = ZERO
+      if (NS.EQ.0) S = ZERO;
 
       if ( NS.LT.JW ) {
 
@@ -210,7 +210,7 @@
          SORTED = .false.
          I = NS + 1
          } // 30
-         IF( SORTED ) GO TO 50
+         if (SORTED) GO TO 50;
          SORTED = .true.
 
          KEND = I - 1
@@ -307,14 +307,14 @@
 
          // ==== Copy updated reduced window into place ====
 
-         IF( KWTOP.GT.1 ) H( KWTOP, KWTOP-1 ) = S*V( 1, 1 )
+         if (KWTOP.GT.1) H( KWTOP, KWTOP-1 ) = S*V( 1, 1 );
          dlacpy('U', JW, JW, T, LDT, H( KWTOP, KWTOP ), LDH );
          dcopy(JW-1, T( 2, 1 ), LDT+1, H( KWTOP+1, KWTOP ), LDH+1 );
 
          // ==== Accumulate orthogonal matrix in order update
          // .    H and Z, if requested.  ====
 
-         IF( NS.GT.1 .AND. S.NE.ZERO ) CALL DORMHR( 'R', 'N', JW, NS, 1, NS, T, LDT, WORK, V, LDV, WORK( JW+1 ), LWORK-JW, INFO )
+         if (NS.GT.1 .AND. S.NE.ZERO) CALL DORMHR( 'R', 'N', JW, NS, 1, NS, T, LDT, WORK, V, LDV, WORK( JW+1 ), LWORK-JW, INFO );
 
          // ==== Update vertical slab in H ====
 

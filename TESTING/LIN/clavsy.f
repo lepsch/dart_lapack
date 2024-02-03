@@ -59,7 +59,7 @@
 
       // Quick return if possible.
 
-      IF( N.EQ.0 ) RETURN
+      if (N.EQ.0) RETURN;
 
       NOUNIT = LSAME( DIAG, 'N' )
 *------------------------------------------
@@ -78,14 +78,14 @@
 
             K = 1
             } // 10
-            IF( K.GT.N ) GO TO 30
+            if (K.GT.N) GO TO 30;
             if ( IPIV( K ).GT.0 ) {
 
                // 1 x 1 pivot block
 
                // Multiply by the diagonal element if forming U * D.
 
-               IF( NOUNIT ) CALL CSCAL( NRHS, A( K, K ), B( K, 1 ), LDB )
+               if (NOUNIT) CALL CSCAL( NRHS, A( K, K ), B( K, 1 ), LDB );
 
                // Multiply by  P(K) * inv(U(K))  if K > 1.
 
@@ -98,7 +98,7 @@
                   // Interchange if P(K) != I.
 
                   KP = IPIV( K )
-                  IF( KP.NE.K ) CALL CSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB )
+                  if (KP.NE.K) CALL CSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
                }
                K = K + 1
             } else {
@@ -131,7 +131,7 @@
                   // Interchange if P(K) != I.
 
                   KP = ABS( IPIV( K ) )
-                  IF( KP.NE.K ) CALL CSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB )
+                  if (KP.NE.K) CALL CSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
                }
                K = K + 2
             }
@@ -147,7 +147,7 @@
 
             K = N
             } // 40
-            IF( K.LT.1 ) GO TO 60
+            if (K.LT.1) GO TO 60;
 
             // Test the pivot index.  If greater than zero, a 1 x 1
             // pivot was used, otherwise a 2 x 2 pivot was used.
@@ -158,7 +158,7 @@
 
                // Multiply by the diagonal element if forming L * D.
 
-               IF( NOUNIT ) CALL CSCAL( NRHS, A( K, K ), B( K, 1 ), LDB )
+               if (NOUNIT) CALL CSCAL( NRHS, A( K, K ), B( K, 1 ), LDB );
 
                // Multiply by  P(K) * inv(L(K))  if K < N.
 
@@ -172,7 +172,7 @@
                   // Interchange if a permutation was applied at the
                   // K-th step of the factorization.
 
-                  IF( KP.NE.K ) CALL CSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB )
+                  if (KP.NE.K) CALL CSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
                }
                K = K - 1
 
@@ -207,7 +207,7 @@
                   // K-th step of the factorization.
 
                   KP = ABS( IPIV( K ) )
-                  IF( KP.NE.K ) CALL CSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB )
+                  if (KP.NE.K) CALL CSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
                }
                K = K - 2
             }
@@ -240,13 +240,13 @@
                   // Interchange if P(K) != I.
 
                   KP = IPIV( K )
-                  IF( KP.NE.K ) CALL CSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB )
+                  if (KP.NE.K) CALL CSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
 
                   // Apply the transformation
 
                   cgemv('Transpose', K-1, NRHS, CONE, B, LDB, A( 1, K ), 1, CONE, B( K, 1 ), LDB );
                }
-               IF( NOUNIT ) CALL CSCAL( NRHS, A( K, K ), B( K, 1 ), LDB )
+               if (NOUNIT) CALL CSCAL( NRHS, A( K, K ), B( K, 1 ), LDB );
                K = K - 1
 
             // 2 x 2 pivot block.
@@ -257,7 +257,7 @@
                   // Interchange if P(K) != I.
 
                   KP = ABS( IPIV( K ) )
-                  IF( KP.NE.K-1 ) CALL CSWAP( NRHS, B( K-1, 1 ), LDB, B( KP, 1 ), LDB )
+                  if (KP.NE.K-1) CALL CSWAP( NRHS, B( K-1, 1 ), LDB, B( KP, 1 ), LDB );
 
                   // Apply the transformations
 
@@ -293,7 +293,7 @@
 
             K = 1
             } // 100
-            IF( K.GT.N ) GO TO 120
+            if (K.GT.N) GO TO 120;
 
             // 1 x 1 pivot block
 
@@ -303,13 +303,13 @@
                   // Interchange if P(K) != I.
 
                   KP = IPIV( K )
-                  IF( KP.NE.K ) CALL CSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB )
+                  if (KP.NE.K) CALL CSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
 
                   // Apply the transformation
 
                   cgemv('Transpose', N-K, NRHS, CONE, B( K+1, 1 ), LDB, A( K+1, K ), 1, CONE, B( K, 1 ), LDB );
                }
-               IF( NOUNIT ) CALL CSCAL( NRHS, A( K, K ), B( K, 1 ), LDB )
+               if (NOUNIT) CALL CSCAL( NRHS, A( K, K ), B( K, 1 ), LDB );
                K = K + 1
 
             // 2 x 2 pivot block.
@@ -320,7 +320,7 @@
                // Interchange if P(K) != I.
 
                   KP = ABS( IPIV( K ) )
-                  IF( KP.NE.K+1 ) CALL CSWAP( NRHS, B( K+1, 1 ), LDB, B( KP, 1 ), LDB )
+                  if (KP.NE.K+1) CALL CSWAP( NRHS, B( K+1, 1 ), LDB, B( KP, 1 ), LDB );
 
                   // Apply the transformation
 

@@ -93,7 +93,7 @@
 
       } // 20
       L = LM1
-      IF( L.NE.1 ) GO TO 30
+      if (L.NE.1) GO TO 30;
 
       RSCALE( 1 ) = ONE
       LSCALE( 1 ) = ONE
@@ -151,7 +151,7 @@
 
       } // 160
       LSCALE( M ) = I
-      IF( I.EQ.M ) GO TO 170
+      if (I.EQ.M) GO TO 170;
       sswap(N-K+1, A( I, K ), LDA, A( M, K ), LDA );
       sswap(N-K+1, B( I, K ), LDB, B( M, K ), LDB );
 
@@ -159,7 +159,7 @@
 
       } // 170
       RSCALE( M ) = J
-      IF( J.EQ.M ) GO TO 180
+      if (J.EQ.M) GO TO 180;
       sswap(L, A( 1, J ), 1, A( 1, M ), 1 );
       sswap(L, B( 1, J ), 1, B( 1, M ), 1 );
 
@@ -178,7 +178,7 @@
          RETURN
       }
 
-      IF( ILO.EQ.IHI ) RETURN
+      if (ILO.EQ.IHI) RETURN;
 
       // Balance the submatrix in rows ILO to IHI.
 
@@ -202,10 +202,10 @@
          for (J = ILO; J <= IHI; J++) { // 230
             TB = B( I, J )
             TA = A( I, J )
-            IF( TA.EQ.ZERO ) GO TO 210
+            if (TA.EQ.ZERO) GO TO 210;
             TA = LOG10( ABS( TA ) ) / BASL
             } // 210
-            IF( TB.EQ.ZERO ) GO TO 220
+            if (TB.EQ.ZERO) GO TO 220;
             TB = LOG10( ABS( TB ) ) / BASL
             } // 220
             WORK( I+4*N ) = WORK( I+4*N ) - TA - TB
@@ -234,7 +234,7 @@
       } // 260
 
       GAMMA = COEF*GAMMA - COEF2*( EW**2+EWC**2 ) - COEF5*( EW-EWC )**2
-      IF( GAMMA.EQ.ZERO ) GO TO 350       IF( IT.NE.1 ) BETA = GAMMA / PGAMMA
+      if (GAMMA.EQ.ZERO) GO TO 350       IF( IT.NE.1 ) BETA = GAMMA / PGAMMA;
       T = COEF5*( EWC-THREE*EW )
       TC = COEF5*( EW-THREE*EWC )
 
@@ -295,14 +295,14 @@
          IF( ABS( COR ).GT.CMAX ) CMAX = ABS( COR )
          RSCALE( I ) = RSCALE( I ) + COR
       } // 340
-      IF( CMAX.LT.HALF ) GO TO 350
+      if (CMAX.LT.HALF) GO TO 350;
 
       saxpy(NR, -ALPHA, WORK( ILO+2*N ), 1, WORK( ILO+4*N ), 1 );
       saxpy(NR, -ALPHA, WORK( ILO+3*N ), 1, WORK( ILO+5*N ), 1 );
 
       PGAMMA = GAMMA
       IT = IT + 1
-      IF( IT.LE.NRP2 ) GO TO 250
+      if (IT.LE.NRP2) GO TO 250;
 
       // End generalized conjugate gradient iteration
 

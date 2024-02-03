@@ -76,7 +76,7 @@
 
          // If K < 1, exit from loop
 
-         IF( K.LT.1 ) GO TO 70
+         if (K.LT.1) GO TO 70;
          KSTEP = 1
          P = K
 
@@ -100,7 +100,7 @@
 
             // Column K is zero or underflow: set INFO and continue
 
-            IF( INFO.EQ.0 ) INFO = K
+            if (INFO.EQ.0) INFO = K;
             KP = K
          } else {
 
@@ -178,7 +178,7 @@
 
                   // End pivot search loop body
 
-               IF( .NOT. DONE ) GOTO 12
+               if (.NOT. DONE) GOTO 12;
 
             }
 
@@ -191,7 +191,7 @@
                // Interchange rows and column K and P in the leading
                // submatrix A(1:k,1:k) if we have a 2-by-2 pivot
 
-               IF( P.GT.1 ) CALL DSWAP( P-1, A( 1, K ), 1, A( 1, P ), 1 )                IF( P.LT.(K-1) ) CALL DSWAP( K-P-1, A( P+1, K ), 1, A( P, P+1 ), LDA )
+               if (P.GT.1) CALL DSWAP( P-1, A( 1, K ), 1, A( 1, P ), 1 )                IF( P.LT.(K-1) ) CALL DSWAP( K-P-1, A( P+1, K ), 1, A( P, P+1 ), LDA );
                T = A( K, K )
                A( K, K ) = A( P, P )
                A( P, P ) = T
@@ -205,7 +205,7 @@
                // Interchange rows and columns KK and KP in the leading
                // submatrix A(1:k,1:k)
 
-               IF( KP.GT.1 ) CALL DSWAP( KP-1, A( 1, KK ), 1, A( 1, KP ), 1 )                IF( ( KK.GT.1 ) .AND. ( KP.LT.(KK-1) ) ) CALL DSWAP( KK-KP-1, A( KP+1, KK ), 1, A( KP, KP+1 ), LDA )
+               if (KP.GT.1) CALL DSWAP( KP-1, A( 1, KK ), 1, A( 1, KP ), 1 )                IF( ( KK.GT.1 ) .AND. ( KP.LT.(KK-1) ) ) CALL DSWAP( KK-KP-1, A( KP+1, KK ), 1, A( KP, KP+1 ), LDA );
                T = A( KK, KK )
                A( KK, KK ) = A( KP, KP )
                A( KP, KP ) = T
@@ -331,7 +331,7 @@
 
          // If K > N, exit from loop
 
-         IF( K.GT.N ) GO TO 70
+         if (K.GT.N) GO TO 70;
          KSTEP = 1
          P = K
 
@@ -355,7 +355,7 @@
 
             // Column K is zero or underflow: set INFO and continue
 
-            IF( INFO.EQ.0 ) INFO = K
+            if (INFO.EQ.0) INFO = K;
             KP = K
          } else {
 
@@ -432,7 +432,7 @@
 
                   // End pivot search loop body
 
-               IF( .NOT. DONE ) GOTO 42
+               if (.NOT. DONE) GOTO 42;
 
             }
 
@@ -445,7 +445,7 @@
                // Interchange rows and column K and P in the trailing
                // submatrix A(k:n,k:n) if we have a 2-by-2 pivot
 
-               IF( P.LT.N ) CALL DSWAP( N-P, A( P+1, K ), 1, A( P+1, P ), 1 )                IF( P.GT.(K+1) ) CALL DSWAP( P-K-1, A( K+1, K ), 1, A( P, K+1 ), LDA )
+               if (P.LT.N) CALL DSWAP( N-P, A( P+1, K ), 1, A( P+1, P ), 1 )                IF( P.GT.(K+1) ) CALL DSWAP( P-K-1, A( K+1, K ), 1, A( P, K+1 ), LDA );
                T = A( K, K )
                A( K, K ) = A( P, P )
                A( P, P ) = T
@@ -459,7 +459,7 @@
                // Interchange rows and columns KK and KP in the trailing
                // submatrix A(k:n,k:n)
 
-               IF( KP.LT.N ) CALL DSWAP( N-KP, A( KP+1, KK ), 1, A( KP+1, KP ), 1 )                IF( ( KK.LT.N ) .AND. ( KP.GT.(KK+1) ) ) CALL DSWAP( KP-KK-1, A( KK+1, KK ), 1, A( KP, KK+1 ), LDA )
+               if (KP.LT.N) CALL DSWAP( N-KP, A( KP+1, KK ), 1, A( KP+1, KP ), 1 )                IF( ( KK.LT.N ) .AND. ( KP.GT.(KK+1) ) ) CALL DSWAP( KP-KK-1, A( KK+1, KK ), 1, A( KP, KK+1 ), LDA );
                T = A( KK, KK )
                A( KK, KK ) = A( KP, KP )
                A( KP, KP ) = T

@@ -105,7 +105,7 @@
          WORK( 1 ) = MAXWRK
       }
 
-      IF( LWORK.LT.MINWRK ) INFO = -18
+      if (LWORK.LT.MINWRK) INFO = -18;
 
       if ( INFO.NE.0 ) {
          xerbla('ZDRGSX', -INFO );
@@ -125,7 +125,7 @@
       // Go to the tests for read-in matrix pairs
 
       IFUNC = 0
-      IF( NSIZE.EQ.0 ) GO TO 70
+      if (NSIZE.EQ.0) GO TO 70;
 
       // Test the built-in matrix pairs.
       // Loop over different functions (IFUNC) of ZGGESX, types (PRTYPE)
@@ -246,7 +246,7 @@
                      DIFTRU = S( MN2 )
 
                      if ( DIFEST( 2 ).EQ.ZERO ) {
-                        IF( DIFTRU.GT.ABNRM*ULP ) RESULT( 8 ) = ULPINV
+                        if (DIFTRU.GT.ABNRM*ULP) RESULT( 8 ) = ULPINV;
                      } else if ( DIFTRU.EQ.ZERO ) {
                         IF( DIFEST( 2 ).GT.ABNRM*ULP ) RESULT( 8 ) = ULPINV                      ELSE IF( ( DIFTRU.GT.THRSH2*DIFEST( 2 ) ) .OR. ( DIFTRU*THRSH2.LT.DIFEST( 2 ) ) ) THEN                         RESULT( 8 ) = MAX( DIFTRU / DIFEST( 2 ), DIFEST( 2 ) / DIFTRU )
                      }
@@ -257,7 +257,7 @@
 
                   RESULT( 9 ) = ZERO
                   if ( LINFO.EQ.( MPLUSN+2 ) ) {
-                     IF( DIFTRU.GT.ABNRM*ULP ) RESULT( 9 ) = ULPINV                      IF( ( IFUNC.GT.1 ) .AND. ( DIFEST( 2 ).NE.ZERO ) ) RESULT( 9 ) = ULPINV                      IF( ( IFUNC.EQ.1 ) .AND. ( PL( 1 ).NE.ZERO ) ) RESULT( 9 ) = ULPINV
+                     if (DIFTRU.GT.ABNRM*ULP) RESULT( 9 ) = ULPINV                      IF( ( IFUNC.GT.1 ) .AND. ( DIFEST( 2 ).NE.ZERO ) ) RESULT( 9 ) = ULPINV                      IF( ( IFUNC.EQ.1 ) .AND. ( PL( 1 ).NE.ZERO ) ) RESULT( 9 ) = ULPINV;
                      NTEST = NTEST + 1
                   }
 
@@ -308,7 +308,7 @@
 
       } // 80
       READ( NIN, FMT = *, END = 140 )MPLUSN
-      IF( MPLUSN.EQ.0 ) GO TO 140
+      if (MPLUSN.EQ.0) GO TO 140;
       READ( NIN, FMT = *, END = 140 )N
       for (I = 1; I <= MPLUSN; I++) { // 90
          READ( NIN, FMT = * )( AI( I, J ), J = 1, MPLUSN )
@@ -382,14 +382,14 @@
 
       NTEST = 7
       RESULT( 7 ) = ZERO
-      IF( LINFO.EQ.MPLUSN+3 ) RESULT( 7 ) = ULPINV
+      if (LINFO.EQ.MPLUSN+3) RESULT( 7 ) = ULPINV;
 
       // Test (8): compare the estimated value of DIF and its true value.
 
       NTEST = 8
       RESULT( 8 ) = ZERO
       if ( DIFEST( 2 ).EQ.ZERO ) {
-         IF( DIFTRU.GT.ABNRM*ULP ) RESULT( 8 ) = ULPINV
+         if (DIFTRU.GT.ABNRM*ULP) RESULT( 8 ) = ULPINV;
       } else if ( DIFTRU.EQ.ZERO ) {
          if ( DIFEST( 2 ).GT.ABNRM*ULP ) RESULT( 8 ) = ULPINV       ELSE IF( ( DIFTRU.GT.THRSH2*DIFEST( 2 ) ) .OR. ( DIFTRU*THRSH2.LT.DIFEST( 2 ) ) ) {
          RESULT( 8 ) = MAX( DIFTRU / DIFEST( 2 ), DIFEST( 2 ) / DIFTRU )
@@ -400,7 +400,7 @@
       NTEST = 9
       RESULT( 9 ) = ZERO
       if ( LINFO.EQ.( MPLUSN+2 ) ) {
-         IF( DIFTRU.GT.ABNRM*ULP ) RESULT( 9 ) = ULPINV          IF( ( IFUNC.GT.1 ) .AND. ( DIFEST( 2 ).NE.ZERO ) ) RESULT( 9 ) = ULPINV          IF( ( IFUNC.EQ.1 ) .AND. ( PL( 1 ).NE.ZERO ) ) RESULT( 9 ) = ULPINV
+         if (DIFTRU.GT.ABNRM*ULP) RESULT( 9 ) = ULPINV          IF( ( IFUNC.GT.1 ) .AND. ( DIFEST( 2 ).NE.ZERO ) ) RESULT( 9 ) = ULPINV          IF( ( IFUNC.EQ.1 ) .AND. ( PL( 1 ).NE.ZERO ) ) RESULT( 9 ) = ULPINV;
       }
 
       // Test (10): compare the estimated value of PL and it true value.
@@ -408,7 +408,7 @@
       NTEST = 10
       RESULT( 10 ) = ZERO
       if ( PL( 1 ).EQ.ZERO ) {
-         IF( PLTRU.GT.ABNRM*ULP ) RESULT( 10 ) = ULPINV
+         if (PLTRU.GT.ABNRM*ULP) RESULT( 10 ) = ULPINV;
       } else if ( PLTRU.EQ.ZERO ) {
          if ( PL( 1 ).GT.ABNRM*ULP ) RESULT( 10 ) = ULPINV       ELSE IF( ( PLTRU.GT.THRESH*PL( 1 ) ) .OR. ( PLTRU*THRESH.LT.PL( 1 ) ) ) {
          RESULT( 10 ) = ULPINV

@@ -56,7 +56,7 @@
          RETURN
       }
 
-      IF( M.LE.0 .OR. N.LE.0 .OR. NRHS.LE.0 ) RETURN
+      if (M.LE.0 .OR. N.LE.0 .OR. NRHS.LE.0) RETURN;
 
       NORMA = ZLANGE( 'One-norm', M, N, A, LDA, RWORK )
       SMLNUM = DLAMCH( 'Safe minimum' ) / DLAMCH( 'Precision' )
@@ -79,15 +79,15 @@
       // compute and properly scale error
 
       ERR = ZLANGE( 'One-norm', NRHS, NCOLS, WORK, NRHS, RWORK )
-      IF( NORMA.NE.ZERO ) ERR = ERR / NORMA
+      if (NORMA.NE.ZERO) ERR = ERR / NORMA;
 
-      IF( ISCL.EQ.1 ) ERR = ERR*NORMRS
+      if (ISCL.EQ.1) ERR = ERR*NORMRS;
 
       if ( IRESID.EQ.1 ) {
          NORMB = ZLANGE( 'One-norm', NROWS, NRHS, B, LDB, RWORK )
-         IF( NORMB.NE.ZERO ) ERR = ERR / NORMB
+         if (NORMB.NE.ZERO) ERR = ERR / NORMB;
       } else {
-         IF( NORMRS.NE.ZERO ) ERR = ERR / NORMRS
+         if (NORMRS.NE.ZERO) ERR = ERR / NORMRS;
       }
 
       ZQRT17 = ERR / ( DLAMCH( 'Epsilon' )*DBLE( MAX( M, N, NRHS ) ) )

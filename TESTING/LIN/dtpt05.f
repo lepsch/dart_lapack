@@ -84,7 +84,7 @@
       // (*) = (n+1)*UNFL / (min_i (abs(A)*abs(X) +abs(b))_i )
 
       IFU = 0
-      IF( UNIT ) IFU = 1
+      if (UNIT) IFU = 1;
       for (K = 1; K <= NRHS; K++) { // 90
          for (I = 1; I <= N; I++) { // 80
             TMP = ABS( B( I, K ) )
@@ -94,7 +94,7 @@
                   for (J = 1; J <= I - IFU; J++) { // 40
                      TMP = TMP + ABS( AP( JC+J ) )*ABS( X( J, K ) )
                   } // 40
-                  IF( UNIT ) TMP = TMP + ABS( X( I, K ) )
+                  if (UNIT) TMP = TMP + ABS( X( I, K ) );
                } else {
                   JC = JC + I
                   if ( UNIT ) {
@@ -113,10 +113,10 @@
                      TMP = TMP + ABS( AP( JC ) )*ABS( X( J, K ) )
                      JC = JC + N - J
                   } // 60
-                  IF( UNIT ) TMP = TMP + ABS( X( I, K ) )
+                  if (UNIT) TMP = TMP + ABS( X( I, K ) );
                } else {
                   JC = ( I-1 )*( N-I ) + ( I*( I+1 ) ) / 2
-                  IF( UNIT ) TMP = TMP + ABS( X( I, K ) )
+                  if (UNIT) TMP = TMP + ABS( X( I, K ) );
                   for (J = I + IFU; J <= N; J++) { // 70
                      TMP = TMP + ABS( AP( JC+J-I ) )*ABS( X( J, K ) )
                   } // 70

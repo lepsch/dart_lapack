@@ -55,7 +55,7 @@
 
       // Quick return if possible
 
-      IF( N.LE.1 ) RETURN
+      if (N.LE.1) RETURN;
 
       STKPNT = 1
       STACK( 1, 1 ) = 1
@@ -200,7 +200,7 @@
             }
          }
       }
-      IF( STKPNT.GT.0 ) GO TO 10
+      if (STKPNT.GT.0) GO TO 10;
       RETURN
 
       // End of DLASRT

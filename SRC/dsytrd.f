@@ -95,7 +95,7 @@
 
                NB = MAX( LWORK / LDWORK, 1 )
                NBMIN = ILAENV( 2, 'DSYTRD', UPLO, N, -1, -1, -1 )
-               IF( NB.LT.NBMIN ) NX = N
+               if (NB.LT.NBMIN) NX = N;
             }
          } else {
             NX = N

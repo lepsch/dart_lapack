@@ -64,10 +64,10 @@
 
       // Quick return if possible
 
-      IF( N.EQ.0 ) RETURN
+      if (N.EQ.0) RETURN;
 
       if ( N.EQ.1 ) {
-         IF( ICOMPZ.EQ.2 ) Z( 1, 1 ) = ONE
+         if (ICOMPZ.EQ.2) Z( 1, 1 ) = ONE;
          RETURN
       }
 
@@ -83,7 +83,7 @@
       // Compute the eigenvalues and eigenvectors of the tridiagonal
       // matrix.
 
-      IF( ICOMPZ.EQ.2 ) CALL SLASET( 'Full', N, N, ZERO, ONE, Z, LDZ )
+      if (ICOMPZ.EQ.2) CALL SLASET( 'Full', N, N, ZERO, ONE, Z, LDZ );
 
       NMAXIT = N*MAXIT
       JTOT = 0
@@ -96,7 +96,7 @@
       NM1 = N - 1
 
       } // 10
-      IF( L1.GT.N ) GO TO 160       IF( L1.GT.1 ) E( L1-1 ) = ZERO
+      if (L1.GT.N) GO TO 160       IF( L1.GT.1 ) E( L1-1 ) = ZERO;
       if ( L1.LE.NM1 ) {
          for (M = L1; M <= NM1; M++) { // 20
             TST = ABS( E( M ) )
@@ -114,13 +114,13 @@
       LEND = M
       LENDSV = LEND
       L1 = M + 1
-      IF( LEND.EQ.L ) GO TO 10
+      if (LEND.EQ.L) GO TO 10;
 
       // Scale submatrix in rows and columns L to LEND
 
       ANORM = SLANST( 'M', LEND-L+1, D( L ), E( L ) )
       ISCALE = 0
-      IF( ANORM.EQ.ZERO ) GO TO 10
+      if (ANORM.EQ.ZERO) GO TO 10;
       if ( ANORM.GT.SSFMAX ) {
          ISCALE = 1
          slascl('G', 0, 0, ANORM, SSFMAX, LEND-L+1, 1, D( L ), N, INFO )          CALL SLASCL( 'G', 0, 0, ANORM, SSFMAX, LEND-L, 1, E( L ), N, INFO );
@@ -154,9 +154,9 @@
          M = LEND
 
          } // 60
-         IF( M.LT.LEND ) E( M ) = ZERO
+         if (M.LT.LEND) E( M ) = ZERO;
          P = D( L )
-         IF( M.EQ.L ) GO TO 80
+         if (M.EQ.L) GO TO 80;
 
          // If remaining matrix is 2-by-2, use SLAE2 or SLAEV2
          // to compute its eigensystem.
@@ -174,11 +174,11 @@
             D( L+1 ) = RT2
             E( L ) = ZERO
             L = L + 2
-            IF( L.LE.LEND ) GO TO 40
+            if (L.LE.LEND) GO TO 40;
             GO TO 140
          }
 
-         IF( JTOT.EQ.NMAXIT ) GO TO 140
+         if (JTOT.EQ.NMAXIT) GO TO 140;
          JTOT = JTOT + 1
 
          // Form shift.
@@ -198,7 +198,7 @@
             F = S*E( I )
             B = C*E( I )
             slartg(G, F, C, S, R );
-            IF( I.NE.M-1 ) E( I+1 ) = R
+            if (I.NE.M-1) E( I+1 ) = R;
             G = D( I+1 ) - P
             R = ( D( I )-G )*S + TWO*C*B
             P = S*R
@@ -231,7 +231,7 @@
          D( L ) = P
 
          L = L + 1
-         IF( L.LE.LEND ) GO TO 40
+         if (L.LE.LEND) GO TO 40;
          GO TO 140
 
       } else {
@@ -252,9 +252,9 @@
          M = LEND
 
          } // 110
-         IF( M.GT.LEND ) E( M-1 ) = ZERO
+         if (M.GT.LEND) E( M-1 ) = ZERO;
          P = D( L )
-         IF( M.EQ.L ) GO TO 130
+         if (M.EQ.L) GO TO 130;
 
          // If remaining matrix is 2-by-2, use SLAE2 or SLAEV2
          // to compute its eigensystem.
@@ -272,11 +272,11 @@
             D( L ) = RT2
             E( L-1 ) = ZERO
             L = L - 2
-            IF( L.GE.LEND ) GO TO 90
+            if (L.GE.LEND) GO TO 90;
             GO TO 140
          }
 
-         IF( JTOT.EQ.NMAXIT ) GO TO 140
+         if (JTOT.EQ.NMAXIT) GO TO 140;
          JTOT = JTOT + 1
 
          // Form shift.
@@ -296,7 +296,7 @@
             F = S*E( I )
             B = C*E( I )
             slartg(G, F, C, S, R );
-            IF( I.NE.M ) E( I-1 ) = R
+            if (I.NE.M) E( I-1 ) = R;
             G = D( I ) - P
             R = ( D( I+1 )-G )*S + TWO*C*B
             P = S*R
@@ -329,7 +329,7 @@
          D( L ) = P
 
          L = L - 1
-         IF( L.GE.LEND ) GO TO 90
+         if (L.GE.LEND) GO TO 90;
          GO TO 140
 
       }
@@ -346,7 +346,7 @@
       // Check for no convergence to an eigenvalue after a total
       // of N*MAXIT iterations.
 
-      IF( JTOT.LT.NMAXIT ) GO TO 10
+      if (JTOT.LT.NMAXIT) GO TO 10;
       for (I = 1; I <= N - 1; I++) { // 150
          IF( E( I ).NE.ZERO ) INFO = INFO + 1
       } // 150

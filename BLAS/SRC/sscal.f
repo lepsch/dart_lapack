@@ -24,7 +24,7 @@
       // .. Intrinsic Functions ..
       // INTRINSIC MOD
       // ..
-      IF (N.LE.0 .OR. INCX.LE.0 .OR. SA.EQ.ONE) RETURN
+      if (N.LE.0 .OR. INCX.LE.0 .OR. SA.EQ.ONE) RETURN;
       if (INCX.EQ.1) {
 
          // code for increment equal to 1
@@ -37,7 +37,7 @@
             for (I = 1; I <= M; I++) {
                SX(I) = SA*SX(I)
             }
-            IF (N.LT.5) RETURN
+            if (N.LT.5) RETURN;
          }
          MP1 = M + 1
          DO I = MP1,N,5

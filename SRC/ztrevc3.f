@@ -107,7 +107,7 @@
 
       // Quick return if possible.
 
-      IF( N.EQ.0 ) RETURN
+      if (N.EQ.0) RETURN;
 
       // Use blocked version of back-transformation if sufficient workspace.
       // Zero-out the workspace to avoid potential NaN propagation.
@@ -200,7 +200,7 @@
             } else if ( NB.EQ.1 ) {
                // ------------------------------
                // version 1: back-transform each vector with GEMV, Q*x.
-               IF( KI.GT.1 ) CALL ZGEMV( 'N', N, KI-1, CONE, VR, LDVR, WORK( 1 + IV*N ), 1, DCMPLX( SCALE ), VR( 1, KI ), 1 )
+               if (KI.GT.1) CALL ZGEMV( 'N', N, KI-1, CONE, VR, LDVR, WORK( 1 + IV*N ), 1, DCMPLX( SCALE ), VR( 1, KI ), 1 );
 
                II = IZAMAX( N, VR( 1, KI ), 1 )
                REMAX = ONE / CABS1( VR( II, KI ) )
@@ -302,7 +302,7 @@
             } else if ( NB.EQ.1 ) {
                // ------------------------------
                // version 1: back-transform each vector with GEMV, Q*x.
-               IF( KI.LT.N ) CALL ZGEMV( 'N', N, N-KI, CONE, VL( 1, KI+1 ), LDVL, WORK( KI+1 + IV*N ), 1, DCMPLX( SCALE ), VL( 1, KI ), 1 )
+               if (KI.LT.N) CALL ZGEMV( 'N', N, N-KI, CONE, VL( 1, KI+1 ), LDVL, WORK( KI+1 + IV*N ), 1, DCMPLX( SCALE ), VL( 1, KI ), 1 );
 
                II = IZAMAX( N, VL( 1, KI ), 1 )
                REMAX = ONE / CABS1( VL( II, KI ) )

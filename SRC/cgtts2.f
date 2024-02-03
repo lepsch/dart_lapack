@@ -25,7 +25,7 @@
 
       // Quick return if possible
 
-      IF( N.EQ.0 .OR. NRHS.EQ.0 ) RETURN
+      if (N.EQ.0 .OR. NRHS.EQ.0) RETURN;
 
       if ( ITRANS.EQ.0 ) {
 
@@ -51,7 +51,7 @@
             // Solve U*x = b.
 
             B( N, J ) = B( N, J ) / D( N )
-            IF( N.GT.1 ) B( N-1, J ) = ( B( N-1, J )-DU( N-1 )*B( N, J ) ) / D( N-1 )
+            if (N.GT.1) B( N-1, J ) = ( B( N-1, J )-DU( N-1 )*B( N, J ) ) / D( N-1 );
             DO 30 I = N - 2, 1, -1
                B( I, J ) = ( B( I, J )-DU( I )*B( I+1, J )-DU2( I )* B( I+2, J ) ) / D( I )
             } // 30
@@ -77,7 +77,7 @@
             // Solve U*x = b.
 
                B( N, J ) = B( N, J ) / D( N )
-               IF( N.GT.1 ) B( N-1, J ) = ( B( N-1, J )-DU( N-1 )*B( N, J ) ) / D( N-1 )
+               if (N.GT.1) B( N-1, J ) = ( B( N-1, J )-DU( N-1 )*B( N, J ) ) / D( N-1 );
                DO 50 I = N - 2, 1, -1
                   B( I, J ) = ( B( I, J )-DU( I )*B( I+1, J )-DU2( I )* B( I+2, J ) ) / D( I )
                } // 50
@@ -94,7 +94,7 @@
             // Solve U**T * x = b.
 
             B( 1, J ) = B( 1, J ) / D( 1 )
-            IF( N.GT.1 ) B( 2, J ) = ( B( 2, J )-DU( 1 )*B( 1, J ) ) / D( 2 )
+            if (N.GT.1) B( 2, J ) = ( B( 2, J )-DU( 1 )*B( 1, J ) ) / D( 2 );
             for (I = 3; I <= N; I++) { // 80
                B( I, J ) = ( B( I, J )-DU( I-1 )*B( I-1, J )-DU2( I-2 )* B( I-2, J ) ) / D( I )
             } // 80
@@ -120,7 +120,7 @@
             // Solve U**T * x = b.
 
                B( 1, J ) = B( 1, J ) / D( 1 )
-               IF( N.GT.1 ) B( 2, J ) = ( B( 2, J )-DU( 1 )*B( 1, J ) ) / D( 2 )
+               if (N.GT.1) B( 2, J ) = ( B( 2, J )-DU( 1 )*B( 1, J ) ) / D( 2 );
                for (I = 3; I <= N; I++) { // 100
                   B( I, J ) = ( B( I, J )-DU( I-1 )*B( I-1, J )- DU2( I-2 )*B( I-2, J ) ) / D( I )
                } // 100
@@ -149,7 +149,7 @@
             // Solve U**H * x = b.
 
             B( 1, J ) = B( 1, J ) / CONJG( D( 1 ) )
-            IF( N.GT.1 ) B( 2, J ) = ( B( 2, J )-CONJG( DU( 1 ) )*B( 1, J ) ) / CONJG( D( 2 ) )
+            if (N.GT.1) B( 2, J ) = ( B( 2, J )-CONJG( DU( 1 ) )*B( 1, J ) ) / CONJG( D( 2 ) );
             for (I = 3; I <= N; I++) { // 140
                B( I, J ) = ( B( I, J )-CONJG( DU( I-1 ) )*B( I-1, J )- CONJG( DU2( I-2 ) )*B( I-2, J ) ) / CONJG( D( I ) )
             } // 140
@@ -175,7 +175,7 @@
             // Solve U**H * x = b.
 
                B( 1, J ) = B( 1, J ) / CONJG( D( 1 ) )
-               IF( N.GT.1 ) B( 2, J ) = ( B( 2, J )-CONJG( DU( 1 ) )*B( 1, J ) ) / CONJG( D( 2 ) )
+               if (N.GT.1) B( 2, J ) = ( B( 2, J )-CONJG( DU( 1 ) )*B( 1, J ) ) / CONJG( D( 2 ) );
                for (I = 3; I <= N; I++) { // 160
                   B( I, J ) = ( B( I, J )-CONJG( DU( I-1 ) )* B( I-1, J )-CONJG( DU2( I-2 ) )* B( I-2, J ) ) / CONJG( D( I ) )
                } // 160

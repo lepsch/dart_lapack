@@ -58,7 +58,7 @@
 
       // Quick return if possible
 
-      IF( M.EQ.0 .OR. N.EQ.0 ) RETURN
+      if (M.EQ.0 .OR. N.EQ.0) RETURN;
 
       // Compute machine safe minimum
 

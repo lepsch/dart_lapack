@@ -55,7 +55,7 @@
       // Copy the last k rows of the factorization to the array Q
 
       claset('Full', M, N, ROGUE, ROGUE, Q, LDA );
-      IF( K.LT.N ) CALL CLACPY( 'Full', K, N-K, AF( M-K+1, 1 ), LDA, Q( M-K+1, 1 ), LDA )       IF( K.GT.1 ) CALL CLACPY( 'Lower', K-1, K-1, AF( M-K+2, N-K+1 ), LDA, Q( M-K+2, N-K+1 ), LDA )
+      if (K.LT.N) CALL CLACPY( 'Full', K, N-K, AF( M-K+1, 1 ), LDA, Q( M-K+1, 1 ), LDA )       IF( K.GT.1 ) CALL CLACPY( 'Lower', K-1, K-1, AF( M-K+2, N-K+1 ), LDA, Q( M-K+2, N-K+1 ), LDA );
 
       // Generate the last n rows of the matrix Q
 

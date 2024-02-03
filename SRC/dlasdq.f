@@ -63,7 +63,7 @@
          xerbla('DLASDQ', -INFO );
          RETURN
       }
-      IF( N.EQ.0 ) RETURN
+      if (N.EQ.0) RETURN;
 
       // ROTATE is true if any singular vectors desired, false otherwise
 
@@ -97,7 +97,7 @@
 
          // Update singular vectors if desired.
 
-         IF( NCVT.GT.0 ) CALL DLASR( 'L', 'V', 'F', NP1, NCVT, WORK( 1 ), WORK( NP1 ), VT, LDVT )
+         if (NCVT.GT.0) CALL DLASR( 'L', 'V', 'F', NP1, NCVT, WORK( 1 ), WORK( NP1 ), VT, LDVT );
       }
 
       // If matrix lower bidiagonal, rotate to be upper bidiagonal
@@ -171,7 +171,7 @@
 
             D( ISUB ) = D( I )
             D( I ) = SMIN
-            IF( NCVT.GT.0 ) CALL DSWAP( NCVT, VT( ISUB, 1 ), LDVT, VT( I, 1 ), LDVT )             IF( NRU.GT.0 ) CALL DSWAP( NRU, U( 1, ISUB ), 1, U( 1, I ), 1 )             IF( NCC.GT.0 ) CALL DSWAP( NCC, C( ISUB, 1 ), LDC, C( I, 1 ), LDC )
+            if (NCVT.GT.0) CALL DSWAP( NCVT, VT( ISUB, 1 ), LDVT, VT( I, 1 ), LDVT )             IF( NRU.GT.0 ) CALL DSWAP( NRU, U( 1, ISUB ), 1, U( 1, I ), 1 )             IF( NCC.GT.0 ) CALL DSWAP( NCC, C( ISUB, 1 ), LDC, C( I, 1 ), LDC );
          }
       } // 40
 

@@ -67,7 +67,7 @@
          INFO = -12
       } else {
          if ( VALEIG ) {
-            IF( N.GT.0 .AND. VU.LE.VL ) INFO = -14
+            if (N.GT.0 .AND. VU.LE.VL) INFO = -14;
          } else if ( INDEIG ) {
             if ( IL.LT.1 .OR. IL.GT.MAX( 1, N ) ) {
                INFO = -15
@@ -90,7 +90,7 @@
       // Quick return if possible
 
       M = 0
-      IF( N.EQ.0 ) RETURN
+      if (N.EQ.0) RETURN;
 
       // Form a split Cholesky factorization of B.
 

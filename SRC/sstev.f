@@ -56,10 +56,10 @@
 
       // Quick return if possible
 
-      IF( N.EQ.0 ) RETURN
+      if (N.EQ.0) RETURN;
 
       if ( N.EQ.1 ) {
-         IF( WANTZ ) Z( 1, 1 ) = ONE
+         if (WANTZ) Z( 1, 1 ) = ONE;
          RETURN
       }
 

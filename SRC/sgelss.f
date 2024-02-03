@@ -170,7 +170,7 @@
          }
          WORK( 1 ) = SROUNDUP_LWORK(MAXWRK)
 
-         IF( LWORK.LT.MINWRK .AND. .NOT.LQUERY ) INFO = -12
+         if (LWORK.LT.MINWRK .AND. .NOT.LQUERY) INFO = -12;
       }
 
       if ( INFO.NE.0 ) {
@@ -265,7 +265,7 @@
 
             // Zero out below R
 
-            IF( N.GT.1 ) CALL SLASET( 'L', N-1, N-1, ZERO, ZERO, A( 2, 1 ), LDA )
+            if (N.GT.1) CALL SLASET( 'L', N-1, N-1, ZERO, ZERO, A( 2, 1 ), LDA );
          }
 
          IE = 1
@@ -299,7 +299,7 @@
          // Multiply B by reciprocals of singular values
 
          THR = MAX( RCOND*S( 1 ), SFMIN )
-         IF( RCOND.LT.ZERO ) THR = MAX( EPS*S( 1 ), SFMIN )
+         if (RCOND.LT.ZERO) THR = MAX( EPS*S( 1 ), SFMIN );
          RANK = 0
          for (I = 1; I <= N; I++) { // 10
             if ( S( I ).GT.THR ) {
@@ -379,7 +379,7 @@
          // Multiply B by reciprocals of singular values
 
          THR = MAX( RCOND*S( 1 ), SFMIN )
-         IF( RCOND.LT.ZERO ) THR = MAX( EPS*S( 1 ), SFMIN )
+         if (RCOND.LT.ZERO) THR = MAX( EPS*S( 1 ), SFMIN );
          RANK = 0
          for (I = 1; I <= M; I++) { // 30
             if ( S( I ).GT.THR ) {
@@ -453,7 +453,7 @@
          // Multiply B by reciprocals of singular values
 
          THR = MAX( RCOND*S( 1 ), SFMIN )
-         IF( RCOND.LT.ZERO ) THR = MAX( EPS*S( 1 ), SFMIN )
+         if (RCOND.LT.ZERO) THR = MAX( EPS*S( 1 ), SFMIN );
          RANK = 0
          for (I = 1; I <= M; I++) { // 50
             if ( S( I ).GT.THR ) {

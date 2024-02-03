@@ -66,7 +66,7 @@
 
       // Quick return if possible
 
-      IF( N.EQ.0 ) RETURN
+      if (N.EQ.0) RETURN;
 
       if ( NBMAX.GE.N ) {
          zhetri(UPLO, N, A, LDA, IPIV, WORK, INFO );

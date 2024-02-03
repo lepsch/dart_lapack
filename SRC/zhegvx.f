@@ -65,7 +65,7 @@
          INFO = -9
       } else {
          if ( VALEIG ) {
-            IF( N.GT.0 .AND. VU.LE.VL ) INFO = -11
+            if (N.GT.0 .AND. VU.LE.VL) INFO = -11;
          } else if ( INDEIG ) {
             if ( IL.LT.1 .OR. IL.GT.MAX( 1, N ) ) {
                INFO = -12
@@ -121,7 +121,7 @@
 
          // Backtransform eigenvectors to the original problem.
 
-         IF( INFO.GT.0 ) M = INFO - 1
+         if (INFO.GT.0) M = INFO - 1;
          if ( ITYPE.EQ.1 .OR. ITYPE.EQ.2 ) {
 
             // For A*x=(lambda)*B*x and A*B*x=(lambda)*x;

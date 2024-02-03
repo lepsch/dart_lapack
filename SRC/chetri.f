@@ -57,7 +57,7 @@
 
       // Quick return if possible
 
-      IF( N.EQ.0 ) RETURN
+      if (N.EQ.0) RETURN;
 
       // Check that the diagonal matrix D is nonsingular.
 
@@ -90,7 +90,7 @@
 
          // If K > N, exit from loop.
 
-         IF( K.GT.N ) GO TO 50
+         if (K.GT.N) GO TO 50;
 
          if ( IPIV( K ).GT.0 ) {
 
@@ -172,7 +172,7 @@
 
          // If K < 1, exit from loop.
 
-         IF( K.LT.1 ) GO TO 80
+         if (K.LT.1) GO TO 80;
 
          if ( IPIV( K ).GT.0 ) {
 
@@ -221,7 +221,7 @@
             // Interchange rows and columns K and KP in the trailing
             // submatrix A(k-1:n,k-1:n)
 
-            IF( KP.LT.N ) CALL CSWAP( N-KP, A( KP+1, K ), 1, A( KP+1, KP ), 1 )
+            if (KP.LT.N) CALL CSWAP( N-KP, A( KP+1, K ), 1, A( KP+1, KP ), 1 );
             for (J = K + 1; J <= KP - 1; J++) { // 70
                TEMP = CONJG( A( J, K ) )
                A( J, K ) = CONJG( A( KP, J ) )

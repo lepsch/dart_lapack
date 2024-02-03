@@ -156,7 +156,7 @@
 
       // Test the error exits
 
-      IF( TSTERR ) CALL ZERRSY( PATH, NOUT )
+      if (TSTERR) CALL ZERRSY( PATH, NOUT );
       INFOT = 0
 
       // Set the minimum block size for which the block routine should
@@ -171,7 +171,7 @@
          LDA = MAX( N, 1 )
          XTYPE = 'N'
          NIMAT = NTYPES
-         IF( N.LE.0 ) NIMAT = 1
+         if (N.LE.0) NIMAT = 1;
 
          IZERO = 0
 
@@ -186,7 +186,7 @@
             // Skip types 3, 4, 5, or 6 if the matrix size is too small.
 
             ZEROT = IMAT.GE.3 .AND. IMAT.LE.6
-            IF( ZEROT .AND. N.LT.IMAT-2 ) GO TO 260
+            if (ZEROT .AND. N.LT.IMAT-2) GO TO 260;
 
             // Do first for UPLO = 'U', then for UPLO = 'L'
 
@@ -343,7 +343,7 @@
 
                   // Check error code from ZSYTRF_RK and handle error.
 
-                  IF( INFO.NE.K) CALL ALAERH( PATH, 'ZSYTRF_RK', INFO, K, UPLO, N, N, -1, -1, NB, IMAT, NFAIL, NERRS, NOUT )
+                  if (INFO.NE.K) CALL ALAERH( PATH, 'ZSYTRF_RK', INFO, K, UPLO, N, N, -1, -1, NB, IMAT, NFAIL, NERRS, NOUT );
 
                   // Set the condition estimate flag if the INFO is not 0.
 
@@ -378,7 +378,7 @@
 
                      // Check error code from ZSYTRI_3 and handle error.
 
-                     IF( INFO.NE.0 ) CALL ALAERH( PATH, 'ZSYTRI_3', INFO, -1, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT )
+                     if (INFO.NE.0) CALL ALAERH( PATH, 'ZSYTRI_3', INFO, -1, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
 
                      // Compute the residual for a symmetric matrix times
                      // its inverse.
@@ -392,7 +392,7 @@
 
                   for (K = 1; K <= NT; K++) { // 110
                      if ( RESULT( K ).GE.THRESH ) {
-                        IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9999 )UPLO, N, NB, IMAT, K, RESULT( K )
+                        if (NFAIL.EQ.0 .AND. NERRS.EQ.0) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9999 )UPLO, N, NB, IMAT, K, RESULT( K );
                         NFAIL = NFAIL + 1
                      }
                   } // 110
@@ -412,7 +412,7 @@
 
                      K = N
                      } // 120
-                     IF( K.LE.1 ) GO TO 130
+                     if (K.LE.1) GO TO 130;
 
                      if ( IWORK( K ).GT.ZERO ) {
 
@@ -446,7 +446,7 @@
 
                      K = 1
                      } // 140
-                     IF( K.GE.N ) GO TO 150
+                     if (K.GE.N) GO TO 150;
 
                      if ( IWORK( K ).GT.ZERO ) {
 
@@ -491,7 +491,7 @@
 
                      K = N
                      } // 160
-                     IF( K.LE.1 ) GO TO 170
+                     if (K.LE.1) GO TO 170;
 
                      if ( IWORK( K ).LT.ZERO ) {
 
@@ -531,7 +531,7 @@
 
                      K = 1
                      } // 180
-                     IF( K.GE.N ) GO TO 190
+                     if (K.GE.N) GO TO 190;
 
                      if ( IWORK( K ).LT.ZERO ) {
 
@@ -570,7 +570,7 @@
 
                   for (K = 3; K <= 4; K++) { // 200
                      if ( RESULT( K ).GE.THRESH ) {
-                        IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9999 )UPLO, N, NB, IMAT, K, RESULT( K )
+                        if (NFAIL.EQ.0 .AND. NERRS.EQ.0) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9999 )UPLO, N, NB, IMAT, K, RESULT( K );
                         NFAIL = NFAIL + 1
                      }
                   } // 200
@@ -579,7 +579,7 @@
                   // Skip the other tests if this is not the first block
                   // size.
 
-                  IF( INB.GT.1 ) GO TO 240
+                  if (INB.GT.1) GO TO 240;
 
                   // Do only the condition estimate if INFO is not 0.
 
@@ -608,7 +608,7 @@
 
                      // Check error code from ZSYTRS_3 and handle error.
 
-                     IF( INFO.NE.0 ) CALL ALAERH( PATH, 'ZSYTRS_3', INFO, 0, UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT )
+                     if (INFO.NE.0) CALL ALAERH( PATH, 'ZSYTRS_3', INFO, 0, UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
 
                      zlacpy('Full', N, NRHS, B, LDA, WORK, LDA );
 
@@ -626,7 +626,7 @@
 
                      for (K = 5; K <= 6; K++) { // 210
                         if ( RESULT( K ).GE.THRESH ) {
-                           IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                            WRITE( NOUT, FMT = 9998 )UPLO, N, NRHS, IMAT, K, RESULT( K )
+                           if (NFAIL.EQ.0 .AND. NERRS.EQ.0) CALL ALAHD( NOUT, PATH )                            WRITE( NOUT, FMT = 9998 )UPLO, N, NRHS, IMAT, K, RESULT( K );
                            NFAIL = NFAIL + 1
                         }
                      } // 210
@@ -646,7 +646,7 @@
 
                   // Check error code from ZSYCON_3 and handle error.
 
-                  IF( INFO.NE.0 ) CALL ALAERH( PATH, 'ZSYCON_3', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT )
+                  if (INFO.NE.0) CALL ALAERH( PATH, 'ZSYCON_3', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
 
                   // Compute the test ratio to compare values of RCOND
 
@@ -656,7 +656,7 @@
                   // the threshold.
 
                   if ( RESULT( 7 ).GE.THRESH ) {
-                     IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                      WRITE( NOUT, FMT = 9997 )UPLO, N, IMAT, 7, RESULT( 7 )
+                     if (NFAIL.EQ.0 .AND. NERRS.EQ.0) CALL ALAHD( NOUT, PATH )                      WRITE( NOUT, FMT = 9997 )UPLO, N, IMAT, 7, RESULT( 7 );
                      NFAIL = NFAIL + 1
                   }
                   NRUN = NRUN + 1

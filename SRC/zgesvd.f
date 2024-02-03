@@ -117,7 +117,7 @@
 
                   MAXWRK = N + LWORK_ZGEQRF
                   MAXWRK = MAX( MAXWRK, 2*N+LWORK_ZGEBRD )
-                  IF( WNTVO .OR. WNTVAS ) MAXWRK = MAX( MAXWRK, 2*N+LWORK_ZUNGBR_P )
+                  if (WNTVO .OR. WNTVAS) MAXWRK = MAX( MAXWRK, 2*N+LWORK_ZUNGBR_P );
                   MINWRK = 3*N
                } else if ( WNTUO .AND. WNTVN ) {
 
@@ -259,7 +259,7 @@
 
                   MAXWRK = M + LWORK_ZGELQF
                   MAXWRK = MAX( MAXWRK, 2*M+LWORK_ZGEBRD )
-                  IF( WNTUO .OR. WNTUAS ) MAXWRK = MAX( MAXWRK, 2*M+LWORK_ZUNGBR_Q )
+                  if (WNTUO .OR. WNTUAS) MAXWRK = MAX( MAXWRK, 2*M+LWORK_ZUNGBR_Q );
                   MINWRK = 3*M
                } else if ( WNTVO .AND. WNTUN ) {
 
@@ -471,7 +471,7 @@
 
                // If right singular vectors desired in VT, copy them there
 
-               IF( WNTVAS ) CALL ZLACPY( 'F', N, N, A, LDA, VT, LDVT )
+               if (WNTVAS) CALL ZLACPY( 'F', N, N, A, LDA, VT, LDVT );
 
             } else if ( WNTUO .AND. WNTVN ) {
 
@@ -632,7 +632,7 @@
                   // Copy R to VT, zeroing out below it
 
                   zlacpy('U', N, N, A, LDA, VT, LDVT );
-                  IF( N.GT.1 ) CALL ZLASET( 'L', N-1, N-1, CZERO, CZERO, VT( 2, 1 ), LDVT )
+                  if (N.GT.1) CALL ZLASET( 'L', N-1, N-1, CZERO, CZERO, VT( 2, 1 ), LDVT );
 
                   // Generate Q in A
                   // (CWorkspace: need N*N+2*N, prefer N*N+N+N*NB)
@@ -700,7 +700,7 @@
                   // Copy R to VT, zeroing out below it
 
                   zlacpy('U', N, N, A, LDA, VT, LDVT );
-                  IF( N.GT.1 ) CALL ZLASET( 'L', N-1, N-1, CZERO, CZERO, VT( 2, 1 ), LDVT )
+                  if (N.GT.1) CALL ZLASET( 'L', N-1, N-1, CZERO, CZERO, VT( 2, 1 ), LDVT );
 
                   // Generate Q in A
                   // (CWorkspace: need 2*N, prefer N+N*NB)
@@ -1131,7 +1131,7 @@
                      // Copy R to VT, zeroing out below it
 
                      zlacpy('U', N, N, A, LDA, VT, LDVT );
-                     IF( N.GT.1 ) CALL ZLASET( 'L', N-1, N-1, CZERO, CZERO, VT( 2, 1 ), LDVT )
+                     if (N.GT.1) CALL ZLASET( 'L', N-1, N-1, CZERO, CZERO, VT( 2, 1 ), LDVT );
                      IE = 1
                      ITAUQ = ITAU
                      ITAUP = ITAUQ + N
@@ -1574,7 +1574,7 @@
                      // Copy R from A to VT, zeroing out below it
 
                      zlacpy('U', N, N, A, LDA, VT, LDVT );
-                     IF( N.GT.1 ) CALL ZLASET( 'L', N-1, N-1, CZERO, CZERO, VT( 2, 1 ), LDVT )
+                     if (N.GT.1) CALL ZLASET( 'L', N-1, N-1, CZERO, CZERO, VT( 2, 1 ), LDVT );
                      IE = 1
                      ITAUQ = ITAU
                      ITAUP = ITAUQ + N
@@ -1639,7 +1639,7 @@
                // (RWorkspace: 0)
 
                zlacpy('L', M, N, A, LDA, U, LDU );
-               IF( WNTUS ) NCU = N                IF( WNTUA ) NCU = M                CALL ZUNGBR( 'Q', M, NCU, N, U, LDU, WORK( ITAUQ ), WORK( IWORK ), LWORK-IWORK+1, IERR )
+               if (WNTUS) NCU = N                IF( WNTUA ) NCU = M                CALL ZUNGBR( 'Q', M, NCU, N, U, LDU, WORK( ITAUQ ), WORK( IWORK ), LWORK-IWORK+1, IERR );
             }
             if ( WNTVAS ) {
 
@@ -1670,7 +1670,7 @@
                zungbr('P', N, N, N, A, LDA, WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR );
             }
             IRWORK = IE + N
-            IF( WNTUAS .OR. WNTUO ) NRU = M             IF( WNTUN ) NRU = 0             IF( WNTVAS .OR. WNTVO ) NCVT = N             IF( WNTVN ) NCVT = 0
+            if (WNTUAS .OR. WNTUO) NRU = M             IF( WNTUN ) NRU = 0             IF( WNTVAS .OR. WNTVO ) NCVT = N             IF( WNTVN ) NCVT = 0;
             if ( ( .NOT.WNTUO ) .AND. ( .NOT.WNTVO ) ) {
 
                // Perform bidiagonal QR iteration, if desired, computing
@@ -1747,7 +1747,7 @@
                }
                IRWORK = IE + M
                NRU = 0
-               IF( WNTUO .OR. WNTUAS ) NRU = M
+               if (WNTUO .OR. WNTUAS) NRU = M;
 
                // Perform bidiagonal QR iteration, computing left singular
                // vectors of A in A if desired
@@ -1758,7 +1758,7 @@
 
                // If left singular vectors desired in U, copy them there
 
-               IF( WNTUAS ) CALL ZLACPY( 'F', M, M, A, LDA, U, LDU )
+               if (WNTUAS) CALL ZLACPY( 'F', M, M, A, LDA, U, LDU );
 
             } else if ( WNTVO .AND. WNTUN ) {
 
@@ -2938,7 +2938,7 @@
                // (RWorkspace: 0)
 
                zlacpy('U', M, N, A, LDA, VT, LDVT );
-               IF( WNTVA ) NRVT = N                IF( WNTVS ) NRVT = M                CALL ZUNGBR( 'P', NRVT, N, M, VT, LDVT, WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR )
+               if (WNTVA) NRVT = N                IF( WNTVS ) NRVT = M                CALL ZUNGBR( 'P', NRVT, N, M, VT, LDVT, WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR );
             }
             if ( WNTUO ) {
 
@@ -2959,7 +2959,7 @@
                zungbr('P', M, N, M, A, LDA, WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR );
             }
             IRWORK = IE + M
-            IF( WNTUAS .OR. WNTUO ) NRU = M             IF( WNTUN ) NRU = 0             IF( WNTVAS .OR. WNTVO ) NCVT = N             IF( WNTVN ) NCVT = 0
+            if (WNTUAS .OR. WNTUO) NRU = M             IF( WNTUN ) NRU = 0             IF( WNTVAS .OR. WNTVO ) NCVT = N             IF( WNTVN ) NCVT = 0;
             if ( ( .NOT.WNTUO ) .AND. ( .NOT.WNTVO ) ) {
 
                // Perform bidiagonal QR iteration, if desired, computing
@@ -2996,7 +2996,7 @@
       // Undo scaling if necessary
 
       if ( ISCL.EQ.1 ) {
-         IF( ANRM.GT.BIGNUM ) CALL DLASCL( 'G', 0, 0, BIGNUM, ANRM, MINMN, 1, S, MINMN, IERR )          IF( INFO.NE.0 .AND. ANRM.GT.BIGNUM ) CALL DLASCL( 'G', 0, 0, BIGNUM, ANRM, MINMN-1, 1, RWORK( IE ), MINMN, IERR )          IF( ANRM.LT.SMLNUM ) CALL DLASCL( 'G', 0, 0, SMLNUM, ANRM, MINMN, 1, S, MINMN, IERR )          IF( INFO.NE.0 .AND. ANRM.LT.SMLNUM ) CALL DLASCL( 'G', 0, 0, SMLNUM, ANRM, MINMN-1, 1, RWORK( IE ), MINMN, IERR )
+         if (ANRM.GT.BIGNUM) CALL DLASCL( 'G', 0, 0, BIGNUM, ANRM, MINMN, 1, S, MINMN, IERR )          IF( INFO.NE.0 .AND. ANRM.GT.BIGNUM ) CALL DLASCL( 'G', 0, 0, BIGNUM, ANRM, MINMN-1, 1, RWORK( IE ), MINMN, IERR )          IF( ANRM.LT.SMLNUM ) CALL DLASCL( 'G', 0, 0, SMLNUM, ANRM, MINMN, 1, S, MINMN, IERR )          IF( INFO.NE.0 .AND. ANRM.LT.SMLNUM ) CALL DLASCL( 'G', 0, 0, SMLNUM, ANRM, MINMN-1, 1, RWORK( IE ), MINMN, IERR );
       }
 
       // Return optimal workspace in WORK(1)

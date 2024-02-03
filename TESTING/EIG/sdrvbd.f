@@ -146,7 +146,7 @@
 
             // Compute "A"
 
-            IF( MTYPES.GT.MAXTYP ) GO TO 30
+            if (MTYPES.GT.MAXTYP) GO TO 30;
 
             if ( JTYPE.EQ.1 ) {
 
@@ -164,7 +164,7 @@
 
                // (Scaled) random matrix
 
-               IF( JTYPE.EQ.3 ) ANORM = ONE                IF( JTYPE.EQ.4 ) ANORM = UNFL / ULP                IF( JTYPE.EQ.5 ) ANORM = OVFL*ULP                CALL SLATMS( M, N, 'U', ISEED, 'N', S, 4, REAL( MNMIN ), ANORM, M-1, N-1, 'N', A, LDA, WORK, IINFO )
+               if (JTYPE.EQ.3) ANORM = ONE                IF( JTYPE.EQ.4 ) ANORM = UNFL / ULP                IF( JTYPE.EQ.5 ) ANORM = OVFL*ULP                CALL SLATMS( M, N, 'U', ISEED, 'N', S, 4, REAL( MNMIN ), ANORM, M-1, N-1, 'N', A, LDA, WORK, IINFO );
                if ( IINFO.NE.0 ) {
                   WRITE( NOUT, FMT = 9996 )'Generator', IINFO, M, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
@@ -189,9 +189,9 @@
                LSWORK = IWTMP + ( IWS-1 )*( LWORK-IWTMP ) / 3
                LSWORK = MIN( LSWORK, LWORK )
                LSWORK = MAX( LSWORK, 1 )
-               IF( IWS.EQ.4 ) LSWORK = LWORK
+               if (IWS.EQ.4) LSWORK = LWORK;
 
-               IF( IWS.GT.1 ) CALL SLACPY( 'F', M, N, ASAV, LDA, A, LDA )
+               if (IWS.GT.1) CALL SLACPY( 'F', M, N, ASAV, LDA, A, LDA );
                SRNAMT = 'SGESVD'
                sgesvd('A', 'A', M, N, A, LDA, SSAV, USAV, LDU, VTSAV, LDVT, WORK, LSWORK, IINFO );
                if ( IINFO.NE.0 ) {
@@ -274,7 +274,7 @@
                LSWORK = IWTMP + ( IWS-1 )*( LWORK-IWTMP ) / 3
                LSWORK = MIN( LSWORK, LWORK )
                LSWORK = MAX( LSWORK, 1 )
-               IF( IWS.EQ.4 ) LSWORK = LWORK
+               if (IWS.EQ.4) LSWORK = LWORK;
 
                slacpy('F', M, N, ASAV, LDA, A, LDA );
                SRNAMT = 'SGESDD'
@@ -366,7 +366,7 @@
                   LSWORK = IWTMP + ( IWS-1 )*( LWORK-IWTMP ) / 3
                   LSWORK = MIN( LSWORK, LWORK )
                   LSWORK = MAX( LSWORK, 1 )
-                  IF( IWS.EQ.4 ) LSWORK = LWORK
+                  if (IWS.EQ.4) LSWORK = LWORK;
 
                   slacpy('F', M, N, ASAV, LDA, A, LDA );
                   SRNAMT = 'SGESVDQ'
@@ -409,7 +409,7 @@
                   LSWORK = IWTMP + ( IWS-1 )*( LWORK-IWTMP ) / 3
                   LSWORK = MIN( LSWORK, LWORK )
                   LSWORK = MAX( LSWORK, 1 )
-                  IF( IWS.EQ.4 ) LSWORK = LWORK
+                  if (IWS.EQ.4) LSWORK = LWORK;
 
                   slacpy('F', M, N, ASAV, LDA, USAV, LDA );
                   SRNAMT = 'SGESVJ'
@@ -456,7 +456,7 @@
                   LSWORK = IWTMP + ( IWS-1 )*( LWORK-IWTMP ) / 3
                   LSWORK = MIN( LSWORK, LWORK )
                   LSWORK = MAX( LSWORK, 1 )
-                  IF( IWS.EQ.4 ) LSWORK = LWORK
+                  if (IWS.EQ.4) LSWORK = LWORK;
 
                   slacpy('F', M, N, ASAV, LDA, VTSAV, LDA );
                   SRNAMT = 'SGEJSV'
@@ -609,7 +609,7 @@
                   }
                   VL = MAX( VL,ZERO )
                   VU = MAX( VU,ZERO )
-                  IF( VL.GE.VU ) VU = MAX( VU*2, VU+VL+HALF )
+                  if (VL.GE.VU) VU = MAX( VU*2, VU+VL+HALF );
                } else {
                   VL = ZERO
                   VU = ONE

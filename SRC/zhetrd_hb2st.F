@@ -182,7 +182,7 @@
                   } else {
                      TMP = ONE
                   }
-                  IF( I.LT.N-1 ) AB( ABOFDPOS, I+2 ) = AB( ABOFDPOS, I+2 )*TMP
+                  if (I.LT.N-1) AB( ABOFDPOS, I+2 ) = AB( ABOFDPOS, I+2 )*TMP;
                    // IF( WANTZ ) THEN
                       // CALL ZSCAL( N, DCONJG( TMP ), Q( 1, I+1 ), 1 )
                    // END IF
@@ -198,7 +198,7 @@
                  } else {
                     TMP = ONE
                  }
-                 IF( I.LT.N-1 ) AB( ABOFDPOS, I+1 ) = AB( ABOFDPOS, I+1 )*TMP
+                 if (I.LT.N-1) AB( ABOFDPOS, I+1 ) = AB( ABOFDPOS, I+1 )*TMP;
                   // IF( WANTQ ) THEN
                      // CALL ZSCAL( N, TMP, Q( 1, I+1 ), 1 )
                   // END IF
@@ -243,7 +243,7 @@
           THED = MIN( (STT + THGRSIZ -1), (N-1))
           for (I = STT; I <= N-1; I++) { // 110
               ED = MIN( I, THED )
-              IF( STT.GT.ED ) EXIT
+              if (STT.GT.ED) EXIT;
               for (M = 1; M <= STEPERCOL; M++) { // 120
                   ST = STT
                   for (SWEEPID = ST; SWEEPID <= ED; SWEEPID++) { // 130

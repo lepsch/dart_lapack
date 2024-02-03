@@ -146,7 +146,7 @@
 
       if ( R.NE.ZERO ) {
          BR = B * R
-         if( BR.NE.ZERO ) THEN
+         if (BR.NE.ZERO) THEN;
             SLADIV2 = (A + BR) * T
          } else {
             SLADIV2 = A * T + (B * T) * R

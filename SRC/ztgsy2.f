@@ -105,7 +105,7 @@
                // Solve Z * x = RHS
 
                zgetc2(LDZ, Z, LDZ, IPIV, JPIV, IERR );
-               IF( IERR.GT.0 ) INFO = IERR
+               if (IERR.GT.0) INFO = IERR;
                if ( IJOB.EQ.0 ) {
                   zgesc2(LDZ, Z, LDZ, RHS, IPIV, JPIV, SCALOC );
                   if ( SCALOC.NE.ONE ) {
@@ -164,7 +164,7 @@
                // Solve Z**H * x = RHS
 
                zgetc2(LDZ, Z, LDZ, IPIV, JPIV, IERR );
-               IF( IERR.GT.0 ) INFO = IERR
+               if (IERR.GT.0) INFO = IERR;
                zgesc2(LDZ, Z, LDZ, RHS, IPIV, JPIV, SCALOC );
                if ( SCALOC.NE.ONE ) {
                   for (K = 1; K <= N; K++) { // 40

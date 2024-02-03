@@ -81,7 +81,7 @@
 
       // Test the error exits
 
-      IF( TSTERR ) CALL ZERRVX( PATH, NOUT )
+      if (TSTERR) CALL ZERRVX( PATH, NOUT );
       INFOT = 0
 
       // Set the block size and minimum block size for testing.
@@ -98,7 +98,7 @@
          LDA = MAX( N, 1 )
          XTYPE = 'N'
          NIMAT = NTYPES
-         IF( N.LE.0 ) NIMAT = 1
+         if (N.LE.0) NIMAT = 1;
 
          for (IMAT = 1; IMAT <= NIMAT; IMAT++) { // 80
 
@@ -109,7 +109,7 @@
             // Skip types 5, 6, or 7 if the matrix size is too small.
 
             ZEROT = IMAT.GE.5 .AND. IMAT.LE.7
-            IF( ZEROT .AND. N.LT.IMAT-4 ) GO TO 80
+            if (ZEROT .AND. N.LT.IMAT-4) GO TO 80;
 
             // Set up parameters with ZLATB4 and generate a test matrix
             // with ZLATMS.
@@ -169,7 +169,7 @@
                   EQUIL = LSAME( FACT, 'E' )
 
                   if ( ZEROT ) {
-                     IF( PREFAC ) GO TO 60
+                     if (PREFAC) GO TO 60;
                      RCONDO = ZERO
                      RCONDI = ZERO
 
@@ -284,7 +284,7 @@
 
                         // Check error code from ZGESV .
 
-                        IF( INFO.NE.IZERO ) CALL ALAERH( PATH, 'ZGESV ', INFO, IZERO, ' ', N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT )
+                        if (INFO.NE.IZERO) CALL ALAERH( PATH, 'ZGESV ', INFO, IZERO, ' ', N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
 
                         // Reconstruct matrix from factors and compute
                         // residual.
@@ -308,7 +308,7 @@
 
                         for (K = 1; K <= NT; K++) { // 30
                            if ( RESULT( K ).GE.THRESH ) {
-                              IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALADHD( NOUT, PATH )                               WRITE( NOUT, FMT = 9999 )'ZGESV ', N, IMAT, K, RESULT( K )
+                              if (NFAIL.EQ.0 .AND. NERRS.EQ.0) CALL ALADHD( NOUT, PATH )                               WRITE( NOUT, FMT = 9999 )'ZGESV ', N, IMAT, K, RESULT( K );
                               NFAIL = NFAIL + 1
                            }
                         } // 30
@@ -317,7 +317,7 @@
 
                      // --- Test ZGESVX ---
 
-                     IF( .NOT.PREFAC ) CALL ZLASET( 'Full', N, N, DCMPLX( ZERO ), DCMPLX( ZERO ), AFAC, LDA )
+                     if (.NOT.PREFAC) CALL ZLASET( 'Full', N, N, DCMPLX( ZERO ), DCMPLX( ZERO ), AFAC, LDA );
                      zlaset('Full', N, NRHS, DCMPLX( ZERO ), DCMPLX( ZERO ), X, LDA );
                      if ( IEQUED.GT.1 .AND. N.GT.0 ) {
 
@@ -335,7 +335,7 @@
 
                      // Check the error code from ZGESVX.
 
-                     IF( INFO.NE.IZERO ) CALL ALAERH( PATH, 'ZGESVX', INFO, IZERO, FACT // TRANS, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT )
+                     if (INFO.NE.IZERO) CALL ALAERH( PATH, 'ZGESVX', INFO, IZERO, FACT // TRANS, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
 
                      // Compare RWORK(2*NRHS+1) from ZGESVX with the
                      // computed reciprocal pivot growth factor RPVGRW
@@ -406,7 +406,7 @@
                      if ( .NOT.TRFCON ) {
                         for (K = K1; K <= NTESTS; K++) { // 40
                            if ( RESULT( K ).GE.THRESH ) {
-                              IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALADHD( NOUT, PATH )
+                              if (NFAIL.EQ.0 .AND. NERRS.EQ.0) CALL ALADHD( NOUT, PATH );
                               if ( PREFAC ) {
                                  WRITE( NOUT, FMT = 9997 )'ZGESVX', FACT, TRANS, N, EQUED, IMAT, K, RESULT( K )
                               } else {
@@ -427,7 +427,7 @@
                            NRUN = NRUN + 1
                         }
                         if ( RESULT( 6 ).GE.THRESH ) {
-                           IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALADHD( NOUT, PATH )
+                           if (NFAIL.EQ.0 .AND. NERRS.EQ.0) CALL ALADHD( NOUT, PATH );
                            if ( PREFAC ) {
                               WRITE( NOUT, FMT = 9997 )'ZGESVX', FACT, TRANS, N, EQUED, IMAT, 6, RESULT( 6 )
                            } else {
@@ -437,7 +437,7 @@
                            NRUN = NRUN + 1
                         }
                         if ( RESULT( 7 ).GE.THRESH ) {
-                           IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALADHD( NOUT, PATH )
+                           if (NFAIL.EQ.0 .AND. NERRS.EQ.0) CALL ALADHD( NOUT, PATH );
                            if ( PREFAC ) {
                               WRITE( NOUT, FMT = 9997 )'ZGESVX', FACT, TRANS, N, EQUED, IMAT, 7, RESULT( 7 )
                            } else {
@@ -456,7 +456,7 @@
 
                      zlacpy('Full', N, N, ASAV, LDA, A, LDA );
                      zlacpy('Full', N, NRHS, BSAV, LDA, B, LDA );
-                      IF( .NOT.PREFAC ) CALL ZLASET( 'Full', N, N, DCMPLX( ZERO ), DCMPLX( ZERO ), AFAC, LDA )
+                      if (.NOT.PREFAC) CALL ZLASET( 'Full', N, N, DCMPLX( ZERO ), DCMPLX( ZERO ), AFAC, LDA );
                      zlaset('Full', N, NRHS, DCMPLX( ZERO ), DCMPLX( ZERO ), X, LDA );
                      if ( IEQUED.GT.1 .AND. N.GT.0 ) {
 
@@ -475,7 +475,7 @@
 
                      // Check the error code from ZGESVXX.
 
-                     IF( INFO.EQ.N+1 ) GOTO 50
+                     if (INFO.EQ.N+1) GOTO 50;
                      if ( INFO.NE.IZERO ) {
                         alaerh(PATH, 'ZGESVXX', INFO, IZERO, FACT // TRANS, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
                         GOTO 50
@@ -536,7 +536,7 @@
                      if ( .NOT.TRFCON ) {
                         for (K = K1; K <= NTESTS; K++) { // 45
                            if ( RESULT( K ).GE.THRESH ) {
-                              IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALADHD( NOUT, PATH )
+                              if (NFAIL.EQ.0 .AND. NERRS.EQ.0) CALL ALADHD( NOUT, PATH );
                               if ( PREFAC ) {
                                  WRITE( NOUT, FMT = 9997 )'ZGESVXX', FACT, TRANS, N, EQUED, IMAT, K, RESULT( K )
                               } else {
@@ -557,7 +557,7 @@
                            NRUN = NRUN + 1
                         }
                         if ( RESULT( 6 ).GE.THRESH ) {
-                           IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALADHD( NOUT, PATH )
+                           if (NFAIL.EQ.0 .AND. NERRS.EQ.0) CALL ALADHD( NOUT, PATH );
                            if ( PREFAC ) {
                               WRITE( NOUT, FMT = 9997 )'ZGESVXX', FACT, TRANS, N, EQUED, IMAT, 6, RESULT( 6 )
                            } else {
@@ -567,7 +567,7 @@
                            NRUN = NRUN + 1
                         }
                         if ( RESULT( 7 ).GE.THRESH ) {
-                           IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALADHD( NOUT, PATH )
+                           if (NFAIL.EQ.0 .AND. NERRS.EQ.0) CALL ALADHD( NOUT, PATH );
                            if ( PREFAC ) {
                               WRITE( NOUT, FMT = 9997 )'ZGESVXX', FACT, TRANS, N, EQUED, IMAT, 7, RESULT( 7 )
                            } else {

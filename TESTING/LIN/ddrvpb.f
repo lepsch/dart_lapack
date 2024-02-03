@@ -77,7 +77,7 @@
 
       // Test the error exits
 
-      IF( TSTERR ) CALL DERRVX( PATH, NOUT )
+      if (TSTERR) CALL DERRVX( PATH, NOUT );
       INFOT = 0
       KDVAL( 1 ) = 0
 
@@ -99,7 +99,7 @@
 
          NKD = MAX( 1, MIN( N, 4 ) )
          NIMAT = NTYPES
-         IF( N.EQ.0 ) NIMAT = 1
+         if (N.EQ.0) NIMAT = 1;
 
          KDVAL( 2 ) = N + ( N+1 ) / 4
          KDVAL( 3 ) = ( 3*N-1 ) / 4
@@ -136,7 +136,7 @@
                   // Skip types 2, 3, or 4 if the matrix size is too small.
 
                   ZEROT = IMAT.GE.2 .AND. IMAT.LE.4
-                  IF( ZEROT .AND. N.LT.IMAT-1 ) GO TO 80
+                  if (ZEROT .AND. N.LT.IMAT-1) GO TO 80;
 
                   if ( .NOT.ZEROT .OR. .NOT.DOTYPE( 1 ) ) {
 
@@ -230,7 +230,7 @@
                         EQUIL = LSAME( FACT, 'E' )
 
                         if ( ZEROT ) {
-                           IF( PREFAC ) GO TO 60
+                           if (PREFAC) GO TO 60;
                            RCONDC = ZERO
 
                         } else if ( .NOT.LSAME( FACT, 'N' ) ) {
@@ -248,7 +248,7 @@
 
                               dpbequ(UPLO, N, KD, AFAC, LDAB, S, SCOND, AMAX, INFO );
                               if ( INFO.EQ.0 .AND. N.GT.0 ) {
-                                 IF( IEQUED.GT.1 ) SCOND = ZERO
+                                 if (IEQUED.GT.1) SCOND = ZERO;
 
                                  // Equilibrate the matrix.
 
@@ -259,7 +259,7 @@
                            // Save the condition number of the
                            // non-equilibrated system for use in DGET04.
 
-                           IF( EQUIL ) ROLDC = RCONDC
+                           if (EQUIL) ROLDC = RCONDC;
 
                            // Compute the 1-norm of A.
 
@@ -337,7 +337,7 @@
 
                            for (K = 1; K <= NT; K++) { // 30
                               if ( RESULT( K ).GE.THRESH ) {
-                                 IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALADHD( NOUT, PATH )                                  WRITE( NOUT, FMT = 9999 )'DPBSV ', UPLO, N, KD, IMAT, K, RESULT( K )
+                                 if (NFAIL.EQ.0 .AND. NERRS.EQ.0) CALL ALADHD( NOUT, PATH )                                  WRITE( NOUT, FMT = 9999 )'DPBSV ', UPLO, N, KD, IMAT, K, RESULT( K );
                                  NFAIL = NFAIL + 1
                               }
                            } // 30
@@ -347,7 +347,7 @@
 
                         // --- Test DPBSVX ---
 
-                        IF( .NOT.PREFAC ) CALL DLASET( 'Full', KD+1, N, ZERO, ZERO, AFAC, LDAB )
+                        if (.NOT.PREFAC) CALL DLASET( 'Full', KD+1, N, ZERO, ZERO, AFAC, LDAB );
                         dlaset('Full', N, NRHS, ZERO, ZERO, X, LDA );
                         if ( IEQUED.GT.1 .AND. N.GT.0 ) {
 
@@ -411,7 +411,7 @@
 
                         for (K = K1; K <= 6; K++) { // 50
                            if ( RESULT( K ).GE.THRESH ) {
-                              IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALADHD( NOUT, PATH )
+                              if (NFAIL.EQ.0 .AND. NERRS.EQ.0) CALL ALADHD( NOUT, PATH );
                               if ( PREFAC ) {
                                  WRITE( NOUT, FMT = 9997 )'DPBSVX', FACT, UPLO, N, KD, EQUED, IMAT, K, RESULT( K )
                               } else {

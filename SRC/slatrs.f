@@ -69,7 +69,7 @@
       // Quick return if possible
 
       SCALE = ONE
-      IF( N.EQ.0 ) RETURN
+      if (N.EQ.0) RETURN;
 
       // Determine machine dependent parameters to control overflow.
 
@@ -203,7 +203,7 @@
 
                // Exit the loop if the growth factor is too small.
 
-               IF( GROW.LE.SMLNUM ) GO TO 50
+               if (GROW.LE.SMLNUM) GO TO 50;
 
                // M(j) = G(j-1) / abs(A(j,j))
 
@@ -233,7 +233,7 @@
 
                // Exit the loop if the growth factor is too small.
 
-               IF( GROW.LE.SMLNUM ) GO TO 50
+               if (GROW.LE.SMLNUM) GO TO 50;
 
                // G(j) = G(j-1)*( 1 + CNORM(j) )
 
@@ -274,7 +274,7 @@
 
                // Exit the loop if the growth factor is too small.
 
-               IF( GROW.LE.SMLNUM ) GO TO 80
+               if (GROW.LE.SMLNUM) GO TO 80;
 
                // G(j) = max( G(j-1), M(j-1)*( 1 + CNORM(j) ) )
 
@@ -284,7 +284,7 @@
                // M(j) = M(j-1)*( 1 + CNORM(j) ) / abs(A(j,j))
 
                TJJ = ABS( A( J, J ) )
-               IF( XJ.GT.TJJ ) XBND = XBND*( TJJ / XJ )
+               if (XJ.GT.TJJ) XBND = XBND*( TJJ / XJ );
             } // 60
             GROW = MIN( GROW, XBND )
          } else {
@@ -298,7 +298,7 @@
 
                // Exit the loop if the growth factor is too small.
 
-               IF( GROW.LE.SMLNUM ) GO TO 80
+               if (GROW.LE.SMLNUM) GO TO 80;
 
                // G(j) = ( 1 + CNORM(j) )*G(j-1)
 
@@ -342,7 +342,7 @@
                   TJJS = A( J, J )*TSCAL
                } else {
                   TJJS = TSCAL
-                  IF( TSCAL.EQ.ONE ) GO TO 95
+                  if (TSCAL.EQ.ONE) GO TO 95;
                }
                   TJJ = ABS( TJJS )
                   if ( TJJ.GT.SMLNUM ) {
@@ -518,7 +518,7 @@
                      TJJS = A( J, J )*TSCAL
                   } else {
                      TJJS = TSCAL
-                     IF( TSCAL.EQ.ONE ) GO TO 135
+                     if (TSCAL.EQ.ONE) GO TO 135;
                   }
 
                      // Compute x(j) = x(j) / A(j,j), scaling if necessary.

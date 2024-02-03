@@ -34,8 +34,8 @@
 
       X_IS_NAN = SISNAN( X )
       Y_IS_NAN = SISNAN( Y )
-      IF ( X_IS_NAN ) SLAPY2 = X
-      IF ( Y_IS_NAN ) SLAPY2 = Y
+      if (X_IS_NAN) SLAPY2 = X;
+      if (Y_IS_NAN) SLAPY2 = Y;
       HUGEVAL = SLAMCH( 'Overflow' )
 
       if ( .NOT.( X_IS_NAN.OR.Y_IS_NAN ) ) {

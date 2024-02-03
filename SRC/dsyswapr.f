@@ -46,7 +46,7 @@
 
            // third swap
            // - swap row I1 and I2 from I2+1 to N
-         IF ( I2.LT.N ) CALL DSWAP( N-I2, A(I1,I2+1), LDA, A(I2,I2+1), LDA )
+         if (I2.LT.N) CALL DSWAP( N-I2, A(I1,I2+1), LDA, A(I2,I2+1), LDA );
 
         } else {
 
@@ -66,7 +66,7 @@
 
           // third swap
            // - swap col I1 and I2 from I2+1 to N
-         IF ( I2.LT.N ) CALL DSWAP( N-I2, A(I2+1,I1), 1, A(I2+1,I2), 1 )
+         if (I2.LT.N) CALL DSWAP( N-I2, A(I2+1,I1), 1, A(I2+1,I2), 1 );
 
       }
       END SUBROUTINE DSYSWAPR

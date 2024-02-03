@@ -162,9 +162,9 @@
       // Scale the right hand side.
 
       if ( NOTRAN ) {
-         IF( ROWEQU ) CALL DLASCL2(N, NRHS, R, B, LDB)
+         if (ROWEQU) CALL DLASCL2(N, NRHS, R, B, LDB);
       } else {
-         IF( COLEQU ) CALL DLASCL2(N, NRHS, C, B, LDB)
+         if (COLEQU) CALL DLASCL2(N, NRHS, C, B, LDB);
       }
 
       if ( NOFACT .OR. EQUIL ) {

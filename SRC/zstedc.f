@@ -76,7 +76,7 @@
             LRWMIN = 2*( N - 1 )
          } else if ( ICOMPZ.EQ.1 ) {
             LGN = INT( LOG( DBLE( N ) ) / LOG( TWO ) )
-            IF( 2**LGN.LT.N ) LGN = LGN + 1             IF( 2**LGN.LT.N ) LGN = LGN + 1
+            if (2**LGN.LT.N) LGN = LGN + 1             IF( 2**LGN.LT.N ) LGN = LGN + 1;
             LWMIN = N*N
             LRWMIN = 1 + 3*N + 2*N*LGN + 4*N**2
             LIWMIN = 6 + 6*N + 5*N*LGN
@@ -107,9 +107,9 @@
 
       // Quick return if possible
 
-      IF( N.EQ.0 ) RETURN
+      if (N.EQ.0) RETURN;
       if ( N.EQ.1 ) {
-         IF( ICOMPZ.NE.0 ) Z( 1, 1 ) = ONE
+         if (ICOMPZ.NE.0) Z( 1, 1 ) = ONE;
          RETURN
       }
 
@@ -158,7 +158,7 @@
          // Scale.
 
          ORGNRM = DLANST( 'M', N, D, E )
-         IF( ORGNRM.EQ.ZERO ) GO TO 70
+         if (ORGNRM.EQ.ZERO) GO TO 70;
 
          EPS = DLAMCH( 'Epsilon' )
 

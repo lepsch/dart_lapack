@@ -94,11 +94,11 @@
 
       // Initialize Q and Z if desired.
 
-      IF( ICOMPQ.EQ.3 ) CALL SLASET( 'Full', N, N, ZERO, ONE, Q, LDQ )       IF( ICOMPZ.EQ.3 ) CALL SLASET( 'Full', N, N, ZERO, ONE, Z, LDZ )
+      if (ICOMPQ.EQ.3) CALL SLASET( 'Full', N, N, ZERO, ONE, Q, LDQ )       IF( ICOMPZ.EQ.3 ) CALL SLASET( 'Full', N, N, ZERO, ONE, Z, LDZ );
 
       // Quick return if possible
 
-      IF( N.LE.1 ) RETURN
+      if (N.LE.1) RETURN;
 
       // Zero out lower triangle of B
 

@@ -111,7 +111,7 @@
 
       } // 90
       // TEST FOR CYCLING.
-      IF( EST.LE.ESTOLD ) GO TO 120
+      if (EST.LE.ESTOLD) GO TO 120;
 
       for (I = 1; I <= N; I++) { // 100
          if ( X(I).GE.ZERO ) {

@@ -75,7 +75,7 @@
 
       // Test the error exits
 
-      IF( TSTERR ) CALL DERRSY( PATH, NOUT )
+      if (TSTERR) CALL DERRSY( PATH, NOUT );
       INFOT = 0
 
       // Set the minimum block size for which the block routine should
@@ -90,7 +90,7 @@
          LDA = MAX( N, 1 )
          XTYPE = 'N'
          NIMAT = NTYPES
-         IF( N.LE.0 ) NIMAT = 1
+         if (N.LE.0) NIMAT = 1;
 
          IZERO = 0
 
@@ -105,7 +105,7 @@
             // Skip types 3, 4, 5, or 6 if the matrix size is too small.
 
             ZEROT = IMAT.GE.3 .AND. IMAT.LE.6
-            IF( ZEROT .AND. N.LT.IMAT-2 ) GO TO 170
+            if (ZEROT .AND. N.LT.IMAT-2) GO TO 170;
 
             // Do first for UPLO = 'U', then for UPLO = 'L'
 
@@ -250,7 +250,7 @@
 
                   // Check error code from DSYTRF and handle error.
 
-                  IF( INFO.NE.K ) CALL ALAERH( PATH, 'DSYTRF', INFO, K, UPLO, N, N, -1, -1, NB, IMAT, NFAIL, NERRS, NOUT )
+                  if (INFO.NE.K) CALL ALAERH( PATH, 'DSYTRF', INFO, K, UPLO, N, N, -1, -1, NB, IMAT, NFAIL, NERRS, NOUT );
 
                   // Set the condition estimate flag if the INFO is not 0.
 
@@ -280,7 +280,7 @@
 
                      // Check error code from DSYTRI2 and handle error.
 
-                     IF( INFO.NE.0 ) CALL ALAERH( PATH, 'DSYTRI2', INFO, -1, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT )
+                     if (INFO.NE.0) CALL ALAERH( PATH, 'DSYTRI2', INFO, -1, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
 
                      // Compute the residual for a symmetric matrix times
                      // its inverse.
@@ -294,7 +294,7 @@
 
                   for (K = 1; K <= NT; K++) { // 110
                      if ( RESULT( K ).GE.THRESH ) {
-                        IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9999 )UPLO, N, NB, IMAT, K, RESULT( K )
+                        if (NFAIL.EQ.0 .AND. NERRS.EQ.0) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9999 )UPLO, N, NB, IMAT, K, RESULT( K );
                         NFAIL = NFAIL + 1
                      }
                   } // 110
@@ -303,7 +303,7 @@
                   // Skip the other tests if this is not the first block
                   // size.
 
-                  IF( INB.GT.1 ) GO TO 150
+                  if (INB.GT.1) GO TO 150;
 
                   // Do only the condition estimate if INFO is not 0.
 
@@ -332,7 +332,7 @@
 
                      // Check error code from DSYTRS and handle error.
 
-                     IF( INFO.NE.0 ) CALL ALAERH( PATH, 'DSYTRS', INFO, 0, UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT )
+                     if (INFO.NE.0) CALL ALAERH( PATH, 'DSYTRS', INFO, 0, UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
 
                      dlacpy('Full', N, NRHS, B, LDA, WORK, LDA );
 
@@ -356,7 +356,7 @@
 
                      // Check error code from DSYTRS2 and handle error.
 
-                     IF( INFO.NE.0 ) CALL ALAERH( PATH, 'DSYTRS2', INFO, 0, UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT )
+                     if (INFO.NE.0) CALL ALAERH( PATH, 'DSYTRS2', INFO, 0, UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
 
                      dlacpy('Full', N, NRHS, B, LDA, WORK, LDA );
 
@@ -377,7 +377,7 @@
 
                      // Check error code from DSYRFS and handle error.
 
-                     IF( INFO.NE.0 ) CALL ALAERH( PATH, 'DSYRFS', INFO, 0, UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT )
+                     if (INFO.NE.0) CALL ALAERH( PATH, 'DSYRFS', INFO, 0, UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
 
                      dget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 6 ) )                      CALL DPOT05( UPLO, N, NRHS, A, LDA, B, LDA, X, LDA, XACT, LDA, RWORK, RWORK( NRHS+1 ), RESULT( 7 ) );
 
@@ -386,7 +386,7 @@
 
                      for (K = 3; K <= 8; K++) { // 120
                         if ( RESULT( K ).GE.THRESH ) {
-                           IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                            WRITE( NOUT, FMT = 9998 )UPLO, N, NRHS, IMAT, K, RESULT( K )
+                           if (NFAIL.EQ.0 .AND. NERRS.EQ.0) CALL ALAHD( NOUT, PATH )                            WRITE( NOUT, FMT = 9998 )UPLO, N, NRHS, IMAT, K, RESULT( K );
                            NFAIL = NFAIL + 1
                         }
                      } // 120
@@ -406,7 +406,7 @@
 
                   // Check error code from DSYCON and handle error.
 
-                  IF( INFO.NE.0 ) CALL ALAERH( PATH, 'DSYCON', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT )
+                  if (INFO.NE.0) CALL ALAERH( PATH, 'DSYCON', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
 
                   // Compute the test ratio to compare values of RCOND
 
@@ -416,7 +416,7 @@
                   // the threshold.
 
                   if ( RESULT( 9 ).GE.THRESH ) {
-                     IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                      WRITE( NOUT, FMT = 9997 )UPLO, N, IMAT, 9, RESULT( 9 )
+                     if (NFAIL.EQ.0 .AND. NERRS.EQ.0) CALL ALAHD( NOUT, PATH )                      WRITE( NOUT, FMT = 9997 )UPLO, N, IMAT, 9, RESULT( 9 );
                      NFAIL = NFAIL + 1
                   }
                   NRUN = NRUN + 1

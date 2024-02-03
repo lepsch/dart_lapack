@@ -55,7 +55,7 @@
 
       // Quick return if possible
 
-      IF( N1.EQ.0 .OR. N2.EQ.0 ) RETURN
+      if (N1.EQ.0 .OR. N2.EQ.0) RETURN;
 
       // Set constants to control overflow
 
@@ -79,7 +79,7 @@
 
       SCALE = ONE
       GAM = ABS( B( 1, 1 ) )
-      IF( SMLNUM*GAM.GT.BET ) SCALE = ONE / GAM
+      if (SMLNUM*GAM.GT.BET) SCALE = ONE / GAM;
 
       X( 1, 1 ) = ( B( 1, 1 )*SCALE ) / TAU1
       XNORM = ABS( X( 1, 1 ) )
@@ -234,7 +234,7 @@
             BTMP( I ) = BTMP( IPSV )
             BTMP( IPSV ) = TEMP
          }
-         IF( JPSV.NE.I ) CALL DSWAP( 4, T16( 1, JPSV ), 1, T16( 1, I ), 1 )
+         if (JPSV.NE.I) CALL DSWAP( 4, T16( 1, JPSV ), 1, T16( 1, I ), 1 );
          JPIV( I ) = JPSV
          if ( ABS( T16( I, I ) ).LT.SMIN ) {
             INFO = 1

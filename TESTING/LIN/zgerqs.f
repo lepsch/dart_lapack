@@ -48,7 +48,7 @@
 
       // Quick return if possible
 
-      IF( N.EQ.0 .OR. NRHS.EQ.0 .OR. M.EQ.0 ) RETURN
+      if (N.EQ.0 .OR. NRHS.EQ.0 .OR. M.EQ.0) RETURN;
 
       // Solve R*X = B(n-m+1:n,:)
 

@@ -121,7 +121,7 @@
 
       // Quick return if possible
 
-      IF( N.EQ.0 ) RETURN
+      if (N.EQ.0) RETURN;
 
       // Get machine constants
 
@@ -138,7 +138,7 @@
             PAIR = .FALSE.
             GO TO 20
          } else {
-            IF( K.LT.N ) PAIR = A( K+1, K ).NE.ZERO
+            if (K.LT.N) PAIR = A( K+1, K ).NE.ZERO;
          }
 
          // Determine whether condition numbers are required for the k-th
@@ -268,12 +268,12 @@
                   IZ = 2*N*N + 1
                   stgsyl('N', DIFDRI, N2, N1, WORK( N*N1+N1+1 ), N, WORK, N, WORK( N1+1 ), N, WORK( N*N1+N1+I ), N, WORK( I ), N, WORK( N1+I ), N, SCALE, DIF( KS ), WORK( IZ+1 ), LWORK-2*N*N, IWORK, IERR );
 
-                  IF( PAIR ) DIF( KS ) = MIN( MAX( ONE, ALPRQT )*DIF( KS ), COND )
+                  if (PAIR) DIF( KS ) = MIN( MAX( ONE, ALPRQT )*DIF( KS ), COND );
                }
             }
-            IF( PAIR ) DIF( KS+1 ) = DIF( KS )
+            if (PAIR) DIF( KS+1 ) = DIF( KS );
          }
-         IF( PAIR ) KS = KS + 1
+         if (PAIR) KS = KS + 1;
 
       } // 20
       WORK( 1 ) = SROUNDUP_LWORK(LWMIN)

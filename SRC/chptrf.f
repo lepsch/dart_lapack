@@ -79,7 +79,7 @@
 
          // If K < 1, exit from loop
 
-         IF( K.LT.1 ) GO TO 110
+         if (K.LT.1) GO TO 110;
          KSTEP = 1
 
          // Determine rows and columns to be interchanged and whether
@@ -101,7 +101,7 @@
 
             // Column K is zero: set INFO and continue
 
-            IF( INFO.EQ.0 ) INFO = K
+            if (INFO.EQ.0) INFO = K;
             KP = K
             AP( KC+K-1 ) = REAL( AP( KC+K-1 ) )
          } else {
@@ -153,7 +153,7 @@
             }
 
             KK = K - KSTEP + 1
-            IF( KSTEP.EQ.2 ) KNC = KNC - K + 1
+            if (KSTEP.EQ.2) KNC = KNC - K + 1;
             if ( KP.NE.KK ) {
 
                // Interchange rows and columns KK and KP in the leading
@@ -179,7 +179,7 @@
                }
             } else {
                AP( KC+K-1 ) = REAL( AP( KC+K-1 ) )
-               IF( KSTEP.EQ.2 ) AP( KC-1 ) = REAL( AP( KC-1 ) )
+               if (KSTEP.EQ.2) AP( KC-1 ) = REAL( AP( KC-1 ) );
             }
 
             // Update the leading submatrix
@@ -270,7 +270,7 @@
 
          // If K > N, exit from loop
 
-         IF( K.GT.N ) GO TO 110
+         if (K.GT.N) GO TO 110;
          KSTEP = 1
 
          // Determine rows and columns to be interchanged and whether
@@ -292,7 +292,7 @@
 
             // Column K is zero: set INFO and continue
 
-            IF( INFO.EQ.0 ) INFO = K
+            if (INFO.EQ.0) INFO = K;
             KP = K
             AP( KC ) = REAL( AP( KC ) )
          } else {
@@ -343,13 +343,13 @@
             }
 
             KK = K + KSTEP - 1
-            IF( KSTEP.EQ.2 ) KNC = KNC + N - K + 1
+            if (KSTEP.EQ.2) KNC = KNC + N - K + 1;
             if ( KP.NE.KK ) {
 
                // Interchange rows and columns KK and KP in the trailing
                // submatrix A(k:n,k:n)
 
-               IF( KP.LT.N ) CALL CSWAP( N-KP, AP( KNC+KP-KK+1 ), 1, AP( KPC+1 ), 1 )
+               if (KP.LT.N) CALL CSWAP( N-KP, AP( KNC+KP-KK+1 ), 1, AP( KPC+1 ), 1 );
                KX = KNC + KP - KK
                for (J = KK + 1; J <= KP - 1; J++) { // 80
                   KX = KX + N - J + 1
@@ -369,7 +369,7 @@
                }
             } else {
                AP( KC ) = REAL( AP( KC ) )
-               IF( KSTEP.EQ.2 ) AP( KNC ) = REAL( AP( KNC ) )
+               if (KSTEP.EQ.2) AP( KNC ) = REAL( AP( KNC ) );
             }
 
             // Update the trailing submatrix

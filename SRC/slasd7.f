@@ -147,7 +147,7 @@
 
             K2 = K2 - 1
             IDXP( K2 ) = J
-            IF( J.EQ.N ) GO TO 100
+            if (J.EQ.N) GO TO 100;
          } else {
             JPREV = J
             GO TO 70
@@ -157,7 +157,7 @@
       J = JPREV
       } // 80
       J = J + 1
-      IF( J.GT.N ) GO TO 90
+      if (J.GT.N) GO TO 90;
       if ( ABS( Z( J ) ).LE.TOL ) {
 
          // Deflate due to small z component.

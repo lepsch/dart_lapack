@@ -55,7 +55,7 @@
 
       // Quick return if possible
 
-      IF( N.EQ.0 ) RETURN
+      if (N.EQ.0) RETURN;
 
       // Check that the diagonal matrix D is nonsingular.
 
@@ -88,7 +88,7 @@
 
          // If K > N, exit from loop.
 
-         IF( K.GT.N ) GO TO 40
+         if (K.GT.N) GO TO 40;
 
          if ( IPIV( K ).GT.0 ) {
 
@@ -165,7 +165,7 @@
 
          // If K < 1, exit from loop.
 
-         IF( K.LT.1 ) GO TO 60
+         if (K.LT.1) GO TO 60;
 
          if ( IPIV( K ).GT.0 ) {
 
@@ -214,7 +214,7 @@
             // Interchange rows and columns K and KP in the trailing
             // submatrix A(k-1:n,k-1:n)
 
-            IF( KP.LT.N ) CALL ZSWAP( N-KP, A( KP+1, K ), 1, A( KP+1, KP ), 1 )
+            if (KP.LT.N) CALL ZSWAP( N-KP, A( KP+1, K ), 1, A( KP+1, KP ), 1 );
             zswap(KP-K-1, A( K+1, K ), 1, A( KP, K+1 ), LDA );
             TEMP = A( K, K )
             A( K, K ) = A( KP, KP )

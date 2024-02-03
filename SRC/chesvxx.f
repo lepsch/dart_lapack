@@ -124,7 +124,7 @@
 
       // Scale the right-hand side.
 
-      IF( RCEQU ) CALL CLASCL2( N, NRHS, S, B, LDB )
+      if (RCEQU) CALL CLASCL2( N, NRHS, S, B, LDB );
 
       if ( NOFACT .OR. EQUIL ) {
 
@@ -141,14 +141,14 @@
             // Compute the reciprocal pivot growth factor of the
             // leading rank-deficient INFO columns of A.
 
-            IF( N.GT.0 ) RPVGRW = CLA_HERPVGRW( UPLO, N, INFO, A, LDA, AF, LDAF, IPIV, RWORK )
+            if (N.GT.0) RPVGRW = CLA_HERPVGRW( UPLO, N, INFO, A, LDA, AF, LDAF, IPIV, RWORK );
             RETURN
          }
       }
 
       // Compute the reciprocal pivot growth factor RPVGRW.
 
-      IF( N.GT.0 ) RPVGRW = CLA_HERPVGRW( UPLO, N, INFO, A, LDA, AF, LDAF, IPIV, RWORK )
+      if (N.GT.0) RPVGRW = CLA_HERPVGRW( UPLO, N, INFO, A, LDA, AF, LDAF, IPIV, RWORK );
 
       // Compute the solution matrix X.
 

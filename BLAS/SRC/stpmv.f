@@ -52,7 +52,7 @@
 
       // Quick return if possible.
 
-      IF (N.EQ.0) RETURN
+      if (N.EQ.0) RETURN;
 
       NOUNIT = LSAME(DIAG,'N')
 
@@ -83,7 +83,7 @@
                               X(I) = X(I) + TEMP*AP(K)
                               K = K + 1
                           } // 10
-                          IF (NOUNIT) X(J) = X(J)*AP(KK+J-1)
+                          if (NOUNIT) X(J) = X(J)*AP(KK+J-1);
                       }
                       KK = KK + J
                   } // 20
@@ -97,7 +97,7 @@
                               X(IX) = X(IX) + TEMP*AP(K)
                               IX = IX + INCX
                           } // 30
-                          IF (NOUNIT) X(JX) = X(JX)*AP(KK+J-1)
+                          if (NOUNIT) X(JX) = X(JX)*AP(KK+J-1);
                       }
                       JX = JX + INCX
                       KK = KK + J
@@ -114,7 +114,7 @@
                               X(I) = X(I) + TEMP*AP(K)
                               K = K - 1
                           } // 50
-                          IF (NOUNIT) X(J) = X(J)*AP(KK-N+J)
+                          if (NOUNIT) X(J) = X(J)*AP(KK-N+J);
                       }
                       KK = KK - (N-J+1)
                   } // 60
@@ -129,7 +129,7 @@
                               X(IX) = X(IX) + TEMP*AP(K)
                               IX = IX - INCX
                           } // 70
-                          IF (NOUNIT) X(JX) = X(JX)*AP(KK-N+J)
+                          if (NOUNIT) X(JX) = X(JX)*AP(KK-N+J);
                       }
                       JX = JX - INCX
                       KK = KK - (N-J+1)
@@ -145,7 +145,7 @@
               if (INCX.EQ.1) {
                   DO 100 J = N,1,-1
                       TEMP = X(J)
-                      IF (NOUNIT) TEMP = TEMP*AP(KK)
+                      if (NOUNIT) TEMP = TEMP*AP(KK);
                       K = KK - 1
                       DO 90 I = J - 1,1,-1
                           TEMP = TEMP + AP(K)*X(I)
@@ -159,7 +159,7 @@
                   DO 120 J = N,1,-1
                       TEMP = X(JX)
                       IX = JX
-                      IF (NOUNIT) TEMP = TEMP*AP(KK)
+                      if (NOUNIT) TEMP = TEMP*AP(KK);
                       DO 110 K = KK - 1,KK - J + 1,-1
                           IX = IX - INCX
                           TEMP = TEMP + AP(K)*X(IX)
@@ -174,7 +174,7 @@
               if (INCX.EQ.1) {
                   for (J = 1; J <= N; J++) { // 140
                       TEMP = X(J)
-                      IF (NOUNIT) TEMP = TEMP*AP(KK)
+                      if (NOUNIT) TEMP = TEMP*AP(KK);
                       K = KK + 1
                       for (I = J + 1; I <= N; I++) { // 130
                           TEMP = TEMP + AP(K)*X(I)
@@ -188,7 +188,7 @@
                   for (J = 1; J <= N; J++) { // 160
                       TEMP = X(JX)
                       IX = JX
-                      IF (NOUNIT) TEMP = TEMP*AP(KK)
+                      if (NOUNIT) TEMP = TEMP*AP(KK);
                       for (K = KK + 1; K <= KK + N - J; K++) { // 150
                           IX = IX + INCX
                           TEMP = TEMP + AP(K)*X(IX)

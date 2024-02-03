@@ -226,7 +226,7 @@
                                  AQOAP = AAQQ / AAPP
                                  APOAQ = AAPP / AAQQ
                                  THETA = -HALF*ABS( AQOAP-APOAQ )/ AAPQ1
-                                 IF( AAQQ.GT.AAPP0 )THETA = -THETA
+                                 if (AAQQ.GT.AAPP0) THETA = -THETA;
 
                                  if ( ABS( THETA ).GT.BIGTHETA ) {
                                     T  = HALF / THETA
@@ -242,7 +242,7 @@
                   // .. choose correct signum for THETA and rotate
 
                                     THSIGN = -SIGN( ONE, AAPQ1 )
-                                    IF( AAQQ.GT.AAPP0 )THSIGN = -THSIGN
+                                    if (AAQQ.GT.AAPP0) THSIGN = -THSIGN;
                                     T = ONE / ( THETA+THSIGN* SQRT( ONE+THETA*THETA ) )
                                     CS = SQRT( ONE / ( ONE+T*T ) )
                                     SN = T*CS
@@ -324,8 +324,8 @@
 
                   } else {
 
-                     IF( AAPP.EQ.ZERO )NOTROT = NOTROT + MIN( jgl+KBL-1, N ) - jgl + 1
-                     IF( AAPP.LT.ZERO )NOTROT = 0
+                     if (AAPP.EQ.ZERO) NOTROT = NOTROT + MIN( jgl+KBL-1, N ) - jgl + 1;
+                     if (AAPP.LT.ZERO) NOTROT = 0;
 
                   }
 
@@ -360,7 +360,7 @@
             GO TO 1994
          }
 
-         IF( NOTROT.GE.EMPTSW )GO TO 1994
+         if (NOTROT.GE.EMPTSW) GO TO 1994;
 
       } // 1993
       // end i=1:NSWEEP loop
@@ -388,7 +388,7 @@
             D( p ) = D( q )
             D( q ) = AAPQ
             cswap(M, A( 1, p ), 1, A( 1, q ), 1 );
-            IF( RSVEC )CALL CSWAP( MVL, V( 1, p ), 1, V( 1, q ), 1 )
+            if (RSVEC) CALL CSWAP( MVL, V( 1, p ), 1, V( 1, q ), 1 );
          }
       } // 5991
 

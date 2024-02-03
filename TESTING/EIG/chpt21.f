@@ -47,7 +47,7 @@
       // Constants
 
       RESULT( 1 ) = ZERO
-      IF( ITYPE.EQ.1 ) RESULT( 2 ) = ZERO       IF( N.LE.0 ) RETURN
+      if (ITYPE.EQ.1) RESULT( 2 ) = ZERO       IF( N.LE.0 ) RETURN;
 
       LAP = ( N*( N+1 ) ) / 2
 
@@ -157,7 +157,7 @@
 
          // ITYPE=3: error = U V**H - I
 
-         IF( N.LT.2 ) RETURN
+         if (N.LT.2) RETURN;
          clacpy(' ', N, N, U, LDU, WORK, N );
          cupmtr('R', CUPLO, 'C', N, N, VP, TAU, WORK, N, WORK( N**2+1 ), IINFO );
          if ( IINFO.NE.0 ) {

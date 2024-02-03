@@ -106,7 +106,7 @@
             SPLUS = SPLUS + ABS( XP( I ) )
             SMINU = SMINU + ABS( RHS( I ) )
          } // 30
-         IF( SPLUS.GT.SMINU ) CALL DCOPY( N, XP, 1, RHS, 1 )
+         if (SPLUS.GT.SMINU) CALL DCOPY( N, XP, 1, RHS, 1 );
 
          // Apply the permutations JPIV to the computed solution (RHS)
 

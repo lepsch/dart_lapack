@@ -53,17 +53,17 @@
 
       // Quick return if possible
 
-      IF( K.EQ.0 ) RETURN
+      if (K.EQ.0) RETURN;
 
       for (J = 1; J <= K; J++) { // 20
          slaed4(K, J, DLAMBDA, W, Q( 1, J ), RHO, D( J ), INFO );
 
          // If the zero finder fails, the computation is terminated.
 
-         IF( INFO.NE.0 ) GO TO 120
+         if (INFO.NE.0) GO TO 120;
       } // 20
 
-      IF( K.EQ.1 ) GO TO 110
+      if (K.EQ.1) GO TO 110;
       if ( K.EQ.2 ) {
          for (J = 1; J <= K; J++) { // 30
             W( 1 ) = Q( 1, J )

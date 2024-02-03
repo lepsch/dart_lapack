@@ -70,7 +70,7 @@
       // Initialize result
 
       RESULT = ZERO
-      IF( MU.EQ.0 .OR. MV.EQ.0 .OR. N.EQ.0 ) RETURN
+      if (MU.EQ.0 .OR. MV.EQ.0 .OR. N.EQ.0) RETURN;
 
       // Machine constants
 

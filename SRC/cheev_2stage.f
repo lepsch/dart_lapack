@@ -67,7 +67,7 @@
          LWMIN = N + LHTRD + LWTRD
          WORK( 1 )  = SROUNDUP_LWORK(LWMIN)
 
-         IF( LWORK.LT.LWMIN .AND. .NOT.LQUERY ) INFO = -8
+         if (LWORK.LT.LWMIN .AND. .NOT.LQUERY) INFO = -8;
       }
 
       if ( INFO.NE.0 ) {
@@ -86,7 +86,7 @@
       if ( N.EQ.1 ) {
          W( 1 ) = REAL( A( 1, 1 ) )
          WORK( 1 ) = 1
-         IF( WANTZ ) A( 1, 1 ) = CONE
+         if (WANTZ) A( 1, 1 ) = CONE;
          RETURN
       }
 
@@ -110,7 +110,7 @@
          ISCALE = 1
          SIGMA = RMAX / ANRM
       }
-      IF( ISCALE.EQ.1 ) CALL CLASCL( UPLO, 0, 0, ONE, SIGMA, N, N, A, LDA, INFO )
+      if (ISCALE.EQ.1) CALL CLASCL( UPLO, 0, 0, ONE, SIGMA, N, N, A, LDA, INFO );
 
       // Call CHETRD_2STAGE to reduce Hermitian matrix to tridiagonal form.
 

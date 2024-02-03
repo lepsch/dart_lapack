@@ -81,15 +81,15 @@
       // compute and properly scale error
 
       ERR = SLANGE( 'One-norm', NRHS, NCOLS, WORK, NRHS, RWORK )
-      IF( NORMA.NE.ZERO ) ERR = ERR / NORMA
+      if (NORMA.NE.ZERO) ERR = ERR / NORMA;
 
-      IF( ISCL.EQ.1 ) ERR = ERR*NORMRS
+      if (ISCL.EQ.1) ERR = ERR*NORMRS;
 
       if ( IRESID.EQ.1 ) {
          NORMB = SLANGE( 'One-norm', NROWS, NRHS, B, LDB, RWORK )
-         IF( NORMB.NE.ZERO ) ERR = ERR / NORMB
+         if (NORMB.NE.ZERO) ERR = ERR / NORMB;
       } else {
-         IF( NORMRS.NE.ZERO ) ERR = ERR / NORMRS
+         if (NORMRS.NE.ZERO) ERR = ERR / NORMRS;
       }
 
       SQRT17 = ERR / ( SLAMCH( 'Epsilon' )*REAL( MAX( M, N, NRHS ) ) )

@@ -147,7 +147,7 @@
                   q = IDAMAX( N-p+1, SVA( p ), 1 ) + p - 1
                   if ( p.NE.q ) {
                      dswap(M, A( 1, p ), 1, A( 1, q ), 1 );
-                     IF( RSVEC )CALL DSWAP( MVL, V( 1, p ), 1, V( 1, q ), 1 )
+                     if (RSVEC) CALL DSWAP( MVL, V( 1, p ), 1, V( 1, q ), 1 );
                      TEMP1 = SVA( p )
                      SVA( p ) = SVA( q )
                      SVA( q ) = TEMP1
@@ -333,17 +333,17 @@
 
                            } else {
          // A(:,p) and A(:,q) already numerically orthogonal
-                              IF( ir1.EQ.0 )NOTROT = NOTROT + 1
+                              if (ir1.EQ.0) NOTROT = NOTROT + 1;
                               PSKIPPED = PSKIPPED + 1
                            }
                         } else {
          // A(:,q) is zero column
-                           IF( ir1.EQ.0 )NOTROT = NOTROT + 1
+                           if (ir1.EQ.0) NOTROT = NOTROT + 1;
                            PSKIPPED = PSKIPPED + 1
                         }
 
                         if ( ( i.LE.SWBAND ) .AND. ( PSKIPPED.GT.ROWSKIP ) ) {
-                           IF( ir1.EQ.0 )AAPP = -AAPP
+                           if (ir1.EQ.0) AAPP = -AAPP;
                            NOTROT = 0
                            GO TO 2103
                         }
@@ -439,7 +439,7 @@
                                  AQOAP = AAQQ / AAPP
                                  APOAQ = AAPP / AAQQ
                                  THETA = -HALF*DABS( AQOAP-APOAQ )/AAPQ
-                                 IF( AAQQ.GT.AAPP0 )THETA = -THETA
+                                 if (AAQQ.GT.AAPP0) THETA = -THETA;
 
                                  if ( DABS( THETA ).GT.BIGTHETA ) {
                                     T = HALF / THETA
@@ -453,7 +453,7 @@
                   // .. choose correct signum for THETA and rotate
 
                                     THSIGN = -DSIGN( ONE, AAPQ )
-                                    IF( AAQQ.GT.AAPP0 )THSIGN = -THSIGN
+                                    if (AAQQ.GT.AAPP0) THSIGN = -THSIGN;
                                     T = ONE / ( THETA+THSIGN* DSQRT( ONE+THETA*THETA ) )
                                     CS = DSQRT( ONE / ( ONE+T*T ) )
                                     SN = T*CS
@@ -573,8 +573,8 @@
                      SVA( p ) = AAPP
 
                   } else {
-                     IF( AAPP.EQ.ZERO )NOTROT = NOTROT + MIN( jgl+KBL-1, N ) - jgl + 1
-                     IF( AAPP.LT.ZERO )NOTROT = 0
+                     if (AAPP.EQ.ZERO) NOTROT = NOTROT + MIN( jgl+KBL-1, N ) - jgl + 1;
+                     if (AAPP.LT.ZERO) NOTROT = 0;
                   }
 
                } // 2100
@@ -608,7 +608,7 @@
             GO TO 1994
          }
 
-         IF( NOTROT.GE.EMPTSW )GO TO 1994
+         if (NOTROT.GE.EMPTSW) GO TO 1994;
 
       } // 1993
       // end i=1:NSWEEP loop
@@ -635,7 +635,7 @@
             D( p ) = D( q )
             D( q ) = TEMP1
             dswap(M, A( 1, p ), 1, A( 1, q ), 1 );
-            IF( RSVEC )CALL DSWAP( MVL, V( 1, p ), 1, V( 1, q ), 1 )
+            if (RSVEC) CALL DSWAP( MVL, V( 1, p ), 1, V( 1, q ), 1 );
          }
       } // 5991
 

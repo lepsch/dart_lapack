@@ -110,11 +110,11 @@
 
          // ==== copy eigenvalues isolated by CGEBAL ====
 
-         IF( ILO.GT.1 ) CALL CCOPY( ILO-1, H, LDH+1, W, 1 )          IF( IHI.LT.N ) CALL CCOPY( N-IHI, H( IHI+1, IHI+1 ), LDH+1, W( IHI+1 ), 1 )
+         if (ILO.GT.1) CALL CCOPY( ILO-1, H, LDH+1, W, 1 )          IF( IHI.LT.N ) CALL CCOPY( N-IHI, H( IHI+1, IHI+1 ), LDH+1, W( IHI+1 ), 1 );
 
          // ==== Initialize Z, if requested ====
 
-         IF( INITZ ) CALL CLASET( 'A', N, N, ZERO, ONE, Z, LDZ )
+         if (INITZ) CALL CLASET( 'A', N, N, ZERO, ONE, Z, LDZ );
 
          // ==== Quick return if possible ====
 

@@ -21,7 +21,7 @@
       REAL SCABS1
       // EXTERNAL SCABS1
       // ..
-      IF (N.LE.0) RETURN
+      if (N.LE.0) RETURN;
       IF (SCABS1(CA).EQ.0.0E+0) RETURN
       if (INCX.EQ.1 .AND. INCY.EQ.1) {
 
@@ -37,8 +37,8 @@
 
          IX = 1
          IY = 1
-         IF (INCX.LT.0) IX = (-N+1)*INCX + 1
-         IF (INCY.LT.0) IY = (-N+1)*INCY + 1
+         if (INCX.LT.0) IX = (-N+1)*INCX + 1;
+         if (INCY.LT.0) IY = (-N+1)*INCY + 1;
          for (I = 1; I <= N; I++) {
             CY(IY) = CY(IY) + CA*CX(IX)
             IX = IX + INCX

@@ -23,9 +23,9 @@
       // .. Executable Statements ..
 
       ICMAX1 = 0
-      IF (N.LT.1 .OR. INCX.LE.0) RETURN
+      if (N.LT.1 .OR. INCX.LE.0) RETURN;
       ICMAX1 = 1
-      IF (N.EQ.1) RETURN
+      if (N.EQ.1) RETURN;
       if (INCX.EQ.1) {
 
          // code for increment equal to 1

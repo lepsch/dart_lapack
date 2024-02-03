@@ -47,7 +47,7 @@
 
       // Quick return if possible
 
-      IF( M.LE.0 ) RETURN
+      if (M.LE.0) RETURN;
 
       if ( K.LT.M ) {
 
@@ -57,7 +57,7 @@
             for (L = K + 1; L <= M; L++) { // 10
                A( L, J ) = ZERO
             } // 10
-            IF( J.GT.K .AND. J.LE.M ) A( J, J ) = ONE
+            if (J.GT.K .AND. J.LE.M) A( J, J ) = ONE;
          } // 20
       }
 

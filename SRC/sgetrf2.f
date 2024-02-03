@@ -52,7 +52,7 @@
 
       // Quick return if possible
 
-      IF( M.EQ.0 .OR. N.EQ.0 ) RETURN
+      if (M.EQ.0 .OR. N.EQ.0) RETURN;
 
       if ( M.EQ.1 ) {
 
@@ -111,7 +111,7 @@
                 // [ A21 ]
 
          sgetrf2(m, n1, A, lda, ipiv, iinfo );
-          IF ( info.EQ.0 .AND. iinfo.GT.0 ) info = iinfo
+          if (info.EQ.0 .AND. iinfo.GT.0) info = iinfo;
 
                                // [ A12 ]
          // Apply interchanges to [ --- ]
@@ -133,7 +133,7 @@
 
          // Adjust INFO and the pivot indices
 
-         IF ( INFO.EQ.0 .AND. IINFO.GT.0 ) INFO = IINFO + N1
+         if (INFO.EQ.0 .AND. IINFO.GT.0) INFO = IINFO + N1;
          DO 20 I = N1+1, MIN( M, N )
             IPIV( I ) = IPIV( I ) + N1
          } // 20

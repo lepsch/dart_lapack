@@ -324,7 +324,7 @@
       WRITE( NOUT, FMT = 9991 )
 
       } // 230
-      IF( TRACE ) CLOSE ( NTRA )
+      if (TRACE) CLOSE ( NTRA );
       CLOSE ( NOUT )
       STOP
 
@@ -410,9 +410,9 @@
             N = IDIM( IN )
             // Set LDC to 1 more than minimum value if room.
             LDC = M
-            IF( LDC.LT.NMAX ) LDC = LDC + 1
+            if (LDC.LT.NMAX) LDC = LDC + 1;
             // Skip tests if not enough room.
-            IF( LDC.GT.NMAX ) GO TO 100
+            if (LDC.GT.NMAX) GO TO 100;
             LCC = LDC*N
             NULL = N.LE.0.OR.M.LE.0
 
@@ -432,9 +432,9 @@
                   }
                   // Set LDA to 1 more than minimum value if room.
                   LDA = MA
-                  IF( LDA.LT.NMAX ) LDA = LDA + 1
+                  if (LDA.LT.NMAX) LDA = LDA + 1;
                   // Skip tests if not enough room.
-                  IF( LDA.GT.NMAX ) GO TO 80
+                  if (LDA.GT.NMAX) GO TO 80;
                   LAA = LDA*NA
 
                   // Generate the matrix A.
@@ -454,9 +454,9 @@
                      }
                      // Set LDB to 1 more than minimum value if room.
                      LDB = MB
-                     IF( LDB.LT.NMAX ) LDB = LDB + 1
+                     if (LDB.LT.NMAX) LDB = LDB + 1;
                      // Skip tests if not enough room.
-                     IF( LDB.GT.NMAX ) GO TO 70
+                     if (LDB.GT.NMAX) GO TO 70;
                      LBB = LDB*NB
 
                      // Generate the matrix B.
@@ -500,8 +500,8 @@
 
                            // Call the subroutine.
 
-                           IF( TRACE ) CALL DPRCN1(NTRA, NC, SNAME, IORDER, TRANSA, TRANSB, M, N, K, ALPHA, LDA, LDB, BETA, LDC)
-                           IF( REWI ) REWIND NTRA                            CALL CDGEMM( IORDER, TRANSA, TRANSB, M, N, K, ALPHA, AA, LDA, BB, LDB, BETA, CC, LDC )
+                           if (TRACE) CALL DPRCN1(NTRA, NC, SNAME, IORDER, TRANSA, TRANSB, M, N, K, ALPHA, LDA, LDB, BETA, LDC);
+                           if (REWI) REWIND NTRA                            CALL CDGEMM( IORDER, TRANSA, TRANSB, M, N, K, ALPHA, AA, LDA, BB, LDB, BETA, CC, LDC );
 
                            // Check if error-exit was taken incorrectly.
 
@@ -552,7 +552,7 @@
                               ERRMAX = MAX( ERRMAX, ERR )
                               // If got really bad answer, report and
                               // return.
-                              IF( FATAL ) GO TO 120
+                              if (FATAL) GO TO 120;
                            }
 
                         } // 50
@@ -572,11 +572,11 @@
       // Report result.
 
       if ( ERRMAX.LT.THRESH ) {
-         IF ( IORDER.EQ.0) WRITE( NOUT, FMT = 10000 )SNAME, NC
-         IF ( IORDER.EQ.1) WRITE( NOUT, FMT = 10001 )SNAME, NC
+         if (IORDER.EQ.0) WRITE( NOUT, FMT = 10000 )SNAME, NC;
+         if (IORDER.EQ.1) WRITE( NOUT, FMT = 10001 )SNAME, NC;
       } else {
-         IF ( IORDER.EQ.0) WRITE( NOUT, FMT = 10002 )SNAME, NC, ERRMAX
-         IF ( IORDER.EQ.1) WRITE( NOUT, FMT = 10003 )SNAME, NC, ERRMAX
+         if (IORDER.EQ.0) WRITE( NOUT, FMT = 10002 )SNAME, NC, ERRMAX;
+         if (IORDER.EQ.1) WRITE( NOUT, FMT = 10003 )SNAME, NC, ERRMAX;
       }
       GO TO 130
 
@@ -691,17 +691,17 @@
             N = IDIM( IN )
             // Set LDC to 1 more than minimum value if room.
             LDC = M
-            IF( LDC.LT.NMAX ) LDC = LDC + 1
+            if (LDC.LT.NMAX) LDC = LDC + 1;
             // Skip tests if not enough room.
-            IF( LDC.GT.NMAX ) GO TO 90
+            if (LDC.GT.NMAX) GO TO 90;
             LCC = LDC*N
             NULL = N.LE.0.OR.M.LE.0
 
             // Set LDB to 1 more than minimum value if room.
             LDB = M
-            IF( LDB.LT.NMAX ) LDB = LDB + 1
+            if (LDB.LT.NMAX) LDB = LDB + 1;
             // Skip tests if not enough room.
-            IF( LDB.GT.NMAX ) GO TO 90
+            if (LDB.GT.NMAX) GO TO 90;
             LBB = LDB*N
 
             // Generate the matrix B.
@@ -719,9 +719,9 @@
                }
                // Set LDA to 1 more than minimum value if room.
                LDA = NA
-               IF( LDA.LT.NMAX ) LDA = LDA + 1
+               if (LDA.LT.NMAX) LDA = LDA + 1;
                // Skip tests if not enough room.
-               IF( LDA.GT.NMAX ) GO TO 80
+               if (LDA.GT.NMAX) GO TO 80;
                LAA = LDA*NA
 
                for (ICU = 1; ICU <= 2; ICU++) { // 70
@@ -767,8 +767,8 @@
 
                         // Call the subroutine.
 
-                        IF( TRACE ) CALL DPRCN2(NTRA, NC, SNAME, IORDER, SIDE, UPLO, M, N, ALPHA, LDA, LDB, BETA, LDC)
-                        IF( REWI ) REWIND NTRA                         CALL CDSYMM( IORDER, SIDE, UPLO, M, N, ALPHA, AA, LDA, BB, LDB, BETA, CC, LDC )
+                        if (TRACE) CALL DPRCN2(NTRA, NC, SNAME, IORDER, SIDE, UPLO, M, N, ALPHA, LDA, LDB, BETA, LDC);
+                        if (REWI) REWIND NTRA                         CALL CDSYMM( IORDER, SIDE, UPLO, M, N, ALPHA, AA, LDA, BB, LDB, BETA, CC, LDC );
 
                         // Check if error-exit was taken incorrectly.
 
@@ -822,7 +822,7 @@
                            ERRMAX = MAX( ERRMAX, ERR )
                            // If got really bad answer, report and
                            // return.
-                           IF( FATAL ) GO TO 110
+                           if (FATAL) GO TO 110;
                         }
 
                      } // 50
@@ -840,11 +840,11 @@
       // Report result.
 
       if ( ERRMAX.LT.THRESH ) {
-         IF ( IORDER.EQ.0) WRITE( NOUT, FMT = 10000 )SNAME, NC
-         IF ( IORDER.EQ.1) WRITE( NOUT, FMT = 10001 )SNAME, NC
+         if (IORDER.EQ.0) WRITE( NOUT, FMT = 10000 )SNAME, NC;
+         if (IORDER.EQ.1) WRITE( NOUT, FMT = 10001 )SNAME, NC;
       } else {
-         IF ( IORDER.EQ.0) WRITE( NOUT, FMT = 10002 )SNAME, NC, ERRMAX
-         IF ( IORDER.EQ.1) WRITE( NOUT, FMT = 10003 )SNAME, NC, ERRMAX
+         if (IORDER.EQ.0) WRITE( NOUT, FMT = 10002 )SNAME, NC, ERRMAX;
+         if (IORDER.EQ.1) WRITE( NOUT, FMT = 10003 )SNAME, NC, ERRMAX;
       }
       GO TO 120
 
@@ -963,9 +963,9 @@
             N = IDIM( IN )
             // Set LDB to 1 more than minimum value if room.
             LDB = M
-            IF( LDB.LT.NMAX ) LDB = LDB + 1
+            if (LDB.LT.NMAX) LDB = LDB + 1;
             // Skip tests if not enough room.
-            IF( LDB.GT.NMAX ) GO TO 130
+            if (LDB.GT.NMAX) GO TO 130;
             LBB = LDB*N
             NULL = M.LE.0.OR.N.LE.0
 
@@ -979,9 +979,9 @@
                }
                // Set LDA to 1 more than minimum value if room.
                LDA = NA
-               IF( LDA.LT.NMAX ) LDA = LDA + 1
+               if (LDA.LT.NMAX) LDA = LDA + 1;
                // Skip tests if not enough room.
-               IF( LDA.GT.NMAX ) GO TO 130
+               if (LDA.GT.NMAX) GO TO 130;
                LAA = LDA*NA
 
                for (ICU = 1; ICU <= 2; ICU++) { // 110
@@ -1028,11 +1028,11 @@
                            // Call the subroutine.
 
                            if ( SNAME( 10: 11 ).EQ.'mm' ) {
-                              IF( TRACE ) CALL DPRCN3( NTRA, NC, SNAME, IORDER, SIDE, UPLO, TRANSA, DIAG, M, N, ALPHA, LDA, LDB)
-                              IF( REWI ) REWIND NTRA                               CALL CDTRMM( IORDER, SIDE, UPLO, TRANSA, DIAG, M, N, ALPHA, AA, LDA, BB, LDB )
+                              if (TRACE) CALL DPRCN3( NTRA, NC, SNAME, IORDER, SIDE, UPLO, TRANSA, DIAG, M, N, ALPHA, LDA, LDB);
+                              if (REWI) REWIND NTRA                               CALL CDTRMM( IORDER, SIDE, UPLO, TRANSA, DIAG, M, N, ALPHA, AA, LDA, BB, LDB );
                            } else if ( SNAME( 10: 11 ).EQ.'sm' ) {
-                              IF( TRACE ) CALL DPRCN3( NTRA, NC, SNAME, IORDER, SIDE, UPLO, TRANSA, DIAG, M, N, ALPHA, LDA, LDB)
-                              IF( REWI ) REWIND NTRA                               CALL CDTRSM( IORDER, SIDE, UPLO, TRANSA, DIAG, M, N, ALPHA, AA, LDA, BB, LDB )
+                              if (TRACE) CALL DPRCN3( NTRA, NC, SNAME, IORDER, SIDE, UPLO, TRANSA, DIAG, M, N, ALPHA, LDA, LDB);
+                              if (REWI) REWIND NTRA                               CALL CDTRSM( IORDER, SIDE, UPLO, TRANSA, DIAG, M, N, ALPHA, AA, LDA, BB, LDB );
                            }
 
                            // Check if error-exit was taken incorrectly.
@@ -1104,7 +1104,7 @@
                               ERRMAX = MAX( ERRMAX, ERR )
                               // If got really bad answer, report and
                               // return.
-                              IF( FATAL ) GO TO 150
+                              if (FATAL) GO TO 150;
                            }
 
                         } // 80
@@ -1124,17 +1124,17 @@
       // Report result.
 
       if ( ERRMAX.LT.THRESH ) {
-         IF ( IORDER.EQ.0) WRITE( NOUT, FMT = 10000 )SNAME, NC
-         IF ( IORDER.EQ.1) WRITE( NOUT, FMT = 10001 )SNAME, NC
+         if (IORDER.EQ.0) WRITE( NOUT, FMT = 10000 )SNAME, NC;
+         if (IORDER.EQ.1) WRITE( NOUT, FMT = 10001 )SNAME, NC;
       } else {
-         IF ( IORDER.EQ.0) WRITE( NOUT, FMT = 10002 )SNAME, NC, ERRMAX
-         IF ( IORDER.EQ.1) WRITE( NOUT, FMT = 10003 )SNAME, NC, ERRMAX
+         if (IORDER.EQ.0) WRITE( NOUT, FMT = 10002 )SNAME, NC, ERRMAX;
+         if (IORDER.EQ.1) WRITE( NOUT, FMT = 10003 )SNAME, NC, ERRMAX;
       }
       GO TO 160
 
       } // 150
       WRITE( NOUT, FMT = 9996 )SNAME
-      IF( TRACE ) CALL DPRCN3( NTRA, NC, SNAME, IORDER, SIDE, UPLO, TRANSA, DIAG, M, N, ALPHA, LDA, LDB)
+      if (TRACE) CALL DPRCN3( NTRA, NC, SNAME, IORDER, SIDE, UPLO, TRANSA, DIAG, M, N, ALPHA, LDA, LDB);
 
       } // 160
       RETURN
@@ -1250,9 +1250,9 @@
          N = IDIM( IN )
          // Set LDC to 1 more than minimum value if room.
          LDC = N
-         IF( LDC.LT.NMAX ) LDC = LDC + 1
+         if (LDC.LT.NMAX) LDC = LDC + 1;
          // Skip tests if not enough room.
-         IF( LDC.GT.NMAX ) GO TO 100
+         if (LDC.GT.NMAX) GO TO 100;
          LCC = LDC*N
          NULL = N.LE.0
 
@@ -1271,9 +1271,9 @@
                }
                // Set LDA to 1 more than minimum value if room.
                LDA = MA
-               IF( LDA.LT.NMAX ) LDA = LDA + 1
+               if (LDA.LT.NMAX) LDA = LDA + 1;
                // Skip tests if not enough room.
-               IF( LDA.GT.NMAX ) GO TO 80
+               if (LDA.GT.NMAX) GO TO 80;
                LAA = LDA*NA
 
                // Generate the matrix A.
@@ -1315,8 +1315,8 @@
 
                         // Call the subroutine.
 
-                        IF( TRACE ) CALL DPRCN4( NTRA, NC, SNAME, IORDER, UPLO, TRANS, N, K, ALPHA, LDA, BETA, LDC)
-                        IF( REWI ) REWIND NTRA                         CALL CDSYRK( IORDER, UPLO, TRANS, N, K, ALPHA, AA, LDA, BETA, CC, LDC )
+                        if (TRACE) CALL DPRCN4( NTRA, NC, SNAME, IORDER, UPLO, TRANS, N, K, ALPHA, LDA, BETA, LDC);
+                        if (REWI) REWIND NTRA                         CALL CDSYRK( IORDER, UPLO, TRANS, N, K, ALPHA, AA, LDA, BETA, CC, LDC );
 
                         // Check if error-exit was taken incorrectly.
 
@@ -1382,7 +1382,7 @@
                               ERRMAX = MAX( ERRMAX, ERR )
                               // If got really bad answer, report and
                               // return.
-                              IF( FATAL ) GO TO 110
+                              if (FATAL) GO TO 110;
                            } // 40
                         }
 
@@ -1401,16 +1401,16 @@
       // Report result.
 
       if ( ERRMAX.LT.THRESH ) {
-         IF ( IORDER.EQ.0) WRITE( NOUT, FMT = 10000 )SNAME, NC
-         IF ( IORDER.EQ.1) WRITE( NOUT, FMT = 10001 )SNAME, NC
+         if (IORDER.EQ.0) WRITE( NOUT, FMT = 10000 )SNAME, NC;
+         if (IORDER.EQ.1) WRITE( NOUT, FMT = 10001 )SNAME, NC;
       } else {
-         IF ( IORDER.EQ.0) WRITE( NOUT, FMT = 10002 )SNAME, NC, ERRMAX
-         IF ( IORDER.EQ.1) WRITE( NOUT, FMT = 10003 )SNAME, NC, ERRMAX
+         if (IORDER.EQ.0) WRITE( NOUT, FMT = 10002 )SNAME, NC, ERRMAX;
+         if (IORDER.EQ.1) WRITE( NOUT, FMT = 10003 )SNAME, NC, ERRMAX;
       }
       GO TO 130
 
       } // 110
-      IF( N.GT.1 ) WRITE( NOUT, FMT = 9995 )J
+      if (N.GT.1) WRITE( NOUT, FMT = 9995 )J;
 
       } // 120
       WRITE( NOUT, FMT = 9996 )SNAME
@@ -1521,9 +1521,9 @@
          N = IDIM( IN )
          // Set LDC to 1 more than minimum value if room.
          LDC = N
-         IF( LDC.LT.NMAX ) LDC = LDC + 1
+         if (LDC.LT.NMAX) LDC = LDC + 1;
          // Skip tests if not enough room.
-         IF( LDC.GT.NMAX ) GO TO 130
+         if (LDC.GT.NMAX) GO TO 130;
          LCC = LDC*N
          NULL = N.LE.0
 
@@ -1542,9 +1542,9 @@
                }
                // Set LDA to 1 more than minimum value if room.
                LDA = MA
-               IF( LDA.LT.NMAX ) LDA = LDA + 1
+               if (LDA.LT.NMAX) LDA = LDA + 1;
                // Skip tests if not enough room.
-               IF( LDA.GT.NMAX ) GO TO 110
+               if (LDA.GT.NMAX) GO TO 110;
                LAA = LDA*NA
 
                // Generate the matrix A.
@@ -1604,7 +1604,7 @@
 
                         // Call the subroutine.
 
-                        IF( TRACE ) CALL DPRCN5( NTRA, NC, SNAME, IORDER, UPLO, TRANS, N, K, ALPHA, LDA, LDB, BETA, LDC)                         IF( REWI ) REWIND NTRA                         CALL CDSYR2K( IORDER, UPLO, TRANS, N, K, ALPHA, AA, LDA, BB, LDB, BETA, CC, LDC )
+                        if (TRACE) CALL DPRCN5( NTRA, NC, SNAME, IORDER, UPLO, TRANS, N, K, ALPHA, LDA, LDB, BETA, LDC)                         IF( REWI ) REWIND NTRA                         CALL CDSYR2K( IORDER, UPLO, TRANS, N, K, ALPHA, AA, LDA, BB, LDB, BETA, CC, LDC );
 
                         // Check if error-exit was taken incorrectly.
 
@@ -1675,12 +1675,12 @@
                                  JC = JC + LDC
                               } else {
                                  JC = JC + LDC + 1
-                                 IF( TRAN ) JJAB = JJAB + 2*NMAX
+                                 if (TRAN) JJAB = JJAB + 2*NMAX;
                               }
                               ERRMAX = MAX( ERRMAX, ERR )
                               // If got really bad answer, report and
                               // return.
-                              IF( FATAL ) GO TO 140
+                              if (FATAL) GO TO 140;
                            } // 70
                         }
 
@@ -1699,16 +1699,16 @@
       // Report result.
 
       if ( ERRMAX.LT.THRESH ) {
-         IF ( IORDER.EQ.0) WRITE( NOUT, FMT = 10000 )SNAME, NC
-         IF ( IORDER.EQ.1) WRITE( NOUT, FMT = 10001 )SNAME, NC
+         if (IORDER.EQ.0) WRITE( NOUT, FMT = 10000 )SNAME, NC;
+         if (IORDER.EQ.1) WRITE( NOUT, FMT = 10001 )SNAME, NC;
       } else {
-         IF ( IORDER.EQ.0) WRITE( NOUT, FMT = 10002 )SNAME, NC, ERRMAX
-         IF ( IORDER.EQ.1) WRITE( NOUT, FMT = 10003 )SNAME, NC, ERRMAX
+         if (IORDER.EQ.0) WRITE( NOUT, FMT = 10002 )SNAME, NC, ERRMAX;
+         if (IORDER.EQ.1) WRITE( NOUT, FMT = 10003 )SNAME, NC, ERRMAX;
       }
       GO TO 160
 
       } // 140
-      IF( N.GT.1 ) WRITE( NOUT, FMT = 9995 )J
+      if (N.GT.1) WRITE( NOUT, FMT = 9995 )J;
 
       } // 150
       WRITE( NOUT, FMT = 9996 )SNAME
@@ -1813,7 +1813,7 @@
                A( I, J ) = DBEG( RESET ) + TRANSL
                if ( I.NE.J ) {
                   // Set some elements to zero
-                  IF( N.GT.3.AND.J.EQ.N/2 ) A( I, J ) = ZERO
+                  if (N.GT.3.AND.J.EQ.N/2) A( I, J ) = ZERO;
                   if ( SYM ) {
                      A( J, I ) = A( I, J )
                   } else if ( TRI ) {
@@ -1822,7 +1822,7 @@
                }
             }
          } // 10
-         IF( TRI ) A( J, J ) = A( J, J ) + ONE          IF( UNIT ) A( J, J ) = ONE
+         if (TRI) A( J, J ) = A( J, J ) + ONE          IF( UNIT ) A( J, J ) = ONE;
       } // 20
 
       // Store elements in array AS in data structure required by routine.
@@ -1971,7 +1971,7 @@
             WRITE( NOUT, FMT = 9998 )I, CC( I, J ), CT( I )
          }
       } // 140
-      IF( N.GT.1 ) WRITE( NOUT, FMT = 9997 )J
+      if (N.GT.1) WRITE( NOUT, FMT = 9997 )J;
 
       } // 150
       RETURN

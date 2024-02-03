@@ -214,7 +214,7 @@
           THED = MIN( (STT + THGRSIZ -1), (N-1))
           for (I = STT; I <= N-1; I++) { // 110
               ED = MIN( I, THED )
-              IF( STT.GT.ED ) EXIT
+              if (STT.GT.ED) EXIT;
               for (M = 1; M <= STEPERCOL; M++) { // 120
                   ST = STT
                   for (SWEEPID = ST; SWEEPID <= ED; SWEEPID++) { // 130

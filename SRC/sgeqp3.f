@@ -184,7 +184,7 @@
          // Use unblocked code to factor the last or only block.
 
 
-         IF( J.LE.MINMN ) CALL SLAQP2( M, N-J+1, J-1, A( 1, J ), LDA, JPVT( J ), TAU( J ), WORK( J ), WORK( N+J ), WORK( 2*N+1 ) )
+         if (J.LE.MINMN) CALL SLAQP2( M, N-J+1, J-1, A( 1, J ), LDA, JPVT( J ), TAU( J ), WORK( J ), WORK( N+J ), WORK( 2*N+1 ) );
 
       }
 

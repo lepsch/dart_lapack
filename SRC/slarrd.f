@@ -90,7 +90,7 @@
       TOOFEW = .FALSE.
 
       // Simplification:
-      IF( IRANGE.EQ.INDRNG .AND. IL.EQ.1 .AND. IU.EQ.N ) IRANGE = 1
+      if (IRANGE.EQ.INDRNG .AND. IL.EQ.1 .AND. IU.EQ.N) IRANGE = 1;
 
       // Get machine constants
       EPS = SLAMCH( 'P' )
@@ -114,7 +114,7 @@
       // NB is the minimum vector length for vector bisection, or 0
       // if only scalar is to be done.
       NB = ILAENV( 1, 'SSTEBZ', ' ', N, -1, -1, -1 )
-      IF( NB.LE.1 ) NB = 0
+      if (NB.LE.1) NB = 0;
 
       // Find global spectral radius
       GL = D(1)
@@ -303,7 +303,7 @@
                // refine search interval if possible, only range (WL,WU] matters
                GL = MAX( GL, WL )
                GU = MIN( GU, WU )
-               IF( GL.GE.GU ) GO TO 70
+               if (GL.GE.GU) GO TO 70;
             }
 
             // Find negcount of initial interval boundaries GL and GU
@@ -488,7 +488,7 @@
       }
 
       INFO = 0
-      IF( NCNVRG ) INFO = INFO + 1       IF( TOOFEW ) INFO = INFO + 2
+      if (NCNVRG) INFO = INFO + 1       IF( TOOFEW ) INFO = INFO + 2;
       RETURN
 
       // End of SLARRD

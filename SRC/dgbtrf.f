@@ -65,7 +65,7 @@
 
       // Quick return if possible
 
-      IF( M.EQ.0 .OR. N.EQ.0 ) RETURN
+      if (M.EQ.0 .OR. N.EQ.0) RETURN;
 
       // Determine the block size for this environment
 
@@ -181,19 +181,19 @@
                   // which needs to be updated.
 
                   JM = MIN( JU, J+JB-1 )
-                  IF( JM.GT.JJ ) CALL DGER( KM, JM-JJ, -ONE, AB( KV+2, JJ ), 1, AB( KV, JJ+1 ), LDAB-1, AB( KV+1, JJ+1 ), LDAB-1 )
+                  if (JM.GT.JJ) CALL DGER( KM, JM-JJ, -ONE, AB( KV+2, JJ ), 1, AB( KV, JJ+1 ), LDAB-1, AB( KV+1, JJ+1 ), LDAB-1 );
                } else {
 
                   // If pivot is zero, set INFO to the index of the pivot
                   // unless a zero pivot has already been found.
 
-                  IF( INFO.EQ.0 ) INFO = JJ
+                  if (INFO.EQ.0) INFO = JJ;
                }
 
                // Copy current column of A31 into the work array WORK31
 
                NW = MIN( JJ-J+1, I3 )
-               IF( NW.GT.0 ) CALL DCOPY( NW, AB( KV+KL+1-JJ+J, JJ ), 1, WORK31( 1, JJ-J+1 ), 1 )
+               if (NW.GT.0) CALL DCOPY( NW, AB( KV+KL+1-JJ+J, JJ ), 1, WORK31( 1, JJ-J+1 ), 1 );
             } // 80
             if ( J+JB.LE.N ) {
 
@@ -324,7 +324,7 @@
                // Copy the current column of A31 back into place
 
                NW = MIN( I3, JJ-J+1 )
-               IF( NW.GT.0 ) CALL DCOPY( NW, WORK31( 1, JJ-J+1 ), 1, AB( KV+KL+1-JJ+J, JJ ), 1 )
+               if (NW.GT.0) CALL DCOPY( NW, WORK31( 1, JJ-J+1 ), 1, AB( KV+KL+1-JJ+J, JJ ), 1 );
             } // 170
          } // 180
       }

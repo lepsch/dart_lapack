@@ -120,7 +120,7 @@
               }
           }
       }
-      IF (ALPHA.EQ.ZERO) RETURN
+      if (ALPHA.EQ.ZERO) RETURN;
       KUP1 = KU + 1
       if (LSAME(TRANS,'N')) {
 
@@ -146,7 +146,7 @@
                       IY = IY + INCY
                   } // 70
                   JX = JX + INCX
-                  IF (J.GT.KU) KY = KY + INCY
+                  if (J.GT.KU) KY = KY + INCY;
               } // 80
           }
       } else {
@@ -188,7 +188,7 @@
                   }
                   Y(JY) = Y(JY) + ALPHA*TEMP
                   JY = JY + INCY
-                  IF (J.GT.KU) KX = KX + INCX
+                  if (J.GT.KU) KX = KX + INCX;
               } // 140
           }
       }

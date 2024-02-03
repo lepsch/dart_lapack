@@ -155,7 +155,7 @@
             // Swap the K-th block to position KS. Compute unitary Q
             // and Z that will swap adjacent diagonal blocks in (A, B).
 
-            IF( K.NE.KS ) CALL CTGEXC( WANTQ, WANTZ, N, A, LDA, B, LDB, Q, LDQ, Z, LDZ, K, KS, IERR )
+            if (K.NE.KS) CALL CTGEXC( WANTQ, WANTZ, N, A, LDA, B, LDB, Q, LDQ, Z, LDZ, K, KS, IERR );
 
             if ( IERR.GT.0 ) {
 
@@ -295,7 +295,7 @@
             B( K, K ) = DSCALE
             cscal(N-K, TEMP1, B( K, K+1 ), LDB );
             cscal(N-K+1, TEMP1, A( K, K ), LDA );
-            IF( WANTQ ) CALL CSCAL( N, TEMP2, Q( 1, K ), 1 )
+            if (WANTQ) CALL CSCAL( N, TEMP2, Q( 1, K ), 1 );
          } else {
             B( K, K ) = CMPLX( ZERO, ZERO )
          }

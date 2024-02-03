@@ -49,7 +49,7 @@
 
       // Quick return if possible
 
-      IF( M.EQ.0 .OR. N.EQ.0 ) RETURN
+      if (M.EQ.0 .OR. N.EQ.0) RETURN;
 
       // Decode DIST
 
@@ -225,7 +225,7 @@
       // Decide if we can pivot consistently
 
       FULBND = .FALSE.
-      IF( KUU.EQ.N-1 .AND. KLL.EQ.M-1 ) FULBND = .TRUE.
+      if (KUU.EQ.N-1 .AND. KLL.EQ.M-1) FULBND = .TRUE.;
 
       // Initialize random number generator
 
@@ -346,7 +346,7 @@
                   MNSUB = MIN( ISUB, JSUB )
                   MXSUB = MAX( ISUB, JSUB )
                   A( MNSUB, MXSUB ) = TEMP
-                  IF( MNSUB.NE.MXSUB ) A( MXSUB, MNSUB ) = ZERO
+                  if (MNSUB.NE.MXSUB) A( MXSUB, MNSUB ) = ZERO;
                } // 130
             } // 140
 
@@ -358,7 +358,7 @@
                   MNSUB = MIN( ISUB, JSUB )
                   MXSUB = MAX( ISUB, JSUB )
                   A( MXSUB, MNSUB ) = TEMP
-                  IF( MNSUB.NE.MXSUB ) A( MNSUB, MXSUB ) = ZERO
+                  if (MNSUB.NE.MXSUB) A( MNSUB, MXSUB ) = ZERO;
                } // 150
             } // 160
 
@@ -444,7 +444,7 @@
                      MNSUB = MIN( ISUB, JSUB )
                      MXSUB = MAX( ISUB, JSUB )
                      A( MNSUB-MXSUB+KUU+1, MXSUB ) = TEMP
-                     IF( I.LT.1 ) A( J-I+1+KUU, I+N ) = ZERO                      IF( I.GE.1 .AND. MNSUB.NE.MXSUB ) A( MXSUB-MNSUB+1+KUU, MNSUB ) = TEMP
+                     if (I.LT.1) A( J-I+1+KUU, I+N ) = ZERO                      IF( I.GE.1 .AND. MNSUB.NE.MXSUB ) A( MXSUB-MNSUB+1+KUU, MNSUB ) = TEMP;
                   } // 250
                } // 260
             } else if ( ISYM.EQ.1 ) {
@@ -572,7 +572,7 @@
                for (J = 1; J <= N; J++) { // 480
                   for (I = J - KUU; I <= J; I++) { // 470
                      A( I-J+KUU+1, J ) = SLATM2( M, N, I, J, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE )
-                     IF( I.LT.1 ) A( J-I+1+KUU, I+N ) = ZERO                      IF( I.GE.1 .AND. I.NE.J ) A( J-I+1+KUU, I ) = A( I-J+KUU+1, J )
+                     if (I.LT.1) A( J-I+1+KUU, I+N ) = ZERO                      IF( I.GE.1 .AND. I.NE.J ) A( J-I+1+KUU, I ) = A( I-J+KUU+1, J );
                   } // 470
                } // 480
             } else if ( ISYM.EQ.1 ) {

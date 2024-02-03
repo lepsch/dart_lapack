@@ -57,7 +57,7 @@
 
       // Quick return if possible
 
-      IF( N.EQ.0 ) RETURN
+      if (N.EQ.0) RETURN;
 
       // Check that the diagonal matrix D is nonsingular.
 
@@ -90,7 +90,7 @@
 
          // If K > N, exit from loop.
 
-         IF( K.GT.N ) GO TO 70
+         if (K.GT.N) GO TO 70;
 
          if ( IPIV( K ).GT.0 ) {
 
@@ -142,7 +142,7 @@
             KP = IPIV( K )
             if ( KP.NE.K ) {
 
-               IF( KP.GT.1 ) CALL ZSWAP( KP-1, A( 1, K ), 1, A( 1, KP ), 1 )
+               if (KP.GT.1) CALL ZSWAP( KP-1, A( 1, K ), 1, A( 1, KP ), 1 );
 
                for (J = KP + 1; J <= K - 1; J++) { // 40
                   TEMP = DCONJG( A( J, K ) )
@@ -166,7 +166,7 @@
             KP = -IPIV( K )
             if ( KP.NE.K ) {
 
-               IF( KP.GT.1 ) CALL ZSWAP( KP-1, A( 1, K ), 1, A( 1, KP ), 1 )
+               if (KP.GT.1) CALL ZSWAP( KP-1, A( 1, K ), 1, A( 1, KP ), 1 );
 
                for (J = KP + 1; J <= K - 1; J++) { // 50
                   TEMP = DCONJG( A( J, K ) )
@@ -191,7 +191,7 @@
             KP = -IPIV( K )
             if ( KP.NE.K ) {
 
-               IF( KP.GT.1 ) CALL ZSWAP( KP-1, A( 1, K ), 1, A( 1, KP ), 1 )
+               if (KP.GT.1) CALL ZSWAP( KP-1, A( 1, K ), 1, A( 1, KP ), 1 );
 
                for (J = KP + 1; J <= K - 1; J++) { // 60
                   TEMP = DCONJG( A( J, K ) )
@@ -223,7 +223,7 @@
 
          // If K < 1, exit from loop.
 
-         IF( K.LT.1 ) GO TO 120
+         if (K.LT.1) GO TO 120;
 
          if ( IPIV( K ).GT.0 ) {
 
@@ -274,7 +274,7 @@
             KP = IPIV( K )
             if ( KP.NE.K ) {
 
-               IF( KP.LT.N ) CALL ZSWAP( N-KP, A( KP+1, K ), 1, A( KP+1, KP ), 1 )
+               if (KP.LT.N) CALL ZSWAP( N-KP, A( KP+1, K ), 1, A( KP+1, KP ), 1 );
 
                for (J = K + 1; J <= KP - 1; J++) { // 90
                   TEMP = DCONJG( A( J, K ) )
@@ -298,7 +298,7 @@
             KP = -IPIV( K )
             if ( KP.NE.K ) {
 
-               IF( KP.LT.N ) CALL ZSWAP( N-KP, A( KP+1, K ), 1, A( KP+1, KP ), 1 )
+               if (KP.LT.N) CALL ZSWAP( N-KP, A( KP+1, K ), 1, A( KP+1, KP ), 1 );
 
                for (J = K + 1; J <= KP - 1; J++) { // 100
                   TEMP = DCONJG( A( J, K ) )
@@ -323,7 +323,7 @@
             KP = -IPIV( K )
             if ( KP.NE.K ) {
 
-               IF( KP.LT.N ) CALL ZSWAP( N-KP, A( KP+1, K ), 1, A( KP+1, KP ), 1 )
+               if (KP.LT.N) CALL ZSWAP( N-KP, A( KP+1, K ), 1, A( KP+1, KP ), 1 );
 
                for (J = K + 1; J <= KP - 1; J++) { // 110
                   TEMP = DCONJG( A( J, K ) )

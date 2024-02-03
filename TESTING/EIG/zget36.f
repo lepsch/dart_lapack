@@ -47,7 +47,7 @@
 
       } // 10
       READ( NIN, FMT = * )N, IFST, ILST
-      IF( N.EQ.0 ) RETURN
+      if (N.EQ.0) RETURN;
       KNT = KNT + 1
       for (I = 1; I <= N; I++) { // 20
          READ( NIN, FMT = * )( TMP( I, J ), J = 1, N )
@@ -78,7 +78,7 @@
             IF( T1( I, J ).NE.T2( I, J ) ) RES = RES + ONE / EPS
          } // 50
       } // 60
-      IF( INFO1.NE.0 .OR. INFO2.NE.0 ) NINFO = NINFO + 1       IF( INFO1.NE.INFO2 ) RES = RES + ONE / EPS
+      if (INFO1.NE.0 .OR. INFO2.NE.0) NINFO = NINFO + 1       IF( INFO1.NE.INFO2 ) RES = RES + ONE / EPS;
 
       // Test for successful reordering of T2
 

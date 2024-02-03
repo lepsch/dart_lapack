@@ -100,7 +100,7 @@
 
       // Quick return if possible
 
-      IF( NSIZES.EQ.0 .OR. NTYPES.EQ.0 ) RETURN
+      if (NSIZES.EQ.0 .OR. NTYPES.EQ.0) RETURN;
 
       // More Important constants
 
@@ -124,7 +124,7 @@
          N = NN( JSIZE )
          if ( N.GT.0 ) {
             LGN = INT( LOG( DBLE( N ) ) / LOG( TWO ) )
-            IF( 2**LGN.LT.N ) LGN = LGN + 1             IF( 2**LGN.LT.N ) LGN = LGN + 1
+            if (2**LGN.LT.N) LGN = LGN + 1             IF( 2**LGN.LT.N ) LGN = LGN + 1;
             LWEDC = 1 + 4*N + 2*N*LGN + 4*N**2
             LRWEDC = 1 + 3*N + 2*N*LGN + 4*N**2
             LIWEDC = 6 + 6*N + 5*N*LGN
@@ -167,7 +167,7 @@
             // =9                      positive definite
             // =10                     diagonally dominant tridiagonal
 
-            IF( MTYPES.GT.MAXTYP ) GO TO 100
+            if (MTYPES.GT.MAXTYP) GO TO 100;
 
             ITYPE = KTYPE( JTYPE )
             IMODE = KMODE( JTYPE )
@@ -317,7 +317,7 @@
             // 2-stage
 
             dcopy(N, SD, 1, D1, 1 );
-            IF( N.GT.0 ) CALL DCOPY( N-1, SE, 1, RWORK, 1 )
+            if (N.GT.0) CALL DCOPY( N-1, SE, 1, RWORK, 1 );
 
             zsteqr('N', N, D1, RWORK, WORK, LDU, RWORK( N+1 ), IINFO );
             if ( IINFO.NE.0 ) {
@@ -346,7 +346,7 @@
             // Compute D2 from the 2-stage Upper case
 
             dcopy(N, SD, 1, D2, 1 );
-            IF( N.GT.0 ) CALL DCOPY( N-1, SE, 1, RWORK, 1 )
+            if (N.GT.0) CALL DCOPY( N-1, SE, 1, RWORK, 1 );
 
             NTEST = 3
             zsteqr('N', N, D2, RWORK, WORK, LDU, RWORK( N+1 ), IINFO );
@@ -374,7 +374,7 @@
             // Compute D3 from the 2-stage Upper case
 
             dcopy(N, SD, 1, D3, 1 );
-            IF( N.GT.0 ) CALL DCOPY( N-1, SE, 1, RWORK, 1 )
+            if (N.GT.0) CALL DCOPY( N-1, SE, 1, RWORK, 1 );
 
             NTEST = 4
             zsteqr('N', N, D3, RWORK, WORK, LDU, RWORK( N+1 ), IINFO );
@@ -501,7 +501,7 @@
             // Compute D1 and Z
 
             dcopy(N, SD, 1, D1, 1 );
-            IF( N.GT.0 ) CALL DCOPY( N-1, SE, 1, RWORK, 1 )
+            if (N.GT.0) CALL DCOPY( N-1, SE, 1, RWORK, 1 );
             zlaset('Full', N, N, CZERO, CONE, Z, LDU );
 
             NTEST = 9
@@ -520,7 +520,7 @@
             // Compute D2
 
             dcopy(N, SD, 1, D2, 1 );
-            IF( N.GT.0 ) CALL DCOPY( N-1, SE, 1, RWORK, 1 )
+            if (N.GT.0) CALL DCOPY( N-1, SE, 1, RWORK, 1 );
 
             NTEST = 11
             zsteqr('N', N, D2, RWORK, WORK, LDU, RWORK( N+1 ), IINFO );
@@ -538,7 +538,7 @@
             // Compute D3 (using PWK method)
 
             dcopy(N, SD, 1, D3, 1 );
-            IF( N.GT.0 ) CALL DCOPY( N-1, SE, 1, RWORK, 1 )
+            if (N.GT.0) CALL DCOPY( N-1, SE, 1, RWORK, 1 );
 
             NTEST = 12
             dsterf(N, D3, RWORK, IINFO );
@@ -582,7 +582,7 @@
 
             for (J = 0; J <= LOG2UI; J++) { // 160
                dstech(N, SD, SE, D1, TEMP1, RWORK, IINFO );
-               IF( IINFO.EQ.0 ) GO TO 170
+               if (IINFO.EQ.0) GO TO 170;
                TEMP1 = TEMP1*TWO
             } // 160
 
@@ -597,7 +597,7 @@
                // Compute D4 and Z4
 
                dcopy(N, SD, 1, D4, 1 );
-               IF( N.GT.0 ) CALL DCOPY( N-1, SE, 1, RWORK, 1 )
+               if (N.GT.0) CALL DCOPY( N-1, SE, 1, RWORK, 1 );
                zlaset('Full', N, N, CZERO, CONE, Z, LDU );
 
                NTEST = 14
@@ -620,7 +620,7 @@
                // Compute D5
 
                dcopy(N, SD, 1, D5, 1 );
-               IF( N.GT.0 ) CALL DCOPY( N-1, SE, 1, RWORK, 1 )
+               if (N.GT.0) CALL DCOPY( N-1, SE, 1, RWORK, 1 );
 
                NTEST = 16
                zpteqr('N', N, D5, RWORK, Z, LDU, RWORK( N+1 ), IINFO );
@@ -835,7 +835,7 @@
             INDE = 1
             INDRWK = INDE + N
             dcopy(N, SD, 1, D1, 1 );
-            IF( N.GT.0 ) CALL DCOPY( N-1, SE, 1, RWORK( INDE ), 1 )
+            if (N.GT.0) CALL DCOPY( N-1, SE, 1, RWORK( INDE ), 1 );
             zlaset('Full', N, N, CZERO, CONE, Z, LDU );
 
             NTEST = 22
@@ -860,7 +860,7 @@
             // Compute D1 and Z
 
             dcopy(N, SD, 1, D1, 1 );
-            IF( N.GT.0 ) CALL DCOPY( N-1, SE, 1, RWORK( INDE ), 1 )
+            if (N.GT.0) CALL DCOPY( N-1, SE, 1, RWORK( INDE ), 1 );
             zlaset('Full', N, N, CZERO, CONE, Z, LDU );
 
             NTEST = 24
@@ -885,7 +885,7 @@
             // Compute D2
 
             dcopy(N, SD, 1, D2, 1 );
-            IF( N.GT.0 ) CALL DCOPY( N-1, SE, 1, RWORK( INDE ), 1 )
+            if (N.GT.0) CALL DCOPY( N-1, SE, 1, RWORK( INDE ), 1 );
             zlaset('Full', N, N, CZERO, CONE, Z, LDU );
 
             NTEST = 26
@@ -999,7 +999,7 @@
             // Compute D1 and Z
 
                dcopy(N, SD, 1, D5, 1 );
-               IF( N.GT.0 ) CALL DCOPY( N-1, SE, 1, RWORK, 1 )
+               if (N.GT.0) CALL DCOPY( N-1, SE, 1, RWORK, 1 );
                zlaset('Full', N, N, CZERO, CONE, Z, LDU );
 
                if ( CRANGE ) {
@@ -1030,7 +1030,7 @@
             // Compute D2
 
                   dcopy(N, SD, 1, D5, 1 );
-                  IF( N.GT.0 ) CALL DCOPY( N-1, SE, 1, RWORK, 1 )
+                  if (N.GT.0) CALL DCOPY( N-1, SE, 1, RWORK, 1 );
 
                   NTEST = 31
                   zstemr('N', 'I', N, D5, RWORK, VL, VU, IL, IU, M, D2, Z, LDU, N, IWORK( 1 ), TRYRAC, RWORK( N+1 ), LRWORK-N, IWORK( 2*N+1 ), LIWORK-2*N, IINFO );
@@ -1062,7 +1062,7 @@
             // Compute D1 and Z
 
                   dcopy(N, SD, 1, D5, 1 );
-                  IF( N.GT.0 ) CALL DCOPY( N-1, SE, 1, RWORK, 1 )
+                  if (N.GT.0) CALL DCOPY( N-1, SE, 1, RWORK, 1 );
                   zlaset('Full', N, N, CZERO, CONE, Z, LDU );
 
                   NTEST = 32
@@ -1104,7 +1104,7 @@
             // Compute D2
 
                   dcopy(N, SD, 1, D5, 1 );
-                  IF( N.GT.0 ) CALL DCOPY( N-1, SE, 1, RWORK, 1 )
+                  if (N.GT.0) CALL DCOPY( N-1, SE, 1, RWORK, 1 );
 
                   NTEST = 34
                   zstemr('N', 'V', N, D5, RWORK, VL, VU, IL, IU, M, D2, Z, LDU, N, IWORK( 1 ), TRYRAC, RWORK( N+1 ), LRWORK-N, IWORK( 2*N+1 ), LIWORK-2*N, IINFO );
@@ -1144,7 +1144,7 @@
             // Compute D1 and Z
 
                dcopy(N, SD, 1, D5, 1 );
-               IF( N.GT.0 ) CALL DCOPY( N-1, SE, 1, RWORK, 1 )
+               if (N.GT.0) CALL DCOPY( N-1, SE, 1, RWORK, 1 );
 
                NTEST = 35
 
@@ -1169,7 +1169,7 @@
             // Compute D2
 
                dcopy(N, SD, 1, D5, 1 );
-               IF( N.GT.0 ) CALL DCOPY( N-1, SE, 1, RWORK, 1 )
+               if (N.GT.0) CALL DCOPY( N-1, SE, 1, RWORK, 1 );
 
                NTEST = 37
                zstemr('N', 'A', N, D5, RWORK, VL, VU, IL, IU, M, D2, Z, LDU, N, IWORK( 1 ), TRYRAC, RWORK( N+1 ), LRWORK-N, IWORK( 2*N+1 ), LIWORK-2*N, IINFO );

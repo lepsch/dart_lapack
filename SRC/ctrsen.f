@@ -99,7 +99,7 @@
       // Quick return if possible
 
       if ( M.EQ.N .OR. M.EQ.0 ) {
-         IF( WANTS ) S = ONE          IF( WANTSP ) SEP = CLANGE( '1', N, N, T, LDT, RWORK )
+         if (WANTS) S = ONE          IF( WANTSP ) SEP = CLANGE( '1', N, N, T, LDT, RWORK );
          GO TO 40
       }
 
@@ -112,7 +112,7 @@
 
             // Swap the K-th eigenvalue to position KS.
 
-            IF( K.NE.KS ) CALL CTREXC( COMPQ, N, T, LDT, Q, LDQ, K, KS, IERR )
+            if (K.NE.KS) CALL CTREXC( COMPQ, N, T, LDT, Q, LDQ, K, KS, IERR );
          }
       } // 20
 

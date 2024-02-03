@@ -50,12 +50,12 @@
 
       // ==== If there are no shifts, then there is nothing to do. ====
 
-      IF( NSHFTS.LT.2 ) RETURN
+      if (NSHFTS.LT.2) RETURN;
 
       // ==== If the active block is empty or 1-by-1, then there
       // .    is nothing to do. ====
 
-      IF( KTOP.GE.KBOT ) RETURN
+      if (KTOP.GE.KBOT) RETURN;
 
       // ==== NSHFTS is supposed to be even, but if it is odd,
       // .    then simply reduce it by one.  ====
@@ -76,7 +76,7 @@
 
       // ==== clear trash ====
 
-      IF( KTOP+2.LE.KBOT ) H( KTOP+2, KTOP ) = ZERO
+      if (KTOP+2.LE.KBOT) H( KTOP+2, KTOP ) = ZERO;
 
       // ==== NBMPS = number of 2-shift bulges in the chain ====
 
@@ -101,7 +101,7 @@
          }
 
          NDCOL = INCOL + KDU
-         IF( ACCUM ) CALL CLASET( 'ALL', KDU, KDU, ZERO, ONE, U, LDU )
+         if (ACCUM) CALL CLASET( 'ALL', KDU, KDU, ZERO, ONE, U, LDU );
 
          // ==== Near-the-diagonal bulge chase.  The following loop
          // .    performs the near-the-diagonal part of a small bulge
@@ -193,7 +193,7 @@
                   if ( H( K+1, K ).NE.ZERO ) {
                      TST1 = CABS1( H( K, K ) ) + CABS1( H( K+1, K+1 ) )
                      if ( TST1.EQ.RZERO ) {
-                        IF( K.GE.KTOP+1 ) TST1 = TST1 + CABS1( H( K, K-1 ) )                         IF( K.GE.KTOP+2 ) TST1 = TST1 + CABS1( H( K, K-2 ) )                         IF( K.GE.KTOP+3 ) TST1 = TST1 + CABS1( H( K, K-3 ) )                         IF( K.LE.KBOT-2 ) TST1 = TST1 + CABS1( H( K+2, K+1 ) )                         IF( K.LE.KBOT-3 ) TST1 = TST1 + CABS1( H( K+3, K+1 ) )                         IF( K.LE.KBOT-4 ) TST1 = TST1 + CABS1( H( K+4, K+1 ) )
+                        if (K.GE.KTOP+1) TST1 = TST1 + CABS1( H( K, K-1 ) )                         IF( K.GE.KTOP+2 ) TST1 = TST1 + CABS1( H( K, K-2 ) )                         IF( K.GE.KTOP+3 ) TST1 = TST1 + CABS1( H( K, K-3 ) )                         IF( K.LE.KBOT-2 ) TST1 = TST1 + CABS1( H( K+2, K+1 ) )                         IF( K.LE.KBOT-3 ) TST1 = TST1 + CABS1( H( K+3, K+1 ) )                         IF( K.LE.KBOT-4 ) TST1 = TST1 + CABS1( H( K+4, K+1 ) );
                      }
                      IF( CABS1( H( K+1, K ) ) .LE.MAX( SMLNUM, ULP*TST1 ) ) THEN                         H12 = MAX( CABS1( H( K+1, K ) ), CABS1( H( K, K+1 ) ) )                         H21 = MIN( CABS1( H( K+1, K ) ), CABS1( H( K, K+1 ) ) )                         H11 = MAX( CABS1( H( K+1, K+1 ) ), CABS1( H( K, K )-H( K+1, K+1 ) ) )                         H22 = MIN( CABS1( H( K+1, K+1 ) ), CABS1( H( K, K )-H( K+1, K+1 ) ) )
                         SCL = H11 + H12
@@ -342,11 +342,11 @@
                // .    is zero (as done here) is traditional but probably
                // .    unnecessary. ====
 
-               IF( K.LT.KTOP) CYCLE
+               if (K.LT.KTOP) CYCLE;
                if ( H( K+1, K ).NE.ZERO ) {
                   TST1 = CABS1( H( K, K ) ) + CABS1( H( K+1, K+1 ) )
                   if ( TST1.EQ.RZERO ) {
-                     IF( K.GE.KTOP+1 ) TST1 = TST1 + CABS1( H( K, K-1 ) )                      IF( K.GE.KTOP+2 ) TST1 = TST1 + CABS1( H( K, K-2 ) )                      IF( K.GE.KTOP+3 ) TST1 = TST1 + CABS1( H( K, K-3 ) )                      IF( K.LE.KBOT-2 ) TST1 = TST1 + CABS1( H( K+2, K+1 ) )                      IF( K.LE.KBOT-3 ) TST1 = TST1 + CABS1( H( K+3, K+1 ) )                      IF( K.LE.KBOT-4 ) TST1 = TST1 + CABS1( H( K+4, K+1 ) )
+                     if (K.GE.KTOP+1) TST1 = TST1 + CABS1( H( K, K-1 ) )                      IF( K.GE.KTOP+2 ) TST1 = TST1 + CABS1( H( K, K-2 ) )                      IF( K.GE.KTOP+3 ) TST1 = TST1 + CABS1( H( K, K-3 ) )                      IF( K.LE.KBOT-2 ) TST1 = TST1 + CABS1( H( K+2, K+1 ) )                      IF( K.LE.KBOT-3 ) TST1 = TST1 + CABS1( H( K+3, K+1 ) )                      IF( K.LE.KBOT-4 ) TST1 = TST1 + CABS1( H( K+4, K+1 ) );
                   }
                   IF( CABS1( H( K+1, K ) ).LE.MAX( SMLNUM, ULP*TST1 ) ) THEN                      H12 = MAX( CABS1( H( K+1, K ) ), CABS1( H( K, K+1 ) ) )                      H21 = MIN( CABS1( H( K+1, K ) ), CABS1( H( K, K+1 ) ) )                      H11 = MAX( CABS1( H( K+1, K+1 ) ), CABS1( H( K, K )-H( K+1, K+1 ) ) )                      H22 = MIN( CABS1( H( K+1, K+1 ) ), CABS1( H( K, K )-H( K+1, K+1 ) ) )
                      SCL = H11 + H12

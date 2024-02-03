@@ -113,7 +113,7 @@
          }
          BN = ISPLIT( NBLK )
          BLKSIZ = BN - B1 + 1
-         IF( BLKSIZ.EQ.1 ) GO TO 60
+         if (BLKSIZ.EQ.1) GO TO 60;
          GPIND = J1
 
          // Compute reorthogonalization criterion and stopping criterion.
@@ -153,7 +153,7 @@
                EPS1 = ABS( EPS*XJ )
                PERTOL = TEN*EPS1
                SEP = XJ - XJM
-               IF( SEP.LT.PERTOL ) XJ = XJM + PERTOL
+               if (SEP.LT.PERTOL) XJ = XJM + PERTOL;
             }
 
             ITS = 0
@@ -178,7 +178,7 @@
 
             } // 70
             ITS = ITS + 1
-            IF( ITS.GT.MAXITS ) GO TO 100
+            if (ITS.GT.MAXITS) GO TO 100;
 
             // Normalize and scale the righthand side vector Pb.
 
@@ -193,7 +193,7 @@
             // Reorthogonalize by modified Gram-Schmidt if eigenvalues are
             // close enough.
 
-            IF( JBLK.EQ.1 ) GO TO 90             IF( ABS( XJ-XJM ).GT.ORTOL ) GPIND = J
+            if (JBLK.EQ.1) GO TO 90             IF( ABS( XJ-XJM ).GT.ORTOL ) GPIND = J;
             if ( GPIND.NE.J ) {
                for (I = GPIND; I <= J - 1; I++) { // 80
                   CTR = -SDOT( BLKSIZ, WORK( INDRV1+1 ), 1, Z( B1, I ), 1 )                   CALL SAXPY( BLKSIZ, CTR, Z( B1, I ), 1, WORK( INDRV1+1 ), 1 )
@@ -209,9 +209,9 @@
             // Continue for additional iterations after norm reaches
             // stopping criterion.
 
-            IF( NRM.LT.STPCRT ) GO TO 70
+            if (NRM.LT.STPCRT) GO TO 70;
             NRMCHK = NRMCHK + 1
-            IF( NRMCHK.LT.EXTRA+1 ) GO TO 70
+            if (NRMCHK.LT.EXTRA+1) GO TO 70;
 
             GO TO 110
 

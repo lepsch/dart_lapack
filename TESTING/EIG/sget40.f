@@ -50,7 +50,7 @@
 
       } // 10
       READ( NIN, FMT = * )N, IFST, ILST
-      IF( N.EQ.0 ) RETURN
+      if (N.EQ.0) RETURN;
       KNT = KNT + 1
       for (I = 1; I <= N; I++) { // 20
          READ( NIN, FMT = * )( TMP( I, J ), J = 1, N )
@@ -96,7 +96,7 @@
             IF( T1( I, J ).NE.T2( I, J ) ) RES = RES + ONE / EPS             IF( S1( I, J ).NE.S2( I, J ) ) RES = RES + ONE / EPS
          } // 50
       } // 60
-      IF( IFST1.NE.IFST2 ) RES = RES + ONE / EPS       IF( ILST1.NE.ILST2 ) RES = RES + ONE / EPS       IF( NINFO( 1 ).NE.NINFO( 2 ) ) RES = RES + ONE / EPS
+      if (IFST1.NE.IFST2) RES = RES + ONE / EPS       IF( ILST1.NE.ILST2 ) RES = RES + ONE / EPS       IF( NINFO( 1 ).NE.NINFO( 2 ) ) RES = RES + ONE / EPS;
 
       // Test orthogonality of Q and Z and backward error on T2 and S2
 

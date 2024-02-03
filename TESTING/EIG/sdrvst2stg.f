@@ -95,7 +95,7 @@
 
       // Quick return if nothing to do
 
-      IF( NSIZES.EQ.0 .OR. NTYPES.EQ.0 ) RETURN
+      if (NSIZES.EQ.0 .OR. NTYPES.EQ.0) RETURN;
 
       // More Important constants
 
@@ -121,7 +121,7 @@
          N = NN( JSIZE )
          if ( N.GT.0 ) {
             LGN = INT( LOG( REAL( N ) ) / LOG( TWO ) )
-            IF( 2**LGN.LT.N ) LGN = LGN + 1             IF( 2**LGN.LT.N ) LGN = LGN + 1
+            if (2**LGN.LT.N) LGN = LGN + 1             IF( 2**LGN.LT.N ) LGN = LGN + 1;
             LWEDC = 1 + 4*N + 2*N*LGN + 4*N**2
             // LIWEDC = 6 + 6*N + 5*N*LGN
             LIWEDC = 3 + 5*N
@@ -163,7 +163,7 @@
             // =8                      random symmetric
             // =9                      band symmetric, w/ eigenvalues
 
-            IF( MTYPES.GT.MAXTYP ) GO TO 110
+            if (MTYPES.GT.MAXTYP) GO TO 110;
 
             ITYPE = KTYPE( JTYPE )
             IMODE = KMODE( JTYPE )

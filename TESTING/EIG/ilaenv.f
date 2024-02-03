@@ -171,7 +171,7 @@
 
          NH = IHI - ILO + 1
          NS = 2
-         IF( NH.GE.30 ) NS = 4          IF( NH.GE.60 ) NS = 10          IF( NH.GE.150 ) NS = MAX( 10, NH / NINT( LOG( REAL( NH ) ) / LOG( TWO ) ) )          IF( NH.GE.590 ) NS = 64          IF( NH.GE.3000 ) NS = 128          IF( NH.GE.6000 ) NS = 256
+         if (NH.GE.30) NS = 4          IF( NH.GE.60 ) NS = 10          IF( NH.GE.150 ) NS = MAX( 10, NH / NINT( LOG( REAL( NH ) ) / LOG( TWO ) ) )          IF( NH.GE.590 ) NS = 64          IF( NH.GE.3000 ) NS = 128          IF( NH.GE.6000 ) NS = 256;
          NS = MAX( 2, NS-MOD( NS, 2 ) )
       }
 
@@ -218,7 +218,7 @@
          // .     NH=IHI-ILO+1.
 
          IPARMQ = 0
-         IF( NS.GE.KACMIN ) IPARMQ = 1          IF( NS.GE.K22MIN ) IPARMQ = 2
+         if (NS.GE.KACMIN) IPARMQ = 1          IF( NS.GE.K22MIN ) IPARMQ = 2;
 
       } else {
          // ===== invalid value of ispec =====

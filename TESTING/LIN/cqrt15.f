@@ -103,7 +103,7 @@
          for (J = 1; J <= RANK; J++) { // 40
             csscal(M, S( J ), A( 1, J ), 1 );
          } // 40
-         IF( RANK.LT.N ) CALL CLASET( 'Full', M, N-RANK, CZERO, CZERO, A( 1, RANK+1 ), LDA )
+         if (RANK.LT.N) CALL CLASET( 'Full', M, N-RANK, CZERO, CZERO, A( 1, RANK+1 ), LDA );
          claror('Right', 'No initialization', M, N, A, LDA, ISEED, WORK, INFO );
 
       } else {

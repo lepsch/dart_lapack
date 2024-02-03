@@ -75,7 +75,7 @@
 
       // Test the error exits
 
-      IF( TSTERR ) CALL CERRGT( PATH, NOUT )
+      if (TSTERR) CALL CERRGT( PATH, NOUT );
       INFOT = 0
 
       for (IN = 1; IN <= NN; IN++) { // 120
@@ -85,7 +85,7 @@
          N = NVAL( IN )
          LDA = MAX( 1, N )
          NIMAT = NTYPES
-         IF( N.LE.0 ) NIMAT = 1
+         if (N.LE.0) NIMAT = 1;
 
          for (IMAT = 1; IMAT <= NIMAT; IMAT++) { // 110
 
@@ -122,7 +122,7 @@
                   E( I ) = A( IA+1 )
                   IA = IA + 2
                } // 20
-               IF( N.GT.0 ) D( N ) = REAL( A( IA ) )
+               if (N.GT.0) D( N ) = REAL( A( IA ) );
             } else {
 
                // Type 7-12:  generate a diagonally dominant matrix with
@@ -161,7 +161,7 @@
 
                   if ( IZERO.EQ.1 ) {
                      D( 1 ) = REAL( Z( 2 ) )
-                     IF( N.GT.1 ) E( 1 ) = Z( 3 )
+                     if (N.GT.1) E( 1 ) = Z( 3 );
                   } else if ( IZERO.EQ.N ) {
                      E( N-1 ) = Z( 1 )
                      D( N ) = REAL( Z( 2 ) )
@@ -206,7 +206,7 @@
             }
 
             scopy(N, D, 1, D( N+1 ), 1 );
-            IF( N.GT.1 ) CALL CCOPY( N-1, E, 1, E( N+1 ), 1 )
+            if (N.GT.1) CALL CCOPY( N-1, E, 1, E( N+1 ), 1 );
 
 *+    TEST 1
             // Factor A as L*D*L' and compute the ratio
@@ -231,7 +231,7 @@
             // Print the test ratio if greater than or equal to THRESH.
 
             if ( RESULT( 1 ).GE.THRESH ) {
-               IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )
+               if (NFAIL.EQ.0 .AND. NERRS.EQ.0) CALL ALAHD( NOUT, PATH );
                WRITE( NOUT, FMT = 9999 )N, IMAT, 1, RESULT( 1 )
                NFAIL = NFAIL + 1
             }
@@ -286,7 +286,7 @@
 
                // Check error code from CPTTRS.
 
-                  IF( INFO.NE.0 ) CALL ALAERH( PATH, 'CPTTRS', INFO, 0, UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT )
+                  if (INFO.NE.0) CALL ALAERH( PATH, 'CPTTRS', INFO, 0, UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
 
                   clacpy('Full', N, NRHS, B, LDA, WORK, LDA );
                   cptt02(UPLO, N, NRHS, D, E, X, LDA, WORK, LDA, RESULT( 2 ) );
@@ -304,7 +304,7 @@
 
                // Check error code from CPTRFS.
 
-                  IF( INFO.NE.0 ) CALL ALAERH( PATH, 'CPTRFS', INFO, 0, UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT )
+                  if (INFO.NE.0) CALL ALAERH( PATH, 'CPTRFS', INFO, 0, UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
 
                   cget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 4 ) )                   CALL CPTT05( N, NRHS, D, E, B, LDA, X, LDA, XACT, LDA, RWORK, RWORK( NRHS+1 ), RESULT( 5 ) );
 
@@ -313,7 +313,7 @@
 
                   for (K = 2; K <= 6; K++) { // 70
                      if ( RESULT( K ).GE.THRESH ) {
-                        IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9998 )UPLO, N, NRHS, IMAT, K, RESULT( K )
+                        if (NFAIL.EQ.0 .AND. NERRS.EQ.0) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9998 )UPLO, N, NRHS, IMAT, K, RESULT( K );
                         NFAIL = NFAIL + 1
                      }
                   } // 70
@@ -332,14 +332,14 @@
 
             // Check error code from CPTCON.
 
-            IF( INFO.NE.0 ) CALL ALAERH( PATH, 'CPTCON', INFO, 0, ' ', N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT )
+            if (INFO.NE.0) CALL ALAERH( PATH, 'CPTCON', INFO, 0, ' ', N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
 
             RESULT( 7 ) = SGET06( RCOND, RCONDC )
 
             // Print the test ratio if greater than or equal to THRESH.
 
             if ( RESULT( 7 ).GE.THRESH ) {
-               IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )
+               if (NFAIL.EQ.0 .AND. NERRS.EQ.0) CALL ALAHD( NOUT, PATH );
                WRITE( NOUT, FMT = 9999 )N, IMAT, 7, RESULT( 7 )
                NFAIL = NFAIL + 1
             }

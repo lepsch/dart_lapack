@@ -97,7 +97,7 @@
 
       // Quick return if possible
 
-      IF( NSIZES.EQ.0 .OR. NTYPES.EQ.0 ) RETURN
+      if (NSIZES.EQ.0 .OR. NTYPES.EQ.0) RETURN;
 
       // More Important constants
 
@@ -121,7 +121,7 @@
          N = NN( JSIZE )
          if ( N.GT.0 ) {
             LGN = INT( LOG( REAL( N ) ) / LOG( TWO ) )
-            IF( 2**LGN.LT.N ) LGN = LGN + 1             IF( 2**LGN.LT.N ) LGN = LGN + 1
+            if (2**LGN.LT.N) LGN = LGN + 1             IF( 2**LGN.LT.N ) LGN = LGN + 1;
             LWEDC = 1 + 4*N + 2*N*LGN + 4*N**2
             LIWEDC = 6 + 6*N + 5*N*LGN
          } else {
@@ -162,7 +162,7 @@
             // =9                      positive definite
             // =10                     diagonally dominant tridiagonal
 
-            IF( MTYPES.GT.MAXTYP ) GO TO 100
+            if (MTYPES.GT.MAXTYP) GO TO 100;
 
             ITYPE = KTYPE( JTYPE )
             IMODE = KMODE( JTYPE )
@@ -311,7 +311,7 @@
             // 2-stage
 
             scopy(N, SD, 1, D1, 1 );
-            IF( N.GT.0 ) CALL SCOPY( N-1, SE, 1, WORK, 1 )
+            if (N.GT.0) CALL SCOPY( N-1, SE, 1, WORK, 1 );
 
             ssteqr('N', N, D1, WORK, WORK( N+1 ), LDU, WORK( N+1 ), IINFO );
             if ( IINFO.NE.0 ) {
@@ -340,7 +340,7 @@
             // Compute D2 from the 2-stage Upper case
 
             scopy(N, SD, 1, D2, 1 );
-            IF( N.GT.0 ) CALL SCOPY( N-1, SE, 1, WORK, 1 )
+            if (N.GT.0) CALL SCOPY( N-1, SE, 1, WORK, 1 );
 
             ssteqr('N', N, D2, WORK, WORK( N+1 ), LDU, WORK( N+1 ), IINFO );
             if ( IINFO.NE.0 ) {
@@ -367,7 +367,7 @@
             // Compute D3 from the 2-stage Upper case
 
             scopy(N, SD, 1, D3, 1 );
-            IF( N.GT.0 ) CALL SCOPY( N-1, SE, 1, WORK, 1 )
+            if (N.GT.0) CALL SCOPY( N-1, SE, 1, WORK, 1 );
 
             ssteqr('N', N, D3, WORK, WORK( N+1 ), LDU, WORK( N+1 ), IINFO );
             if ( IINFO.NE.0 ) {
@@ -493,7 +493,7 @@
             // Compute D1 and Z
 
             scopy(N, SD, 1, D1, 1 );
-            IF( N.GT.0 ) CALL SCOPY( N-1, SE, 1, WORK, 1 )
+            if (N.GT.0) CALL SCOPY( N-1, SE, 1, WORK, 1 );
             slaset('Full', N, N, ZERO, ONE, Z, LDU );
 
             NTEST = 9
@@ -512,7 +512,7 @@
             // Compute D2
 
             scopy(N, SD, 1, D2, 1 );
-            IF( N.GT.0 ) CALL SCOPY( N-1, SE, 1, WORK, 1 )
+            if (N.GT.0) CALL SCOPY( N-1, SE, 1, WORK, 1 );
 
             NTEST = 11
             ssteqr('N', N, D2, WORK, WORK( N+1 ), LDU, WORK( N+1 ), IINFO );
@@ -530,7 +530,7 @@
             // Compute D3 (using PWK method)
 
             scopy(N, SD, 1, D3, 1 );
-            IF( N.GT.0 ) CALL SCOPY( N-1, SE, 1, WORK, 1 )
+            if (N.GT.0) CALL SCOPY( N-1, SE, 1, WORK, 1 );
 
             NTEST = 12
             ssterf(N, D3, WORK, IINFO );
@@ -574,7 +574,7 @@
 
             for (J = 0; J <= LOG2UI; J++) { // 160
                sstech(N, SD, SE, D1, TEMP1, WORK, IINFO );
-               IF( IINFO.EQ.0 ) GO TO 170
+               if (IINFO.EQ.0) GO TO 170;
                TEMP1 = TEMP1*TWO
             } // 160
 
@@ -589,7 +589,7 @@
                // Compute D4 and Z4
 
                scopy(N, SD, 1, D4, 1 );
-               IF( N.GT.0 ) CALL SCOPY( N-1, SE, 1, WORK, 1 )
+               if (N.GT.0) CALL SCOPY( N-1, SE, 1, WORK, 1 );
                slaset('Full', N, N, ZERO, ONE, Z, LDU );
 
                NTEST = 14
@@ -612,7 +612,7 @@
                // Compute D5
 
                scopy(N, SD, 1, D5, 1 );
-               IF( N.GT.0 ) CALL SCOPY( N-1, SE, 1, WORK, 1 )
+               if (N.GT.0) CALL SCOPY( N-1, SE, 1, WORK, 1 );
 
                NTEST = 16
                spteqr('N', N, D5, WORK, Z, LDU, WORK( N+1 ), IINFO );
@@ -825,7 +825,7 @@
             // Compute D1 and Z
 
             scopy(N, SD, 1, D1, 1 );
-            IF( N.GT.0 ) CALL SCOPY( N-1, SE, 1, WORK, 1 )
+            if (N.GT.0) CALL SCOPY( N-1, SE, 1, WORK, 1 );
             slaset('Full', N, N, ZERO, ONE, Z, LDU );
 
             NTEST = 22
@@ -850,7 +850,7 @@
             // Compute D1 and Z
 
             scopy(N, SD, 1, D1, 1 );
-            IF( N.GT.0 ) CALL SCOPY( N-1, SE, 1, WORK, 1 )
+            if (N.GT.0) CALL SCOPY( N-1, SE, 1, WORK, 1 );
             slaset('Full', N, N, ZERO, ONE, Z, LDU );
 
             NTEST = 24
@@ -875,7 +875,7 @@
             // Compute D2
 
             scopy(N, SD, 1, D2, 1 );
-            IF( N.GT.0 ) CALL SCOPY( N-1, SE, 1, WORK, 1 )
+            if (N.GT.0) CALL SCOPY( N-1, SE, 1, WORK, 1 );
             slaset('Full', N, N, ZERO, ONE, Z, LDU );
 
             NTEST = 26
@@ -989,7 +989,7 @@
             // Compute D1 and Z
 
                scopy(N, SD, 1, D5, 1 );
-               IF( N.GT.0 ) CALL SCOPY( N-1, SE, 1, WORK, 1 )
+               if (N.GT.0) CALL SCOPY( N-1, SE, 1, WORK, 1 );
                slaset('Full', N, N, ZERO, ONE, Z, LDU );
 
                if ( SRANGE ) {
@@ -1022,7 +1022,7 @@
             // Compute D2
 
                   scopy(N, SD, 1, D5, 1 );
-                  IF( N.GT.0 ) CALL SCOPY( N-1, SE, 1, WORK, 1 )
+                  if (N.GT.0) CALL SCOPY( N-1, SE, 1, WORK, 1 );
 
                   NTEST = 31
                   sstemr('N', 'I', N, D5, WORK, VL, VU, IL, IU, M, D2, Z, LDU, N, IWORK( 1 ), TRYRAC, WORK( N+1 ), LWORK-N, IWORK( 2*N+1 ), LIWORK-2*N, IINFO );
@@ -1054,7 +1054,7 @@
             // Compute D1 and Z
 
                   scopy(N, SD, 1, D5, 1 );
-                  IF( N.GT.0 ) CALL SCOPY( N-1, SE, 1, WORK, 1 )
+                  if (N.GT.0) CALL SCOPY( N-1, SE, 1, WORK, 1 );
                   slaset('Full', N, N, ZERO, ONE, Z, LDU );
 
                   NTEST = 32
@@ -1096,7 +1096,7 @@
             // Compute D2
 
                   scopy(N, SD, 1, D5, 1 );
-                  IF( N.GT.0 ) CALL SCOPY( N-1, SE, 1, WORK, 1 )
+                  if (N.GT.0) CALL SCOPY( N-1, SE, 1, WORK, 1 );
 
                   NTEST = 34
                   sstemr('N', 'V', N, D5, WORK, VL, VU, IL, IU, M, D2, Z, LDU, N, IWORK( 1 ), TRYRAC, WORK( N+1 ), LWORK-N, IWORK( 2*N+1 ), LIWORK-2*N, IINFO );
@@ -1136,7 +1136,7 @@
             // Compute D1 and Z
 
                scopy(N, SD, 1, D5, 1 );
-               IF( N.GT.0 ) CALL SCOPY( N-1, SE, 1, WORK, 1 )
+               if (N.GT.0) CALL SCOPY( N-1, SE, 1, WORK, 1 );
 
                NTEST = 35
 
@@ -1161,7 +1161,7 @@
             // Compute D2
 
                scopy(N, SD, 1, D5, 1 );
-               IF( N.GT.0 ) CALL SCOPY( N-1, SE, 1, WORK, 1 )
+               if (N.GT.0) CALL SCOPY( N-1, SE, 1, WORK, 1 );
 
                NTEST = 37
                sstemr('N', 'A', N, D5, WORK, VL, VU, IL, IU, M, D2, Z, LDU, N, IWORK( 1 ), TRYRAC, WORK( N+1 ), LWORK-N, IWORK( 2*N+1 ), LIWORK-2*N, IINFO );

@@ -48,7 +48,7 @@
             SUBNAM( 1: 1 ) = CHAR( IC-32 )
             for (I = 2; I <= 6; I++) { // 20
                IC = ICHAR( SUBNAM( I: I ) )
-               IF( IC.GE.97 .AND. IC.LE.122 ) SUBNAM( I: I ) = CHAR( IC-32 )
+               if (IC.GE.97 .AND. IC.LE.122) SUBNAM( I: I ) = CHAR( IC-32 );
             } // 20
          }
 
@@ -72,7 +72,7 @@
             SUBNAM( 1: 1 ) = CHAR( IC-32 )
             for (I = 2; I <= 6; I++) { // 40
                IC = ICHAR( SUBNAM( I: I ) )
-               IF( IC.GE.225 .AND. IC.LE.250 ) SUBNAM( I: I ) = CHAR( IC-32 )
+               if (IC.GE.225 .AND. IC.LE.250) SUBNAM( I: I ) = CHAR( IC-32 );
             } // 40
          }
       }

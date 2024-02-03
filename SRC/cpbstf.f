@@ -55,7 +55,7 @@
 
       // Quick return if possible
 
-      IF( N.EQ.0 ) RETURN
+      if (N.EQ.0) RETURN;
 
       KLD = MAX( 1, LDAB-1 )
 

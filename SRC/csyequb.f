@@ -143,7 +143,7 @@
          classq(N, WORK( N+1 ), 1, SCALE, SUMSQ );
          STD = SCALE * SQRT( SUMSQ / N )
 
-         IF ( STD .LT. TOL * AVG ) GOTO 999
+         if (STD .LT. TOL * AVG) GOTO 999;
 
          for (I = 1; I <= N; I++) {
             T = CABS1( A( I, I ) )

@@ -414,7 +414,7 @@
                   I1 = (I-1)*NB + 1
                   I2 = MIN( I*NB, N ) + 1
                   SCAL = SCALE( RHS ) / WORK( I+KK*LDS )
-                  IF( SCAL.NE.ONE ) CALL CSSCAL( I2-I1, SCAL, X( I1, RHS ), 1 )
+                  if (SCAL.NE.ONE) CALL CSSCAL( I2-I1, SCAL, X( I1, RHS ), 1 );
                }
             }
          }

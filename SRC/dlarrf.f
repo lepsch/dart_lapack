@@ -180,7 +180,7 @@
             }
          }
          if ( .NOT.SAWNAN2 ) {
-            IF(SAWNAN1 .OR. MAX2.LE.MAX1) INDX = 2
+            if (SAWNAN1 .OR. MAX2.LE.MAX1) INDX = 2;
             if (MAX2.LE.SMLGROWTH) {
                SMLGROWTH = MAX2
                BESTSHIFT = RSIGMA

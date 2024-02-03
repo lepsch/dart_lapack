@@ -89,7 +89,7 @@
 
       // Quick return if possible
 
-      IF( N.EQ.0 ) RETURN
+      if (N.EQ.0) RETURN;
 
       // Form a Cholesky factorization of B.
 

@@ -74,7 +74,7 @@
          M = MVAL( IK )
          P = PVAL( IK )
          N = NVAL( IK )
-         IF( P.GT.N .OR. N.GT.M+P ) GO TO 40
+         if (P.GT.N .OR. N.GT.M+P) GO TO 40;
 
          for (IMAT = 1; IMAT <= NTYPES; IMAT++) { // 30
 

@@ -63,7 +63,7 @@
          BABS = ABS( B )
          TABS = ABS( T )
          Z = MAX( BABS, TABS )
-         IF( Z.GT.ZERO ) T = Z*SQRT( ( T / Z )**2+( B / Z )**2 )
+         if (Z.GT.ZERO) T = Z*SQRT( ( T / Z )**2+( B / Z )**2 );
 
          // Compute the two eigenvalues.  RT1 and RT2 are exchanged
          // if necessary so that RT1 will have the greater magnitude.

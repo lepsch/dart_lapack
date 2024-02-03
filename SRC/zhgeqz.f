@@ -135,7 +135,7 @@
 
       // Initialize Q and Z
 
-      IF( ICOMPQ.EQ.3 ) CALL ZLASET( 'Full', N, N, CZERO, CONE, Q, LDQ )       IF( ICOMPZ.EQ.3 ) CALL ZLASET( 'Full', N, N, CZERO, CONE, Z, LDZ )
+      if (ICOMPQ.EQ.3) CALL ZLASET( 'Full', N, N, CZERO, CONE, Q, LDQ )       IF( ICOMPZ.EQ.3 ) CALL ZLASET( 'Full', N, N, CZERO, CONE, Z, LDZ );
 
       // Machine Constants
 
@@ -163,7 +163,7 @@
             } else {
                zscal(1, SIGNBC, H( J, J ), 1 );
             }
-            IF( ILZ ) CALL ZSCAL( N, SIGNBC, Z( 1, J ), 1 )
+            if (ILZ) CALL ZSCAL( N, SIGNBC, Z( 1, J ), 1 );
          } else {
             T( J, J ) = CZERO
          }
@@ -173,7 +173,7 @@
 
       // If IHI < ILO, skip QZ steps
 
-      IF( IHI.LT.ILO ) GO TO 190
+      if (IHI.LT.ILO) GO TO 190;
 
       // MAIN QZ ITERATION LOOP
 
@@ -206,7 +206,7 @@
 
          // Check for too many iterations.
 
-         IF( JITER.GT.MAXIT ) GO TO 180
+         if (JITER.GT.MAXIT) GO TO 180;
 
          // Split the matrix if possible.
 
@@ -271,7 +271,7 @@
                      zlartg(CTEMP, H( JCH+1, JCH ), C, S, H( JCH, JCH ) );
                      H( JCH+1, JCH ) = CZERO
                      zrot(ILASTM-JCH, H( JCH, JCH+1 ), LDH, H( JCH+1, JCH+1 ), LDH, C, S )                      CALL ZROT( ILASTM-JCH, T( JCH, JCH+1 ), LDT, T( JCH+1, JCH+1 ), LDT, C, S )                      IF( ILQ ) CALL ZROT( N, Q( 1, JCH ), 1, Q( 1, JCH+1 ), 1, C, DCONJG( S ) );
-                     IF( ILAZR2 ) H( JCH, JCH-1 ) = H( JCH, JCH-1 )*C
+                     if (ILAZR2) H( JCH, JCH-1 ) = H( JCH, JCH-1 )*C;
                      ILAZR2 = .FALSE.
                      if ( ABS1( T( JCH+1, JCH+1 ) ).GE.BTOL ) {
                         if ( JCH+1.GE.ILAST ) {
@@ -293,7 +293,7 @@
                      CTEMP = T( JCH, JCH+1 )
                      zlartg(CTEMP, T( JCH+1, JCH+1 ), C, S, T( JCH, JCH+1 ) );
                      T( JCH+1, JCH+1 ) = CZERO
-                     IF( JCH.LT.ILASTM-1 ) CALL ZROT( ILASTM-JCH-1, T( JCH, JCH+2 ), LDT, T( JCH+1, JCH+2 ), LDT, C, S )                      CALL ZROT( ILASTM-JCH+2, H( JCH, JCH-1 ), LDH, H( JCH+1, JCH-1 ), LDH, C, S )                      IF( ILQ ) CALL ZROT( N, Q( 1, JCH ), 1, Q( 1, JCH+1 ), 1, C, DCONJG( S ) )
+                     if (JCH.LT.ILASTM-1) CALL ZROT( ILASTM-JCH-1, T( JCH, JCH+2 ), LDT, T( JCH+1, JCH+2 ), LDT, C, S )                      CALL ZROT( ILASTM-JCH+2, H( JCH, JCH-1 ), LDH, H( JCH+1, JCH-1 ), LDH, C, S )                      IF( ILQ ) CALL ZROT( N, Q( 1, JCH ), 1, Q( 1, JCH+1 ), 1, C, DCONJG( S ) );
                      CTEMP = H( JCH+1, JCH )
                      zlartg(CTEMP, H( JCH+1, JCH-1 ), C, S, H( JCH+1, JCH ) );
                      H( JCH+1, JCH-1 ) = CZERO
@@ -340,7 +340,7 @@
             } else {
                zscal(1, SIGNBC, H( ILAST, ILAST ), 1 );
             }
-            IF( ILZ ) CALL ZSCAL( N, SIGNBC, Z( 1, ILAST ), 1 )
+            if (ILZ) CALL ZSCAL( N, SIGNBC, Z( 1, ILAST ), 1 );
          } else {
             T( ILAST, ILAST ) = CZERO
          }
@@ -350,7 +350,7 @@
          // Go to next block -- exit if finished.
 
          ILAST = ILAST - 1
-         IF( ILAST.LT.ILO ) GO TO 190
+         if (ILAST.LT.ILO) GO TO 190;
 
          // Reset counters
 
@@ -358,7 +358,7 @@
          ESHIFT = CZERO
          if ( .NOT.ILSCHR ) {
             ILASTM = ILAST
-            IF( IFRSTM.GT.ILAST ) IFRSTM = ILO
+            if (IFRSTM.GT.ILAST) IFRSTM = ILO;
          }
          GO TO 160
 
@@ -517,7 +517,7 @@
             } else {
                zscal(1, SIGNBC, H( J, J ), 1 );
             }
-            IF( ILZ ) CALL ZSCAL( N, SIGNBC, Z( 1, J ), 1 )
+            if (ILZ) CALL ZSCAL( N, SIGNBC, Z( 1, J ), 1 );
          } else {
             T( J, J ) = CZERO
          }

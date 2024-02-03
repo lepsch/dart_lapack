@@ -120,7 +120,7 @@
                      Y( IY ) = Y( IY ) + ALPHA*ABS( X( J ) )*TEMP
                   }
                }
-                IF ( .NOT.SYMB_ZERO ) Y( IY ) = Y( IY ) + SIGN( SAFE1, Y( IY ) )
+                if (.NOT.SYMB_ZERO) Y( IY ) = Y( IY ) + SIGN( SAFE1, Y( IY ) );
                IY = IY + INCY
             }
          } else {
@@ -142,7 +142,7 @@
                      Y( IY ) = Y( IY ) + ALPHA*ABS( X( J ) )*TEMP
                   }
                }
-                IF ( .NOT.SYMB_ZERO ) Y( IY ) = Y( IY ) + SIGN( SAFE1, Y( IY ) )
+                if (.NOT.SYMB_ZERO) Y( IY ) = Y( IY ) + SIGN( SAFE1, Y( IY ) );
                IY = IY + INCY
             }
          }
@@ -168,7 +168,7 @@
                      JX = JX + INCX
                   }
                }
-                IF ( .NOT.SYMB_ZERO ) Y( IY ) = Y( IY ) + SIGN( SAFE1, Y( IY ) )
+                if (.NOT.SYMB_ZERO) Y( IY ) = Y( IY ) + SIGN( SAFE1, Y( IY ) );
 
                IY = IY + INCY
             }
@@ -193,7 +193,7 @@
                      JX = JX + INCX
                   }
                }
-                IF ( .NOT.SYMB_ZERO ) Y( IY ) = Y( IY ) + SIGN( SAFE1, Y( IY ) )
+                if (.NOT.SYMB_ZERO) Y( IY ) = Y( IY ) + SIGN( SAFE1, Y( IY ) );
 
                IY = IY + INCY
             }

@@ -109,7 +109,7 @@
 
       // Quick return if possible
 
-      IF( N.EQ.0 ) RETURN
+      if (N.EQ.0) RETURN;
 
       // Get machine constants
 
@@ -191,7 +191,7 @@
       }
 
       sormqr('L', 'T', IROWS, ICOLS, IROWS, B( ILO, ILO ), LDB, WORK( ITAU ), A( ILO, ILO ), LDA, WORK( IWORK ), LWORK+1-IWORK, IINFO );
-      IF( IINFO.GE.0 ) LWKOPT = MAX( LWKOPT, INT( WORK( IWORK ) )+IWORK-1 )
+      if (IINFO.GE.0) LWKOPT = MAX( LWKOPT, INT( WORK( IWORK ) )+IWORK-1 );
       if ( IINFO.NE.0 ) {
          INFO = N + 3
          GO TO 120
@@ -200,14 +200,14 @@
       if ( ILVL ) {
          slaset('Full', N, N, ZERO, ONE, VL, LDVL );
          slacpy('L', IROWS-1, IROWS-1, B( ILO+1, ILO ), LDB, VL( ILO+1, ILO ), LDVL )          CALL SORGQR( IROWS, IROWS, IROWS, VL( ILO, ILO ), LDVL, WORK( ITAU ), WORK( IWORK ), LWORK+1-IWORK, IINFO );
-         IF( IINFO.GE.0 ) LWKOPT = MAX( LWKOPT, INT( WORK( IWORK ) )+IWORK-1 )
+         if (IINFO.GE.0) LWKOPT = MAX( LWKOPT, INT( WORK( IWORK ) )+IWORK-1 );
          if ( IINFO.NE.0 ) {
             INFO = N + 4
             GO TO 120
          }
       }
 
-      IF( ILVR ) CALL SLASET( 'Full', N, N, ZERO, ONE, VR, LDVR )
+      if (ILVR) CALL SLASET( 'Full', N, N, ZERO, ONE, VR, LDVR );
 
       // Reduce to generalized Hessenberg form
 
@@ -235,7 +235,7 @@
          CHTEMP = 'E'
       }
       shgeqz(CHTEMP, JOBVL, JOBVR, N, ILO, IHI, A, LDA, B, LDB, ALPHAR, ALPHAI, BETA, VL, LDVL, VR, LDVR, WORK( IWORK ), LWORK+1-IWORK, IINFO );
-      IF( IINFO.GE.0 ) LWKOPT = MAX( LWKOPT, INT( WORK( IWORK ) )+IWORK-1 )
+      if (IINFO.GE.0) LWKOPT = MAX( LWKOPT, INT( WORK( IWORK ) )+IWORK-1 );
       if ( IINFO.NE.0 ) {
          if ( IINFO.GT.0 .AND. IINFO.LE.N ) {
             INFO = IINFO
@@ -287,7 +287,7 @@
                      TEMP = MAX( TEMP, ABS( VL( JR, JC ) )+ ABS( VL( JR, JC+1 ) ) )
                   } // 20
                }
-               IF( TEMP.LT.SAFMIN ) GO TO 50
+               if (TEMP.LT.SAFMIN) GO TO 50;
                TEMP = ONE / TEMP
                if ( ALPHAI( JC ).EQ.ZERO ) {
                   for (JR = 1; JR <= N; JR++) { // 30
@@ -319,7 +319,7 @@
                      TEMP = MAX( TEMP, ABS( VR( JR, JC ) )+ ABS( VR( JR, JC+1 ) ) )
                   } // 70
                }
-               IF( TEMP.LT.SAFMIN ) GO TO 100
+               if (TEMP.LT.SAFMIN) GO TO 100;
                TEMP = ONE / TEMP
                if ( ALPHAI( JC ).EQ.ZERO ) {
                   for (JR = 1; JR <= N; JR++) { // 80

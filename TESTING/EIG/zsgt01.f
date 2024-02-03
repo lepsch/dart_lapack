@@ -35,7 +35,7 @@
       // .. Executable Statements ..
 
       RESULT( 1 ) = ZERO
-      IF( N.LE.0 ) RETURN
+      if (N.LE.0) RETURN;
 
       ULP = DLAMCH( 'Epsilon' )
 

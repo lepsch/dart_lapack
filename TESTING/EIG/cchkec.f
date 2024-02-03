@@ -41,7 +41,7 @@
 
       // Test error exits if TSTERR is .TRUE.
 
-      IF( TSTERR ) CALL CERREC( PATH, NOUT )
+      if (TSTERR) CALL CERREC( PATH, NOUT );
 
       OK = .TRUE.
       cget35(RTRSYL( 1 ), LTRSYL, NTRSYL, KTRSYL, NIN );
@@ -83,7 +83,7 @@
       }
 
       NTESTS = KTRSYL + KTREXC + KTRSNA + KTRSEN
-      IF( OK ) WRITE( NOUT, FMT = 9995 )PATH, NTESTS
+      if (OK) WRITE( NOUT, FMT = 9995 )PATH, NTESTS;
 
  9999 FORMAT( ' Error in CTRSYL: RMAX =', E12.3, / ' LMAX = ', I8, ' NINFO=', I8, ' KNT=', I8 )
  9998 FORMAT( ' Error in CTREXC: RMAX =', E12.3, / ' LMAX = ', I8, ' NINFO=', I8, ' KNT=', I8 )

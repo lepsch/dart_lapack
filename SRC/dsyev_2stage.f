@@ -64,7 +64,7 @@
          LWMIN = 2*N + LHTRD + LWTRD
          WORK( 1 )  = LWMIN
 
-         IF( LWORK.LT.LWMIN .AND. .NOT.LQUERY ) INFO = -8
+         if (LWORK.LT.LWMIN .AND. .NOT.LQUERY) INFO = -8;
       }
 
       if ( INFO.NE.0 ) {
@@ -83,7 +83,7 @@
       if ( N.EQ.1 ) {
          W( 1 ) = A( 1, 1 )
          WORK( 1 ) = 2
-         IF( WANTZ ) A( 1, 1 ) = ONE
+         if (WANTZ) A( 1, 1 ) = ONE;
          RETURN
       }
 
@@ -107,7 +107,7 @@
          ISCALE = 1
          SIGMA = RMAX / ANRM
       }
-      IF( ISCALE.EQ.1 ) CALL DLASCL( UPLO, 0, 0, ONE, SIGMA, N, N, A, LDA, INFO )
+      if (ISCALE.EQ.1) CALL DLASCL( UPLO, 0, 0, ONE, SIGMA, N, N, A, LDA, INFO );
 
       // Call DSYTRD_2STAGE to reduce symmetric matrix to tridiagonal form.
 

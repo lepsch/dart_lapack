@@ -76,7 +76,7 @@
       // Quick return if possible
 
       SCALE = ONE
-      IF( N.EQ.0 ) RETURN
+      if (N.EQ.0) RETURN;
 
       // Determine machine dependent parameters to control overflow.
 
@@ -220,7 +220,7 @@
 
                // Exit the loop if the growth factor is too small.
 
-               IF( GROW.LE.SMLNUM ) GO TO 60
+               if (GROW.LE.SMLNUM) GO TO 60;
 
                TJJS = A( J, J )
                TJJ = CABS1( TJJS )
@@ -261,7 +261,7 @@
 
                // Exit the loop if the growth factor is too small.
 
-               IF( GROW.LE.SMLNUM ) GO TO 60
+               if (GROW.LE.SMLNUM) GO TO 60;
 
                // G(j) = G(j-1)*( 1 + CNORM(j) )
 
@@ -302,7 +302,7 @@
 
                // Exit the loop if the growth factor is too small.
 
-               IF( GROW.LE.SMLNUM ) GO TO 90
+               if (GROW.LE.SMLNUM) GO TO 90;
 
                // G(j) = max( G(j-1), M(j-1)*( 1 + CNORM(j) ) )
 
@@ -316,7 +316,7 @@
 
                   // M(j) = M(j-1)*( 1 + CNORM(j) ) / abs(A(j,j))
 
-                  IF( XJ.GT.TJJ ) XBND = XBND*( TJJ / XJ )
+                  if (XJ.GT.TJJ) XBND = XBND*( TJJ / XJ );
                } else {
 
                   // M(j) could overflow, set XBND to 0.
@@ -336,7 +336,7 @@
 
                // Exit the loop if the growth factor is too small.
 
-               IF( GROW.LE.SMLNUM ) GO TO 90
+               if (GROW.LE.SMLNUM) GO TO 90;
 
                // G(j) = ( 1 + CNORM(j) )*G(j-1)
 
@@ -382,7 +382,7 @@
                   TJJS = A( J, J )*TSCAL
                } else {
                   TJJS = TSCAL
-                  IF( TSCAL.EQ.ONE ) GO TO 110
+                  if (TSCAL.EQ.ONE) GO TO 110;
                }
                TJJ = CABS1( TJJS )
                if ( TJJ.GT.SMLNUM ) {
@@ -558,7 +558,7 @@
                      TJJS = A( J, J )*TSCAL
                   } else {
                      TJJS = TSCAL
-                     IF( TSCAL.EQ.ONE ) GO TO 160
+                     if (TSCAL.EQ.ONE) GO TO 160;
                   }
 
                      // Compute x(j) = x(j) / A(j,j), scaling if necessary.
@@ -691,7 +691,7 @@
                      TJJS = DCONJG( A( J, J ) )*TSCAL
                   } else {
                      TJJS = TSCAL
-                     IF( TSCAL.EQ.ONE ) GO TO 210
+                     if (TSCAL.EQ.ONE) GO TO 210;
                   }
 
                      // Compute x(j) = x(j) / A(j,j), scaling if necessary.

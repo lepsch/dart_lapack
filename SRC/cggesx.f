@@ -128,7 +128,7 @@
                MAXWRK = MAX( MAXWRK, N*( 1 + ILAENV( 1, 'CUNGQR', ' ', N, 1, N, -1 ) ) )
             }
             LWRK = MAXWRK
-            IF( IJOB.GE.1 ) LWRK = MAX( LWRK, N*N/2 )
+            if (IJOB.GE.1) LWRK = MAX( LWRK, N*N/2 );
          } else {
             MINWRK = 1
             MAXWRK = 1
@@ -182,7 +182,7 @@
          ANRMTO = BIGNUM
          ILASCL = .TRUE.
       }
-      IF( ILASCL ) CALL CLASCL( 'G', 0, 0, ANRM, ANRMTO, N, N, A, LDA, IERR )
+      if (ILASCL) CALL CLASCL( 'G', 0, 0, ANRM, ANRMTO, N, N, A, LDA, IERR );
 
       // Scale B if max element outside range [SMLNUM,BIGNUM]
 
@@ -195,7 +195,7 @@
          BNRMTO = BIGNUM
          ILBSCL = .TRUE.
       }
-      IF( ILBSCL ) CALL CLASCL( 'G', 0, 0, BNRM, BNRMTO, N, N, B, LDB, IERR )
+      if (ILBSCL) CALL CLASCL( 'G', 0, 0, BNRM, BNRMTO, N, N, B, LDB, IERR );
 
       // Permute the matrix to make it more nearly triangular
       // (Real Workspace: need 6*N)
@@ -232,7 +232,7 @@
 
       // Initialize VSR
 
-      IF( ILVSR ) CALL CLASET( 'Full', N, N, CZERO, CONE, VSR, LDVSR )
+      if (ILVSR) CALL CLASET( 'Full', N, N, CZERO, CONE, VSR, LDVSR );
 
       // Reduce to generalized Hessenberg form
       // (Workspace: none needed)
@@ -265,7 +265,7 @@
 
          // Undo scaling on eigenvalues before SELCTGing
 
-         IF( ILASCL ) CALL CLASCL( 'G', 0, 0, ANRMTO, ANRM, N, 1, ALPHA, N, IERR )          IF( ILBSCL ) CALL CLASCL( 'G', 0, 0, BNRMTO, BNRM, N, 1, BETA, N, IERR )
+         if (ILASCL) CALL CLASCL( 'G', 0, 0, ANRMTO, ANRM, N, 1, ALPHA, N, IERR )          IF( ILBSCL ) CALL CLASCL( 'G', 0, 0, BNRMTO, BNRM, N, 1, BETA, N, IERR );
 
          // Select eigenvalues
 
@@ -280,7 +280,7 @@
 
          ctgsen(IJOB, ILVSL, ILVSR, BWORK, N, A, LDA, B, LDB, ALPHA, BETA, VSL, LDVSL, VSR, LDVSR, SDIM, PL, PR, DIF, WORK( IWRK ), LWORK-IWRK+1, IWORK, LIWORK, IERR );
 
-         IF( IJOB.GE.1 ) MAXWRK = MAX( MAXWRK, 2*SDIM*( N-SDIM ) )
+         if (IJOB.GE.1) MAXWRK = MAX( MAXWRK, 2*SDIM*( N-SDIM ) );
          if ( IERR.EQ.-21 ) {
 
              // not enough complex workspace
@@ -295,7 +295,7 @@
                RCONDV( 1 ) = DIF( 1 )
                RCONDV( 2 ) = DIF( 2 )
             }
-            IF( IERR.EQ.1 ) INFO = N + 3
+            if (IERR.EQ.1) INFO = N + 3;
          }
 
       }
@@ -303,9 +303,9 @@
       // Apply permutation to VSL and VSR
       // (Workspace: none needed)
 
-      IF( ILVSL ) CALL CGGBAK( 'P', 'L', N, ILO, IHI, RWORK( ILEFT ), RWORK( IRIGHT ), N, VSL, LDVSL, IERR )
+      if (ILVSL) CALL CGGBAK( 'P', 'L', N, ILO, IHI, RWORK( ILEFT ), RWORK( IRIGHT ), N, VSL, LDVSL, IERR );
 
-      IF( ILVSR ) CALL CGGBAK( 'P', 'R', N, ILO, IHI, RWORK( ILEFT ), RWORK( IRIGHT ), N, VSR, LDVSR, IERR )
+      if (ILVSR) CALL CGGBAK( 'P', 'R', N, ILO, IHI, RWORK( ILEFT ), RWORK( IRIGHT ), N, VSR, LDVSR, IERR );
 
       // Undo scaling
 
@@ -327,7 +327,7 @@
          SDIM = 0
          for (I = 1; I <= N; I++) { // 30
             CURSL = SELCTG( ALPHA( I ), BETA( I ) )
-            IF( CURSL ) SDIM = SDIM + 1             IF( CURSL .AND. .NOT.LASTSL ) INFO = N + 2
+            if (CURSL) SDIM = SDIM + 1             IF( CURSL .AND. .NOT.LASTSL ) INFO = N + 2;
             LASTSL = CURSL
          } // 30
 

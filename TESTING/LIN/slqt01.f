@@ -56,7 +56,7 @@
       // Copy details of Q
 
       slaset('Full', N, N, ROGUE, ROGUE, Q, LDA );
-      IF( N.GT.1 ) CALL SLACPY( 'Upper', M, N-1, AF( 1, 2 ), LDA, Q( 1, 2 ), LDA )
+      if (N.GT.1) CALL SLACPY( 'Upper', M, N-1, AF( 1, 2 ), LDA, Q( 1, 2 ), LDA );
 
       // Generate the n-by-n matrix Q
 

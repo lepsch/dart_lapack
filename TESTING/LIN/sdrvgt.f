@@ -72,7 +72,7 @@
 
       // Test the error exits
 
-      IF( TSTERR ) CALL SERRVX( PATH, NOUT )
+      if (TSTERR) CALL SERRVX( PATH, NOUT );
       INFOT = 0
 
       for (IN = 1; IN <= NN; IN++) { // 140
@@ -83,7 +83,7 @@
          M = MAX( N-1, 0 )
          LDA = MAX( 1, N )
          NIMAT = NTYPES
-         IF( N.LE.0 ) NIMAT = 1
+         if (N.LE.0) NIMAT = 1;
 
          for (IMAT = 1; IMAT <= NIMAT; IMAT++) { // 130
 
@@ -127,7 +127,7 @@
                   // Generate a matrix with elements from [-1,1].
 
                   slarnv(2, ISEED, N+2*M, A );
-                  IF( ANORM.NE.ONE ) CALL SSCAL( N+2*M, ANORM, A, 1 )
+                  if (ANORM.NE.ONE) CALL SSCAL( N+2*M, ANORM, A, 1 );
                } else if ( IZERO.GT.0 ) {
 
                   // Reuse the last matrix by copying back the zeroed out
@@ -135,7 +135,7 @@
 
                   if ( IZERO.EQ.1 ) {
                      A( N ) = Z( 2 )
-                     IF( N.GT.1 ) A( 1 ) = Z( 3 )
+                     if (N.GT.1) A( 1 ) = Z( 3 );
                   } else if ( IZERO.EQ.N ) {
                      A( 3*N-2 ) = Z( 1 )
                      A( 2*N-1 ) = Z( 2 )
@@ -187,7 +187,7 @@
                // the value returned by SGTSVX.
 
                if ( ZEROT ) {
-                  IF( IFACT.EQ.1 ) GO TO 120
+                  if (IFACT.EQ.1) GO TO 120;
                   RCONDO = ZERO
                   RCONDI = ZERO
 
@@ -281,7 +281,7 @@
 
                      // Check error code from SGTSV .
 
-                     IF( INFO.NE.IZERO ) CALL ALAERH( PATH, 'SGTSV ', INFO, IZERO, ' ', N, N, 1, 1, NRHS, IMAT, NFAIL, NERRS, NOUT )
+                     if (INFO.NE.IZERO) CALL ALAERH( PATH, 'SGTSV ', INFO, IZERO, ' ', N, N, 1, 1, NRHS, IMAT, NFAIL, NERRS, NOUT );
                      NT = 1
                      if ( IZERO.EQ.0 ) {
 
@@ -300,7 +300,7 @@
 
                      for (K = 2; K <= NT; K++) { // 80
                         if ( RESULT( K ).GE.THRESH ) {
-                           IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALADHD( NOUT, PATH )                            WRITE( NOUT, FMT = 9999 )'SGTSV ', N, IMAT, K, RESULT( K )
+                           if (NFAIL.EQ.0 .AND. NERRS.EQ.0) CALL ALADHD( NOUT, PATH )                            WRITE( NOUT, FMT = 9999 )'SGTSV ', N, IMAT, K, RESULT( K );
                            NFAIL = NFAIL + 1
                         }
                      } // 80
@@ -327,7 +327,7 @@
 
                   // Check the error code from SGTSVX.
 
-                  IF( INFO.NE.IZERO ) CALL ALAERH( PATH, 'SGTSVX', INFO, IZERO, FACT // TRANS, N, N, 1, 1, NRHS, IMAT, NFAIL, NERRS, NOUT )
+                  if (INFO.NE.IZERO) CALL ALAERH( PATH, 'SGTSVX', INFO, IZERO, FACT // TRANS, N, N, 1, 1, NRHS, IMAT, NFAIL, NERRS, NOUT );
 
                   if ( IFACT.GE.2 ) {
 
@@ -363,7 +363,7 @@
 
                   for (K = K1; K <= NT; K++) { // 100
                      if ( RESULT( K ).GE.THRESH ) {
-                        IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALADHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9998 )'SGTSVX', FACT, TRANS, N, IMAT, K, RESULT( K )
+                        if (NFAIL.EQ.0 .AND. NERRS.EQ.0) CALL ALADHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9998 )'SGTSVX', FACT, TRANS, N, IMAT, K, RESULT( K );
                         NFAIL = NFAIL + 1
                      }
                   } // 100
@@ -372,7 +372,7 @@
 
                   RESULT( 6 ) = SGET06( RCOND, RCONDC )
                   if ( RESULT( 6 ).GE.THRESH ) {
-                     IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALADHD( NOUT, PATH )                      WRITE( NOUT, FMT = 9998 )'SGTSVX', FACT, TRANS, N, IMAT, K, RESULT( K )
+                     if (NFAIL.EQ.0 .AND. NERRS.EQ.0) CALL ALADHD( NOUT, PATH )                      WRITE( NOUT, FMT = 9998 )'SGTSVX', FACT, TRANS, N, IMAT, K, RESULT( K );
                      NFAIL = NFAIL + 1
                   }
                   NRUN = NRUN + NT - K1 + 2

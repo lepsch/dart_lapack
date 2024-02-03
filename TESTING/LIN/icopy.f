@@ -21,13 +21,13 @@
       // ..
       // .. Executable Statements ..
 
-      IF( N.LE.0 ) RETURN       IF( INCX.EQ.1 .AND. INCY.EQ.1 ) GO TO 20
+      if (N.LE.0) RETURN       IF( INCX.EQ.1 .AND. INCY.EQ.1 ) GO TO 20;
 
       // Code for unequal increments or equal increments not equal to 1
 
       IX = 1
       IY = 1
-      IF( INCX.LT.0 ) IX = ( -N+1 )*INCX + 1       IF( INCY.LT.0 ) IY = ( -N+1 )*INCY + 1
+      if (INCX.LT.0) IX = ( -N+1 )*INCX + 1       IF( INCY.LT.0 ) IY = ( -N+1 )*INCY + 1;
       for (I = 1; I <= N; I++) { // 10
          SY( IY ) = SX( IX )
          IX = IX + INCX
@@ -41,11 +41,11 @@
 
       } // 20
       M = MOD( N, 7 )
-      IF( M.EQ.0 ) GO TO 40
+      if (M.EQ.0) GO TO 40;
       for (I = 1; I <= M; I++) { // 30
          SY( I ) = SX( I )
       } // 30
-      IF( N.LT.7 ) RETURN
+      if (N.LT.7) RETURN;
       } // 40
       MP1 = M + 1
       DO 50 I = MP1, N, 7

@@ -87,17 +87,17 @@
       // .. Allocate memory dynamically ..
 
       ALLOCATE ( S(NMAX*NMAX), STAT = AllocateStatus )
-      IF (AllocateStatus /= 0) STOP "*** Not enough memory ***"
+      if (AllocateStatus /= 0) STOP "*** Not enough memory ***";
       ALLOCATE ( A(NMAX*NMAX,NEED), STAT = AllocateStatus )
-      IF (AllocateStatus /= 0) STOP "*** Not enough memory ***"
+      if (AllocateStatus /= 0) STOP "*** Not enough memory ***";
       ALLOCATE ( B(NMAX*NMAX,5), STAT = AllocateStatus )
-      IF (AllocateStatus /= 0) STOP "*** Not enough memory ***"
+      if (AllocateStatus /= 0) STOP "*** Not enough memory ***";
       ALLOCATE ( C(NCMAX*NCMAX,NCMAX*NCMAX), STAT = AllocateStatus )
-      IF (AllocateStatus /= 0) STOP "*** Not enough memory ***"
+      if (AllocateStatus /= 0) STOP "*** Not enough memory ***";
       ALLOCATE ( RWORK(LWORK), STAT = AllocateStatus )
-      IF (AllocateStatus /= 0) STOP "*** Not enough memory ***"
+      if (AllocateStatus /= 0) STOP "*** Not enough memory ***";
       ALLOCATE ( WORK(LWORK), STAT = AllocateStatus )
-      IF (AllocateStatus /= 0) STOP "*** Not enough memory ***"
+      if (AllocateStatus /= 0) STOP "*** Not enough memory ***";
       // ..
       // .. Executable Statements ..
 
@@ -650,7 +650,7 @@
 
       // If NEWSD = 2, read another line with 4 integers for the seed.
 
-      IF( NEWSD.EQ.2 ) READ( NIN, FMT = * )( IOLDSD( I ), I = 1, 4 )
+      if (NEWSD.EQ.2) READ( NIN, FMT = * )( IOLDSD( I ), I = 1, 4 );
 
       for (I = 1; I <= 4; I++) { // 180
          ISEED( I ) = IOLDSD( I )
@@ -720,7 +720,7 @@
          }
 
       } else {
-         IF( CGX ) C3 = 'CGX'          IF( CXV ) C3 = 'CXV'
+         if (CGX) C3 = 'CGX'          IF( CXV ) C3 = 'CXV';
       }
 
       // Reset the random number seed.
@@ -747,7 +747,7 @@
          NTYPES = MIN( MAXTYP, NTYPES )
          alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT );
          xlaenv(1, 1 );
-         IF( TSTERR ) CALL CERRHS( 'CHSEQR', NOUT )
+         if (TSTERR) CALL CERRHS( 'CHSEQR', NOUT );
          for (I = 1; I <= NPARMS; I++) { // 270
             xlaenv(1, NBVAL( I ) );
             xlaenv(2, NBMIN( I ) );
@@ -764,7 +764,7 @@
                } // 260
             }
             WRITE( NOUT, FMT = 9961 )C3, NBVAL( I ), NBMIN( I ), NXVAL( I ), MAX( 11, INMIN(I)), INWIN( I ), INIBL( I ), ISHFTS( I ), IACC22( I )             CALL CCHKHS( NN, NVAL, MAXTYP, DOTYPE, ISEED, THRESH, NOUT, A( 1, 1 ), NMAX, A( 1, 2 ), A( 1, 3 ), A( 1, 4 ), A( 1, 5 ), NMAX, A( 1, 6 ), A( 1, 7 ), DC( 1, 1 ), DC( 1, 2 ), A( 1, 8 ), A( 1, 9 ), A( 1, 10 ), A( 1, 11 ), A( 1, 12 ), DC( 1, 3 ), WORK, LWORK, RWORK, IWORK, LOGWRK, RESULT, INFO )
-            IF( INFO.NE.0 ) WRITE( NOUT, FMT = 9980 )'CCHKHS', INFO
+            if (INFO.NE.0) WRITE( NOUT, FMT = 9980 )'CCHKHS', INFO;
          } // 270
 
       } else if ( LSAMEN( 3, C3, 'CST' ) .OR. LSAMEN( 3, C3, 'SEP' ) .OR. LSAMEN( 3, C3, 'SE2' ) ) {
@@ -810,7 +810,7 @@
                } else {
                cchkst(NN, NVAL, MAXTYP, DOTYPE, ISEED, THRESH, NOUT, A( 1, 1 ), NMAX, A( 1, 2 ), DR( 1, 1 ), DR( 1, 2 ), DR( 1, 3 ), DR( 1, 4 ), DR( 1, 5 ), DR( 1, 6 ), DR( 1, 7 ), DR( 1, 8 ), DR( 1, 9 ), DR( 1, 10 ), DR( 1, 11 ), A( 1, 3 ), NMAX, A( 1, 4 ), A( 1, 5 ), DC( 1, 1 ), A( 1, 6 ), WORK, LWORK, RWORK, LWORK, IWORK, LIWORK, RESULT, INFO );
                }
-               IF( INFO.NE.0 ) WRITE( NOUT, FMT = 9980 )'CCHKST', INFO
+               if (INFO.NE.0) WRITE( NOUT, FMT = 9980 )'CCHKST', INFO;
             }
             if ( TSTDRV ) {
                if ( LSAMEN( 3, C3, 'SE2' ) ) {
@@ -818,7 +818,7 @@
                } else {
                cdrvst(NN, NVAL, 18, DOTYPE, ISEED, THRESH, NOUT, A( 1, 1 ), NMAX, DR( 1, 3 ), DR( 1, 4 ), DR( 1, 5 ), DR( 1, 8 ), DR( 1, 9 ), DR( 1, 10 ), A( 1, 2 ), NMAX, A( 1, 3 ), DC( 1, 1 ), A( 1, 4 ), WORK, LWORK, RWORK, LWORK, IWORK, LIWORK, RESULT, INFO );
            }
-               IF( INFO.NE.0 ) WRITE( NOUT, FMT = 9980 )'CDRVST', INFO
+               if (INFO.NE.0) WRITE( NOUT, FMT = 9980 )'CDRVST', INFO;
             }
          } // 290
 
@@ -855,7 +855,7 @@
       // $                      LWORK, RWORK, LWORK, IWORK, LIWORK, RESULT,
       // $                      INFO )
                cdrvsg2stg(NN, NVAL, MAXTYP, DOTYPE, ISEED, THRESH, NOUT, A( 1, 1 ), NMAX, A( 1, 2 ), NMAX, DR( 1, 3 ), DR( 1, 4 ), A( 1, 3 ), NMAX, A( 1, 4 ), A( 1, 5 ), A( 1, 6 ), A( 1, 7 ), WORK, LWORK, RWORK, LWORK, IWORK, LIWORK, RESULT, INFO );
-               IF( INFO.NE.0 ) WRITE( NOUT, FMT = 9980 )'CDRVSG', INFO
+               if (INFO.NE.0) WRITE( NOUT, FMT = 9980 )'CDRVSG', INFO;
             }
          } // 310
 
@@ -878,7 +878,7 @@
          // Test the error exits
 
          xlaenv(1, 1 );
-         IF( TSTERR .AND. TSTCHK ) CALL CERRBD( 'CBD', NOUT )          IF( TSTERR .AND. TSTDRV ) CALL CERRED( 'CBD', NOUT )
+         if (TSTERR .AND. TSTCHK) CALL CERRBD( 'CBD', NOUT )          IF( TSTERR .AND. TSTDRV ) CALL CERRED( 'CBD', NOUT );
 
          for (I = 1; I <= NPARMS; I++) { // 330
             NRHS = NSVAL( I )
@@ -893,9 +893,9 @@
             WRITE( NOUT, FMT = 9995 )C3, NBVAL( I ), NBMIN( I ), NXVAL( I ), NRHS
             if ( TSTCHK ) {
                cchkbd(NN, MVAL, NVAL, MAXTYP, DOTYPE, NRHS, ISEED, THRESH, A( 1, 1 ), NMAX, DR( 1, 1 ), DR( 1, 2 ), DR( 1, 3 ), DR( 1, 4 ), A( 1, 2 ), NMAX, A( 1, 3 ), A( 1, 4 ), A( 1, 5 ), NMAX, A( 1, 6 ), NMAX, A( 1, 7 ), A( 1, 8 ), WORK, LWORK, RWORK, NOUT, INFO );
-               IF( INFO.NE.0 ) WRITE( NOUT, FMT = 9980 )'CCHKBD', INFO
+               if (INFO.NE.0) WRITE( NOUT, FMT = 9980 )'CCHKBD', INFO;
             }
-            IF( TSTDRV ) CALL CDRVBD( NN, MVAL, NVAL, MAXTYP, DOTYPE, ISEED, THRESH, A( 1, 1 ), NMAX, A( 1, 2 ), NMAX, A( 1, 3 ), NMAX, A( 1, 4 ), A( 1, 5 ), A( 1, 6 ), DR( 1, 1 ), DR( 1, 2 ), DR( 1, 3 ), WORK, LWORK, RWORK, IWORK, NOUT, INFO )
+            if (TSTDRV) CALL CDRVBD( NN, MVAL, NVAL, MAXTYP, DOTYPE, ISEED, THRESH, A( 1, 1 ), NMAX, A( 1, 2 ), NMAX, A( 1, 3 ), NMAX, A( 1, 4 ), A( 1, 5 ), A( 1, 6 ), DR( 1, 1 ), DR( 1, 2 ), DR( 1, 3 ), WORK, LWORK, RWORK, IWORK, NOUT, INFO );
          } // 330
 
       } else if ( LSAMEN( 3, C3, 'CEV' ) ) {
@@ -910,10 +910,10 @@
          if ( NTYPES.LE.0 ) {
             WRITE( NOUT, FMT = 9990 )C3
          } else {
-            IF( TSTERR ) CALL CERRED( C3, NOUT )
+            if (TSTERR) CALL CERRED( C3, NOUT );
             alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT );
             cdrvev(NN, NVAL, NTYPES, DOTYPE, ISEED, THRESH, NOUT, A( 1, 1 ), NMAX, A( 1, 2 ), DC( 1, 1 ), DC( 1, 2 ), A( 1, 3 ), NMAX, A( 1, 4 ), NMAX, A( 1, 5 ), NMAX, RESULT, WORK, LWORK, RWORK, IWORK, INFO );
-            IF( INFO.NE.0 ) WRITE( NOUT, FMT = 9980 )'CGEEV', INFO
+            if (INFO.NE.0) WRITE( NOUT, FMT = 9980 )'CGEEV', INFO;
          }
          WRITE( NOUT, FMT = 9973 )
          GO TO 10
@@ -930,10 +930,10 @@
          if ( NTYPES.LE.0 ) {
             WRITE( NOUT, FMT = 9990 )C3
          } else {
-            IF( TSTERR ) CALL CERRED( C3, NOUT )
+            if (TSTERR) CALL CERRED( C3, NOUT );
             alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT );
             cdrves(NN, NVAL, NTYPES, DOTYPE, ISEED, THRESH, NOUT, A( 1, 1 ), NMAX, A( 1, 2 ), A( 1, 3 ), DC( 1, 1 ), DC( 1, 2 ), A( 1, 4 ), NMAX, RESULT, WORK, LWORK, RWORK, IWORK, LOGWRK, INFO );
-            IF( INFO.NE.0 ) WRITE( NOUT, FMT = 9980 )'CGEES', INFO
+            if (INFO.NE.0) WRITE( NOUT, FMT = 9980 )'CGEES', INFO;
          }
          WRITE( NOUT, FMT = 9973 )
          GO TO 10
@@ -950,10 +950,10 @@
          if ( NTYPES.LT.0 ) {
             WRITE( NOUT, FMT = 9990 )C3
          } else {
-            IF( TSTERR ) CALL CERRED( C3, NOUT )
+            if (TSTERR) CALL CERRED( C3, NOUT );
             alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT );
             cdrvvx(NN, NVAL, NTYPES, DOTYPE, ISEED, THRESH, NIN, NOUT, A( 1, 1 ), NMAX, A( 1, 2 ), DC( 1, 1 ), DC( 1, 2 ), A( 1, 3 ), NMAX, A( 1, 4 ), NMAX, A( 1, 5 ), NMAX, DR( 1, 1 ), DR( 1, 2 ), DR( 1, 3 ), DR( 1, 4 ), DR( 1, 5 ), DR( 1, 6 ), DR( 1, 7 ), DR( 1, 8 ), RESULT, WORK, LWORK, RWORK, INFO );
-            IF( INFO.NE.0 ) WRITE( NOUT, FMT = 9980 )'CGEEVX', INFO
+            if (INFO.NE.0) WRITE( NOUT, FMT = 9980 )'CGEEVX', INFO;
          }
          WRITE( NOUT, FMT = 9973 )
          GO TO 10
@@ -970,10 +970,10 @@
          if ( NTYPES.LT.0 ) {
             WRITE( NOUT, FMT = 9990 )C3
          } else {
-            IF( TSTERR ) CALL CERRED( C3, NOUT )
+            if (TSTERR) CALL CERRED( C3, NOUT );
             alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT );
             cdrvsx(NN, NVAL, NTYPES, DOTYPE, ISEED, THRESH, NIN, NOUT, A( 1, 1 ), NMAX, A( 1, 2 ), A( 1, 3 ), DC( 1, 1 ), DC( 1, 2 ), DC( 1, 3 ), A( 1, 4 ), NMAX, A( 1, 5 ), RESULT, WORK, LWORK, RWORK, LOGWRK, INFO );
-            IF( INFO.NE.0 ) WRITE( NOUT, FMT = 9980 )'CGEESX', INFO
+            if (INFO.NE.0) WRITE( NOUT, FMT = 9980 )'CGEESX', INFO;
          }
          WRITE( NOUT, FMT = 9973 )
          GO TO 10
@@ -995,7 +995,7 @@
          NTYPES = MIN( MAXTYP, NTYPES )
          alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT );
          xlaenv(1,1);
-         IF( TSTCHK .AND. TSTERR ) CALL CERRGG( C3, NOUT )
+         if (TSTCHK .AND. TSTERR) CALL CERRGG( C3, NOUT );
          for (I = 1; I <= NPARMS; I++) { // 350
             xlaenv(1, NBVAL( I ) );
             xlaenv(2, NBMIN( I ) );
@@ -1014,7 +1014,7 @@
             THRSHN = 10.
             if ( TSTCHK ) {
                cchkgg(NN, NVAL, MAXTYP, DOTYPE, ISEED, THRESH, TSTDIF, THRSHN, NOUT, A( 1, 1 ), NMAX, A( 1, 2 ), A( 1, 3 ), A( 1, 4 ), A( 1, 5 ), A( 1, 6 ), A( 1, 7 ), A( 1, 8 ), A( 1, 9 ), NMAX, A( 1, 10 ), A( 1, 11 ), A( 1, 12 ), DC( 1, 1 ), DC( 1, 2 ), DC( 1, 3 ), DC( 1, 4 ), A( 1, 13 ), A( 1, 14 ), WORK, LWORK, RWORK, LOGWRK, RESULT, INFO );
-               IF( INFO.NE.0 ) WRITE( NOUT, FMT = 9980 )'CCHKGG', INFO
+               if (INFO.NE.0) WRITE( NOUT, FMT = 9980 )'CCHKGG', INFO;
             }
          } // 350
 
@@ -1030,18 +1030,18 @@
          if ( NTYPES.LE.0 ) {
             WRITE( NOUT, FMT = 9990 )C3
          } else {
-            IF( TSTERR ) CALL CERRGG( C3, NOUT )
+            if (TSTERR) CALL CERRGG( C3, NOUT );
             alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT );
             cdrges(NN, NVAL, MAXTYP, DOTYPE, ISEED, THRESH, NOUT, A( 1, 1 ), NMAX, A( 1, 2 ), A( 1, 3 ), A( 1, 4 ), A( 1, 7 ), NMAX, A( 1, 8 ), DC( 1, 1 ), DC( 1, 2 ), WORK, LWORK, RWORK, RESULT, LOGWRK, INFO );
 
-            IF( INFO.NE.0 ) WRITE( NOUT, FMT = 9980 )'CDRGES', INFO
+            if (INFO.NE.0) WRITE( NOUT, FMT = 9980 )'CDRGES', INFO;
 
 * Blocked version
 
             xlaenv(16,2);
             cdrges3(NN, NVAL, MAXTYP, DOTYPE, ISEED, THRESH, NOUT, A( 1, 1 ), NMAX, A( 1, 2 ), A( 1, 3 ), A( 1, 4 ), A( 1, 7 ), NMAX, A( 1, 8 ), DC( 1, 1 ), DC( 1, 2 ), WORK, LWORK, RWORK, RESULT, LOGWRK, INFO );
 
-            IF( INFO.NE.0 ) WRITE( NOUT, FMT = 9980 )'CDRGES3', INFO
+            if (INFO.NE.0) WRITE( NOUT, FMT = 9980 )'CDRGES3', INFO;
          }
          WRITE( NOUT, FMT = 9973 )
 
@@ -1059,11 +1059,11 @@
          if ( NN.LT.0 ) {
             WRITE( NOUT, FMT = 9990 )C3
          } else {
-            IF( TSTERR ) CALL CERRGG( C3, NOUT )
+            if (TSTERR) CALL CERRGG( C3, NOUT );
             alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT );
             xlaenv(5, 2 );
             cdrgsx(NN, NCMAX, THRESH, NIN, NOUT, A( 1, 1 ), NMAX, A( 1, 2 ), A( 1, 3 ), A( 1, 4 ), A( 1, 5 ), A( 1, 6 ), DC( 1, 1 ), DC( 1, 2 ), C, NCMAX*NCMAX, S, WORK, LWORK, RWORK, IWORK, LIWORK, LOGWRK, INFO );
-            IF( INFO.NE.0 ) WRITE( NOUT, FMT = 9980 )'CDRGSX', INFO
+            if (INFO.NE.0) WRITE( NOUT, FMT = 9980 )'CDRGSX', INFO;
          }
          WRITE( NOUT, FMT = 9973 )
          GO TO 10
@@ -1080,16 +1080,16 @@
          if ( NTYPES.LE.0 ) {
             WRITE( NOUT, FMT = 9990 )C3
          } else {
-            IF( TSTERR ) CALL CERRGG( C3, NOUT )
+            if (TSTERR) CALL CERRGG( C3, NOUT );
             alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT );
             cdrgev(NN, NVAL, MAXTYP, DOTYPE, ISEED, THRESH, NOUT, A( 1, 1 ), NMAX, A( 1, 2 ), A( 1, 3 ), A( 1, 4 ), A( 1, 7 ), NMAX, A( 1, 8 ), A( 1, 9 ), NMAX, DC( 1, 1 ), DC( 1, 2 ), DC( 1, 3 ), DC( 1, 4 ), WORK, LWORK, RWORK, RESULT, INFO );
-            IF( INFO.NE.0 ) WRITE( NOUT, FMT = 9980 )'CDRGEV', INFO
+            if (INFO.NE.0) WRITE( NOUT, FMT = 9980 )'CDRGEV', INFO;
 
 * Blocked version
 
             xlaenv(16,2);
             cdrgev3(NN, NVAL, MAXTYP, DOTYPE, ISEED, THRESH, NOUT, A( 1, 1 ), NMAX, A( 1, 2 ), A( 1, 3 ), A( 1, 4 ), A( 1, 7 ), NMAX, A( 1, 8 ), A( 1, 9 ), NMAX, DC( 1, 1 ), DC( 1, 2 ), DC( 1, 3 ), DC( 1, 4 ), WORK, LWORK, RWORK, RESULT, INFO );
-            IF( INFO.NE.0 ) WRITE( NOUT, FMT = 9980 )'CDRGEV3', INFO
+            if (INFO.NE.0) WRITE( NOUT, FMT = 9980 )'CDRGEV3', INFO;
          }
          WRITE( NOUT, FMT = 9973 )
          GO TO 10
@@ -1106,11 +1106,11 @@
          if ( NN.LT.0 ) {
             WRITE( NOUT, FMT = 9990 )C3
          } else {
-            IF( TSTERR ) CALL CERRGG( C3, NOUT )
+            if (TSTERR) CALL CERRGG( C3, NOUT );
             alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT );
             cdrgvx(NN, THRESH, NIN, NOUT, A( 1, 1 ), NMAX, A( 1, 2 ), A( 1, 3 ), A( 1, 4 ), DC( 1, 1 ), DC( 1, 2 ), A( 1, 5 ), A( 1, 6 ), IWORK( 1 ), IWORK( 2 ), DR( 1, 1 ), DR( 1, 2 ), DR( 1, 3 ), DR( 1, 4 ), DR( 1, 5 ), DR( 1, 6 ), WORK, LWORK, RWORK, IWORK( 3 ), LIWORK-2, RESULT, LOGWRK, INFO );
 
-            IF( INFO.NE.0 ) WRITE( NOUT, FMT = 9980 )'CDRGVX', INFO
+            if (INFO.NE.0) WRITE( NOUT, FMT = 9980 )'CDRGVX', INFO;
          }
          WRITE( NOUT, FMT = 9973 )
          GO TO 10
@@ -1140,7 +1140,7 @@
       // $                A( 1, 2 ), NMAX, WORK, LWORK, RWORK, RESULT,
       // $                INFO )
          cchkhb2stg(NN, NVAL, NK, KVAL, MAXTYP, DOTYPE, ISEED, THRESH, NOUT, A( 1, 1 ), NMAX, DR( 1, 1 ), DR( 1, 2 ), DR( 1, 3 ), DR( 1, 4 ), DR( 1, 5 ), A( 1, 2 ), NMAX, WORK, LWORK, RWORK, RESULT, INFO );
-         IF( INFO.NE.0 ) WRITE( NOUT, FMT = 9980 )'CCHKHB', INFO
+         if (INFO.NE.0) WRITE( NOUT, FMT = 9980 )'CCHKHB', INFO;
 
       } else if ( LSAMEN( 3, C3, 'CBB' ) ) {
 
@@ -1161,7 +1161,7 @@
             }
             WRITE( NOUT, FMT = 9966 )C3, NRHS
             cchkbb(NN, MVAL, NVAL, NK, KVAL, MAXTYP, DOTYPE, NRHS, ISEED, THRESH, NOUT, A( 1, 1 ), NMAX, A( 1, 2 ), 2*NMAX, DR( 1, 1 ), DR( 1, 2 ), A( 1, 4 ), NMAX, A( 1, 5 ), NMAX, A( 1, 6 ), NMAX, A( 1, 7 ), WORK, LWORK, RWORK, RESULT, INFO );
-            IF( INFO.NE.0 ) WRITE( NOUT, FMT = 9980 )'CCHKBB', INFO
+            if (INFO.NE.0) WRITE( NOUT, FMT = 9980 )'CCHKBB', INFO;
          } // 370
 
       } else if ( LSAMEN( 3, C3, 'GLM' ) ) {
@@ -1171,8 +1171,8 @@
          // -----------------------------------------
 
          xlaenv(1, 1 );
-         IF( TSTERR ) CALL CERRGG( 'GLM', NOUT )          CALL CCKGLM( NN, NVAL, MVAL, PVAL, NTYPES, ISEED, THRESH, NMAX, A( 1, 1 ), A( 1, 2 ), B( 1, 1 ), B( 1, 2 ), X, WORK, DR( 1, 1 ), NIN, NOUT, INFO )
-         IF( INFO.NE.0 ) WRITE( NOUT, FMT = 9980 )'CCKGLM', INFO
+         if (TSTERR) CALL CERRGG( 'GLM', NOUT )          CALL CCKGLM( NN, NVAL, MVAL, PVAL, NTYPES, ISEED, THRESH, NMAX, A( 1, 1 ), A( 1, 2 ), B( 1, 1 ), B( 1, 2 ), X, WORK, DR( 1, 1 ), NIN, NOUT, INFO );
+         if (INFO.NE.0) WRITE( NOUT, FMT = 9980 )'CCKGLM', INFO;
 
       } else if ( LSAMEN( 3, C3, 'GQR' ) ) {
 
@@ -1181,8 +1181,8 @@
          // ------------------------------------------
 
          xlaenv(1, 1 );
-         IF( TSTERR ) CALL CERRGG( 'GQR', NOUT )          CALL CCKGQR( NN, MVAL, NN, PVAL, NN, NVAL, NTYPES, ISEED, THRESH, NMAX, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), A( 1, 4 ), TAUA, B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), B( 1, 4 ), B( 1, 5 ), TAUB, WORK, DR( 1, 1 ), NIN, NOUT, INFO )
-         IF( INFO.NE.0 ) WRITE( NOUT, FMT = 9980 )'CCKGQR', INFO
+         if (TSTERR) CALL CERRGG( 'GQR', NOUT )          CALL CCKGQR( NN, MVAL, NN, PVAL, NN, NVAL, NTYPES, ISEED, THRESH, NMAX, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), A( 1, 4 ), TAUA, B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), B( 1, 4 ), B( 1, 5 ), TAUB, WORK, DR( 1, 1 ), NIN, NOUT, INFO );
+         if (INFO.NE.0) WRITE( NOUT, FMT = 9980 )'CCKGQR', INFO;
 
       } else if ( LSAMEN( 3, C3, 'GSV' ) ) {
 
@@ -1191,8 +1191,8 @@
          // ----------------------------------------------
 
          xlaenv(1,1);
-         IF( TSTERR ) CALL CERRGG( 'GSV', NOUT )          CALL CCKGSV( NN, MVAL, PVAL, NVAL, NTYPES, ISEED, THRESH, NMAX, A( 1, 1 ), A( 1, 2 ), B( 1, 1 ), B( 1, 2 ), A( 1, 3 ), B( 1, 3 ), A( 1, 4 ), ALPHA, BETA, B( 1, 4 ), IWORK, WORK, DR( 1, 1 ), NIN, NOUT, INFO )
-         IF( INFO.NE.0 ) WRITE( NOUT, FMT = 9980 )'CCKGSV', INFO
+         if (TSTERR) CALL CERRGG( 'GSV', NOUT )          CALL CCKGSV( NN, MVAL, PVAL, NVAL, NTYPES, ISEED, THRESH, NMAX, A( 1, 1 ), A( 1, 2 ), B( 1, 1 ), B( 1, 2 ), A( 1, 3 ), B( 1, 3 ), A( 1, 4 ), ALPHA, BETA, B( 1, 4 ), IWORK, WORK, DR( 1, 1 ), NIN, NOUT, INFO );
+         if (INFO.NE.0) WRITE( NOUT, FMT = 9980 )'CCKGSV', INFO;
 
       } else if ( LSAMEN( 3, C3, 'CSD' ) ) {
 
@@ -1201,8 +1201,8 @@
          // ----------------------------------------------
 
          xlaenv(1,1);
-         IF( TSTERR ) CALL CERRGG( 'CSD', NOUT )          CALL CCKCSD( NN, MVAL, PVAL, NVAL, NTYPES, ISEED, THRESH, NMAX, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), A( 1, 4 ), A( 1, 5 ), A( 1, 6 ), RWORK, IWORK, WORK, DR( 1, 1 ), NIN, NOUT, INFO )
-         IF( INFO.NE.0 ) WRITE( NOUT, FMT = 9980 )'CCKCSD', INFO
+         if (TSTERR) CALL CERRGG( 'CSD', NOUT )          CALL CCKCSD( NN, MVAL, PVAL, NVAL, NTYPES, ISEED, THRESH, NMAX, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), A( 1, 4 ), A( 1, 5 ), A( 1, 6 ), RWORK, IWORK, WORK, DR( 1, 1 ), NIN, NOUT, INFO );
+         if (INFO.NE.0) WRITE( NOUT, FMT = 9980 )'CCKCSD', INFO;
 
       } else if ( LSAMEN( 3, C3, 'LSE' ) ) {
 
@@ -1211,8 +1211,8 @@
          // --------------------------------------
 
          xlaenv(1, 1 );
-         IF( TSTERR ) CALL CERRGG( 'LSE', NOUT )          CALL CCKLSE( NN, MVAL, PVAL, NVAL, NTYPES, ISEED, THRESH, NMAX, A( 1, 1 ), A( 1, 2 ), B( 1, 1 ), B( 1, 2 ), X, WORK, DR( 1, 1 ), NIN, NOUT, INFO )
-         IF( INFO.NE.0 ) WRITE( NOUT, FMT = 9980 )'CCKLSE', INFO
+         if (TSTERR) CALL CERRGG( 'LSE', NOUT )          CALL CCKLSE( NN, MVAL, PVAL, NVAL, NTYPES, ISEED, THRESH, NMAX, A( 1, 1 ), A( 1, 2 ), B( 1, 1 ), B( 1, 2 ), X, WORK, DR( 1, 1 ), NIN, NOUT, INFO );
+         if (INFO.NE.0) WRITE( NOUT, FMT = 9980 )'CCKLSE', INFO;
       } else {
          WRITE( NOUT, FMT = * )
          WRITE( NOUT, FMT = * )

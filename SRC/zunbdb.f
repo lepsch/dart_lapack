@@ -146,7 +146,7 @@
             }
             zscal(M-Q-I+1, DCMPLX( -Z1*Z4*SIN(THETA(I)), 0.0D0 ), X12(I,I), LDX12 )             CALL ZAXPY( M-Q-I+1, DCMPLX( Z2*Z4*COS(THETA(I)), 0.0D0 ), X22(I,I), LDX22, X12(I,I), LDX12 );
 
-            IF( I .LT. Q ) PHI(I) = ATAN2( DZNRM2( Q-I, X11(I,I+1), LDX11 ), DZNRM2( M-Q-I+1, X12(I,I), LDX12 ) )
+            if (I .LT. Q) PHI(I) = ATAN2( DZNRM2( Q-I, X11(I,I+1), LDX11 ), DZNRM2( M-Q-I+1, X12(I,I), LDX12 ) );
 
             if ( I .LT. Q ) {
                zlacgv(Q-I, X11(I,I+1), LDX11 );
@@ -177,7 +177,7 @@
                zlarf('R', M-P-I, M-Q-I+1, X12(I,I), LDX12, TAUQ2(I), X22(I+1,I), LDX22, WORK );
             }
 
-            IF( I .LT. Q ) CALL ZLACGV( Q-I, X11(I,I+1), LDX11 )
+            if (I .LT. Q) CALL ZLACGV( Q-I, X11(I,I+1), LDX11 );
             zlacgv(M-Q-I+1, X12(I,I), LDX12 );
 
          }
@@ -198,7 +198,7 @@
             if ( P .GT. I ) {
                zlarf('R', P-I, M-Q-I+1, X12(I,I), LDX12, TAUQ2(I), X12(I+1,I), LDX12, WORK );
             }
-            IF( M-P-Q .GE. 1 ) CALL ZLARF( 'R', M-P-Q, M-Q-I+1, X12(I,I), LDX12, TAUQ2(I), X22(Q+1,I), LDX22, WORK )
+            if (M-P-Q .GE. 1) CALL ZLARF( 'R', M-P-Q, M-Q-I+1, X12(I,I), LDX12, TAUQ2(I), X22(Q+1,I), LDX22, WORK );
 
             zlacgv(M-Q-I+1, X12(I,I), LDX12 );
 
@@ -259,7 +259,7 @@
             }
             zscal(M-Q-I+1, DCMPLX( -Z1*Z4*SIN(THETA(I)), 0.0D0 ), X12(I,I), 1 )             CALL ZAXPY( M-Q-I+1, DCMPLX( Z2*Z4*COS(THETA(I)), 0.0D0 ), X22(I,I), 1, X12(I,I), 1 );
 
-            IF( I .LT. Q ) PHI(I) = ATAN2( DZNRM2( Q-I, X11(I+1,I), 1 ), DZNRM2( M-Q-I+1, X12(I,I), 1 ) )
+            if (I .LT. Q) PHI(I) = ATAN2( DZNRM2( Q-I, X11(I+1,I), 1 ), DZNRM2( M-Q-I+1, X12(I,I), 1 ) );
 
             if ( I .LT. Q ) {
                zlarfgp(Q-I, X11(I+1,I), X11(I+2,I), 1, TAUQ1(I) );
@@ -289,7 +289,7 @@
             if ( P .GT. I ) {
                zlarf('L', M-Q-I+1, P-I, X12(I,I), 1, DCONJG(TAUQ2(I)), X12(I,I+1), LDX12, WORK );
             }
-            IF( M-P-Q .GE. 1 ) CALL ZLARF( 'L', M-Q-I+1, M-P-Q, X12(I,I), 1, DCONJG(TAUQ2(I)), X22(I,Q+1), LDX22, WORK )
+            if (M-P-Q .GE. 1) CALL ZLARF( 'L', M-Q-I+1, M-P-Q, X12(I,I), 1, DCONJG(TAUQ2(I)), X22(I,Q+1), LDX22, WORK );
 
          }
 

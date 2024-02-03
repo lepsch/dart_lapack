@@ -109,11 +109,11 @@
 
          // ==== copy eigenvalues isolated by ZGEBAL ====
 
-         IF( ILO.GT.1 ) CALL ZCOPY( ILO-1, H, LDH+1, W, 1 )          IF( IHI.LT.N ) CALL ZCOPY( N-IHI, H( IHI+1, IHI+1 ), LDH+1, W( IHI+1 ), 1 )
+         if (ILO.GT.1) CALL ZCOPY( ILO-1, H, LDH+1, W, 1 )          IF( IHI.LT.N ) CALL ZCOPY( N-IHI, H( IHI+1, IHI+1 ), LDH+1, W( IHI+1 ), 1 );
 
          // ==== Initialize Z, if requested ====
 
-         IF( INITZ ) CALL ZLASET( 'A', N, N, ZERO, ONE, Z, LDZ )
+         if (INITZ) CALL ZLASET( 'A', N, N, ZERO, ONE, Z, LDZ );
 
          // ==== Quick return if possible ====
 

@@ -72,7 +72,7 @@
 
       // Quick return if possible
 
-      IF( N.LE.1 ) RETURN
+      if (N.LE.1) RETURN;
 
       // Determine the first row of the specified block and find out
       // if it is 1-by-1 or 2-by-2.
@@ -95,13 +95,13 @@
       if ( ILST.LT.N ) {
          IF( A( ILST+1, ILST ).NE.ZERO ) NBL = 2
       }
-      IF( IFST.EQ.ILST ) RETURN
+      if (IFST.EQ.ILST) RETURN;
 
       if ( IFST.LT.ILST ) {
 
          // Update ILST.
 
-         IF( NBF.EQ.2 .AND. NBL.EQ.1 ) ILST = ILST - 1          IF( NBF.EQ.1 .AND. NBL.EQ.2 ) ILST = ILST + 1
+         if (NBF.EQ.2 .AND. NBL.EQ.1) ILST = ILST - 1          IF( NBF.EQ.1 .AND. NBL.EQ.2 ) ILST = ILST + 1;
 
          HERE = IFST
 
@@ -190,7 +190,7 @@
 
             }
          }
-         IF( HERE.LT.ILST ) GO TO 10
+         if (HERE.LT.ILST) GO TO 10;
       } else {
          HERE = IFST
 
@@ -277,7 +277,7 @@
                }
             }
          }
-         IF( HERE.GT.ILST ) GO TO 20
+         if (HERE.GT.ILST) GO TO 20;
       }
       ILST = HERE
       WORK( 1 ) = LWMIN

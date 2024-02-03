@@ -56,7 +56,7 @@
 
       // Quick return if possible
 
-      IF( N.EQ.0 ) RETURN
+      if (N.EQ.0) RETURN;
 
       SMLSIZ = ILAENV( 9, 'DLAED0', ' ', 0, 0, 0, 0 )
 
@@ -99,7 +99,7 @@
 
          TEMP = LOG( DBLE( N ) ) / LOG( TWO )
          LGN = INT( TEMP )
-         IF( 2**LGN.LT.N ) LGN = LGN + 1          IF( 2**LGN.LT.N ) LGN = LGN + 1
+         if (2**LGN.LT.N) LGN = LGN + 1          IF( 2**LGN.LT.N ) LGN = LGN + 1;
          IPRMPT = INDXQ + N + 1
          IPERM = IPRMPT + N*LGN
          IQPTR = IPERM + N*LGN
@@ -135,7 +135,7 @@
             CALL DSTEQR( 'I', MATSIZ, D( SUBMAT ), E( SUBMAT ), Q( SUBMAT, SUBMAT ), LDQ, WORK, INFO )             IF( INFO.NE.0 ) GO TO 130
          } else {
             dsteqr('I', MATSIZ, D( SUBMAT ), E( SUBMAT ), WORK( IQ-1+IWORK( IQPTR+CURR ) ), MATSIZ, WORK, INFO );
-            IF( INFO.NE.0 ) GO TO 130
+            if (INFO.NE.0) GO TO 130;
             if ( ICOMPQ.EQ.1 ) {
                dgemm('N', 'N', QSIZ, MATSIZ, MATSIZ, ONE, Q( 1, SUBMAT ), LDQ, WORK( IQ-1+IWORK( IQPTR+ CURR ) ), MATSIZ, ZERO, QSTORE( 1, SUBMAT ), LDQS );
             }
@@ -184,7 +184,7 @@
             } else {
                dlaed7(ICOMPQ, MATSIZ, QSIZ, TLVLS, CURLVL, CURPRB, D( SUBMAT ), QSTORE( 1, SUBMAT ), LDQS, IWORK( INDXQ+SUBMAT ), E( SUBMAT+MSD2-1 ), MSD2, WORK( IQ ), IWORK( IQPTR ), IWORK( IPRMPT ), IWORK( IPERM ), IWORK( IGIVPT ), IWORK( IGIVCL ), WORK( IGIVNM ), WORK( IWREM ), IWORK( SUBPBS+1 ), INFO );
             }
-            IF( INFO.NE.0 ) GO TO 130
+            if (INFO.NE.0) GO TO 130;
             IWORK( I / 2+1 ) = IWORK( I+2 )
          } // 90
          SUBPBS = SUBPBS / 2

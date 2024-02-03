@@ -41,7 +41,7 @@
       // Quick return if possible
 
       RESID = ZERO
-      IF( N.LE.0 ) RETURN
+      if (N.LE.0) RETURN;
 
       // Compute B - U * S * V' one column at a time.
 
@@ -108,7 +108,7 @@
       EPS = SLAMCH( 'Precision' )
 
       if ( BNORM.LE.ZERO ) {
-         IF( RESID.NE.ZERO ) RESID = ONE / EPS
+         if (RESID.NE.ZERO) RESID = ONE / EPS;
       } else {
          if ( BNORM.GE.RESID ) {
             RESID = ( RESID / BNORM ) / ( REAL( N )*EPS )

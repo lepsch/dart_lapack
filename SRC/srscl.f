@@ -36,7 +36,7 @@
 
       // Quick return if possible
 
-      IF( N.LE.0 ) RETURN
+      if (N.LE.0) RETURN;
 
       // Get machine parameters
 
@@ -77,7 +77,7 @@
 
       sscal(N, MUL, SX, INCX );
 
-      IF( .NOT.DONE ) GO TO 10
+      if (.NOT.DONE) GO TO 10;
 
       RETURN
 

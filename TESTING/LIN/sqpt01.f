@@ -48,7 +48,7 @@
 
       // Quick return if possible
 
-      IF( M.LE.0 .OR. N.LE.0 ) RETURN
+      if (M.LE.0 .OR. N.LE.0) RETURN;
 
       NORMA = SLANGE( 'One-norm', M, N, A, LDA, RWORK )
 

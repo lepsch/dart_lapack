@@ -45,7 +45,7 @@
 
       // Quick return if possible
 
-      IF( N.EQ.0 ) RETURN
+      if (N.EQ.0) RETURN;
 
       // Initialize IPIV(i) = i and DU2(i) = 0
 

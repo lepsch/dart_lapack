@@ -79,7 +79,7 @@
             zlarnv(2, ISEED, MC, C( 1, J ) );
          } // 10
          CNORM = ZLANGE( '1', MC, NC, C, LDA, RWORK )
-         IF( CNORM.EQ.ZERO ) CNORM = ONE
+         if (CNORM.EQ.ZERO) CNORM = ONE;
 
          for (ITRANS = 1; ITRANS <= 2; ITRANS++) { // 20
             if ( ITRANS.EQ.1 ) {

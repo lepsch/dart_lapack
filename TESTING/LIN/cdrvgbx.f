@@ -80,7 +80,7 @@
 
       // Test the error exits
 
-      IF( TSTERR ) CALL CERRVX( PATH, NOUT )
+      if (TSTERR) CALL CERRVX( PATH, NOUT );
       INFOT = 0
 
       // Set the block size and minimum block size for testing.
@@ -100,10 +100,10 @@
          // Set limits on the number of loop iterations.
 
          NKL = MAX( 1, MIN( N, 4 ) )
-         IF( N.EQ.0 ) NKL = 1
+         if (N.EQ.0) NKL = 1;
          NKU = NKL
          NIMAT = NTYPES
-         IF( N.LE.0 ) NIMAT = 1
+         if (N.LE.0) NIMAT = 1;
 
          for (IKL = 1; IKL <= NKL; IKL++) { // 140
 
@@ -141,7 +141,7 @@
                LDA = KL + KU + 1
                LDAFB = 2*KL + KU + 1
                if ( LDA*N.GT.LA .OR. LDAFB*N.GT.LAFB ) {
-                  IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALADHD( NOUT, PATH )
+                  if (NFAIL.EQ.0 .AND. NERRS.EQ.0) CALL ALADHD( NOUT, PATH );
                   if ( LDA*N.GT.LA ) {
                      WRITE( NOUT, FMT = 9999 )LA, N, KL, KU, N*( KL+KU+1 )
                      NERRS = NERRS + 1
@@ -162,7 +162,7 @@
                   // Skip types 2, 3, or 4 if the matrix is too small.
 
                   ZEROT = IMAT.GE.2 .AND. IMAT.LE.4
-                  IF( ZEROT .AND. N.LT.IMAT-1 ) GO TO 120
+                  if (ZEROT .AND. N.LT.IMAT-1) GO TO 120;
 
                   // Set up parameters with CLATB4 and generate a
                   // test matrix with CLATMS.
@@ -228,7 +228,7 @@
                         EQUIL = LSAME( FACT, 'E' )
 
                         if ( ZEROT ) {
-                           IF( PREFAC ) GO TO 100
+                           if (PREFAC) GO TO 100;
                            RCONDO = ZERO
                            RCONDI = ZERO
 
@@ -343,7 +343,7 @@
 
                               // Check error code from CGBSV .
 
-                              IF( INFO.NE.IZERO ) CALL ALAERH( PATH, 'CGBSV ', INFO, IZERO, ' ', N, N, KL, KU, NRHS, IMAT, NFAIL, NERRS, NOUT )
+                              if (INFO.NE.IZERO) CALL ALAERH( PATH, 'CGBSV ', INFO, IZERO, ' ', N, N, KL, KU, NRHS, IMAT, NFAIL, NERRS, NOUT );
 
                               // Reconstruct matrix from factors and
                               // compute residual.
@@ -369,7 +369,7 @@
 
                               for (K = 1; K <= NT; K++) { // 50
                                  if ( RESULT( K ).GE.THRESH ) {
-                                    IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALADHD( NOUT, PATH )                                     WRITE( NOUT, FMT = 9997 )'CGBSV ', N, KL, KU, IMAT, K, RESULT( K )
+                                    if (NFAIL.EQ.0 .AND. NERRS.EQ.0) CALL ALADHD( NOUT, PATH )                                     WRITE( NOUT, FMT = 9997 )'CGBSV ', N, KL, KU, IMAT, K, RESULT( K );
                                     NFAIL = NFAIL + 1
                                  }
                               } // 50
@@ -378,7 +378,7 @@
 
                            // --- Test CGBSVX ---
 
-                           IF( .NOT.PREFAC ) CALL CLASET( 'Full', 2*KL+KU+1, N, CMPLX( ZERO ), CMPLX( ZERO ), AFB, LDAFB )
+                           if (.NOT.PREFAC) CALL CLASET( 'Full', 2*KL+KU+1, N, CMPLX( ZERO ), CMPLX( ZERO ), AFB, LDAFB );
                            claset('Full', N, NRHS, CMPLX( ZERO ), CMPLX( ZERO ), X, LDB );
                            if ( IEQUED.GT.1 .AND. N.GT.0 ) {
 
@@ -396,7 +396,7 @@
 
                            // Check the error code from CGBSVX.
 
-                           IF( INFO.NE.IZERO ) CALL ALAERH( PATH, 'CGBSVX', INFO, IZERO, FACT // TRANS, N, N, KL, KU, NRHS, IMAT, NFAIL, NERRS, NOUT )
+                           if (INFO.NE.IZERO) CALL ALAERH( PATH, 'CGBSVX', INFO, IZERO, FACT // TRANS, N, N, KL, KU, NRHS, IMAT, NFAIL, NERRS, NOUT );
 
                            // Compare RWORK(2*NRHS+1) from CGBSVX with the
                            // computed reciprocal pivot growth RPVGRW
@@ -473,7 +473,7 @@
                            if ( .NOT.TRFCON ) {
                               for (K = K1; K <= NTESTS; K++) { // 80
                                  if ( RESULT( K ).GE.THRESH ) {
-                                    IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALADHD( NOUT, PATH )
+                                    if (NFAIL.EQ.0 .AND. NERRS.EQ.0) CALL ALADHD( NOUT, PATH );
                                     if ( PREFAC ) {
                                        WRITE( NOUT, FMT = 9995 ) 'CGBSVX', FACT, TRANS, N, KL, KU, EQUED, IMAT, K, RESULT( K )
                                     } else {
@@ -494,7 +494,7 @@
                                  NRUN = NRUN + 1
                               }
                               if ( RESULT( 6 ).GE.THRESH ) {
-                                 IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALADHD( NOUT, PATH )
+                                 if (NFAIL.EQ.0 .AND. NERRS.EQ.0) CALL ALADHD( NOUT, PATH );
                                  if ( PREFAC ) {
                                     WRITE( NOUT, FMT = 9995 )'CGBSVX', FACT, TRANS, N, KL, KU, EQUED, IMAT, 6, RESULT( 6 )
                                  } else {
@@ -504,7 +504,7 @@
                                  NRUN = NRUN + 1
                               }
                               if ( RESULT( 7 ).GE.THRESH ) {
-                                 IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALADHD( NOUT, PATH )
+                                 if (NFAIL.EQ.0 .AND. NERRS.EQ.0) CALL ALADHD( NOUT, PATH );
                                  if ( PREFAC ) {
                                     WRITE( NOUT, FMT = 9995 )'CGBSVX', FACT, TRANS, N, KL, KU, EQUED, IMAT, 7, RESULT( 7 )
                                  } else {
@@ -522,7 +522,7 @@
                       // write(*,*) 'begin cgbsvxx testing'
                       clacpy('Full', KL+KU+1, N, ASAV, LDA, A, LDA );
                      clacpy('Full', N, NRHS, BSAV, LDB, B, LDB );
-                      IF( .NOT.PREFAC ) CALL CLASET( 'Full', 2*KL+KU+1, N, CMPLX( ZERO ), CMPLX( ZERO ), AFB, LDAFB )
+                      if (.NOT.PREFAC) CALL CLASET( 'Full', 2*KL+KU+1, N, CMPLX( ZERO ), CMPLX( ZERO ), AFB, LDAFB );
                      claset('Full', N, NRHS, CMPLX( ZERO ), CMPLX( ZERO ), X, LDB );
                      if ( IEQUED.GT.1 .AND. N.GT.0 ) {
 
@@ -541,7 +541,7 @@
 
                      // Check the error code from CGBSVXX.
 
-                     IF( INFO.EQ.N+1 ) GOTO 90
+                     if (INFO.EQ.N+1) GOTO 90;
                      if ( INFO.NE.IZERO ) {
                         alaerh(PATH, 'CGBSVXX', INFO, IZERO, FACT // TRANS, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
                         GOTO 90
@@ -602,7 +602,7 @@
                      if ( .NOT.TRFCON ) {
                         for (K = K1; K <= NTESTS; K++) { // 45
                            if ( RESULT( K ).GE.THRESH ) {
-                              IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALADHD( NOUT, PATH )
+                              if (NFAIL.EQ.0 .AND. NERRS.EQ.0) CALL ALADHD( NOUT, PATH );
                               if ( PREFAC ) {
                                  WRITE( NOUT, FMT = 9995 )'CGBSVXX', FACT, TRANS, N, KL, KU, EQUED, IMAT, K, RESULT( K )
                               } else {
@@ -623,7 +623,7 @@
                            NRUN = NRUN + 1
                         }
                         if ( RESULT( 6 ).GE.THRESH ) {
-                           IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALADHD( NOUT, PATH )
+                           if (NFAIL.EQ.0 .AND. NERRS.EQ.0) CALL ALADHD( NOUT, PATH );
                            if ( PREFAC ) {
                               WRITE( NOUT, FMT = 9995 )'CGBSVXX', FACT, TRANS, N, KL, KU, EQUED, IMAT, 6, RESULT( 6 )
                            } else {
@@ -633,7 +633,7 @@
                            NRUN = NRUN + 1
                         }
                         if ( RESULT( 7 ).GE.THRESH ) {
-                           IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALADHD( NOUT, PATH )
+                           if (NFAIL.EQ.0 .AND. NERRS.EQ.0) CALL ALADHD( NOUT, PATH );
                            if ( PREFAC ) {
                               WRITE( NOUT, FMT = 9995 )'CGBSVXX', FACT, TRANS, N, KL, KU, EQUED, IMAT, 7, RESULT( 7 )
                            } else {

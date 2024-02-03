@@ -251,7 +251,7 @@
       NDIV = 2*( N0-I0 )
 
       for (IWHILA = 1; IWHILA <= N + 1; IWHILA++) { // 160
-         IF( N0.LT.1 ) GO TO 170
+         if (N0.LT.1) GO TO 170;
 
          // While array unfinished do
 
@@ -338,7 +338,7 @@
 
          NBIG = 100*( N0-I0+1 )
          for (IWHILB = 1; IWHILB <= NBIG; IWHILB++) { // 140
-            IF( I0.GT.N0 ) GO TO 150
+            if (I0.GT.N0) GO TO 150;
 
             // While submatrix unfinished take a good dqds step.
 

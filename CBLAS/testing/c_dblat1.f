@@ -42,7 +42,7 @@
             check3(SFAC);
          }
          // -- Print
-         IF (PASS) WRITE (NOUT,99998)
+         if (PASS) WRITE (NOUT,99998);
       } // 20
       STOP
 
@@ -111,7 +111,7 @@
          N = K
          if (ICASE.EQ.3) {
             // .. DROTGTEST ..
-            IF (K.GT.8) GO TO 40
+            if (K.GT.8) GO TO 40;
             SA = DA1(K)
             SB = DB1(K)
             drotgtest(SA,SB,SC,SS);
@@ -474,7 +474,7 @@
 
                               // HERE    SCOMP(I) IS NOT CLOSE TO STRUE(I).
 
-         IF ( .NOT. PASS) GO TO 20
+         if (.NOT. PASS) GO TO 20;
                               // PRINT FAIL MESSAGE AND HEADER.
          PASS = .FALSE.
          WRITE (NOUT,99999)
@@ -543,11 +543,11 @@
       // COMMON /COMBLA/ICASE, N, INCX, INCY, MODE, PASS
       // .. Executable Statements ..
 
-      IF (ICOMP.EQ.ITRUE) GO TO 40
+      if (ICOMP.EQ.ITRUE) GO TO 40;
 
                              // HERE ICOMP IS NOT EQUAL TO ITRUE.
 
-      IF ( .NOT. PASS) GO TO 20
+      if (.NOT. PASS) GO TO 20;
                               // PRINT FAIL MESSAGE AND HEADER.
       PASS = .FALSE.
       WRITE (NOUT,99999)

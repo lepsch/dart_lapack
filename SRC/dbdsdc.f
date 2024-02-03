@@ -73,7 +73,7 @@
 
       // Quick return if possible
 
-      IF( N.EQ.0 ) RETURN
+      if (N.EQ.0) RETURN;
       SMLSIZ = ILAENV( 9, 'DBDSDC', ' ', 0, 0, 0, 0 )
       if ( N.EQ.1 ) {
          if ( ICOMPQ.EQ.1 ) {
@@ -99,7 +99,7 @@
       }
       if ( IUPLO.EQ.2 ) {
          QSTART = 5
-         IF( ICOMPQ .EQ. 2 ) WSTART = 2*N - 1
+         if (ICOMPQ .EQ. 2) WSTART = 2*N - 1;
          for (I = 1; I <= N - 1; I++) { // 10
             dlartg(D( I ), E( I ), CS, SN, R );
             D( I ) = R
@@ -149,7 +149,7 @@
       // Scale.
 
       ORGNRM = DLANST( 'M', N, D, E )
-      IF( ORGNRM.EQ.ZERO ) RETURN
+      if (ORGNRM.EQ.ZERO) RETURN;
       dlascl('G', 0, 0, ORGNRM, ONE, N, 1, D, N, IERR );
       dlascl('G', 0, 0, ORGNRM, ONE, NM1, 1, E, NM1, IERR );
 

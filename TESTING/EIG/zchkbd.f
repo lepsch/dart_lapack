@@ -168,7 +168,7 @@
         // =9                      random nonsymmetric
         // =10                     random bidiagonal (log. distrib.)
 
-            IF( MTYPES.GT.MAXTYP ) GO TO 100
+            if (MTYPES.GT.MAXTYP) GO TO 100;
 
             ITYPE = KTYPE( JTYPE )
             IMODE = KMODE( JTYPE )
@@ -253,7 +253,7 @@
                TEMP1 = -TWO*LOG( ULP )
                for (J = 1; J <= MNMIN; J++) { // 90
                   BD( J ) = EXP( TEMP1*DLARND( 2, ISEED ) )
-                  IF( J.LT.MNMIN ) BE( J ) = EXP( TEMP1*DLARND( 2, ISEED ) )
+                  if (J.LT.MNMIN) BE( J ) = EXP( TEMP1*DLARND( 2, ISEED ) );
                } // 90
 
                IINFO = 0
@@ -316,7 +316,7 @@
                // Generate Q
 
                MQ = M
-               IF( NRHS.LE.0 ) MQ = MNMIN                CALL ZUNGBR( 'Q', M, MQ, N, Q, LDQ, WORK, WORK( 2*MNMIN+1 ), LWORK-2*MNMIN, IINFO )
+               if (NRHS.LE.0) MQ = MNMIN                CALL ZUNGBR( 'Q', M, MQ, N, Q, LDQ, WORK, WORK( 2*MNMIN+1 ), LWORK-2*MNMIN, IINFO );
 
                // Check error code from ZUNGBR.
 
@@ -353,7 +353,7 @@
             // B := U * S1 * VT, and compute Z = U' * Y.
 
             dcopy(MNMIN, BD, 1, S1, 1 );
-            IF( MNMIN.GT.0 ) CALL DCOPY( MNMIN-1, BE, 1, RWORK, 1 )
+            if (MNMIN.GT.0) CALL DCOPY( MNMIN-1, BE, 1, RWORK, 1 );
             zlacpy(' ', M, NRHS, Y, LDX, Z, LDX );
             zlaset('Full', MNMIN, MNMIN, CZERO, CONE, U, LDPT );
             zlaset('Full', MNMIN, MNMIN, CZERO, CONE, VT, LDPT );
@@ -377,7 +377,7 @@
             // bidiagonal matrix B;  U, VT, and Z should not be modified.
 
             dcopy(MNMIN, BD, 1, S2, 1 );
-            IF( MNMIN.GT.0 ) CALL DCOPY( MNMIN-1, BE, 1, RWORK, 1 )
+            if (MNMIN.GT.0) CALL DCOPY( MNMIN-1, BE, 1, RWORK, 1 );
 
             zbdsqr(UPLO, MNMIN, 0, 0, 0, S2, RWORK, VT, LDPT, U, LDPT, Z, LDX, RWORK( MNMIN+1 ), IINFO );
 
@@ -430,7 +430,7 @@
 
             for (J = 0; J <= LOG2UI; J++) { // 130
                dsvdch(MNMIN, BD, BE, S1, TEMP1, IINFO );
-               IF( IINFO.EQ.0 ) GO TO 140
+               if (IINFO.EQ.0) GO TO 140;
                TEMP1 = TEMP1*TWO
             } // 130
 
@@ -442,7 +442,7 @@
 
             if ( .NOT.BIDIAG ) {
                dcopy(MNMIN, BD, 1, S2, 1 );
-               IF( MNMIN.GT.0 ) CALL DCOPY( MNMIN-1, BE, 1, RWORK, 1 )
+               if (MNMIN.GT.0) CALL DCOPY( MNMIN-1, BE, 1, RWORK, 1 );
 
                zbdsqr(UPLO, MNMIN, N, M, NRHS, S2, RWORK, PT, LDPT, Q, LDQ, Y, LDX, RWORK( MNMIN+1 ), IINFO );
 
@@ -459,7 +459,7 @@
             } // 150
             for (J = 1; J <= 14; J++) { // 160
                if ( RESULT( J ).GE.THRESH ) {
-                  IF( NFAIL.EQ.0 ) CALL DLAHD2( NOUT, PATH )                   WRITE( NOUT, FMT = 9999 )M, N, JTYPE, IOLDSD, J, RESULT( J )
+                  if (NFAIL.EQ.0) CALL DLAHD2( NOUT, PATH )                   WRITE( NOUT, FMT = 9999 )M, N, JTYPE, IOLDSD, J, RESULT( J );
                   NFAIL = NFAIL + 1
                }
             } // 160

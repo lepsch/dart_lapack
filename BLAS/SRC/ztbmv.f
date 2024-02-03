@@ -59,7 +59,7 @@
 
       // Quick return if possible.
 
-      IF (N.EQ.0) RETURN
+      if (N.EQ.0) RETURN;
 
       NOCONJ = LSAME(TRANS,'T')
       NOUNIT = LSAME(DIAG,'N')
@@ -90,7 +90,7 @@
                           DO 10 I = MAX(1,J-K),J - 1
                               X(I) = X(I) + TEMP*A(L+I,J)
                           } // 10
-                          IF (NOUNIT) X(J) = X(J)*A(KPLUS1,J)
+                          if (NOUNIT) X(J) = X(J)*A(KPLUS1,J);
                       }
                   } // 20
               } else {
@@ -104,10 +104,10 @@
                               X(IX) = X(IX) + TEMP*A(L+I,J)
                               IX = IX + INCX
                           } // 30
-                          IF (NOUNIT) X(JX) = X(JX)*A(KPLUS1,J)
+                          if (NOUNIT) X(JX) = X(JX)*A(KPLUS1,J);
                       }
                       JX = JX + INCX
-                      IF (J.GT.K) KX = KX + INCX
+                      if (J.GT.K) KX = KX + INCX;
                   } // 40
               }
           } else {
@@ -119,7 +119,7 @@
                           DO 50 I = MIN(N,J+K),J + 1,-1
                               X(I) = X(I) + TEMP*A(L+I,J)
                           } // 50
-                          IF (NOUNIT) X(J) = X(J)*A(1,J)
+                          if (NOUNIT) X(J) = X(J)*A(1,J);
                       }
                   } // 60
               } else {
@@ -134,7 +134,7 @@
                               X(IX) = X(IX) + TEMP*A(L+I,J)
                               IX = IX - INCX
                           } // 70
-                          IF (NOUNIT) X(JX) = X(JX)*A(1,J)
+                          if (NOUNIT) X(JX) = X(JX)*A(1,J);
                       }
                       JX = JX - INCX
                       IF ((N-J).GE.K) KX = KX - INCX
@@ -152,12 +152,12 @@
                       TEMP = X(J)
                       L = KPLUS1 - J
                       if (NOCONJ) {
-                          IF (NOUNIT) TEMP = TEMP*A(KPLUS1,J)
+                          if (NOUNIT) TEMP = TEMP*A(KPLUS1,J);
                           DO 90 I = J - 1,MAX(1,J-K),-1
                               TEMP = TEMP + A(L+I,J)*X(I)
                           } // 90
                       } else {
-                          IF (NOUNIT) TEMP = TEMP*DCONJG(A(KPLUS1,J))
+                          if (NOUNIT) TEMP = TEMP*DCONJG(A(KPLUS1,J));
                           DO 100 I = J - 1,MAX(1,J-K),-1
                               TEMP = TEMP + DCONJG(A(L+I,J))*X(I)
                           } // 100
@@ -173,13 +173,13 @@
                       IX = KX
                       L = KPLUS1 - J
                       if (NOCONJ) {
-                          IF (NOUNIT) TEMP = TEMP*A(KPLUS1,J)
+                          if (NOUNIT) TEMP = TEMP*A(KPLUS1,J);
                           DO 120 I = J - 1,MAX(1,J-K),-1
                               TEMP = TEMP + A(L+I,J)*X(IX)
                               IX = IX - INCX
                           } // 120
                       } else {
-                          IF (NOUNIT) TEMP = TEMP*DCONJG(A(KPLUS1,J))
+                          if (NOUNIT) TEMP = TEMP*DCONJG(A(KPLUS1,J));
                           DO 130 I = J - 1,MAX(1,J-K),-1
                               TEMP = TEMP + DCONJG(A(L+I,J))*X(IX)
                               IX = IX - INCX
@@ -195,12 +195,12 @@
                       TEMP = X(J)
                       L = 1 - J
                       if (NOCONJ) {
-                          IF (NOUNIT) TEMP = TEMP*A(1,J)
+                          if (NOUNIT) TEMP = TEMP*A(1,J);
                           DO 150 I = J + 1,MIN(N,J+K)
                               TEMP = TEMP + A(L+I,J)*X(I)
                           } // 150
                       } else {
-                          IF (NOUNIT) TEMP = TEMP*DCONJG(A(1,J))
+                          if (NOUNIT) TEMP = TEMP*DCONJG(A(1,J));
                           DO 160 I = J + 1,MIN(N,J+K)
                               TEMP = TEMP + DCONJG(A(L+I,J))*X(I)
                           } // 160
@@ -215,13 +215,13 @@
                       IX = KX
                       L = 1 - J
                       if (NOCONJ) {
-                          IF (NOUNIT) TEMP = TEMP*A(1,J)
+                          if (NOUNIT) TEMP = TEMP*A(1,J);
                           DO 180 I = J + 1,MIN(N,J+K)
                               TEMP = TEMP + A(L+I,J)*X(IX)
                               IX = IX + INCX
                           } // 180
                       } else {
-                          IF (NOUNIT) TEMP = TEMP*DCONJG(A(1,J))
+                          if (NOUNIT) TEMP = TEMP*DCONJG(A(1,J));
                           DO 190 I = J + 1,MIN(N,J+K)
                               TEMP = TEMP + DCONJG(A(L+I,J))*X(IX)
                               IX = IX + INCX

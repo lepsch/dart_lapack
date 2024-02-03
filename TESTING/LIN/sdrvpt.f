@@ -72,7 +72,7 @@
 
       // Test the error exits
 
-      IF( TSTERR ) CALL SERRVX( PATH, NOUT )
+      if (TSTERR) CALL SERRVX( PATH, NOUT );
       INFOT = 0
 
       for (IN = 1; IN <= NN; IN++) { // 120
@@ -82,7 +82,7 @@
          N = NVAL( IN )
          LDA = MAX( 1, N )
          NIMAT = NTYPES
-         IF( N.LE.0 ) NIMAT = 1
+         if (N.LE.0) NIMAT = 1;
 
          for (IMAT = 1; IMAT <= NIMAT; IMAT++) { // 110
 
@@ -119,7 +119,7 @@
                   E( I ) = A( IA+1 )
                   IA = IA + 2
                } // 20
-               IF( N.GT.0 ) D( N ) = A( IA )
+               if (N.GT.0) D( N ) = A( IA );
             } else {
 
                // Type 7-12:  generate a diagonally dominant matrix with
@@ -149,7 +149,7 @@
                   IX = ISAMAX( N, D, 1 )
                   DMAX = D( IX )
                   sscal(N, ANORM / DMAX, D, 1 );
-                  IF( N.GT.1 ) CALL SSCAL( N-1, ANORM / DMAX, E, 1 )
+                  if (N.GT.1) CALL SSCAL( N-1, ANORM / DMAX, E, 1 );
 
                } else if ( IZERO.GT.0 ) {
 
@@ -158,7 +158,7 @@
 
                   if ( IZERO.EQ.1 ) {
                      D( 1 ) = Z( 2 )
-                     IF( N.GT.1 ) E( 1 ) = Z( 3 )
+                     if (N.GT.1) E( 1 ) = Z( 3 );
                   } else if ( IZERO.EQ.N ) {
                      E( N-1 ) = Z( 1 )
                      D( N ) = Z( 2 )
@@ -225,7 +225,7 @@
                // the value returned by SPTSVX.
 
                if ( ZEROT ) {
-                  IF( IFACT.EQ.1 ) GO TO 100
+                  if (IFACT.EQ.1) GO TO 100;
                   RCONDC = ZERO
 
                } else if ( IFACT.EQ.1 ) {
@@ -235,7 +235,7 @@
                   ANORM = SLANST( '1', N, D, E )
 
                   scopy(N, D, 1, D( N+1 ), 1 );
-                  IF( N.GT.1 ) CALL SCOPY( N-1, E, 1, E( N+1 ), 1 )
+                  if (N.GT.1) CALL SCOPY( N-1, E, 1, E( N+1 ), 1 );
 
                   // Factor the matrix A.
 
@@ -268,7 +268,7 @@
                   // --- Test SPTSV --
 
                   scopy(N, D, 1, D( N+1 ), 1 );
-                  IF( N.GT.1 ) CALL SCOPY( N-1, E, 1, E( N+1 ), 1 )
+                  if (N.GT.1) CALL SCOPY( N-1, E, 1, E( N+1 ), 1 );
                   slacpy('Full', N, NRHS, B, LDA, X, LDA );
 
                   // Factor A as L*D*L' and solve the system A*X = B.
@@ -278,7 +278,7 @@
 
                   // Check error code from SPTSV .
 
-                  IF( INFO.NE.IZERO ) CALL ALAERH( PATH, 'SPTSV ', INFO, IZERO, ' ', N, N, 1, 1, NRHS, IMAT, NFAIL, NERRS, NOUT )
+                  if (INFO.NE.IZERO) CALL ALAERH( PATH, 'SPTSV ', INFO, IZERO, ' ', N, N, 1, 1, NRHS, IMAT, NFAIL, NERRS, NOUT );
                   NT = 0
                   if ( IZERO.EQ.0 ) {
 
@@ -303,7 +303,7 @@
 
                   for (K = 1; K <= NT; K++) { // 70
                      if ( RESULT( K ).GE.THRESH ) {
-                        IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALADHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9999 )'SPTSV ', N, IMAT, K, RESULT( K )
+                        if (NFAIL.EQ.0 .AND. NERRS.EQ.0) CALL ALADHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9999 )'SPTSV ', N, IMAT, K, RESULT( K );
                         NFAIL = NFAIL + 1
                      }
                   } // 70
@@ -320,7 +320,7 @@
                      D( N+I ) = ZERO
                      E( N+I ) = ZERO
                   } // 80
-                  IF( N.GT.0 ) D( N+N ) = ZERO
+                  if (N.GT.0) D( N+N ) = ZERO;
                }
 
                slaset('Full', N, NRHS, ZERO, ZERO, X, LDA );
@@ -333,7 +333,7 @@
 
                // Check the error code from SPTSVX.
 
-               IF( INFO.NE.IZERO ) CALL ALAERH( PATH, 'SPTSVX', INFO, IZERO, FACT, N, N, 1, 1, NRHS, IMAT, NFAIL, NERRS, NOUT )
+               if (INFO.NE.IZERO) CALL ALAERH( PATH, 'SPTSVX', INFO, IZERO, FACT, N, N, 1, 1, NRHS, IMAT, NFAIL, NERRS, NOUT );
                if ( IZERO.EQ.0 ) {
                   if ( IFACT.EQ.2 ) {
 
@@ -371,7 +371,7 @@
 
                for (K = K1; K <= 6; K++) { // 90
                   if ( RESULT( K ).GE.THRESH ) {
-                     IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALADHD( NOUT, PATH )                      WRITE( NOUT, FMT = 9998 )'SPTSVX', FACT, N, IMAT, K, RESULT( K )
+                     if (NFAIL.EQ.0 .AND. NERRS.EQ.0) CALL ALADHD( NOUT, PATH )                      WRITE( NOUT, FMT = 9998 )'SPTSVX', FACT, N, IMAT, K, RESULT( K );
                      NFAIL = NFAIL + 1
                   }
                } // 90

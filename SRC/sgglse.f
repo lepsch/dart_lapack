@@ -82,7 +82,7 @@
 
       // Quick return if possible
 
-      IF( N.EQ.0 ) RETURN
+      if (N.EQ.0) RETURN;
 
       // Compute the GRQ factorization of matrices B and A:
 
@@ -140,7 +140,7 @@
 
       if ( M.LT.N ) {
          NR = M + P - N
-         IF( NR.GT.0 ) CALL SGEMV( 'No transpose', NR, N-M, -ONE, A( N-P+1, M+1 ), LDA, D( NR+1 ), 1, ONE, C( N-P+1 ), 1 )
+         if (NR.GT.0) CALL SGEMV( 'No transpose', NR, N-M, -ONE, A( N-P+1, M+1 ), LDA, D( NR+1 ), 1, ONE, C( N-P+1 ), 1 );
       } else {
          NR = P
       }

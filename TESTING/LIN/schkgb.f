@@ -74,7 +74,7 @@
 
       // Test the error exits
 
-      IF( TSTERR ) CALL SERRGE( PATH, NOUT )
+      if (TSTERR) CALL SERRGE( PATH, NOUT );
       INFOT = 0
       xlaenv(2, 2 );
 
@@ -115,11 +115,11 @@
             // Set limits on the number of loop iterations.
 
             NKL = MIN( M+1, 4 )
-            IF( N.EQ.0 ) NKL = 2
+            if (N.EQ.0) NKL = 2;
             NKU = MIN( N+1, 4 )
-            IF( M.EQ.0 ) NKU = 2
+            if (M.EQ.0) NKU = 2;
             NIMAT = NTYPES
-            IF( M.LE.0 .OR. N.LE.0 ) NIMAT = 1
+            if (M.LE.0 .OR. N.LE.0) NIMAT = 1;
 
             for (IKL = 1; IKL <= NKL; IKL++) { // 140
 
@@ -142,7 +142,7 @@
                   LDA = KL + KU + 1
                   LDAFAC = 2*KL + KU + 1
                   if ( ( LDA*N ).GT.LA .OR. ( LDAFAC*N ).GT.LAFAC ) {
-                     IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )
+                     if (NFAIL.EQ.0 .AND. NERRS.EQ.0) CALL ALAHD( NOUT, PATH );
                      if ( N*( KL+KU+1 ).GT.LA ) {
                         WRITE( NOUT, FMT = 9999 )LA, M, N, KL, KU, N*( KL+KU+1 )
                         NERRS = NERRS + 1
@@ -164,7 +164,7 @@
                      // small.
 
                      ZEROT = IMAT.GE.2 .AND. IMAT.LE.4
-                     IF( ZEROT .AND. N.LT.IMAT-1 ) GO TO 120
+                     if (ZEROT .AND. N.LT.IMAT-1) GO TO 120;
 
                      if ( .NOT.ZEROT .OR. .NOT.DOTYPE( 1 ) ) {
 
@@ -243,13 +243,13 @@
 
                         // Compute the LU factorization of the band matrix.
 
-                        IF( M.GT.0 .AND. N.GT.0 ) CALL SLACPY( 'Full', KL+KU+1, N, A, LDA, AFAC( KL+1 ), LDAFAC )
+                        if (M.GT.0 .AND. N.GT.0) CALL SLACPY( 'Full', KL+KU+1, N, A, LDA, AFAC( KL+1 ), LDAFAC );
                         SRNAMT = 'SGBTRF'
                         sgbtrf(M, N, KL, KU, AFAC, LDAFAC, IWORK, INFO );
 
                         // Check error code from SGBTRF.
 
-                        IF( INFO.NE.IZERO ) CALL ALAERH( PATH, 'SGBTRF', INFO, IZERO, ' ', M, N, KL, KU, NB, IMAT, NFAIL, NERRS, NOUT )
+                        if (INFO.NE.IZERO) CALL ALAERH( PATH, 'SGBTRF', INFO, IZERO, ' ', M, N, KL, KU, NB, IMAT, NFAIL, NERRS, NOUT );
                         TRFCON = .FALSE.
 
 *+    TEST 1
@@ -262,7 +262,7 @@
                         // did not pass the threshold.
 
                         if ( RESULT( 1 ).GE.THRESH ) {
-                           IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                            WRITE( NOUT, FMT = 9997 )M, N, KL, KU, NB, IMAT, 1, RESULT( 1 )
+                           if (NFAIL.EQ.0 .AND. NERRS.EQ.0) CALL ALAHD( NOUT, PATH )                            WRITE( NOUT, FMT = 9997 )M, N, KL, KU, NB, IMAT, 1, RESULT( 1 );
                            NFAIL = NFAIL + 1
                         }
                         NRUN = NRUN + 1
@@ -270,7 +270,7 @@
                         // Skip the remaining tests if this is not the
                         // first block size or if M .ne. N.
 
-                        IF( INB.GT.1 .OR. M.NE.N ) GO TO 110
+                        if (INB.GT.1 .OR. M.NE.N) GO TO 110;
 
                         ANORMO = SLANGB( 'O', N, KL, KU, A, LDA, RWORK )
                         ANORMI = SLANGB( 'I', N, KL, KU, A, LDA, RWORK )
@@ -314,7 +314,7 @@
 
                         // Skip the solve tests if the matrix is singular.
 
-                        IF( TRFCON ) GO TO 90
+                        if (TRFCON) GO TO 90;
 
                         for (IRHS = 1; IRHS <= NNS; IRHS++) { // 80
                            NRHS = NSVAL( IRHS )
@@ -343,7 +343,7 @@
 
                               // Check error code from SGBTRS.
 
-                              IF( INFO.NE.0 ) CALL ALAERH( PATH, 'SGBTRS', INFO, 0, TRANS, N, N, KL, KU, -1, IMAT, NFAIL, NERRS, NOUT )
+                              if (INFO.NE.0) CALL ALAERH( PATH, 'SGBTRS', INFO, 0, TRANS, N, N, KL, KU, -1, IMAT, NFAIL, NERRS, NOUT );
 
                               slacpy('Full', N, NRHS, B, LDB, WORK, LDB )                               CALL SGBT02( TRANS, M, N, KL, KU, NRHS, A, LDA, X, LDB, WORK, LDB, RWORK, RESULT( 2 ) );
 
@@ -362,12 +362,12 @@
 
                               // Check error code from SGBRFS.
 
-                              IF( INFO.NE.0 ) CALL ALAERH( PATH, 'SGBRFS', INFO, 0, TRANS, N, N, KL, KU, NRHS, IMAT, NFAIL, NERRS, NOUT )
+                              if (INFO.NE.0) CALL ALAERH( PATH, 'SGBRFS', INFO, 0, TRANS, N, N, KL, KU, NRHS, IMAT, NFAIL, NERRS, NOUT );
 
                               sget04(N, NRHS, X, LDB, XACT, LDB, RCONDC, RESULT( 4 ) )                               CALL SGBT05( TRANS, N, KL, KU, NRHS, A, LDA, B, LDB, X, LDB, XACT, LDB, RWORK, RWORK( NRHS+1 ), RESULT( 5 ) );
                               for (K = 2; K <= 6; K++) { // 60
                                  if ( RESULT( K ).GE.THRESH ) {
-                                    IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                                     WRITE( NOUT, FMT = 9996 )TRANS, N, KL, KU, NRHS, IMAT, K, RESULT( K )
+                                    if (NFAIL.EQ.0 .AND. NERRS.EQ.0) CALL ALAHD( NOUT, PATH )                                     WRITE( NOUT, FMT = 9996 )TRANS, N, KL, KU, NRHS, IMAT, K, RESULT( K );
                                     NFAIL = NFAIL + 1
                                  }
                               } // 60
@@ -394,7 +394,7 @@
 
                               // Check error code from SGBCON.
 
-                           IF( INFO.NE.0 ) CALL ALAERH( PATH, 'SGBCON', INFO, 0, NORM, N, N, KL, KU, -1, IMAT, NFAIL, NERRS, NOUT )
+                           if (INFO.NE.0) CALL ALAERH( PATH, 'SGBCON', INFO, 0, NORM, N, N, KL, KU, -1, IMAT, NFAIL, NERRS, NOUT );
 
                            RESULT( 7 ) = SGET06( RCOND, RCONDC )
 
@@ -402,7 +402,7 @@
                            // not pass the threshold.
 
                            if ( RESULT( 7 ).GE.THRESH ) {
-                              IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                               WRITE( NOUT, FMT = 9995 )NORM, N, KL, KU, IMAT, 7, RESULT( 7 )
+                              if (NFAIL.EQ.0 .AND. NERRS.EQ.0) CALL ALAHD( NOUT, PATH )                               WRITE( NOUT, FMT = 9995 )NORM, N, KL, KU, IMAT, 7, RESULT( 7 );
                               NFAIL = NFAIL + 1
                            }
                            NRUN = NRUN + 1

@@ -124,7 +124,7 @@
 
       // Scale the right-hand side.
 
-      IF( RCEQU ) CALL SLASCL2( N, NRHS, S, B, LDB )
+      if (RCEQU) CALL SLASCL2( N, NRHS, S, B, LDB );
 
       if ( NOFACT .OR. EQUIL ) {
 

@@ -188,7 +188,7 @@
          C = W - DTNSQ1*DPSI - DTNSQ*DPHI
          A = ( DTNSQ+DTNSQ1 )*W - DTNSQ*DTNSQ1*( DPSI+DPHI )
          B = DTNSQ*DTNSQ1*W
-         IF( C.LT.ZERO ) C = ABS( C )
+         if (C.LT.ZERO) C = ABS( C );
          if ( C.EQ.ZERO ) {
             ETA = RHO - SIGMA*SIGMA
          } else if ( A.GE.ZERO ) {
@@ -203,9 +203,9 @@
          // we simply use one Newton step instead. This way
          // will guarantee eta*w < 0.
 
-         IF( W*ETA.GT.ZERO ) ETA = -W / ( DPSI+DPHI )
+         if (W*ETA.GT.ZERO) ETA = -W / ( DPSI+DPHI );
          TEMP = ETA - DTNSQ
-         IF( TEMP.GT.RHO ) ETA = RHO + DTNSQ
+         if (TEMP.GT.RHO) ETA = RHO + DTNSQ;
 
          ETA = ETA / ( SIGMA+SQRT( ETA+SIGMA*SIGMA ) )
          TAU = TAU + ETA
@@ -271,9 +271,9 @@
             // we simply use one Newton step instead. This way
             // will guarantee eta*w < 0.
 
-            IF( W*ETA.GT.ZERO ) ETA = -W / ( DPSI+DPHI )
+            if (W*ETA.GT.ZERO) ETA = -W / ( DPSI+DPHI );
             TEMP = ETA - DTNSQ
-            IF( TEMP.LE.ZERO ) ETA = ETA / TWO
+            if (TEMP.LE.ZERO) ETA = ETA / TWO;
 
             ETA = ETA / ( SIGMA+SQRT( ETA+SIGMA*SIGMA ) )
             TAU = TAU + ETA
@@ -439,11 +439,11 @@
 
          SWTCH3 = .FALSE.
          if ( ORGATI ) {
-            IF( W.LT.ZERO ) SWTCH3 = .TRUE.
+            if (W.LT.ZERO) SWTCH3 = .TRUE.;
          } else {
-            IF( W.GT.ZERO ) SWTCH3 = .TRUE.
+            if (W.GT.ZERO) SWTCH3 = .TRUE.;
          }
-         IF( II.EQ.1 .OR. II.EQ.N ) SWTCH3 = .FALSE.
+         if (II.EQ.1 .OR. II.EQ.N) SWTCH3 = .FALSE.;
 
          TEMP = Z( II ) / ( WORK( II )*DELTA( II ) )
          DW = DPSI + DPHI + TEMP*TEMP
@@ -564,7 +564,7 @@
          // we simply use one Newton step instead. This way
          // will guarantee eta*w < 0.
 
-         IF( W*ETA.GE.ZERO ) ETA = -W / DW
+         if (W*ETA.GE.ZERO) ETA = -W / DW;
 
          ETA = ETA / ( SIGMA+SQRT( SIGMA*SIGMA+ETA ) )
          TEMP = TAU + ETA
@@ -789,7 +789,7 @@
             // we simply use one Newton step instead. This way
             // will guarantee eta*w < 0.
 
-            IF( W*ETA.GE.ZERO ) ETA = -W / DW
+            if (W*ETA.GE.ZERO) ETA = -W / DW;
 
             ETA = ETA / ( SIGMA+SQRT( SIGMA*SIGMA+ETA ) )
             TEMP=TAU+ETA

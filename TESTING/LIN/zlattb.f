@@ -58,7 +58,7 @@
 
       // Quick return if N.LE.0.
 
-      IF( N.LE.0 ) RETURN
+      if (N.LE.0) RETURN;
 
       // Call ZLATB4 to set parameters for ZLATMS.
 
@@ -221,7 +221,7 @@
          } else {
             for (J = 1; J <= N; J++) { // 130
                LENJ = MIN( N-J, KD )
-               IF( LENJ.GT.0 ) CALL ZLARNV( 4, ISEED, LENJ, AB( 2, J ) )
+               if (LENJ.GT.0) CALL ZLARNV( 4, ISEED, LENJ, AB( 2, J ) );
                AB( 1, J ) = ZLARND( 5, ISEED )*TWO
             } // 130
          }
@@ -274,14 +274,14 @@
          if ( UPPER ) {
             for (J = 1; J <= N; J++) { // 160
                LENJ = MIN( J-1, KD )
-               IF( LENJ.GT.0 ) CALL ZLARNV( 4, ISEED, LENJ, AB( KD+2-LENJ, J ) )
+               if (LENJ.GT.0) CALL ZLARNV( 4, ISEED, LENJ, AB( KD+2-LENJ, J ) );
                AB( KD+1, J ) = ZLARND( 5, ISEED )
             } // 160
             AB( KD+1, N ) = SMLNUM*AB( KD+1, N )
          } else {
             for (J = 1; J <= N; J++) { // 170
                LENJ = MIN( N-J, KD )
-               IF( LENJ.GT.0 ) CALL ZLARNV( 4, ISEED, LENJ, AB( 2, J ) )
+               if (LENJ.GT.0) CALL ZLARNV( 4, ISEED, LENJ, AB( 2, J ) );
                AB( 1, J ) = ZLARND( 5, ISEED )
             } // 170
             AB( 1, 1 ) = SMLNUM*AB( 1, 1 )
@@ -305,7 +305,7 @@
                   AB( KD+1, J ) = ZLARND( 5, ISEED )
                }
                JCOUNT = JCOUNT + 1
-               IF( JCOUNT.GT.4 ) JCOUNT = 1
+               if (JCOUNT.GT.4) JCOUNT = 1;
             } // 190
          } else {
             JCOUNT = 1
@@ -319,7 +319,7 @@
                   AB( 1, J ) = ZLARND( 5, ISEED )
                }
                JCOUNT = JCOUNT + 1
-               IF( JCOUNT.GT.4 ) JCOUNT = 1
+               if (JCOUNT.GT.4) JCOUNT = 1;
             } // 210
          }
 
@@ -353,7 +353,7 @@
                DO 240 I = MAX( 1, KD+2-J ), KD
                   AB( I, J ) = ZERO
                } // 240
-               IF( J.GT.1 .AND. KD.GT.0 ) AB( KD, J ) = DCMPLX( -ONE, -ONE )
+               if (J.GT.1 .AND. KD.GT.0) AB( KD, J ) = DCMPLX( -ONE, -ONE );
                AB( KD+1, J ) = TSCAL*ZLARND( 5, ISEED )
             } // 250
             B( N ) = DCMPLX( ONE, ONE )
@@ -362,7 +362,7 @@
                DO 260 I = 3, MIN( N-J+1, KD+1 )
                   AB( I, J ) = ZERO
                } // 260
-               IF( J.LT.N .AND. KD.GT.0 ) AB( 2, J ) = DCMPLX( -ONE, -ONE )
+               if (J.LT.N .AND. KD.GT.0) AB( 2, J ) = DCMPLX( -ONE, -ONE );
                AB( 1, J ) = TSCAL*ZLARND( 5, ISEED )
             } // 270
             B( 1 ) = DCMPLX( ONE, ONE )
@@ -463,7 +463,7 @@
          } else {
             for (J = 1; J <= N; J++) { // 370
                LENJ = MIN( N-J, KD )
-               IF( LENJ.GT.0 ) CALL ZLARNV( 4, ISEED, LENJ, AB( 2, J ) )
+               if (LENJ.GT.0) CALL ZLARNV( 4, ISEED, LENJ, AB( 2, J ) );
                AB( 1, J ) = DBLE( J )
             } // 370
          }

@@ -56,7 +56,7 @@
 
       // Quick return if possible
 
-      IF( N.EQ.0 ) RETURN
+      if (N.EQ.0) RETURN;
       if ( ILO.EQ.IHI ) {
          W( ILO ) = H( ILO, ILO )
          RETURN
@@ -67,7 +67,7 @@
          H( J+2, J ) = ZERO
          H( J+3, J ) = ZERO
       } // 10
-      IF( ILO.LE.IHI-2 ) H( IHI, IHI-2 ) = ZERO
+      if (ILO.LE.IHI-2) H( IHI, IHI-2 ) = ZERO;
       // ==== ensure that subdiagonal entries are real ====
       if ( WANTT ) {
          JLO = 1
@@ -124,7 +124,7 @@
 
       I = IHI
       } // 30
-      IF( I.LT.ILO ) GO TO 150
+      if (I.LT.ILO) GO TO 150;
 
       // Perform QR iterations on rows and columns ILO to I until a
       // submatrix of order 1 splits off at the bottom because a
@@ -139,7 +139,7 @@
             IF( CABS1( H( K, K-1 ) ).LE.SMLNUM ) GO TO 50
             TST = CABS1( H( K-1, K-1 ) ) + CABS1( H( K, K ) )
             if ( TST.EQ.ZERO ) {
-               IF( K-2.GE.ILO ) TST = TST + ABS( DBLE( H( K-1, K-2 ) ) )                IF( K+1.LE.IHI ) TST = TST + ABS( DBLE( H( K+1, K ) ) )
+               if (K-2.GE.ILO) TST = TST + ABS( DBLE( H( K-1, K-2 ) ) )                IF( K+1.LE.IHI ) TST = TST + ABS( DBLE( H( K+1, K ) ) );
             }
             // ==== The following is a conservative small subdiagonal
             // .    deflation criterion due to Ahues & Tisseur (LAWN 122,
@@ -164,7 +164,7 @@
 
          // Exit from loop if a submatrix of order 1 has split off.
 
-         IF( L.GE.I ) GO TO 140
+         if (L.GE.I) GO TO 140;
          KDEFL = KDEFL + 1
 
          // Now the active submatrix is in rows and columns L to I. If
@@ -254,7 +254,7 @@
             // V(2) is always real before the call to ZLARFG, and hence
             // after the call T2 ( = T1*V(2) ) is also real.
 
-            IF( K.GT.M ) CALL ZCOPY( 2, H( K, K-1 ), 1, V, 1 )
+            if (K.GT.M) CALL ZCOPY( 2, H( K, K-1 ), 1, V, 1 );
             zlarfg(2, V( 1 ), V( 2 ), 1, T1 );
             if ( K.GT.M ) {
                H( K, K-1 ) = V( 1 )
@@ -302,10 +302,10 @@
                TEMP = ONE - T1
                TEMP = TEMP / ABS( TEMP )
                H( M+1, M ) = H( M+1, M )*DCONJG( TEMP )
-               IF( M+2.LE.I ) H( M+2, M+1 ) = H( M+2, M+1 )*TEMP
+               if (M+2.LE.I) H( M+2, M+1 ) = H( M+2, M+1 )*TEMP;
                for (J = M; J <= I; J++) { // 110
                   if ( J.NE.M+1 ) {
-                     IF( I2.GT.J ) CALL ZSCAL( I2-J, TEMP, H( J, J+1 ), LDH )
+                     if (I2.GT.J) CALL ZSCAL( I2-J, TEMP, H( J, J+1 ), LDH );
                      zscal(J-I1, DCONJG( TEMP ), H( I1, J ), 1 );
                      if ( WANTZ ) {
                         zscal(NZ, DCONJG( TEMP ), Z( ILOZ, J ), 1 );
@@ -322,7 +322,7 @@
             RTEMP = ABS( TEMP )
             H( I, I-1 ) = RTEMP
             TEMP = TEMP / RTEMP
-            IF( I2.GT.I ) CALL ZSCAL( I2-I, DCONJG( TEMP ), H( I, I+1 ), LDH )
+            if (I2.GT.I) CALL ZSCAL( I2-I, DCONJG( TEMP ), H( I, I+1 ), LDH );
             zscal(I-I1, TEMP, H( I1, I ), 1 );
             if ( WANTZ ) {
                zscal(NZ, TEMP, Z( ILOZ, I ), 1 );

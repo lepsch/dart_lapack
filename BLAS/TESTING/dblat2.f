@@ -250,7 +250,7 @@
       WRITE( NOUT, FMT = 9987 )
 
       } // 240
-      IF( TRACE ) CLOSE ( NTRA )
+      if (TRACE) CLOSE ( NTRA );
       CLOSE ( NOUT )
       STOP
 
@@ -340,7 +340,7 @@
          ND = N/2 + 1
 
          for (IM = 1; IM <= 2; IM++) { // 110
-            IF( IM.EQ.1 ) M = MAX( N - ND, 0 )             IF( IM.EQ.2 ) M = MIN( N + ND, NMAX )
+            if (IM.EQ.1) M = MAX( N - ND, 0 )             IF( IM.EQ.2 ) M = MIN( N + ND, NMAX );
 
             if ( BANDED ) {
                NK = NKB
@@ -361,9 +361,9 @@
                } else {
                   LDA = M
                }
-               IF( LDA.LT.NMAX ) LDA = LDA + 1
+               if (LDA.LT.NMAX) LDA = LDA + 1;
                // Skip tests if not enough room.
-               IF( LDA.GT.NMAX ) GO TO 100
+               if (LDA.GT.NMAX) GO TO 100;
                LAA = LDA*N
                NULL = N.LE.0.OR.M.LE.0
 
@@ -440,11 +440,11 @@
                               // Call the subroutine.
 
                               if ( FULL ) {
-                                 IF( TRACE ) WRITE( NTRA, FMT = 9994 )NC, SNAME, TRANS, M, N, ALPHA, LDA, INCX, BETA, INCY
-                                 IF( REWI ) REWIND NTRA                                  CALL DGEMV( TRANS, M, N, ALPHA, AA, LDA, XX, INCX, BETA, YY, INCY )
+                                 if (TRACE) WRITE( NTRA, FMT = 9994 )NC, SNAME, TRANS, M, N, ALPHA, LDA, INCX, BETA, INCY;
+                                 if (REWI) REWIND NTRA                                  CALL DGEMV( TRANS, M, N, ALPHA, AA, LDA, XX, INCX, BETA, YY, INCY );
                               } else if ( BANDED ) {
-                                 IF( TRACE ) WRITE( NTRA, FMT = 9995 )NC, SNAME, TRANS, M, N, KL, KU, ALPHA, LDA, INCX, BETA, INCY
-                                 IF( REWI ) REWIND NTRA                                  CALL DGBMV( TRANS, M, N, KL, KU, ALPHA, AA, LDA, XX, INCX, BETA, YY, INCY )
+                                 if (TRACE) WRITE( NTRA, FMT = 9995 )NC, SNAME, TRANS, M, N, KL, KU, ALPHA, LDA, INCX, BETA, INCY;
+                                 if (REWI) REWIND NTRA                                  CALL DGBMV( TRANS, M, N, KL, KU, ALPHA, AA, LDA, XX, INCX, BETA, YY, INCY );
                               }
 
                               // Check if error-exit was taken incorrectly.
@@ -511,7 +511,7 @@
                                  ERRMAX = MAX( ERRMAX, ERR )
                                  // If got really bad answer, report and
                                  // return.
-                                 IF( FATAL ) GO TO 130
+                                 if (FATAL) GO TO 130;
                               } else {
                                  // Avoid repeating tests with M.le.0 or
                                  // N.le.0.
@@ -538,11 +538,11 @@
 
       dregr1(TRANS, M, N, LY, KL, KU, ALPHA, AA, LDA, XX, INCX, BETA, YY, INCY, YS );
       if ( FULL ) {
-         IF( TRACE ) WRITE( NTRA, FMT = 9994 )NC, SNAME, TRANS, M, N, ALPHA, LDA, INCX, BETA, INCY
-         IF( REWI ) REWIND NTRA          CALL DGEMV( TRANS, M, N, ALPHA, AA, LDA, XX, INCX, BETA, YY, INCY )
+         if (TRACE) WRITE( NTRA, FMT = 9994 )NC, SNAME, TRANS, M, N, ALPHA, LDA, INCX, BETA, INCY;
+         if (REWI) REWIND NTRA          CALL DGEMV( TRANS, M, N, ALPHA, AA, LDA, XX, INCX, BETA, YY, INCY );
       } else if ( BANDED ) {
-         IF( TRACE ) WRITE( NTRA, FMT = 9995 )NC, SNAME, TRANS, M, N, KL, KU, ALPHA, LDA, INCX, BETA, INCY
-         IF( REWI ) REWIND NTRA          CALL DGBMV( TRANS, M, N, KL, KU, ALPHA, AA, LDA, XX, INCX, BETA, YY, INCY )
+         if (TRACE) WRITE( NTRA, FMT = 9995 )NC, SNAME, TRANS, M, N, KL, KU, ALPHA, LDA, INCX, BETA, INCY;
+         if (REWI) REWIND NTRA          CALL DGBMV( TRANS, M, N, KL, KU, ALPHA, AA, LDA, XX, INCX, BETA, YY, INCY );
       }
       NC = NC + 1
       if ( .NOT.LDE( YS, YY, LY ) ) {
@@ -662,9 +662,9 @@
             } else {
                LDA = N
             }
-            IF( LDA.LT.NMAX ) LDA = LDA + 1
+            if (LDA.LT.NMAX) LDA = LDA + 1;
             // Skip tests if not enough room.
-            IF( LDA.GT.NMAX ) GO TO 100
+            if (LDA.GT.NMAX) GO TO 100;
             if ( PACKED ) {
                LAA = ( N*( N + 1 ) )/2
             } else {
@@ -734,14 +734,14 @@
                            // Call the subroutine.
 
                            if ( FULL ) {
-                              IF( TRACE ) WRITE( NTRA, FMT = 9993 )NC, SNAME, UPLO, N, ALPHA, LDA, INCX, BETA, INCY
-                              IF( REWI ) REWIND NTRA                               CALL DSYMV( UPLO, N, ALPHA, AA, LDA, XX, INCX, BETA, YY, INCY )
+                              if (TRACE) WRITE( NTRA, FMT = 9993 )NC, SNAME, UPLO, N, ALPHA, LDA, INCX, BETA, INCY;
+                              if (REWI) REWIND NTRA                               CALL DSYMV( UPLO, N, ALPHA, AA, LDA, XX, INCX, BETA, YY, INCY );
                            } else if ( BANDED ) {
-                              IF( TRACE ) WRITE( NTRA, FMT = 9994 )NC, SNAME, UPLO, N, K, ALPHA, LDA, INCX, BETA, INCY
-                              IF( REWI ) REWIND NTRA                               CALL DSBMV( UPLO, N, K, ALPHA, AA, LDA, XX, INCX, BETA, YY, INCY )
+                              if (TRACE) WRITE( NTRA, FMT = 9994 )NC, SNAME, UPLO, N, K, ALPHA, LDA, INCX, BETA, INCY;
+                              if (REWI) REWIND NTRA                               CALL DSBMV( UPLO, N, K, ALPHA, AA, LDA, XX, INCX, BETA, YY, INCY );
                            } else if ( PACKED ) {
-                              IF( TRACE ) WRITE( NTRA, FMT = 9995 )NC, SNAME, UPLO, N, ALPHA, INCX, BETA, INCY
-                              IF( REWI ) REWIND NTRA                               CALL DSPMV( UPLO, N, ALPHA, AA, XX, INCX, BETA, YY, INCY )
+                              if (TRACE) WRITE( NTRA, FMT = 9995 )NC, SNAME, UPLO, N, ALPHA, INCX, BETA, INCY;
+                              if (REWI) REWIND NTRA                               CALL DSPMV( UPLO, N, ALPHA, AA, XX, INCX, BETA, YY, INCY );
                            }
 
                            // Check if error-exit was taken incorrectly.
@@ -818,7 +818,7 @@
                               ERRMAX = MAX( ERRMAX, ERR )
                               // If got really bad answer, report and
                               // return.
-                              IF( FATAL ) GO TO 120
+                              if (FATAL) GO TO 120;
                            } else {
                               // Avoid repeating tests with N.le.0
                               GO TO 110
@@ -957,9 +957,9 @@
             } else {
                LDA = N
             }
-            IF( LDA.LT.NMAX ) LDA = LDA + 1
+            if (LDA.LT.NMAX) LDA = LDA + 1;
             // Skip tests if not enough room.
-            IF( LDA.GT.NMAX ) GO TO 100
+            if (LDA.GT.NMAX) GO TO 100;
             if ( PACKED ) {
                LAA = ( N*( N + 1 ) )/2
             } else {
@@ -1016,25 +1016,25 @@
 
                         if ( SNAME( 4: 5 ).EQ.'MV' ) {
                            if ( FULL ) {
-                              IF( TRACE ) WRITE( NTRA, FMT = 9993 )NC, SNAME, UPLO, TRANS, DIAG, N, LDA, INCX
-                              IF( REWI ) REWIND NTRA                               CALL DTRMV( UPLO, TRANS, DIAG, N, AA, LDA, XX, INCX )
+                              if (TRACE) WRITE( NTRA, FMT = 9993 )NC, SNAME, UPLO, TRANS, DIAG, N, LDA, INCX;
+                              if (REWI) REWIND NTRA                               CALL DTRMV( UPLO, TRANS, DIAG, N, AA, LDA, XX, INCX );
                            } else if ( BANDED ) {
-                              IF( TRACE ) WRITE( NTRA, FMT = 9994 )NC, SNAME, UPLO, TRANS, DIAG, N, K, LDA, INCX
-                              IF( REWI ) REWIND NTRA                               CALL DTBMV( UPLO, TRANS, DIAG, N, K, AA, LDA, XX, INCX )
+                              if (TRACE) WRITE( NTRA, FMT = 9994 )NC, SNAME, UPLO, TRANS, DIAG, N, K, LDA, INCX;
+                              if (REWI) REWIND NTRA                               CALL DTBMV( UPLO, TRANS, DIAG, N, K, AA, LDA, XX, INCX );
                            } else if ( PACKED ) {
-                              IF( TRACE ) WRITE( NTRA, FMT = 9995 )NC, SNAME, UPLO, TRANS, DIAG, N, INCX
-                              IF( REWI ) REWIND NTRA                               CALL DTPMV( UPLO, TRANS, DIAG, N, AA, XX, INCX )
+                              if (TRACE) WRITE( NTRA, FMT = 9995 )NC, SNAME, UPLO, TRANS, DIAG, N, INCX;
+                              if (REWI) REWIND NTRA                               CALL DTPMV( UPLO, TRANS, DIAG, N, AA, XX, INCX );
                            }
                         } else if ( SNAME( 4: 5 ).EQ.'SV' ) {
                            if ( FULL ) {
-                              IF( TRACE ) WRITE( NTRA, FMT = 9993 )NC, SNAME, UPLO, TRANS, DIAG, N, LDA, INCX
-                              IF( REWI ) REWIND NTRA                               CALL DTRSV( UPLO, TRANS, DIAG, N, AA, LDA, XX, INCX )
+                              if (TRACE) WRITE( NTRA, FMT = 9993 )NC, SNAME, UPLO, TRANS, DIAG, N, LDA, INCX;
+                              if (REWI) REWIND NTRA                               CALL DTRSV( UPLO, TRANS, DIAG, N, AA, LDA, XX, INCX );
                            } else if ( BANDED ) {
-                              IF( TRACE ) WRITE( NTRA, FMT = 9994 )NC, SNAME, UPLO, TRANS, DIAG, N, K, LDA, INCX
-                              IF( REWI ) REWIND NTRA                               CALL DTBSV( UPLO, TRANS, DIAG, N, K, AA, LDA, XX, INCX )
+                              if (TRACE) WRITE( NTRA, FMT = 9994 )NC, SNAME, UPLO, TRANS, DIAG, N, K, LDA, INCX;
+                              if (REWI) REWIND NTRA                               CALL DTBSV( UPLO, TRANS, DIAG, N, K, AA, LDA, XX, INCX );
                            } else if ( PACKED ) {
-                              IF( TRACE ) WRITE( NTRA, FMT = 9995 )NC, SNAME, UPLO, TRANS, DIAG, N, INCX
-                              IF( REWI ) REWIND NTRA                               CALL DTPSV( UPLO, TRANS, DIAG, N, AA, XX, INCX )
+                              if (TRACE) WRITE( NTRA, FMT = 9995 )NC, SNAME, UPLO, TRANS, DIAG, N, INCX;
+                              if (REWI) REWIND NTRA                               CALL DTPSV( UPLO, TRANS, DIAG, N, AA, XX, INCX );
                            }
                         }
 
@@ -1111,7 +1111,7 @@
                            }
                            ERRMAX = MAX( ERRMAX, ERR )
                            // If got really bad answer, report and return.
-                           IF( FATAL ) GO TO 120
+                           if (FATAL) GO TO 120;
                         } else {
                            // Avoid repeating tests with N.le.0.
                            GO TO 110
@@ -1216,13 +1216,13 @@
          ND = N/2 + 1
 
          for (IM = 1; IM <= 2; IM++) { // 110
-            IF( IM.EQ.1 ) M = MAX( N - ND, 0 )             IF( IM.EQ.2 ) M = MIN( N + ND, NMAX )
+            if (IM.EQ.1) M = MAX( N - ND, 0 )             IF( IM.EQ.2 ) M = MIN( N + ND, NMAX );
 
             // Set LDA to 1 more than minimum value if room.
             LDA = M
-            IF( LDA.LT.NMAX ) LDA = LDA + 1
+            if (LDA.LT.NMAX) LDA = LDA + 1;
             // Skip tests if not enough room.
-            IF( LDA.GT.NMAX ) GO TO 110
+            if (LDA.GT.NMAX) GO TO 110;
             LAA = LDA*N
             NULL = N.LE.0.OR.M.LE.0
 
@@ -1282,8 +1282,8 @@
 
                      // Call the subroutine.
 
-                     IF( TRACE ) WRITE( NTRA, FMT = 9994 )NC, SNAME, M, N, ALPHA, INCX, INCY, LDA
-                     IF( REWI ) REWIND NTRA                      CALL DGER( M, N, ALPHA, XX, INCX, YY, INCY, AA, LDA )
+                     if (TRACE) WRITE( NTRA, FMT = 9994 )NC, SNAME, M, N, ALPHA, INCX, INCY, LDA;
+                     if (REWI) REWIND NTRA                      CALL DGER( M, N, ALPHA, XX, INCX, YY, INCY, AA, LDA );
 
                      // Check if error-exit was taken incorrectly.
 
@@ -1343,7 +1343,7 @@
                            dmvch('N', M, 1, ALPHA, Z, NMAX, W, 1, ONE, A( 1, J ), 1, YT, G, AA( 1 + ( J - 1 )*LDA ), EPS, ERR, FATAL, NOUT, .TRUE. );
                            ERRMAX = MAX( ERRMAX, ERR )
                            // If got really bad answer, report and return.
-                           IF( FATAL ) GO TO 130
+                           if (FATAL) GO TO 130;
                         } // 70
                      } else {
                         // Avoid repeating tests with M.le.0 or N.le.0.
@@ -1452,9 +1452,9 @@
          N = IDIM( IN )
          // Set LDA to 1 more than minimum value if room.
          LDA = N
-         IF( LDA.LT.NMAX ) LDA = LDA + 1
+         if (LDA.LT.NMAX) LDA = LDA + 1;
          // Skip tests if not enough room.
-         IF( LDA.GT.NMAX ) GO TO 100
+         if (LDA.GT.NMAX) GO TO 100;
          if ( PACKED ) {
             LAA = ( N*( N + 1 ) )/2
          } else {
@@ -1506,12 +1506,12 @@
                   // Call the subroutine.
 
                   if ( FULL ) {
-                     IF( TRACE ) WRITE( NTRA, FMT = 9993 )NC, SNAME, UPLO, N, ALPHA, INCX, LDA
-                     IF( REWI ) REWIND NTRA
+                     if (TRACE) WRITE( NTRA, FMT = 9993 )NC, SNAME, UPLO, N, ALPHA, INCX, LDA;
+                     if (REWI) REWIND NTRA;
                      dsyr(UPLO, N, ALPHA, XX, INCX, AA, LDA );
                   } else if ( PACKED ) {
-                     IF( TRACE ) WRITE( NTRA, FMT = 9994 )NC, SNAME, UPLO, N, ALPHA, INCX
-                     IF( REWI ) REWIND NTRA
+                     if (TRACE) WRITE( NTRA, FMT = 9994 )NC, SNAME, UPLO, N, ALPHA, INCX;
+                     if (REWI) REWIND NTRA;
                      dspr(UPLO, N, ALPHA, XX, INCX, AA );
                   }
 
@@ -1586,11 +1586,11 @@
                         }
                         ERRMAX = MAX( ERRMAX, ERR )
                         // If got really bad answer, report and return.
-                        IF( FATAL ) GO TO 110
+                        if (FATAL) GO TO 110;
                      } // 60
                   } else {
                      // Avoid repeating tests if N.le.0.
-                     IF( N.LE.0 ) GO TO 100
+                     if (N.LE.0) GO TO 100;
                   }
 
                } // 70
@@ -1698,9 +1698,9 @@
          N = IDIM( IN )
          // Set LDA to 1 more than minimum value if room.
          LDA = N
-         IF( LDA.LT.NMAX ) LDA = LDA + 1
+         if (LDA.LT.NMAX) LDA = LDA + 1;
          // Skip tests if not enough room.
-         IF( LDA.GT.NMAX ) GO TO 140
+         if (LDA.GT.NMAX) GO TO 140;
          if ( PACKED ) {
             LAA = ( N*( N + 1 ) )/2
          } else {
@@ -1769,11 +1769,11 @@
                      // Call the subroutine.
 
                      if ( FULL ) {
-                        IF( TRACE ) WRITE( NTRA, FMT = 9993 )NC, SNAME, UPLO, N, ALPHA, INCX, INCY, LDA
-                        IF( REWI ) REWIND NTRA                         CALL DSYR2( UPLO, N, ALPHA, XX, INCX, YY, INCY, AA, LDA )
+                        if (TRACE) WRITE( NTRA, FMT = 9993 )NC, SNAME, UPLO, N, ALPHA, INCX, INCY, LDA;
+                        if (REWI) REWIND NTRA                         CALL DSYR2( UPLO, N, ALPHA, XX, INCX, YY, INCY, AA, LDA );
                      } else if ( PACKED ) {
-                        IF( TRACE ) WRITE( NTRA, FMT = 9994 )NC, SNAME, UPLO, N, ALPHA, INCX, INCY
-                        IF( REWI ) REWIND NTRA                         CALL DSPR2( UPLO, N, ALPHA, XX, INCX, YY, INCY, AA )
+                        if (TRACE) WRITE( NTRA, FMT = 9994 )NC, SNAME, UPLO, N, ALPHA, INCX, INCY;
+                        if (REWI) REWIND NTRA                         CALL DSPR2( UPLO, N, ALPHA, XX, INCX, YY, INCY, AA );
                      }
 
                      // Check if error-exit was taken incorrectly.
@@ -1859,11 +1859,11 @@
                            }
                            ERRMAX = MAX( ERRMAX, ERR )
                            // If got really bad answer, report and return.
-                           IF( FATAL ) GO TO 150
+                           if (FATAL) GO TO 150;
                         } // 90
                      } else {
                         // Avoid repeating tests with N.le.0.
-                        IF( N.LE.0 ) GO TO 140
+                        if (N.LE.0) GO TO 140;
                      }
 
                   } // 100
@@ -2294,7 +2294,7 @@
                }
             }
          } // 10
-         IF( TRI ) A( J, J ) = A( J, J ) + ONE          IF( UNIT ) A( J, J ) = ONE
+         if (TRI) A( J, J ) = A( J, J ) + ONE          IF( UNIT ) A( J, J ) = ONE;
       } // 20
 
       // Store elements in array AS in data structure required by routine.
@@ -2390,7 +2390,7 @@
                IOFF = IOFF + 1
                AA( IOFF ) = A( I, J )
                if ( I.EQ.J ) {
-                  IF( UNIT ) AA( IOFF ) = ROGUE
+                  if (UNIT) AA( IOFF ) = ROGUE;
                }
             } // 180
          } // 190

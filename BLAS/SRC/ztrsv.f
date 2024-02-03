@@ -57,7 +57,7 @@
 
       // Quick return if possible.
 
-      IF (N.EQ.0) RETURN
+      if (N.EQ.0) RETURN;
 
       NOCONJ = LSAME(TRANS,'T')
       NOUNIT = LSAME(DIAG,'N')
@@ -82,7 +82,7 @@
               if (INCX.EQ.1) {
                   DO 20 J = N,1,-1
                       if (X(J).NE.ZERO) {
-                          IF (NOUNIT) X(J) = X(J)/A(J,J)
+                          if (NOUNIT) X(J) = X(J)/A(J,J);
                           TEMP = X(J)
                           DO 10 I = J - 1,1,-1
                               X(I) = X(I) - TEMP*A(I,J)
@@ -93,7 +93,7 @@
                   JX = KX + (N-1)*INCX
                   DO 40 J = N,1,-1
                       if (X(JX).NE.ZERO) {
-                          IF (NOUNIT) X(JX) = X(JX)/A(J,J)
+                          if (NOUNIT) X(JX) = X(JX)/A(J,J);
                           TEMP = X(JX)
                           IX = JX
                           DO 30 I = J - 1,1,-1
@@ -108,7 +108,7 @@
               if (INCX.EQ.1) {
                   for (J = 1; J <= N; J++) { // 60
                       if (X(J).NE.ZERO) {
-                          IF (NOUNIT) X(J) = X(J)/A(J,J)
+                          if (NOUNIT) X(J) = X(J)/A(J,J);
                           TEMP = X(J)
                           for (I = J + 1; I <= N; I++) { // 50
                               X(I) = X(I) - TEMP*A(I,J)
@@ -119,7 +119,7 @@
                   JX = KX
                   for (J = 1; J <= N; J++) { // 80
                       if (X(JX).NE.ZERO) {
-                          IF (NOUNIT) X(JX) = X(JX)/A(J,J)
+                          if (NOUNIT) X(JX) = X(JX)/A(J,J);
                           TEMP = X(JX)
                           IX = JX
                           for (I = J + 1; I <= N; I++) { // 70
@@ -143,12 +143,12 @@
                           for (I = 1; I <= J - 1; I++) { // 90
                               TEMP = TEMP - A(I,J)*X(I)
                           } // 90
-                          IF (NOUNIT) TEMP = TEMP/A(J,J)
+                          if (NOUNIT) TEMP = TEMP/A(J,J);
                       } else {
                           for (I = 1; I <= J - 1; I++) { // 100
                               TEMP = TEMP - DCONJG(A(I,J))*X(I)
                           } // 100
-                          IF (NOUNIT) TEMP = TEMP/DCONJG(A(J,J))
+                          if (NOUNIT) TEMP = TEMP/DCONJG(A(J,J));
                       }
                       X(J) = TEMP
                   } // 110
@@ -162,13 +162,13 @@
                               TEMP = TEMP - A(I,J)*X(IX)
                               IX = IX + INCX
                           } // 120
-                          IF (NOUNIT) TEMP = TEMP/A(J,J)
+                          if (NOUNIT) TEMP = TEMP/A(J,J);
                       } else {
                           for (I = 1; I <= J - 1; I++) { // 130
                               TEMP = TEMP - DCONJG(A(I,J))*X(IX)
                               IX = IX + INCX
                           } // 130
-                          IF (NOUNIT) TEMP = TEMP/DCONJG(A(J,J))
+                          if (NOUNIT) TEMP = TEMP/DCONJG(A(J,J));
                       }
                       X(JX) = TEMP
                       JX = JX + INCX
@@ -182,12 +182,12 @@
                           DO 150 I = N,J + 1,-1
                               TEMP = TEMP - A(I,J)*X(I)
                           } // 150
-                          IF (NOUNIT) TEMP = TEMP/A(J,J)
+                          if (NOUNIT) TEMP = TEMP/A(J,J);
                       } else {
                           DO 160 I = N,J + 1,-1
                               TEMP = TEMP - DCONJG(A(I,J))*X(I)
                           } // 160
-                          IF (NOUNIT) TEMP = TEMP/DCONJG(A(J,J))
+                          if (NOUNIT) TEMP = TEMP/DCONJG(A(J,J));
                       }
                       X(J) = TEMP
                   } // 170
@@ -202,13 +202,13 @@
                               TEMP = TEMP - A(I,J)*X(IX)
                               IX = IX - INCX
                           } // 180
-                          IF (NOUNIT) TEMP = TEMP/A(J,J)
+                          if (NOUNIT) TEMP = TEMP/A(J,J);
                       } else {
                           DO 190 I = N,J + 1,-1
                               TEMP = TEMP - DCONJG(A(I,J))*X(IX)
                               IX = IX - INCX
                           } // 190
-                          IF (NOUNIT) TEMP = TEMP/DCONJG(A(J,J))
+                          if (NOUNIT) TEMP = TEMP/DCONJG(A(J,J));
                       }
                       X(JX) = TEMP
                       JX = JX - INCX

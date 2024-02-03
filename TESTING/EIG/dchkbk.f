@@ -47,7 +47,7 @@
       } // 10
 
       READ( NIN, FMT = * )N, ILO, IHI
-      IF( N.EQ.0 ) GO TO 60
+      if (N.EQ.0) GO TO 60;
 
       READ( NIN, FMT = * )( SCALE( I ), I = 1, N )
       for (I = 1; I <= N; I++) { // 20

@@ -112,7 +112,7 @@
 
       // Use unblocked code for the last or only block.
 
-      IF( KK.LT.N ) CALL SORG2R( M-KK, N-KK, K-KK, A( KK+1, KK+1 ), LDA, TAU( KK+1 ), WORK, IINFO )
+      if (KK.LT.N) CALL SORG2R( M-KK, N-KK, K-KK, A( KK+1, KK+1 ), LDA, TAU( KK+1 ), WORK, IINFO );
 
       if ( KK.GT.0 ) {
 

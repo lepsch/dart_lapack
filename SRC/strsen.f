@@ -122,7 +122,7 @@
       // Quick return if possible.
 
       if ( M.EQ.N .OR. M.EQ.0 ) {
-         IF( WANTS ) S = ONE          IF( WANTSP ) SEP = SLANGE( '1', N, N, T, LDT, WORK )
+         if (WANTS) S = ONE          IF( WANTSP ) SEP = SLANGE( '1', N, N, T, LDT, WORK );
          GO TO 40
       }
 
@@ -148,16 +148,16 @@
 
                IERR = 0
                KK = K
-               IF( K.NE.KS ) CALL STREXC( COMPQ, N, T, LDT, Q, LDQ, KK, KS, WORK, IERR )
+               if (K.NE.KS) CALL STREXC( COMPQ, N, T, LDT, Q, LDQ, KK, KS, WORK, IERR );
                if ( IERR.EQ.1 .OR. IERR.EQ.2 ) {
 
                   // Blocks too close to swap: exit.
 
                   INFO = 1
-                  IF( WANTS ) S = ZERO                   IF( WANTSP ) SEP = ZERO
+                  if (WANTS) S = ZERO                   IF( WANTSP ) SEP = ZERO;
                   GO TO 40
                }
-               IF( PAIR ) KS = KS + 1
+               if (PAIR) KS = KS + 1;
             }
          }
       } // 20

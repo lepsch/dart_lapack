@@ -64,18 +64,18 @@
 
       // Quick return if possible
 
-      IF( N.EQ.0 ) RETURN
+      if (N.EQ.0) RETURN;
 
       if ( N.EQ.1 ) {
-         IF( ICOMPZ.GT.0 ) Z( 1, 1 ) = CONE
+         if (ICOMPZ.GT.0) Z( 1, 1 ) = CONE;
          RETURN
       }
-      IF( ICOMPZ.EQ.2 ) CALL CLASET( 'Full', N, N, CZERO, CONE, Z, LDZ )
+      if (ICOMPZ.EQ.2) CALL CLASET( 'Full', N, N, CZERO, CONE, Z, LDZ );
 
       // Call SPTTRF to factor the matrix.
 
       spttrf(N, D, E, INFO );
-      IF( INFO.NE.0 ) RETURN
+      if (INFO.NE.0) RETURN;
       for (I = 1; I <= N; I++) { // 10
          D( I ) = SQRT( D( I ) )
       } // 10

@@ -166,7 +166,7 @@
         // =9                      random nonsymmetric
         // =10                     random bidiagonal (log. distrib.)
 
-            IF( MTYPES.GT.MAXTYP ) GO TO 100
+            if (MTYPES.GT.MAXTYP) GO TO 100;
 
             ITYPE = KTYPE( JTYPE )
             IMODE = KMODE( JTYPE )
@@ -251,7 +251,7 @@
                TEMP1 = -TWO*LOG( ULP )
                for (J = 1; J <= MNMIN; J++) { // 90
                   BD( J ) = EXP( TEMP1*SLARND( 2, ISEED ) )
-                  IF( J.LT.MNMIN ) BE( J ) = EXP( TEMP1*SLARND( 2, ISEED ) )
+                  if (J.LT.MNMIN) BE( J ) = EXP( TEMP1*SLARND( 2, ISEED ) );
                } // 90
 
                IINFO = 0
@@ -314,7 +314,7 @@
                // Generate Q
 
                MQ = M
-               IF( NRHS.LE.0 ) MQ = MNMIN                CALL SORGBR( 'Q', M, MQ, N, Q, LDQ, WORK, WORK( 2*MNMIN+1 ), LWORK-2*MNMIN, IINFO )
+               if (NRHS.LE.0) MQ = MNMIN                CALL SORGBR( 'Q', M, MQ, N, Q, LDQ, WORK, WORK( 2*MNMIN+1 ), LWORK-2*MNMIN, IINFO );
 
                // Check error code from SORGBR.
 
@@ -351,7 +351,7 @@
             // B := U * S1 * VT, and compute Z = U' * Y.
 
             scopy(MNMIN, BD, 1, S1, 1 );
-            IF( MNMIN.GT.0 ) CALL SCOPY( MNMIN-1, BE, 1, WORK, 1 )
+            if (MNMIN.GT.0) CALL SCOPY( MNMIN-1, BE, 1, WORK, 1 );
             slacpy(' ', M, NRHS, Y, LDX, Z, LDX );
             slaset('Full', MNMIN, MNMIN, ZERO, ONE, U, LDPT );
             slaset('Full', MNMIN, MNMIN, ZERO, ONE, VT, LDPT );
@@ -375,7 +375,7 @@
             // bidiagonal matrix B;  U, VT, and Z should not be modified.
 
             scopy(MNMIN, BD, 1, S2, 1 );
-            IF( MNMIN.GT.0 ) CALL SCOPY( MNMIN-1, BE, 1, WORK, 1 )
+            if (MNMIN.GT.0) CALL SCOPY( MNMIN-1, BE, 1, WORK, 1 );
 
             sbdsqr(UPLO, MNMIN, 0, 0, 0, S2, WORK, VT, LDPT, U, LDPT, Z, LDX, WORK( MNMIN+1 ), IINFO );
 
@@ -428,7 +428,7 @@
 
             for (J = 0; J <= LOG2UI; J++) { // 130
                 // CALL SSVDCH( MNMIN, BD, BE, S1, TEMP1, IINFO )
-               IF( IINFO.EQ.0 ) GO TO 140
+               if (IINFO.EQ.0) GO TO 140;
                TEMP1 = TEMP1*TWO
             } // 130
 
@@ -440,7 +440,7 @@
 
             if ( .NOT.BIDIAG ) {
                scopy(MNMIN, BD, 1, S2, 1 );
-               IF( MNMIN.GT.0 ) CALL SCOPY( MNMIN-1, BE, 1, WORK, 1 )
+               if (MNMIN.GT.0) CALL SCOPY( MNMIN-1, BE, 1, WORK, 1 );
 
                sbdsqr(UPLO, MNMIN, N, M, NRHS, S2, WORK, PT, LDPT, Q, LDQ, Y, LDX, WORK( MNMIN+1 ), IINFO );
 
@@ -456,7 +456,7 @@
             // B := U * S1 * VT
 
             scopy(MNMIN, BD, 1, S1, 1 );
-            IF( MNMIN.GT.0 ) CALL SCOPY( MNMIN-1, BE, 1, WORK, 1 )
+            if (MNMIN.GT.0) CALL SCOPY( MNMIN-1, BE, 1, WORK, 1 );
             slaset('Full', MNMIN, MNMIN, ZERO, ONE, U, LDPT );
             slaset('Full', MNMIN, MNMIN, ZERO, ONE, VT, LDPT );
 
@@ -479,7 +479,7 @@
             // bidiagonal matrix B;  U and VT should not be modified.
 
             scopy(MNMIN, BD, 1, S2, 1 );
-            IF( MNMIN.GT.0 ) CALL SCOPY( MNMIN-1, BE, 1, WORK, 1 )
+            if (MNMIN.GT.0) CALL SCOPY( MNMIN-1, BE, 1, WORK, 1 );
 
             sbdsdc(UPLO, 'N', MNMIN, S2, WORK, DUM, 1, DUM, 1, DUM, IDUM, WORK( MNMIN+1 ), IWORK, IINFO );
 
@@ -544,7 +544,7 @@
             MNMIN2 = MAX( 1,MNMIN*2 )
 
             scopy(MNMIN, BD, 1, WORK( IWBD ), 1 );
-            IF( MNMIN.GT.0 ) CALL SCOPY( MNMIN-1, BE, 1, WORK( IWBE ), 1 )
+            if (MNMIN.GT.0) CALL SCOPY( MNMIN-1, BE, 1, WORK( IWBE ), 1 );
 
             sbdsvdx(UPLO, 'V', 'A', MNMIN, WORK( IWBD ), WORK( IWBE ), ZERO, ZERO, 0, 0, NS1, S1, WORK( IWBZ ), MNMIN2, WORK( IWWORK ), IWORK, IINFO);
 
@@ -581,7 +581,7 @@
             }
 
             scopy(MNMIN, BD, 1, WORK( IWBD ), 1 );
-            IF( MNMIN.GT.0 ) CALL SCOPY( MNMIN-1, BE, 1, WORK( IWBE ), 1 )
+            if (MNMIN.GT.0) CALL SCOPY( MNMIN-1, BE, 1, WORK( IWBE ), 1 );
 
             sbdsvdx(UPLO, 'N', 'A', MNMIN, WORK( IWBD ), WORK( IWBE ), ZERO, ZERO, 0, 0, NS2, S2, WORK( IWBZ ), MNMIN2, WORK( IWWORK ), IWORK, IINFO );
 
@@ -648,7 +648,7 @@
             }
 
             scopy(MNMIN, BD, 1, WORK( IWBD ), 1 );
-            IF( MNMIN.GT.0 ) CALL SCOPY( MNMIN-1, BE, 1, WORK( IWBE ), 1 )
+            if (MNMIN.GT.0) CALL SCOPY( MNMIN-1, BE, 1, WORK( IWBE ), 1 );
 
             sbdsvdx(UPLO, 'V', 'I', MNMIN, WORK( IWBD ), WORK( IWBE ), ZERO, ZERO, IL, IU, NS1, S1, WORK( IWBZ ), MNMIN2, WORK( IWWORK ), IWORK, IINFO);
 
@@ -677,7 +677,7 @@
             // bidiagonal matrix B;  U and VT should not be modified.
 
             scopy(MNMIN, BD, 1, WORK( IWBD ), 1 );
-            IF( MNMIN.GT.0 ) CALL SCOPY( MNMIN-1, BE, 1, WORK( IWBE ), 1 )
+            if (MNMIN.GT.0) CALL SCOPY( MNMIN-1, BE, 1, WORK( IWBE ), 1 );
 
             sbdsvdx(UPLO, 'N', 'I', MNMIN, WORK( IWBD ), WORK( IWBE ), ZERO, ZERO, IL, IU, NS2, S2, WORK( IWBZ ), MNMIN2, WORK( IWWORK ), IWORK, IINFO );
 
@@ -737,14 +737,14 @@
                }
                VL = MAX( VL,ZERO )
                VU = MAX( VU,ZERO )
-               IF( VL.GE.VU ) VU = MAX( VU*2, VU+VL+HALF )
+               if (VL.GE.VU) VU = MAX( VU*2, VU+VL+HALF );
             } else {
                VL = ZERO
                VU = ONE
             }
 
             scopy(MNMIN, BD, 1, WORK( IWBD ), 1 );
-            IF( MNMIN.GT.0 ) CALL SCOPY( MNMIN-1, BE, 1, WORK( IWBE ), 1 )
+            if (MNMIN.GT.0) CALL SCOPY( MNMIN-1, BE, 1, WORK( IWBE ), 1 );
 
             sbdsvdx(UPLO, 'V', 'V', MNMIN, WORK( IWBD ), WORK( IWBE ), VL, VU, 0, 0, NS1, S1, WORK( IWBZ ), MNMIN2, WORK( IWWORK ), IWORK, IINFO );
 
@@ -773,7 +773,7 @@
             // bidiagonal matrix B;  U and VT should not be modified.
 
             scopy(MNMIN, BD, 1, WORK( IWBD ), 1 );
-            IF( MNMIN.GT.0 ) CALL SCOPY( MNMIN-1, BE, 1, WORK( IWBE ), 1 )
+            if (MNMIN.GT.0) CALL SCOPY( MNMIN-1, BE, 1, WORK( IWBE ), 1 );
 
             sbdsvdx(UPLO, 'N', 'V', MNMIN, WORK( IWBD ), WORK( IWBE ), VL, VU, 0, 0, NS2, S2, WORK( IWBZ ), MNMIN2, WORK( IWWORK ), IWORK, IINFO );
 
@@ -820,7 +820,7 @@
 
             for (J = 1; J <= 34; J++) { // 280
                if ( RESULT( J ).GE.THRESH ) {
-                  IF( NFAIL.EQ.0 ) CALL SLAHD2( NOUT, PATH )                   WRITE( NOUT, FMT = 9999 )M, N, JTYPE, IOLDSD, J, RESULT( J )
+                  if (NFAIL.EQ.0) CALL SLAHD2( NOUT, PATH )                   WRITE( NOUT, FMT = 9999 )M, N, JTYPE, IOLDSD, J, RESULT( J );
                   NFAIL = NFAIL + 1
                }
             } // 280

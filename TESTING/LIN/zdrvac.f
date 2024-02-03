@@ -82,7 +82,7 @@
          N = MVAL( IM )
          LDA = MAX( N, 1 )
          NIMAT = NTYPES
-         IF( N.LE.0 ) NIMAT = 1
+         if (N.LE.0) NIMAT = 1;
 
          for (IMAT = 1; IMAT <= NIMAT; IMAT++) { // 110
 
@@ -93,7 +93,7 @@
             // Skip types 3, 4, or 5 if the matrix size is too small.
 
             ZEROT = IMAT.GE.3 .AND. IMAT.LE.5
-            IF( ZEROT .AND. N.LT.IMAT-2 ) GO TO 110
+            if (ZEROT .AND. N.LT.IMAT-2) GO TO 110;
 
             // Do first for UPLO = 'U', then for UPLO = 'L'
 
@@ -185,7 +185,7 @@
 
                   if ( INFO.NE.IZERO ) {
 
-                     IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )
+                     if (NFAIL.EQ.0 .AND. NERRS.EQ.0) CALL ALAHD( NOUT, PATH );
                      NERRS = NERRS + 1
 
                      if ( INFO.NE.IZERO .AND. IZERO.NE.0 ) {
@@ -197,7 +197,7 @@
 
                   // Skip the remaining test if the matrix is singular.
 
-                  IF( INFO.NE.0 ) GO TO 110
+                  if (INFO.NE.0) GO TO 110;
 
                   // Check the quality of the solution
 

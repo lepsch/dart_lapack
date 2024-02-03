@@ -55,7 +55,7 @@
 
       // Quick return if N.LE.0.
 
-      IF( N.LE.0 ) RETURN
+      if (N.LE.0) RETURN;
 
       // Call SLATB4 to set parameters for SLATMS.
 
@@ -218,7 +218,7 @@
          } else {
             for (J = 1; J <= N; J++) { // 130
                LENJ = MIN( N-J+1, KD+1 )
-               IF( LENJ.GT.0 ) CALL SLARNV( 2, ISEED, LENJ, AB( 1, J ) )
+               if (LENJ.GT.0) CALL SLARNV( 2, ISEED, LENJ, AB( 1, J ) );
                AB( 1, J ) = SIGN( TWO, AB( 1, J ) )
             } // 130
          }
@@ -251,7 +251,7 @@
             for (J = 1; J <= N; J++) { // 150
                LENJ = MIN( N-J+1, KD+1 )
                slarnv(2, ISEED, LENJ, AB( 1, J ) );
-               IF( LENJ.GT.1 ) CALL SSCAL( LENJ-1, TSCAL, AB( 2, J ), 1 )
+               if (LENJ.GT.1) CALL SSCAL( LENJ-1, TSCAL, AB( 2, J ), 1 );
                AB( 1, J ) = SIGN( ONE, AB( 1, J ) )
             } // 150
             AB( 1, 1 ) = SMLNUM*AB( 1, 1 )
@@ -298,7 +298,7 @@
                   AB( KD+1, J ) = ONE
                }
                JCOUNT = JCOUNT + 1
-               IF( JCOUNT.GT.4 ) JCOUNT = 1
+               if (JCOUNT.GT.4) JCOUNT = 1;
             } // 190
          } else {
             JCOUNT = 1
@@ -312,7 +312,7 @@
                   AB( 1, J ) = ONE
                }
                JCOUNT = JCOUNT + 1
-               IF( JCOUNT.GT.4 ) JCOUNT = 1
+               if (JCOUNT.GT.4) JCOUNT = 1;
             } // 210
          }
 
@@ -346,7 +346,7 @@
                DO 240 I = MAX( 1, KD+2-J ), KD
                   AB( I, J ) = ZERO
                } // 240
-               IF( J.GT.1 .AND. KD.GT.0 ) AB( KD, J ) = -ONE
+               if (J.GT.1 .AND. KD.GT.0) AB( KD, J ) = -ONE;
                AB( KD+1, J ) = TSCAL
             } // 250
             B( N ) = ONE
@@ -355,7 +355,7 @@
                DO 260 I = 3, MIN( N-J+1, KD+1 )
                   AB( I, J ) = ZERO
                } // 260
-               IF( J.LT.N .AND. KD.GT.0 ) AB( 2, J ) = -ONE
+               if (J.LT.N .AND. KD.GT.0) AB( 2, J ) = -ONE;
                AB( 1, J ) = TSCAL
             } // 270
             B( 1 ) = ONE
@@ -461,7 +461,7 @@
          } else {
             for (J = 1; J <= N; J++) { // 380
                LENJ = MIN( N-J, KD )
-               IF( LENJ.GT.0 ) CALL SLARNV( 2, ISEED, LENJ, AB( 2, J ) )
+               if (LENJ.GT.0) CALL SLARNV( 2, ISEED, LENJ, AB( 2, J ) );
                AB( 1, J ) = REAL( J )
             } // 380
          }

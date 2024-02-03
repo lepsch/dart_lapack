@@ -63,7 +63,7 @@
 
       // Quick return if possible
 
-      IF( N.EQ.0 ) RETURN
+      if (N.EQ.0) RETURN;
 
       zhetri_3x(UPLO, N, A, LDA, E, IPIV, WORK, NB, INFO );
 

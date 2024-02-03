@@ -64,7 +64,7 @@
 
       // Quick return if possible
 
-      IF( N.EQ.0 .OR. NRHS.EQ.0 ) RETURN
+      if (N.EQ.0 .OR. NRHS.EQ.0) RETURN;
 
       if ( UPPER ) {
 
@@ -78,7 +78,7 @@
 
             for (K = 1; K <= N; K++) {
                KP = IPIV( K )
-               IF( KP.NE.K ) CALL CSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB )
+               if (KP.NE.K) CALL CSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
             }
 
             // Compute U**T \ B -> B    [ (U**T \P**T * B) ]
@@ -109,7 +109,7 @@
 
             DO K = N, 1, -1
                KP = IPIV( K )
-               IF( KP.NE.K ) CALL CSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB )
+               if (KP.NE.K) CALL CSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
             }
          }
 
@@ -125,7 +125,7 @@
 
             for (K = 1; K <= N; K++) {
                KP = IPIV( K )
-               IF( KP.NE.K ) CALL CSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB )
+               if (KP.NE.K) CALL CSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
             }
 
             // Compute L \ B -> B    [ (L \P**T * B) ]
@@ -157,7 +157,7 @@
 
             DO K = N, 1, -1
                KP = IPIV( K )
-               IF( KP.NE.K ) CALL CSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB )
+               if (KP.NE.K) CALL CSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
             }
          }
 

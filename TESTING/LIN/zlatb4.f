@@ -509,7 +509,7 @@
             ANORM = ONE
          }
       }
-      IF( N.LE.1 ) CNDNUM = ONE
+      if (N.LE.1) CNDNUM = ONE;
 
       RETURN
 

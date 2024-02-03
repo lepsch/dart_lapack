@@ -78,7 +78,7 @@
       // Quick return if possible
 
       SCALE = ONE
-      IF( N.EQ.0 ) RETURN
+      if (N.EQ.0) RETURN;
 
       // Determine machine dependent parameters to control overflow.
 
@@ -166,7 +166,7 @@
 
                // Exit the loop if the growth factor is too small.
 
-               IF( GROW.LE.SMLNUM ) GO TO 60
+               if (GROW.LE.SMLNUM) GO TO 60;
 
                TJJS = AB( MAIND, J )
                TJJ = CABS1( TJJS )
@@ -207,7 +207,7 @@
 
                // Exit the loop if the growth factor is too small.
 
-               IF( GROW.LE.SMLNUM ) GO TO 60
+               if (GROW.LE.SMLNUM) GO TO 60;
 
                // G(j) = G(j-1)*( 1 + CNORM(j) )
 
@@ -250,7 +250,7 @@
 
                // Exit the loop if the growth factor is too small.
 
-               IF( GROW.LE.SMLNUM ) GO TO 90
+               if (GROW.LE.SMLNUM) GO TO 90;
 
                // G(j) = max( G(j-1), M(j-1)*( 1 + CNORM(j) ) )
 
@@ -264,7 +264,7 @@
 
                   // M(j) = M(j-1)*( 1 + CNORM(j) ) / abs(A(j,j))
 
-                  IF( XJ.GT.TJJ ) XBND = XBND*( TJJ / XJ )
+                  if (XJ.GT.TJJ) XBND = XBND*( TJJ / XJ );
                } else {
 
                   // M(j) could overflow, set XBND to 0.
@@ -284,7 +284,7 @@
 
                // Exit the loop if the growth factor is too small.
 
-               IF( GROW.LE.SMLNUM ) GO TO 90
+               if (GROW.LE.SMLNUM) GO TO 90;
 
                // G(j) = ( 1 + CNORM(j) )*G(j-1)
 
@@ -330,7 +330,7 @@
                   TJJS = AB( MAIND, J )*TSCAL
                } else {
                   TJJS = TSCAL
-                  IF( TSCAL.EQ.ONE ) GO TO 105
+                  if (TSCAL.EQ.ONE) GO TO 105;
                }
                   TJJ = CABS1( TJJS )
                   if ( TJJ.GT.SMLNUM ) {
@@ -428,7 +428,7 @@
                                            // x(j) * A(j+1:min(j+kd,n),j)
 
                   JLEN = MIN( KD, N-J )
-                  IF( JLEN.GT.0 ) CALL CAXPY( JLEN, -X( J )*TSCAL, AB( 2, J ), 1, X( J+1 ), 1 )
+                  if (JLEN.GT.0) CALL CAXPY( JLEN, -X( J )*TSCAL, AB( 2, J ), 1, X( J+1 ), 1 );
                   I = J + ICAMAX( N-J, X( J+1 ), 1 )
                   XMAX = CABS1( X( I ) )
                }
@@ -482,7 +482,7 @@
                      CSUMJ = CDOTU( JLEN, AB( KD+1-JLEN, J ), 1, X( J-JLEN ), 1 )
                   } else {
                      JLEN = MIN( KD, N-J )
-                     IF( JLEN.GT.1 ) CSUMJ = CDOTU( JLEN, AB( 2, J ), 1, X( J+1 ), 1 )
+                     if (JLEN.GT.1) CSUMJ = CDOTU( JLEN, AB( 2, J ), 1, X( J+1 ), 1 );
                   }
                } else {
 
@@ -515,7 +515,7 @@
                      TJJS = AB( MAIND, J )*TSCAL
                   } else {
                      TJJS = TSCAL
-                     IF( TSCAL.EQ.ONE ) GO TO 145
+                     if (TSCAL.EQ.ONE) GO TO 145;
                   }
                      TJJ = CABS1( TJJS )
                      if ( TJJ.GT.SMLNUM ) {
@@ -619,7 +619,7 @@
                      CSUMJ = CDOTC( JLEN, AB( KD+1-JLEN, J ), 1, X( J-JLEN ), 1 )
                   } else {
                      JLEN = MIN( KD, N-J )
-                     IF( JLEN.GT.1 ) CSUMJ = CDOTC( JLEN, AB( 2, J ), 1, X( J+1 ), 1 )
+                     if (JLEN.GT.1) CSUMJ = CDOTC( JLEN, AB( 2, J ), 1, X( J+1 ), 1 );
                   }
                } else {
 
@@ -652,7 +652,7 @@
                      TJJS = CONJG( AB( MAIND, J ) )*TSCAL
                   } else {
                      TJJS = TSCAL
-                     IF( TSCAL.EQ.ONE ) GO TO 185
+                     if (TSCAL.EQ.ONE) GO TO 185;
                   }
                      TJJ = CABS1( TJJS )
                      if ( TJJ.GT.SMLNUM ) {

@@ -70,11 +70,11 @@
 
       // Quick return if possible
 
-      IF( N.EQ.0 ) RETURN
+      if (N.EQ.0) RETURN;
 
       // Initialize Q to the unit matrix, if needed
 
-      IF( INITQ ) CALL CLASET( 'Full', N, N, CZERO, CONE, Q, LDQ )
+      if (INITQ) CALL CLASET( 'Full', N, N, CZERO, CONE, Q, LDQ );
 
       // Wherever possible, plane rotations are generated and applied in
       // vector operations of length NR over the index set J1:J2:KD1.
@@ -151,7 +151,7 @@
                   // apply plane rotations from both sides to diagonal
                   // blocks
 
-                  IF( NR.GT.0 ) CALL CLAR2V( NR, AB( KD1, J1-1 ), AB( KD1, J1 ), AB( KD, J1 ), INCA, D( J1 ), WORK( J1 ), KD1 )
+                  if (NR.GT.0) CALL CLAR2V( NR, AB( KD1, J1-1 ), AB( KD1, J1 ), AB( KD, J1 ), INCA, D( J1 ), WORK( J1 ), KD1 );
 
                   // apply plane rotations from the left
 
@@ -168,7 +168,7 @@
                            } else {
                               NRT = NR
                            }
-                           IF( NRT.GT.0 ) CALL CLARTV( NRT, AB( KD-L, J1+L ), INCA, AB( KD-L+1, J1+L ), INCA, D( J1 ), WORK( J1 ), KD1 )
+                           if (NRT.GT.0) CALL CLARTV( NRT, AB( KD-L, J1+L ), INCA, AB( KD-L+1, J1+L ), INCA, D( J1 ), WORK( J1 ), KD1 );
                         } // 30
                      } else {
                         J1END = J1 + KD1*( NR-2 )
@@ -179,7 +179,7 @@
                         }
                         LEND = MIN( KDM1, N-J2 )
                         LAST = J1END + KD1
-                        IF( LEND.GT.0 ) CALL CROT( LEND, AB( KD-1, LAST+1 ), INCX, AB( KD, LAST+1 ), INCX, D( LAST ), WORK( LAST ) )
+                        if (LEND.GT.0) CALL CROT( LEND, AB( KD-1, LAST+1 ), INCX, AB( KD, LAST+1 ), INCX, D( LAST ), WORK( LAST ) );
                      }
                   }
 
@@ -195,7 +195,7 @@
                         IQEND = MAX( IQEND, J2 )
                         I2 = MAX( 0, K-3 )
                         IQAEND = 1 + I*KD
-                        IF( K.EQ.2 ) IQAEND = IQAEND + KD
+                        if (K.EQ.2) IQAEND = IQAEND + KD;
                         IQAEND = MIN( IQAEND, IQEND )
                         DO 50 J = J1, J2, KD1
                            IBL = I - I2 / KDM1
@@ -248,7 +248,7 @@
                } else {
                   T = CONE
                }
-               IF( I.LT.N-1 ) AB( KD, I+2 ) = AB( KD, I+2 )*T
+               if (I.LT.N-1) AB( KD, I+2 ) = AB( KD, I+2 )*T;
                if ( WANTQ ) {
                   cscal(N, CONJG( T ), Q( 1, I+1 ), 1 );
                }
@@ -334,7 +334,7 @@
                   // apply plane rotations from both sides to diagonal
                   // blocks
 
-                  IF( NR.GT.0 ) CALL CLAR2V( NR, AB( 1, J1-1 ), AB( 1, J1 ), AB( 2, J1-1 ), INCA, D( J1 ), WORK( J1 ), KD1 )
+                  if (NR.GT.0) CALL CLAR2V( NR, AB( 1, J1-1 ), AB( 1, J1 ), AB( 2, J1-1 ), INCA, D( J1 ), WORK( J1 ), KD1 );
 
                   // apply plane rotations from the right
 
@@ -351,7 +351,7 @@
                            } else {
                               NRT = NR
                            }
-                           IF( NRT.GT.0 ) CALL CLARTV( NRT, AB( L+2, J1-1 ), INCA, AB( L+1, J1 ), INCA, D( J1 ), WORK( J1 ), KD1 )
+                           if (NRT.GT.0) CALL CLARTV( NRT, AB( L+2, J1-1 ), INCA, AB( L+1, J1 ), INCA, D( J1 ), WORK( J1 ), KD1 );
                         } // 150
                      } else {
                         J1END = J1 + KD1*( NR-2 )
@@ -362,7 +362,7 @@
                         }
                         LEND = MIN( KDM1, N-J2 )
                         LAST = J1END + KD1
-                        IF( LEND.GT.0 ) CALL CROT( LEND, AB( 3, LAST-1 ), 1, AB( 2, LAST ), 1, D( LAST ), WORK( LAST ) )
+                        if (LEND.GT.0) CALL CROT( LEND, AB( 3, LAST-1 ), 1, AB( 2, LAST ), 1, D( LAST ), WORK( LAST ) );
                      }
                   }
 
@@ -380,7 +380,7 @@
                         IQEND = MAX( IQEND, J2 )
                         I2 = MAX( 0, K-3 )
                         IQAEND = 1 + I*KD
-                        IF( K.EQ.2 ) IQAEND = IQAEND + KD
+                        if (K.EQ.2) IQAEND = IQAEND + KD;
                         IQAEND = MIN( IQAEND, IQEND )
                         DO 170 J = J1, J2, KD1
                            IBL = I - I2 / KDM1
@@ -432,7 +432,7 @@
                } else {
                   T = CONE
                }
-               IF( I.LT.N-1 ) AB( 2, I+1 ) = AB( 2, I+1 )*T
+               if (I.LT.N-1) AB( 2, I+1 ) = AB( 2, I+1 )*T;
                if ( WANTQ ) {
                   cscal(N, T, Q( 1, I+1 ), 1 );
                }

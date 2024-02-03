@@ -86,7 +86,7 @@
          RESULT( I ) = -ONE
       } // 10
 
-      IF( N.EQ.0 ) RETURN
+      if (N.EQ.0) RETURN;
 
       // Important constants
 
@@ -211,7 +211,7 @@
                   IF( ZSLECT( W( I+1 ) ) .AND. ( .NOT.ZSLECT( W( I ) ) ) )RESULT( 13 ) = ULPINV
                }
             } // 80
-            IF( SDIM.NE.KNTEIG ) RESULT( 13 ) = ULPINV
+            if (SDIM.NE.KNTEIG) RESULT( 13 ) = ULPINV;
          }
 
       } // 90
@@ -248,7 +248,7 @@
                IF( H( I, J ).NE.HT( I, J ) ) RESULT( 11 ) = ULPINV                IF( VS( I, J ).NE.VS1( I, J ) ) RESULT( 12 ) = ULPINV
             } // 100
          } // 110
-         IF( SDIM.NE.SDIM1 ) RESULT( 13 ) = ULPINV
+         if (SDIM.NE.SDIM1) RESULT( 13 ) = ULPINV;
 
          // Compute both RCONDE and RCONDV without VS, and compare
 
@@ -268,7 +268,7 @@
 
          // Perform tests (14) and (15)
 
-         IF( RCNDE1.NE.RCONDE ) RESULT( 14 ) = ULPINV          IF( RCNDV1.NE.RCONDV ) RESULT( 15 ) = ULPINV
+         if (RCNDE1.NE.RCONDE) RESULT( 14 ) = ULPINV          IF( RCNDV1.NE.RCONDV ) RESULT( 15 ) = ULPINV;
 
          // Perform tests (10), (11), (12), and (13)
 
@@ -278,7 +278,7 @@
                IF( H( I, J ).NE.HT( I, J ) ) RESULT( 11 ) = ULPINV                IF( VS( I, J ).NE.VS1( I, J ) ) RESULT( 12 ) = ULPINV
             } // 120
          } // 130
-         IF( SDIM.NE.SDIM1 ) RESULT( 13 ) = ULPINV
+         if (SDIM.NE.SDIM1) RESULT( 13 ) = ULPINV;
 
          // Compute RCONDE with VS, and compare
 
@@ -297,7 +297,7 @@
 
          // Perform test (14)
 
-         IF( RCNDE1.NE.RCONDE ) RESULT( 14 ) = ULPINV
+         if (RCNDE1.NE.RCONDE) RESULT( 14 ) = ULPINV;
 
          // Perform tests (10), (11), (12), and (13)
 
@@ -307,7 +307,7 @@
                IF( H( I, J ).NE.HT( I, J ) ) RESULT( 11 ) = ULPINV                IF( VS( I, J ).NE.VS1( I, J ) ) RESULT( 12 ) = ULPINV
             } // 140
          } // 150
-         IF( SDIM.NE.SDIM1 ) RESULT( 13 ) = ULPINV
+         if (SDIM.NE.SDIM1) RESULT( 13 ) = ULPINV;
 
          // Compute RCONDE without VS, and compare
 
@@ -326,7 +326,7 @@
 
          // Perform test (14)
 
-         IF( RCNDE1.NE.RCONDE ) RESULT( 14 ) = ULPINV
+         if (RCNDE1.NE.RCONDE) RESULT( 14 ) = ULPINV;
 
          // Perform tests (10), (11), (12), and (13)
 
@@ -336,7 +336,7 @@
                IF( H( I, J ).NE.HT( I, J ) ) RESULT( 11 ) = ULPINV                IF( VS( I, J ).NE.VS1( I, J ) ) RESULT( 12 ) = ULPINV
             } // 160
          } // 170
-         IF( SDIM.NE.SDIM1 ) RESULT( 13 ) = ULPINV
+         if (SDIM.NE.SDIM1) RESULT( 13 ) = ULPINV;
 
          // Compute RCONDV with VS, and compare
 
@@ -355,7 +355,7 @@
 
          // Perform test (15)
 
-         IF( RCNDV1.NE.RCONDV ) RESULT( 15 ) = ULPINV
+         if (RCNDV1.NE.RCONDV) RESULT( 15 ) = ULPINV;
 
          // Perform tests (10), (11), (12), and (13)
 
@@ -365,7 +365,7 @@
                IF( H( I, J ).NE.HT( I, J ) ) RESULT( 11 ) = ULPINV                IF( VS( I, J ).NE.VS1( I, J ) ) RESULT( 12 ) = ULPINV
             } // 180
          } // 190
-         IF( SDIM.NE.SDIM1 ) RESULT( 13 ) = ULPINV
+         if (SDIM.NE.SDIM1) RESULT( 13 ) = ULPINV;
 
          // Compute RCONDV without VS, and compare
 
@@ -384,7 +384,7 @@
 
          // Perform test (15)
 
-         IF( RCNDV1.NE.RCONDV ) RESULT( 15 ) = ULPINV
+         if (RCNDV1.NE.RCONDV) RESULT( 15 ) = ULPINV;
 
          // Perform tests (10), (11), (12), and (13)
 
@@ -394,7 +394,7 @@
                IF( H( I, J ).NE.HT( I, J ) ) RESULT( 11 ) = ULPINV                IF( VS( I, J ).NE.VS1( I, J ) ) RESULT( 12 ) = ULPINV
             } // 200
          } // 210
-         IF( SDIM.NE.SDIM1 ) RESULT( 13 ) = ULPINV
+         if (SDIM.NE.SDIM1) RESULT( 13 ) = ULPINV;
 
       }
 
@@ -464,7 +464,7 @@
 
          ANORM = ZLANGE( '1', N, N, A, LDA, RWORK )
          V = MAX( DBLE( N )*EPS*ANORM, SMLNUM )
-         IF( ANORM.EQ.ZERO ) V = ONE
+         if (ANORM.EQ.ZERO) V = ONE;
          if ( V.GT.RCONDV ) {
             TOL = ONE
          } else {

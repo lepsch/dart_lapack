@@ -44,7 +44,7 @@
 
       RESULT( 1 ) = ZERO
       RESULT( 2 ) = ZERO
-      IF( N.LE.0 ) RETURN
+      if (N.LE.0) RETURN;
 
       IKA = MAX( 0, MIN( N-1, KA ) )
 

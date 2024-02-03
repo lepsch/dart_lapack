@@ -61,7 +61,7 @@
          // Compute the L*D*L**T (or U**T*D*U) factorization of A.
 
          dcopy(N, D, 1, DF, 1 );
-         IF( N.GT.1 ) CALL DCOPY( N-1, E, 1, EF, 1 )
+         if (N.GT.1) CALL DCOPY( N-1, E, 1, EF, 1 );
          dpttrf(N, DF, EF, INFO );
 
          // Return if INFO is non-zero.

@@ -65,7 +65,7 @@
 
       WRITE( 6, 9997 )T2 - T1
       AVG = ( ( T2-T1 ) - TNOSEC ) * 1000.0D+00/DBLE( ITS )
-      IF( AVG.GT.0.0) WRITE( 6, 9996 )AVG
+      if (AVG.GT.0.0) WRITE( 6, 9996 )AVG;
 
       // Compute the equivalent number of floating point operations used
       // by an average call to DSECND.

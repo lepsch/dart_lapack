@@ -62,7 +62,7 @@
                SUBNAM( 1: 1 ) = CHAR( IC-32 )
                for (I = 2; I <= 12; I++) { // 100
                   IC = ICHAR( SUBNAM( I: I ) )
-                  IF( IC.GE.97 .AND. IC.LE.122 ) SUBNAM( I: I ) = CHAR( IC-32 )
+                  if (IC.GE.97 .AND. IC.LE.122) SUBNAM( I: I ) = CHAR( IC-32 );
                } // 100
             }
 
@@ -86,7 +86,7 @@
                SUBNAM( 1: 1 ) = CHAR( IC-32 )
                for (I = 2; I <= 12; I++) { // 120
                  IC = ICHAR( SUBNAM( I: I ) )
-                 IF( IC.GE.225 .AND. IC.LE.250 ) SUBNAM( I: I ) = CHAR( IC-32 )
+                 if (IC.GE.225 .AND. IC.LE.250) SUBNAM( I: I ) = CHAR( IC-32 );
                } // 120
             }
          }
@@ -139,8 +139,8 @@
                IB = 16
             }
          }
-         IF( ISPEC.EQ.17 ) IPARAM2STAGE = KD
-         IF( ISPEC.EQ.18 ) IPARAM2STAGE = IB
+         if (ISPEC.EQ.17) IPARAM2STAGE = KD;
+         if (ISPEC.EQ.18) IPARAM2STAGE = IB;
 
       } else if ( ISPEC .EQ. 19 ) {
 

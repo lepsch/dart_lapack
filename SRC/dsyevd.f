@@ -95,11 +95,11 @@
 
       // Quick return if possible
 
-      IF( N.EQ.0 ) RETURN
+      if (N.EQ.0) RETURN;
 
       if ( N.EQ.1 ) {
          W( 1 ) = A( 1, 1 )
-         IF( WANTZ ) A( 1, 1 ) = ONE
+         if (WANTZ) A( 1, 1 ) = ONE;
          RETURN
       }
 
@@ -123,7 +123,7 @@
          ISCALE = 1
          SIGMA = RMAX / ANRM
       }
-      IF( ISCALE.EQ.1 ) CALL DLASCL( UPLO, 0, 0, ONE, SIGMA, N, N, A, LDA, INFO )
+      if (ISCALE.EQ.1) CALL DLASCL( UPLO, 0, 0, ONE, SIGMA, N, N, A, LDA, INFO );
 
       // Call DSYTRD to reduce symmetric matrix to tridiagonal form.
 
@@ -150,7 +150,7 @@
 
       // If matrix was scaled, then rescale eigenvalues appropriately.
 
-      IF( ISCALE.EQ.1 ) CALL DSCAL( N, ONE / SIGMA, W, 1 )
+      if (ISCALE.EQ.1) CALL DSCAL( N, ONE / SIGMA, W, 1 );
 
       WORK( 1 ) = LOPT
       IWORK( 1 ) = LIOPT

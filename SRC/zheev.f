@@ -81,7 +81,7 @@
       if ( N.EQ.1 ) {
          W( 1 ) = DBLE( A( 1, 1 ) )
          WORK( 1 ) = 1
-         IF( WANTZ ) A( 1, 1 ) = CONE
+         if (WANTZ) A( 1, 1 ) = CONE;
          RETURN
       }
 
@@ -105,7 +105,7 @@
          ISCALE = 1
          SIGMA = RMAX / ANRM
       }
-      IF( ISCALE.EQ.1 ) CALL ZLASCL( UPLO, 0, 0, ONE, SIGMA, N, N, A, LDA, INFO )
+      if (ISCALE.EQ.1) CALL ZLASCL( UPLO, 0, 0, ONE, SIGMA, N, N, A, LDA, INFO );
 
       // Call ZHETRD to reduce Hermitian matrix to tridiagonal form.
 

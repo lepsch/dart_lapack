@@ -78,7 +78,7 @@
 
       // Test the error exits
 
-      IF( TSTERR ) CALL ZERRTR( PATH, NOUT )
+      if (TSTERR) CALL ZERRTR( PATH, NOUT );
       INFOT = 0
 
       for (IN = 1; IN <= NN; IN++) { // 110
@@ -118,13 +118,13 @@
 *+    TEST 1
                // Form the inverse of A.
 
-               IF( N.GT.0 ) CALL ZCOPY( LAP, AP, 1, AINVP, 1 )
+               if (N.GT.0) CALL ZCOPY( LAP, AP, 1, AINVP, 1 );
                SRNAMT = 'ZTPTRI'
                ztptri(UPLO, DIAG, N, AINVP, INFO );
 
                // Check error code from ZTPTRI.
 
-               IF( INFO.NE.0 ) CALL ALAERH( PATH, 'ZTPTRI', INFO, 0, UPLO // DIAG, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT )
+               if (INFO.NE.0) CALL ALAERH( PATH, 'ZTPTRI', INFO, 0, UPLO // DIAG, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
 
                // Compute the infinity-norm condition number of A.
 
@@ -144,7 +144,7 @@
                // Print the test ratio if it is .GE. THRESH.
 
                if ( RESULT( 1 ).GE.THRESH ) {
-                  IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                   WRITE( NOUT, FMT = 9999 )UPLO, DIAG, N, IMAT, 1, RESULT( 1 )
+                  if (NFAIL.EQ.0 .AND. NERRS.EQ.0) CALL ALAHD( NOUT, PATH )                   WRITE( NOUT, FMT = 9999 )UPLO, DIAG, N, IMAT, 1, RESULT( 1 );
                   NFAIL = NFAIL + 1
                }
                NRUN = NRUN + 1
@@ -179,7 +179,7 @@
 
                   // Check error code from ZTPTRS.
 
-                     IF( INFO.NE.0 ) CALL ALAERH( PATH, 'ZTPTRS', INFO, 0, UPLO // TRANS // DIAG, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT )
+                     if (INFO.NE.0) CALL ALAERH( PATH, 'ZTPTRS', INFO, 0, UPLO // TRANS // DIAG, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
 
                      ztpt02(UPLO, TRANS, DIAG, N, NRHS, AP, X, LDA, B, LDA, WORK, RWORK, RESULT( 2 ) );
 
@@ -197,7 +197,7 @@
 
                   // Check error code from ZTPRFS.
 
-                     IF( INFO.NE.0 ) CALL ALAERH( PATH, 'ZTPRFS', INFO, 0, UPLO // TRANS // DIAG, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT )
+                     if (INFO.NE.0) CALL ALAERH( PATH, 'ZTPRFS', INFO, 0, UPLO // TRANS // DIAG, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
 
                      zget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 4 ) )                      CALL ZTPT05( UPLO, TRANS, DIAG, N, NRHS, AP, B, LDA, X, LDA, XACT, LDA, RWORK, RWORK( NRHS+1 ), RESULT( 5 ) );
 
@@ -206,7 +206,7 @@
 
                      for (K = 2; K <= 6; K++) { // 20
                         if ( RESULT( K ).GE.THRESH ) {
-                           IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                            WRITE( NOUT, FMT = 9998 )UPLO, TRANS, DIAG, N, NRHS, IMAT, K, RESULT( K )
+                           if (NFAIL.EQ.0 .AND. NERRS.EQ.0) CALL ALAHD( NOUT, PATH )                            WRITE( NOUT, FMT = 9998 )UPLO, TRANS, DIAG, N, NRHS, IMAT, K, RESULT( K );
                            NFAIL = NFAIL + 1
                         }
                      } // 20
@@ -230,14 +230,14 @@
 
                   // Check error code from ZTPCON.
 
-                  IF( INFO.NE.0 ) CALL ALAERH( PATH, 'ZTPCON', INFO, 0, NORM // UPLO // DIAG, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT )
+                  if (INFO.NE.0) CALL ALAERH( PATH, 'ZTPCON', INFO, 0, NORM // UPLO // DIAG, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
 
                   ztpt06(RCOND, RCONDC, UPLO, DIAG, N, AP, RWORK, RESULT( 7 ) );
 
                   // Print the test ratio if it is .GE. THRESH.
 
                   if ( RESULT( 7 ).GE.THRESH ) {
-                     IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                      WRITE( NOUT, FMT = 9997 ) 'ZTPCON', NORM, UPLO, DIAG, N, IMAT, 7, RESULT( 7 )
+                     if (NFAIL.EQ.0 .AND. NERRS.EQ.0) CALL ALAHD( NOUT, PATH )                      WRITE( NOUT, FMT = 9997 ) 'ZTPCON', NORM, UPLO, DIAG, N, IMAT, 7, RESULT( 7 );
                      NFAIL = NFAIL + 1
                   }
                   NRUN = NRUN + 1
@@ -278,7 +278,7 @@
 
                   // Check error code from ZLATPS.
 
-                  IF( INFO.NE.0 ) CALL ALAERH( PATH, 'ZLATPS', INFO, 0, UPLO // TRANS // DIAG // 'N', N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT )
+                  if (INFO.NE.0) CALL ALAERH( PATH, 'ZLATPS', INFO, 0, UPLO // TRANS // DIAG // 'N', N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
 
                   ztpt03(UPLO, TRANS, DIAG, N, 1, AP, SCALE, RWORK, ONE, B, LDA, X, LDA, WORK, RESULT( 8 ) );
 
@@ -290,7 +290,7 @@
 
                   // Check error code from ZLATPS.
 
-                  IF( INFO.NE.0 ) CALL ALAERH( PATH, 'ZLATPS', INFO, 0, UPLO // TRANS // DIAG // 'Y', N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT )
+                  if (INFO.NE.0) CALL ALAERH( PATH, 'ZLATPS', INFO, 0, UPLO // TRANS // DIAG // 'Y', N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
 
                   ztpt03(UPLO, TRANS, DIAG, N, 1, AP, SCALE, RWORK, ONE, B( N+1 ), LDA, X, LDA, WORK, RESULT( 9 ) );
 
@@ -298,11 +298,11 @@
                   // the threshold.
 
                   if ( RESULT( 8 ).GE.THRESH ) {
-                     IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                      WRITE( NOUT, FMT = 9996 )'ZLATPS', UPLO, TRANS, DIAG, 'N', N, IMAT, 8, RESULT( 8 )
+                     if (NFAIL.EQ.0 .AND. NERRS.EQ.0) CALL ALAHD( NOUT, PATH )                      WRITE( NOUT, FMT = 9996 )'ZLATPS', UPLO, TRANS, DIAG, 'N', N, IMAT, 8, RESULT( 8 );
                      NFAIL = NFAIL + 1
                   }
                   if ( RESULT( 9 ).GE.THRESH ) {
-                     IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                      WRITE( NOUT, FMT = 9996 )'ZLATPS', UPLO, TRANS, DIAG, 'Y', N, IMAT, 9, RESULT( 9 )
+                     if (NFAIL.EQ.0 .AND. NERRS.EQ.0) CALL ALAHD( NOUT, PATH )                      WRITE( NOUT, FMT = 9996 )'ZLATPS', UPLO, TRANS, DIAG, 'Y', N, IMAT, 9, RESULT( 9 );
                      NFAIL = NFAIL + 1
                   }
                   NRUN = NRUN + 2

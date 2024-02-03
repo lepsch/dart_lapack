@@ -39,7 +39,7 @@
       // Quick exit if M = 0 or N = 0.
 
       RESID = ZERO
-      IF( M.LE.0 .OR. N.LE.0 ) RETURN
+      if (M.LE.0 .OR. N.LE.0) RETURN;
 
       // Determine EPS and the norm of A.
 
@@ -49,7 +49,7 @@
       for (J = 1; J <= N; J++) { // 10
          I1 = MAX( KD+1-J, 1 )
          I2 = MIN( KD+M-J, KL+KD )
-         IF( I2.GE.I1 ) ANORM = MAX( ANORM, SCASUM( I2-I1+1, A( I1, J ), 1 ) )
+         if (I2.GE.I1) ANORM = MAX( ANORM, SCASUM( I2-I1+1, A( I1, J ), 1 ) );
       } // 10
 
       // Compute one column at a time of L*U - A.
@@ -89,7 +89,7 @@
             // Subtract the corresponding column of A.
 
             JUA = MIN( JU, KU )
-            IF( JUA+JL+1.GT.0 ) CALL CAXPY( JUA+JL+1, -CMPLX( ONE ), A( KU+1-JUA, J ), 1, WORK( JU+1-JUA ), 1 )
+            if (JUA+JL+1.GT.0) CALL CAXPY( JUA+JL+1, -CMPLX( ONE ), A( KU+1-JUA, J ), 1, WORK( JU+1-JUA ), 1 );
 
             // Compute the 1-norm of the column.
 
@@ -100,7 +100,7 @@
       // Compute norm(L*U - A) / ( N * norm(A) * EPS )
 
       if ( ANORM.LE.ZERO ) {
-         IF( RESID.NE.ZERO ) RESID = ONE / EPS
+         if (RESID.NE.ZERO) RESID = ONE / EPS;
       } else {
          RESID = ( ( RESID / REAL( N ) ) / ANORM ) / EPS
       }

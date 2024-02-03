@@ -94,7 +94,7 @@
             NT = NREQ( I )
             if ( NT.GT.0 .AND. NT.LE.NTYPES ) {
                if ( DOTYPE( NT ) ) {
-                  IF( FIRSTT ) WRITE( NOUT, FMT = * )
+                  if (FIRSTT) WRITE( NOUT, FMT = * );
                   FIRSTT = .FALSE.
                   WRITE( NOUT, FMT = 9997 )NT, PATH
                }

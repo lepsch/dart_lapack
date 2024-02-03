@@ -119,7 +119,7 @@
 
       // Quick return if possible
 
-      IF( N.EQ.0 ) RETURN
+      if (N.EQ.0) RETURN;
 
       // Get machine constants
 
@@ -197,7 +197,7 @@
       }
 
       zunmqr('L', 'C', IROWS, ICOLS, IROWS, B( ILO, ILO ), LDB, WORK( ITAU ), A( ILO, ILO ), LDA, WORK( IWORK ), LWORK+1-IWORK, IINFO );
-      IF( IINFO.GE.0 ) LWKOPT = MAX( LWKOPT, INT( WORK( IWORK ) )+IWORK-1 )
+      if (IINFO.GE.0) LWKOPT = MAX( LWKOPT, INT( WORK( IWORK ) )+IWORK-1 );
       if ( IINFO.NE.0 ) {
          INFO = N + 3
          GO TO 80
@@ -206,14 +206,14 @@
       if ( ILVL ) {
          zlaset('Full', N, N, CZERO, CONE, VL, LDVL );
          zlacpy('L', IROWS-1, IROWS-1, B( ILO+1, ILO ), LDB, VL( ILO+1, ILO ), LDVL )          CALL ZUNGQR( IROWS, IROWS, IROWS, VL( ILO, ILO ), LDVL, WORK( ITAU ), WORK( IWORK ), LWORK+1-IWORK, IINFO );
-         IF( IINFO.GE.0 ) LWKOPT = MAX( LWKOPT, INT( WORK( IWORK ) )+IWORK-1 )
+         if (IINFO.GE.0) LWKOPT = MAX( LWKOPT, INT( WORK( IWORK ) )+IWORK-1 );
          if ( IINFO.NE.0 ) {
             INFO = N + 4
             GO TO 80
          }
       }
 
-      IF( ILVR ) CALL ZLASET( 'Full', N, N, CZERO, CONE, VR, LDVR )
+      if (ILVR) CALL ZLASET( 'Full', N, N, CZERO, CONE, VR, LDVR );
 
       // Reduce to generalized Hessenberg form
 
@@ -239,7 +239,7 @@
          CHTEMP = 'E'
       }
       zhgeqz(CHTEMP, JOBVL, JOBVR, N, ILO, IHI, A, LDA, B, LDB, ALPHA, BETA, VL, LDVL, VR, LDVR, WORK( IWORK ), LWORK+1-IWORK, RWORK( IRWORK ), IINFO );
-      IF( IINFO.GE.0 ) LWKOPT = MAX( LWKOPT, INT( WORK( IWORK ) )+IWORK-1 )
+      if (IINFO.GE.0) LWKOPT = MAX( LWKOPT, INT( WORK( IWORK ) )+IWORK-1 );
       if ( IINFO.NE.0 ) {
          if ( IINFO.GT.0 .AND. IINFO.LE.N ) {
             INFO = IINFO
@@ -284,7 +284,7 @@
                for (JR = 1; JR <= N; JR++) { // 10
                   TEMP = MAX( TEMP, ABS1( VL( JR, JC ) ) )
                } // 10
-               IF( TEMP.LT.SAFMIN ) GO TO 30
+               if (TEMP.LT.SAFMIN) GO TO 30;
                TEMP = ONE / TEMP
                for (JR = 1; JR <= N; JR++) { // 20
                   VL( JR, JC ) = VL( JR, JC )*TEMP
@@ -302,7 +302,7 @@
                for (JR = 1; JR <= N; JR++) { // 40
                   TEMP = MAX( TEMP, ABS1( VR( JR, JC ) ) )
                } // 40
-               IF( TEMP.LT.SAFMIN ) GO TO 60
+               if (TEMP.LT.SAFMIN) GO TO 60;
                TEMP = ONE / TEMP
                for (JR = 1; JR <= N; JR++) { // 50
                   VR( JR, JC ) = VR( JR, JC )*TEMP

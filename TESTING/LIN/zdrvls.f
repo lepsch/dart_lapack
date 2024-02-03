@@ -87,7 +87,7 @@
       // Test the error exits
 
       xlaenv(9, SMLSIZ );
-      IF( TSTERR ) CALL ZERRLS( PATH, NOUT )
+      if (TSTERR) CALL ZERRLS( PATH, NOUT );
 
       // Print the header if NM = 0 or NN = 0 and THRESH = 0.
 
@@ -257,14 +257,14 @@
                               SRNAMT = 'ZGELS '
                               zgels(TRANS, M, N, NRHS, A, LDA, B, LDB, WORK, LWORK, INFO );
 
-                              IF( INFO.NE.0 ) CALL ALAERH( PATH, 'ZGELS ', INFO, 0, TRANS, M, N, NRHS, -1, NB, ITYPE, NFAIL, NERRS, NOUT )
+                              if (INFO.NE.0) CALL ALAERH( PATH, 'ZGELS ', INFO, 0, TRANS, M, N, NRHS, -1, NB, ITYPE, NFAIL, NERRS, NOUT );
 
                               // Test 1: Check correctness of results
                               // for ZGELS, compute the residual:
                               // RESID = norm(B - A*X) /
                               // / ( max(m,n) * norm(A) * norm(X) * EPS )
 
-                              IF( NROWS.GT.0 .AND. NRHS.GT.0 ) CALL ZLACPY( 'Full', NROWS, NRHS, COPYB, LDB, C, LDB )                               CALL ZQRT16( TRANS, M, N, NRHS, COPYA, LDA, B, LDB, C, LDB, RWORK, RESULT( 1 ) )
+                              if (NROWS.GT.0 .AND. NRHS.GT.0) CALL ZLACPY( 'Full', NROWS, NRHS, COPYB, LDB, C, LDB )                               CALL ZQRT16( TRANS, M, N, NRHS, COPYA, LDA, B, LDB, C, LDB, RWORK, RESULT( 1 ) );
 
                               // Test 2: Check correctness of results
                               // for ZGELS.
@@ -286,7 +286,7 @@
 
                               for (K = 1; K <= 2; K++) {
                                  if ( RESULT( K ).GE.THRESH ) {
-                                    IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                                     WRITE( NOUT, FMT = 9999 )TRANS, M, N, NRHS, NB, ITYPE, K, RESULT( K )
+                                    if (NFAIL.EQ.0 .AND. NERRS.EQ.0) CALL ALAHD( NOUT, PATH )                                     WRITE( NOUT, FMT = 9999 )TRANS, M, N, NRHS, NB, ITYPE, K, RESULT( K );
                                     NFAIL = NFAIL + 1
                                  }
                               }
@@ -343,14 +343,14 @@
                               SRNAMT = 'ZGELST'
                               zgelst(TRANS, M, N, NRHS, A, LDA, B, LDB, WORK, LWORK, INFO );
 
-                              IF( INFO.NE.0 ) CALL ALAERH( PATH, 'ZGELST', INFO, 0, TRANS, M, N, NRHS, -1, NB, ITYPE, NFAIL, NERRS, NOUT )
+                              if (INFO.NE.0) CALL ALAERH( PATH, 'ZGELST', INFO, 0, TRANS, M, N, NRHS, -1, NB, ITYPE, NFAIL, NERRS, NOUT );
 
                               // Test 3: Check correctness of results
                               // for ZGELST, compute the residual:
                               // RESID = norm(B - A*X) /
                               // / ( max(m,n) * norm(A) * norm(X) * EPS )
 
-                              IF( NROWS.GT.0 .AND. NRHS.GT.0 ) CALL ZLACPY( 'Full', NROWS, NRHS, COPYB, LDB, C, LDB )                               CALL ZQRT16( TRANS, M, N, NRHS, COPYA, LDA, B, LDB, C, LDB, RWORK, RESULT( 3 ) )
+                              if (NROWS.GT.0 .AND. NRHS.GT.0) CALL ZLACPY( 'Full', NROWS, NRHS, COPYB, LDB, C, LDB )                               CALL ZQRT16( TRANS, M, N, NRHS, COPYA, LDA, B, LDB, C, LDB, RWORK, RESULT( 3 ) );
 
                               // Test 4: Check correctness of results
                               // for ZGELST.
@@ -372,7 +372,7 @@
 
                               for (K = 3; K <= 4; K++) {
                                  if ( RESULT( K ).GE.THRESH ) {
-                                    IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                                     WRITE( NOUT, FMT = 9999 )TRANS, M, N, NRHS, NB, ITYPE, K, RESULT( K )
+                                    if (NFAIL.EQ.0 .AND. NERRS.EQ.0) CALL ALAHD( NOUT, PATH )                                     WRITE( NOUT, FMT = 9999 )TRANS, M, N, NRHS, NB, ITYPE, K, RESULT( K );
                                     NFAIL = NFAIL + 1
                                  }
                               }
@@ -440,7 +440,7 @@
                               // RESID = norm(B - A*X) /
                               // / ( max(m,n) * norm(A) * norm(X) * EPS )
 
-                                 IF( NROWS.GT.0 .AND. NRHS.GT.0 ) CALL ZLACPY( 'Full', NROWS, NRHS, COPYB, LDB, C, LDB )                                  CALL ZQRT16( TRANS, M, N, NRHS, COPYA, LDA, B, LDB, C, LDB, WORK2, RESULT( 5 ) )
+                                 if (NROWS.GT.0 .AND. NRHS.GT.0) CALL ZLACPY( 'Full', NROWS, NRHS, COPYB, LDB, C, LDB )                                  CALL ZQRT16( TRANS, M, N, NRHS, COPYA, LDA, B, LDB, C, LDB, WORK2, RESULT( 5 ) );
 
                               // Test 6: Check correctness of results
                               // for ZGETSLS.
@@ -464,7 +464,7 @@
 
                                  for (K = 5; K <= 6; K++) {
                                     if ( RESULT( K ).GE.THRESH ) {
-                                       IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                                        WRITE( NOUT, FMT = 9997 )TRANS, M, N, NRHS, MB, NB, ITYPE, K, RESULT( K )
+                                       if (NFAIL.EQ.0 .AND. NERRS.EQ.0) CALL ALAHD( NOUT, PATH )                                        WRITE( NOUT, FMT = 9997 )TRANS, M, N, NRHS, MB, NB, ITYPE, K, RESULT( K );
                                           NFAIL = NFAIL + 1
                                     }
                                  }
@@ -528,14 +528,14 @@
                                  // workspace: NRHS*(M+N)
 
                         RESULT( 9 ) = ZERO
-                        IF( M.GT.CRANK ) RESULT( 9 ) = ZQRT17( 'No transpose', 1, M, N, NRHS, COPYA, LDA, B, LDB, COPYB, LDB, C, WORK, LWORK )
+                        if (M.GT.CRANK) RESULT( 9 ) = ZQRT17( 'No transpose', 1, M, N, NRHS, COPYA, LDA, B, LDB, COPYB, LDB, C, WORK, LWORK );
 
                         // Test 10:  Check if x is in the rowspace of A
                                  // workspace: (M+NRHS)*(N+2)
 
                         RESULT( 10 ) = ZERO
 
-                        IF( N.GT.CRANK ) RESULT( 10 ) = ZQRT14( 'No transpose', M, N, NRHS, COPYA, LDA, B, LDB, WORK, LWORK )
+                        if (N.GT.CRANK) RESULT( 10 ) = ZQRT14( 'No transpose', M, N, NRHS, COPYA, LDA, B, LDB, WORK, LWORK );
 
                         // Test ZGELSS
 
@@ -548,7 +548,7 @@
                         SRNAMT = 'ZGELSS'
                         zgelss(M, N, NRHS, A, LDA, B, LDB, S, RCOND, CRANK, WORK, LWORK, RWORK, INFO );
 
-                        IF( INFO.NE.0 ) CALL ALAERH( PATH, 'ZGELSS', INFO, 0, ' ', M, N, NRHS, -1, NB, ITYPE, NFAIL, NERRS, NOUT )
+                        if (INFO.NE.0) CALL ALAERH( PATH, 'ZGELSS', INFO, 0, ' ', M, N, NRHS, -1, NB, ITYPE, NFAIL, NERRS, NOUT );
 
                         // workspace used: 3*min(m,n) +
                                         // max(2*min(m,n),nrhs,max(m,n))
@@ -569,12 +569,12 @@
                         // Test 13:  Check norm of r'*A
 
                         RESULT( 13 ) = ZERO
-                        IF( M.GT.CRANK ) RESULT( 13 ) = ZQRT17( 'No transpose', 1, M, N, NRHS, COPYA, LDA, B, LDB, COPYB, LDB, C, WORK, LWORK )
+                        if (M.GT.CRANK) RESULT( 13 ) = ZQRT17( 'No transpose', 1, M, N, NRHS, COPYA, LDA, B, LDB, COPYB, LDB, C, WORK, LWORK );
 
                         // Test 14:  Check if x is in the rowspace of A
 
                         RESULT( 14 ) = ZERO
-                        IF( N.GT.CRANK ) RESULT( 14 ) = ZQRT14( 'No transpose', M, N, NRHS, COPYA, LDA, B, LDB, WORK, LWORK )
+                        if (N.GT.CRANK) RESULT( 14 ) = ZQRT14( 'No transpose', M, N, NRHS, COPYA, LDA, B, LDB, WORK, LWORK );
 
                         // Test ZGELSD
 
@@ -606,19 +606,19 @@
                         // Test 17:  Check norm of r'*A
 
                         RESULT( 17 ) = ZERO
-                        IF( M.GT.CRANK ) RESULT( 17 ) = ZQRT17( 'No transpose', 1, M, N, NRHS, COPYA, LDA, B, LDB, COPYB, LDB, C, WORK, LWORK )
+                        if (M.GT.CRANK) RESULT( 17 ) = ZQRT17( 'No transpose', 1, M, N, NRHS, COPYA, LDA, B, LDB, COPYB, LDB, C, WORK, LWORK );
 
                         // Test 18:  Check if x is in the rowspace of A
 
                         RESULT( 18 ) = ZERO
-                        IF( N.GT.CRANK ) RESULT( 18 ) = ZQRT14( 'No transpose', M, N, NRHS, COPYA, LDA, B, LDB, WORK, LWORK )
+                        if (N.GT.CRANK) RESULT( 18 ) = ZQRT14( 'No transpose', M, N, NRHS, COPYA, LDA, B, LDB, WORK, LWORK );
 
                         // Print information about the tests that did not
                         // pass the threshold.
 
                         for (K = 7; K <= 18; K++) { // 80
                            if ( RESULT( K ).GE.THRESH ) {
-                              IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                               WRITE( NOUT, FMT = 9998 )M, N, NRHS, NB, ITYPE, K, RESULT( K )
+                              if (NFAIL.EQ.0 .AND. NERRS.EQ.0) CALL ALAHD( NOUT, PATH )                               WRITE( NOUT, FMT = 9998 )M, N, NRHS, NB, ITYPE, K, RESULT( K );
                               NFAIL = NFAIL + 1
                            }
                         } // 80

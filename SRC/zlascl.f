@@ -88,7 +88,7 @@
 
       // Quick return if possible
 
-      IF( N.EQ.0 .OR. M.EQ.0 ) RETURN
+      if (N.EQ.0 .OR. M.EQ.0) RETURN;
 
       // Get machine parameters
 
@@ -125,7 +125,7 @@
          } else {
             MUL = CTOC / CFROMC
             DONE = .TRUE.
-            IF (MUL .EQ. ONE) RETURN
+            if (MUL .EQ. ONE) RETURN;
          }
       }
 
@@ -209,7 +209,7 @@
 
       }
 
-      IF( .NOT.DONE ) GO TO 10
+      if (.NOT.DONE) GO TO 10;
 
       RETURN
 

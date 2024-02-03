@@ -71,7 +71,7 @@
 
       } // 10
       READ( NIN, FMT = * )N, ISRT
-      IF( N.EQ.0 ) RETURN
+      if (N.EQ.0) RETURN;
       for (I = 1; I <= N; I++) { // 20
          READ( NIN, FMT = * )( TMP( I, J ), J = 1, N )
       } // 20
@@ -89,7 +89,7 @@
          for (I = 1; I <= N; I++) { // 40
             zdscal(N, VMUL, T( 1, I ), 1 );
          } // 40
-         IF( TNRM.EQ.ZERO ) VMUL = ONE
+         if (TNRM.EQ.ZERO) VMUL = ONE;
 
          // Compute eigenvalues and eigenvectors
 
@@ -178,7 +178,7 @@
          // taking their condition numbers into account
 
          V = MAX( TWO*DBLE( N )*EPS*TNRM, SMLNUM )
-         IF( TNRM.EQ.ZERO ) V = ONE
+         if (TNRM.EQ.ZERO) V = ONE;
          for (I = 1; I <= N; I++) { // 120
             if ( V.GT.SEPTMP( I ) ) {
                TOL = ONE

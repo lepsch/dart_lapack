@@ -77,9 +77,9 @@
       NS = 0
       ND = 0
       WORK( 1 ) = ONE
-      IF( KTOP.GT.KBOT ) RETURN
+      if (KTOP.GT.KBOT) RETURN;
       // ... nor for an empty deflation window. ====
-      IF( NW.LT.1 ) RETURN
+      if (NW.LT.1) RETURN;
 
       // ==== Machine constants ====
 
@@ -108,7 +108,7 @@
          if ( CABS1( S ).LE.MAX( SMLNUM, ULP*CABS1( H( KWTOP, KWTOP ) ) ) ) {
             NS = 0
             ND = 1
-            IF( KWTOP.GT.KTOP ) H( KWTOP, KWTOP-1 ) = ZERO
+            if (KWTOP.GT.KTOP) H( KWTOP, KWTOP-1 ) = ZERO;
          }
          WORK( 1 ) = ONE
          RETURN
@@ -153,7 +153,7 @@
 
          // ==== Return to Hessenberg form ====
 
-      IF( NS.EQ.0 ) S = ZERO
+      if (NS.EQ.0) S = ZERO;
 
       if ( NS.LT.JW ) {
 
@@ -166,7 +166,7 @@
                IF( CABS1( T( J, J ) ).GT.CABS1( T( IFST, IFST ) ) ) IFST = J
             } // 20
             ILST = I
-            IF( IFST.NE.ILST ) CALL ZTREXC( 'V', JW, T, LDT, V, LDV, IFST, ILST, INFO )
+            if (IFST.NE.ILST) CALL ZTREXC( 'V', JW, T, LDT, V, LDV, IFST, ILST, INFO );
          } // 30
       }
 
@@ -199,14 +199,14 @@
 
          // ==== Copy updated reduced window into place ====
 
-         IF( KWTOP.GT.1 ) H( KWTOP, KWTOP-1 ) = S*DCONJG( V( 1, 1 ) )
+         if (KWTOP.GT.1) H( KWTOP, KWTOP-1 ) = S*DCONJG( V( 1, 1 ) );
          zlacpy('U', JW, JW, T, LDT, H( KWTOP, KWTOP ), LDH );
          zcopy(JW-1, T( 2, 1 ), LDT+1, H( KWTOP+1, KWTOP ), LDH+1 );
 
          // ==== Accumulate orthogonal matrix in order update
          // .    H and Z, if requested.  ====
 
-         IF( NS.GT.1 .AND. S.NE.ZERO ) CALL ZUNMHR( 'R', 'N', JW, NS, 1, NS, T, LDT, WORK, V, LDV, WORK( JW+1 ), LWORK-JW, INFO )
+         if (NS.GT.1 .AND. S.NE.ZERO) CALL ZUNMHR( 'R', 'N', JW, NS, 1, NS, T, LDT, WORK, V, LDV, WORK( JW+1 ), LWORK-JW, INFO );
 
          // ==== Update vertical slab in H ====
 

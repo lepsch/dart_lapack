@@ -62,7 +62,7 @@
 
             UPLO = UPLOS( IUPLO )
             LOWER = .TRUE.
-            IF ( IUPLO.EQ.1 ) LOWER = .FALSE.
+            if (IUPLO.EQ.1) LOWER = .FALSE.;
 
             // Do first for CFORM = 'N', then for CFORM = 'T'
 

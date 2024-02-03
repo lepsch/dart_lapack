@@ -66,7 +66,7 @@
       // Copy the last k columns of the factorization to the array Q
 
       zlaset('Full', M, M, ROGUE, ROGUE, Q, LDA );
-      IF( K.GT.0 .AND. M.GT.K ) CALL ZLACPY( 'Full', M-K, K, AF( 1, N-K+1 ), LDA, Q( 1, M-K+1 ), LDA )       IF( K.GT.1 ) CALL ZLACPY( 'Upper', K-1, K-1, AF( M-K+1, N-K+2 ), LDA, Q( M-K+1, M-K+2 ), LDA )
+      if (K.GT.0 .AND. M.GT.K) CALL ZLACPY( 'Full', M-K, K, AF( 1, N-K+1 ), LDA, Q( 1, M-K+1 ), LDA )       IF( K.GT.1 ) CALL ZLACPY( 'Upper', K-1, K-1, AF( M-K+1, N-K+2 ), LDA, Q( M-K+1, M-K+2 ), LDA );
 
       // Generate the m-by-m matrix Q
 
@@ -90,7 +90,7 @@
             zlarnv(2, ISEED, MC, C( 1, J ) );
          } // 10
          CNORM = ZLANGE( '1', MC, NC, C, LDA, RWORK )
-         IF( CNORM.EQ.ZERO ) CNORM = ONE
+         if (CNORM.EQ.ZERO) CNORM = ONE;
 
          for (ITRANS = 1; ITRANS <= 2; ITRANS++) { // 20
             if ( ITRANS.EQ.1 ) {
@@ -106,7 +106,7 @@
             // Apply Q or Q' to C
 
             SRNAMT = 'ZUNMQL'
-            IF( K.GT.0 ) CALL ZUNMQL( SIDE, TRANS, MC, NC, K, AF( 1, N-K+1 ), LDA, TAU( MINMN-K+1 ), CC, LDA, WORK, LWORK, INFO )
+            if (K.GT.0) CALL ZUNMQL( SIDE, TRANS, MC, NC, K, AF( 1, N-K+1 ), LDA, TAU( MINMN-K+1 ), CC, LDA, WORK, LWORK, INFO );
 
             // Form explicit product and subtract
 

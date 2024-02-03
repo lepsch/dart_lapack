@@ -80,7 +80,7 @@
 
          // If K < 1, exit from loop
 
-         IF( K.LT.1 ) GO TO 110
+         if (K.LT.1) GO TO 110;
          KSTEP = 1
 
          // Determine rows and columns to be interchanged and whether
@@ -102,7 +102,7 @@
 
             // Column K is zero: set INFO and continue
 
-            IF( INFO.EQ.0 ) INFO = K
+            if (INFO.EQ.0) INFO = K;
             KP = K
          } else {
             if ( ABSAKK.GE.ALPHA*COLMAX ) {
@@ -150,7 +150,7 @@
             }
 
             KK = K - KSTEP + 1
-            IF( KSTEP.EQ.2 ) KNC = KNC - K + 1
+            if (KSTEP.EQ.2) KNC = KNC - K + 1;
             if ( KP.NE.KK ) {
 
                // Interchange rows and columns KK and KP in the leading
@@ -259,7 +259,7 @@
 
          // If K > N, exit from loop
 
-         IF( K.GT.N ) GO TO 110
+         if (K.GT.N) GO TO 110;
          KSTEP = 1
 
          // Determine rows and columns to be interchanged and whether
@@ -281,7 +281,7 @@
 
             // Column K is zero: set INFO and continue
 
-            IF( INFO.EQ.0 ) INFO = K
+            if (INFO.EQ.0) INFO = K;
             KP = K
          } else {
             if ( ABSAKK.GE.ALPHA*COLMAX ) {
@@ -331,13 +331,13 @@
             }
 
             KK = K + KSTEP - 1
-            IF( KSTEP.EQ.2 ) KNC = KNC + N - K + 1
+            if (KSTEP.EQ.2) KNC = KNC + N - K + 1;
             if ( KP.NE.KK ) {
 
                // Interchange rows and columns KK and KP in the trailing
                // submatrix A(k:n,k:n)
 
-               IF( KP.LT.N ) CALL ZSWAP( N-KP, AP( KNC+KP-KK+1 ), 1, AP( KPC+1 ), 1 )
+               if (KP.LT.N) CALL ZSWAP( N-KP, AP( KNC+KP-KK+1 ), 1, AP( KPC+1 ), 1 );
                KX = KNC + KP - KK
                for (J = KK + 1; J <= KP - 1; J++) { // 80
                   KX = KX + N - J + 1

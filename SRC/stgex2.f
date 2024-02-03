@@ -51,7 +51,7 @@
 
       // Quick return if possible
 
-      IF( N.LE.1 .OR. N1.LE.0 .OR. N2.LE.0 ) RETURN       IF( N1.GT.N .OR. ( J1+N1 ).GT.N ) RETURN
+      if (N.LE.1 .OR. N1.LE.0 .OR. N2.LE.0) RETURN       IF( N1.GT.N .OR. ( J1+N1 ).GT.N ) RETURN;
       M = N1 + N2
       if ( LWORK.LT.MAX( N*M, M*M*2 ) ) {
          INFO = -16
@@ -143,7 +143,7 @@
             slassq(M*M, WORK( M*M+1 ), 1, DSCALE, DSUM );
             SB = DSCALE*SQRT( DSUM )
             STRONG = SA.LE.THRESHA .AND. SB.LE.THRESHB
-            IF( .NOT.STRONG ) GO TO 70
+            if (.NOT.STRONG) GO TO 70;
          }
 
          // Update (A(J1:J1+M-1, M+J1:N), B(J1:J1+M-1, M+J1:N)) and
@@ -158,7 +158,7 @@
 
          // Accumulate transformations into Q and Z if requested.
 
-         IF( WANTZ ) CALL SROT( N, Z( 1, J1 ), 1, Z( 1, J1+1 ), 1, IR( 1, 1 ), IR( 2, 1 ) )          IF( WANTQ ) CALL SROT( N, Q( 1, J1 ), 1, Q( 1, J1+1 ), 1, LI( 1, 1 ), LI( 2, 1 ) )
+         if (WANTZ) CALL SROT( N, Z( 1, J1 ), 1, Z( 1, J1+1 ), 1, IR( 1, 1 ), IR( 2, 1 ) )          IF( WANTQ ) CALL SROT( N, Q( 1, J1 ), 1, Q( 1, J1+1 ), 1, LI( 1, 1 ), LI( 2, 1 ) );
 
          // Exit with INFO = 0 if swap was successfully performed.
 
@@ -176,7 +176,7 @@
 
          slacpy('Full', N1, N2, T( 1, N1+1 ), LDST, LI, LDST );
          slacpy('Full', N1, N2, S( 1, N1+1 ), LDST, IR( N2+1, N1+1 ), LDST )          CALL STGSY2( 'N', 0, N1, N2, S, LDST, S( N1+1, N1+1 ), LDST, IR( N2+1, N1+1 ), LDST, T, LDST, T( N1+1, N1+1 ), LDST, LI, LDST, SCALE, DSUM, DSCALE, IWORK, IDUM, LINFO );
-         IF( LINFO.NE.0 ) GO TO 70
+         if (LINFO.NE.0) GO TO 70;
 
          // Compute orthogonal matrix QL:
 
@@ -191,9 +191,9 @@
             LI( N1+I, I ) = SCALE
          } // 10
          sgeqr2(M, N2, LI, LDST, TAUL, WORK, LINFO );
-         IF( LINFO.NE.0 ) GO TO 70
+         if (LINFO.NE.0) GO TO 70;
          sorg2r(M, M, N2, LI, LDST, TAUL, WORK, LINFO );
-         IF( LINFO.NE.0 ) GO TO 70
+         if (LINFO.NE.0) GO TO 70;
 
          // Compute orthogonal matrix RQ:
 
@@ -205,9 +205,9 @@
             IR( N2+I, I ) = SCALE
          } // 20
          sgerq2(N1, M, IR( N2+1, 1 ), LDST, TAUR, WORK, LINFO );
-         IF( LINFO.NE.0 ) GO TO 70
+         if (LINFO.NE.0) GO TO 70;
          sorgr2(M, M, N1, IR, LDST, TAUR, WORK, LINFO );
-         IF( LINFO.NE.0 ) GO TO 70
+         if (LINFO.NE.0) GO TO 70;
 
          // Perform the swapping tentatively:
 
@@ -221,7 +221,7 @@
          // Apply transformation (from left) to A-part, giving S.
 
          sgerq2(M, M, T, LDST, TAUR, WORK, LINFO );
-         IF( LINFO.NE.0 ) GO TO 70          CALL SORMR2( 'R', 'T', M, M, M, T, LDST, TAUR, S, LDST, WORK, LINFO )          IF( LINFO.NE.0 ) GO TO 70          CALL SORMR2( 'L', 'N', M, M, M, T, LDST, TAUR, IR, LDST, WORK, LINFO )          IF( LINFO.NE.0 ) GO TO 70
+         if (LINFO.NE.0) GO TO 70          CALL SORMR2( 'R', 'T', M, M, M, T, LDST, TAUR, S, LDST, WORK, LINFO )          IF( LINFO.NE.0 ) GO TO 70          CALL SORMR2( 'L', 'N', M, M, M, T, LDST, TAUR, IR, LDST, WORK, LINFO )          IF( LINFO.NE.0 ) GO TO 70;
 
          // Compute F-norm(S21) in BRQA21. (T21 is 0.)
 
@@ -236,7 +236,7 @@
          // Apply transformation (from right) to A-part, giving S.
 
          sgeqr2(M, M, TCPY, LDST, TAUL, WORK, LINFO );
-         IF( LINFO.NE.0 ) GO TO 70          CALL SORM2R( 'L', 'T', M, M, M, TCPY, LDST, TAUL, SCPY, LDST, WORK, INFO )          CALL SORM2R( 'R', 'N', M, M, M, TCPY, LDST, TAUL, LICOP, LDST, WORK, INFO )          IF( LINFO.NE.0 ) GO TO 70
+         if (LINFO.NE.0) GO TO 70          CALL SORM2R( 'L', 'T', M, M, M, TCPY, LDST, TAUL, SCPY, LDST, WORK, INFO )          CALL SORM2R( 'R', 'N', M, M, M, TCPY, LDST, TAUL, LICOP, LDST, WORK, INFO )          IF( LINFO.NE.0 ) GO TO 70;
 
          // Compute F-norm(S21) in BQRA21. (T21 is 0.)
 
@@ -283,7 +283,7 @@
             slassq(M*M, WORK( M*M+1 ), 1, DSCALE, DSUM );
             SB = DSCALE*SQRT( DSUM )
             STRONG = SA.LE.THRESHA .AND. SB.LE.THRESHB
-            IF( .NOT.STRONG ) GO TO 70
+            if (.NOT.STRONG) GO TO 70;
 
          }
 

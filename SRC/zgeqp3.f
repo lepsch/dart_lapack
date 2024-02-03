@@ -189,7 +189,7 @@
          // Use unblocked code to factor the last or only block.
 
 
-         IF( J.LE.MINMN ) CALL ZLAQP2( M, N-J+1, J-1, A( 1, J ), LDA, JPVT( J ), TAU( J ), RWORK( J ), RWORK( N+J ), WORK( 1 ) )
+         if (J.LE.MINMN) CALL ZLAQP2( M, N-J+1, J-1, A( 1, J ), LDA, JPVT( J ), TAU( J ), RWORK( J ), RWORK( N+J ), WORK( 1 ) );
 
       }
 

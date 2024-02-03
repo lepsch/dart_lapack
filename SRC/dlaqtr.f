@@ -47,7 +47,7 @@
 
       // Quick return if possible
 
-      IF( N.EQ.0 ) RETURN
+      if (N.EQ.0) RETURN;
 
       // Set constants to control overflow
 
@@ -56,7 +56,7 @@
       BIGNUM = ONE / SMLNUM
 
       XNORM = DLANGE( 'M', N, N, T, LDT, D )
-      IF( .NOT.LREAL ) XNORM = MAX( XNORM, ABS( W ), DLANGE( 'M', N, 1, B, N, D ) )
+      if (.NOT.LREAL) XNORM = MAX( XNORM, ABS( W ), DLANGE( 'M', N, 1, B, N, D ) );
       SMIN = MAX( SMLNUM, EPS*XNORM )
 
       // Compute 1-norm of each column of strictly upper triangular
@@ -75,7 +75,7 @@
 
       N2 = 2*N
       N1 = N
-      IF( .NOT.LREAL ) N1 = N2
+      if (.NOT.LREAL) N1 = N2;
       K = IDAMAX( N1, X, 1 )
       XMAX = ABS( X( K ) )
       SCALE = ONE
@@ -94,7 +94,7 @@
 
             JNEXT = N
             DO 30 J = N, 1, -1
-               IF( J.GT.JNEXT ) GO TO 30
+               if (J.GT.JNEXT) GO TO 30;
                J1 = J
                J2 = J
                JNEXT = J - 1
@@ -121,7 +121,7 @@
                      INFO = 1
                   }
 
-                  IF( XJ.EQ.ZERO ) GO TO 30
+                  if (XJ.EQ.ZERO) GO TO 30;
 
                   if ( TJJ.LT.ONE ) {
                      if ( XJ.GT.BIGNUM*TJJ ) {
@@ -160,7 +160,7 @@
                   D( 1, 1 ) = X( J1 )
                   D( 2, 1 ) = X( J2 )
                   dlaln2(.FALSE., 2, 1, SMIN, ONE, T( J1, J1 ), LDT, ONE, ONE, D, 2, ZERO, ZERO, V, 2, SCALOC, XNORM, IERR );
-                  IF( IERR.NE.0 ) INFO = 2
+                  if (IERR.NE.0) INFO = 2;
 
                   if ( SCALOC.NE.ONE ) {
                      dscal(N, SCALOC, X, 1 );
@@ -200,7 +200,7 @@
 
             JNEXT = 1
             for (J = 1; J <= N; J++) { // 40
-               IF( J.LT.JNEXT ) GO TO 40
+               if (J.LT.JNEXT) GO TO 40;
                J1 = J
                J2 = J
                JNEXT = J + 1
@@ -270,7 +270,7 @@
                   D( 1, 1 ) = X( J1 ) - DDOT( J1-1, T( 1, J1 ), 1, X, 1 )                   D( 2, 1 ) = X( J2 ) - DDOT( J1-1, T( 1, J2 ), 1, X, 1 )
 
                   dlaln2(.TRUE., 2, 1, SMIN, ONE, T( J1, J1 ), LDT, ONE, ONE, D, 2, ZERO, ZERO, V, 2, SCALOC, XNORM, IERR );
-                  IF( IERR.NE.0 ) INFO = 2
+                  if (IERR.NE.0) INFO = 2;
 
                   if ( SCALOC.NE.ONE ) {
                      dscal(N, SCALOC, X, 1 );
@@ -293,7 +293,7 @@
 
             JNEXT = N
             DO 70 J = N, 1, -1
-               IF( J.GT.JNEXT ) GO TO 70
+               if (J.GT.JNEXT) GO TO 70;
                J1 = J
                J2 = J
                JNEXT = J - 1
@@ -311,7 +311,7 @@
                   // Scale if necessary to avoid overflow in division
 
                   Z = W
-                  IF( J1.EQ.1 ) Z = B( 1 )
+                  if (J1.EQ.1) Z = B( 1 );
                   XJ = ABS( X( J1 ) ) + ABS( X( N+J1 ) )
                   TJJ = ABS( T( J1, J1 ) ) + ABS( Z )
                   TMP = T( J1, J1 )
@@ -321,7 +321,7 @@
                      INFO = 1
                   }
 
-                  IF( XJ.EQ.ZERO ) GO TO 70
+                  if (XJ.EQ.ZERO) GO TO 70;
 
                   if ( TJJ.LT.ONE ) {
                      if ( XJ.GT.BIGNUM*TJJ ) {
@@ -369,7 +369,7 @@
                   D( 1, 2 ) = X( N+J1 )
                   D( 2, 2 ) = X( N+J2 )
                   dlaln2(.FALSE., 2, 2, SMINW, ONE, T( J1, J1 ), LDT, ONE, ONE, D, 2, ZERO, -W, V, 2, SCALOC, XNORM, IERR );
-                  IF( IERR.NE.0 ) INFO = 2
+                  if (IERR.NE.0) INFO = 2;
 
                   if ( SCALOC.NE.ONE ) {
                      dscal(2*N, SCALOC, X, 1 );
@@ -417,7 +417,7 @@
 
             JNEXT = 1
             for (J = 1; J <= N; J++) { // 80
-               IF( J.LT.JNEXT ) GO TO 80
+               if (J.LT.JNEXT) GO TO 80;
                J1 = J
                J2 = J
                JNEXT = J + 1
@@ -454,7 +454,7 @@
                   XJ = ABS( X( J1 ) ) + ABS( X( J1+N ) )
 
                   Z = W
-                  IF( J1.EQ.1 ) Z = B( 1 )
+                  if (J1.EQ.1) Z = B( 1 );
 
                   // Scale if necessary to avoid overflow in
                   // complex division
@@ -504,7 +504,7 @@
                   D( 2, 2 ) = D( 2, 2 ) + B( J2 )*X( 1 )
 
                   dlaln2(.TRUE., 2, 2, SMINW, ONE, T( J1, J1 ), LDT, ONE, ONE, D, 2, ZERO, W, V, 2, SCALOC, XNORM, IERR );
-                  IF( IERR.NE.0 ) INFO = 2
+                  if (IERR.NE.0) INFO = 2;
 
                   if ( SCALOC.NE.ONE ) {
                      dscal(N2, SCALOC, X, 1 );

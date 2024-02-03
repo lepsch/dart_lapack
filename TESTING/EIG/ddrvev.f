@@ -101,7 +101,7 @@
 
       // Quick return if nothing to do
 
-      IF( NSIZES.EQ.0 .OR. NTYPES.EQ.0 ) RETURN
+      if (NSIZES.EQ.0 .OR. NTYPES.EQ.0) RETURN;
 
       // More Important constants
 
@@ -149,7 +149,7 @@
         // =9                              random general
         // =10                             random triangular
 
-            IF( MTYPES.GT.MAXTYP ) GO TO 90
+            if (MTYPES.GT.MAXTYP) GO TO 90;
 
             ITYPE = KTYPE( JTYPE )
             IMODE = KMODE( JTYPE )
@@ -197,7 +197,7 @@
 
                for (JCOL = 1; JCOL <= N; JCOL++) { // 80
                   A( JCOL, JCOL ) = ANORM
-                  IF( JCOL.GT.1 ) A( JCOL, JCOL-1 ) = ONE
+                  if (JCOL.GT.1) A( JCOL, JCOL-1 ) = ONE;
                } // 80
 
             } else if ( ITYPE.EQ.4 ) {
@@ -320,9 +320,9 @@
                      VRMX = ZERO
                      for (JJ = 1; JJ <= N; JJ++) { // 110
                         VTST = DLAPY2( VR( JJ, J ), VR( JJ, J+1 ) )
-                        IF( VTST.GT.VMX ) VMX = VTST                         IF( VR( JJ, J+1 ).EQ.ZERO .AND. ABS( VR( JJ, J ) ).GT.VRMX ) VRMX = ABS( VR( JJ, J ) )
+                        if (VTST.GT.VMX) VMX = VTST                         IF( VR( JJ, J+1 ).EQ.ZERO .AND. ABS( VR( JJ, J ) ).GT.VRMX ) VRMX = ABS( VR( JJ, J ) );
                      } // 110
-                     IF( VRMX / VMX.LT.ONE-TWO*ULP ) RESULT( 3 ) = ULPINV
+                     if (VRMX / VMX.LT.ONE-TWO*ULP) RESULT( 3 ) = ULPINV;
                   }
                } // 120
 
@@ -341,9 +341,9 @@
                      VRMX = ZERO
                      for (JJ = 1; JJ <= N; JJ++) { // 130
                         VTST = DLAPY2( VL( JJ, J ), VL( JJ, J+1 ) )
-                        IF( VTST.GT.VMX ) VMX = VTST                         IF( VL( JJ, J+1 ).EQ.ZERO .AND. ABS( VL( JJ, J ) ).GT.VRMX ) VRMX = ABS( VL( JJ, J ) )
+                        if (VTST.GT.VMX) VMX = VTST                         IF( VL( JJ, J+1 ).EQ.ZERO .AND. ABS( VL( JJ, J ) ).GT.VRMX ) VRMX = ABS( VL( JJ, J ) );
                      } // 130
-                     IF( VRMX / VMX.LT.ONE-TWO*ULP ) RESULT( 4 ) = ULPINV
+                     if (VRMX / VMX.LT.ONE-TWO*ULP) RESULT( 4 ) = ULPINV;
                   }
                } // 140
 
@@ -424,7 +424,7 @@
                   IF( RESULT( J ).GE.ZERO ) NTEST = NTEST + 1                   IF( RESULT( J ).GE.THRESH ) NFAIL = NFAIL + 1
                } // 230
 
-               IF( NFAIL.GT.0 ) NTESTF = NTESTF + 1
+               if (NFAIL.GT.0) NTESTF = NTESTF + 1;
                if ( NTESTF.EQ.1 ) {
                   WRITE( NOUNIT, FMT = 9999 )PATH
                   WRITE( NOUNIT, FMT = 9998 )

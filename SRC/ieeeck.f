@@ -70,7 +70,7 @@
 
       // Return if we were only asked to check infinity arithmetic
 
-      IF( ISPEC.EQ.0 ) RETURN
+      if (ISPEC.EQ.0) RETURN;
 
       NAN1 = POSINF + NEGINF
 

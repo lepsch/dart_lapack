@@ -69,7 +69,7 @@
 
       // Test the error exits
 
-      IF( TSTERR ) CALL ZERRQL( PATH, NOUT )
+      if (TSTERR) CALL ZERRQL( PATH, NOUT );
       INFOT = 0
       xlaenv(2, 2 );
 
@@ -179,7 +179,7 @@
 
                            // Check error code from ZGEQLS.
 
-                           IF( INFO.NE.0 ) CALL ALAERH( PATH, 'ZGEQLS', INFO, 0, ' ', M, N, NRHS, -1, NB, IMAT, NFAIL, NERRS, NOUT )
+                           if (INFO.NE.0) CALL ALAERH( PATH, 'ZGEQLS', INFO, 0, ' ', M, N, NRHS, -1, NB, IMAT, NFAIL, NERRS, NOUT );
 
                            zget02('No transpose', M, N, NRHS, A, LDA, X( M-N+1 ), LDA, B, LDA, RWORK, RESULT( 7 ) );
                            NT = NT + 1
@@ -191,7 +191,7 @@
 
                      for (I = 1; I <= NT; I++) { // 20
                         if ( RESULT( I ).GE.THRESH ) {
-                           IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                            WRITE( NOUT, FMT = 9999 )M, N, K, NB, NX, IMAT, I, RESULT( I )
+                           if (NFAIL.EQ.0 .AND. NERRS.EQ.0) CALL ALAHD( NOUT, PATH )                            WRITE( NOUT, FMT = 9999 )M, N, K, NB, NX, IMAT, I, RESULT( I );
                            NFAIL = NFAIL + 1
                         }
                      } // 20

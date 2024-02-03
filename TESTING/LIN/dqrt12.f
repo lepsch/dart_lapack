@@ -48,7 +48,7 @@
       // Quick return if possible
 
       MN = MIN( M, N )
-      IF( MN.LE.ZERO ) RETURN
+      if (MN.LE.ZERO) RETURN;
 
       NRMSVL = DNRM2( MN, S, 1 )
 
@@ -112,7 +112,7 @@
 
       DQRT12 = DASUM( MN, WORK( M*N+1 ), 1 ) / ( DLAMCH('Epsilon') * DBLE( MAX( M, N ) ) )
 
-      IF( NRMSVL.NE.ZERO ) DQRT12 = DQRT12 / NRMSVL
+      if (NRMSVL.NE.ZERO) DQRT12 = DQRT12 / NRMSVL;
 
       RETURN
 

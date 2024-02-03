@@ -54,13 +54,13 @@
       for (I = 1; I <= N; I++) { // 30
          if ( I.EQ.1 ) {
             WORK( I, I ) = DF( I )
-            IF( N.GE.2 ) WORK( I, I+1 ) = DUF( I )             IF( N.GE.3 ) WORK( I, I+2 ) = DU2( I )
+            if (N.GE.2) WORK( I, I+1 ) = DUF( I )             IF( N.GE.3 ) WORK( I, I+2 ) = DU2( I );
          } else if ( I.EQ.N ) {
             WORK( I, I ) = DF( I )
          } else {
             WORK( I, I ) = DF( I )
             WORK( I, I+1 ) = DUF( I )
-            IF( I.LT.N-1 ) WORK( I, I+2 ) = DU2( I )
+            if (I.LT.N-1) WORK( I, I+2 ) = DU2( I );
          }
       } // 30
 
@@ -104,7 +104,7 @@
       // Compute norm(L*U - A) / (norm(A) * EPS)
 
       if ( ANORM.LE.ZERO ) {
-         IF( RESID.NE.ZERO ) RESID = ONE / EPS
+         if (RESID.NE.ZERO) RESID = ONE / EPS;
       } else {
          RESID = ( RESID / ANORM ) / EPS
       }

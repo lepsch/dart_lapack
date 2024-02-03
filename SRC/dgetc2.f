@@ -38,7 +38,7 @@
 
       // Quick return if possible
 
-      IF( N.EQ.0 ) RETURN
+      if (N.EQ.0) RETURN;
 
       // Set constants to control overflow
 
@@ -75,16 +75,16 @@
                }
             } // 10
          } // 20
-         IF( I.EQ.1 ) SMIN = MAX( EPS*XMAX, SMLNUM )
+         if (I.EQ.1) SMIN = MAX( EPS*XMAX, SMLNUM );
 
          // Swap rows
 
-         IF( IPV.NE.I ) CALL DSWAP( N, A( IPV, 1 ), LDA, A( I, 1 ), LDA )
+         if (IPV.NE.I) CALL DSWAP( N, A( IPV, 1 ), LDA, A( I, 1 ), LDA );
          IPIV( I ) = IPV
 
          // Swap columns
 
-         IF( JPV.NE.I ) CALL DSWAP( N, A( 1, JPV ), 1, A( 1, I ), 1 )
+         if (JPV.NE.I) CALL DSWAP( N, A( 1, JPV ), 1, A( 1, I ), 1 );
          JPIV( I ) = JPV
 
          // Check for singularity

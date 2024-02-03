@@ -68,15 +68,15 @@
       YESREL = .TRUE.
       OFFDIG = ZERO
       TMP = SQRT(ABS(D(1)))
-      IF (TMP.LT.RMIN) YESREL = .FALSE.
-      IF(.NOT.YESREL) GOTO 11
+      if (TMP.LT.RMIN) YESREL = .FALSE.;
+      if (.NOT.YESREL) GOTO 11;
       for (I = 2; I <= N; I++) { // 10
          TMP2 = SQRT(ABS(D(I)))
-         IF (TMP2.LT.RMIN) YESREL = .FALSE.
-         IF(.NOT.YESREL) GOTO 11
+         if (TMP2.LT.RMIN) YESREL = .FALSE.;
+         if (.NOT.YESREL) GOTO 11;
          OFFDIG2 = ABS(E(I-1))/(TMP*TMP2)
-         IF(OFFDIG+OFFDIG2.GE.RELCOND) YESREL = .FALSE.
-         IF(.NOT.YESREL) GOTO 11
+         if (OFFDIG+OFFDIG2.GE.RELCOND) YESREL = .FALSE.;
+         if (.NOT.YESREL) GOTO 11;
          TMP = TMP2
          OFFDIG = OFFDIG2
       } // 10

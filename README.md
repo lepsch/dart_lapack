@@ -160,6 +160,18 @@ $1 $3} // $2
 $1}
 ```
 
+### Simple IF
+```
+^(\s+)IF\s*\(\s*([^()]*?)\s*\)\s*([^{]*)$
+$1if ($2) $3;
+```
+
+### Logical operators
+```
+\.EQ\.
+ ==
+```
+
 # LAPACK
 
 [![Build Status](https://travis-ci.org/Reference-LAPACK/lapack.svg?branch=master)](https://travis-ci.org/Reference-LAPACK/lapack)

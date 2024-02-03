@@ -23,7 +23,7 @@
       // ..
       // .. Executable Statements ..
 
-      IF( IOUNIT.LE.0 ) RETURN
+      if (IOUNIT.LE.0) RETURN;
       C1 = PATH( 1: 1 )
       C3 = PATH( 3: 3 )
       P2 = PATH( 2: 3 )

@@ -68,7 +68,7 @@
          INFO = -9
       } else {
          if ( VALEIG ) {
-            IF( N.GT.0 .AND. VU.LE.VL ) INFO = -11
+            if (N.GT.0 .AND. VU.LE.VL) INFO = -11;
          } else if ( INDEIG ) {
             if ( IL.LT.1 .OR. IL.GT.MAX( 1, N ) ) {
                INFO = -12
@@ -89,7 +89,7 @@
       // Quick return if possible
 
       M = 0
-      IF( N.EQ.0 ) RETURN
+      if (N.EQ.0) RETURN;
 
       if ( N.EQ.1 ) {
          M = 1
@@ -104,7 +104,7 @@
          }
          if ( M.EQ.1 ) {
             W( 1 ) = REAL( CTMP1 )
-            IF( WANTZ ) Z( 1, 1 ) = CONE
+            if (WANTZ) Z( 1, 1 ) = CONE;
          }
          RETURN
       }
@@ -143,7 +143,7 @@
          } else {
             clascl('Q', KD, KD, ONE, SIGMA, N, N, AB, LDAB, INFO );
          }
-         IF( ABSTOL.GT.0 ) ABSTLL = ABSTOL*SIGMA
+         if (ABSTOL.GT.0) ABSTLL = ABSTOL*SIGMA;
          if ( VALEIG ) {
             VLL = VL*SIGMA
             VUU = VU*SIGMA

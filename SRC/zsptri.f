@@ -53,7 +53,7 @@
 
       // Quick return if possible
 
-      IF( N.EQ.0 ) RETURN
+      if (N.EQ.0) RETURN;
 
       // Check that the diagonal matrix D is nonsingular.
 
@@ -91,7 +91,7 @@
 
          // If K > N, exit from loop.
 
-         IF( K.GT.N ) GO TO 50
+         if (K.GT.N) GO TO 50;
 
          KCNEXT = KC + K
          if ( IPIV( K ).GT.0 ) {
@@ -180,7 +180,7 @@
 
          // If K < 1, exit from loop.
 
-         IF( K.LT.1 ) GO TO 80
+         if (K.LT.1) GO TO 80;
 
          KCNEXT = KC - ( N-K+2 )
          if ( IPIV( K ).GT.0 ) {
@@ -232,7 +232,7 @@
             // submatrix A(k-1:n,k-1:n)
 
             KPC = NPP - ( N-KP+1 )*( N-KP+2 ) / 2 + 1
-            IF( KP.LT.N ) CALL ZSWAP( N-KP, AP( KC+KP-K+1 ), 1, AP( KPC+1 ), 1 )
+            if (KP.LT.N) CALL ZSWAP( N-KP, AP( KC+KP-K+1 ), 1, AP( KPC+1 ), 1 );
             KX = KC + KP - K
             for (J = K + 1; J <= KP - 1; J++) { // 70
                KX = KX + N - J + 1

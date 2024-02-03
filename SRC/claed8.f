@@ -66,7 +66,7 @@
 
       // Quick return if possible
 
-      IF( N.EQ.0 ) RETURN
+      if (N.EQ.0) RETURN;
 
       N1 = CUTPNT
       N2 = N - N1
@@ -138,7 +138,7 @@
 
             K2 = K2 - 1
             INDXP( K2 ) = J
-            IF( J.EQ.N ) GO TO 100
+            if (J.EQ.N) GO TO 100;
          } else {
             JLAM = J
             GO TO 70
@@ -146,7 +146,7 @@
       } // 60
       } // 70
       J = J + 1
-      IF( J.GT.N ) GO TO 90
+      if (J.GT.N) GO TO 90;
       if ( RHO*ABS( Z( J ) ).LE.TOL ) {
 
          // Deflate due to small z component.

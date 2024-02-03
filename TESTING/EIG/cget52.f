@@ -47,7 +47,7 @@
 
       RESULT( 1 ) = ZERO
       RESULT( 2 ) = ZERO
-      IF( N.LE.0 ) RETURN
+      if (N.LE.0) RETURN;
 
       SAFMIN = SLAMCH( 'Safe minimum' )
       SAFMAX = ONE / SAFMIN

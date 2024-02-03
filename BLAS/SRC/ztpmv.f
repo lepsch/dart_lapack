@@ -55,7 +55,7 @@
 
       // Quick return if possible.
 
-      IF (N.EQ.0) RETURN
+      if (N.EQ.0) RETURN;
 
       NOCONJ = LSAME(TRANS,'T')
       NOUNIT = LSAME(DIAG,'N')
@@ -87,7 +87,7 @@
                               X(I) = X(I) + TEMP*AP(K)
                               K = K + 1
                           } // 10
-                          IF (NOUNIT) X(J) = X(J)*AP(KK+J-1)
+                          if (NOUNIT) X(J) = X(J)*AP(KK+J-1);
                       }
                       KK = KK + J
                   } // 20
@@ -101,7 +101,7 @@
                               X(IX) = X(IX) + TEMP*AP(K)
                               IX = IX + INCX
                           } // 30
-                          IF (NOUNIT) X(JX) = X(JX)*AP(KK+J-1)
+                          if (NOUNIT) X(JX) = X(JX)*AP(KK+J-1);
                       }
                       JX = JX + INCX
                       KK = KK + J
@@ -118,7 +118,7 @@
                               X(I) = X(I) + TEMP*AP(K)
                               K = K - 1
                           } // 50
-                          IF (NOUNIT) X(J) = X(J)*AP(KK-N+J)
+                          if (NOUNIT) X(J) = X(J)*AP(KK-N+J);
                       }
                       KK = KK - (N-J+1)
                   } // 60
@@ -133,7 +133,7 @@
                               X(IX) = X(IX) + TEMP*AP(K)
                               IX = IX - INCX
                           } // 70
-                          IF (NOUNIT) X(JX) = X(JX)*AP(KK-N+J)
+                          if (NOUNIT) X(JX) = X(JX)*AP(KK-N+J);
                       }
                       JX = JX - INCX
                       KK = KK - (N-J+1)
@@ -151,13 +151,13 @@
                       TEMP = X(J)
                       K = KK - 1
                       if (NOCONJ) {
-                          IF (NOUNIT) TEMP = TEMP*AP(KK)
+                          if (NOUNIT) TEMP = TEMP*AP(KK);
                           DO 90 I = J - 1,1,-1
                               TEMP = TEMP + AP(K)*X(I)
                               K = K - 1
                           } // 90
                       } else {
-                          IF (NOUNIT) TEMP = TEMP*DCONJG(AP(KK))
+                          if (NOUNIT) TEMP = TEMP*DCONJG(AP(KK));
                           DO 100 I = J - 1,1,-1
                               TEMP = TEMP + DCONJG(AP(K))*X(I)
                               K = K - 1
@@ -172,13 +172,13 @@
                       TEMP = X(JX)
                       IX = JX
                       if (NOCONJ) {
-                          IF (NOUNIT) TEMP = TEMP*AP(KK)
+                          if (NOUNIT) TEMP = TEMP*AP(KK);
                           DO 120 K = KK - 1,KK - J + 1,-1
                               IX = IX - INCX
                               TEMP = TEMP + AP(K)*X(IX)
                           } // 120
                       } else {
-                          IF (NOUNIT) TEMP = TEMP*DCONJG(AP(KK))
+                          if (NOUNIT) TEMP = TEMP*DCONJG(AP(KK));
                           DO 130 K = KK - 1,KK - J + 1,-1
                               IX = IX - INCX
                               TEMP = TEMP + DCONJG(AP(K))*X(IX)
@@ -196,13 +196,13 @@
                       TEMP = X(J)
                       K = KK + 1
                       if (NOCONJ) {
-                          IF (NOUNIT) TEMP = TEMP*AP(KK)
+                          if (NOUNIT) TEMP = TEMP*AP(KK);
                           for (I = J + 1; I <= N; I++) { // 150
                               TEMP = TEMP + AP(K)*X(I)
                               K = K + 1
                           } // 150
                       } else {
-                          IF (NOUNIT) TEMP = TEMP*DCONJG(AP(KK))
+                          if (NOUNIT) TEMP = TEMP*DCONJG(AP(KK));
                           for (I = J + 1; I <= N; I++) { // 160
                               TEMP = TEMP + DCONJG(AP(K))*X(I)
                               K = K + 1
@@ -217,13 +217,13 @@
                       TEMP = X(JX)
                       IX = JX
                       if (NOCONJ) {
-                          IF (NOUNIT) TEMP = TEMP*AP(KK)
+                          if (NOUNIT) TEMP = TEMP*AP(KK);
                           for (K = KK + 1; K <= KK + N - J; K++) { // 180
                               IX = IX + INCX
                               TEMP = TEMP + AP(K)*X(IX)
                           } // 180
                       } else {
-                          IF (NOUNIT) TEMP = TEMP*DCONJG(AP(KK))
+                          if (NOUNIT) TEMP = TEMP*DCONJG(AP(KK));
                           for (K = KK + 1; K <= KK + N - J; K++) { // 190
                               IX = IX + INCX
                               TEMP = TEMP + DCONJG(AP(K))*X(IX)

@@ -86,7 +86,7 @@
 
       // Initialize U, V and Q, if necessary
 
-      IF( INITU ) CALL CLASET( 'Full', M, M, CZERO, CONE, U, LDU )       IF( INITV ) CALL CLASET( 'Full', P, P, CZERO, CONE, V, LDV )       IF( INITQ ) CALL CLASET( 'Full', N, N, CZERO, CONE, Q, LDQ )
+      if (INITU) CALL CLASET( 'Full', M, M, CZERO, CONE, U, LDU )       IF( INITV ) CALL CLASET( 'Full', P, P, CZERO, CONE, V, LDV )       IF( INITQ ) CALL CLASET( 'Full', N, N, CZERO, CONE, Q, LDQ );
 
       // Loop until convergence
 
@@ -101,16 +101,16 @@
                A1 = ZERO
                A2 = CZERO
                A3 = ZERO
-               IF( K+I.LE.M ) A1 = REAL( A( K+I, N-L+I ) )                IF( K+J.LE.M ) A3 = REAL( A( K+J, N-L+J ) )
+               if (K+I.LE.M) A1 = REAL( A( K+I, N-L+I ) )                IF( K+J.LE.M ) A3 = REAL( A( K+J, N-L+J ) );
 
                B1 = REAL( B( I, N-L+I ) )
                B3 = REAL( B( J, N-L+J ) )
 
                if ( UPPER ) {
-                  IF( K+I.LE.M ) A2 = A( K+I, N-L+J )
+                  if (K+I.LE.M) A2 = A( K+I, N-L+J );
                   B2 = B( I, N-L+J )
                } else {
-                  IF( K+J.LE.M ) A2 = A( K+J, N-L+I )
+                  if (K+J.LE.M) A2 = A( K+J, N-L+I );
                   B2 = B( J, N-L+I )
                }
 
@@ -118,7 +118,7 @@
 
                // Update (K+I)-th and (K+J)-th rows of matrix A: U**H *A
 
-               IF( K+J.LE.M ) CALL CROT( L, A( K+J, N-L+1 ), LDA, A( K+I, N-L+1 ), LDA, CSU, CONJG( SNU ) )
+               if (K+J.LE.M) CALL CROT( L, A( K+J, N-L+1 ), LDA, A( K+I, N-L+1 ), LDA, CSU, CONJG( SNU ) );
 
                // Update I-th and J-th rows of matrix B: V**H *B
 
@@ -132,26 +132,26 @@
                crot(L, B( 1, N-L+J ), 1, B( 1, N-L+I ), 1, CSQ, SNQ );
 
                if ( UPPER ) {
-                  IF( K+I.LE.M ) A( K+I, N-L+J ) = CZERO
+                  if (K+I.LE.M) A( K+I, N-L+J ) = CZERO;
                   B( I, N-L+J ) = CZERO
                } else {
-                  IF( K+J.LE.M ) A( K+J, N-L+I ) = CZERO
+                  if (K+J.LE.M) A( K+J, N-L+I ) = CZERO;
                   B( J, N-L+I ) = CZERO
                }
 
                // Ensure that the diagonal elements of A and B are real.
 
-               IF( K+I.LE.M ) A( K+I, N-L+I ) = REAL( A( K+I, N-L+I ) )                IF( K+J.LE.M ) A( K+J, N-L+J ) = REAL( A( K+J, N-L+J ) )
+               if (K+I.LE.M) A( K+I, N-L+I ) = REAL( A( K+I, N-L+I ) )                IF( K+J.LE.M ) A( K+J, N-L+J ) = REAL( A( K+J, N-L+J ) );
                B( I, N-L+I ) = REAL( B( I, N-L+I ) )
                B( J, N-L+J ) = REAL( B( J, N-L+J ) )
 
                // Update unitary matrices U, V, Q, if desired.
 
-               IF( WANTU .AND. K+J.LE.M ) CALL CROT( M, U( 1, K+J ), 1, U( 1, K+I ), 1, CSU, SNU )
+               if (WANTU .AND. K+J.LE.M) CALL CROT( M, U( 1, K+J ), 1, U( 1, K+I ), 1, CSU, SNU );
 
-               IF( WANTV ) CALL CROT( P, V( 1, J ), 1, V( 1, I ), 1, CSV, SNV )
+               if (WANTV) CALL CROT( P, V( 1, J ), 1, V( 1, I ), 1, CSV, SNV );
 
-               IF( WANTQ ) CALL CROT( N, Q( 1, N-L+J ), 1, Q( 1, N-L+I ), 1, CSQ, SNQ )
+               if (WANTQ) CALL CROT( N, Q( 1, N-L+J ), 1, Q( 1, N-L+I ), 1, CSQ, SNQ );
 
             } // 10
          } // 20
@@ -205,7 +205,7 @@
 
             if ( GAMMA.LT.ZERO ) {
                csscal(L-I+1, -ONE, B( I, N-L+I ), LDB );
-               IF( WANTV ) CALL CSSCAL( P, -ONE, V( 1, I ), 1 )
+               if (WANTV) CALL CSSCAL( P, -ONE, V( 1, I ), 1 );
             }
 
             slartg(ABS( GAMMA ), ONE, BETA( K+I ), ALPHA( K+I ), RWK );

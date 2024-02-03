@@ -135,7 +135,7 @@
          II = I - OFFSET
          RGAP = WGAP( II )
          LGAP = RGAP
-         IF(II.GT.1) LGAP = WGAP( II-1 )
+         if (II.GT.1) LGAP = WGAP( II-1 );
          GAP = MIN( LGAP, RGAP )
          NEXT = IWORK( K-1 )
          LEFT = WORK( K-1 )
@@ -155,7 +155,7 @@
                I1 = NEXT
             } else {
                // Prev holds the last unconverged interval previously examined
-               IF(PREV.GE.I1) IWORK( 2*PREV-1 ) = NEXT
+               if (PREV.GE.I1) IWORK( 2*PREV-1 ) = NEXT;
             }
             I = NEXT
             GO TO 100

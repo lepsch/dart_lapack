@@ -89,7 +89,7 @@
 
             BNORM = ABS( B( 1, 1 ) )
             if ( CNORM.LT.ONE .AND. BNORM.GT.ONE ) {
-               IF( BNORM.GT.BIGNUM*CNORM ) SCALE = ONE / BNORM
+               if (BNORM.GT.BIGNUM*CNORM) SCALE = ONE / BNORM;
             }
 
             // Compute X
@@ -119,7 +119,7 @@
 
             BNORM = ABS( B( 1, 1 ) ) + ABS( B( 1, 2 ) )
             if ( CNORM.LT.ONE .AND. BNORM.GT.ONE ) {
-               IF( BNORM.GT.BIGNUM*CNORM ) SCALE = ONE / BNORM
+               if (BNORM.GT.BIGNUM*CNORM) SCALE = ONE / BNORM;
             }
 
             // Compute X
@@ -165,7 +165,7 @@
             if ( CMAX.LT.SMINI ) {
                BNORM = MAX( ABS( B( 1, 1 ) ), ABS( B( 2, 1 ) ) )
                if ( SMINI.LT.ONE .AND. BNORM.GT.ONE ) {
-                  IF( BNORM.GT.BIGNUM*SMINI ) SCALE = ONE / BNORM
+                  if (BNORM.GT.BIGNUM*SMINI) SCALE = ONE / BNORM;
                }
                TEMP = SCALE / SMINI
                X( 1, 1 ) = TEMP*B( 1, 1 )
@@ -251,7 +251,7 @@
             if ( CMAX.LT.SMINI ) {
                BNORM = MAX( ABS( B( 1, 1 ) )+ABS( B( 1, 2 ) ), ABS( B( 2, 1 ) )+ABS( B( 2, 2 ) ) )
                if ( SMINI.LT.ONE .AND. BNORM.GT.ONE ) {
-                  IF( BNORM.GT.BIGNUM*SMINI ) SCALE = ONE / BNORM
+                  if (BNORM.GT.BIGNUM*SMINI) SCALE = ONE / BNORM;
                }
                TEMP = SCALE / SMINI
                X( 1, 1 ) = TEMP*B( 1, 1 )

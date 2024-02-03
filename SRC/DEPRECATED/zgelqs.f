@@ -48,7 +48,7 @@
 
       // Quick return if possible
 
-      IF( N.EQ.0 .OR. NRHS.EQ.0 .OR. M.EQ.0 ) RETURN
+      if (N.EQ.0 .OR. NRHS.EQ.0 .OR. M.EQ.0) RETURN;
 
       // Solve L*X = B(1:m,:)
 
@@ -56,7 +56,7 @@
 
       // Set B(m+1:n,:) to zero
 
-      IF( M.LT.N ) CALL ZLASET( 'Full', N-M, NRHS, CZERO, CZERO, B( M+1, 1 ), LDB )
+      if (M.LT.N) CALL ZLASET( 'Full', N-M, NRHS, CZERO, CZERO, B( M+1, 1 ), LDB );
 
       // B := Q' * B
 

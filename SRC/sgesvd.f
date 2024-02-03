@@ -114,7 +114,7 @@
 
                   MAXWRK = N + LWORK_SGEQRF
                   MAXWRK = MAX( MAXWRK, 3*N+LWORK_SGEBRD )
-                  IF( WNTVO .OR. WNTVAS ) MAXWRK = MAX( MAXWRK, 3*N+LWORK_SORGBR_P )
+                  if (WNTVO .OR. WNTVAS) MAXWRK = MAX( MAXWRK, 3*N+LWORK_SORGBR_P );
                   MAXWRK = MAX( MAXWRK, BDSPAC )
                   MINWRK = MAX( 4*N, BDSPAC )
                } else if ( WNTUO .AND. WNTVN ) {
@@ -267,7 +267,7 @@
 
                   MAXWRK = M + LWORK_SGELQF
                   MAXWRK = MAX( MAXWRK, 3*M+LWORK_SGEBRD )
-                  IF( WNTUO .OR. WNTUAS ) MAXWRK = MAX( MAXWRK, 3*M+LWORK_SORGBR_Q )
+                  if (WNTUO .OR. WNTUAS) MAXWRK = MAX( MAXWRK, 3*M+LWORK_SORGBR_Q );
                   MAXWRK = MAX( MAXWRK, BDSPAC )
                   MINWRK = MAX( 4*M, BDSPAC )
                } else if ( WNTVO .AND. WNTUN ) {
@@ -486,7 +486,7 @@
 
                // If right singular vectors desired in VT, copy them there
 
-               IF( WNTVAS ) CALL SLACPY( 'F', N, N, A, LDA, VT, LDVT )
+               if (WNTVAS) CALL SLACPY( 'F', N, N, A, LDA, VT, LDVT );
 
             } else if ( WNTUO .AND. WNTVN ) {
 
@@ -637,7 +637,7 @@
                   // Copy R to VT, zeroing out below it
 
                   slacpy('U', N, N, A, LDA, VT, LDVT );
-                  IF( N.GT.1 ) CALL SLASET( 'L', N-1, N-1, ZERO, ZERO, VT( 2, 1 ), LDVT )
+                  if (N.GT.1) CALL SLASET( 'L', N-1, N-1, ZERO, ZERO, VT( 2, 1 ), LDVT );
 
                   // Generate Q in A
                   // (Workspace: need N*N+2*N, prefer N*N+N+N*NB)
@@ -698,7 +698,7 @@
                   // Copy R to VT, zeroing out below it
 
                   slacpy('U', N, N, A, LDA, VT, LDVT );
-                  IF( N.GT.1 ) CALL SLASET( 'L', N-1, N-1, ZERO, ZERO, VT( 2, 1 ), LDVT )
+                  if (N.GT.1) CALL SLASET( 'L', N-1, N-1, ZERO, ZERO, VT( 2, 1 ), LDVT );
 
                   // Generate Q in A
                   // (Workspace: need 2*N, prefer N+N*NB)
@@ -1090,7 +1090,7 @@
                      // Copy R to VT, zeroing out below it
 
                      slacpy('U', N, N, A, LDA, VT, LDVT );
-                     IF( N.GT.1 ) CALL SLASET( 'L', N-1, N-1, ZERO, ZERO, VT( 2, 1 ), LDVT )
+                     if (N.GT.1) CALL SLASET( 'L', N-1, N-1, ZERO, ZERO, VT( 2, 1 ), LDVT );
                      IE = ITAU
                      ITAUQ = IE + N
                      ITAUP = ITAUQ + N
@@ -1496,7 +1496,7 @@
                      // Copy R from A to VT, zeroing out below it
 
                      slacpy('U', N, N, A, LDA, VT, LDVT );
-                     IF( N.GT.1 ) CALL SLASET( 'L', N-1, N-1, ZERO, ZERO, VT( 2, 1 ), LDVT )
+                     if (N.GT.1) CALL SLASET( 'L', N-1, N-1, ZERO, ZERO, VT( 2, 1 ), LDVT );
                      IE = ITAU
                      ITAUQ = IE + N
                      ITAUP = ITAUQ + N
@@ -1555,7 +1555,7 @@
                // (Workspace: need 3*N+NCU, prefer 3*N+NCU*NB)
 
                slacpy('L', M, N, A, LDA, U, LDU );
-               IF( WNTUS ) NCU = N                IF( WNTUA ) NCU = M                CALL SORGBR( 'Q', M, NCU, N, U, LDU, WORK( ITAUQ ), WORK( IWORK ), LWORK-IWORK+1, IERR )
+               if (WNTUS) NCU = N                IF( WNTUA ) NCU = M                CALL SORGBR( 'Q', M, NCU, N, U, LDU, WORK( ITAUQ ), WORK( IWORK ), LWORK-IWORK+1, IERR );
             }
             if ( WNTVAS ) {
 
@@ -1583,7 +1583,7 @@
                sorgbr('P', N, N, N, A, LDA, WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR );
             }
             IWORK = IE + N
-            IF( WNTUAS .OR. WNTUO ) NRU = M             IF( WNTUN ) NRU = 0             IF( WNTVAS .OR. WNTVO ) NCVT = N             IF( WNTVN ) NCVT = 0
+            if (WNTUAS .OR. WNTUO) NRU = M             IF( WNTUN ) NRU = 0             IF( WNTVAS .OR. WNTVO ) NCVT = N             IF( WNTVN ) NCVT = 0;
             if ( ( .NOT.WNTUO ) .AND. ( .NOT.WNTVO ) ) {
 
                // Perform bidiagonal QR iteration, if desired, computing
@@ -1654,7 +1654,7 @@
                }
                IWORK = IE + M
                NRU = 0
-               IF( WNTUO .OR. WNTUAS ) NRU = M
+               if (WNTUO .OR. WNTUAS) NRU = M;
 
                // Perform bidiagonal QR iteration, computing left singular
                // vectors of A in A if desired
@@ -1664,7 +1664,7 @@
 
                // If left singular vectors desired in U, copy them there
 
-               IF( WNTUAS ) CALL SLACPY( 'F', M, M, A, LDA, U, LDU )
+               if (WNTUAS) CALL SLACPY( 'F', M, M, A, LDA, U, LDU );
 
             } else if ( WNTVO .AND. WNTUN ) {
 
@@ -2744,7 +2744,7 @@
                // (Workspace: need 3*M+NRVT, prefer 3*M+NRVT*NB)
 
                slacpy('U', M, N, A, LDA, VT, LDVT );
-               IF( WNTVA ) NRVT = N                IF( WNTVS ) NRVT = M                CALL SORGBR( 'P', NRVT, N, M, VT, LDVT, WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR )
+               if (WNTVA) NRVT = N                IF( WNTVS ) NRVT = M                CALL SORGBR( 'P', NRVT, N, M, VT, LDVT, WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR );
             }
             if ( WNTUO ) {
 
@@ -2763,7 +2763,7 @@
                sorgbr('P', M, N, M, A, LDA, WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR );
             }
             IWORK = IE + M
-            IF( WNTUAS .OR. WNTUO ) NRU = M             IF( WNTUN ) NRU = 0             IF( WNTVAS .OR. WNTVO ) NCVT = N             IF( WNTVN ) NCVT = 0
+            if (WNTUAS .OR. WNTUO) NRU = M             IF( WNTUN ) NRU = 0             IF( WNTVAS .OR. WNTVO ) NCVT = N             IF( WNTVN ) NCVT = 0;
             if ( ( .NOT.WNTUO ) .AND. ( .NOT.WNTVO ) ) {
 
                // Perform bidiagonal QR iteration, if desired, computing
@@ -2813,7 +2813,7 @@
       // Undo scaling if necessary
 
       if ( ISCL.EQ.1 ) {
-         IF( ANRM.GT.BIGNUM ) CALL SLASCL( 'G', 0, 0, BIGNUM, ANRM, MINMN, 1, S, MINMN, IERR )          IF( INFO.NE.0 .AND. ANRM.GT.BIGNUM ) CALL SLASCL( 'G', 0, 0, BIGNUM, ANRM, MINMN-1, 1, WORK( 2 ), MINMN, IERR )          IF( ANRM.LT.SMLNUM ) CALL SLASCL( 'G', 0, 0, SMLNUM, ANRM, MINMN, 1, S, MINMN, IERR )          IF( INFO.NE.0 .AND. ANRM.LT.SMLNUM ) CALL SLASCL( 'G', 0, 0, SMLNUM, ANRM, MINMN-1, 1, WORK( 2 ), MINMN, IERR )
+         if (ANRM.GT.BIGNUM) CALL SLASCL( 'G', 0, 0, BIGNUM, ANRM, MINMN, 1, S, MINMN, IERR )          IF( INFO.NE.0 .AND. ANRM.GT.BIGNUM ) CALL SLASCL( 'G', 0, 0, BIGNUM, ANRM, MINMN-1, 1, WORK( 2 ), MINMN, IERR )          IF( ANRM.LT.SMLNUM ) CALL SLASCL( 'G', 0, 0, SMLNUM, ANRM, MINMN, 1, S, MINMN, IERR )          IF( INFO.NE.0 .AND. ANRM.LT.SMLNUM ) CALL SLASCL( 'G', 0, 0, SMLNUM, ANRM, MINMN-1, 1, WORK( 2 ), MINMN, IERR );
       }
 
       // Return optimal workspace in WORK(1)

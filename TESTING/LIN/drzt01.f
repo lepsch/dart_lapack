@@ -45,7 +45,7 @@
 
       // Quick return if possible
 
-      IF( M.LE.0 .OR. N.LE.0 ) RETURN
+      if (M.LE.0 .OR. N.LE.0) RETURN;
 
       NORMA = DLANGE( 'One-norm', M, N, A, LDA, RWORK )
 
@@ -71,7 +71,7 @@
       DRZT01 = DLANGE( 'One-norm', M, N, WORK, M, RWORK )
 
       DRZT01 = DRZT01 / ( DLAMCH( 'Epsilon' )*DBLE( MAX( M, N ) ) )
-      IF( NORMA.NE.ZERO ) DRZT01 = DRZT01 / NORMA
+      if (NORMA.NE.ZERO) DRZT01 = DRZT01 / NORMA;
 
       RETURN
 

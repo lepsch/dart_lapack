@@ -73,7 +73,7 @@
                         for (IMLOFF = 1; IMLOFF <= 2; IMLOFF++) { // 90
                            for (IMB = 1; IMB <= 8; IMB++) { // 80
                               for (IMLDB1 = 1; IMLDB1 <= 3; IMLDB1++) { // 70
-                                 IF( ITRANA.EQ.1 ) TRANA = 'N'                                  IF( ITRANA.EQ.2 ) TRANA = 'T'                                  IF( ITRANB.EQ.1 ) TRANB = 'N'                                  IF( ITRANB.EQ.2 ) TRANB = 'T'
+                                 if (ITRANA.EQ.1) TRANA = 'N'                                  IF( ITRANA.EQ.2 ) TRANA = 'T'                                  IF( ITRANB.EQ.1 ) TRANB = 'N'                                  IF( ITRANB.EQ.2 ) TRANB = 'T';
                                  M = IDIM( IMA )
                                  N = IDIM( IMB )
                                  TNRM = ZERO
@@ -109,7 +109,7 @@
                                  } // 60
                                  KNT = KNT + 1
                                  strsyl(TRANA, TRANB, ISGN, M, N, A, 6, B, 6, C, 6, SCALE, INFO );
-                                 IF( INFO.NE.0 ) NINFO = NINFO + 1
+                                 if (INFO.NE.0) NINFO = NINFO + 1;
                                  XNRM = SLANGE( 'M', M, N, C, 6, DUM )
                                  RMUL = ONE
                                  if ( XNRM.GT.ONE .AND. TNRM.GT.ONE ) {

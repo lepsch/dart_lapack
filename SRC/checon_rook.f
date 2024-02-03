@@ -101,7 +101,7 @@
 
       // Compute the estimate of the reciprocal condition number.
 
-      IF( AINVNM.NE.ZERO ) RCOND = ( ONE / AINVNM ) / ANORM
+      if (AINVNM.NE.ZERO) RCOND = ( ONE / AINVNM ) / ANORM;
 
       RETURN
 

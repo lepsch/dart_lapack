@@ -74,7 +74,7 @@
 
       // Quick return if possible.
 
-      IF (M.EQ.0 .OR. N.EQ.0) RETURN
+      if (M.EQ.0 .OR. N.EQ.0) RETURN;
 
       // And when  alpha.eq.zero.
 
@@ -102,7 +102,7 @@
                               for (I = 1; I <= K - 1; I++) { // 30
                                   B(I,J) = B(I,J) + TEMP*A(I,K)
                               } // 30
-                              IF (NOUNIT) TEMP = TEMP*A(K,K)
+                              if (NOUNIT) TEMP = TEMP*A(K,K);
                               B(K,J) = TEMP
                           }
                       } // 40
@@ -113,7 +113,7 @@
                           if (B(K,J).NE.ZERO) {
                               TEMP = ALPHA*B(K,J)
                               B(K,J) = TEMP
-                              IF (NOUNIT) B(K,J) = B(K,J)*A(K,K)
+                              if (NOUNIT) B(K,J) = B(K,J)*A(K,K);
                               for (I = K + 1; I <= M; I++) { // 60
                                   B(I,J) = B(I,J) + TEMP*A(I,K)
                               } // 60
@@ -130,12 +130,12 @@
                       DO 110 I = M,1,-1
                           TEMP = B(I,J)
                           if (NOCONJ) {
-                              IF (NOUNIT) TEMP = TEMP*A(I,I)
+                              if (NOUNIT) TEMP = TEMP*A(I,I);
                               for (K = 1; K <= I - 1; K++) { // 90
                                   TEMP = TEMP + A(K,I)*B(K,J)
                               } // 90
                           } else {
-                              IF (NOUNIT) TEMP = TEMP*CONJG(A(I,I))
+                              if (NOUNIT) TEMP = TEMP*CONJG(A(I,I));
                               for (K = 1; K <= I - 1; K++) { // 100
                                   TEMP = TEMP + CONJG(A(K,I))*B(K,J)
                               } // 100
@@ -148,12 +148,12 @@
                       for (I = 1; I <= M; I++) { // 150
                           TEMP = B(I,J)
                           if (NOCONJ) {
-                              IF (NOUNIT) TEMP = TEMP*A(I,I)
+                              if (NOUNIT) TEMP = TEMP*A(I,I);
                               for (K = I + 1; K <= M; K++) { // 130
                                   TEMP = TEMP + A(K,I)*B(K,J)
                               } // 130
                           } else {
-                              IF (NOUNIT) TEMP = TEMP*CONJG(A(I,I))
+                              if (NOUNIT) TEMP = TEMP*CONJG(A(I,I));
                               for (K = I + 1; K <= M; K++) { // 140
                                   TEMP = TEMP + CONJG(A(K,I))*B(K,J)
                               } // 140
@@ -171,7 +171,7 @@
               if (UPPER) {
                   DO 200 J = N,1,-1
                       TEMP = ALPHA
-                      IF (NOUNIT) TEMP = TEMP*A(J,J)
+                      if (NOUNIT) TEMP = TEMP*A(J,J);
                       for (I = 1; I <= M; I++) { // 170
                           B(I,J) = TEMP*B(I,J)
                       } // 170
@@ -187,7 +187,7 @@
               } else {
                   for (J = 1; J <= N; J++) { // 240
                       TEMP = ALPHA
-                      IF (NOUNIT) TEMP = TEMP*A(J,J)
+                      if (NOUNIT) TEMP = TEMP*A(J,J);
                       for (I = 1; I <= M; I++) { // 210
                           B(I,J) = TEMP*B(I,J)
                       } // 210

@@ -57,7 +57,7 @@
       // Copy details of Q
 
       claset('Full', N, N, ROGUE, ROGUE, Q, LDA );
-      IF( N.GT.1 ) CALL CLACPY( 'Upper', M, N-1, AF( 1, 2 ), LDA, Q( 1, 2 ), LDA )
+      if (N.GT.1) CALL CLACPY( 'Upper', M, N-1, AF( 1, 2 ), LDA, Q( 1, 2 ), LDA );
 
       // Generate the n-by-n matrix Q
 

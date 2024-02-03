@@ -386,7 +386,7 @@
                // All entries of D (of L D L^T) must have the same sign
                for (I = 1; I <= IN; I++) { // 71
                   TMP = SGNDEF*WORK( I )
-                  IF( TMP.LT.ZERO ) NOREP = .TRUE.
+                  if (TMP.LT.ZERO) NOREP = .TRUE.;
                } // 71
             }
             if (NOREP) {

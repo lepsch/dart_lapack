@@ -111,7 +111,7 @@
               }
           }
       }
-      IF (ALPHA.EQ.ZERO) RETURN
+      if (ALPHA.EQ.ZERO) RETURN;
       if (LSAME(TRANS,'N')) {
 
          // Form  y := alpha*A*x + y.

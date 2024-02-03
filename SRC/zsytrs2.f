@@ -56,7 +56,7 @@
 
       // Quick return if possible
 
-      IF( N.EQ.0 .OR. NRHS.EQ.0 ) RETURN
+      if (N.EQ.0 .OR. NRHS.EQ.0) RETURN;
 
       // Convert A
 
@@ -73,7 +73,7 @@
             // 1 x 1 diagonal block
             // Interchange rows K and IPIV(K).
             KP = IPIV( K )
-            IF( KP.NE.K ) CALL ZSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB )
+            if (KP.NE.K) CALL ZSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
             K=K-1
          } else {
             // 2 x 2 diagonal block
@@ -124,7 +124,7 @@
             // 1 x 1 diagonal block
             // Interchange rows K and IPIV(K).
             KP = IPIV( K )
-            IF( KP.NE.K ) CALL ZSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB )
+            if (KP.NE.K) CALL ZSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
             K=K+1
          } else {
             // 2 x 2 diagonal block
@@ -146,7 +146,7 @@
             // 1 x 1 diagonal block
             // Interchange rows K and IPIV(K).
             KP = IPIV( K )
-            IF( KP.NE.K ) CALL ZSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB )
+            if (KP.NE.K) CALL ZSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
             K=K+1
          } else {
             // 2 x 2 diagonal block
@@ -195,7 +195,7 @@
             // 1 x 1 diagonal block
             // Interchange rows K and IPIV(K).
             KP = IPIV( K )
-            IF( KP.NE.K ) CALL ZSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB )
+            if (KP.NE.K) CALL ZSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
             K=K-1
          } else {
             // 2 x 2 diagonal block

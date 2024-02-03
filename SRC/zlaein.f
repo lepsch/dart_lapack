@@ -168,7 +168,7 @@
          // Test for sufficient growth in the norm of v.
 
          VNORM = DZASUM( N, V, 1 )
-         IF( VNORM.GE.GROWTO*SCALE ) GO TO 120
+         if (VNORM.GE.GROWTO*SCALE) GO TO 120;
 
          // Choose new orthogonal starting vector and try again.
 

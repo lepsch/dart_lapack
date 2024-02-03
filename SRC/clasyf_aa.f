@@ -132,7 +132,7 @@
 
                // Swap A(I1, I2+1:M) with A(I2, I2+1:M)
 
-               IF( I2.LT.M ) CALL CSWAP( M-I2, A( J1+I1-1, I2+1 ), LDA, A( J1+I2-1, I2+1 ), LDA )
+               if (I2.LT.M) CALL CSWAP( M-I2, A( J1+I1-1, I2+1 ), LDA, A( J1+I2-1, I2+1 ), LDA );
 
                // Swap A(I1, I1) with A(I2,I2)
 
@@ -272,7 +272,7 @@
 
                // Swap A(I2+1:M, I1) with A(I2+1:M, I2)
 
-               IF( I2.LT.M ) CALL CSWAP( M-I2, A( I2+1, J1+I1-1 ), 1, A( I2+1, J1+I2-1 ), 1 )
+               if (I2.LT.M) CALL CSWAP( M-I2, A( I2+1, J1+I1-1 ), 1, A( I2+1, J1+I2-1 ), 1 );
 
                // Swap A(I1, I1) with A(I2, I2)
 

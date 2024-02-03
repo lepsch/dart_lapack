@@ -32,7 +32,7 @@
       // ..
       // .. Executable Statements ..
 
-      IF( TAU.EQ.ZERO ) RETURN
+      if (TAU.EQ.ZERO) RETURN;
       if ( LSAME( SIDE, 'L' ) ) {
 
          // Form  H * C, where H has order m.

@@ -50,7 +50,7 @@
 
       // Quick return if possible
 
-      IF( N.EQ.0 ) RETURN
+      if (N.EQ.0) RETURN;
 
       if ( N.EQ.1 ) {
          if ( NORMALTRANSR ) {
@@ -92,7 +92,7 @@
 
       // ARF^C has lda rows and n+1-noe cols
 
-      IF( .NOT.NORMALTRANSR ) LDA = ( N+1 ) / 2
+      if (.NOT.NORMALTRANSR) LDA = ( N+1 ) / 2;
 
       // start execution: there are eight cases
 

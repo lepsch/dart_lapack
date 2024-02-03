@@ -82,7 +82,7 @@
 
       // Quick return if possible
 
-      IF( N.EQ.0 ) RETURN
+      if (N.EQ.0) RETURN;
 
       // Form a Cholesky factorization of BP.
 
@@ -104,7 +104,7 @@
          // Backtransform eigenvectors to the original problem.
 
          NEIG = N
-         IF( INFO.GT.0 ) NEIG = INFO - 1
+         if (INFO.GT.0) NEIG = INFO - 1;
          if ( ITYPE.EQ.1 .OR. ITYPE.EQ.2 ) {
 
             // For A*x=(lambda)*B*x and A*B*x=(lambda)*x;

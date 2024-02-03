@@ -67,7 +67,7 @@
 
       // Test the error exits
 
-      IF( TSTERR ) CALL SERRPS( PATH, NOUT )
+      if (TSTERR) CALL SERRPS( PATH, NOUT );
       INFOT = 0
       xlaenv(2, 2 );
 
@@ -77,7 +77,7 @@
          N = NVAL( IN )
          LDA = MAX( N, 1 )
          NIMAT = NTYPES
-         IF( N.LE.0 ) NIMAT = 1
+         if (N.LE.0) NIMAT = 1;
 
          IZERO = 0
          for (IMAT = 1; IMAT <= NIMAT; IMAT++) { // 140
@@ -143,7 +143,7 @@
 
                   // Skip the test if INFO is not 0.
 
-                     IF( INFO.NE.0 ) GO TO 110
+                     if (INFO.NE.0) GO TO 110;
 
                   // Reconstruct matrix from factors and compute residual.
 
@@ -154,10 +154,10 @@
                   // Print information about the tests that did not pass
                   // the threshold or where computed rank was not RANK.
 
-                     IF( N.EQ.0 ) COMPRANK = 0
+                     if (N.EQ.0) COMPRANK = 0;
                      RANKDIFF = RANK - COMPRANK
                      if ( RESULT.GE.THRESH ) {
-                        IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9999 )UPLO, N, RANK, RANKDIFF, NB, IMAT, RESULT
+                        if (NFAIL.EQ.0 .AND. NERRS.EQ.0) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9999 )UPLO, N, RANK, RANKDIFF, NB, IMAT, RESULT;
                         NFAIL = NFAIL + 1
                      }
                      NRUN = NRUN + 1

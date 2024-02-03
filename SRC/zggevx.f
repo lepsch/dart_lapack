@@ -150,7 +150,7 @@
 
       // Quick return if possible
 
-      IF( N.EQ.0 ) RETURN
+      if (N.EQ.0) RETURN;
 
       // Get machine constants
 
@@ -171,7 +171,7 @@
          ANRMTO = BIGNUM
          ILASCL = .TRUE.
       }
-      IF( ILASCL ) CALL ZLASCL( 'G', 0, 0, ANRM, ANRMTO, N, N, A, LDA, IERR )
+      if (ILASCL) CALL ZLASCL( 'G', 0, 0, ANRM, ANRMTO, N, N, A, LDA, IERR );
 
       // Scale B if max element outside range [SMLNUM,BIGNUM]
 
@@ -184,7 +184,7 @@
          BNRMTO = BIGNUM
          ILBSCL = .TRUE.
       }
-      IF( ILBSCL ) CALL ZLASCL( 'G', 0, 0, BNRM, BNRMTO, N, N, B, LDB, IERR )
+      if (ILBSCL) CALL ZLASCL( 'G', 0, 0, BNRM, BNRMTO, N, N, B, LDB, IERR );
 
       // Permute and/or balance the matrix pair (A,B)
       // (Real Workspace: need 6*N if BALANC = 'S' or 'B', 1 otherwise)
@@ -236,7 +236,7 @@
          zungqr(IROWS, IROWS, IROWS, VL( ILO, ILO ), LDVL, WORK( ITAU ), WORK( IWRK ), LWORK+1-IWRK, IERR );
       }
 
-      IF( ILVR ) CALL ZLASET( 'Full', N, N, CZERO, CONE, VR, LDVR )
+      if (ILVR) CALL ZLASET( 'Full', N, N, CZERO, CONE, VR, LDVR );
 
       // Reduce to generalized Hessenberg form
       // (Workspace: none needed)
@@ -345,7 +345,7 @@
             for (JR = 1; JR <= N; JR++) { // 30
                TEMP = MAX( TEMP, ABS1( VL( JR, JC ) ) )
             } // 30
-            IF( TEMP.LT.SMLNUM ) GO TO 50
+            if (TEMP.LT.SMLNUM) GO TO 50;
             TEMP = ONE / TEMP
             for (JR = 1; JR <= N; JR++) { // 40
                VL( JR, JC ) = VL( JR, JC )*TEMP
@@ -360,7 +360,7 @@
             for (JR = 1; JR <= N; JR++) { // 60
                TEMP = MAX( TEMP, ABS1( VR( JR, JC ) ) )
             } // 60
-            IF( TEMP.LT.SMLNUM ) GO TO 80
+            if (TEMP.LT.SMLNUM) GO TO 80;
             TEMP = ONE / TEMP
             for (JR = 1; JR <= N; JR++) { // 70
                VR( JR, JC ) = VR( JR, JC )*TEMP
@@ -372,9 +372,9 @@
 
       } // 90
 
-      IF( ILASCL ) CALL ZLASCL( 'G', 0, 0, ANRMTO, ANRM, N, 1, ALPHA, N, IERR )
+      if (ILASCL) CALL ZLASCL( 'G', 0, 0, ANRMTO, ANRM, N, 1, ALPHA, N, IERR );
 
-      IF( ILBSCL ) CALL ZLASCL( 'G', 0, 0, BNRMTO, BNRM, N, 1, BETA, N, IERR )
+      if (ILBSCL) CALL ZLASCL( 'G', 0, 0, BNRMTO, BNRM, N, 1, BETA, N, IERR );
 
       WORK( 1 ) = MAXWRK
       RETURN

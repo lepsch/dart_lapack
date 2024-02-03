@@ -64,7 +64,7 @@
       if ( LSAME( UPLO, 'U' ) ) {
          JC = 1
          for (J = 1; J <= N; J++) { // 10
-            IF( UNITD ) AINVP( JC+J-1 ) = ONE
+            if (UNITD) AINVP( JC+J-1 ) = ONE;
 
             // Form the j-th column of A*AINV.
 
@@ -78,7 +78,7 @@
       } else {
          JC = 1
          for (J = 1; J <= N; J++) { // 20
-            IF( UNITD ) AINVP( JC ) = ONE
+            if (UNITD) AINVP( JC ) = ONE;
 
             // Form the j-th column of A*AINV.
 

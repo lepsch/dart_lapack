@@ -84,7 +84,7 @@
 
       // Test the error exits
 
-      IF( TSTERR ) CALL DERRVX( PATH, NOUT )
+      if (TSTERR) CALL DERRVX( PATH, NOUT );
       INFOT = 0
 
       // Set the block size and minimum block size for which the block
@@ -102,7 +102,7 @@
          LDA = MAX( N, 1 )
          XTYPE = 'N'
          NIMAT = NTYPES
-         IF( N.LE.0 ) NIMAT = 1
+         if (N.LE.0) NIMAT = 1;
 
          for (IMAT = 1; IMAT <= NIMAT; IMAT++) { // 170
 
@@ -113,7 +113,7 @@
             // Skip types 3, 4, 5, or 6 if the matrix size is too small.
 
             ZEROT = IMAT.GE.3 .AND. IMAT.LE.6
-            IF( ZEROT .AND. N.LT.IMAT-2 ) GO TO 170
+            if (ZEROT .AND. N.LT.IMAT-2) GO TO 170;
 
             // Do first for UPLO = 'U', then for UPLO = 'L'
 
@@ -221,7 +221,7 @@
                   // the value returned by DSYSVX_ROOK.
 
                   if ( ZEROT ) {
-                     IF( IFACT.EQ.1 ) GO TO 150
+                     if (IFACT.EQ.1) GO TO 150;
                      RCONDC = ZERO
 
                   } else if ( IFACT.EQ.1 ) {
@@ -316,7 +316,7 @@
 
                      for (K = 1; K <= NT; K++) { // 110
                         if ( RESULT( K ).GE.THRESH ) {
-                           IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALADHD( NOUT, PATH )                            WRITE( NOUT, FMT = 9999 )'DSYSV_ROOK', UPLO, N, IMAT, K, RESULT( K )
+                           if (NFAIL.EQ.0 .AND. NERRS.EQ.0) CALL ALADHD( NOUT, PATH )                            WRITE( NOUT, FMT = 9999 )'DSYSV_ROOK', UPLO, N, IMAT, K, RESULT( K );
                            NFAIL = NFAIL + 1
                         }
                      } // 110

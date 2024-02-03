@@ -89,7 +89,7 @@
 
       // Quick return if possible
 
-      IF( NSIZES.EQ.0 .OR. NTYPES.EQ.0 ) RETURN
+      if (NSIZES.EQ.0 .OR. NTYPES.EQ.0) RETURN;
 
       // More important constants
 
@@ -109,7 +109,7 @@
 
       for (JSIZE = 1; JSIZE <= NSIZES; JSIZE++) { // 260
          N = NN( JSIZE )
-         IF( N.EQ.0 ) GO TO 260
+         if (N.EQ.0) GO TO 260;
          N1 = MAX( 1, N )
          ANINV = ONE / DBLE( N1 )
 
@@ -152,7 +152,7 @@
         // =9                              random general
         // =10                             random triangular
 
-            IF( MTYPES.GT.MAXTYP ) GO TO 100
+            if (MTYPES.GT.MAXTYP) GO TO 100;
 
             ITYPE = KTYPE( JTYPE )
             IMODE = KMODE( JTYPE )
@@ -200,7 +200,7 @@
 
                for (JCOL = 1; JCOL <= N; JCOL++) { // 90
                   A( JCOL, JCOL ) = ANORM
-                  IF( JCOL.GT.1 ) A( JCOL, JCOL-1 ) = ONE
+                  if (JCOL.GT.1) A( JCOL, JCOL-1 ) = ONE;
                } // 90
 
             } else if ( ITYPE.EQ.4 ) {
@@ -421,7 +421,7 @@
                }
             } // 170
             } // 180
-            IF( .NOT.MATCH ) WRITE( NOUNIT, FMT = 9997 )'Right', 'ZTREVC', N, JTYPE, IOLDSD
+            if (.NOT.MATCH) WRITE( NOUNIT, FMT = 9997 )'Right', 'ZTREVC', N, JTYPE, IOLDSD;
 
             // Compute the Left eigenvector Matrix:
 
@@ -466,7 +466,7 @@
                }
             } // 200
             } // 210
-            IF( .NOT.MATCH ) WRITE( NOUNIT, FMT = 9997 )'Left', 'ZTREVC', N, JTYPE, IOLDSD
+            if (.NOT.MATCH) WRITE( NOUNIT, FMT = 9997 )'Left', 'ZTREVC', N, JTYPE, IOLDSD;
 
             // Call ZHSEIN for Right eigenvectors of H, do test 11
 
@@ -480,7 +480,7 @@
             if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'ZHSEIN(R)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
-               IF( IINFO.LT.0 ) GO TO 240
+               if (IINFO.LT.0) GO TO 240;
             } else {
 
                // Test 11:  | HX - XW | / ( |H| |X| ulp )
@@ -505,7 +505,7 @@
             if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'ZHSEIN(L)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
-               IF( IINFO.LT.0 ) GO TO 240
+               if (IINFO.LT.0) GO TO 240;
             } else {
 
                // Test 12:  | YH - WY | / ( |H| |Y| ulp )
@@ -527,7 +527,7 @@
             if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'ZUNMHR(L)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
-               IF( IINFO.LT.0 ) GO TO 240
+               if (IINFO.LT.0) GO TO 240;
             } else {
 
                // Test 13:  | AX - XW | / ( |A| |X| ulp )
@@ -546,7 +546,7 @@
             if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'ZUNMHR(L)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
-               IF( IINFO.LT.0 ) GO TO 240
+               if (IINFO.LT.0) GO TO 240;
             } else {
 
                // Test 14:  | YA - WY | / ( |A| |Y| ulp )

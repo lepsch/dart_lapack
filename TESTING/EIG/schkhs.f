@@ -86,7 +86,7 @@
 
       // Quick return if possible
 
-      IF( NSIZES.EQ.0 .OR. NTYPES.EQ.0 ) RETURN
+      if (NSIZES.EQ.0 .OR. NTYPES.EQ.0) RETURN;
 
       // More important constants
 
@@ -106,7 +106,7 @@
 
       for (JSIZE = 1; JSIZE <= NSIZES; JSIZE++) { // 270
          N = NN( JSIZE )
-         IF( N.EQ.0 ) GO TO 270
+         if (N.EQ.0) GO TO 270;
          N1 = MAX( 1, N )
          ANINV = ONE / REAL( N1 )
 
@@ -149,7 +149,7 @@
         // =9                              random general
         // =10                             random triangular
 
-            IF( MTYPES.GT.MAXTYP ) GO TO 100
+            if (MTYPES.GT.MAXTYP) GO TO 100;
 
             ITYPE = KTYPE( JTYPE )
             IMODE = KMODE( JTYPE )
@@ -198,7 +198,7 @@
 
                for (JCOL = 1; JCOL <= N; JCOL++) { // 90
                   A( JCOL, JCOL ) = ANORM
-                  IF( JCOL.GT.1 ) A( JCOL, JCOL-1 ) = ONE
+                  if (JCOL.GT.1) A( JCOL, JCOL-1 ) = ONE;
                } // 90
 
             } else if ( ITYPE.EQ.4 ) {
@@ -399,7 +399,7 @@
                }
                J = J - 2
             }
-            IF( J.GT.0 ) GO TO 140
+            if (J.GT.0) GO TO 140;
 
             strevc('Right', 'All', SELECT, N, T1, LDA, DUMMA, LDU, EVECTR, LDU, N, IN, WORK, IINFO );
             if ( IINFO.NE.0 ) {
@@ -448,7 +448,7 @@
                }
             } // 170
             } // 180
-            IF( .NOT.MATCH ) WRITE( NOUNIT, FMT = 9997 )'Right', 'STREVC', N, JTYPE, IOLDSD
+            if (.NOT.MATCH) WRITE( NOUNIT, FMT = 9997 )'Right', 'STREVC', N, JTYPE, IOLDSD;
 
             // Compute the Left eigenvector Matrix:
 
@@ -501,7 +501,7 @@
                }
             } // 210
             } // 220
-            IF( .NOT.MATCH ) WRITE( NOUNIT, FMT = 9997 )'Left', 'STREVC', N, JTYPE, IOLDSD
+            if (.NOT.MATCH) WRITE( NOUNIT, FMT = 9997 )'Left', 'STREVC', N, JTYPE, IOLDSD;
 
             // Call SHSEIN for Right eigenvectors of H, do test 11
 
@@ -515,7 +515,7 @@
             if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'SHSEIN(R)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
-               IF( IINFO.LT.0 ) GO TO 250
+               if (IINFO.LT.0) GO TO 250;
             } else {
 
                // Test 11:  | HX - XW | / ( |H| |X| ulp )
@@ -540,7 +540,7 @@
             if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'SHSEIN(L)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
-               IF( IINFO.LT.0 ) GO TO 250
+               if (IINFO.LT.0) GO TO 250;
             } else {
 
                // Test 12:  | YH - WY | / ( |H| |Y| ulp )
@@ -562,7 +562,7 @@
             if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'SORMHR(R)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
-               IF( IINFO.LT.0 ) GO TO 250
+               if (IINFO.LT.0) GO TO 250;
             } else {
 
                // Test 13:  | AX - XW | / ( |A| |X| ulp )
@@ -581,7 +581,7 @@
             if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'SORMHR(L)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
-               IF( IINFO.LT.0 ) GO TO 250
+               if (IINFO.LT.0) GO TO 250;
             } else {
 
                // Test 14:  | YA - WY | / ( |A| |Y| ulp )

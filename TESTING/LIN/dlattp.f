@@ -55,7 +55,7 @@
 
       // Quick return if N.LE.0.
 
-      IF( N.LE.0 ) RETURN
+      if (N.LE.0) RETURN;
 
       // Call DLATB4 to set parameters for DLATMS.
 
@@ -221,7 +221,7 @@
             JC = 1
             for (J = 2; J <= N; J++) { // 100
                A( JC+1 ) = Y
-               IF( J.GT.2 ) A( JC+J-1 ) = WORK( J-2 )                IF( J.GT.3 ) A( JC+J-2 ) = WORK( N+J-3 )
+               if (J.GT.2) A( JC+J-1 ) = WORK( J-2 )                IF( J.GT.3 ) A( JC+J-2 ) = WORK( N+J-3 );
                JC = JC + J
             } // 100
             JC = JC - N
@@ -241,7 +241,7 @@
             JC = N + 1
             for (J = 2; J <= N - 1; J++) { // 130
                A( JC+1 ) = WORK( J-1 )
-               IF( J.LT.N-1 ) A( JC+2 ) = WORK( N+J-1 )
+               if (J.LT.N-1) A( JC+2 ) = WORK( N+J-1 );
                A( JC+N-J ) = Y
                JC = JC + N - J + 1
             } // 130
@@ -271,7 +271,7 @@
 
                // Multiply by [-c -s;  s -c] on the right.
 
-               IF( J.GT.1 ) CALL DROT( J-1, A( JCNEXT ), 1, A( JC ), 1, -C, -S )
+               if (J.GT.1) CALL DROT( J-1, A( JCNEXT ), 1, A( JC ), 1, -C, -S );
 
                // Negate A(J,J+1).
 
@@ -288,7 +288,7 @@
 
                // Multiply by [ c -s;  s  c] on the right.
 
-               IF( N.GT.J+1 ) CALL DROT( N-J-1, A( JCNEXT+1 ), 1, A( JC+2 ), 1, C, -S )
+               if (N.GT.J+1) CALL DROT( N-J-1, A( JCNEXT+1 ), 1, A( JC+2 ), 1, C, -S );
 
                // Multiply by [-c  s; -s -c] on the left.
 
@@ -415,7 +415,7 @@
                   A( JC+J-1 ) = ONE
                }
                JCOUNT = JCOUNT + 1
-               IF( JCOUNT.GT.4 ) JCOUNT = 1
+               if (JCOUNT.GT.4) JCOUNT = 1;
                JC = JC - J + 1
             } // 250
          } else {
@@ -431,7 +431,7 @@
                   A( JC ) = ONE
                }
                JCOUNT = JCOUNT + 1
-               IF( JCOUNT.GT.4 ) JCOUNT = 1
+               if (JCOUNT.GT.4) JCOUNT = 1;
                JC = JC + N - J + 1
             } // 270
          }
@@ -467,7 +467,7 @@
                for (I = 1; I <= J - 2; I++) { // 300
                   A( JC+I-1 ) = ZERO
                } // 300
-               IF( J.GT.1 ) A( JC+J-2 ) = -ONE
+               if (J.GT.1) A( JC+J-2 ) = -ONE;
                A( JC+J-1 ) = TSCAL
                JC = JC + J
             } // 310
@@ -478,7 +478,7 @@
                for (I = J + 2; I <= N; I++) { // 320
                   A( JC+I-J ) = ZERO
                } // 320
-               IF( J.LT.N ) A( JC+1 ) = -ONE
+               if (J.LT.N) A( JC+1 ) = -ONE;
                A( JC ) = TSCAL
                JC = JC + N - J + 1
             } // 330
@@ -575,7 +575,7 @@
          } else {
             JC = 1
             for (J = 1; J <= N; J++) { // 400
-               IF( J.LT.N ) CALL DLARNV( 2, ISEED, N-J, A( JC+1 ) )
+               if (J.LT.N) CALL DLARNV( 2, ISEED, N-J, A( JC+1 ) );
                A( JC ) = ZERO
                JC = JC + N - J + 1
             } // 400

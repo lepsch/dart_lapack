@@ -40,7 +40,7 @@
       // Quick return if possible.
 
       RESID = ZERO
-      IF( N.LE.0 .OR. NS.LE.0 ) RETURN
+      if (N.LE.0 .OR. NS.LE.0) RETURN;
 
       EPS = SLAMCH( 'Precision' )
 
@@ -96,7 +96,7 @@
       } // 70
 
       if ( BNORM.LE.ZERO ) {
-         IF( RESID.NE.ZERO ) RESID = ONE / EPS
+         if (RESID.NE.ZERO) RESID = ONE / EPS;
       } else {
          if ( BNORM.GE.RESID ) {
             RESID = ( RESID / BNORM ) / ( REAL( N )*EPS )

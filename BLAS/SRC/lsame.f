@@ -20,7 +20,7 @@
       // Test if the characters are equal
 
       LSAME = CA .EQ. CB
-      IF (LSAME) RETURN
+      if (LSAME) RETURN;
 
       // Now test for equivalence if both characters are alphabetic.
 
@@ -39,23 +39,23 @@
          // ASCII is assumed - ZCODE is the ASCII code of either lower or
          // upper case 'Z'.
 
-          IF (INTA.GE.97 .AND. INTA.LE.122) INTA = INTA - 32
-          IF (INTB.GE.97 .AND. INTB.LE.122) INTB = INTB - 32
+          if (INTA.GE.97 .AND. INTA.LE.122) INTA = INTA - 32;
+          if (INTB.GE.97 .AND. INTB.LE.122) INTB = INTB - 32;
 
       } else if (ZCODE.EQ.233 .OR. ZCODE.EQ.169) {
 
          // EBCDIC is assumed - ZCODE is the EBCDIC code of either lower or
          // upper case 'Z'.
 
-          IF (INTA.GE.129 .AND. INTA.LE.137 .OR. INTA.GE.145 .AND. INTA.LE.153 .OR. INTA.GE.162 .AND. INTA.LE.169) INTA = INTA + 64           IF (INTB.GE.129 .AND. INTB.LE.137 .OR. INTB.GE.145 .AND. INTB.LE.153 .OR. INTB.GE.162 .AND. INTB.LE.169) INTB = INTB + 64
+          if (INTA.GE.129 .AND. INTA.LE.137 .OR. INTA.GE.145 .AND. INTA.LE.153 .OR. INTA.GE.162 .AND. INTA.LE.169) INTA = INTA + 64           IF (INTB.GE.129 .AND. INTB.LE.137 .OR. INTB.GE.145 .AND. INTB.LE.153 .OR. INTB.GE.162 .AND. INTB.LE.169) INTB = INTB + 64;
 
       } else if (ZCODE.EQ.218 .OR. ZCODE.EQ.250) {
 
          // ASCII is assumed, on Prime machines - ZCODE is the ASCII code
          // plus 128 of either lower or upper case 'Z'.
 
-          IF (INTA.GE.225 .AND. INTA.LE.250) INTA = INTA - 32
-          IF (INTB.GE.225 .AND. INTB.LE.250) INTB = INTB - 32
+          if (INTA.GE.225 .AND. INTA.LE.250) INTA = INTA - 32;
+          if (INTB.GE.225 .AND. INTB.LE.250) INTB = INTB - 32;
       }
       LSAME = INTA .EQ. INTB
 

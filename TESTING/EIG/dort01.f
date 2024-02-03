@@ -41,7 +41,7 @@
 
       // Quick return if possible
 
-      IF( M.LE.0 .OR. N.LE.0 ) RETURN
+      if (M.LE.0 .OR. N.LE.0) RETURN;
 
       EPS = DLAMCH( 'Precision' )
       if ( M.LT.N .OR. ( M.EQ.N .AND. LSAME( ROWCOL, 'R' ) ) ) {

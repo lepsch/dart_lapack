@@ -103,7 +103,7 @@
       EST = SCSUM1( N, V, 1 )
 
       // TEST FOR CYCLING.
-      IF( EST.LE.ESTOLD ) GO TO 100
+      if (EST.LE.ESTOLD) GO TO 100;
 
       for (I = 1; I <= N; I++) { // 80
          ABSXI = ABS( X( I ) )

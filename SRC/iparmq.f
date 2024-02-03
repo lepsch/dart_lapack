@@ -32,7 +32,7 @@
 
          NH = IHI - ILO + 1
          NS = 2
-         IF( NH.GE.30 ) NS = 4          IF( NH.GE.60 ) NS = 10          IF( NH.GE.150 ) NS = MAX( 10, NH / NINT( LOG( REAL( NH ) ) / LOG( TWO ) ) )          IF( NH.GE.590 ) NS = 64          IF( NH.GE.3000 ) NS = 128          IF( NH.GE.6000 ) NS = 256
+         if (NH.GE.30) NS = 4          IF( NH.GE.60 ) NS = 10          IF( NH.GE.150 ) NS = MAX( 10, NH / NINT( LOG( REAL( NH ) ) / LOG( TWO ) ) )          IF( NH.GE.590 ) NS = 64          IF( NH.GE.3000 ) NS = 128          IF( NH.GE.6000 ) NS = 256;
          NS = MAX( 2, NS-MOD( NS, 2 ) )
       }
 
@@ -93,7 +93,7 @@
                SUBNAM( 1: 1 ) = CHAR( IC-32 )
                for (I = 2; I <= 6; I++) {
                   IC = ICHAR( SUBNAM( I: I ) )
-                  IF( IC.GE.97 .AND. IC.LE.122 ) SUBNAM( I: I ) = CHAR( IC-32 )
+                  if (IC.GE.97 .AND. IC.LE.122) SUBNAM( I: I ) = CHAR( IC-32 );
                }
             }
 
@@ -117,16 +117,16 @@
                SUBNAM( 1: 1 ) = CHAR( IC-32 )
                for (I = 2; I <= 6; I++) {
                   IC = ICHAR( SUBNAM( I: I ) )
-                  IF( IC.GE.225 .AND. IC.LE.250 ) SUBNAM( I: I ) = CHAR( IC-32 )
+                  if (IC.GE.225 .AND. IC.LE.250) SUBNAM( I: I ) = CHAR( IC-32 );
                }
             }
          }
 
          if ( SUBNAM( 2:6 ).EQ.'GGHRD' .OR. SUBNAM( 2:6 ).EQ.'GGHD3' ) {
             IPARMQ = 1
-            IF( NH.GE.K22MIN ) IPARMQ = 2
+            if (NH.GE.K22MIN) IPARMQ = 2;
          } else if ( SUBNAM( 4:6 ).EQ.'EXC' ) {
-            IF( NH.GE.KACMIN ) IPARMQ = 1             IF( NH.GE.K22MIN ) IPARMQ = 2          ELSE IF ( SUBNAM( 2:6 ).EQ.'HSEQR' .OR. SUBNAM( 2:5 ).EQ.'LAQR' ) THEN             IF( NS.GE.KACMIN ) IPARMQ = 1             IF( NS.GE.K22MIN ) IPARMQ = 2
+            if (NH.GE.KACMIN) IPARMQ = 1             IF( NH.GE.K22MIN ) IPARMQ = 2          ELSE IF ( SUBNAM( 2:6 ).EQ.'HSEQR' .OR. SUBNAM( 2:5 ).EQ.'LAQR' ) THEN             IF( NS.GE.KACMIN ) IPARMQ = 1             IF( NS.GE.K22MIN ) IPARMQ = 2;
          }
 
       } else if ( ISPEC.EQ.ICOST ) {

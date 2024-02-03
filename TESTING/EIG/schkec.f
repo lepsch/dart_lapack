@@ -44,7 +44,7 @@
 
       // Test error exits if TSTERR is .TRUE.
 
-      IF( TSTERR ) CALL SERREC( PATH, NOUT )
+      if (TSTERR) CALL SERREC( PATH, NOUT );
 
       OK = .TRUE.
       sget31(RLALN2, LLALN2, NLALN2, KLALN2 );

@@ -38,7 +38,7 @@
       // Quick return if possible
 
       RESID = ZERO
-      IF( M.LE.0 .OR. N.LE.0 ) RETURN
+      if (M.LE.0 .OR. N.LE.0) RETURN;
       REALMN = REAL( MAX( M, N ) )
       EPS = SLAMCH( 'Precision' )
 
@@ -55,7 +55,7 @@
       BNORM = CLANGE( '1', M, N, B, LDB, RWORK )
 
       if ( BNORM.LE.ZERO ) {
-         IF( RESID.NE.ZERO ) RESID = ONE / EPS
+         if (RESID.NE.ZERO) RESID = ONE / EPS;
       } else {
          if ( BNORM.GE.RESID ) {
             RESID = ( RESID / BNORM ) / ( REALMN*EPS )

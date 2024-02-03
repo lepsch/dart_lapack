@@ -46,7 +46,7 @@
 
       // Quick return if possible
 
-      IF( N.EQ.0 ) RETURN
+      if (N.EQ.0) RETURN;
       if ( ILO.EQ.IHI ) {
          WR( ILO ) = H( ILO, ILO )
          WI( ILO ) = ZERO
@@ -58,7 +58,7 @@
          H( J+2, J ) = ZERO
          H( J+3, J ) = ZERO
       } // 10
-      IF( ILO.LE.IHI-2 ) H( IHI, IHI-2 ) = ZERO
+      if (ILO.LE.IHI-2) H( IHI, IHI-2 ) = ZERO;
 
       NH = IHI - ILO + 1
       NZ = IHIZ - ILOZ + 1
@@ -96,7 +96,7 @@
       I = IHI
       } // 20
       L = ILO
-      IF( I.LT.ILO ) GO TO 160
+      if (I.LT.ILO) GO TO 160;
 
       // Perform QR iterations on rows and columns ILO to I until a
       // submatrix of order 1 or 2 splits off at the bottom because a
@@ -110,7 +110,7 @@
             IF( ABS( H( K, K-1 ) ).LE.SMLNUM ) GO TO 40
             TST = ABS( H( K-1, K-1 ) ) + ABS( H( K, K ) )
             if ( TST.EQ.ZERO ) {
-               IF( K-2.GE.ILO ) TST = TST + ABS( H( K-1, K-2 ) )                IF( K+1.LE.IHI ) TST = TST + ABS( H( K+1, K ) )
+               if (K-2.GE.ILO) TST = TST + ABS( H( K-1, K-2 ) )                IF( K+1.LE.IHI ) TST = TST + ABS( H( K+1, K ) );
             }
             // ==== The following is a conservative small subdiagonal
             // .    deflation  criterion due to Ahues & Tisseur (LAWN 122,
@@ -135,7 +135,7 @@
 
          // Exit from loop if a submatrix of order 1 or 2 has split off.
 
-         IF( L.GE.I-1 ) GO TO 150
+         if (L.GE.I-1) GO TO 150;
          KDEFL = KDEFL + 1
 
          // Now the active submatrix is in rows and columns L to I. If
@@ -233,7 +233,7 @@
             V( 1 ) = V( 1 ) / S
             V( 2 ) = V( 2 ) / S
             V( 3 ) = V( 3 ) / S
-            IF( M.EQ.L ) GO TO 60             IF( ABS( H( M, M-1 ) )*( ABS( V( 2 ) )+ABS( V( 3 ) ) ).LE. ULP*ABS( V( 1 ) )*( ABS( H( M-1, M-1 ) )+ABS( H( M, M ) )+ABS( H( M+1, M+1 ) ) ) )GO TO 60
+            if (M.EQ.L) GO TO 60             IF( ABS( H( M, M-1 ) )*( ABS( V( 2 ) )+ABS( V( 3 ) ) ).LE. ULP*ABS( V( 1 ) )*( ABS( H( M-1, M-1 ) )+ABS( H( M, M ) )+ABS( H( M+1, M+1 ) ) ) )GO TO 60;
          } // 50
          } // 60
 
@@ -251,12 +251,12 @@
             // submatrix. NR is the order of G.
 
             NR = MIN( 3, I-K+1 )
-            IF( K.GT.M ) CALL SCOPY( NR, H( K, K-1 ), 1, V, 1 )
+            if (K.GT.M) CALL SCOPY( NR, H( K, K-1 ), 1, V, 1 );
             slarfg(NR, V( 1 ), V( 2 ), 1, T1 );
             if ( K.GT.M ) {
                H( K, K-1 ) = V( 1 )
                H( K+1, K-1 ) = ZERO
-               IF( K.LT.I-1 ) H( K+2, K-1 ) = ZERO
+               if (K.LT.I-1) H( K+2, K-1 ) = ZERO;
             } else if ( M.GT.L ) {
                 // ==== Use the following instead of
                 // .    H( K, K-1 ) = -H( K, K-1 ) to
@@ -362,7 +362,7 @@
 
             // Apply the transformation to the rest of H.
 
-            IF( I2.GT.I ) CALL SROT( I2-I, H( I-1, I+1 ), LDH, H( I, I+1 ), LDH, CS, SN )
+            if (I2.GT.I) CALL SROT( I2-I, H( I-1, I+1 ), LDH, H( I, I+1 ), LDH, CS, SN );
             srot(I-I1-1, H( I1, I-1 ), 1, H( I1, I ), 1, CS, SN );
          }
          if ( WANTZ ) {

@@ -38,7 +38,7 @@
          }
          if ( J.EQ.1 ) {
             TEMP2 = ABS( D2( J )-D1( I ) )
-            IF( IJOB.EQ.2 ) TEMP2 = TEMP2 / MAX( UNFL, ABSTOL+ULP*ABS( D1( I ) ) )
+            if (IJOB.EQ.2) TEMP2 = TEMP2 / MAX( UNFL, ABSTOL+ULP*ABS( D1( I ) ) );
          } else {
             TEMP2 = MIN( ABS( D2( J )-D1( I ) ), ABS( D1( I )-D2( J-1 ) ) )             IF( IJOB.EQ.2 ) TEMP2 = TEMP2 / MAX( UNFL, ABSTOL+ULP*ABS( D1( I ) ) )
          }

@@ -49,7 +49,7 @@
 
       // Quick return if possible
 
-      IF( N.LE.1 ) RETURN       IF( IFST.EQ.ILST ) RETURN
+      if (N.LE.1) RETURN       IF( IFST.EQ.ILST ) RETURN;
 
       if ( IFST.LT.ILST ) {
 
@@ -65,7 +65,7 @@
             RETURN
          }
          HERE = HERE + 1
-         IF( HERE.LT.ILST ) GO TO 10
+         if (HERE.LT.ILST) GO TO 10;
          HERE = HERE - 1
       } else {
          HERE = IFST - 1
@@ -80,7 +80,7 @@
             RETURN
          }
          HERE = HERE - 1
-         IF( HERE.GE.ILST ) GO TO 20
+         if (HERE.GE.ILST) GO TO 20;
          HERE = HERE + 1
       }
       ILST = HERE

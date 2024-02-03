@@ -94,11 +94,11 @@
 
       // Quick return if possible
 
-      IF( N.EQ.0 ) RETURN
+      if (N.EQ.0) RETURN;
 
       if ( N.EQ.1 ) {
          W( 1 ) = REAL( AP( 1 ) )
-         IF( WANTZ ) Z( 1, 1 ) = CONE
+         if (WANTZ) Z( 1, 1 ) = CONE;
          RETURN
       }
 

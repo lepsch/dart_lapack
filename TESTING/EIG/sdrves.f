@@ -108,7 +108,7 @@
 
       // Quick return if nothing to do
 
-      IF( NSIZES.EQ.0 .OR. NTYPES.EQ.0 ) RETURN
+      if (NSIZES.EQ.0 .OR. NTYPES.EQ.0) RETURN;
 
       // More Important constants
 
@@ -126,7 +126,7 @@
       for (JSIZE = 1; JSIZE <= NSIZES; JSIZE++) { // 270
          N = NN( JSIZE )
          MTYPES = MAXTYP
-         IF( NSIZES.EQ.1 .AND. NTYPES.EQ.MAXTYP+1 ) MTYPES = MTYPES + 1
+         if (NSIZES.EQ.1 .AND. NTYPES.EQ.MAXTYP+1) MTYPES = MTYPES + 1;
 
          for (JTYPE = 1; JTYPE <= MTYPES; JTYPE++) { // 260
             IF( .NOT.DOTYPE( JTYPE ) ) GO TO 260
@@ -153,7 +153,7 @@
         // =9                              random general
         // =10                             random triangular
 
-            IF( MTYPES.GT.MAXTYP ) GO TO 90
+            if (MTYPES.GT.MAXTYP) GO TO 90;
 
             ITYPE = KTYPE( JTYPE )
             IMODE = KMODE( JTYPE )
@@ -201,7 +201,7 @@
 
                for (JCOL = 1; JCOL <= N; JCOL++) { // 80
                   A( JCOL, JCOL ) = ANORM
-                  IF( JCOL.GT.1 ) A( JCOL, JCOL-1 ) = ONE
+                  if (JCOL.GT.1) A( JCOL, JCOL-1 ) = ONE;
                } // 80
 
             } else if ( ITYPE.EQ.4 ) {
@@ -404,7 +404,7 @@
                   IF( RESULT( J ).GE.ZERO ) NTEST = NTEST + 1                   IF( RESULT( J ).GE.THRESH ) NFAIL = NFAIL + 1
                } // 230
 
-               IF( NFAIL.GT.0 ) NTESTF = NTESTF + 1
+               if (NFAIL.GT.0) NTESTF = NTESTF + 1;
                if ( NTESTF.EQ.1 ) {
                   WRITE( NOUNIT, FMT = 9999 )PATH
                   WRITE( NOUNIT, FMT = 9998 )

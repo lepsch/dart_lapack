@@ -66,7 +66,7 @@
       // Compute norm(L*D*L' - A) / (n * norm(A) * EPS)
 
       if ( ANORM.LE.ZERO ) {
-         IF( RESID.NE.ZERO ) RESID = ONE / EPS
+         if (RESID.NE.ZERO) RESID = ONE / EPS;
       } else {
          RESID = ( ( RESID / REAL( N ) ) / ANORM ) / EPS
       }

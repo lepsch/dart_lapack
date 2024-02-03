@@ -67,17 +67,17 @@
       // .. Allocate memory dynamically ..
 
       ALLOCATE ( A( ( KDMAX+1 )*NMAX, 7 ), STAT = AllocateStatus )
-      IF (AllocateStatus /= 0) STOP "*** Not enough memory ***"
+      if (AllocateStatus /= 0) STOP "*** Not enough memory ***";
       ALLOCATE ( B( NMAX*MAXRHS, 4 ), STAT = AllocateStatus )
-      IF (AllocateStatus /= 0) STOP "*** Not enough memory ***"
+      if (AllocateStatus /= 0) STOP "*** Not enough memory ***";
       ALLOCATE ( WORK( NMAX, 3*NMAX+MAXRHS+30 ), STAT = AllocateStatus )
-      IF (AllocateStatus /= 0) STOP "*** Not enough memory ***"
+      if (AllocateStatus /= 0) STOP "*** Not enough memory ***";
       ALLOCATE ( E( NMAX ), STAT = AllocateStatus )
-      IF (AllocateStatus /= 0) STOP "*** Not enough memory ***"
+      if (AllocateStatus /= 0) STOP "*** Not enough memory ***";
       ALLOCATE ( S( 2*NMAX ), STAT = AllocateStatus )
-      IF (AllocateStatus /= 0) STOP "*** Not enough memory ***"
+      if (AllocateStatus /= 0) STOP "*** Not enough memory ***";
       ALLOCATE ( RWORK( 5*NMAX+2*MAXRHS ), STAT = AllocateStatus )
-      IF (AllocateStatus /= 0) STOP "*** Not enough memory ***"
+      if (AllocateStatus /= 0) STOP "*** Not enough memory ***";
       // ..
       // .. Executable Statements ..
 
@@ -116,7 +116,7 @@
             FATAL = .TRUE.
          }
       } // 10
-      IF( NM.GT.0 ) WRITE( NOUT, FMT = 9993 )'M   ', ( MVAL( I ), I = 1, NM )
+      if (NM.GT.0) WRITE( NOUT, FMT = 9993 )'M   ', ( MVAL( I ), I = 1, NM );
 
       // Read the values of N
 
@@ -140,7 +140,7 @@
             FATAL = .TRUE.
          }
       } // 20
-      IF( NN.GT.0 ) WRITE( NOUT, FMT = 9993 )'N   ', ( NVAL( I ), I = 1, NN )
+      if (NN.GT.0) WRITE( NOUT, FMT = 9993 )'N   ', ( NVAL( I ), I = 1, NN );
 
       // Read the values of NRHS
 
@@ -164,7 +164,7 @@
             FATAL = .TRUE.
          }
       } // 30
-      IF( NNS.GT.0 ) WRITE( NOUT, FMT = 9993 )'NRHS', ( NSVAL( I ), I = 1, NNS )
+      if (NNS.GT.0) WRITE( NOUT, FMT = 9993 )'NRHS', ( NSVAL( I ), I = 1, NNS );
 
       // Read the values of NB
 
@@ -185,7 +185,7 @@
             FATAL = .TRUE.
          }
       } // 40
-      IF( NNB.GT.0 ) WRITE( NOUT, FMT = 9993 )'NB  ', ( NBVAL( I ), I = 1, NNB )
+      if (NNB.GT.0) WRITE( NOUT, FMT = 9993 )'NB  ', ( NBVAL( I ), I = 1, NNB );
 
       // Set NBVAL2 to be the set of unique values of NB
 
@@ -208,7 +208,7 @@
             FATAL = .TRUE.
          }
       } // 70
-      IF( NNB.GT.0 ) WRITE( NOUT, FMT = 9993 )'NX  ', ( NXVAL( I ), I = 1, NNB )
+      if (NNB.GT.0) WRITE( NOUT, FMT = 9993 )'NX  ', ( NXVAL( I ), I = 1, NNB );
 
       // Read the values of RANKVAL
 
@@ -232,7 +232,7 @@
             FATAL = .TRUE.
          }
       }
-      IF( NRANK.GT.0 ) WRITE( NOUT, FMT = 9993 )'RANK % OF N', ( RANKVAL( I ), I = 1, NRANK )
+      if (NRANK.GT.0) WRITE( NOUT, FMT = 9993 )'RANK % OF N', ( RANKVAL( I ), I = 1, NRANK );
 
       // Read the threshold value for the test ratios.
 
@@ -294,7 +294,7 @@
       } // 120
       NMATS = NMATS*10 + IC
       I = I + 1
-      IF( I.GT.72 ) GO TO 130
+      if (I.GT.72) GO TO 130;
       GO TO 100
       } // 130
       C1 = PATH( 1: 1 )

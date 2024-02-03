@@ -61,7 +61,7 @@
 
       // Quick return if possible
 
-      IF( N.EQ.0 ) RETURN
+      if (N.EQ.0) RETURN;
 
       SMLSIZ = ILAENV( 9, 'ZLAED0', ' ', 0, 0, 0, 0 )
 
@@ -103,7 +103,7 @@
 
       TEMP = LOG( DBLE( N ) ) / LOG( TWO )
       LGN = INT( TEMP )
-      IF( 2**LGN.LT.N ) LGN = LGN + 1       IF( 2**LGN.LT.N ) LGN = LGN + 1
+      if (2**LGN.LT.N) LGN = LGN + 1       IF( 2**LGN.LT.N ) LGN = LGN + 1;
       IPRMPT = INDXQ + N + 1
       IPERM = IPRMPT + N*LGN
       IQPTR = IPERM + N*LGN

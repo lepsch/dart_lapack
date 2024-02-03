@@ -105,7 +105,7 @@
             }
          }
       }
-      IF( ALPHA.EQ.ZERO ) RETURN
+      if (ALPHA.EQ.ZERO) RETURN;
       if ( LSAME( UPLO, 'U' ) ) {
 
          // Form  y  when A is stored in upper triangle.

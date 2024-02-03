@@ -46,7 +46,7 @@
 
       // Quick return if possible
 
-      IF( M.LE.0 ) RETURN
+      if (M.LE.0) RETURN;
 
       zlaset('Full', M, M, DCMPLX( ZERO ), DCMPLX( ONE ), WORK, M );
 

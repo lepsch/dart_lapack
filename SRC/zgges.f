@@ -113,7 +113,7 @@
          }
          WORK( 1 ) = LWKOPT
 
-         IF( LWORK.LT.LWKMIN .AND. .NOT.LQUERY ) INFO = -18
+         if (LWORK.LT.LWKMIN .AND. .NOT.LQUERY) INFO = -18;
       }
 
       if ( INFO.NE.0 ) {
@@ -150,7 +150,7 @@
          ILASCL = .TRUE.
       }
 
-      IF( ILASCL ) CALL ZLASCL( 'G', 0, 0, ANRM, ANRMTO, N, N, A, LDA, IERR )
+      if (ILASCL) CALL ZLASCL( 'G', 0, 0, ANRM, ANRMTO, N, N, A, LDA, IERR );
 
       // Scale B if max element outside range [SMLNUM,BIGNUM]
 
@@ -164,7 +164,7 @@
          ILBSCL = .TRUE.
       }
 
-      IF( ILBSCL ) CALL ZLASCL( 'G', 0, 0, BNRM, BNRMTO, N, N, B, LDB, IERR )
+      if (ILBSCL) CALL ZLASCL( 'G', 0, 0, BNRM, BNRMTO, N, N, B, LDB, IERR );
 
       // Permute the matrix to make it more nearly triangular
       // (Real Workspace: need 6*N)
@@ -201,7 +201,7 @@
 
       // Initialize VSR
 
-      IF( ILVSR ) CALL ZLASET( 'Full', N, N, CZERO, CONE, VSR, LDVSR )
+      if (ILVSR) CALL ZLASET( 'Full', N, N, CZERO, CONE, VSR, LDVSR );
 
       // Reduce to generalized Hessenberg form
       // (Workspace: none needed)
@@ -234,7 +234,7 @@
 
          // Undo scaling on eigenvalues before selecting
 
-         IF( ILASCL ) CALL ZLASCL( 'G', 0, 0, ANRM, ANRMTO, N, 1, ALPHA, N, IERR )          IF( ILBSCL ) CALL ZLASCL( 'G', 0, 0, BNRM, BNRMTO, N, 1, BETA, N, IERR )
+         if (ILASCL) CALL ZLASCL( 'G', 0, 0, ANRM, ANRMTO, N, 1, ALPHA, N, IERR )          IF( ILBSCL ) CALL ZLASCL( 'G', 0, 0, BNRM, BNRMTO, N, 1, BETA, N, IERR );
 
          // Select eigenvalues
 
@@ -243,14 +243,14 @@
          } // 10
 
          ztgsen(0, ILVSL, ILVSR, BWORK, N, A, LDA, B, LDB, ALPHA, BETA, VSL, LDVSL, VSR, LDVSR, SDIM, PVSL, PVSR, DIF, WORK( IWRK ), LWORK-IWRK+1, IDUM, 1, IERR );
-         IF( IERR.EQ.1 ) INFO = N + 3
+         if (IERR.EQ.1) INFO = N + 3;
 
       }
 
       // Apply back-permutation to VSL and VSR
       // (Workspace: none needed)
 
-      IF( ILVSL ) CALL ZGGBAK( 'P', 'L', N, ILO, IHI, RWORK( ILEFT ), RWORK( IRIGHT ), N, VSL, LDVSL, IERR )       IF( ILVSR ) CALL ZGGBAK( 'P', 'R', N, ILO, IHI, RWORK( ILEFT ), RWORK( IRIGHT ), N, VSR, LDVSR, IERR )
+      if (ILVSL) CALL ZGGBAK( 'P', 'L', N, ILO, IHI, RWORK( ILEFT ), RWORK( IRIGHT ), N, VSL, LDVSL, IERR )       IF( ILVSR ) CALL ZGGBAK( 'P', 'R', N, ILO, IHI, RWORK( ILEFT ), RWORK( IRIGHT ), N, VSR, LDVSR, IERR );
 
       // Undo scaling
 
@@ -272,7 +272,7 @@
          SDIM = 0
          for (I = 1; I <= N; I++) { // 20
             CURSL = SELCTG( ALPHA( I ), BETA( I ) )
-            IF( CURSL ) SDIM = SDIM + 1             IF( CURSL .AND. .NOT.LASTSL ) INFO = N + 2
+            if (CURSL) SDIM = SDIM + 1             IF( CURSL .AND. .NOT.LASTSL ) INFO = N + 2;
             LASTSL = CURSL
          } // 20
 

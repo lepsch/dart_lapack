@@ -32,7 +32,7 @@
       // ..
       // .. Executable Statements ..
 
-      IF( N.EQ.0 ) RETURN
+      if (N.EQ.0) RETURN;
 
       if ( BETA.EQ.ZERO ) {
          for (J = 1; J <= NRHS; J++) { // 20

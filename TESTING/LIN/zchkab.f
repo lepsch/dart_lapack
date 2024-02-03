@@ -96,7 +96,7 @@
             FATAL = .TRUE.
          }
       } // 10
-      IF( NM.GT.0 ) WRITE( NOUT, FMT = 9993 )'M   ', ( MVAL( I ), I = 1, NM )
+      if (NM.GT.0) WRITE( NOUT, FMT = 9993 )'M   ', ( MVAL( I ), I = 1, NM );
 
       // Read the values of NRHS
 
@@ -120,7 +120,7 @@
             FATAL = .TRUE.
          }
       } // 30
-      IF( NNS.GT.0 ) WRITE( NOUT, FMT = 9993 )'NRHS', ( NSVAL( I ), I = 1, NNS )
+      if (NNS.GT.0) WRITE( NOUT, FMT = 9993 )'NRHS', ( NSVAL( I ), I = 1, NNS );
 
       // Read the threshold value for the test ratios.
 
@@ -186,7 +186,7 @@
       } // 120
       NMATS = NMATS*10 + IC
       I = I + 1
-      IF( I.GT.72 ) GO TO 130
+      if (I.GT.72) GO TO 130;
       GO TO 100
       } // 130
       C1 = PATH( 1: 1 )
@@ -215,7 +215,7 @@
 
          // Test the error exits
 
-         IF( TSTERR ) CALL ZERRAB( NOUT )
+         if (TSTERR) CALL ZERRAB( NOUT );
 
          if ( TSTDRV ) {
             zdrvab(DOTYPE, NM, MVAL, NNS, NSVAL, THRESH, LDA, A( 1, 1 ), A( 1, 2 ), B( 1, 1 ), B( 1, 2 ), WORK, RWORK, SWORK, IWORK, NOUT );
@@ -230,7 +230,7 @@
          NTYPES = 9
          alareq('DPO', NMATS, DOTYPE, NTYPES, NIN, NOUT );
 
-         IF( TSTERR ) CALL ZERRAC( NOUT )
+         if (TSTERR) CALL ZERRAC( NOUT );
 
 
          if ( TSTDRV ) {

@@ -97,13 +97,13 @@
 
       // Quick return if possible
 
-      IF( N.EQ.0 ) RETURN
+      if (N.EQ.0) RETURN;
 
       if ( N.EQ.1 ) {
          if ( SOMCON ) {
             IF( .NOT.SELECT( 1 ) ) RETURN
          }
-         IF( WANTS ) S( 1 ) = ONE          IF( WANTSP ) SEP( 1 ) = ABS( T( 1, 1 ) )
+         if (WANTS) S( 1 ) = ONE          IF( WANTSP ) SEP( 1 ) = ABS( T( 1, 1 ) );
          RETURN
       }
 
@@ -179,7 +179,7 @@
 
                   IX = IZAMAX( N-1, WORK, 1 )
                   XNORM = CABS1( WORK( IX, 1 ) )
-                  IF( SCALE.LT.XNORM*SMLNUM .OR. SCALE.EQ.ZERO ) GO TO 40
+                  if (SCALE.LT.XNORM*SMLNUM .OR. SCALE.EQ.ZERO) GO TO 40;
                   zdrscl(N, SCALE, WORK, 1 );
                }
                GO TO 30

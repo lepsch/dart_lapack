@@ -79,7 +79,7 @@
 
       // Test the error exits
 
-      IF( TSTERR ) CALL CERRVX( PATH, NOUT )
+      if (TSTERR) CALL CERRVX( PATH, NOUT );
       INFOT = 0
 
       // Set the block size and minimum block size for testing.
@@ -96,7 +96,7 @@
          LDA = MAX( N, 1 )
          XTYPE = 'N'
          NIMAT = NTYPES
-         IF( N.LE.0 ) NIMAT = 1
+         if (N.LE.0) NIMAT = 1;
 
          for (IMAT = 1; IMAT <= NIMAT; IMAT++) { // 120
 
@@ -107,7 +107,7 @@
             // Skip types 3, 4, or 5 if the matrix size is too small.
 
             ZEROT = IMAT.GE.3 .AND. IMAT.LE.5
-            IF( ZEROT .AND. N.LT.IMAT-2 ) GO TO 120
+            if (ZEROT .AND. N.LT.IMAT-2) GO TO 120;
 
             // Do first for UPLO = 'U', then for UPLO = 'L'
 
@@ -191,7 +191,7 @@
                      EQUIL = LSAME( FACT, 'E' )
 
                      if ( ZEROT ) {
-                        IF( PREFAC ) GO TO 90
+                        if (PREFAC) GO TO 90;
                         RCONDC = ZERO
 
                      } else if ( .NOT.LSAME( FACT, 'N' ) ) {
@@ -209,7 +209,7 @@
 
                            cpoequ(N, AFAC, LDA, S, SCOND, AMAX, INFO );
                            if ( INFO.EQ.0 .AND. N.GT.0 ) {
-                              IF( IEQUED.GT.1 ) SCOND = ZERO
+                              if (IEQUED.GT.1) SCOND = ZERO;
 
                               // Equilibrate the matrix.
 
@@ -220,7 +220,7 @@
                         // Save the condition number of the
                         // non-equilibrated system for use in CGET04.
 
-                        IF( EQUIL ) ROLDC = RCONDC
+                        if (EQUIL) ROLDC = RCONDC;
 
                         // Compute the 1-norm of A.
 
@@ -297,7 +297,7 @@
 
                         for (K = 1; K <= NT; K++) { // 60
                            if ( RESULT( K ).GE.THRESH ) {
-                              IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALADHD( NOUT, PATH )                               WRITE( NOUT, FMT = 9999 )'CPOSV ', UPLO, N, IMAT, K, RESULT( K )
+                              if (NFAIL.EQ.0 .AND. NERRS.EQ.0) CALL ALADHD( NOUT, PATH )                               WRITE( NOUT, FMT = 9999 )'CPOSV ', UPLO, N, IMAT, K, RESULT( K );
                               NFAIL = NFAIL + 1
                            }
                         } // 60
@@ -307,7 +307,7 @@
 
                      // --- Test CPOSVX ---
 
-                     IF( .NOT.PREFAC ) CALL CLASET( UPLO, N, N, CMPLX( ZERO ), CMPLX( ZERO ), AFAC, LDA )
+                     if (.NOT.PREFAC) CALL CLASET( UPLO, N, N, CMPLX( ZERO ), CMPLX( ZERO ), AFAC, LDA );
                      claset('Full', N, NRHS, CMPLX( ZERO ), CMPLX( ZERO ), X, LDA );
                      if ( IEQUED.GT.1 .AND. N.GT.0 ) {
 
@@ -371,7 +371,7 @@
 
                      for (K = K1; K <= 6; K++) { // 80
                         if ( RESULT( K ).GE.THRESH ) {
-                           IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALADHD( NOUT, PATH )
+                           if (NFAIL.EQ.0 .AND. NERRS.EQ.0) CALL ALADHD( NOUT, PATH );
                            if ( PREFAC ) {
                               WRITE( NOUT, FMT = 9997 )'CPOSVX', FACT, UPLO, N, EQUED, IMAT, K, RESULT( K )
                            } else {
@@ -388,7 +388,7 @@
 
                      clacpy('Full', N, N, ASAV, LDA, A, LDA );
                      clacpy('Full', N, NRHS, BSAV, LDA, B, LDA );
-                      IF( .NOT.PREFAC ) CALL CLASET( UPLO, N, N, CMPLX( ZERO ), CMPLX( ZERO ), AFAC, LDA )
+                      if (.NOT.PREFAC) CALL CLASET( UPLO, N, N, CMPLX( ZERO ), CMPLX( ZERO ), AFAC, LDA );
                      claset('Full', N, NRHS, CMPLX( ZERO ), CMPLX( ZERO ), X, LDA );
                      if ( IEQUED.GT.1 .AND. N.GT.0 ) {
 
@@ -407,7 +407,7 @@
 
                      // Check the error code from CPOSVXX.
 
-                     IF( INFO.EQ.N+1 ) GOTO 90
+                     if (INFO.EQ.N+1) GOTO 90;
                      if ( INFO.NE.IZERO ) {
                         alaerh(PATH, 'CPOSVXX', INFO, IZERO, FACT // UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
                         GO TO 90
@@ -454,7 +454,7 @@
 
                      for (K = K1; K <= 6; K++) { // 85
                         if ( RESULT( K ).GE.THRESH ) {
-                           IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALADHD( NOUT, PATH )
+                           if (NFAIL.EQ.0 .AND. NERRS.EQ.0) CALL ALADHD( NOUT, PATH );
                            if ( PREFAC ) {
                               WRITE( NOUT, FMT = 9997 )'CPOSVXX', FACT, UPLO, N, EQUED, IMAT, K, RESULT( K )
                            } else {

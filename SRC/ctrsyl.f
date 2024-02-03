@@ -73,7 +73,7 @@
       // Quick return if possible
 
       SCALE = ONE
-      IF( M.EQ.0 .OR. N.EQ.0 ) RETURN
+      if (M.EQ.0 .OR. N.EQ.0) RETURN;
 
       // Set constants to control overflow
 
@@ -116,7 +116,7 @@
                }
                DB = ABS( REAL( VEC ) ) + ABS( AIMAG( VEC ) )
                if ( DA11.LT.ONE .AND. DB.GT.ONE ) {
-                  IF( DB.GT.BIGNUM*DA11 ) SCALOC = ONE / DB
+                  if (DB.GT.BIGNUM*DA11) SCALOC = ONE / DB;
                }
                X11 = CLADIV( VEC*CMPLX( SCALOC ), A11 )
 
@@ -162,7 +162,7 @@
                }
                DB = ABS( REAL( VEC ) ) + ABS( AIMAG( VEC ) )
                if ( DA11.LT.ONE .AND. DB.GT.ONE ) {
-                  IF( DB.GT.BIGNUM*DA11 ) SCALOC = ONE / DB
+                  if (DB.GT.BIGNUM*DA11) SCALOC = ONE / DB;
                }
 
                X11 = CLADIV( VEC*CMPLX( SCALOC ), A11 )
@@ -212,7 +212,7 @@
                }
                DB = ABS( REAL( VEC ) ) + ABS( AIMAG( VEC ) )
                if ( DA11.LT.ONE .AND. DB.GT.ONE ) {
-                  IF( DB.GT.BIGNUM*DA11 ) SCALOC = ONE / DB
+                  if (DB.GT.BIGNUM*DA11) SCALOC = ONE / DB;
                }
 
                X11 = CLADIV( VEC*CMPLX( SCALOC ), A11 )
@@ -258,7 +258,7 @@
                }
                DB = ABS( REAL( VEC ) ) + ABS( AIMAG( VEC ) )
                if ( DA11.LT.ONE .AND. DB.GT.ONE ) {
-                  IF( DB.GT.BIGNUM*DA11 ) SCALOC = ONE / DB
+                  if (DB.GT.BIGNUM*DA11) SCALOC = ONE / DB;
                }
 
                X11 = CLADIV( VEC*CMPLX( SCALOC ), A11 )

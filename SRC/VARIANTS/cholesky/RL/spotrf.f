@@ -53,7 +53,7 @@
 
       // Quick return if possible
 
-      IF( N.EQ.0 ) RETURN
+      if (N.EQ.0) RETURN;
 
       // Determine the block size for this environment.
 
@@ -79,7 +79,7 @@
                JB = MIN( NB, N-J+1 )
 
                spotrf2('Upper', JB, A( J, J ), LDA, INFO );
-                IF( INFO.NE.0 ) GO TO 30
+                if (INFO.NE.0) GO TO 30;
 
                if ( J+JB.LE.N ) {
 
@@ -101,7 +101,7 @@
                JB = MIN( NB, N-J+1 )
 
                spotrf2('Lower', JB, A( J, J ), LDA, INFO );
-                IF( INFO.NE.0 ) GO TO 30
+                if (INFO.NE.0) GO TO 30;
 
                if ( J+JB.LE.N ) {
 

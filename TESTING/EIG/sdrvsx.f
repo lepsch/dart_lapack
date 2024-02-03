@@ -110,7 +110,7 @@
 
       // If nothing to do check on NIUNIT
 
-      IF( NSIZES.EQ.0 .OR. NTYPES.EQ.0 ) GO TO 150
+      if (NSIZES.EQ.0 .OR. NTYPES.EQ.0) GO TO 150;
 
       // More Important constants
 
@@ -158,7 +158,7 @@
         // =9                              random general
         // =10                             random triangular
 
-            IF( MTYPES.GT.MAXTYP ) GO TO 90
+            if (MTYPES.GT.MAXTYP) GO TO 90;
 
             ITYPE = KTYPE( JTYPE )
             IMODE = KMODE( JTYPE )
@@ -206,7 +206,7 @@
 
                for (JCOL = 1; JCOL <= N; JCOL++) { // 80
                   A( JCOL, JCOL ) = ANORM
-                  IF( JCOL.GT.1 ) A( JCOL, JCOL-1 ) = ONE
+                  if (JCOL.GT.1) A( JCOL, JCOL-1 ) = ONE;
                } // 80
 
             } else if ( ITYPE.EQ.4 ) {
@@ -297,7 +297,7 @@
                   IF( RESULT( J ).GE.ZERO ) NTEST = NTEST + 1                   IF( RESULT( J ).GE.THRESH ) NFAIL = NFAIL + 1
                } // 100
 
-               IF( NFAIL.GT.0 ) NTESTF = NTESTF + 1
+               if (NFAIL.GT.0) NTESTF = NTESTF + 1;
                if ( NTESTF.EQ.1 ) {
                   WRITE( NOUNIT, FMT = 9999 )PATH
                   WRITE( NOUNIT, FMT = 9998 )
@@ -329,10 +329,10 @@
       JTYPE = 0
       } // 160
       READ( NIUNIT, FMT = *, END = 200 )N, NSLCT
-      IF( N.EQ.0 ) GO TO 200
+      if (N.EQ.0) GO TO 200;
       JTYPE = JTYPE + 1
       ISEED( 1 ) = JTYPE
-      IF( NSLCT.GT.0 ) READ( NIUNIT, FMT = * )( ISLCT( I ), I = 1, NSLCT )
+      if (NSLCT.GT.0) READ( NIUNIT, FMT = * )( ISLCT( I ), I = 1, NSLCT );
       for (I = 1; I <= N; I++) { // 170
          READ( NIUNIT, FMT = * )( A( I, J ), J = 1, N )
       } // 170
@@ -348,7 +348,7 @@
          IF( RESULT( J ).GE.ZERO ) NTEST = NTEST + 1          IF( RESULT( J ).GE.THRESH ) NFAIL = NFAIL + 1
       } // 180
 
-      IF( NFAIL.GT.0 ) NTESTF = NTESTF + 1
+      if (NFAIL.GT.0) NTESTF = NTESTF + 1;
       if ( NTESTF.EQ.1 ) {
          WRITE( NOUNIT, FMT = 9999 )PATH
          WRITE( NOUNIT, FMT = 9998 )

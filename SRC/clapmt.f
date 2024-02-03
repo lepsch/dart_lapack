@@ -21,7 +21,7 @@
       // ..
       // .. Executable Statements ..
 
-      IF( N.LE.1 ) RETURN
+      if (N.LE.1) RETURN;
 
       for (I = 1; I <= N; I++) { // 10
          K( I ) = -K( I )
@@ -68,7 +68,7 @@
             K( I ) = -K( I )
             J = K( I )
             } // 80
-            IF( J.EQ.I ) GO TO 100
+            if (J.EQ.I) GO TO 100;
 
             for (II = 1; II <= M; II++) { // 90
                TEMP = X( II, I )

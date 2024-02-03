@@ -145,7 +145,7 @@
          }
       } // 1874
 
-      IF ( NOSCAL ) SCALEM = ONE
+      if (NOSCAL) SCALEM = ONE;
 
       AAPP = ZERO
       AAQQ = BIG
@@ -157,11 +157,11 @@
       // Quick return for zero M x N matrix
 * #:)
       if ( AAPP .EQ. ZERO ) {
-         IF ( LSVEC ) CALL SLASET( 'G', M, N1, ZERO, ONE, U, LDU )
-         IF ( RSVEC ) CALL SLASET( 'G', N, N,  ZERO, ONE, V, LDV )
+         if (LSVEC) CALL SLASET( 'G', M, N1, ZERO, ONE, U, LDU );
+         if (RSVEC) CALL SLASET( 'G', N, N,  ZERO, ONE, V, LDV );
          WORK(1) = ONE
          WORK(2) = ONE
-         IF ( ERREST ) WORK(3) = ONE
+         if (ERREST) WORK(3) = ONE;
          if ( LSVEC .AND. RSVEC ) {
             WORK(4) = ONE
             WORK(5) = ONE
@@ -222,7 +222,7 @@
             IWORK(2) = 0
          }
          IWORK(3) = 0
-         IF ( ERREST ) WORK(3) = ONE
+         if (ERREST) WORK(3) = ONE;
          if ( LSVEC .AND. RSVEC ) {
             WORK(4) = ONE
             WORK(5) = ONE
@@ -288,7 +288,7 @@
          ENTRA = ZERO
          for (p = 1; p <= N; p++) { // 1113
             BIG1  = ( ( SVA(p) / XSC )**2 ) * TEMP1
-            IF ( BIG1 .NE. ZERO ) ENTRA = ENTRA + BIG1 * ALOG(BIG1)
+            if (BIG1 .NE. ZERO) ENTRA = ENTRA + BIG1 * ALOG(BIG1);
          } // 1113
          ENTRA = - ENTRA / ALOG(FLOAT(N))
 
@@ -301,7 +301,7 @@
          ENTRAT = ZERO
          for (p = N+1; p <= N+M; p++) { // 1114
             BIG1 = ( ( WORK(p) / XSC )**2 ) * TEMP1
-            IF ( BIG1 .NE. ZERO ) ENTRAT = ENTRAT + BIG1 * ALOG(BIG1)
+            if (BIG1 .NE. ZERO) ENTRAT = ENTRAT + BIG1 * ALOG(BIG1);
          } // 1114
          ENTRAT = - ENTRAT / ALOG(FLOAT(M))
 
@@ -335,7 +335,7 @@
             KILL   = LSVEC
             LSVEC  = RSVEC
             RSVEC  = KILL
-            IF ( LSVEC ) N1 = N
+            if (LSVEC) N1 = N;
 
             ROWPIV = .TRUE.
          }
@@ -707,7 +707,7 @@
 
          sormqr('Left', 'No Tr', M, N1, N, A, LDA, WORK, U, LDU, WORK(N+1), LWORK-N, IERR );
 
-         IF ( ROWPIV ) CALL SLASWP( N1, U, LDU, 1, M-1, IWORK(2*N+1), -1 )
+         if (ROWPIV) CALL SLASWP( N1, U, LDU, 1, M-1, IWORK(2*N+1), -1 );
 
          for (p = 1; p <= N1; p++) { // 1974
             XSC = ONE / SNRM2( M, U(1,p), 1 )
@@ -755,7 +755,7 @@
                   TEMP1 = XSC*ABS( V(q,q) )
                   for (p = 1; p <= N; p++) { // 2968
                      IF ( ( p .GT. q ) .AND. ( ABS(V(p,q)) .LE. TEMP1 ) .OR. ( p .LT. q ) ) V(p,q) = SIGN( TEMP1, V(p,q) )
-                     IF ( p .LT. q ) V(p,q) = - V(p,q)
+                     if (p .LT. q) V(p,q) = - V(p,q);
                   } // 2968
                } // 2969
             } else {
@@ -798,7 +798,7 @@
                   } // 3959
                }
 
-               IF ( NR .NE. N ) CALL SLACPY( 'A', N, NR, V, LDV, WORK(2*N+1), N )
+               if (NR .NE. N) CALL SLACPY( 'A', N, NR, V, LDV, WORK(2*N+1), N );
                // .. save ...
 
             // .. this transposed copy should be better than naive
@@ -1026,7 +1026,7 @@
             // If the initial QRF is computed with row pivoting, the left
             // singular vectors must be adjusted.
 
-            IF ( ROWPIV ) CALL SLASWP( N1, U, LDU, 1, M-1, IWORK(2*N+1), -1 )
+            if (ROWPIV) CALL SLASWP( N1, U, LDU, 1, M-1, IWORK(2*N+1), -1 );
 
          } else {
 
@@ -1081,7 +1081,7 @@
                IF ( (XSC .LT. (ONE-TEMP1)) .OR. (XSC .GT. (ONE+TEMP1)) ) CALL SSCAL( M, XSC, U(1,p), 1 )
             } // 6973
 
-            IF ( ROWPIV ) CALL SLASWP( N1, U, LDU, 1, M-1, IWORK(2*N+1), -1 )
+            if (ROWPIV) CALL SLASWP( N1, U, LDU, 1, M-1, IWORK(2*N+1), -1 );
 
          }
 
@@ -1109,7 +1109,7 @@
                TEMP1 = XSC*ABS( V(q,q) )
                for (p = 1; p <= N; p++) { // 5968
                   IF ( ( p .GT. q ) .AND. ( ABS(V(p,q)) .LE. TEMP1 ) .OR. ( p .LT. q ) ) V(p,q) = SIGN( TEMP1, V(p,q) )
-                  IF ( p .LT. q ) V(p,q) = - V(p,q)
+                  if (p .LT. q) V(p,q) = - V(p,q);
                } // 5968
             } // 5969
          } else {
@@ -1173,7 +1173,7 @@
 
          sormqr('Left', 'No Tr', M, N1, N, A, LDA, WORK, U, LDU, WORK(N+1), LWORK-N, IERR );
 
-            IF ( ROWPIV ) CALL SLASWP( N1, U, LDU, 1, M-1, IWORK(2*N+1), -1 )
+            if (ROWPIV) CALL SLASWP( N1, U, LDU, 1, M-1, IWORK(2*N+1), -1 );
 
 
          }
@@ -1203,7 +1203,7 @@
 
       WORK(1) = USCAL2 * SCALEM
       WORK(2) = USCAL1
-      IF ( ERREST ) WORK(3) = SCONDA
+      if (ERREST) WORK(3) = SCONDA;
       if ( LSVEC .AND. RSVEC ) {
          WORK(4) = CONDR1
          WORK(5) = CONDR2

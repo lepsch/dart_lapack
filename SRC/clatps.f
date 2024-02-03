@@ -73,7 +73,7 @@
 
       // Quick return if possible
 
-      IF( N.EQ.0 ) RETURN
+      if (N.EQ.0) RETURN;
 
       // Determine machine dependent parameters to control overflow.
 
@@ -163,7 +163,7 @@
 
                // Exit the loop if the growth factor is too small.
 
-               IF( GROW.LE.SMLNUM ) GO TO 60
+               if (GROW.LE.SMLNUM) GO TO 60;
 
                TJJS = AP( IP )
                TJJ = CABS1( TJJS )
@@ -206,7 +206,7 @@
 
                // Exit the loop if the growth factor is too small.
 
-               IF( GROW.LE.SMLNUM ) GO TO 60
+               if (GROW.LE.SMLNUM) GO TO 60;
 
                // G(j) = G(j-1)*( 1 + CNORM(j) )
 
@@ -249,7 +249,7 @@
 
                // Exit the loop if the growth factor is too small.
 
-               IF( GROW.LE.SMLNUM ) GO TO 90
+               if (GROW.LE.SMLNUM) GO TO 90;
 
                // G(j) = max( G(j-1), M(j-1)*( 1 + CNORM(j) ) )
 
@@ -263,7 +263,7 @@
 
                   // M(j) = M(j-1)*( 1 + CNORM(j) ) / abs(A(j,j))
 
-                  IF( XJ.GT.TJJ ) XBND = XBND*( TJJ / XJ )
+                  if (XJ.GT.TJJ) XBND = XBND*( TJJ / XJ );
                } else {
 
                   // M(j) could overflow, set XBND to 0.
@@ -285,7 +285,7 @@
 
                // Exit the loop if the growth factor is too small.
 
-               IF( GROW.LE.SMLNUM ) GO TO 90
+               if (GROW.LE.SMLNUM) GO TO 90;
 
                // G(j) = ( 1 + CNORM(j) )*G(j-1)
 
@@ -332,7 +332,7 @@
                   TJJS = AP( IP )*TSCAL
                } else {
                   TJJS = TSCAL
-                  IF( TSCAL.EQ.ONE ) GO TO 105
+                  if (TSCAL.EQ.ONE) GO TO 105;
                }
                   TJJ = CABS1( TJJS )
                   if ( TJJ.GT.SMLNUM ) {
@@ -515,7 +515,7 @@
                      TJJS = AP( IP )*TSCAL
                   } else {
                      TJJS = TSCAL
-                     IF( TSCAL.EQ.ONE ) GO TO 145
+                     if (TSCAL.EQ.ONE) GO TO 145;
                   }
                      TJJ = CABS1( TJJS )
                      if ( TJJ.GT.SMLNUM ) {
@@ -652,7 +652,7 @@
                      TJJS = CONJG( AP( IP ) )*TSCAL
                   } else {
                      TJJS = TSCAL
-                     IF( TSCAL.EQ.ONE ) GO TO 185
+                     if (TSCAL.EQ.ONE) GO TO 185;
                   }
                      TJJ = CABS1( TJJS )
                      if ( TJJ.GT.SMLNUM ) {

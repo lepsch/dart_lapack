@@ -40,7 +40,7 @@
       // ..
       // .. Executable Statements ..
 
-      IF( N.LE.0 ) RETURN
+      if (N.LE.0) RETURN;
       zlaset('Full', N, N, CZERO, CZERO, A, LDA );
 
       // Insure a correct ISEED

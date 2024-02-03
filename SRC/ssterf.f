@@ -46,7 +46,7 @@
          xerbla('SSTERF', -INFO );
          RETURN
       }
-      IF( N.LE.1 ) RETURN
+      if (N.LE.1) RETURN;
 
       // Determine the unit roundoff for this environment.
 
@@ -70,7 +70,7 @@
       L1 = 1
 
       } // 10
-      IF( L1.GT.N ) GO TO 170       IF( L1.GT.1 ) E( L1-1 ) = ZERO
+      if (L1.GT.N) GO TO 170       IF( L1.GT.1 ) E( L1-1 ) = ZERO;
       for (M = L1; M <= N - 1; M++) { // 20
          if ( ABS( E( M ) ).LE.( SQRT( ABS( D( M ) ) )* SQRT( ABS( D( M+1 ) ) ) )*EPS ) {
             E( M ) = ZERO
@@ -85,13 +85,13 @@
       LEND = M
       LENDSV = LEND
       L1 = M + 1
-      IF( LEND.EQ.L ) GO TO 10
+      if (LEND.EQ.L) GO TO 10;
 
       // Scale submatrix in rows and columns L to LEND
 
       ANORM = SLANST( 'M', LEND-L+1, D( L ), E( L ) )
       ISCALE = 0
-      IF( ANORM.EQ.ZERO ) GO TO 10
+      if (ANORM.EQ.ZERO) GO TO 10;
       if ( ANORM.GT.SSFMAX ) {
          ISCALE = 1
          slascl('G', 0, 0, ANORM, SSFMAX, LEND-L+1, 1, D( L ), N, INFO )          CALL SLASCL( 'G', 0, 0, ANORM, SSFMAX, LEND-L, 1, E( L ), N, INFO );
@@ -126,9 +126,9 @@
          M = LEND
 
          } // 70
-         IF( M.LT.LEND ) E( M ) = ZERO
+         if (M.LT.LEND) E( M ) = ZERO;
          P = D( L )
-         IF( M.EQ.L ) GO TO 90
+         if (M.EQ.L) GO TO 90;
 
          // If remaining matrix is 2 by 2, use SLAE2 to compute its
          // eigenvalues.
@@ -140,11 +140,11 @@
             D( L+1 ) = RT2
             E( L ) = ZERO
             L = L + 2
-            IF( L.LE.LEND ) GO TO 50
+            if (L.LE.LEND) GO TO 50;
             GO TO 150
          }
 
-         IF( JTOT.EQ.NMAXIT ) GO TO 150
+         if (JTOT.EQ.NMAXIT) GO TO 150;
          JTOT = JTOT + 1
 
          // Form shift.
@@ -164,7 +164,7 @@
          DO 80 I = M - 1, L, -1
             BB = E( I )
             R = P + BB
-            IF( I.NE.M-1 ) E( I+1 ) = S*R
+            if (I.NE.M-1) E( I+1 ) = S*R;
             OLDC = C
             C = P / R
             S = BB / R
@@ -189,7 +189,7 @@
          D( L ) = P
 
          L = L + 1
-         IF( L.LE.LEND ) GO TO 50
+         if (L.LE.LEND) GO TO 50;
          GO TO 150
 
       } else {
@@ -205,9 +205,9 @@
          M = LEND
 
          } // 120
-         IF( M.GT.LEND ) E( M-1 ) = ZERO
+         if (M.GT.LEND) E( M-1 ) = ZERO;
          P = D( L )
-         IF( M.EQ.L ) GO TO 140
+         if (M.EQ.L) GO TO 140;
 
          // If remaining matrix is 2 by 2, use SLAE2 to compute its
          // eigenvalues.
@@ -219,11 +219,11 @@
             D( L-1 ) = RT2
             E( L-1 ) = ZERO
             L = L - 2
-            IF( L.GE.LEND ) GO TO 100
+            if (L.GE.LEND) GO TO 100;
             GO TO 150
          }
 
-         IF( JTOT.EQ.NMAXIT ) GO TO 150
+         if (JTOT.EQ.NMAXIT) GO TO 150;
          JTOT = JTOT + 1
 
          // Form shift.
@@ -243,7 +243,7 @@
          for (I = M; I <= L - 1; I++) { // 130
             BB = E( I )
             R = P + BB
-            IF( I.NE.M ) E( I-1 ) = S*R
+            if (I.NE.M) E( I-1 ) = S*R;
             OLDC = C
             C = P / R
             S = BB / R
@@ -268,7 +268,7 @@
          D( L ) = P
 
          L = L - 1
-         IF( L.GE.LEND ) GO TO 100
+         if (L.GE.LEND) GO TO 100;
          GO TO 150
 
       }
@@ -276,12 +276,12 @@
       // Undo scaling if necessary
 
       } // 150
-      IF( ISCALE.EQ.1 ) CALL SLASCL( 'G', 0, 0, SSFMAX, ANORM, LENDSV-LSV+1, 1, D( LSV ), N, INFO )       IF( ISCALE.EQ.2 ) CALL SLASCL( 'G', 0, 0, SSFMIN, ANORM, LENDSV-LSV+1, 1, D( LSV ), N, INFO )
+      if (ISCALE.EQ.1) CALL SLASCL( 'G', 0, 0, SSFMAX, ANORM, LENDSV-LSV+1, 1, D( LSV ), N, INFO )       IF( ISCALE.EQ.2 ) CALL SLASCL( 'G', 0, 0, SSFMIN, ANORM, LENDSV-LSV+1, 1, D( LSV ), N, INFO );
 
       // Check for no convergence to an eigenvalue after a total
       // of N*MAXIT iterations.
 
-      IF( JTOT.LT.NMAXIT ) GO TO 10
+      if (JTOT.LT.NMAXIT) GO TO 10;
       for (I = 1; I <= N - 1; I++) { // 160
          IF( E( I ).NE.ZERO ) INFO = INFO + 1
       } // 160

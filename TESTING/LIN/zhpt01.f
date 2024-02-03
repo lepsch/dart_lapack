@@ -113,7 +113,7 @@
       RESID = ZLANHE( '1', UPLO, N, C, LDC, RWORK )
 
       if ( ANORM.LE.ZERO ) {
-         IF( RESID.NE.ZERO ) RESID = ONE / EPS
+         if (RESID.NE.ZERO) RESID = ONE / EPS;
       } else {
          RESID = ( ( RESID / DBLE( N ) ) / ANORM ) / EPS
       }

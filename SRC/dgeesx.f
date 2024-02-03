@@ -105,7 +105,7 @@
                MAXWRK = MAX( MAXWRK, N + HSWORK )
             }
             LWRK = MAXWRK
-            IF( .NOT.WANTSN ) LWRK = MAX( LWRK, N + ( N*N )/2 )             IF( WANTSV .OR. WANTSB ) LIWRK = ( N*N )/4
+            if (.NOT.WANTSN) LWRK = MAX( LWRK, N + ( N*N )/2 )             IF( WANTSV .OR. WANTSB ) LIWRK = ( N*N )/4;
          }
          IWORK( 1 ) = LIWRK
          WORK( 1 ) = LWRK
@@ -150,7 +150,7 @@
          SCALEA = .TRUE.
          CSCALE = BIGNUM
       }
-      IF( SCALEA ) CALL DLASCL( 'G', 0, 0, ANRM, CSCALE, N, N, A, LDA, IERR )
+      if (SCALEA) CALL DLASCL( 'G', 0, 0, ANRM, CSCALE, N, N, A, LDA, IERR );
 
       // Permute the matrix to make it more nearly triangular
       // (RWorkspace: need N)
@@ -204,7 +204,7 @@
                       // otherwise, need 0 )
 
          dtrsen(SENSE, JOBVS, BWORK, N, A, LDA, VS, LDVS, WR, WI, SDIM, RCONDE, RCONDV, WORK( IWRK ), LWORK-IWRK+1, IWORK, LIWORK, ICOND );
-         IF( .NOT.WANTSN ) MAXWRK = MAX( MAXWRK, N+2*SDIM*( N-SDIM ) )
+         if (.NOT.WANTSN) MAXWRK = MAX( MAXWRK, N+2*SDIM*( N-SDIM ) );
          if ( ICOND.EQ.-15 ) {
 
             // Not enough real workspace
@@ -261,7 +261,7 @@
             }
             INXT = I1 - 1
             for (I = I1; I <= I2; I++) { // 20
-               IF( I.LT.INXT ) GO TO 20
+               if (I.LT.INXT) GO TO 20;
                if ( WI( I ).EQ.ZERO ) {
                   INXT = I + 1
                } else {
@@ -271,7 +271,7 @@
                   } else if ( A( I+1, I ).NE.ZERO .AND. A( I, I+1 ).EQ. ZERO ) {
                      WI( I ) = ZERO
                      WI( I+1 ) = ZERO
-                     IF( I.GT.1 ) CALL DSWAP( I-1, A( 1, I ), 1, A( 1, I+1 ), 1 )                      IF( N.GT.I+1 ) CALL DSWAP( N-I-1, A( I, I+2 ), LDA, A( I+1, I+2 ), LDA )
+                     if (I.GT.1) CALL DSWAP( I-1, A( 1, I ), 1, A( 1, I+1 ), 1 )                      IF( N.GT.I+1 ) CALL DSWAP( N-I-1, A( I, I+2 ), LDA, A( I+1, I+2 ), LDA );
                      if ( WANTVS ) {
                        dswap(N, VS( 1, I ), 1, VS( 1, I+1 ), 1 );
                      }
@@ -296,9 +296,9 @@
          for (I = 1; I <= N; I++) { // 30
             CURSL = SELECT( WR( I ), WI( I ) )
             if ( WI( I ).EQ.ZERO ) {
-               IF( CURSL ) SDIM = SDIM + 1
+               if (CURSL) SDIM = SDIM + 1;
                IP = 0
-               IF( CURSL .AND. .NOT.LASTSL ) INFO = N + 2
+               if (CURSL .AND. .NOT.LASTSL) INFO = N + 2;
             } else {
                if ( IP.EQ.1 ) {
 
@@ -306,9 +306,9 @@
 
                   CURSL = CURSL .OR. LASTSL
                   LASTSL = CURSL
-                  IF( CURSL ) SDIM = SDIM + 2
+                  if (CURSL) SDIM = SDIM + 2;
                   IP = -1
-                  IF( CURSL .AND. .NOT.LST2SL ) INFO = N + 2
+                  if (CURSL .AND. .NOT.LST2SL) INFO = N + 2;
                } else {
 
                   // First eigenvalue of conjugate pair

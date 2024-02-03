@@ -74,7 +74,7 @@
 
       // Test the error exits
 
-      IF( TSTERR ) CALL ZERRPO( PATH, NOUT )
+      if (TSTERR) CALL ZERRPO( PATH, NOUT );
       INFOT = 0
       KDVAL( 1 ) = 0
 
@@ -89,7 +89,7 @@
 
          NKD = MAX( 1, MIN( N, 4 ) )
          NIMAT = NTYPES
-         IF( N.EQ.0 ) NIMAT = 1
+         if (N.EQ.0) NIMAT = 1;
 
          KDVAL( 2 ) = N + ( N+1 ) / 4
          KDVAL( 3 ) = ( 3*N-1 ) / 4
@@ -126,7 +126,7 @@
                   // Skip types 2, 3, or 4 if the matrix size is too small.
 
                   ZEROT = IMAT.GE.2 .AND. IMAT.LE.4
-                  IF( ZEROT .AND. N.LT.IMAT-1 ) GO TO 60
+                  if (ZEROT .AND. N.LT.IMAT-1) GO TO 60;
 
                   if ( .NOT.ZEROT .OR. .NOT.DOTYPE( 1 ) ) {
 
@@ -231,7 +231,7 @@
 
                      // Skip the tests if INFO is not 0.
 
-                     IF( INFO.NE.0 ) GO TO 50
+                     if (INFO.NE.0) GO TO 50;
 
 *+    TEST 1
                      // Reconstruct matrix from factors and compute
@@ -242,14 +242,14 @@
                      // Print the test ratio if it is .GE. THRESH.
 
                      if ( RESULT( 1 ).GE.THRESH ) {
-                        IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9999 )UPLO, N, KD, NB, IMAT, 1, RESULT( 1 )
+                        if (NFAIL.EQ.0 .AND. NERRS.EQ.0) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9999 )UPLO, N, KD, NB, IMAT, 1, RESULT( 1 );
                         NFAIL = NFAIL + 1
                      }
                      NRUN = NRUN + 1
 
                      // Only do other tests if this is the first blocksize.
 
-                     IF( INB.GT.1 ) GO TO 50
+                     if (INB.GT.1) GO TO 50;
 
                      // Form the inverse of A so we can get a good estimate
                      // of RCONDC = 1/(norm(A) * norm(inv(A))).
@@ -283,7 +283,7 @@
 
                      // Check error code from ZPBTRS.
 
-                        IF( INFO.NE.0 ) CALL ALAERH( PATH, 'ZPBTRS', INFO, 0, UPLO, N, N, KD, KD, NRHS, IMAT, NFAIL, NERRS, NOUT )
+                        if (INFO.NE.0) CALL ALAERH( PATH, 'ZPBTRS', INFO, 0, UPLO, N, N, KD, KD, NRHS, IMAT, NFAIL, NERRS, NOUT );
 
                         zlacpy('Full', N, NRHS, B, LDA, WORK, LDA )                         CALL ZPBT02( UPLO, N, KD, NRHS, A, LDAB, X, LDA, WORK, LDA, RWORK, RESULT( 2 ) );
 
@@ -300,7 +300,7 @@
 
                      // Check error code from ZPBRFS.
 
-                        IF( INFO.NE.0 ) CALL ALAERH( PATH, 'ZPBRFS', INFO, 0, UPLO, N, N, KD, KD, NRHS, IMAT, NFAIL, NERRS, NOUT )
+                        if (INFO.NE.0) CALL ALAERH( PATH, 'ZPBRFS', INFO, 0, UPLO, N, N, KD, KD, NRHS, IMAT, NFAIL, NERRS, NOUT );
 
                         zget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 4 ) )                         CALL ZPBT05( UPLO, N, KD, NRHS, A, LDAB, B, LDA, X, LDA, XACT, LDA, RWORK, RWORK( NRHS+1 ), RESULT( 5 ) );
 
@@ -309,7 +309,7 @@
 
                         for (K = 2; K <= 6; K++) { // 30
                            if ( RESULT( K ).GE.THRESH ) {
-                              IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                               WRITE( NOUT, FMT = 9998 )UPLO, N, KD, NRHS, IMAT, K, RESULT( K )
+                              if (NFAIL.EQ.0 .AND. NERRS.EQ.0) CALL ALAHD( NOUT, PATH )                               WRITE( NOUT, FMT = 9998 )UPLO, N, KD, NRHS, IMAT, K, RESULT( K );
                               NFAIL = NFAIL + 1
                            }
                         } // 30
@@ -324,14 +324,14 @@
 
                      // Check error code from ZPBCON.
 
-                     IF( INFO.NE.0 ) CALL ALAERH( PATH, 'ZPBCON', INFO, 0, UPLO, N, N, KD, KD, -1, IMAT, NFAIL, NERRS, NOUT )
+                     if (INFO.NE.0) CALL ALAERH( PATH, 'ZPBCON', INFO, 0, UPLO, N, N, KD, KD, -1, IMAT, NFAIL, NERRS, NOUT );
 
                      RESULT( 7 ) = DGET06( RCOND, RCONDC )
 
                      // Print the test ratio if it is .GE. THRESH.
 
                      if ( RESULT( 7 ).GE.THRESH ) {
-                        IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9997 )UPLO, N, KD, IMAT, 7, RESULT( 7 )
+                        if (NFAIL.EQ.0 .AND. NERRS.EQ.0) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9997 )UPLO, N, KD, IMAT, 7, RESULT( 7 );
                         NFAIL = NFAIL + 1
                      }
                      NRUN = NRUN + 1

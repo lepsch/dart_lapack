@@ -51,7 +51,7 @@
 
       } // 10
       READ( NIN, FMT = * )N, IFST, ILST
-      IF( N.EQ.0 ) RETURN
+      if (N.EQ.0) RETURN;
       KNT = KNT + 1
       for (I = 1; I <= N; I++) { // 20
          READ( NIN, FMT = * )( TMP( I, J ), J = 1, N )
@@ -88,7 +88,7 @@
             IF( T1( I, J ).NE.T2( I, J ) ) RES = RES + ONE / EPS
          } // 50
       } // 60
-      IF( IFST1.NE.IFST2 ) RES = RES + ONE / EPS       IF( ILST1.NE.ILST2 ) RES = RES + ONE / EPS       IF( INFO1.NE.INFO2 ) RES = RES + ONE / EPS
+      if (IFST1.NE.IFST2) RES = RES + ONE / EPS       IF( ILST1.NE.ILST2 ) RES = RES + ONE / EPS       IF( INFO1.NE.INFO2 ) RES = RES + ONE / EPS;
 
       // Test for successful reordering of T2
 
@@ -125,7 +125,7 @@
          } // 90
          LOC = LOC + 1
       }
-      IF( LOC.LT.N ) GO TO 70
+      if (LOC.LT.N) GO TO 70;
       if ( RES.GT.RMAX ) {
          RMAX = RES
          LMAX = KNT

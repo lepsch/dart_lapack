@@ -75,7 +75,7 @@
          xerbla('DBDSQR', -INFO );
          RETURN
       }
-      IF( N.EQ.0 ) RETURN       IF( N.EQ.1 ) GO TO 160
+      if (N.EQ.0) RETURN       IF( N.EQ.1 ) GO TO 160;
 
       // ROTATE is true if any singular vectors desired, false otherwise
 
@@ -88,7 +88,7 @@
 
       // If INFO equals 2, dqds didn't finish, try to finish
 
-         IF( INFO .NE. 2 ) RETURN
+         if (INFO .NE. 2) RETURN;
          INFO = 0
       }
 
@@ -117,7 +117,7 @@
 
          // Update singular vectors if desired
 
-         IF( NRU.GT.0 ) CALL DLASR( 'R', 'V', 'F', NRU, N, WORK( 1 ), WORK( N ), U, LDU )          IF( NCC.GT.0 ) CALL DLASR( 'L', 'V', 'F', N, NCC, WORK( 1 ), WORK( N ), C, LDC )
+         if (NRU.GT.0) CALL DLASR( 'R', 'V', 'F', NRU, N, WORK( 1 ), WORK( N ), U, LDU )          IF( NCC.GT.0 ) CALL DLASR( 'L', 'V', 'F', N, NCC, WORK( 1 ), WORK( N ), C, LDC );
       }
 
       // Compute singular values to relative accuracy TOL
@@ -142,12 +142,12 @@
          // Relative accuracy desired
 
          SMINOA = ABS( D( 1 ) )
-         IF( SMINOA.EQ.ZERO ) GO TO 50
+         if (SMINOA.EQ.ZERO) GO TO 50;
          MU = SMINOA
          for (I = 2; I <= N; I++) { // 40
             MU = ABS( D( I ) )*( MU / ( MU+ABS( E( I-1 ) ) ) )
             SMINOA = MIN( SMINOA, MU )
-            IF( SMINOA.EQ.ZERO ) GO TO 50
+            if (SMINOA.EQ.ZERO) GO TO 50;
          } // 40
          } // 50
          SMINOA = SMINOA / SQRT( DBLE( N ) )
@@ -179,12 +179,12 @@
 
       // Check for convergence or exceeding iteration count
 
-      IF( M.LE.1 ) GO TO 160
+      if (M.LE.1) GO TO 160;
 
       if ( ITER.GE.N ) {
          ITER = ITER - N
          ITERDIVN = ITERDIVN + 1
-         IF( ITERDIVN.GE.MAXITDIVN ) GO TO 200
+         if (ITERDIVN.GE.MAXITDIVN) GO TO 200;
       }
 
       // Find diagonal block of matrix to work on
@@ -195,7 +195,7 @@
          LL = M - LLL
          ABSS = ABS( D( LL ) )
          ABSE = ABS( E( LL ) )
-         IF( TOL.LT.ZERO .AND. ABSS.LE.THRESH ) D( LL ) = ZERO          IF( ABSE.LE.THRESH ) GO TO 80
+         if (TOL.LT.ZERO .AND. ABSS.LE.THRESH) D( LL ) = ZERO          IF( ABSE.LE.THRESH ) GO TO 80;
          SMAX = MAX( SMAX, ABSS, ABSE )
       } // 70
       LL = 0
@@ -228,7 +228,7 @@
 
          // Compute singular vectors, if desired
 
-         IF( NCVT.GT.0 ) CALL DROT( NCVT, VT( M-1, 1 ), LDVT, VT( M, 1 ), LDVT, COSR, SINR )          IF( NRU.GT.0 ) CALL DROT( NRU, U( 1, M-1 ), 1, U( 1, M ), 1, COSL, SINL )          IF( NCC.GT.0 ) CALL DROT( NCC, C( M-1, 1 ), LDC, C( M, 1 ), LDC, COSL, SINL )
+         if (NCVT.GT.0) CALL DROT( NCVT, VT( M-1, 1 ), LDVT, VT( M, 1 ), LDVT, COSR, SINR )          IF( NRU.GT.0 ) CALL DROT( NRU, U( 1, M-1 ), 1, U( 1, M ), 1, COSL, SINL )          IF( NCC.GT.0 ) CALL DROT( NCC, C( M-1, 1 ), LDC, C( M, 1 ), LDC, COSL, SINL );
          M = M - 2
          GO TO 60
       }
@@ -352,7 +352,7 @@
             OLDCS = ONE
             for (I = LL; I <= M - 1; I++) { // 120
                dlartg(D( I )*CS, E( I ), CS, SN, R );
-               IF( I.GT.LL ) E( I-1 ) = OLDSN*R
+               if (I.GT.LL) E( I-1 ) = OLDSN*R;
                dlartg(OLDCS*R, D( I+1 )*SN, OLDCS, OLDSN, D( I ) );
                WORK( I-LL+1 ) = CS
                WORK( I-LL+1+NM1 ) = SN
@@ -365,7 +365,7 @@
 
             // Update singular vectors
 
-            IF( NCVT.GT.0 ) CALL DLASR( 'L', 'V', 'F', M-LL+1, NCVT, WORK( 1 ), WORK( N ), VT( LL, 1 ), LDVT )             IF( NRU.GT.0 ) CALL DLASR( 'R', 'V', 'F', NRU, M-LL+1, WORK( NM12+1 ), WORK( NM13+1 ), U( 1, LL ), LDU )             IF( NCC.GT.0 ) CALL DLASR( 'L', 'V', 'F', M-LL+1, NCC, WORK( NM12+1 ), WORK( NM13+1 ), C( LL, 1 ), LDC )
+            if (NCVT.GT.0) CALL DLASR( 'L', 'V', 'F', M-LL+1, NCVT, WORK( 1 ), WORK( N ), VT( LL, 1 ), LDVT )             IF( NRU.GT.0 ) CALL DLASR( 'R', 'V', 'F', NRU, M-LL+1, WORK( NM12+1 ), WORK( NM13+1 ), U( 1, LL ), LDU )             IF( NCC.GT.0 ) CALL DLASR( 'L', 'V', 'F', M-LL+1, NCC, WORK( NM12+1 ), WORK( NM13+1 ), C( LL, 1 ), LDC );
 
             // Test convergence
 
@@ -380,7 +380,7 @@
             OLDCS = ONE
             DO 130 I = M, LL + 1, -1
                dlartg(D( I )*CS, E( I-1 ), CS, SN, R );
-               IF( I.LT.M ) E( I ) = OLDSN*R
+               if (I.LT.M) E( I ) = OLDSN*R;
                dlartg(OLDCS*R, D( I-1 )*SN, OLDCS, OLDSN, D( I ) );
                WORK( I-LL ) = CS
                WORK( I-LL+NM1 ) = -SN
@@ -393,7 +393,7 @@
 
             // Update singular vectors
 
-            IF( NCVT.GT.0 ) CALL DLASR( 'L', 'V', 'B', M-LL+1, NCVT, WORK( NM12+1 ), WORK( NM13+1 ), VT( LL, 1 ), LDVT )             IF( NRU.GT.0 ) CALL DLASR( 'R', 'V', 'B', NRU, M-LL+1, WORK( 1 ), WORK( N ), U( 1, LL ), LDU )             IF( NCC.GT.0 ) CALL DLASR( 'L', 'V', 'B', M-LL+1, NCC, WORK( 1 ), WORK( N ), C( LL, 1 ), LDC )
+            if (NCVT.GT.0) CALL DLASR( 'L', 'V', 'B', M-LL+1, NCVT, WORK( NM12+1 ), WORK( NM13+1 ), VT( LL, 1 ), LDVT )             IF( NRU.GT.0 ) CALL DLASR( 'R', 'V', 'B', NRU, M-LL+1, WORK( 1 ), WORK( N ), U( 1, LL ), LDU )             IF( NCC.GT.0 ) CALL DLASR( 'L', 'V', 'B', M-LL+1, NCC, WORK( 1 ), WORK( N ), C( LL, 1 ), LDC );
 
             // Test convergence
 
@@ -412,7 +412,7 @@
             G = E( LL )
             for (I = LL; I <= M - 1; I++) { // 140
                dlartg(F, G, COSR, SINR, R );
-               IF( I.GT.LL ) E( I-1 ) = R
+               if (I.GT.LL) E( I-1 ) = R;
                F = COSR*D( I ) + SINR*E( I )
                E( I ) = COSR*E( I ) - SINR*D( I )
                G = SINR*D( I+1 )
@@ -434,7 +434,7 @@
 
             // Update singular vectors
 
-            IF( NCVT.GT.0 ) CALL DLASR( 'L', 'V', 'F', M-LL+1, NCVT, WORK( 1 ), WORK( N ), VT( LL, 1 ), LDVT )             IF( NRU.GT.0 ) CALL DLASR( 'R', 'V', 'F', NRU, M-LL+1, WORK( NM12+1 ), WORK( NM13+1 ), U( 1, LL ), LDU )             IF( NCC.GT.0 ) CALL DLASR( 'L', 'V', 'F', M-LL+1, NCC, WORK( NM12+1 ), WORK( NM13+1 ), C( LL, 1 ), LDC )
+            if (NCVT.GT.0) CALL DLASR( 'L', 'V', 'F', M-LL+1, NCVT, WORK( 1 ), WORK( N ), VT( LL, 1 ), LDVT )             IF( NRU.GT.0 ) CALL DLASR( 'R', 'V', 'F', NRU, M-LL+1, WORK( NM12+1 ), WORK( NM13+1 ), U( 1, LL ), LDU )             IF( NCC.GT.0 ) CALL DLASR( 'L', 'V', 'F', M-LL+1, NCC, WORK( NM12+1 ), WORK( NM13+1 ), C( LL, 1 ), LDC );
 
             // Test convergence
 
@@ -449,7 +449,7 @@
             G = E( M-1 )
             DO 150 I = M, LL + 1, -1
                dlartg(F, G, COSR, SINR, R );
-               IF( I.LT.M ) E( I ) = R
+               if (I.LT.M) E( I ) = R;
                F = COSR*D( I ) + SINR*E( I-1 )
                E( I-1 ) = COSR*E( I-1 ) - SINR*D( I )
                G = SINR*D( I-1 )
@@ -475,7 +475,7 @@
 
             // Update singular vectors if desired
 
-            IF( NCVT.GT.0 ) CALL DLASR( 'L', 'V', 'B', M-LL+1, NCVT, WORK( NM12+1 ), WORK( NM13+1 ), VT( LL, 1 ), LDVT )             IF( NRU.GT.0 ) CALL DLASR( 'R', 'V', 'B', NRU, M-LL+1, WORK( 1 ), WORK( N ), U( 1, LL ), LDU )             IF( NCC.GT.0 ) CALL DLASR( 'L', 'V', 'B', M-LL+1, NCC, WORK( 1 ), WORK( N ), C( LL, 1 ), LDC )
+            if (NCVT.GT.0) CALL DLASR( 'L', 'V', 'B', M-LL+1, NCVT, WORK( NM12+1 ), WORK( NM13+1 ), VT( LL, 1 ), LDVT )             IF( NRU.GT.0 ) CALL DLASR( 'R', 'V', 'B', NRU, M-LL+1, WORK( 1 ), WORK( N ), U( 1, LL ), LDU )             IF( NCC.GT.0 ) CALL DLASR( 'L', 'V', 'B', M-LL+1, NCC, WORK( 1 ), WORK( N ), C( LL, 1 ), LDC );
          }
       }
 
@@ -492,7 +492,7 @@
 
             // Change sign of singular vectors, if desired
 
-            IF( NCVT.GT.0 ) CALL DSCAL( NCVT, NEGONE, VT( I, 1 ), LDVT )
+            if (NCVT.GT.0) CALL DSCAL( NCVT, NEGONE, VT( I, 1 ), LDVT );
          }
       } // 170
 
@@ -517,8 +517,8 @@
 
             D( ISUB ) = D( N+1-I )
             D( N+1-I ) = SMIN
-            IF( NCVT.GT.0 ) CALL DSWAP( NCVT, VT( ISUB, 1 ), LDVT, VT( N+1-I, 1 ), LDVT )
-            IF( NRU.GT.0 ) CALL DSWAP( NRU, U( 1, ISUB ), 1, U( 1, N+1-I ), 1 )             IF( NCC.GT.0 ) CALL DSWAP( NCC, C( ISUB, 1 ), LDC, C( N+1-I, 1 ), LDC )
+            if (NCVT.GT.0) CALL DSWAP( NCVT, VT( ISUB, 1 ), LDVT, VT( N+1-I, 1 ), LDVT );
+            if (NRU.GT.0) CALL DSWAP( NRU, U( 1, ISUB ), 1, U( 1, N+1-I ), 1 )             IF( NCC.GT.0 ) CALL DSWAP( NCC, C( ISUB, 1 ), LDC, C( N+1-I, 1 ), LDC );
          }
       } // 190
       GO TO 220

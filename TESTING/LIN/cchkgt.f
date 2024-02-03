@@ -74,7 +74,7 @@
 
       // Test the error exits
 
-      IF( TSTERR ) CALL CERRGE( PATH, NOUT )
+      if (TSTERR) CALL CERRGE( PATH, NOUT );
       INFOT = 0
 
       for (IN = 1; IN <= NN; IN++) { // 110
@@ -85,7 +85,7 @@
          M = MAX( N-1, 0 )
          LDA = MAX( 1, N )
          NIMAT = NTYPES
-         IF( N.LE.0 ) NIMAT = 1
+         if (N.LE.0) NIMAT = 1;
 
          for (IMAT = 1; IMAT <= NIMAT; IMAT++) { // 100
 
@@ -130,7 +130,7 @@
                   // imaginary parts are from [-1,1].
 
                   clarnv(2, ISEED, N+2*M, A );
-                  IF( ANORM.NE.ONE ) CALL CSSCAL( N+2*M, ANORM, A, 1 )
+                  if (ANORM.NE.ONE) CALL CSSCAL( N+2*M, ANORM, A, 1 );
                } else if ( IZERO.GT.0 ) {
 
                   // Reuse the last matrix by copying back the zeroed out
@@ -138,7 +138,7 @@
 
                   if ( IZERO.EQ.1 ) {
                      A( N ) = Z( 2 )
-                     IF( N.GT.1 ) A( 1 ) = Z( 3 )
+                     if (N.GT.1) A( 1 ) = Z( 3 );
                   } else if ( IZERO.EQ.N ) {
                      A( 3*N-2 ) = Z( 1 )
                      A( 2*N-1 ) = Z( 2 )
@@ -189,7 +189,7 @@
 
             // Check error code from CGTTRF.
 
-            IF( INFO.NE.IZERO ) CALL ALAERH( PATH, 'CGTTRF', INFO, IZERO, ' ', N, N, 1, 1, -1, IMAT, NFAIL, NERRS, NOUT )
+            if (INFO.NE.IZERO) CALL ALAERH( PATH, 'CGTTRF', INFO, IZERO, ' ', N, N, 1, 1, -1, IMAT, NFAIL, NERRS, NOUT );
             TRFCON = INFO.NE.0
 
             cgtt01(N, A, A( M+1 ), A( N+M+1 ), AF, AF( M+1 ), AF( N+M+1 ), AF( N+2*M+1 ), IWORK, WORK, LDA, RWORK, RESULT( 1 ) );
@@ -197,7 +197,7 @@
             // Print the test ratio if it is .GE. THRESH.
 
             if ( RESULT( 1 ).GE.THRESH ) {
-               IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )
+               if (NFAIL.EQ.0 .AND. NERRS.EQ.0) CALL ALAHD( NOUT, PATH );
                WRITE( NOUT, FMT = 9999 )N, IMAT, 1, RESULT( 1 )
                NFAIL = NFAIL + 1
             }
@@ -252,14 +252,14 @@
 
                // Check error code from CGTCON.
 
-               IF( INFO.NE.0 ) CALL ALAERH( PATH, 'CGTCON', INFO, 0, NORM, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT )
+               if (INFO.NE.0) CALL ALAERH( PATH, 'CGTCON', INFO, 0, NORM, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
 
                RESULT( 7 ) = SGET06( RCOND, RCONDC )
 
                // Print the test ratio if it is .GE. THRESH.
 
                if ( RESULT( 7 ).GE.THRESH ) {
-                  IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                   WRITE( NOUT, FMT = 9997 )NORM, N, IMAT, 7, RESULT( 7 )
+                  if (NFAIL.EQ.0 .AND. NERRS.EQ.0) CALL ALAHD( NOUT, PATH )                   WRITE( NOUT, FMT = 9997 )NORM, N, IMAT, 7, RESULT( 7 );
                   NFAIL = NFAIL + 1
                }
                NRUN = NRUN + 1
@@ -267,7 +267,7 @@
 
             // Skip the remaining tests if the matrix is singular.
 
-            IF( TRFCON ) GO TO 100
+            if (TRFCON) GO TO 100;
 
             for (IRHS = 1; IRHS <= NNS; IRHS++) { // 90
                NRHS = NSVAL( IRHS )
@@ -301,7 +301,7 @@
 
                // Check error code from CGTTRS.
 
-                  IF( INFO.NE.0 ) CALL ALAERH( PATH, 'CGTTRS', INFO, 0, TRANS, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT )
+                  if (INFO.NE.0) CALL ALAERH( PATH, 'CGTTRS', INFO, 0, TRANS, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
 
                   clacpy('Full', N, NRHS, B, LDA, WORK, LDA );
                   cgtt02(TRANS, N, NRHS, A, A( M+1 ), A( N+M+1 ), X, LDA, WORK, LDA, RESULT( 2 ) );
@@ -319,7 +319,7 @@
 
                // Check error code from CGTRFS.
 
-                  IF( INFO.NE.0 ) CALL ALAERH( PATH, 'CGTRFS', INFO, 0, TRANS, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT )
+                  if (INFO.NE.0) CALL ALAERH( PATH, 'CGTRFS', INFO, 0, TRANS, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
 
                   cget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 4 ) )                   CALL CGTT05( TRANS, N, NRHS, A, A( M+1 ), A( N+M+1 ), B, LDA, X, LDA, XACT, LDA, RWORK, RWORK( NRHS+1 ), RESULT( 5 ) );
 
@@ -328,7 +328,7 @@
 
                   for (K = 2; K <= 6; K++) { // 70
                      if ( RESULT( K ).GE.THRESH ) {
-                        IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9998 )TRANS, N, NRHS, IMAT, K, RESULT( K )
+                        if (NFAIL.EQ.0 .AND. NERRS.EQ.0) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9998 )TRANS, N, NRHS, IMAT, K, RESULT( K );
                         NFAIL = NFAIL + 1
                      }
                   } // 70

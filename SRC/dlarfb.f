@@ -33,7 +33,7 @@
 
       // Quick return if possible
 
-      IF( M.LE.0 .OR. N.LE.0 ) RETURN
+      if (M.LE.0 .OR. N.LE.0) RETURN;
 
       if ( LSAME( TRANS, 'N' ) ) {
          TRANST = 'T'

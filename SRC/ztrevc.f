@@ -93,7 +93,7 @@
 
       // Quick return if possible.
 
-      IF( N.EQ.0 ) RETURN
+      if (N.EQ.0) RETURN;
 
       // Set the constants to control overflow.
 
@@ -162,7 +162,7 @@
                   VR( K, IS ) = CMZERO
                } // 60
             } else {
-               IF( KI.GT.1 ) CALL ZGEMV( 'N', N, KI-1, CMONE, VR, LDVR, WORK( 1 ), 1, DCMPLX( SCALE ), VR( 1, KI ), 1 )
+               if (KI.GT.1) CALL ZGEMV( 'N', N, KI-1, CMONE, VR, LDVR, WORK( 1 ), 1, DCMPLX( SCALE ), VR( 1, KI ), 1 );
 
                II = IZAMAX( N, VR( 1, KI ), 1 )
                REMAX = ONE / CABS1( VR( II, KI ) )
@@ -225,7 +225,7 @@
                   VL( K, IS ) = CMZERO
                } // 110
             } else {
-               IF( KI.LT.N ) CALL ZGEMV( 'N', N, N-KI, CMONE, VL( 1, KI+1 ), LDVL, WORK( KI+1 ), 1, DCMPLX( SCALE ), VL( 1, KI ), 1 )
+               if (KI.LT.N) CALL ZGEMV( 'N', N, N-KI, CMONE, VL( 1, KI+1 ), LDVL, WORK( KI+1 ), 1, DCMPLX( SCALE ), VL( 1, KI ), 1 );
 
                II = IZAMAX( N, VL( 1, KI ), 1 )
                REMAX = ONE / CABS1( VL( II, KI ) )

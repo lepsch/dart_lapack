@@ -133,7 +133,7 @@
          SCALEA = .TRUE.
          CSCALE = BIGNUM
       }
-      IF( SCALEA ) CALL ZLASCL( 'G', 0, 0, ANRM, CSCALE, N, N, A, LDA, IERR )
+      if (SCALEA) CALL ZLASCL( 'G', 0, 0, ANRM, CSCALE, N, N, A, LDA, IERR );
 
       // Permute the matrix to make it more nearly triangular
       // (CWorkspace: none)
@@ -175,7 +175,7 @@
       // Sort eigenvalues if desired
 
       if ( WANTST .AND. INFO.EQ.0 ) {
-         IF( SCALEA ) CALL ZLASCL( 'G', 0, 0, CSCALE, ANRM, N, 1, W, N, IERR )
+         if (SCALEA) CALL ZLASCL( 'G', 0, 0, CSCALE, ANRM, N, 1, W, N, IERR );
          for (I = 1; I <= N; I++) { // 10
             BWORK( I ) = SELECT( W( I ) )
          } // 10

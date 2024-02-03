@@ -57,13 +57,13 @@
 
       // Quick return if possible
 
-      IF( N.EQ.0 ) RETURN
+      if (N.EQ.0) RETURN;
 
       // Form inv(U).  If INFO > 0 from ZTRTRI, then U is singular,
       // and the inverse is not computed.
 
       ztrtri('Upper', 'Non-unit', N, A, LDA, INFO );
-      IF( INFO.GT.0 ) RETURN
+      if (INFO.GT.0) RETURN;
 
       NBMIN = 2
       LDWORK = N
@@ -94,7 +94,7 @@
 
             // Compute current column of inv(A).
 
-            IF( J.LT.N ) CALL ZGEMV( 'No transpose', N, N-J, -ONE, A( 1, J+1 ), LDA, WORK( J+1 ), 1, ONE, A( 1, J ), 1 )
+            if (J.LT.N) CALL ZGEMV( 'No transpose', N, N-J, -ONE, A( 1, J+1 ), LDA, WORK( J+1 ), 1, ONE, A( 1, J ), 1 );
          } // 20
       } else {
 
@@ -116,7 +116,7 @@
 
             // Compute current block column of inv(A).
 
-            IF( J+JB.LE.N ) CALL ZGEMM( 'No transpose', 'No transpose', N, JB, N-J-JB+1, -ONE, A( 1, J+JB ), LDA, WORK( J+JB ), LDWORK, ONE, A( 1, J ), LDA )
+            if (J+JB.LE.N) CALL ZGEMM( 'No transpose', 'No transpose', N, JB, N-J-JB+1, -ONE, A( 1, J+JB ), LDA, WORK( J+JB ), LDWORK, ONE, A( 1, J ), LDA );
             ztrsm('Right', 'Lower', 'No transpose', 'Unit', N, JB, ONE, WORK( J ), LDWORK, A( 1, J ), LDA );
          } // 50
       }
@@ -125,7 +125,7 @@
 
       DO 60 J = N - 1, 1, -1
          JP = IPIV( J )
-         IF( JP.NE.J ) CALL ZSWAP( N, A( 1, J ), 1, A( 1, JP ), 1 )
+         if (JP.NE.J) CALL ZSWAP( N, A( 1, J ), 1, A( 1, JP ), 1 );
       } // 60
 
       WORK( 1 ) = IWS

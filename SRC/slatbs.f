@@ -68,7 +68,7 @@
       // Quick return if possible
 
       SCALE = ONE
-      IF( N.EQ.0 ) RETURN
+      if (N.EQ.0) RETURN;
 
       // Determine machine dependent parameters to control overflow.
 
@@ -154,7 +154,7 @@
 
                // Exit the loop if the growth factor is too small.
 
-               IF( GROW.LE.SMLNUM ) GO TO 50
+               if (GROW.LE.SMLNUM) GO TO 50;
 
                // M(j) = G(j-1) / abs(A(j,j))
 
@@ -184,7 +184,7 @@
 
                // Exit the loop if the growth factor is too small.
 
-               IF( GROW.LE.SMLNUM ) GO TO 50
+               if (GROW.LE.SMLNUM) GO TO 50;
 
                // G(j) = G(j-1)*( 1 + CNORM(j) )
 
@@ -227,7 +227,7 @@
 
                // Exit the loop if the growth factor is too small.
 
-               IF( GROW.LE.SMLNUM ) GO TO 80
+               if (GROW.LE.SMLNUM) GO TO 80;
 
                // G(j) = max( G(j-1), M(j-1)*( 1 + CNORM(j) ) )
 
@@ -237,7 +237,7 @@
                // M(j) = M(j-1)*( 1 + CNORM(j) ) / abs(A(j,j))
 
                TJJ = ABS( AB( MAIND, J ) )
-               IF( XJ.GT.TJJ ) XBND = XBND*( TJJ / XJ )
+               if (XJ.GT.TJJ) XBND = XBND*( TJJ / XJ );
             } // 60
             GROW = MIN( GROW, XBND )
          } else {
@@ -251,7 +251,7 @@
 
                // Exit the loop if the growth factor is too small.
 
-               IF( GROW.LE.SMLNUM ) GO TO 80
+               if (GROW.LE.SMLNUM) GO TO 80;
 
                // G(j) = ( 1 + CNORM(j) )*G(j-1)
 
@@ -295,7 +295,7 @@
                   TJJS = AB( MAIND, J )*TSCAL
                } else {
                   TJJS = TSCAL
-                  IF( TSCAL.EQ.ONE ) GO TO 95
+                  if (TSCAL.EQ.ONE) GO TO 95;
                }
                   TJJ = ABS( TJJS )
                   if ( TJJ.GT.SMLNUM ) {
@@ -393,7 +393,7 @@
                                            // x(j) * A(j+1:min(j+kd,n),j)
 
                   JLEN = MIN( KD, N-J )
-                  IF( JLEN.GT.0 ) CALL SAXPY( JLEN, -X( J )*TSCAL, AB( 2, J ), 1, X( J+1 ), 1 )
+                  if (JLEN.GT.0) CALL SAXPY( JLEN, -X( J )*TSCAL, AB( 2, J ), 1, X( J+1 ), 1 );
                   I = J + ISAMAX( N-J, X( J+1 ), 1 )
                   XMAX = ABS( X( I ) )
                }
@@ -447,7 +447,7 @@
                      SUMJ = SDOT( JLEN, AB( KD+1-JLEN, J ), 1, X( J-JLEN ), 1 )
                   } else {
                      JLEN = MIN( KD, N-J )
-                     IF( JLEN.GT.0 ) SUMJ = SDOT( JLEN, AB( 2, J ), 1, X( J+1 ), 1 )
+                     if (JLEN.GT.0) SUMJ = SDOT( JLEN, AB( 2, J ), 1, X( J+1 ), 1 );
                   }
                } else {
 
@@ -480,7 +480,7 @@
                      TJJS = AB( MAIND, J )*TSCAL
                   } else {
                      TJJS = TSCAL
-                     IF( TSCAL.EQ.ONE ) GO TO 135
+                     if (TSCAL.EQ.ONE) GO TO 135;
                   }
                      TJJ = ABS( TJJS )
                      if ( TJJ.GT.SMLNUM ) {

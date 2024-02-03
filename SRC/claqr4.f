@@ -85,7 +85,7 @@
          // ==== Tiny matrices must use CLAHQR. ====
 
          LWKOPT = 1
-         IF( LWORK.NE.-1 ) CALL CLAHQR( WANTT, WANTZ, N, ILO, IHI, H, LDH, W, ILOZ, IHIZ, Z, LDZ, INFO )
+         if (LWORK.NE.-1) CALL CLAHQR( WANTT, WANTZ, N, ILO, IHI, H, LDH, W, ILOZ, IHIZ, Z, LDZ, INFO );
       } else {
 
          // ==== Use small bulge multi-shift QR with aggressive early
@@ -191,7 +191,7 @@
 
             // ==== Done when KBOT falls below ILO ====
 
-            IF( KBOT.LT.ILO ) GO TO 80
+            if (KBOT.LT.ILO) GO TO 80;
 
             // ==== Locate active block ====
 
@@ -237,7 +237,7 @@
                NDEC = -1
             } else if ( NDEC.GE.0 .OR. NW.GE.NWUPBD ) {
                NDEC = NDEC + 1
-               IF( NW-NDEC.LT.2 ) NDEC = 0
+               if (NW-NDEC.LT.2) NDEC = 0;
                NW = NW - NDEC
             }
 
@@ -341,7 +341,7 @@
 
                      SORTED = .false.
                      DO 50 K = KBOT, KS + 1, -1
-                        IF( SORTED ) GO TO 60
+                        if (SORTED) GO TO 60;
                         SORTED = .true.
                         for (I = KS; I <= K - 1; I++) { // 40
                            if ( CABS1( W( I ) ).LT.CABS1( W( I+1 ) ) ) {

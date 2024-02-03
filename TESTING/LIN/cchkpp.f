@@ -76,7 +76,7 @@
 
       // Test the error exits
 
-      IF( TSTERR ) CALL CERRPO( PATH, NOUT )
+      if (TSTERR) CALL CERRPO( PATH, NOUT );
       INFOT = 0
 
       // Do for each value of N in NVAL
@@ -86,7 +86,7 @@
          LDA = MAX( N, 1 )
          XTYPE = 'N'
          NIMAT = NTYPES
-         IF( N.LE.0 ) NIMAT = 1
+         if (N.LE.0) NIMAT = 1;
 
          for (IMAT = 1; IMAT <= NIMAT; IMAT++) { // 100
 
@@ -97,7 +97,7 @@
             // Skip types 3, 4, or 5 if the matrix size is too small.
 
             ZEROT = IMAT.GE.3 .AND. IMAT.LE.5
-            IF( ZEROT .AND. N.LT.IMAT-2 ) GO TO 100
+            if (ZEROT .AND. N.LT.IMAT-2) GO TO 100;
 
             // Do first for UPLO = 'U', then for UPLO = 'L'
 
@@ -183,7 +183,7 @@
 
                // Skip the tests if INFO is not 0.
 
-               IF( INFO.NE.0 ) GO TO 90
+               if (INFO.NE.0) GO TO 90;
 
 *+    TEST 1
                // Reconstruct matrix from factors and compute residual.
@@ -200,7 +200,7 @@
 
                // Check error code from CPPTRI.
 
-               IF( INFO.NE.0 ) CALL ALAERH( PATH, 'CPPTRI', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT )
+               if (INFO.NE.0) CALL ALAERH( PATH, 'CPPTRI', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
 
                cppt03(UPLO, N, A, AINV, WORK, LDA, RWORK, RCONDC, RESULT( 2 ) );
 
@@ -209,7 +209,7 @@
 
                for (K = 1; K <= 2; K++) { // 60
                   if ( RESULT( K ).GE.THRESH ) {
-                     IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                      WRITE( NOUT, FMT = 9999 )UPLO, N, IMAT, K, RESULT( K )
+                     if (NFAIL.EQ.0 .AND. NERRS.EQ.0) CALL ALAHD( NOUT, PATH )                      WRITE( NOUT, FMT = 9999 )UPLO, N, IMAT, K, RESULT( K );
                      NFAIL = NFAIL + 1
                   }
                } // 60
@@ -230,7 +230,7 @@
 
                // Check error code from CPPTRS.
 
-                  IF( INFO.NE.0 ) CALL ALAERH( PATH, 'CPPTRS', INFO, 0, UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT )
+                  if (INFO.NE.0) CALL ALAERH( PATH, 'CPPTRS', INFO, 0, UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
 
                   clacpy('Full', N, NRHS, B, LDA, WORK, LDA );
                   cppt02(UPLO, N, NRHS, A, X, LDA, WORK, LDA, RWORK, RESULT( 3 ) );
@@ -248,7 +248,7 @@
 
                // Check error code from CPPRFS.
 
-                  IF( INFO.NE.0 ) CALL ALAERH( PATH, 'CPPRFS', INFO, 0, UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT )
+                  if (INFO.NE.0) CALL ALAERH( PATH, 'CPPRFS', INFO, 0, UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
 
                   cget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 5 ) )                   CALL CPPT05( UPLO, N, NRHS, A, B, LDA, X, LDA, XACT, LDA, RWORK, RWORK( NRHS+1 ), RESULT( 6 ) );
 
@@ -257,7 +257,7 @@
 
                   for (K = 3; K <= 7; K++) { // 70
                      if ( RESULT( K ).GE.THRESH ) {
-                        IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9998 )UPLO, N, NRHS, IMAT, K, RESULT( K )
+                        if (NFAIL.EQ.0 .AND. NERRS.EQ.0) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9998 )UPLO, N, NRHS, IMAT, K, RESULT( K );
                         NFAIL = NFAIL + 1
                      }
                   } // 70
@@ -273,14 +273,14 @@
 
                // Check error code from CPPCON.
 
-               IF( INFO.NE.0 ) CALL ALAERH( PATH, 'CPPCON', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT )
+               if (INFO.NE.0) CALL ALAERH( PATH, 'CPPCON', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
 
                RESULT( 8 ) = SGET06( RCOND, RCONDC )
 
                // Print the test ratio if greater than or equal to THRESH.
 
                if ( RESULT( 8 ).GE.THRESH ) {
-                  IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                   WRITE( NOUT, FMT = 9999 )UPLO, N, IMAT, 8, RESULT( 8 )
+                  if (NFAIL.EQ.0 .AND. NERRS.EQ.0) CALL ALAHD( NOUT, PATH )                   WRITE( NOUT, FMT = 9999 )UPLO, N, IMAT, 8, RESULT( 8 );
                   NFAIL = NFAIL + 1
                }
                NRUN = NRUN + 1

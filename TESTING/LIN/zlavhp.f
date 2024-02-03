@@ -57,7 +57,7 @@
 
       // Quick return if possible.
 
-      IF( N.EQ.0 ) RETURN
+      if (N.EQ.0) RETURN;
 
       NOUNIT = LSAME( DIAG, 'N' )
 *------------------------------------------
@@ -77,7 +77,7 @@
             K = 1
             KC = 1
             } // 10
-            IF( K.GT.N ) GO TO 30
+            if (K.GT.N) GO TO 30;
 
             // 1 x 1 pivot block
 
@@ -85,7 +85,7 @@
 
                // Multiply by the diagonal element if forming U * D.
 
-               IF( NOUNIT ) CALL ZSCAL( NRHS, A( KC+K-1 ), B( K, 1 ), LDB )
+               if (NOUNIT) CALL ZSCAL( NRHS, A( KC+K-1 ), B( K, 1 ), LDB );
 
                // Multiply by P(K) * inv(U(K))  if K > 1.
 
@@ -98,7 +98,7 @@
                   // Interchange if P(K) != I.
 
                   KP = IPIV( K )
-                  IF( KP.NE.K ) CALL ZSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB )
+                  if (KP.NE.K) CALL ZSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
                }
                KC = KC + K
                K = K + 1
@@ -134,7 +134,7 @@
                   // Interchange if P(K) != I.
 
                   KP = ABS( IPIV( K ) )
-                  IF( KP.NE.K ) CALL ZSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB )
+                  if (KP.NE.K) CALL ZSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
                }
                KC = KCNEXT + K + 1
                K = K + 2
@@ -152,7 +152,7 @@
             K = N
             KC = N*( N+1 ) / 2 + 1
             } // 40
-            IF( K.LT.1 ) GO TO 60
+            if (K.LT.1) GO TO 60;
             KC = KC - ( N-K+1 )
 
             // Test the pivot index.  If greater than zero, a 1 x 1
@@ -164,7 +164,7 @@
 
                // Multiply by the diagonal element if forming L * D.
 
-               IF( NOUNIT ) CALL ZSCAL( NRHS, A( KC ), B( K, 1 ), LDB )
+               if (NOUNIT) CALL ZSCAL( NRHS, A( KC ), B( K, 1 ), LDB );
 
                // Multiply by  P(K) * inv(L(K))  if K < N.
 
@@ -178,7 +178,7 @@
                   // Interchange if a permutation was applied at the
                   // K-th step of the factorization.
 
-                  IF( KP.NE.K ) CALL ZSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB )
+                  if (KP.NE.K) CALL ZSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
                }
                K = K - 1
 
@@ -215,7 +215,7 @@
                   // K-th step of the factorization.
 
                   KP = ABS( IPIV( K ) )
-                  IF( KP.NE.K ) CALL ZSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB )
+                  if (KP.NE.K) CALL ZSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
                }
                KC = KCNEXT
                K = K - 2
@@ -241,7 +241,7 @@
             K = N
             KC = N*( N+1 ) / 2 + 1
             } // 70
-            IF( K.LT.1 ) GO TO 90
+            if (K.LT.1) GO TO 90;
             KC = KC - K
 
             // 1 x 1 pivot block.
@@ -252,7 +252,7 @@
                   // Interchange if P(K) != I.
 
                   KP = IPIV( K )
-                  IF( KP.NE.K ) CALL ZSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB )
+                  if (KP.NE.K) CALL ZSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
 
                   // Apply the transformation:
                      // y := y - B' * conjg(x)
@@ -262,7 +262,7 @@
                   zgemv('Conjugate', K-1, NRHS, ONE, B, LDB, A( KC ), 1, ONE, B( K, 1 ), LDB );
                   zlacgv(NRHS, B( K, 1 ), LDB );
                }
-               IF( NOUNIT ) CALL ZSCAL( NRHS, A( KC+K-1 ), B( K, 1 ), LDB )
+               if (NOUNIT) CALL ZSCAL( NRHS, A( KC+K-1 ), B( K, 1 ), LDB );
                K = K - 1
 
             // 2 x 2 pivot block.
@@ -274,7 +274,7 @@
                   // Interchange if P(K) != I.
 
                   KP = ABS( IPIV( K ) )
-                  IF( KP.NE.K-1 ) CALL ZSWAP( NRHS, B( K-1, 1 ), LDB, B( KP, 1 ), LDB )
+                  if (KP.NE.K-1) CALL ZSWAP( NRHS, B( K-1, 1 ), LDB, B( KP, 1 ), LDB );
 
                   // Apply the transformations.
 
@@ -318,7 +318,7 @@
             K = 1
             KC = 1
             } // 100
-            IF( K.GT.N ) GO TO 120
+            if (K.GT.N) GO TO 120;
 
             // 1 x 1 pivot block
 
@@ -328,7 +328,7 @@
                   // Interchange if P(K) != I.
 
                   KP = IPIV( K )
-                  IF( KP.NE.K ) CALL ZSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB )
+                  if (KP.NE.K) CALL ZSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
 
                   // Apply the transformation
 
@@ -336,7 +336,7 @@
                   zgemv('Conjugate', N-K, NRHS, ONE, B( K+1, 1 ), LDB, A( KC+1 ), 1, ONE, B( K, 1 ), LDB );
                   zlacgv(NRHS, B( K, 1 ), LDB );
                }
-               IF( NOUNIT ) CALL ZSCAL( NRHS, A( KC ), B( K, 1 ), LDB )
+               if (NOUNIT) CALL ZSCAL( NRHS, A( KC ), B( K, 1 ), LDB );
                KC = KC + N - K + 1
                K = K + 1
 
@@ -349,7 +349,7 @@
                // Interchange if P(K) != I.
 
                   KP = ABS( IPIV( K ) )
-                  IF( KP.NE.K+1 ) CALL ZSWAP( NRHS, B( K+1, 1 ), LDB, B( KP, 1 ), LDB )
+                  if (KP.NE.K+1) CALL ZSWAP( NRHS, B( K+1, 1 ), LDB, B( KP, 1 ), LDB );
 
                   // Apply the transformation
 

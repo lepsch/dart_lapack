@@ -86,7 +86,7 @@
          RESULT( I ) = -ONE
       } // 10
 
-      IF( N.EQ.0 ) RETURN
+      if (N.EQ.0) RETURN;
 
       // More Important constants
 
@@ -141,9 +141,9 @@
             VRMX = ZERO
             for (JJ = 1; JJ <= N; JJ++) { // 20
                VTST = SLAPY2( VR( JJ, J ), VR( JJ, J+1 ) )
-               IF( VTST.GT.VMX ) VMX = VTST                IF( VR( JJ, J+1 ).EQ.ZERO .AND. ABS( VR( JJ, J ) ).GT. VRMX )VRMX = ABS( VR( JJ, J ) )
+               if (VTST.GT.VMX) VMX = VTST                IF( VR( JJ, J+1 ).EQ.ZERO .AND. ABS( VR( JJ, J ) ).GT. VRMX )VRMX = ABS( VR( JJ, J ) );
             } // 20
-            IF( VRMX / VMX.LT.ONE-TWO*ULP ) RESULT( 3 ) = ULPINV
+            if (VRMX / VMX.LT.ONE-TWO*ULP) RESULT( 3 ) = ULPINV;
          }
       } // 30
 
@@ -162,9 +162,9 @@
             VRMX = ZERO
             for (JJ = 1; JJ <= N; JJ++) { // 40
                VTST = SLAPY2( VL( JJ, J ), VL( JJ, J+1 ) )
-               IF( VTST.GT.VMX ) VMX = VTST                IF( VL( JJ, J+1 ).EQ.ZERO .AND. ABS( VL( JJ, J ) ).GT. VRMX )VRMX = ABS( VL( JJ, J ) )
+               if (VTST.GT.VMX) VMX = VTST                IF( VL( JJ, J+1 ).EQ.ZERO .AND. ABS( VL( JJ, J ) ).GT. VRMX )VRMX = ABS( VL( JJ, J ) );
             } // 40
-            IF( VRMX / VMX.LT.ONE-TWO*ULP ) RESULT( 4 ) = ULPINV
+            if (VRMX / VMX.LT.ONE-TWO*ULP) RESULT( 4 ) = ULPINV;
          }
       } // 50
 
@@ -201,7 +201,7 @@
             for (J = 1; J <= N; J++) { // 70
                IF( SCALE( J ).NE.SCALE1( J ) ) RESULT( 8 ) = ULPINV
             } // 70
-            IF( ILO.NE.ILO1 ) RESULT( 8 ) = ULPINV             IF( IHI.NE.IHI1 ) RESULT( 8 ) = ULPINV             IF( ABNRM.NE.ABNRM1 ) RESULT( 8 ) = ULPINV
+            if (ILO.NE.ILO1) RESULT( 8 ) = ULPINV             IF( IHI.NE.IHI1 ) RESULT( 8 ) = ULPINV             IF( ABNRM.NE.ABNRM1 ) RESULT( 8 ) = ULPINV;
          }
 
          // Do Test (9)
@@ -247,7 +247,7 @@
             for (J = 1; J <= N; J++) { // 120
                IF( SCALE( J ).NE.SCALE1( J ) ) RESULT( 8 ) = ULPINV
             } // 120
-            IF( ILO.NE.ILO1 ) RESULT( 8 ) = ULPINV             IF( IHI.NE.IHI1 ) RESULT( 8 ) = ULPINV             IF( ABNRM.NE.ABNRM1 ) RESULT( 8 ) = ULPINV
+            if (ILO.NE.ILO1) RESULT( 8 ) = ULPINV             IF( IHI.NE.IHI1 ) RESULT( 8 ) = ULPINV             IF( ABNRM.NE.ABNRM1 ) RESULT( 8 ) = ULPINV;
          }
 
          // Do Test (9) again
@@ -293,7 +293,7 @@
             for (J = 1; J <= N; J++) { // 170
                IF( SCALE( J ).NE.SCALE1( J ) ) RESULT( 8 ) = ULPINV
             } // 170
-            IF( ILO.NE.ILO1 ) RESULT( 8 ) = ULPINV             IF( IHI.NE.IHI1 ) RESULT( 8 ) = ULPINV             IF( ABNRM.NE.ABNRM1 ) RESULT( 8 ) = ULPINV
+            if (ILO.NE.ILO1) RESULT( 8 ) = ULPINV             IF( IHI.NE.IHI1 ) RESULT( 8 ) = ULPINV             IF( ABNRM.NE.ABNRM1 ) RESULT( 8 ) = ULPINV;
          }
 
          // Do Test (9) again
@@ -352,7 +352,7 @@
          RESULT( 10 ) = ZERO
          EPS = MAX( EPSIN, ULP )
          V = MAX( REAL( N )*EPS*ABNRM, SMLNUM )
-         IF( ABNRM.EQ.ZERO ) V = ONE
+         if (ABNRM.EQ.ZERO) V = ONE;
          for (I = 1; I <= N; I++) { // 230
             if ( V.GT.RCONDV( I )*RCONDE( I ) ) {
                TOL = RCONDV( I )

@@ -67,7 +67,7 @@
 
       slacpy('All', M, N, A, LDA, WORK, LDWORK );
       ANRM = SLANGE( 'M', M, N, WORK, LDWORK, RWORK )
-      IF( ANRM.NE.ZERO ) CALL SLASCL( 'G', 0, 0, ANRM, ONE, M, N, WORK, LDWORK, INFO )
+      if (ANRM.NE.ZERO) CALL SLASCL( 'G', 0, 0, ANRM, ONE, M, N, WORK, LDWORK, INFO );
 
       // Copy X or X' into the right place and scale it
 
@@ -102,7 +102,7 @@
          } // 40
 
          XNRM = SLANGE( 'M', NRHS, N, WORK( M+1 ), LDWORK, RWORK )
-         IF( XNRM.NE.ZERO ) CALL SLASCL( 'G', 0, 0, XNRM, ONE, NRHS, N, WORK( M+1 ), LDWORK, INFO )
+         if (XNRM.NE.ZERO) CALL SLASCL( 'G', 0, 0, XNRM, ONE, NRHS, N, WORK( M+1 ), LDWORK, INFO );
 
          // Compute LQ factorization of work
 

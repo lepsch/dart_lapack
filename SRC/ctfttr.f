@@ -86,10 +86,10 @@
       if ( MOD( N, 2 ).EQ.0 ) {
          K = N / 2
          NISODD = .FALSE.
-         IF( .NOT.LOWER ) NP1X2 = N + N + 2
+         if (.NOT.LOWER) NP1X2 = N + N + 2;
       } else {
          NISODD = .TRUE.
-         IF( .NOT.LOWER ) NX2 = N + N
+         if (.NOT.LOWER) NX2 = N + N;
       }
 
       if ( NISODD ) {

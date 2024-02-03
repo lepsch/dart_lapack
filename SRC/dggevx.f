@@ -145,7 +145,7 @@
 
       // Quick return if possible
 
-      IF( N.EQ.0 ) RETURN
+      if (N.EQ.0) RETURN;
 
 
       // Get machine constants
@@ -167,7 +167,7 @@
          ANRMTO = BIGNUM
          ILASCL = .TRUE.
       }
-      IF( ILASCL ) CALL DLASCL( 'G', 0, 0, ANRM, ANRMTO, N, N, A, LDA, IERR )
+      if (ILASCL) CALL DLASCL( 'G', 0, 0, ANRM, ANRMTO, N, N, A, LDA, IERR );
 
       // Scale B if max element outside range [SMLNUM,BIGNUM]
 
@@ -180,7 +180,7 @@
          BNRMTO = BIGNUM
          ILBSCL = .TRUE.
       }
-      IF( ILBSCL ) CALL DLASCL( 'G', 0, 0, BNRM, BNRMTO, N, N, B, LDB, IERR )
+      if (ILBSCL) CALL DLASCL( 'G', 0, 0, BNRM, BNRMTO, N, N, B, LDB, IERR );
 
       // Permute and/or balance the matrix pair (A,B)
       // (Workspace: need 6*N if BALANC = 'S' or 'B', 1 otherwise)
@@ -232,7 +232,7 @@
          dorgqr(IROWS, IROWS, IROWS, VL( ILO, ILO ), LDVL, WORK( ITAU ), WORK( IWRK ), LWORK+1-IWRK, IERR );
       }
 
-      IF( ILVR ) CALL DLASET( 'Full', N, N, ZERO, ONE, VR, LDVR )
+      if (ILVR) CALL DLASET( 'Full', N, N, ZERO, ONE, VR, LDVR );
 
       // Reduce to generalized Hessenberg form
       // (Workspace: none needed)
@@ -365,7 +365,7 @@
                   TEMP = MAX( TEMP, ABS( VL( JR, JC ) )+ ABS( VL( JR, JC+1 ) ) )
                } // 40
             }
-            IF( TEMP.LT.SMLNUM ) GO TO 70
+            if (TEMP.LT.SMLNUM) GO TO 70;
             TEMP = ONE / TEMP
             if ( ALPHAI( JC ).EQ.ZERO ) {
                for (JR = 1; JR <= N; JR++) { // 50
@@ -393,7 +393,7 @@
                   TEMP = MAX( TEMP, ABS( VR( JR, JC ) )+ ABS( VR( JR, JC+1 ) ) )
                } // 90
             }
-            IF( TEMP.LT.SMLNUM ) GO TO 120
+            if (TEMP.LT.SMLNUM) GO TO 120;
             TEMP = ONE / TEMP
             if ( ALPHAI( JC ).EQ.ZERO ) {
                for (JR = 1; JR <= N; JR++) { // 100

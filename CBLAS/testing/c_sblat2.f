@@ -354,7 +354,7 @@
       WRITE( NOUT, FMT = 9987 )
 
       } // 240
-      IF( TRACE ) CLOSE ( NTRA )
+      if (TRACE) CLOSE ( NTRA );
       CLOSE ( NOUT )
       STOP
 
@@ -448,7 +448,7 @@
          ND = N/2 + 1
 
          for (IM = 1; IM <= 2; IM++) { // 110
-            IF( IM.EQ.1 ) M = MAX( N - ND, 0 )             IF( IM.EQ.2 ) M = MIN( N + ND, NMAX )
+            if (IM.EQ.1) M = MAX( N - ND, 0 )             IF( IM.EQ.2 ) M = MIN( N + ND, NMAX );
 
             if ( BANDED ) {
                NK = NKB
@@ -469,9 +469,9 @@
                } else {
                   LDA = M
                }
-               IF( LDA.LT.NMAX ) LDA = LDA + 1
+               if (LDA.LT.NMAX) LDA = LDA + 1;
                // Skip tests if not enough room.
-               IF( LDA.GT.NMAX ) GO TO 100
+               if (LDA.GT.NMAX) GO TO 100;
                LAA = LDA*N
                NULL = N.LE.0.OR.M.LE.0
 
@@ -555,11 +555,11 @@
                               // Call the subroutine.
 
                               if ( FULL ) {
-                                 IF( TRACE ) WRITE( NTRA, FMT = 9994 )NC, SNAME, CTRANS, M, N, ALPHA, LDA, INCX, BETA, INCY
-                                 IF( REWI ) REWIND NTRA                                  CALL CSGEMV( IORDER, TRANS, M, N, ALPHA, AA, LDA, XX, INCX, BETA, YY, INCY )
+                                 if (TRACE) WRITE( NTRA, FMT = 9994 )NC, SNAME, CTRANS, M, N, ALPHA, LDA, INCX, BETA, INCY;
+                                 if (REWI) REWIND NTRA                                  CALL CSGEMV( IORDER, TRANS, M, N, ALPHA, AA, LDA, XX, INCX, BETA, YY, INCY );
                               } else if ( BANDED ) {
-                                 IF( TRACE ) WRITE( NTRA, FMT = 9995 )NC, SNAME, CTRANS, M, N, KL, KU, ALPHA, LDA, INCX, BETA, INCY
-                                 IF( REWI ) REWIND NTRA                                  CALL CSGBMV( IORDER, TRANS, M, N, KL, KU, ALPHA, AA, LDA, XX, INCX, BETA, YY, INCY )
+                                 if (TRACE) WRITE( NTRA, FMT = 9995 )NC, SNAME, CTRANS, M, N, KL, KU, ALPHA, LDA, INCX, BETA, INCY;
+                                 if (REWI) REWIND NTRA                                  CALL CSGBMV( IORDER, TRANS, M, N, KL, KU, ALPHA, AA, LDA, XX, INCX, BETA, YY, INCY );
                               }
 
                               // Check if error-exit was taken incorrectly.
@@ -626,7 +626,7 @@
                                  ERRMAX = MAX( ERRMAX, ERR )
                                  // If got really bad answer, report and
                                  // return.
-                                 IF( FATAL ) GO TO 130
+                                 if (FATAL) GO TO 130;
                               } else {
                                  // Avoid repeating tests with M.le.0 or
                                  // N.le.0.
@@ -652,11 +652,11 @@
       // Report result.
 
       if ( ERRMAX.LT.THRESH ) {
-         IF ( IORDER.EQ.0) WRITE( NOUT, FMT = 10000 )SNAME, NC
-         IF ( IORDER.EQ.1) WRITE( NOUT, FMT = 10001 )SNAME, NC
+         if (IORDER.EQ.0) WRITE( NOUT, FMT = 10000 )SNAME, NC;
+         if (IORDER.EQ.1) WRITE( NOUT, FMT = 10001 )SNAME, NC;
       } else {
-         IF ( IORDER.EQ.0) WRITE( NOUT, FMT = 10002 )SNAME, NC, ERRMAX
-         IF ( IORDER.EQ.1) WRITE( NOUT, FMT = 10003 )SNAME, NC, ERRMAX
+         if (IORDER.EQ.0) WRITE( NOUT, FMT = 10002 )SNAME, NC, ERRMAX;
+         if (IORDER.EQ.1) WRITE( NOUT, FMT = 10003 )SNAME, NC, ERRMAX;
       }
       GO TO 140
 
@@ -766,9 +766,9 @@
             } else {
                LDA = N
             }
-            IF( LDA.LT.NMAX ) LDA = LDA + 1
+            if (LDA.LT.NMAX) LDA = LDA + 1;
             // Skip tests if not enough room.
-            IF( LDA.GT.NMAX ) GO TO 100
+            if (LDA.GT.NMAX) GO TO 100;
             if ( PACKED ) {
                LAA = ( N*( N + 1 ) )/2
             } else {
@@ -843,14 +843,14 @@
                            // Call the subroutine.
 
                            if ( FULL ) {
-                              IF( TRACE ) WRITE( NTRA, FMT = 9993 )NC, SNAME, CUPLO, N, ALPHA, LDA, INCX, BETA, INCY
-                              IF( REWI ) REWIND NTRA                               CALL CSSYMV( IORDER, UPLO, N, ALPHA, AA, LDA, XX, INCX, BETA, YY, INCY )
+                              if (TRACE) WRITE( NTRA, FMT = 9993 )NC, SNAME, CUPLO, N, ALPHA, LDA, INCX, BETA, INCY;
+                              if (REWI) REWIND NTRA                               CALL CSSYMV( IORDER, UPLO, N, ALPHA, AA, LDA, XX, INCX, BETA, YY, INCY );
                            } else if ( BANDED ) {
-                              IF( TRACE ) WRITE( NTRA, FMT = 9994 )NC, SNAME, CUPLO, N, K, ALPHA, LDA, INCX, BETA, INCY
-                              IF( REWI ) REWIND NTRA                               CALL CSSBMV( IORDER, UPLO, N, K, ALPHA, AA, LDA, XX, INCX, BETA, YY, INCY )
+                              if (TRACE) WRITE( NTRA, FMT = 9994 )NC, SNAME, CUPLO, N, K, ALPHA, LDA, INCX, BETA, INCY;
+                              if (REWI) REWIND NTRA                               CALL CSSBMV( IORDER, UPLO, N, K, ALPHA, AA, LDA, XX, INCX, BETA, YY, INCY );
                            } else if ( PACKED ) {
-                              IF( TRACE ) WRITE( NTRA, FMT = 9995 )NC, SNAME, CUPLO, N, ALPHA, INCX, BETA, INCY
-                              IF( REWI ) REWIND NTRA                               CALL CSSPMV( IORDER, UPLO, N, ALPHA, AA, XX, INCX, BETA, YY, INCY )
+                              if (TRACE) WRITE( NTRA, FMT = 9995 )NC, SNAME, CUPLO, N, ALPHA, INCX, BETA, INCY;
+                              if (REWI) REWIND NTRA                               CALL CSSPMV( IORDER, UPLO, N, ALPHA, AA, XX, INCX, BETA, YY, INCY );
                            }
 
                            // Check if error-exit was taken incorrectly.
@@ -927,7 +927,7 @@
                               ERRMAX = MAX( ERRMAX, ERR )
                               // If got really bad answer, report and
                               // return.
-                              IF( FATAL ) GO TO 120
+                              if (FATAL) GO TO 120;
                            } else {
                               // Avoid repeating tests with N.le.0
                               GO TO 110
@@ -950,11 +950,11 @@
       // Report result.
 
       if ( ERRMAX.LT.THRESH ) {
-         IF ( IORDER.EQ.0) WRITE( NOUT, FMT = 10000 )SNAME, NC
-         IF ( IORDER.EQ.1) WRITE( NOUT, FMT = 10001 )SNAME, NC
+         if (IORDER.EQ.0) WRITE( NOUT, FMT = 10000 )SNAME, NC;
+         if (IORDER.EQ.1) WRITE( NOUT, FMT = 10001 )SNAME, NC;
       } else {
-         IF ( IORDER.EQ.0) WRITE( NOUT, FMT = 10002 )SNAME, NC, ERRMAX
-         IF ( IORDER.EQ.1) WRITE( NOUT, FMT = 10003 )SNAME, NC, ERRMAX
+         if (IORDER.EQ.0) WRITE( NOUT, FMT = 10002 )SNAME, NC, ERRMAX;
+         if (IORDER.EQ.1) WRITE( NOUT, FMT = 10003 )SNAME, NC, ERRMAX;
       }
       GO TO 130
 
@@ -1072,9 +1072,9 @@
             } else {
                LDA = N
             }
-            IF( LDA.LT.NMAX ) LDA = LDA + 1
+            if (LDA.LT.NMAX) LDA = LDA + 1;
             // Skip tests if not enough room.
-            IF( LDA.GT.NMAX ) GO TO 100
+            if (LDA.GT.NMAX) GO TO 100;
             if ( PACKED ) {
                LAA = ( N*( N + 1 ) )/2
             } else {
@@ -1148,25 +1148,25 @@
 
                         if ( SNAME( 10: 11 ).EQ.'mv' ) {
                            if ( FULL ) {
-                              IF( TRACE ) WRITE( NTRA, FMT = 9993 )NC, SNAME, CUPLO, CTRANS, CDIAG, N, LDA, INCX
-                              IF( REWI ) REWIND NTRA                               CALL CSTRMV( IORDER, UPLO, TRANS, DIAG, N, AA, LDA, XX, INCX )
+                              if (TRACE) WRITE( NTRA, FMT = 9993 )NC, SNAME, CUPLO, CTRANS, CDIAG, N, LDA, INCX;
+                              if (REWI) REWIND NTRA                               CALL CSTRMV( IORDER, UPLO, TRANS, DIAG, N, AA, LDA, XX, INCX );
                            } else if ( BANDED ) {
-                              IF( TRACE ) WRITE( NTRA, FMT = 9994 )NC, SNAME, CUPLO, CTRANS, CDIAG, N, K, LDA, INCX
-                              IF( REWI ) REWIND NTRA                               CALL CSTBMV( IORDER, UPLO, TRANS, DIAG, N, K, AA, LDA, XX, INCX )
+                              if (TRACE) WRITE( NTRA, FMT = 9994 )NC, SNAME, CUPLO, CTRANS, CDIAG, N, K, LDA, INCX;
+                              if (REWI) REWIND NTRA                               CALL CSTBMV( IORDER, UPLO, TRANS, DIAG, N, K, AA, LDA, XX, INCX );
                            } else if ( PACKED ) {
-                              IF( TRACE ) WRITE( NTRA, FMT = 9995 )NC, SNAME, CUPLO, CTRANS, CDIAG, N, INCX
-                              IF( REWI ) REWIND NTRA                               CALL CSTPMV( IORDER, UPLO, TRANS, DIAG, N, AA, XX, INCX )
+                              if (TRACE) WRITE( NTRA, FMT = 9995 )NC, SNAME, CUPLO, CTRANS, CDIAG, N, INCX;
+                              if (REWI) REWIND NTRA                               CALL CSTPMV( IORDER, UPLO, TRANS, DIAG, N, AA, XX, INCX );
                            }
                         } else if ( SNAME( 10: 11 ).EQ.'sv' ) {
                            if ( FULL ) {
-                              IF( TRACE ) WRITE( NTRA, FMT = 9993 )NC, SNAME, CUPLO, CTRANS, CDIAG, N, LDA, INCX
-                              IF( REWI ) REWIND NTRA                               CALL CSTRSV( IORDER, UPLO, TRANS, DIAG, N, AA, LDA, XX, INCX )
+                              if (TRACE) WRITE( NTRA, FMT = 9993 )NC, SNAME, CUPLO, CTRANS, CDIAG, N, LDA, INCX;
+                              if (REWI) REWIND NTRA                               CALL CSTRSV( IORDER, UPLO, TRANS, DIAG, N, AA, LDA, XX, INCX );
                            } else if ( BANDED ) {
-                              IF( TRACE ) WRITE( NTRA, FMT = 9994 )NC, SNAME, CUPLO, CTRANS, CDIAG, N, K, LDA, INCX
-                              IF( REWI ) REWIND NTRA                               CALL CSTBSV( IORDER, UPLO, TRANS, DIAG, N, K, AA, LDA, XX, INCX )
+                              if (TRACE) WRITE( NTRA, FMT = 9994 )NC, SNAME, CUPLO, CTRANS, CDIAG, N, K, LDA, INCX;
+                              if (REWI) REWIND NTRA                               CALL CSTBSV( IORDER, UPLO, TRANS, DIAG, N, K, AA, LDA, XX, INCX );
                            } else if ( PACKED ) {
-                              IF( TRACE ) WRITE( NTRA, FMT = 9995 )NC, SNAME, CUPLO, CTRANS, CDIAG, N, INCX
-                              IF( REWI ) REWIND NTRA                               CALL CSTPSV( IORDER, UPLO, TRANS, DIAG, N, AA, XX, INCX )
+                              if (TRACE) WRITE( NTRA, FMT = 9995 )NC, SNAME, CUPLO, CTRANS, CDIAG, N, INCX;
+                              if (REWI) REWIND NTRA                               CALL CSTPSV( IORDER, UPLO, TRANS, DIAG, N, AA, XX, INCX );
                            }
                         }
 
@@ -1243,7 +1243,7 @@
                            }
                            ERRMAX = MAX( ERRMAX, ERR )
                            // If got really bad answer, report and return.
-                           IF( FATAL ) GO TO 120
+                           if (FATAL) GO TO 120;
                         } else {
                            // Avoid repeating tests with N.le.0.
                            GO TO 110
@@ -1264,11 +1264,11 @@
       // Report result.
 
       if ( ERRMAX.LT.THRESH ) {
-         IF ( IORDER.EQ.0) WRITE( NOUT, FMT = 10000 )SNAME, NC
-         IF ( IORDER.EQ.1) WRITE( NOUT, FMT = 10001 )SNAME, NC
+         if (IORDER.EQ.0) WRITE( NOUT, FMT = 10000 )SNAME, NC;
+         if (IORDER.EQ.1) WRITE( NOUT, FMT = 10001 )SNAME, NC;
       } else {
-         IF ( IORDER.EQ.0) WRITE( NOUT, FMT = 10002 )SNAME, NC, ERRMAX
-         IF ( IORDER.EQ.1) WRITE( NOUT, FMT = 10003 )SNAME, NC, ERRMAX
+         if (IORDER.EQ.0) WRITE( NOUT, FMT = 10002 )SNAME, NC, ERRMAX;
+         if (IORDER.EQ.1) WRITE( NOUT, FMT = 10003 )SNAME, NC, ERRMAX;
       }
       GO TO 130
 
@@ -1353,13 +1353,13 @@
          ND = N/2 + 1
 
          for (IM = 1; IM <= 2; IM++) { // 110
-            IF( IM.EQ.1 ) M = MAX( N - ND, 0 )             IF( IM.EQ.2 ) M = MIN( N + ND, NMAX )
+            if (IM.EQ.1) M = MAX( N - ND, 0 )             IF( IM.EQ.2 ) M = MIN( N + ND, NMAX );
 
             // Set LDA to 1 more than minimum value if room.
             LDA = M
-            IF( LDA.LT.NMAX ) LDA = LDA + 1
+            if (LDA.LT.NMAX) LDA = LDA + 1;
             // Skip tests if not enough room.
-            IF( LDA.GT.NMAX ) GO TO 110
+            if (LDA.GT.NMAX) GO TO 110;
             LAA = LDA*N
             NULL = N.LE.0.OR.M.LE.0
 
@@ -1419,8 +1419,8 @@
 
                      // Call the subroutine.
 
-                     IF( TRACE ) WRITE( NTRA, FMT = 9994 )NC, SNAME, M, N, ALPHA, INCX, INCY, LDA
-                     IF( REWI ) REWIND NTRA                      CALL CSGER( IORDER, M, N, ALPHA, XX, INCX, YY, INCY, AA, LDA )
+                     if (TRACE) WRITE( NTRA, FMT = 9994 )NC, SNAME, M, N, ALPHA, INCX, INCY, LDA;
+                     if (REWI) REWIND NTRA                      CALL CSGER( IORDER, M, N, ALPHA, XX, INCX, YY, INCY, AA, LDA );
 
                      // Check if error-exit was taken incorrectly.
 
@@ -1480,7 +1480,7 @@
                            smvch('N', M, 1, ALPHA, Z, NMAX, W, 1, ONE, A( 1, J ), 1, YT, G, AA( 1 + ( J - 1 )*LDA ), EPS, ERR, FATAL, NOUT, .TRUE. );
                            ERRMAX = MAX( ERRMAX, ERR )
                            // If got really bad answer, report and return.
-                           IF( FATAL ) GO TO 130
+                           if (FATAL) GO TO 130;
                         } // 70
                      } else {
                         // Avoid repeating tests with M.le.0 or N.le.0.
@@ -1500,11 +1500,11 @@
       // Report result.
 
       if ( ERRMAX.LT.THRESH ) {
-         IF ( IORDER.EQ.0) WRITE( NOUT, FMT = 10000 )SNAME, NC
-         IF ( IORDER.EQ.1) WRITE( NOUT, FMT = 10001 )SNAME, NC
+         if (IORDER.EQ.0) WRITE( NOUT, FMT = 10000 )SNAME, NC;
+         if (IORDER.EQ.1) WRITE( NOUT, FMT = 10001 )SNAME, NC;
       } else {
-         IF ( IORDER.EQ.0) WRITE( NOUT, FMT = 10002 )SNAME, NC, ERRMAX
-         IF ( IORDER.EQ.1) WRITE( NOUT, FMT = 10003 )SNAME, NC, ERRMAX
+         if (IORDER.EQ.0) WRITE( NOUT, FMT = 10002 )SNAME, NC, ERRMAX;
+         if (IORDER.EQ.1) WRITE( NOUT, FMT = 10003 )SNAME, NC, ERRMAX;
       }
       GO TO 150
 
@@ -1595,9 +1595,9 @@
          N = IDIM( IN )
          // Set LDA to 1 more than minimum value if room.
          LDA = N
-         IF( LDA.LT.NMAX ) LDA = LDA + 1
+         if (LDA.LT.NMAX) LDA = LDA + 1;
          // Skip tests if not enough room.
-         IF( LDA.GT.NMAX ) GO TO 100
+         if (LDA.GT.NMAX) GO TO 100;
          if ( PACKED ) {
             LAA = ( N*( N + 1 ) )/2
          } else {
@@ -1654,11 +1654,11 @@
                   // Call the subroutine.
 
                   if ( FULL ) {
-                     IF( TRACE ) WRITE( NTRA, FMT = 9993 )NC, SNAME, CUPLO, N, ALPHA, INCX, LDA
-                     IF( REWI ) REWIND NTRA                      CALL CSSYR( IORDER, UPLO, N, ALPHA, XX, INCX, AA, LDA )
+                     if (TRACE) WRITE( NTRA, FMT = 9993 )NC, SNAME, CUPLO, N, ALPHA, INCX, LDA;
+                     if (REWI) REWIND NTRA                      CALL CSSYR( IORDER, UPLO, N, ALPHA, XX, INCX, AA, LDA );
                   } else if ( PACKED ) {
-                     IF( TRACE ) WRITE( NTRA, FMT = 9994 )NC, SNAME, CUPLO, N, ALPHA, INCX
-                     IF( REWI ) REWIND NTRA
+                     if (TRACE) WRITE( NTRA, FMT = 9994 )NC, SNAME, CUPLO, N, ALPHA, INCX;
+                     if (REWI) REWIND NTRA;
                      csspr(IORDER, UPLO, N, ALPHA, XX, INCX, AA );
                   }
 
@@ -1733,11 +1733,11 @@
                         }
                         ERRMAX = MAX( ERRMAX, ERR )
                         // If got really bad answer, report and return.
-                        IF( FATAL ) GO TO 110
+                        if (FATAL) GO TO 110;
                      } // 60
                   } else {
                      // Avoid repeating tests if N.le.0.
-                     IF( N.LE.0 ) GO TO 100
+                     if (N.LE.0) GO TO 100;
                   }
 
                } // 70
@@ -1751,11 +1751,11 @@
       // Report result.
 
       if ( ERRMAX.LT.THRESH ) {
-         IF ( IORDER.EQ.0) WRITE( NOUT, FMT = 10000 )SNAME, NC
-         IF ( IORDER.EQ.1) WRITE( NOUT, FMT = 10001 )SNAME, NC
+         if (IORDER.EQ.0) WRITE( NOUT, FMT = 10000 )SNAME, NC;
+         if (IORDER.EQ.1) WRITE( NOUT, FMT = 10001 )SNAME, NC;
       } else {
-         IF ( IORDER.EQ.0) WRITE( NOUT, FMT = 10002 )SNAME, NC, ERRMAX
-         IF ( IORDER.EQ.1) WRITE( NOUT, FMT = 10003 )SNAME, NC, ERRMAX
+         if (IORDER.EQ.0) WRITE( NOUT, FMT = 10002 )SNAME, NC, ERRMAX;
+         if (IORDER.EQ.1) WRITE( NOUT, FMT = 10003 )SNAME, NC, ERRMAX;
       }
       GO TO 130
 
@@ -1851,9 +1851,9 @@
          N = IDIM( IN )
          // Set LDA to 1 more than minimum value if room.
          LDA = N
-         IF( LDA.LT.NMAX ) LDA = LDA + 1
+         if (LDA.LT.NMAX) LDA = LDA + 1;
          // Skip tests if not enough room.
-         IF( LDA.GT.NMAX ) GO TO 140
+         if (LDA.GT.NMAX) GO TO 140;
          if ( PACKED ) {
             LAA = ( N*( N + 1 ) )/2
          } else {
@@ -1927,11 +1927,11 @@
                      // Call the subroutine.
 
                      if ( FULL ) {
-                        IF( TRACE ) WRITE( NTRA, FMT = 9993 )NC, SNAME, CUPLO, N, ALPHA, INCX, INCY, LDA
-                        IF( REWI ) REWIND NTRA                         CALL CSSYR2( IORDER, UPLO, N, ALPHA, XX, INCX, YY, INCY, AA, LDA )
+                        if (TRACE) WRITE( NTRA, FMT = 9993 )NC, SNAME, CUPLO, N, ALPHA, INCX, INCY, LDA;
+                        if (REWI) REWIND NTRA                         CALL CSSYR2( IORDER, UPLO, N, ALPHA, XX, INCX, YY, INCY, AA, LDA );
                      } else if ( PACKED ) {
-                        IF( TRACE ) WRITE( NTRA, FMT = 9994 )NC, SNAME, CUPLO, N, ALPHA, INCX, INCY
-                        IF( REWI ) REWIND NTRA                         CALL CSSPR2( IORDER, UPLO, N, ALPHA, XX, INCX, YY, INCY, AA )
+                        if (TRACE) WRITE( NTRA, FMT = 9994 )NC, SNAME, CUPLO, N, ALPHA, INCX, INCY;
+                        if (REWI) REWIND NTRA                         CALL CSSPR2( IORDER, UPLO, N, ALPHA, XX, INCX, YY, INCY, AA );
                      }
 
                      // Check if error-exit was taken incorrectly.
@@ -2017,11 +2017,11 @@
                            }
                            ERRMAX = MAX( ERRMAX, ERR )
                            // If got really bad answer, report and return.
-                           IF( FATAL ) GO TO 150
+                           if (FATAL) GO TO 150;
                         } // 90
                      } else {
                         // Avoid repeating tests with N.le.0.
-                        IF( N.LE.0 ) GO TO 140
+                        if (N.LE.0) GO TO 140;
                      }
 
                   } // 100
@@ -2037,11 +2037,11 @@
       // Report result.
 
       if ( ERRMAX.LT.THRESH ) {
-         IF ( IORDER.EQ.0) WRITE( NOUT, FMT = 10000 )SNAME, NC
-         IF ( IORDER.EQ.1) WRITE( NOUT, FMT = 10001 )SNAME, NC
+         if (IORDER.EQ.0) WRITE( NOUT, FMT = 10000 )SNAME, NC;
+         if (IORDER.EQ.1) WRITE( NOUT, FMT = 10001 )SNAME, NC;
       } else {
-         IF ( IORDER.EQ.0) WRITE( NOUT, FMT = 10002 )SNAME, NC, ERRMAX
-         IF ( IORDER.EQ.1) WRITE( NOUT, FMT = 10003 )SNAME, NC, ERRMAX
+         if (IORDER.EQ.0) WRITE( NOUT, FMT = 10002 )SNAME, NC, ERRMAX;
+         if (IORDER.EQ.1) WRITE( NOUT, FMT = 10003 )SNAME, NC, ERRMAX;
       }
       GO TO 170
 
@@ -2136,7 +2136,7 @@
                }
             }
          } // 10
-         IF( TRI ) A( J, J ) = A( J, J ) + ONE          IF( UNIT ) A( J, J ) = ONE
+         if (TRI) A( J, J ) = A( J, J ) + ONE          IF( UNIT ) A( J, J ) = ONE;
       } // 20
 
       // Store elements in array AS in data structure required by routine.
@@ -2232,7 +2232,7 @@
                IOFF = IOFF + 1
                AA( IOFF ) = A( I, J )
                if ( I.EQ.J ) {
-                  IF( UNIT ) AA( IOFF ) = ROGUE
+                  if (UNIT) AA( IOFF ) = ROGUE;
                }
             } // 180
          } // 190

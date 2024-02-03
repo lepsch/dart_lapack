@@ -79,7 +79,7 @@
 
          // If K < 1, exit from loop
 
-         IF( K.LT.1 ) GO TO 90
+         if (K.LT.1) GO TO 90;
          KSTEP = 1
 
          // Determine rows and columns to be interchanged and whether
@@ -103,7 +103,7 @@
             // Column K is or underflow, or contains a NaN:
             // set INFO and continue
 
-            IF( INFO.EQ.0 ) INFO = K
+            if (INFO.EQ.0) INFO = K;
             KP = K
             A( K, K ) = REAL( A( K, K ) )
          } else {
@@ -169,7 +169,7 @@
                }
             } else {
                A( K, K ) = REAL( A( K, K ) )
-               IF( KSTEP.EQ.2 ) A( K-1, K-1 ) = REAL( A( K-1, K-1 ) )
+               if (KSTEP.EQ.2) A( K-1, K-1 ) = REAL( A( K-1, K-1 ) );
             }
 
             // Update the leading submatrix
@@ -257,7 +257,7 @@
 
          // If K > N, exit from loop
 
-         IF( K.GT.N ) GO TO 90
+         if (K.GT.N) GO TO 90;
          KSTEP = 1
 
          // Determine rows and columns to be interchanged and whether
@@ -281,7 +281,7 @@
             // Column K is zero or underflow, contains a NaN:
             // set INFO and continue
 
-            IF( INFO.EQ.0 ) INFO = K
+            if (INFO.EQ.0) INFO = K;
             KP = K
             A( K, K ) = REAL( A( K, K ) )
          } else {
@@ -329,7 +329,7 @@
                // Interchange rows and columns KK and KP in the trailing
                // submatrix A(k:n,k:n)
 
-               IF( KP.LT.N ) CALL CSWAP( N-KP, A( KP+1, KK ), 1, A( KP+1, KP ), 1 )
+               if (KP.LT.N) CALL CSWAP( N-KP, A( KP+1, KK ), 1, A( KP+1, KP ), 1 );
                for (J = KK + 1; J <= KP - 1; J++) { // 60
                   T = CONJG( A( J, KK ) )
                   A( J, KK ) = CONJG( A( KP, J ) )
@@ -347,7 +347,7 @@
                }
             } else {
                A( K, K ) = REAL( A( K, K ) )
-               IF( KSTEP.EQ.2 ) A( K+1, K+1 ) = REAL( A( K+1, K+1 ) )
+               if (KSTEP.EQ.2) A( K+1, K+1 ) = REAL( A( K+1, K+1 ) );
             }
 
             // Update the trailing submatrix

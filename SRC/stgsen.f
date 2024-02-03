@@ -175,7 +175,7 @@
                // Q and Z accordingly (if requested):
 
                KK = K
-               IF( K.NE.KS ) CALL STGEXC( WANTQ, WANTZ, N, A, LDA, B, LDB, Q, LDQ, Z, LDZ, KK, KS, WORK, LWORK, IERR )
+               if (K.NE.KS) CALL STGEXC( WANTQ, WANTZ, N, A, LDA, B, LDB, Q, LDQ, Z, LDZ, KK, KS, WORK, LWORK, IERR );
 
                if ( IERR.GT.0 ) {
 
@@ -193,7 +193,7 @@
                   GO TO 60
                }
 
-               IF( PAIR ) KS = KS + 1
+               if (PAIR) KS = KS + 1;
             }
          }
       } // 30
@@ -348,7 +348,7 @@
                   for (I = 1; I <= N; I++) { // 80
                      A( K, I ) = -A( K, I )
                      B( K, I ) = -B( K, I )
-                     IF( WANTQ ) Q( I, K ) = -Q( I, K )
+                     if (WANTQ) Q( I, K ) = -Q( I, K );
                   } // 80
                }
 

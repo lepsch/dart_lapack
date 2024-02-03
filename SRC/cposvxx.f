@@ -123,7 +123,7 @@
 
       // Scale the right-hand side.
 
-      IF( RCEQU ) CALL CLASCL2( N, NRHS, S, B, LDB )
+      if (RCEQU) CALL CLASCL2( N, NRHS, S, B, LDB );
 
       if ( NOFACT .OR. EQUIL ) {
 

@@ -73,7 +73,7 @@
          INFO = -6
       } else {
          if ( VALEIG ) {
-            IF( N.GT.0 .AND. VU.LE.VL ) INFO = -8
+            if (N.GT.0 .AND. VU.LE.VL) INFO = -8;
          } else if ( INDEIG ) {
             if ( IL.LT.1 .OR. IL.GT.MAX( 1, N ) ) {
                INFO = -9
@@ -169,7 +169,7 @@
                dscal(J, SIGMA, A( 1, J ), 1 );
             } // 20
          }
-         IF( ABSTOL.GT.0 ) ABSTLL = ABSTOL*SIGMA
+         if (ABSTOL.GT.0) ABSTLL = ABSTOL*SIGMA;
          if ( VALEIG ) {
             VLL = VL*SIGMA
             VUU = VU*SIGMA

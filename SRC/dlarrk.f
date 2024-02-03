@@ -62,7 +62,7 @@
          INFO = 0
          GOTO 30
       }
-      IF(IT.GT.ITMAX) GOTO 30
+      if (IT.GT.ITMAX) GOTO 30;
 
 
       // Count number of negative pivots for mid-point

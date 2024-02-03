@@ -111,7 +111,7 @@
 
       // Quick return if possible
 
-      IF( NSIZES.EQ.0 .OR. NTYPES.EQ.0 .OR. NWDTHS.EQ.0 ) RETURN
+      if (NSIZES.EQ.0 .OR. NTYPES.EQ.0 .OR. NWDTHS.EQ.0) RETURN;
 
       // More Important constants
 
@@ -135,7 +135,7 @@
 
          for (JWIDTH = 1; JWIDTH <= NWDTHS; JWIDTH++) { // 150
             K = KK( JWIDTH )
-            IF( K.GE.M .AND. K.GE.N ) GO TO 150
+            if (K.GE.M .AND. K.GE.N) GO TO 150;
             KL = MAX( 0, MIN( M-1, K ) )
             KU = MAX( 0, MIN( N-1, K ) )
 
@@ -169,7 +169,7 @@
                // =8                      (none)
                // =9                      random nonhermitian
 
-               IF( MTYPES.GT.MAXTYP ) GO TO 90
+               if (MTYPES.GT.MAXTYP) GO TO 90;
 
                ITYPE = KTYPE( JTYPE )
                IMODE = KMODE( JTYPE )
@@ -291,7 +291,7 @@
 
                for (JR = 1; JR <= NTEST; JR++) { // 130
                   if ( RESULT( JR ).GE.THRESH ) {
-                     IF( NERRS.EQ.0 ) CALL DLAHD2( NOUNIT, 'DBB' )
+                     if (NERRS.EQ.0) CALL DLAHD2( NOUNIT, 'DBB' );
                      NERRS = NERRS + 1
                      WRITE( NOUNIT, FMT = 9998 )M, N, K, IOLDSD, JTYPE, JR, RESULT( JR )
                   }

@@ -83,7 +83,7 @@
 
          // Copy column K of A to column KW of W and update it
 
-         IF( K.GT.1 ) CALL CCOPY( K-1, A( 1, K ), 1, W( 1, KW ), 1 )
+         if (K.GT.1) CALL CCOPY( K-1, A( 1, K ), 1, W( 1, KW ), 1 );
          W( K, KW ) = REAL( A( K, K ) )
          if ( K.LT.N ) {
             cgemv('No transpose', K, N-K, -CONE, A( 1, K+1 ), LDA, W( K, KW+1 ), LDW, CONE, W( 1, KW ), 1 );
@@ -110,10 +110,10 @@
 
             // Column K is zero or underflow: set INFO and continue
 
-            IF( INFO.EQ.0 ) INFO = K
+            if (INFO.EQ.0) INFO = K;
             KP = K
             A( K, K ) = REAL( W( K, KW ) )
-            IF( K.GT.1 ) CALL CCOPY( K-1, W( 1, KW ), 1, A( 1, K ), 1 )
+            if (K.GT.1) CALL CCOPY( K-1, W( 1, KW ), 1, A( 1, K ), 1 );
          } else {
 
             // ============================================================
@@ -142,7 +142,7 @@
 
                   // Copy column IMAX to column KW-1 of W and update it
 
-                  IF( IMAX.GT.1 ) CALL CCOPY( IMAX-1, A( 1, IMAX ), 1, W( 1, KW-1 ), 1 )
+                  if (IMAX.GT.1) CALL CCOPY( IMAX-1, A( 1, IMAX ), 1, W( 1, KW-1 ), 1 );
                   W( IMAX, KW-1 ) = REAL( A( IMAX, IMAX ) )
 
                   ccopy(K-IMAX, A( IMAX, IMAX+1 ), LDA, W( IMAX+1, KW-1 ), 1 );
@@ -222,7 +222,7 @@
 
                   // END pivot search loop body
 
-               IF( .NOT.DONE ) GOTO 12
+               if (.NOT.DONE) GOTO 12;
 
             }
 
@@ -251,14 +251,14 @@
                A( P, P ) = REAL( A( K, K ) )
                ccopy(K-1-P, A( P+1, K ), 1, A( P, P+1 ), LDA );
                clacgv(K-1-P, A( P, P+1 ), LDA );
-               IF( P.GT.1 ) CALL CCOPY( P-1, A( 1, K ), 1, A( 1, P ), 1 )
+               if (P.GT.1) CALL CCOPY( P-1, A( 1, K ), 1, A( 1, P ), 1 );
 
                // Interchange rows K and P in the last K+1 to N columns of A
                // (columns K and K-1 of A for 2-by-2 pivot will be
                // later overwritten). Interchange rows K and P
                // in last KKW to NB columns of W.
 
-               IF( K.LT.N ) CALL CSWAP( N-K, A( K, K+1 ), LDA, A( P, K+1 ), LDA )
+               if (K.LT.N) CALL CSWAP( N-K, A( K, K+1 ), LDA, A( P, K+1 ), LDA );
                cswap(N-KK+1, W( K, KKW ), LDW, W( P, KKW ), LDW );
             }
 
@@ -275,14 +275,14 @@
                A( KP, KP ) = REAL( A( KK, KK ) )
                ccopy(KK-1-KP, A( KP+1, KK ), 1, A( KP, KP+1 ), LDA );
                clacgv(KK-1-KP, A( KP, KP+1 ), LDA );
-               IF( KP.GT.1 ) CALL CCOPY( KP-1, A( 1, KK ), 1, A( 1, KP ), 1 )
+               if (KP.GT.1) CALL CCOPY( KP-1, A( 1, KK ), 1, A( 1, KP ), 1 );
 
                // Interchange rows KK and KP in last K+1 to N columns of A
                // (columns K (or K and K-1 for 2-by-2 pivot) of A will be
                // later overwritten). Interchange rows KK and KP
                // in last KKW to NB columns of W.
 
-               IF( K.LT.N ) CALL CSWAP( N-K, A( KK, K+1 ), LDA, A( KP, K+1 ), LDA )
+               if (K.LT.N) CALL CSWAP( N-K, A( KK, K+1 ), LDA, A( KP, K+1 ), LDA );
                cswap(N-KK+1, W( KK, KKW ), LDW, W( KP, KKW ), LDW );
             }
 
@@ -457,7 +457,7 @@
 
             // Update the rectangular superdiagonal block
 
-            IF( J.GE.2 ) CALL CGEMM( 'No transpose', 'Transpose', J-1, JB, N-K, -CONE, A( 1, K+1 ), LDA, W( J, KW+1 ), LDW, CONE, A( 1, J ), LDA )
+            if (J.GE.2) CALL CGEMM( 'No transpose', 'Transpose', J-1, JB, N-K, -CONE, A( 1, K+1 ), LDA, W( J, KW+1 ), LDW, CONE, A( 1, J ), LDA );
          } // 50
 
          // Put U12 in standard form by partially undoing the interchanges
@@ -484,9 +484,9 @@
             // (NOTE: Here, J is used to determine row length. Length N-J+1
             // of the rows to swap back doesn't include diagonal element)
             J = J + 1
-            IF( JP2.NE.JJ .AND. J.LE.N ) CALL CSWAP( N-J+1, A( JP2, J ), LDA, A( JJ, J ), LDA )
+            if (JP2.NE.JJ .AND. J.LE.N) CALL CSWAP( N-J+1, A( JP2, J ), LDA, A( JJ, J ), LDA );
             JJ = JJ + 1
-            IF( KSTEP.EQ.2 .AND. JP1.NE.JJ .AND. J.LE.N ) CALL CSWAP( N-J+1, A( JP1, J ), LDA, A( JJ, J ), LDA )          IF( J.LT.N ) GO TO 60
+            if (KSTEP.EQ.2 .AND. JP1.NE.JJ .AND. J.LE.N) CALL CSWAP( N-J+1, A( JP1, J ), LDA, A( JJ, J ), LDA )          IF( J.LT.N ) GO TO 60;
 
          // Set KB to the number of columns factorized
 
@@ -513,7 +513,7 @@
          // Copy column K of A to column K of W and update column K of W
 
          W( K, K ) = REAL( A( K, K ) )
-         IF( K.LT.N ) CALL CCOPY( N-K, A( K+1, K ), 1, W( K+1, K ), 1 )
+         if (K.LT.N) CALL CCOPY( N-K, A( K+1, K ), 1, W( K+1, K ), 1 );
          if ( K.GT.1 ) {
             cgemv('No transpose', N-K+1, K-1, -CONE, A( K, 1 ), LDA, W( K, 1 ), LDW, CONE, W( K, K ), 1 );
             W( K, K ) = REAL( W( K, K ) )
@@ -539,10 +539,10 @@
 
             // Column K is zero or underflow: set INFO and continue
 
-            IF( INFO.EQ.0 ) INFO = K
+            if (INFO.EQ.0) INFO = K;
             KP = K
             A( K, K ) = REAL( W( K, K ) )
-            IF( K.LT.N ) CALL CCOPY( N-K, W( K+1, K ), 1, A( K+1, K ), 1 )
+            if (K.LT.N) CALL CCOPY( N-K, W( K+1, K ), 1, A( K+1, K ), 1 );
          } else {
 
             // ============================================================
@@ -576,7 +576,7 @@
                   clacgv(IMAX-K, W( K, K+1 ), 1 );
                   W( IMAX, K+1 ) = REAL( A( IMAX, IMAX ) )
 
-                  IF( IMAX.LT.N ) CALL CCOPY( N-IMAX, A( IMAX+1, IMAX ), 1, W( IMAX+1, K+1 ), 1 )
+                  if (IMAX.LT.N) CALL CCOPY( N-IMAX, A( IMAX+1, IMAX ), 1, W( IMAX+1, K+1 ), 1 );
 
                   if ( K.GT.1 ) {
                      cgemv('No transpose', N-K+1, K-1, -CONE, A( K, 1 ), LDA, W( IMAX, 1 ), LDW, CONE, W( K, K+1 ), 1 );
@@ -652,7 +652,7 @@
 
                   // End pivot search loop body
 
-               IF( .NOT.DONE ) GOTO 72
+               if (.NOT.DONE) GOTO 72;
 
             }
 
@@ -677,14 +677,14 @@
                A( P, P ) = REAL( A( K, K ) )
                ccopy(P-K-1, A( K+1, K ), 1, A( P, K+1 ), LDA );
                clacgv(P-K-1, A( P, K+1 ), LDA );
-               IF( P.LT.N ) CALL CCOPY( N-P, A( P+1, K ), 1, A( P+1, P ), 1 )
+               if (P.LT.N) CALL CCOPY( N-P, A( P+1, K ), 1, A( P+1, P ), 1 );
 
                // Interchange rows K and P in first K-1 columns of A
                // (columns K and K+1 of A for 2-by-2 pivot will be
                // later overwritten). Interchange rows K and P
                // in first KK columns of W.
 
-               IF( K.GT.1 ) CALL CSWAP( K-1, A( K, 1 ), LDA, A( P, 1 ), LDA )
+               if (K.GT.1) CALL CSWAP( K-1, A( K, 1 ), LDA, A( P, 1 ), LDA );
                cswap(KK, W( K, 1 ), LDW, W( P, 1 ), LDW );
             }
 
@@ -701,14 +701,14 @@
                A( KP, KP ) = REAL( A( KK, KK ) )
                ccopy(KP-KK-1, A( KK+1, KK ), 1, A( KP, KK+1 ), LDA );
                clacgv(KP-KK-1, A( KP, KK+1 ), LDA );
-               IF( KP.LT.N ) CALL CCOPY( N-KP, A( KP+1, KK ), 1, A( KP+1, KP ), 1 )
+               if (KP.LT.N) CALL CCOPY( N-KP, A( KP+1, KK ), 1, A( KP+1, KP ), 1 );
 
                // Interchange rows KK and KP in first K-1 columns of A
                // (column K (or K and K+1 for 2-by-2 pivot) of A will be
                // later overwritten). Interchange rows KK and KP
                // in first KK columns of W.
 
-               IF( K.GT.1 ) CALL CSWAP( K-1, A( KK, 1 ), LDA, A( KP, 1 ), LDA )
+               if (K.GT.1) CALL CSWAP( K-1, A( KK, 1 ), LDA, A( KP, 1 ), LDA );
                cswap(KK, W( KK, 1 ), LDW, W( KP, 1 ), LDW );
             }
 
@@ -883,7 +883,7 @@
 
             // Update the rectangular subdiagonal block
 
-            IF( J+JB.LE.N ) CALL CGEMM( 'No transpose', 'Transpose', N-J-JB+1, JB, K-1, -CONE, A( J+JB, 1 ), LDA, W( J, 1 ), LDW, CONE, A( J+JB, J ), LDA )
+            if (J+JB.LE.N) CALL CGEMM( 'No transpose', 'Transpose', N-J-JB+1, JB, K-1, -CONE, A( J+JB, 1 ), LDA, W( J, 1 ), LDW, CONE, A( J+JB, J ), LDA );
          } // 110
 
          // Put L21 in standard form by partially undoing the interchanges
@@ -910,9 +910,9 @@
             // (NOTE: Here, J is used to determine row length. Length J
             // of the rows to swap back doesn't include diagonal element)
             J = J - 1
-            IF( JP2.NE.JJ .AND. J.GE.1 ) CALL CSWAP( J, A( JP2, 1 ), LDA, A( JJ, 1 ), LDA )
+            if (JP2.NE.JJ .AND. J.GE.1) CALL CSWAP( J, A( JP2, 1 ), LDA, A( JJ, 1 ), LDA );
             JJ = JJ -1
-            IF( KSTEP.EQ.2 .AND. JP1.NE.JJ .AND. J.GE.1 ) CALL CSWAP( J, A( JP1, 1 ), LDA, A( JJ, 1 ), LDA )          IF( J.GT.1 ) GO TO 120
+            if (KSTEP.EQ.2 .AND. JP1.NE.JJ .AND. J.GE.1) CALL CSWAP( J, A( JP1, 1 ), LDA, A( JJ, 1 ), LDA )          IF( J.GT.1 ) GO TO 120;
 
          // Set KB to the number of columns factorized
 

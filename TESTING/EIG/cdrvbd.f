@@ -115,7 +115,7 @@
 
       // Quick return if nothing to do
 
-      IF( NSIZES.EQ.0 .OR. NTYPES.EQ.0 ) RETURN
+      if (NSIZES.EQ.0 .OR. NTYPES.EQ.0) RETURN;
 
       // More Important constants
 
@@ -150,7 +150,7 @@
 
             // Compute "A"
 
-            IF( MTYPES.GT.MAXTYP ) GO TO 50
+            if (MTYPES.GT.MAXTYP) GO TO 50;
 
             if ( JTYPE.EQ.1 ) {
 
@@ -174,7 +174,7 @@
 
                // (Scaled) random matrix
 
-               IF( JTYPE.EQ.3 ) ANORM = ONE                IF( JTYPE.EQ.4 ) ANORM = UNFL / ULP                IF( JTYPE.EQ.5 ) ANORM = OVFL*ULP                CALL CLATMS( M, N, 'U', ISEED, 'N', S, 4, REAL( MNMIN ), ANORM, M-1, N-1, 'N', A, LDA, WORK, IINFO )
+               if (JTYPE.EQ.3) ANORM = ONE                IF( JTYPE.EQ.4 ) ANORM = UNFL / ULP                IF( JTYPE.EQ.5 ) ANORM = OVFL*ULP                CALL CLATMS( M, N, 'U', ISEED, 'N', S, 4, REAL( MNMIN ), ANORM, M-1, N-1, 'N', A, LDA, WORK, IINFO );
                if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9996 )'Generator', IINFO, M, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
@@ -195,7 +195,7 @@
                LSWORK = IWTMP + ( IWSPC-1 )*( LWORK-IWTMP ) / 3
                LSWORK = MIN( LSWORK, LWORK )
                LSWORK = MAX( LSWORK, 1 )
-               IF( IWSPC.EQ.4 ) LSWORK = LWORK
+               if (IWSPC.EQ.4) LSWORK = LWORK;
 
                for (J = 1; J <= 35; J++) { // 60
                   RESULT( J ) = -ONE
@@ -203,7 +203,7 @@
 
                // Factorize A
 
-               IF( IWSPC.GT.1 ) CALL CLACPY( 'F', M, N, ASAV, LDA, A, LDA )
+               if (IWSPC.GT.1) CALL CLACPY( 'F', M, N, ASAV, LDA, A, LDA );
                SRNAMT = 'CGESVD'
                cgesvd('A', 'A', M, N, A, LDA, SSAV, USAV, LDU, VTSAV, LDVT, WORK, LSWORK, RWORK, IINFO );
                if ( IINFO.NE.0 ) {
@@ -286,7 +286,7 @@
                LSWORK = IWTMP + ( IWSPC-1 )*( LWORK-IWTMP ) / 3
                LSWORK = MIN( LSWORK, LWORK )
                LSWORK = MAX( LSWORK, 1 )
-               IF( IWSPC.EQ.4 ) LSWORK = LWORK
+               if (IWSPC.EQ.4) LSWORK = LWORK;
 
                // Factorize A
 
@@ -381,7 +381,7 @@
                   LSWORK = IWTMP + ( IWSPC-1 )*( LWORK-IWTMP ) / 3
                   LSWORK = MIN( LSWORK, LWORK )
                   LSWORK = MAX( LSWORK, 1 )
-                  IF( IWSPC.EQ.4 ) LSWORK = LWORK
+                  if (IWSPC.EQ.4) LSWORK = LWORK;
 
                   clacpy('F', M, N, ASAV, LDA, A, LDA );
                   SRNAMT = 'CGESVDQ'
@@ -425,7 +425,7 @@
                   LSWORK = MIN( LSWORK, LWORK )
                   LSWORK = MAX( LSWORK, 1 )
                   LRWORK = MAX(6,N)
-                  IF( IWSPC.EQ.4 ) LSWORK = LWORK
+                  if (IWSPC.EQ.4) LSWORK = LWORK;
 
                   clacpy('F', M, N, ASAV, LDA, USAV, LDA );
                   SRNAMT = 'CGESVJ'
@@ -472,7 +472,7 @@
                   LSWORK = IWTMP + ( IWSPC-1 )*( LWORK-IWTMP ) / 3
                   LSWORK = MIN( LSWORK, LWORK )
                   LSWORK = MAX( LSWORK, 1 )
-                  IF( IWSPC.EQ.4 ) LSWORK = LWORK
+                  if (IWSPC.EQ.4) LSWORK = LWORK;
                   LRWORK = MAX( 7, N + 2*M)
 
                   clacpy('F', M, N, ASAV, LDA, VTSAV, LDA );
@@ -634,7 +634,7 @@
                   }
                   VL = MAX( VL,ZERO )
                   VU = MAX( VU,ZERO )
-                  IF( VL.GE.VU ) VU = MAX( VU*2, VU+VL+HALF )
+                  if (VL.GE.VU) VU = MAX( VU*2, VU+VL+HALF );
                } else {
                   VL = ZERO
                   VU = ONE
@@ -664,7 +664,7 @@
                   IF( RESULT( J ).GE.ZERO ) NTEST = NTEST + 1                   IF( RESULT( J ).GE.THRESH ) NFAIL = NFAIL + 1
                } // 190
 
-               IF( NFAIL.GT.0 ) NTESTF = NTESTF + 1
+               if (NFAIL.GT.0) NTESTF = NTESTF + 1;
                if ( NTESTF.EQ.1 ) {
                   WRITE( NOUNIT, FMT = 9999 )
                   WRITE( NOUNIT, FMT = 9998 )THRESH

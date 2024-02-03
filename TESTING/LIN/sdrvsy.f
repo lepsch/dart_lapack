@@ -76,7 +76,7 @@
 
       // Test the error exits
 
-      IF( TSTERR ) CALL SERRVX( PATH, NOUT )
+      if (TSTERR) CALL SERRVX( PATH, NOUT );
       INFOT = 0
 
       // Set the block size and minimum block size for testing.
@@ -93,7 +93,7 @@
          LDA = MAX( N, 1 )
          XTYPE = 'N'
          NIMAT = NTYPES
-         IF( N.LE.0 ) NIMAT = 1
+         if (N.LE.0) NIMAT = 1;
 
          for (IMAT = 1; IMAT <= NIMAT; IMAT++) { // 170
 
@@ -104,7 +104,7 @@
             // Skip types 3, 4, 5, or 6 if the matrix size is too small.
 
             ZEROT = IMAT.GE.3 .AND. IMAT.LE.6
-            IF( ZEROT .AND. N.LT.IMAT-2 ) GO TO 170
+            if (ZEROT .AND. N.LT.IMAT-2) GO TO 170;
 
             // Do first for UPLO = 'U', then for UPLO = 'L'
 
@@ -203,7 +203,7 @@
                   // the value returned by SSYSVX.
 
                   if ( ZEROT ) {
-                     IF( IFACT.EQ.1 ) GO TO 150
+                     if (IFACT.EQ.1) GO TO 150;
                      RCONDC = ZERO
 
                   } else if ( IFACT.EQ.1 ) {
@@ -296,7 +296,7 @@
 
                      for (K = 1; K <= NT; K++) { // 110
                         if ( RESULT( K ).GE.THRESH ) {
-                           IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALADHD( NOUT, PATH )                            WRITE( NOUT, FMT = 9999 )'SSYSV ', UPLO, N, IMAT, K, RESULT( K )
+                           if (NFAIL.EQ.0 .AND. NERRS.EQ.0) CALL ALADHD( NOUT, PATH )                            WRITE( NOUT, FMT = 9999 )'SSYSV ', UPLO, N, IMAT, K, RESULT( K );
                            NFAIL = NFAIL + 1
                         }
                      } // 110
@@ -306,7 +306,7 @@
 
                   // --- Test SSYSVX ---
 
-                  IF( IFACT.EQ.2 ) CALL SLASET( UPLO, N, N, ZERO, ZERO, AFAC, LDA )
+                  if (IFACT.EQ.2) CALL SLASET( UPLO, N, N, ZERO, ZERO, AFAC, LDA );
                   slaset('Full', N, NRHS, ZERO, ZERO, X, LDA );
 
                   // Solve the system and compute the condition number and
@@ -377,7 +377,7 @@
 
                   for (K = K1; K <= 6; K++) { // 140
                      if ( RESULT( K ).GE.THRESH ) {
-                        IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALADHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9998 )'SSYSVX', FACT, UPLO, N, IMAT, K, RESULT( K )
+                        if (NFAIL.EQ.0 .AND. NERRS.EQ.0) CALL ALADHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9998 )'SSYSVX', FACT, UPLO, N, IMAT, K, RESULT( K );
                         NFAIL = NFAIL + 1
                      }
                   } // 140

@@ -135,7 +135,7 @@
       // Quick return if possible
 
       M = IM
-      IF( N.EQ.0 ) RETURN
+      if (N.EQ.0) RETURN;
 
       // Machine Constants
 
@@ -212,7 +212,7 @@
                LSB = ABS1( SALPHA ).GE.SAFMIN .AND. ABS1( BCOEFF ).LT. SMALL
 
                SCALE = ONE
-               IF( LSA ) SCALE = ( SMALL / ABS( SBETA ) )*MIN( ANORM, BIG )                IF( LSB ) SCALE = MAX( SCALE, ( SMALL / ABS1( SALPHA ) )* MIN( BNORM, BIG ) )
+               if (LSA) SCALE = ( SMALL / ABS( SBETA ) )*MIN( ANORM, BIG )                IF( LSB ) SCALE = MAX( SCALE, ( SMALL / ABS1( SALPHA ) )* MIN( BNORM, BIG ) );
                if ( LSA .OR. LSB ) {
                   SCALE = MIN( SCALE, ONE / ( SAFMIN*MAX( ONE, ABS( ACOEFF ), ABS1( BCOEFF ) ) ) )
                   if ( LSA ) {
@@ -366,7 +366,7 @@
                LSB = ABS1( SALPHA ).GE.SAFMIN .AND. ABS1( BCOEFF ).LT. SMALL
 
                SCALE = ONE
-               IF( LSA ) SCALE = ( SMALL / ABS( SBETA ) )*MIN( ANORM, BIG )                IF( LSB ) SCALE = MAX( SCALE, ( SMALL / ABS1( SALPHA ) )* MIN( BNORM, BIG ) )
+               if (LSA) SCALE = ( SMALL / ABS( SBETA ) )*MIN( ANORM, BIG )                IF( LSB ) SCALE = MAX( SCALE, ( SMALL / ABS1( SALPHA ) )* MIN( BNORM, BIG ) );
                if ( LSA .OR. LSB ) {
                   SCALE = MIN( SCALE, ONE / ( SAFMIN*MAX( ONE, ABS( ACOEFF ), ABS1( BCOEFF ) ) ) )
                   if ( LSA ) {

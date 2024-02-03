@@ -33,7 +33,7 @@
 
       // Quick return if possible
 
-      IF( M.LE.0 .OR. N.LE.0 ) RETURN
+      if (M.LE.0 .OR. N.LE.0) RETURN;
 
       // Check for currently supported options
 
@@ -67,7 +67,7 @@
          // W( 1:n, 1:k ) = W( 1:n, 1:k ) + ...
                          // C( m-l+1:m, 1:n )**T * V( 1:k, 1:l )**T
 
-         IF( L.GT.0 ) CALL DGEMM( 'Transpose', 'Transpose', N, K, L, ONE, C( M-L+1, 1 ), LDC, V, LDV, ONE, WORK, LDWORK )
+         if (L.GT.0) CALL DGEMM( 'Transpose', 'Transpose', N, K, L, ONE, C( M-L+1, 1 ), LDC, V, LDV, ONE, WORK, LDWORK );
 
          // W( 1:n, 1:k ) = W( 1:n, 1:k ) * T**T  or  W( 1:m, 1:k ) * T
 
@@ -84,7 +84,7 @@
          // C( m-l+1:m, 1:n ) = C( m-l+1:m, 1:n ) - ...
                              // V( 1:k, 1:l )**T * W( 1:n, 1:k )**T
 
-         IF( L.GT.0 ) CALL DGEMM( 'Transpose', 'Transpose', L, N, K, -ONE, V, LDV, WORK, LDWORK, ONE, C( M-L+1, 1 ), LDC )
+         if (L.GT.0) CALL DGEMM( 'Transpose', 'Transpose', L, N, K, -ONE, V, LDV, WORK, LDWORK, ONE, C( M-L+1, 1 ), LDC );
 
       } else if ( LSAME( SIDE, 'R' ) ) {
 
@@ -99,7 +99,7 @@
          // W( 1:m, 1:k ) = W( 1:m, 1:k ) + ...
                          // C( 1:m, n-l+1:n ) * V( 1:k, 1:l )**T
 
-         IF( L.GT.0 ) CALL DGEMM( 'No transpose', 'Transpose', M, K, L, ONE, C( 1, N-L+1 ), LDC, V, LDV, ONE, WORK, LDWORK )
+         if (L.GT.0) CALL DGEMM( 'No transpose', 'Transpose', M, K, L, ONE, C( 1, N-L+1 ), LDC, V, LDV, ONE, WORK, LDWORK );
 
          // W( 1:m, 1:k ) = W( 1:m, 1:k ) * T  or  W( 1:m, 1:k ) * T**T
 
@@ -116,7 +116,7 @@
          // C( 1:m, n-l+1:n ) = C( 1:m, n-l+1:n ) - ...
                              // W( 1:m, 1:k ) * V( 1:k, 1:l )
 
-         IF( L.GT.0 ) CALL DGEMM( 'No transpose', 'No transpose', M, L, K, -ONE, WORK, LDWORK, V, LDV, ONE, C( 1, N-L+1 ), LDC )
+         if (L.GT.0) CALL DGEMM( 'No transpose', 'No transpose', M, L, K, -ONE, WORK, LDWORK, V, LDV, ONE, C( 1, N-L+1 ), LDC );
 
       }
 

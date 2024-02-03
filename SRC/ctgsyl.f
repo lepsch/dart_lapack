@@ -172,11 +172,11 @@
       P = 0
       I = 1
       } // 40
-      IF( I.GT.M ) GO TO 50
+      if (I.GT.M) GO TO 50;
       P = P + 1
       IWORK( P ) = I
       I = I + MB
-      IF( I.GE.M ) GO TO 50
+      if (I.GE.M) GO TO 50;
       GO TO 40
       } // 50
       IWORK( P+1 ) = M + 1
@@ -187,12 +187,12 @@
       Q = P + 1
       J = 1
       } // 60
-      IF( J.GT.N ) GO TO 70
+      if (J.GT.N) GO TO 70;
 
       Q = Q + 1
       IWORK( Q ) = J
       J = J + NB
-      IF( J.GE.N ) GO TO 70
+      if (J.GE.N) GO TO 70;
       GO TO 60
 
       } // 70
@@ -220,7 +220,7 @@
                   IE = IWORK( I+1 ) - 1
                   MB = IE - IS + 1
                   ctgsy2(TRANS, IFUNC, MB, NB, A( IS, IS ), LDA, B( JS, JS ), LDB, C( IS, JS ), LDC, D( IS, IS ), LDD, E( JS, JS ), LDE, F( IS, JS ), LDF, SCALOC, DSUM, DSCALE, LINFO );
-                  IF( LINFO.GT.0 ) INFO = LINFO
+                  if (LINFO.GT.0) INFO = LINFO;
                   PQ = PQ + MB*NB
                   if ( SCALOC.NE.ONE ) {
                      for (K = 1; K <= JS - 1; K++) { // 80
@@ -287,7 +287,7 @@
                JE = IWORK( J+1 ) - 1
                NB = JE - JS + 1
                ctgsy2(TRANS, IFUNC, MB, NB, A( IS, IS ), LDA, B( JS, JS ), LDB, C( IS, JS ), LDC, D( IS, IS ), LDD, E( JS, JS ), LDE, F( IS, JS ), LDF, SCALOC, DSUM, DSCALE, LINFO );
-               IF( LINFO.GT.0 ) INFO = LINFO
+               if (LINFO.GT.0) INFO = LINFO;
                if ( SCALOC.NE.ONE ) {
                   for (K = 1; K <= JS - 1; K++) { // 160
                      cscal(M, CMPLX( SCALOC, ZERO ), C( 1, K ), 1 )                      CALL CSCAL( M, CMPLX( SCALOC, ZERO ), F( 1, K ), 1 );

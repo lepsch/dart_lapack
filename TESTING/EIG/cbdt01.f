@@ -120,7 +120,7 @@
       EPS = SLAMCH( 'Precision' )
 
       if ( ANORM.LE.ZERO ) {
-         IF( RESID.NE.ZERO ) RESID = ONE / EPS
+         if (RESID.NE.ZERO) RESID = ONE / EPS;
       } else {
          if ( ANORM.GE.RESID ) {
             RESID = ( RESID / ANORM ) / ( REAL( N )*EPS )

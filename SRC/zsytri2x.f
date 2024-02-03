@@ -61,7 +61,7 @@
          xerbla('ZSYTRI2X', -INFO );
          RETURN
       }
-      IF( N.EQ.0 ) RETURN
+      if (N.EQ.0) RETURN;
 
       // Convert A
       // Workspace got Non-diag elements of D
@@ -251,8 +251,8 @@
             DO WHILE ( I .LE. N )
                if ( IPIV(I) .GT. 0 ) {
                   IP=IPIV(I)
-                 IF (I .LT. IP) CALL ZSYSWAPR( UPLO, N, A, LDA, I ,IP )
-                 IF (I .GT. IP) CALL ZSYSWAPR( UPLO, N, A, LDA, IP ,I )
+                 if (I .LT. IP) CALL ZSYSWAPR( UPLO, N, A, LDA, I ,IP );
+                 if (I .GT. IP) CALL ZSYSWAPR( UPLO, N, A, LDA, IP ,I );
                } else {
                  IP=-IPIV(I)
                  I=I+1
@@ -423,12 +423,12 @@
             DO WHILE ( I .GE. 1 )
                if ( IPIV(I) .GT. 0 ) {
                   IP=IPIV(I)
-                 IF (I .LT. IP) CALL ZSYSWAPR( UPLO, N, A, LDA, I ,IP  )
-                 IF (I .GT. IP) CALL ZSYSWAPR( UPLO, N, A, LDA, IP ,I )
+                 if (I .LT. IP) CALL ZSYSWAPR( UPLO, N, A, LDA, I ,IP  );
+                 if (I .GT. IP) CALL ZSYSWAPR( UPLO, N, A, LDA, IP ,I );
                } else {
                  IP=-IPIV(I)
-                 IF ( I .LT. IP) CALL ZSYSWAPR( UPLO, N, A, LDA, I ,IP )
-                 IF ( I .GT. IP) CALL ZSYSWAPR( UPLO, N, A, LDA, IP ,I )
+                 if (I .LT. IP) CALL ZSYSWAPR( UPLO, N, A, LDA, I ,IP );
+                 if (I .GT. IP) CALL ZSYSWAPR( UPLO, N, A, LDA, IP ,I );
                  I=I-1
                }
                I=I-1

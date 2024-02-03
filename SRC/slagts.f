@@ -46,7 +46,7 @@
          RETURN
       }
 
-      IF( N.EQ.0 ) RETURN
+      if (N.EQ.0) RETURN;
 
       EPS = SLAMCH( 'Epsilon' )
       SFMIN = SLAMCH( 'Safe minimum' )
@@ -55,12 +55,12 @@
       if ( JOB.LT.0 ) {
          if ( TOL.LE.ZERO ) {
             TOL = ABS( A( 1 ) )
-            IF( N.GT.1 ) TOL = MAX( TOL, ABS( A( 2 ) ), ABS( B( 1 ) ) )
+            if (N.GT.1) TOL = MAX( TOL, ABS( A( 2 ) ), ABS( B( 1 ) ) );
             for (K = 3; K <= N; K++) { // 10
                TOL = MAX( TOL, ABS( A( K ) ), ABS( B( K-1 ) ), ABS( D( K-2 ) ) )
             } // 10
             TOL = TOL*EPS
-            IF( TOL.EQ.ZERO ) TOL = EPS
+            if (TOL.EQ.ZERO) TOL = EPS;
          }
       }
 

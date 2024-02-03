@@ -143,7 +143,7 @@
 
       // Use unblocked code to factor the last or only block
 
-      IF( MU.GT.0 ) CALL SLATRZ( MU, N, N-M, A, LDA, TAU, WORK )
+      if (MU.GT.0) CALL SLATRZ( MU, N, N-M, A, LDA, TAU, WORK );
 
       WORK( 1 ) = SROUNDUP_LWORK(LWKOPT)
 

@@ -94,12 +94,12 @@
 
                // If N.EQ.0, only consider the first type
 
-               IF( N.EQ.0 .AND. IIT.GE.1 ) GO TO 120
+               if (N.EQ.0 .AND. IIT.GE.1) GO TO 120;
 
                // Skip types 3, 4, or 5 if the matrix size is too small.
 
-               IF( IMAT.EQ.4 .AND. N.LE.1 ) GO TO 120
-               IF( IMAT.EQ.5 .AND. N.LE.2 ) GO TO 120
+               if (IMAT.EQ.4 .AND. N.LE.1) GO TO 120;
+               if (IMAT.EQ.5 .AND. N.LE.2) GO TO 120;
 
                // Do first for UPLO = 'U', then for UPLO = 'L'
 
@@ -266,7 +266,7 @@
 
                      // Check error code from DPFTRI.
 
-                     IF( INFO.NE.0 ) CALL ALAERH( 'DPO', 'DPFTRI', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT )
+                     if (INFO.NE.0) CALL ALAERH( 'DPO', 'DPFTRI', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
 
                      dpot03(UPLO, N, A, LDA, AINV, LDA, D_TEMP_DPOT03, LDA, D_WORK_DPOT03, RCONDC, RESULT( 2 ) );
 
@@ -283,7 +283,7 @@
 
                      for (K = 1; K <= NT; K++) { // 60
                         if ( RESULT( K ).GE.THRESH ) {
-                           IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALADHD( NOUT, 'DPF' )                            WRITE( NOUT, FMT = 9999 )'DPFSV ', UPLO, N, IIT, K, RESULT( K )
+                           if (NFAIL.EQ.0 .AND. NERRS.EQ.0) CALL ALADHD( NOUT, 'DPF' )                            WRITE( NOUT, FMT = 9999 )'DPFSV ', UPLO, N, IIT, K, RESULT( K );
                            NFAIL = NFAIL + 1
                         }
                      } // 60

@@ -47,7 +47,7 @@
 
       // Quick return if possible
 
-      IF( N.LE.0 ) RETURN
+      if (N.LE.0) RETURN;
 
       // Initialise columns 1:n-k to columns of the unit matrix
 

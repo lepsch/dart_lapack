@@ -98,7 +98,7 @@
 
       // Quick return if possible
 
-      IF( NSIZES.EQ.0 .OR. NTYPES.EQ.0 ) RETURN
+      if (NSIZES.EQ.0 .OR. NTYPES.EQ.0) RETURN;
 
       SAFMIN = SLAMCH( 'Safe minimum' )
       ULP = SLAMCH( 'Epsilon' )*SLAMCH( 'Base' )
@@ -167,7 +167,7 @@
             // KZ1, KZ2, KADD: used to implement KAZERO and KBZERO.
             // RMAGN:  used to implement KAMAGN and KBMAGN.
 
-            IF( MTYPES.GT.MAXTYP ) GO TO 110
+            if (MTYPES.GT.MAXTYP) GO TO 110;
             IINFO = 0
             if ( KCLASS( JTYPE ).LT.3 ) {
 
@@ -175,25 +175,25 @@
 
                if ( ABS( KATYPE( JTYPE ) ).EQ.3 ) {
                   IN = 2*( ( N-1 ) / 2 ) + 1
-                  IF( IN.NE.N ) CALL CLASET( 'Full', N, N, CZERO, CZERO, A, LDA )
+                  if (IN.NE.N) CALL CLASET( 'Full', N, N, CZERO, CZERO, A, LDA );
                } else {
                   IN = N
                }
                clatm4(KATYPE( JTYPE ), IN, KZ1( KAZERO( JTYPE ) ), KZ2( KAZERO( JTYPE ) ), LASIGN( JTYPE ), RMAGN( KAMAGN( JTYPE ) ), ULP, RMAGN( KTRIAN( JTYPE )*KAMAGN( JTYPE ) ), 4, ISEED, A, LDA );
                IADD = KADD( KAZERO( JTYPE ) )
-               IF( IADD.GT.0 .AND. IADD.LE.N ) A( IADD, IADD ) = RMAGN( KAMAGN( JTYPE ) )
+               if (IADD.GT.0 .AND. IADD.LE.N) A( IADD, IADD ) = RMAGN( KAMAGN( JTYPE ) );
 
                // Generate B (w/o rotation)
 
                if ( ABS( KBTYPE( JTYPE ) ).EQ.3 ) {
                   IN = 2*( ( N-1 ) / 2 ) + 1
-                  IF( IN.NE.N ) CALL CLASET( 'Full', N, N, CZERO, CZERO, B, LDA )
+                  if (IN.NE.N) CALL CLASET( 'Full', N, N, CZERO, CZERO, B, LDA );
                } else {
                   IN = N
                }
                clatm4(KBTYPE( JTYPE ), IN, KZ1( KBZERO( JTYPE ) ), KZ2( KBZERO( JTYPE ) ), LBSIGN( JTYPE ), RMAGN( KBMAGN( JTYPE ) ), ONE, RMAGN( KTRIAN( JTYPE )*KBMAGN( JTYPE ) ), 4, ISEED, B, LDA );
                IADD = KADD( KBZERO( JTYPE ) )
-               IF( IADD.NE.0 ) B( IADD, IADD ) = RMAGN( KBMAGN( JTYPE ) )
+               if (IADD.NE.0) B( IADD, IADD ) = RMAGN( KBMAGN( JTYPE ) );
 
                if ( KCLASS( JTYPE ).EQ.2 .AND. N.GT.0 ) {
 

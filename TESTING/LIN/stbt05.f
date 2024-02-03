@@ -85,7 +85,7 @@
       // (*) = NZ*UNFL / (min_i (abs(A)*abs(X) +abs(b))_i )
 
       IFU = 0
-      IF( UNIT ) IFU = 1
+      if (UNIT) IFU = 1;
       for (K = 1; K <= NRHS; K++) { // 90
          for (I = 1; I <= N; I++) { // 80
             TMP = ABS( B( I, K ) )
@@ -94,9 +94,9 @@
                   DO 40 J = MAX( I-KD, 1 ), I - IFU
                      TMP = TMP + ABS( AB( KD+1-I+J, I ) )* ABS( X( J, K ) )
                   } // 40
-                  IF( UNIT ) TMP = TMP + ABS( X( I, K ) )
+                  if (UNIT) TMP = TMP + ABS( X( I, K ) );
                } else {
-                  IF( UNIT ) TMP = TMP + ABS( X( I, K ) )
+                  if (UNIT) TMP = TMP + ABS( X( I, K ) );
                   DO 50 J = I + IFU, MIN( I+KD, N )
                      TMP = TMP + ABS( AB( KD+1+I-J, J ) )* ABS( X( J, K ) )
                   } // 50
@@ -106,9 +106,9 @@
                   DO 60 J = MAX( I-KD, 1 ), I - IFU
                      TMP = TMP + ABS( AB( 1+I-J, J ) )*ABS( X( J, K ) )
                   } // 60
-                  IF( UNIT ) TMP = TMP + ABS( X( I, K ) )
+                  if (UNIT) TMP = TMP + ABS( X( I, K ) );
                } else {
-                  IF( UNIT ) TMP = TMP + ABS( X( I, K ) )
+                  if (UNIT) TMP = TMP + ABS( X( I, K ) );
                   DO 70 J = I + IFU, MIN( I+KD, N )
                      TMP = TMP + ABS( AB( 1+J-I, I ) )*ABS( X( J, K ) )
                   } // 70

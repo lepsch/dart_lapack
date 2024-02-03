@@ -135,7 +135,7 @@
       }
 
       BROW = M
-      IF( TPSD ) BROW = N
+      if (TPSD) BROW = N;
       BNRM = ZLANGE( 'M', BROW, NRHS, B, LDB, RWORK )
       IBSCL = 0
       if ( BNRM.GT.ZERO .AND. BNRM.LT.SMLNUM ) {

@@ -49,7 +49,7 @@
 
       // Quick return if possible
 
-      IF( M.EQ.0 .OR. N.EQ.0 ) RETURN
+      if (M.EQ.0 .OR. N.EQ.0) RETURN;
 
       // Decode DIST
 
@@ -133,9 +133,9 @@
       if ( ISYM.EQ.1 ) {
          IF( REAL( LLB+UUB ).LT.0.3*REAL( MAX( 1, MR+NC ) ) ) GIVENS = .TRUE.
       } else {
-         IF( 2*LLB.LT.M ) GIVENS = .TRUE.
+         if (2*LLB.LT.M) GIVENS = .TRUE.;
       }
-      IF( LDA.LT.M .AND. LDA.GE.MINLDA ) GIVENS = .TRUE.
+      if (LDA.LT.M .AND. LDA.GE.MINLDA) GIVENS = .TRUE.;
 
       // Set INFO if an error
 
@@ -250,7 +250,7 @@
 
       if ( LLB.EQ.0 .AND. UUB.EQ.0 ) {
          scopy(MNMIN, D, 1, A( 1-ISKEW+IOFFST, 1 ), ILDA+1 );
-         IF( IPACK.LE.2 .OR. IPACK.GE.5 ) IPACKG = IPACK
+         if (IPACK.LE.2 .OR. IPACK.GE.5) IPACKG = IPACK;
 
       } else if ( GIVENS ) {
 
@@ -525,7 +525,7 @@
 
                if ( IPACK.GE.5 ) {
                   IPACKG = 5
-                  IF( IPACK.EQ.6 ) IOFFG = 1
+                  if (IPACK.EQ.6) IOFFG = 1;
                } else {
                   IPACKG = 2
                }
@@ -674,7 +674,7 @@
             // 'Q' -- The upper triangle is packed as a band matrix.
             // 'Z' -- The whole matrix is packed as a band matrix.
 
-            IF( IPACK.EQ.5 ) UUB = 0             IF( IPACK.EQ.6 ) LLB = 0
+            if (IPACK.EQ.5) UUB = 0             IF( IPACK.EQ.6 ) LLB = 0;
 
             for (J = 1; J <= UUB; J++) { // 380
                DO 370 I = MIN( J+LLB, M ), 1, -1

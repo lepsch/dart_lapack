@@ -103,7 +103,7 @@
 
       } // 20
       L = LM1
-      IF( L.NE.1 ) GO TO 30
+      if (L.NE.1) GO TO 30;
 
       RSCALE( 1 ) = 1
       LSCALE( 1 ) = 1
@@ -161,7 +161,7 @@
 
       } // 160
       LSCALE( M ) = I
-      IF( I.EQ.M ) GO TO 170
+      if (I.EQ.M) GO TO 170;
       zswap(N-K+1, A( I, K ), LDA, A( M, K ), LDA );
       zswap(N-K+1, B( I, K ), LDB, B( M, K ), LDB );
 
@@ -169,7 +169,7 @@
 
       } // 170
       RSCALE( M ) = J
-      IF( J.EQ.M ) GO TO 180
+      if (J.EQ.M) GO TO 180;
       zswap(L, A( 1, J ), 1, A( 1, M ), 1 );
       zswap(L, B( 1, J ), 1, B( 1, M ), 1 );
 
@@ -188,7 +188,7 @@
          RETURN
       }
 
-      IF( ILO.EQ.IHI ) RETURN
+      if (ILO.EQ.IHI) RETURN;
 
       // Balance the submatrix in rows ILO to IHI.
 
@@ -250,7 +250,7 @@
       } // 260
 
       GAMMA = COEF*GAMMA - COEF2*( EW**2+EWC**2 ) - COEF5*( EW-EWC )**2
-      IF( GAMMA.EQ.ZERO ) GO TO 350       IF( IT.NE.1 ) BETA = GAMMA / PGAMMA
+      if (GAMMA.EQ.ZERO) GO TO 350       IF( IT.NE.1 ) BETA = GAMMA / PGAMMA;
       T = COEF5*( EWC-THREE*EW )
       TC = COEF5*( EW-THREE*EWC )
 
@@ -311,14 +311,14 @@
          IF( ABS( COR ).GT.CMAX ) CMAX = ABS( COR )
          RSCALE( I ) = RSCALE( I ) + COR
       } // 340
-      IF( CMAX.LT.HALF ) GO TO 350
+      if (CMAX.LT.HALF) GO TO 350;
 
       daxpy(NR, -ALPHA, WORK( ILO+2*N ), 1, WORK( ILO+4*N ), 1 );
       daxpy(NR, -ALPHA, WORK( ILO+3*N ), 1, WORK( ILO+5*N ), 1 );
 
       PGAMMA = GAMMA
       IT = IT + 1
-      IF( IT.LE.NRP2 ) GO TO 250
+      if (IT.LE.NRP2) GO TO 250;
 
       // End generalized conjugate gradient iteration
 

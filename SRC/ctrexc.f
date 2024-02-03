@@ -56,7 +56,7 @@
 
       // Quick return if possible
 
-      IF( N.LE.1 .OR. IFST.EQ.ILST ) RETURN
+      if (N.LE.1 .OR. IFST.EQ.ILST) RETURN;
 
       if ( IFST.LT.ILST ) {
 
@@ -87,7 +87,7 @@
 
          // Apply transformation to the matrix T.
 
-         IF( K+2.LE.N ) CALL CROT( N-K-1, T( K, K+2 ), LDT, T( K+1, K+2 ), LDT, CS, SN )
+         if (K+2.LE.N) CALL CROT( N-K-1, T( K, K+2 ), LDT, T( K+1, K+2 ), LDT, CS, SN );
          crot(K-1, T( 1, K ), 1, T( 1, K+1 ), 1, CS, CONJG( SN ) );
 
          T( K, K ) = T22

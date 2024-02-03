@@ -101,7 +101,7 @@
               }
           }
       }
-      IF (ALPHA.EQ.ZERO) RETURN
+      if (ALPHA.EQ.ZERO) RETURN;
       KK = 1
       if (LSAME(UPLO,'U')) {
 

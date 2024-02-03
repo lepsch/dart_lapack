@@ -160,7 +160,7 @@
             // Test for sufficient growth in the norm of v.
 
             VNORM = SASUM( N, VR, 1 )
-            IF( VNORM.GE.GROWTO*SCALE ) GO TO 120
+            if (VNORM.GE.GROWTO*SCALE) GO TO 120;
 
             // Choose new orthogonal starting vector and try again.
 
@@ -402,7 +402,7 @@
             // Test for sufficient growth in the norm of (VR,VI).
 
             VNORM = SASUM( N, VR, 1 ) + SASUM( N, VI, 1 )
-            IF( VNORM.GE.GROWTO*SCALE ) GO TO 280
+            if (VNORM.GE.GROWTO*SCALE) GO TO 280;
 
             // Choose a new orthogonal starting vector and try again.
 

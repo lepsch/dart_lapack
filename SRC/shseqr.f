@@ -119,7 +119,7 @@
 
          // ==== Initialize Z, if requested ====
 
-         IF( INITZ ) CALL SLASET( 'A', N, N, ZERO, ONE, Z, LDZ )
+         if (INITZ) CALL SLASET( 'A', N, N, ZERO, ONE, Z, LDZ );
 
          // ==== Quick return if possible ====
 

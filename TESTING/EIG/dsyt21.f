@@ -38,7 +38,7 @@
       // .. Executable Statements ..
 
       RESULT( 1 ) = ZERO
-      IF( ITYPE.EQ.1 ) RESULT( 2 ) = ZERO       IF( N.LE.0 ) RETURN
+      if (ITYPE.EQ.1) RESULT( 2 ) = ZERO       IF( N.LE.0 ) RETURN;
 
       if ( LSAME( UPLO, 'U' ) ) {
          LOWER = .FALSE.
@@ -145,7 +145,7 @@
 
          // ITYPE=3: error = U V**T - I
 
-         IF( N.LT.2 ) RETURN
+         if (N.LT.2) RETURN;
          dlacpy(' ', N, N, U, LDU, WORK, N );
          if ( LOWER ) {
             dorm2r('R', 'T', N, N-1, N-1, V( 2, 1 ), LDV, TAU, WORK( N+1 ), N, WORK( N**2+1 ), IINFO );

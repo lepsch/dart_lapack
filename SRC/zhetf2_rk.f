@@ -91,7 +91,7 @@
 
          // If K < 1, exit from loop
 
-         IF( K.LT.1 ) GO TO 34
+         if (K.LT.1) GO TO 34;
          KSTEP = 1
          P = K
 
@@ -115,13 +115,13 @@
 
             // Column K is zero or underflow: set INFO and continue
 
-            IF( INFO.EQ.0 ) INFO = K
+            if (INFO.EQ.0) INFO = K;
             KP = K
             A( K, K ) = DBLE( A( K, K ) )
 
             // Set E( K ) to zero
 
-            IF( K.GT.1 ) E( K ) = CZERO
+            if (K.GT.1) E( K ) = CZERO;
 
          } else {
 
@@ -208,7 +208,7 @@
 
                   // END pivot search loop body
 
-               IF( .NOT.DONE ) GOTO 12
+               if (.NOT.DONE) GOTO 12;
 
             }
 
@@ -225,7 +225,7 @@
 
             if ( ( KSTEP.EQ.2 ) .AND. ( P.NE.K ) ) {
                // (1) Swap columnar parts
-               IF( P.GT.1 ) CALL ZSWAP( P-1, A( 1, K ), 1, A( 1, P ), 1 )
+               if (P.GT.1) CALL ZSWAP( P-1, A( 1, K ), 1, A( 1, P ), 1 );
                // (2) Swap and conjugate middle parts
                for (J = P + 1; J <= K - 1; J++) { // 14
                   T = DCONJG( A( J, K ) )
@@ -242,7 +242,7 @@
                // Convert upper triangle of A into U form by applying
                // the interchanges in columns k+1:N.
 
-               IF( K.LT.N ) CALL ZSWAP( N-K, A( K, K+1 ), LDA, A( P, K+1 ), LDA )
+               if (K.LT.N) CALL ZSWAP( N-K, A( K, K+1 ), LDA, A( P, K+1 ), LDA );
 
             }
 
@@ -251,7 +251,7 @@
 
             if ( KP.NE.KK ) {
                // (1) Swap columnar parts
-               IF( KP.GT.1 ) CALL ZSWAP( KP-1, A( 1, KK ), 1, A( 1, KP ), 1 )
+               if (KP.GT.1) CALL ZSWAP( KP-1, A( 1, KK ), 1, A( 1, KP ), 1 );
                // (2) Swap and conjugate middle parts
                for (J = KP + 1; J <= KK - 1; J++) { // 15
                   T = DCONJG( A( J, KK ) )
@@ -277,12 +277,12 @@
                // Convert upper triangle of A into U form by applying
                // the interchanges in columns k+1:N.
 
-               IF( K.LT.N ) CALL ZSWAP( N-K, A( KK, K+1 ), LDA, A( KP, K+1 ), LDA )
+               if (K.LT.N) CALL ZSWAP( N-K, A( KK, K+1 ), LDA, A( KP, K+1 ), LDA );
 
             } else {
                // (*) Make sure that diagonal element of pivot is real
                A( K, K ) = DBLE( A( K, K ) )
-               IF( KSTEP.EQ.2 ) A( K-1, K-1 ) = DBLE( A( K-1, K-1 ) )
+               if (KSTEP.EQ.2) A( K-1, K-1 ) = DBLE( A( K-1, K-1 ) );
             }
 
             // Update the leading submatrix
@@ -428,7 +428,7 @@
 
          // If K > N, exit from loop
 
-         IF( K.GT.N ) GO TO 64
+         if (K.GT.N) GO TO 64;
          KSTEP = 1
          P = K
 
@@ -452,13 +452,13 @@
 
             // Column K is zero or underflow: set INFO and continue
 
-            IF( INFO.EQ.0 ) INFO = K
+            if (INFO.EQ.0) INFO = K;
             KP = K
             A( K, K ) = DBLE( A( K, K ) )
 
             // Set E( K ) to zero
 
-            IF( K.LT.N ) E( K ) = CZERO
+            if (K.LT.N) E( K ) = CZERO;
 
          } else {
 
@@ -546,7 +546,7 @@
 
                   // END pivot search loop body
 
-               IF( .NOT.DONE ) GOTO 42
+               if (.NOT.DONE) GOTO 42;
 
             }
 
@@ -563,7 +563,7 @@
 
             if ( ( KSTEP.EQ.2 ) .AND. ( P.NE.K ) ) {
                // (1) Swap columnar parts
-               IF( P.LT.N ) CALL ZSWAP( N-P, A( P+1, K ), 1, A( P+1, P ), 1 )
+               if (P.LT.N) CALL ZSWAP( N-P, A( P+1, K ), 1, A( P+1, P ), 1 );
                // (2) Swap and conjugate middle parts
                for (J = K + 1; J <= P - 1; J++) { // 44
                   T = DCONJG( A( J, K ) )
@@ -580,7 +580,7 @@
                // Convert lower triangle of A into L form by applying
                // the interchanges in columns 1:k-1.
 
-               IF ( K.GT.1 ) CALL ZSWAP( K-1, A( K, 1 ), LDA, A( P, 1 ), LDA )
+               if (K.GT.1) CALL ZSWAP( K-1, A( K, 1 ), LDA, A( P, 1 ), LDA );
 
             }
 
@@ -589,7 +589,7 @@
 
             if ( KP.NE.KK ) {
                // (1) Swap columnar parts
-               IF( KP.LT.N ) CALL ZSWAP( N-KP, A( KP+1, KK ), 1, A( KP+1, KP ), 1 )
+               if (KP.LT.N) CALL ZSWAP( N-KP, A( KP+1, KK ), 1, A( KP+1, KP ), 1 );
                // (2) Swap and conjugate middle parts
                for (J = KK + 1; J <= KP - 1; J++) { // 45
                   T = DCONJG( A( J, KK ) )
@@ -615,12 +615,12 @@
                // Convert lower triangle of A into L form by applying
                // the interchanges in columns 1:k-1.
 
-               IF ( K.GT.1 ) CALL ZSWAP( K-1, A( KK, 1 ), LDA, A( KP, 1 ), LDA )
+               if (K.GT.1) CALL ZSWAP( K-1, A( KK, 1 ), LDA, A( KP, 1 ), LDA );
 
             } else {
                // (*) Make sure that diagonal element of pivot is real
                A( K, K ) = DBLE( A( K, K ) )
-               IF( KSTEP.EQ.2 ) A( K+1, K+1 ) = DBLE( A( K+1, K+1 ) )
+               if (KSTEP.EQ.2) A( K+1, K+1 ) = DBLE( A( K+1, K+1 ) );
             }
 
             // Update the trailing submatrix

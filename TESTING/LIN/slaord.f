@@ -35,7 +35,7 @@
          for (I = 2; I <= N; I++) { // 20
             IX = 1 + ( I-1 )*INC
             } // 10
-            IF( IX.EQ.1 ) GO TO 20
+            if (IX.EQ.1) GO TO 20;
             IXNEXT = IX - INC
             if ( X( IX ).GT.X( IXNEXT ) ) {
                GO TO 20
@@ -55,7 +55,7 @@
          for (I = 2; I <= N; I++) { // 40
             IX = 1 + ( I-1 )*INC
             } // 30
-            IF( IX.EQ.1 ) GO TO 40
+            if (IX.EQ.1) GO TO 40;
             IXNEXT = IX - INC
             if ( X( IX ).LT.X( IXNEXT ) ) {
                GO TO 40

@@ -106,7 +106,7 @@
         RETURN
       }
       if ( LQUERY ) {
-        IF( LWORK.EQ.-2 ) WORK( 1 ) = SROUNDUP_LWORK( WSIZEM )
+        if (LWORK.EQ.-2) WORK( 1 ) = SROUNDUP_LWORK( WSIZEM );
         RETURN
       }
       if ( LWORK.LT.WSIZEO ) {

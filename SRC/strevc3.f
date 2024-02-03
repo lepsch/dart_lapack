@@ -120,7 +120,7 @@
 
       // Quick return if possible.
 
-      IF( N.EQ.0 ) RETURN
+      if (N.EQ.0) RETURN;
 
       // Use blocked version of back-transformation if sufficient workspace.
       // Zero-out the workspace to avoid potential NaN propagation.
@@ -204,7 +204,7 @@
 
             WR = T( KI, KI )
             WI = ZERO
-            IF( IP.NE.0 ) WI = SQRT( ABS( T( KI, KI-1 ) ) )* SQRT( ABS( T( KI-1, KI ) ) )
+            if (IP.NE.0) WI = SQRT( ABS( T( KI, KI-1 ) ) )* SQRT( ABS( T( KI-1, KI ) ) );
             SMIN = MAX( ULP*( ABS( WR )+ABS( WI ) ), SMLNUM )
 
             if ( IP.EQ.0 ) {
@@ -225,7 +225,7 @@
 
                JNXT = KI - 1
                DO 60 J = KI - 1, 1, -1
-                  IF( J.GT.JNXT ) GO TO 60
+                  if (J.GT.JNXT) GO TO 60;
                   J1 = J
                   J2 = J
                   JNXT = J - 1
@@ -254,7 +254,7 @@
 
                      // Scale if necessary
 
-                     IF( SCALE.NE.ONE ) CALL SSCAL( KI, SCALE, WORK( 1+IV*N ), 1 )
+                     if (SCALE.NE.ONE) CALL SSCAL( KI, SCALE, WORK( 1+IV*N ), 1 );
                      WORK( J+IV*N ) = X( 1, 1 )
 
                      // Update right-hand side
@@ -281,7 +281,7 @@
 
                      // Scale if necessary
 
-                     IF( SCALE.NE.ONE ) CALL SSCAL( KI, SCALE, WORK( 1+IV*N ), 1 )
+                     if (SCALE.NE.ONE) CALL SSCAL( KI, SCALE, WORK( 1+IV*N ), 1 );
                      WORK( J-1+IV*N ) = X( 1, 1 )
                      WORK( J  +IV*N ) = X( 2, 1 )
 
@@ -309,7 +309,7 @@
                } else if ( NB.EQ.1 ) {
                   // ------------------------------
                   // version 1: back-transform each vector with GEMV, Q*x.
-                  IF( KI.GT.1 ) CALL SGEMV( 'N', N, KI-1, ONE, VR, LDVR, WORK( 1 + IV*N ), 1, WORK( KI + IV*N ), VR( 1, KI ), 1 )
+                  if (KI.GT.1) CALL SGEMV( 'N', N, KI-1, ONE, VR, LDVR, WORK( 1 + IV*N ), 1, WORK( KI + IV*N ), VR( 1, KI ), 1 );
 
                   II = ISAMAX( N, VR( 1, KI ), 1 )
                   REMAX = ONE / ABS( VR( II, KI ) )
@@ -356,7 +356,7 @@
 
                JNXT = KI - 2
                DO 90 J = KI - 2, 1, -1
-                  IF( J.GT.JNXT ) GO TO 90
+                  if (J.GT.JNXT) GO TO 90;
                   J1 = J
                   J2 = J
                   JNXT = J - 1
@@ -531,7 +531,7 @@
             END IF ! blocked back-transform
 
             IS = IS - 1
-            IF( IP.NE.0 ) IS = IS - 1
+            if (IP.NE.0) IS = IS - 1;
          } // 140
       }
 
@@ -573,7 +573,7 @@
 
             WR = T( KI, KI )
             WI = ZERO
-            IF( IP.NE.0 ) WI = SQRT( ABS( T( KI, KI+1 ) ) )* SQRT( ABS( T( KI+1, KI ) ) )
+            if (IP.NE.0) WI = SQRT( ABS( T( KI, KI+1 ) ) )* SQRT( ABS( T( KI+1, KI ) ) );
             SMIN = MAX( ULP*( ABS( WR )+ABS( WI ) ), SMLNUM )
 
             if ( IP.EQ.0 ) {
@@ -597,7 +597,7 @@
 
                JNXT = KI + 1
                for (J = KI + 1; J <= N; J++) { // 170
-                  IF( J.LT.JNXT ) GO TO 170
+                  if (J.LT.JNXT) GO TO 170;
                   J1 = J
                   J2 = J
                   JNXT = J + 1
@@ -630,7 +630,7 @@
 
                      // Scale if necessary
 
-                     IF( SCALE.NE.ONE ) CALL SSCAL( N-KI+1, SCALE, WORK( KI+IV*N ), 1 )
+                     if (SCALE.NE.ONE) CALL SSCAL( N-KI+1, SCALE, WORK( KI+IV*N ), 1 );
                      WORK( J+IV*N ) = X( 1, 1 )
                      VMAX = MAX( ABS( WORK( J+IV*N ) ), VMAX )
                      VCRIT = BIGNUM / VMAX
@@ -662,7 +662,7 @@
 
                      // Scale if necessary
 
-                     IF( SCALE.NE.ONE ) CALL SSCAL( N-KI+1, SCALE, WORK( KI+IV*N ), 1 )
+                     if (SCALE.NE.ONE) CALL SSCAL( N-KI+1, SCALE, WORK( KI+IV*N ), 1 );
                      WORK( J  +IV*N ) = X( 1, 1 )
                      WORK( J+1+IV*N ) = X( 2, 1 )
 
@@ -690,7 +690,7 @@
                } else if ( NB.EQ.1 ) {
                   // ------------------------------
                   // version 1: back-transform each vector with GEMV, Q*x.
-                  IF( KI.LT.N ) CALL SGEMV( 'N', N, N-KI, ONE, VL( 1, KI+1 ), LDVL, WORK( KI+1 + IV*N ), 1, WORK( KI   + IV*N ), VL( 1, KI ), 1 )
+                  if (KI.LT.N) CALL SGEMV( 'N', N, N-KI, ONE, VL( 1, KI+1 ), LDVL, WORK( KI+1 + IV*N ), 1, WORK( KI   + IV*N ), VL( 1, KI ), 1 );
 
                   II = ISAMAX( N, VL( 1, KI ), 1 )
                   REMAX = ONE / ABS( VL( II, KI ) )
@@ -741,7 +741,7 @@
 
                JNXT = KI + 2
                for (J = KI + 2; J <= N; J++) { // 200
-                  IF( J.LT.JNXT ) GO TO 200
+                  if (J.LT.JNXT) GO TO 200;
                   J1 = J
                   J2 = J
                   JNXT = J + 1
@@ -926,7 +926,7 @@
             END IF ! blocked back-transform
 
             IS = IS + 1
-            IF( IP.NE.0 ) IS = IS + 1
+            if (IP.NE.0) IS = IS + 1;
          } // 260
       }
 

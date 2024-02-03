@@ -71,7 +71,7 @@
 
       // Quick return if (N.EQ.0).
 
-      IF( N.EQ.0 ) RETURN
+      if (N.EQ.0) RETURN;
 
       // Skip single precision iterative refinement if a priori slower
       // than double precision factorization.
@@ -141,7 +141,7 @@
       for (I = 1; I <= NRHS; I++) {
          XNRM = ABS( X( IDAMAX( N, X( 1, I ), 1 ), I ) )
          RNRM = ABS( WORK( IDAMAX( N, WORK( 1, I ), 1 ), I ) )
-         IF( RNRM.GT.XNRM*CTE ) GO TO 10
+         if (RNRM.GT.XNRM*CTE) GO TO 10;
       }
 
       // If we are here, the NRHS normwise backward errors satisfy the
@@ -189,7 +189,7 @@
          for (I = 1; I <= NRHS; I++) {
             XNRM = ABS( X( IDAMAX( N, X( 1, I ), 1 ), I ) )
             RNRM = ABS( WORK( IDAMAX( N, WORK( 1, I ), 1 ), I ) )
-            IF( RNRM.GT.XNRM*CTE ) GO TO 20
+            if (RNRM.GT.XNRM*CTE) GO TO 20;
          }
 
          // If we are here, the NRHS normwise backward errors satisfy the
@@ -217,7 +217,7 @@
 
       dpotrf(UPLO, N, A, LDA, INFO );
 
-      IF( INFO.NE.0 ) RETURN
+      if (INFO.NE.0) RETURN;
 
       dlacpy('All', N, NRHS, B, LDB, X, LDX );
       dpotrs(UPLO, N, NRHS, A, LDA, X, LDX, INFO );

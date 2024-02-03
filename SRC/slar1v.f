@@ -71,12 +71,12 @@
       for (I = B1; I <= R1 - 1; I++) { // 50
          DPLUS = D( I ) + S
          WORK( INDLPL+I ) = LD( I ) / DPLUS
-         IF(DPLUS.LT.ZERO) NEG1 = NEG1 + 1
+         if (DPLUS.LT.ZERO) NEG1 = NEG1 + 1;
          WORK( INDS+I ) = S*WORK( INDLPL+I )*L( I )
          S = WORK( INDS+I ) - LAMBDA
       } // 50
       SAWNAN1 = SISNAN( S )
-      IF( SAWNAN1 ) GOTO 60
+      if (SAWNAN1) GOTO 60;
       for (I = R1; I <= R2 - 1; I++) { // 51
          DPLUS = D( I ) + S
          WORK( INDLPL+I ) = LD( I ) / DPLUS
@@ -94,7 +94,7 @@
             DPLUS = D( I ) + S
             IF(ABS(DPLUS).LT.PIVMIN) DPLUS = -PIVMIN
             WORK( INDLPL+I ) = LD( I ) / DPLUS
-            IF(DPLUS.LT.ZERO) NEG1 = NEG1 + 1
+            if (DPLUS.LT.ZERO) NEG1 = NEG1 + 1;
             WORK( INDS+I ) = S*WORK( INDLPL+I )*L( I )
             IF( WORK( INDLPL+I ).EQ.ZERO ) WORK( INDS+I ) = LLD( I )
             S = WORK( INDS+I ) - LAMBDA
@@ -118,7 +118,7 @@
       DO 80 I = BN - 1, R1, -1
          DMINUS = LLD( I ) + WORK( INDP+I )
          TMP = D( I ) / DMINUS
-         IF(DMINUS.LT.ZERO) NEG2 = NEG2 + 1
+         if (DMINUS.LT.ZERO) NEG2 = NEG2 + 1;
          WORK( INDUMN+I ) = L( I )*TMP
          WORK( INDP+I-1 ) = WORK( INDP+I )*TMP - LAMBDA
       } // 80
@@ -132,10 +132,10 @@
             DMINUS = LLD( I ) + WORK( INDP+I )
             IF(ABS(DMINUS).LT.PIVMIN) DMINUS = -PIVMIN
             TMP = D( I ) / DMINUS
-            IF(DMINUS.LT.ZERO) NEG2 = NEG2 + 1
+            if (DMINUS.LT.ZERO) NEG2 = NEG2 + 1;
             WORK( INDUMN+I ) = L( I )*TMP
             WORK( INDP+I-1 ) = WORK( INDP+I )*TMP - LAMBDA
-            IF( TMP.EQ.ZERO ) WORK( INDP+I-1 ) = D( I ) - LAMBDA
+            if (TMP.EQ.ZERO) WORK( INDP+I-1 ) = D( I ) - LAMBDA;
          } // 100
       }
 
@@ -143,7 +143,7 @@
       // diagonal element of the inverse
 
       MINGMA = WORK( INDS+R1-1 ) + WORK( INDP+R1-1 )
-      IF( MINGMA.LT.ZERO ) NEG1 = NEG1 + 1
+      if (MINGMA.LT.ZERO) NEG1 = NEG1 + 1;
       if ( WANTNC ) {
          NEGCNT = NEG1 + NEG2
       } else {
@@ -153,7 +153,7 @@
       R = R1
       for (I = R1; I <= R2 - 1; I++) { // 110
          TMP = WORK( INDS+I ) + WORK( INDP+I )
-         IF( TMP.EQ.ZERO ) TMP = EPS*WORK( INDS+I )
+         if (TMP.EQ.ZERO) TMP = EPS*WORK( INDS+I );
          if ( ABS( TMP ).LE.ABS( MINGMA ) ) {
             MINGMA = TMP
             R = I + 1

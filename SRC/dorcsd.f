@@ -190,7 +190,7 @@
          }
          if ( WANTV2T .AND. M-Q .GT. 0 ) {
             dlacpy('U', P, M-Q, X12, LDX12, V2T, LDV2T );
-            IF (M-P .GT. Q) Then
+            if (M-P .GT. Q) Then;
                dlacpy('U', M-P-Q, M-P-Q, X22(Q+1,P+1), LDX22, V2T(P+1,P+1), LDV2T );
             }
             if (M .GT. Q) {

@@ -37,7 +37,7 @@
       // ..
       // .. Executable Statements ..
 
-      IF( N.LE.0 ) RETURN
+      if (N.LE.0) RETURN;
       dlaset('Full', N, N, ZERO, ZERO, A, LDA );
 
       // Insure a correct ISEED

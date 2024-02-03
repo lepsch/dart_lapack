@@ -52,7 +52,7 @@
 
       // Quick return if possible.
 
-      IF (N.EQ.0) RETURN
+      if (N.EQ.0) RETURN;
 
       NOUNIT = LSAME(DIAG,'N')
 
@@ -77,7 +77,7 @@
               if (INCX.EQ.1) {
                   DO 20 J = N,1,-1
                       if (X(J).NE.ZERO) {
-                          IF (NOUNIT) X(J) = X(J)/AP(KK)
+                          if (NOUNIT) X(J) = X(J)/AP(KK);
                           TEMP = X(J)
                           K = KK - 1
                           DO 10 I = J - 1,1,-1
@@ -91,7 +91,7 @@
                   JX = KX + (N-1)*INCX
                   DO 40 J = N,1,-1
                       if (X(JX).NE.ZERO) {
-                          IF (NOUNIT) X(JX) = X(JX)/AP(KK)
+                          if (NOUNIT) X(JX) = X(JX)/AP(KK);
                           TEMP = X(JX)
                           IX = JX
                           DO 30 K = KK - 1,KK - J + 1,-1
@@ -108,7 +108,7 @@
               if (INCX.EQ.1) {
                   for (J = 1; J <= N; J++) { // 60
                       if (X(J).NE.ZERO) {
-                          IF (NOUNIT) X(J) = X(J)/AP(KK)
+                          if (NOUNIT) X(J) = X(J)/AP(KK);
                           TEMP = X(J)
                           K = KK + 1
                           for (I = J + 1; I <= N; I++) { // 50
@@ -122,7 +122,7 @@
                   JX = KX
                   for (J = 1; J <= N; J++) { // 80
                       if (X(JX).NE.ZERO) {
-                          IF (NOUNIT) X(JX) = X(JX)/AP(KK)
+                          if (NOUNIT) X(JX) = X(JX)/AP(KK);
                           TEMP = X(JX)
                           IX = JX
                           for (K = KK + 1; K <= KK + N - J; K++) { // 70
@@ -149,7 +149,7 @@
                           TEMP = TEMP - AP(K)*X(I)
                           K = K + 1
                       } // 90
-                      IF (NOUNIT) TEMP = TEMP/AP(KK+J-1)
+                      if (NOUNIT) TEMP = TEMP/AP(KK+J-1);
                       X(J) = TEMP
                       KK = KK + J
                   } // 100
@@ -162,7 +162,7 @@
                           TEMP = TEMP - AP(K)*X(IX)
                           IX = IX + INCX
                       } // 110
-                      IF (NOUNIT) TEMP = TEMP/AP(KK+J-1)
+                      if (NOUNIT) TEMP = TEMP/AP(KK+J-1);
                       X(JX) = TEMP
                       JX = JX + INCX
                       KK = KK + J
@@ -178,7 +178,7 @@
                           TEMP = TEMP - AP(K)*X(I)
                           K = K - 1
                       } // 130
-                      IF (NOUNIT) TEMP = TEMP/AP(KK-N+J)
+                      if (NOUNIT) TEMP = TEMP/AP(KK-N+J);
                       X(J) = TEMP
                       KK = KK - (N-J+1)
                   } // 140
@@ -192,7 +192,7 @@
                           TEMP = TEMP - AP(K)*X(IX)
                           IX = IX - INCX
                       } // 150
-                      IF (NOUNIT) TEMP = TEMP/AP(KK-N+J)
+                      if (NOUNIT) TEMP = TEMP/AP(KK-N+J);
                       X(JX) = TEMP
                       JX = JX - INCX
                       KK = KK - (N-J+1)

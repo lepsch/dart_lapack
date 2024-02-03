@@ -119,7 +119,7 @@
 
       // Use unblocked code to factor the last or only block.
 
-      IF( I.LE.K ) CALL CGEQR2( M-I+1, N-I+1, A( I, I ), LDA, TAU( I ), WORK, IINFO )
+      if (I.LE.K) CALL CGEQR2( M-I+1, N-I+1, A( I, I ), LDA, TAU( I ), WORK, IINFO );
 
       WORK( 1 ) = SROUNDUP_LWORK(IWS)
       RETURN

@@ -57,7 +57,7 @@
 
       // Quick return if possible
 
-      IF( N.EQ.0 .OR. NRHS.EQ.0 ) RETURN
+      if (N.EQ.0 .OR. NRHS.EQ.0) RETURN;
 
       if ( UPPER ) {
 
@@ -73,7 +73,7 @@
 
          // If K < 1, exit from loop.
 
-         IF( K.LT.1 ) GO TO 30
+         if (K.LT.1) GO TO 30;
 
          if ( IPIV( K ).GT.0 ) {
 
@@ -82,7 +82,7 @@
             // Interchange rows K and IPIV(K).
 
             KP = IPIV( K )
-            IF( KP.NE.K ) CALL CSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB )
+            if (KP.NE.K) CALL CSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
 
             // Multiply by inv(U(K)), where U(K) is the transformation
             // stored in column K of A.
@@ -101,7 +101,7 @@
             // Interchange rows K-1 and -IPIV(K).
 
             KP = -IPIV( K )
-            IF( KP.NE.K-1 ) CALL CSWAP( NRHS, B( K-1, 1 ), LDB, B( KP, 1 ), LDB )
+            if (KP.NE.K-1) CALL CSWAP( NRHS, B( K-1, 1 ), LDB, B( KP, 1 ), LDB );
 
             // Multiply by inv(U(K)), where U(K) is the transformation
             // stored in columns K-1 and K of A.
@@ -136,7 +136,7 @@
 
          // If K > N, exit from loop.
 
-         IF( K.GT.N ) GO TO 50
+         if (K.GT.N) GO TO 50;
 
          if ( IPIV( K ).GT.0 ) {
 
@@ -154,7 +154,7 @@
             // Interchange rows K and IPIV(K).
 
             KP = IPIV( K )
-            IF( KP.NE.K ) CALL CSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB )
+            if (KP.NE.K) CALL CSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
             K = K + 1
          } else {
 
@@ -176,7 +176,7 @@
             // Interchange rows K and -IPIV(K).
 
             KP = -IPIV( K )
-            IF( KP.NE.K ) CALL CSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB )
+            if (KP.NE.K) CALL CSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
             K = K + 2
          }
 
@@ -197,7 +197,7 @@
 
          // If K > N, exit from loop.
 
-         IF( K.GT.N ) GO TO 80
+         if (K.GT.N) GO TO 80;
 
          if ( IPIV( K ).GT.0 ) {
 
@@ -206,12 +206,12 @@
             // Interchange rows K and IPIV(K).
 
             KP = IPIV( K )
-            IF( KP.NE.K ) CALL CSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB )
+            if (KP.NE.K) CALL CSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
 
             // Multiply by inv(L(K)), where L(K) is the transformation
             // stored in column K of A.
 
-            IF( K.LT.N ) CALL CGERU( N-K, NRHS, -ONE, A( K+1, K ), 1, B( K, 1 ), LDB, B( K+1, 1 ), LDB )
+            if (K.LT.N) CALL CGERU( N-K, NRHS, -ONE, A( K+1, K ), 1, B( K, 1 ), LDB, B( K+1, 1 ), LDB );
 
             // Multiply by the inverse of the diagonal block.
 
@@ -225,7 +225,7 @@
             // Interchange rows K+1 and -IPIV(K).
 
             KP = -IPIV( K )
-            IF( KP.NE.K+1 ) CALL CSWAP( NRHS, B( K+1, 1 ), LDB, B( KP, 1 ), LDB )
+            if (KP.NE.K+1) CALL CSWAP( NRHS, B( K+1, 1 ), LDB, B( KP, 1 ), LDB );
 
             // Multiply by inv(L(K)), where L(K) is the transformation
             // stored in columns K and K+1 of A.
@@ -262,7 +262,7 @@
 
          // If K < 1, exit from loop.
 
-         IF( K.LT.1 ) GO TO 100
+         if (K.LT.1) GO TO 100;
 
          if ( IPIV( K ).GT.0 ) {
 
@@ -280,7 +280,7 @@
             // Interchange rows K and IPIV(K).
 
             KP = IPIV( K )
-            IF( KP.NE.K ) CALL CSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB )
+            if (KP.NE.K) CALL CSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
             K = K - 1
          } else {
 
@@ -302,7 +302,7 @@
             // Interchange rows K and -IPIV(K).
 
             KP = -IPIV( K )
-            IF( KP.NE.K ) CALL CSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB )
+            if (KP.NE.K) CALL CSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
             K = K - 2
          }
 

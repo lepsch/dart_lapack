@@ -174,7 +174,7 @@
          C = W - DELTA( N-1 )*DPSI - DELTA( N )*DPHI
          A = ( DELTA( N-1 )+DELTA( N ) )*W - DELTA( N-1 )*DELTA( N )*( DPSI+DPHI )
          B = DELTA( N-1 )*DELTA( N )*W
-         IF( C.LT.ZERO ) C = ABS( C )
+         if (C.LT.ZERO) C = ABS( C );
          if ( C.EQ.ZERO ) {
             // ETA = B/A
             // ETA = RHO - TAU
@@ -194,7 +194,7 @@
          // we simply use one Newton step instead. This way
          // will guarantee eta*w < 0.
 
-         IF( W*ETA.GT.ZERO ) ETA = -W / ( DPSI+DPHI )
+         if (W*ETA.GT.ZERO) ETA = -W / ( DPSI+DPHI );
          TEMP = TAU + ETA
          if ( TEMP.GT.DLTUB .OR. TEMP.LT.DLTLB ) {
             if ( W.LT.ZERO ) {
@@ -267,7 +267,7 @@
             // we simply use one Newton step instead. This way
             // will guarantee eta*w < 0.
 
-            IF( W*ETA.GT.ZERO ) ETA = -W / ( DPSI+DPHI )
+            if (W*ETA.GT.ZERO) ETA = -W / ( DPSI+DPHI );
             TEMP = TAU + ETA
             if ( TEMP.GT.DLTUB .OR. TEMP.LT.DLTLB ) {
                if ( W.LT.ZERO ) {
@@ -422,11 +422,11 @@
 
          SWTCH3 = .FALSE.
          if ( ORGATI ) {
-            IF( W.LT.ZERO ) SWTCH3 = .TRUE.
+            if (W.LT.ZERO) SWTCH3 = .TRUE.;
          } else {
-            IF( W.GT.ZERO ) SWTCH3 = .TRUE.
+            if (W.GT.ZERO) SWTCH3 = .TRUE.;
          }
-         IF( II.EQ.1 .OR. II.EQ.N ) SWTCH3 = .FALSE.
+         if (II.EQ.1 .OR. II.EQ.N) SWTCH3 = .FALSE.;
 
          TEMP = Z( II ) / DELTA( II )
          DW = DPSI + DPHI + TEMP*TEMP
@@ -503,7 +503,7 @@
          // we simply use one Newton step instead. This way
          // will guarantee eta*w < 0.
 
-         IF( W*ETA.GE.ZERO ) ETA = -W / DW
+         if (W*ETA.GE.ZERO) ETA = -W / DW;
          TEMP = TAU + ETA
          if ( TEMP.GT.DLTUB .OR. TEMP.LT.DLTLB ) {
             if ( W.LT.ZERO ) {
@@ -651,7 +651,7 @@
             // we simply use one Newton step instead. This way
             // will guarantee eta*w < 0.
 
-            IF( W*ETA.GE.ZERO ) ETA = -W / DW
+            if (W*ETA.GE.ZERO) ETA = -W / DW;
             TEMP = TAU + ETA
             if ( TEMP.GT.DLTUB .OR. TEMP.LT.DLTLB ) {
                if ( W.LT.ZERO ) {

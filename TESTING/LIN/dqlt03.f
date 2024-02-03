@@ -65,7 +65,7 @@
       // Copy the last k columns of the factorization to the array Q
 
       dlaset('Full', M, M, ROGUE, ROGUE, Q, LDA );
-      IF( K.GT.0 .AND. M.GT.K ) CALL DLACPY( 'Full', M-K, K, AF( 1, N-K+1 ), LDA, Q( 1, M-K+1 ), LDA )       IF( K.GT.1 ) CALL DLACPY( 'Upper', K-1, K-1, AF( M-K+1, N-K+2 ), LDA, Q( M-K+1, M-K+2 ), LDA )
+      if (K.GT.0 .AND. M.GT.K) CALL DLACPY( 'Full', M-K, K, AF( 1, N-K+1 ), LDA, Q( 1, M-K+1 ), LDA )       IF( K.GT.1 ) CALL DLACPY( 'Upper', K-1, K-1, AF( M-K+1, N-K+2 ), LDA, Q( M-K+1, M-K+2 ), LDA );
 
       // Generate the m-by-m matrix Q
 
@@ -89,7 +89,7 @@
             dlarnv(2, ISEED, MC, C( 1, J ) );
          } // 10
          CNORM = DLANGE( '1', MC, NC, C, LDA, RWORK )
-         IF( CNORM.EQ.0.0D0 ) CNORM = ONE
+         if (CNORM.EQ.0.0D0) CNORM = ONE;
 
          for (ITRANS = 1; ITRANS <= 2; ITRANS++) { // 20
             if ( ITRANS.EQ.1 ) {
@@ -105,7 +105,7 @@
             // Apply Q or Q' to C
 
             SRNAMT = 'DORMQL'
-            IF( K.GT.0 ) CALL DORMQL( SIDE, TRANS, MC, NC, K, AF( 1, N-K+1 ), LDA, TAU( MINMN-K+1 ), CC, LDA, WORK, LWORK, INFO )
+            if (K.GT.0) CALL DORMQL( SIDE, TRANS, MC, NC, K, AF( 1, N-K+1 ), LDA, TAU( MINMN-K+1 ), CC, LDA, WORK, LWORK, INFO );
 
             // Form explicit product and subtract
 

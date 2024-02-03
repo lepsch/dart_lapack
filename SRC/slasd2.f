@@ -155,7 +155,7 @@
             K2 = K2 - 1
             IDXP( K2 ) = J
             COLTYP( J ) = 4
-            IF( J.EQ.N ) GO TO 120
+            if (J.EQ.N) GO TO 120;
          } else {
             JPREV = J
             GO TO 90
@@ -165,7 +165,7 @@
       J = JPREV
       } // 100
       J = J + 1
-      IF( J.GT.N ) GO TO 110
+      if (J.GT.N) GO TO 110;
       if ( ABS( Z( J ) ).LE.TOL ) {
 
          // Deflate due to small z component.

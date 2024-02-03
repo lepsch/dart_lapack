@@ -53,7 +53,7 @@
       // ..
       // .. Executable Statements ..
 
-      IF (INFO.NE.0) RETURN
+      if (INFO.NE.0) RETURN;
       EPS = DLAMCH( 'Epsilon' )
       HUGEVAL = DLAMCH( 'Overflow' )
       // Force HUGEVAL to Inf
@@ -152,8 +152,8 @@
 
           // Check termination criteria.
 
-            IF ( YMIN*RCOND .LT. INCR_THRESH*NORMY .AND. Y_PREC_STATE .LT. EXTRA_Y ) INCR_PREC = .TRUE.
-             IF ( X_STATE .EQ. NOPROG_STATE .AND. DXRAT .LE. RTHRESH ) X_STATE = WORKING_STATE
+            if (YMIN*RCOND .LT. INCR_THRESH*NORMY .AND. Y_PREC_STATE .LT. EXTRA_Y) INCR_PREC = .TRUE.;
+             if (X_STATE .EQ. NOPROG_STATE .AND. DXRAT .LE. RTHRESH) X_STATE = WORKING_STATE;
             if ( X_STATE .EQ. WORKING_STATE ) {
                if ( DX_X .LE. EPS ) {
                   X_STATE = CONV_STATE
@@ -164,11 +164,11 @@
                      X_STATE = NOPROG_STATE
                   }
                } else {
-                  IF ( DXRAT .GT. DXRATMAX ) DXRATMAX = DXRAT
+                  if (DXRAT .GT. DXRATMAX) DXRATMAX = DXRAT;
                }
-               IF ( X_STATE .GT. WORKING_STATE ) FINAL_DX_X = DX_X
+               if (X_STATE .GT. WORKING_STATE) FINAL_DX_X = DX_X;
             }
-             IF ( Z_STATE .EQ. UNSTABLE_STATE .AND. DZ_Z .LE. DZ_UB ) Z_STATE = WORKING_STATE             IF ( Z_STATE .EQ. NOPROG_STATE .AND. DZRAT .LE. RTHRESH ) Z_STATE = WORKING_STATE
+             if (Z_STATE .EQ. UNSTABLE_STATE .AND. DZ_Z .LE. DZ_UB) Z_STATE = WORKING_STATE             IF ( Z_STATE .EQ. NOPROG_STATE .AND. DZRAT .LE. RTHRESH ) Z_STATE = WORKING_STATE;
             if ( Z_STATE .EQ. WORKING_STATE ) {
                if ( DZ_Z .LE. EPS ) {
                   Z_STATE = CONV_STATE
@@ -183,9 +183,9 @@
                      Z_STATE = NOPROG_STATE
                   }
                } else {
-                  IF ( DZRAT .GT. DZRATMAX ) DZRATMAX = DZRAT
+                  if (DZRAT .GT. DZRATMAX) DZRATMAX = DZRAT;
                }
-               IF ( Z_STATE .GT. WORKING_STATE ) FINAL_DZ_Z = DZ_Z
+               if (Z_STATE .GT. WORKING_STATE) FINAL_DZ_Z = DZ_Z;
             }
              IF ( X_STATE.NE.WORKING_STATE.AND. ( IGNORE_CWISE.OR.Z_STATE.NE.WORKING_STATE ) ) GOTO 666
 
@@ -214,8 +214,8 @@
 
       // Set final_* when cnt hits ithresh.
 
-         IF ( X_STATE .EQ. WORKING_STATE ) FINAL_DX_X = DX_X
-         IF ( Z_STATE .EQ. WORKING_STATE ) FINAL_DZ_Z = DZ_Z
+         if (X_STATE .EQ. WORKING_STATE) FINAL_DX_X = DX_X;
+         if (Z_STATE .EQ. WORKING_STATE) FINAL_DZ_Z = DZ_Z;
 
       // Compute error bounds.
 

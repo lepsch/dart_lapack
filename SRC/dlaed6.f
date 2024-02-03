@@ -78,7 +78,7 @@
          } else {
             TAU = TWO*B / ( A+SQRT( ABS( A*A-FOUR*B*C ) ) )
          }
-         IF( TAU .LT. LBD .OR. TAU .GT. UBD ) TAU = ( LBD+UBD )/TWO
+         if (TAU .LT. LBD .OR. TAU .GT. UBD) TAU = ( LBD+UBD )/TWO;
          if ( D(1).EQ.TAU .OR. D(2).EQ.TAU .OR. D(3).EQ.TAU ) {
             TAU = ZERO
          } else {
@@ -211,7 +211,7 @@
          }
 
          TAU = TAU + ETA
-         IF( TAU .LT. LBD .OR. TAU .GT. UBD ) TAU = ( LBD + UBD )/TWO
+         if (TAU .LT. LBD .OR. TAU .GT. UBD) TAU = ( LBD + UBD )/TWO;
 
          FC = ZERO
          ERRETM = ZERO
@@ -245,7 +245,7 @@
 
       // Undo scaling
 
-      IF( SCALE ) TAU = TAU*SCLINV
+      if (SCALE) TAU = TAU*SCLINV;
       RETURN
 
       // End of DLAED6

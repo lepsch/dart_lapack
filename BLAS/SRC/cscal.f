@@ -21,7 +21,7 @@
       COMPLEX ONE
       const     ONE= (1.0E+0,0.0E+0);
       // ..
-      IF (N.LE.0 .OR. INCX.LE.0 .OR. CA.EQ.ONE) RETURN
+      if (N.LE.0 .OR. INCX.LE.0 .OR. CA.EQ.ONE) RETURN;
       if (INCX.EQ.1) {
 
          // code for increment equal to 1

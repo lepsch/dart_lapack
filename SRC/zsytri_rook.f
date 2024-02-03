@@ -55,7 +55,7 @@
 
       // Quick return if possible
 
-      IF( N.EQ.0 ) RETURN
+      if (N.EQ.0) RETURN;
 
       // Check that the diagonal matrix D is nonsingular.
 
@@ -88,7 +88,7 @@
 
          // If K > N, exit from loop.
 
-         IF( K.GT.N ) GO TO 40
+         if (K.GT.N) GO TO 40;
 
          if ( IPIV( K ).GT.0 ) {
 
@@ -138,7 +138,7 @@
 
             KP = IPIV( K )
             if ( KP.NE.K ) {
-               IF( KP.GT.1 ) CALL ZSWAP( KP-1, A( 1, K ), 1, A( 1, KP ), 1 )
+               if (KP.GT.1) CALL ZSWAP( KP-1, A( 1, K ), 1, A( 1, KP ), 1 );
                zswap(K-KP-1, A( KP+1, K ), 1, A( KP, KP+1 ), LDA );
                TEMP = A( K, K )
                A( K, K ) = A( KP, KP )
@@ -151,7 +151,7 @@
 
             KP = -IPIV( K )
             if ( KP.NE.K ) {
-               IF( KP.GT.1 ) CALL ZSWAP( KP-1, A( 1, K ), 1, A( 1, KP ), 1 )
+               if (KP.GT.1) CALL ZSWAP( KP-1, A( 1, K ), 1, A( 1, KP ), 1 );
                zswap(K-KP-1, A( KP+1, K ), 1, A( KP, KP+1 ), LDA );
 
                TEMP = A( K, K )
@@ -165,7 +165,7 @@
             K = K + 1
             KP = -IPIV( K )
             if ( KP.NE.K ) {
-               IF( KP.GT.1 ) CALL ZSWAP( KP-1, A( 1, K ), 1, A( 1, KP ), 1 )
+               if (KP.GT.1) CALL ZSWAP( KP-1, A( 1, K ), 1, A( 1, KP ), 1 );
                zswap(K-KP-1, A( KP+1, K ), 1, A( KP, KP+1 ), LDA );
                TEMP = A( K, K )
                A( K, K ) = A( KP, KP )
@@ -189,7 +189,7 @@
 
          // If K < 1, exit from loop.
 
-         IF( K.LT.1 ) GO TO 60
+         if (K.LT.1) GO TO 60;
 
          if ( IPIV( K ).GT.0 ) {
 
@@ -239,7 +239,7 @@
 
             KP = IPIV( K )
             if ( KP.NE.K ) {
-               IF( KP.LT.N ) CALL ZSWAP( N-KP, A( KP+1, K ), 1, A( KP+1, KP ), 1 )
+               if (KP.LT.N) CALL ZSWAP( N-KP, A( KP+1, K ), 1, A( KP+1, KP ), 1 );
                zswap(KP-K-1, A( K+1, K ), 1, A( KP, K+1 ), LDA );
                TEMP = A( K, K )
                A( K, K ) = A( KP, KP )
@@ -252,7 +252,7 @@
 
             KP = -IPIV( K )
             if ( KP.NE.K ) {
-               IF( KP.LT.N ) CALL ZSWAP( N-KP, A( KP+1, K ), 1, A( KP+1, KP ), 1 )
+               if (KP.LT.N) CALL ZSWAP( N-KP, A( KP+1, K ), 1, A( KP+1, KP ), 1 );
                zswap(KP-K-1, A( K+1, K ), 1, A( KP, K+1 ), LDA );
 
                TEMP = A( K, K )
@@ -266,7 +266,7 @@
             K = K - 1
             KP = -IPIV( K )
             if ( KP.NE.K ) {
-               IF( KP.LT.N ) CALL ZSWAP( N-KP, A( KP+1, K ), 1, A( KP+1, KP ), 1 )
+               if (KP.LT.N) CALL ZSWAP( N-KP, A( KP+1, K ), 1, A( KP+1, KP ), 1 );
                zswap(KP-K-1, A( K+1, K ), 1, A( KP, K+1 ), LDA );
                TEMP = A( K, K )
                A( K, K ) = A( KP, KP )

@@ -48,7 +48,7 @@
                TMP1 = D( 1 ) - AB( JI, JP )
                IF( ABS( TMP1 ).LT.PIVMIN ) TMP1 = -PIVMIN
                NAB( JI, JP ) = 0
-               IF( TMP1.LE.ZERO ) NAB( JI, JP ) = 1
+               if (TMP1.LE.ZERO) NAB( JI, JP ) = 1;
 
                for (J = 2; J <= N; J++) { // 10
                   TMP1 = D( J ) - E2( J-1 ) / TMP1 - AB( JI, JP )
@@ -153,7 +153,7 @@
                      }
                   }
                } // 70
-               IF( INFO.NE.0 ) RETURN
+               if (INFO.NE.0) RETURN;
                KL = KLNEW
             } else {
 
@@ -300,7 +300,7 @@
 
          // If no more intervals to refine, quit.
 
-         IF( KF.GT.KL ) GO TO 140
+         if (KF.GT.KL) GO TO 140;
       } // 130
 
       // Converged

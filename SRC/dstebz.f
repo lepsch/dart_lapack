@@ -97,11 +97,11 @@
       // Quick return if possible
 
       M = 0
-      IF( N.EQ.0 ) RETURN
+      if (N.EQ.0) RETURN;
 
       // Simplifications:
 
-      IF( IRANGE.EQ.3 .AND. IL.EQ.1 .AND. IU.EQ.N ) IRANGE = 1
+      if (IRANGE.EQ.3 .AND. IL.EQ.1 .AND. IU.EQ.N) IRANGE = 1;
 
       // Get machine constants
       // NB is the minimum vector length for vector bisection, or 0
@@ -111,7 +111,7 @@
       ULP = DLAMCH( 'P' )
       RTOLI = ULP*RELFAC
       NB = ILAENV( 1, 'DSTEBZ', ' ', N, -1, -1, -1 )
-      IF( NB.LE.1 ) NB = 0
+      if (NB.LE.1) NB = 0;
 
       // Special Case when N=1
 
@@ -309,7 +309,7 @@
                }
                GL = MAX( GL, WL )
                GU = MIN( GU, WU )
-               IF( GL.GE.GU ) GO TO 70
+               if (GL.GE.GU) GO TO 70;
             }
 
             // Set Up Initial Interval
@@ -452,7 +452,7 @@
       }
 
       INFO = 0
-      IF( NCNVRG ) INFO = INFO + 1       IF( TOOFEW ) INFO = INFO + 2
+      if (NCNVRG) INFO = INFO + 1       IF( TOOFEW ) INFO = INFO + 2;
       RETURN
 
       // End of DSTEBZ

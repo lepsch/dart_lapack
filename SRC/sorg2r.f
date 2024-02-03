@@ -47,7 +47,7 @@
 
       // Quick return if possible
 
-      IF( N.LE.0 ) RETURN
+      if (N.LE.0) RETURN;
 
       // Initialise columns k+1:n to columns of the unit matrix
 
@@ -66,7 +66,7 @@
             A( I, I ) = ONE
             slarf('Left', M-I+1, N-I, A( I, I ), 1, TAU( I ), A( I, I+1 ), LDA, WORK );
          }
-         IF( I.LT.M ) CALL SSCAL( M-I, -TAU( I ), A( I+1, I ), 1 )
+         if (I.LT.M) CALL SSCAL( M-I, -TAU( I ), A( I+1, I ), 1 );
          A( I, I ) = ONE - TAU( I )
 
          // Set A(1:i-1,i) to zero

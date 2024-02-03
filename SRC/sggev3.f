@@ -122,7 +122,7 @@
 
       // Quick return if possible
 
-      IF( N.EQ.0 ) RETURN
+      if (N.EQ.0) RETURN;
 
       // Get machine constants
 
@@ -143,7 +143,7 @@
          ANRMTO = BIGNUM
          ILASCL = .TRUE.
       }
-      IF( ILASCL ) CALL SLASCL( 'G', 0, 0, ANRM, ANRMTO, N, N, A, LDA, IERR )
+      if (ILASCL) CALL SLASCL( 'G', 0, 0, ANRM, ANRMTO, N, N, A, LDA, IERR );
 
       // Scale B if max element outside range [SMLNUM,BIGNUM]
 
@@ -156,7 +156,7 @@
          BNRMTO = BIGNUM
          ILBSCL = .TRUE.
       }
-      IF( ILBSCL ) CALL SLASCL( 'G', 0, 0, BNRM, BNRMTO, N, N, B, LDB, IERR )
+      if (ILBSCL) CALL SLASCL( 'G', 0, 0, BNRM, BNRMTO, N, N, B, LDB, IERR );
 
       // Permute the matrices A, B to isolate eigenvalues if possible
 
@@ -193,7 +193,7 @@
 
       // Initialize VR
 
-      IF( ILVR ) CALL SLASET( 'Full', N, N, ZERO, ONE, VR, LDVR )
+      if (ILVR) CALL SLASET( 'Full', N, N, ZERO, ONE, VR, LDVR );
 
       // Reduce to generalized Hessenberg form
 
@@ -261,7 +261,7 @@
                      TEMP = MAX( TEMP, ABS( VL( JR, JC ) )+ ABS( VL( JR, JC+1 ) ) )
                   } // 20
                }
-               IF( TEMP.LT.SMLNUM ) GO TO 50
+               if (TEMP.LT.SMLNUM) GO TO 50;
                TEMP = ONE / TEMP
                if ( ALPHAI( JC ).EQ.ZERO ) {
                   for (JR = 1; JR <= N; JR++) { // 30
@@ -289,7 +289,7 @@
                      TEMP = MAX( TEMP, ABS( VR( JR, JC ) )+ ABS( VR( JR, JC+1 ) ) )
                   } // 70
                }
-               IF( TEMP.LT.SMLNUM ) GO TO 100
+               if (TEMP.LT.SMLNUM) GO TO 100;
                TEMP = ONE / TEMP
                if ( ALPHAI( JC ).EQ.ZERO ) {
                   for (JR = 1; JR <= N; JR++) { // 80

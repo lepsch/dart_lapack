@@ -77,7 +77,7 @@
 
       // Test the error exits
 
-      IF( TSTERR ) CALL ZERRVX( PATH, NOUT )
+      if (TSTERR) CALL ZERRVX( PATH, NOUT );
       INFOT = 0
 
       // Do for each value of N in NVAL
@@ -88,7 +88,7 @@
          NPP = N*( N+1 ) / 2
          XTYPE = 'N'
          NIMAT = NTYPES
-         IF( N.LE.0 ) NIMAT = 1
+         if (N.LE.0) NIMAT = 1;
 
          for (IMAT = 1; IMAT <= NIMAT; IMAT++) { // 130
 
@@ -99,7 +99,7 @@
             // Skip types 3, 4, or 5 if the matrix size is too small.
 
             ZEROT = IMAT.GE.3 .AND. IMAT.LE.5
-            IF( ZEROT .AND. N.LT.IMAT-2 ) GO TO 130
+            if (ZEROT .AND. N.LT.IMAT-2) GO TO 130;
 
             // Do first for UPLO = 'U', then for UPLO = 'L'
 
@@ -189,7 +189,7 @@
                      EQUIL = LSAME( FACT, 'E' )
 
                      if ( ZEROT ) {
-                        IF( PREFAC ) GO TO 100
+                        if (PREFAC) GO TO 100;
                         RCONDC = ZERO
 
                      } else if ( .NOT.LSAME( FACT, 'N' ) ) {
@@ -207,7 +207,7 @@
 
                            zppequ(UPLO, N, AFAC, S, SCOND, AMAX, INFO );
                            if ( INFO.EQ.0 .AND. N.GT.0 ) {
-                              IF( IEQUED.GT.1 ) SCOND = ZERO
+                              if (IEQUED.GT.1) SCOND = ZERO;
 
                               // Equilibrate the matrix.
 
@@ -218,7 +218,7 @@
                         // Save the condition number of the
                         // non-equilibrated system for use in ZGET04.
 
-                        IF( EQUIL ) ROLDC = RCONDC
+                        if (EQUIL) ROLDC = RCONDC;
 
                         // Compute the 1-norm of A.
 
@@ -295,7 +295,7 @@
 
                         for (K = 1; K <= NT; K++) { // 60
                            if ( RESULT( K ).GE.THRESH ) {
-                              IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALADHD( NOUT, PATH )                               WRITE( NOUT, FMT = 9999 )'ZPPSV ', UPLO, N, IMAT, K, RESULT( K )
+                              if (NFAIL.EQ.0 .AND. NERRS.EQ.0) CALL ALADHD( NOUT, PATH )                               WRITE( NOUT, FMT = 9999 )'ZPPSV ', UPLO, N, IMAT, K, RESULT( K );
                               NFAIL = NFAIL + 1
                            }
                         } // 60
@@ -305,7 +305,7 @@
 
                      // --- Test ZPPSVX ---
 
-                     IF( .NOT.PREFAC .AND. NPP.GT.0 ) CALL ZLASET( 'Full', NPP, 1, DCMPLX( ZERO ), DCMPLX( ZERO ), AFAC, NPP )
+                     if (.NOT.PREFAC .AND. NPP.GT.0) CALL ZLASET( 'Full', NPP, 1, DCMPLX( ZERO ), DCMPLX( ZERO ), AFAC, NPP );
                      zlaset('Full', N, NRHS, DCMPLX( ZERO ), DCMPLX( ZERO ), X, LDA );
                      if ( IEQUED.GT.1 .AND. N.GT.0 ) {
 
@@ -369,7 +369,7 @@
 
                      for (K = K1; K <= 6; K++) { // 80
                         if ( RESULT( K ).GE.THRESH ) {
-                           IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALADHD( NOUT, PATH )
+                           if (NFAIL.EQ.0 .AND. NERRS.EQ.0) CALL ALADHD( NOUT, PATH );
                            if ( PREFAC ) {
                               WRITE( NOUT, FMT = 9997 )'ZPPSVX', FACT, UPLO, N, EQUED, IMAT, K, RESULT( K )
                            } else {

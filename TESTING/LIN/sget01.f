@@ -89,7 +89,7 @@
       RESID = SLANGE( '1', M, N, AFAC, LDAFAC, RWORK )
 
       if ( ANORM.LE.ZERO ) {
-         IF( RESID.NE.ZERO ) RESID = ONE / EPS
+         if (RESID.NE.ZERO) RESID = ONE / EPS;
       } else {
          RESID = ( ( RESID / REAL( N ) ) / ANORM ) / EPS
       }

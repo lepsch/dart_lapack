@@ -97,7 +97,7 @@
                   // 6:  every second column fixed
 
                MODE = IMODE
-               IF( IMODE.GT.3 ) MODE = 1
+               if (IMODE.GT.3) MODE = 1;
 
                // Generate test matrix of size m by n using
                // singular value distribution indicated by `mode'.
@@ -174,7 +174,7 @@
 
                   for (K = 1; K <= NTESTS; K++) { // 50
                      if ( RESULT( K ).GE.THRESH ) {
-                        IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9999 )'DGEQP3', M, N, NB, IMODE, K, RESULT( K )
+                        if (NFAIL.EQ.0 .AND. NERRS.EQ.0) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9999 )'DGEQP3', M, N, NB, IMODE, K, RESULT( K );
                         NFAIL = NFAIL + 1
                      }
                   } // 50

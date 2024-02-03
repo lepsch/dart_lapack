@@ -57,7 +57,7 @@
 
       // Quick return if possible
 
-      IF( M.EQ.0 .OR. N.EQ.0 ) RETURN
+      if (M.EQ.0 .OR. N.EQ.0) RETURN;
 
       // Decode DIST
 
@@ -237,7 +237,7 @@
       // Decide if we can pivot consistently
 
       FULBND = .FALSE.
-      IF( KUU.EQ.N-1 .AND. KLL.EQ.M-1 ) FULBND = .TRUE.
+      if (KUU.EQ.N-1 .AND. KLL.EQ.M-1) FULBND = .TRUE.;
 
       // Initialize random number generator
 
@@ -378,7 +378,7 @@
                   } else {
                      A( MNSUB, MXSUB ) = CTEMP
                   }
-                  IF( MNSUB.NE.MXSUB ) A( MXSUB, MNSUB ) = CZERO
+                  if (MNSUB.NE.MXSUB) A( MXSUB, MNSUB ) = CZERO;
                } // 160
             } // 170
 
@@ -394,7 +394,7 @@
                   } else {
                      A( MXSUB, MNSUB ) = CTEMP
                   }
-                  IF( MNSUB.NE.MXSUB ) A( MNSUB, MXSUB ) = CZERO
+                  if (MNSUB.NE.MXSUB) A( MNSUB, MXSUB ) = CZERO;
                } // 180
             } // 190
 
@@ -495,7 +495,7 @@
                      CTEMP = CLATM3( M, N, I, J, ISUB, JSUB, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE )
                      MNSUB = MIN( ISUB, JSUB )
                      MXSUB = MAX( ISUB, JSUB )
-                     IF( I.LT.1 ) A( J-I+1+KUU, I+N ) = CZERO
+                     if (I.LT.1) A( J-I+1+KUU, I+N ) = CZERO;
                      if ( MXSUB.EQ.ISUB .AND. ISYM.EQ.0 ) {
                         A( MNSUB-MXSUB+KUU+1, MXSUB ) = CONJG( CTEMP )
                      } else {
@@ -565,7 +565,7 @@
                   } else {
                      A( J, I ) = CLATM2( M, N, I, J, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE )
                   }
-                  IF( I.NE.J ) A( I, J ) = CZERO
+                  if (I.NE.J) A( I, J ) = CZERO;
                } // 400
             } // 410
 
@@ -604,7 +604,7 @@
                      ISUB = K - LDA*( JSUB-1 )
 
                      A( ISUB, JSUB ) = CLATM2( M, N, I, J, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE )
-                     IF( ISYM.EQ.0 ) A( ISUB, JSUB ) = CONJG( A( ISUB, JSUB ) )
+                     if (ISYM.EQ.0) A( ISUB, JSUB ) = CONJG( A( ISUB, JSUB ) );
                   } // 440
                } // 450
             } else {
@@ -652,7 +652,7 @@
                for (J = 1; J <= N; J++) { // 530
                   for (I = J - KUU; I <= J; I++) { // 520
                      A( I-J+KUU+1, J ) = CLATM2( M, N, I, J, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE )
-                     IF( I.LT.1 ) A( J-I+1+KUU, I+N ) = CZERO
+                     if (I.LT.1) A( J-I+1+KUU, I+N ) = CZERO;
                      if ( I.GE.1 .AND. I.NE.J ) {
                         if ( ISYM.EQ.0 ) {
                            A( J-I+1+KUU, I ) = CONJG( A( I-J+KUU+1, J ) )

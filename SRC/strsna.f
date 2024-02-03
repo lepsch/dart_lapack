@@ -104,13 +104,13 @@
 
       // Quick return if possible
 
-      IF( N.EQ.0 ) RETURN
+      if (N.EQ.0) RETURN;
 
       if ( N.EQ.1 ) {
          if ( SOMCON ) {
             IF( .NOT.SELECT( 1 ) ) RETURN
          }
-         IF( WANTS ) S( 1 ) = ONE          IF( WANTSP ) SEP( 1 ) = ABS( T( 1, 1 ) )
+         if (WANTS) S( 1 ) = ONE          IF( WANTSP ) SEP( 1 ) = ABS( T( 1, 1 ) );
          RETURN
       }
 
@@ -130,7 +130,7 @@
             PAIR = .FALSE.
             GO TO 60
          } else {
-            IF( K.LT.N ) PAIR = T( K+1, K ).NE.ZERO
+            if (K.LT.N) PAIR = T( K+1, K ).NE.ZERO;
          }
 
          // Determine whether condition numbers are required for the k-th
@@ -286,10 +286,10 @@
             }
 
             SEP( KS ) = SCALE / MAX( EST, SMLNUM )
-            IF( PAIR ) SEP( KS+1 ) = SEP( KS )
+            if (PAIR) SEP( KS+1 ) = SEP( KS );
          }
 
-         IF( PAIR ) KS = KS + 1
+         if (PAIR) KS = KS + 1;
 
       } // 60
       RETURN

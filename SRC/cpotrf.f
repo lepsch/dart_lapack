@@ -54,7 +54,7 @@
 
       // Quick return if possible
 
-      IF( N.EQ.0 ) RETURN
+      if (N.EQ.0) RETURN;
 
       // Determine the block size for this environment.
 
@@ -80,7 +80,7 @@
                JB = MIN( NB, N-J+1 )
                cherk('Upper', 'Conjugate transpose', JB, J-1, -ONE, A( 1, J ), LDA, ONE, A( J, J ), LDA );
                cpotrf2('Upper', JB, A( J, J ), LDA, INFO );
-               IF( INFO.NE.0 ) GO TO 30
+               if (INFO.NE.0) GO TO 30;
                if ( J+JB.LE.N ) {
 
                   // Compute the current block row.
@@ -102,7 +102,7 @@
                JB = MIN( NB, N-J+1 )
                cherk('Lower', 'No transpose', JB, J-1, -ONE, A( J, 1 ), LDA, ONE, A( J, J ), LDA );
                cpotrf2('Lower', JB, A( J, J ), LDA, INFO );
-               IF( INFO.NE.0 ) GO TO 30
+               if (INFO.NE.0) GO TO 30;
                if ( J+JB.LE.N ) {
 
                   // Compute the current block column.

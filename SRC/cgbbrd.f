@@ -75,11 +75,11 @@
 
       // Initialize Q and P**H to the unit matrix, if needed
 
-      IF( WANTQ ) CALL CLASET( 'Full', M, M, CZERO, CONE, Q, LDQ )       IF( WANTPT ) CALL CLASET( 'Full', N, N, CZERO, CONE, PT, LDPT )
+      if (WANTQ) CALL CLASET( 'Full', M, M, CZERO, CONE, Q, LDQ )       IF( WANTPT ) CALL CLASET( 'Full', N, N, CZERO, CONE, PT, LDPT );
 
       // Quick return if possible.
 
-      IF( M.EQ.0 .OR. N.EQ.0 ) RETURN
+      if (M.EQ.0 .OR. N.EQ.0) RETURN;
 
       MINMN = MIN( M, N )
 
@@ -125,7 +125,7 @@
                // generate plane rotations to annihilate nonzero elements
                // which have been created below the band
 
-               IF( NR.GT.0 ) CALL CLARGV( NR, AB( KLU1, J1-KLM-1 ), INCA, WORK( J1 ), KB1, RWORK( J1 ), KB1 )
+               if (NR.GT.0) CALL CLARGV( NR, AB( KLU1, J1-KLM-1 ), INCA, WORK( J1 ), KB1, RWORK( J1 ), KB1 );
 
                // apply plane rotations from the left
 
@@ -135,7 +135,7 @@
                   } else {
                      NRT = NR
                   }
-                  IF( NRT.GT.0 ) CALL CLARTV( NRT, AB( KLU1-L, J1-KLM+L-1 ), INCA, AB( KLU1-L+1, J1-KLM+L-1 ), INCA, RWORK( J1 ), WORK( J1 ), KB1 )
+                  if (NRT.GT.0) CALL CLARTV( NRT, AB( KLU1-L, J1-KLM+L-1 ), INCA, AB( KLU1-L+1, J1-KLM+L-1 ), INCA, RWORK( J1 ), WORK( J1 ), KB1 );
                } // 10
 
                if ( ML.GT.ML0 ) {
@@ -146,7 +146,7 @@
 
                      clartg(AB( KU+ML-1, I ), AB( KU+ML, I ), RWORK( I+ML-1 ), WORK( I+ML-1 ), RA );
                      AB( KU+ML-1, I ) = RA
-                     IF( I.LT.N ) CALL CROT( MIN( KU+ML-2, N-I ), AB( KU+ML-2, I+1 ), LDAB-1, AB( KU+ML-1, I+1 ), LDAB-1, RWORK( I+ML-1 ), WORK( I+ML-1 ) )
+                     if (I.LT.N) CALL CROT( MIN( KU+ML-2, N-I ), AB( KU+ML-2, I+1 ), LDAB-1, AB( KU+ML-1, I+1 ), LDAB-1, RWORK( I+ML-1 ), WORK( I+ML-1 ) );
                   }
                   NR = NR + 1
                   J1 = J1 - KB1
@@ -190,7 +190,7 @@
                // generate plane rotations to annihilate nonzero elements
                // which have been generated above the band
 
-               IF( NR.GT.0 ) CALL CLARGV( NR, AB( 1, J1+KUN-1 ), INCA, WORK( J1+KUN ), KB1, RWORK( J1+KUN ), KB1 )
+               if (NR.GT.0) CALL CLARGV( NR, AB( 1, J1+KUN-1 ), INCA, WORK( J1+KUN ), KB1, RWORK( J1+KUN ), KB1 );
 
                // apply plane rotations from the right
 
@@ -200,7 +200,7 @@
                   } else {
                      NRT = NR
                   }
-                  IF( NRT.GT.0 ) CALL CLARTV( NRT, AB( L+1, J1+KUN-1 ), INCA, AB( L, J1+KUN ), INCA, RWORK( J1+KUN ), WORK( J1+KUN ), KB1 )
+                  if (NRT.GT.0) CALL CLARTV( NRT, AB( L+1, J1+KUN-1 ), INCA, AB( L, J1+KUN ), INCA, RWORK( J1+KUN ), WORK( J1+KUN ), KB1 );
                } // 50
 
                if ( ML.EQ.ML0 .AND. MU.GT.MU0 ) {
@@ -267,7 +267,7 @@
                AB( 2, I ) = RS*AB( 1, I+1 )
                AB( 1, I+1 ) = RC*AB( 1, I+1 )
             }
-            IF( WANTQ ) CALL CROT( M, Q( 1, I ), 1, Q( 1, I+1 ), 1, RC, CONJG( RS ) )             IF( WANTC ) CALL CROT( NCC, C( I, 1 ), LDC, C( I+1, 1 ), LDC, RC, RS )
+            if (WANTQ) CALL CROT( M, Q( 1, I ), 1, Q( 1, I+1 ), 1, RC, CONJG( RS ) )             IF( WANTC ) CALL CROT( NCC, C( I, 1 ), LDC, C( I+1, 1 ), LDC, RC, RS );
          } // 100
       } else {
 
@@ -287,7 +287,7 @@
                   RB = -CONJG( RS )*AB( KU, I )
                   AB( KU, I ) = RC*AB( KU, I )
                }
-               IF( WANTPT ) CALL CROT( N, PT( I, 1 ), LDPT, PT( M+1, 1 ), LDPT, RC, CONJG( RS ) )
+               if (WANTPT) CALL CROT( N, PT( I, 1 ), LDPT, PT( M+1, 1 ), LDPT, RC, CONJG( RS ) );
             } // 110
          }
       }
@@ -304,7 +304,7 @@
          } else {
             T = CONE
          }
-         IF( WANTQ ) CALL CSCAL( M, T, Q( 1, I ), 1 )          IF( WANTC ) CALL CSCAL( NCC, CONJG( T ), C( I, 1 ), LDC )
+         if (WANTQ) CALL CSCAL( M, T, Q( 1, I ), 1 )          IF( WANTC ) CALL CSCAL( NCC, CONJG( T ), C( I, 1 ), LDC );
          if ( I.LT.MINMN ) {
             if ( KU.EQ.0 .AND. KL.EQ.0 ) {
                E( I ) = ZERO
@@ -322,7 +322,7 @@
                } else {
                   T = CONE
                }
-               IF( WANTPT ) CALL CSCAL( N, T, PT( I+1, 1 ), LDPT )
+               if (WANTPT) CALL CSCAL( N, T, PT( I+1, 1 ), LDPT );
                T = AB( KU+1, I+1 )*CONJG( T )
             }
          }

@@ -74,7 +74,7 @@
 
             for (IIT = 1; IIT <= 3; IIT++) { // 120
             // Nothing to do for N=0
-            IF ( N .EQ. 0 ) EXIT
+            if (N .EQ. 0) EXIT;
 
             // IIT = 1 : random matrix
             // IIT = 2 : random matrix scaled near underflow

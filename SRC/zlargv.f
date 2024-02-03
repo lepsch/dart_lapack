@@ -75,7 +75,7 @@
             FS = FS*SAFMN2
             GS = GS*SAFMN2
             SCALE = SCALE*SAFMN2
-            IF( SCALE.GE.SAFMX2 .AND. COUNT .LT. 20 ) GO TO 10
+            if (SCALE.GE.SAFMX2 .AND. COUNT .LT. 20) GO TO 10;
          } else if ( SCALE.LE.SAFMN2 ) {
             if ( G.EQ.CZERO ) {
                CS = ONE
@@ -88,7 +88,7 @@
             FS = FS*SAFMX2
             GS = GS*SAFMX2
             SCALE = SCALE*SAFMX2
-            IF( SCALE.LE.SAFMN2 ) GO TO 20
+            if (SCALE.LE.SAFMN2) GO TO 20;
          }
          F2 = ABSSQ( FS )
          G2 = ABSSQ( GS )

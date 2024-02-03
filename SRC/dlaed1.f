@@ -44,7 +44,7 @@
 
       // Quick return if possible
 
-      IF( N.EQ.0 ) RETURN
+      if (N.EQ.0) RETURN;
 
       // The following values are integer pointers which indicate
       // the portion of the workspace
@@ -72,13 +72,13 @@
 
       dlaed2(K, N, CUTPNT, D, Q, LDQ, INDXQ, RHO, WORK( IZ ), WORK( IDLMDA ), WORK( IW ), WORK( IQ2 ), IWORK( INDX ), IWORK( INDXC ), IWORK( INDXP ), IWORK( COLTYP ), INFO );
 
-      IF( INFO.NE.0 ) GO TO 20
+      if (INFO.NE.0) GO TO 20;
 
       // Solve Secular Equation.
 
       if ( K.NE.0 ) {
          IS = ( IWORK( COLTYP )+IWORK( COLTYP+1 ) )*CUTPNT + ( IWORK( COLTYP+1 )+IWORK( COLTYP+2 ) )*( N-CUTPNT ) + IQ2          CALL DLAED3( K, N, CUTPNT, D, Q, LDQ, RHO, WORK( IDLMDA ), WORK( IQ2 ), IWORK( INDXC ), IWORK( COLTYP ), WORK( IW ), WORK( IS ), INFO )
-         IF( INFO.NE.0 ) GO TO 20
+         if (INFO.NE.0) GO TO 20;
 
       // Prepare the INDXQ sorting permutation.
 

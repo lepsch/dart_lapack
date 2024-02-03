@@ -57,7 +57,7 @@
          INFO = -4
       } else {
          if ( VALEIG ) {
-            IF( N.GT.0 .AND. VU.LE.VL ) INFO = -7
+            if (N.GT.0 .AND. VU.LE.VL) INFO = -7;
          } else if ( INDEIG ) {
             if ( IL.LT.1 .OR. IL.GT.MAX( 1, N ) ) {
                INFO = -8
@@ -78,7 +78,7 @@
       // Quick return if possible
 
       M = 0
-      IF( N.EQ.0 ) RETURN
+      if (N.EQ.0) RETURN;
 
       if ( N.EQ.1 ) {
          if ( ALLEIG .OR. INDEIG ) {
@@ -90,7 +90,7 @@
                W( 1 ) = AP( 1 )
             }
          }
-         IF( WANTZ ) Z( 1, 1 ) = ONE
+         if (WANTZ) Z( 1, 1 ) = ONE;
          RETURN
       }
 
@@ -124,7 +124,7 @@
       }
       if ( ISCALE.EQ.1 ) {
          dscal(( N*( N+1 ) ) / 2, SIGMA, AP, 1 );
-         IF( ABSTOL.GT.0 ) ABSTLL = ABSTOL*SIGMA
+         if (ABSTOL.GT.0) ABSTLL = ABSTOL*SIGMA;
          if ( VALEIG ) {
             VLL = VL*SIGMA
             VUU = VU*SIGMA

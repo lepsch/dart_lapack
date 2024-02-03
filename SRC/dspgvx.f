@@ -79,7 +79,7 @@
       // Quick return if possible
 
       M = 0
-      IF( N.EQ.0 ) RETURN
+      if (N.EQ.0) RETURN;
 
       // Form a Cholesky factorization of B.
 
@@ -98,7 +98,7 @@
 
          // Backtransform eigenvectors to the original problem.
 
-         IF( INFO.GT.0 ) M = INFO - 1
+         if (INFO.GT.0) M = INFO - 1;
          if ( ITYPE.EQ.1 .OR. ITYPE.EQ.2 ) {
 
             // For A*x=(lambda)*B*x and A*B*x=(lambda)*x;

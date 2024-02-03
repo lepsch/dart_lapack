@@ -84,7 +84,7 @@
                   dcopy(4, VAL( 3 ), 0, Q, 5 );
                   dlaexc(.TRUE., 2, T, 4, Q, 4, 1, 1, 1, WORK, INFO )                   IF( INFO.NE.0 ) NINFO( INFO ) = NINFO( INFO ) + 1                   CALL DHST01( 2, 1, 2, T1, 4, T, 4, Q, 4, WORK, LWORK, RESULT );
                   RES = RESULT( 1 ) + RESULT( 2 )
-                  IF( INFO.NE.0 ) RES = RES + ONE / EPS                   IF( T( 1, 1 ).NE.T1( 2, 2 ) ) RES = RES + ONE / EPS                   IF( T( 2, 2 ).NE.T1( 1, 1 ) ) RES = RES + ONE / EPS                   IF( T( 2, 1 ).NE.ZERO ) RES = RES + ONE / EPS
+                  if (INFO.NE.0) RES = RES + ONE / EPS                   IF( T( 1, 1 ).NE.T1( 2, 2 ) ) RES = RES + ONE / EPS                   IF( T( 2, 2 ).NE.T1( 1, 1 ) ) RES = RES + ONE / EPS                   IF( T( 2, 1 ).NE.ZERO ) RES = RES + ONE / EPS;
                   KNT = KNT + 1
                   if ( RES.GT.RMAX ) {
                      LMAX = KNT

@@ -75,7 +75,7 @@
       } else {
          IWS = 1
       }
-      IF( NB.LT.NBMIN ) NB = N
+      if (NB.LT.NBMIN) NB = N;
 
       if ( UPPER ) {
 
@@ -90,7 +90,7 @@
 
          // If K < 1, exit from loop
 
-         IF( K.LT.1 ) GO TO 40
+         if (K.LT.1) GO TO 40;
 
          if ( K.GT.NB ) {
 
@@ -108,7 +108,7 @@
 
          // Set INFO on the first occurrence of a zero pivot
 
-         IF( INFO.EQ.0 .AND. IINFO.GT.0 ) INFO = IINFO
+         if (INFO.EQ.0 .AND. IINFO.GT.0) INFO = IINFO;
 
          // Decrease K and return to the start of the main loop
 
@@ -128,7 +128,7 @@
 
          // If K > N, exit from loop
 
-         IF( K.GT.N ) GO TO 40
+         if (K.GT.N) GO TO 40;
 
          if ( K.LE.N-NB ) {
 
@@ -146,7 +146,7 @@
 
          // Set INFO on the first occurrence of a zero pivot
 
-         IF( INFO.EQ.0 .AND. IINFO.GT.0 ) INFO = IINFO + K - 1
+         if (INFO.EQ.0 .AND. IINFO.GT.0) INFO = IINFO + K - 1;
 
          // Adjust IPIV
 

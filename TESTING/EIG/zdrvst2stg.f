@@ -88,7 +88,7 @@
 
       // Quick return if nothing to do
 
-      IF( NSIZES.EQ.0 .OR. NTYPES.EQ.0 ) RETURN
+      if (NSIZES.EQ.0 .OR. NTYPES.EQ.0) RETURN;
 
       // More Important constants
 
@@ -113,7 +113,7 @@
          N = NN( JSIZE )
          if ( N.GT.0 ) {
             LGN = INT( LOG( DBLE( N ) ) / LOG( TWO ) )
-            IF( 2**LGN.LT.N ) LGN = LGN + 1             IF( 2**LGN.LT.N ) LGN = LGN + 1
+            if (2**LGN.LT.N) LGN = LGN + 1             IF( 2**LGN.LT.N ) LGN = LGN + 1;
             LWEDC = MAX( 2*N+N*N, 2*N*N )
             LRWEDC = 1 + 4*N + 2*N*LGN + 3*N**2
             LIWEDC = 3 + 5*N
@@ -154,7 +154,7 @@
             // =8                      random Hermitian
             // =9                      band Hermitian, w/ eigenvalues
 
-            IF( MTYPES.GT.MAXTYP ) GO TO 110
+            if (MTYPES.GT.MAXTYP) GO TO 110;
 
             ITYPE = KTYPE( JTYPE )
             IMODE = KMODE( JTYPE )

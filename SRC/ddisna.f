@@ -58,10 +58,10 @@
          INCR = .TRUE.
          DECR = .TRUE.
          for (I = 1; I <= K - 1; I++) { // 10
-            IF( INCR ) INCR = INCR .AND. D( I ).LE.D( I+1 )             IF( DECR ) DECR = DECR .AND. D( I ).GE.D( I+1 )
+            if (INCR) INCR = INCR .AND. D( I ).LE.D( I+1 )             IF( DECR ) DECR = DECR .AND. D( I ).GE.D( I+1 );
          } // 10
          if ( SING .AND. K.GT.0 ) {
-            IF( INCR ) INCR = INCR .AND. ZERO.LE.D( 1 )             IF( DECR ) DECR = DECR .AND. D( K ).GE.ZERO
+            if (INCR) INCR = INCR .AND. ZERO.LE.D( 1 )             IF( DECR ) DECR = DECR .AND. D( K ).GE.ZERO;
          }
          IF( .NOT.( INCR .OR. DECR ) ) INFO = -4
       }
@@ -72,7 +72,7 @@
 
       // Quick return if possible
 
-      IF( K.EQ.0 ) RETURN
+      if (K.EQ.0) RETURN;
 
       // Compute reciprocal condition numbers
 
@@ -90,7 +90,7 @@
       }
       if ( SING ) {
          if ( ( LEFT .AND. M.GT.N ) .OR. ( RIGHT .AND. M.LT.N ) ) {
-            IF( INCR ) SEP( 1 ) = MIN( SEP( 1 ), D( 1 ) )             IF( DECR ) SEP( K ) = MIN( SEP( K ), D( K ) )
+            if (INCR) SEP( 1 ) = MIN( SEP( 1 ), D( 1 ) )             IF( DECR ) SEP( K ) = MIN( SEP( K ), D( K ) );
          }
       }
 

@@ -80,7 +80,7 @@
 
       // Test the error exits
 
-      IF( TSTERR ) CALL DERRVX( PATH, NOUT )
+      if (TSTERR) CALL DERRVX( PATH, NOUT );
       INFOT = 0
 
       // Set the block size and minimum block size for testing.
@@ -100,10 +100,10 @@
          // Set limits on the number of loop iterations.
 
          NKL = MAX( 1, MIN( N, 4 ) )
-         IF( N.EQ.0 ) NKL = 1
+         if (N.EQ.0) NKL = 1;
          NKU = NKL
          NIMAT = NTYPES
-         IF( N.LE.0 ) NIMAT = 1
+         if (N.LE.0) NIMAT = 1;
 
          for (IKL = 1; IKL <= NKL; IKL++) { // 140
 
@@ -141,7 +141,7 @@
                LDA = KL + KU + 1
                LDAFB = 2*KL + KU + 1
                if ( LDA*N.GT.LA .OR. LDAFB*N.GT.LAFB ) {
-                  IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALADHD( NOUT, PATH )
+                  if (NFAIL.EQ.0 .AND. NERRS.EQ.0) CALL ALADHD( NOUT, PATH );
                   if ( LDA*N.GT.LA ) {
                      WRITE( NOUT, FMT = 9999 )LA, N, KL, KU, N*( KL+KU+1 )
                      NERRS = NERRS + 1
@@ -162,7 +162,7 @@
                   // Skip types 2, 3, or 4 if the matrix is too small.
 
                   ZEROT = IMAT.GE.2 .AND. IMAT.LE.4
-                  IF( ZEROT .AND. N.LT.IMAT-1 ) GO TO 120
+                  if (ZEROT .AND. N.LT.IMAT-1) GO TO 120;
 
                   // Set up parameters with DLATB4 and generate a
                   // test matrix with DLATMS.
@@ -228,7 +228,7 @@
                         EQUIL = LSAME( FACT, 'E' )
 
                         if ( ZEROT ) {
-                           IF( PREFAC ) GO TO 100
+                           if (PREFAC) GO TO 100;
                            RCONDO = ZERO
                            RCONDI = ZERO
 
@@ -343,7 +343,7 @@
 
                               // Check error code from DGBSV .
 
-                              IF( INFO.NE.IZERO ) CALL ALAERH( PATH, 'DGBSV ', INFO, IZERO, ' ', N, N, KL, KU, NRHS, IMAT, NFAIL, NERRS, NOUT )
+                              if (INFO.NE.IZERO) CALL ALAERH( PATH, 'DGBSV ', INFO, IZERO, ' ', N, N, KL, KU, NRHS, IMAT, NFAIL, NERRS, NOUT );
 
                               // Reconstruct matrix from factors and
                               // compute residual.
@@ -369,7 +369,7 @@
 
                               for (K = 1; K <= NT; K++) { // 50
                                  if ( RESULT( K ).GE.THRESH ) {
-                                    IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALADHD( NOUT, PATH )                                     WRITE( NOUT, FMT = 9997 )'DGBSV ', N, KL, KU, IMAT, K, RESULT( K )
+                                    if (NFAIL.EQ.0 .AND. NERRS.EQ.0) CALL ALADHD( NOUT, PATH )                                     WRITE( NOUT, FMT = 9997 )'DGBSV ', N, KL, KU, IMAT, K, RESULT( K );
                                     NFAIL = NFAIL + 1
                                  }
                               } // 50
@@ -378,7 +378,7 @@
 
                            // --- Test DGBSVX ---
 
-                           IF( .NOT.PREFAC ) CALL DLASET( 'Full', 2*KL+KU+1, N, ZERO, ZERO, AFB, LDAFB )
+                           if (.NOT.PREFAC) CALL DLASET( 'Full', 2*KL+KU+1, N, ZERO, ZERO, AFB, LDAFB );
                            dlaset('Full', N, NRHS, ZERO, ZERO, X, LDB );
                            if ( IEQUED.GT.1 .AND. N.GT.0 ) {
 
@@ -396,7 +396,7 @@
 
                            // Check the error code from DGBSVX.
 
-                           IF( INFO.NE.IZERO ) CALL ALAERH( PATH, 'DGBSVX', INFO, IZERO, FACT // TRANS, N, N, KL, KU, NRHS, IMAT, NFAIL, NERRS, NOUT )
+                           if (INFO.NE.IZERO) CALL ALAERH( PATH, 'DGBSVX', INFO, IZERO, FACT // TRANS, N, N, KL, KU, NRHS, IMAT, NFAIL, NERRS, NOUT );
 
                            // Compare WORK(1) from DGBSVX with the computed
                            // reciprocal pivot growth factor RPVGRW
@@ -473,7 +473,7 @@
                            if ( .NOT.TRFCON ) {
                               for (K = K1; K <= NTESTS; K++) { // 80
                                  if ( RESULT( K ).GE.THRESH ) {
-                                    IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALADHD( NOUT, PATH )
+                                    if (NFAIL.EQ.0 .AND. NERRS.EQ.0) CALL ALADHD( NOUT, PATH );
                                     if ( PREFAC ) {
                                        WRITE( NOUT, FMT = 9995 ) 'DGBSVX', FACT, TRANS, N, KL, KU, EQUED, IMAT, K, RESULT( K )
                                     } else {
@@ -494,7 +494,7 @@
                                  NRUN = NRUN + 1
                               }
                               if ( RESULT( 6 ).GE.THRESH ) {
-                                 IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALADHD( NOUT, PATH )
+                                 if (NFAIL.EQ.0 .AND. NERRS.EQ.0) CALL ALADHD( NOUT, PATH );
                                  if ( PREFAC ) {
                                     WRITE( NOUT, FMT = 9995 )'DGBSVX', FACT, TRANS, N, KL, KU, EQUED, IMAT, 6, RESULT( 6 )
                                  } else {
@@ -504,7 +504,7 @@
                                  NRUN = NRUN + 1
                               }
                               if ( RESULT( 7 ).GE.THRESH ) {
-                                 IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALADHD( NOUT, PATH )
+                                 if (NFAIL.EQ.0 .AND. NERRS.EQ.0) CALL ALADHD( NOUT, PATH );
                                  if ( PREFAC ) {
                                     WRITE( NOUT, FMT = 9995 )'DGBSVX', FACT, TRANS, N, KL, KU, EQUED, IMAT, 7, RESULT( 7 )
                                  } else {

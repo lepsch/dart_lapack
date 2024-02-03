@@ -77,7 +77,7 @@
       } else if ( N.LT.0 ) {
          INFO = -3
       } else if ( IRANGE.EQ.2 ) {
-         IF( VL.GE.VU ) INFO = -5
+         if (VL.GE.VU) INFO = -5;
       } else if ( IRANGE.EQ.3 .AND. ( IL.LT.1 .OR. IL.GT.MAX( 1, N ) ) ) {
          INFO = -6
       } else if ( IRANGE.EQ.3 .AND. ( IU.LT.MIN( N, IL ) .OR. IU.GT.N ) ) {
@@ -98,11 +98,11 @@
       // Quick return if possible
 
       M = 0
-      IF( N.EQ.0 ) RETURN
+      if (N.EQ.0) RETURN;
 
       // Simplifications:
 
-      IF( IRANGE.EQ.3 .AND. IL.EQ.1 .AND. IU.EQ.N ) IRANGE = 1
+      if (IRANGE.EQ.3 .AND. IL.EQ.1 .AND. IU.EQ.N) IRANGE = 1;
 
       // Get machine constants
       // NB is the minimum vector length for vector bisection, or 0
@@ -112,7 +112,7 @@
       ULP = SLAMCH( 'P' )
       RTOLI = ULP*RELFAC
       NB = ILAENV( 1, 'SSTEBZ', ' ', N, -1, -1, -1 )
-      IF( NB.LE.1 ) NB = 0
+      if (NB.LE.1) NB = 0;
 
       // Special Case when N=1
 
@@ -310,7 +310,7 @@
                }
                GL = MAX( GL, WL )
                GU = MIN( GU, WU )
-               IF( GL.GE.GU ) GO TO 70
+               if (GL.GE.GU) GO TO 70;
             }
 
             // Set Up Initial Interval
@@ -453,7 +453,7 @@
       }
 
       INFO = 0
-      IF( NCNVRG ) INFO = INFO + 1       IF( TOOFEW ) INFO = INFO + 2
+      if (NCNVRG) INFO = INFO + 1       IF( TOOFEW ) INFO = INFO + 2;
       RETURN
 
       // End of SSTEBZ

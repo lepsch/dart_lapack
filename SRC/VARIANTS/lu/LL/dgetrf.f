@@ -50,7 +50,7 @@
 
       // Quick return if possible
 
-      IF( M.EQ.0 .OR. N.EQ.0 ) RETURN
+      if (M.EQ.0 .OR. N.EQ.0) RETURN;
 
       // Determine the block size for this environment.
 
@@ -92,7 +92,7 @@
 
             // Adjust INFO and the pivot indices.
 
-            IF( INFO.EQ.0 .AND. IINFO.GT.0 ) INFO = IINFO + J - 1
+            if (INFO.EQ.0 .AND. IINFO.GT.0) INFO = IINFO + J - 1;
             DO 10 I = J, MIN( M, J+JB-1 )
                IPIV( I ) = J - 1 + IPIV( I )
             } // 10

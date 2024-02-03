@@ -230,7 +230,7 @@
          for (I = 1; I <= N; I++) { // 100
             LSTRES = MAX( LSTRES, ABS( X( I, J ) ) )
          } // 100
-         IF( LSTRES.NE.ZERO ) FERR( J ) = FERR( J ) / LSTRES
+         if (LSTRES.NE.ZERO) FERR( J ) = FERR( J ) / LSTRES;
 
       } // 110
 

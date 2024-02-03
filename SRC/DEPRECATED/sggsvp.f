@@ -96,7 +96,7 @@
          // Copy the details of V, and form V.
 
          slaset('Full', P, P, ZERO, ZERO, V, LDV );
-         IF( P.GT.1 ) CALL SLACPY( 'Lower', P-1, N, B( 2, 1 ), LDB, V( 2, 1 ), LDV )
+         if (P.GT.1) CALL SLACPY( 'Lower', P-1, N, B( 2, 1 ), LDB, V( 2, 1 ), LDV );
          sorg2r(P, P, MIN( P, N ), V, LDV, TAU, WORK, INFO );
       }
 
@@ -107,7 +107,7 @@
             B( I, J ) = ZERO
          } // 30
       } // 40
-      IF( P.GT.L ) CALL SLASET( 'Full', P-L, N, ZERO, ZERO, B( L+1, 1 ), LDB )
+      if (P.GT.L) CALL SLASET( 'Full', P-L, N, ZERO, ZERO, B( L+1, 1 ), LDB );
 
       if ( WANTQ ) {
 
@@ -174,7 +174,7 @@
          // Copy the details of U, and form U
 
          slaset('Full', M, M, ZERO, ZERO, U, LDU );
-         IF( M.GT.1 ) CALL SLACPY( 'Lower', M-1, N-L, A( 2, 1 ), LDA, U( 2, 1 ), LDU )
+         if (M.GT.1) CALL SLACPY( 'Lower', M-1, N-L, A( 2, 1 ), LDA, U( 2, 1 ), LDU );
          sorg2r(M, M, MIN( M, N-L ), U, LDU, TAU, WORK, INFO );
       }
 
@@ -193,7 +193,7 @@
             A( I, J ) = ZERO
          } // 90
       } // 100
-      IF( M.GT.K ) CALL SLASET( 'Full', M-K, N-L, ZERO, ZERO, A( K+1, 1 ), LDA )
+      if (M.GT.K) CALL SLASET( 'Full', M-K, N-L, ZERO, ZERO, A( K+1, 1 ), LDA );
 
       if ( N-L.GT.K ) {
 

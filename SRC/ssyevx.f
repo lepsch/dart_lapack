@@ -62,7 +62,7 @@
          INFO = -6
       } else {
          if ( VALEIG ) {
-            IF( N.GT.0 .AND. VU.LE.VL ) INFO = -8
+            if (N.GT.0 .AND. VU.LE.VL) INFO = -8;
          } else if ( INDEIG ) {
             if ( IL.LT.1 .OR. IL.GT.MAX( 1, N ) ) {
                INFO = -9
@@ -89,7 +89,7 @@
          }
          WORK( 1 ) = SROUNDUP_LWORK( LWKOPT )
 
-         IF( LWORK.LT.LWKMIN .AND. .NOT.LQUERY ) INFO = -17
+         if (LWORK.LT.LWKMIN .AND. .NOT.LQUERY) INFO = -17;
       }
 
       if ( INFO.NE.0 ) {
@@ -116,7 +116,7 @@
                W( 1 ) = A( 1, 1 )
             }
          }
-         IF( WANTZ ) Z( 1, 1 ) = ONE
+         if (WANTZ) Z( 1, 1 ) = ONE;
          RETURN
       }
 
@@ -155,7 +155,7 @@
                sscal(J, SIGMA, A( 1, J ), 1 );
             } // 20
          }
-         IF( ABSTOL.GT.0 ) ABSTLL = ABSTOL*SIGMA
+         if (ABSTOL.GT.0) ABSTLL = ABSTOL*SIGMA;
          if ( VALEIG ) {
             VLL = VL*SIGMA
             VUU = VU*SIGMA
