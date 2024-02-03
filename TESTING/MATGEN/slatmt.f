@@ -685,7 +685,7 @@
             } // 470
 
             for (J = UUB + 2; J <= N; J++) { // 490
-               DO 480 I = J - UUB, min( J+LLB, M );
+               for (I = J - UUB; I <= min( J+LLB, M ); I++) { // 480
                   A( I-J+UUB+1, J ) = A( I, J );
                } // 480
             } // 490

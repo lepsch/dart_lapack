@@ -179,7 +179,7 @@
                       TEMP = X(J);
                       L = 1 - J;
                       if (NOUNIT) TEMP = TEMP*A(1,J);
-                      DO 130 I = J + 1,min(N,J+K);
+                      for (I = J + 1; I <= min(N,J+K); I++) { // 130
                           TEMP = TEMP + A(L+I,J)*X(I);
                       } // 130
                       X(J) = TEMP;
@@ -192,7 +192,7 @@
                       IX = KX;
                       L = 1 - J;
                       if (NOUNIT) TEMP = TEMP*A(1,J);
-                      DO 150 I = J + 1,min(N,J+K);
+                      for (I = J + 1; I <= min(N,J+K); I++) { // 150
                           TEMP = TEMP + A(L+I,J)*X(IX);
                           IX = IX + INCX;
                       } // 150

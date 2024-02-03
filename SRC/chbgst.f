@@ -674,19 +674,19 @@
             for (J = I1; J <= I - 1; J++) { // 500
                AB( J-I+KA1, I ) = AB( J-I+KA1, I ) / BII;
             } // 500
-            DO 510 J = I + 1, min( N, I+KA );
+            for (J = I + 1; J <= min( N, I+KA ); J++) { // 510
                AB( I-J+KA1, J ) = AB( I-J+KA1, J ) / BII;
             } // 510
             for (K = I + 1; K <= I + KBT; K++) { // 540
                for (J = K; J <= I + KBT; J++) { // 520
                   AB( K-J+KA1, J ) = AB( K-J+KA1, J ) - BB( I-J+KB1, J )* CONJG( AB( I-K+KA1, K ) ) - CONJG( BB( I-K+KB1, K ) )* AB( I-J+KA1, J ) + REAL( AB( KA1, I ) )* BB( I-J+KB1, J )* CONJG( BB( I-K+KB1, K ) );
                } // 520
-               DO 530 J = I + KBT + 1, min( N, I+KA );
+               for (J = I + KBT + 1; J <= min( N, I+KA ); J++) { // 530
                   AB( K-J+KA1, J ) = AB( K-J+KA1, J ) - CONJG( BB( I-K+KB1, K ) )* AB( I-J+KA1, J );
                } // 530
             } // 540
             for (J = I1; J <= I; J++) { // 560
-               DO 550 K = I + 1, min( J+KA, I+KBT );
+               for (K = I + 1; K <= min( J+KA, I+KBT ); K++) { // 550
                   AB( J-K+KA1, K ) = AB( J-K+KA1, K ) - BB( I-K+KB1, K )*AB( J-I+KA1, I );
                } // 550
             } // 560
@@ -902,19 +902,19 @@
             for (J = I1; J <= I - 1; J++) { // 730
                AB( I-J+1, J ) = AB( I-J+1, J ) / BII;
             } // 730
-            DO 740 J = I + 1, min( N, I+KA );
+            for (J = I + 1; J <= min( N, I+KA ); J++) { // 740
                AB( J-I+1, I ) = AB( J-I+1, I ) / BII;
             } // 740
             for (K = I + 1; K <= I + KBT; K++) { // 770
                for (J = K; J <= I + KBT; J++) { // 750
                   AB( J-K+1, K ) = AB( J-K+1, K ) - BB( J-I+1, I )*CONJG( AB( K-I+1, I ) ) - CONJG( BB( K-I+1, I ) )* AB( J-I+1, I ) + REAL( AB( 1, I ) )* BB( J-I+1, I )*CONJG( BB( K-I+1, I ) );
                } // 750
-               DO 760 J = I + KBT + 1, min( N, I+KA );
+               for (J = I + KBT + 1; J <= min( N, I+KA ); J++) { // 760
                   AB( J-K+1, K ) = AB( J-K+1, K ) - CONJG( BB( K-I+1, I ) )* AB( J-I+1, I );
                } // 760
             } // 770
             for (J = I1; J <= I; J++) { // 790
-               DO 780 K = I + 1, min( J+KA, I+KBT );
+               for (K = I + 1; K <= min( J+KA, I+KBT ); K++) { // 780
                   AB( K-J+1, J ) = AB( K-J+1, J ) - BB( K-I+1, I )*AB( I-J+1, J );
                } // 780
             } // 790

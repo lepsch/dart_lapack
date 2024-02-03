@@ -139,7 +139,7 @@
                XK = ( X( K, J ) ).abs();
                WORK( K ) = WORK( K ) + ( AB( 1, K ) ).abs()*XK;
                L = 1 - K;
-               DO 60 I = K + 1, min( N, K+KD );
+               for (I = K + 1; I <= min( N, K+KD ); I++) { // 60
                   WORK( I ) = WORK( I ) + ( AB( L+I, K ) ).abs()*XK;
                   S = S + ( AB( L+I, K ) ).abs()*( X( I, J ) ).abs();
                } // 60

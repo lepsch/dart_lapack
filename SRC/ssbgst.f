@@ -672,12 +672,12 @@
                for (J = K; J <= I + KBT; J++) { // 520
                   AB( K-J+KA1, J ) = AB( K-J+KA1, J ) - BB( I-J+KB1, J )*AB( I-K+KA1, K ) - BB( I-K+KB1, K )*AB( I-J+KA1, J ) + AB( KA1, I )*BB( I-J+KB1, J )* BB( I-K+KB1, K );
                } // 520
-               DO 530 J = I + KBT + 1, min( N, I+KA );
+               for (J = I + KBT + 1; J <= min( N, I+KA ); J++) { // 530
                   AB( K-J+KA1, J ) = AB( K-J+KA1, J ) - BB( I-K+KB1, K )*AB( I-J+KA1, J );
                } // 530
             } // 540
             for (J = I1; J <= I; J++) { // 560
-               DO 550 K = I + 1, min( J+KA, I+KBT );
+               for (K = I + 1; K <= min( J+KA, I+KBT ); K++) { // 550
                   AB( J-K+KA1, K ) = AB( J-K+KA1, K ) - BB( I-K+KB1, K )*AB( J-I+KA1, I );
                } // 550
             } // 560
@@ -896,12 +896,12 @@
                for (J = K; J <= I + KBT; J++) { // 750
                   AB( J-K+1, K ) = AB( J-K+1, K ) - BB( J-I+1, I )*AB( K-I+1, I ) - BB( K-I+1, I )*AB( J-I+1, I ) + AB( 1, I )*BB( J-I+1, I )* BB( K-I+1, I );
                } // 750
-               DO 760 J = I + KBT + 1, min( N, I+KA );
+               for (J = I + KBT + 1; J <= min( N, I+KA ); J++) { // 760
                   AB( J-K+1, K ) = AB( J-K+1, K ) - BB( K-I+1, I )*AB( J-I+1, I );
                } // 760
             } // 770
             for (J = I1; J <= I; J++) { // 790
-               DO 780 K = I + 1, min( J+KA, I+KBT );
+               for (K = I + 1; K <= min( J+KA, I+KBT ); K++) { // 780
                   AB( K-J+1, J ) = AB( K-J+1, J ) - BB( K-I+1, I )*AB( I-J+1, J );
                } // 780
             } // 790

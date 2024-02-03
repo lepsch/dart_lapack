@@ -154,7 +154,7 @@
                } else {
                   for (K = 1; K <= N; K++) { // 100
                      XK = ( X( K, J ) ).abs();
-                     DO 90 I = K + 1, min( N, K+KD );
+                     for (I = K + 1; I <= min( N, K+KD ); I++) { // 90
                         WORK( I ) = WORK( I ) + ( AB( 1+I-K, K ) ).abs()*XK;
                      } // 90
                      WORK( K ) = WORK( K ) + XK;
@@ -195,7 +195,7 @@
                } else {
                   for (K = 1; K <= N; K++) { // 180
                      S = ( X( K, J ) ).abs();
-                     DO 170 I = K + 1, min( N, K+KD );
+                     for (I = K + 1; I <= min( N, K+KD ); I++) { // 170
                         S = S + ( AB( 1+I-K, K ) ).abs()*( X( I, J ) ).abs();
                      } // 170
                      WORK( K ) = WORK( K ) + S;

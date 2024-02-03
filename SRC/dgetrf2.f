@@ -134,7 +134,7 @@
          // Adjust INFO and the pivot indices
 
          if (INFO == 0 && IINFO > 0) INFO = IINFO + N1;
-         DO 20 I = N1+1, min( M, N );
+         for (I = N1+1; I <= min( M, N ); I++) { // 20
             IPIV( I ) = IPIV( I ) + N1;
          } // 20
 

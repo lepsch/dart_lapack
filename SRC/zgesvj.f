@@ -499,7 +499,7 @@
 
                      PSKIPPED = 0;
 
-                     DO 2002 q = p + 1, min( igl+KBL-1, N );
+                     for (q = p + 1; q <= min( igl+KBL-1, N ); q++) { // 2002
 
                         AAQQ = SVA( q );
 

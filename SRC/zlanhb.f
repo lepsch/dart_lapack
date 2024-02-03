@@ -88,7 +88,7 @@
             for (J = 1; J <= N; J++) { // 100
                SUM = WORK( J ) + ABS( DBLE( AB( 1, J ) ) );
                L = 1 - J;
-               DO 90 I = J + 1, min( N, J+K );
+               for (I = J + 1; I <= min( N, J+K ); I++) { // 90
                   ABSA = ( AB( L+I, J ) ).abs();
                   SUM = SUM + ABSA;
                   WORK( I ) = WORK( I ) + ABSA;

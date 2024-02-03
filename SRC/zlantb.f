@@ -148,7 +148,7 @@
                } // 210
                for (J = 1; J <= N; J++) { // 230
                   L = 1 - J;
-                  DO 220 I = J + 1, min( N, J+K );
+                  for (I = J + 1; I <= min( N, J+K ); I++) { // 220
                      WORK( I ) = WORK( I ) + ( AB( L+I, J ) ).abs();
                   } // 220
                } // 230

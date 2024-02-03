@@ -196,12 +196,12 @@
                       L = 1 - J;
                       if (NOCONJ) {
                           if (NOUNIT) TEMP = TEMP*A(1,J);
-                          DO 150 I = J + 1,min(N,J+K);
+                          for (I = J + 1; I <= min(N,J+K); I++) { // 150
                               TEMP = TEMP + A(L+I,J)*X(I);
                           } // 150
                       } else {
                           if (NOUNIT) TEMP = TEMP*CONJG(A(1,J));
-                          DO 160 I = J + 1,min(N,J+K);
+                          for (I = J + 1; I <= min(N,J+K); I++) { // 160
                               TEMP = TEMP + CONJG(A(L+I,J))*X(I);
                           } // 160
                       }
@@ -216,13 +216,13 @@
                       L = 1 - J;
                       if (NOCONJ) {
                           if (NOUNIT) TEMP = TEMP*A(1,J);
-                          DO 180 I = J + 1,min(N,J+K);
+                          for (I = J + 1; I <= min(N,J+K); I++) { // 180
                               TEMP = TEMP + A(L+I,J)*X(IX);
                               IX = IX + INCX;
                           } // 180
                       } else {
                           if (NOUNIT) TEMP = TEMP*CONJG(A(1,J));
-                          DO 190 I = J + 1,min(N,J+K);
+                          for (I = J + 1; I <= min(N,J+K); I++) { // 190
                               TEMP = TEMP + CONJG(A(L+I,J))*X(IX);
                               IX = IX + INCX;
                           } // 190

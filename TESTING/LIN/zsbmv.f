@@ -157,7 +157,7 @@
                TEMP2 = ZERO;
                Y( J ) = Y( J ) + TEMP1*A( 1, J );
                L = 1 - J;
-               DO 90 I = J + 1, min( N, J+K );
+               for (I = J + 1; I <= min( N, J+K ); I++) { // 90
                   Y( I ) = Y( I ) + TEMP1*A( L+I, J );
                   TEMP2 = TEMP2 + A( L+I, J )*X( I );
                } // 90
@@ -173,7 +173,7 @@
                L = 1 - J;
                IX = JX;
                IY = JY;
-               DO 110 I = J + 1, min( N, J+K );
+               for (I = J + 1; I <= min( N, J+K ); I++) { // 110
                   IX = IX + INCX;
                   IY = IY + INCY;
                   Y( IY ) = Y( IY ) + TEMP1*A( L+I, J );

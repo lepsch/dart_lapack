@@ -122,7 +122,7 @@
 
          // Adjust IPIV and apply it back (J-th step picks (J+1)-th pivot)
 
-         DO J2 = J+2, min(N, J+JB+1);
+         for (J2 = J+2; J2 <= min(N, J+JB+1); J2++) { //
             IPIV( J2 ) = IPIV( J2 ) + J;
             if ( (J2 != IPIV(J2)) && ((J1-K1) > 2) ) {
                cswap(J1-K1-2, A( 1, J2 ), 1, A( 1, IPIV(J2) ), 1 );
@@ -229,7 +229,7 @@
 
          // Adjust IPIV and apply it back (J-th step picks (J+1)-th pivot)
 
-         DO J2 = J+2, min(N, J+JB+1);
+         for (J2 = J+2; J2 <= min(N, J+JB+1); J2++) { //
             IPIV( J2 ) = IPIV( J2 ) + J;
             if ( (J2 != IPIV(J2)) && ((J1-K1) > 2) ) {
                cswap(J1-K1-2, A( J2, 1 ), LDA, A( IPIV(J2), 1 ), LDA );

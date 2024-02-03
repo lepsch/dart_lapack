@@ -163,7 +163,7 @@
                } else {
                   for (K = 1; K <= N; K++) { // 100
                      XK = CABS1( X( K, J ) );
-                     DO 90 I = K + 1, min( N, K+KD );
+                     for (I = K + 1; I <= min( N, K+KD ); I++) { // 90
                         RWORK( I ) = RWORK( I ) + CABS1( AB( 1+I-K, K ) )*XK;
                      } // 90
                      RWORK( K ) = RWORK( K ) + XK;
@@ -204,7 +204,7 @@
                } else {
                   for (K = 1; K <= N; K++) { // 180
                      S = CABS1( X( K, J ) );
-                     DO 170 I = K + 1, min( N, K+KD );
+                     for (I = K + 1; I <= min( N, K+KD ); I++) { // 170
                         S = S + CABS1( AB( 1+I-K, K ) )* CABS1( X( I, J ) );
                      } // 170
                      RWORK( K ) = RWORK( K ) + S;

@@ -118,7 +118,7 @@
                           L = 1 - J;
                           if (NOUNIT) X(J) = X(J)/A(1,J);
                           TEMP = X(J);
-                          DO 50 I = J + 1,min(N,J+K);
+                          for (I = J + 1; I <= min(N,J+K); I++) { // 50
                               X(I) = X(I) - TEMP*A(L+I,J);
                           } // 50
                       }
@@ -132,7 +132,7 @@
                           L = 1 - J;
                           if (NOUNIT) X(JX) = X(JX)/A(1,J);
                           TEMP = X(JX);
-                          DO 70 I = J + 1,min(N,J+K);
+                          for (I = J + 1; I <= min(N,J+K); I++) { // 70
                               X(IX) = X(IX) - TEMP*A(L+I,J);
                               IX = IX + INCX;
                           } // 70

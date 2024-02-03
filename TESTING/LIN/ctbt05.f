@@ -105,7 +105,7 @@
                   if (UNIT) TMP = TMP + CABS1( X( I, K ) );
                } else {
                   if (UNIT) TMP = TMP + CABS1( X( I, K ) );
-                  DO 50 J = I + IFU, min( I+KD, N );
+                  for (J = I + IFU; J <= min( I+KD, N ); J++) { // 50
                      TMP = TMP + CABS1( AB( KD+1+I-J, J ) )* CABS1( X( J, K ) );
                   } // 50
                }
@@ -117,7 +117,7 @@
                   if (UNIT) TMP = TMP + CABS1( X( I, K ) );
                } else {
                   if (UNIT) TMP = TMP + CABS1( X( I, K ) );
-                  DO 70 J = I + IFU, min( I+KD, N );
+                  for (J = I + IFU; J <= min( I+KD, N ); J++) { // 70
                      TMP = TMP + CABS1( AB( 1+J-I, I ) )* CABS1( X( J, K ) );
                   } // 70
                }

@@ -81,7 +81,7 @@
          } // 50
       } // 60
 
-      DO 80 I = K + 1, min( K+L, M );
+      for (I = K + 1; I <= min( K+L, M ); I++) { // 80
          for (J = I; J <= K + L; J++) { // 70
             A( I, N-K-L+J ) = A( I, N-K-L+J ) - ALPHA( I )*R( I, J );
          } // 70
@@ -150,7 +150,7 @@
       // Check sorting
 
       scopy(N, ALPHA, 1, RWORK, 1 );
-      DO 110 I = K + 1, min( K+L, M );
+      for (I = K + 1; I <= min( K+L, M ); I++) { // 110
          J = IWORK( I );
          if ( I != J ) {
             TEMP = RWORK( I );

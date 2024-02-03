@@ -184,7 +184,7 @@
          } // 30
          WORK( J ) = TEMP;
          WORK( N+J ) = TEMP2;
-         DO 40 I = IEND + 1, min( J+1, N );
+         for (I = IEND + 1; I <= min( J+1, N ); I++) { // 40
             TEMP = TEMP + ( S( I, J ) ).abs();
             TEMP2 = TEMP2 + ( P( I, J ) ).abs();
          } // 40

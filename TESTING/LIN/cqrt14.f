@@ -86,7 +86,7 @@
 
          ERR = ZERO;
          for (J = N + 1; J <= N + NRHS; J++) { // 20
-            DO 10 I = N + 1, min( M, J );
+            for (I = N + 1; I <= min( M, J ); I++) { // 10
                ERR = max( ERR, ABS( WORK( I+( J-1 )*M ) ) );
             } // 10
          } // 20

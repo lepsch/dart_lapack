@@ -98,7 +98,7 @@
                   TMP = TMP + CABS1( AB( KD+1-I+J, I ) )* CABS1( X( J, K ) );
                } // 40
                TMP = TMP + ABS( DBLE( AB( KD+1, I ) ) )* CABS1( X( I, K ) );
-               DO 50 J = I + 1, min( I+KD, N );
+               for (J = I + 1; J <= min( I+KD, N ); J++) { // 50
                   TMP = TMP + CABS1( AB( KD+1+I-J, J ) )* CABS1( X( J, K ) );
                } // 50
             } else {
@@ -106,7 +106,7 @@
                   TMP = TMP + CABS1( AB( 1+I-J, J ) )*CABS1( X( J, K ) );
                } // 60
                TMP = TMP + ABS( DBLE( AB( 1, I ) ) )*CABS1( X( I, K ) );
-               DO 70 J = I + 1, min( I+KD, N );
+               for (J = I + 1; J <= min( I+KD, N ); J++) { // 70
                   TMP = TMP + CABS1( AB( 1+J-I, I ) )*CABS1( X( J, K ) );
                } // 70
             }

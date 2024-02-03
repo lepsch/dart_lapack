@@ -89,7 +89,7 @@
                for (J = max( I-KD, 1 ); J <= I; J++) { // 40
                   TMP = TMP + ( AB( KD+1-I+J, I ) ).abs()*( X( J, K ) ).abs();
                } // 40
-               DO 50 J = I + 1, min( I+KD, N );
+               for (J = I + 1; J <= min( I+KD, N ); J++) { // 50
                   TMP = TMP + ( AB( KD+1+I-J, J ) ).abs()*( X( J, K ) ).abs();
                } // 50
             } else {

@@ -97,7 +97,7 @@
                   if (UNIT) TMP = TMP + ( X( I, K ) ).abs();
                } else {
                   if (UNIT) TMP = TMP + ( X( I, K ) ).abs();
-                  DO 50 J = I + IFU, min( I+KD, N );
+                  for (J = I + IFU; J <= min( I+KD, N ); J++) { // 50
                      TMP = TMP + ( AB( KD+1+I-J, J ) ).abs()* ( X( J, K ) ).abs();
                   } // 50
                }
@@ -109,7 +109,7 @@
                   if (UNIT) TMP = TMP + ( X( I, K ) ).abs();
                } else {
                   if (UNIT) TMP = TMP + ( X( I, K ) ).abs();
-                  DO 70 J = I + IFU, min( I+KD, N );
+                  for (J = I + IFU; J <= min( I+KD, N ); J++) { // 70
                      TMP = TMP + ( AB( 1+J-I, I ) ).abs()*( X( J, K ) ).abs();
                   } // 70
                }

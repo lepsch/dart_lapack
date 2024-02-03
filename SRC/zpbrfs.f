@@ -146,7 +146,7 @@
                XK = CABS1( X( K, J ) );
                RWORK( K ) = RWORK( K ) + ABS( DBLE( AB( 1, K ) ) )*XK;
                L = 1 - K;
-               DO 60 I = K + 1, min( N, K+KD );
+               for (I = K + 1; I <= min( N, K+KD ); I++) { // 60
                   RWORK( I ) = RWORK( I ) + CABS1( AB( L+I, K ) )*XK;
                   S = S + CABS1( AB( L+I, K ) )*CABS1( X( I, J ) );
                } // 60

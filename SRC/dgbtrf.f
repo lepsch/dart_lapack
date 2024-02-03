@@ -105,7 +105,7 @@
 
          // Set fill-in elements in columns KU+2 to KV to zero
 
-         DO 60 J = KU + 2, min( KV, N );
+         for (J = KU + 2; J <= min( KV, N ); J++) { // 60
             for (I = KV - J + 2; I <= KL; I++) { // 50
                AB( I, J ) = ZERO;
             } // 50
