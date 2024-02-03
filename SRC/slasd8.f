@@ -1,8 +1,8 @@
       SUBROUTINE SLASD8( ICOMPQ, K, D, Z, VF, VL, DIFL, DIFR, LDDIFR, DSIGMA, WORK, INFO );
 
-*  -- LAPACK auxiliary routine --
-*  -- LAPACK is a software package provided by Univ. of Tennessee,    --
-*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+// -- LAPACK auxiliary routine --
+// -- LAPACK is a software package provided by Univ. of Tennessee,    --
+// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
       int                ICOMPQ, INFO, K, LDDIFR;
@@ -11,7 +11,7 @@
       REAL               D( * ), DIFL( * ), DIFR( LDDIFR, * ), DSIGMA( * ), VF( * ), VL( * ), WORK( * ), Z( * );
       // ..
 
-*  =====================================================================
+// =====================================================================
 
       // .. Parameters ..
       REAL               ONE;

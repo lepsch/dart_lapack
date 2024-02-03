@@ -1,8 +1,8 @@
       double           FUNCTION DSDOT(N,SX,INCX,SY,INCY);
 
-*  -- Reference BLAS level1 routine --
-*  -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
-*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+// -- Reference BLAS level1 routine --
+// -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
+// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
       int     INCX,INCY,N;
@@ -11,12 +11,12 @@
       REAL SX(*),SY(*);
       // ..
 
-*  Authors:
-*  ========
-*  Lawson, C. L., (JPL), Hanson, R. J., (SNLA),
-*  Kincaid, D. R., (U. of Texas), Krogh, F. T., (JPL)
+// Authors:
+// ========
+// Lawson, C. L., (JPL), Hanson, R. J., (SNLA),
+// Kincaid, D. R., (U. of Texas), Krogh, F. T., (JPL)
 
-*  =====================================================================
+// =====================================================================
 
       // .. Local Scalars ..
       int     I,KX,KY,NS;

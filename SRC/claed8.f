@@ -1,8 +1,8 @@
       SUBROUTINE CLAED8( K, N, QSIZ, Q, LDQ, D, RHO, CUTPNT, Z, DLAMBDA, Q2, LDQ2, W, INDXP, INDX, INDXQ, PERM, GIVPTR, GIVCOL, GIVNUM, INFO );
 
-*  -- LAPACK computational routine --
-*  -- LAPACK is a software package provided by Univ. of Tennessee,    --
-*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+// -- LAPACK computational routine --
+// -- LAPACK is a software package provided by Univ. of Tennessee,    --
+// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
       int                CUTPNT, GIVPTR, INFO, K, LDQ, LDQ2, N, QSIZ;
@@ -14,7 +14,7 @@
       COMPLEX            Q( LDQ, * ), Q2( LDQ2, * );
       // ..
 
-*  =====================================================================
+// =====================================================================
 
       // .. Parameters ..
       REAL               MONE, ZERO, ONE, TWO, EIGHT;

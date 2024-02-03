@@ -1,8 +1,8 @@
       SUBROUTINE ZGETC2( N, A, LDA, IPIV, JPIV, INFO );
 
-*  -- LAPACK auxiliary routine --
-*  -- LAPACK is a software package provided by Univ. of Tennessee,    --
-*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+// -- LAPACK auxiliary routine --
+// -- LAPACK is a software package provided by Univ. of Tennessee,    --
+// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
       int                INFO, LDA, N;
@@ -12,7 +12,7 @@
       COMPLEX*16         A( LDA, * );
       // ..
 
-*  =====================================================================
+// =====================================================================
 
       // .. Parameters ..
       double             ZERO, ONE;

@@ -1,8 +1,8 @@
       SUBROUTINE SLASWP( N, A, LDA, K1, K2, IPIV, INCX );
 
-*  -- LAPACK auxiliary routine --
-*  -- LAPACK is a software package provided by Univ. of Tennessee,    --
-*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+// -- LAPACK auxiliary routine --
+// -- LAPACK is a software package provided by Univ. of Tennessee,    --
+// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
       int                INCX, K1, K2, LDA, N;
@@ -12,7 +12,7 @@
       REAL               A( LDA, * );
       // ..
 
-* =====================================================================
+// =====================================================================
 
       // .. Local Scalars ..
       int                I, I1, I2, INC, IP, IX, IX0, J, K, N32;

@@ -1,8 +1,8 @@
       SUBROUTINE DGETF2( M, N, A, LDA, IPIV, INFO );
 
-*  -- LAPACK computational routine --
-*  -- LAPACK is a software package provided by Univ. of Tennessee,    --
-*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+// -- LAPACK computational routine --
+// -- LAPACK is a software package provided by Univ. of Tennessee,    --
+// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
       int                INFO, LDA, M, N;
@@ -12,7 +12,7 @@
       double             A( LDA, * );
       // ..
 
-*  =====================================================================
+// =====================================================================
 
       // .. Parameters ..
       double             ONE, ZERO;

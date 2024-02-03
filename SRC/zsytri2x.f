@@ -1,8 +1,8 @@
       SUBROUTINE ZSYTRI2X( UPLO, N, A, LDA, IPIV, WORK, NB, INFO );
 
-*  -- LAPACK computational routine --
-*  -- LAPACK is a software package provided by Univ. of Tennessee,    --
-*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+// -- LAPACK computational routine --
+// -- LAPACK is a software package provided by Univ. of Tennessee,    --
+// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
       String             UPLO;
@@ -13,7 +13,7 @@
       COMPLEX*16         A( LDA, * ), WORK( N+NB+1,* );
       // ..
 
-*  =====================================================================
+// =====================================================================
 
       // .. Parameters ..
       COMPLEX*16         ONE, ZERO;
@@ -87,7 +87,7 @@
       }
       INFO = 0;
 
-*  Splitting Workspace
+// Splitting Workspace
       // U01 is a block (N,NB+1)
       // The first element of U01 is in WORK(1,1)
       // U11 is a block (NB+1,NB+1)

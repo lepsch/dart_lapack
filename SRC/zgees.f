@@ -1,8 +1,8 @@
       SUBROUTINE ZGEES( JOBVS, SORT, SELECT, N, A, LDA, SDIM, W, VS, LDVS, WORK, LWORK, RWORK, BWORK, INFO );
 
-*  -- LAPACK driver routine --
-*  -- LAPACK is a software package provided by Univ. of Tennessee,    --
-*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+// -- LAPACK driver routine --
+// -- LAPACK is a software package provided by Univ. of Tennessee,    --
+// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
       String             JOBVS, SORT;
@@ -18,7 +18,7 @@
       // EXTERNAL SELECT
       // ..
 
-*  =====================================================================
+// =====================================================================
 
       // .. Parameters ..
       double             ZERO, ONE;

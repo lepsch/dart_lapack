@@ -1,8 +1,8 @@
       SUBROUTINE ZSTEMR( JOBZ, RANGE, N, D, E, VL, VU, IL, IU, M, W, Z, LDZ, NZC, ISUPPZ, TRYRAC, WORK, LWORK, IWORK, LIWORK, INFO );
 
-*  -- LAPACK computational routine --
-*  -- LAPACK is a software package provided by Univ. of Tennessee,    --
-*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+// -- LAPACK computational routine --
+// -- LAPACK is a software package provided by Univ. of Tennessee,    --
+// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
       String             JOBZ, RANGE;
@@ -16,7 +16,7 @@
       COMPLEX*16         Z( LDZ, * );
       // ..
 
-*  =====================================================================
+// =====================================================================
 
       // .. Parameters ..
       double             ZERO, ONE, FOUR, MINRGP;

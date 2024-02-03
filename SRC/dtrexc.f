@@ -1,8 +1,8 @@
       SUBROUTINE DTREXC( COMPQ, N, T, LDT, Q, LDQ, IFST, ILST, WORK, INFO );
 
-*  -- LAPACK computational routine --
-*  -- LAPACK is a software package provided by Univ. of Tennessee,    --
-*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+// -- LAPACK computational routine --
+// -- LAPACK is a software package provided by Univ. of Tennessee,    --
+// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
       String             COMPQ;
@@ -12,7 +12,7 @@
       double             Q( LDQ, * ), T( LDT, * ), WORK( * );
       // ..
 
-*  =====================================================================
+// =====================================================================
 
       // .. Parameters ..
       double             ZERO;

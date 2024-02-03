@@ -1,8 +1,8 @@
       SUBROUTINE SLARRA( N, D, E, E2, SPLTOL, TNRM, NSPLIT, ISPLIT, INFO );
 
-*  -- LAPACK auxiliary routine --
-*  -- LAPACK is a software package provided by Univ. of Tennessee,    --
-*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+// -- LAPACK auxiliary routine --
+// -- LAPACK is a software package provided by Univ. of Tennessee,    --
+// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
       int                INFO, N, NSPLIT;
@@ -13,7 +13,7 @@
       REAL               D( * ), E( * ), E2( * );
       // ..
 
-*  =====================================================================
+// =====================================================================
 
       // .. Parameters ..
       REAL               ZERO;

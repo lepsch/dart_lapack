@@ -1,8 +1,8 @@
       SUBROUTINE CLATZM( SIDE, M, N, V, INCV, TAU, C1, C2, LDC, WORK );
 
-*  -- LAPACK computational routine --
-*  -- LAPACK is a software package provided by Univ. of Tennessee,    --
-*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+// -- LAPACK computational routine --
+// -- LAPACK is a software package provided by Univ. of Tennessee,    --
+// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
       String             SIDE;
@@ -13,7 +13,7 @@
       COMPLEX            C1( LDC, * ), C2( LDC, * ), V( * ), WORK( * );
       // ..
 
-*  =====================================================================
+// =====================================================================
 
       // .. Parameters ..
       COMPLEX            ONE, ZERO;

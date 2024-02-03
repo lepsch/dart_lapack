@@ -1,8 +1,8 @@
       SUBROUTINE CLARFX( SIDE, M, N, V, TAU, C, LDC, WORK );
 
-*  -- LAPACK auxiliary routine --
-*  -- LAPACK is a software package provided by Univ. of Tennessee,    --
-*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+// -- LAPACK auxiliary routine --
+// -- LAPACK is a software package provided by Univ. of Tennessee,    --
+// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
       String             SIDE;
@@ -13,7 +13,7 @@
       COMPLEX            C( LDC, * ), V( * ), WORK( * );
       // ..
 
-*  =====================================================================
+// =====================================================================
 
       // .. Parameters ..
       COMPLEX            ZERO, ONE;

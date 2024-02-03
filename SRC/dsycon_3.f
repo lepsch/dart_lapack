@@ -1,8 +1,8 @@
       SUBROUTINE DSYCON_3( UPLO, N, A, LDA, E, IPIV, ANORM, RCOND, WORK, IWORK, INFO );
 
-*  -- LAPACK computational routine --
-*  -- LAPACK is a software package provided by Univ. of Tennessee,    --
-*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+// -- LAPACK computational routine --
+// -- LAPACK is a software package provided by Univ. of Tennessee,    --
+// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
       String             UPLO;
@@ -14,7 +14,7 @@
       double             A( LDA, * ), E( * ), WORK( * );
       // ..
 
-*  =====================================================================
+// =====================================================================
 
       // .. Parameters ..
       double             ONE, ZERO;

@@ -1,8 +1,8 @@
       SUBROUTINE DLARFY( UPLO, N, V, INCV, TAU, C, LDC, WORK );
 
-*  -- LAPACK test routine --
-*  -- LAPACK is a software package provided by Univ. of Tennessee,    --
-*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+// -- LAPACK test routine --
+// -- LAPACK is a software package provided by Univ. of Tennessee,    --
+// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
       String             UPLO;
@@ -13,7 +13,7 @@
       double             C( LDC, * ), V( * ), WORK( * );
       // ..
 
-*  =====================================================================
+// =====================================================================
 
       // .. Parameters ..
       double             ONE, ZERO, HALF;

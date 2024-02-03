@@ -1,8 +1,8 @@
       double           FUNCTION DSXT1( IJOB, D1, N1, D2, N2, ABSTOL, ULP, UNFL );
 
-*  -- LAPACK test routine --
-*  -- LAPACK is a software package provided by Univ. of Tennessee,    --
-*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+// -- LAPACK test routine --
+// -- LAPACK is a software package provided by Univ. of Tennessee,    --
+// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
       int                IJOB, N1, N2;
@@ -12,7 +12,7 @@
       double             D1( * ), D2( * );
       // ..
 
-*  =====================================================================
+// =====================================================================
 
       // .. Parameters ..
       double             ZERO;

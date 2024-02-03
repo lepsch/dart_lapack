@@ -1,8 +1,8 @@
       SUBROUTINE CGET02( TRANS, M, N, NRHS, A, LDA, X, LDX, B, LDB, RWORK, RESID );
 
-*  -- LAPACK test routine --
-*  -- LAPACK is a software package provided by Univ. of Tennessee,    --
-*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+// -- LAPACK test routine --
+// -- LAPACK is a software package provided by Univ. of Tennessee,    --
+// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
       String             TRANS;
@@ -14,7 +14,7 @@
       COMPLEX            A( LDA, * ), B( LDB, * ), X( LDX, * );
       // ..
 
-*  =====================================================================
+// =====================================================================
 
       // .. Parameters ..
       REAL               ZERO, ONE;

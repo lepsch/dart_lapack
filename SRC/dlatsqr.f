@@ -1,8 +1,8 @@
       SUBROUTINE DLATSQR( M, N, MB, NB, A, LDA, T, LDT, WORK, LWORK, INFO );
 
-*  -- LAPACK computational routine --
-*  -- LAPACK is a software package provided by Univ. of Tennessee,    --
-*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd. --
+// -- LAPACK computational routine --
+// -- LAPACK is a software package provided by Univ. of Tennessee,    --
+// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd. --
 
       // .. Scalar Arguments ..
       int                INFO, LDA, M, N, MB, NB, LDT, LWORK;
@@ -11,7 +11,7 @@
       double             A( LDA, * ), WORK( * ), T( LDT, * );
       // ..
 
-*  =====================================================================
+// =====================================================================
 
       // ..
       // .. Local Scalars ..

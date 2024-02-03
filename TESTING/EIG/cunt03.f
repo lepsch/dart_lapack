@@ -1,8 +1,8 @@
       SUBROUTINE CUNT03( RC, MU, MV, N, K, U, LDU, V, LDV, WORK, LWORK, RWORK, RESULT, INFO );
 
-*  -- LAPACK test routine --
-*  -- LAPACK is a software package provided by Univ. of Tennessee,    --
-*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+// -- LAPACK test routine --
+// -- LAPACK is a software package provided by Univ. of Tennessee,    --
+// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
       List<String>       RC;
@@ -14,7 +14,7 @@
       COMPLEX            U( LDU, * ), V( LDV, * ), WORK( * );
       // ..
 
-*  =====================================================================
+// =====================================================================
 
 
       // .. Parameters ..

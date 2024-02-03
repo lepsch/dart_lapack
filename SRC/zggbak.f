@@ -1,8 +1,8 @@
       SUBROUTINE ZGGBAK( JOB, SIDE, N, ILO, IHI, LSCALE, RSCALE, M, V, LDV, INFO );
 
-*  -- LAPACK computational routine --
-*  -- LAPACK is a software package provided by Univ. of Tennessee,    --
-*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+// -- LAPACK computational routine --
+// -- LAPACK is a software package provided by Univ. of Tennessee,    --
+// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
       String             JOB, SIDE;
@@ -13,7 +13,7 @@
       COMPLEX*16         V( LDV, * );
       // ..
 
-*  =====================================================================
+// =====================================================================
 
       // .. Local Scalars ..
       bool               LEFTV, RIGHTV;

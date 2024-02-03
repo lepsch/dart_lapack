@@ -1,8 +1,8 @@
       SUBROUTINE DGTTS2( ITRANS, N, NRHS, DL, D, DU, DU2, IPIV, B, LDB );
 
-*  -- LAPACK computational routine --
-*  -- LAPACK is a software package provided by Univ. of Tennessee,    --
-*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+// -- LAPACK computational routine --
+// -- LAPACK is a software package provided by Univ. of Tennessee,    --
+// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
       int                ITRANS, LDB, N, NRHS;
@@ -12,7 +12,7 @@
       double             B( LDB, * ), D( * ), DL( * ), DU( * ), DU2( * );
       // ..
 
-*  =====================================================================
+// =====================================================================
 
       // .. Local Scalars ..
       int                I, IP, J;

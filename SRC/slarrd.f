@@ -1,8 +1,8 @@
       SUBROUTINE SLARRD( RANGE, ORDER, N, VL, VU, IL, IU, GERS, RELTOL, D, E, E2, PIVMIN, NSPLIT, ISPLIT, M, W, WERR, WL, WU, IBLOCK, INDEXW, WORK, IWORK, INFO );
 
-*  -- LAPACK auxiliary routine --
-*  -- LAPACK is a software package provided by Univ. of Tennessee,    --
-*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+// -- LAPACK auxiliary routine --
+// -- LAPACK is a software package provided by Univ. of Tennessee,    --
+// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
       String             ORDER, RANGE;
@@ -14,7 +14,7 @@
       REAL               D( * ), E( * ), E2( * ), GERS( * ), W( * ), WERR( * ), WORK( * );
       // ..
 
-*  =====================================================================
+// =====================================================================
 
       // .. Parameters ..
       REAL               ZERO, ONE, TWO, HALF, FUDGE;
@@ -241,7 +241,7 @@
            // ];
 
           // ELSE IF( IN == 2 ) THEN
-**           2x2 block
+// *           2x2 block
              // DISC = SQRT( (HALF*(D(IBEGIN)-D(IEND)))**2 + E(IBEGIN)**2 )
              // TMP1 = HALF*(D(IBEGIN)+D(IEND))
              // L1 = TMP1 - DISC
@@ -253,7 +253,7 @@
       // $          L1-PIVMIN ) ) THEN
                 // M = M + 1
                 // W( M ) = L1
-**              The uncertainty of eigenvalues of a 2x2 matrix is very small
+// *              The uncertainty of eigenvalues of a 2x2 matrix is very small
                 // WERR( M ) = EPS * ABS( W( M ) ) * TWO
                 // IBLOCK( M ) = JBLK
                 // INDEXW( M ) = 1
@@ -267,7 +267,7 @@
       // $          L2-PIVMIN ) ) THEN
                 // M = M + 1
                 // W( M ) = L2
-**              The uncertainty of eigenvalues of a 2x2 matrix is very small
+// *              The uncertainty of eigenvalues of a 2x2 matrix is very small
                 // WERR( M ) = EPS * ABS( W( M ) ) * TWO
                 // IBLOCK( M ) = JBLK
                 // INDEXW( M ) = 2

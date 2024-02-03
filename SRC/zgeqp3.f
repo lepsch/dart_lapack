@@ -1,8 +1,8 @@
       SUBROUTINE ZGEQP3( M, N, A, LDA, JPVT, TAU, WORK, LWORK, RWORK, INFO );
 
-*  -- LAPACK computational routine --
-*  -- LAPACK is a software package provided by Univ. of Tennessee,    --
-*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+// -- LAPACK computational routine --
+// -- LAPACK is a software package provided by Univ. of Tennessee,    --
+// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
       int                INFO, LDA, LWORK, M, N;
@@ -13,7 +13,7 @@
       COMPLEX*16         A( LDA, * ), TAU( * ), WORK( * );
       // ..
 
-*  =====================================================================
+// =====================================================================
 
       // .. Parameters ..
       int                INB, INBMIN, IXOVER;
@@ -37,7 +37,7 @@
       // .. Executable Statements ..
 
       // Test input arguments
-*  ====================
+// ====================
 
       INFO = 0;
       LQUERY = ( LWORK == -1 );
@@ -93,27 +93,27 @@
       NFXD = NFXD - 1;
 
       // Factorize fixed columns
-*  =======================
+// =======================
 
       // Compute the QR factorization of fixed columns and update
       // remaining columns.
 
       if ( NFXD > 0 ) {
          NA = MIN( M, NFXD );
-*CC      CALL ZGEQR2( M, NA, A, LDA, TAU, WORK, INFO )
+// CC      CALL ZGEQR2( M, NA, A, LDA, TAU, WORK, INFO )
          zgeqrf(M, NA, A, LDA, TAU, WORK, LWORK, INFO );
          IWS = MAX( IWS, INT( WORK( 1 ) ) );
          if ( NA < N ) {
-*CC         CALL ZUNM2R( 'Left', 'Conjugate Transpose', M, N-NA,
-*CC  $                   NA, A, LDA, TAU, A( 1, NA+1 ), LDA, WORK,
-*CC  $                   INFO )
+// CC         CALL ZUNM2R( 'Left', 'Conjugate Transpose', M, N-NA,
+// CC  $                   NA, A, LDA, TAU, A( 1, NA+1 ), LDA, WORK,
+// CC  $                   INFO )
             zunmqr('Left', 'Conjugate Transpose', M, N-NA, NA, A, LDA, TAU, A( 1, NA+1 ), LDA, WORK, LWORK, INFO );
             IWS = MAX( IWS, INT( WORK( 1 ) ) );
          }
       }
 
       // Factorize free columns
-*  ======================
+// ======================
 
       if ( NFXD < MINMN ) {
 

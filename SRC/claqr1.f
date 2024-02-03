@@ -1,8 +1,8 @@
       SUBROUTINE CLAQR1( N, H, LDH, S1, S2, V );
 
-*  -- LAPACK auxiliary routine --
-*  -- LAPACK is a software package provided by Univ. of Tennessee,    --
-*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+// -- LAPACK auxiliary routine --
+// -- LAPACK is a software package provided by Univ. of Tennessee,    --
+// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
       COMPLEX            S1, S2;
@@ -12,7 +12,7 @@
       COMPLEX            H( LDH, * ), V( * );
       // ..
 
-*  ================================================================
+// ================================================================
 
       // .. Parameters ..
       COMPLEX            ZERO;

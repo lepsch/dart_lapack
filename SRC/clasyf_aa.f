@@ -1,8 +1,8 @@
       SUBROUTINE CLASYF_AA( UPLO, J1, M, NB, A, LDA, IPIV, H, LDH, WORK );
 
-*  -- LAPACK computational routine --
-*  -- LAPACK is a software package provided by Univ. of Tennessee,    --
-*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+// -- LAPACK computational routine --
+// -- LAPACK is a software package provided by Univ. of Tennessee,    --
+// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // IMPLICIT NONE
 
@@ -15,7 +15,7 @@
       COMPLEX            A( LDA, * ), H( LDH, * ), WORK( * );
       // ..
 
-*  =====================================================================
+// =====================================================================
       // .. Parameters ..
       COMPLEX            ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;

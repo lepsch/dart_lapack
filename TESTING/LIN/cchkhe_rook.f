@@ -1,8 +1,8 @@
       SUBROUTINE CCHKHE_ROOK( DOTYPE, NN, NVAL, NNB, NBVAL, NNS, NSVAL, THRESH, TSTERR, NMAX, A, AFAC, AINV, B, X, XACT, WORK, RWORK, IWORK, NOUT );
 
-*  -- LAPACK test routine --
-*  -- LAPACK is a software package provided by Univ. of Tennessee,    --
-*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+// -- LAPACK test routine --
+// -- LAPACK is a software package provided by Univ. of Tennessee,    --
+// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
       bool               TSTERR;
@@ -16,7 +16,7 @@
       COMPLEX            A( * ), AFAC( * ), AINV( * ), B( * ), WORK( * ), X( * ), XACT( * );
       // ..
 
-*  =====================================================================
+// =====================================================================
 
       // .. Parameters ..
       REAL               ZERO, ONE;
@@ -278,13 +278,13 @@
                      TRFCON = false;
                   }
 
-*+    TEST 1
+// +    TEST 1
                   // Reconstruct matrix from factors and compute residual.
 
                   chet01_rook(UPLO, N, A, LDA, AFAC, LDA, IWORK, AINV, LDA, RWORK, RESULT( 1 ) );
                   NT = 1;
 
-*+    TEST 2
+// +    TEST 2
                   // Form the inverse and compute the residual,
                   // if the factorization was competed without INFO > 0
                   // (i.e. there is no zero rows and columns).
@@ -317,7 +317,7 @@
                   } // 110
                   NRUN = NRUN + NT;
 
-*+    TEST 3
+// +    TEST 3
                   // Compute largest element in U or L
 
                   RESULT( 3 ) = ZERO;
@@ -395,7 +395,7 @@
                   }
 
 
-*+    TEST 4
+// +    TEST 4
                   // Compute largest 2-Norm (condition number)
                   // of 2-by-2 diag blocks
 
@@ -516,7 +516,7 @@
                      // Begin loop over NRHS values
 
 
-*+    TEST 5 ( Using TRS_ROOK)
+// +    TEST 5 ( Using TRS_ROOK)
                   // Solve and compute residual for  A * X = B.
 
                      // Choose a set of NRHS random solution vectors
@@ -539,7 +539,7 @@
 
                      cpot02(UPLO, N, NRHS, A, LDA, X, LDA, WORK, LDA, RWORK, RESULT( 5 ) );
 
-*+    TEST 6
+// +    TEST 6
                   // Check solution from generated exact solution.
 
                      cget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 6 ) );
@@ -559,7 +559,7 @@
 
                   } // 220
 
-*+    TEST 7
+// +    TEST 7
                   // Get an estimate of RCOND = 1/CNDNUM.
 
                   } // 230

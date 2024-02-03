@@ -1,8 +1,8 @@
       SUBROUTINE ALARQG( PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT );
 
-*  -- LAPACK test routine --
-*  -- LAPACK is a software package provided by Univ. of Tennessee,    --
-*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+// -- LAPACK test routine --
+// -- LAPACK is a software package provided by Univ. of Tennessee,    --
+// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
       String             PATH;
@@ -12,7 +12,7 @@
       bool               DOTYPE( * );
       // ..
 
-* ======================================================================
+// ======================================================================
 
       // .. Local Scalars ..
       bool               FIRSTT;

@@ -1,8 +1,8 @@
       int     FUNCTION ICMAX1( N, CX, INCX );
 
-*  -- LAPACK auxiliary routine --
-*  -- LAPACK is a software package provided by Univ. of Tennessee,    --
-*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+// -- LAPACK auxiliary routine --
+// -- LAPACK is a software package provided by Univ. of Tennessee,    --
+// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
       int                INCX, N;
@@ -11,7 +11,7 @@
       COMPLEX            CX(*);
       // ..
 
-*  =====================================================================
+// =====================================================================
 
       // .. Local Scalars ..
       REAL               SMAX;

@@ -1,8 +1,8 @@
       SUBROUTINE DBDT04( UPLO, N, D, E, S, NS, U, LDU, VT, LDVT, WORK, RESID );
 
-*  -- LAPACK test routine --
-*  -- LAPACK is a software package provided by Univ. of Tennessee,    --
-*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+// -- LAPACK test routine --
+// -- LAPACK is a software package provided by Univ. of Tennessee,    --
+// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
       String             UPLO;
@@ -13,7 +13,7 @@
       double             D( * ), E( * ), S( * ), U( LDU, * ), VT( LDVT, * ), WORK( * );
       // ..
 
-* ======================================================================
+// ======================================================================
 
       // .. Parameters ..
       double             ZERO, ONE;

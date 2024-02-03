@@ -1,8 +1,8 @@
       SUBROUTINE CGERC(M,N,ALPHA,X,INCX,Y,INCY,A,LDA);
 
-*  -- Reference BLAS level2 routine --
-*  -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
-*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+// -- Reference BLAS level2 routine --
+// -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
+// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
       COMPLEX ALPHA;
@@ -12,7 +12,7 @@
       COMPLEX A(LDA,*),X(*),Y(*);
       // ..
 
-*  =====================================================================
+// =====================================================================
 
       // .. Parameters ..
       COMPLEX ZERO;

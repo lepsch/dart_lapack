@@ -1,9 +1,9 @@
       SUBROUTINE SLAHQR( WANTT, WANTZ, N, ILO, IHI, H, LDH, WR, WI, ILOZ, IHIZ, Z, LDZ, INFO );
       // IMPLICIT NONE
 
-*  -- LAPACK auxiliary routine --
-*  -- LAPACK is a software package provided by Univ. of Tennessee,    --
-*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+// -- LAPACK auxiliary routine --
+// -- LAPACK is a software package provided by Univ. of Tennessee,    --
+// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
       int                IHI, IHIZ, ILO, ILOZ, INFO, LDH, LDZ, N;
@@ -13,7 +13,7 @@
       REAL               H( LDH, * ), WI( * ), WR( * ), Z( LDZ, * );
       // ..
 
-*  =========================================================
+// =========================================================
 
       // .. Parameters ..
       REAL               ZERO, ONE, TWO;

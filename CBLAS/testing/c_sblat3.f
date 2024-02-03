@@ -1,32 +1,32 @@
       void main() {
-*  Test program for the REAL             Level 3 Blas.
+// Test program for the REAL             Level 3 Blas.
 
-*  The program must be driven by a short data file. The first 13 records
-*  of the file are read using list-directed input, the last 6 records
-*  are read using the format ( A12, L2 ). An annotated example of a data
-*  file can be obtained by deleting the first 3 characters from the
-*  following 19 lines:
-*  'SBLAT3.SNAP'     NAME OF SNAPSHOT OUTPUT FILE
-*  -1                UNIT NUMBER OF SNAPSHOT FILE (NOT USED IF < 0)
-*  F        LOGICAL FLAG, T TO REWIND SNAPSHOT FILE AFTER EACH RECORD.
-*  F        LOGICAL FLAG, T TO STOP ON FAILURES.
-*  T        LOGICAL FLAG, T TO TEST ERROR EXITS.
-*  2        0 TO TEST COLUMN-MAJOR, 1 TO TEST ROW-MAJOR, 2 TO TEST BOTH
-*  16.0     THRESHOLD VALUE OF TEST RATIO
-*  6                 NUMBER OF VALUES OF N
-*  0 1 2 3 5 9       VALUES OF N
-*  3                 NUMBER OF VALUES OF ALPHA
-*  0.0 1.0 0.7       VALUES OF ALPHA
-*  3                 NUMBER OF VALUES OF BETA
-*  0.0 1.0 1.3       VALUES OF BETA
-*  cblas_sgemm  T PUT F FOR NO TEST. SAME COLUMNS.
-*  cblas_ssymm  T PUT F FOR NO TEST. SAME COLUMNS.
-*  cblas_strmm  T PUT F FOR NO TEST. SAME COLUMNS.
-*  cblas_strsm  T PUT F FOR NO TEST. SAME COLUMNS.
-*  cblas_ssyrk  T PUT F FOR NO TEST. SAME COLUMNS.
-*  cblas_ssyr2k T PUT F FOR NO TEST. SAME COLUMNS.
+// The program must be driven by a short data file. The first 13 records
+// of the file are read using list-directed input, the last 6 records
+// are read using the format ( A12, L2 ). An annotated example of a data
+// file can be obtained by deleting the first 3 characters from the
+// following 19 lines:
+// 'SBLAT3.SNAP'     NAME OF SNAPSHOT OUTPUT FILE
+// -1                UNIT NUMBER OF SNAPSHOT FILE (NOT USED IF < 0)
+// F        LOGICAL FLAG, T TO REWIND SNAPSHOT FILE AFTER EACH RECORD.
+// F        LOGICAL FLAG, T TO STOP ON FAILURES.
+// T        LOGICAL FLAG, T TO TEST ERROR EXITS.
+// 2        0 TO TEST COLUMN-MAJOR, 1 TO TEST ROW-MAJOR, 2 TO TEST BOTH
+// 16.0     THRESHOLD VALUE OF TEST RATIO
+// 6                 NUMBER OF VALUES OF N
+// 0 1 2 3 5 9       VALUES OF N
+// 3                 NUMBER OF VALUES OF ALPHA
+// 0.0 1.0 0.7       VALUES OF ALPHA
+// 3                 NUMBER OF VALUES OF BETA
+// 0.0 1.0 1.3       VALUES OF BETA
+// cblas_sgemm  T PUT F FOR NO TEST. SAME COLUMNS.
+// cblas_ssymm  T PUT F FOR NO TEST. SAME COLUMNS.
+// cblas_strmm  T PUT F FOR NO TEST. SAME COLUMNS.
+// cblas_strsm  T PUT F FOR NO TEST. SAME COLUMNS.
+// cblas_ssyrk  T PUT F FOR NO TEST. SAME COLUMNS.
+// cblas_ssyr2k T PUT F FOR NO TEST. SAME COLUMNS.
 
-*  See:
+// See:
 
       // Dongarra J. J., Du Croz J. J., Duff I. S. and Hammarling S.
       // A Set of Level 3 Basic Linear Algebra Subprograms.
@@ -35,7 +35,7 @@
       // Computer Science Division, Argonne National Laboratory, 9700
       // South Cass Avenue, Argonne, Illinois 60439, US.
 
-*  -- Written on 8-February-1989.
+// -- Written on 8-February-1989.
       // Jack Dongarra, Argonne National Laboratory.
       // Iain Duff, AERE Harwell.
       // Jeremy Du Croz, Numerical Algorithms Group Ltd.
@@ -351,11 +351,11 @@
       }
       SUBROUTINE SCHK1( SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NBET, BET, NMAX, A, AA, AS, B, BB, BS, C, CC, CS, CT, G, IORDER );
 
-*  Tests SGEMM.
+// Tests SGEMM.
 
-*  Auxiliary routine for test program for Level 3 Blas.
+// Auxiliary routine for test program for Level 3 Blas.
 
-*  -- Written on 8-February-1989.
+// -- Written on 8-February-1989.
       // Jack Dongarra, Argonne National Laboratory.
       // Iain Duff, AERE Harwell.
       // Jeremy Du Croz, Numerical Algorithms Group Ltd.
@@ -636,11 +636,11 @@
 
       SUBROUTINE SCHK2( SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NBET, BET, NMAX, A, AA, AS, B, BB, BS, C, CC, CS, CT, G, IORDER );
 
-*  Tests SSYMM.
+// Tests SSYMM.
 
-*  Auxiliary routine for test program for Level 3 Blas.
+// Auxiliary routine for test program for Level 3 Blas.
 
-*  -- Written on 8-February-1989.
+// -- Written on 8-February-1989.
       // Jack Dongarra, Argonne National Laboratory.
       // Iain Duff, AERE Harwell.
       // Jeremy Du Croz, Numerical Algorithms Group Ltd.
@@ -902,11 +902,11 @@
 
       SUBROUTINE SCHK3( SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NMAX, A, AA, AS, B, BB, BS, CT, G, C, IORDER );
 
-*  Tests STRMM and STRSM.
+// Tests STRMM and STRSM.
 
-*  Auxiliary routine for test program for Level 3 Blas.
+// Auxiliary routine for test program for Level 3 Blas.
 
-*  -- Written on 8-February-1989.
+// -- Written on 8-February-1989.
       // Jack Dongarra, Argonne National Laboratory.
       // Iain Duff, AERE Harwell.
       // Jeremy Du Croz, Numerical Algorithms Group Ltd.
@@ -1200,11 +1200,11 @@
 
       SUBROUTINE SCHK4( SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NBET, BET, NMAX, A, AA, AS, B, BB, BS, C, CC, CS, CT, G, IORDER );
 
-*  Tests SSYRK.
+// Tests SSYRK.
 
-*  Auxiliary routine for test program for Level 3 Blas.
+// Auxiliary routine for test program for Level 3 Blas.
 
-*  -- Written on 8-February-1989.
+// -- Written on 8-February-1989.
       // Jack Dongarra, Argonne National Laboratory.
       // Iain Duff, AERE Harwell.
       // Jeremy Du Croz, Numerical Algorithms Group Ltd.
@@ -1472,11 +1472,11 @@
 
       SUBROUTINE SCHK5( SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NBET, BET, NMAX, AB, AA, AS, BB, BS, C, CC, CS, CT, G, W, IORDER );
 
-*  Tests SSYR2K.
+// Tests SSYR2K.
 
-*  Auxiliary routine for test program for Level 3 Blas.
+// Auxiliary routine for test program for Level 3 Blas.
 
-*  -- Written on 8-February-1989.
+// -- Written on 8-February-1989.
       // Jack Dongarra, Argonne National Laboratory.
       // Iain Duff, AERE Harwell.
       // Jeremy Du Croz, Numerical Algorithms Group Ltd.
@@ -1772,15 +1772,15 @@
 
       SUBROUTINE SMAKE( TYPE, UPLO, DIAG, M, N, A, NMAX, AA, LDA, RESET, TRANSL );
 
-*  Generates values for an M by N matrix A.
-*  Stores the values in the array AA in the data structure required
-*  by the routine, with unwanted elements set to rogue value.
+// Generates values for an M by N matrix A.
+// Stores the values in the array AA in the data structure required
+// by the routine, with unwanted elements set to rogue value.
 
-*  TYPE is 'GE', 'SY' or 'TR'.
+// TYPE is 'GE', 'SY' or 'TR'.
 
-*  Auxiliary routine for test program for Level 3 Blas.
+// Auxiliary routine for test program for Level 3 Blas.
 
-*  -- Written on 8-February-1989.
+// -- Written on 8-February-1989.
       // Jack Dongarra, Argonne National Laboratory.
       // Iain Duff, AERE Harwell.
       // Jeremy Du Croz, Numerical Algorithms Group Ltd.
@@ -1879,11 +1879,11 @@
       }
       SUBROUTINE SMMCH( TRANSA, TRANSB, M, N, KK, ALPHA, A, LDA, B, LDB, BETA, C, LDC, CT, G, CC, LDCC, EPS, ERR, FATAL, NOUT, MV );
 
-*  Checks the results of the computational tests.
+// Checks the results of the computational tests.
 
-*  Auxiliary routine for test program for Level 3 Blas.
+// Auxiliary routine for test program for Level 3 Blas.
 
-*  -- Written on 8-February-1989.
+// -- Written on 8-February-1989.
       // Jack Dongarra, Argonne National Laboratory.
       // Iain Duff, AERE Harwell.
       // Jeremy Du Croz, Numerical Algorithms Group Ltd.
@@ -1993,11 +1993,11 @@
       }
       bool    FUNCTION LSE( RI, RJ, LR );
 
-*  Tests if two arrays are identical.
+// Tests if two arrays are identical.
 
-*  Auxiliary routine for test program for Level 3 Blas.
+// Auxiliary routine for test program for Level 3 Blas.
 
-*  -- Written on 8-February-1989.
+// -- Written on 8-February-1989.
       // Jack Dongarra, Argonne National Laboratory.
       // Iain Duff, AERE Harwell.
       // Jeremy Du Croz, Numerical Algorithms Group Ltd.
@@ -2024,13 +2024,13 @@
       }
       bool    FUNCTION LSERES( TYPE, UPLO, M, N, AA, AS, LDA );
 
-*  Tests if selected elements in two arrays are equal.
+// Tests if selected elements in two arrays are equal.
 
-*  TYPE is 'GE' or 'SY'.
+// TYPE is 'GE' or 'SY'.
 
-*  Auxiliary routine for test program for Level 3 Blas.
+// Auxiliary routine for test program for Level 3 Blas.
 
-*  -- Written on 8-February-1989.
+// -- Written on 8-February-1989.
       // Jack Dongarra, Argonne National Laboratory.
       // Iain Duff, AERE Harwell.
       // Jeremy Du Croz, Numerical Algorithms Group Ltd.
@@ -2083,11 +2083,11 @@
       }
       REAL FUNCTION SBEG( RESET );
 
-*  Generates random numbers uniformly distributed between -0.5 and 0.5.
+// Generates random numbers uniformly distributed between -0.5 and 0.5.
 
-*  Auxiliary routine for test program for Level 3 Blas.
+// Auxiliary routine for test program for Level 3 Blas.
 
-*  -- Written on 8-February-1989.
+// -- Written on 8-February-1989.
       // Jack Dongarra, Argonne National Laboratory.
       // Iain Duff, AERE Harwell.
       // Jeremy Du Croz, Numerical Algorithms Group Ltd.
@@ -2129,9 +2129,9 @@
       }
       REAL FUNCTION SDIFF( X, Y );
 
-*  Auxiliary routine for test program for Level 3 Blas.
+// Auxiliary routine for test program for Level 3 Blas.
 
-*  -- Written on 8-February-1989.
+// -- Written on 8-February-1989.
       // Jack Dongarra, Argonne National Laboratory.
       // Iain Duff, AERE Harwell.
       // Jeremy Du Croz, Numerical Algorithms Group Ltd.

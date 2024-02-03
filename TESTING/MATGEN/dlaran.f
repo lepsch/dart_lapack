@@ -1,14 +1,14 @@
       double           FUNCTION DLARAN( ISEED );
 
-*  -- LAPACK auxiliary routine --
-*  -- LAPACK is a software package provided by Univ. of Tennessee,    --
-*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+// -- LAPACK auxiliary routine --
+// -- LAPACK is a software package provided by Univ. of Tennessee,    --
+// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Array Arguments ..
       int                ISEED( 4 );
       // ..
 
-*  =====================================================================
+// =====================================================================
 
       // .. Parameters ..
       int                M1, M2, M3, M4;

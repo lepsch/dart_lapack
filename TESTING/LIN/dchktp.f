@@ -1,8 +1,8 @@
       SUBROUTINE DCHKTP( DOTYPE, NN, NVAL, NNS, NSVAL, THRESH, TSTERR, NMAX, AP, AINVP, B, X, XACT, WORK, RWORK, IWORK, NOUT );
 
-*  -- LAPACK test routine --
-*  -- LAPACK is a software package provided by Univ. of Tennessee,    --
-*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+// -- LAPACK test routine --
+// -- LAPACK is a software package provided by Univ. of Tennessee,    --
+// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
       bool               TSTERR;
@@ -15,7 +15,7 @@
       double             AINVP( * ), AP( * ), B( * ), RWORK( * ), WORK( * ), X( * ), XACT( * );
       // ..
 
-*  =====================================================================
+// =====================================================================
 
       // .. Parameters ..
       int                NTYPE1, NTYPES;
@@ -114,7 +114,7 @@
                   IDIAG = 2;
                }
 
-*+    TEST 1
+// +    TEST 1
                // Form the inverse of A.
 
                if (N > 0) CALL DCOPY( LAP, AP, 1, AINVP, 1 );
@@ -165,7 +165,7 @@
                         RCONDC = RCONDI;
                      }
 
-*+    TEST 2
+// +    TEST 2
                   // Solve and compute residual for op(A)*x = b.
 
                      SRNAMT = 'DLARHS';
@@ -182,12 +182,12 @@
 
                      dtpt02(UPLO, TRANS, DIAG, N, NRHS, AP, X, LDA, B, LDA, WORK, RESULT( 2 ) );
 
-*+    TEST 3
+// +    TEST 3
                   // Check solution from generated exact solution.
 
                      dget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 3 ) );
 
-*+    TESTS 4, 5, and 6
+// +    TESTS 4, 5, and 6
                   // Use iterative refinement to improve the solution and
                   // compute error bounds.
 
@@ -214,7 +214,7 @@
                   } // 30
                } // 40
 
-*+    TEST 7
+// +    TEST 7
                   // Get an estimate of RCOND = 1/CNDNUM.
 
                for (ITRAN = 1; ITRAN <= 2; ITRAN++) { // 50
@@ -270,7 +270,7 @@
                   SRNAMT = 'DLATTP';
                   dlattp(IMAT, UPLO, TRANS, DIAG, ISEED, N, AP, X, WORK, INFO );
 
-*+    TEST 8
+// +    TEST 8
                   // Solve the system op(A)*x = b.
 
                   SRNAMT = 'DLATPS';
@@ -283,7 +283,7 @@
 
                   dtpt03(UPLO, TRANS, DIAG, N, 1, AP, SCALE, RWORK, ONE, B, LDA, X, LDA, WORK, RESULT( 8 ) );
 
-*+    TEST 9
+// +    TEST 9
                   // Solve op(A)*x = b again with NORMIN = 'Y'.
 
                   dcopy(N, X, 1, B( N+1 ), 1 );

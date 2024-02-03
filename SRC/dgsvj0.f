@@ -1,8 +1,8 @@
       SUBROUTINE DGSVJ0( JOBV, M, N, A, LDA, D, SVA, MV, V, LDV, EPS, SFMIN, TOL, NSWEEP, WORK, LWORK, INFO );
 
-*  -- LAPACK computational routine --
-*  -- LAPACK is a software package provided by Univ. of Tennessee,    --
-*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+// -- LAPACK computational routine --
+// -- LAPACK is a software package provided by Univ. of Tennessee,    --
+// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
       int                INFO, LDA, LDV, LWORK, M, MV, N, NSWEEP;
@@ -13,7 +13,7 @@
       double             A( LDA, * ), SVA( N ), D( N ), V( LDV, * ), WORK( LWORK );
       // ..
 
-*  =====================================================================
+// =====================================================================
 
       // .. Local Parameters ..
       double             ZERO, HALF, ONE;
@@ -98,13 +98,13 @@
 
 
       SWBAND = 0;
-*[TP] SWBAND is a tuning parameter. It is meaningful and effective
+// [TP] SWBAND is a tuning parameter. It is meaningful and effective
       // if SGESVJ is used as a computational routine in the preconditioned
       // Jacobi SVD algorithm SGESVJ. For sweeps i=1:SWBAND the procedure
       // ......
 
       KBL = MIN( 8, N );
-*[TP] KBL is a tuning parameter that defines the tile size in the
+// [TP] KBL is a tuning parameter that defines the tile size in the
       // tiling of the p-q loops of pivot pairs. In general, an optimal
       // value of KBL depends on the matrix dimensions and on the
       // parameters of the computer's memory.
@@ -113,13 +113,13 @@
       IF( ( NBL*KBL ) != N )NBL = NBL + 1;
 
       BLSKIP = ( KBL**2 ) + 1;
-*[TP] BLKSKIP is a tuning parameter that depends on SWBAND and KBL.
+// [TP] BLKSKIP is a tuning parameter that depends on SWBAND and KBL.
 
       ROWSKIP = MIN( 5, KBL );
-*[TP] ROWSKIP is a tuning parameter.
+// [TP] ROWSKIP is a tuning parameter.
 
       LKAHEAD = 1;
-*[TP] LKAHEAD is a tuning parameter.
+// [TP] LKAHEAD is a tuning parameter.
       SWBAND = 0;
       PSKIPPED = 0;
 
@@ -377,8 +377,8 @@
             } // 1002
       // end of ir1-loop
 
-*........................................................
-* ... go to the off diagonal blocks
+// ........................................................
+// ... go to the off diagonal blocks
 
             igl = ( ibr-1 )*KBL + 1;
 
@@ -606,13 +606,13 @@
             } // 2010
       // end of the jbc-loop
             } // 2011
-*2011 bailed out of the jbc-loop
+// 2011 bailed out of the jbc-loop
             DO 2012 p = igl, MIN( igl+KBL-1, N );
                SVA( p ) = DABS( SVA( p ) );
             } // 2012
 
          } // 2000
-*2000 :: end of the ibr-loop
+// 2000 :: end of the ibr-loop
 
       // .. update SVA(N)
          if ( ( SVA( N ) < ROOTBIG ) && ( SVA( N ) > ROOTSFMIN ) ) {
@@ -636,16 +636,16 @@
 
       } // 1993
       // end i=1:NSWEEP loop
-* #:) Reaching this point means that the procedure has completed the given
+// #:) Reaching this point means that the procedure has completed the given
       // number of iterations.
       INFO = NSWEEP - 1;
       GO TO 1995;
       } // 1994
-* #:) Reaching this point means that during the i-th sweep all pivots were
+// #:) Reaching this point means that during the i-th sweep all pivots were
       // below the given tolerance, causing early exit.
 
       INFO = 0;
-* #:) INFO = 0 confirms successful iterations.
+// #:) INFO = 0 confirms successful iterations.
       } // 1995
 
       // Sort the vector D.

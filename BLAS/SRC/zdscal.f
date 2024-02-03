@@ -1,8 +1,8 @@
       SUBROUTINE ZDSCAL(N,DA,ZX,INCX);
 
-*  -- Reference BLAS level1 routine --
-*  -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
-*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+// -- Reference BLAS level1 routine --
+// -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
+// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
       double           DA;
@@ -12,7 +12,7 @@
       COMPLEX*16 ZX(*);
       // ..
 
-*  =====================================================================
+// =====================================================================
 
       // .. Local Scalars ..
       int     I,NINCX;

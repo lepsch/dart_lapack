@@ -1,8 +1,8 @@
       SUBROUTINE SDRVSY_RK( DOTYPE, NN, NVAL, NRHS, THRESH, TSTERR, NMAX, A, AFAC, E, AINV, B, X, XACT, WORK, RWORK, IWORK, NOUT );
 
-*  -- LAPACK test routine --
-*  -- LAPACK is a software package provided by Univ. of Tennessee,    --
-*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+// -- LAPACK test routine --
+// -- LAPACK is a software package provided by Univ. of Tennessee,    --
+// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
       bool               TSTERR;
@@ -15,7 +15,7 @@
       REAL               A( * ), AFAC( * ), AINV( * ), B( * ), E( * ), RWORK( * ), WORK( * ), X( * ), XACT( * );
       // ..
 
-*  =====================================================================
+// =====================================================================
 
       // .. Parameters ..
       REAL               ONE, ZERO;
@@ -298,17 +298,17 @@
                         GO TO 120;
                      }
 
-*+    TEST 1      Reconstruct matrix from factors and compute
+// +    TEST 1      Reconstruct matrix from factors and compute
                   // residual.
 
                      ssyt01_3(UPLO, N, A, LDA, AFAC, LDA, E, IWORK, AINV, LDA, RWORK, RESULT( 1 ) );
 
-*+    TEST 2      Compute residual of the computed solution.
+// +    TEST 2      Compute residual of the computed solution.
 
                      slacpy('Full', N, NRHS, B, LDA, WORK, LDA );
                      spot02(UPLO, N, NRHS, A, LDA, X, LDA, WORK, LDA, RWORK, RESULT( 2 ) );
 
-*+    TEST 3
+// +    TEST 3
                   // Check solution from generated exact solution.
 
                      sget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 3 ) );

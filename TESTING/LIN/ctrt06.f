@@ -1,8 +1,8 @@
       SUBROUTINE CTRT06( RCOND, RCONDC, UPLO, DIAG, N, A, LDA, RWORK, RAT );
 
-*  -- LAPACK test routine --
-*  -- LAPACK is a software package provided by Univ. of Tennessee,    --
-*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+// -- LAPACK test routine --
+// -- LAPACK is a software package provided by Univ. of Tennessee,    --
+// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
       String             DIAG, UPLO;
@@ -14,7 +14,7 @@
       COMPLEX            A( LDA, * );
       // ..
 
-*  =====================================================================
+// =====================================================================
 
       // .. Parameters ..
       REAL               ZERO, ONE;

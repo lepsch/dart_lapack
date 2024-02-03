@@ -1,8 +1,8 @@
       SUBROUTINE DHGEQZ( JOB, COMPQ, COMPZ, N, ILO, IHI, H, LDH, T, LDT, ALPHAR, ALPHAI, BETA, Q, LDQ, Z, LDZ, WORK, LWORK, INFO );
 
-*  -- LAPACK computational routine --
-*  -- LAPACK is a software package provided by Univ. of Tennessee,    --
-*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+// -- LAPACK computational routine --
+// -- LAPACK is a software package provided by Univ. of Tennessee,    --
+// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
       String             COMPQ, COMPZ, JOB;
@@ -12,10 +12,10 @@
       double             ALPHAI( * ), ALPHAR( * ), BETA( * ), H( LDH, * ), Q( LDQ, * ), T( LDT, * ), WORK( * ), Z( LDZ, * );
       // ..
 
-*  =====================================================================
+// =====================================================================
 
       // .. Parameters ..
-*    $                     SAFETY = 1.0 )
+// $                     SAFETY = 1.0 )
       double             HALF, ZERO, ONE, SAFETY;
       const              HALF = 0.5, ZERO = 0.0, ONE = 1.0, SAFETY = 1.0e+2 ;
       // ..

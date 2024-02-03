@@ -1,8 +1,8 @@
       SUBROUTINE STPMLQT( SIDE, TRANS, M, N, K, L, MB, V, LDV, T, LDT, A, LDA, B, LDB, WORK, INFO );
 
-*  -- LAPACK computational routine --
-*  -- LAPACK is a software package provided by Univ. of Tennessee,    --
-*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+// -- LAPACK computational routine --
+// -- LAPACK is a software package provided by Univ. of Tennessee,    --
+// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
       String    SIDE, TRANS;
@@ -12,7 +12,7 @@
       REAL   V( LDV, * ), A( LDA, * ), B( LDB, * ), T( LDT, * ), WORK( * );
       // ..
 
-*  =====================================================================
+// =====================================================================
 
       // ..
       // .. Local Scalars ..

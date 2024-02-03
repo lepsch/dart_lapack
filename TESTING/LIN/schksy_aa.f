@@ -1,8 +1,8 @@
       SUBROUTINE SCHKSY_AA( DOTYPE, NN, NVAL, NNB, NBVAL, NNS, NSVAL, THRESH, TSTERR, NMAX, A, AFAC, AINV, B, X, XACT, WORK, RWORK, IWORK, NOUT );
 
-*  -- LAPACK test routine --
-*  -- LAPACK is a software package provided by Univ. of Tennessee,    --
-*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+// -- LAPACK test routine --
+// -- LAPACK is a software package provided by Univ. of Tennessee,    --
+// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // IMPLICIT NONE
 
@@ -17,7 +17,7 @@
       REAL         A( * ), AFAC( * ), AINV( * ), B( * ), RWORK( * ), WORK( * ), X( * ), XACT( * );
       // ..
 
-*  =====================================================================
+// =====================================================================
 
       // .. Parameters ..
       REAL         ZERO;
@@ -249,7 +249,7 @@
                    // IF( IZERO > 0 ) THEN
                       // J = 1
                       // K = IZERO
-c  100                CONTINUE
+// 100                CONTINUE
                       // IF( J == K ) THEN
                          // K = IWORK( J )
                       // ELSE IF( IWORK( J ) == K ) THEN
@@ -269,7 +269,7 @@ c  100                CONTINUE
                      alaerh(PATH, 'SSYTRF_AA', INFO, K, UPLO, N, N, -1, -1, NB, IMAT, NFAIL, NERRS, NOUT );
                   }
 
-*+    TEST 1
+// +    TEST 1
                   // Reconstruct matrix from factors and compute residual.
 
                   ssyt01_aa(UPLO, N, A, LDA, AFAC, LDA, IWORK, AINV, LDA, RWORK, RESULT( 1 ) );
@@ -298,7 +298,7 @@ c  100                CONTINUE
                   for (IRHS = 1; IRHS <= NNS; IRHS++) { // 130
                      NRHS = NSVAL( IRHS );
 
-*+    TEST 2 (Using TRS)
+// +    TEST 2 (Using TRS)
                   // Solve and compute residual for  A * X = B.
 
                      // Choose a set of NRHS random solution vectors

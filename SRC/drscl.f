@@ -1,8 +1,8 @@
       SUBROUTINE DRSCL( N, SA, SX, INCX );
 
-*  -- LAPACK auxiliary routine --
-*  -- LAPACK is a software package provided by Univ. of Tennessee,    --
-*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+// -- LAPACK auxiliary routine --
+// -- LAPACK is a software package provided by Univ. of Tennessee,    --
+// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
       int                INCX, N;
@@ -12,7 +12,7 @@
       double             SX( * );
       // ..
 
-* =====================================================================
+// =====================================================================
 
       // .. Parameters ..
       double             ONE, ZERO;

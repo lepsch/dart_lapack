@@ -1,8 +1,8 @@
       SUBROUTINE ZLAED0( QSIZ, N, D, E, Q, LDQ, QSTORE, LDQS, RWORK, IWORK, INFO );
 
-*  -- LAPACK computational routine --
-*  -- LAPACK is a software package provided by Univ. of Tennessee,    --
-*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+// -- LAPACK computational routine --
+// -- LAPACK is a software package provided by Univ. of Tennessee,    --
+// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
       int                INFO, LDQ, LDQS, N, QSIZ;
@@ -13,9 +13,9 @@
       COMPLEX*16         Q( LDQ, * ), QSTORE( LDQS, * );
       // ..
 
-*  =====================================================================
+// =====================================================================
 
-*  Warning:      N could be as big as QSIZ!
+// Warning:      N could be as big as QSIZ!
 
       // .. Parameters ..
       double             TWO;
@@ -44,7 +44,7 @@
       // IF( ICOMPQ < 0 || ICOMPQ > 2 ) THEN
          // INFO = -1
       // ELSE IF( ( ICOMPQ == 1 ) && ( QSIZ < MAX( 0, N ) ) )
-*    $        THEN
+// $        THEN
       if ( QSIZ < MAX( 0, N ) ) {
          INFO = -1;
       } else if ( N < 0 ) {

@@ -1,9 +1,9 @@
       void main() {
-*  -- LAPACK test routine --
-*  -- LAPACK is a software package provided by Univ. of Tennessee,    --
-*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+// -- LAPACK test routine --
+// -- LAPACK is a software package provided by Univ. of Tennessee,    --
+// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
-*  =====================================================================
+// =====================================================================
 
       // .. Parameters ..
       int                MAXIN;
@@ -167,26 +167,26 @@
 
       if (TSTERR) CALL CERRRFP( NOUT );
 
-*    Test the routines: cpftrf, cpftri, cpftrs (as in CDRVPO).
-*    This also tests the routines: ctfsm, ctftri, ctfttr, ctrttf.
+// Test the routines: cpftrf, cpftri, cpftrs (as in CDRVPO).
+// This also tests the routines: ctfsm, ctftri, ctfttr, ctrttf.
 
       cdrvrfp(NOUT, NN, NVAL, NNS, NSVAL, NNT, NTVAL, THRESH, WORKA, WORKASAV, WORKAFAC, WORKAINV, WORKB, WORKBSAV, WORKXACT, WORKX, WORKARF, WORKARFINV, C_WORK_CLATMS, C_WORK_CPOT02, C_WORK_CPOT03, S_WORK_CLATMS, S_WORK_CLANHE, S_WORK_CPOT01, S_WORK_CPOT02, S_WORK_CPOT03 );
 
-*    Test the routine: clanhf
+// Test the routine: clanhf
 
       cdrvrf1(NOUT, NN, NVAL, THRESH, WORKA, NMAX, WORKARF, S_WORK_CLANHE );
 
-*    Test the conversion routines:
+// Test the conversion routines:
         // chfttp, ctpthf, ctfttr, ctrttf, ctrttp and ctpttr.
 
       cdrvrf2(NOUT, NN, NVAL, WORKA, NMAX, WORKARF, WORKAP, WORKASAV );
 
-*    Test the routine: ctfsm
+// Test the routine: ctfsm
 
       cdrvrf3(NOUT, NN, NVAL, THRESH, WORKA, NMAX, WORKARF, WORKAINV, WORKAFAC, S_WORK_CLANHE, C_WORK_CPOT03, C_WORK_CPOT02 );
 
 
-*    Test the routine: chfrk
+// Test the routine: chfrk
 
       cdrvrf4(NOUT, NN, NVAL, THRESH, WORKA, WORKAFAC, NMAX, WORKARF, WORKAINV, NMAX, S_WORK_CLANHE);
 

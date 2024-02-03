@@ -2,9 +2,9 @@
 
       // IMPLICIT NONE
 
-*  -- LAPACK computational routine --
-*  -- LAPACK is a software package provided by Univ. of Tennessee,    --
-*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+// -- LAPACK computational routine --
+// -- LAPACK is a software package provided by Univ. of Tennessee,    --
+// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
       String             VECT, UPLO;
@@ -15,7 +15,7 @@
       double             A( LDA, * ), TAU( * ), HOUS2( * ), WORK( * );
       // ..
 
-*  =====================================================================
+// =====================================================================
       // ..
       // .. Local Scalars ..
       bool               LQUERY, UPPER, WANTQ;

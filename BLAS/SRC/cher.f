@@ -1,8 +1,8 @@
       SUBROUTINE CHER(UPLO,N,ALPHA,X,INCX,A,LDA);
 
-*  -- Reference BLAS level2 routine --
-*  -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
-*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+// -- Reference BLAS level2 routine --
+// -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
+// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
       REAL ALPHA;
@@ -13,7 +13,7 @@
       COMPLEX A(LDA,*),X(*);
       // ..
 
-*  =====================================================================
+// =====================================================================
 
       // .. Parameters ..
       COMPLEX ZERO;

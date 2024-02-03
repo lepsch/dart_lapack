@@ -1,8 +1,8 @@
       SUBROUTINE ALAERH( PATH, SUBNAM, INFO, INFOE, OPTS, M, N, KL, KU, N5, IMAT, NFAIL, NERRS, NOUT );
 
-*  -- LAPACK test routine --
-*  -- LAPACK is a software package provided by Univ. of Tennessee,    --
-*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+// -- LAPACK test routine --
+// -- LAPACK is a software package provided by Univ. of Tennessee,    --
+// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
       String             PATH;
@@ -11,7 +11,7 @@
       int                IMAT, INFO, INFOE, KL, KU, M, N, N5, NERRS, NFAIL, NOUT;
       // ..
 
-*  =====================================================================
+// =====================================================================
 
       // .. Local Scalars ..
       String             UPLO;

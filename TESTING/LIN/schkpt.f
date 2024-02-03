@@ -1,8 +1,8 @@
       SUBROUTINE SCHKPT( DOTYPE, NN, NVAL, NNS, NSVAL, THRESH, TSTERR, A, D, E, B, X, XACT, WORK, RWORK, NOUT );
 
-*  -- LAPACK test routine --
-*  -- LAPACK is a software package provided by Univ. of Tennessee,    --
-*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+// -- LAPACK test routine --
+// -- LAPACK is a software package provided by Univ. of Tennessee,    --
+// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
       bool               TSTERR;
@@ -15,7 +15,7 @@
       REAL               A( * ), B( * ), D( * ), E( * ), RWORK( * ), WORK( * ), X( * ), XACT( * );
       // ..
 
-*  =====================================================================
+// =====================================================================
 
       // .. Parameters ..
       REAL               ONE, ZERO;
@@ -205,7 +205,7 @@
             scopy(N, D, 1, D( N+1 ), 1 );
             if (N > 1) CALL SCOPY( N-1, E, 1, E( N+1 ), 1 );
 
-*+    TEST 1
+// +    TEST 1
             // Factor A as L*D*L' and compute the ratio
                // norm(L*D*L' - A) / (n * norm(A) * EPS )
 
@@ -269,7 +269,7 @@
 
                slaptm(N, NRHS, ONE, D, E, XACT, LDA, ZERO, B, LDA );
 
-*+    TEST 2
+// +    TEST 2
             // Solve A*x = b and compute the residual.
 
                slacpy('Full', N, NRHS, B, LDA, X, LDA );
@@ -282,12 +282,12 @@
                slacpy('Full', N, NRHS, B, LDA, WORK, LDA );
                sptt02(N, NRHS, D, E, X, LDA, WORK, LDA, RESULT( 2 ) );
 
-*+    TEST 3
+// +    TEST 3
             // Check solution from generated exact solution.
 
                sget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 3 ) );
 
-*+    TESTS 4, 5, and 6
+// +    TESTS 4, 5, and 6
             // Use iterative refinement to improve the solution.
 
                SRNAMT = 'SPTRFS';
@@ -312,7 +312,7 @@
                NRUN = NRUN + 5;
             } // 80
 
-*+    TEST 7
+// +    TEST 7
             // Estimate the reciprocal of the condition number of the
             // matrix.
 

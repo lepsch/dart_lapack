@@ -1,8 +1,8 @@
       SUBROUTINE DGEJSV( JOBA, JOBU, JOBV, JOBR, JOBT, JOBP, M, N, A, LDA, SVA, U, LDU, V, LDV, WORK, LWORK, IWORK, INFO );
 
-*  -- LAPACK computational routine --
-*  -- LAPACK is a software package provided by Univ. of Tennessee,    --
-*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+// -- LAPACK computational routine --
+// -- LAPACK is a software package provided by Univ. of Tennessee,    --
+// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
       IMPLICIT    NONE;
@@ -14,7 +14,7 @@
       String      JOBA, JOBP, JOBR, JOBT, JOBU, JOBV;
       // ..
 
-*  ===========================================================================
+// ===========================================================================
 
       // .. Local Parameters ..
       double             ZERO,  ONE;
@@ -90,7 +90,7 @@
       }
 
       // Quick return for void matrix (Y3K safe)
-* #:)
+// #:)
       if ( ( M == 0 ) || ( N == 0 ) ) {
          IWORK(1:3) = 0;
          WORK(1:7) = 0;
@@ -106,7 +106,7 @@
 
       // Set numerical parameters
 
-*!    NOTE: Make sure DLAMCH() does not fail on the target architecture.
+// !    NOTE: Make sure DLAMCH() does not fail on the target architecture.
 
       EPSLN = DLAMCH('Epsilon');
       SFMIN = DLAMCH('SafeMinimum');
@@ -116,7 +116,7 @@
 
       // Initialize SVA(1:N) = diag( ||A e_i||_2 )_1^N
 
-*(!)  If necessary, scale SVA() to protect the largest norm from
+// (!)  If necessary, scale SVA() to protect the largest norm from
       // overflow. It is possible that this scaling pushes the smallest
       // column norm left from the underflow threshold (extreme case).
 
@@ -155,7 +155,7 @@
       } // 4781
 
       // Quick return for zero M x N matrix
-* #:)
+// #:)
       if ( AAPP == ZERO ) {
          if (LSVEC) CALL DLASET( 'G', M, N1, ZERO, ONE, U, LDU );
          if (RSVEC) CALL DLASET( 'G', N, N,  ZERO, ONE, V, LDV );
@@ -179,7 +179,7 @@
       // Issue warning if denormalized column norms detected. Override the
       // high relative accuracy request. Issue licence to kill columns
       // (set them to zero) whose norm is less than sigma_max / BIG (roughly).
-* #:(
+// #:(
       WARNING = 0;
       if ( AAQQ <= SFMIN ) {
          L2RANK = true;
@@ -188,7 +188,7 @@
       }
 
       // Quick return for one-column matrix
-* #:)
+// #:)
       if ( N == 1 ) {
 
          if ( LSVEC ) {
@@ -779,7 +779,7 @@
             // more conservative    <=> CONDR1 < DSQRT(DBLE(N))
 
             COND_OK = DSQRT(DBLE(NR));
-*[TP]       COND_OK is a tuning parameter.
+// [TP]       COND_OK is a tuning parameter.
 
             if ( CONDR1 < COND_OK ) {
                // .. the second QRF without pivoting. Note: in an optimized
@@ -822,8 +822,8 @@
                   IWORK(N+p) = 0;
                } // 3003
                dgeqp3(N, NR, V, LDV, IWORK(N+1), WORK(N+1), WORK(2*N+1), LWORK-2*N, IERR );
-**               CALL DGEQRF( N, NR, V, LDV, WORK(N+1), WORK(2*N+1),
-**     $              LWORK-2*N, IERR )
+// *               CALL DGEQRF( N, NR, V, LDV, WORK(N+1), WORK(2*N+1),
+// *     $              LWORK-2*N, IERR )
                if ( L2PERT ) {
                   XSC = DSQRT(SMALL);
                   for (p = 2; p <= NR; p++) { // 3969
@@ -902,7 +902,7 @@
          // .. pick the right matrix equation and solve it
 
                if ( NR == N ) {
-* :))             .. best case, R1 is inverted. The solution of this matrix
+// :))             .. best case, R1 is inverted. The solution of this matrix
                   // equation is Q2*V2 = the product of the Jacobi rotations
                   // used in DGESVJ, premultiplied with the orthogonal matrix
                   // from the second QR factorization.
@@ -923,7 +923,7 @@
 
             } else if ( CONDR2 < COND_OK ) {
 
-* :)           .. the input matrix A is very likely a relative of
+// :)           .. the input matrix A is very likely a relative of
                // the Kahan matrix :)
                // The matrix R2 is inverted. The solution of the matrix equation
                // is Q3^T*V3 = the product of the Jacobi rotations (applied to
@@ -954,7 +954,7 @@
                dormqr('L','N',N,N,NR,WORK(2*N+1),N,WORK(N+1), V,LDV,WORK(2*N+N*NR+NR+1),LWORK-2*N-N*NR-NR,IERR );
             } else {
                // Last line of defense.
-* #:(          This is a rather pathological case: no scaled condition
+// #:(          This is a rather pathological case: no scaled condition
                // improvement after two pivoted QR factorizations. Other
                // possibility is that the rank revealing QR factorization
                // or the condition estimator has failed, or the COND_OK

@@ -1,8 +1,8 @@
       SUBROUTINE SLARRK( N, IW, GL, GU, D, E2, PIVMIN, RELTOL, W, WERR, INFO);
 
-*  -- LAPACK auxiliary routine --
-*  -- LAPACK is a software package provided by Univ. of Tennessee,    --
-*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+// -- LAPACK auxiliary routine --
+// -- LAPACK is a software package provided by Univ. of Tennessee,    --
+// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
       int       INFO, IW, N;
@@ -12,7 +12,7 @@
       REAL               D( * ), E2( * );
       // ..
 
-*  =====================================================================
+// =====================================================================
 
       // .. Parameters ..
       REAL               FUDGE, HALF, TWO, ZERO;

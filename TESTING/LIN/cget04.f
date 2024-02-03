@@ -1,8 +1,8 @@
       SUBROUTINE CGET04( N, NRHS, X, LDX, XACT, LDXACT, RCOND, RESID );
 
-*  -- LAPACK test routine --
-*  -- LAPACK is a software package provided by Univ. of Tennessee,    --
-*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+// -- LAPACK test routine --
+// -- LAPACK is a software package provided by Univ. of Tennessee,    --
+// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
       int                LDX, LDXACT, N, NRHS;
@@ -12,7 +12,7 @@
       COMPLEX            X( LDX, * ), XACT( LDXACT, * );
       // ..
 
-*  =====================================================================
+// =====================================================================
 
       // .. Parameters ..
       REAL               ZERO;

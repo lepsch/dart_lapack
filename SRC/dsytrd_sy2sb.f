@@ -2,9 +2,9 @@
 
       // IMPLICIT NONE
 
-*  -- LAPACK computational routine --
-*  -- LAPACK is a software package provided by Univ. of Tennessee,    --
-*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+// -- LAPACK computational routine --
+// -- LAPACK is a software package provided by Univ. of Tennessee,    --
+// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
       String             UPLO;
@@ -14,7 +14,7 @@
       double             A( LDA, * ), AB( LDAB, * ),  TAU( * ), WORK( * );
       // ..
 
-*  =====================================================================
+// =====================================================================
 
       // .. Parameters ..
       double             RONE;
@@ -209,7 +209,7 @@
               // DO 45 J = I, I+PK-1
                  // LK = MIN( KD, N-J ) + 1
                  // CALL DCOPY( LK, AB( 1, J ), 1, A( J, J ), 1 )
-*   45        CONTINUE
+// 45        CONTINUE
              // ==================================================================
           } // 40
 

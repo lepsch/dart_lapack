@@ -1,14 +1,14 @@
       SUBROUTINE ZCHKGK( NIN, NOUT );
 
-*  -- LAPACK test routine --
-*  -- LAPACK is a software package provided by Univ. of Tennessee,    --
-*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+// -- LAPACK test routine --
+// -- LAPACK is a software package provided by Univ. of Tennessee,    --
+// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
       int                NIN, NOUT;
       // ..
 
-*  =====================================================================
+// =====================================================================
 
       // .. Parameters ..
       int                LDA, LDB, LDVL, LDVR;

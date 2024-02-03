@@ -1,8 +1,8 @@
       SUBROUTINE DGGGLM( N, M, P, A, LDA, B, LDB, D, X, Y, WORK, LWORK, INFO );
 
-*  -- LAPACK driver routine --
-*  -- LAPACK is a software package provided by Univ. of Tennessee,    --
-*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+// -- LAPACK driver routine --
+// -- LAPACK is a software package provided by Univ. of Tennessee,    --
+// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
       int                INFO, LDA, LDB, LWORK, M, N, P;
@@ -11,7 +11,7 @@
       double             A( LDA, * ), B( LDB, * ), D( * ), WORK( * ), X( * ), Y( * );
       // ..
 
-*  ===================================================================
+// ===================================================================
 
       // .. Parameters ..
       double             ZERO, ONE;

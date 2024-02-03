@@ -1,8 +1,8 @@
       SUBROUTINE CCHKGE( DOTYPE, NM, MVAL, NN, NVAL, NNB, NBVAL, NNS, NSVAL, THRESH, TSTERR, NMAX, A, AFAC, AINV, B, X, XACT, WORK, RWORK, IWORK, NOUT );
 
-*  -- LAPACK test routine --
-*  -- LAPACK is a software package provided by Univ. of Tennessee,    --
-*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+// -- LAPACK test routine --
+// -- LAPACK is a software package provided by Univ. of Tennessee,    --
+// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
       bool               TSTERR;
@@ -16,7 +16,7 @@
       COMPLEX            A( * ), AFAC( * ), AINV( * ), B( * ), WORK( * ), X( * ), XACT( * );
       // ..
 
-*  =====================================================================
+// =====================================================================
 
       // .. Parameters ..
       REAL               ONE, ZERO;
@@ -168,14 +168,14 @@
                   if (INFO != IZERO) CALL ALAERH( PATH, 'CGETRF', INFO, IZERO, ' ', M, N, -1, -1, NB, IMAT, NFAIL, NERRS, NOUT );
                   TRFCON = false;
 
-*+    TEST 1
+// +    TEST 1
                   // Reconstruct matrix from factors and compute residual.
 
                   clacpy('Full', M, N, AFAC, LDA, AINV, LDA );
                   cget01(M, N, A, LDA, AINV, LDA, IWORK, RWORK, RESULT( 1 ) );
                   NT = 1;
 
-*+    TEST 2
+// +    TEST 2
                   // Form the inverse if the factorization was successful
                   // and compute the residual.
 
@@ -247,7 +247,7 @@
                            RCONDC = RCONDI;
                         }
 
-*+    TEST 3
+// +    TEST 3
                         // Solve and compute residual for A * X = B.
 
                         SRNAMT = 'CLARHS';
@@ -265,12 +265,12 @@
                         clacpy('Full', N, NRHS, B, LDA, WORK, LDA );
                         cget02(TRANS, N, N, NRHS, A, LDA, X, LDA, WORK, LDA, RWORK, RESULT( 3 ) );
 
-*+    TEST 4
+// +    TEST 4
                         // Check solution from generated exact solution.
 
                         cget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 4 ) );
 
-*+    TESTS 5, 6, and 7
+// +    TESTS 5, 6, and 7
                         // Use iterative refinement to improve the
                         // solution.
 
@@ -297,7 +297,7 @@
                      } // 50
                   } // 60
 
-*+    TEST 8
+// +    TEST 8
                      // Get an estimate of RCOND = 1/CNDNUM.
 
                   } // 70

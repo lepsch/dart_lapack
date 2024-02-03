@@ -1,8 +1,8 @@
       SUBROUTINE DLASD4( N, I, D, Z, DELTA, RHO, SIGMA, WORK, INFO );
 
-*  -- LAPACK auxiliary routine --
-*  -- LAPACK is a software package provided by Univ. of Tennessee,    --
-*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+// -- LAPACK auxiliary routine --
+// -- LAPACK is a software package provided by Univ. of Tennessee,    --
+// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
       int                I, INFO, N;
@@ -12,7 +12,7 @@
       double             D( * ), DELTA( * ), WORK( * ), Z( * );
       // ..
 
-*  =====================================================================
+// =====================================================================
 
       // .. Parameters ..
       int                MAXIT;
@@ -170,7 +170,7 @@
          PHI = Z( N )*TEMP;
          DPHI = TEMP*TEMP;
          ERRETM = EIGHT*( -PHI-PSI ) + ERRETM - PHI + RHOINV;
-*    $          + ABS( TAU2 )*( DPSI+DPHI )
+// $          + ABS( TAU2 )*( DPSI+DPHI )
 
          W = RHOINV + PHI + PSI;
 
@@ -236,7 +236,7 @@
          PHI = Z( N )*TEMP;
          DPHI = TEMP*TEMP;
          ERRETM = EIGHT*( -PHI-PSI ) + ERRETM - PHI + RHOINV;
-*    $          + ABS( TAU2 )*( DPSI+DPHI )
+// $          + ABS( TAU2 )*( DPSI+DPHI )
 
          W = RHOINV + PHI + PSI;
 
@@ -304,7 +304,7 @@
             PHI = Z( N )*TEMP;
             DPHI = TEMP*TEMP;
             ERRETM = EIGHT*( -PHI-PSI ) + ERRETM - PHI + RHOINV;
-*    $             + ABS( TAU2 )*( DPSI+DPHI )
+// $             + ABS( TAU2 )*( DPSI+DPHI )
 
             W = RHOINV + PHI + PSI;
          } // 90
@@ -450,7 +450,7 @@
          TEMP = Z( II )*TEMP;
          W = W + TEMP;
          ERRETM = EIGHT*( PHI-PSI ) + ERRETM + TWO*RHOINV + THREE*ABS( TEMP );
-*    $          + ABS( TAU2 )*DW
+// $          + ABS( TAU2 )*DW
 
          // Test for convergence
 
@@ -627,7 +627,7 @@
          TEMP = Z( II )*TEMP;
          W = RHOINV + PHI + PSI + TEMP;
          ERRETM = EIGHT*( PHI-PSI ) + ERRETM + TWO*RHOINV + THREE*ABS( TEMP );
-*    $          + ABS( TAU2 )*DW
+// $          + ABS( TAU2 )*DW
 
          SWTCH = false;
          if ( ORGATI ) {
@@ -852,7 +852,7 @@
             TEMP = Z( II )*TEMP;
             W = RHOINV + PHI + PSI + TEMP;
             ERRETM = EIGHT*( PHI-PSI ) + ERRETM + TWO*RHOINV + THREE*ABS( TEMP );
-*    $             + ABS( TAU2 )*DW
+// $             + ABS( TAU2 )*DW
 
             IF( W*PREW > ZERO && ABS( W ) > ABS( PREW ) / TEN ) SWTCH = !SWTCH;
 

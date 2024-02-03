@@ -1,8 +1,8 @@
       SUBROUTINE ZCHKPB( DOTYPE, NN, NVAL, NNB, NBVAL, NNS, NSVAL, THRESH, TSTERR, NMAX, A, AFAC, AINV, B, X, XACT, WORK, RWORK, NOUT );
 
-*  -- LAPACK test routine --
-*  -- LAPACK is a software package provided by Univ. of Tennessee,    --
-*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+// -- LAPACK test routine --
+// -- LAPACK is a software package provided by Univ. of Tennessee,    --
+// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
       bool               TSTERR;
@@ -16,7 +16,7 @@
       COMPLEX*16         A( * ), AFAC( * ), AINV( * ), B( * ), WORK( * ), X( * ), XACT( * );
       // ..
 
-*  =====================================================================
+// =====================================================================
 
       // .. Parameters ..
       double             ONE, ZERO;
@@ -233,7 +233,7 @@
 
                      if (INFO != 0) GO TO 50;
 
-*+    TEST 1
+// +    TEST 1
                      // Reconstruct matrix from factors and compute
                      // residual.
 
@@ -272,7 +272,7 @@
                      for (IRHS = 1; IRHS <= NNS; IRHS++) { // 40
                         NRHS = NSVAL( IRHS );
 
-*+    TEST 2
+// +    TEST 2
                      // Solve and compute residual for A * X = B.
 
                         SRNAMT = 'ZLARHS';
@@ -289,12 +289,12 @@
                         zlacpy('Full', N, NRHS, B, LDA, WORK, LDA );
                         zpbt02(UPLO, N, KD, NRHS, A, LDAB, X, LDA, WORK, LDA, RWORK, RESULT( 2 ) );
 
-*+    TEST 3
+// +    TEST 3
                      // Check solution from generated exact solution.
 
                         zget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 3 ) );
 
-*+    TESTS 4, 5, and 6
+// +    TESTS 4, 5, and 6
                      // Use iterative refinement to improve the solution.
 
                         SRNAMT = 'ZPBRFS';
@@ -319,7 +319,7 @@
                         NRUN = NRUN + 5;
                      } // 40
 
-*+    TEST 7
+// +    TEST 7
                      // Get an estimate of RCOND = 1/CNDNUM.
 
                      SRNAMT = 'ZPBCON';

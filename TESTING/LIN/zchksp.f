@@ -1,8 +1,8 @@
       SUBROUTINE ZCHKSP( DOTYPE, NN, NVAL, NNS, NSVAL, THRESH, TSTERR, NMAX, A, AFAC, AINV, B, X, XACT, WORK, RWORK, IWORK, NOUT );
 
-*  -- LAPACK test routine --
-*  -- LAPACK is a software package provided by Univ. of Tennessee,    --
-*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+// -- LAPACK test routine --
+// -- LAPACK is a software package provided by Univ. of Tennessee,    --
+// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
       bool               TSTERR;
@@ -16,7 +16,7 @@
       COMPLEX*16         A( * ), AFAC( * ), AINV( * ), B( * ), WORK( * ), X( * ), XACT( * );
       // ..
 
-*  =====================================================================
+// =====================================================================
 
       // .. Parameters ..
       double             ZERO;
@@ -235,13 +235,13 @@
                   TRFCON = false;
                }
 
-*+    TEST 1
+// +    TEST 1
                // Reconstruct matrix from factors and compute residual.
 
                zspt01(UPLO, N, A, AFAC, IWORK, AINV, LDA, RWORK, RESULT( 1 ) );
                NT = 1;
 
-*+    TEST 2
+// +    TEST 2
                // Form the inverse and compute the residual.
 
                if ( !TRFCON ) {
@@ -278,7 +278,7 @@
                for (IRHS = 1; IRHS <= NNS; IRHS++) { // 130
                   NRHS = NSVAL( IRHS );
 
-*+    TEST 3
+// +    TEST 3
                // Solve and compute residual for  A * X = B.
 
                   SRNAMT = 'ZLARHS';
@@ -295,12 +295,12 @@
                   zlacpy('Full', N, NRHS, B, LDA, WORK, LDA );
                   zspt02(UPLO, N, NRHS, A, X, LDA, WORK, LDA, RWORK, RESULT( 3 ) );
 
-*+    TEST 4
+// +    TEST 4
                // Check solution from generated exact solution.
 
                   zget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 4 ) );
 
-*+    TESTS 5, 6, and 7
+// +    TESTS 5, 6, and 7
                // Use iterative refinement to improve the solution.
 
                   SRNAMT = 'ZSPRFS';
@@ -325,7 +325,7 @@
                   NRUN = NRUN + 5;
                } // 130
 
-*+    TEST 8
+// +    TEST 8
                // Get an estimate of RCOND = 1/CNDNUM.
 
                } // 140

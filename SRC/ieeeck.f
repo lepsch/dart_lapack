@@ -1,15 +1,15 @@
       int              FUNCTION IEEECK( ISPEC, ZERO, ONE );
 
-*  -- LAPACK auxiliary routine --
-*  -- LAPACK is a software package provided by Univ. of Tennessee,    --
-*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+// -- LAPACK auxiliary routine --
+// -- LAPACK is a software package provided by Univ. of Tennessee,    --
+// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
       int                ISPEC;
       REAL               ONE, ZERO;
       // ..
 
-*  =====================================================================
+// =====================================================================
 
       // .. Local Scalars ..
       REAL               NAN1, NAN2, NAN3, NAN4, NAN5, NAN6, NEGINF, NEGZRO, NEWZRO, POSINF;

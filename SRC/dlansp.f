@@ -1,8 +1,8 @@
       double           FUNCTION DLANSP( NORM, UPLO, N, AP, WORK );
 
-*  -- LAPACK auxiliary routine --
-*  -- LAPACK is a software package provided by Univ. of Tennessee,    --
-*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+// -- LAPACK auxiliary routine --
+// -- LAPACK is a software package provided by Univ. of Tennessee,    --
+// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
       String             NORM, UPLO;
@@ -12,7 +12,7 @@
       double             AP( * ), WORK( * );
       // ..
 
-* =====================================================================
+// =====================================================================
 
       // .. Parameters ..
       double             ONE, ZERO;

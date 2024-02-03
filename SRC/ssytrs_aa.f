@@ -1,8 +1,8 @@
       SUBROUTINE SSYTRS_AA( UPLO, N, NRHS, A, LDA, IPIV, B, LDB, WORK, LWORK, INFO );
 
-*  -- LAPACK computational routine --
-*  -- LAPACK is a software package provided by Univ. of Tennessee,    --
-*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+// -- LAPACK computational routine --
+// -- LAPACK is a software package provided by Univ. of Tennessee,    --
+// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // IMPLICIT NONE
 
@@ -15,7 +15,7 @@
       REAL               A( LDA, * ), B( LDB, * ), WORK( * );
       // ..
 
-*  =====================================================================
+// =====================================================================
 
       REAL               ONE;
       const              ONE = 1.0 ;

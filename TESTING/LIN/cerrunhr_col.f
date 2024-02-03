@@ -1,16 +1,16 @@
       SUBROUTINE CERRUNHR_COL( PATH, NUNIT );
       // IMPLICIT NONE
 
-*  -- LAPACK test routine --
-*  -- LAPACK is a software package provided by Univ. of Tennessee,    --
-*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+// -- LAPACK test routine --
+// -- LAPACK is a software package provided by Univ. of Tennessee,    --
+// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
       String   (LEN=3)   PATH;
       int                NUNIT;
       // ..
 
-*  =====================================================================
+// =====================================================================
 
       // .. Parameters ..
       int                NMAX;

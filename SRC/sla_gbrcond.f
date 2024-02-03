@@ -1,8 +1,8 @@
       REAL FUNCTION SLA_GBRCOND( TRANS, N, KL, KU, AB, LDAB, AFB, LDAFB, IPIV, CMODE, C, INFO, WORK, IWORK );
 
-*  -- LAPACK computational routine --
-*  -- LAPACK is a software package provided by Univ. of Tennessee,    --
-*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+// -- LAPACK computational routine --
+// -- LAPACK is a software package provided by Univ. of Tennessee,    --
+// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
       String             TRANS;
@@ -11,9 +11,9 @@
       // .. Array Arguments ..
       int                IWORK( * ), IPIV( * );
       REAL               AB( LDAB, * ), AFB( LDAFB, * ), WORK( * ), C( * );
-*    ..
+// ..
 
-*  =====================================================================
+// =====================================================================
 
       // .. Local Scalars ..
       bool               NOTRANS;

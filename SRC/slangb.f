@@ -1,8 +1,8 @@
       REAL             FUNCTION SLANGB( NORM, N, KL, KU, AB, LDAB, WORK );
 
-*  -- LAPACK auxiliary routine --
-*  -- LAPACK is a software package provided by Univ. of Tennessee,    --
-*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+// -- LAPACK auxiliary routine --
+// -- LAPACK is a software package provided by Univ. of Tennessee,    --
+// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
       String             NORM;
@@ -12,7 +12,7 @@
       REAL               AB( LDAB, * ), WORK( * );
       // ..
 
-* =====================================================================
+// =====================================================================
 
 
       // .. Parameters ..

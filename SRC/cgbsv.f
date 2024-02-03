@@ -1,8 +1,8 @@
       SUBROUTINE CGBSV( N, KL, KU, NRHS, AB, LDAB, IPIV, B, LDB, INFO );
 
-*  -- LAPACK driver routine --
-*  -- LAPACK is a software package provided by Univ. of Tennessee,    --
-*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+// -- LAPACK driver routine --
+// -- LAPACK is a software package provided by Univ. of Tennessee,    --
+// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
       int                INFO, KL, KU, LDAB, LDB, N, NRHS;
@@ -12,7 +12,7 @@
       COMPLEX            AB( LDAB, * ), B( LDB, * );
       // ..
 
-*  =====================================================================
+// =====================================================================
 
       // .. External Subroutines ..
       // EXTERNAL CGBTRF, CGBTRS, XERBLA

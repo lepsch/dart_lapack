@@ -1,8 +1,8 @@
       SUBROUTINE SLAVSP( UPLO, TRANS, DIAG, N, NRHS, A, IPIV, B, LDB, INFO );
 
-*  -- LAPACK test routine --
-*  -- LAPACK is a software package provided by Univ. of Tennessee,    --
-*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+// -- LAPACK test routine --
+// -- LAPACK is a software package provided by Univ. of Tennessee,    --
+// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
       String             DIAG, TRANS, UPLO;
@@ -13,7 +13,7 @@
       REAL               A( * ), B( LDB, * );
       // ..
 
-*  =====================================================================
+// =====================================================================
 
       // .. Parameters ..
       REAL               ONE;
@@ -60,11 +60,11 @@
       if (N == 0) RETURN;
 
       NOUNIT = LSAME( DIAG, 'N' );
-*------------------------------------------
+// ------------------------------------------
 
       // Compute  B := A * B  (No transpose)
 
-*------------------------------------------
+// ------------------------------------------
       if ( LSAME( TRANS, 'N' ) ) {
 
          // Compute  B := U*B
@@ -225,11 +225,11 @@
             GO TO 40;
             } // 60
          }
-*----------------------------------------
+// ----------------------------------------
 
       // Compute  B := A' * B  (transpose)
 
-*----------------------------------------
+// ----------------------------------------
       } else {
 
          // Form  B := U'*B

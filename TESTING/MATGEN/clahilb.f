@@ -1,8 +1,8 @@
       SUBROUTINE CLAHILB( N, NRHS, A, LDA, X, LDX, B, LDB, WORK, INFO, PATH);
 
-*  -- LAPACK test routine --
-*  -- LAPACK is a software package provided by Univ. of Tennessee,    --
-*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+// -- LAPACK test routine --
+// -- LAPACK is a software package provided by Univ. of Tennessee,    --
+// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
       int     N, NRHS, LDA, LDX, LDB, INFO;
@@ -12,7 +12,7 @@
       String             PATH;
       // ..
 
-*  =====================================================================
+// =====================================================================
       // .. Local Scalars ..
       int     TM, TI, R;
       int     M;

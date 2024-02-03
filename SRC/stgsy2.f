@@ -1,8 +1,8 @@
       SUBROUTINE STGSY2( TRANS, IJOB, M, N, A, LDA, B, LDB, C, LDC, D, LDD, E, LDE, F, LDF, SCALE, RDSUM, RDSCAL, IWORK, PQ, INFO );
 
-*  -- LAPACK auxiliary routine --
-*  -- LAPACK is a software package provided by Univ. of Tennessee,    --
-*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+// -- LAPACK auxiliary routine --
+// -- LAPACK is a software package provided by Univ. of Tennessee,    --
+// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
       String             TRANS;
@@ -14,9 +14,9 @@
       REAL               A( LDA, * ), B( LDB, * ), C( LDC, * ), D( LDD, * ), E( LDE, * ), F( LDF, * );
       // ..
 
-*  =====================================================================
-*  Replaced various illegal calls to SCOPY by calls to SLASET.
-*  Sven Hammarling, 27/5/02.
+// =====================================================================
+// Replaced various illegal calls to SCOPY by calls to SLASET.
+// Sven Hammarling, 27/5/02.
 
       // .. Parameters ..
       int                LDZ;

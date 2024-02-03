@@ -1,14 +1,14 @@
       int     FUNCTION ILADIAG( DIAG );
 
-*  -- LAPACK computational routine --
-*  -- LAPACK is a software package provided by Univ. of Tennessee,    --
-*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+// -- LAPACK computational routine --
+// -- LAPACK is a software package provided by Univ. of Tennessee,    --
+// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
       String             DIAG;
       // ..
 
-*  =====================================================================
+// =====================================================================
 
       // .. Parameters ..
       int     BLAS_NON_UNIT_DIAG, BLAS_UNIT_DIAG;

@@ -1,14 +1,14 @@
       int     FUNCTION IPARMQ( ISPEC, NAME, OPTS, N, ILO, IHI, LWORK );
 
-*  -- LAPACK auxiliary routine --
-*  -- LAPACK is a software package provided by Univ. of Tennessee,    --
-*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+// -- LAPACK auxiliary routine --
+// -- LAPACK is a software package provided by Univ. of Tennessee,    --
+// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
       int                IHI, ILO, ISPEC, LWORK, N;
       String             NAME*( * ), OPTS*( * );
 
-*  ================================================================
+// ================================================================
       // .. Parameters ..
       int                INMIN, INWIN, INIBL, ISHFTS, IACC22, ICOST;
       const              INMIN = 12, INWIN = 13, INIBL = 14, ISHFTS = 15, IACC22 = 16, ICOST = 17 ;

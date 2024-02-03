@@ -1,8 +1,8 @@
       SUBROUTINE ZROT( N, CX, INCX, CY, INCY, C, S );
 
-*  -- LAPACK auxiliary routine --
-*  -- LAPACK is a software package provided by Univ. of Tennessee,    --
-*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+// -- LAPACK auxiliary routine --
+// -- LAPACK is a software package provided by Univ. of Tennessee,    --
+// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
       int                INCX, INCY, N;
@@ -13,7 +13,7 @@
       COMPLEX*16         CX( * ), CY( * );
       // ..
 
-* =====================================================================
+// =====================================================================
 
       // .. Local Scalars ..
       int                I, IX, IY;

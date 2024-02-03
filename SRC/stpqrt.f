@@ -1,8 +1,8 @@
       SUBROUTINE STPQRT( M, N, L, NB, A, LDA, B, LDB, T, LDT, WORK, INFO );
 
-*  -- LAPACK computational routine --
-*  -- LAPACK is a software package provided by Univ. of Tennessee,    --
-*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+// -- LAPACK computational routine --
+// -- LAPACK is a software package provided by Univ. of Tennessee,    --
+// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
       int     INFO, LDA, LDB, LDT, N, M, L, NB;
@@ -11,7 +11,7 @@
       REAL A( LDA, * ), B( LDB, * ), T( LDT, * ), WORK( * );
       // ..
 
-* =====================================================================
+// =====================================================================
 
       // ..
       // .. Local Scalars ..

@@ -1,9 +1,9 @@
       void main() {
-*  -- Reference BLAS test routine --
-*  -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
-*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+// -- Reference BLAS test routine --
+// -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
+// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
-*  =====================================================================
+// =====================================================================
 
       // .. Parameters ..
       int              NOUT;
@@ -524,7 +524,7 @@
       int               INCX, N;
       double            THRESH;
 
-*  =====================================================================
+// =====================================================================
       // .. Parameters ..
       int               NMAX, NOUT, NV;
       const             NMAX=20, NOUT=6, NV=10;

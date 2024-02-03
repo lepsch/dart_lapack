@@ -1,9 +1,9 @@
       void main() {
-*  -- Reference BLAS test routine --
-*  -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
-*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+// -- Reference BLAS test routine --
+// -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
+// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
-*  =====================================================================
+// =====================================================================
 
       // .. Parameters ..
       int              NOUT;
@@ -115,7 +115,7 @@
       DATA              DBTRUE/0.0, 0.6, 0.0, -0.6, 0.0, 0.0, 1.0, 0.0/;
       // INPUT FOR MODIFIED GIVENS
       DATA DAB/ .1,.3,1.2,.2, .7, .2, .6, 4.2, 0.0,0.0,0.0,0.0, 4.0, -1.0, 2.0, 4.0, 6e-10, 2e-2, 1e5, 10.0, 4e10, 2e-2, 1e-5, 10.0, 2e-10, 4e-2, 1e5, 10.0, 2e10, 4e-2, 1e-5, 10.0, 4.0, -2.0, 8.0, 4.0    /;
-*    TRUE RESULTS FOR MODIFIED GIVENS
+// TRUE RESULTS FOR MODIFIED GIVENS
       DATA DTRUE/0.0,0.0, 1.3, .2, 0.0,0.0,0.0, .5, 0.0, 0.0,0.0, 4.5, 4.2, 1.0, .5, 0.0,0.0,0.0, 0.0,0.0,0.0,0.0, -2.0, 0.0,0.0,0.0,0.0, 0.0,0.0,0.0, 4.0, -1.0, 0.0,0.0,0.0,0.0, 0.0, 15e-3, 0.0, 10.0, -1.0, 0.0, -1e-4, 0.0, 1.0, 0.0,0.0, 6144e-5, 10.0, -1.0, 4096.0, -1e6, 0.0, 1.0, 0.0,0.0,15.0,10.0,-1.0, 5e-5, 0.0,1.0,0.0, 0.0,0.0, 15.0, 10.0, -1. D0, 5e5, -4096.0, 1.0, 4096e-6, 0.0,0.0, 7.0, 4.0, 0.0,0.0, -.5, -.25, 0.0/;
                     // 4096 = 2 ** 12
       DATA D12  /4096.0/;
@@ -801,7 +801,7 @@
       int               INCX, N;
       double            THRESH;
 
-*  =====================================================================
+// =====================================================================
       // .. Parameters ..
       int               NMAX, NOUT, NV;
       const             NMAX=20, NOUT=6, NV=10;

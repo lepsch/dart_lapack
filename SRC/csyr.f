@@ -1,8 +1,8 @@
       SUBROUTINE CSYR( UPLO, N, ALPHA, X, INCX, A, LDA );
 
-*  -- LAPACK auxiliary routine --
-*  -- LAPACK is a software package provided by Univ. of Tennessee,    --
-*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+// -- LAPACK auxiliary routine --
+// -- LAPACK is a software package provided by Univ. of Tennessee,    --
+// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
       String             UPLO;
@@ -13,7 +13,7 @@
       COMPLEX            A( LDA, * ), X( * );
       // ..
 
-* =====================================================================
+// =====================================================================
 
       // .. Parameters ..
       COMPLEX            ZERO;

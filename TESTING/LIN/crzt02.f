@@ -1,8 +1,8 @@
       REAL             FUNCTION CRZT02( M, N, AF, LDA, TAU, WORK, LWORK );
 
-*  -- LAPACK test routine --
-*  -- LAPACK is a software package provided by Univ. of Tennessee,    --
-*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+// -- LAPACK test routine --
+// -- LAPACK is a software package provided by Univ. of Tennessee,    --
+// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
       int                LDA, LWORK, M, N;
@@ -11,7 +11,7 @@
       COMPLEX            AF( LDA, * ), TAU( * ), WORK( LWORK );
       // ..
 
-*  =====================================================================
+// =====================================================================
 
       // .. Parameters ..
       REAL               ZERO, ONE;

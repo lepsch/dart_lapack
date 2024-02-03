@@ -1,14 +1,14 @@
       bool    FUNCTION LSAME(CA,CB);
 
-*  -- Reference BLAS level1 routine --
-*  -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
-*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+// -- Reference BLAS level1 routine --
+// -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
+// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
       String    CA,CB;
       // ..
 
-* =====================================================================
+// =====================================================================
 
       // .. Intrinsic Functions ..
       // INTRINSIC ICHAR

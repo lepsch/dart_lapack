@@ -1,8 +1,8 @@
       SUBROUTINE CLALSD( UPLO, SMLSIZ, N, NRHS, D, E, B, LDB, RCOND, RANK, WORK, RWORK, IWORK, INFO );
 
-*  -- LAPACK computational routine --
-*  -- LAPACK is a software package provided by Univ. of Tennessee,    --
-*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+// -- LAPACK computational routine --
+// -- LAPACK is a software package provided by Univ. of Tennessee,    --
+// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
       String             UPLO;
@@ -15,7 +15,7 @@
       COMPLEX            B( LDB, * ), WORK( * );
       // ..
 
-*  =====================================================================
+// =====================================================================
 
       // .. Parameters ..
       REAL               ZERO, ONE, TWO;
@@ -183,7 +183,7 @@
          // (in the real version of the code V**H is stored in WORK).
 
          // CALL SGEMM( 'T', 'N', N, NRHS, N, ONE, WORK, N, B, LDB, ZERO,
-*    $               WORK( NWORK ), N )
+// $               WORK( NWORK ), N )
 
          J = IRWB - 1;
          for (JCOL = 1; JCOL <= NRHS; JCOL++) { // 120
@@ -395,8 +395,8 @@
             // is performed in two steps (real and imaginary parts).
 
             // CALL SGEMM( 'T', 'N', NSIZE, NRHS, NSIZE, ONE,
-*    $                  RWORK( VT+ST1 ), N, RWORK( BXST ), N, ZERO,
-*    $                  B( ST, 1 ), LDB )
+// $                  RWORK( VT+ST1 ), N, RWORK( BXST ), N, ZERO,
+// $                  B( ST, 1 ), LDB )
 
             J = BXST - N - 1;
             JREAL = IRWB - 1;

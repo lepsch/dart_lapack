@@ -1,8 +1,8 @@
       SUBROUTINE CSROT( N, CX, INCX, CY, INCY, C, S );
 
-*  -- Reference BLAS level1 routine --
-*  -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
-*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+// -- Reference BLAS level1 routine --
+// -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
+// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
       int               INCX, INCY, N;
@@ -12,7 +12,7 @@
       COMPLEX           CX( * ), CY( * );
       // ..
 
-*  =====================================================================
+// =====================================================================
 
       // .. Local Scalars ..
       int               I, IX, IY;

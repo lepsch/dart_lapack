@@ -1,15 +1,15 @@
       SUBROUTINE XERBLA( SRNAME, INFO );
 
-*  -- Reference BLAS level1 routine --
-*  -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
-*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+// -- Reference BLAS level1 routine --
+// -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
+// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
       List<String>         SRNAME;
       int                INFO;
       // ..
 
-* =====================================================================
+// =====================================================================
 
       // .. Intrinsic Functions ..
       // INTRINSIC LEN_TRIM

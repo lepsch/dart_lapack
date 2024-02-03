@@ -1,8 +1,8 @@
       SUBROUTINE DSYTRS2( UPLO, N, NRHS, A, LDA, IPIV, B, LDB, WORK, INFO );
 
-*  -- LAPACK computational routine --
-*  -- LAPACK is a software package provided by Univ. of Tennessee,    --
-*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+// -- LAPACK computational routine --
+// -- LAPACK is a software package provided by Univ. of Tennessee,    --
+// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
       String             UPLO;
@@ -13,7 +13,7 @@
       double             A( LDA, * ), B( LDB, * ), WORK( * );
       // ..
 
-*  =====================================================================
+// =====================================================================
 
       // .. Parameters ..
       double             ONE;
@@ -84,11 +84,11 @@
          }
         }
 
-*  Compute (U \P**T * B) -> B    [ (U \P**T * B) ]
+// Compute (U \P**T * B) -> B    [ (U \P**T * B) ]
 
         dtrsm('L','U','N','U',N,NRHS,ONE,A,LDA,B,LDB);
 
-*  Compute D \ B -> B   [ D \ (U \P**T * B) ]
+// Compute D \ B -> B   [ D \ (U \P**T * B) ]
 
          I=N;
          DO WHILE ( I >= 1 );
@@ -157,11 +157,11 @@
          }
         }
 
-*  Compute (L \P**T * B) -> B    [ (L \P**T * B) ]
+// Compute (L \P**T * B) -> B    [ (L \P**T * B) ]
 
         dtrsm('L','L','N','U',N,NRHS,ONE,A,LDA,B,LDB);
 
-*  Compute D \ B -> B   [ D \ (L \P**T * B) ]
+// Compute D \ B -> B   [ D \ (L \P**T * B) ]
 
          I=1;
          DO WHILE ( I <= N );
@@ -183,7 +183,7 @@
             I = I + 1;
          }
 
-*  Compute (L**T \ B) -> B   [ L**T \ (D \ (L \P**T * B) ) ]
+// Compute (L**T \ B) -> B   [ L**T \ (D \ (L \P**T * B) ) ]
 
         dtrsm('L','L','T','U',N,NRHS,ONE,A,LDA,B,LDB);
 

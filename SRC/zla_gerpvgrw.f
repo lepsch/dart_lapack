@@ -1,8 +1,8 @@
       double           FUNCTION ZLA_GERPVGRW( N, NCOLS, A, LDA, AF, LDAF );
 
-*  -- LAPACK computational routine --
-*  -- LAPACK is a software package provided by Univ. of Tennessee,    --
-*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+// -- LAPACK computational routine --
+// -- LAPACK is a software package provided by Univ. of Tennessee,    --
+// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
       int                N, NCOLS, LDA, LDAF;
@@ -11,7 +11,7 @@
       COMPLEX*16         A( LDA, * ), AF( LDAF, * );
       // ..
 
-*  =====================================================================
+// =====================================================================
 
       // .. Local Scalars ..
       int                I, J;

@@ -1,8 +1,8 @@
       SUBROUTINE ZLATB4( PATH, IMAT, M, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST );
 
-*  -- LAPACK test routine --
-*  -- LAPACK is a software package provided by Univ. of Tennessee,    --
-*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+// -- LAPACK test routine --
+// -- LAPACK is a software package provided by Univ. of Tennessee,    --
+// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
       String             DIST, TYPE;
@@ -11,7 +11,7 @@
       double             ANORM, CNDNUM;
       // ..
 
-*  =====================================================================
+// =====================================================================
 
       // .. Parameters ..
       double             SHRINK, TENTH;

@@ -1,8 +1,8 @@
       SUBROUTINE DLAQSY( UPLO, N, A, LDA, S, SCOND, AMAX, EQUED );
 
-*  -- LAPACK auxiliary routine --
-*  -- LAPACK is a software package provided by Univ. of Tennessee,    --
-*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+// -- LAPACK auxiliary routine --
+// -- LAPACK is a software package provided by Univ. of Tennessee,    --
+// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
       String             EQUED, UPLO;
@@ -13,7 +13,7 @@
       double             A( LDA, * ), S( * );
       // ..
 
-*  =====================================================================
+// =====================================================================
 
       // .. Parameters ..
       double             ONE, THRESH;

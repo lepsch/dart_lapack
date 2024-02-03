@@ -1,8 +1,8 @@
       SUBROUTINE DTRTTP( UPLO, N, A, LDA, AP, INFO );
 
-*  -- LAPACK computational routine --
-*  -- LAPACK is a software package provided by Univ. of Tennessee,    --
-*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+// -- LAPACK computational routine --
+// -- LAPACK is a software package provided by Univ. of Tennessee,    --
+// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
       String             UPLO;
@@ -12,7 +12,7 @@
       double             A( LDA, * ), AP( * );
       // ..
 
-*  =====================================================================
+// =====================================================================
 
       // .. Parameters ..
       // ..

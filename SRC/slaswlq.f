@@ -1,58 +1,58 @@
-*> \param[out] INFO
-*> \verbatim
-*>          INFO is INTEGER
-*>          = 0:  successful exit
-*>          < 0:  if INFO = -i, the i-th argument had an illegal value
-*> \endverbatim
+// > \param[out] INFO
+// > \verbatim
+// >          INFO is INTEGER
+// >          = 0:  successful exit
+// >          < 0:  if INFO = -i, the i-th argument had an illegal value
+// > \endverbatim
 
-*  Authors:
-*  ========
+// Authors:
+// ========
 
-*> \author Univ. of Tennessee
-*> \author Univ. of California Berkeley
-*> \author Univ. of Colorado Denver
-*> \author NAG Ltd.
+// > \author Univ. of Tennessee
+// > \author Univ. of California Berkeley
+// > \author Univ. of Colorado Denver
+// > \author NAG Ltd.
 
-*> \par Further Details:
-*  =====================
-*>
-*> \verbatim
-*> Short-Wide LQ (SWLQ) performs LQ by a sequence of orthogonal transformations,
-*> representing Q as a product of other orthogonal matrices
-*>   Q = Q(1) * Q(2) * . . . * Q(k)
-*> where each Q(i) zeros out upper diagonal entries of a block of NB rows of A:
-*>   Q(1) zeros out the upper diagonal entries of rows 1:NB of A
-*>   Q(2) zeros out the bottom MB-N rows of rows [1:M,NB+1:2*NB-M] of A
-*>   Q(3) zeros out the bottom MB-N rows of rows [1:M,2*NB-M+1:3*NB-2*M] of A
-*>   . . .
-*>
-*> Q(1) is computed by GELQT, which represents Q(1) by Householder vectors
-*> stored under the diagonal of rows 1:MB of A, and by upper triangular
-*> block reflectors, stored in array T(1:LDT,1:N).
-*> For more information see Further Details in GELQT.
-*>
-*> Q(i) for i>1 is computed by TPLQT, which represents Q(i) by Householder vectors
-*> stored in columns [(i-1)*(NB-M)+M+1:i*(NB-M)+M] of A, and by upper triangular
-*> block reflectors, stored in array T(1:LDT,(i-1)*M+1:i*M).
-*> The last Q(k) may use fewer rows.
-*> For more information see Further Details in TPQRT.
-*>
-*> For more details of the overall algorithm, see the description of
-*> Sequential TSQR in Section 2.2 of [1].
-*>
-*> [1] “Communication-Optimal Parallel and Sequential QR and LU Factorizations,”
-*>     J. Demmel, L. Grigori, M. Hoemmen, J. Langou,
-*>     SIAM J. Sci. Comput, vol. 34, no. 1, 2012
-*> \endverbatim
-*>
-*> \ingroup laswlq
-*>
-*  =====================================================================
+// > \par Further Details:
+// =====================
+// >
+// > \verbatim
+// > Short-Wide LQ (SWLQ) performs LQ by a sequence of orthogonal transformations,
+// > representing Q as a product of other orthogonal matrices
+// >   Q = Q(1) * Q(2) * . . . * Q(k)
+// > where each Q(i) zeros out upper diagonal entries of a block of NB rows of A:
+// >   Q(1) zeros out the upper diagonal entries of rows 1:NB of A
+// >   Q(2) zeros out the bottom MB-N rows of rows [1:M,NB+1:2*NB-M] of A
+// >   Q(3) zeros out the bottom MB-N rows of rows [1:M,2*NB-M+1:3*NB-2*M] of A
+// >   . . .
+// >
+// > Q(1) is computed by GELQT, which represents Q(1) by Householder vectors
+// > stored under the diagonal of rows 1:MB of A, and by upper triangular
+// > block reflectors, stored in array T(1:LDT,1:N).
+// > For more information see Further Details in GELQT.
+// >
+// > Q(i) for i>1 is computed by TPLQT, which represents Q(i) by Householder vectors
+// > stored in columns [(i-1)*(NB-M)+M+1:i*(NB-M)+M] of A, and by upper triangular
+// > block reflectors, stored in array T(1:LDT,(i-1)*M+1:i*M).
+// > The last Q(k) may use fewer rows.
+// > For more information see Further Details in TPQRT.
+// >
+// > For more details of the overall algorithm, see the description of
+// > Sequential TSQR in Section 2.2 of [1].
+// >
+// > [1] “Communication-Optimal Parallel and Sequential QR and LU Factorizations,”
+// >     J. Demmel, L. Grigori, M. Hoemmen, J. Langou,
+// >     SIAM J. Sci. Comput, vol. 34, no. 1, 2012
+// > \endverbatim
+// >
+// > \ingroup laswlq
+// >
+// =====================================================================
       SUBROUTINE SLASWLQ( M, N, MB, NB, A, LDA, T, LDT, WORK, LWORK, INFO );
 
-*  -- LAPACK computational routine --
-*  -- LAPACK is a software package provided by Univ. of Tennessee,    --
-*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd. --
+// -- LAPACK computational routine --
+// -- LAPACK is a software package provided by Univ. of Tennessee,    --
+// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd. --
 
       // .. Scalar Arguments ..
       int                INFO, LDA, M, N, MB, NB, LWORK, LDT;
@@ -61,7 +61,7 @@
       REAL               A( LDA, * ), WORK( * ), T( LDT, * );
       // ..
 
-*  =====================================================================
+// =====================================================================
 
       // ..
       // .. Local Scalars ..

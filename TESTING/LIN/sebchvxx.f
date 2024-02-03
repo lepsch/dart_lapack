@@ -317,18 +317,18 @@
             }
       }
 
-c$$$         WRITE(*,*)
-c$$$         WRITE(*,*) 'Normwise Error Bounds'
-c$$$         WRITE(*,*) 'Guaranteed error bound: ',ERRBND(NRHS,nwise_i,bnd_i)
-c$$$         WRITE(*,*) 'Reciprocal condition number: ',ERRBND(NRHS,nwise_i,cond_i)
-c$$$         WRITE(*,*) 'Raw error estimate: ',ERRBND(NRHS,nwise_i,rawbnd_i)
-c$$$         WRITE(*,*)
-c$$$         WRITE(*,*) 'Componentwise Error Bounds'
-c$$$         WRITE(*,*) 'Guaranteed error bound: ',ERRBND(NRHS,cwise_i,bnd_i)
-c$$$         WRITE(*,*) 'Reciprocal condition number: ',ERRBND(NRHS,cwise_i,cond_i)
-c$$$         WRITE(*,*) 'Raw error estimate: ',ERRBND(NRHS,cwise_i,rawbnd_i)
-c$$$         print *, 'Info: ', info
-c$$$         WRITE(*,*)
+// $$$         WRITE(*,*)
+// $$$         WRITE(*,*) 'Normwise Error Bounds'
+// $$$         WRITE(*,*) 'Guaranteed error bound: ',ERRBND(NRHS,nwise_i,bnd_i)
+// $$$         WRITE(*,*) 'Reciprocal condition number: ',ERRBND(NRHS,nwise_i,cond_i)
+// $$$         WRITE(*,*) 'Raw error estimate: ',ERRBND(NRHS,nwise_i,rawbnd_i)
+// $$$         WRITE(*,*)
+// $$$         WRITE(*,*) 'Componentwise Error Bounds'
+// $$$         WRITE(*,*) 'Guaranteed error bound: ',ERRBND(NRHS,cwise_i,bnd_i)
+// $$$         WRITE(*,*) 'Reciprocal condition number: ',ERRBND(NRHS,cwise_i,cond_i)
+// $$$         WRITE(*,*) 'Raw error estimate: ',ERRBND(NRHS,cwise_i,rawbnd_i)
+// $$$         print *, 'Info: ', info
+// $$$         WRITE(*,*)
           // WRITE(*,*) 'TSTRAT: ',TSTRAT
 
       }

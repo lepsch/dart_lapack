@@ -1,8 +1,8 @@
       SUBROUTINE SSPGVX( ITYPE, JOBZ, RANGE, UPLO, N, AP, BP, VL, VU, IL, IU, ABSTOL, M, W, Z, LDZ, WORK, IWORK, IFAIL, INFO );
 
-*  -- LAPACK driver routine --
-*  -- LAPACK is a software package provided by Univ. of Tennessee,    --
-*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+// -- LAPACK driver routine --
+// -- LAPACK is a software package provided by Univ. of Tennessee,    --
+// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
       String             JOBZ, RANGE, UPLO;
@@ -14,7 +14,7 @@
       REAL               AP( * ), BP( * ), W( * ), WORK( * ), Z( LDZ, * );
       // ..
 
-* =====================================================================
+// =====================================================================
 
       // .. Local Scalars ..
       bool               ALLEIG, INDEIG, UPPER, VALEIG, WANTZ;

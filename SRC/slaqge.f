@@ -1,8 +1,8 @@
       SUBROUTINE SLAQGE( M, N, A, LDA, R, C, ROWCND, COLCND, AMAX, EQUED );
 
-*  -- LAPACK auxiliary routine --
-*  -- LAPACK is a software package provided by Univ. of Tennessee,    --
-*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+// -- LAPACK auxiliary routine --
+// -- LAPACK is a software package provided by Univ. of Tennessee,    --
+// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
       String             EQUED;
@@ -13,7 +13,7 @@
       REAL               A( LDA, * ), C( * ), R( * );
       // ..
 
-*  =====================================================================
+// =====================================================================
 
       // .. Parameters ..
       REAL               ONE, THRESH;

@@ -1,8 +1,8 @@
       SUBROUTINE SLALN2( LTRANS, NA, NW, SMIN, CA, A, LDA, D1, D2, B, LDB, WR, WI, X, LDX, SCALE, XNORM, INFO );
 
-*  -- LAPACK auxiliary routine --
-*  -- LAPACK is a software package provided by Univ. of Tennessee,    --
-*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+// -- LAPACK auxiliary routine --
+// -- LAPACK is a software package provided by Univ. of Tennessee,    --
+// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
       bool               LTRANS;
@@ -13,7 +13,7 @@
       REAL               A( LDA, * ), B( LDB, * ), X( LDX, * );
       // ..
 
-* =====================================================================
+// =====================================================================
 
       // .. Parameters ..
       REAL               ZERO, ONE;

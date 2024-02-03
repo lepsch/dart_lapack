@@ -1,8 +1,8 @@
       SUBROUTINE STGSYL( TRANS, IJOB, M, N, A, LDA, B, LDB, C, LDC, D, LDD, E, LDE, F, LDF, SCALE, DIF, WORK, LWORK, IWORK, INFO );
 
-*  -- LAPACK computational routine --
-*  -- LAPACK is a software package provided by Univ. of Tennessee,    --
-*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+// -- LAPACK computational routine --
+// -- LAPACK is a software package provided by Univ. of Tennessee,    --
+// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
       String             TRANS;
@@ -14,9 +14,9 @@
       REAL               A( LDA, * ), B( LDB, * ), C( LDC, * ), D( LDD, * ), E( LDE, * ), F( LDF, * ), WORK( * );
       // ..
 
-*  =====================================================================
-*  Replaced various illegal calls to SCOPY by calls to SLASET.
-*  Sven Hammarling, 1/5/02.
+// =====================================================================
+// Replaced various illegal calls to SCOPY by calls to SLASET.
+// Sven Hammarling, 1/5/02.
 
       // .. Parameters ..
       REAL               ZERO, ONE;

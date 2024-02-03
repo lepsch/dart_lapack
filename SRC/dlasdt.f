@@ -1,8 +1,8 @@
       SUBROUTINE DLASDT( N, LVL, ND, INODE, NDIML, NDIMR, MSUB );
 
-*  -- LAPACK auxiliary routine --
-*  -- LAPACK is a software package provided by Univ. of Tennessee,    --
-*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+// -- LAPACK auxiliary routine --
+// -- LAPACK is a software package provided by Univ. of Tennessee,    --
+// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
       int                LVL, MSUB, N, ND;
@@ -11,7 +11,7 @@
       int                INODE( * ), NDIML( * ), NDIMR( * );
       // ..
 
-*  =====================================================================
+// =====================================================================
 
       // .. Parameters ..
       double             TWO;

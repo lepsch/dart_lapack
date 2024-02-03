@@ -1,8 +1,8 @@
       SUBROUTINE CLALSA( ICOMPQ, SMLSIZ, N, NRHS, B, LDB, BX, LDBX, U, LDU, VT, K, DIFL, DIFR, Z, POLES, GIVPTR, GIVCOL, LDGCOL, PERM, GIVNUM, C, S, RWORK, IWORK, INFO );
 
-*  -- LAPACK computational routine --
-*  -- LAPACK is a software package provided by Univ. of Tennessee,    --
-*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+// -- LAPACK computational routine --
+// -- LAPACK is a software package provided by Univ. of Tennessee,    --
+// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
       int                ICOMPQ, INFO, LDB, LDBX, LDGCOL, LDU, N, NRHS, SMLSIZ;
@@ -13,7 +13,7 @@
       COMPLEX            B( LDB, * ), BX( LDBX, * );
       // ..
 
-*  =====================================================================
+// =====================================================================
 
       // .. Parameters ..
       REAL               ZERO, ONE;
@@ -128,7 +128,7 @@
          // is performed in two steps (real and imaginary parts).
 
          // CALL SGEMM( 'T', 'N', NR, NRHS, NR, ONE, U( NRF, 1 ), LDU,
-*    $               B( NRF, 1 ), LDB, ZERO, BX( NRF, 1 ), LDBX )
+// $               B( NRF, 1 ), LDB, ZERO, BX( NRF, 1 ), LDBX )
 
          J = NR*NRHS*2;
          for (JCOL = 1; JCOL <= NRHS; JCOL++) { // 80
@@ -259,7 +259,7 @@
          // performed in two steps (real and imaginary parts).
 
          // CALL SGEMM( 'T', 'N', NLP1, NRHS, NLP1, ONE, VT( NLF, 1 ), LDU,
-*    $               B( NLF, 1 ), LDB, ZERO, BX( NLF, 1 ), LDBX )
+// $               B( NLF, 1 ), LDB, ZERO, BX( NLF, 1 ), LDBX )
 
          J = NLP1*NRHS*2;
          for (JCOL = 1; JCOL <= NRHS; JCOL++) { // 210
@@ -291,7 +291,7 @@
          // performed in two steps (real and imaginary parts).
 
          // CALL SGEMM( 'T', 'N', NRP1, NRHS, NRP1, ONE, VT( NRF, 1 ), LDU,
-*    $               B( NRF, 1 ), LDB, ZERO, BX( NRF, 1 ), LDBX )
+// $               B( NRF, 1 ), LDB, ZERO, BX( NRF, 1 ), LDBX )
 
          J = NRP1*NRHS*2;
          for (JCOL = 1; JCOL <= NRHS; JCOL++) { // 270

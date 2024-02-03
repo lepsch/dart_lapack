@@ -1,8 +1,8 @@
       SUBROUTINE ZLACON( N, V, X, EST, KASE );
 
-*  -- LAPACK auxiliary routine --
-*  -- LAPACK is a software package provided by Univ. of Tennessee,    --
-*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+// -- LAPACK auxiliary routine --
+// -- LAPACK is a software package provided by Univ. of Tennessee,    --
+// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
       int                KASE, N;
@@ -12,7 +12,7 @@
       COMPLEX*16         V( N ), X( N );
       // ..
 
-*  =====================================================================
+// =====================================================================
 
       // .. Parameters ..
       int                ITMAX;

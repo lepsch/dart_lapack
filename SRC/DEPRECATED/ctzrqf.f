@@ -1,8 +1,8 @@
       SUBROUTINE CTZRQF( M, N, A, LDA, TAU, INFO );
 
-*  -- LAPACK computational routine --
-*  -- LAPACK is a software package provided by Univ. of Tennessee,    --
-*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+// -- LAPACK computational routine --
+// -- LAPACK is a software package provided by Univ. of Tennessee,    --
+// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
       int                INFO, LDA, M, N;
@@ -11,7 +11,7 @@
       COMPLEX            A( LDA, * ), TAU( * );
       // ..
 
-* =====================================================================
+// =====================================================================
 
       // .. Parameters ..
       COMPLEX            CONE, CZERO;

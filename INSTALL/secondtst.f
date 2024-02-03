@@ -20,7 +20,7 @@
       // ..
       // .. Executable Statements ..
 
-*    .. Figure TOTAL flops ..
+// .. Figure TOTAL flops ..
       TOTAL = REAL(NMAX) * REAL(ITS) * 2.0;
 
       // Initialize X and Y

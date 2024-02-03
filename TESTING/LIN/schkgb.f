@@ -1,8 +1,8 @@
       SUBROUTINE SCHKGB( DOTYPE, NM, MVAL, NN, NVAL, NNB, NBVAL, NNS, NSVAL, THRESH, TSTERR, A, LA, AFAC, LAFAC, B, X, XACT, WORK, RWORK, IWORK, NOUT );
 
-*  -- LAPACK test routine --
-*  -- LAPACK is a software package provided by Univ. of Tennessee,    --
-*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+// -- LAPACK test routine --
+// -- LAPACK is a software package provided by Univ. of Tennessee,    --
+// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
       bool               TSTERR;
@@ -15,7 +15,7 @@
       REAL               A( * ), AFAC( * ), B( * ), RWORK( * ), WORK( * ), X( * ), XACT( * );
       // ..
 
-*  =====================================================================
+// =====================================================================
 
       // .. Parameters ..
       REAL               ONE, ZERO;
@@ -252,7 +252,7 @@
                         if (INFO != IZERO) CALL ALAERH( PATH, 'SGBTRF', INFO, IZERO, ' ', M, N, KL, KU, NB, IMAT, NFAIL, NERRS, NOUT );
                         TRFCON = false;
 
-*+    TEST 1
+// +    TEST 1
                         // Reconstruct matrix from factors and compute
                         // residual.
 
@@ -330,7 +330,7 @@
                                  NORM = 'I';
                               }
 
-*+    TEST 2:
+// +    TEST 2:
                               // Solve and compute residual for op(A) * X = B.
 
                               SRNAMT = 'SLARHS';
@@ -348,13 +348,13 @@
                               slacpy('Full', N, NRHS, B, LDB, WORK, LDB );
                               sgbt02(TRANS, M, N, KL, KU, NRHS, A, LDA, X, LDB, WORK, LDB, RWORK, RESULT( 2 ) );
 
-*+    TEST 3:
+// +    TEST 3:
                               // Check solution from generated exact
                               // solution.
 
                               sget04(N, NRHS, X, LDB, XACT, LDB, RCONDC, RESULT( 3 ) );
 
-*+    TESTS 4, 5, 6:
+// +    TESTS 4, 5, 6:
                               // Use iterative refinement to improve the
                               // solution.
 
@@ -377,7 +377,7 @@
                            } // 70
                         } // 80
 
-*+    TEST 7:
+// +    TEST 7:
                            // Get an estimate of RCOND = 1/CNDNUM.
 
                         } // 90

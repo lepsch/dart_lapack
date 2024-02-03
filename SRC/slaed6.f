@@ -1,8 +1,8 @@
       SUBROUTINE SLAED6( KNITER, ORGATI, RHO, D, Z, FINIT, TAU, INFO );
 
-*  -- LAPACK computational routine --
-*  -- LAPACK is a software package provided by Univ. of Tennessee,    --
-*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+// -- LAPACK computational routine --
+// -- LAPACK is a software package provided by Univ. of Tennessee,    --
+// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
       bool               ORGATI;
@@ -13,7 +13,7 @@
       REAL               D( 3 ), Z( 3 );
       // ..
 
-*  =====================================================================
+// =====================================================================
 
       // .. Parameters ..
       int                MAXIT;

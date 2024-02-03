@@ -1,9 +1,9 @@
       SUBROUTINE ZUNGTSQR_ROW( M, N, MB, NB, A, LDA, T, LDT, WORK, LWORK, INFO );
       // IMPLICIT NONE
 
-*  -- LAPACK computational routine --
-*  -- LAPACK is a software package provided by Univ. of Tennessee,    --
-*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+// -- LAPACK computational routine --
+// -- LAPACK is a software package provided by Univ. of Tennessee,    --
+// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
       int               INFO, LDA, LDT, LWORK, M, N, MB, NB;
@@ -12,7 +12,7 @@
       COMPLEX*16        A( LDA, * ), T( LDT, * ), WORK( * );
       // ..
 
-*  =====================================================================
+// =====================================================================
 
       // .. Parameters ..
       COMPLEX*16         CONE, CZERO;

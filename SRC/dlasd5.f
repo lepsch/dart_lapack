@@ -1,8 +1,8 @@
       SUBROUTINE DLASD5( I, D, Z, DELTA, RHO, DSIGMA, WORK );
 
-*  -- LAPACK auxiliary routine --
-*  -- LAPACK is a software package provided by Univ. of Tennessee,    --
-*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+// -- LAPACK auxiliary routine --
+// -- LAPACK is a software package provided by Univ. of Tennessee,    --
+// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
       int                I;
@@ -12,7 +12,7 @@
       double             D( 2 ), DELTA( 2 ), WORK( 2 ), Z( 2 );
       // ..
 
-*  =====================================================================
+// =====================================================================
 
       // .. Parameters ..
       double             ZERO, ONE, TWO, THREE, FOUR;

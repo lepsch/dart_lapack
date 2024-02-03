@@ -1,8 +1,8 @@
       double           FUNCTION DLANGE( NORM, M, N, A, LDA, WORK );
 
-*  -- LAPACK auxiliary routine --
-*  -- LAPACK is a software package provided by Univ. of Tennessee,    --
-*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+// -- LAPACK auxiliary routine --
+// -- LAPACK is a software package provided by Univ. of Tennessee,    --
+// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
       String             NORM;
@@ -12,7 +12,7 @@
       double             A( LDA, * ), WORK( * );
       // ..
 
-* =====================================================================
+// =====================================================================
 
       // .. Parameters ..
       double             ONE, ZERO;

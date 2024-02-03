@@ -1,8 +1,8 @@
       SUBROUTINE DGESV( N, NRHS, A, LDA, IPIV, B, LDB, INFO );
 
-*  -- LAPACK driver routine --
-*  -- LAPACK is a software package provided by Univ. of Tennessee,    --
-*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+// -- LAPACK driver routine --
+// -- LAPACK is a software package provided by Univ. of Tennessee,    --
+// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
       int                INFO, LDA, LDB, N, NRHS;
@@ -12,7 +12,7 @@
       double             A( LDA, * ), B( LDB, * );
       // ..
 
-*  =====================================================================
+// =====================================================================
 
       // .. External Subroutines ..
       // EXTERNAL DGETRF, DGETRS, XERBLA

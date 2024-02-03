@@ -1,8 +1,8 @@
       SUBROUTINE ZCHKHE_AA_2STAGE( DOTYPE, NN, NVAL, NNB, NBVAL, NNS, NSVAL, THRESH, TSTERR, NMAX, A, AFAC, AINV, B, X, XACT, WORK, RWORK, IWORK, NOUT );
 
-*  -- LAPACK test routine --
-*  -- LAPACK is a software package provided by Univ. of Tennessee,    --
-*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+// -- LAPACK test routine --
+// -- LAPACK is a software package provided by Univ. of Tennessee,    --
+// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // IMPLICIT NONE
 
@@ -18,7 +18,7 @@
       double             RWORK( * );
       // ..
 
-*  =====================================================================
+// =====================================================================
 
       // .. Parameters ..
       double             ZERO;
@@ -276,7 +276,7 @@
                      alaerh(PATH, 'ZHETRF_AA_2STAGE', INFO, K, UPLO, N, N, -1, -1, NB, IMAT, NFAIL, NERRS, NOUT );
                   }
 
-*+    TEST 1
+// +    TEST 1
                   // Reconstruct matrix from factors and compute residual.
 
                   // NEED TO CREATE ZHET01_AA_2STAGE
@@ -308,7 +308,7 @@
                   for (IRHS = 1; IRHS <= NNS; IRHS++) { // 130
                      NRHS = NSVAL( IRHS );
 
-*+    TEST 2 (Using TRS)
+// +    TEST 2 (Using TRS)
                   // Solve and compute residual for  A * X = B.
 
                      // Choose a set of NRHS random solution vectors

@@ -1,20 +1,20 @@
       double           FUNCTION DSECND( );
 
-*  -- LAPACK auxiliary routine --
-*  -- LAPACK is a software package provided by Univ. of Tennessee,    --
-*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+// -- LAPACK auxiliary routine --
+// -- LAPACK is a software package provided by Univ. of Tennessee,    --
+// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
-* =====================================================================
+// =====================================================================
 
       // .. Local Scalars ..
 
       REAL T;
 
-* .. Intrinsic Functions ..
+// .. Intrinsic Functions ..
 
       // INTRINSIC CPU_TIME
 
-* .. Executable Statements .. *
+// .. Executable Statements .. *
 
       cpu_time(T );
       DSECND = T;

@@ -1,9 +1,9 @@
       SUBROUTINE CLAHQR( WANTT, WANTZ, N, ILO, IHI, H, LDH, W, ILOZ, IHIZ, Z, LDZ, INFO );
       // IMPLICIT NONE
 
-*  -- LAPACK auxiliary routine --
-*  -- LAPACK is a software package provided by Univ. of Tennessee,    --
-*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+// -- LAPACK auxiliary routine --
+// -- LAPACK is a software package provided by Univ. of Tennessee,    --
+// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
       int                IHI, IHIZ, ILO, ILOZ, INFO, LDH, LDZ, N;
@@ -13,7 +13,7 @@
       COMPLEX            H( LDH, * ), W( * ), Z( LDZ, * );
       // ..
 
-*  =========================================================
+// =========================================================
 
       // .. Parameters ..
       COMPLEX            ZERO, ONE;

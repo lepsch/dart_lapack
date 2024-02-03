@@ -1,8 +1,8 @@
       SUBROUTINE STPTTF( TRANSR, UPLO, N, AP, ARF, INFO );
 
-*  -- LAPACK computational routine --
-*  -- LAPACK is a software package provided by Univ. of Tennessee,    --
-*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+// -- LAPACK computational routine --
+// -- LAPACK is a software package provided by Univ. of Tennessee,    --
+// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
       String             TRANSR, UPLO;
@@ -11,7 +11,7 @@
       // .. Array Arguments ..
       REAL               AP( 0: * ), ARF( 0: * );
 
-*  =====================================================================
+// =====================================================================
 
       // .. Parameters ..
       // ..

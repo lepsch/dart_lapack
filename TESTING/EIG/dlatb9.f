@@ -1,8 +1,8 @@
       SUBROUTINE DLATB9( PATH, IMAT, M, P, N, TYPE, KLA, KUA, KLB, KUB, ANORM, BNORM, MODEA, MODEB, CNDNMA, CNDNMB, DISTA, DISTB );
 
-*  -- LAPACK test routine --
-*  -- LAPACK is a software package provided by Univ. of Tennessee,    --
-*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+// -- LAPACK test routine --
+// -- LAPACK is a software package provided by Univ. of Tennessee,    --
+// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
       String             DISTA, DISTB, TYPE;
@@ -11,7 +11,7 @@
       double             ANORM, BNORM, CNDNMA, CNDNMB;
       // ..
 
-*  =====================================================================
+// =====================================================================
 
       // .. Parameters ..
       double             SHRINK, TENTH;

@@ -1,8 +1,8 @@
       SUBROUTINE CCHKTR( DOTYPE, NN, NVAL, NNB, NBVAL, NNS, NSVAL, THRESH, TSTERR, NMAX, A, AINV, B, X, XACT, WORK, RWORK, NOUT );
 
-*  -- LAPACK test routine --
-*  -- LAPACK is a software package provided by Univ. of Tennessee,    --
-*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+// -- LAPACK test routine --
+// -- LAPACK is a software package provided by Univ. of Tennessee,    --
+// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
       bool               TSTERR;
@@ -16,7 +16,7 @@
       COMPLEX            A( * ), AINV( * ), B( * ), WORK( * ), X( * ), XACT( * );
       // ..
 
-*  =====================================================================
+// =====================================================================
 
       // .. Parameters ..
       int                NTYPE1, NTYPES;
@@ -122,7 +122,7 @@
                   NB = NBVAL( INB );
                   xlaenv(1, NB );
 
-*+    TEST 1
+// +    TEST 1
                   // Form the inverse of A.
 
                   clacpy(UPLO, N, N, A, LDA, AINV, LDA );
@@ -177,7 +177,7 @@
                            RCONDC = RCONDI;
                         }
 
-*+    TEST 2
+// +    TEST 2
                         // Solve and compute residual for op(A)*x = b.
 
                         SRNAMT = 'CLARHS';
@@ -198,12 +198,12 @@
 
                         ctrt02(UPLO, TRANS, DIAG, N, NRHS, A, LDA, X, LDA, B, LDA, WORK, RWORK, RESULT( 2 ) );
 
-*+    TEST 3
+// +    TEST 3
                         // Check solution from generated exact solution.
 
                         cget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 3 ) );
 
-*+    TESTS 4, 5, and 6
+// +    TESTS 4, 5, and 6
                         // Use iterative refinement to improve the solution
                         // and compute error bounds.
 
@@ -230,7 +230,7 @@
                      } // 30
                   } // 40
 
-*+    TEST 7
+// +    TEST 7
                         // Get an estimate of RCOND = 1/CNDNUM.
 
                   for (ITRAN = 1; ITRAN <= 2; ITRAN++) { // 50
@@ -286,7 +286,7 @@
                   SRNAMT = 'CLATTR';
                   clattr(IMAT, UPLO, TRANS, DIAG, ISEED, N, A, LDA, X, WORK, RWORK, INFO );
 
-*+    TEST 8
+// +    TEST 8
                   // Solve the system op(A)*x = b.
 
                   SRNAMT = 'CLATRS';
@@ -299,7 +299,7 @@
 
                   ctrt03(UPLO, TRANS, DIAG, N, 1, A, LDA, SCALE, RWORK, ONE, B, LDA, X, LDA, WORK, RESULT( 8 ) );
 
-*+    TEST 9
+// +    TEST 9
                   // Solve op(A)*X = b again with NORMIN = 'Y'.
 
                   ccopy(N, X, 1, B( N+1 ), 1 );
@@ -311,7 +311,7 @@
 
                   ctrt03(UPLO, TRANS, DIAG, N, 1, A, LDA, SCALE, RWORK, ONE, B( N+1 ), LDA, X, LDA, WORK, RESULT( 9 ) );
 
-*+    TEST 10
+// +    TEST 10
                   // Solve op(A)*X = B.
 
                   SRNAMT = 'CLATRS3';

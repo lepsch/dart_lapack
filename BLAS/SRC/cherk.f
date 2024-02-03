@@ -1,8 +1,8 @@
       SUBROUTINE CHERK(UPLO,TRANS,N,K,ALPHA,A,LDA,BETA,C,LDC);
 
-*  -- Reference BLAS level3 routine --
-*  -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
-*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+// -- Reference BLAS level3 routine --
+// -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
+// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
       REAL ALPHA,BETA;
@@ -13,7 +13,7 @@
       COMPLEX A(LDA,*),C(LDC,*);
       // ..
 
-*  =====================================================================
+// =====================================================================
 
       // .. External Functions ..
       bool    LSAME;

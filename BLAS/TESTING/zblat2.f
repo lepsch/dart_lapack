@@ -1,9 +1,9 @@
       void main() {
-*  -- Reference BLAS test routine --
-*  -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
-*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+// -- Reference BLAS test routine --
+// -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
+// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
-*  =====================================================================
+// =====================================================================
 
       // .. Parameters ..
       int                NIN;
@@ -282,11 +282,11 @@
       }
       SUBROUTINE ZCHK1( SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NKB, KB, NALF, ALF, NBET, BET, NINC, INC, NMAX, INCMAX, A, AA, AS, X, XX, XS, Y, YY, YS, YT, G );
 
-*  Tests ZGEMV and ZGBMV.
+// Tests ZGEMV and ZGBMV.
 
-*  Auxiliary routine for test program for Level 2 Blas.
+// Auxiliary routine for test program for Level 2 Blas.
 
-*  -- Written on 10-August-1987.
+// -- Written on 10-August-1987.
       // Richard Hanson, Sandia National Labs.
       // Jeremy Du Croz, NAG Central Office.
 
@@ -594,11 +594,11 @@
       }
       SUBROUTINE ZCHK2( SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NKB, KB, NALF, ALF, NBET, BET, NINC, INC, NMAX, INCMAX, A, AA, AS, X, XX, XS, Y, YY, YS, YT, G );
 
-*  Tests ZHEMV, ZHBMV and ZHPMV.
+// Tests ZHEMV, ZHBMV and ZHPMV.
 
-*  Auxiliary routine for test program for Level 2 Blas.
+// Auxiliary routine for test program for Level 2 Blas.
 
-*  -- Written on 10-August-1987.
+// -- Written on 10-August-1987.
       // Richard Hanson, Sandia National Labs.
       // Jeremy Du Croz, NAG Central Office.
 
@@ -891,11 +891,11 @@
       }
       SUBROUTINE ZCHK3( SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NKB, KB, NINC, INC, NMAX, INCMAX, A, AA, AS, X, XX, XS, XT, G, Z );
 
-*  Tests ZTRMV, ZTBMV, ZTPMV, ZTRSV, ZTBSV and ZTPSV.
+// Tests ZTRMV, ZTBMV, ZTPMV, ZTRSV, ZTBSV and ZTPSV.
 
-*  Auxiliary routine for test program for Level 2 Blas.
+// Auxiliary routine for test program for Level 2 Blas.
 
-*  -- Written on 10-August-1987.
+// -- Written on 10-August-1987.
       // Richard Hanson, Sandia National Labs.
       // Jeremy Du Croz, NAG Central Office.
 
@@ -1192,11 +1192,11 @@
       }
       SUBROUTINE ZCHK4( SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NINC, INC, NMAX, INCMAX, A, AA, AS, X, XX, XS, Y, YY, YS, YT, G, Z );
 
-*  Tests ZGERC and ZGERU.
+// Tests ZGERC and ZGERU.
 
-*  Auxiliary routine for test program for Level 2 Blas.
+// Auxiliary routine for test program for Level 2 Blas.
 
-*  -- Written on 10-August-1987.
+// -- Written on 10-August-1987.
       // Richard Hanson, Sandia National Labs.
       // Jeremy Du Croz, NAG Central Office.
 
@@ -1431,11 +1431,11 @@
       }
       SUBROUTINE ZCHK5( SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NINC, INC, NMAX, INCMAX, A, AA, AS, X, XX, XS, Y, YY, YS, YT, G, Z );
 
-*  Tests ZHER and ZHPR.
+// Tests ZHER and ZHPR.
 
-*  Auxiliary routine for test program for Level 2 Blas.
+// Auxiliary routine for test program for Level 2 Blas.
 
-*  -- Written on 10-August-1987.
+// -- Written on 10-August-1987.
       // Richard Hanson, Sandia National Labs.
       // Jeremy Du Croz, NAG Central Office.
 
@@ -1682,11 +1682,11 @@
       }
       SUBROUTINE ZCHK6( SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NINC, INC, NMAX, INCMAX, A, AA, AS, X, XX, XS, Y, YY, YS, YT, G, Z );
 
-*  Tests ZHER2 and ZHPR2.
+// Tests ZHER2 and ZHPR2.
 
-*  Auxiliary routine for test program for Level 2 Blas.
+// Auxiliary routine for test program for Level 2 Blas.
 
-*  -- Written on 10-August-1987.
+// -- Written on 10-August-1987.
       // Richard Hanson, Sandia National Labs.
       // Jeremy Du Croz, NAG Central Office.
 
@@ -1963,13 +1963,13 @@
       }
       SUBROUTINE ZCHKE( ISNUM, SRNAMT, NOUT );
 
-*  Tests the error exits from the Level 2 Blas.
-*  Requires a special version of the error-handling routine XERBLA.
-*  ALPHA, RALPHA, BETA, A, X and Y should not need to be defined.
+// Tests the error exits from the Level 2 Blas.
+// Requires a special version of the error-handling routine XERBLA.
+// ALPHA, RALPHA, BETA, A, X and Y should not need to be defined.
 
-*  Auxiliary routine for test program for Level 2 Blas.
+// Auxiliary routine for test program for Level 2 Blas.
 
-*  -- Written on 10-August-1987.
+// -- Written on 10-August-1987.
       // Richard Hanson, Sandia National Labs.
       // Jeremy Du Croz, NAG Central Office.
 
@@ -2301,16 +2301,16 @@
       }
       SUBROUTINE ZMAKE( TYPE, UPLO, DIAG, M, N, A, NMAX, AA, LDA, KL, KU, RESET, TRANSL );
 
-*  Generates values for an M by N matrix A within the bandwidth
-*  defined by KL and KU.
-*  Stores the values in the array AA in the data structure required
-*  by the routine, with unwanted elements set to rogue value.
+// Generates values for an M by N matrix A within the bandwidth
+// defined by KL and KU.
+// Stores the values in the array AA in the data structure required
+// by the routine, with unwanted elements set to rogue value.
 
-*  TYPE is 'GE', 'GB', 'HE', 'HB', 'HP', 'TR', 'TB' OR 'TP'.
+// TYPE is 'GE', 'GB', 'HE', 'HB', 'HP', 'TR', 'TB' OR 'TP'.
 
-*  Auxiliary routine for test program for Level 2 Blas.
+// Auxiliary routine for test program for Level 2 Blas.
 
-*  -- Written on 10-August-1987.
+// -- Written on 10-August-1987.
       // Richard Hanson, Sandia National Labs.
       // Jeremy Du Croz, NAG Central Office.
 
@@ -2481,11 +2481,11 @@
       }
       SUBROUTINE ZMVCH( TRANS, M, N, ALPHA, A, NMAX, X, INCX, BETA, Y, INCY, YT, G, YY, EPS, ERR, FATAL, NOUT, MV );
 
-*  Checks the results of the computational tests.
+// Checks the results of the computational tests.
 
-*  Auxiliary routine for test program for Level 2 Blas.
+// Auxiliary routine for test program for Level 2 Blas.
 
-*  -- Written on 10-August-1987.
+// -- Written on 10-August-1987.
       // Richard Hanson, Sandia National Labs.
       // Jeremy Du Croz, NAG Central Office.
 
@@ -2606,11 +2606,11 @@
       }
       bool    FUNCTION LZE( RI, RJ, LR );
 
-*  Tests if two arrays are identical.
+// Tests if two arrays are identical.
 
-*  Auxiliary routine for test program for Level 2 Blas.
+// Auxiliary routine for test program for Level 2 Blas.
 
-*  -- Written on 10-August-1987.
+// -- Written on 10-August-1987.
       // Richard Hanson, Sandia National Labs.
       // Jeremy Du Croz, NAG Central Office.
 
@@ -2635,13 +2635,13 @@
       }
       bool    FUNCTION LZERES( TYPE, UPLO, M, N, AA, AS, LDA );
 
-*  Tests if selected elements in two arrays are equal.
+// Tests if selected elements in two arrays are equal.
 
-*  TYPE is 'GE', 'HE' or 'HP'.
+// TYPE is 'GE', 'HE' or 'HP'.
 
-*  Auxiliary routine for test program for Level 2 Blas.
+// Auxiliary routine for test program for Level 2 Blas.
 
-*  -- Written on 10-August-1987.
+// -- Written on 10-August-1987.
       // Richard Hanson, Sandia National Labs.
       // Jeremy Du Croz, NAG Central Office.
 
@@ -2691,12 +2691,12 @@
       }
       COMPLEX*16 FUNCTION ZBEG( RESET );
 
-*  Generates complex numbers as pairs of random numbers uniformly
-*  distributed between -0.5 and 0.5.
+// Generates complex numbers as pairs of random numbers uniformly
+// distributed between -0.5 and 0.5.
 
-*  Auxiliary routine for test program for Level 2 Blas.
+// Auxiliary routine for test program for Level 2 Blas.
 
-*  -- Written on 10-August-1987.
+// -- Written on 10-August-1987.
       // Richard Hanson, Sandia National Labs.
       // Jeremy Du Croz, NAG Central Office.
 
@@ -2743,9 +2743,9 @@
       }
       double           FUNCTION DDIFF( X, Y );
 
-*  Auxiliary routine for test program for Level 2 Blas.
+// Auxiliary routine for test program for Level 2 Blas.
 
-*  -- Written on 10-August-1987.
+// -- Written on 10-August-1987.
       // Richard Hanson, Sandia National Labs.
 
       // .. Scalar Arguments ..
@@ -2759,11 +2759,11 @@
       }
       SUBROUTINE CHKXER( SRNAMT, INFOT, NOUT, LERR, OK );
 
-*  Tests whether XERBLA has detected an error when it should.
+// Tests whether XERBLA has detected an error when it should.
 
-*  Auxiliary routine for test program for Level 2 Blas.
+// Auxiliary routine for test program for Level 2 Blas.
 
-*  -- Written on 10-August-1987.
+// -- Written on 10-August-1987.
       // Richard Hanson, Sandia National Labs.
       // Jeremy Du Croz, NAG Central Office.
 
@@ -2786,7 +2786,7 @@
       }
       SUBROUTINE ZREGR1( TRANS, M, N, LY, KL, KU, ALPHA, A, LDA, X, INCX, BETA, Y, INCY, YS );
 
-*  Input initialization for regression test.
+// Input initialization for regression test.
 
       // .. Scalar Arguments ..
       String             TRANS;
@@ -2818,18 +2818,18 @@
       }
       SUBROUTINE XERBLA( SRNAME, INFO );
 
-*  This is a special version of XERBLA to be used only as part of
-*  the test program for testing error exits from the Level 2 BLAS
-*  routines.
+// This is a special version of XERBLA to be used only as part of
+// the test program for testing error exits from the Level 2 BLAS
+// routines.
 
-*  XERBLA  is an error handler for the Level 2 BLAS routines.
+// XERBLA  is an error handler for the Level 2 BLAS routines.
 
-*  It is called by the Level 2 BLAS routines if an input parameter is
-*  invalid.
+// It is called by the Level 2 BLAS routines if an input parameter is
+// invalid.
 
-*  Auxiliary routine for test program for Level 2 Blas.
+// Auxiliary routine for test program for Level 2 Blas.
 
-*  -- Written on 10-August-1987.
+// -- Written on 10-August-1987.
       // Richard Hanson, Sandia National Labs.
       // Jeremy Du Croz, NAG Central Office.
 

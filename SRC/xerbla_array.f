@@ -1,8 +1,8 @@
       SUBROUTINE XERBLA_ARRAY( SRNAME_ARRAY, SRNAME_LEN, INFO);
 
-*  -- LAPACK auxiliary routine --
-*  -- LAPACK is a software package provided by Univ. of Tennessee,    --
-*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+// -- LAPACK auxiliary routine --
+// -- LAPACK is a software package provided by Univ. of Tennessee,    --
+// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
       int     SRNAME_LEN, INFO;
@@ -11,7 +11,7 @@
       String   (1) SRNAME_ARRAY(SRNAME_LEN);
       // ..
 
-* =====================================================================
+// =====================================================================
 
       // ..
       // .. Local Scalars ..

@@ -1,8 +1,8 @@
       SUBROUTINE DROT(N,DX,INCX,DY,INCY,C,S);
 
-*  -- Reference BLAS level1 routine --
-*  -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
-*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+// -- Reference BLAS level1 routine --
+// -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
+// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
       double           C,S;
@@ -12,7 +12,7 @@
       double           DX(*),DY(*);
       // ..
 
-*  =====================================================================
+// =====================================================================
 
       // .. Local Scalars ..
       double           DTEMP;

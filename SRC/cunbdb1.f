@@ -1,27 +1,27 @@
-*> \verbatim
-*>
-*>  The upper-bidiagonal blocks B11, B21 are represented implicitly by
-*>  angles THETA(1), ..., THETA(Q) and PHI(1), ..., PHI(Q-1). Every entry
-*>  in each bidiagonal band is a product of a sine or cosine of a THETA
-*>  with a sine or cosine of a PHI. See [1] or CUNCSD for details.
-*>
-*>  P1, P2, and Q1 are represented as products of elementary reflectors.
-*>  See CUNCSD2BY1 for details on generating P1, P2, and Q1 using CUNGQR
-*>  and CUNGLQ.
-*> \endverbatim
+// > \verbatim
+// >
+// >  The upper-bidiagonal blocks B11, B21 are represented implicitly by
+// >  angles THETA(1), ..., THETA(Q) and PHI(1), ..., PHI(Q-1). Every entry
+// >  in each bidiagonal band is a product of a sine or cosine of a THETA
+// >  with a sine or cosine of a PHI. See [1] or CUNCSD for details.
+// >
+// >  P1, P2, and Q1 are represented as products of elementary reflectors.
+// >  See CUNCSD2BY1 for details on generating P1, P2, and Q1 using CUNGQR
+// >  and CUNGLQ.
+// > \endverbatim
 
-*> \par References:
-*  ================
-*>
-*>  [1] Brian D. Sutton. Computing the complete CS decomposition. Numer.
-*>      Algorithms, 50(1):33-65, 2009.
-*>
-*  =====================================================================
+// > \par References:
+// ================
+// >
+// >  [1] Brian D. Sutton. Computing the complete CS decomposition. Numer.
+// >      Algorithms, 50(1):33-65, 2009.
+// >
+// =====================================================================
       SUBROUTINE CUNBDB1( M, P, Q, X11, LDX11, X21, LDX21, THETA, PHI, TAUP1, TAUP2, TAUQ1, WORK, LWORK, INFO );
 
-*  -- LAPACK computational routine --
-*  -- LAPACK is a software package provided by Univ. of Tennessee,    --
-*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+// -- LAPACK computational routine --
+// -- LAPACK is a software package provided by Univ. of Tennessee,    --
+// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
       int                INFO, LWORK, M, P, Q, LDX11, LDX21;
@@ -31,7 +31,7 @@
       COMPLEX            TAUP1(*), TAUP2(*), TAUQ1(*), WORK(*), X11(LDX11,*), X21(LDX21,*);
       // ..
 
-*  ====================================================================
+// ====================================================================
 
       // .. Parameters ..
       COMPLEX            ONE;

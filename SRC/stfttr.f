@@ -1,8 +1,8 @@
       SUBROUTINE STFTTR( TRANSR, UPLO, N, ARF, A, LDA, INFO );
 
-*  -- LAPACK computational routine --
-*  -- LAPACK is a software package provided by Univ. of Tennessee,    --
-*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+// -- LAPACK computational routine --
+// -- LAPACK is a software package provided by Univ. of Tennessee,    --
+// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
       String             TRANSR, UPLO;
@@ -12,7 +12,7 @@
       REAL               A( 0: LDA-1, 0: * ), ARF( 0: * );
       // ..
 
-*  =====================================================================
+// =====================================================================
 
       // ..
       // .. Local Scalars ..

@@ -1,8 +1,8 @@
       SUBROUTINE DBDT05( M, N, A, LDA, S, NS, U, LDU, VT, LDVT, WORK, RESID );
 
-*  -- LAPACK test routine --
-*  -- LAPACK is a software package provided by Univ. of Tennessee,    --
-*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+// -- LAPACK test routine --
+// -- LAPACK is a software package provided by Univ. of Tennessee,    --
+// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
       int                LDA, LDU, LDVT, M, N, NS;
@@ -12,7 +12,7 @@
       double             A( LDA, * ), S( * ), U( LDU, * ), VT( LDVT, * ), WORK( * );
       // ..
 
-* ======================================================================
+// ======================================================================
 
       // .. Parameters ..
       double             ZERO, ONE;

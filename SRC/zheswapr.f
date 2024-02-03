@@ -1,8 +1,8 @@
       SUBROUTINE ZHESWAPR( UPLO, N, A, LDA, I1, I2);
 
-*  -- LAPACK auxiliary routine --
-*  -- LAPACK is a software package provided by Univ. of Tennessee,    --
-*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+// -- LAPACK auxiliary routine --
+// -- LAPACK is a software package provided by Univ. of Tennessee,    --
+// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
       String           UPLO;
@@ -11,7 +11,7 @@
       // .. Array Arguments ..
       COMPLEX*16          A( LDA, N );
 
-*  =====================================================================
+// =====================================================================
 
       // ..
       // .. Local Scalars ..

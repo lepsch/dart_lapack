@@ -1,8 +1,8 @@
       SUBROUTINE ZCHKTB( DOTYPE, NN, NVAL, NNS, NSVAL, THRESH, TSTERR, NMAX, AB, AINV, B, X, XACT, WORK, RWORK, NOUT );
 
-*  -- LAPACK test routine --
-*  -- LAPACK is a software package provided by Univ. of Tennessee,    --
-*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+// -- LAPACK test routine --
+// -- LAPACK is a software package provided by Univ. of Tennessee,    --
+// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
       bool               TSTERR;
@@ -16,7 +16,7 @@
       COMPLEX*16         AB( * ), AINV( * ), B( * ), WORK( * ), X( * ), XACT( * );
       // ..
 
-*  =====================================================================
+// =====================================================================
 
       // .. Parameters ..
       int                NTYPE1, NTYPES;
@@ -186,7 +186,7 @@
                            RCONDC = RCONDI;
                         }
 
-*+    TEST 1
+// +    TEST 1
                      // Solve and compute residual for op(A)*x = b.
 
                         SRNAMT = 'ZLARHS';
@@ -203,12 +203,12 @@
 
                         ztbt02(UPLO, TRANS, DIAG, N, KD, NRHS, AB, LDAB, X, LDA, B, LDA, WORK, RWORK, RESULT( 1 ) );
 
-*+    TEST 2
+// +    TEST 2
                      // Check solution from generated exact solution.
 
                         zget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 2 ) );
 
-*+    TESTS 3, 4, and 5
+// +    TESTS 3, 4, and 5
                      // Use iterative refinement to improve the solution
                      // and compute error bounds.
 
@@ -235,7 +235,7 @@
                      } // 50
                   } // 60
 
-*+    TEST 6
+// +    TEST 6
                      // Get an estimate of RCOND = 1/CNDNUM.
 
                   for (ITRAN = 1; ITRAN <= 2; ITRAN++) { // 70
@@ -290,7 +290,7 @@
                      SRNAMT = 'ZLATTB';
                      zlattb(IMAT, UPLO, TRANS, DIAG, ISEED, N, KD, AB, LDAB, X, WORK, RWORK, INFO );
 
-*+    TEST 7
+// +    TEST 7
                      // Solve the system op(A)*x = b
 
                      SRNAMT = 'ZLATBS';
@@ -303,7 +303,7 @@
 
                      ztbt03(UPLO, TRANS, DIAG, N, KD, 1, AB, LDAB, SCALE, RWORK, ONE, B, LDA, X, LDA, WORK, RESULT( 7 ) );
 
-*+    TEST 8
+// +    TEST 8
                      // Solve op(A)*x = b again with NORMIN = 'Y'.
 
                      zcopy(N, X, 1, B, 1 );

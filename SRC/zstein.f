@@ -1,8 +1,8 @@
       SUBROUTINE ZSTEIN( N, D, E, M, W, IBLOCK, ISPLIT, Z, LDZ, WORK, IWORK, IFAIL, INFO );
 
-*  -- LAPACK computational routine --
-*  -- LAPACK is a software package provided by Univ. of Tennessee,    --
-*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+// -- LAPACK computational routine --
+// -- LAPACK is a software package provided by Univ. of Tennessee,    --
+// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
       int                INFO, LDZ, M, N;
@@ -13,7 +13,7 @@
       COMPLEX*16         Z( LDZ, * );
       // ..
 
-* =====================================================================
+// =====================================================================
 
       // .. Parameters ..
       COMPLEX*16         CZERO, CONE;

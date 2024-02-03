@@ -9,7 +9,7 @@
       double           S( * ), RWORK( * );
       int              IWORK( * );
 
-*  =====================================================================
+// =====================================================================
 
       // .. Parameters ..
       double           ZERO,         ONE;
@@ -358,10 +358,10 @@
             zlaswp(N, A, LDA, 1, M-1, IWORK(N+1), 1 );
       }
 
-*    .. At this stage, preemptive scaling is done only to avoid column
-*    norms overflows during the QR factorization. The SVD procedure should
-*    have its own scaling to save the singular values from overflows and
-*    underflows. That depends on the SVD procedure.
+// .. At this stage, preemptive scaling is done only to avoid column
+// norms overflows during the QR factorization. The SVD procedure should
+// have its own scaling to save the singular values from overflows and
+// underflows. That depends on the SVD procedure.
 
       if ( !ROWPRM ) {
           RTMP = ZLANGE( 'M', M, N, A, LDA, RWORK );
@@ -389,9 +389,9 @@
       } // 1963
       zgeqp3(M, N, A, LDA, IWORK, CWORK, CWORK(N+1), LCWORK-N, RWORK, IERR );
 
-*    If the user requested accuracy level allows truncation in the
-*    computed upper triangular factor, the matrix R is examined and,
-*    if possible, replaced with its leading upper trapezoidal part.
+// If the user requested accuracy level allows truncation in the
+// computed upper triangular factor, the matrix R is examined and,
+// if possible, replaced with its leading upper trapezoidal part.
 
       EPSLN = DLAMCH('E');
       SFMIN = DLAMCH('S');
@@ -474,9 +474,9 @@
       }
 
       if ( !( RSVEC || LSVEC ) ) {
-*.......................................................................
+// .......................................................................
          // .. only the singular values are requested
-*.......................................................................
+// .......................................................................
          if ( RTRANS ) {
 
           // .. compute the singular values of R**H = [A](1:NR,1:N)**H
@@ -502,9 +502,9 @@
          }
 
       } else if ( LSVEC && ( !RSVEC) ) {
-*.......................................................................
+// .......................................................................
         // .. the singular values and the left singular vectors requested
-*.......................................................................""""""""
+// .......................................................................""""""""
          if ( RTRANS ) {
              // .. apply ZGESVD to R**H
              // .. copy R**H into [U] and overwrite [U] with the right singular
@@ -559,9 +559,9 @@
          if (ROWPRM && !WNTUF) CALL ZLASWP( N1, U, LDU, 1, M-1, IWORK(N+1), -1 );
 
       } else if ( RSVEC && ( !LSVEC ) ) {
-*.......................................................................
+// .......................................................................
         // .. the singular values and the right singular vectors requested
-*.......................................................................
+// .......................................................................
           if ( RTRANS ) {
              // .. apply ZGESVD to R**H
              // .. copy R**H into V and overwrite V with the left singular vectors
@@ -639,9 +639,9 @@
           }
 
       } else {
-*.......................................................................
+// .......................................................................
         // .. FULL SVD requested
-*.......................................................................
+// .......................................................................
          if ( RTRANS ) {
 
              // .. apply ZGESVD to R**H [[this option is left for R&D&T]]

@@ -1,8 +1,8 @@
       SUBROUTINE DGEQRT2( M, N, A, LDA, T, LDT, INFO );
 
-*  -- LAPACK computational routine --
-*  -- LAPACK is a software package provided by Univ. of Tennessee,    --
-*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+// -- LAPACK computational routine --
+// -- LAPACK is a software package provided by Univ. of Tennessee,    --
+// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
       int       INFO, LDA, LDT, M, N;
@@ -11,7 +11,7 @@
       double             A( LDA, * ), T( LDT, * );
       // ..
 
-*  =====================================================================
+// =====================================================================
 
       // .. Parameters ..
       double            ONE, ZERO;

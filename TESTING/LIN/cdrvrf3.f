@@ -1,8 +1,8 @@
       SUBROUTINE CDRVRF3( NOUT, NN, NVAL, THRESH, A, LDA, ARF, B1, B2, S_WORK_CLANGE, C_WORK_CGEQRF, TAU );
 
-*  -- LAPACK test routine --
-*  -- LAPACK is a software package provided by Univ. of Tennessee,    --
-*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+// -- LAPACK test routine --
+// -- LAPACK is a software package provided by Univ. of Tennessee,    --
+// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
       int                LDA, NN, NOUT;
@@ -15,7 +15,7 @@
       COMPLEX            C_WORK_CGEQRF( * ), TAU( * );
       // ..
 
-*  =====================================================================
+// =====================================================================
       // ..
       // .. Parameters ..
       COMPLEX            ZERO, ONE;

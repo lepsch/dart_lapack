@@ -1,8 +1,8 @@
       SUBROUTINE SGEQP3( M, N, A, LDA, JPVT, TAU, WORK, LWORK, INFO );
 
-*  -- LAPACK computational routine --
-*  -- LAPACK is a software package provided by Univ. of Tennessee,    --
-*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+// -- LAPACK computational routine --
+// -- LAPACK is a software package provided by Univ. of Tennessee,    --
+// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
       int                INFO, LDA, LWORK, M, N;
@@ -12,7 +12,7 @@
       REAL               A( LDA, * ), TAU( * ), WORK( * );
       // ..
 
-*  =====================================================================
+// =====================================================================
 
       // .. Parameters ..
       int                INB, INBMIN, IXOVER;
@@ -33,7 +33,7 @@
       // .. Intrinsic Functions ..
       // INTRINSIC INT, MAX, MIN
       // Test input arguments
-*  ====================
+// ====================
 
       INFO = 0;
       LQUERY = ( LWORK == -1 );
@@ -89,26 +89,26 @@
       NFXD = NFXD - 1;
 
       // Factorize fixed columns
-*  =======================
+// =======================
 
       // Compute the QR factorization of fixed columns and update
       // remaining columns.
 
       if ( NFXD > 0 ) {
          NA = MIN( M, NFXD );
-*CC      CALL SGEQR2( M, NA, A, LDA, TAU, WORK, INFO )
+// CC      CALL SGEQR2( M, NA, A, LDA, TAU, WORK, INFO )
          sgeqrf(M, NA, A, LDA, TAU, WORK, LWORK, INFO );
          IWS = MAX( IWS, INT( WORK( 1 ) ) );
          if ( NA < N ) {
-*CC         CALL SORM2R( 'Left', 'Transpose', M, N-NA, NA, A, LDA,
-*CC  $                   TAU, A( 1, NA+1 ), LDA, WORK, INFO )
+// CC         CALL SORM2R( 'Left', 'Transpose', M, N-NA, NA, A, LDA,
+// CC  $                   TAU, A( 1, NA+1 ), LDA, WORK, INFO )
             sormqr('Left', 'Transpose', M, N-NA, NA, A, LDA, TAU, A( 1, NA+1 ), LDA, WORK, LWORK, INFO );
             IWS = MAX( IWS, INT( WORK( 1 ) ) );
          }
       }
 
       // Factorize free columns
-*  ======================
+// ======================
 
       if ( NFXD < MINMN ) {
 

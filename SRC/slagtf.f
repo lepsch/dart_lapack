@@ -1,8 +1,8 @@
       SUBROUTINE SLAGTF( N, A, LAMBDA, B, C, TOL, D, IN, INFO );
 
-*  -- LAPACK computational routine --
-*  -- LAPACK is a software package provided by Univ. of Tennessee,    --
-*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+// -- LAPACK computational routine --
+// -- LAPACK is a software package provided by Univ. of Tennessee,    --
+// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
       int                INFO, N;
@@ -13,7 +13,7 @@
       REAL               A( * ), B( * ), C( * ), D( * );
       // ..
 
-* =====================================================================
+// =====================================================================
 
       // .. Parameters ..
       REAL               ZERO;

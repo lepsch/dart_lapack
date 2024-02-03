@@ -1,8 +1,8 @@
       SUBROUTINE DLASET( UPLO, M, N, ALPHA, BETA, A, LDA );
 
-*  -- LAPACK auxiliary routine --
-*  -- LAPACK is a software package provided by Univ. of Tennessee,    --
-*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+// -- LAPACK auxiliary routine --
+// -- LAPACK is a software package provided by Univ. of Tennessee,    --
+// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
       String             UPLO;
@@ -13,7 +13,7 @@
       double             A( LDA, * );
       // ..
 
-* =====================================================================
+// =====================================================================
 
       // .. Local Scalars ..
       int                I, J;

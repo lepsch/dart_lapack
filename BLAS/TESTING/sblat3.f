@@ -1,9 +1,9 @@
       void main() {
-*  -- Reference BLAS test routine --
-*  -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
-*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+// -- Reference BLAS test routine --
+// -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
+// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
-*  =====================================================================
+// =====================================================================
 
       // .. Parameters ..
       int                NIN;
@@ -268,11 +268,11 @@
       }
       SUBROUTINE SCHK1( SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NBET, BET, NMAX, A, AA, AS, B, BB, BS, C, CC, CS, CT, G );
 
-*  Tests SGEMM.
+// Tests SGEMM.
 
-*  Auxiliary routine for test program for Level 3 Blas.
+// Auxiliary routine for test program for Level 3 Blas.
 
-*  -- Written on 8-February-1989.
+// -- Written on 8-February-1989.
       // Jack Dongarra, Argonne National Laboratory.
       // Iain Duff, AERE Harwell.
       // Jeremy Du Croz, Numerical Algorithms Group Ltd.
@@ -513,11 +513,11 @@
       }
       SUBROUTINE SCHK2( SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NBET, BET, NMAX, A, AA, AS, B, BB, BS, C, CC, CS, CT, G );
 
-*  Tests SSYMM.
+// Tests SSYMM.
 
-*  Auxiliary routine for test program for Level 3 Blas.
+// Auxiliary routine for test program for Level 3 Blas.
 
-*  -- Written on 8-February-1989.
+// -- Written on 8-February-1989.
       // Jack Dongarra, Argonne National Laboratory.
       // Iain Duff, AERE Harwell.
       // Jeremy Du Croz, Numerical Algorithms Group Ltd.
@@ -745,11 +745,11 @@
       }
       SUBROUTINE SCHK3( SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NMAX, A, AA, AS, B, BB, BS, CT, G, C );
 
-*  Tests STRMM and STRSM.
+// Tests STRMM and STRSM.
 
-*  Auxiliary routine for test program for Level 3 Blas.
+// Auxiliary routine for test program for Level 3 Blas.
 
-*  -- Written on 8-February-1989.
+// -- Written on 8-February-1989.
       // Jack Dongarra, Argonne National Laboratory.
       // Iain Duff, AERE Harwell.
       // Jeremy Du Croz, Numerical Algorithms Group Ltd.
@@ -997,11 +997,11 @@
       }
       SUBROUTINE SCHK4( SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NBET, BET, NMAX, A, AA, AS, B, BB, BS, C, CC, CS, CT, G );
 
-*  Tests SSYRK.
+// Tests SSYRK.
 
-*  Auxiliary routine for test program for Level 3 Blas.
+// Auxiliary routine for test program for Level 3 Blas.
 
-*  -- Written on 8-February-1989.
+// -- Written on 8-February-1989.
       // Jack Dongarra, Argonne National Laboratory.
       // Iain Duff, AERE Harwell.
       // Jeremy Du Croz, Numerical Algorithms Group Ltd.
@@ -1233,11 +1233,11 @@
       }
       SUBROUTINE SCHK5( SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NBET, BET, NMAX, AB, AA, AS, BB, BS, C, CC, CS, CT, G, W );
 
-*  Tests SSYR2K.
+// Tests SSYR2K.
 
-*  Auxiliary routine for test program for Level 3 Blas.
+// Auxiliary routine for test program for Level 3 Blas.
 
-*  -- Written on 8-February-1989.
+// -- Written on 8-February-1989.
       // Jack Dongarra, Argonne National Laboratory.
       // Iain Duff, AERE Harwell.
       // Jeremy Du Croz, Numerical Algorithms Group Ltd.
@@ -1497,20 +1497,20 @@
       }
       SUBROUTINE SCHKE( ISNUM, SRNAMT, NOUT );
 
-*  Tests the error exits from the Level 3 Blas.
-*  Requires a special version of the error-handling routine XERBLA.
-*  A, B and C should not need to be defined.
+// Tests the error exits from the Level 3 Blas.
+// Requires a special version of the error-handling routine XERBLA.
+// A, B and C should not need to be defined.
 
-*  Auxiliary routine for test program for Level 3 Blas.
+// Auxiliary routine for test program for Level 3 Blas.
 
-*  -- Written on 8-February-1989.
+// -- Written on 8-February-1989.
       // Jack Dongarra, Argonne National Laboratory.
       // Iain Duff, AERE Harwell.
       // Jeremy Du Croz, Numerical Algorithms Group Ltd.
       // Sven Hammarling, Numerical Algorithms Group Ltd.
 
-*  3-19-92:  Initialize ALPHA and BETA  (eca)
-*  3-19-92:  Fix argument 12 in calls to SSYMM with INFOT = 9  (eca)
+// 3-19-92:  Initialize ALPHA and BETA  (eca)
+// 3-19-92:  Fix argument 12 in calls to SSYMM with INFOT = 9  (eca)
 
       // .. Scalar Arguments ..
       int                ISNUM, NOUT;
@@ -2050,15 +2050,15 @@
       }
       SUBROUTINE SMAKE( TYPE, UPLO, DIAG, M, N, A, NMAX, AA, LDA, RESET, TRANSL );
 
-*  Generates values for an M by N matrix A.
-*  Stores the values in the array AA in the data structure required
-*  by the routine, with unwanted elements set to rogue value.
+// Generates values for an M by N matrix A.
+// Stores the values in the array AA in the data structure required
+// by the routine, with unwanted elements set to rogue value.
 
-*  TYPE is 'GE', 'SY' or 'TR'.
+// TYPE is 'GE', 'SY' or 'TR'.
 
-*  Auxiliary routine for test program for Level 3 Blas.
+// Auxiliary routine for test program for Level 3 Blas.
 
-*  -- Written on 8-February-1989.
+// -- Written on 8-February-1989.
       // Jack Dongarra, Argonne National Laboratory.
       // Iain Duff, AERE Harwell.
       // Jeremy Du Croz, Numerical Algorithms Group Ltd.
@@ -2157,11 +2157,11 @@
       }
       SUBROUTINE SMMCH( TRANSA, TRANSB, M, N, KK, ALPHA, A, LDA, B, LDB, BETA, C, LDC, CT, G, CC, LDCC, EPS, ERR, FATAL, NOUT, MV );
 
-*  Checks the results of the computational tests.
+// Checks the results of the computational tests.
 
-*  Auxiliary routine for test program for Level 3 Blas.
+// Auxiliary routine for test program for Level 3 Blas.
 
-*  -- Written on 8-February-1989.
+// -- Written on 8-February-1989.
       // Jack Dongarra, Argonne National Laboratory.
       // Iain Duff, AERE Harwell.
       // Jeremy Du Croz, Numerical Algorithms Group Ltd.
@@ -2271,11 +2271,11 @@
       }
       bool    FUNCTION LSE( RI, RJ, LR );
 
-*  Tests if two arrays are identical.
+// Tests if two arrays are identical.
 
-*  Auxiliary routine for test program for Level 3 Blas.
+// Auxiliary routine for test program for Level 3 Blas.
 
-*  -- Written on 8-February-1989.
+// -- Written on 8-February-1989.
       // Jack Dongarra, Argonne National Laboratory.
       // Iain Duff, AERE Harwell.
       // Jeremy Du Croz, Numerical Algorithms Group Ltd.
@@ -2302,13 +2302,13 @@
       }
       bool    FUNCTION LSERES( TYPE, UPLO, M, N, AA, AS, LDA );
 
-*  Tests if selected elements in two arrays are equal.
+// Tests if selected elements in two arrays are equal.
 
-*  TYPE is 'GE' or 'SY'.
+// TYPE is 'GE' or 'SY'.
 
-*  Auxiliary routine for test program for Level 3 Blas.
+// Auxiliary routine for test program for Level 3 Blas.
 
-*  -- Written on 8-February-1989.
+// -- Written on 8-February-1989.
       // Jack Dongarra, Argonne National Laboratory.
       // Iain Duff, AERE Harwell.
       // Jeremy Du Croz, Numerical Algorithms Group Ltd.
@@ -2360,11 +2360,11 @@
       }
       REAL FUNCTION SBEG( RESET );
 
-*  Generates random numbers uniformly distributed between -0.5 and 0.5.
+// Generates random numbers uniformly distributed between -0.5 and 0.5.
 
-*  Auxiliary routine for test program for Level 3 Blas.
+// Auxiliary routine for test program for Level 3 Blas.
 
-*  -- Written on 8-February-1989.
+// -- Written on 8-February-1989.
       // Jack Dongarra, Argonne National Laboratory.
       // Iain Duff, AERE Harwell.
       // Jeremy Du Croz, Numerical Algorithms Group Ltd.
@@ -2406,9 +2406,9 @@
       }
       REAL FUNCTION SDIFF( X, Y );
 
-*  Auxiliary routine for test program for Level 3 Blas.
+// Auxiliary routine for test program for Level 3 Blas.
 
-*  -- Written on 8-February-1989.
+// -- Written on 8-February-1989.
       // Jack Dongarra, Argonne National Laboratory.
       // Iain Duff, AERE Harwell.
       // Jeremy Du Croz, Numerical Algorithms Group Ltd.
@@ -2425,11 +2425,11 @@
       }
       SUBROUTINE CHKXER( SRNAMT, INFOT, NOUT, LERR, OK );
 
-*  Tests whether XERBLA has detected an error when it should.
+// Tests whether XERBLA has detected an error when it should.
 
-*  Auxiliary routine for test program for Level 3 Blas.
+// Auxiliary routine for test program for Level 3 Blas.
 
-*  -- Written on 8-February-1989.
+// -- Written on 8-February-1989.
       // Jack Dongarra, Argonne National Laboratory.
       // Iain Duff, AERE Harwell.
       // Jeremy Du Croz, Numerical Algorithms Group Ltd.
@@ -2454,18 +2454,18 @@
       }
       SUBROUTINE XERBLA( SRNAME, INFO );
 
-*  This is a special version of XERBLA to be used only as part of
-*  the test program for testing error exits from the Level 3 BLAS
-*  routines.
+// This is a special version of XERBLA to be used only as part of
+// the test program for testing error exits from the Level 3 BLAS
+// routines.
 
-*  XERBLA  is an error handler for the Level 3 BLAS routines.
+// XERBLA  is an error handler for the Level 3 BLAS routines.
 
-*  It is called by the Level 3 BLAS routines if an input parameter is
-*  invalid.
+// It is called by the Level 3 BLAS routines if an input parameter is
+// invalid.
 
-*  Auxiliary routine for test program for Level 3 Blas.
+// Auxiliary routine for test program for Level 3 Blas.
 
-*  -- Written on 8-February-1989.
+// -- Written on 8-February-1989.
       // Jack Dongarra, Argonne National Laboratory.
       // Iain Duff, AERE Harwell.
       // Jeremy Du Croz, Numerical Algorithms Group Ltd.

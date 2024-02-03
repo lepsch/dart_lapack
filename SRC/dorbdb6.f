@@ -1,8 +1,8 @@
       SUBROUTINE DORBDB6( M1, M2, N, X1, INCX1, X2, INCX2, Q1, LDQ1, Q2, LDQ2, WORK, LWORK, INFO );
 
-*  -- LAPACK computational routine --
-*  -- LAPACK is a software package provided by Univ. of Tennessee,    --
-*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+// -- LAPACK computational routine --
+// -- LAPACK is a software package provided by Univ. of Tennessee,    --
+// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
       int                INCX1, INCX2, INFO, LDQ1, LDQ2, LWORK, M1, M2, N;
@@ -11,7 +11,7 @@
       double             Q1(LDQ1,*), Q2(LDQ2,*), WORK(*), X1(*), X2(*);
       // ..
 
-*  =====================================================================
+// =====================================================================
 
       // .. Parameters ..
       double             ALPHA, REALONE, REALZERO;

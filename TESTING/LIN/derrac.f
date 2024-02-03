@@ -1,14 +1,14 @@
       SUBROUTINE DERRAC( NUNIT );
 
-*  -- LAPACK test routine --
-*  -- LAPACK is a software package provided by Univ. of Tennessee,    --
-*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+// -- LAPACK test routine --
+// -- LAPACK is a software package provided by Univ. of Tennessee,    --
+// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
       int                NUNIT;
       // ..
 
-*  =====================================================================
+// =====================================================================
 
       // .. Parameters ..
       int                NMAX;

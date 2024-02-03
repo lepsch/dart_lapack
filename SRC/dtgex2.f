@@ -1,8 +1,8 @@
       SUBROUTINE DTGEX2( WANTQ, WANTZ, N, A, LDA, B, LDB, Q, LDQ, Z, LDZ, J1, N1, N2, WORK, LWORK, INFO );
 
-*  -- LAPACK auxiliary routine --
-*  -- LAPACK is a software package provided by Univ. of Tennessee,    --
-*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+// -- LAPACK auxiliary routine --
+// -- LAPACK is a software package provided by Univ. of Tennessee,    --
+// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
       bool               WANTQ, WANTZ;
@@ -12,9 +12,9 @@
       double             A( LDA, * ), B( LDB, * ), Q( LDQ, * ), WORK( * ), Z( LDZ, * );
       // ..
 
-*  =====================================================================
-*  Replaced various illegal calls to DCOPY by calls to DLASET, or by DO
-*  loops. Sven Hammarling, 1/5/02.
+// =====================================================================
+// Replaced various illegal calls to DCOPY by calls to DLASET, or by DO
+// loops. Sven Hammarling, 1/5/02.
 
       // .. Parameters ..
       double             ZERO, ONE;

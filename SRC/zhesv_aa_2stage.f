@@ -1,8 +1,8 @@
       SUBROUTINE ZHESV_AA_2STAGE( UPLO, N, NRHS, A, LDA, TB, LTB, IPIV, IPIV2, B, LDB, WORK, LWORK, INFO );
 
-*  -- LAPACK driver routine --
-*  -- LAPACK is a software package provided by Univ. of Tennessee,    --
-*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+// -- LAPACK driver routine --
+// -- LAPACK is a software package provided by Univ. of Tennessee,    --
+// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // IMPLICIT NONE
 
@@ -15,7 +15,7 @@
       COMPLEX*16         A( LDA, * ), B( LDB, * ), TB( * ), WORK( * );
       // ..
 
-*  =====================================================================
+// =====================================================================
       // .. Parameters ..
       COMPLEX*16         ZERO, ONE;
       const              ZERO = ( 0.0, 0.0 ), ONE  = ( 1.0, 0.0 ) ;

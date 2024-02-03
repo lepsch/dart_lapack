@@ -1,8 +1,8 @@
       SUBROUTINE SBDT02( M, N, B, LDB, C, LDC, U, LDU, WORK, RESID );
 
-*  -- LAPACK test routine --
-*  -- LAPACK is a software package provided by Univ. of Tennessee,    --
-*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+// -- LAPACK test routine --
+// -- LAPACK is a software package provided by Univ. of Tennessee,    --
+// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
       int                LDB, LDC, LDU, M, N;
@@ -12,7 +12,7 @@
       REAL               B( LDB, * ), C( LDC, * ), U( LDU, * ), WORK( * );
       // ..
 
-* ======================================================================
+// ======================================================================
 
       // .. Parameters ..
       REAL               ZERO, ONE;

@@ -1,8 +1,8 @@
       int     FUNCTION ILAENV2STAGE( ISPEC, NAME, OPTS, N1, N2, N3, N4 );
 
-*  -- LAPACK auxiliary routine --
-*  -- LAPACK is a software package provided by Univ. of Tennessee,    --
-*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+// -- LAPACK auxiliary routine --
+// -- LAPACK is a software package provided by Univ. of Tennessee,    --
+// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
       // July 2017
 
       // .. Scalar Arguments ..
@@ -10,7 +10,7 @@
       int                ISPEC, N1, N2, N3, N4;
       // ..
 
-*  =====================================================================
+// =====================================================================
       // ..
       // .. Local Scalars ..
       int                IISPEC;

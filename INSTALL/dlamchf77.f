@@ -1,11 +1,11 @@
-*> \ingroup lamch
+// > \ingroup lamch
 
-*  =====================================================================
+// =====================================================================
       double           FUNCTION DLAMCH( CMACH );
 
-*  -- LAPACK auxiliary routine --
-*  -- LAPACK is a software package provided by Univ. of Tennessee,    --
-*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+// -- LAPACK auxiliary routine --
+// -- LAPACK is a software package provided by Univ. of Tennessee,    --
+// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
       String             CMACH;
@@ -89,66 +89,66 @@
 
       }
 
-************************************************************************
-*> \brief \b DLAMC1
-*> \details
-*> \b Purpose:
-*> \verbatim
-*> DLAMC1 determines the machine parameters given by BETA, T, RND, and
-*> IEEE1.
-*> \endverbatim
-*>
-*> \param[out] BETA
-*> \verbatim
-*>          The base of the machine.
-*> \endverbatim
-*>
-*> \param[out] T
-*> \verbatim
-*>          The number of ( BETA ) digits in the mantissa.
-*> \endverbatim
-*>
-*> \param[out] RND
-*> \verbatim
-*>          Specifies whether proper rounding  ( RND = true )  or
-*>          chopping  ( RND = false )  occurs in addition. This may not
-*>          be a reliable guide to the way in which the machine performs
-*>          its arithmetic.
-*> \endverbatim
-*>
-*> \param[out] IEEE1
-*> \verbatim
-*>          Specifies whether rounding appears to be done in the IEEE
-*>          'round to nearest' style.
-*> \endverbatim
-*> \author LAPACK is a software package provided by Univ. of Tennessee, Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..
-*>
-*> \ingroup lamc1
-*>
-*> \details \b Further \b Details
-*> \verbatim
-*>
-*>  The routine is based on the routine  ENVRON  by Malcolm and
-*>  incorporates suggestions by Gentleman and Marovich. See
-*>
-*>     Malcolm M. A. (1972) Algorithms to reveal properties of
-*>        floating-point arithmetic. Comms. of the ACM, 15, 949-951.
-*>
-*>     Gentleman W. M. and Marovich S. B. (1974) More on algorithms
-*>        that reveal properties of floating point arithmetic units.
-*>        Comms. of the ACM, 17, 276-277.
-*> \endverbatim
-*>
+// ***********************************************************************
+// > \brief \b DLAMC1
+// > \details
+// > \b Purpose:
+// > \verbatim
+// > DLAMC1 determines the machine parameters given by BETA, T, RND, and
+// > IEEE1.
+// > \endverbatim
+// >
+// > \param[out] BETA
+// > \verbatim
+// >          The base of the machine.
+// > \endverbatim
+// >
+// > \param[out] T
+// > \verbatim
+// >          The number of ( BETA ) digits in the mantissa.
+// > \endverbatim
+// >
+// > \param[out] RND
+// > \verbatim
+// >          Specifies whether proper rounding  ( RND = true )  or
+// >          chopping  ( RND = false )  occurs in addition. This may not
+// >          be a reliable guide to the way in which the machine performs
+// >          its arithmetic.
+// > \endverbatim
+// >
+// > \param[out] IEEE1
+// > \verbatim
+// >          Specifies whether rounding appears to be done in the IEEE
+// >          'round to nearest' style.
+// > \endverbatim
+// > \author LAPACK is a software package provided by Univ. of Tennessee, Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..
+// >
+// > \ingroup lamc1
+// >
+// > \details \b Further \b Details
+// > \verbatim
+// >
+// >  The routine is based on the routine  ENVRON  by Malcolm and
+// >  incorporates suggestions by Gentleman and Marovich. See
+// >
+// >     Malcolm M. A. (1972) Algorithms to reveal properties of
+// >        floating-point arithmetic. Comms. of the ACM, 15, 949-951.
+// >
+// >     Gentleman W. M. and Marovich S. B. (1974) More on algorithms
+// >        that reveal properties of floating point arithmetic units.
+// >        Comms. of the ACM, 17, 276-277.
+// > \endverbatim
+// >
       SUBROUTINE DLAMC1( BETA, T, RND, IEEE1 );
 
-*  -- LAPACK auxiliary routine --
+// -- LAPACK auxiliary routine --
       // Univ. of Tennessee, Univ. of California Berkeley and NAG Ltd..
 
       // .. Scalar Arguments ..
       bool               IEEE1, RND;
       int                BETA, T;
       // ..
-* =====================================================================
+// =====================================================================
 
       // .. Local Scalars ..
       bool               FIRST, LIEEE1, LRND;
@@ -185,7 +185,7 @@
          A = 1;
          C = 1;
 
-*+       WHILE( C == ONE )LOOP
+// +       WHILE( C == ONE )LOOP
          } // 10
          if ( C == ONE ) {
             A = 2*A;
@@ -193,7 +193,7 @@
             C = DLAMC3( C, -A );
             GO TO 10;
          }
-*+       END WHILE
+// +       END WHILE
 
          // Now compute  b = 2.0**m  with the smallest positive integer m
          // such that
@@ -203,14 +203,14 @@
          B = 1;
          C = DLAMC3( A, B );
 
-*+       WHILE( C == A )LOOP
+// +       WHILE( C == A )LOOP
          } // 20
          if ( C == A ) {
             B = 2*B;
             C = DLAMC3( A, B );
             GO TO 20;
          }
-*+       END WHILE
+// +       END WHILE
 
          // Now compute the base.  a and c  are neighbouring floating point
          // numbers  in the  interval  ( beta**t, beta**( t + 1 ) )  and so
@@ -258,7 +258,7 @@
          A = 1;
          C = 1;
 
-*+       WHILE( C == ONE )LOOP
+// +       WHILE( C == ONE )LOOP
          } // 30
          if ( C == ONE ) {
             LT = LT + 1;
@@ -267,7 +267,7 @@
             C = DLAMC3( C, -A );
             GO TO 30;
          }
-*+       END WHILE
+// +       END WHILE
 
       }
 
@@ -282,76 +282,76 @@
 
       }
 
-************************************************************************
-*> \brief \b DLAMC2
-*> \details
-*> \b Purpose:
-*> \verbatim
-*> DLAMC2 determines the machine parameters specified in its argument
-*> list.
-*> \endverbatim
-*> \author LAPACK is a software package provided by Univ. of Tennessee, Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..
-*>
-*> \ingroup lamc2
-*>
-*> \param[out] BETA
-*> \verbatim
-*>          The base of the machine.
-*> \endverbatim
-*>
-*> \param[out] T
-*> \verbatim
-*>          The number of ( BETA ) digits in the mantissa.
-*> \endverbatim
-*>
-*> \param[out] RND
-*> \verbatim
-*>          Specifies whether proper rounding  ( RND = true )  or
-*>          chopping  ( RND = false )  occurs in addition. This may not
-*>          be a reliable guide to the way in which the machine performs
-*>          its arithmetic.
-*> \endverbatim
-*>
-*> \param[out] EPS
-*> \verbatim
-*>          The smallest positive number such that
-*>             fl( 1.0 - EPS ) < 1.0,
-*>          where fl denotes the computed value.
-*> \endverbatim
-*>
-*> \param[out] EMIN
-*> \verbatim
-*>          The minimum exponent before (gradual) underflow occurs.
-*> \endverbatim
-*>
-*> \param[out] RMIN
-*> \verbatim
-*>          The smallest normalized number for the machine, given by
-*>          BASE**( EMIN - 1 ), where  BASE  is the floating point value
-*>          of BETA.
-*> \endverbatim
-*>
-*> \param[out] EMAX
-*> \verbatim
-*>          The maximum exponent before overflow occurs.
-*> \endverbatim
-*>
-*> \param[out] RMAX
-*> \verbatim
-*>          The largest positive number for the machine, given by
-*>          BASE**EMAX * ( 1 - EPS ), where  BASE  is the floating point
-*>          value of BETA.
-*> \endverbatim
-*>
-*> \details \b Further \b Details
-*> \verbatim
-*>
-*>  The computation of  EPS  is based on a routine PARANOIA by
-*>  W. Kahan of the University of California at Berkeley.
-*> \endverbatim
+// ***********************************************************************
+// > \brief \b DLAMC2
+// > \details
+// > \b Purpose:
+// > \verbatim
+// > DLAMC2 determines the machine parameters specified in its argument
+// > list.
+// > \endverbatim
+// > \author LAPACK is a software package provided by Univ. of Tennessee, Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..
+// >
+// > \ingroup lamc2
+// >
+// > \param[out] BETA
+// > \verbatim
+// >          The base of the machine.
+// > \endverbatim
+// >
+// > \param[out] T
+// > \verbatim
+// >          The number of ( BETA ) digits in the mantissa.
+// > \endverbatim
+// >
+// > \param[out] RND
+// > \verbatim
+// >          Specifies whether proper rounding  ( RND = true )  or
+// >          chopping  ( RND = false )  occurs in addition. This may not
+// >          be a reliable guide to the way in which the machine performs
+// >          its arithmetic.
+// > \endverbatim
+// >
+// > \param[out] EPS
+// > \verbatim
+// >          The smallest positive number such that
+// >             fl( 1.0 - EPS ) < 1.0,
+// >          where fl denotes the computed value.
+// > \endverbatim
+// >
+// > \param[out] EMIN
+// > \verbatim
+// >          The minimum exponent before (gradual) underflow occurs.
+// > \endverbatim
+// >
+// > \param[out] RMIN
+// > \verbatim
+// >          The smallest normalized number for the machine, given by
+// >          BASE**( EMIN - 1 ), where  BASE  is the floating point value
+// >          of BETA.
+// > \endverbatim
+// >
+// > \param[out] EMAX
+// > \verbatim
+// >          The maximum exponent before overflow occurs.
+// > \endverbatim
+// >
+// > \param[out] RMAX
+// > \verbatim
+// >          The largest positive number for the machine, given by
+// >          BASE**EMAX * ( 1 - EPS ), where  BASE  is the floating point
+// >          value of BETA.
+// > \endverbatim
+// >
+// > \details \b Further \b Details
+// > \verbatim
+// >
+// >  The computation of  EPS  is based on a routine PARANOIA by
+// >  W. Kahan of the University of California at Berkeley.
+// > \endverbatim
       SUBROUTINE DLAMC2( BETA, T, RND, EPS, EMIN, RMIN, EMAX, RMAX );
 
-*  -- LAPACK auxiliary routine --
+// -- LAPACK auxiliary routine --
       // Univ. of Tennessee, Univ. of California Berkeley and NAG Ltd..
 
       // .. Scalar Arguments ..
@@ -359,7 +359,7 @@
       int                BETA, EMAX, EMIN, T;
       double             EPS, RMAX, RMIN;
       // ..
-* =====================================================================
+// =====================================================================
 
       // .. Local Scalars ..
       bool               FIRST, IEEE, IWARN, LIEEE1, LRND;
@@ -419,7 +419,7 @@
 
          LEPS = 1;
 
-*+       WHILE( ( LEPS > B ) && ( B > ZERO ) )LOOP
+// +       WHILE( ( LEPS > B ) && ( B > ZERO ) )LOOP
          } // 10
          if ( ( LEPS > B ) && ( B > ZERO ) ) {
             LEPS = B;
@@ -430,7 +430,7 @@
             B = DLAMC3( HALF, C );
             GO TO 10;
          }
-*+       END WHILE
+// +       END WHILE
 
          if (A < LEPS) LEPS = A;
 
@@ -496,13 +496,13 @@
             IWARN = true;
          }
          FIRST = false;
-***
-* Comment out this if block if EMIN is ok
+// **
+// Comment out this if block if EMIN is ok
          if ( IWARN ) {
             FIRST = true;
             WRITE( 6, FMT = 9999 )LEMIN;
          }
-***
+// **
 
          // Assume IEEE arithmetic if we found denormalised  numbers above,
          // or if arithmetic seems to round in the  IEEE style,  determined
@@ -542,34 +542,34 @@
 
       }
 
-************************************************************************
-*> \brief \b DLAMC3
-*> \details
-*> \b Purpose:
-*> \verbatim
-*> DLAMC3  is intended to force  A  and  B  to be stored prior to doing
-*> the addition of  A  and  B ,  for use in situations where optimizers
-*> might hold one of these in a register.
-*> \endverbatim
-*>
-*> \param[in] A
-*>
-*> \param[in] B
-*> \verbatim
-*>          The values A and B.
-*> \endverbatim
-*>
-*> \ingroup lamc3
-*>
+// ***********************************************************************
+// > \brief \b DLAMC3
+// > \details
+// > \b Purpose:
+// > \verbatim
+// > DLAMC3  is intended to force  A  and  B  to be stored prior to doing
+// > the addition of  A  and  B ,  for use in situations where optimizers
+// > might hold one of these in a register.
+// > \endverbatim
+// >
+// > \param[in] A
+// >
+// > \param[in] B
+// > \verbatim
+// >          The values A and B.
+// > \endverbatim
+// >
+// > \ingroup lamc3
+// >
       double           FUNCTION DLAMC3( A, B );
 
-*  -- LAPACK auxiliary routine --
+// -- LAPACK auxiliary routine --
       // Univ. of Tennessee, Univ. of California Berkeley and NAG Ltd..
 
       // .. Scalar Arguments ..
       double             A, B;
       // ..
-* =====================================================================
+// =====================================================================
 
       // .. Executable Statements ..
 
@@ -581,43 +581,43 @@
 
       }
 
-************************************************************************
-*> \brief \b DLAMC4
-*> \details
-*> \b Purpose:
-*> \verbatim
-*> DLAMC4 is a service routine for DLAMC2.
-*> \endverbatim
-*>
-*> \param[out] EMIN
-*> \verbatim
-*>          The minimum exponent before (gradual) underflow, computed by
-*>          setting A = START and dividing by BASE until the previous A
-*>          can not be recovered.
-*> \endverbatim
-*>
-*> \param[in] START
-*> \verbatim
-*>          The starting point for determining EMIN.
-*> \endverbatim
-*>
-*> \param[in] BASE
-*> \verbatim
-*>          The base of the machine.
-*> \endverbatim
-*>
-*> \ingroup lamc4
-*>
+// ***********************************************************************
+// > \brief \b DLAMC4
+// > \details
+// > \b Purpose:
+// > \verbatim
+// > DLAMC4 is a service routine for DLAMC2.
+// > \endverbatim
+// >
+// > \param[out] EMIN
+// > \verbatim
+// >          The minimum exponent before (gradual) underflow, computed by
+// >          setting A = START and dividing by BASE until the previous A
+// >          can not be recovered.
+// > \endverbatim
+// >
+// > \param[in] START
+// > \verbatim
+// >          The starting point for determining EMIN.
+// > \endverbatim
+// >
+// > \param[in] BASE
+// > \verbatim
+// >          The base of the machine.
+// > \endverbatim
+// >
+// > \ingroup lamc4
+// >
       SUBROUTINE DLAMC4( EMIN, START, BASE );
 
-*  -- LAPACK auxiliary routine --
+// -- LAPACK auxiliary routine --
       // Univ. of Tennessee, Univ. of California Berkeley and NAG Ltd..
 
       // .. Scalar Arguments ..
       int                BASE, EMIN;
       double             START;
       // ..
-* =====================================================================
+// =====================================================================
 
       // .. Local Scalars ..
       int                I;
@@ -639,8 +639,8 @@
       C2 = A;
       D1 = A;
       D2 = A;
-*+    WHILE( ( C1 == A ) && ( C2 == A ).AND.
-*    $       ( D1 == A ) && ( D2 == A )      )LOOP
+// +    WHILE( ( C1 == A ) && ( C2 == A ).AND.
+// $       ( D1 == A ) && ( D2 == A )      )LOOP
       } // 10
       if ( ( C1 == A ) && ( C2 == A ) && ( D1 == A ) && ( D2 == A ) ) {
          EMIN = EMIN - 1;
@@ -659,7 +659,7 @@
          } // 30
          GO TO 10;
       }
-*+    END WHILE
+// +    END WHILE
 
       return;
 
@@ -667,56 +667,56 @@
 
       }
 
-************************************************************************
-*> \brief \b DLAMC5
-*> \details
-*> \b Purpose:
-*> \verbatim
-*> DLAMC5 attempts to compute RMAX, the largest machine floating-point
-*> number, without overflow.  It assumes that EMAX + abs(EMIN) sum
-*> approximately to a power of 2.  It will fail on machines where this
-*> assumption does not hold, for example, the Cyber 205 (EMIN = -28625,
-*> EMAX = 28718).  It will also fail if the value supplied for EMIN is
-*> too large (i.e. too close to zero), probably with overflow.
-*> \endverbatim
-*>
-*> \param[in] BETA
-*> \verbatim
-*>          The base of floating-point arithmetic.
-*> \endverbatim
-*>
-*> \param[in] P
-*> \verbatim
-*>          The number of base BETA digits in the mantissa of a
-*>          floating-point value.
-*> \endverbatim
-*>
-*> \param[in] EMIN
-*> \verbatim
-*>          The minimum exponent before (gradual) underflow.
-*> \endverbatim
-*>
-*> \param[in] IEEE
-*> \verbatim
-*>          A logical flag specifying whether or not the arithmetic
-*>          system is thought to comply with the IEEE standard.
-*> \endverbatim
-*>
-*> \param[out] EMAX
-*> \verbatim
-*>          The largest exponent before overflow
-*> \endverbatim
-*>
-*> \param[out] RMAX
-*> \verbatim
-*>          The largest machine floating-point number.
-*> \endverbatim
-*>
-*> \ingroup lamc5
-*>
+// ***********************************************************************
+// > \brief \b DLAMC5
+// > \details
+// > \b Purpose:
+// > \verbatim
+// > DLAMC5 attempts to compute RMAX, the largest machine floating-point
+// > number, without overflow.  It assumes that EMAX + abs(EMIN) sum
+// > approximately to a power of 2.  It will fail on machines where this
+// > assumption does not hold, for example, the Cyber 205 (EMIN = -28625,
+// > EMAX = 28718).  It will also fail if the value supplied for EMIN is
+// > too large (i.e. too close to zero), probably with overflow.
+// > \endverbatim
+// >
+// > \param[in] BETA
+// > \verbatim
+// >          The base of floating-point arithmetic.
+// > \endverbatim
+// >
+// > \param[in] P
+// > \verbatim
+// >          The number of base BETA digits in the mantissa of a
+// >          floating-point value.
+// > \endverbatim
+// >
+// > \param[in] EMIN
+// > \verbatim
+// >          The minimum exponent before (gradual) underflow.
+// > \endverbatim
+// >
+// > \param[in] IEEE
+// > \verbatim
+// >          A logical flag specifying whether or not the arithmetic
+// >          system is thought to comply with the IEEE standard.
+// > \endverbatim
+// >
+// > \param[out] EMAX
+// > \verbatim
+// >          The largest exponent before overflow
+// > \endverbatim
+// >
+// > \param[out] RMAX
+// > \verbatim
+// >          The largest machine floating-point number.
+// > \endverbatim
+// >
+// > \ingroup lamc5
+// >
       SUBROUTINE DLAMC5( BETA, P, EMIN, IEEE, EMAX, RMAX );
 
-*  -- LAPACK auxiliary routine --
+// -- LAPACK auxiliary routine --
       // Univ. of Tennessee, Univ. of California Berkeley and NAG Ltd..
 
       // .. Scalar Arguments ..
@@ -724,7 +724,7 @@
       int                BETA, EMAX, EMIN, P;
       double             RMAX;
       // ..
-* =====================================================================
+// =====================================================================
 
       // .. Parameters ..
       double             ZERO, ONE;

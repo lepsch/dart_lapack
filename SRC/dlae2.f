@@ -1,14 +1,14 @@
       SUBROUTINE DLAE2( A, B, C, RT1, RT2 );
 
-*  -- LAPACK auxiliary routine --
-*  -- LAPACK is a software package provided by Univ. of Tennessee,    --
-*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+// -- LAPACK auxiliary routine --
+// -- LAPACK is a software package provided by Univ. of Tennessee,    --
+// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
       double             A, B, C, RT1, RT2;
       // ..
 
-* =====================================================================
+// =====================================================================
 
       // .. Parameters ..
       double             ONE;

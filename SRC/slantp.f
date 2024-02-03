@@ -1,8 +1,8 @@
       REAL             FUNCTION SLANTP( NORM, UPLO, DIAG, N, AP, WORK );
 
-*  -- LAPACK auxiliary routine --
-*  -- LAPACK is a software package provided by Univ. of Tennessee,    --
-*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+// -- LAPACK auxiliary routine --
+// -- LAPACK is a software package provided by Univ. of Tennessee,    --
+// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
       String             DIAG, NORM, UPLO;
@@ -12,7 +12,7 @@
       REAL               AP( * ), WORK( * );
       // ..
 
-* =====================================================================
+// =====================================================================
 
       // .. Parameters ..
       REAL               ONE, ZERO;

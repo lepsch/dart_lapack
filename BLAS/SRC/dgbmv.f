@@ -1,8 +1,8 @@
       SUBROUTINE DGBMV(TRANS,M,N,KL,KU,ALPHA,A,LDA,X,INCX, BETA,Y,INCY);
 
-*  -- Reference BLAS level2 routine --
-*  -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
-*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+// -- Reference BLAS level2 routine --
+// -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
+// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
       double           ALPHA,BETA;
@@ -13,7 +13,7 @@
       double           A(LDA,*),X(*),Y(*);
       // ..
 
-*  =====================================================================
+// =====================================================================
 
       // .. Parameters ..
       double           ONE,ZERO;

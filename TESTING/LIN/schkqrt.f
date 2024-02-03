@@ -1,88 +1,88 @@
 
-*> \par Purpose:
-*  =============
-*>
-*> \verbatim
-*>
-*> SCHKQRT tests SGEQRT and SGEMQRT.
-*> \endverbatim
+// > \par Purpose:
+// =============
+// >
+// > \verbatim
+// >
+// > SCHKQRT tests SGEQRT and SGEMQRT.
+// > \endverbatim
 
-*  Arguments:
-*  ==========
+// Arguments:
+// ==========
 
-*> \param[in] THRESH
-*> \verbatim
-*>          THRESH is REAL
-*>          The threshold value for the test ratios.  A result is
-*>          included in the output file if RESULT >= THRESH.  To have
-*>          every test ratio printed, use THRESH = 0.
-*> \endverbatim
-*>
-*> \param[in] TSTERR
-*> \verbatim
-*>          TSTERR is LOGICAL
-*>          Flag that indicates whether error exits are to be tested.
-*> \endverbatim
-*>
-*> \param[in] NM
-*> \verbatim
-*>          NM is INTEGER
-*>          The number of values of M contained in the vector MVAL.
-*> \endverbatim
-*>
-*> \param[in] MVAL
-*> \verbatim
-*>          MVAL is INTEGER array, dimension (NM)
-*>          The values of the matrix row dimension M.
-*> \endverbatim
-*>
-*> \param[in] NN
-*> \verbatim
-*>          NN is INTEGER
-*>          The number of values of N contained in the vector NVAL.
-*> \endverbatim
-*>
-*> \param[in] NVAL
-*> \verbatim
-*>          NVAL is INTEGER array, dimension (NN)
-*>          The values of the matrix column dimension N.
-*> \endverbatim
-*>
-*> \param[in] NNB
-*> \verbatim
-*>          NNB is INTEGER
-*>          The number of values of NB contained in the vector NBVAL.
-*> \endverbatim
-*>
-*> \param[in] NBVAL
-*> \verbatim
-*>          NBVAL is INTEGER array, dimension (NNB)
-*>          The values of the blocksize NB.
-*> \endverbatim
-*>
-*> \param[in] NOUT
-*> \verbatim
-*>          NOUT is INTEGER
-*>          The unit number for output.
-*> \endverbatim
+// > \param[in] THRESH
+// > \verbatim
+// >          THRESH is REAL
+// >          The threshold value for the test ratios.  A result is
+// >          included in the output file if RESULT >= THRESH.  To have
+// >          every test ratio printed, use THRESH = 0.
+// > \endverbatim
+// >
+// > \param[in] TSTERR
+// > \verbatim
+// >          TSTERR is LOGICAL
+// >          Flag that indicates whether error exits are to be tested.
+// > \endverbatim
+// >
+// > \param[in] NM
+// > \verbatim
+// >          NM is INTEGER
+// >          The number of values of M contained in the vector MVAL.
+// > \endverbatim
+// >
+// > \param[in] MVAL
+// > \verbatim
+// >          MVAL is INTEGER array, dimension (NM)
+// >          The values of the matrix row dimension M.
+// > \endverbatim
+// >
+// > \param[in] NN
+// > \verbatim
+// >          NN is INTEGER
+// >          The number of values of N contained in the vector NVAL.
+// > \endverbatim
+// >
+// > \param[in] NVAL
+// > \verbatim
+// >          NVAL is INTEGER array, dimension (NN)
+// >          The values of the matrix column dimension N.
+// > \endverbatim
+// >
+// > \param[in] NNB
+// > \verbatim
+// >          NNB is INTEGER
+// >          The number of values of NB contained in the vector NBVAL.
+// > \endverbatim
+// >
+// > \param[in] NBVAL
+// > \verbatim
+// >          NBVAL is INTEGER array, dimension (NNB)
+// >          The values of the blocksize NB.
+// > \endverbatim
+// >
+// > \param[in] NOUT
+// > \verbatim
+// >          NOUT is INTEGER
+// >          The unit number for output.
+// > \endverbatim
 
-*  Authors:
-*  ========
+// Authors:
+// ========
 
-*> \author Univ. of Tennessee
-*> \author Univ. of California Berkeley
-*> \author Univ. of Colorado Denver
-*> \author NAG Ltd.
+// > \author Univ. of Tennessee
+// > \author Univ. of California Berkeley
+// > \author Univ. of Colorado Denver
+// > \author NAG Ltd.
 
-*> \ingroup single_lin
+// > \ingroup single_lin
 
-*  =====================================================================
+// =====================================================================
       SUBROUTINE SCHKQRT( THRESH, TSTERR, NM, MVAL, NN, NVAL, NNB, NBVAL, NOUT );
       // IMPLICIT NONE
 
-*  -- LAPACK test routine --
-*  -- LAPACK is a software package provided by Univ. of Tennessee,    --
-*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+// -- LAPACK test routine --
+// -- LAPACK is a software package provided by Univ. of Tennessee,    --
+// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
       bool               TSTERR;
@@ -92,7 +92,7 @@
       // .. Array Arguments ..
       int                MVAL( * ), NBVAL( * ), NVAL( * );
 
-*  =====================================================================
+// =====================================================================
 
       // .. Parameters ..
       int                NTESTS;

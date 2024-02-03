@@ -1,8 +1,8 @@
       SUBROUTINE CDRVHE_AA_2STAGE( DOTYPE, NN, NVAL, NRHS, THRESH, TSTERR, NMAX, A, AFAC, AINV, B, X, XACT, WORK, RWORK, IWORK, NOUT );
 
-*  -- LAPACK test routine --
-*  -- LAPACK is a software package provided by Univ. of Tennessee,    --
-*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+// -- LAPACK test routine --
+// -- LAPACK is a software package provided by Univ. of Tennessee,    --
+// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
       bool               TSTERR;
@@ -16,7 +16,7 @@
       COMPLEX            A( * ), AFAC( * ), AINV( * ), B( * ), WORK( * ), X( * ), XACT( * );
       // ..
 
-*  =====================================================================
+// =====================================================================
 
       // .. Parameters ..
       REAL               ONE, ZERO;
@@ -272,8 +272,8 @@
                      // residual.
 
                      // CALL CHET01_AA( UPLO, N, A, LDA, AFAC, LDA,
-c    $                                  IWORK, AINV, LDA, RWORK,
-c    $                                  RESULT( 2 ) )
+// $                                  IWORK, AINV, LDA, RWORK,
+// $                                  RESULT( 2 ) )
                      // NT = 2
                      NT = 1;
 

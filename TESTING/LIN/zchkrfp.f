@@ -1,9 +1,9 @@
       void main() {
-*  -- LAPACK test routine --
-*  -- LAPACK is a software package provided by Univ. of Tennessee,    --
-*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+// -- LAPACK test routine --
+// -- LAPACK is a software package provided by Univ. of Tennessee,    --
+// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
-*  =====================================================================
+// =====================================================================
 
       // .. Parameters ..
       int                MAXIN;
@@ -167,26 +167,26 @@
 
       if (TSTERR) CALL ZERRRFP( NOUT );
 
-*    Test the routines: zpftrf, zpftri, zpftrs (as in ZDRVPO).
-*    This also tests the routines: ztfsm, ztftri, ztfttr, ztrttf.
+// Test the routines: zpftrf, zpftri, zpftrs (as in ZDRVPO).
+// This also tests the routines: ztfsm, ztftri, ztfttr, ztrttf.
 
       zdrvrfp(NOUT, NN, NVAL, NNS, NSVAL, NNT, NTVAL, THRESH, WORKA, WORKASAV, WORKAFAC, WORKAINV, WORKB, WORKBSAV, WORKXACT, WORKX, WORKARF, WORKARFINV, Z_WORK_ZLATMS, Z_WORK_ZPOT02, Z_WORK_ZPOT03, D_WORK_ZLATMS, D_WORK_ZLANHE, D_WORK_ZPOT01, D_WORK_ZPOT02, D_WORK_ZPOT03 );
 
-*    Test the routine: zlanhf
+// Test the routine: zlanhf
 
       zdrvrf1(NOUT, NN, NVAL, THRESH, WORKA, NMAX, WORKARF, D_WORK_ZLANHE );
 
-*    Test the conversion routines:
+// Test the conversion routines:
         // zhfttp, ztpthf, ztfttr, ztrttf, ztrttp and ztpttr.
 
       zdrvrf2(NOUT, NN, NVAL, WORKA, NMAX, WORKARF, WORKAP, WORKASAV );
 
-*    Test the routine: ztfsm
+// Test the routine: ztfsm
 
       zdrvrf3(NOUT, NN, NVAL, THRESH, WORKA, NMAX, WORKARF, WORKAINV, WORKAFAC, D_WORK_ZLANHE, Z_WORK_ZPOT03, Z_WORK_ZPOT02 );
 
 
-*    Test the routine: zhfrk
+// Test the routine: zhfrk
 
       zdrvrf4(NOUT, NN, NVAL, THRESH, WORKA, WORKAFAC, NMAX, WORKARF, WORKAINV, NMAX,D_WORK_ZLANHE);
 

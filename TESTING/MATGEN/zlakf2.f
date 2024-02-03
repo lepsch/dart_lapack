@@ -1,8 +1,8 @@
       SUBROUTINE ZLAKF2( M, N, A, LDA, B, D, E, Z, LDZ );
 
-*  -- LAPACK computational routine --
-*  -- LAPACK is a software package provided by Univ. of Tennessee,    --
-*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+// -- LAPACK computational routine --
+// -- LAPACK is a software package provided by Univ. of Tennessee,    --
+// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
       int                LDA, LDZ, M, N;
@@ -11,7 +11,7 @@
       COMPLEX*16         A( LDA, * ), B( LDA, * ), D( LDA, * ), E( LDA, * ), Z( LDZ, * );
       // ..
 
-*  ====================================================================
+// ====================================================================
 
       // .. Parameters ..
       COMPLEX*16         ZERO;

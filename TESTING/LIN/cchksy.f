@@ -1,8 +1,8 @@
       SUBROUTINE CCHKSY( DOTYPE, NN, NVAL, NNB, NBVAL, NNS, NSVAL, THRESH, TSTERR, NMAX, A, AFAC, AINV, B, X, XACT, WORK, RWORK, IWORK, NOUT );
 
-*  -- LAPACK test routine --
-*  -- LAPACK is a software package provided by Univ. of Tennessee,    --
-*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+// -- LAPACK test routine --
+// -- LAPACK is a software package provided by Univ. of Tennessee,    --
+// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
       bool               TSTERR;
@@ -16,7 +16,7 @@
       COMPLEX            A( * ), AFAC( * ), AINV( * ), B( * ), WORK( * ), X( * ), XACT( * );
       // ..
 
-*  =====================================================================
+// =====================================================================
 
       // .. Parameters ..
       REAL               ZERO;
@@ -275,13 +275,13 @@
                      TRFCON = false;
                   }
 
-*+    TEST 1
+// +    TEST 1
                   // Reconstruct matrix from factors and compute residual.
 
                   csyt01(UPLO, N, A, LDA, AFAC, LDA, IWORK, AINV, LDA, RWORK, RESULT( 1 ) );
                   NT = 1;
 
-*+    TEST 2
+// +    TEST 2
                   // Form the inverse and compute the residual,
                   // if the factorization was competed without INFO > 0
                   // (i.e. there is no zero rows and columns).
@@ -332,7 +332,7 @@
                   for (IRHS = 1; IRHS <= NNS; IRHS++) { // 130
                      NRHS = NSVAL( IRHS );
 
-*+    TEST 3 (Using TRS)
+// +    TEST 3 (Using TRS)
                   // Solve and compute residual for  A * X = B.
 
                      // Choose a set of NRHS random solution vectors
@@ -355,7 +355,7 @@
 
                      csyt02(UPLO, N, NRHS, A, LDA, X, LDA, WORK, LDA, RWORK, RESULT( 3 ) );
 
-*+    TEST 4 (Using TRS2)
+// +    TEST 4 (Using TRS2)
                   // Solve and compute residual for  A * X = B.
 
                      // Choose a set of NRHS random solution vectors
@@ -378,12 +378,12 @@
 
                      csyt02(UPLO, N, NRHS, A, LDA, X, LDA, WORK, LDA, RWORK, RESULT( 4 ) );
 
-*+    TEST 5
+// +    TEST 5
                   // Check solution from generated exact solution.
 
                      cget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 5 ) );
 
-*+    TESTS 6, 7, and 8
+// +    TESTS 6, 7, and 8
                   // Use iterative refinement to improve the solution.
 
                      SRNAMT = 'CSYRFS';
@@ -411,7 +411,7 @@
 
                   } // 130
 
-*+    TEST 9
+// +    TEST 9
                   // Get an estimate of RCOND = 1/CNDNUM.
 
                   } // 140

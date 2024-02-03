@@ -1,8 +1,8 @@
       SUBROUTINE SCHKPO( DOTYPE, NN, NVAL, NNB, NBVAL, NNS, NSVAL, THRESH, TSTERR, NMAX, A, AFAC, AINV, B, X, XACT, WORK, RWORK, IWORK, NOUT );
 
-*  -- LAPACK test routine --
-*  -- LAPACK is a software package provided by Univ. of Tennessee,    --
-*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+// -- LAPACK test routine --
+// -- LAPACK is a software package provided by Univ. of Tennessee,    --
+// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
       bool               TSTERR;
@@ -15,7 +15,7 @@
       REAL               A( * ), AFAC( * ), AINV( * ), B( * ), RWORK( * ), WORK( * ), X( * ), XACT( * );
       // ..
 
-*  =====================================================================
+// =====================================================================
 
       // .. Parameters ..
       REAL               ZERO;
@@ -182,13 +182,13 @@
 
                   if (INFO != 0) GO TO 90;
 
-*+    TEST 1
+// +    TEST 1
                   // Reconstruct matrix from factors and compute residual.
 
                   slacpy(UPLO, N, N, AFAC, LDA, AINV, LDA );
                   spot01(UPLO, N, A, LDA, AINV, LDA, RWORK, RESULT( 1 ) );
 
-*+    TEST 2
+// +    TEST 2
                   // Form the inverse and compute the residual.
 
                   slacpy(UPLO, N, N, AFAC, LDA, AINV, LDA );
@@ -220,7 +220,7 @@
                   for (IRHS = 1; IRHS <= NNS; IRHS++) { // 80
                      NRHS = NSVAL( IRHS );
 
-*+    TEST 3
+// +    TEST 3
                   // Solve and compute residual for A * X = B .
 
                      SRNAMT = 'SLARHS';
@@ -237,12 +237,12 @@
                      slacpy('Full', N, NRHS, B, LDA, WORK, LDA );
                      spot02(UPLO, N, NRHS, A, LDA, X, LDA, WORK, LDA, RWORK, RESULT( 3 ) );
 
-*+    TEST 4
+// +    TEST 4
                   // Check solution from generated exact solution.
 
                      sget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 4 ) );
 
-*+    TESTS 5, 6, and 7
+// +    TESTS 5, 6, and 7
                   // Use iterative refinement to improve the solution.
 
                      SRNAMT = 'SPORFS';
@@ -267,7 +267,7 @@
                      NRUN = NRUN + 5;
                   } // 80
 
-*+    TEST 8
+// +    TEST 8
                   // Get an estimate of RCOND = 1/CNDNUM.
 
                   ANORM = SLANSY( '1', UPLO, N, A, LDA, RWORK );

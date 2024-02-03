@@ -1,8 +1,8 @@
       SUBROUTINE SBDSDC( UPLO, COMPQ, N, D, E, U, LDU, VT, LDVT, Q, IQ, WORK, IWORK, INFO );
 
-*  -- LAPACK computational routine --
-*  -- LAPACK is a software package provided by Univ. of Tennessee,    --
-*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+// -- LAPACK computational routine --
+// -- LAPACK is a software package provided by Univ. of Tennessee,    --
+// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
       String             COMPQ, UPLO;
@@ -13,10 +13,10 @@
       REAL               D( * ), E( * ), Q( * ), U( LDU, * ), VT( LDVT, * ), WORK( * );
       // ..
 
-*  =====================================================================
-*  Changed dimension statement in comment describing E from (N) to
-*  (N-1).  Sven, 17 Feb 05.
-*  =====================================================================
+// =====================================================================
+// Changed dimension statement in comment describing E from (N) to
+// (N-1).  Sven, 17 Feb 05.
+// =====================================================================
 
       // .. Parameters ..
       REAL               ZERO, ONE, TWO;

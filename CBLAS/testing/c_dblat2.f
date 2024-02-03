@@ -1,44 +1,44 @@
       void main() {
-*  Test program for the DOUBLE PRECISION Level 2 Blas.
+// Test program for the DOUBLE PRECISION Level 2 Blas.
 
-*  The program must be driven by a short data file. The first 17 records
-*  of the file are read using list-directed input, the last 16 records
-*  are read using the format ( A12, L2 ). An annotated example of a data
-*  file can be obtained by deleting the first 3 characters from the
-*  following 33 lines:
-*  'DBLAT2.SNAP'     NAME OF SNAPSHOT OUTPUT FILE
-*  -1                UNIT NUMBER OF SNAPSHOT FILE (NOT USED IF < 0)
-*  F        LOGICAL FLAG, T TO REWIND SNAPSHOT FILE AFTER EACH RECORD.
-*  F        LOGICAL FLAG, T TO STOP ON FAILURES.
-*  T        LOGICAL FLAG, T TO TEST ERROR EXITS.
-*  2        0 TO TEST COLUMN-MAJOR, 1 TO TEST ROW-MAJOR, 2 TO TEST BOTH
-*  16.0     THRESHOLD VALUE OF TEST RATIO
-*  6                 NUMBER OF VALUES OF N
-*  0 1 2 3 5 9       VALUES OF N
-*  4                 NUMBER OF VALUES OF K
-*  0 1 2 4           VALUES OF K
-*  4                 NUMBER OF VALUES OF INCX AND INCY
-*  1 2 -1 -2         VALUES OF INCX AND INCY
-*  3                 NUMBER OF VALUES OF ALPHA
-*  0.0 1.0 0.7       VALUES OF ALPHA
-*  3                 NUMBER OF VALUES OF BETA
-*  0.0 1.0 0.9       VALUES OF BETA
-*  cblas_dgemv  T PUT F FOR NO TEST. SAME COLUMNS.
-*  cblas_dgbmv  T PUT F FOR NO TEST. SAME COLUMNS.
-*  cblas_dsymv  T PUT F FOR NO TEST. SAME COLUMNS.
-*  cblas_dsbmv  T PUT F FOR NO TEST. SAME COLUMNS.
-*  cblas_dspmv  T PUT F FOR NO TEST. SAME COLUMNS.
-*  cblas_dtrmv  T PUT F FOR NO TEST. SAME COLUMNS.
-*  cblas_dtbmv  T PUT F FOR NO TEST. SAME COLUMNS.
-*  cblas_dtpmv  T PUT F FOR NO TEST. SAME COLUMNS.
-*  cblas_dtrsv  T PUT F FOR NO TEST. SAME COLUMNS.
-*  cblas_dtbsv  T PUT F FOR NO TEST. SAME COLUMNS.
-*  cblas_dtpsv  T PUT F FOR NO TEST. SAME COLUMNS.
-*  cblas_dger   T PUT F FOR NO TEST. SAME COLUMNS.
-*  cblas_dsyr   T PUT F FOR NO TEST. SAME COLUMNS.
-*  cblas_dspr   T PUT F FOR NO TEST. SAME COLUMNS.
-*  cblas_dsyr2  T PUT F FOR NO TEST. SAME COLUMNS.
-*  cblas_dspr2  T PUT F FOR NO TEST. SAME COLUMNS.
+// The program must be driven by a short data file. The first 17 records
+// of the file are read using list-directed input, the last 16 records
+// are read using the format ( A12, L2 ). An annotated example of a data
+// file can be obtained by deleting the first 3 characters from the
+// following 33 lines:
+// 'DBLAT2.SNAP'     NAME OF SNAPSHOT OUTPUT FILE
+// -1                UNIT NUMBER OF SNAPSHOT FILE (NOT USED IF < 0)
+// F        LOGICAL FLAG, T TO REWIND SNAPSHOT FILE AFTER EACH RECORD.
+// F        LOGICAL FLAG, T TO STOP ON FAILURES.
+// T        LOGICAL FLAG, T TO TEST ERROR EXITS.
+// 2        0 TO TEST COLUMN-MAJOR, 1 TO TEST ROW-MAJOR, 2 TO TEST BOTH
+// 16.0     THRESHOLD VALUE OF TEST RATIO
+// 6                 NUMBER OF VALUES OF N
+// 0 1 2 3 5 9       VALUES OF N
+// 4                 NUMBER OF VALUES OF K
+// 0 1 2 4           VALUES OF K
+// 4                 NUMBER OF VALUES OF INCX AND INCY
+// 1 2 -1 -2         VALUES OF INCX AND INCY
+// 3                 NUMBER OF VALUES OF ALPHA
+// 0.0 1.0 0.7       VALUES OF ALPHA
+// 3                 NUMBER OF VALUES OF BETA
+// 0.0 1.0 0.9       VALUES OF BETA
+// cblas_dgemv  T PUT F FOR NO TEST. SAME COLUMNS.
+// cblas_dgbmv  T PUT F FOR NO TEST. SAME COLUMNS.
+// cblas_dsymv  T PUT F FOR NO TEST. SAME COLUMNS.
+// cblas_dsbmv  T PUT F FOR NO TEST. SAME COLUMNS.
+// cblas_dspmv  T PUT F FOR NO TEST. SAME COLUMNS.
+// cblas_dtrmv  T PUT F FOR NO TEST. SAME COLUMNS.
+// cblas_dtbmv  T PUT F FOR NO TEST. SAME COLUMNS.
+// cblas_dtpmv  T PUT F FOR NO TEST. SAME COLUMNS.
+// cblas_dtrsv  T PUT F FOR NO TEST. SAME COLUMNS.
+// cblas_dtbsv  T PUT F FOR NO TEST. SAME COLUMNS.
+// cblas_dtpsv  T PUT F FOR NO TEST. SAME COLUMNS.
+// cblas_dger   T PUT F FOR NO TEST. SAME COLUMNS.
+// cblas_dsyr   T PUT F FOR NO TEST. SAME COLUMNS.
+// cblas_dspr   T PUT F FOR NO TEST. SAME COLUMNS.
+// cblas_dsyr2  T PUT F FOR NO TEST. SAME COLUMNS.
+// cblas_dspr2  T PUT F FOR NO TEST. SAME COLUMNS.
 
       // See:
 
@@ -57,7 +57,7 @@
          // Street,  Suite 100,  Downers Grove,  Illinois 60515-1263,  USA.
 
 
-*  -- Written on 10-August-1987.
+// -- Written on 10-August-1987.
       // Richard Hanson, Sandia National Labs.
       // Jeremy Du Croz, NAG Central Office.
 
@@ -386,11 +386,11 @@
       }
       SUBROUTINE DCHK1( SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NKB, KB, NALF, ALF, NBET, BET, NINC, INC, NMAX, INCMAX, A, AA, AS, X, XX, XS, Y, YY, YS, YT, G, IORDER );
 
-*  Tests DGEMV and DGBMV.
+// Tests DGEMV and DGBMV.
 
-*  Auxiliary routine for test program for Level 2 Blas.
+// Auxiliary routine for test program for Level 2 Blas.
 
-*  -- Written on 10-August-1987.
+// -- Written on 10-August-1987.
       // Richard Hanson, Sandia National Labs.
       // Jeremy Du Croz, NAG Central Office.
 
@@ -688,11 +688,11 @@
       }
       SUBROUTINE DCHK2( SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NKB, KB, NALF, ALF, NBET, BET, NINC, INC, NMAX, INCMAX, A, AA, AS, X, XX, XS, Y, YY, YS, YT, G, IORDER );
 
-*  Tests DSYMV, DSBMV and DSPMV.
+// Tests DSYMV, DSBMV and DSPMV.
 
-*  Auxiliary routine for test program for Level 2 Blas.
+// Auxiliary routine for test program for Level 2 Blas.
 
-*  -- Written on 10-August-1987.
+// -- Written on 10-August-1987.
       // Richard Hanson, Sandia National Labs.
       // Jeremy Du Croz, NAG Central Office.
 
@@ -992,11 +992,11 @@
       }
       SUBROUTINE DCHK3( SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NKB, KB, NINC, INC, NMAX, INCMAX, A, AA, AS, X, XX, XS, XT, G, Z, IORDER );
 
-*  Tests DTRMV, DTBMV, DTPMV, DTRSV, DTBSV and DTPSV.
+// Tests DTRMV, DTBMV, DTPMV, DTRSV, DTBSV and DTPSV.
 
-*  Auxiliary routine for test program for Level 2 Blas.
+// Auxiliary routine for test program for Level 2 Blas.
 
-*  -- Written on 10-August-1987.
+// -- Written on 10-August-1987.
       // Richard Hanson, Sandia National Labs.
       // Jeremy Du Croz, NAG Central Office.
 
@@ -1312,11 +1312,11 @@
       }
       SUBROUTINE DCHK4( SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NINC, INC, NMAX, INCMAX, A, AA, AS, X, XX, XS, Y, YY, YS, YT, G, Z, IORDER );
 
-*  Tests DGER.
+// Tests DGER.
 
-*  Auxiliary routine for test program for Level 2 Blas.
+// Auxiliary routine for test program for Level 2 Blas.
 
-*  -- Written on 10-August-1987.
+// -- Written on 10-August-1987.
       // Richard Hanson, Sandia National Labs.
       // Jeremy Du Croz, NAG Central Office.
 
@@ -1545,11 +1545,11 @@
       }
       SUBROUTINE DCHK5( SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NINC, INC, NMAX, INCMAX, A, AA, AS, X, XX, XS, Y, YY, YS, YT, G, Z, IORDER );
 
-*  Tests DSYR and DSPR.
+// Tests DSYR and DSPR.
 
-*  Auxiliary routine for test program for Level 2 Blas.
+// Auxiliary routine for test program for Level 2 Blas.
 
-*  -- Written on 10-August-1987.
+// -- Written on 10-August-1987.
       // Richard Hanson, Sandia National Labs.
       // Jeremy Du Croz, NAG Central Office.
 
@@ -1802,11 +1802,11 @@
       }
       SUBROUTINE DCHK6( SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NINC, INC, NMAX, INCMAX, A, AA, AS, X, XX, XS, Y, YY, YS, YT, G, Z, IORDER );
 
-*  Tests DSYR2 and DSPR2.
+// Tests DSYR2 and DSPR2.
 
-*  Auxiliary routine for test program for Level 2 Blas.
+// Auxiliary routine for test program for Level 2 Blas.
 
-*  -- Written on 10-August-1987.
+// -- Written on 10-August-1987.
       // Richard Hanson, Sandia National Labs.
       // Jeremy Du Croz, NAG Central Office.
 
@@ -2090,16 +2090,16 @@
       }
       SUBROUTINE DMAKE( TYPE, UPLO, DIAG, M, N, A, NMAX, AA, LDA, KL, KU, RESET, TRANSL );
 
-*  Generates values for an M by N matrix A within the bandwidth
-*  defined by KL and KU.
-*  Stores the values in the array AA in the data structure required
-*  by the routine, with unwanted elements set to rogue value.
+// Generates values for an M by N matrix A within the bandwidth
+// defined by KL and KU.
+// Stores the values in the array AA in the data structure required
+// by the routine, with unwanted elements set to rogue value.
 
-*  TYPE is 'ge', 'gb', 'sy', 'sb', 'sp', 'tr', 'tb' OR 'tp'.
+// TYPE is 'ge', 'gb', 'sy', 'sb', 'sp', 'tr', 'tb' OR 'tp'.
 
-*  Auxiliary routine for test program for Level 2 Blas.
+// Auxiliary routine for test program for Level 2 Blas.
 
-*  -- Written on 10-August-1987.
+// -- Written on 10-August-1987.
       // Richard Hanson, Sandia National Labs.
       // Jeremy Du Croz, NAG Central Office.
 
@@ -2258,11 +2258,11 @@
       }
       SUBROUTINE DMVCH( TRANS, M, N, ALPHA, A, NMAX, X, INCX, BETA, Y, INCY, YT, G, YY, EPS, ERR, FATAL, NOUT, MV );
 
-*  Checks the results of the computational tests.
+// Checks the results of the computational tests.
 
-*  Auxiliary routine for test program for Level 2 Blas.
+// Auxiliary routine for test program for Level 2 Blas.
 
-*  -- Written on 10-August-1987.
+// -- Written on 10-August-1987.
       // Richard Hanson, Sandia National Labs.
       // Jeremy Du Croz, NAG Central Office.
 
@@ -2367,11 +2367,11 @@
       }
       bool    FUNCTION LDE( RI, RJ, LR );
 
-*  Tests if two arrays are identical.
+// Tests if two arrays are identical.
 
-*  Auxiliary routine for test program for Level 2 Blas.
+// Auxiliary routine for test program for Level 2 Blas.
 
-*  -- Written on 10-August-1987.
+// -- Written on 10-August-1987.
       // Richard Hanson, Sandia National Labs.
       // Jeremy Du Croz, NAG Central Office.
 
@@ -2396,13 +2396,13 @@
       }
       bool    FUNCTION LDERES( TYPE, UPLO, M, N, AA, AS, LDA );
 
-*  Tests if selected elements in two arrays are equal.
+// Tests if selected elements in two arrays are equal.
 
-*  TYPE is 'ge', 'sy' or 'sp'.
+// TYPE is 'ge', 'sy' or 'sp'.
 
-*  Auxiliary routine for test program for Level 2 Blas.
+// Auxiliary routine for test program for Level 2 Blas.
 
-*  -- Written on 10-August-1987.
+// -- Written on 10-August-1987.
       // Richard Hanson, Sandia National Labs.
       // Jeremy Du Croz, NAG Central Office.
 
@@ -2453,11 +2453,11 @@
       }
       double           FUNCTION DBEG( RESET );
 
-*  Generates random numbers uniformly distributed between -0.5 and 0.5.
+// Generates random numbers uniformly distributed between -0.5 and 0.5.
 
-*  Auxiliary routine for test program for Level 2 Blas.
+// Auxiliary routine for test program for Level 2 Blas.
 
-*  -- Written on 10-August-1987.
+// -- Written on 10-August-1987.
       // Richard Hanson, Sandia National Labs.
       // Jeremy Du Croz, NAG Central Office.
 
@@ -2499,9 +2499,9 @@
       }
       double           FUNCTION DDIFF( X, Y );
 
-*  Auxiliary routine for test program for Level 2 Blas.
+// Auxiliary routine for test program for Level 2 Blas.
 
-*  -- Written on 10-August-1987.
+// -- Written on 10-August-1987.
       // Richard Hanson, Sandia National Labs.
 
       // .. Scalar Arguments ..

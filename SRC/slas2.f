@@ -1,14 +1,14 @@
       SUBROUTINE SLAS2( F, G, H, SSMIN, SSMAX );
 
-*  -- LAPACK auxiliary routine --
-*  -- LAPACK is a software package provided by Univ. of Tennessee,    --
-*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+// -- LAPACK auxiliary routine --
+// -- LAPACK is a software package provided by Univ. of Tennessee,    --
+// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
       REAL               F, G, H, SSMAX, SSMIN;
       // ..
 
-*  ====================================================================
+// ====================================================================
 
       // .. Parameters ..
       REAL               ZERO;

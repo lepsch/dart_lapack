@@ -1,8 +1,8 @@
       SUBROUTINE DROTM(N,DX,INCX,DY,INCY,DPARAM);
 
-*  -- Reference BLAS level1 routine --
-*  -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
-*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+// -- Reference BLAS level1 routine --
+// -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
+// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
       int     INCX,INCY,N;
@@ -11,7 +11,7 @@
       double           DPARAM(5),DX(*),DY(*);
       // ..
 
-*  =====================================================================
+// =====================================================================
 
       // .. Local Scalars ..
       double           DFLAG,DH11,DH12,DH21,DH22,TWO,W,Z,ZERO;

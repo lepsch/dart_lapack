@@ -1,8 +1,8 @@
       SUBROUTINE ZGEQRT2( M, N, A, LDA, T, LDT, INFO );
 
-*  -- LAPACK computational routine --
-*  -- LAPACK is a software package provided by Univ. of Tennessee,    --
-*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+// -- LAPACK computational routine --
+// -- LAPACK is a software package provided by Univ. of Tennessee,    --
+// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
       int       INFO, LDA, LDT, M, N;
@@ -11,7 +11,7 @@
       COMPLEX*16   A( LDA, * ), T( LDT, * );
       // ..
 
-*  =====================================================================
+// =====================================================================
 
       // .. Parameters ..
       COMPLEX*16  ONE, ZERO;

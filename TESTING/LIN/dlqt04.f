@@ -1,16 +1,16 @@
       SUBROUTINE DLQT04(M,N,NB,RESULT);
       // IMPLICIT NONE
 
-*  -- LAPACK test routine --
-*  -- LAPACK is a software package provided by Univ. of Tennessee,    --
-*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+// -- LAPACK test routine --
+// -- LAPACK is a software package provided by Univ. of Tennessee,    --
+// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
       int     M, N, NB, LDT;
       // .. Return values ..
       double           RESULT(6);
 
-*  =====================================================================
+// =====================================================================
 
       // ..
       // .. Local allocatable arrays

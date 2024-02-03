@@ -1,8 +1,8 @@
       SUBROUTINE DLAHILB( N, NRHS, A, LDA, X, LDX, B, LDB, WORK, INFO);
 
-*  -- LAPACK test routine --
-*  -- LAPACK is a software package provided by Univ. of Tennessee,    --
-*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+// -- LAPACK test routine --
+// -- LAPACK is a software package provided by Univ. of Tennessee,    --
+// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
       int     N, NRHS, LDA, LDX, LDB, INFO;
@@ -10,7 +10,7 @@
       double           A(LDA, N), X(LDX, NRHS), B(LDB, NRHS), WORK(N);
       // ..
 
-*  =====================================================================
+// =====================================================================
       // .. Local Scalars ..
       int     TM, TI, R;
       int     M;

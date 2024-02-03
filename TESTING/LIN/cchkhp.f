@@ -1,8 +1,8 @@
       SUBROUTINE CCHKHP( DOTYPE, NN, NVAL, NNS, NSVAL, THRESH, TSTERR, NMAX, A, AFAC, AINV, B, X, XACT, WORK, RWORK, IWORK, NOUT );
 
-*  -- LAPACK test routine --
-*  -- LAPACK is a software package provided by Univ. of Tennessee,    --
-*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+// -- LAPACK test routine --
+// -- LAPACK is a software package provided by Univ. of Tennessee,    --
+// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
       bool               TSTERR;
@@ -16,7 +16,7 @@
       COMPLEX            A( * ), AFAC( * ), AINV( * ), B( * ), WORK( * ), X( * ), XACT( * );
       // ..
 
-*  =====================================================================
+// =====================================================================
 
       // .. Parameters ..
       REAL               ZERO;
@@ -234,13 +234,13 @@
                   TRFCON = false;
                }
 
-*+    TEST 1
+// +    TEST 1
                // Reconstruct matrix from factors and compute residual.
 
                chpt01(UPLO, N, A, AFAC, IWORK, AINV, LDA, RWORK, RESULT( 1 ) );
                NT = 1;
 
-*+    TEST 2
+// +    TEST 2
                // Form the inverse and compute the residual.
 
                if ( !TRFCON ) {
@@ -277,7 +277,7 @@
                for (IRHS = 1; IRHS <= NNS; IRHS++) { // 130
                   NRHS = NSVAL( IRHS );
 
-*+    TEST 3
+// +    TEST 3
                // Solve and compute residual for  A * X = B.
 
                   SRNAMT = 'CLARHS';
@@ -295,12 +295,12 @@
                   clacpy('Full', N, NRHS, B, LDA, WORK, LDA );
                   cppt02(UPLO, N, NRHS, A, X, LDA, WORK, LDA, RWORK, RESULT( 3 ) );
 
-*+    TEST 4
+// +    TEST 4
                // Check solution from generated exact solution.
 
                   cget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 4 ) );
 
-*+    TESTS 5, 6, and 7
+// +    TESTS 5, 6, and 7
                // Use iterative refinement to improve the solution.
 
                   SRNAMT = 'CHPRFS';
@@ -325,7 +325,7 @@
                   NRUN = NRUN + 5;
                } // 130
 
-*+    TEST 8
+// +    TEST 8
                // Get an estimate of RCOND = 1/CNDNUM.
 
                } // 140

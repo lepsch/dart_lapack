@@ -1,8 +1,8 @@
       SUBROUTINE STBMV(UPLO,TRANS,DIAG,N,K,A,LDA,X,INCX);
 
-*  -- Reference BLAS level2 routine --
-*  -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
-*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+// -- Reference BLAS level2 routine --
+// -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
+// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
       int     INCX,K,LDA,N;
@@ -12,7 +12,7 @@
       REAL A(LDA,*),X(*);
       // ..
 
-*  =====================================================================
+// =====================================================================
 
       // .. Parameters ..
       REAL ZERO;

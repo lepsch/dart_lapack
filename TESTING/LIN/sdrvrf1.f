@@ -1,8 +1,8 @@
       SUBROUTINE SDRVRF1( NOUT, NN, NVAL, THRESH, A, LDA, ARF, WORK );
 
-*  -- LAPACK test routine --
-*  -- LAPACK is a software package provided by Univ. of Tennessee,    --
-*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+// -- LAPACK test routine --
+// -- LAPACK is a software package provided by Univ. of Tennessee,    --
+// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
       int                LDA, NN, NOUT;
@@ -13,7 +13,7 @@
       REAL               A( LDA, * ), ARF( * ), WORK( * );
       // ..
 
-*  =====================================================================
+// =====================================================================
       // ..
       // .. Parameters ..
       REAL               ONE;

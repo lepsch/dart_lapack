@@ -84,6 +84,12 @@ find . -type f -regex '.*\.[fF]' | xargs -I % sed -Ei '' 's/^[^ \t](     [ \t]*)
 find . -type f -regex '.*\.[fF]' | xargs -I % sed -Ei '' 's/^[^ \t]$//g' %
 ```
 
+### Comment out the remaining comments
+```
+^[^\s\d#]\s*(.*)$
+// $1
+```
+
 ### END -> }
 ```sh
 find . -type f -regex '.*\.[fF]' | xargs -I % sed -Ei '' 's/^      ([ ]*)END$/      \1}/g' %

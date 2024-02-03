@@ -1,8 +1,8 @@
       SUBROUTINE CGSVJ0( JOBV, M, N, A, LDA, D, SVA, MV, V, LDV, EPS, SFMIN, TOL, NSWEEP, WORK, LWORK, INFO );
 
-*  -- LAPACK computational routine --
-*  -- LAPACK is a software package provided by Univ. of Tennessee,    --
-*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+// -- LAPACK computational routine --
+// -- LAPACK is a software package provided by Univ. of Tennessee,    --
+// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // IMPLICIT NONE
       // .. Scalar Arguments ..
@@ -15,7 +15,7 @@
       REAL               SVA( N );
       // ..
 
-*  =====================================================================
+// =====================================================================
 
       // .. Local Parameters ..
       REAL               ZERO, HALF, ONE;
@@ -106,7 +106,7 @@
 
 
       SWBAND = 0;
-*[TP] SWBAND is a tuning parameter [TP]. It is meaningful and effective
+// [TP] SWBAND is a tuning parameter [TP]. It is meaningful and effective
       // if CGESVJ is used as a computational routine in the preconditioned
       // Jacobi SVD algorithm CGEJSV. For sweeps i=1:SWBAND the procedure
       // works on pivots inside a band-like region around the diagonal.
@@ -114,7 +114,7 @@
       // pivots above a threshold.
 
       KBL = MIN( 8, N );
-*[TP] KBL is a tuning parameter that defines the tile size in the
+// [TP] KBL is a tuning parameter that defines the tile size in the
       // tiling of the p-q loops of pivot pairs. In general, an optimal
       // value of KBL depends on the matrix dimensions and on the
       // parameters of the computer's memory.
@@ -123,13 +123,13 @@
       IF( ( NBL*KBL ) != N )NBL = NBL + 1;
 
       BLSKIP = KBL**2;
-*[TP] BLKSKIP is a tuning parameter that depends on SWBAND and KBL.
+// [TP] BLKSKIP is a tuning parameter that depends on SWBAND and KBL.
 
       ROWSKIP = MIN( 5, KBL );
-*[TP] ROWSKIP is a tuning parameter.
+// [TP] ROWSKIP is a tuning parameter.
 
       LKAHEAD = 1;
-*[TP] LKAHEAD is a tuning parameter.
+// [TP] LKAHEAD is a tuning parameter.
 
       // Quasi block transformations, using the lower (upper) triangular
       // structure of the input matrix. The quasi-block-cycling usually
@@ -246,7 +246,7 @@
                               OMPQ = AAPQ / ABS(AAPQ);
 
             // .. rotate
-*[RTD]      ROTATED = ROTATED + ONE
+// [RTD]      ROTATED = ROTATED + ONE
 
                               if ( ir1 == 0 ) {
                                  NOTROT = 0;
@@ -328,7 +328,7 @@
                            } else {
          // A(:,p) and A(:,q) already numerically orthogonal
                               if (ir1 == 0) NOTROT = NOTROT + 1;
-*[RTD]      SKIPPED  = SKIPPED  + 1
+// [RTD]      SKIPPED  = SKIPPED  + 1
                               PSKIPPED = PSKIPPED + 1;
                            }
                         } else {
@@ -362,7 +362,7 @@
             } // 1002
       // end of ir1-loop
 
-* ... go to the off diagonal blocks
+// ... go to the off diagonal blocks
 
             igl = ( ibr-1 )*KBL + 1;
 
@@ -427,7 +427,7 @@
                            if ( ABS( AAPQ1 ) > TOL ) {
                               OMPQ = AAPQ / ABS(AAPQ);
                               NOTROT = 0;
-*[RTD]      ROTATED  = ROTATED + 1
+// [RTD]      ROTATED  = ROTATED + 1
                               PSKIPPED = 0;
                               ISWROT = ISWROT + 1;
 
@@ -513,7 +513,7 @@
                // end of OK rotation
                            } else {
                               NOTROT = NOTROT + 1;
-*[RTD]      SKIPPED  = SKIPPED  + 1
+// [RTD]      SKIPPED  = SKIPPED  + 1
                               PSKIPPED = PSKIPPED + 1;
                               IJBLSK = IJBLSK + 1;
                            }
@@ -552,13 +552,13 @@
             } // 2010
       // end of the jbc-loop
             } // 2011
-*2011 bailed out of the jbc-loop
+// 2011 bailed out of the jbc-loop
             DO 2012 p = igl, MIN( igl+KBL-1, N );
                SVA( p ) = ABS( SVA( p ) );
             } // 2012
-***
+// **
          } // 2000
-*2000 :: end of the ibr-loop
+// 2000 :: end of the ibr-loop
 
       // .. update SVA(N)
          if ( ( SVA( N ) < ROOTBIG ) && ( SVA( N ) > ROOTSFMIN ) ) {
@@ -583,16 +583,16 @@
       } // 1993
       // end i=1:NSWEEP loop
 
-* #:( Reaching this point means that the procedure has not converged.
+// #:( Reaching this point means that the procedure has not converged.
       INFO = NSWEEP - 1;
       GO TO 1995;
 
       } // 1994
-* #:) Reaching this point means numerical convergence after the i-th
+// #:) Reaching this point means numerical convergence after the i-th
       // sweep.
 
       INFO = 0;
-* #:) INFO = 0 confirms successful iterations.
+// #:) INFO = 0 confirms successful iterations.
       } // 1995
 
       // Sort the vector SVA() of column norms.

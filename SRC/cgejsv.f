@@ -1,8 +1,8 @@
       SUBROUTINE CGEJSV( JOBA, JOBU, JOBV, JOBR, JOBT, JOBP, M, N, A, LDA, SVA, U, LDU, V, LDV, CWORK, LWORK, RWORK, LRWORK, IWORK, INFO );
 
-*  -- LAPACK computational routine --
-*  -- LAPACK is a software package provided by Univ. of Tennessee,    --
-*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+// -- LAPACK computational routine --
+// -- LAPACK is a software package provided by Univ. of Tennessee,    --
+// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
       IMPLICIT    NONE;
@@ -15,7 +15,7 @@
       String      JOBA, JOBP, JOBR, JOBT, JOBU, JOBV;
       // ..
 
-*  ===========================================================================
+// ===========================================================================
 
       // .. Local Parameters ..
       REAL        ZERO,         ONE;
@@ -309,7 +309,7 @@
       }
 
       // Quick return for void matrix (Y3K safe)
-* #:)
+// #:)
       if ( ( M == 0 ) || ( N == 0 ) ) {
          IWORK(1:4) = 0;
          RWORK(1:7) = 0;
@@ -325,7 +325,7 @@
 
       // Set numerical parameters
 
-*!    NOTE: Make sure SLAMCH() does not fail on the target architecture.
+// !    NOTE: Make sure SLAMCH() does not fail on the target architecture.
 
       EPSLN = SLAMCH('Epsilon');
       SFMIN = SLAMCH('SafeMinimum');
@@ -335,7 +335,7 @@
 
       // Initialize SVA(1:N) = diag( ||A e_i||_2 )_1^N
 
-*(!)  If necessary, scale SVA() to protect the largest norm from
+// (!)  If necessary, scale SVA() to protect the largest norm from
       // overflow. It is possible that this scaling pushes the smallest
       // column norm left from the underflow threshold (extreme case).
 
@@ -374,7 +374,7 @@
       } // 4781
 
       // Quick return for zero M x N matrix
-* #:)
+// #:)
       if ( AAPP == ZERO ) {
          if (LSVEC) CALL CLASET( 'G', M, N1, CZERO, CONE, U, LDU );
          if (RSVEC) CALL CLASET( 'G', N, N,  CZERO, CONE, V, LDV );
@@ -399,7 +399,7 @@
       // Issue warning if denormalized column norms detected. Override the
       // high relative accuracy request. Issue licence to kill nonzero columns
       // (set them to zero) whose norm is less than sigma_max / BIG (roughly).
-* #:(
+// #:(
       WARNING = 0;
       if ( AAQQ <= SFMIN ) {
          L2RANK = true;
@@ -408,7 +408,7 @@
       }
 
       // Quick return for one-column matrix
-* #:)
+// #:)
       if ( N == 1 ) {
 
          if ( LSVEC ) {
@@ -765,17 +765,17 @@
                cpocon('U', N, U, LDU, ONE, TEMP1, CWORK(N+1), RWORK, IERR );
             } else {
                clacpy('U', N, N, A, LDA, CWORK, N );
-*[]            CALL CLACPY( 'U', N, N, A, LDA, CWORK(N+1), N )
+// []            CALL CLACPY( 'U', N, N, A, LDA, CWORK(N+1), N )
                // Change: here index shifted by N to the left, CWORK(1:N)
                // not needed for SIGMA only computation
                for (p = 1; p <= N; p++) { // 3052
                   TEMP1 = SVA(IWORK(p));
-*[]               CALL CSSCAL( p, ONE/TEMP1, CWORK(N+(p-1)*N+1), 1 )
+// []               CALL CSSCAL( p, ONE/TEMP1, CWORK(N+(p-1)*N+1), 1 )
                   csscal(p, ONE/TEMP1, CWORK((p-1)*N+1), 1 );
                } // 3052
             // .. the columns of R are scaled to have unit Euclidean lengths.
-*[]               CALL CPOCON( 'U', N, CWORK(N+1), N, ONE, TEMP1,
-*[]     $              CWORK(N+N*N+1), RWORK, IERR )
+// []               CALL CPOCON( 'U', N, CWORK(N+1), N, ONE, TEMP1,
+// []     $              CWORK(N+N*N+1), RWORK, IERR )
                cpocon('U', N, CWORK, N, ONE, TEMP1, CWORK(N*N+1), RWORK, IERR );
 
             }
@@ -923,7 +923,7 @@
           // .. permute the rows of V
           // DO 8991 p = 1, N
              // CALL CCOPY( N, V(p,1), LDV, A(IWORK(p),1), LDA )
-* 8991    CONTINUE
+// 8991    CONTINUE
           // CALL CLACPY( 'All', N, N, A, LDA, V, LDV )
          clapmr( false , N, N, V, LDV, IWORK );
 
@@ -1048,7 +1048,7 @@
             // more conservative    <=> CONDR1 < SQRT(REAL(N))
 
             COND_OK = SQRT(SQRT(REAL(NR)));
-*[TP]       COND_OK is a tuning parameter.
+// [TP]       COND_OK is a tuning parameter.
 
             if ( CONDR1 < COND_OK ) {
                // .. the second QRF without pivoting. Note: in an optimized
@@ -1094,8 +1094,8 @@
                   IWORK(N+p) = 0;
                } // 3003
                cgeqp3(N, NR, V, LDV, IWORK(N+1), CWORK(N+1), CWORK(2*N+1), LWORK-2*N, RWORK, IERR );
-**               CALL CGEQRF( N, NR, V, LDV, CWORK(N+1), CWORK(2*N+1),
-**     $              LWORK-2*N, IERR )
+// *               CALL CGEQRF( N, NR, V, LDV, CWORK(N+1), CWORK(2*N+1),
+// *     $              LWORK-2*N, IERR )
                if ( L2PERT ) {
                   XSC = SQRT(SMALL);
                   for (p = 2; p <= NR; p++) { // 3969
@@ -1177,7 +1177,7 @@
          // .. pick the right matrix equation and solve it
 
                if ( NR == N ) {
-* :))             .. best case, R1 is inverted. The solution of this matrix
+// :))             .. best case, R1 is inverted. The solution of this matrix
                   // equation is Q2*V2 = the product of the Jacobi rotations
                   // used in CGESVJ, premultiplied with the orthogonal matrix
                   // from the second QR factorization.
@@ -1227,7 +1227,7 @@
                cunmqr('L','N',N,N,NR,CWORK(2*N+1),N,CWORK(N+1), V,LDV,CWORK(2*N+N*NR+NR+1),LWORK-2*N-N*NR-NR,IERR );
             } else {
                // Last line of defense.
-* #:(          This is a rather pathological case: no scaled condition
+// #:(          This is a rather pathological case: no scaled condition
                // improvement after two pivoted QR factorizations. Other
                // possibility is that the rank revealing QR factorization
                // or the condition estimator has failed, or the COND_OK

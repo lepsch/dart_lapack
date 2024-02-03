@@ -1,9 +1,9 @@
       SUBROUTINE ZUNHR_COL( M, N, NB, A, LDA, T, LDT, D, INFO );
       // IMPLICIT NONE
 
-*  -- LAPACK computational routine --
-*  -- LAPACK is a software package provided by Univ. of Tennessee,    --
-*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+// -- LAPACK computational routine --
+// -- LAPACK is a software package provided by Univ. of Tennessee,    --
+// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
       int               INFO, LDA, LDT, M, N, NB;
@@ -12,7 +12,7 @@
       COMPLEX*16        A( LDA, * ), D( * ), T( LDT, * );
       // ..
 
-*  =====================================================================
+// =====================================================================
 
       // .. Parameters ..
       COMPLEX*16         CONE, CZERO;

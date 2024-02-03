@@ -1,8 +1,8 @@
       SUBROUTINE DTRSV(UPLO,TRANS,DIAG,N,A,LDA,X,INCX);
 
-*  -- Reference BLAS level2 routine --
-*  -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
-*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+// -- Reference BLAS level2 routine --
+// -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
+// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
       int     INCX,LDA,N;
@@ -12,7 +12,7 @@
       double           A(LDA,*),X(*);
       // ..
 
-*  =====================================================================
+// =====================================================================
 
       // .. Parameters ..
       double           ZERO;

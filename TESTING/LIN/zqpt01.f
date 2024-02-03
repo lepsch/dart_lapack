@@ -1,8 +1,8 @@
       double           FUNCTION ZQPT01( M, N, K, A, AF, LDA, TAU, JPVT, WORK, LWORK );
 
-*  -- LAPACK test routine --
-*  -- LAPACK is a software package provided by Univ. of Tennessee,    --
-*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+// -- LAPACK test routine --
+// -- LAPACK is a software package provided by Univ. of Tennessee,    --
+// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
       int                K, LDA, LWORK, M, N;
@@ -12,7 +12,7 @@
       COMPLEX*16         A( LDA, * ), AF( LDA, * ), TAU( * ), WORK( LWORK );
       // ..
 
-*  =====================================================================
+// =====================================================================
 
       // .. Parameters ..
       double             ZERO, ONE;

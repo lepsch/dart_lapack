@@ -1,71 +1,71 @@
-*> \param[out] AFAC
-*> \verbatim
-*>          AFAC is COMPLEX*16 array, dimension (NMAX*NMAX)
-*> \endverbatim
-*>
-*> \param[out] E
-*> \verbatim
-*>          E is COMPLEX*16 array, dimension (NMAX)
-*> \endverbatim
-*>
-*> \param[out] AINV
-*> \verbatim
-*>          AINV is COMPLEX*16 array, dimension (NMAX*NMAX)
-*> \endverbatim
-*>
-*> \param[out] B
-*> \verbatim
-*>          B is COMPLEX*16 array, dimension (NMAX*NSMAX)
-*>          where NSMAX is the largest entry in NSVAL.
-*> \endverbatim
-*>
-*> \param[out] X
-*> \verbatim
-*>          X is COMPLEX*16 array, dimension (NMAX*NSMAX)
-*> \endverbatim
-*>
-*> \param[out] XACT
-*> \verbatim
-*>          XACT is COMPLEX*16 array, dimension (NMAX*NSMAX)
-*> \endverbatim
-*>
-*> \param[out] WORK
-*> \verbatim
-*>          WORK is COMPLEX*16 array, dimension (NMAX*max(3,NSMAX))
-*> \endverbatim
-*>
-*> \param[out] RWORK
-*> \verbatim
-*>          RWORK is DOUBLE PRECISION array, dimension (max(NMAX,2*NSMAX))
-*> \endverbatim
-*>
-*> \param[out] IWORK
-*> \verbatim
-*>          IWORK is INTEGER array, dimension (2*NMAX)
-*> \endverbatim
-*>
-*> \param[in] NOUT
-*> \verbatim
-*>          NOUT is INTEGER
-*>          The unit number for output.
-*> \endverbatim
+// > \param[out] AFAC
+// > \verbatim
+// >          AFAC is COMPLEX*16 array, dimension (NMAX*NMAX)
+// > \endverbatim
+// >
+// > \param[out] E
+// > \verbatim
+// >          E is COMPLEX*16 array, dimension (NMAX)
+// > \endverbatim
+// >
+// > \param[out] AINV
+// > \verbatim
+// >          AINV is COMPLEX*16 array, dimension (NMAX*NMAX)
+// > \endverbatim
+// >
+// > \param[out] B
+// > \verbatim
+// >          B is COMPLEX*16 array, dimension (NMAX*NSMAX)
+// >          where NSMAX is the largest entry in NSVAL.
+// > \endverbatim
+// >
+// > \param[out] X
+// > \verbatim
+// >          X is COMPLEX*16 array, dimension (NMAX*NSMAX)
+// > \endverbatim
+// >
+// > \param[out] XACT
+// > \verbatim
+// >          XACT is COMPLEX*16 array, dimension (NMAX*NSMAX)
+// > \endverbatim
+// >
+// > \param[out] WORK
+// > \verbatim
+// >          WORK is COMPLEX*16 array, dimension (NMAX*max(3,NSMAX))
+// > \endverbatim
+// >
+// > \param[out] RWORK
+// > \verbatim
+// >          RWORK is DOUBLE PRECISION array, dimension (max(NMAX,2*NSMAX))
+// > \endverbatim
+// >
+// > \param[out] IWORK
+// > \verbatim
+// >          IWORK is INTEGER array, dimension (2*NMAX)
+// > \endverbatim
+// >
+// > \param[in] NOUT
+// > \verbatim
+// >          NOUT is INTEGER
+// >          The unit number for output.
+// > \endverbatim
 
-*  Authors:
-*  ========
+// Authors:
+// ========
 
-*> \author Univ. of Tennessee
-*> \author Univ. of California Berkeley
-*> \author Univ. of Colorado Denver
-*> \author NAG Ltd.
+// > \author Univ. of Tennessee
+// > \author Univ. of California Berkeley
+// > \author Univ. of Colorado Denver
+// > \author NAG Ltd.
 
-*> \ingroup complex16_lin
+// > \ingroup complex16_lin
 
-*  =====================================================================
+// =====================================================================
       SUBROUTINE ZCHKSY_RK( DOTYPE, NN, NVAL, NNB, NBVAL, NNS, NSVAL, THRESH, TSTERR, NMAX, A, AFAC, E, AINV, B, X, XACT, WORK, RWORK, IWORK, NOUT );
 
-*  -- LAPACK test routine --
-*  -- LAPACK is a software package provided by Univ. of Tennessee,    --
-*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+// -- LAPACK test routine --
+// -- LAPACK is a software package provided by Univ. of Tennessee,    --
+// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
       bool               TSTERR;
@@ -79,7 +79,7 @@
       COMPLEX*16         A( * ), AFAC( * ), AINV( * ), B( * ), E( * ), WORK( * ), X( * ), XACT( * );
       // ..
 
-*  =====================================================================
+// =====================================================================
 
       // .. Parameters ..
       double             ZERO, ONE;
@@ -353,13 +353,13 @@
                      TRFCON = false;
                   }
 
-*+    TEST 1
+// +    TEST 1
                   // Reconstruct matrix from factors and compute residual.
 
                   zsyt01_3(UPLO, N, A, LDA, AFAC, LDA, E, IWORK, AINV, LDA, RWORK, RESULT( 1 ) );
                   NT = 1;
 
-*+    TEST 2
+// +    TEST 2
                   // Form the inverse and compute the residual,
                   // if the factorization was competed without INFO > 0
                   // (i.e. there is no zero rows and columns).
@@ -398,7 +398,7 @@
                   } // 110
                   NRUN = NRUN + NT;
 
-*+    TEST 3
+// +    TEST 3
                   // Compute largest element in U or L
 
                   RESULT( 3 ) = ZERO;
@@ -476,7 +476,7 @@
                   }
 
 
-*+    TEST 4
+// +    TEST 4
                   // Compute largest 2-Norm (condition number)
                   // of 2-by-2 diag blocks
 
@@ -593,7 +593,7 @@
                   for (IRHS = 1; IRHS <= NNS; IRHS++) { // 220
                      NRHS = NSVAL( IRHS );
 
-*+    TEST 5 ( Using TRS_3)
+// +    TEST 5 ( Using TRS_3)
                   // Solve and compute residual for  A * X = B.
 
                      // Choose a set of NRHS random solution vectors
@@ -616,7 +616,7 @@
 
                      zsyt02(UPLO, N, NRHS, A, LDA, X, LDA, WORK, LDA, RWORK, RESULT( 5 ) );
 
-*+    TEST 6
+// +    TEST 6
                   // Check solution from generated exact solution.
 
                      zget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 6 ) );
@@ -636,7 +636,7 @@
 
                   } // 220
 
-*+    TEST 7
+// +    TEST 7
                   // Get an estimate of RCOND = 1/CNDNUM.
 
                   } // 230

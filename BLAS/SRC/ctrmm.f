@@ -1,8 +1,8 @@
       SUBROUTINE CTRMM(SIDE,UPLO,TRANSA,DIAG,M,N,ALPHA,A,LDA,B,LDB);
 
-*  -- Reference BLAS level3 routine --
-*  -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
-*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+// -- Reference BLAS level3 routine --
+// -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
+// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
       COMPLEX ALPHA;
@@ -13,7 +13,7 @@
       COMPLEX A(LDA,*),B(LDB,*);
       // ..
 
-*  =====================================================================
+// =====================================================================
 
       // .. External Functions ..
       bool    LSAME;

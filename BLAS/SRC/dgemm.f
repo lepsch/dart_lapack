@@ -1,8 +1,8 @@
       SUBROUTINE DGEMM(TRANSA,TRANSB,M,N,K,ALPHA,A,LDA,B,LDB, BETA,C,LDC);
 
-*  -- Reference BLAS level3 routine --
-*  -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
-*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+// -- Reference BLAS level3 routine --
+// -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
+// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
       double           ALPHA,BETA;
@@ -13,7 +13,7 @@
       double           A(LDA,*),B(LDB,*),C(LDC,*);
       // ..
 
-*  =====================================================================
+// =====================================================================
 
       // .. External Functions ..
       bool    LSAME;

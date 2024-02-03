@@ -1,8 +1,8 @@
       SUBROUTINE ZTFSM( TRANSR, SIDE, UPLO, TRANS, DIAG, M, N, ALPHA, A, B, LDB );
 
-*  -- LAPACK computational routine --
-*  -- LAPACK is a software package provided by Univ. of Tennessee,    --
-*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+// -- LAPACK computational routine --
+// -- LAPACK is a software package provided by Univ. of Tennessee,    --
+// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
       String             TRANSR, DIAG, SIDE, TRANS, UPLO;
@@ -13,7 +13,7 @@
       COMPLEX*16         A( 0: * ), B( 0: LDB-1, 0: * );
       // ..
 
-*  =====================================================================
+// =====================================================================
       // ..
       // .. Parameters ..
       COMPLEX*16         CONE, CZERO;

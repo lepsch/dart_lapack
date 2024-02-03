@@ -4,15 +4,15 @@
 #endif
       // IMPLICIT NONE
 
-*  -- LAPACK auxiliary routine --
-*  -- LAPACK is a software package provided by Univ. of Tennessee,    --
-*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+// -- LAPACK auxiliary routine --
+// -- LAPACK is a software package provided by Univ. of Tennessee,    --
+// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
       String   *( * )    NAME, OPTS;
       int                ISPEC, NI, NBI, IBI, NXI;
 
-*  ================================================================
+// ================================================================
       // ..
       // .. Local Scalars ..
       int                I, IC, IZ, KD, IB, LHOUS, LWORK, NTHREADS, FACTOPTNB, QROPTNB, LQOPTNB;
@@ -40,9 +40,9 @@
 
       NTHREADS = 1;
 #if defined(_OPENMP)
-!$OMP PARALLEL
+// $OMP PARALLEL
       NTHREADS = OMP_GET_NUM_THREADS();
-!$OMP END PARALLEL
+// $OMP END PARALLEL
 #endif
        // WRITE(*,*) 'IPARAM VOICI NTHREADS ISPEC ',NTHREADS, ISPEC
 

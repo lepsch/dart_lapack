@@ -1,8 +1,8 @@
       SUBROUTINE CHETRF_AA( UPLO, N, A, LDA, IPIV, WORK, LWORK, INFO );
 
-*  -- LAPACK computational routine --
-*  -- LAPACK is a software package provided by Univ. of Tennessee,    --
-*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+// -- LAPACK computational routine --
+// -- LAPACK is a software package provided by Univ. of Tennessee,    --
+// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // IMPLICIT NONE
 
@@ -15,7 +15,7 @@
       COMPLEX      A( LDA, * ), WORK( * );
       // ..
 
-*  =====================================================================
+// =====================================================================
       // .. Parameters ..
       COMPLEX      ZERO, ONE;
       const        ZERO = (0.0, 0.0), ONE = (1.0, 0.0) ;

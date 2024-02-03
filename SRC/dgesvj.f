@@ -1,8 +1,8 @@
       SUBROUTINE DGESVJ( JOBA, JOBU, JOBV, M, N, A, LDA, SVA, MV, V, LDV, WORK, LWORK, INFO );
 
-*  -- LAPACK computational routine --
-*  -- LAPACK is a software package provided by Univ. of Tennessee,    --
-*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+// -- LAPACK computational routine --
+// -- LAPACK is a software package provided by Univ. of Tennessee,    --
+// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
       int                INFO, LDA, LDV, LWORK, M, MV, N;
@@ -12,7 +12,7 @@
       double             A( LDA, * ), SVA( N ), V( LDV, * ), WORK( LWORK );
       // ..
 
-*  =====================================================================
+// =====================================================================
 
       // .. Local Parameters ..
       double             ZERO, HALF, ONE;
@@ -105,7 +105,7 @@
          return;
       }
 
-* #:) Quick return for void matrix
+// #:) Quick return for void matrix
 
       if (MINMN == 0) RETURN;
 
@@ -128,7 +128,7 @@
          }
       }
       // ... and the machine dependent parameters are
-*[!]  (Make sure that DLAMCH() works properly on the target machine.)
+// [!]  (Make sure that DLAMCH() works properly on the target machine.)
 
       EPSLN = DLAMCH( 'Epsilon' );
       ROOTEPS = DSQRT( EPSLN );
@@ -161,7 +161,7 @@
       RSVEC = RSVEC || APPLV;
 
       // Initialize SVA( 1:N ) = ( ||A e_i||_2, i = 1:N )
-*(!)  If necessary, scale A to protect the largest singular value
+// (!)  If necessary, scale A to protect the largest singular value
       // from overflow. It is possible that saving the largest singular
       // value destroys the information about the small ones.
       // This initial scaling is almost minimal in the sense that the
@@ -253,7 +253,7 @@
       if (NOSCALE) SKL= ONE;
 
       // Move the smaller part of the spectrum from the underflow threshold
-*(!)  Start by determining the position of the nonzero entries of the
+// (!)  Start by determining the position of the nonzero entries of the
       // array SVA() relative to ( SFMIN, BIG ).
 
       AAPP = ZERO;
@@ -263,7 +263,7 @@
          AAPP = MAX( AAPP, SVA( p ) );
       } // 4781
 
-* #:) Quick return for zero matrix
+// #:) Quick return for zero matrix
 
       if ( AAPP == ZERO ) {
          if (LSVEC) CALL DLASET( 'G', M, N, ZERO, ONE, A, LDA );
@@ -276,7 +276,7 @@
          return;
       }
 
-* #:) Quick return for one-column matrix
+// #:) Quick return for one-column matrix
 
       if ( N == 1 ) {
          if (LSVEC) CALL DLASCL( 'G', 0, 0, SVA( 1 ), SKL, M, 1, A( 1, 1 ), LDA, IERR );
@@ -345,7 +345,7 @@
 
 
       SWBAND = 3;
-*[TP] SWBAND is a tuning parameter [TP]. It is meaningful and effective
+// [TP] SWBAND is a tuning parameter [TP]. It is meaningful and effective
       // if DGESVJ is used as a computational routine in the preconditioned
       // Jacobi SVD algorithm DGESVJ. For sweeps i=1:SWBAND the procedure
       // works on pivots inside a band-like region around the diagonal.
@@ -353,7 +353,7 @@
       // pivots above a threshold.
 
       KBL = MIN( 8, N );
-*[TP] KBL is a tuning parameter that defines the tile size in the
+// [TP] KBL is a tuning parameter that defines the tile size in the
       // tiling of the p-q loops of pivot pairs. In general, an optimal
       // value of KBL depends on the matrix dimensions and on the
       // parameters of the computer's memory.
@@ -362,13 +362,13 @@
       IF( ( NBL*KBL ) != N )NBL = NBL + 1;
 
       BLSKIP = KBL**2;
-*[TP] BLKSKIP is a tuning parameter that depends on SWBAND and KBL.
+// [TP] BLKSKIP is a tuning parameter that depends on SWBAND and KBL.
 
       ROWSKIP = MIN( 5, KBL );
-*[TP] ROWSKIP is a tuning parameter.
+// [TP] ROWSKIP is a tuning parameter.
 
       LKAHEAD = 1;
-*[TP] LKAHEAD is a tuning parameter.
+// [TP] LKAHEAD is a tuning parameter.
 
       // Quasi block transformations, using the lower (upper) triangular
       // structure of the input matrix. The quasi-block-cycling usually
@@ -376,7 +376,7 @@
       // canonical subspaces of dimensions less than M.
 
       if ( ( LOWER || UPPER ) && ( N > MAX( 64, 4*KBL ) ) ) {
-*[TP] The number of partition levels and the actual partition are
+// [TP] The number of partition levels and the actual partition are
       // tuning parameters.
          N4 = N / 4;
          N2 = N / 2;
@@ -532,7 +532,7 @@
                            if ( DABS( AAPQ ) > TOL ) {
 
             // .. rotate
-*[RTD]      ROTATED = ROTATED + ONE
+// [RTD]      ROTATED = ROTATED + ONE
 
                               if ( ir1 == 0 ) {
                                  NOTROT = 0;
@@ -657,7 +657,7 @@
                            } else {
          // A(:,p) and A(:,q) already numerically orthogonal
                               if (ir1 == 0) NOTROT = NOTROT + 1;
-*[RTD]      SKIPPED  = SKIPPED  + 1
+// [RTD]      SKIPPED  = SKIPPED  + 1
                               PSKIPPED = PSKIPPED + 1;
                            }
                         } else {
@@ -691,7 +691,7 @@
             } // 1002
       // end of ir1-loop
 
-* ... go to the off diagonal blocks
+// ... go to the off diagonal blocks
 
             igl = ( ibr-1 )*KBL + 1;
 
@@ -753,7 +753,7 @@
 
                            if ( DABS( AAPQ ) > TOL ) {
                               NOTROT = 0;
-*[RTD]      ROTATED  = ROTATED + 1
+// [RTD]      ROTATED  = ROTATED + 1
                               PSKIPPED = 0;
                               ISWROT = ISWROT + 1;
 
@@ -883,7 +883,7 @@
                // end of OK rotation
                            } else {
                               NOTROT = NOTROT + 1;
-*[RTD]      SKIPPED  = SKIPPED  + 1
+// [RTD]      SKIPPED  = SKIPPED  + 1
                               PSKIPPED = PSKIPPED + 1;
                               IJBLSK = IJBLSK + 1;
                            }
@@ -922,13 +922,13 @@
             } // 2010
       // end of the jbc-loop
             } // 2011
-*2011 bailed out of the jbc-loop
+// 2011 bailed out of the jbc-loop
             DO 2012 p = igl, MIN( igl+KBL-1, N );
                SVA( p ) = DABS( SVA( p ) );
             } // 2012
-***
+// **
          } // 2000
-*2000 :: end of the ibr-loop
+// 2000 :: end of the ibr-loop
 
       // .. update SVA(N)
          if ( ( SVA( N ) < ROOTBIG ) && ( SVA( N ) > ROOTSFMIN ) ) {
@@ -953,16 +953,16 @@
       } // 1993
       // end i=1:NSWEEP loop
 
-* #:( Reaching this point means that the procedure has not converged.
+// #:( Reaching this point means that the procedure has not converged.
       INFO = NSWEEP - 1;
       GO TO 1995;
 
       } // 1994
-* #:) Reaching this point means numerical convergence after the i-th
+// #:) Reaching this point means numerical convergence after the i-th
       // sweep.
 
       INFO = 0;
-* #:) INFO = 0 confirms successful iterations.
+// #:) INFO = 0 confirms successful iterations.
       } // 1995
 
       // Sort the singular values and find how many are above

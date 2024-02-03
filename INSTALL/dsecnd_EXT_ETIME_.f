@@ -1,8 +1,8 @@
       double           FUNCTION DSECND( );
 
-*  -- LAPACK auxiliary routine --
+// -- LAPACK auxiliary routine --
       // Univ. of Tennessee, Univ. of California Berkeley and NAG Ltd..
-* =====================================================================
+// =====================================================================
 
       // .. Local Scalars ..
       REAL               T1;

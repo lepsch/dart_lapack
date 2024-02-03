@@ -1,16 +1,16 @@
       SUBROUTINE CLQT05(M,N,L,NB,RESULT);
       // IMPLICIT NONE
 
-*  -- LAPACK test routine --
-*  -- LAPACK is a software package provided by Univ. of Tennessee,    --
-*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+// -- LAPACK test routine --
+// -- LAPACK is a software package provided by Univ. of Tennessee,    --
+// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
       int     LWORK, M, N, L, NB, LDT;
       // .. Return values ..
       REAL RESULT(6);
 
-*  =====================================================================
+// =====================================================================
 
       // ..
       // .. Local allocatable arrays

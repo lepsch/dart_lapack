@@ -1,8 +1,8 @@
       SUBROUTINE ZLALS0( ICOMPQ, NL, NR, SQRE, NRHS, B, LDB, BX, LDBX, PERM, GIVPTR, GIVCOL, LDGCOL, GIVNUM, LDGNUM, POLES, DIFL, DIFR, Z, K, C, S, RWORK, INFO );
 
-*  -- LAPACK computational routine --
-*  -- LAPACK is a software package provided by Univ. of Tennessee,    --
-*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+// -- LAPACK computational routine --
+// -- LAPACK is a software package provided by Univ. of Tennessee,    --
+// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
       int                GIVPTR, ICOMPQ, INFO, K, LDB, LDBX, LDGCOL, LDGNUM, NL, NR, NRHS, SQRE;
@@ -14,7 +14,7 @@
       COMPLEX*16         B( LDB, * ), BX( LDBX, * );
       // ..
 
-*  =====================================================================
+// =====================================================================
 
       // .. Parameters ..
       double             ONE, ZERO, NEGONE;
@@ -137,7 +137,7 @@
                // is performed in two steps (real and imaginary parts).
 
                // CALL DGEMV( 'T', K, NRHS, ONE, BX, LDBX, WORK, 1, ZERO,
-*    $                     B( J, 1 ), LDB )
+// $                     B( J, 1 ), LDB )
 
                I = K + NRHS*2;
                for (JCOL = 1; JCOL <= NRHS; JCOL++) { // 60
@@ -206,7 +206,7 @@
                // is performed in two steps (real and imaginary parts).
 
                // CALL DGEMV( 'T', K, NRHS, ONE, B, LDB, WORK, 1, ZERO,
-*    $                     BX( J, 1 ), LDBX )
+// $                     BX( J, 1 ), LDBX )
 
                I = K + NRHS*2;
                for (JCOL = 1; JCOL <= NRHS; JCOL++) { // 140

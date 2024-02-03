@@ -1,8 +1,8 @@
       SUBROUTINE SLA_GBAMV( TRANS, M, N, KL, KU, ALPHA, AB, LDAB, X, INCX, BETA, Y, INCY );
 
-*  -- LAPACK computational routine --
-*  -- LAPACK is a software package provided by Univ. of Tennessee,    --
-*  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+// -- LAPACK computational routine --
+// -- LAPACK is a software package provided by Univ. of Tennessee,    --
+// -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
       REAL               ALPHA, BETA;
@@ -12,7 +12,7 @@
       REAL               AB( LDAB, * ), X( * ), Y( * );
       // ..
 
-*  =====================================================================
+// =====================================================================
       // .. Parameters ..
       REAL               ONE, ZERO;
       const              ONE = 1.0, ZERO = 0.0 ;
