@@ -226,7 +226,7 @@
                   IF( VALUE .LT. TEMP .OR. DISNAN( TEMP ) ) VALUE = TEMP
                   TEMP = ABS( DBLE( A( J+1+J*LDA ) ) )
                   IF( VALUE .LT. TEMP .OR. DISNAN( TEMP ) ) VALUE = TEMP
-                  DO I = 2, N
+                  for (I = 2; I <= N; I++) {
                      TEMP = ABS( A( I+J*LDA ) )
                      IF( VALUE .LT. TEMP .OR. DISNAN( TEMP ) ) VALUE = TEMP
                   END DO
@@ -386,7 +386,7 @@
                   DO I = 0, K - 1
                      WORK( I ) = ZERO
                   END DO
-                  DO J = 0, K
+                  for (J = 0; J <= K; J++) {
                      S = ZERO
                      DO I = 0, K + J - 1
                         AA = ABS( A( I+J*LDA ) )

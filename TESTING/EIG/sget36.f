@@ -53,7 +53,7 @@
       READ( NIN, FMT = * )N, IFST, ILST
       IF( N.EQ.0 ) RETURN
       KNT = KNT + 1
-      DO 20 I = 1, N
+      for (I = 1; I <= N; I++) { // 20
          READ( NIN, FMT = * )( TMP( I, J ), J = 1, N )
    20 CONTINUE
       slacpy('F', N, N, TMP, LDT, T1, LDT );
@@ -70,8 +70,8 @@
 
       slaset('Full', N, N, ZERO, ONE, Q, LDT );
       strexc('N', N, T1, LDT, Q, LDT, IFST1, ILST1, WORK, INFO1 );
-      DO 40 I = 1, N
-         DO 30 J = 1, N
+      for (I = 1; I <= N; I++) { // 40
+         for (J = 1; J <= N; J++) { // 30
             IF( I.EQ.J .AND. Q( I, J ).NE.ONE ) RES = RES + ONE / EPS             IF( I.NE.J .AND. Q( I, J ).NE.ZERO ) RES = RES + ONE / EPS
    30    CONTINUE
    40 CONTINUE
@@ -83,8 +83,8 @@
 
       // Compare T1 with T2
 
-      DO 60 I = 1, N
-         DO 50 J = 1, N
+      for (I = 1; I <= N; I++) { // 60
+         for (J = 1; J <= N; J++) { // 50
             IF( T1( I, J ).NE.T2( I, J ) ) RES = RES + ONE / EPS
    50    CONTINUE
    60 CONTINUE

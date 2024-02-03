@@ -82,7 +82,7 @@
          // Form  A  when upper triangle is stored in AP.
 
           if ((INCX.EQ.1) .AND. (INCY.EQ.1)) {
-              DO 20 J = 1,N
+              for (J = 1; J <= N; J++) { // 20
                   if ((X(J).NE.ZERO) .OR. (Y(J).NE.ZERO)) {
                       TEMP1 = ALPHA*DCONJG(Y(J))
                       TEMP2 = DCONJG(ALPHA*X(J))
@@ -98,7 +98,7 @@
                   KK = KK + J
    20         CONTINUE
           } else {
-              DO 40 J = 1,N
+              for (J = 1; J <= N; J++) { // 40
                   if ((X(JX).NE.ZERO) .OR. (Y(JY).NE.ZERO)) {
                       TEMP1 = ALPHA*DCONJG(Y(JY))
                       TEMP2 = DCONJG(ALPHA*X(JX))
@@ -123,7 +123,7 @@
          // Form  A  when lower triangle is stored in AP.
 
           if ((INCX.EQ.1) .AND. (INCY.EQ.1)) {
-              DO 60 J = 1,N
+              for (J = 1; J <= N; J++) { // 60
                   if ((X(J).NE.ZERO) .OR. (Y(J).NE.ZERO)) {
                       TEMP1 = ALPHA*DCONJG(Y(J))
                       TEMP2 = DCONJG(ALPHA*X(J))
@@ -139,7 +139,7 @@
                   KK = KK + N - J + 1
    60         CONTINUE
           } else {
-              DO 80 J = 1,N
+              for (J = 1; J <= N; J++) { // 80
                   if ((X(JX).NE.ZERO) .OR. (Y(JY).NE.ZERO)) {
                       TEMP1 = ALPHA*DCONJG(Y(JY))
                       TEMP2 = DCONJG(ALPHA*X(JX))

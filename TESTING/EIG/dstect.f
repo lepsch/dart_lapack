@@ -82,7 +82,7 @@
             U = SUN
          }
       }
-      DO 20 I = 2, N
+      for (I = 2; I <= N; I++) { // 20
          TMP = ( B( I-1 )*M1 )*M2
          U = ( ( A( I )*M1 )*M2-TMP*( TMP / U ) ) - SSHIFT
          if ( U.LE.SUN ) {

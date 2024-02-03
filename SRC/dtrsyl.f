@@ -103,7 +103,7 @@
          // L1 (L2) : column index of the first (first) row of X(K,L).
 
          LNEXT = 1
-         DO 60 L = 1, N
+         for (L = 1; L <= N; L++) { // 60
             IF( L.LT.LNEXT ) GO TO 60
             if ( L.EQ.N ) {
                L1 = L
@@ -161,7 +161,7 @@
                   X( 1, 1 ) = ( VEC( 1, 1 )*SCALOC ) / A11
 
                   if ( SCALOC.NE.ONE ) {
-                     DO 10 J = 1, N
+                     for (J = 1; J <= N; J++) { // 10
                         dscal(M, SCALOC, C( 1, J ), 1 );
    10                CONTINUE
                      SCALE = SCALE*SCALOC
@@ -182,7 +182,7 @@
                   IF( IERR.NE.0 ) INFO = 1
 
                   if ( SCALOC.NE.ONE ) {
-                     DO 20 J = 1, N
+                     for (J = 1; J <= N; J++) { // 20
                         dscal(M, SCALOC, C( 1, J ), 1 );
    20                CONTINUE
                      SCALE = SCALE*SCALOC
@@ -204,7 +204,7 @@
                   IF( IERR.NE.0 ) INFO = 1
 
                   if ( SCALOC.NE.ONE ) {
-                     DO 30 J = 1, N
+                     for (J = 1; J <= N; J++) { // 30
                         dscal(M, SCALOC, C( 1, J ), 1 );
    30                CONTINUE
                      SCALE = SCALE*SCALOC
@@ -234,7 +234,7 @@
                   IF( IERR.NE.0 ) INFO = 1
 
                   if ( SCALOC.NE.ONE ) {
-                     DO 40 J = 1, N
+                     for (J = 1; J <= N; J++) { // 40
                         dscal(M, SCALOC, C( 1, J ), 1 );
    40                CONTINUE
                      SCALE = SCALE*SCALOC
@@ -267,7 +267,7 @@
          // L1 (L2): column index of the first (last) row of X(K,L)
 
          LNEXT = 1
-         DO 120 L = 1, N
+         for (L = 1; L <= N; L++) { // 120
             IF( L.LT.LNEXT ) GO TO 120
             if ( L.EQ.N ) {
                L1 = L
@@ -288,7 +288,7 @@
             // K1 (K2): row index of the first (last) row of X(K,L)
 
             KNEXT = 1
-            DO 110 K = 1, M
+            for (K = 1; K <= M; K++) { // 110
                IF( K.LT.KNEXT ) GO TO 110
                if ( K.EQ.M ) {
                   K1 = K
@@ -325,7 +325,7 @@
                   X( 1, 1 ) = ( VEC( 1, 1 )*SCALOC ) / A11
 
                   if ( SCALOC.NE.ONE ) {
-                     DO 70 J = 1, N
+                     for (J = 1; J <= N; J++) { // 70
                         dscal(M, SCALOC, C( 1, J ), 1 );
    70                CONTINUE
                      SCALE = SCALE*SCALOC
@@ -346,7 +346,7 @@
                   IF( IERR.NE.0 ) INFO = 1
 
                   if ( SCALOC.NE.ONE ) {
-                     DO 80 J = 1, N
+                     for (J = 1; J <= N; J++) { // 80
                         dscal(M, SCALOC, C( 1, J ), 1 );
    80                CONTINUE
                      SCALE = SCALE*SCALOC
@@ -368,7 +368,7 @@
                   IF( IERR.NE.0 ) INFO = 1
 
                   if ( SCALOC.NE.ONE ) {
-                     DO 90 J = 1, N
+                     for (J = 1; J <= N; J++) { // 90
                         dscal(M, SCALOC, C( 1, J ), 1 );
    90                CONTINUE
                      SCALE = SCALE*SCALOC
@@ -398,7 +398,7 @@
                   IF( IERR.NE.0 ) INFO = 1
 
                   if ( SCALOC.NE.ONE ) {
-                     DO 100 J = 1, N
+                     for (J = 1; J <= N; J++) { // 100
                         dscal(M, SCALOC, C( 1, J ), 1 );
   100                CONTINUE
                      SCALE = SCALE*SCALOC
@@ -451,7 +451,7 @@
             // K1 (K2): row index of the first (last) row of X(K,L)
 
             KNEXT = 1
-            DO 170 K = 1, M
+            for (K = 1; K <= M; K++) { // 170
                IF( K.LT.KNEXT ) GO TO 170
                if ( K.EQ.M ) {
                   K1 = K
@@ -488,7 +488,7 @@
                   X( 1, 1 ) = ( VEC( 1, 1 )*SCALOC ) / A11
 
                   if ( SCALOC.NE.ONE ) {
-                     DO 130 J = 1, N
+                     for (J = 1; J <= N; J++) { // 130
                         dscal(M, SCALOC, C( 1, J ), 1 );
   130                CONTINUE
                      SCALE = SCALE*SCALOC
@@ -509,7 +509,7 @@
                   IF( IERR.NE.0 ) INFO = 1
 
                   if ( SCALOC.NE.ONE ) {
-                     DO 140 J = 1, N
+                     for (J = 1; J <= N; J++) { // 140
                         dscal(M, SCALOC, C( 1, J ), 1 );
   140                CONTINUE
                      SCALE = SCALE*SCALOC
@@ -531,7 +531,7 @@
                   IF( IERR.NE.0 ) INFO = 1
 
                   if ( SCALOC.NE.ONE ) {
-                     DO 150 J = 1, N
+                     for (J = 1; J <= N; J++) { // 150
                         dscal(M, SCALOC, C( 1, J ), 1 );
   150                CONTINUE
                      SCALE = SCALE*SCALOC
@@ -561,7 +561,7 @@
                   IF( IERR.NE.0 ) INFO = 1
 
                   if ( SCALOC.NE.ONE ) {
-                     DO 160 J = 1, N
+                     for (J = 1; J <= N; J++) { // 160
                         dscal(M, SCALOC, C( 1, J ), 1 );
   160                CONTINUE
                      SCALE = SCALE*SCALOC
@@ -650,7 +650,7 @@
                   X( 1, 1 ) = ( VEC( 1, 1 )*SCALOC ) / A11
 
                   if ( SCALOC.NE.ONE ) {
-                     DO 190 J = 1, N
+                     for (J = 1; J <= N; J++) { // 190
                         dscal(M, SCALOC, C( 1, J ), 1 );
   190                CONTINUE
                      SCALE = SCALE*SCALOC
@@ -669,7 +669,7 @@
                   IF( IERR.NE.0 ) INFO = 1
 
                   if ( SCALOC.NE.ONE ) {
-                     DO 200 J = 1, N
+                     for (J = 1; J <= N; J++) { // 200
                         dscal(M, SCALOC, C( 1, J ), 1 );
   200                CONTINUE
                      SCALE = SCALE*SCALOC
@@ -689,7 +689,7 @@
                   IF( IERR.NE.0 ) INFO = 1
 
                   if ( SCALOC.NE.ONE ) {
-                     DO 210 J = 1, N
+                     for (J = 1; J <= N; J++) { // 210
                         dscal(M, SCALOC, C( 1, J ), 1 );
   210                CONTINUE
                      SCALE = SCALE*SCALOC
@@ -715,7 +715,7 @@
                   IF( IERR.NE.0 ) INFO = 1
 
                   if ( SCALOC.NE.ONE ) {
-                     DO 220 J = 1, N
+                     for (J = 1; J <= N; J++) { // 220
                         dscal(M, SCALOC, C( 1, J ), 1 );
   220                CONTINUE
                      SCALE = SCALE*SCALOC

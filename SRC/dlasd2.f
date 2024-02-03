@@ -83,29 +83,29 @@
 
       // Generate the second part of the vector Z.
 
-      DO 20 I = NLP2, M
+      for (I = NLP2; I <= M; I++) { // 20
          Z( I ) = BETA*VT( I, NLP2 )
    20 CONTINUE
 
       // Initialize some reference arrays.
 
-      DO 30 I = 2, NLP1
+      for (I = 2; I <= NLP1; I++) { // 30
          COLTYP( I ) = 1
    30 CONTINUE
-      DO 40 I = NLP2, N
+      for (I = NLP2; I <= N; I++) { // 40
          COLTYP( I ) = 2
    40 CONTINUE
 
       // Sort the singular values into increasing order
 
-      DO 50 I = NLP2, N
+      for (I = NLP2; I <= N; I++) { // 50
          IDXQ( I ) = IDXQ( I ) + NLP1
    50 CONTINUE
 
       // DSIGMA, IDXC, IDXC, and the first column of U2
       // are used as storage space.
 
-      DO 60 I = 2, N
+      for (I = 2; I <= N; I++) { // 60
          DSIGMA( I ) = D( IDXQ( I ) )
          U2( I, 1 ) = Z( IDXQ( I ) )
          IDXC( I ) = COLTYP( IDXQ( I ) )
@@ -113,7 +113,7 @@
 
       dlamrg(NL, NR, DSIGMA( 2 ), 1, 1, IDX( 2 ) );
 
-      DO 70 I = 2, N
+      for (I = 2; I <= N; I++) { // 70
          IDXI = 1 + IDX( I )
          D( I ) = DSIGMA( IDXI )
          Z( I ) = U2( IDXI, 1 )
@@ -147,7 +147,7 @@
 
       K = 1
       K2 = N + 1
-      DO 80 J = 2, N
+      for (J = 2; J <= N; J++) { // 80
          if ( ABS( Z( J ) ).LE.TOL ) {
 
             // Deflate due to small z component.
@@ -238,10 +238,10 @@
       // four groups of uniform structure (although one or more of these
       // groups may be empty).
 
-      DO 130 J = 1, 4
+      for (J = 1; J <= 4; J++) { // 130
          CTOT( J ) = 0
   130 CONTINUE
-      DO 140 J = 2, N
+      for (J = 2; J <= N; J++) { // 140
          CT = COLTYP( J )
          CTOT( CT ) = CTOT( CT ) + 1
   140 CONTINUE
@@ -258,7 +258,7 @@
       // then all type-3's, and finally all type-4's, starting from the
       // second column. This applies similarly to the rows of VT.
 
-      DO 150 J = 2, N
+      for (J = 2; J <= N; J++) { // 150
          JP = IDXP( J )
          CT = COLTYP( JP )
          IDXC( PSM( CT ) ) = J
@@ -272,7 +272,7 @@
       // last N - K slots, except that the first column/row will be treated
       // separately.
 
-      DO 160 J = 2, N
+      for (J = 2; J <= N; J++) { // 160
          JP = IDXP( J )
          DSIGMA( J ) = D( JP )
          IDXJ = IDXQ( IDX( IDXP( IDXC( J ) ) )+1 )
@@ -316,11 +316,11 @@
       dlaset('A', N, 1, ZERO, ZERO, U2, LDU2 );
       U2( NLP1, 1 ) = ONE
       if ( M.GT.N ) {
-         DO 170 I = 1, NLP1
+         for (I = 1; I <= NLP1; I++) { // 170
             VT( M, I ) = -S*VT( NLP1, I )
             VT2( 1, I ) = C*VT( NLP1, I )
   170    CONTINUE
-         DO 180 I = NLP2, M
+         for (I = NLP2; I <= M; I++) { // 180
             VT2( 1, I ) = S*VT( M, I )
             VT( M, I ) = C*VT( M, I )
   180    CONTINUE
@@ -341,7 +341,7 @@
 
       // Copy CTOT into COLTYP for referencing in DLASD3.
 
-      DO 190 J = 1, 4
+      for (J = 1; J <= 4; J++) { // 190
          COLTYP( J ) = CTOT( J )
   190 CONTINUE
 

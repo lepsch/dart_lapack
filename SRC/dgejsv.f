@@ -123,7 +123,7 @@
       SCALEM  = ONE / DSQRT(DBLE(M)*DBLE(N))
       NOSCAL  = .TRUE.
       GOSCAL  = .TRUE.
-      DO 1874 p = 1, N
+      for (p = 1; p <= N; p++) { // 1874
          AAPP = ZERO
          AAQQ = ONE
          dlassq(M, A(1,p), 1, AAPP, AAQQ );
@@ -149,7 +149,7 @@
 
       AAPP = ZERO
       AAQQ = BIG
-      DO 4781 p = 1, N
+      for (p = 1; p <= N; p++) { // 4781
          AAPP = MAX( AAPP, SVA(p) )
          IF ( SVA(p) .NE. ZERO ) AAQQ = MIN( AAQQ, SVA(p) )
  4781 CONTINUE
@@ -248,7 +248,7 @@
       // structures of A * A^t and A^t * A (in the case L2TRAN.EQ..TRUE.).
 
          if ( L2TRAN ) {
-            DO 1950 p = 1, M
+            for (p = 1; p <= M; p++) { // 1950
                XSC   = ZERO
                TEMP1 = ONE
                dlassq(N, A(p,1), LDA, XSC, TEMP1 );
@@ -260,7 +260,7 @@
                IF (WORK(N+p) .NE. ZERO) AATMIN = MIN(AATMIN,WORK(N+p))
  1950       CONTINUE
          } else {
-            DO 1904 p = 1, M
+            for (p = 1; p <= M; p++) { // 1904
                WORK(M+N+p) = SCALEM*DABS( A(p,IDAMAX(N,A(p,1),LDA)) )
                AATMAX = MAX( AATMAX, WORK(M+N+p) )
                AATMIN = MIN( AATMIN, WORK(M+N+p) )
@@ -286,7 +286,7 @@
          TEMP1 = ONE / TEMP1
 
          ENTRA = ZERO
-         DO 1113 p = 1, N
+         for (p = 1; p <= N; p++) { // 1113
             BIG1  = ( ( SVA(p) / XSC )**2 ) * TEMP1
             IF ( BIG1 .NE. ZERO ) ENTRA = ENTRA + BIG1 * DLOG(BIG1)
  1113    CONTINUE
@@ -322,7 +322,7 @@
                   A(p,q) = TEMP1
  1116          CONTINUE
  1115       CONTINUE
-            DO 1117 p = 1, N
+            for (p = 1; p <= N; p++) { // 1117
                WORK(M+N+p) = SVA(p)
                SVA(p)      = WORK(N+p)
  1117       CONTINUE
@@ -393,7 +393,7 @@
 
       }
       if ( AAQQ .LT. XSC ) {
-         DO 700 p = 1, N
+         for (p = 1; p <= N; p++) { // 700
             if ( SVA(p) .LT. XSC ) {
                dlaset('A', M, 1, ZERO, ZERO, A(1,p), LDA );
                SVA(p) = ZERO
@@ -436,7 +436,7 @@
       // Any improvement of DGEQP3 improves overall performance of DGEJSV.
 
       // A * P1 = Q1 * [ R1^t 0]^t:
-      DO 1963 p = 1, N
+      for (p = 1; p <= N; p++) { // 1963
          // .. all columns are free columns
          IWORK(p) = 0
  1963 CONTINUE
@@ -457,7 +457,7 @@
          // aggressive enforcement of lower numerical rank by introducing a
          // backward error of the order of N*EPSLN*||A||.
          TEMP1 = DSQRT(DBLE(N))*EPSLN
-         DO 3001 p = 2, N
+         for (p = 2; p <= N; p++) { // 3001
             if ( DABS(A(p,p)) .GE. (TEMP1*DABS(A(1,1))) ) {
                NR = NR + 1
             } else {
@@ -470,7 +470,7 @@
          // Sudden drop on the diagonal of R1 is used as the criterion for
          // close-to-rank-deficient.
          TEMP1 = DSQRT(SFMIN)
-         DO 3401 p = 2, N
+         for (p = 2; p <= N; p++) { // 3401
             IF ( ( DABS(A(p,p)) .LT. (EPSLN*DABS(A(p-1,p-1))) ) .OR. ( DABS(A(p,p)) .LT. SMALL ) .OR. ( L2KILL .AND. (DABS(A(p,p)) .LT. TEMP1) ) ) GO TO 3402
             NR = NR + 1
  3401    CONTINUE
@@ -485,7 +485,7 @@
          // factor. This prevents the situation in which the code is
          // working hard to get the accuracy not warranted by the data.
          TEMP1  = DSQRT(SFMIN)
-         DO 3301 p = 2, N
+         for (p = 2; p <= N; p++) { // 3301
             IF ( ( DABS(A(p,p)) .LT. SMALL ) .OR. ( L2KILL .AND. (DABS(A(p,p)) .LT. TEMP1) ) ) GO TO 3302
             NR = NR + 1
  3301    CONTINUE
@@ -496,7 +496,7 @@
       ALMORT = .FALSE.
       if ( NR .EQ. N ) {
          MAXPRJ = ONE
-         DO 3051 p = 2, N
+         for (p = 2; p <= N; p++) { // 3051
             TEMP1  = DABS(A(p,p)) / SVA(IWORK(p))
             MAXPRJ = MIN( MAXPRJ, TEMP1 )
  3051    CONTINUE
@@ -513,7 +513,7 @@
             if ( RSVEC ) {
                // .. V is available as workspace
                dlacpy('U', N, N, A, LDA, V, LDV );
-               DO 3053 p = 1, N
+               for (p = 1; p <= N; p++) { // 3053
                   TEMP1 = SVA(IWORK(p))
                   dscal(p, ONE/TEMP1, V(1,p), 1 );
  3053          CONTINUE
@@ -521,14 +521,14 @@
             } else if ( LSVEC ) {
                // .. U is available as workspace
                dlacpy('U', N, N, A, LDA, U, LDU );
-               DO 3054 p = 1, N
+               for (p = 1; p <= N; p++) { // 3054
                   TEMP1 = SVA(IWORK(p))
                   dscal(p, ONE/TEMP1, U(1,p), 1 );
  3054          CONTINUE
                dpocon('U', N, U, LDU, ONE, TEMP1, WORK(N+1), IWORK(2*N+M+1), IERR );
             } else {
                dlacpy('U', N, N, A, LDA, WORK(N+1), N );
-               DO 3052 p = 1, N
+               for (p = 1; p <= N; p++) { // 3052
                   TEMP1 = SVA(IWORK(p))
                   dscal(p, ONE/TEMP1, WORK(N+(p-1)*N+1), 1 );
  3052          CONTINUE
@@ -574,9 +574,9 @@
             if ( L2PERT ) {
                // XSC = DSQRT(SMALL)
                XSC = EPSLN / DBLE(N)
-               DO 4947 q = 1, NR
+               for (q = 1; q <= NR; q++) { // 4947
                   TEMP1 = XSC*DABS(A(q,q))
-                  DO 4949 p = 1, N
+                  for (p = 1; p <= N; p++) { // 4949
                      IF ( ( (p.GT.q) .AND. (DABS(A(p,q)).LE.TEMP1) ) .OR. ( p .LT. q ) ) A(p,q) = DSIGN( TEMP1, A(p,q) )
  4949             CONTINUE
  4947          CONTINUE
@@ -602,9 +602,9 @@
             if ( L2PERT ) {
                // XSC = DSQRT(SMALL)
                XSC = EPSLN / DBLE(N)
-               DO 1947 q = 1, NR
+               for (q = 1; q <= NR; q++) { // 1947
                   TEMP1 = XSC*DABS(A(q,q))
-                  DO 1949 p = 1, NR
+                  for (p = 1; p <= NR; p++) { // 1949
                      IF ( ( (p.GT.q) .AND. (DABS(A(p,q)).LE.TEMP1) ) .OR. ( p .LT. q ) ) A(p,q) = DSIGN( TEMP1, A(p,q) )
  1949             CONTINUE
  1947          CONTINUE
@@ -629,7 +629,7 @@
          if ( ALMORT ) {
 
             // .. in this case NR equals N
-            DO 1998 p = 1, NR
+            for (p = 1; p <= NR; p++) { // 1998
                dcopy(N-p+1, A(p,p), LDA, V(p,p), 1 );
  1998       CONTINUE
             dlaset('Upper', NR-1, NR-1, ZERO, ZERO, V(1,2), LDV );
@@ -648,7 +648,7 @@
             dlacpy('Lower', NR, NR, A, LDA, V, LDV );
             dlaset('Upper', NR-1, NR-1, ZERO, ZERO, V(1,2), LDV );
             dgeqrf(NR, NR, V, LDV, WORK(N+1), WORK(2*N+1), LWORK-2*N, IERR );
-            DO 8998 p = 1, NR
+            for (p = 1; p <= NR; p++) { // 8998
                dcopy(NR-p+1, V(p,p), LDV, V(p,p), 1 );
  8998       CONTINUE
             dlaset('Upper', NR-1, NR-1, ZERO, ZERO, V(1,2), LDV );
@@ -666,7 +666,7 @@
 
          }
 
-         DO 8991 p = 1, N
+         for (p = 1; p <= N; p++) { // 8991
             dcopy(N, V(p,1), LDV, A(IWORK(p),1), LDA );
  8991    CONTINUE
          dlacpy('All', N, N, A, LDA, V, LDV );
@@ -681,7 +681,7 @@
 
          // .. second preconditioning step to avoid need to accumulate
          // Jacobi rotations in the Jacobi iterations.
-         DO 1965 p = 1, NR
+         for (p = 1; p <= NR; p++) { // 1965
             dcopy(N-p+1, A(p,p), LDA, U(p,p), 1 );
  1965    CONTINUE
          dlaset('Upper', NR-1, NR-1, ZERO, ZERO, U(1,2), LDU );
@@ -709,7 +709,7 @@
 
          IF ( ROWPIV ) CALL DLASWP( N1, U, LDU, 1, M-1, IWORK(2*N+1), -1 )
 
-         DO 1974 p = 1, N1
+         for (p = 1; p <= N1; p++) { // 1974
             XSC = ONE / DNRM2( M, U(1,p), 1 )
             dscal(M, XSC, U(1,p), 1 );
  1974    CONTINUE
@@ -733,7 +733,7 @@
             // transpose and use the QRF. This is subject to changes in an
             // optimized implementation of DGEJSV.
 
-            DO 1968 p = 1, NR
+            for (p = 1; p <= NR; p++) { // 1968
                dcopy(N-p+1, A(p,p), LDA, V(p,p), 1 );
  1968       CONTINUE
 
@@ -751,9 +751,9 @@
 
             if ( L2PERT ) {
                XSC = DSQRT(SMALL)
-               DO 2969 q = 1, NR
+               for (q = 1; q <= NR; q++) { // 2969
                   TEMP1 = XSC*DABS( V(q,q) )
-                  DO 2968 p = 1, N
+                  for (p = 1; p <= N; p++) { // 2968
                      IF ( ( p .GT. q ) .AND. ( DABS(V(p,q)) .LE. TEMP1 ) .OR. ( p .LT. q ) ) V(p,q) = DSIGN( TEMP1, V(p,q) )
                      IF ( p .LT. q ) V(p,q) = - V(p,q)
  2968             CONTINUE
@@ -767,7 +767,7 @@
             // of the leading NR x NR submatrix is estimated.)
 
             dlacpy('L', NR, NR, V, LDV, WORK(2*N+1), NR );
-            DO 3950 p = 1, NR
+            for (p = 1; p <= NR; p++) { // 3950
                TEMP1 = DNRM2(NR-p+1,WORK(2*N+(p-1)*NR+p),1)
                dscal(NR-p+1,ONE/TEMP1,WORK(2*N+(p-1)*NR+p),1);
  3950       CONTINUE
@@ -790,7 +790,7 @@
 
                if ( L2PERT ) {
                   XSC = DSQRT(SMALL)/EPSLN
-                  DO 3959 p = 2, NR
+                  for (p = 2; p <= NR; p++) { // 3959
                      DO 3958 q = 1, p - 1
                         TEMP1 = XSC * MIN(DABS(V(p,p)),DABS(V(q,q)))
                         IF ( DABS(V(q,p)) .LE. TEMP1 ) V(q,p) = DSIGN( TEMP1, V(q,p) )
@@ -818,7 +818,7 @@
                // with properly (carefully) chosen parameters.
 
                // R1^t * P2 = Q2 * R2
-               DO 3003 p = 1, NR
+               for (p = 1; p <= NR; p++) { // 3003
                   IWORK(N+p) = 0
  3003          CONTINUE
                dgeqp3(N, NR, V, LDV, IWORK(N+1), WORK(N+1), WORK(2*N+1), LWORK-2*N, IERR );
@@ -826,7 +826,7 @@
 **     $              LWORK-2*N, IERR )
                if ( L2PERT ) {
                   XSC = DSQRT(SMALL)
-                  DO 3969 p = 2, NR
+                  for (p = 2; p <= NR; p++) { // 3969
                      DO 3968 q = 1, p - 1
                         TEMP1 = XSC * MIN(DABS(V(p,p)),DABS(V(q,q)))
                         IF ( DABS(V(q,p)) .LE. TEMP1 ) V(q,p) = DSIGN( TEMP1, V(q,p) )
@@ -838,7 +838,7 @@
 
                if ( L2PERT ) {
                   XSC = DSQRT(SMALL)
-                  DO 8970 p = 2, NR
+                  for (p = 2; p <= NR; p++) { // 8970
                      DO 8971 q = 1, p - 1
                         TEMP1 = XSC * MIN(DABS(V(p,p)),DABS(V(q,q)))
                         V(p,q) = - DSIGN( TEMP1, V(q,p) )
@@ -851,7 +851,7 @@
                dgelqf(NR, NR, V, LDV, WORK(2*N+N*NR+1), WORK(2*N+N*NR+NR+1), LWORK-2*N-N*NR-NR, IERR );
                // .. and estimate the condition number
                dlacpy('L',NR,NR,V,LDV,WORK(2*N+N*NR+NR+1),NR );
-               DO 4950 p = 1, NR
+               for (p = 1; p <= NR; p++) { // 4950
                   TEMP1 = DNRM2( p, WORK(2*N+N*NR+NR+p), NR )
                   dscal(p, ONE/TEMP1, WORK(2*N+N*NR+NR+p), NR );
  4950          CONTINUE
@@ -872,7 +872,7 @@
 
             if ( L2PERT ) {
                XSC = DSQRT(SMALL)
-               DO 4968 q = 2, NR
+               for (q = 2; q <= NR; q++) { // 4968
                   TEMP1 = XSC * V(q,q)
                   DO 4969 p = 1, q - 1
                      // V(p,q) = - DSIGN( TEMP1, V(q,p) )
@@ -894,7 +894,7 @@
                dgesvj('L','U','N',NR,NR,V,LDV,SVA,NR,U, LDU,WORK(2*N+N*NR+NR+1),LWORK-2*N-N*NR-NR,INFO );
                SCALEM  = WORK(2*N+N*NR+NR+1)
                NUMRANK = IDNINT(WORK(2*N+N*NR+NR+2))
-               DO 3970 p = 1, NR
+               for (p = 1; p <= NR; p++) { // 3970
                   dcopy(NR, V(1,p), 1, U(1,p), 1 );
                   dscal(NR, SVA(p),    V(1,p), 1 );
  3970          CONTINUE
@@ -932,17 +932,17 @@
                dgesvj('L', 'U', 'N', NR, NR, V, LDV, SVA, NR, U, LDU, WORK(2*N+N*NR+NR+1), LWORK-2*N-N*NR-NR, INFO );
                SCALEM  = WORK(2*N+N*NR+NR+1)
                NUMRANK = IDNINT(WORK(2*N+N*NR+NR+2))
-               DO 3870 p = 1, NR
+               for (p = 1; p <= NR; p++) { // 3870
                   dcopy(NR, V(1,p), 1, U(1,p), 1 );
                   dscal(NR, SVA(p),    U(1,p), 1 );
  3870          CONTINUE
                dtrsm('L','U','N','N',NR,NR,ONE,WORK(2*N+1),N,U,LDU);
                // .. apply the permutation from the second QR factorization
-               DO 873 q = 1, NR
-                  DO 872 p = 1, NR
+               for (q = 1; q <= NR; q++) { // 873
+                  for (p = 1; p <= NR; p++) { // 872
                      WORK(2*N+N*NR+NR+IWORK(N+p)) = U(p,q)
  872              CONTINUE
-                  DO 874 p = 1, NR
+                  for (p = 1; p <= NR; p++) { // 874
                      U(p,q) = WORK(2*N+N*NR+NR+p)
  874              CONTINUE
  873           CONTINUE
@@ -975,11 +975,11 @@
                dormqr('L','N',N,N,NR,WORK(2*N+1),N,WORK(N+1), V,LDV,WORK(2*N+N*NR+NR+1),LWORK-2*N-N*NR-NR,IERR );
 
                dormlq('L', 'T', NR, NR, NR, WORK(2*N+1), N, WORK(2*N+N*NR+1), U, LDU, WORK(2*N+N*NR+NR+1), LWORK-2*N-N*NR-NR, IERR );
-               DO 773 q = 1, NR
-                  DO 772 p = 1, NR
+               for (q = 1; q <= NR; q++) { // 773
+                  for (p = 1; p <= NR; p++) { // 772
                      WORK(2*N+N*NR+NR+IWORK(N+p)) = U(p,q)
  772              CONTINUE
-                  DO 774 p = 1, NR
+                  for (p = 1; p <= NR; p++) { // 774
                      U(p,q) = WORK(2*N+N*NR+NR+p)
  774              CONTINUE
  773           CONTINUE
@@ -991,11 +991,11 @@
             // Euclidean norm. This applies to all cases.
 
             TEMP1 = DSQRT(DBLE(N)) * EPSLN
-            DO 1972 q = 1, N
-               DO 972 p = 1, N
+            for (q = 1; q <= N; q++) { // 1972
+               for (p = 1; p <= N; p++) { // 972
                   WORK(2*N+N*NR+NR+IWORK(p)) = V(p,q)
   972          CONTINUE
-               DO 973 p = 1, N
+               for (p = 1; p <= N; p++) { // 973
                   V(p,q) = WORK(2*N+N*NR+NR+p)
   973          CONTINUE
                XSC = ONE / DNRM2( N, V(1,q), 1 )
@@ -1018,7 +1018,7 @@
 
             // The columns of U are normalized. The cost is O(M*N) flops.
             TEMP1 = DSQRT(DBLE(M)) * EPSLN
-            DO 1973 p = 1, NR
+            for (p = 1; p <= NR; p++) { // 1973
                XSC = ONE / DNRM2( M, U(1,p), 1 )
                IF ( (XSC .LT. (ONE-TEMP1)) .OR. (XSC .GT. (ONE+TEMP1)) ) CALL DSCAL( M, XSC, U(1,p), 1 )
  1973       CONTINUE
@@ -1036,7 +1036,7 @@
             dlacpy('Upper', N, N, A, LDA, WORK(N+1), N );
             if ( L2PERT ) {
                XSC = DSQRT(SMALL)
-               DO 5970 p = 2, N
+               for (p = 2; p <= N; p++) { // 5970
                   TEMP1 = XSC * WORK( N + (p-1)*N + p )
                   DO 5971 q = 1, p - 1
                      WORK(N+(q-1)*N+p)=-DSIGN(TEMP1,WORK(N+(p-1)*N+q))
@@ -1050,17 +1050,17 @@
 
             SCALEM  = WORK(N+N*N+1)
             NUMRANK = IDNINT(WORK(N+N*N+2))
-            DO 6970 p = 1, N
+            for (p = 1; p <= N; p++) { // 6970
                dcopy(N, WORK(N+(p-1)*N+1), 1, U(1,p), 1 );
                dscal(N, SVA(p), WORK(N+(p-1)*N+1), 1 );
  6970       CONTINUE
 
             dtrsm('Left', 'Upper', 'NoTrans', 'No UD', N, N, ONE, A, LDA, WORK(N+1), N );
-            DO 6972 p = 1, N
+            for (p = 1; p <= N; p++) { // 6972
                dcopy(N, WORK(N+p), N, V(IWORK(p),1), LDV );
  6972       CONTINUE
             TEMP1 = DSQRT(DBLE(N))*EPSLN
-            DO 6971 p = 1, N
+            for (p = 1; p <= N; p++) { // 6971
                XSC = ONE / DNRM2( N, V(1,p), 1 )
                IF ( (XSC .LT. (ONE-TEMP1)) .OR. (XSC .GT. (ONE+TEMP1)) ) CALL DSCAL( N, XSC, V(1,p), 1 )
  6971       CONTINUE
@@ -1076,7 +1076,7 @@
             }
             dormqr('Left', 'No Tr', M, N1, N, A, LDA, WORK, U, LDU, WORK(N+1), LWORK-N, IERR );
             TEMP1 = DSQRT(DBLE(M))*EPSLN
-            DO 6973 p = 1, N1
+            for (p = 1; p <= N1; p++) { // 6973
                XSC = ONE / DNRM2( M, U(1,p), 1 )
                IF ( (XSC .LT. (ONE-TEMP1)) .OR. (XSC .GT. (ONE+TEMP1)) ) CALL DSCAL( M, XSC, U(1,p), 1 )
  6973       CONTINUE
@@ -1099,15 +1099,15 @@
          // implementation of BLAS and some LAPACK procedures, capable of working
          // in presence of extreme values. Since that is not always the case, ...
 
-         DO 7968 p = 1, NR
+         for (p = 1; p <= NR; p++) { // 7968
             dcopy(N-p+1, A(p,p), LDA, V(p,p), 1 );
  7968    CONTINUE
 
          if ( L2PERT ) {
             XSC = DSQRT(SMALL/EPSLN)
-            DO 5969 q = 1, NR
+            for (q = 1; q <= NR; q++) { // 5969
                TEMP1 = XSC*DABS( V(q,q) )
-               DO 5968 p = 1, N
+               for (p = 1; p <= N; p++) { // 5968
                   IF ( ( p .GT. q ) .AND. ( DABS(V(p,q)) .LE. TEMP1 ) .OR. ( p .LT. q ) ) V(p,q) = DSIGN( TEMP1, V(p,q) )
                   IF ( p .LT. q ) V(p,q) = - V(p,q)
  5968          CONTINUE
@@ -1118,13 +1118,13 @@
           dgeqrf(N, NR, V, LDV, WORK(N+1), WORK(2*N+1), LWORK-2*N, IERR );
          dlacpy('L', N, NR, V, LDV, WORK(2*N+1), N );
 
-         DO 7969 p = 1, NR
+         for (p = 1; p <= NR; p++) { // 7969
             dcopy(NR-p+1, V(p,p), LDV, U(p,p), 1 );
  7969    CONTINUE
 
          if ( L2PERT ) {
             XSC = DSQRT(SMALL/EPSLN)
-            DO 9970 q = 2, NR
+            for (q = 2; q <= NR; q++) { // 9970
                DO 9971 p = 1, q - 1
                   TEMP1 = XSC * MIN(DABS(U(p,p)),DABS(U(q,q)))
                   U(p,q) = - DSIGN( TEMP1, U(q,p) )
@@ -1149,11 +1149,11 @@
             // Euclidean norm. This applies to all cases.
 
             TEMP1 = DSQRT(DBLE(N)) * EPSLN
-            DO 7972 q = 1, N
-               DO 8972 p = 1, N
+            for (q = 1; q <= N; q++) { // 7972
+               for (p = 1; p <= N; p++) { // 8972
                   WORK(2*N+N*NR+NR+IWORK(p)) = V(p,q)
  8972          CONTINUE
-               DO 8973 p = 1, N
+               for (p = 1; p <= N; p++) { // 8973
                   V(p,q) = WORK(2*N+N*NR+NR+p)
  8973          CONTINUE
                XSC = ONE / DNRM2( N, V(1,q), 1 )
@@ -1179,7 +1179,7 @@
          }
          if ( TRANSP ) {
             // .. swap U and V because the procedure worked on A^t
-            DO 6974 p = 1, N
+            for (p = 1; p <= N; p++) { // 6974
                dswap(N, U(1,p), 1, V(1,p), 1 );
  6974       CONTINUE
          }

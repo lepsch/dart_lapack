@@ -74,7 +74,7 @@
          // One large D value:
 
   100    CONTINUE
-         DO 110 I = 2, RANK
+         for (I = 2; I <= RANK; I++) { // 110
             D( I ) = ONE / COND
   110    CONTINUE
          DO 120 I = RANK + 1, N
@@ -101,7 +101,7 @@
          D( 1 ) = ONE
          if ( N.GT.1 .AND. RANK.GT.1 ) {
             ALPHA = COND**( -ONE / DBLE( RANK-1 ) )
-            DO 170 I = 2, RANK
+            for (I = 2; I <= RANK; I++) { // 170
                D( I ) = ALPHA**( I-1 )
   170       CONTINUE
             DO 180 I = RANK + 1, N
@@ -117,7 +117,7 @@
          if ( N.GT.1 ) {
             TEMP = ONE / COND
             ALPHA = ( ONE-TEMP ) / DBLE( N-1 )
-            DO 200 I = 2, N
+            for (I = 2; I <= N; I++) { // 200
                D( I ) = DBLE( N-I )*ALPHA + TEMP
   200       CONTINUE
          }
@@ -127,7 +127,7 @@
 
   210    CONTINUE
          ALPHA = LOG( ONE / COND )
-         DO 220 I = 1, N
+         for (I = 1; I <= N; I++) { // 220
             D( I ) = EXP( ALPHA*DLARAN( ISEED ) )
   220    CONTINUE
          GO TO 240
@@ -143,7 +143,7 @@
          // random signs to D
 
          if ( ( MODE.NE.-6 .AND. MODE.NE.0 .AND. MODE.NE.6 ) .AND. IRSIGN.EQ.1 ) {
-            DO 250 I = 1, N
+            for (I = 1; I <= N; I++) { // 250
                TEMP = DLARAN( ISEED )
                IF( TEMP.GT.HALF ) D( I ) = -D( I )
   250       CONTINUE

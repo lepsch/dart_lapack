@@ -105,7 +105,7 @@
       } else {
          THRESH = MAX( EPS*ANORM, SAFMIN )
       }
-      DO 30 I = 1, K
+      for (I = 1; I <= K; I++) { // 30
          SEP( I ) = MAX( SEP( I ), THRESH )
    30 CONTINUE
 

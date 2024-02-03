@@ -42,8 +42,8 @@
          // Find max(abs(A(i,j))).
 
          VALUE = ZERO
-         DO 20 J = 1, N
-            DO 10 I = 1, M
+         for (J = 1; J <= N; J++) { // 20
+            for (I = 1; I <= M; I++) { // 10
                TEMP = ABS( A( I, J ) )
                IF( VALUE.LT.TEMP .OR. DISNAN( TEMP ) ) VALUE = TEMP
    10       CONTINUE
@@ -53,9 +53,9 @@
          // Find norm1(A).
 
          VALUE = ZERO
-         DO 40 J = 1, N
+         for (J = 1; J <= N; J++) { // 40
             SUM = ZERO
-            DO 30 I = 1, M
+            for (I = 1; I <= M; I++) { // 30
                SUM = SUM + ABS( A( I, J ) )
    30       CONTINUE
             IF( VALUE.LT.SUM .OR. DISNAN( SUM ) ) VALUE = SUM
@@ -64,16 +64,16 @@
 
          // Find normI(A).
 
-         DO 50 I = 1, M
+         for (I = 1; I <= M; I++) { // 50
             WORK( I ) = ZERO
    50    CONTINUE
-         DO 70 J = 1, N
-            DO 60 I = 1, M
+         for (J = 1; J <= N; J++) { // 70
+            for (I = 1; I <= M; I++) { // 60
                WORK( I ) = WORK( I ) + ABS( A( I, J ) )
    60       CONTINUE
    70    CONTINUE
          VALUE = ZERO
-         DO 80 I = 1, M
+         for (I = 1; I <= M; I++) { // 80
             TEMP = WORK( I )
             IF( VALUE.LT.TEMP .OR. DISNAN( TEMP ) ) VALUE = TEMP
    80    CONTINUE
@@ -83,7 +83,7 @@
 
          SCALE = ZERO
          SUM = ONE
-         DO 90 J = 1, N
+         for (J = 1; J <= N; J++) { // 90
             zlassq(M, A( 1, J ), 1, SCALE, SUM );
    90    CONTINUE
          VALUE = SCALE*SQRT( SUM )

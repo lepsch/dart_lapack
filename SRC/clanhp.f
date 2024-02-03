@@ -44,7 +44,7 @@
          VALUE = ZERO
          if ( LSAME( UPLO, 'U' ) ) {
             K = 0
-            DO 20 J = 1, N
+            for (J = 1; J <= N; J++) { // 20
                DO 10 I = K + 1, K + J - 1
                   SUM = ABS( AP( I ) )
                   IF( VALUE .LT. SUM .OR. SISNAN( SUM ) ) VALUE = SUM
@@ -55,7 +55,7 @@
    20       CONTINUE
          } else {
             K = 1
-            DO 40 J = 1, N
+            for (J = 1; J <= N; J++) { // 40
                SUM = ABS( REAL( AP( K ) ) )
                IF( VALUE .LT. SUM .OR. SISNAN( SUM ) ) VALUE = SUM
                DO 30 I = K + 1, K + N - J
@@ -72,7 +72,7 @@
          VALUE = ZERO
          K = 1
          if ( LSAME( UPLO, 'U' ) ) {
-            DO 60 J = 1, N
+            for (J = 1; J <= N; J++) { // 60
                SUM = ZERO
                DO 50 I = 1, J - 1
                   ABSA = ABS( AP( K ) )
@@ -83,15 +83,15 @@
                WORK( J ) = SUM + ABS( REAL( AP( K ) ) )
                K = K + 1
    60       CONTINUE
-            DO 70 I = 1, N
+            for (I = 1; I <= N; I++) { // 70
                SUM = WORK( I )
                IF( VALUE .LT. SUM .OR. SISNAN( SUM ) ) VALUE = SUM
    70       CONTINUE
          } else {
-            DO 80 I = 1, N
+            for (I = 1; I <= N; I++) { // 80
                WORK( I ) = ZERO
    80       CONTINUE
-            DO 100 J = 1, N
+            for (J = 1; J <= N; J++) { // 100
                SUM = WORK( J ) + ABS( REAL( AP( K ) ) )
                K = K + 1
                DO 90 I = J + 1, N
@@ -111,7 +111,7 @@
          SUM = ONE
          K = 2
          if ( LSAME( UPLO, 'U' ) ) {
-            DO 110 J = 2, N
+            for (J = 2; J <= N; J++) { // 110
                classq(J-1, AP( K ), 1, SCALE, SUM );
                K = K + J
   110       CONTINUE
@@ -123,7 +123,7 @@
          }
          SUM = 2*SUM
          K = 1
-         DO 130 I = 1, N
+         for (I = 1; I <= N; I++) { // 130
             if ( REAL( AP( K ) ).NE.ZERO ) {
                ABSA = ABS( REAL( AP( K ) ) )
                if ( SCALE.LT.ABSA ) {

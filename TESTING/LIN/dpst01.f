@@ -84,7 +84,7 @@
 
          if ( RANK.LT.N ) {
             DO 140 J = RANK + 1, N
-               DO 130 I = J, N
+               for (I = J; I <= N; I++) { // 130
                   AFAC( I, J ) = ZERO
   130          CONTINUE
   140       CONTINUE
@@ -108,8 +108,8 @@
 
       if ( LSAME( UPLO, 'U' ) ) {
 
-         DO 170 J = 1, N
-            DO 160 I = 1, N
+         for (J = 1; J <= N; J++) { // 170
+            for (I = 1; I <= N; I++) { // 160
                if ( PIV( I ).LE.PIV( J ) ) {
                   if ( I.LE.J ) {
                      PERM( PIV( I ), PIV( J ) ) = AFAC( I, J )
@@ -123,8 +123,8 @@
 
       } else {
 
-         DO 190 J = 1, N
-            DO 180 I = 1, N
+         for (J = 1; J <= N; J++) { // 190
+            for (I = 1; I <= N; I++) { // 180
                if ( PIV( I ).GE.PIV( J ) ) {
                   if ( I.GE.J ) {
                      PERM( PIV( I ), PIV( J ) ) = AFAC( I, J )
@@ -140,14 +140,14 @@
       // Compute the difference  P*L*L'*P' - A (or P*U'*U*P' - A).
 
       if ( LSAME( UPLO, 'U' ) ) {
-         DO 210 J = 1, N
-            DO 200 I = 1, J
+         for (J = 1; J <= N; J++) { // 210
+            for (I = 1; I <= J; I++) { // 200
                PERM( I, J ) = PERM( I, J ) - A( I, J )
   200       CONTINUE
   210    CONTINUE
       } else {
-         DO 230 J = 1, N
-            DO 220 I = J, N
+         for (J = 1; J <= N; J++) { // 230
+            for (I = J; I <= N; I++) { // 220
                PERM( I, J ) = PERM( I, J ) - A( I, J )
   220       CONTINUE
   230    CONTINUE

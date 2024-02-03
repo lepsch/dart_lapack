@@ -73,7 +73,7 @@
 
       // Initialize PIV
 
-         DO 100 I = 1, N
+         for (I = 1; I <= N; I++) { // 100
             PIV( I ) = I
   100    CONTINUE
 
@@ -81,7 +81,7 @@
 
          PVT = 1
          AJJ = A( PVT, PVT )
-         DO I = 2, N
+         for (I = 2; I <= N; I++) {
             if ( A( I, I ).GT.AJJ ) {
                PVT = I
                AJJ = A( PVT, PVT )
@@ -115,7 +115,7 @@
                // Set relevant part of first half of WORK to zero,
                // holds dot products
 
-               DO 110 I = K, N
+               for (I = K; I <= N; I++) { // 110
                   WORK( I ) = 0
   110          CONTINUE
 
@@ -125,7 +125,7 @@
                // Update dot products, compute possible pivots which are
                // stored in the second half of WORK
 
-                  DO 120 I = J, N
+                  for (I = J; I <= N; I++) { // 120
 
                      if ( J.GT.K ) {
                         WORK( I ) = WORK( I ) + A( J-1, I )**2
@@ -196,7 +196,7 @@
                // Set relevant part of first half of WORK to zero,
                // holds dot products
 
-               DO 150 I = K, N
+               for (I = K; I <= N; I++) { // 150
                   WORK( I ) = 0
   150          CONTINUE
 
@@ -206,7 +206,7 @@
                // Update dot products, compute possible pivots which are
                // stored in the second half of WORK
 
-                  DO 160 I = J, N
+                  for (I = J; I <= N; I++) { // 160
 
                      if ( J.GT.K ) {
                         WORK( I ) = WORK( I ) + A( I, J-1 )**2

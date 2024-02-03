@@ -68,7 +68,7 @@
 
          M = 0
          PAIR = .FALSE.
-         DO 10 K = 1, N
+         for (K = 1; K <= N; K++) { // 10
             if ( PAIR ) {
                PAIR = .FALSE.
             } else {
@@ -130,7 +130,7 @@
 
       KS = 0
       PAIR = .FALSE.
-      DO 20 K = 1, N
+      for (K = 1; K <= N; K++) { // 20
          if ( PAIR ) {
             PAIR = .FALSE.
          } else {
@@ -212,7 +212,7 @@
 
       // Store the output eigenvalues in WR and WI.
 
-      DO 50 K = 1, N
+      for (K = 1; K <= N; K++) { // 50
          WR( K ) = T( K, K )
          WI( K ) = ZERO
    50 CONTINUE

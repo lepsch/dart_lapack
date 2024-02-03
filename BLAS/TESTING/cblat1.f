@@ -23,7 +23,7 @@
       DATA             SFAC/9.765625E-4/
       // .. Executable Statements ..
       WRITE (NOUT,99999)
-      DO 20 IC = 1, 10
+      for (IC = 1; IC <= 10; IC++) { // 20
          ICASE = IC
          header();
 
@@ -125,12 +125,12 @@
       DATA              ITRUE3/0, 1, 2, 2, 2/
       DATA              ITRUEC/0, 1, 1, 1, 1/
       // .. Executable Statements ..
-      DO 60 INCX = 1, 2
-         DO 40 NP1 = 1, 5
+      for (INCX = 1; INCX <= 2; INCX++) { // 60
+         for (NP1 = 1; NP1 <= 5; NP1++) { // 40
             N = NP1 - 1
             LEN = 2*MAX(N,1)
             // .. Set vector arguments ..
-            DO 20 I = 1, LEN
+            for (I = 1; I <= LEN; I++) { // 20
                CX(I) = CV(I,NP1,INCX)
    20       CONTINUE
             if (ICASE.EQ.6) {
@@ -154,7 +154,7 @@
             } else if (ICASE.EQ.10) {
                // .. ICAMAX ..
                itest1(ICAMAX(N,CX,INCX),ITRUE3(NP1));
-               DO 160 I = 1, LEN
+               for (I = 1; I <= LEN; I++) { // 160
                   CX(I) = (42.0E0,43.0E0)
   160          CONTINUE
                itest1(ICAMAX(N,CX,INCX),ITRUEC(NP1));
@@ -167,7 +167,7 @@
          if (ICASE.EQ.10) {
             N = 8
             IX = 1
-            DO 180 I = 1, N
+            for (I = 1; I <= N; I++) { // 180
                CXR(IX) = CVR(I)
                IX = IX + INCX
   180       CONTINUE
@@ -180,7 +180,7 @@
          // CSCAL
          // Add a test for alpha equal to zero.
          CA = (0.0E0,0.0E0)
-         DO 80 I = 1, 5
+         for (I = 1; I <= 5; I++) { // 80
             MWPCT(I) = (0.0E0,0.0E0)
             MWPCS(I) = (1.0E0,1.0E0)
    80    CONTINUE
@@ -190,7 +190,7 @@
          // CSSCAL
          // Add a test for alpha equal to zero.
          SA = 0.0E0
-         DO 100 I = 1, 5
+         for (I = 1; I <= 5; I++) { // 100
             MWPCT(I) = (0.0E0,0.0E0)
             MWPCS(I) = (1.0E0,1.0E0)
   100    CONTINUE
@@ -198,7 +198,7 @@
          ctest(5,CX,MWPCT,MWPCS,SFAC);
          // Add a test for alpha equal to one.
          SA = 1.0E0
-         DO 120 I = 1, 5
+         for (I = 1; I <= 5; I++) { // 120
             MWPCT(I) = CX(I)
             MWPCS(I) = CX(I)
   120    CONTINUE
@@ -206,7 +206,7 @@
          ctest(5,CX,MWPCT,MWPCS,SFAC);
          // Add a test for alpha equal to minus one.
          SA = -1.0E0
-         DO 140 I = 1, 5
+         for (I = 1; I <= 5; I++) { // 140
             MWPCT(I) = -CX(I)
             MWPCS(I) = -CX(I)
   140    CONTINUE
@@ -263,19 +263,19 @@
       DATA              ((CT10Y(I,J,4),I=1,7),J=1,4)/(0.6E0,-0.6E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.7E0,-0.8E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.7E0,-0.8E0), (-0.9E0,0.5E0), (-0.4E0,-0.7E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.7E0,-0.8E0), (-0.9E0,0.5E0), (-0.4E0,-0.7E0), (0.1E0,-0.5E0), (-0.1E0,-0.9E0), (-0.5E0,-0.3E0), (0.2E0,-0.8E0)/
       DATA              CSIZE1/(0.0E0,0.0E0), (0.9E0,0.9E0), (1.63E0,1.73E0), (2.90E0,2.78E0)/       DATA              CSIZE3/(0.0E0,0.0E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (1.17E0,1.17E0), (1.17E0,1.17E0), (1.17E0,1.17E0), (1.17E0,1.17E0), (1.17E0,1.17E0), (1.17E0,1.17E0), (1.17E0,1.17E0)/       DATA              CSIZE2/(0.0E0,0.0E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (0.0E0,0.0E0), (1.54E0,1.54E0), (1.54E0,1.54E0), (1.54E0,1.54E0), (1.54E0,1.54E0), (1.54E0,1.54E0), (1.54E0,1.54E0), (1.54E0,1.54E0)/
       // .. Executable Statements ..
-      DO 60 KI = 1, 4
+      for (KI = 1; KI <= 4; KI++) { // 60
          INCX = INCXS(KI)
          INCY = INCYS(KI)
          MX = ABS(INCX)
          MY = ABS(INCY)
 
-         DO 40 KN = 1, 4
+         for (KN = 1; KN <= 4; KN++) { // 40
             N = NS(KN)
             KSIZE = MIN(2,KN)
             LENX = LENS(KN,MX)
             LENY = LENS(KN,MY)
             // .. initialize all argument arrays ..
-            DO 20 I = 1, 7
+            for (I = 1; I <= 7; I++) { // 20
                CX(I) = CX1(I)
                CY(I) = CY1(I)
    20       CONTINUE
@@ -362,7 +362,7 @@
       COMMON           /COMBLA/ICASE, N, INCX, INCY, MODE, PASS
       // .. Executable Statements ..
 
-      DO 40 I = 1, LEN
+      for (I = 1; I <= LEN; I++) { // 40
          SD = SCOMP(I) - STRUE(I)
          IF (ABS(SFAC*SD) .LE. ABS(SSIZE(I))*EPSILON(ZERO)) GO TO 40
 
@@ -444,7 +444,7 @@
       // .. Intrinsic Functions ..
       // INTRINSIC AIMAG, REAL
       // .. Executable Statements ..
-      DO 20 I = 1, LEN
+      for (I = 1; I <= LEN; I++) { // 20
          SCOMP(2*I-1) = REAL(CCOMP(I))
          SCOMP(2*I) = AIMAG(CCOMP(I))
          STRUE(2*I-1) = REAL(CTRUE(I))
@@ -571,7 +571,7 @@
       // Generate 2*(N-1) values in (-1,1).
 
       KS = 2*(N-1)
-      DO I = 1, KS
+      for (I = 1; I <= KS; I++) {
          random_number(WORK(I));
          WORK(I) = ONE - TWO*WORK(I)
       END DO
@@ -580,7 +580,7 @@
       // by an unscaled algorithm.
 
       WORKSSQ = ZERO
-      DO I = 1, KS
+      for (I = 1; I <= KS; I++) {
          WORKSSQ = WORKSSQ + WORK(I)*WORK(I)
       END DO
 
@@ -588,13 +588,13 @@
       // and the rest from the random work array multiplied
       // by a scaling factor.
 
-      DO IV = 1, NV
+      for (IV = 1; IV <= NV; IV++) {
          V0 = VALUES(IV)
          if (ABS(V0).GT.ONE) {
             V0 = V0*HALF*HALF
          }
          Z(1) = CMPLX(V0,-THREE*V0)
-         DO IW = 1, NV
+         for (IW = 1; IW <= NV; IW++) {
             V1 = VALUES(IW)
             if (ABS(V1).GT.ONE) {
                V1 = (V1*HALF) / SQRT(REAL(KS+1))
@@ -631,12 +631,12 @@
 
             // Fill the input array to SCNRM2 with steps of incx
 
-            DO I = 1, N
+            for (I = 1; I <= N; I++) {
                X(I) = ROGUE
             END DO
             IX = 1
             IF (INCX.LT.0) IX = 1 - (N-1)*INCX
-            DO I = 1, N
+            for (I = 1; I <= N; I++) {
                X(IX) = Z(I)
                IX = IX + INCX
             END DO

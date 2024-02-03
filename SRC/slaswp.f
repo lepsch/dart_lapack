@@ -60,7 +60,7 @@
          DO 50 I = I1, I2, INC
             IP = IPIV( IX )
             if ( IP.NE.I ) {
-               DO 40 K = N32, N
+               for (K = N32; K <= N; K++) { // 40
                   TEMP = A( I, K )
                   A( I, K ) = A( IP, K )
                   A( IP, K ) = TEMP

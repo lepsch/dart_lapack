@@ -71,14 +71,14 @@
          // Eigenvectors are column vectors.
 
          IPAIR = 0
-         DO 30 JVEC = 1, N
+         for (JVEC = 1; JVEC <= N; JVEC++) { // 30
             TEMP1 = ZERO
             IF( IPAIR.EQ.0 .AND. JVEC.LT.N .AND. WI( JVEC ).NE.ZERO ) IPAIR = 1
             if ( IPAIR.EQ.1 ) {
 
                // Complex eigenvector
 
-               DO 10 J = 1, N
+               for (J = 1; J <= N; J++) { // 10
                   TEMP1 = MAX( TEMP1, ABS( E( J, JVEC ) )+ ABS( E( J, JVEC+1 ) ) )
    10          CONTINUE
                ENRMIN = MIN( ENRMIN, TEMP1 )
@@ -90,7 +90,7 @@
 
                // Real eigenvector
 
-               DO 20 J = 1, N
+               for (J = 1; J <= N; J++) { // 20
                   TEMP1 = MAX( TEMP1, ABS( E( J, JVEC ) ) )
    20          CONTINUE
                ENRMIN = MIN( ENRMIN, TEMP1 )
@@ -103,13 +103,13 @@
 
          // Eigenvectors are row vectors.
 
-         DO 40 JVEC = 1, N
+         for (JVEC = 1; JVEC <= N; JVEC++) { // 40
             WORK( JVEC ) = ZERO
    40    CONTINUE
 
-         DO 60 J = 1, N
+         for (J = 1; J <= N; J++) { // 60
             IPAIR = 0
-            DO 50 JVEC = 1, N
+            for (JVEC = 1; JVEC <= N; JVEC++) { // 50
                IF( IPAIR.EQ.0 .AND. JVEC.LT.N .AND. WI( JVEC ).NE.ZERO ) IPAIR = 1
                if ( IPAIR.EQ.1 ) {
                   WORK( JVEC ) = MAX( WORK( JVEC ), ABS( E( J, JVEC ) )+ABS( E( J, JVEC+1 ) ) )
@@ -123,7 +123,7 @@
    50       CONTINUE
    60    CONTINUE
 
-         DO 70 JVEC = 1, N
+         for (JVEC = 1; JVEC <= N; JVEC++) { // 70
             ENRMIN = MIN( ENRMIN, WORK( JVEC ) )
             ENRMAX = MAX( ENRMAX, WORK( JVEC ) )
    70    CONTINUE
@@ -147,7 +147,7 @@
       IEROW = 1
       IECOL = 1
 
-      DO 80 JCOL = 1, N
+      for (JCOL = 1; JCOL <= N; JCOL++) { // 80
          if ( ITRNSE.EQ.1 ) {
             IEROW = JCOL
          } else {

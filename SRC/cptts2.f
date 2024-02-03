@@ -43,13 +43,13 @@
 
             // Solve U**H * x = b.
 
-            DO 10 I = 2, N
+            for (I = 2; I <= N; I++) { // 10
                B( I, J ) = B( I, J ) - B( I-1, J )*CONJG( E( I-1 ) )
    10       CONTINUE
 
             // Solve D * U * x = b.
 
-            DO 20 I = 1, N
+            for (I = 1; I <= N; I++) { // 20
                B( I, J ) = B( I, J ) / D( I )
    20       CONTINUE
             DO 30 I = N - 1, 1, -1
@@ -60,11 +60,11 @@
                GO TO 5
             }
          } else {
-            DO 60 J = 1, NRHS
+            for (J = 1; J <= NRHS; J++) { // 60
 
                // Solve U**H * x = b.
 
-               DO 40 I = 2, N
+               for (I = 2; I <= N; I++) { // 40
                   B( I, J ) = B( I, J ) - B( I-1, J )*CONJG( E( I-1 ) )
    40          CONTINUE
 
@@ -87,13 +87,13 @@
 
             // Solve L * x = b.
 
-            DO 70 I = 2, N
+            for (I = 2; I <= N; I++) { // 70
                B( I, J ) = B( I, J ) - B( I-1, J )*E( I-1 )
    70       CONTINUE
 
             // Solve D * L**H * x = b.
 
-            DO 80 I = 1, N
+            for (I = 1; I <= N; I++) { // 80
                B( I, J ) = B( I, J ) / D( I )
    80       CONTINUE
             DO 90 I = N - 1, 1, -1
@@ -104,11 +104,11 @@
                GO TO 65
             }
          } else {
-            DO 120 J = 1, NRHS
+            for (J = 1; J <= NRHS; J++) { // 120
 
                // Solve L * x = b.
 
-               DO 100 I = 2, N
+               for (I = 2; I <= N; I++) { // 100
                   B( I, J ) = B( I, J ) - B( I-1, J )*E( I-1 )
   100          CONTINUE
 

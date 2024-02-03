@@ -46,7 +46,7 @@
       NOUT = NUNIT
       WRITE( NOUT, FMT = * )
       C2 = PATH( 2: 3 )
-      DO 10 I = 1, NMAX
+      for (I = 1; I <= NMAX; I++) { // 10
          D( I ) = 1.D0
          E( I ) = 2.D0
          DL( I ) = 3.D0

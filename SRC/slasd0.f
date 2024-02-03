@@ -68,7 +68,7 @@
 
       NDB1 = ( ND+1 ) / 2
       NCC = 0
-      DO 30 I = NDB1, ND
+      for (I = NDB1; I <= ND; I++) { // 30
 
       // IC : center row of each node
       // NL : number of rows of left  subproblem
@@ -90,7 +90,7 @@
             RETURN
          }
          ITEMP = IDXQ + NLF - 2
-         DO 10 J = 1, NL
+         for (J = 1; J <= NL; J++) { // 10
             IWORK( ITEMP+J ) = J
    10    CONTINUE
          if ( I.EQ.ND ) {
@@ -104,7 +104,7 @@
             RETURN
          }
          ITEMP = IDXQ + IC
-         DO 20 J = 1, NR
+         for (J = 1; J <= NR; J++) { // 20
             IWORK( ITEMP+J-1 ) = J
    20    CONTINUE
    30 CONTINUE
@@ -123,7 +123,7 @@
             LF = 2**( LVL-1 )
             LL = 2*LF - 1
          }
-         DO 40 I = LF, LL
+         for (I = LF; I <= LL; I++) { // 40
             IM1 = I - 1
             IC = IWORK( INODE+IM1 )
             NL = IWORK( NDIML+IM1 )

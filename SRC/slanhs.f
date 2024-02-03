@@ -41,7 +41,7 @@
          // Find max(abs(A(i,j))).
 
          VALUE = ZERO
-         DO 20 J = 1, N
+         for (J = 1; J <= N; J++) { // 20
             DO 10 I = 1, MIN( N, J+1 )
                SUM = ABS( A( I, J ) )
                IF( VALUE .LT. SUM .OR. SISNAN( SUM ) ) VALUE = SUM
@@ -52,7 +52,7 @@
          // Find norm1(A).
 
          VALUE = ZERO
-         DO 40 J = 1, N
+         for (J = 1; J <= N; J++) { // 40
             SUM = ZERO
             DO 30 I = 1, MIN( N, J+1 )
                SUM = SUM + ABS( A( I, J ) )
@@ -63,16 +63,16 @@
 
          // Find normI(A).
 
-         DO 50 I = 1, N
+         for (I = 1; I <= N; I++) { // 50
             WORK( I ) = ZERO
    50    CONTINUE
-         DO 70 J = 1, N
+         for (J = 1; J <= N; J++) { // 70
             DO 60 I = 1, MIN( N, J+1 )
                WORK( I ) = WORK( I ) + ABS( A( I, J ) )
    60       CONTINUE
    70    CONTINUE
          VALUE = ZERO
-         DO 80 I = 1, N
+         for (I = 1; I <= N; I++) { // 80
             SUM = WORK( I )
             IF( VALUE .LT. SUM .OR. SISNAN( SUM ) ) VALUE = SUM
    80    CONTINUE
@@ -82,7 +82,7 @@
 
          SCALE = ZERO
          SUM = ONE
-         DO 90 J = 1, N
+         for (J = 1; J <= N; J++) { // 90
             slassq(MIN( N, J+1 ), A( 1, J ), 1, SCALE, SUM );
    90    CONTINUE
          VALUE = SCALE*SQRT( SUM )

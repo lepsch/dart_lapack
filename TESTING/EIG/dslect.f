@@ -39,7 +39,7 @@
       } else {
          RMIN = DLAPY2( ZR-SELWR( 1 ), ZI-SELWI( 1 ) )
          DSLECT = SELVAL( 1 )
-         DO 10 I = 2, SELDIM
+         for (I = 2; I <= SELDIM; I++) { // 10
             X = DLAPY2( ZR-SELWR( I ), ZI-SELWI( I ) )
             if ( X.LE.RMIN ) {
                RMIN = X

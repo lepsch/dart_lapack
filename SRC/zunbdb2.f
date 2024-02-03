@@ -75,7 +75,7 @@
 
       // Reduce rows 1, ..., P of X11 and X21
 
-      DO I = 1, P
+      for (I = 1; I <= P; I++) {
 
          if ( I .GT. 1 ) {
             zdrot(Q-I+1, X11(I,I), LDX11, X21(I-1,I), LDX21, C, S );

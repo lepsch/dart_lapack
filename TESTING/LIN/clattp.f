@@ -84,7 +84,7 @@
       } else if ( IMAT.EQ.7 ) {
          if ( UPPER ) {
             JC = 1
-            DO 20 J = 1, N
+            for (J = 1; J <= N; J++) { // 20
                DO 10 I = 1, J - 1
                   AP( JC+I-1 ) = ZERO
    10          CONTINUE
@@ -93,7 +93,7 @@
    20       CONTINUE
          } else {
             JC = 1
-            DO 40 J = 1, N
+            for (J = 1; J <= N; J++) { // 40
                AP( JC ) = J
                DO 30 I = J + 1, N
                   AP( JC+I-J ) = ZERO
@@ -111,7 +111,7 @@
       } else if ( IMAT.LE.10 ) {
          if ( UPPER ) {
             JC = 0
-            DO 60 J = 1, N
+            for (J = 1; J <= N; J++) { // 60
                DO 50 I = 1, J - 1
                   AP( JC+I ) = ZERO
    50          CONTINUE
@@ -120,7 +120,7 @@
    60       CONTINUE
          } else {
             JC = 1
-            DO 80 J = 1, N
+            for (J = 1; J <= N; J++) { // 80
                AP( JC ) = J
                DO 70 I = J + 1, N
                   AP( JC+I-J ) = ZERO
@@ -221,7 +221,7 @@
             // of known condition number.
 
             JC = 1
-            DO 100 J = 2, N
+            for (J = 2; J <= N; J++) { // 100
                AP( JC+1 ) = Y
                IF( J.GT.2 ) AP( JC+J-1 ) = WORK( J-2 )                IF( J.GT.3 ) AP( JC+J-2 ) = WORK( N+J-3 )
                JC = JC + J
@@ -324,14 +324,14 @@
 
          if ( UPPER ) {
             JC = 1
-            DO 180 J = 1, N
+            for (J = 1; J <= N; J++) { // 180
                clarnv(4, ISEED, J-1, AP( JC ) );
                AP( JC+J-1 ) = CLARND( 5, ISEED )*TWO
                JC = JC + J
   180       CONTINUE
          } else {
             JC = 1
-            DO 190 J = 1, N
+            for (J = 1; J <= N; J++) { // 190
                IF( J.LT.N ) CALL CLARNV( 4, ISEED, N-J, AP( JC+1 ) )
                AP( JC ) = CLARND( 5, ISEED )*TWO
                JC = JC + N - J + 1
@@ -356,7 +356,7 @@
          TSCAL = ONE / MAX( ONE, REAL( N-1 ) )
          if ( UPPER ) {
             JC = 1
-            DO 200 J = 1, N
+            for (J = 1; J <= N; J++) { // 200
                clarnv(4, ISEED, J-1, AP( JC ) );
                csscal(J-1, TSCAL, AP( JC ), 1 );
                AP( JC+J-1 ) = CLARND( 5, ISEED )
@@ -365,7 +365,7 @@
             AP( N*( N+1 ) / 2 ) = SMLNUM*AP( N*( N+1 ) / 2 )
          } else {
             JC = 1
-            DO 210 J = 1, N
+            for (J = 1; J <= N; J++) { // 210
                clarnv(2, ISEED, N-J, AP( JC+1 ) );
                csscal(N-J, TSCAL, AP( JC+1 ), 1 );
                AP( JC ) = CLARND( 5, ISEED )
@@ -383,7 +383,7 @@
          clarnv(2, ISEED, N, B );
          if ( UPPER ) {
             JC = 1
-            DO 220 J = 1, N
+            for (J = 1; J <= N; J++) { // 220
                clarnv(4, ISEED, J-1, AP( JC ) );
                AP( JC+J-1 ) = CLARND( 5, ISEED )
                JC = JC + J
@@ -391,7 +391,7 @@
             AP( N*( N+1 ) / 2 ) = SMLNUM*AP( N*( N+1 ) / 2 )
          } else {
             JC = 1
-            DO 230 J = 1, N
+            for (J = 1; J <= N; J++) { // 230
                clarnv(4, ISEED, N-J, AP( JC+1 ) );
                AP( JC ) = CLARND( 5, ISEED )
                JC = JC + N - J + 1
@@ -424,7 +424,7 @@
          } else {
             JCOUNT = 1
             JC = 1
-            DO 270 J = 1, N
+            for (J = 1; J <= N; J++) { // 270
                DO 260 I = J + 1, N
                   AP( JC+I-J ) = ZERO
   260          CONTINUE
@@ -466,7 +466,7 @@
          clarnv(4, ISEED, N, B );
          if ( UPPER ) {
             JC = 1
-            DO 310 J = 1, N
+            for (J = 1; J <= N; J++) { // 310
                DO 300 I = 1, J - 2
                   AP( JC+I-1 ) = ZERO
   300          CONTINUE
@@ -477,7 +477,7 @@
             B( N ) = CMPLX( ONE, ONE )
          } else {
             JC = 1
-            DO 330 J = 1, N
+            for (J = 1; J <= N; J++) { // 330
                DO 320 I = J + 2, N
                   AP( JC+I-J ) = ZERO
   320          CONTINUE
@@ -495,7 +495,7 @@
          IY = N / 2 + 1
          if ( UPPER ) {
             JC = 1
-            DO 340 J = 1, N
+            for (J = 1; J <= N; J++) { // 340
                clarnv(4, ISEED, J, AP( JC ) );
                if ( J.NE.IY ) {
                   AP( JC+J-1 ) = CLARND( 5, ISEED )*TWO
@@ -506,7 +506,7 @@
   340       CONTINUE
          } else {
             JC = 1
-            DO 350 J = 1, N
+            for (J = 1; J <= N; J++) { // 350
                clarnv(4, ISEED, N-J+1, AP( JC ) );
                if ( J.NE.IY ) {
                   AP( JC ) = CLARND( 5, ISEED )*TWO
@@ -570,14 +570,14 @@
 
          if ( UPPER ) {
             JC = 1
-            DO 390 J = 1, N
+            for (J = 1; J <= N; J++) { // 390
                clarnv(4, ISEED, J-1, AP( JC ) );
                AP( JC+J-1 ) = ZERO
                JC = JC + J
   390       CONTINUE
          } else {
             JC = 1
-            DO 400 J = 1, N
+            for (J = 1; J <= N; J++) { // 400
                IF( J.LT.N ) CALL CLARNV( 4, ISEED, N-J, AP( JC+1 ) )
                AP( JC ) = ZERO
                JC = JC + N - J + 1
@@ -603,20 +603,20 @@
          TSCAL = BIGNUM*( REAL( N-1 ) / MAX( ONE, REAL( N ) ) )
          if ( UPPER ) {
             JC = 1
-            DO 420 J = 1, N
+            for (J = 1; J <= N; J++) { // 420
                clarnv(5, ISEED, J, AP( JC ) );
                slarnv(1, ISEED, J, RWORK );
-               DO 410 I = 1, J
+               for (I = 1; I <= J; I++) { // 410
                   AP( JC+I-1 ) = AP( JC+I-1 )*( TLEFT+RWORK( I )*TSCAL )
   410          CONTINUE
                JC = JC + J
   420       CONTINUE
          } else {
             JC = 1
-            DO 440 J = 1, N
+            for (J = 1; J <= N; J++) { // 440
                clarnv(5, ISEED, N-J+1, AP( JC ) );
                slarnv(1, ISEED, N-J+1, RWORK );
-               DO 430 I = J, N
+               for (I = J; I <= N; I++) { // 430
                   AP( JC+I-J ) = AP( JC+I-J )* ( TLEFT+RWORK( I-J+1 )*TSCAL )
   430          CONTINUE
                JC = JC + N - J + 1

@@ -106,7 +106,7 @@
       // QR with column pivoting of B: B*P = V*( S11 S12 )
                                             // (  0   0  )
 
-      DO 10 I = 1, N
+      for (I = 1; I <= N; I++) { // 10
          IWORK( I ) = 0
    10 CONTINUE
       dgeqp3(P, N, B, LDB, IWORK, TAU, WORK, LWORK, INFO );

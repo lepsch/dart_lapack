@@ -147,7 +147,7 @@
          } else {
             dsteqr('I', N, W, WORK, Z, LDZ, WORK( INDWRK ), INFO );
             if ( INFO.EQ.0 ) {
-               DO 10 I = 1, N
+               for (I = 1; I <= N; I++) { // 10
                   IFAIL( I ) = 0
    10          CONTINUE
             }

@@ -54,12 +54,12 @@
 
       // initialize lower triangle of A to diagonal matrix
 
-      DO 20 J = 1, N
+      for (J = 1; J <= N; J++) { // 20
          DO 10 I = J + 1, N
             A( I, J ) = ZERO
    10    CONTINUE
    20 CONTINUE
-      DO 30 I = 1, N
+      for (I = 1; I <= N; I++) { // 30
          A( I, I ) = D( I )
    30 CONTINUE
 
@@ -142,7 +142,7 @@
 
       // Store full hermitian matrix
 
-      DO 80 J = 1, N
+      for (J = 1; J <= N; J++) { // 80
          DO 70 I = J + 1, N
             A( J, I ) = DCONJG( A( I, J ) )
    70    CONTINUE

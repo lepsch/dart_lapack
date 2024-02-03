@@ -89,14 +89,14 @@
 
       } else if ( IMAT.EQ.6 ) {
          if ( UPPER ) {
-            DO 20 J = 1, N
+            for (J = 1; J <= N; J++) { // 20
                DO 10 I = MAX( 1, KD+2-J ), KD
                   AB( I, J ) = ZERO
    10          CONTINUE
                AB( KD+1, J ) = J
    20       CONTINUE
          } else {
-            DO 40 J = 1, N
+            for (J = 1; J <= N; J++) { // 40
                AB( 1, J ) = J
                DO 30 I = 2, MIN( KD+1, N-J+1 )
                   AB( I, J ) = ZERO
@@ -115,14 +115,14 @@
          // Initialize AB to zero.
 
          if ( UPPER ) {
-            DO 60 J = 1, N
+            for (J = 1; J <= N; J++) { // 60
                DO 50 I = MAX( 1, KD+2-J ), KD
                   AB( I, J ) = ZERO
    50          CONTINUE
                AB( KD+1, J ) = DBLE( J )
    60       CONTINUE
          } else {
-            DO 80 J = 1, N
+            for (J = 1; J <= N; J++) { // 80
                DO 70 I = 2, MIN( KD+1, N-J+1 )
                   AB( I, J ) = ZERO
    70          CONTINUE
@@ -138,14 +138,14 @@
                AB( 1, 2 ) = TNORM*ZLARND( 5, ISEED )
                LENJ = ( N-3 ) / 2
                zlarnv(2, ISEED, LENJ, WORK );
-               DO 90 J = 1, LENJ
+               for (J = 1; J <= LENJ; J++) { // 90
                   AB( 1, 2*( J+1 ) ) = TNORM*WORK( J )
    90          CONTINUE
             } else {
                AB( 2, 1 ) = TNORM*ZLARND( 5, ISEED )
                LENJ = ( N-3 ) / 2
                zlarnv(2, ISEED, LENJ, WORK );
-               DO 100 J = 1, LENJ
+               for (J = 1; J <= LENJ; J++) { // 100
                   AB( 2, 2*J+1 ) = TNORM*WORK( J )
   100          CONTINUE
             }
@@ -213,13 +213,13 @@
          // Make the right hand side large so that it requires scaling.
 
          if ( UPPER ) {
-            DO 120 J = 1, N
+            for (J = 1; J <= N; J++) { // 120
                LENJ = MIN( J-1, KD )
                zlarnv(4, ISEED, LENJ, AB( KD+1-LENJ, J ) );
                AB( KD+1, J ) = ZLARND( 5, ISEED )*TWO
   120       CONTINUE
          } else {
-            DO 130 J = 1, N
+            for (J = 1; J <= N; J++) { // 130
                LENJ = MIN( N-J, KD )
                IF( LENJ.GT.0 ) CALL ZLARNV( 4, ISEED, LENJ, AB( 2, J ) )
                AB( 1, J ) = ZLARND( 5, ISEED )*TWO
@@ -243,7 +243,7 @@
          zlarnv(2, ISEED, N, B );
          TSCAL = ONE / DBLE( KD+1 )
          if ( UPPER ) {
-            DO 140 J = 1, N
+            for (J = 1; J <= N; J++) { // 140
                LENJ = MIN( J-1, KD )
                if ( LENJ.GT.0 ) {
                   zlarnv(4, ISEED, LENJ, AB( KD+2-LENJ, J ) );
@@ -253,7 +253,7 @@
   140       CONTINUE
             AB( KD+1, N ) = SMLNUM*AB( KD+1, N )
          } else {
-            DO 150 J = 1, N
+            for (J = 1; J <= N; J++) { // 150
                LENJ = MIN( N-J, KD )
                if ( LENJ.GT.0 ) {
                   zlarnv(4, ISEED, LENJ, AB( 2, J ) );
@@ -272,14 +272,14 @@
 
          zlarnv(2, ISEED, N, B );
          if ( UPPER ) {
-            DO 160 J = 1, N
+            for (J = 1; J <= N; J++) { // 160
                LENJ = MIN( J-1, KD )
                IF( LENJ.GT.0 ) CALL ZLARNV( 4, ISEED, LENJ, AB( KD+2-LENJ, J ) )
                AB( KD+1, J ) = ZLARND( 5, ISEED )
   160       CONTINUE
             AB( KD+1, N ) = SMLNUM*AB( KD+1, N )
          } else {
-            DO 170 J = 1, N
+            for (J = 1; J <= N; J++) { // 170
                LENJ = MIN( N-J, KD )
                IF( LENJ.GT.0 ) CALL ZLARNV( 4, ISEED, LENJ, AB( 2, J ) )
                AB( 1, J ) = ZLARND( 5, ISEED )
@@ -309,7 +309,7 @@
   190       CONTINUE
          } else {
             JCOUNT = 1
-            DO 210 J = 1, N
+            for (J = 1; J <= N; J++) { // 210
                DO 200 I = 2, MIN( N-J+1, KD+1 )
                   AB( I, J ) = ZERO
   200          CONTINUE
@@ -349,7 +349,7 @@
          TSCAL = SMLNUM**TEXP
          zlarnv(4, ISEED, N, B );
          if ( UPPER ) {
-            DO 250 J = 1, N
+            for (J = 1; J <= N; J++) { // 250
                DO 240 I = MAX( 1, KD+2-J ), KD
                   AB( I, J ) = ZERO
   240          CONTINUE
@@ -358,7 +358,7 @@
   250       CONTINUE
             B( N ) = DCMPLX( ONE, ONE )
          } else {
-            DO 270 J = 1, N
+            for (J = 1; J <= N; J++) { // 270
                DO 260 I = 3, MIN( N-J+1, KD+1 )
                   AB( I, J ) = ZERO
   260          CONTINUE
@@ -374,7 +374,7 @@
 
          IY = N / 2 + 1
          if ( UPPER ) {
-            DO 280 J = 1, N
+            for (J = 1; J <= N; J++) { // 280
                LENJ = MIN( J, KD+1 )
                zlarnv(4, ISEED, LENJ, AB( KD+2-LENJ, J ) );
                if ( J.NE.IY ) {
@@ -384,7 +384,7 @@
                }
   280       CONTINUE
          } else {
-            DO 290 J = 1, N
+            for (J = 1; J <= N; J++) { // 290
                LENJ = MIN( N-J+1, KD+1 )
                zlarnv(4, ISEED, LENJ, AB( 1, J ) );
                if ( J.NE.IY ) {
@@ -406,7 +406,7 @@
 
          TSCAL = UNFL / ULP
          TSCAL = ( ONE-ULP ) / TSCAL
-         DO 310 J = 1, N
+         for (J = 1; J <= N; J++) { // 310
             DO 300 I = 1, KD + 1
                AB( I, J ) = ZERO
   300       CONTINUE
@@ -455,13 +455,13 @@
          // requires scaling.
 
          if ( UPPER ) {
-            DO 360 J = 1, N
+            for (J = 1; J <= N; J++) { // 360
                LENJ = MIN( J-1, KD )
                zlarnv(4, ISEED, LENJ, AB( KD+1-LENJ, J ) );
                AB( KD+1, J ) = DBLE( J )
   360       CONTINUE
          } else {
-            DO 370 J = 1, N
+            for (J = 1; J <= N; J++) { // 370
                LENJ = MIN( N-J, KD )
                IF( LENJ.GT.0 ) CALL ZLARNV( 4, ISEED, LENJ, AB( 2, J ) )
                AB( 1, J ) = DBLE( J )
@@ -486,7 +486,7 @@
          TLEFT = BIGNUM / DBLE( KD+1 )
          TSCAL = BIGNUM*( DBLE( KD+1 ) / DBLE( KD+2 ) )
          if ( UPPER ) {
-            DO 390 J = 1, N
+            for (J = 1; J <= N; J++) { // 390
                LENJ = MIN( J, KD+1 )
                zlarnv(5, ISEED, LENJ, AB( KD+2-LENJ, J ) );
                dlarnv(1, ISEED, LENJ, RWORK( KD+2-LENJ ) );
@@ -495,11 +495,11 @@
   380          CONTINUE
   390       CONTINUE
          } else {
-            DO 410 J = 1, N
+            for (J = 1; J <= N; J++) { // 410
                LENJ = MIN( N-J+1, KD+1 )
                zlarnv(5, ISEED, LENJ, AB( 1, J ) );
                dlarnv(1, ISEED, LENJ, RWORK );
-               DO 400 I = 1, LENJ
+               for (I = 1; I <= LENJ; I++) { // 400
                   AB( I, J ) = AB( I, J )*( TLEFT+RWORK( I )*TSCAL )
   400          CONTINUE
   410       CONTINUE

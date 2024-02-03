@@ -81,7 +81,7 @@
          if ( RCEQU ) {
             SMIN = BIGNUM
             SMAX = ZERO
-            DO 10 J = 1, N
+            for (J = 1; J <= N; J++) { // 10
                SMIN = MIN( SMIN, S( J ) )
                SMAX = MAX( SMAX, S( J ) )
  10         CONTINUE

@@ -62,7 +62,7 @@
       NRUN = 0
       NFAIL = 0
       NERRS = 0
-      DO 10 I = 1, 4
+      for (I = 1; I <= 4; I++) { // 10
          ISEED( I ) = ISEEDY( I )
    10 CONTINUE
 
@@ -77,15 +77,15 @@
 
       // Do for each value of M in MVAL.
 
-      DO 70 IM = 1, NM
+      for (IM = 1; IM <= NM; IM++) { // 70
          M = MVAL( IM )
 
          // Do for each value of N in NVAL.
 
-         DO 60 IN = 1, NN
+         for (IN = 1; IN <= NN; IN++) { // 60
             N = NVAL( IN )
             MINMN = MIN( M, N )
-            DO 50 IMAT = 1, NTYPES
+            for (IMAT = 1; IMAT <= NTYPES; IMAT++) { // 50
 
                // Do the tests only if DOTYPE( IMAT ) is true.
 
@@ -126,17 +126,17 @@
 
                // Do for each value of K in KVAL
 
-               DO 40 IK = 1, NK
+               for (IK = 1; IK <= NK; IK++) { // 40
                   K = KVAL( IK )
 
                   // Do for each pair of values (NB,NX) in NBVAL and NXVAL.
 
-                  DO 30 INB = 1, NNB
+                  for (INB = 1; INB <= NNB; INB++) { // 30
                      NB = NBVAL( INB )
                      xlaenv(1, NB );
                      NX = NXVAL( INB )
                      xlaenv(3, NX );
-                     DO I = 1, NTESTS
+                     for (I = 1; I <= NTESTS; I++) {
                         RESULT( I ) = ZERO
                      END DO
                      NT = 2
@@ -189,7 +189,7 @@
                      // Print information about the tests that did not
                      // pass the threshold.
 
-                     DO 20 I = 1, NT
+                     for (I = 1; I <= NT; I++) { // 20
                         if ( RESULT( I ).GE.THRESH ) {
                            IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                            WRITE( NOUT, FMT = 9999 )M, N, K, NB, NX, IMAT, I, RESULT( I )
                            NFAIL = NFAIL + 1

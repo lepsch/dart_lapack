@@ -83,7 +83,7 @@
          if ( SOMEV ) {
             M = 0
             PAIR = .FALSE.
-            DO 10 J = 1, N
+            for (J = 1; J <= N; J++) { // 10
                if ( PAIR ) {
                   PAIR = .FALSE.
                   SELECT( J ) = .FALSE.
@@ -145,7 +145,7 @@
       // part of T to control overflow in triangular solver.
 
       WORK( 1 ) = ZERO
-      DO 30 J = 2, N
+      for (J = 2; J <= N; J++) { // 30
          WORK( J ) = ZERO
          DO 20 I = 1, J - 1
             WORK( J ) = WORK( J ) + ABS( T( I, J ) )
@@ -444,7 +444,7 @@
                   scopy(KI, WORK( 1+(IV  )*N ), 1, VR(1,IS  ), 1 );
 
                   EMAX = ZERO
-                  DO 100 K = 1, KI
+                  for (K = 1; K <= KI; K++) { // 100
                      EMAX = MAX( EMAX, ABS( VR( K, IS-1 ) )+ ABS( VR( K, IS   ) ) )
   100             CONTINUE
                   REMAX = ONE / EMAX
@@ -467,7 +467,7 @@
                   }
 
                   EMAX = ZERO
-                  DO 120 K = 1, N
+                  for (K = 1; K <= N; K++) { // 120
                      EMAX = MAX( EMAX, ABS( VR( K, KI-1 ) )+ ABS( VR( K, KI   ) ) )
   120             CONTINUE
                   REMAX = ONE / EMAX
@@ -505,7 +505,7 @@
                if ( (IV.LE.2) .OR. (KI2.EQ.1) ) {
                   sgemm('N', 'N', N, NB-IV+1, KI2+NB-IV, ONE, VR, LDVR, WORK( 1 + (IV)*N    ), N, ZERO, WORK( 1 + (NB+IV)*N ), N );
                   // normalize vectors
-                  DO K = IV, NB
+                  for (K = IV; K <= NB; K++) {
                      if ( ISCOMPLEX(K).EQ.0 ) {
                         // real eigenvector
                         II = ISAMAX( N, WORK( 1 + (NB+K)*N ), 1 )
@@ -513,7 +513,7 @@
                      } else if ( ISCOMPLEX(K).EQ.1 ) {
                         // first eigenvector of conjugate pair
                         EMAX = ZERO
-                        DO II = 1, N
+                        for (II = 1; II <= N; II++) {
                            EMAX = MAX( EMAX, ABS( WORK( II + (NB+K  )*N ) )+ ABS( WORK( II + (NB+K+1)*N ) ) )
                         END DO
                         REMAX = ONE / EMAX
@@ -548,7 +548,7 @@
          IV = 1
          IP = 0
          IS = 1
-         DO 260 KI = 1, N
+         for (KI = 1; KI <= N; KI++) { // 260
             if ( IP.EQ.1 ) {
                // previous iteration (ki-1) was first of conjugate pair,
                // so this ki is second of conjugate pair; skip to end of loop
@@ -838,7 +838,7 @@
                   scopy(N-KI+1, WORK( KI + (IV  )*N ), 1, VL( KI, IS   ), 1 )                   CALL SCOPY( N-KI+1, WORK( KI + (IV+1)*N ), 1, VL( KI, IS+1 ), 1 );
 
                   EMAX = ZERO
-                  DO 220 K = KI, N
+                  for (K = KI; K <= N; K++) { // 220
                      EMAX = MAX( EMAX, ABS( VL( K, IS   ) )+ ABS( VL( K, IS+1 ) ) )
   220             CONTINUE
                   REMAX = ONE / EMAX
@@ -861,7 +861,7 @@
                   }
 
                   EMAX = ZERO
-                  DO 240 K = 1, N
+                  for (K = 1; K <= N; K++) { // 240
                      EMAX = MAX( EMAX, ABS( VL( K, KI   ) )+ ABS( VL( K, KI+1 ) ) )
   240             CONTINUE
                   REMAX = ONE / EMAX
@@ -900,7 +900,7 @@
                if ( (IV.GE.NB-1) .OR. (KI2.EQ.N) ) {
                   sgemm('N', 'N', N, IV, N-KI2+IV, ONE, VL( 1, KI2-IV+1 ), LDVL, WORK( KI2-IV+1 + (1)*N ), N, ZERO, WORK( 1 + (NB+1)*N ), N );
                   // normalize vectors
-                  DO K = 1, IV
+                  for (K = 1; K <= IV; K++) {
                      if ( ISCOMPLEX(K).EQ.0) {
                         // real eigenvector
                         II = ISAMAX( N, WORK( 1 + (NB+K)*N ), 1 )
@@ -908,7 +908,7 @@
                      } else if ( ISCOMPLEX(K).EQ.1) {
                         // first eigenvector of conjugate pair
                         EMAX = ZERO
-                        DO II = 1, N
+                        for (II = 1; II <= N; II++) {
                            EMAX = MAX( EMAX, ABS( WORK( II + (NB+K  )*N ) )+ ABS( WORK( II + (NB+K+1)*N ) ) )
                         END DO
                         REMAX = ONE / EMAX

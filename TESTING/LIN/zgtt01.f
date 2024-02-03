@@ -48,12 +48,12 @@
 
       // Copy the matrix U to WORK.
 
-      DO 20 J = 1, N
-         DO 10 I = 1, N
+      for (J = 1; J <= N; J++) { // 20
+         for (I = 1; I <= N; I++) { // 10
             WORK( I, J ) = ZERO
    10    CONTINUE
    20 CONTINUE
-      DO 30 I = 1, N
+      for (I = 1; I <= N; I++) { // 30
          if ( I.EQ.1 ) {
             WORK( I, I ) = DF( I )
             IF( N.GE.2 ) WORK( I, I+1 ) = DUF( I )             IF( N.GE.3 ) WORK( I, I+2 ) = DU2( I )

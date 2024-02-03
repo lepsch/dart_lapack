@@ -153,7 +153,7 @@
             NBLST = IHI - JCOL - N2NB*NNB
             slaset('All', NBLST, NBLST, ZERO, ONE, WORK, NBLST );
             PW = NBLST * NBLST + 1
-            DO I = 1, N2NB
+            for (I = 1; I <= N2NB; I++) {
                slaset('All', 2*NNB, 2*NNB, ZERO, ONE, WORK( PW ), 2*NNB );
                PW = PW + 4*NNB*NNB
             END DO
@@ -422,7 +422,7 @@
 
                slaset('All', NBLST, NBLST, ZERO, ONE, WORK, NBLST );
                PW = NBLST * NBLST + 1
-               DO I = 1, N2NB
+               for (I = 1; I <= N2NB; I++) {
                   slaset('All', 2*NNB, 2*NNB, ZERO, ONE, WORK( PW ), 2*NNB );
                   PW = PW + 4*NNB*NNB
                END DO

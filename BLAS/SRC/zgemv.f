@@ -93,23 +93,23 @@
       if (BETA.NE.ONE) {
           if (INCY.EQ.1) {
               if (BETA.EQ.ZERO) {
-                  DO 10 I = 1,LENY
+                  for (I = 1; I <= LENY; I++) { // 10
                       Y(I) = ZERO
    10             CONTINUE
               } else {
-                  DO 20 I = 1,LENY
+                  for (I = 1; I <= LENY; I++) { // 20
                       Y(I) = BETA*Y(I)
    20             CONTINUE
               }
           } else {
               IY = KY
               if (BETA.EQ.ZERO) {
-                  DO 30 I = 1,LENY
+                  for (I = 1; I <= LENY; I++) { // 30
                       Y(IY) = ZERO
                       IY = IY + INCY
    30             CONTINUE
               } else {
-                  DO 40 I = 1,LENY
+                  for (I = 1; I <= LENY; I++) { // 40
                       Y(IY) = BETA*Y(IY)
                       IY = IY + INCY
    40             CONTINUE
@@ -123,18 +123,18 @@
 
           JX = KX
           if (INCY.EQ.1) {
-              DO 60 J = 1,N
+              for (J = 1; J <= N; J++) { // 60
                   TEMP = ALPHA*X(JX)
-                  DO 50 I = 1,M
+                  for (I = 1; I <= M; I++) { // 50
                       Y(I) = Y(I) + TEMP*A(I,J)
    50             CONTINUE
                   JX = JX + INCX
    60         CONTINUE
           } else {
-              DO 80 J = 1,N
+              for (J = 1; J <= N; J++) { // 80
                   TEMP = ALPHA*X(JX)
                   IY = KY
-                  DO 70 I = 1,M
+                  for (I = 1; I <= M; I++) { // 70
                       Y(IY) = Y(IY) + TEMP*A(I,J)
                       IY = IY + INCY
    70             CONTINUE
@@ -147,14 +147,14 @@
 
           JY = KY
           if (INCX.EQ.1) {
-              DO 110 J = 1,N
+              for (J = 1; J <= N; J++) { // 110
                   TEMP = ZERO
                   if (NOCONJ) {
-                      DO 90 I = 1,M
+                      for (I = 1; I <= M; I++) { // 90
                           TEMP = TEMP + A(I,J)*X(I)
    90                 CONTINUE
                   } else {
-                      DO 100 I = 1,M
+                      for (I = 1; I <= M; I++) { // 100
                           TEMP = TEMP + DCONJG(A(I,J))*X(I)
   100                 CONTINUE
                   }
@@ -162,16 +162,16 @@
                   JY = JY + INCY
   110         CONTINUE
           } else {
-              DO 140 J = 1,N
+              for (J = 1; J <= N; J++) { // 140
                   TEMP = ZERO
                   IX = KX
                   if (NOCONJ) {
-                      DO 120 I = 1,M
+                      for (I = 1; I <= M; I++) { // 120
                           TEMP = TEMP + A(I,J)*X(IX)
                           IX = IX + INCX
   120                 CONTINUE
                   } else {
-                      DO 130 I = 1,M
+                      for (I = 1; I <= M; I++) { // 130
                           TEMP = TEMP + DCONJG(A(I,J))*X(IX)
                           IX = IX + INCX
   130                 CONTINUE

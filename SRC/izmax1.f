@@ -31,7 +31,7 @@
          // code for increment equal to 1
 
          DMAX = ABS(ZX(1))
-         DO I = 2,N
+         for (I = 2; I <= N; I++) {
             if (ABS(ZX(I)).GT.DMAX) {
                IZMAX1 = I
                DMAX = ABS(ZX(I))
@@ -44,7 +44,7 @@
          IX = 1
          DMAX = ABS(ZX(1))
          IX = IX + INCX
-         DO I = 2,N
+         for (I = 2; I <= N; I++) {
             if (ABS(ZX(IX)).GT.DMAX) {
                IZMAX1 = I
                DMAX = ABS(ZX(IX))

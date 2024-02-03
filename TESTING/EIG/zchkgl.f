@@ -50,19 +50,19 @@
 
       READ( NIN, FMT = * )N
       IF( N.EQ.0 ) GO TO 90
-      DO 20 I = 1, N
+      for (I = 1; I <= N; I++) { // 20
          READ( NIN, FMT = * )( A( I, J ), J = 1, N )
    20 CONTINUE
 
-      DO 30 I = 1, N
+      for (I = 1; I <= N; I++) { // 30
          READ( NIN, FMT = * )( B( I, J ), J = 1, N )
    30 CONTINUE
 
       READ( NIN, FMT = * )ILOIN, IHIIN
-      DO 40 I = 1, N
+      for (I = 1; I <= N; I++) { // 40
          READ( NIN, FMT = * )( AIN( I, J ), J = 1, N )
    40 CONTINUE
-      DO 50 I = 1, N
+      for (I = 1; I <= N; I++) { // 50
          READ( NIN, FMT = * )( BIN( I, J ), J = 1, N )
    50 CONTINUE
 
@@ -87,14 +87,14 @@
       }
 
       VMAX = ZERO
-      DO 70 I = 1, N
-         DO 60 J = 1, N
+      for (I = 1; I <= N; I++) { // 70
+         for (J = 1; J <= N; J++) { // 60
             VMAX = MAX( VMAX, ABS( A( I, J )-AIN( I, J ) ) )
             VMAX = MAX( VMAX, ABS( B( I, J )-BIN( I, J ) ) )
    60    CONTINUE
    70 CONTINUE
 
-      DO 80 I = 1, N
+      for (I = 1; I <= N; I++) { // 80
          VMAX = MAX( VMAX, ABS( LSCALE( I )-LSCLIN( I ) ) )
          VMAX = MAX( VMAX, ABS( RSCALE( I )-RSCLIN( I ) ) )
    80 CONTINUE

@@ -101,7 +101,7 @@
 
          // Set A(kk+1:m,1:kk) to zero.
 
-         DO 20 J = 1, KK
+         for (J = 1; J <= KK; J++) { // 20
             DO 10 I = KK + 1, M
                A( I, J ) = ZERO
    10       CONTINUE

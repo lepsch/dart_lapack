@@ -79,23 +79,23 @@
       if (BETA.NE.ONE) {
           if (INCY.EQ.1) {
               if (BETA.EQ.ZERO) {
-                  DO 10 I = 1,N
+                  for (I = 1; I <= N; I++) { // 10
                       Y(I) = ZERO
    10             CONTINUE
               } else {
-                  DO 20 I = 1,N
+                  for (I = 1; I <= N; I++) { // 20
                       Y(I) = BETA*Y(I)
    20             CONTINUE
               }
           } else {
               IY = KY
               if (BETA.EQ.ZERO) {
-                  DO 30 I = 1,N
+                  for (I = 1; I <= N; I++) { // 30
                       Y(IY) = ZERO
                       IY = IY + INCY
    30             CONTINUE
               } else {
-                  DO 40 I = 1,N
+                  for (I = 1; I <= N; I++) { // 40
                       Y(IY) = BETA*Y(IY)
                       IY = IY + INCY
    40             CONTINUE
@@ -108,7 +108,7 @@
          // Form  y  when A is stored in upper triangle.
 
           if ((INCX.EQ.1) .AND. (INCY.EQ.1)) {
-              DO 60 J = 1,N
+              for (J = 1; J <= N; J++) { // 60
                   TEMP1 = ALPHA*X(J)
                   TEMP2 = ZERO
                   DO 50 I = 1,J - 1
@@ -120,7 +120,7 @@
           } else {
               JX = KX
               JY = KY
-              DO 80 J = 1,N
+              for (J = 1; J <= N; J++) { // 80
                   TEMP1 = ALPHA*X(JX)
                   TEMP2 = ZERO
                   IX = KX
@@ -141,7 +141,7 @@
          // Form  y  when A is stored in lower triangle.
 
           if ((INCX.EQ.1) .AND. (INCY.EQ.1)) {
-              DO 100 J = 1,N
+              for (J = 1; J <= N; J++) { // 100
                   TEMP1 = ALPHA*X(J)
                   TEMP2 = ZERO
                   Y(J) = Y(J) + TEMP1*A(J,J)
@@ -154,7 +154,7 @@
           } else {
               JX = KX
               JY = KY
-              DO 120 J = 1,N
+              for (J = 1; J <= N; J++) { // 120
                   TEMP1 = ALPHA*X(JX)
                   TEMP2 = ZERO
                   Y(JY) = Y(JY) + TEMP1*A(J,J)

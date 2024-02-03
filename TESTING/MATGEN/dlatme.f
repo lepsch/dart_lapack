@@ -75,7 +75,7 @@
          USEEI = .FALSE.
       } else {
          if ( LSAME( EI( 1 ), 'R' ) ) {
-            DO 10 J = 2, N
+            for (J = 2; J <= N; J++) { // 10
                if ( LSAME( EI( J ), 'I' ) ) {
                   IF( LSAME( EI( J-1 ), 'I' ) ) BADEI = .TRUE.
                } else {
@@ -121,7 +121,7 @@
 
       BADS = .FALSE.
       if ( MODES.EQ.0 .AND. ISIM.EQ.1 ) {
-         DO 20 J = 1, N
+         for (J = 1; J <= N; J++) { // 20
             IF( DS( J ).EQ.ZERO ) BADS = .TRUE.
    20    CONTINUE
       }
@@ -165,7 +165,7 @@
 
       // Initialize random number generator
 
-      DO 30 I = 1, 4
+      for (I = 1; I <= 4; I++) { // 30
          ISEED( I ) = MOD( ABS( ISEED( I ) ), 4096 )
    30 CONTINUE
 
@@ -185,7 +185,7 @@
          // Scale by DMAX
 
          TEMP = ABS( D( 1 ) )
-         DO 40 I = 2, N
+         for (I = 2; I <= N; I++) { // 40
             TEMP = MAX( TEMP, ABS( D( I ) ) )
    40    CONTINUE
 
@@ -209,7 +209,7 @@
 
       if ( MODE.EQ.0 ) {
          if ( USEEI ) {
-            DO 50 J = 2, N
+            for (J = 2; J <= N; J++) { // 50
                if ( LSAME( EI( J ), 'I' ) ) {
                   A( J-1, J ) = A( J, J )
                   A( J, J-1 ) = -A( J, J )
@@ -233,7 +233,7 @@
               // (but don't modify the corners of 2x2 blocks.)
 
       if ( IUPPER.NE.0 ) {
-         DO 70 JC = 2, N
+         for (JC = 2; JC <= N; JC++) { // 70
             if ( A( JC-1, JC ).NE.ZERO ) {
                JR = JC - 2
             } else {
@@ -271,7 +271,7 @@
 
          // Multiply by S and (1/S)
 
-         DO 80 J = 1, N
+         for (J = 1; J <= N; J++) { // 80
             dscal(N, DS( J ), A( J, 1 ), LDA );
             if ( DS( J ).NE.ZERO ) {
                dscal(N, ONE / DS( J ), A( 1, J ), 1 );
@@ -342,7 +342,7 @@
          TEMP = DLANGE( 'M', N, N, A, LDA, TEMPA )
          if ( TEMP.GT.ZERO ) {
             ALPHA = ANORM / TEMP
-            DO 110 J = 1, N
+            for (J = 1; J <= N; J++) { // 110
                dscal(N, ALPHA, A( 1, J ), 1 );
   110       CONTINUE
          }

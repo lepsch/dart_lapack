@@ -67,7 +67,7 @@
             SH12 = SPARAM(4)
             SH21 = SPARAM(3)
             SH22 = SPARAM(5)
-            DO I = 1,N
+            for (I = 1; I <= N; I++) {
                W = SX(KX)
                Z = SY(KY)
                SX(KX) = W*SH11 + Z*SH12
@@ -78,7 +78,7 @@
          } else if (SFLAG.EQ.ZERO) {
             SH12 = SPARAM(4)
             SH21 = SPARAM(3)
-            DO I = 1,N
+            for (I = 1; I <= N; I++) {
                W = SX(KX)
                Z = SY(KY)
                SX(KX) = W + Z*SH12
@@ -89,7 +89,7 @@
          } else {
              SH11 = SPARAM(2)
              SH22 = SPARAM(5)
-             DO I = 1,N
+             for (I = 1; I <= N; I++) {
                 W = SX(KX)
                 Z = SY(KY)
                 SX(KX) = W*SH11 + Z

@@ -83,7 +83,7 @@
 
             // A is upper triangular.
 
-            DO 10 J = 1, N
+            for (J = 1; J <= N; J++) { // 10
                JLEN = MIN( KD, J-1 )
                CNORM( J ) = DASUM( JLEN, AB( KD+1-JLEN, J ), 1 )
    10       CONTINUE
@@ -91,7 +91,7 @@
 
             // A is lower triangular.
 
-            DO 20 J = 1, N
+            for (J = 1; J <= N; J++) { // 20
                JLEN = MIN( KD, N-J )
                if ( JLEN.GT.0 ) {
                   CNORM( J ) = DASUM( JLEN, AB( 2, J ), 1 )
@@ -343,7 +343,7 @@
                      // A(j,j) = 0:  Set x(1:n) = 0, x(j) = 1, and
                      // scale = 0, and compute a solution to A*x = 0.
 
-                  DO 90 I = 1, N
+                  for (I = 1; I <= N; I++) { // 90
                      X( I ) = ZERO
    90             CONTINUE
                   X( J ) = ONE
@@ -455,12 +455,12 @@
 
                   if ( UPPER ) {
                      JLEN = MIN( KD, J-1 )
-                     DO 120 I = 1, JLEN
+                     for (I = 1; I <= JLEN; I++) { // 120
                         SUMJ = SUMJ + ( AB( KD+I-JLEN, J )*USCAL )* X( J-JLEN-1+I )
   120                CONTINUE
                   } else {
                      JLEN = MIN( KD, N-J )
-                     DO 130 I = 1, JLEN
+                     for (I = 1; I <= JLEN; I++) { // 130
                         SUMJ = SUMJ + ( AB( I+1, J )*USCAL )*X( J+I )
   130                CONTINUE
                   }
@@ -518,7 +518,7 @@
                         // A(j,j) = 0:  Set x(1:n) = 0, x(j) = 1, and
                         // scale = 0, and compute a solution to A**T*x = 0.
 
-                     DO 140 I = 1, N
+                     for (I = 1; I <= N; I++) { // 140
                         X( I ) = ZERO
   140                CONTINUE
                      X( J ) = ONE

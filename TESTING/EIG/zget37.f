@@ -72,21 +72,21 @@
    10 CONTINUE
       READ( NIN, FMT = * )N, ISRT
       IF( N.EQ.0 ) RETURN
-      DO 20 I = 1, N
+      for (I = 1; I <= N; I++) { // 20
          READ( NIN, FMT = * )( TMP( I, J ), J = 1, N )
    20 CONTINUE
-      DO 30 I = 1, N
+      for (I = 1; I <= N; I++) { // 30
          READ( NIN, FMT = * )WRIN( I ), WIIN( I ), SIN( I ), SEPIN( I )
    30 CONTINUE
       TNRM = ZLANGE( 'M', N, N, TMP, LDT, RWORK )
-      DO 260 ISCL = 1, 3
+      for (ISCL = 1; ISCL <= 3; ISCL++) { // 260
 
          // Scale input matrix
 
          KNT = KNT + 1
          zlacpy('F', N, N, TMP, LDT, T, LDT );
          VMUL = VAL( ISCL )
-         DO 40 I = 1, N
+         for (I = 1; I <= N; I++) { // 40
             zdscal(N, VMUL, T( 1, I ), 1 );
    40    CONTINUE
          IF( TNRM.EQ.ZERO ) VMUL = ONE
@@ -116,7 +116,7 @@
 
          // Compute eigenvectors
 
-         DO 70 I = 1, N
+         for (I = 1; I <= N; I++) { // 70
             SELECT( I ) = .TRUE.
    70    CONTINUE
          ztrevc('B', 'A', SELECT, N, T, LDT, LE, LDT, RE, LDT, N, M, WORK, RWORK, INFO );
@@ -138,14 +138,14 @@
 
             // Sort by increasing real part
 
-            DO 80 I = 1, N
+            for (I = 1; I <= N; I++) { // 80
                WSRT( I ) = DBLE( W( I ) )
    80       CONTINUE
          } else {
 
             // Sort by increasing imaginary part
 
-            DO 90 I = 1, N
+            for (I = 1; I <= N; I++) { // 90
                WSRT( I ) = DIMAG( W( I ) )
    90       CONTINUE
          }
@@ -179,7 +179,7 @@
 
          V = MAX( TWO*DBLE( N )*EPS*TNRM, SMLNUM )
          IF( TNRM.EQ.ZERO ) V = ONE
-         DO 120 I = 1, N
+         for (I = 1; I <= N; I++) { // 120
             if ( V.GT.SEPTMP( I ) ) {
                TOL = ONE
             } else {
@@ -212,7 +212,7 @@
          // Compare condition numbers for eigenvectors
          // taking their condition numbers into account
 
-         DO 130 I = 1, N
+         for (I = 1; I <= N; I++) { // 130
             if ( V.GT.SEPTMP( I )*STMP( I ) ) {
                TOL = SEPTMP( I )
             } else {
@@ -245,7 +245,7 @@
          // Compare condition numbers for eigenvalues
          // without taking their condition numbers into account
 
-         DO 140 I = 1, N
+         for (I = 1; I <= N; I++) { // 140
             if ( SIN( I ).LE.DBLE( 2*N )*EPS .AND. STMP( I ).LE. DBLE( 2*N )*EPS ) {
                VMAX = ONE
             } else if ( EPS*SIN( I ).GT.STMP( I ) ) {
@@ -268,7 +268,7 @@
          // Compare condition numbers for eigenvectors
          // without taking their condition numbers into account
 
-         DO 150 I = 1, N
+         for (I = 1; I <= N; I++) { // 150
             if ( SEPIN( I ).LE.V .AND. SEPTMP( I ).LE.V ) {
                VMAX = ONE
             } else if ( EPS*SEPIN( I ).GT.SEPTMP( I ) ) {
@@ -300,7 +300,7 @@
             NINFO( 3 ) = NINFO( 3 ) + 1
             GO TO 260
          }
-         DO 160 I = 1, N
+         for (I = 1; I <= N; I++) { // 160
             IF( STMP( I ).NE.S( I ) ) VMAX = ONE / EPS             IF( SEPTMP( I ).NE.DUM( 1 ) ) VMAX = ONE / EPS
   160    CONTINUE
 
@@ -314,13 +314,13 @@
             NINFO( 3 ) = NINFO( 3 ) + 1
             GO TO 260
          }
-         DO 170 I = 1, N
+         for (I = 1; I <= N; I++) { // 170
             IF( STMP( I ).NE.DUM( 1 ) ) VMAX = ONE / EPS             IF( SEPTMP( I ).NE.SEP( I ) ) VMAX = ONE / EPS
   170    CONTINUE
 
          // Compute all condition numbers using SELECT and compare
 
-         DO 180 I = 1, N
+         for (I = 1; I <= N; I++) { // 180
             SELECT( I ) = .TRUE.
   180    CONTINUE
          dcopy(N, DUM, 0, STMP, 1 );
@@ -331,7 +331,7 @@
             NINFO( 3 ) = NINFO( 3 ) + 1
             GO TO 260
          }
-         DO 190 I = 1, N
+         for (I = 1; I <= N; I++) { // 190
             IF( SEPTMP( I ).NE.SEP( I ) ) VMAX = ONE / EPS             IF( STMP( I ).NE.S( I ) ) VMAX = ONE / EPS
   190    CONTINUE
 
@@ -345,7 +345,7 @@
             NINFO( 3 ) = NINFO( 3 ) + 1
             GO TO 260
          }
-         DO 200 I = 1, N
+         for (I = 1; I <= N; I++) { // 200
             IF( STMP( I ).NE.S( I ) ) VMAX = ONE / EPS             IF( SEPTMP( I ).NE.DUM( 1 ) ) VMAX = ONE / EPS
   200    CONTINUE
 
@@ -359,7 +359,7 @@
             NINFO( 3 ) = NINFO( 3 ) + 1
             GO TO 260
          }
-         DO 210 I = 1, N
+         for (I = 1; I <= N; I++) { // 210
             IF( STMP( I ).NE.DUM( 1 ) ) VMAX = ONE / EPS             IF( SEPTMP( I ).NE.SEP( I ) ) VMAX = ONE / EPS
   210    CONTINUE
          if ( VMAX.GT.RMAX( 1 ) ) {
@@ -369,7 +369,7 @@
 
          // Select second and next to last eigenvalues
 
-         DO 220 I = 1, N
+         for (I = 1; I <= N; I++) { // 220
             SELECT( I ) = .FALSE.
   220    CONTINUE
          ICMP = 0
@@ -398,7 +398,7 @@
             NINFO( 3 ) = NINFO( 3 ) + 1
             GO TO 260
          }
-         DO 230 I = 1, ICMP
+         for (I = 1; I <= ICMP; I++) { // 230
             J = LCMP( I )
             IF( SEPTMP( I ).NE.SEP( J ) ) VMAX = ONE / EPS             IF( STMP( I ).NE.S( J ) ) VMAX = ONE / EPS
   230    CONTINUE
@@ -413,7 +413,7 @@
             NINFO( 3 ) = NINFO( 3 ) + 1
             GO TO 260
          }
-         DO 240 I = 1, ICMP
+         for (I = 1; I <= ICMP; I++) { // 240
             J = LCMP( I )
             IF( STMP( I ).NE.S( J ) ) VMAX = ONE / EPS             IF( SEPTMP( I ).NE.DUM( 1 ) ) VMAX = ONE / EPS
   240    CONTINUE
@@ -428,7 +428,7 @@
             NINFO( 3 ) = NINFO( 3 ) + 1
             GO TO 260
          }
-         DO 250 I = 1, ICMP
+         for (I = 1; I <= ICMP; I++) { // 250
             J = LCMP( I )
             IF( STMP( I ).NE.DUM( 1 ) ) VMAX = ONE / EPS             IF( SEPTMP( I ).NE.SEP( J ) ) VMAX = ONE / EPS
   250    CONTINUE

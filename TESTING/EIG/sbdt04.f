@@ -53,7 +53,7 @@
          // B is upper bidiagonal.
 
          K = 0
-         DO 20 I = 1, NS
+         for (I = 1; I <= NS; I++) { // 20
             DO 10 J = 1, N-1
                K = K + 1
                WORK( K ) = D( J )*VT( I, J ) + E( J )*VT( I, J+1 )
@@ -62,7 +62,7 @@
             WORK( K ) = D( N )*VT( I, N )
    20    CONTINUE
          BNORM = ABS( D( 1 ) )
-         DO 30 I = 2, N
+         for (I = 2; I <= N; I++) { // 30
             BNORM = MAX( BNORM, ABS( D( I ) )+ABS( E( I-1 ) ) )
    30    CONTINUE
       } else {
@@ -70,7 +70,7 @@
          // B is lower bidiagonal.
 
          K = 0
-         DO 50 I = 1, NS
+         for (I = 1; I <= NS; I++) { // 50
             K = K + 1
             WORK( K ) = D( 1 )*VT( I, 1 )
             DO 40 J = 1, N-1
@@ -89,7 +89,7 @@
       // norm(S - U' * B * V)
 
       K = N*NS
-      DO 70 I = 1, NS
+      for (I = 1; I <= NS; I++) { // 70
          WORK( K+I ) =  WORK( K+I ) + S( I )
          RESID = MAX( RESID, SASUM( NS, WORK( K+1 ), 1 ) )
          K = K + NS

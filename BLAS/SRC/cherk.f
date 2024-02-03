@@ -73,13 +73,13 @@
       if (ALPHA.EQ.ZERO) {
           if (UPPER) {
               if (BETA.EQ.ZERO) {
-                  DO 20 J = 1,N
-                      DO 10 I = 1,J
+                  for (J = 1; J <= N; J++) { // 20
+                      for (I = 1; I <= J; I++) { // 10
                           C(I,J) = ZERO
    10                 CONTINUE
    20             CONTINUE
               } else {
-                  DO 40 J = 1,N
+                  for (J = 1; J <= N; J++) { // 40
                       DO 30 I = 1,J - 1
                           C(I,J) = BETA*C(I,J)
    30                 CONTINUE
@@ -88,13 +88,13 @@
               }
           } else {
               if (BETA.EQ.ZERO) {
-                  DO 60 J = 1,N
-                      DO 50 I = J,N
+                  for (J = 1; J <= N; J++) { // 60
+                      for (I = J; I <= N; I++) { // 50
                           C(I,J) = ZERO
    50                 CONTINUE
    60             CONTINUE
               } else {
-                  DO 80 J = 1,N
+                  for (J = 1; J <= N; J++) { // 80
                       C(J,J) = BETA*REAL(C(J,J))
                       DO 70 I = J + 1,N
                           C(I,J) = BETA*C(I,J)
@@ -112,9 +112,9 @@
          // Form  C := alpha*A*A**H + beta*C.
 
           if (UPPER) {
-              DO 130 J = 1,N
+              for (J = 1; J <= N; J++) { // 130
                   if (BETA.EQ.ZERO) {
-                      DO 90 I = 1,J
+                      for (I = 1; I <= J; I++) { // 90
                           C(I,J) = ZERO
    90                 CONTINUE
                   } else if (BETA.NE.ONE) {
@@ -125,7 +125,7 @@
                   } else {
                       C(J,J) = REAL(C(J,J))
                   }
-                  DO 120 L = 1,K
+                  for (L = 1; L <= K; L++) { // 120
                       if (A(J,L).NE.CMPLX(ZERO)) {
                           TEMP = ALPHA*CONJG(A(J,L))
                           DO 110 I = 1,J - 1
@@ -136,9 +136,9 @@
   120             CONTINUE
   130         CONTINUE
           } else {
-              DO 180 J = 1,N
+              for (J = 1; J <= N; J++) { // 180
                   if (BETA.EQ.ZERO) {
-                      DO 140 I = J,N
+                      for (I = J; I <= N; I++) { // 140
                           C(I,J) = ZERO
   140                 CONTINUE
                   } else if (BETA.NE.ONE) {
@@ -149,7 +149,7 @@
                   } else {
                       C(J,J) = REAL(C(J,J))
                   }
-                  DO 170 L = 1,K
+                  for (L = 1; L <= K; L++) { // 170
                       if (A(J,L).NE.CMPLX(ZERO)) {
                           TEMP = ALPHA*CONJG(A(J,L))
                           C(J,J) = REAL(C(J,J)) + REAL(TEMP*A(J,L))
@@ -165,10 +165,10 @@
          // Form  C := alpha*A**H*A + beta*C.
 
           if (UPPER) {
-              DO 220 J = 1,N
+              for (J = 1; J <= N; J++) { // 220
                   DO 200 I = 1,J - 1
                       TEMP = ZERO
-                      DO 190 L = 1,K
+                      for (L = 1; L <= K; L++) { // 190
                           TEMP = TEMP + CONJG(A(L,I))*A(L,J)
   190                 CONTINUE
                       if (BETA.EQ.ZERO) {
@@ -178,7 +178,7 @@
                       }
   200             CONTINUE
                   RTEMP = ZERO
-                  DO 210 L = 1,K
+                  for (L = 1; L <= K; L++) { // 210
                       RTEMP = RTEMP + REAL(CONJG(A(L,J))*A(L,J))
   210             CONTINUE
                   if (BETA.EQ.ZERO) {
@@ -188,9 +188,9 @@
                   }
   220         CONTINUE
           } else {
-              DO 260 J = 1,N
+              for (J = 1; J <= N; J++) { // 260
                   RTEMP = ZERO
-                  DO 230 L = 1,K
+                  for (L = 1; L <= K; L++) { // 230
                       RTEMP = RTEMP + REAL(CONJG(A(L,J))*A(L,J))
   230             CONTINUE
                   if (BETA.EQ.ZERO) {
@@ -200,7 +200,7 @@
                   }
                   DO 250 I = J + 1,N
                       TEMP = ZERO
-                      DO 240 L = 1,K
+                      for (L = 1; L <= K; L++) { // 240
                           TEMP = TEMP + CONJG(A(L,I))*A(L,J)
   240                 CONTINUE
                       if (BETA.EQ.ZERO) {

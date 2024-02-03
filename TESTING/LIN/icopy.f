@@ -28,7 +28,7 @@
       IX = 1
       IY = 1
       IF( INCX.LT.0 ) IX = ( -N+1 )*INCX + 1       IF( INCY.LT.0 ) IY = ( -N+1 )*INCY + 1
-      DO 10 I = 1, N
+      for (I = 1; I <= N; I++) { // 10
          SY( IY ) = SX( IX )
          IX = IX + INCX
          IY = IY + INCY
@@ -42,7 +42,7 @@
    20 CONTINUE
       M = MOD( N, 7 )
       IF( M.EQ.0 ) GO TO 40
-      DO 30 I = 1, M
+      for (I = 1; I <= M; I++) { // 30
          SY( I ) = SX( I )
    30 CONTINUE
       IF( N.LT.7 ) RETURN

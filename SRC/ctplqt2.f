@@ -54,7 +54,7 @@
 
       IF( N.EQ.0 .OR. M.EQ.0 ) RETURN
 
-      DO I = 1, M
+      for (I = 1; I <= M; I++) {
 
          // Generate elementary reflector H(I) to annihilate B(I,:)
 
@@ -62,7 +62,7 @@
          clarfg(P+1, A( I, I ), B( I, 1 ), LDB, T( 1, I ) );
          T(1,I)=CONJG(T(1,I))
          if ( I.LT.M ) {
-            DO J = 1, P
+            for (J = 1; J <= P; J++) {
                B( I, J ) = CONJG(B(I,J))
             END DO
 
@@ -80,13 +80,13 @@
                A( I+J, I ) = A( I+J, I ) + ALPHA*(T( M, J ))
             END DO
             cgerc(M-I, P, (ALPHA),  T( M, 1 ), LDT, B( I, 1 ), LDB, B( I+1, 1 ), LDB );
-            DO J = 1, P
+            for (J = 1; J <= P; J++) {
                B( I, J ) = CONJG(B(I,J))
             END DO
          }
       END DO
 
-      DO I = 2, M
+      for (I = 2; I <= M; I++) {
 
          // T(I,1:I-1) := C(I:I-1,1:N)**H * (alpha * C(I,I:N))
 
@@ -103,7 +103,7 @@
 
          // Triangular part of B2
 
-         DO J = 1, P
+         for (J = 1; J <= P; J++) {
             T( I, J ) = (ALPHA*B( I, N-L+J ))
          END DO
          ctrmv('L', 'N', 'N', P, B( 1, NP ), LDB, T( I, 1 ), LDT );
@@ -137,7 +137,7 @@
          T( I, I ) = T( 1, I )
          T( 1, I ) = ZERO
       END DO
-      DO I=1,M
+      for (I = 1; I <= M; I++) {
          DO J= I+1,M
             T(I,J)=(T(J,I))
             T(J,I)=ZERO

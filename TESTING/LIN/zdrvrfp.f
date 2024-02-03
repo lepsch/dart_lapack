@@ -75,21 +75,21 @@
       NRUN = 0
       NFAIL = 0
       NERRS = 0
-      DO 10 I = 1, 4
+      for (I = 1; I <= 4; I++) { // 10
          ISEED( I ) = ISEEDY( I )
    10 CONTINUE
 
-      DO 130 IIN = 1, NN
+      for (IIN = 1; IIN <= NN; IIN++) { // 130
 
          N = NVAL( IIN )
          LDA = MAX( N, 1 )
          LDB = MAX( N, 1 )
 
-         DO 980 IIS = 1, NNS
+         for (IIS = 1; IIS <= NNS; IIS++) { // 980
 
             NRHS = NSVAL( IIS )
 
-            DO 120 IIT = 1, NNT
+            for (IIT = 1; IIT <= NNT; IIT++) { // 120
 
                IMAT = NTVAL( IIT )
 
@@ -104,12 +104,12 @@
 
                // Do first for UPLO = 'U', then for UPLO = 'L'
 
-               DO 110 IUPLO = 1, 2
+               for (IUPLO = 1; IUPLO <= 2; IUPLO++) { // 110
                   UPLO = UPLOS( IUPLO )
 
                   // Do first for CFORM = 'N', then for CFORM = 'C'
 
-                  DO 100 IFORM = 1, 2
+                  for (IFORM = 1; IFORM <= 2; IFORM++) { // 100
                      CFORM = FORMS( IFORM )
 
                      // Set up parameters with ZLATB4 and generate a test
@@ -148,7 +148,7 @@
                               A( IOFF+I ) = ZERO
    20                      CONTINUE
                            IOFF = IOFF + IZERO
-                           DO 30 I = IZERO, N
+                           for (I = IZERO; I <= N; I++) { // 30
                               A( IOFF ) = ZERO
                               IOFF = IOFF + LDA
    30                      CONTINUE
@@ -159,7 +159,7 @@
                               IOFF = IOFF + LDA
    40                      CONTINUE
                            IOFF = IOFF - IZERO
-                           DO 50 I = IZERO, N
+                           for (I = IZERO; I <= N; I++) { // 50
                               A( IOFF+I ) = ZERO
    50                      CONTINUE
                         }
@@ -287,7 +287,7 @@
                      // Print information about the tests that did not
                      // pass the threshold.
 
-                     DO 60 K = 1, NT
+                     for (K = 1; K <= NT; K++) { // 60
                         if ( RESULT( K ).GE.THRESH ) {
                            IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALADHD( NOUT, 'ZPF' )                            WRITE( NOUT, FMT = 9999 )'ZPFSV ', UPLO, N, IIT, K, RESULT( K )
                            NFAIL = NFAIL + 1

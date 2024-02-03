@@ -28,22 +28,22 @@
       // .. Executable Statements ..
 
       if ( LSAME( UPLO, 'U' ) ) {
-         DO 20 J = 1, N
+         for (J = 1; J <= N; J++) { // 20
             DO 10 I = 1, MIN( J, M )
                B( I, J ) = A( I, J )
    10       CONTINUE
    20    CONTINUE
 
       } else if ( LSAME( UPLO, 'L' ) ) {
-         DO 40 J = 1, N
-            DO 30 I = J, M
+         for (J = 1; J <= N; J++) { // 40
+            for (I = J; I <= M; I++) { // 30
                B( I, J ) = A( I, J )
    30       CONTINUE
    40    CONTINUE
 
       } else {
-         DO 60 J = 1, N
-            DO 50 I = 1, M
+         for (J = 1; J <= N; J++) { // 60
+            for (I = 1; I <= M; I++) { // 50
                B( I, J ) = A( I, J )
    50       CONTINUE
    60    CONTINUE

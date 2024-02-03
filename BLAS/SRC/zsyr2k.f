@@ -76,28 +76,28 @@
       if (ALPHA.EQ.ZERO) {
           if (UPPER) {
               if (BETA.EQ.ZERO) {
-                  DO 20 J = 1,N
-                      DO 10 I = 1,J
+                  for (J = 1; J <= N; J++) { // 20
+                      for (I = 1; I <= J; I++) { // 10
                           C(I,J) = ZERO
    10                 CONTINUE
    20             CONTINUE
               } else {
-                  DO 40 J = 1,N
-                      DO 30 I = 1,J
+                  for (J = 1; J <= N; J++) { // 40
+                      for (I = 1; I <= J; I++) { // 30
                           C(I,J) = BETA*C(I,J)
    30                 CONTINUE
    40             CONTINUE
               }
           } else {
               if (BETA.EQ.ZERO) {
-                  DO 60 J = 1,N
-                      DO 50 I = J,N
+                  for (J = 1; J <= N; J++) { // 60
+                      for (I = J; I <= N; I++) { // 50
                           C(I,J) = ZERO
    50                 CONTINUE
    60             CONTINUE
               } else {
-                  DO 80 J = 1,N
-                      DO 70 I = J,N
+                  for (J = 1; J <= N; J++) { // 80
+                      for (I = J; I <= N; I++) { // 70
                           C(I,J) = BETA*C(I,J)
    70                 CONTINUE
    80             CONTINUE
@@ -113,42 +113,42 @@
          // Form  C := alpha*A*B**T + alpha*B*A**T + C.
 
           if (UPPER) {
-              DO 130 J = 1,N
+              for (J = 1; J <= N; J++) { // 130
                   if (BETA.EQ.ZERO) {
-                      DO 90 I = 1,J
+                      for (I = 1; I <= J; I++) { // 90
                           C(I,J) = ZERO
    90                 CONTINUE
                   } else if (BETA.NE.ONE) {
-                      DO 100 I = 1,J
+                      for (I = 1; I <= J; I++) { // 100
                           C(I,J) = BETA*C(I,J)
   100                 CONTINUE
                   }
-                  DO 120 L = 1,K
+                  for (L = 1; L <= K; L++) { // 120
                       if ((A(J,L).NE.ZERO) .OR. (B(J,L).NE.ZERO)) {
                           TEMP1 = ALPHA*B(J,L)
                           TEMP2 = ALPHA*A(J,L)
-                          DO 110 I = 1,J
+                          for (I = 1; I <= J; I++) { // 110
                               C(I,J) = C(I,J) + A(I,L)*TEMP1 + B(I,L)*TEMP2
   110                     CONTINUE
                       }
   120             CONTINUE
   130         CONTINUE
           } else {
-              DO 180 J = 1,N
+              for (J = 1; J <= N; J++) { // 180
                   if (BETA.EQ.ZERO) {
-                      DO 140 I = J,N
+                      for (I = J; I <= N; I++) { // 140
                           C(I,J) = ZERO
   140                 CONTINUE
                   } else if (BETA.NE.ONE) {
-                      DO 150 I = J,N
+                      for (I = J; I <= N; I++) { // 150
                           C(I,J) = BETA*C(I,J)
   150                 CONTINUE
                   }
-                  DO 170 L = 1,K
+                  for (L = 1; L <= K; L++) { // 170
                       if ((A(J,L).NE.ZERO) .OR. (B(J,L).NE.ZERO)) {
                           TEMP1 = ALPHA*B(J,L)
                           TEMP2 = ALPHA*A(J,L)
-                          DO 160 I = J,N
+                          for (I = J; I <= N; I++) { // 160
                               C(I,J) = C(I,J) + A(I,L)*TEMP1 + B(I,L)*TEMP2
   160                     CONTINUE
                       }
@@ -160,11 +160,11 @@
          // Form  C := alpha*A**T*B + alpha*B**T*A + C.
 
           if (UPPER) {
-              DO 210 J = 1,N
-                  DO 200 I = 1,J
+              for (J = 1; J <= N; J++) { // 210
+                  for (I = 1; I <= J; I++) { // 200
                       TEMP1 = ZERO
                       TEMP2 = ZERO
-                      DO 190 L = 1,K
+                      for (L = 1; L <= K; L++) { // 190
                           TEMP1 = TEMP1 + A(L,I)*B(L,J)
                           TEMP2 = TEMP2 + B(L,I)*A(L,J)
   190                 CONTINUE
@@ -176,11 +176,11 @@
   200             CONTINUE
   210         CONTINUE
           } else {
-              DO 240 J = 1,N
-                  DO 230 I = J,N
+              for (J = 1; J <= N; J++) { // 240
+                  for (I = J; I <= N; I++) { // 230
                       TEMP1 = ZERO
                       TEMP2 = ZERO
-                      DO 220 L = 1,K
+                      for (L = 1; L <= K; L++) { // 220
                           TEMP1 = TEMP1 + A(L,I)*B(L,J)
                           TEMP2 = TEMP2 + B(L,I)*A(L,J)
   220                 CONTINUE

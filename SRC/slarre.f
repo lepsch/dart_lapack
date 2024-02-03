@@ -106,7 +106,7 @@
       EOLD = ZERO
       EMAX = ZERO
       E(N) = ZERO
-      DO 5 I = 1,N
+      for (I = 1; I <= N; I++) { // 5
          WERR(I) = ZERO
          WGAP(I) = ZERO
          EABS = ABS( E(I) )
@@ -167,7 +167,7 @@
       // Loop over unreduced blocks
       IBEGIN = 1
       WBEGIN = 1
-      DO 170 JBLK = 1, NSPLIT
+      for (JBLK = 1; JBLK <= NSPLIT; JBLK++) { // 170
          IEND = ISPLIT( JBLK )
          IN = IEND - IBEGIN + 1
 
@@ -198,7 +198,7 @@
          // Find local outer bounds GL,GU for the block
          GL = D(IBEGIN)
          GU = D(IBEGIN)
-         DO 15 I = IBEGIN , IEND
+         for (I = IBEGIN; I <= IEND; I++) { // 15
             GL = MIN( GERS( 2*I-1 ), GL )
             GU = MAX( GERS( 2*I ), GU )
  15      CONTINUE
@@ -207,7 +207,7 @@
          if (.NOT. ((IRANGE.EQ.ALLRNG).AND.(.NOT.FORCEB)) ) {
             // Count the number of eigenvalues in the current block.
             MB = 0
-            DO 20 I = WBEGIN,MM
+            for (I = WBEGIN; I <= MM; I++) { // 20
                if ( IBLOCK(I).EQ.JBLK ) {
                   MB = MB+1
                } else {
@@ -361,7 +361,7 @@
             ENDIF
          ENDIF
 
-         DO 80 IDUM = 1, MAXTRY
+         for (IDUM = 1; IDUM <= MAXTRY; IDUM++) { // 80
             // Compute L D L^T factorization of tridiagonal matrix T - sigma I.
             // Store D in WORK(1:IN), L in WORK(IN+1:2*IN), and reciprocals of
             // pivots in WORK(2*IN+1:3*IN)
@@ -387,7 +387,7 @@
             if ( USEDQD .AND. .NOT.NOREP ) {
                // Ensure the definiteness of the representation
                // All entries of D (of L D L^T) must have the same sign
-               DO 71 I = 1, IN
+               for (I = 1; I <= IN; I++) { // 71
                   TMP = SGNDEF*WORK( I )
                   IF( TMP.LT.ZERO ) NOREP = .TRUE.
  71            CONTINUE
@@ -433,7 +433,7 @@
             // (but random) relative amount to overcome difficulties with
             // glued matrices.
 
-            DO 122 I = 1, 4
+            for (I = 1; I <= 4; I++) { // 122
                ISEED( I ) = 1
  122        CONTINUE
 
@@ -458,7 +458,7 @@
             // a uniform SLARRV since dqds computes eigenvalues of the
             // shifted representation. In SLARRV, W will always hold the
             // UNshifted eigenvalue approximation.
-            DO 134 J=WBEGIN,WEND
+            for (J = WBEGIN; J <= WEND; J++) { // 134
                W(J) = W(J) - SIGMA
                WERR(J) = WERR(J) + ABS(W(J)) * EPS
  134        CONTINUE
@@ -476,7 +476,7 @@
             // SLARRB computes all gaps correctly except for the last one
             // Record distance to VU/GU
             WGAP( WEND ) = MAX( ZERO, ( VU-SIGMA ) - ( W( WEND ) + WERR( WEND ) ) )
-            DO 138 I = INDL, INDU
+            for (I = INDL; I <= INDU; I++) { // 138
                M = M + 1
                IBLOCK(M) = JBLK
                INDEXW(M) = I
@@ -511,7 +511,7 @@
                RETURN
             } else {
                // Test that all eigenvalues are positive as expected
-               DO 149 I = 1, IN
+               for (I = 1; I <= IN; I++) { // 149
                   if ( WORK( I ).LT.ZERO ) {
                      INFO = -6
                      RETURN
@@ -519,14 +519,14 @@
  149           CONTINUE
             }
             if ( SGNDEF.GT.ZERO ) {
-               DO 150 I = INDL, INDU
+               for (I = INDL; I <= INDU; I++) { // 150
                   M = M + 1
                   W( M ) = WORK( IN-I+1 )
                   IBLOCK( M ) = JBLK
                   INDEXW( M ) = I
  150           CONTINUE
             } else {
-               DO 160 I = INDL, INDU
+               for (I = INDL; I <= INDU; I++) { // 160
                   M = M + 1
                   W( M ) = -WORK( I )
                   IBLOCK( M ) = JBLK

@@ -52,7 +52,7 @@
       // Set M to the number of selected eigenvalues.
 
       M = 0
-      DO 10 K = 1, N
+      for (K = 1; K <= N; K++) { // 10
          IF( SELECT( K ) ) M = M + 1
    10 CONTINUE
 
@@ -106,7 +106,7 @@
       // Collect the selected eigenvalues at the top left corner of T.
 
       KS = 0
-      DO 20 K = 1, N
+      for (K = 1; K <= N; K++) { // 20
          if ( SELECT( K ) ) {
             KS = KS + 1
 
@@ -166,7 +166,7 @@
 
       // Copy reordered eigenvalues to W.
 
-      DO 50 K = 1, N
+      for (K = 1; K <= N; K++) { // 50
          W( K ) = T( K, K )
    50 CONTINUE
 

@@ -54,7 +54,7 @@
 
       IF( N.EQ.0 .OR. M.EQ.0 ) RETURN
 
-      DO I = 1, M
+      for (I = 1; I <= M; I++) {
 
          // Generate elementary reflector H(I) to annihilate B(I,:)
 
@@ -79,7 +79,7 @@
          }
       END DO
 
-      DO I = 2, M
+      for (I = 2; I <= M; I++) {
 
          // T(I,1:I-1) := C(I:I-1,1:N) * (alpha * C(I,I:N)^H)
 
@@ -94,7 +94,7 @@
 
          // Triangular part of B2
 
-         DO J = 1, P
+         for (J = 1; J <= P; J++) {
             T( I, J ) = ALPHA*B( I, N-L+J )
          END DO
          dtrmv('L', 'N', 'N', P, B( 1, NP ), LDB, T( I, 1 ), LDT );
@@ -116,7 +116,7 @@
          T( I, I ) = T( 1, I )
          T( 1, I ) = ZERO
       END DO
-      DO I=1,M
+      for (I = 1; I <= M; I++) {
          DO J= I+1,M
             T(I,J)=T(J,I)
             T(J,I)= ZERO

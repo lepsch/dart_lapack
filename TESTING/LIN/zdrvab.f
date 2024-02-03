@@ -68,7 +68,7 @@
       NRUN = 0
       NFAIL = 0
       NERRS = 0
-      DO 10 I = 1, 4
+      for (I = 1; I <= 4; I++) { // 10
          ISEED( I ) = ISEEDY( I )
    10 CONTINUE
 
@@ -76,7 +76,7 @@
 
       // Do for each value of M in MVAL
 
-      DO 120 IM = 1, NM
+      for (IM = 1; IM <= NM; IM++) { // 120
          M = MVAL( IM )
          LDA = MAX( 1, M )
 
@@ -84,7 +84,7 @@
          NIMAT = NTYPES
          IF( M.LE.0 .OR. N.LE.0 ) NIMAT = 1
 
-         DO 100 IMAT = 1, NIMAT
+         for (IMAT = 1; IMAT <= NIMAT; IMAT++) { // 100
 
             // Do the tests only if DOTYPE( IMAT ) is true.
 
@@ -123,7 +123,7 @@
                }
                IOFF = ( IZERO-1 )*LDA
                if ( IMAT.LT.7 ) {
-                  DO 20 I = 1, M
+                  for (I = 1; I <= M; I++) { // 20
                      A( IOFF+I ) = ZERO
    20             CONTINUE
                } else {
@@ -133,7 +133,7 @@
                IZERO = 0
             }
 
-            DO 60 IRHS = 1, NNS
+            for (IRHS = 1; IRHS <= NNS; IRHS++) { // 60
                NRHS = NSVAL( IRHS )
                XTYPE = 'N'
                TRANS = 'N'

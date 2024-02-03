@@ -85,14 +85,14 @@
 
       if (ALPHA.EQ.ZERO) {
           if (BETA.EQ.ZERO) {
-              DO 20 J = 1,N
-                  DO 10 I = 1,M
+              for (J = 1; J <= N; J++) { // 20
+                  for (I = 1; I <= M; I++) { // 10
                       C(I,J) = ZERO
    10             CONTINUE
    20         CONTINUE
           } else {
-              DO 40 J = 1,N
-                  DO 30 I = 1,M
+              for (J = 1; J <= N; J++) { // 40
+                  for (I = 1; I <= M; I++) { // 30
                       C(I,J) = BETA*C(I,J)
    30             CONTINUE
    40         CONTINUE
@@ -107,19 +107,19 @@
 
             // Form  C := alpha*A*B + beta*C.
 
-              DO 90 J = 1,N
+              for (J = 1; J <= N; J++) { // 90
                   if (BETA.EQ.ZERO) {
-                      DO 50 I = 1,M
+                      for (I = 1; I <= M; I++) { // 50
                           C(I,J) = ZERO
    50                 CONTINUE
                   } else if (BETA.NE.ONE) {
-                      DO 60 I = 1,M
+                      for (I = 1; I <= M; I++) { // 60
                           C(I,J) = BETA*C(I,J)
    60                 CONTINUE
                   }
-                  DO 80 L = 1,K
+                  for (L = 1; L <= K; L++) { // 80
                       TEMP = ALPHA*B(L,J)
-                      DO 70 I = 1,M
+                      for (I = 1; I <= M; I++) { // 70
                           C(I,J) = C(I,J) + TEMP*A(I,L)
    70                 CONTINUE
    80             CONTINUE
@@ -128,10 +128,10 @@
 
             // Form  C := alpha*A**T*B + beta*C
 
-              DO 120 J = 1,N
-                  DO 110 I = 1,M
+              for (J = 1; J <= N; J++) { // 120
+                  for (I = 1; I <= M; I++) { // 110
                       TEMP = ZERO
-                      DO 100 L = 1,K
+                      for (L = 1; L <= K; L++) { // 100
                           TEMP = TEMP + A(L,I)*B(L,J)
   100                 CONTINUE
                       if (BETA.EQ.ZERO) {
@@ -147,19 +147,19 @@
 
             // Form  C := alpha*A*B**T + beta*C
 
-              DO 170 J = 1,N
+              for (J = 1; J <= N; J++) { // 170
                   if (BETA.EQ.ZERO) {
-                      DO 130 I = 1,M
+                      for (I = 1; I <= M; I++) { // 130
                           C(I,J) = ZERO
   130                 CONTINUE
                   } else if (BETA.NE.ONE) {
-                      DO 140 I = 1,M
+                      for (I = 1; I <= M; I++) { // 140
                           C(I,J) = BETA*C(I,J)
   140                 CONTINUE
                   }
-                  DO 160 L = 1,K
+                  for (L = 1; L <= K; L++) { // 160
                       TEMP = ALPHA*B(J,L)
-                      DO 150 I = 1,M
+                      for (I = 1; I <= M; I++) { // 150
                           C(I,J) = C(I,J) + TEMP*A(I,L)
   150                 CONTINUE
   160             CONTINUE
@@ -168,10 +168,10 @@
 
             // Form  C := alpha*A**T*B**T + beta*C
 
-              DO 200 J = 1,N
-                  DO 190 I = 1,M
+              for (J = 1; J <= N; J++) { // 200
+                  for (I = 1; I <= M; I++) { // 190
                       TEMP = ZERO
-                      DO 180 L = 1,K
+                      for (L = 1; L <= K; L++) { // 180
                           TEMP = TEMP + A(L,I)*B(J,L)
   180                 CONTINUE
                       if (BETA.EQ.ZERO) {

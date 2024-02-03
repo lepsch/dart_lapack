@@ -77,13 +77,13 @@
 
       // Initialize PIV
 
-         DO 100 I = 1, N
+         for (I = 1; I <= N; I++) { // 100
             PIV( I ) = I
   100    CONTINUE
 
       // Compute stopping value
 
-         DO 110 I = 1, N
+         for (I = 1; I <= N; I++) { // 110
             WORK( I ) = REAL( A( I, I ) )
   110    CONTINUE
          PVT = MAXLOC( WORK( 1:N ), 1 )
@@ -116,7 +116,7 @@
                // Set relevant part of first half of WORK to zero,
                // holds dot products
 
-               DO 120 I = K, N
+               for (I = K; I <= N; I++) { // 120
                   WORK( I ) = 0
   120          CONTINUE
 
@@ -126,7 +126,7 @@
                // Update dot products, compute possible pivots which are
                // stored in the second half of WORK
 
-                  DO 130 I = J, N
+                  for (I = J; I <= N; I++) { // 130
 
                      if ( J.GT.K ) {
                         WORK( I ) = WORK( I ) + REAL( CONJG( A( J-1, I ) )* A( J-1, I ) )
@@ -204,7 +204,7 @@
                // Set relevant part of first half of WORK to zero,
                // holds dot products
 
-               DO 170 I = K, N
+               for (I = K; I <= N; I++) { // 170
                   WORK( I ) = 0
   170          CONTINUE
 
@@ -214,7 +214,7 @@
                // Update dot products, compute possible pivots which are
                // stored in the second half of WORK
 
-                  DO 180 I = J, N
+                  for (I = J; I <= N; I++) { // 180
 
                      if ( J.GT.K ) {
                         WORK( I ) = WORK( I ) + REAL( CONJG( A( I, J-1 ) )* A( I, J-1 ) )

@@ -55,9 +55,9 @@
 
             // Column scaling
 
-            DO 20 J = 1, N
+            for (J = 1; J <= N; J++) { // 20
                CJ = C( J )
-               DO 10 I = 1, M
+               for (I = 1; I <= M; I++) { // 10
                   A( I, J ) = CJ*A( I, J )
    10          CONTINUE
    20       CONTINUE
@@ -67,8 +67,8 @@
 
          // Row scaling, no column scaling
 
-         DO 40 J = 1, N
-            DO 30 I = 1, M
+         for (J = 1; J <= N; J++) { // 40
+            for (I = 1; I <= M; I++) { // 30
                A( I, J ) = R( I )*A( I, J )
    30       CONTINUE
    40    CONTINUE
@@ -77,9 +77,9 @@
 
          // Row and column scaling
 
-         DO 60 J = 1, N
+         for (J = 1; J <= N; J++) { // 60
             CJ = C( J )
-            DO 50 I = 1, M
+            for (I = 1; I <= M; I++) { // 50
                A( I, J ) = CJ*R( I )*A( I, J )
    50       CONTINUE
    60    CONTINUE

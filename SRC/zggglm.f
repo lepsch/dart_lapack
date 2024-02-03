@@ -82,10 +82,10 @@
       // Quick return if possible
 
       if ( N.EQ.0 ) {
-         DO I = 1, M
+         for (I = 1; I <= M; I++) {
             X(I) = CZERO
          END DO
-         DO I = 1, P
+         for (I = 1; I <= P; I++) {
             Y(I) = CZERO
          END DO
          RETURN

@@ -46,7 +46,7 @@
       // Test the input parameters.
 
       INFO = 0
-      DO 10 I = 1, M
+      for (I = 1; I <= M; I++) { // 10
          IFAIL( I ) = 0
    10 CONTINUE
 
@@ -57,7 +57,7 @@
       } else if ( LDZ.LT.MAX( 1, N ) ) {
          INFO = -9
       } else {
-         DO 20 J = 2, M
+         for (J = 2; J <= M; J++) { // 20
             if ( IBLOCK( J ).LT.IBLOCK( J-1 ) ) {
                INFO = -6
                GO TO 30
@@ -90,7 +90,7 @@
 
       // Initialize seed for random number generator SLARNV.
 
-      DO 40 I = 1, 4
+      for (I = 1; I <= 4; I++) { // 40
          ISEED( I ) = 1
    40 CONTINUE
 
@@ -134,7 +134,7 @@
 
    60    CONTINUE
          JBLK = 0
-         DO 170 J = J1, M
+         for (J = J1; J <= M; J++) { // 170
             if ( IBLOCK( J ).NE.NBLK ) {
                J1 = J
                GO TO 180
@@ -200,10 +200,10 @@
             if ( GPIND.NE.J ) {
                DO 100 I = GPIND, J - 1
                   CTR = ZERO
-                  DO 80 JR = 1, BLKSIZ
+                  for (JR = 1; JR <= BLKSIZ; JR++) { // 80
                      CTR = CTR + WORK( INDRV1+JR )* REAL( Z( B1-1+JR, I ) )
    80             CONTINUE
-                  DO 90 JR = 1, BLKSIZ
+                  for (JR = 1; JR <= BLKSIZ; JR++) { // 90
                      WORK( INDRV1+JR ) = WORK( INDRV1+JR ) - CTR*REAL( Z( B1-1+JR, I ) )
    90             CONTINUE
   100          CONTINUE
@@ -239,10 +239,10 @@
             IF( WORK( INDRV1+JMAX ).LT.ZERO ) SCL = -SCL
             sscal(BLKSIZ, SCL, WORK( INDRV1+1 ), 1 );
   140       CONTINUE
-            DO 150 I = 1, N
+            for (I = 1; I <= N; I++) { // 150
                Z( I, J ) = CZERO
   150       CONTINUE
-            DO 160 I = 1, BLKSIZ
+            for (I = 1; I <= BLKSIZ; I++) { // 160
                Z( B1+I-1, J ) = CMPLX( WORK( INDRV1+I ), ZERO )
   160       CONTINUE
 

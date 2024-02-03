@@ -76,7 +76,7 @@
 
       dpttrf(N, D, E, INFO );
       IF( INFO.NE.0 ) RETURN
-      DO 10 I = 1, N
+      for (I = 1; I <= N; I++) { // 10
          D( I ) = SQRT( D( I ) )
    10 CONTINUE
       DO 20 I = 1, N - 1
@@ -96,7 +96,7 @@
       // Square the singular values.
 
       if ( INFO.EQ.0 ) {
-         DO 30 I = 1, N
+         for (I = 1; I <= N; I++) { // 30
             D( I ) = D( I )*D( I )
    30    CONTINUE
       } else {

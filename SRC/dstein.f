@@ -43,7 +43,7 @@
       // Test the input parameters.
 
       INFO = 0
-      DO 10 I = 1, M
+      for (I = 1; I <= M; I++) { // 10
          IFAIL( I ) = 0
    10 CONTINUE
 
@@ -54,7 +54,7 @@
       } else if ( LDZ.LT.MAX( 1, N ) ) {
          INFO = -9
       } else {
-         DO 20 J = 2, M
+         for (J = 2; J <= M; J++) { // 20
             if ( IBLOCK( J ).LT.IBLOCK( J-1 ) ) {
                INFO = -6
                GO TO 30
@@ -87,7 +87,7 @@
 
       // Initialize seed for random number generator DLARNV.
 
-      DO 40 I = 1, 4
+      for (I = 1; I <= 4; I++) { // 40
          ISEED( I ) = 1
    40 CONTINUE
 
@@ -131,7 +131,7 @@
 
    60    CONTINUE
          JBLK = 0
-         DO 150 J = J1, M
+         for (J = J1; J <= M; J++) { // 150
             if ( IBLOCK( J ).NE.NBLK ) {
                J1 = J
                GO TO 160
@@ -230,10 +230,10 @@
             IF( WORK( INDRV1+JMAX ).LT.ZERO ) SCL = -SCL
             dscal(BLKSIZ, SCL, WORK( INDRV1+1 ), 1 );
   120       CONTINUE
-            DO 130 I = 1, N
+            for (I = 1; I <= N; I++) { // 130
                Z( I, J ) = ZERO
   130       CONTINUE
-            DO 140 I = 1, BLKSIZ
+            for (I = 1; I <= BLKSIZ; I++) { // 140
                Z( B1+I-1, J ) = WORK( INDRV1+I )
   140       CONTINUE
 

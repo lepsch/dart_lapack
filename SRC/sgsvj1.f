@@ -128,7 +128,7 @@
       // |[x] [x] [x] *   *   * |
 
 
-      DO 1993 i = 1, NSWEEP
+      for (i = 1; i <= NSWEEP; i++) { // 1993
       // .. go go go ...
 
          MXAAPQ = ZERO
@@ -138,7 +138,7 @@
          NOTROT = 0
          PSKIPPED = 0
 
-         DO 2000 ibr = 1, NBLR
+         for (ibr = 1; ibr <= NBLR; ibr++) { // 2000
 
             igl = ( ibr-1 )*KBL + 1
 
@@ -148,7 +148,7 @@
 
             igl = ( ibr-1 )*KBL + 1
 
-            DO 2010 jbc = 1, NBLC
+            for (jbc = 1; jbc <= NBLC; jbc++) { // 2010
 
                jgl = N1 + ( jbc-1 )*KBL + 1
 

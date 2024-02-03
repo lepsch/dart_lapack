@@ -75,20 +75,20 @@
       READ( NIN, FMT = * )N, NDIM
       IF( N.EQ.0 ) RETURN
       READ( NIN, FMT = * )( ISELEC( I ), I = 1, NDIM )
-      DO 20 I = 1, N
+      for (I = 1; I <= N; I++) { // 20
          READ( NIN, FMT = * )( TMP( I, J ), J = 1, N )
    20 CONTINUE
       READ( NIN, FMT = * )SIN, SEPIN
 
       TNRM = SLANGE( 'M', N, N, TMP, LDT, WORK )
-      DO 160 ISCL = 1, 3
+      for (ISCL = 1; ISCL <= 3; ISCL++) { // 160
 
          // Scale input matrix
 
          KNT = KNT + 1
          slacpy('F', N, N, TMP, LDT, T, LDT );
          VMUL = VAL( ISCL )
-         DO 30 I = 1, N
+         for (I = 1; I <= N; I++) { // 30
             sscal(N, VMUL, T( 1, I ), 1 );
    30    CONTINUE
          IF( TNRM.EQ.ZERO ) VMUL = ONE
@@ -119,7 +119,7 @@
 
          // Sort, select eigenvalues
 
-         DO 40 I = 1, N
+         for (I = 1; I <= N; I++) { // 40
             IPNT( I ) = I
             SELECT( I ) = .FALSE.
    40    CONTINUE
@@ -144,7 +144,7 @@
             IPNT( I ) = IPNT( KMIN )
             IPNT( KMIN ) = ITMP
    60    CONTINUE
-         DO 70 I = 1, NDIM
+         for (I = 1; I <= NDIM; I++) { // 70
             SELECT( IPNT( ISELEC( I ) ) ) = .TRUE.
    70    CONTINUE
 
@@ -291,8 +291,8 @@
             GO TO 160
          }
          IF( S.NE.STMP ) VMAX = ONE / EPS          IF( -ONE.NE.SEPTMP ) VMAX = ONE / EPS
-         DO 90 I = 1, N
-            DO 80 J = 1, N
+         for (I = 1; I <= N; I++) { // 90
+            for (J = 1; J <= N; J++) { // 80
                IF( TTMP( I, J ).NE.T( I, J ) ) VMAX = ONE / EPS                IF( QTMP( I, J ).NE.Q( I, J ) ) VMAX = ONE / EPS
    80       CONTINUE
    90    CONTINUE
@@ -311,8 +311,8 @@
             GO TO 160
          }
          IF( -ONE.NE.STMP ) VMAX = ONE / EPS          IF( SEP.NE.SEPTMP ) VMAX = ONE / EPS
-         DO 110 I = 1, N
-            DO 100 J = 1, N
+         for (I = 1; I <= N; I++) { // 110
+            for (J = 1; J <= N; J++) { // 100
                IF( TTMP( I, J ).NE.T( I, J ) ) VMAX = ONE / EPS                IF( QTMP( I, J ).NE.Q( I, J ) ) VMAX = ONE / EPS
   100       CONTINUE
   110    CONTINUE
@@ -331,8 +331,8 @@
             GO TO 160
          }
          IF( S.NE.STMP ) VMAX = ONE / EPS          IF( -ONE.NE.SEPTMP ) VMAX = ONE / EPS
-         DO 130 I = 1, N
-            DO 120 J = 1, N
+         for (I = 1; I <= N; I++) { // 130
+            for (J = 1; J <= N; J++) { // 120
                IF( TTMP( I, J ).NE.T( I, J ) ) VMAX = ONE / EPS                IF( QTMP( I, J ).NE.QSAV( I, J ) ) VMAX = ONE / EPS
   120       CONTINUE
   130    CONTINUE
@@ -351,8 +351,8 @@
             GO TO 160
          }
          IF( -ONE.NE.STMP ) VMAX = ONE / EPS          IF( SEP.NE.SEPTMP ) VMAX = ONE / EPS
-         DO 150 I = 1, N
-            DO 140 J = 1, N
+         for (I = 1; I <= N; I++) { // 150
+            for (J = 1; J <= N; J++) { // 140
                IF( TTMP( I, J ).NE.T( I, J ) ) VMAX = ONE / EPS                IF( QTMP( I, J ).NE.QSAV( I, J ) ) VMAX = ONE / EPS
   140       CONTINUE
   150    CONTINUE

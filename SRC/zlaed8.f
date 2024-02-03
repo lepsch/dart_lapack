@@ -79,7 +79,7 @@
       // Normalize z so that norm(z) = 1
 
       T = ONE / SQRT( TWO )
-      DO 10 J = 1, N
+      for (J = 1; J <= N; J++) { // 10
          INDX( J ) = J
    10 CONTINUE
       dscal(N, T, Z, 1 );
@@ -90,14 +90,14 @@
       DO 20 I = CUTPNT + 1, N
          INDXQ( I ) = INDXQ( I ) + CUTPNT
    20 CONTINUE
-      DO 30 I = 1, N
+      for (I = 1; I <= N; I++) { // 30
          DLAMBDA( I ) = D( INDXQ( I ) )
          W( I ) = Z( INDXQ( I ) )
    30 CONTINUE
       I = 1
       J = CUTPNT + 1
       dlamrg(N1, N2, DLAMBDA, 1, 1, INDX );
-      DO 40 I = 1, N
+      for (I = 1; I <= N; I++) { // 40
          D( I ) = DLAMBDA( INDX( I ) )
          Z( I ) = W( INDX( I ) )
    40 CONTINUE
@@ -115,7 +115,7 @@
 
       if ( RHO*ABS( Z( IMAX ) ).LE.TOL ) {
          K = 0
-         DO 50 J = 1, N
+         for (J = 1; J <= N; J++) { // 50
             PERM( J ) = INDXQ( INDX( J ) )
             zcopy(QSIZ, Q( 1, PERM( J ) ), 1, Q2( 1, J ), 1 );
    50    CONTINUE
@@ -131,7 +131,7 @@
 
       K = 0
       K2 = N + 1
-      DO 60 J = 1, N
+      for (J = 1; J <= N; J++) { // 60
          if ( RHO*ABS( Z( J ) ).LE.TOL ) {
 
             // Deflate due to small z component.
@@ -226,7 +226,7 @@
       // deflated go into the first K slots of DLAMBDA and Q2 respectively,
       // while those which were deflated go into the last N - K slots.
 
-      DO 110 J = 1, N
+      for (J = 1; J <= N; J++) { // 110
          JP = INDXP( J )
          DLAMBDA( J ) = D( JP )
          PERM( J ) = INDXQ( INDX( JP ) )

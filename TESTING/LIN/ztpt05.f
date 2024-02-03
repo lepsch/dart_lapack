@@ -62,11 +62,11 @@
       // over all the vectors X and XACT using the infinity-norm.
 
       ERRBND = ZERO
-      DO 30 J = 1, NRHS
+      for (J = 1; J <= NRHS; J++) { // 30
          IMAX = IZAMAX( N, X( 1, J ), 1 )
          XNORM = MAX( CABS1( X( IMAX, J ) ), UNFL )
          DIFF = ZERO
-         DO 10 I = 1, N
+         for (I = 1; I <= N; I++) { // 10
             DIFF = MAX( DIFF, CABS1( X( I, J )-XACT( I, J ) ) )
    10    CONTINUE
 
@@ -93,8 +93,8 @@
 
       IFU = 0
       IF( UNIT ) IFU = 1
-      DO 90 K = 1, NRHS
-         DO 80 I = 1, N
+      for (K = 1; K <= NRHS; K++) { // 90
+         for (I = 1; I <= N; I++) { // 80
             TMP = CABS1( B( I, K ) )
             if ( UPPER ) {
                JC = ( ( I-1 )*I ) / 2

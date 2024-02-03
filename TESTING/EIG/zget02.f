@@ -75,7 +75,7 @@
          // norm(B - op(A)*X) / ( norm(op(A)) * norm(X) * EPS ) .
 
       RESID = ZERO
-      DO 10 J = 1, NRHS
+      for (J = 1; J <= NRHS; J++) { // 10
          BNORM = DZASUM( N1, B( 1, J ), 1 )
          XNORM = DZASUM( N2, X( 1, J ), 1 )
          if ( XNORM.LE.ZERO ) {

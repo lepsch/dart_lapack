@@ -49,14 +49,14 @@
       // Find the max magnitude entry of each column.
 
       if ( UPPER ) {
-         DO J = 1, NCOLS
-            DO I = 1, J
+         for (J = 1; J <= NCOLS; J++) {
+            for (I = 1; I <= J; I++) {
                WORK( NCOLS+J ) = MAX( CABS1( A( I, J ) ), WORK( NCOLS+J ) )
             END DO
          END DO
       } else {
-         DO J = 1, NCOLS
-            DO I = J, NCOLS
+         for (J = 1; J <= NCOLS; J++) {
+            for (I = J; I <= NCOLS; I++) {
                WORK( NCOLS+J ) = MAX( CABS1( A( I, J ) ), WORK( NCOLS+J ) )
             END DO
          END DO
@@ -66,14 +66,14 @@
       // AF.  No pivoting, so no permutations.
 
       if ( LSAME( 'Upper', UPLO ) ) {
-         DO J = 1, NCOLS
-            DO I = 1, J
+         for (J = 1; J <= NCOLS; J++) {
+            for (I = 1; I <= J; I++) {
                WORK( J ) = MAX( CABS1( AF( I, J ) ), WORK( J ) )
             END DO
          END DO
       } else {
-         DO J = 1, NCOLS
-            DO I = J, NCOLS
+         for (J = 1; J <= NCOLS; J++) {
+            for (I = J; I <= NCOLS; I++) {
                WORK( J ) = MAX( CABS1( AF( I, J ) ), WORK( J ) )
             END DO
          END DO
@@ -87,7 +87,7 @@
       // denominators.
 
       if ( LSAME( 'Upper', UPLO ) ) {
-         DO I = 1, NCOLS
+         for (I = 1; I <= NCOLS; I++) {
             UMAX = WORK( I )
             AMAX = WORK( NCOLS+I )
             if ( UMAX /= 0.0D+0 ) {
@@ -95,7 +95,7 @@
             }
          END DO
       } else {
-         DO I = 1, NCOLS
+         for (I = 1; I <= NCOLS; I++) {
             UMAX = WORK( I )
             AMAX = WORK( NCOLS+I )
             if ( UMAX /= 0.0D+0 ) {

@@ -83,20 +83,20 @@
 
       // Generate the second part of the vector Z.
 
-      DO 20 I = NLP2, M
+      for (I = NLP2; I <= M; I++) { // 20
          Z( I ) = BETA*VF( I )
          VF( I ) = ZERO
    20 CONTINUE
 
       // Sort the singular values into increasing order
 
-      DO 30 I = NLP2, N
+      for (I = NLP2; I <= N; I++) { // 30
          IDXQ( I ) = IDXQ( I ) + NLP1
    30 CONTINUE
 
       // DSIGMA, IDXC, IDXC, and ZW are used as storage space.
 
-      DO 40 I = 2, N
+      for (I = 2; I <= N; I++) { // 40
          DSIGMA( I ) = D( IDXQ( I ) )
          ZW( I ) = Z( IDXQ( I ) )
          VFW( I ) = VF( IDXQ( I ) )
@@ -105,7 +105,7 @@
 
       dlamrg(NL, NR, DSIGMA( 2 ), 1, 1, IDX( 2 ) );
 
-      DO 50 I = 2, N
+      for (I = 2; I <= N; I++) { // 50
          IDXI = 1 + IDX( I )
          D( I ) = DSIGMA( IDXI )
          Z( I ) = ZW( IDXI )
@@ -140,7 +140,7 @@
 
       K = 1
       K2 = N + 1
-      DO 60 J = 2, N
+      for (J = 2; J <= N; J++) { // 60
          if ( ABS( Z( J ) ).LE.TOL ) {
 
             // Deflate due to small z component.
@@ -230,14 +230,14 @@
       // were not deflated go into the first K slots of DSIGMA, except
       // that DSIGMA(1) is treated separately.
 
-      DO 110 J = 2, N
+      for (J = 2; J <= N; J++) { // 110
          JP = IDXP( J )
          DSIGMA( J ) = D( JP )
          VFW( J ) = VF( JP )
          VLW( J ) = VL( JP )
   110 CONTINUE
       if ( ICOMPQ.EQ.1 ) {
-         DO 120 J = 2, N
+         for (J = 2; J <= N; J++) { // 120
             JP = IDXP( J )
             PERM( J ) = IDXQ( IDX( JP )+1 )
             if ( PERM( J ).LE.NLP1 ) {

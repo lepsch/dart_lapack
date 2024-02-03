@@ -56,7 +56,7 @@
 
       // Check for valid input values.
 
-      DO 10 IK = 1, NN
+      for (IK = 1; IK <= NN; IK++) { // 10
          M = MVAL( IK )
          P = PVAL( IK )
          N = NVAL( IK )
@@ -72,13 +72,13 @@
 
       // Do for each value of M in MVAL.
 
-      DO 40 IK = 1, NN
+      for (IK = 1; IK <= NN; IK++) { // 40
          M = MVAL( IK )
          P = PVAL( IK )
          N = NVAL( IK )
          IF( M.GT.N .OR. N.GT.M+P ) GO TO 40
 
-         DO 30 IMAT = 1, NTYPES
+         for (IMAT = 1; IMAT <= NTYPES; IMAT++) { // 30
 
             // Do the tests only if DOTYPE( IMAT ) is true.
 
@@ -105,7 +105,7 @@
 
             // Generate random left hand side vector of GLM
 
-            DO 20 I = 1, N
+            for (I = 1; I <= N; I++) { // 20
                X( I ) = ZLARND( 2, ISEED )
    20       CONTINUE
 

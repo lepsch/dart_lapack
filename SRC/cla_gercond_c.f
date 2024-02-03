@@ -65,14 +65,14 @@
 
       ANORM = 0.0E+0
       if ( NOTRANS ) {
-         DO I = 1, N
+         for (I = 1; I <= N; I++) {
             TMP = 0.0E+0
             if ( CAPPLY ) {
-               DO J = 1, N
+               for (J = 1; J <= N; J++) {
                   TMP = TMP + CABS1( A( I, J ) ) / C( J )
                END DO
             } else {
-               DO J = 1, N
+               for (J = 1; J <= N; J++) {
                   TMP = TMP + CABS1( A( I, J ) )
                END DO
             }
@@ -80,14 +80,14 @@
             ANORM = MAX( ANORM, TMP )
          END DO
       } else {
-         DO I = 1, N
+         for (I = 1; I <= N; I++) {
             TMP = 0.0E+0
             if ( CAPPLY ) {
-               DO J = 1, N
+               for (J = 1; J <= N; J++) {
                   TMP = TMP + CABS1( A( J, I ) ) / C( J )
                END DO
             } else {
-               DO J = 1, N
+               for (J = 1; J <= N; J++) {
                   TMP = TMP + CABS1( A( J, I ) )
                END DO
             }
@@ -117,7 +117,7 @@
 
             // Multiply by R.
 
-            DO I = 1, N
+            for (I = 1; I <= N; I++) {
                WORK( I ) = WORK( I ) * RWORK( I )
             END DO
 
@@ -130,7 +130,7 @@
             // Multiply by inv(C).
 
             if ( CAPPLY ) {
-               DO I = 1, N
+               for (I = 1; I <= N; I++) {
                   WORK( I ) = WORK( I ) * C( I )
                END DO
             }
@@ -139,7 +139,7 @@
             // Multiply by inv(C**H).
 
             if ( CAPPLY ) {
-               DO I = 1, N
+               for (I = 1; I <= N; I++) {
                   WORK( I ) = WORK( I ) * C( I )
                END DO
             }
@@ -152,7 +152,7 @@
 
             // Multiply by R.
 
-            DO I = 1, N
+            for (I = 1; I <= N; I++) {
                WORK( I ) = WORK( I ) * RWORK( I )
             END DO
          }

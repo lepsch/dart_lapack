@@ -84,7 +84,7 @@
 
             // A is upper triangular.
 
-            DO 10 J = 1, N
+            for (J = 1; J <= N; J++) { // 10
                CNORM( J ) = SASUM( J-1, A( 1, J ), 1 )
    10       CONTINUE
          } else {
@@ -124,7 +124,7 @@
 
                // A is upper triangular.
 
-               DO J = 2, N
+               for (J = 2; J <= N; J++) {
                   TMAX = MAX( SLANGE( 'M', J-1, 1, A( 1, J ), 1, WORK ), TMAX )
                END DO
             } else {
@@ -138,7 +138,7 @@
 
             if ( TMAX.LE.SLAMCH('Overflow') ) {
                TSCAL = ONE / ( SMLNUM*TMAX )
-               DO J = 1, N
+               for (J = 1; J <= N; J++) {
                   if ( CNORM( J ).LE.SLAMCH('Overflow') ) {
                      CNORM( J ) = CNORM( J )*TSCAL
                   } else {
@@ -390,7 +390,7 @@
                      // A(j,j) = 0:  Set x(1:n) = 0, x(j) = 1, and
                      // scale = 0, and compute a solution to A*x = 0.
 
-                     DO 90 I = 1, N
+                     for (I = 1; I <= N; I++) { // 90
                         X( I ) = ZERO
    90                CONTINUE
                      X( J ) = ONE
@@ -559,7 +559,7 @@
                         // A(j,j) = 0:  Set x(1:n) = 0, x(j) = 1, and
                         // scale = 0, and compute a solution to A**T*x = 0.
 
-                        DO 130 I = 1, N
+                        for (I = 1; I <= N; I++) { // 130
                            X( I ) = ZERO
   130                   CONTINUE
                         X( J ) = ONE

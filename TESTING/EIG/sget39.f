@@ -87,23 +87,23 @@
 
       // Begin test loop
 
-      DO 140 IVM5 = 1, 3
-         DO 130 IVM4 = 1, 5
-            DO 120 IVM3 = 1, 5
-               DO 110 IVM2 = 1, 5
-                  DO 100 IVM1 = 1, 5
-                     DO 90 NDIM = 1, 6
+      for (IVM5 = 1; IVM5 <= 3; IVM5++) { // 140
+         for (IVM4 = 1; IVM4 <= 5; IVM4++) { // 130
+            for (IVM3 = 1; IVM3 <= 5; IVM3++) { // 120
+               for (IVM2 = 1; IVM2 <= 5; IVM2++) { // 110
+                  for (IVM1 = 1; IVM1 <= 5; IVM1++) { // 100
+                     for (NDIM = 1; NDIM <= 6; NDIM++) { // 90
 
                         N = IDIM( NDIM )
-                        DO 20 I = 1, N
-                           DO 10 J = 1, N
+                        for (I = 1; I <= N; I++) { // 20
+                           for (J = 1; J <= N; J++) { // 10
                               T( I, J ) = REAL( IVAL( I, J, NDIM ) )* VM1( IVM1 )                               IF( I.GE.J ) T( I, J ) = T( I, J )*VM5( IVM5 )
    10                      CONTINUE
    20                   CONTINUE
 
                         W = ONE*VM2( IVM2 )
 
-                        DO 30 I = 1, N
+                        for (I = 1; I <= N; I++) { // 30
                            B( I ) = COS( REAL( I ) )*VM3( IVM3 )
    30                   CONTINUE
 
@@ -162,13 +162,13 @@
 
                         scopy(2*N, D, 1, Y, 1 );
                         Y( 1 ) = SDOT( N, B, 1, X( 1+N ), 1 ) + SCALE*Y( 1 )
-                        DO 50 I = 2, N
+                        for (I = 2; I <= N; I++) { // 50
                            Y( I ) = W*X( I+N ) + SCALE*Y( I )
    50                   CONTINUE
                         sgemv('No transpose', N, N, ONE, T, LDT, X, 1, -ONE, Y, 1 );
 
                         Y( 1+N ) = SDOT( N, B, 1, X, 1 ) - SCALE*Y( 1+N )
-                        DO 60 I = 2, N
+                        for (I = 2; I <= N; I++) { // 60
                            Y( I+N ) = W*X( I ) - SCALE*Y( I+N )
    60                   CONTINUE
                         sgemv('No transpose', N, N, ONE, T, LDT, X( 1+N ), 1, ONE, Y( 1+N ), 1 );
@@ -191,13 +191,13 @@
 
                         scopy(2*N, D, 1, Y, 1 );
                         Y( 1 ) = B( 1 )*X( 1+N ) - SCALE*Y( 1 )
-                        DO 70 I = 2, N
+                        for (I = 2; I <= N; I++) { // 70
                            Y( I ) = B( I )*X( 1+N ) + W*X( I+N ) - SCALE*Y( I )
    70                   CONTINUE
                         sgemv('Transpose', N, N, ONE, T, LDT, X, 1, ONE, Y, 1 );
 
                         Y( 1+N ) = B( 1 )*X( 1 ) + SCALE*Y( 1+N )
-                        DO 80 I = 2, N
+                        for (I = 2; I <= N; I++) { // 80
                            Y( I+N ) = B( I )*X( 1 ) + W*X( I ) + SCALE*Y( I+N )
    80                   CONTINUE
                         sgemv('Transpose', N, N, ONE, T, LDT, X( 1+N ), 1, -ONE, Y( 1+N ), 1 );

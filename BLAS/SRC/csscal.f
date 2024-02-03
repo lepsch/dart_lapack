@@ -29,7 +29,7 @@
 
          // code for increment equal to 1
 
-         DO I = 1,N
+         for (I = 1; I <= N; I++) {
             CX(I) = CMPLX(SA*REAL(CX(I)),SA*AIMAG(CX(I)))
          END DO
       } else {

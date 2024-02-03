@@ -112,7 +112,7 @@
 
                IJP = 0
                JP = 0
-               DO J = 0, N2
+               for (J = 0; J <= N2; J++) {
                   DO I = J, N - 1
                      IJ = I + JP
                      ARF( IJ ) = AP( IJP )
@@ -135,7 +135,7 @@
                IJP = 0
                DO J = 0, N1 - 1
                   IJ = N2 + J
-                  DO I = 0, J
+                  for (I = 0; I <= J; I++) {
                      ARF( IJ ) = AP( IJP )
                      IJP = IJP + 1
                      IJ = IJ + LDA
@@ -162,7 +162,7 @@
                // N is odd, TRANSR = 'T', and UPLO = 'L'
 
                IJP = 0
-               DO I = 0, N2
+               for (I = 0; I <= N2; I++) {
                   DO IJ = I*( LDA+1 ), N*LDA - 1, LDA
                      ARF( IJ ) = AP( IJP )
                      IJP = IJP + 1
@@ -190,7 +190,7 @@
                   END DO
                   JS = JS + LDA
                END DO
-               DO I = 0, N1
+               for (I = 0; I <= N1; I++) {
                   DO IJ = I, I + ( N1+I )*LDA, LDA
                      ARF( IJ ) = AP( IJP )
                      IJP = IJP + 1
@@ -238,7 +238,7 @@
                IJP = 0
                DO J = 0, K - 1
                   IJ = K + 1 + J
-                  DO I = 0, J
+                  for (I = 0; I <= J; I++) {
                      ARF( IJ ) = AP( IJP )
                      IJP = IJP + 1
                      IJ = IJ + LDA

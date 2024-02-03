@@ -80,7 +80,7 @@
 
           if (LSAME(UPLO,'U')) {
               if (INCX.EQ.1) {
-                  DO 20 J = 1,N
+                  for (J = 1; J <= N; J++) { // 20
                       if (X(J).NE.ZERO) {
                           TEMP = X(J)
                           DO 10 I = 1,J - 1
@@ -91,7 +91,7 @@
    20             CONTINUE
               } else {
                   JX = KX
-                  DO 40 J = 1,N
+                  for (J = 1; J <= N; J++) { // 40
                       if (X(JX).NE.ZERO) {
                           TEMP = X(JX)
                           IX = KX
@@ -177,7 +177,7 @@
               }
           } else {
               if (INCX.EQ.1) {
-                  DO 170 J = 1,N
+                  for (J = 1; J <= N; J++) { // 170
                       TEMP = X(J)
                       if (NOCONJ) {
                           IF (NOUNIT) TEMP = TEMP*A(J,J)
@@ -194,7 +194,7 @@
   170             CONTINUE
               } else {
                   JX = KX
-                  DO 200 J = 1,N
+                  for (J = 1; J <= N; J++) { // 200
                       TEMP = X(JX)
                       IX = JX
                       if (NOCONJ) {

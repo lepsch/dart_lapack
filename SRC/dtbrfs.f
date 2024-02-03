@@ -77,7 +77,7 @@
       // Quick return if possible
 
       if ( N.EQ.0 .OR. NRHS.EQ.0 ) {
-         DO 10 J = 1, NRHS
+         for (J = 1; J <= NRHS; J++) { // 10
             FERR( J ) = ZERO
             BERR( J ) = ZERO
    10    CONTINUE
@@ -100,7 +100,7 @@
 
       // Do for each right hand side
 
-      DO 250 J = 1, NRHS
+      for (J = 1; J <= NRHS; J++) { // 250
 
          // Compute residual R = B - op(A) * X,
          // where op(A) = A or A**T, depending on TRANS.
@@ -118,7 +118,7 @@
          // than SAFE2, then SAFE1 is added to the i-th components of the
          // numerator and denominator before dividing.
 
-         DO 20 I = 1, N
+         for (I = 1; I <= N; I++) { // 20
             WORK( I ) = ABS( B( I, J ) )
    20    CONTINUE
 
@@ -128,14 +128,14 @@
 
             if ( UPPER ) {
                if ( NOUNIT ) {
-                  DO 40 K = 1, N
+                  for (K = 1; K <= N; K++) { // 40
                      XK = ABS( X( K, J ) )
                      DO 30 I = MAX( 1, K-KD ), K
                         WORK( I ) = WORK( I ) + ABS( AB( KD+1+I-K, K ) )*XK
    30                CONTINUE
    40             CONTINUE
                } else {
-                  DO 60 K = 1, N
+                  for (K = 1; K <= N; K++) { // 60
                      XK = ABS( X( K, J ) )
                      DO 50 I = MAX( 1, K-KD ), K - 1
                         WORK( I ) = WORK( I ) + ABS( AB( KD+1+I-K, K ) )*XK
@@ -145,14 +145,14 @@
                }
             } else {
                if ( NOUNIT ) {
-                  DO 80 K = 1, N
+                  for (K = 1; K <= N; K++) { // 80
                      XK = ABS( X( K, J ) )
                      DO 70 I = K, MIN( N, K+KD )
                         WORK( I ) = WORK( I ) + ABS( AB( 1+I-K, K ) )*XK
    70                CONTINUE
    80             CONTINUE
                } else {
-                  DO 100 K = 1, N
+                  for (K = 1; K <= N; K++) { // 100
                      XK = ABS( X( K, J ) )
                      DO 90 I = K + 1, MIN( N, K+KD )
                         WORK( I ) = WORK( I ) + ABS( AB( 1+I-K, K ) )*XK
@@ -167,7 +167,7 @@
 
             if ( UPPER ) {
                if ( NOUNIT ) {
-                  DO 120 K = 1, N
+                  for (K = 1; K <= N; K++) { // 120
                      S = ZERO
                      DO 110 I = MAX( 1, K-KD ), K
                         S = S + ABS( AB( KD+1+I-K, K ) )* ABS( X( I, J ) )
@@ -175,7 +175,7 @@
                      WORK( K ) = WORK( K ) + S
   120             CONTINUE
                } else {
-                  DO 140 K = 1, N
+                  for (K = 1; K <= N; K++) { // 140
                      S = ABS( X( K, J ) )
                      DO 130 I = MAX( 1, K-KD ), K - 1
                         S = S + ABS( AB( KD+1+I-K, K ) )* ABS( X( I, J ) )
@@ -185,7 +185,7 @@
                }
             } else {
                if ( NOUNIT ) {
-                  DO 160 K = 1, N
+                  for (K = 1; K <= N; K++) { // 160
                      S = ZERO
                      DO 150 I = K, MIN( N, K+KD )
                         S = S + ABS( AB( 1+I-K, K ) )*ABS( X( I, J ) )
@@ -193,7 +193,7 @@
                      WORK( K ) = WORK( K ) + S
   160             CONTINUE
                } else {
-                  DO 180 K = 1, N
+                  for (K = 1; K <= N; K++) { // 180
                      S = ABS( X( K, J ) )
                      DO 170 I = K + 1, MIN( N, K+KD )
                         S = S + ABS( AB( 1+I-K, K ) )*ABS( X( I, J ) )
@@ -204,7 +204,7 @@
             }
          }
          S = ZERO
-         DO 190 I = 1, N
+         for (I = 1; I <= N; I++) { // 190
             if ( WORK( I ).GT.SAFE2 ) {
                S = MAX( S, ABS( WORK( N+I ) ) / WORK( I ) )
             } else {
@@ -235,7 +235,7 @@
             // inv(op(A)) * diag(W),
          // where W = abs(R) + NZ*EPS*( abs(op(A))*abs(X)+abs(B) )))
 
-         DO 200 I = 1, N
+         for (I = 1; I <= N; I++) { // 200
             if ( WORK( I ).GT.SAFE2 ) {
                WORK( I ) = ABS( WORK( N+I ) ) + NZ*EPS*WORK( I )
             } else {
@@ -252,14 +252,14 @@
                // Multiply by diag(W)*inv(op(A)**T).
 
                dtbsv(UPLO, TRANST, DIAG, N, KD, AB, LDAB, WORK( N+1 ), 1 );
-               DO 220 I = 1, N
+               for (I = 1; I <= N; I++) { // 220
                   WORK( N+I ) = WORK( I )*WORK( N+I )
   220          CONTINUE
             } else {
 
                // Multiply by inv(op(A))*diag(W).
 
-               DO 230 I = 1, N
+               for (I = 1; I <= N; I++) { // 230
                   WORK( N+I ) = WORK( I )*WORK( N+I )
   230          CONTINUE
                dtbsv(UPLO, TRANS, DIAG, N, KD, AB, LDAB, WORK( N+1 ), 1 );
@@ -270,7 +270,7 @@
          // Normalize error.
 
          LSTRES = ZERO
-         DO 240 I = 1, N
+         for (I = 1; I <= N; I++) { // 240
             LSTRES = MAX( LSTRES, ABS( X( I, J ) ) )
   240    CONTINUE
          IF( LSTRES.NE.ZERO ) FERR( J ) = FERR( J ) / LSTRES

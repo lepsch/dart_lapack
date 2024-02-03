@@ -72,7 +72,7 @@
       claset('FULL', NS+1, NS+1, CZERO, CONE, QC, LDQC );
       claset('FULL', NS, NS, CZERO, CONE, ZC, LDZC );
 
-      DO I = 1, NS
+      for (I = 1; I <= NS; I++) {
          // Introduce the shift
          SCALE = SQRT( ABS( ALPHA( I ) ) ) * SQRT( ABS( BETA( I ) ) )
          if ( SCALE .GE. SAFMIN .AND. SCALE .LE. SAFMAX ) {
@@ -197,7 +197,7 @@
       // istopb points to the last column we will be updating
       ISTOPB = IHI
 
-      DO I = 1, NS
+      for (I = 1; I <= NS; I++) {
          // Chase the shift down to the bottom right corner
          DO ISHIFT = IHI-I, IHI-1
             claqz1(.TRUE., .TRUE., ISHIFT, ISTARTB, ISTOPB, IHI, A, LDA, B, LDB, NS, IHI-NS+1, QC, LDQC, NS+1, IHI-NS, ZC, LDZC );

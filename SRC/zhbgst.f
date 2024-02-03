@@ -187,7 +187,7 @@
                   AB( J-K+KA1, K ) = AB( J-K+KA1, K ) - DCONJG( BB( K-I+KB1, I ) )* AB( J-I+KA1, I )
    50          CONTINUE
    60       CONTINUE
-            DO 80 J = I, I1
+            for (J = I; J <= I1; J++) { // 80
                DO 70 K = MAX( J-KA, I-KBT ), I - 1
                   AB( K-J+KA1, J ) = AB( K-J+KA1, J ) - BB( K-I+KB1, I )*AB( I-J+KA1, J )
    70          CONTINUE
@@ -412,7 +412,7 @@
                   AB( K-J+1, J ) = AB( K-J+1, J ) - DCONJG( BB( I-K+1, K ) )* AB( I-J+1, J )
   280          CONTINUE
   290       CONTINUE
-            DO 310 J = I, I1
+            for (J = I; J <= I1; J++) { // 310
                DO 300 K = MAX( J-KA, I-KBT ), I - 1
                   AB( J-K+1, K ) = AB( J-K+1, K ) - BB( I-K+1, K )*AB( J-I+1, I )
   300          CONTINUE
@@ -686,7 +686,7 @@
                   AB( K-J+KA1, J ) = AB( K-J+KA1, J ) - DCONJG( BB( I-K+KB1, K ) )* AB( I-J+KA1, J )
   530          CONTINUE
   540       CONTINUE
-            DO 560 J = I1, I
+            for (J = I1; J <= I; J++) { // 560
                DO 550 K = I + 1, MIN( J+KA, I+KBT )
                   AB( J-K+KA1, K ) = AB( J-K+KA1, K ) - BB( I-K+KB1, K )*AB( J-I+KA1, I )
   550          CONTINUE
@@ -914,7 +914,7 @@
                   AB( J-K+1, K ) = AB( J-K+1, K ) - DCONJG( BB( K-I+1, I ) )* AB( J-I+1, I )
   760          CONTINUE
   770       CONTINUE
-            DO 790 J = I1, I
+            for (J = I1; J <= I; J++) { // 790
                DO 780 K = I + 1, MIN( J+KA, I+KBT )
                   AB( K-J+1, J ) = AB( K-J+1, J ) - BB( K-I+1, I )*AB( I-J+1, J )
   780          CONTINUE

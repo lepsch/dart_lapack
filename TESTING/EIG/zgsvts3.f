@@ -75,7 +75,7 @@
 
       zgemm('Conjugate transpose', 'No transpose', M, N, M, CONE, U, LDU, WORK, LDA, CZERO, A, LDA );
 
-      DO 60 I = 1, K
+      for (I = 1; I <= K; I++) { // 60
          DO 50 J = I, K + L
             A( I, N-K-L+J ) = A( I, N-K-L+J ) - R( I, J )
    50    CONTINUE
@@ -102,8 +102,8 @@
 
       zgemm('Conjugate transpose', 'No transpose', P, N, P, CONE, V, LDV, WORK, LDB, CZERO, B, LDB );
 
-      DO 100 I = 1, L
-         DO 90 J = I, L
+      for (I = 1; I <= L; I++) { // 100
+         for (J = I; J <= L; J++) { // 90
             B( I, N-L+J ) = B( I, N-L+J ) - BETA( K+I )*R( K+I, K+J )
    90    CONTINUE
   100 CONTINUE

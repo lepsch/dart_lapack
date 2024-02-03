@@ -62,7 +62,7 @@
          // Find norm1(A).
 
          KD = KU + 1
-         DO 10 J = 1, N
+         for (J = 1; J <= N; J++) { // 10
             I1 = MAX( KD+1-J, 1 )
             I2 = MIN( KD+M-J, KL+KD )
             if ( I2.GE.I1 ) {
@@ -74,16 +74,16 @@
 
          // Find normI(A).
 
-         DO 12 I1 = 1, M
+         for (I1 = 1; I1 <= M; I1++) { // 12
             RWORK( I1 ) = ZERO
    12    CONTINUE
-         DO 16 J = 1, N
+         for (J = 1; J <= N; J++) { // 16
             KD = KU + 1 - J
             DO 14 I1 = MAX( 1, J-KU ), MIN( M, J+KL )
                RWORK( I1 ) = RWORK( I1 ) + CABS1( A( KD+I1, J ) )
    14       CONTINUE
    16    CONTINUE
-         DO 18 I1 = 1, M
+         for (I1 = 1; I1 <= M; I1++) { // 18
             TEMP = RWORK( I1 )
             IF( ANORM.LT.TEMP .OR. DISNAN( TEMP ) ) ANORM = TEMP
    18    CONTINUE
@@ -101,7 +101,7 @@
 
       // Compute B - op(A)*X
 
-      DO 20 J = 1, NRHS
+      for (J = 1; J <= NRHS; J++) { // 20
          zgbmv(TRANS, M, N, KL, KU, -CONE, A, LDA, X( 1, J ), 1, CONE, B( 1, J ), 1 );
    20 CONTINUE
 
@@ -109,7 +109,7 @@
          // norm(B - op(A)*X) / ( norm(op(A)) * norm(X) * EPS ).
 
       RESID = ZERO
-      DO 30 J = 1, NRHS
+      for (J = 1; J <= NRHS; J++) { // 30
          BNORM = DZASUM( N1, B( 1, J ), 1 )
          XNORM = DZASUM( N1, X( 1, J ), 1 )
          if ( XNORM.LE.ZERO ) {

@@ -143,7 +143,7 @@
       // Check whether the NRHS normwise backward errors satisfy the
       // stopping criterion. If yes, set ITER=0 and return.
 
-      DO I = 1, NRHS
+      for (I = 1; I <= NRHS; I++) {
          XNRM = CABS1( X( IZAMAX( N, X( 1, I ), 1 ), I ) )
          RNRM = CABS1( WORK( IZAMAX( N, WORK( 1, I ), 1 ), I ) )
          IF( RNRM.GT.XNRM*CTE ) GO TO 10
@@ -157,7 +157,7 @@
 
    10 CONTINUE
 
-      DO 30 IITER = 1, ITERMAX
+      for (IITER = 1; IITER <= ITERMAX; IITER++) { // 30
 
          // Convert R (in WORK) from double precision to single precision
          // and store the result in SX.
@@ -178,7 +178,7 @@
 
          clag2z(N, NRHS, SWORK( PTSX ), N, WORK, N, INFO );
 
-         DO I = 1, NRHS
+         for (I = 1; I <= NRHS; I++) {
             zaxpy(N, ONE, WORK( 1, I ), 1, X( 1, I ), 1 );
          END DO
 
@@ -191,7 +191,7 @@
          // Check whether the NRHS normwise backward errors satisfy the
          // stopping criterion. If yes, set ITER=IITER>0 and return.
 
-         DO I = 1, NRHS
+         for (I = 1; I <= NRHS; I++) {
             XNRM = CABS1( X( IZAMAX( N, X( 1, I ), 1 ), I ) )
             RNRM = CABS1( WORK( IZAMAX( N, WORK( 1, I ), 1 ), I ) )
             IF( RNRM.GT.XNRM*CTE ) GO TO 20

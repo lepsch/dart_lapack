@@ -86,7 +86,7 @@
          FATAL = .TRUE.
       }
       READ( NIN, FMT = * )( MVAL( I ), I = 1, NM )
-      DO 10 I = 1, NM
+      for (I = 1; I <= NM; I++) { // 10
          if ( MVAL( I ).LT.0 ) {
             WRITE( NOUT, FMT = 9996 )' M  ', MVAL( I ), 0
             FATAL = .TRUE.
@@ -110,7 +110,7 @@
          FATAL = .TRUE.
       }
       READ( NIN, FMT = * )( NSVAL( I ), I = 1, NNS )
-      DO 30 I = 1, NNS
+      for (I = 1; I <= NNS; I++) { // 30
          if ( NSVAL( I ).LT.0 ) {
             WRITE( NOUT, FMT = 9996 )'NRHS', NSVAL( I ), 0
             FATAL = .TRUE.
@@ -175,7 +175,7 @@
       NMATS = 0
   100 CONTINUE
       C1 = ALINE( I: I )
-      DO 110 K = 1, 10
+      for (K = 1; K <= 10; K++) { // 110
          if ( C1.EQ.INTSTR( K: K ) ) {
             IC = K - 1
             GO TO 120

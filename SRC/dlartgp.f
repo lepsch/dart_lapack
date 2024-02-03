@@ -68,7 +68,7 @@
             R = SQRT( F1**2+G1**2 )
             CS = F1 / R
             SN = G1 / R
-            DO 20 I = 1, COUNT
+            for (I = 1; I <= COUNT; I++) { // 20
                R = R*SAFMX2
    20       CONTINUE
          } else if ( SCALE.LE.SAFMN2 ) {
@@ -82,7 +82,7 @@
             R = SQRT( F1**2+G1**2 )
             CS = F1 / R
             SN = G1 / R
-            DO 40 I = 1, COUNT
+            for (I = 1; I <= COUNT; I++) { // 40
                R = R*SAFMN2
    40       CONTINUE
          } else {

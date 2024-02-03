@@ -56,7 +56,7 @@
       // Copy upper triangle of A into work
 
       zlaset('Full', M, N, DCMPLX( ZERO ), DCMPLX( ZERO ), WORK, M );
-      DO J = 1, N
+      for (J = 1; J <= N; J++) {
          DO I = 1, MIN( J, M )
             WORK( ( J-1 )*M+I ) = A( I, J )
          END DO
@@ -102,7 +102,7 @@
 
       } else {
 
-         DO I = 1, MN
+         for (I = 1; I <= MN; I++) {
             RWORK( I ) = ZERO
          END DO
       }

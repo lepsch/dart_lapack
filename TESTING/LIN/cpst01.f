@@ -61,7 +61,7 @@
       // Check the imaginary parts of the diagonal elements and return with
       // an error code if any are nonzero.
 
-      DO 100 J = 1, N
+      for (J = 1; J <= N; J++) { // 100
          if ( AIMAG( AFAC( J, J ) ).NE.ZERO ) {
             RESID = ONE / EPS
             RETURN
@@ -99,7 +99,7 @@
 
          if ( RANK.LT.N ) {
             DO 150 J = RANK + 1, N
-               DO 140 I = J, N
+               for (I = J; I <= N; I++) { // 140
                   AFAC( I, J ) = CZERO
   140          CONTINUE
   150       CONTINUE
@@ -123,8 +123,8 @@
 
       if ( LSAME( UPLO, 'U' ) ) {
 
-         DO 180 J = 1, N
-            DO 170 I = 1, N
+         for (J = 1; J <= N; J++) { // 180
+            for (I = 1; I <= N; I++) { // 170
                if ( PIV( I ).LE.PIV( J ) ) {
                   if ( I.LE.J ) {
                      PERM( PIV( I ), PIV( J ) ) = AFAC( I, J )
@@ -138,8 +138,8 @@
 
       } else {
 
-         DO 200 J = 1, N
-            DO 190 I = 1, N
+         for (J = 1; J <= N; J++) { // 200
+            for (I = 1; I <= N; I++) { // 190
                if ( PIV( I ).GE.PIV( J ) ) {
                   if ( I.GE.J ) {
                      PERM( PIV( I ), PIV( J ) ) = AFAC( I, J )
@@ -155,14 +155,14 @@
       // Compute the difference  P*L*L'*P' - A (or P*U'*U*P' - A).
 
       if ( LSAME( UPLO, 'U' ) ) {
-         DO 220 J = 1, N
+         for (J = 1; J <= N; J++) { // 220
             DO 210 I = 1, J - 1
                PERM( I, J ) = PERM( I, J ) - A( I, J )
   210       CONTINUE
             PERM( J, J ) = PERM( J, J ) - REAL( A( J, J ) )
   220    CONTINUE
       } else {
-         DO 240 J = 1, N
+         for (J = 1; J <= N; J++) { // 240
             PERM( J, J ) = PERM( J, J ) - REAL( A( J, J ) )
             DO 230 I = J + 1, N
                PERM( I, J ) = PERM( I, J ) - A( I, J )

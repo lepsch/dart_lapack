@@ -82,7 +82,7 @@
 
       // Quick return if nothing to do
 
-      DO 10 I = 1, 11
+      for (I = 1; I <= 11; I++) { // 10
          RESULT( I ) = -ONE
    10 CONTINUE
 
@@ -128,7 +128,7 @@
 
       // Do Test (3)
 
-      DO 30 J = 1, N
+      for (J = 1; J <= N; J++) { // 30
          TNRM = ONE
          if ( WI( J ).EQ.ZERO ) {
             TNRM = SNRM2( N, VR( 1, J ), 1 )
@@ -139,7 +139,7 @@
          if ( WI( J ).GT.ZERO ) {
             VMX = ZERO
             VRMX = ZERO
-            DO 20 JJ = 1, N
+            for (JJ = 1; JJ <= N; JJ++) { // 20
                VTST = SLAPY2( VR( JJ, J ), VR( JJ, J+1 ) )
                IF( VTST.GT.VMX ) VMX = VTST                IF( VR( JJ, J+1 ).EQ.ZERO .AND. ABS( VR( JJ, J ) ).GT. VRMX )VRMX = ABS( VR( JJ, J ) )
    20       CONTINUE
@@ -149,7 +149,7 @@
 
       // Do Test (4)
 
-      DO 50 J = 1, N
+      for (J = 1; J <= N; J++) { // 50
          TNRM = ONE
          if ( WI( J ).EQ.ZERO ) {
             TNRM = SNRM2( N, VL( 1, J ), 1 )
@@ -160,7 +160,7 @@
          if ( WI( J ).GT.ZERO ) {
             VMX = ZERO
             VRMX = ZERO
-            DO 40 JJ = 1, N
+            for (JJ = 1; JJ <= N; JJ++) { // 40
                VTST = SLAPY2( VL( JJ, J ), VL( JJ, J+1 ) )
                IF( VTST.GT.VMX ) VMX = VTST                IF( VL( JJ, J+1 ).EQ.ZERO .AND. ABS( VL( JJ, J ) ).GT. VRMX )VRMX = ABS( VL( JJ, J ) )
    40       CONTINUE
@@ -170,7 +170,7 @@
 
       // Test for all options of computing condition numbers
 
-      DO 200 ISENS = 1, ISENSM
+      for (ISENS = 1; ISENS <= ISENSM; ISENS++) { // 200
 
          SENSE = SENS( ISENS )
 
@@ -191,14 +191,14 @@
 
          // Do Test (5)
 
-         DO 60 J = 1, N
+         for (J = 1; J <= N; J++) { // 60
             IF( WR( J ).NE.WR1( J ) .OR. WI( J ).NE.WI1( J ) ) RESULT( 5 ) = ULPINV
    60    CONTINUE
 
          // Do Test (8)
 
          if ( .NOT.NOBAL ) {
-            DO 70 J = 1, N
+            for (J = 1; J <= N; J++) { // 70
                IF( SCALE( J ).NE.SCALE1( J ) ) RESULT( 8 ) = ULPINV
    70       CONTINUE
             IF( ILO.NE.ILO1 ) RESULT( 8 ) = ULPINV             IF( IHI.NE.IHI1 ) RESULT( 8 ) = ULPINV             IF( ABNRM.NE.ABNRM1 ) RESULT( 8 ) = ULPINV
@@ -207,7 +207,7 @@
          // Do Test (9)
 
          if ( ISENS.EQ.2 .AND. N.GT.1 ) {
-            DO 80 J = 1, N
+            for (J = 1; J <= N; J++) { // 80
                IF( RCONDV( J ).NE.RCNDV1( J ) ) RESULT( 9 ) = ULPINV
    80       CONTINUE
          }
@@ -229,14 +229,14 @@
 
          // Do Test (5) again
 
-         DO 90 J = 1, N
+         for (J = 1; J <= N; J++) { // 90
             IF( WR( J ).NE.WR1( J ) .OR. WI( J ).NE.WI1( J ) ) RESULT( 5 ) = ULPINV
    90    CONTINUE
 
          // Do Test (6)
 
-         DO 110 J = 1, N
-            DO 100 JJ = 1, N
+         for (J = 1; J <= N; J++) { // 110
+            for (JJ = 1; JJ <= N; JJ++) { // 100
                IF( VR( J, JJ ).NE.LRE( J, JJ ) ) RESULT( 6 ) = ULPINV
   100       CONTINUE
   110    CONTINUE
@@ -244,7 +244,7 @@
          // Do Test (8) again
 
          if ( .NOT.NOBAL ) {
-            DO 120 J = 1, N
+            for (J = 1; J <= N; J++) { // 120
                IF( SCALE( J ).NE.SCALE1( J ) ) RESULT( 8 ) = ULPINV
   120       CONTINUE
             IF( ILO.NE.ILO1 ) RESULT( 8 ) = ULPINV             IF( IHI.NE.IHI1 ) RESULT( 8 ) = ULPINV             IF( ABNRM.NE.ABNRM1 ) RESULT( 8 ) = ULPINV
@@ -253,7 +253,7 @@
          // Do Test (9) again
 
          if ( ISENS.EQ.2 .AND. N.GT.1 ) {
-            DO 130 J = 1, N
+            for (J = 1; J <= N; J++) { // 130
                IF( RCONDV( J ).NE.RCNDV1( J ) ) RESULT( 9 ) = ULPINV
   130       CONTINUE
          }
@@ -275,14 +275,14 @@
 
          // Do Test (5) again
 
-         DO 140 J = 1, N
+         for (J = 1; J <= N; J++) { // 140
             IF( WR( J ).NE.WR1( J ) .OR. WI( J ).NE.WI1( J ) ) RESULT( 5 ) = ULPINV
   140    CONTINUE
 
          // Do Test (7)
 
-         DO 160 J = 1, N
-            DO 150 JJ = 1, N
+         for (J = 1; J <= N; J++) { // 160
+            for (JJ = 1; JJ <= N; JJ++) { // 150
                IF( VL( J, JJ ).NE.LRE( J, JJ ) ) RESULT( 7 ) = ULPINV
   150       CONTINUE
   160    CONTINUE
@@ -290,7 +290,7 @@
          // Do Test (8) again
 
          if ( .NOT.NOBAL ) {
-            DO 170 J = 1, N
+            for (J = 1; J <= N; J++) { // 170
                IF( SCALE( J ).NE.SCALE1( J ) ) RESULT( 8 ) = ULPINV
   170       CONTINUE
             IF( ILO.NE.ILO1 ) RESULT( 8 ) = ULPINV             IF( IHI.NE.IHI1 ) RESULT( 8 ) = ULPINV             IF( ABNRM.NE.ABNRM1 ) RESULT( 8 ) = ULPINV
@@ -299,7 +299,7 @@
          // Do Test (9) again
 
          if ( ISENS.EQ.2 .AND. N.GT.1 ) {
-            DO 180 J = 1, N
+            for (J = 1; J <= N; J++) { // 180
                IF( RCONDV( J ).NE.RCNDV1( J ) ) RESULT( 9 ) = ULPINV
   180       CONTINUE
          }
@@ -353,7 +353,7 @@
          EPS = MAX( EPSIN, ULP )
          V = MAX( REAL( N )*EPS*ABNRM, SMLNUM )
          IF( ABNRM.EQ.ZERO ) V = ONE
-         DO 230 I = 1, N
+         for (I = 1; I <= N; I++) { // 230
             if ( V.GT.RCONDV( I )*RCONDE( I ) ) {
                TOL = RCONDV( I )
             } else {
@@ -384,7 +384,7 @@
          // taking their condition numbers into account
 
          RESULT( 11 ) = ZERO
-         DO 240 I = 1, N
+         for (I = 1; I <= N; I++) { // 240
             if ( V.GT.RCONDV( I ) ) {
                TOL = ONE
             } else {

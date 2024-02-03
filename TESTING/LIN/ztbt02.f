@@ -64,7 +64,7 @@
          // norm(op(A)*x - b) / ( norm(op(A)) * norm(x) * EPS ).
 
       RESID = ZERO
-      DO 10 J = 1, NRHS
+      for (J = 1; J <= NRHS; J++) { // 10
          zcopy(N, X( 1, J ), 1, WORK, 1 );
          ztbmv(UPLO, TRANS, DIAG, N, KD, AB, LDAB, WORK, 1 );
          zaxpy(N, DCMPLX( -ONE ), B( 1, J ), 1, WORK, 1 );

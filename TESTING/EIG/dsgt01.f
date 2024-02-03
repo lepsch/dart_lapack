@@ -45,7 +45,7 @@
          // Norm of AZ - BZD
 
          dsymm('Left', UPLO, N, M, ONE, A, LDA, Z, LDZ, ZERO, WORK, N );
-         DO 10 I = 1, M
+         for (I = 1; I <= M; I++) { // 10
             dscal(N, D( I ), Z( 1, I ), 1 );
    10    CONTINUE
          dsymm('Left', UPLO, N, M, ONE, B, LDB, Z, LDZ, -ONE, WORK, N );
@@ -57,7 +57,7 @@
          // Norm of ABZ - ZD
 
          dsymm('Left', UPLO, N, M, ONE, B, LDB, Z, LDZ, ZERO, WORK, N );
-         DO 20 I = 1, M
+         for (I = 1; I <= M; I++) { // 20
             dscal(N, D( I ), Z( 1, I ), 1 );
    20    CONTINUE
          dsymm('Left', UPLO, N, M, ONE, A, LDA, WORK, N, -ONE, Z, LDZ );
@@ -69,7 +69,7 @@
          // Norm of BAZ - ZD
 
          dsymm('Left', UPLO, N, M, ONE, A, LDA, Z, LDZ, ZERO, WORK, N );
-         DO 30 I = 1, M
+         for (I = 1; I <= M; I++) { // 30
             dscal(N, D( I ), Z( 1, I ), 1 );
    30    CONTINUE
          dsymm('Left', UPLO, N, M, ONE, B, LDB, WORK, N, -ONE, Z, LDZ );

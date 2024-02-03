@@ -53,8 +53,8 @@
 
             // B is upper bidiagonal.
 
-            DO 20 J = 1, N
-               DO 10 I = 1, N
+            for (J = 1; J <= N; J++) { // 20
+               for (I = 1; I <= N; I++) { // 10
                   WORK( N+I ) = S( I )*VT( I, J )
    10          CONTINUE
                sgemv('No transpose', N, N, -ONE, U, LDU, WORK( N+1 ), 1, ZERO, WORK, 1 );
@@ -71,8 +71,8 @@
 
             // B is lower bidiagonal.
 
-            DO 40 J = 1, N
-               DO 30 I = 1, N
+            for (J = 1; J <= N; J++) { // 40
+               for (I = 1; I <= N; I++) { // 30
                   WORK( N+I ) = S( I )*VT( I, J )
    30          CONTINUE
                sgemv('No transpose', N, N, -ONE, U, LDU, WORK( N+1 ), 1, ZERO, WORK, 1 );
@@ -90,8 +90,8 @@
 
          // B is diagonal.
 
-         DO 60 J = 1, N
-            DO 50 I = 1, N
+         for (J = 1; J <= N; J++) { // 60
+            for (I = 1; I <= N; I++) { // 50
                WORK( N+I ) = S( I )*VT( I, J )
    50       CONTINUE
             sgemv('No transpose', N, N, -ONE, U, LDU, WORK( N+1 ), 1, ZERO, WORK, 1 );

@@ -45,14 +45,14 @@
          if ( LSAME( DIAG, 'U' ) ) {
             VALUE = ONE
             if ( LSAME( UPLO, 'U' ) ) {
-               DO 20 J = 1, N
+               for (J = 1; J <= N; J++) { // 20
                   DO 10 I = MAX( K+2-J, 1 ), K
                      SUM = ABS( AB( I, J ) )
                      IF( VALUE .LT. SUM .OR. SISNAN( SUM ) ) VALUE = SUM
    10             CONTINUE
    20          CONTINUE
             } else {
-               DO 40 J = 1, N
+               for (J = 1; J <= N; J++) { // 40
                   DO 30 I = 2, MIN( N+1-J, K+1 )
                      SUM = ABS( AB( I, J ) )
                      IF( VALUE .LT. SUM .OR. SISNAN( SUM ) ) VALUE = SUM
@@ -62,14 +62,14 @@
          } else {
             VALUE = ZERO
             if ( LSAME( UPLO, 'U' ) ) {
-               DO 60 J = 1, N
+               for (J = 1; J <= N; J++) { // 60
                   DO 50 I = MAX( K+2-J, 1 ), K + 1
                      SUM = ABS( AB( I, J ) )
                      IF( VALUE .LT. SUM .OR. SISNAN( SUM ) ) VALUE = SUM
    50             CONTINUE
    60          CONTINUE
             } else {
-               DO 80 J = 1, N
+               for (J = 1; J <= N; J++) { // 80
                   DO 70 I = 1, MIN( N+1-J, K+1 )
                      SUM = ABS( AB( I, J ) )
                      IF( VALUE .LT. SUM .OR. SISNAN( SUM ) ) VALUE = SUM
@@ -84,7 +84,7 @@
          VALUE = ZERO
          UDIAG = LSAME( DIAG, 'U' )
          if ( LSAME( UPLO, 'U' ) ) {
-            DO 110 J = 1, N
+            for (J = 1; J <= N; J++) { // 110
                if ( UDIAG ) {
                   SUM = ONE
                   DO 90 I = MAX( K+2-J, 1 ), K
@@ -99,7 +99,7 @@
                IF( VALUE .LT. SUM .OR. SISNAN( SUM ) ) VALUE = SUM
   110       CONTINUE
          } else {
-            DO 140 J = 1, N
+            for (J = 1; J <= N; J++) { // 140
                if ( UDIAG ) {
                   SUM = ONE
                   DO 120 I = 2, MIN( N+1-J, K+1 )
@@ -121,20 +121,20 @@
          VALUE = ZERO
          if ( LSAME( UPLO, 'U' ) ) {
             if ( LSAME( DIAG, 'U' ) ) {
-               DO 150 I = 1, N
+               for (I = 1; I <= N; I++) { // 150
                   WORK( I ) = ONE
   150          CONTINUE
-               DO 170 J = 1, N
+               for (J = 1; J <= N; J++) { // 170
                   L = K + 1 - J
                   DO 160 I = MAX( 1, J-K ), J - 1
                      WORK( I ) = WORK( I ) + ABS( AB( L+I, J ) )
   160             CONTINUE
   170          CONTINUE
             } else {
-               DO 180 I = 1, N
+               for (I = 1; I <= N; I++) { // 180
                   WORK( I ) = ZERO
   180          CONTINUE
-               DO 200 J = 1, N
+               for (J = 1; J <= N; J++) { // 200
                   L = K + 1 - J
                   DO 190 I = MAX( 1, J-K ), J
                      WORK( I ) = WORK( I ) + ABS( AB( L+I, J ) )
@@ -143,20 +143,20 @@
             }
          } else {
             if ( LSAME( DIAG, 'U' ) ) {
-               DO 210 I = 1, N
+               for (I = 1; I <= N; I++) { // 210
                   WORK( I ) = ONE
   210          CONTINUE
-               DO 230 J = 1, N
+               for (J = 1; J <= N; J++) { // 230
                   L = 1 - J
                   DO 220 I = J + 1, MIN( N, J+K )
                      WORK( I ) = WORK( I ) + ABS( AB( L+I, J ) )
   220             CONTINUE
   230          CONTINUE
             } else {
-               DO 240 I = 1, N
+               for (I = 1; I <= N; I++) { // 240
                   WORK( I ) = ZERO
   240          CONTINUE
-               DO 260 J = 1, N
+               for (J = 1; J <= N; J++) { // 260
                   L = 1 - J
                   DO 250 I = J, MIN( N, J+K )
                      WORK( I ) = WORK( I ) + ABS( AB( L+I, J ) )
@@ -164,7 +164,7 @@
   260          CONTINUE
             }
          }
-         DO 270 I = 1, N
+         for (I = 1; I <= N; I++) { // 270
             SUM = WORK( I )
             IF( VALUE .LT. SUM .OR. SISNAN( SUM ) ) VALUE = SUM
   270    CONTINUE
@@ -177,14 +177,14 @@
                SCALE = ONE
                SUM = N
                if ( K.GT.0 ) {
-                  DO 280 J = 2, N
+                  for (J = 2; J <= N; J++) { // 280
                      classq(MIN( J-1, K ), AB( MAX( K+2-J, 1 ), J ), 1, SCALE, SUM );
   280             CONTINUE
                }
             } else {
                SCALE = ZERO
                SUM = ONE
-               DO 290 J = 1, N
+               for (J = 1; J <= N; J++) { // 290
                   classq(MIN( J, K+1 ), AB( MAX( K+2-J, 1 ), J ), 1, SCALE, SUM );
   290          CONTINUE
             }
@@ -200,7 +200,7 @@
             } else {
                SCALE = ZERO
                SUM = ONE
-               DO 310 J = 1, N
+               for (J = 1; J <= N; J++) { // 310
                   classq(MIN( N-J+1, K+1 ), AB( 1, J ), 1, SCALE, SUM );
   310          CONTINUE
             }

@@ -54,7 +54,7 @@
       LDT=NB
       slaset('Full', M, N2, ZERO, ZERO, A, M );
       slaset('Full', NB, M, ZERO, ZERO, T, NB );
-      DO J=1,M
+      for (J = 1; J <= M; J++) {
          slarnv(2, ISEED, M-J+1, A( J, J ) );
       END DO
       if ( N.GT.0 ) {
@@ -63,7 +63,7 @@
          END DO
       }
       if ( L.GT.0 ) {
-         DO J=1,L
+         for (J = 1; J <= L; J++) {
             slarnv(2, ISEED, M-J+1, A( J, MIN(N+M,N+M-L+1) + J - 1 ) );
          END DO
       }
@@ -107,7 +107,7 @@
       // Generate random m-by-n matrix C and a copy CF
 
       slaset('Full', N2, M, ZERO, ONE, C, N2 );
-      DO J=1,M
+      for (J = 1; J <= M; J++) {
          slarnv(2, ISEED, N2, C( 1, J ) );
       END DO
       CNORM = SLANGE( '1', N2, M, C, N2, RWORK)
@@ -149,7 +149,7 @@
 
       // Generate random m-by-n matrix D and a copy DF
 
-      DO J=1,N2
+      for (J = 1; J <= N2; J++) {
          slarnv(2, ISEED, M, D( 1, J ) );
       END DO
       DNORM = SLANGE( '1', M, N2, D, M, RWORK)

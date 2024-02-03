@@ -140,7 +140,7 @@
       // in a parallel environment it might need two cores for D and E
 
       if ( KD.EQ.0 ) {
-          DO 30 I = 1, N
+          for (I = 1; I <= N; I++) { // 30
               D( I ) = ( AB( ABDPOS, I ) )
    30     CONTINUE
           DO 40 I = 1, N-1
@@ -163,7 +163,7 @@
       // or not this might complicate the story.
 
       if ( KD.EQ.1 ) {
-          DO 50 I = 1, N
+          for (I = 1; I <= N; I++) { // 50
               D( I ) = ( AB( ABDPOS, I ) )
    50     CONTINUE
 
@@ -210,16 +210,16 @@
 
       // main bulge chasing loop
 
-      DO 100 THGRID = 1, THGRNB
+      for (THGRID = 1; THGRID <= THGRNB; THGRID++) { // 100
           STT  = (THGRID-1)*THGRSIZ+1
           THED = MIN( (STT + THGRSIZ -1), (N-1))
           DO 110 I = STT, N-1
               ED = MIN( I, THED )
               IF( STT.GT.ED ) EXIT
-              DO 120 M = 1, STEPERCOL
+              for (M = 1; M <= STEPERCOL; M++) { // 120
                   ST = STT
-                  DO 130 SWEEPID = ST, ED
-                      DO 140 K = 1, GRSIZ
+                  for (SWEEPID = ST; SWEEPID <= ED; SWEEPID++) { // 130
+                      for (K = 1; K <= GRSIZ; K++) { // 140
                           MYID  = (I-SWEEPID)*(STEPERCOL*GRSIZ) + (M-1)*GRSIZ + K
                           if ( MYID.EQ.1 ) {
                               TTYPE = 1
@@ -281,7 +281,7 @@
       // Copy the diagonal from A to D. Note that D is REAL thus only
       // the Real part is needed, the imaginary part should be zero.
 
-      DO 150 I = 1, N
+      for (I = 1; I <= N; I++) { // 150
           D( I ) = ( WORK( DPOS+(I-1)*LDA ) )
   150 CONTINUE
 

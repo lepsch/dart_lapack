@@ -74,7 +74,7 @@
       NRUN = 0
       NFAIL = 0
       NERRS = 0
-      DO 10 I = 1, 4
+      for (I = 1; I <= 4; I++) { // 10
          ISEED( I ) = ISEEDY( I )
    10 CONTINUE
 
@@ -92,7 +92,7 @@
 
       // Do for each value of N in NVAL
 
-      DO 150 IN = 1, NN
+      for (IN = 1; IN <= NN; IN++) { // 150
          N = NVAL( IN )
          LDB = MAX( N, 1 )
          XTYPE = 'N'
@@ -105,7 +105,7 @@
          NIMAT = NTYPES
          IF( N.LE.0 ) NIMAT = 1
 
-         DO 140 IKL = 1, NKL
+         for (IKL = 1; IKL <= NKL; IKL++) { // 140
 
             // Do for KL = 0, N-1, (3N-1)/4, and (N+1)/4. This order makes
             // it easier to skip redundant values for small values of N.
@@ -119,7 +119,7 @@
             } else if ( IKL.EQ.4 ) {
                KL = ( N+1 ) / 4
             }
-            DO 130 IKU = 1, NKU
+            for (IKU = 1; IKU <= NKU; IKU++) { // 130
 
                // Do for KU = 0, N-1, (3N-1)/4, and (N+1)/4. This order
                // makes it easier to skip redundant values for small
@@ -153,7 +153,7 @@
                   GO TO 130
                }
 
-               DO 120 IMAT = 1, NIMAT
+               for (IMAT = 1; IMAT <= NIMAT; IMAT++) { // 120
 
                   // Do the tests only if DOTYPE( IMAT ) is true.
 
@@ -196,11 +196,11 @@
                      if ( IMAT.LT.4 ) {
                         I1 = MAX( 1, KU+2-IZERO )
                         I2 = MIN( KL+KU+1, KU+1+( N-IZERO ) )
-                        DO 20 I = I1, I2
+                        for (I = I1; I <= I2; I++) { // 20
                            A( IOFF+I ) = ZERO
    20                   CONTINUE
                      } else {
-                        DO 40 J = IZERO, N
+                        for (J = IZERO; J <= N; J++) { // 40
                            DO 30 I = MAX( 1, KU+2-J ), MIN( KL+KU+1, KU+1+( N-J ) )
                               A( IOFF+I ) = ZERO
    30                      CONTINUE
@@ -213,7 +213,7 @@
 
                   clacpy('Full', KL+KU+1, N, A, LDA, ASAV, LDA );
 
-                  DO 110 IEQUED = 1, 4
+                  for (IEQUED = 1; IEQUED <= 4; IEQUED++) { // 110
                      EQUED = EQUEDS( IEQUED )
                      if ( IEQUED.EQ.1 ) {
                         NFACT = 3
@@ -221,7 +221,7 @@
                         NFACT = 1
                      }
 
-                     DO 100 IFACT = 1, NFACT
+                     for (IFACT = 1; IFACT <= NFACT; IFACT++) { // 100
                         FACT = FACTS( IFACT )
                         PREFAC = LSAME( FACT, 'F' )
                         NOFACT = LSAME( FACT, 'N' )
@@ -306,7 +306,7 @@
                            }
                         }
 
-                        DO 90 ITRAN = 1, NTRAN
+                        for (ITRAN = 1; ITRAN <= NTRAN; ITRAN++) { // 90
 
                            // Do for each value of TRANS.
 
@@ -367,7 +367,7 @@
                               // Print information about the tests that did
                               // not pass the threshold.
 
-                              DO 50 K = 1, NT
+                              for (K = 1; K <= NT; K++) { // 50
                                  if ( RESULT( K ).GE.THRESH ) {
                                     IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALADHD( NOUT, PATH )                                     WRITE( NOUT, FMT = 9997 )'CGBSV ', N, KL, KU, IMAT, K, RESULT( K )
                                     NFAIL = NFAIL + 1
@@ -403,7 +403,7 @@
 
                            if ( INFO.NE.0 ) {
                               ANRMPV = ZERO
-                              DO 70 J = 1, INFO
+                              for (J = 1; J <= INFO; J++) { // 70
                                  DO 60 I = MAX( KU+2-J, 1 ), MIN( N+KU+1-J, KL+KU+1 )                                     ANRMPV = MAX( ANRMPV, ABS( A( I+( J-1 )*LDA ) ) )
    60                            CONTINUE
    70                         CONTINUE
@@ -471,7 +471,7 @@
                            // not pass the threshold.
 
                            if ( .NOT.TRFCON ) {
-                              DO 80 K = K1, NTESTS
+                              for (K = K1; K <= NTESTS; K++) { // 80
                                  if ( RESULT( K ).GE.THRESH ) {
                                     IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALADHD( NOUT, PATH )
                                     if ( PREFAC ) {
@@ -600,7 +600,7 @@
                      // the threshold.
 
                      if ( .NOT.TRFCON ) {
-                        DO 45 K = K1, NTESTS
+                        for (K = K1; K <= NTESTS; K++) { // 45
                            if ( RESULT( K ).GE.THRESH ) {
                               IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALADHD( NOUT, PATH )
                               if ( PREFAC ) {

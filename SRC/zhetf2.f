@@ -417,7 +417,7 @@
                   DO 80 J = K + 2, N
                      WK = D*( D11*A( J, K )-D21*A( J, K+1 ) )
                      WKP1 = D*( D22*A( J, K+1 )-DCONJG( D21 )* A( J, K ) )
-                     DO 70 I = J, N
+                     for (I = J; I <= N; I++) { // 70
                         A( I, J ) = A( I, J ) - A( I, K )*DCONJG( WK ) - A( I, K+1 )*DCONJG( WKP1 )
    70                CONTINUE
                      A( J, K ) = WK

@@ -57,7 +57,7 @@
 
       BADNN = .FALSE.
       NMAX = 0
-      DO 10 J = 1, NSIZES
+      for (J = 1; J <= NSIZES; J++) { // 10
          NMAX = MAX( NMAX, NN( J ) )
          IF( NN( J ).LT.0 ) BADNN = .TRUE.
    10 CONTINUE
@@ -98,7 +98,7 @@
       RTUNFL = SQRT( UNFL )
       RTOVFL = SQRT( OVFL )
 
-      DO 20 I = 1, 4
+      for (I = 1; I <= 4; I++) { // 20
          ISEED2( I ) = ISEED( I )
    20 CONTINUE
 
@@ -107,7 +107,7 @@
       NERRS = 0
       NMATS = 0
 
-      DO 650 JSIZE = 1, NSIZES
+      for (JSIZE = 1; JSIZE <= NSIZES; JSIZE++) { // 650
          N = NN( JSIZE )
          ANINV = ONE / REAL( MAX( 1, N ) )
 
@@ -119,12 +119,12 @@
 
          KA9 = 0
          KB9 = 0
-         DO 640 JTYPE = 1, MTYPES
+         for (JTYPE = 1; JTYPE <= MTYPES; JTYPE++) { // 640
             IF( .NOT.DOTYPE( JTYPE ) ) GO TO 640
             NMATS = NMATS + 1
             NTEST = 0
 
-            DO 30 J = 1, 4
+            for (J = 1; J <= 4; J++) { // 30
                IOLDSD( J ) = ISEED( J )
    30       CONTINUE
 
@@ -186,7 +186,7 @@
                KA = 0
                KB = 0
                slaset('Full', LDA, N, ZERO, ZERO, A, LDA );
-               DO 80 JCOL = 1, N
+               for (JCOL = 1; JCOL <= N; JCOL++) { // 80
                   A( JCOL, JCOL ) = ANORM
    80          CONTINUE
 
@@ -279,11 +279,11 @@
                   // IBTYPE = 2: A*B*x = (lambda)*x
                   // IBTYPE = 3: B*A*x = (lambda)*x
 
-            DO 630 IBTYPE = 1, 3
+            for (IBTYPE = 1; IBTYPE <= 3; IBTYPE++) { // 630
 
                // loop over the setting UPLO
 
-               DO 620 IBUPLO = 1, 2
+               for (IBUPLO = 1; IBUPLO <= 2; IBUPLO++) { // 620
                   IF( IBUPLO.EQ.1 ) UPLO = 'U'                   IF( IBUPLO.EQ.2 ) UPLO = 'L'
 
                   // Generate random well-conditioned positive definite
@@ -345,7 +345,7 @@
 
                   TEMP1 = ZERO
                   TEMP2 = ZERO
-                  DO 151 J = 1, N
+                  for (J = 1; J <= N; J++) { // 151
                      TEMP1 = MAX( TEMP1, ABS( D( J ) ),  ABS( D2( J ) ) )
                      TEMP2 = MAX( TEMP2, ABS( D( J )-D2( J ) ) )
   151             CONTINUE
@@ -457,8 +457,8 @@
 
                   if ( LSAME( UPLO, 'U' ) ) {
                      IJ = 1
-                     DO 120 J = 1, N
-                        DO 110 I = 1, J
+                     for (J = 1; J <= N; J++) { // 120
+                        for (I = 1; I <= J; I++) { // 110
                            AP( IJ ) = A( I, J )
                            BP( IJ ) = B( I, J )
                            IJ = IJ + 1
@@ -466,8 +466,8 @@
   120                CONTINUE
                   } else {
                      IJ = 1
-                     DO 140 J = 1, N
-                        DO 130 I = J, N
+                     for (J = 1; J <= N; J++) { // 140
+                        for (I = J; I <= N; I++) { // 130
                            AP( IJ ) = A( I, J )
                            BP( IJ ) = B( I, J )
                            IJ = IJ + 1
@@ -499,8 +499,8 @@
 
                   if ( LSAME( UPLO, 'U' ) ) {
                      IJ = 1
-                     DO 160 J = 1, N
-                        DO 150 I = 1, J
+                     for (J = 1; J <= N; J++) { // 160
+                        for (I = 1; I <= J; I++) { // 150
                            AP( IJ ) = A( I, J )
                            BP( IJ ) = B( I, J )
                            IJ = IJ + 1
@@ -508,8 +508,8 @@
   160                CONTINUE
                   } else {
                      IJ = 1
-                     DO 180 J = 1, N
-                        DO 170 I = J, N
+                     for (J = 1; J <= N; J++) { // 180
+                        for (I = J; I <= N; I++) { // 170
                            AP( IJ ) = A( I, J )
                            BP( IJ ) = B( I, J )
                            IJ = IJ + 1
@@ -541,8 +541,8 @@
 
                   if ( LSAME( UPLO, 'U' ) ) {
                      IJ = 1
-                     DO 200 J = 1, N
-                        DO 190 I = 1, J
+                     for (J = 1; J <= N; J++) { // 200
+                        for (I = 1; I <= J; I++) { // 190
                            AP( IJ ) = A( I, J )
                            BP( IJ ) = B( I, J )
                            IJ = IJ + 1
@@ -550,8 +550,8 @@
   200                CONTINUE
                   } else {
                      IJ = 1
-                     DO 220 J = 1, N
-                        DO 210 I = J, N
+                     for (J = 1; J <= N; J++) { // 220
+                        for (I = J; I <= N; I++) { // 210
                            AP( IJ ) = A( I, J )
                            BP( IJ ) = B( I, J )
                            IJ = IJ + 1
@@ -581,8 +581,8 @@
 
                   if ( LSAME( UPLO, 'U' ) ) {
                      IJ = 1
-                     DO 240 J = 1, N
-                        DO 230 I = 1, J
+                     for (J = 1; J <= N; J++) { // 240
+                        for (I = 1; I <= J; I++) { // 230
                            AP( IJ ) = A( I, J )
                            BP( IJ ) = B( I, J )
                            IJ = IJ + 1
@@ -590,8 +590,8 @@
   240                CONTINUE
                   } else {
                      IJ = 1
-                     DO 260 J = 1, N
-                        DO 250 I = J, N
+                     for (J = 1; J <= N; J++) { // 260
+                        for (I = J; I <= N; I++) { // 250
                            AP( IJ ) = A( I, J )
                            BP( IJ ) = B( I, J )
                            IJ = IJ + 1
@@ -623,8 +623,8 @@
 
                   if ( LSAME( UPLO, 'U' ) ) {
                      IJ = 1
-                     DO 280 J = 1, N
-                        DO 270 I = 1, J
+                     for (J = 1; J <= N; J++) { // 280
+                        for (I = 1; I <= J; I++) { // 270
                            AP( IJ ) = A( I, J )
                            BP( IJ ) = B( I, J )
                            IJ = IJ + 1
@@ -632,8 +632,8 @@
   280                CONTINUE
                   } else {
                      IJ = 1
-                     DO 300 J = 1, N
-                        DO 290 I = J, N
+                     for (J = 1; J <= N; J++) { // 300
+                        for (I = J; I <= N; I++) { // 290
                            AP( IJ ) = A( I, J )
                            BP( IJ ) = B( I, J )
                            IJ = IJ + 1
@@ -668,7 +668,7 @@
                      // Copy the matrices into band storage.
 
                      if ( LSAME( UPLO, 'U' ) ) {
-                        DO 340 J = 1, N
+                        for (J = 1; J <= N; J++) { // 340
                            DO 320 I = MAX( 1, J-KA ), J
                               AB( KA+1+I-J, J ) = A( I, J )
   320                      CONTINUE
@@ -677,7 +677,7 @@
   330                      CONTINUE
   340                   CONTINUE
                      } else {
-                        DO 370 J = 1, N
+                        for (J = 1; J <= N; J++) { // 370
                            DO 350 I = J, MIN( N, J+KA )
                               AB( 1+I-J, J ) = A( I, J )
   350                      CONTINUE
@@ -710,7 +710,7 @@
                      // Copy the matrices into band storage.
 
                      if ( LSAME( UPLO, 'U' ) ) {
-                        DO 400 J = 1, N
+                        for (J = 1; J <= N; J++) { // 400
                            DO 380 I = MAX( 1, J-KA ), J
                               AB( KA+1+I-J, J ) = A( I, J )
   380                      CONTINUE
@@ -719,7 +719,7 @@
   390                      CONTINUE
   400                   CONTINUE
                      } else {
-                        DO 430 J = 1, N
+                        for (J = 1; J <= N; J++) { // 430
                            DO 410 I = J, MIN( N, J+KA )
                               AB( 1+I-J, J ) = A( I, J )
   410                      CONTINUE
@@ -752,7 +752,7 @@
                      // Copy the matrices into band storage.
 
                      if ( LSAME( UPLO, 'U' ) ) {
-                        DO 460 J = 1, N
+                        for (J = 1; J <= N; J++) { // 460
                            DO 440 I = MAX( 1, J-KA ), J
                               AB( KA+1+I-J, J ) = A( I, J )
   440                      CONTINUE
@@ -761,7 +761,7 @@
   450                      CONTINUE
   460                   CONTINUE
                      } else {
-                        DO 490 J = 1, N
+                        for (J = 1; J <= N; J++) { // 490
                            DO 470 I = J, MIN( N, J+KA )
                               AB( 1+I-J, J ) = A( I, J )
   470                      CONTINUE
@@ -793,7 +793,7 @@
                      // Copy the matrices into band storage.
 
                      if ( LSAME( UPLO, 'U' ) ) {
-                        DO 520 J = 1, N
+                        for (J = 1; J <= N; J++) { // 520
                            DO 500 I = MAX( 1, J-KA ), J
                               AB( KA+1+I-J, J ) = A( I, J )
   500                      CONTINUE
@@ -802,7 +802,7 @@
   510                      CONTINUE
   520                   CONTINUE
                      } else {
-                        DO 550 J = 1, N
+                        for (J = 1; J <= N; J++) { // 550
                            DO 530 I = J, MIN( N, J+KA )
                               AB( 1+I-J, J ) = A( I, J )
   530                      CONTINUE
@@ -835,7 +835,7 @@
                      // Copy the matrices into band storage.
 
                      if ( LSAME( UPLO, 'U' ) ) {
-                        DO 580 J = 1, N
+                        for (J = 1; J <= N; J++) { // 580
                            DO 560 I = MAX( 1, J-KA ), J
                               AB( KA+1+I-J, J ) = A( I, J )
   560                      CONTINUE
@@ -844,7 +844,7 @@
   570                      CONTINUE
   580                   CONTINUE
                      } else {
-                        DO 610 J = 1, N
+                        for (J = 1; J <= N; J++) { // 610
                            DO 590 I = J, MIN( N, J+KA )
                               AB( 1+I-J, J ) = A( I, J )
   590                      CONTINUE

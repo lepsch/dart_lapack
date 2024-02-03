@@ -31,7 +31,7 @@
 
          M = MOD(N,6)
          if (M.NE.0) {
-            DO I = 1,M
+            for (I = 1; I <= M; I++) {
                DTEMP = DTEMP + DABS(DX(I))
             END DO
             if (N.LT.6) {

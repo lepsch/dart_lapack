@@ -89,23 +89,23 @@
 
       // Begin test loop
 
-      DO 190 ID1 = 1, 4
+      for (ID1 = 1; ID1 <= 4; ID1++) { // 190
          D1 = VDD( ID1 )
-         DO 180 ID2 = 1, 4
+         for (ID2 = 1; ID2 <= 4; ID2++) { // 180
             D2 = VDD( ID2 )
-            DO 170 ICA = 1, 5
+            for (ICA = 1; ICA <= 5; ICA++) { // 170
                CA = VCA( ICA )
-               DO 160 ITRANS = 0, 1
-                  DO 150 ISMIN = 1, 4
+               for (ITRANS = 0; ITRANS <= 1; ITRANS++) { // 160
+                  for (ISMIN = 1; ISMIN <= 4; ISMIN++) { // 150
                      SMIN = VSMIN( ISMIN )
 
                      NA = 1
                      NW = 1
-                     DO 30 IA = 1, 3
+                     for (IA = 1; IA <= 3; IA++) { // 30
                         A( 1, 1 ) = VAB( IA )
-                        DO 20 IB = 1, 3
+                        for (IB = 1; IB <= 3; IB++) { // 20
                            B( 1, 1 ) = VAB( IB )
-                           DO 10 IWR = 1, 4
+                           for (IWR = 1; IWR <= 4; IWR++) { // 10
                               if ( D1.EQ.ONE .AND. D2.EQ.ONE .AND. CA.EQ. ONE ) {
                                  WR = VWR( IWR )*A( 1, 1 )
                               } else {
@@ -133,18 +133,18 @@
 
                      NA = 1
                      NW = 2
-                     DO 70 IA = 1, 3
+                     for (IA = 1; IA <= 3; IA++) { // 70
                         A( 1, 1 ) = VAB( IA )
-                        DO 60 IB = 1, 3
+                        for (IB = 1; IB <= 3; IB++) { // 60
                            B( 1, 1 ) = VAB( IB )
                            B( 1, 2 ) = -HALF*VAB( IB )
-                           DO 50 IWR = 1, 4
+                           for (IWR = 1; IWR <= 4; IWR++) { // 50
                               if ( D1.EQ.ONE .AND. D2.EQ.ONE .AND. CA.EQ. ONE ) {
                                  WR = VWR( IWR )*A( 1, 1 )
                               } else {
                                  WR = VWR( IWR )
                               }
-                              DO 40 IWI = 1, 4
+                              for (IWI = 1; IWI <= 4; IWI++) { // 40
                                  if ( D1.EQ.ONE .AND. D2.EQ.ONE .AND. CA.EQ.ONE ) {
                                     WI = VWI( IWI )*A( 1, 1 )
                                  } else {
@@ -173,15 +173,15 @@
 
                      NA = 2
                      NW = 1
-                     DO 100 IA = 1, 3
+                     for (IA = 1; IA <= 3; IA++) { // 100
                         A( 1, 1 ) = VAB( IA )
                         A( 1, 2 ) = -THREE*VAB( IA )
                         A( 2, 1 ) = -SEVEN*VAB( IA )
                         A( 2, 2 ) = TWNONE*VAB( IA )
-                        DO 90 IB = 1, 3
+                        for (IB = 1; IB <= 3; IB++) { // 90
                            B( 1, 1 ) = VAB( IB )
                            B( 2, 1 ) = -TWO*VAB( IB )
-                           DO 80 IWR = 1, 4
+                           for (IWR = 1; IWR <= 4; IWR++) { // 80
                               if ( D1.EQ.ONE .AND. D2.EQ.ONE .AND. CA.EQ. ONE ) {
                                  WR = VWR( IWR )*A( 1, 1 )
                               } else {
@@ -216,23 +216,23 @@
 
                      NA = 2
                      NW = 2
-                     DO 140 IA = 1, 3
+                     for (IA = 1; IA <= 3; IA++) { // 140
                         A( 1, 1 ) = VAB( IA )*TWO
                         A( 1, 2 ) = -THREE*VAB( IA )
                         A( 2, 1 ) = -SEVEN*VAB( IA )
                         A( 2, 2 ) = TWNONE*VAB( IA )
-                        DO 130 IB = 1, 3
+                        for (IB = 1; IB <= 3; IB++) { // 130
                            B( 1, 1 ) = VAB( IB )
                            B( 2, 1 ) = -TWO*VAB( IB )
                            B( 1, 2 ) = FOUR*VAB( IB )
                            B( 2, 2 ) = -SEVEN*VAB( IB )
-                           DO 120 IWR = 1, 4
+                           for (IWR = 1; IWR <= 4; IWR++) { // 120
                               if ( D1.EQ.ONE .AND. D2.EQ.ONE .AND. CA.EQ. ONE ) {
                                  WR = VWR( IWR )*A( 1, 1 )
                               } else {
                                  WR = VWR( IWR )
                               }
-                              DO 110 IWI = 1, 4
+                              for (IWI = 1; IWI <= 4; IWI++) { // 110
                                  if ( D1.EQ.ONE .AND. D2.EQ.ONE .AND. CA.EQ.ONE ) {
                                     WI = VWI( IWI )*A( 1, 1 )
                                  } else {

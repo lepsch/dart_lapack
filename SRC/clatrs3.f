@@ -114,7 +114,7 @@
 
       // Initialize scaling factors
 
-      DO KK = 1, NRHS
+      for (KK = 1; KK <= NRHS; KK++) {
          SCALE( KK ) = ONE
       END DO
 
@@ -131,7 +131,7 @@
 
       if ( NRHS.LT.NRHSMIN ) {
          clatrs(UPLO, TRANS, DIAG, NORMIN, N, A, LDA, X( 1, 1 ), SCALE( 1 ), CNORM, INFO );
-         DO K = 2, NRHS
+         for (K = 2; K <= NRHS; K++) {
             clatrs(UPLO, TRANS, DIAG, 'Y', N, A, LDA, X( 1, K ), SCALE( K ), CNORM, INFO );
          END DO
          RETURN
@@ -141,7 +141,7 @@
       // the block with the largest norm TMAX.
 
       TMAX = ZERO
-      DO J = 1, NBA
+      for (J = 1; J <= NBA; J++) {
          J1 = (J-1)*NB + 1
          J2 = MIN( J*NB, N ) + 1
          if ( UPPER ) {
@@ -151,7 +151,7 @@
             IFIRST = J + 1
             ILAST = NBA
          }
-         DO I = IFIRST, ILAST
+         for (I = IFIRST; I <= ILAST; I++) {
             I1 = (I-1)*NB + 1
             I2 = MIN( I*NB, N ) + 1
 
@@ -177,7 +177,7 @@
          // force computation of TSCAL in LATRS to avoid the likely overflow
          // in the computation of the column norms CNORM.
 
-         DO K = 1, NRHS
+         for (K = 1; K <= NRHS; K++) {
             clatrs(UPLO, TRANS, DIAG, 'N', N, A, LDA, X( 1, K ), SCALE( K ), CNORM, INFO );
          END DO
          RETURN
@@ -187,7 +187,7 @@
       // factors. To save workspace, X is computed successively in block columns
       // of width NBRHS, requiring a total of NBA x NBRHS space. If sufficient
       // workspace is available, larger values of NBRHS or NBRHS = NRHS are viable.
-      DO K = 1, NBX
+      for (K = 1; K <= NBX; K++) {
          // Loop over block columns (index = K) of X and, for column-wise scalings,
          // over individual columns (index = KK).
          // K1: column index of the first column in X( J, K )
@@ -199,7 +199,7 @@
          // Initialize local scaling factors of current block column X( J, K )
 
          DO KK = 1, K2-K1
-            DO I = 1, NBA
+            for (I = 1; I <= NBA; I++) {
                WORK( I+KK*LDS ) = ONE
             END DO
          END DO
@@ -263,11 +263,11 @@
                   DO II = 1, J1-1
                      X( II, KK ) = CZERO
                   END DO
-                  DO II = J2, N
+                  for (II = J2; II <= N; II++) {
                      X( II, KK ) = CZERO
                   END DO
                   // Discard the local scale factors.
-                  DO II = 1, NBA
+                  for (II = 1; II <= NBA; II++) {
                      WORK( II+KK*LDS ) = ONE
                   END DO
                   SCALOC = ONE
@@ -296,11 +296,11 @@
                      // where a completely meaningless non-zero vector
                      // is returned that is not a solution to op(A) * x = b.
                      SCALE( RHS ) = ZERO
-                     DO II = 1, N
+                     for (II = 1; II <= N; II++) {
                         X( II, KK ) = CZERO
                      END DO
                      // Discard the local scale factors.
-                     DO II = 1, NBA
+                     for (II = 1; II <= NBA; II++) {
                         WORK( II+KK*LDS ) = ONE
                      END DO
                      SCALOC = ONE
@@ -400,7 +400,7 @@
 
          DO KK = 1, K2-K1
             RHS = K1 + KK - 1
-            DO I = 1, NBA
+            for (I = 1; I <= NBA; I++) {
                SCALE( RHS ) = MIN( SCALE( RHS ), WORK( I+KK*LDS ) )
             END DO
          END DO
@@ -410,7 +410,7 @@
          DO KK = 1, K2-K1
             RHS = K1 + KK - 1
             if ( SCALE( RHS ).NE.ONE .AND. SCALE( RHS ).NE. ZERO ) {
-               DO I = 1, NBA
+               for (I = 1; I <= NBA; I++) {
                   I1 = (I-1)*NB + 1
                   I2 = MIN( I*NB, N ) + 1
                   SCAL = SCALE( RHS ) / WORK( I+KK*LDS )

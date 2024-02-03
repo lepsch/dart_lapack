@@ -131,7 +131,7 @@
       // Compute approximate maximum, minimum singular values
 
       SMAX = ZERO
-      DO 20 I = 1, N
+      for (I = 1; I <= N; I++) { // 20
          SMAX = MAX( SMAX, ABS( D( I ) ) )
    20 CONTINUE
       DO 30 I = 1, N - 1
@@ -145,7 +145,7 @@
          SMINOA = ABS( D( 1 ) )
          IF( SMINOA.EQ.ZERO ) GO TO 50
          MU = SMINOA
-         DO 40 I = 2, N
+         for (I = 2; I <= N; I++) { // 40
             MU = ABS( D( I ) )*( MU / ( MU+ABS( E( I-1 ) ) ) )
             SMINOA = MIN( SMINOA, MU )
             IF( SMINOA.EQ.ZERO ) GO TO 50
@@ -486,7 +486,7 @@
       // All singular values converged, so make them positive
 
   160 CONTINUE
-      DO 170 I = 1, N
+      for (I = 1; I <= N; I++) { // 170
          if ( D( I ).LT.ZERO ) {
             D( I ) = -D( I )
 

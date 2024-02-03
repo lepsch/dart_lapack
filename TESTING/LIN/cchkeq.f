@@ -49,21 +49,21 @@
       PATH( 2:3 ) = 'EQ'
 
       EPS = SLAMCH( 'P' )
-      DO 10 I = 1, 5
+      for (I = 1; I <= 5; I++) { // 10
          RESLTS( I ) = ZERO
    10 CONTINUE
-      DO 20 I = 1, NPOW
+      for (I = 1; I <= NPOW; I++) { // 20
          POW( I ) = TEN**( I-1 )
          RPOW( I ) = ONE / POW( I )
    20 CONTINUE
 
       // Test CGEEQU
 
-      DO 80 N = 0, NSZ
-         DO 70 M = 0, NSZ
+      for (N = 0; N <= NSZ; N++) { // 80
+         for (M = 0; M <= NSZ; M++) { // 70
 
-            DO 40 J = 1, NSZ
-               DO 30 I = 1, NSZ
+            for (J = 1; J <= NSZ; J++) { // 40
+               for (I = 1; I <= NSZ; I++) { // 30
                   if ( I.LE.M .AND. J.LE.N ) {
                      A( I, J ) = POW( I+J+1 )*( -1 )**( I+J )
                   } else {
@@ -79,10 +79,10 @@
             } else {
                if ( N.NE.0 .AND. M.NE.0 ) {
                   RESLTS( 1 ) = MAX( RESLTS( 1 ), ABS( ( RCOND-RPOW( M ) ) / RPOW( M ) ) )                   RESLTS( 1 ) = MAX( RESLTS( 1 ), ABS( ( CCOND-RPOW( N ) ) / RPOW( N ) ) )                   RESLTS( 1 ) = MAX( RESLTS( 1 ), ABS( ( NORM-POW( N+M+1 ) ) / POW( N+M+ 1 ) ) )
-                  DO 50 I = 1, M
+                  for (I = 1; I <= M; I++) { // 50
                      RESLTS( 1 ) = MAX( RESLTS( 1 ), ABS( ( R( I )-RPOW( I+N+1 ) ) / RPOW( I+N+1 ) ) )
    50             CONTINUE
-                  DO 60 J = 1, N
+                  for (J = 1; J <= N; J++) { // 60
                      RESLTS( 1 ) = MAX( RESLTS( 1 ), ABS( ( C( J )-POW( N-J+1 ) ) / POW( N-J+1 ) ) )
    60             CONTINUE
                }
@@ -93,16 +93,16 @@
 
       // Test with zero rows and columns
 
-      DO 90 J = 1, NSZ
+      for (J = 1; J <= NSZ; J++) { // 90
          A( MAX( NSZ-1, 1 ), J ) = CZERO
    90 CONTINUE
       cgeequ(NSZ, NSZ, A, NSZ, R, C, RCOND, CCOND, NORM, INFO );
       IF( INFO.NE.MAX( NSZ-1, 1 ) ) RESLTS( 1 ) = ONE
 
-      DO 100 J = 1, NSZ
+      for (J = 1; J <= NSZ; J++) { // 100
          A( MAX( NSZ-1, 1 ), J ) = CONE
   100 CONTINUE
-      DO 110 I = 1, NSZ
+      for (I = 1; I <= NSZ; I++) { // 110
          A( I, MAX( NSZ-1, 1 ) ) = CZERO
   110 CONTINUE
       cgeequ(NSZ, NSZ, A, NSZ, R, C, RCOND, CCOND, NORM, INFO );
@@ -111,18 +111,18 @@
 
       // Test CGBEQU
 
-      DO 250 N = 0, NSZ
-         DO 240 M = 0, NSZ
+      for (N = 0; N <= NSZ; N++) { // 250
+         for (M = 0; M <= NSZ; M++) { // 240
             DO 230 KL = 0, MAX( M-1, 0 )
                DO 220 KU = 0, MAX( N-1, 0 )
 
-                  DO 130 J = 1, NSZ
-                     DO 120 I = 1, NSZB
+                  for (J = 1; J <= NSZ; J++) { // 130
+                     for (I = 1; I <= NSZB; I++) { // 120
                         AB( I, J ) = CZERO
   120                CONTINUE
   130             CONTINUE
-                  DO 150 J = 1, N
-                     DO 140 I = 1, M
+                  for (J = 1; J <= N; J++) { // 150
+                     for (I = 1; I <= M; I++) { // 140
                         IF( I.LE.MIN( M, J+KL ) .AND. I.GE. MAX( 1, J-KU ) .AND. J.LE.N ) THEN                            AB( KU+1+I-J, J ) = POW( I+J+1 )* ( -1 )**( I+J )
                         }
   140                CONTINUE
@@ -139,7 +139,7 @@
 
                         RCMIN = R( 1 )
                         RCMAX = R( 1 )
-                        DO 160 I = 1, M
+                        for (I = 1; I <= M; I++) { // 160
                            RCMIN = MIN( RCMIN, R( I ) )
                            RCMAX = MAX( RCMAX, R( I ) )
   160                   CONTINUE
@@ -148,7 +148,7 @@
 
                         RCMIN = C( 1 )
                         RCMAX = C( 1 )
-                        DO 170 J = 1, N
+                        for (J = 1; J <= N; J++) { // 170
                            RCMIN = MIN( RCMIN, C( J ) )
                            RCMAX = MAX( RCMAX, C( J ) )
   170                   CONTINUE
@@ -156,9 +156,9 @@
                         RESLTS( 2 ) = MAX( RESLTS( 2 ), ABS( ( CCOND-RATIO ) / RATIO ) )
 
                         RESLTS( 2 ) = MAX( RESLTS( 2 ), ABS( ( NORM-POW( N+M+1 ) ) / POW( N+M+1 ) ) )
-                        DO 190 I = 1, M
+                        for (I = 1; I <= M; I++) { // 190
                            RCMAX = ZERO
-                           DO 180 J = 1, N
+                           for (J = 1; J <= N; J++) { // 180
                               if ( I.LE.J+KL .AND. I.GE.J-KU ) {
                                  RATIO = ABS( R( I )*POW( I+J+1 )* C( J ) )
                                  RCMAX = MAX( RCMAX, RATIO )
@@ -167,9 +167,9 @@
                            RESLTS( 2 ) = MAX( RESLTS( 2 ), ABS( ONE-RCMAX ) )
   190                   CONTINUE
 
-                        DO 210 J = 1, N
+                        for (J = 1; J <= N; J++) { // 210
                            RCMAX = ZERO
-                           DO 200 I = 1, M
+                           for (I = 1; I <= M; I++) { // 200
                               if ( I.LE.J+KL .AND. I.GE.J-KU ) {
                                  RATIO = ABS( R( I )*POW( I+J+1 )* C( J ) )
                                  RCMAX = MAX( RCMAX, RATIO )
@@ -188,10 +188,10 @@
 
       // Test CPOEQU
 
-      DO 290 N = 0, NSZ
+      for (N = 0; N <= NSZ; N++) { // 290
 
-         DO 270 I = 1, NSZ
-            DO 260 J = 1, NSZ
+         for (I = 1; I <= NSZ; I++) { // 270
+            for (J = 1; J <= NSZ; J++) { // 260
                if ( I.LE.N .AND. J.EQ.I ) {
                   A( I, J ) = POW( I+J+1 )*( -1 )**( I+J )
                } else {
@@ -207,7 +207,7 @@
          } else {
             if ( N.NE.0 ) {
                RESLTS( 3 ) = MAX( RESLTS( 3 ), ABS( ( RCOND-RPOW( N ) ) / RPOW( N ) ) )                RESLTS( 3 ) = MAX( RESLTS( 3 ), ABS( ( NORM-POW( 2*N+1 ) ) / POW( 2*N+ 1 ) ) )
-               DO 280 I = 1, N
+               for (I = 1; I <= N; I++) { // 280
                   RESLTS( 3 ) = MAX( RESLTS( 3 ), ABS( ( R( I )-RPOW( I+1 ) ) / RPOW( I+ 1 ) ) )
   280          CONTINUE
             }
@@ -220,14 +220,14 @@
 
       // Test CPPEQU
 
-      DO 360 N = 0, NSZ
+      for (N = 0; N <= NSZ; N++) { // 360
 
          // Upper triangular packed storage
 
          DO 300 I = 1, ( N*( N+1 ) ) / 2
             AP( I ) = CZERO
   300    CONTINUE
-         DO 310 I = 1, N
+         for (I = 1; I <= N; I++) { // 310
             AP( ( I*( I+1 ) ) / 2 ) = POW( 2*I+1 )
   310    CONTINUE
 
@@ -238,7 +238,7 @@
          } else {
             if ( N.NE.0 ) {
                RESLTS( 4 ) = MAX( RESLTS( 4 ), ABS( ( RCOND-RPOW( N ) ) / RPOW( N ) ) )                RESLTS( 4 ) = MAX( RESLTS( 4 ), ABS( ( NORM-POW( 2*N+1 ) ) / POW( 2*N+ 1 ) ) )
-               DO 320 I = 1, N
+               for (I = 1; I <= N; I++) { // 320
                   RESLTS( 4 ) = MAX( RESLTS( 4 ), ABS( ( R( I )-RPOW( I+1 ) ) / RPOW( I+ 1 ) ) )
   320          CONTINUE
             }
@@ -250,7 +250,7 @@
             AP( I ) = CZERO
   330    CONTINUE
          J = 1
-         DO 340 I = 1, N
+         for (I = 1; I <= N; I++) { // 340
             AP( J ) = POW( 2*I+1 )
             J = J + ( N-I+1 )
   340    CONTINUE
@@ -262,7 +262,7 @@
          } else {
             if ( N.NE.0 ) {
                RESLTS( 4 ) = MAX( RESLTS( 4 ), ABS( ( RCOND-RPOW( N ) ) / RPOW( N ) ) )                RESLTS( 4 ) = MAX( RESLTS( 4 ), ABS( ( NORM-POW( 2*N+1 ) ) / POW( 2*N+ 1 ) ) )
-               DO 350 I = 1, N
+               for (I = 1; I <= N; I++) { // 350
                   RESLTS( 4 ) = MAX( RESLTS( 4 ), ABS( ( R( I )-RPOW( I+1 ) ) / RPOW( I+ 1 ) ) )
   350          CONTINUE
             }
@@ -277,17 +277,17 @@
 
       // Test CPBEQU
 
-      DO 460 N = 0, NSZ
+      for (N = 0; N <= NSZ; N++) { // 460
          DO 450 KL = 0, MAX( N-1, 0 )
 
             // Test upper triangular storage
 
-            DO 380 J = 1, NSZ
-               DO 370 I = 1, NSZB
+            for (J = 1; J <= NSZ; J++) { // 380
+               for (I = 1; I <= NSZB; I++) { // 370
                   AB( I, J ) = CZERO
   370          CONTINUE
   380       CONTINUE
-            DO 390 J = 1, N
+            for (J = 1; J <= N; J++) { // 390
                AB( KL+1, J ) = POW( 2*J+1 )
   390       CONTINUE
 
@@ -298,7 +298,7 @@
             } else {
                if ( N.NE.0 ) {
                   RESLTS( 5 ) = MAX( RESLTS( 5 ), ABS( ( RCOND-RPOW( N ) ) / RPOW( N ) ) )                   RESLTS( 5 ) = MAX( RESLTS( 5 ), ABS( ( NORM-POW( 2*N+1 ) ) / POW( 2*N+ 1 ) ) )
-                  DO 400 I = 1, N
+                  for (I = 1; I <= N; I++) { // 400
                      RESLTS( 5 ) = MAX( RESLTS( 5 ), ABS( ( R( I )-RPOW( I+1 ) ) / RPOW( I+1 ) ) )
   400             CONTINUE
                }
@@ -311,12 +311,12 @@
 
             // Test lower triangular storage
 
-            DO 420 J = 1, NSZ
-               DO 410 I = 1, NSZB
+            for (J = 1; J <= NSZ; J++) { // 420
+               for (I = 1; I <= NSZB; I++) { // 410
                   AB( I, J ) = CZERO
   410          CONTINUE
   420       CONTINUE
-            DO 430 J = 1, N
+            for (J = 1; J <= N; J++) { // 430
                AB( 1, J ) = POW( 2*J+1 )
   430       CONTINUE
 
@@ -327,7 +327,7 @@
             } else {
                if ( N.NE.0 ) {
                   RESLTS( 5 ) = MAX( RESLTS( 5 ), ABS( ( RCOND-RPOW( N ) ) / RPOW( N ) ) )                   RESLTS( 5 ) = MAX( RESLTS( 5 ), ABS( ( NORM-POW( 2*N+1 ) ) / POW( 2*N+ 1 ) ) )
-                  DO 440 I = 1, N
+                  for (I = 1; I <= N; I++) { // 440
                      RESLTS( 5 ) = MAX( RESLTS( 5 ), ABS( ( R( I )-RPOW( I+1 ) ) / RPOW( I+1 ) ) )
   440             CONTINUE
                }

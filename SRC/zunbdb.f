@@ -106,7 +106,7 @@
 
          // Reduce columns 1, ..., Q of X11, X12, X21, and X22
 
-         DO I = 1, Q
+         for (I = 1; I <= Q; I++) {
 
             if ( I .EQ. 1 ) {
                zscal(P-I+1, DCMPLX( Z1, 0.0D0 ), X11(I,I), 1 );
@@ -222,7 +222,7 @@
 
          // Reduce columns 1, ..., Q of X11, X12, X21, X22
 
-         DO I = 1, Q
+         for (I = 1; I <= Q; I++) {
 
             if ( I .EQ. 1 ) {
                zscal(P-I+1, DCMPLX( Z1, 0.0D0 ), X11(I,I), LDX11 );

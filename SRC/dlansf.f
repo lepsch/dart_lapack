@@ -103,14 +103,14 @@
             if ( IFM.EQ.1 ) {
                // A is n+1 by k
                DO J = 0, K - 1
-                  DO I = 0, N
+                  for (I = 0; I <= N; I++) {
                      TEMP = ABS( A( I+J*LDA ) )
                      IF( VALUE .LT. TEMP .OR. DISNAN( TEMP ) ) VALUE = TEMP
                   END DO
                END DO
             } else {
                // xpose case; A is k by n+1
-               DO J = 0, N
+               for (J = 0; J <= N; J++) {
                   DO I = 0, K - 1
                      TEMP = ABS( A( I+J*LDA ) )
                      IF( VALUE .LT. TEMP .OR. DISNAN( TEMP ) ) VALUE = TEMP
@@ -130,7 +130,7 @@
                   DO I = 0, K - 1
                      WORK( I ) = ZERO
                   END DO
-                  DO J = 0, K
+                  for (J = 0; J <= K; J++) {
                      S = ZERO
                      DO I = 0, K + J - 1
                         AA = ABS( A( I+J*LDA ) )

@@ -304,7 +304,7 @@
          THR = MAX( RCOND*S( 1 ), SFMIN )
          IF( RCOND.LT.ZERO ) THR = MAX( EPS*S( 1 ), SFMIN )
          RANK = 0
-         DO 10 I = 1, N
+         for (I = 1; I <= N; I++) { // 10
             if ( S( I ).GT.THR ) {
                drscl(NRHS, S( I ), B( I, 1 ), LDB );
                RANK = RANK + 1
@@ -384,7 +384,7 @@
          THR = MAX( RCOND*S( 1 ), SFMIN )
          IF( RCOND.LT.ZERO ) THR = MAX( EPS*S( 1 ), SFMIN )
          RANK = 0
-         DO 30 I = 1, M
+         for (I = 1; I <= M; I++) { // 30
             if ( S( I ).GT.THR ) {
                drscl(NRHS, S( I ), B( I, 1 ), LDB );
                RANK = RANK + 1
@@ -458,7 +458,7 @@
          THR = MAX( RCOND*S( 1 ), SFMIN )
          IF( RCOND.LT.ZERO ) THR = MAX( EPS*S( 1 ), SFMIN )
          RANK = 0
-         DO 50 I = 1, M
+         for (I = 1; I <= M; I++) { // 50
             if ( S( I ).GT.THR ) {
                drscl(NRHS, S( I ), B( I, 1 ), LDB );
                RANK = RANK + 1

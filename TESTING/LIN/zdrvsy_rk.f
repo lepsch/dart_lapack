@@ -79,7 +79,7 @@
       NRUN = 0
       NFAIL = 0
       NERRS = 0
-      DO 10 I = 1, 4
+      for (I = 1; I <= 4; I++) { // 10
          ISEED( I ) = ISEEDY( I )
    10 CONTINUE
       LWORK = MAX( 2*NMAX, NMAX*NRHS )
@@ -99,14 +99,14 @@
 
       // Do for each value of N in NVAL
 
-      DO 180 IN = 1, NN
+      for (IN = 1; IN <= NN; IN++) { // 180
          N = NVAL( IN )
          LDA = MAX( N, 1 )
          XTYPE = 'N'
          NIMAT = NTYPES
          IF( N.LE.0 ) NIMAT = 1
 
-         DO 170 IMAT = 1, NIMAT
+         for (IMAT = 1; IMAT <= NIMAT; IMAT++) { // 170
 
             // Do the tests only if DOTYPE( IMAT ) is true.
 
@@ -119,7 +119,7 @@
 
             // Do first for UPLO = 'U', then for UPLO = 'L'
 
-            DO 160 IUPLO = 1, 2
+            for (IUPLO = 1; IUPLO <= 2; IUPLO++) { // 160
                UPLO = UPLOS( IUPLO )
 
                if ( IMAT.NE.NTYPES ) {
@@ -165,7 +165,7 @@
                               A( IOFF+I ) = ZERO
    20                      CONTINUE
                            IOFF = IOFF + IZERO
-                           DO 30 I = IZERO, N
+                           for (I = IZERO; I <= N; I++) { // 30
                               A( IOFF ) = ZERO
                               IOFF = IOFF + LDA
    30                      CONTINUE
@@ -176,7 +176,7 @@
                               IOFF = IOFF + LDA
    40                      CONTINUE
                            IOFF = IOFF - IZERO
-                           DO 50 I = IZERO, N
+                           for (I = IZERO; I <= N; I++) { // 50
                               A( IOFF+I ) = ZERO
    50                      CONTINUE
                         }
@@ -186,9 +186,9 @@
                         // Set the first IZERO rows and columns to zero.
 
                            IOFF = 0
-                           DO 70 J = 1, N
+                           for (J = 1; J <= N; J++) { // 70
                               I2 = MIN( J, IZERO )
-                              DO 60 I = 1, I2
+                              for (I = 1; I <= I2; I++) { // 60
                                  A( IOFF+I ) = ZERO
    60                         CONTINUE
                               IOFF = IOFF + LDA
@@ -198,9 +198,9 @@
                         // Set the first IZERO rows and columns to zero.
 
                            IOFF = 0
-                           DO 90 J = 1, N
+                           for (J = 1; J <= N; J++) { // 90
                               I1 = MAX( J, IZERO )
-                              DO 80 I = I1, N
+                              for (I = I1; I <= N; I++) { // 80
                                  A( IOFF+I ) = ZERO
    80                         CONTINUE
                               IOFF = IOFF + LDA
@@ -218,7 +218,7 @@
                   zlatsy(UPLO, N, A, LDA, ISEED );
                }
 
-               DO 150 IFACT = 1, NFACT
+               for (IFACT = 1; IFACT <= NFACT; IFACT++) { // 150
 
                   // Do first for FACT = 'F', then for other values.
 
@@ -326,7 +326,7 @@
                      // Print information about the tests that did not pass
                      // the threshold.
 
-                     DO 110 K = 1, NT
+                     for (K = 1; K <= NT; K++) { // 110
                         if ( RESULT( K ).GE.THRESH ) {
                            IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALADHD( NOUT, PATH )                            WRITE( NOUT, FMT = 9999 )'ZSYSV_RK', UPLO, N, IMAT, K, RESULT( K )
                            NFAIL = NFAIL + 1

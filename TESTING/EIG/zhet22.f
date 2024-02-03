@@ -58,12 +58,12 @@
       NN = N*N
       NNP1 = NN + 1
       zgemm('C', 'N', M, M, N, CONE, U, LDU, WORK, N, CZERO, WORK( NNP1 ), N );
-      DO 10 J = 1, M
+      for (J = 1; J <= M; J++) { // 10
          JJ = NN + ( J-1 )*N + J
          WORK( JJ ) = WORK( JJ ) - D( J )
    10 CONTINUE
       if ( KBAND.EQ.1 .AND. N.GT.1 ) {
-         DO 20 J = 2, M
+         for (J = 2; J <= M; J++) { // 20
             JJ1 = NN + ( J-1 )*N + J - 1
             JJ2 = NN + ( J-2 )*N + J
             WORK( JJ1 ) = WORK( JJ1 ) - E( J-1 )

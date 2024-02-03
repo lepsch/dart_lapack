@@ -69,12 +69,12 @@
 
       // Put random numbers into A and copy to AF
 
-      DO J=1,N
+      for (J = 1; J <= N; J++) {
          clarnv(2, ISEED, M, A( 1, J ) );
       END DO
       if (TESTZEROS) {
          if (M.GE.4) {
-            DO J=1,N
+            for (J = 1; J <= N; J++) {
                clarnv(2, ISEED, M/2, A( M/4, J ) );
             END DO
          }
@@ -134,7 +134,7 @@
 
       // Generate random m-by-n matrix C and a copy CF
 
-      DO J=1,N
+      for (J = 1; J <= N; J++) {
          clarnv(2, ISEED, M, C( 1, J ) );
       END DO
       CNORM = CLANGE( '1', M, N, C, M, RWORK)
@@ -176,7 +176,7 @@
 
       // Generate random n-by-m matrix D and a copy DF
 
-      DO J=1,M
+      for (J = 1; J <= M; J++) {
          clarnv(2, ISEED, N, D( 1, J ) );
       END DO
       DNORM = CLANGE( '1', N, M, D, N, RWORK)
@@ -268,7 +268,7 @@
 
       // Generate random m-by-n matrix C and a copy CF
 
-      DO J=1,M
+      for (J = 1; J <= M; J++) {
          clarnv(2, ISEED, N, D( 1, J ) );
       END DO
       DNORM = CLANGE( '1', N, M, D, N, RWORK)
@@ -308,7 +308,7 @@
 
       // Generate random n-by-m matrix D and a copy DF
 
-      DO J=1,N
+      for (J = 1; J <= N; J++) {
          clarnv(2, ISEED, M, C( 1, J ) );
       END DO
       CNORM = CLANGE( '1', M, N, C, M, RWORK)

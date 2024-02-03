@@ -77,7 +77,7 @@
       NMAX = 1
       MNMAX = 1
       MINWRK = 1
-      DO 10 J = 1, NSIZES
+      for (J = 1; J <= NSIZES; J++) { // 10
          MMAX = MAX( MMAX, MM( J ) )
          IF( MM( J ).LT.0 ) BADMM = .TRUE.
          NMAX = MAX( NMAX, NN( J ) )
@@ -126,7 +126,7 @@
 
       // Loop over sizes, types
 
-      DO 240 JSIZE = 1, NSIZES
+      for (JSIZE = 1; JSIZE <= NSIZES; JSIZE++) { // 240
          M = MM( JSIZE )
          N = NN( JSIZE )
          MNMIN = MIN( M, N )
@@ -137,10 +137,10 @@
             MTYPES = MIN( MAXTYP+1, NTYPES )
          }
 
-         DO 230 JTYPE = 1, MTYPES
+         for (JTYPE = 1; JTYPE <= MTYPES; JTYPE++) { // 230
             IF( .NOT.DOTYPE( JTYPE ) ) GO TO 230
 
-            DO 20 J = 1, 4
+            for (J = 1; J <= 4; J++) { // 20
                IOLDSD( J ) = ISEED( J )
    20       CONTINUE
 
@@ -177,9 +177,9 @@
 
             // Do for minimal and adequate (for blocking) workspace
 
-            DO 220 IWS = 1, 4
+            for (IWS = 1; IWS <= 4; IWS++) { // 220
 
-               DO 40 J = 1, 32
+               for (J = 1; J <= 32; J++) { // 40
                   RESULT( J ) = -ONE
    40          CONTINUE
 
@@ -219,8 +219,8 @@
                RESULT( 5 ) = ZERO
                RESULT( 6 ) = ZERO
                RESULT( 7 ) = ZERO
-               DO 80 IJU = 0, 3
-                  DO 70 IJVT = 0, 3
+               for (IJU = 0; IJU <= 3; IJU++) { // 80
+                  for (IJVT = 0; IJVT <= 3; IJVT++) { // 70
                      IF( ( IJU.EQ.3 .AND. IJVT.EQ.3 ) .OR. ( IJU.EQ.1 .AND. IJVT.EQ.1 ) )GO TO 70
                      JOBU = CJOB( IJU+1 )
                      JOBVT = CJOB( IJVT+1 )
@@ -304,7 +304,7 @@
                RESULT( 12 ) = ZERO
                RESULT( 13 ) = ZERO
                RESULT( 14 ) = ZERO
-               DO 110 IJQ = 0, 2
+               for (IJQ = 0; IJQ <= 2; IJQ++) { // 110
                   JOBQ = CJOB( IJQ+1 )
                   slacpy('F', M, N, ASAV, LDA, A, LDA );
                   SRNAMT = 'SGESDD'
@@ -417,8 +417,8 @@
 
                   // SGESVJ returns V not VT
 
-                  DO J=1,N
-                     DO I=1,N
+                  for (J = 1; J <= N; J++) {
+                     for (I = 1; I <= N; I++) {
                         VTSAV(J,I) = A(I,J)
                      END DO
                   END DO
@@ -464,8 +464,8 @@
 
                   // SGEJSV returns V not VT
 
-                  DO 140 J=1,N
-                     DO 130 I=1,N
+                  for (J = 1; J <= N; J++) { // 140
+                     for (I = 1; I <= N; I++) { // 130
                         VTSAV(J,I) = A(I,J)
   130                END DO
   140             END DO
@@ -523,8 +523,8 @@
                RESULT( 27 ) = ZERO
                RESULT( 28 ) = ZERO
                RESULT( 29 ) = ZERO
-               DO 180 IJU = 0, 1
-                  DO 170 IJVT = 0, 1
+               for (IJU = 0; IJU <= 1; IJU++) { // 180
+                  for (IJVT = 0; IJVT <= 1; IJVT++) { // 170
                      IF( ( IJU.EQ.0 .AND. IJVT.EQ.0 ) .OR. ( IJU.EQ.1 .AND. IJVT.EQ.1 ) )GO TO 170
                      JOBU = CJOBV( IJU+1 )
                      JOBVT = CJOBV( IJVT+1 )
@@ -566,7 +566,7 @@
 
                // Do tests 30--32: SGESVDX( 'V', 'V', 'I' )
 
-               DO 200 I = 1, 4
+               for (I = 1; I <= 4; I++) { // 200
                   ISEED2( I ) = ISEED( I )
   200          CONTINUE
                if ( MNMIN.LE.1 ) {
@@ -629,7 +629,7 @@
 
                // End of Loop -- Check for RESULT(j) > THRESH
 
-               DO 210 J = 1, 39
+               for (J = 1; J <= 39; J++) { // 210
                   if ( RESULT( J ).GE.THRESH ) {
                      if ( NFAIL.EQ.0 ) {
                         WRITE( NOUT, FMT = 9999 )

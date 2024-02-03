@@ -66,7 +66,7 @@
          RETURN
       }
 
-      DO 20 I = 1, N
+      for (I = 1; I <= N; I++) { // 20
          SIGMX = MAX( SIGMX, D( I ) )
    20 CONTINUE
 
@@ -90,7 +90,7 @@
       slasq2(N, WORK, INFO );
 
       if ( INFO.EQ.0 ) {
-         DO 40 I = 1, N
+         for (I = 1; I <= N; I++) { // 40
             D( I ) = SQRT( WORK( I ) )
    40    CONTINUE
          slascl('G', 0, 0, SCALE, SIGMX, N, 1, D, N, IINFO );
@@ -99,7 +99,7 @@
       // Maximum number of iterations exceeded.  Move data from WORK
       // into D and E so the calling subroutine can try to finish
 
-         DO I = 1, N
+         for (I = 1; I <= N; I++) {
             D( I ) = SQRT( WORK( 2*I-1 ) )
             E( I ) = SQRT( WORK( 2*I ) )
          END DO

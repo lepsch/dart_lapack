@@ -108,7 +108,7 @@
 
       BADS = .FALSE.
       if ( MODES.EQ.0 .AND. ISIM.EQ.1 ) {
-         DO 10 J = 1, N
+         for (J = 1; J <= N; J++) { // 10
             IF( DS( J ).EQ.ZERO ) BADS = .TRUE.
    10    CONTINUE
       }
@@ -150,7 +150,7 @@
 
       // Initialize random number generator
 
-      DO 20 I = 1, 4
+      for (I = 1; I <= 4; I++) { // 20
          ISEED( I ) = MOD( ABS( ISEED( I ) ), 4096 )
    20 CONTINUE
 
@@ -170,7 +170,7 @@
          // Scale by DMAX
 
          TEMP = ABS( D( 1 ) )
-         DO 30 I = 2, N
+         for (I = 2; I <= N; I++) { // 30
             TEMP = MAX( TEMP, ABS( D( I ) ) )
    30    CONTINUE
 
@@ -191,7 +191,7 @@
       // 3)      If UPPER='T', set upper triangle of A to random numbers.
 
       if ( IUPPER.NE.0 ) {
-         DO 40 JC = 2, N
+         for (JC = 2; JC <= N; JC++) { // 40
             zlarnv(IDIST, ISEED, JC-1, A( 1, JC ) );
    40    CONTINUE
       }
@@ -224,7 +224,7 @@
 
          // Multiply by S and (1/S)
 
-         DO 50 J = 1, N
+         for (J = 1; J <= N; J++) { // 50
             zdscal(N, DS( J ), A( J, 1 ), LDA );
             if ( DS( J ).NE.ZERO ) {
                zdscal(N, ONE / DS( J ), A( 1, J ), 1 );
@@ -306,7 +306,7 @@
          TEMP = ZLANGE( 'M', N, N, A, LDA, TEMPA )
          if ( TEMP.GT.ZERO ) {
             RALPHA = ANORM / TEMP
-            DO 80 J = 1, N
+            for (J = 1; J <= N; J++) { // 80
                zdscal(N, RALPHA, A( 1, J ), 1 );
    80       CONTINUE
          }

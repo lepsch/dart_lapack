@@ -30,7 +30,7 @@
       } else {
       // Scan up each column tracking the last zero row seen.
          ILAZLR = 0
-         DO J = 1, N
+         for (J = 1; J <= N; J++) {
             I=M
             DO WHILE((A(MAX(I,1),J).EQ.ZERO).AND.(I.GE.1))
                I=I-1

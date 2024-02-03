@@ -71,7 +71,7 @@
       KD = KU + 1
       KE = KL + 1
       if ( NOTRANS ) {
-         DO I = 1, N
+         for (I = 1; I <= N; I++) {
             TMP = 0.0D+0
             if ( CAPPLY ) {
                DO J = MAX( I-KL, 1 ), MIN( I+KU, N )
@@ -86,7 +86,7 @@
             ANORM = MAX( ANORM, TMP )
          END DO
       } else {
-         DO I = 1, N
+         for (I = 1; I <= N; I++) {
             TMP = 0.0D+0
             if ( CAPPLY ) {
                DO J = MAX( I-KL, 1 ), MIN( I+KU, N )
@@ -123,7 +123,7 @@
 
             // Multiply by R.
 
-            DO I = 1, N
+            for (I = 1; I <= N; I++) {
                WORK( I ) = WORK( I ) * RWORK( I )
             END DO
 
@@ -136,7 +136,7 @@
             // Multiply by inv(C).
 
             if ( CAPPLY ) {
-               DO I = 1, N
+               for (I = 1; I <= N; I++) {
                   WORK( I ) = WORK( I ) * C( I )
                END DO
             }
@@ -145,7 +145,7 @@
             // Multiply by inv(C**H).
 
             if ( CAPPLY ) {
-               DO I = 1, N
+               for (I = 1; I <= N; I++) {
                   WORK( I ) = WORK( I ) * C( I )
                END DO
             }
@@ -158,7 +158,7 @@
 
             // Multiply by R.
 
-            DO I = 1, N
+            for (I = 1; I <= N; I++) {
                WORK( I ) = WORK( I ) * RWORK( I )
             END DO
          }

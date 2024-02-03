@@ -245,7 +245,7 @@
 
          // copy diagonal elements to D
 
-         DO 120 I = 1, N
+         for (I = 1; I <= N; I++) { // 120
             D( I ) = AB( KD1, I )
   120    CONTINUE
 
@@ -414,7 +414,7 @@
 
          // copy diagonal elements to D
 
-         DO 240 I = 1, N
+         for (I = 1; I <= N; I++) { // 240
             D( I ) = AB( 1, I )
   240    CONTINUE
       }

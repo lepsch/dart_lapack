@@ -66,9 +66,9 @@
 
       ANORM = 0.0D+0
       if ( UP ) {
-         DO I = 1, N
+         for (I = 1; I <= N; I++) {
             TMP = 0.0D+0
-            DO J = 1, I
+            for (J = 1; J <= I; J++) {
                TMP = TMP + CABS1( A( J, I ) * X( J ) )
             END DO
             DO J = I+1, N
@@ -78,9 +78,9 @@
             ANORM = MAX( ANORM, TMP )
          END DO
       } else {
-         DO I = 1, N
+         for (I = 1; I <= N; I++) {
             TMP = 0.0D+0
-            DO J = 1, I
+            for (J = 1; J <= I; J++) {
                TMP = TMP + CABS1( A( I, J ) * X( J ) )
             END DO
             DO J = I+1, N
@@ -112,7 +112,7 @@
 
             // Multiply by R.
 
-            DO I = 1, N
+            for (I = 1; I <= N; I++) {
                WORK( I ) = WORK( I ) * RWORK( I )
             END DO
 
@@ -124,14 +124,14 @@
 
             // Multiply by inv(X).
 
-            DO I = 1, N
+            for (I = 1; I <= N; I++) {
                WORK( I ) = WORK( I ) / X( I )
             END DO
          } else {
 
             // Multiply by inv(X**H).
 
-            DO I = 1, N
+            for (I = 1; I <= N; I++) {
                WORK( I ) = WORK( I ) / X( I )
             END DO
 
@@ -143,7 +143,7 @@
 
             // Multiply by R.
 
-            DO I = 1, N
+            for (I = 1; I <= N; I++) {
                WORK( I ) = WORK( I ) * RWORK( I )
             END DO
          }

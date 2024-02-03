@@ -60,7 +60,7 @@
 
       BADNN = .FALSE.
       NMAX = 1
-      DO 10 J = 1, NSIZES
+      for (J = 1; J <= NSIZES; J++) { // 10
          NMAX = MAX( NMAX, NN( J ) )
          IF( NN( J ).LT.0 ) BADNN = .TRUE.
    10 CONTINUE
@@ -124,7 +124,7 @@
       NERRS = 0
       NMATS = 0
 
-      DO 220 JSIZE = 1, NSIZES
+      for (JSIZE = 1; JSIZE <= NSIZES; JSIZE++) { // 220
          N = NN( JSIZE )
          N1 = MAX( 1, N )
          RMAGN( 2 ) = SAFMAX*ULP / DBLE( N1 )
@@ -136,13 +136,13 @@
             MTYPES = MIN( MAXTYP+1, NTYPES )
          }
 
-         DO 210 JTYPE = 1, MTYPES
+         for (JTYPE = 1; JTYPE <= MTYPES; JTYPE++) { // 210
             IF( .NOT.DOTYPE( JTYPE ) ) GO TO 210
             NMATS = NMATS + 1
 
             // Save ISEED in case of an error.
 
-            DO 20 J = 1, 4
+            for (J = 1; J <= 4; J++) { // 20
                IOLDSD( J ) = ISEED( J )
    20       CONTINUE
 
@@ -206,7 +206,7 @@
                   // a diagonal matrix.
 
                   DO 40 JC = 1, N - 1
-                     DO 30 JR = JC, N
+                     for (JR = JC; JR <= N; JR++) { // 30
                         Q( JR, JC ) = DLARND( 3, ISEED )
                         Z( JR, JC ) = DLARND( 3, ISEED )
    30                CONTINUE
@@ -226,8 +226,8 @@
 
                   // Apply the diagonal matrices
 
-                  DO 60 JC = 1, N
-                     DO 50 JR = 1, N
+                  for (JC = 1; JC <= N; JC++) { // 60
+                     for (JR = 1; JR <= N; JR++) { // 50
                         A( JR, JC ) = WORK( 2*N+JR )*WORK( 3*N+JC )* A( JR, JC )                         B( JR, JC ) = WORK( 2*N+JR )*WORK( 3*N+JC )* B( JR, JC )
    50                CONTINUE
    60             CONTINUE
@@ -237,8 +237,8 @@
 
                // Random matrices
 
-               DO 80 JC = 1, N
-                  DO 70 JR = 1, N
+               for (JC = 1; JC <= N; JC++) { // 80
+                  for (JR = 1; JR <= N; JR++) { // 70
                      A( JR, JC ) = RMAGN( KAMAGN( JTYPE ) )* DLARND( 2, ISEED )                      B( JR, JC ) = RMAGN( KBMAGN( JTYPE ) )* DLARND( 2, ISEED )
    70             CONTINUE
    80          CONTINUE
@@ -246,7 +246,7 @@
 
                // Random upper Hessenberg pencil with singular B
 
-               DO 81 JC = 1, N
+               for (JC = 1; JC <= N; JC++) { // 81
                   DO 71 JR = 1, min( JC + 1, N)
                      A( JR, JC ) = RMAGN( KAMAGN( JTYPE ) )* DLARND( 2, ISEED )
    71             CONTINUE
@@ -254,8 +254,8 @@
                      A( JR, JC ) = ZERO
    72             CONTINUE
    81          CONTINUE
-               DO 82 JC = 1, N
-                  DO 73 JR = 1, JC
+               for (JC = 1; JC <= N; JC++) { // 82
+                  for (JR = 1; JR <= JC; JR++) { // 73
                      B( JR, JC ) = RMAGN( KAMAGN( JTYPE ) )* DLARND( 2, ISEED )
    73             CONTINUE
                   DO 74 JR = JC + 1, N
@@ -278,7 +278,7 @@
 
   100       CONTINUE
 
-            DO 110 I = 1, 7
+            for (I = 1; I <= 7; I++) { // 110
                RESULT( I ) = -ONE
   110       CONTINUE
 
@@ -328,7 +328,7 @@
                GO TO 190
             }
 
-            DO 120 J = 1, N
+            for (J = 1; J <= N; J++) { // 120
                IF( ALPHAR( J ).NE.ALPHR1( J ) .OR. ALPHAI( J ).NE. ALPHI1( J ) .OR. BETA( J ).NE.BETA1( J ) )RESULT( 5 ) = ULPINV
   120       CONTINUE
 
@@ -345,12 +345,12 @@
                GO TO 190
             }
 
-            DO 130 J = 1, N
+            for (J = 1; J <= N; J++) { // 130
                IF( ALPHAR( J ).NE.ALPHR1( J ) .OR. ALPHAI( J ).NE. ALPHI1( J ) .OR. BETA( J ).NE.BETA1( J ) )RESULT( 6 ) = ULPINV
   130       CONTINUE
 
-            DO 150 J = 1, N
-               DO 140 JC = 1, N
+            for (J = 1; J <= N; J++) { // 150
+               for (JC = 1; JC <= N; JC++) { // 140
                   IF( Q( J, JC ).NE.QE( J, JC ) ) RESULT( 6 ) = ULPINV
   140          CONTINUE
   150       CONTINUE
@@ -368,12 +368,12 @@
                GO TO 190
             }
 
-            DO 160 J = 1, N
+            for (J = 1; J <= N; J++) { // 160
                IF( ALPHAR( J ).NE.ALPHR1( J ) .OR. ALPHAI( J ).NE. ALPHI1( J ) .OR. BETA( J ).NE.BETA1( J ) )RESULT( 7 ) = ULPINV
   160       CONTINUE
 
-            DO 180 J = 1, N
-               DO 170 JC = 1, N
+            for (J = 1; J <= N; J++) { // 180
+               for (JC = 1; JC <= N; JC++) { // 170
                   IF( Z( J, JC ).NE.QE( J, JC ) ) RESULT( 7 ) = ULPINV
   170          CONTINUE
   180       CONTINUE
@@ -386,7 +386,7 @@
 
             // Print out tests which fail.
 
-            DO 200 JR = 1, 7
+            for (JR = 1; JR <= 7; JR++) { // 200
                if ( RESULT( JR ).GE.THRESH ) {
 
                   // If this is the first test to fail,

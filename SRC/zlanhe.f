@@ -43,7 +43,7 @@
 
          VALUE = ZERO
          if ( LSAME( UPLO, 'U' ) ) {
-            DO 20 J = 1, N
+            for (J = 1; J <= N; J++) { // 20
                DO 10 I = 1, J - 1
                   SUM = ABS( A( I, J ) )
                   IF( VALUE .LT. SUM .OR. DISNAN( SUM ) ) VALUE = SUM
@@ -52,7 +52,7 @@
                IF( VALUE .LT. SUM .OR. DISNAN( SUM ) ) VALUE = SUM
    20       CONTINUE
          } else {
-            DO 40 J = 1, N
+            for (J = 1; J <= N; J++) { // 40
                SUM = ABS( DBLE( A( J, J ) ) )
                IF( VALUE .LT. SUM .OR. DISNAN( SUM ) ) VALUE = SUM
                DO 30 I = J + 1, N
@@ -67,7 +67,7 @@
 
          VALUE = ZERO
          if ( LSAME( UPLO, 'U' ) ) {
-            DO 60 J = 1, N
+            for (J = 1; J <= N; J++) { // 60
                SUM = ZERO
                DO 50 I = 1, J - 1
                   ABSA = ABS( A( I, J ) )
@@ -76,15 +76,15 @@
    50          CONTINUE
                WORK( J ) = SUM + ABS( DBLE( A( J, J ) ) )
    60       CONTINUE
-            DO 70 I = 1, N
+            for (I = 1; I <= N; I++) { // 70
                SUM = WORK( I )
                IF( VALUE .LT. SUM .OR. DISNAN( SUM ) ) VALUE = SUM
    70       CONTINUE
          } else {
-            DO 80 I = 1, N
+            for (I = 1; I <= N; I++) { // 80
                WORK( I ) = ZERO
    80       CONTINUE
-            DO 100 J = 1, N
+            for (J = 1; J <= N; J++) { // 100
                SUM = WORK( J ) + ABS( DBLE( A( J, J ) ) )
                DO 90 I = J + 1, N
                   ABSA = ABS( A( I, J ) )
@@ -101,7 +101,7 @@
          SCALE = ZERO
          SUM = ONE
          if ( LSAME( UPLO, 'U' ) ) {
-            DO 110 J = 2, N
+            for (J = 2; J <= N; J++) { // 110
                zlassq(J-1, A( 1, J ), 1, SCALE, SUM );
   110       CONTINUE
          } else {
@@ -110,7 +110,7 @@
   120       CONTINUE
          }
          SUM = 2*SUM
-         DO 130 I = 1, N
+         for (I = 1; I <= N; I++) { // 130
             if ( DBLE( A( I, I ) ).NE.ZERO ) {
                ABSA = ABS( DBLE( A( I, I ) ) )
                if ( SCALE.LT.ABSA ) {

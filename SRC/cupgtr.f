@@ -89,11 +89,11 @@
          // matrix
 
          Q( 1, 1 ) = CONE
-         DO 40 I = 2, N
+         for (I = 2; I <= N; I++) { // 40
             Q( I, 1 ) = CZERO
    40    CONTINUE
          IJ = 3
-         DO 60 J = 2, N
+         for (J = 2; J <= N; J++) { // 60
             Q( 1, J ) = CZERO
             DO 50 I = J + 1, N
                Q( I, J ) = AP( IJ )

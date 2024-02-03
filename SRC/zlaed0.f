@@ -81,7 +81,7 @@
          SUBPBS = 2*SUBPBS
          GO TO 10
       }
-      DO 30 J = 2, SUBPBS
+      for (J = 2; J <= SUBPBS; J++) { // 30
          IWORK( J ) = IWORK( J ) + IWORK( J-1 )
    30 CONTINUE
 
@@ -89,7 +89,7 @@
       // using rank-1 modifications (cuts).
 
       SPM1 = SUBPBS - 1
-      DO 40 I = 1, SPM1
+      for (I = 1; I <= SPM1; I++) { // 40
          SUBMAT = IWORK( I ) + 1
          SMM1 = SUBMAT - 1
          D( SMM1 ) = D( SMM1 ) - ABS( E( SMM1 ) )
@@ -114,7 +114,7 @@
       IQ = IGIVNM + 2*N*LGN
       IWREM = IQ + N**2 + 1
       // Initialize pointers
-      DO 50 I = 0, SUBPBS
+      for (I = 0; I <= SUBPBS; I++) { // 50
          IWORK( IPRMPT+I ) = 1
          IWORK( IGIVPT+I ) = 1
    50 CONTINUE
@@ -124,7 +124,7 @@
       // conquer tree.
 
       CURR = 0
-      DO 70 I = 0, SPM1
+      for (I = 0; I <= SPM1; I++) { // 70
          if ( I.EQ.0 ) {
             SUBMAT = 1
             MATSIZ = IWORK( 1 )
@@ -193,7 +193,7 @@
       // Re-merge the eigenvalues/vectors which were deflated at the final
       // merge step.
 
-      DO 100 I = 1, N
+      for (I = 1; I <= N; I++) { // 100
          J = IWORK( INDXQ+I )
          RWORK( I ) = D( J )
          zcopy(QSIZ, QSTORE( 1, J ), 1, Q( 1, I ), 1 );

@@ -81,7 +81,7 @@
 
          // Lower triangular storage: examine D from top to bottom.
 
-         DO INFO = 1, N
+         for (INFO = 1; INFO <= N; INFO++) {
             IF( IPIV( INFO ).GT.0 .AND. A( INFO, INFO ).EQ.ZERO ) RETURN
          END DO
       }
@@ -150,15 +150,15 @@
 
            // U01 Block
 
-           DO I=1,CUT
-             DO J=1,NNB
+           for (I = 1; I <= CUT; I++) {
+             for (J = 1; J <= NNB; J++) {
               WORK(I,J)=A(I,CUT+J)
              END DO
            END DO
 
            // U11 Block
 
-           DO I=1,NNB
+           for (I = 1; I <= NNB; I++) {
              WORK(U11+I,I)=ONE
              DO J=1,I-1
                 WORK(U11+I,J)=ZERO
@@ -173,12 +173,12 @@
            I=1
            DO WHILE (I .LE. CUT)
              if (IPIV(I) > 0) {
-                DO J=1,NNB
+                for (J = 1; J <= NNB; J++) {
                     WORK(I,J)=WORK(I,INVD)*WORK(I,J)
                 END DO
                 I=I+1
              } else {
-                DO J=1,NNB
+                for (J = 1; J <= NNB; J++) {
                    U01_I_J = WORK(I,J)
                    U01_IP1_J = WORK(I+1,J)
                    WORK(I,J)=WORK(I,INVD)*U01_I_J+ WORK(I,INVD+1)*U01_IP1_J                    WORK(I+1,J)=WORK(I+1,INVD)*U01_I_J+ WORK(I+1,INVD+1)*U01_IP1_J
@@ -192,12 +192,12 @@
            I=1
            DO WHILE (I .LE. NNB)
              if (IPIV(CUT+I) > 0) {
-                DO J=I,NNB
+                for (J = I; J <= NNB; J++) {
                     WORK(U11+I,J)=WORK(CUT+I,INVD)*WORK(U11+I,J)
                 END DO
                 I=I+1
              } else {
-                DO J=I,NNB
+                for (J = I; J <= NNB; J++) {
                    U11_I_J = WORK(U11+I,J)
                    U11_IP1_J = WORK(U11+I+1,J)
                 WORK(U11+I,J)=WORK(CUT+I,INVD)*WORK(U11+I,J) + WORK(CUT+I,INVD+1)*WORK(U11+I+1,J)                 WORK(U11+I+1,J)=WORK(CUT+I+1,INVD)*U11_I_J+ WORK(CUT+I+1,INVD+1)*U11_IP1_J
@@ -210,8 +210,8 @@
 
         ztrmm('L','U','T','U',NNB, NNB, ONE,A(CUT+1,CUT+1),LDA,WORK(U11+1,1),N+NB+1);
 
-         DO I=1,NNB
-            DO J=I,NNB
+         for (I = 1; I <= NNB; I++) {
+            for (J = I; J <= NNB; J++) {
               A(CUT+I,CUT+J)=WORK(U11+I,J)
             END DO
          END DO
@@ -222,8 +222,8 @@
 
          // U11 =  U11**T*invD1*U11 + U01**T*invD*U01
 
-         DO I=1,NNB
-            DO J=I,NNB
+         for (I = 1; I <= NNB; I++) {
+            for (J = I; J <= NNB; J++) {
               A(CUT+I,CUT+J)=A(CUT+I,CUT+J)+WORK(U11+I,J)
             END DO
          END DO
@@ -235,8 +235,8 @@
 
          // Update U01
 
-         DO I=1,CUT
-           DO J=1,NNB
+         for (I = 1; I <= CUT; I++) {
+           for (J = 1; J <= NNB; J++) {
             A(I,CUT+J)=WORK(I,J)
            END DO
          END DO
@@ -312,12 +312,12 @@
            }
        // L21 Block
            DO I=1,N-CUT-NNB
-             DO J=1,NNB
+             for (J = 1; J <= NNB; J++) {
               WORK(I,J)=A(CUT+NNB+I,CUT+J)
              END DO
            END DO
       // L11 Block
-           DO I=1,NNB
+           for (I = 1; I <= NNB; I++) {
              WORK(U11+I,I)=ONE
              DO J=I+1,NNB
                 WORK(U11+I,J)=ZERO
@@ -332,12 +332,12 @@
            I=N-CUT-NNB
            DO WHILE (I .GE. 1)
              if (IPIV(CUT+NNB+I) > 0) {
-                DO J=1,NNB
+                for (J = 1; J <= NNB; J++) {
                     WORK(I,J)=WORK(CUT+NNB+I,INVD)*WORK(I,J)
                 END DO
                 I=I-1
              } else {
-                DO J=1,NNB
+                for (J = 1; J <= NNB; J++) {
                    U01_I_J = WORK(I,J)
                    U01_IP1_J = WORK(I-1,J)
                    WORK(I,J)=WORK(CUT+NNB+I,INVD)*U01_I_J+ WORK(CUT+NNB+I,INVD+1)*U01_IP1_J                    WORK(I-1,J)=WORK(CUT+NNB+I-1,INVD+1)*U01_I_J+ WORK(CUT+NNB+I-1,INVD)*U01_IP1_J
@@ -351,12 +351,12 @@
            I=NNB
            DO WHILE (I .GE. 1)
              if (IPIV(CUT+I) > 0) {
-                DO J=1,NNB
+                for (J = 1; J <= NNB; J++) {
                     WORK(U11+I,J)=WORK(CUT+I,INVD)*WORK(U11+I,J)
                 END DO
                 I=I-1
              } else {
-                DO J=1,NNB
+                for (J = 1; J <= NNB; J++) {
                    U11_I_J = WORK(U11+I,J)
                    U11_IP1_J = WORK(U11+I-1,J)
                 WORK(U11+I,J)=WORK(CUT+I,INVD)*WORK(U11+I,J) + WORK(CUT+I,INVD+1)*U11_IP1_J                 WORK(U11+I-1,J)=WORK(CUT+I-1,INVD+1)*U11_I_J+ WORK(CUT+I-1,INVD)*U11_IP1_J
@@ -369,8 +369,8 @@
 
         ztrmm('L',UPLO,'T','U',NNB, NNB, ONE,A(CUT+1,CUT+1),LDA,WORK(U11+1,1),N+NB+1);
 
-         DO I=1,NNB
-            DO J=1,I
+         for (I = 1; I <= NNB; I++) {
+            for (J = 1; J <= I; J++) {
               A(CUT+I,CUT+J)=WORK(U11+I,J)
             END DO
          END DO
@@ -385,8 +385,8 @@
 
          // L11 =  L11**T*invD1*L11 + U01**T*invD*U01
 
-         DO I=1,NNB
-            DO J=1,I
+         for (I = 1; I <= NNB; I++) {
+            for (J = 1; J <= I; J++) {
               A(CUT+I,CUT+J)=A(CUT+I,CUT+J)+WORK(U11+I,J)
             END DO
          END DO
@@ -397,7 +397,7 @@
 
        // Update L21
          DO I=1,N-CUT-NNB
-           DO J=1,NNB
+           for (J = 1; J <= NNB; J++) {
               A(CUT+NNB+I,CUT+J)=WORK(I,J)
            END DO
          END DO
@@ -405,8 +405,8 @@
 
          // L11 =  L11**T*invD1*L11
 
-         DO I=1,NNB
-            DO J=1,I
+         for (I = 1; I <= NNB; I++) {
+            for (J = 1; J <= I; J++) {
               A(CUT+I,CUT+J)=WORK(U11+I,J)
             END DO
          END DO

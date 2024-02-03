@@ -93,7 +93,7 @@
 
             // A is upper triangular.
 
-            DO 10 J = 1, N
+            for (J = 1; J <= N; J++) { // 10
                JLEN = MIN( KD, J-1 )
                CNORM( J ) = DZASUM( JLEN, AB( KD+1-JLEN, J ), 1 )
    10       CONTINUE
@@ -101,7 +101,7 @@
 
             // A is lower triangular.
 
-            DO 20 J = 1, N
+            for (J = 1; J <= N; J++) { // 20
                JLEN = MIN( KD, N-J )
                if ( JLEN.GT.0 ) {
                   CNORM( J ) = DZASUM( JLEN, AB( 2, J ), 1 )
@@ -128,7 +128,7 @@
       // Level 2 BLAS routine ZTBSV can be used.
 
       XMAX = ZERO
-      DO 30 J = 1, N
+      for (J = 1; J <= N; J++) { // 30
          XMAX = MAX( XMAX, CABS2( X( J ) ) )
    30 CONTINUE
       XBND = XMAX
@@ -378,7 +378,7 @@
                      // A(j,j) = 0:  Set x(1:n) = 0, x(j) = 1, and
                      // scale = 0, and compute a solution to A*x = 0.
 
-                  DO 100 I = 1, N
+                  for (I = 1; I <= N; I++) { // 100
                      X( I ) = ZERO
   100             CONTINUE
                   X( J ) = ONE
@@ -490,12 +490,12 @@
 
                   if ( UPPER ) {
                      JLEN = MIN( KD, J-1 )
-                     DO 130 I = 1, JLEN
+                     for (I = 1; I <= JLEN; I++) { // 130
                         CSUMJ = CSUMJ + ( AB( KD+I-JLEN, J )*USCAL )* X( J-JLEN-1+I )
   130                CONTINUE
                   } else {
                      JLEN = MIN( KD, N-J )
-                     DO 140 I = 1, JLEN
+                     for (I = 1; I <= JLEN; I++) { // 140
                         CSUMJ = CSUMJ + ( AB( I+1, J )*USCAL )*X( J+I )
   140                CONTINUE
                   }
@@ -553,7 +553,7 @@
                         // A(j,j) = 0:  Set x(1:n) = 0, x(j) = 1, and
                         // scale = 0 and compute a solution to A**T *x = 0.
 
-                     DO 150 I = 1, N
+                     for (I = 1; I <= N; I++) { // 150
                         X( I ) = ZERO
   150                CONTINUE
                      X( J ) = ONE
@@ -627,12 +627,12 @@
 
                   if ( UPPER ) {
                      JLEN = MIN( KD, J-1 )
-                     DO 180 I = 1, JLEN
+                     for (I = 1; I <= JLEN; I++) { // 180
                         CSUMJ = CSUMJ + ( DCONJG( AB( KD+I-JLEN, J ) )* USCAL )*X( J-JLEN-1+I )
   180                CONTINUE
                   } else {
                      JLEN = MIN( KD, N-J )
-                     DO 190 I = 1, JLEN
+                     for (I = 1; I <= JLEN; I++) { // 190
                         CSUMJ = CSUMJ + ( DCONJG( AB( I+1, J ) )*USCAL ) *X( J+I )
   190                CONTINUE
                   }
@@ -690,7 +690,7 @@
                         // A(j,j) = 0:  Set x(1:n) = 0, x(j) = 1, and
                         // scale = 0 and compute a solution to A**H *x = 0.
 
-                     DO 200 I = 1, N
+                     for (I = 1; I <= N; I++) { // 200
                         X( I ) = ZERO
   200                CONTINUE
                      X( J ) = ONE

@@ -52,7 +52,7 @@
 
       NORMA = DLANGE( 'One-norm', M, N, A, LDA, RWORK )
 
-      DO J = 1, K
+      for (J = 1; J <= K; J++) {
 
          // Copy the upper triangular part of the factor R stored
          // in AF(1:K,1:K) into the work array WORK.
@@ -79,7 +79,7 @@
 
       dormqr('Left', 'No transpose', M, N, K, AF, LDA, TAU, WORK, M, WORK( M*N+1 ), LWORK-M*N, INFO );
 
-      DO J = 1, N
+      for (J = 1; J <= N; J++) {
 
          // Compare J-th column of QR and JPVT(J)-th column of A.
 

@@ -32,7 +32,7 @@
 
       // .. Tests ..
 
-      do 10 i = 1, 3
+      for (i = 1; i <= 3; i++) { // 10
           nTests = nTests + 2
           R = MIN( X(i), Y(i) )
           if( R .ne. X(i) ) then
@@ -45,7 +45,7 @@
               WRITE( *, FMT = 9998 ) 'i',i, 'MAX', X(i), Y(i), R
           endif
   10  continue
-      do 20 i = 4, 6
+      for (i = 4; i <= 6; i++) { // 20
           nTests = nTests + 2
           R = MIN( X(i), Y(i) )
           if( R .ne. Y(i) ) then
@@ -58,7 +58,7 @@
               WRITE( *, FMT = 9998 ) 'i',i, 'MAX', X(i), Y(i), R
           endif
   20  continue
-      do 30 i = 7, 8
+      for (i = 7; i <= 8; i++) { // 30
           nTests = nTests + 2
           R = MIN( X(i), Y(i) )
           if( R .eq. R ) then

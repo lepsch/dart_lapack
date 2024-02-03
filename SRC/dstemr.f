@@ -348,7 +348,7 @@
             // However, if the eigenvectors are not desired by the user, we need
             // to apply the corresponding shifts from DLARRE to obtain the
             // eigenvalues of the original matrix.
-            DO 20 J = 1, M
+            for (J = 1; J <= M; J++) { // 20
                ITMP = IWORK( IINDBL+J-1 )
                W( J ) = W( J ) + E( IWORK( IINSPL+ITMP-1 ) )
  20         CONTINUE

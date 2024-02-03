@@ -87,7 +87,7 @@
 
          SCALE = ONE
          SCALOC = ONE
-         DO 30 J = 1, N
+         for (J = 1; J <= N; J++) { // 30
             DO 20 I = M, 1, -1
 
                // Build 2 by 2 system
@@ -109,7 +109,7 @@
                if ( IJOB.EQ.0 ) {
                   cgesc2(LDZ, Z, LDZ, RHS, IPIV, JPIV, SCALOC );
                   if ( SCALOC.NE.ONE ) {
-                     DO 10 K = 1, N
+                     for (K = 1; K <= N; K++) { // 10
                         cscal(M, CMPLX( SCALOC, ZERO ), C( 1, K ), 1 )                         CALL CSCAL( M, CMPLX( SCALOC, ZERO ), F( 1, K ), 1 );
    10                CONTINUE
                      SCALE = SCALE*SCALOC
@@ -145,7 +145,7 @@
 
          SCALE = ONE
          SCALOC = ONE
-         DO 80 I = 1, M
+         for (I = 1; I <= M; I++) { // 80
             DO 70 J = N, 1, -1
 
                // Build 2 by 2 system Z**H
@@ -167,7 +167,7 @@
                IF( IERR.GT.0 ) INFO = IERR
                cgesc2(LDZ, Z, LDZ, RHS, IPIV, JPIV, SCALOC );
                if ( SCALOC.NE.ONE ) {
-                  DO 40 K = 1, N
+                  for (K = 1; K <= N; K++) { // 40
                      cscal(M, CMPLX( SCALOC, ZERO ), C( 1, K ), 1 )                      CALL CSCAL( M, CMPLX( SCALOC, ZERO ), F( 1, K ), 1 );
    40             CONTINUE
                   SCALE = SCALE*SCALOC

@@ -70,7 +70,7 @@
          // Find the minimum and maximum diagonal elements.
 
          JJ = 1
-         DO 10 I = 2, N
+         for (I = 2; I <= N; I++) { // 10
             JJ = JJ + I
             S( I ) = AP( JJ )
             SMIN = MIN( SMIN, S( I ) )
@@ -83,7 +83,7 @@
          // Find the minimum and maximum diagonal elements.
 
          JJ = 1
-         DO 20 I = 2, N
+         for (I = 2; I <= N; I++) { // 20
             JJ = JJ + N - I + 2
             S( I ) = AP( JJ )
             SMIN = MIN( SMIN, S( I ) )
@@ -95,7 +95,7 @@
 
          // Find the first non-positive diagonal element and return.
 
-         DO 30 I = 1, N
+         for (I = 1; I <= N; I++) { // 30
             if ( S( I ).LE.ZERO ) {
                INFO = I
                RETURN
@@ -106,7 +106,7 @@
          // Set the scale factors to the reciprocals
          // of the diagonal elements.
 
-         DO 40 I = 1, N
+         for (I = 1; I <= N; I++) { // 40
             S( I ) = ONE / SQRT( S( I ) )
    40    CONTINUE
 

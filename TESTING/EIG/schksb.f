@@ -57,14 +57,14 @@
 
       BADNN = .FALSE.
       NMAX = 1
-      DO 10 J = 1, NSIZES
+      for (J = 1; J <= NSIZES; J++) { // 10
          NMAX = MAX( NMAX, NN( J ) )
          IF( NN( J ).LT.0 ) BADNN = .TRUE.
    10 CONTINUE
 
       BADNNB = .FALSE.
       KMAX = 0
-      DO 20 J = 1, NSIZES
+      for (J = 1; J <= NSIZES; J++) { // 20
          KMAX = MAX( KMAX, KK( J ) )
          IF( KK( J ).LT.0 ) BADNNB = .TRUE.
    20 CONTINUE
@@ -113,11 +113,11 @@
       NERRS = 0
       NMATS = 0
 
-      DO 190 JSIZE = 1, NSIZES
+      for (JSIZE = 1; JSIZE <= NSIZES; JSIZE++) { // 190
          N = NN( JSIZE )
          ANINV = ONE / REAL( MAX( 1, N ) )
 
-         DO 180 JWIDTH = 1, NWDTHS
+         for (JWIDTH = 1; JWIDTH <= NWDTHS; JWIDTH++) { // 180
             K = KK( JWIDTH )
             IF( K.GT.N ) GO TO 180
             K = MAX( 0, MIN( N-1, K ) )
@@ -128,12 +128,12 @@
                MTYPES = MIN( MAXTYP+1, NTYPES )
             }
 
-            DO 170 JTYPE = 1, MTYPES
+            for (JTYPE = 1; JTYPE <= MTYPES; JTYPE++) { // 170
                IF( .NOT.DOTYPE( JTYPE ) ) GO TO 170
                NMATS = NMATS + 1
                NTEST = 0
 
-               DO 30 J = 1, 4
+               for (J = 1; J <= 4; J++) { // 30
                   IOLDSD( J ) = ISEED( J )
    30          CONTINUE
 
@@ -196,7 +196,7 @@
 
                   // Identity
 
-                  DO 80 JCOL = 1, N
+                  for (JCOL = 1; JCOL <= N; JCOL++) { // 80
                      A( K+1, JCOL ) = ANORM
    80             CONTINUE
 
@@ -235,7 +235,7 @@
                   // Positive definite tridiagonal, eigenvalues specified.
 
                   IF( N.GT.1 ) K = MAX( 1, K )                   CALL SLATMS( N, N, 'S', ISEED, 'P', WORK, IMODE, COND, ANORM, 1, 1, 'Q', A( K, 1 ), LDA, WORK( N+1 ), IINFO )
-                  DO 90 I = 2, N
+                  for (I = 2; I <= N; I++) { // 90
                      TEMP1 = ABS( A( K, I ) ) / SQRT( ABS( A( K+1, I-1 )*A( K+1, I ) ) )
                      if ( TEMP1.GT.HALF ) {
                         A( K, I ) = HALF*SQRT( ABS( A( K+1, I-1 )*A( K+1, I ) ) )
@@ -280,7 +280,7 @@
                // Convert A from Upper-Triangle-Only storage to
                // Lower-Triangle-Only storage.
 
-               DO 120 JC = 1, N
+               for (JC = 1; JC <= N; JC++) { // 120
                   DO 110 JR = 0, MIN( K, N-JC )
                      A( JR+1, JC ) = A( K+1-JR, JC+JR )
   110             CONTINUE
@@ -321,7 +321,7 @@
 
                // Print out tests which fail.
 
-               DO 160 JR = 1, NTEST
+               for (JR = 1; JR <= NTEST; JR++) { // 160
                   if ( RESULT( JR ).GE.THRESH ) {
 
                      // If this is the first test to fail,

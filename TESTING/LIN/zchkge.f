@@ -71,7 +71,7 @@
       NRUN = 0
       NFAIL = 0
       NERRS = 0
-      DO 10 I = 1, 4
+      for (I = 1; I <= 4; I++) { // 10
          ISEED( I ) = ISEEDY( I )
    10 CONTINUE
 
@@ -84,19 +84,19 @@
 
       // Do for each value of M in MVAL
 
-      DO 120 IM = 1, NM
+      for (IM = 1; IM <= NM; IM++) { // 120
          M = MVAL( IM )
          LDA = MAX( 1, M )
 
          // Do for each value of N in NVAL
 
-         DO 110 IN = 1, NN
+         for (IN = 1; IN <= NN; IN++) { // 110
             N = NVAL( IN )
             XTYPE = 'N'
             NIMAT = NTYPES
             IF( M.LE.0 .OR. N.LE.0 ) NIMAT = 1
 
-            DO 100 IMAT = 1, NIMAT
+            for (IMAT = 1; IMAT <= NIMAT; IMAT++) { // 100
 
                // Do the tests only if DOTYPE( IMAT ) is true.
 
@@ -135,7 +135,7 @@
                   }
                   IOFF = ( IZERO-1 )*LDA
                   if ( IMAT.LT.7 ) {
-                     DO 20 I = 1, M
+                     for (I = 1; I <= M; I++) { // 20
                         A( IOFF+I ) = ZERO
    20                CONTINUE
                   } else {
@@ -153,7 +153,7 @@
 
                // Do for each blocksize in NBVAL
 
-               DO 90 INB = 1, NNB
+               for (INB = 1; INB <= NNB; INB++) { // 90
                   NB = NBVAL( INB )
                   xlaenv(1, NB );
 
@@ -221,7 +221,7 @@
                   // Print information about the tests so far that did not
                   // pass the threshold.
 
-                  DO 30 K = 1, NT
+                  for (K = 1; K <= NT; K++) { // 30
                      if ( RESULT( K ).GE.THRESH ) {
                         IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9999 )M, N, NB, IMAT, K, RESULT( K )
                         NFAIL = NFAIL + 1
@@ -235,11 +235,11 @@
 
                   IF( INB.GT.1 .OR. M.NE.N ) GO TO 90                   IF( TRFCON ) GO TO 70
 
-                  DO 60 IRHS = 1, NNS
+                  for (IRHS = 1; IRHS <= NNS; IRHS++) { // 60
                      NRHS = NSVAL( IRHS )
                      XTYPE = 'N'
 
-                     DO 50 ITRAN = 1, NTRAN
+                     for (ITRAN = 1; ITRAN <= NTRAN; ITRAN++) { // 50
                         TRANS = TRANSS( ITRAN )
                         if ( ITRAN.EQ.1 ) {
                            RCONDC = RCONDO
@@ -285,7 +285,7 @@
                         // Print information about the tests that did not
                         // pass the threshold.
 
-                        DO 40 K = 3, 7
+                        for (K = 3; K <= 7; K++) { // 40
                            if ( RESULT( K ).GE.THRESH ) {
                               IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                               WRITE( NOUT, FMT = 9998 )TRANS, N, NRHS, IMAT, K, RESULT( K )
                               NFAIL = NFAIL + 1
@@ -299,7 +299,7 @@
                      // Get an estimate of RCOND = 1/CNDNUM.
 
    70             CONTINUE
-                  DO 80 ITRAN = 1, 2
+                  for (ITRAN = 1; ITRAN <= 2; ITRAN++) { // 80
                      if ( ITRAN.EQ.1 ) {
                         ANORM = ANORMO
                         RCONDC = RCONDO

@@ -36,11 +36,11 @@
 
          // Test everything if NMATS >= NTYPES.
 
-         DO 10 I = 1, NTYPES
+         for (I = 1; I <= NTYPES; I++) { // 10
             DOTYPE( I ) = .TRUE.
    10    CONTINUE
       } else {
-         DO 20 I = 1, NTYPES
+         for (I = 1; I <= NTYPES; I++) { // 20
             DOTYPE( I ) = .FALSE.
    20    CONTINUE
          FIRSTT = .TRUE.
@@ -51,7 +51,7 @@
             READ( NIN, FMT = '(A80)', END = 90 )LINE
             LENP = LEN( LINE )
             I = 0
-            DO 60 J = 1, NMATS
+            for (J = 1; J <= NMATS; J++) { // 60
                NREQ( J ) = 0
                I1 = 0
    30          CONTINUE
@@ -71,7 +71,7 @@
 
                // Check that a valid integer was read
 
-                  DO 40 K = 1, 10
+                  for (K = 1; K <= 10; K++) { // 40
                      if ( C1.EQ.INTSTR( K: K ) ) {
                         IC = K - 1
                         GO TO 50
@@ -90,7 +90,7 @@
                }
    60       CONTINUE
          }
-         DO 70 I = 1, NMATS
+         for (I = 1; I <= NMATS; I++) { // 70
             NT = NREQ( I )
             if ( NT.GT.0 .AND. NT.LE.NTYPES ) {
                if ( DOTYPE( NT ) ) {

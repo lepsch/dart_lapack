@@ -115,7 +115,7 @@
                   D22 = A( KCNEXT+K )
                   D12 = A( KCNEXT+K-1 )
                   D21 = CONJG( D12 )
-                  DO 20 J = 1, NRHS
+                  for (J = 1; J <= NRHS; J++) { // 20
                      T1 = B( K, J )
                      T2 = B( K+1, J )
                      B( K, J ) = D11*T1 + D12*T2
@@ -195,7 +195,7 @@
                   D22 = A( KC )
                   D21 = A( KCNEXT+1 )
                   D12 = CONJG( D21 )
-                  DO 50 J = 1, NRHS
+                  for (J = 1; J <= NRHS; J++) { // 50
                      T1 = B( K-1, J )
                      T2 = B( K, J )
                      B( K-1, J ) = D11*T1 + D12*T2
@@ -293,7 +293,7 @@
                   D22 = A( KC+K-1 )
                   D12 = A( KC+K-2 )
                   D21 = CONJG( D12 )
-                  DO 80 J = 1, NRHS
+                  for (J = 1; J <= NRHS; J++) { // 80
                      T1 = B( K-1, J )
                      T2 = B( K, J )
                      B( K-1, J ) = D11*T1 + D12*T2
@@ -368,7 +368,7 @@
                   D22 = A( KCNEXT )
                   D21 = A( KC+1 )
                   D12 = CONJG( D21 )
-                  DO 110 J = 1, NRHS
+                  for (J = 1; J <= NRHS; J++) { // 110
                      T1 = B( K, J )
                      T2 = B( K+1, J )
                      B( K, J ) = D11*T1 + D12*T2

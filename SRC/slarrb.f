@@ -62,7 +62,7 @@
       PREV = 0
 
       RGAP = WGAP( I1-OFFSET )
-      DO 75 I = I1, ILAST
+      for (I = I1; I <= ILAST; I++) { // 75
          K = 2*I
          II = I - OFFSET
          LEFT = W( II ) - WERR( II )
@@ -130,7 +130,7 @@
       I = I1
       OLNINT = NINT
 
-      DO 100 IP = 1, OLNINT
+      for (IP = 1; IP <= OLNINT; IP++) { // 100
          K = 2*I
          II = I - OFFSET
          RGAP = WGAP( II )
@@ -180,7 +180,7 @@
 
 
       // At this point, all the intervals have converged
-      DO 110 I = IFIRST, ILAST
+      for (I = IFIRST; I <= ILAST; I++) { // 110
          K = 2*I
          II = I - OFFSET
          // All intervals marked by '0' have been refined.

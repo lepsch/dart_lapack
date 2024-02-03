@@ -102,7 +102,7 @@
       // submatrix of order 1 or 2 splits off at the bottom because a
       // subdiagonal element has become negligible.
 
-      DO 140 ITS = 0, ITMAX
+      for (ITS = 0; ITS <= ITMAX; ITS++) { // 140
 
          // Look for a single small subdiagonal element.
 
@@ -273,7 +273,7 @@
                // Apply G from the left to transform the rows of the matrix
                // in columns K to I2.
 
-               DO 70 J = K, I2
+               for (J = K; J <= I2; J++) { // 70
                   SUM = H( K, J ) + V2*H( K+1, J ) + V3*H( K+2, J )
                   H( K, J ) = H( K, J ) - SUM*T1
                   H( K+1, J ) = H( K+1, J ) - SUM*T2
@@ -294,7 +294,7 @@
 
                   // Accumulate transformations in the matrix Z
 
-                  DO 90 J = ILOZ, IHIZ
+                  for (J = ILOZ; J <= IHIZ; J++) { // 90
                      SUM = Z( J, K ) + V2*Z( J, K+1 ) + V3*Z( J, K+2 )
                      Z( J, K ) = Z( J, K ) - SUM*T1
                      Z( J, K+1 ) = Z( J, K+1 ) - SUM*T2
@@ -306,7 +306,7 @@
                // Apply G from the left to transform the rows of the matrix
                // in columns K to I2.
 
-               DO 100 J = K, I2
+               for (J = K; J <= I2; J++) { // 100
                   SUM = H( K, J ) + V2*H( K+1, J )
                   H( K, J ) = H( K, J ) - SUM*T1
                   H( K+1, J ) = H( K+1, J ) - SUM*T2
@@ -315,7 +315,7 @@
                // Apply G from the right to transform the columns of the
                // matrix in rows I1 to min(K+3,I).
 
-               DO 110 J = I1, I
+               for (J = I1; J <= I; J++) { // 110
                   SUM = H( J, K ) + V2*H( J, K+1 )
                   H( J, K ) = H( J, K ) - SUM*T1
                   H( J, K+1 ) = H( J, K+1 ) - SUM*T2
@@ -325,7 +325,7 @@
 
                   // Accumulate transformations in the matrix Z
 
-                  DO 120 J = ILOZ, IHIZ
+                  for (J = ILOZ; J <= IHIZ; J++) { // 120
                      SUM = Z( J, K ) + V2*Z( J, K+1 )
                      Z( J, K ) = Z( J, K ) - SUM*T1
                      Z( J, K+1 ) = Z( J, K+1 ) - SUM*T2

@@ -77,14 +77,14 @@
 
       if (ALPHA.EQ.ZERO) {
           if (BETA.EQ.ZERO) {
-              DO 20 J = 1,N
-                  DO 10 I = 1,M
+              for (J = 1; J <= N; J++) { // 20
+                  for (I = 1; I <= M; I++) { // 10
                       C(I,J) = ZERO
    10             CONTINUE
    20         CONTINUE
           } else {
-              DO 40 J = 1,N
-                  DO 30 I = 1,M
+              for (J = 1; J <= N; J++) { // 40
+                  for (I = 1; I <= M; I++) { // 30
                       C(I,J) = BETA*C(I,J)
    30             CONTINUE
    40         CONTINUE
@@ -99,8 +99,8 @@
          // Form  C := alpha*A*B + beta*C.
 
           if (UPPER) {
-              DO 70 J = 1,N
-                  DO 60 I = 1,M
+              for (J = 1; J <= N; J++) { // 70
+                  for (I = 1; I <= M; I++) { // 60
                       TEMP1 = ALPHA*B(I,J)
                       TEMP2 = ZERO
                       DO 50 K = 1,I - 1
@@ -115,7 +115,7 @@
    60             CONTINUE
    70         CONTINUE
           } else {
-              DO 100 J = 1,N
+              for (J = 1; J <= N; J++) { // 100
                   DO 90 I = M,1,-1
                       TEMP1 = ALPHA*B(I,J)
                       TEMP2 = ZERO
@@ -135,14 +135,14 @@
 
          // Form  C := alpha*B*A + beta*C.
 
-          DO 170 J = 1,N
+          for (J = 1; J <= N; J++) { // 170
               TEMP1 = ALPHA*DBLE(A(J,J))
               if (BETA.EQ.ZERO) {
-                  DO 110 I = 1,M
+                  for (I = 1; I <= M; I++) { // 110
                       C(I,J) = TEMP1*B(I,J)
   110             CONTINUE
               } else {
-                  DO 120 I = 1,M
+                  for (I = 1; I <= M; I++) { // 120
                       C(I,J) = BETA*C(I,J) + TEMP1*B(I,J)
   120             CONTINUE
               }
@@ -152,7 +152,7 @@
                   } else {
                       TEMP1 = ALPHA*DCONJG(A(J,K))
                   }
-                  DO 130 I = 1,M
+                  for (I = 1; I <= M; I++) { // 130
                       C(I,J) = C(I,J) + TEMP1*B(I,K)
   130             CONTINUE
   140         CONTINUE
@@ -162,7 +162,7 @@
                   } else {
                       TEMP1 = ALPHA*A(K,J)
                   }
-                  DO 150 I = 1,M
+                  for (I = 1; I <= M; I++) { // 150
                       C(I,J) = C(I,J) + TEMP1*B(I,K)
   150             CONTINUE
   160         CONTINUE

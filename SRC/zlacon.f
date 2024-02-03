@@ -44,7 +44,7 @@
 
       SAFMIN = DLAMCH( 'Safe minimum' )
       if ( KASE.EQ.0 ) {
-         DO 10 I = 1, N
+         for (I = 1; I <= N; I++) { // 10
             X( I ) = DCMPLX( ONE / DBLE( N ) )
    10    CONTINUE
          KASE = 1
@@ -66,7 +66,7 @@
       }
       EST = DZSUM1( N, X, 1 )
 
-      DO 30 I = 1, N
+      for (I = 1; I <= N; I++) { // 30
          ABSXI = ABS( X( I ) )
          if ( ABSXI.GT.SAFMIN ) {
             X( I ) = DCMPLX( DBLE( X( I ) ) / ABSXI, DIMAG( X( I ) ) / ABSXI )
@@ -88,7 +88,7 @@
       // MAIN LOOP - ITERATIONS 2,3,...,ITMAX.
 
    50 CONTINUE
-      DO 60 I = 1, N
+      for (I = 1; I <= N; I++) { // 60
          X( I ) = CZERO
    60 CONTINUE
       X( J ) = CONE
@@ -107,7 +107,7 @@
       // TEST FOR CYCLING.
       IF( EST.LE.ESTOLD ) GO TO 100
 
-      DO 80 I = 1, N
+      for (I = 1; I <= N; I++) { // 80
          ABSXI = ABS( X( I ) )
          if ( ABSXI.GT.SAFMIN ) {
             X( I ) = DCMPLX( DBLE( X( I ) ) / ABSXI, DIMAG( X( I ) ) / ABSXI )
@@ -134,7 +134,7 @@
 
   100 CONTINUE
       ALTSGN = ONE
-      DO 110 I = 1, N
+      for (I = 1; I <= N; I++) { // 110
          X( I ) = DCMPLX( ALTSGN*( ONE+DBLE( I-1 ) / DBLE( N-1 ) ) )
          ALTSGN = -ALTSGN
   110 CONTINUE

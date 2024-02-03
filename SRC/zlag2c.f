@@ -28,8 +28,8 @@
       // .. Executable Statements ..
 
       RMAX = SLAMCH( 'O' )
-      DO 20 J = 1, N
-         DO 10 I = 1, M
+      for (J = 1; J <= N; J++) { // 20
+         for (I = 1; I <= M; I++) { // 10
             if ( ( DBLE( A( I, J ) ).LT.-RMAX ) .OR. ( DBLE( A( I, J ) ).GT.RMAX ) .OR. ( DIMAG( A( I, J ) ).LT.-RMAX ) .OR. ( DIMAG( A( I, J ) ).GT.RMAX ) ) {
                INFO = 1
                GO TO 30

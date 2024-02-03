@@ -170,7 +170,7 @@
 
       // Initialize random number generator
 
-      DO 10 I = 1, 4
+      for (I = 1; I <= 4; I++) { // 10
          ISEED( I ) = MOD( ABS( ISEED( I ) ), 4096 )
    10 CONTINUE
 
@@ -200,7 +200,7 @@
          // Scale by DMAX
 
          TEMP = ABS( D( 1 ) )
-         DO 20 I = 2, MNMIN
+         for (I = 2; I <= MNMIN; I++) { // 20
             TEMP = MAX( TEMP, ABS( D( I ) ) )
    20    CONTINUE
 
@@ -271,7 +271,7 @@
 
             if ( TOPDWN ) {
                JKL = 0
-               DO 50 JKU = 1, UUB
+               for (JKU = 1; JKU <= UUB; JKU++) { // 50
 
                   // Transform from bandwidth JKL, JKU-1 to JKL, JKU
 
@@ -316,7 +316,7 @@
    50          CONTINUE
 
                JKU = UUB
-               DO 80 JKL = 1, LLB
+               for (JKL = 1; JKL <= LLB; JKL++) { // 80
 
                   // Transform from bandwidth JKL-1, JKU to JKL, JKU
 
@@ -362,7 +362,7 @@
                // Bottom-Up -- Start at the bottom right.
 
                JKL = 0
-               DO 110 JKU = 1, UUB
+               for (JKU = 1; JKU <= UUB; JKU++) { // 110
 
                   // Transform from bandwidth JKL, JKU-1 to JKL, JKU
 
@@ -406,7 +406,7 @@
   110          CONTINUE
 
                JKU = UUB
-               DO 140 JKL = 1, LLB
+               for (JKL = 1; JKL <= LLB; JKL++) { // 140
 
                   // Transform from bandwidth JKL-1, JKU to JKL, JKU
 
@@ -469,7 +469,7 @@
                }
                dcopy(MNMIN, D, 1, A( 1-ISKEW+IOFFG, 1 ), ILDA+1 );
 
-               DO 170 K = 1, UUB
+               for (K = 1; K <= UUB; K++) { // 170
                   DO 160 JC = 1, N - 1
                      IROW = MAX( 1, JC-K )
                      IL = MIN( JC+1, K+2 )
@@ -500,7 +500,7 @@
                // the order of copying is chosen to work for 'q' -> 'b'
 
                if ( IPACK.NE.IPACKG .AND. IPACK.NE.3 ) {
-                  DO 190 JC = 1, N
+                  for (JC = 1; JC <= N; JC++) { // 190
                      IROW = IOFFST - ISKEW*JC
                      DO 180 JR = JC, MIN( N, JC+UUB )
                         A( JR+IROW, JC ) = A( JC-ISKEW*JR+IOFFG, JR )
@@ -531,7 +531,7 @@
                }
                dcopy(MNMIN, D, 1, A( 1-ISKEW+IOFFG, 1 ), ILDA+1 );
 
-               DO 240 K = 1, UUB
+               for (K = 1; K <= UUB; K++) { // 240
                   DO 230 JC = N - 1, 1, -1
                      IL = MIN( N+1-JC, K+2 )
                      EXTRA = ZERO
@@ -569,7 +569,7 @@
   250                CONTINUE
   260             CONTINUE
                   if ( IPACK.EQ.6 ) {
-                     DO 280 JC = 1, UUB
+                     for (JC = 1; JC <= UUB; JC++) { // 280
                         DO 270 JR = 1, UUB + 1 - JC
                            A( JR, JC ) = ZERO
   270                   CONTINUE
@@ -618,7 +618,7 @@
 
             // 'U' -- Upper triangular, not packed
 
-            DO 300 J = 1, M
+            for (J = 1; J <= M; J++) { // 300
                DO 290 I = J + 1, M
                   A( I, J ) = ZERO
   290          CONTINUE
@@ -628,7 +628,7 @@
 
             // 'L' -- Lower triangular, not packed
 
-            DO 320 J = 2, M
+            for (J = 2; J <= M; J++) { // 320
                DO 310 I = 1, J - 1
                   A( I, J ) = ZERO
   310          CONTINUE
@@ -640,8 +640,8 @@
 
             ICOL = 1
             IROW = 0
-            DO 340 J = 1, M
-               DO 330 I = 1, J
+            for (J = 1; J <= M; J++) { // 340
+               for (I = 1; I <= J; I++) { // 330
                   IROW = IROW + 1
                   if ( IROW.GT.LDA ) {
                      IROW = 1
@@ -657,8 +657,8 @@
 
             ICOL = 1
             IROW = 0
-            DO 360 J = 1, M
-               DO 350 I = J, M
+            for (J = 1; J <= M; J++) { // 360
+               for (I = J; I <= M; I++) { // 350
                   IROW = IROW + 1
                   if ( IROW.GT.LDA ) {
                      IROW = 1
@@ -676,7 +676,7 @@
 
             IF( IPACK.EQ.5 ) UUB = 0             IF( IPACK.EQ.6 ) LLB = 0
 
-            DO 380 J = 1, UUB
+            for (J = 1; J <= UUB; J++) { // 380
                DO 370 I = MIN( J+LLB, M ), 1, -1
                   A( I-J+UUB+1, J ) = A( I, J )
   370          CONTINUE
@@ -695,7 +695,7 @@
          // zero out everything after A(IROW,ICOL)
 
          if ( IPACK.EQ.3 .OR. IPACK.EQ.4 ) {
-            DO 420 JC = ICOL, M
+            for (JC = ICOL; JC <= M; JC++) { // 420
                DO 410 JR = IROW + 1, LDA
                   A( JR, JC ) = ZERO
   410          CONTINUE
@@ -712,7 +712,7 @@
 
             IR1 = UUB + LLB + 2
             IR2 = UUB + M + 2
-            DO 450 JC = 1, N
+            for (JC = 1; JC <= N; JC++) { // 450
                DO 430 JR = 1, UUB + 1 - JC
                   A( JR, JC ) = ZERO
   430          CONTINUE

@@ -131,7 +131,7 @@
       // |[x] [x] [x] *   *   * |
 
 
-      DO 1993 i = 1, NSWEEP
+      for (i = 1; i <= NSWEEP; i++) { // 1993
 
       // .. go go go ...
 
@@ -147,7 +147,7 @@
       // of the rotations. New implementation, based on block transformations,
       // is under development.
 
-         DO 2000 ibr = 1, NBLR
+         for (ibr = 1; ibr <= NBLR; ibr++) { // 2000
 
             igl = ( ibr-1 )*KBL + 1
 
@@ -158,7 +158,7 @@
             igl = ( ibr-1 )*KBL + 1
 
              // DO 2010 jbc = ibr + 1, NBL
-            DO 2010 jbc = 1, NBLC
+            for (jbc = 1; jbc <= NBLC; jbc++) { // 2010
 
                jgl = ( jbc-1 )*KBL + N1 + 1
 

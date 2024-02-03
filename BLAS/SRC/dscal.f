@@ -33,7 +33,7 @@
 
          M = MOD(N,5)
          if (M.NE.0) {
-            DO I = 1,M
+            for (I = 1; I <= M; I++) {
                DX(I) = DA*DX(I)
             END DO
             IF (N.LT.5) RETURN

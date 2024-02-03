@@ -72,7 +72,7 @@
       DO I = 1, MIN(P,Q)-R
          XF(I,I) = XF(I,I) - ONE
       END DO
-      DO I = 1, R
+      for (I = 1; I <= R; I++) {
          XF(MIN(P,Q)-R+I,MIN(P,Q)-R+I) = XF(MIN(P,Q)-R+I,MIN(P,Q)-R+I) - CMPLX( COS(THETA(I)), 0.0E0 )
       END DO
 
@@ -83,7 +83,7 @@
       DO I = 1, MIN(P,M-Q)-R
          XF(P-I+1,M-I+1) = XF(P-I+1,M-I+1) + ONE
       END DO
-      DO I = 1, R
+      for (I = 1; I <= R; I++) {
          XF(P-(MIN(P,M-Q)-R)+1-I,M-(MIN(P,M-Q)-R)+1-I) = XF(P-(MIN(P,M-Q)-R)+1-I,M-(MIN(P,M-Q)-R)+1-I) + CMPLX( SIN(THETA(R-I+1)), 0.0E0 )
       END DO
 
@@ -94,7 +94,7 @@
       DO I = 1, MIN(M-P,Q)-R
          XF(M-I+1,Q-I+1) = XF(M-I+1,Q-I+1) - ONE
       END DO
-      DO I = 1, R
+      for (I = 1; I <= R; I++) {
          XF(M-(MIN(M-P,Q)-R)+1-I,Q-(MIN(M-P,Q)-R)+1-I) = XF(M-(MIN(M-P,Q)-R)+1-I,Q-(MIN(M-P,Q)-R)+1-I) - CMPLX( SIN(THETA(R-I+1)), 0.0E0 )
       END DO
 
@@ -105,7 +105,7 @@
       DO I = 1, MIN(M-P,M-Q)-R
          XF(P+I,Q+I) = XF(P+I,Q+I) - ONE
       END DO
-      DO I = 1, R
+      for (I = 1; I <= R; I++) {
          XF(P+(MIN(M-P,M-Q)-R)+I,Q+(MIN(M-P,M-Q)-R)+I) = XF(P+(MIN(M-P,M-Q)-R)+I,Q+(MIN(M-P,M-Q)-R)+I) - CMPLX( COS(THETA(I)), 0.0E0 )
       END DO
 
@@ -172,7 +172,7 @@
       // Check sorting
 
       RESULT( 9 ) = REALZERO
-      DO I = 1, R
+      for (I = 1; I <= R; I++) {
          if ( THETA(I).LT.REALZERO .OR. THETA(I).GT.PIOVER2 ) {
             RESULT( 9 ) = ULPINV
          }
@@ -211,7 +211,7 @@
       DO I = 1, MIN(P,Q)-R
          X(I,I) = X(I,I) - ONE
       END DO
-      DO I = 1, R
+      for (I = 1; I <= R; I++) {
          X(MIN(P,Q)-R+I,MIN(P,Q)-R+I) = X(MIN(P,Q)-R+I,MIN(P,Q)-R+I) - CMPLX( COS(THETA(I)), 0.0E0 )
       END DO
 
@@ -222,7 +222,7 @@
       DO I = 1, MIN(M-P,Q)-R
          X(M-I+1,Q-I+1) = X(M-I+1,Q-I+1) - ONE
       END DO
-      DO I = 1, R
+      for (I = 1; I <= R; I++) {
          X(M-(MIN(M-P,Q)-R)+1-I,Q-(MIN(M-P,Q)-R)+1-I) = X(M-(MIN(M-P,Q)-R)+1-I,Q-(MIN(M-P,Q)-R)+1-I) - CMPLX( SIN(THETA(R-I+1)), 0.0E0 )
       END DO
 
@@ -269,7 +269,7 @@
       // Check sorting
 
       RESULT( 15 ) = REALZERO
-      DO I = 1, R
+      for (I = 1; I <= R; I++) {
          if ( THETA(I).LT.REALZERO .OR. THETA(I).GT.PIOVER2 ) {
             RESULT( 15 ) = ULPINV
          }

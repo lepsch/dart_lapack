@@ -78,8 +78,8 @@
 
       // Compute the difference  L*U - A  and store in AFAC.
 
-      DO 30 J = 1, N
-         DO 20 I = 1, M
+      for (J = 1; J <= N; J++) { // 30
+         for (I = 1; I <= M; I++) { // 20
             AFAC( I, J ) = AFAC( I, J ) - A( I, J )
    20    CONTINUE
    30 CONTINUE

@@ -102,7 +102,7 @@
 
       // Initialize vectors/matrices
 
-      DO J = 1, KB
+      for (J = 1; J <= KB; J++) {
          IPIV( J ) = J
       END DO
 
@@ -153,7 +153,7 @@
 
             // Expand T(J,J) into full format
 
-            DO I = 1, KB
+            for (I = 1; I <= KB; I++) {
                DO K = I+1, KB
                   TB( TD+(K-I)+1 + (J*NB+I-1)*LDTB ) = TB( TD-(K-(I+1)) + (J*NB+K-1)*LDTB )
                END DO
@@ -183,7 +183,7 @@
 
                // Copy panel to workspace to call CGETRF
 
-               DO K = 1, NB
+               for (K = 1; K <= NB; K++) {
                    ccopy(N-(J+1)*NB, A( J*NB+K, (J+1)*NB+1 ), LDA, WORK( 1+(K-1)*N ), 1 );
                END DO
 
@@ -196,7 +196,7 @@
 
                // Copy panel back
 
-               DO K = 1, NB
+               for (K = 1; K <= NB; K++) {
                    ccopy(N-(J+1)*NB, WORK( 1+(K-1)*N ), 1, A( J*NB+K, (J+1)*NB+1 ), LDA );
                END DO
 
@@ -211,8 +211,8 @@
                // Copy T(J,J+1) into T(J+1, J), both upper/lower for GEMM
                // updates
 
-               DO K = 1, NB
-                  DO I = 1, KB
+               for (K = 1; K <= NB; K++) {
+                  for (I = 1; I <= KB; I++) {
                      TB( TD-NB+K-I+1 + (J*NB+NB+I-1)*LDTB ) = TB( TD+NB+I-K+1 + (J*NB+K-1)*LDTB )
                   END DO
                END DO
@@ -220,7 +220,7 @@
 
                // Apply pivots to trailing submatrix of A
 
-               DO K = 1, KB
+               for (K = 1; K <= KB; K++) {
                   // > Adjust ipiv
                   IPIV( (J+1)*NB+K ) = IPIV( (J+1)*NB+K ) + (J+1)*NB
 
@@ -288,7 +288,7 @@
 
             // Expand T(J,J) into full format
 
-            DO I = 1, KB
+            for (I = 1; I <= KB; I++) {
                DO K = I+1, KB
                   TB( TD-(K-(I+1)) + (J*NB+K-1)*LDTB ) = TB( TD+(K-I)+1 + (J*NB+I-1)*LDTB )
                END DO
@@ -302,7 +302,7 @@
 
             // Symmetrize T(J,J)
 
-            DO I = 1, KB
+            for (I = 1; I <= KB; I++) {
                DO K = I+1, KB
                   TB( TD-(K-(I+1)) + (J*NB+K-1)*LDTB ) = TB( TD+(K-I)+1 + (J*NB+I-1)*LDTB )
                END DO
@@ -342,8 +342,8 @@
                // Copy T(J+1,J) into T(J, J+1), both upper/lower for GEMM
                // updates
 
-               DO K = 1, NB
-                  DO I = 1, KB
+               for (K = 1; K <= NB; K++) {
+                  for (I = 1; I <= KB; I++) {
                      TB( TD-NB+K-I+1 + (J*NB+NB+I-1)*LDTB ) = TB( TD+NB+I-K+1 + (J*NB+K-1)*LDTB )
                   END DO
                END DO
@@ -351,7 +351,7 @@
 
                // Apply pivots to trailing submatrix of A
 
-               DO K = 1, KB
+               for (K = 1; K <= KB; K++) {
                   // > Adjust ipiv
                   IPIV( (J+1)*NB+K ) = IPIV( (J+1)*NB+K ) + (J+1)*NB
 

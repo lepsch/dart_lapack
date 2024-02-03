@@ -63,7 +63,7 @@
       UNITD = LSAME( DIAG, 'U' )
       if ( LSAME( UPLO, 'U' ) ) {
          JC = 1
-         DO 10 J = 1, N
+         for (J = 1; J <= N; J++) { // 10
             IF( UNITD ) AINVP( JC+J-1 ) = ONE
 
             // Form the j-th column of A*AINV.
@@ -77,7 +77,7 @@
    10    CONTINUE
       } else {
          JC = 1
-         DO 20 J = 1, N
+         for (J = 1; J <= N; J++) { // 20
             IF( UNITD ) AINVP( JC ) = ONE
 
             // Form the j-th column of A*AINV.

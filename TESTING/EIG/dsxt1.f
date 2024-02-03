@@ -30,7 +30,7 @@
       TEMP1 = ZERO
 
       J = 1
-      DO 20 I = 1, N1
+      for (I = 1; I <= N1; I++) { // 20
    10    CONTINUE
          if ( D2( J ).LT.D1( I ) .AND. J.LT.N2 ) {
             J = J + 1

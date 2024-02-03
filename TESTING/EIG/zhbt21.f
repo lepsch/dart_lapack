@@ -72,7 +72,7 @@
       // Copy A from SB to SP storage format.
 
       J = 0
-      DO 50 JC = 1, N
+      for (JC = 1; JC <= N; JC++) { // 50
          if ( LOWER ) {
             DO 10 JR = 1, MIN( IKA+1, N+1-JC )
                J = J + 1
@@ -94,7 +94,7 @@
          }
    50 CONTINUE
 
-      DO 60 J = 1, N
+      for (J = 1; J <= N; J++) { // 60
          zhpr(CUPLO, N, -D( J ), U( 1, J ), 1, WORK );
    60 CONTINUE
 
@@ -121,7 +121,7 @@
 
       zgemm('N', 'C', N, N, N, CONE, U, LDU, U, LDU, CZERO, WORK, N );
 
-      DO 80 J = 1, N
+      for (J = 1; J <= N; J++) { // 80
          WORK( ( N+1 )*( J-1 )+1 ) = WORK( ( N+1 )*( J-1 )+1 ) - CONE
    80 CONTINUE
 

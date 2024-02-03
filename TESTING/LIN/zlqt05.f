@@ -57,7 +57,7 @@
       LDT=NB
       zlaset('Full', M, N2, CZERO, CZERO, A, M );
       zlaset('Full', NB, M, CZERO, CZERO, T, NB );
-      DO J=1,M
+      for (J = 1; J <= M; J++) {
          zlarnv(2, ISEED, M-J+1, A( J, J ) );
       END DO
       if ( N.GT.0 ) {
@@ -66,7 +66,7 @@
          END DO
       }
       if ( L.GT.0 ) {
-         DO J=1,L
+         for (J = 1; J <= L; J++) {
             zlarnv(2, ISEED, M-J+1, A( J, MIN(N+M,N+M-L+1) + J - 1 ) );
          END DO
       }
@@ -110,7 +110,7 @@
       // Generate random m-by-n matrix C and a copy CF
 
       zlaset('Full', N2, M, CZERO, ONE, C, N2 );
-      DO J=1,M
+      for (J = 1; J <= M; J++) {
          zlarnv(2, ISEED, N2, C( 1, J ) );
       END DO
       CNORM = ZLANGE( '1', N2, M, C, N2, RWORK)
@@ -152,7 +152,7 @@
 
       // Generate random m-by-n matrix D and a copy DF
 
-      DO J=1,N2
+      for (J = 1; J <= N2; J++) {
          zlarnv(2, ISEED, M, D( 1, J ) );
       END DO
       DNORM = ZLANGE( '1', M, N2, D, M, RWORK)

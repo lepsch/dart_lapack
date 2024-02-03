@@ -71,7 +71,7 @@
       KE = KL + 1
       ANORM = 0.0D+0
       if ( NOTRANS ) {
-         DO I = 1, N
+         for (I = 1; I <= N; I++) {
             TMP = 0.0D+0
             DO J = MAX( I-KL, 1 ), MIN( I+KU, N )
                TMP = TMP + CABS1( AB( KD+I-J, J) * X( J ) )
@@ -80,7 +80,7 @@
             ANORM = MAX( ANORM, TMP )
          END DO
       } else {
-         DO I = 1, N
+         for (I = 1; I <= N; I++) {
             TMP = 0.0D+0
             DO J = MAX( I-KL, 1 ), MIN( I+KU, N )
                TMP = TMP + CABS1( AB( KE-I+J, I ) * X( J ) )
@@ -111,7 +111,7 @@
 
             // Multiply by R.
 
-            DO I = 1, N
+            for (I = 1; I <= N; I++) {
                WORK( I ) = WORK( I ) * RWORK( I )
             END DO
 
@@ -123,14 +123,14 @@
 
             // Multiply by inv(X).
 
-            DO I = 1, N
+            for (I = 1; I <= N; I++) {
                WORK( I ) = WORK( I ) / X( I )
             END DO
          } else {
 
             // Multiply by inv(X**H).
 
-            DO I = 1, N
+            for (I = 1; I <= N; I++) {
                WORK( I ) = WORK( I ) / X( I )
             END DO
 
@@ -142,7 +142,7 @@
 
             // Multiply by R.
 
-            DO I = 1, N
+            for (I = 1; I <= N; I++) {
                WORK( I ) = WORK( I ) * RWORK( I )
             END DO
          }

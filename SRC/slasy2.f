@@ -217,10 +217,10 @@
 
       // Perform elimination
 
-      DO 100 I = 1, 3
+      for (I = 1; I <= 3; I++) { // 100
          XMAX = ZERO
-         DO 70 IP = I, 4
-            DO 60 JP = I, 4
+         for (IP = I; IP <= 4; IP++) { // 70
+            for (JP = I; JP <= 4; JP++) { // 60
                if ( ABS( T16( IP, JP ) ).GE.XMAX ) {
                   XMAX = ABS( T16( IP, JP ) )
                   IPSV = IP
@@ -260,7 +260,7 @@
          BTMP( 3 ) = BTMP( 3 )*SCALE
          BTMP( 4 ) = BTMP( 4 )*SCALE
       }
-      DO 120 I = 1, 4
+      for (I = 1; I <= 4; I++) { // 120
          K = 5 - I
          TEMP = ONE / T16( K, K )
          TMP( K ) = BTMP( K )*TEMP
@@ -268,7 +268,7 @@
             TMP( K ) = TMP( K ) - ( TEMP*T16( K, J ) )*TMP( J )
   110    CONTINUE
   120 CONTINUE
-      DO 130 I = 1, 3
+      for (I = 1; I <= 3; I++) { // 130
          if ( JPIV( 4-I ).NE.4-I ) {
             TEMP = TMP( 4-I )
             TMP( 4-I ) = TMP( JPIV( 4-I ) )

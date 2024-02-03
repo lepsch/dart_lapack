@@ -69,7 +69,7 @@
       NRUN = 0
       NFAIL = 0
       NERRS = 0
-      DO 10 I = 1, 4
+      for (I = 1; I <= 4; I++) { // 10
          ISEED( I ) = ISEEDY( I )
    10 CONTINUE
 
@@ -81,7 +81,7 @@
 
       // Do for each value of N in NVAL
 
-      DO 120 IN = 1, NN
+      for (IN = 1; IN <= NN; IN++) { // 120
          N = NVAL( IN )
          LDA = MAX( N, 1 )
          XTYPE = 'N'
@@ -89,7 +89,7 @@
          IF( N.LE.0 ) NIMAT = 1
 
          IZERO = 0
-         DO 110 IMAT = 1, NIMAT
+         for (IMAT = 1; IMAT <= NIMAT; IMAT++) { // 110
 
             // Do the tests only if DOTYPE( IMAT ) is true.
 
@@ -102,7 +102,7 @@
 
             // Do first for UPLO = 'U', then for UPLO = 'L'
 
-            DO 100 IUPLO = 1, 2
+            for (IUPLO = 1; IUPLO <= 2; IUPLO++) { // 100
                UPLO = UPLOS( IUPLO )
 
                // Set up parameters with SLATB4 and generate a test matrix
@@ -140,7 +140,7 @@
                         A( IOFF+I ) = ZERO
    20                CONTINUE
                      IOFF = IOFF + IZERO
-                     DO 30 I = IZERO, N
+                     for (I = IZERO; I <= N; I++) { // 30
                         A( IOFF ) = ZERO
                         IOFF = IOFF + LDA
    30                CONTINUE
@@ -151,7 +151,7 @@
                         IOFF = IOFF + LDA
    40                CONTINUE
                      IOFF = IOFF - IZERO
-                     DO 50 I = IZERO, N
+                     for (I = IZERO; I <= N; I++) { // 50
                         A( IOFF+I ) = ZERO
    50                CONTINUE
                   }
@@ -161,7 +161,7 @@
 
                // Do for each value of NB in NBVAL
 
-               DO 90 INB = 1, NNB
+               for (INB = 1; INB <= NNB; INB++) { // 90
                   NB = NBVAL( INB )
                   xlaenv(1, NB );
 
@@ -204,7 +204,7 @@
                   // Print information about the tests that did not pass
                   // the threshold.
 
-                  DO 60 K = 1, 2
+                  for (K = 1; K <= 2; K++) { // 60
                      if ( RESULT( K ).GE.THRESH ) {
                         IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9999 )UPLO, N, NB, IMAT, K, RESULT( K )
                         NFAIL = NFAIL + 1
@@ -217,7 +217,7 @@
 
                   IF( INB.NE.1 ) GO TO 90
 
-                  DO 80 IRHS = 1, NNS
+                  for (IRHS = 1; IRHS <= NNS; IRHS++) { // 80
                      NRHS = NSVAL( IRHS )
 
 *+    TEST 3
@@ -257,7 +257,7 @@
                      // Print information about the tests that did not pass
                      // the threshold.
 
-                     DO 70 K = 3, 7
+                     for (K = 3; K <= 7; K++) { // 70
                         if ( RESULT( K ).GE.THRESH ) {
                            IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                            WRITE( NOUT, FMT = 9998 )UPLO, N, NRHS, IMAT, K, RESULT( K )
                            NFAIL = NFAIL + 1

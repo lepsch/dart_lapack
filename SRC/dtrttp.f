@@ -47,16 +47,16 @@
 
       if ( LOWER ) {
          K = 0
-         DO J = 1, N
-            DO I = J, N
+         for (J = 1; J <= N; J++) {
+            for (I = J; I <= N; I++) {
                K = K + 1
                AP( K ) = A( I, J )
             END DO
          END DO
       } else {
          K = 0
-         DO J = 1, N
-            DO I = 1, J
+         for (J = 1; J <= N; J++) {
+            for (I = 1; I <= J; I++) {
                K = K + 1
                AP( K ) = A( I, J )
             END DO

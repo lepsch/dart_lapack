@@ -79,7 +79,7 @@
       NMAX = 1
       MNMAX = 1
       MINWRK = 1
-      DO 10 J = 1, NSIZES
+      for (J = 1; J <= NSIZES; J++) { // 10
          MMAX = MAX( MMAX, MM( J ) )
          IF( MM( J ).LT.0 ) BADMM = .TRUE.
          NMAX = MAX( NMAX, NN( J ) )
@@ -129,7 +129,7 @@
 
       NERRS = 0
 
-      DO 230 JSIZE = 1, NSIZES
+      for (JSIZE = 1; JSIZE <= NSIZES; JSIZE++) { // 230
          M = MM( JSIZE )
          N = NN( JSIZE )
          MNMIN = MIN( M, N )
@@ -140,11 +140,11 @@
             MTYPES = MIN( MAXTYP+1, NTYPES )
          }
 
-         DO 220 JTYPE = 1, MTYPES
+         for (JTYPE = 1; JTYPE <= MTYPES; JTYPE++) { // 220
             IF( .NOT.DOTYPE( JTYPE ) ) GO TO 220
             NTEST = 0
 
-            DO 20 J = 1, 4
+            for (J = 1; J <= 4; J++) { // 20
                IOLDSD( J ) = ISEED( J )
    20       CONTINUE
 
@@ -187,7 +187,7 @@
 
             // Do for minimal and adequate (for blocking) workspace
 
-            DO 210 IWSPC = 1, 4
+            for (IWSPC = 1; IWSPC <= 4; IWSPC++) { // 210
 
                // Test for ZGESVD
 
@@ -197,7 +197,7 @@
                LSWORK = MAX( LSWORK, 1 )
                IF( IWSPC.EQ.4 ) LSWORK = LWORK
 
-               DO 60 J = 1, 35
+               for (J = 1; J <= 35; J++) { // 60
                   RESULT( J ) = -ONE
    60          CONTINUE
 
@@ -231,8 +231,8 @@
                RESULT( 5 ) = ZERO
                RESULT( 6 ) = ZERO
                RESULT( 7 ) = ZERO
-               DO 100 IJU = 0, 3
-                  DO 90 IJVT = 0, 3
+               for (IJU = 0; IJU <= 3; IJU++) { // 100
+                  for (IJVT = 0; IJVT <= 3; IJVT++) { // 90
                      IF( ( IJU.EQ.3 .AND. IJVT.EQ.3 ) .OR. ( IJU.EQ.1 .AND. IJVT.EQ.1 ) )GO TO 90
                      JOBU = CJOB( IJU+1 )
                      JOBVT = CJOB( IJVT+1 )
@@ -318,7 +318,7 @@
                RESULT( 12 ) = ZERO
                RESULT( 13 ) = ZERO
                RESULT( 14 ) = ZERO
-               DO 130 IJQ = 0, 2
+               for (IJQ = 0; IJQ <= 2; IJQ++) { // 130
                   JOBQ = CJOB( IJQ+1 )
                   zlacpy('F', M, N, ASAV, LDA, A, LDA );
                   SRNAMT = 'ZGESDD'
@@ -432,8 +432,8 @@
 
                   // ZGESVJ returns V not VH
 
-                  DO J=1,N
-                     DO I=1,N
+                  for (J = 1; J <= N; J++) {
+                     for (I = 1; I <= N; I++) {
                         VTSAV(J,I) = CONJG (A(I,J))
                      END DO
                   END DO
@@ -480,8 +480,8 @@
 
                   // ZGEJSV returns V not VH
 
-                  DO 133 J=1,N
-                     DO 132 I=1,N
+                  for (J = 1; J <= N; J++) { // 133
+                     for (I = 1; I <= N; I++) { // 132
                         VTSAV(J,I) = CONJG (A(I,J))
   132                END DO
   133             END DO
@@ -542,8 +542,8 @@
                RESULT( 27 ) = ZERO
                RESULT( 28 ) = ZERO
                RESULT( 29 ) = ZERO
-               DO 170 IJU = 0, 1
-                  DO 160 IJVT = 0, 1
+               for (IJU = 0; IJU <= 1; IJU++) { // 170
+                  for (IJVT = 0; IJVT <= 1; IJVT++) { // 160
                      IF( ( IJU.EQ.0 .AND. IJVT.EQ.0 ) .OR. ( IJU.EQ.1 .AND. IJVT.EQ.1 ) ) GO TO 160
                      JOBU = CJOBV( IJU+1 )
                      JOBVT = CJOBV( IJVT+1 )
@@ -586,7 +586,7 @@
 
                // Do tests 8--10
 
-               DO 180 I = 1, 4
+               for (I = 1; I <= 4; I++) { // 180
                   ISEED2( I ) = ISEED( I )
   180          CONTINUE
                if ( MNMIN.LE.1 ) {
@@ -659,7 +659,7 @@
 
                NTEST = 0
                NFAIL = 0
-               DO 190 J = 1, 39
+               for (J = 1; J <= 39; J++) { // 190
                   IF( RESULT( J ).GE.ZERO ) NTEST = NTEST + 1                   IF( RESULT( J ).GE.THRESH ) NFAIL = NFAIL + 1
   190          CONTINUE
 
@@ -670,7 +670,7 @@
                   NTESTF = 2
                }
 
-               DO 200 J = 1, 39
+               for (J = 1; J <= 39; J++) { // 200
                   if ( RESULT( J ).GE.THRESH ) {
                      WRITE( NOUNIT, FMT = 9997 )M, N, JTYPE, IWSPC, IOLDSD, J, RESULT( J )
                   }

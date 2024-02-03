@@ -32,7 +32,7 @@
       RPVGRW = 1.0D+0
 
       KD = KU + 1
-      DO J = 1, NCOLS
+      for (J = 1; J <= NCOLS; J++) {
          AMAX = 0.0D+0
          UMAX = 0.0D+0
          DO I = MAX( J-KU, 1 ), MIN( J+KL, N )

@@ -43,7 +43,7 @@
 
       // Compute factorization.
 
-      DO 20 I = 1, MN
+      for (I = 1; I <= MN; I++) { // 20
 
          OFFPI = OFFSET + I
 

@@ -132,7 +132,7 @@
 
          // Scaling up safe because D, Z, TAU scaled elsewhere to be O(1)
 
-         DO 10 I = 1, 3
+         for (I = 1; I <= 3; I++) { // 10
             DSCALE( I ) = D( I )*SCLFAC
             ZSCALE( I ) = Z( I )*SCLFAC
    10    CONTINUE
@@ -143,7 +143,7 @@
 
          // Copy D and Z to DSCALE and ZSCALE
 
-         DO 20 I = 1, 3
+         for (I = 1; I <= 3; I++) { // 20
             DSCALE( I ) = D( I )
             ZSCALE( I ) = Z( I )
    20    CONTINUE
@@ -152,7 +152,7 @@
       FC = ZERO
       DF = ZERO
       DDF = ZERO
-      DO 30 I = 1, 3
+      for (I = 1; I <= 3; I++) { // 30
          TEMP = ONE / ( DSCALE( I )-TAU )
          TEMP1 = ZSCALE( I )*TEMP
          TEMP2 = TEMP1*TEMP
@@ -183,7 +183,7 @@
 
       ITER = NITER + 1
 
-      DO 50 NITER = ITER, MAXIT
+      for (NITER = ITER; NITER <= MAXIT; NITER++) { // 50
 
          if ( ORGATI ) {
             TEMP1 = DSCALE( 2 ) - TAU
@@ -217,7 +217,7 @@
          ERRETM = ZERO
          DF = ZERO
          DDF = ZERO
-         DO 40 I = 1, 3
+         for (I = 1; I <= 3; I++) { // 40
             if ( ( DSCALE( I )-TAU ).NE.ZERO ) {
                TEMP = ONE / ( DSCALE( I )-TAU )
                TEMP1 = ZSCALE( I )*TEMP

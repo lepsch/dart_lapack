@@ -52,8 +52,8 @@
       // Copy upper triangle R
 
       claset('Full', M, N, CMPLX( ZERO ), CMPLX( ZERO ), WORK, M );
-      DO 20 J = 1, M
-         DO 10 I = 1, J
+      for (J = 1; J <= M; J++) { // 20
+         for (I = 1; I <= J; I++) { // 10
             WORK( ( J-1 )*M+I ) = AF( I, J )
    10    CONTINUE
    20 CONTINUE
@@ -64,7 +64,7 @@
 
       // R = R - A
 
-      DO 30 I = 1, N
+      for (I = 1; I <= N; I++) { // 30
          caxpy(M, CMPLX( -ONE ), A( 1, I ), 1, WORK( ( I-1 )*M+1 ), 1 );
    30 CONTINUE
 

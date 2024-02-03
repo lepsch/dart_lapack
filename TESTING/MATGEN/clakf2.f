@@ -32,20 +32,20 @@
       claset('Full', MN2, MN2, ZERO, ZERO, Z, LDZ );
 
       IK = 1
-      DO 50 L = 1, N
+      for (L = 1; L <= N; L++) { // 50
 
          // form kron(In, A)
 
-         DO 20 I = 1, M
-            DO 10 J = 1, M
+         for (I = 1; I <= M; I++) { // 20
+            for (J = 1; J <= M; J++) { // 10
                Z( IK+I-1, IK+J-1 ) = A( I, J )
    10       CONTINUE
    20    CONTINUE
 
          // form kron(In, D)
 
-         DO 40 I = 1, M
-            DO 30 J = 1, M
+         for (I = 1; I <= M; I++) { // 40
+            for (J = 1; J <= M; J++) { // 30
                Z( IK+MN+I-1, IK+J-1 ) = D( I, J )
    30       CONTINUE
    40    CONTINUE
@@ -54,20 +54,20 @@
    50 CONTINUE
 
       IK = 1
-      DO 90 L = 1, N
+      for (L = 1; L <= N; L++) { // 90
          JK = MN + 1
 
-         DO 80 J = 1, N
+         for (J = 1; J <= N; J++) { // 80
 
             // form -kron(B', Im)
 
-            DO 60 I = 1, M
+            for (I = 1; I <= M; I++) { // 60
                Z( IK+I-1, JK+I-1 ) = -B( J, L )
    60       CONTINUE
 
             // form -kron(E', Im)
 
-            DO 70 I = 1, M
+            for (I = 1; I <= M; I++) { // 70
                Z( IK+MN+I-1, JK+I-1 ) = -E( J, L )
    70       CONTINUE
 

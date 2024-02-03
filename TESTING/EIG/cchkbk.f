@@ -58,11 +58,11 @@
       IF( N.EQ.0 ) GO TO 60
 
       READ( NIN, FMT = * )( SCALE( I ), I = 1, N )
-      DO 20 I = 1, N
+      for (I = 1; I <= N; I++) { // 20
          READ( NIN, FMT = * )( E( I, J ), J = 1, N )
    20 CONTINUE
 
-      DO 30 I = 1, N
+      for (I = 1; I <= N; I++) { // 30
          READ( NIN, FMT = * )( EIN( I, J ), J = 1, N )
    30 CONTINUE
 
@@ -75,8 +75,8 @@
       }
 
       VMAX = ZERO
-      DO 50 I = 1, N
-         DO 40 J = 1, N
+      for (I = 1; I <= N; I++) { // 50
+         for (J = 1; J <= N; J++) { // 40
             X = CABS1( E( I, J )-EIN( I, J ) ) / EPS
             IF( CABS1( E( I, J ) ).GT.SAFMIN ) X = X / CABS1( E( I, J ) )
             VMAX = MAX( VMAX, X )

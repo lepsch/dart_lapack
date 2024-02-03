@@ -88,7 +88,7 @@
       // Quick return if possible
 
       if ( N.EQ.0 .OR. NRHS.EQ.0 ) {
-         DO 10 J = 1, NRHS
+         for (J = 1; J <= NRHS; J++) { // 10
             FERR( J ) = ZERO
             BERR( J ) = ZERO
    10    CONTINUE
@@ -113,7 +113,7 @@
 
       // Do for each right hand side
 
-      DO 140 J = 1, NRHS
+      for (J = 1; J <= NRHS; J++) { // 140
 
          COUNT = 1
          LSTRES = THREE
@@ -136,14 +136,14 @@
          // than SAFE2, then SAFE1 is added to the i-th components of the
          // numerator and denominator before dividing.
 
-         DO 30 I = 1, N
+         for (I = 1; I <= N; I++) { // 30
             RWORK( I ) = CABS1( B( I, J ) )
    30    CONTINUE
 
          // Compute abs(op(A))*abs(X) + abs(B).
 
          if ( NOTRAN ) {
-            DO 50 K = 1, N
+            for (K = 1; K <= N; K++) { // 50
                KK = KU + 1 - K
                XK = CABS1( X( K, J ) )
                DO 40 I = MAX( 1, K-KU ), MIN( N, K+KL )
@@ -151,7 +151,7 @@
    40          CONTINUE
    50       CONTINUE
          } else {
-            DO 70 K = 1, N
+            for (K = 1; K <= N; K++) { // 70
                S = ZERO
                KK = KU + 1 - K
                DO 60 I = MAX( 1, K-KU ), MIN( N, K+KL )
@@ -161,7 +161,7 @@
    70       CONTINUE
          }
          S = ZERO
-         DO 80 I = 1, N
+         for (I = 1; I <= N; I++) { // 80
             if ( RWORK( I ).GT.SAFE2 ) {
                S = MAX( S, CABS1( WORK( I ) ) / RWORK( I ) )
             } else {
@@ -209,7 +209,7 @@
             // inv(op(A)) * diag(W),
          // where W = abs(R) + NZ*EPS*( abs(op(A))*abs(X)+abs(B) )))
 
-         DO 90 I = 1, N
+         for (I = 1; I <= N; I++) { // 90
             if ( RWORK( I ).GT.SAFE2 ) {
                RWORK( I ) = CABS1( WORK( I ) ) + NZ*EPS*RWORK( I )
             } else {
@@ -226,14 +226,14 @@
                // Multiply by diag(W)*inv(op(A)**H).
 
                cgbtrs(TRANST, N, KL, KU, 1, AFB, LDAFB, IPIV, WORK, N, INFO );
-               DO 110 I = 1, N
+               for (I = 1; I <= N; I++) { // 110
                   WORK( I ) = RWORK( I )*WORK( I )
   110          CONTINUE
             } else {
 
                // Multiply by inv(op(A))*diag(W).
 
-               DO 120 I = 1, N
+               for (I = 1; I <= N; I++) { // 120
                   WORK( I ) = RWORK( I )*WORK( I )
   120          CONTINUE
                cgbtrs(TRANSN, N, KL, KU, 1, AFB, LDAFB, IPIV, WORK, N, INFO );
@@ -244,7 +244,7 @@
          // Normalize error.
 
          LSTRES = ZERO
-         DO 130 I = 1, N
+         for (I = 1; I <= N; I++) { // 130
             LSTRES = MAX( LSTRES, CABS1( X( I, J ) ) )
   130    CONTINUE
          IF( LSTRES.NE.ZERO ) FERR( J ) = FERR( J ) / LSTRES

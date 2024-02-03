@@ -643,7 +643,7 @@
 
                      // Perform a rank-2 update of A(k+2:n,k+2:n)
 
-                     DO 50 I = J, N
+                     for (I = J; I <= N; I++) { // 50
                         A( I, J ) = A( I, J ) - ( A( I, K ) / D )*DCONJG( WK ) - ( A( I, K+1 ) / D )*DCONJG( WKP1 )
    50                CONTINUE
 

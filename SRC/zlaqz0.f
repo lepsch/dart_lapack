@@ -174,7 +174,7 @@
       MAXIT = 30*( IHI-ILO+1 )
       LD = 0
 
-      DO IITER = 1, MAXIT
+      for (IITER = 1; IITER <= MAXIT; IITER++) {
          if ( IITER .GE. MAXIT ) {
             INFO = ISTOP+1
             GOTO 80

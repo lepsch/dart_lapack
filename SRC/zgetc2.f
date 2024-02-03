@@ -66,8 +66,8 @@
          // Find max element in matrix A
 
          XMAX = ZERO
-         DO 20 IP = I, N
-            DO 10 JP = I, N
+         for (IP = I; IP <= N; IP++) { // 20
+            for (JP = I; JP <= N; JP++) { // 10
                if ( ABS( A( IP, JP ) ).GE.XMAX ) {
                   XMAX = ABS( A( IP, JP ) )
                   IPV = IP

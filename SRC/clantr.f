@@ -45,14 +45,14 @@
          if ( LSAME( DIAG, 'U' ) ) {
             VALUE = ONE
             if ( LSAME( UPLO, 'U' ) ) {
-               DO 20 J = 1, N
+               for (J = 1; J <= N; J++) { // 20
                   DO 10 I = 1, MIN( M, J-1 )
                      SUM = ABS( A( I, J ) )
                      IF( VALUE .LT. SUM .OR. SISNAN( SUM ) ) VALUE = SUM
    10             CONTINUE
    20          CONTINUE
             } else {
-               DO 40 J = 1, N
+               for (J = 1; J <= N; J++) { // 40
                   DO 30 I = J + 1, M
                      SUM = ABS( A( I, J ) )
                      IF( VALUE .LT. SUM .OR. SISNAN( SUM ) ) VALUE = SUM
@@ -62,15 +62,15 @@
          } else {
             VALUE = ZERO
             if ( LSAME( UPLO, 'U' ) ) {
-               DO 60 J = 1, N
+               for (J = 1; J <= N; J++) { // 60
                   DO 50 I = 1, MIN( M, J )
                      SUM = ABS( A( I, J ) )
                      IF( VALUE .LT. SUM .OR. SISNAN( SUM ) ) VALUE = SUM
    50             CONTINUE
    60          CONTINUE
             } else {
-               DO 80 J = 1, N
-                  DO 70 I = J, M
+               for (J = 1; J <= N; J++) { // 80
+                  for (I = J; I <= M; I++) { // 70
                      SUM = ABS( A( I, J ) )
                      IF( VALUE .LT. SUM .OR. SISNAN( SUM ) ) VALUE = SUM
    70             CONTINUE
@@ -84,7 +84,7 @@
          VALUE = ZERO
          UDIAG = LSAME( DIAG, 'U' )
          if ( LSAME( UPLO, 'U' ) ) {
-            DO 110 J = 1, N
+            for (J = 1; J <= N; J++) { // 110
                if ( ( UDIAG ) .AND. ( J.LE.M ) ) {
                   SUM = ONE
                   DO 90 I = 1, J - 1
@@ -99,7 +99,7 @@
                IF( VALUE .LT. SUM .OR. SISNAN( SUM ) ) VALUE = SUM
   110       CONTINUE
          } else {
-            DO 140 J = 1, N
+            for (J = 1; J <= N; J++) { // 140
                if ( UDIAG ) {
                   SUM = ONE
                   DO 120 I = J + 1, M
@@ -107,7 +107,7 @@
   120             CONTINUE
                } else {
                   SUM = ZERO
-                  DO 130 I = J, M
+                  for (I = J; I <= M; I++) { // 130
                      SUM = SUM + ABS( A( I, J ) )
   130             CONTINUE
                }
@@ -120,19 +120,19 @@
 
          if ( LSAME( UPLO, 'U' ) ) {
             if ( LSAME( DIAG, 'U' ) ) {
-               DO 150 I = 1, M
+               for (I = 1; I <= M; I++) { // 150
                   WORK( I ) = ONE
   150          CONTINUE
-               DO 170 J = 1, N
+               for (J = 1; J <= N; J++) { // 170
                   DO 160 I = 1, MIN( M, J-1 )
                      WORK( I ) = WORK( I ) + ABS( A( I, J ) )
   160             CONTINUE
   170          CONTINUE
             } else {
-               DO 180 I = 1, M
+               for (I = 1; I <= M; I++) { // 180
                   WORK( I ) = ZERO
   180          CONTINUE
-               DO 200 J = 1, N
+               for (J = 1; J <= N; J++) { // 200
                   DO 190 I = 1, MIN( M, J )
                      WORK( I ) = WORK( I ) + ABS( A( I, J ) )
   190             CONTINUE
@@ -146,24 +146,24 @@
                DO 220 I = N + 1, M
                   WORK( I ) = ZERO
   220          CONTINUE
-               DO 240 J = 1, N
+               for (J = 1; J <= N; J++) { // 240
                   DO 230 I = J + 1, M
                      WORK( I ) = WORK( I ) + ABS( A( I, J ) )
   230             CONTINUE
   240          CONTINUE
             } else {
-               DO 250 I = 1, M
+               for (I = 1; I <= M; I++) { // 250
                   WORK( I ) = ZERO
   250          CONTINUE
-               DO 270 J = 1, N
-                  DO 260 I = J, M
+               for (J = 1; J <= N; J++) { // 270
+                  for (I = J; I <= M; I++) { // 260
                      WORK( I ) = WORK( I ) + ABS( A( I, J ) )
   260             CONTINUE
   270          CONTINUE
             }
          }
          VALUE = ZERO
-         DO 280 I = 1, M
+         for (I = 1; I <= M; I++) { // 280
             SUM = WORK( I )
             IF( VALUE .LT. SUM .OR. SISNAN( SUM ) ) VALUE = SUM
   280    CONTINUE
@@ -175,13 +175,13 @@
             if ( LSAME( DIAG, 'U' ) ) {
                SCALE = ONE
                SUM = MIN( M, N )
-               DO 290 J = 2, N
+               for (J = 2; J <= N; J++) { // 290
                   classq(MIN( M, J-1 ), A( 1, J ), 1, SCALE, SUM );
   290          CONTINUE
             } else {
                SCALE = ZERO
                SUM = ONE
-               DO 300 J = 1, N
+               for (J = 1; J <= N; J++) { // 300
                   classq(MIN( M, J ), A( 1, J ), 1, SCALE, SUM );
   300          CONTINUE
             }
@@ -189,13 +189,13 @@
             if ( LSAME( DIAG, 'U' ) ) {
                SCALE = ONE
                SUM = MIN( M, N )
-               DO 310 J = 1, N
+               for (J = 1; J <= N; J++) { // 310
                   classq(M-J, A( MIN( M, J+1 ), J ), 1, SCALE, SUM );
   310          CONTINUE
             } else {
                SCALE = ZERO
                SUM = ONE
-               DO 320 J = 1, N
+               for (J = 1; J <= N; J++) { // 320
                   classq(M-J+1, A( J, J ), 1, SCALE, SUM );
   320          CONTINUE
             }

@@ -96,7 +96,7 @@
       ISEED( 4 ) = 1
       SCALE = ONE
       SCALE3 = ONE
-      DO J = 1, 2
+      for (J = 1; J <= 2; J++) {
          DO ISGN = -1, 1, 2
             // Reset seed (overwritten by LATMR)
             ISEED( 1 ) = 1
@@ -107,7 +107,7 @@
                KLA = 0
                KUA = M - 1
                zlatmr(M, M, 'S', ISEED, 'N', D, 6, ONE, CONE, 'T', 'N', DUML, 1, ONE, DUMR, 1, ONE, 'N', IWORK, KLA, KUA, ZERO, ONE, 'NO', A, MAXM, IWORK, IINFO );
-               DO I = 1, M
+               for (I = 1; I <= M; I++) {
                   A( I, I ) = A( I, I ) * VM( J )
                END DO
                ANRM = ZLANGE( 'M', M, M, A, MAXM, DUM )
@@ -115,15 +115,15 @@
                   KLB = 0
                   KUB = N - 1
                   zlatmr(N, N, 'S', ISEED, 'N', D, 6, ONE, CONE, 'T', 'N', DUML, 1, ONE, DUMR, 1, ONE, 'N', IWORK, KLB, KUB, ZERO, ONE, 'NO', B, MAXN, IWORK, IINFO );
-                  DO I = 1, N
+                  for (I = 1; I <= N; I++) {
                      B( I, I ) = B( I, I ) * VM ( J )
                   END DO
                   BNRM = ZLANGE( 'M', N, N, B, MAXN, DUM )
                   TNRM = MAX( ANRM, BNRM )
                   zlatmr(M, N, 'S', ISEED, 'N', D, 6, ONE, CONE, 'T', 'N', DUML, 1, ONE, DUMR, 1, ONE, 'N', IWORK, M, N, ZERO, ONE, 'NO', C, MAXM, IWORK, IINFO );
-                  DO ITRANA = 1, 2
+                  for (ITRANA = 1; ITRANA <= 2; ITRANA++) {
                      IF( ITRANA.EQ.1 ) TRANA = 'N'                      IF( ITRANA.EQ.2 ) TRANA = 'C'
-                     DO ITRANB = 1, 2
+                     for (ITRANB = 1; ITRANB <= 2; ITRANB++) {
                         IF( ITRANB.EQ.1 ) TRANB = 'N'                         IF( ITRANB.EQ.2 ) TRANB = 'C'
                         KNT = KNT + 1
 

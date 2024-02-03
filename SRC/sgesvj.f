@@ -175,7 +175,7 @@
 
       if ( LOWER ) {
          // the input matrix is M-by-N lower triangular (trapezoidal)
-         DO 1874 p = 1, N
+         for (p = 1; p <= N; p++) { // 1874
             AAPP = ZERO
             AAQQ = ONE
             slassq(M-p+1, A( p, p ), 1, AAPP, AAQQ );
@@ -200,7 +200,7 @@
  1874    CONTINUE
       } else if ( UPPER ) {
          // the input matrix is M-by-N upper triangular (trapezoidal)
-         DO 2874 p = 1, N
+         for (p = 1; p <= N; p++) { // 2874
             AAPP = ZERO
             AAQQ = ONE
             slassq(p, A( 1, p ), 1, AAPP, AAQQ );
@@ -225,7 +225,7 @@
  2874    CONTINUE
       } else {
          // the input matrix is M-by-N general dense
-         DO 3874 p = 1, N
+         for (p = 1; p <= N; p++) { // 3874
             AAPP = ZERO
             AAQQ = ONE
             slassq(M, A( 1, p ), 1, AAPP, AAQQ );
@@ -258,7 +258,7 @@
 
       AAPP = ZERO
       AAQQ = BIG
-      DO 4781 p = 1, N
+      for (p = 1; p <= N; p++) { // 4781
          IF( SVA( p ).NE.ZERO )AAQQ = MIN( AAQQ, SVA( p ) )
          AAPP = MAX( AAPP, SVA( p ) )
  4781 CONTINUE
@@ -339,7 +339,7 @@
       // is initialized to identity. WORK is updated during fast scaled
       // rotations.
 
-      DO 1868 q = 1, N
+      for (q = 1; q <= N; q++) { // 1868
          WORK( q ) = ONE
  1868 CONTINUE
 
@@ -427,7 +427,7 @@
 
       // .. Row-cyclic pivot strategy with de Rijk's pivoting ..
 
-      DO 1993 i = 1, NSWEEP
+      for (i = 1; i <= NSWEEP; i++) { // 1993
 
       // .. go go go ...
 
@@ -443,7 +443,7 @@
       // of the rotations. New implementation, based on block transformations,
       // is under development.
 
-         DO 2000 ibr = 1, NBL
+         for (ibr = 1; ibr <= NBL; ibr++) { // 2000
 
             igl = ( ibr-1 )*KBL + 1
 
@@ -963,7 +963,7 @@
       // Normalize the left singular vectors.
 
       if ( LSVEC .OR. UCTOL ) {
-         DO 1998 p = 1, N2
+         for (p = 1; p <= N2; p++) { // 1998
             sscal(M, WORK( p ) / SVA( p ), A( 1, p ), 1 );
  1998    CONTINUE
       }
@@ -972,11 +972,11 @@
 
       if ( RSVEC ) {
          if ( APPLV ) {
-            DO 2398 p = 1, N
+            for (p = 1; p <= N; p++) { // 2398
                sscal(MVL, WORK( p ), V( 1, p ), 1 );
  2398       CONTINUE
          } else {
-            DO 2399 p = 1, N
+            for (p = 1; p <= N; p++) { // 2399
                TEMP1 = ONE / SNRM2( MVL, V( 1, p ), 1 )
                sscal(MVL, TEMP1, V( 1, p ), 1 );
  2399       CONTINUE
@@ -985,7 +985,7 @@
 
       // Undo scaling, if necessary (and possible).
       if ( ( ( SKL.GT.ONE ) .AND. ( SVA( 1 ).LT.( BIG / SKL ) ) ) .OR. ( ( SKL.LT.ONE ) .AND. ( SVA( MAX( N2, 1 ) ) .GT. ( SFMIN / SKL ) ) ) ) {
-         DO 2400 p = 1, N
+         for (p = 1; p <= N; p++) { // 2400
             SVA( P ) = SKL*SVA( P )
  2400    CONTINUE
          SKL = ONE

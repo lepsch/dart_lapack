@@ -77,7 +77,7 @@
       // Quick return if possible
 
       if ( N.EQ.0 .OR. NRHS.EQ.0 ) {
-         DO 10 J = 1, NRHS
+         for (J = 1; J <= NRHS; J++) { // 10
             FERR( J ) = ZERO
             BERR( J ) = ZERO
    10    CONTINUE
@@ -94,7 +94,7 @@
 
       // Do for each right hand side
 
-      DO 140 J = 1, NRHS
+      for (J = 1; J <= NRHS; J++) { // 140
 
          COUNT = 1
          LSTRES = THREE
@@ -116,14 +116,14 @@
          // than SAFE2, then SAFE1 is added to the i-th components of the
          // numerator and denominator before dividing.
 
-         DO 30 I = 1, N
+         for (I = 1; I <= N; I++) { // 30
             WORK( I ) = ABS( B( I, J ) )
    30    CONTINUE
 
          // Compute abs(A)*abs(X) + abs(B).
 
          if ( UPPER ) {
-            DO 50 K = 1, N
+            for (K = 1; K <= N; K++) { // 50
                S = ZERO
                XK = ABS( X( K, J ) )
                L = KD + 1 - K
@@ -134,7 +134,7 @@
                WORK( K ) = WORK( K ) + ABS( AB( KD+1, K ) )*XK + S
    50       CONTINUE
          } else {
-            DO 70 K = 1, N
+            for (K = 1; K <= N; K++) { // 70
                S = ZERO
                XK = ABS( X( K, J ) )
                WORK( K ) = WORK( K ) + ABS( AB( 1, K ) )*XK
@@ -147,7 +147,7 @@
    70       CONTINUE
          }
          S = ZERO
-         DO 80 I = 1, N
+         for (I = 1; I <= N; I++) { // 80
             if ( WORK( I ).GT.SAFE2 ) {
                S = MAX( S, ABS( WORK( N+I ) ) / WORK( I ) )
             } else {
@@ -195,7 +195,7 @@
             // inv(A) * diag(W),
          // where W = abs(R) + NZ*EPS*( abs(A)*abs(X)+abs(B) )))
 
-         DO 90 I = 1, N
+         for (I = 1; I <= N; I++) { // 90
             if ( WORK( I ).GT.SAFE2 ) {
                WORK( I ) = ABS( WORK( N+I ) ) + NZ*EPS*WORK( I )
             } else {
@@ -212,14 +212,14 @@
                // Multiply by diag(W)*inv(A**T).
 
                dpbtrs(UPLO, N, KD, 1, AFB, LDAFB, WORK( N+1 ), N, INFO );
-               DO 110 I = 1, N
+               for (I = 1; I <= N; I++) { // 110
                   WORK( N+I ) = WORK( N+I )*WORK( I )
   110          CONTINUE
             } else if ( KASE.EQ.2 ) {
 
                // Multiply by inv(A)*diag(W).
 
-               DO 120 I = 1, N
+               for (I = 1; I <= N; I++) { // 120
                   WORK( N+I ) = WORK( N+I )*WORK( I )
   120          CONTINUE
                dpbtrs(UPLO, N, KD, 1, AFB, LDAFB, WORK( N+1 ), N, INFO );
@@ -230,7 +230,7 @@
          // Normalize error.
 
          LSTRES = ZERO
-         DO 130 I = 1, N
+         for (I = 1; I <= N; I++) { // 130
             LSTRES = MAX( LSTRES, ABS( X( I, J ) ) )
   130    CONTINUE
          IF( LSTRES.NE.ZERO ) FERR( J ) = FERR( J ) / LSTRES

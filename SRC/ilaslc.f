@@ -30,7 +30,7 @@
       } else {
       // Now scan each column from the end, returning with the first non-zero.
          DO ILASLC = N, 1, -1
-            DO I = 1, M
+            for (I = 1; I <= M; I++) {
                IF( A(I, ILASLC).NE.ZERO ) RETURN
             END DO
          END DO

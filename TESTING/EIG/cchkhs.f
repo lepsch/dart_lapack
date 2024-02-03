@@ -59,7 +59,7 @@
 
       BADNN = .FALSE.
       NMAX = 0
-      DO 10 J = 1, NSIZES
+      for (J = 1; J <= NSIZES; J++) { // 10
          NMAX = MAX( NMAX, NN( J ) )
          IF( NN( J ).LT.0 ) BADNN = .TRUE.
    10 CONTINUE
@@ -107,7 +107,7 @@
       NERRS = 0
       NMATS = 0
 
-      DO 260 JSIZE = 1, NSIZES
+      for (JSIZE = 1; JSIZE <= NSIZES; JSIZE++) { // 260
          N = NN( JSIZE )
          IF( N.EQ.0 ) GO TO 260
          N1 = MAX( 1, N )
@@ -119,20 +119,20 @@
             MTYPES = MIN( MAXTYP+1, NTYPES )
          }
 
-         DO 250 JTYPE = 1, MTYPES
+         for (JTYPE = 1; JTYPE <= MTYPES; JTYPE++) { // 250
             IF( .NOT.DOTYPE( JTYPE ) ) GO TO 250
             NMATS = NMATS + 1
             NTEST = 0
 
             // Save ISEED in case of an error.
 
-            DO 20 J = 1, 4
+            for (J = 1; J <= 4; J++) { // 20
                IOLDSD( J ) = ISEED( J )
    20       CONTINUE
 
             // Initialize RESULT
 
-            DO 30 J = 1, 14
+            for (J = 1; J <= 14; J++) { // 30
                RESULT( J ) = ZERO
    30       CONTINUE
 
@@ -190,7 +190,7 @@
 
                // Identity
 
-               DO 80 JCOL = 1, N
+               for (JCOL = 1; JCOL <= N; JCOL++) { // 80
                   A( JCOL, JCOL ) = ANORM
    80          CONTINUE
 
@@ -198,7 +198,7 @@
 
                // Jordan Block
 
-               DO 90 JCOL = 1, N
+               for (JCOL = 1; JCOL <= N; JCOL++) { // 90
                   A( JCOL, JCOL ) = ANORM
                   IF( JCOL.GT.1 ) A( JCOL, JCOL-1 ) = ONE
    90          CONTINUE
@@ -360,7 +360,7 @@
 
             TEMP1 = ZERO
             TEMP2 = ZERO
-            DO 130 J = 1, N
+            for (J = 1; J <= N; J++) { // 130
                TEMP1 = MAX( TEMP1, ABS( W1( J ) ), ABS( W3( J ) ) )
                TEMP2 = MAX( TEMP2, ABS( W1( J )-W3( J ) ) )
   130       CONTINUE
@@ -376,7 +376,7 @@
 
             // Select every other eigenvector
 
-            DO 140 J = 1, N
+            for (J = 1; J <= N; J++) { // 140
                SELECT( J ) = .FALSE.
   140       CONTINUE
             DO 150 J = 1, N, 2
@@ -409,9 +409,9 @@
 
             K = 1
             MATCH = .TRUE.
-            DO 170 J = 1, N
+            for (J = 1; J <= N; J++) { // 170
                if ( SELECT( J ) ) {
-                  DO 160 JJ = 1, N
+                  for (JJ = 1; JJ <= N; JJ++) { // 160
                      if ( EVECTR( JJ, J ).NE.EVECTL( JJ, K ) ) {
                         MATCH = .FALSE.
                         GO TO 180
@@ -454,9 +454,9 @@
 
             K = 1
             MATCH = .TRUE.
-            DO 200 J = 1, N
+            for (J = 1; J <= N; J++) { // 200
                if ( SELECT( J ) ) {
-                  DO 190 JJ = 1, N
+                  for (JJ = 1; JJ <= N; JJ++) { // 190
                      if ( EVECTL( JJ, J ).NE.EVECTR( JJ, K ) ) {
                         MATCH = .FALSE.
                         GO TO 210
@@ -472,7 +472,7 @@
 
             NTEST = 11
             RESULT( 11 ) = ULPINV
-            DO 220 J = 1, N
+            for (J = 1; J <= N; J++) { // 220
                SELECT( J ) = .TRUE.
   220       CONTINUE
 
@@ -497,7 +497,7 @@
 
             NTEST = 12
             RESULT( 12 ) = ULPINV
-            DO 230 J = 1, N
+            for (J = 1; J <= N; J++) { // 230
                SELECT( J ) = .TRUE.
   230       CONTINUE
 

@@ -168,11 +168,11 @@
       }
       if ( ISCALE.EQ.1 ) {
          if ( LOWER ) {
-            DO 10 J = 1, N
+            for (J = 1; J <= N; J++) { // 10
                dscal(N-J+1, SIGMA, A( J, J ), 1 );
    10       CONTINUE
          } else {
-            DO 20 J = 1, N
+            for (J = 1; J <= N; J++) { // 20
                dscal(J, SIGMA, A( 1, J ), 1 );
    20       CONTINUE
          }

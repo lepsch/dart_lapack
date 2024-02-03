@@ -60,7 +60,7 @@
 
          // W( 1:n, 1:k ) = C( 1:k, 1:n )**H
 
-         DO 10 J = 1, K
+         for (J = 1; J <= K; J++) { // 10
             ccopy(N, C( J, 1 ), LDC, WORK( 1, J ), 1 );
    10    CONTINUE
 
@@ -75,8 +75,8 @@
 
          // C( 1:k, 1:n ) = C( 1:k, 1:n ) - W( 1:n, 1:k )**H
 
-         DO 30 J = 1, N
-            DO 20 I = 1, K
+         for (J = 1; J <= N; J++) { // 30
+            for (I = 1; I <= K; I++) { // 20
                C( I, J ) = C( I, J ) - WORK( J, I )
    20       CONTINUE
    30    CONTINUE
@@ -92,7 +92,7 @@
 
          // W( 1:m, 1:k ) = C( 1:m, 1:k )
 
-         DO 40 J = 1, K
+         for (J = 1; J <= K; J++) { // 40
             ccopy(M, C( 1, J ), 1, WORK( 1, J ), 1 );
    40    CONTINUE
 
@@ -104,18 +104,18 @@
          // W( 1:m, 1:k ) = W( 1:m, 1:k ) * conjg( T )  or
                          // W( 1:m, 1:k ) * T**H
 
-         DO 50 J = 1, K
+         for (J = 1; J <= K; J++) { // 50
             clacgv(K-J+1, T( J, J ), 1 );
    50    CONTINUE
          ctrmm('Right', 'Lower', TRANS, 'Non-unit', M, K, ONE, T, LDT, WORK, LDWORK );
-         DO 60 J = 1, K
+         for (J = 1; J <= K; J++) { // 60
             clacgv(K-J+1, T( J, J ), 1 );
    60    CONTINUE
 
          // C( 1:m, 1:k ) = C( 1:m, 1:k ) - W( 1:m, 1:k )
 
-         DO 80 J = 1, K
-            DO 70 I = 1, M
+         for (J = 1; J <= K; J++) { // 80
+            for (I = 1; I <= M; I++) { // 70
                C( I, J ) = C( I, J ) - WORK( I, J )
    70       CONTINUE
    80    CONTINUE
@@ -123,11 +123,11 @@
          // C( 1:m, n-l+1:n ) = C( 1:m, n-l+1:n ) - ...
                              // W( 1:m, 1:k ) * conjg( V( 1:k, 1:l ) )
 
-         DO 90 J = 1, L
+         for (J = 1; J <= L; J++) { // 90
             clacgv(K, V( 1, J ), 1 );
    90    CONTINUE
          IF( L.GT.0 ) CALL CGEMM( 'No transpose', 'No transpose', M, L, K, -ONE, WORK, LDWORK, V, LDV, ONE, C( 1, N-L+1 ), LDC )
-         DO 100 J = 1, L
+         for (J = 1; J <= L; J++) { // 100
             clacgv(K, V( 1, J ), 1 );
   100    CONTINUE
 

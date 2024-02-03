@@ -69,7 +69,7 @@
 
             MULT = DL( K ) / D( K )
             D( K+1 ) = D( K+1 ) - MULT*DU( K )
-            DO 10 J = 1, NRHS
+            for (J = 1; J <= NRHS; J++) { // 10
                B( K+1, J ) = B( K+1, J ) - MULT*B( K, J )
    10       CONTINUE
             IF( K.LT.( N-1 ) ) DL( K ) = ZERO
@@ -86,7 +86,7 @@
                DU( K+1 ) = -MULT*DL( K )
             }
             DU( K ) = TEMP
-            DO 20 J = 1, NRHS
+            for (J = 1; J <= NRHS; J++) { // 20
                TEMP = B( K, J )
                B( K, J ) = B( K+1, J )
                B( K+1, J ) = TEMP - MULT*B( K+1, J )
@@ -100,7 +100,7 @@
 
       // Back solve with the matrix U from the factorization.
 
-      DO 50 J = 1, NRHS
+      for (J = 1; J <= NRHS; J++) { // 50
          B( N, J ) = B( N, J ) / D( N )
          IF( N.GT.1 ) B( N-1, J ) = ( B( N-1, J )-DU( N-1 )*B( N, J ) ) / D( N-1 )
          DO 40 K = N - 2, 1, -1

@@ -153,7 +153,7 @@
       // Sort the singular values into ascending order (insertion sort on
       // singular values, but only one transposition per singular vector)
 
-      DO 40 I = 1, N
+      for (I = 1; I <= N; I++) { // 40
 
          // Scan for smallest D(I).
 

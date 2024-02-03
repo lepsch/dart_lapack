@@ -160,7 +160,7 @@
             dcopy(N-1, WORK( INDE ), 1, WORK( INDEE ), 1 );
             dsteqr(JOBZ, N, W, WORK( INDEE ), Z, LDZ, WORK( INDWRK ), INFO );
             if ( INFO.EQ.0 ) {
-               DO 10 I = 1, N
+               for (I = 1; I <= N; I++) { // 10
                   IFAIL( I ) = 0
    10          CONTINUE
             }

@@ -249,7 +249,7 @@
          }
          if ( WANTV1T .AND. Q .GT. 0 ) {
             V1T(1,1) = ONE
-            DO J = 2, Q
+            for (J = 2; J <= Q; J++) {
                V1T(1,J) = ZERO
                V1T(J,1) = ZERO
             END DO
@@ -264,7 +264,7 @@
          // preferred positions
 
          if ( Q .GT. 0 .AND. WANTU2 ) {
-            DO I = 1, Q
+            for (I = 1; I <= Q; I++) {
                IWORK(I) = M - P - Q + I
             END DO
             DO I = Q + 1, M - P
@@ -284,7 +284,7 @@
 
          if ( WANTU1 .AND. P .GT. 0 ) {
             U1(1,1) = ONE
-            DO J = 2, P
+            for (J = 2; J <= P; J++) {
                U1(1,J) = ZERO
                U1(J,1) = ZERO
             END DO
@@ -308,7 +308,7 @@
          // preferred positions
 
          if ( Q .GT. 0 .AND. WANTU2 ) {
-            DO I = 1, Q
+            for (I = 1; I <= Q; I++) {
                IWORK(I) = M - P - Q + I
             END DO
             DO I = Q + 1, M - P
@@ -351,7 +351,7 @@
          // preferred positions
 
          if ( Q .GT. R ) {
-            DO I = 1, R
+            for (I = 1; I <= R; I++) {
                IWORK(I) = Q - R + I
             END DO
             DO I = R + 1, Q
@@ -379,7 +379,7 @@
          }
          if ( WANTU1 .AND. P .GT. 0 ) {
             zcopy(P, WORK(IORBDB), 1, U1, 1 );
-            DO J = 2, P
+            for (J = 2; J <= P; J++) {
                U1(1,J) = ZERO
             END DO
             zlacpy('L', P-1, M-Q-1, X11(2,1), LDX11, U1(2,2), LDU1 )             CALL ZUNGQR( P, P, M-Q, U1, LDU1, WORK(ITAUP1), WORK(IORGQR), LORGQR, CHILDINFO );
@@ -403,7 +403,7 @@
          // preferred positions
 
          if ( P .GT. R ) {
-            DO I = 1, R
+            for (I = 1; I <= R; I++) {
                IWORK(I) = P - R + I
             END DO
             DO I = R + 1, P

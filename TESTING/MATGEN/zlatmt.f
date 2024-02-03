@@ -179,7 +179,7 @@
 
       // Initialize random number generator
 
-      DO 100 I = 1, 4
+      for (I = 1; I <= 4; I++) { // 100
          ISEED( I ) = MOD( ABS( ISEED( I ) ), 4096 )
   100 CONTINUE
 
@@ -209,7 +209,7 @@
          // Scale by DMAX
 
          TEMP = ABS( D( 1 ) )
-         DO 110 I = 2, RANK
+         for (I = 2; I <= RANK; I++) { // 110
             TEMP = MAX( TEMP, ABS( D( I ) ) )
   110    CONTINUE
 
@@ -259,7 +259,7 @@
       // is to be stored HP/SP/PP/TP (PACK='R' or 'C')
 
       if ( LLB.EQ.0 .AND. UUB.EQ.0 ) {
-         DO 120 J = 1, MNMIN
+         for (J = 1; J <= MNMIN; J++) { // 120
             A( ( 1-ISKEW )*J+IOFFST, J ) = DCMPLX( D( J ) )
   120    CONTINUE
 
@@ -280,13 +280,13 @@
                IPACKG = 0
             }
 
-            DO 130 J = 1, MNMIN
+            for (J = 1; J <= MNMIN; J++) { // 130
                A( ( 1-ISKEW )*J+IOFFST, J ) = DCMPLX( D( J ) )
   130       CONTINUE
 
             if ( TOPDWN ) {
                JKL = 0
-               DO 160 JKU = 1, UUB
+               for (JKU = 1; JKU <= UUB; JKU++) { // 160
 
                   // Transform from bandwidth JKL, JKU-1 to JKL, JKU
 
@@ -338,7 +338,7 @@
   160          CONTINUE
 
                JKU = UUB
-               DO 190 JKL = 1, LLB
+               for (JKL = 1; JKL <= LLB; JKL++) { // 190
 
                   // Transform from bandwidth JKL-1, JKU to JKL, JKU
 
@@ -390,7 +390,7 @@
                // Bottom-Up -- Start at the bottom right.
 
                JKL = 0
-               DO 220 JKU = 1, UUB
+               for (JKU = 1; JKU <= UUB; JKU++) { // 220
 
                   // Transform from bandwidth JKL, JKU-1 to JKL, JKU
 
@@ -440,7 +440,7 @@
   220          CONTINUE
 
                JKU = UUB
-               DO 250 JKL = 1, LLB
+               for (JKL = 1; JKL <= LLB; JKL++) { // 250
 
                   // Transform from bandwidth JKL-1, JKU to JKL, JKU
 
@@ -510,11 +510,11 @@
                   IPACKG = 1
                }
 
-               DO 260 J = 1, MNMIN
+               for (J = 1; J <= MNMIN; J++) { // 260
                   A( ( 1-ISKEW )*J+IOFFG, J ) = DCMPLX( D( J ) )
   260          CONTINUE
 
-               DO 290 K = 1, UUB
+               for (K = 1; K <= UUB; K++) { // 290
                   DO 280 JC = 1, N - 1
                      IROW = MAX( 1, JC-K )
                      IL = MIN( JC+1, K+2 )
@@ -564,7 +564,7 @@
                // the order of copying is chosen to work for 'q' -> 'b'
 
                if ( IPACK.NE.IPACKG .AND. IPACK.NE.3 ) {
-                  DO 320 JC = 1, N
+                  for (JC = 1; JC <= N; JC++) { // 320
                      IROW = IOFFST - ISKEW*JC
                      if ( CSYM ) {
                         DO 300 JR = JC, MIN( N, JC+UUB )
@@ -600,11 +600,11 @@
                   IPACKG = 2
                }
 
-               DO 350 J = 1, MNMIN
+               for (J = 1; J <= MNMIN; J++) { // 350
                   A( ( 1-ISKEW )*J+IOFFG, J ) = DCMPLX( D( J ) )
   350          CONTINUE
 
-               DO 380 K = 1, UUB
+               for (K = 1; K <= UUB; K++) { // 380
                   DO 370 JC = N - 1, 1, -1
                      IL = MIN( N+1-JC, K+2 )
                      EXTRA = CZERO
@@ -667,7 +667,7 @@
                      }
   410             CONTINUE
                   if ( IPACK.EQ.6 ) {
-                     DO 430 JC = 1, UUB
+                     for (JC = 1; JC <= UUB; JC++) { // 430
                         DO 420 JR = 1, UUB + 1 - JC
                            A( JR, JC ) = CZERO
   420                   CONTINUE
@@ -684,7 +684,7 @@
             // Ensure that the diagonal is real if Hermitian
 
             if ( .NOT.CSYM ) {
-               DO 440 JC = 1, N
+               for (JC = 1; JC <= N; JC++) { // 440
                   IROW = IOFFST + ( 1-ISKEW )*JC
                   A( IROW, JC ) = DCMPLX( DBLE( A( IROW, JC ) ) )
   440          CONTINUE
@@ -731,7 +731,7 @@
 
             // 'U' -- Upper triangular, not packed
 
-            DO 460 J = 1, M
+            for (J = 1; J <= M; J++) { // 460
                DO 450 I = J + 1, M
                   A( I, J ) = CZERO
   450          CONTINUE
@@ -741,7 +741,7 @@
 
             // 'L' -- Lower triangular, not packed
 
-            DO 480 J = 2, M
+            for (J = 2; J <= M; J++) { // 480
                DO 470 I = 1, J - 1
                   A( I, J ) = CZERO
   470          CONTINUE
@@ -753,8 +753,8 @@
 
             ICOL = 1
             IROW = 0
-            DO 500 J = 1, M
-               DO 490 I = 1, J
+            for (J = 1; J <= M; J++) { // 500
+               for (I = 1; I <= J; I++) { // 490
                   IROW = IROW + 1
                   if ( IROW.GT.LDA ) {
                      IROW = 1
@@ -770,8 +770,8 @@
 
             ICOL = 1
             IROW = 0
-            DO 520 J = 1, M
-               DO 510 I = J, M
+            for (J = 1; J <= M; J++) { // 520
+               for (I = J; I <= M; I++) { // 510
                   IROW = IROW + 1
                   if ( IROW.GT.LDA ) {
                      IROW = 1
@@ -789,7 +789,7 @@
 
             IF( IPACK.EQ.5 ) UUB = 0             IF( IPACK.EQ.6 ) LLB = 0
 
-            DO 540 J = 1, UUB
+            for (J = 1; J <= UUB; J++) { // 540
                DO 530 I = MIN( J+LLB, M ), 1, -1
                   A( I-J+UUB+1, J ) = A( I, J )
   530          CONTINUE
@@ -808,7 +808,7 @@
          // zero out everything after A(IROW,ICOL)
 
          if ( IPACK.EQ.3 .OR. IPACK.EQ.4 ) {
-            DO 580 JC = ICOL, M
+            for (JC = ICOL; JC <= M; JC++) { // 580
                DO 570 JR = IROW + 1, LDA
                   A( JR, JC ) = CZERO
   570          CONTINUE
@@ -825,7 +825,7 @@
 
             IR1 = UUB + LLB + 2
             IR2 = UUB + M + 2
-            DO 610 JC = 1, N
+            for (JC = 1; JC <= N; JC++) { // 610
                DO 590 JR = 1, UUB + 1 - JC
                   A( JR, JC ) = CZERO
   590          CONTINUE

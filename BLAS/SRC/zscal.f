@@ -26,7 +26,7 @@
 
          // code for increment equal to 1
 
-         DO I = 1,N
+         for (I = 1; I <= N; I++) {
             ZX(I) = ZA*ZX(I)
          END DO
       } else {

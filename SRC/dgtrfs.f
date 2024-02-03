@@ -70,7 +70,7 @@
       // Quick return if possible
 
       if ( N.EQ.0 .OR. NRHS.EQ.0 ) {
-         DO 10 J = 1, NRHS
+         for (J = 1; J <= NRHS; J++) { // 10
             FERR( J ) = ZERO
             BERR( J ) = ZERO
    10    CONTINUE
@@ -95,7 +95,7 @@
 
       // Do for each right hand side
 
-      DO 110 J = 1, NRHS
+      for (J = 1; J <= NRHS; J++) { // 110
 
          COUNT = 1
          LSTRES = THREE
@@ -144,7 +144,7 @@
          // numerator and denominator before dividing.
 
          S = ZERO
-         DO 50 I = 1, N
+         for (I = 1; I <= N; I++) { // 50
             if ( WORK( I ).GT.SAFE2 ) {
                S = MAX( S, ABS( WORK( N+I ) ) / WORK( I ) )
             } else {
@@ -192,7 +192,7 @@
             // inv(op(A)) * diag(W),
          // where W = abs(R) + NZ*EPS*( abs(op(A))*abs(X)+abs(B) )))
 
-         DO 60 I = 1, N
+         for (I = 1; I <= N; I++) { // 60
             if ( WORK( I ).GT.SAFE2 ) {
                WORK( I ) = ABS( WORK( N+I ) ) + NZ*EPS*WORK( I )
             } else {
@@ -209,14 +209,14 @@
                // Multiply by diag(W)*inv(op(A)**T).
 
                dgttrs(TRANST, N, 1, DLF, DF, DUF, DU2, IPIV, WORK( N+1 ), N, INFO );
-               DO 80 I = 1, N
+               for (I = 1; I <= N; I++) { // 80
                   WORK( N+I ) = WORK( I )*WORK( N+I )
    80          CONTINUE
             } else {
 
                // Multiply by inv(op(A))*diag(W).
 
-               DO 90 I = 1, N
+               for (I = 1; I <= N; I++) { // 90
                   WORK( N+I ) = WORK( I )*WORK( N+I )
    90          CONTINUE
                dgttrs(TRANSN, N, 1, DLF, DF, DUF, DU2, IPIV, WORK( N+1 ), N, INFO );
@@ -227,7 +227,7 @@
          // Normalize error.
 
          LSTRES = ZERO
-         DO 100 I = 1, N
+         for (I = 1; I <= N; I++) { // 100
             LSTRES = MAX( LSTRES, ABS( X( I, J ) ) )
   100    CONTINUE
          IF( LSTRES.NE.ZERO ) FERR( J ) = FERR( J ) / LSTRES

@@ -119,7 +119,7 @@
       // Find global spectral radius
       GL = D(1)
       GU = D(1)
-      DO 5 I = 1,N
+      for (I = 1; I <= N; I++) { // 5
          GL =  MIN( GL, GERS( 2*I - 1))
          GU = MAX( GU, GERS(2*I) )
  5    CONTINUE
@@ -208,7 +208,7 @@
       NWL = 0
       NWU = 0
 
-      DO 70 JBLK = 1, NSPLIT
+      for (JBLK = 1; JBLK <= NSPLIT; JBLK++) { // 70
          IOFF = IEND
          IBEGIN = IOFF + 1
          IEND = ISPLIT( JBLK )
@@ -280,7 +280,7 @@
             GL = D( IBEGIN )
             TMP1 = ZERO
 
-            DO 40 J = IBEGIN, IEND
+            for (J = IBEGIN; J <= IEND; J++) { // 40
                GL =  MIN( GL, GERS( 2*J - 1))
                GU = MAX( GU, GERS(2*J) )
    40       CONTINUE
@@ -329,7 +329,7 @@
             // Copy eigenvalues into W and IBLOCK
             // Use -JBLK for block number for unconverged eigenvalues.
             // Loop over the number of output intervals from SLAEBZ
-            DO 60 J = 1, IOUT
+            for (J = 1; J <= IOUT; J++) { // 60
                // eigenvalue approximation is middle point of interval
                TMP1 = HALF*( WORK( J+N )+WORK( J+IN+N ) )
                // semi length of error interval
@@ -361,7 +361,7 @@
 
          if ( IDISCL.GT.0 ) {
             IM = 0
-            DO 80 JE = 1, M
+            for (JE = 1; JE <= M; JE++) { // 80
                // Remove some of the smallest eigenvalues from the left so that
                // at the end IDISCL =0. Move all eigenvalues up to the left.
                if ( W( JE ).LE.WLU .AND. IDISCL.GT.0 ) {
@@ -392,7 +392,7 @@
                }
  81         CONTINUE
             JEE = 0
-            DO 82 JE = IM, M
+            for (JE = IM; JE <= M; JE++) { // 82
                JEE = JEE + 1
                W( JEE ) = W( JE )
                WERR( JEE ) = WERR( JE )
@@ -411,9 +411,9 @@
             // eigenvalues, by marking the corresponding IBLOCK = 0
             if ( IDISCL.GT.0 ) {
                WKILL = WU
-               DO 100 JDISC = 1, IDISCL
+               for (JDISC = 1; JDISC <= IDISCL; JDISC++) { // 100
                   IW = 0
-                  DO 90 JE = 1, M
+                  for (JE = 1; JE <= M; JE++) { // 90
                      if ( IBLOCK( JE ).NE.0 .AND. ( W( JE ).LT.WKILL .OR. IW.EQ.0 ) ) {
                         IW = JE
                         WKILL = W( JE )
@@ -424,9 +424,9 @@
             }
             if ( IDISCU.GT.0 ) {
                WKILL = WL
-               DO 120 JDISC = 1, IDISCU
+               for (JDISC = 1; JDISC <= IDISCU; JDISC++) { // 120
                   IW = 0
-                  DO 110 JE = 1, M
+                  for (JE = 1; JE <= M; JE++) { // 110
                      if ( IBLOCK( JE ).NE.0 .AND. ( W( JE ).GE.WKILL .OR. IW.EQ.0 ) ) {
                         IW = JE
                         WKILL = W( JE )
@@ -437,7 +437,7 @@
             }
             // Now erase all eigenvalues with IBLOCK set to zero
             IM = 0
-            DO 130 JE = 1, M
+            for (JE = 1; JE <= M; JE++) { // 130
                if ( IBLOCK( JE ).NE.0 ) {
                   IM = IM + 1
                   W( IM ) = W( JE )

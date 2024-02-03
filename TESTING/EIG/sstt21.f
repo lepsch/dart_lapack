@@ -64,7 +64,7 @@
 
       // Norm of A - USU'
 
-      DO 20 J = 1, N
+      for (J = 1; J <= N; J++) { // 20
          ssyr('L', N, -SD( J ), U( 1, J ), 1, WORK, N );
    20 CONTINUE
 
@@ -92,7 +92,7 @@
 
       sgemm('N', 'C', N, N, N, ONE, U, LDU, U, LDU, ZERO, WORK, N );
 
-      DO 40 J = 1, N
+      for (J = 1; J <= N; J++) { // 40
          WORK( ( N+1 )*( J-1 )+1 ) = WORK( ( N+1 )*( J-1 )+1 ) - ONE
    40 CONTINUE
 

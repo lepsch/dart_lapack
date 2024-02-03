@@ -91,12 +91,12 @@
       // Project each standard basis vector e_1,...,e_M1 in turn, stopping
       // when a nonzero projection is found
 
-      DO I = 1, M1
-         DO J = 1, M1
+      for (I = 1; I <= M1; I++) {
+         for (J = 1; J <= M1; J++) {
             X1(J) = ZERO
          END DO
          X1(I) = ONE
-         DO J = 1, M2
+         for (J = 1; J <= M2; J++) {
             X2(J) = ZERO
          END DO
          CALL CUNBDB6( M1, M2, N, X1, INCX1, X2, INCX2, Q1, LDQ1, Q2, LDQ2, WORK, LWORK, CHILDINFO )          IF( SCNRM2(M1,X1,INCX1) .NE. REALZERO .OR. SCNRM2(M2,X2,INCX2) .NE. REALZERO ) THEN
@@ -107,11 +107,11 @@
       // Project each standard basis vector e_(M1+1),...,e_(M1+M2) in turn,
       // stopping when a nonzero projection is found
 
-      DO I = 1, M2
-         DO J = 1, M1
+      for (I = 1; I <= M2; I++) {
+         for (J = 1; J <= M1; J++) {
             X1(J) = ZERO
          END DO
-         DO J = 1, M2
+         for (J = 1; J <= M2; J++) {
             X2(J) = ZERO
          END DO
          X2(I) = ONE

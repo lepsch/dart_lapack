@@ -263,8 +263,8 @@
 
             if ( WANTU ) {
                K = ITGKZ
-               DO I = 1, NS
-                  DO J = 1, N
+               for (I = 1; I <= NS; I++) {
+                  for (J = 1; J <= N; J++) {
                      U( J, I ) = CMPLX( RWORK( K ), ZERO )
                      K = K + 1
                   END DO
@@ -287,8 +287,8 @@
 
             if ( WANTVT) {
                K = ITGKZ + N
-               DO I = 1, NS
-                  DO J = 1, N
+               for (I = 1; I <= NS; I++) {
+                  for (J = 1; J <= N; J++) {
                      VT( I, J ) = CMPLX( RWORK( K ), ZERO )
                      K = K + 1
                   END DO
@@ -328,8 +328,8 @@
 
             if ( WANTU ) {
                K = ITGKZ
-               DO I = 1, NS
-                  DO J = 1, N
+               for (I = 1; I <= NS; I++) {
+                  for (J = 1; J <= N; J++) {
                      U( J, I ) = CMPLX( RWORK( K ), ZERO )
                      K = K + 1
                   END DO
@@ -347,8 +347,8 @@
 
             if ( WANTVT) {
                K = ITGKZ + N
-               DO I = 1, NS
-                  DO J = 1, N
+               for (I = 1; I <= NS; I++) {
+                  for (J = 1; J <= N; J++) {
                      VT( I, J ) = CMPLX( RWORK( K ), ZERO )
                      K = K + 1
                   END DO
@@ -403,8 +403,8 @@
 
             if ( WANTU ) {
                K = ITGKZ
-               DO I = 1, NS
-                  DO J = 1, M
+               for (I = 1; I <= NS; I++) {
+                  for (J = 1; J <= M; J++) {
                      U( J, I ) = CMPLX( RWORK( K ), ZERO )
                      K = K + 1
                   END DO
@@ -421,8 +421,8 @@
 
             if ( WANTVT) {
                K = ITGKZ + M
-               DO I = 1, NS
-                  DO J = 1, M
+               for (I = 1; I <= NS; I++) {
+                  for (J = 1; J <= M; J++) {
                      VT( I, J ) = CMPLX( RWORK( K ), ZERO )
                      K = K + 1
                   END DO
@@ -468,8 +468,8 @@
 
             if ( WANTU ) {
                K = ITGKZ
-               DO I = 1, NS
-                  DO J = 1, M
+               for (I = 1; I <= NS; I++) {
+                  for (J = 1; J <= M; J++) {
                      U( J, I ) = CMPLX( RWORK( K ), ZERO )
                      K = K + 1
                   END DO
@@ -486,8 +486,8 @@
 
             if ( WANTVT) {
                K = ITGKZ + M
-               DO I = 1, NS
-                  DO J = 1, M
+               for (I = 1; I <= NS; I++) {
+                  for (J = 1; J <= M; J++) {
                      VT( I, J ) = CMPLX( RWORK( K ), ZERO )
                      K = K + 1
                   END DO

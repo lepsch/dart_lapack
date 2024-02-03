@@ -147,11 +147,11 @@
       }
       if ( ISCALE.EQ.1 ) {
          if ( LOWER ) {
-            DO 10 J = 1, N
+            for (J = 1; J <= N; J++) { // 10
                dscal(N-J+1, SIGMA, A( J, J ), 1 );
    10       CONTINUE
          } else {
-            DO 20 J = 1, N
+            for (J = 1; J <= N; J++) { // 20
                dscal(J, SIGMA, A( 1, J ), 1 );
    20       CONTINUE
          }
@@ -193,7 +193,7 @@
             dcopy(N-1, WORK( INDE ), 1, WORK( INDEE ), 1 );
             dsteqr(JOBZ, N, W, WORK( INDEE ), Z, LDZ, WORK( INDWRK ), INFO );
             if ( INFO.EQ.0 ) {
-               DO 30 I = 1, N
+               for (I = 1; I <= N; I++) { // 30
                   IFAIL( I ) = 0
    30          CONTINUE
             }

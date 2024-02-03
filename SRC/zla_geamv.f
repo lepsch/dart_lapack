@@ -106,7 +106,7 @@
       IY = KY
       if ( INCX.EQ.1 ) {
          if ( TRANS.EQ.ILATRANS( 'N' ) ) {
-            DO I = 1, LENY
+            for (I = 1; I <= LENY; I++) {
                if ( BETA .EQ. 0.0D+0 ) {
                   SYMB_ZERO = .TRUE.
                   Y( IY ) = 0.0D+0
@@ -117,7 +117,7 @@
                   Y( IY ) = BETA * ABS( Y( IY ) )
                }
                if ( ALPHA .NE. 0.0D+0 ) {
-                  DO J = 1, LENX
+                  for (J = 1; J <= LENX; J++) {
                      TEMP = CABS1( A( I, J ) )
                      SYMB_ZERO = SYMB_ZERO .AND. ( X( J ) .EQ. ZERO .OR. TEMP .EQ. ZERO )
 
@@ -129,7 +129,7 @@
                IY = IY + INCY
             END DO
          } else {
-            DO I = 1, LENY
+            for (I = 1; I <= LENY; I++) {
                if ( BETA .EQ. 0.0D+0 ) {
                   SYMB_ZERO = .TRUE.
                   Y( IY ) = 0.0D+0
@@ -140,7 +140,7 @@
                   Y( IY ) = BETA * ABS( Y( IY ) )
                }
                if ( ALPHA .NE. 0.0D+0 ) {
-                  DO J = 1, LENX
+                  for (J = 1; J <= LENX; J++) {
                      TEMP = CABS1( A( J, I ) )
                      SYMB_ZERO = SYMB_ZERO .AND. ( X( J ) .EQ. ZERO .OR. TEMP .EQ. ZERO )
 
@@ -154,7 +154,7 @@
          }
       } else {
          if ( TRANS.EQ.ILATRANS( 'N' ) ) {
-            DO I = 1, LENY
+            for (I = 1; I <= LENY; I++) {
                if ( BETA .EQ. 0.0D+0 ) {
                   SYMB_ZERO = .TRUE.
                   Y( IY ) = 0.0D+0
@@ -166,7 +166,7 @@
                }
                if ( ALPHA .NE. 0.0D+0 ) {
                   JX = KX
-                  DO J = 1, LENX
+                  for (J = 1; J <= LENX; J++) {
                      TEMP = CABS1( A( I, J ) )
                      SYMB_ZERO = SYMB_ZERO .AND. ( X( JX ) .EQ. ZERO .OR. TEMP .EQ. ZERO )
 
@@ -179,7 +179,7 @@
                IY = IY + INCY
             END DO
          } else {
-            DO I = 1, LENY
+            for (I = 1; I <= LENY; I++) {
                if ( BETA .EQ. 0.0D+0 ) {
                   SYMB_ZERO = .TRUE.
                   Y( IY ) = 0.0D+0
@@ -191,7 +191,7 @@
                }
                if ( ALPHA .NE. 0.0D+0 ) {
                   JX = KX
-                  DO J = 1, LENX
+                  for (J = 1; J <= LENX; J++) {
                      TEMP = CABS1( A( J, I ) )
                      SYMB_ZERO = SYMB_ZERO .AND. ( X( JX ) .EQ. ZERO .OR. TEMP .EQ. ZERO )
 

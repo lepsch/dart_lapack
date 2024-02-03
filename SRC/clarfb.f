@@ -61,7 +61,7 @@
 
                // W := C1**H
 
-               DO 10 J = 1, K
+               for (J = 1; J <= K; J++) { // 10
                   ccopy(N, C( J, 1 ), LDC, WORK( 1, J ), 1 );
                   clacgv(N, WORK( 1, J ), 1 );
    10          CONTINUE
@@ -95,8 +95,8 @@
 
                // C1 := C1 - W**H
 
-               DO 30 J = 1, K
-                  DO 20 I = 1, N
+               for (J = 1; J <= K; J++) { // 30
+                  for (I = 1; I <= N; I++) { // 20
                      C( J, I ) = C( J, I ) - CONJG( WORK( I, J ) )
    20             CONTINUE
    30          CONTINUE
@@ -109,7 +109,7 @@
 
                // W := C1
 
-               DO 40 J = 1, K
+               for (J = 1; J <= K; J++) { // 40
                   ccopy(M, C( 1, J ), 1, WORK( 1, J ), 1 );
    40          CONTINUE
 
@@ -142,8 +142,8 @@
 
                // C1 := C1 - W
 
-               DO 60 J = 1, K
-                  DO 50 I = 1, M
+               for (J = 1; J <= K; J++) { // 60
+                  for (I = 1; I <= M; I++) { // 50
                      C( I, J ) = C( I, J ) - WORK( I, J )
    50             CONTINUE
    60          CONTINUE
@@ -164,7 +164,7 @@
 
                // W := C2**H
 
-               DO 70 J = 1, K
+               for (J = 1; J <= K; J++) { // 70
                   ccopy(N, C( M-K+J, 1 ), LDC, WORK( 1, J ), 1 );
                   clacgv(N, WORK( 1, J ), 1 );
    70          CONTINUE
@@ -198,8 +198,8 @@
 
                // C2 := C2 - W**H
 
-               DO 90 J = 1, K
-                  DO 80 I = 1, N
+               for (J = 1; J <= K; J++) { // 90
+                  for (I = 1; I <= N; I++) { // 80
                      C( M-K+J, I ) = C( M-K+J, I ) - CONJG( WORK( I, J ) )
    80             CONTINUE
    90          CONTINUE
@@ -212,7 +212,7 @@
 
                // W := C2
 
-               DO 100 J = 1, K
+               for (J = 1; J <= K; J++) { // 100
                   ccopy(M, C( 1, N-K+J ), 1, WORK( 1, J ), 1 );
   100          CONTINUE
 
@@ -245,8 +245,8 @@
 
                // C2 := C2 - W
 
-               DO 120 J = 1, K
-                  DO 110 I = 1, M
+               for (J = 1; J <= K; J++) { // 120
+                  for (I = 1; I <= M; I++) { // 110
                      C( I, N-K+J ) = C( I, N-K+J ) - WORK( I, J )
   110             CONTINUE
   120          CONTINUE
@@ -269,7 +269,7 @@
 
                // W := C1**H
 
-               DO 130 J = 1, K
+               for (J = 1; J <= K; J++) { // 130
                   ccopy(N, C( J, 1 ), LDC, WORK( 1, J ), 1 );
                   clacgv(N, WORK( 1, J ), 1 );
   130          CONTINUE
@@ -303,8 +303,8 @@
 
                // C1 := C1 - W**H
 
-               DO 150 J = 1, K
-                  DO 140 I = 1, N
+               for (J = 1; J <= K; J++) { // 150
+                  for (I = 1; I <= N; I++) { // 140
                      C( J, I ) = C( J, I ) - CONJG( WORK( I, J ) )
   140             CONTINUE
   150          CONTINUE
@@ -317,7 +317,7 @@
 
                // W := C1
 
-               DO 160 J = 1, K
+               for (J = 1; J <= K; J++) { // 160
                   ccopy(M, C( 1, J ), 1, WORK( 1, J ), 1 );
   160          CONTINUE
 
@@ -350,8 +350,8 @@
 
                // C1 := C1 - W
 
-               DO 180 J = 1, K
-                  DO 170 I = 1, M
+               for (J = 1; J <= K; J++) { // 180
+                  for (I = 1; I <= M; I++) { // 170
                      C( I, J ) = C( I, J ) - WORK( I, J )
   170             CONTINUE
   180          CONTINUE
@@ -372,7 +372,7 @@
 
                // W := C2**H
 
-               DO 190 J = 1, K
+               for (J = 1; J <= K; J++) { // 190
                   ccopy(N, C( M-K+J, 1 ), LDC, WORK( 1, J ), 1 );
                   clacgv(N, WORK( 1, J ), 1 );
   190          CONTINUE
@@ -406,8 +406,8 @@
 
                // C2 := C2 - W**H
 
-               DO 210 J = 1, K
-                  DO 200 I = 1, N
+               for (J = 1; J <= K; J++) { // 210
+                  for (I = 1; I <= N; I++) { // 200
                      C( M-K+J, I ) = C( M-K+J, I ) - CONJG( WORK( I, J ) )
   200             CONTINUE
   210          CONTINUE
@@ -420,7 +420,7 @@
 
                // W := C2
 
-               DO 220 J = 1, K
+               for (J = 1; J <= K; J++) { // 220
                   ccopy(M, C( 1, N-K+J ), 1, WORK( 1, J ), 1 );
   220          CONTINUE
 
@@ -453,8 +453,8 @@
 
                // C1 := C1 - W
 
-               DO 240 J = 1, K
-                  DO 230 I = 1, M
+               for (J = 1; J <= K; J++) { // 240
+                  for (I = 1; I <= M; I++) { // 230
                      C( I, N-K+J ) = C( I, N-K+J ) - WORK( I, J )
   230             CONTINUE
   240          CONTINUE

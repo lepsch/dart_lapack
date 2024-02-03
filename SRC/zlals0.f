@@ -78,14 +78,14 @@
 
          // Step (1L): apply back the Givens rotations performed.
 
-         DO 10 I = 1, GIVPTR
+         for (I = 1; I <= GIVPTR; I++) { // 10
             zdrot(NRHS, B( GIVCOL( I, 2 ), 1 ), LDB, B( GIVCOL( I, 1 ), 1 ), LDB, GIVNUM( I, 2 ), GIVNUM( I, 1 ) );
    10    CONTINUE
 
          // Step (2L): permute rows of B.
 
          zcopy(NRHS, B( NLP1, 1 ), LDB, BX( 1, 1 ), LDBX );
-         DO 20 I = 2, N
+         for (I = 2; I <= N; I++) { // 20
             zcopy(NRHS, B( PERM( I ), 1 ), LDB, BX( I, 1 ), LDBX );
    20    CONTINUE
 
@@ -98,7 +98,7 @@
                zdscal(NRHS, NEGONE, B, LDB );
             }
          } else {
-            DO 100 J = 1, K
+            for (J = 1; J <= K; J++) { // 100
                DIFLJ = DIFL( J )
                DJ = POLES( J, 1 )
                DSIGJ = -POLES( J, 2 )
@@ -140,22 +140,22 @@
 *    $                     B( J, 1 ), LDB )
 
                I = K + NRHS*2
-               DO 60 JCOL = 1, NRHS
-                  DO 50 JROW = 1, K
+               for (JCOL = 1; JCOL <= NRHS; JCOL++) { // 60
+                  for (JROW = 1; JROW <= K; JROW++) { // 50
                      I = I + 1
                      RWORK( I ) = DBLE( BX( JROW, JCOL ) )
    50             CONTINUE
    60          CONTINUE
                dgemv('T', K, NRHS, ONE, RWORK( 1+K+NRHS*2 ), K, RWORK( 1 ), 1, ZERO, RWORK( 1+K ), 1 );
                I = K + NRHS*2
-               DO 80 JCOL = 1, NRHS
-                  DO 70 JROW = 1, K
+               for (JCOL = 1; JCOL <= NRHS; JCOL++) { // 80
+                  for (JROW = 1; JROW <= K; JROW++) { // 70
                      I = I + 1
                      RWORK( I ) = DIMAG( BX( JROW, JCOL ) )
    70             CONTINUE
    80          CONTINUE
                dgemv('T', K, NRHS, ONE, RWORK( 1+K+NRHS*2 ), K, RWORK( 1 ), 1, ZERO, RWORK( 1+K+NRHS ), 1 );
-               DO 90 JCOL = 1, NRHS
+               for (JCOL = 1; JCOL <= NRHS; JCOL++) { // 90
                   B( J, JCOL ) = DCMPLX( RWORK( JCOL+K ), RWORK( JCOL+K+NRHS ) )
    90          CONTINUE
                zlascl('G', 0, 0, TEMP, ONE, 1, NRHS, B( J, 1 ), LDB, INFO );
@@ -175,7 +175,7 @@
          if ( K.EQ.1 ) {
             zcopy(NRHS, B, LDB, BX, LDBX );
          } else {
-            DO 180 J = 1, K
+            for (J = 1; J <= K; J++) { // 180
                DSIGJ = POLES( J, 2 )
                if ( Z( J ).EQ.ZERO ) {
                   RWORK( J ) = ZERO
@@ -209,22 +209,22 @@
 *    $                     BX( J, 1 ), LDBX )
 
                I = K + NRHS*2
-               DO 140 JCOL = 1, NRHS
-                  DO 130 JROW = 1, K
+               for (JCOL = 1; JCOL <= NRHS; JCOL++) { // 140
+                  for (JROW = 1; JROW <= K; JROW++) { // 130
                      I = I + 1
                      RWORK( I ) = DBLE( B( JROW, JCOL ) )
   130             CONTINUE
   140          CONTINUE
                dgemv('T', K, NRHS, ONE, RWORK( 1+K+NRHS*2 ), K, RWORK( 1 ), 1, ZERO, RWORK( 1+K ), 1 );
                I = K + NRHS*2
-               DO 160 JCOL = 1, NRHS
-                  DO 150 JROW = 1, K
+               for (JCOL = 1; JCOL <= NRHS; JCOL++) { // 160
+                  for (JROW = 1; JROW <= K; JROW++) { // 150
                      I = I + 1
                      RWORK( I ) = DIMAG( B( JROW, JCOL ) )
   150             CONTINUE
   160          CONTINUE
                dgemv('T', K, NRHS, ONE, RWORK( 1+K+NRHS*2 ), K, RWORK( 1 ), 1, ZERO, RWORK( 1+K+NRHS ), 1 );
-               DO 170 JCOL = 1, NRHS
+               for (JCOL = 1; JCOL <= NRHS; JCOL++) { // 170
                   BX( J, JCOL ) = DCMPLX( RWORK( JCOL+K ), RWORK( JCOL+K+NRHS ) )
   170          CONTINUE
   180       CONTINUE
@@ -245,7 +245,7 @@
          if ( SQRE.EQ.1 ) {
             zcopy(NRHS, BX( M, 1 ), LDBX, B( M, 1 ), LDB );
          }
-         DO 190 I = 2, N
+         for (I = 2; I <= N; I++) { // 190
             zcopy(NRHS, BX( I, 1 ), LDBX, B( PERM( I ), 1 ), LDB );
   190    CONTINUE
 

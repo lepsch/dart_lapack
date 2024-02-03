@@ -62,7 +62,7 @@
 
       clagtm(TRANS, N, NRHS, -ONE, DL, D, DU, X, LDX, ONE, B, LDB );
 
-      DO 10 J = 1, NRHS
+      for (J = 1; J <= NRHS; J++) { // 10
          BNORM = SCASUM( N, B( 1, J ), 1 )
          XNORM = SCASUM( N, X( 1, J ), 1 )
          if ( XNORM.LE.ZERO ) {

@@ -120,7 +120,7 @@
           // of A into the square matrix in the work array
           // WORK(LWT+1:LWT+N*N) column-by-column.
 
-      DO J = 1, N
+      for (J = 1; J <= N; J++) {
          dcopy(J, A( 1, J ), 1, WORK( LWT + N*(J-1)+1 ), 1 );
       END DO
 
@@ -148,9 +148,9 @@
       // (5) and (6) can be combined in a single loop, so the rows in A
       // are accessed only once.
 
-      DO I = 1, N
+      for (I = 1; I <= N; I++) {
          if ( WORK( LWT+N*N+I ).EQ.-ONE ) {
-            DO J = I, N
+            for (J = I; J <= N; J++) {
                A( I, J ) = -ONE * WORK( LWT+N*(J-1)+I )
             END DO
          } else {

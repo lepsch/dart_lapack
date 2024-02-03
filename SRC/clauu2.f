@@ -60,7 +60,7 @@
 
          // Compute the product U * U**H.
 
-         DO 10 I = 1, N
+         for (I = 1; I <= N; I++) { // 10
             AII = REAL( A( I, I ) )
             if ( I.LT.N ) {
                A( I, I ) = AII*AII + REAL( CDOTC( N-I, A( I, I+1 ), LDA, A( I, I+1 ), LDA ) )
@@ -76,7 +76,7 @@
 
          // Compute the product L**H * L.
 
-         DO 20 I = 1, N
+         for (I = 1; I <= N; I++) { // 20
             AII = REAL( A( I, I ) )
             if ( I.LT.N ) {
                A( I, I ) = AII*AII + REAL( CDOTC( N-I, A( I+1, I ), 1, A( I+1, I ), 1 ) )

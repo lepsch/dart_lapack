@@ -69,11 +69,11 @@
 
       if ( NOUNIT ) {
          if ( UPPER ) {
-            DO 10 INFO = 1, N
+            for (INFO = 1; INFO <= N; INFO++) { // 10
                IF( AB( KD+1, INFO ).EQ.ZERO ) RETURN
    10       CONTINUE
          } else {
-            DO 20 INFO = 1, N
+            for (INFO = 1; INFO <= N; INFO++) { // 20
                IF( AB( 1, INFO ).EQ.ZERO ) RETURN
    20       CONTINUE
          }
@@ -82,7 +82,7 @@
 
       // Solve A * X = B  or  A**T * X = B.
 
-      DO 30 J = 1, NRHS
+      for (J = 1; J <= NRHS; J++) { // 30
          dtbsv(UPLO, TRANS, DIAG, N, KD, AB, LDAB, B( 1, J ), 1 );
    30 CONTINUE
 

@@ -75,7 +75,7 @@
       NRUN = 0
       NFAIL = 0
       NERRS = 0
-      DO 10 I = 1, 4
+      for (I = 1; I <= 4; I++) { // 10
          ISEED( I ) = ISEEDY( I )
    10 CONTINUE
 
@@ -93,14 +93,14 @@
 
       // Do for each value of N in NVAL
 
-      DO 90 IN = 1, NN
+      for (IN = 1; IN <= NN; IN++) { // 90
          N = NVAL( IN )
          LDA = MAX( N, 1 )
          XTYPE = 'N'
          NIMAT = NTYPES
          IF( N.LE.0 ) NIMAT = 1
 
-         DO 80 IMAT = 1, NIMAT
+         for (IMAT = 1; IMAT <= NIMAT; IMAT++) { // 80
 
             // Do the tests only if DOTYPE( IMAT ) is true.
 
@@ -140,7 +140,7 @@
                }
                IOFF = ( IZERO-1 )*LDA
                if ( IMAT.LT.7 ) {
-                  DO 20 I = 1, N
+                  for (I = 1; I <= N; I++) { // 20
                      A( IOFF+I ) = ZERO
    20             CONTINUE
                } else {
@@ -154,7 +154,7 @@
 
             zlacpy('Full', N, N, A, LDA, ASAV, LDA );
 
-            DO 70 IEQUED = 1, 4
+            for (IEQUED = 1; IEQUED <= 4; IEQUED++) { // 70
                EQUED = EQUEDS( IEQUED )
                if ( IEQUED.EQ.1 ) {
                   NFACT = 3
@@ -162,7 +162,7 @@
                   NFACT = 1
                }
 
-               DO 60 IFACT = 1, NFACT
+               for (IFACT = 1; IFACT <= NFACT; IFACT++) { // 60
                   FACT = FACTS( IFACT )
                   PREFAC = LSAME( FACT, 'F' )
                   NOFACT = LSAME( FACT, 'N' )
@@ -249,7 +249,7 @@
                      }
                   }
 
-                  DO 50 ITRAN = 1, NTRAN
+                  for (ITRAN = 1; ITRAN <= NTRAN; ITRAN++) { // 50
 
                      // Do for each value of TRANS.
 
@@ -308,7 +308,7 @@
                         // Print information about the tests that did not
                         // pass the threshold.
 
-                        DO 30 K = 1, NT
+                        for (K = 1; K <= NT; K++) { // 30
                            if ( RESULT( K ).GE.THRESH ) {
                               IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALADHD( NOUT, PATH )                               WRITE( NOUT, FMT = 9999 )'ZGESV ', N, IMAT, K, RESULT( K )
                               NFAIL = NFAIL + 1
@@ -406,7 +406,7 @@
                      // the threshold.
 
                      if ( .NOT.TRFCON ) {
-                        DO 40 K = K1, NTESTS
+                        for (K = K1; K <= NTESTS; K++) { // 40
                            if ( RESULT( K ).GE.THRESH ) {
                               IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALADHD( NOUT, PATH )
                               if ( PREFAC ) {

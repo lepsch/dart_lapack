@@ -52,11 +52,11 @@
 
       TNORM = ZERO
       if ( LSAME( DIAG, 'N' ) ) {
-         DO 10 J = 1, N
+         for (J = 1; J <= N; J++) { // 10
             TNORM = MAX( TNORM, TSCAL*ABS( A( J, J ) )+CNORM( J ) )
    10    CONTINUE
       } else {
-         DO 20 J = 1, N
+         for (J = 1; J <= N; J++) { // 20
             TNORM = MAX( TNORM, TSCAL+CNORM( J ) )
    20    CONTINUE
       }
@@ -65,7 +65,7 @@
          // norm(op(A)*x - s*b) / ( norm(op(A)) * norm(x) * EPS ).
 
       RESID = ZERO
-      DO 30 J = 1, NRHS
+      for (J = 1; J <= NRHS; J++) { // 30
          zcopy(N, X( 1, J ), 1, WORK, 1 );
          IX = IZAMAX( N, WORK, 1 )
          XNORM = MAX( ONE, ABS( X( IX, J ) ) )

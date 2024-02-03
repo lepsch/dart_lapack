@@ -75,26 +75,26 @@
       ENRMIN = ONE / ULP
       ENRMAX = ZERO
       if ( ITRNSE.EQ.0 ) {
-         DO 20 JVEC = 1, N
+         for (JVEC = 1; JVEC <= N; JVEC++) { // 20
             TEMP1 = ZERO
-            DO 10 J = 1, N
+            for (J = 1; J <= N; J++) { // 10
                TEMP1 = MAX( TEMP1, ABS( REAL( E( J, JVEC ) ) )+ ABS( AIMAG( E( J, JVEC ) ) ) )
    10       CONTINUE
             ENRMIN = MIN( ENRMIN, TEMP1 )
             ENRMAX = MAX( ENRMAX, TEMP1 )
    20    CONTINUE
       } else {
-         DO 30 JVEC = 1, N
+         for (JVEC = 1; JVEC <= N; JVEC++) { // 30
             RWORK( JVEC ) = ZERO
    30    CONTINUE
 
-         DO 50 J = 1, N
-            DO 40 JVEC = 1, N
+         for (J = 1; J <= N; J++) { // 50
+            for (JVEC = 1; JVEC <= N; JVEC++) { // 40
                RWORK( JVEC ) = MAX( RWORK( JVEC ), ABS( REAL( E( JVEC, J ) ) )+ ABS( AIMAG( E( JVEC, J ) ) ) )
    40       CONTINUE
    50    CONTINUE
 
-         DO 60 JVEC = 1, N
+         for (JVEC = 1; JVEC <= N; JVEC++) { // 60
             ENRMIN = MIN( ENRMIN, RWORK( JVEC ) )
             ENRMAX = MAX( ENRMAX, RWORK( JVEC ) )
    60    CONTINUE
@@ -115,7 +115,7 @@
       claset('Full', N, N, CZERO, CZERO, WORK, N );
 
       JOFF = 0
-      DO 100 JCOL = 1, N
+      for (JCOL = 1; JCOL <= N; JCOL++) { // 100
          if ( ITRNSW.EQ.0 ) {
             WTEMP = W( JCOL )
          } else {
@@ -123,15 +123,15 @@
          }
 
          if ( ITRNSE.EQ.0 ) {
-            DO 70 JROW = 1, N
+            for (JROW = 1; JROW <= N; JROW++) { // 70
                WORK( JOFF+JROW ) = E( JROW, JCOL )*WTEMP
    70       CONTINUE
          } else if ( ITRNSE.EQ.1 ) {
-            DO 80 JROW = 1, N
+            for (JROW = 1; JROW <= N; JROW++) { // 80
                WORK( JOFF+JROW ) = E( JCOL, JROW )*WTEMP
    80       CONTINUE
          } else {
-            DO 90 JROW = 1, N
+            for (JROW = 1; JROW <= N; JROW++) { // 90
                WORK( JOFF+JROW ) = CONJG( E( JCOL, JROW ) )*WTEMP
    90       CONTINUE
          }

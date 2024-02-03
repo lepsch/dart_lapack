@@ -93,30 +93,30 @@
          MP = MIN( M-L+1, M )
          KP = MIN( L+1, K )
 
-         DO J = 1, N
-            DO I = 1, L
+         for (J = 1; J <= N; J++) {
+            for (I = 1; I <= L; I++) {
                WORK( I, J ) = B( M-L+I, J )
             END DO
          END DO
          ctrmm('L', 'U', 'C', 'N', L, N, ONE, V( MP, 1 ), LDV, WORK, LDWORK )          CALL CGEMM( 'C', 'N', L, N, M-L, ONE, V, LDV, B, LDB, ONE, WORK, LDWORK )          CALL CGEMM( 'C', 'N', K-L, N, M, ONE, V( 1, KP ), LDV, B, LDB, ZERO, WORK( KP, 1 ), LDWORK );
 
-         DO J = 1, N
-            DO I = 1, K
+         for (J = 1; J <= N; J++) {
+            for (I = 1; I <= K; I++) {
                WORK( I, J ) = WORK( I, J ) + A( I, J )
             END DO
          END DO
 
          ctrmm('L', 'U', TRANS, 'N', K, N, ONE, T, LDT, WORK, LDWORK );
 
-         DO J = 1, N
-            DO I = 1, K
+         for (J = 1; J <= N; J++) {
+            for (I = 1; I <= K; I++) {
                A( I, J ) = A( I, J ) - WORK( I, J )
             END DO
          END DO
 
          cgemm('N', 'N', M-L, N, K, -ONE, V, LDV, WORK, LDWORK, ONE, B, LDB )          CALL CGEMM( 'N', 'N', L, N, K-L, -ONE, V( MP, KP ), LDV, WORK( KP, 1 ), LDWORK, ONE, B( MP, 1 ),  LDB )          CALL CTRMM( 'L', 'U', 'N', 'N', L, N, ONE, V( MP, 1 ), LDV, WORK, LDWORK );
-         DO J = 1, N
-            DO I = 1, L
+         for (J = 1; J <= N; J++) {
+            for (I = 1; I <= L; I++) {
                B( M-L+I, J ) = B( M-L+I, J ) - WORK( I, J )
             END DO
          END DO
@@ -142,30 +142,30 @@
          NP = MIN( N-L+1, N )
          KP = MIN( L+1, K )
 
-         DO J = 1, L
-            DO I = 1, M
+         for (J = 1; J <= L; J++) {
+            for (I = 1; I <= M; I++) {
                WORK( I, J ) = B( I, N-L+J )
             END DO
          END DO
          ctrmm('R', 'U', 'N', 'N', M, L, ONE, V( NP, 1 ), LDV, WORK, LDWORK )          CALL CGEMM( 'N', 'N', M, L, N-L, ONE, B, LDB, V, LDV, ONE, WORK, LDWORK )          CALL CGEMM( 'N', 'N', M, K-L, N, ONE, B, LDB, V( 1, KP ), LDV, ZERO, WORK( 1, KP ), LDWORK );
 
-         DO J = 1, K
-            DO I = 1, M
+         for (J = 1; J <= K; J++) {
+            for (I = 1; I <= M; I++) {
                WORK( I, J ) = WORK( I, J ) + A( I, J )
             END DO
          END DO
 
          ctrmm('R', 'U', TRANS, 'N', M, K, ONE, T, LDT, WORK, LDWORK );
 
-         DO J = 1, K
-            DO I = 1, M
+         for (J = 1; J <= K; J++) {
+            for (I = 1; I <= M; I++) {
                A( I, J ) = A( I, J ) - WORK( I, J )
             END DO
          END DO
 
          cgemm('N', 'C', M, N-L, K, -ONE, WORK, LDWORK, V, LDV, ONE, B, LDB )          CALL CGEMM( 'N', 'C', M, L, K-L, -ONE, WORK( 1, KP ), LDWORK, V( NP, KP ), LDV, ONE, B( 1, NP ), LDB )          CALL CTRMM( 'R', 'U', 'C', 'N', M, L, ONE, V( NP, 1 ), LDV, WORK, LDWORK );
-         DO J = 1, L
-            DO I = 1, M
+         for (J = 1; J <= L; J++) {
+            for (I = 1; I <= M; I++) {
                B( I, N-L+J ) = B( I, N-L+J ) - WORK( I, J )
             END DO
          END DO
@@ -192,31 +192,31 @@
          MP = MIN( L+1, M )
          KP = MIN( K-L+1, K )
 
-         DO J = 1, N
-            DO I = 1, L
+         for (J = 1; J <= N; J++) {
+            for (I = 1; I <= L; I++) {
                WORK( K-L+I, J ) = B( I, J )
             END DO
          END DO
 
          ctrmm('L', 'L', 'C', 'N', L, N, ONE, V( 1, KP ), LDV, WORK( KP, 1 ), LDWORK )          CALL CGEMM( 'C', 'N', L, N, M-L, ONE, V( MP, KP ), LDV, B( MP, 1 ), LDB, ONE, WORK( KP, 1 ), LDWORK )          CALL CGEMM( 'C', 'N', K-L, N, M, ONE, V, LDV, B, LDB, ZERO, WORK, LDWORK );
 
-         DO J = 1, N
-            DO I = 1, K
+         for (J = 1; J <= N; J++) {
+            for (I = 1; I <= K; I++) {
                WORK( I, J ) = WORK( I, J ) + A( I, J )
             END DO
          END DO
 
          ctrmm('L', 'L', TRANS, 'N', K, N, ONE, T, LDT, WORK, LDWORK );
 
-         DO J = 1, N
-            DO I = 1, K
+         for (J = 1; J <= N; J++) {
+            for (I = 1; I <= K; I++) {
                A( I, J ) = A( I, J ) - WORK( I, J )
             END DO
          END DO
 
          cgemm('N', 'N', M-L, N, K, -ONE, V( MP, 1 ), LDV, WORK, LDWORK, ONE, B( MP, 1 ), LDB )          CALL CGEMM( 'N', 'N', L, N, K-L, -ONE, V, LDV, WORK, LDWORK, ONE, B,  LDB )          CALL CTRMM( 'L', 'L', 'N', 'N', L, N, ONE, V( 1, KP ), LDV, WORK( KP, 1 ), LDWORK );
-         DO J = 1, N
-            DO I = 1, L
+         for (J = 1; J <= N; J++) {
+            for (I = 1; I <= L; I++) {
                B( I, J ) = B( I, J ) - WORK( K-L+I, J )
             END DO
          END DO
@@ -242,30 +242,30 @@
          NP = MIN( L+1, N )
          KP = MIN( K-L+1, K )
 
-         DO J = 1, L
-            DO I = 1, M
+         for (J = 1; J <= L; J++) {
+            for (I = 1; I <= M; I++) {
                WORK( I, K-L+J ) = B( I, J )
             END DO
          END DO
          ctrmm('R', 'L', 'N', 'N', M, L, ONE, V( 1, KP ), LDV, WORK( 1, KP ), LDWORK )          CALL CGEMM( 'N', 'N', M, L, N-L, ONE, B( 1, NP ), LDB, V( NP, KP ), LDV, ONE, WORK( 1, KP ), LDWORK )          CALL CGEMM( 'N', 'N', M, K-L, N, ONE, B, LDB, V, LDV, ZERO, WORK, LDWORK );
 
-         DO J = 1, K
-            DO I = 1, M
+         for (J = 1; J <= K; J++) {
+            for (I = 1; I <= M; I++) {
                WORK( I, J ) = WORK( I, J ) + A( I, J )
             END DO
          END DO
 
          ctrmm('R', 'L', TRANS, 'N', M, K, ONE, T, LDT, WORK, LDWORK );
 
-         DO J = 1, K
-            DO I = 1, M
+         for (J = 1; J <= K; J++) {
+            for (I = 1; I <= M; I++) {
                A( I, J ) = A( I, J ) - WORK( I, J )
             END DO
          END DO
 
          cgemm('N', 'C', M, N-L, K, -ONE, WORK, LDWORK, V( NP, 1 ), LDV, ONE, B( 1, NP ), LDB )          CALL CGEMM( 'N', 'C', M, L, K-L, -ONE, WORK, LDWORK, V, LDV, ONE, B, LDB )          CALL CTRMM( 'R', 'L', 'C', 'N', M, L, ONE, V( 1, KP ), LDV, WORK( 1, KP ), LDWORK );
-         DO J = 1, L
-            DO I = 1, M
+         for (J = 1; J <= L; J++) {
+            for (I = 1; I <= M; I++) {
                B( I, J ) = B( I, J ) - WORK( I, K-L+J )
             END DO
          END DO
@@ -291,30 +291,30 @@
          MP = MIN( M-L+1, M )
          KP = MIN( L+1, K )
 
-         DO J = 1, N
-            DO I = 1, L
+         for (J = 1; J <= N; J++) {
+            for (I = 1; I <= L; I++) {
                WORK( I, J ) = B( M-L+I, J )
             END DO
          END DO
          ctrmm('L', 'L', 'N', 'N', L, N, ONE, V( 1, MP ), LDV, WORK, LDB )          CALL CGEMM( 'N', 'N', L, N, M-L, ONE, V, LDV,B, LDB, ONE, WORK, LDWORK )          CALL CGEMM( 'N', 'N', K-L, N, M, ONE, V( KP, 1 ), LDV, B, LDB, ZERO, WORK( KP, 1 ), LDWORK );
 
-         DO J = 1, N
-            DO I = 1, K
+         for (J = 1; J <= N; J++) {
+            for (I = 1; I <= K; I++) {
                WORK( I, J ) = WORK( I, J ) + A( I, J )
             END DO
          END DO
 
          ctrmm('L', 'U', TRANS, 'N', K, N, ONE, T, LDT, WORK, LDWORK );
 
-         DO J = 1, N
-            DO I = 1, K
+         for (J = 1; J <= N; J++) {
+            for (I = 1; I <= K; I++) {
                A( I, J ) = A( I, J ) - WORK( I, J )
             END DO
          END DO
 
          cgemm('C', 'N', M-L, N, K, -ONE, V, LDV, WORK, LDWORK, ONE, B, LDB )          CALL CGEMM( 'C', 'N', L, N, K-L, -ONE, V( KP, MP ), LDV, WORK( KP, 1 ), LDWORK, ONE, B( MP, 1 ), LDB )          CALL CTRMM( 'L', 'L', 'C', 'N', L, N, ONE, V( 1, MP ), LDV, WORK, LDWORK );
-         DO J = 1, N
-            DO I = 1, L
+         for (J = 1; J <= N; J++) {
+            for (I = 1; I <= L; I++) {
                B( M-L+I, J ) = B( M-L+I, J ) - WORK( I, J )
             END DO
          END DO
@@ -339,30 +339,30 @@
          NP = MIN( N-L+1, N )
          KP = MIN( L+1, K )
 
-         DO J = 1, L
-            DO I = 1, M
+         for (J = 1; J <= L; J++) {
+            for (I = 1; I <= M; I++) {
                WORK( I, J ) = B( I, N-L+J )
             END DO
          END DO
          ctrmm('R', 'L', 'C', 'N', M, L, ONE, V( 1, NP ), LDV, WORK, LDWORK )          CALL CGEMM( 'N', 'C', M, L, N-L, ONE, B, LDB, V, LDV, ONE, WORK, LDWORK )          CALL CGEMM( 'N', 'C', M, K-L, N, ONE, B, LDB, V( KP, 1 ), LDV, ZERO, WORK( 1, KP ), LDWORK );
 
-         DO J = 1, K
-            DO I = 1, M
+         for (J = 1; J <= K; J++) {
+            for (I = 1; I <= M; I++) {
                WORK( I, J ) = WORK( I, J ) + A( I, J )
             END DO
          END DO
 
          ctrmm('R', 'U', TRANS, 'N', M, K, ONE, T, LDT, WORK, LDWORK );
 
-         DO J = 1, K
-            DO I = 1, M
+         for (J = 1; J <= K; J++) {
+            for (I = 1; I <= M; I++) {
                A( I, J ) = A( I, J ) - WORK( I, J )
             END DO
          END DO
 
          cgemm('N', 'N', M, N-L, K, -ONE, WORK, LDWORK, V, LDV, ONE, B, LDB )          CALL CGEMM( 'N', 'N', M, L, K-L, -ONE, WORK( 1, KP ), LDWORK, V( KP, NP ), LDV, ONE, B( 1, NP ), LDB )          CALL CTRMM( 'R', 'L', 'N', 'N', M, L, ONE, V( 1, NP ), LDV, WORK, LDWORK );
-         DO J = 1, L
-            DO I = 1, M
+         for (J = 1; J <= L; J++) {
+            for (I = 1; I <= M; I++) {
                B( I, N-L+J ) = B( I, N-L+J ) - WORK( I, J )
             END DO
          END DO
@@ -388,30 +388,30 @@
          MP = MIN( L+1, M )
          KP = MIN( K-L+1, K )
 
-         DO J = 1, N
-            DO I = 1, L
+         for (J = 1; J <= N; J++) {
+            for (I = 1; I <= L; I++) {
                WORK( K-L+I, J ) = B( I, J )
             END DO
          END DO
          ctrmm('L', 'U', 'N', 'N', L, N, ONE, V( KP, 1 ), LDV, WORK( KP, 1 ), LDWORK )          CALL CGEMM( 'N', 'N', L, N, M-L, ONE, V( KP, MP ), LDV, B( MP, 1 ), LDB, ONE, WORK( KP, 1 ), LDWORK )          CALL CGEMM( 'N', 'N', K-L, N, M, ONE, V, LDV, B, LDB, ZERO, WORK, LDWORK );
 
-         DO J = 1, N
-            DO I = 1, K
+         for (J = 1; J <= N; J++) {
+            for (I = 1; I <= K; I++) {
                WORK( I, J ) = WORK( I, J ) + A( I, J )
             END DO
          END DO
 
          ctrmm('L', 'L ', TRANS, 'N', K, N, ONE, T, LDT, WORK, LDWORK );
 
-         DO J = 1, N
-            DO I = 1, K
+         for (J = 1; J <= N; J++) {
+            for (I = 1; I <= K; I++) {
                A( I, J ) = A( I, J ) - WORK( I, J )
             END DO
          END DO
 
          cgemm('C', 'N', M-L, N, K, -ONE, V( 1, MP ), LDV, WORK, LDWORK, ONE, B( MP, 1 ), LDB )          CALL CGEMM( 'C', 'N', L, N, K-L, -ONE, V, LDV, WORK, LDWORK, ONE, B, LDB )          CALL CTRMM( 'L', 'U', 'C', 'N', L, N, ONE, V( KP, 1 ), LDV, WORK( KP, 1 ), LDWORK );
-         DO J = 1, N
-            DO I = 1, L
+         for (J = 1; J <= N; J++) {
+            for (I = 1; I <= L; I++) {
                B( I, J ) = B( I, J ) - WORK( K-L+I, J )
             END DO
          END DO
@@ -436,30 +436,30 @@
          NP = MIN( L+1, N )
          KP = MIN( K-L+1, K )
 
-         DO J = 1, L
-            DO I = 1, M
+         for (J = 1; J <= L; J++) {
+            for (I = 1; I <= M; I++) {
                WORK( I, K-L+J ) = B( I, J )
             END DO
          END DO
          ctrmm('R', 'U', 'C', 'N', M, L, ONE, V( KP, 1 ), LDV, WORK( 1, KP ), LDWORK )          CALL CGEMM( 'N', 'C', M, L, N-L, ONE, B( 1, NP ), LDB, V( KP, NP ), LDV, ONE, WORK( 1, KP ), LDWORK )          CALL CGEMM( 'N', 'C', M, K-L, N, ONE, B, LDB, V, LDV, ZERO, WORK, LDWORK );
 
-         DO J = 1, K
-            DO I = 1, M
+         for (J = 1; J <= K; J++) {
+            for (I = 1; I <= M; I++) {
                WORK( I, J ) = WORK( I, J ) + A( I, J )
             END DO
          END DO
 
          ctrmm('R', 'L', TRANS, 'N', M, K, ONE, T, LDT, WORK, LDWORK );
 
-         DO J = 1, K
-            DO I = 1, M
+         for (J = 1; J <= K; J++) {
+            for (I = 1; I <= M; I++) {
                A( I, J ) = A( I, J ) - WORK( I, J )
             END DO
          END DO
 
          cgemm('N', 'N', M, N-L, K, -ONE, WORK, LDWORK, V( 1, NP ), LDV, ONE, B( 1, NP ), LDB )          CALL CGEMM( 'N', 'N', M, L, K-L , -ONE, WORK, LDWORK, V, LDV, ONE, B, LDB )          CALL CTRMM( 'R', 'U', 'N', 'N', M, L, ONE, V( KP, 1 ), LDV, WORK( 1, KP ), LDWORK );
-         DO J = 1, L
-            DO I = 1, M
+         for (J = 1; J <= L; J++) {
+            for (I = 1; I <= M; I++) {
                B( I, J ) = B( I, J ) - WORK( I, K-L+J )
             END DO
          END DO

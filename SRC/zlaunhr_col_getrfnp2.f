@@ -99,7 +99,7 @@
          if ( CABS1( A( 1, 1 ) ) .GE. SFMIN ) {
             zscal(M-1, CONE / A( 1, 1 ), A( 2, 1 ), 1 );
          } else {
-            DO I = 2, M
+            for (I = 2; I <= M; I++) {
                A( I, 1 ) = A( I, 1 ) / A( 1, 1 )
             END DO
          }

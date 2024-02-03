@@ -48,7 +48,7 @@
          // Special code for 1 x 1 Householder
 
          T1 = ONE - TAU*V( 1 )*V( 1 )
-         DO 20 J = 1, N
+         for (J = 1; J <= N; J++) { // 20
             C( 1, J ) = T1*C( 1, J )
    20    CONTINUE
          GO TO 410
@@ -60,7 +60,7 @@
          T1 = TAU*V1
          V2 = V( 2 )
          T2 = TAU*V2
-         DO 40 J = 1, N
+         for (J = 1; J <= N; J++) { // 40
             SUM = V1*C( 1, J ) + V2*C( 2, J )
             C( 1, J ) = C( 1, J ) - SUM*T1
             C( 2, J ) = C( 2, J ) - SUM*T2
@@ -76,7 +76,7 @@
          T2 = TAU*V2
          V3 = V( 3 )
          T3 = TAU*V3
-         DO 60 J = 1, N
+         for (J = 1; J <= N; J++) { // 60
             SUM = V1*C( 1, J ) + V2*C( 2, J ) + V3*C( 3, J )
             C( 1, J ) = C( 1, J ) - SUM*T1
             C( 2, J ) = C( 2, J ) - SUM*T2
@@ -95,7 +95,7 @@
          T3 = TAU*V3
          V4 = V( 4 )
          T4 = TAU*V4
-         DO 80 J = 1, N
+         for (J = 1; J <= N; J++) { // 80
             SUM = V1*C( 1, J ) + V2*C( 2, J ) + V3*C( 3, J ) + V4*C( 4, J )
             C( 1, J ) = C( 1, J ) - SUM*T1
             C( 2, J ) = C( 2, J ) - SUM*T2
@@ -117,7 +117,7 @@
          T4 = TAU*V4
          V5 = V( 5 )
          T5 = TAU*V5
-         DO 100 J = 1, N
+         for (J = 1; J <= N; J++) { // 100
             SUM = V1*C( 1, J ) + V2*C( 2, J ) + V3*C( 3, J ) + V4*C( 4, J ) + V5*C( 5, J )
             C( 1, J ) = C( 1, J ) - SUM*T1
             C( 2, J ) = C( 2, J ) - SUM*T2
@@ -142,7 +142,7 @@
          T5 = TAU*V5
          V6 = V( 6 )
          T6 = TAU*V6
-         DO 120 J = 1, N
+         for (J = 1; J <= N; J++) { // 120
             SUM = V1*C( 1, J ) + V2*C( 2, J ) + V3*C( 3, J ) + V4*C( 4, J ) + V5*C( 5, J ) + V6*C( 6, J )
             C( 1, J ) = C( 1, J ) - SUM*T1
             C( 2, J ) = C( 2, J ) - SUM*T2
@@ -170,7 +170,7 @@
          T6 = TAU*V6
          V7 = V( 7 )
          T7 = TAU*V7
-         DO 140 J = 1, N
+         for (J = 1; J <= N; J++) { // 140
             SUM = V1*C( 1, J ) + V2*C( 2, J ) + V3*C( 3, J ) + V4*C( 4, J ) + V5*C( 5, J ) + V6*C( 6, J ) + V7*C( 7, J )
             C( 1, J ) = C( 1, J ) - SUM*T1
             C( 2, J ) = C( 2, J ) - SUM*T2
@@ -201,7 +201,7 @@
          T7 = TAU*V7
          V8 = V( 8 )
          T8 = TAU*V8
-         DO 160 J = 1, N
+         for (J = 1; J <= N; J++) { // 160
             SUM = V1*C( 1, J ) + V2*C( 2, J ) + V3*C( 3, J ) + V4*C( 4, J ) + V5*C( 5, J ) + V6*C( 6, J ) + V7*C( 7, J ) + V8*C( 8, J )
             C( 1, J ) = C( 1, J ) - SUM*T1
             C( 2, J ) = C( 2, J ) - SUM*T2
@@ -235,7 +235,7 @@
          T8 = TAU*V8
          V9 = V( 9 )
          T9 = TAU*V9
-         DO 180 J = 1, N
+         for (J = 1; J <= N; J++) { // 180
             SUM = V1*C( 1, J ) + V2*C( 2, J ) + V3*C( 3, J ) + V4*C( 4, J ) + V5*C( 5, J ) + V6*C( 6, J ) + V7*C( 7, J ) + V8*C( 8, J ) + V9*C( 9, J )
             C( 1, J ) = C( 1, J ) - SUM*T1
             C( 2, J ) = C( 2, J ) - SUM*T2
@@ -272,7 +272,7 @@
          T9 = TAU*V9
          V10 = V( 10 )
          T10 = TAU*V10
-         DO 200 J = 1, N
+         for (J = 1; J <= N; J++) { // 200
             SUM = V1*C( 1, J ) + V2*C( 2, J ) + V3*C( 3, J ) + V4*C( 4, J ) + V5*C( 5, J ) + V6*C( 6, J ) + V7*C( 7, J ) + V8*C( 8, J ) + V9*C( 9, J ) + V10*C( 10, J )
             C( 1, J ) = C( 1, J ) - SUM*T1
             C( 2, J ) = C( 2, J ) - SUM*T2
@@ -301,7 +301,7 @@
          // Special code for 1 x 1 Householder
 
          T1 = ONE - TAU*V( 1 )*V( 1 )
-         DO 220 J = 1, M
+         for (J = 1; J <= M; J++) { // 220
             C( J, 1 ) = T1*C( J, 1 )
   220    CONTINUE
          GO TO 410
@@ -313,7 +313,7 @@
          T1 = TAU*V1
          V2 = V( 2 )
          T2 = TAU*V2
-         DO 240 J = 1, M
+         for (J = 1; J <= M; J++) { // 240
             SUM = V1*C( J, 1 ) + V2*C( J, 2 )
             C( J, 1 ) = C( J, 1 ) - SUM*T1
             C( J, 2 ) = C( J, 2 ) - SUM*T2
@@ -329,7 +329,7 @@
          T2 = TAU*V2
          V3 = V( 3 )
          T3 = TAU*V3
-         DO 260 J = 1, M
+         for (J = 1; J <= M; J++) { // 260
             SUM = V1*C( J, 1 ) + V2*C( J, 2 ) + V3*C( J, 3 )
             C( J, 1 ) = C( J, 1 ) - SUM*T1
             C( J, 2 ) = C( J, 2 ) - SUM*T2
@@ -348,7 +348,7 @@
          T3 = TAU*V3
          V4 = V( 4 )
          T4 = TAU*V4
-         DO 280 J = 1, M
+         for (J = 1; J <= M; J++) { // 280
             SUM = V1*C( J, 1 ) + V2*C( J, 2 ) + V3*C( J, 3 ) + V4*C( J, 4 )
             C( J, 1 ) = C( J, 1 ) - SUM*T1
             C( J, 2 ) = C( J, 2 ) - SUM*T2
@@ -370,7 +370,7 @@
          T4 = TAU*V4
          V5 = V( 5 )
          T5 = TAU*V5
-         DO 300 J = 1, M
+         for (J = 1; J <= M; J++) { // 300
             SUM = V1*C( J, 1 ) + V2*C( J, 2 ) + V3*C( J, 3 ) + V4*C( J, 4 ) + V5*C( J, 5 )
             C( J, 1 ) = C( J, 1 ) - SUM*T1
             C( J, 2 ) = C( J, 2 ) - SUM*T2
@@ -395,7 +395,7 @@
          T5 = TAU*V5
          V6 = V( 6 )
          T6 = TAU*V6
-         DO 320 J = 1, M
+         for (J = 1; J <= M; J++) { // 320
             SUM = V1*C( J, 1 ) + V2*C( J, 2 ) + V3*C( J, 3 ) + V4*C( J, 4 ) + V5*C( J, 5 ) + V6*C( J, 6 )
             C( J, 1 ) = C( J, 1 ) - SUM*T1
             C( J, 2 ) = C( J, 2 ) - SUM*T2
@@ -423,7 +423,7 @@
          T6 = TAU*V6
          V7 = V( 7 )
          T7 = TAU*V7
-         DO 340 J = 1, M
+         for (J = 1; J <= M; J++) { // 340
             SUM = V1*C( J, 1 ) + V2*C( J, 2 ) + V3*C( J, 3 ) + V4*C( J, 4 ) + V5*C( J, 5 ) + V6*C( J, 6 ) + V7*C( J, 7 )
             C( J, 1 ) = C( J, 1 ) - SUM*T1
             C( J, 2 ) = C( J, 2 ) - SUM*T2
@@ -454,7 +454,7 @@
          T7 = TAU*V7
          V8 = V( 8 )
          T8 = TAU*V8
-         DO 360 J = 1, M
+         for (J = 1; J <= M; J++) { // 360
             SUM = V1*C( J, 1 ) + V2*C( J, 2 ) + V3*C( J, 3 ) + V4*C( J, 4 ) + V5*C( J, 5 ) + V6*C( J, 6 ) + V7*C( J, 7 ) + V8*C( J, 8 )
             C( J, 1 ) = C( J, 1 ) - SUM*T1
             C( J, 2 ) = C( J, 2 ) - SUM*T2
@@ -488,7 +488,7 @@
          T8 = TAU*V8
          V9 = V( 9 )
          T9 = TAU*V9
-         DO 380 J = 1, M
+         for (J = 1; J <= M; J++) { // 380
             SUM = V1*C( J, 1 ) + V2*C( J, 2 ) + V3*C( J, 3 ) + V4*C( J, 4 ) + V5*C( J, 5 ) + V6*C( J, 6 ) + V7*C( J, 7 ) + V8*C( J, 8 ) + V9*C( J, 9 )
             C( J, 1 ) = C( J, 1 ) - SUM*T1
             C( J, 2 ) = C( J, 2 ) - SUM*T2
@@ -525,7 +525,7 @@
          T9 = TAU*V9
          V10 = V( 10 )
          T10 = TAU*V10
-         DO 400 J = 1, M
+         for (J = 1; J <= M; J++) { // 400
             SUM = V1*C( J, 1 ) + V2*C( J, 2 ) + V3*C( J, 3 ) + V4*C( J, 4 ) + V5*C( J, 5 ) + V6*C( J, 6 ) + V7*C( J, 7 ) + V8*C( J, 8 ) + V9*C( J, 9 ) + V10*C( J, 10 )
             C( J, 1 ) = C( J, 1 ) - SUM*T1
             C( J, 2 ) = C( J, 2 ) - SUM*T2

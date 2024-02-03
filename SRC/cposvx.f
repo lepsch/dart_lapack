@@ -70,7 +70,7 @@
          if ( RCEQU ) {
             SMIN = BIGNUM
             SMAX = ZERO
-            DO 10 J = 1, N
+            for (J = 1; J <= N; J++) { // 10
                SMIN = MIN( SMIN, S( J ) )
                SMAX = MAX( SMAX, S( J ) )
    10       CONTINUE
@@ -113,8 +113,8 @@
       // Scale the right hand side.
 
       if ( RCEQU ) {
-         DO 30 J = 1, NRHS
-            DO 20 I = 1, N
+         for (J = 1; J <= NRHS; J++) { // 30
+            for (I = 1; I <= N; I++) { // 20
                B( I, J ) = S( I )*B( I, J )
    20       CONTINUE
    30    CONTINUE
@@ -157,12 +157,12 @@
       // system.
 
       if ( RCEQU ) {
-         DO 50 J = 1, NRHS
-            DO 40 I = 1, N
+         for (J = 1; J <= NRHS; J++) { // 50
+            for (I = 1; I <= N; I++) { // 40
                X( I, J ) = S( I )*X( I, J )
    40       CONTINUE
    50    CONTINUE
-         DO 60 J = 1, NRHS
+         for (J = 1; J <= NRHS; J++) { // 60
             FERR( J ) = FERR( J ) / SCOND
    60    CONTINUE
       }

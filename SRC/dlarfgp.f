@@ -124,7 +124,7 @@
 
          // If BETA is subnormal, it may lose relative accuracy
 
-         DO 20 J = 1, KNT
+         for (J = 1; J <= KNT; J++) { // 20
             BETA = BETA*SMLNUM
  20      CONTINUE
          ALPHA = BETA

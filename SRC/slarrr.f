@@ -70,7 +70,7 @@
       TMP = SQRT(ABS(D(1)))
       IF (TMP.LT.RMIN) YESREL = .FALSE.
       IF(.NOT.YESREL) GOTO 11
-      DO 10 I = 2, N
+      for (I = 2; I <= N; I++) { // 10
          TMP2 = SQRT(ABS(D(I)))
          IF (TMP2.LT.RMIN) YESREL = .FALSE.
          IF(.NOT.YESREL) GOTO 11

@@ -85,7 +85,7 @@
    10       CONTINUE
          }
 
-         DO 20 I = 1, NRHS
+         for (I = 1; I <= NRHS; I++) { // 20
 
             // Solve U*X = B, overwriting B with X.
 
@@ -96,7 +96,7 @@
 
          // Solve A**T * X = B.
 
-         DO 30 I = 1, NRHS
+         for (I = 1; I <= NRHS; I++) { // 30
 
             // Solve U**T * X = B, overwriting B with X.
 
@@ -118,7 +118,7 @@
 
          // Solve A**H * X = B.
 
-         DO 50 I = 1, NRHS
+         for (I = 1; I <= NRHS; I++) { // 50
 
             // Solve U**H * X = B, overwriting B with X.
 

@@ -62,11 +62,11 @@
 
       ERRBND = ZERO
       if ( CHKFERR ) {
-         DO 30 J = 1, NRHS
+         for (J = 1; J <= NRHS; J++) { // 30
             IMAX = IZAMAX( N, X( 1, J ), 1 )
             XNORM = MAX( CABS1( X( IMAX, J ) ), UNFL )
             DIFF = ZERO
-            DO 10 I = 1, N
+            for (I = 1; I <= N; I++) { // 10
                DIFF = MAX( DIFF, CABS1( X( I, J )-XACT( I, J ) ) )
  10         CONTINUE
 
@@ -92,15 +92,15 @@
       // Test 2:  Compute the maximum of BERR / ( (n+1)*EPS + (*) ), where
       // (*) = (n+1)*UNFL / (min_i (abs(op(A))*abs(X) +abs(b))_i )
 
-      DO 70 K = 1, NRHS
-         DO 60 I = 1, N
+      for (K = 1; K <= NRHS; K++) { // 70
+         for (I = 1; I <= N; I++) { // 60
             TMP = CABS1( B( I, K ) )
             if ( NOTRAN ) {
-               DO 40 J = 1, N
+               for (J = 1; J <= N; J++) { // 40
                   TMP = TMP + CABS1( A( I, J ) )*CABS1( X( J, K ) )
    40          CONTINUE
             } else {
-               DO 50 J = 1, N
+               for (J = 1; J <= N; J++) { // 50
                   TMP = TMP + CABS1( A( J, I ) )*CABS1( X( J, K ) )
    50          CONTINUE
             }

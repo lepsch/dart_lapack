@@ -153,7 +153,7 @@
             CMAX = ZERO
             ICMAX = 0
 
-            DO 10 J = 1, 4
+            for (J = 1; J <= 4; J++) { // 10
                if ( ABS( CRV( J ) ).GT.CMAX ) {
                   CMAX = ABS( CRV( J ) )
                   ICMAX = J
@@ -239,7 +239,7 @@
             CMAX = ZERO
             ICMAX = 0
 
-            DO 20 J = 1, 4
+            for (J = 1; J <= 4; J++) { // 20
                if ( ABS( CRV( J ) )+ABS( CIV( J ) ).GT.CMAX ) {
                   CMAX = ABS( CRV( J ) ) + ABS( CIV( J ) )
                   ICMAX = J

@@ -80,7 +80,7 @@
 
             // Pivot, P**T * B -> B
 
-            DO K = 1, N
+            for (K = 1; K <= N; K++) {
                KP = IPIV( K )
                IF( KP.NE.K ) CALL DSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB )
             END DO
@@ -127,7 +127,7 @@
 
             // Pivot, P**T * B -> B
 
-            DO K = 1, N
+            for (K = 1; K <= N; K++) {
                KP = IPIV( K )
                IF( KP.NE.K ) CALL DSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB )
             END DO

@@ -46,7 +46,7 @@
 
          if ( IC.GE.97 .AND. IC.LE.122 ) {
             SUBNAM( 1: 1 ) = CHAR( IC-32 )
-            DO 20 I = 2, 6
+            for (I = 2; I <= 6; I++) { // 20
                IC = ICHAR( SUBNAM( I: I ) )
                IF( IC.GE.97 .AND. IC.LE.122 ) SUBNAM( I: I ) = CHAR( IC-32 )
    20       CONTINUE
@@ -58,7 +58,7 @@
 
          if ( ( IC.GE.129 .AND. IC.LE.137 ) .OR. ( IC.GE.145 .AND. IC.LE.153 ) .OR. ( IC.GE.162 .AND. IC.LE.169 ) ) {
             SUBNAM( 1: 1 ) = CHAR( IC+64 )
-            DO 30 I = 2, 6
+            for (I = 2; I <= 6; I++) { // 30
                IC = ICHAR( SUBNAM( I: I ) )
                IF( ( IC.GE.129 .AND. IC.LE.137 ) .OR. ( IC.GE.145 .AND. IC.LE.153 ) .OR. ( IC.GE.162 .AND. IC.LE.169 ) )SUBNAM( I: I ) = CHAR( IC+64 )
    30       CONTINUE
@@ -70,7 +70,7 @@
 
          if ( IC.GE.225 .AND. IC.LE.250 ) {
             SUBNAM( 1: 1 ) = CHAR( IC-32 )
-            DO 40 I = 2, 6
+            for (I = 2; I <= 6; I++) { // 40
                IC = ICHAR( SUBNAM( I: I ) )
                IF( IC.GE.225 .AND. IC.LE.250 ) SUBNAM( I: I ) = CHAR( IC-32 )
    40       CONTINUE

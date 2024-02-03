@@ -31,8 +31,8 @@
       // .. Executable Statements ..
 
       if ( PRTYPE.EQ.1 ) {
-         DO 20 I = 1, M
-            DO 10 J = 1, M
+         for (I = 1; I <= M; I++) { // 20
+            for (J = 1; J <= M; J++) { // 10
                if ( I.EQ.J ) {
                   A( I, J ) = ONE
                   D( I, J ) = ONE
@@ -46,8 +46,8 @@
    10       CONTINUE
    20    CONTINUE
 
-         DO 40 I = 1, N
-            DO 30 J = 1, N
+         for (I = 1; I <= N; I++) { // 40
+            for (J = 1; J <= N; J++) { // 30
                if ( I.EQ.J ) {
                   B( I, J ) = ONE - ALPHA
                   E( I, J ) = ONE
@@ -61,16 +61,16 @@
    30       CONTINUE
    40    CONTINUE
 
-         DO 60 I = 1, M
-            DO 50 J = 1, N
+         for (I = 1; I <= M; I++) { // 60
+            for (J = 1; J <= N; J++) { // 50
                R( I, J ) = ( HALF-SIN( DCMPLX( I / J ) ) )*TWENTY
                L( I, J ) = R( I, J )
    50       CONTINUE
    60    CONTINUE
 
       } else if ( PRTYPE.EQ.2 .OR. PRTYPE.EQ.3 ) {
-         DO 80 I = 1, M
-            DO 70 J = 1, M
+         for (I = 1; I <= M; I++) { // 80
+            for (J = 1; J <= M; J++) { // 70
                if ( I.LE.J ) {
                   A( I, J ) = ( HALF-SIN( DCMPLX( I ) ) )*TWO
                   D( I, J ) = ( HALF-SIN( DCMPLX( I*J ) ) )*TWO
@@ -81,8 +81,8 @@
    70       CONTINUE
    80    CONTINUE
 
-         DO 100 I = 1, N
-            DO 90 J = 1, N
+         for (I = 1; I <= N; I++) { // 100
+            for (J = 1; J <= N; J++) { // 90
                if ( I.LE.J ) {
                   B( I, J ) = ( HALF-SIN( DCMPLX( I+J ) ) )*TWO
                   E( I, J ) = ( HALF-SIN( DCMPLX( J ) ) )*TWO
@@ -93,8 +93,8 @@
    90       CONTINUE
   100    CONTINUE
 
-         DO 120 I = 1, M
-            DO 110 J = 1, N
+         for (I = 1; I <= M; I++) { // 120
+            for (J = 1; J <= N; J++) { // 110
                R( I, J ) = ( HALF-SIN( DCMPLX( I*J ) ) )*TWENTY
                L( I, J ) = ( HALF-SIN( DCMPLX( I+J ) ) )*TWENTY
   110       CONTINUE
@@ -115,22 +115,22 @@
          }
 
       } else if ( PRTYPE.EQ.4 ) {
-         DO 160 I = 1, M
-            DO 150 J = 1, M
+         for (I = 1; I <= M; I++) { // 160
+            for (J = 1; J <= M; J++) { // 150
                A( I, J ) = ( HALF-SIN( DCMPLX( I*J ) ) )*TWENTY
                D( I, J ) = ( HALF-SIN( DCMPLX( I+J ) ) )*TWO
   150       CONTINUE
   160    CONTINUE
 
-         DO 180 I = 1, N
-            DO 170 J = 1, N
+         for (I = 1; I <= N; I++) { // 180
+            for (J = 1; J <= N; J++) { // 170
                B( I, J ) = ( HALF-SIN( DCMPLX( I+J ) ) )*TWENTY
                E( I, J ) = ( HALF-SIN( DCMPLX( I*J ) ) )*TWO
   170       CONTINUE
   180    CONTINUE
 
-         DO 200 I = 1, M
-            DO 190 J = 1, N
+         for (I = 1; I <= M; I++) { // 200
+            for (J = 1; J <= N; J++) { // 190
                R( I, J ) = ( HALF-SIN( DCMPLX( J / I ) ) )*TWENTY
                L( I, J ) = ( HALF-SIN( DCMPLX( I*J ) ) )*TWO
   190       CONTINUE
@@ -139,18 +139,18 @@
       } else if ( PRTYPE.GE.5 ) {
          REEPS = HALF*TWO*TWENTY / ALPHA
          IMEPS = ( HALF-TWO ) / ALPHA
-         DO 220 I = 1, M
-            DO 210 J = 1, N
+         for (I = 1; I <= M; I++) { // 220
+            for (J = 1; J <= N; J++) { // 210
                R( I, J ) = ( HALF-SIN( DCMPLX( I*J ) ) )*ALPHA / TWENTY
                L( I, J ) = ( HALF-SIN( DCMPLX( I+J ) ) )*ALPHA / TWENTY
   210       CONTINUE
   220    CONTINUE
 
-         DO 230 I = 1, M
+         for (I = 1; I <= M; I++) { // 230
             D( I, I ) = ONE
   230    CONTINUE
 
-         DO 240 I = 1, M
+         for (I = 1; I <= M; I++) { // 240
             if ( I.LE.4 ) {
                A( I, I ) = ONE
                IF( I.GT.2 ) A( I, I ) = ONE + REEPS
@@ -180,7 +180,7 @@
             }
   240    CONTINUE
 
-         DO 250 I = 1, N
+         for (I = 1; I <= N; I++) { // 250
             E( I, I ) = ONE
             if ( I.LE.4 ) {
                B( I, I ) = -ONE

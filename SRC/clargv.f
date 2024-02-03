@@ -58,7 +58,7 @@
       IX = 1
       IY = 1
       IC = 1
-      DO 60 I = 1, N
+      for (I = 1; I <= N; I++) { // 60
          F = X( IX )
          G = Y( IY )
 
@@ -146,7 +146,7 @@
             SN = SN*CONJG( GS )
             if ( COUNT.NE.0 ) {
                if ( COUNT.GT.0 ) {
-                  DO 30 J = 1, COUNT
+                  for (J = 1; J <= COUNT; J++) { // 30
                      R = R*SAFMX2
    30             CONTINUE
                } else {

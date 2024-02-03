@@ -81,10 +81,10 @@
          // Compare rows
 
          RES1 = ZERO
-         DO 20 I = 1, K
+         for (I = 1; I <= K; I++) { // 20
             LMX = ISAMAX( N, U( I, 1 ), LDU )
             S = SIGN( ONE, U( I, LMX ) )*SIGN( ONE, V( I, LMX ) )
-            DO 10 J = 1, N
+            for (J = 1; J <= N; J++) { // 10
                RES1 = MAX( RES1, ABS( U( I, J )-S*V( I, J ) ) )
    10       CONTINUE
    20    CONTINUE
@@ -99,10 +99,10 @@
          // Compare columns
 
          RES1 = ZERO
-         DO 40 I = 1, K
+         for (I = 1; I <= K; I++) { // 40
             LMX = ISAMAX( N, U( 1, I ), 1 )
             S = SIGN( ONE, U( LMX, I ) )*SIGN( ONE, V( LMX, I ) )
-            DO 30 J = 1, N
+            for (J = 1; J <= N; J++) { // 30
                RES1 = MAX( RES1, ABS( U( J, I )-S*V( J, I ) ) )
    30       CONTINUE
    40    CONTINUE

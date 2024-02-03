@@ -54,13 +54,13 @@
       if ( NOUNIT ) {
          if ( UPPER ) {
             JJ = 0
-            DO 10 INFO = 1, N
+            for (INFO = 1; INFO <= N; INFO++) { // 10
                JJ = JJ + INFO
                IF( AP( JJ ).EQ.ZERO ) RETURN
    10       CONTINUE
          } else {
             JJ = 1
-            DO 20 INFO = 1, N
+            for (INFO = 1; INFO <= N; INFO++) { // 20
                IF( AP( JJ ).EQ.ZERO ) RETURN
                JJ = JJ + N - INFO + 1
    20       CONTINUE
@@ -73,7 +73,7 @@
          // Compute inverse of upper triangular matrix.
 
          JC = 1
-         DO 30 J = 1, N
+         for (J = 1; J <= N; J++) { // 30
             if ( NOUNIT ) {
                AP( JC+J-1 ) = ONE / AP( JC+J-1 )
                AJJ = -AP( JC+J-1 )

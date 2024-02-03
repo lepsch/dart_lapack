@@ -53,7 +53,7 @@
 
       M = 0
       PAIR = .FALSE.
-      DO 10 K = 1, N
+      for (K = 1; K <= N; K++) { // 10
          if ( PAIR ) {
             PAIR = .FALSE.
             SELECT( K ) = .FALSE.
@@ -115,7 +115,7 @@
       }
       KSR = 1
 
-      DO 120 K = 1, N
+      for (K = 1; K <= N; K++) { // 120
          if ( SELECT( K ) ) {
 
             // Compute eigenvector(s) corresponding to W(K).

@@ -81,7 +81,7 @@
       } else if ( IMAT.EQ.7 ) {
          if ( UPPER ) {
             JC = 1
-            DO 20 J = 1, N
+            for (J = 1; J <= N; J++) { // 20
                DO 10 I = 1, J - 1
                   A( JC+I-1 ) = ZERO
    10          CONTINUE
@@ -90,7 +90,7 @@
    20       CONTINUE
          } else {
             JC = 1
-            DO 40 J = 1, N
+            for (J = 1; J <= N; J++) { // 40
                A( JC ) = J
                DO 30 I = J + 1, N
                   A( JC+I-J ) = ZERO
@@ -108,7 +108,7 @@
       } else if ( IMAT.LE.10 ) {
          if ( UPPER ) {
             JC = 0
-            DO 60 J = 1, N
+            for (J = 1; J <= N; J++) { // 60
                DO 50 I = 1, J - 1
                   A( JC+I ) = ZERO
    50          CONTINUE
@@ -117,7 +117,7 @@
    60       CONTINUE
          } else {
             JC = 1
-            DO 80 J = 1, N
+            for (J = 1; J <= N; J++) { // 80
                A( JC ) = J
                DO 70 I = J + 1, N
                   A( JC+I-J ) = ZERO
@@ -219,7 +219,7 @@
             // of known condition number.
 
             JC = 1
-            DO 100 J = 2, N
+            for (J = 2; J <= N; J++) { // 100
                A( JC+1 ) = Y
                IF( J.GT.2 ) A( JC+J-1 ) = WORK( J-2 )                IF( J.GT.3 ) A( JC+J-2 ) = WORK( N+J-3 )
                JC = JC + J
@@ -321,14 +321,14 @@
 
          if ( UPPER ) {
             JC = 1
-            DO 180 J = 1, N
+            for (J = 1; J <= N; J++) { // 180
                dlarnv(2, ISEED, J, A( JC ) );
                A( JC+J-1 ) = SIGN( TWO, A( JC+J-1 ) )
                JC = JC + J
   180       CONTINUE
          } else {
             JC = 1
-            DO 190 J = 1, N
+            for (J = 1; J <= N; J++) { // 190
                dlarnv(2, ISEED, N-J+1, A( JC ) );
                A( JC ) = SIGN( TWO, A( JC ) )
                JC = JC + N - J + 1
@@ -353,7 +353,7 @@
          TSCAL = ONE / MAX( ONE, DBLE( N-1 ) )
          if ( UPPER ) {
             JC = 1
-            DO 200 J = 1, N
+            for (J = 1; J <= N; J++) { // 200
                dlarnv(2, ISEED, J-1, A( JC ) );
                dscal(J-1, TSCAL, A( JC ), 1 );
                A( JC+J-1 ) = SIGN( ONE, DLARND( 2, ISEED ) )
@@ -362,7 +362,7 @@
             A( N*( N+1 ) / 2 ) = SMLNUM
          } else {
             JC = 1
-            DO 210 J = 1, N
+            for (J = 1; J <= N; J++) { // 210
                dlarnv(2, ISEED, N-J, A( JC+1 ) );
                dscal(N-J, TSCAL, A( JC+1 ), 1 );
                A( JC ) = SIGN( ONE, DLARND( 2, ISEED ) )
@@ -380,7 +380,7 @@
          dlarnv(2, ISEED, N, B );
          if ( UPPER ) {
             JC = 1
-            DO 220 J = 1, N
+            for (J = 1; J <= N; J++) { // 220
                dlarnv(2, ISEED, J-1, A( JC ) );
                A( JC+J-1 ) = SIGN( ONE, DLARND( 2, ISEED ) )
                JC = JC + J
@@ -388,7 +388,7 @@
             A( N*( N+1 ) / 2 ) = SMLNUM
          } else {
             JC = 1
-            DO 230 J = 1, N
+            for (J = 1; J <= N; J++) { // 230
                dlarnv(2, ISEED, N-J, A( JC+1 ) );
                A( JC ) = SIGN( ONE, DLARND( 2, ISEED ) )
                JC = JC + N - J + 1
@@ -421,7 +421,7 @@
          } else {
             JCOUNT = 1
             JC = 1
-            DO 270 J = 1, N
+            for (J = 1; J <= N; J++) { // 270
                DO 260 I = J + 1, N
                   A( JC+I-J ) = ZERO
   260          CONTINUE
@@ -463,7 +463,7 @@
          dlarnv(2, ISEED, N, B );
          if ( UPPER ) {
             JC = 1
-            DO 310 J = 1, N
+            for (J = 1; J <= N; J++) { // 310
                DO 300 I = 1, J - 2
                   A( JC+I-1 ) = ZERO
   300          CONTINUE
@@ -474,7 +474,7 @@
             B( N ) = ONE
          } else {
             JC = 1
-            DO 330 J = 1, N
+            for (J = 1; J <= N; J++) { // 330
                DO 320 I = J + 2, N
                   A( JC+I-J ) = ZERO
   320          CONTINUE
@@ -492,7 +492,7 @@
          IY = N / 2 + 1
          if ( UPPER ) {
             JC = 1
-            DO 340 J = 1, N
+            for (J = 1; J <= N; J++) { // 340
                dlarnv(2, ISEED, J, A( JC ) );
                if ( J.NE.IY ) {
                   A( JC+J-1 ) = SIGN( TWO, A( JC+J-1 ) )
@@ -503,7 +503,7 @@
   340       CONTINUE
          } else {
             JC = 1
-            DO 350 J = 1, N
+            for (J = 1; J <= N; J++) { // 350
                dlarnv(2, ISEED, N-J+1, A( JC ) );
                if ( J.NE.IY ) {
                   A( JC ) = SIGN( TWO, A( JC ) )
@@ -567,14 +567,14 @@
 
          if ( UPPER ) {
             JC = 1
-            DO 390 J = 1, N
+            for (J = 1; J <= N; J++) { // 390
                dlarnv(2, ISEED, J-1, A( JC ) );
                A( JC+J-1 ) = ZERO
                JC = JC + J
   390       CONTINUE
          } else {
             JC = 1
-            DO 400 J = 1, N
+            for (J = 1; J <= N; J++) { // 400
                IF( J.LT.N ) CALL DLARNV( 2, ISEED, N-J, A( JC+1 ) )
                A( JC ) = ZERO
                JC = JC + N - J + 1
@@ -599,18 +599,18 @@
          TSCAL = BIGNUM*( DBLE( N-1 ) / MAX( ONE, DBLE( N ) ) )
          if ( UPPER ) {
             JC = 1
-            DO 420 J = 1, N
+            for (J = 1; J <= N; J++) { // 420
                dlarnv(2, ISEED, J, A( JC ) );
-               DO 410 I = 1, J
+               for (I = 1; I <= J; I++) { // 410
                   A( JC+I-1 ) = SIGN( TLEFT, A( JC+I-1 ) ) + TSCAL*A( JC+I-1 )
   410          CONTINUE
                JC = JC + J
   420       CONTINUE
          } else {
             JC = 1
-            DO 440 J = 1, N
+            for (J = 1; J <= N; J++) { // 440
                dlarnv(2, ISEED, N-J+1, A( JC ) );
-               DO 430 I = J, N
+               for (I = J; I <= N; I++) { // 430
                   A( JC+I-J ) = SIGN( TLEFT, A( JC+I-J ) ) + TSCAL*A( JC+I-J )
   430          CONTINUE
                JC = JC + N - J + 1

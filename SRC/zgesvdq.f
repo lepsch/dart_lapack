@@ -304,7 +304,7 @@
             // .. reordering the rows in decreasing sequence in the
             // ell-infinity norm - this enhances numerical robustness in
             // the case of differently scaled rows.
-            DO 1904 p = 1, M
+            for (p = 1; p <= M; p++) { // 1904
                 // RWORK(p) = ABS( A(p,IZAMAX(N,A(p,1),LDA)) )
                 // [[ZLANGE will return NaN if an entry of the p-th row is Nan]]
                 RWORK(p) = ZLANGE( 'M', 1, N, A(p,1), LDA, RDUMMY )
@@ -336,7 +336,7 @@
                    zlaset('G', N, 1, CZERO, CZERO, CWORK, N );
                    zlaset('G', M, N, CZERO, CONE, U, LDU );
                }
-               DO 5001 p = 1, N
+               for (p = 1; p <= N; p++) { // 5001
                    IWORK(p) = p
  5001          CONTINUE
                if ( ROWPRM ) {
@@ -383,7 +383,7 @@
       // A * P = Q * [ R ]
                   // [ 0 ]
 
-      DO 1963 p = 1, N
+      for (p = 1; p <= N; p++) { // 1963
          // .. all columns are free columns
          IWORK(p) = 0
  1963 CONTINUE
@@ -406,7 +406,7 @@
          // backward error of the order of N*EPS*||A||_F.
          NR = 1
          RTMP = SQRT(DBLE(N))*EPSLN
-         DO 3001 p = 2, N
+         for (p = 2; p <= N; p++) { // 3001
             IF ( ABS(A(p,p)) .LT. (RTMP*ABS(A(1,1))) ) GO TO 3002
                NR = NR + 1
  3001    CONTINUE
@@ -420,7 +420,7 @@
          // with a user specified threshold.]] Also, the values that underflow
          // will be truncated.
          NR = 1
-         DO 3401 p = 2, N
+         for (p = 2; p <= N; p++) { // 3401
             IF ( ( ABS(A(p,p)) .LT. (EPSLN*ABS(A(p-1,p-1))) ) .OR. ( ABS(A(p,p)) .LT. SFMIN ) ) GO TO 3402
             NR = NR + 1
  3401    CONTINUE
@@ -432,7 +432,7 @@
          // .. inspect R for exact zeros on the diagonal;
          // R(i,i)=0 => R(i:N,i:N)=0.
          NR = 1
-         DO 3501 p = 2, N
+         for (p = 2; p <= N; p++) { // 3501
             IF ( ABS(A(p,p)) .EQ. ZERO ) GO TO 3502
             NR = NR + 1
  3501    CONTINUE
@@ -448,7 +448,7 @@
                // bound. However, even for NR < N, this can be used on an
                // expert level and obtain useful information in the sense of
                // perturbation theory.
-               DO 3053 p = 1, NR
+               for (p = 1; p <= NR; p++) { // 3053
                   RTMP = DZNRM2( p, V(1,p), 1 )
                   zdscal(p, ONE/RTMP, V(1,p), 1 );
  3053          CONTINUE
@@ -508,8 +508,8 @@
              // .. apply ZGESVD to R**H
              // .. copy R**H into [U] and overwrite [U] with the right singular
              // vectors of R
-            DO 1192 p = 1, NR
-               DO 1193 q = p, N
+            for (p = 1; p <= NR; p++) { // 1192
+               for (q = p; q <= N; q++) { // 1193
                   U(q,p) = CONJG(A(p,q))
  1193          CONTINUE
  1192       CONTINUE
@@ -519,7 +519,7 @@
             // will be pre-multiplied by Q to build the left singular vectors of A.
                zgesvd('N', 'O', N, NR, U, LDU, S, U, LDU, U, LDU, CWORK(N+1), LCWORK-N, RWORK, INFO );
 
-               DO 1119 p = 1, NR
+               for (p = 1; p <= NR; p++) { // 1119
                    U(p,p) = CONJG(U(p,p))
                    DO 1120 q = p + 1, NR
                       CTMP   = CONJG(U(q,p))
@@ -564,8 +564,8 @@
           if ( RTRANS ) {
              // .. apply ZGESVD to R**H
              // .. copy R**H into V and overwrite V with the left singular vectors
-            DO 1165 p = 1, NR
-               DO 1166 q = p, N
+            for (p = 1; p <= NR; p++) { // 1165
+               for (q = p; q <= N; q++) { // 1166
                   V(q,p) = CONJG(A(p,q))
  1166          CONTINUE
  1165       CONTINUE
@@ -575,7 +575,7 @@
             if ( WNTVR .OR. ( NR .EQ. N ) ) {
                zgesvd('O', 'N', N, NR, V, LDV, S, U, LDU, U, LDU, CWORK(N+1), LCWORK-N, RWORK, INFO );
 
-               DO 1121 p = 1, NR
+               for (p = 1; p <= NR; p++) { // 1121
                    V(p,p) = CONJG(V(p,p))
                    DO 1122 q = p + 1, NR
                       CTMP   = CONJG(V(q,p))
@@ -585,7 +585,7 @@
  1121          CONTINUE
 
                if ( NR .LT. N ) {
-                   DO 1103 p = 1, NR
+                   for (p = 1; p <= NR; p++) { // 1103
                       DO 1104 q = NR + 1, N
                           V(p,q) = CONJG(V(q,p))
  1104                 CONTINUE
@@ -601,7 +601,7 @@
                 zlaset('G', N, N-NR, CZERO, CZERO, V(1,NR+1), LDV);
                 zgesvd('O', 'N', N, N, V, LDV, S, U, LDU, U, LDU, CWORK(N+1), LCWORK-N, RWORK, INFO );
 
-                DO 1123 p = 1, N
+                for (p = 1; p <= N; p++) { // 1123
                    V(p,p) = CONJG(V(p,p))
                    DO 1124 q = p + 1, N
                       CTMP   = CONJG(V(q,p))
@@ -648,8 +648,8 @@
             if ( WNTVR .OR. ( NR .EQ. N ) ) {
              // .. copy R**H into [V] and overwrite [V] with the left singular
              // vectors of R**H
-            DO 1168 p = 1, NR
-               DO 1169 q = p, N
+            for (p = 1; p <= NR; p++) { // 1168
+               for (q = p; q <= N; q++) { // 1169
                   V(q,p) = CONJG(A(p,q))
  1169          CONTINUE
  1168       CONTINUE
@@ -660,7 +660,7 @@
             // transposed
                zgesvd('O', 'A', N, NR, V, LDV, S, V, LDV, U, LDU, CWORK(N+1), LCWORK-N, RWORK, INFO );
                // .. assemble V
-               DO 1115 p = 1, NR
+               for (p = 1; p <= NR; p++) { // 1115
                   V(p,p) = CONJG(V(p,p))
                   DO 1116 q = p + 1, NR
                      CTMP   = CONJG(V(q,p))
@@ -669,7 +669,7 @@
  1116             CONTINUE
  1115          CONTINUE
                if ( NR .LT. N ) {
-                   DO 1101 p = 1, NR
+                   for (p = 1; p <= NR; p++) { // 1101
                       DO 1102 q = NR+1, N
                          V(p,q) = CONJG(V(q,p))
  1102                 CONTINUE
@@ -677,7 +677,7 @@
                }
                zlapmt(.FALSE., NR, N, V, LDV, IWORK );
 
-                DO 1117 p = 1, NR
+                for (p = 1; p <= NR; p++) { // 1117
                    U(p,p) = CONJG(U(p,p))
                    DO 1118 q = p + 1, NR
                       CTMP   = CONJG(U(q,p))
@@ -705,8 +705,8 @@
                 // OPTRATIO = MAX( OPTRATIO, 2 )
                 OPTRATIO = 2
                 if ( OPTRATIO*NR .GT. N ) {
-                   DO 1198 p = 1, NR
-                      DO 1199 q = p, N
+                   for (p = 1; p <= NR; p++) { // 1198
+                      for (q = p; q <= N; q++) { // 1199
                          V(q,p) = CONJG(A(p,q))
  1199                 CONTINUE
  1198              CONTINUE
@@ -715,7 +715,7 @@
                    zlaset('A',N,N-NR,CZERO,CZERO,V(1,NR+1),LDV);
                    zgesvd('O', 'A', N, N, V, LDV, S, V, LDV, U, LDU, CWORK(N+1), LCWORK-N, RWORK, INFO );
 
-                   DO 1113 p = 1, N
+                   for (p = 1; p <= N; p++) { // 1113
                       V(p,p) = CONJG(V(p,p))
                       DO 1114 q = p + 1, N
                          CTMP   = CONJG(V(q,p))
@@ -727,7 +727,7 @@
                // .. assemble the left singular vector matrix U of dimensions
                // (M x N1), i.e. (M x N) or (M x M).
 
-                   DO 1111 p = 1, N
+                   for (p = 1; p <= N; p++) { // 1111
                       U(p,p) = CONJG(U(p,p))
                       DO 1112 q = p + 1, N
                          CTMP   = CONJG(U(q,p))
@@ -746,14 +746,14 @@
                 } else {
                    // .. copy R**H into [U] and overwrite [U] with the right
                    // singular vectors of R
-                   DO 1196 p = 1, NR
-                      DO 1197 q = p, N
+                   for (p = 1; p <= NR; p++) { // 1196
+                      for (q = p; q <= N; q++) { // 1197
                          U(q,NR+p) = CONJG(A(p,q))
  1197                 CONTINUE
  1196              CONTINUE
                    IF ( NR .GT. 1 ) CALL ZLASET('U',NR-1,NR-1,CZERO,CZERO,U(1,NR+2),LDU)                    CALL ZGEQRF( N, NR, U(1,NR+1), LDU, CWORK(N+1), CWORK(N+NR+1), LCWORK-N-NR, IERR )
-                   DO 1143 p = 1, NR
-                       DO 1144 q = 1, N
+                   for (p = 1; p <= NR; p++) { // 1143
+                       for (q = 1; q <= N; q++) { // 1144
                            V(q,p) = CONJG(U(p,NR+q))
  1144                  CONTINUE
  1143              CONTINUE

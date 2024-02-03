@@ -67,7 +67,7 @@
             DH12 = DPARAM(4)
             DH21 = DPARAM(3)
             DH22 = DPARAM(5)
-            DO I = 1,N
+            for (I = 1; I <= N; I++) {
                W = DX(KX)
                Z = DY(KY)
                DX(KX) = W*DH11 + Z*DH12
@@ -78,7 +78,7 @@
          } else if (DFLAG.EQ.ZERO) {
             DH12 = DPARAM(4)
             DH21 = DPARAM(3)
-            DO I = 1,N
+            for (I = 1; I <= N; I++) {
                W = DX(KX)
                Z = DY(KY)
                DX(KX) = W + Z*DH12
@@ -89,7 +89,7 @@
          } else {
              DH11 = DPARAM(2)
              DH22 = DPARAM(5)
-             DO I = 1,N
+             for (I = 1; I <= N; I++) {
                 W = DX(KX)
                 Z = DY(KY)
                 DX(KX) = W*DH11 + Z

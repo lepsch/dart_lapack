@@ -31,7 +31,7 @@
 
          M = MOD(N,4)
          if (M.NE.0) {
-            DO I = 1,M
+            for (I = 1; I <= M; I++) {
                SY(I) = SY(I) + SA*SX(I)
             END DO
          }
@@ -52,7 +52,7 @@
          IY = 1
          IF (INCX.LT.0) IX = (-N+1)*INCX + 1
          IF (INCY.LT.0) IY = (-N+1)*INCY + 1
-         DO I = 1,N
+         for (I = 1; I <= N; I++) {
           SY(IY) = SY(IY) + SA*SX(IX)
           IX = IX + INCX
           IY = IY + INCY

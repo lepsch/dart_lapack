@@ -31,7 +31,7 @@
       IX = 1
       IY = 1
       IF( INCX.LT.0 ) IX = ( -N+1 )*INCX + 1       IF( INCY.LT.0 ) IY = ( -N+1 )*INCY + 1
-      DO 10 I = 1, N
+      for (I = 1; I <= N; I++) { // 10
          STEMP = C*CX( IX ) + S*CY( IY )
          CY( IY ) = C*CY( IY ) - CONJG( S )*CX( IX )
          CX( IX ) = STEMP
@@ -43,7 +43,7 @@
       // Code for both increments equal to 1
 
    20 CONTINUE
-      DO 30 I = 1, N
+      for (I = 1; I <= N; I++) { // 30
          STEMP = C*CX( I ) + S*CY( I )
          CY( I ) = C*CY( I ) - CONJG( S )*CX( I )
          CX( I ) = STEMP

@@ -97,7 +97,7 @@
 
          // Padding F(1:K,K) with zeros.
 
-         DO 40 J = 1, K
+         for (J = 1; J <= K; J++) { // 40
             F( J, K ) = CZERO
    40    CONTINUE
 

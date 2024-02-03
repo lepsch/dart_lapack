@@ -137,7 +137,7 @@
 
       if ( N.EQ.0 .OR. NRHS.EQ.0 ) {
          RCOND = 1.0D+0
-         DO J = 1, NRHS
+         for (J = 1; J <= NRHS; J++) {
             BERR( J ) = 0.0D+0
             if ( N_ERR_BNDS .GE. 1 ) {
                ERR_BNDS_NORM( J, LA_LINRX_TRUST_I ) = 1.0D+0
@@ -158,7 +158,7 @@
       // Default to failure.
 
       RCOND = 0.0D+0
-      DO J = 1, NRHS
+      for (J = 1; J <= NRHS; J++) {
          BERR( J ) = 1.0D+0
          if ( N_ERR_BNDS .GE. 1 ) {
             ERR_BNDS_NORM( J, LA_LINRX_TRUST_I ) = 1.0D+0
@@ -199,7 +199,7 @@
          } else {
             RCOND_TMP = DLA_PORCOND( UPLO, N, A, LDA, AF, LDAF, 0, S, INFO, WORK, IWORK )
          }
-         DO J = 1, NRHS
+         for (J = 1; J <= NRHS; J++) {
 
       // Cap the error at 1.0.
 
@@ -235,7 +235,7 @@
       // cwise error is at least CWISE_WRONG.
 
          CWISE_WRONG = SQRT( DLAMCH( 'Epsilon' ) )
-         DO J = 1, NRHS
+         for (J = 1; J <= NRHS; J++) {
             IF (ERR_BNDS_COMP( J, LA_LINRX_ERR_I ) .LT. CWISE_WRONG ) THEN                RCOND_TMP = DLA_PORCOND( UPLO, N, A, LDA, AF, LDAF, 1, X( 1, J ), INFO, WORK, IWORK )
             } else {
                RCOND_TMP = 0.0D+0

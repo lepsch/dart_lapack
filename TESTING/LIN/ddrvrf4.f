@@ -60,32 +60,32 @@
       NRUN = 0
       NFAIL = 0
       INFO = 0
-      DO 10 I = 1, 4
+      for (I = 1; I <= 4; I++) { // 10
          ISEED( I ) = ISEEDY( I )
    10 CONTINUE
       EPS = DLAMCH( 'Precision' )
 
-      DO 150 IIN = 1, NN
+      for (IIN = 1; IIN <= NN; IIN++) { // 150
 
          N = NVAL( IIN )
 
-         DO 140 IIK = 1, NN
+         for (IIK = 1; IIK <= NN; IIK++) { // 140
 
             K = NVAL( IIN )
 
-            DO 130 IFORM = 1, 2
+            for (IFORM = 1; IFORM <= 2; IFORM++) { // 130
 
                CFORM = FORMS( IFORM )
 
-               DO 120 IUPLO = 1, 2
+               for (IUPLO = 1; IUPLO <= 2; IUPLO++) { // 120
 
                   UPLO = UPLOS( IUPLO )
 
-                  DO 110 ITRANS = 1, 2
+                  for (ITRANS = 1; ITRANS <= 2; ITRANS++) { // 110
 
                      TRANS = TRANSS( ITRANS )
 
-                     DO 100 IALPHA = 1, 4
+                     for (IALPHA = 1; IALPHA <= 4; IALPHA++) { // 100
 
                         if ( IALPHA.EQ. 1) {
                            ALPHA = ZERO
@@ -112,8 +112,8 @@
 
                            // In this case we are NOTRANS, so A is N-by-K
 
-                           DO J = 1, K
-                              DO I = 1, N
+                           for (J = 1; J <= K; J++) {
+                              for (I = 1; I <= N; I++) {
                                  A( I, J) = DLARND( 2, ISEED )
                               END DO
                            END DO
@@ -125,8 +125,8 @@
 
                            // In this case we are TRANS, so A is K-by-N
 
-                           DO J = 1,N
-                              DO I = 1, K
+                           for (J = 1; J <= N; J++) {
+                              for (I = 1; I <= K; I++) {
                                  A( I, J) = DLARND( 2, ISEED )
                               END DO
                            END DO
@@ -140,8 +140,8 @@
                         // (the one that we do not touch), so
                         // copy the initial C1 in C2 in it.
 
-                        DO J = 1, N
-                           DO I = 1, N
+                        for (J = 1; J <= N; J++) {
+                           for (I = 1; I <= N; I++) {
                               C1( I, J) = DLARND( 2, ISEED )
                               C2(I,J) = C1(I,J)
                            END DO
@@ -172,8 +172,8 @@
 
                         // compare C1 and C2
 
-                        DO J = 1, N
-                           DO I = 1, N
+                        for (J = 1; J <= N; J++) {
+                           for (I = 1; I <= N; I++) {
                               C1(I,J) = C1(I,J)-C2(I,J)
                            END DO
                         END DO

@@ -117,7 +117,7 @@
          slamrg(N1, N2, D, 1, -1, INDXQ );
       } else {
          QPTR( CURR+1 ) = QPTR( CURR )
-         DO 20 I = 1, N
+         for (I = 1; I <= N; I++) { // 20
             INDXQ( I ) = I
    20    CONTINUE
       }

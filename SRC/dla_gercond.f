@@ -61,36 +61,36 @@
       // inv(R)*A*C has unit 1-norm.
 
       if (NOTRANS) {
-         DO I = 1, N
+         for (I = 1; I <= N; I++) {
             TMP = 0.0D+0
             if ( CMODE .EQ. 1 ) {
-               DO J = 1, N
+               for (J = 1; J <= N; J++) {
                   TMP = TMP + ABS( A( I, J ) * C( J ) )
                END DO
             } else if ( CMODE .EQ. 0 ) {
-               DO J = 1, N
+               for (J = 1; J <= N; J++) {
                   TMP = TMP + ABS( A( I, J ) )
                END DO
             } else {
-               DO J = 1, N
+               for (J = 1; J <= N; J++) {
                   TMP = TMP + ABS( A( I, J ) / C( J ) )
                END DO
             }
             WORK( 2*N+I ) = TMP
          END DO
       } else {
-         DO I = 1, N
+         for (I = 1; I <= N; I++) {
             TMP = 0.0D+0
             if ( CMODE .EQ. 1 ) {
-               DO J = 1, N
+               for (J = 1; J <= N; J++) {
                   TMP = TMP + ABS( A( J, I ) * C( J ) )
                END DO
             } else if ( CMODE .EQ. 0 ) {
-               DO J = 1, N
+               for (J = 1; J <= N; J++) {
                   TMP = TMP + ABS( A( J, I ) )
                END DO
             } else {
-               DO J = 1, N
+               for (J = 1; J <= N; J++) {
                   TMP = TMP + ABS( A( J, I ) / C( J ) )
                END DO
             }
@@ -110,7 +110,7 @@
 
             // Multiply by R.
 
-            DO I = 1, N
+            for (I = 1; I <= N; I++) {
                WORK(I) = WORK(I) * WORK(2*N+I)
             END DO
 
@@ -123,11 +123,11 @@
             // Multiply by inv(C).
 
             if ( CMODE .EQ. 1 ) {
-               DO I = 1, N
+               for (I = 1; I <= N; I++) {
                   WORK( I ) = WORK( I ) / C( I )
                END DO
             } else if ( CMODE .EQ. -1 ) {
-               DO I = 1, N
+               for (I = 1; I <= N; I++) {
                   WORK( I ) = WORK( I ) * C( I )
                END DO
             }
@@ -136,11 +136,11 @@
             // Multiply by inv(C**T).
 
             if ( CMODE .EQ. 1 ) {
-               DO I = 1, N
+               for (I = 1; I <= N; I++) {
                   WORK( I ) = WORK( I ) / C( I )
                END DO
             } else if ( CMODE .EQ. -1 ) {
-               DO I = 1, N
+               for (I = 1; I <= N; I++) {
                   WORK( I ) = WORK( I ) * C( I )
                END DO
             }
@@ -153,7 +153,7 @@
 
             // Multiply by R.
 
-            DO I = 1, N
+            for (I = 1; I <= N; I++) {
                WORK( I ) = WORK( I ) * WORK( 2*N+I )
             END DO
          }

@@ -67,14 +67,14 @@
       // Compute the difference  C - A .
 
       if ( LSAME( UPLO, 'U' ) ) {
-         DO 20 J = 1, N
-            DO 10 I = 1, J
+         for (J = 1; J <= N; J++) { // 20
+            for (I = 1; I <= J; I++) { // 10
                C( I, J ) = C( I, J ) - A( I, J )
    10       CONTINUE
    20    CONTINUE
       } else {
-         DO 40 J = 1, N
-            DO 30 I = J, N
+         for (J = 1; J <= N; J++) { // 40
+            for (I = J; I <= N; I++) { // 30
                C( I, J ) = C( I, J ) - A( I, J )
    30       CONTINUE
    40    CONTINUE

@@ -98,7 +98,7 @@
       if ( .NOT.ILALL ) {
          IM = 0
          ILCPLX = .FALSE.
-         DO 10 J = 1, N
+         for (J = 1; J <= N; J++) { // 10
             if ( ILCPLX ) {
                ILCPLX = .FALSE.
                GO TO 10
@@ -170,7 +170,7 @@
       WORK( 1 ) = ZERO
       WORK( N+1 ) = ZERO
 
-      DO 50 J = 2, N
+      for (J = 2; J <= N; J++) { // 50
          TEMP = ZERO
          TEMP2 = ZERO
          if ( S( J, J-1 ).EQ.ZERO ) {
@@ -178,7 +178,7 @@
          } else {
             IEND = J - 2
          }
-         DO 30 I = 1, IEND
+         for (I = 1; I <= IEND; I++) { // 30
             TEMP = TEMP + ABS( S( I, J ) )
             TEMP2 = TEMP2 + ABS( P( I, J ) )
    30    CONTINUE
@@ -203,7 +203,7 @@
          // Main loop over eigenvalues
 
          ILCPLX = .FALSE.
-         DO 220 JE = 1, N
+         for (JE = 1; JE <= N; JE++) { // 220
 
             // Skip this iteration if (a) HOWMNY='S' and SELECT=.FALSE., or
             // (b) this would be the second of a complex pair.
@@ -239,7 +239,7 @@
                   // Singular matrix pencil -- return unit eigenvector
 
                   IEIG = IEIG + 1
-                  DO 60 JR = 1, N
+                  for (JR = 1; JR <= N; JR++) { // 60
                      VL( JR, IEIG ) = ZERO
    60             CONTINUE
                   VL( IEIG, IEIG ) = ONE
@@ -393,8 +393,8 @@
                // to underflow.  (E.g., less than SMALL.)
 
 
-               DO 120 JW = 1, NW
-                  DO 110 JA = 1, NA
+               for (JW = 1; JW <= NW; JW++) { // 120
+                  for (JA = 1; JA <= NA; JA++) { // 110
                      SUMS( JA, JW ) = ZERO
                      SUMP( JA, JW ) = ZERO
 
@@ -404,7 +404,7 @@
   110             CONTINUE
   120          CONTINUE
 
-               DO 130 JA = 1, NA
+               for (JA = 1; JA <= NA; JA++) { // 130
                   if ( ILCPLX ) {
                      SUM( JA, 1 ) = -ACOEF*SUMS( JA, 1 ) + BCOEFR*SUMP( JA, 1 ) - BCOEFI*SUMP( JA, 2 )                      SUM( JA, 2 ) = -ACOEF*SUMS( JA, 2 ) + BCOEFR*SUMP( JA, 2 ) + BCOEFI*SUMP( JA, 1 )
                   } else {
@@ -447,11 +447,11 @@
 
             XMAX = ZERO
             if ( ILCPLX ) {
-               DO 180 J = IBEG, N
+               for (J = IBEG; J <= N; J++) { // 180
                   XMAX = MAX( XMAX, ABS( VL( J, IEIG ) )+ ABS( VL( J, IEIG+1 ) ) )
   180          CONTINUE
             } else {
-               DO 190 J = IBEG, N
+               for (J = IBEG; J <= N; J++) { // 190
                   XMAX = MAX( XMAX, ABS( VL( J, IEIG ) ) )
   190          CONTINUE
             }
@@ -460,7 +460,7 @@
                XSCALE = ONE / XMAX
 
                DO 210 JW = 0, NW - 1
-                  DO 200 JR = IBEG, N
+                  for (JR = IBEG; JR <= N; JR++) { // 200
                      VL( JR, IEIG+JW ) = XSCALE*VL( JR, IEIG+JW )
   200             CONTINUE
   210          CONTINUE
@@ -517,7 +517,7 @@
                   // Singular matrix pencil -- unit eigenvector
 
                   IEIG = IEIG - 1
-                  DO 230 JR = 1, N
+                  for (JR = 1; JR <= N; JR++) { // 230
                      VR( JR, IEIG ) = ZERO
   230             CONTINUE
                   VR( IEIG, IEIG ) = ONE
@@ -528,7 +528,7 @@
             // Clear vector
 
             DO 250 JW = 0, NW - 1
-               DO 240 JR = 1, N
+               for (JR = 1; JR <= N; JR++) { // 240
                   WORK( ( JW+2 )*N+JR ) = ZERO
   240          CONTINUE
   250       CONTINUE
@@ -670,15 +670,15 @@
                if ( SCALE.LT.ONE ) {
 
                   DO 290 JW = 0, NW - 1
-                     DO 280 JR = 1, JE
+                     for (JR = 1; JR <= JE; JR++) { // 280
                         WORK( ( JW+2 )*N+JR ) = SCALE* WORK( ( JW+2 )*N+JR )
   280                CONTINUE
   290             CONTINUE
                }
                XMAX = MAX( SCALE*XMAX, TEMP )
 
-               DO 310 JW = 1, NW
-                  DO 300 JA = 1, NA
+               for (JW = 1; JW <= NW; JW++) { // 310
+                  for (JA = 1; JA <= NA; JA++) { // 300
                      WORK( ( JW+1 )*N+J+JA-1 ) = SUM( JA, JW )
   300             CONTINUE
   310          CONTINUE
@@ -696,7 +696,7 @@
                   if ( TEMP.GT.BIGNUM*XSCALE ) {
 
                      DO 330 JW = 0, NW - 1
-                        DO 320 JR = 1, JE
+                        for (JR = 1; JR <= JE; JR++) { // 320
                            WORK( ( JW+2 )*N+JR ) = XSCALE* WORK( ( JW+2 )*N+JR )
   320                   CONTINUE
   330                CONTINUE
@@ -708,7 +708,7 @@
                   // sums.
 
 
-                  DO 360 JA = 1, NA
+                  for (JA = 1; JA <= NA; JA++) { // 360
                      if ( ILCPLX ) {
                         CREALA = ACOEF*WORK( 2*N+J+JA-1 )
                         CIMAGA = ACOEF*WORK( 3*N+J+JA-1 )
@@ -736,7 +736,7 @@
             if ( ILBACK ) {
 
                DO 410 JW = 0, NW - 1
-                  DO 380 JR = 1, N
+                  for (JR = 1; JR <= N; JR++) { // 380
                      WORK( ( JW+4 )*N+JR ) = WORK( ( JW+2 )*N+1 )* VR( JR, 1 )
   380             CONTINUE
 
@@ -744,15 +744,15 @@
                   // vectorization for the next loop
 
 
-                  DO 400 JC = 2, JE
-                     DO 390 JR = 1, N
+                  for (JC = 2; JC <= JE; JC++) { // 400
+                     for (JR = 1; JR <= N; JR++) { // 390
                         WORK( ( JW+4 )*N+JR ) = WORK( ( JW+4 )*N+JR ) + WORK( ( JW+2 )*N+JC )*VR( JR, JC )
   390                CONTINUE
   400             CONTINUE
   410          CONTINUE
 
                DO 430 JW = 0, NW - 1
-                  DO 420 JR = 1, N
+                  for (JR = 1; JR <= N; JR++) { // 420
                      VR( JR, IEIG+JW ) = WORK( ( JW+4 )*N+JR )
   420             CONTINUE
   430          CONTINUE
@@ -760,7 +760,7 @@
                IEND = N
             } else {
                DO 450 JW = 0, NW - 1
-                  DO 440 JR = 1, N
+                  for (JR = 1; JR <= N; JR++) { // 440
                      VR( JR, IEIG+JW ) = WORK( ( JW+2 )*N+JR )
   440             CONTINUE
   450          CONTINUE
@@ -772,11 +772,11 @@
 
             XMAX = ZERO
             if ( ILCPLX ) {
-               DO 460 J = 1, IEND
+               for (J = 1; J <= IEND; J++) { // 460
                   XMAX = MAX( XMAX, ABS( VR( J, IEIG ) )+ ABS( VR( J, IEIG+1 ) ) )
   460          CONTINUE
             } else {
-               DO 470 J = 1, IEND
+               for (J = 1; J <= IEND; J++) { // 470
                   XMAX = MAX( XMAX, ABS( VR( J, IEIG ) ) )
   470          CONTINUE
             }
@@ -784,7 +784,7 @@
             if ( XMAX.GT.SAFMIN ) {
                XSCALE = ONE / XMAX
                DO 490 JW = 0, NW - 1
-                  DO 480 JR = 1, IEND
+                  for (JR = 1; JR <= IEND; JR++) { // 480
                      VR( JR, IEIG+JW ) = XSCALE*VR( JR, IEIG+JW )
   480             CONTINUE
   490          CONTINUE

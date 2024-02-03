@@ -81,7 +81,7 @@
 
       M = 0
       if ( .NOT.LQUERY .OR. IJOB.NE.0 ) {
-      DO 10 K = 1, N
+      for (K = 1; K <= N; K++) { // 10
          ALPHA( K ) = A( K, K )
          BETA( K ) = B( K, K )
          if ( K.LT.N ) {
@@ -129,7 +129,7 @@
          if ( WANTD ) {
             DSCALE = ZERO
             DSUM = ONE
-            DO 20 I = 1, N
+            for (I = 1; I <= N; I++) { // 20
                zlassq(N, A( 1, I ), 1, DSCALE, DSUM );
                zlassq(N, B( 1, I ), 1, DSCALE, DSUM );
    20       CONTINUE
@@ -146,7 +146,7 @@
       // Collect the selected blocks at the top-left corner of (A, B).
 
       KS = 0
-      DO 30 K = 1, N
+      for (K = 1; K <= N; K++) { // 30
          SWAP = SELECT( K )
          if ( SWAP ) {
             KS = KS + 1
@@ -286,7 +286,7 @@
       // of the generalized Schur form) and Store the generalized
       // eigenvalues of reordered pair (A, B)
 
-      DO 60 K = 1, N
+      for (K = 1; K <= N; K++) { // 60
          DSCALE = ABS( B( K, K ) )
          if ( DSCALE.GT.SAFMIN ) {
             TEMP1 = DCONJG( B( K, K ) / DSCALE )

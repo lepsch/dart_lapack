@@ -64,7 +64,7 @@
       // Check for singularity.
 
       if ( NOUNIT ) {
-         DO 10 INFO = 1, N
+         for (INFO = 1; INFO <= N; INFO++) { // 10
             IF( A( INFO, INFO ).EQ.ZERO ) RETURN
    10    CONTINUE
       }

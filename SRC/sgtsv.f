@@ -110,7 +110,7 @@
                if ( D( I ).NE.ZERO ) {
                   FACT = DL( I ) / D( I )
                   D( I+1 ) = D( I+1 ) - FACT*DU( I )
-                  DO 20 J = 1, NRHS
+                  for (J = 1; J <= NRHS; J++) { // 20
                      B( I+1, J ) = B( I+1, J ) - FACT*B( I, J )
    20             CONTINUE
                } else {
@@ -129,7 +129,7 @@
                DL( I ) = DU( I+1 )
                DU( I+1 ) = -FACT*DL( I )
                DU( I ) = TEMP
-               DO 30 J = 1, NRHS
+               for (J = 1; J <= NRHS; J++) { // 30
                   TEMP = B( I, J )
                   B( I, J ) = B( I+1, J )
                   B( I+1, J ) = TEMP - FACT*B( I+1, J )
@@ -142,7 +142,7 @@
                if ( D( I ).NE.ZERO ) {
                   FACT = DL( I ) / D( I )
                   D( I+1 ) = D( I+1 ) - FACT*DU( I )
-                  DO 50 J = 1, NRHS
+                  for (J = 1; J <= NRHS; J++) { // 50
                      B( I+1, J ) = B( I+1, J ) - FACT*B( I, J )
    50             CONTINUE
                } else {
@@ -155,7 +155,7 @@
                TEMP = D( I+1 )
                D( I+1 ) = DU( I ) - FACT*TEMP
                DU( I ) = TEMP
-               DO 60 J = 1, NRHS
+               for (J = 1; J <= NRHS; J++) { // 60
                   TEMP = B( I, J )
                   B( I, J ) = B( I+1, J )
                   B( I+1, J ) = TEMP - FACT*B( I+1, J )
@@ -183,7 +183,7 @@
             GO TO 70
          }
       } else {
-         DO 100 J = 1, NRHS
+         for (J = 1; J <= NRHS; J++) { // 100
             B( N, J ) = B( N, J ) / D( N )
             IF( N.GT.1 ) B( N-1, J ) = ( B( N-1, J )-DU( N-1 )*B( N, J ) ) / D( N-1 )
             DO 90 I = N - 2, 1, -1

@@ -141,7 +141,7 @@
             zlacpy('A', N, N, Q, LDQ, Z, LDZ );
             zsteqr(JOBZ, N, W, RWORK( INDEE ), Z, LDZ, RWORK( INDRWK ), INFO );
             if ( INFO.EQ.0 ) {
-               DO 10 I = 1, N
+               for (I = 1; I <= N; I++) { // 10
                   IFAIL( I ) = 0
    10          CONTINUE
             }
@@ -171,7 +171,7 @@
          // Apply unitary matrix used in reduction to tridiagonal
          // form to eigenvectors returned by ZSTEIN.
 
-         DO 20 J = 1, M
+         for (J = 1; J <= M; J++) { // 20
             zcopy(N, Z( 1, J ), 1, WORK( 1 ), 1 );
             zgemv('N', N, N, CONE, Q, LDQ, WORK, 1, CZERO, Z( 1, J ), 1 );
    20    CONTINUE

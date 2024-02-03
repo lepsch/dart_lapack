@@ -77,7 +77,7 @@
 
          if ( SOMCON ) {
             M = 0
-            DO 10 K = 1, N
+            for (K = 1; K <= N; K++) { // 10
                IF( SELECT( K ) ) M = M + 1
    10       CONTINUE
          } else {
@@ -117,7 +117,7 @@
       SMLNUM = DLAMCH( 'S' ) / EPS
       BIGNUM = ONE / SMLNUM
       KS = 0
-      DO 20 K = 1, N
+      for (K = 1; K <= N; K++) { // 20
 
          // Determine whether condition numbers are required for the k-th
          // eigenpair.

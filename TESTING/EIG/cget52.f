@@ -72,7 +72,7 @@
       // Compute error matrix.
       // Column i = ( b(i) A - a(i) B ) E(i) / max( |a(i) B|, |b(i) A| )
 
-      DO 10 JVEC = 1, N
+      for (JVEC = 1; JVEC <= N; JVEC++) { // 10
          ALPHAI = ALPHA( JVEC )
          BETAI = BETA( JVEC )
          ABMAX = MAX( ABS1( ALPHAI ), ABS1( BETAI ) )
@@ -100,9 +100,9 @@
       // Normalization of E:
 
       ENRMER = ZERO
-      DO 30 JVEC = 1, N
+      for (JVEC = 1; JVEC <= N; JVEC++) { // 30
          TEMP1 = ZERO
-         DO 20 J = 1, N
+         for (J = 1; J <= N; J++) { // 20
             TEMP1 = MAX( TEMP1, ABS1( E( J, JVEC ) ) )
    20    CONTINUE
          ENRMER = MAX( ENRMER, ABS( TEMP1-ONE ) )

@@ -23,7 +23,7 @@
 
       IF( M.LE.1 ) RETURN
 
-      DO 10 I = 1, M
+      for (I = 1; I <= M; I++) { // 10
          K( I ) = -K( I )
    10 CONTINUE
 
@@ -31,7 +31,7 @@
 
          // Forward permutation
 
-         DO 50 I = 1, M
+         for (I = 1; I <= M; I++) { // 50
 
             IF( K( I ).GT.0 ) GO TO 40
 
@@ -42,7 +42,7 @@
    20       CONTINUE
             IF( K( IN ).GT.0 ) GO TO 40
 
-            DO 30 JJ = 1, N
+            for (JJ = 1; JJ <= N; JJ++) { // 30
                TEMP = X( J, JJ )
                X( J, JJ ) = X( IN, JJ )
                X( IN, JJ ) = TEMP
@@ -61,7 +61,7 @@
 
          // Backward permutation
 
-         DO 90 I = 1, M
+         for (I = 1; I <= M; I++) { // 90
 
             IF( K( I ).GT.0 ) GO TO 80
 
@@ -70,7 +70,7 @@
    60       CONTINUE
             IF( J.EQ.I ) GO TO 80
 
-            DO 70 JJ = 1, N
+            for (JJ = 1; JJ <= N; JJ++) { // 70
                TEMP = X( I, JJ )
                X( I, JJ ) = X( J, JJ )
                X( J, JJ ) = TEMP

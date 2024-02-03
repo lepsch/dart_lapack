@@ -43,7 +43,7 @@
 
          VALUE = ZERO
          if ( LSAME( UPLO, 'U' ) ) {
-            DO 20 J = 1, N
+            for (J = 1; J <= N; J++) { // 20
                DO 10 I = MAX( K+2-J, 1 ), K
                   SUM = ABS( AB( I, J ) )
                   IF( VALUE .LT. SUM .OR. DISNAN( SUM ) ) VALUE = SUM
@@ -52,7 +52,7 @@
                IF( VALUE .LT. SUM .OR. DISNAN( SUM ) ) VALUE = SUM
    20       CONTINUE
          } else {
-            DO 40 J = 1, N
+            for (J = 1; J <= N; J++) { // 40
                SUM = ABS( DBLE( AB( 1, J ) ) )
                IF( VALUE .LT. SUM .OR. DISNAN( SUM ) ) VALUE = SUM
                DO 30 I = 2, MIN( N+1-J, K+1 )
@@ -67,7 +67,7 @@
 
          VALUE = ZERO
          if ( LSAME( UPLO, 'U' ) ) {
-            DO 60 J = 1, N
+            for (J = 1; J <= N; J++) { // 60
                SUM = ZERO
                L = K + 1 - J
                DO 50 I = MAX( 1, J-K ), J - 1
@@ -77,15 +77,15 @@
    50          CONTINUE
                WORK( J ) = SUM + ABS( DBLE( AB( K+1, J ) ) )
    60       CONTINUE
-            DO 70 I = 1, N
+            for (I = 1; I <= N; I++) { // 70
                SUM = WORK( I )
                IF( VALUE .LT. SUM .OR. DISNAN( SUM ) ) VALUE = SUM
    70       CONTINUE
          } else {
-            DO 80 I = 1, N
+            for (I = 1; I <= N; I++) { // 80
                WORK( I ) = ZERO
    80       CONTINUE
-            DO 100 J = 1, N
+            for (J = 1; J <= N; J++) { // 100
                SUM = WORK( J ) + ABS( DBLE( AB( 1, J ) ) )
                L = 1 - J
                DO 90 I = J + 1, MIN( N, J+K )
@@ -104,7 +104,7 @@
          SUM = ONE
          if ( K.GT.0 ) {
             if ( LSAME( UPLO, 'U' ) ) {
-               DO 110 J = 2, N
+               for (J = 2; J <= N; J++) { // 110
                   zlassq(MIN( J-1, K ), AB( MAX( K+2-J, 1 ), J ), 1, SCALE, SUM );
   110          CONTINUE
                L = K + 1
@@ -118,7 +118,7 @@
          } else {
             L = 1
          }
-         DO 130 J = 1, N
+         for (J = 1; J <= N; J++) { // 130
             if ( DBLE( AB( L, J ) ).NE.ZERO ) {
                ABSA = ABS( DBLE( AB( L, J ) ) )
                if ( SCALE.LT.ABSA ) {

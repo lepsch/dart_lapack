@@ -123,7 +123,7 @@
       SWBAND = 0
       PSKIPPED = 0
 
-      DO 1993 i = 1, NSWEEP
+      for (i = 1; i <= NSWEEP; i++) { // 1993
       // .. go go go ...
 
          MXAAPQ = ZERO
@@ -133,7 +133,7 @@
          NOTROT = 0
          PSKIPPED = 0
 
-         DO 2000 ibr = 1, NBL
+         for (ibr = 1; ibr <= NBL; ibr++) { // 2000
 
             igl = ( ibr-1 )*KBL + 1
 

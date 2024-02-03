@@ -60,7 +60,7 @@
 
          // W( 1:n, 1:k ) = C( 1:k, 1:n )**T
 
-         DO 10 J = 1, K
+         for (J = 1; J <= K; J++) { // 10
             dcopy(N, C( J, 1 ), LDC, WORK( 1, J ), 1 );
    10    CONTINUE
 
@@ -75,8 +75,8 @@
 
          // C( 1:k, 1:n ) = C( 1:k, 1:n ) - W( 1:n, 1:k )**T
 
-         DO 30 J = 1, N
-            DO 20 I = 1, K
+         for (J = 1; J <= N; J++) { // 30
+            for (I = 1; I <= K; I++) { // 20
                C( I, J ) = C( I, J ) - WORK( J, I )
    20       CONTINUE
    30    CONTINUE
@@ -92,7 +92,7 @@
 
          // W( 1:m, 1:k ) = C( 1:m, 1:k )
 
-         DO 40 J = 1, K
+         for (J = 1; J <= K; J++) { // 40
             dcopy(M, C( 1, J ), 1, WORK( 1, J ), 1 );
    40    CONTINUE
 
@@ -107,8 +107,8 @@
 
          // C( 1:m, 1:k ) = C( 1:m, 1:k ) - W( 1:m, 1:k )
 
-         DO 60 J = 1, K
-            DO 50 I = 1, M
+         for (J = 1; J <= K; J++) { // 60
+            for (I = 1; I <= M; I++) { // 50
                C( I, J ) = C( I, J ) - WORK( I, J )
    50       CONTINUE
    60    CONTINUE

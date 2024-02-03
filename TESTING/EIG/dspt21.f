@@ -83,7 +83,7 @@
          dlaset('Full', N, N, ZERO, ZERO, WORK, N );
          dcopy(LAP, AP, 1, WORK, 1 );
 
-         DO 10 J = 1, N
+         for (J = 1; J <= N; J++) { // 10
             dspr(CUPLO, N, -D( J ), U( 1, J ), 1, WORK );
    10    CONTINUE
 
@@ -142,7 +142,7 @@
    60       CONTINUE
          }
 
-         DO 70 J = 1, LAP
+         for (J = 1; J <= LAP; J++) { // 70
             WORK( J ) = WORK( J ) - AP( J )
    70    CONTINUE
          WNORM = DLANSP( '1', CUPLO, N, WORK, WORK( LAP+1 ) )
@@ -159,7 +159,7 @@
             RETURN
          }
 
-         DO 80 J = 1, N
+         for (J = 1; J <= N; J++) { // 80
             WORK( ( N+1 )*( J-1 )+1 ) = WORK( ( N+1 )*( J-1 )+1 ) - ONE
    80    CONTINUE
 
@@ -183,7 +183,7 @@
       if ( ITYPE.EQ.1 ) {
          dgemm('N', 'C', N, N, N, ONE, U, LDU, U, LDU, ZERO, WORK, N );
 
-         DO 90 J = 1, N
+         for (J = 1; J <= N; J++) { // 90
             WORK( ( N+1 )*( J-1 )+1 ) = WORK( ( N+1 )*( J-1 )+1 ) - ONE
    90    CONTINUE
 

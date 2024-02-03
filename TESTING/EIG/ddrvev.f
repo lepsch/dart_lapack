@@ -65,7 +65,7 @@
 
       BADNN = .FALSE.
       NMAX = 0
-      DO 10 J = 1, NSIZES
+      for (J = 1; J <= NSIZES; J++) { // 10
          NMAX = MAX( NMAX, NN( J ) )
          IF( NN( J ).LT.0 ) BADNN = .TRUE.
    10 CONTINUE
@@ -116,7 +116,7 @@
 
       NERRS = 0
 
-      DO 270 JSIZE = 1, NSIZES
+      for (JSIZE = 1; JSIZE <= NSIZES; JSIZE++) { // 270
          N = NN( JSIZE )
          if ( NSIZES.NE.1 ) {
             MTYPES = MIN( MAXTYP, NTYPES )
@@ -124,12 +124,12 @@
             MTYPES = MIN( MAXTYP+1, NTYPES )
          }
 
-         DO 260 JTYPE = 1, MTYPES
+         for (JTYPE = 1; JTYPE <= MTYPES; JTYPE++) { // 260
             IF( .NOT.DOTYPE( JTYPE ) ) GO TO 260
 
             // Save ISEED in case of an error.
 
-            DO 20 J = 1, 4
+            for (J = 1; J <= 4; J++) { // 20
                IOLDSD( J ) = ISEED( J )
    20       CONTINUE
 
@@ -187,7 +187,7 @@
 
                // Identity
 
-               DO 70 JCOL = 1, N
+               for (JCOL = 1; JCOL <= N; JCOL++) { // 70
                   A( JCOL, JCOL ) = ANORM
    70          CONTINUE
 
@@ -195,7 +195,7 @@
 
                // Jordan Block
 
-               DO 80 JCOL = 1, N
+               for (JCOL = 1; JCOL <= N; JCOL++) { // 80
                   A( JCOL, JCOL ) = ANORM
                   IF( JCOL.GT.1 ) A( JCOL, JCOL-1 ) = ONE
    80          CONTINUE
@@ -270,7 +270,7 @@
 
             // Test for minimal and generous workspace
 
-            DO 250 IWK = 1, 2
+            for (IWK = 1; IWK <= 2; IWK++) { // 250
                if ( IWK.EQ.1 ) {
                   NNWORK = 4*N
                } else {
@@ -280,7 +280,7 @@
 
                // Initialize RESULT
 
-               DO 100 J = 1, 7
+               for (J = 1; J <= 7; J++) { // 100
                   RESULT( J ) = -ONE
   100          CONTINUE
 
@@ -307,7 +307,7 @@
 
                // Do Test (3)
 
-               DO 120 J = 1, N
+               for (J = 1; J <= N; J++) { // 120
                   TNRM = ONE
                   if ( WI( J ).EQ.ZERO ) {
                      TNRM = DNRM2( N, VR( 1, J ), 1 )
@@ -318,7 +318,7 @@
                   if ( WI( J ).GT.ZERO ) {
                      VMX = ZERO
                      VRMX = ZERO
-                     DO 110 JJ = 1, N
+                     for (JJ = 1; JJ <= N; JJ++) { // 110
                         VTST = DLAPY2( VR( JJ, J ), VR( JJ, J+1 ) )
                         IF( VTST.GT.VMX ) VMX = VTST                         IF( VR( JJ, J+1 ).EQ.ZERO .AND. ABS( VR( JJ, J ) ).GT.VRMX ) VRMX = ABS( VR( JJ, J ) )
   110                CONTINUE
@@ -328,7 +328,7 @@
 
                // Do Test (4)
 
-               DO 140 J = 1, N
+               for (J = 1; J <= N; J++) { // 140
                   TNRM = ONE
                   if ( WI( J ).EQ.ZERO ) {
                      TNRM = DNRM2( N, VL( 1, J ), 1 )
@@ -339,7 +339,7 @@
                   if ( WI( J ).GT.ZERO ) {
                      VMX = ZERO
                      VRMX = ZERO
-                     DO 130 JJ = 1, N
+                     for (JJ = 1; JJ <= N; JJ++) { // 130
                         VTST = DLAPY2( VL( JJ, J ), VL( JJ, J+1 ) )
                         IF( VTST.GT.VMX ) VMX = VTST                         IF( VL( JJ, J+1 ).EQ.ZERO .AND. ABS( VL( JJ, J ) ).GT.VRMX ) VRMX = ABS( VL( JJ, J ) )
   130                CONTINUE
@@ -360,7 +360,7 @@
 
                // Do Test (5)
 
-               DO 150 J = 1, N
+               for (J = 1; J <= N; J++) { // 150
                   IF( WR( J ).NE.WR1( J ) .OR. WI( J ).NE.WI1( J ) ) RESULT( 5 ) = ULPINV
   150          CONTINUE
 
@@ -377,14 +377,14 @@
 
                // Do Test (5) again
 
-               DO 160 J = 1, N
+               for (J = 1; J <= N; J++) { // 160
                   IF( WR( J ).NE.WR1( J ) .OR. WI( J ).NE.WI1( J ) ) RESULT( 5 ) = ULPINV
   160          CONTINUE
 
                // Do Test (6)
 
-               DO 180 J = 1, N
-                  DO 170 JJ = 1, N
+               for (J = 1; J <= N; J++) { // 180
+                  for (JJ = 1; JJ <= N; JJ++) { // 170
                      IF( VR( J, JJ ).NE.LRE( J, JJ ) ) RESULT( 6 ) = ULPINV
   170             CONTINUE
   180          CONTINUE
@@ -402,14 +402,14 @@
 
                // Do Test (5) again
 
-               DO 190 J = 1, N
+               for (J = 1; J <= N; J++) { // 190
                   IF( WR( J ).NE.WR1( J ) .OR. WI( J ).NE.WI1( J ) ) RESULT( 5 ) = ULPINV
   190          CONTINUE
 
                // Do Test (7)
 
-               DO 210 J = 1, N
-                  DO 200 JJ = 1, N
+               for (J = 1; J <= N; J++) { // 210
+                  for (JJ = 1; JJ <= N; JJ++) { // 200
                      IF( VL( J, JJ ).NE.LRE( J, JJ ) ) RESULT( 7 ) = ULPINV
   200             CONTINUE
   210          CONTINUE
@@ -420,7 +420,7 @@
 
                NTEST = 0
                NFAIL = 0
-               DO 230 J = 1, 7
+               for (J = 1; J <= 7; J++) { // 230
                   IF( RESULT( J ).GE.ZERO ) NTEST = NTEST + 1                   IF( RESULT( J ).GE.THRESH ) NFAIL = NFAIL + 1
   230          CONTINUE
 
@@ -434,7 +434,7 @@
                   NTESTF = 2
                }
 
-               DO 240 J = 1, 7
+               for (J = 1; J <= 7; J++) { // 240
                   if ( RESULT( J ).GE.THRESH ) {
                      WRITE( NOUNIT, FMT = 9994 )N, IWK, IOLDSD, JTYPE, J, RESULT( J )
                   }

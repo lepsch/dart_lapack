@@ -72,7 +72,7 @@
       NRUN = 0
       NFAIL = 0
       NERRS = 0
-      DO 10 I = 1, 4
+      for (I = 1; I <= 4; I++) { // 10
          ISEED( I ) = ISEEDY( I )
    10 CONTINUE
 
@@ -81,7 +81,7 @@
       IF( TSTERR ) CALL ZERRTR( PATH, NOUT )
       INFOT = 0
 
-      DO 140 IN = 1, NN
+      for (IN = 1; IN <= NN; IN++) { // 140
 
          // Do for each value of N in NVAL
 
@@ -96,7 +96,7 @@
          }
 
          NK = MIN( N+1, 4 )
-         DO 130 IK = 1, NK
+         for (IK = 1; IK <= NK; IK++) { // 130
 
             // Do for KD = 0, N, (3N-1)/4, and (N+1)/4. This order makes
             // it easier to skip redundant values for small values of N.
@@ -112,13 +112,13 @@
             }
             LDAB = KD + 1
 
-            DO 90 IMAT = 1, NIMAT
+            for (IMAT = 1; IMAT <= NIMAT; IMAT++) { // 90
 
                // Do the tests only if DOTYPE( IMAT ) is true.
 
                IF( .NOT.DOTYPE( IMAT ) ) GO TO 90
 
-               DO 80 IUPLO = 1, 2
+               for (IUPLO = 1; IUPLO <= 2; IUPLO++) { // 80
 
                   // Do first for UPLO = 'U', then for UPLO = 'L'
 
@@ -142,11 +142,11 @@
 
                   zlaset('Full', N, N, DCMPLX( ZERO ), DCMPLX( ONE ), AINV, LDA );
                   if ( LSAME( UPLO, 'U' ) ) {
-                     DO 20 J = 1, N
+                     for (J = 1; J <= N; J++) { // 20
                         ztbsv(UPLO, 'No transpose', DIAG, J, KD, AB, LDAB, AINV( ( J-1 )*LDA+1 ), 1 );
    20                CONTINUE
                   } else {
-                     DO 30 J = 1, N
+                     for (J = 1; J <= N; J++) { // 30
                         ztbsv(UPLO, 'No transpose', DIAG, N-J+1, KD, AB( ( J-1 )*LDAB+1 ), LDAB, AINV( ( J-1 )*LDA+J ), 1 );
    30                CONTINUE
                   }
@@ -169,11 +169,11 @@
                      RCONDI = ( ONE / ANORM ) / AINVNM
                   }
 
-                  DO 60 IRHS = 1, NNS
+                  for (IRHS = 1; IRHS <= NNS; IRHS++) { // 60
                      NRHS = NSVAL( IRHS )
                      XTYPE = 'N'
 
-                     DO 50 ITRAN = 1, NTRAN
+                     for (ITRAN = 1; ITRAN <= NTRAN; ITRAN++) { // 50
 
                      // Do for op(A) = A, A**T, or A**H.
 
@@ -224,7 +224,7 @@
                         // Print information about the tests that did not
                         // pass the threshold.
 
-                        DO 40 K = 1, 5
+                        for (K = 1; K <= 5; K++) { // 40
                            if ( RESULT( K ).GE.THRESH ) {
                               IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                               WRITE( NOUT, FMT = 9999 )UPLO, TRANS, DIAG, N, KD, NRHS, IMAT, K, RESULT( K )
                               NFAIL = NFAIL + 1
@@ -237,7 +237,7 @@
 *+    TEST 6
                      // Get an estimate of RCOND = 1/CNDNUM.
 
-                  DO 70 ITRAN = 1, 2
+                  for (ITRAN = 1; ITRAN <= 2; ITRAN++) { // 70
                      if ( ITRAN.EQ.1 ) {
                         NORM = 'O'
                         RCONDC = RCONDO
@@ -273,12 +273,12 @@
 
                IF( .NOT.DOTYPE( IMAT ) ) GO TO 120
 
-               DO 110 IUPLO = 1, 2
+               for (IUPLO = 1; IUPLO <= 2; IUPLO++) { // 110
 
                   // Do first for UPLO = 'U', then for UPLO = 'L'
 
                   UPLO = UPLOS( IUPLO )
-                  DO 100 ITRAN = 1, NTRAN
+                  for (ITRAN = 1; ITRAN <= NTRAN; ITRAN++) { // 100
 
                      // Do for op(A) = A, A**T, and A**H.
 

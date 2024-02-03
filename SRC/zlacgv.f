@@ -22,13 +22,13 @@
       // .. Executable Statements ..
 
       if ( INCX.EQ.1 ) {
-         DO 10 I = 1, N
+         for (I = 1; I <= N; I++) { // 10
             X( I ) = DCONJG( X( I ) )
    10    CONTINUE
       } else {
          IOFF = 1
          IF( INCX.LT.0 ) IOFF = 1 - ( N-1 )*INCX
-         DO 20 I = 1, N
+         for (I = 1; I <= N; I++) { // 20
             X( IOFF ) = DCONJG( X( IOFF ) )
             IOFF = IOFF + INCX
    20    CONTINUE

@@ -68,7 +68,7 @@
       NRUN = 0
       NFAIL = 0
       NERRS = 0
-      DO 10 I = 1, 4
+      for (I = 1; I <= 4; I++) { // 10
          ISEED( I ) = ISEEDY( I )
    10 CONTINUE
 
@@ -85,7 +85,7 @@
 
       // Do for each value of M in MVAL
 
-      DO 160 IM = 1, NM
+      for (IM = 1; IM <= NM; IM++) { // 160
          M = MVAL( IM )
 
          // Set values to use for the lower bandwidth.
@@ -99,7 +99,7 @@
 
          // Do for each value of N in NVAL
 
-         DO 150 IN = 1, NN
+         for (IN = 1; IN <= NN; IN++) { // 150
             N = NVAL( IN )
             XTYPE = 'N'
 
@@ -121,14 +121,14 @@
             NIMAT = NTYPES
             IF( M.LE.0 .OR. N.LE.0 ) NIMAT = 1
 
-            DO 140 IKL = 1, NKL
+            for (IKL = 1; IKL <= NKL; IKL++) { // 140
 
                // Do for KL = 0, (5*M+1)/4, (3M-1)/4, and (M+1)/4. This
                // order makes it easier to skip redundant values for small
                // values of M.
 
                KL = KLVAL( IKL )
-               DO 130 IKU = 1, NKU
+               for (IKU = 1; IKU <= NKU; IKU++) { // 130
 
                   // Do for KU = 0, (5*N+1)/4, (3N-1)/4, and (N+1)/4. This
                   // order makes it easier to skip redundant values for
@@ -154,7 +154,7 @@
                      GO TO 130
                   }
 
-                  DO 120 IMAT = 1, NIMAT
+                  for (IMAT = 1; IMAT <= NIMAT; IMAT++) { // 120
 
                      // Do the tests only if DOTYPE( IMAT ) is true.
 
@@ -215,11 +215,11 @@
                            I2 = MIN( KL+KU+1, KU+1+( M-IZERO ) )
                            scopy(I2-I1+1, A( IOFF+I1 ), 1, B, 1 );
 
-                           DO 30 I = I1, I2
+                           for (I = I1; I <= I2; I++) { // 30
                               A( IOFF+I ) = ZERO
    30                      CONTINUE
                         } else {
-                           DO 50 J = IZERO, N
+                           for (J = IZERO; J <= N; J++) { // 50
                               DO 40 I = MAX( 1, KU+2-J ), MIN( KL+KU+1, KU+1+( M-J ) )
                                  A( IOFF+I ) = ZERO
    40                         CONTINUE
@@ -237,7 +237,7 @@
 
                      // Do for each blocksize in NBVAL
 
-                     DO 110 INB = 1, NNB
+                     for (INB = 1; INB <= NNB; INB++) { // 110
                         NB = NBVAL( INB )
                         xlaenv(1, NB );
 
@@ -316,11 +316,11 @@
 
                         IF( TRFCON ) GO TO 90
 
-                        DO 80 IRHS = 1, NNS
+                        for (IRHS = 1; IRHS <= NNS; IRHS++) { // 80
                            NRHS = NSVAL( IRHS )
                            XTYPE = 'N'
 
-                           DO 70 ITRAN = 1, NTRAN
+                           for (ITRAN = 1; ITRAN <= NTRAN; ITRAN++) { // 70
                               TRANS = TRANSS( ITRAN )
                               if ( ITRAN.EQ.1 ) {
                                  RCONDC = RCONDO
@@ -365,7 +365,7 @@
                               IF( INFO.NE.0 ) CALL ALAERH( PATH, 'SGBRFS', INFO, 0, TRANS, N, N, KL, KU, NRHS, IMAT, NFAIL, NERRS, NOUT )
 
                               sget04(N, NRHS, X, LDB, XACT, LDB, RCONDC, RESULT( 4 ) )                               CALL SGBT05( TRANS, N, KL, KU, NRHS, A, LDA, B, LDB, X, LDB, XACT, LDB, RWORK, RWORK( NRHS+1 ), RESULT( 5 ) );
-                              DO 60 K = 2, 6
+                              for (K = 2; K <= 6; K++) { // 60
                                  if ( RESULT( K ).GE.THRESH ) {
                                     IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                                     WRITE( NOUT, FMT = 9996 )TRANS, N, KL, KU, NRHS, IMAT, K, RESULT( K )
                                     NFAIL = NFAIL + 1
@@ -379,7 +379,7 @@
                            // Get an estimate of RCOND = 1/CNDNUM.
 
    90                   CONTINUE
-                        DO 100 ITRAN = 1, 2
+                        for (ITRAN = 1; ITRAN <= 2; ITRAN++) { // 100
                            if ( ITRAN.EQ.1 ) {
                               ANORM = ANORMO
                               RCONDC = RCONDO

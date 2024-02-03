@@ -59,7 +59,7 @@
 
       // Check that D(1:N) is positive.
 
-      DO 10 I = 1, N
+      for (I = 1; I <= N; I++) { // 10
          IF( D( I ).LE.ZERO ) RETURN
    10 CONTINUE
 
@@ -73,7 +73,7 @@
       // Solve M(L) * x = e.
 
       WORK( 1 ) = ONE
-      DO 20 I = 2, N
+      for (I = 2; I <= N; I++) { // 20
          WORK( I ) = ONE + WORK( I-1 )*ABS( E( I-1 ) )
    20 CONTINUE
 

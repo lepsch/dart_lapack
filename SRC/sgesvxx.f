@@ -85,7 +85,7 @@
          if ( ROWEQU ) {
             RCMIN = BIGNUM
             RCMAX = ZERO
-            DO 10 J = 1, N
+            for (J = 1; J <= N; J++) { // 10
                RCMIN = MIN( RCMIN, R( J ) )
                RCMAX = MAX( RCMAX, R( J ) )
  10         CONTINUE
@@ -100,7 +100,7 @@
          if ( COLEQU .AND. INFO.EQ.0 ) {
             RCMIN = BIGNUM
             RCMAX = ZERO
-            DO 20 J = 1, N
+            for (J = 1; J <= N; J++) { // 20
                RCMIN = MIN( RCMIN, C( J ) )
                RCMAX = MAX( RCMAX, C( J ) )
  20         CONTINUE
@@ -143,12 +143,12 @@
       // If the scaling factors are not applied, set them to 1.0.
 
          if ( .NOT.ROWEQU ) {
-            DO J = 1, N
+            for (J = 1; J <= N; J++) {
                R( J ) = 1.0
             END DO
          }
          if ( .NOT.COLEQU ) {
-            DO J = 1, N
+            for (J = 1; J <= N; J++) {
                C( J ) = 1.0
             END DO
          }

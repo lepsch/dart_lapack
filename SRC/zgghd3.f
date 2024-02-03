@@ -153,7 +153,7 @@
             NBLST = IHI - JCOL - N2NB*NNB
             zlaset('All', NBLST, NBLST, CZERO, CONE, WORK, NBLST );
             PW = NBLST * NBLST + 1
-            DO I = 1, N2NB
+            for (I = 1; I <= N2NB; I++) {
                zlaset('All', 2*NNB, 2*NNB, CZERO, CONE, WORK( PW ), 2*NNB );
                PW = PW + 4*NNB*NNB
             END DO
@@ -418,7 +418,7 @@
 
                zlaset('All', NBLST, NBLST, CZERO, CONE, WORK, NBLST );
                PW = NBLST * NBLST + 1
-               DO I = 1, N2NB
+               for (I = 1; I <= N2NB; I++) {
                   zlaset('All', 2*NNB, 2*NNB, CZERO, CONE, WORK( PW ), 2*NNB );
                   PW = PW + 4*NNB*NNB
                END DO

@@ -183,7 +183,7 @@
             // ==== Reflect spike back into lower triangle ====
 
             zcopy(NS, V, LDV, WORK, 1 );
-            DO 50 I = 1, NS
+            for (I = 1; I <= NS; I++) { // 50
                WORK( I ) = DCONJG( WORK( I ) )
    50       CONTINUE
             BETA = WORK( 1 )

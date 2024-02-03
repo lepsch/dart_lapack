@@ -134,7 +134,7 @@
       WORK( N ) = ZERO
       PIVMIN = ONE
 
-      DO 10 J = 2, N
+      for (J = 2; J <= N; J++) { // 10
          TMP1 = E( J-1 )**2
          if ( ABS( D( J )*D( J-1 ) )*ULP**2+SAFEMN.GT.TMP1 ) {
             ISPLIT( NSPLIT ) = J - 1
@@ -254,7 +254,7 @@
       NWL = 0
       NWU = 0
 
-      DO 70 JB = 1, NSPLIT
+      for (JB = 1; JB <= NSPLIT; JB++) { // 70
          IOFF = IEND
          IBEGIN = IOFF + 1
          IEND = ISPLIT( JB )
@@ -329,7 +329,7 @@
             // Copy Eigenvalues Into W and IBLOCK
             // Use -JB for block number for unconverged eigenvalues.
 
-            DO 60 J = 1, IOUT
+            for (J = 1; J <= IOUT; J++) { // 60
                TMP1 = HALF*( WORK( J+N )+WORK( J+IN+N ) )
 
                // Flag non-convergence.
@@ -359,7 +359,7 @@
          IDISCU = NWU - IU
 
          if ( IDISCL.GT.0 .OR. IDISCU.GT.0 ) {
-            DO 80 JE = 1, M
+            for (JE = 1; JE <= M; JE++) { // 80
                if ( W( JE ).LE.WLU .AND. IDISCL.GT.0 ) {
                   IDISCL = IDISCL - 1
                } else if ( W( JE ).GE.WUL .AND. IDISCU.GT.0 ) {
@@ -386,9 +386,9 @@
 
             if ( IDISCL.GT.0 ) {
                WKILL = WU
-               DO 100 JDISC = 1, IDISCL
+               for (JDISC = 1; JDISC <= IDISCL; JDISC++) { // 100
                   IW = 0
-                  DO 90 JE = 1, M
+                  for (JE = 1; JE <= M; JE++) { // 90
                      if ( IBLOCK( JE ).NE.0 .AND. ( W( JE ).LT.WKILL .OR. IW.EQ.0 ) ) {
                         IW = JE
                         WKILL = W( JE )
@@ -400,9 +400,9 @@
             if ( IDISCU.GT.0 ) {
 
                WKILL = WL
-               DO 120 JDISC = 1, IDISCU
+               for (JDISC = 1; JDISC <= IDISCU; JDISC++) { // 120
                   IW = 0
-                  DO 110 JE = 1, M
+                  for (JE = 1; JE <= M; JE++) { // 110
                      if ( IBLOCK( JE ).NE.0 .AND. ( W( JE ).GT.WKILL .OR. IW.EQ.0 ) ) {
                         IW = JE
                         WKILL = W( JE )
@@ -412,7 +412,7 @@
   120          CONTINUE
             }
             IM = 0
-            DO 130 JE = 1, M
+            for (JE = 1; JE <= M; JE++) { // 130
                if ( IBLOCK( JE ).NE.0 ) {
                   IM = IM + 1
                   W( IM ) = W( JE )

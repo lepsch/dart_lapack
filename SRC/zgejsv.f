@@ -342,7 +342,7 @@
       SCALEM  = ONE / SQRT(DBLE(M)*DBLE(N))
       NOSCAL  = .TRUE.
       GOSCAL  = .TRUE.
-      DO 1874 p = 1, N
+      for (p = 1; p <= N; p++) { // 1874
          AAPP = ZERO
          AAQQ = ONE
          zlassq(M, A(1,p), 1, AAPP, AAQQ );
@@ -368,7 +368,7 @@
 
       AAPP = ZERO
       AAQQ = BIG
-      DO 4781 p = 1, N
+      for (p = 1; p <= N; p++) { // 4781
          AAPP = MAX( AAPP, SVA(p) )
          IF ( SVA(p) .NE. ZERO ) AAQQ = MIN( AAQQ, SVA(p) )
  4781 CONTINUE
@@ -468,7 +468,7 @@
       // structures of A * A^* and A^* * A (in the case L2TRAN.EQ..TRUE.).
 
          if ( L2TRAN ) {
-            DO 1950 p = 1, M
+            for (p = 1; p <= M; p++) { // 1950
                XSC   = ZERO
                TEMP1 = ONE
                zlassq(N, A(p,1), LDA, XSC, TEMP1 );
@@ -480,7 +480,7 @@
                IF (RWORK(p) .NE. ZERO)  AATMIN = MIN(AATMIN,RWORK(p))
  1950       CONTINUE
          } else {
-            DO 1904 p = 1, M
+            for (p = 1; p <= M; p++) { // 1904
                RWORK(M+p) = SCALEM*ABS( A(p,IZAMAX(N,A(p,1),LDA)) )
                AATMAX = MAX( AATMAX, RWORK(M+p) )
                AATMIN = MIN( AATMIN, RWORK(M+p) )
@@ -506,7 +506,7 @@
          TEMP1 = ONE / TEMP1
 
          ENTRA = ZERO
-         DO 1113 p = 1, N
+         for (p = 1; p <= N; p++) { // 1113
             BIG1  = ( ( SVA(p) / XSC )**2 ) * TEMP1
             IF ( BIG1 .NE. ZERO ) ENTRA = ENTRA + BIG1 * DLOG(BIG1)
  1113    CONTINUE
@@ -519,7 +519,7 @@
          // same trace.
 
          ENTRAT = ZERO
-         DO 1114 p = 1, M
+         for (p = 1; p <= M; p++) { // 1114
             BIG1 = ( ( RWORK(p) / XSC )**2 ) * TEMP1
             IF ( BIG1 .NE. ZERO ) ENTRAT = ENTRAT + BIG1 * DLOG(BIG1)
  1114    CONTINUE
@@ -544,7 +544,7 @@
  1116          CONTINUE
  1115       CONTINUE
             A(N,N) = CONJG(A(N,N))
-            DO 1117 p = 1, N
+            for (p = 1; p <= N; p++) { // 1117
                RWORK(M+p) = SVA(p)
                SVA(p)     = RWORK(p)
                // previously computed row 2-norms are now column 2-norms
@@ -619,7 +619,7 @@
 
       }
       if ( AAQQ .LT. XSC ) {
-         DO 700 p = 1, N
+         for (p = 1; p <= N; p++) { // 700
             if ( SVA(p) .LT. XSC ) {
                zlaset('A', M, 1, CZERO, CZERO, A(1,p), LDA );
                SVA(p) = ZERO
@@ -667,7 +667,7 @@
       // Any improvement of ZGEQP3 improves overall performance of ZGEJSV.
 
       // A * P1 = Q1 * [ R1^* 0]^*:
-      DO 1963 p = 1, N
+      for (p = 1; p <= N; p++) { // 1963
          // .. all columns are free columns
          IWORK(p) = 0
  1963 CONTINUE
@@ -688,7 +688,7 @@
          // aggressive enforcement of lower numerical rank by introducing a
          // backward error of the order of N*EPSLN*||A||.
          TEMP1 = SQRT(DBLE(N))*EPSLN
-         DO 3001 p = 2, N
+         for (p = 2; p <= N; p++) { // 3001
             if ( ABS(A(p,p)) .GE. (TEMP1*ABS(A(1,1))) ) {
                NR = NR + 1
             } else {
@@ -701,7 +701,7 @@
          // Sudden drop on the diagonal of R1 is used as the criterion for
          // close-to-rank-deficient.
          TEMP1 = SQRT(SFMIN)
-         DO 3401 p = 2, N
+         for (p = 2; p <= N; p++) { // 3401
             IF ( ( ABS(A(p,p)) .LT. (EPSLN*ABS(A(p-1,p-1))) ) .OR. ( ABS(A(p,p)) .LT. SMALL ) .OR. ( L2KILL .AND. (ABS(A(p,p)) .LT. TEMP1) ) ) GO TO 3402
             NR = NR + 1
  3401    CONTINUE
@@ -716,7 +716,7 @@
          // factor. This prevents the situation in which the code is
          // working hard to get the accuracy not warranted by the data.
          TEMP1  = SQRT(SFMIN)
-         DO 3301 p = 2, N
+         for (p = 2; p <= N; p++) { // 3301
             IF ( ( ABS(A(p,p)) .LT. SMALL ) .OR. ( L2KILL .AND. (ABS(A(p,p)) .LT. TEMP1) ) ) GO TO 3302
             NR = NR + 1
  3301    CONTINUE
@@ -727,7 +727,7 @@
       ALMORT = .FALSE.
       if ( NR .EQ. N ) {
          MAXPRJ = ONE
-         DO 3051 p = 2, N
+         for (p = 2; p <= N; p++) { // 3051
             TEMP1  = ABS(A(p,p)) / SVA(IWORK(p))
             MAXPRJ = MIN( MAXPRJ, TEMP1 )
  3051    CONTINUE
@@ -744,7 +744,7 @@
             if ( RSVEC ) {
                // .. V is available as workspace
                zlacpy('U', N, N, A, LDA, V, LDV );
-               DO 3053 p = 1, N
+               for (p = 1; p <= N; p++) { // 3053
                   TEMP1 = SVA(IWORK(p))
                   zdscal(p, ONE/TEMP1, V(1,p), 1 );
  3053          CONTINUE
@@ -757,7 +757,7 @@
             } else if ( LSVEC ) {
                // .. U is available as workspace
                zlacpy('U', N, N, A, LDA, U, LDU );
-               DO 3054 p = 1, N
+               for (p = 1; p <= N; p++) { // 3054
                   TEMP1 = SVA(IWORK(p))
                   zdscal(p, ONE/TEMP1, U(1,p), 1 );
  3054          CONTINUE
@@ -767,7 +767,7 @@
 *[]            CALL ZLACPY( 'U', N, N, A, LDA, CWORK(N+1), N )
                // Change: here index shifted by N to the left, CWORK(1:N)
                // not needed for SIGMA only computation
-               DO 3052 p = 1, N
+               for (p = 1; p <= N; p++) { // 3052
                   TEMP1 = SVA(IWORK(p))
 *[]               CALL ZDSCAL( p, ONE/TEMP1, CWORK(N+(p-1)*N+1), 1 )
                   zdscal(p, ONE/TEMP1, CWORK((p-1)*N+1), 1 );
@@ -823,9 +823,9 @@
             if ( L2PERT ) {
                // XSC = SQRT(SMALL)
                XSC = EPSLN / DBLE(N)
-               DO 4947 q = 1, NR
+               for (q = 1; q <= NR; q++) { // 4947
                   CTEMP = DCMPLX(XSC*ABS(A(q,q)),ZERO)
-                  DO 4949 p = 1, N
+                  for (p = 1; p <= N; p++) { // 4949
                      IF ( ( (p.GT.q) .AND. (ABS(A(p,q)).LE.TEMP1) ) .OR. ( p .LT. q ) )
       // $                     A(p,q) = TEMP1 * ( A(p,q) / ABS(A(p,q)) ) A(p,q) = CTEMP
  4949             CONTINUE
@@ -853,9 +853,9 @@
             if ( L2PERT ) {
                // XSC = SQRT(SMALL)
                XSC = EPSLN / DBLE(N)
-               DO 1947 q = 1, NR
+               for (q = 1; q <= NR; q++) { // 1947
                   CTEMP = DCMPLX(XSC*ABS(A(q,q)),ZERO)
-                  DO 1949 p = 1, NR
+                  for (p = 1; p <= NR; p++) { // 1949
                      IF ( ( (p.GT.q) .AND. (ABS(A(p,q)).LE.TEMP1) ) .OR. ( p .LT. q ) )
       // $                   A(p,q) = TEMP1 * ( A(p,q) / ABS(A(p,q)) ) A(p,q) = CTEMP
  1949             CONTINUE
@@ -881,7 +881,7 @@
          if ( ALMORT ) {
 
             // .. in this case NR equals N
-            DO 1998 p = 1, NR
+            for (p = 1; p <= NR; p++) { // 1998
                zcopy(N-p+1, A(p,p), LDA, V(p,p), 1 );
                zlacgv(N-p+1, V(p,p), 1 );
  1998       CONTINUE
@@ -901,7 +901,7 @@
             zlacpy('L', NR, NR, A, LDA, V, LDV );
             zlaset('U', NR-1,NR-1, CZERO, CZERO, V(1,2), LDV );
             zgeqrf(NR, NR, V, LDV, CWORK(N+1), CWORK(2*N+1), LWORK-2*N, IERR );
-            DO 8998 p = 1, NR
+            for (p = 1; p <= NR; p++) { // 8998
                zcopy(NR-p+1, V(p,p), LDV, V(p,p), 1 );
                zlacgv(NR-p+1, V(p,p), 1 );
  8998       CONTINUE
@@ -945,7 +945,7 @@
 
          // .. second preconditioning step to avoid need to accumulate
          // Jacobi rotations in the Jacobi iterations.
-         DO 1965 p = 1, NR
+         for (p = 1; p <= NR; p++) { // 1965
             zcopy(N-p+1, A(p,p), LDA, U(p,p), 1 );
             zlacgv(N-p+1, U(p,p), 1 );
  1965    CONTINUE
@@ -975,7 +975,7 @@
 
          IF ( ROWPIV ) CALL ZLASWP( N1, U, LDU, 1, M-1, IWORK(IWOFF+1), -1 )
 
-         DO 1974 p = 1, N1
+         for (p = 1; p <= N1; p++) { // 1974
             XSC = ONE / DZNRM2( M, U(1,p), 1 )
             zdscal(M, XSC, U(1,p), 1 );
  1974    CONTINUE
@@ -999,7 +999,7 @@
             // transpose and use the QRF. This is subject to changes in an
             // optimized implementation of ZGEJSV.
 
-            DO 1968 p = 1, NR
+            for (p = 1; p <= NR; p++) { // 1968
                zcopy(N-p+1, A(p,p), LDA, V(p,p), 1 );
                zlacgv(N-p+1, V(p,p), 1 );
  1968       CONTINUE
@@ -1018,9 +1018,9 @@
 
             if ( L2PERT ) {
                XSC = SQRT(SMALL)
-               DO 2969 q = 1, NR
+               for (q = 1; q <= NR; q++) { // 2969
                   CTEMP = DCMPLX(XSC*ABS( V(q,q) ),ZERO)
-                  DO 2968 p = 1, N
+                  for (p = 1; p <= N; p++) { // 2968
                      IF ( ( p .GT. q ) .AND. ( ABS(V(p,q)) .LE. TEMP1 ) .OR. ( p .LT. q ) )
       // $                   V(p,q) = TEMP1 * ( V(p,q) / ABS(V(p,q)) ) V(p,q) = CTEMP
                      IF ( p .LT. q ) V(p,q) = - V(p,q)
@@ -1035,7 +1035,7 @@
             // of the leading NR x NR submatrix is estimated.)
 
             zlacpy('L', NR, NR, V, LDV, CWORK(2*N+1), NR );
-            DO 3950 p = 1, NR
+            for (p = 1; p <= NR; p++) { // 3950
                TEMP1 = DZNRM2(NR-p+1,CWORK(2*N+(p-1)*NR+p),1)
                zdscal(NR-p+1,ONE/TEMP1,CWORK(2*N+(p-1)*NR+p),1);
  3950       CONTINUE
@@ -1058,7 +1058,7 @@
 
                if ( L2PERT ) {
                   XSC = SQRT(SMALL)/EPSLN
-                  DO 3959 p = 2, NR
+                  for (p = 2; p <= NR; p++) { // 3959
                      DO 3958 q = 1, p - 1
                         CTEMP=DCMPLX(XSC*MIN(ABS(V(p,p)),ABS(V(q,q))), ZERO)
                         IF ( ABS(V(q,p)) .LE. TEMP1 )
@@ -1089,7 +1089,7 @@
                // with properly (carefully) chosen parameters.
 
                // R1^* * P2 = Q2 * R2
-               DO 3003 p = 1, NR
+               for (p = 1; p <= NR; p++) { // 3003
                   IWORK(N+p) = 0
  3003          CONTINUE
                zgeqp3(N, NR, V, LDV, IWORK(N+1), CWORK(N+1), CWORK(2*N+1), LWORK-2*N, RWORK, IERR );
@@ -1097,7 +1097,7 @@
 **     $              LWORK-2*N, IERR )
                if ( L2PERT ) {
                   XSC = SQRT(SMALL)
-                  DO 3969 p = 2, NR
+                  for (p = 2; p <= NR; p++) { // 3969
                      DO 3968 q = 1, p - 1
                         CTEMP=DCMPLX(XSC*MIN(ABS(V(p,p)),ABS(V(q,q))), ZERO)
                         IF ( ABS(V(q,p)) .LE. TEMP1 )
@@ -1110,7 +1110,7 @@
 
                if ( L2PERT ) {
                   XSC = SQRT(SMALL)
-                  DO 8970 p = 2, NR
+                  for (p = 2; p <= NR; p++) { // 8970
                      DO 8971 q = 1, p - 1
                         CTEMP=DCMPLX(XSC*MIN(ABS(V(p,p)),ABS(V(q,q))), ZERO)
                          // V(p,q) = - TEMP1*( V(q,p) / ABS(V(q,p)) )
@@ -1124,7 +1124,7 @@
                zgelqf(NR, NR, V, LDV, CWORK(2*N+N*NR+1), CWORK(2*N+N*NR+NR+1), LWORK-2*N-N*NR-NR, IERR );
                // .. and estimate the condition number
                zlacpy('L',NR,NR,V,LDV,CWORK(2*N+N*NR+NR+1),NR );
-               DO 4950 p = 1, NR
+               for (p = 1; p <= NR; p++) { // 4950
                   TEMP1 = DZNRM2( p, CWORK(2*N+N*NR+NR+p), NR )
                   zdscal(p, ONE/TEMP1, CWORK(2*N+N*NR+NR+p), NR );
  4950          CONTINUE
@@ -1146,7 +1146,7 @@
 
             if ( L2PERT ) {
                XSC = SQRT(SMALL)
-               DO 4968 q = 2, NR
+               for (q = 2; q <= NR; q++) { // 4968
                   CTEMP = XSC * V(q,q)
                   DO 4969 p = 1, q - 1
                       // V(p,q) = - TEMP1*( V(p,q) / ABS(V(p,q)) )
@@ -1168,7 +1168,7 @@
                zgesvj('L','U','N',NR,NR,V,LDV,SVA,NR,U, LDU, CWORK(2*N+N*NR+NR+1),LWORK-2*N-N*NR-NR,RWORK, LRWORK, INFO );
                SCALEM  = RWORK(1)
                NUMRANK = NINT(RWORK(2))
-               DO 3970 p = 1, NR
+               for (p = 1; p <= NR; p++) { // 3970
                   zcopy(NR, V(1,p), 1, U(1,p), 1 );
                   zdscal(NR, SVA(p),    V(1,p), 1 );
  3970          CONTINUE
@@ -1204,17 +1204,17 @@
                zgesvj('L', 'U', 'N', NR, NR, V, LDV, SVA, NR, U, LDU, CWORK(2*N+N*NR+NR+1), LWORK-2*N-N*NR-NR, RWORK, LRWORK, INFO );
                SCALEM  = RWORK(1)
                NUMRANK = NINT(RWORK(2))
-               DO 3870 p = 1, NR
+               for (p = 1; p <= NR; p++) { // 3870
                   zcopy(NR, V(1,p), 1, U(1,p), 1 );
                   zdscal(NR, SVA(p),    U(1,p), 1 );
  3870          CONTINUE
                ztrsm('L','U','N','N',NR,NR,CONE,CWORK(2*N+1),N, U,LDU);
                // .. apply the permutation from the second QR factorization
-               DO 873 q = 1, NR
-                  DO 872 p = 1, NR
+               for (q = 1; q <= NR; q++) { // 873
+                  for (p = 1; p <= NR; p++) { // 872
                      CWORK(2*N+N*NR+NR+IWORK(N+p)) = U(p,q)
  872              CONTINUE
-                  DO 874 p = 1, NR
+                  for (p = 1; p <= NR; p++) { // 874
                      U(p,q) = CWORK(2*N+N*NR+NR+p)
  874              CONTINUE
  873           CONTINUE
@@ -1247,11 +1247,11 @@
                zunmqr('L','N',N,N,NR,CWORK(2*N+1),N,CWORK(N+1), V,LDV,CWORK(2*N+N*NR+NR+1),LWORK-2*N-N*NR-NR,IERR );
 
                zunmlq('L', 'C', NR, NR, NR, CWORK(2*N+1), N, CWORK(2*N+N*NR+1), U, LDU, CWORK(2*N+N*NR+NR+1), LWORK-2*N-N*NR-NR, IERR );
-               DO 773 q = 1, NR
-                  DO 772 p = 1, NR
+               for (q = 1; q <= NR; q++) { // 773
+                  for (p = 1; p <= NR; p++) { // 772
                      CWORK(2*N+N*NR+NR+IWORK(N+p)) = U(p,q)
  772              CONTINUE
-                  DO 774 p = 1, NR
+                  for (p = 1; p <= NR; p++) { // 774
                      U(p,q) = CWORK(2*N+N*NR+NR+p)
  774              CONTINUE
  773           CONTINUE
@@ -1263,11 +1263,11 @@
             // Euclidean norm. This applies to all cases.
 
             TEMP1 = SQRT(DBLE(N)) * EPSLN
-            DO 1972 q = 1, N
-               DO 972 p = 1, N
+            for (q = 1; q <= N; q++) { // 1972
+               for (p = 1; p <= N; p++) { // 972
                   CWORK(2*N+N*NR+NR+IWORK(p)) = V(p,q)
   972          CONTINUE
-               DO 973 p = 1, N
+               for (p = 1; p <= N; p++) { // 973
                   V(p,q) = CWORK(2*N+N*NR+NR+p)
   973          CONTINUE
                XSC = ONE / DZNRM2( N, V(1,q), 1 )
@@ -1290,7 +1290,7 @@
 
             // The columns of U are normalized. The cost is O(M*N) flops.
             TEMP1 = SQRT(DBLE(M)) * EPSLN
-            DO 1973 p = 1, NR
+            for (p = 1; p <= NR; p++) { // 1973
                XSC = ONE / DZNRM2( M, U(1,p), 1 )
                IF ( (XSC .LT. (ONE-TEMP1)) .OR. (XSC .GT. (ONE+TEMP1)) ) CALL ZDSCAL( M, XSC, U(1,p), 1 )
  1973       CONTINUE
@@ -1308,7 +1308,7 @@
             zlacpy('U', N, N, A, LDA, CWORK(N+1), N );
             if ( L2PERT ) {
                XSC = SQRT(SMALL)
-               DO 5970 p = 2, N
+               for (p = 2; p <= N; p++) { // 5970
                   CTEMP = XSC * CWORK( N + (p-1)*N + p )
                   DO 5971 q = 1, p - 1
                       // CWORK(N+(q-1)*N+p)=-TEMP1 * ( CWORK(N+(p-1)*N+q) /
@@ -1324,17 +1324,17 @@
 
             SCALEM  = RWORK(1)
             NUMRANK = NINT(RWORK(2))
-            DO 6970 p = 1, N
+            for (p = 1; p <= N; p++) { // 6970
                zcopy(N, CWORK(N+(p-1)*N+1), 1, U(1,p), 1 );
                zdscal(N, SVA(p), CWORK(N+(p-1)*N+1), 1 );
  6970       CONTINUE
 
             ztrsm('L', 'U', 'N', 'N', N, N, CONE, A, LDA, CWORK(N+1), N );
-            DO 6972 p = 1, N
+            for (p = 1; p <= N; p++) { // 6972
                zcopy(N, CWORK(N+p), N, V(IWORK(p),1), LDV );
  6972       CONTINUE
             TEMP1 = SQRT(DBLE(N))*EPSLN
-            DO 6971 p = 1, N
+            for (p = 1; p <= N; p++) { // 6971
                XSC = ONE / DZNRM2( N, V(1,p), 1 )
                IF ( (XSC .LT. (ONE-TEMP1)) .OR. (XSC .GT. (ONE+TEMP1)) ) CALL ZDSCAL( N, XSC, V(1,p), 1 )
  6971       CONTINUE
@@ -1350,7 +1350,7 @@
             }
             zunmqr('L', 'N', M, N1, N, A, LDA, CWORK, U, LDU, CWORK(N+1), LWORK-N, IERR );
             TEMP1 = SQRT(DBLE(M))*EPSLN
-            DO 6973 p = 1, N1
+            for (p = 1; p <= N1; p++) { // 6973
                XSC = ONE / DZNRM2( M, U(1,p), 1 )
                IF ( (XSC .LT. (ONE-TEMP1)) .OR. (XSC .GT. (ONE+TEMP1)) ) CALL ZDSCAL( M, XSC, U(1,p), 1 )
  6973       CONTINUE
@@ -1374,16 +1374,16 @@
          // in presence of extreme values, e.g. when the singular values spread from
          // the underflow to the overflow threshold.
 
-         DO 7968 p = 1, NR
+         for (p = 1; p <= NR; p++) { // 7968
             zcopy(N-p+1, A(p,p), LDA, V(p,p), 1 );
             zlacgv(N-p+1, V(p,p), 1 );
  7968    CONTINUE
 
          if ( L2PERT ) {
             XSC = SQRT(SMALL/EPSLN)
-            DO 5969 q = 1, NR
+            for (q = 1; q <= NR; q++) { // 5969
                CTEMP = DCMPLX(XSC*ABS( V(q,q) ),ZERO)
-               DO 5968 p = 1, N
+               for (p = 1; p <= N; p++) { // 5968
                   IF ( ( p .GT. q ) .AND. ( ABS(V(p,q)) .LE. TEMP1 ) .OR. ( p .LT. q ) )
       // $                V(p,q) = TEMP1 * ( V(p,q) / ABS(V(p,q)) ) V(p,q) = CTEMP
                   IF ( p .LT. q ) V(p,q) = - V(p,q)
@@ -1395,14 +1395,14 @@
           zgeqrf(N, NR, V, LDV, CWORK(N+1), CWORK(2*N+1), LWORK-2*N, IERR );
          zlacpy('L', N, NR, V, LDV, CWORK(2*N+1), N );
 
-         DO 7969 p = 1, NR
+         for (p = 1; p <= NR; p++) { // 7969
             zcopy(NR-p+1, V(p,p), LDV, U(p,p), 1 );
             zlacgv(NR-p+1, U(p,p), 1 );
  7969    CONTINUE
 
          if ( L2PERT ) {
             XSC = SQRT(SMALL/EPSLN)
-            DO 9970 q = 2, NR
+            for (q = 2; q <= NR; q++) { // 9970
                DO 9971 p = 1, q - 1
                   CTEMP = DCMPLX(XSC * MIN(ABS(U(p,p)),ABS(U(q,q))), ZERO)
                    // U(p,q) = - TEMP1 * ( U(q,p) / ABS(U(q,p)) )
@@ -1428,11 +1428,11 @@
             // Euclidean norm. This applies to all cases.
 
             TEMP1 = SQRT(DBLE(N)) * EPSLN
-            DO 7972 q = 1, N
-               DO 8972 p = 1, N
+            for (q = 1; q <= N; q++) { // 7972
+               for (p = 1; p <= N; p++) { // 8972
                   CWORK(2*N+N*NR+NR+IWORK(p)) = V(p,q)
  8972          CONTINUE
-               DO 8973 p = 1, N
+               for (p = 1; p <= N; p++) { // 8973
                   V(p,q) = CWORK(2*N+N*NR+NR+p)
  8973          CONTINUE
                XSC = ONE / DZNRM2( N, V(1,q), 1 )
@@ -1458,7 +1458,7 @@
          }
          if ( TRANSP ) {
             // .. swap U and V because the procedure worked on A^*
-            DO 6974 p = 1, N
+            for (p = 1; p <= N; p++) { // 6974
                zswap(N, U(1,p), 1, V(1,p), 1 );
  6974       CONTINUE
          }

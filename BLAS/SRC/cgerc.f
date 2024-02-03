@@ -61,10 +61,10 @@
           JY = 1 - (N-1)*INCY
       }
       if (INCX.EQ.1) {
-          DO 20 J = 1,N
+          for (J = 1; J <= N; J++) { // 20
               if (Y(JY).NE.ZERO) {
                   TEMP = ALPHA*CONJG(Y(JY))
-                  DO 10 I = 1,M
+                  for (I = 1; I <= M; I++) { // 10
                       A(I,J) = A(I,J) + X(I)*TEMP
    10             CONTINUE
               }
@@ -76,11 +76,11 @@
           } else {
               KX = 1 - (M-1)*INCX
           }
-          DO 40 J = 1,N
+          for (J = 1; J <= N; J++) { // 40
               if (Y(JY).NE.ZERO) {
                   TEMP = ALPHA*CONJG(Y(JY))
                   IX = KX
-                  DO 30 I = 1,M
+                  for (I = 1; I <= M; I++) { // 30
                       A(I,J) = A(I,J) + X(IX)*TEMP
                       IX = IX + INCX
    30             CONTINUE

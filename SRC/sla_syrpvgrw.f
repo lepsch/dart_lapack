@@ -50,15 +50,15 @@
       // looping below.  Assume a full factorization is the common case.
 
       if ( UPPER ) {
-         DO J = 1, N
-            DO I = 1, J
+         for (J = 1; J <= N; J++) {
+            for (I = 1; I <= J; I++) {
                WORK( N+I ) = MAX( ABS( A( I, J ) ), WORK( N+I ) )
                WORK( N+J ) = MAX( ABS( A( I, J ) ), WORK( N+J ) )
             END DO
          END DO
       } else {
-         DO J = 1, N
-            DO I = J, N
+         for (J = 1; J <= N; J++) {
+            for (I = J; I <= N; I++) {
                WORK( N+I ) = MAX( ABS( A( I, J ) ), WORK( N+I ) )
                WORK( N+J ) = MAX( ABS( A( I, J ) ), WORK( N+J ) )
             END DO
@@ -83,7 +83,7 @@
                   WORK( N+K ) = WORK( N+KP )
                   WORK( N+KP ) = TMP
                }
-               DO I = 1, K
+               for (I = 1; I <= K; I++) {
                   WORK( K ) = MAX( ABS( AF( I, K ) ), WORK( K ) )
                END DO
                K = K - 1
@@ -130,7 +130,7 @@
                   WORK( N+K ) = WORK( N+KP )
                   WORK( N+KP ) = TMP
                }
-               DO I = K, N
+               for (I = K; I <= N; I++) {
                   WORK( K ) = MAX( ABS( AF( I, K ) ), WORK( K ) )
                END DO
                K = K + 1
@@ -176,7 +176,7 @@
       // denominators.
 
       if ( UPPER ) {
-         DO I = NCOLS, N
+         for (I = NCOLS; I <= N; I++) {
             UMAX = WORK( I )
             AMAX = WORK( N+I )
             if ( UMAX /= 0.0 ) {
@@ -184,7 +184,7 @@
             }
          END DO
       } else {
-         DO I = 1, NCOLS
+         for (I = 1; I <= NCOLS; I++) {
             UMAX = WORK( I )
             AMAX = WORK( N+I )
             if ( UMAX /= 0.0 ) {

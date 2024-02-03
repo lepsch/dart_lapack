@@ -58,7 +58,7 @@
 
       zunm2r('Left', 'Conjugate transpose', M, M, K, A, LDA, TAU, WORK, M, WORK( M*M+1 ), INFO );
 
-      DO J = 1, M
+      for (J = 1; J <= M; J++) {
          WORK( ( J-1 )*M+J ) = WORK( ( J-1 )*M+J ) - ONE
       END DO
 

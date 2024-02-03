@@ -64,7 +64,7 @@
          // norm(op(A)*X - B) / ( norm(op(A)) * norm(X) * EPS )
 
       RESID = ZERO
-      DO 10 J = 1, NRHS
+      for (J = 1; J <= NRHS; J++) { // 10
          ccopy(N, X( 1, J ), 1, WORK, 1 );
          ctrmv(UPLO, TRANS, DIAG, N, A, LDA, WORK, 1 );
          caxpy(N, CMPLX( -ONE ), B( 1, J ), 1, WORK, 1 );

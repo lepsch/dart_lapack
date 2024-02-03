@@ -78,12 +78,12 @@
 
       if ( N.LE.KD+1 ) {
           if ( UPPER ) {
-              DO 100 I = 1, N
+              for (I = 1; I <= N; I++) { // 100
                   LK = MIN( KD+1, I )
                   ccopy(LK, A( I-LK+1, I ), 1,  AB( KD+1-LK+1, I ), 1 );
   100         CONTINUE
           } else {
-              DO 110 I = 1, N
+              for (I = 1; I <= N; I++) { // 110
                   LK = MIN( KD+1, N-I+1 )
                   ccopy(LK, A( I, I ), 1, AB( 1, I ), 1 );
   110         CONTINUE

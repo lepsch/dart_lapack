@@ -80,7 +80,7 @@
       // Quick return if possible
 
       if ( N.EQ.0 .OR. NRHS.EQ.0 ) {
-         DO 10 J = 1, NRHS
+         for (J = 1; J <= NRHS; J++) { // 10
             FERR( J ) = ZERO
             BERR( J ) = ZERO
    10    CONTINUE
@@ -105,7 +105,7 @@
 
       // Do for each right hand side
 
-      DO 250 J = 1, NRHS
+      for (J = 1; J <= NRHS; J++) { // 250
 
          // Compute residual R = B - op(A) * X,
          // where op(A) = A, A**T, or A**H, depending on TRANS.
@@ -123,7 +123,7 @@
          // than SAFE2, then SAFE1 is added to the i-th components of the
          // numerator and denominator before dividing.
 
-         DO 20 I = 1, N
+         for (I = 1; I <= N; I++) { // 20
             RWORK( I ) = CABS1( B( I, J ) )
    20    CONTINUE
 
@@ -134,15 +134,15 @@
             if ( UPPER ) {
                KC = 1
                if ( NOUNIT ) {
-                  DO 40 K = 1, N
+                  for (K = 1; K <= N; K++) { // 40
                      XK = CABS1( X( K, J ) )
-                     DO 30 I = 1, K
+                     for (I = 1; I <= K; I++) { // 30
                         RWORK( I ) = RWORK( I ) + CABS1( AP( KC+I-1 ) )*XK
    30                CONTINUE
                      KC = KC + K
    40             CONTINUE
                } else {
-                  DO 60 K = 1, N
+                  for (K = 1; K <= N; K++) { // 60
                      XK = CABS1( X( K, J ) )
                      DO 50 I = 1, K - 1
                         RWORK( I ) = RWORK( I ) + CABS1( AP( KC+I-1 ) )*XK
@@ -154,15 +154,15 @@
             } else {
                KC = 1
                if ( NOUNIT ) {
-                  DO 80 K = 1, N
+                  for (K = 1; K <= N; K++) { // 80
                      XK = CABS1( X( K, J ) )
-                     DO 70 I = K, N
+                     for (I = K; I <= N; I++) { // 70
                         RWORK( I ) = RWORK( I ) + CABS1( AP( KC+I-K ) )*XK
    70                CONTINUE
                      KC = KC + N - K + 1
    80             CONTINUE
                } else {
-                  DO 100 K = 1, N
+                  for (K = 1; K <= N; K++) { // 100
                      XK = CABS1( X( K, J ) )
                      DO 90 I = K + 1, N
                         RWORK( I ) = RWORK( I ) + CABS1( AP( KC+I-K ) )*XK
@@ -179,16 +179,16 @@
             if ( UPPER ) {
                KC = 1
                if ( NOUNIT ) {
-                  DO 120 K = 1, N
+                  for (K = 1; K <= N; K++) { // 120
                      S = ZERO
-                     DO 110 I = 1, K
+                     for (I = 1; I <= K; I++) { // 110
                         S = S + CABS1( AP( KC+I-1 ) )*CABS1( X( I, J ) )
   110                CONTINUE
                      RWORK( K ) = RWORK( K ) + S
                      KC = KC + K
   120             CONTINUE
                } else {
-                  DO 140 K = 1, N
+                  for (K = 1; K <= N; K++) { // 140
                      S = CABS1( X( K, J ) )
                      DO 130 I = 1, K - 1
                         S = S + CABS1( AP( KC+I-1 ) )*CABS1( X( I, J ) )
@@ -200,16 +200,16 @@
             } else {
                KC = 1
                if ( NOUNIT ) {
-                  DO 160 K = 1, N
+                  for (K = 1; K <= N; K++) { // 160
                      S = ZERO
-                     DO 150 I = K, N
+                     for (I = K; I <= N; I++) { // 150
                         S = S + CABS1( AP( KC+I-K ) )*CABS1( X( I, J ) )
   150                CONTINUE
                      RWORK( K ) = RWORK( K ) + S
                      KC = KC + N - K + 1
   160             CONTINUE
                } else {
-                  DO 180 K = 1, N
+                  for (K = 1; K <= N; K++) { // 180
                      S = CABS1( X( K, J ) )
                      DO 170 I = K + 1, N
                         S = S + CABS1( AP( KC+I-K ) )*CABS1( X( I, J ) )
@@ -221,7 +221,7 @@
             }
          }
          S = ZERO
-         DO 190 I = 1, N
+         for (I = 1; I <= N; I++) { // 190
             if ( RWORK( I ).GT.SAFE2 ) {
                S = MAX( S, CABS1( WORK( I ) ) / RWORK( I ) )
             } else {
@@ -252,7 +252,7 @@
             // inv(op(A)) * diag(W),
          // where W = abs(R) + NZ*EPS*( abs(op(A))*abs(X)+abs(B) )))
 
-         DO 200 I = 1, N
+         for (I = 1; I <= N; I++) { // 200
             if ( RWORK( I ).GT.SAFE2 ) {
                RWORK( I ) = CABS1( WORK( I ) ) + NZ*EPS*RWORK( I )
             } else {
@@ -269,14 +269,14 @@
                // Multiply by diag(W)*inv(op(A)**H).
 
                ctpsv(UPLO, TRANST, DIAG, N, AP, WORK, 1 );
-               DO 220 I = 1, N
+               for (I = 1; I <= N; I++) { // 220
                   WORK( I ) = RWORK( I )*WORK( I )
   220          CONTINUE
             } else {
 
                // Multiply by inv(op(A))*diag(W).
 
-               DO 230 I = 1, N
+               for (I = 1; I <= N; I++) { // 230
                   WORK( I ) = RWORK( I )*WORK( I )
   230          CONTINUE
                ctpsv(UPLO, TRANSN, DIAG, N, AP, WORK, 1 );
@@ -287,7 +287,7 @@
          // Normalize error.
 
          LSTRES = ZERO
-         DO 240 I = 1, N
+         for (I = 1; I <= N; I++) { // 240
             LSTRES = MAX( LSTRES, CABS1( X( I, J ) ) )
   240    CONTINUE
          IF( LSTRES.NE.ZERO ) FERR( J ) = FERR( J ) / LSTRES

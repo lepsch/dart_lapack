@@ -108,7 +108,7 @@
          FATAL = .TRUE.
       }
       READ( NIN, FMT = * )( MVAL( I ), I = 1, NM )
-      DO 10 I = 1, NM
+      for (I = 1; I <= NM; I++) { // 10
          if ( MVAL( I ).LT.0 ) {
             WRITE( NOUT, FMT = 9996 )' M  ', MVAL( I ), 0
             FATAL = .TRUE.
@@ -132,7 +132,7 @@
          FATAL = .TRUE.
       }
       READ( NIN, FMT = * )( NVAL( I ), I = 1, NN )
-      DO 20 I = 1, NN
+      for (I = 1; I <= NN; I++) { // 20
          if ( NVAL( I ).LT.0 ) {
             WRITE( NOUT, FMT = 9996 )' N  ', NVAL( I ), 0
             FATAL = .TRUE.
@@ -156,7 +156,7 @@
          FATAL = .TRUE.
       }
       READ( NIN, FMT = * )( NSVAL( I ), I = 1, NNS )
-      DO 30 I = 1, NNS
+      for (I = 1; I <= NNS; I++) { // 30
          if ( NSVAL( I ).LT.0 ) {
             WRITE( NOUT, FMT = 9996 )'NRHS', NSVAL( I ), 0
             FATAL = .TRUE.
@@ -180,7 +180,7 @@
          FATAL = .TRUE.
       }
       READ( NIN, FMT = * )( NBVAL( I ), I = 1, NNB )
-      DO 40 I = 1, NNB
+      for (I = 1; I <= NNB; I++) { // 40
          if ( NBVAL( I ).LT.0 ) {
             WRITE( NOUT, FMT = 9996 )' NB ', NBVAL( I ), 0
             FATAL = .TRUE.
@@ -191,9 +191,9 @@
       // Set NBVAL2 to be the set of unique values of NB
 
       NNB2 = 0
-      DO 60 I = 1, NNB
+      for (I = 1; I <= NNB; I++) { // 60
          NB = NBVAL( I )
-         DO 50 J = 1, NNB2
+         for (J = 1; J <= NNB2; J++) { // 50
             IF( NB.EQ.NBVAL2( J ) ) GO TO 60
    50    CONTINUE
          NNB2 = NNB2 + 1
@@ -203,7 +203,7 @@
       // Read the values of NX
 
       READ( NIN, FMT = * )( NXVAL( I ), I = 1, NNB )
-      DO 70 I = 1, NNB
+      for (I = 1; I <= NNB; I++) { // 70
          if ( NXVAL( I ).LT.0 ) {
             WRITE( NOUT, FMT = 9996 )' NX ', NXVAL( I ), 0
             FATAL = .TRUE.
@@ -224,7 +224,7 @@
          FATAL = .TRUE.
       }
       READ( NIN, FMT = * )( RANKVAL( I ), I = 1, NRANK )
-      DO I = 1, NRANK
+      for (I = 1; I <= NRANK; I++) {
          if ( RANKVAL( I ).LT.0 ) {
             WRITE( NOUT, FMT = 9996 )' RANK  ', RANKVAL( I ), 0
             FATAL = .TRUE.
@@ -285,7 +285,7 @@
       NMATS = 0
   100 CONTINUE
       C1 = ALINE( I: I )
-      DO 110 K = 1, 10
+      for (K = 1; K <= 10; K++) { // 110
          if ( C1.EQ.INTSTR( K: K ) ) {
             IC = K - 1
             GO TO 120

@@ -163,7 +163,7 @@
                   if ( IJOB.EQ.0 ) {
                      dgesc2(ZDIM, Z, LDZ, RHS, IPIV, JPIV, SCALOC );
                      if ( SCALOC.NE.ONE ) {
-                        DO 50 K = 1, N
+                        for (K = 1; K <= N; K++) { // 50
                            dscal(M, SCALOC, C( 1, K ), 1 );
                            dscal(M, SCALOC, F( 1, K ), 1 );
    50                   CONTINUE
@@ -228,7 +228,7 @@
                   if ( IJOB.EQ.0 ) {
                      dgesc2(ZDIM, Z, LDZ, RHS, IPIV, JPIV, SCALOC );
                      if ( SCALOC.NE.ONE ) {
-                        DO 60 K = 1, N
+                        for (K = 1; K <= N; K++) { // 60
                            dscal(M, SCALOC, C( 1, K ), 1 );
                            dscal(M, SCALOC, F( 1, K ), 1 );
    60                   CONTINUE
@@ -293,7 +293,7 @@
                   if ( IJOB.EQ.0 ) {
                      dgesc2(ZDIM, Z, LDZ, RHS, IPIV, JPIV, SCALOC );
                      if ( SCALOC.NE.ONE ) {
-                        DO 70 K = 1, N
+                        for (K = 1; K <= N; K++) { // 70
                            dscal(M, SCALOC, C( 1, K ), 1 );
                            dscal(M, SCALOC, F( 1, K ), 1 );
    70                   CONTINUE
@@ -380,7 +380,7 @@
                   if ( IJOB.EQ.0 ) {
                      dgesc2(ZDIM, Z, LDZ, RHS, IPIV, JPIV, SCALOC );
                      if ( SCALOC.NE.ONE ) {
-                        DO 90 K = 1, N
+                        for (K = 1; K <= N; K++) { // 90
                            dscal(M, SCALOC, C( 1, K ), 1 );
                            dscal(M, SCALOC, F( 1, K ), 1 );
    90                   CONTINUE
@@ -425,7 +425,7 @@
 
          SCALE = ONE
          SCALOC = ONE
-         DO 200 I = 1, P
+         for (I = 1; I <= P; I++) { // 200
 
             IS = IWORK( I )
             ISP1 = IS + 1
@@ -459,7 +459,7 @@
 
                   dgesc2(ZDIM, Z, LDZ, RHS, IPIV, JPIV, SCALOC );
                   if ( SCALOC.NE.ONE ) {
-                     DO 130 K = 1, N
+                     for (K = 1; K <= N; K++) { // 130
                         dscal(M, SCALOC, C( 1, K ), 1 );
                         dscal(M, SCALOC, F( 1, K ), 1 );
   130                CONTINUE
@@ -524,7 +524,7 @@
                   IF( IERR.GT.0 ) INFO = IERR
                   dgesc2(ZDIM, Z, LDZ, RHS, IPIV, JPIV, SCALOC );
                   if ( SCALOC.NE.ONE ) {
-                     DO 140 K = 1, N
+                     for (K = 1; K <= N; K++) { // 140
                         dscal(M, SCALOC, C( 1, K ), 1 );
                         dscal(M, SCALOC, F( 1, K ), 1 );
   140                CONTINUE
@@ -586,7 +586,7 @@
 
                   dgesc2(ZDIM, Z, LDZ, RHS, IPIV, JPIV, SCALOC );
                   if ( SCALOC.NE.ONE ) {
-                     DO 150 K = 1, N
+                     for (K = 1; K <= N; K++) { // 150
                         dscal(M, SCALOC, C( 1, K ), 1 );
                         dscal(M, SCALOC, F( 1, K ), 1 );
   150                CONTINUE
@@ -671,7 +671,7 @@
 
                   dgesc2(ZDIM, Z, LDZ, RHS, IPIV, JPIV, SCALOC );
                   if ( SCALOC.NE.ONE ) {
-                     DO 170 K = 1, N
+                     for (K = 1; K <= N; K++) { // 170
                         dscal(M, SCALOC, C( 1, K ), 1 );
                         dscal(M, SCALOC, F( 1, K ), 1 );
   170                CONTINUE

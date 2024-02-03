@@ -60,7 +60,7 @@
       // Set the diagonal of AINV to 1 if AINV has unit diagonal.
 
       if ( LSAME( DIAG, 'U' ) ) {
-         DO 10 J = 1, N
+         for (J = 1; J <= N; J++) { // 10
             AINV( J, J ) = ONE
    10    CONTINUE
       }
@@ -68,18 +68,18 @@
       // Compute A * AINV, overwriting AINV.
 
       if ( LSAME( UPLO, 'U' ) ) {
-         DO 20 J = 1, N
+         for (J = 1; J <= N; J++) { // 20
             ctrmv('Upper', 'No transpose', DIAG, J, A, LDA, AINV( 1, J ), 1 );
    20    CONTINUE
       } else {
-         DO 30 J = 1, N
+         for (J = 1; J <= N; J++) { // 30
             ctrmv('Lower', 'No transpose', DIAG, N-J+1, A( J, J ), LDA, AINV( J, J ), 1 );
    30    CONTINUE
       }
 
       // Subtract 1 from each diagonal element to form A*AINV - I.
 
-      DO 40 J = 1, N
+      for (J = 1; J <= N; J++) { // 40
          AINV( J, J ) = AINV( J, J ) - ONE
    40 CONTINUE
 

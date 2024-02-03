@@ -62,7 +62,7 @@
       SRNAMT = 'ZUNGLQ'
       zunglq(N, N, K, Q, LDA, TAU, WORK, LWORK, INFO );
 
-      DO 30 ISIDE = 1, 2
+      for (ISIDE = 1; ISIDE <= 2; ISIDE++) { // 30
          if ( ISIDE.EQ.1 ) {
             SIDE = 'L'
             MC = N
@@ -75,13 +75,13 @@
 
          // Generate MC by NC matrix C
 
-         DO 10 J = 1, NC
+         for (J = 1; J <= NC; J++) { // 10
             zlarnv(2, ISEED, MC, C( 1, J ) );
    10    CONTINUE
          CNORM = ZLANGE( '1', MC, NC, C, LDA, RWORK )
          IF( CNORM.EQ.ZERO ) CNORM = ONE
 
-         DO 20 ITRANS = 1, 2
+         for (ITRANS = 1; ITRANS <= 2; ITRANS++) { // 20
             if ( ITRANS.EQ.1 ) {
                TRANS = 'N'
             } else {

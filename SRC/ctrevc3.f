@@ -66,7 +66,7 @@
 
       if ( SOMEV ) {
          M = 0
-         DO 10 J = 1, N
+         for (J = 1; J <= N; J++) { // 10
             IF( SELECT( J ) ) M = M + 1
    10    CONTINUE
       } else {
@@ -129,7 +129,7 @@
 
       // Store the diagonal elements of T in working array WORK.
 
-      DO 20 I = 1, N
+      for (I = 1; I <= N; I++) { // 20
          WORK( I ) = T( I, I )
    20 CONTINUE
 
@@ -137,7 +137,7 @@
       // part of T to control overflow in triangular solver.
 
       RWORK( 1 ) = ZERO
-      DO 30 J = 2, N
+      for (J = 2; J <= N; J++) { // 30
          RWORK( J ) = SCASUM( J-1, T( 1, J ), 1 )
    30 CONTINUE
 
@@ -220,7 +220,7 @@
                if ( (IV.EQ.1) .OR. (KI.EQ.1) ) {
                   cgemm('N', 'N', N, NB-IV+1, KI+NB-IV, CONE, VR, LDVR, WORK( 1 + (IV)*N    ), N, CZERO, WORK( 1 + (NB+IV)*N ), N );
                   // normalize vectors
-                  DO K = IV, NB
+                  for (K = IV; K <= NB; K++) {
                      II = ICAMAX( N, WORK( 1 + (NB+K)*N ), 1 )
                      REMAX = ONE / CABS1( WORK( II + (NB+K)*N ) )
                      csscal(N, REMAX, WORK( 1 + (NB+K)*N ), 1 );
@@ -253,7 +253,7 @@
          // (Note the "0-th" column is used to store the original diagonal.)
          IV = 1
          IS = 1
-         DO 130 KI = 1, N
+         for (KI = 1; KI <= N; KI++) { // 130
 
             if ( SOMEV ) {
                IF( .NOT.SELECT( KI ) ) GO TO 130
@@ -323,7 +323,7 @@
                if ( (IV.EQ.NB) .OR. (KI.EQ.N) ) {
                   cgemm('N', 'N', N, IV, N-KI+IV, CONE, VL( 1, KI-IV+1 ), LDVL, WORK( KI-IV+1 + (1)*N ), N, CZERO, WORK( 1 + (NB+1)*N ), N );
                   // normalize vectors
-                  DO K = 1, IV
+                  for (K = 1; K <= IV; K++) {
                      II = ICAMAX( N, WORK( 1 + (NB+K)*N ), 1 )
                      REMAX = ONE / CABS1( WORK( II + (NB+K)*N ) )
                      csscal(N, REMAX, WORK( 1 + (NB+K)*N ), 1 );

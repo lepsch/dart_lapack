@@ -50,14 +50,14 @@
       }
       // end while
       if ( N1SV.EQ.0 ) {
-         DO 20 N1SV = 1, N2SV
+         for (N1SV = 1; N1SV <= N2SV; N1SV++) { // 20
             INDEX( I ) = IND2
             I = I + 1
             IND2 = IND2 + STRD2
    20    CONTINUE
       } else {
       // N2SV .EQ. 0
-         DO 30 N2SV = 1, N1SV
+         for (N2SV = 1; N2SV <= N1SV; N2SV++) { // 30
             INDEX( I ) = IND1
             I = I + 1
             IND1 = IND1 + STRD1

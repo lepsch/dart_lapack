@@ -42,7 +42,7 @@
       // .. Tests ..
 
       // Test (a) Infs
-      do 10 i = 1, nInf
+      for (i = 1; i <= nInf; i++) { // 10
           nTests = nTests + 3
           Y = cInf(i)
           R = czero * Y
@@ -75,7 +75,7 @@
   10  continue
 
       // Test (b) NaNs
-      do 20 i = 1, nNaN
+      for (i = 1; i <= nNaN; i++) { // 20
           nTests = nTests + 3
           Y = cNaN(i)
           R = czero * Y

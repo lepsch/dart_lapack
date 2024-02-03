@@ -175,7 +175,7 @@
          GIVCOL = PERM + MLVL
       }
 
-      DO 20 I = 1, N
+      for (I = 1; I <= N; I++) { // 20
          if ( ABS( D( I ) ).LT.EPS ) {
             D( I ) = SIGN( EPS, D( I ) )
          }
@@ -184,7 +184,7 @@
       START = 1
       SQRE = 0
 
-      DO 30 I = 1, NM1
+      for (I = 1; I <= NM1; I++) { // 30
          if ( ( ABS( E( I ) ).LT.EPS ) .OR. ( I.EQ.NM1 ) ) {
 
          // Subproblem found. First determine its size and then
@@ -235,11 +235,11 @@
 
       // Use Selection Sort to minimize swaps of singular vectors
 
-      DO 60 II = 2, N
+      for (II = 2; II <= N; II++) { // 60
          I = II - 1
          KK = I
          P = D( I )
-         DO 50 J = II, N
+         for (J = II; J <= N; J++) { // 50
             if ( D( J ).GT.P ) {
                KK = J
                P = D( J )

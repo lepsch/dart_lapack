@@ -118,7 +118,7 @@
       // with the leading dimension LDC that starts at WORK(1) into
       // the output array A(1:M,1:N) column-by-column.
 
-      DO J = 1, N
+      for (J = 1; J <= N; J++) {
          ccopy(M, WORK( (J-1)*LDC + 1 ), 1, A( 1, J ), 1 );
       END DO
 

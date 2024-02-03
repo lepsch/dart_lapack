@@ -99,7 +99,7 @@
                // N is odd, TRANSR = 'N', and UPLO = 'L'
 
                IJ = 0
-               DO J = 0, N2
+               for (J = 0; J <= N2; J++) {
                   DO I = N1, N2 + J
                      ARF( IJ ) = A( N2+J, I )
                      IJ = IJ + 1
@@ -116,7 +116,7 @@
 
                IJ = NT - N
                DO J = N - 1, N1, -1
-                  DO I = 0, J
+                  for (I = 0; I <= J; I++) {
                      ARF( IJ ) = A( I, J )
                      IJ = IJ + 1
                   END DO
@@ -139,7 +139,7 @@
 
                IJ = 0
                DO J = 0, N2 - 1
-                  DO I = 0, J
+                  for (I = 0; I <= J; I++) {
                      ARF( IJ ) = A( J, I )
                      IJ = IJ + 1
                   END DO
@@ -160,14 +160,14 @@
                // N is odd, TRANSR = 'T', and UPLO = 'U'
 
                IJ = 0
-               DO J = 0, N1
+               for (J = 0; J <= N1; J++) {
                   DO I = N1, N - 1
                      ARF( IJ ) = A( J, I )
                      IJ = IJ + 1
                   END DO
                END DO
                DO J = 0, N1 - 1
-                  DO I = 0, J
+                  for (I = 0; I <= J; I++) {
                      ARF( IJ ) = A( I, J )
                      IJ = IJ + 1
                   END DO
@@ -211,7 +211,7 @@
 
                IJ = NT - N - 1
                DO J = N - 1, K, -1
-                  DO I = 0, J
+                  for (I = 0; I <= J; I++) {
                      ARF( IJ ) = A( I, J )
                      IJ = IJ + 1
                   END DO
@@ -239,7 +239,7 @@
                   IJ = IJ + 1
                END DO
                DO J = 0, K - 2
-                  DO I = 0, J
+                  for (I = 0; I <= J; I++) {
                      ARF( IJ ) = A( J, I )
                      IJ = IJ + 1
                   END DO
@@ -260,14 +260,14 @@
                // N is even, TRANSR = 'T', and UPLO = 'U'
 
                IJ = 0
-               DO J = 0, K
+               for (J = 0; J <= K; J++) {
                   DO I = K, N - 1
                      ARF( IJ ) = A( J, I )
                      IJ = IJ + 1
                   END DO
                END DO
                DO J = 0, K - 2
-                  DO I = 0, J
+                  for (I = 0; I <= J; I++) {
                      ARF( IJ ) = A( I, J )
                      IJ = IJ + 1
                   END DO
@@ -277,7 +277,7 @@
                   END DO
                END DO
                // Note that here, on exit of the loop, J = K-1
-               DO I = 0, J
+               for (I = 0; I <= J; I++) {
                   ARF( IJ ) = A( I, J )
                   IJ = IJ + 1
                END DO

@@ -26,7 +26,7 @@
 
       IX = 1
       IC = 1
-      DO 10 I = 1, N
+      for (I = 1; I <= N; I++) { // 10
          XI = DBLE( X( IX ) )
          YI = DBLE( Y( IX ) )
          ZI = Z( IX )

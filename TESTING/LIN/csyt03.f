@@ -64,13 +64,13 @@
       // AINV on the left by A (store the result in WORK).
 
       if ( LSAME( UPLO, 'U' ) ) {
-         DO 20 J = 1, N
+         for (J = 1; J <= N; J++) { // 20
             DO 10 I = 1, J - 1
                AINV( J, I ) = AINV( I, J )
    10       CONTINUE
    20    CONTINUE
       } else {
-         DO 40 J = 1, N
+         for (J = 1; J <= N; J++) { // 40
             DO 30 I = J + 1, N
                AINV( J, I ) = AINV( I, J )
    30       CONTINUE
@@ -80,7 +80,7 @@
 
       // Add the identity matrix to WORK .
 
-      DO 50 I = 1, N
+      for (I = 1; I <= N; I++) { // 50
          WORK( I, I ) = WORK( I, I ) + CONE
    50 CONTINUE
 

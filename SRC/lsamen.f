@@ -28,7 +28,7 @@
 
       // Do for each character in the two strings.
 
-      DO 10 I = 1, N
+      for (I = 1; I <= N; I++) { // 10
 
          // Test if the characters are equal using LSAME.
 

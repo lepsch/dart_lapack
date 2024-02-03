@@ -83,23 +83,23 @@
       RMAX( 1 ) = ZERO
       RMAX( 2 ) = ZERO
       KNT = 0
-      DO I = 1, 4
+      for (I = 1; I <= 4; I++) {
          ISEED( I ) = 1
       END DO
       SCALE = ONE
       SCALE3 = ONE
       LIWORK = MAXM + MAXN + 2
-      DO J = 1, 2
+      for (J = 1; J <= 2; J++) {
          DO ISGN = -1, 1, 2
             // Reset seed (overwritten by LATMR)
-            DO I = 1, 4
+            for (I = 1; I <= 4; I++) {
                ISEED( I ) = 1
             END DO
             DO M = 32, MAXM, 71
                KLA = 0
                KUA = M - 1
                slatmr(M, M, 'S', ISEED, 'N', D, 6, ONE, ONE, 'T', 'N', DUML, 1, ONE, DUMR, 1, ONE, 'N', IWORK, KLA, KUA, ZERO, ONE, 'NO', A, MAXM, IWORK, IINFO );
-               DO I = 1, M
+               for (I = 1; I <= M; I++) {
                   A( I, I ) = A( I, I ) * VM( J )
                END DO
                ANRM = SLANGE( 'M', M, M, A, MAXM, DUM )
@@ -110,14 +110,14 @@
                   BNRM = SLANGE( 'M', N, N, B, MAXN, DUM )
                   TNRM = MAX( ANRM, BNRM )
                   slatmr(M, N, 'S', ISEED, 'N', D, 6, ONE, ONE, 'T', 'N', DUML, 1, ONE, DUMR, 1, ONE, 'N', IWORK, M, N, ZERO, ONE, 'NO', C, MAXM, IWORK, IINFO );
-                  DO ITRANA = 1, 2
+                  for (ITRANA = 1; ITRANA <= 2; ITRANA++) {
                      if ( ITRANA.EQ.1 ) {
                         TRANA = 'N'
                      }
                      if ( ITRANA.EQ.2 ) {
                         TRANA = 'T'
                      }
-                     DO ITRANB = 1, 2
+                     for (ITRANB = 1; ITRANB <= 2; ITRANB++) {
                         if ( ITRANB.EQ.1 ) {
                            TRANB = 'N'
                         }

@@ -28,7 +28,7 @@
 
       // Output for square matrices:
 
-         DO 10 K = 1, NTESTS
+         for (K = 1; K <= NTESTS; K++) { // 10
             if ( RESULT( K ).GE.THRESH ) {
 
             // If this is the first test to fail, call SLAHD2
@@ -49,7 +49,7 @@
 
       // Output for rectangular matrices
 
-         DO 20 K = 1, NTESTS
+         for (K = 1; K <= NTESTS; K++) { // 20
             if ( RESULT( K ).GE.THRESH ) {
 
                // If this is the first test to fail, call SLAHD2

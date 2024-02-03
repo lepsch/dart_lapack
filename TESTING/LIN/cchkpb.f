@@ -68,7 +68,7 @@
       NRUN = 0
       NFAIL = 0
       NERRS = 0
-      DO 10 I = 1, 4
+      for (I = 1; I <= 4; I++) { // 10
          ISEED( I ) = ISEEDY( I )
    10 CONTINUE
 
@@ -80,7 +80,7 @@
 
       // Do for each value of N in NVAL
 
-      DO 90 IN = 1, NN
+      for (IN = 1; IN <= NN; IN++) { // 90
          N = NVAL( IN )
          LDA = MAX( N, 1 )
          XTYPE = 'N'
@@ -95,7 +95,7 @@
          KDVAL( 3 ) = ( 3*N-1 ) / 4
          KDVAL( 4 ) = ( N+1 ) / 4
 
-         DO 80 IKD = 1, NKD
+         for (IKD = 1; IKD <= NKD; IKD++) { // 80
 
             // Do for KD = 0, (5*N+1)/4, (3N-1)/4, and (N+1)/4. This order
             // makes it easier to skip redundant values for small values
@@ -106,7 +106,7 @@
 
             // Do first for UPLO = 'U', then for UPLO = 'L'
 
-            DO 70 IUPLO = 1, 2
+            for (IUPLO = 1; IUPLO <= 2; IUPLO++) { // 70
                KOFF = 1
                if ( IUPLO.EQ.1 ) {
                   UPLO = 'U'
@@ -117,7 +117,7 @@
                   PACKIT = 'B'
                }
 
-               DO 60 IMAT = 1, NIMAT
+               for (IMAT = 1; IMAT <= NIMAT; IMAT++) { // 60
 
                   // Do the tests only if DOTYPE( IMAT ) is true.
 
@@ -211,7 +211,7 @@
 
                   // Do for each value of NB in NBVAL
 
-                  DO 50 INB = 1, NNB
+                  for (INB = 1; INB <= NNB; INB++) { // 50
                      NB = NBVAL( INB )
                      xlaenv(1, NB );
 
@@ -268,7 +268,7 @@
                         RCONDC = ( ONE / ANORM ) / AINVNM
                      }
 
-                     DO 40 IRHS = 1, NNS
+                     for (IRHS = 1; IRHS <= NNS; IRHS++) { // 40
                         NRHS = NSVAL( IRHS )
 
 *+    TEST 2
@@ -307,7 +307,7 @@
                         // Print information about the tests that did not
                         // pass the threshold.
 
-                        DO 30 K = 2, 6
+                        for (K = 2; K <= 6; K++) { // 30
                            if ( RESULT( K ).GE.THRESH ) {
                               IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                               WRITE( NOUT, FMT = 9998 )UPLO, N, KD, NRHS, IMAT, K, RESULT( K )
                               NFAIL = NFAIL + 1

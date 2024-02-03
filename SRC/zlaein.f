@@ -61,7 +61,7 @@
       // Form B = H - W*I (except that the subdiagonal elements are not
       // stored).
 
-      DO 20 J = 1, N
+      for (J = 1; J <= N; J++) { // 20
          DO 10 I = 1, J - 1
             B( I, J ) = H( I, J )
    10    CONTINUE
@@ -72,7 +72,7 @@
 
          // Initialize V.
 
-         DO 30 I = 1, N
+         for (I = 1; I <= N; I++) { // 30
             V( I ) = EPS3
    30    CONTINUE
       } else {
@@ -156,7 +156,7 @@
       }
 
       NORMIN = 'N'
-      DO 110 ITS = 1, N
+      for (ITS = 1; ITS <= N; ITS++) { // 110
 
          // Solve U*x = scale*v for a right eigenvector
            // or U**H *x = scale*v for a left eigenvector,
@@ -174,7 +174,7 @@
 
          RTEMP = EPS3 / ( ROOTN+ONE )
          V( 1 ) = EPS3
-         DO 100 I = 2, N
+         for (I = 2; I <= N; I++) { // 100
             V( I ) = RTEMP
   100    CONTINUE
          V( N-ITS+1 ) = V( N-ITS+1 ) - EPS3*ROOTN

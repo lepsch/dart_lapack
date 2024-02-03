@@ -48,17 +48,17 @@
       NRUN = 0
       NERRS = 0
       INFO = 0
-      DO 10 I = 1, 4
+      for (I = 1; I <= 4; I++) { // 10
          ISEED( I ) = ISEEDY( I )
    10 CONTINUE
 
-      DO 120 IIN = 1, NN
+      for (IIN = 1; IIN <= NN; IIN++) { // 120
 
          N = NVAL( IIN )
 
          // Do first for UPLO = 'U', then for UPLO = 'L'
 
-         DO 110 IUPLO = 1, 2
+         for (IUPLO = 1; IUPLO <= 2; IUPLO++) { // 110
 
             UPLO = UPLOS( IUPLO )
             LOWER = .TRUE.
@@ -66,14 +66,14 @@
 
             // Do first for CFORM = 'N', then for CFORM = 'C'
 
-            DO 100 IFORM = 1, 2
+            for (IFORM = 1; IFORM <= 2; IFORM++) { // 100
 
                CFORM = FORMS( IFORM )
 
                NRUN = NRUN + 1
 
-               DO J = 1, N
-                  DO I = 1, N
+               for (J = 1; J <= N; J++) {
+                  for (I = 1; I <= N; I++) {
                      A( I, J) = CLARND( 4, ISEED )
                   END DO
                END DO
@@ -89,16 +89,16 @@
 
                OK1 = .TRUE.
                if ( LOWER ) {
-                  DO J = 1, N
-                     DO I = J, N
+                  for (J = 1; J <= N; J++) {
+                     for (I = J; I <= N; I++) {
                         if ( A(I,J).NE.ASAV(I,J) ) {
                            OK1 = .FALSE.
                         }
                      END DO
                   END DO
                } else {
-                  DO J = 1, N
-                     DO I = 1, J
+                  for (J = 1; J <= N; J++) {
+                     for (I = 1; I <= J; I++) {
                         if ( A(I,J).NE.ASAV(I,J) ) {
                            OK1 = .FALSE.
                         }
@@ -119,16 +119,16 @@
 
                OK2 = .TRUE.
                if ( LOWER ) {
-                  DO J = 1, N
-                     DO I = J, N
+                  for (J = 1; J <= N; J++) {
+                     for (I = J; I <= N; I++) {
                         if ( A(I,J).NE.ASAV(I,J) ) {
                            OK2 = .FALSE.
                         }
                      END DO
                   END DO
                } else {
-                  DO J = 1, N
-                     DO I = 1, J
+                  for (J = 1; J <= N; J++) {
+                     for (I = 1; I <= J; I++) {
                         if ( A(I,J).NE.ASAV(I,J) ) {
                            OK2 = .FALSE.
                         }

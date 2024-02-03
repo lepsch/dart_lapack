@@ -91,7 +91,7 @@
 
          dcopy(N-1, AINV( 2 ), 1, WORK( 1, 1 ), LDWORK );
          JJ = N + 1
-         DO 30 J = 2, N
+         for (J = 2; J <= N; J++) { // 30
             dcopy(N-J+1, AINV( JJ ), 1, WORK( J, J-1 ), 1 );
             dcopy(N-J, AINV( JJ+1 ), 1, WORK( J, J ), LDWORK );
             JJ = JJ + N - J + 1
@@ -108,7 +108,7 @@
 
       // Add the identity matrix to WORK .
 
-      DO 50 I = 1, N
+      for (I = 1; I <= N; I++) { // 50
          WORK( I, I ) = WORK( I, I ) + ONE
    50 CONTINUE
 

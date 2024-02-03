@@ -77,7 +77,7 @@
          if ( Z( 1 ).GT.ZERO ) {
             scopy(N, U2( 1, 1 ), 1, U( 1, 1 ), 1 );
          } else {
-            DO 10 I = 1, N
+            for (I = 1; I <= N; I++) { // 10
                U( I, 1 ) = -U2( I, 1 )
    10       CONTINUE
          }
@@ -96,7 +96,7 @@
 
       // Find the new singular values.
 
-      DO 30 J = 1, K
+      for (J = 1; J <= K; J++) { // 30
          slasd4(K, J, DSIGMA, Z, U( 1, J ), RHO, D( J ), VT( 1, J ), INFO );
 
          // If the zero finder fails, report the convergence failure.
@@ -108,7 +108,7 @@
 
       // Compute updated Z.
 
-      DO 60 I = 1, K
+      for (I = 1; I <= K; I++) { // 60
          Z( I ) = U( I, K )*VT( I, K )
          DO 40 J = 1, I - 1
             Z( I ) = Z( I )*( U( I, J )*VT( I, J ) / ( DSIGMA( I )-DSIGMA( J ) ) / ( DSIGMA( I )+DSIGMA( J ) ) )
@@ -122,16 +122,16 @@
       // Compute left singular vectors of the modified diagonal matrix,
       // and store related information for the right singular vectors.
 
-      DO 90 I = 1, K
+      for (I = 1; I <= K; I++) { // 90
          VT( 1, I ) = Z( 1 ) / U( 1, I ) / VT( 1, I )
          U( 1, I ) = NEGONE
-         DO 70 J = 2, K
+         for (J = 2; J <= K; J++) { // 70
             VT( J, I ) = Z( J ) / U( J, I ) / VT( J, I )
             U( J, I ) = DSIGMA( J )*VT( J, I )
    70    CONTINUE
          TEMP = SNRM2( K, U( 1, I ), 1 )
          Q( 1, I ) = U( 1, I ) / TEMP
-         DO 80 J = 2, K
+         for (J = 2; J <= K; J++) { // 80
             JC = IDXC( J )
             Q( J, I ) = U( JC, I ) / TEMP
    80    CONTINUE
@@ -163,10 +163,10 @@
       // Generate the right singular vectors.
 
   100 CONTINUE
-      DO 120 I = 1, K
+      for (I = 1; I <= K; I++) { // 120
          TEMP = SNRM2( K, VT( 1, I ), 1 )
          Q( I, 1 ) = VT( 1, I ) / TEMP
-         DO 110 J = 2, K
+         for (J = 2; J <= K; J++) { // 110
             JC = IDXC( J )
             Q( I, J ) = VT( JC, I ) / TEMP
   110    CONTINUE
@@ -186,10 +186,10 @@
       KTEMP = CTOT( 1 ) + 1
       NRP1 = NR + SQRE
       if ( KTEMP.GT.1 ) {
-         DO 130 I = 1, K
+         for (I = 1; I <= K; I++) { // 130
             Q( I, KTEMP ) = Q( I, 1 )
   130    CONTINUE
-         DO 140 I = NLP2, M
+         for (I = NLP2; I <= M; I++) { // 140
             VT2( KTEMP, I ) = VT2( 1, I )
   140    CONTINUE
       }

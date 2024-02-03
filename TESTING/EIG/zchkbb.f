@@ -62,7 +62,7 @@
       MMAX = 1
       NMAX = 1
       MNMAX = 1
-      DO 10 J = 1, NSIZES
+      for (J = 1; J <= NSIZES; J++) { // 10
          MMAX = MAX( MMAX, MVAL( J ) )
          IF( MVAL( J ).LT.0 ) BADMM = .TRUE.
          NMAX = MAX( NMAX, NVAL( J ) )
@@ -72,7 +72,7 @@
 
       BADNNB = .FALSE.
       KMAX = 0
-      DO 20 J = 1, NWDTHS
+      for (J = 1; J <= NWDTHS; J++) { // 20
          KMAX = MAX( KMAX, KK( J ) )
          IF( KK( J ).LT.0 ) BADNNB = .TRUE.
    20 CONTINUE
@@ -130,13 +130,13 @@
       NERRS = 0
       NMATS = 0
 
-      DO 160 JSIZE = 1, NSIZES
+      for (JSIZE = 1; JSIZE <= NSIZES; JSIZE++) { // 160
          M = MVAL( JSIZE )
          N = NVAL( JSIZE )
          MNMIN = MIN( M, N )
          AMNINV = ONE / DBLE( MAX( 1, M, N ) )
 
-         DO 150 JWIDTH = 1, NWDTHS
+         for (JWIDTH = 1; JWIDTH <= NWDTHS; JWIDTH++) { // 150
             K = KK( JWIDTH )
             IF( K.GE.M .AND. K.GE.N ) GO TO 150
             KL = MAX( 0, MIN( M-1, K ) )
@@ -148,12 +148,12 @@
                MTYPES = MIN( MAXTYP+1, NTYPES )
             }
 
-            DO 140 JTYPE = 1, MTYPES
+            for (JTYPE = 1; JTYPE <= MTYPES; JTYPE++) { // 140
                IF( .NOT.DOTYPE( JTYPE ) ) GO TO 140
                NMATS = NMATS + 1
                NTEST = 0
 
-               DO 30 J = 1, 4
+               for (J = 1; J <= 4; J++) { // 30
                   IOLDSD( J ) = ISEED( J )
    30          CONTINUE
 
@@ -211,7 +211,7 @@
 
                   // Identity
 
-                  DO 80 JCOL = 1, N
+                  for (JCOL = 1; JCOL <= N; JCOL++) { // 80
                      A( JCOL, JCOL ) = ANORM
    80             CONTINUE
 
@@ -252,7 +252,7 @@
 
                // Copy A to band storage.
 
-               DO 110 J = 1, N
+               for (J = 1; J <= N; J++) { // 110
                   DO 100 I = MAX( 1, J-KU ), MIN( M, J+KL )
                      AB( KU+1+I-J, J ) = A( I, J )
   100             CONTINUE
@@ -292,7 +292,7 @@
 
                // Print out tests which fail.
 
-               DO 130 JR = 1, NTEST
+               for (JR = 1; JR <= NTEST; JR++) { // 130
                   if ( RESULT( JR ).GE.THRESH ) {
                      IF( NERRS.EQ.0 ) CALL DLAHD2( NOUNIT, 'ZBB' )
                      NERRS = NERRS + 1

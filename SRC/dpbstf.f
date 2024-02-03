@@ -86,7 +86,7 @@
 
          // Factorize the updated submatrix A(1:m,1:m) as U**T*U.
 
-         DO 20 J = 1, M
+         for (J = 1; J <= M; J++) { // 20
 
             // Compute s(j,j) and test for non-positive-definiteness.
 
@@ -127,7 +127,7 @@
 
          // Factorize the updated submatrix A(1:m,1:m) as U**T*U.
 
-         DO 40 J = 1, M
+         for (J = 1; J <= M; J++) { // 40
 
             // Compute s(j,j) and test for non-positive-definiteness.
 

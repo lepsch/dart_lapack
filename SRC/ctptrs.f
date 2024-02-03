@@ -66,13 +66,13 @@
       if ( NOUNIT ) {
          if ( UPPER ) {
             JC = 1
-            DO 10 INFO = 1, N
+            for (INFO = 1; INFO <= N; INFO++) { // 10
                IF( AP( JC+INFO-1 ).EQ.ZERO ) RETURN
                JC = JC + INFO
    10       CONTINUE
          } else {
             JC = 1
-            DO 20 INFO = 1, N
+            for (INFO = 1; INFO <= N; INFO++) { // 20
                IF( AP( JC ).EQ.ZERO ) RETURN
                JC = JC + N - INFO + 1
    20       CONTINUE
@@ -82,7 +82,7 @@
 
       // Solve  A * x = b,  A**T * x = b,  or  A**H * x = b.
 
-      DO 30 J = 1, NRHS
+      for (J = 1; J <= NRHS; J++) { // 30
          ctpsv(UPLO, TRANS, DIAG, N, AP, B( 1, J ), 1 );
    30 CONTINUE
 

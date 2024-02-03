@@ -114,7 +114,7 @@
 
                IJP = 0
                JP = 0
-               DO J = 0, N2
+               for (J = 0; J <= N2; J++) {
                   DO I = J, N - 1
                      IJ = I + JP
                      ARF( IJ ) = AP( IJP )
@@ -139,7 +139,7 @@
                IJP = 0
                DO J = 0, N1 - 1
                   IJ = N2 + J
-                  DO I = 0, J
+                  for (I = 0; I <= J; I++) {
                      ARF( IJ ) = CONJG( AP( IJP ) )
                      IJP = IJP + 1
                      IJ = IJ + LDA
@@ -168,7 +168,7 @@
                // T1 -> a(0+0) , T2 -> a(1+0) , S -> a(0+n1*n1); lda=n1
 
                IJP = 0
-               DO I = 0, N2
+               for (I = 0; I <= N2; I++) {
                   DO IJ = I*( LDA+1 ), N*LDA - 1, LDA
                      ARF( IJ ) = CONJG( AP( IJP ) )
                      IJP = IJP + 1
@@ -198,7 +198,7 @@
                   END DO
                   JS = JS + LDA
                END DO
-               DO I = 0, N1
+               for (I = 0; I <= N1; I++) {
                   DO IJ = I, I + ( N1+I )*LDA, LDA
                      ARF( IJ ) = CONJG( AP( IJP ) )
                      IJP = IJP + 1
@@ -250,7 +250,7 @@
                IJP = 0
                DO J = 0, K - 1
                   IJ = K + 1 + J
-                  DO I = 0, J
+                  for (I = 0; I <= J; I++) {
                      ARF( IJ ) = CONJG( AP( IJP ) )
                      IJP = IJP + 1
                      IJ = IJ + LDA

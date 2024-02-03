@@ -66,7 +66,7 @@
       NRUN = 0
       NFAIL = 0
       NERRS = 0
-      DO 10 I = 1, 4
+      for (I = 1; I <= 4; I++) { // 10
          ISEED( I ) = ISEEDY( I )
    10 CONTINUE
 
@@ -75,7 +75,7 @@
       IF( TSTERR ) CALL DERRVX( PATH, NOUT )
       INFOT = 0
 
-      DO 140 IN = 1, NN
+      for (IN = 1; IN <= NN; IN++) { // 140
 
          // Do for each value of N in NVAL.
 
@@ -85,7 +85,7 @@
          NIMAT = NTYPES
          IF( N.LE.0 ) NIMAT = 1
 
-         DO 130 IMAT = 1, NIMAT
+         for (IMAT = 1; IMAT <= NIMAT; IMAT++) { // 130
 
             // Do the tests only if DOTYPE( IMAT ) is true.
 
@@ -176,7 +176,7 @@
                }
             }
 
-            DO 120 IFACT = 1, 2
+            for (IFACT = 1; IFACT <= 2; IFACT++) { // 120
                if ( IFACT.EQ.1 ) {
                   FACT = 'F'
                } else {
@@ -207,8 +207,8 @@
                   // inv(A), computing the maximum column sum as we go.
 
                   AINVNM = ZERO
-                  DO 40 I = 1, N
-                     DO 30 J = 1, N
+                  for (I = 1; I <= N; I++) { // 40
+                     for (J = 1; J <= N; J++) { // 30
                         X( J ) = ZERO
    30                CONTINUE
                      X( I ) = ONE
@@ -228,8 +228,8 @@
                   // inv(A'), computing the maximum column sum as we go.
 
                   AINVNM = ZERO
-                  DO 60 I = 1, N
-                     DO 50 J = 1, N
+                  for (I = 1; I <= N; I++) { // 60
+                     for (J = 1; J <= N; J++) { // 50
                         X( J ) = ZERO
    50                CONTINUE
                      X( I ) = ONE
@@ -246,7 +246,7 @@
                   }
                }
 
-               DO 110 ITRAN = 1, 3
+               for (ITRAN = 1; ITRAN <= 3; ITRAN++) { // 110
                   TRANS = TRANSS( ITRAN )
                   if ( ITRAN.EQ.1 ) {
                      RCONDC = RCONDO
@@ -257,7 +257,7 @@
                   // Generate NRHS random solution vectors.
 
                   IX = 1
-                  DO 70 J = 1, NRHS
+                  for (J = 1; J <= NRHS; J++) { // 70
                      dlarnv(2, ISEED, N, XACT( IX ) );
                      IX = IX + LDA
    70             CONTINUE
@@ -298,7 +298,7 @@
                      // Print information about the tests that did not pass
                      // the threshold.
 
-                     DO 80 K = 2, NT
+                     for (K = 2; K <= NT; K++) { // 80
                         if ( RESULT( K ).GE.THRESH ) {
                            IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALADHD( NOUT, PATH )                            WRITE( NOUT, FMT = 9999 )'DGTSV ', N, IMAT, K, RESULT( K )
                            NFAIL = NFAIL + 1
@@ -361,7 +361,7 @@
                   // Print information about the tests that did not pass
                   // the threshold.
 
-                  DO 100 K = K1, NT
+                  for (K = K1; K <= NT; K++) { // 100
                      if ( RESULT( K ).GE.THRESH ) {
                         IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALADHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9998 )'DGTSVX', FACT, TRANS, N, IMAT, K, RESULT( K )
                         NFAIL = NFAIL + 1

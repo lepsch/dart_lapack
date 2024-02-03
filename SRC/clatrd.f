@@ -85,7 +85,7 @@
 
          // Reduce first NB columns of lower triangle
 
-         DO 20 I = 1, NB
+         for (I = 1; I <= NB; I++) { // 20
 
             // Update A(i:n,i)
 

@@ -179,7 +179,7 @@
             scopy(N-1, RWORK( INDE ), 1, RWORK( INDEE ), 1 );
             csteqr(JOBZ, N, W, RWORK( INDEE ), Z, LDZ, RWORK( INDRWK ), INFO );
             if ( INFO.EQ.0 ) {
-               DO 10 I = 1, N
+               for (I = 1; I <= N; I++) { // 10
                   IFAIL( I ) = 0
    10          CONTINUE
             }
@@ -209,7 +209,7 @@
          // Apply unitary matrix used in reduction to tridiagonal
          // form to eigenvectors returned by CSTEIN.
 
-         DO 20 J = 1, M
+         for (J = 1; J <= M; J++) { // 20
             ccopy(N, Z( 1, J ), 1, WORK( 1 ), 1 );
             cgemv('N', N, N, CONE, Q, LDQ, WORK, 1, CZERO, Z( 1, J ), 1 );
    20    CONTINUE

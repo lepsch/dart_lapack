@@ -95,7 +95,7 @@
                AKM1 = A( I-1, I-1 ) / AKM1K
                AK = A( I, I ) / AKM1K
                DENOM = AKM1*AK - ONE
-               DO J = 1, NRHS
+               for (J = 1; J <= NRHS; J++) {
                   BKM1 = B( I-1, J ) / AKM1K
                   BK = B( I, J ) / AKM1K
                   B( I-1, J ) = ( AK*BKM1-BK ) / DENOM
@@ -119,7 +119,7 @@
          // since the ABS value of IPIV(I) represents the row index
          // of the interchange with row i in both 1x1 and 2x2 pivot cases)
 
-         DO K = 1, N
+         for (K = 1; K <= N; K++) {
             KP = ABS( IPIV( K ) )
             if ( KP.NE.K ) {
                dswap(NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
@@ -140,7 +140,7 @@
          // since the ABS value of IPIV(I) represents the row index
          // of the interchange with row i in both 1x1 and 2x2 pivot cases)
 
-         DO K = 1, N
+         for (K = 1; K <= N; K++) {
             KP = ABS( IPIV( K ) )
             if ( KP.NE.K ) {
                dswap(NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
@@ -162,7 +162,7 @@
                AKM1 = A( I, I ) / AKM1K
                AK = A( I+1, I+1 ) / AKM1K
                DENOM = AKM1*AK - ONE
-               DO  J = 1, NRHS
+               for (J = 1; J <= NRHS; J++) {
                   BKM1 = B( I, J ) / AKM1K
                   BK = B( I+1, J ) / AKM1K
                   B( I, J ) = ( AK*BKM1-BK ) / DENOM

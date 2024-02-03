@@ -238,7 +238,7 @@
 
          // Select eigenvalues
 
-         DO 10 I = 1, N
+         for (I = 1; I <= N; I++) { // 10
             BWORK( I ) = SELCTG( ALPHA( I ), BETA( I ) )
    10    CONTINUE
 
@@ -270,7 +270,7 @@
 
          LASTSL = .TRUE.
          SDIM = 0
-         DO 20 I = 1, N
+         for (I = 1; I <= N; I++) { // 20
             CURSL = SELCTG( ALPHA( I ), BETA( I ) )
             IF( CURSL ) SDIM = SDIM + 1             IF( CURSL .AND. .NOT.LASTSL ) INFO = N + 2
             LASTSL = CURSL

@@ -59,12 +59,12 @@
 
       // Do for each value of M in MVAL.
 
-      DO I = 1, NM
+      for (I = 1; I <= NM; I++) {
          M = MVAL( I )
 
          // Do for each value of N in NVAL.
 
-         DO J = 1, NN
+         for (J = 1; J <= NN; J++) {
             N = NVAL( J )
 
             // Only for M >= N
@@ -73,7 +73,7 @@
 
                // Do for each possible value of MB1
 
-               DO IMB1 = 1, NNB
+               for (IMB1 = 1; IMB1 <= NNB; IMB1++) {
                   MB1 = NBVAL( IMB1 )
 
                   // Only for MB1 > N
@@ -82,12 +82,12 @@
 
                      // Do for each possible value of NB1
 
-                     DO INB1 = 1, NNB
+                     for (INB1 = 1; INB1 <= NNB; INB1++) {
                         NB1 = NBVAL( INB1 )
 
                         // Do for each possible value of NB2
 
-                        DO INB2 = 1, NNB
+                        for (INB2 = 1; INB2 <= NNB; INB2++) {
                            NB2 = NBVAL( INB2 )
 
                            if ( NB1.GT.0 .AND. NB2.GT.0 ) {
@@ -99,7 +99,7 @@
                               // Print information about the tests that did
                               // not pass the threshold.
 
-                              DO T = 1, NTESTS
+                              for (T = 1; T <= NTESTS; T++) {
                                  if ( RESULT( T ).GE.THRESH ) {
                                     IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                                     WRITE( NOUT, FMT = 9999 ) M, N, MB1, NB1, NB2, T, RESULT( T )
                                     NFAIL = NFAIL + 1
@@ -117,12 +117,12 @@
 
       // Do for each value of M in MVAL.
 
-      DO I = 1, NM
+      for (I = 1; I <= NM; I++) {
          M = MVAL( I )
 
          // Do for each value of N in NVAL.
 
-         DO J = 1, NN
+         for (J = 1; J <= NN; J++) {
             N = NVAL( J )
 
             // Only for M >= N
@@ -131,7 +131,7 @@
 
                // Do for each possible value of MB1
 
-               DO IMB1 = 1, NNB
+               for (IMB1 = 1; IMB1 <= NNB; IMB1++) {
                   MB1 = NBVAL( IMB1 )
 
                   // Only for MB1 > N
@@ -140,12 +140,12 @@
 
                      // Do for each possible value of NB1
 
-                     DO INB1 = 1, NNB
+                     for (INB1 = 1; INB1 <= NNB; INB1++) {
                         NB1 = NBVAL( INB1 )
 
                         // Do for each possible value of NB2
 
-                        DO INB2 = 1, NNB
+                        for (INB2 = 1; INB2 <= NNB; INB2++) {
                            NB2 = NBVAL( INB2 )
 
                            if ( NB1.GT.0 .AND. NB2.GT.0 ) {
@@ -157,7 +157,7 @@
                               // Print information about the tests that did
                               // not pass the threshold.
 
-                              DO T = 1, NTESTS
+                              for (T = 1; T <= NTESTS; T++) {
                                  if ( RESULT( T ).GE.THRESH ) {
                                     IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                                     WRITE( NOUT, FMT = 9998 ) M, N, MB1, NB1, NB2, T, RESULT( T )
                                     NFAIL = NFAIL + 1

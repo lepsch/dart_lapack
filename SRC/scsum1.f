@@ -41,7 +41,7 @@
       // CODE FOR INCREMENT EQUAL TO 1
 
    20 CONTINUE
-      DO 30 I = 1, N
+      for (I = 1; I <= N; I++) { // 30
 
          // NEXT LINE MODIFIED.
 

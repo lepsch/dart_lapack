@@ -62,7 +62,7 @@
          // norm(B - A*X) / ( norm(A) * norm(X) * EPS ) .
 
       RESID = ZERO
-      DO 10 J = 1, NRHS
+      for (J = 1; J <= NRHS; J++) { // 10
          BNORM = ABS(B(IDAMAX( N, B( 1, J ), 1 ),J))
          XNORM = ABS(X(IDAMAX( N, X( 1, J ), 1 ),J))
          if ( XNORM.LE.ZERO ) {

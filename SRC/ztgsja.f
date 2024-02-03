@@ -91,7 +91,7 @@
       // Loop until convergence
 
       UPPER = .FALSE.
-      DO 40 KCYCLE = 1, MAXIT
+      for (KCYCLE = 1; KCYCLE <= MAXIT; KCYCLE++) { // 40
 
          UPPER = .NOT.UPPER
 
@@ -190,7 +190,7 @@
       // Compute the generalized singular value pairs (ALPHA, BETA), and
       // set the triangular matrix R to array A.
 
-      DO 60 I = 1, K
+      for (I = 1; I <= K; I++) { // 60
          ALPHA( I ) = ONE
          BETA( I ) = ZERO
    60 CONTINUE

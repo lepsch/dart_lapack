@@ -187,7 +187,7 @@
                // factorized to ZERO, i.e. set TAU(KB+1:MINMNFACT) = CZERO,
                // which is equivalent to seting TAU(K:MINMNFACT) = CZERO.
 
-               DO J = K, MINMNFACT
+               for (J = K; J <= MINMNFACT; J++) {
                   TAU( J ) = CZERO
                END DO
 
@@ -261,7 +261,7 @@
                // factorized to ZERO, i.e. set TAU(KB+1:MINMNFACT) = CZERO,
                // which is equivalent to seting TAU(K:MINMNFACT) = CZERO.
 
-               DO J = K, MINMNFACT
+               for (J = K; J <= MINMNFACT; J++) {
                   TAU( J ) = CZERO
                END DO
 
@@ -404,7 +404,7 @@
             // 2) Zero out elements above and on the diagonal of the
                // column K in matrix F, i.e elements F(1:K,K).
 
-         DO J = 1, K
+         for (J = 1; J <= K; J++) {
             F( J, K ) = CZERO
          END DO
 

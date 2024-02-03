@@ -39,8 +39,8 @@
       // Generate test problem ...
       // (Da, Db) ...
 
-      DO 20 I = 1, N
-         DO 10 J = 1, N
+      for (I = 1; I <= N; I++) { // 20
+         for (J = 1; J <= N; J++) { // 10
 
             if ( I.EQ.J ) {
                A( I, I ) = DCMPLX( I ) + ALPHA

@@ -66,20 +66,20 @@
       NRUN = 0
       NFAIL = 0
       NERRS = 0
-      DO I = 1, 4
+      for (I = 1; I <= 4; I++) {
          ISEED( I ) = ISEEDY( I )
       END DO
       EPS = SLAMCH( 'Epsilon' )
       INFOT = 0
 
-      DO IM = 1, NM
+      for (IM = 1; IM <= NM; IM++) {
 
          // Do for each value of M in MVAL.
 
          M = MVAL( IM )
          LDA = MAX( 1, M )
 
-         DO IN = 1, NN
+         for (IN = 1; IN <= NN; IN++) {
 
             // Do for each value of N in NVAL.
 
@@ -87,7 +87,7 @@
             MINMN = MIN( M, N )
             LWORK = MAX( 1, M*MAX( M, N )+4*MINMN+MAX( M, N ), M*N + 2*MINMN + 4*N )
 
-            DO INS = 1, NNS
+            for (INS = 1; INS <= NNS; INS++) {
                NRHS = NSVAL( INS )
 
                   // Set up parameters with SLATB4 and generate
@@ -110,7 +110,7 @@
                      CYCLE
                   }
 
-               DO IMAT = 1, NTYPES
+               for (IMAT = 1; IMAT <= NTYPES; IMAT++) {
 
                // Do the tests only if DOTYPE( IMAT ) is true.
 
@@ -148,7 +148,7 @@
                   // Matrix 1: Zero matrix
 
                   slaset('Full', M, N, ZERO, ZERO, COPYA, LDA );
-                  DO I = 1, MINMN
+                  for (I = 1; I <= MINMN; I++) {
                      S( I ) = ZERO
                   END DO
 
@@ -345,11 +345,11 @@
 
                // Initialize a copy array for a pivot array for SGEQP3RK.
 
-               DO I = 1, N
+               for (I = 1; I <= N; I++) {
                   IWORK( I ) = 0
                END DO
 
-               DO INB = 1, NNB
+               for (INB = 1; INB <= NNB; INB++) {
 
                   // Do for each pair of values (NB,NX) in NBVAL and NXVAL.
 
@@ -410,7 +410,7 @@
 
                      RESULT( 1 ) = SQRT12( M, N, A, LDA, S, WORK, LWORK )
 
-                     DO T = 1, 1
+                     for (T = 1; T <= 1; T++) {
                         if ( RESULT( T ).GE.THRESH ) {
                            IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                            WRITE( NOUT, FMT = 9999 ) 'SGEQP3RK', M, N, NRHS, KMAX, ABSTOL, RELTOL, NB, NX, IMAT, T, RESULT( T )
                            NFAIL = NFAIL + 1
@@ -441,7 +441,7 @@
                   // Print information about the tests that did not pass
                   // the threshold.
 
-                  DO T = 2, 3
+                  for (T = 2; T <= 3; T++) {
                      if ( RESULT( T ).GE.THRESH ) {
                         IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9999 ) 'SGEQP3RK', M, N, NRHS, KMAX, ABSTOL, RELTOL, NB, NX, IMAT, T, RESULT( T )
                         NFAIL = NFAIL + 1
@@ -475,7 +475,7 @@
                      // Print information about the tests that did not
                      // pass the threshold.
 
-                     DO T = 4, 4
+                     for (T = 4; T <= 4; T++) {
                         if ( RESULT( T ).GE.THRESH ) {
                            IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                            WRITE( NOUT, FMT = 9999 ) 'SGEQP3RK', M, N, NRHS, KMAX, ABSTOL, RELTOL, NB, NX, IMAT, T, RESULT( T )
                            NFAIL = NFAIL + 1
@@ -503,7 +503,7 @@
                      LWORK_MQR = MAX(1, NRHS)
                      sormqr('Left', 'Transpose', M, NRHS, KFACT, A, LDA, TAU, B, LDA, WORK, LWORK_MQR, INFO );
 
-                     DO I = 1, NRHS
+                     for (I = 1; I <= NRHS; I++) {
 
                         // Compare N+J-th column of A and J-column of B.
 
@@ -515,7 +515,7 @@
                      // Print information about the tests that did not pass
                      // the threshold.
 
-                     DO T = 5, 5
+                     for (T = 5; T <= 5; T++) {
                         if ( RESULT( T ).GE.THRESH ) {
                            IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                            WRITE( NOUT, FMT = 9999 ) 'SGEQP3RK', M, N, NRHS, KMAX, ABSTOL, RELTOL, NB, NX, IMAT, T, RESULT( T )
                            NFAIL = NFAIL + 1

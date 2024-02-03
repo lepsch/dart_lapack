@@ -79,7 +79,7 @@
       DO I = 1, M-Q
 
          if ( I .EQ. 1 ) {
-            DO J = 1, M
+            for (J = 1; J <= M; J++) {
                PHANTOM(J) = ZERO
             END DO
             sorbdb5(P, M-P, Q, PHANTOM(1), 1, PHANTOM(P+1), 1, X11, LDX11, X21, LDX21, WORK(IORBDB5), LORBDB5, CHILDINFO );

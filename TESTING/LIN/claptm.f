@@ -35,14 +35,14 @@
       IF( N.EQ.0 ) RETURN
 
       if ( BETA.EQ.ZERO ) {
-         DO 20 J = 1, NRHS
-            DO 10 I = 1, N
+         for (J = 1; J <= NRHS; J++) { // 20
+            for (I = 1; I <= N; I++) { // 10
                B( I, J ) = ZERO
    10       CONTINUE
    20    CONTINUE
       } else if ( BETA.EQ.-ONE ) {
-         DO 40 J = 1, NRHS
-            DO 30 I = 1, N
+         for (J = 1; J <= NRHS; J++) { // 40
+            for (I = 1; I <= N; I++) { // 30
                B( I, J ) = -B( I, J )
    30       CONTINUE
    40    CONTINUE
@@ -53,7 +53,7 @@
 
             // Compute B := B + A*X, where E is the superdiagonal of A.
 
-            DO 60 J = 1, NRHS
+            for (J = 1; J <= NRHS; J++) { // 60
                if ( N.EQ.1 ) {
                   B( 1, J ) = B( 1, J ) + D( 1 )*X( 1, J )
                } else {
@@ -67,7 +67,7 @@
 
             // Compute B := B + A*X, where E is the subdiagonal of A.
 
-            DO 80 J = 1, NRHS
+            for (J = 1; J <= NRHS; J++) { // 80
                if ( N.EQ.1 ) {
                   B( 1, J ) = B( 1, J ) + D( 1 )*X( 1, J )
                } else {
@@ -83,7 +83,7 @@
 
             // Compute B := B - A*X, where E is the superdiagonal of A.
 
-            DO 100 J = 1, NRHS
+            for (J = 1; J <= NRHS; J++) { // 100
                if ( N.EQ.1 ) {
                   B( 1, J ) = B( 1, J ) - D( 1 )*X( 1, J )
                } else {
@@ -97,7 +97,7 @@
 
             // Compute B := B - A*X, where E is the subdiagonal of A.
 
-            DO 120 J = 1, NRHS
+            for (J = 1; J <= NRHS; J++) { // 120
                if ( N.EQ.1 ) {
                   B( 1, J ) = B( 1, J ) - D( 1 )*X( 1, J )
                } else {

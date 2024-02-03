@@ -29,7 +29,7 @@
          // code for increment equal to 1
 
          SMAX = ABS(SX(1))
-         DO I = 2,N
+         for (I = 2; I <= N; I++) {
             if (ABS(SX(I)).GT.SMAX) {
                ISAMAX = I
                SMAX = ABS(SX(I))
@@ -42,7 +42,7 @@
          IX = 1
          SMAX = ABS(SX(1))
          IX = IX + INCX
-         DO I = 2,N
+         for (I = 2; I <= N; I++) {
             if (ABS(SX(IX)).GT.SMAX) {
                ISAMAX = I
                SMAX = ABS(SX(IX))

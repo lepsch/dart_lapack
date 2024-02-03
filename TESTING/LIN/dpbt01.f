@@ -93,16 +93,16 @@
       // Compute the difference  L*L' - A  or  U'*U - A.
 
       if ( LSAME( UPLO, 'U' ) ) {
-         DO 40 J = 1, N
+         for (J = 1; J <= N; J++) { // 40
             MU = MAX( 1, KD+2-J )
             DO 30 I = MU, KD + 1
                AFAC( I, J ) = AFAC( I, J ) - A( I, J )
    30       CONTINUE
    40    CONTINUE
       } else {
-         DO 60 J = 1, N
+         for (J = 1; J <= N; J++) { // 60
             ML = MIN( KD+1, N-J+1 )
-            DO 50 I = 1, ML
+            for (I = 1; I <= ML; I++) { // 50
                AFAC( I, J ) = AFAC( I, J ) - A( I, J )
    50       CONTINUE
    60    CONTINUE

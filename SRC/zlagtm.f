@@ -36,14 +36,14 @@
       // Multiply B by BETA if BETA.NE.1.
 
       if ( BETA.EQ.ZERO ) {
-         DO 20 J = 1, NRHS
-            DO 10 I = 1, N
+         for (J = 1; J <= NRHS; J++) { // 20
+            for (I = 1; I <= N; I++) { // 10
                B( I, J ) = ZERO
    10       CONTINUE
    20    CONTINUE
       } else if ( BETA.EQ.-ONE ) {
-         DO 40 J = 1, NRHS
-            DO 30 I = 1, N
+         for (J = 1; J <= NRHS; J++) { // 40
+            for (I = 1; I <= N; I++) { // 30
                B( I, J ) = -B( I, J )
    30       CONTINUE
    40    CONTINUE
@@ -54,7 +54,7 @@
 
             // Compute B := B + A*X
 
-            DO 60 J = 1, NRHS
+            for (J = 1; J <= NRHS; J++) { // 60
                if ( N.EQ.1 ) {
                   B( 1, J ) = B( 1, J ) + D( 1 )*X( 1, J )
                } else {
@@ -68,7 +68,7 @@
 
             // Compute B := B + A**T * X
 
-            DO 80 J = 1, NRHS
+            for (J = 1; J <= NRHS; J++) { // 80
                if ( N.EQ.1 ) {
                   B( 1, J ) = B( 1, J ) + D( 1 )*X( 1, J )
                } else {
@@ -82,7 +82,7 @@
 
             // Compute B := B + A**H * X
 
-            DO 100 J = 1, NRHS
+            for (J = 1; J <= NRHS; J++) { // 100
                if ( N.EQ.1 ) {
                   B( 1, J ) = B( 1, J ) + DCONJG( D( 1 ) )*X( 1, J )
                } else {
@@ -98,7 +98,7 @@
 
             // Compute B := B - A*X
 
-            DO 120 J = 1, NRHS
+            for (J = 1; J <= NRHS; J++) { // 120
                if ( N.EQ.1 ) {
                   B( 1, J ) = B( 1, J ) - D( 1 )*X( 1, J )
                } else {
@@ -112,7 +112,7 @@
 
             // Compute B := B - A**T *X
 
-            DO 140 J = 1, NRHS
+            for (J = 1; J <= NRHS; J++) { // 140
                if ( N.EQ.1 ) {
                   B( 1, J ) = B( 1, J ) - D( 1 )*X( 1, J )
                } else {
@@ -126,7 +126,7 @@
 
             // Compute B := B - A**H *X
 
-            DO 160 J = 1, NRHS
+            for (J = 1; J <= NRHS; J++) { // 160
                if ( N.EQ.1 ) {
                   B( 1, J ) = B( 1, J ) - DCONJG( D( 1 ) )*X( 1, J )
                } else {

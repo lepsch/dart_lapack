@@ -84,7 +84,7 @@
          // Compare rows
 
          RES1 = ZERO
-         DO 20 I = 1, K
+         for (I = 1; I <= K; I++) { // 20
             LMX = IZAMAX( N, U( I, 1 ), LDU )
             if ( V( I, LMX ).EQ.DCMPLX( ZERO ) ) {
                SV = ONE
@@ -97,7 +97,7 @@
                SU = ABS( U( I, LMX ) ) / U( I, LMX )
             }
             S = SV / SU
-            DO 10 J = 1, N
+            for (J = 1; J <= N; J++) { // 10
                RES1 = MAX( RES1, ABS( U( I, J )-S*V( I, J ) ) )
    10       CONTINUE
    20    CONTINUE
@@ -112,7 +112,7 @@
          // Compare columns
 
          RES1 = ZERO
-         DO 40 I = 1, K
+         for (I = 1; I <= K; I++) { // 40
             LMX = IZAMAX( N, U( 1, I ), 1 )
             if ( V( LMX, I ).EQ.DCMPLX( ZERO ) ) {
                SV = ONE
@@ -125,7 +125,7 @@
                SU = ABS( U( LMX, I ) ) / U( LMX, I )
             }
             S = SV / SU
-            DO 30 J = 1, N
+            for (J = 1; J <= N; J++) { // 30
                RES1 = MAX( RES1, ABS( U( J, I )-S*V( J, I ) ) )
    30       CONTINUE
    40    CONTINUE

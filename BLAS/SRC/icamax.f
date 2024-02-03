@@ -30,7 +30,7 @@
          // code for increment equal to 1
 
          SMAX = SCABS1(CX(1))
-         DO I = 2,N
+         for (I = 2; I <= N; I++) {
             if (SCABS1(CX(I)).GT.SMAX) {
                ICAMAX = I
                SMAX = SCABS1(CX(I))
@@ -43,7 +43,7 @@
          IX = 1
          SMAX = SCABS1(CX(1))
          IX = IX + INCX
-         DO I = 2,N
+         for (I = 2; I <= N; I++) {
             if (SCABS1(CX(IX)).GT.SMAX) {
                ICAMAX = I
                SMAX = SCABS1(CX(IX))

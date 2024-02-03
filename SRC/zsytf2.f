@@ -374,7 +374,7 @@
                   DO 60 J = K + 2, N
                      WK = D21*( D11*A( J, K )-A( J, K+1 ) )
                      WKP1 = D21*( D22*A( J, K+1 )-A( J, K ) )
-                     DO 50 I = J, N
+                     for (I = J; I <= N; I++) { // 50
                         A( I, J ) = A( I, J ) - A( I, K )*WK - A( I, K+1 )*WKP1
    50                CONTINUE
                      A( J, K ) = WK

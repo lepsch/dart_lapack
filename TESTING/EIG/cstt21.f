@@ -67,7 +67,7 @@
 
       // Norm of A - U S U**H
 
-      DO 20 J = 1, N
+      for (J = 1; J <= N; J++) { // 20
          cher('L', N, -SD( J ), U( 1, J ), 1, WORK, N );
    20 CONTINUE
 
@@ -95,7 +95,7 @@
 
       cgemm('N', 'C', N, N, N, CONE, U, LDU, U, LDU, CZERO, WORK, N );
 
-      DO 40 J = 1, N
+      for (J = 1; J <= N; J++) { // 40
          WORK( ( N+1 )*( J-1 )+1 ) = WORK( ( N+1 )*( J-1 )+1 ) - CONE
    40 CONTINUE
 

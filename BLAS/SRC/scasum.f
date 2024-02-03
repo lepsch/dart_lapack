@@ -27,7 +27,7 @@
 
          // code for increment equal to 1
 
-         DO I = 1,N
+         for (I = 1; I <= N; I++) {
             STEMP = STEMP + ABS(REAL(CX(I))) + ABS(AIMAG(CX(I)))
          END DO
       } else {

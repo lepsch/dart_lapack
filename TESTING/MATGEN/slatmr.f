@@ -157,7 +157,7 @@
 
       DZERO = .FALSE.
       if ( IGRADE.EQ.4 .AND. MODEL.EQ.0 ) {
-         DO 10 I = 1, M
+         for (I = 1; I <= M; I++) { // 10
             IF( DL( I ).EQ.ZERO ) DZERO = .TRUE.
    10    CONTINUE
       }
@@ -166,7 +166,7 @@
 
       BADPVT = .FALSE.
       if ( IPVTNG.GT.0 ) {
-         DO 20 J = 1, NPVTS
+         for (J = 1; J <= NPVTS; J++) { // 20
             IF( IPIVOT( J ).LE.0 .OR. IPIVOT( J ).GT.NPVTS ) BADPVT = .TRUE.
    20    CONTINUE
       }
@@ -229,7 +229,7 @@
 
       // Initialize random number generator
 
-      DO 30 I = 1, 4
+      for (I = 1; I <= 4; I++) { // 30
          ISEED( I ) = MOD( ABS( ISEED( I ) ), 4096 )
    30 CONTINUE
 
@@ -249,7 +249,7 @@
          // Scale by DMAX
 
          TEMP = ABS( D( 1 ) )
-         DO 40 I = 2, MNMIN
+         for (I = 2; I <= MNMIN; I++) { // 40
             TEMP = MAX( TEMP, ABS( D( I ) ) )
    40    CONTINUE
          if ( TEMP.EQ.ZERO .AND. DMAX.NE.ZERO ) {
@@ -261,7 +261,7 @@
          } else {
             ALPHA = ONE
          }
-         DO 50 I = 1, MNMIN
+         for (I = 1; I <= MNMIN; I++) { // 50
             D( I ) = ALPHA*D( I )
    50    CONTINUE
 
@@ -290,11 +290,11 @@
       // 3)     Generate IWORK if pivoting
 
       if ( IPVTNG.GT.0 ) {
-         DO 60 I = 1, NPVTS
+         for (I = 1; I <= NPVTS; I++) { // 60
             IWORK( I ) = I
    60    CONTINUE
          if ( FULBND ) {
-            DO 70 I = 1, NPVTS
+            for (I = 1; I <= NPVTS; I++) { // 70
                K = IPIVOT( I )
                J = IWORK( I )
                IWORK( I ) = IWORK( K )
@@ -322,16 +322,16 @@
 
          if ( IPACK.EQ.0 ) {
             if ( ISYM.EQ.0 ) {
-               DO 100 J = 1, N
-                  DO 90 I = 1, J
+               for (J = 1; J <= N; J++) { // 100
+                  for (I = 1; I <= J; I++) { // 90
                      TEMP = SLATM3( M, N, I, J, ISUB, JSUB, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE )
                      A( ISUB, JSUB ) = TEMP
                      A( JSUB, ISUB ) = TEMP
    90             CONTINUE
   100          CONTINUE
             } else if ( ISYM.EQ.1 ) {
-               DO 120 J = 1, N
-                  DO 110 I = 1, M
+               for (J = 1; J <= N; J++) { // 120
+                  for (I = 1; I <= M; I++) { // 110
                      TEMP = SLATM3( M, N, I, J, ISUB, JSUB, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE )
                      A( ISUB, JSUB ) = TEMP
   110             CONTINUE
@@ -340,8 +340,8 @@
 
          } else if ( IPACK.EQ.1 ) {
 
-            DO 140 J = 1, N
-               DO 130 I = 1, J
+            for (J = 1; J <= N; J++) { // 140
+               for (I = 1; I <= J; I++) { // 130
                   TEMP = SLATM3( M, N, I, J, ISUB, JSUB, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE )
                   MNSUB = MIN( ISUB, JSUB )
                   MXSUB = MAX( ISUB, JSUB )
@@ -352,8 +352,8 @@
 
          } else if ( IPACK.EQ.2 ) {
 
-            DO 160 J = 1, N
-               DO 150 I = 1, J
+            for (J = 1; J <= N; J++) { // 160
+               for (I = 1; I <= J; I++) { // 150
                   TEMP = SLATM3( M, N, I, J, ISUB, JSUB, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE )
                   MNSUB = MIN( ISUB, JSUB )
                   MXSUB = MAX( ISUB, JSUB )
@@ -364,8 +364,8 @@
 
          } else if ( IPACK.EQ.3 ) {
 
-            DO 180 J = 1, N
-               DO 170 I = 1, J
+            for (J = 1; J <= N; J++) { // 180
+               for (I = 1; I <= J; I++) { // 170
                   TEMP = SLATM3( M, N, I, J, ISUB, JSUB, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE )
 
                   // Compute K = location of (ISUB,JSUB) entry in packed
@@ -386,8 +386,8 @@
 
          } else if ( IPACK.EQ.4 ) {
 
-            DO 200 J = 1, N
-               DO 190 I = 1, J
+            for (J = 1; J <= N; J++) { // 200
+               for (I = 1; I <= J; I++) { // 190
                   TEMP = SLATM3( M, N, I, J, ISUB, JSUB, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE )
 
                   // Compute K = location of (I,J) entry in packed array
@@ -411,7 +411,7 @@
 
          } else if ( IPACK.EQ.5 ) {
 
-            DO 220 J = 1, N
+            for (J = 1; J <= N; J++) { // 220
                DO 210 I = J - KUU, J
                   if ( I.LT.1 ) {
                      A( J-I+1, I+N ) = ZERO
@@ -426,7 +426,7 @@
 
          } else if ( IPACK.EQ.6 ) {
 
-            DO 240 J = 1, N
+            for (J = 1; J <= N; J++) { // 240
                DO 230 I = J - KUU, J
                   TEMP = SLATM3( M, N, I, J, ISUB, JSUB, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE )
                   MNSUB = MIN( ISUB, JSUB )
@@ -438,7 +438,7 @@
          } else if ( IPACK.EQ.7 ) {
 
             if ( ISYM.EQ.0 ) {
-               DO 260 J = 1, N
+               for (J = 1; J <= N; J++) { // 260
                   DO 250 I = J - KUU, J
                      TEMP = SLATM3( M, N, I, J, ISUB, JSUB, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE )
                      MNSUB = MIN( ISUB, JSUB )
@@ -448,7 +448,7 @@
   250             CONTINUE
   260          CONTINUE
             } else if ( ISYM.EQ.1 ) {
-               DO 280 J = 1, N
+               for (J = 1; J <= N; J++) { // 280
                   DO 270 I = J - KUU, J + KLL
                      TEMP = SLATM3( M, N, I, J, ISUB, JSUB, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE )
                      A( ISUB-JSUB+KUU+1, JSUB ) = TEMP
@@ -464,15 +464,15 @@
 
          if ( IPACK.EQ.0 ) {
             if ( ISYM.EQ.0 ) {
-               DO 300 J = 1, N
-                  DO 290 I = 1, J
+               for (J = 1; J <= N; J++) { // 300
+                  for (I = 1; I <= J; I++) { // 290
                      A( I, J ) = SLATM2( M, N, I, J, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE )
                      A( J, I ) = A( I, J )
   290             CONTINUE
   300          CONTINUE
             } else if ( ISYM.EQ.1 ) {
-               DO 320 J = 1, N
-                  DO 310 I = 1, M
+               for (J = 1; J <= N; J++) { // 320
+                  for (I = 1; I <= M; I++) { // 310
                      A( I, J ) = SLATM2( M, N, I, J, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE )
   310             CONTINUE
   320          CONTINUE
@@ -480,16 +480,16 @@
 
          } else if ( IPACK.EQ.1 ) {
 
-            DO 340 J = 1, N
-               DO 330 I = 1, J
+            for (J = 1; J <= N; J++) { // 340
+               for (I = 1; I <= J; I++) { // 330
                   A( I, J ) = SLATM2( M, N, I, J, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE )                   IF( I.NE.J ) A( J, I ) = ZERO
   330          CONTINUE
   340       CONTINUE
 
          } else if ( IPACK.EQ.2 ) {
 
-            DO 360 J = 1, N
-               DO 350 I = 1, J
+            for (J = 1; J <= N; J++) { // 360
+               for (I = 1; I <= J; I++) { // 350
                   A( J, I ) = SLATM2( M, N, I, J, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE )                   IF( I.NE.J ) A( I, J ) = ZERO
   350          CONTINUE
   360       CONTINUE
@@ -498,8 +498,8 @@
 
             ISUB = 0
             JSUB = 1
-            DO 380 J = 1, N
-               DO 370 I = 1, J
+            for (J = 1; J <= N; J++) { // 380
+               for (I = 1; I <= J; I++) { // 370
                   ISUB = ISUB + 1
                   if ( ISUB.GT.LDA ) {
                      ISUB = 1
@@ -512,8 +512,8 @@
          } else if ( IPACK.EQ.4 ) {
 
             if ( ISYM.EQ.0 ) {
-               DO 400 J = 1, N
-                  DO 390 I = 1, J
+               for (J = 1; J <= N; J++) { // 400
+                  for (I = 1; I <= J; I++) { // 390
 
                      // Compute K = location of (I,J) entry in packed array
 
@@ -534,8 +534,8 @@
             } else {
                ISUB = 0
                JSUB = 1
-               DO 420 J = 1, N
-                  DO 410 I = J, M
+               for (J = 1; J <= N; J++) { // 420
+                  for (I = J; I <= M; I++) { // 410
                      ISUB = ISUB + 1
                      if ( ISUB.GT.LDA ) {
                         ISUB = 1
@@ -548,7 +548,7 @@
 
          } else if ( IPACK.EQ.5 ) {
 
-            DO 440 J = 1, N
+            for (J = 1; J <= N; J++) { // 440
                DO 430 I = J - KUU, J
                   if ( I.LT.1 ) {
                      A( J-I+1, I+N ) = ZERO
@@ -560,7 +560,7 @@
 
          } else if ( IPACK.EQ.6 ) {
 
-            DO 460 J = 1, N
+            for (J = 1; J <= N; J++) { // 460
                DO 450 I = J - KUU, J
                   A( I-J+KUU+1, J ) = SLATM2( M, N, I, J, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE )
   450          CONTINUE
@@ -569,14 +569,14 @@
          } else if ( IPACK.EQ.7 ) {
 
             if ( ISYM.EQ.0 ) {
-               DO 480 J = 1, N
+               for (J = 1; J <= N; J++) { // 480
                   DO 470 I = J - KUU, J
                      A( I-J+KUU+1, J ) = SLATM2( M, N, I, J, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE )
                      IF( I.LT.1 ) A( J-I+1+KUU, I+N ) = ZERO                      IF( I.GE.1 .AND. I.NE.J ) A( J-I+1+KUU, I ) = A( I-J+KUU+1, J )
   470             CONTINUE
   480          CONTINUE
             } else if ( ISYM.EQ.1 ) {
-               DO 500 J = 1, N
+               for (J = 1; J <= N; J++) { // 500
                   DO 490 I = J - KUU, J + KLL
                      A( I-J+KUU+1, J ) = SLATM2( M, N, I, J, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE )
   490             CONTINUE
@@ -621,7 +621,7 @@
             // Scale carefully to avoid over / underflow
 
             if ( IPACK.LE.2 ) {
-               DO 510 J = 1, N
+               for (J = 1; J <= N; J++) { // 510
                   sscal(M, ONE / ONORM, A( 1, J ), 1 );
                   sscal(M, ANORM, A( 1, J ), 1 );
   510          CONTINUE
@@ -633,7 +633,7 @@
 
             } else if ( IPACK.GE.5 ) {
 
-               DO 520 J = 1, N
+               for (J = 1; J <= N; J++) { // 520
                   sscal(KLL+KUU+1, ONE / ONORM, A( 1, J ), 1 );
                   sscal(KLL+KUU+1, ANORM, A( 1, J ), 1 );
   520          CONTINUE
@@ -645,7 +645,7 @@
             // Scale straightforwardly
 
             if ( IPACK.LE.2 ) {
-               DO 530 J = 1, N
+               for (J = 1; J <= N; J++) { // 530
                   sscal(M, ANORM / ONORM, A( 1, J ), 1 );
   530          CONTINUE
 
@@ -655,7 +655,7 @@
 
             } else if ( IPACK.GE.5 ) {
 
-               DO 540 J = 1, N
+               for (J = 1; J <= N; J++) { // 540
                   sscal(KLL+KUU+1, ANORM / ONORM, A( 1, J ), 1 );
   540          CONTINUE
             }

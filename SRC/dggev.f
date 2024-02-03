@@ -249,26 +249,26 @@
 
          if ( ILVL ) {
             dggbak('P', 'L', N, ILO, IHI, WORK( ILEFT ), WORK( IRIGHT ), N, VL, LDVL, IERR );
-            DO 50 JC = 1, N
+            for (JC = 1; JC <= N; JC++) { // 50
                IF( ALPHAI( JC ).LT.ZERO ) GO TO 50
                TEMP = ZERO
                if ( ALPHAI( JC ).EQ.ZERO ) {
-                  DO 10 JR = 1, N
+                  for (JR = 1; JR <= N; JR++) { // 10
                      TEMP = MAX( TEMP, ABS( VL( JR, JC ) ) )
    10             CONTINUE
                } else {
-                  DO 20 JR = 1, N
+                  for (JR = 1; JR <= N; JR++) { // 20
                      TEMP = MAX( TEMP, ABS( VL( JR, JC ) )+ ABS( VL( JR, JC+1 ) ) )
    20             CONTINUE
                }
                IF( TEMP.LT.SMLNUM ) GO TO 50
                TEMP = ONE / TEMP
                if ( ALPHAI( JC ).EQ.ZERO ) {
-                  DO 30 JR = 1, N
+                  for (JR = 1; JR <= N; JR++) { // 30
                      VL( JR, JC ) = VL( JR, JC )*TEMP
    30             CONTINUE
                } else {
-                  DO 40 JR = 1, N
+                  for (JR = 1; JR <= N; JR++) { // 40
                      VL( JR, JC ) = VL( JR, JC )*TEMP
                      VL( JR, JC+1 ) = VL( JR, JC+1 )*TEMP
    40             CONTINUE
@@ -277,26 +277,26 @@
          }
          if ( ILVR ) {
             dggbak('P', 'R', N, ILO, IHI, WORK( ILEFT ), WORK( IRIGHT ), N, VR, LDVR, IERR );
-            DO 100 JC = 1, N
+            for (JC = 1; JC <= N; JC++) { // 100
                IF( ALPHAI( JC ).LT.ZERO ) GO TO 100
                TEMP = ZERO
                if ( ALPHAI( JC ).EQ.ZERO ) {
-                  DO 60 JR = 1, N
+                  for (JR = 1; JR <= N; JR++) { // 60
                      TEMP = MAX( TEMP, ABS( VR( JR, JC ) ) )
    60             CONTINUE
                } else {
-                  DO 70 JR = 1, N
+                  for (JR = 1; JR <= N; JR++) { // 70
                      TEMP = MAX( TEMP, ABS( VR( JR, JC ) )+ ABS( VR( JR, JC+1 ) ) )
    70             CONTINUE
                }
                IF( TEMP.LT.SMLNUM ) GO TO 100
                TEMP = ONE / TEMP
                if ( ALPHAI( JC ).EQ.ZERO ) {
-                  DO 80 JR = 1, N
+                  for (JR = 1; JR <= N; JR++) { // 80
                      VR( JR, JC ) = VR( JR, JC )*TEMP
    80             CONTINUE
                } else {
-                  DO 90 JR = 1, N
+                  for (JR = 1; JR <= N; JR++) { // 90
                      VR( JR, JC ) = VR( JR, JC )*TEMP
                      VR( JR, JC+1 ) = VR( JR, JC+1 )*TEMP
    90             CONTINUE

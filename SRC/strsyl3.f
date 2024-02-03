@@ -111,14 +111,14 @@
        // Partition A such that 2-by-2 blocks on the diagonal are not split
 
        SKIP = .FALSE.
-       DO I = 1, NBA
+       for (I = 1; I <= NBA; I++) {
           IWORK( I ) = ( I - 1 ) * NB + 1
        END DO
        IWORK( NBA + 1 ) = M + 1
-       DO K = 1, NBA
+       for (K = 1; K <= NBA; K++) {
           L1 = IWORK( K )
           L2 = IWORK( K + 1 ) - 1
-          DO L = L1, L2
+          for (L = L1; L <= L2; L++) {
              if ( SKIP ) {
                 SKIP = .FALSE.
                 CYCLE
@@ -147,14 +147,14 @@
 
        PC = NBA + 1
        SKIP = .FALSE.
-       DO I = 1, NBB
+       for (I = 1; I <= NBB; I++) {
           IWORK( PC + I ) = ( I - 1 ) * NB + 1
        END DO
        IWORK( PC + NBB + 1 ) = N + 1
-       DO K = 1, NBB
+       for (K = 1; K <= NBB; K++) {
           L1 = IWORK( PC + K )
           L2 = IWORK( PC + K + 1 ) - 1
-          DO L = L1, L2
+          for (L = L1; L <= L2; L++) {
              if ( SKIP ) {
                 SKIP = .FALSE.
                 CYCLE
@@ -181,8 +181,8 @@
 
       // Set local scaling factors - must never attain zero.
 
-      DO L = 1, NBB
-         DO K = 1, NBA
+      for (L = 1; L <= NBB; L++) {
+         for (K = 1; K <= NBA; K++) {
             SWORK( K, L ) = ONE
          END DO
       END DO
@@ -195,10 +195,10 @@
       // Compute upper bounds of blocks of A and B
 
       AWRK = NBB
-      DO K = 1, NBA
+      for (K = 1; K <= NBA; K++) {
          K1 = IWORK( K )
          K2 = IWORK( K + 1 )
-         DO L = K, NBA
+         for (L = K; L <= NBA; L++) {
             L1 = IWORK( L )
             L2 = IWORK( L + 1 )
             if ( NOTRNA ) {
@@ -209,10 +209,10 @@
          END DO
       END DO
       BWRK = NBB + NBA
-      DO K = 1, NBB
+      for (K = 1; K <= NBB; K++) {
          K1 = IWORK( PC + K )
          K2 = IWORK( PC + K + 1 )
-         DO L = K, NBB
+         for (L = K; L <= NBB; L++) {
             L1 = IWORK( PC + L )
             L2 = IWORK( PC + L + 1 )
             if ( NOTRNB ) {
@@ -249,7 +249,7 @@
 
             K1 = IWORK( K )
             K2 = IWORK( K + 1 )
-            DO L = 1, NBB
+            for (L = 1; L <= NBB; L++) {
 
                // L1: column index of the first column in X( K, L )
                // L2: column index of the first column in X( K, L + 1)
@@ -272,8 +272,8 @@
                      // Use second scaling factor to prevent flushing to zero.
                      BUF = BUF*2.E0**EXPONENT( SCALOC )
                   }
-                  DO JJ = 1, NBB
-                     DO LL = 1, NBA
+                  for (JJ = 1; JJ <= NBB; JJ++) {
+                     for (LL = 1; LL <= NBA; LL++) {
                         // Bound by BIGNUM to not introduce Inf. The value
                         // is irrelevant; corresponding entries of the
                         // solution will be flushed in consistency scaling.
@@ -303,8 +303,8 @@
                   if ( SCALOC * SCAMIN .EQ. ZERO ) {
                      // Use second scaling factor to prevent flushing to zero.
                      BUF = BUF*2.E0**EXPONENT( SCALOC )
-                     DO JJ = 1, NBB
-                        DO LL = 1, NBA
+                     for (JJ = 1; JJ <= NBB; JJ++) {
+                        for (LL = 1; LL <= NBA; LL++) {
                         SWORK( LL, JJ ) = MIN( BIGNUM, SWORK( LL, JJ ) / 2.E0**EXPONENT( SCALOC ) )
                         END DO
                      END DO
@@ -359,8 +359,8 @@
                   if ( SCALOC * SCAMIN .EQ. ZERO ) {
                      // Use second scaling factor to prevent flushing to zero.
                      BUF = BUF*2.E0**EXPONENT( SCALOC )
-                     DO JJ = 1, NBB
-                        DO LL = 1, NBA
+                     for (JJ = 1; JJ <= NBB; JJ++) {
+                        for (LL = 1; LL <= NBA; LL++) {
                         SWORK( LL, JJ ) = MIN( BIGNUM, SWORK( LL, JJ ) / 2.E0**EXPONENT( SCALOC ) )
                         END DO
                      END DO
@@ -412,7 +412,7 @@
 
          // Start loop over block rows (index = K) and block columns (index = L)
 
-         DO K = 1, NBA
+         for (K = 1; K <= NBA; K++) {
 
             // K1: row index of the first row in X( K, L )
             // K2: row index of the first row in X( K+1, L )
@@ -420,7 +420,7 @@
 
             K1 = IWORK( K )
             K2 = IWORK( K + 1 )
-            DO L = 1, NBB
+            for (L = 1; L <= NBB; L++) {
 
                // L1: column index of the first column in X( K, L )
                // L2: column index of the first column in X( K, L + 1)
@@ -443,8 +443,8 @@
                      // Use second scaling factor to prevent flushing to zero.
                      BUF = BUF*2.E0**EXPONENT( SCALOC )
                   }
-                  DO JJ = 1, NBB
-                     DO LL = 1, NBA
+                  for (JJ = 1; JJ <= NBB; JJ++) {
+                     for (LL = 1; LL <= NBA; LL++) {
                         // Bound by BIGNUM to not introduce Inf. The value
                         // is irrelevant; corresponding entries of the
                         // solution will be flushed in consistency scaling.
@@ -474,8 +474,8 @@
                   if ( SCALOC * SCAMIN .EQ. ZERO ) {
                      // Use second scaling factor to prevent flushing to zero.
                      BUF = BUF*2.E0**EXPONENT( SCALOC )
-                     DO JJ = 1, NBB
-                        DO LL = 1, NBA
+                     for (JJ = 1; JJ <= NBB; JJ++) {
+                        for (LL = 1; LL <= NBA; LL++) {
                         SWORK( LL, JJ ) = MIN( BIGNUM, SWORK( LL, JJ ) / 2.E0**EXPONENT( SCALOC ) )
                         END DO
                      END DO
@@ -529,8 +529,8 @@
                   if ( SCALOC * SCAMIN .EQ. ZERO ) {
                      // Use second scaling factor to prevent flushing to zero.
                      BUF = BUF*2.E0**EXPONENT( SCALOC )
-                     DO JJ = 1, NBB
-                        DO LL = 1, NBA
+                     for (JJ = 1; JJ <= NBB; JJ++) {
+                        for (LL = 1; LL <= NBA; LL++) {
                         SWORK( LL, JJ ) = MIN( BIGNUM, SWORK( LL, JJ ) / 2.E0**EXPONENT( SCALOC ) )
                         END DO
                      END DO
@@ -582,7 +582,7 @@
 
          // Start loop over block rows (index = K) and block columns (index = L)
 
-         DO K = 1, NBA
+         for (K = 1; K <= NBA; K++) {
 
             // K1: row index of the first row in X( K, L )
             // K2: row index of the first row in X( K+1, L )
@@ -613,8 +613,8 @@
                      // Use second scaling factor to prevent flushing to zero.
                      BUF = BUF*2.E0**EXPONENT( SCALOC )
                   }
-                  DO JJ = 1, NBB
-                     DO LL = 1, NBA
+                  for (JJ = 1; JJ <= NBB; JJ++) {
+                     for (LL = 1; LL <= NBA; LL++) {
                         // Bound by BIGNUM to not introduce Inf. The value
                         // is irrelevant; corresponding entries of the
                         // solution will be flushed in consistency scaling.
@@ -644,8 +644,8 @@
                   if ( SCALOC * SCAMIN .EQ. ZERO ) {
                      // Use second scaling factor to prevent flushing to zero.
                      BUF = BUF*2.E0**EXPONENT( SCALOC )
-                     DO JJ = 1, NBB
-                        DO LL = 1, NBA
+                     for (JJ = 1; JJ <= NBB; JJ++) {
+                        for (LL = 1; LL <= NBA; LL++) {
                         SWORK( LL, JJ ) = MIN( BIGNUM, SWORK( LL, JJ ) / 2.E0**EXPONENT( SCALOC ) )
                         END DO
                      END DO
@@ -699,8 +699,8 @@
                   if ( SCALOC * SCAMIN .EQ. ZERO ) {
                      // Use second scaling factor to prevent flushing to zero.
                      BUF = BUF*2.E0**EXPONENT( SCALOC )
-                     DO JJ = 1, NBB
-                        DO LL = 1, NBA
+                     for (JJ = 1; JJ <= NBB; JJ++) {
+                        for (LL = 1; LL <= NBA; LL++) {
                         SWORK( LL, JJ ) = MIN( BIGNUM, SWORK( LL, JJ ) / 2.E0**EXPONENT( SCALOC ) )
                         END DO
                      END DO
@@ -783,8 +783,8 @@
                      // Use second scaling factor to prevent flushing to zero.
                      BUF = BUF*2.E0**EXPONENT( SCALOC )
                   }
-                  DO JJ = 1, NBB
-                     DO LL = 1, NBA
+                  for (JJ = 1; JJ <= NBB; JJ++) {
+                     for (LL = 1; LL <= NBA; LL++) {
                         // Bound by BIGNUM to not introduce Inf. The value
                         // is irrelevant; corresponding entries of the
                         // solution will be flushed in consistency scaling.
@@ -814,8 +814,8 @@
                   if ( SCALOC * SCAMIN .EQ. ZERO ) {
                      // Use second scaling factor to prevent flushing to zero.
                      BUF = BUF*2.E0**EXPONENT( SCALOC )
-                     DO JJ = 1, NBB
-                        DO LL = 1, NBA
+                     for (JJ = 1; JJ <= NBB; JJ++) {
+                        for (LL = 1; LL <= NBA; LL++) {
                         SWORK( LL, JJ ) = MIN( BIGNUM, SWORK( LL, JJ ) / 2.E0**EXPONENT( SCALOC ) )
                         END DO
                      END DO
@@ -870,8 +870,8 @@
                   if ( SCALOC * SCAMIN .EQ. ZERO ) {
                      // Use second scaling factor to prevent flushing to zero.
                      BUF = BUF*2.E0**EXPONENT( SCALOC )
-                     DO JJ = 1, NBB
-                        DO LL = 1, NBA
+                     for (JJ = 1; JJ <= NBB; JJ++) {
+                        for (LL = 1; LL <= NBA; LL++) {
                         SWORK( LL, JJ ) = MIN( BIGNUM, SWORK( LL, JJ ) / 2.E0**EXPONENT( SCALOC ) )
                         END DO
                      END DO
@@ -913,8 +913,8 @@
       // Reduce local scaling factors
 
       SCALE = SWORK( 1, 1 )
-      DO K = 1, NBA
-         DO L = 1, NBB
+      for (K = 1; K <= NBA; K++) {
+         for (L = 1; L <= NBB; L++) {
             SCALE = MIN( SCALE, SWORK( K, L ) )
          END DO
       END DO
@@ -933,10 +933,10 @@
 
       // Realize consistent scaling
 
-      DO K = 1, NBA
+      for (K = 1; K <= NBA; K++) {
          K1 = IWORK( K )
          K2 = IWORK( K + 1 )
-         DO L = 1, NBB
+         for (L = 1; L <= NBB; L++) {
             L1 = IWORK( PC + L )
             L2 = IWORK( PC + L + 1 )
             SCAL = SCALE / SWORK( K, L )
@@ -968,8 +968,8 @@
          // How much can the normwise largest entry be upscaled?
 
          SCAL = C( 1, 1 )
-         DO K = 1, M
-            DO L = 1, N
+         for (K = 1; K <= M; K++) {
+            for (L = 1; L <= N; L++) {
                SCAL = MAX( SCAL, ABS( C( K, L ) ) )
             END DO
          END DO

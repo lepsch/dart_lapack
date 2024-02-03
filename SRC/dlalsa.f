@@ -73,7 +73,7 @@
       // singular vector matrices.
 
       NDB1 = ( ND+1 ) / 2
-      DO 10 I = NDB1, ND
+      for (I = NDB1; I <= ND; I++) { // 10
 
          // IC : center row of each node
          // NL : number of rows of left  subproblem
@@ -93,7 +93,7 @@
       // Next copy the rows of B that correspond to unchanged rows
       // in the bidiagonal matrix to BX.
 
-      DO 20 I = 1, ND
+      for (I = 1; I <= ND; I++) { // 20
          IC = IWORK( INODE+I-1 )
          dcopy(NRHS, B( IC, 1 ), LDB, BX( IC, 1 ), LDBX );
    20 CONTINUE
@@ -117,7 +117,7 @@
             LF = 2**( LVL-1 )
             LL = 2*LF - 1
          }
-         DO 30 I = LF, LL
+         for (I = LF; I <= LL; I++) { // 30
             IM1 = I - 1
             IC = IWORK( INODE+IM1 )
             NL = IWORK( NDIML+IM1 )
@@ -138,7 +138,7 @@
       // the tree nodes top-down.
 
       J = 0
-      DO 70 LVL = 1, NLVL
+      for (LVL = 1; LVL <= NLVL; LVL++) { // 70
          LVL2 = 2*LVL - 1
 
          // Find the first node LF and last node LL on
@@ -173,7 +173,7 @@
       // matrices are in explicit form. Apply them back.
 
       NDB1 = ( ND+1 ) / 2
-      DO 80 I = NDB1, ND
+      for (I = NDB1; I <= ND; I++) { // 80
          I1 = I - 1
          IC = IWORK( INODE+I1 )
          NL = IWORK( NDIML+I1 )

@@ -64,7 +64,7 @@
       }
 
       if ( LSAME( JOB, 'N' ) ) {
-         DO I = 1, N
+         for (I = 1; I <= N; I++) {
             SCALE( I ) = ONE
          END DO
          ILO = 1
@@ -89,7 +89,7 @@
             NOCONV = .FALSE.
             DO I = L, 1, -1
                CANSWAP = .TRUE.
-               DO J = 1, L
+               for (J = 1; J <= L; J++) {
                   if ( I.NE.J .AND. ( REAL( A( I, J ) ).NE.ZERO .OR. AIMAG( A( I, J ) ).NE.ZERO ) ) {
                      CANSWAP = .FALSE.
                      EXIT
@@ -122,9 +122,9 @@
             // Search for columns isolating an eigenvalue and push them left.
 
             NOCONV = .FALSE.
-            DO J = K, L
+            for (J = K; J <= L; J++) {
                CANSWAP = .TRUE.
-               DO I = K, L
+               for (I = K; I <= L; I++) {
                   if ( I.NE.J .AND. ( REAL( A( I, J ) ).NE.ZERO .OR. AIMAG( A( I, J ) ).NE.ZERO ) ) {
                      CANSWAP = .FALSE.
                      EXIT
@@ -149,7 +149,7 @@
 
       // Initialize SCALE for non-permuted submatrix.
 
-      DO I = K, L
+      for (I = K; I <= L; I++) {
          SCALE( I ) = ONE
       END DO
 
@@ -174,7 +174,7 @@
       DO WHILE( NOCONV )
          NOCONV = .FALSE.
 
-         DO I = K, L
+         for (I = K; I <= L; I++) {
 
             C = SCNRM2( L-K+1, A( K, I ), 1 )
             R = SCNRM2( L-K+1, A( I, K ), LDA )

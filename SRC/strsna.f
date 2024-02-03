@@ -71,7 +71,7 @@
          if ( SOMCON ) {
             M = 0
             PAIR = .FALSE.
-            DO 10 K = 1, N
+            for (K = 1; K <= N; K++) { // 10
                if ( PAIR ) {
                   PAIR = .FALSE.
                } else {
@@ -122,7 +122,7 @@
 
       KS = 0
       PAIR = .FALSE.
-      DO 60 K = 1, N
+      for (K = 1; K <= N; K++) { // 60
 
          // Determine whether T(k,k) begins a 1-by-1 or 2-by-2 block.
 
@@ -200,7 +200,7 @@
 
                   // Form C = T22 - lambda*I in WORK(2:N,2:N).
 
-                  DO 20 I = 2, N
+                  for (I = 2; I <= N; I++) { // 20
                      WORK( I, I ) = WORK( I, I ) - WORK( 1, 1 )
    20             CONTINUE
                   N2 = 1
@@ -231,7 +231,7 @@
                   // and RWORK is stored starting in the N+1-st column of
                   // WORK.
 
-                  DO 30 J = 3, N
+                  for (J = 3; J <= N; J++) { // 30
                      WORK( 2, J ) = CS*WORK( 2, J )
                      WORK( J, J ) = WORK( J, J ) - WORK( 1, 1 )
    30             CONTINUE

@@ -302,7 +302,7 @@
             // eigenvectors and estimate one condition numbers at a time.
 
             PAIR = .FALSE.
-            DO 20 I = 1, N
+            for (I = 1; I <= N; I++) { // 20
 
                if ( PAIR ) {
                   PAIR = .FALSE.
@@ -316,7 +316,7 @@
                   }
                }
 
-               DO 10 J = 1, N
+               for (J = 1; J <= N; J++) { // 10
                   BWORK( J ) = .FALSE.
    10          CONTINUE
                if ( MM.EQ.1 ) {
@@ -352,26 +352,26 @@
       if ( ILVL ) {
          sggbak(BALANC, 'L', N, ILO, IHI, LSCALE, RSCALE, N, VL, LDVL, IERR );
 
-         DO 70 JC = 1, N
+         for (JC = 1; JC <= N; JC++) { // 70
             IF( ALPHAI( JC ).LT.ZERO ) GO TO 70
             TEMP = ZERO
             if ( ALPHAI( JC ).EQ.ZERO ) {
-               DO 30 JR = 1, N
+               for (JR = 1; JR <= N; JR++) { // 30
                   TEMP = MAX( TEMP, ABS( VL( JR, JC ) ) )
    30          CONTINUE
             } else {
-               DO 40 JR = 1, N
+               for (JR = 1; JR <= N; JR++) { // 40
                   TEMP = MAX( TEMP, ABS( VL( JR, JC ) )+ ABS( VL( JR, JC+1 ) ) )
    40          CONTINUE
             }
             IF( TEMP.LT.SMLNUM ) GO TO 70
             TEMP = ONE / TEMP
             if ( ALPHAI( JC ).EQ.ZERO ) {
-               DO 50 JR = 1, N
+               for (JR = 1; JR <= N; JR++) { // 50
                   VL( JR, JC ) = VL( JR, JC )*TEMP
    50          CONTINUE
             } else {
-               DO 60 JR = 1, N
+               for (JR = 1; JR <= N; JR++) { // 60
                   VL( JR, JC ) = VL( JR, JC )*TEMP
                   VL( JR, JC+1 ) = VL( JR, JC+1 )*TEMP
    60          CONTINUE
@@ -380,26 +380,26 @@
       }
       if ( ILVR ) {
          sggbak(BALANC, 'R', N, ILO, IHI, LSCALE, RSCALE, N, VR, LDVR, IERR );
-         DO 120 JC = 1, N
+         for (JC = 1; JC <= N; JC++) { // 120
             IF( ALPHAI( JC ).LT.ZERO ) GO TO 120
             TEMP = ZERO
             if ( ALPHAI( JC ).EQ.ZERO ) {
-               DO 80 JR = 1, N
+               for (JR = 1; JR <= N; JR++) { // 80
                   TEMP = MAX( TEMP, ABS( VR( JR, JC ) ) )
    80          CONTINUE
             } else {
-               DO 90 JR = 1, N
+               for (JR = 1; JR <= N; JR++) { // 90
                   TEMP = MAX( TEMP, ABS( VR( JR, JC ) )+ ABS( VR( JR, JC+1 ) ) )
    90          CONTINUE
             }
             IF( TEMP.LT.SMLNUM ) GO TO 120
             TEMP = ONE / TEMP
             if ( ALPHAI( JC ).EQ.ZERO ) {
-               DO 100 JR = 1, N
+               for (JR = 1; JR <= N; JR++) { // 100
                   VR( JR, JC ) = VR( JR, JC )*TEMP
   100          CONTINUE
             } else {
-               DO 110 JR = 1, N
+               for (JR = 1; JR <= N; JR++) { // 110
                   VR( JR, JC ) = VR( JR, JC )*TEMP
                   VR( JR, JC+1 ) = VR( JR, JC+1 )*TEMP
   110          CONTINUE

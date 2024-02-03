@@ -61,12 +61,12 @@
       // of a row of A with a column of AINV.
 
       if ( LSAME( UPLO, 'U' ) ) {
-         DO 70 I = 1, N
+         for (I = 1; I <= N; I++) { // 70
             ICOL = ( ( I-1 )*I ) / 2 + 1
 
             // Code when J <= I
 
-            DO 30 J = 1, I
+            for (J = 1; J <= I; J++) { // 30
                JCOL = ( ( J-1 )*J ) / 2 + 1
                T = ZDOTU( J, A( ICOL ), 1, AINV( JCOL ), 1 )
                JCOL = JCOL + 2*J - 1
@@ -109,12 +109,12 @@
          // Case where both A and AINV are lower triangular
 
          NALL = ( N*( N+1 ) ) / 2
-         DO 140 I = 1, N
+         for (I = 1; I <= N; I++) { // 140
 
             // Code when J <= I
 
             ICOL = NALL - ( ( N-I+1 )*( N-I+2 ) ) / 2 + 1
-            DO 100 J = 1, I
+            for (J = 1; J <= I; J++) { // 100
                JCOL = NALL - ( ( N-J )*( N-J+1 ) ) / 2 - ( N-I )
                T = ZDOTU( N-I+1, A( ICOL ), 1, AINV( JCOL ), 1 )
                KCOL = I
@@ -157,7 +157,7 @@
 
       // Add the identity matrix to WORK .
 
-      DO 150 I = 1, N
+      for (I = 1; I <= N; I++) { // 150
          WORK( I, I ) = WORK( I, I ) + ONE
   150 CONTINUE
 

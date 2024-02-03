@@ -25,7 +25,7 @@
       // ..
       // .. Executable Statements ..
       K = MIN( M, N )
-      DO I = 1, K
+      for (I = 1; I <= K; I++) {
          if ( A( I, I ).LT.ZERO ) {
             DGENND = .FALSE.
             RETURN

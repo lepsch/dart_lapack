@@ -77,14 +77,14 @@
 
          // Step (1L): apply back the Givens rotations performed.
 
-         DO 10 I = 1, GIVPTR
+         for (I = 1; I <= GIVPTR; I++) { // 10
             srot(NRHS, B( GIVCOL( I, 2 ), 1 ), LDB, B( GIVCOL( I, 1 ), 1 ), LDB, GIVNUM( I, 2 ), GIVNUM( I, 1 ) );
    10    CONTINUE
 
          // Step (2L): permute rows of B.
 
          scopy(NRHS, B( NLP1, 1 ), LDB, BX( 1, 1 ), LDBX );
-         DO 20 I = 2, N
+         for (I = 2; I <= N; I++) { // 20
             scopy(NRHS, B( PERM( I ), 1 ), LDB, BX( I, 1 ), LDBX );
    20    CONTINUE
 
@@ -97,7 +97,7 @@
                sscal(NRHS, NEGONE, B, LDB );
             }
          } else {
-            DO 50 J = 1, K
+            for (J = 1; J <= K; J++) { // 50
                DIFLJ = DIFL( J )
                DJ = POLES( J, 1 )
                DSIGJ = -POLES( J, 2 )
@@ -148,7 +148,7 @@
          if ( K.EQ.1 ) {
             scopy(NRHS, B, LDB, BX, LDBX );
          } else {
-            DO 80 J = 1, K
+            for (J = 1; J <= K; J++) { // 80
                DSIGJ = POLES( J, 2 )
                if ( Z( J ).EQ.ZERO ) {
                   WORK( J ) = ZERO
@@ -193,7 +193,7 @@
          if ( SQRE.EQ.1 ) {
             scopy(NRHS, BX( M, 1 ), LDBX, B( M, 1 ), LDB );
          }
-         DO 90 I = 2, N
+         for (I = 2; I <= N; I++) { // 90
             scopy(NRHS, BX( I, 1 ), LDBX, B( PERM( I ), 1 ), LDB );
    90    CONTINUE
 

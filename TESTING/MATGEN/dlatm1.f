@@ -72,7 +72,7 @@
          // One large D value:
 
    10    CONTINUE
-         DO 20 I = 1, N
+         for (I = 1; I <= N; I++) { // 20
             D( I ) = ONE / COND
    20    CONTINUE
          D( 1 ) = ONE
@@ -81,7 +81,7 @@
          // One small D value:
 
    30    CONTINUE
-         DO 40 I = 1, N
+         for (I = 1; I <= N; I++) { // 40
             D( I ) = ONE
    40    CONTINUE
          D( N ) = ONE / COND
@@ -93,7 +93,7 @@
          D( 1 ) = ONE
          if ( N.GT.1 ) {
             ALPHA = COND**( -ONE / DBLE( N-1 ) )
-            DO 60 I = 2, N
+            for (I = 2; I <= N; I++) { // 60
                D( I ) = ALPHA**( I-1 )
    60       CONTINUE
          }
@@ -106,7 +106,7 @@
          if ( N.GT.1 ) {
             TEMP = ONE / COND
             ALPHA = ( ONE-TEMP ) / DBLE( N-1 )
-            DO 80 I = 2, N
+            for (I = 2; I <= N; I++) { // 80
                D( I ) = DBLE( N-I )*ALPHA + TEMP
    80       CONTINUE
          }
@@ -116,7 +116,7 @@
 
    90    CONTINUE
          ALPHA = LOG( ONE / COND )
-         DO 100 I = 1, N
+         for (I = 1; I <= N; I++) { // 100
             D( I ) = EXP( ALPHA*DLARAN( ISEED ) )
   100    CONTINUE
          GO TO 120
@@ -132,7 +132,7 @@
          // random signs to D
 
          if ( ( MODE.NE.-6 .AND. MODE.NE.0 .AND. MODE.NE.6 ) .AND. IRSIGN.EQ.1 ) {
-            DO 130 I = 1, N
+            for (I = 1; I <= N; I++) { // 130
                TEMP = DLARAN( ISEED )
                IF( TEMP.GT.HALF ) D( I ) = -D( I )
   130       CONTINUE

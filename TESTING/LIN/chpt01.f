@@ -57,7 +57,7 @@
 
       JC = 1
       if ( LSAME( UPLO, 'U' ) ) {
-         DO 10 J = 1, N
+         for (J = 1; J <= N; J++) { // 10
             if ( AIMAG( AFAC( JC ) ).NE.ZERO ) {
                RESID = ONE / EPS
                RETURN
@@ -65,7 +65,7 @@
             JC = JC + J + 1
    10    CONTINUE
       } else {
-         DO 20 J = 1, N
+         for (J = 1; J <= N; J++) { // 20
             if ( AIMAG( AFAC( JC ) ).NE.ZERO ) {
                RESID = ONE / EPS
                RETURN
@@ -90,7 +90,7 @@
 
       if ( LSAME( UPLO, 'U' ) ) {
          JC = 0
-         DO 40 J = 1, N
+         for (J = 1; J <= N; J++) { // 40
             DO 30 I = 1, J - 1
                C( I, J ) = C( I, J ) - A( JC+I )
    30       CONTINUE
@@ -99,7 +99,7 @@
    40    CONTINUE
       } else {
          JC = 1
-         DO 60 J = 1, N
+         for (J = 1; J <= N; J++) { // 60
             C( J, J ) = C( J, J ) - REAL( A( JC ) )
             DO 50 I = J + 1, N
                C( I, J ) = C( I, J ) - A( JC+I-J )

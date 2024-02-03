@@ -80,7 +80,7 @@
             // A is upper triangular.
 
             IP = 1
-            DO 10 J = 1, N
+            for (J = 1; J <= N; J++) { // 10
                CNORM( J ) = DASUM( J-1, AP( IP ), 1 )
                IP = IP + J
    10       CONTINUE
@@ -343,7 +343,7 @@
                      // A(j,j) = 0:  Set x(1:n) = 0, x(j) = 1, and
                      // scale = 0, and compute a solution to A*x = 0.
 
-                  DO 90 I = 1, N
+                  for (I = 1; I <= N; I++) { // 90
                      X( I ) = ZERO
    90             CONTINUE
                   X( J ) = ONE
@@ -516,7 +516,7 @@
                         // A(j,j) = 0:  Set x(1:n) = 0, x(j) = 1, and
                         // scale = 0, and compute a solution to A**T*x = 0.
 
-                     DO 140 I = 1, N
+                     for (I = 1; I <= N; I++) { // 140
                         X( I ) = ZERO
   140                CONTINUE
                      X( J ) = ONE

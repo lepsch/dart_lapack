@@ -57,7 +57,7 @@
       // norm(S - U' * B * V)
 
       J = 0
-      DO 10 I = 1, NS
+      for (I = 1; I <= NS; I++) { // 10
          WORK( J+I ) =  WORK( J+I ) + DCMPLX( S( I ), ZERO )
          RESID = MAX( RESID, DZASUM( NS, WORK( J+1 ), 1 ) )
          J = J + NS

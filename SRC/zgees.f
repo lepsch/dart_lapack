@@ -176,7 +176,7 @@
 
       if ( WANTST .AND. INFO.EQ.0 ) {
          IF( SCALEA ) CALL ZLASCL( 'G', 0, 0, CSCALE, ANRM, N, 1, W, N, IERR )
-         DO 10 I = 1, N
+         for (I = 1; I <= N; I++) { // 10
             BWORK( I ) = SELECT( W( I ) )
    10    CONTINUE
 

@@ -82,7 +82,7 @@
 
       // CROT( NT, XT,1, YT,1, C, S ) with complex C, S
 
-      DO 20 J = 1, NT
+      for (J = 1; J <= NT; J++) { // 20
          TEMPX = C*XT( J ) + S*YT( J )
          YT( J ) = -CONJG( S )*XT( J ) + CONJG( C )*YT( J )
          XT( J ) = TEMPX

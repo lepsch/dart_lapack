@@ -82,7 +82,7 @@
          if ( ROWEQU ) {
             RCMIN = BIGNUM
             RCMAX = ZERO
-            DO 10 J = 1, N
+            for (J = 1; J <= N; J++) { // 10
                RCMIN = MIN( RCMIN, R( J ) )
                RCMAX = MAX( RCMAX, R( J ) )
    10       CONTINUE
@@ -97,7 +97,7 @@
          if ( COLEQU .AND. INFO.EQ.0 ) {
             RCMIN = BIGNUM
             RCMAX = ZERO
-            DO 20 J = 1, N
+            for (J = 1; J <= N; J++) { // 20
                RCMIN = MIN( RCMIN, C( J ) )
                RCMAX = MAX( RCMAX, C( J ) )
    20       CONTINUE
@@ -142,15 +142,15 @@
 
       if ( NOTRAN ) {
          if ( ROWEQU ) {
-            DO 40 J = 1, NRHS
-               DO 30 I = 1, N
+            for (J = 1; J <= NRHS; J++) { // 40
+               for (I = 1; I <= N; I++) { // 30
                   B( I, J ) = R( I )*B( I, J )
    30          CONTINUE
    40       CONTINUE
          }
       } else if ( COLEQU ) {
-         DO 60 J = 1, NRHS
-            DO 50 I = 1, N
+         for (J = 1; J <= NRHS; J++) { // 60
+            for (I = 1; I <= N; I++) { // 50
                B( I, J ) = C( I )*B( I, J )
    50       CONTINUE
    60    CONTINUE
@@ -160,7 +160,7 @@
 
          // Compute the LU factorization of the band matrix A.
 
-         DO 70 J = 1, N
+         for (J = 1; J <= N; J++) { // 70
             J1 = MAX( J-KU, 1 )
             J2 = MIN( J+KL, N )
             zcopy(J2-J1+1, AB( KU+1-J+J1, J ), 1, AFB( KL+KU+1-J+J1, J ), 1 );
@@ -176,7 +176,7 @@
             // leading rank-deficient INFO columns of A.
 
             ANORM = ZERO
-            DO 90 J = 1, INFO
+            for (J = 1; J <= INFO; J++) { // 90
                DO 80 I = MAX( KU+2-J, 1 ), MIN( N+KU+1-J, KL+KU+1 )
                   ANORM = MAX( ANORM, ABS( AB( I, J ) ) )
    80          CONTINUE
@@ -228,22 +228,22 @@
 
       if ( NOTRAN ) {
          if ( COLEQU ) {
-            DO 110 J = 1, NRHS
-               DO 100 I = 1, N
+            for (J = 1; J <= NRHS; J++) { // 110
+               for (I = 1; I <= N; I++) { // 100
                   X( I, J ) = C( I )*X( I, J )
   100          CONTINUE
   110       CONTINUE
-            DO 120 J = 1, NRHS
+            for (J = 1; J <= NRHS; J++) { // 120
                FERR( J ) = FERR( J ) / COLCND
   120       CONTINUE
          }
       } else if ( ROWEQU ) {
-         DO 140 J = 1, NRHS
-            DO 130 I = 1, N
+         for (J = 1; J <= NRHS; J++) { // 140
+            for (I = 1; I <= N; I++) { // 130
                X( I, J ) = R( I )*X( I, J )
   130       CONTINUE
   140    CONTINUE
-         DO 150 J = 1, NRHS
+         for (J = 1; J <= NRHS; J++) { // 150
             FERR( J ) = FERR( J ) / ROWCND
   150    CONTINUE
       }

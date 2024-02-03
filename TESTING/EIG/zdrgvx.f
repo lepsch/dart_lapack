@@ -101,11 +101,11 @@
       WEIGHT( 4 ) = ONE / WEIGHT( 2 )
       WEIGHT( 5 ) = ONE / WEIGHT( 1 )
 
-      DO 80 IPTYPE = 1, 2
-         DO 70 IWA = 1, 5
-            DO 60 IWB = 1, 5
-               DO 50 IWX = 1, 5
-                  DO 40 IWY = 1, 5
+      for (IPTYPE = 1; IPTYPE <= 2; IPTYPE++) { // 80
+         for (IWA = 1; IWA <= 5; IWA++) { // 70
+            for (IWB = 1; IWB <= 5; IWB++) { // 60
+               for (IWX = 1; IWX <= 5; IWX++) { // 50
+                  for (IWY = 1; IWY <= 5; IWY++) { // 40
 
                      // generated a pair of test matrix
 
@@ -147,7 +147,7 @@
                      // Test (3)
 
                      RESULT( 3 ) = ZERO
-                     DO 10 I = 1, N
+                     for (I = 1; I <= N; I++) { // 10
                         if ( S( I ).EQ.ZERO ) {
                            IF( DTRU( I ).GT.ABNORM*ULP ) RESULT( 3 ) = ULPINV
                         } else if ( DTRU( I ).EQ.ZERO ) {
@@ -178,7 +178,7 @@
 
                      // Print out tests which fail.
 
-                     DO 20 J = 1, 4
+                     for (J = 1; J <= 4; J++) { // 20
                         if ( ( RESULT( J ).GE.THRSH2 .AND. J.GE.4 ) .OR. ( RESULT( J ).GE.THRESH .AND. J.LE.3 ) ) {
 
                         // If this is the first test to fail,
@@ -226,10 +226,10 @@
 
       READ( NIN, FMT = *, END = 150 )N
       IF( N.EQ.0 ) GO TO 150
-      DO 100 I = 1, N
+      for (I = 1; I <= N; I++) { // 100
          READ( NIN, FMT = * )( A( I, J ), J = 1, N )
   100 CONTINUE
-      DO 110 I = 1, N
+      for (I = 1; I <= N; I++) { // 110
          READ( NIN, FMT = * )( B( I, J ), J = 1, N )
   110 CONTINUE
       READ( NIN, FMT = * )( DTRU( I ), I = 1, N )
@@ -274,7 +274,7 @@
       // Test (3)
 
       RESULT( 3 ) = ZERO
-      DO 120 I = 1, N
+      for (I = 1; I <= N; I++) { // 120
          if ( S( I ).EQ.ZERO ) {
             IF( DTRU( I ).GT.ABNORM*ULP ) RESULT( 3 ) = ULPINV
          } else if ( DTRU( I ).EQ.ZERO ) {
@@ -305,7 +305,7 @@
 
       // Print out tests which fail.
 
-      DO 130 J = 1, 4
+      for (J = 1; J <= 4; J++) { // 130
          if ( RESULT( J ).GE.THRSH2 ) {
 
             // If this is the first test to fail,

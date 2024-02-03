@@ -60,7 +60,7 @@
 
       // Initialize PIV
 
-      DO 100 I = 1, N
+      for (I = 1; I <= N; I++) { // 100
          PIV( I ) = I
   100 CONTINUE
 
@@ -68,7 +68,7 @@
 
       PVT = 1
       AJJ = A( PVT, PVT )
-      DO I = 2, N
+      for (I = 2; I <= N; I++) {
          if ( A( I, I ).GT.AJJ ) {
             PVT = I
             AJJ = A( PVT, PVT )
@@ -90,7 +90,7 @@
 
       // Set first half of WORK to zero, holds dot products
 
-      DO 110 I = 1, N
+      for (I = 1; I <= N; I++) { // 110
          WORK( I ) = 0
   110 CONTINUE
 
@@ -98,13 +98,13 @@
 
          // Compute the Cholesky factorization P**T * A * P = U**T * U
 
-         DO 130 J = 1, N
+         for (J = 1; J <= N; J++) { // 130
 
          // Find pivot, test for exit, else swap rows and columns
          // Update dot products, compute possible pivots which are
          // stored in the second half of WORK
 
-            DO 120 I = J, N
+            for (I = J; I <= N; I++) { // 120
 
                if ( J.GT.1 ) {
                   WORK( I ) = WORK( I ) + A( J-1, I )**2
@@ -158,13 +158,13 @@
 
          // Compute the Cholesky factorization P**T * A * P = L * L**T
 
-         DO 150 J = 1, N
+         for (J = 1; J <= N; J++) { // 150
 
          // Find pivot, test for exit, else swap rows and columns
          // Update dot products, compute possible pivots which are
          // stored in the second half of WORK
 
-            DO 140 I = J, N
+            for (I = J; I <= N; I++) { // 140
 
                if ( J.GT.1 ) {
                   WORK( I ) = WORK( I ) + A( I, J-1 )**2

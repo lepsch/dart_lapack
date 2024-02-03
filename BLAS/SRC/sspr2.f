@@ -79,12 +79,12 @@
          // Form  A  when upper triangle is stored in AP.
 
           if ((INCX.EQ.1) .AND. (INCY.EQ.1)) {
-              DO 20 J = 1,N
+              for (J = 1; J <= N; J++) { // 20
                   if ((X(J).NE.ZERO) .OR. (Y(J).NE.ZERO)) {
                       TEMP1 = ALPHA*Y(J)
                       TEMP2 = ALPHA*X(J)
                       K = KK
-                      DO 10 I = 1,J
+                      for (I = 1; I <= J; I++) { // 10
                           AP(K) = AP(K) + X(I)*TEMP1 + Y(I)*TEMP2
                           K = K + 1
    10                 CONTINUE
@@ -92,7 +92,7 @@
                   KK = KK + J
    20         CONTINUE
           } else {
-              DO 40 J = 1,N
+              for (J = 1; J <= N; J++) { // 40
                   if ((X(JX).NE.ZERO) .OR. (Y(JY).NE.ZERO)) {
                       TEMP1 = ALPHA*Y(JY)
                       TEMP2 = ALPHA*X(JX)
@@ -114,12 +114,12 @@
          // Form  A  when lower triangle is stored in AP.
 
           if ((INCX.EQ.1) .AND. (INCY.EQ.1)) {
-              DO 60 J = 1,N
+              for (J = 1; J <= N; J++) { // 60
                   if ((X(J).NE.ZERO) .OR. (Y(J).NE.ZERO)) {
                       TEMP1 = ALPHA*Y(J)
                       TEMP2 = ALPHA*X(J)
                       K = KK
-                      DO 50 I = J,N
+                      for (I = J; I <= N; I++) { // 50
                           AP(K) = AP(K) + X(I)*TEMP1 + Y(I)*TEMP2
                           K = K + 1
    50                 CONTINUE
@@ -127,7 +127,7 @@
                   KK = KK + N - J + 1
    60         CONTINUE
           } else {
-              DO 80 J = 1,N
+              for (J = 1; J <= N; J++) { // 80
                   if ((X(JX).NE.ZERO) .OR. (Y(JY).NE.ZERO)) {
                       TEMP1 = ALPHA*Y(JY)
                       TEMP2 = ALPHA*X(JX)

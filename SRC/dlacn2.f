@@ -39,7 +39,7 @@
       // .. Executable Statements ..
 
       if ( KASE.EQ.0 ) {
-         DO 10 I = 1, N
+         for (I = 1; I <= N; I++) { // 10
             X( I ) = ONE / DBLE( N )
    10    CONTINUE
          KASE = 1
@@ -61,7 +61,7 @@
       }
       EST = DASUM( N, X, 1 )
 
-      DO 30 I = 1, N
+      for (I = 1; I <= N; I++) { // 30
          if ( X(I).GE.ZERO ) {
             X(I) = ONE
          } else {
@@ -83,7 +83,7 @@
       // MAIN LOOP - ITERATIONS 2,3,...,ITMAX.
 
    50 CONTINUE
-      DO 60 I = 1, N
+      for (I = 1; I <= N; I++) { // 60
          X( I ) = ZERO
    60 CONTINUE
       X( ISAVE( 2 ) ) = ONE
@@ -98,7 +98,7 @@
       dcopy(N, X, 1, V, 1 );
       ESTOLD = EST
       EST = DASUM( N, V, 1 )
-      DO 80 I = 1, N
+      for (I = 1; I <= N; I++) { // 80
          if ( X(I).GE.ZERO ) {
             XS = ONE
          } else {
@@ -113,7 +113,7 @@
       // TEST FOR CYCLING.
       IF( EST.LE.ESTOLD ) GO TO 120
 
-      DO 100 I = 1, N
+      for (I = 1; I <= N; I++) { // 100
          if ( X(I).GE.ZERO ) {
             X(I) = ONE
          } else {
@@ -140,7 +140,7 @@
 
   120 CONTINUE
       ALTSGN = ONE
-      DO 130 I = 1, N
+      for (I = 1; I <= N; I++) { // 130
          X( I ) = ALTSGN*( ONE+DBLE( I-1 ) / DBLE( N-1 ) )
          ALTSGN = -ALTSGN
   130 CONTINUE

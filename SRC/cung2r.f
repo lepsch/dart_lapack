@@ -52,7 +52,7 @@
       // Initialise columns k+1:n to columns of the unit matrix
 
       DO 20 J = K + 1, N
-         DO 10 L = 1, M
+         for (L = 1; L <= M; L++) { // 10
             A( L, J ) = ZERO
    10    CONTINUE
          A( J, J ) = ONE

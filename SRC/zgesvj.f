@@ -183,7 +183,7 @@
 
       if ( LOWER ) {
          // the input matrix is M-by-N lower triangular (trapezoidal)
-         DO 1874 p = 1, N
+         for (p = 1; p <= N; p++) { // 1874
             AAPP = ZERO
             AAQQ = ONE
             zlassq(M-p+1, A( p, p ), 1, AAPP, AAQQ );
@@ -208,7 +208,7 @@
  1874    CONTINUE
       } else if ( UPPER ) {
          // the input matrix is M-by-N upper triangular (trapezoidal)
-         DO 2874 p = 1, N
+         for (p = 1; p <= N; p++) { // 2874
             AAPP = ZERO
             AAQQ = ONE
             zlassq(p, A( 1, p ), 1, AAPP, AAQQ );
@@ -233,7 +233,7 @@
  2874    CONTINUE
       } else {
          // the input matrix is M-by-N general dense
-         DO 3874 p = 1, N
+         for (p = 1; p <= N; p++) { // 3874
             AAPP = ZERO
             AAQQ = ONE
             zlassq(M, A( 1, p ), 1, AAPP, AAQQ );
@@ -266,7 +266,7 @@
 
       AAPP = ZERO
       AAQQ = BIG
-      DO 4781 p = 1, N
+      for (p = 1; p <= N; p++) { // 4781
          IF( SVA( p ).NE.ZERO )AAQQ = MIN( AAQQ, SVA( p ) )
          AAPP = MAX( AAPP, SVA( p ) )
  4781 CONTINUE
@@ -342,7 +342,7 @@
       EMPTSW = ( N*( N-1 ) ) / 2
       NOTROT = 0
 
-      DO 1868 q = 1, N
+      for (q = 1; q <= N; q++) { // 1868
          CWORK( q ) = CONE
  1868 CONTINUE
 
@@ -425,7 +425,7 @@
 
       // .. Row-cyclic pivot strategy with de Rijk's pivoting ..
 
-      DO 1993 i = 1, NSWEEP
+      for (i = 1; i <= NSWEEP; i++) { // 1993
 
       // .. go go go ...
 
@@ -441,7 +441,7 @@
       // of the rotations. New implementation, based on block transformations,
       // is under development.
 
-         DO 2000 ibr = 1, NBL
+         for (ibr = 1; ibr <= NBL; ibr++) { // 2000
 
             igl = ( ibr-1 )*KBL + 1
 
@@ -895,7 +895,7 @@
       // Normalize the left singular vectors.
 
       if ( LSVEC .OR. UCTOL ) {
-         DO 1998 p = 1, N4
+         for (p = 1; p <= N4; p++) { // 1998
              // CALL ZDSCAL( M, ONE / SVA( p ), A( 1, p ), 1 )
             zlascl('G',0,0, SVA(p), ONE, M, 1, A(1,p), M, IERR );
  1998    CONTINUE
@@ -904,7 +904,7 @@
       // Scale the product of Jacobi rotations.
 
       if ( RSVEC ) {
-            DO 2399 p = 1, N
+            for (p = 1; p <= N; p++) { // 2399
                TEMP1 = ONE / DZNRM2( MVL, V( 1, p ), 1 )
                zdscal(MVL, TEMP1, V( 1, p ), 1 );
  2399       CONTINUE
@@ -912,7 +912,7 @@
 
       // Undo scaling, if necessary (and possible).
       if ( ( ( SKL.GT.ONE ) .AND. ( SVA( 1 ).LT.( BIG / SKL ) ) ) .OR. ( ( SKL.LT.ONE ) .AND. ( SVA( MAX( N2, 1 ) ) .GT. ( SFMIN / SKL ) ) ) ) {
-         DO 2400 p = 1, N
+         for (p = 1; p <= N; p++) { // 2400
             SVA( p ) = SKL*SVA( p )
  2400    CONTINUE
          SKL = ONE

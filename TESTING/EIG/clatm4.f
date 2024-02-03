@@ -67,7 +67,7 @@
          // abs(ITYPE) = 1: Identity
 
    10    CONTINUE
-         DO 20 JD = 1, N
+         for (JD = 1; JD <= N; JD++) { // 20
             A( JD, JD ) = CONE
    20    CONTINUE
          GO TO 220
@@ -87,7 +87,7 @@
 
    50    CONTINUE
          K = ( N-1 ) / 2
-         DO 60 JD = 1, K
+         for (JD = 1; JD <= K; JD++) { // 60
             A( JD+1, JD ) = CONE
    60    CONTINUE
          ISDB = 1
@@ -100,7 +100,7 @@
          // abs(ITYPE) = 4: 1,...,k
 
    80    CONTINUE
-         DO 90 JD = KBEG, KEND
+         for (JD = KBEG; JD <= KEND; JD++) { // 90
             A( JD, JD ) = CMPLX( JD-NZ1 )
    90    CONTINUE
          GO TO 220
@@ -129,7 +129,7 @@
          A( KBEG, KBEG ) = CONE
          if ( KLEN.GT.1 ) {
             ALPHA = RCOND**( ONE / REAL( KLEN-1 ) )
-            DO 150 I = 2, KLEN
+            for (I = 2; I <= KLEN; I++) { // 150
                A( NZ1+I, NZ1+I ) = CMPLX( ALPHA**REAL( I-1 ) )
   150       CONTINUE
          }
@@ -141,7 +141,7 @@
          A( KBEG, KBEG ) = CONE
          if ( KLEN.GT.1 ) {
             ALPHA = ( ONE-RCOND ) / REAL( KLEN-1 )
-            DO 170 I = 2, KLEN
+            for (I = 2; I <= KLEN; I++) { // 170
                A( NZ1+I, NZ1+I ) = CMPLX( REAL( KLEN-I )*ALPHA+RCOND )
   170       CONTINUE
          }
@@ -151,7 +151,7 @@
 
   180    CONTINUE
          ALPHA = LOG( RCOND )
-         DO 190 JD = KBEG, KEND
+         for (JD = KBEG; JD <= KEND; JD++) { // 190
             A( JD, JD ) = EXP( ALPHA*SLARAN( ISEED ) )
   190    CONTINUE
          GO TO 220
@@ -159,7 +159,7 @@
          // abs(ITYPE) = 10: Randomly distributed D values from DIST
 
   200    CONTINUE
-         DO 210 JD = KBEG, KEND
+         for (JD = KBEG; JD <= KEND; JD++) { // 210
             A( JD, JD ) = CLARND( IDIST, ISEED )
   210    CONTINUE
 
@@ -167,10 +167,10 @@
 
          // Scale by AMAGN
 
-         DO 230 JD = KBEG, KEND
+         for (JD = KBEG; JD <= KEND; JD++) { // 230
             A( JD, JD ) = AMAGN*REAL( A( JD, JD ) )
   230    CONTINUE
-         DO 240 JD = ISDB, ISDE
+         for (JD = ISDB; JD <= ISDE; JD++) { // 240
             A( JD+1, JD ) = AMAGN*REAL( A( JD+1, JD ) )
   240    CONTINUE
 
@@ -178,14 +178,14 @@
          // subdiagonal
 
          if ( RSIGN ) {
-            DO 250 JD = KBEG, KEND
+            for (JD = KBEG; JD <= KEND; JD++) { // 250
                if ( REAL( A( JD, JD ) ).NE.ZERO ) {
                   CTEMP = CLARND( 3, ISEED )
                   CTEMP = CTEMP / ABS( CTEMP )
                   A( JD, JD ) = CTEMP*REAL( A( JD, JD ) )
                }
   250       CONTINUE
-            DO 260 JD = ISDB, ISDE
+            for (JD = ISDB; JD <= ISDE; JD++) { // 260
                if ( REAL( A( JD+1, JD ) ).NE.ZERO ) {
                   CTEMP = CLARND( 3, ISEED )
                   CTEMP = CTEMP / ABS( CTEMP )
@@ -214,7 +214,7 @@
       // Fill in upper triangle
 
       if ( TRIANG.NE.ZERO ) {
-         DO 300 JC = 2, N
+         for (JC = 2; JC <= N; JC++) { // 300
             DO 290 JR = 1, JC - 1
                A( JR, JC ) = TRIANG*CLARND( IDIST, ISEED )
   290       CONTINUE

@@ -68,7 +68,7 @@
 
       // Check that D(1:N) is non-zero.
 
-      DO 10 I = 1, N
+      for (I = 1; I <= N; I++) { // 10
          IF( D( I ).EQ.CMPLX( ZERO ) ) RETURN
    10 CONTINUE
 

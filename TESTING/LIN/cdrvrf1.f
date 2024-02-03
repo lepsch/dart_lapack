@@ -60,7 +60,7 @@
       NFAIL = 0
       NERRS = 0
       INFO = 0
-      DO 10 I = 1, 4
+      for (I = 1; I <= 4; I++) { // 10
          ISEED( I ) = ISEEDY( I )
    10 CONTINUE
 
@@ -70,11 +70,11 @@
       SMALL = SMALL * LDA * LDA
       LARGE = LARGE / LDA / LDA
 
-      DO 130 IIN = 1, NN
+      for (IIN = 1; IIN <= NN; IIN++) { // 130
 
          N = NVAL( IIN )
 
-         DO 120 IIT = 1, 3
+         for (IIT = 1; IIT <= 3; IIT++) { // 120
             // Nothing to do for N=0
             IF ( N .EQ. 0 ) EXIT
 
@@ -82,23 +82,23 @@
             // IIT = 2 : random matrix scaled near underflow
             // IIT = 3 : random matrix scaled near overflow
 
-            DO J = 1, N
-               DO I = 1, N
+            for (J = 1; J <= N; J++) {
+               for (I = 1; I <= N; I++) {
                   A( I, J) = CLARND( 4, ISEED )
                END DO
             END DO
 
             if ( IIT.EQ.2 ) {
-               DO J = 1, N
-                  DO I = 1, N
+               for (J = 1; J <= N; J++) {
+                  for (I = 1; I <= N; I++) {
                      A( I, J) = A( I, J ) * LARGE
                   END DO
                END DO
             }
 
             if ( IIT.EQ.3 ) {
-               DO J = 1, N
-                  DO I = 1, N
+               for (J = 1; J <= N; J++) {
+                  for (I = 1; I <= N; I++) {
                      A( I, J) = A( I, J) * SMALL
                   END DO
                END DO
@@ -106,13 +106,13 @@
 
             // Do first for UPLO = 'U', then for UPLO = 'L'
 
-            DO 110 IUPLO = 1, 2
+            for (IUPLO = 1; IUPLO <= 2; IUPLO++) { // 110
 
                UPLO = UPLOS( IUPLO )
 
                // Do first for CFORM = 'N', then for CFORM = 'C'
 
-               DO 100 IFORM = 1, 2
+               for (IFORM = 1; IFORM <= 2; IFORM++) { // 100
 
                   CFORM = FORMS( IFORM )
 
@@ -131,7 +131,7 @@
                      GO TO 100
                   }
 
-                  DO 90 INORM = 1, 4
+                  for (INORM = 1; INORM <= 4; INORM++) { // 90
 
                      // Check all four norms: 'M', '1', 'I', 'F'
 

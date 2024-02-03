@@ -109,13 +109,13 @@
          J1 = KLM + 2
          J2 = 1 - KUN
 
-         DO 90 I = 1, MINMN
+         for (I = 1; I <= MINMN; I++) { // 90
 
             // Reduce i-th column and i-th row of matrix to bidiagonal form
 
             ML = KLM + 1
             MU = KUN + 1
-            DO 80 KK = 1, KB
+            for (KK = 1; KK <= KB; KK++) { // 80
                J1 = J1 + KB
                J2 = J2 + KB
 
@@ -126,7 +126,7 @@
 
                // apply plane rotations from the left
 
-               DO 10 L = 1, KB
+               for (L = 1; L <= KB; L++) { // 10
                   if ( J2-KLM+L-1.GT.N ) {
                      NRT = NR - 1
                   } else {
@@ -191,7 +191,7 @@
 
                // apply plane rotations from the right
 
-               DO 50 L = 1, KB
+               for (L = 1; L <= KB; L++) { // 50
                   if ( J2+L-1.GT.M ) {
                      NRT = NR - 1
                   } else {
@@ -294,7 +294,7 @@
             DO 120 I = 1, MINMN - 1
                E( I ) = AB( KU, I+1 )
   120       CONTINUE
-            DO 130 I = 1, MINMN
+            for (I = 1; I <= MINMN; I++) { // 130
                D( I ) = AB( KU+1, I )
   130       CONTINUE
          }
@@ -306,7 +306,7 @@
          DO 140 I = 1, MINMN - 1
             E( I ) = ZERO
   140    CONTINUE
-         DO 150 I = 1, MINMN
+         for (I = 1; I <= MINMN; I++) { // 150
             D( I ) = AB( 1, I )
   150    CONTINUE
       }

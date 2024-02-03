@@ -45,8 +45,8 @@
 
          // Fill the upper triangle of the matrix with zeros.
 
-         DO 20 J = 1, N
-            DO 10 I = 1, J
+         for (J = 1; J <= N; J++) { // 20
+            for (I = 1; I <= J; I++) { // 10
                X( I, J ) = 0.0D0
    10       CONTINUE
    20    CONTINUE
@@ -107,8 +107,8 @@
 
          // Fill the lower triangle of the matrix with zeros.
 
-         DO 50 J = 1, N
-            DO 40 I = J, N
+         for (J = 1; J <= N; J++) { // 50
+            for (I = J; I <= N; I++) { // 40
                X( I, J ) = 0.0D0
    40       CONTINUE
    50    CONTINUE

@@ -82,7 +82,7 @@
 
       // Quick return if nothing to do
 
-      DO 10 I = 1, 17
+      for (I = 1; I <= 17; I++) { // 10
          RESULT( I ) = -ONE
    10 CONTINUE
 
@@ -97,7 +97,7 @@
       // Perform tests (1)-(13)
 
       SELOPT = 0
-      DO 90 ISORT = 0, 1
+      for (ISORT = 0; ISORT <= 1; ISORT++) { // 90
          if ( ISORT.EQ.0 ) {
             SORT = 'N'
             RSUB = 0
@@ -167,7 +167,7 @@
          // Do Test (4) or Test (10)
 
          RESULT( 4+RSUB ) = ZERO
-         DO 40 I = 1, N
+         for (I = 1; I <= N; I++) { // 40
             IF( H( I, I ).NE.W( I ) ) RESULT( 4+RSUB ) = ULPINV
    40    CONTINUE
 
@@ -187,8 +187,8 @@
          }
 
          RESULT( 5+RSUB ) = ZERO
-         DO 60 J = 1, N
-            DO 50 I = 1, N
+         for (J = 1; J <= N; J++) { // 60
+            for (I = 1; I <= N; I++) { // 50
                IF( H( I, J ).NE.HT( I, J ) ) RESULT( 5+RSUB ) = ULPINV
    50       CONTINUE
    60    CONTINUE
@@ -196,7 +196,7 @@
          // Do Test (6) or Test (12)
 
          RESULT( 6+RSUB ) = ZERO
-         DO 70 I = 1, N
+         for (I = 1; I <= N; I++) { // 70
             IF( W( I ).NE.WT( I ) ) RESULT( 6+RSUB ) = ULPINV
    70    CONTINUE
 
@@ -205,7 +205,7 @@
          if ( ISORT.EQ.1 ) {
             RESULT( 13 ) = ZERO
             KNTEIG = 0
-            DO 80 I = 1, N
+            for (I = 1; I <= N; I++) { // 80
                IF( CSLECT( W( I ) ) ) KNTEIG = KNTEIG + 1
                if ( I.LT.N ) {
                   IF( CSLECT( W( I+1 ) ) .AND. ( .NOT.CSLECT( W( I ) ) ) )RESULT( 13 ) = ULPINV
@@ -242,9 +242,9 @@
 
          // Perform tests (10), (11), (12), and (13)
 
-         DO 110 I = 1, N
+         for (I = 1; I <= N; I++) { // 110
             IF( W( I ).NE.WT( I ) ) RESULT( 10 ) = ULPINV
-            DO 100 J = 1, N
+            for (J = 1; J <= N; J++) { // 100
                IF( H( I, J ).NE.HT( I, J ) ) RESULT( 11 ) = ULPINV                IF( VS( I, J ).NE.VS1( I, J ) ) RESULT( 12 ) = ULPINV
   100       CONTINUE
   110    CONTINUE
@@ -272,9 +272,9 @@
 
          // Perform tests (10), (11), (12), and (13)
 
-         DO 130 I = 1, N
+         for (I = 1; I <= N; I++) { // 130
             IF( W( I ).NE.WT( I ) ) RESULT( 10 ) = ULPINV
-            DO 120 J = 1, N
+            for (J = 1; J <= N; J++) { // 120
                IF( H( I, J ).NE.HT( I, J ) ) RESULT( 11 ) = ULPINV                IF( VS( I, J ).NE.VS1( I, J ) ) RESULT( 12 ) = ULPINV
   120       CONTINUE
   130    CONTINUE
@@ -301,9 +301,9 @@
 
          // Perform tests (10), (11), (12), and (13)
 
-         DO 150 I = 1, N
+         for (I = 1; I <= N; I++) { // 150
             IF( W( I ).NE.WT( I ) ) RESULT( 10 ) = ULPINV
-            DO 140 J = 1, N
+            for (J = 1; J <= N; J++) { // 140
                IF( H( I, J ).NE.HT( I, J ) ) RESULT( 11 ) = ULPINV                IF( VS( I, J ).NE.VS1( I, J ) ) RESULT( 12 ) = ULPINV
   140       CONTINUE
   150    CONTINUE
@@ -330,9 +330,9 @@
 
          // Perform tests (10), (11), (12), and (13)
 
-         DO 170 I = 1, N
+         for (I = 1; I <= N; I++) { // 170
             IF( W( I ).NE.WT( I ) ) RESULT( 10 ) = ULPINV
-            DO 160 J = 1, N
+            for (J = 1; J <= N; J++) { // 160
                IF( H( I, J ).NE.HT( I, J ) ) RESULT( 11 ) = ULPINV                IF( VS( I, J ).NE.VS1( I, J ) ) RESULT( 12 ) = ULPINV
   160       CONTINUE
   170    CONTINUE
@@ -359,9 +359,9 @@
 
          // Perform tests (10), (11), (12), and (13)
 
-         DO 190 I = 1, N
+         for (I = 1; I <= N; I++) { // 190
             IF( W( I ).NE.WT( I ) ) RESULT( 10 ) = ULPINV
-            DO 180 J = 1, N
+            for (J = 1; J <= N; J++) { // 180
                IF( H( I, J ).NE.HT( I, J ) ) RESULT( 11 ) = ULPINV                IF( VS( I, J ).NE.VS1( I, J ) ) RESULT( 12 ) = ULPINV
   180       CONTINUE
   190    CONTINUE
@@ -388,9 +388,9 @@
 
          // Perform tests (10), (11), (12), and (13)
 
-         DO 210 I = 1, N
+         for (I = 1; I <= N; I++) { // 210
             IF( W( I ).NE.WT( I ) ) RESULT( 10 ) = ULPINV
-            DO 200 J = 1, N
+            for (J = 1; J <= N; J++) { // 200
                IF( H( I, J ).NE.HT( I, J ) ) RESULT( 11 ) = ULPINV                IF( VS( I, J ).NE.VS1( I, J ) ) RESULT( 12 ) = ULPINV
   200       CONTINUE
   210    CONTINUE
@@ -412,7 +412,7 @@
          SELDIM = N
          SELOPT = 1
          EPS = MAX( ULP, EPSIN )
-         DO 230 I = 1, N
+         for (I = 1; I <= N; I++) { // 230
             IPNT( I ) = I
             SELVAL( I ) = .FALSE.
             SELWR( I ) = REAL( WTMP( I ) )
@@ -443,7 +443,7 @@
             IPNT( I ) = IPNT( KMIN )
             IPNT( KMIN ) = ITMP
   250    CONTINUE
-         DO 260 I = 1, NSLCT
+         for (I = 1; I <= NSLCT; I++) { // 260
             SELVAL( IPNT( ISLCT( I ) ) ) = .TRUE.
   260    CONTINUE
 

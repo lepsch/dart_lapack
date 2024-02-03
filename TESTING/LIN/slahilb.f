@@ -68,8 +68,8 @@
       END DO
 
       // Generate the scaled Hilbert matrix in A
-      DO J = 1, N
-         DO I = 1, N
+      for (J = 1; J <= N; J++) {
+         for (I = 1; I <= N; I++) {
             A(I, J) = REAL(M) / (I + J - 1)
          END DO
       END DO
@@ -82,12 +82,12 @@
       // columns of M*I, the true solutions are just the first NRHS columns
       // of the inverse Hilbert matrix.
       WORK(1) = N
-      DO J = 2, N
+      for (J = 2; J <= N; J++) {
          WORK(J) = (  ( (WORK(J-1)/(J-1)) * (J-1 - N) ) /(J-1)  ) * (N +J -1)
       END DO
 
-      DO J = 1, NRHS
-         DO I = 1, N
+      for (J = 1; J <= NRHS; J++) {
+         for (I = 1; I <= N; I++) {
             X(I, J) = (WORK(I)*WORK(J)) / (I + J - 1)
          END DO
       END DO

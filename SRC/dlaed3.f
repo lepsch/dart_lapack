@@ -56,7 +56,7 @@
       IF( K.EQ.0 ) RETURN
 
 
-      DO 20 J = 1, K
+      for (J = 1; J <= K; J++) { // 20
          dlaed4(K, J, DLAMBDA, W, Q( 1, J ), RHO, D( J ), INFO );
 
          // If the zero finder fails, the computation is terminated.
@@ -66,7 +66,7 @@
 
       IF( K.EQ.1 ) GO TO 110
       if ( K.EQ.2 ) {
-         DO 30 J = 1, K
+         for (J = 1; J <= K; J++) { // 30
             W( 1 ) = Q( 1, J )
             W( 2 ) = Q( 2, J )
             II = INDX( 1 )
@@ -84,7 +84,7 @@
       // Initialize W(I) = Q(I,I)
 
       dcopy(K, Q, LDQ+1, W, 1 );
-      DO 60 J = 1, K
+      for (J = 1; J <= K; J++) { // 60
          DO 40 I = 1, J - 1
             W( I ) = W( I )*( Q( I, J )/( DLAMBDA( I )-DLAMBDA( J ) ) )
    40    CONTINUE
@@ -92,18 +92,18 @@
             W( I ) = W( I )*( Q( I, J )/( DLAMBDA( I )-DLAMBDA( J ) ) )
    50    CONTINUE
    60 CONTINUE
-      DO 70 I = 1, K
+      for (I = 1; I <= K; I++) { // 70
          W( I ) = SIGN( SQRT( -W( I ) ), S( I ) )
    70 CONTINUE
 
       // Compute eigenvectors of the modified rank-1 modification.
 
-      DO 100 J = 1, K
-         DO 80 I = 1, K
+      for (J = 1; J <= K; J++) { // 100
+         for (I = 1; I <= K; I++) { // 80
             S( I ) = W( I ) / Q( I, J )
    80    CONTINUE
          TEMP = DNRM2( K, S, 1 )
-         DO 90 I = 1, K
+         for (I = 1; I <= K; I++) { // 90
             II = INDX( I )
             Q( I, J ) = S( II ) / TEMP
    90    CONTINUE

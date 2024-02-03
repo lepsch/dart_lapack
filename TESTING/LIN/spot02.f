@@ -59,7 +59,7 @@
          // norm( B - A*X ) / ( norm(A) * norm(X) * EPS ) .
 
       RESID = ZERO
-      DO 10 J = 1, NRHS
+      for (J = 1; J <= NRHS; J++) { // 10
          BNORM = SASUM( N, B( 1, J ), 1 )
          XNORM = SASUM( N, X( 1, J ), 1 )
          if ( XNORM.LE.ZERO ) {

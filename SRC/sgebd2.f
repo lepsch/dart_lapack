@@ -47,7 +47,7 @@
 
          // Reduce to upper bidiagonal form
 
-         DO 10 I = 1, N
+         for (I = 1; I <= N; I++) { // 10
 
             // Generate elementary reflector H(i) to annihilate A(i+1:m,i)
 
@@ -81,7 +81,7 @@
 
          // Reduce to lower bidiagonal form
 
-         DO 20 I = 1, M
+         for (I = 1; I <= M; I++) { // 20
 
             // Generate elementary reflector G(i) to annihilate A(i,i+1:n)
 

@@ -70,10 +70,10 @@
 
       // Begin test loop
 
-      DO 40 IA = 1, 9
-         DO 30 IAM = 1, 2
-            DO 20 IB = 1, 9
-               DO 10 IC = 1, 9
+      for (IA = 1; IA <= 9; IA++) { // 40
+         for (IAM = 1; IAM <= 2; IAM++) { // 30
+            for (IB = 1; IB <= 9; IB++) { // 20
+               for (IC = 1; IC <= 9; IC++) { // 10
                   T( 1, 1 ) = VAL( IA )*VM( IAM )
                   T( 2, 2 ) = VAL( IC )
                   T( 1, 2 ) = VAL( IB )
@@ -95,12 +95,12 @@
    30    CONTINUE
    40 CONTINUE
 
-      DO 110 IA = 1, 5
-         DO 100 IAM = 1, 2
-            DO 90 IB = 1, 5
-               DO 80 IC11 = 1, 5
-                  DO 70 IC12 = 2, 5
-                     DO 60 IC21 = 2, 4
+      for (IA = 1; IA <= 5; IA++) { // 110
+         for (IAM = 1; IAM <= 2; IAM++) { // 100
+            for (IB = 1; IB <= 5; IB++) { // 90
+               for (IC11 = 1; IC11 <= 5; IC11++) { // 80
+                  for (IC12 = 2; IC12 <= 5; IC12++) { // 70
+                     for (IC21 = 2; IC21 <= 4; IC21++) { // 60
                         DO 50 IC22 = -1, 1, 2
                            T( 1, 1 ) = VAL( IA )*VM( IAM )
                            T( 1, 2 ) = VAL( IB )
@@ -133,13 +133,13 @@
   100    CONTINUE
   110 CONTINUE
 
-      DO 180 IA11 = 1, 5
-         DO 170 IA12 = 2, 5
-            DO 160 IA21 = 2, 4
+      for (IA11 = 1; IA11 <= 5; IA11++) { // 180
+         for (IA12 = 2; IA12 <= 5; IA12++) { // 170
+            for (IA21 = 2; IA21 <= 4; IA21++) { // 160
                DO 150 IA22 = -1, 1, 2
-                  DO 140 ICM = 1, 2
-                     DO 130 IB = 1, 5
-                        DO 120 IC = 1, 5
+                  for (ICM = 1; ICM <= 2; ICM++) { // 140
+                     for (IB = 1; IB <= 5; IB++) { // 130
+                        for (IC = 1; IC <= 5; IC++) { // 120
                            T( 1, 1 ) = VAL( IA11 )
                            T( 1, 2 ) = VAL( IA12 )
                            T( 1, 3 ) = -TWO*VAL( IB )
@@ -171,16 +171,16 @@
   170    CONTINUE
   180 CONTINUE
 
-      DO 300 IA11 = 1, 5
-         DO 290 IA12 = 2, 5
-            DO 280 IA21 = 2, 4
+      for (IA11 = 1; IA11 <= 5; IA11++) { // 300
+         for (IA12 = 2; IA12 <= 5; IA12++) { // 290
+            for (IA21 = 2; IA21 <= 4; IA21++) { // 280
                DO 270 IA22 = -1, 1, 2
-                  DO 260 IB = 1, 5
-                     DO 250 IC11 = 3, 4
-                        DO 240 IC12 = 3, 4
-                           DO 230 IC21 = 3, 4
+                  for (IB = 1; IB <= 5; IB++) { // 260
+                     for (IC11 = 3; IC11 <= 4; IC11++) { // 250
+                        for (IC12 = 3; IC12 <= 4; IC12++) { // 240
+                           for (IC21 = 3; IC21 <= 4; IC21++) { // 230
                               DO 220 IC22 = -1, 1, 2
-                                 DO 210 ICM = 5, 7
+                                 for (ICM = 5; ICM <= 7; ICM++) { // 210
                                     IAM = 1
                                     T( 1, 1 ) = VAL( IA11 )*VM( IAM )
                                     T( 1, 2 ) = VAL( IA12 )*VM( IAM )
@@ -197,8 +197,8 @@
                                     T( 4, 2 ) = ZERO
                                     T( 4, 3 ) = -T( 3, 4 )*VAL( IC21 )* ABS( VAL( ICM ) )                                     T( 4, 4 ) = VAL( IC11 )* REAL( IC22 )* ABS( VAL( ICM ) )
                                     TNRM = ZERO
-                                    DO 200 I = 1, 4
-                                       DO 190 J = 1, 4
+                                    for (I = 1; I <= 4; I++) { // 200
+                                       for (J = 1; J <= 4; J++) { // 190
                                           TNRM = MAX( TNRM, ABS( T( I, J ) ) )
   190                                  CONTINUE
   200                               CONTINUE

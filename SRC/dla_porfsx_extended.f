@@ -67,10 +67,10 @@
          UPLO2 = ILAUPLO( 'U' )
       ENDIF
 
-      DO J = 1, NRHS
+      for (J = 1; J <= NRHS; J++) {
          Y_PREC_STATE = EXTRA_RESIDUAL
          if ( Y_PREC_STATE .EQ. EXTRA_Y ) {
-            DO I = 1, N
+            for (I = 1; I <= N; I++) {
                Y_TAIL( I ) = 0.0D+0
             END DO
          }
@@ -90,7 +90,7 @@
          Z_STATE = UNSTABLE_STATE
          INCR_PREC = .FALSE.
 
-         DO CNT = 1, ITHRESH
+         for (CNT = 1; CNT <= ITHRESH; CNT++) {
 
           // Compute residual RES = B_s - op(A_s) * Y,
               // op(A) = A, A**T, or A**H depending on TRANS (and type).
@@ -116,7 +116,7 @@
             DZ_Z = 0.0D+0
             YMIN = HUGEVAL
 
-            DO I = 1, N
+            for (I = 1; I <= N; I++) {
                YK = ABS( Y( I, J ) )
                DYK = ABS( DY( I ) )
 
@@ -192,7 +192,7 @@
             if ( INCR_PREC ) {
                INCR_PREC = .FALSE.
                Y_PREC_STATE = Y_PREC_STATE + 1
-               DO I = 1, N
+               for (I = 1; I <= N; I++) {
                   Y_TAIL( I ) = 0.0D+0
                END DO
             }
@@ -237,7 +237,7 @@
          dcopy(N, B( 1, J ), 1, RES, 1 );
          dsymv(UPLO, N, -1.0D+0, A, LDA, Y(1,J), 1, 1.0D+0, RES, 1 );
 
-         DO I = 1, N
+         for (I = 1; I <= N; I++) {
             AYB( I ) = ABS( B( I, J ) )
          END DO
 

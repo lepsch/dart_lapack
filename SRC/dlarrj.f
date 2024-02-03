@@ -54,7 +54,7 @@
       NINT = 0
       // The last unconverged interval found
       PREV = 0
-      DO 75 I = I1, I2
+      for (I = I1; I <= I2; I++) { // 75
          K = 2*I
          II = I - OFFSET
          LEFT = W( II ) - WERR( II )
@@ -86,7 +86,7 @@
             S = LEFT
             DPLUS = D( 1 ) - S
             IF( DPLUS.LT.ZERO ) CNT = CNT + 1
-            DO 30 J = 2, N
+            for (J = 2; J <= N; J++) { // 30
                DPLUS = D( J ) - S - E2( J-1 )/DPLUS
                IF( DPLUS.LT.ZERO ) CNT = CNT + 1
  30         CONTINUE
@@ -104,7 +104,7 @@
             S = RIGHT
             DPLUS = D( 1 ) - S
             IF( DPLUS.LT.ZERO ) CNT = CNT + 1
-            DO 60 J = 2, N
+            for (J = 2; J <= N; J++) { // 60
                DPLUS = D( J ) - S - E2( J-1 )/DPLUS
                IF( DPLUS.LT.ZERO ) CNT = CNT + 1
  60         CONTINUE
@@ -133,7 +133,7 @@
       I = I1
       OLNINT = NINT
 
-      DO 100 P = 1, OLNINT
+      for (P = 1; P <= OLNINT; P++) { // 100
          K = 2*I
          II = I - OFFSET
          NEXT = IWORK( K-1 )
@@ -166,7 +166,7 @@
          S = MID
          DPLUS = D( 1 ) - S
          IF( DPLUS.LT.ZERO ) CNT = CNT + 1
-         DO 90 J = 2, N
+         for (J = 2; J <= N; J++) { // 90
             DPLUS = D( J ) - S - E2( J-1 )/DPLUS
             IF( DPLUS.LT.ZERO ) CNT = CNT + 1
  90      CONTINUE
@@ -186,7 +186,7 @@
 
 
       // At this point, all the intervals have converged
-      DO 110 I = SAVI1, ILAST
+      for (I = SAVI1; I <= ILAST; I++) { // 110
          K = 2*I
          II = I - OFFSET
          // All intervals marked by '0' have been refined.

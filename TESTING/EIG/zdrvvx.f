@@ -73,7 +73,7 @@
       // problems
 
       NMAX = 7
-      DO 10 J = 1, NSIZES
+      for (J = 1; J <= NSIZES; J++) { // 10
          NMAX = MAX( NMAX, NN( J ) )
          IF( NN( J ).LT.0 ) BADNN = .TRUE.
    10 CONTINUE
@@ -122,7 +122,7 @@
 
       NERRS = 0
 
-      DO 150 JSIZE = 1, NSIZES
+      for (JSIZE = 1; JSIZE <= NSIZES; JSIZE++) { // 150
          N = NN( JSIZE )
          if ( NSIZES.NE.1 ) {
             MTYPES = MIN( MAXTYP, NTYPES )
@@ -130,12 +130,12 @@
             MTYPES = MIN( MAXTYP+1, NTYPES )
          }
 
-         DO 140 JTYPE = 1, MTYPES
+         for (JTYPE = 1; JTYPE <= MTYPES; JTYPE++) { // 140
             IF( .NOT.DOTYPE( JTYPE ) ) GO TO 140
 
             // Save ISEED in case of an error.
 
-            DO 20 J = 1, 4
+            for (J = 1; J <= 4; J++) { // 20
                IOLDSD( J ) = ISEED( J )
    20       CONTINUE
 
@@ -193,7 +193,7 @@
 
                // Identity
 
-               DO 70 JCOL = 1, N
+               for (JCOL = 1; JCOL <= N; JCOL++) { // 70
                   A( JCOL, JCOL ) = ANORM
    70          CONTINUE
 
@@ -201,7 +201,7 @@
 
                // Jordan Block
 
-               DO 80 JCOL = 1, N
+               for (JCOL = 1; JCOL <= N; JCOL++) { // 80
                   A( JCOL, JCOL ) = ANORM
                   IF( JCOL.GT.1 ) A( JCOL, JCOL-1 ) = ONE
    80          CONTINUE
@@ -275,7 +275,7 @@
 
             // Test for minimal and generous workspace
 
-            DO 130 IWK = 1, 3
+            for (IWK = 1; IWK <= 3; IWK++) { // 130
                if ( IWK.EQ.1 ) {
                   NNWORK = 2*N
                } else if ( IWK.EQ.2 ) {
@@ -287,7 +287,7 @@
 
                // Test for all balancing options
 
-               DO 120 IBAL = 1, 4
+               for (IBAL = 1; IBAL <= 4; IBAL++) { // 120
                   BALANC = BAL( IBAL )
 
                   // Perform tests
@@ -298,7 +298,7 @@
 
                   NTEST = 0
                   NFAIL = 0
-                  DO 100 J = 1, 9
+                  for (J = 1; J <= 9; J++) { // 100
                      IF( RESULT( J ).GE.ZERO ) NTEST = NTEST + 1                      IF( RESULT( J ).GE.THRESH ) NFAIL = NFAIL + 1
   100             CONTINUE
 
@@ -312,7 +312,7 @@
                      NTESTF = 2
                   }
 
-                  DO 110 J = 1, 9
+                  for (J = 1; J <= 9; J++) { // 110
                      if ( RESULT( J ).GE.THRESH ) {
                         WRITE( NOUNIT, FMT = 9994 )BALANC, N, IWK, IOLDSD, JTYPE, J, RESULT( J )
                      }
@@ -341,10 +341,10 @@
       IF( N.EQ.0 ) GO TO 220
       JTYPE = JTYPE + 1
       ISEED( 1 ) = JTYPE
-      DO 180 I = 1, N
+      for (I = 1; I <= N; I++) { // 180
          READ( NIUNIT, FMT = * )( A( I, J ), J = 1, N )
   180 CONTINUE
-      DO 190 I = 1, N
+      for (I = 1; I <= N; I++) { // 190
          READ( NIUNIT, FMT = * )WR, WI, RCDEIN( I ), RCDVIN( I )
          W1( I ) = DCMPLX( WR, WI )
   190 CONTINUE
@@ -354,7 +354,7 @@
 
       NTEST = 0
       NFAIL = 0
-      DO 200 J = 1, 11
+      for (J = 1; J <= 11; J++) { // 200
          IF( RESULT( J ).GE.ZERO ) NTEST = NTEST + 1          IF( RESULT( J ).GE.THRESH ) NFAIL = NFAIL + 1
   200 CONTINUE
 
@@ -368,7 +368,7 @@
          NTESTF = 2
       }
 
-      DO 210 J = 1, 11
+      for (J = 1; J <= 11; J++) { // 210
          if ( RESULT( J ).GE.THRESH ) {
             WRITE( NOUNIT, FMT = 9993 )N, JTYPE, J, RESULT( J )
          }

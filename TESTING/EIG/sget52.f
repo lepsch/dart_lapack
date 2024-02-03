@@ -64,7 +64,7 @@
       // Column i = ( b(i) A - a(i) B ) E(i) / max( |a(i) B|, |b(i) A| )
 
       ILCPLX = .FALSE.
-      DO 10 JVEC = 1, N
+      for (JVEC = 1; JVEC <= N; JVEC++) { // 10
          if ( ILCPLX ) {
 
             // 2nd Eigenvalue/-vector of pair -- do nothing
@@ -129,19 +129,19 @@
 
       ENRMER = ZERO
       ILCPLX = .FALSE.
-      DO 40 JVEC = 1, N
+      for (JVEC = 1; JVEC <= N; JVEC++) { // 40
          if ( ILCPLX ) {
             ILCPLX = .FALSE.
          } else {
             TEMP1 = ZERO
             if ( ALPHAI( JVEC ).EQ.ZERO ) {
-               DO 20 J = 1, N
+               for (J = 1; J <= N; J++) { // 20
                   TEMP1 = MAX( TEMP1, ABS( E( J, JVEC ) ) )
    20          CONTINUE
                ENRMER = MAX( ENRMER, ABS( TEMP1-ONE ) )
             } else {
                ILCPLX = .TRUE.
-               DO 30 J = 1, N
+               for (J = 1; J <= N; J++) { // 30
                   TEMP1 = MAX( TEMP1, ABS( E( J, JVEC ) )+ ABS( E( J, JVEC+1 ) ) )
    30          CONTINUE
                ENRMER = MAX( ENRMER, ABS( TEMP1-ONE ) )

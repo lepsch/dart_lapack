@@ -245,7 +245,7 @@
          } else {
             VNAME = '    N '
          }
-         DO 20 I = 1, NN
+         for (I = 1; I <= NN; I++) { // 20
             if ( MVAL( I ).LT.0 ) {
                WRITE( NOUT, FMT = 9989 )VNAME, MVAL( I ), 0
                FATAL = .TRUE.
@@ -261,7 +261,7 @@
 
       if ( GLM .OR. GQR .OR. GSV .OR. CSD .OR. LSE ) {
          READ( NIN, FMT = * )( PVAL( I ), I = 1, NN )
-         DO 30 I = 1, NN
+         for (I = 1; I <= NN; I++) { // 30
             if ( PVAL( I ).LT.0 ) {
                WRITE( NOUT, FMT = 9989 )' P  ', PVAL( I ), 0
                FATAL = .TRUE.
@@ -277,7 +277,7 @@
 
       if ( SVD .OR. DBB .OR. GLM .OR. GQR .OR. GSV .OR. CSD .OR. LSE ) {
          READ( NIN, FMT = * )( NVAL( I ), I = 1, NN )
-         DO 40 I = 1, NN
+         for (I = 1; I <= NN; I++) { // 40
             if ( NVAL( I ).LT.0 ) {
                WRITE( NOUT, FMT = 9989 )'    N ', NVAL( I ), 0
                FATAL = .TRUE.
@@ -287,7 +287,7 @@
             }
    40    CONTINUE
       } else {
-         DO 50 I = 1, NN
+         for (I = 1; I <= NN; I++) { // 50
             NVAL( I ) = MVAL( I )
    50    CONTINUE
       }
@@ -302,7 +302,7 @@
       if ( DSB .OR. DBB ) {
          READ( NIN, FMT = * )NK
          READ( NIN, FMT = * )( KVAL( I ), I = 1, NK )
-         DO 60 I = 1, NK
+         for (I = 1; I <= NK; I++) { // 60
             if ( KVAL( I ).LT.0 ) {
                WRITE( NOUT, FMT = 9989 )'    K ', KVAL( I ), 0
                FATAL = .TRUE.
@@ -415,7 +415,7 @@
 
          if ( .NOT.DBB ) {
             READ( NIN, FMT = * )( NBVAL( I ), I = 1, NPARMS )
-            DO 70 I = 1, NPARMS
+            for (I = 1; I <= NPARMS; I++) { // 70
                if ( NBVAL( I ).LT.0 ) {
                   WRITE( NOUT, FMT = 9989 )'   NB ', NBVAL( I ), 0
                   FATAL = .TRUE.
@@ -431,7 +431,7 @@
 
          if ( NEP .OR. SEP .OR. SVD .OR. DGG ) {
             READ( NIN, FMT = * )( NBMIN( I ), I = 1, NPARMS )
-            DO 80 I = 1, NPARMS
+            for (I = 1; I <= NPARMS; I++) { // 80
                if ( NBMIN( I ).LT.0 ) {
                   WRITE( NOUT, FMT = 9989 )'NBMIN ', NBMIN( I ), 0
                   FATAL = .TRUE.
@@ -442,7 +442,7 @@
    80       CONTINUE
             WRITE( NOUT, FMT = 9983 )'NBMIN:', ( NBMIN( I ), I = 1, NPARMS )
          } else {
-            DO 90 I = 1, NPARMS
+            for (I = 1; I <= NPARMS; I++) { // 90
                NBMIN( I ) = 1
    90       CONTINUE
          }
@@ -451,7 +451,7 @@
 
          if ( NEP .OR. SEP .OR. SVD ) {
             READ( NIN, FMT = * )( NXVAL( I ), I = 1, NPARMS )
-            DO 100 I = 1, NPARMS
+            for (I = 1; I <= NPARMS; I++) { // 100
                if ( NXVAL( I ).LT.0 ) {
                   WRITE( NOUT, FMT = 9989 )'   NX ', NXVAL( I ), 0
                   FATAL = .TRUE.
@@ -462,7 +462,7 @@
   100       CONTINUE
             WRITE( NOUT, FMT = 9983 )'NX:   ', ( NXVAL( I ), I = 1, NPARMS )
          } else {
-            DO 110 I = 1, NPARMS
+            for (I = 1; I <= NPARMS; I++) { // 110
                NXVAL( I ) = 1
   110       CONTINUE
          }
@@ -472,7 +472,7 @@
 
          if ( SVD .OR. DBB .OR. DGG ) {
             READ( NIN, FMT = * )( NSVAL( I ), I = 1, NPARMS )
-            DO 120 I = 1, NPARMS
+            for (I = 1; I <= NPARMS; I++) { // 120
                if ( NSVAL( I ).LT.0 ) {
                   WRITE( NOUT, FMT = 9989 )'   NS ', NSVAL( I ), 0
                   FATAL = .TRUE.
@@ -483,7 +483,7 @@
   120       CONTINUE
             WRITE( NOUT, FMT = 9983 )'NS:   ', ( NSVAL( I ), I = 1, NPARMS )
          } else {
-            DO 130 I = 1, NPARMS
+            for (I = 1; I <= NPARMS; I++) { // 130
                NSVAL( I ) = 1
   130       CONTINUE
          }
@@ -492,7 +492,7 @@
 
          if ( DGG ) {
             READ( NIN, FMT = * )( MXBVAL( I ), I = 1, NPARMS )
-            DO 140 I = 1, NPARMS
+            for (I = 1; I <= NPARMS; I++) { // 140
                if ( MXBVAL( I ).LT.0 ) {
                   WRITE( NOUT, FMT = 9989 )' MAXB ', MXBVAL( I ), 0
                   FATAL = .TRUE.
@@ -503,7 +503,7 @@
   140       CONTINUE
             WRITE( NOUT, FMT = 9983 )'MAXB: ', ( MXBVAL( I ), I = 1, NPARMS )
          } else {
-            DO 150 I = 1, NPARMS
+            for (I = 1; I <= NPARMS; I++) { // 150
                MXBVAL( I ) = 1
   150       CONTINUE
          }
@@ -512,7 +512,7 @@
 
          if ( NEP ) {
             READ( NIN, FMT = * )( INMIN( I ), I = 1, NPARMS )
-            DO 540 I = 1, NPARMS
+            for (I = 1; I <= NPARMS; I++) { // 540
                if ( INMIN( I ).LT.0 ) {
                   WRITE( NOUT, FMT = 9989 )' INMIN ', INMIN( I ), 0
                   FATAL = .TRUE.
@@ -520,7 +520,7 @@
   540       CONTINUE
             WRITE( NOUT, FMT = 9983 )'INMIN: ', ( INMIN( I ), I = 1, NPARMS )
          } else {
-            DO 550 I = 1, NPARMS
+            for (I = 1; I <= NPARMS; I++) { // 550
                INMIN( I ) = 1
   550       CONTINUE
          }
@@ -529,7 +529,7 @@
 
          if ( NEP ) {
             READ( NIN, FMT = * )( INWIN( I ), I = 1, NPARMS )
-            DO 560 I = 1, NPARMS
+            for (I = 1; I <= NPARMS; I++) { // 560
                if ( INWIN( I ).LT.0 ) {
                   WRITE( NOUT, FMT = 9989 )' INWIN ', INWIN( I ), 0
                   FATAL = .TRUE.
@@ -537,7 +537,7 @@
   560       CONTINUE
             WRITE( NOUT, FMT = 9983 )'INWIN: ', ( INWIN( I ), I = 1, NPARMS )
          } else {
-            DO 570 I = 1, NPARMS
+            for (I = 1; I <= NPARMS; I++) { // 570
                INWIN( I ) = 1
   570       CONTINUE
          }
@@ -546,7 +546,7 @@
 
          if ( NEP ) {
             READ( NIN, FMT = * )( INIBL( I ), I = 1, NPARMS )
-            DO 580 I = 1, NPARMS
+            for (I = 1; I <= NPARMS; I++) { // 580
                if ( INIBL( I ).LT.0 ) {
                   WRITE( NOUT, FMT = 9989 )' INIBL ', INIBL( I ), 0
                   FATAL = .TRUE.
@@ -554,7 +554,7 @@
   580       CONTINUE
             WRITE( NOUT, FMT = 9983 )'INIBL: ', ( INIBL( I ), I = 1, NPARMS )
          } else {
-            DO 590 I = 1, NPARMS
+            for (I = 1; I <= NPARMS; I++) { // 590
                INIBL( I ) = 1
   590       CONTINUE
          }
@@ -563,7 +563,7 @@
 
          if ( NEP ) {
             READ( NIN, FMT = * )( ISHFTS( I ), I = 1, NPARMS )
-            DO 600 I = 1, NPARMS
+            for (I = 1; I <= NPARMS; I++) { // 600
                if ( ISHFTS( I ).LT.0 ) {
                   WRITE( NOUT, FMT = 9989 )' ISHFTS ', ISHFTS( I ), 0
                   FATAL = .TRUE.
@@ -571,7 +571,7 @@
   600       CONTINUE
             WRITE( NOUT, FMT = 9983 )'ISHFTS: ', ( ISHFTS( I ), I = 1, NPARMS )
          } else {
-            DO 610 I = 1, NPARMS
+            for (I = 1; I <= NPARMS; I++) { // 610
                ISHFTS( I ) = 1
   610       CONTINUE
          }
@@ -580,7 +580,7 @@
 
          if ( NEP .OR. DGG ) {
             READ( NIN, FMT = * )( IACC22( I ), I = 1, NPARMS )
-            DO 620 I = 1, NPARMS
+            for (I = 1; I <= NPARMS; I++) { // 620
                if ( IACC22( I ).LT.0 ) {
                   WRITE( NOUT, FMT = 9989 )' IACC22 ', IACC22( I ), 0
                   FATAL = .TRUE.
@@ -588,7 +588,7 @@
   620       CONTINUE
             WRITE( NOUT, FMT = 9983 )'IACC22: ', ( IACC22( I ), I = 1, NPARMS )
          } else {
-            DO 630 I = 1, NPARMS
+            for (I = 1; I <= NPARMS; I++) { // 630
                IACC22( I ) = 1
   630       CONTINUE
          }
@@ -597,7 +597,7 @@
 
          if ( DGG ) {
             READ( NIN, FMT = * )( NBCOL( I ), I = 1, NPARMS )
-            DO 160 I = 1, NPARMS
+            for (I = 1; I <= NPARMS; I++) { // 160
                if ( NBCOL( I ).LT.0 ) {
                   WRITE( NOUT, FMT = 9989 )'NBCOL ', NBCOL( I ), 0
                   FATAL = .TRUE.
@@ -608,7 +608,7 @@
   160       CONTINUE
             WRITE( NOUT, FMT = 9983 )'NBCOL:', ( NBCOL( I ), I = 1, NPARMS )
          } else {
-            DO 170 I = 1, NPARMS
+            for (I = 1; I <= NPARMS; I++) { // 170
                NBCOL( I ) = 1
   170       CONTINUE
          }
@@ -651,7 +651,7 @@
 
       IF( NEWSD.EQ.2 ) READ( NIN, FMT = * )( IOLDSD( I ), I = 1, 4 )
 
-      DO 180 I = 1, 4
+      for (I = 1; I <= 4; I++) { // 180
          ISEED( I ) = IOLDSD( I )
   180 CONTINUE
 
@@ -692,7 +692,7 @@
 
          // Check that a valid integer was read
 
-            DO 220 K = 1, 10
+            for (K = 1; K <= 10; K++) { // 220
                if ( C1.EQ.INTSTR( K: K ) ) {
                   IC = K - 1
                   GO TO 230
@@ -725,7 +725,7 @@
       // Reset the random number seed.
 
       if ( NEWSD.EQ.0 ) {
-         DO 250 K = 1, 4
+         for (K = 1; K <= 4; K++) { // 250
             ISEED( K ) = IOLDSD( K )
   250    CONTINUE
       }
@@ -747,7 +747,7 @@
          alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT );
          xlaenv(1, 1 );
          IF( TSTERR ) CALL DERRHS( 'DHSEQR', NOUT )
-         DO 270 I = 1, NPARMS
+         for (I = 1; I <= NPARMS; I++) { // 270
             xlaenv(1, NBVAL( I ) );
             xlaenv(2, NBMIN( I ) );
             xlaenv(3, NXVAL( I ) );
@@ -758,7 +758,7 @@
             xlaenv(16, IACC22( I ) );
 
             if ( NEWSD.EQ.0 ) {
-               DO 260 K = 1, 4
+               for (K = 1; K <= 4; K++) { // 260
                   ISEED( K ) = IOLDSD( K )
   260          CONTINUE
             }
@@ -792,13 +792,13 @@
             omp_set_num_threads(N_THREADS);
 #endif
          }
-         DO 290 I = 1, NPARMS
+         for (I = 1; I <= NPARMS; I++) { // 290
             xlaenv(1, NBVAL( I ) );
             xlaenv(2, NBMIN( I ) );
             xlaenv(3, NXVAL( I ) );
 
             if ( NEWSD.EQ.0 ) {
-               DO 280 K = 1, 4
+               for (K = 1; K <= 4; K++) { // 280
                   ISEED( K ) = IOLDSD( K )
   280          CONTINUE
             }
@@ -835,13 +835,13 @@
          NTYPES = MIN( MAXTYP, NTYPES )
          alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT );
          xlaenv(9, 25 );
-         DO 310 I = 1, NPARMS
+         for (I = 1; I <= NPARMS; I++) { // 310
             xlaenv(1, NBVAL( I ) );
             xlaenv(2, NBMIN( I ) );
             xlaenv(3, NXVAL( I ) );
 
             if ( NEWSD.EQ.0 ) {
-               DO 300 K = 1, 4
+               for (K = 1; K <= 4; K++) { // 300
                   ISEED( K ) = IOLDSD( K )
   300          CONTINUE
             }
@@ -878,13 +878,13 @@
 
          IF( TSTERR .AND. TSTCHK ) CALL DERRBD( 'DBD', NOUT )          IF( TSTERR .AND. TSTDRV ) CALL DERRED( 'DBD', NOUT )
 
-         DO 330 I = 1, NPARMS
+         for (I = 1; I <= NPARMS; I++) { // 330
             NRHS = NSVAL( I )
             xlaenv(1, NBVAL( I ) );
             xlaenv(2, NBMIN( I ) );
             xlaenv(3, NXVAL( I ) );
             if ( NEWSD.EQ.0 ) {
-               DO 320 K = 1, 4
+               for (K = 1; K <= 4; K++) { // 320
                   ISEED( K ) = IOLDSD( K )
   320          CONTINUE
             }
@@ -994,7 +994,7 @@
          alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT );
          xlaenv(1,1);
          IF( TSTCHK .AND. TSTERR ) CALL DERRGG( C3, NOUT )
-         DO 350 I = 1, NPARMS
+         for (I = 1; I <= NPARMS; I++) { // 350
             xlaenv(1, NBVAL( I ) );
             xlaenv(2, NBMIN( I ) );
             xlaenv(4, NSVAL( I ) );
@@ -1003,7 +1003,7 @@
             xlaenv(5, NBCOL( I ) );
 
             if ( NEWSD.EQ.0 ) {
-               DO 340 K = 1, 4
+               for (K = 1; K <= 4; K++) { // 340
                   ISEED( K ) = IOLDSD( K )
   340          CONTINUE
             }
@@ -1134,11 +1134,11 @@
          MAXTYP = 15
          NTYPES = MIN( MAXTYP, NTYPES )
          alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT );
-         DO 370 I = 1, NPARMS
+         for (I = 1; I <= NPARMS; I++) { // 370
             NRHS = NSVAL( I )
 
             if ( NEWSD.EQ.0 ) {
-               DO 360 K = 1, 4
+               for (K = 1; K <= 4; K++) { // 360
                   ISEED( K ) = IOLDSD( K )
   360          CONTINUE
             }

@@ -209,7 +209,7 @@
             // Block 2: Zero out all rows below the N-th row in B:
             // B(N+1:M,1:NRHS) = ZERO
 
-            DO  J = 1, NRHS
+            for (J = 1; J <= NRHS; J++) {
                DO I = N + 1, M
                   B( I, J ) = ZERO
                END DO
@@ -253,7 +253,7 @@
             // Block 2: Zero out all rows below the M-th row in B:
             // B(M+1:N,1:NRHS) = ZERO
 
-            DO J = 1, NRHS
+            for (J = 1; J <= NRHS; J++) {
                DO I = M + 1, N
                   B( I, J ) = ZERO
                END DO

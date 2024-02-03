@@ -73,8 +73,8 @@
 
             clacpy(' ', N, N, B, LDB, WORK, N );
 
-            DO 20 JCOL = 1, N
-               DO 10 JROW = 1, N
+            for (JCOL = 1; JCOL <= N; JCOL++) { // 20
+               for (JROW = 1; JROW <= N; JROW++) { // 10
                   WORK( JROW+N*( JCOL-1 ) ) = WORK( JROW+N*( JCOL-1 ) ) - A( JROW, JCOL )
    10          CONTINUE
    20       CONTINUE
@@ -102,7 +102,7 @@
 
          cgemm('N', 'C', N, N, N, CONE, U, LDU, U, LDU, CZERO, WORK, N );
 
-         DO 30 JDIAG = 1, N
+         for (JDIAG = 1; JDIAG <= N; JDIAG++) { // 30
             WORK( ( N+1 )*( JDIAG-1 )+1 ) = WORK( ( N+1 )*( JDIAG-1 )+ 1 ) - CONE
    30    CONTINUE
 

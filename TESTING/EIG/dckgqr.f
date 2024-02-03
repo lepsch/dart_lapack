@@ -54,20 +54,20 @@
 
       // Do for each value of M in MVAL.
 
-      DO 60 IM = 1, NM
+      for (IM = 1; IM <= NM; IM++) { // 60
          M = MVAL( IM )
 
          // Do for each value of P in PVAL.
 
-         DO 50 IP = 1, NP
+         for (IP = 1; IP <= NP; IP++) { // 50
             P = PVAL( IP )
 
             // Do for each value of N in NVAL.
 
-            DO 40 IN = 1, NN
+            for (IN = 1; IN <= NN; IN++) { // 40
                N = NVAL( IN )
 
-               DO 30 IMAT = 1, NTYPES
+               for (IMAT = 1; IMAT <= NTYPES; IMAT++) { // 30
 
                   // Do the tests only if DOTYPE( IMAT ) is true.
 
@@ -105,7 +105,7 @@
                   // Print information about the tests that did not
                   // pass the threshold.
 
-                  DO 10 I = 1, NT
+                  for (I = 1; I <= NT; I++) { // 10
                      if ( RESULT( I ).GE.THRESH ) {
                         if ( NFAIL.EQ.0 .AND. FIRSTT ) {
                            FIRSTT = .FALSE.
@@ -149,7 +149,7 @@
                   // Print information about the tests that did not
                   // pass the threshold.
 
-                  DO 20 I = 1, NT
+                  for (I = 1; I <= NT; I++) { // 20
                      if ( RESULT( I ).GE.THRESH ) {
                         if ( NFAIL.EQ.0 .AND. FIRSTT ) {
                            FIRSTT = .FALSE.

@@ -81,8 +81,8 @@
 
          // Find the maximum element in abs( I - U'*U ) / ( m * EPS )
 
-         DO 20 J = 1, N
-            DO 10 I = 1, J
+         for (J = 1; J <= N; J++) { // 20
+            for (I = 1; I <= J; I++) { // 10
                if ( I.NE.J ) {
                   TMP = ZERO
                } else {
@@ -97,8 +97,8 @@
 
          // Find the maximum element in abs( I - U*U' ) / ( n * EPS )
 
-         DO 40 J = 1, M
-            DO 30 I = 1, J
+         for (J = 1; J <= M; J++) { // 40
+            for (I = 1; I <= J; I++) { // 30
                if ( I.NE.J ) {
                   TMP = ZERO
                } else {

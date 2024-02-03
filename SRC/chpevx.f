@@ -164,7 +164,7 @@
             scopy(N-1, RWORK( INDE ), 1, RWORK( INDEE ), 1 );
             csteqr(JOBZ, N, W, RWORK( INDEE ), Z, LDZ, RWORK( INDRWK ), INFO );
             if ( INFO.EQ.0 ) {
-               DO 10 I = 1, N
+               for (I = 1; I <= N; I++) { // 10
                   IFAIL( I ) = 0
    10          CONTINUE
             }

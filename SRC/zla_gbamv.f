@@ -111,7 +111,7 @@
       IY = KY
       if ( INCX.EQ.1 ) {
          if ( TRANS.EQ.ILATRANS( 'N' ) ) {
-            DO I = 1, LENY
+            for (I = 1; I <= LENY; I++) {
                if ( BETA .EQ. 0.0D+0 ) {
                   SYMB_ZERO = .TRUE.
                   Y( IY ) = 0.0D+0
@@ -134,7 +134,7 @@
                IY = IY + INCY
             END DO
          } else {
-            DO I = 1, LENY
+            for (I = 1; I <= LENY; I++) {
                if ( BETA .EQ. 0.0D+0 ) {
                   SYMB_ZERO = .TRUE.
                   Y( IY ) = 0.0D+0
@@ -159,7 +159,7 @@
          }
       } else {
          if ( TRANS.EQ.ILATRANS( 'N' ) ) {
-            DO I = 1, LENY
+            for (I = 1; I <= LENY; I++) {
                if ( BETA .EQ. 0.0D+0 ) {
                   SYMB_ZERO = .TRUE.
                   Y( IY ) = 0.0D+0
@@ -184,7 +184,7 @@
                IY = IY + INCY
             END DO
          } else {
-            DO I = 1, LENY
+            for (I = 1; I <= LENY; I++) {
                if ( BETA .EQ. 0.0D+0 ) {
                   SYMB_ZERO = .TRUE.
                   Y( IY ) = 0.0D+0

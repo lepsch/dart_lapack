@@ -142,7 +142,7 @@
 
       // Initialize column pivot array JPIV.
 
-      DO J = 1, N
+      for (J = 1; J <= N; J++) {
          JPIV( J ) = J
       END DO
 
@@ -156,7 +156,7 @@
          // 2-norms of the matrix A, they are not changed during the
          // computation; initialize the values of complete columns 2-norms.
 
-      DO J = 1, N
+      for (J = 1; J <= N; J++) {
          WORK( J ) = DNRM2( M, A( 1, J ), 1 )
          WORK( N+J ) = WORK( J )
       END DO
@@ -202,7 +202,7 @@
          MAXC2NRMK = ZERO
          RELMAXC2NRMK = ZERO
 
-         DO J = 1, MINMN
+         for (J = 1; J <= MINMN; J++) {
             TAU( J ) = ZERO
          END DO
 
@@ -234,7 +234,7 @@
          K = 0
          MAXC2NRMK = MAXC2NRM
          RELMAXC2NRMK = ONE
-         DO J = 1, MINMN
+         for (J = 1; J <= MINMN; J++) {
             TAU( J ) = ZERO
          END DO
          WORK( 1 ) = DBLE( LWKOPT )
@@ -278,7 +278,7 @@
          MAXC2NRMK = MAXC2NRM
          RELMAXC2NRMK = ONE
 
-         DO J = 1, MINMN
+         for (J = 1; J <= MINMN; J++) {
             TAU( J ) = ZERO
          END DO
 

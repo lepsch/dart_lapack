@@ -54,16 +54,16 @@
       TNORM = ZERO
       if ( LSAME( DIAG, 'N' ) ) {
          if ( LSAME( UPLO, 'U' ) ) {
-            DO 10 J = 1, N
+            for (J = 1; J <= N; J++) { // 10
                TNORM = MAX( TNORM, TSCAL*ABS( AB( KD+1, J ) )+ CNORM( J ) )
    10       CONTINUE
          } else {
-            DO 20 J = 1, N
+            for (J = 1; J <= N; J++) { // 20
                TNORM = MAX( TNORM, TSCAL*ABS( AB( 1, J ) )+CNORM( J ) )
    20       CONTINUE
          }
       } else {
-         DO 30 J = 1, N
+         for (J = 1; J <= N; J++) { // 30
             TNORM = MAX( TNORM, TSCAL+CNORM( J ) )
    30    CONTINUE
       }
@@ -72,7 +72,7 @@
          // norm(op(A)*x - s*b) / ( norm(op(A)) * norm(x) * EPS ).
 
       RESID = ZERO
-      DO 40 J = 1, NRHS
+      for (J = 1; J <= NRHS; J++) { // 40
          zcopy(N, X( 1, J ), 1, WORK, 1 );
          IX = IZAMAX( N, WORK, 1 )
          XNORM = MAX( ONE, ABS( X( IX, J ) ) )

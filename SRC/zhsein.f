@@ -62,7 +62,7 @@
       // eigenvectors.
 
       M = 0
-      DO 10 K = 1, N
+      for (K = 1; K <= N; K++) { // 10
          IF( SELECT( K ) ) M = M + 1
    10 CONTINUE
 
@@ -110,7 +110,7 @@
       }
       KS = 1
 
-      DO 100 K = 1, N
+      for (K = 1; K <= N; K++) { // 100
          if ( SELECT( K ) ) {
 
             // Compute eigenvector(s) corresponding to W(K).

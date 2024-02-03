@@ -136,7 +136,7 @@
             slacpy('A', N, N, Q, LDQ, Z, LDZ );
             ssteqr(JOBZ, N, W, WORK( INDEE ), Z, LDZ, WORK( INDWRK ), INFO );
             if ( INFO.EQ.0 ) {
-               DO 10 I = 1, N
+               for (I = 1; I <= N; I++) { // 10
                   IFAIL( I ) = 0
    10          CONTINUE
             }
@@ -166,7 +166,7 @@
          // Apply transformation matrix used in reduction to tridiagonal
          // form to eigenvectors returned by SSTEIN.
 
-         DO 20 J = 1, M
+         for (J = 1; J <= M; J++) { // 20
             scopy(N, Z( 1, J ), 1, WORK( 1 ), 1 );
             sgemv('N', N, N, ONE, Q, LDQ, WORK, 1, ZERO, Z( 1, J ), 1 );
    20    CONTINUE

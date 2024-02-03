@@ -44,7 +44,7 @@
 
       // Compute norm(B - U * C)
 
-      DO 10 J = 1, N
+      for (J = 1; J <= N; J++) { // 10
          ccopy(M, B( 1, J ), 1, WORK, 1 );
          cgemv('No transpose', M, M, -CMPLX( ONE ), U, LDU, C( 1, J ), 1, CMPLX( ONE ), WORK, 1 );
          RESID = MAX( RESID, SCASUM( M, WORK, 1 ) )

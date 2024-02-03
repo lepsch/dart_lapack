@@ -310,9 +310,9 @@
             // re-calculate eigenvectors and estimate the condition numbers
             // one at a time.
 
-            DO 20 I = 1, N
+            for (I = 1; I <= N; I++) { // 20
 
-               DO 10 J = 1, N
+               for (J = 1; J <= N; J++) { // 10
                   BWORK( J ) = .FALSE.
    10          CONTINUE
                BWORK( I ) = .TRUE.
@@ -340,14 +340,14 @@
       if ( ILVL ) {
          zggbak(BALANC, 'L', N, ILO, IHI, LSCALE, RSCALE, N, VL, LDVL, IERR );
 
-         DO 50 JC = 1, N
+         for (JC = 1; JC <= N; JC++) { // 50
             TEMP = ZERO
-            DO 30 JR = 1, N
+            for (JR = 1; JR <= N; JR++) { // 30
                TEMP = MAX( TEMP, ABS1( VL( JR, JC ) ) )
    30       CONTINUE
             IF( TEMP.LT.SMLNUM ) GO TO 50
             TEMP = ONE / TEMP
-            DO 40 JR = 1, N
+            for (JR = 1; JR <= N; JR++) { // 40
                VL( JR, JC ) = VL( JR, JC )*TEMP
    40       CONTINUE
    50    CONTINUE
@@ -355,14 +355,14 @@
 
       if ( ILVR ) {
          zggbak(BALANC, 'R', N, ILO, IHI, LSCALE, RSCALE, N, VR, LDVR, IERR );
-         DO 80 JC = 1, N
+         for (JC = 1; JC <= N; JC++) { // 80
             TEMP = ZERO
-            DO 60 JR = 1, N
+            for (JR = 1; JR <= N; JR++) { // 60
                TEMP = MAX( TEMP, ABS1( VR( JR, JC ) ) )
    60       CONTINUE
             IF( TEMP.LT.SMLNUM ) GO TO 80
             TEMP = ONE / TEMP
-            DO 70 JR = 1, N
+            for (JR = 1; JR <= N; JR++) { // 70
                VR( JR, JC ) = VR( JR, JC )*TEMP
    70       CONTINUE
    80    CONTINUE

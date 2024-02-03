@@ -126,8 +126,8 @@
       QBB = 4
       WEIGHT = SQRT( ULP )
 
-      DO 60 IFUNC = 0, 3
-         DO 50 PRTYPE = 1, 5
+      for (IFUNC = 0; IFUNC <= 3; IFUNC++) { // 60
+         for (PRTYPE = 1; PRTYPE <= 5; PRTYPE++) { // 50
             DO 40 M = 1, NSIZE - 1
                DO 30 N = 1, NSIZE - M
 
@@ -186,7 +186,7 @@
                   RESULT( 5 ) = ZERO
                   RESULT( 6 ) = ZERO
 
-                  DO 10 J = 1, MPLUSN
+                  for (J = 1; J <= MPLUSN; J++) { // 10
                      ILABAD = .FALSE.
                      if ( ALPHAI( J ).EQ.ZERO ) {
                         TEMP2 = ( ABS( ALPHAR( J )-AI( J, J ) ) / MAX( SMLNUM, ABS( ALPHAR( J ) ), ABS( AI( J, J ) ) )+ ABS( BETA( J )-BI( J, J ) ) / MAX( SMLNUM, ABS( BETA( J ) ), ABS( BI( J, J ) ) ) ) / ULP
@@ -284,7 +284,7 @@
 
                   // Print out tests which fail.
 
-                  DO 20 J = 1, 9
+                  for (J = 1; J <= 9; J++) { // 20
                      if ( RESULT( J ).GE.THRESH ) {
 
                         // If this is the first test to fail,
@@ -329,10 +329,10 @@
       READ( NIN, FMT = *, END = 140 )MPLUSN
       IF( MPLUSN.EQ.0 ) GO TO 140
       READ( NIN, FMT = *, END = 140 )N
-      DO 90 I = 1, MPLUSN
+      for (I = 1; I <= MPLUSN; I++) { // 90
          READ( NIN, FMT = * )( AI( I, J ), J = 1, MPLUSN )
    90 CONTINUE
-      DO 100 I = 1, MPLUSN
+      for (I = 1; I <= MPLUSN; I++) { // 100
          READ( NIN, FMT = * )( BI( I, J ), J = 1, MPLUSN )
   100 CONTINUE
       READ( NIN, FMT = * )PLTRU, DIFTRU
@@ -375,7 +375,7 @@
       RESULT( 5 ) = ZERO
       RESULT( 6 ) = ZERO
 
-      DO 110 J = 1, MPLUSN
+      for (J = 1; J <= MPLUSN; J++) { // 110
          ILABAD = .FALSE.
          if ( ALPHAI( J ).EQ.ZERO ) {
             TEMP2 = ( ABS( ALPHAR( J )-AI( J, J ) ) / MAX( SMLNUM, ABS( ALPHAR( J ) ), ABS( AI( J, J ) ) )+ABS( BETA( J )-BI( J, J ) ) / MAX( SMLNUM, ABS( BETA( J ) ), ABS( BI( J, J ) ) ) ) / ULP
@@ -467,7 +467,7 @@
 
       // Print out tests which fail.
 
-      DO 120 J = 1, NTEST
+      for (J = 1; J <= NTEST; J++) { // 120
          if ( RESULT( J ).GE.THRESH ) {
 
             // If this is the first test to fail,

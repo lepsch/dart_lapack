@@ -67,7 +67,7 @@
 
       BADNN = .FALSE.
       NMAX = 1
-      DO 10 J = 1, NSIZES
+      for (J = 1; J <= NSIZES; J++) { // 10
          NMAX = MAX( NMAX, NN( J ) )
          IF( NN( J ).LT.0 ) BADNN = .TRUE.
    10 CONTINUE
@@ -108,7 +108,7 @@
 
       // Loop over sizes, types
 
-      DO 20 I = 1, 4
+      for (I = 1; I <= 4; I++) { // 20
          ISEED2( I ) = ISEED( I )
          ISEED3( I ) = ISEED( I )
    20 CONTINUE
@@ -117,7 +117,7 @@
       NMATS = 0
 
 
-      DO 1740 JSIZE = 1, NSIZES
+      for (JSIZE = 1; JSIZE <= NSIZES; JSIZE++) { // 1740
          N = NN( JSIZE )
          if ( N.GT.0 ) {
             LGN = INT( LOG( DBLE( N ) ) / LOG( TWO ) )
@@ -138,13 +138,13 @@
             MTYPES = MIN( MAXTYP+1, NTYPES )
          }
 
-         DO 1730 JTYPE = 1, MTYPES
+         for (JTYPE = 1; JTYPE <= MTYPES; JTYPE++) { // 1730
 
             IF( .NOT.DOTYPE( JTYPE ) ) GO TO 1730
             NMATS = NMATS + 1
             NTEST = 0
 
-            DO 30 J = 1, 4
+            for (J = 1; J <= 4; J++) { // 30
                IOLDSD( J ) = ISEED( J )
    30       CONTINUE
 
@@ -201,7 +201,7 @@
 
                // Identity
 
-               DO 80 JCOL = 1, N
+               for (JCOL = 1; JCOL <= N; JCOL++) { // 80
                   A( JCOL, JCOL ) = ANORM
    80          CONTINUE
 
@@ -245,7 +245,7 @@
                   IROW = IHBW - IDIAG + 1
                   J1 = MAX( 1, IDIAG+1 )
                   J2 = MIN( N, N+IDIAG )
-                  DO 90 J = J1, J2
+                  for (J = J1; J <= J2; J++) { // 90
                      I = J - IDIAG
                      A( I, J ) = U( IROW, J )
    90             CONTINUE
@@ -280,7 +280,7 @@
 
             if ( JTYPE.LE.7 ) {
                NTEST = 1
-               DO 120 I = 1, N
+               for (I = 1; I <= N; I++) { // 120
                   D1( I ) = DBLE( A( I, I ) )
   120          CONTINUE
                DO 130 I = 1, N - 1
@@ -303,7 +303,7 @@
 
                // Do tests 1 and 2.
 
-               DO 140 I = 1, N
+               for (I = 1; I <= N; I++) { // 140
                   D3( I ) = DBLE( A( I, I ) )
   140          CONTINUE
                DO 150 I = 1, N - 1
@@ -332,7 +332,7 @@
 
                TEMP1 = ZERO
                TEMP2 = ZERO
-               DO 170 J = 1, N
+               for (J = 1; J <= N; J++) { // 170
                   TEMP1 = MAX( TEMP1, ABS( D1( J ) ), ABS( D3( J ) ) )
                   TEMP2 = MAX( TEMP2, ABS( D1( J )-D3( J ) ) )
   170          CONTINUE
@@ -341,7 +341,7 @@
   180          CONTINUE
 
                NTEST = 4
-               DO 190 I = 1, N
+               for (I = 1; I <= N; I++) { // 190
                   EVEIGS( I ) = D3( I )
                   D1( I ) = DBLE( A( I, I ) )
   190          CONTINUE
@@ -370,7 +370,7 @@
 
                // Do tests 4 and 5.
 
-               DO 210 I = 1, N
+               for (I = 1; I <= N; I++) { // 210
                   D3( I ) = DBLE( A( I, I ) )
   210          CONTINUE
                DO 220 I = 1, N - 1
@@ -399,7 +399,7 @@
 
                TEMP1 = ZERO
                TEMP2 = ZERO
-               DO 240 J = 1, N
+               for (J = 1; J <= N; J++) { // 240
                   TEMP1 = MAX( TEMP1, ABS( WA2( J ) ), ABS( EVEIGS( J ) ) )
                   TEMP2 = MAX( TEMP2, ABS( WA2( J )-EVEIGS( J ) ) )
   240          CONTINUE
@@ -408,7 +408,7 @@
   250          CONTINUE
 
                NTEST = 7
-               DO 260 I = 1, N
+               for (I = 1; I <= N; I++) { // 260
                   D1( I ) = DBLE( A( I, I ) )
   260          CONTINUE
                DO 270 I = 1, N - 1
@@ -435,7 +435,7 @@
 
                // Do tests 7 and 8.
 
-               DO 280 I = 1, N
+               for (I = 1; I <= N; I++) { // 280
                   D3( I ) = DBLE( A( I, I ) )
   280          CONTINUE
                DO 290 I = 1, N - 1
@@ -464,7 +464,7 @@
 
                TEMP1 = ZERO
                TEMP2 = ZERO
-               DO 310 J = 1, N
+               for (J = 1; J <= N; J++) { // 310
                   TEMP1 = MAX( TEMP1, ABS( WA2( J ) ), ABS( EVEIGS( J ) ) )
                   TEMP2 = MAX( TEMP2, ABS( WA2( J )-EVEIGS( J ) ) )
   310          CONTINUE
@@ -474,7 +474,7 @@
 
 
                NTEST = 10
-               DO 330 I = 1, N
+               for (I = 1; I <= N; I++) { // 330
                   D1( I ) = DBLE( A( I, I ) )
   330          CONTINUE
                DO 340 I = 1, N - 1
@@ -497,7 +497,7 @@
 
                // Do tests 10 and 11.
 
-               DO 350 I = 1, N
+               for (I = 1; I <= N; I++) { // 350
                   D3( I ) = DBLE( A( I, I ) )
   350          CONTINUE
                DO 360 I = 1, N - 1
@@ -548,7 +548,7 @@
                   VU = ONE
                }
 
-               DO 390 I = 1, N
+               for (I = 1; I <= N; I++) { // 390
                   D1( I ) = DBLE( A( I, I ) )
   390          CONTINUE
                DO 400 I = 1, N - 1
@@ -578,7 +578,7 @@
 
                // Do tests 13 and 14.
 
-               DO 410 I = 1, N
+               for (I = 1; I <= N; I++) { // 410
                   D3( I ) = DBLE( A( I, I ) )
   410          CONTINUE
                DO 420 I = 1, N - 1
@@ -612,7 +612,7 @@
   440          CONTINUE
 
                NTEST = 16
-               DO 450 I = 1, N
+               for (I = 1; I <= N; I++) { // 450
                   D1( I ) = DBLE( A( I, I ) )
   450          CONTINUE
                DO 460 I = 1, N - 1
@@ -635,7 +635,7 @@
 
                // Do tests 16 and 17.
 
-               DO 470 I = 1, N
+               for (I = 1; I <= N; I++) { // 470
                   D3( I ) = DBLE( A( I, I ) )
   470          CONTINUE
                DO 480 I = 1, N - 1
@@ -664,7 +664,7 @@
 
                TEMP1 = ZERO
                TEMP2 = ZERO
-               DO 500 J = 1, N
+               for (J = 1; J <= N; J++) { // 500
                   TEMP1 = MAX( TEMP1, ABS( EVEIGS( J ) ), ABS( D3( J ) ) )
                   TEMP2 = MAX( TEMP2, ABS( EVEIGS( J )-D3( J ) ) )
   500          CONTINUE
@@ -673,7 +673,7 @@
   510          CONTINUE
 
                NTEST = 19
-               DO 520 I = 1, N
+               for (I = 1; I <= N; I++) { // 520
                   D1( I ) = DBLE( A( I, I ) )
   520          CONTINUE
                DO 530 I = 1, N - 1
@@ -696,7 +696,7 @@
 
                // DO tests 19 and 20.
 
-               DO 540 I = 1, N
+               for (I = 1; I <= N; I++) { // 540
                   D3( I ) = DBLE( A( I, I ) )
   540          CONTINUE
                DO 550 I = 1, N - 1
@@ -747,7 +747,7 @@
                   VU = ONE
                }
 
-               DO 580 I = 1, N
+               for (I = 1; I <= N; I++) { // 580
                   D1( I ) = DBLE( A( I, I ) )
   580          CONTINUE
                DO 590 I = 1, N - 1
@@ -777,7 +777,7 @@
 
                // Do tests 22 and 23.
 
-               DO 600 I = 1, N
+               for (I = 1; I <= N; I++) { // 600
                   D3( I ) = DBLE( A( I, I ) )
   600          CONTINUE
                DO 610 I = 1, N - 1
@@ -814,7 +814,7 @@
 
             } else {
 
-               DO 640 I = 1, 24
+               for (I = 1; I <= 24; I++) { // 640
                   RESULT( I ) = ZERO
   640          CONTINUE
                NTEST = 24
@@ -823,7 +823,7 @@
             // Perform remaining tests storing upper or lower triangular
             // part of matrix.
 
-            DO 1720 IUPLO = 0, 1
+            for (IUPLO = 0; IUPLO <= 1; IUPLO++) { // 1720
                if ( IUPLO.EQ.0 ) {
                   UPLO = 'L'
                } else {
@@ -874,7 +874,7 @@
 
                TEMP1 = ZERO
                TEMP2 = ZERO
-               DO 650 J = 1, N
+               for (J = 1; J <= N; J++) { // 650
                   TEMP1 = MAX( TEMP1, ABS( D1( J ) ), ABS( D3( J ) ) )
                   TEMP2 = MAX( TEMP2, ABS( D1( J )-D3( J ) ) )
   650          CONTINUE
@@ -942,7 +942,7 @@
 
                TEMP1 = ZERO
                TEMP2 = ZERO
-               DO 670 J = 1, N
+               for (J = 1; J <= N; J++) { // 670
                   TEMP1 = MAX( TEMP1, ABS( WA1( J ) ), ABS( WA2( J ) ) )
                   TEMP2 = MAX( TEMP2, ABS( WA1( J )-WA2( J ) ) )
   670          CONTINUE
@@ -1060,16 +1060,16 @@
 
                if ( IUPLO.EQ.1 ) {
                   INDX = 1
-                  DO 720 J = 1, N
-                     DO 710 I = 1, J
+                  for (J = 1; J <= N; J++) { // 720
+                     for (I = 1; I <= J; I++) { // 710
                         WORK( INDX ) = A( I, J )
                         INDX = INDX + 1
   710                CONTINUE
   720             CONTINUE
                } else {
                   INDX = 1
-                  DO 740 J = 1, N
-                     DO 730 I = J, N
+                  for (J = 1; J <= N; J++) { // 740
+                     for (I = J; I <= N; I++) { // 730
                         WORK( INDX ) = A( I, J )
                         INDX = INDX + 1
   730                CONTINUE
@@ -1098,16 +1098,16 @@
 
                if ( IUPLO.EQ.1 ) {
                   INDX = 1
-                  DO 760 J = 1, N
-                     DO 750 I = 1, J
+                  for (J = 1; J <= N; J++) { // 760
+                     for (I = 1; I <= J; I++) { // 750
                         WORK( INDX ) = A( I, J )
                         INDX = INDX + 1
   750                CONTINUE
   760             CONTINUE
                } else {
                   INDX = 1
-                  DO 780 J = 1, N
-                     DO 770 I = J, N
+                  for (J = 1; J <= N; J++) { // 780
+                     for (I = J; I <= N; I++) { // 770
                         WORK( INDX ) = A( I, J )
                         INDX = INDX + 1
   770                CONTINUE
@@ -1132,7 +1132,7 @@
 
                TEMP1 = ZERO
                TEMP2 = ZERO
-               DO 790 J = 1, N
+               for (J = 1; J <= N; J++) { // 790
                   TEMP1 = MAX( TEMP1, ABS( D1( J ) ), ABS( D3( J ) ) )
                   TEMP2 = MAX( TEMP2, ABS( D1( J )-D3( J ) ) )
   790          CONTINUE
@@ -1144,16 +1144,16 @@
   800          CONTINUE
                if ( IUPLO.EQ.1 ) {
                   INDX = 1
-                  DO 820 J = 1, N
-                     DO 810 I = 1, J
+                  for (J = 1; J <= N; J++) { // 820
+                     for (I = 1; I <= J; I++) { // 810
                         WORK( INDX ) = A( I, J )
                         INDX = INDX + 1
   810                CONTINUE
   820             CONTINUE
                } else {
                   INDX = 1
-                  DO 840 J = 1, N
-                     DO 830 I = J, N
+                  for (J = 1; J <= N; J++) { // 840
+                     for (I = J; I <= N; I++) { // 830
                         WORK( INDX ) = A( I, J )
                         INDX = INDX + 1
   830                CONTINUE
@@ -1203,16 +1203,16 @@
 
                if ( IUPLO.EQ.1 ) {
                   INDX = 1
-                  DO 860 J = 1, N
-                     DO 850 I = 1, J
+                  for (J = 1; J <= N; J++) { // 860
+                     for (I = 1; I <= J; I++) { // 850
                         WORK( INDX ) = A( I, J )
                         INDX = INDX + 1
   850                CONTINUE
   860             CONTINUE
                } else {
                   INDX = 1
-                  DO 880 J = 1, N
-                     DO 870 I = J, N
+                  for (J = 1; J <= N; J++) { // 880
+                     for (I = J; I <= N; I++) { // 870
                         WORK( INDX ) = A( I, J )
                         INDX = INDX + 1
   870                CONTINUE
@@ -1236,7 +1236,7 @@
 
                TEMP1 = ZERO
                TEMP2 = ZERO
-               DO 890 J = 1, N
+               for (J = 1; J <= N; J++) { // 890
                   TEMP1 = MAX( TEMP1, ABS( WA1( J ) ), ABS( WA2( J ) ) )
                   TEMP2 = MAX( TEMP2, ABS( WA1( J )-WA2( J ) ) )
   890          CONTINUE
@@ -1245,16 +1245,16 @@
   900          CONTINUE
                if ( IUPLO.EQ.1 ) {
                   INDX = 1
-                  DO 920 J = 1, N
-                     DO 910 I = 1, J
+                  for (J = 1; J <= N; J++) { // 920
+                     for (I = 1; I <= J; I++) { // 910
                         WORK( INDX ) = A( I, J )
                         INDX = INDX + 1
   910                CONTINUE
   920             CONTINUE
                } else {
                   INDX = 1
-                  DO 940 J = 1, N
-                     DO 930 I = J, N
+                  for (J = 1; J <= N; J++) { // 940
+                     for (I = J; I <= N; I++) { // 930
                         WORK( INDX ) = A( I, J )
                         INDX = INDX + 1
   930                CONTINUE
@@ -1286,16 +1286,16 @@
 
                if ( IUPLO.EQ.1 ) {
                   INDX = 1
-                  DO 960 J = 1, N
-                     DO 950 I = 1, J
+                  for (J = 1; J <= N; J++) { // 960
+                     for (I = 1; I <= J; I++) { // 950
                         WORK( INDX ) = A( I, J )
                         INDX = INDX + 1
   950                CONTINUE
   960             CONTINUE
                } else {
                   INDX = 1
-                  DO 980 J = 1, N
-                     DO 970 I = J, N
+                  for (J = 1; J <= N; J++) { // 980
+                     for (I = J; I <= N; I++) { // 970
                         WORK( INDX ) = A( I, J )
                         INDX = INDX + 1
   970                CONTINUE
@@ -1334,16 +1334,16 @@
   990          CONTINUE
                if ( IUPLO.EQ.1 ) {
                   INDX = 1
-                  DO 1010 J = 1, N
-                     DO 1000 I = 1, J
+                  for (J = 1; J <= N; J++) { // 1010
+                     for (I = 1; I <= J; I++) { // 1000
                         WORK( INDX ) = A( I, J )
                         INDX = INDX + 1
  1000                CONTINUE
  1010             CONTINUE
                } else {
                   INDX = 1
-                  DO 1030 J = 1, N
-                     DO 1020 I = J, N
+                  for (J = 1; J <= N; J++) { // 1030
+                     for (I = J; I <= N; I++) { // 1020
                         WORK( INDX ) = A( I, J )
                         INDX = INDX + 1
  1020                CONTINUE
@@ -1375,16 +1375,16 @@
 
                if ( IUPLO.EQ.1 ) {
                   INDX = 1
-                  DO 1050 J = 1, N
-                     DO 1040 I = 1, J
+                  for (J = 1; J <= N; J++) { // 1050
+                     for (I = 1; I <= J; I++) { // 1040
                         WORK( INDX ) = A( I, J )
                         INDX = INDX + 1
  1040                CONTINUE
  1050             CONTINUE
                } else {
                   INDX = 1
-                  DO 1070 J = 1, N
-                     DO 1060 I = J, N
+                  for (J = 1; J <= N; J++) { // 1070
+                     for (I = J; I <= N; I++) { // 1060
                         WORK( INDX ) = A( I, J )
                         INDX = INDX + 1
  1060                CONTINUE
@@ -1436,13 +1436,13 @@
                // of the matrix in band form.
 
                if ( IUPLO.EQ.1 ) {
-                  DO 1100 J = 1, N
+                  for (J = 1; J <= N; J++) { // 1100
                      DO 1090 I = MAX( 1, J-KD ), J
                         V( KD+1+I-J, J ) = A( I, J )
  1090                CONTINUE
  1100             CONTINUE
                } else {
-                  DO 1120 J = 1, N
+                  for (J = 1; J <= N; J++) { // 1120
                      DO 1110 I = J, MIN( N, J+KD )
                         V( 1+I-J, J ) = A( I, J )
  1110                CONTINUE
@@ -1470,13 +1470,13 @@
                dsyt21(1, UPLO, N, 0, A, LDA, D1, D2, Z, LDU, V, LDU, TAU, WORK, RESULT( NTEST ) );
 
                if ( IUPLO.EQ.1 ) {
-                  DO 1140 J = 1, N
+                  for (J = 1; J <= N; J++) { // 1140
                      DO 1130 I = MAX( 1, J-KD ), J
                         V( KD+1+I-J, J ) = A( I, J )
  1130                CONTINUE
  1140             CONTINUE
                } else {
-                  DO 1160 J = 1, N
+                  for (J = 1; J <= N; J++) { // 1160
                      DO 1150 I = J, MIN( N, J+KD )
                         V( 1+I-J, J ) = A( I, J )
  1150                CONTINUE
@@ -1501,7 +1501,7 @@
 
                TEMP1 = ZERO
                TEMP2 = ZERO
-               DO 1170 J = 1, N
+               for (J = 1; J <= N; J++) { // 1170
                   TEMP1 = MAX( TEMP1, ABS( D1( J ) ), ABS( D3( J ) ) )
                   TEMP2 = MAX( TEMP2, ABS( D1( J )-D3( J ) ) )
  1170          CONTINUE
@@ -1512,13 +1512,13 @@
 
  1180          CONTINUE
                if ( IUPLO.EQ.1 ) {
-                  DO 1200 J = 1, N
+                  for (J = 1; J <= N; J++) { // 1200
                      DO 1190 I = MAX( 1, J-KD ), J
                         V( KD+1+I-J, J ) = A( I, J )
  1190                CONTINUE
  1200             CONTINUE
                } else {
-                  DO 1220 J = 1, N
+                  for (J = 1; J <= N; J++) { // 1220
                      DO 1210 I = J, MIN( N, J+KD )
                         V( 1+I-J, J ) = A( I, J )
  1210                CONTINUE
@@ -1548,13 +1548,13 @@
                NTEST = NTEST + 2
 
                if ( IUPLO.EQ.1 ) {
-                  DO 1240 J = 1, N
+                  for (J = 1; J <= N; J++) { // 1240
                      DO 1230 I = MAX( 1, J-KD ), J
                         V( KD+1+I-J, J ) = A( I, J )
  1230                CONTINUE
  1240             CONTINUE
                } else {
-                  DO 1260 J = 1, N
+                  for (J = 1; J <= N; J++) { // 1260
                      DO 1250 I = J, MIN( N, J+KD )
                         V( 1+I-J, J ) = A( I, J )
  1250                CONTINUE
@@ -1578,7 +1578,7 @@
 
                TEMP1 = ZERO
                TEMP2 = ZERO
-               DO 1270 J = 1, N
+               for (J = 1; J <= N; J++) { // 1270
                   TEMP1 = MAX( TEMP1, ABS( WA2( J ) ), ABS( WA3( J ) ) )
                   TEMP2 = MAX( TEMP2, ABS( WA2( J )-WA3( J ) ) )
  1270          CONTINUE
@@ -1587,13 +1587,13 @@
  1280          CONTINUE
                NTEST = NTEST + 1
                if ( IUPLO.EQ.1 ) {
-                  DO 1300 J = 1, N
+                  for (J = 1; J <= N; J++) { // 1300
                      DO 1290 I = MAX( 1, J-KD ), J
                         V( KD+1+I-J, J ) = A( I, J )
  1290                CONTINUE
  1300             CONTINUE
                } else {
-                  DO 1320 J = 1, N
+                  for (J = 1; J <= N; J++) { // 1320
                      DO 1310 I = J, MIN( N, J+KD )
                         V( 1+I-J, J ) = A( I, J )
  1310                CONTINUE
@@ -1622,13 +1622,13 @@
                NTEST = NTEST + 2
 
                if ( IUPLO.EQ.1 ) {
-                  DO 1340 J = 1, N
+                  for (J = 1; J <= N; J++) { // 1340
                      DO 1330 I = MAX( 1, J-KD ), J
                         V( KD+1+I-J, J ) = A( I, J )
  1330                CONTINUE
  1340             CONTINUE
                } else {
-                  DO 1360 J = 1, N
+                  for (J = 1; J <= N; J++) { // 1360
                      DO 1350 I = J, MIN( N, J+KD )
                         V( 1+I-J, J ) = A( I, J )
  1350                CONTINUE
@@ -1662,13 +1662,13 @@
  1370          CONTINUE
                NTEST = NTEST + 1
                if ( IUPLO.EQ.1 ) {
-                  DO 1390 J = 1, N
+                  for (J = 1; J <= N; J++) { // 1390
                      DO 1380 I = MAX( 1, J-KD ), J
                         V( KD+1+I-J, J ) = A( I, J )
  1380                CONTINUE
  1390             CONTINUE
                } else {
-                  DO 1410 J = 1, N
+                  for (J = 1; J <= N; J++) { // 1410
                      DO 1400 I = J, MIN( N, J+KD )
                         V( 1+I-J, J ) = A( I, J )
  1400                CONTINUE
@@ -1697,13 +1697,13 @@
                NTEST = NTEST + 2
 
                if ( IUPLO.EQ.1 ) {
-                  DO 1430 J = 1, N
+                  for (J = 1; J <= N; J++) { // 1430
                      DO 1420 I = MAX( 1, J-KD ), J
                         V( KD+1+I-J, J ) = A( I, J )
  1420                CONTINUE
  1430             CONTINUE
                } else {
-                  DO 1450 J = 1, N
+                  for (J = 1; J <= N; J++) { // 1450
                      DO 1440 I = J, MIN( N, J+KD )
                         V( 1+I-J, J ) = A( I, J )
  1440                CONTINUE
@@ -1785,7 +1785,7 @@
 
                TEMP1 = ZERO
                TEMP2 = ZERO
-               DO 1470 J = 1, N
+               for (J = 1; J <= N; J++) { // 1470
                   TEMP1 = MAX( TEMP1, ABS( D1( J ) ), ABS( D3( J ) ) )
                   TEMP2 = MAX( TEMP2, ABS( D1( J )-D3( J ) ) )
  1470          CONTINUE
@@ -1802,16 +1802,16 @@
 
                if ( IUPLO.EQ.1 ) {
                   INDX = 1
-                  DO 1500 J = 1, N
-                     DO 1490 I = 1, J
+                  for (J = 1; J <= N; J++) { // 1500
+                     for (I = 1; I <= J; I++) { // 1490
                         WORK( INDX ) = A( I, J )
                         INDX = INDX + 1
  1490                CONTINUE
  1500             CONTINUE
                } else {
                   INDX = 1
-                  DO 1520 J = 1, N
-                     DO 1510 I = J, N
+                  for (J = 1; J <= N; J++) { // 1520
+                     for (I = J; I <= N; I++) { // 1510
                         WORK( INDX ) = A( I, J )
                         INDX = INDX + 1
  1510                CONTINUE
@@ -1840,8 +1840,8 @@
 
                if ( IUPLO.EQ.1 ) {
                   INDX = 1
-                  DO 1540 J = 1, N
-                     DO 1530 I = 1, J
+                  for (J = 1; J <= N; J++) { // 1540
+                     for (I = 1; I <= J; I++) { // 1530
 
                         WORK( INDX ) = A( I, J )
                         INDX = INDX + 1
@@ -1849,8 +1849,8 @@
  1540             CONTINUE
                } else {
                   INDX = 1
-                  DO 1560 J = 1, N
-                     DO 1550 I = J, N
+                  for (J = 1; J <= N; J++) { // 1560
+                     for (I = J; I <= N; I++) { // 1550
                         WORK( INDX ) = A( I, J )
                         INDX = INDX + 1
  1550                CONTINUE
@@ -1875,7 +1875,7 @@
 
                TEMP1 = ZERO
                TEMP2 = ZERO
-               DO 1570 J = 1, N
+               for (J = 1; J <= N; J++) { // 1570
                   TEMP1 = MAX( TEMP1, ABS( D1( J ) ), ABS( D3( J ) ) )
                   TEMP2 = MAX( TEMP2, ABS( D1( J )-D3( J ) ) )
  1570          CONTINUE
@@ -1896,13 +1896,13 @@
                // of the matrix in band form.
 
                if ( IUPLO.EQ.1 ) {
-                  DO 1600 J = 1, N
+                  for (J = 1; J <= N; J++) { // 1600
                      DO 1590 I = MAX( 1, J-KD ), J
                         V( KD+1+I-J, J ) = A( I, J )
  1590                CONTINUE
  1600             CONTINUE
                } else {
-                  DO 1620 J = 1, N
+                  for (J = 1; J <= N; J++) { // 1620
                      DO 1610 I = J, MIN( N, J+KD )
                         V( 1+I-J, J ) = A( I, J )
  1610                CONTINUE
@@ -1930,13 +1930,13 @@
                dsyt21(1, UPLO, N, 0, A, LDA, D1, D2, Z, LDU, V, LDU, TAU, WORK, RESULT( NTEST ) );
 
                if ( IUPLO.EQ.1 ) {
-                  DO 1640 J = 1, N
+                  for (J = 1; J <= N; J++) { // 1640
                      DO 1630 I = MAX( 1, J-KD ), J
                         V( KD+1+I-J, J ) = A( I, J )
  1630                CONTINUE
  1640             CONTINUE
                } else {
-                  DO 1660 J = 1, N
+                  for (J = 1; J <= N; J++) { // 1660
                      DO 1650 I = J, MIN( N, J+KD )
                         V( 1+I-J, J ) = A( I, J )
  1650                CONTINUE
@@ -1961,7 +1961,7 @@
 
                TEMP1 = ZERO
                TEMP2 = ZERO
-               DO 1670 J = 1, N
+               for (J = 1; J <= N; J++) { // 1670
                   TEMP1 = MAX( TEMP1, ABS( D1( J ) ), ABS( D3( J ) ) )
                   TEMP2 = MAX( TEMP2, ABS( D1( J )-D3( J ) ) )
  1670          CONTINUE
@@ -2011,7 +2011,7 @@
 
                TEMP1 = ZERO
                TEMP2 = ZERO
-               DO 1690 J = 1, N
+               for (J = 1; J <= N; J++) { // 1690
                   TEMP1 = MAX( TEMP1, ABS( WA1( J ) ), ABS( WA2( J ) ) )
                   TEMP2 = MAX( TEMP2, ABS( WA1( J )-WA2( J ) ) )
  1690          CONTINUE

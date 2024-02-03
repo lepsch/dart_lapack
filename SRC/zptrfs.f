@@ -76,7 +76,7 @@
       // Quick return if possible
 
       if ( N.EQ.0 .OR. NRHS.EQ.0 ) {
-         DO 10 J = 1, NRHS
+         for (J = 1; J <= NRHS; J++) { // 10
             FERR( J ) = ZERO
             BERR( J ) = ZERO
    10    CONTINUE
@@ -93,7 +93,7 @@
 
       // Do for each right hand side
 
-      DO 100 J = 1, NRHS
+      for (J = 1; J <= NRHS; J++) { // 100
 
          COUNT = 1
          LSTRES = THREE
@@ -168,7 +168,7 @@
          // numerator and denominator before dividing.
 
          S = ZERO
-         DO 50 I = 1, N
+         for (I = 1; I <= N; I++) { // 50
             if ( RWORK( I ).GT.SAFE2 ) {
                S = MAX( S, CABS1( WORK( I ) ) / RWORK( I ) )
             } else {
@@ -212,7 +212,7 @@
          // is incremented by SAFE1 if the i-th component of
          // abs(A)*abs(X) + abs(B) is less than SAFE2.
 
-         DO 60 I = 1, N
+         for (I = 1; I <= N; I++) { // 60
             if ( RWORK( I ).GT.SAFE2 ) {
                RWORK( I ) = CABS1( WORK( I ) ) + NZ*EPS*RWORK( I )
             } else {
@@ -234,7 +234,7 @@
          // Solve M(L) * x = e.
 
          RWORK( 1 ) = ONE
-         DO 70 I = 2, N
+         for (I = 2; I <= N; I++) { // 70
             RWORK( I ) = ONE + RWORK( I-1 )*ABS( EF( I-1 ) )
    70    CONTINUE
 
@@ -253,7 +253,7 @@
          // Normalize error.
 
          LSTRES = ZERO
-         DO 90 I = 1, N
+         for (I = 1; I <= N; I++) { // 90
             LSTRES = MAX( LSTRES, ABS( X( I, J ) ) )
    90    CONTINUE
          IF( LSTRES.NE.ZERO ) FERR( J ) = FERR( J ) / LSTRES

@@ -67,7 +67,7 @@
       KD = KU + 1
       KE = KL + 1
       if ( NOTRANS ) {
-         DO I = 1, N
+         for (I = 1; I <= N; I++) {
             TMP = 0.0
                if ( CMODE .EQ. 1 ) {
                DO J = MAX( I-KL, 1 ), MIN( I+KU, N )
@@ -85,7 +85,7 @@
             WORK( 2*N+I ) = TMP
          END DO
       } else {
-         DO I = 1, N
+         for (I = 1; I <= N; I++) {
             TMP = 0.0
             if ( CMODE .EQ. 1 ) {
                DO J = MAX( I-KL, 1 ), MIN( I+KU, N )
@@ -116,7 +116,7 @@
 
             // Multiply by R.
 
-            DO I = 1, N
+            for (I = 1; I <= N; I++) {
                WORK( I ) = WORK( I ) * WORK( 2*N+I )
             END DO
 
@@ -129,11 +129,11 @@
             // Multiply by inv(C).
 
             if ( CMODE .EQ. 1 ) {
-               DO I = 1, N
+               for (I = 1; I <= N; I++) {
                   WORK( I ) = WORK( I ) / C( I )
                END DO
             } else if ( CMODE .EQ. -1 ) {
-               DO I = 1, N
+               for (I = 1; I <= N; I++) {
                   WORK( I ) = WORK( I ) * C( I )
                END DO
             }
@@ -142,11 +142,11 @@
             // Multiply by inv(C**T).
 
             if ( CMODE .EQ. 1 ) {
-               DO I = 1, N
+               for (I = 1; I <= N; I++) {
                   WORK( I ) = WORK( I ) / C( I )
                END DO
             } else if ( CMODE .EQ. -1 ) {
-               DO I = 1, N
+               for (I = 1; I <= N; I++) {
                   WORK( I ) = WORK( I ) * C( I )
                END DO
             }
@@ -159,7 +159,7 @@
 
             // Multiply by R.
 
-            DO I = 1, N
+            for (I = 1; I <= N; I++) {
                WORK( I ) = WORK( I ) * WORK( 2*N+I )
             END DO
          }

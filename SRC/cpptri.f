@@ -63,7 +63,7 @@
          // Compute the product inv(U) * inv(U)**H.
 
          JJ = 0
-         DO 10 J = 1, N
+         for (J = 1; J <= N; J++) { // 10
             JC = JJ + 1
             JJ = JJ + J
             IF( J.GT.1 ) CALL CHPR( 'Upper', J-1, ONE, AP( JC ), 1, AP )
@@ -76,7 +76,7 @@
          // Compute the product inv(L)**H * inv(L).
 
          JJ = 1
-         DO 20 J = 1, N
+         for (J = 1; J <= N; J++) { // 20
             JJN = JJ + N - J + 1
             AP( JJ ) = REAL( CDOTC( N-J+1, AP( JJ ), 1, AP( JJ ), 1 ) )
             IF( J.LT.N ) CALL CTPMV( 'Lower', 'Conjugate transpose', 'Non-unit', N-J, AP( JJN ), AP( JJ+1 ), 1 )

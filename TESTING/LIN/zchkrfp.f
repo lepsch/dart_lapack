@@ -81,7 +81,7 @@
          FATAL = .TRUE.
       }
       READ( NIN, FMT = * )( NVAL( I ), I = 1, NN )
-      DO 10 I = 1, NN
+      for (I = 1; I <= NN; I++) { // 10
          if ( NVAL( I ).LT.0 ) {
             WRITE( NOUT, FMT = 9996 )' M  ', NVAL( I ), 0
             FATAL = .TRUE.
@@ -105,7 +105,7 @@
          FATAL = .TRUE.
       }
       READ( NIN, FMT = * )( NSVAL( I ), I = 1, NNS )
-      DO 30 I = 1, NNS
+      for (I = 1; I <= NNS; I++) { // 30
          if ( NSVAL( I ).LT.0 ) {
             WRITE( NOUT, FMT = 9996 )'NRHS', NSVAL( I ), 0
             FATAL = .TRUE.
@@ -129,7 +129,7 @@
          FATAL = .TRUE.
       }
       READ( NIN, FMT = * )( NTVAL( I ), I = 1, NNT )
-      DO 320 I = 1, NNT
+      for (I = 1; I <= NNT; I++) { // 320
          if ( NTVAL( I ).LT.0 ) {
             WRITE( NOUT, FMT = 9996 )'TYPE', NTVAL( I ), 0
             FATAL = .TRUE.

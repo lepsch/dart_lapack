@@ -73,7 +73,7 @@
 
       ORGNRM = MAX( ABS( ALPHA ), ABS( BETA ) )
       D( NL+1 ) = ZERO
-      DO 10 I = 1, N
+      for (I = 1; I <= N; I++) { // 10
          if ( ABS( D( I ) ).GT.ORGNRM ) {
             ORGNRM = ABS( D( I ) )
          }

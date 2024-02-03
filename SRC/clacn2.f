@@ -42,7 +42,7 @@
 
       SAFMIN = SLAMCH( 'Safe minimum' )
       if ( KASE.EQ.0 ) {
-         DO 10 I = 1, N
+         for (I = 1; I <= N; I++) { // 10
             X( I ) = CMPLX( ONE / REAL( N ) )
    10    CONTINUE
          KASE = 1
@@ -64,7 +64,7 @@
       }
       EST = SCSUM1( N, X, 1 )
 
-      DO 30 I = 1, N
+      for (I = 1; I <= N; I++) { // 30
          ABSXI = ABS( X( I ) )
          if ( ABSXI.GT.SAFMIN ) {
             X( I ) = CMPLX( REAL( X( I ) ) / ABSXI, AIMAG( X( I ) ) / ABSXI )
@@ -86,7 +86,7 @@
       // MAIN LOOP - ITERATIONS 2,3,...,ITMAX.
 
    50 CONTINUE
-      DO 60 I = 1, N
+      for (I = 1; I <= N; I++) { // 60
          X( I ) = CZERO
    60 CONTINUE
       X( ISAVE( 2 ) ) = CONE
@@ -105,7 +105,7 @@
       // TEST FOR CYCLING.
       IF( EST.LE.ESTOLD ) GO TO 100
 
-      DO 80 I = 1, N
+      for (I = 1; I <= N; I++) { // 80
          ABSXI = ABS( X( I ) )
          if ( ABSXI.GT.SAFMIN ) {
             X( I ) = CMPLX( REAL( X( I ) ) / ABSXI, AIMAG( X( I ) ) / ABSXI )
@@ -132,7 +132,7 @@
 
   100 CONTINUE
       ALTSGN = ONE
-      DO 110 I = 1, N
+      for (I = 1; I <= N; I++) { // 110
          X( I ) = CMPLX( ALTSGN*( ONE + REAL( I-1 ) / REAL( N-1 ) ) )
          ALTSGN = -ALTSGN
   110 CONTINUE

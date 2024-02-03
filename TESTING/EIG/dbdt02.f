@@ -43,7 +43,7 @@
 
       // Compute norm(B - U * C)
 
-      DO 10 J = 1, N
+      for (J = 1; J <= N; J++) { // 10
          dcopy(M, B( 1, J ), 1, WORK, 1 );
          dgemv('No transpose', M, M, -ONE, U, LDU, C( 1, J ), 1, ONE, WORK, 1 );
          RESID = MAX( RESID, DASUM( M, WORK, 1 ) )

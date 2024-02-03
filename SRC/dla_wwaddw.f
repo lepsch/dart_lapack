@@ -19,7 +19,7 @@
       // ..
       // .. Executable Statements ..
 
-      DO 10 I = 1, N
+      for (I = 1; I <= N; I++) { // 10
         S = X(I) + W(I)
         S = (S + S) - S
         Y(I) = ((X(I) - S) + W(I)) + Y(I)

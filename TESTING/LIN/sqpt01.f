@@ -52,7 +52,7 @@
 
       NORMA = SLANGE( 'One-norm', M, N, A, LDA, RWORK )
 
-      DO J = 1, K
+      for (J = 1; J <= K; J++) {
          DO I = 1, MIN( J, M )
             WORK( ( J-1 )*M+I ) = AF( I, J )
          END DO
@@ -66,7 +66,7 @@
 
       sormqr('Left', 'No transpose', M, N, K, AF, LDA, TAU, WORK, M, WORK( M*N+1 ), LWORK-M*N, INFO );
 
-      DO J = 1, N
+      for (J = 1; J <= N; J++) {
 
          // Compare i-th column of QR and jpvt(i)-th column of A
 

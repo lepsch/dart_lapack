@@ -78,14 +78,14 @@
 
       } else if ( IMAT.EQ.7 ) {
          if ( UPPER ) {
-            DO 20 J = 1, N
+            for (J = 1; J <= N; J++) { // 20
                DO 10 I = 1, J - 1
                   A( I, J ) = ZERO
    10          CONTINUE
                A( J, J ) = J
    20       CONTINUE
          } else {
-            DO 40 J = 1, N
+            for (J = 1; J <= N; J++) { // 40
                A( J, J ) = J
                DO 30 I = J + 1, N
                   A( I, J ) = ZERO
@@ -101,14 +101,14 @@
 
       } else if ( IMAT.LE.10 ) {
          if ( UPPER ) {
-            DO 60 J = 1, N
+            for (J = 1; J <= N; J++) { // 60
                DO 50 I = 1, J - 1
                   A( I, J ) = ZERO
    50          CONTINUE
                A( J, J ) = J
    60       CONTINUE
          } else {
-            DO 80 J = 1, N
+            for (J = 1; J <= N; J++) { // 80
                A( J, J ) = J
                DO 70 I = J + 1, N
                   A( I, J ) = ZERO
@@ -276,12 +276,12 @@
          // Make the right hand side large so that it requires scaling.
 
          if ( UPPER ) {
-            DO 140 J = 1, N
+            for (J = 1; J <= N; J++) { // 140
                dlarnv(2, ISEED, J, A( 1, J ) );
                A( J, J ) = SIGN( TWO, A( J, J ) )
   140       CONTINUE
          } else {
-            DO 150 J = 1, N
+            for (J = 1; J <= N; J++) { // 150
                dlarnv(2, ISEED, N-J+1, A( J, J ) );
                A( J, J ) = SIGN( TWO, A( J, J ) )
   150       CONTINUE
@@ -304,14 +304,14 @@
          dlarnv(2, ISEED, N, B );
          TSCAL = ONE / MAX( ONE, DBLE( N-1 ) )
          if ( UPPER ) {
-            DO 160 J = 1, N
+            for (J = 1; J <= N; J++) { // 160
                dlarnv(2, ISEED, J, A( 1, J ) );
                dscal(J-1, TSCAL, A( 1, J ), 1 );
                A( J, J ) = SIGN( ONE, A( J, J ) )
   160       CONTINUE
             A( N, N ) = SMLNUM*A( N, N )
          } else {
-            DO 170 J = 1, N
+            for (J = 1; J <= N; J++) { // 170
                dlarnv(2, ISEED, N-J+1, A( J, J ) );
                IF( N.GT.J ) CALL DSCAL( N-J, TSCAL, A( J+1, J ), 1 )
                A( J, J ) = SIGN( ONE, A( J, J ) )
@@ -327,13 +327,13 @@
 
          dlarnv(2, ISEED, N, B );
          if ( UPPER ) {
-            DO 180 J = 1, N
+            for (J = 1; J <= N; J++) { // 180
                dlarnv(2, ISEED, J, A( 1, J ) );
                A( J, J ) = SIGN( ONE, A( J, J ) )
   180       CONTINUE
             A( N, N ) = SMLNUM*A( N, N )
          } else {
-            DO 190 J = 1, N
+            for (J = 1; J <= N; J++) { // 190
                dlarnv(2, ISEED, N-J+1, A( J, J ) );
                A( J, J ) = SIGN( ONE, A( J, J ) )
   190       CONTINUE
@@ -362,7 +362,7 @@
   210       CONTINUE
          } else {
             JCOUNT = 1
-            DO 230 J = 1, N
+            for (J = 1; J <= N; J++) { // 230
                DO 220 I = J + 1, N
                   A( I, J ) = ZERO
   220          CONTINUE
@@ -402,7 +402,7 @@
          TSCAL = SMLNUM**TEXP
          dlarnv(2, ISEED, N, B );
          if ( UPPER ) {
-            DO 270 J = 1, N
+            for (J = 1; J <= N; J++) { // 270
                DO 260 I = 1, J - 2
                   A( I, J ) = 0.D0
   260          CONTINUE
@@ -411,7 +411,7 @@
   270       CONTINUE
             B( N ) = ONE
          } else {
-            DO 290 J = 1, N
+            for (J = 1; J <= N; J++) { // 290
                DO 280 I = J + 2, N
                   A( I, J ) = 0.D0
   280          CONTINUE
@@ -427,7 +427,7 @@
 
          IY = N / 2 + 1
          if ( UPPER ) {
-            DO 300 J = 1, N
+            for (J = 1; J <= N; J++) { // 300
                dlarnv(2, ISEED, J, A( 1, J ) );
                if ( J.NE.IY ) {
                   A( J, J ) = SIGN( TWO, A( J, J ) )
@@ -436,7 +436,7 @@
                }
   300       CONTINUE
          } else {
-            DO 310 J = 1, N
+            for (J = 1; J <= N; J++) { // 310
                dlarnv(2, ISEED, N-J+1, A( J, J ) );
                if ( J.NE.IY ) {
                   A( J, J ) = SIGN( TWO, A( J, J ) )
@@ -457,8 +457,8 @@
 
          TSCAL = UNFL / ULP
          TSCAL = ( ONE-ULP ) / TSCAL
-         DO 330 J = 1, N
-            DO 320 I = 1, N
+         for (J = 1; J <= N; J++) { // 330
+            for (I = 1; I <= N; I++) { // 320
                A( I, J ) = 0.D0
   320       CONTINUE
   330    CONTINUE
@@ -494,12 +494,12 @@
          // requires scaling.
 
          if ( UPPER ) {
-            DO 360 J = 1, N
+            for (J = 1; J <= N; J++) { // 360
                dlarnv(2, ISEED, J-1, A( 1, J ) );
                A( J, J ) = ZERO
   360       CONTINUE
          } else {
-            DO 370 J = 1, N
+            for (J = 1; J <= N; J++) { // 370
                IF( J.LT.N ) CALL DLARNV( 2, ISEED, N-J, A( J+1, J ) )
                A( J, J ) = ZERO
   370       CONTINUE
@@ -523,16 +523,16 @@
          TLEFT = BIGNUM / MAX( ONE, DBLE( N-1 ) )
          TSCAL = BIGNUM*( DBLE( N-1 ) / MAX( ONE, DBLE( N ) ) )
          if ( UPPER ) {
-            DO 390 J = 1, N
+            for (J = 1; J <= N; J++) { // 390
                dlarnv(2, ISEED, J, A( 1, J ) );
-               DO 380 I = 1, J
+               for (I = 1; I <= J; I++) { // 380
                   A( I, J ) = SIGN( TLEFT, A( I, J ) ) + TSCAL*A( I, J )
   380          CONTINUE
   390       CONTINUE
          } else {
-            DO 410 J = 1, N
+            for (J = 1; J <= N; J++) { // 410
                dlarnv(2, ISEED, N-J+1, A( J, J ) );
-               DO 400 I = J, N
+               for (I = J; I <= N; I++) { // 400
                   A( I, J ) = SIGN( TLEFT, A( I, J ) ) + TSCAL*A( I, J )
   400          CONTINUE
   410       CONTINUE

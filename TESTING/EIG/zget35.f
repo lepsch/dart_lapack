@@ -68,41 +68,41 @@
    10 CONTINUE
       READ( NIN, FMT = * )M, N
       IF( N.EQ.0 ) RETURN
-      DO 20 I = 1, M
+      for (I = 1; I <= M; I++) { // 20
          READ( NIN, FMT = * )( ATMP( I, J ), J = 1, M )
    20 CONTINUE
-      DO 30 I = 1, N
+      for (I = 1; I <= N; I++) { // 30
          READ( NIN, FMT = * )( BTMP( I, J ), J = 1, N )
    30 CONTINUE
-      DO 40 I = 1, M
+      for (I = 1; I <= M; I++) { // 40
          READ( NIN, FMT = * )( CTMP( I, J ), J = 1, N )
    40 CONTINUE
-      DO 170 IMLA = 1, 3
-         DO 160 IMLAD = 1, 3
-            DO 150 IMLB = 1, 3
-               DO 140 IMLC = 1, 3
-                  DO 130 ITRANA = 1, 2
-                     DO 120 ITRANB = 1, 2
+      for (IMLA = 1; IMLA <= 3; IMLA++) { // 170
+         for (IMLAD = 1; IMLAD <= 3; IMLAD++) { // 160
+            for (IMLB = 1; IMLB <= 3; IMLB++) { // 150
+               for (IMLC = 1; IMLC <= 3; IMLC++) { // 140
+                  for (ITRANA = 1; ITRANA <= 2; ITRANA++) { // 130
+                     for (ITRANB = 1; ITRANB <= 2; ITRANB++) { // 120
                         DO 110 ISGN = -1, 1, 2
                            IF( ITRANA.EQ.1 ) TRANA = 'N'                            IF( ITRANA.EQ.2 ) TRANA = 'C'                            IF( ITRANB.EQ.1 ) TRANB = 'N'                            IF( ITRANB.EQ.2 ) TRANB = 'C'
                            TNRM = ZERO
-                           DO 60 I = 1, M
-                              DO 50 J = 1, M
+                           for (I = 1; I <= M; I++) { // 60
+                              for (J = 1; J <= M; J++) { // 50
                                  A( I, J ) = ATMP( I, J )*VM1( IMLA )
                                  TNRM = MAX( TNRM, ABS( A( I, J ) ) )
    50                         CONTINUE
                               A( I, I ) = A( I, I )*VM2( IMLAD )
                               TNRM = MAX( TNRM, ABS( A( I, I ) ) )
    60                      CONTINUE
-                           DO 80 I = 1, N
-                              DO 70 J = 1, N
+                           for (I = 1; I <= N; I++) { // 80
+                              for (J = 1; J <= N; J++) { // 70
                                  B( I, J ) = BTMP( I, J )*VM1( IMLB )
                                  TNRM = MAX( TNRM, ABS( B( I, J ) ) )
    70                         CONTINUE
    80                      CONTINUE
                            IF( TNRM.EQ.ZERO ) TNRM = ONE
-                           DO 100 I = 1, M
-                              DO 90 J = 1, N
+                           for (I = 1; I <= M; I++) { // 100
+                              for (J = 1; J <= N; J++) { // 90
                                  C( I, J ) = CTMP( I, J )*VM1( IMLC )
                                  CSAV( I, J ) = C( I, J )
    90                         CONTINUE

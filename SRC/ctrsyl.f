@@ -99,7 +99,7 @@
            // R(K,L) = SUM [A(K,I)*X(I,L)] +ISGN*SUM [X(K,J)*B(J,L)].
                    // I=K+1                      J=1
 
-         DO 30 L = 1, N
+         for (L = 1; L <= N; L++) { // 30
             DO 20 K = M, 1, -1
 
                SUML = CDOTU( M-K, A( K, MIN( K+1, M ) ), LDA, C( MIN( K+1, M ), L ), 1 )
@@ -121,7 +121,7 @@
                X11 = CLADIV( VEC*CMPLX( SCALOC ), A11 )
 
                if ( SCALOC.NE.ONE ) {
-                  DO 10 J = 1, N
+                  for (J = 1; J <= N; J++) { // 10
                      csscal(M, SCALOC, C( 1, J ), 1 );
    10             CONTINUE
                   SCALE = SCALE*SCALOC
@@ -145,8 +145,8 @@
            // R(K,L) = SUM [A**H(I,K)*X(I,L)] + ISGN*SUM [X(K,J)*B(J,L)]
                     // I=1                           J=1
 
-         DO 60 L = 1, N
-            DO 50 K = 1, M
+         for (L = 1; L <= N; L++) { // 60
+            for (K = 1; K <= M; K++) { // 50
 
                SUML = CDOTC( K-1, A( 1, K ), 1, C( 1, L ), 1 )
                SUMR = CDOTU( L-1, C( K, 1 ), LDC, B( 1, L ), 1 )
@@ -168,7 +168,7 @@
                X11 = CLADIV( VEC*CMPLX( SCALOC ), A11 )
 
                if ( SCALOC.NE.ONE ) {
-                  DO 40 J = 1, N
+                  for (J = 1; J <= N; J++) { // 40
                      csscal(M, SCALOC, C( 1, J ), 1 );
    40             CONTINUE
                   SCALE = SCALE*SCALOC
@@ -196,7 +196,7 @@
                            // J=L+1
 
          DO 90 L = N, 1, -1
-            DO 80 K = 1, M
+            for (K = 1; K <= M; K++) { // 80
 
                SUML = CDOTC( K-1, A( 1, K ), 1, C( 1, L ), 1 )
                SUMR = CDOTC( N-L, C( K, MIN( L+1, N ) ), LDC, B( L, MIN( L+1, N ) ), LDB )
@@ -218,7 +218,7 @@
                X11 = CLADIV( VEC*CMPLX( SCALOC ), A11 )
 
                if ( SCALOC.NE.ONE ) {
-                  DO 70 J = 1, N
+                  for (J = 1; J <= N; J++) { // 70
                      csscal(M, SCALOC, C( 1, J ), 1 );
    70             CONTINUE
                   SCALE = SCALE*SCALOC
@@ -264,7 +264,7 @@
                X11 = CLADIV( VEC*CMPLX( SCALOC ), A11 )
 
                if ( SCALOC.NE.ONE ) {
-                  DO 100 J = 1, N
+                  for (J = 1; J <= N; J++) { // 100
                      csscal(M, SCALOC, C( 1, J ), 1 );
   100             CONTINUE
                   SCALE = SCALE*SCALOC

@@ -116,7 +116,7 @@
          GO TO 220
       }
       READ( NIN, FMT = * )( IDIM( I ), I = 1, NIDIM )
-      DO 10 I = 1, NIDIM
+      for (I = 1; I <= NIDIM; I++) { // 10
          if ( IDIM( I ).LT.0.OR.IDIM( I ).GT.NMAX ) {
             WRITE( NOUT, FMT = 9996 )NMAX
             GO TO 220
@@ -170,11 +170,11 @@
       // Read names of subroutines and flags which indicate
       // whether they are to be tested.
 
-      DO 20 I = 1, NSUBS
+      for (I = 1; I <= NSUBS; I++) { // 20
          LTEST( I ) = .FALSE.
    20 CONTINUE
    30 READ( NIN, FMT = 9988, END = 60 )SNAMET, LTESTT
-      DO 40 I = 1, NSUBS
+      for (I = 1; I <= NSUBS; I++) { // 40
          IF( SNAMET.EQ.SNAMES( I ) ) GO TO 50
    40 CONTINUE
       WRITE( NOUT, FMT = 9990 )SNAMET
@@ -199,15 +199,15 @@
       // Check the reliability of DMMCH using exact data.
 
       N = MIN( 32, NMAX )
-      DO 100 J = 1, N
-         DO 90 I = 1, N
+      for (J = 1; J <= N; J++) { // 100
+         for (I = 1; I <= N; I++) { // 90
             AB( I, J ) = MAX( I - J + 1, 0 )
    90    CONTINUE
          AB( J, NMAX + 1 ) = J
          AB( 1, NMAX + J ) = J
          C( J, 1 ) = ZERO
   100 CONTINUE
-      DO 110 J = 1, N
+      for (J = 1; J <= N; J++) { // 110
          CC( J ) = J*( ( J + 1 )*J )/2 - ( ( J + 1 )*J*( J - 1 ) )/3
   110 CONTINUE
       // CC holds the exact result. On exit from DMMCH CT holds
@@ -227,11 +227,11 @@
          WRITE( NOUT, FMT = 9989 )TRANSA, TRANSB, SAME, ERR
          STOP
       }
-      DO 120 J = 1, N
+      for (J = 1; J <= N; J++) { // 120
          AB( J, NMAX + 1 ) = N - J + 1
          AB( 1, NMAX + J ) = N - J + 1
   120 CONTINUE
-      DO 130 J = 1, N
+      for (J = 1; J <= N; J++) { // 130
          CC( N - J + 1 ) = J*( ( J + 1 )*J )/2 - ( ( J + 1 )*J*( J - 1 ) )/3
   130 CONTINUE
       TRANSA = 'T'
@@ -252,7 +252,7 @@
 
       // Test each subroutine in turn.
 
-      DO 200 ISNUM = 1, NSUBS
+      for (ISNUM = 1; ISNUM <= NSUBS; ISNUM++) { // 200
          WRITE( NOUT, FMT = * )
          if ( .NOT.LTEST( ISNUM ) ) {
             // Subprogram is not to be tested.
@@ -403,10 +403,10 @@
       RESET = .TRUE.
       ERRMAX = ZERO
 
-      DO 110 IM = 1, NIDIM
+      for (IM = 1; IM <= NIDIM; IM++) { // 110
          M = IDIM( IM )
 
-         DO 100 IN = 1, NIDIM
+         for (IN = 1; IN <= NIDIM; IN++) { // 100
             N = IDIM( IN )
             // Set LDC to 1 more than minimum value if room.
             LDC = M
@@ -416,10 +416,10 @@
             LCC = LDC*N
             NULL = N.LE.0.OR.M.LE.0
 
-            DO 90 IK = 1, NIDIM
+            for (IK = 1; IK <= NIDIM; IK++) { // 90
                K = IDIM( IK )
 
-               DO 80 ICA = 1, 3
+               for (ICA = 1; ICA <= 3; ICA++) { // 80
                   TRANSA = ICH( ICA: ICA )
                   TRANA = TRANSA.EQ.'T'.OR.TRANSA.EQ.'C'
 
@@ -441,7 +441,7 @@
 
                   dmake('GE', ' ', ' ', MA, NA, A, NMAX, AA, LDA, RESET, ZERO );
 
-                  DO 70 ICB = 1, 3
+                  for (ICB = 1; ICB <= 3; ICB++) { // 70
                      TRANSB = ICH( ICB: ICB )
                      TRANB = TRANSB.EQ.'T'.OR.TRANSB.EQ.'C'
 
@@ -463,10 +463,10 @@
 
                      dmake('GE', ' ', ' ', MB, NB, B, NMAX, BB, LDB, RESET, ZERO );
 
-                     DO 60 IA = 1, NALF
+                     for (IA = 1; IA <= NALF; IA++) { // 60
                         ALPHA = ALF( IA )
 
-                        DO 50 IB = 1, NBET
+                        for (IB = 1; IB <= NBET; IB++) { // 50
                            BETA = BET( IB )
 
                            // Generate the matrix C.
@@ -484,16 +484,16 @@
                            NS = N
                            KS = K
                            ALS = ALPHA
-                           DO 10 I = 1, LAA
+                           for (I = 1; I <= LAA; I++) { // 10
                               AS( I ) = AA( I )
    10                      CONTINUE
                            LDAS = LDA
-                           DO 20 I = 1, LBB
+                           for (I = 1; I <= LBB; I++) { // 20
                               BS( I ) = BB( I )
    20                      CONTINUE
                            LDBS = LDB
                            BLS = BETA
-                           DO 30 I = 1, LCC
+                           for (I = 1; I <= LCC; I++) { // 30
                               CS( I ) = CC( I )
    30                      CONTINUE
                            LDCS = LDC
@@ -535,7 +535,7 @@
                            // and return.
 
                            SAME = .TRUE.
-                           DO 40 I = 1, NARGS
+                           for (I = 1; I <= NARGS; I++) { // 40
                               SAME = SAME.AND.ISAME( I )
                               IF( .NOT.ISAME( I ) ) WRITE( NOUT, FMT = 9998 )I
    40                      CONTINUE
@@ -684,10 +684,10 @@
       RESET = .TRUE.
       ERRMAX = ZERO
 
-      DO 100 IM = 1, NIDIM
+      for (IM = 1; IM <= NIDIM; IM++) { // 100
          M = IDIM( IM )
 
-         DO 90 IN = 1, NIDIM
+         for (IN = 1; IN <= NIDIM; IN++) { // 90
             N = IDIM( IN )
             // Set LDC to 1 more than minimum value if room.
             LDC = M
@@ -708,7 +708,7 @@
 
             dmake('GE', ' ', ' ', M, N, B, NMAX, BB, LDB, RESET, ZERO );
 
-            DO 80 ICS = 1, 2
+            for (ICS = 1; ICS <= 2; ICS++) { // 80
                SIDE = ICHS( ICS: ICS )
                LEFT = SIDE.EQ.'L'
 
@@ -724,17 +724,17 @@
                IF( LDA.GT.NMAX ) GO TO 80
                LAA = LDA*NA
 
-               DO 70 ICU = 1, 2
+               for (ICU = 1; ICU <= 2; ICU++) { // 70
                   UPLO = ICHU( ICU: ICU )
 
                   // Generate the symmetric matrix A.
 
                   dmake('SY', UPLO, ' ', NA, NA, A, NMAX, AA, LDA, RESET, ZERO );
 
-                  DO 60 IA = 1, NALF
+                  for (IA = 1; IA <= NALF; IA++) { // 60
                      ALPHA = ALF( IA )
 
-                     DO 50 IB = 1, NBET
+                     for (IB = 1; IB <= NBET; IB++) { // 50
                         BETA = BET( IB )
 
                         // Generate the matrix C.
@@ -751,16 +751,16 @@
                         MS = M
                         NS = N
                         ALS = ALPHA
-                        DO 10 I = 1, LAA
+                        for (I = 1; I <= LAA; I++) { // 10
                            AS( I ) = AA( I )
    10                   CONTINUE
                         LDAS = LDA
-                        DO 20 I = 1, LBB
+                        for (I = 1; I <= LBB; I++) { // 20
                            BS( I ) = BB( I )
    20                   CONTINUE
                         LDBS = LDB
                         BLS = BETA
-                        DO 30 I = 1, LCC
+                        for (I = 1; I <= LCC; I++) { // 30
                            CS( I ) = CC( I )
    30                   CONTINUE
                         LDCS = LDC
@@ -801,7 +801,7 @@
                         // return.
 
                         SAME = .TRUE.
-                        DO 40 I = 1, NARGS
+                        for (I = 1; I <= NARGS; I++) { // 40
                            SAME = SAME.AND.ISAME( I )
                            IF( .NOT.ISAME( I ) ) WRITE( NOUT, FMT = 9998 )I
    40                   CONTINUE
@@ -950,16 +950,16 @@
       RESET = .TRUE.
       ERRMAX = ZERO
       // Set up zero matrix for DMMCH.
-      DO 20 J = 1, NMAX
-         DO 10 I = 1, NMAX
+      for (J = 1; J <= NMAX; J++) { // 20
+         for (I = 1; I <= NMAX; I++) { // 10
             C( I, J ) = ZERO
    10    CONTINUE
    20 CONTINUE
 
-      DO 140 IM = 1, NIDIM
+      for (IM = 1; IM <= NIDIM; IM++) { // 140
          M = IDIM( IM )
 
-         DO 130 IN = 1, NIDIM
+         for (IN = 1; IN <= NIDIM; IN++) { // 130
             N = IDIM( IN )
             // Set LDB to 1 more than minimum value if room.
             LDB = M
@@ -969,7 +969,7 @@
             LBB = LDB*N
             NULL = M.LE.0.OR.N.LE.0
 
-            DO 120 ICS = 1, 2
+            for (ICS = 1; ICS <= 2; ICS++) { // 120
                SIDE = ICHS( ICS: ICS )
                LEFT = SIDE.EQ.'L'
                if ( LEFT ) {
@@ -984,16 +984,16 @@
                IF( LDA.GT.NMAX ) GO TO 130
                LAA = LDA*NA
 
-               DO 110 ICU = 1, 2
+               for (ICU = 1; ICU <= 2; ICU++) { // 110
                   UPLO = ICHU( ICU: ICU )
 
-                  DO 100 ICT = 1, 3
+                  for (ICT = 1; ICT <= 3; ICT++) { // 100
                      TRANSA = ICHT( ICT: ICT )
 
-                     DO 90 ICD = 1, 2
+                     for (ICD = 1; ICD <= 2; ICD++) { // 90
                         DIAG = ICHD( ICD: ICD )
 
-                        DO 80 IA = 1, NALF
+                        for (IA = 1; IA <= NALF; IA++) { // 80
                            ALPHA = ALF( IA )
 
                            // Generate the matrix A.
@@ -1016,11 +1016,11 @@
                            MS = M
                            NS = N
                            ALS = ALPHA
-                           DO 30 I = 1, LAA
+                           for (I = 1; I <= LAA; I++) { // 30
                               AS( I ) = AA( I )
    30                      CONTINUE
                            LDAS = LDA
-                           DO 40 I = 1, LBB
+                           for (I = 1; I <= LBB; I++) { // 40
                               BS( I ) = BB( I )
    40                      CONTINUE
                            LDBS = LDB
@@ -1065,7 +1065,7 @@
                            // return.
 
                            SAME = .TRUE.
-                           DO 50 I = 1, NARGS
+                           for (I = 1; I <= NARGS; I++) { // 50
                               SAME = SAME.AND.ISAME( I )
                               IF( .NOT.ISAME( I ) ) WRITE( NOUT, FMT = 9998 )I
    50                      CONTINUE
@@ -1089,8 +1089,8 @@
                                  // Compute approximation to original
                                  // matrix.
 
-                                 DO 70 J = 1, N
-                                    DO 60 I = 1, M
+                                 for (J = 1; J <= N; J++) { // 70
+                                    for (I = 1; I <= M; I++) { // 60
                                        C( I, J ) = BB( I + ( J - 1 )* LDB )                                        BB( I + ( J - 1 )*LDB ) = ALPHA* B( I, J )
    60                               CONTINUE
    70                            CONTINUE
@@ -1246,7 +1246,7 @@
       RESET = .TRUE.
       ERRMAX = ZERO
 
-      DO 100 IN = 1, NIDIM
+      for (IN = 1; IN <= NIDIM; IN++) { // 100
          N = IDIM( IN )
          // Set LDC to 1 more than minimum value if room.
          LDC = N
@@ -1256,10 +1256,10 @@
          LCC = LDC*N
          NULL = N.LE.0
 
-         DO 90 IK = 1, NIDIM
+         for (IK = 1; IK <= NIDIM; IK++) { // 90
             K = IDIM( IK )
 
-            DO 80 ICT = 1, 3
+            for (ICT = 1; ICT <= 3; ICT++) { // 80
                TRANS = ICHT( ICT: ICT )
                TRAN = TRANS.EQ.'T'.OR.TRANS.EQ.'C'
                if ( TRAN ) {
@@ -1280,14 +1280,14 @@
 
                dmake('GE', ' ', ' ', MA, NA, A, NMAX, AA, LDA, RESET, ZERO );
 
-               DO 70 ICU = 1, 2
+               for (ICU = 1; ICU <= 2; ICU++) { // 70
                   UPLO = ICHU( ICU: ICU )
                   UPPER = UPLO.EQ.'U'
 
-                  DO 60 IA = 1, NALF
+                  for (IA = 1; IA <= NALF; IA++) { // 60
                      ALPHA = ALF( IA )
 
-                     DO 50 IB = 1, NBET
+                     for (IB = 1; IB <= NBET; IB++) { // 50
                         BETA = BET( IB )
 
                         // Generate the matrix C.
@@ -1303,12 +1303,12 @@
                         NS = N
                         KS = K
                         ALS = ALPHA
-                        DO 10 I = 1, LAA
+                        for (I = 1; I <= LAA; I++) { // 10
                            AS( I ) = AA( I )
    10                   CONTINUE
                         LDAS = LDA
                         BETS = BETA
-                        DO 20 I = 1, LCC
+                        for (I = 1; I <= LCC; I++) { // 20
                            CS( I ) = CC( I )
    20                   CONTINUE
                         LDCS = LDC
@@ -1347,7 +1347,7 @@
                         // return.
 
                         SAME = .TRUE.
-                        DO 30 I = 1, NARGS
+                        for (I = 1; I <= NARGS; I++) { // 30
                            SAME = SAME.AND.ISAME( I )
                            IF( .NOT.ISAME( I ) ) WRITE( NOUT, FMT = 9998 )I
    30                   CONTINUE
@@ -1361,7 +1361,7 @@
                            // Check the result column by column.
 
                            JC = 1
-                           DO 40 J = 1, N
+                           for (J = 1; J <= N; J++) { // 40
                               if ( UPPER ) {
                                  JJ = 1
                                  LJ = J
@@ -1517,7 +1517,7 @@
       RESET = .TRUE.
       ERRMAX = ZERO
 
-      DO 130 IN = 1, NIDIM
+      for (IN = 1; IN <= NIDIM; IN++) { // 130
          N = IDIM( IN )
          // Set LDC to 1 more than minimum value if room.
          LDC = N
@@ -1527,10 +1527,10 @@
          LCC = LDC*N
          NULL = N.LE.0
 
-         DO 120 IK = 1, NIDIM
+         for (IK = 1; IK <= NIDIM; IK++) { // 120
             K = IDIM( IK )
 
-            DO 110 ICT = 1, 3
+            for (ICT = 1; ICT <= 3; ICT++) { // 110
                TRANS = ICHT( ICT: ICT )
                TRAN = TRANS.EQ.'T'.OR.TRANS.EQ.'C'
                if ( TRAN ) {
@@ -1565,14 +1565,14 @@
                   dmake('GE', ' ', ' ', MA, NA, AB( K*NMAX + 1 ), NMAX, BB, LDB, RESET, ZERO );
                }
 
-               DO 100 ICU = 1, 2
+               for (ICU = 1; ICU <= 2; ICU++) { // 100
                   UPLO = ICHU( ICU: ICU )
                   UPPER = UPLO.EQ.'U'
 
-                  DO 90 IA = 1, NALF
+                  for (IA = 1; IA <= NALF; IA++) { // 90
                      ALPHA = ALF( IA )
 
-                     DO 80 IB = 1, NBET
+                     for (IB = 1; IB <= NBET; IB++) { // 80
                         BETA = BET( IB )
 
                         // Generate the matrix C.
@@ -1588,16 +1588,16 @@
                         NS = N
                         KS = K
                         ALS = ALPHA
-                        DO 10 I = 1, LAA
+                        for (I = 1; I <= LAA; I++) { // 10
                            AS( I ) = AA( I )
    10                   CONTINUE
                         LDAS = LDA
-                        DO 20 I = 1, LBB
+                        for (I = 1; I <= LBB; I++) { // 20
                            BS( I ) = BB( I )
    20                   CONTINUE
                         LDBS = LDB
                         BETS = BETA
-                        DO 30 I = 1, LCC
+                        for (I = 1; I <= LCC; I++) { // 30
                            CS( I ) = CC( I )
    30                   CONTINUE
                         LDCS = LDC
@@ -1637,7 +1637,7 @@
                         // return.
 
                         SAME = .TRUE.
-                        DO 40 I = 1, NARGS
+                        for (I = 1; I <= NARGS; I++) { // 40
                            SAME = SAME.AND.ISAME( I )
                            IF( .NOT.ISAME( I ) ) WRITE( NOUT, FMT = 9998 )I
    40                   CONTINUE
@@ -1652,7 +1652,7 @@
 
                            JJAB = 1
                            JC = 1
-                           DO 70 J = 1, N
+                           for (J = 1; J <= N; J++) { // 70
                               if ( UPPER ) {
                                  JJ = 1
                                  LJ = J
@@ -1661,12 +1661,12 @@
                                  LJ = N - J + 1
                               }
                               if ( TRAN ) {
-                                 DO 50 I = 1, K
+                                 for (I = 1; I <= K; I++) { // 50
                                     W( I ) = AB( ( J - 1 )*2*NMAX + K + I )                                     W( K + I ) = AB( ( J - 1 )*2*NMAX + I )
    50                            CONTINUE
                                  dmmch('T', 'N', LJ, 1, 2*K, ALPHA, AB( JJAB ), 2*NMAX, W, 2*NMAX, BETA, C( JJ, J ), NMAX, CT, G, CC( JC ), LDC, EPS, ERR, FATAL, NOUT, .TRUE. );
                               } else {
-                                 DO 60 I = 1, K
+                                 for (I = 1; I <= K; I++) { // 60
                                     W( I ) = AB( ( K + I - 1 )*NMAX + J )                                     W( K + I ) = AB( ( I - 1 )*NMAX + J )
    60                            CONTINUE
                                  dmmch('N', 'N', LJ, 1, 2*K, ALPHA, AB( JJ ), NMAX, W, 2*NMAX, BETA, C( JJ, J ), NMAX, CT, G, CC( JC ), LDC, EPS, ERR, FATAL, NOUT, .TRUE. );
@@ -1807,8 +1807,8 @@
 
       // Generate data in array A.
 
-      DO 20 J = 1, N
-         DO 10 I = 1, M
+      for (J = 1; J <= N; J++) { // 20
+         for (I = 1; I <= M; I++) { // 10
             if ( GEN.OR.( UPPER.AND.I.LE.J ).OR.( LOWER.AND.I.GE.J ) ) {
                A( I, J ) = DBEG( RESET ) + TRANSL
                if ( I.NE.J ) {
@@ -1828,8 +1828,8 @@
       // Store elements in array AS in data structure required by routine.
 
       if ( TYPE.EQ.'GE' ) {
-         DO 50 J = 1, N
-            DO 30 I = 1, M
+         for (J = 1; J <= N; J++) { // 50
+            for (I = 1; I <= M; I++) { // 30
                AA( I + ( J - 1 )*LDA ) = A( I, J )
    30       CONTINUE
             DO 40 I = M + 1, LDA
@@ -1837,7 +1837,7 @@
    40       CONTINUE
    50    CONTINUE
       } else if ( TYPE.EQ.'SY'.OR.TYPE.EQ.'TR' ) {
-         DO 90 J = 1, N
+         for (J = 1; J <= N; J++) { // 90
             if ( UPPER ) {
                IBEG = 1
                if ( UNIT ) {
@@ -1856,7 +1856,7 @@
             DO 60 I = 1, IBEG - 1
                AA( I + ( J - 1 )*LDA ) = ROGUE
    60       CONTINUE
-            DO 70 I = IBEG, IEND
+            for (I = IBEG; I <= IEND; I++) { // 70
                AA( I + ( J - 1 )*LDA ) = A( I, J )
    70       CONTINUE
             DO 80 I = IEND + 1, LDA
@@ -1905,42 +1905,42 @@
       // in A, B and C.
       // Compute gauges in G.
 
-      DO 120 J = 1, N
+      for (J = 1; J <= N; J++) { // 120
 
-         DO 10 I = 1, M
+         for (I = 1; I <= M; I++) { // 10
             CT( I ) = ZERO
             G( I ) = ZERO
    10    CONTINUE
          if ( .NOT.TRANA.AND..NOT.TRANB ) {
-            DO 30 K = 1, KK
-               DO 20 I = 1, M
+            for (K = 1; K <= KK; K++) { // 30
+               for (I = 1; I <= M; I++) { // 20
                   CT( I ) = CT( I ) + A( I, K )*B( K, J )
                   G( I ) = G( I ) + ABS( A( I, K ) )*ABS( B( K, J ) )
    20          CONTINUE
    30       CONTINUE
          } else if ( TRANA.AND..NOT.TRANB ) {
-            DO 50 K = 1, KK
-               DO 40 I = 1, M
+            for (K = 1; K <= KK; K++) { // 50
+               for (I = 1; I <= M; I++) { // 40
                   CT( I ) = CT( I ) + A( K, I )*B( K, J )
                   G( I ) = G( I ) + ABS( A( K, I ) )*ABS( B( K, J ) )
    40          CONTINUE
    50       CONTINUE
          } else if ( .NOT.TRANA.AND.TRANB ) {
-            DO 70 K = 1, KK
-               DO 60 I = 1, M
+            for (K = 1; K <= KK; K++) { // 70
+               for (I = 1; I <= M; I++) { // 60
                   CT( I ) = CT( I ) + A( I, K )*B( J, K )
                   G( I ) = G( I ) + ABS( A( I, K ) )*ABS( B( J, K ) )
    60          CONTINUE
    70       CONTINUE
          } else if ( TRANA.AND.TRANB ) {
-            DO 90 K = 1, KK
-               DO 80 I = 1, M
+            for (K = 1; K <= KK; K++) { // 90
+               for (I = 1; I <= M; I++) { // 80
                   CT( I ) = CT( I ) + A( K, I )*B( J, K )
                   G( I ) = G( I ) + ABS( A( K, I ) )*ABS( B( J, K ) )
    80          CONTINUE
    90       CONTINUE
          }
-         DO 100 I = 1, M
+         for (I = 1; I <= M; I++) { // 100
             CT( I ) = ALPHA*CT( I ) + BETA*C( I, J )
             G( I ) = ABS( ALPHA )*G( I ) + ABS( BETA )*ABS( C( I, J ) )
   100    CONTINUE
@@ -1948,7 +1948,7 @@
          // Compute the error ratio for this result.
 
          ERR = ZERO
-         DO 110 I = 1, M
+         for (I = 1; I <= M; I++) { // 110
             ERRI = ABS( CT( I ) - CC( I, J ) )/EPS
             IF( G( I ).NE.ZERO ) ERRI = ERRI/G( I )
             ERR = MAX( ERR, ERRI )
@@ -1964,7 +1964,7 @@
 
   130 FATAL = .TRUE.
       WRITE( NOUT, FMT = 9999 )
-      DO 140 I = 1, M
+      for (I = 1; I <= M; I++) { // 140
          if ( MV ) {
             WRITE( NOUT, FMT = 9998 )I, CT( I ), CC( I, J )
          } else {
@@ -2002,7 +2002,7 @@
       // .. Local Scalars ..
       int                I;
       // .. Executable Statements ..
-      DO 10 I = 1, LR
+      for (I = 1; I <= LR; I++) { // 10
          IF( RI( I ).NE.RJ( I ) ) GO TO 20
    10 CONTINUE
       LDE = .TRUE.
@@ -2040,13 +2040,13 @@
       // .. Executable Statements ..
       UPPER = UPLO.EQ.'U'
       if ( TYPE.EQ.'GE' ) {
-         DO 20 J = 1, N
+         for (J = 1; J <= N; J++) { // 20
             DO 10 I = M + 1, LDA
                IF( AA( I, J ).NE.AS( I, J ) ) GO TO 70
    10       CONTINUE
    20    CONTINUE
       } else if ( TYPE.EQ.'SY' ) {
-         DO 50 J = 1, N
+         for (J = 1; J <= N; J++) { // 50
             if ( UPPER ) {
                IBEG = 1
                IEND = J

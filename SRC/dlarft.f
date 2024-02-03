@@ -36,13 +36,13 @@
 
       if ( LSAME( DIRECT, 'F' ) ) {
          PREVLASTV = N
-         DO I = 1, K
+         for (I = 1; I <= K; I++) {
             PREVLASTV = MAX( I, PREVLASTV )
             if ( TAU( I ).EQ.ZERO ) {
 
                // H(i)  =  I
 
-               DO J = 1, I
+               for (J = 1; J <= I; J++) {
                   T( J, I ) = ZERO
                END DO
             } else {
@@ -95,7 +95,7 @@
 
                // H(i)  =  I
 
-               DO J = I, K
+               for (J = I; J <= K; J++) {
                   T( J, I ) = ZERO
                END DO
             } else {

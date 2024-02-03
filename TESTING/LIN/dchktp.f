@@ -71,7 +71,7 @@
       NRUN = 0
       NFAIL = 0
       NERRS = 0
-      DO 10 I = 1, 4
+      for (I = 1; I <= 4; I++) { // 10
          ISEED( I ) = ISEEDY( I )
    10 CONTINUE
 
@@ -80,7 +80,7 @@
       IF( TSTERR ) CALL DERRTR( PATH, NOUT )
       INFOT = 0
 
-      DO 110 IN = 1, NN
+      for (IN = 1; IN <= NN; IN++) { // 110
 
          // Do for each value of N in NVAL
 
@@ -89,13 +89,13 @@
          LAP = LDA*( LDA+1 ) / 2
          XTYPE = 'N'
 
-         DO 70 IMAT = 1, NTYPE1
+         for (IMAT = 1; IMAT <= NTYPE1; IMAT++) { // 70
 
             // Do the tests only if DOTYPE( IMAT ) is true.
 
             IF( .NOT.DOTYPE( IMAT ) ) GO TO 70
 
-            DO 60 IUPLO = 1, 2
+            for (IUPLO = 1; IUPLO <= 2; IUPLO++) { // 60
 
                // Do first for UPLO = 'U', then for UPLO = 'L'
 
@@ -148,11 +148,11 @@
                }
                NRUN = NRUN + 1
 
-               DO 40 IRHS = 1, NNS
+               for (IRHS = 1; IRHS <= NNS; IRHS++) { // 40
                   NRHS = NSVAL( IRHS )
                   XTYPE = 'N'
 
-                  DO 30 ITRAN = 1, NTRAN
+                  for (ITRAN = 1; ITRAN <= NTRAN; ITRAN++) { // 30
 
                   // Do for op(A) = A, A**T, or A**H.
 
@@ -203,7 +203,7 @@
                      // Print information about the tests that did not pass
                      // the threshold.
 
-                     DO 20 K = 2, 6
+                     for (K = 2; K <= 6; K++) { // 20
                         if ( RESULT( K ).GE.THRESH ) {
                            IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                            WRITE( NOUT, FMT = 9998 )UPLO, TRANS, DIAG, N, NRHS, IMAT, K, RESULT( K )
                            NFAIL = NFAIL + 1
@@ -216,7 +216,7 @@
 *+    TEST 7
                   // Get an estimate of RCOND = 1/CNDNUM.
 
-               DO 50 ITRAN = 1, 2
+               for (ITRAN = 1; ITRAN <= 2; ITRAN++) { // 50
                   if ( ITRAN.EQ.1 ) {
                      NORM = 'O'
                      RCONDC = RCONDO
@@ -253,12 +253,12 @@
 
             IF( .NOT.DOTYPE( IMAT ) ) GO TO 100
 
-            DO 90 IUPLO = 1, 2
+            for (IUPLO = 1; IUPLO <= 2; IUPLO++) { // 90
 
                // Do first for UPLO = 'U', then for UPLO = 'L'
 
                UPLO = UPLOS( IUPLO )
-               DO 80 ITRAN = 1, NTRAN
+               for (ITRAN = 1; ITRAN <= NTRAN; ITRAN++) { // 80
 
                   // Do for op(A) = A, A**T, or A**H.
 

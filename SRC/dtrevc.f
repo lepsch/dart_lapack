@@ -73,7 +73,7 @@
          if ( SOMEV ) {
             M = 0
             PAIR = .FALSE.
-            DO 10 J = 1, N
+            for (J = 1; J <= N; J++) { // 10
                if ( PAIR ) {
                   PAIR = .FALSE.
                   SELECT( J ) = .FALSE.
@@ -122,7 +122,7 @@
       // part of T to control overflow in triangular solver.
 
       WORK( 1 ) = ZERO
-      DO 30 J = 2, N
+      for (J = 2; J <= N; J++) { // 30
          WORK( J ) = ZERO
          DO 20 I = 1, J - 1
             WORK( J ) = WORK( J ) + ABS( T( I, J ) )
@@ -382,7 +382,7 @@
                   dcopy(KI, WORK( 1+N2 ), 1, VR( 1, IS ), 1 );
 
                   EMAX = ZERO
-                  DO 100 K = 1, KI
+                  for (K = 1; K <= KI; K++) { // 100
                      EMAX = MAX( EMAX, ABS( VR( K, IS-1 ) )+ ABS( VR( K, IS ) ) )
   100             CONTINUE
 
@@ -405,7 +405,7 @@
                   }
 
                   EMAX = ZERO
-                  DO 120 K = 1, N
+                  for (K = 1; K <= N; K++) { // 120
                      EMAX = MAX( EMAX, ABS( VR( K, KI-1 ) )+ ABS( VR( K, KI ) ) )
   120             CONTINUE
                   REMAX = ONE / EMAX
@@ -427,7 +427,7 @@
 
          IP = 0
          IS = 1
-         DO 260 KI = 1, N
+         for (KI = 1; KI <= N; KI++) { // 260
 
             IF( IP.EQ.-1 ) GO TO 250             IF( KI.EQ.N ) GO TO 150             IF( T( KI+1, KI ).EQ.ZERO ) GO TO 150
             IP = 1
@@ -691,7 +691,7 @@
                   dcopy(N-KI+1, WORK( KI+N2 ), 1, VL( KI, IS+1 ), 1 );
 
                   EMAX = ZERO
-                  DO 220 K = KI, N
+                  for (K = KI; K <= N; K++) { // 220
                      EMAX = MAX( EMAX, ABS( VL( K, IS ) )+ ABS( VL( K, IS+1 ) ) )
   220             CONTINUE
                   REMAX = ONE / EMAX
@@ -711,7 +711,7 @@
                   }
 
                   EMAX = ZERO
-                  DO 240 K = 1, N
+                  for (K = 1; K <= N; K++) { // 240
                      EMAX = MAX( EMAX, ABS( VL( K, KI ) )+ ABS( VL( K, KI+1 ) ) )
   240             CONTINUE
                   REMAX = ONE / EMAX

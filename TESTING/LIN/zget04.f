@@ -59,11 +59,11 @@
       // over all the vectors X and XACT .
 
       RESID = ZERO
-      DO 20 J = 1, NRHS
+      for (J = 1; J <= NRHS; J++) { // 20
          IX = IZAMAX( N, XACT( 1, J ), 1 )
          XNORM = CABS1( XACT( IX, J ) )
          DIFFNM = ZERO
-         DO 10 I = 1, N
+         for (I = 1; I <= N; I++) { // 10
             DIFFNM = MAX( DIFFNM, CABS1( X( I, J )-XACT( I, J ) ) )
    10    CONTINUE
          if ( XNORM.LE.ZERO ) {

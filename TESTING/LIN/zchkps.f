@@ -62,7 +62,7 @@
       NRUN = 0
       NFAIL = 0
       NERRS = 0
-      DO 100 I = 1, 4
+      for (I = 1; I <= 4; I++) { // 100
          ISEED( I ) = ISEEDY( I )
   100 CONTINUE
 
@@ -73,14 +73,14 @@
 
       // Do for each value of N in NVAL
 
-      DO 150 IN = 1, NN
+      for (IN = 1; IN <= NN; IN++) { // 150
          N = NVAL( IN )
          LDA = MAX( N, 1 )
          NIMAT = NTYPES
          IF( N.LE.0 ) NIMAT = 1
 
          IZERO = 0
-         DO 140 IMAT = 1, NIMAT
+         for (IMAT = 1; IMAT <= NIMAT; IMAT++) { // 140
 
             // Do the tests only if DOTYPE( IMAT ) is true.
 
@@ -88,7 +88,7 @@
 
                // Do for each value of RANK in RANKVAL
 
-            DO 130 IRANK = 1, NRANK
+            for (IRANK = 1; IRANK <= NRANK; IRANK++) { // 130
 
                // Only repeat test 3 to 5 for different ranks
                // Other tests use full rank
@@ -100,7 +100,7 @@
 
             // Do first for UPLO = 'U', then for UPLO = 'L'
 
-               DO 120 IUPLO = 1, 2
+               for (IUPLO = 1; IUPLO <= 2; IUPLO++) { // 120
                   UPLO = UPLOS( IUPLO )
 
                // Set up parameters with ZLATB5 and generate a test matrix
@@ -120,7 +120,7 @@
 
                // Do for each value of NB in NBVAL
 
-                  DO 110 INB = 1, NNB
+                  for (INB = 1; INB <= NNB; INB++) { // 110
                      NB = NBVAL( INB )
                      xlaenv(1, NB );
 

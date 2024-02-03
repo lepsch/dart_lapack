@@ -86,7 +86,7 @@
 
             // Zero the upper triangle of the work array.
 
-            DO 20 J = 1, NB
+            for (J = 1; J <= NB; J++) { // 20
                DO 10 I = 1, J - 1
                   WORK( I, J ) = ZERO
    10          CONTINUE
@@ -138,8 +138,8 @@
 
                      // Copy the lower triangle of A13 into the work array.
 
-                     DO 40 JJ = 1, I3
-                        DO 30 II = JJ, IB
+                     for (JJ = 1; JJ <= I3; JJ++) { // 40
+                        for (II = JJ; II <= IB; II++) { // 30
                            WORK( II, JJ ) = AB( II-JJ+1, JJ+I+KD-1 )
    30                   CONTINUE
    40                CONTINUE
@@ -158,8 +158,8 @@
 
                      // Copy the lower triangle of A13 back into place.
 
-                     DO 60 JJ = 1, I3
-                        DO 50 II = JJ, IB
+                     for (JJ = 1; JJ <= I3; JJ++) { // 60
+                        for (II = JJ; II <= IB; II++) { // 50
                            AB( II-JJ+1, JJ+I+KD-1 ) = WORK( II, JJ )
    50                   CONTINUE
    60                CONTINUE
@@ -174,7 +174,7 @@
 
             // Zero the lower triangle of the work array.
 
-            DO 90 J = 1, NB
+            for (J = 1; J <= NB; J++) { // 90
                DO 80 I = J + 1, NB
                   WORK( I, J ) = ZERO
    80          CONTINUE
@@ -226,7 +226,7 @@
 
                      // Copy the upper triangle of A31 into the work array.
 
-                     DO 110 JJ = 1, IB
+                     for (JJ = 1; JJ <= IB; JJ++) { // 110
                         DO 100 II = 1, MIN( JJ, I3 )
                            WORK( II, JJ ) = AB( KD+1-JJ+II, JJ+I-1 )
   100                   CONTINUE
@@ -246,7 +246,7 @@
 
                      // Copy the upper triangle of A31 back into place.
 
-                     DO 130 JJ = 1, IB
+                     for (JJ = 1; JJ <= IB; JJ++) { // 130
                         DO 120 II = 1, MIN( JJ, I3 )
                            AB( KD+1-JJ+II, JJ+I-1 ) = WORK( II, JJ )
   120                   CONTINUE

@@ -68,17 +68,17 @@
 
       ANORM = 0.0D+0
       if ( UP ) {
-         DO I = 1, N
+         for (I = 1; I <= N; I++) {
             TMP = 0.0D+0
             if ( CAPPLY ) {
-               DO J = 1, I
+               for (J = 1; J <= I; J++) {
                   TMP = TMP + CABS1( A( J, I ) ) / C( J )
                END DO
                DO J = I+1, N
                   TMP = TMP + CABS1( A( I, J ) ) / C( J )
                END DO
             } else {
-               DO J = 1, I
+               for (J = 1; J <= I; J++) {
                   TMP = TMP + CABS1( A( J, I ) )
                END DO
                DO J = I+1, N
@@ -89,17 +89,17 @@
             ANORM = MAX( ANORM, TMP )
          END DO
       } else {
-         DO I = 1, N
+         for (I = 1; I <= N; I++) {
             TMP = 0.0D+0
             if ( CAPPLY ) {
-               DO J = 1, I
+               for (J = 1; J <= I; J++) {
                   TMP = TMP + CABS1( A( I, J ) ) / C( J )
                END DO
                DO J = I+1, N
                   TMP = TMP + CABS1( A( J, I ) ) / C( J )
                END DO
             } else {
-               DO J = 1, I
+               for (J = 1; J <= I; J++) {
                   TMP = TMP + CABS1( A( I, J ) )
                END DO
                DO J = I+1, N
@@ -132,7 +132,7 @@
 
             // Multiply by R.
 
-            DO I = 1, N
+            for (I = 1; I <= N; I++) {
                WORK( I ) = WORK( I ) * RWORK( I )
             END DO
 
@@ -145,7 +145,7 @@
             // Multiply by inv(C).
 
             if ( CAPPLY ) {
-               DO I = 1, N
+               for (I = 1; I <= N; I++) {
                   WORK( I ) = WORK( I ) * C( I )
                END DO
             }
@@ -154,7 +154,7 @@
             // Multiply by inv(C**H).
 
             if ( CAPPLY ) {
-               DO I = 1, N
+               for (I = 1; I <= N; I++) {
                   WORK( I ) = WORK( I ) * C( I )
                END DO
             }
@@ -167,7 +167,7 @@
 
             // Multiply by R.
 
-            DO I = 1, N
+            for (I = 1; I <= N; I++) {
                WORK( I ) = WORK( I ) * RWORK( I )
             END DO
          }

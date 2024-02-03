@@ -94,7 +94,7 @@
 
       scopy(N, ALPHA, 1, WORK, 1 );
       IBND = MIN( L, M-K )
-      DO 20 I = 1, IBND
+      for (I = 1; I <= IBND; I++) { // 20
 
          // Scan for largest ALPHA(K+I)
 

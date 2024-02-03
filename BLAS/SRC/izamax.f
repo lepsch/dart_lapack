@@ -30,7 +30,7 @@
          // code for increment equal to 1
 
          DMAX = DCABS1(ZX(1))
-         DO I = 2,N
+         for (I = 2; I <= N; I++) {
             if (DCABS1(ZX(I)).GT.DMAX) {
                IZAMAX = I
                DMAX = DCABS1(ZX(I))
@@ -43,7 +43,7 @@
          IX = 1
          DMAX = DCABS1(ZX(1))
          IX = IX + INCX
-         DO I = 2,N
+         for (I = 2; I <= N; I++) {
             if (DCABS1(ZX(IX)).GT.DMAX) {
                IZAMAX = I
                DMAX = DCABS1(ZX(IX))

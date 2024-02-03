@@ -72,7 +72,7 @@
       NMAX = 1
       MNMAX = 1
       MINWRK = 1
-      DO 10 J = 1, NSIZES
+      for (J = 1; J <= NSIZES; J++) { // 10
          MMAX = MAX( MMAX, MVAL( J ) )
          IF( MVAL( J ).LT.0 ) BADMM = .TRUE.
          NMAX = MAX( NMAX, NVAL( J ) )
@@ -127,7 +127,7 @@
 
       // Loop over sizes, types
 
-      DO 180 JSIZE = 1, NSIZES
+      for (JSIZE = 1; JSIZE <= NSIZES; JSIZE++) { // 180
          M = MVAL( JSIZE )
          N = NVAL( JSIZE )
          MNMIN = MIN( M, N )
@@ -139,14 +139,14 @@
             MTYPES = MIN( MAXTYP+1, NTYPES )
          }
 
-         DO 170 JTYPE = 1, MTYPES
+         for (JTYPE = 1; JTYPE <= MTYPES; JTYPE++) { // 170
             IF( .NOT.DOTYPE( JTYPE ) ) GO TO 170
 
-            DO 20 J = 1, 4
+            for (J = 1; J <= 4; J++) { // 20
                IOLDSD( J ) = ISEED( J )
    20       CONTINUE
 
-            DO 30 J = 1, 14
+            for (J = 1; J <= 14; J++) { // 30
                RESULT( J ) = -ONE
    30       CONTINUE
 
@@ -206,7 +206,7 @@
 
                // Identity
 
-               DO 80 JCOL = 1, MNMIN
+               for (JCOL = 1; JCOL <= MNMIN; JCOL++) { // 80
                   A( JCOL, JCOL ) = ANORM
    80          CONTINUE
 
@@ -251,7 +251,7 @@
                // Bidiagonal, random entries
 
                TEMP1 = -TWO*LOG( ULP )
-               DO 90 J = 1, MNMIN
+               for (J = 1; J <= MNMIN; J++) { // 90
                   BD( J ) = EXP( TEMP1*DLARND( 2, ISEED ) )
                   IF( J.LT.MNMIN ) BE( J ) = EXP( TEMP1*DLARND( 2, ISEED ) )
    90          CONTINUE
@@ -416,7 +416,7 @@
 
             TEMP2 = ZERO
 
-            DO 120 J = 1, MNMIN
+            for (J = 1; J <= MNMIN; J++) { // 120
                TEMP1 = ABS( S1( J )-S2( J ) ) / MAX( SQRT( UNFL )*MAX( S1( 1 ), ONE ), ULP*MAX( ABS( S1( J ) ), ABS( S2( J ) ) ) )
                TEMP2 = MAX( TEMP1, TEMP2 )
   120       CONTINUE
@@ -428,7 +428,7 @@
 
             TEMP1 = THRESH*( HALF-ULP )
 
-            DO 130 J = 0, LOG2UI
+            for (J = 0; J <= LOG2UI; J++) { // 130
                dsvdch(MNMIN, BD, BE, S1, TEMP1, IINFO );
                IF( IINFO.EQ.0 ) GO TO 140
                TEMP1 = TEMP1*TWO
@@ -457,7 +457,7 @@
             // End of Loop -- Check for RESULT(j) > THRESH
 
   150       CONTINUE
-            DO 160 J = 1, 14
+            for (J = 1; J <= 14; J++) { // 160
                if ( RESULT( J ).GE.THRESH ) {
                   IF( NFAIL.EQ.0 ) CALL DLAHD2( NOUT, PATH )                   WRITE( NOUT, FMT = 9999 )M, N, JTYPE, IOLDSD, J, RESULT( J )
                   NFAIL = NFAIL + 1

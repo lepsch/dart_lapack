@@ -139,7 +139,7 @@
          GO TO 230
       }
       READ( NIN, FMT = * )( IDIM( I ), I = 1, NIDIM )
-      DO 10 I = 1, NIDIM
+      for (I = 1; I <= NIDIM; I++) { // 10
          if ( IDIM( I ).LT.0.OR.IDIM( I ).GT.NMAX ) {
             WRITE( NOUT, FMT = 9996 )NMAX
             GO TO 230
@@ -152,7 +152,7 @@
          GO TO 230
       }
       READ( NIN, FMT = * )( KB( I ), I = 1, NKB )
-      DO 20 I = 1, NKB
+      for (I = 1; I <= NKB; I++) { // 20
          if ( KB( I ).LT.0 ) {
             WRITE( NOUT, FMT = 9995 )
             GO TO 230
@@ -165,7 +165,7 @@
          GO TO 230
       }
       READ( NIN, FMT = * )( INC( I ), I = 1, NINC )
-      DO 30 I = 1, NINC
+      for (I = 1; I <= NINC; I++) { // 30
          if ( INC( I ).EQ.0.OR.ABS( INC( I ) ).GT.INCMAX ) {
             WRITE( NOUT, FMT = 9994 )INCMAX
             GO TO 230
@@ -220,11 +220,11 @@
       // Read names of subroutines and flags which indicate
       // whether they are to be tested.
 
-      DO 40 I = 1, NSUBS
+      for (I = 1; I <= NSUBS; I++) { // 40
          LTEST( I ) = .FALSE.
    40 CONTINUE
    50 READ( NIN, FMT = 9984, END = 80 )SNAMET, LTESTT
-      DO 60 I = 1, NSUBS
+      for (I = 1; I <= NSUBS; I++) { // 60
          IF( SNAMET.EQ.SNAMES( I ) ) GO TO 70
    60 CONTINUE
       WRITE( NOUT, FMT = 9986 )SNAMET
@@ -249,14 +249,14 @@
       // Check the reliability of CMVCH using exact data.
 
       N = MIN( 32, NMAX )
-      DO 120 J = 1, N
-         DO 110 I = 1, N
+      for (J = 1; J <= N; J++) { // 120
+         for (I = 1; I <= N; I++) { // 110
             A( I, J ) = MAX( I - J + 1, 0 )
   110    CONTINUE
          X( J ) = J
          Y( J ) = ZERO
   120 CONTINUE
-      DO 130 J = 1, N
+      for (J = 1; J <= N; J++) { // 130
          YY( J ) = J*( ( J + 1 )*J )/2 - ( ( J + 1 )*J*( J - 1 ) )/3
   130 CONTINUE
       // YY holds the exact result. On exit from CMVCH YT holds
@@ -278,7 +278,7 @@
 
       // Test each subroutine in turn.
 
-      DO 210 ISNUM = 1, NSUBS
+      for (ISNUM = 1; ISNUM <= NSUBS; ISNUM++) { // 210
          WRITE( NOUT, FMT = * )
          if ( .NOT.LTEST( ISNUM ) ) {
             // Subprogram is not to be tested.
@@ -451,11 +451,11 @@
       RESET = .TRUE.
       ERRMAX = RZERO
 
-      DO 120 IN = 1, NIDIM
+      for (IN = 1; IN <= NIDIM; IN++) { // 120
          N = IDIM( IN )
          ND = N/2 + 1
 
-         DO 110 IM = 1, 2
+         for (IM = 1; IM <= 2; IM++) { // 110
             IF( IM.EQ.1 ) M = MAX( N - ND, 0 )             IF( IM.EQ.2 ) M = MIN( N + ND, NMAX )
 
             if ( BANDED ) {
@@ -463,7 +463,7 @@
             } else {
                NK = 1
             }
-            DO 100 IKU = 1, NK
+            for (IKU = 1; IKU <= NK; IKU++) { // 100
                if ( BANDED ) {
                   KU = KB( IKU )
                   KL = MAX( KU - 1, 0 )
@@ -488,7 +488,7 @@
                TRANSL = ZERO
                cmake(SNAME( 8: 9 ), ' ', ' ', M, N, A, NMAX, AA, LDA, KL, KU, RESET, TRANSL );
 
-               DO 90 IC = 1, 3
+               for (IC = 1; IC <= 3; IC++) { // 90
                   TRANS = ICH( IC: IC )
                   if (TRANS.EQ.'N') {
                      CTRANS = '  CblasNoTrans'
@@ -507,7 +507,7 @@
                      NL = N
                   }
 
-                  DO 80 IX = 1, NINC
+                  for (IX = 1; IX <= NINC; IX++) { // 80
                      INCX = INC( IX )
                      LX = ABS( INCX )*NL
 
@@ -520,14 +520,14 @@
                         XX( 1 + ABS( INCX )*( NL/2 - 1 ) ) = ZERO
                      }
 
-                     DO 70 IY = 1, NINC
+                     for (IY = 1; IY <= NINC; IY++) { // 70
                         INCY = INC( IY )
                         LY = ABS( INCY )*ML
 
-                        DO 60 IA = 1, NALF
+                        for (IA = 1; IA <= NALF; IA++) { // 60
                            ALPHA = ALF( IA )
 
-                           DO 50 IB = 1, NBET
+                           for (IB = 1; IB <= NBET; IB++) { // 50
                               BETA = BET( IB )
 
                               // Generate the vector Y.
@@ -546,16 +546,16 @@
                               KLS = KL
                               KUS = KU
                               ALS = ALPHA
-                              DO 10 I = 1, LAA
+                              for (I = 1; I <= LAA; I++) { // 10
                                  AS( I ) = AA( I )
    10                         CONTINUE
                               LDAS = LDA
-                              DO 20 I = 1, LX
+                              for (I = 1; I <= LX; I++) { // 20
                                  XS( I ) = XX( I )
    20                         CONTINUE
                               INCXS = INCX
                               BLS = BETA
-                              DO 30 I = 1, LY
+                              for (I = 1; I <= LY; I++) { // 30
                                  YS( I ) = YY( I )
    30                         CONTINUE
                               INCYS = INCY
@@ -618,7 +618,7 @@
                               // and return.
 
                               SAME = .TRUE.
-                              DO 40 I = 1, NARGS
+                              for (I = 1; I <= NARGS; I++) { // 40
                                  SAME = SAME.AND.ISAME( I )
                                  IF( .NOT.ISAME( I ) ) WRITE( NOUT, FMT = 9998 )I
    40                         CONTINUE
@@ -755,7 +755,7 @@
       RESET = .TRUE.
       ERRMAX = RZERO
 
-      DO 110 IN = 1, NIDIM
+      for (IN = 1; IN <= NIDIM; IN++) { // 110
          N = IDIM( IN )
 
          if ( BANDED ) {
@@ -763,7 +763,7 @@
          } else {
             NK = 1
          }
-         DO 100 IK = 1, NK
+         for (IK = 1; IK <= NK; IK++) { // 100
             if ( BANDED ) {
                K = KB( IK )
             } else {
@@ -785,7 +785,7 @@
             }
             NULL = N.LE.0
 
-            DO 90 IC = 1, 2
+            for (IC = 1; IC <= 2; IC++) { // 90
                UPLO = ICH( IC: IC )
                if (UPLO.EQ.'U') {
                   CUPLO = '    CblasUpper'
@@ -798,7 +798,7 @@
                TRANSL = ZERO
                cmake(SNAME( 8: 9 ), UPLO, ' ', N, N, A, NMAX, AA, LDA, K, K, RESET, TRANSL );
 
-               DO 80 IX = 1, NINC
+               for (IX = 1; IX <= NINC; IX++) { // 80
                   INCX = INC( IX )
                   LX = ABS( INCX )*N
 
@@ -811,14 +811,14 @@
                      XX( 1 + ABS( INCX )*( N/2 - 1 ) ) = ZERO
                   }
 
-                  DO 70 IY = 1, NINC
+                  for (IY = 1; IY <= NINC; IY++) { // 70
                      INCY = INC( IY )
                      LY = ABS( INCY )*N
 
-                     DO 60 IA = 1, NALF
+                     for (IA = 1; IA <= NALF; IA++) { // 60
                         ALPHA = ALF( IA )
 
-                        DO 50 IB = 1, NBET
+                        for (IB = 1; IB <= NBET; IB++) { // 50
                            BETA = BET( IB )
 
                            // Generate the vector Y.
@@ -835,16 +835,16 @@
                            NS = N
                            KS = K
                            ALS = ALPHA
-                           DO 10 I = 1, LAA
+                           for (I = 1; I <= LAA; I++) { // 10
                               AS( I ) = AA( I )
    10                      CONTINUE
                            LDAS = LDA
-                           DO 20 I = 1, LX
+                           for (I = 1; I <= LX; I++) { // 20
                               XS( I ) = XX( I )
    20                      CONTINUE
                            INCXS = INCX
                            BLS = BETA
-                           DO 30 I = 1, LY
+                           for (I = 1; I <= LY; I++) { // 30
                               YS( I ) = YY( I )
    30                      CONTINUE
                            INCYS = INCY
@@ -918,7 +918,7 @@
                            // return.
 
                            SAME = .TRUE.
-                           DO 40 I = 1, NARGS
+                           for (I = 1; I <= NARGS; I++) { // 40
                               SAME = SAME.AND.ISAME( I )
                               IF( .NOT.ISAME( I ) ) WRITE( NOUT, FMT = 9998 )I
    40                      CONTINUE
@@ -1055,11 +1055,11 @@
       RESET = .TRUE.
       ERRMAX = RZERO
       // Set up zero vector for CMVCH.
-      DO 10 I = 1, NMAX
+      for (I = 1; I <= NMAX; I++) { // 10
          Z( I ) = ZERO
    10 CONTINUE
 
-      DO 110 IN = 1, NIDIM
+      for (IN = 1; IN <= NIDIM; IN++) { // 110
          N = IDIM( IN )
 
          if ( BANDED ) {
@@ -1067,7 +1067,7 @@
          } else {
             NK = 1
          }
-         DO 100 IK = 1, NK
+         for (IK = 1; IK <= NK; IK++) { // 100
             if ( BANDED ) {
                K = KB( IK )
             } else {
@@ -1089,7 +1089,7 @@
             }
             NULL = N.LE.0
 
-            DO 90 ICU = 1, 2
+            for (ICU = 1; ICU <= 2; ICU++) { // 90
                UPLO = ICHU( ICU: ICU )
                if (UPLO.EQ.'U') {
                   CUPLO = '    CblasUpper'
@@ -1097,7 +1097,7 @@
                   CUPLO = '    CblasLower'
                }
 
-               DO 80 ICT = 1, 3
+               for (ICT = 1; ICT <= 3; ICT++) { // 80
                   TRANS = ICHT( ICT: ICT )
                   if (TRANS.EQ.'N') {
                      CTRANS = '  CblasNoTrans'
@@ -1107,7 +1107,7 @@
                      CTRANS = 'CblasConjTrans'
                   }
 
-                  DO 70 ICD = 1, 2
+                  for (ICD = 1; ICD <= 2; ICD++) { // 70
                      DIAG = ICHD( ICD: ICD )
                      if (DIAG.EQ.'N') {
                         CDIAG = '  CblasNonUnit'
@@ -1120,7 +1120,7 @@
                      TRANSL = ZERO
                      cmake(SNAME( 8: 9 ), UPLO, DIAG, N, N, A, NMAX, AA, LDA, K, K, RESET, TRANSL );
 
-                     DO 60 IX = 1, NINC
+                     for (IX = 1; IX <= NINC; IX++) { // 60
                         INCX = INC( IX )
                         LX = ABS( INCX )*N
 
@@ -1142,11 +1142,11 @@
                         DIAGS = DIAG
                         NS = N
                         KS = K
-                        DO 20 I = 1, LAA
+                        for (I = 1; I <= LAA; I++) { // 20
                            AS( I ) = AA( I )
    20                   CONTINUE
                         LDAS = LDA
-                        DO 30 I = 1, LX
+                        for (I = 1; I <= LX; I++) { // 30
                            XS( I ) = XX( I )
    30                   CONTINUE
                         INCXS = INCX
@@ -1224,7 +1224,7 @@
                         // return.
 
                         SAME = .TRUE.
-                        DO 40 I = 1, NARGS
+                        for (I = 1; I <= NARGS; I++) { // 40
                            SAME = SAME.AND.ISAME( I )
                            IF( .NOT.ISAME( I ) ) WRITE( NOUT, FMT = 9998 )I
    40                   CONTINUE
@@ -1243,7 +1243,7 @@
 
                               // Compute approximation to original vector.
 
-                              DO 50 I = 1, N
+                              for (I = 1; I <= N; I++) { // 50
                                  Z( I ) = XX( 1 + ( I - 1 )* ABS( INCX ) )                                  XX( 1 + ( I - 1 )*ABS( INCX ) ) = X( I )
    50                         CONTINUE
                               cmvch(TRANS, N, N, ONE, A, NMAX, Z, INCX, ZERO, X, INCX, XT, G, XX, EPS, ERR, FATAL, NOUT, .FALSE. );
@@ -1355,11 +1355,11 @@
       RESET = .TRUE.
       ERRMAX = RZERO
 
-      DO 120 IN = 1, NIDIM
+      for (IN = 1; IN <= NIDIM; IN++) { // 120
          N = IDIM( IN )
          ND = N/2 + 1
 
-         DO 110 IM = 1, 2
+         for (IM = 1; IM <= 2; IM++) { // 110
             IF( IM.EQ.1 ) M = MAX( N - ND, 0 )             IF( IM.EQ.2 ) M = MIN( N + ND, NMAX )
 
             // Set LDA to 1 more than minimum value if room.
@@ -1370,7 +1370,7 @@
             LAA = LDA*N
             NULL = N.LE.0.OR.M.LE.0
 
-            DO 100 IX = 1, NINC
+            for (IX = 1; IX <= NINC; IX++) { // 100
                INCX = INC( IX )
                LX = ABS( INCX )*M
 
@@ -1383,7 +1383,7 @@
                   XX( 1 + ABS( INCX )*( M/2 - 1 ) ) = ZERO
                }
 
-               DO 90 IY = 1, NINC
+               for (IY = 1; IY <= NINC; IY++) { // 90
                   INCY = INC( IY )
                   LY = ABS( INCY )*N
 
@@ -1396,7 +1396,7 @@
                      YY( 1 + ABS( INCY )*( N/2 - 1 ) ) = ZERO
                   }
 
-                  DO 80 IA = 1, NALF
+                  for (IA = 1; IA <= NALF; IA++) { // 80
                      ALPHA = ALF( IA )
 
                      // Generate the matrix A.
@@ -1411,15 +1411,15 @@
                      MS = M
                      NS = N
                      ALS = ALPHA
-                     DO 10 I = 1, LAA
+                     for (I = 1; I <= LAA; I++) { // 10
                         AS( I ) = AA( I )
    10                CONTINUE
                      LDAS = LDA
-                     DO 20 I = 1, LX
+                     for (I = 1; I <= LX; I++) { // 20
                         XS( I ) = XX( I )
    20                CONTINUE
                      INCXS = INCX
-                     DO 30 I = 1, LY
+                     for (I = 1; I <= LY; I++) { // 30
                         YS( I ) = YY( I )
    30                CONTINUE
                      INCYS = INCY
@@ -1460,7 +1460,7 @@
                     // If data was incorrectly changed, report and return.
 
                      SAME = .TRUE.
-                     DO 40 I = 1, NARGS
+                     for (I = 1; I <= NARGS; I++) { // 40
                         SAME = SAME.AND.ISAME( I )
                         IF( .NOT.ISAME( I ) ) WRITE( NOUT, FMT = 9998 )I
    40                CONTINUE
@@ -1474,15 +1474,15 @@
                         // Check the result column by column.
 
                         if ( INCX.GT.0 ) {
-                           DO 50 I = 1, M
+                           for (I = 1; I <= M; I++) { // 50
                               Z( I ) = X( I )
    50                      CONTINUE
                         } else {
-                           DO 60 I = 1, M
+                           for (I = 1; I <= M; I++) { // 60
                               Z( I ) = X( M - I + 1 )
    60                      CONTINUE
                         }
-                        DO 70 J = 1, N
+                        for (J = 1; J <= N; J++) { // 70
                            if ( INCY.GT.0 ) {
                               W( 1 ) = Y( J )
                            } else {
@@ -1601,7 +1601,7 @@
       RESET = .TRUE.
       ERRMAX = RZERO
 
-      DO 100 IN = 1, NIDIM
+      for (IN = 1; IN <= NIDIM; IN++) { // 100
          N = IDIM( IN )
          // Set LDA to 1 more than minimum value if room.
          LDA = N
@@ -1614,7 +1614,7 @@
             LAA = LDA*N
          }
 
-         DO 90 IC = 1, 2
+         for (IC = 1; IC <= 2; IC++) { // 90
             UPLO = ICH( IC: IC )
             if (UPLO.EQ.'U') {
                CUPLO = '    CblasUpper'
@@ -1623,7 +1623,7 @@
             }
             UPPER = UPLO.EQ.'U'
 
-            DO 80 IX = 1, NINC
+            for (IX = 1; IX <= NINC; IX++) { // 80
                INCX = INC( IX )
                LX = ABS( INCX )*N
 
@@ -1636,7 +1636,7 @@
                   XX( 1 + ABS( INCX )*( N/2 - 1 ) ) = ZERO
                }
 
-               DO 70 IA = 1, NALF
+               for (IA = 1; IA <= NALF; IA++) { // 70
                   RALPHA = REAL( ALF( IA ) )
                   ALPHA = CMPLX( RALPHA, RZERO )
                   NULL = N.LE.0.OR.RALPHA.EQ.RZERO
@@ -1653,11 +1653,11 @@
                   UPLOS = UPLO
                   NS = N
                   RALS = RALPHA
-                  DO 10 I = 1, LAA
+                  for (I = 1; I <= LAA; I++) { // 10
                      AS( I ) = AA( I )
    10             CONTINUE
                   LDAS = LDA
-                  DO 20 I = 1, LX
+                  for (I = 1; I <= LX; I++) { // 20
                      XS( I ) = XX( I )
    20             CONTINUE
                   INCXS = INCX
@@ -1699,7 +1699,7 @@
                   // If data was incorrectly changed, report and return.
 
                   SAME = .TRUE.
-                  DO 30 I = 1, NARGS
+                  for (I = 1; I <= NARGS; I++) { // 30
                      SAME = SAME.AND.ISAME( I )
                      IF( .NOT.ISAME( I ) ) WRITE( NOUT, FMT = 9998 )I
    30             CONTINUE
@@ -1713,16 +1713,16 @@
                      // Check the result column by column.
 
                      if ( INCX.GT.0 ) {
-                        DO 40 I = 1, N
+                        for (I = 1; I <= N; I++) { // 40
                            Z( I ) = X( I )
    40                   CONTINUE
                      } else {
-                        DO 50 I = 1, N
+                        for (I = 1; I <= N; I++) { // 50
                            Z( I ) = X( N - I + 1 )
    50                   CONTINUE
                      }
                      JA = 1
-                     DO 60 J = 1, N
+                     for (J = 1; J <= N; J++) { // 60
                         W( 1 ) = CONJG( Z( J ) )
                         if ( UPPER ) {
                            JJ = 1
@@ -1856,7 +1856,7 @@
       RESET = .TRUE.
       ERRMAX = RZERO
 
-      DO 140 IN = 1, NIDIM
+      for (IN = 1; IN <= NIDIM; IN++) { // 140
          N = IDIM( IN )
          // Set LDA to 1 more than minimum value if room.
          LDA = N
@@ -1869,7 +1869,7 @@
             LAA = LDA*N
          }
 
-         DO 130 IC = 1, 2
+         for (IC = 1; IC <= 2; IC++) { // 130
             UPLO = ICH( IC: IC )
             if (UPLO.EQ.'U') {
                CUPLO = '    CblasUpper'
@@ -1878,7 +1878,7 @@
             }
             UPPER = UPLO.EQ.'U'
 
-            DO 120 IX = 1, NINC
+            for (IX = 1; IX <= NINC; IX++) { // 120
                INCX = INC( IX )
                LX = ABS( INCX )*N
 
@@ -1891,7 +1891,7 @@
                   XX( 1 + ABS( INCX )*( N/2 - 1 ) ) = ZERO
                }
 
-               DO 110 IY = 1, NINC
+               for (IY = 1; IY <= NINC; IY++) { // 110
                   INCY = INC( IY )
                   LY = ABS( INCY )*N
 
@@ -1904,7 +1904,7 @@
                      YY( 1 + ABS( INCY )*( N/2 - 1 ) ) = ZERO
                   }
 
-                  DO 100 IA = 1, NALF
+                  for (IA = 1; IA <= NALF; IA++) { // 100
                      ALPHA = ALF( IA )
                      NULL = N.LE.0.OR.ALPHA.EQ.ZERO
 
@@ -1920,15 +1920,15 @@
                      UPLOS = UPLO
                      NS = N
                      ALS = ALPHA
-                     DO 10 I = 1, LAA
+                     for (I = 1; I <= LAA; I++) { // 10
                         AS( I ) = AA( I )
    10                CONTINUE
                      LDAS = LDA
-                     DO 20 I = 1, LX
+                     for (I = 1; I <= LX; I++) { // 20
                         XS( I ) = XX( I )
    20                CONTINUE
                      INCXS = INCX
-                     DO 30 I = 1, LY
+                     for (I = 1; I <= LY; I++) { // 30
                         YS( I ) = YY( I )
    30                CONTINUE
                      INCYS = INCY
@@ -1972,7 +1972,7 @@
                     // If data was incorrectly changed, report and return.
 
                      SAME = .TRUE.
-                     DO 40 I = 1, NARGS
+                     for (I = 1; I <= NARGS; I++) { // 40
                         SAME = SAME.AND.ISAME( I )
                         IF( .NOT.ISAME( I ) ) WRITE( NOUT, FMT = 9998 )I
    40                CONTINUE
@@ -1986,25 +1986,25 @@
                         // Check the result column by column.
 
                         if ( INCX.GT.0 ) {
-                           DO 50 I = 1, N
+                           for (I = 1; I <= N; I++) { // 50
                               Z( I, 1 ) = X( I )
    50                      CONTINUE
                         } else {
-                           DO 60 I = 1, N
+                           for (I = 1; I <= N; I++) { // 60
                               Z( I, 1 ) = X( N - I + 1 )
    60                      CONTINUE
                         }
                         if ( INCY.GT.0 ) {
-                           DO 70 I = 1, N
+                           for (I = 1; I <= N; I++) { // 70
                               Z( I, 2 ) = Y( I )
    70                      CONTINUE
                         } else {
-                           DO 80 I = 1, N
+                           for (I = 1; I <= N; I++) { // 80
                               Z( I, 2 ) = Y( N - I + 1 )
    80                      CONTINUE
                         }
                         JA = 1
-                        DO 90 J = 1, N
+                        for (J = 1; J <= N; J++) { // 90
                            W( 1 ) = ALPHA*CONJG( Z( J, 2 ) )
                            W( 2 ) = CONJG( ALPHA )*CONJG( Z( J, 1 ) )
                            if ( UPPER ) {
@@ -2142,24 +2142,24 @@
       // Compute gauges in G.
 
       IY = KY
-      DO 40 I = 1, ML
+      for (I = 1; I <= ML; I++) { // 40
          YT( IY ) = ZERO
          G( IY ) = RZERO
          JX = KX
          if ( TRAN ) {
-            DO 10 J = 1, NL
+            for (J = 1; J <= NL; J++) { // 10
                YT( IY ) = YT( IY ) + A( J, I )*X( JX )
                G( IY ) = G( IY ) + ABS1( A( J, I ) )*ABS1( X( JX ) )
                JX = JX + INCXL
    10       CONTINUE
          } else if ( CTRAN ) {
-            DO 20 J = 1, NL
+            for (J = 1; J <= NL; J++) { // 20
                YT( IY ) = YT( IY ) + CONJG( A( J, I ) )*X( JX )
                G( IY ) = G( IY ) + ABS1( A( J, I ) )*ABS1( X( JX ) )
                JX = JX + INCXL
    20       CONTINUE
          } else {
-            DO 30 J = 1, NL
+            for (J = 1; J <= NL; J++) { // 30
                YT( IY ) = YT( IY ) + A( I, J )*X( JX )
                G( IY ) = G( IY ) + ABS1( A( I, J ) )*ABS1( X( JX ) )
                JX = JX + INCXL
@@ -2173,7 +2173,7 @@
       // Compute the error ratio for this result.
 
       ERR = ZERO
-      DO 50 I = 1, ML
+      for (I = 1; I <= ML; I++) { // 50
          ERRI = ABS( YT( I ) - YY( 1 + ( I - 1 )*ABS( INCY ) ) )/EPS
          IF( G( I ).NE.RZERO ) ERRI = ERRI/G( I )
          ERR = MAX( ERR, ERRI )
@@ -2186,7 +2186,7 @@
 
    60 FATAL = .TRUE.
       WRITE( NOUT, FMT = 9999 )
-      DO 70 I = 1, ML
+      for (I = 1; I <= ML; I++) { // 70
          if ( MV ) {
             WRITE( NOUT, FMT = 9998 )I, YT( I ), YY( 1 + ( I - 1 )*ABS( INCY ) )
          } else {
@@ -2220,7 +2220,7 @@
       // .. Local Scalars ..
       int                I;
       // .. Executable Statements ..
-      DO 10 I = 1, LR
+      for (I = 1; I <= LR; I++) { // 10
          IF( RI( I ).NE.RJ( I ) ) GO TO 20
    10 CONTINUE
       LCE = .TRUE.
@@ -2256,13 +2256,13 @@
       // .. Executable Statements ..
       UPPER = UPLO.EQ.'U'
       if ( TYPE.EQ.'ge' ) {
-         DO 20 J = 1, N
+         for (J = 1; J <= N; J++) { // 20
             DO 10 I = M + 1, LDA
                IF( AA( I, J ).NE.AS( I, J ) ) GO TO 70
    10       CONTINUE
    20    CONTINUE
       } else if ( TYPE.EQ.'he' ) {
-         DO 50 J = 1, N
+         for (J = 1; J <= N; J++) { // 50
             if ( UPPER ) {
                IBEG = 1
                IEND = J
@@ -2407,8 +2407,8 @@
 
       // Generate data in array A.
 
-      DO 20 J = 1, N
-         DO 10 I = 1, M
+      for (J = 1; J <= N; J++) { // 20
+         for (I = 1; I <= M; I++) { // 10
             if ( GEN.OR.( UPPER.AND.I.LE.J ).OR.( LOWER.AND.I.GE.J ) ) THEN                IF( ( I.LE.J.AND.J - I.LE.KU ).OR. ( I.GE.J.AND.I - J.LE.KL ) ) {
                   A( I, J ) = CBEG( RESET ) + TRANSL
                } else {
@@ -2429,8 +2429,8 @@
       // Store elements in array AS in data structure required by routine.
 
       if ( TYPE.EQ.'ge' ) {
-         DO 50 J = 1, N
-            DO 30 I = 1, M
+         for (J = 1; J <= N; J++) { // 50
+            for (I = 1; I <= M; I++) { // 30
                AA( I + ( J - 1 )*LDA ) = A( I, J )
    30       CONTINUE
             DO 40 I = M + 1, LDA
@@ -2438,19 +2438,19 @@
    40       CONTINUE
    50    CONTINUE
       } else if ( TYPE.EQ.'gb' ) {
-         DO 90 J = 1, N
+         for (J = 1; J <= N; J++) { // 90
             DO 60 I1 = 1, KU + 1 - J
                AA( I1 + ( J - 1 )*LDA ) = ROGUE
    60       CONTINUE
             DO 70 I2 = I1, MIN( KL + KU + 1, KU + 1 + M - J )
                AA( I2 + ( J - 1 )*LDA ) = A( I2 + J - KU - 1, J )
    70       CONTINUE
-            DO 80 I3 = I2, LDA
+            for (I3 = I2; I3 <= LDA; I3++) { // 80
                AA( I3 + ( J - 1 )*LDA ) = ROGUE
    80       CONTINUE
    90    CONTINUE
       } else if ( TYPE.EQ.'he'.OR.TYPE.EQ.'tr' ) {
-         DO 130 J = 1, N
+         for (J = 1; J <= N; J++) { // 130
             if ( UPPER ) {
                IBEG = 1
                if ( UNIT ) {
@@ -2469,7 +2469,7 @@
             DO 100 I = 1, IBEG - 1
                AA( I + ( J - 1 )*LDA ) = ROGUE
   100       CONTINUE
-            DO 110 I = IBEG, IEND
+            for (I = IBEG; I <= IEND; I++) { // 110
                AA( I + ( J - 1 )*LDA ) = A( I, J )
   110       CONTINUE
             DO 120 I = IEND + 1, LDA
@@ -2481,7 +2481,7 @@
             }
   130    CONTINUE
       } else if ( TYPE.EQ.'hb'.OR.TYPE.EQ.'tb' ) {
-         DO 170 J = 1, N
+         for (J = 1; J <= N; J++) { // 170
             if ( UPPER ) {
                KK = KL + 1
                IBEG = MAX( 1, KL + 2 - J )
@@ -2502,7 +2502,7 @@
             DO 140 I = 1, IBEG - 1
                AA( I + ( J - 1 )*LDA ) = ROGUE
   140       CONTINUE
-            DO 150 I = IBEG, IEND
+            for (I = IBEG; I <= IEND; I++) { // 150
                AA( I + ( J - 1 )*LDA ) = A( I + J - KK, J )
   150       CONTINUE
             DO 160 I = IEND + 1, LDA
@@ -2515,7 +2515,7 @@
   170    CONTINUE
       } else if ( TYPE.EQ.'hp'.OR.TYPE.EQ.'tp' ) {
          IOFF = 0
-         DO 190 J = 1, N
+         for (J = 1; J <= N; J++) { // 190
             if ( UPPER ) {
                IBEG = 1
                IEND = J
@@ -2523,7 +2523,7 @@
                IBEG = J
                IEND = N
             }
-            DO 180 I = IBEG, IEND
+            for (I = IBEG; I <= IEND; I++) { // 180
                IOFF = IOFF + 1
                AA( IOFF ) = A( I, J )
                if ( I.EQ.J ) {

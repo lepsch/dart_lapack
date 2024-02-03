@@ -77,7 +77,7 @@
          dlaset('Full', N, N, ZERO, ZERO, WORK, N );
          dlacpy(CUPLO, N, N, A, LDA, WORK, N );
 
-         DO 10 J = 1, N
+         for (J = 1; J <= N; J++) { // 10
             dsyr(CUPLO, N, -D( J ), U( 1, J ), 1, WORK, N );
    10    CONTINUE
 
@@ -128,13 +128,13 @@
    60       CONTINUE
          }
 
-         DO 90 JCOL = 1, N
+         for (JCOL = 1; JCOL <= N; JCOL++) { // 90
             if ( LOWER ) {
-               DO 70 JROW = JCOL, N
+               for (JROW = JCOL; JROW <= N; JROW++) { // 70
                   WORK( JROW+N*( JCOL-1 ) ) = WORK( JROW+N*( JCOL-1 ) ) - A( JROW, JCOL )
    70          CONTINUE
             } else {
-               DO 80 JROW = 1, JCOL
+               for (JROW = 1; JROW <= JCOL; JROW++) { // 80
                   WORK( JROW+N*( JCOL-1 ) ) = WORK( JROW+N*( JCOL-1 ) ) - A( JROW, JCOL )
    80          CONTINUE
             }
@@ -157,7 +157,7 @@
             RETURN
          }
 
-         DO 100 J = 1, N
+         for (J = 1; J <= N; J++) { // 100
             WORK( ( N+1 )*( J-1 )+1 ) = WORK( ( N+1 )*( J-1 )+1 ) - ONE
   100    CONTINUE
 
@@ -181,7 +181,7 @@
       if ( ITYPE.EQ.1 ) {
          dgemm('N', 'C', N, N, N, ONE, U, LDU, U, LDU, ZERO, WORK, N );
 
-         DO 110 J = 1, N
+         for (J = 1; J <= N; J++) { // 110
             WORK( ( N+1 )*( J-1 )+1 ) = WORK( ( N+1 )*( J-1 )+1 ) - ONE
   110    CONTINUE
 

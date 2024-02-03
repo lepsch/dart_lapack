@@ -98,7 +98,7 @@
    10 CONTINUE
       IF( L1.GT.N ) GO TO 160       IF( L1.GT.1 ) E( L1-1 ) = ZERO
       if ( L1.LE.NM1 ) {
-         DO 20 M = L1, NM1
+         for (M = L1; M <= NM1; M++) { // 20
             TST = ABS( E( M ) )
             if ( TST.EQ.ZERO ) GO TO 30             IF( TST.LE.( SQRT( ABS( D( M ) ) )*SQRT( ABS( D( M+ 1 ) ) ) )*EPS ) {
                E( M ) = ZERO
@@ -145,7 +145,7 @@
    40    CONTINUE
          if ( L.NE.LEND ) {
             LENDM1 = LEND - 1
-            DO 50 M = L, LENDM1
+            for (M = L; M <= LENDM1; M++) { // 50
                TST = ABS( E( M ) )**2
                IF( TST.LE.( EPS2*ABS( D( M ) ) )*ABS( D( M+1 ) )+ SAFMIN )GO TO 60
    50       CONTINUE
@@ -292,7 +292,7 @@
          // Inner loop
 
          LM1 = L - 1
-         DO 120 I = M, LM1
+         for (I = M; I <= LM1; I++) { // 120
             F = S*E( I )
             B = C*E( I )
             dlartg(G, F, C, S, R );
@@ -365,11 +365,11 @@
 
          // Use Selection Sort to minimize swaps of eigenvectors
 
-         DO 180 II = 2, N
+         for (II = 2; II <= N; II++) { // 180
             I = II - 1
             K = I
             P = D( I )
-            DO 170 J = II, N
+            for (J = II; J <= N; J++) { // 170
                if ( D( J ).LT.P ) {
                   K = J
                   P = D( J )

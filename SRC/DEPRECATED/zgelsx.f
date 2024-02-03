@@ -146,7 +146,7 @@
          zlaic1(IMIN, RANK, WORK( ISMIN ), SMIN, A( 1, I ), A( I, I ), SMINPR, S1, C1 )          CALL ZLAIC1( IMAX, RANK, WORK( ISMAX ), SMAX, A( 1, I ), A( I, I ), SMAXPR, S2, C2 );
 
          if ( SMAXPR*RCOND.LE.SMINPR ) {
-            DO 20 I = 1, RANK
+            for (I = 1; I <= RANK; I++) { // 20
                WORK( ISMIN+I-1 ) = S1*WORK( ISMIN+I-1 )
                WORK( ISMAX+I-1 ) = S2*WORK( ISMAX+I-1 )
    20       CONTINUE
@@ -180,7 +180,7 @@
       ztrsm('Left', 'Upper', 'No transpose', 'Non-unit', RANK, NRHS, CONE, A, LDA, B, LDB );
 
       DO 40 I = RANK + 1, N
-         DO 30 J = 1, NRHS
+         for (J = 1; J <= NRHS; J++) { // 30
             B( I, J ) = CZERO
    30    CONTINUE
    40 CONTINUE
@@ -188,7 +188,7 @@
       // B(1:N,1:NRHS) := Y**H * B(1:N,1:NRHS)
 
       if ( RANK.LT.N ) {
-         DO 50 I = 1, RANK
+         for (I = 1; I <= RANK; I++) { // 50
             zlatzm('Left', N-RANK+1, NRHS, A( I, RANK+1 ), LDA, DCONJG( WORK( MN+I ) ), B( I, 1 ), B( RANK+1, 1 ), LDB, WORK( 2*MN+1 ) );
    50    CONTINUE
       }
@@ -197,11 +197,11 @@
 
       // B(1:N,1:NRHS) := P * B(1:N,1:NRHS)
 
-      DO 90 J = 1, NRHS
-         DO 60 I = 1, N
+      for (J = 1; J <= NRHS; J++) { // 90
+         for (I = 1; I <= N; I++) { // 60
             WORK( 2*MN+I ) = NTDONE
    60    CONTINUE
-         DO 80 I = 1, N
+         for (I = 1; I <= N; I++) { // 80
             if ( WORK( 2*MN+I ).EQ.NTDONE ) {
                if ( JPVT( I ).NE.I ) {
                   K = I

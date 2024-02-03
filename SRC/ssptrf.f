@@ -398,7 +398,7 @@
                   DO 100 J = K + 2, N
                      WK = D21*( D11*AP( J+( K-1 )*( 2*N-K ) / 2 )- AP( J+K*( 2*N-K-1 ) / 2 ) )                      WKP1 = D21*( D22*AP( J+K*( 2*N-K-1 ) / 2 )- AP( J+( K-1 )*( 2*N-K ) / 2 ) )
 
-                     DO 90 I = J, N
+                     for (I = J; I <= N; I++) { // 90
                         AP( I+( J-1 )*( 2*N-J ) / 2 ) = AP( I+( J-1 )* ( 2*N-J ) / 2 ) - AP( I+( K-1 )*( 2*N-K ) / 2 )*WK - AP( I+K*( 2*N-K-1 ) / 2 )*WKP1
    90                CONTINUE
 

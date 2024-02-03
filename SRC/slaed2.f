@@ -78,17 +78,17 @@
 
       // Sort the eigenvalues into increasing order
 
-      DO 10 I = N1P1, N
+      for (I = N1P1; I <= N; I++) { // 10
          INDXQ( I ) = INDXQ( I ) + N1
    10 CONTINUE
 
       // re-integrate the deflated parts from the last pass
 
-      DO 20 I = 1, N
+      for (I = 1; I <= N; I++) { // 20
          DLAMBDA( I ) = D( INDXQ( I ) )
    20 CONTINUE
       slamrg(N1, N2, DLAMBDA, 1, 1, INDXC );
-      DO 30 I = 1, N
+      for (I = 1; I <= N; I++) { // 30
          INDX( I ) = INDXQ( INDXC( I ) )
    30 CONTINUE
 
@@ -106,7 +106,7 @@
       if ( RHO*ABS( Z( IMAX ) ).LE.TOL ) {
          K = 0
          IQ2 = 1
-         DO 40 J = 1, N
+         for (J = 1; J <= N; J++) { // 40
             I = INDX( J )
             scopy(N, Q( 1, I ), 1, Q2( IQ2 ), 1 );
             DLAMBDA( J ) = D( I )
@@ -123,17 +123,17 @@
       // the corresponding eigensubspace so that the corresponding
       // components of Z are zero in this new basis.
 
-      DO 50 I = 1, N1
+      for (I = 1; I <= N1; I++) { // 50
          COLTYP( I ) = 1
    50 CONTINUE
-      DO 60 I = N1P1, N
+      for (I = N1P1; I <= N; I++) { // 60
          COLTYP( I ) = 3
    60 CONTINUE
 
 
       K = 0
       K2 = N + 1
-      DO 70 J = 1, N
+      for (J = 1; J <= N; J++) { // 70
          NJ = INDX( J )
          if ( RHO*ABS( Z( NJ ) ).LE.TOL ) {
 
@@ -224,10 +224,10 @@
       // four uniform groups (although one or more of these groups may be
       // empty).
 
-      DO 110 J = 1, 4
+      for (J = 1; J <= 4; J++) { // 110
          CTOT( J ) = 0
   110 CONTINUE
-      DO 120 J = 1, N
+      for (J = 1; J <= N; J++) { // 120
          CT = COLTYP( J )
          CTOT( CT ) = CTOT( CT ) + 1
   120 CONTINUE
@@ -244,7 +244,7 @@
       // will place all type-1 columns first, all type-2 columns next,
       // then all type-3's, and finally all type-4's.
 
-      DO 130 J = 1, N
+      for (J = 1; J <= N; J++) { // 130
          JS = INDXP( J )
          CT = COLTYP( JS )
          INDX( PSM( CT ) ) = JS
@@ -305,7 +305,7 @@
 
       // Copy CTOT into COLTYP for referencing in SLAED3.
 
-      DO 180 J = 1, 4
+      for (J = 1; J <= 4; J++) { // 180
          COLTYP( J ) = CTOT( J )
   180 CONTINUE
 

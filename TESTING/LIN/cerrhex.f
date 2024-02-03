@@ -54,8 +54,8 @@
 
       // Set the variables to innocuous values.
 
-      DO 20 J = 1, NMAX
-         DO 10 I = 1, NMAX
+      for (J = 1; J <= NMAX; J++) { // 20
+         for (I = 1; I <= NMAX; I++) { // 10
             A( I, J ) = CMPLX( 1. / REAL( I+J ), -1. / REAL( I+J ) )
             AF( I, J ) = CMPLX( 1. / REAL( I+J ), -1. / REAL( I+J ) )
    10    CONTINUE

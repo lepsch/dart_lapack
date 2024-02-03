@@ -132,7 +132,7 @@
 
          // Use unblocked Level 2 solver
 
-         DO 30 IROUND = 1, ISOLVE
+         for (IROUND = 1; IROUND <= ISOLVE; IROUND++) { // 30
 
             SCALE = ONE
             DSCALE = ZERO
@@ -199,7 +199,7 @@
       IF( IWORK( Q ).EQ.IWORK( Q+1 ) ) Q = Q - 1
 
       if ( NOTRAN ) {
-         DO 150 IROUND = 1, ISOLVE
+         for (IROUND = 1; IROUND <= ISOLVE; IROUND++) { // 150
 
             // Solve (I, J) - subsystem
                 // A(I, I) * R(I, J) - L(I, J) * B(J, J) = C(I, J)
@@ -225,10 +225,10 @@
                      DO 80 K = 1, JS - 1
                         zscal(M, DCMPLX( SCALOC, ZERO ), C( 1, K ), 1 )                         CALL ZSCAL( M, DCMPLX( SCALOC, ZERO ), F( 1, K ), 1 );
    80                CONTINUE
-                     DO 90 K = JS, JE
+                     for (K = JS; K <= JE; K++) { // 90
                         zscal(IS-1, DCMPLX( SCALOC, ZERO ), C( 1, K ), 1 )                         CALL ZSCAL( IS-1, DCMPLX( SCALOC, ZERO ), F( 1, K ), 1 );
    90                CONTINUE
-                     DO 100 K = JS, JE
+                     for (K = JS; K <= JE; K++) { // 100
                         zscal(M-IE, DCMPLX( SCALOC, ZERO ), C( IE+1, K ), 1 )                         CALL ZSCAL( M-IE, DCMPLX( SCALOC, ZERO ), F( IE+1, K ), 1 );
   100                CONTINUE
                      DO 110 K = JE + 1, N
@@ -277,7 +277,7 @@
          // for I = 1,2,..., P; J = Q, Q-1,..., 1
 
          SCALE = ONE
-         DO 210 I = 1, P
+         for (I = 1; I <= P; I++) { // 210
             IS = IWORK( I )
             IE = IWORK( I+1 ) - 1
             MB = IE - IS + 1
@@ -291,10 +291,10 @@
                   DO 160 K = 1, JS - 1
                      zscal(M, DCMPLX( SCALOC, ZERO ), C( 1, K ), 1 )                      CALL ZSCAL( M, DCMPLX( SCALOC, ZERO ), F( 1, K ), 1 );
   160             CONTINUE
-                  DO 170 K = JS, JE
+                  for (K = JS; K <= JE; K++) { // 170
                      zscal(IS-1, DCMPLX( SCALOC, ZERO ), C( 1, K ), 1 )                      CALL ZSCAL( IS-1, DCMPLX( SCALOC, ZERO ), F( 1, K ), 1 );
   170             CONTINUE
-                  DO 180 K = JS, JE
+                  for (K = JS; K <= JE; K++) { // 180
                      zscal(M-IE, DCMPLX( SCALOC, ZERO ), C( IE+1, K ), 1 )                      CALL ZSCAL( M-IE, DCMPLX( SCALOC, ZERO ), F( IE+1, K ), 1 );
   180             CONTINUE
                   DO 190 K = JE + 1, N

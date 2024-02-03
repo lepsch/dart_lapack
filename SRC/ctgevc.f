@@ -104,7 +104,7 @@
 
       if ( .NOT.ILALL ) {
          IM = 0
-         DO 10 J = 1, N
+         for (J = 1; J <= N; J++) { // 10
             IF( SELECT( J ) ) IM = IM + 1
    10    CONTINUE
       } else {
@@ -114,7 +114,7 @@
       // Check diagonal of B
 
       ILBBAD = .FALSE.
-      DO 20 J = 1, N
+      for (J = 1; J <= N; J++) { // 20
          IF( AIMAG( P( J, J ) ).NE.ZERO ) ILBBAD = .TRUE.
    20 CONTINUE
 
@@ -154,7 +154,7 @@
       BNORM = ABS1( P( 1, 1 ) )
       RWORK( 1 ) = ZERO
       RWORK( N+1 ) = ZERO
-      DO 40 J = 2, N
+      for (J = 2; J <= N; J++) { // 40
          RWORK( J ) = ZERO
          RWORK( N+J ) = ZERO
          DO 30 I = 1, J - 1
@@ -175,7 +175,7 @@
 
          // Main loop over eigenvalues
 
-         DO 140 JE = 1, N
+         for (JE = 1; JE <= N; JE++) { // 140
             if ( ILALL ) {
                ILCOMP = .TRUE.
             } else {
@@ -188,7 +188,7 @@
 
                   // Singular matrix pencil -- return unit eigenvector
 
-                  DO 50 JR = 1, N
+                  for (JR = 1; JR <= N; JR++) { // 50
                      VL( JR, IEIG ) = CZERO
    50             CONTINUE
                   VL( IEIG, IEIG ) = CONE
@@ -230,7 +230,7 @@
                ACOEFA = ABS( ACOEFF )
                BCOEFA = ABS1( BCOEFF )
                XMAX = ONE
-               DO 60 JR = 1, N
+               for (JR = 1; JR <= N; JR++) { // 60
                   WORK( JR ) = CZERO
    60          CONTINUE
                WORK( JE ) = CONE
@@ -301,13 +301,13 @@
                // Copy and scale eigenvector into column of VL
 
                XMAX = ZERO
-               DO 110 JR = IBEG, N
+               for (JR = IBEG; JR <= N; JR++) { // 110
                   XMAX = MAX( XMAX, ABS1( WORK( ( ISRC-1 )*N+JR ) ) )
   110          CONTINUE
 
                if ( XMAX.GT.SAFMIN ) {
                   TEMP = ONE / XMAX
-                  DO 120 JR = IBEG, N
+                  for (JR = IBEG; JR <= N; JR++) { // 120
                      VL( JR, IEIG ) = TEMP*WORK( ( ISRC-1 )*N+JR )
   120             CONTINUE
                } else {
@@ -342,7 +342,7 @@
 
                   // Singular matrix pencil -- return unit eigenvector
 
-                  DO 150 JR = 1, N
+                  for (JR = 1; JR <= N; JR++) { // 150
                      VR( JR, IEIG ) = CZERO
   150             CONTINUE
                   VR( IEIG, IEIG ) = CONE
@@ -384,7 +384,7 @@
                ACOEFA = ABS( ACOEFF )
                BCOEFA = ABS1( BCOEFF )
                XMAX = ONE
-               DO 160 JR = 1, N
+               for (JR = 1; JR <= N; JR++) { // 160
                   WORK( JR ) = CZERO
   160          CONTINUE
                WORK( JE ) = CONE
@@ -411,7 +411,7 @@
                   if ( ABS1( D ).LT.ONE ) {
                      if ( ABS1( WORK( J ) ).GE.BIGNUM*ABS1( D ) ) {
                         TEMP = ONE / ABS1( WORK( J ) )
-                        DO 180 JR = 1, JE
+                        for (JR = 1; JR <= JE; JR++) { // 180
                            WORK( JR ) = TEMP*WORK( JR )
   180                   CONTINUE
                      }
@@ -426,7 +426,7 @@
                      if ( ABS1( WORK( J ) ).GT.ONE ) {
                         TEMP = ONE / ABS1( WORK( J ) )
                         if ( ACOEFA*RWORK( J )+BCOEFA*RWORK( N+J ).GE. BIGNUM*TEMP ) {
-                           DO 190 JR = 1, JE
+                           for (JR = 1; JR <= JE; JR++) { // 190
                               WORK( JR ) = TEMP*WORK( JR )
   190                      CONTINUE
                         }
@@ -454,13 +454,13 @@
                // Copy and scale eigenvector into column of VR
 
                XMAX = ZERO
-               DO 220 JR = 1, IEND
+               for (JR = 1; JR <= IEND; JR++) { // 220
                   XMAX = MAX( XMAX, ABS1( WORK( ( ISRC-1 )*N+JR ) ) )
   220          CONTINUE
 
                if ( XMAX.GT.SAFMIN ) {
                   TEMP = ONE / XMAX
-                  DO 230 JR = 1, IEND
+                  for (JR = 1; JR <= IEND; JR++) { // 230
                      VR( JR, IEIG ) = TEMP*WORK( ( ISRC-1 )*N+JR )
   230             CONTINUE
                } else {

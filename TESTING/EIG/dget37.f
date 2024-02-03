@@ -72,24 +72,24 @@
    10 CONTINUE
       READ( NIN, FMT = * )N
       IF( N.EQ.0 ) RETURN
-      DO 20 I = 1, N
+      for (I = 1; I <= N; I++) { // 20
          READ( NIN, FMT = * )( TMP( I, J ), J = 1, N )
    20 CONTINUE
-      DO 30 I = 1, N
+      for (I = 1; I <= N; I++) { // 30
          READ( NIN, FMT = * )WRIN( I ), WIIN( I ), SIN( I ), SEPIN( I )
    30 CONTINUE
       TNRM = DLANGE( 'M', N, N, TMP, LDT, WORK )
 
       // Begin test
 
-      DO 240 ISCL = 1, 3
+      for (ISCL = 1; ISCL <= 3; ISCL++) { // 240
 
          // Scale input matrix
 
          KNT = KNT + 1
          dlacpy('F', N, N, TMP, LDT, T, LDT );
          VMUL = VAL( ISCL )
-         DO 40 I = 1, N
+         for (I = 1; I <= N; I++) { // 40
             dscal(N, VMUL, T( 1, I ), 1 );
    40    CONTINUE
          IF( TNRM.EQ.ZERO ) VMUL = ONE
@@ -166,7 +166,7 @@
 
          V = MAX( TWO*DBLE( N )*EPS*TNRM, SMLNUM )
          IF( TNRM.EQ.ZERO ) V = ONE
-         DO 90 I = 1, N
+         for (I = 1; I <= N; I++) { // 90
             if ( V.GT.SEPTMP( I ) ) {
                TOL = ONE
             } else {
@@ -199,7 +199,7 @@
          // Compare condition numbers for eigenvectors
          // taking their condition numbers into account
 
-         DO 100 I = 1, N
+         for (I = 1; I <= N; I++) { // 100
             if ( V.GT.SEPTMP( I )*STMP( I ) ) {
                TOL = SEPTMP( I )
             } else {
@@ -232,7 +232,7 @@
          // Compare condition numbers for eigenvalues
          // without taking their condition numbers into account
 
-         DO 110 I = 1, N
+         for (I = 1; I <= N; I++) { // 110
             if ( SIN( I ).LE.DBLE( 2*N )*EPS .AND. STMP( I ).LE. DBLE( 2*N )*EPS ) {
                VMAX = ONE
             } else if ( EPS*SIN( I ).GT.STMP( I ) ) {
@@ -255,7 +255,7 @@
          // Compare condition numbers for eigenvectors
          // without taking their condition numbers into account
 
-         DO 120 I = 1, N
+         for (I = 1; I <= N; I++) { // 120
             if ( SEPIN( I ).LE.V .AND. SEPTMP( I ).LE.V ) {
                VMAX = ONE
             } else if ( EPS*SEPIN( I ).GT.SEPTMP( I ) ) {
@@ -287,7 +287,7 @@
             NINFO( 3 ) = NINFO( 3 ) + 1
             GO TO 240
          }
-         DO 130 I = 1, N
+         for (I = 1; I <= N; I++) { // 130
             IF( STMP( I ).NE.S( I ) ) VMAX = ONE / EPS             IF( SEPTMP( I ).NE.DUM( 1 ) ) VMAX = ONE / EPS
   130    CONTINUE
 
@@ -301,13 +301,13 @@
             NINFO( 3 ) = NINFO( 3 ) + 1
             GO TO 240
          }
-         DO 140 I = 1, N
+         for (I = 1; I <= N; I++) { // 140
             IF( STMP( I ).NE.DUM( 1 ) ) VMAX = ONE / EPS             IF( SEPTMP( I ).NE.SEP( I ) ) VMAX = ONE / EPS
   140    CONTINUE
 
          // Compute all condition numbers using SELECT and compare
 
-         DO 150 I = 1, N
+         for (I = 1; I <= N; I++) { // 150
             SELECT( I ) = .TRUE.
   150    CONTINUE
          dcopy(N, DUM, 0, STMP, 1 );
@@ -318,7 +318,7 @@
             NINFO( 3 ) = NINFO( 3 ) + 1
             GO TO 240
          }
-         DO 160 I = 1, N
+         for (I = 1; I <= N; I++) { // 160
             IF( SEPTMP( I ).NE.SEP( I ) ) VMAX = ONE / EPS             IF( STMP( I ).NE.S( I ) ) VMAX = ONE / EPS
   160    CONTINUE
 
@@ -332,7 +332,7 @@
             NINFO( 3 ) = NINFO( 3 ) + 1
             GO TO 240
          }
-         DO 170 I = 1, N
+         for (I = 1; I <= N; I++) { // 170
             IF( STMP( I ).NE.S( I ) ) VMAX = ONE / EPS             IF( SEPTMP( I ).NE.DUM( 1 ) ) VMAX = ONE / EPS
   170    CONTINUE
 
@@ -346,7 +346,7 @@
             NINFO( 3 ) = NINFO( 3 ) + 1
             GO TO 240
          }
-         DO 180 I = 1, N
+         for (I = 1; I <= N; I++) { // 180
             IF( STMP( I ).NE.DUM( 1 ) ) VMAX = ONE / EPS             IF( SEPTMP( I ).NE.SEP( I ) ) VMAX = ONE / EPS
   180    CONTINUE
          if ( VMAX.GT.RMAX( 1 ) ) {
@@ -359,7 +359,7 @@
          if ( WI( 1 ).EQ.ZERO ) {
             LCMP( 1 ) = 1
             IFND = 0
-            DO 190 I = 2, N
+            for (I = 2; I <= N; I++) { // 190
                if ( IFND.EQ.1 .OR. WI( I ).EQ.ZERO ) {
                   SELECT( I ) = .FALSE.
                } else {
@@ -381,7 +381,7 @@
             LCMP( 1 ) = 1
             LCMP( 2 ) = 2
             IFND = 0
-            DO 200 I = 3, N
+            for (I = 3; I <= N; I++) { // 200
                if ( IFND.EQ.1 .OR. WI( I ).NE.ZERO ) {
                   SELECT( I ) = .FALSE.
                } else {
@@ -408,7 +408,7 @@
             NINFO( 3 ) = NINFO( 3 ) + 1
             GO TO 240
          }
-         DO 210 I = 1, ICMP
+         for (I = 1; I <= ICMP; I++) { // 210
             J = LCMP( I )
             IF( SEPTMP( I ).NE.SEP( J ) ) VMAX = ONE / EPS             IF( STMP( I ).NE.S( J ) ) VMAX = ONE / EPS
   210    CONTINUE
@@ -423,7 +423,7 @@
             NINFO( 3 ) = NINFO( 3 ) + 1
             GO TO 240
          }
-         DO 220 I = 1, ICMP
+         for (I = 1; I <= ICMP; I++) { // 220
             J = LCMP( I )
             IF( STMP( I ).NE.S( J ) ) VMAX = ONE / EPS             IF( SEPTMP( I ).NE.DUM( 1 ) ) VMAX = ONE / EPS
   220    CONTINUE
@@ -438,7 +438,7 @@
             NINFO( 3 ) = NINFO( 3 ) + 1
             GO TO 240
          }
-         DO 230 I = 1, ICMP
+         for (I = 1; I <= ICMP; I++) { // 230
             J = LCMP( I )
             IF( STMP( I ).NE.DUM( 1 ) ) VMAX = ONE / EPS             IF( SEPTMP( I ).NE.SEP( J ) ) VMAX = ONE / EPS
   230    CONTINUE

@@ -90,7 +90,7 @@
          MB = M
       }
       if ( .NOT.LSAME( XTYPE, 'C' ) ) {
-         DO 10 J = 1, NRHS
+         for (J = 1; J <= NRHS; J++) { // 10
             clarnv(2, ISEED, N, X( 1, J ) );
    10    CONTINUE
       }
@@ -120,7 +120,7 @@
 
          // General matrix, band storage
 
-         DO 20 J = 1, NRHS
+         for (J = 1; J <= NRHS; J++) { // 20
             cgbmv(TRANS, M, N, KL, KU, ONE, A, LDA, X( 1, J ), 1, ZERO, B( 1, J ), 1 );
    20    CONTINUE
 
@@ -128,7 +128,7 @@
 
          // Hermitian matrix, band storage
 
-         DO 30 J = 1, NRHS
+         for (J = 1; J <= NRHS; J++) { // 30
             chbmv(UPLO, N, KL, ONE, A, LDA, X( 1, J ), 1, ZERO, B( 1, J ), 1 );
    30    CONTINUE
 
@@ -136,7 +136,7 @@
 
          // Symmetric matrix, band storage
 
-         DO 40 J = 1, NRHS
+         for (J = 1; J <= NRHS; J++) { // 40
             csbmv(UPLO, N, KL, ONE, A, LDA, X( 1, J ), 1, ZERO, B( 1, J ), 1 );
    40    CONTINUE
 
@@ -144,7 +144,7 @@
 
          // Hermitian matrix, packed storage
 
-         DO 50 J = 1, NRHS
+         for (J = 1; J <= NRHS; J++) { // 50
             chpmv(UPLO, N, ONE, A, X( 1, J ), 1, ZERO, B( 1, J ), 1 );
    50    CONTINUE
 
@@ -152,7 +152,7 @@
 
          // Symmetric matrix, packed storage
 
-         DO 60 J = 1, NRHS
+         for (J = 1; J <= NRHS; J++) { // 60
             cspmv(UPLO, N, ONE, A, X( 1, J ), 1, ZERO, B( 1, J ), 1 );
    60    CONTINUE
 
@@ -180,7 +180,7 @@
          } else {
             DIAG = 'N'
          }
-         DO 70 J = 1, NRHS
+         for (J = 1; J <= NRHS; J++) { // 70
             ctpmv(UPLO, TRANS, DIAG, N, A, B( 1, J ), 1 );
    70    CONTINUE
 
@@ -194,7 +194,7 @@
          } else {
             DIAG = 'N'
          }
-         DO 80 J = 1, NRHS
+         for (J = 1; J <= NRHS; J++) { // 80
             ctbmv(UPLO, TRANS, DIAG, N, KL, A, LDA, B( 1, J ), 1 );
    80    CONTINUE
 

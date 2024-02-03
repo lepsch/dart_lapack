@@ -42,7 +42,7 @@
 
       // benign matrix
 
-      DO 10 J = 1, N
+      for (J = 1; J <= N; J++) { // 10
          zlarnv(2, ISEED, M, A( 1, J ) );
          if ( J.LE.M ) {
             A( J, J ) = A( J, J ) + DCMPLX( SIGN( DZASUM( M, A( 1, J ), 1 ), DBLE( A( J, J ) ) ) )

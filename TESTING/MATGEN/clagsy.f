@@ -54,12 +54,12 @@
 
       // initialize lower triangle of A to diagonal matrix
 
-      DO 20 J = 1, N
+      for (J = 1; J <= N; J++) { // 20
          DO 10 I = J + 1, N
             A( I, J ) = ZERO
    10    CONTINUE
    20 CONTINUE
-      DO 30 I = 1, N
+      for (I = 1; I <= N; I++) { // 30
          A( I, I ) = D( I )
    30 CONTINUE
 
@@ -100,8 +100,8 @@
          // CALL CSYR2( 'Lower', N-I+1, -ONE, WORK, 1, WORK( N+1 ), 1,
          // $               A( I, I ), LDA )
 
-         DO 50 JJ = I, N
-            DO 40 II = JJ, N
+         for (JJ = I; JJ <= N; JJ++) { // 50
+            for (II = JJ; II <= N; II++) { // 40
                A( II, JJ ) = A( II, JJ ) - WORK( II-I+1 )*WORK( N+JJ-I+1 ) - WORK( N+II-I+1 )*WORK( JJ-I+1 )
    40       CONTINUE
    50    CONTINUE
@@ -147,7 +147,7 @@
          // $               A( K+I, K+I ), LDA )
 
          DO 80 JJ = K + I, N
-            DO 70 II = JJ, N
+            for (II = JJ; II <= N; II++) { // 70
                A( II, JJ ) = A( II, JJ ) - A( II, I )*WORK( JJ-K-I+1 ) - WORK( II-K-I+1 )*A( JJ, I )
    70       CONTINUE
    80    CONTINUE
@@ -160,7 +160,7 @@
 
       // Store full symmetric matrix
 
-      DO 120 J = 1, N
+      for (J = 1; J <= N; J++) { // 120
          DO 110 I = J + 1, N
             A( J, I ) = A( I, J )
   110    CONTINUE

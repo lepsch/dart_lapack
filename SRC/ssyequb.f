@@ -64,13 +64,13 @@
          RETURN
       }
 
-      DO I = 1, N
+      for (I = 1; I <= N; I++) {
          S( I ) = ZERO
       END DO
 
       AMAX = ZERO
       if ( UP ) {
-         DO J = 1, N
+         for (J = 1; J <= N; J++) {
             DO I = 1, J-1
                S( I ) = MAX( S( I ), ABS( A( I, J ) ) )
                S( J ) = MAX( S( J ), ABS( A( I, J ) ) )
@@ -80,7 +80,7 @@
             AMAX = MAX( AMAX, ABS( A( J, J ) ) )
          END DO
       } else {
-         DO J = 1, N
+         for (J = 1; J <= N; J++) {
             S( J ) = MAX( S( J ), ABS( A( J, J ) ) )
             AMAX = MAX( AMAX, ABS( A( J, J ) ) )
             DO I = J+1, N
@@ -90,21 +90,21 @@
             END DO
          END DO
       }
-      DO J = 1, N
+      for (J = 1; J <= N; J++) {
          S( J ) = 1.0E0 / S( J )
       END DO
 
       TOL = ONE / SQRT( 2.0E0 * N )
 
-      DO ITER = 1, MAX_ITER
+      for (ITER = 1; ITER <= MAX_ITER; ITER++) {
          SCALE = 0.0E0
          SUMSQ = 0.0E0
          // beta = |A|s
-         DO I = 1, N
+         for (I = 1; I <= N; I++) {
             WORK( I ) = ZERO
          END DO
          if ( UP ) {
-            DO J = 1, N
+            for (J = 1; J <= N; J++) {
                DO I = 1, J-1
                   WORK( I ) = WORK( I ) + ABS( A( I, J ) ) * S( J )
                   WORK( J ) = WORK( J ) + ABS( A( I, J ) ) * S( I )
@@ -112,7 +112,7 @@
                WORK( J ) = WORK( J ) + ABS( A( J, J ) ) * S( J )
             END DO
          } else {
-            DO J = 1, N
+            for (J = 1; J <= N; J++) {
                WORK( J ) = WORK( J ) + ABS( A( J, J ) ) * S( J )
                DO I = J+1, N
                   WORK( I ) = WORK( I ) + ABS( A( I, J ) ) * S( J )
@@ -123,7 +123,7 @@
 
          // avg = s^T beta / n
          AVG = 0.0E0
-         DO I = 1, N
+         for (I = 1; I <= N; I++) {
             AVG = AVG + S( I )*WORK( I )
          END DO
          AVG = AVG / N
@@ -137,7 +137,7 @@
 
          IF ( STD .LT. TOL * AVG ) GOTO 999
 
-         DO I = 1, N
+         for (I = 1; I <= N; I++) {
             T = ABS( A( I, I ) )
             SI = S( I )
             C2 = ( N-1 ) * T
@@ -154,7 +154,7 @@
             D = SI - S( I )
             U = ZERO
             if ( UP ) {
-               DO J = 1, I
+               for (J = 1; J <= I; J++) {
                   T = ABS( A( J, I ) )
                   U = U + S( J )*T
                   WORK( J ) = WORK( J ) + D*T
@@ -165,7 +165,7 @@
                   WORK( J ) = WORK( J ) + D*T
                END DO
             } else {
-               DO J = 1, I
+               for (J = 1; J <= I; J++) {
                   T = ABS( A( I, J ) )
                   U = U + S( J )*T
                   WORK( J ) = WORK( J ) + D*T
@@ -191,7 +191,7 @@
       T = ONE / SQRT( AVG )
       BASE = SLAMCH( 'B' )
       U = ONE / LOG( BASE )
-      DO I = 1, N
+      for (I = 1; I <= N; I++) {
          S( I ) = BASE ** INT( U * LOG( S( I ) * T ) )
          SMIN = MIN( SMIN, S( I ) )
          SMAX = MAX( SMAX, S( I ) )

@@ -27,7 +27,7 @@
 
          // code for both increments equal to 1
 
-         DO I = 1,N
+         for (I = 1; I <= N; I++) {
             ZTEMP = ZTEMP + DCONJG(ZX(I))*ZY(I)
          END DO
       } else {
@@ -39,7 +39,7 @@
          IY = 1
          IF (INCX.LT.0) IX = (-N+1)*INCX + 1
          IF (INCY.LT.0) IY = (-N+1)*INCY + 1
-         DO I = 1,N
+         for (I = 1; I <= N; I++) {
             ZTEMP = ZTEMP + DCONJG(ZX(IX))*ZY(IY)
             IX = IX + INCX
             IY = IY + INCY

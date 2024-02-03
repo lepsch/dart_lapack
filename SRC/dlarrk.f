@@ -73,7 +73,7 @@
       TMP1 = D( 1 ) - MID
       IF( ABS( TMP1 ).LT.PIVMIN ) TMP1 = -PIVMIN       IF( TMP1.LE.ZERO ) NEGCNT = NEGCNT + 1
 
-      DO 20 I = 2, N
+      for (I = 2; I <= N; I++) { // 20
          TMP1 = D( I ) - E2( I-1 ) / TMP1 - MID
          IF( ABS( TMP1 ).LT.PIVMIN ) TMP1 = -PIVMIN          IF( TMP1.LE.ZERO ) NEGCNT = NEGCNT + 1
  20   CONTINUE

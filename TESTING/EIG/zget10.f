@@ -46,7 +46,7 @@
       EPS = DLAMCH( 'Precision' )
 
       WNORM = ZERO
-      DO 10 J = 1, N
+      for (J = 1; J <= N; J++) { // 10
          zcopy(M, A( 1, J ), 1, WORK, 1 );
          zaxpy(M, DCMPLX( -ONE ), B( 1, J ), 1, WORK, 1 );
          WNORM = MAX( WNORM, DZASUM( N, WORK, 1 ) )

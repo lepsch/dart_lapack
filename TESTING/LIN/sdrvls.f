@@ -70,7 +70,7 @@
       NRUN = 0
       NFAIL = 0
       NERRS = 0
-      DO 10 I = 1, 4
+      for (I = 1; I <= 4; I++) { // 10
          ISEED( I ) = ISEEDY( I )
    10 CONTINUE
       EPS = SLAMCH( 'Epsilon' )
@@ -97,17 +97,17 @@
       NMAX = 0
       MMAX = 0
       NSMAX = 0
-      DO I = 1, NM
+      for (I = 1; I <= NM; I++) {
          if ( MVAL( I ).GT.MMAX ) {
             MMAX = MVAL( I )
          }
       ENDDO
-      DO I = 1, NN
+      for (I = 1; I <= NN; I++) {
          if ( NVAL( I ).GT.NMAX ) {
             NMAX = NVAL( I )
          }
       ENDDO
-      DO I = 1, NNS
+      for (I = 1; I <= NNS; I++) {
          if ( NSVAL( I ).GT.NSMAX ) {
             NSMAX = NSVAL( I )
          }
@@ -127,21 +127,21 @@
       // sizes for ?GELS, ?GELST, ?GETSLS, ?GELSY, ?GELSS and ?GELSD
       // routines.
 
-      DO IM = 1, NM
+      for (IM = 1; IM <= NM; IM++) {
          M = MVAL( IM )
          LDA = MAX( 1, M )
-         DO IN = 1, NN
+         for (IN = 1; IN <= NN; IN++) {
             N = NVAL( IN )
             MNMIN = MAX(MIN( M, N ),1)
             LDB = MAX( 1, M, N )
-            DO INS = 1, NNS
+            for (INS = 1; INS <= NNS; INS++) {
                NRHS = NSVAL( INS )
-               DO IRANK = 1, 2
-                  DO ISCALE = 1, 3
+               for (IRANK = 1; IRANK <= 2; IRANK++) {
+                  for (ISCALE = 1; ISCALE <= 3; ISCALE++) {
                      ITYPE = ( IRANK-1 )*3 + ISCALE
                      if ( DOTYPE( ITYPE ) ) {
                         if ( IRANK.EQ.1 ) {
-                           DO ITRAN = 1, 2
+                           for (ITRAN = 1; ITRAN <= 2; ITRAN++) {
                               if ( ITRAN.EQ.1 ) {
                                  TRANS = 'N'
                               } else {
@@ -184,21 +184,21 @@
       ALLOCATE( WORK( LWORK ) )
       ALLOCATE( IWORK( LIWORK ) )
 
-      DO 150 IM = 1, NM
+      for (IM = 1; IM <= NM; IM++) { // 150
          M = MVAL( IM )
          LDA = MAX( 1, M )
 
-         DO 140 IN = 1, NN
+         for (IN = 1; IN <= NN; IN++) { // 140
             N = NVAL( IN )
             MNMIN = MAX(MIN( M, N ),1)
             LDB = MAX( 1, M, N )
             MB = (MNMIN+1)
 
-            DO 130 INS = 1, NNS
+            for (INS = 1; INS <= NNS; INS++) { // 130
                NRHS = NSVAL( INS )
 
-               DO 120 IRANK = 1, 2
-                  DO 110 ISCALE = 1, 3
+               for (IRANK = 1; IRANK <= 2; IRANK++) { // 120
+                  for (ISCALE = 1; ISCALE <= 3; ISCALE++) { // 110
                      ITYPE = ( IRANK-1 )*3 + ISCALE
                      IF( .NOT.DOTYPE( ITYPE ) ) GO TO 110
                   // =====================================================
@@ -212,14 +212,14 @@
 
                         // Loop for testing different block sizes.
 
-                        DO INB = 1, NNB
+                        for (INB = 1; INB <= NNB; INB++) {
                            NB = NBVAL( INB )
                            xlaenv(1, NB );
                            xlaenv(3, NXVAL( INB ) );
 
                            // Loop for testing non-transposed and transposed.
 
-                           DO ITRAN = 1, 2
+                           for (ITRAN = 1; ITRAN <= 2; ITRAN++) {
                               if ( ITRAN.EQ.1 ) {
                                  TRANS = 'N'
                                  NROWS = M
@@ -274,7 +274,7 @@
                               // Print information about the tests that
                               // did not pass the threshold.
 
-                              DO K = 1, 2
+                              for (K = 1; K <= 2; K++) {
                                  if ( RESULT( K ).GE.THRESH ) {
                                     IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                                     WRITE( NOUT, FMT = 9999 )TRANS, M, N, NRHS, NB, ITYPE, K, RESULT( K )
                                     NFAIL = NFAIL + 1
@@ -298,13 +298,13 @@
 
                         // Loop for testing different block sizes.
 
-                        DO INB = 1, NNB
+                        for (INB = 1; INB <= NNB; INB++) {
                            NB = NBVAL( INB )
                            xlaenv(1, NB );
 
                            // Loop for testing non-transposed and transposed.
 
-                           DO ITRAN = 1, 2
+                           for (ITRAN = 1; ITRAN <= 2; ITRAN++) {
                               if ( ITRAN.EQ.1 ) {
                                  TRANS = 'N'
                                  NROWS = M
@@ -359,7 +359,7 @@
                               // Print information about the tests that
                               // did not pass the threshold.
 
-                              DO K = 3, 4
+                              for (K = 3; K <= 4; K++) {
                                  if ( RESULT( K ).GE.THRESH ) {
                                     IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                                     WRITE( NOUT, FMT = 9999 ) TRANS, M, N, NRHS, NB, ITYPE, K, RESULT( K )
                                     NFAIL = NFAIL + 1
@@ -383,20 +383,20 @@
 
                         // Loop for testing different block sizes MB.
 
-                        DO IMB = 1, NNB
+                        for (IMB = 1; IMB <= NNB; IMB++) {
                            MB = NBVAL( IMB )
                            xlaenv(1, MB );
 
                            // Loop for testing different block sizes NB.
 
-                           DO INB = 1, NNB
+                           for (INB = 1; INB <= NNB; INB++) {
                               NB = NBVAL( INB )
                               xlaenv(2, NB );
 
                               // Loop for testing non-transposed
                               // and transposed.
 
-                              DO ITRAN = 1, 2
+                              for (ITRAN = 1; ITRAN <= 2; ITRAN++) {
                                  if ( ITRAN.EQ.1 ) {
                                     TRANS = 'N'
                                     NROWS = M
@@ -451,7 +451,7 @@
                                  // Print information about the tests that
                                  // did not pass the threshold.
 
-                                 DO K = 5, 6
+                                 for (K = 5; K <= 6; K++) {
                                     if ( RESULT( K ).GE.THRESH ) {
                                        IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                                        WRITE( NOUT, FMT = 9997 ) TRANS, M, N, NRHS, MB, NB, ITYPE, K, RESULT( K )
                                        NFAIL = NFAIL + 1
@@ -477,7 +477,7 @@
 
                      // Loop for testing different block sizes.
 
-                     DO 100 INB = 1, NNB
+                     for (INB = 1; INB <= NNB; INB++) { // 100
                         NB = NBVAL( INB )
                         xlaenv(1, NB );
                         xlaenv(3, NXVAL( INB ) );
@@ -491,7 +491,7 @@
 
                         // Initialize vector IWORK.
 
-                        DO 70 J = 1, N
+                        for (J = 1; J <= N; J++) { // 70
                            IWORK( J ) = 0
    70                   CONTINUE
 
@@ -569,7 +569,7 @@
 
                         // Initialize vector IWORK.
 
-                        DO 80 J = 1, N
+                        for (J = 1; J <= N; J++) { // 80
                            IWORK( J ) = 0
    80                   CONTINUE
 
@@ -605,7 +605,7 @@
                         // Print information about the tests that did not
                         // pass the threshold.
 
-                        DO 90 K = 7, 18
+                        for (K = 7; K <= 18; K++) { // 90
                            if ( RESULT( K ).GE.THRESH ) {
                               IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                               WRITE( NOUT, FMT = 9998 )M, N, NRHS, NB, ITYPE, K, RESULT( K )
                               NFAIL = NFAIL + 1

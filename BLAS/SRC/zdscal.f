@@ -28,7 +28,7 @@
 
          // code for increment equal to 1
 
-         DO I = 1,N
+         for (I = 1; I <= N; I++) {
             ZX(I) = DCMPLX(DA*DBLE(ZX(I)),DA*DIMAG(ZX(I)))
          END DO
       } else {

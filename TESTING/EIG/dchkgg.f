@@ -60,7 +60,7 @@
 
       BADNN = .FALSE.
       NMAX = 1
-      DO 10 J = 1, NSIZES
+      for (J = 1; J <= NSIZES; J++) { // 10
          NMAX = MAX( NMAX, NN( J ) )
          IF( NN( J ).LT.0 ) BADNN = .TRUE.
    10 CONTINUE
@@ -114,7 +114,7 @@
       NERRS = 0
       NMATS = 0
 
-      DO 240 JSIZE = 1, NSIZES
+      for (JSIZE = 1; JSIZE <= NSIZES; JSIZE++) { // 240
          N = NN( JSIZE )
          N1 = MAX( 1, N )
          RMAGN( 2 ) = SAFMAX*ULP / DBLE( N1 )
@@ -126,20 +126,20 @@
             MTYPES = MIN( MAXTYP+1, NTYPES )
          }
 
-         DO 230 JTYPE = 1, MTYPES
+         for (JTYPE = 1; JTYPE <= MTYPES; JTYPE++) { // 230
             IF( .NOT.DOTYPE( JTYPE ) ) GO TO 230
             NMATS = NMATS + 1
             NTEST = 0
 
             // Save ISEED in case of an error.
 
-            DO 20 J = 1, 4
+            for (J = 1; J <= 4; J++) { // 20
                IOLDSD( J ) = ISEED( J )
    20       CONTINUE
 
             // Initialize RESULT
 
-            DO 30 J = 1, 15
+            for (J = 1; J <= 15; J++) { // 30
                RESULT( J ) = ZERO
    30       CONTINUE
 
@@ -202,7 +202,7 @@
                   // a diagonal matrix.
 
                   DO 50 JC = 1, N - 1
-                     DO 40 JR = JC, N
+                     for (JR = JC; JR <= N; JR++) { // 40
                         U( JR, JC ) = DLARND( 3, ISEED )
                         V( JR, JC ) = DLARND( 3, ISEED )
    40                CONTINUE
@@ -222,8 +222,8 @@
 
                   // Apply the diagonal matrices
 
-                  DO 70 JC = 1, N
-                     DO 60 JR = 1, N
+                  for (JC = 1; JC <= N; JC++) { // 70
+                     for (JR = 1; JR <= N; JR++) { // 60
                         A( JR, JC ) = WORK( 2*N+JR )*WORK( 3*N+JC )* A( JR, JC )                         B( JR, JC ) = WORK( 2*N+JR )*WORK( 3*N+JC )* B( JR, JC )
    60                CONTINUE
    70             CONTINUE
@@ -233,8 +233,8 @@
 
                // Random matrices
 
-               DO 90 JC = 1, N
-                  DO 80 JR = 1, N
+               for (JC = 1; JC <= N; JC++) { // 90
+                  for (JR = 1; JR <= N; JR++) { // 80
                      A( JR, JC ) = RMAGN( KAMAGN( JTYPE ) )* DLARND( 2, ISEED )                      B( JR, JC ) = RMAGN( KBMAGN( JTYPE ) )* DLARND( 2, ISEED )
    80             CONTINUE
    90          CONTINUE
@@ -354,7 +354,7 @@
             // in one call, and half in another
 
             I1 = N / 2
-            DO 120 J = 1, I1
+            for (J = 1; J <= I1; J++) { // 120
                LLWORK( J ) = .TRUE.
   120       CONTINUE
             DO 130 J = I1 + 1, N
@@ -369,7 +369,7 @@
             }
 
             I1 = IN
-            DO 140 J = 1, I1
+            for (J = 1; J <= I1; J++) { // 140
                LLWORK( J ) = .FALSE.
   140       CONTINUE
             DO 150 J = I1 + 1, N
@@ -418,7 +418,7 @@
             // in one call, and half in another
 
             I1 = N / 2
-            DO 160 J = 1, I1
+            for (J = 1; J <= I1; J++) { // 160
                LLWORK( J ) = .TRUE.
   160       CONTINUE
             DO 170 J = I1 + 1, N
@@ -433,7 +433,7 @@
             }
 
             I1 = IN
-            DO 180 J = 1, I1
+            for (J = 1; J <= I1; J++) { // 180
                LLWORK( J ) = .FALSE.
   180       CONTINUE
             DO 190 J = I1 + 1, N
@@ -484,7 +484,7 @@
 
                TEMP1 = ZERO
                TEMP2 = ZERO
-               DO 200 J = 1, N
+               for (J = 1; J <= N; J++) { // 200
                   TEMP1 = MAX( TEMP1, ABS( ALPHR1( J )-ALPHR3( J ) )+ ABS( ALPHI1( J )-ALPHI3( J ) ) )
                   TEMP2 = MAX( TEMP2, ABS( BETA1( J )-BETA3( J ) ) )
   200          CONTINUE
@@ -508,7 +508,7 @@
 
             // Print out tests which fail.
 
-            DO 220 JR = 1, NTEST
+            for (JR = 1; JR <= NTEST; JR++) { // 220
                if ( RESULT( JR ).GE.THRESH ) {
 
                   // If this is the first test to fail,

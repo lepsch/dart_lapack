@@ -56,18 +56,18 @@
 
       // Do for each value of M in MVAL.
 
-      DO I = 1, NM
+      for (I = 1; I <= NM; I++) {
          M = MVAL( I )
 
          // Do for each value of N in NVAL.
 
-         DO J = 1, NN
+         for (J = 1; J <= NN; J++) {
             N = NVAL( J )
 
          // Do for each possible value of NB
 
             MINMN = MIN( M, N )
-            DO K = 1, NNB
+            for (K = 1; K <= NNB; K++) {
                NB = NBVAL( K )
 
                // Test CGEQRT and CGEMQRT
@@ -78,7 +78,7 @@
                   // Print information about the tests that did not
                   // pass the threshold.
 
-                  DO T = 1, NTESTS
+                  for (T = 1; T <= NTESTS; T++) {
                      if ( RESULT( T ).GE.THRESH ) {
                         IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9999 )M, N, NB, T, RESULT( T )
                      NFAIL = NFAIL + 1

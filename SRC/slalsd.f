@@ -96,7 +96,7 @@
             }
    10    CONTINUE
          if ( NRHS.GT.1 ) {
-            DO 30 I = 1, NRHS
+            for (I = 1; I <= NRHS; I++) { // 30
                DO 20 J = 1, N - 1
                   CS = WORK( J*2-1 )
                   SN = WORK( J*2 )
@@ -129,7 +129,7 @@
             RETURN
          }
          TOL = RCND*ABS( D( ISAMAX( N, D, 1 ) ) )
-         DO 40 I = 1, N
+         for (I = 1; I <= N; I++) { // 40
             if ( D( I ).LE.TOL ) {
                slaset('A', 1, NRHS, ZERO, ZERO, B( I, 1 ), LDB );
             } else {
@@ -180,13 +180,13 @@
       ICMPQ2 = 0
       NSUB = 0
 
-      DO 50 I = 1, N
+      for (I = 1; I <= N; I++) { // 50
          if ( ABS( D( I ) ).LT.EPS ) {
             D( I ) = SIGN( EPS, D( I ) )
          }
    50 CONTINUE
 
-      DO 60 I = 1, NM1
+      for (I = 1; I <= NM1; I++) { // 60
          if ( ( ABS( E( I ) ).LT.EPS ) .OR. ( I.EQ.NM1 ) ) {
             NSUB = NSUB + 1
             IWORK( NSUB ) = ST
@@ -257,7 +257,7 @@
 
       TOL = RCND*ABS( D( ISAMAX( N, D, 1 ) ) )
 
-      DO 70 I = 1, N
+      for (I = 1; I <= N; I++) { // 70
 
          // Some of the elements in D can be negative because 1-by-1
          // subproblems were not solved explicitly.
@@ -274,7 +274,7 @@
       // Now apply back the right singular vectors.
 
       ICMPQ2 = 1
-      DO 80 I = 1, NSUB
+      for (I = 1; I <= NSUB; I++) { // 80
          ST = IWORK( I )
          ST1 = ST - 1
          NSIZE = IWORK( SIZEI+I-1 )

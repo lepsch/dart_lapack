@@ -59,14 +59,14 @@
       // an error code if any are nonzero.
 
       if ( LSAME( UPLO, 'U' ) ) {
-         DO 10 J = 1, N
+         for (J = 1; J <= N; J++) { // 10
             if ( DIMAG( AFAC( KD+1, J ) ).NE.ZERO ) {
                RESID = ONE / EPS
                RETURN
             }
    10    CONTINUE
       } else {
-         DO 20 J = 1, N
+         for (J = 1; J <= N; J++) { // 20
             if ( DIMAG( AFAC( 1, J ) ).NE.ZERO ) {
                RESID = ONE / EPS
                RETURN
@@ -114,16 +114,16 @@
       // Compute the difference  L*L' - A  or  U'*U - A.
 
       if ( LSAME( UPLO, 'U' ) ) {
-         DO 60 J = 1, N
+         for (J = 1; J <= N; J++) { // 60
             MU = MAX( 1, KD+2-J )
             DO 50 I = MU, KD + 1
                AFAC( I, J ) = AFAC( I, J ) - A( I, J )
    50       CONTINUE
    60    CONTINUE
       } else {
-         DO 80 J = 1, N
+         for (J = 1; J <= N; J++) { // 80
             ML = MIN( KD+1, N-J+1 )
-            DO 70 I = 1, ML
+            for (I = 1; I <= ML; I++) { // 70
                AFAC( I, J ) = AFAC( I, J ) - A( I, J )
    70       CONTINUE
    80    CONTINUE

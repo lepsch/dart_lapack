@@ -56,7 +56,7 @@
 
       // Compute  B - A*X
 
-      DO 10 J = 1, NRHS
+      for (J = 1; J <= NRHS; J++) { // 10
          chbmv(UPLO, N, KD, -CONE, A, LDA, X( 1, J ), 1, CONE, B( 1, J ), 1 );
    10 CONTINUE
 
@@ -64,7 +64,7 @@
            // norm( B - A*X ) / ( norm(A) * norm(X) * EPS )
 
       RESID = ZERO
-      DO 20 J = 1, NRHS
+      for (J = 1; J <= NRHS; J++) { // 20
          BNORM = SCASUM( N, B( 1, J ), 1 )
          XNORM = SCASUM( N, X( 1, J ), 1 )
          if ( XNORM.LE.ZERO ) {

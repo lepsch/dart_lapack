@@ -105,7 +105,7 @@
               }
           } else {
               if (INCX.EQ.1) {
-                  DO 60 J = 1,N
+                  for (J = 1; J <= N; J++) { // 60
                       if (X(J).NE.ZERO) {
                           IF (NOUNIT) X(J) = X(J)/A(J,J)
                           TEMP = X(J)
@@ -116,7 +116,7 @@
    60             CONTINUE
               } else {
                   JX = KX
-                  DO 80 J = 1,N
+                  for (J = 1; J <= N; J++) { // 80
                       if (X(JX).NE.ZERO) {
                           IF (NOUNIT) X(JX) = X(JX)/A(J,J)
                           TEMP = X(JX)
@@ -136,7 +136,7 @@
 
           if (LSAME(UPLO,'U')) {
               if (INCX.EQ.1) {
-                  DO 100 J = 1,N
+                  for (J = 1; J <= N; J++) { // 100
                       TEMP = X(J)
                       DO 90 I = 1,J - 1
                           TEMP = TEMP - A(I,J)*X(I)
@@ -146,7 +146,7 @@
   100             CONTINUE
               } else {
                   JX = KX
-                  DO 120 J = 1,N
+                  for (J = 1; J <= N; J++) { // 120
                       TEMP = X(JX)
                       IX = KX
                       DO 110 I = 1,J - 1

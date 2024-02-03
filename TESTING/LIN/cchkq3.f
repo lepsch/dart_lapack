@@ -66,20 +66,20 @@
       NRUN = 0
       NFAIL = 0
       NERRS = 0
-      DO 10 I = 1, 4
+      for (I = 1; I <= 4; I++) { // 10
          ISEED( I ) = ISEEDY( I )
    10 CONTINUE
       EPS = SLAMCH( 'Epsilon' )
       INFOT = 0
 
-      DO 90 IM = 1, NM
+      for (IM = 1; IM <= NM; IM++) { // 90
 
          // Do for each value of M in MVAL.
 
          M = MVAL( IM )
          LDA = MAX( 1, M )
 
-         DO 80 IN = 1, NN
+         for (IN = 1; IN <= NN; IN++) { // 80
 
             // Do for each value of N in NVAL.
 
@@ -87,7 +87,7 @@
             MNMIN = MIN( M, N )
             LWORK = MAX( 1, M*MAX( M, N )+4*MNMIN+MAX( M, N ) )
 
-            DO 70 IMODE = 1, NTYPES
+            for (IMODE = 1; IMODE <= NTYPES; IMODE++) { // 70
                IF( .NOT.DOTYPE( IMODE ) ) GO TO 70
 
                // Do for each type of matrix
@@ -104,12 +104,12 @@
                // Generate test matrix of size m by n using
                // singular value distribution indicated by `mode'.
 
-               DO 20 I = 1, N
+               for (I = 1; I <= N; I++) { // 20
                   IWORK( I ) = 0
    20          CONTINUE
                if ( IMODE.EQ.1 ) {
                   claset('Full', M, N, CZERO, CZERO, COPYA, LDA );
-                  DO 30 I = 1, MNMIN
+                  for (I = 1; I <= MNMIN; I++) { // 30
                      S( I ) = ZERO
    30             CONTINUE
                } else {
@@ -135,7 +135,7 @@
                   slaord('Decreasing', MNMIN, S, 1 );
                }
 
-               DO 60 INB = 1, NNB
+               for (INB = 1; INB <= NNB; INB++) { // 60
 
                   // Do for each pair of values (NB,NX) in NBVAL and NXVAL.
 
@@ -172,7 +172,7 @@
                   // Print information about the tests that did not pass
                   // the threshold.
 
-                  DO 50 K = 1, NTESTS
+                  for (K = 1; K <= NTESTS; K++) { // 50
                      if ( RESULT( K ).GE.THRESH ) {
                         IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9999 )'CGEQP3', M, N, NB, IMODE, K, RESULT( K )
                         NFAIL = NFAIL + 1

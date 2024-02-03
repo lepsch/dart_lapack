@@ -214,7 +214,7 @@
                      U( J, KMS+2 ) = U( J, KMS+2 ) - REFSUM*DCONJG( V( 2, M22 ) )
   50                 CONTINUE
                } else if ( WANTZ ) {
-                  DO 60 J = ILOZ, IHIZ
+                  for (J = ILOZ; J <= IHIZ; J++) { // 60
                      REFSUM = V( 1, M22 )*( Z( J, K+1 )+V( 2, M22 )* Z( J, K+2 ) )
                      Z( J, K+1 ) = Z( J, K+1 ) - REFSUM
                      Z( J, K+2 ) = Z( J, K+2 ) - REFSUM*DCONJG( V( 2, M22 ) )
@@ -397,7 +397,7 @@
                   T1 = V( 1, M )
                   T2 = T1*DCONJG( V( 2, M ) )
                   T3 = T1*DCONJG( V( 3, M ) )
-                  DO 110 J = I2, I4
+                  for (J = I2; J <= I4; J++) { // 110
                      REFSUM = U( J, KMS+1 ) + V( 2, M )*U( J, KMS+2 ) + V( 3, M )*U( J, KMS+3 )
                      U( J, KMS+1 ) = U( J, KMS+1 ) - REFSUM*T1
                      U( J, KMS+2 ) = U( J, KMS+2 ) - REFSUM*T2
@@ -415,7 +415,7 @@
                   T1 = V( 1, M )
                   T2 = T1*DCONJG( V( 2, M ) )
                   T3 = T1*DCONJG( V( 3, M ) )
-                  DO 130 J = ILOZ, IHIZ
+                  for (J = ILOZ; J <= IHIZ; J++) { // 130
                      REFSUM = Z( J, K+1 ) + V( 2, M )*Z( J, K+2 ) + V( 3, M )*Z( J, K+3 )
                      Z( J, K+1 ) = Z( J, K+1 ) - REFSUM*T1
                      Z( J, K+2 ) = Z( J, K+2 ) - REFSUM*T2

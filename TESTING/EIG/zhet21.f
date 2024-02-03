@@ -81,7 +81,7 @@
          zlaset('Full', N, N, CZERO, CZERO, WORK, N );
          zlacpy(CUPLO, N, N, A, LDA, WORK, N );
 
-         DO 10 J = 1, N
+         for (J = 1; J <= N; J++) { // 10
             zher(CUPLO, N, -D( J ), U( 1, J ), 1, WORK, N );
    10    CONTINUE
 
@@ -132,13 +132,13 @@
    60       CONTINUE
          }
 
-         DO 90 JCOL = 1, N
+         for (JCOL = 1; JCOL <= N; JCOL++) { // 90
             if ( LOWER ) {
-               DO 70 JROW = JCOL, N
+               for (JROW = JCOL; JROW <= N; JROW++) { // 70
                   WORK( JROW+N*( JCOL-1 ) ) = WORK( JROW+N*( JCOL-1 ) ) - A( JROW, JCOL )
    70          CONTINUE
             } else {
-               DO 80 JROW = 1, JCOL
+               for (JROW = 1; JROW <= JCOL; JROW++) { // 80
                   WORK( JROW+N*( JCOL-1 ) ) = WORK( JROW+N*( JCOL-1 ) ) - A( JROW, JCOL )
    80          CONTINUE
             }
@@ -161,7 +161,7 @@
             RETURN
          }
 
-         DO 100 J = 1, N
+         for (J = 1; J <= N; J++) { // 100
             WORK( ( N+1 )*( J-1 )+1 ) = WORK( ( N+1 )*( J-1 )+1 ) - CONE
   100    CONTINUE
 
@@ -185,7 +185,7 @@
       if ( ITYPE.EQ.1 ) {
          zgemm('N', 'C', N, N, N, CONE, U, LDU, U, LDU, CZERO, WORK, N );
 
-         DO 110 J = 1, N
+         for (J = 1; J <= N; J++) { // 110
             WORK( ( N+1 )*( J-1 )+1 ) = WORK( ( N+1 )*( J-1 )+1 ) - CONE
   110    CONTINUE
 

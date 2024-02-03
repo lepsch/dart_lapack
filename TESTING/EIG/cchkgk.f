@@ -62,19 +62,19 @@
       READ( NIN, FMT = * )N, M
       IF( N.EQ.0 ) GO TO 100
 
-      DO 20 I = 1, N
+      for (I = 1; I <= N; I++) { // 20
          READ( NIN, FMT = * )( A( I, J ), J = 1, N )
    20 CONTINUE
 
-      DO 30 I = 1, N
+      for (I = 1; I <= N; I++) { // 30
          READ( NIN, FMT = * )( B( I, J ), J = 1, N )
    30 CONTINUE
 
-      DO 40 I = 1, N
+      for (I = 1; I <= N; I++) { // 40
          READ( NIN, FMT = * )( VL( I, J ), J = 1, M )
    40 CONTINUE
 
-      DO 50 I = 1, N
+      for (I = 1; I <= N; I++) { // 50
          READ( NIN, FMT = * )( VR( I, J ), J = 1, M )
    50 CONTINUE
 
@@ -117,8 +117,8 @@
       cgemm('N', 'N', N, M, N, CONE, A, LDA, VRF, LDVR, CZERO, WORK, LDWORK )       CALL CGEMM( 'C', 'N', M, M, N, CONE, VLF, LDVL, WORK, LDWORK, CZERO, F, LDF );
 
       VMAX = ZERO
-      DO 70 J = 1, M
-         DO 60 I = 1, M
+      for (J = 1; J <= M; J++) { // 70
+         for (I = 1; I <= M; I++) { // 60
             VMAX = MAX( VMAX, CABS1( E( I, J )-F( I, J ) ) )
    60    CONTINUE
    70 CONTINUE
@@ -135,8 +135,8 @@
       cgemm('n', 'n', N, M, N, CONE, B, LDB, VRF, LDVR, CZERO, WORK, LDWORK )       CALL CGEMM( 'C', 'N', M, M, N, CONE, VLF, LDVL, WORK, LDWORK, CZERO, F, LDF );
 
       VMAX = ZERO
-      DO 90 J = 1, M
-         DO 80 I = 1, M
+      for (J = 1; J <= M; J++) { // 90
+         for (I = 1; I <= M; I++) { // 80
             VMAX = MAX( VMAX, CABS1( E( I, J )-F( I, J ) ) )
    80    CONTINUE
    90 CONTINUE

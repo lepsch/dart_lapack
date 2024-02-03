@@ -186,7 +186,7 @@
                      // LI =  [      -L              ]
                            // [ SCALE * identity(N2) ]
 
-         DO 10 I = 1, N2
+         for (I = 1; I <= N2; I++) { // 10
             sscal(N1, -ONE, LI( 1, I ), 1 );
             LI( N1+I, I ) = SCALE
    10    CONTINUE
@@ -201,7 +201,7 @@
 
           // where IR = [ SCALE * identity(N1), R ]
 
-         DO 20 I = 1, N1
+         for (I = 1; I <= N1; I++) { // 20
             IR( N2+I, I ) = SCALE
    20    CONTINUE
          sgerq2(N1, M, IR( N2+1, 1 ), LDST, TAUR, WORK, LINFO );
@@ -227,7 +227,7 @@
 
          DSCALE = ZERO
          DSUM = ONE
-         DO 30 I = 1, N2
+         for (I = 1; I <= N2; I++) { // 30
             slassq(N1, S( N2+1, I ), 1, DSCALE, DSUM );
    30    CONTINUE
          BRQA21 = DSCALE*SQRT( DSUM )
@@ -242,7 +242,7 @@
 
          DSCALE = ZERO
          DSUM = ONE
-         DO 40 I = 1, N2
+         for (I = 1; I <= N2; I++) { // 40
             slassq(N1, SCPY( N2+1, I ), 1, DSCALE, DSUM );
    40    CONTINUE
          BQRA21 = DSCALE*SQRT( DSUM )

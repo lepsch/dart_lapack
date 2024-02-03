@@ -77,13 +77,13 @@
       if (ALPHA.EQ.ZERO) {
           if (UPPER) {
               if (BETA.EQ.DBLE(ZERO)) {
-                  DO 20 J = 1,N
-                      DO 10 I = 1,J
+                  for (J = 1; J <= N; J++) { // 20
+                      for (I = 1; I <= J; I++) { // 10
                           C(I,J) = ZERO
    10                 CONTINUE
    20             CONTINUE
               } else {
-                  DO 40 J = 1,N
+                  for (J = 1; J <= N; J++) { // 40
                       DO 30 I = 1,J - 1
                           C(I,J) = BETA*C(I,J)
    30                 CONTINUE
@@ -92,13 +92,13 @@
               }
           } else {
               if (BETA.EQ.DBLE(ZERO)) {
-                  DO 60 J = 1,N
-                      DO 50 I = J,N
+                  for (J = 1; J <= N; J++) { // 60
+                      for (I = J; I <= N; I++) { // 50
                           C(I,J) = ZERO
    50                 CONTINUE
    60             CONTINUE
               } else {
-                  DO 80 J = 1,N
+                  for (J = 1; J <= N; J++) { // 80
                       C(J,J) = BETA*DBLE(C(J,J))
                       DO 70 I = J + 1,N
                           C(I,J) = BETA*C(I,J)
@@ -117,9 +117,9 @@
                     // C.
 
           if (UPPER) {
-              DO 130 J = 1,N
+              for (J = 1; J <= N; J++) { // 130
                   if (BETA.EQ.DBLE(ZERO)) {
-                      DO 90 I = 1,J
+                      for (I = 1; I <= J; I++) { // 90
                           C(I,J) = ZERO
    90                 CONTINUE
                   } else if (BETA.NE.ONE) {
@@ -130,7 +130,7 @@
                   } else {
                       C(J,J) = DBLE(C(J,J))
                   }
-                  DO 120 L = 1,K
+                  for (L = 1; L <= K; L++) { // 120
                       if ((A(J,L).NE.ZERO) .OR. (B(J,L).NE.ZERO)) {
                           TEMP1 = ALPHA*DCONJG(B(J,L))
                           TEMP2 = DCONJG(ALPHA*A(J,L))
@@ -142,9 +142,9 @@
   120             CONTINUE
   130         CONTINUE
           } else {
-              DO 180 J = 1,N
+              for (J = 1; J <= N; J++) { // 180
                   if (BETA.EQ.DBLE(ZERO)) {
-                      DO 140 I = J,N
+                      for (I = J; I <= N; I++) { // 140
                           C(I,J) = ZERO
   140                 CONTINUE
                   } else if (BETA.NE.ONE) {
@@ -155,7 +155,7 @@
                   } else {
                       C(J,J) = DBLE(C(J,J))
                   }
-                  DO 170 L = 1,K
+                  for (L = 1; L <= K; L++) { // 170
                       if ((A(J,L).NE.ZERO) .OR. (B(J,L).NE.ZERO)) {
                           TEMP1 = ALPHA*DCONJG(B(J,L))
                           TEMP2 = DCONJG(ALPHA*A(J,L))
@@ -173,11 +173,11 @@
                     // C.
 
           if (UPPER) {
-              DO 210 J = 1,N
-                  DO 200 I = 1,J
+              for (J = 1; J <= N; J++) { // 210
+                  for (I = 1; I <= J; I++) { // 200
                       TEMP1 = ZERO
                       TEMP2 = ZERO
-                      DO 190 L = 1,K
+                      for (L = 1; L <= K; L++) { // 190
                           TEMP1 = TEMP1 + DCONJG(A(L,I))*B(L,J)
                           TEMP2 = TEMP2 + DCONJG(B(L,I))*A(L,J)
   190                 CONTINUE
@@ -197,11 +197,11 @@
   200             CONTINUE
   210         CONTINUE
           } else {
-              DO 240 J = 1,N
-                  DO 230 I = J,N
+              for (J = 1; J <= N; J++) { // 240
+                  for (I = J; I <= N; I++) { // 230
                       TEMP1 = ZERO
                       TEMP2 = ZERO
-                      DO 220 L = 1,K
+                      for (L = 1; L <= K; L++) { // 220
                           TEMP1 = TEMP1 + DCONJG(A(L,I))*B(L,J)
                           TEMP2 = TEMP2 + DCONJG(B(L,I))*A(L,J)
   220                 CONTINUE

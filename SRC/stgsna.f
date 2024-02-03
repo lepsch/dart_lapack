@@ -76,7 +76,7 @@
          if ( SOMCON ) {
             M = 0
             PAIR = .FALSE.
-            DO 10 K = 1, N
+            for (K = 1; K <= N; K++) { // 10
                if ( PAIR ) {
                   PAIR = .FALSE.
                } else {
@@ -130,7 +130,7 @@
       KS = 0
       PAIR = .FALSE.
 
-      DO 20 K = 1, N
+      for (K = 1; K <= N; K++) { // 20
 
          // Determine whether A(k,k) begins a 1-by-1 or 2-by-2 block.
 

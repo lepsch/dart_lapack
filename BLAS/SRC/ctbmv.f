@@ -83,7 +83,7 @@
           if (LSAME(UPLO,'U')) {
               KPLUS1 = K + 1
               if (INCX.EQ.1) {
-                  DO 20 J = 1,N
+                  for (J = 1; J <= N; J++) { // 20
                       if (X(J).NE.ZERO) {
                           TEMP = X(J)
                           L = KPLUS1 - J
@@ -95,7 +95,7 @@
    20             CONTINUE
               } else {
                   JX = KX
-                  DO 40 J = 1,N
+                  for (J = 1; J <= N; J++) { // 40
                       if (X(JX).NE.ZERO) {
                           TEMP = X(JX)
                           IX = KX
@@ -191,7 +191,7 @@
               }
           } else {
               if (INCX.EQ.1) {
-                  DO 170 J = 1,N
+                  for (J = 1; J <= N; J++) { // 170
                       TEMP = X(J)
                       L = 1 - J
                       if (NOCONJ) {
@@ -209,7 +209,7 @@
   170             CONTINUE
               } else {
                   JX = KX
-                  DO 200 J = 1,N
+                  for (J = 1; J <= N; J++) { // 200
                       TEMP = X(JX)
                       KX = KX + INCX
                       IX = KX

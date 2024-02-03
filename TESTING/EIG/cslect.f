@@ -38,7 +38,7 @@
       } else {
          RMIN = ABS( Z-CMPLX( SELWR( 1 ), SELWI( 1 ) ) )
          CSLECT = SELVAL( 1 )
-         DO 10 I = 2, SELDIM
+         for (I = 2; I <= SELDIM; I++) { // 10
             X = ABS( Z-CMPLX( SELWR( I ), SELWI( I ) ) )
             if ( X.LE.RMIN ) {
                RMIN = X

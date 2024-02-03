@@ -52,13 +52,13 @@
       // Initialise columns 1:n-k to columns of the unit matrix
 
       DO 20 J = 1, N - K
-         DO 10 L = 1, M
+         for (L = 1; L <= M; L++) { // 10
             A( L, J ) = ZERO
    10    CONTINUE
          A( M-N+J, J ) = ONE
    20 CONTINUE
 
-      DO 40 I = 1, K
+      for (I = 1; I <= K; I++) { // 40
          II = N - K + I
 
          // Apply H(i) to A(1:m-k+i,1:n-k+i) from the left

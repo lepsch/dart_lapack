@@ -60,7 +60,7 @@
 
       KC = 1
       if ( LSAME( UPLO, 'U' ) ) {
-         DO 10 K = 1, N
+         for (K = 1; K <= N; K++) { // 10
             if ( DIMAG( AFAC( KC ) ).NE.ZERO ) {
                RESID = ONE / EPS
                RETURN
@@ -68,7 +68,7 @@
             KC = KC + K + 1
    10    CONTINUE
       } else {
-         DO 20 K = 1, N
+         for (K = 1; K <= N; K++) { // 20
             if ( DIMAG( AFAC( KC ) ).NE.ZERO ) {
                RESID = ONE / EPS
                RETURN
@@ -99,7 +99,7 @@
          // Compute the difference  L*L' - A
 
          KC = 1
-         DO 50 K = 1, N
+         for (K = 1; K <= N; K++) { // 50
             DO 40 I = 1, K - 1
                AFAC( KC+I-1 ) = AFAC( KC+I-1 ) - A( KC+I-1 )
    40       CONTINUE
@@ -129,7 +129,7 @@
          // Compute the difference  U'*U - A
 
          KC = 1
-         DO 80 K = 1, N
+         for (K = 1; K <= N; K++) { // 80
             AFAC( KC ) = AFAC( KC ) - DBLE( A( KC ) )
             DO 70 I = K + 1, N
                AFAC( KC+I-K ) = AFAC( KC+I-K ) - A( KC+I-K )

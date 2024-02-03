@@ -118,7 +118,7 @@
    10          CONTINUE
    20       CONTINUE
             A( 1, 1 ) = ONE
-            DO 30 I = 2, M
+            for (I = 2; I <= M; I++) { // 30
                A( I, 1 ) = ZERO
    30       CONTINUE
             if ( M.GT.1 ) {
@@ -148,10 +148,10 @@
             // those of the unit matrix
 
             A( 1, 1 ) = ONE
-            DO 40 I = 2, N
+            for (I = 2; I <= N; I++) { // 40
                A( I, 1 ) = ZERO
    40       CONTINUE
-            DO 60 J = 2, N
+            for (J = 2; J <= N; J++) { // 60
                DO 50 I = J - 1, 2, -1
                   A( I, J ) = A( I-1, J )
    50          CONTINUE

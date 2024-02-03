@@ -131,6 +131,12 @@ $1\L$2();
 $1\L$2($3);
 ```
 
+### Simple DO
+```
+^(\s+)DO\s+(\d*)\s*(\w+)\s*=\s*(\w+)\s*,\s*(\w*)$
+$1for ($3 = $4; $3 <= $5; $3++) { // $2
+```
+
 # LAPACK
 
 [![Build Status](https://travis-ci.org/Reference-LAPACK/lapack.svg?branch=master)](https://travis-ci.org/Reference-LAPACK/lapack)

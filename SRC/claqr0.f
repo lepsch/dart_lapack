@@ -185,7 +185,7 @@
 
          // ==== Main Loop ====
 
-         DO 70 IT = 1, ITMAX
+         for (IT = 1; IT <= ITMAX; IT++) { // 70
 
             // ==== Done when KBOT falls below ILO ====
 

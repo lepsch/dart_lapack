@@ -29,7 +29,7 @@
       BIGNUM = DLAMCH( 'Epsilon' ) / DLAMCH( 'Safe minimum' )
       IA = 1
       IXA = INDA
-      DO 10 I = 1, N
+      for (I = 1; I <= N; I++) { // 10
          A( IA ) = DCMPLX( DBLE( A( IA ) ), BIGNUM )
          IA = IA + IXA
          IXA = IXA + VINDA

@@ -92,7 +92,7 @@
             // A is upper triangular.
 
             IP = 1
-            DO 10 J = 1, N
+            for (J = 1; J <= N; J++) { // 10
                CNORM( J ) = DZASUM( J-1, AP( IP ), 1 )
                IP = IP + J
    10       CONTINUE
@@ -125,7 +125,7 @@
       // Level 2 BLAS routine ZTPSV can be used.
 
       XMAX = ZERO
-      DO 30 J = 1, N
+      for (J = 1; J <= N; J++) { // 30
          XMAX = MAX( XMAX, CABS2( X( J ) ) )
    30 CONTINUE
       XBND = XMAX
@@ -380,7 +380,7 @@
                      // A(j,j) = 0:  Set x(1:n) = 0, x(j) = 1, and
                      // scale = 0, and compute a solution to A*x = 0.
 
-                  DO 100 I = 1, N
+                  for (I = 1; I <= N; I++) { // 100
                      X( I ) = ZERO
   100             CONTINUE
                   X( J ) = ONE
@@ -553,7 +553,7 @@
                         // A(j,j) = 0:  Set x(1:n) = 0, x(j) = 1, and
                         // scale = 0 and compute a solution to A**T *x = 0.
 
-                     DO 150 I = 1, N
+                     for (I = 1; I <= N; I++) { // 150
                         X( I ) = ZERO
   150                CONTINUE
                      X( J ) = ONE
@@ -690,7 +690,7 @@
                         // A(j,j) = 0:  Set x(1:n) = 0, x(j) = 1, and
                         // scale = 0 and compute a solution to A**H *x = 0.
 
-                     DO 200 I = 1, N
+                     for (I = 1; I <= N; I++) { // 200
                         X( I ) = ZERO
   200                CONTINUE
                      X( J ) = ONE

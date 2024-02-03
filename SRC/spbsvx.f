@@ -73,7 +73,7 @@
          if ( RCEQU ) {
             SMIN = BIGNUM
             SMAX = ZERO
-            DO 10 J = 1, N
+            for (J = 1; J <= N; J++) { // 10
                SMIN = MIN( SMIN, S( J ) )
                SMAX = MAX( SMAX, S( J ) )
    10       CONTINUE
@@ -116,8 +116,8 @@
       // Scale the right-hand side.
 
       if ( RCEQU ) {
-         DO 30 J = 1, NRHS
-            DO 20 I = 1, N
+         for (J = 1; J <= NRHS; J++) { // 30
+            for (I = 1; I <= N; I++) { // 20
                B( I, J ) = S( I )*B( I, J )
    20       CONTINUE
    30    CONTINUE
@@ -128,12 +128,12 @@
          // Compute the Cholesky factorization A = U**T *U or A = L*L**T.
 
          if ( UPPER ) {
-            DO 40 J = 1, N
+            for (J = 1; J <= N; J++) { // 40
                J1 = MAX( J-KD, 1 )
                scopy(J-J1+1, AB( KD+1-J+J1, J ), 1, AFB( KD+1-J+J1, J ), 1 );
    40       CONTINUE
          } else {
-            DO 50 J = 1, N
+            for (J = 1; J <= N; J++) { // 50
                J2 = MIN( J+KD, N )
                scopy(J2-J+1, AB( 1, J ), 1, AFB( 1, J ), 1 );
    50       CONTINUE
@@ -171,12 +171,12 @@
       // system.
 
       if ( RCEQU ) {
-         DO 70 J = 1, NRHS
-            DO 60 I = 1, N
+         for (J = 1; J <= NRHS; J++) { // 70
+            for (I = 1; I <= N; I++) { // 60
                X( I, J ) = S( I )*X( I, J )
    60       CONTINUE
    70    CONTINUE
-         DO 80 J = 1, NRHS
+         for (J = 1; J <= NRHS; J++) { // 80
             FERR( J ) = FERR( J ) / SCOND
    80    CONTINUE
       }

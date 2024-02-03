@@ -136,7 +136,7 @@
       // Check for diagonality.
 
       if ( E.EQ.ZERO ) {
-         DO 20 K = 2, N
+         for (K = 2; K <= N; K++) { // 20
             Z( K ) = Z( 2*K-1 )
    20    CONTINUE
          slasrt('D', N, Z, IINFO );
@@ -192,7 +192,7 @@
 
       PP = 0
 
-      DO 80 K = 1, 2
+      for (K = 1; K <= 2; K++) { // 80
 
          D = Z( 4*N0+PP-3 )
          DO 50 I4 = 4*( N0-1 ) + PP, 4*I0 + PP, -4
@@ -341,7 +341,7 @@
                 // should not be performed.
 
          NBIG = 100*( N0-I0+1 )
-         DO 140 IWHILB = 1, NBIG
+         for (IWHILB = 1; IWHILB <= NBIG; IWHILB++) { // 140
             IF( I0.GT.N0 ) GO TO 150
 
             // While submatrix unfinished take a good dqds step.
@@ -410,7 +410,7 @@
             }
          }
 
-         DO K = 1, N
+         for (K = 1; K <= N; K++) {
             Z( 2*K-1 ) = Z( 4*K-3 )
 
          // Only the block 1..N0 is unfinished.  The rest of the e's
@@ -440,7 +440,7 @@
 
       // Move q's to the front.
 
-      DO 180 K = 2, N
+      for (K = 2; K <= N; K++) { // 180
          Z( K ) = Z( 4*K-3 )
   180 CONTINUE
 

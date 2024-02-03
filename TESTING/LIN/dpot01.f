@@ -89,14 +89,14 @@
       // Compute the difference L * L**T - A (or U**T * U - A).
 
       if ( LSAME( UPLO, 'U' ) ) {
-         DO 40 J = 1, N
-            DO 30 I = 1, J
+         for (J = 1; J <= N; J++) { // 40
+            for (I = 1; I <= J; I++) { // 30
                AFAC( I, J ) = AFAC( I, J ) - A( I, J )
    30       CONTINUE
    40    CONTINUE
       } else {
-         DO 60 J = 1, N
-            DO 50 I = J, N
+         for (J = 1; J <= N; J++) { // 60
+            for (I = J; I <= N; I++) { // 50
                AFAC( I, J ) = AFAC( I, J ) - A( I, J )
    50       CONTINUE
    60    CONTINUE

@@ -79,7 +79,7 @@
          // Lower triangular storage: examine D from top to bottom.
 
          IP = 1
-         DO 20 I = 1, N
+         for (I = 1; I <= N; I++) { // 20
             IF( IPIV( I ).GT.0 .AND. AP( IP ).EQ.ZERO ) RETURN
             IP = IP + N - I + 1
    20    CONTINUE

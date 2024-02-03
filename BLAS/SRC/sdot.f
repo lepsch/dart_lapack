@@ -32,7 +32,7 @@
 
          M = MOD(N,5)
          if (M.NE.0) {
-            DO I = 1,M
+            for (I = 1; I <= M; I++) {
                STEMP = STEMP + SX(I)*SY(I)
             END DO
             if (N.LT.5) {
@@ -53,7 +53,7 @@
          IY = 1
          IF (INCX.LT.0) IX = (-N+1)*INCX + 1
          IF (INCY.LT.0) IY = (-N+1)*INCY + 1
-         DO I = 1,N
+         for (I = 1; I <= N; I++) {
             STEMP = STEMP + SX(IX)*SY(IY)
             IX = IX + INCX
             IY = IY + INCY

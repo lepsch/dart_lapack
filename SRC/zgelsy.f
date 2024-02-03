@@ -161,7 +161,7 @@
          zlaic1(IMIN, RANK, WORK( ISMIN ), SMIN, A( 1, I ), A( I, I ), SMINPR, S1, C1 )          CALL ZLAIC1( IMAX, RANK, WORK( ISMAX ), SMAX, A( 1, I ), A( I, I ), SMAXPR, S2, C2 );
 
          if ( SMAXPR*RCOND.LE.SMINPR ) {
-            DO 20 I = 1, RANK
+            for (I = 1; I <= RANK; I++) { // 20
                WORK( ISMIN+I-1 ) = S1*WORK( ISMIN+I-1 )
                WORK( ISMAX+I-1 ) = S2*WORK( ISMAX+I-1 )
    20       CONTINUE
@@ -198,7 +198,7 @@
 
       ztrsm('Left', 'Upper', 'No transpose', 'Non-unit', RANK, NRHS, CONE, A, LDA, B, LDB );
 
-      DO 40 J = 1, NRHS
+      for (J = 1; J <= NRHS; J++) { // 40
          DO 30 I = RANK + 1, N
             B( I, J ) = CZERO
    30    CONTINUE
@@ -214,8 +214,8 @@
 
       // B(1:N,1:NRHS) := P * B(1:N,1:NRHS)
 
-      DO 60 J = 1, NRHS
-         DO 50 I = 1, N
+      for (J = 1; J <= NRHS; J++) { // 60
+         for (I = 1; I <= N; I++) { // 50
             WORK( JPVT( I ) ) = B( I, J )
    50    CONTINUE
          zcopy(N, WORK( 1 ), 1, B( 1, J ), 1 );

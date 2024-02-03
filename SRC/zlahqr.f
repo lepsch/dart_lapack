@@ -131,7 +131,7 @@
       // subdiagonal element has become negligible.
 
       L = ILO
-      DO 130 ITS = 0, ITMAX
+      for (ITS = 0; ITS <= ITMAX; ITS++) { // 130
 
          // Look for a single small subdiagonal element.
 
@@ -266,7 +266,7 @@
             // Apply G from the left to transform the rows of the matrix
             // in columns K to I2.
 
-            DO 80 J = K, I2
+            for (J = K; J <= I2; J++) { // 80
                SUM = DCONJG( T1 )*H( K, J ) + T2*H( K+1, J )
                H( K, J ) = H( K, J ) - SUM
                H( K+1, J ) = H( K+1, J ) - SUM*V2
@@ -285,7 +285,7 @@
 
                // Accumulate transformations in the matrix Z
 
-               DO 100 J = ILOZ, IHIZ
+               for (J = ILOZ; J <= IHIZ; J++) { // 100
                   SUM = T1*Z( J, K ) + T2*Z( J, K+1 )
                   Z( J, K ) = Z( J, K ) - SUM
                   Z( J, K+1 ) = Z( J, K+1 ) - SUM*DCONJG( V2 )
@@ -303,7 +303,7 @@
                TEMP = TEMP / ABS( TEMP )
                H( M+1, M ) = H( M+1, M )*DCONJG( TEMP )
                IF( M+2.LE.I ) H( M+2, M+1 ) = H( M+2, M+1 )*TEMP
-               DO 110 J = M, I
+               for (J = M; J <= I; J++) { // 110
                   if ( J.NE.M+1 ) {
                      IF( I2.GT.J ) CALL ZSCAL( I2-J, TEMP, H( J, J+1 ), LDH )
                      zscal(J-I1, DCONJG( TEMP ), H( I1, J ), 1 );

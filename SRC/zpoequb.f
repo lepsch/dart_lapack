@@ -66,7 +66,7 @@
       S( 1 ) = DBLE( A( 1, 1 ) )
       SMIN = S( 1 )
       AMAX = S( 1 )
-      DO 10 I = 2, N
+      for (I = 2; I <= N; I++) { // 10
          S( I ) = DBLE( A( I, I ) )
          SMIN = MIN( SMIN, S( I ) )
          AMAX = MAX( AMAX, S( I ) )
@@ -76,7 +76,7 @@
 
          // Find the first non-positive diagonal element and return.
 
-         DO 20 I = 1, N
+         for (I = 1; I <= N; I++) { // 20
             if ( S( I ).LE.ZERO ) {
                INFO = I
                RETURN
@@ -87,7 +87,7 @@
          // Set the scale factors to the reciprocals
          // of the diagonal elements.
 
-         DO 30 I = 1, N
+         for (I = 1; I <= N; I++) { // 30
             S( I ) = BASE ** INT( TMP * LOG( S( I ) ) )
    30    CONTINUE
 

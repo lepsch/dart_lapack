@@ -53,7 +53,7 @@
 
          // Initialise rows k+1:m to rows of the unit matrix
 
-         DO 20 J = 1, N
+         for (J = 1; J <= N; J++) { // 20
             DO 10 L = K + 1, M
                A( L, J ) = ZERO
    10       CONTINUE

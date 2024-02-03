@@ -77,7 +77,7 @@
       // singular vector matrices.
 
       NDB1 = ( ND+1 ) / 2
-      DO 130 I = NDB1, ND
+      for (I = NDB1; I <= ND; I++) { // 130
 
          // IC : center row of each node
          // NL : number of rows of left  subproblem
@@ -99,7 +99,7 @@
       // $               B( NLF, 1 ), LDB, ZERO, BX( NLF, 1 ), LDBX )
 
          J = NL*NRHS*2
-         DO 20 JCOL = 1, NRHS
+         for (JCOL = 1; JCOL <= NRHS; JCOL++) { // 20
             DO 10 JROW = NLF, NLF + NL - 1
                J = J + 1
                RWORK( J ) = REAL( B( JROW, JCOL ) )
@@ -107,7 +107,7 @@
    20    CONTINUE
          sgemm('T', 'N', NL, NRHS, NL, ONE, U( NLF, 1 ), LDU, RWORK( 1+NL*NRHS*2 ), NL, ZERO, RWORK( 1 ), NL );
          J = NL*NRHS*2
-         DO 40 JCOL = 1, NRHS
+         for (JCOL = 1; JCOL <= NRHS; JCOL++) { // 40
             DO 30 JROW = NLF, NLF + NL - 1
                J = J + 1
                RWORK( J ) = AIMAG( B( JROW, JCOL ) )
@@ -116,7 +116,7 @@
          sgemm('T', 'N', NL, NRHS, NL, ONE, U( NLF, 1 ), LDU, RWORK( 1+NL*NRHS*2 ), NL, ZERO, RWORK( 1+NL*NRHS ), NL );
          JREAL = 0
          JIMAG = NL*NRHS
-         DO 60 JCOL = 1, NRHS
+         for (JCOL = 1; JCOL <= NRHS; JCOL++) { // 60
             DO 50 JROW = NLF, NLF + NL - 1
                JREAL = JREAL + 1
                JIMAG = JIMAG + 1
@@ -131,7 +131,7 @@
 *    $               B( NRF, 1 ), LDB, ZERO, BX( NRF, 1 ), LDBX )
 
          J = NR*NRHS*2
-         DO 80 JCOL = 1, NRHS
+         for (JCOL = 1; JCOL <= NRHS; JCOL++) { // 80
             DO 70 JROW = NRF, NRF + NR - 1
                J = J + 1
                RWORK( J ) = REAL( B( JROW, JCOL ) )
@@ -139,7 +139,7 @@
    80    CONTINUE
          sgemm('T', 'N', NR, NRHS, NR, ONE, U( NRF, 1 ), LDU, RWORK( 1+NR*NRHS*2 ), NR, ZERO, RWORK( 1 ), NR );
          J = NR*NRHS*2
-         DO 100 JCOL = 1, NRHS
+         for (JCOL = 1; JCOL <= NRHS; JCOL++) { // 100
             DO 90 JROW = NRF, NRF + NR - 1
                J = J + 1
                RWORK( J ) = AIMAG( B( JROW, JCOL ) )
@@ -148,7 +148,7 @@
          sgemm('T', 'N', NR, NRHS, NR, ONE, U( NRF, 1 ), LDU, RWORK( 1+NR*NRHS*2 ), NR, ZERO, RWORK( 1+NR*NRHS ), NR );
          JREAL = 0
          JIMAG = NR*NRHS
-         DO 120 JCOL = 1, NRHS
+         for (JCOL = 1; JCOL <= NRHS; JCOL++) { // 120
             DO 110 JROW = NRF, NRF + NR - 1
                JREAL = JREAL + 1
                JIMAG = JIMAG + 1
@@ -161,7 +161,7 @@
       // Next copy the rows of B that correspond to unchanged rows
       // in the bidiagonal matrix to BX.
 
-      DO 140 I = 1, ND
+      for (I = 1; I <= ND; I++) { // 140
          IC = IWORK( INODE+I-1 )
          ccopy(NRHS, B( IC, 1 ), LDB, BX( IC, 1 ), LDBX );
   140 CONTINUE
@@ -185,7 +185,7 @@
             LF = 2**( LVL-1 )
             LL = 2*LF - 1
          }
-         DO 150 I = LF, LL
+         for (I = LF; I <= LL; I++) { // 150
             IM1 = I - 1
             IC = IWORK( INODE+IM1 )
             NL = IWORK( NDIML+IM1 )
@@ -206,7 +206,7 @@
       // the tree nodes top-down.
 
       J = 0
-      DO 190 LVL = 1, NLVL
+      for (LVL = 1; LVL <= NLVL; LVL++) { // 190
          LVL2 = 2*LVL - 1
 
          // Find the first node LF and last node LL on
@@ -241,7 +241,7 @@
       // matrices are in explicit form. Apply them back.
 
       NDB1 = ( ND+1 ) / 2
-      DO 320 I = NDB1, ND
+      for (I = NDB1; I <= ND; I++) { // 320
          I1 = I - 1
          IC = IWORK( INODE+I1 )
          NL = IWORK( NDIML+I1 )
@@ -262,7 +262,7 @@
 *    $               B( NLF, 1 ), LDB, ZERO, BX( NLF, 1 ), LDBX )
 
          J = NLP1*NRHS*2
-         DO 210 JCOL = 1, NRHS
+         for (JCOL = 1; JCOL <= NRHS; JCOL++) { // 210
             DO 200 JROW = NLF, NLF + NLP1 - 1
                J = J + 1
                RWORK( J ) = REAL( B( JROW, JCOL ) )
@@ -270,7 +270,7 @@
   210    CONTINUE
          sgemm('T', 'N', NLP1, NRHS, NLP1, ONE, VT( NLF, 1 ), LDU, RWORK( 1+NLP1*NRHS*2 ), NLP1, ZERO, RWORK( 1 ), NLP1 );
          J = NLP1*NRHS*2
-         DO 230 JCOL = 1, NRHS
+         for (JCOL = 1; JCOL <= NRHS; JCOL++) { // 230
             DO 220 JROW = NLF, NLF + NLP1 - 1
                J = J + 1
                RWORK( J ) = AIMAG( B( JROW, JCOL ) )
@@ -279,7 +279,7 @@
          sgemm('T', 'N', NLP1, NRHS, NLP1, ONE, VT( NLF, 1 ), LDU, RWORK( 1+NLP1*NRHS*2 ), NLP1, ZERO, RWORK( 1+NLP1*NRHS ), NLP1 );
          JREAL = 0
          JIMAG = NLP1*NRHS
-         DO 250 JCOL = 1, NRHS
+         for (JCOL = 1; JCOL <= NRHS; JCOL++) { // 250
             DO 240 JROW = NLF, NLF + NLP1 - 1
                JREAL = JREAL + 1
                JIMAG = JIMAG + 1
@@ -294,7 +294,7 @@
 *    $               B( NRF, 1 ), LDB, ZERO, BX( NRF, 1 ), LDBX )
 
          J = NRP1*NRHS*2
-         DO 270 JCOL = 1, NRHS
+         for (JCOL = 1; JCOL <= NRHS; JCOL++) { // 270
             DO 260 JROW = NRF, NRF + NRP1 - 1
                J = J + 1
                RWORK( J ) = REAL( B( JROW, JCOL ) )
@@ -302,7 +302,7 @@
   270    CONTINUE
          sgemm('T', 'N', NRP1, NRHS, NRP1, ONE, VT( NRF, 1 ), LDU, RWORK( 1+NRP1*NRHS*2 ), NRP1, ZERO, RWORK( 1 ), NRP1 );
          J = NRP1*NRHS*2
-         DO 290 JCOL = 1, NRHS
+         for (JCOL = 1; JCOL <= NRHS; JCOL++) { // 290
             DO 280 JROW = NRF, NRF + NRP1 - 1
                J = J + 1
                RWORK( J ) = AIMAG( B( JROW, JCOL ) )
@@ -311,7 +311,7 @@
          sgemm('T', 'N', NRP1, NRHS, NRP1, ONE, VT( NRF, 1 ), LDU, RWORK( 1+NRP1*NRHS*2 ), NRP1, ZERO, RWORK( 1+NRP1*NRHS ), NRP1 );
          JREAL = 0
          JIMAG = NRP1*NRHS
-         DO 310 JCOL = 1, NRHS
+         for (JCOL = 1; JCOL <= NRHS; JCOL++) { // 310
             DO 300 JROW = NRF, NRF + NRP1 - 1
                JREAL = JREAL + 1
                JIMAG = JIMAG + 1

@@ -87,7 +87,7 @@
 
          // Zero the superdiagonal elements of the work array WORK13
 
-         DO 20 J = 1, NB
+         for (J = 1; J <= NB; J++) { // 20
             DO 10 I = 1, J - 1
                WORK13( I, J ) = ZERO
    10       CONTINUE
@@ -95,7 +95,7 @@
 
          // Zero the subdiagonal elements of the work array WORK31
 
-         DO 40 J = 1, NB
+         for (J = 1; J <= NB; J++) { // 40
             DO 30 I = J + 1, NB
                WORK31( I, J ) = ZERO
    30       CONTINUE
@@ -143,7 +143,7 @@
                // Set fill-in elements in column JJ+KV to zero
 
                if ( JJ+KV.LE.N ) {
-                  DO 70 I = 1, KL
+                  for (I = 1; I <= KL; I++) { // 70
                      AB( I, JJ+KV ) = ZERO
    70             CONTINUE
                }
@@ -217,7 +217,7 @@
                // columnwise.
 
                K2 = J - 1 + JB + J2
-               DO 110 I = 1, J3
+               for (I = 1; I <= J3; I++) { // 110
                   JJ = K2 + I
                   DO 100 II = J + I - 1, J + JB - 1
                      IP = IPIV( II )
@@ -257,8 +257,8 @@
                   // Copy the lower triangle of A13 into the work array
                   // WORK13
 
-                  DO 130 JJ = 1, J3
-                     DO 120 II = JJ, JB
+                  for (JJ = 1; JJ <= J3; JJ++) { // 130
+                     for (II = JJ; II <= JB; II++) { // 120
                         WORK13( II, JJ ) = AB( II-JJ+1, JJ+J+KV-1 )
   120                CONTINUE
   130             CONTINUE
@@ -283,8 +283,8 @@
 
                   // Copy the lower triangle of A13 back into place
 
-                  DO 150 JJ = 1, J3
-                     DO 140 II = JJ, JB
+                  for (JJ = 1; JJ <= J3; JJ++) { // 150
+                     for (II = JJ; II <= JB; II++) { // 140
                         AB( II-JJ+1, JJ+J+KV-1 ) = WORK13( II, JJ )
   140                CONTINUE
   150             CONTINUE

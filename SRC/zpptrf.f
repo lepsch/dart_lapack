@@ -59,7 +59,7 @@
          // Compute the Cholesky factorization A = U**H * U.
 
          JJ = 0
-         DO 10 J = 1, N
+         for (J = 1; J <= N; J++) { // 10
             JC = JJ + 1
             JJ = JJ + J
 
@@ -81,7 +81,7 @@
          // Compute the Cholesky factorization A = L * L**H.
 
          JJ = 1
-         DO 20 J = 1, N
+         for (J = 1; J <= N; J++) { // 20
 
             // Compute L(J,J) and test for non-positive-definiteness.
 

@@ -56,7 +56,7 @@
 
       BADNN = .FALSE.
       NMAX = 0
-      DO 10 J = 1, NSIZES
+      for (J = 1; J <= NSIZES; J++) { // 10
          NMAX = MAX( NMAX, NN( J ) )
          IF( NN( J ).LT.0 ) BADNN = .TRUE.
    10 CONTINUE
@@ -104,7 +104,7 @@
       NERRS = 0
       NMATS = 0
 
-      DO 270 JSIZE = 1, NSIZES
+      for (JSIZE = 1; JSIZE <= NSIZES; JSIZE++) { // 270
          N = NN( JSIZE )
          IF( N.EQ.0 ) GO TO 270
          N1 = MAX( 1, N )
@@ -116,20 +116,20 @@
             MTYPES = MIN( MAXTYP+1, NTYPES )
          }
 
-         DO 260 JTYPE = 1, MTYPES
+         for (JTYPE = 1; JTYPE <= MTYPES; JTYPE++) { // 260
             IF( .NOT.DOTYPE( JTYPE ) ) GO TO 260
             NMATS = NMATS + 1
             NTEST = 0
 
             // Save ISEED in case of an error.
 
-            DO 20 J = 1, 4
+            for (J = 1; J <= 4; J++) { // 20
                IOLDSD( J ) = ISEED( J )
    20       CONTINUE
 
             // Initialize RESULT
 
-            DO 30 J = 1, 16
+            for (J = 1; J <= 16; J++) { // 30
                RESULT( J ) = ZERO
    30       CONTINUE
 
@@ -188,7 +188,7 @@
 
                // Identity
 
-               DO 80 JCOL = 1, N
+               for (JCOL = 1; JCOL <= N; JCOL++) { // 80
                   A( JCOL, JCOL ) = ANORM
    80          CONTINUE
 
@@ -196,7 +196,7 @@
 
                // Jordan Block
 
-               DO 90 JCOL = 1, N
+               for (JCOL = 1; JCOL <= N; JCOL++) { // 90
                   A( JCOL, JCOL ) = ANORM
                   IF( JCOL.GT.1 ) A( JCOL, JCOL-1 ) = ONE
    90          CONTINUE
@@ -361,7 +361,7 @@
 
             TEMP1 = ZERO
             TEMP2 = ZERO
-            DO 130 J = 1, N
+            for (J = 1; J <= N; J++) { // 130
                TEMP1 = MAX( TEMP1, ABS( WR1( J ) )+ABS( WI1( J ) ), ABS( WR2( J ) )+ABS( WI2( J ) ) )                TEMP2 = MAX( TEMP2, ABS( WR1( J )-WR2( J ) )+ ABS( WI1( J )-WI2( J ) ) )
   130       CONTINUE
 
@@ -428,9 +428,9 @@
 
             K = 1
             MATCH = .TRUE.
-            DO 170 J = 1, N
+            for (J = 1; J <= N; J++) { // 170
                if ( SELECT( J ) .AND. WI1( J ).EQ.ZERO ) {
-                  DO 150 JJ = 1, N
+                  for (JJ = 1; JJ <= N; JJ++) { // 150
                      if ( EVECTR( JJ, J ).NE.EVECTL( JJ, K ) ) {
                         MATCH = .FALSE.
                         GO TO 180
@@ -438,7 +438,7 @@
   150             CONTINUE
                   K = K + 1
                } else if ( SELECT( J ) .AND. WI1( J ).NE.ZERO ) {
-                  DO 160 JJ = 1, N
+                  for (JJ = 1; JJ <= N; JJ++) { // 160
                      if ( EVECTR( JJ, J ).NE.EVECTL( JJ, K ) .OR. EVECTR( JJ, J+1 ).NE.EVECTL( JJ, K+1 ) ) {
                         MATCH = .FALSE.
                         GO TO 180
@@ -481,9 +481,9 @@
 
             K = 1
             MATCH = .TRUE.
-            DO 210 J = 1, N
+            for (J = 1; J <= N; J++) { // 210
                if ( SELECT( J ) .AND. WI1( J ).EQ.ZERO ) {
-                  DO 190 JJ = 1, N
+                  for (JJ = 1; JJ <= N; JJ++) { // 190
                      if ( EVECTL( JJ, J ).NE.EVECTR( JJ, K ) ) {
                         MATCH = .FALSE.
                         GO TO 220
@@ -491,7 +491,7 @@
   190             CONTINUE
                   K = K + 1
                } else if ( SELECT( J ) .AND. WI1( J ).NE.ZERO ) {
-                  DO 200 JJ = 1, N
+                  for (JJ = 1; JJ <= N; JJ++) { // 200
                      if ( EVECTL( JJ, J ).NE.EVECTR( JJ, K ) .OR. EVECTL( JJ, J+1 ).NE.EVECTR( JJ, K+1 ) ) {
                         MATCH = .FALSE.
                         GO TO 220
@@ -507,7 +507,7 @@
 
             NTEST = 11
             RESULT( 11 ) = ULPINV
-            DO 230 J = 1, N
+            for (J = 1; J <= N; J++) { // 230
                SELECT( J ) = .TRUE.
   230       CONTINUE
 
@@ -532,7 +532,7 @@
 
             NTEST = 12
             RESULT( 12 ) = ULPINV
-            DO 240 J = 1, N
+            for (J = 1; J <= N; J++) { // 240
                SELECT( J ) = .TRUE.
   240       CONTINUE
 

@@ -60,7 +60,7 @@
       INDWRK = 5*N + 1
       MINWSIZE = 12 * N
 
-      DO 5 I= 1,MINWSIZE
+      for (I = 1; I <= MINWSIZE; I++) { // 5
          WORK( I ) = ZERO
  5    CONTINUE
 
@@ -74,7 +74,7 @@
       IINDWK = 3*N + 1
 
       MINIWSIZE = 7 * N
-      DO 10 I= 1,MINIWSIZE
+      for (I = 1; I <= MINIWSIZE; I++) { // 10
          IWORK( I ) = 0
  10   CONTINUE
 
@@ -179,7 +179,7 @@
 
          // We store in W the eigenvalue approximations w.r.t. the original
          // matrix T.
-         DO 30 I=1,IM
+         for (I = 1; I <= IM; I++) { // 30
             W(WBEGIN+I-1) = W(WBEGIN+I-1)+SIGMA
  30      CONTINUE
 
@@ -222,7 +222,7 @@
                NEWCLS = IINDC1
             }
             // Process the clusters on the current level
-            DO 150 I = 1, OLDNCL
+            for (I = 1; I <= OLDNCL; I++) { // 150
                J = OLDCLS + 2*I
                // OLDFST, OLDLST = first, last index of current cluster.
                                 // cluster indices start with 1 and are relative
@@ -298,14 +298,14 @@
                   ENDIF
                   // Each time the eigenvalues in WORK get refined, we store
                   // the newly found approximation with all shifts applied in W
-                  DO 53 J=OLDFST,OLDLST
+                  for (J = OLDFST; J <= OLDLST; J++) { // 53
                      W(WBEGIN+J-1) = WORK(WBEGIN+J-1)+SIGMA
  53               CONTINUE
                }
 
                // Process the current node.
                NEWFST = OLDFST
-               DO 140 J = OLDFST, OLDLST
+               for (J = OLDFST; J <= OLDLST; J++) { // 140
                   if ( J.EQ.OLDLST ) {
                      // we are at the right end of the cluster, this is also the
                      // boundary of the child cluster
@@ -368,7 +368,7 @@
                      // as possible and obtain as large relative gaps
                      // as possible
 
-                     DO 55 K =1,2
+                     for (K = 1; K <= 2; K++) { // 55
                         if (K.EQ.1) {
                            P = INDEXW( WBEGIN-1+NEWFST )
                         } else {
@@ -409,7 +409,7 @@
                         Z( IEND, NEWFTT+1 ) = DCMPLX( SSIGMA, ZERO )
                         // WORK() are the midpoints and WERR() the semi-width
                         // Note that the entries in W are unchanged.
-                        DO 116 K = NEWFST, NEWLST
+                        for (K = NEWFST; K <= NEWLST; K++) { // 116
                            FUDGE = THREE*EPS*ABS(WORK(WBEGIN+K-1))                            WORK( WBEGIN + K - 1 ) = WORK( WBEGIN + K - 1) - TAU                            FUDGE = FUDGE + FOUR*EPS*ABS(WORK(WBEGIN+K-1))
                            // Fudge errors
                            WERR( WBEGIN + K - 1 ) = WERR( WBEGIN + K - 1 ) + FUDGE

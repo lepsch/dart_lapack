@@ -56,12 +56,12 @@
 
       // Do for each value of M
 
-      DO I = 1, NM
+      for (I = 1; I <= NM; I++) {
          M = MVAL( I )
 
          // Do for each value of N
 
-         DO J = 1, NN
+         for (J = 1; J <= NN; J++) {
             N = NVAL( J )
 
             // Do for each value of L
@@ -71,7 +71,7 @@
 
                // Do for each possible value of NB
 
-               DO K = 1, NNB
+               for (K = 1; K <= NNB; K++) {
                   NB = NBVAL( K )
 
                      // Test STPQRT and STPMQRT
@@ -82,7 +82,7 @@
                      // Print information about the tests that did not
                      // pass the threshold.
 
-                     DO T = 1, NTESTS
+                     for (T = 1; T <= NTESTS; T++) {
                         if ( RESULT( T ).GE.THRESH ) {
                            IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                            WRITE( NOUT, FMT = 9999 )M, N, NB, L, T, RESULT( T )
                            NFAIL = NFAIL + 1

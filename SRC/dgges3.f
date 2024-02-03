@@ -241,7 +241,7 @@
 
          // Select eigenvalues
 
-         DO 10 I = 1, N
+         for (I = 1; I <= N; I++) { // 10
             BWORK( I ) = SELCTG( ALPHAR( I ), ALPHAI( I ), BETA( I ) )
    10    CONTINUE
 
@@ -261,7 +261,7 @@
       // B(I,I) and ALPHAR(I) and ALPHAI(I) are on the order of A(I,I)
 
       if ( ILASCL ) {
-         DO 20 I = 1, N
+         for (I = 1; I <= N; I++) { // 20
             if ( ALPHAI( I ).NE.ZERO ) {
                if ( ( ALPHAR( I ) / SAFMAX ).GT.( ANRMTO / ANRM ) .OR. ( SAFMIN / ALPHAR( I ) ).GT.( ANRM / ANRMTO ) ) {
                   WORK( 1 ) = ABS( A( I, I ) / ALPHAR( I ) )
@@ -279,7 +279,7 @@
       }
 
       if ( ILBSCL ) {
-         DO 30 I = 1, N
+         for (I = 1; I <= N; I++) { // 30
             if ( ALPHAI( I ).NE.ZERO ) {
                if ( ( BETA( I ) / SAFMAX ).GT.( BNRMTO / BNRM ) .OR. ( SAFMIN / BETA( I ) ).GT.( BNRM / BNRMTO ) ) {
                   WORK( 1 ) = ABS( B( I, I ) / BETA( I ) )
@@ -312,7 +312,7 @@
          LST2SL = .TRUE.
          SDIM = 0
          IP = 0
-         DO 40 I = 1, N
+         for (I = 1; I <= N; I++) { // 40
             CURSL = SELCTG( ALPHAR( I ), ALPHAI( I ), BETA( I ) )
             if ( ALPHAI( I ).EQ.ZERO ) {
                IF( CURSL ) SDIM = SDIM + 1

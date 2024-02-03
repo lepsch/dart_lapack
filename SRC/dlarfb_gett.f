@@ -99,7 +99,7 @@
          // column-by-column.
 
          DO J = 1, N-K
-            DO I = 1, K
+            for (I = 1; I <= K; I++) {
                A( I, K+J ) = A( I, K+J ) - WORK( I, J )
             END DO
          END DO
@@ -119,7 +119,7 @@
       // A1 = A(1:K, 1:K) into the upper-triangular
       // W1 = WORK(1:K, 1:K) column-by-column.
 
-      DO J = 1, K
+      for (J = 1; J <= K; J++) {
          dcopy(J, A( 1, J ), 1, WORK( 1, J ), 1 );
       END DO
 
@@ -182,8 +182,8 @@
 
       // col1_(6)_b Compute elements of A1 on and above the diagonal.
 
-      DO J = 1, K
-         DO I = 1, J
+      for (J = 1; J <= K; J++) {
+         for (I = 1; I <= J; I++) {
             A( I, J ) = A( I, J ) - WORK( I, J )
          END DO
       END DO

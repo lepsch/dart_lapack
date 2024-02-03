@@ -71,7 +71,7 @@
       NRUN = 0
       NFAIL = 0
       NERRS = 0
-      DO 10 I = 1, 4
+      for (I = 1; I <= 4; I++) { // 10
          ISEED( I ) = ISEEDY( I )
    10 CONTINUE
 
@@ -90,7 +90,7 @@
 
       // Do for each value of N in NVAL
 
-      DO 110 IN = 1, NN
+      for (IN = 1; IN <= NN; IN++) { // 110
          N = NVAL( IN )
          LDA = MAX( N, 1 )
          XTYPE = 'N'
@@ -105,7 +105,7 @@
          KDVAL( 3 ) = ( 3*N-1 ) / 4
          KDVAL( 4 ) = ( N+1 ) / 4
 
-         DO 100 IKD = 1, NKD
+         for (IKD = 1; IKD <= NKD; IKD++) { // 100
 
             // Do for KD = 0, (5*N+1)/4, (3N-1)/4, and (N+1)/4. This order
             // makes it easier to skip redundant values for small values
@@ -116,7 +116,7 @@
 
             // Do first for UPLO = 'U', then for UPLO = 'L'
 
-            DO 90 IUPLO = 1, 2
+            for (IUPLO = 1; IUPLO <= 2; IUPLO++) { // 90
                KOFF = 1
                if ( IUPLO.EQ.1 ) {
                   UPLO = 'U'
@@ -127,7 +127,7 @@
                   PACKIT = 'B'
                }
 
-               DO 80 IMAT = 1, NIMAT
+               for (IMAT = 1; IMAT <= NIMAT; IMAT++) { // 80
 
                   // Do the tests only if DOTYPE( IMAT ) is true.
 
@@ -223,7 +223,7 @@
 
                   clacpy('Full', KD+1, N, A, LDAB, ASAV, LDAB );
 
-                  DO 70 IEQUED = 1, 2
+                  for (IEQUED = 1; IEQUED <= 2; IEQUED++) { // 70
                      EQUED = EQUEDS( IEQUED )
                      if ( IEQUED.EQ.1 ) {
                         NFACT = 3
@@ -231,7 +231,7 @@
                         NFACT = 1
                      }
 
-                     DO 60 IFACT = 1, NFACT
+                     for (IFACT = 1; IFACT <= NFACT; IFACT++) { // 60
                         FACT = FACTS( IFACT )
                         PREFAC = LSAME( FACT, 'F' )
                         NOFACT = LSAME( FACT, 'N' )
@@ -343,7 +343,7 @@
                            // Print information about the tests that did
                            // not pass the threshold.
 
-                           DO 30 K = 1, NT
+                           for (K = 1; K <= NT; K++) { // 30
                               if ( RESULT( K ).GE.THRESH ) {
                                  IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALADHD( NOUT, PATH )                                  WRITE( NOUT, FMT = 9999 )'CPBSV ', UPLO, N, KD, IMAT, K, RESULT( K )
                                  NFAIL = NFAIL + 1
@@ -417,7 +417,7 @@
                         // Print information about the tests that did not
                         // pass the threshold.
 
-                        DO 50 K = K1, 6
+                        for (K = K1; K <= 6; K++) { // 50
                            if ( RESULT( K ).GE.THRESH ) {
                               IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALADHD( NOUT, PATH )
                               if ( PREFAC ) {

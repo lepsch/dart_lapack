@@ -82,7 +82,7 @@
       // Compute the updated singular values, the arrays DIFL, DIFR,
       // and the updated Z.
 
-      DO 40 J = 1, K
+      for (J = 1; J <= K; J++) { // 40
          dlasd4(K, J, DSIGMA, Z, WORK( IWK1 ), RHO, D( J ), WORK( IWK2 ), INFO );
 
          // If the root finder fails, report the convergence failure.
@@ -103,13 +103,13 @@
 
       // Compute updated Z.
 
-      DO 50 I = 1, K
+      for (I = 1; I <= K; I++) { // 50
          Z( I ) = SIGN( SQRT( ABS( WORK( IWK3I+I ) ) ), Z( I ) )
    50 CONTINUE
 
       // Update VF and VL.
 
-      DO 80 J = 1, K
+      for (J = 1; J <= K; J++) { // 80
          DIFLJ = DIFL( J )
          DJ = D( J )
          DSIGJ = -DSIGMA( J )

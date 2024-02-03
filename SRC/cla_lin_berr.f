@@ -42,9 +42,9 @@
       SAFE1 = SLAMCH( 'Safe minimum' )
       SAFE1 = (NZ+1)*SAFE1
 
-      DO J = 1, NRHS
+      for (J = 1; J <= NRHS; J++) {
          BERR(J) = 0.0
-         DO I = 1, N
+         for (I = 1; I <= N; I++) {
             if (AYB(I,J) .NE. 0.0) {
                TMP = (SAFE1 + CABS1(RES(I,J)))/AYB(I,J)
                BERR(J) = MAX( BERR(J), TMP )

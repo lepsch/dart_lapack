@@ -80,7 +80,7 @@
 
       BADNN = .FALSE.
       NMAX = 0
-      DO 10 J = 1, NSIZES
+      for (J = 1; J <= NSIZES; J++) { // 10
          NMAX = MAX( NMAX, NN( J ) )
          IF( NN( J ).LT.0 ) BADNN = .TRUE.
    10 CONTINUE
@@ -127,7 +127,7 @@
 
       NERRS = 0
 
-      DO 240 JSIZE = 1, NSIZES
+      for (JSIZE = 1; JSIZE <= NSIZES; JSIZE++) { // 240
          N = NN( JSIZE )
          if ( NSIZES.NE.1 ) {
             MTYPES = MIN( MAXTYP, NTYPES )
@@ -135,12 +135,12 @@
             MTYPES = MIN( MAXTYP+1, NTYPES )
          }
 
-         DO 230 JTYPE = 1, MTYPES
+         for (JTYPE = 1; JTYPE <= MTYPES; JTYPE++) { // 230
             IF( .NOT.DOTYPE( JTYPE ) ) GO TO 230
 
             // Save ISEED in case of an error.
 
-            DO 20 J = 1, 4
+            for (J = 1; J <= 4; J++) { // 20
                IOLDSD( J ) = ISEED( J )
    20       CONTINUE
 
@@ -199,7 +199,7 @@
 
                // Identity
 
-               DO 70 JCOL = 1, N
+               for (JCOL = 1; JCOL <= N; JCOL++) { // 70
                   A( JCOL, JCOL ) = DCMPLX( ANORM )
    70          CONTINUE
 
@@ -207,7 +207,7 @@
 
                // Jordan Block
 
-               DO 80 JCOL = 1, N
+               for (JCOL = 1; JCOL <= N; JCOL++) { // 80
                   A( JCOL, JCOL ) = DCMPLX( ANORM )
                   IF( JCOL.GT.1 ) A( JCOL, JCOL-1 ) = CONE
    80          CONTINUE
@@ -281,7 +281,7 @@
 
             // Test for minimal and generous workspace
 
-            DO 220 IWK = 1, 2
+            for (IWK = 1; IWK <= 2; IWK++) { // 220
                if ( IWK.EQ.1 ) {
                   NNWORK = 3*N
                } else {
@@ -291,13 +291,13 @@
 
                // Initialize RESULT
 
-               DO 100 J = 1, 13
+               for (J = 1; J <= 13; J++) { // 100
                   RESULT( J ) = -ONE
   100          CONTINUE
 
                // Test with and without sorting of eigenvalues
 
-               DO 180 ISORT = 0, 1
+               for (ISORT = 0; ISORT <= 1; ISORT++) { // 180
                   if ( ISORT.EQ.0 ) {
                      SORT = 'N'
                      RSUB = 0
@@ -336,7 +336,7 @@
                   // Do Test (4) or Test (10)
 
                   RESULT( 4+RSUB ) = ZERO
-                  DO 130 I = 1, N
+                  for (I = 1; I <= N; I++) { // 130
                      IF( H( I, I ).NE.W( I ) ) RESULT( 4+RSUB ) = ULPINV
   130             CONTINUE
 
@@ -352,8 +352,8 @@
                   }
 
                   RESULT( 5+RSUB ) = ZERO
-                  DO 150 J = 1, N
-                     DO 140 I = 1, N
+                  for (J = 1; J <= N; J++) { // 150
+                     for (I = 1; I <= N; I++) { // 140
                         IF( H( I, J ).NE.HT( I, J ) ) RESULT( 5+RSUB ) = ULPINV
   140                CONTINUE
   150             CONTINUE
@@ -361,7 +361,7 @@
                   // Do Test (6) or Test (12)
 
                   RESULT( 6+RSUB ) = ZERO
-                  DO 160 I = 1, N
+                  for (I = 1; I <= N; I++) { // 160
                      IF( W( I ).NE.WT( I ) ) RESULT( 6+RSUB ) = ULPINV
   160             CONTINUE
 
@@ -370,7 +370,7 @@
                   if ( ISORT.EQ.1 ) {
                      RESULT( 13 ) = ZERO
                      KNTEIG = 0
-                     DO 170 I = 1, N
+                     for (I = 1; I <= N; I++) { // 170
                         IF( ZSLECT( W( I ) ) ) KNTEIG = KNTEIG + 1
                         if ( I.LT.N ) {
                            IF( ZSLECT( W( I+1 ) ) .AND. ( .NOT.ZSLECT( W( I ) ) ) )RESULT( 13 ) = ULPINV
@@ -387,7 +387,7 @@
 
                NTEST = 0
                NFAIL = 0
-               DO 200 J = 1, 13
+               for (J = 1; J <= 13; J++) { // 200
                   IF( RESULT( J ).GE.ZERO ) NTEST = NTEST + 1                   IF( RESULT( J ).GE.THRESH ) NFAIL = NFAIL + 1
   200          CONTINUE
 
@@ -402,7 +402,7 @@
                   NTESTF = 2
                }
 
-               DO 210 J = 1, 13
+               for (J = 1; J <= 13; J++) { // 210
                   if ( RESULT( J ).GE.THRESH ) {
                      WRITE( NOUNIT, FMT = 9993 )N, IWK, IOLDSD, JTYPE, J, RESULT( J )
                   }

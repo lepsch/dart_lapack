@@ -56,14 +56,14 @@
       // Compute maximum absolute eigenvalue, error tolerance
 
       MX = ABS( EIG( 1 ) )
-      DO 10 I = 2, N
+      for (I = 2; I <= N; I++) { // 10
          MX = MAX( MX, ABS( EIG( I ) ) )
    10 CONTINUE
       EPS = MAX( EPS*MX, UNFLEP )
 
       // Sort eigenvalues from EIG into WORK
 
-      DO 20 I = 1, N
+      for (I = 1; I <= N; I++) { // 20
          WORK( I ) = EIG( I )
    20 CONTINUE
       DO 40 I = 1, N - 1

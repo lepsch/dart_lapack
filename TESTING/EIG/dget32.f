@@ -60,8 +60,8 @@
 
       // Begin test loop
 
-      DO 230 ITRANL = 0, 1
-         DO 220 ITRANR = 0, 1
+      for (ITRANL = 0; ITRANL <= 1; ITRANL++) { // 230
+         for (ITRANR = 0; ITRANR <= 1; ITRANR++) { // 220
             DO 210 ISGN = -1, 1, 2
                SGN = ISGN
                LTRANL = ITRANL.EQ.1
@@ -69,9 +69,9 @@
 
                N1 = 1
                N2 = 1
-               DO 30 ITL = 1, 3
-                  DO 20 ITR = 1, 3
-                     DO 10 IB = 1, 3
+               for (ITL = 1; ITL <= 3; ITL++) { // 30
+                  for (ITR = 1; ITR <= 3; ITR++) { // 20
+                     for (IB = 1; IB <= 3; IB++) { // 10
                         TL( 1, 1 ) = VAL( ITL )
                         TR( 1, 1 ) = VAL( ITR )
                         B( 1, 1 ) = VAL( IB )
@@ -95,11 +95,11 @@
 
                N1 = 2
                N2 = 1
-               DO 80 ITL = 1, 8
-                  DO 70 ITLSCL = 1, 3
-                     DO 60 ITR = 1, 3
-                        DO 50 IB1 = 1, 3
-                           DO 40 IB2 = 1, 3
+               for (ITL = 1; ITL <= 8; ITL++) { // 80
+                  for (ITLSCL = 1; ITLSCL <= 3; ITLSCL++) { // 70
+                     for (ITR = 1; ITR <= 3; ITR++) { // 60
+                        for (IB1 = 1; IB1 <= 3; IB1++) { // 50
+                           for (IB2 = 1; IB2 <= 3; IB2++) { // 40
                               B( 1, 1 ) = VAL( IB1 )
                               B( 2, 1 ) = -FOUR*VAL( IB2 )
                               TL( 1, 1 ) = ITVAL( 1, 1, ITL )* VAL( ITLSCL )                               TL( 2, 1 ) = ITVAL( 2, 1, ITL )* VAL( ITLSCL )                               TL( 1, 2 ) = ITVAL( 1, 2, ITL )* VAL( ITLSCL )                               TL( 2, 2 ) = ITVAL( 2, 2, ITL )* VAL( ITLSCL )
@@ -128,11 +128,11 @@
 
                N1 = 1
                N2 = 2
-               DO 130 ITR = 1, 8
-                  DO 120 ITRSCL = 1, 3
-                     DO 110 ITL = 1, 3
-                        DO 100 IB1 = 1, 3
-                           DO 90 IB2 = 1, 3
+               for (ITR = 1; ITR <= 8; ITR++) { // 130
+                  for (ITRSCL = 1; ITRSCL <= 3; ITRSCL++) { // 120
+                     for (ITL = 1; ITL <= 3; ITL++) { // 110
+                        for (IB1 = 1; IB1 <= 3; IB1++) { // 100
+                           for (IB2 = 1; IB2 <= 3; IB2++) { // 90
                               B( 1, 1 ) = VAL( IB1 )
                               B( 1, 2 ) = -TWO*VAL( IB2 )
                               TR( 1, 1 ) = ITVAL( 1, 1, ITR )* VAL( ITRSCL )                               TR( 2, 1 ) = ITVAL( 2, 1, ITR )* VAL( ITRSCL )                               TR( 1, 2 ) = ITVAL( 1, 2, ITR )* VAL( ITRSCL )                               TR( 2, 2 ) = ITVAL( 2, 2, ITR )* VAL( ITRSCL )
@@ -163,13 +163,13 @@
 
                N1 = 2
                N2 = 2
-               DO 200 ITR = 1, 8
-                  DO 190 ITRSCL = 1, 3
-                     DO 180 ITL = 1, 8
-                        DO 170 ITLSCL = 1, 3
-                           DO 160 IB1 = 1, 3
-                              DO 150 IB2 = 1, 3
-                                 DO 140 IB3 = 1, 3
+               for (ITR = 1; ITR <= 8; ITR++) { // 200
+                  for (ITRSCL = 1; ITRSCL <= 3; ITRSCL++) { // 190
+                     for (ITL = 1; ITL <= 8; ITL++) { // 180
+                        for (ITLSCL = 1; ITLSCL <= 3; ITLSCL++) { // 170
+                           for (IB1 = 1; IB1 <= 3; IB1++) { // 160
+                              for (IB2 = 1; IB2 <= 3; IB2++) { // 150
+                                 for (IB3 = 1; IB3 <= 3; IB3++) { // 140
                                     B( 1, 1 ) = VAL( IB1 )
                                     B( 2, 1 ) = -FOUR*VAL( IB2 )
                                     B( 1, 2 ) = -TWO*VAL( IB3 )

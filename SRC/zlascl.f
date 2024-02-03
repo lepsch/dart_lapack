@@ -133,8 +133,8 @@
 
          // Full matrix
 
-         DO 30 J = 1, N
-            DO 20 I = 1, M
+         for (J = 1; J <= N; J++) { // 30
+            for (I = 1; I <= M; I++) { // 20
                A( I, J ) = A( I, J )*MUL
    20       CONTINUE
    30    CONTINUE
@@ -143,8 +143,8 @@
 
          // Lower triangular matrix
 
-         DO 50 J = 1, N
-            DO 40 I = J, M
+         for (J = 1; J <= N; J++) { // 50
+            for (I = J; I <= M; I++) { // 40
                A( I, J ) = A( I, J )*MUL
    40       CONTINUE
    50    CONTINUE
@@ -153,7 +153,7 @@
 
          // Upper triangular matrix
 
-         DO 70 J = 1, N
+         for (J = 1; J <= N; J++) { // 70
             DO 60 I = 1, MIN( J, M )
                A( I, J ) = A( I, J )*MUL
    60       CONTINUE
@@ -163,7 +163,7 @@
 
          // Upper Hessenberg matrix
 
-         DO 90 J = 1, N
+         for (J = 1; J <= N; J++) { // 90
             DO 80 I = 1, MIN( J+1, M )
                A( I, J ) = A( I, J )*MUL
    80       CONTINUE
@@ -175,7 +175,7 @@
 
          K3 = KL + 1
          K4 = N + 1
-         DO 110 J = 1, N
+         for (J = 1; J <= N; J++) { // 110
             DO 100 I = 1, MIN( K3, K4-J )
                A( I, J ) = A( I, J )*MUL
   100       CONTINUE
@@ -187,7 +187,7 @@
 
          K1 = KU + 2
          K3 = KU + 1
-         DO 130 J = 1, N
+         for (J = 1; J <= N; J++) { // 130
             DO 120 I = MAX( K1-J, 1 ), K3
                A( I, J ) = A( I, J )*MUL
   120       CONTINUE
@@ -201,7 +201,7 @@
          K2 = KL + 1
          K3 = 2*KL + KU + 1
          K4 = KL + KU + 1 + M
-         DO 150 J = 1, N
+         for (J = 1; J <= N; J++) { // 150
             DO 140 I = MAX( K1-J, K2 ), MIN( K3, K4-J )
                A( I, J ) = A( I, J )*MUL
   140       CONTINUE

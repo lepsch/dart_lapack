@@ -90,7 +90,7 @@
          MB = M
       }
       if ( .NOT.LSAME( XTYPE, 'C' ) ) {
-         DO 10 J = 1, NRHS
+         for (J = 1; J <= NRHS; J++) { // 10
             dlarnv(2, ISEED, N, X( 1, J ) );
    10    CONTINUE
       }
@@ -114,7 +114,7 @@
 
          // General matrix, band storage
 
-         DO 20 J = 1, NRHS
+         for (J = 1; J <= NRHS; J++) { // 20
             dgbmv(TRANS, MB, NX, KL, KU, ONE, A, LDA, X( 1, J ), 1, ZERO, B( 1, J ), 1 );
    20    CONTINUE
 
@@ -122,7 +122,7 @@
 
          // Symmetric matrix, band storage
 
-         DO 30 J = 1, NRHS
+         for (J = 1; J <= NRHS; J++) { // 30
             dsbmv(UPLO, N, KL, ONE, A, LDA, X( 1, J ), 1, ZERO, B( 1, J ), 1 );
    30    CONTINUE
 
@@ -130,7 +130,7 @@
 
          // Symmetric matrix, packed storage
 
-         DO 40 J = 1, NRHS
+         for (J = 1; J <= NRHS; J++) { // 40
             dspmv(UPLO, N, ONE, A, X( 1, J ), 1, ZERO, B( 1, J ), 1 );
    40    CONTINUE
 
@@ -158,7 +158,7 @@
          } else {
             DIAG = 'N'
          }
-         DO 50 J = 1, NRHS
+         for (J = 1; J <= NRHS; J++) { // 50
             dtpmv(UPLO, TRANS, DIAG, N, A, B( 1, J ), 1 );
    50    CONTINUE
 
@@ -172,7 +172,7 @@
          } else {
             DIAG = 'N'
          }
-         DO 60 J = 1, NRHS
+         for (J = 1; J <= NRHS; J++) { // 60
             dtbmv(UPLO, TRANS, DIAG, N, KL, A, LDA, B( 1, J ), 1 );
    60    CONTINUE
 

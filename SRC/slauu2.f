@@ -60,7 +60,7 @@
 
          // Compute the product U * U**T.
 
-         DO 10 I = 1, N
+         for (I = 1; I <= N; I++) { // 10
             AII = A( I, I )
             if ( I.LT.N ) {
                A( I, I ) = SDOT( N-I+1, A( I, I ), LDA, A( I, I ), LDA )
@@ -74,7 +74,7 @@
 
          // Compute the product L**T * L.
 
-         DO 20 I = 1, N
+         for (I = 1; I <= N; I++) { // 20
             AII = A( I, I )
             if ( I.LT.N ) {
                A( I, I ) = SDOT( N-I+1, A( I, I ), 1, A( I, I ), 1 )

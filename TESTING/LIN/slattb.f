@@ -86,14 +86,14 @@
 
       } else if ( IMAT.EQ.6 ) {
          if ( UPPER ) {
-            DO 20 J = 1, N
+            for (J = 1; J <= N; J++) { // 20
                DO 10 I = MAX( 1, KD+2-J ), KD
                   AB( I, J ) = ZERO
    10          CONTINUE
                AB( KD+1, J ) = J
    20       CONTINUE
          } else {
-            DO 40 J = 1, N
+            for (J = 1; J <= N; J++) { // 40
                AB( 1, J ) = J
                DO 30 I = 2, MIN( KD+1, N-J+1 )
                   AB( I, J ) = ZERO
@@ -112,14 +112,14 @@
          // Initialize AB to zero.
 
          if ( UPPER ) {
-            DO 60 J = 1, N
+            for (J = 1; J <= N; J++) { // 60
                DO 50 I = MAX( 1, KD+2-J ), KD
                   AB( I, J ) = ZERO
    50          CONTINUE
                AB( KD+1, J ) = REAL( J )
    60       CONTINUE
          } else {
-            DO 80 J = 1, N
+            for (J = 1; J <= N; J++) { // 80
                DO 70 I = 2, MIN( KD+1, N-J+1 )
                   AB( I, J ) = ZERO
    70          CONTINUE
@@ -135,14 +135,14 @@
                AB( 1, 2 ) = SIGN( TNORM, SLARND( 2, ISEED ) )
                LENJ = ( N-3 ) / 2
                slarnv(2, ISEED, LENJ, WORK );
-               DO 90 J = 1, LENJ
+               for (J = 1; J <= LENJ; J++) { // 90
                   AB( 1, 2*( J+1 ) ) = TNORM*WORK( J )
    90          CONTINUE
             } else {
                AB( 2, 1 ) = SIGN( TNORM, SLARND( 2, ISEED ) )
                LENJ = ( N-3 ) / 2
                slarnv(2, ISEED, LENJ, WORK );
-               DO 100 J = 1, LENJ
+               for (J = 1; J <= LENJ; J++) { // 100
                   AB( 2, 2*J+1 ) = TNORM*WORK( J )
   100          CONTINUE
             }
@@ -210,13 +210,13 @@
          // Make the right hand side large so that it requires scaling.
 
          if ( UPPER ) {
-            DO 120 J = 1, N
+            for (J = 1; J <= N; J++) { // 120
                LENJ = MIN( J, KD+1 )
                slarnv(2, ISEED, LENJ, AB( KD+2-LENJ, J ) );
                AB( KD+1, J ) = SIGN( TWO, AB( KD+1, J ) )
   120       CONTINUE
          } else {
-            DO 130 J = 1, N
+            for (J = 1; J <= N; J++) { // 130
                LENJ = MIN( N-J+1, KD+1 )
                IF( LENJ.GT.0 ) CALL SLARNV( 2, ISEED, LENJ, AB( 1, J ) )
                AB( 1, J ) = SIGN( TWO, AB( 1, J ) )
@@ -240,7 +240,7 @@
          slarnv(2, ISEED, N, B );
          TSCAL = ONE / REAL( KD+1 )
          if ( UPPER ) {
-            DO 140 J = 1, N
+            for (J = 1; J <= N; J++) { // 140
                LENJ = MIN( J, KD+1 )
                slarnv(2, ISEED, LENJ, AB( KD+2-LENJ, J ) );
                sscal(LENJ-1, TSCAL, AB( KD+2-LENJ, J ), 1 );
@@ -248,7 +248,7 @@
   140       CONTINUE
             AB( KD+1, N ) = SMLNUM*AB( KD+1, N )
          } else {
-            DO 150 J = 1, N
+            for (J = 1; J <= N; J++) { // 150
                LENJ = MIN( N-J+1, KD+1 )
                slarnv(2, ISEED, LENJ, AB( 1, J ) );
                IF( LENJ.GT.1 ) CALL SSCAL( LENJ-1, TSCAL, AB( 2, J ), 1 )
@@ -265,14 +265,14 @@
 
          slarnv(2, ISEED, N, B );
          if ( UPPER ) {
-            DO 160 J = 1, N
+            for (J = 1; J <= N; J++) { // 160
                LENJ = MIN( J, KD+1 )
                slarnv(2, ISEED, LENJ, AB( KD+2-LENJ, J ) );
                AB( KD+1, J ) = SIGN( ONE, AB( KD+1, J ) )
   160       CONTINUE
             AB( KD+1, N ) = SMLNUM*AB( KD+1, N )
          } else {
-            DO 170 J = 1, N
+            for (J = 1; J <= N; J++) { // 170
                LENJ = MIN( N-J+1, KD+1 )
                slarnv(2, ISEED, LENJ, AB( 1, J ) );
                AB( 1, J ) = SIGN( ONE, AB( 1, J ) )
@@ -302,7 +302,7 @@
   190       CONTINUE
          } else {
             JCOUNT = 1
-            DO 210 J = 1, N
+            for (J = 1; J <= N; J++) { // 210
                DO 200 I = 2, MIN( N-J+1, KD+1 )
                   AB( I, J ) = ZERO
   200          CONTINUE
@@ -342,7 +342,7 @@
          TSCAL = SMLNUM**TEXP
          slarnv(2, ISEED, N, B );
          if ( UPPER ) {
-            DO 250 J = 1, N
+            for (J = 1; J <= N; J++) { // 250
                DO 240 I = MAX( 1, KD+2-J ), KD
                   AB( I, J ) = ZERO
   240          CONTINUE
@@ -351,7 +351,7 @@
   250       CONTINUE
             B( N ) = ONE
          } else {
-            DO 270 J = 1, N
+            for (J = 1; J <= N; J++) { // 270
                DO 260 I = 3, MIN( N-J+1, KD+1 )
                   AB( I, J ) = ZERO
   260          CONTINUE
@@ -367,7 +367,7 @@
 
          IY = N / 2 + 1
          if ( UPPER ) {
-            DO 280 J = 1, N
+            for (J = 1; J <= N; J++) { // 280
                LENJ = MIN( J, KD+1 )
                slarnv(2, ISEED, LENJ, AB( KD+2-LENJ, J ) );
                if ( J.NE.IY ) {
@@ -377,7 +377,7 @@
                }
   280       CONTINUE
          } else {
-            DO 290 J = 1, N
+            for (J = 1; J <= N; J++) { // 290
                LENJ = MIN( N-J+1, KD+1 )
                slarnv(2, ISEED, LENJ, AB( 1, J ) );
                if ( J.NE.IY ) {
@@ -399,7 +399,7 @@
 
          TSCAL = UNFL / ULP
          TSCAL = ( ONE-ULP ) / TSCAL
-         DO 310 J = 1, N
+         for (J = 1; J <= N; J++) { // 310
             DO 300 I = 1, KD + 1
                AB( I, J ) = ZERO
   300       CONTINUE
@@ -440,7 +440,7 @@
   350          CONTINUE
             }
          } else {
-            DO 360 J = 1, N
+            for (J = 1; J <= N; J++) { // 360
                AB( 1, J ) = ONE
                B( J ) = REAL( J )
   360       CONTINUE
@@ -453,13 +453,13 @@
          // requires scaling.
 
          if ( UPPER ) {
-            DO 370 J = 1, N
+            for (J = 1; J <= N; J++) { // 370
                LENJ = MIN( J-1, KD )
                slarnv(2, ISEED, LENJ, AB( KD+1-LENJ, J ) );
                AB( KD+1, J ) = REAL( J )
   370       CONTINUE
          } else {
-            DO 380 J = 1, N
+            for (J = 1; J <= N; J++) { // 380
                LENJ = MIN( N-J, KD )
                IF( LENJ.GT.0 ) CALL SLARNV( 2, ISEED, LENJ, AB( 2, J ) )
                AB( 1, J ) = REAL( J )
@@ -483,7 +483,7 @@
          TLEFT = BIGNUM / MAX( ONE, REAL( KD ) )
          TSCAL = BIGNUM*( REAL( KD ) / REAL( KD+1 ) )
          if ( UPPER ) {
-            DO 400 J = 1, N
+            for (J = 1; J <= N; J++) { // 400
                LENJ = MIN( J, KD+1 )
                slarnv(2, ISEED, LENJ, AB( KD+2-LENJ, J ) );
                DO 390 I = KD + 2 - LENJ, KD + 1
@@ -491,10 +491,10 @@
   390          CONTINUE
   400       CONTINUE
          } else {
-            DO 420 J = 1, N
+            for (J = 1; J <= N; J++) { // 420
                LENJ = MIN( N-J+1, KD+1 )
                slarnv(2, ISEED, LENJ, AB( 1, J ) );
-               DO 410 I = 1, LENJ
+               for (I = 1; I <= LENJ; I++) { // 410
                   AB( I, J ) = SIGN( TLEFT, AB( I, J ) ) + TSCAL*AB( I, J )
   410          CONTINUE
   420       CONTINUE

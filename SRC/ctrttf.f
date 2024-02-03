@@ -106,7 +106,7 @@
               // T1 -> a(0), T2 -> a(n), S -> a(n1); lda=n
 
                IJ = 0
-               DO J = 0, N2
+               for (J = 0; J <= N2; J++) {
                   DO I = N1, N2 + J
                      ARF( IJ ) = CONJG( A( N2+J, I ) )
                      IJ = IJ + 1
@@ -125,7 +125,7 @@
 
                IJ = NT - N
                DO J = N - 1, N1, -1
-                  DO I = 0, J
+                  for (I = 0; I <= J; I++) {
                      ARF( IJ ) = A( I, J )
                      IJ = IJ + 1
                   END DO
@@ -150,7 +150,7 @@
 
                IJ = 0
                DO J = 0, N2 - 1
-                  DO I = 0, J
+                  for (I = 0; I <= J; I++) {
                      ARF( IJ ) = CONJG( A( J, I ) )
                      IJ = IJ + 1
                   END DO
@@ -173,14 +173,14 @@
                // T1 -> A(n2*n2), T2 -> A(n1*n2), S -> A(0); lda=n2
 
                IJ = 0
-               DO J = 0, N1
+               for (J = 0; J <= N1; J++) {
                   DO I = N1, N - 1
                      ARF( IJ ) = CONJG( A( J, I ) )
                      IJ = IJ + 1
                   END DO
                END DO
                DO J = 0, N1 - 1
-                  DO I = 0, J
+                  for (I = 0; I <= J; I++) {
                      ARF( IJ ) = A( I, J )
                      IJ = IJ + 1
                   END DO
@@ -228,7 +228,7 @@
 
                IJ = NT - N - 1
                DO J = N - 1, K, -1
-                  DO I = 0, J
+                  for (I = 0; I <= J; I++) {
                      ARF( IJ ) = A( I, J )
                      IJ = IJ + 1
                   END DO
@@ -258,7 +258,7 @@
                   IJ = IJ + 1
                END DO
                DO J = 0, K - 2
-                  DO I = 0, J
+                  for (I = 0; I <= J; I++) {
                      ARF( IJ ) = CONJG( A( J, I ) )
                      IJ = IJ + 1
                   END DO
@@ -281,14 +281,14 @@
                // T1 -> A(0+k*(k+1)) , T2 -> A(0+k*k) , S -> A(0+0)); lda=k
 
                IJ = 0
-               DO J = 0, K
+               for (J = 0; J <= K; J++) {
                   DO I = K, N - 1
                      ARF( IJ ) = CONJG( A( J, I ) )
                      IJ = IJ + 1
                   END DO
                END DO
                DO J = 0, K - 2
-                  DO I = 0, J
+                  for (I = 0; I <= J; I++) {
                      ARF( IJ ) = A( I, J )
                      IJ = IJ + 1
                   END DO
@@ -300,7 +300,7 @@
 
                // Note that here J = K-1
 
-               DO I = 0, J
+               for (I = 0; I <= J; I++) {
                   ARF( IJ ) = A( I, J )
                   IJ = IJ + 1
                END DO

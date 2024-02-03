@@ -60,12 +60,12 @@
 
       // Initialize A
 
-      DO 20 J = 1, NMAX
-         DO 10 I = 1, NMAX
+      for (J = 1; J <= NMAX; J++) { // 20
+         for (I = 1; I <= NMAX; I++) { // 10
             A( I, J ) = ZERO
    10    CONTINUE
    20 CONTINUE
-      DO 30 I = 1, NMAX
+      for (I = 1; I <= NMAX; I++) { // 30
          A( I, I ) = ONE
    30 CONTINUE
       OK = .TRUE.

@@ -279,14 +279,14 @@
                INFO = N + 8
                GO TO 80
             }
-            DO 30 JC = 1, N
+            for (JC = 1; JC <= N; JC++) { // 30
                TEMP = ZERO
-               DO 10 JR = 1, N
+               for (JR = 1; JR <= N; JR++) { // 10
                   TEMP = MAX( TEMP, ABS1( VL( JR, JC ) ) )
    10          CONTINUE
                IF( TEMP.LT.SAFMIN ) GO TO 30
                TEMP = ONE / TEMP
-               DO 20 JR = 1, N
+               for (JR = 1; JR <= N; JR++) { // 20
                   VL( JR, JC ) = VL( JR, JC )*TEMP
    20          CONTINUE
    30       CONTINUE
@@ -297,14 +297,14 @@
                INFO = N + 9
                GO TO 80
             }
-            DO 60 JC = 1, N
+            for (JC = 1; JC <= N; JC++) { // 60
                TEMP = ZERO
-               DO 40 JR = 1, N
+               for (JR = 1; JR <= N; JR++) { // 40
                   TEMP = MAX( TEMP, ABS1( VR( JR, JC ) ) )
    40          CONTINUE
                IF( TEMP.LT.SAFMIN ) GO TO 60
                TEMP = ONE / TEMP
-               DO 50 JR = 1, N
+               for (JR = 1; JR <= N; JR++) { // 50
                   VR( JR, JC ) = VR( JR, JC )*TEMP
    50          CONTINUE
    60       CONTINUE
@@ -322,7 +322,7 @@
       // Un-scaling is limited to avoid underflow in alpha and beta
       // if they are significant.
 
-      DO 70 JC = 1, N
+      for (JC = 1; JC <= N; JC++) { // 70
          ABSAR = ABS( REAL( ALPHA( JC ) ) )
          ABSAI = ABS( AIMAG( ALPHA( JC ) ) )
          ABSB = ABS( REAL( BETA( JC ) ) )

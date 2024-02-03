@@ -45,7 +45,7 @@
       EPS = SLAMCH( 'Epsilon' )
       KD = KU + 1
       ANORM = ZERO
-      DO 10 J = 1, N
+      for (J = 1; J <= N; J++) { // 10
          I1 = MAX( KD+1-J, 1 )
          I2 = MIN( KD+M-J, KL+KD )
          IF( I2.GE.I1 ) ANORM = MAX( ANORM, SASUM( I2-I1+1, A( I1, J ), 1 ) )
@@ -54,7 +54,7 @@
       // Compute one column at a time of L*U - A.
 
       KD = KL + KU + 1
-      DO 40 J = 1, N
+      for (J = 1; J <= N; J++) { // 40
 
          // Copy the J-th column of U to WORK.
 

@@ -87,16 +87,16 @@
                // Transformations H(2), H(3), ..., H(n).  Note that the
                // order in which they are computed is irrelevant.
 
-      DO 10 J = 1, NXFRM
+      for (J = 1; J <= NXFRM; J++) { // 10
          X( J ) = CZERO
    10 CONTINUE
 
-      DO 30 IXFRM = 2, NXFRM
+      for (IXFRM = 2; IXFRM <= NXFRM; IXFRM++) { // 30
          KBEG = NXFRM - IXFRM + 1
 
          // Generate independent normal( 0, 1 ) random numbers
 
-         DO 20 J = KBEG, NXFRM
+         for (J = KBEG; J <= NXFRM; J++) { // 20
             X( J ) = ZLARND( 3, ISEED )
    20    CONTINUE
 
@@ -156,19 +156,19 @@
       // Scale the matrix A by D.
 
       if ( ITYPE.EQ.1 .OR. ITYPE.EQ.3 .OR. ITYPE.EQ.4 ) {
-         DO 40 IROW = 1, M
+         for (IROW = 1; IROW <= M; IROW++) { // 40
             zscal(N, DCONJG( X( NXFRM+IROW ) ), A( IROW, 1 ), LDA );
    40    CONTINUE
       }
 
       if ( ITYPE.EQ.2 .OR. ITYPE.EQ.3 ) {
-         DO 50 JCOL = 1, N
+         for (JCOL = 1; JCOL <= N; JCOL++) { // 50
             zscal(M, X( NXFRM+JCOL ), A( 1, JCOL ), 1 );
    50    CONTINUE
       }
 
       if ( ITYPE.EQ.4 ) {
-         DO 60 JCOL = 1, N
+         for (JCOL = 1; JCOL <= N; JCOL++) { // 60
             zscal(M, DCONJG( X( NXFRM+JCOL ) ), A( 1, JCOL ), 1 );
    60    CONTINUE
       }

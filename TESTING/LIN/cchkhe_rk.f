@@ -87,7 +87,7 @@
       NRUN = 0
       NFAIL = 0
       NERRS = 0
-      DO 10 I = 1, 4
+      for (I = 1; I <= 4; I++) { // 10
          ISEED( I ) = ISEEDY( I )
    10 CONTINUE
 
@@ -103,7 +103,7 @@
 
       // Do for each value of N in NVAL
 
-      DO 270 IN = 1, NN
+      for (IN = 1; IN <= NN; IN++) { // 270
          N = NVAL( IN )
          LDA = MAX( N, 1 )
          XTYPE = 'N'
@@ -114,7 +114,7 @@
 
          // Do for each value of matrix type IMAT
 
-         DO 260 IMAT = 1, NIMAT
+         for (IMAT = 1; IMAT <= NIMAT; IMAT++) { // 260
 
             // Do the tests only if DOTYPE( IMAT ) is true.
 
@@ -127,7 +127,7 @@
 
             // Do first for UPLO = 'U', then for UPLO = 'L'
 
-            DO 250 IUPLO = 1, 2
+            for (IUPLO = 1; IUPLO <= 2; IUPLO++) { // 250
                UPLO = UPLOS( IUPLO )
 
                   // Begin generate the test matrix A.
@@ -175,7 +175,7 @@
                               A( IOFF+I ) = CZERO
    20                      CONTINUE
                            IOFF = IOFF + IZERO
-                           DO 30 I = IZERO, N
+                           for (I = IZERO; I <= N; I++) { // 30
                               A( IOFF ) = CZERO
                               IOFF = IOFF + LDA
    30                      CONTINUE
@@ -186,7 +186,7 @@
                               IOFF = IOFF + LDA
    40                      CONTINUE
                            IOFF = IOFF - IZERO
-                           DO 50 I = IZERO, N
+                           for (I = IZERO; I <= N; I++) { // 50
                               A( IOFF+I ) = CZERO
    50                      CONTINUE
                         }
@@ -196,9 +196,9 @@
                            // Set the first IZERO rows and columns to zero.
 
                            IOFF = 0
-                           DO 70 J = 1, N
+                           for (J = 1; J <= N; J++) { // 70
                               I2 = MIN( J, IZERO )
-                              DO 60 I = 1, I2
+                              for (I = 1; I <= I2; I++) { // 60
                                  A( IOFF+I ) = CZERO
    60                         CONTINUE
                               IOFF = IOFF + LDA
@@ -208,9 +208,9 @@
                            // Set the last IZERO rows and columns to zero.
 
                            IOFF = 0
-                           DO 90 J = 1, N
+                           for (J = 1; J <= N; J++) { // 90
                               I1 = MAX( J, IZERO )
-                              DO 80 I = I1, N
+                              for (I = I1; I <= N; I++) { // 80
                                  A( IOFF+I ) = CZERO
    80                         CONTINUE
                               IOFF = IOFF + LDA
@@ -226,7 +226,7 @@
 
                // Do for each value of NB in NBVAL
 
-               DO 240 INB = 1, NNB
+               for (INB = 1; INB <= NNB; INB++) { // 240
 
                   // Set the optimal blocksize, which will be later
                   // returned by ILAENV.
@@ -315,7 +315,7 @@
                   // Print information about the tests that did not pass
                   // the threshold.
 
-                  DO 110 K = 1, NT
+                  for (K = 1; K <= NT; K++) { // 110
                      if ( RESULT( K ).GE.THRESH ) {
                         IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9999 )UPLO, N, NB, IMAT, K, RESULT( K )
                         NFAIL = NFAIL + 1
@@ -494,7 +494,7 @@
                   // Print information about the tests that did not pass
                   // the threshold.
 
-                  DO 200 K = 3, 4
+                  for (K = 3; K <= 4; K++) { // 200
                      if ( RESULT( K ).GE.THRESH ) {
                         IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9999 )UPLO, N, NB, IMAT, K, RESULT( K )
                         NFAIL = NFAIL + 1
@@ -516,7 +516,7 @@
 
                   // Do for each value of NRHS in NSVAL.
 
-                  DO 220 IRHS = 1, NNS
+                  for (IRHS = 1; IRHS <= NNS; IRHS++) { // 220
                      NRHS = NSVAL( IRHS )
 
                      // Begin loop over NRHS values
@@ -553,7 +553,7 @@
                      // Print information about the tests that did not pass
                      // the threshold.
 
-                     DO 210 K = 5, 6
+                     for (K = 5; K <= 6; K++) { // 210
                         if ( RESULT( K ).GE.THRESH ) {
                            IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                            WRITE( NOUT, FMT = 9998 )UPLO, N, NRHS, IMAT, K, RESULT( K )
                            NFAIL = NFAIL + 1

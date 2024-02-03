@@ -66,18 +66,18 @@
 
       ANORM = 0.0
       if ( NOTRANS ) {
-         DO I = 1, N
+         for (I = 1; I <= N; I++) {
             TMP = 0.0E+0
-            DO J = 1, N
+            for (J = 1; J <= N; J++) {
                TMP = TMP + CABS1( A( I, J ) * X( J ) )
             END DO
             RWORK( I ) = TMP
             ANORM = MAX( ANORM, TMP )
          END DO
       } else {
-         DO I = 1, N
+         for (I = 1; I <= N; I++) {
             TMP = 0.0E+0
-            DO J = 1, N
+            for (J = 1; J <= N; J++) {
                TMP = TMP + CABS1( A( J, I ) * X( J ) )
             END DO
             RWORK( I ) = TMP
@@ -104,7 +104,7 @@
       if ( KASE.NE.0 ) {
          if ( KASE.EQ.2 ) {
             // Multiply by R.
-            DO I = 1, N
+            for (I = 1; I <= N; I++) {
                WORK( I ) = WORK( I ) * RWORK( I )
             END DO
 
@@ -116,14 +116,14 @@
 
             // Multiply by inv(X).
 
-            DO I = 1, N
+            for (I = 1; I <= N; I++) {
                WORK( I ) = WORK( I ) / X( I )
             END DO
          } else {
 
             // Multiply by inv(X**H).
 
-            DO I = 1, N
+            for (I = 1; I <= N; I++) {
                WORK( I ) = WORK( I ) / X( I )
             END DO
 
@@ -135,7 +135,7 @@
 
             // Multiply by R.
 
-            DO I = 1, N
+            for (I = 1; I <= N; I++) {
                WORK( I ) = WORK( I ) * RWORK( I )
             END DO
          }

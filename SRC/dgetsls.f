@@ -207,7 +207,7 @@
 
             // B(N+1:M,1:NRHS) = ZERO
 
-            DO 20 J = 1, NRHS
+            for (J = 1; J <= NRHS; J++) { // 20
                DO 10 I = N + 1, M
                   B( I, J ) = ZERO
    10          CONTINUE
@@ -243,7 +243,7 @@
 
             // B(M+1:N,1:NRHS) = 0
 
-            DO 40 J = 1, NRHS
+            for (J = 1; J <= NRHS; J++) { // 40
                DO 30 I = M + 1, N
                   B( I, J ) = ZERO
    30          CONTINUE

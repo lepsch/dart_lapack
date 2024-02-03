@@ -68,16 +68,16 @@
 
       if ( LSAME( UPLO, 'U' ) ) {
          JC = 0
-         DO 20 J = 1, N
-            DO 10 I = 1, J
+         for (J = 1; J <= N; J++) { // 20
+            for (I = 1; I <= J; I++) { // 10
                C( I, J ) = C( I, J ) - A( JC+I )
    10       CONTINUE
             JC = JC + J
    20    CONTINUE
       } else {
          JC = 1
-         DO 40 J = 1, N
-            DO 30 I = J, N
+         for (J = 1; J <= N; J++) { // 40
+            for (I = J; I <= N; I++) { // 30
                C( I, J ) = C( I, J ) - A( JC+I-J )
    30       CONTINUE
             JC = JC + N - J + 1

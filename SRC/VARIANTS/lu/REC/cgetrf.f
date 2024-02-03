@@ -65,7 +65,7 @@
       SFMIN = SLAMCH( 'S' )
 
       NSTEP = MIN( M, N )
-      DO J = 1, NSTEP
+      for (J = 1; J <= NSTEP; J++) {
          KAHEAD = IAND( J, -J )
          KSTART = J + 1 - KAHEAD
          KCOLS = MIN( KAHEAD, M-J )

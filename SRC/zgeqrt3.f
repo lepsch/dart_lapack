@@ -61,8 +61,8 @@
 
          // Compute A(1:M,J1:N) = Q1^H A(1:M,J1:N) [workspace: T(1:N1,J1:N)]
 
-         DO J=1,N2
-            DO I=1,N1
+         for (J = 1; J <= N2; J++) {
+            for (I = 1; I <= N1; I++) {
                T( I, J+N1 ) = A( I, J+N1 )
             END DO
          END DO
@@ -76,8 +76,8 @@
 
          ztrmm('L', 'L', 'N', 'U', N1, N2, ONE, A, LDA, T( 1, J1 ), LDT );
 
-         DO J=1,N2
-            DO I=1,N1
+         for (J = 1; J <= N2; J++) {
+            for (I = 1; I <= N1; I++) {
                A( I, J+N1 ) = A( I, J+N1 ) - T( I, J+N1 )
             END DO
          END DO
@@ -88,8 +88,8 @@
 
          // Compute T3 = T(1:N1,J1:N) = -T1 Y1^H Y2 T2
 
-         DO I=1,N1
-            DO J=1,N2
+         for (I = 1; I <= N1; I++) {
+            for (J = 1; J <= N2; J++) {
                T( I, J+N1 ) = CONJG(A( J+N1, I ))
             END DO
          END DO

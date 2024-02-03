@@ -69,7 +69,7 @@
       NRUN = 0
       NFAIL = 0
       NERRS = 0
-      DO 10 I = 1, 4
+      for (I = 1; I <= 4; I++) { // 10
          ISEED( I ) = ISEEDY( I )
    10 CONTINUE
 
@@ -80,14 +80,14 @@
 
       // Do for each value of N in NVAL
 
-      DO 110 IN = 1, NN
+      for (IN = 1; IN <= NN; IN++) { // 110
          N = NVAL( IN )
          LDA = MAX( N, 1 )
          XTYPE = 'N'
          NIMAT = NTYPES
          IF( N.LE.0 ) NIMAT = 1
 
-         DO 100 IMAT = 1, NIMAT
+         for (IMAT = 1; IMAT <= NIMAT; IMAT++) { // 100
 
             // Do the tests only if DOTYPE( IMAT ) is true.
 
@@ -100,7 +100,7 @@
 
             // Do first for UPLO = 'U', then for UPLO = 'L'
 
-            DO 90 IUPLO = 1, 2
+            for (IUPLO = 1; IUPLO <= 2; IUPLO++) { // 90
                UPLO = UPLOS( IUPLO )
                PACKIT = PACKS( IUPLO )
 
@@ -139,7 +139,7 @@
                         A( IOFF+I ) = ZERO
    20                CONTINUE
                      IOFF = IOFF + IZERO
-                     DO 30 I = IZERO, N
+                     for (I = IZERO; I <= N; I++) { // 30
                         A( IOFF ) = ZERO
                         IOFF = IOFF + I
    30                CONTINUE
@@ -150,7 +150,7 @@
                         IOFF = IOFF + N - I
    40                CONTINUE
                      IOFF = IOFF - IZERO
-                     DO 50 I = IZERO, N
+                     for (I = IZERO; I <= N; I++) { // 50
                         A( IOFF+I ) = ZERO
    50                CONTINUE
                   }
@@ -198,7 +198,7 @@
                // Print information about the tests that did not pass
                // the threshold.
 
-               DO 60 K = 1, 2
+               for (K = 1; K <= 2; K++) { // 60
                   if ( RESULT( K ).GE.THRESH ) {
                      IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                      WRITE( NOUT, FMT = 9999 )UPLO, N, IMAT, K, RESULT( K )
                      NFAIL = NFAIL + 1
@@ -206,7 +206,7 @@
    60          CONTINUE
                NRUN = NRUN + 2
 
-               DO 80 IRHS = 1, NNS
+               for (IRHS = 1; IRHS <= NNS; IRHS++) { // 80
                   NRHS = NSVAL( IRHS )
 
 *+    TEST 3
@@ -246,7 +246,7 @@
                   // Print information about the tests that did not pass
                   // the threshold.
 
-                  DO 70 K = 3, 7
+                  for (K = 3; K <= 7; K++) { // 70
                      if ( RESULT( K ).GE.THRESH ) {
                         IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9998 )UPLO, N, NRHS, IMAT, K, RESULT( K )
                         NFAIL = NFAIL + 1

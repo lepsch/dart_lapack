@@ -84,14 +84,14 @@
       // If we are testing SY routines, take
            // D1_i = D2_i, else, D1_i = D2_i*
       if ( LSAMEN( 2, C2, 'SY' ) ) {
-         DO J = 1, N
-            DO I = 1, N
+         for (J = 1; J <= N; J++) {
+            for (I = 1; I <= N; I++) {
                A(I, J) = D1(MOD(J,SIZE_D)+1) * (REAL(M) / (I + J - 1)) * D1(MOD(I,SIZE_D)+1)
             END DO
          END DO
       } else {
-         DO J = 1, N
-            DO I = 1, N
+         for (J = 1; J <= N; J++) {
+            for (I = 1; I <= N; I++) {
                A(I, J) = D1(MOD(J,SIZE_D)+1) * (REAL(M) / (I + J - 1)) * D2(MOD(I,SIZE_D)+1)
             END DO
          END DO
@@ -106,21 +106,21 @@
       // columns of M*I, the true solutions are just the first NRHS columns
       // of the inverse Hilbert matrix.
       WORK(1) = N
-      DO J = 2, N
+      for (J = 2; J <= N; J++) {
          WORK(J) = (  ( (WORK(J-1)/(J-1)) * (J-1 - N) ) /(J-1)  ) * (N +J -1)
       END DO
 
       // If we are testing SY routines,
              // take D1_i = D2_i, else, D1_i = D2_i*
       if ( LSAMEN( 2, C2, 'SY' ) ) {
-         DO J = 1, NRHS
-            DO I = 1, N
+         for (J = 1; J <= NRHS; J++) {
+            for (I = 1; I <= N; I++) {
                X(I, J) = INVD1(MOD(J,SIZE_D)+1) * ((WORK(I)*WORK(J)) / (I + J - 1)) * INVD1(MOD(I,SIZE_D)+1)
             END DO
          END DO
       } else {
-         DO J = 1, NRHS
-            DO I = 1, N
+         for (J = 1; J <= NRHS; J++) {
+            for (I = 1; I <= N; I++) {
                X(I, J) = INVD2(MOD(J,SIZE_D)+1) * ((WORK(I)*WORK(J)) / (I + J - 1)) * INVD1(MOD(I,SIZE_D)+1)
             END DO
          END DO

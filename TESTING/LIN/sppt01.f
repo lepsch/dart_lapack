@@ -94,7 +94,7 @@
       // Compute the difference  L*L' - A (or U'*U - A).
 
       NPP = N*( N+1 ) / 2
-      DO 30 I = 1, NPP
+      for (I = 1; I <= NPP; I++) { // 30
          AFAC( I ) = AFAC( I ) - A( I )
    30 CONTINUE
 

@@ -63,7 +63,7 @@
          // norm(op(A)*x - b) / ( norm(op(A)) * norm(x) * EPS ).
 
       RESID = ZERO
-      DO 10 J = 1, NRHS
+      for (J = 1; J <= NRHS; J++) { // 10
          dcopy(N, X( 1, J ), 1, WORK, 1 );
          dtbmv(UPLO, TRANS, DIAG, N, KD, AB, LDAB, WORK, 1 );
          daxpy(N, -ONE, B( 1, J ), 1, WORK, 1 );

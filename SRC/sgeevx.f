@@ -271,7 +271,7 @@
 
          // Normalize left eigenvectors and make largest component real
 
-         DO 20 I = 1, N
+         for (I = 1; I <= N; I++) { // 20
             if ( WI( I ).EQ.ZERO ) {
                SCL = ONE / SNRM2( N, VL( 1, I ), 1 )
                sscal(N, SCL, VL( 1, I ), 1 );
@@ -279,7 +279,7 @@
                SCL = ONE / SLAPY2( SNRM2( N, VL( 1, I ), 1 ), SNRM2( N, VL( 1, I+1 ), 1 ) )
                sscal(N, SCL, VL( 1, I ), 1 );
                sscal(N, SCL, VL( 1, I+1 ), 1 );
-               DO 10 K = 1, N
+               for (K = 1; K <= N; K++) { // 10
                   WORK( K ) = VL( K, I )**2 + VL( K, I+1 )**2
    10          CONTINUE
                K = ISAMAX( N, WORK, 1 )
@@ -298,7 +298,7 @@
 
          // Normalize right eigenvectors and make largest component real
 
-         DO 40 I = 1, N
+         for (I = 1; I <= N; I++) { // 40
             if ( WI( I ).EQ.ZERO ) {
                SCL = ONE / SNRM2( N, VR( 1, I ), 1 )
                sscal(N, SCL, VR( 1, I ), 1 );
@@ -306,7 +306,7 @@
                SCL = ONE / SLAPY2( SNRM2( N, VR( 1, I ), 1 ), SNRM2( N, VR( 1, I+1 ), 1 ) )
                sscal(N, SCL, VR( 1, I ), 1 );
                sscal(N, SCL, VR( 1, I+1 ), 1 );
-               DO 30 K = 1, N
+               for (K = 1; K <= N; K++) { // 30
                   WORK( K ) = VR( K, I )**2 + VR( K, I+1 )**2
    30          CONTINUE
                K = ISAMAX( N, WORK, 1 )

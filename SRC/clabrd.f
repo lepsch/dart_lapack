@@ -38,7 +38,7 @@
 
          // Reduce to upper bidiagonal form
 
-         DO 10 I = 1, NB
+         for (I = 1; I <= NB; I++) { // 10
 
             // Update A(i:m,i)
 
@@ -89,7 +89,7 @@
 
          // Reduce to lower bidiagonal form
 
-         DO 20 I = 1, NB
+         for (I = 1; I <= NB; I++) { // 20
 
             // Update A(i,i:n)
 

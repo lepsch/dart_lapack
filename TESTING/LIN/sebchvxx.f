@@ -53,7 +53,7 @@
 
       printed_guide = .false.
 
-      DO N = 1 , NMAX
+      for (N = 1; N <= NMAX; N++) {
          PARAMS(1) = -1
          PARAMS(2) = -1
 
@@ -70,19 +70,19 @@
          slacpy('ALL', N, N, A, NMAX, ACOPY, NMAX);
 
          // Store A in band format for GB tests
-         DO J = 1, N
+         for (J = 1; J <= N; J++) {
             DO I = 1, KL+KU+1
                AB( I, J ) = 0.0E+0
             END DO
          END DO
-         DO J = 1, N
+         for (J = 1; J <= N; J++) {
             DO I = MAX( 1, J-KU ), MIN( N, J+KL )
                AB( KU+1+I-J, J ) = A( I, J )
             END DO
          END DO
 
          // Copy AB into ABCOPY.
-         DO J = 1, N
+         for (J = 1; J <= N; J++) {
             DO I = 1, KL+KU+1
                ABCOPY( I, J ) = 0.0E+0
             END DO
@@ -118,8 +118,8 @@
          }
 
          // Calculating the difference between S**SVXX's X and the true X.
-         DO I = 1, N
-            DO J = 1, NRHS
+         for (I = 1; I <= N; I++) {
+            for (J = 1; J <= NRHS; J++) {
                DIFF( I, J ) = X( I, J ) - INVHILB( I, J )
             END DO
          END DO
@@ -128,10 +128,10 @@
          RNORM = 0
          RINORM = 0
          if ( LSAMEN( 2, C2, 'PO' ) .OR. LSAMEN( 2, C2, 'SY' ) ) {
-            DO I = 1, N
+            for (I = 1; I <= N; I++) {
                SUMR = 0
                SUMRI = 0
-               DO J = 1, N
+               for (J = 1; J <= N; J++) {
                   SUMR = SUMR + ABS(S(I) * A(I,J) * S(J))
                   SUMRI = SUMRI + ABS(INVHILB(I, J) / S(J) / S(I))
                END DO
@@ -139,10 +139,10 @@
                RINORM = MAX(RINORM,SUMRI)
             END DO
          } else if ( LSAMEN( 2, C2, 'GE' ) .OR. LSAMEN( 2, C2, 'GB' ) ) {
-            DO I = 1, N
+            for (I = 1; I <= N; I++) {
                SUMR = 0
                SUMRI = 0
-               DO J = 1, N
+               for (J = 1; J <= N; J++) {
                   SUMR = SUMR + ABS(R(I) * A(I,J) * C(J))
                   SUMRI = SUMRI + ABS(INVHILB(I, J) / R(J) / C(I))
                END DO
@@ -155,20 +155,20 @@
          RCOND = 1.0/(RNORM * RINORM)
 
          // Calculating the R for normwise rcond.
-         DO I = 1, N
+         for (I = 1; I <= N; I++) {
             RINV(I) = 0.0
          END DO
-         DO J = 1, N
-            DO I = 1, N
+         for (J = 1; J <= N; J++) {
+            for (I = 1; I <= N; I++) {
                RINV(I) = RINV(I) + ABS(A(I,J))
             END DO
          END DO
 
          // Calculating the Normwise rcond.
          RINORM = 0.0
-         DO I = 1, N
+         for (I = 1; I <= N; I++) {
             SUMRI = 0.0
-            DO J = 1, N
+            for (J = 1; J <= N; J++) {
                SUMRI = SUMRI + ABS(INVHILB(I,J) * RINV(J))
             END DO
             RINORM = MAX(RINORM, SUMRI)
@@ -181,11 +181,11 @@
          CONDTHRESH = M * EPS
          ERRTHRESH = M * EPS
 
-         DO K = 1, NRHS
+         for (K = 1; K <= NRHS; K++) {
             NORMT = 0.0
             NORMDIF = 0.0
             CWISE_ERR = 0.0
-            DO I = 1, N
+            for (I = 1; I <= N; I++) {
                NORMT = MAX(ABS(INVHILB(I, K)), NORMT)
                NORMDIF = MAX(ABS(X(I,K) - INVHILB(I,K)), NORMDIF)
                if (INVHILB(I,K) .NE. 0.0) {
@@ -202,18 +202,18 @@
                NWISE_ERR = 0.0
             ENDIF
 
-            DO I = 1, N
+            for (I = 1; I <= N; I++) {
                RINV(I) = 0.0
             END DO
-            DO J = 1, N
-               DO I = 1, N
+            for (J = 1; J <= N; J++) {
+               for (I = 1; I <= N; I++) {
                   RINV(I) = RINV(I) + ABS(A(I, J) * INVHILB(J, K))
                END DO
             END DO
             RINORM = 0.0
-            DO I = 1, N
+            for (I = 1; I <= N; I++) {
                SUMRI = 0.0
-               DO J = 1, N
+               for (J = 1; J <= N; J++) {
                   SUMRI = SUMRI + ABS(INVHILB(I, J) * RINV(J) / INVHILB(I, K))
                END DO
                RINORM = MAX(RINORM, SUMRI)
@@ -296,7 +296,7 @@
             TSTRAT(6) = CCOND / NWISE_RCOND
             IF (CCOND .GE. CONDTHRESH .AND. TSTRAT(6) .LT. 1.0) TSTRAT(6) = 1.0 / TSTRAT(6)
 
-            DO I = 1, NTESTS
+            for (I = 1; I <= NTESTS; I++) {
                if (TSTRAT(I) .GT. THRESH) {
                   if (.NOT.PRINTED_GUIDE) {
                      WRITE(*,*)

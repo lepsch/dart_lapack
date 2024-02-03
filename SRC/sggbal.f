@@ -74,7 +74,7 @@
       if ( LSAME( JOB, 'N' ) ) {
          ILO = 1
          IHI = N
-         DO 10 I = 1, N
+         for (I = 1; I <= N; I++) { // 10
             LSCALE( I ) = ONE
             RSCALE( I ) = ONE
    10    CONTINUE
@@ -102,7 +102,7 @@
    30 CONTINUE
       LM1 = L - 1
       DO 80 I = L, 1, -1
-         DO 40 J = 1, LM1
+         for (J = 1; J <= LM1; J++) { // 40
             JP1 = J + 1
             IF( A( I, J ).NE.ZERO .OR. B( I, J ).NE.ZERO ) GO TO 50
    40    CONTINUE
@@ -110,7 +110,7 @@
          GO TO 70
 
    50    CONTINUE
-         DO 60 J = JP1, L
+         for (J = JP1; J <= L; J++) { // 60
             IF( A( I, J ).NE.ZERO .OR. B( I, J ).NE.ZERO ) GO TO 80
    60    CONTINUE
          J = JP1 - 1
@@ -128,15 +128,15 @@
       K = K + 1
 
   100 CONTINUE
-      DO 150 J = K, L
-         DO 110 I = K, LM1
+      for (J = K; J <= L; J++) { // 150
+         for (I = K; I <= LM1; I++) { // 110
             IP1 = I + 1
             IF( A( I, J ).NE.ZERO .OR. B( I, J ).NE.ZERO ) GO TO 120
   110    CONTINUE
          I = L
          GO TO 140
   120    CONTINUE
-         DO 130 I = IP1, L
+         for (I = IP1; I <= L; I++) { // 130
             IF( A( I, J ).NE.ZERO .OR. B( I, J ).NE.ZERO ) GO TO 150
   130    CONTINUE
          I = IP1 - 1
@@ -171,7 +171,7 @@
       IHI = L
 
       if ( LSAME( JOB, 'P' ) ) {
-         DO 195 I = ILO, IHI
+         for (I = ILO; I <= IHI; I++) { // 195
             LSCALE( I ) = ONE
             RSCALE( I ) = ONE
   195    CONTINUE
@@ -183,7 +183,7 @@
       // Balance the submatrix in rows ILO to IHI.
 
       NR = IHI - ILO + 1
-      DO 200 I = ILO, IHI
+      for (I = ILO; I <= IHI; I++) { // 200
          RSCALE( I ) = ZERO
          LSCALE( I ) = ZERO
 
@@ -198,8 +198,8 @@
       // Compute right side vector in resulting linear equations
 
       BASL = LOG10( SCLFAC )
-      DO 240 I = ILO, IHI
-         DO 230 J = ILO, IHI
+      for (I = ILO; I <= IHI; I++) { // 240
+         for (J = ILO; J <= IHI; J++) { // 230
             TB = B( I, J )
             TA = A( I, J )
             IF( TA.EQ.ZERO ) GO TO 210
@@ -228,7 +228,7 @@
 
       EW = ZERO
       EWC = ZERO
-      DO 260 I = ILO, IHI
+      for (I = ILO; I <= IHI; I++) { // 260
          EW = EW + WORK( I+4*N )
          EWC = EWC + WORK( I+5*N )
   260 CONTINUE
@@ -244,17 +244,17 @@
       saxpy(NR, COEF, WORK( ILO+4*N ), 1, WORK( ILO+N ), 1 );
       saxpy(NR, COEF, WORK( ILO+5*N ), 1, WORK( ILO ), 1 );
 
-      DO 270 I = ILO, IHI
+      for (I = ILO; I <= IHI; I++) { // 270
          WORK( I ) = WORK( I ) + TC
          WORK( I+N ) = WORK( I+N ) + T
   270 CONTINUE
 
       // Apply matrix to vector
 
-      DO 300 I = ILO, IHI
+      for (I = ILO; I <= IHI; I++) { // 300
          KOUNT = 0
          SUM = ZERO
-         DO 290 J = ILO, IHI
+         for (J = ILO; J <= IHI; J++) { // 290
             IF( A( I, J ).EQ.ZERO ) GO TO 280
             KOUNT = KOUNT + 1
             SUM = SUM + WORK( J )
@@ -266,10 +266,10 @@
          WORK( I+2*N ) = REAL( KOUNT )*WORK( I+N ) + SUM
   300 CONTINUE
 
-      DO 330 J = ILO, IHI
+      for (J = ILO; J <= IHI; J++) { // 330
          KOUNT = 0
          SUM = ZERO
-         DO 320 I = ILO, IHI
+         for (I = ILO; I <= IHI; I++) { // 320
             IF( A( I, J ).EQ.ZERO ) GO TO 310
             KOUNT = KOUNT + 1
             SUM = SUM + WORK( I+N )
@@ -287,7 +287,7 @@
       // Determine correction to current iteration
 
       CMAX = ZERO
-      DO 340 I = ILO, IHI
+      for (I = ILO; I <= IHI; I++) { // 340
          COR = ALPHA*WORK( I+N )
          IF( ABS( COR ).GT.CMAX ) CMAX = ABS( COR )
          LSCALE( I ) = LSCALE( I ) + COR
@@ -311,7 +311,7 @@
       SFMAX = ONE / SFMIN
       LSFMIN = INT( LOG10( SFMIN ) / BASL+ONE )
       LSFMAX = INT( LOG10( SFMAX ) / BASL )
-      DO 360 I = ILO, IHI
+      for (I = ILO; I <= IHI; I++) { // 360
          IRAB = ISAMAX( N-ILO+1, A( I, ILO ), LDA )
          RAB = ABS( A( I, IRAB+ILO-1 ) )
          IRAB = ISAMAX( N-ILO+1, B( I, ILO ), LDB )
@@ -332,14 +332,14 @@
 
       // Row scaling of matrices A and B
 
-      DO 370 I = ILO, IHI
+      for (I = ILO; I <= IHI; I++) { // 370
          sscal(N-ILO+1, LSCALE( I ), A( I, ILO ), LDA );
          sscal(N-ILO+1, LSCALE( I ), B( I, ILO ), LDB );
   370 CONTINUE
 
       // Column scaling of matrices A and B
 
-      DO 380 J = ILO, IHI
+      for (J = ILO; J <= IHI; J++) { // 380
          sscal(IHI, RSCALE( J ), A( 1, J ), 1 );
          sscal(IHI, RSCALE( J ), B( 1, J ), 1 );
   380 CONTINUE

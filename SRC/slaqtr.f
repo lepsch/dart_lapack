@@ -63,12 +63,12 @@
       // part of T to control overflow in triangular solver.
 
       WORK( 1 ) = ZERO
-      DO 10 J = 2, N
+      for (J = 2; J <= N; J++) { // 10
          WORK( J ) = SASUM( J-1, T( 1, J ), 1 )
    10 CONTINUE
 
       if ( .NOT.LREAL ) {
-         DO 20 I = 2, N
+         for (I = 2; I <= N; I++) { // 20
             WORK( I ) = WORK( I ) + ABS( B( I ) )
    20    CONTINUE
       }
@@ -199,7 +199,7 @@
             // Solve T**T*p = scale*c
 
             JNEXT = 1
-            DO 40 J = 1, N
+            for (J = 1; J <= N; J++) { // 40
                IF( J.LT.JNEXT ) GO TO 40
                J1 = J
                J2 = J
@@ -416,7 +416,7 @@
             // Solve (T + iB)**T*(p+iq) = c+id
 
             JNEXT = 1
-            DO 80 J = 1, N
+            for (J = 1; J <= N; J++) { // 80
                IF( J.LT.JNEXT ) GO TO 80
                J1 = J
                J2 = J

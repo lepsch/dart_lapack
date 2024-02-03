@@ -54,7 +54,7 @@
                GO TO 10
             }
          } else {
-            DO 60 J = 1, NRHS
+            for (J = 1; J <= NRHS; J++) { // 60
 
                // Solve L*x = b.
 
@@ -89,7 +89,7 @@
    70       CONTINUE
             B( 1, J ) = B( 1, J ) / D( 1 )
             IF( N.GT.1 ) B( 2, J ) = ( B( 2, J )-DU( 1 )*B( 1, J ) ) / D( 2 )
-            DO 80 I = 3, N
+            for (I = 3; I <= N; I++) { // 80
                B( I, J ) = ( B( I, J )-DU( I-1 )*B( I-1, J )-DU2( I-2 )* B( I-2, J ) ) / D( I )
    80       CONTINUE
 
@@ -107,13 +107,13 @@
             }
 
          } else {
-            DO 120 J = 1, NRHS
+            for (J = 1; J <= NRHS; J++) { // 120
 
                // Solve U**T*x = b.
 
                B( 1, J ) = B( 1, J ) / D( 1 )
                IF( N.GT.1 ) B( 2, J ) = ( B( 2, J )-DU( 1 )*B( 1, J ) ) / D( 2 )
-               DO 100 I = 3, N
+               for (I = 3; I <= N; I++) { // 100
                   B( I, J ) = ( B( I, J )-DU( I-1 )*B( I-1, J )- DU2( I-2 )*B( I-2, J ) ) / D( I )
   100          CONTINUE
                DO 110 I = N - 1, 1, -1

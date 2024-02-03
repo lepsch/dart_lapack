@@ -112,7 +112,7 @@
    40       CONTINUE
    50    CONTINUE
          A( 1, 1 ) = ONE
-         DO 60 I = 2, N
+         for (I = 2; I <= N; I++) { // 60
             A( I, 1 ) = ZERO
    60    CONTINUE
          if ( N.GT.1 ) {

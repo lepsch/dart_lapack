@@ -58,7 +58,7 @@
 
          // Compute inverse of upper triangular matrix.
 
-         DO 10 J = 1, N
+         for (J = 1; J <= N; J++) { // 10
             if ( NOUNIT ) {
                A( J, J ) = ONE / A( J, J )
                AJJ = -A( J, J )

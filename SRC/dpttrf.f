@@ -45,7 +45,7 @@
       // Compute the L*D*L**T (or U**T*D*U) factorization of A.
 
       I4 = MOD( N-1, 4 )
-      DO 10 I = 1, I4
+      for (I = 1; I <= I4; I++) { // 10
          if ( D( I ).LE.ZERO ) {
             INFO = I
             GO TO 30

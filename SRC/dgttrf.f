@@ -43,7 +43,7 @@
 
       // Initialize IPIV(i) = i and DU2(I) = 0
 
-      DO 10 I = 1, N
+      for (I = 1; I <= N; I++) { // 10
          IPIV( I ) = I
    10 CONTINUE
       DO 20 I = 1, N - 2
@@ -96,7 +96,7 @@
 
       // Check for a zero on the diagonal of U.
 
-      DO 40 I = 1, N
+      for (I = 1; I <= N; I++) { // 40
          if ( D( I ).EQ.ZERO ) {
             INFO = I
             GO TO 50

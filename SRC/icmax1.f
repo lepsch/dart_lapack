@@ -31,7 +31,7 @@
          // code for increment equal to 1
 
          SMAX = ABS(CX(1))
-         DO I = 2,N
+         for (I = 2; I <= N; I++) {
             if (ABS(CX(I)).GT.SMAX) {
                ICMAX1 = I
                SMAX = ABS(CX(I))
@@ -44,7 +44,7 @@
          IX = 1
          SMAX = ABS(CX(1))
          IX = IX + INCX
-         DO I = 2,N
+         for (I = 2; I <= N; I++) {
             if (ABS(CX(IX)).GT.SMAX) {
                ICMAX1 = I
                SMAX = ABS(CX(IX))

@@ -100,7 +100,7 @@
             WORK( 1, I ) = CONJG( AINV( I+1 ) )
    50    CONTINUE
          JJ = N + 1
-         DO 70 J = 2, N
+         for (J = 2; J <= N; J++) { // 70
             ccopy(N-J+1, AINV( JJ ), 1, WORK( J, J-1 ), 1 );
             DO 60 I = 1, N - J
                WORK( J, J+I-1 ) = CONJG( AINV( JJ+I ) )
@@ -119,7 +119,7 @@
 
       // Add the identity matrix to WORK .
 
-      DO 90 I = 1, N
+      for (I = 1; I <= N; I++) { // 90
          WORK( I, I ) = WORK( I, I ) + CONE
    90 CONTINUE
 

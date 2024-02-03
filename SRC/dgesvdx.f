@@ -270,7 +270,7 @@
 
             if ( WANTU ) {
                J = ITGKZ
-               DO I = 1, NS
+               for (I = 1; I <= NS; I++) {
                   dcopy(N, WORK( J ), 1, U( 1,I ), 1 );
                   J = J + N*2
                END DO
@@ -291,7 +291,7 @@
 
             if ( WANTVT) {
                J = ITGKZ + N
-               DO I = 1, NS
+               for (I = 1; I <= NS; I++) {
                   dcopy(N, WORK( J ), 1, VT( I,1 ), LDVT );
                   J = J + N*2
                END DO
@@ -329,7 +329,7 @@
 
             if ( WANTU ) {
                J = ITGKZ
-               DO I = 1, NS
+               for (I = 1; I <= NS; I++) {
                   dcopy(N, WORK( J ), 1, U( 1,I ), 1 );
                   J = J + N*2
                END DO
@@ -345,7 +345,7 @@
 
             if ( WANTVT) {
                J = ITGKZ + N
-               DO I = 1, NS
+               for (I = 1; I <= NS; I++) {
                   dcopy(N, WORK( J ), 1, VT( I,1 ), LDVT );
                   J = J + N*2
                END DO
@@ -399,7 +399,7 @@
 
             if ( WANTU ) {
                J = ITGKZ
-               DO I = 1, NS
+               for (I = 1; I <= NS; I++) {
                   dcopy(M, WORK( J ), 1, U( 1,I ), 1 );
                   J = J + M*2
                END DO
@@ -414,7 +414,7 @@
 
             if ( WANTVT) {
                J = ITGKZ + M
-               DO I = 1, NS
+               for (I = 1; I <= NS; I++) {
                   dcopy(M, WORK( J ), 1, VT( I,1 ), LDVT );
                   J = J + M*2
                END DO
@@ -458,7 +458,7 @@
 
             if ( WANTU ) {
                J = ITGKZ
-               DO I = 1, NS
+               for (I = 1; I <= NS; I++) {
                   dcopy(M, WORK( J ), 1, U( 1,I ), 1 );
                   J = J + M*2
                END DO
@@ -473,7 +473,7 @@
 
             if ( WANTVT) {
                J = ITGKZ + M
-               DO I = 1, NS
+               for (I = 1; I <= NS; I++) {
                   dcopy(M, WORK( J ), 1, VT( I,1 ), LDVT );
                   J = J + M*2
                END DO

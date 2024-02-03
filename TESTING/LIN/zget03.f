@@ -60,7 +60,7 @@
       // Compute I - A * AINV
 
       zgemm('No transpose', 'No transpose', N, N, N, -CONE, AINV, LDAINV, A, LDA, CZERO, WORK, LDWORK );
-      DO 10 I = 1, N
+      for (I = 1; I <= N; I++) { // 10
          WORK( I, I ) = CONE + WORK( I, I )
    10 CONTINUE
 

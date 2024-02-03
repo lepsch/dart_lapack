@@ -53,7 +53,7 @@
 
          // Initialise rows 1:m-k to rows of the unit matrix
 
-         DO 20 J = 1, N
+         for (J = 1; J <= N; J++) { // 20
             DO 10 L = 1, M - K
                A( L, J ) = ZERO
    10       CONTINUE
@@ -61,7 +61,7 @@
    20    CONTINUE
       }
 
-      DO 40 I = 1, K
+      for (I = 1; I <= K; I++) { // 40
          II = M - K + I
 
          // Apply H(i) to A(1:m-k+i,1:n-k+i) from the right

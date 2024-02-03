@@ -196,7 +196,7 @@
          if ( WANTV1T .AND. Q .GT. 0 ) {
             zlacpy('U', Q-1, Q-1, X11(1,2), LDX11, V1T(2,2), LDV1T );
             V1T(1, 1) = ONE
-            DO J = 2, Q
+            for (J = 2; J <= Q; J++) {
                V1T(1,J) = ZERO
                V1T(J,1) = ZERO
             END DO
@@ -223,7 +223,7 @@
          if ( WANTV1T .AND. Q .GT. 0 ) {
             zlacpy('L', Q-1, Q-1, X11(2,1), LDX11, V1T(2,2), LDV1T );
             V1T(1, 1) = ONE
-            DO J = 2, Q
+            for (J = 2; J <= Q; J++) {
                V1T(1,J) = ZERO
                V1T(J,1) = ZERO
             END DO
@@ -250,7 +250,7 @@
       // corner of (2,2)-block
 
       if ( Q .GT. 0 .AND. WANTU2 ) {
-         DO I = 1, Q
+         for (I = 1; I <= Q; I++) {
             IWORK(I) = M - P - Q + I
          END DO
          DO I = Q + 1, M - P
@@ -263,7 +263,7 @@
          }
       }
       if ( M .GT. 0 .AND. WANTV2T ) {
-         DO I = 1, P
+         for (I = 1; I <= P; I++) {
             IWORK(I) = M - P - Q + I
          END DO
          DO I = P + 1, M - Q

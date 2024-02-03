@@ -32,7 +32,7 @@
          // Set the diagonal to BETA and the strictly upper triangular
          // part of the array to ALPHA.
 
-         DO 20 J = 2, N
+         for (J = 2; J <= N; J++) { // 20
             DO 10 I = 1, MIN( J-1, M )
                A( I, J ) = ALPHA
    10       CONTINUE
@@ -60,8 +60,8 @@
          // Set the array to BETA on the diagonal and ALPHA on the
          // offdiagonal.
 
-         DO 80 J = 1, N
-            DO 70 I = 1, M
+         for (J = 1; J <= N; J++) { // 80
+            for (I = 1; I <= M; I++) { // 70
                A( I, J ) = ALPHA
    70       CONTINUE
    80    CONTINUE

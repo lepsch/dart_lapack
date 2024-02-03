@@ -53,11 +53,11 @@
       // over all the vectors X and XACT using the infinity-norm.
 
       ERRBND = ZERO
-      DO 30 J = 1, NRHS
+      for (J = 1; J <= NRHS; J++) { // 30
          IMAX = ISAMAX( N, X( 1, J ), 1 )
          XNORM = MAX( ABS( X( IMAX, J ) ), UNFL )
          DIFF = ZERO
-         DO 10 I = 1, N
+         for (I = 1; I <= N; I++) { // 10
             DIFF = MAX( DIFF, ABS( X( I, J )-XACT( I, J ) ) )
    10    CONTINUE
 
@@ -82,8 +82,8 @@
       // Test 2:  Compute the maximum of BERR / ( NZ*EPS + (*) ), where
       // (*) = NZ*UNFL / (min_i (abs(op(A))*abs(X) +abs(b))_i )
 
-      DO 70 K = 1, NRHS
-         DO 60 I = 1, N
+      for (K = 1; K <= NRHS; K++) { // 70
+         for (I = 1; I <= N; I++) { // 60
             TMP = ABS( B( I, K ) )
             if ( NOTRAN ) {
                DO 40 J = MAX( I-KL, 1 ), MIN( I+KU, N )

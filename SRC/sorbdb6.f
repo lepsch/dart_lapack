@@ -74,7 +74,7 @@
       // space
 
       if ( M1 .EQ. 0 ) {
-         DO I = 1, N
+         for (I = 1; I <= N; I++) {
             WORK(I) = ZERO
          END DO
       } else {
@@ -111,12 +111,12 @@
 
       NORM = NORM_NEW
 
-      DO I = 1, N
+      for (I = 1; I <= N; I++) {
          WORK(I) = ZERO
       END DO
 
       if ( M1 .EQ. 0 ) {
-         DO I = 1, N
+         for (I = 1; I <= N; I++) {
             WORK(I) = ZERO
          END DO
       } else {

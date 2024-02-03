@@ -78,7 +78,7 @@
       NRUN = 0
       NFAIL = 0
       NERRS = 0
-      DO 10 I = 1, 4
+      for (I = 1; I <= 4; I++) { // 10
          ISEED( I ) = ISEEDY( I )
    10 CONTINUE
 
@@ -94,7 +94,7 @@
 
       // Do for each value of N in NVAL
 
-      DO 180 IN = 1, NN
+      for (IN = 1; IN <= NN; IN++) { // 180
          N = NVAL( IN )
          if ( N .GT. NMAX ) {
             NFAIL = NFAIL + 1
@@ -107,7 +107,7 @@
          IF( N.LE.0 ) NIMAT = 1
 
          IZERO = 0
-         DO 170 IMAT = 1, NIMAT
+         for (IMAT = 1; IMAT <= NIMAT; IMAT++) { // 170
 
             // Do the tests only if DOTYPE( IMAT ) is true.
 
@@ -120,7 +120,7 @@
 
             // Do first for UPLO = 'U', then for UPLO = 'L'
 
-            DO 160 IUPLO = 1, 2
+            for (IUPLO = 1; IUPLO <= 2; IUPLO++) { // 160
                UPLO = UPLOS( IUPLO )
 
                // Set up parameters with CLATB4 for the matrix generator
@@ -165,7 +165,7 @@
                            A( IOFF+I ) = CZERO
    20                   CONTINUE
                         IOFF = IOFF + IZERO
-                        DO 30 I = IZERO, N
+                        for (I = IZERO; I <= N; I++) { // 30
                            A( IOFF ) = CZERO
                            IOFF = IOFF + LDA
    30                   CONTINUE
@@ -176,7 +176,7 @@
                            IOFF = IOFF + LDA
    40                   CONTINUE
                         IOFF = IOFF - IZERO
-                        DO 50 I = IZERO, N
+                        for (I = IZERO; I <= N; I++) { // 50
                            A( IOFF+I ) = CZERO
    50                   CONTINUE
                      }
@@ -186,9 +186,9 @@
                         // Set the first IZERO rows and columns to zero.
 
                         IOFF = 0
-                        DO 70 J = 1, N
+                        for (J = 1; J <= N; J++) { // 70
                            I2 = MIN( J, IZERO )
-                           DO 60 I = 1, I2
+                           for (I = 1; I <= I2; I++) { // 60
                               A( IOFF+I ) = CZERO
    60                      CONTINUE
                            IOFF = IOFF + LDA
@@ -199,9 +199,9 @@
                         // Set the last IZERO rows and columns to zero.
 
                         IOFF = 0
-                        DO 90 J = 1, N
+                        for (J = 1; J <= N; J++) { // 90
                            I1 = MAX( J, IZERO )
-                           DO 80 I = I1, N
+                           for (I = I1; I <= N; I++) { // 80
                               A( IOFF+I ) = CZERO
    80                      CONTINUE
                            IOFF = IOFF + LDA
@@ -221,7 +221,7 @@
 
                // Do for each value of NB in NBVAL
 
-               DO 150 INB = 1, NNB
+               for (INB = 1; INB <= NNB; INB++) { // 150
 
                   // Set the optimal blocksize, which will be later
                   // returned by ILAENV.
@@ -280,7 +280,7 @@ c  100                CONTINUE
                   // Print information about the tests that did not pass
                   // the threshold.
 
-                  DO 110 K = 1, NT
+                  for (K = 1; K <= NT; K++) { // 110
                      if ( RESULT( K ).GE.THRESH ) {
                         IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9999 )UPLO, N, NB, IMAT, K, RESULT( K )
                         NFAIL = NFAIL + 1
@@ -296,7 +296,7 @@ c  100                CONTINUE
 
                   // Do for each value of NRHS in NSVAL.
 
-                  DO 130 IRHS = 1, NNS
+                  for (IRHS = 1; IRHS <= NNS; IRHS++) { // 130
                      NRHS = NSVAL( IRHS )
 
 *+    TEST 2 (Using TRS)
@@ -329,7 +329,7 @@ c  100                CONTINUE
                         // Print information about the tests that did not pass
                         // the threshold.
 
-                        DO 120 K = 2, 2
+                        for (K = 2; K <= 2; K++) { // 120
                            if ( RESULT( K ).GE.THRESH ) {
                               IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                               WRITE( NOUT, FMT = 9998 )UPLO, N, NRHS, IMAT, K, RESULT( K )
                               NFAIL = NFAIL + 1

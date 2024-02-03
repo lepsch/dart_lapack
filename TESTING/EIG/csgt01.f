@@ -48,7 +48,7 @@
          // Norm of AZ - BZD
 
          chemm('Left', UPLO, N, M, CONE, A, LDA, Z, LDZ, CZERO, WORK, N );
-         DO 10 I = 1, M
+         for (I = 1; I <= M; I++) { // 10
             csscal(N, D( I ), Z( 1, I ), 1 );
    10    CONTINUE
          chemm('Left', UPLO, N, M, CONE, B, LDB, Z, LDZ, -CONE, WORK, N );
@@ -60,7 +60,7 @@
          // Norm of ABZ - ZD
 
          chemm('Left', UPLO, N, M, CONE, B, LDB, Z, LDZ, CZERO, WORK, N );
-         DO 20 I = 1, M
+         for (I = 1; I <= M; I++) { // 20
             csscal(N, D( I ), Z( 1, I ), 1 );
    20    CONTINUE
          chemm('Left', UPLO, N, M, CONE, A, LDA, WORK, N, -CONE, Z, LDZ );
@@ -72,7 +72,7 @@
          // Norm of BAZ - ZD
 
          chemm('Left', UPLO, N, M, CONE, A, LDA, Z, LDZ, CZERO, WORK, N );
-         DO 30 I = 1, M
+         for (I = 1; I <= M; I++) { // 30
             csscal(N, D( I ), Z( 1, I ), 1 );
    30    CONTINUE
          chemm('Left', UPLO, N, M, CONE, B, LDB, WORK, N, -CONE, Z, LDZ );

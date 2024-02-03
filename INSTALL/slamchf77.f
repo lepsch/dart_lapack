@@ -440,7 +440,7 @@
 
          RBASE = ONE / LBETA
          SMALL = ONE
-         DO 20 I = 1, 3
+         for (I = 1; I <= 3; I++) { // 20
             SMALL = SLAMC3( SMALL*RBASE, ZERO )
    20    CONTINUE
          A = SLAMC3( ONE, SMALL )
@@ -647,13 +647,13 @@
          B1 = SLAMC3( A / BASE, ZERO )
          C1 = SLAMC3( B1*BASE, ZERO )
          D1 = ZERO
-         DO 20 I = 1, BASE
+         for (I = 1; I <= BASE; I++) { // 20
             D1 = D1 + B1
    20    CONTINUE
          B2 = SLAMC3( A*RBASE, ZERO )
          C2 = SLAMC3( B2 / RBASE, ZERO )
          D2 = ZERO
-         DO 30 I = 1, BASE
+         for (I = 1; I <= BASE; I++) { // 30
             D2 = D2 + B2
    30    CONTINUE
          GO TO 10
@@ -815,7 +815,7 @@
       RECBAS = ONE / BETA
       Z = BETA - ONE
       Y = ZERO
-      DO 20 I = 1, P
+      for (I = 1; I <= P; I++) { // 20
          Z = Z*RECBAS
          IF( Y.LT.ONE ) OLDY = Y
          Y = SLAMC3( Y, Z )
@@ -824,7 +824,7 @@
 
       // Now multiply by BETA**EMAX to get RMAX.
 
-      DO 30 I = 1, EMAX
+      for (I = 1; I <= EMAX; I++) { // 30
          Y = SLAMC3( Y*BETA, ZERO )
    30 CONTINUE
 

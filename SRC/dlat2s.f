@@ -33,8 +33,8 @@
       RMAX = SLAMCH( 'O' )
       UPPER = LSAME( UPLO, 'U' )
       if ( UPPER ) {
-         DO 20 J = 1, N
-            DO 10 I = 1, J
+         for (J = 1; J <= N; J++) { // 20
+            for (I = 1; I <= J; I++) { // 10
                if ( ( A( I, J ).LT.-RMAX ) .OR. ( A( I, J ).GT.RMAX ) ) {
                   INFO = 1
                   GO TO 50
@@ -43,8 +43,8 @@
    10       CONTINUE
    20    CONTINUE
       } else {
-         DO 40 J = 1, N
-            DO 30 I = J, N
+         for (J = 1; J <= N; J++) { // 40
+            for (I = J; I <= N; I++) { // 30
                if ( ( A( I, J ).LT.-RMAX ) .OR. ( A( I, J ).GT.RMAX ) ) {
                   INFO = 1
                   GO TO 50

@@ -144,8 +144,8 @@
             dlaset('Full', N, N, ZERO, ONE, RWORK, N );
             LL = N*N + 1
             dstedc('I', N, D, E, RWORK, N, RWORK( LL ), LRWORK-LL+1, IWORK, LIWORK, INFO );
-            DO 20 J = 1, N
-               DO 10 I = 1, N
+            for (J = 1; J <= N; J++) { // 20
+               for (I = 1; I <= N; I++) { // 10
                   Z( I, J ) = RWORK( ( J-1 )*N+I )
    10          CONTINUE
    20       CONTINUE
@@ -223,11 +223,11 @@
 
          // Use Selection Sort to minimize swaps of eigenvectors
 
-         DO 60 II = 2, N
+         for (II = 2; II <= N; II++) { // 60
            I = II - 1
            K = I
            P = D( I )
-           DO 50 J = II, N
+           for (J = II; J <= N; J++) { // 50
               if ( D( J ).LT.P ) {
                  K = J
                  P = D( J )

@@ -31,11 +31,11 @@
       // Solve A * X = B using the factorization A = L*D*L**T,
       // overwriting each right hand side vector with its solution.
 
-      DO 30 J = 1, NRHS
+      for (J = 1; J <= NRHS; J++) { // 30
 
             // Solve L * x = b.
 
-         DO 10 I = 2, N
+         for (I = 2; I <= N; I++) { // 10
             B( I, J ) = B( I, J ) - B( I-1, J )*E( I-1 )
    10    CONTINUE
 

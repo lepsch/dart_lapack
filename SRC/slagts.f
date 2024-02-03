@@ -56,7 +56,7 @@
          if ( TOL.LE.ZERO ) {
             TOL = ABS( A( 1 ) )
             IF( N.GT.1 ) TOL = MAX( TOL, ABS( A( 2 ) ), ABS( B( 1 ) ) )
-            DO 10 K = 3, N
+            for (K = 3; K <= N; K++) { // 10
                TOL = MAX( TOL, ABS( A( K ) ), ABS( B( K-1 ) ), ABS( D( K-2 ) ) )
    10       CONTINUE
             TOL = TOL*EPS
@@ -65,7 +65,7 @@
       }
 
       if ( ABS( JOB ).EQ.1 ) {
-         DO 20 K = 2, N
+         for (K = 2; K <= N; K++) { // 20
             if ( IN( K-1 ).EQ.0 ) {
                Y( K ) = Y( K ) - C( K-1 )*Y( K-1 )
             } else {
@@ -138,7 +138,7 @@
          // Come to here if  JOB = 2 or -2
 
          if ( JOB.EQ.2 ) {
-            DO 60 K = 1, N
+            for (K = 1; K <= N; K++) { // 60
                if ( K.GE.3 ) {
                   TEMP = Y( K ) - B( K-1 )*Y( K-1 ) - D( K-2 )*Y( K-2 )
                } else if ( K.EQ.2 ) {
@@ -165,7 +165,7 @@
                Y( K ) = TEMP / AK
    60       CONTINUE
          } else {
-            DO 80 K = 1, N
+            for (K = 1; K <= N; K++) { // 80
                if ( K.GE.3 ) {
                   TEMP = Y( K ) - B( K-1 )*Y( K-1 ) - D( K-2 )*Y( K-2 )
                } else if ( K.EQ.2 ) {

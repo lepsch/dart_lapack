@@ -66,7 +66,7 @@
       BADNN = .FALSE.
       TRYRAC = .TRUE.
       NMAX = 1
-      DO 10 J = 1, NSIZES
+      for (J = 1; J <= NSIZES; J++) { // 10
          NMAX = MAX( NMAX, NN( J ) )
          IF( NN( J ).LT.0 ) BADNN = .TRUE.
    10 CONTINUE
@@ -111,13 +111,13 @@
 
       // Loop over sizes, types
 
-      DO 20 I = 1, 4
+      for (I = 1; I <= 4; I++) { // 20
          ISEED2( I ) = ISEED( I )
    20 CONTINUE
       NERRS = 0
       NMATS = 0
 
-      DO 310 JSIZE = 1, NSIZES
+      for (JSIZE = 1; JSIZE <= NSIZES; JSIZE++) { // 310
          N = NN( JSIZE )
          if ( N.GT.0 ) {
             LGN = INT( LOG( DBLE( N ) ) / LOG( TWO ) )
@@ -137,12 +137,12 @@
             MTYPES = MIN( MAXTYP+1, NTYPES )
          }
 
-         DO 300 JTYPE = 1, MTYPES
+         for (JTYPE = 1; JTYPE <= MTYPES; JTYPE++) { // 300
             IF( .NOT.DOTYPE( JTYPE ) ) GO TO 300
             NMATS = NMATS + 1
             NTEST = 0
 
-            DO 30 J = 1, 4
+            for (J = 1; J <= 4; J++) { // 30
                IOLDSD( J ) = ISEED( J )
    30       CONTINUE
 
@@ -204,7 +204,7 @@
 
                // Identity
 
-               DO 80 JC = 1, N
+               for (JC = 1; JC <= N; JC++) { // 80
                   A( JC, JC ) = ANORM
    80          CONTINUE
 
@@ -244,7 +244,7 @@
                // Positive definite tridiagonal, eigenvalues specified.
 
                dlatms(N, N, 'S', ISEED, 'P', WORK, IMODE, COND, ANORM, 1, 1, 'N', A, LDA, WORK( N+1 ), IINFO );
-               DO 90 I = 2, N
+               for (I = 2; I <= N; I++) { // 90
                   TEMP1 = ABS( A( I-1, I ) ) / SQRT( ABS( A( I-1, I-1 )*A( I, I ) ) )
                   if ( TEMP1.GT.HALF ) {
                      A( I-1, I ) = HALF*SQRT( ABS( A( I-1, I-1 )*A( I, I ) ) )
@@ -390,7 +390,7 @@
             TEMP3 = ZERO
             TEMP4 = ZERO
 
-            DO 151 J = 1, N
+            for (J = 1; J <= N; J++) { // 151
                TEMP1 = MAX( TEMP1, ABS( D1( J ) ), ABS( D2( J ) ) )
                TEMP2 = MAX( TEMP2, ABS( D1( J )-D2( J ) ) )
                TEMP3 = MAX( TEMP3, ABS( D1( J ) ), ABS( D3( J ) ) )
@@ -403,8 +403,8 @@
             // Store the upper triangle of A in AP
 
             I = 0
-            DO 120 JC = 1, N
-               DO 110 JR = 1, JC
+            for (JC = 1; JC <= N; JC++) { // 120
+               for (JR = 1; JR <= JC; JR++) { // 110
                   I = I + 1
                   AP( I ) = A( JR, JC )
   110          CONTINUE
@@ -448,8 +448,8 @@
             // Store the lower triangle of A in AP
 
             I = 0
-            DO 140 JC = 1, N
-               DO 130 JR = JC, N
+            for (JC = 1; JC <= N; JC++) { // 140
+               for (JR = JC; JR <= N; JR++) { // 130
                   I = I + 1
                   AP( I ) = A( JR, JC )
   130          CONTINUE
@@ -556,7 +556,7 @@
             TEMP3 = ZERO
             TEMP4 = ZERO
 
-            DO 150 J = 1, N
+            for (J = 1; J <= N; J++) { // 150
                TEMP1 = MAX( TEMP1, ABS( D1( J ) ), ABS( D2( J ) ) )
                TEMP2 = MAX( TEMP2, ABS( D1( J )-D2( J ) ) )
                TEMP3 = MAX( TEMP3, ABS( D1( J ) ), ABS( D3( J ) ) )
@@ -572,7 +572,7 @@
             NTEST = 13
             TEMP1 = THRESH*( HALF-ULP )
 
-            DO 160 J = 0, LOG2UI
+            for (J = 0; J <= LOG2UI; J++) { // 160
                dstech(N, SD, SE, D1, TEMP1, WORK, IINFO );
                IF( IINFO.EQ.0 ) GO TO 170
                TEMP1 = TEMP1*TWO
@@ -631,7 +631,7 @@
 
                TEMP1 = ZERO
                TEMP2 = ZERO
-               DO 180 J = 1, N
+               for (J = 1; J <= N; J++) { // 180
                   TEMP1 = MAX( TEMP1, ABS( D4( J ) ), ABS( D5( J ) ) )
                   TEMP2 = MAX( TEMP2, ABS( D4( J )-D5( J ) ) )
   180          CONTINUE
@@ -672,7 +672,7 @@
                TEMP2 = TWO*( TWO*N-ONE )*ULP*( ONE+EIGHT*HALF**2 ) / ( ONE-HALF )**4
 
                TEMP1 = ZERO
-               DO 190 J = 1, N
+               for (J = 1; J <= N; J++) { // 190
                   TEMP1 = MAX( TEMP1, ABS( D4( J )-WR( N-J+1 ) ) / ( ABSTOL+ABS( D4( J ) ) ) )
   190          CONTINUE
 
@@ -701,7 +701,7 @@
 
             TEMP1 = ZERO
             TEMP2 = ZERO
-            DO 200 J = 1, N
+            for (J = 1; J <= N; J++) { // 200
                TEMP1 = MAX( TEMP1, ABS( D3( J ) ), ABS( WA1( J ) ) )
                TEMP2 = MAX( TEMP2, ABS( D3( J )-WA1( J ) ) )
   200       CONTINUE
@@ -896,7 +896,7 @@
             TEMP1 = ZERO
             TEMP2 = ZERO
 
-            DO 210 J = 1, N
+            for (J = 1; J <= N; J++) { // 210
                TEMP1 = MAX( TEMP1, ABS( D1( J ) ), ABS( D2( J ) ) )
                TEMP2 = MAX( TEMP2, ABS( D1( J )-D2( J ) ) )
   210       CONTINUE
@@ -936,7 +936,7 @@
                   TEMP2 = TWO*( TWO*N-ONE )*ULP*( ONE+EIGHT*HALF**2 ) / ( ONE-HALF )**4
 
                   TEMP1 = ZERO
-                  DO 220 J = 1, N
+                  for (J = 1; J <= N; J++) { // 220
                      TEMP1 = MAX( TEMP1, ABS( D4( J )-WR( N-J+1 ) ) / ( ABSTOL+ABS( D4( J ) ) ) )
   220             CONTINUE
 
@@ -971,7 +971,7 @@
                      TEMP2 = TWO*( TWO*N-ONE )*ULP* ( ONE+EIGHT*HALF**2 ) / ( ONE-HALF )**4
 
                      TEMP1 = ZERO
-                     DO 230 J = IL, IU
+                     for (J = IL; J <= IU; J++) { // 230
                         TEMP1 = MAX( TEMP1, ABS( WR( J-IL+1 )-D4( N-J+ 1 ) ) / ( ABSTOL+ABS( WR( J-IL+1 ) ) ) )
   230                CONTINUE
 
@@ -1181,7 +1181,7 @@
                TEMP1 = ZERO
                TEMP2 = ZERO
 
-               DO 260 J = 1, N
+               for (J = 1; J <= N; J++) { // 260
                   TEMP1 = MAX( TEMP1, ABS( D1( J ) ), ABS( D2( J ) ) )
                   TEMP2 = MAX( TEMP2, ABS( D1( J )-D2( J ) ) )
   260          CONTINUE
@@ -1196,7 +1196,7 @@
 
             // Print out tests which fail.
 
-            DO 290 JR = 1, NTEST
+            for (JR = 1; JR <= NTEST; JR++) { // 290
                if ( RESULT( JR ).GE.THRESH ) {
 
                   // If this is the first test to fail,

@@ -26,7 +26,7 @@
       // ..
       // .. Executable Statements ..
       K = MIN( M, N )
-      DO I = 1, K
+      for (I = 1; I <= K; I++) {
          AII = A( I, I )
          if ( REAL( AII ).LT.ZERO.OR.AIMAG( AII ).NE.ZERO ) {
             CGENND = .FALSE.

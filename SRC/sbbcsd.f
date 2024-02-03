@@ -115,7 +115,7 @@
 
       // Test for negligible sines or cosines
 
-      DO I = 1, Q
+      for (I = 1; I <= Q; I++) {
          if ( THETA(I) .LT. THRESH ) {
             THETA(I) = ZERO
          } else if ( THETA(I) .GT. PIOVER2-THRESH ) {
@@ -177,7 +177,7 @@
 
          if ( ITER .GT. MAXIT ) {
             INFO = 0
-            DO I = 1, Q
+            for (I = 1; I <= Q; I++) {
                IF( PHI(I) .NE. ZERO ) INFO = INFO + 1
             END DO
             RETURN
@@ -555,7 +555,7 @@
 
          // Test for negligible sines or cosines
 
-         DO I = IMIN, IMAX
+         for (I = IMIN; I <= IMAX; I++) {
             if ( THETA(I) .LT. THRESH ) {
                THETA(I) = ZERO
             } else if ( THETA(I) .GT. PIOVER2-THRESH ) {
@@ -592,7 +592,7 @@
 
       // Postprocessing: order THETA from least to greatest
 
-      DO I = 1, Q
+      for (I = 1; I <= Q; I++) {
 
          MINI = I
          THETAMIN = THETA(I)

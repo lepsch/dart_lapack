@@ -50,12 +50,12 @@
 
       READ( NIN, FMT = * )N
       IF( N.EQ.0 ) GO TO 70
-      DO 20 I = 1, N
+      for (I = 1; I <= N; I++) { // 20
          READ( NIN, FMT = * )( A( I, J ), J = 1, N )
    20 CONTINUE
 
       READ( NIN, FMT = * )ILOIN, IHIIN
-      DO 30 I = 1, N
+      for (I = 1; I <= N; I++) { // 30
          READ( NIN, FMT = * )( AIN( I, J ), J = 1, N )
    30 CONTINUE
       READ( NIN, FMT = * )( SCALIN( I ), I = 1, N )
@@ -75,15 +75,15 @@
          LMAX( 2 ) = KNT
       }
 
-      DO 50 I = 1, N
-         DO 40 J = 1, N
+      for (I = 1; I <= N; I++) { // 50
+         for (J = 1; J <= N; J++) { // 40
             TEMP = MAX( A( I, J ), AIN( I, J ) )
             TEMP = MAX( TEMP, SFMIN )
             VMAX = MAX( VMAX, ABS( A( I, J )-AIN( I, J ) ) / TEMP )
    40    CONTINUE
    50 CONTINUE
 
-      DO 60 I = 1, N
+      for (I = 1; I <= N; I++) { // 60
          TEMP = MAX( SCALE( I ), SCALIN( I ) )
          TEMP = MAX( TEMP, SFMIN )
          VMAX = MAX( VMAX, ABS( SCALE( I )-SCALIN( I ) ) / TEMP )

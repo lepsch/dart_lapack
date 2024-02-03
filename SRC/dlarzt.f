@@ -48,7 +48,7 @@
 
             // H(i)  =  I
 
-            DO 10 J = I, K
+            for (J = I; J <= K; J++) { // 10
                T( J, I ) = ZERO
    10       CONTINUE
          } else {

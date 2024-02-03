@@ -64,13 +64,13 @@
 
       // Initialize PIV
 
-      DO 100 I = 1, N
+      for (I = 1; I <= N; I++) { // 100
          PIV( I ) = I
   100 CONTINUE
 
       // Compute stopping value
 
-      DO 110 I = 1, N
+      for (I = 1; I <= N; I++) { // 110
          WORK( I ) = DBLE( A( I, I ) )
   110 CONTINUE
       PVT = MAXLOC( WORK( 1:N ), 1 )
@@ -91,7 +91,7 @@
 
       // Set first half of WORK to zero, holds dot products
 
-      DO 120 I = 1, N
+      for (I = 1; I <= N; I++) { // 120
          WORK( I ) = 0
   120 CONTINUE
 
@@ -99,13 +99,13 @@
 
          // Compute the Cholesky factorization P**T * A * P = U**H* U
 
-         DO 150 J = 1, N
+         for (J = 1; J <= N; J++) { // 150
 
          // Find pivot, test for exit, else swap rows and columns
          // Update dot products, compute possible pivots which are
          // stored in the second half of WORK
 
-            DO 130 I = J, N
+            for (I = J; I <= N; I++) { // 130
 
                if ( J.GT.1 ) {
                   WORK( I ) = WORK( I ) + DBLE( DCONJG( A( J-1, I ) )* A( J-1, I ) )
@@ -166,13 +166,13 @@
 
          // Compute the Cholesky factorization P**T * A * P = L * L**H
 
-         DO 180 J = 1, N
+         for (J = 1; J <= N; J++) { // 180
 
          // Find pivot, test for exit, else swap rows and columns
          // Update dot products, compute possible pivots which are
          // stored in the second half of WORK
 
-            DO 160 I = J, N
+            for (I = J; I <= N; I++) { // 160
 
                if ( J.GT.1 ) {
                   WORK( I ) = WORK( I ) + DBLE( DCONJG( A( I, J-1 ) )* A( I, J-1 ) )

@@ -88,7 +88,7 @@
          zlaset('Full', N, N, CZERO, CZERO, WORK, N );
          zcopy(LAP, AP, 1, WORK, 1 );
 
-         DO 10 J = 1, N
+         for (J = 1; J <= N; J++) { // 10
             zhpr(CUPLO, N, -D( J ), U( 1, J ), 1, WORK );
    10    CONTINUE
 
@@ -148,7 +148,7 @@
    60       CONTINUE
          }
 
-         DO 70 J = 1, LAP
+         for (J = 1; J <= LAP; J++) { // 70
             WORK( J ) = WORK( J ) - AP( J )
    70    CONTINUE
          WNORM = ZLANHP( '1', CUPLO, N, WORK, RWORK )
@@ -165,7 +165,7 @@
             RETURN
          }
 
-         DO 80 J = 1, N
+         for (J = 1; J <= N; J++) { // 80
             WORK( ( N+1 )*( J-1 )+1 ) = WORK( ( N+1 )*( J-1 )+1 ) - CONE
    80    CONTINUE
 
@@ -189,7 +189,7 @@
       if ( ITYPE.EQ.1 ) {
          zgemm('N', 'C', N, N, N, CONE, U, LDU, U, LDU, CZERO, WORK, N );
 
-         DO 90 J = 1, N
+         for (J = 1; J <= N; J++) { // 90
             WORK( ( N+1 )*( J-1 )+1 ) = WORK( ( N+1 )*( J-1 )+1 ) - CONE
    90    CONTINUE
 

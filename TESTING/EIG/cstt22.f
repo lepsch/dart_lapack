@@ -61,10 +61,10 @@
 
       // Norm of U*AU - S
 
-      DO 40 I = 1, M
-         DO 30 J = 1, M
+      for (I = 1; I <= M; I++) { // 40
+         for (J = 1; J <= M; J++) { // 30
             WORK( I, J ) = CZERO
-            DO 20 K = 1, N
+            for (K = 1; K <= N; K++) { // 20
                AUKJ = AD( K )*U( K, J )
                IF( K.NE.N ) AUKJ = AUKJ + AE( K )*U( K+1, J )                IF( K.NE.1 ) AUKJ = AUKJ + AE( K-1 )*U( K-1, J )
                WORK( I, J ) = WORK( I, J ) + U( K, I )*AUKJ
@@ -94,7 +94,7 @@
 
       cgemm('T', 'N', M, M, N, CONE, U, LDU, U, LDU, CZERO, WORK, M );
 
-      DO 50 J = 1, M
+      for (J = 1; J <= M; J++) { // 50
          WORK( J, J ) = WORK( J, J ) - ONE
    50 CONTINUE
 

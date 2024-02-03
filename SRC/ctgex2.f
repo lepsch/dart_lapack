@@ -121,7 +121,7 @@
          crot(2, WORK( 5 ), 1, WORK( 7 ), 1, CZ, -CONJG( SZ ) );
          crot(2, WORK, 2, WORK( 2 ), 2, CQ, -SQ );
          crot(2, WORK( 5 ), 2, WORK( 6 ), 2, CQ, -SQ );
-         DO 10 I = 1, 2
+         for (I = 1; I <= 2; I++) { // 10
             WORK( I ) = WORK( I ) - A( J1+I-1, J1 )
             WORK( I+2 ) = WORK( I+2 ) - A( J1+I-1, J1+1 )
             WORK( I+4 ) = WORK( I+4 ) - B( J1+I-1, J1 )

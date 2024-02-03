@@ -69,7 +69,7 @@
       NMAX = 1
       MNMAX = 1
       MINWRK = 1
-      DO 10 J = 1, NSIZES
+      for (J = 1; J <= NSIZES; J++) { // 10
          MMAX = MAX( MMAX, MVAL( J ) )
          IF( MVAL( J ).LT.0 ) BADMM = .TRUE.
          NMAX = MAX( NMAX, NVAL( J ) )
@@ -125,7 +125,7 @@
 
       // Loop over sizes, types
 
-      DO 300 JSIZE = 1, NSIZES
+      for (JSIZE = 1; JSIZE <= NSIZES; JSIZE++) { // 300
          M = MVAL( JSIZE )
          N = NVAL( JSIZE )
          MNMIN = MIN( M, N )
@@ -137,14 +137,14 @@
             MTYPES = MIN( MAXTYP+1, NTYPES )
          }
 
-         DO 290 JTYPE = 1, MTYPES
+         for (JTYPE = 1; JTYPE <= MTYPES; JTYPE++) { // 290
             IF( .NOT.DOTYPE( JTYPE ) ) GO TO 290
 
-            DO 20 J = 1, 4
+            for (J = 1; J <= 4; J++) { // 20
                IOLDSD( J ) = ISEED( J )
    20       CONTINUE
 
-            DO 30 J = 1, 34
+            for (J = 1; J <= 34; J++) { // 30
                RESULT( J ) = -ONE
    30       CONTINUE
 
@@ -204,7 +204,7 @@
 
                // Identity
 
-               DO 80 JCOL = 1, MNMIN
+               for (JCOL = 1; JCOL <= MNMIN; JCOL++) { // 80
                   A( JCOL, JCOL ) = ANORM
    80          CONTINUE
 
@@ -249,7 +249,7 @@
                // Bidiagonal, random entries
 
                TEMP1 = -TWO*LOG( ULP )
-               DO 90 J = 1, MNMIN
+               for (J = 1; J <= MNMIN; J++) { // 90
                   BD( J ) = EXP( TEMP1*DLARND( 2, ISEED ) )
                   IF( J.LT.MNMIN ) BE( J ) = EXP( TEMP1*DLARND( 2, ISEED ) )
    90          CONTINUE
@@ -414,7 +414,7 @@
 
             TEMP2 = ZERO
 
-            DO 120 J = 1, MNMIN
+            for (J = 1; J <= MNMIN; J++) { // 120
                TEMP1 = ABS( S1( J )-S2( J ) ) / MAX( SQRT( UNFL )*MAX( S1( 1 ), ONE ), ULP*MAX( ABS( S1( J ) ), ABS( S2( J ) ) ) )
                TEMP2 = MAX( TEMP1, TEMP2 )
   120       CONTINUE
@@ -426,7 +426,7 @@
 
             TEMP1 = THRESH*( HALF-ULP )
 
-            DO 130 J = 0, LOG2UI
+            for (J = 0; J <= LOG2UI; J++) { // 130
                 // CALL DSVDCH( MNMIN, BD, BE, S1, TEMP1, IINFO )
                IF( IINFO.EQ.0 ) GO TO 140
                TEMP1 = TEMP1*TWO
@@ -517,7 +517,7 @@
 
             TEMP2 = ZERO
 
-            DO 160 J = 1, MNMIN
+            for (J = 1; J <= MNMIN; J++) { // 160
                TEMP1 = ABS( S1( J )-S2( J ) ) / MAX( SQRT( UNFL )*MAX( S1( 1 ), ONE ), ULP*MAX( ABS( S1( 1 ) ), ABS( S2( 1 ) ) ) )
                TEMP2 = MAX( TEMP1, TEMP2 )
   160       CONTINUE
@@ -562,7 +562,7 @@
             }
 
             J = IWBZ
-            DO 170 I = 1, NS1
+            for (I = 1; I <= NS1; I++) { // 170
                dcopy(MNMIN, WORK( J ), 1, U( 1,I ), 1 );
                J = J + MNMIN
                dcopy(MNMIN, WORK( J ), 1, VT( I,1 ), LDPT );
@@ -620,7 +620,7 @@
             }
 
             TEMP2 = ZERO
-            DO 190 J = 1, MNMIN
+            for (J = 1; J <= MNMIN; J++) { // 190
                TEMP1 = ABS( S1( J )-S2( J ) ) / MAX( SQRT( UNFL )*MAX( S1( 1 ), ONE ), ULP*MAX( ABS( S1( 1 ) ), ABS( S2( 1 ) ) ) )
                TEMP2 = MAX( TEMP1, TEMP2 )
   190       CONTINUE
@@ -631,7 +631,7 @@
             // IU, and ask for the IL-th through IU-th singular values
             // and corresponding vectors.
 
-            DO 200 I = 1, 4
+            for (I = 1; I <= 4; I++) { // 200
                ISEED2( I ) = ISEED( I )
   200       CONTINUE
             if ( MNMIN.LE.1 ) {
@@ -666,7 +666,7 @@
             }
 
             J = IWBZ
-            DO 210 I = 1, NS1
+            for (I = 1; I <= NS1; I++) { // 210
                dcopy(MNMIN, WORK( J ), 1, U( 1,I ), 1 );
                J = J + MNMIN
                dcopy(MNMIN, WORK( J ), 1, VT( I,1 ), LDPT );
@@ -712,7 +712,7 @@
             }
 
             TEMP2 = ZERO
-            DO 230 J = 1, NS1
+            for (J = 1; J <= NS1; J++) { // 230
                TEMP1 = ABS( S1( J )-S2( J ) ) / MAX( SQRT( UNFL )*MAX( S1( 1 ), ONE ), ULP*MAX( ABS( S1( 1 ) ), ABS( S2( 1 ) ) ) )
                TEMP2 = MAX( TEMP1, TEMP2 )
   230       CONTINUE
@@ -762,7 +762,7 @@
             }
 
             J = IWBZ
-            DO 240 I = 1, NS1
+            for (I = 1; I <= NS1; I++) { // 240
                dcopy(MNMIN, WORK( J ), 1, U( 1,I ), 1 );
                J = J + MNMIN
                dcopy(MNMIN, WORK( J ), 1, VT( I,1 ), LDPT );
@@ -808,7 +808,7 @@
             }
 
             TEMP2 = ZERO
-            DO 260 J = 1, NS1
+            for (J = 1; J <= NS1; J++) { // 260
                TEMP1 = ABS( S1( J )-S2( J ) ) / MAX( SQRT( UNFL )*MAX( S1( 1 ), ONE ), ULP*MAX( ABS( S1( 1 ) ), ABS( S2( 1 ) ) ) )
                TEMP2 = MAX( TEMP1, TEMP2 )
   260       CONTINUE
@@ -818,7 +818,7 @@
 
   270       CONTINUE
 
-            DO 280 J = 1, 34
+            for (J = 1; J <= 34; J++) { // 280
                if ( RESULT( J ).GE.THRESH ) {
                   IF( NFAIL.EQ.0 ) CALL DLAHD2( NOUT, PATH )                   WRITE( NOUT, FMT = 9999 )M, N, JTYPE, IOLDSD, J, RESULT( J )
                   NFAIL = NFAIL + 1

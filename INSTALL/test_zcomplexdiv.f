@@ -94,7 +94,7 @@
             print *, "!! fl( subnormal ) may be 0"
         endif
       else
-        do 100 i = 1, N
+        for (i = 1; i <= N; i++) { // 100
             Xj = X(i)
             if( Xj .eq. 0.0d0 ) then
                 subnormalTreatedAs0 = subnormalTreatedAs0 + 1
@@ -106,7 +106,7 @@
       endif
 
       // Test (a) y = x + 0 * I, y/y = 1
-      do 10 i = 1, N
+      for (i = 1; i <= N; i++) { // 10
         Xj = X(i)
         if( Xj .eq. 0.0d0 ) then
             subnormalTreatedAs0 = subnormalTreatedAs0 + 1
@@ -131,7 +131,7 @@
   10  continue
 
       // Test (b) y = 0 + x * I, y/y = 1
-      do 20 i = 1, N
+      for (i = 1; i <= N; i++) { // 20
         Xj = X(i)
         if( Xj .eq. 0.0d0 ) then
             subnormalTreatedAs0 = subnormalTreatedAs0 + 1
@@ -156,7 +156,7 @@
   20  continue
 
       // Test (c) y = x + x * I, y/y = 1
-      do 30 i = 1, N
+      for (i = 1; i <= N; i++) { // 30
         Xj = X(i)
         if( Xj .eq. 0.0d0 ) then
             subnormalTreatedAs0 = subnormalTreatedAs0 + 1
@@ -181,7 +181,7 @@
   30  continue
 
       // Test (d) y1 = 0 + x * I, y2 = x + 0 * I, y1/y2 = I
-      do 40 i = 1, N
+      for (i = 1; i <= N; i++) { // 40
         Xj = X(i)
         if( Xj .eq. 0.0d0 ) then
             subnormalTreatedAs0 = subnormalTreatedAs0 + 1
@@ -207,7 +207,7 @@
   40  continue
 
       // Test (e) y1 = 0 + x * I, y2 = x + 0 * I, y2/y1 = -I
-      do 50 i = 1, N
+      for (i = 1; i <= N; i++) { // 50
         Xj = X(i)
         if( Xj .eq. 0.0d0 ) then
             subnormalTreatedAs0 = subnormalTreatedAs0 + 1
@@ -233,7 +233,7 @@
   50  continue
 
       // Test (f) y = x + x * I, y/conj(y) = I
-      do 60 i = 1, N
+      for (i = 1; i <= N; i++) { // 60
         Xj = X(i)
         if( Xj .eq. 0.0d0 ) then
             subnormalTreatedAs0 = subnormalTreatedAs0 + 1
@@ -258,7 +258,7 @@
   60  continue
 
       // Test (g) Infs
-      do 70 i = 1, nInf
+      for (i = 1; i <= nInf; i++) { // 70
           nTests = nTests + 3
           Y = cInf(i)
           R = czero / Y
@@ -279,7 +279,7 @@
   70  continue
 
       // Test (h) NaNs
-      do 80 i = 1, nNaN
+      for (i = 1; i <= nNaN; i++) { // 80
           nTests = nTests + 3
           Y = cNaN(i)
           R = czero / Y

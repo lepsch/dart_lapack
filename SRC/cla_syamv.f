@@ -96,7 +96,7 @@
       IY = KY
       if ( INCX.EQ.1 ) {
          if ( UPLO .EQ. ILAUPLO( 'U' ) ) {
-            DO I = 1, N
+            for (I = 1; I <= N; I++) {
                if ( BETA .EQ. ZERO ) {
                   SYMB_ZERO = .TRUE.
                   Y( IY ) = 0.0
@@ -107,7 +107,7 @@
                   Y( IY ) = BETA * ABS( Y( IY ) )
                }
                if ( ALPHA .NE. ZERO ) {
-                  DO J = 1, I
+                  for (J = 1; J <= I; J++) {
                      TEMP = CABS1( A( J, I ) )
                      SYMB_ZERO = SYMB_ZERO .AND. ( X( J ) .EQ. ZERO .OR. TEMP .EQ. ZERO )
 
@@ -125,7 +125,7 @@
                IY = IY + INCY
             END DO
          } else {
-            DO I = 1, N
+            for (I = 1; I <= N; I++) {
                if ( BETA .EQ. ZERO ) {
                   SYMB_ZERO = .TRUE.
                   Y( IY ) = 0.0
@@ -136,7 +136,7 @@
                   Y( IY ) = BETA * ABS( Y( IY ) )
                }
                if ( ALPHA .NE. ZERO ) {
-                  DO J = 1, I
+                  for (J = 1; J <= I; J++) {
                      TEMP = CABS1( A( I, J ) )
                      SYMB_ZERO = SYMB_ZERO .AND. ( X( J ) .EQ. ZERO .OR. TEMP .EQ. ZERO )
 
@@ -156,7 +156,7 @@
          }
       } else {
          if ( UPLO .EQ. ILAUPLO( 'U' ) ) {
-            DO I = 1, N
+            for (I = 1; I <= N; I++) {
                if ( BETA .EQ. ZERO ) {
                   SYMB_ZERO = .TRUE.
                   Y( IY ) = 0.0
@@ -168,7 +168,7 @@
                }
                JX = KX
                if ( ALPHA .NE. ZERO ) {
-                  DO J = 1, I
+                  for (J = 1; J <= I; J++) {
                      TEMP = CABS1( A( J, I ) )
                      SYMB_ZERO = SYMB_ZERO .AND. ( X( J ) .EQ. ZERO .OR. TEMP .EQ. ZERO )
 
@@ -188,7 +188,7 @@
                IY = IY + INCY
             END DO
          } else {
-            DO I = 1, N
+            for (I = 1; I <= N; I++) {
                if ( BETA .EQ. ZERO ) {
                   SYMB_ZERO = .TRUE.
                   Y( IY ) = 0.0
@@ -200,7 +200,7 @@
                }
                JX = KX
                if ( ALPHA .NE. ZERO ) {
-                  DO J = 1, I
+                  for (J = 1; J <= I; J++) {
                      TEMP = CABS1( A( I, J ) )
                      SYMB_ZERO = SYMB_ZERO .AND. ( X( J ) .EQ. ZERO .OR. TEMP .EQ. ZERO )
 

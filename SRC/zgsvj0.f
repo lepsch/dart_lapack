@@ -139,7 +139,7 @@
 
       // .. Row-cyclic pivot strategy with de Rijk's pivoting ..
 
-      DO 1993 i = 1, NSWEEP
+      for (i = 1; i <= NSWEEP; i++) { // 1993
 
       // .. go go go ...
 
@@ -155,7 +155,7 @@
       // of the rotations. New implementation, based on block transformations,
       // is under development.
 
-         DO 2000 ibr = 1, NBL
+         for (ibr = 1; ibr <= NBL; ibr++) { // 2000
 
             igl = ( ibr-1 )*KBL + 1
 

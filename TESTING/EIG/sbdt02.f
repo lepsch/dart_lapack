@@ -43,7 +43,7 @@
 
       // Compute norm(B - U * C)
 
-      DO 10 J = 1, N
+      for (J = 1; J <= N; J++) { // 10
          scopy(M, B( 1, J ), 1, WORK, 1 );
          sgemv('No transpose', M, M, -ONE, U, LDU, C( 1, J ), 1, ONE, WORK, 1 );
          RESID = MAX( RESID, SASUM( M, WORK, 1 ) )

@@ -60,7 +60,7 @@
 
             // Compute inv(U**T)*A*inv(U)
 
-            DO 10 K = 1, N
+            for (K = 1; K <= N; K++) { // 10
 
                // Update the upper triangle of A(k:n,k:n)
 
@@ -78,7 +78,7 @@
 
             // Compute inv(L)*A*inv(L**T)
 
-            DO 20 K = 1, N
+            for (K = 1; K <= N; K++) { // 20
 
                // Update the lower triangle of A(k:n,k:n)
 
@@ -101,7 +101,7 @@
 
             // Compute U*A*U**T
 
-            DO 30 K = 1, N
+            for (K = 1; K <= N; K++) { // 30
 
                // Update the upper triangle of A(1:k,1:k)
 
@@ -119,7 +119,7 @@
 
             // Compute L**T *A*L
 
-            DO 40 K = 1, N
+            for (K = 1; K <= N; K++) { // 40
 
                // Update the lower triangle of A(1:k,1:k)
 

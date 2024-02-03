@@ -73,14 +73,14 @@
       if ( LSAME( JOB, 'S' ) .OR. LSAME( JOB, 'B' ) ) {
 
          if ( RIGHTV ) {
-            DO 10 I = ILO, IHI
+            for (I = ILO; I <= IHI; I++) { // 10
                S = SCALE( I )
                csscal(M, S, V( I, 1 ), LDV );
    10       CONTINUE
          }
 
          if ( LEFTV ) {
-            DO 20 I = ILO, IHI
+            for (I = ILO; I <= IHI; I++) { // 20
                S = ONE / SCALE( I )
                csscal(M, S, V( I, 1 ), LDV );
    20       CONTINUE
@@ -96,7 +96,7 @@
    30 CONTINUE
       if ( LSAME( JOB, 'P' ) .OR. LSAME( JOB, 'B' ) ) {
          if ( RIGHTV ) {
-            DO 40 II = 1, N
+            for (II = 1; II <= N; II++) { // 40
                I = II
                IF( I.GE.ILO .AND. I.LE.IHI ) GO TO 40                IF( I.LT.ILO ) I = ILO - II
                K = INT( SCALE( I ) )
@@ -106,7 +106,7 @@
          }
 
          if ( LEFTV ) {
-            DO 50 II = 1, N
+            for (II = 1; II <= N; II++) { // 50
                I = II
                IF( I.GE.ILO .AND. I.LE.IHI ) GO TO 50                IF( I.LT.ILO ) I = ILO - II
                K = INT( SCALE( I ) )

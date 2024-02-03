@@ -51,7 +51,7 @@
       // norm(S - U' * B * V)
 
       J = 0
-      DO 10 I = 1, NS
+      for (I = 1; I <= NS; I++) { // 10
          WORK( J+I ) =  WORK( J+I ) + S( I )
          RESID = MAX( RESID, SASUM( NS, WORK( J+1 ), 1 ) )
          J = J + NS

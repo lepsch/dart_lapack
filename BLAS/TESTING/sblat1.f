@@ -23,7 +23,7 @@
       DATA             SFAC/9.765625E-4/
       // .. Executable Statements ..
       WRITE (NOUT,99999)
-      DO 20 IC = 1, 13
+      for (IC = 1; IC <= 13; IC++) { // 20
          ICASE = IC
          header();
 
@@ -145,7 +145,7 @@
       DBTRUE(3) = -1.0E0/0.6E0
       DBTRUE(5) = 1.0E0/0.6E0
 
-      DO 20 K = 1, 8
+      for (K = 1; K <= 8; K++) { // 20
          // .. Set N=K for identification in output if any ..
          N = K
          if (ICASE.EQ.3) {
@@ -160,7 +160,7 @@
             stest1(SS,DS1(K),DS1(K),SFAC);
          ELSEIF (ICASE.EQ.11) THEN
             // .. SROTMG ..
-            DO I=1,4
+            for (I = 1; I <= 4; I++) {
                DTEMP(I)= DAB(I,K)
                DTEMP(I+4) = 0.0
             END DO
@@ -211,12 +211,12 @@
       DATA              ITRUE2/0, 1, 2, 2, 3/
       DATA              ITRUEC/0, 1, 1, 1, 1/
       // .. Executable Statements ..
-      DO 80 INCX = 1, 2
-         DO 60 NP1 = 1, 5
+      for (INCX = 1; INCX <= 2; INCX++) { // 80
+         for (NP1 = 1; NP1 <= 5; NP1++) { // 60
             N = NP1 - 1
             LEN = 2*MAX(N,1)
             // .. Set vector arguments ..
-            DO 20 I = 1, LEN
+            for (I = 1; I <= LEN; I++) { // 20
                SX(I) = DV(I,NP1,INCX)
    20       CONTINUE
 
@@ -235,14 +235,14 @@
             } else if (ICASE.EQ.9) {
                // .. SSCAL ..
                sscal(N,SA((INCX-1)*5+NP1),SX,INCX);
-               DO 40 I = 1, LEN
+               for (I = 1; I <= LEN; I++) { // 40
                   STRUE(I) = DTRUE5(I,NP1,INCX)
    40          CONTINUE
                stest(LEN,SX,STRUE,STRUE,SFAC);
             } else if (ICASE.EQ.10) {
                // .. ISAMAX ..
                itest1(ISAMAX(N,SX,INCX),ITRUE2(NP1));
-               DO 100 I = 1, LEN
+               for (I = 1; I <= LEN; I++) { // 100
                   SX(I) = 42.0E0
   100          CONTINUE
                itest1(ISAMAX(N,SX,INCX),ITRUEC(NP1));
@@ -254,7 +254,7 @@
          if (ICASE.EQ.10) {
             N = 8
             IX = 1
-            DO 120 I = 1, N
+            for (I = 1; I <= N; I++) { // 120
                SXR(IX) = DVR(I)
                IX = IX + INCX
   120       CONTINUE
@@ -326,19 +326,19 @@
 
       // .. Executable Statements ..
 
-      DO 120 KI = 1, 4
+      for (KI = 1; KI <= 4; KI++) { // 120
          INCX = INCXS(KI)
          INCY = INCYS(KI)
          MX = ABS(INCX)
          MY = ABS(INCY)
 
-         DO 100 KN = 1, 4
+         for (KN = 1; KN <= 4; KN++) { // 100
             N = NS(KN)
             KSIZE = MIN(2,KN)
             LENX = LENS(KN,MX)
             LENY = LENS(KN,MY)
             // .. Initialize all argument arrays ..
-            DO 20 I = 1, 7
+            for (I = 1; I <= 7; I++) { // 20
                SX(I) = DX1(I)
                SY(I) = DY1(I)
    20       CONTINUE
@@ -349,13 +349,13 @@
             } else if (ICASE.EQ.2) {
                // .. SAXPY ..
                saxpy(N,SA,SX,INCX,SY,INCY);
-               DO 40 J = 1, LENY
+               for (J = 1; J <= LENY; J++) { // 40
                   STY(J) = DT8(J,KN,KI)
    40          CONTINUE
                stest(LENY,SY,STY,SSIZE2(1,KSIZE),SFAC);
             } else if (ICASE.EQ.5) {
                // .. SCOPY ..
-               DO 60 I = 1, 7
+               for (I = 1; I <= 7; I++) { // 60
                   STY(I) = DT10Y(I,KN,KI)
    60          CONTINUE
                scopy(N,SX,INCX,SY,INCY);
@@ -380,7 +380,7 @@
             } else if (ICASE.EQ.6) {
                // .. SSWAP ..
                sswap(N,SX,INCX,SY,INCY);
-               DO 80 I = 1, 7
+               for (I = 1; I <= 7; I++) { // 80
                   STX(I) = DT10X(I,KN,KI)
                   STY(I) = DT10Y(I,KN,KI)
    80          CONTINUE
@@ -389,19 +389,19 @@
             ELSEIF (ICASE.EQ.12) THEN
                // .. SROTM ..
                KNI=KN+4*(KI-1)
-               DO KPAR=1,4
-                  DO I=1,7
+               for (KPAR = 1; KPAR <= 4; KPAR++) {
+                  for (I = 1; I <= 7; I++) {
                      SX(I) = DX1(I)
                      SY(I) = DY1(I)
                      STX(I)= DT19X(I,KPAR,KNI)
                      STY(I)= DT19Y(I,KPAR,KNI)
                   END DO
 
-                  DO I=1,5
+                  for (I = 1; I <= 5; I++) {
                      DTEMP(I) = DPAR(I,KPAR)
                   END DO
 
-                  DO  I=1,LENX
+                  for (I = 1; I <= LENX; I++) {
                      SSIZE(I)=STX(I)
                   END DO
                     // SEE REMARK ABOVE ABOUT DT11X(1,2,7)
@@ -458,13 +458,13 @@
       DATA              SSIZE2/0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 0.0E0, 1.17E0, 1.17E0, 1.17E0, 1.17E0, 1.17E0, 1.17E0, 1.17E0, 1.17E0, 1.17E0, 1.17E0, 1.17E0, 1.17E0, 1.17E0, 1.17E0/
       // .. Executable Statements ..
 
-      DO 60 KI = 1, 4
+      for (KI = 1; KI <= 4; KI++) { // 60
          INCX = INCXS(KI)
          INCY = INCYS(KI)
          MX = ABS(INCX)
          MY = ABS(INCY)
 
-         DO 40 KN = 1, 4
+         for (KN = 1; KN <= 4; KN++) { // 40
             N = NS(KN)
             KSIZE = MIN(2,KN)
             LENX = LENS(KN,MX)
@@ -472,7 +472,7 @@
 
             if (ICASE.EQ.4) {
                // .. SROT ..
-               DO 20 I = 1, 7
+               for (I = 1; I <= 7; I++) { // 20
                   SX(I) = DX1(I)
                   SY(I) = DY1(I)
                   STX(I) = DT9X(I,KN,KI)
@@ -489,14 +489,14 @@
    60 CONTINUE
 
       MWPC(1) = 1
-      DO 80 I = 2, 11
+      for (I = 2; I <= 11; I++) { // 80
          MWPC(I) = 0
    80 CONTINUE
       MWPS(1) = 0
-      DO 100 I = 2, 6
+      for (I = 2; I <= 6; I++) { // 100
          MWPS(I) = 1
   100 CONTINUE
-      DO 120 I = 7, 11
+      for (I = 7; I <= 11; I++) { // 120
          MWPS(I) = -1
   120 CONTINUE
       MWPINX(1) = 1
@@ -521,12 +521,12 @@
       MWPINY(9) = -1
       MWPINY(10) = 2
       MWPINY(11) = 1
-      DO 140 I = 1, 11
+      for (I = 1; I <= 11; I++) { // 140
          MWPN(I) = 5
   140 CONTINUE
       MWPN(5) = 3
       MWPN(10) = 3
-      DO 160 I = 1, 5
+      for (I = 1; I <= 5; I++) { // 160
          MWPX(I) = I
          MWPY(I) = I
          MWPTX(1,I) = I
@@ -568,10 +568,10 @@
       MWPTY(10,3) = 2
       MWPTY(10,4) = 4
       MWPTY(10,5) = 3
-      DO 200 I = 1, 11
+      for (I = 1; I <= 11; I++) { // 200
          INCX = MWPINX(I)
          INCY = MWPINY(I)
-         DO 180 K = 1, 5
+         for (K = 1; K <= 5; K++) { // 180
             COPYX(K) = MWPX(K)
             COPYY(K) = MWPY(K)
             MWPSTX(K) = MWPTX(I,K)
@@ -619,7 +619,7 @@
       COMMON           /COMBLA/ICASE, N, INCX, INCY, PASS
       // .. Executable Statements ..
 
-      DO 40 I = 1, LEN
+      for (I = 1; I <= LEN; I++) { // 40
          SD = SCOMP(I) - STRUE(I)
          IF (ABS(SFAC*SD) .LE. ABS(SSIZE(I))*EPSILON(ZERO)) GO TO 40
 
@@ -793,7 +793,7 @@
 
       // Generate (N-1) values in (-1,1).
 
-      DO I = 2, N
+      for (I = 2; I <= N; I++) {
          random_number(WORK(I));
          WORK(I) = ONE - TWO*WORK(I)
       END DO
@@ -802,7 +802,7 @@
       // by an unscaled algorithm.
 
       WORKSSQ = ZERO
-      DO I = 2, N
+      for (I = 2; I <= N; I++) {
          WORKSSQ = WORKSSQ + WORK(I)*WORK(I)
       END DO
 
@@ -810,18 +810,18 @@
       // and the rest from the random work array multiplied
       // by a scaling factor.
 
-      DO IV = 1, NV
+      for (IV = 1; IV <= NV; IV++) {
          V0 = VALUES(IV)
          if (ABS(V0).GT.ONE) {
          V0 = V0*HALF
          }
          Z(1) = V0
-         DO IW = 1, NV
+         for (IW = 1; IW <= NV; IW++) {
             V1 = VALUES(IW)
             if (ABS(V1).GT.ONE) {
                V1 = (V1*HALF) / SQRT(REAL(N))
             }
-            DO I = 2, N
+            for (I = 2; I <= N; I++) {
                Z(I) = V1*WORK(I)
             END DO
 
@@ -853,12 +853,12 @@
 
             // Fill the input array to SNRM2 with steps of incx
 
-            DO I = 1, N
+            for (I = 1; I <= N; I++) {
                X(I) = ROGUE
             END DO
             IX = 1
             IF (INCX.LT.0) IX = 1 - (N-1)*INCX
-            DO I = 1, N
+            for (I = 1; I <= N; I++) {
                X(IX) = Z(I)
                IX = IX + INCX
             END DO

@@ -29,7 +29,7 @@
          // code for increment equal to 1
 
          DMAX = DABS(DX(1))
-         DO I = 2,N
+         for (I = 2; I <= N; I++) {
             if (DABS(DX(I)).GT.DMAX) {
                IDAMAX = I
                DMAX = DABS(DX(I))
@@ -42,7 +42,7 @@
          IX = 1
          DMAX = DABS(DX(1))
          IX = IX + INCX
-         DO I = 2,N
+         for (I = 2; I <= N; I++) {
             if (DABS(DX(IX)).GT.DMAX) {
                IDAMAX = I
                DMAX = DABS(DX(IX))

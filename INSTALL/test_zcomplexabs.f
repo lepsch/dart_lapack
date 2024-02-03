@@ -89,7 +89,7 @@
             print *, "!! fl( subnormal ) may be 0"
         endif
       else
-        do 100 i = 1, N
+        for (i = 1; i <= N; i++) { // 100
             Xj = X(i)
             if( Xj .eq. 0.0d0 ) then
                 subnormalTreatedAs0 = subnormalTreatedAs0 + 1
@@ -101,7 +101,7 @@
       endif
 
       // Test (a) y = x + 0 * I, |y| = x
-      do 10 i = 1, N
+      for (i = 1; i <= N; i++) { // 10
         Xj = X(i)
         if( Xj .eq. 0.0d0 ) then
             subnormalTreatedAs0 = subnormalTreatedAs0 + 1
@@ -126,7 +126,7 @@
   10  continue
 
       // Test (b) y = 0 + x * I, |y| = x
-      do 20 i = 1, N
+      for (i = 1; i <= N; i++) { // 20
         Xj = X(i)
         if( Xj .eq. 0.0d0 ) then
             subnormalTreatedAs0 = subnormalTreatedAs0 + 1
@@ -151,7 +151,7 @@
   20  continue
 
       // Test (c) y = (3/4)*x + x * I, |y| = (5/4)*x
-      do 30 i = 1, N
+      for (i = 1; i <= N; i++) { // 30
         if( i .eq. 3 ) go to 30
         if( i .eq. 1 ) then
             Xj = 4*X(i)
@@ -182,7 +182,7 @@
   30  continue
 
       // Test (d) y = (1/2)*x + (1/2)*x * I, |y| = (1/2)*x*sqrt(2)
-      do 40 i = 1, N
+      for (i = 1; i <= N; i++) { // 40
         if( i .eq. 1 ) then
             Xj = 2*X(i)
         else
@@ -220,7 +220,7 @@
   40  continue
 
       // Test (e) Infs
-      do 50 i = 1, nInf
+      for (i = 1; i <= nInf; i++) { // 50
         nTests = nTests + 1
         Y = cInf(i)
         R = ABS( Y )
@@ -231,7 +231,7 @@
   50  continue
 
       // Test (f) NaNs
-      do 60 i = 1, nNaN
+      for (i = 1; i <= nNaN; i++) { // 60
         nTests = nTests + 1
         Y = cNaN(i)
         R = ABS( Y )

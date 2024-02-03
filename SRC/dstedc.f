@@ -239,11 +239,11 @@
 
            // Use Selection Sort to minimize swaps of eigenvectors
 
-           DO 40 II = 2, N
+           for (II = 2; II <= N; II++) { // 40
               I = II - 1
               K = I
               P = D( I )
-              DO 30 J = II, N
+              for (J = II; J <= N; J++) { // 30
                  if ( D( J ).LT.P ) {
                     K = J
                     P = D( J )

@@ -66,12 +66,12 @@
 
       // Do for each value of M in MVAL.
 
-      DO 30 IM = 1, NM
+      for (IM = 1; IM <= NM; IM++) { // 30
          M = MVAL( IM )
          P = PVAL( IM )
          Q = QVAL( IM )
 
-         DO 20 IMAT = 1, NTYPES
+         for (IMAT = 1; IMAT <= NTYPES; IMAT++) { // 20
 
             // Do the tests only if DOTYPE( IMAT ) is true.
 
@@ -88,12 +88,12 @@
                }
             } else if ( IMAT.EQ.2 ) {
                R = MIN( P, M-P, Q, M-Q )
-               DO I = 1, R
+               for (I = 1; I <= R; I++) {
                   THETA(I) = PIOVER2 * DLARND( 1, ISEED )
                END DO
                zlacsg(M, P, Q, THETA, ISEED, X, LDX, WORK );
-               DO I = 1, M
-                  DO J = 1, M
+               for (I = 1; I <= M; I++) {
+                  for (J = 1; J <= M; J++) {
                      X(I+(J-1)*LDX) = X(I+(J-1)*LDX) + ORTH*DLARND(2,ISEED)
                   END DO
                END DO
@@ -105,13 +105,13 @@
                DO I = 2, R+1
                   THETA(I) = THETA(I-1) + THETA(I)
                END DO
-               DO I = 1, R
+               for (I = 1; I <= R; I++) {
                   THETA(I) = PIOVER2 * THETA(I) / THETA(R+1)
                END DO
                zlacsg(M, P, Q, THETA, ISEED, X, LDX, WORK );
             } else {
                zlaset('F', M, M, ZERO, ONE, X, LDX );
-               DO I = 1, M
+               for (I = 1; I <= M; I++) {
                   J = INT( DLARAN( ISEED ) * M ) + 1
                   if ( J .NE. I ) {
                      zdrot(M, X(1+(I-1)*LDX), 1, X(1+(J-1)*LDX), 1, REALZERO, REALONE );
@@ -126,7 +126,7 @@
             // Print information about the tests that did not
             // pass the threshold.
 
-            DO 10 I = 1, NT
+            for (I = 1; I <= NT; I++) { // 10
                if ( RESULT( I ).GE.THRESH ) {
                   if ( NFAIL.EQ.0 .AND. FIRSTT ) {
                      FIRSTT = .FALSE.
@@ -174,25 +174,25 @@
       DO I = 1, MIN(P,Q)-R
          X(I,I) = ONE
       END DO
-      DO I = 1, R
+      for (I = 1; I <= R; I++) {
          X(MIN(P,Q)-R+I,MIN(P,Q)-R+I) = DCMPLX( COS(THETA(I)), 0.0D0 )
       END DO
       DO I = 1, MIN(P,M-Q)-R
          X(P-I+1,M-I+1) = -ONE
       END DO
-      DO I = 1, R
+      for (I = 1; I <= R; I++) {
          X(P-(MIN(P,M-Q)-R)+1-I,M-(MIN(P,M-Q)-R)+1-I) = DCMPLX( -SIN(THETA(R-I+1)), 0.0D0 )
       END DO
       DO I = 1, MIN(M-P,Q)-R
          X(M-I+1,Q-I+1) = ONE
       END DO
-      DO I = 1, R
+      for (I = 1; I <= R; I++) {
          X(M-(MIN(M-P,Q)-R)+1-I,Q-(MIN(M-P,Q)-R)+1-I) = DCMPLX( SIN(THETA(R-I+1)), 0.0D0 )
       END DO
       DO I = 1, MIN(M-P,M-Q)-R
          X(P+I,Q+I) = ONE
       END DO
-      DO I = 1, R
+      for (I = 1; I <= R; I++) {
          X(P+(MIN(M-P,M-Q)-R)+I,Q+(MIN(M-P,M-Q)-R)+I) = DCMPLX( COS(THETA(I)), 0.0D0 )
       END DO
       zlaror('Left', 'No init', P, M, X, LDX, ISEED, WORK, INFO );

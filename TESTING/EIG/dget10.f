@@ -45,7 +45,7 @@
       EPS = DLAMCH( 'Precision' )
 
       WNORM = ZERO
-      DO 10 J = 1, N
+      for (J = 1; J <= N; J++) { // 10
          dcopy(M, A( 1, J ), 1, WORK, 1 );
          daxpy(M, -ONE, B( 1, J ), 1, WORK, 1 );
          WNORM = MAX( WNORM, DASUM( N, WORK, 1 ) )

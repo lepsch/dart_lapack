@@ -62,7 +62,7 @@
 
       // Compute the factorization, KK is the lomn loop index.
 
-      DO KK = 1, KMAX
+      for (KK = 1; KK <= KMAX; KK++) {
 
          I = IOFFSET + KK
 
@@ -143,7 +143,7 @@
                // Set TAUs corresponding to the columns that were not
                // factorized to ZERO, i.e. set TAU(KK:MINMNFACT) to CZERO.
 
-               DO J = KK, MINMNFACT
+               for (J = KK; J <= MINMNFACT; J++) {
                   TAU( J ) = CZERO
                END DO
 
@@ -191,7 +191,7 @@
                // Set TAUs corresponding to the columns that were not
                // factorized to ZERO, i.e. set TAU(KK:MINMNFACT) to CZERO.
 
-               DO J = KK, MINMNFACT
+               for (J = KK; J <= MINMNFACT; J++) {
                   TAU( J ) = CZERO
                END DO
 

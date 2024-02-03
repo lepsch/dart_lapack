@@ -49,7 +49,7 @@
       // Form B = H - (WR,WI)*I (except that the subdiagonal elements and
       // the imaginary parts of the diagonal elements are not stored).
 
-      DO 20 J = 1, N
+      for (J = 1; J <= N; J++) { // 20
          DO 10 I = 1, J - 1
             B( I, J ) = H( I, J )
    10    CONTINUE
@@ -64,7 +64,7 @@
 
             // Set initial vector.
 
-            DO 30 I = 1, N
+            for (I = 1; I <= N; I++) { // 30
                VR( I ) = EPS3
    30       CONTINUE
          } else {
@@ -148,7 +148,7 @@
          }
 
          NORMIN = 'N'
-         DO 110 ITS = 1, N
+         for (ITS = 1; ITS <= N; ITS++) { // 110
 
             // Solve U*x = scale*v for a right eigenvector
               // or U**T*x = scale*v for a left eigenvector,
@@ -166,7 +166,7 @@
 
             TEMP = EPS3 / ( ROOTN+ONE )
             VR( 1 ) = EPS3
-            DO 100 I = 2, N
+            for (I = 2; I <= N; I++) { // 100
                VR( I ) = TEMP
   100       CONTINUE
             VR( N-ITS+1 ) = VR( N-ITS+1 ) - EPS3*ROOTN
@@ -190,7 +190,7 @@
 
             // Set initial vector.
 
-            DO 130 I = 1, N
+            for (I = 1; I <= N; I++) { // 130
                VR( I ) = EPS3
                VI( I ) = ZERO
   130       CONTINUE
@@ -213,7 +213,7 @@
             // B(j+1,i).
 
             B( 2, 1 ) = -WI
-            DO 140 I = 2, N
+            for (I = 2; I <= N; I++) { // 140
                B( I+1, 1 ) = ZERO
   140       CONTINUE
 
@@ -332,7 +332,7 @@
             I3 = 1
          }
 
-         DO 270 ITS = 1, N
+         for (ITS = 1; ITS <= N; ITS++) { // 270
             SCALE = ONE
             VMAX = ONE
             VCRIT = BIGNUM
@@ -387,7 +387,7 @@
                   VMAX = MAX( ABS( VR( I ) )+ABS( VI( I ) ), VMAX )
                   VCRIT = BIGNUM / VMAX
                } else {
-                  DO 240 J = 1, N
+                  for (J = 1; J <= N; J++) { // 240
                      VR( J ) = ZERO
                      VI( J ) = ZERO
   240             CONTINUE
@@ -410,7 +410,7 @@
             VR( 1 ) = EPS3
             VI( 1 ) = ZERO
 
-            DO 260 I = 2, N
+            for (I = 2; I <= N; I++) { // 260
                VR( I ) = Y
                VI( I ) = ZERO
   260       CONTINUE
@@ -426,7 +426,7 @@
          // Normalize eigenvector.
 
          VNORM = ZERO
-         DO 290 I = 1, N
+         for (I = 1; I <= N; I++) { // 290
             VNORM = MAX( VNORM, ABS( VR( I ) )+ABS( VI( I ) ) )
   290    CONTINUE
          sscal(N, ONE / VNORM, VR, 1 );

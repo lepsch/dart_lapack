@@ -79,8 +79,8 @@
       // And when  alpha.eq.zero.
 
       if (ALPHA.EQ.ZERO) {
-          DO 20 J = 1,N
-              DO 10 I = 1,M
+          for (J = 1; J <= N; J++) { // 20
+              for (I = 1; I <= M; I++) { // 10
                   B(I,J) = ZERO
    10         CONTINUE
    20     CONTINUE
@@ -95,9 +95,9 @@
             // Form  B := alpha*inv( A )*B.
 
               if (UPPER) {
-                  DO 60 J = 1,N
+                  for (J = 1; J <= N; J++) { // 60
                       if (ALPHA.NE.ONE) {
-                          DO 30 I = 1,M
+                          for (I = 1; I <= M; I++) { // 30
                               B(I,J) = ALPHA*B(I,J)
    30                     CONTINUE
                       }
@@ -111,13 +111,13 @@
    50                 CONTINUE
    60             CONTINUE
               } else {
-                  DO 100 J = 1,N
+                  for (J = 1; J <= N; J++) { // 100
                       if (ALPHA.NE.ONE) {
-                          DO 70 I = 1,M
+                          for (I = 1; I <= M; I++) { // 70
                               B(I,J) = ALPHA*B(I,J)
    70                     CONTINUE
                       }
-                      DO 90 K = 1,M
+                      for (K = 1; K <= M; K++) { // 90
                           if (B(K,J).NE.ZERO) {
                               IF (NOUNIT) B(K,J) = B(K,J)/A(K,K)
                               DO 80 I = K + 1,M
@@ -133,8 +133,8 @@
             // or    B := alpha*inv( A**H )*B.
 
               if (UPPER) {
-                  DO 140 J = 1,N
-                      DO 130 I = 1,M
+                  for (J = 1; J <= N; J++) { // 140
+                      for (I = 1; I <= M; I++) { // 130
                           TEMP = ALPHA*B(I,J)
                           if (NOCONJ) {
                               DO 110 K = 1,I - 1
@@ -151,7 +151,7 @@
   130                 CONTINUE
   140             CONTINUE
               } else {
-                  DO 180 J = 1,N
+                  for (J = 1; J <= N; J++) { // 180
                       DO 170 I = M,1,-1
                           TEMP = ALPHA*B(I,J)
                           if (NOCONJ) {
@@ -176,22 +176,22 @@
             // Form  B := alpha*B*inv( A ).
 
               if (UPPER) {
-                  DO 230 J = 1,N
+                  for (J = 1; J <= N; J++) { // 230
                       if (ALPHA.NE.ONE) {
-                          DO 190 I = 1,M
+                          for (I = 1; I <= M; I++) { // 190
                               B(I,J) = ALPHA*B(I,J)
   190                     CONTINUE
                       }
                       DO 210 K = 1,J - 1
                           if (A(K,J).NE.ZERO) {
-                              DO 200 I = 1,M
+                              for (I = 1; I <= M; I++) { // 200
                                   B(I,J) = B(I,J) - A(K,J)*B(I,K)
   200                         CONTINUE
                           }
   210                 CONTINUE
                       if (NOUNIT) {
                           TEMP = ONE/A(J,J)
-                          DO 220 I = 1,M
+                          for (I = 1; I <= M; I++) { // 220
                               B(I,J) = TEMP*B(I,J)
   220                     CONTINUE
                       }
@@ -199,20 +199,20 @@
               } else {
                   DO 280 J = N,1,-1
                       if (ALPHA.NE.ONE) {
-                          DO 240 I = 1,M
+                          for (I = 1; I <= M; I++) { // 240
                               B(I,J) = ALPHA*B(I,J)
   240                     CONTINUE
                       }
                       DO 260 K = J + 1,N
                           if (A(K,J).NE.ZERO) {
-                              DO 250 I = 1,M
+                              for (I = 1; I <= M; I++) { // 250
                                   B(I,J) = B(I,J) - A(K,J)*B(I,K)
   250                         CONTINUE
                           }
   260                 CONTINUE
                       if (NOUNIT) {
                           TEMP = ONE/A(J,J)
-                          DO 270 I = 1,M
+                          for (I = 1; I <= M; I++) { // 270
                               B(I,J) = TEMP*B(I,J)
   270                     CONTINUE
                       }
@@ -231,7 +231,7 @@
                           } else {
                               TEMP = ONE/DCONJG(A(K,K))
                           }
-                          DO 290 I = 1,M
+                          for (I = 1; I <= M; I++) { // 290
                               B(I,K) = TEMP*B(I,K)
   290                     CONTINUE
                       }
@@ -242,26 +242,26 @@
                               } else {
                                   TEMP = DCONJG(A(J,K))
                               }
-                              DO 300 I = 1,M
+                              for (I = 1; I <= M; I++) { // 300
                                   B(I,J) = B(I,J) - TEMP*B(I,K)
   300                         CONTINUE
                           }
   310                 CONTINUE
                       if (ALPHA.NE.ONE) {
-                          DO 320 I = 1,M
+                          for (I = 1; I <= M; I++) { // 320
                               B(I,K) = ALPHA*B(I,K)
   320                     CONTINUE
                       }
   330             CONTINUE
               } else {
-                  DO 380 K = 1,N
+                  for (K = 1; K <= N; K++) { // 380
                       if (NOUNIT) {
                           if (NOCONJ) {
                               TEMP = ONE/A(K,K)
                           } else {
                               TEMP = ONE/DCONJG(A(K,K))
                           }
-                          DO 340 I = 1,M
+                          for (I = 1; I <= M; I++) { // 340
                               B(I,K) = TEMP*B(I,K)
   340                     CONTINUE
                       }
@@ -272,13 +272,13 @@
                               } else {
                                   TEMP = DCONJG(A(J,K))
                               }
-                              DO 350 I = 1,M
+                              for (I = 1; I <= M; I++) { // 350
                                   B(I,J) = B(I,J) - TEMP*B(I,K)
   350                         CONTINUE
                           }
   360                 CONTINUE
                       if (ALPHA.NE.ONE) {
-                          DO 370 I = 1,M
+                          for (I = 1; I <= M; I++) { // 370
                               B(I,K) = ALPHA*B(I,K)
   370                     CONTINUE
                       }

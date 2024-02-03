@@ -73,7 +73,7 @@
          // Lower triangular storage: examine D from top to bottom.
 
          KP = 1
-         DO 20 INFO = 1, N
+         for (INFO = 1; INFO <= N; INFO++) { // 20
             IF( IPIV( INFO ).GT.0 .AND. AP( KP ).EQ.ZERO ) RETURN
             KP = KP + N - INFO + 1
    20    CONTINUE

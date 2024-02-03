@@ -56,9 +56,9 @@
 
             // Upper triangle of A is stored.
 
-            DO 20 J = 1, N
+            for (J = 1; J <= N; J++) { // 20
                CJ = S( J )
-               DO 10 I = 1, J
+               for (I = 1; I <= J; I++) { // 10
                   A( I, J ) = CJ*S( I )*A( I, J )
    10          CONTINUE
    20       CONTINUE
@@ -66,9 +66,9 @@
 
             // Lower triangle of A is stored.
 
-            DO 40 J = 1, N
+            for (J = 1; J <= N; J++) { // 40
                CJ = S( J )
-               DO 30 I = J, N
+               for (I = J; I <= N; I++) { // 30
                   A( I, J ) = CJ*S( I )*A( I, J )
    30          CONTINUE
    40       CONTINUE

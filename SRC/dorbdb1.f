@@ -75,7 +75,7 @@
 
       // Reduce columns 1, ..., Q of X11 and X21
 
-      DO I = 1, Q
+      for (I = 1; I <= Q; I++) {
 
          dlarfgp(P-I+1, X11(I,I), X11(I+1,I), 1, TAUP1(I) );
          dlarfgp(M-P-I+1, X21(I,I), X21(I+1,I), 1, TAUP2(I) );

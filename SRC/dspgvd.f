@@ -116,7 +116,7 @@
                TRANS = 'T'
             }
 
-            DO 10 J = 1, NEIG
+            for (J = 1; J <= NEIG; J++) { // 10
                dtpsv(UPLO, TRANS, 'Non-unit', N, BP, Z( 1, J ), 1 );
    10       CONTINUE
 
@@ -131,7 +131,7 @@
                TRANS = 'N'
             }
 
-            DO 20 J = 1, NEIG
+            for (J = 1; J <= NEIG; J++) { // 20
                dtpmv(UPLO, TRANS, 'Non-unit', N, BP, Z( 1, J ), 1 );
    20       CONTINUE
          }

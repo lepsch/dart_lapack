@@ -43,14 +43,14 @@
          // Compute the number of eigenvalues in the initial intervals.
 
          MOUT = 0
-         DO 30 JI = 1, MINP
-            DO 20 JP = 1, 2
+         for (JI = 1; JI <= MINP; JI++) { // 30
+            for (JP = 1; JP <= 2; JP++) { // 20
                TMP1 = D( 1 ) - AB( JI, JP )
                IF( ABS( TMP1 ).LT.PIVMIN ) TMP1 = -PIVMIN
                NAB( JI, JP ) = 0
                IF( TMP1.LE.ZERO ) NAB( JI, JP ) = 1
 
-               DO 10 J = 2, N
+               for (J = 2; J <= N; J++) { // 10
                   TMP1 = D( J ) - E2( J-1 ) / TMP1 - AB( JI, JP )
                   IF( ABS( TMP1 ).LT.PIVMIN ) TMP1 = -PIVMIN                   IF( TMP1.LE.ZERO ) NAB( JI, JP ) = NAB( JI, JP ) + 1
    10          CONTINUE
@@ -73,14 +73,14 @@
       // If IJOB=3, use the user-supplied starting point.
 
       if ( IJOB.EQ.2 ) {
-         DO 40 JI = 1, MINP
+         for (JI = 1; JI <= MINP; JI++) { // 40
             C( JI ) = HALF*( AB( JI, 1 )+AB( JI, 2 ) )
    40    CONTINUE
       }
 
       // Iteration loop
 
-      DO 130 JIT = 1, NITMAX
+      for (JIT = 1; JIT <= NITMAX; JIT++) { // 130
 
          // Loop over intervals
 
@@ -88,7 +88,7 @@
 
             // Begin of Parallel Version of the loop
 
-            DO 60 JI = KF, KL
+            for (JI = KF; JI <= KL; JI++) { // 60
 
                // Compute N(c), the number of eigenvalues less than c
 
@@ -99,7 +99,7 @@
                   WORK( JI ) = MIN( WORK( JI ), -PIVMIN )
                }
 
-               DO 50 J = 2, N
+               for (J = 2; J <= N; J++) { // 50
                   WORK( JI ) = D( J ) - E2( J-1 ) / WORK( JI ) - C( JI )
                   if ( WORK( JI ).LE.PIVMIN ) {
                      IWORK( JI ) = IWORK( JI ) + 1
@@ -113,7 +113,7 @@
                // IJOB=2: Choose all intervals containing eigenvalues.
 
                KLNEW = KL
-               DO 70 JI = KF, KL
+               for (JI = KF; JI <= KL; JI++) { // 70
 
                   // Insure that N(w) is monotone
 
@@ -160,7 +160,7 @@
                // IJOB=3: Binary search.  Keep only the interval containing
                        // w   s.t. N(w) = NVAL
 
-               DO 80 JI = KF, KL
+               for (JI = KF; JI <= KL; JI++) { // 80
                   if ( IWORK( JI ).LE.NVAL( JI ) ) {
                      AB( JI, 1 ) = C( JI )
                      NAB( JI, 1 ) = IWORK( JI )
@@ -179,7 +179,7 @@
             // Begin of Serial Version of the loop
 
             KLNEW = KL
-            DO 100 JI = KF, KL
+            for (JI = KF; JI <= KL; JI++) { // 100
 
                // Compute N(w), the number of eigenvalues less than w
 
@@ -191,7 +191,7 @@
                   TMP2 = MIN( TMP2, -PIVMIN )
                }
 
-               DO 90 J = 2, N
+               for (J = 2; J <= N; J++) { // 90
                   TMP2 = D( J ) - E2( J-1 ) / TMP2 - TMP1
                   if ( TMP2.LE.PIVMIN ) {
                      ITMP1 = ITMP1 + 1
@@ -260,7 +260,7 @@
          // Check for convergence
 
          KFNEW = KF
-         DO 110 JI = KF, KL
+         for (JI = KF; JI <= KL; JI++) { // 110
             TMP1 = ABS( AB( JI, 2 )-AB( JI, 1 ) )
             TMP2 = MAX( ABS( AB( JI, 2 ) ), ABS( AB( JI, 1 ) ) )
             if ( TMP1.LT.MAX( ABSTOL, PIVMIN, RELTOL*TMP2 ) .OR. NAB( JI, 1 ).GE.NAB( JI, 2 ) ) {
@@ -294,7 +294,7 @@
 
          // Choose Midpoints
 
-         DO 120 JI = KF, KL
+         for (JI = KF; JI <= KL; JI++) { // 120
             C( JI ) = HALF*( AB( JI, 1 )+AB( JI, 2 ) )
   120    CONTINUE
 

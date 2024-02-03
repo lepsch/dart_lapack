@@ -69,7 +69,7 @@
       NRUN = 0
       NFAIL = 0
       NERRS = 0
-      DO 10 I = 1, 4
+      for (I = 1; I <= 4; I++) { // 10
          ISEED( I ) = ISEEDY( I )
    10 CONTINUE
 
@@ -78,7 +78,7 @@
       IF( TSTERR ) CALL CERRGT( PATH, NOUT )
       INFOT = 0
 
-      DO 120 IN = 1, NN
+      for (IN = 1; IN <= NN; IN++) { // 120
 
          // Do for each value of N in NVAL.
 
@@ -87,7 +87,7 @@
          NIMAT = NTYPES
          IF( N.LE.0 ) NIMAT = 1
 
-         DO 110 IMAT = 1, NIMAT
+         for (IMAT = 1; IMAT <= NIMAT; IMAT++) { // 110
 
             // Do the tests only if DOTYPE( IMAT ) is true.
 
@@ -247,8 +247,8 @@
             // computing the maximum column sum as we go.
 
             AINVNM = ZERO
-            DO 50 I = 1, N
-               DO 40 J = 1, N
+            for (I = 1; I <= N; I++) { // 50
+               for (J = 1; J <= N; J++) { // 40
                   X( J ) = ZERO
    40          CONTINUE
                X( I ) = ONE
@@ -257,18 +257,18 @@
    50       CONTINUE
             RCONDC = ONE / MAX( ONE, ANORM*AINVNM )
 
-            DO 90 IRHS = 1, NNS
+            for (IRHS = 1; IRHS <= NNS; IRHS++) { // 90
                NRHS = NSVAL( IRHS )
 
             // Generate NRHS random solution vectors.
 
                IX = 1
-               DO 60 J = 1, NRHS
+               for (J = 1; J <= NRHS; J++) { // 60
                   clarnv(2, ISEED, N, XACT( IX ) );
                   IX = IX + LDA
    60          CONTINUE
 
-               DO 80 IUPLO = 1, 2
+               for (IUPLO = 1; IUPLO <= 2; IUPLO++) { // 80
 
                // Do first for UPLO = 'U', then for UPLO = 'L'.
 
@@ -311,7 +311,7 @@
                // Print information about the tests that did not pass the
                // threshold.
 
-                  DO 70 K = 2, 6
+                  for (K = 2; K <= 6; K++) { // 70
                      if ( RESULT( K ).GE.THRESH ) {
                         IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9998 )UPLO, N, NRHS, IMAT, K, RESULT( K )
                         NFAIL = NFAIL + 1

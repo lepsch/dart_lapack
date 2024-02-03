@@ -45,7 +45,7 @@
 
       K = MIN( M, N )
 
-      DO I = 1, K
+      for (I = 1; I <= K; I++) {
 
          // Generate elem. refl. H(i) to annihilate A(i+1:m,i), tau(I) -> T(I,1)
 
@@ -69,7 +69,7 @@
          }
       END DO
 
-      DO I = 2, N
+      for (I = 2; I <= N; I++) {
          AII = A( I, I )
          A( I, I ) = ONE
 

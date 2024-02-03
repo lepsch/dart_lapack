@@ -65,7 +65,7 @@
 
       if ( SOMCON ) {
          M = 0
-         DO 10 J = 1, N
+         for (J = 1; J <= N; J++) { // 10
             IF( SELECT( J ) ) M = M + 1
    10    CONTINUE
       } else {
@@ -114,7 +114,7 @@
       BIGNUM = ONE / SMLNUM
 
       KS = 1
-      DO 50 K = 1, N
+      for (K = 1; K <= N; K++) { // 50
 
          if ( SOMCON ) {
             IF( .NOT.SELECT( K ) ) GO TO 50
@@ -145,7 +145,7 @@
 
             // Form  C = T22 - lambda*I in WORK(2:N,2:N).
 
-            DO 20 I = 2, N
+            for (I = 2; I <= N; I++) { // 20
                WORK( I, I ) = WORK( I, I ) - WORK( 1, 1 )
    20       CONTINUE
 

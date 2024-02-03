@@ -74,7 +74,7 @@
          // Backward transformation on right eigenvectors
 
          if ( RIGHTV ) {
-            DO 10 I = ILO, IHI
+            for (I = ILO; I <= IHI; I++) { // 10
                zdscal(M, RSCALE( I ), V( I, 1 ), LDV );
    10       CONTINUE
          }
@@ -82,7 +82,7 @@
          // Backward transformation on left eigenvectors
 
          if ( LEFTV ) {
-            DO 20 I = ILO, IHI
+            for (I = ILO; I <= IHI; I++) { // 20
                zdscal(M, LSCALE( I ), V( I, 1 ), LDV );
    20       CONTINUE
          }

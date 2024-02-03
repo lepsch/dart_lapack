@@ -33,7 +33,7 @@
 
       IF( N.LE.1 ) RETURN
 
-      DO 10 I = 1, NB
+      for (I = 1; I <= NB; I++) { // 10
          if ( I.GT.1 ) {
 
             // Update A(K+1:N,I)

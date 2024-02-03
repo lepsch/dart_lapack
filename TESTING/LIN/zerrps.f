@@ -45,8 +45,8 @@
 
       // Set the variables to innocuous values.
 
-      DO 110 J = 1, NMAX
-         DO 100 I = 1, NMAX
+      for (J = 1; J <= NMAX; J++) { // 110
+         for (I = 1; I <= NMAX; I++) { // 100
             A( I, J ) = 1.D0 / DBLE( I+J )
 
   100    CONTINUE

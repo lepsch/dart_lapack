@@ -19,7 +19,7 @@
       DATA             SFAC/9.765625D-4/
       // .. Executable Statements ..
       WRITE (NOUT,99999)
-      DO 20 IC = 1, 10
+      for (IC = 1; IC <= 10; IC++) { // 20
          ICASE = IC
          header();
 
@@ -106,7 +106,7 @@
       DBTRUE(3) = -1.0D0/0.6D0
       DBTRUE(5) = 1.0D0/0.6D0
 
-      DO 20 K = 1, 8
+      for (K = 1; K <= 8; K++) { // 20
          // .. Set N=K for identification in output if any ..
          N = K
          if (ICASE.EQ.3) {
@@ -157,12 +157,12 @@
       DATA              DTRUE5/0.10D0, 2.0D0, 2.0D0, 2.0D0, 2.0D0, 2.0D0, 2.0D0, 2.0D0, -0.3D0, 3.0D0, 3.0D0, 3.0D0, 3.0D0, 3.0D0, 3.0D0, 3.0D0, 0.0D0, 0.0D0, 4.0D0, 4.0D0, 4.0D0, 4.0D0, 4.0D0, 4.0D0, 0.20D0, -0.60D0, 0.30D0, 5.0D0, 5.0D0, 5.0D0, 5.0D0, 5.0D0, 0.03D0, -0.09D0, 0.15D0, -0.03D0, 6.0D0, 6.0D0, 6.0D0, 6.0D0, 0.10D0, 8.0D0, 8.0D0, 8.0D0, 8.0D0, 8.0D0, 8.0D0, 8.0D0, 0.09D0, 9.0D0, 9.0D0, 9.0D0, 9.0D0, 9.0D0, 9.0D0, 9.0D0, 0.09D0, 2.0D0, -0.12D0, 2.0D0, 2.0D0, 2.0D0, 2.0D0, 2.0D0, 0.06D0, 3.0D0, -0.18D0, 5.0D0, 0.09D0, 2.0D0, 2.0D0, 2.0D0, 0.03D0, 4.0D0, -0.09D0, 6.0D0, -0.15D0, 7.0D0, -0.03D0, 3.0D0/
       DATA              ITRUE2/0, 1, 2, 2, 3/
       // .. Executable Statements ..
-      DO 80 INCX = 1, 2
-         DO 60 NP1 = 1, 5
+      for (INCX = 1; INCX <= 2; INCX++) { // 80
+         for (NP1 = 1; NP1 <= 5; NP1++) { // 60
             N = NP1 - 1
             LEN = 2*MAX(N,1)
             // .. Set vector arguments ..
-            DO 20 I = 1, LEN
+            for (I = 1; I <= LEN; I++) { // 20
                SX(I) = DV(I,NP1,INCX)
    20       CONTINUE
 
@@ -177,7 +177,7 @@
             } else if (ICASE.EQ.9) {
                // .. DSCALTEST ..
                dscaltest(N,SA((INCX-1)*5+NP1),SX,INCX);
-               DO 40 I = 1, LEN
+               for (I = 1; I <= LEN; I++) { // 40
                   STRUE(I) = DTRUE5(I,NP1,INCX)
    40          CONTINUE
                stest(LEN,SX,STRUE,STRUE,SFAC);
@@ -228,19 +228,19 @@
       DATA              SSIZE2/0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 1.17D0, 1.17D0, 1.17D0, 1.17D0, 1.17D0, 1.17D0, 1.17D0, 1.17D0, 1.17D0, 1.17D0, 1.17D0, 1.17D0, 1.17D0, 1.17D0/
       // .. Executable Statements ..
 
-      DO 120 KI = 1, 4
+      for (KI = 1; KI <= 4; KI++) { // 120
          INCX = INCXS(KI)
          INCY = INCYS(KI)
          MX = ABS(INCX)
          MY = ABS(INCY)
 
-         DO 100 KN = 1, 4
+         for (KN = 1; KN <= 4; KN++) { // 100
             N = NS(KN)
             KSIZE = MIN(2,KN)
             LENX = LENS(KN,MX)
             LENY = LENS(KN,MY)
             // .. Initialize all argument arrays ..
-            DO 20 I = 1, 7
+            for (I = 1; I <= 7; I++) { // 20
                SX(I) = DX1(I)
                SY(I) = DY1(I)
    20       CONTINUE
@@ -251,13 +251,13 @@
             } else if (ICASE.EQ.2) {
                // .. DAXPYTEST ..
                daxpytest(N,SA,SX,INCX,SY,INCY);
-               DO 40 J = 1, LENY
+               for (J = 1; J <= LENY; J++) { // 40
                   STY(J) = DT8(J,KN,KI)
    40          CONTINUE
                stest(LENY,SY,STY,SSIZE2(1,KSIZE),SFAC);
             } else if (ICASE.EQ.5) {
                // .. DCOPYTEST ..
-               DO 60 I = 1, 7
+               for (I = 1; I <= 7; I++) { // 60
                   STY(I) = DT10Y(I,KN,KI)
    60          CONTINUE
                dcopytest(N,SX,INCX,SY,INCY);
@@ -265,7 +265,7 @@
             } else if (ICASE.EQ.6) {
                // .. DSWAPTEST ..
                dswaptest(N,SX,INCX,SY,INCY);
-               DO 80 I = 1, 7
+               for (I = 1; I <= 7; I++) { // 80
                   STX(I) = DT10X(I,KN,KI)
                   STY(I) = DT10Y(I,KN,KI)
    80          CONTINUE
@@ -311,13 +311,13 @@
       DATA              SSIZE2/0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 0.0D0, 1.17D0, 1.17D0, 1.17D0, 1.17D0, 1.17D0, 1.17D0, 1.17D0, 1.17D0, 1.17D0, 1.17D0, 1.17D0, 1.17D0, 1.17D0, 1.17D0/
       // .. Executable Statements ..
 
-      DO 60 KI = 1, 4
+      for (KI = 1; KI <= 4; KI++) { // 60
          INCX = INCXS(KI)
          INCY = INCYS(KI)
          MX = ABS(INCX)
          MY = ABS(INCY)
 
-         DO 40 KN = 1, 4
+         for (KN = 1; KN <= 4; KN++) { // 40
             N = NS(KN)
             KSIZE = MIN(2,KN)
             LENX = LENS(KN,MX)
@@ -325,7 +325,7 @@
 
             if (ICASE.EQ.4) {
                // .. DROTTEST ..
-               DO 20 I = 1, 7
+               for (I = 1; I <= 7; I++) { // 20
                   SX(I) = DX1(I)
                   SY(I) = DY1(I)
                   STX(I) = DT9X(I,KN,KI)
@@ -342,14 +342,14 @@
    60 CONTINUE
 
       MWPC(1) = 1
-      DO 80 I = 2, 11
+      for (I = 2; I <= 11; I++) { // 80
          MWPC(I) = 0
    80 CONTINUE
       MWPS(1) = 0.0
-      DO 100 I = 2, 6
+      for (I = 2; I <= 6; I++) { // 100
          MWPS(I) = 1.0
   100 CONTINUE
-      DO 120 I = 7, 11
+      for (I = 7; I <= 11; I++) { // 120
          MWPS(I) = -1.0
   120 CONTINUE
       MWPINX(1) = 1
@@ -374,12 +374,12 @@
       MWPINY(9) = -1
       MWPINY(10) = 2
       MWPINY(11) = 1
-      DO 140 I = 1, 11
+      for (I = 1; I <= 11; I++) { // 140
          MWPN(I) = 5
   140 CONTINUE
       MWPN(5) = 3
       MWPN(10) = 3
-      DO 160 I = 1, 5
+      for (I = 1; I <= 5; I++) { // 160
          MWPX(I) = I
          MWPY(I) = I
          MWPTX(1,I) = I
@@ -421,10 +421,10 @@
       MWPTY(10,3) = 2
       MWPTY(10,4) = 4
       MWPTY(10,5) = 3
-      DO 200 I = 1, 11
+      for (I = 1; I <= 11; I++) { // 200
          INCX = MWPINX(I)
          INCY = MWPINY(I)
-         DO 180 K = 1, 5
+         for (K = 1; K <= 5; K++) { // 180
             COPYX(K) = MWPX(K)
             COPYY(K) = MWPY(K)
             MWPSTX(K) = MWPTX(I,K)
@@ -468,7 +468,7 @@
       COMMON           /COMBLA/ICASE, N, INCX, INCY, MODE, PASS
       // .. Executable Statements ..
 
-      DO 40 I = 1, LEN
+      for (I = 1; I <= LEN; I++) { // 40
          SD = SCOMP(I) - STRUE(I)
          IF (SDIFF(ABS(SSIZE(I))+ABS(SFAC*SD),ABS(SSIZE(I))).EQ.0.0D0) GO TO 40
 

@@ -72,7 +72,7 @@
 
       sgemm('Transpose', 'No transpose', M, N, M, ONE, U, LDU, WORK, LDA, ZERO, A, LDA );
 
-      DO 60 I = 1, K
+      for (I = 1; I <= K; I++) { // 60
          DO 50 J = I, K + L
             A( I, N-K-L+J ) = A( I, N-K-L+J ) - R( I, J )
    50    CONTINUE
@@ -100,8 +100,8 @@
 
       sgemm('Transpose', 'No transpose', P, N, P, ONE, V, LDV, WORK, LDB, ZERO, B, LDB );
 
-      DO 100 I = 1, L
-         DO 90 J = I, L
+      for (I = 1; I <= L; I++) { // 100
+         for (J = I; J <= L; J++) { // 90
             B( I, N-L+J ) = B( I, N-L+J ) - BETA( K+I )*R( K+I, K+J )
    90    CONTINUE
   100 CONTINUE

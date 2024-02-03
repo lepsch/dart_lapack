@@ -67,11 +67,11 @@
          // Form  A  when upper triangle is stored in AP.
 
           if (INCX.EQ.1) {
-              DO 20 J = 1,N
+              for (J = 1; J <= N; J++) { // 20
                   if (X(J).NE.ZERO) {
                       TEMP = ALPHA*X(J)
                       K = KK
-                      DO 10 I = 1,J
+                      for (I = 1; I <= J; I++) { // 10
                           AP(K) = AP(K) + X(I)*TEMP
                           K = K + 1
    10                 CONTINUE
@@ -80,7 +80,7 @@
    20         CONTINUE
           } else {
               JX = KX
-              DO 40 J = 1,N
+              for (J = 1; J <= N; J++) { // 40
                   if (X(JX).NE.ZERO) {
                       TEMP = ALPHA*X(JX)
                       IX = KX
@@ -98,11 +98,11 @@
          // Form  A  when lower triangle is stored in AP.
 
           if (INCX.EQ.1) {
-              DO 60 J = 1,N
+              for (J = 1; J <= N; J++) { // 60
                   if (X(J).NE.ZERO) {
                       TEMP = ALPHA*X(J)
                       K = KK
-                      DO 50 I = J,N
+                      for (I = J; I <= N; I++) { // 50
                           AP(K) = AP(K) + X(I)*TEMP
                           K = K + 1
    50                 CONTINUE
@@ -111,7 +111,7 @@
    60         CONTINUE
           } else {
               JX = KX
-              DO 80 J = 1,N
+              for (J = 1; J <= N; J++) { // 80
                   if (X(JX).NE.ZERO) {
                       TEMP = ALPHA*X(JX)
                       IX = JX

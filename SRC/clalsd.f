@@ -99,7 +99,7 @@
             }
    10    CONTINUE
          if ( NRHS.GT.1 ) {
-            DO 30 I = 1, NRHS
+            for (I = 1; I <= NRHS; I++) { // 30
                DO 20 J = 1, N - 1
                   CS = RWORK( J*2-1 )
                   SN = RWORK( J*2 )
@@ -143,16 +143,16 @@
          // computed below in two steps (real and imaginary parts).
 
          J = IRWB - 1
-         DO 50 JCOL = 1, NRHS
-            DO 40 JROW = 1, N
+         for (JCOL = 1; JCOL <= NRHS; JCOL++) { // 50
+            for (JROW = 1; JROW <= N; JROW++) { // 40
                J = J + 1
                RWORK( J ) = REAL( B( JROW, JCOL ) )
    40       CONTINUE
    50    CONTINUE
          sgemm('T', 'N', N, NRHS, N, ONE, RWORK( IRWU ), N, RWORK( IRWB ), N, ZERO, RWORK( IRWRB ), N );
          J = IRWB - 1
-         DO 70 JCOL = 1, NRHS
-            DO 60 JROW = 1, N
+         for (JCOL = 1; JCOL <= NRHS; JCOL++) { // 70
+            for (JROW = 1; JROW <= N; JROW++) { // 60
                J = J + 1
                RWORK( J ) = AIMAG( B( JROW, JCOL ) )
    60       CONTINUE
@@ -160,8 +160,8 @@
          sgemm('T', 'N', N, NRHS, N, ONE, RWORK( IRWU ), N, RWORK( IRWB ), N, ZERO, RWORK( IRWIB ), N );
          JREAL = IRWRB - 1
          JIMAG = IRWIB - 1
-         DO 90 JCOL = 1, NRHS
-            DO 80 JROW = 1, N
+         for (JCOL = 1; JCOL <= NRHS; JCOL++) { // 90
+            for (JROW = 1; JROW <= N; JROW++) { // 80
                JREAL = JREAL + 1
                JIMAG = JIMAG + 1
                B( JROW, JCOL ) = CMPLX( RWORK( JREAL ), RWORK( JIMAG ) )
@@ -169,7 +169,7 @@
    90    CONTINUE
 
          TOL = RCND*ABS( D( ISAMAX( N, D, 1 ) ) )
-         DO 100 I = 1, N
+         for (I = 1; I <= N; I++) { // 100
             if ( D( I ).LE.TOL ) {
                claset('A', 1, NRHS, CZERO, CZERO, B( I, 1 ), LDB );
             } else {
@@ -186,16 +186,16 @@
 *    $               WORK( NWORK ), N )
 
          J = IRWB - 1
-         DO 120 JCOL = 1, NRHS
-            DO 110 JROW = 1, N
+         for (JCOL = 1; JCOL <= NRHS; JCOL++) { // 120
+            for (JROW = 1; JROW <= N; JROW++) { // 110
                J = J + 1
                RWORK( J ) = REAL( B( JROW, JCOL ) )
   110       CONTINUE
   120    CONTINUE
          sgemm('T', 'N', N, NRHS, N, ONE, RWORK( IRWVT ), N, RWORK( IRWB ), N, ZERO, RWORK( IRWRB ), N );
          J = IRWB - 1
-         DO 140 JCOL = 1, NRHS
-            DO 130 JROW = 1, N
+         for (JCOL = 1; JCOL <= NRHS; JCOL++) { // 140
+            for (JROW = 1; JROW <= N; JROW++) { // 130
                J = J + 1
                RWORK( J ) = AIMAG( B( JROW, JCOL ) )
   130       CONTINUE
@@ -203,8 +203,8 @@
          sgemm('T', 'N', N, NRHS, N, ONE, RWORK( IRWVT ), N, RWORK( IRWB ), N, ZERO, RWORK( IRWIB ), N );
          JREAL = IRWRB - 1
          JIMAG = IRWIB - 1
-         DO 160 JCOL = 1, NRHS
-            DO 150 JROW = 1, N
+         for (JCOL = 1; JCOL <= NRHS; JCOL++) { // 160
+            for (JROW = 1; JROW <= N; JROW++) { // 150
                JREAL = JREAL + 1
                JIMAG = JIMAG + 1
                B( JROW, JCOL ) = CMPLX( RWORK( JREAL ), RWORK( JIMAG ) )
@@ -255,13 +255,13 @@
       ICMPQ2 = 0
       NSUB = 0
 
-      DO 170 I = 1, N
+      for (I = 1; I <= N; I++) { // 170
          if ( ABS( D( I ) ).LT.EPS ) {
             D( I ) = SIGN( EPS, D( I ) )
          }
   170 CONTINUE
 
-      DO 240 I = 1, NM1
+      for (I = 1; I <= NM1; I++) { // 240
          if ( ( ABS( E( I ) ).LT.EPS ) .OR. ( I.EQ.NM1 ) ) {
             NSUB = NSUB + 1
             IWORK( NSUB ) = ST
@@ -315,7 +315,7 @@
                // computed below in two steps (real and imaginary parts).
 
                J = IRWB - 1
-               DO 190 JCOL = 1, NRHS
+               for (JCOL = 1; JCOL <= NRHS; JCOL++) { // 190
                   DO 180 JROW = ST, ST + NSIZE - 1
                      J = J + 1
                      RWORK( J ) = REAL( B( JROW, JCOL ) )
@@ -323,7 +323,7 @@
   190          CONTINUE
                sgemm('T', 'N', NSIZE, NRHS, NSIZE, ONE, RWORK( U+ST1 ), N, RWORK( IRWB ), NSIZE, ZERO, RWORK( IRWRB ), NSIZE );
                J = IRWB - 1
-               DO 210 JCOL = 1, NRHS
+               for (JCOL = 1; JCOL <= NRHS; JCOL++) { // 210
                   DO 200 JROW = ST, ST + NSIZE - 1
                      J = J + 1
                      RWORK( J ) = AIMAG( B( JROW, JCOL ) )
@@ -332,7 +332,7 @@
                sgemm('T', 'N', NSIZE, NRHS, NSIZE, ONE, RWORK( U+ST1 ), N, RWORK( IRWB ), NSIZE, ZERO, RWORK( IRWIB ), NSIZE );
                JREAL = IRWRB - 1
                JIMAG = IRWIB - 1
-               DO 230 JCOL = 1, NRHS
+               for (JCOL = 1; JCOL <= NRHS; JCOL++) { // 230
                   DO 220 JROW = ST, ST + NSIZE - 1
                      JREAL = JREAL + 1
                      JIMAG = JIMAG + 1
@@ -363,7 +363,7 @@
 
       TOL = RCND*ABS( D( ISAMAX( N, D, 1 ) ) )
 
-      DO 250 I = 1, N
+      for (I = 1; I <= N; I++) { // 250
 
          // Some of the elements in D can be negative because 1-by-1
          // subproblems were not solved explicitly.
@@ -380,7 +380,7 @@
       // Now apply back the right singular vectors.
 
       ICMPQ2 = 1
-      DO 320 I = 1, NSUB
+      for (I = 1; I <= NSUB; I++) { // 320
          ST = IWORK( I )
          ST1 = ST - 1
          NSIZE = IWORK( SIZEI+I-1 )
@@ -398,9 +398,9 @@
 
             J = BXST - N - 1
             JREAL = IRWB - 1
-            DO 270 JCOL = 1, NRHS
+            for (JCOL = 1; JCOL <= NRHS; JCOL++) { // 270
                J = J + N
-               DO 260 JROW = 1, NSIZE
+               for (JROW = 1; JROW <= NSIZE; JROW++) { // 260
                   JREAL = JREAL + 1
                   RWORK( JREAL ) = REAL( WORK( J+JROW ) )
   260          CONTINUE
@@ -408,9 +408,9 @@
             sgemm('T', 'N', NSIZE, NRHS, NSIZE, ONE, RWORK( VT+ST1 ), N, RWORK( IRWB ), NSIZE, ZERO, RWORK( IRWRB ), NSIZE );
             J = BXST - N - 1
             JIMAG = IRWB - 1
-            DO 290 JCOL = 1, NRHS
+            for (JCOL = 1; JCOL <= NRHS; JCOL++) { // 290
                J = J + N
-               DO 280 JROW = 1, NSIZE
+               for (JROW = 1; JROW <= NSIZE; JROW++) { // 280
                   JIMAG = JIMAG + 1
                   RWORK( JIMAG ) = AIMAG( WORK( J+JROW ) )
   280          CONTINUE
@@ -418,7 +418,7 @@
             sgemm('T', 'N', NSIZE, NRHS, NSIZE, ONE, RWORK( VT+ST1 ), N, RWORK( IRWB ), NSIZE, ZERO, RWORK( IRWIB ), NSIZE );
             JREAL = IRWRB - 1
             JIMAG = IRWIB - 1
-            DO 310 JCOL = 1, NRHS
+            for (JCOL = 1; JCOL <= NRHS; JCOL++) { // 310
                DO 300 JROW = ST, ST + NSIZE - 1
                   JREAL = JREAL + 1
                   JIMAG = JIMAG + 1

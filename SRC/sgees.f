@@ -174,7 +174,7 @@
             slascl('G', 0, 0, CSCALE, ANRM, N, 1, WR, N, IERR );
             slascl('G', 0, 0, CSCALE, ANRM, N, 1, WI, N, IERR );
          }
-         DO 10 I = 1, N
+         for (I = 1; I <= N; I++) { // 10
             BWORK( I ) = SELECT( WR( I ), WI( I ) )
    10    CONTINUE
 
@@ -217,7 +217,7 @@
                I2 = IHI - 1
             }
             INXT = I1 - 1
-            DO 20 I = I1, I2
+            for (I = I1; I <= I2; I++) { // 20
                IF( I.LT.INXT ) GO TO 20
                if ( WI( I ).EQ.ZERO ) {
                   INXT = I + 1
@@ -253,7 +253,7 @@
          LST2SL = .TRUE.
          SDIM = 0
          IP = 0
-         DO 30 I = 1, N
+         for (I = 1; I <= N; I++) { // 30
             CURSL = SELECT( WR( I ), WI( I ) )
             if ( WI( I ).EQ.ZERO ) {
                IF( CURSL ) SDIM = SDIM + 1

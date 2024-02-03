@@ -59,7 +59,7 @@
 
             // Upper triangle of A is stored in band format.
 
-            DO 20 J = 1, N
+            for (J = 1; J <= N; J++) { // 20
                CJ = S( J )
                DO 10 I = MAX( 1, J-KD ), J - 1
                   AB( KD+1+I-J, J ) = CJ*S( I )*AB( KD+1+I-J, J )
@@ -70,7 +70,7 @@
 
             // Lower triangle of A is stored.
 
-            DO 40 J = 1, N
+            for (J = 1; J <= N; J++) { // 40
                CJ = S( J )
                AB( 1, J ) = CJ*CJ*DBLE( AB( 1, J ) )
                DO 30 I = J + 1, MIN( N, J+KD )

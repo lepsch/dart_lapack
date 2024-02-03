@@ -48,7 +48,7 @@
 
       IF( M.EQ.0 ) RETURN
       if ( M.EQ.N ) {
-         DO 10 I = 1, N
+         for (I = 1; I <= N; I++) { // 10
             TAU( I ) = CZERO
    10    CONTINUE
       } else {

@@ -50,7 +50,7 @@
       // Put random numbers into A and copy to AF
 
       LDT=NB
-      DO J=1,N
+      for (J = 1; J <= N; J++) {
          dlarnv(2, ISEED, M, A( 1, J ) );
       END DO
       dlacpy('Full', M, N, A, M, AF, M );
@@ -89,7 +89,7 @@
 
       // Generate random m-by-n matrix C and a copy CF
 
-      DO J=1,N
+      for (J = 1; J <= N; J++) {
          dlarnv(2, ISEED, M, C( 1, J ) );
       END DO
       CNORM = DLANGE( '1', M, N, C, M, RWORK)
@@ -129,7 +129,7 @@
 
       // Generate random n-by-m matrix D and a copy DF
 
-      DO J=1,M
+      for (J = 1; J <= M; J++) {
          dlarnv(2, ISEED, N, D( 1, J ) );
       END DO
       DNORM = DLANGE( '1', N, M, D, N, RWORK)

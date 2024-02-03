@@ -44,8 +44,8 @@
 
       // Set the variables to innocuous values.
 
-      DO J = 1, NMAX
-         DO I = 1, NMAX
+      for (J = 1; J <= NMAX; J++) {
+         for (I = 1; I <= NMAX; I++) {
             A( I, J ) = 1.D0 / DCMPLX( DBLE( I+J ), 0.D0 )
             C( I, J ) = 1.D0 / DCMPLX( DBLE( I+J ), 0.D0 )
             T( I, J ) = 1.D0 / DCMPLX( DBLE( I+J ), 0.D0 )

@@ -67,40 +67,40 @@
       NRUN = 0
       NFAIL = 0
       INFO = 0
-      DO 10 I = 1, 4
+      for (I = 1; I <= 4; I++) { // 10
          ISEED( I ) = ISEEDY( I )
    10 CONTINUE
       EPS = SLAMCH( 'Precision' )
 
-      DO 170 IIM = 1, NN
+      for (IIM = 1; IIM <= NN; IIM++) { // 170
 
          M = NVAL( IIM )
 
-         DO 160 IIN = 1, NN
+         for (IIN = 1; IIN <= NN; IIN++) { // 160
 
             N = NVAL( IIN )
 
-            DO 150 IFORM = 1, 2
+            for (IFORM = 1; IFORM <= 2; IFORM++) { // 150
 
                CFORM = FORMS( IFORM )
 
-               DO 140 IUPLO = 1, 2
+               for (IUPLO = 1; IUPLO <= 2; IUPLO++) { // 140
 
                   UPLO = UPLOS( IUPLO )
 
-                  DO 130 ISIDE = 1, 2
+                  for (ISIDE = 1; ISIDE <= 2; ISIDE++) { // 130
 
                      SIDE = SIDES( ISIDE )
 
-                     DO 120 ITRANS = 1, 2
+                     for (ITRANS = 1; ITRANS <= 2; ITRANS++) { // 120
 
                         TRANS = TRANSS( ITRANS )
 
-                        DO 110 IDIAG = 1, 2
+                        for (IDIAG = 1; IDIAG <= 2; IDIAG++) { // 110
 
                            DIAG = DIAGS( IDIAG )
 
-                           DO 100 IALPHA = 1, 3
+                           for (IALPHA = 1; IALPHA <= 3; IALPHA++) { // 100
 
                               if ( IALPHA.EQ.1 ) {
                                  ALPHA = ZERO
@@ -141,8 +141,8 @@
                               // take the R factor of the QR/LQ factorization
                               // of a random matrix.
 
-                              DO J = 1, NA
-                                 DO I = 1, NA
+                              for (J = 1; J <= NA; J++) {
+                                 for (I = 1; I <= NA; I++) {
                                     A( I, J ) = CLARND( 4, ISEED )
                                  END DO
                               END DO
@@ -160,8 +160,8 @@
                                  // some test cases
 
                                  if ( LSAME( DIAG, 'U' ) ) {
-                                    DO J = 1, NA
-                                       DO I = 1, J
+                                    for (J = 1; J <= NA; J++) {
+                                       for (I = 1; I <= J; I++) {
                                           A( I, J ) = A( I, J ) / ( 2.0 * A( J, J ) )
                                        END DO
                                     END DO
@@ -180,8 +180,8 @@
                                  // some test cases
 
                                  if ( LSAME( DIAG, 'U' ) ) {
-                                    DO I = 1, NA
-                                       DO J = 1, I
+                                    for (I = 1; I <= NA; I++) {
+                                       for (J = 1; J <= I; J++) {
                                           A( I, J ) = A( I, J ) / ( 2.0 * A( I, I ) )
                                        END DO
                                     END DO
@@ -194,7 +194,7 @@
                               // by a random complex number of absolute
                               // value 1.0E+00.
 
-                              DO J = 1, NA
+                              for (J = 1; J <= NA; J++) {
                                  A( J, J ) = A( J, J ) * CLARND( 5, ISEED )
                               END DO
 
@@ -206,8 +206,8 @@
                               // Generate B1 our M--by--N right-hand side
                               // and store a copy in B2.
 
-                              DO J = 1, N
-                                 DO I = 1, M
+                              for (J = 1; J <= N; J++) {
+                                 for (I = 1; I <= M; I++) {
                                     B1( I, J ) = CLARND( 4, ISEED )
                                     B2( I, J ) = B1( I, J )
                                  END DO
@@ -227,8 +227,8 @@
 
                               // Check that the result agrees.
 
-                              DO J = 1, N
-                                 DO I = 1, M
+                              for (J = 1; J <= N; J++) {
+                                 for (I = 1; I <= M; I++) {
                                     B1( I, J ) = B2( I, J ) - B1( I, J )
                                  END DO
                               END DO

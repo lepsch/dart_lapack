@@ -64,21 +64,21 @@
 
       // Begin test loop
 
-      DO 150 ITRANA = 1, 2
-         DO 140 ITRANB = 1, 2
+      for (ITRANA = 1; ITRANA <= 2; ITRANA++) { // 150
+         for (ITRANB = 1; ITRANB <= 2; ITRANB++) { // 140
             DO 130 ISGN = -1, 1, 2
-               DO 120 IMA = 1, 8
-                  DO 110 IMLDA1 = 1, 3
-                     DO 100 IMLDA2 = 1, 3
-                        DO 90 IMLOFF = 1, 2
-                           DO 80 IMB = 1, 8
-                              DO 70 IMLDB1 = 1, 3
+               for (IMA = 1; IMA <= 8; IMA++) { // 120
+                  for (IMLDA1 = 1; IMLDA1 <= 3; IMLDA1++) { // 110
+                     for (IMLDA2 = 1; IMLDA2 <= 3; IMLDA2++) { // 100
+                        for (IMLOFF = 1; IMLOFF <= 2; IMLOFF++) { // 90
+                           for (IMB = 1; IMB <= 8; IMB++) { // 80
+                              for (IMLDB1 = 1; IMLDB1 <= 3; IMLDB1++) { // 70
                                  IF( ITRANA.EQ.1 ) TRANA = 'N'                                  IF( ITRANA.EQ.2 ) TRANA = 'T'                                  IF( ITRANB.EQ.1 ) TRANB = 'N'                                  IF( ITRANB.EQ.2 ) TRANB = 'T'
                                  M = IDIM( IMA )
                                  N = IDIM( IMB )
                                  TNRM = ZERO
-                                 DO 20 I = 1, M
-                                    DO 10 J = 1, M
+                                 for (I = 1; I <= M; I++) { // 20
+                                    for (J = 1; J <= M; J++) { // 10
                                        A( I, J ) = IVAL( I, J, IMA )
                                        if ( ABS( I-J ).LE.1 ) {
                                           A( I, J ) = A( I, J )* VM1( IMLDA1 )                                           A( I, J ) = A( I, J )* VM2( IMLDA2 )
@@ -88,8 +88,8 @@
                                        TNRM = MAX( TNRM, ABS( A( I, J ) ) )
    10                               CONTINUE
    20                            CONTINUE
-                                 DO 40 I = 1, N
-                                    DO 30 J = 1, N
+                                 for (I = 1; I <= N; I++) { // 40
+                                    for (J = 1; J <= N; J++) { // 30
                                        B( I, J ) = IVAL( I, J, IMB )
                                        if ( ABS( I-J ).LE.1 ) {
                                           B( I, J ) = B( I, J )* VM1( IMLDB1 )
@@ -100,8 +100,8 @@
    30                               CONTINUE
    40                            CONTINUE
                                  CNRM = ZERO
-                                 DO 60 I = 1, M
-                                    DO 50 J = 1, N
+                                 for (I = 1; I <= M; I++) { // 60
+                                    for (J = 1; J <= N; J++) { // 50
                                        C( I, J ) = SIN( DBLE( I*J ) )
                                        CNRM = MAX( CNRM, C( I, J ) )
                                        CC( I, J ) = C( I, J )

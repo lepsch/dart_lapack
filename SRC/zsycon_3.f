@@ -83,7 +83,7 @@
 
          // Lower triangular storage: examine D from top to bottom.
 
-         DO I = 1, N
+         for (I = 1; I <= N; I++) {
             IF( IPIV( I ).GT.0 .AND. A( I, I ).EQ.CZERO ) RETURN
          END DO
       }

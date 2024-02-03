@@ -32,7 +32,7 @@
 
          // Sort in increasing order
 
-         DO 20 I = 2, N
+         for (I = 2; I <= N; I++) { // 20
             IX = 1 + ( I-1 )*INC
    10       CONTINUE
             IF( IX.EQ.1 ) GO TO 20
@@ -52,7 +52,7 @@
 
          // Sort in decreasing order
 
-         DO 40 I = 2, N
+         for (I = 2; I <= N; I++) { // 40
             IX = 1 + ( I-1 )*INC
    30       CONTINUE
             IF( IX.EQ.1 ) GO TO 40

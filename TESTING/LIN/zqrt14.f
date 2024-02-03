@@ -95,8 +95,8 @@
 
          // Copy X' into rows m+1:m+nrhs of work
 
-         DO 40 I = 1, N
-            DO 30 J = 1, NRHS
+         for (I = 1; I <= N; I++) { // 40
+            for (J = 1; J <= NRHS; J++) { // 30
                WORK( M+J+( I-1 )*LDWORK ) = DCONJG( X( I, J ) )
    30       CONTINUE
    40    CONTINUE
@@ -113,7 +113,7 @@
 
          ERR = ZERO
          DO 60 J = M + 1, N
-            DO 50 I = J, LDWORK
+            for (I = J; I <= LDWORK; I++) { // 50
                ERR = MAX( ERR, ABS( WORK( I+( J-1 )*LDWORK ) ) )
    50       CONTINUE
    60    CONTINUE

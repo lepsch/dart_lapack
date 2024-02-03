@@ -280,10 +280,10 @@
 
          // Normalize left eigenvectors and make largest component real
 
-         DO 20 I = 1, N
+         for (I = 1; I <= N; I++) { // 20
             SCL = ONE / SCNRM2( N, VL( 1, I ), 1 )
             csscal(N, SCL, VL( 1, I ), 1 );
-            DO 10 K = 1, N
+            for (K = 1; K <= N; K++) { // 10
                RWORK( K ) = REAL( VL( K, I ) )**2 + AIMAG( VL( K, I ) )**2
    10       CONTINUE
             K = ISAMAX( N, RWORK, 1 )
@@ -301,10 +301,10 @@
 
          // Normalize right eigenvectors and make largest component real
 
-         DO 40 I = 1, N
+         for (I = 1; I <= N; I++) { // 40
             SCL = ONE / SCNRM2( N, VR( 1, I ), 1 )
             csscal(N, SCL, VR( 1, I ), 1 );
-            DO 30 K = 1, N
+            for (K = 1; K <= N; K++) { // 30
                RWORK( K ) = REAL( VR( K, I ) )**2 + AIMAG( VR( K, I ) )**2
    30       CONTINUE
             K = ISAMAX( N, RWORK, 1 )

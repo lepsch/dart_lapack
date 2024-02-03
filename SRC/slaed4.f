@@ -80,7 +80,7 @@
          // If ||Z||_2 is not one, then TEMP should be set to
          // RHO * ||Z||_2^2 / TWO
 
-         DO 10 J = 1, N
+         for (J = 1; J <= N; J++) { // 10
             DELTA( J ) = ( D( J )-D( I ) ) - MIDPT
    10    CONTINUE
 
@@ -129,7 +129,7 @@
             DLTUB = MIDPT
          }
 
-         DO 30 J = 1, N
+         for (J = 1; J <= N; J++) { // 30
             DELTA( J ) = ( D( J )-D( I ) ) - TAU
    30    CONTINUE
 
@@ -138,7 +138,7 @@
          DPSI = ZERO
          PSI = ZERO
          ERRETM = ZERO
-         DO 40 J = 1, II
+         for (J = 1; J <= II; J++) { // 40
             TEMP = Z( J ) / DELTA( J )
             PSI = PSI + Z( J )*TEMP
             DPSI = DPSI + TEMP*TEMP
@@ -203,7 +203,7 @@
                ETA = ( DLTLB-TAU ) / TWO
             }
          }
-         DO 50 J = 1, N
+         for (J = 1; J <= N; J++) { // 50
             DELTA( J ) = DELTA( J ) - ETA
    50    CONTINUE
 
@@ -214,7 +214,7 @@
          DPSI = ZERO
          PSI = ZERO
          ERRETM = ZERO
-         DO 60 J = 1, II
+         for (J = 1; J <= II; J++) { // 60
             TEMP = Z( J ) / DELTA( J )
             PSI = PSI + Z( J )*TEMP
             DPSI = DPSI + TEMP*TEMP
@@ -235,7 +235,7 @@
 
          ITER = NITER + 1
 
-         DO 90 NITER = ITER, MAXIT
+         for (NITER = ITER; NITER <= MAXIT; NITER++) { // 90
 
             // Test for convergence
 
@@ -276,7 +276,7 @@
                   ETA = ( DLTLB-TAU ) / TWO
                }
             }
-            DO 70 J = 1, N
+            for (J = 1; J <= N; J++) { // 70
                DELTA( J ) = DELTA( J ) - ETA
    70       CONTINUE
 
@@ -287,7 +287,7 @@
             DPSI = ZERO
             PSI = ZERO
             ERRETM = ZERO
-            DO 80 J = 1, II
+            for (J = 1; J <= II; J++) { // 80
                TEMP = Z( J ) / DELTA( J )
                PSI = PSI + Z( J )*TEMP
                DPSI = DPSI + TEMP*TEMP
@@ -324,7 +324,7 @@
 
          DEL = D( IP1 ) - D( I )
          MIDPT = DEL / TWO
-         DO 100 J = 1, N
+         for (J = 1; J <= N; J++) { // 100
             DELTA( J ) = ( D( J )-D( I ) ) - MIDPT
   100    CONTINUE
 
@@ -375,11 +375,11 @@
          }
 
          if ( ORGATI ) {
-            DO 130 J = 1, N
+            for (J = 1; J <= N; J++) { // 130
                DELTA( J ) = ( D( J )-D( I ) ) - TAU
   130       CONTINUE
          } else {
-            DO 140 J = 1, N
+            for (J = 1; J <= N; J++) { // 140
                DELTA( J ) = ( D( J )-D( IP1 ) ) - TAU
   140       CONTINUE
          }
@@ -396,7 +396,7 @@
          DPSI = ZERO
          PSI = ZERO
          ERRETM = ZERO
-         DO 150 J = 1, IIM1
+         for (J = 1; J <= IIM1; J++) { // 150
             TEMP = Z( J ) / DELTA( J )
             PSI = PSI + Z( J )*TEMP
             DPSI = DPSI + TEMP*TEMP
@@ -515,7 +515,7 @@
 
          PREW = W
 
-         DO 180 J = 1, N
+         for (J = 1; J <= N; J++) { // 180
             DELTA( J ) = DELTA( J ) - ETA
   180    CONTINUE
 
@@ -524,7 +524,7 @@
          DPSI = ZERO
          PSI = ZERO
          ERRETM = ZERO
-         DO 190 J = 1, IIM1
+         for (J = 1; J <= IIM1; J++) { // 190
             TEMP = Z( J ) / DELTA( J )
             PSI = PSI + Z( J )*TEMP
             DPSI = DPSI + TEMP*TEMP
@@ -562,7 +562,7 @@
 
          ITER = NITER + 1
 
-         DO 240 NITER = ITER, MAXIT
+         for (NITER = ITER; NITER <= MAXIT; NITER++) { // 240
 
             // Test for convergence
 
@@ -661,7 +661,7 @@
                }
             }
 
-            DO 210 J = 1, N
+            for (J = 1; J <= N; J++) { // 210
                DELTA( J ) = DELTA( J ) - ETA
   210       CONTINUE
 
@@ -673,7 +673,7 @@
             DPSI = ZERO
             PSI = ZERO
             ERRETM = ZERO
-            DO 220 J = 1, IIM1
+            for (J = 1; J <= IIM1; J++) { // 220
                TEMP = Z( J ) / DELTA( J )
                PSI = PSI + Z( J )*TEMP
                DPSI = DPSI + TEMP*TEMP

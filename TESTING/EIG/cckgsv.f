@@ -75,7 +75,7 @@
       cggsvd3('N','N','N', M, P, N, K, L, A, M, B, M, ALPHA, BETA, U, 1, V, 1, Q, 1, WORK, M*N, RWORK, IWORK, INFO);
 
       // Print information there is a NAN in BETA
-      DO 40 I = 1, L
+      for (I = 1; I <= L; I++) { // 40
          if ( BETA(I).NE.BETA(I) ) {
             INFO = -I
             EXIT
@@ -94,12 +94,12 @@
 
       // Do for each value of M in MVAL.
 
-      DO 30 IM = 1, NM
+      for (IM = 1; IM <= NM; IM++) { // 30
          M = MVAL( IM )
          P = PVAL( IM )
          N = NVAL( IM )
 
-         DO 20 IMAT = 1, NTYPES
+         for (IMAT = 1; IMAT <= NTYPES; IMAT++) { // 20
 
             // Do the tests only if DOTYPE( IMAT ) is true.
 
@@ -135,7 +135,7 @@
             // Print information about the tests that did not
             // pass the threshold.
 
-            DO 10 I = 1, NT
+            for (I = 1; I <= NT; I++) { // 10
                if ( RESULT( I ).GE.THRESH ) {
                   if ( NFAIL.EQ.0 .AND. FIRSTT ) {
                      FIRSTT = .FALSE.

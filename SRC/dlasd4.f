@@ -83,7 +83,7 @@
          // RHO * ||Z||_2^2 / TWO
 
          TEMP1 = TEMP / ( D( N )+SQRT( D( N )*D( N )+TEMP ) )
-         DO 10 J = 1, N
+         for (J = 1; J <= N; J++) { // 10
             WORK( J ) = D( J ) + D( N ) + TEMP1
             DELTA( J ) = ( D( J )-D( N ) ) - TEMP1
    10    CONTINUE
@@ -146,7 +146,7 @@
           // TAU = TAU2 / ( D( N )+SQRT( D( N )*D( N )+TAU2 ) )
 
          SIGMA = D( N ) + TAU
-         DO 30 J = 1, N
+         for (J = 1; J <= N; J++) { // 30
             DELTA( J ) = ( D( J )-D( N ) ) - TAU
             WORK( J ) = D( J ) + D( N ) + TAU
    30    CONTINUE
@@ -156,7 +156,7 @@
          DPSI = ZERO
          PSI = ZERO
          ERRETM = ZERO
-         DO 40 J = 1, II
+         for (J = 1; J <= II; J++) { // 40
             TEMP = Z( J ) / ( DELTA( J )*WORK( J ) )
             PSI = PSI + Z( J )*TEMP
             DPSI = DPSI + TEMP*TEMP
@@ -211,7 +211,7 @@
          TAU = TAU + ETA
          SIGMA = SIGMA + ETA
 
-         DO 50 J = 1, N
+         for (J = 1; J <= N; J++) { // 50
             DELTA( J ) = DELTA( J ) - ETA
             WORK( J ) = WORK( J ) + ETA
    50    CONTINUE
@@ -221,7 +221,7 @@
          DPSI = ZERO
          PSI = ZERO
          ERRETM = ZERO
-         DO 60 J = 1, II
+         for (J = 1; J <= II; J++) { // 60
             TEMP = Z( J ) / ( WORK( J )*DELTA( J ) )
             PSI = PSI + Z( J )*TEMP
             DPSI = DPSI + TEMP*TEMP
@@ -244,7 +244,7 @@
 
          ITER = NITER + 1
 
-         DO 90 NITER = ITER, MAXIT
+         for (NITER = ITER; NITER <= MAXIT; NITER++) { // 90
 
             // Test for convergence
 
@@ -279,7 +279,7 @@
             TAU = TAU + ETA
             SIGMA = SIGMA + ETA
 
-            DO 70 J = 1, N
+            for (J = 1; J <= N; J++) { // 70
                DELTA( J ) = DELTA( J ) - ETA
                WORK( J ) = WORK( J ) + ETA
    70       CONTINUE
@@ -289,7 +289,7 @@
             DPSI = ZERO
             PSI = ZERO
             ERRETM = ZERO
-            DO 80 J = 1, II
+            for (J = 1; J <= II; J++) { // 80
                TEMP = Z( J ) / ( WORK( J )*DELTA( J ) )
                PSI = PSI + Z( J )*TEMP
                DPSI = DPSI + TEMP*TEMP
@@ -329,7 +329,7 @@
          DELSQ2 = DELSQ / TWO
          SQ2=SQRT( ( D( I )*D( I )+D( IP1 )*D( IP1 ) ) / TWO )
          TEMP = DELSQ2 / ( D( I )+SQ2 )
-         DO 100 J = 1, N
+         for (J = 1; J <= N; J++) { // 100
             WORK( J ) = D( J ) + D( I ) + TEMP
             DELTA( J ) = ( D( J )-D( I ) ) - TEMP
   100    CONTINUE
@@ -401,7 +401,7 @@
          }
 
          SIGMA = D( II ) + TAU
-         DO 130 J = 1, N
+         for (J = 1; J <= N; J++) { // 130
             WORK( J ) = D( J ) + D( II ) + TAU
             DELTA( J ) = ( D( J )-D( II ) ) - TAU
   130    CONTINUE
@@ -413,7 +413,7 @@
          DPSI = ZERO
          PSI = ZERO
          ERRETM = ZERO
-         DO 150 J = 1, IIM1
+         for (J = 1; J <= IIM1; J++) { // 150
             TEMP = Z( J ) / ( WORK( J )*DELTA( J ) )
             PSI = PSI + Z( J )*TEMP
             DPSI = DPSI + TEMP*TEMP
@@ -592,7 +592,7 @@
          TAU = TAU + ETA
          SIGMA = SIGMA + ETA
 
-         DO 170 J = 1, N
+         for (J = 1; J <= N; J++) { // 170
             WORK( J ) = WORK( J ) + ETA
             DELTA( J ) = DELTA( J ) - ETA
   170    CONTINUE
@@ -602,7 +602,7 @@
          DPSI = ZERO
          PSI = ZERO
          ERRETM = ZERO
-         DO 180 J = 1, IIM1
+         for (J = 1; J <= IIM1; J++) { // 180
             TEMP = Z( J ) / ( WORK( J )*DELTA( J ) )
             PSI = PSI + Z( J )*TEMP
             DPSI = DPSI + TEMP*TEMP
@@ -640,7 +640,7 @@
 
          ITER = NITER + 1
 
-         DO 230 NITER = ITER, MAXIT
+         for (NITER = ITER; NITER <= MAXIT; NITER++) { // 230
 
             // Test for convergence
 
@@ -817,7 +817,7 @@
             TAU = TAU + ETA
             SIGMA = SIGMA + ETA
 
-            DO 200 J = 1, N
+            for (J = 1; J <= N; J++) { // 200
                WORK( J ) = WORK( J ) + ETA
                DELTA( J ) = DELTA( J ) - ETA
   200       CONTINUE
@@ -827,7 +827,7 @@
             DPSI = ZERO
             PSI = ZERO
             ERRETM = ZERO
-            DO 210 J = 1, IIM1
+            for (J = 1; J <= IIM1; J++) { // 210
                TEMP = Z( J ) / ( WORK( J )*DELTA( J ) )
                PSI = PSI + Z( J )*TEMP
                DPSI = DPSI + TEMP*TEMP

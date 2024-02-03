@@ -76,7 +76,7 @@
       // Move initial columns up front.
 
       NFXD = 1
-      DO 10 J = 1, N
+      for (J = 1; J <= N; J++) { // 10
          if ( JPVT( J ).NE.0 ) {
             if ( J.NE.NFXD ) {
                zswap(M, A( 1, J ), 1, A( 1, NFXD ), 1 );

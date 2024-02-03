@@ -117,7 +117,7 @@
             AKM1 = A( K-1, K-1 ) / AKM1K
             AK = A( K, K ) / DCONJG( AKM1K )
             DENOM = AKM1*AK - ONE
-            DO 20 J = 1, NRHS
+            for (J = 1; J <= NRHS; J++) { // 20
                BKM1 = B( K-1, J ) / AKM1K
                BK = B( K, J ) / DCONJG( AKM1K )
                B( K-1, J ) = ( AK*BKM1-BK ) / DENOM
@@ -250,7 +250,7 @@
             AKM1 = A( K, K ) / DCONJG( AKM1K )
             AK = A( K+1, K+1 ) / AKM1K
             DENOM = AKM1*AK - ONE
-            DO 70 J = 1, NRHS
+            for (J = 1; J <= NRHS; J++) { // 70
                BKM1 = B( K, J ) / DCONJG( AKM1K )
                BK = B( K+1, J ) / AKM1K
                B( K, J ) = ( AK*BKM1-BK ) / DENOM

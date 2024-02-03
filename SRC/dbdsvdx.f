@@ -130,7 +130,7 @@
       SMIN = ABS( D( 1 ) )
       if ( SMIN.NE.ZERO ) {
          MU = SMIN
-         DO I = 2, N
+         for (I = 2; I <= N; I++) {
             MU = ABS( D( I ) )*( MU / ( MU+ABS( E( I-1 ) ) ) )
             SMIN = MIN( SMIN, MU )
             IF( SMIN.EQ.ZERO ) EXIT
@@ -492,7 +492,7 @@
       // If B is a lower diagonal, swap U and V.
 
       if ( WANTZ ) {
-      DO I = 1, NS
+      for (I = 1; I <= NS; I++) {
          dcopy(N*2, Z( 1,I ), 1, WORK, 1 );
          if ( LOWER ) {
             dcopy(N, WORK( 2 ), 2, Z( N+1,I ), 1 );

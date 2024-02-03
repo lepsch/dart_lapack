@@ -44,7 +44,7 @@
 
       // Compute norm(B - U * C)
 
-      DO 10 J = 1, N
+      for (J = 1; J <= N; J++) { // 10
          zcopy(M, B( 1, J ), 1, WORK, 1 );
          zgemv('No transpose', M, M, -DCMPLX( ONE ), U, LDU, C( 1, J ), 1, DCMPLX( ONE ), WORK, 1 );
          RESID = MAX( RESID, DZASUM( M, WORK, 1 ) )

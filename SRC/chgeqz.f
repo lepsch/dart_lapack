@@ -202,7 +202,7 @@
       ESHIFT = CZERO
       MAXIT = 30*( IHI-ILO+1 )
 
-      DO 170 JITER = 1, MAXIT
+      for (JITER = 1; JITER <= MAXIT; JITER++) { // 170
 
          // Check for too many iterations.
 
@@ -451,7 +451,7 @@
                H( J+1, J-1 ) = CZERO
             }
 
-            DO 100 JC = J, ILASTM
+            for (JC = J; JC <= ILASTM; JC++) { // 100
                CTEMP = C*H( J, JC ) + S*H( J+1, JC )
                H( J+1, JC ) = -CONJG( S )*H( J, JC ) + C*H( J+1, JC )
                H( J, JC ) = CTEMP
@@ -460,7 +460,7 @@
                T( J, JC ) = CTEMP2
   100       CONTINUE
             if ( ILQ ) {
-               DO 110 JR = 1, N
+               for (JR = 1; JR <= N; JR++) { // 110
                   CTEMP = C*Q( JR, J ) + CONJG( S )*Q( JR, J+1 )
                   Q( JR, J+1 ) = -S*Q( JR, J ) + C*Q( JR, J+1 )
                   Q( JR, J ) = CTEMP
@@ -476,13 +476,13 @@
                H( JR, J ) = -CONJG( S )*H( JR, J+1 ) + C*H( JR, J )
                H( JR, J+1 ) = CTEMP
   120       CONTINUE
-            DO 130 JR = IFRSTM, J
+            for (JR = IFRSTM; JR <= J; JR++) { // 130
                CTEMP = C*T( JR, J+1 ) + S*T( JR, J )
                T( JR, J ) = -CONJG( S )*T( JR, J+1 ) + C*T( JR, J )
                T( JR, J+1 ) = CTEMP
   130       CONTINUE
             if ( ILZ ) {
-               DO 140 JR = 1, N
+               for (JR = 1; JR <= N; JR++) { // 140
                   CTEMP = C*Z( JR, J+1 ) + S*Z( JR, J )
                   Z( JR, J ) = -CONJG( S )*Z( JR, J+1 ) + C*Z( JR, J )
                   Z( JR, J+1 ) = CTEMP

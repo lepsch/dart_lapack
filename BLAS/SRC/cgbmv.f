@@ -97,23 +97,23 @@
       if (BETA.NE.ONE) {
           if (INCY.EQ.1) {
               if (BETA.EQ.ZERO) {
-                  DO 10 I = 1,LENY
+                  for (I = 1; I <= LENY; I++) { // 10
                       Y(I) = ZERO
    10             CONTINUE
               } else {
-                  DO 20 I = 1,LENY
+                  for (I = 1; I <= LENY; I++) { // 20
                       Y(I) = BETA*Y(I)
    20             CONTINUE
               }
           } else {
               IY = KY
               if (BETA.EQ.ZERO) {
-                  DO 30 I = 1,LENY
+                  for (I = 1; I <= LENY; I++) { // 30
                       Y(IY) = ZERO
                       IY = IY + INCY
    30             CONTINUE
               } else {
-                  DO 40 I = 1,LENY
+                  for (I = 1; I <= LENY; I++) { // 40
                       Y(IY) = BETA*Y(IY)
                       IY = IY + INCY
    40             CONTINUE
@@ -128,7 +128,7 @@
 
           JX = KX
           if (INCY.EQ.1) {
-              DO 60 J = 1,N
+              for (J = 1; J <= N; J++) { // 60
                   TEMP = ALPHA*X(JX)
                   K = KUP1 - J
                   DO 50 I = MAX(1,J-KU),MIN(M,J+KL)
@@ -137,7 +137,7 @@
                   JX = JX + INCX
    60         CONTINUE
           } else {
-              DO 80 J = 1,N
+              for (J = 1; J <= N; J++) { // 80
                   TEMP = ALPHA*X(JX)
                   IY = KY
                   K = KUP1 - J
@@ -155,7 +155,7 @@
 
           JY = KY
           if (INCX.EQ.1) {
-              DO 110 J = 1,N
+              for (J = 1; J <= N; J++) { // 110
                   TEMP = ZERO
                   K = KUP1 - J
                   if (NOCONJ) {
@@ -171,7 +171,7 @@
                   JY = JY + INCY
   110         CONTINUE
           } else {
-              DO 140 J = 1,N
+              for (J = 1; J <= N; J++) { // 140
                   TEMP = ZERO
                   IX = KX
                   K = KUP1 - J

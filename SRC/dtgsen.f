@@ -84,7 +84,7 @@
       M = 0
       PAIR = .FALSE.
       if ( .NOT.LQUERY .OR. IJOB.NE.0 ) {
-      DO 10 K = 1, N
+      for (K = 1; K <= N; K++) { // 10
          if ( PAIR ) {
             PAIR = .FALSE.
          } else {
@@ -139,7 +139,7 @@
          if ( WANTD ) {
             DSCALE = ZERO
             DSUM = ONE
-            DO 20 I = 1, N
+            for (I = 1; I <= N; I++) { // 20
                dlassq(N, A( 1, I ), 1, DSCALE, DSUM );
                dlassq(N, B( 1, I ), 1, DSCALE, DSUM );
    20       CONTINUE
@@ -153,7 +153,7 @@
 
       KS = 0
       PAIR = .FALSE.
-      DO 30 K = 1, N
+      for (K = 1; K <= N; K++) { // 30
          if ( PAIR ) {
             PAIR = .FALSE.
          } else {
@@ -313,7 +313,7 @@
       // normalize the generalized Schur form.
 
       PAIR = .FALSE.
-      DO 80 K = 1, N
+      for (K = 1; K <= N; K++) { // 80
          if ( PAIR ) {
             PAIR = .FALSE.
          } else {
@@ -345,7 +345,7 @@
 
                   // If B(K,K) is negative, make it positive
 
-                  DO 70 I = 1, N
+                  for (I = 1; I <= N; I++) { // 70
                      A( K, I ) = -A( K, I )
                      B( K, I ) = -B( K, I )
                      IF( WANTQ ) Q( I, K ) = -Q( I, K )

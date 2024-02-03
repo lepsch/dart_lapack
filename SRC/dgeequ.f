@@ -65,14 +65,14 @@
 
       // Compute row scale factors.
 
-      DO 10 I = 1, M
+      for (I = 1; I <= M; I++) { // 10
          R( I ) = ZERO
    10 CONTINUE
 
       // Find the maximum element in each row.
 
-      DO 30 J = 1, N
-         DO 20 I = 1, M
+      for (J = 1; J <= N; J++) { // 30
+         for (I = 1; I <= M; I++) { // 20
             R( I ) = MAX( R( I ), ABS( A( I, J ) ) )
    20    CONTINUE
    30 CONTINUE
@@ -81,7 +81,7 @@
 
       RCMIN = BIGNUM
       RCMAX = ZERO
-      DO 40 I = 1, M
+      for (I = 1; I <= M; I++) { // 40
          RCMAX = MAX( RCMAX, R( I ) )
          RCMIN = MIN( RCMIN, R( I ) )
    40 CONTINUE
@@ -91,7 +91,7 @@
 
          // Find the first zero scale factor and return an error code.
 
-         DO 50 I = 1, M
+         for (I = 1; I <= M; I++) { // 50
             if ( R( I ).EQ.ZERO ) {
                INFO = I
                RETURN
@@ -101,7 +101,7 @@
 
          // Invert the scale factors.
 
-         DO 60 I = 1, M
+         for (I = 1; I <= M; I++) { // 60
             R( I ) = ONE / MIN( MAX( R( I ), SMLNUM ), BIGNUM )
    60    CONTINUE
 
@@ -112,15 +112,15 @@
 
       // Compute column scale factors
 
-      DO 70 J = 1, N
+      for (J = 1; J <= N; J++) { // 70
          C( J ) = ZERO
    70 CONTINUE
 
       // Find the maximum element in each column,
       // assuming the row scaling computed above.
 
-      DO 90 J = 1, N
-         DO 80 I = 1, M
+      for (J = 1; J <= N; J++) { // 90
+         for (I = 1; I <= M; I++) { // 80
             C( J ) = MAX( C( J ), ABS( A( I, J ) )*R( I ) )
    80    CONTINUE
    90 CONTINUE
@@ -129,7 +129,7 @@
 
       RCMIN = BIGNUM
       RCMAX = ZERO
-      DO 100 J = 1, N
+      for (J = 1; J <= N; J++) { // 100
          RCMIN = MIN( RCMIN, C( J ) )
          RCMAX = MAX( RCMAX, C( J ) )
   100 CONTINUE
@@ -138,7 +138,7 @@
 
          // Find the first zero scale factor and return an error code.
 
-         DO 110 J = 1, N
+         for (J = 1; J <= N; J++) { // 110
             if ( C( J ).EQ.ZERO ) {
                INFO = M + J
                RETURN
@@ -148,7 +148,7 @@
 
          // Invert the scale factors.
 
-         DO 120 J = 1, N
+         for (J = 1; J <= N; J++) { // 120
             C( J ) = ONE / MIN( MAX( C( J ), SMLNUM ), BIGNUM )
   120    CONTINUE
 

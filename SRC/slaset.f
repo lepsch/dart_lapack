@@ -32,7 +32,7 @@
          // Set the strictly upper triangular or trapezoidal part of the
          // array to ALPHA.
 
-         DO 20 J = 2, N
+         for (J = 2; J <= N; J++) { // 20
             DO 10 I = 1, MIN( J-1, M )
                A( I, J ) = ALPHA
    10       CONTINUE
@@ -53,8 +53,8 @@
 
          // Set the leading m-by-n submatrix to ALPHA.
 
-         DO 60 J = 1, N
-            DO 50 I = 1, M
+         for (J = 1; J <= N; J++) { // 60
+            for (I = 1; I <= M; I++) { // 50
                A( I, J ) = ALPHA
    50       CONTINUE
    60    CONTINUE

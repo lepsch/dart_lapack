@@ -57,7 +57,7 @@
       // Compute I - A * AINV
 
       sgemm('No transpose', 'No transpose', N, N, N, -ONE, AINV, LDAINV, A, LDA, ZERO, WORK, LDWORK );
-      DO 10 I = 1, N
+      for (I = 1; I <= N; I++) { // 10
          WORK( I, I ) = ONE + WORK( I, I )
    10 CONTINUE
 

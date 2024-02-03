@@ -61,18 +61,18 @@
 
       // Do for each value of M in MVAL.
 
-      DO I = 1, NM
+      for (I = 1; I <= NM; I++) {
          M = MVAL( I )
 
          // Do for each value of N in NVAL.
 
-         DO J = 1, NN
+         for (J = 1; J <= NN; J++) {
             N = NVAL( J )
               if (MIN(M,N).NE.0) {
-              DO INB = 1, NNB
+              for (INB = 1; INB <= NNB; INB++) {
                 MB = NBVAL( INB )
                   xlaenv(1, MB );
-                  DO IMB = 1, NNB
+                  for (IMB = 1; IMB <= NNB; IMB++) {
                     NB = NBVAL( IMB )
                     xlaenv(2, NB );
 
@@ -83,7 +83,7 @@
                   // Print information about the tests that did not
                   // pass the threshold.
 
-                    DO T = 1, NTESTS
+                    for (T = 1; T <= NTESTS; T++) {
                       if ( RESULT( T ).GE.THRESH ) {
                         IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9999 )M, N, MB, NB, T, RESULT( T )
                         NFAIL = NFAIL + 1
@@ -98,18 +98,18 @@
 
       // Do for each value of M in MVAL.
 
-      DO I = 1, NM
+      for (I = 1; I <= NM; I++) {
          M = MVAL( I )
 
          // Do for each value of N in NVAL.
 
-         DO J = 1, NN
+         for (J = 1; J <= NN; J++) {
             N = NVAL( J )
               if (MIN(M,N).NE.0) {
-              DO INB = 1, NNB
+              for (INB = 1; INB <= NNB; INB++) {
                 MB = NBVAL( INB )
                   xlaenv(1, MB );
-                  DO IMB = 1, NNB
+                  for (IMB = 1; IMB <= NNB; IMB++) {
                     NB = NBVAL( IMB )
                     xlaenv(2, NB );
 
@@ -120,7 +120,7 @@
                   // Print information about the tests that did not
                   // pass the threshold.
 
-                    DO T = 1, NTESTS
+                    for (T = 1; T <= NTESTS; T++) {
                       if ( RESULT( T ).GE.THRESH ) {
                         IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                            WRITE( NOUT, FMT = 9998 )M, N, MB, NB, T, RESULT( T )
                         NFAIL = NFAIL + 1

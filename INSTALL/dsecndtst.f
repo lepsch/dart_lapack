@@ -25,7 +25,7 @@
 
       // Initialize X and Y
 
-      DO 10 I = 1, NMAX
+      for (I = 1; I <= NMAX; I++) { // 10
          X( I ) = DBLE( 1 ) / DBLE( I )
          Y( I ) = DBLE( NMAX-I ) / DBLE( NMAX )
    10 CONTINUE
@@ -34,8 +34,8 @@
       // Time TOTAL SAXPY operations
 
       T1 = DSECND( )
-      DO 30 J = 1, ITS
-         DO 20 I = 1, NMAX
+      for (J = 1; J <= ITS; J++) { // 30
+         for (I = 1; I <= NMAX; I++) { // 20
             Y( I ) = Y( I ) + ALPHA*X( I )
    20    CONTINUE
          ALPHA = -ALPHA
@@ -52,8 +52,8 @@
       // Time TOTAL DAXPY operations with DSECND in the outer loop
 
       T1 = DSECND( )
-      DO 50 J = 1, ITS
-         DO 40 I = 1, NMAX
+      for (J = 1; J <= ITS; J++) { // 50
+         for (I = 1; I <= NMAX; I++) { // 40
             Y( I ) = Y( I ) + ALPHA*X( I )
    40    CONTINUE
          ALPHA = -ALPHA

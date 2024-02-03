@@ -63,8 +63,8 @@
 
          // Compute A(J1:M,1:N) =  A(J1:M,1:N) Q1^H [workspace: T(1:N1,J1:N)]
 
-         DO I=1,M2
-            DO J=1,M1
+         for (I = 1; I <= M2; I++) {
+            for (J = 1; J <= M1; J++) {
                T(  I+M1, J ) = A( I+M1, J )
             END DO
          END DO
@@ -78,8 +78,8 @@
 
          ctrmm('R', 'U', 'N', 'U', M2, M1 , ONE, A, LDA, T( I1, 1 ), LDT );
 
-         DO I=1,M2
-            DO J=1,M1
+         for (I = 1; I <= M2; I++) {
+            for (J = 1; J <= M1; J++) {
                A(  I+M1, J ) = A( I+M1, J ) - T( I+M1, J )
                T( I+M1, J )= ZERO
             END DO
@@ -91,8 +91,8 @@
 
          // Compute T3 = T(J1:N1,1:N) = -T1 Y1^H Y2 T2
 
-         DO I=1,M2
-            DO J=1,M1
+         for (I = 1; I <= M2; I++) {
+            for (J = 1; J <= M1; J++) {
                T( J, I+M1  ) = (A( J, I+M1 ))
             END DO
          END DO

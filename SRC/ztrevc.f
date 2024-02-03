@@ -63,7 +63,7 @@
 
       if ( SOMEV ) {
          M = 0
-         DO 10 J = 1, N
+         for (J = 1; J <= N; J++) { // 10
             IF( SELECT( J ) ) M = M + 1
    10    CONTINUE
       } else {
@@ -104,7 +104,7 @@
 
       // Store the diagonal elements of T in working array WORK.
 
-      DO 20 I = 1, N
+      for (I = 1; I <= N; I++) { // 20
          WORK( I+N ) = T( I, I )
    20 CONTINUE
 
@@ -112,7 +112,7 @@
       // part of T to control overflow in triangular solver.
 
       RWORK( 1 ) = ZERO
-      DO 30 J = 2, N
+      for (J = 2; J <= N; J++) { // 30
          RWORK( J ) = DZASUM( J-1, T( 1, J ), 1 )
    30 CONTINUE
 
@@ -184,7 +184,7 @@
          // Compute left eigenvectors.
 
          IS = 1
-         DO 130 KI = 1, N
+         for (KI = 1; KI <= N; KI++) { // 130
 
             if ( SOMEV ) {
                IF( .NOT.SELECT( KI ) ) GO TO 130

@@ -58,7 +58,7 @@
       // Move initial columns up front
 
       ITEMP = 1
-      DO 10 I = 1, N
+      for (I = 1; I <= N; I++) { // 10
          if ( JPVT( I ).NE.0 ) {
             if ( I.NE.ITEMP ) {
                cswap(M, A( 1, I ), 1, A( 1, ITEMP ), 1 );

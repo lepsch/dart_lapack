@@ -58,7 +58,7 @@
 
             // Column scaling
 
-            DO 20 J = 1, N
+            for (J = 1; J <= N; J++) { // 20
                CJ = C( J )
                DO 10 I = MAX( 1, J-KU ), MIN( M, J+KL )
                   AB( KU+1+I-J, J ) = CJ*AB( KU+1+I-J, J )
@@ -70,7 +70,7 @@
 
          // Row scaling, no column scaling
 
-         DO 40 J = 1, N
+         for (J = 1; J <= N; J++) { // 40
             DO 30 I = MAX( 1, J-KU ), MIN( M, J+KL )
                AB( KU+1+I-J, J ) = R( I )*AB( KU+1+I-J, J )
    30       CONTINUE
@@ -80,7 +80,7 @@
 
          // Row and column scaling
 
-         DO 60 J = 1, N
+         for (J = 1; J <= N; J++) { // 60
             CJ = C( J )
             DO 50 I = MAX( 1, J-KU ), MIN( M, J+KL )
                AB( KU+1+I-J, J ) = CJ*R( I )*AB( KU+1+I-J, J )

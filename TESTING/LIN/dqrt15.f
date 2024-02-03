@@ -68,7 +68,7 @@
          // Nontrivial case
 
          S( 1 ) = ONE
-         DO 30 J = 2, RANK
+         for (J = 2; J <= RANK; J++) { // 30
    20       CONTINUE
             TEMP = DLARND( 1, ISEED )
             if ( TEMP.GT.SVMIN ) {
@@ -97,7 +97,7 @@
 
          // generate (unscaled) matrix A
 
-         DO 40 J = 1, RANK
+         for (J = 1; J <= RANK; J++) { // 40
             dscal(M, S( J ), A( 1, J ), 1 );
    40    CONTINUE
          IF( RANK.LT.N ) CALL DLASET( 'Full', M, N-RANK, ZERO, ZERO, A( 1, RANK+1 ), LDA )
@@ -109,7 +109,7 @@
 
          // Generate null matrix and rhs
 
-         DO 50 J = 1, MN
+         for (J = 1; J <= MN; J++) { // 50
             S( J ) = ZERO
    50    CONTINUE
          dlaset('Full', M, N, ZERO, ZERO, A, LDA );

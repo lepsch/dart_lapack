@@ -86,14 +86,14 @@
             A( I, J ) = ZERO
    30    CONTINUE
    40 CONTINUE
-      DO 60 J = 1, ILO
-         DO 50 I = 1, N
+      for (J = 1; J <= ILO; J++) { // 60
+         for (I = 1; I <= N; I++) { // 50
             A( I, J ) = ZERO
    50    CONTINUE
          A( J, J ) = ONE
    60 CONTINUE
       DO 80 J = IHI + 1, N
-         DO 70 I = 1, N
+         for (I = 1; I <= N; I++) { // 70
             A( I, J ) = ZERO
    70    CONTINUE
          A( J, J ) = ONE

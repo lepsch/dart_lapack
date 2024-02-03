@@ -60,7 +60,7 @@
 
          // Solve A*X = B where A = U**T *U.
 
-         DO 10 J = 1, NRHS
+         for (J = 1; J <= NRHS; J++) { // 10
 
             // Solve U**T *X = B, overwriting B with X.
 
@@ -74,7 +74,7 @@
 
          // Solve A*X = B where A = L*L**T.
 
-         DO 20 J = 1, NRHS
+         for (J = 1; J <= NRHS; J++) { // 20
 
             // Solve L*X = B, overwriting B with X.
 

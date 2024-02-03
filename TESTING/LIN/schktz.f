@@ -65,7 +65,7 @@
       NRUN = 0
       NFAIL = 0
       NERRS = 0
-      DO 10 I = 1, 4
+      for (I = 1; I <= 4; I++) { // 10
          ISEED( I ) = ISEEDY( I )
    10 CONTINUE
       EPS = SLAMCH( 'Epsilon' )
@@ -75,14 +75,14 @@
       IF( TSTERR ) CALL SERRTZ( PATH, NOUT )
       INFOT = 0
 
-      DO 70 IM = 1, NM
+      for (IM = 1; IM <= NM; IM++) { // 70
 
          // Do for each value of M in MVAL.
 
          M = MVAL( IM )
          LDA = MAX( 1, M )
 
-         DO 60 IN = 1, NN
+         for (IN = 1; IN <= NN; IN++) { // 60
 
             // Do for each value of N in NVAL for which M .LE. N.
 
@@ -91,7 +91,7 @@
             LWORK = MAX( 1, N*N+4*M+N, M*N+2*MNMIN+4*N )
 
             if ( M.LE.N ) {
-               DO 50 IMODE = 1, NTYPES
+               for (IMODE = 1; IMODE <= NTYPES; IMODE++) { // 50
                   IF( .NOT.DOTYPE( IMODE ) ) GO TO 50
 
                   // Do for each type of singular value distribution.
@@ -108,7 +108,7 @@
 
                   if ( MODE.EQ.0 ) {
                      slaset('Full', M, N, ZERO, ZERO, A, LDA );
-                     DO 30 I = 1, MNMIN
+                     for (I = 1; I <= MNMIN; I++) { // 30
                         S( I ) = ZERO
    30                CONTINUE
                   } else {
@@ -142,7 +142,7 @@
                   // Print information about the tests that did not pass
                   // the threshold.
 
-                  DO 40 K = 1, NTESTS
+                  for (K = 1; K <= NTESTS; K++) { // 40
                      if ( RESULT( K ).GE.THRESH ) {
                         IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9999 )M, N, IMODE, K, RESULT( K )
                         NFAIL = NFAIL + 1

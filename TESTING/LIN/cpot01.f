@@ -58,7 +58,7 @@
       // Check the imaginary parts of the diagonal elements and return with
       // an error code if any are nonzero.
 
-      DO 10 J = 1, N
+      for (J = 1; J <= N; J++) { // 10
          if ( AIMAG( AFAC( J, J ) ).NE.ZERO ) {
             RESID = ONE / EPS
             RETURN
@@ -102,14 +102,14 @@
       // Compute the difference L * L**H - A (or U**H * U - A).
 
       if ( LSAME( UPLO, 'U' ) ) {
-         DO 50 J = 1, N
+         for (J = 1; J <= N; J++) { // 50
             DO 40 I = 1, J - 1
                AFAC( I, J ) = AFAC( I, J ) - A( I, J )
    40       CONTINUE
             AFAC( J, J ) = AFAC( J, J ) - REAL( A( J, J ) )
    50    CONTINUE
       } else {
-         DO 70 J = 1, N
+         for (J = 1; J <= N; J++) { // 70
             AFAC( J, J ) = AFAC( J, J ) - REAL( A( J, J ) )
             DO 60 I = J + 1, N
                AFAC( I, J ) = AFAC( I, J ) - A( I, J )

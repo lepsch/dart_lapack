@@ -24,13 +24,13 @@
 
       RPVGRW = 1.0D+0
 
-      DO J = 1, NCOLS
+      for (J = 1; J <= NCOLS; J++) {
          AMAX = 0.0D+0
          UMAX = 0.0D+0
-         DO I = 1, N
+         for (I = 1; I <= N; I++) {
             AMAX = MAX( ABS( A( I, J ) ), AMAX )
          END DO
-         DO I = 1, J
+         for (I = 1; I <= J; I++) {
             UMAX = MAX( ABS( AF( I, J ) ), UMAX )
          END DO
          if ( UMAX /= 0.0D+0 ) {
