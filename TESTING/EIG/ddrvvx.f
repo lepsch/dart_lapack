@@ -25,7 +25,7 @@
 *     .. Local Scalars ..
       LOGICAL            BADNN
       CHARACTER          BALANC
-      CHARACTER*3        PATH
+      String             PATH;
       int                I, IBAL, IINFO, IMODE, ITYPE, IWK, J, JCOL, JSIZE, JTYPE, MTYPES, N, NERRS, NFAIL, NMAX, NNWORK, NTEST, NTESTF, NTESTT
       DOUBLE PRECISION   ANORM, COND, CONDS, OVFL, RTULP, RTULPI, ULP, ULPINV, UNFL
 *     ..

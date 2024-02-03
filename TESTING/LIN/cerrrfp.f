@@ -24,7 +24,7 @@
 *     ..
 *     .. Scalars in Common ..
       LOGICAL            LERR, OK
-      CHARACTER*32       SRNAMT
+      String             SRNAMT;
       int                INFOT, NOUT
 *     ..
 *     .. Intrinsic Functions ..

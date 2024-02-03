@@ -56,14 +56,14 @@
 *     .. Local Scalars ..
       REAL               EPS, ERR, THRESH
       int                I, ISNUM, J, N, NALF, NBET, NIDIM, NTRA, LAYOUT       LOGICAL            FATAL, LTESTT, REWI, SAME, SFATAL, TRACE, TSTERR, CORDER, RORDER
-      CHARACTER*1        TRANSA, TRANSB
-      CHARACTER*12       SNAMET
-      CHARACTER*32       SNAPS
+      String             TRANSA, TRANSB;
+      String             SNAMET;
+      String             SNAPS;
 *     .. Local Arrays ..
       REAL               AA( NMAX*NMAX ), AB( NMAX, 2*NMAX ), ALF( NALMAX ), AS( NMAX*NMAX ), BB( NMAX*NMAX ), BET( NBEMAX ), BS( NMAX*NMAX ), C( NMAX, NMAX ), CC( NMAX*NMAX ), CS( NMAX*NMAX ), CT( NMAX ), G( NMAX ), W( 2*NMAX )
       int                IDIM( NIDMAX )
       LOGICAL            LTEST( NSUBS )
-      CHARACTER*12       SNAMES( NSUBS )
+      String             SNAMES( NSUBS );
 *     .. External Functions ..
       REAL               SDIFF
       LOGICAL            LSE
@@ -75,7 +75,7 @@
 *     .. Scalars in Common ..
       int                INFOT, NOUTC
       LOGICAL            OK
-      CHARACTER*12        SRNAMT
+      String              SRNAMT;
 *     .. Common blocks ..
       COMMON             /INFOC/INFOT, NOUTC, OK
       COMMON             /SRNAMC/SRNAMT
@@ -379,7 +379,7 @@
       REAL               EPS, THRESH
       int                NALF, NBET, NIDIM, NMAX, NOUT, NTRA, IORDER
       LOGICAL            FATAL, REWI, TRACE
-      CHARACTER*12        SNAME
+      String              SNAME;
 *     .. Array Arguments ..
       REAL               A( NMAX, NMAX ), AA( NMAX*NMAX ), ALF( NALF ), AS( NMAX*NMAX ), B( NMAX, NMAX ), BB( NMAX*NMAX ), BET( NBET ), BS( NMAX*NMAX ), C( NMAX, NMAX ), CC( NMAX*NMAX ), CS( NMAX*NMAX ), CT( NMAX ), G( NMAX )
       int                IDIM( NIDIM )
@@ -387,8 +387,8 @@
       REAL               ALPHA, ALS, BETA, BLS, ERR, ERRMAX
       int                I, IA, IB, ICA, ICB, IK, IM, IN, K, KS, LAA, LBB, LCC, LDA, LDAS, LDB, LDBS, LDC, LDCS, M, MA, MB, MS, N, NA, NARGS, NB, NC, NS
       LOGICAL            NULL, RESET, SAME, TRANA, TRANB
-      CHARACTER*1        TRANAS, TRANBS, TRANSA, TRANSB
-      CHARACTER*3        ICH
+      String             TRANAS, TRANBS, TRANSA, TRANSB;
+      String             ICH;
 *     .. Local Arrays ..
       LOGICAL            ISAME( 13 )
 *     .. External Functions ..
@@ -624,9 +624,9 @@
       SUBROUTINE SPRCN1(NOUT, NC, SNAME, IORDER, TRANSA, TRANSB, M, N, K, ALPHA, LDA, LDB, BETA, LDC)
       int              NOUT, NC, IORDER, M, N, K, LDA, LDB, LDC
       REAL             ALPHA, BETA
-      CHARACTER*1      TRANSA, TRANSB
-      CHARACTER*12     SNAME
-      CHARACTER*14     CRC, CTA,CTB
+      String           TRANSA, TRANSB;
+      String           SNAME;
+      String           CRC, CTA,CTB;
 
       IF (TRANSA.EQ.'N')THEN
          CTA = '  CblasNoTrans'
@@ -674,7 +674,7 @@
       REAL               EPS, THRESH
       int                NALF, NBET, NIDIM, NMAX, NOUT, NTRA, IORDER
       LOGICAL            FATAL, REWI, TRACE
-      CHARACTER*12        SNAME
+      String              SNAME;
 *     .. Array Arguments ..
       REAL               A( NMAX, NMAX ), AA( NMAX*NMAX ), ALF( NALF ), AS( NMAX*NMAX ), B( NMAX, NMAX ), BB( NMAX*NMAX ), BET( NBET ), BS( NMAX*NMAX ), C( NMAX, NMAX ), CC( NMAX*NMAX ), CS( NMAX*NMAX ), CT( NMAX ), G( NMAX )
       int                IDIM( NIDIM )
@@ -682,8 +682,8 @@
       REAL               ALPHA, ALS, BETA, BLS, ERR, ERRMAX
       int                I, IA, IB, ICS, ICU, IM, IN, LAA, LBB, LCC, LDA, LDAS, LDB, LDBS, LDC, LDCS, M, MS, N, NA, NARGS, NC, NS
       LOGICAL            LEFT, NULL, RESET, SAME
-      CHARACTER*1        SIDE, SIDES, UPLO, UPLOS
-      CHARACTER*2        ICHS, ICHU
+      String             SIDE, SIDES, UPLO, UPLOS;
+      String             ICHS, ICHU;
 *     .. Local Arrays ..
       LOGICAL            ISAME( 13 )
 *     .. External Functions ..
@@ -904,9 +904,9 @@
       SUBROUTINE SPRCN2(NOUT, NC, SNAME, IORDER, SIDE, UPLO, M, N, ALPHA, LDA, LDB, BETA, LDC)
       int              NOUT, NC, IORDER, M, N, LDA, LDB, LDC
       REAL             ALPHA, BETA
-      CHARACTER*1      SIDE, UPLO
-      CHARACTER*12     SNAME
-      CHARACTER*14     CRC, CS,CU
+      String           SIDE, UPLO;
+      String           SNAME;
+      String           CRC, CS,CU;
 
       IF (SIDE.EQ.'L')THEN
          CS = '     CblasLeft'
@@ -950,7 +950,7 @@
       REAL               EPS, THRESH
       int                NALF, NIDIM, NMAX, NOUT, NTRA, IORDER
       LOGICAL            FATAL, REWI, TRACE
-      CHARACTER*12        SNAME
+      String              SNAME;
 *     .. Array Arguments ..
       REAL               A( NMAX, NMAX ), AA( NMAX*NMAX ), ALF( NALF ), AS( NMAX*NMAX ), B( NMAX, NMAX ), BB( NMAX*NMAX ), BS( NMAX*NMAX ), C( NMAX, NMAX ), CT( NMAX ), G( NMAX )
       int                IDIM( NIDIM )
@@ -958,9 +958,9 @@
       REAL               ALPHA, ALS, ERR, ERRMAX
       int                I, IA, ICD, ICS, ICT, ICU, IM, IN, J, LAA, LBB, LDA, LDAS, LDB, LDBS, M, MS, N, NA, NARGS, NC, NS
       LOGICAL            LEFT, NULL, RESET, SAME
-      CHARACTER*1        DIAG, DIAGS, SIDE, SIDES, TRANAS, TRANSA, UPLO, UPLOS
-      CHARACTER*2        ICHD, ICHS, ICHU
-      CHARACTER*3        ICHT
+      String             DIAG, DIAGS, SIDE, SIDES, TRANAS, TRANSA, UPLO, UPLOS;
+      String             ICHD, ICHS, ICHU;
+      String             ICHT;
 *     .. Local Arrays ..
       LOGICAL            ISAME( 13 )
 *     .. External Functions ..
@@ -1198,9 +1198,9 @@
       SUBROUTINE SPRCN3(NOUT, NC, SNAME, IORDER, SIDE, UPLO, TRANSA, DIAG, M, N, ALPHA, LDA, LDB)
       int              NOUT, NC, IORDER, M, N, LDA, LDB
       REAL             ALPHA
-      CHARACTER*1      SIDE, UPLO, TRANSA, DIAG
-      CHARACTER*12     SNAME
-      CHARACTER*14     CRC, CS, CU, CA, CD
+      String           SIDE, UPLO, TRANSA, DIAG;
+      String           SNAME;
+      String           CRC, CS, CU, CA, CD;
 
       IF (SIDE.EQ.'L')THEN
          CS = '     CblasLeft'
@@ -1256,7 +1256,7 @@
       REAL               EPS, THRESH
       int                NALF, NBET, NIDIM, NMAX, NOUT, NTRA, IORDER
       LOGICAL            FATAL, REWI, TRACE
-      CHARACTER*12        SNAME
+      String              SNAME;
 *     .. Array Arguments ..
       REAL               A( NMAX, NMAX ), AA( NMAX*NMAX ), ALF( NALF ), AS( NMAX*NMAX ), B( NMAX, NMAX ), BB( NMAX*NMAX ), BET( NBET ), BS( NMAX*NMAX ), C( NMAX, NMAX ), CC( NMAX*NMAX ), CS( NMAX*NMAX ), CT( NMAX ), G( NMAX )
       int                IDIM( NIDIM )
@@ -1264,9 +1264,9 @@
       REAL               ALPHA, ALS, BETA, BETS, ERR, ERRMAX
       int                I, IA, IB, ICT, ICU, IK, IN, J, JC, JJ, K, KS, LAA, LCC, LDA, LDAS, LDC, LDCS, LJ, MA, N, NA, NARGS, NC, NS
       LOGICAL            NULL, RESET, SAME, TRAN, UPPER
-      CHARACTER*1        TRANS, TRANSS, UPLO, UPLOS
-      CHARACTER*2        ICHU
-      CHARACTER*3        ICHT
+      String             TRANS, TRANSS, UPLO, UPLOS;
+      String             ICHU;
+      String             ICHT;
 *     .. Local Arrays ..
       LOGICAL            ISAME( 13 )
 *     .. External Functions ..
@@ -1489,9 +1489,9 @@
       SUBROUTINE SPRCN4(NOUT, NC, SNAME, IORDER, UPLO, TRANSA, N, K, ALPHA, LDA, BETA, LDC)
       int              NOUT, NC, IORDER, N, K, LDA, LDC
       REAL             ALPHA, BETA
-      CHARACTER*1      UPLO, TRANSA
-      CHARACTER*12     SNAME
-      CHARACTER*14     CRC, CU, CA
+      String           UPLO, TRANSA;
+      String           SNAME;
+      String           CRC, CU, CA;
 
       IF (UPLO.EQ.'U')THEN
          CU = '    CblasUpper'
@@ -1537,7 +1537,7 @@
       REAL               EPS, THRESH
       int                NALF, NBET, NIDIM, NMAX, NOUT, NTRA, IORDER
       LOGICAL            FATAL, REWI, TRACE
-      CHARACTER*12        SNAME
+      String              SNAME;
 *     .. Array Arguments ..
       REAL               AA( NMAX*NMAX ), AB( 2*NMAX*NMAX ), ALF( NALF ), AS( NMAX*NMAX ), BB( NMAX*NMAX ), BET( NBET ), BS( NMAX*NMAX ), C( NMAX, NMAX ), CC( NMAX*NMAX ), CS( NMAX*NMAX ), CT( NMAX ), G( NMAX ), W( 2*NMAX )
       int                IDIM( NIDIM )
@@ -1545,9 +1545,9 @@
       REAL               ALPHA, ALS, BETA, BETS, ERR, ERRMAX
       int                I, IA, IB, ICT, ICU, IK, IN, J, JC, JJ, JJAB, K, KS, LAA, LBB, LCC, LDA, LDAS, LDB, LDBS, LDC, LDCS, LJ, MA, N, NA, NARGS, NC, NS
       LOGICAL            NULL, RESET, SAME, TRAN, UPPER
-      CHARACTER*1        TRANS, TRANSS, UPLO, UPLOS
-      CHARACTER*2        ICHU
-      CHARACTER*3        ICHT
+      String             TRANS, TRANSS, UPLO, UPLOS;
+      String             ICHU;
+      String             ICHT;
 *     .. Local Arrays ..
       LOGICAL            ISAME( 13 )
 *     .. External Functions ..
@@ -1799,9 +1799,9 @@
       SUBROUTINE SPRCN5(NOUT, NC, SNAME, IORDER, UPLO, TRANSA, N, K, ALPHA, LDA, LDB, BETA, LDC)
       int              NOUT, NC, IORDER, N, K, LDA, LDB, LDC
       REAL             ALPHA, BETA
-      CHARACTER*1      UPLO, TRANSA
-      CHARACTER*12     SNAME
-      CHARACTER*14     CRC, CU, CA
+      String           UPLO, TRANSA;
+      String           SNAME;
+      String           CRC, CU, CA;
 
       IF (UPLO.EQ.'U')THEN
          CU = '    CblasUpper'
@@ -1853,8 +1853,8 @@
       REAL               TRANSL
       int                LDA, M, N, NMAX
       LOGICAL            RESET
-      CHARACTER*1        DIAG, UPLO
-      CHARACTER*2        TYPE
+      String             DIAG, UPLO;
+      String             TYPE;
 *     .. Array Arguments ..
       REAL               A( NMAX, * ), AA( * )
 *     .. Local Scalars ..
@@ -1954,7 +1954,7 @@
       REAL               ALPHA, BETA, EPS, ERR
       int                KK, LDA, LDB, LDC, LDCC, M, N, NOUT
       LOGICAL            FATAL, MV
-      CHARACTER*1        TRANSA, TRANSB
+      String             TRANSA, TRANSB;
 *     .. Array Arguments ..
       REAL               A( LDA, * ), B( LDB, * ), C( LDC, * ), CC( LDCC, * ), CT( * ), G( * )
 *     .. Local Scalars ..
@@ -2098,8 +2098,8 @@
 *
 *     .. Scalar Arguments ..
       int                LDA, M, N
-      CHARACTER*1        UPLO
-      CHARACTER*2        TYPE
+      String             UPLO;
+      String             TYPE;
 *     .. Array Arguments ..
       REAL               AA( LDA, * ), AS( LDA, * )
 *     .. Local Scalars ..

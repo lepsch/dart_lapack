@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      CHARACTER*3        PATH
+      String             PATH;
       int                IOUNIT
 *     ..
 *
@@ -13,7 +13,7 @@
 *
 *     .. Local Scalars ..
       LOGICAL            CORZ, SORD
-      CHARACTER*2        C2
+      String             C2;
       int                J
 *     ..
 *     .. External Functions ..

@@ -25,7 +25,7 @@
 *     .. Local Scalars ..
       LOGICAL            FIRSTT
       CHARACTER          DISTA, DISTB, TYPE
-      CHARACTER*3        PATH
+      String             PATH;
       int                I, IINFO, IK, IMAT, KLA, KLB, KUA, KUB, LDA, LDB, LWORK, M, MODEA, MODEB, N, NFAIL, NRUN, NT, P
       REAL               ANORM, BNORM, CNDNMA, CNDNMB
 *     ..

@@ -28,7 +28,7 @@
       DOUBLE PRECISION   ANORM, CNDNUM, RESULT, TOL
       int                COMPRANK, I, IMAT, IN, INB, INFO, IRANK, IUPLO, IZERO, KL, KU, LDA, MODE, N, NB, NERRS, NFAIL, NIMAT, NRUN, RANK, RANKDIFF
       CHARACTER          DIST, TYPE, UPLO
-      CHARACTER*3        PATH
+      String             PATH;
 *     ..
 *     .. Local Arrays ..
       int                ISEED( 4 ), ISEEDY( 4 )
@@ -40,7 +40,7 @@
 *     .. Scalars in Common ..
       int                INFOT, NUNIT
       LOGICAL            LERR, OK
-      CHARACTER*32       SRNAMT
+      String             SRNAMT;
 *     ..
 *     .. Common blocks ..
       COMMON             / INFOC / INFOT, NUNIT, OK, LERR

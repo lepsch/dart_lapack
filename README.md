@@ -5,25 +5,37 @@
 ### DOUBLE PRECISION -> double
 ```
 ^\s(.*)DOUBLE PRECISION(.*)$
- $1double          $2
+ $1double          $2;
 ```
 
 ### INTEGER -> int
 ```
 ^\s(.*)\bINTEGER\b(.*)$
- $1int    $2
+ $1int    $2;
 ```
 
 ### LOGICAL -> bool
 ```
 ^\s(.*)\bLOGICAL\b(.*)$
- $1bool   $2
+ $1bool   $2;
+```
+
+### CHARACTER*1 -> String
+```
+^\s(.*)\bCHARACTER\b\*[0-9]\s(.*)$
+ $1String      $2;
+```
+
+### CHARACTER*(*) -> List<String>
+```
+^\s(.*)\bCHARACTER\b\*[0-9]\s(.*)$
+ $1String      $2;
 ```
 
 ### CHARACTER -> String
 ```
 ^\s(.*)\bCHARACTER\b(.*)$
- $1String   $2
+ $1String   $2;
 ```
 
 ### Comment out INTRINSIC

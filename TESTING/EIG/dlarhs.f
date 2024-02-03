@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          TRANS, UPLO, XTYPE
-      CHARACTER*3        PATH
+      String             PATH;
       int                INFO, KL, KU, LDA, LDB, LDX, M, N, NRHS
 *     ..
 *     .. Array Arguments ..
@@ -23,7 +23,7 @@
 *     .. Local Scalars ..
       LOGICAL            BAND, GEN, NOTRAN, QRS, SYM, TRAN, TRI
       CHARACTER          C1, DIAG
-      CHARACTER*2        C2
+      String             C2;
       int                J, MB, NX
 *     ..
 *     .. External Functions ..

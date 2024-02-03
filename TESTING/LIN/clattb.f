@@ -23,7 +23,7 @@
 *     .. Local Scalars ..
       LOGICAL            UPPER
       CHARACTER          DIST, PACKIT, TYPE
-      CHARACTER*3        PATH
+      String             PATH;
       int                I, IOFF, IY, J, JCOUNT, KL, KU, LENJ, MODE
       REAL               ANORM, BIGNUM, BNORM, BSCAL, CNDNUM, REXP, SFAC, SMLNUM, TEXP, TLEFT, TNORM, TSCAL, ULP, UNFL
       COMPLEX            PLUS1, PLUS2, STAR1

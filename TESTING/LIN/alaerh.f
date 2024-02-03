@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      CHARACTER*3        PATH
+      String             PATH;
       CHARACTER*( * )    SUBNAM
       CHARACTER*( * )    OPTS
       int                IMAT, INFO, INFOE, KL, KU, M, N, N5, NERRS, NFAIL, NOUT
@@ -15,8 +15,8 @@
 *
 *     .. Local Scalars ..
       CHARACTER          UPLO
-      CHARACTER*2        P2
-      CHARACTER*3        C3
+      String             P2;
+      String             C3;
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME, LSAMEN

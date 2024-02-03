@@ -30,7 +30,7 @@
 *     ..
 *     .. Local Scalars ..
       CHARACTER          TRANS
-      CHARACTER*3        PATH
+      String             PATH;
       int                CRANK, I, IM, IMB, IN, INB, INFO, INS, IRANK, ISCALE, ITRAN, ITYPE, J, K, LDA, LDB, LDWORK, LWLSY, LWORK, M, MNMIN, N, NB, NCOLS, NERRS, NFAIL, NRHS, NROWS, NRUN, RANK, MB, MMAX, NMAX, NSMAX, LIWORK, LRWORK, LWORK_ZGELS, LWORK_ZGELST, LWORK_ZGETSLS, LWORK_ZGELSS, LWORK_ZGELSY, LWORK_ZGELSD, LRWORK_ZGELSY, LRWORK_ZGELSS, LRWORK_ZGELSD
       DOUBLE PRECISION   EPS, NORMA, NORMB, RCOND
 *     ..
@@ -56,7 +56,7 @@
 *     ..
 *     .. Scalars in Common ..
       LOGICAL            LERR, OK
-      CHARACTER*32       SRNAMT
+      String             SRNAMT;
       int                INFOT, IOUNIT
 *     ..
 *     .. Common blocks ..

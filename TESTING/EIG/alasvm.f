@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      CHARACTER*3        TYPE
+      String             TYPE;
       int                NFAIL, NOUT, NRUN, NERRS
 *     ..
 *

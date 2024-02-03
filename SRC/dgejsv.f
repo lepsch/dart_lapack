@@ -11,7 +11,7 @@
 *     .. Array Arguments ..
       DOUBLE PRECISION A( LDA, * ), SVA( N ), U( LDU, * ), V( LDV, * ), WORK( LWORK )
       int         IWORK( * )
-      CHARACTER*1 JOBA, JOBP, JOBR, JOBT, JOBU, JOBV
+      String      JOBA, JOBP, JOBR, JOBT, JOBU, JOBV;
 *     ..
 *
 *  ===========================================================================

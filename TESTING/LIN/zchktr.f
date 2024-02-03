@@ -30,7 +30,7 @@
 *     ..
 *     .. Local Scalars ..
       CHARACTER          DIAG, NORM, TRANS, UPLO, XTYPE
-      CHARACTER*3        PATH
+      String             PATH;
       int                I, IDIAG, IMAT, IN, INB, INFO, IRHS, ITRAN, IUPLO, K, LDA, N, NB, NERRS, NFAIL, NRHS, NRUN       DOUBLE PRECISION   AINVNM, ANORM, BIGNUM, DUMMY, RCOND, RCONDC, RCONDI, RCONDO, RES, SCALE, DLAMCH
 *     ..
 *     .. Local Arrays ..
@@ -48,7 +48,7 @@
 *     ..
 *     .. Scalars in Common ..
       LOGICAL            LERR, OK
-      CHARACTER*32       SRNAMT
+      String             SRNAMT;
       int                INFOT, IOUNIT
 *     ..
 *     .. Common blocks ..

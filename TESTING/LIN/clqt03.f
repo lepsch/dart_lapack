@@ -40,7 +40,7 @@
       INTRINSIC          CMPLX, MAX, REAL
 *     ..
 *     .. Scalars in Common ..
-      CHARACTER*32       SRNAMT
+      String             SRNAMT;
 *     ..
 *     .. Common blocks ..
       COMMON             / SRNAMC / SRNAMT

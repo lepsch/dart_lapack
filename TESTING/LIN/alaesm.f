@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       LOGICAL            OK
-      CHARACTER*3        PATH
+      String             PATH;
       int                NOUT
 *     ..
 *

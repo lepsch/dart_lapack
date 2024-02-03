@@ -30,7 +30,7 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            FIRSTT
-      CHARACTER*3        PATH
+      String             PATH;
       int                I, IINFO, IM, IMAT, J, LDU1, LDU2, LDV1T, LDV2T, LDX, LWORK, M, NFAIL, NRUN, NT, P, Q, R
 *     ..
 *     .. Local Arrays ..

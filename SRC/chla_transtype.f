@@ -1,4 +1,4 @@
-      CHARACTER*1 FUNCTION CHLA_TRANSTYPE( TRANS )
+      String      FUNCTION CHLA_TRANSTYPE( TRANS );
 *
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --

@@ -31,7 +31,7 @@
       EXTERNAL           DTFTTR, DTFTTP, DTRTTF, DTRTTP, DTPTTR, DTPTTF
 *     ..
 *     .. Scalars in Common ..
-      CHARACTER*32       SRNAMT
+      String             SRNAMT;
 *     ..
 *     .. Common blocks ..
       COMMON             / SRNAMC / SRNAMT

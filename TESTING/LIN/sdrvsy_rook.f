@@ -28,7 +28,7 @@
 *     .. Local Scalars ..
       LOGICAL            ZEROT
       CHARACTER          DIST, FACT, TYPE, UPLO, XTYPE
-      CHARACTER*3        PATH, MATPATH
+      String             PATH, MATPATH;
       int                I, I1, I2, IFACT, IMAT, IN, INFO, IOFF, IUPLO, IZERO, J, K, KL, KU, LDA, LWORK, MODE, N, NB, NBMIN, NERRS, NFAIL, NIMAT, NRUN, NT
       REAL               AINVNM, ANORM, CNDNUM, RCONDC
 *     ..
@@ -46,7 +46,7 @@
 *     ..
 *     .. Scalars in Common ..
       LOGICAL            LERR, OK
-      CHARACTER*32       SRNAMT
+      String             SRNAMT;
       int                INFOT, NUNIT
 *     ..
 *     .. Common blocks ..

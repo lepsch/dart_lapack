@@ -23,10 +23,10 @@
 *     .. Local Scalars ..
       LOGICAL            FATAL, TSTDRV, TSTERR
       CHARACTER          C1
-      CHARACTER*2        C2
-      CHARACTER*3        PATH
-      CHARACTER*10       INTSTR
-      CHARACTER*72       ALINE
+      String             C2;
+      String             PATH;
+      String             INTSTR;
+      String             ALINE;
       int                I, IC, K, LDA, NM, NMATS, NNS, NRHS, NTYPES, VERS_MAJOR, VERS_MINOR, VERS_PATCH
       DOUBLE PRECISION   EPS, S1, S2, THRESH
       REAL               SEPS
@@ -49,7 +49,7 @@
 *     ..
 *     .. Scalars in Common ..
       LOGICAL            LERR, OK
-      CHARACTER*32       SRNAMT
+      String             SRNAMT;
       int                INFOT, NUNIT
 *     ..
 *     .. Common blocks ..

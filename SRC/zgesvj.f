@@ -7,7 +7,7 @@
       IMPLICIT NONE
 *     .. Scalar Arguments ..
       int                INFO, LDA, LDV, LWORK, LRWORK, M, MV, N
-      CHARACTER*1        JOBA, JOBU, JOBV
+      String             JOBA, JOBU, JOBV;
 *     ..
 *     .. Array Arguments ..
       COMPLEX*16         A( LDA, * ),  V( LDV, * ), CWORK( LWORK )

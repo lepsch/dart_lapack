@@ -41,7 +41,7 @@
 *     .. Intrinsic Functions ..
       INTRINSIC  MAX, MIN
 *     .. Scalars in Common ..
-      CHARACTER*32       srnamt
+      String             srnamt;
 *     ..
 *     .. Common blocks ..
       COMMON             / srnamc / srnamt

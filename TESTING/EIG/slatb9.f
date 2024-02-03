@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          DISTA, DISTB, TYPE
-      CHARACTER*3        PATH
+      String             PATH;
       int                IMAT, KLA, KUA, KLB, KUB, M, P, MODEA, MODEB, N
       REAL               ANORM, BNORM, CNDNMA, CNDNMB
 *     ..

@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       int                NUNIT
-      CHARACTER*3        PATH
+      String             PATH;
 *     ..
 *
 *  =====================================================================
@@ -29,7 +29,7 @@
 *     .. Scalars in Common ..
       int                INFOT, NOUT
       LOGICAL            LERR, OK
-      CHARACTER*32       SRNAMT
+      String             SRNAMT;
 *     ..
 *     .. Common blocks ..
       COMMON             / INFOC / INFOT, NOUT, OK, LERR

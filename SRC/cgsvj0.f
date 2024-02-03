@@ -8,7 +8,7 @@
 *     .. Scalar Arguments ..
       int                INFO, LDA, LDV, LWORK, M, MV, N, NSWEEP
       REAL               EPS, SFMIN, TOL
-      CHARACTER*1        JOBV
+      String             JOBV;
 *     ..
 *     .. Array Arguments ..
       COMPLEX            A( LDA, * ), D( N ), V( LDV, * ), WORK( LWORK )

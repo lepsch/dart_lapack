@@ -31,7 +31,7 @@
       EXTERNAL           CTFTTR, CTFTTP, CTRTTF, CTRTTP, CTPTTR, CTPTTF
 *     ..
 *     .. Scalars in Common ..
-      CHARACTER*32       SRNAMT
+      String             SRNAMT;
 *     ..
 *     .. Common blocks ..
       COMMON             / SRNAMC / SRNAMT

@@ -41,7 +41,7 @@
       EXTERNAL           CTRTTF
 *     ..
 *     .. Scalars in Common ..
-      CHARACTER*32       SRNAMT
+      String             SRNAMT;
 *     ..
 *     .. Common blocks ..
       COMMON             / SRNAMC / SRNAMT

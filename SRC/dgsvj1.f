@@ -7,7 +7,7 @@
 *     .. Scalar Arguments ..
       DOUBLE PRECISION   EPS, SFMIN, TOL
       int                INFO, LDA, LDV, LWORK, M, MV, N, N1, NSWEEP
-      CHARACTER*1        JOBV
+      String             JOBV;
 *     ..
 *     .. Array Arguments ..
       DOUBLE PRECISION   A( LDA, * ), D( N ), SVA( N ), V( LDV, * ), WORK( LWORK )

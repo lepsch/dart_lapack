@@ -21,14 +21,14 @@
       DOUBLE PRECISION   EPS, ERR, THRESH
       int                I, ISNUM, J, N, NALF, NBET, NIDIM, NOUT, NTRA
       LOGICAL            FATAL, LTESTT, REWI, SAME, SFATAL, TRACE, TSTERR
-      CHARACTER*1        TRANSA, TRANSB
-      CHARACTER*6        SNAMET
-      CHARACTER*32       SNAPS, SUMMRY
+      String             TRANSA, TRANSB;
+      String             SNAMET;
+      String             SNAPS, SUMMRY;
 *     .. Local Arrays ..
       DOUBLE PRECISION   AA( NMAX*NMAX ), AB( NMAX, 2*NMAX ), ALF( NALMAX ), AS( NMAX*NMAX ), BB( NMAX*NMAX ), BET( NBEMAX ), BS( NMAX*NMAX ), C( NMAX, NMAX ), CC( NMAX*NMAX ), CS( NMAX*NMAX ), CT( NMAX ), G( NMAX ), W( 2*NMAX )
       int                IDIM( NIDMAX )
       LOGICAL            LTEST( NSUBS )
-      CHARACTER*6        SNAMES( NSUBS )
+      String             SNAMES( NSUBS );
 *     .. External Functions ..
       DOUBLE PRECISION   DDIFF
       LOGICAL            LDE
@@ -40,7 +40,7 @@
 *     .. Scalars in Common ..
       int                INFOT, NOUTC
       LOGICAL            LERR, OK
-      CHARACTER*6        SRNAMT
+      String             SRNAMT;
 *     .. Common blocks ..
       COMMON             /INFOC/INFOT, NOUTC, OK, LERR
       COMMON             /SRNAMC/SRNAMT
@@ -310,7 +310,7 @@
       DOUBLE PRECISION   EPS, THRESH
       int                NALF, NBET, NIDIM, NMAX, NOUT, NTRA
       LOGICAL            FATAL, REWI, TRACE
-      CHARACTER*6        SNAME
+      String             SNAME;
 *     .. Array Arguments ..
       DOUBLE PRECISION   A( NMAX, NMAX ), AA( NMAX*NMAX ), ALF( NALF ), AS( NMAX*NMAX ), B( NMAX, NMAX ), BB( NMAX*NMAX ), BET( NBET ), BS( NMAX*NMAX ), C( NMAX, NMAX ), CC( NMAX*NMAX ), CS( NMAX*NMAX ), CT( NMAX ), G( NMAX )
       int                IDIM( NIDIM )
@@ -318,8 +318,8 @@
       DOUBLE PRECISION   ALPHA, ALS, BETA, BLS, ERR, ERRMAX
       int                I, IA, IB, ICA, ICB, IK, IM, IN, K, KS, LAA, LBB, LCC, LDA, LDAS, LDB, LDBS, LDC, LDCS, M, MA, MB, MS, N, NA, NARGS, NB, NC, NS
       LOGICAL            NULL, RESET, SAME, TRANA, TRANB
-      CHARACTER*1        TRANAS, TRANBS, TRANSA, TRANSB
-      CHARACTER*3        ICH
+      String             TRANAS, TRANBS, TRANSA, TRANSB;
+      String             ICH;
 *     .. Local Arrays ..
       LOGICAL            ISAME( 13 )
 *     .. External Functions ..
@@ -561,7 +561,7 @@
       DOUBLE PRECISION   EPS, THRESH
       int                NALF, NBET, NIDIM, NMAX, NOUT, NTRA
       LOGICAL            FATAL, REWI, TRACE
-      CHARACTER*6        SNAME
+      String             SNAME;
 *     .. Array Arguments ..
       DOUBLE PRECISION   A( NMAX, NMAX ), AA( NMAX*NMAX ), ALF( NALF ), AS( NMAX*NMAX ), B( NMAX, NMAX ), BB( NMAX*NMAX ), BET( NBET ), BS( NMAX*NMAX ), C( NMAX, NMAX ), CC( NMAX*NMAX ), CS( NMAX*NMAX ), CT( NMAX ), G( NMAX )
       int                IDIM( NIDIM )
@@ -569,8 +569,8 @@
       DOUBLE PRECISION   ALPHA, ALS, BETA, BLS, ERR, ERRMAX
       int                I, IA, IB, ICS, ICU, IM, IN, LAA, LBB, LCC, LDA, LDAS, LDB, LDBS, LDC, LDCS, M, MS, N, NA, NARGS, NC, NS
       LOGICAL            LEFT, NULL, RESET, SAME
-      CHARACTER*1        SIDE, SIDES, UPLO, UPLOS
-      CHARACTER*2        ICHS, ICHU
+      String             SIDE, SIDES, UPLO, UPLOS;
+      String             ICHS, ICHU;
 *     .. Local Arrays ..
       LOGICAL            ISAME( 13 )
 *     .. External Functions ..
@@ -799,7 +799,7 @@
       DOUBLE PRECISION   EPS, THRESH
       int                NALF, NIDIM, NMAX, NOUT, NTRA
       LOGICAL            FATAL, REWI, TRACE
-      CHARACTER*6        SNAME
+      String             SNAME;
 *     .. Array Arguments ..
       DOUBLE PRECISION   A( NMAX, NMAX ), AA( NMAX*NMAX ), ALF( NALF ), AS( NMAX*NMAX ), B( NMAX, NMAX ), BB( NMAX*NMAX ), BS( NMAX*NMAX ), C( NMAX, NMAX ), CT( NMAX ), G( NMAX )
       int                IDIM( NIDIM )
@@ -807,9 +807,9 @@
       DOUBLE PRECISION   ALPHA, ALS, ERR, ERRMAX
       int                I, IA, ICD, ICS, ICT, ICU, IM, IN, J, LAA, LBB, LDA, LDAS, LDB, LDBS, M, MS, N, NA, NARGS, NC, NS
       LOGICAL            LEFT, NULL, RESET, SAME
-      CHARACTER*1        DIAG, DIAGS, SIDE, SIDES, TRANAS, TRANSA, UPLO, UPLOS
-      CHARACTER*2        ICHD, ICHS, ICHU
-      CHARACTER*3        ICHT
+      String             DIAG, DIAGS, SIDE, SIDES, TRANAS, TRANSA, UPLO, UPLOS;
+      String             ICHD, ICHS, ICHU;
+      String             ICHT;
 *     .. Local Arrays ..
       LOGICAL            ISAME( 13 )
 *     .. External Functions ..
@@ -1055,7 +1055,7 @@
       DOUBLE PRECISION   EPS, THRESH
       int                NALF, NBET, NIDIM, NMAX, NOUT, NTRA
       LOGICAL            FATAL, REWI, TRACE
-      CHARACTER*6        SNAME
+      String             SNAME;
 *     .. Array Arguments ..
       DOUBLE PRECISION   A( NMAX, NMAX ), AA( NMAX*NMAX ), ALF( NALF ), AS( NMAX*NMAX ), B( NMAX, NMAX ), BB( NMAX*NMAX ), BET( NBET ), BS( NMAX*NMAX ), C( NMAX, NMAX ), CC( NMAX*NMAX ), CS( NMAX*NMAX ), CT( NMAX ), G( NMAX )
       int                IDIM( NIDIM )
@@ -1063,9 +1063,9 @@
       DOUBLE PRECISION   ALPHA, ALS, BETA, BETS, ERR, ERRMAX
       int                I, IA, IB, ICT, ICU, IK, IN, J, JC, JJ, K, KS, LAA, LCC, LDA, LDAS, LDC, LDCS, LJ, MA, N, NA, NARGS, NC, NS
       LOGICAL            NULL, RESET, SAME, TRAN, UPPER
-      CHARACTER*1        TRANS, TRANSS, UPLO, UPLOS
-      CHARACTER*2        ICHU
-      CHARACTER*3        ICHT
+      String             TRANS, TRANSS, UPLO, UPLOS;
+      String             ICHU;
+      String             ICHT;
 *     .. Local Arrays ..
       LOGICAL            ISAME( 13 )
 *     .. External Functions ..
@@ -1296,7 +1296,7 @@
       DOUBLE PRECISION   EPS, THRESH
       int                NALF, NBET, NIDIM, NMAX, NOUT, NTRA
       LOGICAL            FATAL, REWI, TRACE
-      CHARACTER*6        SNAME
+      String             SNAME;
 *     .. Array Arguments ..
       DOUBLE PRECISION   AA( NMAX*NMAX ), AB( 2*NMAX*NMAX ), ALF( NALF ), AS( NMAX*NMAX ), BB( NMAX*NMAX ), BET( NBET ), BS( NMAX*NMAX ), C( NMAX, NMAX ), CC( NMAX*NMAX ), CS( NMAX*NMAX ), CT( NMAX ), G( NMAX ), W( 2*NMAX )
       int                IDIM( NIDIM )
@@ -1304,9 +1304,9 @@
       DOUBLE PRECISION   ALPHA, ALS, BETA, BETS, ERR, ERRMAX
       int                I, IA, IB, ICT, ICU, IK, IN, J, JC, JJ, JJAB, K, KS, LAA, LBB, LCC, LDA, LDAS, LDB, LDBS, LDC, LDCS, LJ, MA, N, NA, NARGS, NC, NS
       LOGICAL            NULL, RESET, SAME, TRAN, UPPER
-      CHARACTER*1        TRANS, TRANSS, UPLO, UPLOS
-      CHARACTER*2        ICHU
-      CHARACTER*3        ICHT
+      String             TRANS, TRANSS, UPLO, UPLOS;
+      String             ICHU;
+      String             ICHT;
 *     .. Local Arrays ..
       LOGICAL            ISAME( 13 )
 *     .. External Functions ..
@@ -1566,7 +1566,7 @@
 *
 *     .. Scalar Arguments ..
       int                ISNUM, NOUT
-      CHARACTER*6        SRNAMT
+      String             SRNAMT;
 *     .. Scalars in Common ..
       int                INFOT, NOUTC
       LOGICAL            LERR, OK
@@ -2126,8 +2126,8 @@
       DOUBLE PRECISION   TRANSL
       int                LDA, M, N, NMAX
       LOGICAL            RESET
-      CHARACTER*1        DIAG, UPLO
-      CHARACTER*2        TYPE
+      String             DIAG, UPLO;
+      String             TYPE;
 *     .. Array Arguments ..
       DOUBLE PRECISION   A( NMAX, * ), AA( * )
 *     .. Local Scalars ..
@@ -2227,7 +2227,7 @@
       DOUBLE PRECISION   ALPHA, BETA, EPS, ERR
       int                KK, LDA, LDB, LDC, LDCC, M, N, NOUT
       LOGICAL            FATAL, MV
-      CHARACTER*1        TRANSA, TRANSB
+      String             TRANSA, TRANSB;
 *     .. Array Arguments ..
       DOUBLE PRECISION   A( LDA, * ), B( LDB, * ), C( LDC, * ), CC( LDCC, * ), CT( * ), G( * )
 *     .. Local Scalars ..
@@ -2371,8 +2371,8 @@
 *
 *     .. Scalar Arguments ..
       int                LDA, M, N
-      CHARACTER*1        UPLO
-      CHARACTER*2        TYPE
+      String             UPLO;
+      String             TYPE;
 *     .. Array Arguments ..
       DOUBLE PRECISION   AA( LDA, * ), AS( LDA, * )
 *     .. Local Scalars ..
@@ -2493,7 +2493,7 @@
 *     .. Scalar Arguments ..
       int                INFOT, NOUT
       LOGICAL            LERR, OK
-      CHARACTER*6        SRNAMT
+      String             SRNAMT;
 *     .. Executable Statements ..
       IF( .NOT.LERR )THEN
          WRITE( NOUT, FMT = 9999 )INFOT, SRNAMT
@@ -2529,11 +2529,11 @@
 *
 *     .. Scalar Arguments ..
       int                INFO
-      CHARACTER*6        SRNAME
+      String             SRNAME;
 *     .. Scalars in Common ..
       int                INFOT, NOUT
       LOGICAL            LERR, OK
-      CHARACTER*6        SRNAMT
+      String             SRNAMT;
 *     .. Common blocks ..
       COMMON             /INFOC/INFOT, NOUT, OK, LERR
       COMMON             /SRNAMC/SRNAMT

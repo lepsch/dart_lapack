@@ -9,7 +9,7 @@
 *     .. Array Arguments ..
       REAL WORK(N)
       COMPLEX A(LDA,N), X(LDX, NRHS), B(LDB, NRHS)
-      CHARACTER*3        PATH
+      String             PATH;
 *     ..
 *
 *  =====================================================================
@@ -18,7 +18,7 @@
       int     M
       int     I, J
       COMPLEX TMP
-      CHARACTER*2 C2
+      String      C2;
 *     ..
 *     .. Parameters ..
 *     NMAX_EXACT   the largest dimension where the generated data is

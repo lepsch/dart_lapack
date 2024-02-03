@@ -58,7 +58,7 @@
       EXTERNAL           ALADHD, ALAERH, ALASVM, ZGET04, ZTFTTR, ZLACPY, ZLAIPD, ZLARHS, ZLATB4, ZLATMS, ZPFTRI, ZPFTRF, ZPFTRS, ZPOT01, ZPOT02, ZPOT03, ZPOTRI, ZPOTRF, ZTRTTF
 *     ..
 *     .. Scalars in Common ..
-      CHARACTER*32       SRNAMT
+      String             SRNAMT;
 *     ..
 *     .. Common blocks ..
       COMMON             / SRNAMC / SRNAMT

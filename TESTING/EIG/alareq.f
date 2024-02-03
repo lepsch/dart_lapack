@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      CHARACTER*3        PATH
+      String             PATH;
       int                NIN, NMATS, NOUT, NTYPES
 *     ..
 *     .. Array Arguments ..
@@ -17,8 +17,8 @@
 *     .. Local Scalars ..
       LOGICAL            FIRSTT
       CHARACTER          C1
-      CHARACTER*10       INTSTR
-      CHARACTER*80       LINE
+      String             INTSTR;
+      String             LINE;
       int                I, I1, IC, J, K, LENP, NT
 *     ..
 *     .. Local Arrays ..

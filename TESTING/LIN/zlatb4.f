@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          DIST, TYPE
-      CHARACTER*3        PATH
+      String             PATH;
       int                IMAT, KL, KU, M, MODE, N
       DOUBLE PRECISION   ANORM, CNDNUM
 *     ..
@@ -23,7 +23,7 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            FIRST
-      CHARACTER*2        C2
+      String             C2;
       int                MAT
       DOUBLE PRECISION   BADC1, BADC2, EPS, LARGE, SMALL
 *     ..

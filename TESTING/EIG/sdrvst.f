@@ -41,7 +41,7 @@
       EXTERNAL           ALASVM, SLACPY, SLAFTS, SLASET, SLATMR, SLATMS, SSBEV, SSBEVD, SSBEVX, SSPEV, SSPEVD, SSPEVX, SSTEV, SSTEVD, SSTEVR, SSTEVX, SSTT21, SSTT22, SSYEV, SSYEVD, SSYEVR, SSYEVX, SSYT21, SSYT22, XERBLA
 *     ..
 *     .. Scalars in Common ..
-      CHARACTER*32       SRNAMT
+      String             SRNAMT;
 *     ..
 *     .. Common blocks ..
       COMMON             / SRNAMC / SRNAMT

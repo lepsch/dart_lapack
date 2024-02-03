@@ -27,7 +27,7 @@
       PARAMETER          ( ONE = 1.0D0, ZERO = 0.0D0 )
 *     ..
 *     .. Local Scalars ..
-      CHARACTER*3        PATH
+      String             PATH;
       int                I, IM, IMODE, IN, INFO, K, LDA, LWORK, M, MNMIN, MODE, N, NERRS, NFAIL, NRUN
       DOUBLE PRECISION   EPS
 *     ..
@@ -47,7 +47,7 @@
 *     ..
 *     .. Scalars in Common ..
       LOGICAL            LERR, OK
-      CHARACTER*32       SRNAMT
+      String             SRNAMT;
       int                INFOT, IOUNIT
 *     ..
 *     .. Common blocks ..

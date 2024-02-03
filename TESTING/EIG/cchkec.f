@@ -14,7 +14,7 @@
 *
 *     .. Local Scalars ..
       LOGICAL            OK
-      CHARACTER*3        PATH
+      String             PATH;
       int                KTREXC, KTRSEN, KTRSNA, KTRSYL, KTRSYL3, LTREXC, LTRSYL, NTESTS, NTREXC, NTRSYL
       REAL               EPS, RTREXC, SFMIN
 *     ..

@@ -6,7 +6,7 @@
 *
 *     .. Scalar Arguments ..
       int                INFO, LDA, LDV, LWORK, M, MV, N
-      CHARACTER*1        JOBA, JOBU, JOBV
+      String             JOBA, JOBU, JOBV;
 *     ..
 *     .. Array Arguments ..
       REAL               A( LDA, * ), SVA( N ), V( LDV, * ), WORK( LWORK )

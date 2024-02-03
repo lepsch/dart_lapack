@@ -26,7 +26,7 @@
 *     ..
 *     .. Local Scalars ..
       CHARACTER          DIST, TYPE
-      CHARACTER*3        PATH
+      String             PATH;
       int                I, IK, IM, IMAT, IN, INB, INFO, K, KL, KU, LDA, LWORK, M, MINMN, MODE, N, NB, NERRS, NFAIL, NK, NRUN, NT, NX
       REAL               ANORM, CNDNUM
 *     ..
@@ -46,7 +46,7 @@
 *     ..
 *     .. Scalars in Common ..
       LOGICAL            LERR, OK
-      CHARACTER*32       SRNAMT
+      String             SRNAMT;
       int                INFOT, NUNIT
 *     ..
 *     .. Common blocks ..

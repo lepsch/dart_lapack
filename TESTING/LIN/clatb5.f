@@ -8,7 +8,7 @@
       REAL               ANORM, CNDNUM
       int                IMAT, KL, KU, MODE, N
       CHARACTER          DIST, TYPE
-      CHARACTER*3        PATH
+      String             PATH;
 *     ..
 *
 *  =====================================================================
@@ -24,7 +24,7 @@
 *     .. Local Scalars ..
       REAL               BADC1, BADC2, EPS, LARGE, SMALL
       LOGICAL            FIRST
-      CHARACTER*2        C2
+      String             C2;
 *     ..
 *     .. External Functions ..
       REAL               SLAMCH

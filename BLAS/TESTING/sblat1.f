@@ -63,7 +63,7 @@
       int              ICASE, INCX, INCY, N
       LOGICAL          PASS
 *     .. Local Arrays ..
-      CHARACTER*6      L(13)
+      String           L(13);
 *     .. Common blocks ..
       COMMON           /COMBLA/ICASE, N, INCX, INCY, PASS
 *     .. Data statements ..

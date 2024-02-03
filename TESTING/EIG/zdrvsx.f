@@ -29,7 +29,7 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            BADNN
-      CHARACTER*3        PATH
+      String             PATH;
       int                I, IINFO, IMODE, ISRT, ITYPE, IWK, J, JCOL, JSIZE, JTYPE, MTYPES, N, NERRS, NFAIL, NMAX, NNWORK, NSLCT, NTEST, NTESTF, NTESTT
       DOUBLE PRECISION   ANORM, COND, CONDS, OVFL, RCDEIN, RCDVIN, RTULP, RTULPI, ULP, ULPINV, UNFL
 *     ..

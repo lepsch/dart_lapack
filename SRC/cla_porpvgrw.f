@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      CHARACTER*1        UPLO
+      String             UPLO;
       int                NCOLS, LDA, LDAF
 *     ..
 *     .. Array Arguments ..

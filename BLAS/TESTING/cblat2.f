@@ -22,15 +22,15 @@
 *     .. Local Scalars ..
       REAL               EPS, ERR, THRESH
       int                I, ISNUM, J, N, NALF, NBET, NIDIM, NINC, NKB, NOUT, NTRA       LOGICAL            FATAL, LTESTT, REWI, SAME, SFATAL, TRACE, TSTERR
-      CHARACTER*1        TRANS
-      CHARACTER*6        SNAMET
-      CHARACTER*32       SNAPS, SUMMRY
+      String             TRANS;
+      String             SNAMET;
+      String             SNAPS, SUMMRY;
 *     .. Local Arrays ..
       COMPLEX            A( NMAX, NMAX ), AA( NMAX*NMAX ), ALF( NALMAX ), AS( NMAX*NMAX ), BET( NBEMAX ), X( NMAX ), XS( NMAX*INCMAX ), XX( NMAX*INCMAX ), Y( NMAX ), YS( NMAX*INCMAX ), YT( NMAX ), YY( NMAX*INCMAX ), Z( 2*NMAX )
       REAL               G( NMAX )
       int                IDIM( NIDMAX ), INC( NINMAX ), KB( NKBMAX )
       LOGICAL            LTEST( NSUBS )
-      CHARACTER*6        SNAMES( NSUBS )
+      String             SNAMES( NSUBS );
 *     .. External Functions ..
       REAL               SDIFF
       LOGICAL            LCE
@@ -42,7 +42,7 @@
 *     .. Scalars in Common ..
       int                INFOT, NOUTC
       LOGICAL            LERR, OK
-      CHARACTER*6        SRNAMT
+      String             SRNAMT;
 *     .. Common blocks ..
       COMMON             /INFOC/INFOT, NOUTC, OK, LERR
       COMMON             /SRNAMC/SRNAMT
@@ -329,7 +329,7 @@
       REAL               EPS, THRESH
       int                INCMAX, NALF, NBET, NIDIM, NINC, NKB, NMAX, NOUT, NTRA
       LOGICAL            FATAL, REWI, TRACE
-      CHARACTER*6        SNAME
+      String             SNAME;
 *     .. Array Arguments ..
       COMPLEX            A( NMAX, NMAX ), AA( NMAX*NMAX ), ALF( NALF ), AS( NMAX*NMAX ), BET( NBET ), X( NMAX ), XS( NMAX*INCMAX ), XX( NMAX*INCMAX ), Y( NMAX ), YS( NMAX*INCMAX ), YT( NMAX ), YY( NMAX*INCMAX )
       REAL               G( NMAX )
@@ -339,8 +339,8 @@
       REAL               ERR, ERRMAX
       int                I, IA, IB, IC, IKU, IM, IN, INCX, INCXS, INCY, INCYS, IX, IY, KL, KLS, KU, KUS, LAA, LDA, LDAS, LX, LY, M, ML, MS, N, NARGS, NC, ND, NK, NL, NS
       LOGICAL            BANDED, FULL, NULL, RESET, SAME, TRAN
-      CHARACTER*1        TRANS, TRANSS
-      CHARACTER*3        ICH
+      String             TRANS, TRANSS;
+      String             ICH;
 *     .. Local Arrays ..
       LOGICAL            ISAME( 13 )
 *     .. External Functions ..
@@ -646,7 +646,7 @@
       REAL               EPS, THRESH
       int                INCMAX, NALF, NBET, NIDIM, NINC, NKB, NMAX, NOUT, NTRA
       LOGICAL            FATAL, REWI, TRACE
-      CHARACTER*6        SNAME
+      String             SNAME;
 *     .. Array Arguments ..
       COMPLEX            A( NMAX, NMAX ), AA( NMAX*NMAX ), ALF( NALF ), AS( NMAX*NMAX ), BET( NBET ), X( NMAX ), XS( NMAX*INCMAX ), XX( NMAX*INCMAX ), Y( NMAX ), YS( NMAX*INCMAX ), YT( NMAX ), YY( NMAX*INCMAX )
       REAL               G( NMAX )
@@ -656,8 +656,8 @@
       REAL               ERR, ERRMAX
       int                I, IA, IB, IC, IK, IN, INCX, INCXS, INCY, INCYS, IX, IY, K, KS, LAA, LDA, LDAS, LX, LY, N, NARGS, NC, NK, NS
       LOGICAL            BANDED, FULL, NULL, PACKED, RESET, SAME
-      CHARACTER*1        UPLO, UPLOS
-      CHARACTER*2        ICH
+      String             UPLO, UPLOS;
+      String             ICH;
 *     .. Local Arrays ..
       LOGICAL            ISAME( 13 )
 *     .. External Functions ..
@@ -951,7 +951,7 @@
       REAL               EPS, THRESH
       int                INCMAX, NIDIM, NINC, NKB, NMAX, NOUT, NTRA
       LOGICAL            FATAL, REWI, TRACE
-      CHARACTER*6        SNAME
+      String             SNAME;
 *     .. Array Arguments ..
       COMPLEX            A( NMAX, NMAX ), AA( NMAX*NMAX ), AS( NMAX*NMAX ), X( NMAX ), XS( NMAX*INCMAX ), XT( NMAX ), XX( NMAX*INCMAX ), Z( NMAX )
       REAL               G( NMAX )
@@ -961,9 +961,9 @@
       REAL               ERR, ERRMAX
       int                I, ICD, ICT, ICU, IK, IN, INCX, INCXS, IX, K, KS, LAA, LDA, LDAS, LX, N, NARGS, NC, NK, NS
       LOGICAL            BANDED, FULL, NULL, PACKED, RESET, SAME
-      CHARACTER*1        DIAG, DIAGS, TRANS, TRANSS, UPLO, UPLOS
-      CHARACTER*2        ICHD, ICHU
-      CHARACTER*3        ICHT
+      String             DIAG, DIAGS, TRANS, TRANSS, UPLO, UPLOS;
+      String             ICHD, ICHU;
+      String             ICHT;
 *     .. Local Arrays ..
       LOGICAL            ISAME( 13 )
 *     .. External Functions ..
@@ -1254,7 +1254,7 @@
       REAL               EPS, THRESH
       int                INCMAX, NALF, NIDIM, NINC, NMAX, NOUT, NTRA
       LOGICAL            FATAL, REWI, TRACE
-      CHARACTER*6        SNAME
+      String             SNAME;
 *     .. Array Arguments ..
       COMPLEX            A( NMAX, NMAX ), AA( NMAX*NMAX ), ALF( NALF ), AS( NMAX*NMAX ), X( NMAX ), XS( NMAX*INCMAX ), XX( NMAX*INCMAX ), Y( NMAX ), YS( NMAX*INCMAX ), YT( NMAX ), YY( NMAX*INCMAX ), Z( NMAX )
       REAL               G( NMAX )
@@ -1497,7 +1497,7 @@
       REAL               EPS, THRESH
       int                INCMAX, NALF, NIDIM, NINC, NMAX, NOUT, NTRA
       LOGICAL            FATAL, REWI, TRACE
-      CHARACTER*6        SNAME
+      String             SNAME;
 *     .. Array Arguments ..
       COMPLEX            A( NMAX, NMAX ), AA( NMAX*NMAX ), ALF( NALF ), AS( NMAX*NMAX ), X( NMAX ), XS( NMAX*INCMAX ), XX( NMAX*INCMAX ), Y( NMAX ), YS( NMAX*INCMAX ), YT( NMAX ), YY( NMAX*INCMAX ), Z( NMAX )
       REAL               G( NMAX )
@@ -1507,8 +1507,8 @@
       REAL               ERR, ERRMAX, RALPHA, RALS
       int                I, IA, IC, IN, INCX, INCXS, IX, J, JA, JJ, LAA, LDA, LDAS, LJ, LX, N, NARGS, NC, NS
       LOGICAL            FULL, NULL, PACKED, RESET, SAME, UPPER
-      CHARACTER*1        UPLO, UPLOS
-      CHARACTER*2        ICH
+      String             UPLO, UPLOS;
+      String             ICH;
 *     .. Local Arrays ..
       COMPLEX            W( 1 )
       LOGICAL            ISAME( 13 )
@@ -1755,7 +1755,7 @@
       REAL               EPS, THRESH
       int                INCMAX, NALF, NIDIM, NINC, NMAX, NOUT, NTRA
       LOGICAL            FATAL, REWI, TRACE
-      CHARACTER*6        SNAME
+      String             SNAME;
 *     .. Array Arguments ..
       COMPLEX            A( NMAX, NMAX ), AA( NMAX*NMAX ), ALF( NALF ), AS( NMAX*NMAX ), X( NMAX ), XS( NMAX*INCMAX ), XX( NMAX*INCMAX ), Y( NMAX ), YS( NMAX*INCMAX ), YT( NMAX ), YY( NMAX*INCMAX ), Z( NMAX, 2 )
       REAL               G( NMAX )
@@ -1765,8 +1765,8 @@
       REAL               ERR, ERRMAX
       int                I, IA, IC, IN, INCX, INCXS, INCY, INCYS, IX, IY, J, JA, JJ, LAA, LDA, LDAS, LJ, LX, LY, N, NARGS, NC, NS
       LOGICAL            FULL, NULL, PACKED, RESET, SAME, UPPER
-      CHARACTER*1        UPLO, UPLOS
-      CHARACTER*2        ICH
+      String             UPLO, UPLOS;
+      String             ICH;
 *     .. Local Arrays ..
       COMPLEX            W( 2 )
       LOGICAL            ISAME( 13 )
@@ -2038,7 +2038,7 @@
 *
 *     .. Scalar Arguments ..
       int                ISNUM, NOUT
-      CHARACTER*6        SRNAMT
+      String             SRNAMT;
 *     .. Scalars in Common ..
       int                INFOT, NOUTC
       LOGICAL            LERR, OK
@@ -2391,8 +2391,8 @@
       COMPLEX            TRANSL
       int                KL, KU, LDA, M, N, NMAX
       LOGICAL            RESET
-      CHARACTER*1        DIAG, UPLO
-      CHARACTER*2        TYPE
+      String             DIAG, UPLO;
+      String             TYPE;
 *     .. Array Arguments ..
       COMPLEX            A( NMAX, * ), AA( * )
 *     .. Local Scalars ..
@@ -2563,7 +2563,7 @@
       REAL               EPS, ERR
       int                INCX, INCY, M, N, NMAX, NOUT
       LOGICAL            FATAL, MV
-      CHARACTER*1        TRANS
+      String             TRANS;
 *     .. Array Arguments ..
       COMPLEX            A( NMAX, * ), X( * ), Y( * ), YT( * ), YY( * )
       REAL               G( * )
@@ -2713,8 +2713,8 @@
 *
 *     .. Scalar Arguments ..
       int                LDA, M, N
-      CHARACTER*1        UPLO
-      CHARACTER*2        TYPE
+      String             UPLO;
+      String             TYPE;
 *     .. Array Arguments ..
       COMPLEX            AA( LDA, * ), AS( LDA, * )
 *     .. Local Scalars ..
@@ -2836,7 +2836,7 @@
 *     .. Scalar Arguments ..
       int                INFOT, NOUT
       LOGICAL            LERR, OK
-      CHARACTER*6        SRNAMT
+      String             SRNAMT;
 *     .. Executable Statements ..
       IF( .NOT.LERR )THEN
          WRITE( NOUT, FMT = 9999 )INFOT, SRNAMT
@@ -2856,7 +2856,7 @@
 *  Input initialization for regression test.
 *
 *     .. Scalar Arguments ..
-      CHARACTER*1        TRANS
+      String             TRANS;
       int                LY, M, N, KL, KU, LDA, INCX, INCY
       COMPLEX            ALPHA, BETA
 *     .. Array Arguments ..
@@ -2902,11 +2902,11 @@
 *
 *     .. Scalar Arguments ..
       int                INFO
-      CHARACTER*6        SRNAME
+      String             SRNAME;
 *     .. Scalars in Common ..
       int                INFOT, NOUT
       LOGICAL            LERR, OK
-      CHARACTER*6        SRNAMT
+      String             SRNAMT;
 *     .. Common blocks ..
       COMMON             /INFOC/INFOT, NOUT, OK, LERR
       COMMON             /SRNAMC/SRNAMT

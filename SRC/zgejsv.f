@@ -12,7 +12,7 @@
       COMPLEX*16       A( LDA, * ), U( LDU, * ), V( LDV, * ), CWORK( LWORK )
       DOUBLE PRECISION SVA( N ), RWORK( LRWORK )
       int              IWORK( * )
-      CHARACTER*1      JOBA, JOBP, JOBR, JOBT, JOBU, JOBV
+      String           JOBA, JOBP, JOBR, JOBT, JOBU, JOBV;
 *     ..
 *
 *  ===========================================================================

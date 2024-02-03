@@ -18,7 +18,7 @@
       int     I
 *     ..
 *     .. Local Arrays ..
-      CHARACTER*32 SRNAME
+      String       SRNAME;
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC MIN, LEN

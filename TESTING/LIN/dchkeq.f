@@ -21,7 +21,7 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            OK
-      CHARACTER*3        PATH
+      String             PATH;
       int                I, INFO, J, KL, KU, M, N
       DOUBLE PRECISION   CCOND, EPS, NORM, RATIO, RCMAX, RCMIN, RCOND
 *     ..

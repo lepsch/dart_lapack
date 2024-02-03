@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      CHARACTER*3        PATH
+      String             PATH;
       int                NUNIT
 *     ..
 *
@@ -17,7 +17,7 @@
       PARAMETER          ( NMAX = 3, LIW = 12*NMAX, LW = 20*NMAX )
 *     ..
 *     .. Local Scalars ..
-      CHARACTER*2        C2
+      String             C2;
       int                I, INFO, J, M, N, NSPLIT, NT
 *     ..
 *     .. Local Arrays ..
@@ -33,7 +33,7 @@
 *     ..
 *     .. Scalars in Common ..
       LOGICAL            LERR, OK
-      CHARACTER*32       SRNAMT
+      String             SRNAMT;
       int                INFOT, NOUT
 *     ..
 *     .. Common blocks ..

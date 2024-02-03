@@ -25,7 +25,7 @@
 *     .. Local Scalars ..
       LOGICAL            BADMM, BADNN, BIDIAG
       CHARACTER          UPLO
-      CHARACTER*3        PATH
+      String             PATH;
       int                I, IINFO, IL, IMODE, ITEMP, ITYPE, IU, IWBD, IWBE, IWBS, IWBZ, IWWORK, J, JCOL, JSIZE, JTYPE, LOG2UI, M, MINWRK, MMAX, MNMAX, MNMIN, MNMIN2, MQ, MTYPES, N, NFAIL, NMAX, NS1, NS2, NTEST
       REAL               ABSTOL, AMNINV, ANORM, COND, OVFL, RTOVFL, RTUNFL, TEMP1, TEMP2, ULP, ULPINV, UNFL, VL, VU
 *     ..
@@ -45,7 +45,7 @@
 *     ..
 *     .. Scalars in Common ..
       LOGICAL            LERR, OK
-      CHARACTER*32       SRNAMT
+      String             SRNAMT;
       int                INFOT, NUNIT
 *     ..
 *     .. Common blocks ..

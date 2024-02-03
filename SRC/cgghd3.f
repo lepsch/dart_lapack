@@ -23,7 +23,7 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            BLK22, INITQ, INITZ, LQUERY, WANTQ, WANTZ
-      CHARACTER*1        COMPQ2, COMPZ2
+      String             COMPQ2, COMPZ2;
       int                COLA, I, IERR, J, J0, JCOL, JJ, JROW, K, KACC22, LEN, LWKOPT, N2NB, NB, NBLST, NBMIN, NH, NNB, NX, PPW, PPWO, PW, TOP, TOPQ
       REAL               C
       COMPLEX            C1, C2, CTEMP, S, S1, S2, TEMP, TEMP1, TEMP2, TEMP3
