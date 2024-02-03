@@ -28,7 +28,7 @@
       // INTRINSIC LEN
       // ..
       // .. Data statements ..
-      DATA               INTSTR / '0123456789' /;
+      const INTSTR = '0123456789';
       // ..
       // .. Executable Statements ..
 

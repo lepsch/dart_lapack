@@ -394,7 +394,7 @@
       // .. Common blocks ..
       // COMMON /INFOC/INFOT, NOUTC, OK
       // .. Data statements ..
-      DATA               ICH/'NTC'/;
+      const ICH = 'NTC';
       // .. Executable Statements ..
 
       NARGS = 13;

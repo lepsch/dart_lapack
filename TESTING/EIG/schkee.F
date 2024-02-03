@@ -78,7 +78,7 @@
       // COMMON / SSLCT / SELOPT, SELDIM, SELVAL, SELWR, SELWI
       // ..
       // .. Data statements ..
-      DATA               INTSTR / '0123456789' /;
+      const INTSTR = '0123456789';
       DATA               IOLDSD / 0, 0, 0, 1 /;
       // ..
       // .. Allocate memory dynamically ..

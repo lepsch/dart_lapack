@@ -435,7 +435,7 @@
       // .. Common blocks ..
       // COMMON /INFOC/INFOT, NOUTC, OK
       // .. Data statements ..
-      DATA               ICH/'NTC'/;
+      const ICH = 'NTC';
       // .. Executable Statements ..
       FULL = SNAME( 9: 9 ) == 'e';
       BANDED = SNAME( 9: 9 ) == 'b';
@@ -738,7 +738,7 @@
       // .. Common blocks ..
       // COMMON /INFOC/INFOT, NOUTC, OK
       // .. Data statements ..
-      DATA               ICH/'UL'/;
+      const ICH = 'UL';
       // .. Executable Statements ..
       FULL = SNAME( 9: 9 ) == 'e';
       BANDED = SNAME( 9: 9 ) == 'b';
@@ -1599,7 +1599,7 @@
       // .. Common blocks ..
       // COMMON /INFOC/INFOT, NOUTC, OK
       // .. Data statements ..
-      DATA               ICH/'UL'/;
+      const ICH = 'UL';
       // .. Executable Statements ..
       FULL = SNAME( 9: 9 ) == 'e';
       PACKED = SNAME( 9: 9 ) == 'p';
@@ -1856,7 +1856,7 @@
       // .. Common blocks ..
       // COMMON /INFOC/INFOT, NOUTC, OK
       // .. Data statements ..
-      DATA               ICH/'UL'/;
+      const ICH = 'UL';
       // .. Executable Statements ..
       FULL = SNAME( 9: 9 ) == 'e';
       PACKED = SNAME( 9: 9 ) == 'p';
