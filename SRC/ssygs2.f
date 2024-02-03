@@ -16,7 +16,7 @@
 
       // .. Parameters ..
       REAL               ONE, HALF
-      PARAMETER          ( ONE = 1.0, HALF = 0.5 )
+      const              ONE = 1.0, HALF = 0.5 ;
       // ..
       // .. Local Scalars ..
       bool               UPPER;

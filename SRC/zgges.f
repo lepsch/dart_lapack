@@ -22,9 +22,9 @@
 
       // .. Parameters ..
       double             ZERO, ONE;
-      PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0 )
+      const              ZERO = 0.0D0, ONE = 1.0D0 ;
       COMPLEX*16         CZERO, CONE
-      PARAMETER          ( CZERO = ( 0.0D0, 0.0D0 ), CONE = ( 1.0D0, 0.0D0 ) )
+      const              CZERO = ( 0.0D0, 0.0D0 ), CONE = ( 1.0D0, 0.0D0 ) ;
       // ..
       // .. Local Scalars ..
       bool               CURSL, ILASCL, ILBSCL, ILVSL, ILVSR, LASTSL, LQUERY, WANTST       int                I, ICOLS, IERR, IHI, IJOBVL, IJOBVR, ILEFT, ILO, IRIGHT, IROWS, IRWRK, ITAU, IWRK, LWKMIN, LWKOPT;;

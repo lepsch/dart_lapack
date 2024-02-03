@@ -12,11 +12,11 @@
 
       // .. Parameters ..
       int                LDA, LDB, LDVL, LDVR;
-      PARAMETER          ( LDA = 50, LDB = 50, LDVL = 50, LDVR = 50 )
+      const              LDA = 50, LDB = 50, LDVL = 50, LDVR = 50 ;
       int                LDE, LDF, LDWORK;
-      PARAMETER          ( LDE = 50, LDF = 50, LDWORK = 50 )
+      const              LDE = 50, LDF = 50, LDWORK = 50 ;
       double             ZERO, ONE;
-      PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
+      const              ZERO = 0.0D+0, ONE = 1.0D+0 ;
       // ..
       // .. Local Scalars ..
       int                I, IHI, ILO, INFO, J, KNT, M, N, NINFO;

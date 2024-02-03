@@ -15,11 +15,11 @@
 
       // .. Parameters ..
       double             SHRINK, TENTH;
-      PARAMETER          ( SHRINK = 0.25D0, TENTH = 0.1D+0 )
+      const              SHRINK = 0.25D0, TENTH = 0.1D+0 ;
       double             ONE;
-      PARAMETER          ( ONE = 1.0D+0 )
+      const              ONE = 1.0D+0 ;
       double             TWO;
-      PARAMETER          ( TWO = 2.0D+0 )
+      const              TWO = 2.0D+0 ;
       // ..
       // .. Local Scalars ..
       double             BADC1, BADC2, EPS, LARGE, SMALL;

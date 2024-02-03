@@ -17,7 +17,7 @@
 
       // .. Parameters ..
       double             ZERO, ONE, TWO;
-      PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0, TWO = 2.0D0 )
+      const              ZERO = 0.0D0, ONE = 1.0D0, TWO = 2.0D0 ;
       // ..
       // .. Local Scalars ..
       bool               LQUERY;

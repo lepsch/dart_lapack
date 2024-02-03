@@ -19,9 +19,9 @@
       // ..
       // .. Parameters ..
       COMPLEX*16         ZERO, ONE
-      PARAMETER          ( ZERO = ( 0.0D+0, 0.0D+0 ) , ONE  = ( 1.0D+0, 0.0D+0 ) )
+      const              ZERO = ( 0.0D+0, 0.0D+0 ) , ONE  = ( 1.0D+0, 0.0D+0 ) ;
       int                NTESTS;
-      PARAMETER          ( NTESTS = 1 )
+      const              NTESTS = 1 ;
       // ..
       // .. Local Scalars ..
       String             UPLO, CFORM, DIAG, TRANS, SIDE;

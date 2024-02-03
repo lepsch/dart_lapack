@@ -17,9 +17,9 @@
 
       // .. Parameters ..
       REAL               ZERO, ONE, TWO, HALF, FUDGE
-      PARAMETER          ( ZERO = 0.0E0, ONE = 1.0E0, TWO = 2.0E0, HALF = ONE/TWO, FUDGE = TWO )
+      const              ZERO = 0.0E0, ONE = 1.0E0, TWO = 2.0E0, HALF = ONE/TWO, FUDGE = TWO ;
       int       ALLRNG, VALRNG, INDRNG;
-      PARAMETER ( ALLRNG = 1, VALRNG = 2, INDRNG = 3 )
+      const     ALLRNG = 1, VALRNG = 2, INDRNG = 3 ;
       // ..
       // .. Local Scalars ..
       bool               NCNVRG, TOOFEW;

@@ -6,9 +6,9 @@
       // ..
       // .. Parameters ..
       int               n;
-      parameter       ( n = 8 )
+      const           n = 8 ;
       double            zero;
-      parameter       ( zero = 0.0d0 )
+      const           zero = 0.0d0 ;
       // ..
       // .. Local Variables ..
       int               i, nFailingTests, nTests;

@@ -16,7 +16,7 @@
 
       // .. Parameters ..
       double             ZERO, ONE;
-      PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0 )
+      const              ZERO = 0.0D0, ONE = 1.0D0 ;
       // ..
       // .. Local Scalars ..
       double             ABSW, ANORM, BNORM, CI11, CI12, CI22, CNORM, CR11, CR12, CR21, CR22, CSCALE, DETI, DETR, S1, SAFMIN, SCALES, SIGMIN, TEMP, ULP, WIS, WRS;

@@ -13,10 +13,10 @@
 
       // .. Parameters ..
       REAL               ZERO, ONE
-      PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0 )
+      const              ZERO = 0.0E+0, ONE = 1.0E+0 ;
       int                NBMAX, NBMIN, NBRHS, NRHSMIN;
-      PARAMETER          ( NRHSMIN = 2, NBRHS = 32 )
-      PARAMETER          ( NBMIN = 8, NBMAX = 64 )
+      const              NRHSMIN = 2, NBRHS = 32 ;
+      const              NBMIN = 8, NBMAX = 64 ;
       // ..
       // .. Local Arrays ..
       REAL               W( NBMAX ), XNRM( NBRHS )

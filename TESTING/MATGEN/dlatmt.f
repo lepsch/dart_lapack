@@ -18,11 +18,11 @@
 
       // .. Parameters ..
       double             ZERO;
-      PARAMETER          ( ZERO = 0.0D0 )
+      const              ZERO = 0.0D0 ;
       double             ONE;
-      PARAMETER          ( ONE = 1.0D0 )
+      const              ONE = 1.0D0 ;
       double             TWOPI;
-      PARAMETER  ( TWOPI = 6.28318530717958647692528676655900576839D+0 )
+      const      TWOPI = 6.28318530717958647692528676655900576839D+0 ;
       // ..
       // .. Local Scalars ..
       double             ALPHA, ANGLE, C, DUMMY, EXTRA, S, TEMP;

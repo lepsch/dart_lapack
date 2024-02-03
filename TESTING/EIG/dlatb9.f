@@ -15,9 +15,9 @@
 
       // .. Parameters ..
       double             SHRINK, TENTH;
-      PARAMETER          ( SHRINK = 0.25D0, TENTH = 0.1D+0 )
+      const              SHRINK = 0.25D0, TENTH = 0.1D+0 ;
       double             ONE, TEN;
-      PARAMETER          ( ONE = 1.0D+0, TEN = 1.0D+1 )
+      const              ONE = 1.0D+0, TEN = 1.0D+1 ;
       // ..
       // .. Local Scalars ..
       bool               FIRST;

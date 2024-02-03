@@ -17,9 +17,9 @@
 
       // .. Parameters ..
       REAL               REALONE
-      PARAMETER          ( REALONE = 1.0E0 )
+      const              REALONE = 1.0E0 ;
       REAL               ONE
-      PARAMETER          ( ONE = 1.0E0 )
+      const              ONE = 1.0E0 ;
       // ..
       // .. Local Scalars ..
       bool               COLMAJOR, LQUERY;

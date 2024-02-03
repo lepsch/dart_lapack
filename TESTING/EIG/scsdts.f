@@ -17,11 +17,11 @@
 
       // .. Parameters ..
       REAL               REALONE, REALZERO
-      PARAMETER          ( REALONE = 1.0E0, REALZERO = 0.0E0 )
+      const              REALONE = 1.0E0, REALZERO = 0.0E0 ;
       REAL               ZERO, ONE
-      PARAMETER          ( ZERO = 0.0E0, ONE = 1.0E0 )
+      const              ZERO = 0.0E0, ONE = 1.0E0 ;
       REAL               PIOVER2
-      PARAMETER ( PIOVER2 = 1.57079632679489661923132169163975144210E0 )
+      const     PIOVER2 = 1.57079632679489661923132169163975144210E0 ;
       // ..
       // .. Local Scalars ..
       int                I, INFO, R;

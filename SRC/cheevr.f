@@ -19,7 +19,7 @@
 
       // .. Parameters ..
       REAL               ZERO, ONE, TWO
-      PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0, TWO = 2.0E+0 )
+      const              ZERO = 0.0E+0, ONE = 1.0E+0, TWO = 2.0E+0 ;
       // ..
       // .. Local Scalars ..
       bool               ALLEIG, INDEIG, LOWER, LQUERY, TEST, VALEIG, WANTZ, TRYRAC;

@@ -19,13 +19,13 @@
 
       // .. Parameters ..
       double             ZERO, ONE, TWO, TEN;
-      PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0, TWO = 2.0D+0, TEN = 10.0D+0 )
+      const              ZERO = 0.0D+0, ONE = 1.0D+0, TWO = 2.0D+0, TEN = 10.0D+0 ;
       double             HALF;
-      PARAMETER          ( HALF = ONE / TWO )
+      const              HALF = ONE / TWO ;
       COMPLEX*16         CZERO, CONE
-      PARAMETER          ( CZERO = ( 0.0D+0, 0.0D+0 ), CONE = ( 1.0D+0, 0.0D+0 ) )
+      const              CZERO = ( 0.0D+0, 0.0D+0 ), CONE = ( 1.0D+0, 0.0D+0 ) ;
       int                MAXTYP;
-      PARAMETER          ( MAXTYP = 18 )
+      const              MAXTYP = 18 ;
       // ..
       // .. Local Scalars ..
       bool               BADNN;

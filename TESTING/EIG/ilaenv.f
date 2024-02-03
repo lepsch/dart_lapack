@@ -148,11 +148,11 @@
       int     FUNCTION IPARMQ( ISPEC, NAME, OPTS, N, ILO, IHI, LWORK );
 
       int                INMIN, INWIN, INIBL, ISHFTS, IACC22;
-      PARAMETER          ( INMIN = 12, INWIN = 13, INIBL = 14, ISHFTS = 15, IACC22 = 16 )
+      const              INMIN = 12, INWIN = 13, INIBL = 14, ISHFTS = 15, IACC22 = 16 ;
       int                NMIN, K22MIN, KACMIN, NIBBLE, KNWSWP;
-      PARAMETER          ( NMIN = 11, K22MIN = 14, KACMIN = 14, NIBBLE = 14, KNWSWP = 500 )
+      const              NMIN = 11, K22MIN = 14, KACMIN = 14, NIBBLE = 14, KNWSWP = 500 ;
       REAL               TWO
-      PARAMETER          ( TWO = 2.0 )
+      const              TWO = 2.0 ;
       // ..
       // .. Scalar Arguments ..
       int                IHI, ILO, ISPEC, LWORK, N;

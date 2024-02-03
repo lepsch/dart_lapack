@@ -18,8 +18,8 @@
       // .. Parameters ..
       double             ONE, ZERO;
       COMPLEX*16         CZERO
-      PARAMETER          ( ONE = 1.0D+0, ZERO = 0.0D+0 )
-      PARAMETER          ( CZERO = ( 0.0D+0, 0.0D+0 ) )
+      const              ONE = 1.0D+0, ZERO = 0.0D+0 ;
+      const              CZERO = ( 0.0D+0, 0.0D+0 ) ;
       // ..
       // .. Local Scalars ..
       bool               LOWER, NORMALTRANSR, NISODD, NOTRANS;

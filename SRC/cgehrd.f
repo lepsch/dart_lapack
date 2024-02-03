@@ -15,9 +15,9 @@
 
       // .. Parameters ..
       int                NBMAX, LDT, TSIZE;
-      PARAMETER          ( NBMAX = 64, LDT = NBMAX+1, TSIZE = LDT*NBMAX )
+      const              NBMAX = 64, LDT = NBMAX+1, TSIZE = LDT*NBMAX ;
       COMPLEX            ZERO, ONE
-      PARAMETER          ( ZERO = ( 0.0E+0, 0.0E+0 ), ONE = ( 1.0E+0, 0.0E+0 ) )
+      const              ZERO = ( 0.0E+0, 0.0E+0 ), ONE = ( 1.0E+0, 0.0E+0 ) ;
       // ..
       // .. Local Scalars ..
       bool               LQUERY;

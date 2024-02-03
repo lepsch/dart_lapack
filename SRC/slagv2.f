@@ -16,7 +16,7 @@
 
       // .. Parameters ..
       REAL               ZERO, ONE
-      PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0 )
+      const              ZERO = 0.0E+0, ONE = 1.0E+0 ;
       // ..
       // .. Local Scalars ..
       REAL               ANORM, ASCALE, BNORM, BSCALE, H1, H2, H3, QQ, R, RR, SAFMIN, SCALE1, SCALE2, T, ULP, WI, WR1, WR2

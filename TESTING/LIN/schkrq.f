@@ -18,11 +18,11 @@
 
       // .. Parameters ..
       int                NTESTS;
-      PARAMETER          ( NTESTS = 7 )
+      const              NTESTS = 7 ;
       int                NTYPES;
-      PARAMETER          ( NTYPES = 8 )
+      const              NTYPES = 8 ;
       REAL               ZERO
-      PARAMETER          ( ZERO = 0.0E0 )
+      const              ZERO = 0.0E0 ;
       // ..
       // .. Local Scalars ..
       String             DIST, TYPE;

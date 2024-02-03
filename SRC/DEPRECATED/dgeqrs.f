@@ -15,7 +15,7 @@
 
       // .. Parameters ..
       double             ONE;
-      PARAMETER          ( ONE = 1.0D+0 )
+      const              ONE = 1.0D+0 ;
       // ..
       // .. External Subroutines ..
       // EXTERNAL DORMQR, DTRSM, XERBLA

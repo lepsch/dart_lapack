@@ -14,7 +14,7 @@
       // NMAX has to be at least 3 or LIW may be too small
       // .. Parameters ..
       int                NMAX, LIW, LW;
-      PARAMETER          ( NMAX = 3, LIW = 12*NMAX, LW = 20*NMAX )
+      const              NMAX = 3, LIW = 12*NMAX, LW = 20*NMAX ;
       // ..
       // .. Local Scalars ..
       String             C2;

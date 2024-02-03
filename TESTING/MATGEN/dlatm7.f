@@ -17,11 +17,11 @@
 
       // .. Parameters ..
       double             ONE;
-      PARAMETER          ( ONE = 1.0D0 )
+      const              ONE = 1.0D0 ;
       double             ZERO;
-      PARAMETER          ( ZERO = 0.0D0 )
+      const              ZERO = 0.0D0 ;
       double             HALF;
-      PARAMETER          ( HALF = 0.5D0 )
+      const              HALF = 0.5D0 ;
       // ..
       // .. Local Scalars ..
       double             ALPHA, TEMP;

@@ -12,9 +12,9 @@
 
       // .. Parameters ..
       int                LDE;
-      PARAMETER          ( LDE = 20 )
+      const              LDE = 20 ;
       REAL               ZERO
-      PARAMETER          ( ZERO = 0.0E0 )
+      const              ZERO = 0.0E0 ;
       // ..
       // .. Local Scalars ..
       int                I, IHI, ILO, INFO, J, KNT, N, NINFO;

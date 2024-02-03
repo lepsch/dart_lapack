@@ -16,7 +16,7 @@
 
       // .. Parameters ..
       COMPLEX*16         CONE
-      PARAMETER          ( CONE = ( 1.0D+0, 0.0D+0 ) )
+      const              CONE = ( 1.0D+0, 0.0D+0 ) ;
       // ..
       // .. Local Scalars ..
       bool               LOWER, NORMALTRANSR;

@@ -16,13 +16,13 @@
 
       // .. Parameters ..
       REAL               ZERO, HALF, ONE
-      PARAMETER          ( ZERO = 0.0E0, HALF = 0.5E0, ONE = 1.0E0 )
+      const              ZERO = 0.0E0, HALF = 0.5E0, ONE = 1.0E0 ;
       REAL               TWO, THREE, FOUR
-      PARAMETER          ( TWO = 2.0E0, THREE = 3.0E0, FOUR = 4.0E0 )
+      const              TWO = 2.0E0, THREE = 3.0E0, FOUR = 4.0E0 ;
       REAL               SEVEN, TEN
-      PARAMETER          ( SEVEN = 7.0E0, TEN = 10.0E0 )
+      const              SEVEN = 7.0E0, TEN = 10.0E0 ;
       REAL               TWNONE
-      PARAMETER          ( TWNONE = 21.0E0 )
+      const              TWNONE = 21.0E0 ;
       // ..
       // .. Local Scalars ..
       int                IA, IB, ICA, ID1, ID2, INFO, ISMIN, ITRANS, IWI, IWR, NA, NW       REAL               BIGNUM, CA, D1, D2, DEN, EPS, RES, SCALE, SMIN, SMLNUM, TMP, UNFL, WI, WR, XNORM;

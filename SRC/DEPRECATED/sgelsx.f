@@ -17,9 +17,9 @@
 
       // .. Parameters ..
       int                IMAX, IMIN;
-      PARAMETER          ( IMAX = 1, IMIN = 2 )
+      const              IMAX = 1, IMIN = 2 ;
       REAL               ZERO, ONE, DONE, NTDONE
-      PARAMETER          ( ZERO = 0.0E0, ONE = 1.0E0, DONE = ZERO, NTDONE = ONE )
+      const              ZERO = 0.0E0, ONE = 1.0E0, DONE = ZERO, NTDONE = ONE ;
       // ..
       // .. Local Scalars ..
       int                I, IASCL, IBSCL, ISMAX, ISMIN, J, K, MN;

@@ -18,7 +18,7 @@
       // .. Parameters ..
       REAL               FAC, FOUR, FOURTH, FUDGE, HALF, HNDRD, MAXGROWTH, ONE, PERT, TWO, ZERO       PARAMETER          ( ZERO = 0.0E0, ONE = 1.0E0, TWO = 2.0E0, FOUR=4.0E0, HNDRD = 100.0E0, PERT = 4.0E0, HALF = ONE/TWO, FOURTH = ONE/FOUR, FAC= HALF, MAXGROWTH = 64.0E0, FUDGE = 2.0E0 )
       int                MAXTRY, ALLRNG, INDRNG, VALRNG;
-      PARAMETER          ( MAXTRY = 6, ALLRNG = 1, INDRNG = 2, VALRNG = 3 )
+      const              MAXTRY = 6, ALLRNG = 1, INDRNG = 2, VALRNG = 3 ;
       // ..
       // .. Local Scalars ..
       bool               FORCEB, NOREP, USEDQD;

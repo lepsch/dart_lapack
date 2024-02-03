@@ -20,9 +20,9 @@
 
       // .. Parameters ..
       REAL               ZERO, ONE, TWO
-      PARAMETER          ( ZERO = 0.0E0, ONE = 1.0E0, TWO = 2.0E0 )
+      const              ZERO = 0.0E0, ONE = 1.0E0, TWO = 2.0E0 ;
       REAL               EPSIN
-      PARAMETER          ( EPSIN = 5.9605E-8 )
+      const              EPSIN = 5.9605E-8 ;
       // ..
       // .. Local Scalars ..
       bool               BALOK, NOBAL;

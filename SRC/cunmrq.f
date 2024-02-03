@@ -16,7 +16,7 @@
 
       // .. Parameters ..
       int                NBMAX, LDT, TSIZE;
-      PARAMETER          ( NBMAX = 64, LDT = NBMAX+1, TSIZE = LDT*NBMAX )
+      const              NBMAX = 64, LDT = NBMAX+1, TSIZE = LDT*NBMAX ;
       // ..
       // .. Local Scalars ..
       bool               LEFT, LQUERY, NOTRAN;

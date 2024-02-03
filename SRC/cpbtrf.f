@@ -16,11 +16,11 @@
 
       // .. Parameters ..
       REAL               ONE, ZERO
-      PARAMETER          ( ONE = 1.0E+0, ZERO = 0.0E+0 )
+      const              ONE = 1.0E+0, ZERO = 0.0E+0 ;
       COMPLEX            CONE
-      PARAMETER          ( CONE = ( 1.0E+0, 0.0E+0 ) )
+      const              CONE = ( 1.0E+0, 0.0E+0 ) ;
       int                NBMAX, LDWORK;
-      PARAMETER          ( NBMAX = 32, LDWORK = NBMAX+1 )
+      const              NBMAX = 32, LDWORK = NBMAX+1 ;
       // ..
       // .. Local Scalars ..
       int                I, I2, I3, IB, II, J, JJ, NB;

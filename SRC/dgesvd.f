@@ -16,7 +16,7 @@
 
       // .. Parameters ..
       double             ZERO, ONE;
-      PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0 )
+      const              ZERO = 0.0D0, ONE = 1.0D0 ;
       // ..
       // .. Local Scalars ..
       bool               LQUERY, WNTUA, WNTUAS, WNTUN, WNTUO, WNTUS, WNTVA, WNTVAS, WNTVN, WNTVO, WNTVS       int                BDSPAC, BLK, CHUNK, I, IE, IERR, IR, ISCL, ITAU, ITAUP, ITAUQ, IU, IWORK, LDWRKR, LDWRKU, MAXWRK, MINMN, MINWRK, MNTHR, NCU, NCVT, NRU, NRVT, WRKBL;;

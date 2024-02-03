@@ -18,9 +18,9 @@
       // ..
       // .. Parameters ..
       REAL               ONE
-      PARAMETER          ( ONE = 1.0E+0 )
+      const              ONE = 1.0E+0 ;
       int                NTESTS;
-      PARAMETER          ( NTESTS = 1 )
+      const              NTESTS = 1 ;
       // ..
       // .. Local Scalars ..
       String             UPLO, CFORM, NORM;

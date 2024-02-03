@@ -13,9 +13,9 @@
 
       // .. Parameters ..
       int                NMAX, LW;
-      PARAMETER          ( NMAX = 4, LW = NMAX )
+      const              NMAX = 4, LW = NMAX ;
       REAL               ZERO, ONE
-      PARAMETER          ( ZERO = 0.0E0, ONE = 1.0E0 )
+      const              ZERO = 0.0E0, ONE = 1.0E0 ;
       // ..
       // .. Local Scalars ..
       String             C2;

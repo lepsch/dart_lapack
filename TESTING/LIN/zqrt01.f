@@ -16,9 +16,9 @@
 
       // .. Parameters ..
       double             ZERO, ONE;
-      PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
+      const              ZERO = 0.0D+0, ONE = 1.0D+0 ;
       COMPLEX*16         ROGUE
-      PARAMETER          ( ROGUE = ( -1.0D+10, -1.0D+10 ) )
+      const              ROGUE = ( -1.0D+10, -1.0D+10 ) ;
       // ..
       // .. Local Scalars ..
       int                INFO, MINMN;

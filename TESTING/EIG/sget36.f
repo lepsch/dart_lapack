@@ -16,9 +16,9 @@
 
       // .. Parameters ..
       REAL               ZERO, ONE
-      PARAMETER          ( ZERO = 0.0E0, ONE = 1.0E0 )
+      const              ZERO = 0.0E0, ONE = 1.0E0 ;
       int                LDT, LWORK;
-      PARAMETER          ( LDT = 10, LWORK = 2*LDT*LDT )
+      const              LDT = 10, LWORK = 2*LDT*LDT ;
       // ..
       // .. Local Scalars ..
       int                I, IFST, IFST1, IFST2, IFSTSV, ILST, ILST1, ILST2, ILSTSV, INFO1, INFO2, J, LOC, N;

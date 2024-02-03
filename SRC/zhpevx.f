@@ -19,9 +19,9 @@
 
       // .. Parameters ..
       double             ZERO, ONE;
-      PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0 )
+      const              ZERO = 0.0D0, ONE = 1.0D0 ;
       COMPLEX*16         CONE
-      PARAMETER          ( CONE = ( 1.0D0, 0.0D0 ) )
+      const              CONE = ( 1.0D0, 0.0D0 ) ;
       // ..
       // .. Local Scalars ..
       bool               ALLEIG, INDEIG, TEST, VALEIG, WANTZ;

@@ -8,7 +8,7 @@
 
       // .. Parameters ..
       int              NOUT;
-      PARAMETER        (NOUT=6)
+      const            NOUT=6;
       // .. Scalars in Common ..
       int              ICASE, INCX, INCY, N;
       bool             PASS;
@@ -58,7 +58,7 @@
       SUBROUTINE HEADER
       // .. Parameters ..
       int              NOUT;
-      PARAMETER        (NOUT=6)
+      const            NOUT=6;
       // .. Scalars in Common ..
       int              ICASE, INCX, INCY, N;
       bool             PASS;
@@ -92,7 +92,7 @@
       SUBROUTINE CHECK0(SFAC)
       // .. Parameters ..
       int               NOUT;
-      PARAMETER         (NOUT=6)
+      const             NOUT=6;
       // .. Scalar Arguments ..
       REAL              SFAC
       // .. Scalars in Common ..
@@ -181,7 +181,7 @@
       // .. Parameters ..
       int               NOUT;
       REAL              THRESH
-      PARAMETER         (NOUT=6, THRESH=10.0E0)
+      const             NOUT=6, THRESH=10.0E0;
       // .. Scalar Arguments ..
       REAL              SFAC
       // .. Scalars in Common ..
@@ -269,7 +269,7 @@
       SUBROUTINE CHECK2(SFAC)
       // .. Parameters ..
       int               NOUT;
-      PARAMETER         (NOUT=6)
+      const             NOUT=6;
       // .. Scalar Arguments ..
       REAL              SFAC
       // .. Scalars in Common ..
@@ -429,7 +429,7 @@
       SUBROUTINE CHECK3(SFAC)
       // .. Parameters ..
       int               NOUT;
-      PARAMETER         (NOUT=6)
+      const             NOUT=6;
       // .. Scalar Arguments ..
       REAL              SFAC
       // .. Scalars in Common ..
@@ -598,7 +598,7 @@
       // .. Parameters ..
       int              NOUT;
       REAL             ZERO
-      PARAMETER        (NOUT=6, ZERO=0.0E0)
+      const            NOUT=6, ZERO=0.0E0;
       // .. Scalar Arguments ..
       REAL             SFAC
       int              LEN;
@@ -694,7 +694,7 @@
 
       // .. Parameters ..
       int               NOUT;
-      PARAMETER         (NOUT=6)
+      const             NOUT=6;
       // .. Scalar Arguments ..
       int               ICOMP, ITRUE;
       // .. Scalars in Common ..
@@ -753,9 +753,9 @@
 *  =====================================================================
       // .. Parameters ..
       int               NMAX, NOUT, NV;
-      PARAMETER         (NMAX=20, NOUT=6, NV=10)
+      const             NMAX=20, NOUT=6, NV=10;
       REAL              HALF, ONE, TWO, ZERO
-      PARAMETER         (HALF=0.5E+0, ONE=1.0E+0, TWO= 2.0E+0, ZERO=0.0E+0)
+      const             HALF=0.5E+0, ONE=1.0E+0, TWO= 2.0E+0, ZERO=0.0E+0;
       // .. External Functions ..
       REAL              SNRM2
       // EXTERNAL SNRM2
@@ -763,7 +763,7 @@
       // INTRINSIC ABS, MAX, MIN, REAL, SQRT
       // .. Model parameters ..
       REAL              BIGNUM, SAFMAX, SAFMIN, SMLNUM, ULP
-      PARAMETER         (BIGNUM=0.1014120480E+32, SAFMAX=0.8507059173E+38, SAFMIN=0.1175494351E-37, SMLNUM=0.9860761315E-31, ULP=0.1192092896E-06)
+      const             BIGNUM=0.1014120480E+32, SAFMAX=0.8507059173E+38, SAFMIN=0.1175494351E-37, SMLNUM=0.9860761315E-31, ULP=0.1192092896E-06;
       // .. Local Scalars ..
       REAL              ROGUE, SNRM, TRAT, V0, V1, WORKSSQ, Y1, Y2, YMAX, YMIN, YNRM, ZNRM
       int               I, IV, IW, IX;

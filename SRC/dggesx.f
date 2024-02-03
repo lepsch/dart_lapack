@@ -22,7 +22,7 @@
 
       // .. Parameters ..
       double             ZERO, ONE;
-      PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
+      const              ZERO = 0.0D+0, ONE = 1.0D+0 ;
       // ..
       // .. Local Scalars ..
       bool               CURSL, ILASCL, ILBSCL, ILVSL, ILVSR, LASTSL, LQUERY, LST2SL, WANTSB, WANTSE, WANTSN, WANTST, WANTSV       int                I, ICOLS, IERR, IHI, IJOB, IJOBVL, IJOBVR, ILEFT, ILO, IP, IRIGHT, IROWS, ITAU, IWRK, LIWMIN, LWRK, MAXWRK, MINWRK;;

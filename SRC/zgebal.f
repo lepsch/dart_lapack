@@ -17,11 +17,11 @@
 
       // .. Parameters ..
       double             ZERO, ONE;
-      PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
+      const              ZERO = 0.0D+0, ONE = 1.0D+0 ;
       double             SCLFAC;
-      PARAMETER          ( SCLFAC = 2.0D+0 )
+      const              SCLFAC = 2.0D+0 ;
       double             FACTOR;
-      PARAMETER          ( FACTOR = 0.95D+0 )
+      const              FACTOR = 0.95D+0 ;
       // ..
       // .. Local Scalars ..
       bool               NOCONV, CANSWAP;

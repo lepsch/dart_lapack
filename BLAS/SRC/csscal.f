@@ -19,7 +19,7 @@
       // ..
       // .. Parameters ..
       REAL ONE
-      PARAMETER (ONE=1.0E+0)
+      const     ONE=1.0E+0;
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC AIMAG,CMPLX,REAL

@@ -5,7 +5,7 @@
       String            PATH;
 
       int                NMAX, NPARAMS, NERRBND, NTESTS, KL, KU;
-      PARAMETER          (NMAX = 10, NPARAMS = 2, NERRBND = 3, NTESTS = 6)
+      const              NMAX = 10, NPARAMS = 2, NERRBND = 3, NTESTS = 6;
 
       // .. Local Scalars ..
       int                N, NRHS, INFO, I ,J, k, NFAIL, LDA, N_AUX_TESTS, LDAB, LDAFB;
@@ -31,9 +31,9 @@
 
       // .. Parameters ..
       int                NWISE_I, CWISE_I;
-      PARAMETER          (NWISE_I = 1, CWISE_I = 1)
+      const              NWISE_I = 1, CWISE_I = 1;
       int                BND_I, COND_I;
-      PARAMETER          (BND_I = 2, COND_I = 3)
+      const              BND_I = 2, COND_I = 3;
 
 *  Create the loop to test out the Hilbert matrices
 

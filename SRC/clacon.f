@@ -16,11 +16,11 @@
 
       // .. Parameters ..
       int                ITMAX;
-      PARAMETER          ( ITMAX = 5 )
+      const              ITMAX = 5 ;
       REAL               ONE, TWO
-      PARAMETER          ( ONE = 1.0E0, TWO = 2.0E0 )
+      const              ONE = 1.0E0, TWO = 2.0E0 ;
       COMPLEX            CZERO, CONE
-      PARAMETER          ( CZERO = ( 0.0E0, 0.0E0 ), CONE = ( 1.0E0, 0.0E0 ) )
+      const              CZERO = ( 0.0E0, 0.0E0 ), CONE = ( 1.0E0, 0.0E0 ) ;
       // ..
       // .. Local Scalars ..
       int                I, ITER, J, JLAST, JUMP;

@@ -19,8 +19,8 @@
       // .. Parameters ..
       REAL               ONE, ZERO
       COMPLEX            CZERO
-      PARAMETER          ( ONE = 1.0E+0, ZERO = 0.0E+0 )
-      PARAMETER          ( CZERO = ( 0.0E+0, 0.0E+0 ) )
+      const              ONE = 1.0E+0, ZERO = 0.0E+0 ;
+      const              CZERO = ( 0.0E+0, 0.0E+0 ) ;
       // ..
       // .. Local Scalars ..
       bool               LOWER, NORMALTRANSR, NISODD, NOTRANS;

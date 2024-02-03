@@ -17,7 +17,7 @@
 
       // .. Parameters ..
       REAL               ZERO, TWO, HALF
-      PARAMETER        ( ZERO = 0.0E0, TWO = 2.0E0, HALF = 0.5E0 )
+      const            ZERO = 0.0E0, TWO = 2.0E0, HALF = 0.5E0 ;
       int       MAXITR;
       // ..
       // .. Local Scalars ..

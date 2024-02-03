@@ -12,9 +12,9 @@
 
       // .. Parameters ..
       int                LDA;
-      PARAMETER          ( LDA = 20 )
+      const              LDA = 20 ;
       double             ZERO;
-      PARAMETER          ( ZERO = 0.0D+0 )
+      const              ZERO = 0.0D+0 ;
       // ..
       // .. Local Scalars ..
       int                I, IHI, IHIIN, ILO, ILOIN, INFO, J, KNT, N, NINFO;

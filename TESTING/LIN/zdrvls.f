@@ -20,13 +20,13 @@
 
       // .. Parameters ..
       int                NTESTS;
-      PARAMETER          ( NTESTS = 18 )
+      const              NTESTS = 18 ;
       int                SMLSIZ;
-      PARAMETER          ( SMLSIZ = 25 )
+      const              SMLSIZ = 25 ;
       double             ONE, ZERO;
-      PARAMETER          ( ONE = 1.0D+0, ZERO = 0.0D+0 )
+      const              ONE = 1.0D+0, ZERO = 0.0D+0 ;
       COMPLEX*16         CONE, CZERO
-      PARAMETER          ( CONE = ( 1.0D+0, 0.0D+0 ), CZERO = ( 0.0D+0, 0.0D+0 ) )
+      const              CONE = ( 1.0D+0, 0.0D+0 ), CZERO = ( 0.0D+0, 0.0D+0 ) ;
       // ..
       // .. Local Scalars ..
       String             TRANS;

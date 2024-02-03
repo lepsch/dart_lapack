@@ -20,7 +20,7 @@
 
       // .. Parameters ..
       REAL               ZERO, ONE, FOUR, MINRGP
-      PARAMETER          ( ZERO = 0.0E0, ONE = 1.0E0, FOUR = 4.0E0, MINRGP = 3.0E-3 )
+      const              ZERO = 0.0E0, ONE = 1.0E0, FOUR = 4.0E0, MINRGP = 3.0E-3 ;
       // ..
       // .. Local Scalars ..
       bool               ALLEIG, INDEIG, LQUERY, VALEIG, WANTZ, ZQUERY, LAESWAP       int                I, IBEGIN, IEND, IFIRST, IIL, IINDBL, IINDW, IINDWK, IINFO, IINSPL, IIU, ILAST, IN, INDD, INDE2, INDERR, INDGP, INDGRS, INDWRK, ITMP, ITMP2, J, JBLK, JJ, LIWMIN, LWMIN, NSPLIT, NZCMIN, OFFSET, WBEGIN, WEND;;

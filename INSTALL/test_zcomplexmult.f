@@ -6,9 +6,9 @@
       // ..
       // .. Constants ..
       int               nNaN, nInf;
-      parameter       ( nNaN = 3, nInf = 5 )
+      const           nNaN = 3, nInf = 5 ;
       double complex    czero, cone
-      parameter       ( czero = DCMPLX( 0.0d0, 0.0d0 ), cone  = DCMPLX( 1.0d0, 0.0d0 ) )
+      const           czero = DCMPLX( 0.0d0, 0.0d0 ), cone  = DCMPLX( 1.0d0, 0.0d0 ) ;
       // ..
       // .. Local Variables ..
       int               i, nFailingTests, nTests;

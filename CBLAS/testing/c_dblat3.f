@@ -44,15 +44,15 @@
 
       // .. Parameters ..
       int                NIN, NOUT;
-      PARAMETER          ( NIN = 5, NOUT = 6 )
+      const              NIN = 5, NOUT = 6 ;
       int                NSUBS;
-      PARAMETER          ( NSUBS = 6 )
+      const              NSUBS = 6 ;
       double             ZERO, HALF, ONE;
-      PARAMETER          ( ZERO = 0.0D0, HALF = 0.5D0, ONE = 1.0D0 )
+      const              ZERO = 0.0D0, HALF = 0.5D0, ONE = 1.0D0 ;
       int                NMAX;
-      PARAMETER          ( NMAX = 65 )
+      const              NMAX = 65 ;
       int                NIDMAX, NALMAX, NBEMAX;
-      PARAMETER          ( NIDMAX = 9, NALMAX = 7, NBEMAX = 7 )
+      const              NIDMAX = 9, NALMAX = 7, NBEMAX = 7 ;
       // .. Local Scalars ..
       double             EPS, ERR, THRESH;
       int                I, ISNUM, J, N, NALF, NBET, NIDIM, NTRA, LAYOUT       bool               FATAL, LTESTT, REWI, SAME, SFATAL, TRACE, TSTERR, CORDER, RORDER;;
@@ -375,7 +375,7 @@
 
       // .. Parameters ..
       double             ZERO;
-      PARAMETER          ( ZERO = 0.0D0 )
+      const              ZERO = 0.0D0 ;
       // .. Scalar Arguments ..
       double             EPS, THRESH;
       int                NALF, NBET, NIDIM, NMAX, NOUT, NTRA, IORDER;
@@ -667,7 +667,7 @@
 
       // .. Parameters ..
       double             ZERO;
-      PARAMETER          ( ZERO = 0.0D0 )
+      const              ZERO = 0.0D0 ;
       // .. Scalar Arguments ..
       double             EPS, THRESH;
       int                NALF, NBET, NIDIM, NMAX, NOUT, NTRA, IORDER;
@@ -943,7 +943,7 @@
 
       // .. Parameters ..
       double             ZERO, ONE;
-      PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0 )
+      const              ZERO = 0.0D0, ONE = 1.0D0 ;
       // .. Scalar Arguments ..
       double             EPS, THRESH;
       int                NALF, NIDIM, NMAX, NOUT, NTRA, IORDER;
@@ -1249,7 +1249,7 @@
 
       // .. Parameters ..
       double             ZERO;
-      PARAMETER          ( ZERO = 0.0D0 )
+      const              ZERO = 0.0D0 ;
       // .. Scalar Arguments ..
       double             EPS, THRESH;
       int                NALF, NBET, NIDIM, NMAX, NOUT, NTRA, IORDER;
@@ -1530,7 +1530,7 @@
 
       // .. Parameters ..
       double             ZERO;
-      PARAMETER          ( ZERO = 0.0D0 )
+      const              ZERO = 0.0D0 ;
       // .. Scalar Arguments ..
       double             EPS, THRESH;
       int                NALF, NBET, NIDIM, NMAX, NOUT, NTRA, IORDER;
@@ -1843,9 +1843,9 @@
 
       // .. Parameters ..
       double             ZERO, ONE;
-      PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0 )
+      const              ZERO = 0.0D0, ONE = 1.0D0 ;
       double             ROGUE;
-      PARAMETER          ( ROGUE = -1.0D10 )
+      const              ROGUE = -1.0D10 ;
       // .. Scalar Arguments ..
       double             TRANSL;
       int                LDA, M, N, NMAX;
@@ -1946,7 +1946,7 @@
 
       // .. Parameters ..
       double             ZERO, ONE;
-      PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0 )
+      const              ZERO = 0.0D0, ONE = 1.0D0 ;
       // .. Scalar Arguments ..
       double             ALPHA, BETA, EPS, ERR;
       int                KK, LDA, LDB, LDC, LDCC, M, N, NOUT;

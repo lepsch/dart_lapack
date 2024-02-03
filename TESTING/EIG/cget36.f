@@ -13,11 +13,11 @@
 
       // .. Parameters ..
       REAL               ZERO, ONE
-      PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0 )
+      const              ZERO = 0.0E+0, ONE = 1.0E+0 ;
       COMPLEX            CZERO, CONE
-      PARAMETER          ( CZERO = ( 0.0E+0, 0.0E+0 ), CONE = ( 1.0E+0, 0.0E+0 ) )
+      const              CZERO = ( 0.0E+0, 0.0E+0 ), CONE = ( 1.0E+0, 0.0E+0 ) ;
       int                LDT, LWORK;
-      PARAMETER          ( LDT = 10, LWORK = 2*LDT*LDT )
+      const              LDT = 10, LWORK = 2*LDT*LDT ;
       // ..
       // .. Local Scalars ..
       int                I, IFST, ILST, INFO1, INFO2, J, N;

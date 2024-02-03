@@ -15,9 +15,9 @@
 
       // .. Parameters ..
       REAL               SHRINK, TENTH
-      PARAMETER          ( SHRINK = 0.25E0, TENTH = 0.1E+0 )
+      const              SHRINK = 0.25E0, TENTH = 0.1E+0 ;
       REAL               ONE, TEN
-      PARAMETER          ( ONE = 1.0E+0, TEN = 1.0E+1 )
+      const              ONE = 1.0E+0, TEN = 1.0E+1 ;
       // ..
       // .. Local Scalars ..
       bool               FIRST;

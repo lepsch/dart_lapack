@@ -16,9 +16,9 @@
 
       // .. Local Parameters ..
       REAL               ZERO, HALF, ONE
-      PARAMETER          ( ZERO = 0.0E0, HALF = 0.5E0, ONE = 1.0E0)
+      const              ZERO = 0.0E0, HALF = 0.5E0, ONE = 1.0E0;
       int                NSWEEP;
-      PARAMETER          ( NSWEEP = 30 )
+      const              NSWEEP = 30 ;
       // ..
       // .. Local Scalars ..
       REAL               AAPP, AAPP0, AAPQ, AAQQ, APOAQ, AQOAP, BIG, BIGTHETA, CS, CTOL, EPSLN, LARGE, MXAAPQ, MXSINJ, ROOTBIG, ROOTEPS, ROOTSFMIN, ROOTTOL, SKL, SFMIN, SMALL, SN, T, TEMP1, THETA, THSIGN, TOL

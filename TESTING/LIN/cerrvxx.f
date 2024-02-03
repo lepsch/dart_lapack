@@ -13,9 +13,9 @@
 
       // .. Parameters ..
       int                NMAX;
-      PARAMETER          ( NMAX = 4 )
+      const              NMAX = 4 ;
       REAL               ONE
-      PARAMETER          ( ONE = 1.0E+0 )
+      const              ONE = 1.0E+0 ;
       // ..
       // .. Local Scalars ..
       String             EQ;

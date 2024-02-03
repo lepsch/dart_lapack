@@ -17,9 +17,9 @@
 
       // .. Parameters ..
       COMPLEX ONE
-      PARAMETER (ONE= (1.0E+0,0.0E+0))
+      const     ONE= (1.0E+0,0.0E+0);
       COMPLEX ZERO
-      PARAMETER (ZERO= (0.0E+0,0.0E+0))
+      const     ZERO= (0.0E+0,0.0E+0);
       // ..
       // .. Local Scalars ..
       COMPLEX TEMP

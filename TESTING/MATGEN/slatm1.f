@@ -17,9 +17,9 @@
 
       // .. Parameters ..
       REAL               ONE
-      PARAMETER          ( ONE = 1.0E0 )
+      const              ONE = 1.0E0 ;
       REAL               HALF
-      PARAMETER          ( HALF = 0.5E0 )
+      const              HALF = 0.5E0 ;
       // ..
       // .. Local Scalars ..
       int                I;

@@ -16,9 +16,9 @@
 
       // .. Parameters ..
       REAL               ONE
-      PARAMETER          ( ONE = 1.0E+0 )
+      const              ONE = 1.0E+0 ;
       COMPLEX            CONE
-      PARAMETER          ( CONE = ( 1.0E+0, 0.0E+0 ) )
+      const              CONE = ( 1.0E+0, 0.0E+0 ) ;
       // ..
       // .. Local Scalars ..
       REAL               SFMIN

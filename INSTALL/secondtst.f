@@ -1,5 +1,5 @@
       int                NMAX, ITS;
-      PARAMETER          ( NMAX = 1000, ITS = 50000 )
+      const              NMAX = 1000, ITS = 50000 ;
       // ..
       // .. Local Scalars ..
       int                I, J;

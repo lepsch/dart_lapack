@@ -33,9 +33,9 @@
 
       // .. Parameters ..
       REAL               ONE, ZERO
-      PARAMETER          ( ONE = 1.0E+0, ZERO = 0.0E+0 )
+      const              ONE = 1.0E+0, ZERO = 0.0E+0 ;
       int                NTESTS;
-      PARAMETER          ( NTESTS = 4 )
+      const              NTESTS = 4 ;
       // ..
       // .. Local Scalars ..
       bool               ZEROT;

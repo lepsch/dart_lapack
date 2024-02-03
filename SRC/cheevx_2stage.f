@@ -21,9 +21,9 @@
 
       // .. Parameters ..
       REAL               ZERO, ONE
-      PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0 )
+      const              ZERO = 0.0E+0, ONE = 1.0E+0 ;
       COMPLEX            CONE
-      PARAMETER          ( CONE = ( 1.0E+0, 0.0E+0 ) )
+      const              CONE = ( 1.0E+0, 0.0E+0 ) ;
       // ..
       // .. Local Scalars ..
       bool               ALLEIG, INDEIG, LOWER, LQUERY, TEST, VALEIG, WANTZ;

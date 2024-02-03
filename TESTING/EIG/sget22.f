@@ -16,7 +16,7 @@
 
       // .. Parameters ..
       REAL               ZERO, ONE
-      PARAMETER          ( ZERO = 0.0, ONE = 1.0 )
+      const              ZERO = 0.0, ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
       String             NORMA, NORME;

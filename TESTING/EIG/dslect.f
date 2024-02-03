@@ -26,7 +26,7 @@
       // ..
       // .. Parameters ..
       double             ZERO;
-      PARAMETER          ( ZERO = 0.0D0 )
+      const              ZERO = 0.0D0 ;
       // ..
       // .. External Functions ..
       double             DLAPY2;

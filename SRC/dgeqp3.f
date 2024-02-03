@@ -16,7 +16,7 @@
 
       // .. Parameters ..
       int                INB, INBMIN, IXOVER;
-      PARAMETER          ( INB = 1, INBMIN = 2, IXOVER = 3 )
+      const              INB = 1, INBMIN = 2, IXOVER = 3 ;
       // ..
       // .. Local Scalars ..
       bool               LQUERY;

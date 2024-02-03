@@ -64,15 +64,15 @@
 
       // .. Parameters ..
       int                NIN, NOUT;
-      PARAMETER          ( NIN = 5, NOUT = 6 )
+      const              NIN = 5, NOUT = 6 ;
       int                NSUBS;
-      PARAMETER          ( NSUBS = 16 )
+      const              NSUBS = 16 ;
       double             ZERO, HALF, ONE;
-      PARAMETER          ( ZERO = 0.0D0, HALF = 0.5D0, ONE = 1.0D0 )
+      const              ZERO = 0.0D0, HALF = 0.5D0, ONE = 1.0D0 ;
       int                NMAX, INCMAX;
-      PARAMETER          ( NMAX = 65, INCMAX = 2 )
+      const              NMAX = 65, INCMAX = 2 ;
       int                NINMAX, NIDMAX, NKBMAX, NALMAX, NBEMAX;
-      PARAMETER          ( NINMAX = 7, NIDMAX = 9, NKBMAX = 7, NALMAX = 7, NBEMAX = 7 )
+      const              NINMAX = 7, NIDMAX = 9, NKBMAX = 7, NALMAX = 7, NBEMAX = 7 ;
       // .. Local Scalars ..
       double             EPS, ERR, THRESH;
       int                I, ISNUM, J, N, NALF, NBET, NIDIM, NINC, NKB, NTRA, LAYOUT       bool               FATAL, LTESTT, REWI, SAME, SFATAL, TRACE, TSTERR, CORDER, RORDER;;
@@ -407,7 +407,7 @@
 
       // .. Parameters ..
       double             ZERO, HALF;
-      PARAMETER          ( ZERO = 0.0D0, HALF = 0.5D0 )
+      const              ZERO = 0.0D0, HALF = 0.5D0 ;
       // .. Scalar Arguments ..
       double             EPS, THRESH;
       int                INCMAX, NALF, NBET, NIDIM, NINC, NKB, NMAX, NOUT, NTRA, IORDER;
@@ -721,7 +721,7 @@
 
       // .. Parameters ..
       double             ZERO, HALF;
-      PARAMETER          ( ZERO = 0.0D0, HALF = 0.5D0 )
+      const              ZERO = 0.0D0, HALF = 0.5D0 ;
       // .. Scalar Arguments ..
       double             EPS, THRESH;
       int                INCMAX, NALF, NBET, NIDIM, NINC, NKB, NMAX, NOUT, NTRA, IORDER;
@@ -1036,7 +1036,7 @@
 
       // .. Parameters ..
       double             ZERO, HALF, ONE;
-      PARAMETER          ( ZERO = 0.0D0, HALF = 0.5D0, ONE = 1.0D0 )
+      const              ZERO = 0.0D0, HALF = 0.5D0, ONE = 1.0D0 ;
       // .. Scalar Arguments ..
       double             EPS, THRESH;
       int                INCMAX, NIDIM, NINC, NKB, NMAX, NOUT, NTRA, IORDER;
@@ -1363,7 +1363,7 @@
 
       // .. Parameters ..
       double             ZERO, HALF, ONE;
-      PARAMETER          ( ZERO = 0.0D0, HALF = 0.5D0, ONE = 1.0D0 )
+      const              ZERO = 0.0D0, HALF = 0.5D0, ONE = 1.0D0 ;
       // .. Scalar Arguments ..
       double             EPS, THRESH;
       int                INCMAX, NALF, NIDIM, NINC, NMAX, NOUT, NTRA, IORDER;
@@ -1606,7 +1606,7 @@
 
       // .. Parameters ..
       double             ZERO, HALF, ONE;
-      PARAMETER          ( ZERO = 0.0D0, HALF = 0.5D0, ONE = 1.0D0 )
+      const              ZERO = 0.0D0, HALF = 0.5D0, ONE = 1.0D0 ;
       // .. Scalar Arguments ..
       double             EPS, THRESH;
       int                INCMAX, NALF, NIDIM, NINC, NMAX, NOUT, NTRA, IORDER;
@@ -1874,7 +1874,7 @@
 
       // .. Parameters ..
       double             ZERO, HALF, ONE;
-      PARAMETER          ( ZERO = 0.0D0, HALF = 0.5D0, ONE = 1.0D0 )
+      const              ZERO = 0.0D0, HALF = 0.5D0, ONE = 1.0D0 ;
       // .. Scalar Arguments ..
       double             EPS, THRESH;
       int                INCMAX, NALF, NIDIM, NINC, NMAX, NOUT, NTRA, IORDER;
@@ -2177,9 +2177,9 @@
 
       // .. Parameters ..
       double             ZERO, ONE;
-      PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0 )
+      const              ZERO = 0.0D0, ONE = 1.0D0 ;
       double             ROGUE;
-      PARAMETER          ( ROGUE = -1.0D10 )
+      const              ROGUE = -1.0D10 ;
       // .. Scalar Arguments ..
       double             TRANSL;
       int                KL, KU, LDA, M, N, NMAX;
@@ -2340,7 +2340,7 @@
 
       // .. Parameters ..
       double             ZERO, ONE;
-      PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0 )
+      const              ZERO = 0.0D0, ONE = 1.0D0 ;
       // .. Scalar Arguments ..
       double             ALPHA, BETA, EPS, ERR;
       int                INCX, INCY, M, N, NMAX, NOUT;

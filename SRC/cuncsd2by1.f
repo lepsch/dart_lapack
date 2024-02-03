@@ -20,7 +20,7 @@
 
       // .. Parameters ..
       COMPLEX            ONE, ZERO
-      PARAMETER          ( ONE = (1.0E0,0.0E0), ZERO = (0.0E0,0.0E0) )
+      const              ONE = (1.0E0,0.0E0), ZERO = (0.0E0,0.0E0) ;
       // ..
       // .. Local Scalars ..
       int                CHILDINFO, I, IB11D, IB11E, IB12D, IB12E, IB21D, IB21E, IB22D, IB22E, IBBCSD, IORBDB, IORGLQ, IORGQR, IPHI, ITAUP1, ITAUP2, ITAUQ1, J, LBBCSD, LORBDB, LORGLQ, LORGLQMIN, LORGLQOPT, LORGQR, LORGQRMIN, LORGQROPT, LWORKMIN, LWORKOPT, R;

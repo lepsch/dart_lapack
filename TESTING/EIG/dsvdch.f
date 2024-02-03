@@ -16,9 +16,9 @@
 
       // .. Parameters ..
       double             ONE;
-      PARAMETER          ( ONE = 1.0D0 )
+      const              ONE = 1.0D0 ;
       double             ZERO;
-      PARAMETER          ( ZERO = 0.0D0 )
+      const              ZERO = 0.0D0 ;
       // ..
       // .. Local Scalars ..
       int                BPNT, COUNT, NUML, NUMU, TPNT;

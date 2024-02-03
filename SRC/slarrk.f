@@ -16,7 +16,7 @@
 
       // .. Parameters ..
       REAL               FUDGE, HALF, TWO, ZERO
-      PARAMETER          ( HALF = 0.5E0, TWO = 2.0E0, FUDGE = TWO, ZERO = 0.0E0 )
+      const              HALF = 0.5E0, TWO = 2.0E0, FUDGE = TWO, ZERO = 0.0E0 ;
       // ..
       // .. Local Scalars ..
       int       I, IT, ITMAX, NEGCNT;

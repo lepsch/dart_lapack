@@ -16,7 +16,7 @@
 
       // .. Parameters ..
       double             ONE, ZERO, TWENTY, HALF, TWO;
-      PARAMETER          ( ONE = 1.0D+0, ZERO = 0.0D+0, TWENTY = 2.0D+1, HALF = 0.5D+0, TWO = 2.0D+0 )
+      const              ONE = 1.0D+0, ZERO = 0.0D+0, TWENTY = 2.0D+1, HALF = 0.5D+0, TWO = 2.0D+0 ;
       // ..
       // .. Local Scalars ..
       int                I, J, K;

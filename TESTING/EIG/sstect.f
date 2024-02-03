@@ -16,7 +16,7 @@
 
       // .. Parameters ..
       REAL               ZERO, ONE, THREE
-      PARAMETER          ( ZERO = 0.0E0, ONE = 1.0E0, THREE = 3.0E0 )
+      const              ZERO = 0.0E0, ONE = 1.0E0, THREE = 3.0E0 ;
       // ..
       // .. Local Scalars ..
       int                I;

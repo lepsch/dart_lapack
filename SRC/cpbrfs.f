@@ -17,15 +17,15 @@
 
       // .. Parameters ..
       int                ITMAX;
-      PARAMETER          ( ITMAX = 5 )
+      const              ITMAX = 5 ;
       REAL               ZERO
-      PARAMETER          ( ZERO = 0.0E+0 )
+      const              ZERO = 0.0E+0 ;
       COMPLEX            ONE
-      PARAMETER          ( ONE = ( 1.0E+0, 0.0E+0 ) )
+      const              ONE = ( 1.0E+0, 0.0E+0 ) ;
       REAL               TWO
-      PARAMETER          ( TWO = 2.0E+0 )
+      const              TWO = 2.0E+0 ;
       REAL               THREE
-      PARAMETER          ( THREE = 3.0E+0 )
+      const              THREE = 3.0E+0 ;
       // ..
       // .. Local Scalars ..
       bool               UPPER;

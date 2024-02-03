@@ -4,7 +4,7 @@
       // F06GAF Example Program Text
       // .. Parameters ..
       int              NOUT;
-      PARAMETER        (NOUT=6)
+      const            NOUT=6;
       // .. Scalars in Common ..
       int              ICASE, INCX, INCY, MODE, N;
       bool             PASS;
@@ -48,7 +48,7 @@
       SUBROUTINE HEADER
       // .. Parameters ..
       int              NOUT;
-      PARAMETER        (NOUT=6)
+      const            NOUT=6;
       // .. Scalars in Common ..
       int              ICASE, INCX, INCY, MODE, N;
       bool             PASS;
@@ -76,7 +76,7 @@
       SUBROUTINE CHECK1(SFAC)
       // .. Parameters ..
       int               NOUT;
-      PARAMETER         (NOUT=6)
+      const             NOUT=6;
       // .. Scalar Arguments ..
       REAL              SFAC
       // .. Scalars in Common ..
@@ -185,7 +185,7 @@
       SUBROUTINE CHECK2(SFAC)
       // .. Parameters ..
       int               NOUT;
-      PARAMETER         (NOUT=6)
+      const             NOUT=6;
       // .. Scalar Arguments ..
       REAL              SFAC
       // .. Scalars in Common ..
@@ -274,7 +274,7 @@
 
       // .. Parameters ..
       int              NOUT;
-      PARAMETER        (NOUT=6)
+      const            NOUT=6;
       // .. Scalar Arguments ..
       REAL             SFAC
       int              LEN;
@@ -392,7 +392,7 @@
 
       // .. Parameters ..
       int               NOUT;
-      PARAMETER         (NOUT=6)
+      const             NOUT=6;
       // .. Scalar Arguments ..
       int               ICOMP, ITRUE;
       // .. Scalars in Common ..

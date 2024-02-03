@@ -13,11 +13,11 @@
 
       // .. Parameters ..
       double             ZERO, ONE, TEN;
-      PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D+0, TEN = 1.0D1 )
+      const              ZERO = 0.0D0, ONE = 1.0D+0, TEN = 1.0D1 ;
       int                NSZ, NSZB;
-      PARAMETER          ( NSZ = 5, NSZB = 3*NSZ-2 )
+      const              NSZ = 5, NSZB = 3*NSZ-2 ;
       int                NSZP, NPOW;
-      PARAMETER          ( NSZP = ( NSZ*( NSZ+1 ) ) / 2, NPOW = 2*NSZ+1 )
+      const              NSZP = ( NSZ*( NSZ+1 ) ) / 2, NPOW = 2*NSZ+1 ;
       // ..
       // .. Local Scalars ..
       bool               OK;

@@ -18,9 +18,9 @@
 
       // .. Parameters ..
       REAL               ZERO
-      PARAMETER          ( ZERO = 0.0E0 )
+      const              ZERO = 0.0E0 ;
       REAL               ONE
-      PARAMETER          ( ONE = 1.0E0 )
+      const              ONE = 1.0E0 ;
       // ..
       // .. Local Scalars ..
       bool               BADPVT, DZERO, FULBND;

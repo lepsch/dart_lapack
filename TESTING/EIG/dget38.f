@@ -16,13 +16,13 @@
 
       // .. Parameters ..
       double             ZERO, ONE, TWO;
-      PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0, TWO = 2.0D0 )
+      const              ZERO = 0.0D0, ONE = 1.0D0, TWO = 2.0D0 ;
       double             EPSIN;
-      PARAMETER          ( EPSIN = 5.9605D-8 )
+      const              EPSIN = 5.9605D-8 ;
       int                LDT, LWORK;
-      PARAMETER          ( LDT = 20, LWORK = 2*LDT*( 10+LDT ) )
+      const              LDT = 20, LWORK = 2*LDT*( 10+LDT ) ;
       int                LIWORK;
-      PARAMETER          ( LIWORK = LDT*LDT )
+      const              LIWORK = LDT*LDT ;
       // ..
       // .. Local Scalars ..
       int                I, INFO, ISCL, ITMP, J, KMIN, M, N, NDIM;

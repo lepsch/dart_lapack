@@ -20,9 +20,9 @@
       // ..
       // .. Parameters ..
       double             ZERO, ONE;
-      PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0 )
+      const              ZERO = 0.0D0, ONE = 1.0D0 ;
       int                MAXM, MAXN, LDSWORK;
-      PARAMETER          ( MAXM = 245, MAXN = 192, LDSWORK = 36 )
+      const              MAXM = 245, MAXN = 192, LDSWORK = 36 ;
       // ..
       // .. Local Scalars ..
       String             TRANA, TRANB;

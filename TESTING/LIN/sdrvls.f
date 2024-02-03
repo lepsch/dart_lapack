@@ -18,11 +18,11 @@
 
       // .. Parameters ..
       int                NTESTS;
-      PARAMETER          ( NTESTS = 18 )
+      const              NTESTS = 18 ;
       int                SMLSIZ;
-      PARAMETER          ( SMLSIZ = 25 )
+      const              SMLSIZ = 25 ;
       REAL               ONE, TWO, ZERO
-      PARAMETER          ( ONE = 1.0E0, TWO = 2.0E0, ZERO = 0.0E0 )
+      const              ONE = 1.0E0, TWO = 2.0E0, ZERO = 0.0E0 ;
       // ..
       // .. Local Scalars ..
       String             TRANS;

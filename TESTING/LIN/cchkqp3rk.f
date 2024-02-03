@@ -20,12 +20,12 @@
 
       // .. Parameters ..
       int                NTYPES;
-      PARAMETER          ( NTYPES = 19 )
+      const              NTYPES = 19 ;
       int                NTESTS;
-      PARAMETER          ( NTESTS = 5 )
+      const              NTESTS = 5 ;
       REAL               ONE, ZERO, BIGNUM
       COMPLEX            CONE, CZERO
-      PARAMETER          ( ONE = 1.0E+0, ZERO = 0.0E+0, CZERO = ( 0.0E+0, 0.0E+0 ), CONE = ( 1.0E+0, 0.0E+0 ), BIGNUM = 1.0E+38 )
+      const              ONE = 1.0E+0, ZERO = 0.0E+0, CZERO = ( 0.0E+0, 0.0E+0 ), CONE = ( 1.0E+0, 0.0E+0 ), BIGNUM = 1.0E+38 ;
       // ..
       // .. Local Scalars ..
       String             DIST, TYPE;

@@ -17,9 +17,9 @@
 
       // .. Parameters ..
       double             ZERO, ONE;
-      PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
+      const              ZERO = 0.0D+0, ONE = 1.0D+0 ;
       double             EIGHT, SEVTEN;
-      PARAMETER          ( EIGHT = 8.0D+0, SEVTEN = 17.0D+0 )
+      const              EIGHT = 8.0D+0, SEVTEN = 17.0D+0 ;
       // ..
       // .. Local Scalars ..
       int                IMAX, J, JB, JJ, JMAX, JP, K, KK, KKW, KP, KSTEP, KW       double             ABSAKK, ALPHA, COLMAX, D11, D21, D22, R1, ROWMAX, T;;

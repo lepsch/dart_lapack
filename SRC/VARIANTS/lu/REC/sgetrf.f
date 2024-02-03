@@ -16,8 +16,8 @@
 
       // .. Parameters ..
       REAL               ONE, ZERO, NEGONE
-      PARAMETER          ( ONE = 1.0E+0, ZERO = 0.0E+0 )
-      PARAMETER          ( NEGONE = -1.0E+0 )
+      const              ONE = 1.0E+0, ZERO = 0.0E+0 ;
+      const              NEGONE = -1.0E+0 ;
       // ..
       // .. Local Scalars ..
       REAL               SFMIN, TMP

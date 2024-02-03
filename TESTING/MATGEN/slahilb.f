@@ -22,7 +22,7 @@
       // NMAX_APPROX  the largest dimension where the generated data has
                    // a small componentwise relative error.
       int     NMAX_EXACT, NMAX_APPROX;
-      PARAMETER (NMAX_EXACT = 6, NMAX_APPROX = 11)
+      const     NMAX_EXACT = 6, NMAX_APPROX = 11;
       // ..
       // .. External Subroutines ..
       // EXTERNAL XERBLA

@@ -17,7 +17,7 @@
 
       // .. Parameters ..
       REAL               ZERO, TWO, HALF
-      PARAMETER          ( ZERO = 0.0E0, TWO = 2.0E0, HALF = 1.0E0 / TWO )
+      const              ZERO = 0.0E0, TWO = 2.0E0, HALF = 1.0E0 / TWO ;
       // ..
       // .. Local Scalars ..
       int                ITMP1, ITMP2, J, JI, JIT, JP, KF, KFNEW, KL, KLNEW;

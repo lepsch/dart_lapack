@@ -12,13 +12,13 @@
 
       // .. Parameters ..
       REAL               ONE
-      PARAMETER          ( ONE = 1.0E0 )
+      const              ONE = 1.0E0 ;
       REAL               TWO
-      PARAMETER          ( TWO = 2.0E0 )
+      const              TWO = 2.0E0 ;
       REAL               ZERO
-      PARAMETER          ( ZERO = 0.0E0 )
+      const              ZERO = 0.0E0 ;
       REAL               HALF
-      PARAMETER          ( HALF = 0.5E0 )
+      const              HALF = 0.5E0 ;
       // ..
       // .. Local Scalars ..
       REAL               AB, ACMN, ACMX, ADF, DF, RT, SM, TB

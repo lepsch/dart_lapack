@@ -18,11 +18,11 @@
 
       // .. Parameters ..
       double             ZERO, ONE;
-      PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0 )
+      const              ZERO = 0.0D0, ONE = 1.0D0 ;
       double             TWO;
-      PARAMETER          ( TWO = 2.0D0 )
+      const              TWO = 2.0D0 ;
       int                MAXTYP;
-      PARAMETER          ( MAXTYP = 21 )
+      const              MAXTYP = 21 ;
       // ..
       // .. Local Scalars ..
       bool               BADNN;

@@ -20,7 +20,7 @@
       // .    CLAHQR because of insufficient subdiagonal scratch space.
       // .    (This is a hard limit.) ====
       int                NTINY;
-      PARAMETER          ( NTINY = 15 )
+      const              NTINY = 15 ;
 
       // ==== NL allocates some local workspace to help small matrices
       // .    through a rare CLAHQR failure.  NL > NTINY = 15 is
@@ -29,11 +29,11 @@
       // .    allows up to six simultaneous shifts and a 16-by-16
       // .    deflation window.  ====
       int                NL;
-      PARAMETER          ( NL = 49 )
+      const              NL = 49 ;
       COMPLEX            ZERO, ONE
-      PARAMETER          ( ZERO = ( 0.0e0, 0.0e0 ), ONE = ( 1.0e0, 0.0e0 ) )
+      const              ZERO = ( 0.0e0, 0.0e0 ), ONE = ( 1.0e0, 0.0e0 ) ;
       REAL               RZERO
-      PARAMETER          ( RZERO = 0.0e0 )
+      const              RZERO = 0.0e0 ;
       // ..
       // .. Local Arrays ..
       COMPLEX            HL( NL, NL ), WORKL( NL )

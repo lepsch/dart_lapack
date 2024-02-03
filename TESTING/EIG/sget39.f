@@ -13,9 +13,9 @@
 
       // .. Parameters ..
       int                LDT, LDT2;
-      PARAMETER          ( LDT = 10, LDT2 = 2*LDT )
+      const              LDT = 10, LDT2 = 2*LDT ;
       REAL               ZERO, ONE
-      PARAMETER          ( ZERO = 0.0, ONE = 1.0 )
+      const              ZERO = 0.0, ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
       int                I, INFO, IVM1, IVM2, IVM3, IVM4, IVM5, J, K, N, NDIM       REAL               BIGNUM, DOMIN, DUMM, EPS, NORM, NORMTB, RESID, SCALE, SMLNUM, W, XNORM;

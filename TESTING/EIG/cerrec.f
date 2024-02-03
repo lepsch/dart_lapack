@@ -13,9 +13,9 @@
 
       // .. Parameters ..
       int                NMAX, LW;
-      PARAMETER          ( NMAX = 4, LW = NMAX*( NMAX+2 ) )
+      const              NMAX = 4, LW = NMAX*( NMAX+2 ) ;
       REAL               ONE, ZERO
-      PARAMETER          ( ONE = 1.0E0, ZERO = 0.0E0 )
+      const              ONE = 1.0E0, ZERO = 0.0E0 ;
       // ..
       // .. Local Scalars ..
       int                I, IFST, ILST, INFO, J, M, NT;

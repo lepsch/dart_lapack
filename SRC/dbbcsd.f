@@ -17,13 +17,13 @@
 
       // .. Parameters ..
       int                MAXITR;
-      PARAMETER          ( MAXITR = 6 )
+      const              MAXITR = 6 ;
       double             HUNDRED, MEIGHTH, ONE, TEN, ZERO;
-      PARAMETER          ( HUNDRED = 100.0D0, MEIGHTH = -0.125D0, ONE = 1.0D0, TEN = 10.0D0, ZERO = 0.0D0 )
+      const              HUNDRED = 100.0D0, MEIGHTH = -0.125D0, ONE = 1.0D0, TEN = 10.0D0, ZERO = 0.0D0 ;
       double             NEGONE;
-      PARAMETER          ( NEGONE = -1.0D0 )
+      const              NEGONE = -1.0D0 ;
       double             PIOVER2;
-      PARAMETER ( PIOVER2 = 1.57079632679489661923132169163975144210D0 )
+      const     PIOVER2 = 1.57079632679489661923132169163975144210D0 ;
       // ..
       // .. Local Scalars ..
       bool               COLMAJOR, LQUERY, RESTART11, RESTART12, RESTART21, RESTART22, WANTU1, WANTU2, WANTV1T, WANTV2T       int                I, IMIN, IMAX, ITER, IU1CS, IU1SN, IU2CS, IU2SN, IV1TCS, IV1TSN, IV2TCS, IV2TSN, J, LWORKMIN, LWORKOPT, MAXIT, MINI       double             B11BULGE, B12BULGE, B21BULGE, B22BULGE, DUMMY, EPS, MU, NU, R, SIGMA11, SIGMA21, TEMP, THETAMAX, THETAMIN, THRESH, TOL, TOLMUL, UNFL, X1, X2, Y1, Y2;;;

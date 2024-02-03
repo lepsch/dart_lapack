@@ -18,15 +18,15 @@
 
       // .. Parameters ..
       int                NTESTS;
-      PARAMETER          ( NTESTS = 15 )
+      const              NTESTS = 15 ;
       int                NTYPES;
-      PARAMETER          ( NTYPES = 4 )
+      const              NTYPES = 4 ;
       double             GAPDIGIT, ORTH, REALONE, REALZERO, TEN;
-      PARAMETER          ( GAPDIGIT = 18.0D0, ORTH = 1.0D-12, REALONE = 1.0D0, REALZERO = 0.0D0, TEN = 10.0D0 )
+      const              GAPDIGIT = 18.0D0, ORTH = 1.0D-12, REALONE = 1.0D0, REALZERO = 0.0D0, TEN = 10.0D0 ;
       COMPLEX*16         ONE, ZERO
-      PARAMETER          ( ONE = (1.0D0,0.0D0), ZERO = (0.0D0,0.0D0) )
+      const              ONE = (1.0D0,0.0D0), ZERO = (0.0D0,0.0D0) ;
       double             PIOVER2;
-      PARAMETER ( PIOVER2 = 1.57079632679489661923132169163975144210D0 )
+      const     PIOVER2 = 1.57079632679489661923132169163975144210D0 ;
       // ..
       // .. Local Scalars ..
       bool               FIRSTT;
@@ -164,7 +164,7 @@
       COMPLEX*16         WORK( * ), X( LDX, * )
 
       COMPLEX*16         ONE, ZERO
-      PARAMETER          ( ONE = (1.0D0,0.0D0), ZERO = (0.0D0,0.0D0) )
+      const              ONE = (1.0D0,0.0D0), ZERO = (0.0D0,0.0D0) ;
 
       int                I, INFO, R;
 

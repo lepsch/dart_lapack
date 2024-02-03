@@ -17,7 +17,7 @@
 
       // .. Parameters ..
       REAL               ZERO, ONE, TENTH
-      PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0, TENTH = 1.0E-1 )
+      const              ZERO = 0.0E+0, ONE = 1.0E+0, TENTH = 1.0E-1 ;
       // ..
       // .. Local Scalars ..
       String             NORMIN, TRANS;

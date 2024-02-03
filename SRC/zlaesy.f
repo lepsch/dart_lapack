@@ -12,15 +12,15 @@
 
       // .. Parameters ..
       double             ZERO;
-      PARAMETER          ( ZERO = 0.0D0 )
+      const              ZERO = 0.0D0 ;
       double             ONE;
-      PARAMETER          ( ONE = 1.0D0 )
+      const              ONE = 1.0D0 ;
       COMPLEX*16         CONE
-      PARAMETER          ( CONE = ( 1.0D0, 0.0D0 ) )
+      const              CONE = ( 1.0D0, 0.0D0 ) ;
       double             HALF;
-      PARAMETER          ( HALF = 0.5D0 )
+      const              HALF = 0.5D0 ;
       double             THRESH;
-      PARAMETER          ( THRESH = 0.1D0 )
+      const              THRESH = 0.1D0 ;
       // ..
       // .. Local Scalars ..
       double             BABS, EVNORM, TABS, Z;

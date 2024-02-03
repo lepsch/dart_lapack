@@ -16,7 +16,7 @@
 
       // .. Parameters ..
       REAL               ZERO, HALF, ONE
-      PARAMETER          ( ZERO = 0.0E0, HALF = 0.5E0, ONE = 1.0E0 )
+      const              ZERO = 0.0E0, HALF = 0.5E0, ONE = 1.0E0 ;
       // ..
       // .. Local Scalars ..
       int                BSIZ1, BSIZ2, CURR, I, K, MID, PSIZ1, PSIZ2, PTR, ZPTR1;

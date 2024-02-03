@@ -13,7 +13,7 @@
 
       // .. Parameters ..
       int                NMAX;
-      PARAMETER          ( NMAX = 4 )
+      const              NMAX = 4 ;
       // ..
       // .. Local Scalars ..
       String             EQ;

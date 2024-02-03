@@ -19,9 +19,9 @@
 
       // .. Parameters ..
       COMPLEX            ZERO
-      PARAMETER          ( ZERO = ( 0.0E+0, 0.0E+0 ) )
+      const              ZERO = ( 0.0E+0, 0.0E+0 ) ;
       REAL               RZERO
-      PARAMETER          ( RZERO = 0.0E+0 )
+      const              RZERO = 0.0E+0 ;
       // ..
       // .. Local Scalars ..
       bool               BOTHV, FROMQR, LEFTV, NOINIT, RIGHTV;

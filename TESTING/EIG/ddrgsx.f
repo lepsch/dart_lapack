@@ -18,7 +18,7 @@
 
       // .. Parameters ..
       double             ZERO, ONE, TEN;
-      PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0, TEN = 1.0D+1 )
+      const              ZERO = 0.0D+0, ONE = 1.0D+0, TEN = 1.0D+1 ;
       // ..
       // .. Local Scalars ..
       bool               ILABAD;

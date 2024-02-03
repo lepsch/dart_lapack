@@ -18,9 +18,9 @@
 
       // .. Parameters ..
       double             ZERO, ONE;
-      PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
+      const              ZERO = 0.0D+0, ONE = 1.0D+0 ;
       int                NBMIN, NBMAX;
-      PARAMETER          ( NBMIN = 8, NBMAX = 128 )
+      const              NBMIN = 8, NBMAX = 128 ;
       // ..
       // .. Local Scalars ..
       bool               ALLV, BOTHV, LEFTV, LQUERY, OVER, PAIR, RIGHTV, SOMEV       int                I, IERR, II, IP, IS, J, J1, J2, JNXT, K, KI, IV, MAXWRK, NB, KI2       double             BETA, BIGNUM, EMAX, OVFL, REC, REMAX, SCALE, SMIN, SMLNUM, ULP, UNFL, VCRIT, VMAX, WI, WR, XNORM;;;

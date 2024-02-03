@@ -15,7 +15,7 @@
 
       // .. Parameters ..
       double             TWO;
-      PARAMETER          ( TWO = 2.0D+0 )
+      const              TWO = 2.0D+0 ;
       // ..
       // .. Local Scalars ..
       int                I, IL, IR, LLST, MAXN, NCRNT, NLVL;

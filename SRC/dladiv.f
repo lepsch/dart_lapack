@@ -12,11 +12,11 @@
 
       // .. Parameters ..
       double             BS;
-      PARAMETER          ( BS = 2.0D0 )
+      const              BS = 2.0D0 ;
       double             HALF;
-      PARAMETER          ( HALF = 0.5D0 )
+      const              HALF = 0.5D0 ;
       double             TWO;
-      PARAMETER          ( TWO = 2.0D0 )
+      const              TWO = 2.0D0 ;
 
       // .. Local Scalars ..
       double             AA, BB, CC, DD, AB, CD, S, OV, UN, BE, EPS;
@@ -98,7 +98,7 @@
 
       // .. Parameters ..
       double             ONE;
-      PARAMETER          ( ONE = 1.0D0 )
+      const              ONE = 1.0D0 ;
 
       // .. Local Scalars ..
       double             R, T;
@@ -137,7 +137,7 @@
 
       // .. Parameters ..
       double             ZERO;
-      PARAMETER          ( ZERO = 0.0D0 )
+      const              ZERO = 0.0D0 ;
 
       // .. Local Scalars ..
       double             BR;

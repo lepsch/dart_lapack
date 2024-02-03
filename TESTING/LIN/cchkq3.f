@@ -19,12 +19,12 @@
 
       // .. Parameters ..
       int                NTYPES;
-      PARAMETER          ( NTYPES = 6 )
+      const              NTYPES = 6 ;
       int                NTESTS;
-      PARAMETER          ( NTESTS = 3 )
+      const              NTESTS = 3 ;
       REAL               ONE, ZERO
       COMPLEX            CZERO
-      PARAMETER          ( ONE = 1.0E+0, ZERO = 0.0E+0, CZERO = ( 0.0E+0, 0.0E+0 ) )
+      const              ONE = 1.0E+0, ZERO = 0.0E+0, CZERO = ( 0.0E+0, 0.0E+0 ) ;
       // ..
       // .. Local Scalars ..
       String             PATH;

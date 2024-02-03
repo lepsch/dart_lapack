@@ -17,11 +17,11 @@
 
       // .. Parameters ..
       double             ZERO, ONE;
-      PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
+      const              ZERO = 0.0D+0, ONE = 1.0D+0 ;
       double             EIGHT, SEVTEN;
-      PARAMETER          ( EIGHT = 8.0D+0, SEVTEN = 17.0D+0 )
+      const              EIGHT = 8.0D+0, SEVTEN = 17.0D+0 ;
       COMPLEX*16         CONE, CZERO
-      PARAMETER          ( CONE = ( 1.0D+0, 0.0D+0 ), CZERO = ( 0.0D+0, 0.0D+0 ) )
+      const              CONE = ( 1.0D+0, 0.0D+0 ), CZERO = ( 0.0D+0, 0.0D+0 ) ;
       // ..
       // .. Local Scalars ..
       bool               DONE;

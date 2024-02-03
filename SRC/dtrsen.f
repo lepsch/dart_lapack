@@ -19,7 +19,7 @@
 
       // .. Parameters ..
       double             ZERO, ONE;
-      PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
+      const              ZERO = 0.0D+0, ONE = 1.0D+0 ;
       // ..
       // .. Local Scalars ..
       bool               LQUERY, PAIR, SWAP, WANTBH, WANTQ, WANTS, WANTSP       int                IERR, K, KASE, KK, KS, LIWMIN, LWMIN, N1, N2, NN;;

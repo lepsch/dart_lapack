@@ -16,12 +16,12 @@
 
       // .. Parameters ..
       REAL               MAXGROWTH1, MAXGROWTH2, ONE, QUART, TWO
-      PARAMETER          ( ONE = 1.0E0, TWO = 2.0E0, QUART = 0.25E0, MAXGROWTH1 = 8.E0, MAXGROWTH2 = 8.E0 )
+      const              ONE = 1.0E0, TWO = 2.0E0, QUART = 0.25E0, MAXGROWTH1 = 8.E0, MAXGROWTH2 = 8.E0 ;
       // ..
       // .. Local Scalars ..
       bool      DORRR1, FORCER, NOFAIL, SAWNAN1, SAWNAN2, TRYRRR1;
       int                I, INDX, KTRY, KTRYMAX, SLEFT, SRIGHT, SHIFT;
-      PARAMETER          ( KTRYMAX = 1, SLEFT = 1, SRIGHT = 2 )
+      const              KTRYMAX = 1, SLEFT = 1, SRIGHT = 2 ;
       REAL               AVGAP, BESTSHIFT, CLWDTH, EPS, FACT, FAIL, FAIL2, GROWTHBOUND, LDELTA, LDMAX, LSIGMA, MAX1, MAX2, MINGAP, OLDP, PROD, RDELTA, RDMAX, RRR1, RRR2, RSIGMA, S, SMLGROWTH, TMP, ZNM2
       // ..
       // .. External Functions ..

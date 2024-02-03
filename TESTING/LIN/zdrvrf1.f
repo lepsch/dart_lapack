@@ -18,9 +18,9 @@
       // ..
       // .. Parameters ..
       double             ONE;
-      PARAMETER          ( ONE = 1.0D+0 )
+      const              ONE = 1.0D+0 ;
       int                NTESTS;
-      PARAMETER          ( NTESTS = 1 )
+      const              NTESTS = 1 ;
       // ..
       // .. Local Scalars ..
       String             UPLO, CFORM, NORM;

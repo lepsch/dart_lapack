@@ -17,9 +17,9 @@
 
       // .. Parameters ..
       double             ZERO, ONE, TOOSML;
-      PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0, TOOSML = 1.0D-20 )
+      const              ZERO = 0.0D+0, ONE = 1.0D+0, TOOSML = 1.0D-20 ;
       COMPLEX*16         CZERO, CONE
-      PARAMETER          ( CZERO = ( 0.0D+0, 0.0D+0 ), CONE = ( 1.0D+0, 0.0D+0 ) )
+      const              CZERO = ( 0.0D+0, 0.0D+0 ), CONE = ( 1.0D+0, 0.0D+0 ) ;
       // ..
       // .. Local Scalars ..
       int                IROW, ITYPE, IXFRM, J, JCOL, KBEG, NXFRM;

@@ -15,7 +15,7 @@
 
       // .. Parameters ..
       REAL   ONE
-      PARAMETER ( ONE = 1.0 )
+      const     ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
       int       I, I1, J, J1, N1, N2, IINFO;

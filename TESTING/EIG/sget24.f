@@ -19,9 +19,9 @@
 
       // .. Parameters ..
       REAL               ZERO, ONE
-      PARAMETER          ( ZERO = 0.0E0, ONE = 1.0E0 )
+      const              ZERO = 0.0E0, ONE = 1.0E0 ;
       REAL               EPSIN
-      PARAMETER          ( EPSIN = 5.9605E-8 )
+      const              EPSIN = 5.9605E-8 ;
       // ..
       // .. Local Scalars ..
       String             SORT;

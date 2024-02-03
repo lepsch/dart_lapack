@@ -19,9 +19,9 @@
 
       // .. Parameters ..
       double             ZERO;
-      PARAMETER          ( ZERO = 0.0D+0 )
+      const              ZERO = 0.0D+0 ;
       COMPLEX*16         CONE, CZERO
-      PARAMETER          ( CONE = ( 1.0D+0, 0.0D+0 ), CZERO = ( 0.0D+0, 0.0D+0 ) )
+      const              CONE = ( 1.0D+0, 0.0D+0 ), CZERO = ( 0.0D+0, 0.0D+0 ) ;
       // ..
       // .. Local Scalars ..
       bool               TESTZEROS;

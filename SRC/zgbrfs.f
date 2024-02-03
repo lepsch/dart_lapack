@@ -18,15 +18,15 @@
 
       // .. Parameters ..
       int                ITMAX;
-      PARAMETER          ( ITMAX = 5 )
+      const              ITMAX = 5 ;
       double             ZERO;
-      PARAMETER          ( ZERO = 0.0D+0 )
+      const              ZERO = 0.0D+0 ;
       COMPLEX*16         CONE
-      PARAMETER          ( CONE = ( 1.0D+0, 0.0D+0 ) )
+      const              CONE = ( 1.0D+0, 0.0D+0 ) ;
       double             TWO;
-      PARAMETER          ( TWO = 2.0D+0 )
+      const              TWO = 2.0D+0 ;
       double             THREE;
-      PARAMETER          ( THREE = 3.0D+0 )
+      const              THREE = 3.0D+0 ;
       // ..
       // .. Local Scalars ..
       bool               NOTRAN;

@@ -17,9 +17,9 @@
 
       // .. Parameters ..
       REAL               ZERO
-      PARAMETER          ( ZERO = 0.0E+0 )
+      const              ZERO = 0.0E+0 ;
       REAL               ONE
-      PARAMETER          ( ONE = 1.0E+0 )
+      const              ONE = 1.0E+0 ;
       // ..
       // .. Local Scalars ..
       bool               NOTRAN, NOUNIT, UPPER;

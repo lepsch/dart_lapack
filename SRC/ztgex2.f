@@ -16,13 +16,13 @@
 
       // .. Parameters ..
       COMPLEX*16         CZERO, CONE
-      PARAMETER          ( CZERO = ( 0.0D+0, 0.0D+0 ), CONE = ( 1.0D+0, 0.0D+0 ) )
+      const              CZERO = ( 0.0D+0, 0.0D+0 ), CONE = ( 1.0D+0, 0.0D+0 ) ;
       double             TWENTY;
-      PARAMETER          ( TWENTY = 2.0D+1 )
+      const              TWENTY = 2.0D+1 ;
       int                LDST;
-      PARAMETER          ( LDST = 2 )
+      const              LDST = 2 ;
       bool               WANDS;
-      PARAMETER          ( WANDS = .TRUE. )
+      const              WANDS = .TRUE. ;
       // ..
       // .. Local Scalars ..
       bool               STRONG, WEAK;

@@ -18,11 +18,11 @@
 
       // .. Parameters ..
       REAL               ZERO, ONE, TWO, TEN
-      PARAMETER          ( ZERO = 0.0E0, ONE = 1.0E0, TWO = 2.0E0, TEN = 10.0E0 )
+      const              ZERO = 0.0E0, ONE = 1.0E0, TWO = 2.0E0, TEN = 10.0E0 ;
       REAL               HALF
-      PARAMETER          ( HALF = ONE / TWO )
+      const              HALF = ONE / TWO ;
       int                MAXTYP;
-      PARAMETER          ( MAXTYP = 15 )
+      const              MAXTYP = 15 ;
       // ..
       // .. Local Scalars ..
       bool               BADNN, BADNNB;

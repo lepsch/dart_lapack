@@ -17,21 +17,21 @@
 
       // .. Parameters ..
       double             ZERO;
-      PARAMETER          ( ZERO = 0.0D0 )
+      const              ZERO = 0.0D0 ;
       double             ONE;
-      PARAMETER          ( ONE = 1.0D0 )
+      const              ONE = 1.0D0 ;
       double             NEGONE;
-      PARAMETER          ( NEGONE = -1.0D0 )
+      const              NEGONE = -1.0D0 ;
       double             HNDRTH;
-      PARAMETER          ( HNDRTH = 0.01D0 )
+      const              HNDRTH = 0.01D0 ;
       double             TEN;
-      PARAMETER          ( TEN = 10.0D0 )
+      const              TEN = 10.0D0 ;
       double             HNDRD;
-      PARAMETER          ( HNDRD = 100.0D0 )
+      const              HNDRD = 100.0D0 ;
       double             MEIGTH;
-      PARAMETER          ( MEIGTH = -0.125D0 )
+      const              MEIGTH = -0.125D0 ;
       int                MAXITR;
-      PARAMETER          ( MAXITR = 6 )
+      const              MAXITR = 6 ;
       // ..
       // .. Local Scalars ..
       bool               LOWER, ROTATE;

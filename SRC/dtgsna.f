@@ -18,9 +18,9 @@
 
       // .. Parameters ..
       int                DIFDRI;
-      PARAMETER          ( DIFDRI = 3 )
+      const              DIFDRI = 3 ;
       double             ZERO, ONE, TWO, FOUR;
-      PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0, TWO = 2.0D+0, FOUR = 4.0D+0 )
+      const              ZERO = 0.0D+0, ONE = 1.0D+0, TWO = 2.0D+0, FOUR = 4.0D+0 ;
       // ..
       // .. Local Scalars ..
       bool               LQUERY, PAIR, SOMCON, WANTBH, WANTDF, WANTS;

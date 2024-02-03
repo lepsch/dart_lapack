@@ -18,9 +18,9 @@
 
       // .. Parameters ..
       double             ZERO, ONE, TWO, SVMIN;
-      PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0, TWO = 2.0D+0, SVMIN = 0.1D+0 )
+      const              ZERO = 0.0D+0, ONE = 1.0D+0, TWO = 2.0D+0, SVMIN = 0.1D+0 ;
       COMPLEX*16         CZERO, CONE
-      PARAMETER          ( CZERO = ( 0.0D+0, 0.0D+0 ), CONE = ( 1.0D+0, 0.0D+0 ) )
+      const              CZERO = ( 0.0D+0, 0.0D+0 ), CONE = ( 1.0D+0, 0.0D+0 ) ;
       // ..
       // .. Local Scalars ..
       int                INFO, J, MN;

@@ -17,7 +17,7 @@
 
       // .. Parameters ..
       COMPLEX            EYE
-      PARAMETER          ( EYE = ( 0.0, 1.0 ) )
+      const              EYE = ( 0.0, 1.0 ) ;
       // ..
       // .. Local Scalars ..
       int                J, JJ, N5;

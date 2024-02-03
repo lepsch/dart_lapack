@@ -18,7 +18,7 @@
       // .. Parameters ..
       REAL               ZERO, ONE
       COMPLEX            CZERO, CONE
-      PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0, CZERO = ( 0.0E+0, 0.0E+0 ), CONE = ( 1.0E+0, 0.0E+0 ) )
+      const              ZERO = 0.0E+0, ONE = 1.0E+0, CZERO = ( 0.0E+0, 0.0E+0 ), CONE = ( 1.0E+0, 0.0E+0 ) ;
       // ..
       // .. Local Scalars ..
       int                ITEMP, J, K, LASTRK, LSTICC, PVT, RK;

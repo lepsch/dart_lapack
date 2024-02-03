@@ -25,7 +25,7 @@
       // .. Parameters ..
       REAL               RZERO
       COMPLEX            ZERO, ONE
-      PARAMETER          ( RZERO = 0.0E+0, ZERO = ( 0.0E+0, 0.0E+0 ), ONE  = ( 1.0E+0, 0.0E+0 ) )
+      const              RZERO = 0.0E+0, ZERO = ( 0.0E+0, 0.0E+0 ), ONE  = ( 1.0E+0, 0.0E+0 ) ;
       // ..
       // .. Local Scalars ..
       bool               LQUERY, WANTQ, UPPER, AFTERS1;

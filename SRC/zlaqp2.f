@@ -18,7 +18,7 @@
       // .. Parameters ..
       double             ZERO, ONE;
       COMPLEX*16         CONE
-      PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0, CONE = ( 1.0D+0, 0.0D+0 ) )
+      const              ZERO = 0.0D+0, ONE = 1.0D+0, CONE = ( 1.0D+0, 0.0D+0 ) ;
       // ..
       // .. Local Scalars ..
       int                I, ITEMP, J, MN, OFFPI, PVT;

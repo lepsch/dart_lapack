@@ -58,7 +58,7 @@
 
 ### PARAMETER (...) -> const ...
 ```
-^\s     \bPARAMETER\b(\s+)\((.*)\)\s*$
+^\s     \bPARAMETER\b(\s+)\(\s*(.*)\)\s*$
       const    $1$2;
 ```
 

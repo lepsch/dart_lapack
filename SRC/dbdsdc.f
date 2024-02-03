@@ -20,7 +20,7 @@
 
       // .. Parameters ..
       double             ZERO, ONE, TWO;
-      PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0, TWO = 2.0D+0 )
+      const              ZERO = 0.0D+0, ONE = 1.0D+0, TWO = 2.0D+0 ;
       // ..
       // .. Local Scalars ..
       int                DIFL, DIFR, GIVCOL, GIVNUM, GIVPTR, I, IC, ICOMPQ, IERR, II, IS, IU, IUPLO, IVT, J, K, KK, MLVL, NM1, NSIZE, PERM, POLES, QSTART, SMLSIZ, SMLSZP, SQRE, START, WSTART, Z;

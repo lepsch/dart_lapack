@@ -16,7 +16,7 @@
       // .. Parameters ..
       double             ONE;
       COMPLEX*16         CONE
-      PARAMETER          ( ONE = 1.D0, CONE = ( 1.D0, 0.D0 ) )
+      const              ONE = 1.D0, CONE = ( 1.D0, 0.D0 ) ;
       // ..
       // .. Local Scalars ..
       bool               LOWER, NISODD, NORMALTRANSR;

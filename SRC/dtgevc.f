@@ -18,7 +18,7 @@
 
       // .. Parameters ..
       double             ZERO, ONE, SAFETY;
-      PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0, SAFETY = 1.0D+2 )
+      const              ZERO = 0.0D+0, ONE = 1.0D+0, SAFETY = 1.0D+2 ;
       // ..
       // .. Local Scalars ..
       bool               COMPL, COMPR, IL2BY2, ILABAD, ILALL, ILBACK, ILBBAD, ILCOMP, ILCPLX, LSA, LSB       int                I, IBEG, IEIG, IEND, IHWMNY, IINFO, IM, ISIDE, J, JA, JC, JE, JR, JW, NA, NW       double             ACOEF, ACOEFA, ANORM, ASCALE, BCOEFA, BCOEFI, BCOEFR, BIG, BIGNUM, BNORM, BSCALE, CIM2A, CIM2B, CIMAGA, CIMAGB, CRE2A, CRE2B, CREALA, CREALB, DMIN, SAFMIN, SALFAR, SBETA, SCALE, SMALL, TEMP, TEMP2, TEMP2I, TEMP2R, ULP, XMAX, XSCALE;;;

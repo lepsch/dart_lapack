@@ -16,7 +16,7 @@
 
       // .. Parameters ..
       int                SELECT;
-      PARAMETER          ( SELECT = 20 )
+      const              SELECT = 20 ;
       // ..
       // .. Local Scalars ..
       int                DIR, ENDD, I, J, START, STKPNT;

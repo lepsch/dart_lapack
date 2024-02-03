@@ -17,7 +17,7 @@
 
       // .. Parameters ..
       REAL               ONE, ZERO, HALF
-      PARAMETER          ( ONE = 1.0E+0, ZERO = 0.0E+0, HALF = 0.5E+0 )
+      const              ONE = 1.0E+0, ZERO = 0.0E+0, HALF = 0.5E+0 ;
       // ..
       // .. Local Scalars ..
       REAL               ALPHA

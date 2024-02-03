@@ -18,7 +18,7 @@
       // .. Parameters ..
       COMPLEX            CZERO, CONE
       REAL               ONE
-      PARAMETER          ( CZERO = ( 0.0E+0, 0.0E+0 ), CONE = ( 1.0E+0, 0.0E+0 ), ONE = 1.0E+0 )
+      const              CZERO = ( 0.0E+0, 0.0E+0 ), CONE = ( 1.0E+0, 0.0E+0 ), ONE = 1.0E+0 ;
       // ..
       // .. Local Scalars ..
       bool               UPDATE, UPPER, WANTX;

@@ -20,11 +20,11 @@
       // ..
       // .. Parameters ..
       COMPLEX*16         CONE
-      PARAMETER          ( CONE = ( 1.0D0, 0.0D+0 ) )
+      const              CONE = ( 1.0D0, 0.0D+0 ) ;
       double             ONE, ZERO;
-      PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
+      const              ZERO = 0.0D+0, ONE = 1.0D+0 ;
       int                MAXM, MAXN, LDSWORK;
-      PARAMETER          ( MAXM = 185, MAXN = 192, LDSWORK = 36 )
+      const              MAXM = 185, MAXN = 192, LDSWORK = 36 ;
       // ..
       // .. Local Scalars ..
       String             TRANA, TRANB;

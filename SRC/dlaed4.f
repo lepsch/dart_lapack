@@ -16,9 +16,9 @@
 
       // .. Parameters ..
       int                MAXIT;
-      PARAMETER          ( MAXIT = 30 )
+      const              MAXIT = 30 ;
       double             ZERO, ONE, TWO, THREE, FOUR, EIGHT, TEN;
-      PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0, TWO = 2.0D0, THREE = 3.0D0, FOUR = 4.0D0, EIGHT = 8.0D0, TEN = 10.0D0 )
+      const              ZERO = 0.0D0, ONE = 1.0D0, TWO = 2.0D0, THREE = 3.0D0, FOUR = 4.0D0, EIGHT = 8.0D0, TEN = 10.0D0 ;
       // ..
       // .. Local Scalars ..
       bool               ORGATI, SWTCH, SWTCH3;

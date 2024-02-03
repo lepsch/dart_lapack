@@ -18,7 +18,7 @@
 
       // .. Parameters ..
       double             ZERO, ONE;
-      PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D0+0 )
+      const              ZERO = 0.0D+0, ONE = 1.0D0+0 ;
       // ..
       // .. Local Scalars ..
       bool               SOMCON, WANTBH, WANTS, WANTSP;

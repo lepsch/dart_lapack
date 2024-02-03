@@ -16,7 +16,7 @@
 
       // .. Parameters ..
       double             ONE;
-      PARAMETER          ( ONE = 1.0D+0 )
+      const              ONE = 1.0D+0 ;
       // ..
       // .. Local Scalars ..
       bool               LQUERY;

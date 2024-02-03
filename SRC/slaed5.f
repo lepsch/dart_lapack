@@ -16,7 +16,7 @@
 
       // .. Parameters ..
       REAL               ZERO, ONE, TWO, FOUR
-      PARAMETER          ( ZERO = 0.0E0, ONE = 1.0E0, TWO = 2.0E0, FOUR = 4.0E0 )
+      const              ZERO = 0.0E0, ONE = 1.0E0, TWO = 2.0E0, FOUR = 4.0E0 ;
       // ..
       // .. Local Scalars ..
       REAL               B, C, DEL, TAU, TEMP, W

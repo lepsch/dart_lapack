@@ -12,7 +12,7 @@
 
       // .. Parameters ..
       int     BLAS_UPPER, BLAS_LOWER;
-      PARAMETER ( BLAS_UPPER = 121, BLAS_LOWER = 122 )
+      const     BLAS_UPPER = 121, BLAS_LOWER = 122 ;
       // ..
       // .. External Functions ..
       bool               LSAME;

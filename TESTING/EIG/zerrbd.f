@@ -13,7 +13,7 @@
 
       // .. Parameters ..
       int                NMAX, LW;
-      PARAMETER          ( NMAX = 4, LW = NMAX )
+      const              NMAX = 4, LW = NMAX ;
       // ..
       // .. Local Scalars ..
       String             C2;

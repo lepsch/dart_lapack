@@ -19,9 +19,9 @@
 
       // .. Parameters ..
       double             ZERO, ONE, TWO;
-      PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0, TWO = 2.0D0 )
+      const              ZERO = 0.0D0, ONE = 1.0D0, TWO = 2.0D0 ;
       COMPLEX*16         CZERO
-      PARAMETER          ( CZERO = ( 0.0D0, 0.0D0 ) )
+      const              CZERO = ( 0.0D0, 0.0D0 ) ;
       // ..
       // .. Local Scalars ..
       int                BX, BXST, C, DIFL, DIFR, GIVCOL, GIVNUM, GIVPTR, I, ICMPQ1, ICMPQ2, IRWB, IRWIB, IRWRB, IRWU, IRWVT, IRWWRK, IWK, J, JCOL, JIMAG, JREAL, JROW, K, NLVL, NM1, NRWORK, NSIZE, NSUB, PERM, POLES, S, SIZEI, SMLSZP, SQRE, ST, ST1, U, VT, Z;

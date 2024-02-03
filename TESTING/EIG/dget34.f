@@ -16,11 +16,11 @@
 
       // .. Parameters ..
       double             ZERO, HALF, ONE;
-      PARAMETER          ( ZERO = 0.0D0, HALF = 0.5D0, ONE = 1.0D0 )
+      const              ZERO = 0.0D0, HALF = 0.5D0, ONE = 1.0D0 ;
       double             TWO, THREE;
-      PARAMETER          ( TWO = 2.0D0, THREE = 3.0D0 )
+      const              TWO = 2.0D0, THREE = 3.0D0 ;
       int                LWORK;
-      PARAMETER          ( LWORK = 32 )
+      const              LWORK = 32 ;
       // ..
       // .. Local Scalars ..
       int                I, IA, IA11, IA12, IA21, IA22, IAM, IB, IC, IC11, IC12, IC21, IC22, ICM, INFO, J;

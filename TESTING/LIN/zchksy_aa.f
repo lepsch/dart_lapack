@@ -22,13 +22,13 @@
 
       // .. Parameters ..
       double             ZERO;
-      PARAMETER          ( ZERO = 0.0D+0 )
+      const              ZERO = 0.0D+0 ;
       COMPLEX*16         CZERO
-      PARAMETER          ( CZERO = ( 0.0D+0, 0.0D+0 ) )
+      const              CZERO = ( 0.0D+0, 0.0D+0 ) ;
       int                NTYPES;
-      PARAMETER          ( NTYPES = 10 )
+      const              NTYPES = 10 ;
       int                NTESTS;
-      PARAMETER          ( NTESTS = 9 )
+      const              NTESTS = 9 ;
       // ..
       // .. Local Scalars ..
       bool               ZEROT;

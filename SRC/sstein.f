@@ -16,9 +16,9 @@
 
       // .. Parameters ..
       REAL               ZERO, ONE, TEN, ODM3, ODM1
-      PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0, TEN = 1.0E+1, ODM3 = 1.0E-3, ODM1 = 1.0E-1 )
+      const              ZERO = 0.0E+0, ONE = 1.0E+0, TEN = 1.0E+1, ODM3 = 1.0E-3, ODM1 = 1.0E-1 ;
       int                MAXITS, EXTRA;
-      PARAMETER          ( MAXITS = 5, EXTRA = 2 )
+      const              MAXITS = 5, EXTRA = 2 ;
       // ..
       // .. Local Scalars ..
       int                B1, BLKSIZ, BN, GPIND, I, IINFO, INDRV1, INDRV2, INDRV3, INDRV4, INDRV5, ITS, J, J1, JBLK, JMAX, NBLK, NRMCHK;

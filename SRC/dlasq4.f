@@ -16,9 +16,9 @@
 
       // .. Parameters ..
       double             CNST1, CNST2, CNST3;
-      PARAMETER          ( CNST1 = 0.5630D0, CNST2 = 1.010D0, CNST3 = 1.050D0 )
+      const              CNST1 = 0.5630D0, CNST2 = 1.010D0, CNST3 = 1.050D0 ;
       double             QURTR, THIRD, HALF, ZERO, ONE, TWO, HUNDRD;
-      PARAMETER          ( QURTR = 0.250D0, THIRD = 0.3330D0, HALF = 0.50D0, ZERO = 0.0D0, ONE = 1.0D0, TWO = 2.0D0, HUNDRD = 100.0D0 )
+      const              QURTR = 0.250D0, THIRD = 0.3330D0, HALF = 0.50D0, ZERO = 0.0D0, ONE = 1.0D0, TWO = 2.0D0, HUNDRD = 100.0D0 ;
       // ..
       // .. Local Scalars ..
       int                I4, NN, NP;

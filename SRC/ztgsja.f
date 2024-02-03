@@ -18,11 +18,11 @@
 
       // .. Parameters ..
       int                MAXIT;
-      PARAMETER          ( MAXIT = 40 )
+      const              MAXIT = 40 ;
       double             ZERO, ONE, HUGENUM;
-      PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
+      const              ZERO = 0.0D+0, ONE = 1.0D+0 ;
       COMPLEX*16         CZERO, CONE
-      PARAMETER          ( CZERO = ( 0.0D+0, 0.0D+0 ), CONE = ( 1.0D+0, 0.0D+0 ) )
+      const              CZERO = ( 0.0D+0, 0.0D+0 ), CONE = ( 1.0D+0, 0.0D+0 ) ;
       // ..
       // .. Local Scalars ..
 
@@ -40,7 +40,7 @@
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC ABS, DBLE, DCONJG, MAX, MIN, HUGE
-      PARAMETER          ( HUGENUM = HUGE(ZERO) )
+      const              HUGENUM = HUGE(ZERO) ;
       // ..
       // .. Executable Statements ..
 

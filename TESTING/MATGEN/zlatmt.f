@@ -19,13 +19,13 @@
 
       // .. Parameters ..
       double             ZERO;
-      PARAMETER          ( ZERO = 0.0D+0 )
+      const              ZERO = 0.0D+0 ;
       double             ONE;
-      PARAMETER          ( ONE = 1.0D+0 )
+      const              ONE = 1.0D+0 ;
       COMPLEX*16         CZERO
-      PARAMETER          ( CZERO = ( 0.0D+0, 0.0D+0 ) )
+      const              CZERO = ( 0.0D+0, 0.0D+0 ) ;
       double             TWOPI;
-      PARAMETER  ( TWOPI = 6.28318530717958647692528676655900576839D+0 )
+      const      TWOPI = 6.28318530717958647692528676655900576839D+0 ;
       // ..
       // .. Local Scalars ..
       COMPLEX*16         C, CT, DUMMY, EXTRA, S, ST, ZTEMP

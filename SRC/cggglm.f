@@ -15,7 +15,7 @@
 
       // .. Parameters ..
       COMPLEX            CZERO, CONE
-      PARAMETER          ( CZERO = ( 0.0E+0, 0.0E+0 ), CONE = ( 1.0E+0, 0.0E+0 ) )
+      const              CZERO = ( 0.0E+0, 0.0E+0 ), CONE = ( 1.0E+0, 0.0E+0 ) ;
       // ..
       // .. Local Scalars ..
       bool               LQUERY;

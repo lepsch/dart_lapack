@@ -17,11 +17,11 @@
 
       // .. Parameters ..
       double             ZERO, ONE, TWO;
-      PARAMETER          ( ZERO = 0.0d0, ONE = 1.0d0, TWO = 2.0d0 )
+      const              ZERO = 0.0d0, ONE = 1.0d0, TWO = 2.0d0 ;
       double             DAT1, DAT2;
-      PARAMETER          ( DAT1 = 3.0d0 / 4.0d0, DAT2 = -0.4375d0 )
+      const              DAT1 = 3.0d0 / 4.0d0, DAT2 = -0.4375d0 ;
       int                KEXSH;
-      PARAMETER          ( KEXSH = 10 )
+      const              KEXSH = 10 ;
       // ..
       // .. Local Scalars ..
       double             AA, AB, BA, BB, CS, DET, H11, H12, H21, H21S, H22, RT1I, RT1R, RT2I, RT2R, RTDISC, S, SAFMAX, SAFMIN, SMLNUM, SN, SUM, T1, T2, T3, TR, TST, ULP, V2, V3;

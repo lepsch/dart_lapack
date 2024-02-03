@@ -8,17 +8,17 @@
 
       // .. Parameters ..
       int                NMAX;
-      PARAMETER          ( NMAX = 132 )
+      const              NMAX = 132 ;
       int                MAXIN;
-      PARAMETER          ( MAXIN = 12 )
+      const              MAXIN = 12 ;
       int                MAXRHS;
-      PARAMETER          ( MAXRHS = 16 )
+      const              MAXRHS = 16 ;
       int                MATMAX;
-      PARAMETER          ( MATMAX = 30 )
+      const              MATMAX = 30 ;
       int                NIN, NOUT;
-      PARAMETER          ( NIN = 5, NOUT = 6 )
+      const              NIN = 5, NOUT = 6 ;
       int                LDAMAX;
-      PARAMETER          ( LDAMAX = NMAX )
+      const              LDAMAX = NMAX ;
       // ..
       // .. Local Scalars ..
       bool               FATAL, TSTDRV, TSTERR;

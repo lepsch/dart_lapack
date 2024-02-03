@@ -19,7 +19,7 @@
       // ..
       // .. Parameters ..
       COMPLEX ONE
-      PARAMETER (ONE= (1.0E+0,0.0E+0))
+      const     ONE= (1.0E+0,0.0E+0);
       // ..
       IF (N.LE.0 .OR. INCX.LE.0 .OR. CA.EQ.ONE) RETURN
       IF (INCX.EQ.1) THEN

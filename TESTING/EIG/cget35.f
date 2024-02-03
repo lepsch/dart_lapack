@@ -13,13 +13,13 @@
 
       // .. Parameters ..
       int                LDT;
-      PARAMETER          ( LDT = 10 )
+      const              LDT = 10 ;
       REAL               ZERO, ONE, TWO
-      PARAMETER          ( ZERO = 0.0E0, ONE = 1.0E0, TWO = 2.0E0 )
+      const              ZERO = 0.0E0, ONE = 1.0E0, TWO = 2.0E0 ;
       REAL               LARGE
-      PARAMETER          ( LARGE = 1.0E6 )
+      const              LARGE = 1.0E6 ;
       COMPLEX            CONE
-      PARAMETER          ( CONE = 1.0E0 )
+      const              CONE = 1.0E0 ;
       // ..
       // .. Local Scalars ..
       String             TRANA, TRANB;

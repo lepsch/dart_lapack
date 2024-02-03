@@ -19,7 +19,7 @@
       // .. Parameters ..
       REAL               RONE
       COMPLEX            ZERO, ONE, HALF
-      PARAMETER          ( RONE = 1.0E+0, ZERO = ( 0.0E+0, 0.0E+0 ), ONE = ( 1.0E+0, 0.0E+0 ), HALF = ( 0.5E+0, 0.0E+0 ) )
+      const              RONE = 1.0E+0, ZERO = ( 0.0E+0, 0.0E+0 ), ONE = ( 1.0E+0, 0.0E+0 ), HALF = ( 0.5E+0, 0.0E+0 ) ;
       // ..
       // .. Local Scalars ..
       bool               LQUERY, UPPER;

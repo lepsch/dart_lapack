@@ -19,28 +19,28 @@
       // .    CLAHQR because of insufficient subdiagonal scratch space.
       // .    (This is a hard limit.) ====
       int                NTINY;
-      PARAMETER          ( NTINY = 15 )
+      const              NTINY = 15 ;
 
       // ==== Exceptional deflation windows:  try to cure rare
       // .    slow convergence by varying the size of the
       // .    deflation window after KEXNW iterations. ====
       int                KEXNW;
-      PARAMETER          ( KEXNW = 5 )
+      const              KEXNW = 5 ;
 
       // ==== Exceptional shifts: try to cure rare slow convergence
       // .    with ad-hoc exceptional shifts every KEXSH iterations.
       // .    ====
       int                KEXSH;
-      PARAMETER          ( KEXSH = 6 )
+      const              KEXSH = 6 ;
 
       // ==== The constant WILK1 is used to form the exceptional
       // .    shifts. ====
       REAL               WILK1
-      PARAMETER          ( WILK1 = 0.75e0 )
+      const              WILK1 = 0.75e0 ;
       COMPLEX            ZERO, ONE
-      PARAMETER          ( ZERO = ( 0.0e0, 0.0e0 ), ONE = ( 1.0e0, 0.0e0 ) )
+      const              ZERO = ( 0.0e0, 0.0e0 ), ONE = ( 1.0e0, 0.0e0 ) ;
       REAL               TWO
-      PARAMETER          ( TWO = 2.0e0 )
+      const              TWO = 2.0e0 ;
       // ..
       // .. Local Scalars ..
       COMPLEX            AA, BB, CC, CDUM, DD, DET, RTDISC, SWAP, TR2

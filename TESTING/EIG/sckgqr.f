@@ -17,9 +17,9 @@
 
       // .. Parameters ..
       int                NTESTS;
-      PARAMETER          ( NTESTS = 7 )
+      const              NTESTS = 7 ;
       int                NTYPES;
-      PARAMETER          ( NTYPES = 8 )
+      const              NTYPES = 8 ;
       // ..
       // .. Local Scalars ..
       bool               FIRSTT;

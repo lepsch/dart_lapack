@@ -17,11 +17,11 @@
 
       // .. Parameters ..
       COMPLEX*16         CZERO, CONE
-      PARAMETER          ( CZERO = ( 0.0D+0, 0.0D+0 ), CONE = ( 1.0D+0, 0.0D+0 ) )
+      const              CZERO = ( 0.0D+0, 0.0D+0 ), CONE = ( 1.0D+0, 0.0D+0 ) ;
       double             ZERO, ONE, TEN, ODM3, ODM1;
-      PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0, TEN = 1.0D+1, ODM3 = 1.0D-3, ODM1 = 1.0D-1 )
+      const              ZERO = 0.0D+0, ONE = 1.0D+0, TEN = 1.0D+1, ODM3 = 1.0D-3, ODM1 = 1.0D-1 ;
       int                MAXITS, EXTRA;
-      PARAMETER          ( MAXITS = 5, EXTRA = 2 )
+      const              MAXITS = 5, EXTRA = 2 ;
       // ..
       // .. Local Scalars ..
       int                B1, BLKSIZ, BN, GPIND, I, IINFO, INDRV1, INDRV2, INDRV3, INDRV4, INDRV5, ITS, J, J1, JBLK, JMAX, JR, NBLK, NRMCHK;

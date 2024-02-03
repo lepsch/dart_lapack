@@ -65,17 +65,17 @@
 
       // .. Parameters ..
       int                NIN, NOUT;
-      PARAMETER          ( NIN = 5, NOUT = 6 )
+      const              NIN = 5, NOUT = 6 ;
       int                NSUBS;
-      PARAMETER          ( NSUBS = 17 )
+      const              NSUBS = 17 ;
       COMPLEX*16         ZERO, ONE
-      PARAMETER          ( ZERO = ( 0.0D0, 0.0D0 ), ONE = ( 1.0D0, 0.0D0 ) )
+      const              ZERO = ( 0.0D0, 0.0D0 ), ONE = ( 1.0D0, 0.0D0 ) ;
       double             RZERO, RHALF, RONE;
-      PARAMETER          ( RZERO = 0.0D0, RHALF = 0.5D0, RONE = 1.0D0 )
+      const              RZERO = 0.0D0, RHALF = 0.5D0, RONE = 1.0D0 ;
       int                NMAX, INCMAX;
-      PARAMETER          ( NMAX = 65, INCMAX = 2 )
+      const              NMAX = 65, INCMAX = 2 ;
       int                NINMAX, NIDMAX, NKBMAX, NALMAX, NBEMAX;
-      PARAMETER          ( NINMAX = 7, NIDMAX = 9, NKBMAX = 7, NALMAX = 7, NBEMAX = 7 )
+      const              NINMAX = 7, NIDMAX = 9, NKBMAX = 7, NALMAX = 7, NBEMAX = 7 ;
       // .. Local Scalars ..
       double             EPS, ERR, THRESH;
       int                I, ISNUM, J, N, NALF, NBET, NIDIM, NINC, NKB, NTRA, LAYOUT       bool               FATAL, LTESTT, REWI, SAME, SFATAL, TRACE, TSTERR, CORDER, RORDER;;
@@ -412,9 +412,9 @@
 
       // .. Parameters ..
       COMPLEX*16        ZERO, HALF
-      PARAMETER         ( ZERO = ( 0.0D0, 0.0D0 ), HALF = ( 0.5D0, 0.0D0 ) )
+      const             ZERO = ( 0.0D0, 0.0D0 ), HALF = ( 0.5D0, 0.0D0 ) ;
       double            RZERO;
-      PARAMETER         ( RZERO = 0.0D0 )
+      const             RZERO = 0.0D0 ;
       // .. Scalar Arguments ..
       double             EPS, THRESH;
       int                INCMAX, NALF, NBET, NIDIM, NINC, NKB, NMAX, NOUT, NTRA, IORDER;
@@ -722,9 +722,9 @@
 
       // .. Parameters ..
       COMPLEX*16         ZERO, HALF
-      PARAMETER          ( ZERO = ( 0.0D0, 0.0D0 ), HALF = ( 0.5D0, 0.0D0 ) )
+      const              ZERO = ( 0.0D0, 0.0D0 ), HALF = ( 0.5D0, 0.0D0 ) ;
       double             RZERO;
-      PARAMETER          ( RZERO = 0.0D0 )
+      const              RZERO = 0.0D0 ;
       // .. Scalar Arguments ..
       double             EPS, THRESH;
       int                INCMAX, NALF, NBET, NIDIM, NINC, NKB, NMAX, NOUT, NTRA, IORDER;
@@ -1032,9 +1032,9 @@
 
       // .. Parameters ..
       COMPLEX*16         ZERO, HALF, ONE
-      PARAMETER          ( ZERO = ( 0.0D0, 0.0D0 ), HALF = ( 0.5D0, 0.0D0 ), ONE = ( 1.0D0, 0.0D0 ) )
+      const              ZERO = ( 0.0D0, 0.0D0 ), HALF = ( 0.5D0, 0.0D0 ), ONE = ( 1.0D0, 0.0D0 ) ;
       double             RZERO;
-      PARAMETER          ( RZERO = 0.0D0 )
+      const              RZERO = 0.0D0 ;
       // .. Scalar Arguments ..
       double             EPS, THRESH;
       int                INCMAX, NIDIM, NINC, NKB, NMAX, NOUT, NTRA, IORDER;
@@ -1353,9 +1353,9 @@
 
       // .. Parameters ..
       COMPLEX*16         ZERO, HALF, ONE
-      PARAMETER          ( ZERO = ( 0.0D0, 0.0D0 ), HALF = ( 0.5D0, 0.0D0 ), ONE = ( 1.0D0, 0.0D0 ) )
+      const              ZERO = ( 0.0D0, 0.0D0 ), HALF = ( 0.5D0, 0.0D0 ), ONE = ( 1.0D0, 0.0D0 ) ;
       double             RZERO;
-      PARAMETER          ( RZERO = 0.0D0 )
+      const              RZERO = 0.0D0 ;
       // .. Scalar Arguments ..
       double             EPS, THRESH;
       int                INCMAX, NALF, NIDIM, NINC, NMAX, NOUT, NTRA, IORDER;
@@ -1595,9 +1595,9 @@
 
       // .. Parameters ..
       COMPLEX*16         ZERO, HALF, ONE
-      PARAMETER          ( ZERO = ( 0.0D0, 0.0D0 ), HALF = ( 0.5D0, 0.0D0 ), ONE = ( 1.0D0, 0.0D0 ) )
+      const              ZERO = ( 0.0D0, 0.0D0 ), HALF = ( 0.5D0, 0.0D0 ), ONE = ( 1.0D0, 0.0D0 ) ;
       double             RZERO;
-      PARAMETER          ( RZERO = 0.0D0 )
+      const              RZERO = 0.0D0 ;
       // .. Scalar Arguments ..
       double             EPS, THRESH;
       int                INCMAX, NALF, NIDIM, NINC, NMAX, NOUT, NTRA, IORDER;
@@ -1857,9 +1857,9 @@
 
       // .. Parameters ..
       COMPLEX*16         ZERO, HALF, ONE
-      PARAMETER          ( ZERO = ( 0.0D0, 0.0D0 ), HALF = ( 0.5D0, 0.0D0 ), ONE = ( 1.0D0, 0.0D0 ) )
+      const              ZERO = ( 0.0D0, 0.0D0 ), HALF = ( 0.5D0, 0.0D0 ), ONE = ( 1.0D0, 0.0D0 ) ;
       double             RZERO;
-      PARAMETER          ( RZERO = 0.0D0 )
+      const              RZERO = 0.0D0 ;
       // .. Scalar Arguments ..
       double             EPS, THRESH;
       int                INCMAX, NALF, NIDIM, NINC, NMAX, NOUT, NTRA, IORDER;
@@ -2149,9 +2149,9 @@
 
       // .. Parameters ..
       COMPLEX*16         ZERO
-      PARAMETER          ( ZERO = ( 0.0D0, 0.0D0 ) )
+      const              ZERO = ( 0.0D0, 0.0D0 ) ;
       double             RZERO, RONE;
-      PARAMETER          ( RZERO = 0.0D0, RONE = 1.0D0 )
+      const              RZERO = 0.0D0, RONE = 1.0D0 ;
       // .. Scalar Arguments ..
       COMPLEX*16         ALPHA, BETA
       double             EPS, ERR;
@@ -2435,13 +2435,13 @@
 
       // .. Parameters ..
       COMPLEX*16         ZERO, ONE
-      PARAMETER          ( ZERO = ( 0.0D0, 0.0D0 ), ONE = ( 1.0D0, 0.0D0 ) )
+      const              ZERO = ( 0.0D0, 0.0D0 ), ONE = ( 1.0D0, 0.0D0 ) ;
       COMPLEX*16         ROGUE
-      PARAMETER          ( ROGUE = ( -1.0D10, 1.0D10 ) )
+      const              ROGUE = ( -1.0D10, 1.0D10 ) ;
       double             RZERO;
-      PARAMETER          ( RZERO = 0.0D0 )
+      const              RZERO = 0.0D0 ;
       double             RROGUE;
-      PARAMETER          ( RROGUE = -1.0D10 )
+      const              RROGUE = -1.0D10 ;
       // .. Scalar Arguments ..
       COMPLEX*16         TRANSL
       int                KL, KU, LDA, M, N, NMAX;

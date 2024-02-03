@@ -20,11 +20,11 @@
 
       // .. Parameters ..
       REAL               ZERO
-      PARAMETER          ( ZERO = 0.0E+0 )
+      const              ZERO = 0.0E+0 ;
       int                NTYPES;
-      PARAMETER          ( NTYPES = 11 )
+      const              NTYPES = 11 ;
       int                NTESTS;
-      PARAMETER          ( NTESTS = 8 )
+      const              NTESTS = 8 ;
       // ..
       // .. Local Scalars ..
       bool               TRFCON, ZEROT;

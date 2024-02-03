@@ -20,7 +20,7 @@
 
       // .. Parameters ..
       double             ZERO, ONE;
-      PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0 )
+      const              ZERO = 0.0D0, ONE = 1.0D0 ;
       // ..
       // .. Local Scalars ..
       bool               ALLEIG, INDEIG, LOWER, TEST, VALEIG, WANTZ, LQUERY;

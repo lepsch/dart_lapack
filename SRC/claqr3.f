@@ -16,9 +16,9 @@
 
       // .. Parameters ..
       COMPLEX            ZERO, ONE
-      PARAMETER          ( ZERO = ( 0.0e0, 0.0e0 ), ONE = ( 1.0e0, 0.0e0 ) )
+      const              ZERO = ( 0.0e0, 0.0e0 ), ONE = ( 1.0e0, 0.0e0 ) ;
       REAL               RZERO, RONE
-      PARAMETER          ( RZERO = 0.0e0, RONE = 1.0e0 )
+      const              RZERO = 0.0e0, RONE = 1.0e0 ;
       // ..
       // .. Local Scalars ..
       COMPLEX            BETA, CDUM, S, TAU

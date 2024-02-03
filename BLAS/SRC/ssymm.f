@@ -32,7 +32,7 @@
       // ..
       // .. Parameters ..
       REAL ONE,ZERO
-      PARAMETER (ONE=1.0E+0,ZERO=0.0E+0)
+      const     ONE=1.0E+0,ZERO=0.0E+0;
       // ..
 
       // Set NROWA as the number of rows of A.

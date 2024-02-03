@@ -18,7 +18,7 @@
 
       // .. Parameters ..
       double             ONE, THRESH;
-      PARAMETER          ( ONE = 1.0D+0, THRESH = 0.1D+0 )
+      const              ONE = 1.0D+0, THRESH = 0.1D+0 ;
       // ..
       // .. Local Scalars ..
       int                I, J, JC;

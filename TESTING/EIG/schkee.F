@@ -12,21 +12,21 @@
 
       // .. Parameters ..
       int                NMAX;
-      PARAMETER          ( NMAX = 132 )
+      const              NMAX = 132 ;
       int                NCMAX;
-      PARAMETER          ( NCMAX = 20 )
+      const              NCMAX = 20 ;
       int                NEED;
-      PARAMETER          ( NEED = 14 )
+      const              NEED = 14 ;
       int                LWORK;
-      PARAMETER          ( LWORK = NMAX*( 5*NMAX+5 )+1 )
+      const              LWORK = NMAX*( 5*NMAX+5 )+1 ;
       int                LIWORK;
-      PARAMETER          ( LIWORK = NMAX*( 5*NMAX+20 ) )
+      const              LIWORK = NMAX*( 5*NMAX+20 ) ;
       int                MAXIN;
-      PARAMETER          ( MAXIN = 20 )
+      const              MAXIN = 20 ;
       int                MAXT;
-      PARAMETER          ( MAXT = 30 )
+      const              MAXT = 30 ;
       int                NIN, NOUT;
-      PARAMETER          ( NIN = 5, NOUT = 6 )
+      const              NIN = 5, NOUT = 6 ;
       // ..
       // .. Local Scalars ..
       bool               CSD, FATAL, GLM, GQR, GSV, LSE, NEP, SBB, SBK, SBL, SEP, SES, SEV, SGG, SGK, SGL, SGS, SGV, SGX, SSB, SSX, SVD, SVX, SXV, TSTCHK, TSTDIF, TSTDRV, TSTERR;

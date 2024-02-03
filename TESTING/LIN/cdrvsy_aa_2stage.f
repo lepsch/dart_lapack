@@ -20,11 +20,11 @@
 
       // .. Parameters ..
       COMPLEX            CZERO
-      PARAMETER          ( CZERO = ( 0.0E+0, 0.0E+0 ) )
+      const              CZERO = ( 0.0E+0, 0.0E+0 ) ;
       int                NTYPES, NTESTS;
-      PARAMETER          ( NTYPES = 10, NTESTS = 3 )
+      const              NTYPES = 10, NTESTS = 3 ;
       int                NFACT;
-      PARAMETER          ( NFACT = 2 )
+      const              NFACT = 2 ;
       // ..
       // .. Local Scalars ..
       bool               ZEROT;

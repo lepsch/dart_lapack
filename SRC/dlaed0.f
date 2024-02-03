@@ -16,7 +16,7 @@
 
       // .. Parameters ..
       double             ZERO, ONE, TWO;
-      PARAMETER          ( ZERO = 0.D0, ONE = 1.D0, TWO = 2.D0 )
+      const              ZERO = 0.D0, ONE = 1.D0, TWO = 2.D0 ;
       // ..
       // .. Local Scalars ..
       int                CURLVL, CURPRB, CURR, I, IGIVCL, IGIVNM, IGIVPT, INDXQ, IPERM, IPRMPT, IQ, IQPTR, IWREM, J, K, LGN, MATSIZ, MSD2, SMLSIZ, SMM1, SPM1, SPM2, SUBMAT, SUBPBS, TLVLS;

@@ -17,20 +17,20 @@
 
       // .. Parameters ..
       double             ZERO, ONE;
-      PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
+      const              ZERO = 0.0D+0, ONE = 1.0D+0 ;
       double             ITREF_DEFAULT, ITHRESH_DEFAULT;
       double             COMPONENTWISE_DEFAULT, RTHRESH_DEFAULT;
       double             DZTHRESH_DEFAULT;
-      PARAMETER          ( ITREF_DEFAULT = 1.0D+0 )
-      PARAMETER          ( ITHRESH_DEFAULT = 10.0D+0 )
-      PARAMETER          ( COMPONENTWISE_DEFAULT = 1.0D+0 )
-      PARAMETER          ( RTHRESH_DEFAULT = 0.5D+0 )
-      PARAMETER          ( DZTHRESH_DEFAULT = 0.25D+0 )
+      const              ITREF_DEFAULT = 1.0D+0 ;
+      const              ITHRESH_DEFAULT = 10.0D+0 ;
+      const              COMPONENTWISE_DEFAULT = 1.0D+0 ;
+      const              RTHRESH_DEFAULT = 0.5D+0 ;
+      const              DZTHRESH_DEFAULT = 0.25D+0 ;
       int                LA_LINRX_ITREF_I, LA_LINRX_ITHRESH_I, LA_LINRX_CWISE_I       PARAMETER          ( LA_LINRX_ITREF_I = 1, LA_LINRX_ITHRESH_I = 2 );
-      PARAMETER          ( LA_LINRX_CWISE_I = 3 )
+      const              LA_LINRX_CWISE_I = 3 ;
       int                LA_LINRX_TRUST_I, LA_LINRX_ERR_I, LA_LINRX_RCOND_I;
-      PARAMETER          ( LA_LINRX_TRUST_I = 1, LA_LINRX_ERR_I = 2 )
-      PARAMETER          ( LA_LINRX_RCOND_I = 3 )
+      const              LA_LINRX_TRUST_I = 1, LA_LINRX_ERR_I = 2 ;
+      const              LA_LINRX_RCOND_I = 3 ;
       // ..
       // .. Local Scalars ..
       String   (1)       NORM;

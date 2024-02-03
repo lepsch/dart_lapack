@@ -17,11 +17,11 @@
 
       // .. Parameters ..
       REAL               ZERO, ONE
-      PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0 )
+      const              ZERO = 0.0E+0, ONE = 1.0E+0 ;
       REAL               SCLFAC
-      PARAMETER          ( SCLFAC = 2.0E+0 )
+      const              SCLFAC = 2.0E+0 ;
       REAL               FACTOR
-      PARAMETER          ( FACTOR = 0.95E+0 )
+      const              FACTOR = 0.95E+0 ;
       // ..
       // .. Local Scalars ..
       bool               NOCONV, CANSWAP;

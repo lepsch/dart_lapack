@@ -17,11 +17,11 @@
 
       // .. Parameters ..
       int                MAXITR;
-      PARAMETER          ( MAXITR = 10 )
+      const              MAXITR = 10 ;
       COMPLEX            CZERO
-      PARAMETER          ( CZERO = ( 0.0E0, 0.0E0 ) )
+      const              CZERO = ( 0.0E0, 0.0E0 ) ;
       REAL               ZERO, ONE, TWO, THREE, FOUR, HALF
-      PARAMETER          ( ZERO = 0.0E0, ONE = 1.0E0, TWO = 2.0E0, THREE = 3.0E0, FOUR = 4.0E0, HALF = 0.5E0)
+      const              ZERO = 0.0E0, ONE = 1.0E0, TWO = 2.0E0, THREE = 3.0E0, FOUR = 4.0E0, HALF = 0.5E0;
       // ..
       // .. Local Scalars ..
       bool               ESKIP, NEEDBS, STP2II, TRYRQC, USEDBS, USEDRQ;

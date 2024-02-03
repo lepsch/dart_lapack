@@ -15,7 +15,7 @@
 
       // .. Parameters ..
       REAL               ONE
-      PARAMETER          ( ONE = 1.0E+0 )
+      const              ONE = 1.0E+0 ;
       // ..
       // .. Local Scalars ..
       int                I, IWK1, IWK2, IWK2I, IWK3, IWK3I, J;

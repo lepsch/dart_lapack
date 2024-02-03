@@ -17,7 +17,7 @@
 
       // .. Parameters ..
       COMPLEX*16         ZERO
-      PARAMETER          ( ZERO = ( 0.0D+0, 0.0D+0 ) )
+      const              ZERO = ( 0.0D+0, 0.0D+0 ) ;
       // ..
       // .. External Functions ..
       bool               LSAME;

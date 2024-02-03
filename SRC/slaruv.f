@@ -16,10 +16,10 @@
 
       // .. Parameters ..
       REAL               ONE
-      PARAMETER          ( ONE = 1.0E0 )
+      const              ONE = 1.0E0 ;
       int                LV, IPW2;
       REAL               R
-      PARAMETER          ( LV = 128, IPW2 = 4096, R = ONE / IPW2 )
+      const              LV = 128, IPW2 = 4096, R = ONE / IPW2 ;
       // ..
       // .. Local Scalars ..
       int                I, I1, I2, I3, I4, IT1, IT2, IT3, IT4, J;

@@ -32,7 +32,7 @@
       // ..
       // .. Parameters ..
       double           ONE,ZERO;
-      PARAMETER (ONE=1.0D+0,ZERO=0.0D+0)
+      const     ONE=1.0D+0,ZERO=0.0D+0;
       // ..
 
       // Set  NOTA  and  NOTB  as  true if  A  and  B  respectively are not

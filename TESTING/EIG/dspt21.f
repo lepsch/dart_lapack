@@ -16,9 +16,9 @@
 
       // .. Parameters ..
       double             ZERO, ONE, TEN;
-      PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0, TEN = 10.0D0 )
+      const              ZERO = 0.0D0, ONE = 1.0D0, TEN = 10.0D0 ;
       double             HALF;
-      PARAMETER          ( HALF = 1.0D+0 / 2.0D+0 )
+      const              HALF = 1.0D+0 / 2.0D+0 ;
       // ..
       // .. Local Scalars ..
       bool               LOWER;

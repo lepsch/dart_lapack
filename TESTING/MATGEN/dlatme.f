@@ -19,11 +19,11 @@
 
       // .. Parameters ..
       double             ZERO;
-      PARAMETER          ( ZERO = 0.0D0 )
+      const              ZERO = 0.0D0 ;
       double             ONE;
-      PARAMETER          ( ONE = 1.0D0 )
+      const              ONE = 1.0D0 ;
       double             HALF;
-      PARAMETER          ( HALF = 1.0D0 / 2.0D0 )
+      const              HALF = 1.0D0 / 2.0D0 ;
       // ..
       // .. Local Scalars ..
       bool               BADEI, BADS, USEEI;

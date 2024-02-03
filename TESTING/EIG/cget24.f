@@ -20,11 +20,11 @@
 
       // .. Parameters ..
       COMPLEX            CZERO, CONE
-      PARAMETER          ( CZERO = ( 0.0E+0, 0.0E+0 ), CONE = ( 1.0E+0, 0.0E+0 ) )
+      const              CZERO = ( 0.0E+0, 0.0E+0 ), CONE = ( 1.0E+0, 0.0E+0 ) ;
       REAL               ZERO, ONE
-      PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0 )
+      const              ZERO = 0.0E+0, ONE = 1.0E+0 ;
       REAL               EPSIN
-      PARAMETER          ( EPSIN = 5.9605E-8 )
+      const              EPSIN = 5.9605E-8 ;
       // ..
       // .. Local Scalars ..
       String             SORT;

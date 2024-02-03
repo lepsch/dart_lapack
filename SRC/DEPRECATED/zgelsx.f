@@ -18,11 +18,11 @@
 
       // .. Parameters ..
       int                IMAX, IMIN;
-      PARAMETER          ( IMAX = 1, IMIN = 2 )
+      const              IMAX = 1, IMIN = 2 ;
       double             ZERO, ONE, DONE, NTDONE;
-      PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0, DONE = ZERO, NTDONE = ONE )
+      const              ZERO = 0.0D+0, ONE = 1.0D+0, DONE = ZERO, NTDONE = ONE ;
       COMPLEX*16         CZERO, CONE
-      PARAMETER          ( CZERO = ( 0.0D+0, 0.0D+0 ), CONE = ( 1.0D+0, 0.0D+0 ) )
+      const              CZERO = ( 0.0D+0, 0.0D+0 ), CONE = ( 1.0D+0, 0.0D+0 ) ;
       // ..
       // .. Local Scalars ..
       int                I, IASCL, IBSCL, ISMAX, ISMIN, J, K, MN;

@@ -17,9 +17,9 @@
 
       // .. Parameters ..
       int                IMAX, IMIN;
-      PARAMETER          ( IMAX = 1, IMIN = 2 )
+      const              IMAX = 1, IMIN = 2 ;
       REAL               ZERO, ONE
-      PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0 )
+      const              ZERO = 0.0E+0, ONE = 1.0E+0 ;
       // ..
       // .. Local Scalars ..
       bool               LQUERY;

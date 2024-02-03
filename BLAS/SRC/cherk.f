@@ -33,7 +33,7 @@
       // ..
       // .. Parameters ..
       REAL ONE,ZERO
-      PARAMETER (ONE=1.0E+0,ZERO=0.0E+0)
+      const     ONE=1.0E+0,ZERO=0.0E+0;
       // ..
 
       // Test the input parameters.

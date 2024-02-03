@@ -16,7 +16,7 @@
 
       // .. Parameters ..
       double             TWO, ONE, ZERO;
-      PARAMETER          ( TWO = 2.0D+0, ONE = 1.0D+0, ZERO = 0.0D+0 )
+      const              TWO = 2.0D+0, ONE = 1.0D+0, ZERO = 0.0D+0 ;
       // ..
       // .. Local Scalars ..
       int                J, KNT;

@@ -20,9 +20,9 @@
 
       // .. Parameters ..
       REAL               ONE
-      PARAMETER          ( ONE = 1.0E+0 )
+      const              ONE = 1.0E+0 ;
       int                NTYPES;
-      PARAMETER          ( NTYPES = 9 )
+      const              NTYPES = 9 ;
       // ..
       // .. Local Scalars ..
       REAL               ANORM, CNDNUM, RESULT, TOL

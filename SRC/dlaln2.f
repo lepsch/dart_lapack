@@ -17,9 +17,9 @@
 
       // .. Parameters ..
       double             ZERO, ONE;
-      PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0 )
+      const              ZERO = 0.0D0, ONE = 1.0D0 ;
       double             TWO;
-      PARAMETER          ( TWO = 2.0D0 )
+      const              TWO = 2.0D0 ;
       // ..
       // .. Local Scalars ..
       int                ICMAX, J;

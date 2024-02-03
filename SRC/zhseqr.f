@@ -20,7 +20,7 @@
       // .    ZLAHQR because of insufficient subdiagonal scratch space.
       // .    (This is a hard limit.) ====
       int                NTINY;
-      PARAMETER          ( NTINY = 15 )
+      const              NTINY = 15 ;
 
       // ==== NL allocates some local workspace to help small matrices
       // .    through a rare ZLAHQR failure.  NL > NTINY = 15 is
@@ -29,11 +29,11 @@
       // .    allows up to six simultaneous shifts and a 16-by-16
       // .    deflation window.  ====
       int                NL;
-      PARAMETER          ( NL = 49 )
+      const              NL = 49 ;
       COMPLEX*16         ZERO, ONE
-      PARAMETER          ( ZERO = ( 0.0d0, 0.0d0 ), ONE = ( 1.0d0, 0.0d0 ) )
+      const              ZERO = ( 0.0d0, 0.0d0 ), ONE = ( 1.0d0, 0.0d0 ) ;
       double             RZERO;
-      PARAMETER          ( RZERO = 0.0d0 )
+      const              RZERO = 0.0d0 ;
       // ..
       // .. Local Arrays ..
       COMPLEX*16         HL( NL, NL ), WORKL( NL )

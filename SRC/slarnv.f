@@ -16,11 +16,11 @@
 
       // .. Parameters ..
       REAL               ONE, TWO
-      PARAMETER          ( ONE = 1.0E+0, TWO = 2.0E+0 )
+      const              ONE = 1.0E+0, TWO = 2.0E+0 ;
       int                LV;
-      PARAMETER          ( LV = 128 )
+      const              LV = 128 ;
       REAL               TWOPI
-      PARAMETER  ( TWOPI = 6.28318530717958647692528676655900576839E+0 )
+      const      TWOPI = 6.28318530717958647692528676655900576839E+0 ;
       // ..
       // .. Local Scalars ..
       int                I, IL, IL2, IV;

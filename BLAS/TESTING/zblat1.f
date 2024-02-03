@@ -8,7 +8,7 @@
 
       // .. Parameters ..
       int              NOUT;
-      PARAMETER        (NOUT=6)
+      const            NOUT=6;
       // .. Scalars in Common ..
       int              ICASE, INCX, INCY, MODE, N;
       bool             PASS;
@@ -55,7 +55,7 @@
       SUBROUTINE HEADER
       // .. Parameters ..
       int              NOUT;
-      PARAMETER        (NOUT=6)
+      const            NOUT=6;
       // .. Scalars in Common ..
       int              ICASE, INCX, INCY, MODE, N;
       bool             PASS;
@@ -87,7 +87,7 @@
       // .. Parameters ..
       int               NOUT;
       double            THRESH;
-      PARAMETER         (NOUT=6, THRESH=10.0D0)
+      const             NOUT=6, THRESH=10.0D0;
       // .. Scalar Arguments ..
       double            SFAC;
       // .. Scalars in Common ..
@@ -218,7 +218,7 @@
       SUBROUTINE CHECK2(SFAC)
       // .. Parameters ..
       int               NOUT;
-      PARAMETER         (NOUT=6)
+      const             NOUT=6;
       // .. Scalar Arguments ..
       double            SFAC;
       // .. Scalars in Common ..
@@ -327,7 +327,7 @@
       // .. Parameters ..
       int              NOUT;
       double           ZERO;
-      PARAMETER        (NOUT=6, ZERO=0.0D0)
+      const            NOUT=6, ZERO=0.0D0;
       // .. Scalar Arguments ..
       double           SFAC;
       int              LEN;
@@ -457,7 +457,7 @@
 
       // .. Parameters ..
       int               NOUT;
-      PARAMETER         (NOUT=6)
+      const             NOUT=6;
       // .. Scalar Arguments ..
       int               ICOMP, ITRUE;
       // .. Scalars in Common ..
@@ -514,9 +514,9 @@
 *  =====================================================================
       // .. Parameters ..
       int               NMAX, NOUT, NV;
-      PARAMETER         (NMAX=20, NOUT=6, NV=10)
+      const             NMAX=20, NOUT=6, NV=10;
       double            HALF, ONE, THREE, TWO, ZERO;
-      PARAMETER         (HALF=0.5D+0, ONE=1.0D+0, TWO= 2.0D+0, THREE=3.0D+0, ZERO=0.0D+0)
+      const             HALF=0.5D+0, ONE=1.0D+0, TWO= 2.0D+0, THREE=3.0D+0, ZERO=0.0D+0;
       // .. External Functions ..
       double            DZNRM2;
       // EXTERNAL DZNRM2
@@ -524,7 +524,7 @@
       // INTRINSIC AIMAG, ABS, DCMPLX, DBLE, MAX, MIN, SQRT
       // .. Model parameters ..
       double            BIGNUM, SAFMAX, SAFMIN, SMLNUM, ULP;
-      PARAMETER         (BIGNUM=0.99792015476735990583D+292, SAFMAX=0.44942328371557897693D+308, SAFMIN=0.22250738585072013831D-307, SMLNUM=0.10020841800044863890D-291, ULP=0.22204460492503130808D-015)
+      const             BIGNUM=0.99792015476735990583D+292, SAFMAX=0.44942328371557897693D+308, SAFMIN=0.22250738585072013831D-307, SMLNUM=0.10020841800044863890D-291, ULP=0.22204460492503130808D-015;
       // .. Local Scalars ..
       COMPLEX*16        ROGUE
       double            SNRM, TRAT, V0, V1, WORKSSQ, Y1, Y2, YMAX, YMIN, YNRM, ZNRM;

@@ -16,7 +16,7 @@
 *  ================================================================
       // .. Parameters ..
       REAL               ZERO, ONE
-      PARAMETER          ( ZERO = 0.0e0, ONE = 1.0e0 )
+      const              ZERO = 0.0e0, ONE = 1.0e0 ;
       // ..
       // .. Local Scalars ..
       REAL               ALPHA, BETA, H11, H12, H21, H22, REFSUM, SAFMAX, SAFMIN, SCL, SMLNUM, SWAP, T1, T2, T3, TST1, TST2, ULP       int                I, I2, I4, INCOL, J, JBOT, JCOL, JLEN, JROW, JTOP, K, K1, KDU, KMS, KRCOL, M, M22, MBOT, MTOP, NBMPS, NDCOL, NS, NU;

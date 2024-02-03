@@ -17,9 +17,9 @@
 
       // .. Parameters ..
       double             ZERO;
-      PARAMETER          ( ZERO = 0.0D+0 )
+      const              ZERO = 0.0D+0 ;
       double             ONE;
-      PARAMETER          ( ONE = 1.0D+0 )
+      const              ONE = 1.0D+0 ;
       // ..
       // .. Local Scalars ..
       bool               NOTRAN, NOUNIT, UPPER;

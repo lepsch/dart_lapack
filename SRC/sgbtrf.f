@@ -16,9 +16,9 @@
 
       // .. Parameters ..
       REAL               ONE, ZERO
-      PARAMETER          ( ONE = 1.0E+0, ZERO = 0.0E+0 )
+      const              ONE = 1.0E+0, ZERO = 0.0E+0 ;
       int                NBMAX, LDWORK;
-      PARAMETER          ( NBMAX = 64, LDWORK = NBMAX+1 )
+      const              NBMAX = 64, LDWORK = NBMAX+1 ;
       // ..
       // .. Local Scalars ..
       int                I, I2, I3, II, IP, J, J2, J3, JB, JJ, JM, JP, JU, K2, KM, KV, NB, NW;

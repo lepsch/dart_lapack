@@ -20,11 +20,11 @@
 
       // .. Parameters ..
       int                NTYPES;
-      PARAMETER          ( NTYPES = 3 )
+      const              NTYPES = 3 ;
       int                NTESTS;
-      PARAMETER          ( NTESTS = 3 )
+      const              NTESTS = 3 ;
       REAL               ONE, ZERO
-      PARAMETER          ( ONE = 1.0E0, ZERO = 0.0E0 )
+      const              ONE = 1.0E0, ZERO = 0.0E0 ;
       // ..
       // .. Local Scalars ..
       String             PATH;

@@ -19,13 +19,13 @@
 
       // .. Parameters ..
       int                NTYPE1, NTYPES;
-      PARAMETER          ( NTYPE1 = 10, NTYPES = 18 )
+      const              NTYPE1 = 10, NTYPES = 18 ;
       int                NTESTS;
-      PARAMETER          ( NTESTS = 9 )
+      const              NTESTS = 9 ;
       int                NTRAN;
-      PARAMETER          ( NTRAN = 3 )
+      const              NTRAN = 3 ;
       REAL               ONE, ZERO
-      PARAMETER          ( ONE = 1.0E+0, ZERO = 0.0E+0 )
+      const              ONE = 1.0E+0, ZERO = 0.0E+0 ;
       // ..
       // .. Local Scalars ..
       String             DIAG, NORM, TRANS, UPLO, XTYPE;

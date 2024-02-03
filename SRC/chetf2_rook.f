@@ -17,9 +17,9 @@
 
       // .. Parameters ..
       REAL               ZERO, ONE
-      PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0 )
+      const              ZERO = 0.0E+0, ONE = 1.0E+0 ;
       REAL               EIGHT, SEVTEN
-      PARAMETER          ( EIGHT = 8.0E+0, SEVTEN = 17.0E+0 )
+      const              EIGHT = 8.0E+0, SEVTEN = 17.0E+0 ;
       // ..
       // .. Local Scalars ..
       bool               DONE, UPPER;

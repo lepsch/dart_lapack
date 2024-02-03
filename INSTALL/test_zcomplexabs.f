@@ -6,11 +6,11 @@
       // ..
       // .. Local parameters ..
       bool              debug;
-      parameter       ( debug = .false. )
+      const           debug = .false. ;
       int               N, nNaN, nInf;
-      parameter       ( N = 4, nNaN = 3, nInf = 5 )
+      const           N = 4, nNaN = 3, nInf = 5 ;
       double            threeFourth, fiveFourth, oneHalf;
-      parameter       ( threeFourth = 3.0d0 / 4, fiveFourth = 5.0d0 / 4, oneHalf = 1.0d0 / 2 )
+      const           threeFourth = 3.0d0 / 4, fiveFourth = 5.0d0 / 4, oneHalf = 1.0d0 / 2 ;
       // ..
       // .. Local Variables ..
       int               i, min, Max, m, subnormalTreatedAs0, caseAFails, caseBFails, caseCFails, caseDFails, caseEFails, caseFFails, nFailingTests, nTests       double            X( N ), R, answerC, answerD, aInf, aNaN, relDiff, b, eps, blueMin, blueMax, Xj, stepX(N), limX(N);;

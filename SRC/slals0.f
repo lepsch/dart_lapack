@@ -17,7 +17,7 @@
 
       // .. Parameters ..
       REAL               ONE, ZERO, NEGONE
-      PARAMETER          ( ONE = 1.0E0, ZERO = 0.0E0, NEGONE = -1.0E0 )
+      const              ONE = 1.0E0, ZERO = 0.0E0, NEGONE = -1.0E0 ;
       // ..
       // .. Local Scalars ..
       int                I, J, M, N, NLP1;

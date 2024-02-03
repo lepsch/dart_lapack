@@ -19,11 +19,11 @@
 
       // .. Parameters ..
       double             ZERO;
-      PARAMETER          ( ZERO = 0.0D+0 )
+      const              ZERO = 0.0D+0 ;
       int                NTYPES;
-      PARAMETER          ( NTYPES = 10 )
+      const              NTYPES = 10 ;
       int                NTESTS;
-      PARAMETER          ( NTESTS = 8 )
+      const              NTESTS = 8 ;
       // ..
       // .. Local Scalars ..
       bool               TRFCON, ZEROT;

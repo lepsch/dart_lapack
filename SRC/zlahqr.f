@@ -17,13 +17,13 @@
 
       // .. Parameters ..
       COMPLEX*16         ZERO, ONE
-      PARAMETER          ( ZERO = ( 0.0d0, 0.0d0 ), ONE = ( 1.0d0, 0.0d0 ) )
+      const              ZERO = ( 0.0d0, 0.0d0 ), ONE = ( 1.0d0, 0.0d0 ) ;
       double             RZERO, RONE, HALF;
-      PARAMETER          ( RZERO = 0.0d0, RONE = 1.0d0, HALF = 0.5d0 )
+      const              RZERO = 0.0d0, RONE = 1.0d0, HALF = 0.5d0 ;
       double             DAT1;
-      PARAMETER          ( DAT1 = 3.0d0 / 4.0d0 )
+      const              DAT1 = 3.0d0 / 4.0d0 ;
       int                KEXSH;
-      PARAMETER          ( KEXSH = 10 )
+      const              KEXSH = 10 ;
       // ..
       // .. Local Scalars ..
       COMPLEX*16         CDUM, H11, H11S, H22, SC, SUM, T, T1, TEMP, U, V2, X, Y       double             AA, AB, BA, BB, H10, H21, RTEMP, S, SAFMAX, SAFMIN, SMLNUM, SX, T2, TST, ULP       int                I, I1, I2, ITS, ITMAX, J, JHI, JLO, K, L, M, NH, NZ, KDEFL;;

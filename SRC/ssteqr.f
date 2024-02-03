@@ -16,9 +16,9 @@
 
       // .. Parameters ..
       REAL               ZERO, ONE, TWO, THREE
-      PARAMETER          ( ZERO = 0.0E0, ONE = 1.0E0, TWO = 2.0E0, THREE = 3.0E0 )
+      const              ZERO = 0.0E0, ONE = 1.0E0, TWO = 2.0E0, THREE = 3.0E0 ;
       int                MAXIT;
-      PARAMETER          ( MAXIT = 30 )
+      const              MAXIT = 30 ;
       // ..
       // .. Local Scalars ..
       int                I, ICOMPZ, II, ISCALE, J, JTOT, K, L, L1, LEND, LENDM1, LENDP1, LENDSV, LM1, LSV, M, MM, MM1, NM1, NMAXIT;

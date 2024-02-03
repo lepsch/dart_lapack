@@ -16,7 +16,7 @@
 
       // .. Parameters ..
       double             ZERO, ONE, TEN;
-      PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0, TEN = 10.0D0 )
+      const              ZERO = 0.0D0, ONE = 1.0D0, TEN = 10.0D0 ;
       // ..
       // .. Local Scalars ..
       int                JCOL, JDIAG, JROW;

@@ -8,17 +8,17 @@
 
       // .. Parameters ..
       int                NIN;
-      PARAMETER          ( NIN = 5 )
+      const              NIN = 5 ;
       int                NSUBS;
-      PARAMETER          ( NSUBS = 17 )
+      const              NSUBS = 17 ;
       COMPLEX            ZERO, ONE
-      PARAMETER          ( ZERO = ( 0.0, 0.0 ), ONE = ( 1.0, 0.0 ) )
+      const              ZERO = ( 0.0, 0.0 ), ONE = ( 1.0, 0.0 ) ;
       REAL               RZERO
-      PARAMETER          ( RZERO = 0.0 )
+      const              RZERO = 0.0 ;
       int                NMAX, INCMAX;
-      PARAMETER          ( NMAX = 65, INCMAX = 2 )
+      const              NMAX = 65, INCMAX = 2 ;
       int                NINMAX, NIDMAX, NKBMAX, NALMAX, NBEMAX;
-      PARAMETER          ( NINMAX = 7, NIDMAX = 9, NKBMAX = 7, NALMAX = 7, NBEMAX = 7 )
+      const              NINMAX = 7, NIDMAX = 9, NKBMAX = 7, NALMAX = 7, NBEMAX = 7 ;
       // .. Local Scalars ..
       REAL               EPS, ERR, THRESH
       int                I, ISNUM, J, N, NALF, NBET, NIDIM, NINC, NKB, NOUT, NTRA       bool               FATAL, LTESTT, REWI, SAME, SFATAL, TRACE, TSTERR;;
@@ -322,9 +322,9 @@
 
       // .. Parameters ..
       COMPLEX            ZERO, HALF
-      PARAMETER          ( ZERO = ( 0.0, 0.0 ), HALF = ( 0.5, 0.0 ) )
+      const              ZERO = ( 0.0, 0.0 ), HALF = ( 0.5, 0.0 ) ;
       REAL               RZERO
-      PARAMETER          ( RZERO = 0.0 )
+      const              RZERO = 0.0 ;
       // .. Scalar Arguments ..
       REAL               EPS, THRESH
       int                INCMAX, NALF, NBET, NIDIM, NINC, NKB, NMAX, NOUT, NTRA;
@@ -639,9 +639,9 @@
 
       // .. Parameters ..
       COMPLEX            ZERO, HALF
-      PARAMETER          ( ZERO = ( 0.0, 0.0 ), HALF = ( 0.5, 0.0 ) )
+      const              ZERO = ( 0.0, 0.0 ), HALF = ( 0.5, 0.0 ) ;
       REAL               RZERO
-      PARAMETER          ( RZERO = 0.0 )
+      const              RZERO = 0.0 ;
       // .. Scalar Arguments ..
       REAL               EPS, THRESH
       int                INCMAX, NALF, NBET, NIDIM, NINC, NKB, NMAX, NOUT, NTRA;
@@ -944,9 +944,9 @@
 
       // .. Parameters ..
       COMPLEX            ZERO, HALF, ONE
-      PARAMETER          ( ZERO = ( 0.0, 0.0 ), HALF = ( 0.5, 0.0 ), ONE = ( 1.0, 0.0 ) )
+      const              ZERO = ( 0.0, 0.0 ), HALF = ( 0.5, 0.0 ), ONE = ( 1.0, 0.0 ) ;
       REAL               RZERO
-      PARAMETER          ( RZERO = 0.0 )
+      const              RZERO = 0.0 ;
       // .. Scalar Arguments ..
       REAL               EPS, THRESH
       int                INCMAX, NIDIM, NINC, NKB, NMAX, NOUT, NTRA;
@@ -1247,9 +1247,9 @@
 
       // .. Parameters ..
       COMPLEX            ZERO, HALF, ONE
-      PARAMETER          ( ZERO = ( 0.0, 0.0 ), HALF = ( 0.5, 0.0 ), ONE = ( 1.0, 0.0 ) )
+      const              ZERO = ( 0.0, 0.0 ), HALF = ( 0.5, 0.0 ), ONE = ( 1.0, 0.0 ) ;
       REAL               RZERO
-      PARAMETER          ( RZERO = 0.0 )
+      const              RZERO = 0.0 ;
       // .. Scalar Arguments ..
       REAL               EPS, THRESH
       int                INCMAX, NALF, NIDIM, NINC, NMAX, NOUT, NTRA;
@@ -1490,9 +1490,9 @@
 
       // .. Parameters ..
       COMPLEX            ZERO, HALF, ONE
-      PARAMETER          ( ZERO = ( 0.0, 0.0 ), HALF = ( 0.5, 0.0 ), ONE = ( 1.0, 0.0 ) )
+      const              ZERO = ( 0.0, 0.0 ), HALF = ( 0.5, 0.0 ), ONE = ( 1.0, 0.0 ) ;
       REAL               RZERO
-      PARAMETER          ( RZERO = 0.0 )
+      const              RZERO = 0.0 ;
       // .. Scalar Arguments ..
       REAL               EPS, THRESH
       int                INCMAX, NALF, NIDIM, NINC, NMAX, NOUT, NTRA;
@@ -1748,9 +1748,9 @@
 
       // .. Parameters ..
       COMPLEX            ZERO, HALF, ONE
-      PARAMETER          ( ZERO = ( 0.0, 0.0 ), HALF = ( 0.5, 0.0 ), ONE = ( 1.0, 0.0 ) )
+      const              ZERO = ( 0.0, 0.0 ), HALF = ( 0.5, 0.0 ), ONE = ( 1.0, 0.0 ) ;
       REAL               RZERO
-      PARAMETER          ( RZERO = 0.0 )
+      const              RZERO = 0.0 ;
       // .. Scalar Arguments ..
       REAL               EPS, THRESH
       int                INCMAX, NALF, NIDIM, NINC, NMAX, NOUT, NTRA;
@@ -2380,13 +2380,13 @@
 
       // .. Parameters ..
       COMPLEX            ZERO, ONE
-      PARAMETER          ( ZERO = ( 0.0, 0.0 ), ONE = ( 1.0, 0.0 ) )
+      const              ZERO = ( 0.0, 0.0 ), ONE = ( 1.0, 0.0 ) ;
       COMPLEX            ROGUE
-      PARAMETER          ( ROGUE = ( -1.0E10, 1.0E10 ) )
+      const              ROGUE = ( -1.0E10, 1.0E10 ) ;
       REAL               RZERO
-      PARAMETER          ( RZERO = 0.0 )
+      const              RZERO = 0.0 ;
       REAL               RROGUE
-      PARAMETER          ( RROGUE = -1.0E10 )
+      const              RROGUE = -1.0E10 ;
       // .. Scalar Arguments ..
       COMPLEX            TRANSL
       int                KL, KU, LDA, M, N, NMAX;
@@ -2555,9 +2555,9 @@
 
       // .. Parameters ..
       COMPLEX            ZERO
-      PARAMETER          ( ZERO = ( 0.0, 0.0 ) )
+      const              ZERO = ( 0.0, 0.0 ) ;
       REAL               RZERO, RONE
-      PARAMETER          ( RZERO = 0.0, RONE = 1.0 )
+      const              RZERO = 0.0, RONE = 1.0 ;
       // .. Scalar Arguments ..
       COMPLEX            ALPHA, BETA
       REAL               EPS, ERR

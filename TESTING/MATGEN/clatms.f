@@ -19,13 +19,13 @@
 
       // .. Parameters ..
       REAL               ZERO
-      PARAMETER          ( ZERO = 0.0E+0 )
+      const              ZERO = 0.0E+0 ;
       REAL               ONE
-      PARAMETER          ( ONE = 1.0E+0 )
+      const              ONE = 1.0E+0 ;
       COMPLEX            CZERO
-      PARAMETER          ( CZERO = ( 0.0E+0, 0.0E+0 ) )
+      const              CZERO = ( 0.0E+0, 0.0E+0 ) ;
       REAL               TWOPI
-      PARAMETER  ( TWOPI = 6.28318530717958647692528676655900576839E+0 )
+      const      TWOPI = 6.28318530717958647692528676655900576839E+0 ;
       // ..
       // .. Local Scalars ..
       bool               CSYM, GIVENS, ILEXTR, ILTEMP, TOPDWN;

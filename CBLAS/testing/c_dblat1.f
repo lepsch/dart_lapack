@@ -4,7 +4,7 @@
       // F06EAF Example Program Text
       // .. Parameters ..
       int              NOUT;
-      PARAMETER        (NOUT=6)
+      const            NOUT=6;
       // .. Scalars in Common ..
       int              ICASE, INCX, INCY, MODE, N;
       bool             PASS;
@@ -52,7 +52,7 @@
       SUBROUTINE HEADER
       // .. Parameters ..
       int              NOUT;
-      PARAMETER        (NOUT=6)
+      const            NOUT=6;
       // .. Scalars in Common ..
       int              ICASE, INCX, INCY, MODE, N;
       bool             PASS;
@@ -80,7 +80,7 @@
       SUBROUTINE CHECK0(SFAC)
       // .. Parameters ..
       int               NOUT;
-      PARAMETER         (NOUT=6)
+      const             NOUT=6;
       // .. Scalar Arguments ..
       double            SFAC;
       // .. Scalars in Common ..
@@ -129,7 +129,7 @@
       SUBROUTINE CHECK1(SFAC)
       // .. Parameters ..
       int               NOUT;
-      PARAMETER         (NOUT=6)
+      const             NOUT=6;
       // .. Scalar Arguments ..
       double            SFAC;
       // .. Scalars in Common ..
@@ -195,7 +195,7 @@
       SUBROUTINE CHECK2(SFAC)
       // .. Parameters ..
       int               NOUT;
-      PARAMETER         (NOUT=6)
+      const             NOUT=6;
       // .. Scalar Arguments ..
       double            SFAC;
       // .. Scalars in Common ..
@@ -282,7 +282,7 @@
       SUBROUTINE CHECK3(SFAC)
       // .. Parameters ..
       int               NOUT;
-      PARAMETER         (NOUT=6)
+      const             NOUT=6;
       // .. Scalar Arguments ..
       double            SFAC;
       // .. Scalars in Common ..
@@ -447,7 +447,7 @@
 
       // .. Parameters ..
       int              NOUT;
-      PARAMETER        (NOUT=6)
+      const            NOUT=6;
       // .. Scalar Arguments ..
       double           SFAC;
       int              LEN;
@@ -534,7 +534,7 @@
 
       // .. Parameters ..
       int               NOUT;
-      PARAMETER         (NOUT=6)
+      const             NOUT=6;
       // .. Scalar Arguments ..
       int               ICOMP, ITRUE;
       // .. Scalars in Common ..

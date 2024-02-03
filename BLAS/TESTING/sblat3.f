@@ -8,15 +8,15 @@
 
       // .. Parameters ..
       int                NIN;
-      PARAMETER          ( NIN = 5 )
+      const              NIN = 5 ;
       int                NSUBS;
-      PARAMETER          ( NSUBS = 6 )
+      const              NSUBS = 6 ;
       REAL               ZERO, ONE
-      PARAMETER          ( ZERO = 0.0, ONE = 1.0 )
+      const              ZERO = 0.0, ONE = 1.0 ;
       int                NMAX;
-      PARAMETER          ( NMAX = 65 )
+      const              NMAX = 65 ;
       int                NIDMAX, NALMAX, NBEMAX;
-      PARAMETER          ( NIDMAX = 9, NALMAX = 7, NBEMAX = 7 )
+      const              NIDMAX = 9, NALMAX = 7, NBEMAX = 7 ;
       // .. Local Scalars ..
       REAL               EPS, ERR, THRESH
       int                I, ISNUM, J, N, NALF, NBET, NIDIM, NOUT, NTRA;
@@ -305,7 +305,7 @@
 
       // .. Parameters ..
       REAL               ZERO
-      PARAMETER          ( ZERO = 0.0 )
+      const              ZERO = 0.0 ;
       // .. Scalar Arguments ..
       REAL               EPS, THRESH
       int                NALF, NBET, NIDIM, NMAX, NOUT, NTRA;
@@ -556,7 +556,7 @@
 
       // .. Parameters ..
       REAL               ZERO
-      PARAMETER          ( ZERO = 0.0 )
+      const              ZERO = 0.0 ;
       // .. Scalar Arguments ..
       REAL               EPS, THRESH
       int                NALF, NBET, NIDIM, NMAX, NOUT, NTRA;
@@ -794,7 +794,7 @@
 
       // .. Parameters ..
       REAL               ZERO, ONE
-      PARAMETER          ( ZERO = 0.0, ONE = 1.0 )
+      const              ZERO = 0.0, ONE = 1.0 ;
       // .. Scalar Arguments ..
       REAL               EPS, THRESH
       int                NALF, NIDIM, NMAX, NOUT, NTRA;
@@ -1050,7 +1050,7 @@
 
       // .. Parameters ..
       REAL               ZERO
-      PARAMETER          ( ZERO = 0.0 )
+      const              ZERO = 0.0 ;
       // .. Scalar Arguments ..
       REAL               EPS, THRESH
       int                NALF, NBET, NIDIM, NMAX, NOUT, NTRA;
@@ -1291,7 +1291,7 @@
 
       // .. Parameters ..
       REAL               ZERO
-      PARAMETER          ( ZERO = 0.0 )
+      const              ZERO = 0.0 ;
       // .. Scalar Arguments ..
       REAL               EPS, THRESH
       int                NALF, NBET, NIDIM, NMAX, NOUT, NTRA;
@@ -1572,7 +1572,7 @@
       bool               LERR, OK;
       // .. Parameters ..
       REAL               ONE, TWO
-      PARAMETER          ( ONE = 1.0E0, TWO = 2.0E0 )
+      const              ONE = 1.0E0, TWO = 2.0E0 ;
       // .. Local Scalars ..
       REAL               ALPHA, BETA
       // .. Local Arrays ..
@@ -2119,9 +2119,9 @@
 
       // .. Parameters ..
       REAL               ZERO, ONE
-      PARAMETER          ( ZERO = 0.0, ONE = 1.0 )
+      const              ZERO = 0.0, ONE = 1.0 ;
       REAL               ROGUE
-      PARAMETER          ( ROGUE = -1.0E10 )
+      const              ROGUE = -1.0E10 ;
       // .. Scalar Arguments ..
       REAL               TRANSL
       int                LDA, M, N, NMAX;
@@ -2222,7 +2222,7 @@
 
       // .. Parameters ..
       REAL               ZERO, ONE
-      PARAMETER          ( ZERO = 0.0, ONE = 1.0 )
+      const              ZERO = 0.0, ONE = 1.0 ;
       // .. Scalar Arguments ..
       REAL               ALPHA, BETA, EPS, ERR
       int                KK, LDA, LDB, LDC, LDCC, M, N, NOUT;

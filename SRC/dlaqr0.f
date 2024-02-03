@@ -20,26 +20,26 @@
       // .    DLAHQR because of insufficient subdiagonal scratch space.
       // .    (This is a hard limit.) ====
       int                NTINY;
-      PARAMETER          ( NTINY = 15 )
+      const              NTINY = 15 ;
 
       // ==== Exceptional deflation windows:  try to cure rare
       // .    slow convergence by varying the size of the
       // .    deflation window after KEXNW iterations. ====
       int                KEXNW;
-      PARAMETER          ( KEXNW = 5 )
+      const              KEXNW = 5 ;
 
       // ==== Exceptional shifts: try to cure rare slow convergence
       // .    with ad-hoc exceptional shifts every KEXSH iterations.
       // .    ====
       int                KEXSH;
-      PARAMETER          ( KEXSH = 6 )
+      const              KEXSH = 6 ;
 
       // ==== The constants WILK1 and WILK2 are used to form the
       // .    exceptional shifts. ====
       double             WILK1, WILK2;
-      PARAMETER          ( WILK1 = 0.75d0, WILK2 = -0.4375d0 )
+      const              WILK1 = 0.75d0, WILK2 = -0.4375d0 ;
       double             ZERO, ONE;
-      PARAMETER          ( ZERO = 0.0d0, ONE = 1.0d0 )
+      const              ZERO = 0.0d0, ONE = 1.0d0 ;
       // ..
       // .. Local Scalars ..
       double             AA, BB, CC, CS, DD, SN, SS, SWAP;

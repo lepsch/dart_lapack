@@ -16,11 +16,11 @@
 
       // .. Parameters ..
       double             ZERO, ONE;
-      PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
+      const              ZERO = 0.0D+0, ONE = 1.0D+0 ;
       double             TEN;
-      PARAMETER          ( TEN = 1.0D+1 )
+      const              TEN = 1.0D+1 ;
       int                LDD, LDX;
-      PARAMETER          ( LDD = 4, LDX = 2 )
+      const              LDD = 4, LDX = 2 ;
       // ..
       // .. Local Scalars ..
       int                IERR, J2, J3, J4, K, ND;

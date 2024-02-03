@@ -20,17 +20,17 @@
 
       // .. Parameters ..
       double             ZERO, ONE;
-      PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
+      const              ZERO = 0.0D+0, ONE = 1.0D+0 ;
       double             ONEHALF;
-      PARAMETER          ( ONEHALF = 0.5D+0 )
+      const              ONEHALF = 0.5D+0 ;
       double             EIGHT, SEVTEN;
-      PARAMETER          ( EIGHT = 8.0D+0, SEVTEN = 17.0D+0 )
+      const              EIGHT = 8.0D+0, SEVTEN = 17.0D+0 ;
       COMPLEX*16         CZERO
-      PARAMETER          ( CZERO = ( 0.0D+0, 0.0D+0 ) )
+      const              CZERO = ( 0.0D+0, 0.0D+0 ) ;
       int                NTYPES;
-      PARAMETER          ( NTYPES = 11 )
+      const              NTYPES = 11 ;
       int                NTESTS;
-      PARAMETER          ( NTESTS = 7 )
+      const              NTESTS = 7 ;
       // ..
       // .. Local Scalars ..
       bool               TRFCON, ZEROT;

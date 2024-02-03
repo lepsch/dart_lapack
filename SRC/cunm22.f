@@ -18,7 +18,7 @@
 
       // .. Parameters ..
       COMPLEX            ONE
-      PARAMETER          ( ONE = ( 1.0E+0, 0.0E+0 ) )
+      const              ONE = ( 1.0E+0, 0.0E+0 ) ;
 
       // .. Local Scalars ..
       bool               LEFT, LQUERY, NOTRAN;

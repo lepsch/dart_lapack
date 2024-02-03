@@ -17,9 +17,9 @@
       // .. Parameters ..
       COMPLEX            ONE, NEGONE
       REAL               ZERO
-      PARAMETER          ( ONE = (1.0E+0, 0.0E+0) )
-      PARAMETER          ( NEGONE = (-1.0E+0, 0.0E+0) )
-      PARAMETER          ( ZERO = 0.0E+0 )
+      const              ONE = (1.0E+0, 0.0E+0) ;
+      const              NEGONE = (-1.0E+0, 0.0E+0) ;
+      const              ZERO = 0.0E+0 ;
       // ..
       // .. Local Scalars ..
       REAL               SFMIN, PIVMAG

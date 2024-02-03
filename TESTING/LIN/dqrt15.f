@@ -17,7 +17,7 @@
 
       // .. Parameters ..
       double             ZERO, ONE, TWO, SVMIN;
-      PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0, TWO = 2.0D0, SVMIN = 0.1D0 )
+      const              ZERO = 0.0D0, ONE = 1.0D0, TWO = 2.0D0, SVMIN = 0.1D0 ;
       // ..
       // .. Local Scalars ..
       int                INFO, J, MN;

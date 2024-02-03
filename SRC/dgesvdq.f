@@ -13,7 +13,7 @@
 
       // .. Parameters ..
       double           ZERO,         ONE;
-      PARAMETER      ( ZERO = 0.0D0, ONE = 1.0D0 )
+      const          ZERO = 0.0D0, ONE = 1.0D0 ;
       // .. Local Scalars ..
       int         IERR, IWOFF, NR, N1, OPTRATIO, p, q;
       int         LWCON, LWQP3, LWRK_DGELQF, LWRK_DGESVD, LWRK_DGESVD2, LWRK_DGEQP3,  LWRK_DGEQRF, LWRK_DORMLQ, LWRK_DORMQR, LWRK_DORMQR2, LWLQF, LWQRF, LWSVD, LWSVD2, LWORQ, LWORQ2, LWORLQ, MINWRK, MINWRK2, OPTWRK, OPTWRK2, IMINWRK, RMINWRK;

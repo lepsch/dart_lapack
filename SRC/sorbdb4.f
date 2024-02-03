@@ -16,7 +16,7 @@
 
       // .. Parameters ..
       REAL               NEGONE, ONE, ZERO
-      PARAMETER          ( NEGONE = -1.0E0, ONE = 1.0E0, ZERO = 0.0E0 )
+      const              NEGONE = -1.0E0, ONE = 1.0E0, ZERO = 0.0E0 ;
       // ..
       // .. Local Scalars ..
       REAL               C, S

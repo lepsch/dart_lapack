@@ -13,15 +13,15 @@
 
       // .. Parameters ..
       double             ZERO, ONE, TEN;
-      PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D+0, TEN = 1.0D1 )
+      const              ZERO = 0.0D0, ONE = 1.0D+0, TEN = 1.0D1 ;
       COMPLEX*16         CZERO
-      PARAMETER          ( CZERO = ( 0.0D0, 0.0D0 ) )
+      const              CZERO = ( 0.0D0, 0.0D0 ) ;
       COMPLEX*16         CONE
-      PARAMETER          ( CONE = ( 1.0D0, 0.0D0 ) )
+      const              CONE = ( 1.0D0, 0.0D0 ) ;
       int                NSZ, NSZB;
-      PARAMETER          ( NSZ = 5, NSZB = 3*NSZ-2 )
+      const              NSZ = 5, NSZB = 3*NSZ-2 ;
       int                NSZP, NPOW;
-      PARAMETER          ( NSZP = ( NSZ*( NSZ+1 ) ) / 2, NPOW = 2*NSZ+1 )
+      const              NSZP = ( NSZ*( NSZ+1 ) ) / 2, NPOW = 2*NSZ+1 ;
       // ..
       // .. Local Scalars ..
       bool               OK;

@@ -17,7 +17,7 @@
 
       // .. Parameters ..
       REAL               ZERO
-      PARAMETER          ( ZERO = 0.0E+0 )
+      const              ZERO = 0.0E+0 ;
       // ..
       // .. Local Scalars ..
       int                K;

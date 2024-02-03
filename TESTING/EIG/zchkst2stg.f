@@ -19,17 +19,17 @@
 
       // .. Parameters ..
       double             ZERO, ONE, TWO, EIGHT, TEN, HUN;
-      PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0, TWO = 2.0D0, EIGHT = 8.0D0, TEN = 10.0D0, HUN = 100.0D0 )
+      const              ZERO = 0.0D0, ONE = 1.0D0, TWO = 2.0D0, EIGHT = 8.0D0, TEN = 10.0D0, HUN = 100.0D0 ;
       COMPLEX*16         CZERO, CONE
-      PARAMETER          ( CZERO = ( 0.0D+0, 0.0D+0 ), CONE = ( 1.0D+0, 0.0D+0 ) )
+      const              CZERO = ( 0.0D+0, 0.0D+0 ), CONE = ( 1.0D+0, 0.0D+0 ) ;
       double             HALF;
-      PARAMETER          ( HALF = ONE / TWO )
+      const              HALF = ONE / TWO ;
       int                MAXTYP;
-      PARAMETER          ( MAXTYP = 21 )
+      const              MAXTYP = 21 ;
       bool               CRANGE;
-      PARAMETER          ( CRANGE = .FALSE. )
+      const              CRANGE = .FALSE. ;
       bool               CREL;
-      PARAMETER          ( CREL = .FALSE. )
+      const              CREL = .FALSE. ;
       // ..
       // .. Local Scalars ..
       bool               BADNN, TRYRAC;

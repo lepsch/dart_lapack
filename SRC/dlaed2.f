@@ -16,7 +16,7 @@
 
       // .. Parameters ..
       double             MONE, ZERO, ONE, TWO, EIGHT;
-      PARAMETER          ( MONE = -1.0D0, ZERO = 0.0D0, ONE = 1.0D0, TWO = 2.0D0, EIGHT = 8.0D0 )
+      const              MONE = -1.0D0, ZERO = 0.0D0, ONE = 1.0D0, TWO = 2.0D0, EIGHT = 8.0D0 ;
       // ..
       // .. Local Arrays ..
       int                CTOT( 4 ), PSM( 4 );

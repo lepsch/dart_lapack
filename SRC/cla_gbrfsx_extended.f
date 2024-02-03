@@ -25,17 +25,17 @@
       // ..
       // .. Parameters ..
       int                UNSTABLE_STATE, WORKING_STATE, CONV_STATE, NOPROG_STATE, BASE_RESIDUAL, EXTRA_RESIDUAL, EXTRA_Y;
-      PARAMETER          ( UNSTABLE_STATE = 0, WORKING_STATE = 1, CONV_STATE = 2, NOPROG_STATE = 3 )       PARAMETER          ( BASE_RESIDUAL = 0, EXTRA_RESIDUAL = 1, EXTRA_Y = 2 )
+      const              UNSTABLE_STATE = 0, WORKING_STATE = 1, CONV_STATE = 2, NOPROG_STATE = 3 )       PARAMETER          ( BASE_RESIDUAL = 0, EXTRA_RESIDUAL = 1, EXTRA_Y = 2 ;
       int                FINAL_NRM_ERR_I, FINAL_CMP_ERR_I, BERR_I;
       int                RCOND_I, NRM_RCOND_I, NRM_ERR_I, CMP_RCOND_I;
       int                CMP_ERR_I, PIV_GROWTH_I;
-      PARAMETER          ( FINAL_NRM_ERR_I = 1, FINAL_CMP_ERR_I = 2, BERR_I = 3 )
-      PARAMETER          ( RCOND_I = 4, NRM_RCOND_I = 5, NRM_ERR_I = 6 )
+      const              FINAL_NRM_ERR_I = 1, FINAL_CMP_ERR_I = 2, BERR_I = 3 ;
+      const              RCOND_I = 4, NRM_RCOND_I = 5, NRM_ERR_I = 6 ;
       PARAMETER          ( CMP_RCOND_I = 7, CMP_ERR_I = 8, PIV_GROWTH_I = 9 )       int                LA_LINRX_ITREF_I, LA_LINRX_ITHRESH_I, LA_LINRX_CWISE_I       PARAMETER          ( LA_LINRX_ITREF_I = 1, LA_LINRX_ITHRESH_I = 2 );
-      PARAMETER          ( LA_LINRX_CWISE_I = 3 )
+      const              LA_LINRX_CWISE_I = 3 ;
       int                LA_LINRX_TRUST_I, LA_LINRX_ERR_I, LA_LINRX_RCOND_I;
-      PARAMETER          ( LA_LINRX_TRUST_I = 1, LA_LINRX_ERR_I = 2 )
-      PARAMETER          ( LA_LINRX_RCOND_I = 3 )
+      const              LA_LINRX_TRUST_I = 1, LA_LINRX_ERR_I = 2 ;
+      const              LA_LINRX_RCOND_I = 3 ;
       // ..
       // .. External Subroutines ..
       // EXTERNAL CAXPY, CCOPY, CGBTRS, CGBMV, BLAS_CGBMV_X, BLAS_CGBMV2_X, CLA_GBAMV, CLA_WWADDW, SLAMCH, CHLA_TRANSTYPE, CLA_LIN_BERR

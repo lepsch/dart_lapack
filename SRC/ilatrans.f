@@ -12,7 +12,7 @@
 
       // .. Parameters ..
       int     BLAS_NO_TRANS, BLAS_TRANS, BLAS_CONJ_TRANS;
-      PARAMETER ( BLAS_NO_TRANS = 111, BLAS_TRANS = 112, BLAS_CONJ_TRANS = 113 )
+      const     BLAS_NO_TRANS = 111, BLAS_TRANS = 112, BLAS_CONJ_TRANS = 113 ;
       // ..
       // .. External Functions ..
       bool               LSAME;

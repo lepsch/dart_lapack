@@ -18,7 +18,7 @@
 
       // .. Parameters ..
       double             ZERO, ONE, TEN, TNTH, HALF;
-      PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0, TEN = 1.0D+1, TNTH = 1.0D-1, HALF = 0.5D+0 )
+      const              ZERO = 0.0D+0, ONE = 1.0D+0, TEN = 1.0D+1, TNTH = 1.0D-1, HALF = 0.5D+0 ;
       // ..
       // .. Local Scalars ..
       int                I, IPTYPE, IWA, IWB, IWX, IWY, J, LINFO, MAXWRK, MINWRK, N, NERRS, NMAX, NPTKNT, NTESTT       double             ABNORM, ANORM, BNORM, RATIO1, RATIO2, THRSH2, ULP, ULPINV;;

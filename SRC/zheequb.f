@@ -18,9 +18,9 @@
 
       // .. Parameters ..
       double             ONE, ZERO;
-      PARAMETER          ( ONE = 1.0D0, ZERO = 0.0D0 )
+      const              ONE = 1.0D0, ZERO = 0.0D0 ;
       int                MAX_ITER;
-      PARAMETER          ( MAX_ITER = 100 )
+      const              MAX_ITER = 100 ;
       // ..
       // .. Local Scalars ..
       int                I, J, ITER;

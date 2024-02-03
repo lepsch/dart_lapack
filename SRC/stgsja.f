@@ -17,9 +17,9 @@
 
       // .. Parameters ..
       int                MAXIT;
-      PARAMETER          ( MAXIT = 40 )
+      const              MAXIT = 40 ;
       REAL               ZERO, ONE, HUGENUM
-      PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0 )
+      const              ZERO = 0.0E+0, ONE = 1.0E+0 ;
       // ..
       // .. Local Scalars ..
 
@@ -36,7 +36,7 @@
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, MIN, HUGE
-      PARAMETER          ( HUGENUM = HUGE(ZERO) )
+      const              HUGENUM = HUGE(ZERO) ;
       // ..
       // .. Executable Statements ..
 

@@ -16,9 +16,9 @@
 
       // .. Parameters ..
       REAL               ZERO, ONE, TWO
-      PARAMETER          ( ZERO = 0.0E0, ONE = 1.0E0, TWO = 2.0E0 )
+      const              ZERO = 0.0E0, ONE = 1.0E0, TWO = 2.0E0 ;
       REAL               HALF, FOUR
-      PARAMETER          ( HALF = 0.5E0, FOUR = 4.0E0 )
+      const              HALF = 0.5E0, FOUR = 4.0E0 ;
       // ..
       // .. Local Scalars ..
       REAL               ABSALP, ABSEST, ABSGAM, ALPHA, B, COSINE, EPS, NORMA, S1, S2, SINE, T, TEST, TMP, ZETA1, ZETA2

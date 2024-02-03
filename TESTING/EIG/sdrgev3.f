@@ -18,9 +18,9 @@
 
       // .. Parameters ..
       REAL               ZERO, ONE
-      PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0 )
+      const              ZERO = 0.0E+0, ONE = 1.0E+0 ;
       int                MAXTYP;
-      PARAMETER          ( MAXTYP = 26 )
+      const              MAXTYP = 26 ;
       // ..
       // .. Local Scalars ..
       bool               BADNN;

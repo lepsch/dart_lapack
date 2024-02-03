@@ -13,9 +13,9 @@
 
       // .. Parameters ..
       REAL               ZERO, ONE
-      PARAMETER          ( ZERO = 0.0E0, ONE = 1.0E0 )
+      const              ZERO = 0.0E0, ONE = 1.0E0 ;
       REAL               TWO, FOUR
-      PARAMETER          ( TWO = 2.0E0, FOUR = 4.0E0 )
+      const              TWO = 2.0E0, FOUR = 4.0E0 ;
       // ..
       // .. Local Scalars ..
       int                I1, I2, I3, I4, IM1, IM2, IM3, IM4, J1, J2, J3;

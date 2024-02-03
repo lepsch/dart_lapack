@@ -15,9 +15,9 @@
 
       // .. Parameters ..
       double             ONE, TWO;
-      PARAMETER          ( ONE = 1.0D+0, TWO = 2.0D+0 )
+      const              ONE = 1.0D+0, TWO = 2.0D+0 ;
       double             TWOPI;
-      PARAMETER  ( TWOPI = 6.28318530717958647692528676655900576839D+0 )
+      const      TWOPI = 6.28318530717958647692528676655900576839D+0 ;
       // ..
       // .. Local Scalars ..
       double             T1, T2;

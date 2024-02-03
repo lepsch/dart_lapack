@@ -17,9 +17,9 @@
 
       // .. Parameters ..
       REAL               ZERO, ONE
-      PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0 )
+      const              ZERO = 0.0E+0, ONE = 1.0E+0 ;
       REAL               TWO, HALF, EIGHT
-      PARAMETER          ( TWO = 2.0E+0, HALF = 0.5E+0, EIGHT = 8.0E+0 )
+      const              TWO = 2.0E+0, HALF = 0.5E+0, EIGHT = 8.0E+0 ;
       // ..
       // .. Local Scalars ..
       bool               BSWAP, XSWAP;

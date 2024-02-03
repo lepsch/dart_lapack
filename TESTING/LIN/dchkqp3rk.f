@@ -18,11 +18,11 @@
 
       // .. Parameters ..
       int                NTYPES;
-      PARAMETER          ( NTYPES = 19 )
+      const              NTYPES = 19 ;
       int                NTESTS;
-      PARAMETER          ( NTESTS = 5 )
+      const              NTESTS = 5 ;
       double             ONE, ZERO, BIGNUM;
-      PARAMETER          ( ONE = 1.0D+0, ZERO = 0.0D+0, BIGNUM = 1.0D+38 )
+      const              ONE = 1.0D+0, ZERO = 0.0D+0, BIGNUM = 1.0D+38 ;
       // ..
       // .. Local Scalars ..
       String             DIST, TYPE;

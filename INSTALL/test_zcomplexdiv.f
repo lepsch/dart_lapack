@@ -6,13 +6,13 @@
       // ..
       // .. Local parameters ..
       bool              debug;
-      parameter       ( debug = .false. )
+      const           debug = .false. ;
       int               N, nNaN, nInf;
-      parameter       ( N = 4, nNaN = 3, nInf = 5 )
+      const           N = 4, nNaN = 3, nInf = 5 ;
       double            threeFourth, fiveFourth;
-      parameter       ( threeFourth = 3.0d0 / 4, fiveFourth = 5.0d0 / 4 )
+      const           threeFourth = 3.0d0 / 4, fiveFourth = 5.0d0 / 4 ;
       double complex    czero, cone
-      parameter       ( czero = DCMPLX( 0.0d0, 0.0d0 ), cone  = DCMPLX( 1.0d0, 0.0d0 ) )
+      const           czero = DCMPLX( 0.0d0, 0.0d0 ), cone  = DCMPLX( 1.0d0, 0.0d0 ) ;
       // ..
       // .. Local Variables ..
       int               i, min, Max, m, subnormalTreatedAs0, caseAFails, caseBFails, caseCFails, caseDFails, caseEFails, caseFFails, caseInfFails, caseNaNFails, nFailingTests, nTests;

@@ -20,9 +20,9 @@
 
       // .. Parameters ..
       REAL               ZERO, ONE
-      PARAMETER          ( ZERO = 0.0E0, ONE = 1.0E0 )
+      const              ZERO = 0.0E0, ONE = 1.0E0 ;
       COMPLEX            CONE
-      PARAMETER          ( CONE = ( 1.0E0, 0.0E0 ) )
+      const              CONE = ( 1.0E0, 0.0E0 ) ;
       // ..
       // .. Local Scalars ..
       bool               LOWER, LQUERY, WANTZ;

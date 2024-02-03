@@ -16,7 +16,7 @@
 
       // .. Parameters ..
       REAL               TWO, ONE, ZERO
-      PARAMETER          ( TWO = 2.0E+0, ONE = 1.0E+0, ZERO = 0.0E+0 )
+      const              TWO = 2.0E+0, ONE = 1.0E+0, ZERO = 0.0E+0 ;
       // ..
       // .. Local Scalars ..
       int                J, KNT;

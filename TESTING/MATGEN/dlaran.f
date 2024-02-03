@@ -12,12 +12,12 @@
 
       // .. Parameters ..
       int                M1, M2, M3, M4;
-      PARAMETER          ( M1 = 494, M2 = 322, M3 = 2508, M4 = 2549 )
+      const              M1 = 494, M2 = 322, M3 = 2508, M4 = 2549 ;
       double             ONE;
-      PARAMETER          ( ONE = 1.0D+0 )
+      const              ONE = 1.0D+0 ;
       int                IPW2;
       double             R;
-      PARAMETER          ( IPW2 = 4096, R = ONE / IPW2 )
+      const              IPW2 = 4096, R = ONE / IPW2 ;
       // ..
       // .. Local Scalars ..
       int                IT1, IT2, IT3, IT4;

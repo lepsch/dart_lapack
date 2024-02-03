@@ -15,9 +15,9 @@
 
       // .. Parameters ..
       REAL               ONE
-      PARAMETER          ( ONE = 1.0E0 )
+      const              ONE = 1.0E0 ;
       REAL               ROGUE
-      PARAMETER          ( ROGUE = -1.0E+10 )
+      const              ROGUE = -1.0E+10 ;
       // ..
       // .. Local Scalars ..
       String             SIDE, TRANS;

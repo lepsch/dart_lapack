@@ -17,9 +17,9 @@
 
       // .. Parameters ..
       int                MAXITR;
-      PARAMETER          ( MAXITR = 10 )
+      const              MAXITR = 10 ;
       double             ZERO, ONE, TWO, THREE, FOUR, HALF;
-      PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0, TWO = 2.0D0, THREE = 3.0D0, FOUR = 4.0D0, HALF = 0.5D0)
+      const              ZERO = 0.0D0, ONE = 1.0D0, TWO = 2.0D0, THREE = 3.0D0, FOUR = 4.0D0, HALF = 0.5D0;
       // ..
       // .. Local Scalars ..
       bool               ESKIP, NEEDBS, STP2II, TRYRQC, USEDBS, USEDRQ;

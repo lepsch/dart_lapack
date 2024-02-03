@@ -17,11 +17,11 @@
 
       // .. Parameters ..
       double             ZERO, ONE, TWO, THREE;
-      PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0, TWO = 2.0D0, THREE = 3.0D0 )
+      const              ZERO = 0.0D0, ONE = 1.0D0, TWO = 2.0D0, THREE = 3.0D0 ;
       COMPLEX*16         CZERO, CONE
-      PARAMETER          ( CZERO = ( 0.0D0, 0.0D0 ), CONE = ( 1.0D0, 0.0D0 ) )
+      const              CZERO = ( 0.0D0, 0.0D0 ), CONE = ( 1.0D0, 0.0D0 ) ;
       int                MAXIT;
-      PARAMETER          ( MAXIT = 30 )
+      const              MAXIT = 30 ;
       // ..
       // .. Local Scalars ..
       int                I, ICOMPZ, II, ISCALE, J, JTOT, K, L, L1, LEND, LENDM1, LENDP1, LENDSV, LM1, LSV, M, MM, MM1, NM1, NMAXIT;

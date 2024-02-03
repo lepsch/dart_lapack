@@ -12,15 +12,15 @@
 
       // .. Parameters ..
       REAL               ZERO
-      PARAMETER          ( ZERO = 0.0E0 )
+      const              ZERO = 0.0E0 ;
       REAL               ONE
-      PARAMETER          ( ONE = 1.0E0 )
+      const              ONE = 1.0E0 ;
       COMPLEX            CONE
-      PARAMETER          ( CONE = ( 1.0E0, 0.0E0 ) )
+      const              CONE = ( 1.0E0, 0.0E0 ) ;
       REAL               HALF
-      PARAMETER          ( HALF = 0.5E0 )
+      const              HALF = 0.5E0 ;
       REAL               THRESH
-      PARAMETER          ( THRESH = 0.1E0 )
+      const              THRESH = 0.1E0 ;
       // ..
       // .. Local Scalars ..
       REAL               BABS, EVNORM, TABS, Z

@@ -18,9 +18,9 @@
 
       // .. Parameters ..
       double             ZERO, ONE, TEN, HNDRD, MEIGTH;
-      PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0, TEN = 10.0D0, HNDRD = 100.0D0, MEIGTH = -0.1250D0 )
+      const              ZERO = 0.0D0, ONE = 1.0D0, TEN = 10.0D0, HNDRD = 100.0D0, MEIGTH = -0.1250D0 ;
       double             FUDGE;
-      PARAMETER          ( FUDGE = 2.0D0 )
+      const              FUDGE = 2.0D0 ;
       // ..
       // .. Local Scalars ..
       String             RNGVX;

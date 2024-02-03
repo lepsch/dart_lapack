@@ -16,7 +16,7 @@
 
       // .. Parameters ..
       double             ZERO;
-      PARAMETER          ( ZERO = 0.0d0 )
+      const              ZERO = 0.0d0 ;
       // ..
       // .. Local Scalars ..
       double             H21S, H31S, S;

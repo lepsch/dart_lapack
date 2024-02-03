@@ -15,7 +15,7 @@
 
       // .. Parameters ..
       REAL               TWO
-      PARAMETER          ( TWO = 2.0E+0 )
+      const              TWO = 2.0E+0 ;
       // ..
       // .. Local Scalars ..
       int                I, IL, IR, LLST, MAXN, NCRNT, NLVL;

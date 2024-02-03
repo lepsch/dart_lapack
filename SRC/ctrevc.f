@@ -18,9 +18,9 @@
 
       // .. Parameters ..
       REAL               ZERO, ONE
-      PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0 )
+      const              ZERO = 0.0E+0, ONE = 1.0E+0 ;
       COMPLEX            CMZERO, CMONE
-      PARAMETER          ( CMZERO = ( 0.0E+0, 0.0E+0 ), CMONE = ( 1.0E+0, 0.0E+0 ) )
+      const              CMZERO = ( 0.0E+0, 0.0E+0 ), CMONE = ( 1.0E+0, 0.0E+0 ) ;
       // ..
       // .. Local Scalars ..
       bool               ALLV, BOTHV, LEFTV, OVER, RIGHTV, SOMEV;

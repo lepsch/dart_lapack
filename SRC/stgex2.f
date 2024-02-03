@@ -18,13 +18,13 @@
 
       // .. Parameters ..
       REAL               ZERO, ONE
-      PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0 )
+      const              ZERO = 0.0E+0, ONE = 1.0E+0 ;
       REAL               TWENTY
-      PARAMETER          ( TWENTY = 2.0E+01 )
+      const              TWENTY = 2.0E+01 ;
       int                LDST;
-      PARAMETER          ( LDST = 4 )
+      const              LDST = 4 ;
       bool               WANDS;
-      PARAMETER          ( WANDS = .TRUE. )
+      const              WANDS = .TRUE. ;
       // ..
       // .. Local Scalars ..
       bool               STRONG, WEAK;

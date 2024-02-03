@@ -13,7 +13,7 @@
 
       // .. Parameters ..
       double             ZERO;
-      PARAMETER          ( ZERO = 0.0D+0 )
+      const              ZERO = 0.0D+0 ;
       // ..
       // .. Local Scalars ..
       double             A, AUA11, AUA12, AUA21, AUA22, AVB11, AVB12, AVB21, AVB22, B, C, CSL, CSR, D, R, S1, S2, SNL, SNR, UA11, UA11R, UA12, UA21, UA22, UA22R, VB11, VB11R, VB12, VB21, VB22, VB22R;

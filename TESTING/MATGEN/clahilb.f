@@ -27,7 +27,7 @@
                    // a small componentwise relative error.
       // ??? complex uses how many bits ???
       int     NMAX_EXACT, NMAX_APPROX, SIZE_D;
-      PARAMETER (NMAX_EXACT = 6, NMAX_APPROX = 11, SIZE_D = 8)
+      const     NMAX_EXACT = 6, NMAX_APPROX = 11, SIZE_D = 8;
 
       // d's are generated from random permutation of those eight elements.
       COMPLEX D1(8), D2(8), INVD1(8), INVD2(8)

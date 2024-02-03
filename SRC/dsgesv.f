@@ -17,16 +17,16 @@
 
       // .. Parameters ..
       bool               DOITREF;
-      PARAMETER          ( DOITREF = .TRUE. )
+      const              DOITREF = .TRUE. ;
 
       int                ITERMAX;
-      PARAMETER          ( ITERMAX = 30 )
+      const              ITERMAX = 30 ;
 
       double             BWDMAX;
-      PARAMETER          ( BWDMAX = 1.0E+00 )
+      const              BWDMAX = 1.0E+00 ;
 
       double             NEGONE, ONE;
-      PARAMETER          ( NEGONE = -1.0D+0, ONE = 1.0D+0 )
+      const              NEGONE = -1.0D+0, ONE = 1.0D+0 ;
 
       // .. Local Scalars ..
       int                I, IITER, PTSA, PTSX;

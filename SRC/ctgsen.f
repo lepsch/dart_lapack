@@ -20,9 +20,9 @@
 
       // .. Parameters ..
       int                IDIFJB;
-      PARAMETER          ( IDIFJB = 3 )
+      const              IDIFJB = 3 ;
       REAL               ZERO, ONE
-      PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0 )
+      const              ZERO = 0.0E+0, ONE = 1.0E+0 ;
       // ..
       // .. Local Scalars ..
       bool               LQUERY, SWAP, WANTD, WANTD1, WANTD2, WANTP;

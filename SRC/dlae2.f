@@ -12,13 +12,13 @@
 
       // .. Parameters ..
       double             ONE;
-      PARAMETER          ( ONE = 1.0D0 )
+      const              ONE = 1.0D0 ;
       double             TWO;
-      PARAMETER          ( TWO = 2.0D0 )
+      const              TWO = 2.0D0 ;
       double             ZERO;
-      PARAMETER          ( ZERO = 0.0D0 )
+      const              ZERO = 0.0D0 ;
       double             HALF;
-      PARAMETER          ( HALF = 0.5D0 )
+      const              HALF = 0.5D0 ;
       // ..
       // .. Local Scalars ..
       double             AB, ACMN, ACMX, ADF, DF, RT, SM, TB;

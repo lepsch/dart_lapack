@@ -16,9 +16,9 @@
 
       // .. Parameters ..
       REAL               ZERO, ONE
-      PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0 )
+      const              ZERO = 0.0E+0, ONE = 1.0E+0 ;
       COMPLEX            ROGUE
-      PARAMETER          ( ROGUE = ( -1.0E+10, -1.0E+10 ) )
+      const              ROGUE = ( -1.0E+10, -1.0E+10 ) ;
       // ..
       // .. Local Scalars ..
       int                INFO;

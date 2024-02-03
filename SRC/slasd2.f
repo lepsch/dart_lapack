@@ -16,7 +16,7 @@
 
       // .. Parameters ..
       REAL               ZERO, ONE, TWO, EIGHT
-      PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0, TWO = 2.0E+0, EIGHT = 8.0E+0 )
+      const              ZERO = 0.0E+0, ONE = 1.0E+0, TWO = 2.0E+0, EIGHT = 8.0E+0 ;
       // ..
       // .. Local Arrays ..
       int                CTOT( 4 ), PSM( 4 );

@@ -20,11 +20,11 @@
 
       // .. Parameters ..
       double             ZERO;
-      PARAMETER          ( ZERO = 0.0D+0 )
+      const              ZERO = 0.0D+0 ;
       int                NTYPES;
-      PARAMETER          ( NTYPES = 11 )
+      const              NTYPES = 11 ;
       int                NTESTS;
-      PARAMETER          ( NTESTS = 1 )
+      const              NTESTS = 1 ;
       // ..
       // .. Local Scalars ..
       bool               ZEROT;

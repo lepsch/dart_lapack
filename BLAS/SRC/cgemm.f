@@ -32,9 +32,9 @@
       // ..
       // .. Parameters ..
       COMPLEX ONE
-      PARAMETER (ONE= (1.0E+0,0.0E+0))
+      const     ONE= (1.0E+0,0.0E+0);
       COMPLEX ZERO
-      PARAMETER (ZERO= (0.0E+0,0.0E+0))
+      const     ZERO= (0.0E+0,0.0E+0);
       // ..
 
       // Set  NOTA  and  NOTB  as  true if  A  and  B  respectively are not

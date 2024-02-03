@@ -8,17 +8,17 @@
 
       // .. Parameters ..
       int                NIN;
-      PARAMETER          ( NIN = 5 )
+      const              NIN = 5 ;
       int                NSUBS;
-      PARAMETER          ( NSUBS = 9 )
+      const              NSUBS = 9 ;
       COMPLEX*16         ZERO, ONE
-      PARAMETER          ( ZERO = ( 0.0D0, 0.0D0 ), ONE = ( 1.0D0, 0.0D0 ) )
+      const              ZERO = ( 0.0D0, 0.0D0 ), ONE = ( 1.0D0, 0.0D0 ) ;
       double             RZERO;
-      PARAMETER          ( RZERO = 0.0D0 )
+      const              RZERO = 0.0D0 ;
       int                NMAX;
-      PARAMETER          ( NMAX = 65 )
+      const              NMAX = 65 ;
       int                NIDMAX, NALMAX, NBEMAX;
-      PARAMETER          ( NIDMAX = 9, NALMAX = 7, NBEMAX = 7 )
+      const              NIDMAX = 9, NALMAX = 7, NBEMAX = 7 ;
       // .. Local Scalars ..
       double             EPS, ERR, THRESH;
       int                I, ISNUM, J, N, NALF, NBET, NIDIM, NOUT, NTRA;
@@ -310,9 +310,9 @@
 
       // .. Parameters ..
       COMPLEX*16         ZERO
-      PARAMETER          ( ZERO = ( 0.0D0, 0.0D0 ) )
+      const              ZERO = ( 0.0D0, 0.0D0 ) ;
       double             RZERO;
-      PARAMETER          ( RZERO = 0.0D0 )
+      const              RZERO = 0.0D0 ;
       // .. Scalar Arguments ..
       double             EPS, THRESH;
       int                NALF, NBET, NIDIM, NMAX, NOUT, NTRA;
@@ -565,9 +565,9 @@
 
       // .. Parameters ..
       COMPLEX*16         ZERO
-      PARAMETER          ( ZERO = ( 0.0D0, 0.0D0 ) )
+      const              ZERO = ( 0.0D0, 0.0D0 ) ;
       double             RZERO;
-      PARAMETER          ( RZERO = 0.0D0 )
+      const              RZERO = 0.0D0 ;
       // .. Scalar Arguments ..
       double             EPS, THRESH;
       int                NALF, NBET, NIDIM, NMAX, NOUT, NTRA;
@@ -812,9 +812,9 @@
 
       // .. Parameters ..
       COMPLEX*16         ZERO, ONE
-      PARAMETER          ( ZERO = ( 0.0D0, 0.0D0 ), ONE = ( 1.0D0, 0.0D0 ) )
+      const              ZERO = ( 0.0D0, 0.0D0 ), ONE = ( 1.0D0, 0.0D0 ) ;
       double             RZERO;
-      PARAMETER          ( RZERO = 0.0D0 )
+      const              RZERO = 0.0D0 ;
       // .. Scalar Arguments ..
       double             EPS, THRESH;
       int                NALF, NIDIM, NMAX, NOUT, NTRA;
@@ -1073,9 +1073,9 @@
 
       // .. Parameters ..
       COMPLEX*16         ZERO
-      PARAMETER          ( ZERO = ( 0.0D0, 0.0D0 ) )
+      const              ZERO = ( 0.0D0, 0.0D0 ) ;
       double             RONE, RZERO;
-      PARAMETER          ( RONE = 1.0D0, RZERO = 0.0D0 )
+      const              RONE = 1.0D0, RZERO = 0.0D0 ;
       // .. Scalar Arguments ..
       double             EPS, THRESH;
       int                NALF, NBET, NIDIM, NMAX, NOUT, NTRA;
@@ -1362,9 +1362,9 @@
 
       // .. Parameters ..
       COMPLEX*16         ZERO, ONE
-      PARAMETER          ( ZERO = ( 0.0D0, 0.0D0 ), ONE = ( 1.0D0, 0.0D0 ) )
+      const              ZERO = ( 0.0D0, 0.0D0 ), ONE = ( 1.0D0, 0.0D0 ) ;
       double             RONE, RZERO;
-      PARAMETER          ( RONE = 1.0D0, RZERO = 0.0D0 )
+      const              RONE = 1.0D0, RZERO = 0.0D0 ;
       // .. Scalar Arguments ..
       double             EPS, THRESH;
       int                NALF, NBET, NIDIM, NMAX, NOUT, NTRA;
@@ -1689,7 +1689,7 @@
       bool               LERR, OK;
       // .. Parameters ..
       REAL               ONE, TWO
-      PARAMETER          ( ONE = 1.0D0, TWO = 2.0D0 )
+      const              ONE = 1.0D0, TWO = 2.0D0 ;
       // .. Local Scalars ..
       COMPLEX*16         ALPHA, BETA
       double             RALPHA, RBETA;
@@ -2622,13 +2622,13 @@
 
       // .. Parameters ..
       COMPLEX*16         ZERO, ONE
-      PARAMETER          ( ZERO = ( 0.0D0, 0.0D0 ), ONE = ( 1.0D0, 0.0D0 ) )
+      const              ZERO = ( 0.0D0, 0.0D0 ), ONE = ( 1.0D0, 0.0D0 ) ;
       COMPLEX*16         ROGUE
-      PARAMETER          ( ROGUE = ( -1.0D10, 1.0D10 ) )
+      const              ROGUE = ( -1.0D10, 1.0D10 ) ;
       double             RZERO;
-      PARAMETER          ( RZERO = 0.0D0 )
+      const              RZERO = 0.0D0 ;
       double             RROGUE;
-      PARAMETER          ( RROGUE = -1.0D10 )
+      const              RROGUE = -1.0D10 ;
       // .. Scalar Arguments ..
       COMPLEX*16         TRANSL
       int                LDA, M, N, NMAX;
@@ -2738,9 +2738,9 @@
 
       // .. Parameters ..
       COMPLEX*16         ZERO
-      PARAMETER          ( ZERO = ( 0.0D0, 0.0D0 ) )
+      const              ZERO = ( 0.0D0, 0.0D0 ) ;
       double             RZERO, RONE;
-      PARAMETER          ( RZERO = 0.0D0, RONE = 1.0D0 )
+      const              RZERO = 0.0D0, RONE = 1.0D0 ;
       // .. Scalar Arguments ..
       COMPLEX*16         ALPHA, BETA
       double             EPS, ERR;

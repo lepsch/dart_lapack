@@ -33,9 +33,9 @@
 
       // .. Parameters ..
       double             ONE, ZERO;
-      PARAMETER          ( ONE = 1.0D+0, ZERO = 0.0D+0 )
+      const              ONE = 1.0D+0, ZERO = 0.0D+0 ;
       int                NTESTS;
-      PARAMETER          ( NTESTS = 4 )
+      const              NTESTS = 4 ;
       // ..
       // .. Local Scalars ..
       bool               ZEROT;

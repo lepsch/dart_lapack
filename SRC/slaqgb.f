@@ -17,7 +17,7 @@
 
       // .. Parameters ..
       REAL               ONE, THRESH
-      PARAMETER          ( ONE = 1.0E+0, THRESH = 0.1E+0 )
+      const              ONE = 1.0E+0, THRESH = 0.1E+0 ;
       // ..
       // .. Local Scalars ..
       int                I, J;

@@ -15,9 +15,9 @@
 
       // .. Parameters ..
       double             ALPHA, REALONE, REALZERO;
-      PARAMETER          ( ALPHA = 0.83D0, REALONE = 1.0D0, REALZERO = 0.0D0 )
+      const              ALPHA = 0.83D0, REALONE = 1.0D0, REALZERO = 0.0D0 ;
       COMPLEX*16         NEGONE, ONE, ZERO
-      PARAMETER          ( NEGONE = (-1.0D0,0.0D0), ONE = (1.0D0,0.0D0), ZERO = (0.0D0,0.0D0) )
+      const              NEGONE = (-1.0D0,0.0D0), ONE = (1.0D0,0.0D0), ZERO = (0.0D0,0.0D0) ;
       // ..
       // .. Local Scalars ..
       int                I, IX;

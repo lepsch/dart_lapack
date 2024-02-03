@@ -18,11 +18,11 @@
 
       // .. Parameters ..
       REAL               ZERO
-      PARAMETER          ( ZERO = 0.0E0 )
+      const              ZERO = 0.0E0 ;
       REAL               ONE
-      PARAMETER          ( ONE = 1.0E0 )
+      const              ONE = 1.0E0 ;
       REAL               TWOPI
-      PARAMETER  ( TWOPI = 6.28318530717958647692528676655900576839E+0 )
+      const      TWOPI = 6.28318530717958647692528676655900576839E+0 ;
       // ..
       // .. Local Scalars ..
       bool               GIVENS, ILEXTR, ILTEMP, TOPDWN;

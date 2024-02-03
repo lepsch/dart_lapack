@@ -20,9 +20,9 @@
 
       // .. Parameters ..
       double             ONE;
-      PARAMETER          ( ONE = 1.0E+0 )
+      const              ONE = 1.0E+0 ;
       int                NTYPES;
-      PARAMETER          ( NTYPES = 9 )
+      const              NTYPES = 9 ;
       // ..
       // .. Local Scalars ..
       double             ANORM, CNDNUM, RESULT, TOL;

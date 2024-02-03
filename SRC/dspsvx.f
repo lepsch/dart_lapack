@@ -18,7 +18,7 @@
 
       // .. Parameters ..
       double             ZERO;
-      PARAMETER          ( ZERO = 0.0D+0 )
+      const              ZERO = 0.0D+0 ;
       // ..
       // .. Local Scalars ..
       bool               NOFACT;

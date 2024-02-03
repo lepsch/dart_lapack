@@ -96,7 +96,7 @@
 
       // .. Parameters ..
       int                NTESTS;
-      PARAMETER          ( NTESTS = 6 )
+      const              NTESTS = 6 ;
       // ..
       // .. Local Scalars ..
       String             PATH;

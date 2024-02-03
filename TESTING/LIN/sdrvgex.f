@@ -19,13 +19,13 @@
 
       // .. Parameters ..
       REAL               ONE, ZERO
-      PARAMETER          ( ONE = 1.0E+0, ZERO = 0.0E+0 )
+      const              ONE = 1.0E+0, ZERO = 0.0E+0 ;
       int                NTYPES;
-      PARAMETER          ( NTYPES = 11 )
+      const              NTYPES = 11 ;
       int                NTESTS;
-      PARAMETER          ( NTESTS = 7 )
+      const              NTESTS = 7 ;
       int                NTRAN;
-      PARAMETER          ( NTRAN = 3 )
+      const              NTRAN = 3 ;
       // ..
       // .. Local Scalars ..
       bool               EQUIL, NOFACT, PREFAC, TRFCON, ZEROT;

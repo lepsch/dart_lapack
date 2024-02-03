@@ -12,13 +12,13 @@
 
       // .. Parameters ..
       int                LDA, LDB, LDVL, LDVR;
-      PARAMETER          ( LDA = 50, LDB = 50, LDVL = 50, LDVR = 50 )
+      const              LDA = 50, LDB = 50, LDVL = 50, LDVR = 50 ;
       int                LDE, LDF, LDWORK, LRWORK;
-      PARAMETER          ( LDE = 50, LDF = 50, LDWORK = 50, LRWORK = 6*50 )
+      const              LDE = 50, LDF = 50, LDWORK = 50, LRWORK = 6*50 ;
       double             ZERO;
-      PARAMETER          ( ZERO = 0.0D+0 )
+      const              ZERO = 0.0D+0 ;
       COMPLEX*16         CZERO, CONE
-      PARAMETER          ( CZERO = ( 0.0D+0, 0.0D+0 ), CONE = ( 1.0D+0, 0.0D+0 ) )
+      const              CZERO = ( 0.0D+0, 0.0D+0 ), CONE = ( 1.0D+0, 0.0D+0 ) ;
       // ..
       // .. Local Scalars ..
       int                I, IHI, ILO, INFO, J, KNT, M, N, NINFO;

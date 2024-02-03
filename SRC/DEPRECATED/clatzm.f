@@ -17,7 +17,7 @@
 
       // .. Parameters ..
       COMPLEX            ONE, ZERO
-      PARAMETER          ( ONE = ( 1.0E+0, 0.0E+0 ), ZERO = ( 0.0E+0, 0.0E+0 ) )
+      const              ONE = ( 1.0E+0, 0.0E+0 ), ZERO = ( 0.0E+0, 0.0E+0 ) ;
       // ..
       // .. External Subroutines ..
       // EXTERNAL CAXPY, CCOPY, CGEMV, CGERC, CGERU, CLACGV

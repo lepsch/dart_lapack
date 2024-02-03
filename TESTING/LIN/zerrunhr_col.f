@@ -14,7 +14,7 @@
 
       // .. Parameters ..
       int                NMAX;
-      PARAMETER          ( NMAX = 2 )
+      const              NMAX = 2 ;
       // ..
       // .. Local Scalars ..
       int                I, INFO, J;

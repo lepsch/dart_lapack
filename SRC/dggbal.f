@@ -16,9 +16,9 @@
 
       // .. Parameters ..
       double             ZERO, HALF, ONE;
-      PARAMETER          ( ZERO = 0.0D+0, HALF = 0.5D+0, ONE = 1.0D+0 )
+      const              ZERO = 0.0D+0, HALF = 0.5D+0, ONE = 1.0D+0 ;
       double             THREE, SCLFAC;
-      PARAMETER          ( THREE = 3.0D+0, SCLFAC = 1.0D+1 )
+      const              THREE = 3.0D+0, SCLFAC = 1.0D+1 ;
       // ..
       // .. Local Scalars ..
       int                I, ICAB, IFLOW, IP1, IR, IRAB, IT, J, JC, JP1, K, KOUNT, L, LCAB, LM1, LRAB, LSFMAX, LSFMIN, M, NR, NRP2       double             ALPHA, BASL, BETA, CAB, CMAX, COEF, COEF2, COEF5, COR, EW, EWC, GAMMA, PGAMMA, RAB, SFMAX, SFMIN, SUM, T, TA, TB, TC;;
