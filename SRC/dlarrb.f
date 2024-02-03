@@ -69,7 +69,7 @@
          RIGHT = W( II ) + WERR( II );
          LGAP = RGAP;
          RGAP = WGAP( II );
-         GAP = MIN( LGAP, RGAP );
+         GAP = min( LGAP, RGAP );
 
          // Make sure that [LEFT,RIGHT] contains the desired eigenvalue
          // Compute negcount from dstqds facto L+D+L+^T = L D L^T - LEFT
@@ -98,8 +98,8 @@
              GO TO 50;
           }
          WIDTH = HALF*ABS( LEFT - RIGHT );
-         TMP = MAX( ABS( LEFT ), ABS( RIGHT ) );
-         CVRGD = MAX(RTOL1*GAP,RTOL2*TMP);
+         TMP = max( ABS( LEFT ), ABS( RIGHT ) );
+         CVRGD = max(RTOL1*GAP,RTOL2*TMP);
          if ( WIDTH <= CVRGD || WIDTH <= MNWDTH ) {
             // This interval has already converged and does not need refinement.
             // (Note that the gaps might change through refining the
@@ -136,7 +136,7 @@
          RGAP = WGAP( II );
          LGAP = RGAP;
          if (II > 1) LGAP = WGAP( II-1 );
-         GAP = MIN( LGAP, RGAP );
+         GAP = min( LGAP, RGAP );
          NEXT = IWORK( K-1 );
          LEFT = WORK( K-1 );
          RIGHT = WORK( K );
@@ -144,8 +144,8 @@
 
          // semiwidth of interval
          WIDTH = RIGHT - MID;
-         TMP = MAX( ABS( LEFT ), ABS( RIGHT ) );
-         CVRGD = MAX(RTOL1*GAP,RTOL2*TMP);
+         TMP = max( ABS( LEFT ), ABS( RIGHT ) );
+         CVRGD = max(RTOL1*GAP,RTOL2*TMP);
          if ( ( WIDTH <= CVRGD ) || ( WIDTH <= MNWDTH ) || ( ITER == MAXITR ) ) {
             // reduce number of unconverged intervals
             NINT = NINT - 1;
@@ -193,7 +193,7 @@
       for (I = IFIRST+1; I <= ILAST; I++) { // 111
          K = 2*I;
          II = I - OFFSET;
-         WGAP( II-1 ) = MAX( ZERO, W(II) - WERR (II) - W( II-1 ) - WERR( II-1 ));
+         WGAP( II-1 ) = max( ZERO, W(II) - WERR (II) - W( II-1 ) - WERR( II-1 ));
       } // 111
 
       return;

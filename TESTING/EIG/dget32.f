@@ -49,9 +49,9 @@
 
       // Set up test case parameters
 
-      VAL( 1 ) = SQRT( SMLNUM );
+      VAL( 1 ) = sqrt( SMLNUM );
       VAL( 2 ) = ONE;
-      VAL( 3 ) = SQRT( BIGNUM );
+      VAL( 3 ) = sqrt( BIGNUM );
 
       KNT = 0;
       NINFO = 0;
@@ -80,13 +80,13 @@
                         if (INFO != 0) NINFO = NINFO + 1;
                         RES = ABS( ( TL( 1, 1 )+SGN*TR( 1, 1 ) )* X( 1, 1 )-SCALE*B( 1, 1 ) );
                         if ( INFO == 0 ) {
-                           DEN = MAX( EPS*( ( ABS( TR( 1, 1 ) )+ABS( TL( 1, 1 ) ) )*ABS( X( 1, 1 ) ) ), SMLNUM );
+                           DEN = max( EPS*( ( ABS( TR( 1, 1 ) )+ABS( TL( 1, 1 ) ) )*ABS( X( 1, 1 ) ) ), SMLNUM );
                         } else {
-                           DEN = SMLNUM*MAX( ABS( X( 1, 1 ) ), ONE );
+                           DEN = SMLNUM*max( ABS( X( 1, 1 ) ), ONE );
                         }
                         RES = RES / DEN;
                         if (SCALE > ONE) RES = RES + ONE / EPS;
-                        RES = RES + ABS( XNORM-ABS( X( 1, 1 ) ) ) / MAX( SMLNUM, XNORM ) / EPS                         IF( INFO != 0 && INFO != 1 ) RES = RES + ONE / EPS;
+                        RES = RES + ABS( XNORM-ABS( X( 1, 1 ) ) ) / max( SMLNUM, XNORM ) / EPS                         IF( INFO != 0 && INFO != 1 ) RES = RES + ONE / EPS;
                         if ( RES > RMAX ) {
                            LMAX = KNT;
                            RMAX = RES;
@@ -115,10 +115,10 @@
                                  TL( 2, 1 ) = TMP;
                               }
                               RES = ABS( ( TL( 1, 1 )+SGN*TR( 1, 1 ) )* X( 1, 1 )+TL( 1, 2 )*X( 2, 1 )- SCALE*B( 1, 1 ) )                               RES = RES + ABS( ( TL( 2, 2 )+SGN*TR( 1, 1 ) )*X( 2, 1 )+TL( 2, 1 )* X( 1, 1 )-SCALE*B( 2, 1 ) )                               TNRM = ABS( TR( 1, 1 ) ) + ABS( TL( 1, 1 ) ) + ABS( TL( 1, 2 ) ) + ABS( TL( 2, 1 ) ) + ABS( TL( 2, 2 ) );
-                              XNRM = MAX( ABS( X( 1, 1 ) ), ABS( X( 2, 1 ) ) )                               DEN = MAX( SMLNUM, SMLNUM*XNRM, ( TNRM*EPS )*XNRM );
+                              XNRM = max( ABS( X( 1, 1 ) ), ABS( X( 2, 1 ) ) )                               DEN = max( SMLNUM, SMLNUM*XNRM, ( TNRM*EPS )*XNRM );
                               RES = RES / DEN;
                               if (SCALE > ONE) RES = RES + ONE / EPS;
-                              RES = RES + ABS( XNORM-XNRM ) / MAX( SMLNUM, XNORM ) / EPS;
+                              RES = RES + ABS( XNORM-XNRM ) / max( SMLNUM, XNORM ) / EPS;
                               if ( RES > RMAX ) {
                                  LMAX = KNT;
                                  RMAX = RES;
@@ -151,10 +151,10 @@
                               TNRM = ABS( TL( 1, 1 ) ) + ABS( TR( 1, 1 ) ) + ABS( TR( 1, 2 ) ) + ABS( TR( 2, 2 ) ) + ABS( TR( 2, 1 ) );
                               XNRM = ABS( X( 1, 1 ) ) + ABS( X( 1, 2 ) );
                               RES = ABS( ( ( TL( 1, 1 )+SGN*TR( 1, 1 ) ) )*( X( 1, 1 ) )+ ( SGN*TR( 2, 1 ) )*( X( 1, 2 ) )- ( SCALE*B( 1, 1 ) ) )                               RES = RES + ABS( ( ( TL( 1, 1 )+SGN*TR( 2, 2 ) ) )*( X( 1, 2 ) )+ ( SGN*TR( 1, 2 ) )*( X( 1, 1 ) )- ( SCALE*B( 1, 2 ) ) );
-                              DEN = MAX( SMLNUM, SMLNUM*XNRM, ( TNRM*EPS )*XNRM );
+                              DEN = max( SMLNUM, SMLNUM*XNRM, ( TNRM*EPS )*XNRM );
                               RES = RES / DEN;
                               if (SCALE > ONE) RES = RES + ONE / EPS;
-                              RES = RES + ABS( XNORM-XNRM ) / MAX( SMLNUM, XNORM ) / EPS;
+                              RES = RES + ABS( XNORM-XNRM ) / max( SMLNUM, XNORM ) / EPS;
                               if ( RES > RMAX ) {
                                  LMAX = KNT;
                                  RMAX = RES;
@@ -177,7 +177,7 @@
                                     B( 1, 1 ) = VAL( IB1 );
                                     B( 2, 1 ) = -FOUR*VAL( IB2 );
                                     B( 1, 2 ) = -TWO*VAL( IB3 );
-                                    B( 2, 2 ) = EIGHT* MIN( VAL( IB1 ), VAL ( IB2 ), VAL( IB3 ) );
+                                    B( 2, 2 ) = EIGHT* min( VAL( IB1 ), VAL ( IB2 ), VAL( IB3 ) );
                                     TR( 1, 1 ) = ITVAL( 1, 1, ITR )* VAL( ITRSCL )                                     TR( 2, 1 ) = ITVAL( 2, 1, ITR )* VAL( ITRSCL )                                     TR( 1, 2 ) = ITVAL( 1, 2, ITR )* VAL( ITRSCL )                                     TR( 2, 2 ) = ITVAL( 2, 2, ITR )* VAL( ITRSCL )                                     TL( 1, 1 ) = ITVAL( 1, 1, ITL )* VAL( ITLSCL )                                     TL( 2, 1 ) = ITVAL( 2, 1, ITL )* VAL( ITLSCL )                                     TL( 1, 2 ) = ITVAL( 1, 2, ITL )* VAL( ITLSCL )                                     TL( 2, 2 ) = ITVAL( 2, 2, ITL )* VAL( ITLSCL );
                                     KNT = KNT + 1;
                                     dlasy2(LTRANL, LTRANR, ISGN, N1, N2, TL, 2, TR, 2, B, 2, SCALE, X, 2, XNORM, INFO );
@@ -192,12 +192,12 @@
                                        TL( 1, 2 ) = TL( 2, 1 );
                                        TL( 2, 1 ) = TMP;
                                     }
-                                    TNRM = ABS( TR( 1, 1 ) ) + ABS( TR( 2, 1 ) ) + ABS( TR( 1, 2 ) ) + ABS( TR( 2, 2 ) ) + ABS( TL( 1, 1 ) ) + ABS( TL( 2, 1 ) ) + ABS( TL( 1, 2 ) ) + ABS( TL( 2, 2 ) )                                     XNRM = MAX( ABS( X( 1, 1 ) )+ ABS( X( 1, 2 ) ), ABS( X( 2, 1 ) )+ ABS( X( 2, 2 ) ) )                                     RES = ABS( ( ( TL( 1, 1 )+SGN*TR( 1, 1 ) ) )*( X( 1, 1 ) )+ ( SGN*TR( 2, 1 ) )* ( X( 1, 2 ) )+( TL( 1, 2 ) )* ( X( 2, 1 ) )- ( SCALE*B( 1, 1 ) ) )                                     RES = RES + ABS( ( TL( 1, 1 ) )* ( X( 1, 2 ) )+ ( SGN*TR( 1, 2 ) )* ( X( 1, 1 ) )+ ( SGN*TR( 2, 2 ) )* ( X( 1, 2 ) )+( TL( 1, 2 ) )* ( X( 2, 2 ) )- ( SCALE*B( 1, 2 ) ) )                                     RES = RES + ABS( ( TL( 2, 1 ) )* ( X( 1, 1 ) )+ ( SGN*TR( 1, 1 ) )* ( X( 2, 1 ) )+ ( SGN*TR( 2, 1 ) )* ( X( 2, 2 ) )+( TL( 2, 2 ) )* ( X( 2, 1 ) )- ( SCALE*B( 2, 1 ) ) );
+                                    TNRM = ABS( TR( 1, 1 ) ) + ABS( TR( 2, 1 ) ) + ABS( TR( 1, 2 ) ) + ABS( TR( 2, 2 ) ) + ABS( TL( 1, 1 ) ) + ABS( TL( 2, 1 ) ) + ABS( TL( 1, 2 ) ) + ABS( TL( 2, 2 ) )                                     XNRM = max( ABS( X( 1, 1 ) )+ ABS( X( 1, 2 ) ), ABS( X( 2, 1 ) )+ ABS( X( 2, 2 ) ) )                                     RES = ABS( ( ( TL( 1, 1 )+SGN*TR( 1, 1 ) ) )*( X( 1, 1 ) )+ ( SGN*TR( 2, 1 ) )* ( X( 1, 2 ) )+( TL( 1, 2 ) )* ( X( 2, 1 ) )- ( SCALE*B( 1, 1 ) ) )                                     RES = RES + ABS( ( TL( 1, 1 ) )* ( X( 1, 2 ) )+ ( SGN*TR( 1, 2 ) )* ( X( 1, 1 ) )+ ( SGN*TR( 2, 2 ) )* ( X( 1, 2 ) )+( TL( 1, 2 ) )* ( X( 2, 2 ) )- ( SCALE*B( 1, 2 ) ) )                                     RES = RES + ABS( ( TL( 2, 1 ) )* ( X( 1, 1 ) )+ ( SGN*TR( 1, 1 ) )* ( X( 2, 1 ) )+ ( SGN*TR( 2, 1 ) )* ( X( 2, 2 ) )+( TL( 2, 2 ) )* ( X( 2, 1 ) )- ( SCALE*B( 2, 1 ) ) );
                                     RES = RES + ABS( ( ( TL( 2, 2 )+SGN*TR( 2, 2 ) ) )* ( X( 2, 2 ) )+ ( SGN*TR( 1, 2 ) )* ( X( 2, 1 ) )+( TL( 2, 1 ) )* ( X( 1, 2 ) )- ( SCALE*B( 2, 2 ) ) );
-                                    DEN = MAX( SMLNUM, SMLNUM*XNRM, ( TNRM*EPS )*XNRM );
+                                    DEN = max( SMLNUM, SMLNUM*XNRM, ( TNRM*EPS )*XNRM );
                                     RES = RES / DEN;
                                     if (SCALE > ONE) RES = RES + ONE / EPS;
-                                    RES = RES + ABS( XNORM-XNRM ) / MAX( SMLNUM, XNORM ) / EPS;
+                                    RES = RES + ABS( XNORM-XNRM ) / max( SMLNUM, XNORM ) / EPS;
                                     if ( RES > RMAX ) {
                                        LMAX = KNT;
                                        RMAX = RES;

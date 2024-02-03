@@ -68,9 +68,9 @@
          INFO = -5;
       } else if ( N < 0 ) {
          INFO = -6;
-      } else if ( LDA < MAX( 1, M ) ) {
+      } else if ( LDA < max( 1, M ) ) {
          INFO = -10;
-      } else if ( LDB < MAX( 1, P ) ) {
+      } else if ( LDB < max( 1, P ) ) {
          INFO = -12;
       } else if ( LDU < 1 || ( WANTU && LDU < M ) ) {
          INFO = -18;
@@ -130,7 +130,7 @@
                // Update (N-L+I)-th and (N-L+J)-th columns of matrices
                // A and B: A*Q and B*Q
 
-               crot(MIN( K+L, M ), A( 1, N-L+J ), 1, A( 1, N-L+I ), 1, CSQ, SNQ );
+               crot(min( K+L, M ), A( 1, N-L+J ), 1, A( 1, N-L+I ), 1, CSQ, SNQ );
 
                crot(L, B( 1, N-L+J ), 1, B( 1, N-L+I ), 1, CSQ, SNQ );
 
@@ -169,14 +169,14 @@
             // rows of A and B.
 
             ERROR = ZERO;
-            DO 30 I = 1, MIN( L, M-K );
+            DO 30 I = 1, min( L, M-K );
                ccopy(L-I+1, A( K+I, N-L+I ), LDA, WORK, 1 );
                ccopy(L-I+1, B( I, N-L+I ), LDB, WORK( L+1 ), 1 );
                clapll(L-I+1, WORK, 1, WORK( L+1 ), 1, SSMIN );
-               ERROR = MAX( ERROR, SSMIN );
+               ERROR = max( ERROR, SSMIN );
             } // 30
 
-            if( ABS( ERROR ) <= MIN( TOLA, TOLB ) ) GO TO 50;
+            if( ABS( ERROR ) <= min( TOLA, TOLB ) ) GO TO 50;
          }
 
          // End of cycle loop
@@ -190,7 +190,7 @@
 
       } // 50
 
-      // If ERROR <= MIN(TOLA,TOLB), then the algorithm has converged.
+      // If ERROR <= min(TOLA,TOLB), then the algorithm has converged.
       // Compute the generalized singular value pairs (ALPHA, BETA), and
       // set the triangular matrix R to array A.
 
@@ -199,7 +199,7 @@
          BETA( I ) = ZERO;
       } // 60
 
-      DO 70 I = 1, MIN( L, M-K );
+      DO 70 I = 1, min( L, M-K );
 
          A1 = REAL( A( K+I, N-L+I ) );
          B1 = REAL( B( I, N-L+I ) );

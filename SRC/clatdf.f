@@ -130,7 +130,7 @@
       // Compute RHS
 
       claswp(1, XM, LDZ, 1, N-1, IPIV, -1 );
-      TEMP = CONE / SQRT( CDOTC( N, XM, 1, XM, 1 ) );
+      TEMP = CONE / sqrt( CDOTC( N, XM, 1, XM, 1 ) );
       cscal(N, TEMP, XM, 1 );
       ccopy(N, XM, 1, XP, 1 );
       caxpy(N, CONE, RHS, 1, XP, 1 );

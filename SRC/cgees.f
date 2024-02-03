@@ -58,7 +58,7 @@
          INFO = -2;
       } else if ( N < 0 ) {
          INFO = -4;
-      } else if ( LDA < MAX( 1, N ) ) {
+      } else if ( LDA < max( 1, N ) ) {
          INFO = -6;
       } else if ( LDVS < 1 || ( WANTVS && LDVS < N ) ) {
          INFO = -10;
@@ -87,10 +87,10 @@
             HSWORK = INT( WORK( 1 ) );
 
             if ( !WANTVS ) {
-               MAXWRK = MAX( MAXWRK, HSWORK );
+               MAXWRK = max( MAXWRK, HSWORK );
             } else {
-               MAXWRK = MAX( MAXWRK, N + ( N - 1 )*ILAENV( 1, 'CUNGHR', ' ', N, 1, N, -1 ) );
-               MAXWRK = MAX( MAXWRK, HSWORK );
+               MAXWRK = max( MAXWRK, N + ( N - 1 )*ILAENV( 1, 'CUNGHR', ' ', N, 1, N, -1 ) );
+               MAXWRK = max( MAXWRK, HSWORK );
             }
          }
          WORK( 1 ) = SROUNDUP_LWORK(MAXWRK);
@@ -119,7 +119,7 @@
       EPS = SLAMCH( 'P' );
       SMLNUM = SLAMCH( 'S' );
       BIGNUM = ONE / SMLNUM;
-      SMLNUM = SQRT( SMLNUM ) / EPS;
+      SMLNUM = sqrt( SMLNUM ) / EPS;
       BIGNUM = ONE / SMLNUM;
 
       // Scale A if max element outside range [SMLNUM,BIGNUM]

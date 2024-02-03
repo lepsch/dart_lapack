@@ -41,7 +41,7 @@
       // Get machine constants
       EPS = SLAMCH( 'P' );
 
-      TNORM = MAX( ABS( GL ), ABS( GU ) );
+      TNORM = max( ABS( GL ), ABS( GU ) );
       RTOLI = RELTOL;
       ATOLI = FUDGE*TWO*PIVMIN;
        ITMAX = INT( ( LOG( TNORM+PIVMIN )-LOG( PIVMIN ) ) / LOG( TWO ) ) + 2;
@@ -57,8 +57,8 @@
       // Check if interval converged or maximum number of iterations reached
 
       TMP1 = ABS( RIGHT - LEFT );
-      TMP2 = MAX( ABS(RIGHT), ABS(LEFT) );
-      if ( TMP1 < MAX( ATOLI, PIVMIN, RTOLI*TMP2 ) ) {
+      TMP2 = max( ABS(RIGHT), ABS(LEFT) );
+      if ( TMP1 < max( ATOLI, PIVMIN, RTOLI*TMP2 ) ) {
          INFO = 0;
          GOTO 30;
       }

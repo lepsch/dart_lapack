@@ -107,17 +107,17 @@
           // CUNMLQ for computing N x N matrix, CUNMQR for computing N x N
           // matrix, CUNMQR for computing M x N matrix, respectively.
           LWQP3 = N+1;
-          LWQRF = MAX( 1, N );
-          LWLQF = MAX( 1, N );
-          LWUNMLQ  = MAX( 1, N );
-          LWUNMQR  = MAX( 1, N );
-          LWUNMQRM = MAX( 1, M );
+          LWQRF = max( 1, N );
+          LWLQF = max( 1, N );
+          LWUNMLQ  = max( 1, N );
+          LWUNMQR  = max( 1, N );
+          LWUNMQRM = max( 1, M );
          // .. minimal workspace length for CPOCON of an N x N matrix
           LWCON = 2 * N;
          // .. minimal workspace length for CGESVJ of an N x N matrix,
           // without and with explicit accumulation of Jacobi rotations
-          LWSVDJ  = MAX( 2 * N, 1 );
-          LWSVDJV = MAX( 2 * N, 1 );
+          LWSVDJ  = max( 2 * N, 1 );
+          LWSVDJV = max( 2 * N, 1 );
           // .. minimal REAL workspace length for CGEQP3, CPOCON, CGESVJ
           LRWQP3  = 2 * N;
           LRWCON  = N;
@@ -137,30 +137,30 @@
               // .. minimal and optimal sizes of the complex workspace if
               // only the singular values are requested
               if ( ERREST ) {
-                  MINWRK = MAX( N+LWQP3, N**2+LWCON, N+LWQRF, LWSVDJ );
+                  MINWRK = max( N+LWQP3, N**2+LWCON, N+LWQRF, LWSVDJ );
               } else {
-                  MINWRK = MAX( N+LWQP3, N+LWQRF, LWSVDJ );
+                  MINWRK = max( N+LWQP3, N+LWQRF, LWSVDJ );
               }
               if ( LQUERY ) {
                   cgesvj('L', 'N', 'N', N, N, A, LDA, SVA, N, V,  LDV, CDUMMY, -1, RDUMMY, -1, IERR );
                   LWRK_CGESVJ = INT( CDUMMY(1) );
                   if ( ERREST ) {
-                      OPTWRK = MAX( N+LWRK_CGEQP3, N**2+LWCON,  N+LWRK_CGEQRF, LWRK_CGESVJ );
+                      OPTWRK = max( N+LWRK_CGEQP3, N**2+LWCON,  N+LWRK_CGEQRF, LWRK_CGESVJ );
                   } else {
-                      OPTWRK = MAX( N+LWRK_CGEQP3, N+LWRK_CGEQRF,  LWRK_CGESVJ );
+                      OPTWRK = max( N+LWRK_CGEQP3, N+LWRK_CGEQRF,  LWRK_CGESVJ );
                   }
               }
               if ( L2TRAN || ROWPIV ) {
                   if ( ERREST ) {
-                     MINRWRK = MAX( 7, 2*M,  LRWQP3, LRWCON, LRWSVDJ );
+                     MINRWRK = max( 7, 2*M,  LRWQP3, LRWCON, LRWSVDJ );
                   } else {
-                     MINRWRK = MAX( 7, 2*M,  LRWQP3, LRWSVDJ );
+                     MINRWRK = max( 7, 2*M,  LRWQP3, LRWSVDJ );
                   }
               } else {
                   if ( ERREST ) {
-                     MINRWRK = MAX( 7, LRWQP3, LRWCON, LRWSVDJ );
+                     MINRWRK = max( 7, LRWQP3, LRWCON, LRWSVDJ );
                   } else {
-                     MINRWRK = MAX( 7, LRWQP3, LRWSVDJ );
+                     MINRWRK = max( 7, LRWQP3, LRWSVDJ );
                   }
               }
               if (ROWPIV || L2TRAN) MINIWRK = MINIWRK + M;
@@ -168,9 +168,9 @@
              // .. minimal and optimal sizes of the complex workspace if the
              // singular values and the right singular vectors are requested
              if ( ERREST ) {
-                 MINWRK = MAX( N+LWQP3, LWCON, LWSVDJ, N+LWLQF,   2*N+LWQRF, N+LWSVDJ, N+LWUNMLQ );
+                 MINWRK = max( N+LWQP3, LWCON, LWSVDJ, N+LWLQF,   2*N+LWQRF, N+LWSVDJ, N+LWUNMLQ );
              } else {
-                 MINWRK = MAX( N+LWQP3, LWSVDJ, N+LWLQF, 2*N+LWQRF,  N+LWSVDJ, N+LWUNMLQ );
+                 MINWRK = max( N+LWQP3, LWSVDJ, N+LWLQF, 2*N+LWQRF,  N+LWSVDJ, N+LWUNMLQ );
              }
              if ( LQUERY ) {
                  cgesvj('L', 'U', 'N', N,N, U, LDU, SVA, N, A, LDA, CDUMMY, -1, RDUMMY, -1, IERR );
@@ -178,22 +178,22 @@
                  cunmlq('L', 'C', N, N, N, A, LDA, CDUMMY, V, LDV, CDUMMY, -1, IERR );
                  LWRK_CUNMLQ = INT( CDUMMY(1) );
                  if ( ERREST ) {
-                 OPTWRK = MAX( N+LWRK_CGEQP3, LWCON, LWRK_CGESVJ,  N+LWRK_CGELQF, 2*N+LWRK_CGEQRF, N+LWRK_CGESVJ,  N+LWRK_CUNMLQ );
+                 OPTWRK = max( N+LWRK_CGEQP3, LWCON, LWRK_CGESVJ,  N+LWRK_CGELQF, 2*N+LWRK_CGEQRF, N+LWRK_CGESVJ,  N+LWRK_CUNMLQ );
                  } else {
-                 OPTWRK = MAX( N+LWRK_CGEQP3, LWRK_CGESVJ,N+LWRK_CGELQF, 2*N+LWRK_CGEQRF, N+LWRK_CGESVJ, N+LWRK_CUNMLQ );
+                 OPTWRK = max( N+LWRK_CGEQP3, LWRK_CGESVJ,N+LWRK_CGELQF, 2*N+LWRK_CGEQRF, N+LWRK_CGESVJ, N+LWRK_CUNMLQ );
                  }
              }
              if ( L2TRAN || ROWPIV ) {
                   if ( ERREST ) {
-                     MINRWRK = MAX( 7, 2*M,  LRWQP3, LRWSVDJ, LRWCON );
+                     MINRWRK = max( 7, 2*M,  LRWQP3, LRWSVDJ, LRWCON );
                   } else {
-                     MINRWRK = MAX( 7, 2*M,  LRWQP3, LRWSVDJ );
+                     MINRWRK = max( 7, 2*M,  LRWQP3, LRWSVDJ );
                   }
              } else {
                   if ( ERREST ) {
-                     MINRWRK = MAX( 7, LRWQP3, LRWSVDJ, LRWCON );
+                     MINRWRK = max( 7, LRWQP3, LRWSVDJ, LRWCON );
                   } else {
-                     MINRWRK = MAX( 7, LRWQP3, LRWSVDJ );
+                     MINRWRK = max( 7, LRWQP3, LRWSVDJ );
                   }
              }
              if (ROWPIV || L2TRAN) MINIWRK = MINIWRK + M;
@@ -201,9 +201,9 @@
              // .. minimal and optimal sizes of the complex workspace if the
              // singular values and the left singular vectors are requested
              if ( ERREST ) {
-                 MINWRK = N + MAX( LWQP3,LWCON,N+LWQRF,LWSVDJ,LWUNMQRM );
+                 MINWRK = N + max( LWQP3,LWCON,N+LWQRF,LWSVDJ,LWUNMQRM );
              } else {
-                 MINWRK = N + MAX( LWQP3, N+LWQRF, LWSVDJ, LWUNMQRM );
+                 MINWRK = N + max( LWQP3, N+LWQRF, LWSVDJ, LWUNMQRM );
              }
              if ( LQUERY ) {
                  cgesvj('L', 'U', 'N', N,N, U, LDU, SVA, N, A, LDA, CDUMMY, -1, RDUMMY, -1, IERR );
@@ -211,22 +211,22 @@
                  cunmqr('L', 'N', M, N, N, A, LDA, CDUMMY, U, LDU, CDUMMY, -1, IERR );
                  LWRK_CUNMQRM = INT( CDUMMY(1) );
                  if ( ERREST ) {
-                 OPTWRK = N + MAX( LWRK_CGEQP3, LWCON, N+LWRK_CGEQRF, LWRK_CGESVJ, LWRK_CUNMQRM );
+                 OPTWRK = N + max( LWRK_CGEQP3, LWCON, N+LWRK_CGEQRF, LWRK_CGESVJ, LWRK_CUNMQRM );
                  } else {
-                 OPTWRK = N + MAX( LWRK_CGEQP3, N+LWRK_CGEQRF, LWRK_CGESVJ, LWRK_CUNMQRM );
+                 OPTWRK = N + max( LWRK_CGEQP3, N+LWRK_CGEQRF, LWRK_CGESVJ, LWRK_CUNMQRM );
                  }
              }
              if ( L2TRAN || ROWPIV ) {
                  if ( ERREST ) {
-                    MINRWRK = MAX( 7, 2*M,  LRWQP3, LRWSVDJ, LRWCON );
+                    MINRWRK = max( 7, 2*M,  LRWQP3, LRWSVDJ, LRWCON );
                  } else {
-                    MINRWRK = MAX( 7, 2*M,  LRWQP3, LRWSVDJ );
+                    MINRWRK = max( 7, 2*M,  LRWQP3, LRWSVDJ );
                  }
              } else {
                  if ( ERREST ) {
-                    MINRWRK = MAX( 7, LRWQP3, LRWSVDJ, LRWCON );
+                    MINRWRK = max( 7, LRWQP3, LRWSVDJ, LRWCON );
                  } else {
-                    MINRWRK = MAX( 7, LRWQP3, LRWSVDJ );
+                    MINRWRK = max( 7, LRWQP3, LRWSVDJ );
                  }
              }
              if (ROWPIV || L2TRAN) MINIWRK = MINIWRK + M;
@@ -235,17 +235,17 @@
              // full SVD is requested
              if ( !JRACC ) {
                  if ( ERREST ) {
-                    MINWRK = MAX( N+LWQP3, N+LWCON,  2*N+N**2+LWCON,  2*N+LWQRF,         2*N+LWQP3, 2*N+N**2+N+LWLQF,  2*N+N**2+N+N**2+LWCON, 2*N+N**2+N+LWSVDJ, 2*N+N**2+N+LWSVDJV, 2*N+N**2+N+LWUNMQR,2*N+N**2+N+LWUNMLQ, N+N**2+LWSVDJ,   N+LWUNMQRM );
+                    MINWRK = max( N+LWQP3, N+LWCON,  2*N+N**2+LWCON,  2*N+LWQRF,         2*N+LWQP3, 2*N+N**2+N+LWLQF,  2*N+N**2+N+N**2+LWCON, 2*N+N**2+N+LWSVDJ, 2*N+N**2+N+LWSVDJV, 2*N+N**2+N+LWUNMQR,2*N+N**2+N+LWUNMLQ, N+N**2+LWSVDJ,   N+LWUNMQRM );
                  } else {
-                    MINWRK = MAX( N+LWQP3,        2*N+N**2+LWCON,  2*N+LWQRF,         2*N+LWQP3, 2*N+N**2+N+LWLQF,  2*N+N**2+N+N**2+LWCON, 2*N+N**2+N+LWSVDJ, 2*N+N**2+N+LWSVDJV, 2*N+N**2+N+LWUNMQR,2*N+N**2+N+LWUNMLQ, N+N**2+LWSVDJ,      N+LWUNMQRM );
+                    MINWRK = max( N+LWQP3,        2*N+N**2+LWCON,  2*N+LWQRF,         2*N+LWQP3, 2*N+N**2+N+LWLQF,  2*N+N**2+N+N**2+LWCON, 2*N+N**2+N+LWSVDJ, 2*N+N**2+N+LWSVDJV, 2*N+N**2+N+LWUNMQR,2*N+N**2+N+LWUNMLQ, N+N**2+LWSVDJ,      N+LWUNMQRM );
                  }
                  MINIWRK = MINIWRK + N;
                  if (ROWPIV || L2TRAN) MINIWRK = MINIWRK + M;
              } else {
                  if ( ERREST ) {
-                    MINWRK = MAX( N+LWQP3, N+LWCON, 2*N+LWQRF,  2*N+N**2+LWSVDJV, 2*N+N**2+N+LWUNMQR, N+LWUNMQRM );
+                    MINWRK = max( N+LWQP3, N+LWCON, 2*N+LWQRF,  2*N+N**2+LWSVDJV, 2*N+N**2+N+LWUNMQR, N+LWUNMQRM );
                  } else {
-                    MINWRK = MAX( N+LWQP3, 2*N+LWQRF,  2*N+N**2+LWSVDJV, 2*N+N**2+N+LWUNMQR, N+LWUNMQRM );
+                    MINWRK = max( N+LWQP3, 2*N+LWQRF,  2*N+N**2+LWSVDJV, 2*N+N**2+N+LWUNMQR, N+LWUNMQRM );
                  }
                  if (ROWPIV || L2TRAN) MINIWRK = MINIWRK + M;
              }
@@ -266,9 +266,9 @@
                      cunmlq('L', 'C', N, N, N, A, LDA, CDUMMY, V, LDV, CDUMMY, -1, IERR );
                      LWRK_CUNMLQ = INT( CDUMMY(1) );
                      if ( ERREST ) {
-                       OPTWRK = MAX( N+LWRK_CGEQP3, N+LWCON,  2*N+N**2+LWCON, 2*N+LWRK_CGEQRF, 2*N+LWRK_CGEQP3N, 2*N+N**2+N+LWRK_CGELQF, 2*N+N**2+N+N**2+LWCON, 2*N+N**2+N+LWRK_CGESVJ, 2*N+N**2+N+LWRK_CGESVJV, 2*N+N**2+N+LWRK_CUNMQR, 2*N+N**2+N+LWRK_CUNMLQ, N+N**2+LWRK_CGESVJU, N+LWRK_CUNMQRM );
+                       OPTWRK = max( N+LWRK_CGEQP3, N+LWCON,  2*N+N**2+LWCON, 2*N+LWRK_CGEQRF, 2*N+LWRK_CGEQP3N, 2*N+N**2+N+LWRK_CGELQF, 2*N+N**2+N+N**2+LWCON, 2*N+N**2+N+LWRK_CGESVJ, 2*N+N**2+N+LWRK_CGESVJV, 2*N+N**2+N+LWRK_CUNMQR, 2*N+N**2+N+LWRK_CUNMLQ, N+N**2+LWRK_CGESVJU, N+LWRK_CUNMQRM );
                      } else {
-                       OPTWRK = MAX( N+LWRK_CGEQP3,   2*N+N**2+LWCON, 2*N+LWRK_CGEQRF, 2*N+LWRK_CGEQP3N, 2*N+N**2+N+LWRK_CGELQF, 2*N+N**2+N+N**2+LWCON, 2*N+N**2+N+LWRK_CGESVJ, 2*N+N**2+N+LWRK_CGESVJV, 2*N+N**2+N+LWRK_CUNMQR, 2*N+N**2+N+LWRK_CUNMLQ, N+N**2+LWRK_CGESVJU, N+LWRK_CUNMQRM );
+                       OPTWRK = max( N+LWRK_CGEQP3,   2*N+N**2+LWCON, 2*N+LWRK_CGEQRF, 2*N+LWRK_CGEQP3N, 2*N+N**2+N+LWRK_CGELQF, 2*N+N**2+N+N**2+LWCON, 2*N+N**2+N+LWRK_CGESVJ, 2*N+N**2+N+LWRK_CGESVJV, 2*N+N**2+N+LWRK_CUNMQR, 2*N+N**2+N+LWRK_CUNMLQ, N+N**2+LWRK_CGESVJU, N+LWRK_CUNMQRM );
                      }
                  } else {
                      cgesvj('L', 'U', 'V', N, N, U, LDU, SVA, N, V, LDV, CDUMMY, -1, RDUMMY, -1, IERR );
@@ -278,20 +278,20 @@
                      cunmqr('L', 'N', M, N, N, A, LDA, CDUMMY, U, LDU, CDUMMY, -1, IERR );
                      LWRK_CUNMQRM = INT( CDUMMY(1) );
                      if ( ERREST ) {
-                        OPTWRK = MAX( N+LWRK_CGEQP3, N+LWCON,    2*N+LWRK_CGEQRF, 2*N+N**2, 2*N+N**2+LWRK_CGESVJV, 2*N+N**2+N+LWRK_CUNMQR,N+LWRK_CUNMQRM );
+                        OPTWRK = max( N+LWRK_CGEQP3, N+LWCON,    2*N+LWRK_CGEQRF, 2*N+N**2, 2*N+N**2+LWRK_CGESVJV, 2*N+N**2+N+LWRK_CUNMQR,N+LWRK_CUNMQRM );
                      } else {
-                        OPTWRK = MAX( N+LWRK_CGEQP3, 2*N+LWRK_CGEQRF,   2*N+N**2, 2*N+N**2+LWRK_CGESVJV, 2*N+N**2+N+LWRK_CUNMQR, N+LWRK_CUNMQRM );
+                        OPTWRK = max( N+LWRK_CGEQP3, 2*N+LWRK_CGEQRF,   2*N+N**2, 2*N+N**2+LWRK_CGESVJV, 2*N+N**2+N+LWRK_CUNMQR, N+LWRK_CUNMQRM );
                      }
                  }
              }
              if ( L2TRAN || ROWPIV ) {
-                 MINRWRK = MAX( 7, 2*M,  LRWQP3, LRWSVDJ, LRWCON );
+                 MINRWRK = max( 7, 2*M,  LRWQP3, LRWSVDJ, LRWCON );
              } else {
-                 MINRWRK = MAX( 7, LRWQP3, LRWSVDJ, LRWCON );
+                 MINRWRK = max( 7, LRWQP3, LRWSVDJ, LRWCON );
              }
           }
-          MINWRK = MAX( 2, MINWRK );
-          OPTWRK = MAX( OPTWRK, MINWRK );
+          MINWRK = max( 2, MINWRK );
+          OPTWRK = max( OPTWRK, MINWRK );
           if ( LWORK < MINWRK && ( !LQUERY) ) INFO = - 17;
           if ( LRWORK < MINRWRK && ( !LQUERY) ) INFO = - 19;
       }
@@ -304,7 +304,7 @@
           CWORK(1) = OPTWRK;
           CWORK(2) = MINWRK;
           RWORK(1) = MINRWRK;
-          IWORK(1) = MAX( 4, MINIWRK );
+          IWORK(1) = max( 4, MINIWRK );
           return;
       }
 
@@ -339,7 +339,7 @@
       // overflow. It is possible that this scaling pushes the smallest
       // column norm left from the underflow threshold (extreme case).
 
-      SCALEM  = ONE / SQRT(REAL(M)*REAL(N));
+      SCALEM  = ONE / sqrt(REAL(M)*REAL(N));
       NOSCAL  = true;
       GOSCAL  = true;
       for (p = 1; p <= N; p++) { // 1874
@@ -351,7 +351,7 @@
             xerbla('CGEJSV', -INFO );
             return;
          }
-         AAQQ = SQRT(AAQQ);
+         AAQQ = sqrt(AAQQ);
          if ( ( AAPP < (BIG / AAQQ) ) && NOSCAL  ) {
             SVA(p)  = AAPP * AAQQ;
          } else {
@@ -369,8 +369,8 @@
       AAPP = ZERO;
       AAQQ = BIG;
       for (p = 1; p <= N; p++) { // 4781
-         AAPP = MAX( AAPP, SVA(p) );
-         if ( SVA(p) != ZERO ) AAQQ = MIN( AAQQ, SVA(p) );
+         AAPP = max( AAPP, SVA(p) );
+         if ( SVA(p) != ZERO ) AAQQ = min( AAQQ, SVA(p) );
       } // 4781
 
       // Quick return for zero M x N matrix
@@ -475,15 +475,15 @@
                // CLASSQ gets both the ell_2 and the ell_infinity norm
                // in one pass through the vector
                RWORK(M+p)  = XSC * SCALEM;
-               RWORK(p)    = XSC * (SCALEM*SQRT(TEMP1));
-               AATMAX = MAX( AATMAX, RWORK(p) );
-               if (RWORK(p) != ZERO)  AATMIN = MIN(AATMIN,RWORK(p));
+               RWORK(p)    = XSC * (SCALEM*sqrt(TEMP1));
+               AATMAX = max( AATMAX, RWORK(p) );
+               if (RWORK(p) != ZERO)  AATMIN = min(AATMIN,RWORK(p));
             } // 1950
          } else {
             for (p = 1; p <= M; p++) { // 1904
                RWORK(M+p) = SCALEM*ABS( A(p,ICAMAX(N,A(p,1),LDA)) );
-               AATMAX = MAX( AATMAX, RWORK(M+p) );
-               AATMIN = MIN( AATMIN, RWORK(M+p) );
+               AATMAX = max( AATMAX, RWORK(M+p) );
+               AATMIN = min( AATMIN, RWORK(M+p) );
             } // 1904
          }
 
@@ -568,16 +568,16 @@
       // END IF L2TRAN
 
       // Scale the matrix so that its maximal singular value remains less
-      // than SQRT(BIG) -- the matrix is scaled so that its maximal column
-      // has Euclidean norm equal to SQRT(BIG/N). The only reason to keep
-      // SQRT(BIG) instead of BIG is the fact that CGEJSV uses LAPACK and
+      // than sqrt(BIG) -- the matrix is scaled so that its maximal column
+      // has Euclidean norm equal to sqrt(BIG/N). The only reason to keep
+      // sqrt(BIG) instead of BIG is the fact that CGEJSV uses LAPACK and
       // BLAS routines that, in some implementations, are not capable of
       // working in the full interval [SFMIN,BIG] and that they may provoke
       // overflows in the intermediate results. If the singular values spread
       // from SFMIN to BIG, then CGESVJ will compute them. So, in that case,
       // one should use CGESVJ instead of CGEJSV.
-      BIG1   = SQRT( BIG );
-      TEMP1  = SQRT( BIG / REAL(N) );
+      BIG1   = sqrt( BIG );
+      TEMP1  = sqrt( BIG / REAL(N) );
       // >> for future updates: allow bigger range, i.e. the largest column
       // will be allowed up to BIG/N and CGESVJ will do the rest. However, for
       // this all other (LAPACK) components must allow such a range.
@@ -601,20 +601,20 @@
       if ( L2KILL ) {
          // L2KILL enforces computation of nonzero singular values in
          // the restricted range of condition number of the initial A,
-         // sigma_max(A) / sigma_min(A) approx. SQRT(BIG)/SQRT(SFMIN).
-         XSC = SQRT( SFMIN );
+         // sigma_max(A) / sigma_min(A) approx. sqrt(BIG)/sqrt(SFMIN).
+         XSC = sqrt( SFMIN );
       } else {
          XSC = SMALL;
 
          // Now, if the condition number of A is too big,
-         // sigma_max(A) / sigma_min(A) > SQRT(BIG/N) * EPSLN / SFMIN,
+         // sigma_max(A) / sigma_min(A) > sqrt(BIG/N) * EPSLN / SFMIN,
          // as a precaution measure, the full SVD is computed using CGESVJ
          // with accumulated Jacobi rotations. This provides numerically
          // more robust computation, at the cost of slightly increased run
          // time. Depending on the concrete implementation of BLAS and LAPACK
          // (i.e. how they behave in presence of extreme ill-conditioning) the
          // implementor may decide to remove this switch.
-         if ( ( AAQQ < SQRT(SFMIN) ) && LSVEC && RSVEC ) {
+         if ( ( AAQQ < sqrt(SFMIN) ) && LSVEC && RSVEC ) {
             JRACC = true;
          }
 
@@ -688,7 +688,7 @@
          // sigma_i < N*EPSLN*||A|| are flushed to zero. This is an
          // aggressive enforcement of lower numerical rank by introducing a
          // backward error of the order of N*EPSLN*||A||.
-         TEMP1 = SQRT(REAL(N))*EPSLN;
+         TEMP1 = sqrt(REAL(N))*EPSLN;
          for (p = 2; p <= N; p++) { // 3001
             if ( ABS(A(p,p)) >= (TEMP1*ABS(A(1,1))) ) {
                NR = NR + 1;
@@ -701,7 +701,7 @@
          // .. similarly as above, only slightly more gentle (less aggressive).
          // Sudden drop on the diagonal of R1 is used as the criterion for
          // close-to-rank-deficient.
-         TEMP1 = SQRT(SFMIN);
+         TEMP1 = sqrt(SFMIN);
          for (p = 2; p <= N; p++) { // 3401
             if ( ( ABS(A(p,p)) < (EPSLN*ABS(A(p-1,p-1))) ) || ( ABS(A(p,p)) < SMALL ) || ( L2KILL && (ABS(A(p,p)) < TEMP1) ) ) GO TO 3402;
             NR = NR + 1;
@@ -716,7 +716,7 @@
          // Here we just remove the underflowed part of the triangular
          // factor. This prevents the situation in which the code is
          // working hard to get the accuracy not warranted by the data.
-         TEMP1  = SQRT(SFMIN);
+         TEMP1  = sqrt(SFMIN);
          for (p = 2; p <= N; p++) { // 3301
             if ( ( ABS(A(p,p)) < SMALL ) || ( L2KILL && (ABS(A(p,p)) < TEMP1) ) ) GO TO 3302;
             NR = NR + 1;
@@ -730,7 +730,7 @@
          MAXPRJ = ONE;
          for (p = 2; p <= N; p++) { // 3051
             TEMP1  = ABS(A(p,p)) / SVA(IWORK(p));
-            MAXPRJ = MIN( MAXPRJ, TEMP1 );
+            MAXPRJ = min( MAXPRJ, TEMP1 );
          } // 3051
          if ( MAXPRJ**2 >= ONE - REAL(N)*EPSLN ) ALMORT = true;
       }
@@ -780,18 +780,18 @@
 
             }
             if ( TEMP1 != ZERO ) {
-               SCONDA = ONE / SQRT(TEMP1);
+               SCONDA = ONE / sqrt(TEMP1);
             } else {
                SCONDA = - ONE;
             }
-            // SCONDA is an estimate of SQRT(||(R^* * R)^(-1)||_1).
+            // SCONDA is an estimate of sqrt(||(R^* * R)^(-1)||_1).
             // N^(-1/4) * SCONDA <= ||R^(-1)||_2 <= N^(1/4) * SCONDA
          } else {
             SCONDA = - ONE;
          }
       }
 
-      L2PERT = L2PERT && ( ABS( A(1,1)/A(NR,NR) ) > SQRT(BIG1) );
+      L2PERT = L2PERT && ( ABS( A(1,1)/A(NR,NR) ) > sqrt(BIG1) );
       // If there is no violent scaling, artificial perturbation is not needed.
 
       // Phase 3:
@@ -801,7 +801,7 @@
           // Singular Values only
 
           // .. transpose A(1:NR,1:N)
-         DO 1946 p = 1, MIN( N-1, NR );
+         DO 1946 p = 1, min( N-1, NR );
             ccopy(N-p, A(p,p+1), LDA, A(p+1,p), 1 );
             clacgv(N-p+1, A(p,p), 1 );
          } // 1946
@@ -822,7 +822,7 @@
          if ( !ALMORT ) {
 
             if ( L2PERT ) {
-               // XSC = SQRT(SMALL)
+               // XSC = sqrt(SMALL)
                XSC = EPSLN / REAL(N);
                for (q = 1; q <= NR; q++) { // 4947
                   CTEMP = CMPLX(XSC*ABS(A(q,q)),ZERO);
@@ -852,7 +852,7 @@
             // .. again some perturbation (a "background noise") is added
             // to drown denormals
             if ( L2PERT ) {
-               // XSC = SQRT(SMALL)
+               // XSC = sqrt(SMALL)
                XSC = EPSLN / REAL(N);
                for (q = 1; q <= NR; q++) { // 1947
                   CTEMP = CMPLX(XSC*ABS(A(q,q)),ZERO);
@@ -1018,7 +1018,7 @@
             // transposed copy above.
 
             if ( L2PERT ) {
-               XSC = SQRT(SMALL);
+               XSC = sqrt(SMALL);
                for (q = 1; q <= NR; q++) { // 2969
                   CTEMP = CMPLX(XSC*ABS( V(q,q) ),ZERO);
                   for (p = 1; p <= N; p++) { // 2968
@@ -1041,13 +1041,13 @@
                csscal(NR-p+1,ONE/TEMP1,CWORK(2*N+(p-1)*NR+p),1);
             } // 3950
             cpocon('L',NR,CWORK(2*N+1),NR,ONE,TEMP1, CWORK(2*N+NR*NR+1),RWORK,IERR);
-            CONDR1 = ONE / SQRT(TEMP1);
+            CONDR1 = ONE / sqrt(TEMP1);
             // .. here need a second opinion on the condition number
             // .. then assume worst case scenario
             // R1 is OK for inverse <=> CONDR1 < REAL(N)
-            // more conservative    <=> CONDR1 < SQRT(REAL(N))
+            // more conservative    <=> CONDR1 < sqrt(REAL(N))
 
-            COND_OK = SQRT(SQRT(REAL(NR)));
+            COND_OK = sqrt(sqrt(REAL(NR)));
 // [TP]       COND_OK is a tuning parameter.
 
             if ( CONDR1 < COND_OK ) {
@@ -1058,10 +1058,10 @@
                cgeqrf(N, NR, V, LDV, CWORK(N+1), CWORK(2*N+1), LWORK-2*N, IERR );
 
                if ( L2PERT ) {
-                  XSC = SQRT(SMALL)/EPSLN;
+                  XSC = sqrt(SMALL)/EPSLN;
                   for (p = 2; p <= NR; p++) { // 3959
                      for (q = 1; q <= p - 1; q++) { // 3958
-                        CTEMP=CMPLX(XSC*MIN(ABS(V(p,p)),ABS(V(q,q))), ZERO);
+                        CTEMP=CMPLX(XSC*min(ABS(V(p,p)),ABS(V(q,q))), ZERO);
                         if ( ABS(V(q,p)) <= TEMP1 );
       // $                     V(q,p) = TEMP1 * ( V(q,p) / ABS(V(q,p)) ) V(q,p) = CTEMP
                      } // 3958
@@ -1097,10 +1097,10 @@
 // *               CALL CGEQRF( N, NR, V, LDV, CWORK(N+1), CWORK(2*N+1),
 // *     $              LWORK-2*N, IERR )
                if ( L2PERT ) {
-                  XSC = SQRT(SMALL);
+                  XSC = sqrt(SMALL);
                   for (p = 2; p <= NR; p++) { // 3969
                      for (q = 1; q <= p - 1; q++) { // 3968
-                        CTEMP=CMPLX(XSC*MIN(ABS(V(p,p)),ABS(V(q,q))), ZERO);
+                        CTEMP=CMPLX(XSC*min(ABS(V(p,p)),ABS(V(q,q))), ZERO);
                         if ( ABS(V(q,p)) <= TEMP1 );
       // $                     V(q,p) = TEMP1 * ( V(q,p) / ABS(V(q,p)) ) V(q,p) = CTEMP
                      } // 3968
@@ -1110,10 +1110,10 @@
                clacpy('A', N, NR, V, LDV, CWORK(2*N+1), N );
 
                if ( L2PERT ) {
-                  XSC = SQRT(SMALL);
+                  XSC = sqrt(SMALL);
                   for (p = 2; p <= NR; p++) { // 8970
                      for (q = 1; q <= p - 1; q++) { // 8971
-                        CTEMP=CMPLX(XSC*MIN(ABS(V(p,p)),ABS(V(q,q))), ZERO);
+                        CTEMP=CMPLX(XSC*min(ABS(V(p,p)),ABS(V(q,q))), ZERO);
                          // V(p,q) = - TEMP1*( V(q,p) / ABS(V(q,p)) )
                         V(p,q) = - CTEMP;
                      } // 8971
@@ -1130,7 +1130,7 @@
                   csscal(p, ONE/TEMP1, CWORK(2*N+N*NR+NR+p), NR );
                } // 4950
                cpocon('L',NR,CWORK(2*N+N*NR+NR+1),NR,ONE,TEMP1, CWORK(2*N+N*NR+NR+NR*NR+1),RWORK,IERR );
-               CONDR2 = ONE / SQRT(TEMP1);
+               CONDR2 = ONE / sqrt(TEMP1);
 
 
                if ( CONDR2 >= COND_OK ) {
@@ -1146,7 +1146,7 @@
             }
 
             if ( L2PERT ) {
-               XSC = SQRT(SMALL);
+               XSC = sqrt(SMALL);
                for (q = 2; q <= NR; q++) { // 4968
                   CTEMP = XSC * V(q,q);
                   for (p = 1; p <= q - 1; p++) { // 4969
@@ -1263,7 +1263,7 @@
             // first QRF. Also, scale the columns to make them unit in
             // Euclidean norm. This applies to all cases.
 
-            TEMP1 = SQRT(REAL(N)) * EPSLN;
+            TEMP1 = sqrt(REAL(N)) * EPSLN;
             for (q = 1; q <= N; q++) { // 1972
                for (p = 1; p <= N; p++) { // 972
                   CWORK(2*N+N*NR+NR+IWORK(p)) = V(p,q);
@@ -1290,7 +1290,7 @@
             cunmqr('L', 'N', M, N1, N, A, LDA, CWORK, U, LDU, CWORK(N+1), LWORK-N, IERR );
 
             // The columns of U are normalized. The cost is O(M*N) flops.
-            TEMP1 = SQRT(REAL(M)) * EPSLN;
+            TEMP1 = sqrt(REAL(M)) * EPSLN;
             for (p = 1; p <= NR; p++) { // 1973
                XSC = ONE / SCNRM2( M, U(1,p), 1 );
                if ( (XSC < (ONE-TEMP1)) || (XSC > (ONE+TEMP1)) ) CALL CSSCAL( M, XSC, U(1,p), 1 );
@@ -1308,7 +1308,7 @@
 
             clacpy('U', N, N, A, LDA, CWORK(N+1), N );
             if ( L2PERT ) {
-               XSC = SQRT(SMALL);
+               XSC = sqrt(SMALL);
                for (p = 2; p <= N; p++) { // 5970
                   CTEMP = XSC * CWORK( N + (p-1)*N + p );
                   for (q = 1; q <= p - 1; q++) { // 5971
@@ -1334,7 +1334,7 @@
             for (p = 1; p <= N; p++) { // 6972
                ccopy(N, CWORK(N+p), N, V(IWORK(p),1), LDV );
             } // 6972
-            TEMP1 = SQRT(REAL(N))*EPSLN;
+            TEMP1 = sqrt(REAL(N))*EPSLN;
             for (p = 1; p <= N; p++) { // 6971
                XSC = ONE / SCNRM2( N, V(1,p), 1 );
                if ( (XSC < (ONE-TEMP1)) || (XSC > (ONE+TEMP1)) ) CALL CSSCAL( N, XSC, V(1,p), 1 );
@@ -1350,7 +1350,7 @@
                }
             }
             cunmqr('L', 'N', M, N1, N, A, LDA, CWORK, U, LDU, CWORK(N+1), LWORK-N, IERR );
-            TEMP1 = SQRT(REAL(M))*EPSLN;
+            TEMP1 = sqrt(REAL(M))*EPSLN;
             for (p = 1; p <= N1; p++) { // 6973
                XSC = ONE / SCNRM2( M, U(1,p), 1 );
                if ( (XSC < (ONE-TEMP1)) || (XSC > (ONE+TEMP1)) ) CALL CSSCAL( M, XSC, U(1,p), 1 );
@@ -1381,7 +1381,7 @@
          } // 7968
 
          if ( L2PERT ) {
-            XSC = SQRT(SMALL/EPSLN);
+            XSC = sqrt(SMALL/EPSLN);
             for (q = 1; q <= NR; q++) { // 5969
                CTEMP = CMPLX(XSC*ABS( V(q,q) ),ZERO);
                for (p = 1; p <= N; p++) { // 5968
@@ -1402,10 +1402,10 @@
          } // 7969
 
          if ( L2PERT ) {
-            XSC = SQRT(SMALL/EPSLN);
+            XSC = sqrt(SMALL/EPSLN);
             for (q = 2; q <= NR; q++) { // 9970
                for (p = 1; p <= q - 1; p++) { // 9971
-                  CTEMP = CMPLX(XSC * MIN(ABS(U(p,p)),ABS(U(q,q))), ZERO);
+                  CTEMP = CMPLX(XSC * min(ABS(U(p,p)),ABS(U(q,q))), ZERO);
                    // U(p,q) = - TEMP1 * ( U(q,p) / ABS(U(q,p)) )
                   U(p,q) = - CTEMP;
                } // 9971
@@ -1428,7 +1428,7 @@
             // first QRF. Also, scale the columns to make them unit in
             // Euclidean norm. This applies to all cases.
 
-            TEMP1 = SQRT(REAL(N)) * EPSLN;
+            TEMP1 = sqrt(REAL(N)) * EPSLN;
             for (q = 1; q <= N; q++) { // 7972
                for (p = 1; p <= N; p++) { // 8972
                   CWORK(2*N+N*NR+NR+IWORK(p)) = V(p,q);

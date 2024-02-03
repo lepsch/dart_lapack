@@ -40,11 +40,11 @@
       NOTRAN = LSAME( TRANS, 'N' );
 
       if ( LEFT ) {
-         LDVQ = MAX( 1, M );
-         LDAQ = MAX( 1, K );
+         LDVQ = max( 1, M );
+         LDAQ = max( 1, K );
       } else if ( RIGHT ) {
-         LDVQ = MAX( 1, N );
-         LDAQ = MAX( 1, M );
+         LDVQ = max( 1, N );
+         LDAQ = max( 1, M );
       }
       if ( !LEFT && !RIGHT ) {
          INFO = -1;
@@ -66,7 +66,7 @@
          INFO = -11;
       } else if ( LDA < LDAQ ) {
          INFO = -13;
-      } else if ( LDB < MAX( 1, M ) ) {
+      } else if ( LDB < max( 1, M ) ) {
          INFO = -15;
       }
 
@@ -82,8 +82,8 @@
       if ( LEFT && TRAN ) {
 
          DO I = 1, K, NB;
-            IB = MIN( NB, K-I+1 );
-            MB = MIN( M-L+I+IB-1, M );
+            IB = min( NB, K-I+1 );
+            MB = min( M-L+I+IB-1, M );
             if ( I >= L ) {
                LB = 0;
             } else {
@@ -95,8 +95,8 @@
       } else if ( RIGHT && NOTRAN ) {
 
          DO I = 1, K, NB;
-            IB = MIN( NB, K-I+1 );
-            MB = MIN( N-L+I+IB-1, N );
+            IB = min( NB, K-I+1 );
+            MB = min( N-L+I+IB-1, N );
             if ( I >= L ) {
                LB = 0;
             } else {
@@ -109,8 +109,8 @@
 
          KF = ((K-1)/NB)*NB+1;
          DO I = KF, 1, -NB;
-            IB = MIN( NB, K-I+1 );
-            MB = MIN( M-L+I+IB-1, M );
+            IB = min( NB, K-I+1 );
+            MB = min( M-L+I+IB-1, M );
             if ( I >= L ) {
                LB = 0;
             } else {
@@ -123,8 +123,8 @@
 
          KF = ((K-1)/NB)*NB+1;
          DO I = KF, 1, -NB;
-            IB = MIN( NB, K-I+1 );
-            MB = MIN( N-L+I+IB-1, N );
+            IB = min( NB, K-I+1 );
+            MB = min( N-L+I+IB-1, N );
             if ( I >= L ) {
                LB = 0;
             } else {

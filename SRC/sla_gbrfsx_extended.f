@@ -113,21 +113,21 @@
                DYK = ABS( DY( I ) );
 
                if ( YK != 0.0 ) {
-                  DZ_Z = MAX( DZ_Z, DYK / YK );
+                  DZ_Z = max( DZ_Z, DYK / YK );
                } else if ( DYK != 0.0 ) {
                   DZ_Z = HUGEVAL;
                }
 
-               YMIN = MIN( YMIN, YK );
+               YMIN = min( YMIN, YK );
 
-               NORMY = MAX( NORMY, YK );
+               NORMY = max( NORMY, YK );
 
                if ( COLEQU ) {
-                  NORMX = MAX( NORMX, YK * C( I ) );
-                  NORMDX = MAX( NORMDX, DYK * C( I ) );
+                  NORMX = max( NORMX, YK * C( I ) );
+                  NORMDX = max( NORMDX, DYK * C( I ) );
                } else {
                   NORMX = NORMY;
-                  NORMDX = MAX( NORMDX, DYK );
+                  NORMDX = max( NORMDX, DYK );
                }
             }
 

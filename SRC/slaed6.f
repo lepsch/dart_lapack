@@ -67,16 +67,16 @@
             A = C*( D( 1 )+D( 2 ) ) + Z( 1 ) + Z( 2 );
             B = C*D( 1 )*D( 2 ) + Z( 1 )*D( 2 ) + Z( 2 )*D( 1 );
          }
-         TEMP = MAX( ABS( A ), ABS( B ), ABS( C ) );
+         TEMP = max( ABS( A ), ABS( B ), ABS( C ) );
          A = A / TEMP;
          B = B / TEMP;
          C = C / TEMP;
          if ( C == ZERO ) {
             TAU = B / A;
          } else if ( A <= ZERO ) {
-            TAU = ( A-SQRT( ABS( A*A-FOUR*B*C ) ) ) / ( TWO*C );
+            TAU = ( A-sqrt( ABS( A*A-FOUR*B*C ) ) ) / ( TWO*C );
          } else {
-            TAU = TWO*B / ( A+SQRT( ABS( A*A-FOUR*B*C ) ) );
+            TAU = TWO*B / ( A+sqrt( ABS( A*A-FOUR*B*C ) ) );
          }
          if (TAU < LBD || TAU > UBD) TAU = ( LBD+UBD )/TWO;
          if ( D(1) == TAU || D(2) == TAU || D(3) == TAU ) {
@@ -109,9 +109,9 @@
       // when computing 1/TEMP**3
 
       if ( ORGATI ) {
-         TEMP = MIN( ABS( D( 2 )-TAU ), ABS( D( 3 )-TAU ) );
+         TEMP = min( ABS( D( 2 )-TAU ), ABS( D( 3 )-TAU ) );
       } else {
-         TEMP = MIN( ABS( D( 1 )-TAU ), ABS( D( 2 )-TAU ) );
+         TEMP = min( ABS( D( 1 )-TAU ), ABS( D( 2 )-TAU ) );
       }
       SCALE = false;
       if ( TEMP <= SMALL1 ) {
@@ -195,16 +195,16 @@
          A = ( TEMP1+TEMP2 )*F - TEMP1*TEMP2*DF;
          B = TEMP1*TEMP2*F;
          C = F - ( TEMP1+TEMP2 )*DF + TEMP1*TEMP2*DDF;
-         TEMP = MAX( ABS( A ), ABS( B ), ABS( C ) );
+         TEMP = max( ABS( A ), ABS( B ), ABS( C ) );
          A = A / TEMP;
          B = B / TEMP;
          C = C / TEMP;
          if ( C == ZERO ) {
             ETA = B / A;
          } else if ( A <= ZERO ) {
-            ETA = ( A-SQRT( ABS( A*A-FOUR*B*C ) ) ) / ( TWO*C );
+            ETA = ( A-sqrt( ABS( A*A-FOUR*B*C ) ) ) / ( TWO*C );
          } else {
-            ETA = TWO*B / ( A+SQRT( ABS( A*A-FOUR*B*C ) ) );
+            ETA = TWO*B / ( A+sqrt( ABS( A*A-FOUR*B*C ) ) );
          }
          if ( F*ETA >= ZERO ) {
             ETA = -F / DF;

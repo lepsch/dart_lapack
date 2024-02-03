@@ -60,17 +60,17 @@
          INFO = -4;
       } else if ( N < 0 ) {
          INFO = -5;
-      } else if ( LDA < MAX( 1, N ) ) {
+      } else if ( LDA < max( 1, N ) ) {
          INFO = -7;
-      } else if ( LDB < MAX( 1, N ) ) {
+      } else if ( LDB < max( 1, N ) ) {
          INFO = -9;
       } else {
          if ( VALEIG ) {
             if (N > 0 && VU <= VL) INFO = -11;
          } else if ( INDEIG ) {
-            if ( IL < 1 || IL > MAX( 1, N ) ) {
+            if ( IL < 1 || IL > max( 1, N ) ) {
                INFO = -12;
-            } else if ( IU < MIN( N, IL ) || IU > N ) {
+            } else if ( IU < min( N, IL ) || IU > N ) {
                INFO = -13;
             }
          }
@@ -83,10 +83,10 @@
 
       if ( INFO == 0 ) {
          NB = ILAENV( 1, 'CHETRD', UPLO, N, -1, -1, -1 );
-         LWKOPT = MAX( 1, ( NB + 1 )*N );
+         LWKOPT = max( 1, ( NB + 1 )*N );
          WORK( 1 ) = SROUNDUP_LWORK(LWKOPT);
 
-         if ( LWORK < MAX( 1, 2*N ) && !LQUERY ) {
+         if ( LWORK < max( 1, 2*N ) && !LQUERY ) {
             INFO = -20;
          }
       }

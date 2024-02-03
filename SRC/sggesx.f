@@ -99,9 +99,9 @@
          INFO = -5;
       } else if ( N < 0 ) {
          INFO = -6;
-      } else if ( LDA < MAX( 1, N ) ) {
+      } else if ( LDA < max( 1, N ) ) {
          INFO = -8;
-      } else if ( LDB < MAX( 1, N ) ) {
+      } else if ( LDB < max( 1, N ) ) {
          INFO = -10;
       } else if ( LDVSL < 1 || ( ILVSL && LDVSL < N ) ) {
          INFO = -16;
@@ -118,13 +118,13 @@
 
       if ( INFO == 0 ) {
          if ( N > 0) {
-            MINWRK = MAX( 8*N, 6*N + 16 );
-            MAXWRK = MINWRK - N + N*ILAENV( 1, 'SGEQRF', ' ', N, 1, N, 0 )             MAXWRK = MAX( MAXWRK, MINWRK - N + N*ILAENV( 1, 'SORMQR', ' ', N, 1, N, -1 ) );
+            MINWRK = max( 8*N, 6*N + 16 );
+            MAXWRK = MINWRK - N + N*ILAENV( 1, 'SGEQRF', ' ', N, 1, N, 0 )             MAXWRK = max( MAXWRK, MINWRK - N + N*ILAENV( 1, 'SORMQR', ' ', N, 1, N, -1 ) );
             if ( ILVSL ) {
-               MAXWRK = MAX( MAXWRK, MINWRK - N + N*ILAENV( 1, 'SORGQR', ' ', N, 1, N, -1 ) );
+               MAXWRK = max( MAXWRK, MINWRK - N + N*ILAENV( 1, 'SORGQR', ' ', N, 1, N, -1 ) );
             }
             LWRK = MAXWRK;
-            if (IJOB >= 1) LWRK = MAX( LWRK, N*N/2 );
+            if (IJOB >= 1) LWRK = max( LWRK, N*N/2 );
          } else {
             MINWRK = 1;
             MAXWRK = 1;
@@ -164,7 +164,7 @@
       EPS = SLAMCH( 'P' );
       SAFMIN = SLAMCH( 'S' );
       SAFMAX = ONE / SAFMIN;
-      SMLNUM = SQRT( SAFMIN ) / EPS;
+      SMLNUM = sqrt( SAFMIN ) / EPS;
       BIGNUM = ONE / SMLNUM;
 
       // Scale A if max element outside range [SMLNUM,BIGNUM]
@@ -255,7 +255,7 @@
 
       // Sort eigenvalues ALPHA/BETA and compute the reciprocal of
       // condition number(s)
-      // (Workspace: If IJOB >= 1, need MAX( 8*(N+1), 2*SDIM*(N-SDIM) )
+      // (Workspace: If IJOB >= 1, need max( 8*(N+1), 2*SDIM*(N-SDIM) )
                   // otherwise, need 8*(N+1) )
 
       if ( WANTST ) {
@@ -279,7 +279,7 @@
 
          stgsen(IJOB, ILVSL, ILVSR, BWORK, N, A, LDA, B, LDB, ALPHAR, ALPHAI, BETA, VSL, LDVSL, VSR, LDVSR, SDIM, PL, PR, DIF, WORK( IWRK ), LWORK-IWRK+1, IWORK, LIWORK, IERR );
 
-         if (IJOB >= 1) MAXWRK = MAX( MAXWRK, 2*SDIM*( N-SDIM ) );
+         if (IJOB >= 1) MAXWRK = max( MAXWRK, 2*SDIM*( N-SDIM ) );
          if ( IERR == -22 ) {
 
              // not enough real workspace

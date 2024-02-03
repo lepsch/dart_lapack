@@ -24,7 +24,7 @@
       INFO = 0;
 
       // Set up deflation window
-      JW = MIN( NW, IHI-ILO+1 );
+      JW = min( NW, IHI-ILO+1 );
       KWTOP = IHI-JW+1;
       if ( KWTOP == ILO ) {
          S = ZERO;
@@ -38,8 +38,8 @@
       stgexc( true , true , JW, A, LDA, B, LDB, QC, LDQC, ZC, LDZC, IFST, ILST, WORK, -1, STGEXC_INFO );
       LWORKREQ = INT( WORK( 1 ) );
       slaqz0('S', 'V', 'V', JW, 1, JW, A( KWTOP, KWTOP ), LDA, B( KWTOP, KWTOP ), LDB, ALPHAR, ALPHAI, BETA, QC, LDQC, ZC, LDZC, WORK, -1, REC+1, QZ_SMALL_INFO );
-      LWORKREQ = MAX( LWORKREQ, INT( WORK( 1 ) )+2*JW**2 );
-      LWORKREQ = MAX( LWORKREQ, N*NW, 2*NW**2+N );
+      LWORKREQ = max( LWORKREQ, INT( WORK( 1 ) )+2*JW**2 );
+      LWORKREQ = max( LWORKREQ, N*NW, 2*NW**2+N );
       if ( LWORK == -1 ) {
          // workspace query, quick return;
          WORK( 1 ) = SROUNDUP_LWORK(LWORKREQ);
@@ -66,7 +66,7 @@
          BETA( KWTOP ) = B( KWTOP, KWTOP );
          NS = 1;
          ND = 0;
-         if ( ABS( S ) <= MAX( SMLNUM, ULP*ABS( A( KWTOP, KWTOP ) ) ) ) {
+         if ( ABS( S ) <= max( SMLNUM, ULP*ABS( A( KWTOP, KWTOP ) ) ) ) {
             NS = 0;
             ND = 1;
             if ( KWTOP > ILO ) {
@@ -109,11 +109,11 @@
             if ( BULGE ) {
 
                // Try to deflate complex conjugate eigenvalue pair
-               TEMP = ABS( A( KWBOT, KWBOT ) )+SQRT( ABS( A( KWBOT, KWBOT-1 ) ) )*SQRT( ABS( A( KWBOT-1, KWBOT ) ) );
+               TEMP = ABS( A( KWBOT, KWBOT ) )+sqrt( ABS( A( KWBOT, KWBOT-1 ) ) )*sqrt( ABS( A( KWBOT-1, KWBOT ) ) );
                if ( TEMP == ZERO ) {
                   TEMP = ABS( S );
                }
-               if ( MAX( ABS( S*QC( 1, KWBOT-KWTOP ) ), ABS( S*QC( 1, KWBOT-KWTOP+1 ) ) ) <= MAX( SMLNUM, ULP*TEMP ) ) {
+               if ( max( ABS( S*QC( 1, KWBOT-KWTOP ) ), ABS( S*QC( 1, KWBOT-KWTOP+1 ) ) ) <= max( SMLNUM, ULP*TEMP ) ) {
                   // Deflatable
                   KWBOT = KWBOT-2;
                } else {
@@ -131,7 +131,7 @@
                if ( TEMP == ZERO ) {
                   TEMP = ABS( S );
                }
-               if ( ( ABS( S*QC( 1, KWBOT-KWTOP+1 ) ) ) <= MAX( ULP* TEMP, SMLNUM ) ) {
+               if ( ( ABS( S*QC( 1, KWBOT-KWTOP+1 ) ) ) <= max( ULP* TEMP, SMLNUM ) ) {
                   // Deflatable
                   KWBOT = KWBOT-1;
                } else {
@@ -180,7 +180,7 @@
             slartg(A( K, KWTOP-1 ), A( K+1, KWTOP-1 ), C1, S1, TEMP );
             A( K, KWTOP-1 ) = TEMP;
             A( K+1, KWTOP-1 ) = ZERO;
-            K2 = MAX( KWTOP, K-1 );
+            K2 = max( KWTOP, K-1 );
             srot(IHI-K2+1, A( K, K2 ), LDA, A( K+1, K2 ), LDA, C1, S1 );
             srot(IHI-( K-1 )+1, B( K, K-1 ), LDB, B( K+1, K-1 ), LDB, C1, S1 );
             srot(JW, QC( 1, K-KWTOP+1 ), 1, QC( 1, K+1-KWTOP+1 ), 1, C1, S1 );

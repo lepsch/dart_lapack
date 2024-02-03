@@ -66,14 +66,14 @@
       BADNN = false;
       NMAX = 1;
       for (J = 1; J <= NSIZES; J++) { // 10
-         NMAX = MAX( NMAX, NN( J ) );
+         NMAX = max( NMAX, NN( J ) );
          if( NN( J ) < 0 ) BADNN = true;
       } // 10
 
       // Maximum blocksize and shift -- we assume that blocksize and number
       // of shifts are monotone increasing functions of N.
 
-      LWKOPT = MAX( 6*NMAX, 2*NMAX*NMAX, 1 );
+      LWKOPT = max( 6*NMAX, 2*NMAX*NMAX, 1 );
 
       // Check for errors
 
@@ -121,14 +121,14 @@
 
       for (JSIZE = 1; JSIZE <= NSIZES; JSIZE++) { // 240
          N = NN( JSIZE );
-         N1 = MAX( 1, N );
+         N1 = max( 1, N );
          RMAGN( 2 ) = SAFMAX*ULP / REAL( N1 );
          RMAGN( 3 ) = SAFMIN*ULPINV*N1;
 
          if ( NSIZES != 1 ) {
-            MTYPES = MIN( MAXTYP, NTYPES );
+            MTYPES = min( MAXTYP, NTYPES );
          } else {
-            MTYPES = MIN( MAXTYP+1, NTYPES );
+            MTYPES = min( MAXTYP+1, NTYPES );
          }
 
          for (JTYPE = 1; JTYPE <= MTYPES; JTYPE++) { // 230
@@ -500,13 +500,13 @@
                TEMP1 = ZERO;
                TEMP2 = ZERO;
                for (J = 1; J <= N; J++) { // 200
-                  TEMP1 = MAX( TEMP1, ABS( ALPHR1( J )-ALPHR3( J ) )+ ABS( ALPHI1( J )-ALPHI3( J ) ) );
-                  TEMP2 = MAX( TEMP2, ABS( BETA1( J )-BETA3( J ) ) );
+                  TEMP1 = max( TEMP1, ABS( ALPHR1( J )-ALPHR3( J ) )+ ABS( ALPHI1( J )-ALPHI3( J ) ) );
+                  TEMP2 = max( TEMP2, ABS( BETA1( J )-BETA3( J ) ) );
                } // 200
 
-               TEMP1 = TEMP1 / MAX( SAFMIN, ULP*MAX( TEMP1, ANORM ) );
-               TEMP2 = TEMP2 / MAX( SAFMIN, ULP*MAX( TEMP2, BNORM ) );
-               RESULT( 15 ) = MAX( TEMP1, TEMP2 );
+               TEMP1 = TEMP1 / max( SAFMIN, ULP*max( TEMP1, ANORM ) );
+               TEMP2 = TEMP2 / max( SAFMIN, ULP*max( TEMP2, BNORM ) );
+               RESULT( 15 ) = max( TEMP1, TEMP2 );
                NTEST = 15;
             } else {
                RESULT( 13 ) = ZERO;

@@ -88,17 +88,17 @@
       VMAX = ZERO;
       for (I = 1; I <= N; I++) { // 70
          for (J = 1; J <= N; J++) { // 60
-            VMAX = MAX( VMAX, ABS( A( I, J )-AIN( I, J ) ) );
-            VMAX = MAX( VMAX, ABS( B( I, J )-BIN( I, J ) ) );
+            VMAX = max( VMAX, ABS( A( I, J )-AIN( I, J ) ) );
+            VMAX = max( VMAX, ABS( B( I, J )-BIN( I, J ) ) );
          } // 60
       } // 70
 
       for (I = 1; I <= N; I++) { // 80
-         VMAX = MAX( VMAX, ABS( LSCALE( I )-LSCLIN( I ) ) );
-         VMAX = MAX( VMAX, ABS( RSCALE( I )-RSCLIN( I ) ) );
+         VMAX = max( VMAX, ABS( LSCALE( I )-LSCLIN( I ) ) );
+         VMAX = max( VMAX, ABS( RSCALE( I )-RSCLIN( I ) ) );
       } // 80
 
-      VMAX = VMAX / ( EPS*MAX( ANORM, BNORM ) );
+      VMAX = VMAX / ( EPS*max( ANORM, BNORM ) );
 
       if ( VMAX > RMAX ) {
          LMAX( 3 ) = KNT;

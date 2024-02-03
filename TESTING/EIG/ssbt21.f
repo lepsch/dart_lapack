@@ -43,7 +43,7 @@
       RESULT( 2 ) = ZERO;
       if (N <= 0) return;
 
-      IKA = MAX( 0, MIN( N-1, KA ) );
+      IKA = max( 0, min( N-1, KA ) );
       LW = ( N*( N+1 ) ) / 2;
 
       if ( LSAME( UPLO, 'U' ) ) {
@@ -63,7 +63,7 @@
 
       // Norm of A:
 
-      ANORM = MAX( SLANSB( '1', CUPLO, N, IKA, A, LDA, WORK ), UNFL );
+      ANORM = max( SLANSB( '1', CUPLO, N, IKA, A, LDA, WORK ), UNFL );
 
       // Compute error matrix:    Error = A - U S U**T
 
@@ -72,7 +72,7 @@
       J = 0;
       for (JC = 1; JC <= N; JC++) { // 50
          if ( LOWER ) {
-            DO 10 JR = 1, MIN( IKA+1, N+1-JC );
+            DO 10 JR = 1, min( IKA+1, N+1-JC );
                J = J + 1;
                WORK( J ) = A( JR, JC );
             } // 10
@@ -85,7 +85,7 @@
                J = J + 1;
                WORK( J ) = ZERO;
             } // 30
-            DO 40 JR = MIN( IKA, JC-1 ), 0, -1;
+            DO 40 JR = min( IKA, JC-1 ), 0, -1;
                J = J + 1;
                WORK( J ) = A( IKA+1-JR, JC );
             } // 40
@@ -107,9 +107,9 @@
          RESULT( 1 ) = ( WNORM / ANORM ) / ( N*ULP );
       } else {
          if ( ANORM < ONE ) {
-            RESULT( 1 ) = ( MIN( WNORM, N*ANORM ) / ANORM ) / ( N*ULP );
+            RESULT( 1 ) = ( min( WNORM, N*ANORM ) / ANORM ) / ( N*ULP );
          } else {
-            RESULT( 1 ) = MIN( WNORM / ANORM, REAL( N ) ) / ( N*ULP );
+            RESULT( 1 ) = min( WNORM / ANORM, REAL( N ) ) / ( N*ULP );
          }
       }
 
@@ -123,7 +123,7 @@
          WORK( ( N+1 )*( J-1 )+1 ) = WORK( ( N+1 )*( J-1 )+1 ) - ONE;
       } // 80
 
-      RESULT( 2 ) = MIN( SLANGE( '1', N, N, WORK, N, WORK( N**2+1 ) ), REAL( N ) ) / ( N*ULP );
+      RESULT( 2 ) = min( SLANGE( '1', N, N, WORK, N, WORK( N**2+1 ) ), REAL( N ) ) / ( N*ULP );
 
       return;
 

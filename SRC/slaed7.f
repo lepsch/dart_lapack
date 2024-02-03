@@ -40,9 +40,9 @@
          INFO = -2;
       } else if ( ICOMPQ == 1 && QSIZ < N ) {
          INFO = -3;
-      } else if ( LDQ < MAX( 1, N ) ) {
+      } else if ( LDQ < max( 1, N ) ) {
          INFO = -9;
-      } else if ( MIN( 1, N ) > CUTPNT || N < CUTPNT ) {
+      } else if ( min( 1, N ) > CUTPNT || N < CUTPNT ) {
          INFO = -12;
       }
       if ( INFO != 0 ) {

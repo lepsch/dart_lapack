@@ -55,9 +55,9 @@
       if ( JOB < 0 ) {
          if ( TOL <= ZERO ) {
             TOL = ABS( A( 1 ) );
-            if (N > 1) TOL = MAX( TOL, ABS( A( 2 ) ), ABS( B( 1 ) ) );
+            if (N > 1) TOL = max( TOL, ABS( A( 2 ) ), ABS( B( 1 ) ) );
             for (K = 3; K <= N; K++) { // 10
-               TOL = MAX( TOL, ABS( A( K ) ), ABS( B( K-1 ) ), ABS( D( K-2 ) ) );
+               TOL = max( TOL, ABS( A( K ) ), ABS( B( K-1 ) ), ABS( D( K-2 ) ) );
             } // 10
             TOL = TOL*EPS;
             if (TOL == ZERO) TOL = EPS;

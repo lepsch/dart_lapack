@@ -44,7 +44,7 @@
          INFO = -1;
       } else if ( N < 0 ) {
          INFO = -2;
-      } else if ( LDA < MAX( 1, M ) ) {
+      } else if ( LDA < max( 1, M ) ) {
          INFO = -4;
       }
       if ( INFO != 0 ) {
@@ -52,8 +52,8 @@
          return;
       }
 
-      MN = MIN( M, N );
-      TOL3Z = SQRT(DLAMCH('Epsilon'));
+      MN = min( M, N );
+      TOL3Z = sqrt(DLAMCH('Epsilon'));
 
       // Move initial columns up front
 
@@ -77,7 +77,7 @@
       // Compute the QR factorization and update remaining columns
 
       if ( ITEMP > 0 ) {
-         MA = MIN( ITEMP, M );
+         MA = min( ITEMP, M );
          zgeqr2(M, MA, A, LDA, TAU, WORK, INFO );
          if ( MA < N ) {
             zunm2r('Left', 'Conjugate transpose', M, N-MA, MA, A, LDA, TAU, A( 1, MA+1 ), LDA, WORK, INFO );
@@ -114,7 +114,7 @@
             // Generate elementary reflector H(i)
 
             AII = A( I, I );
-            zlarfg(M-I+1, AII, A( MIN( I+1, M ), I ), 1, TAU( I ) );
+            zlarfg(M-I+1, AII, A( min( I+1, M ), I ), 1, TAU( I ) );
             A( I, I ) = AII;
 
             if ( I < N ) {
@@ -136,7 +136,7 @@
                   // Lapack Working Note 176.
 
                   TEMP = ABS( A( I, J ) ) / RWORK( J );
-                  TEMP = MAX( ZERO, ( ONE+TEMP )*( ONE-TEMP ) );
+                  TEMP = max( ZERO, ( ONE+TEMP )*( ONE-TEMP ) );
                   TEMP2 = TEMP*( RWORK( J ) / RWORK( N+J ) )**2;
                   if ( TEMP2 <= TOL3Z ) {
                      if ( M-I > 0 ) {
@@ -147,7 +147,7 @@
                         RWORK( N+J ) = ZERO;
                      }
                   } else {
-                     RWORK( J ) = RWORK( J )*SQRT( TEMP );
+                     RWORK( J ) = RWORK( J )*sqrt( TEMP );
                   }
                }
             } // 30

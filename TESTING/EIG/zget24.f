@@ -147,16 +147,16 @@
 
          zgemm('No transpose', 'Conjugate transpose', N, N, N, -CONE, HT, LDA, VS, LDVS, CONE, VS1, LDVS );
 
-         ANORM = MAX( ZLANGE( '1', N, N, A, LDA, RWORK ), SMLNUM );
+         ANORM = max( ZLANGE( '1', N, N, A, LDA, RWORK ), SMLNUM );
          WNORM = ZLANGE( '1', N, N, VS1, LDVS, RWORK );
 
          if ( ANORM > WNORM ) {
             RESULT( 2+RSUB ) = ( WNORM / ANORM ) / ( N*ULP );
          } else {
             if ( ANORM < ONE ) {
-               RESULT( 2+RSUB ) = ( MIN( WNORM, N*ANORM ) / ANORM ) / ( N*ULP );
+               RESULT( 2+RSUB ) = ( min( WNORM, N*ANORM ) / ANORM ) / ( N*ULP );
             } else {
-               RESULT( 2+RSUB ) = MIN( WNORM / ANORM, DBLE( N ) ) / ( N*ULP );
+               RESULT( 2+RSUB ) = min( WNORM / ANORM, DBLE( N ) ) / ( N*ULP );
             }
          }
 
@@ -418,7 +418,7 @@
 
          SELDIM = N;
          SELOPT = 1;
-         EPS = MAX( ULP, EPSIN );
+         EPS = max( ULP, EPSIN );
          for (I = 1; I <= N; I++) { // 230
             IPNT( I ) = I;
             SELVAL( I ) = false;
@@ -470,7 +470,7 @@
          // taking its condition number into account
 
          ANORM = ZLANGE( '1', N, N, A, LDA, RWORK );
-         V = MAX( DBLE( N )*EPS*ANORM, SMLNUM );
+         V = max( DBLE( N )*EPS*ANORM, SMLNUM );
          if (ANORM == ZERO) V = ONE;
          if ( V > RCONDV ) {
             TOL = ONE;
@@ -482,8 +482,8 @@
          } else {
             TOLIN = V / RCDVIN;
          }
-         TOL = MAX( TOL, SMLNUM / EPS );
-         TOLIN = MAX( TOLIN, SMLNUM / EPS );
+         TOL = max( TOL, SMLNUM / EPS );
+         TOLIN = max( TOLIN, SMLNUM / EPS );
          if ( EPS*( RCDEIN-TOLIN ) > RCONDE+TOL ) {
             RESULT( 16 ) = ULPINV;
          } else if ( RCDEIN-TOLIN > RCONDE+TOL ) {
@@ -509,8 +509,8 @@
          } else {
             TOLIN = V / RCDEIN;
          }
-         TOL = MAX( TOL, SMLNUM / EPS );
-         TOLIN = MAX( TOLIN, SMLNUM / EPS );
+         TOL = max( TOL, SMLNUM / EPS );
+         TOLIN = max( TOLIN, SMLNUM / EPS );
          if ( EPS*( RCDVIN-TOLIN ) > RCONDV+TOL ) {
             RESULT( 17 ) = ULPINV;
          } else if ( RCDVIN-TOLIN > RCONDV+TOL ) {

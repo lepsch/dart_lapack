@@ -76,7 +76,7 @@
          INFO = - 13;
       } else if ( RSVEC && ( LDV < N ) ) {
          INFO = - 15;
-      } else if ( ( !(LSVEC || RSVEC || ERREST) && (LWORK < MAX(7,4*N+1,2*M+N))) || ( !(LSVEC || RSVEC) && ERREST && (LWORK < MAX(7,4*N+N*N,2*M+N))) || (LSVEC && ( !RSVEC) && (LWORK < MAX(7,2*M+N,4*N+1))) || (RSVEC && ( !LSVEC) && (LWORK < MAX(7,2*M+N,4*N+1))) || (LSVEC && RSVEC && ( !JRACC) && (LWORK < MAX(2*M+N,6*N+2*N*N))) || (LSVEC && RSVEC && JRACC && LWORK < MAX(2*M+N,4*N+N*N,2*N+N*N+6))) {
+      } else if ( ( !(LSVEC || RSVEC || ERREST) && (LWORK < max(7,4*N+1,2*M+N))) || ( !(LSVEC || RSVEC) && ERREST && (LWORK < max(7,4*N+N*N,2*M+N))) || (LSVEC && ( !RSVEC) && (LWORK < max(7,2*M+N,4*N+1))) || (RSVEC && ( !LSVEC) && (LWORK < max(7,2*M+N,4*N+1))) || (LSVEC && RSVEC && ( !JRACC) && (LWORK < max(2*M+N,6*N+2*N*N))) || (LSVEC && RSVEC && JRACC && LWORK < max(2*M+N,4*N+N*N,2*N+N*N+6))) {
          INFO = - 17;
       } else {
          // #:)
@@ -120,7 +120,7 @@
       // overflow. It is possible that this scaling pushes the smallest
       // column norm left from the underflow threshold (extreme case).
 
-      SCALEM  = ONE / SQRT(FLOAT(M)*FLOAT(N));
+      SCALEM  = ONE / sqrt(FLOAT(M)*FLOAT(N));
       NOSCAL  = true;
       GOSCAL  = true;
       for (p = 1; p <= N; p++) { // 1874
@@ -132,7 +132,7 @@
             xerbla('SGEJSV', -INFO );
             return;
          }
-         AAQQ = SQRT(AAQQ);
+         AAQQ = sqrt(AAQQ);
          if ( ( AAPP < (BIG / AAQQ) ) && NOSCAL  ) {
             SVA(p)  = AAPP * AAQQ;
          } else {
@@ -150,8 +150,8 @@
       AAPP = ZERO;
       AAQQ = BIG;
       for (p = 1; p <= N; p++) { // 4781
-         AAPP = MAX( AAPP, SVA(p) );
-         if ( SVA(p) != ZERO ) AAQQ = MIN( AAQQ, SVA(p) );
+         AAPP = max( AAPP, SVA(p) );
+         if ( SVA(p) != ZERO ) AAQQ = min( AAQQ, SVA(p) );
       } // 4781
 
       // Quick return for zero M x N matrix
@@ -255,15 +255,15 @@
                // SLASSQ gets both the ell_2 and the ell_infinity norm
                // in one pass through the vector
                WORK(M+N+p)  = XSC * SCALEM;
-               WORK(N+p)    = XSC * (SCALEM*SQRT(TEMP1));
-               AATMAX = MAX( AATMAX, WORK(N+p) );
-               if (WORK(N+p) != ZERO) AATMIN = MIN(AATMIN,WORK(N+p));
+               WORK(N+p)    = XSC * (SCALEM*sqrt(TEMP1));
+               AATMAX = max( AATMAX, WORK(N+p) );
+               if (WORK(N+p) != ZERO) AATMIN = min(AATMIN,WORK(N+p));
             } // 1950
          } else {
             for (p = 1; p <= M; p++) { // 1904
                WORK(M+N+p) = SCALEM*ABS( A(p,ISAMAX(N,A(p,1),LDA)) );
-               AATMAX = MAX( AATMAX, WORK(M+N+p) );
-               AATMIN = MIN( AATMIN, WORK(M+N+p) );
+               AATMAX = max( AATMAX, WORK(M+N+p) );
+               AATMIN = min( AATMIN, WORK(M+N+p) );
             } // 1904
          }
 
@@ -344,17 +344,17 @@
       // END IF L2TRAN
 
       // Scale the matrix so that its maximal singular value remains less
-      // than SQRT(BIG) -- the matrix is scaled so that its maximal column
-      // has Euclidean norm equal to SQRT(BIG/N). The only reason to keep
-      // SQRT(BIG) instead of BIG is the fact that SGEJSV uses LAPACK and
+      // than sqrt(BIG) -- the matrix is scaled so that its maximal column
+      // has Euclidean norm equal to sqrt(BIG/N). The only reason to keep
+      // sqrt(BIG) instead of BIG is the fact that SGEJSV uses LAPACK and
       // BLAS routines that, in some implementations, are not capable of
       // working in the full interval [SFMIN,BIG] and that they may provoke
       // overflows in the intermediate results. If the singular values spread
       // from SFMIN to BIG, then SGESVJ will compute them. So, in that case,
       // one should use SGESVJ instead of SGEJSV.
 
-      BIG1   = SQRT( BIG );
-      TEMP1  = SQRT( BIG / FLOAT(N) );
+      BIG1   = sqrt( BIG );
+      TEMP1  = sqrt( BIG / FLOAT(N) );
 
       slascl('G', 0, 0, AAPP, TEMP1, N, 1, SVA, N, IERR );
       if ( AAQQ > (AAPP * SFMIN) ) {
@@ -374,20 +374,20 @@
       if ( L2KILL ) {
          // L2KILL enforces computation of nonzero singular values in
          // the restricted range of condition number of the initial A,
-         // sigma_max(A) / sigma_min(A) approx. SQRT(BIG)/SQRT(SFMIN).
-         XSC = SQRT( SFMIN );
+         // sigma_max(A) / sigma_min(A) approx. sqrt(BIG)/sqrt(SFMIN).
+         XSC = sqrt( SFMIN );
       } else {
          XSC = SMALL;
 
          // Now, if the condition number of A is too big,
-         // sigma_max(A) / sigma_min(A) > SQRT(BIG/N) * EPSLN / SFMIN,
+         // sigma_max(A) / sigma_min(A) > sqrt(BIG/N) * EPSLN / SFMIN,
          // as a precaution measure, the full SVD is computed using SGESVJ
          // with accumulated Jacobi rotations. This provides numerically
          // more robust computation, at the cost of slightly increased run
          // time. Depending on the concrete implementation of BLAS and LAPACK
          // (i.e. how they behave in presence of extreme ill-conditioning) the
          // implementor may decide to remove this switch.
-         if ( ( AAQQ < SQRT(SFMIN) ) && LSVEC && RSVEC ) {
+         if ( ( AAQQ < sqrt(SFMIN) ) && LSVEC && RSVEC ) {
             JRACC = true;
          }
 
@@ -456,7 +456,7 @@
          // sigma_i < N*EPSLN*||A|| are flushed to zero. This is an
          // aggressive enforcement of lower numerical rank by introducing a
          // backward error of the order of N*EPSLN*||A||.
-         TEMP1 = SQRT(FLOAT(N))*EPSLN;
+         TEMP1 = sqrt(FLOAT(N))*EPSLN;
          for (p = 2; p <= N; p++) { // 3001
             if ( ABS(A(p,p)) >= (TEMP1*ABS(A(1,1))) ) {
                NR = NR + 1;
@@ -469,7 +469,7 @@
          // .. similarly as above, only slightly more gentle (less aggressive).
          // Sudden drop on the diagonal of R1 is used as the criterion for
          // close-to-rank-deficient.
-         TEMP1 = SQRT(SFMIN);
+         TEMP1 = sqrt(SFMIN);
          for (p = 2; p <= N; p++) { // 3401
             if ( ( ABS(A(p,p)) < (EPSLN*ABS(A(p-1,p-1))) ) || ( ABS(A(p,p)) < SMALL ) || ( L2KILL && (ABS(A(p,p)) < TEMP1) ) ) GO TO 3402;
             NR = NR + 1;
@@ -484,7 +484,7 @@
          // Here we just remove the underflowed part of the triangular
          // factor. This prevents the situation in which the code is
          // working hard to get the accuracy not warranted by the data.
-         TEMP1  = SQRT(SFMIN);
+         TEMP1  = sqrt(SFMIN);
          for (p = 2; p <= N; p++) { // 3301
             if ( ( ABS(A(p,p)) < SMALL ) || ( L2KILL && (ABS(A(p,p)) < TEMP1) ) ) GO TO 3302;
             NR = NR + 1;
@@ -498,7 +498,7 @@
          MAXPRJ = ONE;
          for (p = 2; p <= N; p++) { // 3051
             TEMP1  = ABS(A(p,p)) / SVA(IWORK(p));
-            MAXPRJ = MIN( MAXPRJ, TEMP1 );
+            MAXPRJ = min( MAXPRJ, TEMP1 );
          } // 3051
          if ( MAXPRJ**2 >= ONE - FLOAT(N)*EPSLN ) ALMORT = true;
       }
@@ -535,15 +535,15 @@
             // .. the columns of R are scaled to have unit Euclidean lengths.
                spocon('U', N, WORK(N+1), N, ONE, TEMP1, WORK(N+N*N+1), IWORK(2*N+M+1), IERR );
             }
-            SCONDA = ONE / SQRT(TEMP1);
-            // SCONDA is an estimate of SQRT(||(R^t * R)^(-1)||_1).
+            SCONDA = ONE / sqrt(TEMP1);
+            // SCONDA is an estimate of sqrt(||(R^t * R)^(-1)||_1).
             // N^(-1/4) * SCONDA <= ||R^(-1)||_2 <= N^(1/4) * SCONDA
          } else {
             SCONDA = - ONE;
          }
       }
 
-      L2PERT = L2PERT && ( ABS( A(1,1)/A(NR,NR) ) > SQRT(BIG1) );
+      L2PERT = L2PERT && ( ABS( A(1,1)/A(NR,NR) ) > sqrt(BIG1) );
       // If there is no violent scaling, artificial perturbation is not needed.
 
       // Phase 3:
@@ -553,7 +553,7 @@
           // Singular Values only
 
           // .. transpose A(1:NR,1:N)
-         DO 1946 p = 1, MIN( N-1, NR );
+         DO 1946 p = 1, min( N-1, NR );
             scopy(N-p, A(p,p+1), LDA, A(p+1,p), 1 );
          } // 1946
 
@@ -572,7 +572,7 @@
          if ( !ALMORT ) {
 
             if ( L2PERT ) {
-               // XSC = SQRT(SMALL)
+               // XSC = sqrt(SMALL)
                XSC = EPSLN / FLOAT(N);
                for (q = 1; q <= NR; q++) { // 4947
                   TEMP1 = XSC*ABS(A(q,q));
@@ -600,7 +600,7 @@
             // .. again some perturbation (a "background noise") is added
             // to drown denormals
             if ( L2PERT ) {
-               // XSC = SQRT(SMALL)
+               // XSC = sqrt(SMALL)
                XSC = EPSLN / FLOAT(N);
                for (q = 1; q <= NR; q++) { // 1947
                   TEMP1 = XSC*ABS(A(q,q));
@@ -750,7 +750,7 @@
             // transposed copy above.
 
             if ( L2PERT ) {
-               XSC = SQRT(SMALL);
+               XSC = sqrt(SMALL);
                for (q = 1; q <= NR; q++) { // 2969
                   TEMP1 = XSC*ABS( V(q,q) );
                   for (p = 1; p <= N; p++) { // 2968
@@ -772,13 +772,13 @@
                sscal(NR-p+1,ONE/TEMP1,WORK(2*N+(p-1)*NR+p),1);
             } // 3950
             spocon('Lower',NR,WORK(2*N+1),NR,ONE,TEMP1, WORK(2*N+NR*NR+1),IWORK(M+2*N+1),IERR);
-            CONDR1 = ONE / SQRT(TEMP1);
+            CONDR1 = ONE / sqrt(TEMP1);
             // .. here need a second opinion on the condition number
             // .. then assume worst case scenario
             // R1 is OK for inverse <=> CONDR1 < FLOAT(N)
-            // more conservative    <=> CONDR1 < SQRT(FLOAT(N))
+            // more conservative    <=> CONDR1 < sqrt(FLOAT(N))
 
-            COND_OK = SQRT(FLOAT(NR));
+            COND_OK = sqrt(FLOAT(NR));
 // [TP]       COND_OK is a tuning parameter.
 
             if ( CONDR1 < COND_OK ) {
@@ -789,10 +789,10 @@
                sgeqrf(N, NR, V, LDV, WORK(N+1), WORK(2*N+1), LWORK-2*N, IERR );
 
                if ( L2PERT ) {
-                  XSC = SQRT(SMALL)/EPSLN;
+                  XSC = sqrt(SMALL)/EPSLN;
                   for (p = 2; p <= NR; p++) { // 3959
                      for (q = 1; q <= p - 1; q++) { // 3958
-                        TEMP1 = XSC * MIN(ABS(V(p,p)),ABS(V(q,q)));
+                        TEMP1 = XSC * min(ABS(V(p,p)),ABS(V(q,q)));
                         if ( ABS(V(q,p)) <= TEMP1 ) V(q,p) = SIGN( TEMP1, V(q,p) );
                      } // 3958
                   } // 3959
@@ -825,10 +825,10 @@
 // *               CALL SGEQRF( N, NR, V, LDV, WORK(N+1), WORK(2*N+1),
 // *     $              LWORK-2*N, IERR )
                if ( L2PERT ) {
-                  XSC = SQRT(SMALL);
+                  XSC = sqrt(SMALL);
                   for (p = 2; p <= NR; p++) { // 3969
                      for (q = 1; q <= p - 1; q++) { // 3968
-                        TEMP1 = XSC * MIN(ABS(V(p,p)),ABS(V(q,q)));
+                        TEMP1 = XSC * min(ABS(V(p,p)),ABS(V(q,q)));
                         if ( ABS(V(q,p)) <= TEMP1 ) V(q,p) = SIGN( TEMP1, V(q,p) );
                      } // 3968
                   } // 3969
@@ -837,10 +837,10 @@
                slacpy('A', N, NR, V, LDV, WORK(2*N+1), N );
 
                if ( L2PERT ) {
-                  XSC = SQRT(SMALL);
+                  XSC = sqrt(SMALL);
                   for (p = 2; p <= NR; p++) { // 8970
                      for (q = 1; q <= p - 1; q++) { // 8971
-                        TEMP1 = XSC * MIN(ABS(V(p,p)),ABS(V(q,q)));
+                        TEMP1 = XSC * min(ABS(V(p,p)),ABS(V(q,q)));
                         V(p,q) = - SIGN( TEMP1, V(q,p) );
                      } // 8971
                   } // 8970
@@ -856,7 +856,7 @@
                   sscal(p, ONE/TEMP1, WORK(2*N+N*NR+NR+p), NR );
                } // 4950
                spocon('L',NR,WORK(2*N+N*NR+NR+1),NR,ONE,TEMP1, WORK(2*N+N*NR+NR+NR*NR+1),IWORK(M+2*N+1),IERR );
-               CONDR2 = ONE / SQRT(TEMP1);
+               CONDR2 = ONE / sqrt(TEMP1);
 
                if ( CONDR2 >= COND_OK ) {
                   // .. save the Householder vectors used for Q3
@@ -871,7 +871,7 @@
             }
 
             if ( L2PERT ) {
-               XSC = SQRT(SMALL);
+               XSC = sqrt(SMALL);
                for (q = 2; q <= NR; q++) { // 4968
                   TEMP1 = XSC * V(q,q);
                   for (p = 1; p <= q - 1; p++) { // 4969
@@ -990,7 +990,7 @@
             // first QRF. Also, scale the columns to make them unit in
             // Euclidean norm. This applies to all cases.
 
-            TEMP1 = SQRT(FLOAT(N)) * EPSLN;
+            TEMP1 = sqrt(FLOAT(N)) * EPSLN;
             for (q = 1; q <= N; q++) { // 1972
                for (p = 1; p <= N; p++) { // 972
                   WORK(2*N+N*NR+NR+IWORK(p)) = V(p,q);
@@ -1017,7 +1017,7 @@
             sormqr('Left', 'No_Tr', M, N1, N, A, LDA, WORK, U, LDU, WORK(N+1), LWORK-N, IERR );
 
             // The columns of U are normalized. The cost is O(M*N) flops.
-            TEMP1 = SQRT(FLOAT(M)) * EPSLN;
+            TEMP1 = sqrt(FLOAT(M)) * EPSLN;
             for (p = 1; p <= NR; p++) { // 1973
                XSC = ONE / SNRM2( M, U(1,p), 1 );
                if ( (XSC < (ONE-TEMP1)) || (XSC > (ONE+TEMP1)) ) CALL SSCAL( M, XSC, U(1,p), 1 );
@@ -1035,7 +1035,7 @@
 
             slacpy('Upper', N, N, A, LDA, WORK(N+1), N );
             if ( L2PERT ) {
-               XSC = SQRT(SMALL);
+               XSC = sqrt(SMALL);
                for (p = 2; p <= N; p++) { // 5970
                   TEMP1 = XSC * WORK( N + (p-1)*N + p );
                   for (q = 1; q <= p - 1; q++) { // 5971
@@ -1059,7 +1059,7 @@
             for (p = 1; p <= N; p++) { // 6972
                scopy(N, WORK(N+p), N, V(IWORK(p),1), LDV );
             } // 6972
-            TEMP1 = SQRT(FLOAT(N))*EPSLN;
+            TEMP1 = sqrt(FLOAT(N))*EPSLN;
             for (p = 1; p <= N; p++) { // 6971
                XSC = ONE / SNRM2( N, V(1,p), 1 );
                if ( (XSC < (ONE-TEMP1)) || (XSC > (ONE+TEMP1)) ) CALL SSCAL( N, XSC, V(1,p), 1 );
@@ -1075,7 +1075,7 @@
                }
             }
             sormqr('Left', 'No Tr', M, N1, N, A, LDA, WORK, U, LDU, WORK(N+1), LWORK-N, IERR );
-            TEMP1 = SQRT(FLOAT(M))*EPSLN;
+            TEMP1 = sqrt(FLOAT(M))*EPSLN;
             for (p = 1; p <= N1; p++) { // 6973
                XSC = ONE / SNRM2( M, U(1,p), 1 );
                if ( (XSC < (ONE-TEMP1)) || (XSC > (ONE+TEMP1)) ) CALL SSCAL( M, XSC, U(1,p), 1 );
@@ -1104,7 +1104,7 @@
          } // 7968
 
          if ( L2PERT ) {
-            XSC = SQRT(SMALL/EPSLN);
+            XSC = sqrt(SMALL/EPSLN);
             for (q = 1; q <= NR; q++) { // 5969
                TEMP1 = XSC*ABS( V(q,q) );
                for (p = 1; p <= N; p++) { // 5968
@@ -1123,10 +1123,10 @@
          } // 7969
 
          if ( L2PERT ) {
-            XSC = SQRT(SMALL/EPSLN);
+            XSC = sqrt(SMALL/EPSLN);
             for (q = 2; q <= NR; q++) { // 9970
                for (p = 1; p <= q - 1; p++) { // 9971
-                  TEMP1 = XSC * MIN(ABS(U(p,p)),ABS(U(q,q)));
+                  TEMP1 = XSC * min(ABS(U(p,p)),ABS(U(q,q)));
                   U(p,q) = - SIGN( TEMP1, U(q,p) );
                } // 9971
             } // 9970
@@ -1148,7 +1148,7 @@
             // first QRF. Also, scale the columns to make them unit in
             // Euclidean norm. This applies to all cases.
 
-            TEMP1 = SQRT(FLOAT(N)) * EPSLN;
+            TEMP1 = sqrt(FLOAT(N)) * EPSLN;
             for (q = 1; q <= N; q++) { // 7972
                for (p = 1; p <= N; p++) { // 8972
                   WORK(2*N+N*NR+NR+IWORK(p)) = V(p,q);

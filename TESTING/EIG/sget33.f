@@ -71,7 +71,7 @@
                               T( 1, 2 ) = VAL( I2 )*VM( IM2 );
                               T( 2, 1 ) = -VAL( I3 )*VM( IM3 );
                               T( 2, 2 ) = VAL( I4 )*VM( IM4 );
-                              TNRM = MAX( ABS( T( 1, 1 ) ), ABS( T( 1, 2 ) ), ABS( T( 2, 1 ) ), ABS( T( 2, 2 ) ) );
+                              TNRM = max( ABS( T( 1, 1 ) ), ABS( T( 1, 2 ) ), ABS( T( 2, 1 ) ), ABS( T( 2, 2 ) ) );
                               T1( 1, 1 ) = T( 1, 1 );
                               T1( 1, 2 ) = T( 1, 2 );
                               T1( 2, 1 ) = T( 2, 1 );

@@ -61,7 +61,7 @@
       }
 
       NS = NSHIFTS;
-      NPOS = MAX( NBLOCK_DESIRED-NS, 1 );
+      NPOS = max( NBLOCK_DESIRED-NS, 1 );
 
 
       // The following block introduces the shifts and chases
@@ -74,7 +74,7 @@
 
       for (I = 1; I <= NS; I++) {
          // Introduce the shift
-         SCALE = SQRT( ABS( ALPHA( I ) ) ) * SQRT( ABS( BETA( I ) ) );
+         SCALE = sqrt( ABS( ALPHA( I ) ) ) * sqrt( ABS( BETA( I ) ) );
          if ( SCALE >= SAFMIN && SCALE <= SAFMAX ) {
             ALPHA( I ) = ALPHA( I )/SCALE;
             BETA( I ) = BETA( I )/SCALE;
@@ -138,7 +138,7 @@
 
       K = ILO;
       DO WHILE ( K < IHI-NS );
-         NP = MIN( IHI-NS-K, NPOS );
+         NP = min( IHI-NS-K, NPOS );
          // Size of the near-the-diagonal block
          NBLOCK = NS+NP;
          // istartb points to the first row we will be updating

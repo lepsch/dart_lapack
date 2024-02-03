@@ -86,7 +86,7 @@
 
           if ( TTYPE == 2 ) {
               J1 = ED+1;
-              J2 = MIN( ED+NB, N );
+              J2 = min( ED+NB, N );
               LN = ED-ST+1;
               LM = J2-J1+1;
               if ( LM > 0) {
@@ -150,7 +150,7 @@
 
           if ( TTYPE == 2 ) {
               J1 = ED+1;
-              J2 = MIN( ED+NB, N );
+              J2 = min( ED+NB, N );
               LN = ED-ST+1;
               LM = J2-J1+1;
 

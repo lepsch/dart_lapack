@@ -63,7 +63,7 @@
             LRWMIN = 1 + 5*N + 2*N**2;
             LIWMIN = 3 + 5*N;
          } else {
-            LWMIN  = MAX( N, LHTRD + LWTRD );
+            LWMIN  = max( N, LHTRD + LWTRD );
             LRWMIN = N;
             LIWMIN = 1;
          }
@@ -119,8 +119,8 @@
       EPS    = SLAMCH( 'Precision' );
       SMLNUM = SAFMIN / EPS;
       BIGNUM = ONE / SMLNUM;
-      RMIN   = SQRT( SMLNUM );
-      RMAX   = SQRT( BIGNUM );
+      RMIN   = sqrt( SMLNUM );
+      RMAX   = sqrt( BIGNUM );
 
       // Scale matrix to allowable range, if necessary.
 

@@ -46,7 +46,7 @@
       SAFMIN = SLAMCH( 'Safe minimum' );
       EPS = SLAMCH( 'Precision' );
       SMLNUM = SAFMIN / EPS;
-      RMIN = SQRT( SMLNUM );
+      RMIN = sqrt( SMLNUM );
 
       // Tests for relative accuracy
 
@@ -67,11 +67,11 @@
 
       YESREL = true;
       OFFDIG = ZERO;
-      TMP = SQRT(ABS(D(1)));
+      TMP = sqrt(ABS(D(1)));
       if (TMP < RMIN) YESREL = false ;
       if ( !YESREL) GOTO 11;
       for (I = 2; I <= N; I++) { // 10
-         TMP2 = SQRT(ABS(D(I)));
+         TMP2 = sqrt(ABS(D(I)));
          if (TMP2 < RMIN) YESREL = false ;
          if ( !YESREL) GOTO 11;
          OFFDIG2 = ABS(E(I-1))/(TMP*TMP2);

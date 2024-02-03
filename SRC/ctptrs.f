@@ -49,7 +49,7 @@
          INFO = -4;
       } else if ( NRHS < 0 ) {
          INFO = -5;
-      } else if ( LDB < MAX( 1, N ) ) {
+      } else if ( LDB < max( 1, N ) ) {
          INFO = -8;
       }
       if ( INFO != 0 ) {

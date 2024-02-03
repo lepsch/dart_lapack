@@ -75,9 +75,9 @@
 
       INFO = 0;
       NB = ILAENV( 1, 'CTREVC', SIDE // HOWMNY, N, -1, -1, -1 );
-      MAXWRK = MAX( 1, N + 2*N*NB );
+      MAXWRK = max( 1, N + 2*N*NB );
       WORK(1) = SROUNDUP_LWORK(MAXWRK);
-      RWORK(1) = MAX( 1, N );
+      RWORK(1) = max( 1, N );
       LQUERY = ( LWORK == -1 || LRWORK == -1 );
       if ( !RIGHTV && !LEFTV ) {
          INFO = -1;
@@ -85,7 +85,7 @@
          INFO = -2;
       } else if ( N < 0 ) {
          INFO = -4;
-      } else if ( LDT < MAX( 1, N ) ) {
+      } else if ( LDT < max( 1, N ) ) {
          INFO = -6;
       } else if ( LDVL < 1 || ( LEFTV && LDVL < N ) ) {
          INFO = -8;
@@ -93,9 +93,9 @@
          INFO = -10;
       } else if ( MM < M ) {
          INFO = -11;
-      } else if ( LWORK < MAX( 1, 2*N ) && !LQUERY ) {
+      } else if ( LWORK < max( 1, 2*N ) && !LQUERY ) {
          INFO = -14;
-      } else if ( LRWORK < MAX( 1, N ) && !LQUERY ) {
+      } else if ( LRWORK < max( 1, N ) && !LQUERY ) {
          INFO = -16;
       }
       if ( INFO != 0 ) {
@@ -114,7 +114,7 @@
 
       if ( OVER && LWORK >= N + 2*N*NBMIN ) {
          NB = (LWORK - N) / (2*N);
-         NB = MIN( NB, NBMAX );
+         NB = min( NB, NBMAX );
          claset('F', N, 1+2*NB, CZERO, CZERO, WORK, N );
       } else {
          NB = 1;
@@ -156,7 +156,7 @@
             if ( SOMEV ) {
                if( !SELECT( KI ) ) GO TO 80;
             }
-            SMIN = MAX( ULP*( CABS1( T( KI, KI ) ) ), SMLNUM );
+            SMIN = max( ULP*( CABS1( T( KI, KI ) ) ), SMLNUM );
 
             // --------------------------------------------------------
             // Complex right eigenvector
@@ -258,7 +258,7 @@
             if ( SOMEV ) {
                if( !SELECT( KI ) ) GO TO 130;
             }
-            SMIN = MAX( ULP*( CABS1( T( KI, KI ) ) ), SMLNUM );
+            SMIN = max( ULP*( CABS1( T( KI, KI ) ) ), SMLNUM );
 
             // --------------------------------------------------------
             // Complex left eigenvector

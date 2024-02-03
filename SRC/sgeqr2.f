@@ -36,7 +36,7 @@
          INFO = -1;
       } else if ( N < 0 ) {
          INFO = -2;
-      } else if ( LDA < MAX( 1, M ) ) {
+      } else if ( LDA < max( 1, M ) ) {
          INFO = -4;
       }
       if ( INFO != 0 ) {
@@ -44,13 +44,13 @@
          return;
       }
 
-      K = MIN( M, N );
+      K = min( M, N );
 
       for (I = 1; I <= K; I++) { // 10
 
          // Generate elementary reflector H(i) to annihilate A(i+1:m,i)
 
-         slarfg(M-I+1, A( I, I ), A( MIN( I+1, M ), I ), 1, TAU( I ) );
+         slarfg(M-I+1, A( I, I ), A( min( I+1, M ), I ), 1, TAU( I ) );
          if ( I < N ) {
 
             // Apply H(i) to A(i:m,i+1:n) from the left

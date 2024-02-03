@@ -43,7 +43,7 @@
          INFO = -1;
       } else if ( N < 0 ) {
          INFO = -2;
-      } else if ( LDA < MAX( 1, M ) ) {
+      } else if ( LDA < max( 1, M ) ) {
          INFO = -4;
       }
       if ( INFO != 0 ) {
@@ -104,7 +104,7 @@
 
          // Use recursive code
 
-         N1 = MIN( M, N ) / 2;
+         N1 = min( M, N ) / 2;
          N2 = N-N1;
 
                 // [ A11 ]
@@ -135,13 +135,13 @@
          // Adjust INFO and the pivot indices
 
          if (INFO == 0 && IINFO > 0) INFO = IINFO + N1;
-         DO 20 I = N1+1, MIN( M, N );
+         DO 20 I = N1+1, min( M, N );
             IPIV( I ) = IPIV( I ) + N1;
          } // 20
 
          // Apply interchanges to A21
 
-         zlaswp(N1, A( 1, 1 ), LDA, N1+1, MIN( M, N), IPIV, 1 );
+         zlaswp(N1, A( 1, 1 ), LDA, N1+1, min( M, N), IPIV, 1 );
 
       }
       return;

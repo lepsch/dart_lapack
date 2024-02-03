@@ -79,7 +79,7 @@
          INFO = -2;
       } else if ( N < 0 ) {
          INFO = -4;
-      } else if ( LDT < MAX( 1, N ) ) {
+      } else if ( LDT < max( 1, N ) ) {
          INFO = -6;
       } else if ( LDVL < 1 || ( WANTS && LDVL < N ) ) {
          INFO = -8;
@@ -186,7 +186,7 @@
                GO TO 30;
             }
 
-            SEP( KS ) = ONE / MAX( EST, SMLNUM );
+            SEP( KS ) = ONE / max( EST, SMLNUM );
          }
 
          } // 40

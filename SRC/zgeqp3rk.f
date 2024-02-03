@@ -61,7 +61,7 @@
          INFO = -5;
       } else if ( DISNAN( RELTOL ) ) {
          INFO = -6;
-      } else if ( LDA < MAX( 1, M ) ) {
+      } else if ( LDA < max( 1, M ) ) {
          INFO = -8;
       }
 
@@ -76,7 +76,7 @@
       // code.
 
       if ( INFO == 0 ) {
-         MINMN = MIN( M, N );
+         MINMN = min( M, N );
          if ( MINMN == 0 ) {
             IWS = 1;
             LWKOPT = 1;
@@ -249,13 +249,13 @@
 
       if ( ABSTOL >= ZERO ) {
          SAFMIN = DLAMCH('Safe minimum');
-         ABSTOL = MAX( ABSTOL, TWO*SAFMIN );
+         ABSTOL = max( ABSTOL, TWO*SAFMIN );
       }
 
       // Adjust RELTOL
 
       if ( RELTOL >= ZERO ) {
-         RELTOL = MAX( RELTOL, EPS );
+         RELTOL = max( RELTOL, EPS );
       }
 
       // ===================================================================
@@ -263,7 +263,7 @@
       // JMAX is the maximum index of the column to be factorized,
       // which is also limited by the first stopping criterion KMAX.
 
-      JMAX = MIN( KMAX, MINMN );
+      JMAX = min( KMAX, MINMN );
 
       // ===================================================================
 
@@ -300,7 +300,7 @@
          // Determine when to cross over from blocked to unblocked code.
          // (for N less than NX, unblocked code should be used).
 
-         NX = MAX( 0, ILAENV( IXOVER, 'ZGEQP3RK', ' ', M, N, -1, -1 ) );
+         NX = max( 0, ILAENV( IXOVER, 'ZGEQP3RK', ' ', M, N, -1, -1 ) );
 
          if ( NX < MINMN ) {
 
@@ -313,7 +313,7 @@
                // Reduce NB and determine the minimum value of NB.
 
                NB = ( LWORK-2*N ) / ( N+1 );
-               NBMIN = MAX( 2, ILAENV( INBMIN, 'ZGEQP3RK', ' ', M, N, -1, -1 ) );
+               NBMIN = max( 2, ILAENV( INBMIN, 'ZGEQP3RK', ' ', M, N, -1, -1 ) );
 
             }
          }
@@ -337,7 +337,7 @@
       // blocked code is used, is also limited by the first stopping
       // criterion KMAX.
 
-      JMAXB = MIN( KMAX, MINMN - NX );
+      JMAXB = min( KMAX, MINMN - NX );
 
       if ( NB >= NBMIN && NB < JMAX && JMAXB > 0 ) {
 
@@ -353,7 +353,7 @@
 
          DO WHILE( J <= JMAXB );
 
-            JB = MIN( NB, JMAXB-J+1 );
+            JB = min( NB, JMAXB-J+1 );
             N_SUB = N-J+1;
             IOFFSET = J-1;
 

@@ -95,7 +95,7 @@
 
       // Compute condition numbers
 
-      S( 1 ) = RONE / SQRT( ( RONE+THREE*CABS( WY )*CABS( WY ) ) / ( RONE+CABS( A( 1, 1 ) )*CABS( A( 1, 1 ) ) ) )       S( 2 ) = RONE / SQRT( ( RONE+THREE*CABS( WY )*CABS( WY ) ) / ( RONE+CABS( A( 2, 2 ) )*CABS( A( 2, 2 ) ) ) )       S( 3 ) = RONE / SQRT( ( RONE+TWO*CABS( WX )*CABS( WX ) ) / ( RONE+CABS( A( 3, 3 ) )*CABS( A( 3, 3 ) ) ) )       S( 4 ) = RONE / SQRT( ( RONE+TWO*CABS( WX )*CABS( WX ) ) / ( RONE+CABS( A( 4, 4 ) )*CABS( A( 4, 4 ) ) ) )       S( 5 ) = RONE / SQRT( ( RONE+TWO*CABS( WX )*CABS( WX ) ) / ( RONE+CABS( A( 5, 5 ) )*CABS( A( 5, 5 ) ) ) );
+      S( 1 ) = RONE / sqrt( ( RONE+THREE*CABS( WY )*CABS( WY ) ) / ( RONE+CABS( A( 1, 1 ) )*CABS( A( 1, 1 ) ) ) )       S( 2 ) = RONE / sqrt( ( RONE+THREE*CABS( WY )*CABS( WY ) ) / ( RONE+CABS( A( 2, 2 ) )*CABS( A( 2, 2 ) ) ) )       S( 3 ) = RONE / sqrt( ( RONE+TWO*CABS( WX )*CABS( WX ) ) / ( RONE+CABS( A( 3, 3 ) )*CABS( A( 3, 3 ) ) ) )       S( 4 ) = RONE / sqrt( ( RONE+TWO*CABS( WX )*CABS( WX ) ) / ( RONE+CABS( A( 4, 4 ) )*CABS( A( 4, 4 ) ) ) )       S( 5 ) = RONE / sqrt( ( RONE+TWO*CABS( WX )*CABS( WX ) ) / ( RONE+CABS( A( 5, 5 ) )*CABS( A( 5, 5 ) ) ) );
 
       clakf2(1, 4, A, LDA, A( 2, 2 ), B, B( 2, 2 ), Z, 8 );
       cgesvd('N', 'N', 8, 8, Z, 8, RWORK, WORK, 1, WORK( 2 ), 1, WORK( 3 ), 24, RWORK( 9 ), INFO );

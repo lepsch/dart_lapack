@@ -58,11 +58,11 @@
          INFO = -4;
       } else if ( N < 0 ) {
          INFO = -5;
-      } else if ( LDA < MAX( 1, M ) ) {
+      } else if ( LDA < max( 1, M ) ) {
          INFO = -7;
-      } else if ( LDB < MAX( 1, N ) ) {
+      } else if ( LDB < max( 1, N ) ) {
          INFO = -9;
-      } else if ( LDC < MAX( 1, M ) ) {
+      } else if ( LDC < max( 1, M ) ) {
          INFO = -11;
       }
       if ( INFO != 0 ) {
@@ -82,7 +82,7 @@
       BIGNUM = ONE / SMLNUM;
       SMLNUM = SMLNUM*DBLE( M*N ) / EPS;
       BIGNUM = ONE / SMLNUM;
-      SMIN = MAX( SMLNUM, EPS*ZLANGE( 'M', M, M, A, LDA, DUM ), EPS*ZLANGE( 'M', N, N, B, LDB, DUM ) );
+      SMIN = max( SMLNUM, EPS*ZLANGE( 'M', M, M, A, LDA, DUM ), EPS*ZLANGE( 'M', N, N, B, LDB, DUM ) );
       SGN = ISGN;
 
       if ( NOTRNA && NOTRNB ) {
@@ -102,7 +102,7 @@
          for (L = 1; L <= N; L++) { // 30
             DO 20 K = M, 1, -1;
 
-               SUML = ZDOTU( M-K, A( K, MIN( K+1, M ) ), LDA, C( MIN( K+1, M ), L ), 1 );
+               SUML = ZDOTU( M-K, A( K, min( K+1, M ) ), LDA, C( min( K+1, M ), L ), 1 );
                SUMR = ZDOTU( L-1, C( K, 1 ), LDC, B( 1, L ), 1 );
                VEC = C( K, L ) - ( SUML+SGN*SUMR );
 
@@ -199,7 +199,7 @@
             for (K = 1; K <= M; K++) { // 80
 
                SUML = ZDOTC( K-1, A( 1, K ), 1, C( 1, L ), 1 );
-               SUMR = ZDOTC( N-L, C( K, MIN( L+1, N ) ), LDC, B( L, MIN( L+1, N ) ), LDB );
+               SUMR = ZDOTC( N-L, C( K, min( L+1, N ) ), LDC, B( L, min( L+1, N ) ), LDB );
                VEC = C( K, L ) - ( SUML+SGN*DCONJG( SUMR ) );
 
                SCALOC = ONE;
@@ -245,7 +245,7 @@
          DO 120 L = N, 1, -1;
             DO 110 K = M, 1, -1;
 
-               SUML = ZDOTU( M-K, A( K, MIN( K+1, M ) ), LDA, C( MIN( K+1, M ), L ), 1 )                SUMR = ZDOTC( N-L, C( K, MIN( L+1, N ) ), LDC, B( L, MIN( L+1, N ) ), LDB );
+               SUML = ZDOTU( M-K, A( K, min( K+1, M ) ), LDA, C( min( K+1, M ), L ), 1 )                SUMR = ZDOTC( N-L, C( K, min( L+1, N ) ), LDC, B( L, min( L+1, N ) ), LDB );
                VEC = C( K, L ) - ( SUML+SGN*DCONJG( SUMR ) );
 
                SCALOC = ONE;

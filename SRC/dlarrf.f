@@ -70,10 +70,10 @@
       // Compute the average gap length of the cluster
       CLWDTH = ABS(W(CLEND)-W(CLSTRT)) + WERR(CLEND) + WERR(CLSTRT);
       AVGAP = CLWDTH / DBLE(CLEND-CLSTRT);
-      MINGAP = MIN(CLGAPL, CLGAPR);
+      MINGAP = min(CLGAPL, CLGAPR);
       // Initial values for shifts to both ends of cluster
-      LSIGMA = MIN(W( CLSTRT ),W( CLEND )) - WERR( CLSTRT );
-      RSIGMA = MAX(W( CLSTRT ),W( CLEND )) + WERR( CLEND );
+      LSIGMA = min(W( CLSTRT ),W( CLEND )) - WERR( CLSTRT );
+      RSIGMA = max(W( CLSTRT ),W( CLEND )) + WERR( CLEND );
 
       // Use a small fudge to make sure that we really shift to the outside
       LSIGMA = LSIGMA - ABS(LSIGMA)* FOUR * EPS;
@@ -83,15 +83,15 @@
       LDMAX = QUART * MINGAP + TWO * PIVMIN;
       RDMAX = QUART * MINGAP + TWO * PIVMIN;
 
-      LDELTA = MAX(AVGAP,WGAP( CLSTRT ))/FACT;
-      RDELTA = MAX(AVGAP,WGAP( CLEND-1 ))/FACT;
+      LDELTA = max(AVGAP,WGAP( CLSTRT ))/FACT;
+      RDELTA = max(AVGAP,WGAP( CLEND-1 ))/FACT;
 
       // Initialize the record of the best representation found
 
       S = DLAMCH( 'S' );
       SMLGROWTH = ONE / S;
       FAIL = DBLE(N-1)*MINGAP/(SPDIAM*EPS);
-      FAIL2 = DBLE(N-1)*MINGAP/(SPDIAM*SQRT(EPS));
+      FAIL2 = DBLE(N-1)*MINGAP/(SPDIAM*sqrt(EPS));
       BESTSHIFT = LSIGMA;
 
       // while (KTRY <= KTRYMAX)
@@ -102,8 +102,8 @@
       SAWNAN1 = false;
       SAWNAN2 = false;
       // Ensure that we do not back off too much of the initial shifts
-      LDELTA = MIN(LDMAX,LDELTA);
-      RDELTA = MIN(RDMAX,RDELTA);
+      LDELTA = min(LDMAX,LDELTA);
+      RDELTA = min(RDMAX,RDELTA);
 
       // Compute the element growth when shifting to both ends of the cluster
       // accept the shift if there is no element growth at one of the two ends
@@ -128,7 +128,7 @@
             // in this case
             SAWNAN1 = true;
          }
-         MAX1 = MAX( MAX1,ABS(DPLUS(I+1)) );
+         MAX1 = max( MAX1,ABS(DPLUS(I+1)) );
       } // 6
       SAWNAN1 = SAWNAN1 || DISNAN( MAX1 );
        if ( FORCER || (MAX1 <= GROWTHBOUND && !SAWNAN1 ) ) {
@@ -157,7 +157,7 @@
             // in this case
             SAWNAN2 = true;
          }
-         MAX2 = MAX( MAX2,ABS(WORK(I+1)) );
+         MAX2 = max( MAX2,ABS(WORK(I+1)) );
       } // 7
       SAWNAN2 = SAWNAN2 || DISNAN( MAX2 );
        if ( FORCER || (MAX2 <= GROWTHBOUND && !SAWNAN2 ) ) {
@@ -193,7 +193,7 @@
       // we may still accept the representation, if it passes a
       // refined test for RRR. This test supposes that no NaN occurred.
       // Moreover, we use the refined RRR test only for isolated clusters.
-      if ((CLWDTH < MINGAP/DBLE(128)) && (MIN(MAX1,MAX2) < FAIL2) && ( !SAWNAN1) && ( !SAWNAN2)) {
+      if ((CLWDTH < MINGAP/DBLE(128)) && (min(MAX1,MAX2) < FAIL2) && ( !SAWNAN1) && ( !SAWNAN2)) {
          DORRR1 = true;
       } else {
          DORRR1 = false;
@@ -213,9 +213,9 @@
             }
             OLDP = PROD;
             ZNM2 = ZNM2 + PROD**2;
-            TMP = MAX( TMP, ABS( DPLUS( I ) * PROD ));
+            TMP = max( TMP, ABS( DPLUS( I ) * PROD ));
          } // 15
-         RRR1 = TMP/( SPDIAM * SQRT( ZNM2 ) );
+         RRR1 = TMP/( SPDIAM * sqrt( ZNM2 ) );
          if (RRR1 <= MAXGROWTH2) {
             SIGMA = LSIGMA;
             SHIFT = SLEFT;
@@ -234,9 +234,9 @@
             }
             OLDP = PROD;
             ZNM2 = ZNM2 + PROD**2;
-            TMP = MAX( TMP, ABS( WORK( I ) * PROD ));
+            TMP = max( TMP, ABS( WORK( I ) * PROD ));
          } // 16
-         RRR2 = TMP/( SPDIAM * SQRT( ZNM2 ) );
+         RRR2 = TMP/( SPDIAM * sqrt( ZNM2 ) );
          if (RRR2 <= MAXGROWTH2) {
             SIGMA = RSIGMA;
             SHIFT = SRIGHT;
@@ -250,7 +250,7 @@
       if (KTRY < KTRYMAX) {
          // If we are here, both shifts failed also the RRR test.
          // Back off to the outside
-         LSIGMA = MAX( LSIGMA - LDELTA, LSIGMA - LDMAX)          RSIGMA = MIN( RSIGMA + RDELTA, RSIGMA + RDMAX );
+         LSIGMA = max( LSIGMA - LDELTA, LSIGMA - LDMAX)          RSIGMA = min( RSIGMA + RDELTA, RSIGMA + RDMAX );
          LDELTA = TWO * LDELTA;
          RDELTA = TWO * RDELTA;
          KTRY = KTRY + 1;

@@ -45,7 +45,7 @@
          FIRST = false;
          EPS = DLAMCH( 'Precision' );
          BADC2 = TENTH / EPS;
-         BADC1 = SQRT( BADC2 );
+         BADC1 = sqrt( BADC2 );
          SMALL = DLAMCH( 'Safe minimum' );
          LARGE = ONE / SMALL;
          SMALL = SHRINK*( SMALL / EPS );
@@ -73,34 +73,34 @@
             KLA = 0;
             KUA = 0;
             KLB = 0;
-            KUB = MAX( N-1, 0 );
+            KUB = max( N-1, 0 );
 
          } else if ( IMAT == 2 ) {
 
             // A: upper triangular, B: upper triangular
 
             KLA = 0;
-            KUA = MAX( N-1, 0 );
+            KUA = max( N-1, 0 );
             KLB = 0;
-            KUB = MAX( N-1, 0 );
+            KUB = max( N-1, 0 );
 
          } else if ( IMAT == 3 ) {
 
             // A: lower triangular, B: upper triangular
 
-            KLA = MAX( M-1, 0 );
+            KLA = max( M-1, 0 );
             KUA = 0;
             KLB = 0;
-            KUB = MAX( N-1, 0 );
+            KUB = max( N-1, 0 );
 
          } else {
 
             // A: general dense, B: general dense
 
-            KLA = MAX( M-1, 0 );
-            KUA = MAX( N-1, 0 );
-            KLB = MAX( P-1, 0 );
-            KUB = MAX( N-1, 0 );
+            KLA = max( M-1, 0 );
+            KUA = max( N-1, 0 );
+            KLB = max( P-1, 0 );
+            KUB = max( N-1, 0 );
 
          }
 
@@ -114,13 +114,13 @@
 
             KLA = 0;
             KUA = 0;
-            KLB = MAX( N-1, 0 );
+            KLB = max( N-1, 0 );
             KUB = 0;
          } else if ( IMAT == 2 ) {
 
             // A: lower triangular, B: diagonal
 
-            KLA = MAX( N-1, 0 );
+            KLA = max( N-1, 0 );
             KUA = 0;
             KLB = 0;
             KUB = 0;
@@ -129,19 +129,19 @@
 
             // A: lower triangular, B: upper triangular
 
-            KLA = MAX( N-1, 0 );
+            KLA = max( N-1, 0 );
             KUA = 0;
             KLB = 0;
-            KUB = MAX( P-1, 0 );
+            KUB = max( P-1, 0 );
 
          } else {
 
             // A: general dense, B: general dense
 
-            KLA = MAX( N-1, 0 );
-            KUA = MAX( M-1, 0 );
-            KLB = MAX( N-1, 0 );
-            KUB = MAX( P-1, 0 );
+            KLA = max( N-1, 0 );
+            KUA = max( M-1, 0 );
+            KLB = max( N-1, 0 );
+            KUB = max( P-1, 0 );
          }
 
       }

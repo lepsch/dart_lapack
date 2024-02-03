@@ -30,9 +30,9 @@
          INFO = -2;
       } else if ( M < N ) {
          INFO = -1;
-      } else if ( LDA < MAX( 1, M ) ) {
+      } else if ( LDA < max( 1, M ) ) {
          INFO = -4;
-      } else if ( LDT < MAX( 1, N ) ) {
+      } else if ( LDT < max( 1, N ) ) {
          INFO = -6;
       }
       if ( INFO != 0 ) {
@@ -44,7 +44,7 @@
 
          // Compute Householder transform when N=1
 
-         slarfg(M, A(1,1), A( MIN( 2, M ), 1 ), 1, T(1,1) );
+         slarfg(M, A(1,1), A( min( 2, M ), 1 ), 1, T(1,1) );
 
       } else {
 
@@ -52,8 +52,8 @@
 
          N1 = N/2;
          N2 = N-N1;
-         J1 = MIN( N1+1, N );
-         I1 = MIN( N+1, M );
+         J1 = min( N1+1, N );
+         I1 = min( N+1, M );
 
          // Compute A(1:M,1:N1) <- (Y1,R1,T1), where Q1 = I - Y1 T1 Y1^H
 

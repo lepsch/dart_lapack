@@ -46,7 +46,7 @@
       DO 210 BJ = 1, R-1, BLKLEN;
          NEG1 = 0;
          BSAV = T;
-         DO 21 J = BJ, MIN(BJ+BLKLEN-1, R-1);
+         DO 21 J = BJ, min(BJ+BLKLEN-1, R-1);
             DPLUS = D( J ) + T;
             if (DPLUS < ZERO) NEG1 = NEG1 + 1;
             TMP = T / DPLUS;
@@ -60,7 +60,7 @@
          if ( SAWNAN ) {
             NEG1 = 0;
             T = BSAV;
-            DO 22 J = BJ, MIN(BJ+BLKLEN-1, R-1);
+            DO 22 J = BJ, min(BJ+BLKLEN-1, R-1);
                DPLUS = D( J ) + T;
                if (DPLUS < ZERO) NEG1 = NEG1 + 1;
                TMP = T / DPLUS;
@@ -76,7 +76,7 @@
       DO 230 BJ = N-1, R, -BLKLEN;
          NEG2 = 0;
          BSAV = P;
-         DO 23 J = BJ, MAX(BJ-BLKLEN+1, R), -1;
+         DO 23 J = BJ, max(BJ-BLKLEN+1, R), -1;
             DMINUS = LLD( J ) + P;
             if (DMINUS < ZERO) NEG2 = NEG2 + 1;
             TMP = P / DMINUS;
@@ -88,7 +88,7 @@
          if ( SAWNAN ) {
             NEG2 = 0;
             P = BSAV;
-            DO 24 J = BJ, MAX(BJ-BLKLEN+1, R), -1;
+            DO 24 J = BJ, max(BJ-BLKLEN+1, R), -1;
                DMINUS = LLD( J ) + P;
                if (DMINUS < ZERO) NEG2 = NEG2 + 1;
                TMP = P / DMINUS;

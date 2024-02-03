@@ -60,7 +60,7 @@
       WANTT = LSAME( JOB, 'S' );
       INITZ = LSAME( COMPZ, 'I' );
       WANTZ = INITZ || LSAME( COMPZ, 'V' );
-      WORK( 1 ) = DCMPLX( DBLE( MAX( 1, N ) ), RZERO );
+      WORK( 1 ) = DCMPLX( DBLE( max( 1, N ) ), RZERO );
       LQUERY = LWORK == -1;
 
       INFO = 0;
@@ -70,15 +70,15 @@
          INFO = -2;
       } else if ( N < 0 ) {
          INFO = -3;
-      } else if ( ILO < 1 || ILO > MAX( 1, N ) ) {
+      } else if ( ILO < 1 || ILO > max( 1, N ) ) {
          INFO = -4;
-      } else if ( IHI < MIN( ILO, N ) || IHI > N ) {
+      } else if ( IHI < min( ILO, N ) || IHI > N ) {
          INFO = -5;
-      } else if ( LDH < MAX( 1, N ) ) {
+      } else if ( LDH < max( 1, N ) ) {
          INFO = -7;
-      } else if ( LDZ < 1 || ( WANTZ && LDZ < MAX( 1, N ) ) ) {
+      } else if ( LDZ < 1 || ( WANTZ && LDZ < max( 1, N ) ) ) {
          INFO = -10;
-      } else if ( LWORK < MAX( 1, N ) && !LQUERY ) {
+      } else if ( LWORK < max( 1, N ) && !LQUERY ) {
          INFO = -12;
       }
 
@@ -102,7 +102,7 @@
          zlaqr0(WANTT, WANTZ, N, ILO, IHI, H, LDH, W, ILO, IHI, Z, LDZ, WORK, LWORK, INFO );
          // ==== Ensure reported workspace size is backward-compatible with
          // .    previous LAPACK versions. ====
-         WORK( 1 ) = DCMPLX( MAX( DBLE( WORK( 1 ) ), DBLE( MAX( 1, N ) ) ), RZERO );
+         WORK( 1 ) = DCMPLX( max( DBLE( WORK( 1 ) ), DBLE( max( 1, N ) ) ), RZERO );
          return;
 
       } else {
@@ -126,7 +126,7 @@
          // ==== ZLAHQR/ZLAQR0 crossover point ====
 
          NMIN = ILAENV( 12, 'ZHSEQR', JOB( : 1 ) // COMPZ( : 1 ), N, ILO, IHI, LWORK );
-         NMIN = MAX( NTINY, NMIN );
+         NMIN = max( NTINY, NMIN );
 
          // ==== ZLAQR0 for big matrices; ZLAHQR for small ones ====
 
@@ -174,7 +174,7 @@
          // ==== Ensure reported workspace size is backward-compatible with
          // .    previous LAPACK versions. ====
 
-         WORK( 1 ) = DCMPLX( MAX( DBLE( MAX( 1, N ) ), DBLE( WORK( 1 ) ) ), RZERO );
+         WORK( 1 ) = DCMPLX( max( DBLE( max( 1, N ) ), DBLE( WORK( 1 ) ) ), RZERO );
       }
 
       // ==== End of ZHSEQR ====

@@ -29,21 +29,21 @@
       FA = ABS( F );
       GA = ABS( G );
       HA = ABS( H );
-      FHMN = MIN( FA, HA );
-      FHMX = MAX( FA, HA );
+      FHMN = min( FA, HA );
+      FHMX = max( FA, HA );
       if ( FHMN == ZERO ) {
          SSMIN = ZERO;
          if ( FHMX == ZERO ) {
             SSMAX = GA;
          } else {
-            SSMAX = MAX( FHMX, GA )*SQRT( ONE+ ( MIN( FHMX, GA ) / MAX( FHMX, GA ) )**2 );
+            SSMAX = max( FHMX, GA )*sqrt( ONE+ ( min( FHMX, GA ) / max( FHMX, GA ) )**2 );
          }
       } else {
          if ( GA < FHMX ) {
             AS = ONE + FHMN / FHMX;
             AT = ( FHMX-FHMN ) / FHMX;
             AU = ( GA / FHMX )**2;
-            C = TWO / ( SQRT( AS*AS+AU )+SQRT( AT*AT+AU ) );
+            C = TWO / ( sqrt( AS*AS+AU )+sqrt( AT*AT+AU ) );
             SSMIN = FHMN*C;
             SSMAX = FHMX / C;
          } else {
@@ -59,7 +59,7 @@
             } else {
                AS = ONE + FHMN / FHMX;
                AT = ( FHMX-FHMN ) / FHMX;
-               C = ONE / ( SQRT( ONE+( AS*AU )**2 )+ SQRT( ONE+( AT*AU )**2 ) );
+               C = ONE / ( sqrt( ONE+( AS*AU )**2 )+ sqrt( ONE+( AT*AU )**2 ) );
                SSMIN = ( FHMN*C )*AU;
                SSMIN = SSMIN + SSMIN;
                SSMAX = GA / ( C+C );

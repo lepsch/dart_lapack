@@ -70,7 +70,7 @@
 
       // Scale.
 
-      ORGNRM = MAX( ABS( ALPHA ), ABS( BETA ) );
+      ORGNRM = max( ABS( ALPHA ), ABS( BETA ) );
       D( NL+1 ) = ZERO;
       for (I = 1; I <= N; I++) { // 10
          if ( ABS( D( I ) ) > ORGNRM ) {

@@ -42,7 +42,7 @@
          INFO = -1;
       } else if ( N < 0 ) {
          INFO = -2;
-      } else if ( LDQ < MAX( 1, N ) ) {
+      } else if ( LDQ < max( 1, N ) ) {
          INFO = -6;
       }
       if ( INFO != 0 ) {

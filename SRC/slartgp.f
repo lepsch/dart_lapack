@@ -56,16 +56,16 @@
       } else {
          F1 = F;
          G1 = G;
-         SCALE = MAX( ABS( F1 ), ABS( G1 ) );
+         SCALE = max( ABS( F1 ), ABS( G1 ) );
          if ( SCALE >= SAFMX2 ) {
             COUNT = 0;
             } // 10
             COUNT = COUNT + 1;
             F1 = F1*SAFMN2;
             G1 = G1*SAFMN2;
-            SCALE = MAX( ABS( F1 ), ABS( G1 ) );
+            SCALE = max( ABS( F1 ), ABS( G1 ) );
             if (SCALE >= SAFMX2 && COUNT < 20) GO TO 10;
-            R = SQRT( F1**2+G1**2 );
+            R = sqrt( F1**2+G1**2 );
             CS = F1 / R;
             SN = G1 / R;
             for (I = 1; I <= COUNT; I++) { // 20
@@ -77,16 +77,16 @@
             COUNT = COUNT + 1;
             F1 = F1*SAFMX2;
             G1 = G1*SAFMX2;
-            SCALE = MAX( ABS( F1 ), ABS( G1 ) );
+            SCALE = max( ABS( F1 ), ABS( G1 ) );
             if (SCALE <= SAFMN2) GO TO 30;
-            R = SQRT( F1**2+G1**2 );
+            R = sqrt( F1**2+G1**2 );
             CS = F1 / R;
             SN = G1 / R;
             for (I = 1; I <= COUNT; I++) { // 40
                R = R*SAFMN2;
             } // 40
          } else {
-            R = SQRT( F1**2+G1**2 );
+            R = sqrt( F1**2+G1**2 );
             CS = F1 / R;
             SN = G1 / R;
          }

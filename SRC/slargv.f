@@ -40,13 +40,13 @@
             X( IX ) = G;
          } else if ( ABS( F ) > ABS( G ) ) {
             T = G / F;
-            TT = SQRT( ONE+T*T );
+            TT = sqrt( ONE+T*T );
             C( IC ) = ONE / TT;
             Y( IY ) = T*C( IC );
             X( IX ) = F*TT;
          } else {
             T = F / G;
-            TT = SQRT( ONE+T*T );
+            TT = sqrt( ONE+T*T );
             Y( IY ) = ONE / TT;
             C( IC ) = T*Y( IY );
             X( IX ) = G*TT;

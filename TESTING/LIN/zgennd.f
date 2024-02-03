@@ -25,7 +25,7 @@
       // INTRINSIC MIN, DBLE, DIMAG
       // ..
       // .. Executable Statements ..
-      K = MIN( M, N );
+      K = min( M, N );
       for (I = 1; I <= K; I++) {
          AII = A( I, I );
          if ( DBLE( AII ) < ZERO || DIMAG( AII ) != ZERO ) {

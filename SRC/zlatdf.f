@@ -130,7 +130,7 @@
       // Compute RHS
 
       zlaswp(1, XM, LDZ, 1, N-1, IPIV, -1 );
-      TEMP = CONE / SQRT( ZDOTC( N, XM, 1, XM, 1 ) );
+      TEMP = CONE / sqrt( ZDOTC( N, XM, 1, XM, 1 ) );
       zscal(N, TEMP, XM, 1 );
       zcopy(N, XM, 1, XP, 1 );
       zaxpy(N, CONE, RHS, 1, XP, 1 );

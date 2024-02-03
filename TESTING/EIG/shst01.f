@@ -50,7 +50,7 @@
 
       // Copy A to WORK
 
-      LDWORK = MAX( 1, N );
+      LDWORK = max( 1, N );
       slacpy(' ', N, N, A, LDA, WORK, LDWORK );
 
       // Compute Q*H
@@ -61,12 +61,12 @@
 
       sgemm('No transpose', 'Transpose', N, N, N, -ONE, WORK( LDWORK*N+1 ), LDWORK, Q, LDQ, ONE, WORK, LDWORK );
 
-      ANORM = MAX( SLANGE( '1', N, N, A, LDA, WORK( LDWORK*N+1 ) ), UNFL );
+      ANORM = max( SLANGE( '1', N, N, A, LDA, WORK( LDWORK*N+1 ) ), UNFL );
       WNORM = SLANGE( '1', N, N, WORK, LDWORK, WORK( LDWORK*N+1 ) );
 
       // Note that RESULT(1) cannot overflow and is bounded by 1/(N*EPS)
 
-      RESULT( 1 ) = MIN( WNORM, ANORM ) / MAX( SMLNUM, ANORM*EPS ) / N;
+      RESULT( 1 ) = min( WNORM, ANORM ) / max( SMLNUM, ANORM*EPS ) / N;
 
       // Test 2:  Compute norm( I - Q'*Q ) / ( N * EPS )
 

@@ -76,7 +76,7 @@
       ANORM = SLANGE( '1', K, N, A( M-K+1, 1 ), LDA, RWORK );
       RESID = SLANGE( '1', K, M, R( M-K+1, N-M+1 ), LDA, RWORK );
       if ( ANORM > ZERO ) {
-         RESULT( 1 ) = ( ( RESID / REAL( MAX( 1, N ) ) ) / ANORM ) / EPS;
+         RESULT( 1 ) = ( ( RESID / REAL( max( 1, N ) ) ) / ANORM ) / EPS;
       } else {
          RESULT( 1 ) = ZERO;
       }
@@ -90,7 +90,7 @@
 
       RESID = SLANSY( '1', 'Upper', M, R, LDA, RWORK );
 
-      RESULT( 2 ) = ( RESID / REAL( MAX( 1, N ) ) ) / EPS;
+      RESULT( 2 ) = ( RESID / REAL( max( 1, N ) ) ) / EPS;
 
       return;
 

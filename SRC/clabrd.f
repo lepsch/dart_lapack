@@ -50,7 +50,7 @@
             // Generate reflection Q(i) to annihilate A(i+1:m,i)
 
             ALPHA = A( I, I );
-            clarfg(M-I+1, ALPHA, A( MIN( I+1, M ), I ), 1, TAUQ( I ) );
+            clarfg(M-I+1, ALPHA, A( min( I+1, M ), I ), 1, TAUQ( I ) );
             D( I ) = REAL( ALPHA );
             if ( I < N ) {
                A( I, I ) = ONE;
@@ -77,7 +77,7 @@
                // Generate reflection P(i) to annihilate A(i,i+2:n)
 
                ALPHA = A( I, I+1 );
-               clarfg(N-I, ALPHA, A( I, MIN( I+2, N ) ), LDA, TAUP( I ) );
+               clarfg(N-I, ALPHA, A( I, min( I+2, N ) ), LDA, TAUP( I ) );
                E( I ) = REAL( ALPHA );
                A( I, I+1 ) = ONE;
 
@@ -111,7 +111,7 @@
             // Generate reflection P(i) to annihilate A(i,i+1:n)
 
             ALPHA = A( I, I );
-            clarfg(N-I+1, ALPHA, A( I, MIN( I+1, N ) ), LDA, TAUP( I ) );
+            clarfg(N-I+1, ALPHA, A( I, min( I+1, N ) ), LDA, TAUP( I ) );
             D( I ) = REAL( ALPHA );
             if ( I < M ) {
                A( I, I ) = ONE;
@@ -136,7 +136,7 @@
                // Generate reflection Q(i) to annihilate A(i+2:m,i)
 
                ALPHA = A( I+1, I );
-               clarfg(M-I, ALPHA, A( MIN( I+2, M ), I ), 1, TAUQ( I ) );
+               clarfg(M-I, ALPHA, A( min( I+2, M ), I ), 1, TAUQ( I ) );
                E( I ) = REAL( ALPHA );
                A( I+1, I ) = ONE;
 

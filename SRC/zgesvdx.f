@@ -52,7 +52,7 @@
       INFO = 0;
       ABSTOL = 2*DLAMCH('S');
       LQUERY = ( LWORK == -1 );
-      MINMN = MIN( M, N );
+      MINMN = min( M, N );
 
       WANTU = LSAME( JOBU, 'V' );
       WANTVT = LSAME( JOBVT, 'V' );
@@ -86,9 +86,9 @@
                INFO = -9;
             }
          } else if ( INDS ) {
-            if ( IL < 1 || IL > MAX( 1, MINMN ) ) {
+            if ( IL < 1 || IL > max( 1, MINMN ) ) {
                INFO = -10;
-            } else if ( IU < MIN( MINMN, IL ) || IU > MINMN ) {
+            } else if ( IU < min( MINMN, IL ) || IU > MINMN ) {
                INFO = -11;
             }
          }
@@ -126,9 +126,9 @@
 
                   MINWRK = N*(N+5);
                   MAXWRK = N + N*ILAENV(1,'ZGEQRF',' ',M,N,-1,-1);
-                  MAXWRK = MAX(MAXWRK, N*N+2*N+2*N*ILAENV(1,'ZGEBRD',' ',N,N,-1,-1));
+                  MAXWRK = max(MAXWRK, N*N+2*N+2*N*ILAENV(1,'ZGEBRD',' ',N,N,-1,-1));
                   if (WANTU || WANTVT) {
-                     MAXWRK = MAX(MAXWRK, N*N+2*N+N*ILAENV(1,'ZUNMQR','LN',N,N,N,-1));
+                     MAXWRK = max(MAXWRK, N*N+2*N+N*ILAENV(1,'ZUNMQR','LN',N,N,N,-1));
                   }
                } else {
 
@@ -137,7 +137,7 @@
                   MINWRK = 3*N + M;
                   MAXWRK = 2*N + (M+N)*ILAENV(1,'ZGEBRD',' ',M,N,-1,-1);
                   if (WANTU || WANTVT) {
-                     MAXWRK = MAX(MAXWRK, 2*N+N*ILAENV(1,'ZUNMQR','LN',N,N,N,-1));
+                     MAXWRK = max(MAXWRK, 2*N+N*ILAENV(1,'ZUNMQR','LN',N,N,N,-1));
                   }
                }
             } else {
@@ -148,9 +148,9 @@
 
                   MINWRK = M*(M+5);
                   MAXWRK = M + M*ILAENV(1,'ZGELQF',' ',M,N,-1,-1);
-                  MAXWRK = MAX(MAXWRK, M*M+2*M+2*M*ILAENV(1,'ZGEBRD',' ',M,M,-1,-1));
+                  MAXWRK = max(MAXWRK, M*M+2*M+2*M*ILAENV(1,'ZGEBRD',' ',M,M,-1,-1));
                   if (WANTU || WANTVT) {
-                     MAXWRK = MAX(MAXWRK, M*M+2*M+M*ILAENV(1,'ZUNMQR','LN',M,M,M,-1));
+                     MAXWRK = max(MAXWRK, M*M+2*M+M*ILAENV(1,'ZUNMQR','LN',M,M,M,-1));
                   }
                } else {
 
@@ -160,12 +160,12 @@
                   MINWRK = 3*M + N;
                   MAXWRK = 2*M + (M+N)*ILAENV(1,'ZGEBRD',' ',M,N,-1,-1);
                   if (WANTU || WANTVT) {
-                     MAXWRK = MAX(MAXWRK, 2*M+M*ILAENV(1,'ZUNMQR','LN',M,M,M,-1));
+                     MAXWRK = max(MAXWRK, 2*M+M*ILAENV(1,'ZUNMQR','LN',M,M,M,-1));
                   }
                }
             }
          }
-         MAXWRK = MAX( MAXWRK, MINWRK );
+         MAXWRK = max( MAXWRK, MINWRK );
          WORK( 1 ) = DCMPLX( DBLE( MAXWRK ), ZERO );
 
          if ( LWORK < MINWRK && !LQUERY ) {
@@ -191,7 +191,7 @@
       if ( ALLS ) {
          RNGTGK = 'I';
          ILTGK = 1;
-         IUTGK = MIN( M, N );
+         IUTGK = min( M, N );
       } else if ( INDS ) {
          RNGTGK = 'I';
          ILTGK = IL;
@@ -205,7 +205,7 @@
       // Get machine constants
 
       EPS = DLAMCH( 'P' );
-      SMLNUM = SQRT( DLAMCH( 'S' ) ) / EPS;
+      SMLNUM = sqrt( DLAMCH( 'S' ) ) / EPS;
       BIGNUM = ONE / SMLNUM;
 
       // Scale A if max element outside range [SMLNUM,BIGNUM]

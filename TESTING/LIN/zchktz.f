@@ -81,15 +81,15 @@
          // Do for each value of M in MVAL.
 
          M = MVAL( IM );
-         LDA = MAX( 1, M );
+         LDA = max( 1, M );
 
          for (IN = 1; IN <= NN; IN++) { // 60
 
             // Do for each value of N in NVAL for which M <= N.
 
             N = NVAL( IN );
-            MNMIN = MIN( M, N );
-            LWORK = MAX( 1, N*N+4*M+N );
+            MNMIN = min( M, N );
+            LWORK = max( 1, N*N+4*M+N );
 
             if ( M <= N ) {
                for (IMODE = 1; IMODE <= NTYPES; IMODE++) { // 50

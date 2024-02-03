@@ -77,7 +77,7 @@
          INFO = -2;
       } else if ( N < 0 ) {
          INFO = -4;
-      } else if ( LDT < MAX( 1, N ) ) {
+      } else if ( LDT < max( 1, N ) ) {
          INFO = -6;
       } else if ( LDVL < 1 || ( LEFTV && LDVL < N ) ) {
          INFO = -8;
@@ -126,7 +126,7 @@
             if ( SOMEV ) {
                if( !SELECT( KI ) ) GO TO 80;
             }
-            SMIN = MAX( ULP*( CABS1( T( KI, KI ) ) ), SMLNUM );
+            SMIN = max( ULP*( CABS1( T( KI, KI ) ) ), SMLNUM );
 
             WORK( 1 ) = CMONE;
 
@@ -189,7 +189,7 @@
             if ( SOMEV ) {
                if( !SELECT( KI ) ) GO TO 130;
             }
-            SMIN = MAX( ULP*( CABS1( T( KI, KI ) ) ), SMLNUM );
+            SMIN = max( ULP*( CABS1( T( KI, KI ) ) ), SMLNUM );
 
             WORK( N ) = CMONE;
 

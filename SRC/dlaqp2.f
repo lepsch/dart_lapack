@@ -35,8 +35,8 @@
       // ..
       // .. Executable Statements ..
 
-      MN = MIN( M-OFFSET, N );
-      TOL3Z = SQRT(DLAMCH('Epsilon'));
+      MN = min( M-OFFSET, N );
+      TOL3Z = sqrt(DLAMCH('Epsilon'));
 
       // Compute factorization.
 
@@ -84,7 +84,7 @@
                // Lapack Working Note 176.
 
                TEMP = ONE - ( ABS( A( OFFPI, J ) ) / VN1( J ) )**2;
-               TEMP = MAX( TEMP, ZERO );
+               TEMP = max( TEMP, ZERO );
                TEMP2 = TEMP*( VN1( J ) / VN2( J ) )**2;
                if ( TEMP2 <= TOL3Z ) {
                   if ( OFFPI < M ) {
@@ -95,7 +95,7 @@
                      VN2( J ) = ZERO;
                   }
                } else {
-                  VN1( J ) = VN1( J )*SQRT( TEMP );
+                  VN1( J ) = VN1( J )*sqrt( TEMP );
                }
             }
          } // 10

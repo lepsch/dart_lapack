@@ -39,7 +39,7 @@
       // ..
       // .. Executable Statements ..
 
-      MN = MIN( M, N );
+      MN = min( M, N );
       ISMIN = MN + 1;
       ISMAX = 2*MN + 1;
 
@@ -53,9 +53,9 @@
          INFO = -2;
       } else if ( NRHS < 0 ) {
          INFO = -3;
-      } else if ( LDA < MAX( 1, M ) ) {
+      } else if ( LDA < max( 1, M ) ) {
          INFO = -5;
-      } else if ( LDB < MAX( 1, M, N ) ) {
+      } else if ( LDB < max( 1, M, N ) ) {
          INFO = -7;
       }
 
@@ -70,9 +70,9 @@
             NB2 = ILAENV( 1, 'SGERQF', ' ', M, N, -1, -1 );
             NB3 = ILAENV( 1, 'SORMQR', ' ', M, N, NRHS, -1 );
             NB4 = ILAENV( 1, 'SORMRQ', ' ', M, N, NRHS, -1 );
-            NB = MAX( NB1, NB2, NB3, NB4 );
-            LWKMIN = MN + MAX( 2*MN, N + 1, MN + NRHS );
-            LWKOPT = MAX( LWKMIN, MN + 2*N + NB*( N + 1 ), 2*MN + NB*NRHS );
+            NB = max( NB1, NB2, NB3, NB4 );
+            LWKMIN = MN + max( 2*MN, N + 1, MN + NRHS );
+            LWKOPT = max( LWKMIN, MN + 2*N + NB*( N + 1 ), 2*MN + NB*NRHS );
          }
          WORK( 1 ) = SROUNDUP_LWORK(LWKOPT);
 
@@ -120,7 +120,7 @@
 
          // Matrix all zero. Return zero solution.
 
-         slaset('F', MAX( M, N ), NRHS, ZERO, ZERO, B, LDB );
+         slaset('F', max( M, N ), NRHS, ZERO, ZERO, B, LDB );
          RANK = 0;
          GO TO 70;
       }
@@ -158,7 +158,7 @@
       SMIN = SMAX;
       if ( ABS( A( 1, 1 ) ) == ZERO ) {
          RANK = 0;
-         slaset('F', MAX( M, N ), NRHS, ZERO, ZERO, B, LDB );
+         slaset('F', max( M, N ), NRHS, ZERO, ZERO, B, LDB );
          GO TO 70;
       } else {
          RANK = 1;
@@ -200,7 +200,7 @@
       // B(1:M,1:NRHS) := Q**T * B(1:M,1:NRHS)
 
       sormqr('Left', 'Transpose', M, NRHS, MN, A, LDA, WORK( 1 ), B, LDB, WORK( 2*MN+1 ), LWORK-2*MN, INFO );
-      WSIZE = MAX( WSIZE, 2*MN+WORK( 2*MN+1 ) );
+      WSIZE = max( WSIZE, 2*MN+WORK( 2*MN+1 ) );
 
       // workspace: 2*MN+NB*NRHS.
 

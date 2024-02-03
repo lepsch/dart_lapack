@@ -41,8 +41,8 @@
       // ..
       // .. Executable Statements ..
 
-      MN = MIN( M, N );
-      if ( LWORK < MAX( M+MN, MN*NRHS, 2*N+M ) ) {
+      MN = min( M, N );
+      if ( LWORK < max( M+MN, MN*NRHS, 2*N+M ) ) {
          xerbla('CQRT15', 16 );
          return;
       }

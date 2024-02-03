@@ -45,10 +45,10 @@
 
       if ( LEFT ) {
          NQ = M;
-         NW = MAX( 1, N );
+         NW = max( 1, N );
       } else {
          NQ = N;
-         NW = MAX( 1, M );
+         NW = max( 1, M );
       }
       if ( !APPLYQ && !LSAME( VECT, 'P' ) ) {
          INFO = -1;
@@ -62,9 +62,9 @@
          INFO = -5;
       } else if ( K < 0 ) {
          INFO = -6;
-      } else if ( ( APPLYQ && LDA < MAX( 1, NQ ) ) || ( !APPLYQ && LDA < MAX( 1, MIN( NQ, K ) ) ) ) {
+      } else if ( ( APPLYQ && LDA < max( 1, NQ ) ) || ( !APPLYQ && LDA < max( 1, min( NQ, K ) ) ) ) {
          INFO = -8;
-      } else if ( LDC < MAX( 1, M ) ) {
+      } else if ( LDC < max( 1, M ) ) {
          INFO = -11;
       } else if ( LWORK < NW && !LQUERY ) {
          INFO = -13;

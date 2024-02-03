@@ -44,9 +44,9 @@
          INFO = -1;
       } else if ( N < 0 ) {
          INFO = -2;
-      } else if ( LDA < MAX( 1, N ) ) {
+      } else if ( LDA < max( 1, N ) ) {
          INFO = -4;
-      } else if ( LWORK < MAX( 1, N-1 ) && !LQUERY ) {
+      } else if ( LWORK < max( 1, N-1 ) && !LQUERY ) {
          INFO = -7;
       }
 
@@ -56,7 +56,7 @@
          } else {
             NB = ILAENV( 1, 'ZUNGQR', ' ', N-1, N-1, N-1, -1 );
          }
-         LWKOPT = MAX( 1, N-1 )*NB;
+         LWKOPT = max( 1, N-1 )*NB;
          WORK( 1 ) = LWKOPT;
       }
 

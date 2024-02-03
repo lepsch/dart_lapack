@@ -231,7 +231,7 @@
       // Compute quantities for convergence test
 
       TMP = ONE / ZTZ;
-      NRMINV = SQRT( TMP );
+      NRMINV = sqrt( TMP );
       RESID = ABS( MINGMA )*NRMINV;
       RQCORR = MINGMA*TMP;
 

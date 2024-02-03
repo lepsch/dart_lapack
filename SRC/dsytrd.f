@@ -44,7 +44,7 @@
          INFO = -1;
       } else if ( N < 0 ) {
          INFO = -2;
-      } else if ( LDA < MAX( 1, N ) ) {
+      } else if ( LDA < max( 1, N ) ) {
          INFO = -4;
       } else if ( LWORK < 1 && !LQUERY ) {
          INFO = -9;
@@ -55,7 +55,7 @@
          // Determine the block size.
 
          NB = ILAENV( 1, 'DSYTRD', UPLO, N, -1, -1, -1 );
-         LWKOPT = MAX( 1, N*NB );
+         LWKOPT = max( 1, N*NB );
          WORK( 1 ) = LWKOPT;
       }
 
@@ -80,7 +80,7 @@
          // Determine when to cross over from blocked to unblocked code
          // (last block is always handled by unblocked code).
 
-         NX = MAX( NB, ILAENV( 3, 'DSYTRD', UPLO, N, -1, -1, -1 ) );
+         NX = max( NB, ILAENV( 3, 'DSYTRD', UPLO, N, -1, -1, -1 ) );
          if ( NX < N ) {
 
             // Determine if workspace is large enough for blocked code.
@@ -93,7 +93,7 @@
                // minimum value of NB, and reduce NB or force use of
                // unblocked code by setting NX = N.
 
-               NB = MAX( LWORK / LDWORK, 1 );
+               NB = max( LWORK / LDWORK, 1 );
                NBMIN = ILAENV( 2, 'DSYTRD', UPLO, N, -1, -1, -1 );
                if (NB < NBMIN) NX = N;
             }

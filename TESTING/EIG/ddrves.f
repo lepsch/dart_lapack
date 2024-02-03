@@ -78,7 +78,7 @@
       BADNN = false;
       NMAX = 0;
       for (J = 1; J <= NSIZES; J++) { // 10
-         NMAX = MAX( NMAX, NN( J ) );
+         NMAX = max( NMAX, NN( J ) );
          if( NN( J ) < 0 ) BADNN = true;
       } // 10
 
@@ -117,7 +117,7 @@
       OVFL = ONE / UNFL;
       ULP = DLAMCH( 'Precision' );
       ULPINV = ONE / ULP;
-      RTULP = SQRT( ULP );
+      RTULP = sqrt( ULP );
       RTULPI = ONE / RTULP;
 
       // Loop over sizes, types
@@ -283,7 +283,7 @@
                } else {
                   NNWORK = 5*N + 2*N**2;
                }
-               NNWORK = MAX( NNWORK, 1 );
+               NNWORK = max( NNWORK, 1 );
 
                // Initialize RESULT
 
@@ -332,7 +332,7 @@
 
                   // Do Tests (2) and (3) or Tests (8) and (9)
 
-                  LWORK = MAX( 1, 2*N*N );
+                  LWORK = max( 1, 2*N*N );
                   dhst01(N, 1, N, A, LDA, H, LDA, VS, LDVS, WORK, LWORK, RES );
                   RESULT( 2+RSUB ) = RES( 1 );
                   RESULT( 3+RSUB ) = RES( 2 );
@@ -349,7 +349,7 @@
                   }
                   for (I = 1; I <= N - 1; I++) { // 160
                      if ( H( I+1, I ) != ZERO ) {
-                        TMP = SQRT( ABS( H( I+1, I ) ) )* SQRT( ABS( H( I, I+1 ) ) )                         RESULT( 4+RSUB ) = MAX( RESULT( 4+RSUB ), ABS( WI( I )-TMP ) / MAX( ULP*TMP, UNFL ) )                         RESULT( 4+RSUB ) = MAX( RESULT( 4+RSUB ), ABS( WI( I+1 )+TMP ) / MAX( ULP*TMP, UNFL ) );
+                        TMP = sqrt( ABS( H( I+1, I ) ) )* sqrt( ABS( H( I, I+1 ) ) )                         RESULT( 4+RSUB ) = max( RESULT( 4+RSUB ), ABS( WI( I )-TMP ) / max( ULP*TMP, UNFL ) )                         RESULT( 4+RSUB ) = max( RESULT( 4+RSUB ), ABS( WI( I+1 )+TMP ) / max( ULP*TMP, UNFL ) );
                      } else if ( I > 1 ) {
                         if( H( I+1, I ) == ZERO && H( I, I-1 ) == ZERO && WI( I ) != ZERO )RESULT( 4+RSUB ) = ULPINV;
                      }

@@ -83,9 +83,9 @@
          INFO = -2;
       } else if ( N < 0 ) {
          INFO = -4;
-      } else if ( LDS < MAX( 1, N ) ) {
+      } else if ( LDS < max( 1, N ) ) {
          INFO = -6;
-      } else if ( LDP < MAX( 1, N ) ) {
+      } else if ( LDP < max( 1, N ) ) {
          INFO = -8;
       }
       if ( INFO != 0 ) {
@@ -184,16 +184,16 @@
          } // 30
          WORK( J ) = TEMP;
          WORK( N+J ) = TEMP2;
-         DO 40 I = IEND + 1, MIN( J+1, N );
+         DO 40 I = IEND + 1, min( J+1, N );
             TEMP = TEMP + ABS( S( I, J ) );
             TEMP2 = TEMP2 + ABS( P( I, J ) );
          } // 40
-         ANORM = MAX( ANORM, TEMP );
-         BNORM = MAX( BNORM, TEMP2 );
+         ANORM = max( ANORM, TEMP );
+         BNORM = max( BNORM, TEMP2 );
       } // 50
 
-      ASCALE = ONE / MAX( ANORM, SAFMIN );
-      BSCALE = ONE / MAX( BNORM, SAFMIN );
+      ASCALE = ONE / max( ANORM, SAFMIN );
+      BSCALE = ONE / max( BNORM, SAFMIN );
 
       // Left eigenvectors
 
@@ -261,7 +261,7 @@
 
                // Real eigenvalue
 
-               TEMP = ONE / MAX( ABS( S( JE, JE ) )*ASCALE, ABS( P( JE, JE ) )*BSCALE, SAFMIN );
+               TEMP = ONE / max( ABS( S( JE, JE ) )*ASCALE, ABS( P( JE, JE ) )*BSCALE, SAFMIN );
                SALFAR = ( TEMP*S( JE, JE ) )*ASCALE;
                SBETA = ( TEMP*P( JE, JE ) )*BSCALE;
                ACOEF = SBETA*ASCALE;
@@ -272,9 +272,9 @@
 
                SCALE = ONE;
                LSA = ABS( SBETA ) >= SAFMIN && ABS( ACOEF ) < SMALL;
-               LSB = ABS( SALFAR ) >= SAFMIN && ABS( BCOEFR ) < SMALL                IF( LSA ) SCALE = ( SMALL / ABS( SBETA ) )*MIN( ANORM, BIG )                IF( LSB ) SCALE = MAX( SCALE, ( SMALL / ABS( SALFAR ) )* MIN( BNORM, BIG ) );
+               LSB = ABS( SALFAR ) >= SAFMIN && ABS( BCOEFR ) < SMALL                IF( LSA ) SCALE = ( SMALL / ABS( SBETA ) )*min( ANORM, BIG )                IF( LSB ) SCALE = max( SCALE, ( SMALL / ABS( SALFAR ) )* min( BNORM, BIG ) );
                if ( LSA || LSB ) {
-                  SCALE = MIN( SCALE, ONE / ( SAFMIN*MAX( ONE, ABS( ACOEF ), ABS( BCOEFR ) ) ) );
+                  SCALE = min( SCALE, ONE / ( SAFMIN*max( ONE, ABS( ACOEF ), ABS( BCOEFR ) ) ) );
                   if ( LSA ) {
                      ACOEF = ASCALE*( SCALE*SBETA );
                   } else {
@@ -310,9 +310,9 @@
                BCOEFA = ABS( BCOEFR ) + ABS( BCOEFI );
                SCALE = ONE;
                if (ACOEFA*ULP < SAFMIN && ACOEFA >= SAFMIN) SCALE = ( SAFMIN / ULP ) / ACOEFA;
-               if( BCOEFA*ULP < SAFMIN && BCOEFA >= SAFMIN ) SCALE = MAX( SCALE, ( SAFMIN / ULP ) / BCOEFA );
+               if( BCOEFA*ULP < SAFMIN && BCOEFA >= SAFMIN ) SCALE = max( SCALE, ( SAFMIN / ULP ) / BCOEFA );
                if( SAFMIN*ACOEFA > ASCALE ) SCALE = ASCALE / ( SAFMIN*ACOEFA );
-               IF( SAFMIN*BCOEFA > BSCALE ) SCALE = MIN( SCALE, BSCALE / ( SAFMIN*BCOEFA ) );
+               IF( SAFMIN*BCOEFA > BSCALE ) SCALE = min( SCALE, BSCALE / ( SAFMIN*BCOEFA ) );
                if ( SCALE != ONE ) {
                   ACOEF = SCALE*ACOEF;
                   ACOEFA = ABS( ACOEF );
@@ -338,10 +338,10 @@
                   WORK( 2*N+JE ) = ( BCOEFR*P( JE+1, JE+1 )-ACOEF* S( JE+1, JE+1 ) ) / TEMP;
                   WORK( 3*N+JE ) = BCOEFI*P( JE+1, JE+1 ) / TEMP;
                }
-               XMAX = MAX( ABS( WORK( 2*N+JE ) )+ABS( WORK( 3*N+JE ) ), ABS( WORK( 2*N+JE+1 ) )+ABS( WORK( 3*N+JE+1 ) ) );
+               XMAX = max( ABS( WORK( 2*N+JE ) )+ABS( WORK( 3*N+JE ) ), ABS( WORK( 2*N+JE+1 ) )+ABS( WORK( 3*N+JE+1 ) ) );
             }
 
-            DMIN = MAX( ULP*ACOEFA*ANORM, ULP*BCOEFA*BNORM, SAFMIN );
+            DMIN = max( ULP*ACOEFA*ANORM, ULP*BCOEFA*BNORM, SAFMIN );
 
                                             // T
             // Triangular solve of  (a A - b B)  y = 0
@@ -369,8 +369,8 @@
 
                // Check whether scaling is necessary for dot products
 
-               XSCALE = ONE / MAX( ONE, XMAX );
-               TEMP = MAX( WORK( J ), WORK( N+J ), ACOEFA*WORK( J )+BCOEFA*WORK( N+J ) )                IF( IL2BY2 ) TEMP = MAX( TEMP, WORK( J+1 ), WORK( N+J+1 ), ACOEFA*WORK( J+1 )+BCOEFA*WORK( N+J+1 ) );
+               XSCALE = ONE / max( ONE, XMAX );
+               TEMP = max( WORK( J ), WORK( N+J ), ACOEFA*WORK( J )+BCOEFA*WORK( N+J ) )                IF( IL2BY2 ) TEMP = max( TEMP, WORK( J+1 ), WORK( N+J+1 ), ACOEFA*WORK( J+1 )+BCOEFA*WORK( N+J+1 ) );
                if ( TEMP > BIGNUM*XSCALE ) {
                   for (JW = 0; JW <= NW - 1; JW++) { // 90
                      for (JR = JE; JR <= J - 1; JR++) { // 80
@@ -428,7 +428,7 @@
                   } // 150
                   XMAX = SCALE*XMAX;
                }
-               XMAX = MAX( XMAX, TEMP );
+               XMAX = max( XMAX, TEMP );
             } // 160
 
             // Copy eigenvector to VL, back transforming if
@@ -451,11 +451,11 @@
             XMAX = ZERO;
             if ( ILCPLX ) {
                for (J = IBEG; J <= N; J++) { // 180
-                  XMAX = MAX( XMAX, ABS( VL( J, IEIG ) )+ ABS( VL( J, IEIG+1 ) ) );
+                  XMAX = max( XMAX, ABS( VL( J, IEIG ) )+ ABS( VL( J, IEIG+1 ) ) );
                } // 180
             } else {
                for (J = IBEG; J <= N; J++) { // 190
-                  XMAX = MAX( XMAX, ABS( VL( J, IEIG ) ) );
+                  XMAX = max( XMAX, ABS( VL( J, IEIG ) ) );
                } // 190
             }
 
@@ -544,7 +544,7 @@
 
                // Real eigenvalue
 
-               TEMP = ONE / MAX( ABS( S( JE, JE ) )*ASCALE, ABS( P( JE, JE ) )*BSCALE, SAFMIN );
+               TEMP = ONE / max( ABS( S( JE, JE ) )*ASCALE, ABS( P( JE, JE ) )*BSCALE, SAFMIN );
                SALFAR = ( TEMP*S( JE, JE ) )*ASCALE;
                SBETA = ( TEMP*P( JE, JE ) )*BSCALE;
                ACOEF = SBETA*ASCALE;
@@ -555,9 +555,9 @@
 
                SCALE = ONE;
                LSA = ABS( SBETA ) >= SAFMIN && ABS( ACOEF ) < SMALL;
-               LSB = ABS( SALFAR ) >= SAFMIN && ABS( BCOEFR ) < SMALL                IF( LSA ) SCALE = ( SMALL / ABS( SBETA ) )*MIN( ANORM, BIG )                IF( LSB ) SCALE = MAX( SCALE, ( SMALL / ABS( SALFAR ) )* MIN( BNORM, BIG ) );
+               LSB = ABS( SALFAR ) >= SAFMIN && ABS( BCOEFR ) < SMALL                IF( LSA ) SCALE = ( SMALL / ABS( SBETA ) )*min( ANORM, BIG )                IF( LSB ) SCALE = max( SCALE, ( SMALL / ABS( SALFAR ) )* min( BNORM, BIG ) );
                if ( LSA || LSB ) {
-                  SCALE = MIN( SCALE, ONE / ( SAFMIN*MAX( ONE, ABS( ACOEF ), ABS( BCOEFR ) ) ) );
+                  SCALE = min( SCALE, ONE / ( SAFMIN*max( ONE, ABS( ACOEF ), ABS( BCOEFR ) ) ) );
                   if ( LSA ) {
                      ACOEF = ASCALE*( SCALE*SBETA );
                   } else {
@@ -599,9 +599,9 @@
                BCOEFA = ABS( BCOEFR ) + ABS( BCOEFI );
                SCALE = ONE;
                if (ACOEFA*ULP < SAFMIN && ACOEFA >= SAFMIN) SCALE = ( SAFMIN / ULP ) / ACOEFA;
-               if( BCOEFA*ULP < SAFMIN && BCOEFA >= SAFMIN ) SCALE = MAX( SCALE, ( SAFMIN / ULP ) / BCOEFA );
+               if( BCOEFA*ULP < SAFMIN && BCOEFA >= SAFMIN ) SCALE = max( SCALE, ( SAFMIN / ULP ) / BCOEFA );
                if( SAFMIN*ACOEFA > ASCALE ) SCALE = ASCALE / ( SAFMIN*ACOEFA );
-               IF( SAFMIN*BCOEFA > BSCALE ) SCALE = MIN( SCALE, BSCALE / ( SAFMIN*BCOEFA ) );
+               IF( SAFMIN*BCOEFA > BSCALE ) SCALE = min( SCALE, BSCALE / ( SAFMIN*BCOEFA ) );
                if ( SCALE != ONE ) {
                   ACOEF = SCALE*ACOEF;
                   ACOEFA = ABS( ACOEF );
@@ -629,7 +629,7 @@
                   WORK( 3*N+JE ) = BCOEFI*P( JE-1, JE-1 ) / TEMP;
                }
 
-               XMAX = MAX( ABS( WORK( 2*N+JE ) )+ABS( WORK( 3*N+JE ) ), ABS( WORK( 2*N+JE-1 ) )+ABS( WORK( 3*N+JE-1 ) ) );
+               XMAX = max( ABS( WORK( 2*N+JE ) )+ABS( WORK( 3*N+JE ) ), ABS( WORK( 2*N+JE-1 ) )+ABS( WORK( 3*N+JE-1 ) ) );
 
                // Compute contribution from columns JE and JE-1
                // of A and B to the sums.
@@ -646,7 +646,7 @@
                } // 270
             }
 
-            DMIN = MAX( ULP*ACOEFA*ANORM, ULP*BCOEFA*BNORM, SAFMIN );
+            DMIN = max( ULP*ACOEFA*ANORM, ULP*BCOEFA*BNORM, SAFMIN );
 
             // Columnwise triangular solve of  (a A - b B)  x = 0
 
@@ -681,7 +681,7 @@
                      } // 280
                   } // 290
                }
-               XMAX = MAX( SCALE*XMAX, TEMP );
+               XMAX = max( SCALE*XMAX, TEMP );
 
                for (JW = 1; JW <= NW; JW++) { // 310
                   for (JA = 1; JA <= NA; JA++) { // 300
@@ -695,10 +695,10 @@
 
                   // Check whether scaling is necessary for sum.
 
-                  XSCALE = ONE / MAX( ONE, XMAX );
+                  XSCALE = ONE / max( ONE, XMAX );
                   TEMP = ACOEFA*WORK( J ) + BCOEFA*WORK( N+J );
-                  if (IL2BY2) TEMP = MAX( TEMP, ACOEFA*WORK( J+1 )+BCOEFA* WORK( N+J+1 ) );
-                  TEMP = MAX( TEMP, ACOEFA, BCOEFA );
+                  if (IL2BY2) TEMP = max( TEMP, ACOEFA*WORK( J+1 )+BCOEFA* WORK( N+J+1 ) );
+                  TEMP = max( TEMP, ACOEFA, BCOEFA );
                   if ( TEMP > BIGNUM*XSCALE ) {
 
                      for (JW = 0; JW <= NW - 1; JW++) { // 330
@@ -779,11 +779,11 @@
             XMAX = ZERO;
             if ( ILCPLX ) {
                for (J = 1; J <= IEND; J++) { // 460
-                  XMAX = MAX( XMAX, ABS( VR( J, IEIG ) )+ ABS( VR( J, IEIG+1 ) ) );
+                  XMAX = max( XMAX, ABS( VR( J, IEIG ) )+ ABS( VR( J, IEIG+1 ) ) );
                } // 460
             } else {
                for (J = 1; J <= IEND; J++) { // 470
-                  XMAX = MAX( XMAX, ABS( VR( J, IEIG ) ) );
+                  XMAX = max( XMAX, ABS( VR( J, IEIG ) ) );
                } // 470
             }
 

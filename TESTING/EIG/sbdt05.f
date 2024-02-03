@@ -39,7 +39,7 @@
       // Quick return if possible.
 
       RESID = ZERO;
-      if( MIN( M, N ) <= 0 || NS <= 0 ) return;
+      if( min( M, N ) <= 0 || NS <= 0 ) return;
 
       EPS = SLAMCH( 'Precision' );
       ANORM = SLANGE( 'M', M, N, A, LDA, WORK );
@@ -53,7 +53,7 @@
       J = 0;
       for (I = 1; I <= NS; I++) { // 10
          WORK( J+I ) =  WORK( J+I ) + S( I );
-         RESID = MAX( RESID, SASUM( NS, WORK( J+1 ), 1 ) );
+         RESID = max( RESID, SASUM( NS, WORK( J+1 ), 1 ) );
          J = J + NS;
       } // 10
 
@@ -64,9 +64,9 @@
             RESID = ( RESID / ANORM ) / ( REAL( N )*EPS );
          } else {
             if ( ANORM < ONE ) {
-               RESID = ( MIN( RESID, REAL( N )*ANORM ) / ANORM ) / ( REAL( N )*EPS );
+               RESID = ( min( RESID, REAL( N )*ANORM ) / ANORM ) / ( REAL( N )*EPS );
             } else {
-               RESID = MIN( RESID / ANORM, REAL( N ) ) / ( REAL( N )*EPS );
+               RESID = min( RESID / ANORM, REAL( N ) ) / ( REAL( N )*EPS );
             }
          }
       }

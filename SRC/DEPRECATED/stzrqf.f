@@ -35,7 +35,7 @@
          INFO = -1;
       } else if ( N < M ) {
          INFO = -2;
-      } else if ( LDA < MAX( 1, M ) ) {
+      } else if ( LDA < max( 1, M ) ) {
          INFO = -4;
       }
       if ( INFO != 0 ) {
@@ -51,7 +51,7 @@
             TAU( I ) = ZERO;
          } // 10
       } else {
-         M1 = MIN( M+1, N );
+         M1 = min( M+1, N );
          DO 20 K = M, 1, -1;
 
             // Use a Householder reflection to zero the kth row of A.

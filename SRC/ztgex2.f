@@ -69,22 +69,22 @@
       zlacpy('Full', M, M, S, LDST, WORK, M );
       zlacpy('Full', M, M, T, LDST, WORK( M*M+1 ), M );
       zlassq(M*M, WORK, 1, SCALE, SUM );
-      SA = SCALE*SQRT( SUM );
+      SA = SCALE*sqrt( SUM );
       SCALE = DBLE( CZERO );
       SUM = DBLE( CONE );
       zlassq(M*M, WORK(M*M+1), 1, SCALE, SUM );
-      SB = SCALE*SQRT( SUM );
+      SB = SCALE*sqrt( SUM );
 
       // THRES has been changed from
-         // THRESH = MAX( TEN*EPS*SA, SMLNUM )
+         // THRESH = max( TEN*EPS*SA, SMLNUM )
       // to
-         // THRESH = MAX( TWENTY*EPS*SA, SMLNUM )
+         // THRESH = max( TWENTY*EPS*SA, SMLNUM )
       // on 04/01/10.
       // "Bug" reported by Ondra Kamenik, confirmed by Julie Langou, fixed by
       // Jim Demmel and Guillaume Revy. See forum post 1783.
 
-      THRESHA = MAX( TWENTY*EPS*SA, SMLNUM );
-      THRESHB = MAX( TWENTY*EPS*SB, SMLNUM );
+      THRESHA = max( TWENTY*EPS*SA, SMLNUM );
+      THRESHB = max( TWENTY*EPS*SB, SMLNUM );
 
       // Compute unitary QL and RQ that swap 1-by-1 and 1-by-1 blocks
       // using Givens rotations and perform the swap tentatively.
@@ -132,11 +132,11 @@
          SCALE = DBLE( CZERO );
          SUM = DBLE( CONE );
          zlassq(M*M, WORK, 1, SCALE, SUM );
-         SA = SCALE*SQRT( SUM );
+         SA = SCALE*sqrt( SUM );
          SCALE = DBLE( CZERO );
          SUM = DBLE( CONE );
          zlassq(M*M, WORK(M*M+1), 1, SCALE, SUM );
-         SB = SCALE*SQRT( SUM );
+         SB = SCALE*sqrt( SUM );
          STRONG = SA <= THRESHA && SB <= THRESHB;
          if ( !STRONG) GO TO 20;
       }

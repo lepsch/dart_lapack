@@ -37,8 +37,8 @@
 
       EPS = DLAMCH( 'Epsilon' );
       UNFL = DLAMCH( 'Safe minimum' );
-      ANORM = MAX( DLANGE( '1', N, M, A, LDA, RWORK ), UNFL );
-      BNORM = MAX( DLANGE( '1', N, P, B, LDB, RWORK ), UNFL );
+      ANORM = max( DLANGE( '1', N, M, A, LDA, RWORK ), UNFL );
+      BNORM = max( DLANGE( '1', N, P, B, LDB, RWORK ), UNFL );
 
       // Copy the matrices A and B to the arrays AF and BF,
       // and the vector D the array DF.

@@ -77,19 +77,19 @@
 
       MINWRK = 1;
       if ( INFO == 0 && LWORK >= 1 ) {
-         MINWRK = MAX( 10*( NSIZE+1 ), 5*NSIZE*NSIZE / 2 );
+         MINWRK = max( 10*( NSIZE+1 ), 5*NSIZE*NSIZE / 2 );
 
          // workspace for sggesx
 
-         MAXWRK = 9*( NSIZE+1 ) + NSIZE* ILAENV( 1, 'DGEQRF', ' ', NSIZE, 1, NSIZE, 0 )          MAXWRK = MAX( MAXWRK, 9*( NSIZE+1 )+NSIZE* ILAENV( 1, 'DORGQR', ' ', NSIZE, 1, NSIZE, -1 ) );
+         MAXWRK = 9*( NSIZE+1 ) + NSIZE* ILAENV( 1, 'DGEQRF', ' ', NSIZE, 1, NSIZE, 0 )          MAXWRK = max( MAXWRK, 9*( NSIZE+1 )+NSIZE* ILAENV( 1, 'DORGQR', ' ', NSIZE, 1, NSIZE, -1 ) );
 
          // workspace for dgesvd
 
          BDSPAC = 5*NSIZE*NSIZE / 2;
-         MAXWRK = MAX( MAXWRK, 3*NSIZE*NSIZE / 2+NSIZE*NSIZE* ILAENV( 1, 'DGEBRD', ' ', NSIZE*NSIZE / 2, NSIZE*NSIZE / 2, -1, -1 ) );
-         MAXWRK = MAX( MAXWRK, BDSPAC );
+         MAXWRK = max( MAXWRK, 3*NSIZE*NSIZE / 2+NSIZE*NSIZE* ILAENV( 1, 'DGEBRD', ' ', NSIZE*NSIZE / 2, NSIZE*NSIZE / 2, -1, -1 ) );
+         MAXWRK = max( MAXWRK, BDSPAC );
 
-         MAXWRK = MAX( MAXWRK, MINWRK );
+         MAXWRK = max( MAXWRK, MINWRK );
 
          WORK( 1 ) = MAXWRK;
       }
@@ -123,7 +123,7 @@
       PRTYPE = 0;
       QBA = 3;
       QBB = 4;
-      WEIGHT = SQRT( ULP );
+      WEIGHT = sqrt( ULP );
 
       for (IFUNC = 0; IFUNC <= 3; IFUNC++) { // 60
          for (PRTYPE = 1; PRTYPE <= 5; PRTYPE++) { // 50
@@ -193,7 +193,7 @@
                   for (J = 1; J <= MPLUSN; J++) { // 10
                      ILABAD = false;
                      if ( ALPHAI( J ) == ZERO ) {
-                        TEMP2 = ( ABS( ALPHAR( J )-AI( J, J ) ) / MAX( SMLNUM, ABS( ALPHAR( J ) ), ABS( AI( J, J ) ) )+ ABS( BETA( J )-BI( J, J ) ) / MAX( SMLNUM, ABS( BETA( J ) ), ABS( BI( J, J ) ) ) ) / ULP;
+                        TEMP2 = ( ABS( ALPHAR( J )-AI( J, J ) ) / max( SMLNUM, ABS( ALPHAR( J ) ), ABS( AI( J, J ) ) )+ ABS( BETA( J )-BI( J, J ) ) / max( SMLNUM, ABS( BETA( J ) ), ABS( BI( J, J ) ) ) ) / ULP;
                         if ( J < MPLUSN ) {
                            if ( AI( J+1, J ) != ZERO ) {
                               ILABAD = true;
@@ -235,7 +235,7 @@
                            TEMP2 = ULPINV;
                         }
                      }
-                     TEMP1 = MAX( TEMP1, TEMP2 );
+                     TEMP1 = max( TEMP1, TEMP2 );
                      if ( ILABAD ) {
                         WRITE( NOUT, FMT = 9996 )J, MPLUSN, PRTYPE;
                      }
@@ -273,7 +273,7 @@
                      } else if ( DIFTRU == ZERO ) {
                         if( DIFEST( 2 ) > ABNRM*ULP ) RESULT( 8 ) = ULPINV;
                      ELSE IF( ( DIFTRU > THRSH2*DIFEST( 2 ) ) || ( DIFTRU*THRSH2 < DIFEST( 2 ) ) ) {
-                        RESULT( 8 ) = MAX( DIFTRU / DIFEST( 2 ), DIFEST( 2 ) / DIFTRU );
+                        RESULT( 8 ) = max( DIFTRU / DIFEST( 2 ), DIFEST( 2 ) / DIFTRU );
                      }
                      NTEST = NTEST + 1;
                   }
@@ -386,7 +386,7 @@
       for (J = 1; J <= MPLUSN; J++) { // 110
          ILABAD = false;
          if ( ALPHAI( J ) == ZERO ) {
-            TEMP2 = ( ABS( ALPHAR( J )-AI( J, J ) ) / MAX( SMLNUM, ABS( ALPHAR( J ) ), ABS( AI( J, J ) ) )+ABS( BETA( J )-BI( J, J ) ) / MAX( SMLNUM, ABS( BETA( J ) ), ABS( BI( J, J ) ) ) ) / ULP;
+            TEMP2 = ( ABS( ALPHAR( J )-AI( J, J ) ) / max( SMLNUM, ABS( ALPHAR( J ) ), ABS( AI( J, J ) ) )+ABS( BETA( J )-BI( J, J ) ) / max( SMLNUM, ABS( BETA( J ) ), ABS( BI( J, J ) ) ) ) / ULP;
             if ( J < MPLUSN ) {
                if ( AI( J+1, J ) != ZERO ) {
                   ILABAD = true;
@@ -428,7 +428,7 @@
                TEMP2 = ULPINV;
             }
          }
-         TEMP1 = MAX( TEMP1, TEMP2 );
+         TEMP1 = max( TEMP1, TEMP2 );
          if ( ILABAD ) {
             WRITE( NOUT, FMT = 9996 )J, MPLUSN, NPTKNT;
          }
@@ -450,7 +450,7 @@
       } else if ( DIFTRU == ZERO ) {
          if ( DIFEST( 2 ) > ABNRM*ULP ) RESULT( 8 ) = ULPINV;
       ELSE IF( ( DIFTRU > THRSH2*DIFEST( 2 ) ) || ( DIFTRU*THRSH2 < DIFEST( 2 ) ) ) {
-         RESULT( 8 ) = MAX( DIFTRU / DIFEST( 2 ), DIFEST( 2 ) / DIFTRU );
+         RESULT( 8 ) = max( DIFTRU / DIFEST( 2 ), DIFEST( 2 ) / DIFTRU );
       }
 
       // Test (9)

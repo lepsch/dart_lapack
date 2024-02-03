@@ -49,11 +49,11 @@
          INFO = -1;
       } else if ( N < 0 ) {
          INFO = -2;
-      } else if ( LDA < MAX( 1, N ) ) {
+      } else if ( LDA < max( 1, N ) ) {
          INFO = -4;
-      } else if ( LTB < MAX( 1, 4*N ) && !TQUERY ) {
+      } else if ( LTB < max( 1, 4*N ) && !TQUERY ) {
          INFO = -6;
-      } else if ( LWORK < MAX( 1, N ) && !WQUERY ) {
+      } else if ( LWORK < max( 1, N ) && !WQUERY ) {
          INFO = -10;
       }
 
@@ -67,10 +67,10 @@
       NB = ILAENV( 1, 'ZHETRF_AA_2STAGE', UPLO, N, -1, -1, -1 );
       if ( INFO == 0 ) {
          if ( TQUERY ) {
-            TB( 1 ) = MAX( 1, (3*NB+1)*N );
+            TB( 1 ) = max( 1, (3*NB+1)*N );
          }
          if ( WQUERY ) {
-            WORK( 1 ) = MAX( 1, N*NB );
+            WORK( 1 ) = max( 1, N*NB );
          }
       }
       if ( TQUERY || WQUERY ) {
@@ -97,7 +97,7 @@
 
       NT = (N+NB-1)/NB;
       TD = 2*NB;
-      KB = MIN(NB, N);
+      KB = min(NB, N);
 
       // Initialize vectors/matrices
 
@@ -119,7 +119,7 @@
 
             // Generate Jth column of W and H
 
-            KB = MIN(NB, N-J*NB);
+            KB = min(NB, N-J*NB);
             for (I = 1; I <= J-1; I++) {
                if ( I == 1 ) {
                    // H(I,J) = T(I,I)*U(I,J) + T(I+1,I)*U(I+1,J)
@@ -207,7 +207,7 @@
 
                // Compute T(J+1, J), zero out for GEMM update
 
-               KB = MIN(NB, N-(J+1)*NB);
+               KB = min(NB, N-(J+1)*NB);
                zlaset('Full', KB, NB, ZERO, ZERO,  TB( TD+NB+1 + (J*NB)*LDTB) , LDTB-1 );
                zlacpy('Upper', KB, NB, WORK, N, TB( TD+NB+1 + (J*NB)*LDTB ), LDTB-1 );
                if ( J > 0 ) {
@@ -265,7 +265,7 @@
 
             // Generate Jth column of W and H
 
-            KB = MIN(NB, N-J*NB);
+            KB = min(NB, N-J*NB);
             for (I = 1; I <= J-1; I++) {
                if ( I == 1 ) {
                    // H(I,J) = T(I,I)*L(J,I)' + T(I+1,I)'*L(J,I+1)'
@@ -334,7 +334,7 @@
 
                // Compute T(J+1, J), zero out for GEMM update
 
-               KB = MIN(NB, N-(J+1)*NB);
+               KB = min(NB, N-(J+1)*NB);
                zlaset('Full', KB, NB, ZERO, ZERO,  TB( TD+NB+1 + (J*NB)*LDTB) , LDTB-1 );
                zlacpy('Upper', KB, NB, A( (J+1)*NB+1, J*NB+1 ), LDA, TB( TD+NB+1 + (J*NB)*LDTB ), LDTB-1 );
                if ( J > 0 ) {

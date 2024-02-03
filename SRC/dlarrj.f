@@ -61,7 +61,7 @@
          MID = W(II);
          RIGHT = W( II ) + WERR( II );
          WIDTH = RIGHT - MID;
-         TMP = MAX( ABS( LEFT ), ABS( RIGHT ) );
+         TMP = max( ABS( LEFT ), ABS( RIGHT ) );
 
          // The following test prevents the test of converged intervals
          if ( WIDTH < RTOL*TMP ) {
@@ -143,7 +143,7 @@
 
          // semiwidth of interval
          WIDTH = RIGHT - MID;
-         TMP = MAX( ABS( LEFT ), ABS( RIGHT ) );
+         TMP = max( ABS( LEFT ), ABS( RIGHT ) );
           if ( ( WIDTH < RTOL*TMP ) || (ITER == MAXITR) ) {
             // reduce number of unconverged intervals
             NINT = NINT - 1;

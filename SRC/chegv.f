@@ -53,18 +53,18 @@
          INFO = -3;
       } else if ( N < 0 ) {
          INFO = -4;
-      } else if ( LDA < MAX( 1, N ) ) {
+      } else if ( LDA < max( 1, N ) ) {
          INFO = -6;
-      } else if ( LDB < MAX( 1, N ) ) {
+      } else if ( LDB < max( 1, N ) ) {
          INFO = -8;
       }
 
       if ( INFO == 0 ) {
          NB = ILAENV( 1, 'CHETRD', UPLO, N, -1, -1, -1 );
-         LWKOPT = MAX( 1, ( NB + 1 )*N );
+         LWKOPT = max( 1, ( NB + 1 )*N );
          WORK( 1 ) = SROUNDUP_LWORK(LWKOPT);
 
-         if ( LWORK < MAX( 1, 2*N-1 ) && !LQUERY ) {
+         if ( LWORK < max( 1, 2*N-1 ) && !LQUERY ) {
             INFO = -11;
          }
       }

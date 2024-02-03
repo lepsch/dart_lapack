@@ -47,9 +47,9 @@
          INFO = -2;
       } else if ( Q < 0 || M-Q < Q ) {
          INFO = -3;
-      } else if ( LDX11 < MAX( 1, P ) ) {
+      } else if ( LDX11 < max( 1, P ) ) {
          INFO = -5;
-      } else if ( LDX21 < MAX( 1, M-P ) ) {
+      } else if ( LDX21 < max( 1, M-P ) ) {
          INFO = -7;
       }
 
@@ -57,10 +57,10 @@
 
       if ( INFO == 0 ) {
          ILARF = 2;
-         LLARF = MAX( P-1, M-P-1, Q-1 );
+         LLARF = max( P-1, M-P-1, Q-1 );
          IORBDB5 = 2;
          LORBDB5 = Q-2;
-         LWORKOPT = MAX( ILARF+LLARF-1, IORBDB5+LORBDB5-1 );
+         LWORKOPT = max( ILARF+LLARF-1, IORBDB5+LORBDB5-1 );
          LWORKMIN = LWORKOPT;
          WORK(1) = LWORKOPT;
          if ( LWORK < LWORKMIN && !LQUERY ) {
@@ -97,7 +97,7 @@
             zlarf('R', P-I, Q-I, X21(I,I+1), LDX21, TAUQ1(I), X11(I+1,I+1), LDX11, WORK(ILARF) );
             zlarf('R', M-P-I, Q-I, X21(I,I+1), LDX21, TAUQ1(I), X21(I+1,I+1), LDX21, WORK(ILARF) );
             zlacgv(Q-I, X21(I,I+1), LDX21 );
-            C = SQRT( DZNRM2( P-I, X11(I+1,I+1), 1 )**2 + DZNRM2( M-P-I, X21(I+1,I+1), 1 )**2 );
+            C = sqrt( DZNRM2( P-I, X11(I+1,I+1), 1 )**2 + DZNRM2( M-P-I, X21(I+1,I+1), 1 )**2 );
             PHI(I) = ATAN2( S, C );
             zunbdb5(P-I, M-P-I, Q-I-1, X11(I+1,I+1), 1, X21(I+1,I+1), 1, X11(I+1,I+2), LDX11, X21(I+1,I+2), LDX21, WORK(IORBDB5), LORBDB5, CHILDINFO );
          }

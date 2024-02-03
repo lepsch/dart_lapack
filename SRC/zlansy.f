@@ -107,7 +107,7 @@
          }
          SUM = 2*SUM;
          zlassq(N, A, LDA+1, SCALE, SUM );
-         VALUE = SCALE*SQRT( SUM );
+         VALUE = SCALE*sqrt( SUM );
       }
 
       ZLANSY = VALUE;

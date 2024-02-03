@@ -28,7 +28,7 @@
 
       // Find the number of levels on the tree.
 
-      MAXN = MAX( 1, N );
+      MAXN = max( 1, N );
       TEMP = LOG( REAL( MAXN ) / REAL( MSUB+1 ) ) / LOG( TWO );
       LVL = INT( TEMP ) + 1;
 

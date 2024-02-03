@@ -74,7 +74,7 @@
          } else if ( ANORM <= ZERO || XNORM <= ZERO ) {
             RESID = ONE / EPS;
          } else {
-            RESID = MAX( RESID, ( ( BNORM / ANORM ) / XNORM ) / ( MAX( M, N )*EPS ) );
+            RESID = max( RESID, ( ( BNORM / ANORM ) / XNORM ) / ( max( M, N )*EPS ) );
          }
       } // 10
 

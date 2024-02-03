@@ -66,7 +66,7 @@
       if ( ITYPE == 3 ) {
          ANORM = ONE;
       } else {
-         ANORM = MAX( DLANSY( '1', CUPLO, N, A, LDA, WORK ), UNFL );
+         ANORM = max( DLANSY( '1', CUPLO, N, A, LDA, WORK ), UNFL );
       }
 
       // Compute error matrix:
@@ -169,9 +169,9 @@
          RESULT( 1 ) = ( WNORM / ANORM ) / ( N*ULP );
       } else {
          if ( ANORM < ONE ) {
-            RESULT( 1 ) = ( MIN( WNORM, N*ANORM ) / ANORM ) / ( N*ULP );
+            RESULT( 1 ) = ( min( WNORM, N*ANORM ) / ANORM ) / ( N*ULP );
          } else {
-            RESULT( 1 ) = MIN( WNORM / ANORM, DBLE( N ) ) / ( N*ULP );
+            RESULT( 1 ) = min( WNORM / ANORM, DBLE( N ) ) / ( N*ULP );
          }
       }
 
@@ -186,7 +186,7 @@
             WORK( ( N+1 )*( J-1 )+1 ) = WORK( ( N+1 )*( J-1 )+1 ) - ONE;
          } // 110
 
-         RESULT( 2 ) = MIN( DLANGE( '1', N, N, WORK, N, WORK( N**2+1 ) ), DBLE( N ) ) / ( N*ULP );
+         RESULT( 2 ) = min( DLANGE( '1', N, N, WORK, N, WORK( N**2+1 ) ), DBLE( N ) ) / ( N*ULP );
       }
 
       return;

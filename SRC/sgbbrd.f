@@ -57,11 +57,11 @@
          INFO = -6;
       } else if ( LDAB < KLU1 ) {
          INFO = -8;
-      } else if ( LDQ < 1 || WANTQ && LDQ < MAX( 1, M ) ) {
+      } else if ( LDQ < 1 || WANTQ && LDQ < max( 1, M ) ) {
          INFO = -12;
-      } else if ( LDPT < 1 || WANTPT && LDPT < MAX( 1, N ) ) {
+      } else if ( LDPT < 1 || WANTPT && LDPT < max( 1, N ) ) {
          INFO = -14;
-      } else if ( LDC < 1 || WANTC && LDC < MAX( 1, M ) ) {
+      } else if ( LDC < 1 || WANTC && LDC < max( 1, M ) ) {
          INFO = -16;
       }
       if ( INFO != 0 ) {
@@ -78,7 +78,7 @@
 
       if (M == 0 || N == 0) return;
 
-      MINMN = MIN( M, N );
+      MINMN = min( M, N );
 
       if ( KL+KU > 1 ) {
 
@@ -100,9 +100,9 @@
          // The sines of the plane rotations are stored in WORK(1:max(m,n))
          // and the cosines in WORK(max(m,n)+1:2*max(m,n)).
 
-         MN = MAX( M, N );
-         KLM = MIN( M-1, KL );
-         KUN = MIN( N-1, KU );
+         MN = max( M, N );
+         KLM = min( M-1, KL );
+         KUN = min( N-1, KU );
          KB = KLM + KUN;
          KB1 = KB + 1;
          INCA = KB1*LDAB;
@@ -144,7 +144,7 @@
 
                      slartg(AB( KU+ML-1, I ), AB( KU+ML, I ), WORK( MN+I+ML-1 ), WORK( I+ML-1 ), RA );
                      AB( KU+ML-1, I ) = RA;
-                     if (I < N) CALL SROT( MIN( KU+ML-2, N-I ), AB( KU+ML-2, I+1 ), LDAB-1, AB( KU+ML-1, I+1 ), LDAB-1, WORK( MN+I+ML-1 ), WORK( I+ML-1 ) );
+                     if (I < N) CALL SROT( min( KU+ML-2, N-I ), AB( KU+ML-2, I+1 ), LDAB-1, AB( KU+ML-1, I+1 ), LDAB-1, WORK( MN+I+ML-1 ), WORK( I+ML-1 ) );
                   }
                   NR = NR + 1;
                   J1 = J1 - KB1;
@@ -209,7 +209,7 @@
 
                      slartg(AB( KU-MU+3, I+MU-2 ), AB( KU-MU+2, I+MU-1 ), WORK( MN+I+MU-1 ), WORK( I+MU-1 ), RA );
                      AB( KU-MU+3, I+MU-2 ) = RA;
-                     srot(MIN( KL+MU-2, M-I ), AB( KU-MU+4, I+MU-2 ), 1, AB( KU-MU+3, I+MU-1 ), 1, WORK( MN+I+MU-1 ), WORK( I+MU-1 ) );
+                     srot(min( KL+MU-2, M-I ), AB( KU-MU+4, I+MU-2 ), 1, AB( KU-MU+3, I+MU-1 ), 1, WORK( MN+I+MU-1 ), WORK( I+MU-1 ) );
                   }
                   NR = NR + 1;
                   J1 = J1 - KB1;
@@ -258,7 +258,7 @@
          // plane rotations from the left, storing diagonal elements in D
          // and off-diagonal elements in E
 
-         DO 100 I = 1, MIN( M-1, N );
+         DO 100 I = 1, min( M-1, N );
             slartg(AB( 1, I ), AB( 2, I ), RC, RS, RA );
             D( I ) = RA;
             if ( I < N ) {

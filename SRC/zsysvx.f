@@ -53,23 +53,23 @@
          INFO = -3;
       } else if ( NRHS < 0 ) {
          INFO = -4;
-      } else if ( LDA < MAX( 1, N ) ) {
+      } else if ( LDA < max( 1, N ) ) {
          INFO = -6;
-      } else if ( LDAF < MAX( 1, N ) ) {
+      } else if ( LDAF < max( 1, N ) ) {
          INFO = -8;
-      } else if ( LDB < MAX( 1, N ) ) {
+      } else if ( LDB < max( 1, N ) ) {
          INFO = -11;
-      } else if ( LDX < MAX( 1, N ) ) {
+      } else if ( LDX < max( 1, N ) ) {
          INFO = -13;
-      } else if ( LWORK < MAX( 1, 2*N ) && !LQUERY ) {
+      } else if ( LWORK < max( 1, 2*N ) && !LQUERY ) {
          INFO = -18;
       }
 
       if ( INFO == 0 ) {
-         LWKOPT = MAX( 1, 2*N );
+         LWKOPT = max( 1, 2*N );
          if ( NOFACT ) {
             NB = ILAENV( 1, 'ZSYTRF', UPLO, N, -1, -1, -1 );
-            LWKOPT = MAX( LWKOPT, N*NB );
+            LWKOPT = max( LWKOPT, N*NB );
          }
          WORK( 1 ) = LWKOPT;
       }

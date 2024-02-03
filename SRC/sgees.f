@@ -58,7 +58,7 @@
          INFO = -2;
       } else if ( N < 0 ) {
          INFO = -4;
-      } else if ( LDA < MAX( 1, N ) ) {
+      } else if ( LDA < max( 1, N ) ) {
          INFO = -6;
       } else if ( LDVS < 1 || ( WANTVS && LDVS < N ) ) {
          INFO = -11;
@@ -86,10 +86,10 @@
             HSWORK = INT( WORK( 1 ) );
 
             if ( !WANTVS ) {
-               MAXWRK = MAX( MAXWRK, N + HSWORK );
+               MAXWRK = max( MAXWRK, N + HSWORK );
             } else {
-               MAXWRK = MAX( MAXWRK, 2*N + ( N - 1 )*ILAENV( 1, 'SORGHR', ' ', N, 1, N, -1 ) );
-               MAXWRK = MAX( MAXWRK, N + HSWORK );
+               MAXWRK = max( MAXWRK, 2*N + ( N - 1 )*ILAENV( 1, 'SORGHR', ' ', N, 1, N, -1 ) );
+               MAXWRK = max( MAXWRK, N + HSWORK );
             }
          }
          WORK( 1 ) = SROUNDUP_LWORK(MAXWRK);
@@ -118,7 +118,7 @@
       EPS = SLAMCH( 'P' );
       SMLNUM = SLAMCH( 'S' );
       BIGNUM = ONE / SMLNUM;
-      SMLNUM = SQRT( SMLNUM ) / EPS;
+      SMLNUM = sqrt( SMLNUM ) / EPS;
       BIGNUM = ONE / SMLNUM;
 
       // Scale A if max element outside range [SMLNUM,BIGNUM]
@@ -208,7 +208,7 @@
             if ( IEVAL > 0 ) {
                I1 = IEVAL + 1;
                I2 = IHI - 1;
-               slascl('G', 0, 0, CSCALE, ANRM, ILO-1, 1, WI, MAX( ILO-1, 1 ), IERR );
+               slascl('G', 0, 0, CSCALE, ANRM, ILO-1, 1, WI, max( ILO-1, 1 ), IERR );
             } else if ( WANTST ) {
                I1 = 1;
                I2 = N - 1;
@@ -243,7 +243,7 @@
 
          // Undo scaling for the imaginary part of the eigenvalues
 
-         slascl('G', 0, 0, CSCALE, ANRM, N-IEVAL, 1, WI( IEVAL+1 ), MAX( N-IEVAL, 1 ), IERR );
+         slascl('G', 0, 0, CSCALE, ANRM, N-IEVAL, 1, WI( IEVAL+1 ), max( N-IEVAL, 1 ), IERR );
       }
 
       if ( WANTST && INFO == 0 ) {

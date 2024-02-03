@@ -63,7 +63,7 @@
          } // 20
          BNORM = ABS( D( 1 ) );
          for (I = 2; I <= N; I++) { // 30
-            BNORM = MAX( BNORM, ABS( D( I ) )+ABS( E( I-1 ) ) );
+            BNORM = max( BNORM, ABS( D( I ) )+ABS( E( I-1 ) ) );
          } // 30
       } else {
 
@@ -80,7 +80,7 @@
          } // 50
          BNORM = ABS( D( N ) );
          for (I = 1; I <= N-1; I++) { // 60
-            BNORM = MAX( BNORM, ABS( D( I ) )+ABS( E( I ) ) );
+            BNORM = max( BNORM, ABS( D( I ) )+ABS( E( I ) ) );
          } // 60
       }
 
@@ -91,7 +91,7 @@
       K = N*NS;
       for (I = 1; I <= NS; I++) { // 70
          WORK( K+I ) =  WORK( K+I ) + S( I );
-         RESID = MAX( RESID, SASUM( NS, WORK( K+1 ), 1 ) );
+         RESID = max( RESID, SASUM( NS, WORK( K+1 ), 1 ) );
          K = K + NS;
       } // 70
 
@@ -102,9 +102,9 @@
             RESID = ( RESID / BNORM ) / ( REAL( N )*EPS );
          } else {
             if ( BNORM < ONE ) {
-               RESID = ( MIN( RESID, REAL( N )*BNORM ) / BNORM ) / ( REAL( N )*EPS );
+               RESID = ( min( RESID, REAL( N )*BNORM ) / BNORM ) / ( REAL( N )*EPS );
             } else {
-               RESID = MIN( RESID / BNORM, REAL( N ) ) / ( REAL( N )*EPS );
+               RESID = min( RESID / BNORM, REAL( N ) ) / ( REAL( N )*EPS );
             }
          }
       }

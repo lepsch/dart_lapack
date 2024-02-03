@@ -42,9 +42,9 @@
       // GROWTO is the threshold used in the acceptance test for an
       // eigenvector.
 
-      ROOTN = SQRT( DBLE( N ) );
+      ROOTN = sqrt( DBLE( N ) );
       GROWTO = TENTH / ROOTN;
-      NRMSML = MAX( ONE, EPS3*ROOTN )*SMLNUM;
+      NRMSML = max( ONE, EPS3*ROOTN )*SMLNUM;
 
       // Form B = H - (WR,WI)*I (except that the subdiagonal elements and
       // the imaginary parts of the diagonal elements are not stored).
@@ -72,7 +72,7 @@
             // Scale supplied initial vector.
 
             VNORM = DNRM2( N, VR, 1 );
-            dscal(N, ( EPS3*ROOTN ) / MAX( VNORM, NRMSML ), VR, 1 );
+            dscal(N, ( EPS3*ROOTN ) / max( VNORM, NRMSML ), VR, 1 );
          }
 
          if ( RIGHTV ) {
@@ -199,7 +199,7 @@
             // Scale supplied initial vector.
 
             NORM = DLAPY2( DNRM2( N, VR, 1 ), DNRM2( N, VI, 1 ) );
-            REC = ( EPS3*ROOTN ) / MAX( NORM, NRMSML );
+            REC = ( EPS3*ROOTN ) / max( NORM, NRMSML );
             dscal(N, REC, VR, 1 );
             dscal(N, REC, VI, 1 );
          }
@@ -384,7 +384,7 @@
                   // Divide by diagonal element of B.
 
                   dladiv(XR, XI, B( I, I ), B( I+1, I ), VR( I ), VI( I ) );
-                  VMAX = MAX( ABS( VR( I ) )+ABS( VI( I ) ), VMAX );
+                  VMAX = max( ABS( VR( I ) )+ABS( VI( I ) ), VMAX );
                   VCRIT = BIGNUM / VMAX;
                } else {
                   for (J = 1; J <= N; J++) { // 240
@@ -427,7 +427,7 @@
 
          VNORM = ZERO;
          for (I = 1; I <= N; I++) { // 290
-            VNORM = MAX( VNORM, ABS( VR( I ) )+ABS( VI( I ) ) );
+            VNORM = max( VNORM, ABS( VR( I ) )+ABS( VI( I ) ) );
          } // 290
          dscal(N, ONE / VNORM, VR, 1 );
          dscal(N, ONE / VNORM, VI, 1 );

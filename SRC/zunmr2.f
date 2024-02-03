@@ -58,9 +58,9 @@
          INFO = -4;
       } else if ( K < 0 || K > NQ ) {
          INFO = -5;
-      } else if ( LDA < MAX( 1, K ) ) {
+      } else if ( LDA < max( 1, K ) ) {
          INFO = -7;
-      } else if ( LDC < MAX( 1, M ) ) {
+      } else if ( LDC < max( 1, M ) ) {
          INFO = -10;
       }
       if ( INFO != 0 ) {

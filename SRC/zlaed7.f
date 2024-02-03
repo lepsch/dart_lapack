@@ -36,11 +36,11 @@
       // ELSE IF( N < 0 ) THEN
       if ( N < 0 ) {
          INFO = -1;
-      } else if ( MIN( 1, N ) > CUTPNT || N < CUTPNT ) {
+      } else if ( min( 1, N ) > CUTPNT || N < CUTPNT ) {
          INFO = -2;
       } else if ( QSIZ < N ) {
          INFO = -3;
-      } else if ( LDQ < MAX( 1, N ) ) {
+      } else if ( LDQ < max( 1, N ) ) {
          INFO = -9;
       }
       if ( INFO != 0 ) {

@@ -47,7 +47,7 @@
          INFO = -3;
       } else if ( KU < 0 || KU > N-1 ) {
          INFO = -4;
-      } else if ( LDA < MAX( 1, M ) ) {
+      } else if ( LDA < max( 1, M ) ) {
          INFO = -7;
       }
       if ( INFO < 0 ) {
@@ -62,7 +62,7 @@
             A( I, J ) = ZERO;
          } // 10
       } // 20
-      DO 30 I = 1, MIN( M, N );
+      DO 30 I = 1, min( M, N );
          A( I, I ) = D( I );
       } // 30
 
@@ -72,7 +72,7 @@
 
       // pre- and post-multiply A by random unitary matrices
 
-      DO 40 I = MIN( M, N ), 1, -1;
+      DO 40 I = min( M, N ), 1, -1;
          if ( I < M ) {
 
             // generate random reflection
@@ -120,12 +120,12 @@
       // Reduce number of subdiagonals to KL and number of superdiagonals
       // to KU
 
-      DO 70 I = 1, MAX( M-1-KL, N-1-KU );
+      DO 70 I = 1, max( M-1-KL, N-1-KU );
          if ( KL <= KU ) {
 
             // annihilate subdiagonal elements first (necessary if KL = 0)
 
-            if ( I <= MIN( M-1-KL, N ) ) {
+            if ( I <= min( M-1-KL, N ) ) {
 
                // generate reflection to annihilate A(kl+i+1:m,i)
 
@@ -147,7 +147,7 @@
                A( KL+I, I ) = -WA;
             }
 
-            if ( I <= MIN( N-1-KU, M ) ) {
+            if ( I <= min( N-1-KU, M ) ) {
 
                // generate reflection to annihilate A(i,ku+i+1:n)
 
@@ -174,7 +174,7 @@
             // annihilate superdiagonal elements first (necessary if
             // KU = 0)
 
-            if ( I <= MIN( N-1-KU, M ) ) {
+            if ( I <= min( N-1-KU, M ) ) {
 
                // generate reflection to annihilate A(i,ku+i+1:n)
 
@@ -197,7 +197,7 @@
                A( I, KU+I ) = -WA;
             }
 
-            if ( I <= MIN( M-1-KL, N ) ) {
+            if ( I <= min( M-1-KL, N ) ) {
 
                // generate reflection to annihilate A(kl+i+1:m,i)
 

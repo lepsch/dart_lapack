@@ -48,18 +48,18 @@
       for (J = 1; J <= N; J++) { // 10
          scopy(M, A( 1, J ), 1, WORK, 1 );
          saxpy(M, -ONE, B( 1, J ), 1, WORK, 1 );
-         WNORM = MAX( WNORM, SASUM( N, WORK, 1 ) );
+         WNORM = max( WNORM, SASUM( N, WORK, 1 ) );
       } // 10
 
-      ANORM = MAX( SLANGE( '1', M, N, A, LDA, WORK ), UNFL );
+      ANORM = max( SLANGE( '1', M, N, A, LDA, WORK ), UNFL );
 
       if ( ANORM > WNORM ) {
          RESULT = ( WNORM / ANORM ) / ( M*EPS );
       } else {
          if ( ANORM < ONE ) {
-            RESULT = ( MIN( WNORM, M*ANORM ) / ANORM ) / ( M*EPS );
+            RESULT = ( min( WNORM, M*ANORM ) / ANORM ) / ( M*EPS );
          } else {
-            RESULT = MIN( WNORM / ANORM, REAL( M ) ) / ( M*EPS );
+            RESULT = min( WNORM / ANORM, REAL( M ) ) / ( M*EPS );
          }
       }
 

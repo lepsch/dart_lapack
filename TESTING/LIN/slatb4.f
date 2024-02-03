@@ -49,7 +49,7 @@
          FIRST = false;
          EPS = SLAMCH( 'Precision' );
          BADC2 = TENTH / EPS;
-         BADC1 = SQRT( BADC2 );
+         BADC1 = sqrt( BADC2 );
          SMALL = SLAMCH( 'Safe minimum' );
          LARGE = ONE / SMALL;
          SMALL = SHRINK*( SMALL / EPS );
@@ -79,13 +79,13 @@
             KU = 0;
          } else if ( IMAT == 2 ) {
             KL = 0;
-            KU = MAX( N-1, 0 );
+            KU = max( N-1, 0 );
          } else if ( IMAT == 3 ) {
-            KL = MAX( M-1, 0 );
+            KL = max( M-1, 0 );
             KU = 0;
          } else {
-            KL = MAX( M-1, 0 );
-            KU = MAX( N-1, 0 );
+            KL = max( M-1, 0 );
+            KU = max( N-1, 0 );
          }
 
          // Set the condition number and norm.
@@ -137,7 +137,7 @@
             // 3. Random, Upper triangular,  CNDNUM = 2
 
             KL = 0;
-            KU = MAX( N-1, 0 );
+            KU = max( N-1, 0 );
             CNDNUM = TWO;
             ANORM = ONE;
             MODE = 3;
@@ -145,7 +145,7 @@
 
            // 4. Random, Lower triangular,  CNDNUM = 2
 
-            KL = MAX( M-1, 0 );
+            KL = max( M-1, 0 );
             KU = 0;
             CNDNUM = TWO;
             ANORM = ONE;
@@ -154,8 +154,8 @@
 
             // 5.-19. Rectangular matrix
 
-            KL = MAX( M-1, 0 );
-            KU = MAX( N-1, 0 );
+            KL = max( M-1, 0 );
+            KU = max( N-1, 0 );
 
             if ( IMAT >= 5 && IMAT <= 14 ) {
 
@@ -225,13 +225,13 @@
             KU = 0;
          } else if ( IMAT == 2 ) {
             KL = 0;
-            KU = MAX( N-1, 0 );
+            KU = max( N-1, 0 );
          } else if ( IMAT == 3 ) {
-            KL = MAX( M-1, 0 );
+            KL = max( M-1, 0 );
             KU = 0;
          } else {
-            KL = MAX( M-1, 0 );
-            KU = MAX( N-1, 0 );
+            KL = max( M-1, 0 );
+            KU = max( N-1, 0 );
          }
 
          // Set the condition number and norm.
@@ -327,7 +327,7 @@
          if ( IMAT == 1 ) {
             KL = 0;
          } else {
-            KL = MAX( N-1, 0 );
+            KL = max( N-1, 0 );
          }
          KU = KL;
 
@@ -364,7 +364,7 @@
          if ( IMAT == 1 ) {
             KL = 0;
          } else {
-            KL = MAX( N-1, 0 );
+            KL = max( N-1, 0 );
          }
          KU = KL;
 
@@ -458,11 +458,11 @@
             KL = 0;
             KU = 0;
          } else if ( IMAT < 0 ) {
-            KL = MAX( N-1, 0 );
+            KL = max( N-1, 0 );
             KU = 0;
          } else {
             KL = 0;
-            KU = MAX( N-1, 0 );
+            KU = max( N-1, 0 );
          }
 
          // Set the condition number and norm.

@@ -55,7 +55,7 @@
          INFO = -2;
       } else if ( N < 0 ) {
          INFO = -3;
-      } else if ( LDA < MAX( 1, N ) ) {
+      } else if ( LDA < max( 1, N ) ) {
          INFO = -5;
       } else if ( LDVL < 1 || ( WANTVL && LDVL < N ) ) {
          INFO = -9;
@@ -81,31 +81,31 @@
             MAXWRK = 2*N + N*ILAENV( 1, 'DGEHRD', ' ', N, 1, N, 0 );
             if ( WANTVL ) {
                MINWRK = 4*N;
-               MAXWRK = MAX( MAXWRK, 2*N + ( N - 1 )*ILAENV( 1, 'DORGHR', ' ', N, 1, N, -1 ) );
+               MAXWRK = max( MAXWRK, 2*N + ( N - 1 )*ILAENV( 1, 'DORGHR', ' ', N, 1, N, -1 ) );
                dhseqr('S', 'V', N, 1, N, A, LDA, WR, WI, VL, LDVL, WORK, -1, INFO );
                HSWORK = INT( WORK(1) );
-               MAXWRK = MAX( MAXWRK, N + 1, N + HSWORK );
+               MAXWRK = max( MAXWRK, N + 1, N + HSWORK );
                dtrevc3('L', 'B', SELECT, N, A, LDA, VL, LDVL, VR, LDVR, N, NOUT, WORK, -1, IERR );
                LWORK_TREVC = INT( WORK(1) );
-               MAXWRK = MAX( MAXWRK, N + LWORK_TREVC );
-               MAXWRK = MAX( MAXWRK, 4*N );
+               MAXWRK = max( MAXWRK, N + LWORK_TREVC );
+               MAXWRK = max( MAXWRK, 4*N );
             } else if ( WANTVR ) {
                MINWRK = 4*N;
-               MAXWRK = MAX( MAXWRK, 2*N + ( N - 1 )*ILAENV( 1, 'DORGHR', ' ', N, 1, N, -1 ) );
+               MAXWRK = max( MAXWRK, 2*N + ( N - 1 )*ILAENV( 1, 'DORGHR', ' ', N, 1, N, -1 ) );
                dhseqr('S', 'V', N, 1, N, A, LDA, WR, WI, VR, LDVR, WORK, -1, INFO );
                HSWORK = INT( WORK(1) );
-               MAXWRK = MAX( MAXWRK, N + 1, N + HSWORK );
+               MAXWRK = max( MAXWRK, N + 1, N + HSWORK );
                dtrevc3('R', 'B', SELECT, N, A, LDA, VL, LDVL, VR, LDVR, N, NOUT, WORK, -1, IERR );
                LWORK_TREVC = INT( WORK(1) );
-               MAXWRK = MAX( MAXWRK, N + LWORK_TREVC );
-               MAXWRK = MAX( MAXWRK, 4*N );
+               MAXWRK = max( MAXWRK, N + LWORK_TREVC );
+               MAXWRK = max( MAXWRK, 4*N );
             } else {
                MINWRK = 3*N;
                dhseqr('E', 'N', N, 1, N, A, LDA, WR, WI, VR, LDVR, WORK, -1, INFO );
                HSWORK = INT( WORK(1) );
-               MAXWRK = MAX( MAXWRK, N + 1, N + HSWORK );
+               MAXWRK = max( MAXWRK, N + 1, N + HSWORK );
             }
-            MAXWRK = MAX( MAXWRK, MINWRK );
+            MAXWRK = max( MAXWRK, MINWRK );
          }
          WORK( 1 ) = MAXWRK;
 
@@ -130,7 +130,7 @@
       EPS = DLAMCH( 'P' );
       SMLNUM = DLAMCH( 'S' );
       BIGNUM = ONE / SMLNUM;
-      SMLNUM = SQRT( SMLNUM ) / EPS;
+      SMLNUM = sqrt( SMLNUM ) / EPS;
       BIGNUM = ONE / SMLNUM;
 
       // Scale A if max element outside range [SMLNUM,BIGNUM]
@@ -287,8 +287,8 @@
 
       } // 50
       if ( SCALEA ) {
-         dlascl('G', 0, 0, CSCALE, ANRM, N-INFO, 1, WR( INFO+1 ), MAX( N-INFO, 1 ), IERR );
-         dlascl('G', 0, 0, CSCALE, ANRM, N-INFO, 1, WI( INFO+1 ), MAX( N-INFO, 1 ), IERR );
+         dlascl('G', 0, 0, CSCALE, ANRM, N-INFO, 1, WR( INFO+1 ), max( N-INFO, 1 ), IERR );
+         dlascl('G', 0, 0, CSCALE, ANRM, N-INFO, 1, WI( INFO+1 ), max( N-INFO, 1 ), IERR );
          if ( INFO > 0 ) {
             dlascl('G', 0, 0, CSCALE, ANRM, ILO-1, 1, WR, N, IERR );
             dlascl('G', 0, 0, CSCALE, ANRM, ILO-1, 1, WI, N, IERR );

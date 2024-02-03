@@ -29,9 +29,9 @@
          INFO = -1;
       } else if ( N < 0 ) {
          INFO = -2;
-      } else if ( MB < 1 || ( MB > MIN(M,N) && MIN(M,N) > 0 ) ) {
+      } else if ( MB < 1 || ( MB > min(M,N) && min(M,N) > 0 ) ) {
          INFO = -3;
-      } else if ( LDA < MAX( 1, M ) ) {
+      } else if ( LDA < max( 1, M ) ) {
          INFO = -5;
       } else if ( LDT < MB ) {
          INFO = -7;
@@ -43,13 +43,13 @@
 
       // Quick return if possible
 
-      K = MIN( M, N );
+      K = min( M, N );
       if (K == 0) return;
 
       // Blocked loop of length K
 
       DO I = 1, K,  MB;
-         IB = MIN( K-I+1, MB );
+         IB = min( K-I+1, MB );
 
       // Compute the LQ factorization of the current block A(I:M,I:I+IB-1)
 

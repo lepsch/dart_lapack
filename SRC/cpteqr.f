@@ -54,7 +54,7 @@
          INFO = -1;
       } else if ( N < 0 ) {
          INFO = -2;
-      } else if ( ( LDZ < 1 ) || ( ICOMPZ > 0 && LDZ < MAX( 1, N ) ) ) {
+      } else if ( ( LDZ < 1 ) || ( ICOMPZ > 0 && LDZ < max( 1, N ) ) ) {
          INFO = -6;
       }
       if ( INFO != 0 ) {
@@ -77,7 +77,7 @@
       spttrf(N, D, E, INFO );
       if (INFO != 0) return;
       for (I = 1; I <= N; I++) { // 10
-         D( I ) = SQRT( D( I ) );
+         D( I ) = sqrt( D( I ) );
       } // 10
       for (I = 1; I <= N - 1; I++) { // 20
          E( I ) = E( I )*D( I );

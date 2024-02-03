@@ -61,11 +61,11 @@
                WORK( J ) = WORK( J ) + D( J );
                if ( J > 1 ) {
                   WORK( J-1 ) = WORK( J-1 ) + E( J-1 );
-                  BNORM = MAX( BNORM, ABS( D( J ) )+ABS( E( J-1 ) ) );
+                  BNORM = max( BNORM, ABS( D( J ) )+ABS( E( J-1 ) ) );
                } else {
-                  BNORM = MAX( BNORM, ABS( D( J ) ) );
+                  BNORM = max( BNORM, ABS( D( J ) ) );
                }
-               RESID = MAX( RESID, SASUM( N, WORK, 1 ) );
+               RESID = max( RESID, SASUM( N, WORK, 1 ) );
             } // 20
          } else {
 
@@ -79,11 +79,11 @@
                WORK( J ) = WORK( J ) + D( J );
                if ( J < N ) {
                   WORK( J+1 ) = WORK( J+1 ) + E( J );
-                  BNORM = MAX( BNORM, ABS( D( J ) )+ABS( E( J ) ) );
+                  BNORM = max( BNORM, ABS( D( J ) )+ABS( E( J ) ) );
                } else {
-                  BNORM = MAX( BNORM, ABS( D( J ) ) );
+                  BNORM = max( BNORM, ABS( D( J ) ) );
                }
-               RESID = MAX( RESID, SASUM( N, WORK, 1 ) );
+               RESID = max( RESID, SASUM( N, WORK, 1 ) );
             } // 40
          }
       } else {
@@ -96,7 +96,7 @@
             } // 50
             sgemv('No transpose', N, N, -ONE, U, LDU, WORK( N+1 ), 1, ZERO, WORK, 1 );
             WORK( J ) = WORK( J ) + D( J );
-            RESID = MAX( RESID, SASUM( N, WORK, 1 ) );
+            RESID = max( RESID, SASUM( N, WORK, 1 ) );
          } // 60
          J = ISAMAX( N, D, 1 );
          BNORM = ABS( D( J ) );
@@ -113,9 +113,9 @@
             RESID = ( RESID / BNORM ) / ( REAL( N )*EPS );
          } else {
             if ( BNORM < ONE ) {
-               RESID = ( MIN( RESID, REAL( N )*BNORM ) / BNORM ) / ( REAL( N )*EPS );
+               RESID = ( min( RESID, REAL( N )*BNORM ) / BNORM ) / ( REAL( N )*EPS );
             } else {
-               RESID = MIN( RESID / BNORM, REAL( N ) ) / ( REAL( N )*EPS );
+               RESID = min( RESID / BNORM, REAL( N ) ) / ( REAL( N )*EPS );
             }
          }
       }

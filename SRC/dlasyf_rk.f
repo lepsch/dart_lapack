@@ -44,7 +44,7 @@
 
       // Initialize ALPHA for use in choosing pivot block size.
 
-      ALPHA = ( ONE+SQRT( SEVTEN ) ) / EIGHT;
+      ALPHA = ( ONE+sqrt( SEVTEN ) ) / EIGHT;
 
       // Compute machine safe minimum
 
@@ -98,7 +98,7 @@
             COLMAX = ZERO;
          }
 
-         if ( MAX( ABSAKK, COLMAX ) == ZERO ) {
+         if ( max( ABSAKK, COLMAX ) == ZERO ) {
 
             // Column K is zero or underflow: set INFO and continue
 
@@ -339,7 +339,7 @@
          // computing blocks of NB columns at a time
 
          DO 50 J = ( ( K-1 ) / NB )*NB + 1, 1, -NB;
-            JB = MIN( NB, K-J+1 );
+            JB = min( NB, K-J+1 );
 
             // Update the upper triangle of the diagonal block
 
@@ -399,7 +399,7 @@
             COLMAX = ZERO;
          }
 
-         if ( MAX( ABSAKK, COLMAX ) == ZERO ) {
+         if ( max( ABSAKK, COLMAX ) == ZERO ) {
 
             // Column K is zero or underflow: set INFO and continue
 
@@ -632,7 +632,7 @@
          // computing blocks of NB columns at a time
 
          DO 110 J = K, N, NB;
-            JB = MIN( NB, N-J+1 );
+            JB = min( NB, N-J+1 );
 
             // Update the lower triangle of the diagonal block
 

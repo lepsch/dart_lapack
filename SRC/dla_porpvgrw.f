@@ -44,13 +44,13 @@
       if ( UPPER ) {
          for (J = 1; J <= NCOLS; J++) {
             for (I = 1; I <= J; I++) {
-               WORK( NCOLS+J ) = MAX( ABS( A( I, J ) ), WORK( NCOLS+J ) );
+               WORK( NCOLS+J ) = max( ABS( A( I, J ) ), WORK( NCOLS+J ) );
             }
          }
       } else {
          for (J = 1; J <= NCOLS; J++) {
             for (I = J; I <= NCOLS; I++) {
-               WORK( NCOLS+J ) = MAX( ABS( A( I, J ) ), WORK( NCOLS+J ) );
+               WORK( NCOLS+J ) = max( ABS( A( I, J ) ), WORK( NCOLS+J ) );
             }
          }
       }
@@ -61,13 +61,13 @@
       if ( LSAME( 'Upper', UPLO ) ) {
          for (J = 1; J <= NCOLS; J++) {
             for (I = 1; I <= J; I++) {
-               WORK( J ) = MAX( ABS( AF( I, J ) ), WORK( J ) );
+               WORK( J ) = max( ABS( AF( I, J ) ), WORK( J ) );
             }
          }
       } else {
          for (J = 1; J <= NCOLS; J++) {
             for (I = J; I <= NCOLS; I++) {
-               WORK( J ) = MAX( ABS( AF( I, J ) ), WORK( J ) );
+               WORK( J ) = max( ABS( AF( I, J ) ), WORK( J ) );
             }
          }
       }
@@ -84,7 +84,7 @@
             UMAX = WORK( I );
             AMAX = WORK( NCOLS+I );
             if ( UMAX /= 0.0 ) {
-               RPVGRW = MIN( AMAX / UMAX, RPVGRW );
+               RPVGRW = min( AMAX / UMAX, RPVGRW );
             }
          }
       } else {
@@ -92,7 +92,7 @@
             UMAX = WORK( I );
             AMAX = WORK( NCOLS+I );
             if ( UMAX /= 0.0 ) {
-               RPVGRW = MIN( AMAX / UMAX, RPVGRW );
+               RPVGRW = min( AMAX / UMAX, RPVGRW );
             }
          }
       }

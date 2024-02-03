@@ -43,14 +43,14 @@
          ACMN = A;
       }
       if ( ADF > AB ) {
-         RT = ADF*SQRT( ONE+( AB / ADF )**2 );
+         RT = ADF*sqrt( ONE+( AB / ADF )**2 );
       } else if ( ADF < AB ) {
-         RT = AB*SQRT( ONE+( ADF / AB )**2 );
+         RT = AB*sqrt( ONE+( ADF / AB )**2 );
       } else {
 
          // Includes case AB=ADF=0
 
-         RT = AB*SQRT( TWO );
+         RT = AB*sqrt( TWO );
       }
       if ( SM < ZERO ) {
          RT1 = HALF*( SM-RT );

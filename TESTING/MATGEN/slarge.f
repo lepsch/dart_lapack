@@ -39,7 +39,7 @@
       INFO = 0;
       if ( N < 0 ) {
          INFO = -1;
-      } else if ( LDA < MAX( 1, N ) ) {
+      } else if ( LDA < max( 1, N ) ) {
          INFO = -3;
       }
       if ( INFO < 0 ) {

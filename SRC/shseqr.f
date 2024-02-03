@@ -59,7 +59,7 @@
       WANTT = LSAME( JOB, 'S' );
       INITZ = LSAME( COMPZ, 'I' );
       WANTZ = INITZ || LSAME( COMPZ, 'V' );
-      WORK( 1 ) = SROUNDUP_LWORK( MAX( 1, N ) );
+      WORK( 1 ) = SROUNDUP_LWORK( max( 1, N ) );
       LQUERY = LWORK == -1;
 
       INFO = 0;
@@ -69,15 +69,15 @@
          INFO = -2;
       } else if ( N < 0 ) {
          INFO = -3;
-      } else if ( ILO < 1 || ILO > MAX( 1, N ) ) {
+      } else if ( ILO < 1 || ILO > max( 1, N ) ) {
          INFO = -4;
-      } else if ( IHI < MIN( ILO, N ) || IHI > N ) {
+      } else if ( IHI < min( ILO, N ) || IHI > N ) {
          INFO = -5;
-      } else if ( LDH < MAX( 1, N ) ) {
+      } else if ( LDH < max( 1, N ) ) {
          INFO = -7;
-      } else if ( LDZ < 1 || ( WANTZ && LDZ < MAX( 1, N ) ) ) {
+      } else if ( LDZ < 1 || ( WANTZ && LDZ < max( 1, N ) ) ) {
          INFO = -11;
-      } else if ( LWORK < MAX( 1, N ) && !LQUERY ) {
+      } else if ( LWORK < max( 1, N ) && !LQUERY ) {
          INFO = -13;
       }
 
@@ -101,7 +101,7 @@
          slaqr0(WANTT, WANTZ, N, ILO, IHI, H, LDH, WR, WI, ILO, IHI, Z, LDZ, WORK, LWORK, INFO );
          // ==== Ensure reported workspace size is backward-compatible with
          // .    previous LAPACK versions. ====
-         WORK( 1 ) = MAX( REAL( MAX( 1, N ) ), WORK( 1 ) );
+         WORK( 1 ) = max( REAL( max( 1, N ) ), WORK( 1 ) );
          return;
 
       } else {
@@ -132,7 +132,7 @@
          // ==== SLAHQR/SLAQR0 crossover point ====
 
          NMIN = ILAENV( 12, 'SHSEQR', JOB( : 1 ) // COMPZ( : 1 ), N, ILO, IHI, LWORK );
-         NMIN = MAX( NTINY, NMIN );
+         NMIN = max( NTINY, NMIN );
 
          // ==== SLAQR0 for big matrices; SLAHQR for small ones ====
 
@@ -180,7 +180,7 @@
          // ==== Ensure reported workspace size is backward-compatible with
          // .    previous LAPACK versions. ====
 
-         WORK( 1 ) = MAX( REAL( MAX( 1, N ) ), WORK( 1 ) );
+         WORK( 1 ) = max( REAL( max( 1, N ) ), WORK( 1 ) );
       }
 
       // ==== End of SHSEQR ====

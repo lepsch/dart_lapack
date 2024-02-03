@@ -50,9 +50,9 @@
 
       // Set up test case parameters
 
-      VM1( 1 ) = SQRT( SMLNUM );
+      VM1( 1 ) = sqrt( SMLNUM );
       VM1( 2 ) = ONE;
-      VM1( 3 ) = SQRT( BIGNUM );
+      VM1( 3 ) = sqrt( BIGNUM );
       VM2( 1 ) = ONE;
       VM2( 2 ) = ONE + TWO*EPS;
       VM2( 3 ) = TWO;
@@ -88,7 +88,7 @@
                                        } else {
                                           A( I, J ) = A( I, J )* VM1( IMLOFF );
                                        }
-                                       TNRM = MAX( TNRM, ABS( A( I, J ) ) );
+                                       TNRM = max( TNRM, ABS( A( I, J ) ) );
                                     } // 10
                                  } // 20
                                  for (I = 1; I <= N; I++) { // 40
@@ -99,14 +99,14 @@
                                        } else {
                                           B( I, J ) = B( I, J )* VM1( IMLOFF );
                                        }
-                                       TNRM = MAX( TNRM, ABS( B( I, J ) ) );
+                                       TNRM = max( TNRM, ABS( B( I, J ) ) );
                                     } // 30
                                  } // 40
                                  CNRM = ZERO;
                                  for (I = 1; I <= M; I++) { // 60
                                     for (J = 1; J <= N; J++) { // 50
                                        C( I, J ) = SIN( DBLE( I*J ) );
-                                       CNRM = MAX( CNRM, C( I, J ) );
+                                       CNRM = max( CNRM, C( I, J ) );
                                        CC( I, J ) = C( I, J );
                                     } // 50
                                  } // 60
@@ -117,13 +117,13 @@
                                  RMUL = ONE;
                                  if ( XNRM > ONE && TNRM > ONE ) {
                                     if ( XNRM > BIGNUM / TNRM ) {
-                                       RMUL = ONE / MAX( XNRM, TNRM );
+                                       RMUL = ONE / max( XNRM, TNRM );
                                     }
                                  }
                                  dgemm(TRANA, 'N', M, N, M, RMUL, A, 6, C, 6, -SCALE*RMUL, CC, 6 );
                                  dgemm('N', TRANB, M, N, N, DBLE( ISGN )*RMUL, C, 6, B, 6, ONE, CC, 6 );
                                  RES1 = DLANGE( 'M', M, N, CC, 6, DUM );
-                                 RES = RES1 / MAX( SMLNUM, SMLNUM*XNRM, ( ( RMUL*TNRM )*EPS )*XNRM );
+                                 RES = RES1 / max( SMLNUM, SMLNUM*XNRM, ( ( RMUL*TNRM )*EPS )*XNRM );
                                  if ( RES > RMAX ) {
                                     LMAX = KNT;
                                     RMAX = RES;

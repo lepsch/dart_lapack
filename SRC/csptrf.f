@@ -64,7 +64,7 @@
 
       // Initialize ALPHA for use in choosing pivot block size.
 
-      ALPHA = ( ONE+SQRT( SEVTEN ) ) / EIGHT;
+      ALPHA = ( ONE+sqrt( SEVTEN ) ) / EIGHT;
 
       if ( UPPER ) {
 
@@ -98,7 +98,7 @@
             COLMAX = ZERO;
          }
 
-         if ( MAX( ABSAKK, COLMAX ) == ZERO ) {
+         if ( max( ABSAKK, COLMAX ) == ZERO ) {
 
             // Column K is zero: set INFO and continue
 
@@ -125,7 +125,7 @@
                KPC = ( IMAX-1 )*IMAX / 2 + 1;
                if ( IMAX > 1 ) {
                   JMAX = ICAMAX( IMAX-1, AP( KPC ), 1 );
-                  ROWMAX = MAX( ROWMAX, CABS1( AP( KPC+JMAX-1 ) ) );
+                  ROWMAX = max( ROWMAX, CABS1( AP( KPC+JMAX-1 ) ) );
                }
 
                if ( ABSAKK >= ALPHA*COLMAX*( COLMAX / ROWMAX ) ) {
@@ -277,7 +277,7 @@
             COLMAX = ZERO;
          }
 
-         if ( MAX( ABSAKK, COLMAX ) == ZERO ) {
+         if ( max( ABSAKK, COLMAX ) == ZERO ) {
 
             // Column K is zero: set INFO and continue
 
@@ -306,7 +306,7 @@
                KPC = NPP - ( N-IMAX+1 )*( N-IMAX+2 ) / 2 + 1;
                if ( IMAX < N ) {
                   JMAX = IMAX + ICAMAX( N-IMAX, AP( KPC+1 ), 1 );
-                  ROWMAX = MAX( ROWMAX, CABS1( AP( KPC+JMAX-IMAX ) ) );
+                  ROWMAX = max( ROWMAX, CABS1( AP( KPC+JMAX-IMAX ) ) );
                }
 
                if ( ABSAKK >= ALPHA*COLMAX*( COLMAX / ROWMAX ) ) {

@@ -69,9 +69,9 @@
          if ( VALEIG ) {
             if (N > 0 && VU <= VL) INFO = -14;
          } else if ( INDEIG ) {
-            if ( IL < 1 || IL > MAX( 1, N ) ) {
+            if ( IL < 1 || IL > max( 1, N ) ) {
                INFO = -15;
-            } else if ( IU < MIN( N, IL ) || IU > N ) {
+            } else if ( IU < min( N, IL ) || IU > N ) {
                INFO = -16;
             }
          }

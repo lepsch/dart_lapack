@@ -62,17 +62,17 @@
       BADNN = false;
       NMAX = 1;
       for (J = 1; J <= NSIZES; J++) { // 10
-         NMAX = MAX( NMAX, NN( J ) );
+         NMAX = max( NMAX, NN( J ) );
          if( NN( J ) < 0 ) BADNN = true;
       } // 10
 
       BADNNB = false;
       KMAX = 0;
       for (J = 1; J <= NSIZES; J++) { // 20
-         KMAX = MAX( KMAX, KK( J ) );
+         KMAX = max( KMAX, KK( J ) );
          if( KK( J ) < 0 ) BADNNB = true;
       } // 20
-      KMAX = MIN( NMAX-1, KMAX );
+      KMAX = min( NMAX-1, KMAX );
 
       // Check for errors
 
@@ -90,7 +90,7 @@
          INFO = -11;
       } else if ( LDU < NMAX ) {
          INFO = -15;
-      } else if ( ( MAX( LDA, NMAX )+1 )*NMAX > LWORK ) {
+      } else if ( ( max( LDA, NMAX )+1 )*NMAX > LWORK ) {
          INFO = -17;
       }
 
@@ -109,8 +109,8 @@
       OVFL = ONE / UNFL;
       ULP = DLAMCH( 'Epsilon' )*DLAMCH( 'Base' );
       ULPINV = ONE / ULP;
-      RTUNFL = SQRT( UNFL );
-      RTOVFL = SQRT( OVFL );
+      RTUNFL = sqrt( UNFL );
+      RTOVFL = sqrt( OVFL );
 
       // Loop over sizes, types
 
@@ -119,17 +119,17 @@
 
       for (JSIZE = 1; JSIZE <= NSIZES; JSIZE++) { // 190
          N = NN( JSIZE );
-         ANINV = ONE / DBLE( MAX( 1, N ) );
+         ANINV = ONE / DBLE( max( 1, N ) );
 
          for (JWIDTH = 1; JWIDTH <= NWDTHS; JWIDTH++) { // 180
             K = KK( JWIDTH );
             if (K > N) GO TO 180;
-            K = MAX( 0, MIN( N-1, K ) );
+            K = max( 0, min( N-1, K ) );
 
             if ( NSIZES != 1 ) {
-               MTYPES = MIN( MAXTYP, NTYPES );
+               MTYPES = min( MAXTYP, NTYPES );
             } else {
-               MTYPES = MIN( MAXTYP+1, NTYPES );
+               MTYPES = min( MAXTYP+1, NTYPES );
             }
 
             for (JTYPE = 1; JTYPE <= MTYPES; JTYPE++) { // 170
@@ -238,12 +238,12 @@
 
                   // Positive definite tridiagonal, eigenvalues specified.
 
-                  if (N > 1) K = MAX( 1, K );
+                  if (N > 1) K = max( 1, K );
                   zlatms(N, N, 'S', ISEED, 'P', RWORK, IMODE, COND, ANORM, 1, 1, 'Q', A( K, 1 ), LDA, WORK, IINFO );
                   for (I = 2; I <= N; I++) { // 90
-                     TEMP1 = ABS( A( K, I ) ) / SQRT( ABS( A( K+1, I-1 )*A( K+1, I ) ) );
+                     TEMP1 = ABS( A( K, I ) ) / sqrt( ABS( A( K+1, I-1 )*A( K+1, I ) ) );
                      if ( TEMP1 > HALF ) {
-                        A( K, I ) = HALF*SQRT( ABS( A( K+1, I-1 )*A( K+1, I ) ) );
+                        A( K, I ) = HALF*sqrt( ABS( A( K+1, I-1 )*A( K+1, I ) ) );
                      }
                   } // 90
 
@@ -286,12 +286,12 @@
                // Lower-Triangle-Only storage.
 
                for (JC = 1; JC <= N; JC++) { // 120
-                  DO 110 JR = 0, MIN( K, N-JC );
+                  DO 110 JR = 0, min( K, N-JC );
                      A( JR+1, JC ) = DCONJG( A( K+1-JR, JC+JR ) );
                   } // 110
                } // 120
                for (JC = N + 1 - K; JC <= N; JC++) { // 140
-                  DO 130 JR = MIN( K, N-JC ) + 1, K;
+                  DO 130 JR = min( K, N-JC ) + 1, K;
                      A( JR+1, JC ) = ZERO;
                   } // 130
                } // 140

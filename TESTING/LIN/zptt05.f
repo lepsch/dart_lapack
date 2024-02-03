@@ -59,10 +59,10 @@
       ERRBND = ZERO;
       for (J = 1; J <= NRHS; J++) { // 30
          IMAX = IZAMAX( N, X( 1, J ), 1 );
-         XNORM = MAX( CABS1( X( IMAX, J ) ), UNFL );
+         XNORM = max( CABS1( X( IMAX, J ) ), UNFL );
          DIFF = ZERO;
          for (I = 1; I <= N; I++) { // 10
-            DIFF = MAX( DIFF, CABS1( X( I, J )-XACT( I, J ) ) );
+            DIFF = max( DIFF, CABS1( X( I, J )-XACT( I, J ) ) );
          } // 10
 
          if ( XNORM > ONE ) {
@@ -76,7 +76,7 @@
 
          } // 20
          if ( DIFF / XNORM <= FERR( J ) ) {
-            ERRBND = MAX( ERRBND, ( DIFF / XNORM ) / FERR( J ) );
+            ERRBND = max( ERRBND, ( DIFF / XNORM ) / FERR( J ) );
          } else {
             ERRBND = ONE / EPS;
          }
@@ -93,16 +93,16 @@
             AXBI = CABS1( B( 1, K ) ) + CABS1( D( 1 )*X( 1, K ) ) + CABS1( E( 1 ) )*CABS1( X( 2, K ) );
             for (I = 2; I <= N - 1; I++) { // 40
                TMP = CABS1( B( I, K ) ) + CABS1( E( I-1 ) )* CABS1( X( I-1, K ) ) + CABS1( D( I )*X( I, K ) ) + CABS1( E( I ) )*CABS1( X( I+1, K ) );
-               AXBI = MIN( AXBI, TMP );
+               AXBI = min( AXBI, TMP );
             } // 40
             TMP = CABS1( B( N, K ) ) + CABS1( E( N-1 ) )* CABS1( X( N-1, K ) ) + CABS1( D( N )*X( N, K ) );
-            AXBI = MIN( AXBI, TMP );
+            AXBI = min( AXBI, TMP );
          }
-         TMP = BERR( K ) / ( NZ*EPS+NZ*UNFL / MAX( AXBI, NZ*UNFL ) );
+         TMP = BERR( K ) / ( NZ*EPS+NZ*UNFL / max( AXBI, NZ*UNFL ) );
          if ( K == 1 ) {
             RESLTS( 2 ) = TMP;
          } else {
-            RESLTS( 2 ) = MAX( RESLTS( 2 ), TMP );
+            RESLTS( 2 ) = max( RESLTS( 2 ), TMP );
          }
       } // 50
 

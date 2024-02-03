@@ -48,7 +48,7 @@
          INFO = -1;
       } else if ( N < 0 ) {
          INFO = -2;
-      } else if ( LDA < MAX( 1, N ) ) {
+      } else if ( LDA < max( 1, N ) ) {
          INFO = -4;
       }
       if ( INFO != 0 ) {
@@ -58,7 +58,7 @@
 
       // Initialize ALPHA for use in choosing pivot block size.
 
-      ALPHA = ( ONE+SQRT( SEVTEN ) ) / EIGHT;
+      ALPHA = ( ONE+sqrt( SEVTEN ) ) / EIGHT;
 
       // Compute machine safe minimum
 
@@ -101,7 +101,7 @@
             COLMAX = ZERO;
          }
 
-         if ( (MAX( ABSAKK, COLMAX ) == ZERO) ) {
+         if ( (max( ABSAKK, COLMAX ) == ZERO) ) {
 
             // Column K is zero or underflow: set INFO and continue
 
@@ -396,7 +396,7 @@
             COLMAX = ZERO;
          }
 
-         if ( ( MAX( ABSAKK, COLMAX ) == ZERO ) ) {
+         if ( ( max( ABSAKK, COLMAX ) == ZERO ) ) {
 
             // Column K is zero or underflow: set INFO and continue
 

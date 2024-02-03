@@ -74,8 +74,8 @@
       EPS = DLAMCH( 'Precision' );
       SMLNUM = SAFMIN / EPS;
       BIGNUM = ONE / SMLNUM;
-      RMIN = SQRT( SMLNUM );
-      RMAX = SQRT( BIGNUM );
+      RMIN = sqrt( SMLNUM );
+      RMAX = sqrt( BIGNUM );
 
       // Scale matrix to allowable range, if necessary.
 

@@ -82,13 +82,13 @@
             RCMIN = BIGNUM;
             RCMAX = ZERO;
             for (J = 1; J <= N; J++) { // 10
-               RCMIN = MIN( RCMIN, R( J ) );
-               RCMAX = MAX( RCMAX, R( J ) );
+               RCMIN = min( RCMIN, R( J ) );
+               RCMAX = max( RCMAX, R( J ) );
             } // 10
             if ( RCMIN <= ZERO ) {
                INFO = -13;
             } else if ( N > 0 ) {
-               ROWCND = MAX( RCMIN, SMLNUM ) / MIN( RCMAX, BIGNUM );
+               ROWCND = max( RCMIN, SMLNUM ) / min( RCMAX, BIGNUM );
             } else {
                ROWCND = ONE;
             }
@@ -97,21 +97,21 @@
             RCMIN = BIGNUM;
             RCMAX = ZERO;
             for (J = 1; J <= N; J++) { // 20
-               RCMIN = MIN( RCMIN, C( J ) );
-               RCMAX = MAX( RCMAX, C( J ) );
+               RCMIN = min( RCMIN, C( J ) );
+               RCMAX = max( RCMAX, C( J ) );
             } // 20
             if ( RCMIN <= ZERO ) {
                INFO = -14;
             } else if ( N > 0 ) {
-               COLCND = MAX( RCMIN, SMLNUM ) / MIN( RCMAX, BIGNUM );
+               COLCND = max( RCMIN, SMLNUM ) / min( RCMAX, BIGNUM );
             } else {
                COLCND = ONE;
             }
          }
          if ( INFO == 0 ) {
-            if ( LDB < MAX( 1, N ) ) {
+            if ( LDB < max( 1, N ) ) {
                INFO = -16;
-            } else if ( LDX < MAX( 1, N ) ) {
+            } else if ( LDX < max( 1, N ) ) {
                INFO = -18;
             }
          }
@@ -160,8 +160,8 @@
          // Compute the LU factorization of the band matrix A.
 
          for (J = 1; J <= N; J++) { // 70
-            J1 = MAX( J-KU, 1 );
-            J2 = MIN( J+KL, N );
+            J1 = max( J-KU, 1 );
+            J2 = min( J+KL, N );
             scopy(J2-J1+1, AB( KU+1-J+J1, J ), 1, AFB( KL+KU+1-J+J1, J ), 1 );
          } // 70
 
@@ -176,11 +176,11 @@
 
             ANORM = ZERO;
             for (J = 1; J <= INFO; J++) { // 90
-               DO 80 I = MAX( KU+2-J, 1 ), MIN( N+KU+1-J, KL+KU+1 );
-                  ANORM = MAX( ANORM, ABS( AB( I, J ) ) );
+               DO 80 I = max( KU+2-J, 1 ), min( N+KU+1-J, KL+KU+1 );
+                  ANORM = max( ANORM, ABS( AB( I, J ) ) );
                } // 80
             } // 90
-            RPVGRW = SLANTB( 'M', 'U', 'N', INFO, MIN( INFO-1, KL+KU ), AFB( MAX( 1, KL+KU+2-INFO ), 1 ), LDAFB, WORK );
+            RPVGRW = SLANTB( 'M', 'U', 'N', INFO, min( INFO-1, KL+KU ), AFB( max( 1, KL+KU+2-INFO ), 1 ), LDAFB, WORK );
             if ( RPVGRW == ZERO ) {
                RPVGRW = ONE;
             } else {

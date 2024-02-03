@@ -42,7 +42,7 @@
 
          VALUE = ZERO;
          for (J = 1; J <= N; J++) { // 20
-            DO 10 I = 1, MIN( N, J+1 );
+            DO 10 I = 1, min( N, J+1 );
                SUM = ABS( A( I, J ) );
                if( VALUE < SUM || SISNAN( SUM ) ) VALUE = SUM;
             } // 10
@@ -54,7 +54,7 @@
          VALUE = ZERO;
          for (J = 1; J <= N; J++) { // 40
             SUM = ZERO;
-            DO 30 I = 1, MIN( N, J+1 );
+            DO 30 I = 1, min( N, J+1 );
                SUM = SUM + ABS( A( I, J ) );
             } // 30
             if( VALUE < SUM || SISNAN( SUM ) ) VALUE = SUM;
@@ -67,7 +67,7 @@
             WORK( I ) = ZERO;
          } // 50
          for (J = 1; J <= N; J++) { // 70
-            DO 60 I = 1, MIN( N, J+1 );
+            DO 60 I = 1, min( N, J+1 );
                WORK( I ) = WORK( I ) + ABS( A( I, J ) );
             } // 60
          } // 70
@@ -83,9 +83,9 @@
          SCALE = ZERO;
          SUM = ONE;
          for (J = 1; J <= N; J++) { // 90
-            slassq(MIN( N, J+1 ), A( 1, J ), 1, SCALE, SUM );
+            slassq(min( N, J+1 ), A( 1, J ), 1, SCALE, SUM );
          } // 90
-         VALUE = SCALE*SQRT( SUM );
+         VALUE = SCALE*sqrt( SUM );
       }
 
       SLANHS = VALUE;

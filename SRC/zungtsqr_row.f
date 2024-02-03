@@ -45,20 +45,20 @@
          INFO = -3;
       } else if ( NB < 1 ) {
          INFO = -4;
-      } else if ( LDA < MAX( 1, M ) ) {
+      } else if ( LDA < max( 1, M ) ) {
          INFO = -6;
-      } else if ( LDT < MAX( 1, MIN( NB, N ) ) ) {
+      } else if ( LDT < max( 1, min( NB, N ) ) ) {
          INFO = -8;
       } else if ( LWORK < 1 && !LQUERY ) {
          INFO = -10;
       }
 
-      NBLOCAL = MIN( NB, N );
+      NBLOCAL = min( NB, N );
 
       // Determine the workspace size.
 
       if ( INFO == 0 ) {
-         LWORKOPT = NBLOCAL * MAX( NBLOCAL, ( N - NBLOCAL ) );
+         LWORKOPT = NBLOCAL * max( NBLOCAL, ( N - NBLOCAL ) );
       }
 
       // Handle error in the input parameters and handle the workspace query.
@@ -73,7 +73,7 @@
 
       // Quick return if possible
 
-      if ( MIN( M, N ) == 0 ) {
+      if ( min( M, N ) == 0 ) {
          WORK( 1 ) = DCMPLX( LWORKOPT );
          return;
       }
@@ -118,7 +118,7 @@
             // Determine the block size IMB for the current row block
             // in the matrix A.
 
-            IMB = MIN( M_PLUS_ONE - IB, MB2 );
+            IMB = min( M_PLUS_ONE - IB, MB2 );
 
             // Determine the column index JB_T for the current column block
             // in the matrix T.
@@ -135,7 +135,7 @@
                // Determine the size of the current column block KNB in
                // the matrices T and V.
 
-               KNB = MIN( NBLOCAL, N - KB + 1 );
+               KNB = min( NBLOCAL, N - KB + 1 );
 
                zlarfb_gett('I', IMB, N-KB+1, KNB, T( 1, JB_T+KB-1 ), LDT, A( KB, KB ), LDA, A( IB, KB ), LDA, WORK, KNB );
 
@@ -149,7 +149,7 @@
       // NOTE: If MB>=M, then we have only one row block of A of size M
       // and we work on the entire matrix A.
 
-      MB1 = MIN( MB, M );
+      MB1 = min( MB, M );
 
       // Apply column blocks of H in the top row block from right to left.
 
@@ -161,7 +161,7 @@
          // Determine the size of the current column block KNB in
          // the matrices T and V.
 
-         KNB = MIN( NBLOCAL, N - KB + 1 );
+         KNB = min( NBLOCAL, N - KB + 1 );
 
          if ( MB1-KB-KNB+1 == 0 ) {
 

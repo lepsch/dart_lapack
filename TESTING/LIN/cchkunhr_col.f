@@ -69,7 +69,7 @@
 
             // Only for M >= N
 
-            if ( MIN( M, N ) > 0 && M >= N ) {
+            if ( min( M, N ) > 0 && M >= N ) {
 
                // Do for each possible value of MB1
 
@@ -128,7 +128,7 @@
 
             // Only for M >= N
 
-            if ( MIN( M, N ) > 0 && M >= N ) {
+            if ( min( M, N ) > 0 && M >= N ) {
 
                // Do for each possible value of MB1
 

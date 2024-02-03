@@ -37,7 +37,7 @@
          INFO = -1;
       } else if ( N < 0 ) {
          INFO = -2;
-      } else if ( LDA < MAX( 1, M ) ) {
+      } else if ( LDA < max( 1, M ) ) {
          INFO = -4;
       }
       if ( INFO < 0 ) {
@@ -54,7 +54,7 @@
             // Generate elementary reflector H(i) to annihilate A(i+1:m,i)
 
             ALPHA = A( I, I );
-            clarfg(M-I+1, ALPHA, A( MIN( I+1, M ), I ), 1, TAUQ( I ) );
+            clarfg(M-I+1, ALPHA, A( min( I+1, M ), I ), 1, TAUQ( I ) );
             D( I ) = REAL( ALPHA );
             A( I, I ) = ONE;
 
@@ -70,7 +70,7 @@
 
                clacgv(N-I, A( I, I+1 ), LDA );
                ALPHA = A( I, I+1 );
-               clarfg(N-I, ALPHA, A( I, MIN( I+2, N ) ), LDA, TAUP( I ) );
+               clarfg(N-I, ALPHA, A( I, min( I+2, N ) ), LDA, TAUP( I ) );
                E( I ) = REAL( ALPHA );
                A( I, I+1 ) = ONE;
 
@@ -93,7 +93,7 @@
 
             clacgv(N-I+1, A( I, I ), LDA );
             ALPHA = A( I, I );
-            clarfg(N-I+1, ALPHA, A( I, MIN( I+1, N ) ), LDA, TAUP( I ) );
+            clarfg(N-I+1, ALPHA, A( I, min( I+1, N ) ), LDA, TAUP( I ) );
             D( I ) = REAL( ALPHA );
             A( I, I ) = ONE;
 
@@ -109,7 +109,7 @@
                // A(i+2:m,i)
 
                ALPHA = A( I+1, I );
-               clarfg(M-I, ALPHA, A( MIN( I+2, M ), I ), 1, TAUQ( I ) );
+               clarfg(M-I, ALPHA, A( min( I+2, M ), I ), 1, TAUQ( I ) );
                E( I ) = REAL( ALPHA );
                A( I+1, I ) = ONE;
 

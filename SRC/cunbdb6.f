@@ -47,9 +47,9 @@
          INFO = -5;
       } else if ( INCX2 < 1 ) {
          INFO = -7;
-      } else if ( LDQ1 < MAX( 1, M1 ) ) {
+      } else if ( LDQ1 < max( 1, M1 ) ) {
          INFO = -9;
-      } else if ( LDQ2 < MAX( 1, M2 ) ) {
+      } else if ( LDQ2 < max( 1, M2 ) ) {
          INFO = -11;
       } else if ( LWORK < N ) {
          INFO = -13;
@@ -68,7 +68,7 @@
       SSQ = REALZERO;
       classq(M1, X1, INCX1, SCL, SSQ );
       classq(M2, X2, INCX2, SCL, SSQ );
-      NORM = SCL * SQRT( SSQ );
+      NORM = SCL * sqrt( SSQ );
 
       // First, project X onto the orthogonal complement of Q's column
       // space
@@ -89,7 +89,7 @@
       SSQ = REALZERO;
       classq(M1, X1, INCX1, SCL, SSQ );
       classq(M2, X2, INCX2, SCL, SSQ );
-      NORM_NEW = SCL * SQRT(SSQ);
+      NORM_NEW = SCL * sqrt(SSQ);
 
       // If projection is sufficiently large in norm, then stop.
       // If projection is zero, then stop.
@@ -131,7 +131,7 @@
       SSQ = REALZERO;
       classq(M1, X1, INCX1, SCL, SSQ );
       classq(M2, X2, INCX2, SCL, SSQ );
-      NORM_NEW = SCL * SQRT(SSQ);
+      NORM_NEW = SCL * sqrt(SSQ);
 
       // If second projection is sufficiently large in norm, then do
       // nothing more. Alternatively, if it shrunk significantly, then

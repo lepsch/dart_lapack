@@ -60,7 +60,7 @@
 
             for (J = 1; J <= N; J++) { // 20
                CJ = C( J );
-               DO 10 I = MAX( 1, J-KU ), MIN( M, J+KL );
+               DO 10 I = max( 1, J-KU ), min( M, J+KL );
                   AB( KU+1+I-J, J ) = CJ*AB( KU+1+I-J, J );
                } // 10
             } // 20
@@ -71,7 +71,7 @@
          // Row scaling, no column scaling
 
          for (J = 1; J <= N; J++) { // 40
-            DO 30 I = MAX( 1, J-KU ), MIN( M, J+KL );
+            DO 30 I = max( 1, J-KU ), min( M, J+KL );
                AB( KU+1+I-J, J ) = R( I )*AB( KU+1+I-J, J );
             } // 30
          } // 40
@@ -82,7 +82,7 @@
 
          for (J = 1; J <= N; J++) { // 60
             CJ = C( J );
-            DO 50 I = MAX( 1, J-KU ), MIN( M, J+KL );
+            DO 50 I = max( 1, J-KU ), min( M, J+KL );
                AB( KU+1+I-J, J ) = CJ*R( I )*AB( KU+1+I-J, J );
             } // 50
          } // 60

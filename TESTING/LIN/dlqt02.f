@@ -67,7 +67,7 @@
       ANORM = DLANGE( '1', K, N, A, LDA, RWORK );
       RESID = DLANGE( '1', K, M, L, LDA, RWORK );
       if ( ANORM > ZERO ) {
-         RESULT( 1 ) = ( ( RESID / DBLE( MAX( 1, N ) ) ) / ANORM ) / EPS;
+         RESULT( 1 ) = ( ( RESID / DBLE( max( 1, N ) ) ) / ANORM ) / EPS;
       } else {
          RESULT( 1 ) = ZERO;
       }
@@ -81,7 +81,7 @@
 
       RESID = DLANSY( '1', 'Upper', M, L, LDA, RWORK );
 
-      RESULT( 2 ) = ( RESID / DBLE( MAX( 1, N ) ) ) / EPS;
+      RESULT( 2 ) = ( RESID / DBLE( max( 1, N ) ) ) / EPS;
 
       return;
 

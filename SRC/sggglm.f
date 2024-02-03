@@ -37,7 +37,7 @@
       // Test the input parameters
 
       INFO = 0;
-      NP = MIN( N, P );
+      NP = min( N, P );
       LQUERY = ( LWORK == -1 );
       if ( N < 0 ) {
          INFO = -1;
@@ -45,9 +45,9 @@
          INFO = -2;
       } else if ( P < 0 || P < N-M ) {
          INFO = -3;
-      } else if ( LDA < MAX( 1, N ) ) {
+      } else if ( LDA < max( 1, N ) ) {
          INFO = -5;
-      } else if ( LDB < MAX( 1, N ) ) {
+      } else if ( LDB < max( 1, N ) ) {
          INFO = -7;
       }
 
@@ -62,9 +62,9 @@
             NB2 = ILAENV( 1, 'SGERQF', ' ', N, M, -1, -1 );
             NB3 = ILAENV( 1, 'SORMQR', ' ', N, M, P, -1 );
             NB4 = ILAENV( 1, 'SORMRQ', ' ', N, M, P, -1 );
-            NB = MAX( NB1, NB2, NB3, NB4 );
+            NB = max( NB1, NB2, NB3, NB4 );
             LWKMIN = M + N + P;
-            LWKOPT = M + NP + MAX( N, P )*NB;
+            LWKOPT = M + NP + max( N, P )*NB;
          }
          WORK( 1 ) = SROUNDUP_LWORK(LWKOPT);
 
@@ -107,8 +107,8 @@
       // Update left-hand-side vector d = Q**T*d = ( d1 ) M
                                                 // ( d2 ) N-M
 
-      sormqr('Left', 'Transpose', N, 1, M, A, LDA, WORK, D, MAX( 1, N ), WORK( M+NP+1 ), LWORK-M-NP, INFO );
-      LOPT = MAX( LOPT, INT( WORK( M+NP+1 ) ) );
+      sormqr('Left', 'Transpose', N, 1, M, A, LDA, WORK, D, max( 1, N ), WORK( M+NP+1 ), LWORK-M-NP, INFO );
+      LOPT = max( LOPT, INT( WORK( M+NP+1 ) ) );
 
       // Solve T22*y2 = d2 for y2
 
@@ -150,8 +150,8 @@
 
       // Backward transformation y = Z**T *y
 
-      sormrq('Left', 'Transpose', P, 1, NP, B( MAX( 1, N-P+1 ), 1 ), LDB, WORK( M+1 ), Y, MAX( 1, P ), WORK( M+NP+1 ), LWORK-M-NP, INFO );
-      WORK( 1 ) = M + NP + MAX( LOPT, INT( WORK( M+NP+1 ) ) );
+      sormrq('Left', 'Transpose', P, 1, NP, B( max( 1, N-P+1 ), 1 ), LDB, WORK( M+1 ), Y, max( 1, P ), WORK( M+NP+1 ), LWORK-M-NP, INFO );
+      WORK( 1 ) = M + NP + max( LOPT, INT( WORK( M+NP+1 ) ) );
 
       return;
 

@@ -116,8 +116,8 @@
       // Calculate the allowable deflation tolerance
 
       EPS = SLAMCH( 'Epsilon' );
-      TOL = MAX( ABS( ALPHA ), ABS( BETA ) );
-      TOL = EIGHT*EIGHT*EPS*MAX( ABS( D( N ) ), TOL );
+      TOL = max( ABS( ALPHA ), ABS( BETA ) );
+      TOL = EIGHT*EIGHT*EPS*max( ABS( D( N ) ), TOL );
 
       // There are 2 kinds of deflation -- first a value in the z-vector
       // is small, second two (or more) singular values are very close

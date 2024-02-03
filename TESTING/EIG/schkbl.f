@@ -77,16 +77,16 @@
 
       for (I = 1; I <= N; I++) { // 50
          for (J = 1; J <= N; J++) { // 40
-            TEMP = MAX( A( I, J ), AIN( I, J ) );
-            TEMP = MAX( TEMP, SFMIN );
-            VMAX = MAX( VMAX, ABS( A( I, J )-AIN( I, J ) ) / TEMP );
+            TEMP = max( A( I, J ), AIN( I, J ) );
+            TEMP = max( TEMP, SFMIN );
+            VMAX = max( VMAX, ABS( A( I, J )-AIN( I, J ) ) / TEMP );
          } // 40
       } // 50
 
       for (I = 1; I <= N; I++) { // 60
-         TEMP = MAX( SCALE( I ), SCALIN( I ) );
-         TEMP = MAX( TEMP, SFMIN );
-         VMAX = MAX( VMAX, ABS( SCALE( I )-SCALIN( I ) ) / TEMP );
+         TEMP = max( SCALE( I ), SCALIN( I ) );
+         TEMP = max( TEMP, SFMIN );
+         VMAX = max( VMAX, ABS( SCALE( I )-SCALIN( I ) ) / TEMP );
       } // 60
 
 

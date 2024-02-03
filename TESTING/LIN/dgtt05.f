@@ -55,10 +55,10 @@
       ERRBND = ZERO;
       for (J = 1; J <= NRHS; J++) { // 30
          IMAX = IDAMAX( N, X( 1, J ), 1 );
-         XNORM = MAX( ABS( X( IMAX, J ) ), UNFL );
+         XNORM = max( ABS( X( IMAX, J ) ), UNFL );
          DIFF = ZERO;
          for (I = 1; I <= N; I++) { // 10
-            DIFF = MAX( DIFF, ABS( X( I, J )-XACT( I, J ) ) );
+            DIFF = max( DIFF, ABS( X( I, J )-XACT( I, J ) ) );
          } // 10
 
          if ( XNORM > ONE ) {
@@ -72,7 +72,7 @@
 
          } // 20
          if ( DIFF / XNORM <= FERR( J ) ) {
-            ERRBND = MAX( ERRBND, ( DIFF / XNORM ) / FERR( J ) );
+            ERRBND = max( ERRBND, ( DIFF / XNORM ) / FERR( J ) );
          } else {
             ERRBND = ONE / EPS;
          }
@@ -90,10 +90,10 @@
                AXBI = ABS( B( 1, K ) ) + ABS( D( 1 )*X( 1, K ) ) + ABS( DU( 1 )*X( 2, K ) );
                for (I = 2; I <= N - 1; I++) { // 40
                   TMP = ABS( B( I, K ) ) + ABS( DL( I-1 )*X( I-1, K ) ) + ABS( D( I )*X( I, K ) ) + ABS( DU( I )*X( I+1, K ) );
-                  AXBI = MIN( AXBI, TMP );
+                  AXBI = min( AXBI, TMP );
                } // 40
                TMP = ABS( B( N, K ) ) + ABS( DL( N-1 )*X( N-1, K ) ) + ABS( D( N )*X( N, K ) );
-               AXBI = MIN( AXBI, TMP );
+               AXBI = min( AXBI, TMP );
             }
          } else {
             if ( N == 1 ) {
@@ -102,17 +102,17 @@
                AXBI = ABS( B( 1, K ) ) + ABS( D( 1 )*X( 1, K ) ) + ABS( DL( 1 )*X( 2, K ) );
                for (I = 2; I <= N - 1; I++) { // 50
                   TMP = ABS( B( I, K ) ) + ABS( DU( I-1 )*X( I-1, K ) ) + ABS( D( I )*X( I, K ) ) + ABS( DL( I )*X( I+1, K ) );
-                  AXBI = MIN( AXBI, TMP );
+                  AXBI = min( AXBI, TMP );
                } // 50
                TMP = ABS( B( N, K ) ) + ABS( DU( N-1 )*X( N-1, K ) ) + ABS( D( N )*X( N, K ) );
-               AXBI = MIN( AXBI, TMP );
+               AXBI = min( AXBI, TMP );
             }
          }
-         TMP = BERR( K ) / ( NZ*EPS+NZ*UNFL / MAX( AXBI, NZ*UNFL ) );
+         TMP = BERR( K ) / ( NZ*EPS+NZ*UNFL / max( AXBI, NZ*UNFL ) );
          if ( K == 1 ) {
             RESLTS( 2 ) = TMP;
          } else {
-            RESLTS( 2 ) = MAX( RESLTS( 2 ), TMP );
+            RESLTS( 2 ) = max( RESLTS( 2 ), TMP );
          }
       } // 60
 

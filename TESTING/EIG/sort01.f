@@ -51,7 +51,7 @@
          TRANSU = 'T';
          K = M;
       }
-      MNMIN = MIN( M, N );
+      MNMIN = min( M, N );
 
       if ( ( MNMIN+1 )*MNMIN <= LWORK ) {
          LDWORK = MNMIN;
@@ -81,7 +81,7 @@
                   TMP = ONE;
                }
                TMP = TMP - SDOT( M, U( 1, I ), 1, U( 1, J ), 1 );
-               RESID = MAX( RESID, ABS( TMP ) );
+               RESID = max( RESID, ABS( TMP ) );
             } // 10
          } // 20
          RESID = ( RESID / REAL( M ) ) / EPS;
@@ -97,7 +97,7 @@
                   TMP = ONE;
                }
                TMP = TMP - SDOT( N, U( J, 1 ), LDU, U( I, 1 ), LDU );
-               RESID = MAX( RESID, ABS( TMP ) );
+               RESID = max( RESID, ABS( TMP ) );
             } // 30
          } // 40
          RESID = ( RESID / REAL( N ) ) / EPS;

@@ -47,7 +47,7 @@
          INFO = 4;
       } else if ( N < 0 ) {
          INFO = 5;
-      } else if ( LDA < MAX( 1, M ) ) {
+      } else if ( LDA < max( 1, M ) ) {
          INFO = 9;
       }
       if ( INFO != 0 ) {

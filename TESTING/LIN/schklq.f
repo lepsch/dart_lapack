@@ -73,7 +73,7 @@
       xlaenv(2, 2 );
 
       LDA = NMAX;
-      LWORK = NMAX*MAX( NMAX, NRHS );
+      LWORK = NMAX*max( NMAX, NRHS );
 
       // Do for each value of M in MVAL.
 
@@ -84,7 +84,7 @@
 
          for (IN = 1; IN <= NN; IN++) { // 60
             N = NVAL( IN );
-            MINMN = MIN( M, N );
+            MINMN = min( M, N );
             for (IMAT = 1; IMAT <= NTYPES; IMAT++) { // 50
 
                // Do the tests only if DOTYPE( IMAT ) is true.

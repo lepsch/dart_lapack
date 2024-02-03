@@ -43,8 +43,8 @@
       dlacpy('Full', M, N, A, LDA, AF, LDA );
       dlacpy('Full', P, N, B, LDB, BF, LDB );
 
-      ANORM = MAX( DLANGE( '1', M, N, A, LDA, RWORK ), UNFL );
-      BNORM = MAX( DLANGE( '1', P, N, B, LDB, RWORK ), UNFL );
+      ANORM = max( DLANGE( '1', M, N, A, LDA, RWORK ), UNFL );
+      BNORM = max( DLANGE( '1', P, N, B, LDB, RWORK ), UNFL );
 
       // Factorize the matrices A and B in the arrays AF and BF.
 
@@ -52,7 +52,7 @@
 
       // Copy R
 
-      DO 20 I = 1, MIN( K+L, M );
+      DO 20 I = 1, min( K+L, M );
          for (J = I; J <= K + L; J++) { // 10
             R( I, J ) = AF( I, N-K-L+J );
          } // 10
@@ -78,18 +78,18 @@
          } // 50
       } // 60
 
-      DO 80 I = K + 1, MIN( K+L, M );
+      DO 80 I = K + 1, min( K+L, M );
          for (J = I; J <= K + L; J++) { // 70
             A( I, N-K-L+J ) = A( I, N-K-L+J ) - ALPHA( I )*R( I, J );
          } // 70
       } // 80
 
-      // Compute norm( U'*A*Q - D1*R ) / ( MAX(1,M,N)*norm(A)*ULP ) .
+      // Compute norm( U'*A*Q - D1*R ) / ( max(1,M,N)*norm(A)*ULP ) .
 
       RESID = DLANGE( '1', M, N, A, LDA, RWORK );
 
       if ( ANORM > ZERO ) {
-         RESULT( 1 ) = ( ( RESID / DBLE( MAX( 1, M, N ) ) ) / ANORM ) / ULP;
+         RESULT( 1 ) = ( ( RESID / DBLE( max( 1, M, N ) ) ) / ANORM ) / ULP;
       } else {
          RESULT( 1 ) = ZERO;
       }
@@ -106,11 +106,11 @@
          } // 90
       } // 100
 
-      // Compute norm( V'*B*Q - D2*R ) / ( MAX(P,N)*norm(B)*ULP ) .
+      // Compute norm( V'*B*Q - D2*R ) / ( max(P,N)*norm(B)*ULP ) .
 
       RESID = DLANGE( '1', P, N, B, LDB, RWORK );
       if ( BNORM > ZERO ) {
-         RESULT( 2 ) = ( ( RESID / DBLE( MAX( 1, P, N ) ) ) / BNORM ) / ULP;
+         RESULT( 2 ) = ( ( RESID / DBLE( max( 1, P, N ) ) ) / BNORM ) / ULP;
       } else {
          RESULT( 2 ) = ZERO;
       }
@@ -123,7 +123,7 @@
       // Compute norm( I - U'*U ) / ( M * ULP ) .
 
       RESID = DLANSY( '1', 'Upper', M, WORK, LDU, RWORK );
-      RESULT( 3 ) = ( RESID / DBLE( MAX( 1, M ) ) ) / ULP;
+      RESULT( 3 ) = ( RESID / DBLE( max( 1, M ) ) ) / ULP;
 
       // Compute I - V'*V
 
@@ -133,7 +133,7 @@
       // Compute norm( I - V'*V ) / ( P * ULP ) .
 
       RESID = DLANSY( '1', 'Upper', P, WORK, LDV, RWORK );
-      RESULT( 4 ) = ( RESID / DBLE( MAX( 1, P ) ) ) / ULP;
+      RESULT( 4 ) = ( RESID / DBLE( max( 1, P ) ) ) / ULP;
 
       // Compute I - Q'*Q
 
@@ -143,12 +143,12 @@
       // Compute norm( I - Q'*Q ) / ( N * ULP ) .
 
       RESID = DLANSY( '1', 'Upper', N, WORK, LDQ, RWORK );
-      RESULT( 5 ) = ( RESID / DBLE( MAX( 1, N ) ) ) / ULP;
+      RESULT( 5 ) = ( RESID / DBLE( max( 1, N ) ) ) / ULP;
 
       // Check sorting
 
       dcopy(N, ALPHA, 1, WORK, 1 );
-      DO 110 I = K + 1, MIN( K+L, M );
+      DO 110 I = K + 1, min( K+L, M );
          J = IWORK( I );
          if ( I != J ) {
             TEMP = WORK( I );
@@ -158,7 +158,7 @@
       } // 110
 
       RESULT( 6 ) = ZERO;
-      DO 120 I = K + 1, MIN( K+L, M ) - 1;
+      DO 120 I = K + 1, min( K+L, M ) - 1;
          if( WORK( I ) < WORK( I+1 ) ) RESULT( 6 ) = ULPINV;
       } // 120
 

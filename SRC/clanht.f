@@ -74,7 +74,7 @@
             SUM = 2*SUM;
          }
          slassq(N, D, 1, SCALE, SUM );
-         ANORM = SCALE*SQRT( SUM );
+         ANORM = SCALE*sqrt( SUM );
       }
 
       CLANHT = ANORM;

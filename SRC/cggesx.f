@@ -102,9 +102,9 @@
          INFO = -5;
       } else if ( N < 0 ) {
          INFO = -6;
-      } else if ( LDA < MAX( 1, N ) ) {
+      } else if ( LDA < max( 1, N ) ) {
          INFO = -8;
-      } else if ( LDB < MAX( 1, N ) ) {
+      } else if ( LDB < max( 1, N ) ) {
          INFO = -10;
       } else if ( LDVSL < 1 || ( ILVSL && LDVSL < N ) ) {
          INFO = -15;
@@ -123,12 +123,12 @@
          if ( N > 0) {
             MINWRK = 2*N;
             MAXWRK = N*(1 + ILAENV( 1, 'CGEQRF', ' ', N, 1, N, 0 ) );
-            MAXWRK = MAX( MAXWRK, N*( 1 + ILAENV( 1, 'CUNMQR', ' ', N, 1, N, -1 ) ) );
+            MAXWRK = max( MAXWRK, N*( 1 + ILAENV( 1, 'CUNMQR', ' ', N, 1, N, -1 ) ) );
             if ( ILVSL ) {
-               MAXWRK = MAX( MAXWRK, N*( 1 + ILAENV( 1, 'CUNGQR', ' ', N, 1, N, -1 ) ) );
+               MAXWRK = max( MAXWRK, N*( 1 + ILAENV( 1, 'CUNGQR', ' ', N, 1, N, -1 ) ) );
             }
             LWRK = MAXWRK;
-            if (IJOB >= 1) LWRK = MAX( LWRK, N*N/2 );
+            if (IJOB >= 1) LWRK = max( LWRK, N*N/2 );
          } else {
             MINWRK = 1;
             MAXWRK = 1;
@@ -168,7 +168,7 @@
       EPS = SLAMCH( 'P' );
       SMLNUM = SLAMCH( 'S' );
       BIGNUM = ONE / SMLNUM;
-      SMLNUM = SQRT( SMLNUM ) / EPS;
+      SMLNUM = sqrt( SMLNUM ) / EPS;
       BIGNUM = ONE / SMLNUM;
 
       // Scale A if max element outside range [SMLNUM,BIGNUM]
@@ -276,12 +276,12 @@
 
          // Reorder eigenvalues, transform Generalized Schur vectors, and
          // compute reciprocal condition numbers
-         // (Complex Workspace: If IJOB >= 1, need MAX(1, 2*SDIM*(N-SDIM))
+         // (Complex Workspace: If IJOB >= 1, need max(1, 2*SDIM*(N-SDIM))
                              // otherwise, need 1 )
 
          ctgsen(IJOB, ILVSL, ILVSR, BWORK, N, A, LDA, B, LDB, ALPHA, BETA, VSL, LDVSL, VSR, LDVSR, SDIM, PL, PR, DIF, WORK( IWRK ), LWORK-IWRK+1, IWORK, LIWORK, IERR );
 
-         if (IJOB >= 1) MAXWRK = MAX( MAXWRK, 2*SDIM*( N-SDIM ) );
+         if (IJOB >= 1) MAXWRK = max( MAXWRK, 2*SDIM*( N-SDIM ) );
          if ( IERR == -21 ) {
 
              // not enough complex workspace

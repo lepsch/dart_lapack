@@ -35,7 +35,7 @@
 
       // Initialize constants
 
-      ALPHA = ( 1.0+SQRT( 17.0 ) ) / 8.0;
+      ALPHA = ( 1.0+sqrt( 17.0 ) ) / 8.0;
       BETA = ALPHA - 1.0 / 1000.0;
       ALPHA3 = ALPHA*ALPHA*ALPHA;
 

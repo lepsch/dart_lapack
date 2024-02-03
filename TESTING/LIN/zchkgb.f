@@ -92,7 +92,7 @@
 
          KLVAL( 2 ) = M + ( M+1 ) / 4;
 
-         // KLVAL( 2 ) = MAX( M-1, 0 )
+         // KLVAL( 2 ) = max( M-1, 0 )
 
          KLVAL( 3 ) = ( 3*M-1 ) / 4;
          KLVAL( 4 ) = ( M+1 ) / 4;
@@ -107,16 +107,16 @@
 
             KUVAL( 2 ) = N + ( N+1 ) / 4;
 
-            // KUVAL( 2 ) = MAX( N-1, 0 )
+            // KUVAL( 2 ) = max( N-1, 0 )
 
             KUVAL( 3 ) = ( 3*N-1 ) / 4;
             KUVAL( 4 ) = ( N+1 ) / 4;
 
             // Set limits on the number of loop iterations.
 
-            NKL = MIN( M+1, 4 );
+            NKL = min( M+1, 4 );
             if (N == 0) NKL = 2;
-            NKU = MIN( N+1, 4 );
+            NKU = min( N+1, 4 );
             if (M == 0) NKU = 2;
             NIMAT = NTYPES;
             if (M <= 0 || N <= 0) NIMAT = 1;
@@ -173,7 +173,7 @@
 
                         zlatb4(PATH, IMAT, M, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST );
 
-                        KOFF = MAX( 1, KU+2-N );
+                        KOFF = max( 1, KU+2-N );
                         for (I = 1; I <= KOFF - 1; I++) { // 20
                            A( I ) = ZERO;
                         } // 20
@@ -202,17 +202,17 @@
                         if ( IMAT == 2 ) {
                            IZERO = 1;
                         } else if ( IMAT == 3 ) {
-                           IZERO = MIN( M, N );
+                           IZERO = min( M, N );
                         } else {
-                           IZERO = MIN( M, N ) / 2 + 1;
+                           IZERO = min( M, N ) / 2 + 1;
                         }
                         IOFF = ( IZERO-1 )*LDA;
                         if ( IMAT < 4 ) {
 
                            // Store the column to be zeroed out in B.
 
-                           I1 = MAX( 1, KU+2-IZERO );
-                           I2 = MIN( KL+KU+1, KU+1+( M-IZERO ) );
+                           I1 = max( 1, KU+2-IZERO );
+                           I2 = min( KL+KU+1, KU+1+( M-IZERO ) );
                            zcopy(I2-I1+1, A( IOFF+I1 ), 1, B, 1 );
 
                            for (I = I1; I <= I2; I++) { // 30
@@ -220,7 +220,7 @@
                            } // 30
                         } else {
                            for (J = IZERO; J <= N; J++) { // 50
-                              DO 40 I = MAX( 1, KU+2-J ), MIN( KL+KU+1, KU+1+( M-J ) );
+                              DO 40 I = max( 1, KU+2-J ), min( KL+KU+1, KU+1+( M-J ) );
                                  A( IOFF+I ) = ZERO;
                               } // 40
                               IOFF = IOFF + LDA;
@@ -281,7 +281,7 @@
                            // Form the inverse of A so we can get a good
                            // estimate of CNDNUM = norm(A) * norm(inv(A)).
 
-                           LDB = MAX( 1, N );
+                           LDB = max( 1, N );
                            zlaset('Full', N, N, DCMPLX( ZERO ), DCMPLX( ONE ), WORK, LDB );
                            SRNAMT = 'ZGBTRS';
                            zgbtrs('No transpose', N, KL, KU, N, AFAC, LDAFAC, IWORK, WORK, LDB, INFO );

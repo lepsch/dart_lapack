@@ -38,11 +38,11 @@
 
             // The following TAU is DSIGMA * DSIGMA - D( 1 ) * D( 1 )
 
-            TAU = TWO*C / ( B+SQRT( ABS( B*B-FOUR*C ) ) );
+            TAU = TWO*C / ( B+sqrt( ABS( B*B-FOUR*C ) ) );
 
             // The following TAU is DSIGMA - D( 1 )
 
-            TAU = TAU / ( D( 1 )+SQRT( D( 1 )*D( 1 )+TAU ) );
+            TAU = TAU / ( D( 1 )+sqrt( D( 1 )*D( 1 )+TAU ) );
             DSIGMA = D( 1 ) + TAU;
             DELTA( 1 ) = -TAU;
             DELTA( 2 ) = DEL - TAU;
@@ -57,14 +57,14 @@
             // The following TAU is DSIGMA * DSIGMA - D( 2 ) * D( 2 )
 
             if ( B > ZERO ) {
-               TAU = -TWO*C / ( B+SQRT( B*B+FOUR*C ) );
+               TAU = -TWO*C / ( B+sqrt( B*B+FOUR*C ) );
             } else {
-               TAU = ( B-SQRT( B*B+FOUR*C ) ) / TWO;
+               TAU = ( B-sqrt( B*B+FOUR*C ) ) / TWO;
             }
 
             // The following TAU is DSIGMA - D( 2 )
 
-            TAU = TAU / ( D( 2 )+SQRT( ABS( D( 2 )*D( 2 )+TAU ) ) );
+            TAU = TAU / ( D( 2 )+sqrt( ABS( D( 2 )*D( 2 )+TAU ) ) );
             DSIGMA = D( 2 ) + TAU;
             DELTA( 1 ) = -( DEL+TAU );
             DELTA( 2 ) = -TAU;
@@ -73,7 +73,7 @@
             // DELTA( 1 ) = -Z( 1 ) / ( DEL+TAU )
             // DELTA( 2 ) = -Z( 2 ) / TAU
          }
-         // TEMP = SQRT( DELTA( 1 )*DELTA( 1 )+DELTA( 2 )*DELTA( 2 ) )
+         // TEMP = sqrt( DELTA( 1 )*DELTA( 1 )+DELTA( 2 )*DELTA( 2 ) )
          // DELTA( 1 ) = DELTA( 1 ) / TEMP
          // DELTA( 2 ) = DELTA( 2 ) / TEMP
       } else {
@@ -86,14 +86,14 @@
          // The following TAU is DSIGMA * DSIGMA - D( 2 ) * D( 2 )
 
          if ( B > ZERO ) {
-            TAU = ( B+SQRT( B*B+FOUR*C ) ) / TWO;
+            TAU = ( B+sqrt( B*B+FOUR*C ) ) / TWO;
          } else {
-            TAU = TWO*C / ( -B+SQRT( B*B+FOUR*C ) );
+            TAU = TWO*C / ( -B+sqrt( B*B+FOUR*C ) );
          }
 
          // The following TAU is DSIGMA - D( 2 )
 
-         TAU = TAU / ( D( 2 )+SQRT( D( 2 )*D( 2 )+TAU ) );
+         TAU = TAU / ( D( 2 )+sqrt( D( 2 )*D( 2 )+TAU ) );
          DSIGMA = D( 2 ) + TAU;
          DELTA( 1 ) = -( DEL+TAU );
          DELTA( 2 ) = -TAU;
@@ -101,7 +101,7 @@
          WORK( 2 ) = TWO*D( 2 ) + TAU;
          // DELTA( 1 ) = -Z( 1 ) / ( DEL+TAU )
          // DELTA( 2 ) = -Z( 2 ) / TAU
-         // TEMP = SQRT( DELTA( 1 )*DELTA( 1 )+DELTA( 2 )*DELTA( 2 ) )
+         // TEMP = sqrt( DELTA( 1 )*DELTA( 1 )+DELTA( 2 )*DELTA( 2 ) )
          // DELTA( 1 ) = DELTA( 1 ) / TEMP
          // DELTA( 2 ) = DELTA( 2 ) / TEMP
       }

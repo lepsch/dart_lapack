@@ -73,12 +73,12 @@
       MNMAX = 1;
       MINWRK = 1;
       for (J = 1; J <= NSIZES; J++) { // 10
-         MMAX = MAX( MMAX, MVAL( J ) );
+         MMAX = max( MMAX, MVAL( J ) );
          if( MVAL( J ) < 0 ) BADMM = true;
-         NMAX = MAX( NMAX, NVAL( J ) );
+         NMAX = max( NMAX, NVAL( J ) );
          if( NVAL( J ) < 0 ) BADNN = true;
-         MNMAX = MAX( MNMAX, MIN( MVAL( J ), NVAL( J ) ) );
-         MINWRK = MAX( MINWRK, 3*( MVAL( J )+NVAL( J ) ), MVAL( J )*( MVAL( J )+MAX( MVAL( J ), NVAL( J ), NRHS )+1 )+NVAL( J )*MIN( NVAL( J ), MVAL( J ) ) );
+         MNMAX = max( MNMAX, min( MVAL( J ), NVAL( J ) ) );
+         MINWRK = max( MINWRK, 3*( MVAL( J )+NVAL( J ) ), MVAL( J )*( MVAL( J )+max( MVAL( J ), NVAL( J ), NRHS )+1 )+NVAL( J )*min( NVAL( J ), MVAL( J ) ) );
       } // 10
 
       // Check for errors
@@ -121,8 +121,8 @@
       ULP = SLAMCH( 'Precision' );
       ULPINV = ONE / ULP;
       LOG2UI = INT( LOG( ULPINV ) / LOG( TWO ) );
-      RTUNFL = SQRT( UNFL );
-      RTOVFL = SQRT( OVFL );
+      RTUNFL = sqrt( UNFL );
+      RTOVFL = sqrt( OVFL );
       INFOT = 0;
 
       // Loop over sizes, types
@@ -130,13 +130,13 @@
       for (JSIZE = 1; JSIZE <= NSIZES; JSIZE++) { // 180
          M = MVAL( JSIZE );
          N = NVAL( JSIZE );
-         MNMIN = MIN( M, N );
-         AMNINV = ONE / MAX( M, N, 1 );
+         MNMIN = min( M, N );
+         AMNINV = ONE / max( M, N, 1 );
 
          if ( NSIZES != 1 ) {
-            MTYPES = MIN( MAXTYP, NTYPES );
+            MTYPES = min( MAXTYP, NTYPES );
          } else {
-            MTYPES = MIN( MAXTYP+1, NTYPES );
+            MTYPES = min( MAXTYP+1, NTYPES );
          }
 
          for (JTYPE = 1; JTYPE <= MTYPES; JTYPE++) { // 170
@@ -186,7 +186,7 @@
             GO TO 70;
 
             } // 60
-            ANORM = RTUNFL*MAX( M, N )*ULPINV;
+            ANORM = RTUNFL*max( M, N )*ULPINV;
             GO TO 70;
 
             } // 70
@@ -424,8 +424,8 @@
             TEMP2 = ZERO;
 
             for (J = 1; J <= MNMIN; J++) { // 120
-               TEMP1 = ABS( S1( J )-S2( J ) ) / MAX( SQRT( UNFL )*MAX( S1( 1 ), ONE ), ULP*MAX( ABS( S1( J ) ), ABS( S2( J ) ) ) );
-               TEMP2 = MAX( TEMP1, TEMP2 );
+               TEMP1 = ABS( S1( J )-S2( J ) ) / max( sqrt( UNFL )*max( S1( 1 ), ONE ), ULP*max( ABS( S1( J ) ), ABS( S2( J ) ) ) );
+               TEMP2 = max( TEMP1, TEMP2 );
             } // 120
 
             RESULT( 9 ) = TEMP2;

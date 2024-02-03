@@ -86,9 +86,9 @@
          INFO = -2;
       } else if ( N < 0 ) {
          INFO = -3;
-      } else if ( LDA < MAX( 1, N ) ) {
+      } else if ( LDA < max( 1, N ) ) {
          INFO = -5;
-      } else if ( LDB < MAX( 1, N ) ) {
+      } else if ( LDB < max( 1, N ) ) {
          INFO = -7;
       } else if ( LDVL < 1 || ( ILVL && LDVL < N ) ) {
          INFO = -11;
@@ -105,11 +105,11 @@
         // computed assuming ILO = 1 and IHI = N, the worst case.)
 
       if ( INFO == 0 ) {
-         LWKMIN = MAX( 1, 2*N );
-         LWKOPT = MAX( 1, N + N*ILAENV( 1, 'CGEQRF', ' ', N, 1, N, 0 ) );
-         LWKOPT = MAX( LWKOPT, N + N*ILAENV( 1, 'CUNMQR', ' ', N, 1, N, 0 ) );
+         LWKMIN = max( 1, 2*N );
+         LWKOPT = max( 1, N + N*ILAENV( 1, 'CGEQRF', ' ', N, 1, N, 0 ) );
+         LWKOPT = max( LWKOPT, N + N*ILAENV( 1, 'CUNMQR', ' ', N, 1, N, 0 ) );
          if ( ILVL ) {
-            LWKOPT = MAX( LWKOPT, N + N*ILAENV( 1, 'CUNGQR', ' ', N, 1, N, -1 ) );
+            LWKOPT = max( LWKOPT, N + N*ILAENV( 1, 'CUNGQR', ' ', N, 1, N, -1 ) );
          }
          WORK( 1 ) = SROUNDUP_LWORK(LWKOPT);
 
@@ -132,7 +132,7 @@
       EPS = SLAMCH( 'E' )*SLAMCH( 'B' );
       SMLNUM = SLAMCH( 'S' );
       BIGNUM = ONE / SMLNUM;
-      SMLNUM = SQRT( SMLNUM ) / EPS;
+      SMLNUM = sqrt( SMLNUM ) / EPS;
       BIGNUM = ONE / SMLNUM;
 
       // Scale A if max element outside range [SMLNUM,BIGNUM]
@@ -265,7 +265,7 @@
             for (JC = 1; JC <= N; JC++) { // 30
                TEMP = ZERO;
                for (JR = 1; JR <= N; JR++) { // 10
-                  TEMP = MAX( TEMP, ABS1( VL( JR, JC ) ) );
+                  TEMP = max( TEMP, ABS1( VL( JR, JC ) ) );
                } // 10
                if (TEMP < SMLNUM) GO TO 30;
                TEMP = ONE / TEMP;
@@ -279,7 +279,7 @@
             for (JC = 1; JC <= N; JC++) { // 60
                TEMP = ZERO;
                for (JR = 1; JR <= N; JR++) { // 40
-                  TEMP = MAX( TEMP, ABS1( VR( JR, JC ) ) );
+                  TEMP = max( TEMP, ABS1( VR( JR, JC ) ) );
                } // 40
                if (TEMP < SMLNUM) GO TO 60;
                TEMP = ONE / TEMP;

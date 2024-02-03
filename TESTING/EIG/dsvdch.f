@@ -48,11 +48,11 @@
       // scale factor sqrt(OVFL)*sqrt(sqrt(UNFL))/MX in DSVDCT, it exceeds
       // sqrt(UNFL), which is the lower limit for DSVDCT.
 
-      UNFLEP = ( SQRT( SQRT( UNFL ) ) / SQRT( OVFL ) )*SVD( 1 ) + UNFL / EPS;
+      UNFLEP = ( sqrt( sqrt( UNFL ) ) / sqrt( OVFL ) )*SVD( 1 ) + UNFL / EPS;
 
       // The value of EPS works best when TOL >= 10.
 
-      EPS = TOL*MAX( N / 10, 1 )*EPS;
+      EPS = TOL*max( N / 10, 1 )*EPS;
 
       // TPNT points to singular value at right endpoint of interval
       // BPNT points to singular value at left  endpoint of interval

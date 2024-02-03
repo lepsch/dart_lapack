@@ -47,7 +47,7 @@
          INFO = -1;
       } else if ( N < 0 ) {
          INFO = -2;
-      } else if ( LDA < MAX( 1, N ) ) {
+      } else if ( LDA < max( 1, N ) ) {
          INFO = -4;
       }
       if ( INFO != 0 ) {
@@ -57,7 +57,7 @@
 
       // Initialize ALPHA for use in choosing pivot block size.
 
-      ALPHA = ( ONE+SQRT( SEVTEN ) ) / EIGHT;
+      ALPHA = ( ONE+sqrt( SEVTEN ) ) / EIGHT;
 
       if ( UPPER ) {
 
@@ -90,7 +90,7 @@
             COLMAX = ZERO;
          }
 
-         if ( (MAX( ABSAKK, COLMAX ) == ZERO) || SISNAN(ABSAKK) ) {
+         if ( (max( ABSAKK, COLMAX ) == ZERO) || SISNAN(ABSAKK) ) {
 
             // Column K is zero or underflow, or contains a NaN:
             // set INFO and continue
@@ -112,7 +112,7 @@
                ROWMAX = ABS( A( IMAX, JMAX ) );
                if ( IMAX > 1 ) {
                   JMAX = ISAMAX( IMAX-1, A( 1, IMAX ), 1 );
-                  ROWMAX = MAX( ROWMAX, ABS( A( JMAX, IMAX ) ) );
+                  ROWMAX = max( ROWMAX, ABS( A( JMAX, IMAX ) ) );
                }
 
                if ( ABSAKK >= ALPHA*COLMAX*( COLMAX / ROWMAX ) ) {
@@ -256,7 +256,7 @@
             COLMAX = ZERO;
          }
 
-         if ( (MAX( ABSAKK, COLMAX ) == ZERO) || SISNAN(ABSAKK) ) {
+         if ( (max( ABSAKK, COLMAX ) == ZERO) || SISNAN(ABSAKK) ) {
 
             // Column K is zero or underflow, or contains a NaN:
             // set INFO and continue
@@ -278,7 +278,7 @@
                ROWMAX = ABS( A( IMAX, JMAX ) );
                if ( IMAX < N ) {
                   JMAX = IMAX + ISAMAX( N-IMAX, A( IMAX+1, IMAX ), 1 );
-                  ROWMAX = MAX( ROWMAX, ABS( A( JMAX, IMAX ) ) );
+                  ROWMAX = max( ROWMAX, ABS( A( JMAX, IMAX ) ) );
                }
 
                if ( ABSAKK >= ALPHA*COLMAX*( COLMAX / ROWMAX ) ) {

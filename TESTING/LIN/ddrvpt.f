@@ -80,7 +80,7 @@
          // Do for each value of N in NVAL.
 
          N = NVAL( IN );
-         LDA = MAX( 1, N );
+         LDA = max( 1, N );
          NIMAT = NTYPES;
          if (N <= 0) NIMAT = 1;
 
@@ -251,7 +251,7 @@
                      } // 50
                      X( I ) = ONE;
                      dpttrs(N, 1, D( N+1 ), E( N+1 ), X, LDA, INFO );
-                     AINVNM = MAX( AINVNM, DASUM( N, X, 1 ) );
+                     AINVNM = max( AINVNM, DASUM( N, X, 1 ) );
                   } // 60
 
                   // Compute the 1-norm condition number of A.

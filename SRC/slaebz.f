@@ -97,14 +97,14 @@
                IWORK( JI ) = 0;
                if ( WORK( JI ) <= PIVMIN ) {
                   IWORK( JI ) = 1;
-                  WORK( JI ) = MIN( WORK( JI ), -PIVMIN );
+                  WORK( JI ) = min( WORK( JI ), -PIVMIN );
                }
 
                for (J = 2; J <= N; J++) { // 50
                   WORK( JI ) = D( J ) - E2( J-1 ) / WORK( JI ) - C( JI );
                   if ( WORK( JI ) <= PIVMIN ) {
                      IWORK( JI ) = IWORK( JI ) + 1;
-                     WORK( JI ) = MIN( WORK( JI ), -PIVMIN );
+                     WORK( JI ) = min( WORK( JI ), -PIVMIN );
                   }
                } // 50
             } // 60
@@ -118,7 +118,7 @@
 
                   // Insure that N(w) is monotone
 
-                  IWORK( JI ) = MIN( NAB( JI, 2 ), MAX( NAB( JI, 1 ), IWORK( JI ) ) );
+                  IWORK( JI ) = min( NAB( JI, 2 ), max( NAB( JI, 1 ), IWORK( JI ) ) );
 
                   // Update the Queue -- add intervals if both halves
                   // contain eigenvalues.
@@ -189,14 +189,14 @@
                ITMP1 = 0;
                if ( TMP2 <= PIVMIN ) {
                   ITMP1 = 1;
-                  TMP2 = MIN( TMP2, -PIVMIN );
+                  TMP2 = min( TMP2, -PIVMIN );
                }
 
                for (J = 2; J <= N; J++) { // 90
                   TMP2 = D( J ) - E2( J-1 ) / TMP2 - TMP1;
                   if ( TMP2 <= PIVMIN ) {
                      ITMP1 = ITMP1 + 1;
-                     TMP2 = MIN( TMP2, -PIVMIN );
+                     TMP2 = min( TMP2, -PIVMIN );
                   }
                } // 90
 
@@ -206,7 +206,7 @@
 
                   // Insure that N(w) is monotone
 
-                  ITMP1 = MIN( NAB( JI, 2 ), MAX( NAB( JI, 1 ), ITMP1 ) );
+                  ITMP1 = min( NAB( JI, 2 ), max( NAB( JI, 1 ), ITMP1 ) );
 
                   // Update the Queue -- add intervals if both halves
                   // contain eigenvalues.
@@ -263,8 +263,8 @@
          KFNEW = KF;
          for (JI = KF; JI <= KL; JI++) { // 110
             TMP1 = ABS( AB( JI, 2 )-AB( JI, 1 ) );
-            TMP2 = MAX( ABS( AB( JI, 2 ) ), ABS( AB( JI, 1 ) ) );
-            if ( TMP1 < MAX( ABSTOL, PIVMIN, RELTOL*TMP2 ) || NAB( JI, 1 ) >= NAB( JI, 2 ) ) {
+            TMP2 = max( ABS( AB( JI, 2 ) ), ABS( AB( JI, 1 ) ) );
+            if ( TMP1 < max( ABSTOL, PIVMIN, RELTOL*TMP2 ) || NAB( JI, 1 ) >= NAB( JI, 2 ) ) {
 
                // Converged -- Swap with position KFNEW,
                             // then increment KFNEW
@@ -307,7 +307,7 @@
       // Converged
 
       } // 140
-      INFO = MAX( KL+1-KF, 0 );
+      INFO = max( KL+1-KF, 0 );
       MOUT = KL;
 
       return;

@@ -70,15 +70,15 @@
          for (I = 1; I <= N; I++) {
             TMP = 0.0;
                if ( CMODE == 1 ) {
-                  DO J = MAX( I-KL, 1 ), MIN( I+KU, N );
+                  DO J = max( I-KL, 1 ), min( I+KU, N );
                      TMP = TMP + ABS( AB( KD+I-J, J ) * C( J ) );
                   }
                } else if ( CMODE == 0 ) {
-                  DO J = MAX( I-KL, 1 ), MIN( I+KU, N );
+                  DO J = max( I-KL, 1 ), min( I+KU, N );
                      TMP = TMP + ABS( AB( KD+I-J, J ) );
                   }
                } else {
-                  DO J = MAX( I-KL, 1 ), MIN( I+KU, N );
+                  DO J = max( I-KL, 1 ), min( I+KU, N );
                      TMP = TMP + ABS( AB( KD+I-J, J ) / C( J ) );
                   }
                }
@@ -88,15 +88,15 @@
          for (I = 1; I <= N; I++) {
             TMP = 0.0;
             if ( CMODE == 1 ) {
-               DO J = MAX( I-KL, 1 ), MIN( I+KU, N );
+               DO J = max( I-KL, 1 ), min( I+KU, N );
                   TMP = TMP + ABS( AB( KE-I+J, I ) * C( J ) );
                }
             } else if ( CMODE == 0 ) {
-               DO J = MAX( I-KL, 1 ), MIN( I+KU, N );
+               DO J = max( I-KL, 1 ), min( I+KU, N );
                   TMP = TMP + ABS( AB( KE-I+J, I ) );
                }
             } else {
-               DO J = MAX( I-KL, 1 ), MIN( I+KU, N );
+               DO J = max( I-KL, 1 ), min( I+KU, N );
                   TMP = TMP + ABS( AB( KE-I+J, I ) / C( J ) );
                }
             }

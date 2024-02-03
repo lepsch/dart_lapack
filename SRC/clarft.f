@@ -37,7 +37,7 @@
       if ( LSAME( DIRECT, 'F' ) ) {
          PREVLASTV = N;
          for (I = 1; I <= K; I++) {
-            PREVLASTV = MAX( PREVLASTV, I );
+            PREVLASTV = max( PREVLASTV, I );
             if ( TAU( I ) == ZERO ) {
 
                // H(i)  =  I
@@ -57,7 +57,7 @@
                   for (J = 1; J <= I-1; J++) {
                      T( J, I ) = -TAU( I ) * CONJG( V( I , J ) );
                   }
-                  J = MIN( LASTV, PREVLASTV );
+                  J = min( LASTV, PREVLASTV );
 
                   // T(1:i-1,i) := - tau(i) * V(i:j,1:i-1)**H * V(i:j,i)
 
@@ -70,7 +70,7 @@
                   for (J = 1; J <= I-1; J++) {
                      T( J, I ) = -TAU( I ) * V( J , I );
                   }
-                  J = MIN( LASTV, PREVLASTV );
+                  J = min( LASTV, PREVLASTV );
 
                   // T(1:i-1,i) := - tau(i) * V(1:i-1,i:j) * V(i,i:j)**H
 
@@ -82,7 +82,7 @@
                ctrmv('Upper', 'No transpose', 'Non-unit', I-1, T, LDT, T( 1, I ), 1 );
                T( I, I ) = TAU( I );
                if ( I > 1 ) {
-                  PREVLASTV = MAX( PREVLASTV, LASTV );
+                  PREVLASTV = max( PREVLASTV, LASTV );
                } else {
                   PREVLASTV = LASTV;
                }
@@ -111,7 +111,7 @@
                      for (J = I+1; J <= K; J++) {
                         T( J, I ) = -TAU( I ) * CONJG( V( N-K+I , J ) );
                      }
-                     J = MAX( LASTV, PREVLASTV );
+                     J = max( LASTV, PREVLASTV );
 
                      // T(i+1:k,i) = -tau(i) * V(j:n-k+i,i+1:k)**H * V(j:n-k+i,i)
 
@@ -124,7 +124,7 @@
                      for (J = I+1; J <= K; J++) {
                         T( J, I ) = -TAU( I ) * V( J, N-K+I );
                      }
-                     J = MAX( LASTV, PREVLASTV );
+                     J = max( LASTV, PREVLASTV );
 
                      // T(i+1:k,i) = -tau(i) * V(i+1:k,j:n-k+i) * V(i,j:n-k+i)**H
 
@@ -135,7 +135,7 @@
 
                   ctrmv('Lower', 'No transpose', 'Non-unit', K-I, T( I+1, I+1 ), LDT, T( I+1, I ), 1 );
                   if ( I > 1 ) {
-                     PREVLASTV = MIN( PREVLASTV, LASTV );
+                     PREVLASTV = min( PREVLASTV, LASTV );
                   } else {
                      PREVLASTV = LASTV;
                   }

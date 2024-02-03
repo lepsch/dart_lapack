@@ -62,12 +62,12 @@
       }
       if ( M > 0 ) {
          for (J = 1; J <= N; J++) {
-            zlarnv(2, ISEED, M-L, A( MIN(N+M,N+1), J ) );
+            zlarnv(2, ISEED, M-L, A( min(N+M,N+1), J ) );
          }
       }
       if ( L > 0 ) {
          for (J = 1; J <= N; J++) {
-            zlarnv(2, ISEED, MIN(J,L), A( MIN(N+M,N+M-L+1), J ) );
+            zlarnv(2, ISEED, min(J,L), A( min(N+M,N+M-L+1), J ) );
          }
       }
 
@@ -95,7 +95,7 @@
       ANORM = ZLANGE( '1', M2, N, A, M2, RWORK );
       RESID = ZLANGE( '1', M2, N, R, M2, RWORK );
       if ( ANORM > ZERO ) {
-         RESULT( 1 ) = RESID / (EPS*ANORM*MAX(1,M2));
+         RESULT( 1 ) = RESID / (EPS*ANORM*max(1,M2));
       } else {
          RESULT( 1 ) = ZERO;
       }
@@ -105,7 +105,7 @@
       zlaset('Full', M2, M2, CZERO, ONE, R, M2 );
       zherk('U', 'C', M2, M2, DREAL(-ONE), Q, M2, DREAL(ONE), R, M2 );
       RESID = ZLANSY( '1', 'Upper', M2, R, M2, RWORK );
-      RESULT( 2 ) = RESID / (EPS*MAX(1,M2));
+      RESULT( 2 ) = RESID / (EPS*max(1,M2));
 
       // Generate random m-by-n matrix C and a copy CF
 
@@ -124,7 +124,7 @@
       zgemm('N', 'N', M2, N, M2, -ONE, Q, M2, C, M2, ONE, CF, M2 );
       RESID = ZLANGE( '1', M2, N, CF, M2, RWORK );
       if ( CNORM > ZERO ) {
-         RESULT( 3 ) = RESID / (EPS*MAX(1,M2)*CNORM);
+         RESULT( 3 ) = RESID / (EPS*max(1,M2)*CNORM);
       } else {
          RESULT( 3 ) = ZERO;
       }
@@ -142,7 +142,7 @@
       zgemm('C','N',M2,N,M2,-ONE,Q,M2,C,M2,ONE,CF,M2);
       RESID = ZLANGE( '1', M2, N, CF, M2, RWORK );
       if ( CNORM > ZERO ) {
-         RESULT( 4 ) = RESID / (EPS*MAX(1,M2)*CNORM);
+         RESULT( 4 ) = RESID / (EPS*max(1,M2)*CNORM);
       } else {
          RESULT( 4 ) = ZERO;
       }
@@ -164,7 +164,7 @@
       zgemm('N','N',N,M2,M2,-ONE,D,N,Q,M2,ONE,DF,N);
       RESID = ZLANGE('1',N, M2,DF,N,RWORK );
       if ( CNORM > ZERO ) {
-         RESULT( 5 ) = RESID / (EPS*MAX(1,M2)*DNORM);
+         RESULT( 5 ) = RESID / (EPS*max(1,M2)*DNORM);
       } else {
          RESULT( 5 ) = ZERO;
       }
@@ -183,7 +183,7 @@
       zgemm('N', 'C', N, M2, M2, -ONE, D, N, Q, M2, ONE, DF, N );
       RESID = ZLANGE( '1', N, M2, DF, N, RWORK );
       if ( CNORM > ZERO ) {
-         RESULT( 6 ) = RESID / (EPS*MAX(1,M2)*DNORM);
+         RESULT( 6 ) = RESID / (EPS*max(1,M2)*DNORM);
       } else {
          RESULT( 6 ) = ZERO;
       }

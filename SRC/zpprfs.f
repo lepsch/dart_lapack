@@ -65,9 +65,9 @@
          INFO = -2;
       } else if ( NRHS < 0 ) {
          INFO = -3;
-      } else if ( LDB < MAX( 1, N ) ) {
+      } else if ( LDB < max( 1, N ) ) {
          INFO = -7;
-      } else if ( LDX < MAX( 1, N ) ) {
+      } else if ( LDX < max( 1, N ) ) {
          INFO = -9;
       }
       if ( INFO != 0 ) {
@@ -155,9 +155,9 @@
          S = ZERO;
          for (I = 1; I <= N; I++) { // 80
             if ( RWORK( I ) > SAFE2 ) {
-               S = MAX( S, CABS1( WORK( I ) ) / RWORK( I ) );
+               S = max( S, CABS1( WORK( I ) ) / RWORK( I ) );
             } else {
-               S = MAX( S, ( CABS1( WORK( I ) )+SAFE1 ) / ( RWORK( I )+SAFE1 ) );
+               S = max( S, ( CABS1( WORK( I ) )+SAFE1 ) / ( RWORK( I )+SAFE1 ) );
             }
          } // 80
          BERR( J ) = S;
@@ -237,7 +237,7 @@
 
          LSTRES = ZERO;
          for (I = 1; I <= N; I++) { // 130
-            LSTRES = MAX( LSTRES, CABS1( X( I, J ) ) );
+            LSTRES = max( LSTRES, CABS1( X( I, J ) ) );
          } // 130
          if (LSTRES != ZERO) FERR( J ) = FERR( J ) / LSTRES;
 

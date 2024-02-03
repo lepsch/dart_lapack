@@ -39,19 +39,19 @@
 
       INFO = 0;
       WANTQ = LSAME( VECT, 'Q' );
-      MN = MIN( M, N );
+      MN = min( M, N );
       LQUERY = ( LWORK == -1 );
       if ( !WANTQ && !LSAME( VECT, 'P' ) ) {
          INFO = -1;
       } else if ( M < 0 ) {
          INFO = -2;
-      } else if ( N < 0 || ( WANTQ && ( N > M || N < MIN( M, K ) ) ) || ( !WANTQ && ( M > N || M < MIN( N, K ) ) ) ) {
+      } else if ( N < 0 || ( WANTQ && ( N > M || N < min( M, K ) ) ) || ( !WANTQ && ( M > N || M < min( N, K ) ) ) ) {
          INFO = -3;
       } else if ( K < 0 ) {
          INFO = -4;
-      } else if ( LDA < MAX( 1, M ) ) {
+      } else if ( LDA < max( 1, M ) ) {
          INFO = -6;
-      } else if ( LWORK < MAX( 1, MN ) && !LQUERY ) {
+      } else if ( LWORK < max( 1, MN ) && !LQUERY ) {
          INFO = -9;
       }
 
@@ -75,7 +75,7 @@
             }
          }
          LWKOPT = INT( WORK( 1 ) );
-         LWKOPT = MAX (LWKOPT, MN);
+         LWKOPT = max(LWKOPT, MN);
       }
 
       if ( INFO != 0 ) {

@@ -57,9 +57,9 @@
          INFO = -2;
       } else if ( KD < 0 ) {
          INFO = -3;
-      } else if ( LDA < MAX( 1, N ) ) {
+      } else if ( LDA < max( 1, N ) ) {
          INFO = -5;
-      } else if ( LDAB < MAX( 1, KD+1 ) ) {
+      } else if ( LDAB < max( 1, KD+1 ) ) {
          INFO = -7;
       } else if ( LWORK < LWMIN && !LQUERY ) {
          INFO = -10;
@@ -79,12 +79,12 @@
       if ( N <= KD+1 ) {
           if ( UPPER ) {
               for (I = 1; I <= N; I++) { // 100
-                  LK = MIN( KD+1, I );
+                  LK = min( KD+1, I );
                   scopy(LK, A( I-LK+1, I ), 1,  AB( KD+1-LK+1, I ), 1 );
               } // 100
           } else {
               for (I = 1; I <= N; I++) { // 110
-                  LK = MIN( KD+1, N-I+1 );
+                  LK = min( KD+1, N-I+1 );
                   scopy(LK, A( I, I ), 1, AB( 1, I ), 1 );
               } // 110
           }
@@ -100,7 +100,7 @@
       LW     = N*KD;
       LS1    = LDS1*KD;
       LS2    = LWMIN - LT - LW - LS1;
-       // LS2 = N*MAX(KD,FACTOPTNB)
+       // LS2 = N*max(KD,FACTOPTNB)
       TPOS   = 1;
       WPOS   = TPOS  + LT;
       S1POS  = WPOS  + LW;
@@ -122,7 +122,7 @@
       if ( UPPER ) {
           DO 10 I = 1, N - KD, KD;
              PN = N-I-KD+1;
-             PK = MIN( N-I-KD+1, KD );
+             PK = min( N-I-KD+1, KD );
 
              // Compute the LQ factorization of the current block
 
@@ -131,7 +131,7 @@
              // Copy the upper portion of A into AB
 
              for (J = I; J <= I+PK-1; J++) { // 20
-                LK = MIN( KD, N-J ) + 1;
+                LK = min( KD, N-J ) + 1;
                 scopy(LK, A( J, J ), LDA, AB( KD+1, J ), LDAB-1 );
              } // 20
 
@@ -161,7 +161,7 @@
          // Copy the upper band to AB which is the band storage matrix
 
          for (J = N-KD+1; J <= N; J++) { // 30
-            LK = MIN(KD, N-J) + 1;
+            LK = min(KD, N-J) + 1;
             scopy(LK, A( J, J ), LDA, AB( KD+1, J ), LDAB-1 );
          } // 30
 
@@ -171,7 +171,7 @@
 
           DO 40 I = 1, N - KD, KD;
              PN = N-I-KD+1;
-             PK = MIN( N-I-KD+1, KD );
+             PK = min( N-I-KD+1, KD );
 
              // Compute the QR factorization of the current block
 
@@ -180,7 +180,7 @@
              // Copy the upper portion of A into AB
 
              for (J = I; J <= I+PK-1; J++) { // 50
-                LK = MIN( KD, N-J ) + 1;
+                LK = min( KD, N-J ) + 1;
                 scopy(LK, A( J, J ), 1, AB( 1, J ), 1 );
              } // 50
 
@@ -208,7 +208,7 @@
              // ==================================================================
              // RESTORE A FOR COMPARISON AND CHECKING TO BE REMOVED
               // DO 45 J = I, I+PK-1
-                 // LK = MIN( KD, N-J ) + 1
+                 // LK = min( KD, N-J ) + 1
                  // CALL SCOPY( LK, AB( 1, J ), 1, A( J, J ), 1 )
 // 45        CONTINUE
              // ==================================================================
@@ -217,7 +217,7 @@
          // Copy the lower band to AB which is the band storage matrix
 
          for (J = N-KD+1; J <= N; J++) { // 60
-            LK = MIN(KD, N-J) + 1;
+            LK = min(KD, N-J) + 1;
             scopy(LK, A( J, J ), 1, AB( 1, J ), 1 );
          } // 60
 

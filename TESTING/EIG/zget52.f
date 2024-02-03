@@ -63,11 +63,11 @@
 
       // Norm of A, B, and E:
 
-      ANORM = MAX( ZLANGE( NORMAB, N, N, A, LDA, RWORK ), SAFMIN );
-      BNORM = MAX( ZLANGE( NORMAB, N, N, B, LDB, RWORK ), SAFMIN );
-      ENORM = MAX( ZLANGE( 'O', N, N, E, LDE, RWORK ), ULP );
-      ALFMAX = SAFMAX / MAX( ONE, BNORM );
-      BETMAX = SAFMAX / MAX( ONE, ANORM );
+      ANORM = max( ZLANGE( NORMAB, N, N, A, LDA, RWORK ), SAFMIN );
+      BNORM = max( ZLANGE( NORMAB, N, N, B, LDB, RWORK ), SAFMIN );
+      ENORM = max( ZLANGE( 'O', N, N, E, LDE, RWORK ), ULP );
+      ALFMAX = SAFMAX / max( ONE, BNORM );
+      BETMAX = SAFMAX / max( ONE, ANORM );
 
       // Compute error matrix.
       // Column i = ( b(i) A - a(i) B ) E(i) / max( |a(i) B|, |b(i) A| )
@@ -75,13 +75,13 @@
       for (JVEC = 1; JVEC <= N; JVEC++) { // 10
          ALPHAI = ALPHA( JVEC );
          BETAI = BETA( JVEC );
-         ABMAX = MAX( ABS1( ALPHAI ), ABS1( BETAI ) );
+         ABMAX = max( ABS1( ALPHAI ), ABS1( BETAI ) );
          if ( ABS1( ALPHAI ) > ALFMAX || ABS1( BETAI ) > BETMAX || ABMAX < ONE ) {
-            SCALE = ONE / MAX( ABMAX, SAFMIN );
+            SCALE = ONE / max( ABMAX, SAFMIN );
             ALPHAI = SCALE*ALPHAI;
             BETAI = SCALE*BETAI;
          }
-         SCALE = ONE / MAX( ABS1( ALPHAI )*BNORM, ABS1( BETAI )*ANORM, SAFMIN );
+         SCALE = ONE / max( ABS1( ALPHAI )*BNORM, ABS1( BETAI )*ANORM, SAFMIN );
          ACOEFF = SCALE*BETAI;
          BCOEFF = SCALE*ALPHAI;
          if ( LEFT ) {
@@ -104,9 +104,9 @@
       for (JVEC = 1; JVEC <= N; JVEC++) { // 30
          TEMP1 = ZERO;
          for (J = 1; J <= N; J++) { // 20
-            TEMP1 = MAX( TEMP1, ABS1( E( J, JVEC ) ) );
+            TEMP1 = max( TEMP1, ABS1( E( J, JVEC ) ) );
          } // 20
-         ENRMER = MAX( ENRMER, ABS( TEMP1-ONE ) );
+         ENRMER = max( ENRMER, ABS( TEMP1-ONE ) );
       } // 30
 
       // Compute RESULT(2) : the normalization error in E.

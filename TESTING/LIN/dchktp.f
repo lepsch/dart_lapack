@@ -85,7 +85,7 @@
          // Do for each value of N in NVAL
 
          N = NVAL( IN );
-         LDA = MAX( 1, N );
+         LDA = max( 1, N );
          LAP = LDA*( LDA+1 ) / 2;
          XTYPE = 'N';
 

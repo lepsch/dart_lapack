@@ -48,7 +48,7 @@
       // Test the input arguments
 
       INFO = 0;
-      MINMN = MIN( M, N );
+      MINMN = min( M, N );
       WNTUA = LSAME( JOBU, 'A' );
       WNTUS = LSAME( JOBU, 'S' );
       WNTUAS = WNTUA || WNTUS;
@@ -69,7 +69,7 @@
          INFO = -3;
       } else if ( N < 0 ) {
          INFO = -4;
-      } else if ( LDA < MAX( 1, M ) ) {
+      } else if ( LDA < max( 1, M ) ) {
          INFO = -6;
       } else if ( LDU < 1 || ( WNTUAS && LDU < M ) ) {
          INFO = -9;
@@ -116,18 +116,18 @@
                   // Path 1 (M much larger than N, JOBU='N')
 
                   MAXWRK = N + LWORK_ZGEQRF;
-                  MAXWRK = MAX( MAXWRK, 2*N+LWORK_ZGEBRD );
-                  if (WNTVO || WNTVAS) MAXWRK = MAX( MAXWRK, 2*N+LWORK_ZUNGBR_P );
+                  MAXWRK = max( MAXWRK, 2*N+LWORK_ZGEBRD );
+                  if (WNTVO || WNTVAS) MAXWRK = max( MAXWRK, 2*N+LWORK_ZUNGBR_P );
                   MINWRK = 3*N;
                } else if ( WNTUO && WNTVN ) {
 
                   // Path 2 (M much larger than N, JOBU='O', JOBVT='N')
 
                   WRKBL = N + LWORK_ZGEQRF;
-                  WRKBL = MAX( WRKBL, N+LWORK_ZUNGQR_N );
-                  WRKBL = MAX( WRKBL, 2*N+LWORK_ZGEBRD );
-                  WRKBL = MAX( WRKBL, 2*N+LWORK_ZUNGBR_Q );
-                  MAXWRK = MAX( N*N+WRKBL, N*N+M*N );
+                  WRKBL = max( WRKBL, N+LWORK_ZUNGQR_N );
+                  WRKBL = max( WRKBL, 2*N+LWORK_ZGEBRD );
+                  WRKBL = max( WRKBL, 2*N+LWORK_ZUNGBR_Q );
+                  MAXWRK = max( N*N+WRKBL, N*N+M*N );
                   MINWRK = 2*N + M;
                } else if ( WNTUO && WNTVAS ) {
 
@@ -135,20 +135,20 @@
                   // 'A')
 
                   WRKBL = N + LWORK_ZGEQRF;
-                  WRKBL = MAX( WRKBL, N+LWORK_ZUNGQR_N );
-                  WRKBL = MAX( WRKBL, 2*N+LWORK_ZGEBRD );
-                  WRKBL = MAX( WRKBL, 2*N+LWORK_ZUNGBR_Q );
-                  WRKBL = MAX( WRKBL, 2*N+LWORK_ZUNGBR_P );
-                  MAXWRK = MAX( N*N+WRKBL, N*N+M*N );
+                  WRKBL = max( WRKBL, N+LWORK_ZUNGQR_N );
+                  WRKBL = max( WRKBL, 2*N+LWORK_ZGEBRD );
+                  WRKBL = max( WRKBL, 2*N+LWORK_ZUNGBR_Q );
+                  WRKBL = max( WRKBL, 2*N+LWORK_ZUNGBR_P );
+                  MAXWRK = max( N*N+WRKBL, N*N+M*N );
                   MINWRK = 2*N + M;
                } else if ( WNTUS && WNTVN ) {
 
                   // Path 4 (M much larger than N, JOBU='S', JOBVT='N')
 
                   WRKBL = N + LWORK_ZGEQRF;
-                  WRKBL = MAX( WRKBL, N+LWORK_ZUNGQR_N );
-                  WRKBL = MAX( WRKBL, 2*N+LWORK_ZGEBRD );
-                  WRKBL = MAX( WRKBL, 2*N+LWORK_ZUNGBR_Q );
+                  WRKBL = max( WRKBL, N+LWORK_ZUNGQR_N );
+                  WRKBL = max( WRKBL, 2*N+LWORK_ZGEBRD );
+                  WRKBL = max( WRKBL, 2*N+LWORK_ZUNGBR_Q );
                   MAXWRK = N*N + WRKBL;
                   MINWRK = 2*N + M;
                } else if ( WNTUS && WNTVO ) {
@@ -156,10 +156,10 @@
                   // Path 5 (M much larger than N, JOBU='S', JOBVT='O')
 
                   WRKBL = N + LWORK_ZGEQRF;
-                  WRKBL = MAX( WRKBL, N+LWORK_ZUNGQR_N );
-                  WRKBL = MAX( WRKBL, 2*N+LWORK_ZGEBRD );
-                  WRKBL = MAX( WRKBL, 2*N+LWORK_ZUNGBR_Q );
-                  WRKBL = MAX( WRKBL, 2*N+LWORK_ZUNGBR_P );
+                  WRKBL = max( WRKBL, N+LWORK_ZUNGQR_N );
+                  WRKBL = max( WRKBL, 2*N+LWORK_ZGEBRD );
+                  WRKBL = max( WRKBL, 2*N+LWORK_ZUNGBR_Q );
+                  WRKBL = max( WRKBL, 2*N+LWORK_ZUNGBR_P );
                   MAXWRK = 2*N*N + WRKBL;
                   MINWRK = 2*N + M;
                } else if ( WNTUS && WNTVAS ) {
@@ -168,10 +168,10 @@
                   // 'A')
 
                   WRKBL = N + LWORK_ZGEQRF;
-                  WRKBL = MAX( WRKBL, N+LWORK_ZUNGQR_N );
-                  WRKBL = MAX( WRKBL, 2*N+LWORK_ZGEBRD );
-                  WRKBL = MAX( WRKBL, 2*N+LWORK_ZUNGBR_Q );
-                  WRKBL = MAX( WRKBL, 2*N+LWORK_ZUNGBR_P );
+                  WRKBL = max( WRKBL, N+LWORK_ZUNGQR_N );
+                  WRKBL = max( WRKBL, 2*N+LWORK_ZGEBRD );
+                  WRKBL = max( WRKBL, 2*N+LWORK_ZUNGBR_Q );
+                  WRKBL = max( WRKBL, 2*N+LWORK_ZUNGBR_P );
                   MAXWRK = N*N + WRKBL;
                   MINWRK = 2*N + M;
                } else if ( WNTUA && WNTVN ) {
@@ -179,9 +179,9 @@
                   // Path 7 (M much larger than N, JOBU='A', JOBVT='N')
 
                   WRKBL = N + LWORK_ZGEQRF;
-                  WRKBL = MAX( WRKBL, N+LWORK_ZUNGQR_M );
-                  WRKBL = MAX( WRKBL, 2*N+LWORK_ZGEBRD );
-                  WRKBL = MAX( WRKBL, 2*N+LWORK_ZUNGBR_Q );
+                  WRKBL = max( WRKBL, N+LWORK_ZUNGQR_M );
+                  WRKBL = max( WRKBL, 2*N+LWORK_ZGEBRD );
+                  WRKBL = max( WRKBL, 2*N+LWORK_ZUNGBR_Q );
                   MAXWRK = N*N + WRKBL;
                   MINWRK = 2*N + M;
                } else if ( WNTUA && WNTVO ) {
@@ -189,10 +189,10 @@
                   // Path 8 (M much larger than N, JOBU='A', JOBVT='O')
 
                   WRKBL = N + LWORK_ZGEQRF;
-                  WRKBL = MAX( WRKBL, N+LWORK_ZUNGQR_M );
-                  WRKBL = MAX( WRKBL, 2*N+LWORK_ZGEBRD );
-                  WRKBL = MAX( WRKBL, 2*N+LWORK_ZUNGBR_Q );
-                  WRKBL = MAX( WRKBL, 2*N+LWORK_ZUNGBR_P );
+                  WRKBL = max( WRKBL, N+LWORK_ZUNGQR_M );
+                  WRKBL = max( WRKBL, 2*N+LWORK_ZGEBRD );
+                  WRKBL = max( WRKBL, 2*N+LWORK_ZUNGBR_Q );
+                  WRKBL = max( WRKBL, 2*N+LWORK_ZUNGBR_P );
                   MAXWRK = 2*N*N + WRKBL;
                   MINWRK = 2*N + M;
                } else if ( WNTUA && WNTVAS ) {
@@ -201,10 +201,10 @@
                   // 'A')
 
                   WRKBL = N + LWORK_ZGEQRF;
-                  WRKBL = MAX( WRKBL, N+LWORK_ZUNGQR_M );
-                  WRKBL = MAX( WRKBL, 2*N+LWORK_ZGEBRD );
-                  WRKBL = MAX( WRKBL, 2*N+LWORK_ZUNGBR_Q );
-                  WRKBL = MAX( WRKBL, 2*N+LWORK_ZUNGBR_P );
+                  WRKBL = max( WRKBL, N+LWORK_ZUNGQR_M );
+                  WRKBL = max( WRKBL, 2*N+LWORK_ZGEBRD );
+                  WRKBL = max( WRKBL, 2*N+LWORK_ZUNGBR_Q );
+                  WRKBL = max( WRKBL, 2*N+LWORK_ZUNGBR_P );
                   MAXWRK = N*N + WRKBL;
                   MINWRK = 2*N + M;
                }
@@ -218,15 +218,15 @@
                if ( WNTUS || WNTUO ) {
                   zungbr('Q', M, N, N, A, LDA, CDUM(1), CDUM(1), -1, IERR );
                   LWORK_ZUNGBR_Q = INT( CDUM(1) );
-                  MAXWRK = MAX( MAXWRK, 2*N+LWORK_ZUNGBR_Q );
+                  MAXWRK = max( MAXWRK, 2*N+LWORK_ZUNGBR_Q );
                }
                if ( WNTUA ) {
                   zungbr('Q', M, M, N, A, LDA, CDUM(1), CDUM(1), -1, IERR );
                   LWORK_ZUNGBR_Q = INT( CDUM(1) );
-                  MAXWRK = MAX( MAXWRK, 2*N+LWORK_ZUNGBR_Q );
+                  MAXWRK = max( MAXWRK, 2*N+LWORK_ZUNGBR_Q );
                }
                if ( !WNTVN ) {
-                  MAXWRK = MAX( MAXWRK, 2*N+LWORK_ZUNGBR_P );
+                  MAXWRK = max( MAXWRK, 2*N+LWORK_ZUNGBR_P );
                }
                MINWRK = 2*N + M;
             }
@@ -258,18 +258,18 @@
                   // Path 1t(N much larger than M, JOBVT='N')
 
                   MAXWRK = M + LWORK_ZGELQF;
-                  MAXWRK = MAX( MAXWRK, 2*M+LWORK_ZGEBRD );
-                  if (WNTUO || WNTUAS) MAXWRK = MAX( MAXWRK, 2*M+LWORK_ZUNGBR_Q );
+                  MAXWRK = max( MAXWRK, 2*M+LWORK_ZGEBRD );
+                  if (WNTUO || WNTUAS) MAXWRK = max( MAXWRK, 2*M+LWORK_ZUNGBR_Q );
                   MINWRK = 3*M;
                } else if ( WNTVO && WNTUN ) {
 
                   // Path 2t(N much larger than M, JOBU='N', JOBVT='O')
 
                   WRKBL = M + LWORK_ZGELQF;
-                  WRKBL = MAX( WRKBL, M+LWORK_ZUNGLQ_M );
-                  WRKBL = MAX( WRKBL, 2*M+LWORK_ZGEBRD );
-                  WRKBL = MAX( WRKBL, 2*M+LWORK_ZUNGBR_P );
-                  MAXWRK = MAX( M*M+WRKBL, M*M+M*N );
+                  WRKBL = max( WRKBL, M+LWORK_ZUNGLQ_M );
+                  WRKBL = max( WRKBL, 2*M+LWORK_ZGEBRD );
+                  WRKBL = max( WRKBL, 2*M+LWORK_ZUNGBR_P );
+                  MAXWRK = max( M*M+WRKBL, M*M+M*N );
                   MINWRK = 2*M + N;
                } else if ( WNTVO && WNTUAS ) {
 
@@ -277,20 +277,20 @@
                   // JOBVT='O')
 
                   WRKBL = M + LWORK_ZGELQF;
-                  WRKBL = MAX( WRKBL, M+LWORK_ZUNGLQ_M );
-                  WRKBL = MAX( WRKBL, 2*M+LWORK_ZGEBRD );
-                  WRKBL = MAX( WRKBL, 2*M+LWORK_ZUNGBR_P );
-                  WRKBL = MAX( WRKBL, 2*M+LWORK_ZUNGBR_Q );
-                  MAXWRK = MAX( M*M+WRKBL, M*M+M*N );
+                  WRKBL = max( WRKBL, M+LWORK_ZUNGLQ_M );
+                  WRKBL = max( WRKBL, 2*M+LWORK_ZGEBRD );
+                  WRKBL = max( WRKBL, 2*M+LWORK_ZUNGBR_P );
+                  WRKBL = max( WRKBL, 2*M+LWORK_ZUNGBR_Q );
+                  MAXWRK = max( M*M+WRKBL, M*M+M*N );
                   MINWRK = 2*M + N;
                } else if ( WNTVS && WNTUN ) {
 
                   // Path 4t(N much larger than M, JOBU='N', JOBVT='S')
 
                   WRKBL = M + LWORK_ZGELQF;
-                  WRKBL = MAX( WRKBL, M+LWORK_ZUNGLQ_M );
-                  WRKBL = MAX( WRKBL, 2*M+LWORK_ZGEBRD );
-                  WRKBL = MAX( WRKBL, 2*M+LWORK_ZUNGBR_P );
+                  WRKBL = max( WRKBL, M+LWORK_ZUNGLQ_M );
+                  WRKBL = max( WRKBL, 2*M+LWORK_ZGEBRD );
+                  WRKBL = max( WRKBL, 2*M+LWORK_ZUNGBR_P );
                   MAXWRK = M*M + WRKBL;
                   MINWRK = 2*M + N;
                } else if ( WNTVS && WNTUO ) {
@@ -298,10 +298,10 @@
                   // Path 5t(N much larger than M, JOBU='O', JOBVT='S')
 
                   WRKBL = M + LWORK_ZGELQF;
-                  WRKBL = MAX( WRKBL, M+LWORK_ZUNGLQ_M );
-                  WRKBL = MAX( WRKBL, 2*M+LWORK_ZGEBRD );
-                  WRKBL = MAX( WRKBL, 2*M+LWORK_ZUNGBR_P );
-                  WRKBL = MAX( WRKBL, 2*M+LWORK_ZUNGBR_Q );
+                  WRKBL = max( WRKBL, M+LWORK_ZUNGLQ_M );
+                  WRKBL = max( WRKBL, 2*M+LWORK_ZGEBRD );
+                  WRKBL = max( WRKBL, 2*M+LWORK_ZUNGBR_P );
+                  WRKBL = max( WRKBL, 2*M+LWORK_ZUNGBR_Q );
                   MAXWRK = 2*M*M + WRKBL;
                   MINWRK = 2*M + N;
                } else if ( WNTVS && WNTUAS ) {
@@ -310,10 +310,10 @@
                   // JOBVT='S')
 
                   WRKBL = M + LWORK_ZGELQF;
-                  WRKBL = MAX( WRKBL, M+LWORK_ZUNGLQ_M );
-                  WRKBL = MAX( WRKBL, 2*M+LWORK_ZGEBRD );
-                  WRKBL = MAX( WRKBL, 2*M+LWORK_ZUNGBR_P );
-                  WRKBL = MAX( WRKBL, 2*M+LWORK_ZUNGBR_Q );
+                  WRKBL = max( WRKBL, M+LWORK_ZUNGLQ_M );
+                  WRKBL = max( WRKBL, 2*M+LWORK_ZGEBRD );
+                  WRKBL = max( WRKBL, 2*M+LWORK_ZUNGBR_P );
+                  WRKBL = max( WRKBL, 2*M+LWORK_ZUNGBR_Q );
                   MAXWRK = M*M + WRKBL;
                   MINWRK = 2*M + N;
                } else if ( WNTVA && WNTUN ) {
@@ -321,9 +321,9 @@
                   // Path 7t(N much larger than M, JOBU='N', JOBVT='A')
 
                   WRKBL = M + LWORK_ZGELQF;
-                  WRKBL = MAX( WRKBL, M+LWORK_ZUNGLQ_N );
-                  WRKBL = MAX( WRKBL, 2*M+LWORK_ZGEBRD );
-                  WRKBL = MAX( WRKBL, 2*M+LWORK_ZUNGBR_P );
+                  WRKBL = max( WRKBL, M+LWORK_ZUNGLQ_N );
+                  WRKBL = max( WRKBL, 2*M+LWORK_ZGEBRD );
+                  WRKBL = max( WRKBL, 2*M+LWORK_ZUNGBR_P );
                   MAXWRK = M*M + WRKBL;
                   MINWRK = 2*M + N;
                } else if ( WNTVA && WNTUO ) {
@@ -331,10 +331,10 @@
                   // Path 8t(N much larger than M, JOBU='O', JOBVT='A')
 
                   WRKBL = M + LWORK_ZGELQF;
-                  WRKBL = MAX( WRKBL, M+LWORK_ZUNGLQ_N );
-                  WRKBL = MAX( WRKBL, 2*M+LWORK_ZGEBRD );
-                  WRKBL = MAX( WRKBL, 2*M+LWORK_ZUNGBR_P );
-                  WRKBL = MAX( WRKBL, 2*M+LWORK_ZUNGBR_Q );
+                  WRKBL = max( WRKBL, M+LWORK_ZUNGLQ_N );
+                  WRKBL = max( WRKBL, 2*M+LWORK_ZGEBRD );
+                  WRKBL = max( WRKBL, 2*M+LWORK_ZUNGBR_P );
+                  WRKBL = max( WRKBL, 2*M+LWORK_ZUNGBR_Q );
                   MAXWRK = 2*M*M + WRKBL;
                   MINWRK = 2*M + N;
                } else if ( WNTVA && WNTUAS ) {
@@ -343,10 +343,10 @@
                   // JOBVT='A')
 
                   WRKBL = M + LWORK_ZGELQF;
-                  WRKBL = MAX( WRKBL, M+LWORK_ZUNGLQ_N );
-                  WRKBL = MAX( WRKBL, 2*M+LWORK_ZGEBRD );
-                  WRKBL = MAX( WRKBL, 2*M+LWORK_ZUNGBR_P );
-                  WRKBL = MAX( WRKBL, 2*M+LWORK_ZUNGBR_Q );
+                  WRKBL = max( WRKBL, M+LWORK_ZUNGLQ_N );
+                  WRKBL = max( WRKBL, 2*M+LWORK_ZGEBRD );
+                  WRKBL = max( WRKBL, 2*M+LWORK_ZUNGBR_P );
+                  WRKBL = max( WRKBL, 2*M+LWORK_ZUNGBR_Q );
                   MAXWRK = M*M + WRKBL;
                   MINWRK = 2*M + N;
                }
@@ -361,20 +361,20 @@
                  // Compute space needed for ZUNGBR P
                  zungbr('P', M, N, M, A, N, CDUM(1), CDUM(1), -1, IERR );
                  LWORK_ZUNGBR_P = INT( CDUM(1) );
-                 MAXWRK = MAX( MAXWRK, 2*M+LWORK_ZUNGBR_P );
+                 MAXWRK = max( MAXWRK, 2*M+LWORK_ZUNGBR_P );
                }
                if ( WNTVA ) {
                  zungbr('P', N,  N, M, A, N, CDUM(1), CDUM(1), -1, IERR );
                  LWORK_ZUNGBR_P = INT( CDUM(1) );
-                 MAXWRK = MAX( MAXWRK, 2*M+LWORK_ZUNGBR_P );
+                 MAXWRK = max( MAXWRK, 2*M+LWORK_ZUNGBR_P );
                }
                if ( !WNTUN ) {
-                  MAXWRK = MAX( MAXWRK, 2*M+LWORK_ZUNGBR_Q );
+                  MAXWRK = max( MAXWRK, 2*M+LWORK_ZUNGBR_Q );
                }
                MINWRK = 2*M + N;
             }
          }
-         MAXWRK = MAX( MAXWRK, MINWRK );
+         MAXWRK = max( MAXWRK, MINWRK );
          WORK( 1 ) = MAXWRK;
 
          if ( LWORK < MINWRK && !LQUERY ) {
@@ -398,7 +398,7 @@
       // Get machine constants
 
       EPS = DLAMCH( 'P' );
-      SMLNUM = SQRT( DLAMCH( 'S' ) ) / EPS;
+      SMLNUM = sqrt( DLAMCH( 'S' ) ) / EPS;
       BIGNUM = ONE / SMLNUM;
 
       // Scale A if max element outside range [SMLNUM,BIGNUM]
@@ -484,13 +484,13 @@
                   // Sufficient workspace for a fast algorithm
 
                   IR = 1;
-                  if ( LWORK >= MAX( WRKBL, LDA*N )+LDA*N ) {
+                  if ( LWORK >= max( WRKBL, LDA*N )+LDA*N ) {
 
                      // WORK(IU) is LDA by N, WORK(IR) is LDA by N
 
                      LDWRKU = LDA;
                      LDWRKR = LDA;
-                  } else if ( LWORK >= MAX( WRKBL, LDA*N )+N*N ) {
+                  } else if ( LWORK >= max( WRKBL, LDA*N )+N*N ) {
 
                      // WORK(IU) is LDA by N, WORK(IR) is N by N
 
@@ -554,7 +554,7 @@
                   // (RWorkspace: 0)
 
                   DO 10 I = 1, M, LDWRKU;
-                     CHUNK = MIN( M-I+1, LDWRKU );
+                     CHUNK = min( M-I+1, LDWRKU );
                      zgemm('N', 'N', CHUNK, N, N, CONE, A( I, 1 ), LDA, WORK( IR ), LDWRKR, CZERO, WORK( IU ), LDWRKU );
                      zlacpy('F', CHUNK, N, WORK( IU ), LDWRKU, A( I, 1 ), LDA );
                   } // 10
@@ -601,13 +601,13 @@
                   // Sufficient workspace for a fast algorithm
 
                   IR = 1;
-                  if ( LWORK >= MAX( WRKBL, LDA*N )+LDA*N ) {
+                  if ( LWORK >= max( WRKBL, LDA*N )+LDA*N ) {
 
                      // WORK(IU) is LDA by N and WORK(IR) is LDA by N
 
                      LDWRKU = LDA;
                      LDWRKR = LDA;
-                  } else if ( LWORK >= MAX( WRKBL, LDA*N )+N*N ) {
+                  } else if ( LWORK >= max( WRKBL, LDA*N )+N*N ) {
 
                      // WORK(IU) is LDA by N and WORK(IR) is N by N
 
@@ -679,7 +679,7 @@
                   // (RWorkspace: 0)
 
                   DO 20 I = 1, M, LDWRKU;
-                     CHUNK = MIN( M-I+1, LDWRKU );
+                     CHUNK = min( M-I+1, LDWRKU );
                      zgemm('N', 'N', CHUNK, N, N, CONE, A( I, 1 ), LDA, WORK( IR ), LDWRKR, CZERO, WORK( IU ), LDWRKU );
                      zlacpy('F', CHUNK, N, WORK( IU ), LDWRKU, A( I, 1 ), LDA );
                   } // 20
@@ -1180,7 +1180,7 @@
                   // M left singular vectors to be computed in U and
                   // no right singular vectors to be computed
 
-                  if ( LWORK >= N*N+MAX( N+M, 3*N ) ) {
+                  if ( LWORK >= N*N+max( N+M, 3*N ) ) {
 
                      // Sufficient workspace for a fast algorithm
 
@@ -1311,7 +1311,7 @@
                   // M left singular vectors to be computed in U and
                   // N right singular vectors to be overwritten on A
 
-                  if ( LWORK >= 2*N*N+MAX( N+M, 3*N ) ) {
+                  if ( LWORK >= 2*N*N+max( N+M, 3*N ) ) {
 
                      // Sufficient workspace for a fast algorithm
 
@@ -1476,7 +1476,7 @@
                   // M left singular vectors to be computed in U and
                   // N right singular vectors to be computed in VT
 
-                  if ( LWORK >= N*N+MAX( N+M, 3*N ) ) {
+                  if ( LWORK >= N*N+max( N+M, 3*N ) ) {
 
                      // Sufficient workspace for a fast algorithm
 
@@ -1782,14 +1782,14 @@
                   // Sufficient workspace for a fast algorithm
 
                   IR = 1;
-                  if ( LWORK >= MAX( WRKBL, LDA*N )+LDA*M ) {
+                  if ( LWORK >= max( WRKBL, LDA*N )+LDA*M ) {
 
                      // WORK(IU) is LDA by N and WORK(IR) is LDA by M
 
                      LDWRKU = LDA;
                      CHUNK = N;
                      LDWRKR = LDA;
-                  } else if ( LWORK >= MAX( WRKBL, LDA*N )+M*M ) {
+                  } else if ( LWORK >= max( WRKBL, LDA*N )+M*M ) {
 
                      // WORK(IU) is LDA by N and WORK(IR) is M by M
 
@@ -1855,7 +1855,7 @@
                   // (RWorkspace: 0)
 
                   DO 30 I = 1, N, CHUNK;
-                     BLK = MIN( N-I+1, CHUNK );
+                     BLK = min( N-I+1, CHUNK );
                      zgemm('N', 'N', M, BLK, M, CONE, WORK( IR ), LDWRKR, A( 1, I ), LDA, CZERO, WORK( IU ), LDWRKU );
                      zlacpy('F', M, BLK, WORK( IU ), LDWRKU, A( 1, I ), LDA );
                   } // 30
@@ -1902,14 +1902,14 @@
                   // Sufficient workspace for a fast algorithm
 
                   IR = 1;
-                  if ( LWORK >= MAX( WRKBL, LDA*N )+LDA*M ) {
+                  if ( LWORK >= max( WRKBL, LDA*N )+LDA*M ) {
 
                      // WORK(IU) is LDA by N and WORK(IR) is LDA by M
 
                      LDWRKU = LDA;
                      CHUNK = N;
                      LDWRKR = LDA;
-                  } else if ( LWORK >= MAX( WRKBL, LDA*N )+M*M ) {
+                  } else if ( LWORK >= max( WRKBL, LDA*N )+M*M ) {
 
                      // WORK(IU) is LDA by N and WORK(IR) is M by M
 
@@ -1983,7 +1983,7 @@
                   // (RWorkspace: 0)
 
                   DO 40 I = 1, N, CHUNK;
-                     BLK = MIN( N-I+1, CHUNK );
+                     BLK = min( N-I+1, CHUNK );
                      zgemm('N', 'N', M, BLK, M, CONE, WORK( IR ), LDWRKR, A( 1, I ), LDA, CZERO, WORK( IU ), LDWRKU );
                      zlacpy('F', M, BLK, WORK( IU ), LDWRKU, A( 1, I ), LDA );
                   } // 40
@@ -2484,7 +2484,7 @@
                   // N right singular vectors to be computed in VT and
                   // no left singular vectors to be computed
 
-                  if ( LWORK >= M*M+MAX( N+M, 3*M ) ) {
+                  if ( LWORK >= M*M+max( N+M, 3*M ) ) {
 
                      // Sufficient workspace for a fast algorithm
 
@@ -2614,7 +2614,7 @@
                   // N right singular vectors to be computed in VT and
                   // M left singular vectors to be overwritten on A
 
-                  if ( LWORK >= 2*M*M+MAX( N+M, 3*M ) ) {
+                  if ( LWORK >= 2*M*M+max( N+M, 3*M ) ) {
 
                      // Sufficient workspace for a fast algorithm
 
@@ -2777,7 +2777,7 @@
                   // N right singular vectors to be computed in VT and
                   // M left singular vectors to be computed in U
 
-                  if ( LWORK >= M*M+MAX( N+M, 3*M ) ) {
+                  if ( LWORK >= M*M+max( N+M, 3*M ) ) {
 
                      // Sufficient workspace for a fast algorithm
 

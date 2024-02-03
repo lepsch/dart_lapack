@@ -94,7 +94,7 @@
 
       for (IN = 1; IN <= NN; IN++) { // 90
          N = NVAL( IN );
-         LDA = MAX( N, 1 );
+         LDA = max( N, 1 );
          XTYPE = 'N';
          NIMAT = NTYPES;
          if (N <= 0) NIMAT = 1;
@@ -224,7 +224,7 @@
                      // Form the inverse of A.
 
                      dlacpy('Full', N, N, AFAC, LDA, A, LDA );
-                     LWORK = NMAX*MAX( 3, NRHS );
+                     LWORK = NMAX*max( 3, NRHS );
                      dgetri(N, A, LDA, IWORK, WORK, LWORK, INFO );
 
                      // Compute the 1-norm condition number of A.
@@ -356,7 +356,7 @@
                            RPVGRW = DLANGE( 'M', N, N, A, LDA, WORK ) / RPVGRW;
                         }
                      }
-                     RESULT( 7 ) = ABS( RPVGRW-WORK( 1 ) ) / MAX( WORK( 1 ), RPVGRW ) / DLAMCH( 'E' );
+                     RESULT( 7 ) = ABS( RPVGRW-WORK( 1 ) ) / max( WORK( 1 ), RPVGRW ) / DLAMCH( 'E' );
 
                      if ( !PREFAC ) {
 
@@ -493,7 +493,7 @@
                      } else {
                         RPVGRW = DLA_GERPVGRW (N, N, A, LDA, AFAC, LDA);
                      }
-                      RESULT( 7 ) = ABS( RPVGRW-RPVGRW_SVXX ) / MAX( RPVGRW_SVXX, RPVGRW ) / DLAMCH( 'E' );
+                      RESULT( 7 ) = ABS( RPVGRW-RPVGRW_SVXX ) / max( RPVGRW_SVXX, RPVGRW ) / DLAMCH( 'E' );
 
                      if ( !PREFAC ) {
 

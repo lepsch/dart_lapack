@@ -42,9 +42,9 @@
       INFO = 0;
       if ( N < 0 ) {
          INFO = -2;
-      } else if ( LDA < MAX( 1, N ) ) {
+      } else if ( LDA < max( 1, N ) ) {
          INFO = -4;
-      } else if ( LDAF < MAX( 1, N ) ) {
+      } else if ( LDAF < max( 1, N ) ) {
          INFO = -6;
       }
       if ( INFO != 0 ) {

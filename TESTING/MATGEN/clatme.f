@@ -139,7 +139,7 @@
          INFO = -15;
       } else if ( KU < 1 || ( KU < N-1 && KL < N-1 ) ) {
          INFO = -16;
-      } else if ( LDA < MAX( 1, N ) ) {
+      } else if ( LDA < max( 1, N ) ) {
          INFO = -19;
       }
 
@@ -171,7 +171,7 @@
 
          TEMP = ABS( D( 1 ) );
          for (I = 2; I <= N; I++) { // 30
-            TEMP = MAX( TEMP, ABS( D( I ) ) );
+            TEMP = max( TEMP, ABS( D( I ) ) );
          } // 30
 
          if ( TEMP > ZERO ) {

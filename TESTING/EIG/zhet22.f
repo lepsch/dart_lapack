@@ -48,7 +48,7 @@
 
       // Norm of A:
 
-      ANORM = MAX( ZLANHE( '1', UPLO, N, A, LDA, RWORK ), UNFL );
+      ANORM = max( ZLANHE( '1', UPLO, N, A, LDA, RWORK ), UNFL );
 
       // Compute error matrix:
 
@@ -76,9 +76,9 @@
          RESULT( 1 ) = ( WNORM / ANORM ) / ( M*ULP );
       } else {
          if ( ANORM < ONE ) {
-            RESULT( 1 ) = ( MIN( WNORM, M*ANORM ) / ANORM ) / ( M*ULP );
+            RESULT( 1 ) = ( min( WNORM, M*ANORM ) / ANORM ) / ( M*ULP );
          } else {
-            RESULT( 1 ) = MIN( WNORM / ANORM, DBLE( M ) ) / ( M*ULP );
+            RESULT( 1 ) = min( WNORM / ANORM, DBLE( M ) ) / ( M*ULP );
          }
       }
 

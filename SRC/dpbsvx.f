@@ -74,21 +74,21 @@
             SMIN = BIGNUM;
             SMAX = ZERO;
             for (J = 1; J <= N; J++) { // 10
-               SMIN = MIN( SMIN, S( J ) );
-               SMAX = MAX( SMAX, S( J ) );
+               SMIN = min( SMIN, S( J ) );
+               SMAX = max( SMAX, S( J ) );
             } // 10
             if ( SMIN <= ZERO ) {
                INFO = -11;
             } else if ( N > 0 ) {
-               SCOND = MAX( SMIN, SMLNUM ) / MIN( SMAX, BIGNUM );
+               SCOND = max( SMIN, SMLNUM ) / min( SMAX, BIGNUM );
             } else {
                SCOND = ONE;
             }
          }
          if ( INFO == 0 ) {
-            if ( LDB < MAX( 1, N ) ) {
+            if ( LDB < max( 1, N ) ) {
                INFO = -13;
-            } else if ( LDX < MAX( 1, N ) ) {
+            } else if ( LDX < max( 1, N ) ) {
                INFO = -15;
             }
          }
@@ -129,12 +129,12 @@
 
          if ( UPPER ) {
             for (J = 1; J <= N; J++) { // 40
-               J1 = MAX( J-KD, 1 );
+               J1 = max( J-KD, 1 );
                dcopy(J-J1+1, AB( KD+1-J+J1, J ), 1, AFB( KD+1-J+J1, J ), 1 );
             } // 40
          } else {
             for (J = 1; J <= N; J++) { // 50
-               J2 = MIN( J+KD, N );
+               J2 = min( J+KD, N );
                dcopy(J2-J+1, AB( 1, J ), 1, AFB( 1, J ), 1 );
             } // 50
          }

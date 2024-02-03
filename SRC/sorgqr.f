@@ -38,7 +38,7 @@
 
       INFO = 0;
       NB = ILAENV( 1, 'SORGQR', ' ', M, N, K, -1 );
-      LWKOPT = MAX( 1, N )*NB;
+      LWKOPT = max( 1, N )*NB;
       WORK( 1 ) = SROUNDUP_LWORK(LWKOPT);
       LQUERY = ( LWORK == -1 );
       if ( M < 0 ) {
@@ -47,9 +47,9 @@
          INFO = -2;
       } else if ( K < 0 || K > N ) {
          INFO = -3;
-      } else if ( LDA < MAX( 1, M ) ) {
+      } else if ( LDA < max( 1, M ) ) {
          INFO = -5;
-      } else if ( LWORK < MAX( 1, N ) && !LQUERY ) {
+      } else if ( LWORK < max( 1, N ) && !LQUERY ) {
          INFO = -8;
       }
       if ( INFO != 0 ) {
@@ -73,7 +73,7 @@
 
          // Determine when to cross over from blocked to unblocked code.
 
-         NX = MAX( 0, ILAENV( 3, 'SORGQR', ' ', M, N, K, -1 ) );
+         NX = max( 0, ILAENV( 3, 'SORGQR', ' ', M, N, K, -1 ) );
          if ( NX < K ) {
 
             // Determine if workspace is large enough for blocked code.
@@ -86,7 +86,7 @@
                // determine the minimum value of NB.
 
                NB = LWORK / LDWORK;
-               NBMIN = MAX( 2, ILAENV( 2, 'SORGQR', ' ', M, N, K, -1 ) );
+               NBMIN = max( 2, ILAENV( 2, 'SORGQR', ' ', M, N, K, -1 ) );
             }
          }
       }
@@ -97,7 +97,7 @@
          // The first kk columns are handled by the block method.
 
          KI = ( ( K-NX-1 ) / NB )*NB;
-         KK = MIN( K, KI+NB );
+         KK = min( K, KI+NB );
 
          // Set A(1:kk,kk+1:n) to zero.
 
@@ -119,7 +119,7 @@
          // Use blocked code
 
          DO 50 I = KI + 1, 1, -NB;
-            IB = MIN( NB, K-I+1 );
+            IB = min( NB, K-I+1 );
             if ( I+IB <= N ) {
 
                // Form the triangular factor of the block reflector

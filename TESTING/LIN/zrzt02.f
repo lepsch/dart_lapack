@@ -64,7 +64,7 @@
          WORK( ( I-1 )*N+I ) = WORK( ( I-1 )*N+I ) - ONE;
       } // 10
 
-      ZRZT02 = ZLANGE( 'One-norm', N, N, WORK, N, RWORK ) / ( DLAMCH( 'Epsilon' )*DBLE( MAX( M, N ) ) );
+      ZRZT02 = ZLANGE( 'One-norm', N, N, WORK, N, RWORK ) / ( DLAMCH( 'Epsilon' )*DBLE( max( M, N ) ) );
       return;
 
       // End of ZRZT02

@@ -43,7 +43,7 @@
       // Test the input arguments.
 
       INFO = 0;
-      MAXMN = MAX( M, N );
+      MAXMN = max( M, N );
       TRAN  = LSAME( TRANS, 'C' );
 
       LQUERY = ( LWORK == -1 || LWORK == -2 );
@@ -55,9 +55,9 @@
          INFO = -3;
       } else if ( NRHS < 0 ) {
          INFO = -4;
-      } else if ( LDA < MAX( 1, M ) ) {
+      } else if ( LDA < max( 1, M ) ) {
          INFO = -6;
-      } else if ( LDB < MAX( 1, M, N ) ) {
+      } else if ( LDB < max( 1, M, N ) ) {
          INFO = -8;
       }
 
@@ -65,7 +65,7 @@
 
       // Determine the optimum and minimum LWORK
 
-       if ( MIN( M, N, NRHS ) == 0 ) {
+       if ( min( M, N, NRHS ) == 0 ) {
          WSIZEO = 1;
          WSIZEM = 1;
        } else if ( M >= N ) {
@@ -73,12 +73,12 @@
          TSZO = INT( TQ( 1 ) );
          LWO  = INT( WORKQ( 1 ) );
          cgemqr('L', TRANS, M, NRHS, N, A, LDA, TQ, TSZO, B, LDB, WORKQ, -1, INFO2 );
-         LWO  = MAX( LWO, INT( WORKQ( 1 ) ) );
+         LWO  = max( LWO, INT( WORKQ( 1 ) ) );
          cgeqr(M, N, A, LDA, TQ, -2, WORKQ, -2, INFO2 );
          TSZM = INT( TQ( 1 ) );
          LWM  = INT( WORKQ( 1 ) );
          cgemqr('L', TRANS, M, NRHS, N, A, LDA, TQ, TSZM, B, LDB, WORKQ, -1, INFO2 );
-         LWM = MAX( LWM, INT( WORKQ( 1 ) ) );
+         LWM = max( LWM, INT( WORKQ( 1 ) ) );
          WSIZEO = TSZO + LWO;
          WSIZEM = TSZM + LWM;
        } else {
@@ -86,12 +86,12 @@
          TSZO = INT( TQ( 1 ) );
          LWO  = INT( WORKQ( 1 ) );
          cgemlq('L', TRANS, N, NRHS, M, A, LDA, TQ, TSZO, B, LDB, WORKQ, -1, INFO2 );
-         LWO  = MAX( LWO, INT( WORKQ( 1 ) ) );
+         LWO  = max( LWO, INT( WORKQ( 1 ) ) );
          cgelq(M, N, A, LDA, TQ, -2, WORKQ, -2, INFO2 );
          TSZM = INT( TQ( 1 ) );
          LWM  = INT( WORKQ( 1 ) );
          cgemlq('L', TRANS, N, NRHS, M, A, LDA, TQ, TSZM, B, LDB, WORKQ, -1, INFO2 );
-         LWM  = MAX( LWM, INT( WORKQ( 1 ) ) );
+         LWM  = max( LWM, INT( WORKQ( 1 ) ) );
          WSIZEO = TSZO + LWO;
          WSIZEM = TSZM + LWM;
        }
@@ -122,8 +122,8 @@
 
       // Quick return if possible
 
-      if ( MIN( M, N, NRHS ) == 0 ) {
-           claset('FULL', MAX( M, N ), NRHS, CZERO, CZERO, B, LDB );
+      if ( min( M, N, NRHS ) == 0 ) {
+           claset('FULL', max( M, N ), NRHS, CZERO, CZERO, B, LDB );
            return;
       }
 

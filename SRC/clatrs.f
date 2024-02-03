@@ -65,7 +65,7 @@
          INFO = -4;
       } else if ( N < 0 ) {
          INFO = -5;
-      } else if ( LDA < MAX( 1, N ) ) {
+      } else if ( LDA < max( 1, N ) ) {
          INFO = -7;
       }
       if ( INFO != 0 ) {
@@ -134,7 +134,7 @@
 
                for (J = 2; J <= N; J++) {
                   for (I = 1; I <= J - 1; I++) {
-                     TMAX = MAX( TMAX, ABS( REAL( A( I, J ) ) ), ABS( AIMAG(A ( I, J ) ) ) );
+                     TMAX = max( TMAX, ABS( REAL( A( I, J ) ) ), ABS( AIMAG(A ( I, J ) ) ) );
                   }
                }
             } else {
@@ -143,7 +143,7 @@
 
                for (J = 1; J <= N - 1; J++) {
                   for (I = J + 1; I <= N; I++) {
-                     TMAX = MAX( TMAX, ABS( REAL( A( I, J ) ) ), ABS( AIMAG(A ( I, J ) ) ) );
+                     TMAX = max( TMAX, ABS( REAL( A( I, J ) ) ), ABS( AIMAG(A ( I, J ) ) ) );
                   }
                }
             }
@@ -184,7 +184,7 @@
 
       XMAX = ZERO;
       for (J = 1; J <= N; J++) { // 30
-         XMAX = MAX( XMAX, CABS2( X( J ) ) );
+         XMAX = max( XMAX, CABS2( X( J ) ) );
       } // 30
       XBND = XMAX;
 
@@ -214,7 +214,7 @@
             // Compute GROW = 1/G(j) and XBND = 1/M(j).
             // Initially, G(0) = max{x(i), i=1,...,n}.
 
-            GROW = HALF / MAX( XBND, SMLNUM );
+            GROW = HALF / max( XBND, SMLNUM );
             XBND = GROW;
             DO 40 J = JFIRST, JLAST, JINC;
 
@@ -229,7 +229,7 @@
 
                   // M(j) = G(j-1) / abs(A(j,j))
 
-                  XBND = MIN( XBND, MIN( ONE, TJJ )*GROW );
+                  XBND = min( XBND, min( ONE, TJJ )*GROW );
                } else {
 
                   // M(j) could overflow, set XBND to 0.
@@ -256,7 +256,7 @@
 
             // Compute GROW = 1/G(j), where G(0) = max{x(i), i=1,...,n}.
 
-            GROW = MIN( ONE, HALF / MAX( XBND, SMLNUM ) );
+            GROW = min( ONE, HALF / max( XBND, SMLNUM ) );
             DO 50 J = JFIRST, JLAST, JINC;
 
                // Exit the loop if the growth factor is too small.
@@ -296,7 +296,7 @@
             // Compute GROW = 1/G(j) and XBND = 1/M(j).
             // Initially, M(0) = max{x(i), i=1,...,n}.
 
-            GROW = HALF / MAX( XBND, SMLNUM );
+            GROW = HALF / max( XBND, SMLNUM );
             XBND = GROW;
             DO 70 J = JFIRST, JLAST, JINC;
 
@@ -307,7 +307,7 @@
                // G(j) = max( G(j-1), M(j-1)*( 1 + CNORM(j) ) )
 
                XJ = ONE + CNORM( J );
-               GROW = MIN( GROW, XBND / XJ );
+               GROW = min( GROW, XBND / XJ );
 
                TJJS = A( J, J );
                TJJ = CABS1( TJJS );
@@ -324,14 +324,14 @@
                   XBND = ZERO;
                }
             } // 70
-            GROW = MIN( GROW, XBND );
+            GROW = min( GROW, XBND );
          } else {
 
             // A is unit triangular.
 
             // Compute GROW = 1/G(j), where G(0) = max{x(i), i=1,...,n}.
 
-            GROW = MIN( ONE, HALF / MAX( XBND, SMLNUM ) );
+            GROW = min( ONE, HALF / max( XBND, SMLNUM ) );
             DO 80 J = JFIRST, JLAST, JINC;
 
                // Exit the loop if the growth factor is too small.
@@ -495,7 +495,7 @@
 
                XJ = CABS1( X( J ) );
                USCAL = TSCAL;
-               REC = ONE / MAX( XMAX, ONE );
+               REC = ONE / max( XMAX, ONE );
                if ( CNORM( J ) > ( BIGNUM-XJ )*REC ) {
 
                   // If x(j) could overflow, scale x by 1/(2*XMAX).
@@ -511,7 +511,7 @@
 
                         // Divide by A(j,j) when scaling x if A(j,j) > 1.
 
-                        REC = MIN( ONE, REC*TJJ );
+                        REC = min( ONE, REC*TJJ );
                         USCAL = CLADIV( USCAL, TJJS );
                      }
                   if ( REC < ONE ) {
@@ -614,7 +614,7 @@
 
                   X( J ) = CLADIV( X( J ), TJJS ) - CSUMJ;
                }
-               XMAX = MAX( XMAX, CABS1( X( J ) ) );
+               XMAX = max( XMAX, CABS1( X( J ) ) );
             } // 150
 
          } else {
@@ -628,7 +628,7 @@
 
                XJ = CABS1( X( J ) );
                USCAL = TSCAL;
-               REC = ONE / MAX( XMAX, ONE );
+               REC = ONE / max( XMAX, ONE );
                if ( CNORM( J ) > ( BIGNUM-XJ )*REC ) {
 
                   // If x(j) could overflow, scale x by 1/(2*XMAX).
@@ -644,7 +644,7 @@
 
                         // Divide by A(j,j) when scaling x if A(j,j) > 1.
 
-                        REC = MIN( ONE, REC*TJJ );
+                        REC = min( ONE, REC*TJJ );
                         USCAL = CLADIV( USCAL, TJJS );
                      }
                   if ( REC < ONE ) {
@@ -747,7 +747,7 @@
 
                   X( J ) = CLADIV( X( J ), TJJS ) - CSUMJ;
                }
-               XMAX = MAX( XMAX, CABS1( X( J ) ) );
+               XMAX = max( XMAX, CABS1( X( J ) ) );
             } // 190
          }
          SCALE = SCALE / TSCAL;

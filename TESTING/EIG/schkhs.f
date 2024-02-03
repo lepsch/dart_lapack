@@ -58,7 +58,7 @@
       BADNN = false;
       NMAX = 0;
       for (J = 1; J <= NSIZES; J++) { // 10
-         NMAX = MAX( NMAX, NN( J ) );
+         NMAX = max( NMAX, NN( J ) );
          if( NN( J ) < 0 ) BADNN = true;
       } // 10
 
@@ -95,9 +95,9 @@
       OVFL = SLAMCH( 'Overflow' );
       ULP = SLAMCH( 'Epsilon' )*SLAMCH( 'Base' );
       ULPINV = ONE / ULP;
-      RTUNFL = SQRT( UNFL );
-      RTOVFL = SQRT( OVFL );
-      RTULP = SQRT( ULP );
+      RTUNFL = sqrt( UNFL );
+      RTOVFL = sqrt( OVFL );
+      RTULP = sqrt( ULP );
       RTULPI = ONE / RTULP;
 
       // Loop over sizes, types
@@ -108,13 +108,13 @@
       for (JSIZE = 1; JSIZE <= NSIZES; JSIZE++) { // 270
          N = NN( JSIZE );
          if (N == 0) GO TO 270;
-         N1 = MAX( 1, N );
+         N1 = max( 1, N );
          ANINV = ONE / REAL( N1 );
 
          if ( NSIZES != 1 ) {
-            MTYPES = MIN( MAXTYP, NTYPES );
+            MTYPES = min( MAXTYP, NTYPES );
          } else {
-            MTYPES = MIN( MAXTYP+1, NTYPES );
+            MTYPES = min( MAXTYP+1, NTYPES );
          }
 
          for (JTYPE = 1; JTYPE <= MTYPES; JTYPE++) { // 260
@@ -363,10 +363,10 @@
             TEMP1 = ZERO;
             TEMP2 = ZERO;
             for (J = 1; J <= N; J++) { // 130
-               TEMP1 = MAX( TEMP1, ABS( WR1( J ) )+ABS( WI1( J ) ), ABS( WR2( J ) )+ABS( WI2( J ) ) )                TEMP2 = MAX( TEMP2, ABS( WR1( J )-WR2( J ) )+ ABS( WI1( J )-WI2( J ) ) );
+               TEMP1 = max( TEMP1, ABS( WR1( J ) )+ABS( WI1( J ) ), ABS( WR2( J ) )+ABS( WI2( J ) ) )                TEMP2 = max( TEMP2, ABS( WR1( J )-WR2( J ) )+ ABS( WI1( J )-WI2( J ) ) );
             } // 130
 
-            RESULT( 8 ) = TEMP2 / MAX( UNFL, ULP*MAX( TEMP1, TEMP2 ) );
+            RESULT( 8 ) = TEMP2 / max( UNFL, ULP*max( TEMP1, TEMP2 ) );
 
             // Compute the Left and Right Eigenvectors of T
 
@@ -382,7 +382,7 @@
             J = N;
             } // 140
             if ( WI1( J ) == ZERO ) {
-               if ( NSELR < MAX( N / 4, 1 ) ) {
+               if ( NSELR < max( N / 4, 1 ) ) {
                   NSELR = NSELR + 1;
                   SELECT( J ) = true;
                } else {
@@ -390,7 +390,7 @@
                }
                J = J - 1;
             } else {
-               if ( NSELC < MAX( N / 4, 1 ) ) {
+               if ( NSELC < max( N / 4, 1 ) ) {
                   NSELC = NSELC + 1;
                   SELECT( J ) = true;
                   SELECT( J-1 ) = false;

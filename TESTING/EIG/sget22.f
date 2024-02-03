@@ -79,10 +79,10 @@
                // Complex eigenvector
 
                for (J = 1; J <= N; J++) { // 10
-                  TEMP1 = MAX( TEMP1, ABS( E( J, JVEC ) )+ ABS( E( J, JVEC+1 ) ) );
+                  TEMP1 = max( TEMP1, ABS( E( J, JVEC ) )+ ABS( E( J, JVEC+1 ) ) );
                } // 10
-               ENRMIN = MIN( ENRMIN, TEMP1 );
-               ENRMAX = MAX( ENRMAX, TEMP1 );
+               ENRMIN = min( ENRMIN, TEMP1 );
+               ENRMAX = max( ENRMAX, TEMP1 );
                IPAIR = 2;
             } else if ( IPAIR == 2 ) {
                IPAIR = 0;
@@ -91,10 +91,10 @@
                // Real eigenvector
 
                for (J = 1; J <= N; J++) { // 20
-                  TEMP1 = MAX( TEMP1, ABS( E( J, JVEC ) ) );
+                  TEMP1 = max( TEMP1, ABS( E( J, JVEC ) ) );
                } // 20
-               ENRMIN = MIN( ENRMIN, TEMP1 );
-               ENRMAX = MAX( ENRMAX, TEMP1 );
+               ENRMIN = min( ENRMIN, TEMP1 );
+               ENRMAX = max( ENRMAX, TEMP1 );
                IPAIR = 0;
             }
          } // 30
@@ -112,30 +112,30 @@
             for (JVEC = 1; JVEC <= N; JVEC++) { // 50
                if( IPAIR == 0 && JVEC < N && WI( JVEC ) != ZERO ) IPAIR = 1;
                if ( IPAIR == 1 ) {
-                  WORK( JVEC ) = MAX( WORK( JVEC ), ABS( E( J, JVEC ) )+ABS( E( J, JVEC+1 ) ) );
+                  WORK( JVEC ) = max( WORK( JVEC ), ABS( E( J, JVEC ) )+ABS( E( J, JVEC+1 ) ) );
                   WORK( JVEC+1 ) = WORK( JVEC );
                } else if ( IPAIR == 2 ) {
                   IPAIR = 0;
                } else {
-                  WORK( JVEC ) = MAX( WORK( JVEC ), ABS( E( J, JVEC ) ) );
+                  WORK( JVEC ) = max( WORK( JVEC ), ABS( E( J, JVEC ) ) );
                   IPAIR = 0;
                }
             } // 50
          } // 60
 
          for (JVEC = 1; JVEC <= N; JVEC++) { // 70
-            ENRMIN = MIN( ENRMIN, WORK( JVEC ) );
-            ENRMAX = MAX( ENRMAX, WORK( JVEC ) );
+            ENRMIN = min( ENRMIN, WORK( JVEC ) );
+            ENRMAX = max( ENRMAX, WORK( JVEC ) );
          } // 70
       }
 
       // Norm of A:
 
-      ANORM = MAX( SLANGE( NORMA, N, N, A, LDA, WORK ), UNFL );
+      ANORM = max( SLANGE( NORMA, N, N, A, LDA, WORK ), UNFL );
 
       // Norm of E:
 
-      ENORM = MAX( SLANGE( NORME, N, N, E, LDE, WORK ), ULP );
+      ENORM = max( SLANGE( NORME, N, N, E, LDE, WORK ), ULP );
 
       // Norm of error:
 
@@ -186,13 +186,13 @@
          if ( ANORM < ONE ) {
             RESULT( 1 ) = ONE / ULP;
          } else {
-            RESULT( 1 ) = MIN( ERRNRM / ANORM, ONE ) / ULP;
+            RESULT( 1 ) = min( ERRNRM / ANORM, ONE ) / ULP;
          }
       }
 
       // Compute RESULT(2) : the normalization error in E.
 
-      RESULT( 2 ) = MAX( ABS( ENRMAX-ONE ), ABS( ENRMIN-ONE ) ) / ( REAL( N )*ULP );
+      RESULT( 2 ) = max( ABS( ENRMAX-ONE ), ABS( ENRMIN-ONE ) ) / ( REAL( N )*ULP );
 
       return;
 

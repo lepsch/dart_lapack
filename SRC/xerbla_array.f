@@ -28,7 +28,7 @@
       // ..
       // .. Executable Statements ..
       SRNAME = ' ';
-      DO I = 1, MIN( SRNAME_LEN, LEN( SRNAME ) );
+      DO I = 1, min( SRNAME_LEN, LEN( SRNAME ) );
          SRNAME( I:I ) = SRNAME_ARRAY( I );
       }
 

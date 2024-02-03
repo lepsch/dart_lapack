@@ -37,16 +37,16 @@
 
       INFO = 0;
       LQUERY = ( LWORK == -1 );
-      LWKMIN = MAX( 1, 2*N, 3*N-2 );
+      LWKMIN = max( 1, 2*N, 3*N-2 );
       if ( !LSAME( UPLO, 'U' ) && !LSAME( UPLO, 'L' ) ) {
          INFO = -1;
       } else if ( N < 0 ) {
          INFO = -2;
       } else if ( NRHS < 0 ) {
          INFO = -3;
-      } else if ( LDA < MAX( 1, N ) ) {
+      } else if ( LDA < max( 1, N ) ) {
          INFO = -5;
-      } else if ( LDB < MAX( 1, N ) ) {
+      } else if ( LDB < max( 1, N ) ) {
          INFO = -8;
       } else if ( LWORK < LWKMIN && !LQUERY ) {
          INFO = -10;
@@ -57,7 +57,7 @@
          LWKOPT_HETRF = INT( WORK( 1 ) );
          chetrs_aa(UPLO, N, NRHS, A, LDA, IPIV, B, LDB, WORK, -1, INFO );
          LWKOPT_HETRS = INT( WORK( 1 ) );
-         LWKOPT = MAX( LWKMIN, LWKOPT_HETRF, LWKOPT_HETRS );
+         LWKOPT = max( LWKMIN, LWKOPT_HETRF, LWKOPT_HETRS );
          WORK( 1 ) = SROUNDUP_LWORK( LWKOPT );
       }
 

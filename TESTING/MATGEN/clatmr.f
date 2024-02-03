@@ -109,10 +109,10 @@
          NPVTS = N;
       } else if ( LSAME( PIVTNG, 'B' ) ) {
          IPVTNG = 3;
-         NPVTS = MIN( N, M );
+         NPVTS = min( N, M );
       } else if ( LSAME( PIVTNG, 'F' ) ) {
          IPVTNG = 3;
-         NPVTS = MIN( N, M );
+         NPVTS = min( N, M );
       } else {
          IPVTNG = -1;
       }
@@ -161,9 +161,9 @@
 
       // Set certain internal parameters
 
-      MNMIN = MIN( M, N );
-      KLL = MIN( KL, M-1 );
-      KUU = MIN( KU, N-1 );
+      MNMIN = min( M, N );
+      KLL = min( KL, M-1 );
+      KUU = min( KU, N-1 );
 
       // If inv(DL) is used, check to see if DL has a zero entry.
 
@@ -225,7 +225,7 @@
          INFO = -22;
       } else if ( IPACK == -1 || ( ( IPACK == 1 || IPACK == 2 || IPACK == 5 || IPACK == 6 ) && ISYM == 1 ) || ( IPACK == 3 && ISYM == 1 && ( KL != 0 || M != N ) ) || ( IPACK == 4 && ISYM == 1 && ( KU != 0 || M != N ) ) ) {
          INFO = -24;
-      } else if ( ( ( IPACK == 0 || IPACK == 1 || IPACK == 2 ) && LDA < MAX( 1, M ) ) || ( ( IPACK == 3 || IPACK == 4 ) && LDA < 1 ) || ( ( IPACK == 5 || IPACK == 6 ) && LDA < KUU+1 ) || ( IPACK == 7 && LDA < KLL+KUU+1 ) ) {
+      } else if ( ( ( IPACK == 0 || IPACK == 1 || IPACK == 2 ) && LDA < max( 1, M ) ) || ( ( IPACK == 3 || IPACK == 4 ) && LDA < 1 ) || ( ( IPACK == 5 || IPACK == 6 ) && LDA < KUU+1 ) || ( IPACK == 7 && LDA < KLL+KUU+1 ) ) {
          INFO = -26;
       }
 
@@ -262,7 +262,7 @@
 
          TEMP = ABS( D( 1 ) );
          for (I = 2; I <= MNMIN; I++) { // 40
-            TEMP = MAX( TEMP, ABS( D( I ) ) );
+            TEMP = max( TEMP, ABS( D( I ) ) );
          } // 40
          if ( TEMP == ZERO && DMAX != CZERO ) {
             INFO = 2;
@@ -371,8 +371,8 @@
             for (J = 1; J <= N; J++) { // 170
                for (I = 1; I <= J; I++) { // 160
                   CTEMP = CLATM3( M, N, I, J, ISUB, JSUB, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE );
-                  MNSUB = MIN( ISUB, JSUB );
-                  MXSUB = MAX( ISUB, JSUB );
+                  MNSUB = min( ISUB, JSUB );
+                  MXSUB = max( ISUB, JSUB );
                   if ( MXSUB == ISUB && ISYM == 0 ) {
                      A( MNSUB, MXSUB ) = CONJG( CTEMP );
                   } else {
@@ -387,8 +387,8 @@
             for (J = 1; J <= N; J++) { // 190
                for (I = 1; I <= J; I++) { // 180
                   CTEMP = CLATM3( M, N, I, J, ISUB, JSUB, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE );
-                  MNSUB = MIN( ISUB, JSUB );
-                  MXSUB = MAX( ISUB, JSUB );
+                  MNSUB = min( ISUB, JSUB );
+                  MXSUB = max( ISUB, JSUB );
                   if ( MXSUB == JSUB && ISYM == 0 ) {
                      A( MXSUB, MNSUB ) = CONJG( CTEMP );
                   } else {
@@ -407,8 +407,8 @@
                   // Compute K = location of (ISUB,JSUB) entry in packed
                   // array
 
-                  MNSUB = MIN( ISUB, JSUB );
-                  MXSUB = MAX( ISUB, JSUB );
+                  MNSUB = min( ISUB, JSUB );
+                  MXSUB = max( ISUB, JSUB );
                   K = MXSUB*( MXSUB-1 ) / 2 + MNSUB;
 
                   // Convert K to (IISUB,JJSUB) location
@@ -432,8 +432,8 @@
 
                   // Compute K = location of (I,J) entry in packed array
 
-                  MNSUB = MIN( ISUB, JSUB );
-                  MXSUB = MAX( ISUB, JSUB );
+                  MNSUB = min( ISUB, JSUB );
+                  MXSUB = max( ISUB, JSUB );
                   if ( MNSUB == 1 ) {
                      K = MXSUB;
                   } else {
@@ -461,8 +461,8 @@
                      A( J-I+1, I+N ) = CZERO;
                   } else {
                      CTEMP = CLATM3( M, N, I, J, ISUB, JSUB, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE );
-                     MNSUB = MIN( ISUB, JSUB );
-                     MXSUB = MAX( ISUB, JSUB );
+                     MNSUB = min( ISUB, JSUB );
+                     MXSUB = max( ISUB, JSUB );
                      if ( MXSUB == JSUB && ISYM == 0 ) {
                         A( MXSUB-MNSUB+1, MNSUB ) = CONJG( CTEMP );
                      } else {
@@ -477,8 +477,8 @@
             for (J = 1; J <= N; J++) { // 270
                for (I = J - KUU; I <= J; I++) { // 260
                   CTEMP = CLATM3( M, N, I, J, ISUB, JSUB, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE );
-                  MNSUB = MIN( ISUB, JSUB );
-                  MXSUB = MAX( ISUB, JSUB );
+                  MNSUB = min( ISUB, JSUB );
+                  MXSUB = max( ISUB, JSUB );
                   if ( MXSUB == ISUB && ISYM == 0 ) {
                      A( MNSUB-MXSUB+KUU+1, MXSUB ) = CONJG( CTEMP );
                   } else {
@@ -493,8 +493,8 @@
                for (J = 1; J <= N; J++) { // 290
                   for (I = J - KUU; I <= J; I++) { // 280
                      CTEMP = CLATM3( M, N, I, J, ISUB, JSUB, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE );
-                     MNSUB = MIN( ISUB, JSUB );
-                     MXSUB = MAX( ISUB, JSUB );
+                     MNSUB = min( ISUB, JSUB );
+                     MXSUB = max( ISUB, JSUB );
                      if (I < 1) A( J-I+1+KUU, I+N ) = CZERO;
                      if ( MXSUB == ISUB && ISYM == 0 ) {
                         A( MNSUB-MXSUB+KUU+1, MXSUB ) = CONJG( CTEMP );

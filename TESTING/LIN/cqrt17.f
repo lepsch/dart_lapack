@@ -90,7 +90,7 @@
          if (NORMRS != ZERO) ERR = ERR / NORMRS;
       }
 
-      CQRT17 = ERR / ( SLAMCH( 'Epsilon' )*REAL( MAX( M, N, NRHS ) ) );
+      CQRT17 = ERR / ( SLAMCH( 'Epsilon' )*REAL( max( M, N, NRHS ) ) );
       return;
 
       // End of CQRT17

@@ -35,7 +35,7 @@
 
             // B > ZERO, always
 
-            TAU = TWO*C / ( B+SQRT( ABS( B*B-FOUR*C ) ) );
+            TAU = TWO*C / ( B+sqrt( ABS( B*B-FOUR*C ) ) );
             DLAM = D( 1 ) + TAU;
             DELTA( 1 ) = -Z( 1 ) / TAU;
             DELTA( 2 ) = Z( 2 ) / ( DEL-TAU );
@@ -43,15 +43,15 @@
             B = -DEL + RHO*( Z( 1 )*Z( 1 )+Z( 2 )*Z( 2 ) );
             C = RHO*Z( 2 )*Z( 2 )*DEL;
             if ( B > ZERO ) {
-               TAU = -TWO*C / ( B+SQRT( B*B+FOUR*C ) );
+               TAU = -TWO*C / ( B+sqrt( B*B+FOUR*C ) );
             } else {
-               TAU = ( B-SQRT( B*B+FOUR*C ) ) / TWO;
+               TAU = ( B-sqrt( B*B+FOUR*C ) ) / TWO;
             }
             DLAM = D( 2 ) + TAU;
             DELTA( 1 ) = -Z( 1 ) / ( DEL+TAU );
             DELTA( 2 ) = -Z( 2 ) / TAU;
          }
-         TEMP = SQRT( DELTA( 1 )*DELTA( 1 )+DELTA( 2 )*DELTA( 2 ) );
+         TEMP = sqrt( DELTA( 1 )*DELTA( 1 )+DELTA( 2 )*DELTA( 2 ) );
          DELTA( 1 ) = DELTA( 1 ) / TEMP;
          DELTA( 2 ) = DELTA( 2 ) / TEMP;
       } else {
@@ -61,14 +61,14 @@
          B = -DEL + RHO*( Z( 1 )*Z( 1 )+Z( 2 )*Z( 2 ) );
          C = RHO*Z( 2 )*Z( 2 )*DEL;
          if ( B > ZERO ) {
-            TAU = ( B+SQRT( B*B+FOUR*C ) ) / TWO;
+            TAU = ( B+sqrt( B*B+FOUR*C ) ) / TWO;
          } else {
-            TAU = TWO*C / ( -B+SQRT( B*B+FOUR*C ) );
+            TAU = TWO*C / ( -B+sqrt( B*B+FOUR*C ) );
          }
          DLAM = D( 2 ) + TAU;
          DELTA( 1 ) = -Z( 1 ) / ( DEL+TAU );
          DELTA( 2 ) = -Z( 2 ) / TAU;
-         TEMP = SQRT( DELTA( 1 )*DELTA( 1 )+DELTA( 2 )*DELTA( 2 ) );
+         TEMP = sqrt( DELTA( 1 )*DELTA( 1 )+DELTA( 2 )*DELTA( 2 ) );
          DELTA( 1 ) = DELTA( 1 ) / TEMP;
          DELTA( 2 ) = DELTA( 2 ) / TEMP;
       }

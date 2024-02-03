@@ -144,8 +144,8 @@
          GL = GERS( 2*IBEGIN-1 );
          GU = GERS( 2*IBEGIN );
          for (I = IBEGIN+1 ; I <= IEND; I++) { // 20
-            GL = MIN( GERS( 2*I-1 ), GL );
-            GU = MAX( GERS( 2*I ), GU );
+            GL = min( GERS( 2*I-1 ), GL );
+            GU = max( GERS( 2*I ), GU );
          } // 20
          SPDIAM = GU - GL;
 
@@ -291,10 +291,10 @@
                   // However, we only allow the gaps to become greater since
                   // this is what should happen when we decrease WERR
                   if ( OLDFST > 1) {
-                     WGAP( WBEGIN+OLDFST-2 ) = MAX(WGAP(WBEGIN+OLDFST-2), W(WBEGIN+OLDFST-1)-WERR(WBEGIN+OLDFST-1) - W(WBEGIN+OLDFST-2)-WERR(WBEGIN+OLDFST-2) );
+                     WGAP( WBEGIN+OLDFST-2 ) = max(WGAP(WBEGIN+OLDFST-2), W(WBEGIN+OLDFST-1)-WERR(WBEGIN+OLDFST-1) - W(WBEGIN+OLDFST-2)-WERR(WBEGIN+OLDFST-2) );
                   }
                   if ( WBEGIN + OLDLST -1 < WEND ) {
-                     WGAP( WBEGIN+OLDLST-1 ) = MAX(WGAP(WBEGIN+OLDLST-1), W(WBEGIN+OLDLST)-WERR(WBEGIN+OLDLST) - W(WBEGIN+OLDLST-1)-WERR(WBEGIN+OLDLST-1) );
+                     WGAP( WBEGIN+OLDLST-1 ) = max(WGAP(WBEGIN+OLDLST-1), W(WBEGIN+OLDLST)-WERR(WBEGIN+OLDLST) - W(WBEGIN+OLDLST-1)-WERR(WBEGIN+OLDLST-1) );
                   }
                   // Each time the eigenvalues in WORK get refined, we store
                   // the newly found approximation with all shifts applied in W
@@ -357,7 +357,7 @@
                      // in W might be of the same order so that gaps are not
                      // exhibited correctly for very close eigenvalues.
                      if ( NEWFST == 1 ) {
-                        LGAP = MAX( ZERO, W(WBEGIN)-WERR(WBEGIN) - VL );
+                        LGAP = max( ZERO, W(WBEGIN)-WERR(WBEGIN) - VL );
                     } else {
                         LGAP = WGAP( WBEGIN+NEWFST-2 );
                      }
@@ -440,8 +440,8 @@
 
                      K = NEWFST;
                      WINDEX = WBEGIN + K - 1;
-                     WINDMN = MAX(WINDEX - 1,1);
-                     WINDPL = MIN(WINDEX + 1,M);
+                     WINDMN = max(WINDEX - 1,1);
+                     WINDPL = min(WINDEX + 1,M);
                      LAMBDA = WORK( WINDEX );
                      DONE = DONE + 1;
                      // Check if eigenvector computation is to be skipped
@@ -464,11 +464,11 @@
                      if ( K == 1) {
                         // In the case RANGE='I' and with not much initial
                         // accuracy in LAMBDA and VL, the formula
-                        // LGAP = MAX( ZERO, (SIGMA - VL) + LAMBDA )
+                        // LGAP = max( ZERO, (SIGMA - VL) + LAMBDA )
                         // can lead to an overestimation of the left gap and
                         // thus to inadequately early RQI 'convergence'.
                         // Prevent this by forcing a small left gap.
-                        LGAP = EPS*MAX(ABS(LEFT),ABS(RIGHT));
+                        LGAP = EPS*max(ABS(LEFT),ABS(RIGHT));
                      } else {
                         LGAP = WGAP(WINDMN);
                      }
@@ -478,11 +478,11 @@
                         // can lead to an overestimation of the right gap and
                         // thus to inadequately early RQI 'convergence'.
                         // Prevent this by forcing a small right gap.
-                        RGAP = EPS*MAX(ABS(LEFT),ABS(RIGHT));
+                        RGAP = EPS*max(ABS(LEFT),ABS(RIGHT));
                      } else {
                         RGAP = WGAP(WINDEX);
                      }
-                     GAP = MIN( LGAP, RGAP );
+                     GAP = min( LGAP, RGAP );
                      if (( K == 1) || (K == IM)) {
                         // The eigenvector support can become wrong
                         // because significant entries could be cut off due to a
@@ -536,8 +536,8 @@
                         BSTRES = RESID;
                         BSTW = LAMBDA;
                      }
-                     ISUPMN = MIN(ISUPMN,ISUPPZ( 2*WINDEX-1 ));
-                     ISUPMX = MAX(ISUPMX,ISUPPZ( 2*WINDEX ));
+                     ISUPMN = min(ISUPMN,ISUPPZ( 2*WINDEX-1 ));
+                     ISUPMX = max(ISUPMX,ISUPPZ( 2*WINDEX ));
                      ITER = ITER + 1;
 
                      // sin alpha <= |resid|/gap
@@ -574,14 +574,14 @@
                               // as a bracket but to be modified if the RQCORR
                               // chooses to. In this case, the RIGHT side should
                               // be modified as follows:
-                               // RIGHT = MAX(RIGHT, LAMBDA + RQCORR)
+                               // RIGHT = max(RIGHT, LAMBDA + RQCORR)
                            } else {
                               // The current LAMBDA is on the right of the true
                               // eigenvalue
                               RIGHT = LAMBDA;
                               // See comment about assuming the error estimate is
                               // correct above.
-                               // LEFT = MIN(LEFT, LAMBDA + RQCORR)
+                               // LEFT = min(LEFT, LAMBDA + RQCORR)
                            }
                            WORK( WINDEX ) = HALF * (RIGHT + LEFT);
                            // Take RQCORR since it has the correct sign and
@@ -650,10 +650,10 @@
                      // to WERR being too crude.)
                      if ( !ESKIP) {
                         if ( K > 1) {
-                           WGAP( WINDMN ) = MAX( WGAP(WINDMN), W(WINDEX)-WERR(WINDEX) - W(WINDMN)-WERR(WINDMN) );
+                           WGAP( WINDMN ) = max( WGAP(WINDMN), W(WINDEX)-WERR(WINDEX) - W(WINDMN)-WERR(WINDMN) );
                         }
                         if ( WINDEX < WEND ) {
-                           WGAP( WINDEX ) = MAX( SAVGAP, W( WINDPL )-WERR( WINDPL ) - W( WINDEX )-WERR( WINDEX) );
+                           WGAP( WINDEX ) = max( SAVGAP, W( WINDPL )-WERR( WINDPL ) - W( WINDEX )-WERR( WINDEX) );
                         }
                      }
                      IDONE = IDONE + 1;

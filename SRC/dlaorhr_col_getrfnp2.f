@@ -41,7 +41,7 @@
          INFO = -1;
       } else if ( N < 0 ) {
          INFO = -2;
-      } else if ( LDA < MAX( 1, M ) ) {
+      } else if ( LDA < max( 1, M ) ) {
          INFO = -4;
       }
       if ( INFO != 0 ) {
@@ -51,7 +51,7 @@
 
       // Quick return if possible
 
-      if( MIN( M, N ) == 0 ) return;
+      if( min( M, N ) == 0 ) return;
 
       if ( M == 1 ) {
 
@@ -99,7 +99,7 @@
 
          // Divide the matrix B into four submatrices
 
-         N1 = MIN( M, N ) / 2;
+         N1 = min( M, N ) / 2;
          N2 = N-N1;
 
 

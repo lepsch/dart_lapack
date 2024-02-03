@@ -106,7 +106,7 @@
          }
          SUM = 2*SUM;
          dlassq(N, A, LDA+1, SCALE, SUM );
-         VALUE = SCALE*SQRT( SUM );
+         VALUE = SCALE*sqrt( SUM );
       }
 
       DLANSY = VALUE;

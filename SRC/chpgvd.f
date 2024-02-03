@@ -105,9 +105,9 @@
 
       chpgst(ITYPE, UPLO, N, AP, BP, INFO );
       chpevd(JOBZ, UPLO, N, AP, W, Z, LDZ, WORK, LWORK, RWORK, LRWORK, IWORK, LIWORK, INFO );
-      LWMIN = INT( MAX( REAL( LWMIN ), REAL( WORK( 1 ) ) ) );
-      LRWMIN = INT( MAX( REAL( LRWMIN ), REAL( RWORK( 1 ) ) ) );
-      LIWMIN = INT( MAX( REAL( LIWMIN ), REAL( IWORK( 1 ) ) ) );
+      LWMIN = INT( max( REAL( LWMIN ), REAL( WORK( 1 ) ) ) );
+      LRWMIN = INT( max( REAL( LRWMIN ), REAL( RWORK( 1 ) ) ) );
+      LIWMIN = INT( max( REAL( LIWMIN ), REAL( IWORK( 1 ) ) ) );
 
       if ( WANTZ ) {
 

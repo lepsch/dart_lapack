@@ -40,19 +40,19 @@
       LQUERY = ( LWORK == -1 );
       if ( N < 0 ) {
          INFO = -1;
-      } else if ( ILO < 1 || ILO > MAX( 1, N ) ) {
+      } else if ( ILO < 1 || ILO > max( 1, N ) ) {
          INFO = -2;
-      } else if ( IHI < MIN( ILO, N ) || IHI > N ) {
+      } else if ( IHI < min( ILO, N ) || IHI > N ) {
          INFO = -3;
-      } else if ( LDA < MAX( 1, N ) ) {
+      } else if ( LDA < max( 1, N ) ) {
          INFO = -5;
-      } else if ( LWORK < MAX( 1, NH ) && !LQUERY ) {
+      } else if ( LWORK < max( 1, NH ) && !LQUERY ) {
          INFO = -8;
       }
 
       if ( INFO == 0 ) {
          NB = ILAENV( 1, 'DORGQR', ' ', NH, NH, NH, -1 );
-         LWKOPT = MAX( 1, NH )*NB;
+         LWKOPT = max( 1, NH )*NB;
          WORK( 1 ) = LWKOPT;
       }
 

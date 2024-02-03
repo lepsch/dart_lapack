@@ -75,7 +75,7 @@
                }
             } // 10
          } // 20
-         if (I == 1) SMIN = MAX( EPS*XMAX, SMLNUM );
+         if (I == 1) SMIN = max( EPS*XMAX, SMLNUM );
 
          // Swap rows
 

@@ -66,7 +66,7 @@
       BADNN = false;
       NMAX = 1;
       for (J = 1; J <= NSIZES; J++) { // 10
-         NMAX = MAX( NMAX, NN( J ) );
+         NMAX = max( NMAX, NN( J ) );
          if( NN( J ) < 0 ) BADNN = true;
       } // 10
 
@@ -95,9 +95,9 @@
 
       MINWRK = 1;
       if ( INFO == 0 && LWORK >= 1 ) {
-         MINWRK = MAX( 1, 8*NMAX, NMAX*( NMAX+1 ) );
+         MINWRK = max( 1, 8*NMAX, NMAX*( NMAX+1 ) );
          MAXWRK = 7*NMAX + NMAX*ILAENV( 1, 'SGEQRF', ' ', NMAX, 1, NMAX, 0 );
-         MAXWRK = MAX( MAXWRK, NMAX*( NMAX+1 ) );
+         MAXWRK = max( MAXWRK, NMAX*( NMAX+1 ) );
          WORK( 1 ) = MAXWRK;
       }
 
@@ -131,14 +131,14 @@
 
       for (JSIZE = 1; JSIZE <= NSIZES; JSIZE++) { // 220
          N = NN( JSIZE );
-         N1 = MAX( 1, N );
+         N1 = max( 1, N );
          RMAGN( 2 ) = SAFMAX*ULP / REAL( N1 );
          RMAGN( 3 ) = SAFMIN*ULPINV*N1;
 
          if ( NSIZES != 1 ) {
-            MTYPES = MIN( MAXTYP, NTYPES );
+            MTYPES = min( MAXTYP, NTYPES );
          } else {
-            MTYPES = MIN( MAXTYP+1, NTYPES );
+            MTYPES = min( MAXTYP+1, NTYPES );
          }
 
          for (JTYPE = 1; JTYPE <= MTYPES; JTYPE++) { // 210

@@ -119,14 +119,14 @@
 
             MM = M*M;
             TT = T*T;
-            S = SQRT( TT+MM );
+            S = sqrt( TT+MM );
 
             // Note that 1 <= S <= 1 + 1/macheps
 
             if ( L == ZERO ) {
                R = ABS( M );
             } else {
-               R = SQRT( L*L+MM );
+               R = sqrt( L*L+MM );
             }
 
             // Note that 0 <= R <= 1 + 1/macheps
@@ -149,7 +149,7 @@
             } else {
                T = ( M / ( S+T )+M / ( R+L ) )*( ONE+A );
             }
-            L = SQRT( T*T+FOUR );
+            L = sqrt( T*T+FOUR );
             CRT = TWO / L;
             SRT = T / L;
             CLT = ( CRT+SRT*M ) / A;

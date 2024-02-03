@@ -85,7 +85,7 @@
       // the remaining shifts are paired.
 
       NS = NSHIFTS-MOD( NSHIFTS, 2 );
-      NPOS = MAX( NBLOCK_DESIRED-NS, 1 );
+      NPOS = max( NBLOCK_DESIRED-NS, 1 );
 
       // The following block introduces the shifts and chases
       // them down one by one just enough to make space for
@@ -155,7 +155,7 @@
 
       K = ILO;
       DO WHILE ( K < IHI-NS );
-         NP = MIN( IHI-NS-K, NPOS );
+         NP = min( IHI-NS-K, NPOS );
          // Size of the near-the-diagonal block
          NBLOCK = NS+NP;
          // istartb points to the first row we will be updating

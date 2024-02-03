@@ -35,7 +35,7 @@
          INFO = -4;
       } else if ( LDAB < 2*KL+KU+1 ) {
          INFO = -6;
-      } else if ( LDB < MAX( N, 1 ) ) {
+      } else if ( LDB < max( N, 1 ) ) {
          INFO = -9;
       }
       if ( INFO != 0 ) {

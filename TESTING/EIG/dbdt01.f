@@ -59,7 +59,7 @@
                } // 10
                WORK( M+N ) = D( N )*PT( N, J );
                dgemv('No transpose', M, N, -ONE, Q, LDQ, WORK( M+1 ), 1, ONE, WORK, 1 );
-               RESID = MAX( RESID, DASUM( M, WORK, 1 ) );
+               RESID = max( RESID, DASUM( M, WORK, 1 ) );
             } // 20
          } else if ( KD < 0 ) {
 
@@ -72,7 +72,7 @@
                } // 30
                WORK( M+M ) = D( M )*PT( M, J );
                dgemv('No transpose', M, M, -ONE, Q, LDQ, WORK( M+1 ), 1, ONE, WORK, 1 );
-               RESID = MAX( RESID, DASUM( M, WORK, 1 ) );
+               RESID = max( RESID, DASUM( M, WORK, 1 ) );
             } // 40
          } else {
 
@@ -85,7 +85,7 @@
                   WORK( M+I ) = E( I-1 )*PT( I-1, J ) + D( I )*PT( I, J );
                } // 50
                dgemv('No transpose', M, M, -ONE, Q, LDQ, WORK( M+1 ), 1, ONE, WORK, 1 );
-               RESID = MAX( RESID, DASUM( M, WORK, 1 ) );
+               RESID = max( RESID, DASUM( M, WORK, 1 ) );
             } // 60
          }
       } else {
@@ -99,7 +99,7 @@
                   WORK( M+I ) = D( I )*PT( I, J );
                } // 70
                dgemv('No transpose', M, N, -ONE, Q, LDQ, WORK( M+1 ), 1, ONE, WORK, 1 );
-               RESID = MAX( RESID, DASUM( M, WORK, 1 ) );
+               RESID = max( RESID, DASUM( M, WORK, 1 ) );
             } // 80
          } else {
             for (J = 1; J <= N; J++) { // 100
@@ -108,7 +108,7 @@
                   WORK( M+I ) = D( I )*PT( I, J );
                } // 90
                dgemv('No transpose', M, M, -ONE, Q, LDQ, WORK( M+1 ), 1, ONE, WORK, 1 );
-               RESID = MAX( RESID, DASUM( M, WORK, 1 ) );
+               RESID = max( RESID, DASUM( M, WORK, 1 ) );
             } // 100
          }
       }
@@ -125,9 +125,9 @@
             RESID = ( RESID / ANORM ) / ( DBLE( N )*EPS );
          } else {
             if ( ANORM < ONE ) {
-               RESID = ( MIN( RESID, DBLE( N )*ANORM ) / ANORM ) / ( DBLE( N )*EPS );
+               RESID = ( min( RESID, DBLE( N )*ANORM ) / ANORM ) / ( DBLE( N )*EPS );
             } else {
-               RESID = MIN( RESID / ANORM, DBLE( N ) ) / ( DBLE( N )*EPS );
+               RESID = min( RESID / ANORM, DBLE( N ) ) / ( DBLE( N )*EPS );
             }
          }
       }

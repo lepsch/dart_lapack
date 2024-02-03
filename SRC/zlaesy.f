@@ -62,8 +62,8 @@
 
          BABS = ABS( B );
          TABS = ABS( T );
-         Z = MAX( BABS, TABS );
-         if (Z > ZERO) T = Z*SQRT( ( T / Z )**2+( B / Z )**2 );
+         Z = max( BABS, TABS );
+         if (Z > ZERO) T = Z*sqrt( ( T / Z )**2+( B / Z )**2 );
 
          // Compute the two eigenvalues.  RT1 and RT2 are exchanged
          // if necessary so that RT1 will have the greater magnitude.
@@ -84,9 +84,9 @@
          SN1 = ( RT1-A ) / B;
          TABS = ABS( SN1 );
          if ( TABS > ONE ) {
-            T = TABS*SQRT( ( ONE / TABS )**2+( SN1 / TABS )**2 );
+            T = TABS*sqrt( ( ONE / TABS )**2+( SN1 / TABS )**2 );
          } else {
-            T = SQRT( CONE+SN1*SN1 );
+            T = sqrt( CONE+SN1*SN1 );
          }
          EVNORM = ABS( T );
          if ( EVNORM >= THRESH ) {

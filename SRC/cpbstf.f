@@ -57,7 +57,7 @@
 
       if (N == 0) return;
 
-      KLD = MAX( 1, LDAB-1 );
+      KLD = max( 1, LDAB-1 );
 
       // Set the splitting point m.
 
@@ -76,9 +76,9 @@
                AB( KD+1, J ) = AJJ;
                GO TO 50;
             }
-            AJJ = SQRT( AJJ );
+            AJJ = sqrt( AJJ );
             AB( KD+1, J ) = AJJ;
-            KM = MIN( J-1, KD );
+            KM = min( J-1, KD );
 
             // Compute elements j-km:j-1 of the j-th column and update the
             // the leading submatrix within the band.
@@ -98,9 +98,9 @@
                AB( KD+1, J ) = AJJ;
                GO TO 50;
             }
-            AJJ = SQRT( AJJ );
+            AJJ = sqrt( AJJ );
             AB( KD+1, J ) = AJJ;
-            KM = MIN( KD, M-J );
+            KM = min( KD, M-J );
 
             // Compute elements j+1:j+km of the j-th row and update the
             // trailing submatrix within the band.
@@ -125,9 +125,9 @@
                AB( 1, J ) = AJJ;
                GO TO 50;
             }
-            AJJ = SQRT( AJJ );
+            AJJ = sqrt( AJJ );
             AB( 1, J ) = AJJ;
-            KM = MIN( J-1, KD );
+            KM = min( J-1, KD );
 
             // Compute elements j-km:j-1 of the j-th row and update the
             // trailing submatrix within the band.
@@ -149,9 +149,9 @@
                AB( 1, J ) = AJJ;
                GO TO 50;
             }
-            AJJ = SQRT( AJJ );
+            AJJ = sqrt( AJJ );
             AB( 1, J ) = AJJ;
-            KM = MIN( KD, M-J );
+            KM = min( KD, M-J );
 
             // Compute elements j+1:j+km of the j-th column and update the
             // trailing submatrix within the band.

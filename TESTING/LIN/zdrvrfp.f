@@ -82,8 +82,8 @@
       for (IIN = 1; IIN <= NN; IIN++) { // 130
 
          N = NVAL( IIN );
-         LDA = MAX( N, 1 );
-         LDB = MAX( N, 1 );
+         LDA = max( N, 1 );
+         LDB = max( N, 1 );
 
          for (IIS = 1; IIS <= NNS; IIS++) { // 980
 

@@ -299,9 +299,9 @@
          } else if ( C3 == 'SYL' ) {
             // The upper bound is to prevent overly aggressive scaling.
             if ( SNAME ) {
-               NB = MIN( MAX( 48, INT( ( MIN( N1, N2 ) * 16 ) / 100) ), 240 );
+               NB = min( max( 48, INT( ( min( N1, N2 ) * 16 ) / 100) ), 240 );
             } else {
-               NB = MIN( MAX( 24, INT( ( MIN( N1, N2 ) * 8 ) / 100) ), 80 );
+               NB = min( max( 24, INT( ( min( N1, N2 ) * 8 ) / 100) ), 80 );
             }
          }
       } else if ( C2 == 'LA' ) {
@@ -494,7 +494,7 @@
 
       // ISPEC = 6:  crossover point for SVD (used by xGELSS and xGESVD)
 
-      ILAENV = INT( REAL( MIN( N1, N2 ) )*1.6 );
+      ILAENV = INT( REAL( min( N1, N2 ) )*1.6 );
       return;
 
       } // 110

@@ -68,7 +68,7 @@
       ANORM = ZLANGE( '1', M, K, A, LDA, RWORK );
       RESID = ZLANGE( '1', N, K, R, LDA, RWORK );
       if ( ANORM > ZERO ) {
-         RESULT( 1 ) = ( ( RESID / DBLE( MAX( 1, M ) ) ) / ANORM ) / EPS;
+         RESULT( 1 ) = ( ( RESID / DBLE( max( 1, M ) ) ) / ANORM ) / EPS;
       } else {
          RESULT( 1 ) = ZERO;
       }
@@ -82,7 +82,7 @@
 
       RESID = ZLANSY( '1', 'Upper', N, R, LDA, RWORK );
 
-      RESULT( 2 ) = ( RESID / DBLE( MAX( 1, M ) ) ) / EPS;
+      RESULT( 2 ) = ( RESID / DBLE( max( 1, M ) ) ) / EPS;
 
       return;
 

@@ -51,7 +51,7 @@
 
       // EPSIN = 2**(-24) = precision to which input data computed
 
-      EPS = MAX( EPS, EPSIN );
+      EPS = max( EPS, EPSIN );
       RMAX( 1 ) = ZERO;
       RMAX( 2 ) = ZERO;
       RMAX( 3 ) = ZERO;
@@ -63,9 +63,9 @@
       NINFO( 2 ) = 0;
       NINFO( 3 ) = 0;
 
-      VAL( 1 ) = SQRT( SMLNUM );
+      VAL( 1 ) = sqrt( SMLNUM );
       VAL( 2 ) = ONE;
-      VAL( 3 ) = SQRT( SQRT( BIGNUM ) );
+      VAL( 3 ) = sqrt( sqrt( BIGNUM ) );
 
       // Read input data until N=0.  Assume input eigenvalues are sorted
       // lexicographically (increasing by real part, then decreasing by
@@ -164,7 +164,7 @@
          // Compute residuals
 
          shst01(N, 1, N, TSAV, LDT, T, LDT, Q, LDT, WORK, LWORK, RESULT );
-         VMAX = MAX( RESULT( 1 ), RESULT( 2 ) );
+         VMAX = max( RESULT( 1 ), RESULT( 2 ) );
          if ( VMAX > RMAX( 1 ) ) {
             RMAX( 1 ) = VMAX;
             if( NINFO( 1 ) == 0 ) LMAX( 1 ) = KNT;
@@ -173,7 +173,7 @@
          // Compare condition number for eigenvalue cluster
          // taking its condition number into account
 
-         V = MAX( TWO*REAL( N )*EPS*TNRM, SMLNUM );
+         V = max( TWO*REAL( N )*EPS*TNRM, SMLNUM );
          if (TNRM == ZERO) V = ONE;
          if ( V > SEPTMP ) {
             TOL = ONE;
@@ -185,8 +185,8 @@
          } else {
             TOLIN = V / SEPIN;
          }
-         TOL = MAX( TOL, SMLNUM / EPS );
-         TOLIN = MAX( TOLIN, SMLNUM / EPS );
+         TOL = max( TOL, SMLNUM / EPS );
+         TOLIN = max( TOLIN, SMLNUM / EPS );
          if ( EPS*( SIN-TOLIN ) > STMP+TOL ) {
             VMAX = ONE / EPS;
          } else if ( SIN-TOLIN > STMP+TOL ) {
@@ -216,8 +216,8 @@
          } else {
             TOLIN = V / SIN;
          }
-         TOL = MAX( TOL, SMLNUM / EPS );
-         TOLIN = MAX( TOLIN, SMLNUM / EPS );
+         TOL = max( TOL, SMLNUM / EPS );
+         TOLIN = max( TOLIN, SMLNUM / EPS );
          if ( EPS*( SEPIN-TOLIN ) > SEPTMP+TOL ) {
             VMAX = ONE / EPS;
          } else if ( SEPIN-TOLIN > SEPTMP+TOL ) {

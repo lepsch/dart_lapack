@@ -35,7 +35,7 @@
          INFO = -1;
       } else if ( N < 0 ) {
          INFO = -2;
-      } else if ( LDA < MAX( 1, M ) ) {
+      } else if ( LDA < max( 1, M ) ) {
          INFO = -4;
       }
       if ( INFO < 0 ) {
@@ -51,7 +51,7 @@
 
             // Generate elementary reflector H(i) to annihilate A(i+1:m,i)
 
-            dlarfg(M-I+1, A( I, I ), A( MIN( I+1, M ), I ), 1, TAUQ( I ) );
+            dlarfg(M-I+1, A( I, I ), A( min( I+1, M ), I ), 1, TAUQ( I ) );
             D( I ) = A( I, I );
             A( I, I ) = ONE;
 
@@ -65,7 +65,7 @@
                // Generate elementary reflector G(i) to annihilate
                // A(i,i+2:n)
 
-               dlarfg(N-I, A( I, I+1 ), A( I, MIN( I+2, N ) ), LDA, TAUP( I ) );
+               dlarfg(N-I, A( I, I+1 ), A( I, min( I+2, N ) ), LDA, TAUP( I ) );
                E( I ) = A( I, I+1 );
                A( I, I+1 ) = ONE;
 
@@ -85,7 +85,7 @@
 
             // Generate elementary reflector G(i) to annihilate A(i,i+1:n)
 
-            dlarfg(N-I+1, A( I, I ), A( I, MIN( I+1, N ) ), LDA, TAUP( I ) );
+            dlarfg(N-I+1, A( I, I ), A( I, min( I+1, N ) ), LDA, TAUP( I ) );
             D( I ) = A( I, I );
             A( I, I ) = ONE;
 
@@ -99,7 +99,7 @@
                // Generate elementary reflector H(i) to annihilate
                // A(i+2:m,i)
 
-               dlarfg(M-I, A( I+1, I ), A( MIN( I+2, M ), I ), 1, TAUQ( I ) );
+               dlarfg(M-I, A( I+1, I ), A( min( I+2, M ), I ), 1, TAUQ( I ) );
                E( I ) = A( I+1, I );
                A( I+1, I ) = ONE;
 

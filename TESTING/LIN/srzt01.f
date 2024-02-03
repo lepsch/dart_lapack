@@ -70,7 +70,7 @@
 
       SRZT01 = SLANGE( 'One-norm', M, N, WORK, M, RWORK );
 
-      SRZT01 = SRZT01 / ( SLAMCH( 'Epsilon' )*REAL( MAX( M, N ) ) );
+      SRZT01 = SRZT01 / ( SLAMCH( 'Epsilon' )*REAL( max( M, N ) ) );
       if (NORMA != ZERO) SRZT01 = SRZT01 / NORMA;
 
       return;

@@ -83,7 +83,7 @@
       }
 
       RCOND = ZERO;
-      SMLNUM = DLAMCH( 'Safe minimum' )*DBLE( MAX( N, 1 ) );
+      SMLNUM = DLAMCH( 'Safe minimum' )*DBLE( max( N, 1 ) );
 
       // Compute the 1-norm of the triangular matrix A or A**H.
 

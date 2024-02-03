@@ -93,7 +93,7 @@
       // Check Argument Values
 
       INFO = 0;
-      WORK( 1 ) = MAX( 1, N );
+      WORK( 1 ) = max( 1, N );
       LQUERY = ( LWORK == -1 );
       if ( ISCHUR == 0 ) {
          INFO = -1;
@@ -115,7 +115,7 @@
          INFO = -14;
       } else if ( LDZ < 1 || ( ILZ && LDZ < N ) ) {
          INFO = -16;
-      } else if ( LWORK < MAX( 1, N ) && !LQUERY ) {
+      } else if ( LWORK < max( 1, N ) && !LQUERY ) {
          INFO = -18;
       }
       if ( INFO != 0 ) {
@@ -145,10 +145,10 @@
       ULP = DLAMCH( 'E' )*DLAMCH( 'B' );
       ANORM = ZLANHS( 'F', IN, H( ILO, ILO ), LDH, RWORK );
       BNORM = ZLANHS( 'F', IN, T( ILO, ILO ), LDT, RWORK );
-      ATOL = MAX( SAFMIN, ULP*ANORM );
-      BTOL = MAX( SAFMIN, ULP*BNORM );
-      ASCALE = ONE / MAX( SAFMIN, ANORM );
-      BSCALE = ONE / MAX( SAFMIN, BNORM );
+      ATOL = max( SAFMIN, ULP*ANORM );
+      BTOL = max( SAFMIN, ULP*BNORM );
+      ASCALE = ONE / max( SAFMIN, ANORM );
+      BSCALE = ONE / max( SAFMIN, BNORM );
 
 
       // Set Eigenvalues IHI+1:N
@@ -220,7 +220,7 @@
          if ( ILAST == ILO ) {
             GO TO 60;
          } else {
-            if ( ABS1( H( ILAST, ILAST-1 ) ) <= MAX( SAFMIN, ULP*(  ABS1( H( ILAST, ILAST ) ) + ABS1( H( ILAST-1, ILAST-1 ) ) ) ) ) {
+            if ( ABS1( H( ILAST, ILAST-1 ) ) <= max( SAFMIN, ULP*(  ABS1( H( ILAST, ILAST ) ) + ABS1( H( ILAST-1, ILAST-1 ) ) ) ) ) {
                H( ILAST, ILAST-1 ) = CZERO;
                GO TO 60;
             }
@@ -240,7 +240,7 @@
             if ( J == ILO ) {
                ILAZRO = true;
             } else {
-               if ( ABS1( H( J, J-1 ) ) <= MAX( SAFMIN, ULP*(  ABS1( H( J, J ) ) + ABS1( H( J-1, J-1 ) ) ) ) ) {
+               if ( ABS1( H( J, J-1 ) ) <= max( SAFMIN, ULP*(  ABS1( H( J, J ) ) + ABS1( H( J-1, J-1 ) ) ) ) ) {
                   H( J, J-1 ) = CZERO;
                   ILAZRO = true;
                } else {
@@ -398,13 +398,13 @@
             ABI12 = AD12 - U12*AD11;
 
             SHIFT = ABI22;
-            CTEMP = SQRT( ABI12 )*SQRT( AD21 );
+            CTEMP = sqrt( ABI12 )*sqrt( AD21 );
             TEMP = ABS1( CTEMP );
             if ( CTEMP != ZERO ) {
                X = HALF*( AD11-SHIFT );
                TEMP2 = ABS1( X );
-               TEMP = MAX( TEMP, ABS1( X ) );
-               Y = TEMP*SQRT( ( X / TEMP )**2+( CTEMP / TEMP )**2 );
+               TEMP = max( TEMP, ABS1( X ) );
+               Y = TEMP*sqrt( ( X / TEMP )**2+( CTEMP / TEMP )**2 );
                if ( TEMP2 > ZERO ) {
                   if( DBLE( X / TEMP2 )*DBLE( Y )+ DIMAG( X / TEMP2 )*DIMAG( Y ) < ZERO )Y = -Y;
                }
@@ -429,7 +429,7 @@
             CTEMP = ASCALE*H( J, J ) - SHIFT*( BSCALE*T( J, J ) );
             TEMP = ABS1( CTEMP );
             TEMP2 = ASCALE*ABS1( H( J+1, J ) );
-            TEMPR = MAX( TEMP, TEMP2 );
+            TEMPR = max( TEMP, TEMP2 );
             if ( TEMPR < ONE && TEMPR != ZERO ) {
                TEMP = TEMP / TEMPR;
                TEMP2 = TEMP2 / TEMPR;
@@ -477,7 +477,7 @@
             zlartg(CTEMP, T( J+1, J ), C, S, T( J+1, J+1 ) );
             T( J+1, J ) = CZERO;
 
-            DO 120 JR = IFRSTM, MIN( J+2, ILAST );
+            DO 120 JR = IFRSTM, min( J+2, ILAST );
                CTEMP = C*H( JR, J+1 ) + S*H( JR, J );
                H( JR, J ) = -DCONJG( S )*H( JR, J+1 ) + C*H( JR, J );
                H( JR, J+1 ) = CTEMP;

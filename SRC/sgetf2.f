@@ -42,7 +42,7 @@
          INFO = -1;
       } else if ( N < 0 ) {
          INFO = -2;
-      } else if ( LDA < MAX( 1, M ) ) {
+      } else if ( LDA < max( 1, M ) ) {
          INFO = -4;
       }
       if ( INFO != 0 ) {
@@ -58,7 +58,7 @@
 
       SFMIN = SLAMCH('S');
 
-      DO 10 J = 1, MIN( M, N );
+      DO 10 J = 1, min( M, N );
 
          // Find pivot and test for singularity.
 
@@ -87,7 +87,7 @@
             INFO = J;
          }
 
-         if ( J < MIN( M, N ) ) {
+         if ( J < min( M, N ) ) {
 
             // Update trailing submatrix.
 

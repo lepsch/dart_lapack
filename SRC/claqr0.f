@@ -113,8 +113,8 @@
          // .    NWR >= 4.) ====
 
          NWR = ILAENV( 13, 'CLAQR0', JBCMPZ, N, ILO, IHI, LWORK );
-         NWR = MAX( 2, NWR );
-         NWR = MIN( IHI-ILO+1, ( N-1 ) / 3, NWR );
+         NWR = max( 2, NWR );
+         NWR = min( IHI-ILO+1, ( N-1 ) / 3, NWR );
 
          // ==== NSR = recommended number of simultaneous shifts.
          // .    At this point N > NTINY = 15, so there is at
@@ -122,8 +122,8 @@
          // .    and greater than or equal to two as required. ====
 
          NSR = ILAENV( 15, 'CLAQR0', JBCMPZ, N, ILO, IHI, LWORK );
-         NSR = MIN( NSR, ( N-3 ) / 6, IHI-ILO );
-         NSR = MAX( 2, NSR-MOD( NSR, 2 ) );
+         NSR = min( NSR, ( N-3 ) / 6, IHI-ILO );
+         NSR = max( 2, NSR-MOD( NSR, 2 ) );
 
          // ==== Estimate optimal workspace ====
 
@@ -131,9 +131,9 @@
 
          claqr3(WANTT, WANTZ, N, ILO, IHI, NWR+1, H, LDH, ILOZ, IHIZ, Z, LDZ, LS, LD, W, H, LDH, N, H, LDH, N, H, LDH, WORK, -1 );
 
-         // ==== Optimal workspace = MAX(CLAQR5, CLAQR3) ====
+         // ==== Optimal workspace = max(CLAQR5, CLAQR3) ====
 
-         LWKOPT = MAX( 3*NSR / 2, INT( WORK( 1 ) ) );
+         LWKOPT = max( 3*NSR / 2, INT( WORK( 1 ) ) );
 
          // ==== Quick return in case of workspace query. ====
 
@@ -145,30 +145,30 @@
          // ==== CLAHQR/CLAQR0 crossover point ====
 
          NMIN = ILAENV( 12, 'CLAQR0', JBCMPZ, N, ILO, IHI, LWORK );
-         NMIN = MAX( NTINY, NMIN );
+         NMIN = max( NTINY, NMIN );
 
          // ==== Nibble crossover point ====
 
          NIBBLE = ILAENV( 14, 'CLAQR0', JBCMPZ, N, ILO, IHI, LWORK );
-         NIBBLE = MAX( 0, NIBBLE );
+         NIBBLE = max( 0, NIBBLE );
 
          // ==== Accumulate reflections during ttswp?  Use block
          // .    2-by-2 structure during matrix-matrix multiply? ====
 
          KACC22 = ILAENV( 16, 'CLAQR0', JBCMPZ, N, ILO, IHI, LWORK );
-         KACC22 = MAX( 0, KACC22 );
-         KACC22 = MIN( 2, KACC22 );
+         KACC22 = max( 0, KACC22 );
+         KACC22 = min( 2, KACC22 );
 
          // ==== NWMAX = the largest possible deflation window for
          // .    which there is sufficient workspace. ====
 
-         NWMAX = MIN( ( N-1 ) / 3, LWORK / 2 );
+         NWMAX = min( ( N-1 ) / 3, LWORK / 2 );
          NW = NWMAX;
 
          // ==== NSMAX = the Largest number of simultaneous shifts
          // .    for which there is sufficient workspace. ====
 
-         NSMAX = MIN( ( N-3 ) / 6, 2*LWORK / 3 );
+         NSMAX = min( ( N-3 ) / 6, 2*LWORK / 3 );
          NSMAX = NSMAX - MOD( NSMAX, 2 );
 
          // ==== NDFL: an iteration count restarted at deflation. ====
@@ -177,7 +177,7 @@
 
          // ==== ITMAX = iteration limit ====
 
-         ITMAX = MAX( 30, 2*KEXSH )*MAX( 10, ( IHI-ILO+1 ) );
+         ITMAX = max( 30, 2*KEXSH )*max( 10, ( IHI-ILO+1 ) );
 
          // ==== Last row and column in the active block ====
 
@@ -203,8 +203,8 @@
             // ==== Select deflation window size:
             // .    Typical Case:
             // .      If possible and advisable, nibble the entire
-            // .      active block.  If not, use size MIN(NWR,NWMAX)
-            // .      or MIN(NWR+1,NWMAX) depending upon which has
+            // .      active block.  If not, use size min(NWR,NWMAX)
+            // .      or min(NWR+1,NWMAX) depending upon which has
             // .      the smaller corresponding subdiagonal entry
             // .      (a heuristic).
             // .
@@ -217,11 +217,11 @@
             // .      Then, gradually reduce the window size. ====
 
             NH = KBOT - KTOP + 1;
-            NWUPBD = MIN( NH, NWMAX );
+            NWUPBD = min( NH, NWMAX );
             if ( NDFL < KEXNW ) {
-               NW = MIN( NWUPBD, NWR );
+               NW = min( NWUPBD, NWR );
             } else {
-               NW = MIN( NWUPBD, 2*NW );
+               NW = min( NWUPBD, 2*NW );
             }
             if ( NW < NWMAX ) {
                if ( NW >= NH-1 ) {
@@ -274,13 +274,13 @@
             // .    skipped if many eigenvalues have just been deflated
             // .    or if the remaining active block is small.
 
-            if ( ( LD == 0 ) || ( ( 100*LD <= NW*NIBBLE ) && ( KBOT- KTOP+1 > MIN( NMIN, NWMAX ) ) ) ) {
+            if ( ( LD == 0 ) || ( ( 100*LD <= NW*NIBBLE ) && ( KBOT- KTOP+1 > min( NMIN, NWMAX ) ) ) ) {
 
                // ==== NS = nominal number of simultaneous shifts.
                // .    This may be lowered (slightly) if CLAQR3
                // .    did not provide that many shifts. ====
 
-               NS = MIN( NSMAX, NSR, MAX( 2, KBOT-KTOP ) );
+               NS = min( NSMAX, NSR, max( 2, KBOT-KTOP ) );
                NS = NS - MOD( NS, 2 );
 
                // ==== If there have been no deflations
@@ -330,7 +330,7 @@
                         DD = H( KBOT, KBOT ) / S;
                         TR2 = ( AA+DD ) / TWO;
                         DET = ( AA-TR2 )*( DD-TR2 ) - BB*CC;
-                        RTDISC = SQRT( -DET );
+                        RTDISC = sqrt( -DET );
                         W( KBOT-1 ) = ( TR2+RTDISC )*S;
                         W( KBOT ) = ( TR2-RTDISC )*S;
 
@@ -375,7 +375,7 @@
                // .    then use them all, possibly dropping one to
                // .    make the number of shifts even. ====
 
-               NS = MIN( NS, KBOT-KS+1 );
+               NS = min( NS, KBOT-KS+1 );
                NS = NS - MOD( NS, 2 );
                KS = KBOT - NS + 1;
 

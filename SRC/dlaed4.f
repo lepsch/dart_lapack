@@ -101,9 +101,9 @@
                A = -C*DEL + Z( N-1 )*Z( N-1 ) + Z( N )*Z( N );
                B = Z( N )*Z( N )*DEL;
                if ( A < ZERO ) {
-                  TAU = TWO*B / ( SQRT( A*A+FOUR*B*C )-A );
+                  TAU = TWO*B / ( sqrt( A*A+FOUR*B*C )-A );
                } else {
-                  TAU = ( A+SQRT( A*A+FOUR*B*C ) ) / ( TWO*C );
+                  TAU = ( A+sqrt( A*A+FOUR*B*C ) ) / ( TWO*C );
                }
             }
 
@@ -117,9 +117,9 @@
             A = -C*DEL + Z( N-1 )*Z( N-1 ) + Z( N )*Z( N );
             B = Z( N )*Z( N )*DEL;
             if ( A < ZERO ) {
-               TAU = TWO*B / ( SQRT( A*A+FOUR*B*C )-A );
+               TAU = TWO*B / ( sqrt( A*A+FOUR*B*C )-A );
             } else {
-               TAU = ( A+SQRT( A*A+FOUR*B*C ) ) / ( TWO*C );
+               TAU = ( A+sqrt( A*A+FOUR*B*C ) ) / ( TWO*C );
             }
 
             // It can be proved that
@@ -163,9 +163,9 @@
          }
 
          if ( W <= ZERO ) {
-            DLTLB = MAX( DLTLB, TAU );
+            DLTLB = max( DLTLB, TAU );
          } else {
-            DLTUB = MIN( DLTUB, TAU );
+            DLTUB = min( DLTUB, TAU );
          }
 
          // Calculate the new step
@@ -183,9 +183,9 @@
             // Update proposed by Li, Ren-Cang:
             ETA = -W / ( DPSI+DPHI );
          } else if ( A >= ZERO ) {
-            ETA = ( A+SQRT( ABS( A*A-FOUR*B*C ) ) ) / ( TWO*C );
+            ETA = ( A+sqrt( ABS( A*A-FOUR*B*C ) ) ) / ( TWO*C );
          } else {
-            ETA = TWO*B / ( A-SQRT( ABS( A*A-FOUR*B*C ) ) );
+            ETA = TWO*B / ( A-sqrt( ABS( A*A-FOUR*B*C ) ) );
          }
 
          // Note, eta should be positive if w is negative, and
@@ -245,9 +245,9 @@
             }
 
             if ( W <= ZERO ) {
-               DLTLB = MAX( DLTLB, TAU );
+               DLTLB = max( DLTLB, TAU );
             } else {
-               DLTUB = MIN( DLTUB, TAU );
+               DLTUB = min( DLTUB, TAU );
             }
 
             // Calculate the new step
@@ -256,9 +256,9 @@
             A = ( DELTA( N-1 )+DELTA( N ) )*W - DELTA( N-1 )*DELTA( N )*( DPSI+DPHI );
             B = DELTA( N-1 )*DELTA( N )*W;
             if ( A >= ZERO ) {
-               ETA = ( A+SQRT( ABS( A*A-FOUR*B*C ) ) ) / ( TWO*C );
+               ETA = ( A+sqrt( ABS( A*A-FOUR*B*C ) ) ) / ( TWO*C );
             } else {
-               ETA = TWO*B / ( A-SQRT( ABS( A*A-FOUR*B*C ) ) );
+               ETA = TWO*B / ( A-sqrt( ABS( A*A-FOUR*B*C ) ) );
             }
 
             // Note, eta should be positive if w is negative, and
@@ -350,9 +350,9 @@
             A = C*DEL + Z( I )*Z( I ) + Z( IP1 )*Z( IP1 );
             B = Z( I )*Z( I )*DEL;
             if ( A > ZERO ) {
-               TAU = TWO*B / ( A+SQRT( ABS( A*A-FOUR*B*C ) ) );
+               TAU = TWO*B / ( A+sqrt( ABS( A*A-FOUR*B*C ) ) );
             } else {
-               TAU = ( A-SQRT( ABS( A*A-FOUR*B*C ) ) ) / ( TWO*C );
+               TAU = ( A-sqrt( ABS( A*A-FOUR*B*C ) ) ) / ( TWO*C );
             }
             DLTLB = ZERO;
             DLTUB = MIDPT;
@@ -366,9 +366,9 @@
             A = C*DEL - Z( I )*Z( I ) - Z( IP1 )*Z( IP1 );
             B = Z( IP1 )*Z( IP1 )*DEL;
             if ( A < ZERO ) {
-               TAU = TWO*B / ( A-SQRT( ABS( A*A+FOUR*B*C ) ) );
+               TAU = TWO*B / ( A-sqrt( ABS( A*A+FOUR*B*C ) ) );
             } else {
-               TAU = -( A+SQRT( ABS( A*A+FOUR*B*C ) ) ) / ( TWO*C );
+               TAU = -( A+sqrt( ABS( A*A+FOUR*B*C ) ) ) / ( TWO*C );
             }
             DLTLB = -MIDPT;
             DLTUB = ZERO;
@@ -446,9 +446,9 @@
          }
 
          if ( W <= ZERO ) {
-            DLTLB = MAX( DLTLB, TAU );
+            DLTLB = max( DLTLB, TAU );
          } else {
-            DLTUB = MIN( DLTUB, TAU );
+            DLTUB = min( DLTUB, TAU );
          }
 
          // Calculate the new step
@@ -472,9 +472,9 @@
                }
                ETA = B / A;
             } else if ( A <= ZERO ) {
-               ETA = ( A-SQRT( ABS( A*A-FOUR*B*C ) ) ) / ( TWO*C );
+               ETA = ( A-sqrt( ABS( A*A-FOUR*B*C ) ) ) / ( TWO*C );
             } else {
-               ETA = TWO*B / ( A+SQRT( ABS( A*A-FOUR*B*C ) ) );
+               ETA = TWO*B / ( A+sqrt( ABS( A*A-FOUR*B*C ) ) );
             }
          } else {
 
@@ -576,9 +576,9 @@
             }
 
             if ( W <= ZERO ) {
-               DLTLB = MAX( DLTLB, TAU );
+               DLTLB = max( DLTLB, TAU );
             } else {
-               DLTUB = MIN( DLTUB, TAU );
+               DLTUB = min( DLTUB, TAU );
             }
 
             // Calculate the new step
@@ -615,9 +615,9 @@
                   }
                   ETA = B / A;
                } else if ( A <= ZERO ) {
-                  ETA = ( A-SQRT( ABS( A*A-FOUR*B*C ) ) ) / ( TWO*C );
+                  ETA = ( A-sqrt( ABS( A*A-FOUR*B*C ) ) ) / ( TWO*C );
                } else {
-                  ETA = TWO*B / ( A+SQRT( ABS( A*A-FOUR*B*C ) ) );
+                  ETA = TWO*B / ( A+sqrt( ABS( A*A-FOUR*B*C ) ) );
                }
             } else {
 

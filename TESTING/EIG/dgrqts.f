@@ -43,8 +43,8 @@
       dlacpy('Full', M, N, A, LDA, AF, LDA );
       dlacpy('Full', P, N, B, LDB, BF, LDB );
 
-      ANORM = MAX( DLANGE( '1', M, N, A, LDA, RWORK ), UNFL );
-      BNORM = MAX( DLANGE( '1', P, N, B, LDB, RWORK ), UNFL );
+      ANORM = max( DLANGE( '1', M, N, A, LDA, RWORK ), UNFL );
+      BNORM = max( DLANGE( '1', P, N, B, LDB, RWORK ), UNFL );
 
       // Factorize the matrices A and B in the arrays AF and BF.
 
@@ -59,13 +59,13 @@
       } else {
          if (N > 1) CALL DLACPY( 'Lower', N-1, N-1, AF( M-N+2, 1 ), LDA, Q( 2, 1 ), LDA );
       }
-      dorgrq(N, N, MIN( M, N ), Q, LDA, TAUA, WORK, LWORK, INFO );
+      dorgrq(N, N, min( M, N ), Q, LDA, TAUA, WORK, LWORK, INFO );
 
       // Generate the P-by-P matrix Z
 
       dlaset('Full', P, P, ROGUE, ROGUE, Z, LDB );
       if (P > 1) CALL DLACPY( 'Lower', P-1, N, BF( 2, 1 ), LDB, Z( 2, 1 ), LDB );
-      dorgqr(P, P, MIN( P, N ), Z, LDB, TAUB, WORK, LWORK, INFO );
+      dorgqr(P, P, min( P, N ), Z, LDB, TAUB, WORK, LWORK, INFO );
 
       // Copy R
 
@@ -86,11 +86,11 @@
 
       dgemm('No transpose', 'Transpose', M, N, N, -ONE, A, LDA, Q, LDA, ONE, R, LDA );
 
-      // Compute norm( R - A*Q' ) / ( MAX(M,N)*norm(A)*ULP ) .
+      // Compute norm( R - A*Q' ) / ( max(M,N)*norm(A)*ULP ) .
 
       RESID = DLANGE( '1', M, N, R, LDA, RWORK );
       if ( ANORM > ZERO ) {
-         RESULT( 1 ) = ( ( RESID / DBLE( MAX( 1, M, N ) ) ) / ANORM ) / ULP;
+         RESULT( 1 ) = ( ( RESID / DBLE( max( 1, M, N ) ) ) / ANORM ) / ULP;
       } else {
          RESULT( 1 ) = ZERO;
       }
@@ -99,11 +99,11 @@
 
       dgemm('Transpose', 'No transpose', P, N, P, ONE, Z, LDB, B, LDB, ZERO, BWK, LDB )       CALL DGEMM( 'No transpose', 'No transpose', P, N, N, ONE, T, LDB, Q, LDA, -ONE, BWK, LDB );
 
-      // Compute norm( T*Q - Z'*B ) / ( MAX(P,N)*norm(A)*ULP ) .
+      // Compute norm( T*Q - Z'*B ) / ( max(P,N)*norm(A)*ULP ) .
 
       RESID = DLANGE( '1', P, N, BWK, LDB, RWORK );
       if ( BNORM > ZERO ) {
-         RESULT( 2 ) = ( ( RESID / DBLE( MAX( 1, P, M ) ) ) / BNORM ) / ULP;
+         RESULT( 2 ) = ( ( RESID / DBLE( max( 1, P, M ) ) ) / BNORM ) / ULP;
       } else {
          RESULT( 2 ) = ZERO;
       }
@@ -116,7 +116,7 @@
       // Compute norm( I - Q'*Q ) / ( N * ULP ) .
 
       RESID = DLANSY( '1', 'Upper', N, R, LDA, RWORK );
-      RESULT( 3 ) = ( RESID / DBLE( MAX( 1, N ) ) ) / ULP;
+      RESULT( 3 ) = ( RESID / DBLE( max( 1, N ) ) ) / ULP;
 
       // Compute I - Z'*Z
 
@@ -126,7 +126,7 @@
       // Compute norm( I - Z'*Z ) / ( P*ULP ) .
 
       RESID = DLANSY( '1', 'Upper', P, T, LDB, RWORK );
-      RESULT( 4 ) = ( RESID / DBLE( MAX( 1, P ) ) ) / ULP;
+      RESULT( 4 ) = ( RESID / DBLE( max( 1, P ) ) ) / ULP;
 
       return;
 

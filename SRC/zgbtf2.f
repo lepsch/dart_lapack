@@ -65,7 +65,7 @@
 
       // Set fill-in elements in columns KU+2 to KV to zero.
 
-      DO 20 J = KU + 2, MIN( KV, N );
+      DO 20 J = KU + 2, min( KV, N );
          for (I = KV - J + 2; I <= KL; I++) { // 10
             AB( I, J ) = ZERO;
          } // 10
@@ -76,7 +76,7 @@
 
       JU = 1;
 
-      DO 40 J = 1, MIN( M, N );
+      DO 40 J = 1, min( M, N );
 
          // Set fill-in elements in column J+KV to zero.
 
@@ -89,11 +89,11 @@
          // Find pivot and test for singularity. KM is the number of
          // subdiagonal elements in the current column.
 
-         KM = MIN( KL, M-J );
+         KM = min( KL, M-J );
          JP = IZAMAX( KM+1, AB( KV+1, J ), 1 );
          IPIV( J ) = JP + J - 1;
          if ( AB( KV+JP, J ) != ZERO ) {
-            JU = MAX( JU, MIN( J+KU+JP-1, N ) );
+            JU = max( JU, min( J+KU+JP-1, N ) );
 
             // Apply interchange to columns J to JU.
 

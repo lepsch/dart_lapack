@@ -46,7 +46,7 @@
          // special cases
 
          if ( SEST == ZERO ) {
-            S1 = MAX( ABSGAM, ABSALP );
+            S1 = max( ABSGAM, ABSALP );
             if ( S1 == ZERO ) {
                S = ZERO;
                C = ONE;
@@ -54,7 +54,7 @@
             } else {
                S = ALPHA / S1;
                C = GAMMA / S1;
-               TMP = SQRT( S*S+C*C );
+               TMP = sqrt( S*S+C*C );
                S = S / TMP;
                C = C / TMP;
                SESTPR = S1*TMP;
@@ -63,10 +63,10 @@
          } else if ( ABSGAM <= EPS*ABSEST ) {
             S = ONE;
             C = ZERO;
-            TMP = MAX( ABSEST, ABSALP );
+            TMP = max( ABSEST, ABSALP );
             S1 = ABSEST / TMP;
             S2 = ABSALP / TMP;
-            SESTPR = TMP*SQRT( S1*S1+S2*S2 );
+            SESTPR = TMP*sqrt( S1*S1+S2*S2 );
             return;
          } else if ( ABSALP <= EPS*ABSEST ) {
             S1 = ABSGAM;
@@ -86,13 +86,13 @@
             S2 = ABSALP;
             if ( S1 <= S2 ) {
                TMP = S1 / S2;
-               S = SQRT( ONE+TMP*TMP );
+               S = sqrt( ONE+TMP*TMP );
                SESTPR = S2*S;
                C = ( GAMMA / S2 ) / S;
                S = SIGN( ONE, ALPHA ) / S;
             } else {
                TMP = S2 / S1;
-               C = SQRT( ONE+TMP*TMP );
+               C = sqrt( ONE+TMP*TMP );
                SESTPR = S1*C;
                S = ( ALPHA / S1 ) / C;
                C = SIGN( ONE, GAMMA ) / C;
@@ -108,17 +108,17 @@
             B = ( ONE-ZETA1*ZETA1-ZETA2*ZETA2 )*HALF;
             C = ZETA1*ZETA1;
             if ( B > ZERO ) {
-               T = C / ( B+SQRT( B*B+C ) );
+               T = C / ( B+sqrt( B*B+C ) );
             } else {
-               T = SQRT( B*B+C ) - B;
+               T = sqrt( B*B+C ) - B;
             }
 
             SINE = -ZETA1 / T;
             COSINE = -ZETA2 / ( ONE+T );
-            TMP = SQRT( SINE*SINE+COSINE*COSINE );
+            TMP = sqrt( SINE*SINE+COSINE*COSINE );
             S = SINE / TMP;
             C = COSINE / TMP;
-            SESTPR = SQRT( T+ONE )*ABSEST;
+            SESTPR = sqrt( T+ONE )*ABSEST;
             return;
          }
 
@@ -130,17 +130,17 @@
 
          if ( SEST == ZERO ) {
             SESTPR = ZERO;
-            if ( MAX( ABSGAM, ABSALP ) == ZERO ) {
+            if ( max( ABSGAM, ABSALP ) == ZERO ) {
                SINE = ONE;
                COSINE = ZERO;
             } else {
                SINE = -GAMMA;
                COSINE = ALPHA;
             }
-            S1 = MAX( ABS( SINE ), ABS( COSINE ) );
+            S1 = max( ABS( SINE ), ABS( COSINE ) );
             S = SINE / S1;
             C = COSINE / S1;
-            TMP = SQRT( S*S+C*C );
+            TMP = sqrt( S*S+C*C );
             S = S / TMP;
             C = C / TMP;
             return;
@@ -167,13 +167,13 @@
             S2 = ABSALP;
             if ( S1 <= S2 ) {
                TMP = S1 / S2;
-               C = SQRT( ONE+TMP*TMP );
+               C = sqrt( ONE+TMP*TMP );
                SESTPR = ABSEST*( TMP / C );
                S = -( GAMMA / S2 ) / C;
                C = SIGN( ONE, ALPHA ) / C;
             } else {
                TMP = S2 / S1;
-               S = SQRT( ONE+TMP*TMP );
+               S = sqrt( ONE+TMP*TMP );
                SESTPR = ABSEST / S;
                C = ( ALPHA / S1 ) / S;
                S = -SIGN( ONE, GAMMA ) / S;
@@ -186,7 +186,7 @@
             ZETA1 = ALPHA / ABSEST;
             ZETA2 = GAMMA / ABSEST;
 
-            NORMA = MAX( ONE+ZETA1*ZETA1+ABS( ZETA1*ZETA2 ), ABS( ZETA1*ZETA2 )+ZETA2*ZETA2 );
+            NORMA = max( ONE+ZETA1*ZETA1+ABS( ZETA1*ZETA2 ), ABS( ZETA1*ZETA2 )+ZETA2*ZETA2 );
 
             // See if root is closer to zero or to ONE
 
@@ -197,10 +197,10 @@
 
                B = ( ZETA1*ZETA1+ZETA2*ZETA2+ONE )*HALF;
                C = ZETA2*ZETA2;
-               T = C / ( B+SQRT( ABS( B*B-C ) ) );
+               T = C / ( B+sqrt( ABS( B*B-C ) ) );
                SINE = ZETA1 / ( ONE-T );
                COSINE = -ZETA2 / T;
-               SESTPR = SQRT( T+FOUR*EPS*EPS*NORMA )*ABSEST;
+               SESTPR = sqrt( T+FOUR*EPS*EPS*NORMA )*ABSEST;
             } else {
 
                // root is closer to ONE, shift by that amount
@@ -208,15 +208,15 @@
                B = ( ZETA2*ZETA2+ZETA1*ZETA1-ONE )*HALF;
                C = ZETA1*ZETA1;
                if ( B >= ZERO ) {
-                  T = -C / ( B+SQRT( B*B+C ) );
+                  T = -C / ( B+sqrt( B*B+C ) );
                } else {
-                  T = B - SQRT( B*B+C );
+                  T = B - sqrt( B*B+C );
                }
                SINE = -ZETA1 / T;
                COSINE = -ZETA2 / ( ONE+T );
-               SESTPR = SQRT( ONE+T+FOUR*EPS*EPS*NORMA )*ABSEST;
+               SESTPR = sqrt( ONE+T+FOUR*EPS*EPS*NORMA )*ABSEST;
             }
-            TMP = SQRT( SINE*SINE+COSINE*COSINE );
+            TMP = sqrt( SINE*SINE+COSINE*COSINE );
             S = SINE / TMP;
             C = COSINE / TMP;
             return;

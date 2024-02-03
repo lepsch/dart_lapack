@@ -86,7 +86,7 @@
          // Do for each value of N in NVAL
 
          N = NVAL( IN );
-         LDA = MAX( 1, N );
+         LDA = max( 1, N );
          XTYPE = 'N';
          NIMAT = NTYPE1;
          NIMAT2 = NTYPES;
@@ -95,7 +95,7 @@
             NIMAT2 = NTYPE1 + 1;
          }
 
-         NK = MIN( N+1, 4 );
+         NK = min( N+1, 4 );
          for (IK = 1; IK <= NK; IK++) { // 130
 
             // Do for KD = 0, N, (3N-1)/4, and (N+1)/4. This order makes
@@ -104,7 +104,7 @@
             if ( IK == 1 ) {
                KD = 0;
             } else if ( IK == 2 ) {
-               KD = MAX( N, 0 );
+               KD = max( N, 0 );
             } else if ( IK == 3 ) {
                KD = ( 3*N-1 ) / 4;
             } else if ( IK == 4 ) {

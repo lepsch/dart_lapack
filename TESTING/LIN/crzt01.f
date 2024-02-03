@@ -70,7 +70,7 @@
 
       CRZT01 = CLANGE( 'One-norm', M, N, WORK, M, RWORK );
 
-      CRZT01 = CRZT01 / ( SLAMCH( 'Epsilon' )*REAL( MAX( M, N ) ) );
+      CRZT01 = CRZT01 / ( SLAMCH( 'Epsilon' )*REAL( max( M, N ) ) );
       if (NORMA != ZERO) CRZT01 = CRZT01 / NORMA;
 
       return;

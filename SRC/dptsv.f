@@ -28,7 +28,7 @@
          INFO = -1;
       } else if ( NRHS < 0 ) {
          INFO = -2;
-      } else if ( LDB < MAX( 1, N ) ) {
+      } else if ( LDB < max( 1, N ) ) {
          INFO = -6;
       }
       if ( INFO != 0 ) {

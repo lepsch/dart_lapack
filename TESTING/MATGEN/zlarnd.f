@@ -51,12 +51,12 @@
 
          // real and imaginary parts each normal (0,1)
 
-         ZLARND = SQRT( -TWO*LOG( T1 ) )*EXP( DCMPLX( ZERO, TWOPI*T2 ) );
+         ZLARND = sqrt( -TWO*LOG( T1 ) )*EXP( DCMPLX( ZERO, TWOPI*T2 ) );
       } else if ( IDIST == 4 ) {
 
          // uniform distribution on the unit disc abs(z) <= 1
 
-         ZLARND = SQRT( T1 )*EXP( DCMPLX( ZERO, TWOPI*T2 ) );
+         ZLARND = sqrt( T1 )*EXP( DCMPLX( ZERO, TWOPI*T2 ) );
       } else if ( IDIST == 5 ) {
 
          // uniform distribution on the unit circle abs(z) = 1

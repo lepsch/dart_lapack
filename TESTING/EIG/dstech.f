@@ -57,9 +57,9 @@
 
       MX = ABS( EIG( 1 ) );
       for (I = 2; I <= N; I++) { // 10
-         MX = MAX( MX, ABS( EIG( I ) ) );
+         MX = max( MX, ABS( EIG( I ) ) );
       } // 10
-      EPS = MAX( EPS*MX, UNFLEP );
+      EPS = max( EPS*MX, UNFLEP );
 
       // Sort eigenvalues from EIG into WORK
 

@@ -36,15 +36,15 @@
 
       if ( K < 0 ) {
          INFO = -1;
-      } else if ( KSTART < 1 || KSTART > MAX( 1, K ) ) {
+      } else if ( KSTART < 1 || KSTART > max( 1, K ) ) {
          INFO = -2;
-      } else if ( MAX( 1, KSTOP ) < KSTART || KSTOP > MAX( 1, K ) ) {
+      } else if ( max( 1, KSTOP ) < KSTART || KSTOP > max( 1, K ) ) {
          INFO = -3;
       } else if ( N < K ) {
          INFO = -4;
-      } else if ( LDQ < MAX( 1, K ) ) {
+      } else if ( LDQ < max( 1, K ) ) {
          INFO = -7;
-      } else if ( LDS < MAX( 1, K ) ) {
+      } else if ( LDS < max( 1, K ) ) {
          INFO = -12;
       }
       if ( INFO != 0 ) {
@@ -89,7 +89,7 @@
          } // 60
       } // 70
       for (I = 1; I <= K; I++) { // 80
-         W( I ) = SIGN( SQRT( -W( I ) ), S( I, 1 ) );
+         W( I ) = SIGN( sqrt( -W( I ) ), S( I, 1 ) );
       } // 80
 
       // Compute eigenvectors of the modified rank-1 modification.

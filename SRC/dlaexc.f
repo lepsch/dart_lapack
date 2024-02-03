@@ -94,7 +94,7 @@
 
          EPS = DLAMCH( 'P' );
          SMLNUM = DLAMCH( 'S' ) / EPS;
-         THRESH = MAX( TEN*EPS*DNORM, SMLNUM );
+         THRESH = max( TEN*EPS*DNORM, SMLNUM );
 
          // Solve T11*X - X*T22 = scale*T12 for X.
 
@@ -125,7 +125,7 @@
 
          // Test whether to reject swap.
 
-         if( MAX( ABS( D( 3, 1 ) ), ABS( D( 3, 2 ) ), ABS( D( 3, 3 )-T11 ) ) > THRESH )GO TO 50;
+         if( max( ABS( D( 3, 1 ) ), ABS( D( 3, 2 ) ), ABS( D( 3, 3 )-T11 ) ) > THRESH )GO TO 50;
 
          // Accept swap: apply transformation to the entire matrix T.
 
@@ -166,7 +166,7 @@
 
          // Test whether to reject swap.
 
-         if( MAX( ABS( D( 2, 1 ) ), ABS( D( 3, 1 ) ), ABS( D( 1, 1 )-T33 ) ) > THRESH )GO TO 50;
+         if( max( ABS( D( 2, 1 ) ), ABS( D( 3, 1 ) ), ABS( D( 1, 1 )-T33 ) ) > THRESH )GO TO 50;
 
          // Accept swap: apply transformation to the entire matrix T.
 
@@ -217,7 +217,7 @@
 
          // Test whether to reject swap.
 
-         if( MAX( ABS( D( 3, 1 ) ), ABS( D( 3, 2 ) ), ABS( D( 4, 1 ) ), ABS( D( 4, 2 ) ) ) > THRESH )GO TO 50;
+         if( max( ABS( D( 3, 1 ) ), ABS( D( 3, 2 ) ), ABS( D( 4, 1 ) ), ABS( D( 4, 2 ) ) ) > THRESH )GO TO 50;
 
          // Accept swap: apply transformation to the entire matrix T.
 

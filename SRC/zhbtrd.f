@@ -60,7 +60,7 @@
          INFO = -4;
       } else if ( LDAB < KD1 ) {
          INFO = -6;
-      } else if ( LDQ < MAX( 1, N ) && WANTQ ) {
+      } else if ( LDQ < max( 1, N ) && WANTQ ) {
          INFO = -10;
       }
       if ( INFO != 0 ) {
@@ -83,7 +83,7 @@
       // stored in the arrays D and WORK.
 
       INCA = KD1*LDAB;
-      KDN = MIN( N-1, KD );
+      KDN = min( N-1, KD );
       if ( UPPER ) {
 
          if ( KD > 1 ) {
@@ -177,7 +177,7 @@
                               zrot(KD-1, AB( KD-1, JIN+1 ), INCX, AB( KD, JIN+1 ), INCX, D( JIN ), WORK( JIN ) );
                            } // 40
                         }
-                        LEND = MIN( KDM1, N-J2 );
+                        LEND = min( KDM1, N-J2 );
                         LAST = J1END + KD1;
                         if (LEND > 0) CALL ZROT( LEND, AB( KD-1, LAST+1 ), INCX, AB( KD, LAST+1 ), INCX, D( LAST ), WORK( LAST ) );
                      }
@@ -192,17 +192,17 @@
                   // take advantage of the fact that Q was
                   // initially the Identity matrix
 
-                        IQEND = MAX( IQEND, J2 );
-                        I2 = MAX( 0, K-3 );
+                        IQEND = max( IQEND, J2 );
+                        I2 = max( 0, K-3 );
                         IQAEND = 1 + I*KD;
                         if (K == 2) IQAEND = IQAEND + KD;
-                        IQAEND = MIN( IQAEND, IQEND );
+                        IQAEND = min( IQAEND, IQEND );
                         DO 50 J = J1, J2, KD1;
                            IBL = I - I2 / KDM1;
                            I2 = I2 + 1;
-                           IQB = MAX( 1, J-IBL );
+                           IQB = max( 1, J-IBL );
                            NQ = 1 + IQAEND - IQB;
-                           IQAEND = MIN( IQAEND+KD, IQEND );
+                           IQAEND = min( IQAEND+KD, IQEND );
                            zrot(NQ, Q( IQB, J-1 ), 1, Q( IQB, J ), 1, D( J ), DCONJG( WORK( J ) ) );
                         } // 50
                      } else {
@@ -360,7 +360,7 @@
                               zrot(KDM1, AB( 3, J1INC-1 ), 1, AB( 2, J1INC ), 1, D( J1INC ), WORK( J1INC ) );
                            } // 160
                         }
-                        LEND = MIN( KDM1, N-J2 );
+                        LEND = min( KDM1, N-J2 );
                         LAST = J1END + KD1;
                         if (LEND > 0) CALL ZROT( LEND, AB( 3, LAST-1 ), 1, AB( 2, LAST ), 1, D( LAST ), WORK( LAST ) );
                      }
@@ -377,17 +377,17 @@
                   // take advantage of the fact that Q was
                   // initially the Identity matrix
 
-                        IQEND = MAX( IQEND, J2 );
-                        I2 = MAX( 0, K-3 );
+                        IQEND = max( IQEND, J2 );
+                        I2 = max( 0, K-3 );
                         IQAEND = 1 + I*KD;
                         if (K == 2) IQAEND = IQAEND + KD;
-                        IQAEND = MIN( IQAEND, IQEND );
+                        IQAEND = min( IQAEND, IQEND );
                         DO 170 J = J1, J2, KD1;
                            IBL = I - I2 / KDM1;
                            I2 = I2 + 1;
-                           IQB = MAX( 1, J-IBL );
+                           IQB = max( 1, J-IBL );
                            NQ = 1 + IQAEND - IQB;
-                           IQAEND = MIN( IQAEND+KD, IQEND );
+                           IQAEND = min( IQAEND+KD, IQEND );
                            zrot(NQ, Q( IQB, J-1 ), 1, Q( IQB, J ), 1, D( J ), WORK( J ) );
                         } // 170
                      } else {

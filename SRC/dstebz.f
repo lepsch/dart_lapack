@@ -78,9 +78,9 @@
          INFO = -3;
       } else if ( IRANGE == 2 ) {
          if ( VL >= VU ) INFO = -5;
-      ELSE IF( IRANGE == 3 && ( IL < 1 || IL > MAX( 1, N ) ) ) {
+      ELSE IF( IRANGE == 3 && ( IL < 1 || IL > max( 1, N ) ) ) {
          INFO = -6;
-      } else if ( IRANGE == 3 && ( IU < MIN( N, IL ) || IU > N ) ) {
+      } else if ( IRANGE == 3 && ( IU < min( N, IL ) || IU > N ) ) {
          INFO = -7;
       }
 
@@ -143,7 +143,7 @@
             WORK( J-1 ) = ZERO;
          } else {
             WORK( J-1 ) = TMP1;
-            PIVMIN = MAX( PIVMIN, TMP1 );
+            PIVMIN = max( PIVMIN, TMP1 );
          }
       } // 10
       ISPLIT( NSPLIT ) = N;
@@ -164,15 +164,15 @@
          TMP1 = ZERO;
 
          for (J = 1; J <= N - 1; J++) { // 20
-            TMP2 = SQRT( WORK( J ) );
-            GU = MAX( GU, D( J )+TMP1+TMP2 );
-            GL = MIN( GL, D( J )-TMP1-TMP2 );
+            TMP2 = sqrt( WORK( J ) );
+            GU = max( GU, D( J )+TMP1+TMP2 );
+            GL = min( GL, D( J )-TMP1-TMP2 );
             TMP1 = TMP2;
          } // 20
 
-         GU = MAX( GU, D( N )+TMP1 );
-         GL = MIN( GL, D( N )-TMP1 );
-         TNORM = MAX( ABS( GL ), ABS( GU ) );
+         GU = max( GU, D( N )+TMP1 );
+         GL = min( GL, D( N )-TMP1 );
+         TNORM = max( ABS( GL ), ABS( GU ) );
          GL = GL - FUDGE*TNORM*ULP*N - FUDGE*TWO*PIVMIN;
          GU = GU + FUDGE*TNORM*ULP*N + FUDGE*PIVMIN;
 
@@ -224,10 +224,10 @@
 
          // RANGE='A' or 'V' -- Set ATOLI
 
-         TNORM = MAX( ABS( D( 1 ) )+ABS( E( 1 ) ), ABS( D( N ) )+ABS( E( N-1 ) ) );
+         TNORM = max( ABS( D( 1 ) )+ABS( E( 1 ) ), ABS( D( N ) )+ABS( E( N-1 ) ) );
 
          for (J = 2; J <= N - 1; J++) { // 30
-            TNORM = MAX( TNORM, ABS( D( J ) )+ABS( E( J-1 ) )+ ABS( E( J ) ) );
+            TNORM = max( TNORM, ABS( D( J ) )+ABS( E( J-1 ) )+ ABS( E( J ) ) );
          } // 30
 
          if ( ABSTOL <= ZERO ) {
@@ -285,21 +285,21 @@
 
             for (J = IBEGIN; J <= IEND - 1; J++) { // 40
                TMP2 = ABS( E( J ) );
-               GU = MAX( GU, D( J )+TMP1+TMP2 );
-               GL = MIN( GL, D( J )-TMP1-TMP2 );
+               GU = max( GU, D( J )+TMP1+TMP2 );
+               GL = min( GL, D( J )-TMP1-TMP2 );
                TMP1 = TMP2;
             } // 40
 
-            GU = MAX( GU, D( IEND )+TMP1 );
-            GL = MIN( GL, D( IEND )-TMP1 );
-            BNORM = MAX( ABS( GL ), ABS( GU ) );
+            GU = max( GU, D( IEND )+TMP1 );
+            GL = min( GL, D( IEND )-TMP1 );
+            BNORM = max( ABS( GL ), ABS( GU ) );
             GL = GL - FUDGE*BNORM*ULP*IN - FUDGE*PIVMIN;
             GU = GU + FUDGE*BNORM*ULP*IN + FUDGE*PIVMIN;
 
             // Compute ATOLI for the current submatrix
 
             if ( ABSTOL <= ZERO ) {
-               ATOLI = ULP*MAX( ABS( GL ), ABS( GU ) );
+               ATOLI = ULP*max( ABS( GL ), ABS( GU ) );
             } else {
                ATOLI = ABSTOL;
             }
@@ -310,8 +310,8 @@
                   NWU = NWU + IN;
                   GO TO 70;
                }
-               GL = MAX( GL, WL );
-               GU = MIN( GU, WU );
+               GL = max( GL, WL );
+               GU = min( GU, WU );
                if (GL >= GU) GO TO 70;
             }
 

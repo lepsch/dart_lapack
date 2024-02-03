@@ -46,7 +46,7 @@
          INFO = -1;
       } else if ( N < 0 ) {
          INFO = -2;
-      } else if ( LDA < MAX( 1, N ) ) {
+      } else if ( LDA < max( 1, N ) ) {
          INFO = -4;
       }
       if ( INFO != 0 ) {
@@ -198,7 +198,7 @@
             F = ONE;
             S = C + R;
 
-            DO WHILE( C < G && MAX( F, C, CA ) < SFMAX2 && MIN( R, G, RA ) > SFMIN2 );
+            DO WHILE( C < G && max( F, C, CA ) < SFMAX2 && min( R, G, RA ) > SFMIN2 );
                F = F*SCLFAC;
                C = C*SCLFAC;
                CA = CA*SCLFAC;
@@ -209,7 +209,7 @@
 
             G = C / SCLFAC;
 
-            DO WHILE( G >= R && MAX( R, RA ) < SFMAX2 && MIN( F, C, G, CA ) > SFMIN2 );
+            DO WHILE( G >= R && max( R, RA ) < SFMAX2 && min( F, C, G, CA ) > SFMIN2 );
                F = F / SCLFAC;
                C = C / SCLFAC;
                G = G / SCLFAC;

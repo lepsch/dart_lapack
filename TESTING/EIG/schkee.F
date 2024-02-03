@@ -348,7 +348,7 @@
          xlaenv(1, NBVAL( 1 ) );
          xlaenv(2, NBMIN( 1 ) );
          xlaenv(3, NXVAL( 1 ) );
-         xlaenv(12, MAX( 11, INMIN( 1 ) ) );
+         xlaenv(12, max( 11, INMIN( 1 ) ) );
          xlaenv(13, INWIN( 1 ) );
          xlaenv(14, INIBL( 1 ) );
          xlaenv(15, ISHFTS( 1 ) );
@@ -744,7 +744,7 @@
             // MAXB  = minimum submatrix size
 
          MAXTYP = 21;
-         NTYPES = MIN( MAXTYP, NTYPES );
+         NTYPES = min( MAXTYP, NTYPES );
          alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT );
          xlaenv(1, 1 );
          if (TSTERR) CALL SERRHS( 'SHSEQR', NOUT );
@@ -752,7 +752,7 @@
             xlaenv(1, NBVAL( I ) );
             xlaenv(2, NBMIN( I ) );
             xlaenv(3, NXVAL( I ) );
-            xlaenv(12, MAX( 11, INMIN( I ) ) );
+            xlaenv(12, max( 11, INMIN( I ) ) );
             xlaenv(13, INWIN( I ) );
             xlaenv(14, INIBL( I ) );
             xlaenv(15, ISHFTS( I ) );
@@ -763,7 +763,7 @@
                   ISEED( K ) = IOLDSD( K );
                } // 260
             }
-            WRITE( NOUT, FMT = 9961 )C3, NBVAL( I ), NBMIN( I ), NXVAL( I ), MAX( 11, INMIN(I)), INWIN( I ), INIBL( I ), ISHFTS( I ), IACC22( I );
+            WRITE( NOUT, FMT = 9961 )C3, NBVAL( I ), NBMIN( I ), NXVAL( I ), max( 11, INMIN(I)), INWIN( I ), INIBL( I ), ISHFTS( I ), IACC22( I );
             schkhs(NN, NVAL, MAXTYP, DOTYPE, ISEED, THRESH, NOUT, A( 1, 1 ), NMAX, A( 1, 2 ), A( 1, 3 ), A( 1, 4 ), A( 1, 5 ), NMAX, A( 1, 6 ), A( 1, 7 ), D( 1, 1 ), D( 1, 2 ), D( 1, 3 ), D( 1, 4 ), D( 1, 5 ), D( 1, 6 ), A( 1, 8 ), A( 1, 9 ), A( 1, 10 ), A( 1, 11 ), A( 1, 12 ), D( 1, 7 ), WORK, LWORK, IWORK, LOGWRK, RESULT, INFO );
             if (INFO != 0) WRITE( NOUT, FMT = 9980 )'SCHKHS', INFO;
          } // 270
@@ -779,7 +779,7 @@
             // NX    = crossover point
 
          MAXTYP = 21;
-         NTYPES = MIN( MAXTYP, NTYPES );
+         NTYPES = min( MAXTYP, NTYPES );
          alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT );
          xlaenv(1, 1 );
          xlaenv(9, 25 );
@@ -834,7 +834,7 @@
             // NX    = crossover point
 
          MAXTYP = 21;
-         NTYPES = MIN( MAXTYP, NTYPES );
+         NTYPES = min( MAXTYP, NTYPES );
          alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT );
          xlaenv(9, 25 );
          for (I = 1; I <= NPARMS; I++) { // 310
@@ -871,7 +871,7 @@
             // NRHS  = number of right hand sides
 
          MAXTYP = 16;
-         NTYPES = MIN( MAXTYP, NTYPES );
+         NTYPES = min( MAXTYP, NTYPES );
          alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT );
          xlaenv(1, 1 );
          xlaenv(9, 25 );
@@ -907,7 +907,7 @@
          // --------------------------------------------
 
          MAXTYP = 21;
-         NTYPES = MIN( MAXTYP, NTYPES );
+         NTYPES = min( MAXTYP, NTYPES );
          if ( NTYPES <= 0 ) {
             WRITE( NOUT, FMT = 9990 )C3;
          } else {
@@ -927,7 +927,7 @@
          // --------------------------------------------
 
          MAXTYP = 21;
-         NTYPES = MIN( MAXTYP, NTYPES );
+         NTYPES = min( MAXTYP, NTYPES );
          if ( NTYPES <= 0 ) {
             WRITE( NOUT, FMT = 9990 )C3;
          } else {
@@ -947,7 +947,7 @@
          // --------------------------------------------------------------
 
          MAXTYP = 21;
-         NTYPES = MIN( MAXTYP, NTYPES );
+         NTYPES = min( MAXTYP, NTYPES );
          if ( NTYPES < 0 ) {
             WRITE( NOUT, FMT = 9990 )C3;
          } else {
@@ -967,7 +967,7 @@
          // ---------------------------------------------------
 
          MAXTYP = 21;
-         NTYPES = MIN( MAXTYP, NTYPES );
+         NTYPES = min( MAXTYP, NTYPES );
          if ( NTYPES < 0 ) {
             WRITE( NOUT, FMT = 9990 )C3;
          } else {
@@ -993,7 +993,7 @@
             // NBCOL = minimum column dimension for blocks
 
          MAXTYP = 26;
-         NTYPES = MIN( MAXTYP, NTYPES );
+         NTYPES = min( MAXTYP, NTYPES );
          alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT );
          xlaenv(1,1);
          if (TSTCHK && TSTERR) CALL SERRGG( C3, NOUT );
@@ -1027,7 +1027,7 @@
          // -------------------------------------------------
 
          MAXTYP = 26;
-         NTYPES = MIN( MAXTYP, NTYPES );
+         NTYPES = min( MAXTYP, NTYPES );
          if ( NTYPES <= 0 ) {
             WRITE( NOUT, FMT = 9990 )C3;
          } else {
@@ -1076,7 +1076,7 @@
          // -------------------------------------------------
 
          MAXTYP = 26;
-         NTYPES = MIN( MAXTYP, NTYPES );
+         NTYPES = min( MAXTYP, NTYPES );
          if ( NTYPES <= 0 ) {
             WRITE( NOUT, FMT = 9990 )C3;
          } else {
@@ -1121,7 +1121,7 @@
          // ------------------------------
 
          MAXTYP = 15;
-         NTYPES = MIN( MAXTYP, NTYPES );
+         NTYPES = min( MAXTYP, NTYPES );
          alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT );
          if (TSTERR) CALL SERRST( 'SSB', NOUT );
           // CALL SCHKSB( NN, NVAL, NK, KVAL, MAXTYP, DOTYPE, ISEED, THRESH,
@@ -1137,7 +1137,7 @@
          // ------------------------------
 
          MAXTYP = 15;
-         NTYPES = MIN( MAXTYP, NTYPES );
+         NTYPES = min( MAXTYP, NTYPES );
          alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT );
          for (I = 1; I <= NPARMS; I++) { // 370
             NRHS = NSVAL( I );

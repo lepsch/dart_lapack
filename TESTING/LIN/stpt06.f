@@ -32,8 +32,8 @@
       // .. Executable Statements ..
 
       EPS = SLAMCH( 'Epsilon' );
-      RMAX = MAX( RCOND, RCONDC );
-      RMIN = MIN( RCOND, RCONDC );
+      RMAX = max( RCOND, RCONDC );
+      RMIN = min( RCOND, RCONDC );
 
       // Do the easy cases first.
 
@@ -67,7 +67,7 @@
          BIGNUM = ONE / SMLNUM;
          ANORM = SLANTP( 'M', UPLO, DIAG, N, AP, WORK );
 
-         RAT = RMAX*( MIN( BIGNUM / MAX( ONE, ANORM ), ONE / EPS ) );
+         RAT = RMAX*( min( BIGNUM / max( ONE, ANORM ), ONE / EPS ) );
       }
 
       return;

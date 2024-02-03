@@ -66,11 +66,11 @@
       RTRANS = LSAME( JOBR, 'T' );
 
       if ( ROWPRM ) {
-         IMINWRK = MAX( 1, N + M - 1 );
-         RMINWRK = MAX( 2, M, 5*N );
+         IMINWRK = max( 1, N + M - 1 );
+         RMINWRK = max( 2, M, 5*N );
       } else {
-         IMINWRK = MAX( 1, N );
-         RMINWRK = MAX( 2, 5*N );
+         IMINWRK = max( 1, N );
+         RMINWRK = max( 2, 5*N );
       }
       LQUERY = (LIWORK == -1 || LCWORK == -1 || LRWORK == -1);
       INFO  = 0;
@@ -90,7 +90,7 @@
          INFO = -6;
       } else if ( ( N < 0 ) || ( N > M ) ) {
          INFO = -7;
-      } else if ( LDA < MAX( 1, M ) ) {
+      } else if ( LDA < max( 1, M ) ) {
          INFO = -9;
       } else if ( LDU < 1 || ( LSVC0 && LDU < M ) || ( WNTUF && LDU < N ) ) {
          INFO = -12;
@@ -112,14 +112,14 @@
          LWQP3 = N+1;
          // .. minimal workspace length for ZUNMQR to build left singular vectors
          if ( WNTUS || WNTUR ) {
-             LWUNQ  = MAX( N  , 1 );
+             LWUNQ  = max( N  , 1 );
          } else if ( WNTUA ) {
-             LWUNQ = MAX( M , 1 );
+             LWUNQ = max( M , 1 );
          }
          // .. minimal workspace length for ZPOCON of an N x N matrix
          LWCON = 2 * N;
          // .. ZGESVD of an N x N matrix
-         LWSVD = MAX( 3 * N, 1 );
+         LWSVD = max( 3 * N, 1 );
          if ( LQUERY ) {
              zgeqp3(M, N, A, LDA, IWORK, CDUMMY, CDUMMY, -1, RDUMMY, IERR );
              LWRK_ZGEQP3 = INT( CDUMMY(1) );
@@ -139,26 +139,26 @@
              // .. minimal and optimal sizes of the complex workspace if
              // only the singular values are requested
              if ( CONDA ) {
-                MINWRK = MAX( N+LWQP3, LWCON, LWSVD );
+                MINWRK = max( N+LWQP3, LWCON, LWSVD );
              } else {
-                MINWRK = MAX( N+LWQP3, LWSVD );
+                MINWRK = max( N+LWQP3, LWSVD );
              }
              if ( LQUERY ) {
                  zgesvd('N', 'N', N, N, A, LDA, S, U, LDU, V, LDV, CDUMMY, -1, RDUMMY, IERR );
                  LWRK_ZGESVD = INT( CDUMMY(1) );
                  if ( CONDA ) {
-                    OPTWRK = MAX( N+LWRK_ZGEQP3, N+LWCON, LWRK_ZGESVD );
+                    OPTWRK = max( N+LWRK_ZGEQP3, N+LWCON, LWRK_ZGESVD );
                  } else {
-                    OPTWRK = MAX( N+LWRK_ZGEQP3, LWRK_ZGESVD );
+                    OPTWRK = max( N+LWRK_ZGEQP3, LWRK_ZGESVD );
                  }
              }
          } else if ( LSVEC && ( !RSVEC) ) {
              // .. minimal and optimal sizes of the complex workspace if the
              // singular values and the left singular vectors are requested
              if ( CONDA ) {
-                 MINWRK = N + MAX( LWQP3, LWCON, LWSVD, LWUNQ );
+                 MINWRK = N + max( LWQP3, LWCON, LWSVD, LWUNQ );
              } else {
-                 MINWRK = N + MAX( LWQP3, LWSVD, LWUNQ );
+                 MINWRK = N + max( LWQP3, LWSVD, LWUNQ );
              }
              if ( LQUERY ) {
                 if ( RTRANS ) {
@@ -168,18 +168,18 @@
                 }
                 LWRK_ZGESVD = INT( CDUMMY(1) );
                 if ( CONDA ) {
-                    OPTWRK = N + MAX( LWRK_ZGEQP3, LWCON, LWRK_ZGESVD, LWRK_ZUNMQR );
+                    OPTWRK = N + max( LWRK_ZGEQP3, LWCON, LWRK_ZGESVD, LWRK_ZUNMQR );
                 } else {
-                    OPTWRK = N + MAX( LWRK_ZGEQP3, LWRK_ZGESVD, LWRK_ZUNMQR );
+                    OPTWRK = N + max( LWRK_ZGEQP3, LWRK_ZGESVD, LWRK_ZUNMQR );
                 }
              }
          } else if ( RSVEC && ( !LSVEC) ) {
              // .. minimal and optimal sizes of the complex workspace if the
              // singular values and the right singular vectors are requested
              if ( CONDA ) {
-                 MINWRK = N + MAX( LWQP3, LWCON, LWSVD );
+                 MINWRK = N + max( LWQP3, LWCON, LWSVD );
              } else {
-                 MINWRK = N + MAX( LWQP3, LWSVD );
+                 MINWRK = N + max( LWQP3, LWSVD );
              }
              if ( LQUERY ) {
                  if ( RTRANS ) {
@@ -189,50 +189,50 @@
                  }
                  LWRK_ZGESVD = INT( CDUMMY(1) );
                  if ( CONDA ) {
-                     OPTWRK = N + MAX( LWRK_ZGEQP3, LWCON, LWRK_ZGESVD );
+                     OPTWRK = N + max( LWRK_ZGEQP3, LWCON, LWRK_ZGESVD );
                  } else {
-                     OPTWRK = N + MAX( LWRK_ZGEQP3, LWRK_ZGESVD );
+                     OPTWRK = N + max( LWRK_ZGEQP3, LWRK_ZGESVD );
                  }
              }
          } else {
              // .. minimal and optimal sizes of the complex workspace if the
              // full SVD is requested
              if ( RTRANS ) {
-                 MINWRK = MAX( LWQP3, LWSVD, LWUNQ );
-                 if (CONDA) MINWRK = MAX( MINWRK, LWCON );
+                 MINWRK = max( LWQP3, LWSVD, LWUNQ );
+                 if (CONDA) MINWRK = max( MINWRK, LWCON );
                  MINWRK = MINWRK + N;
                  if ( WNTVA ) {
                     // .. minimal workspace length for N x N/2 ZGEQRF
-                    LWQRF  = MAX( N/2, 1 );
+                    LWQRF  = max( N/2, 1 );
                     // .. minimal workspace length for N/2 x N/2 ZGESVD
-                    LWSVD2 = MAX( 3 * (N/2), 1 );
-                    LWUNQ2 = MAX( N, 1 );
-                    MINWRK2 = MAX( LWQP3, N/2+LWQRF, N/2+LWSVD2, N/2+LWUNQ2, LWUNQ );
-                    if (CONDA) MINWRK2 = MAX( MINWRK2, LWCON );
+                    LWSVD2 = max( 3 * (N/2), 1 );
+                    LWUNQ2 = max( N, 1 );
+                    MINWRK2 = max( LWQP3, N/2+LWQRF, N/2+LWSVD2, N/2+LWUNQ2, LWUNQ );
+                    if (CONDA) MINWRK2 = max( MINWRK2, LWCON );
                     MINWRK2 = N + MINWRK2;
-                    MINWRK = MAX( MINWRK, MINWRK2 );
+                    MINWRK = max( MINWRK, MINWRK2 );
                  }
              } else {
-                 MINWRK = MAX( LWQP3, LWSVD, LWUNQ );
-                 if (CONDA) MINWRK = MAX( MINWRK, LWCON );
+                 MINWRK = max( LWQP3, LWSVD, LWUNQ );
+                 if (CONDA) MINWRK = max( MINWRK, LWCON );
                  MINWRK = MINWRK + N;
                  if ( WNTVA ) {
                     // .. minimal workspace length for N/2 x N ZGELQF
-                    LWLQF  = MAX( N/2, 1 );
-                    LWSVD2 = MAX( 3 * (N/2), 1 );
-                    LWUNLQ = MAX( N , 1 );
-                    MINWRK2 = MAX( LWQP3, N/2+LWLQF, N/2+LWSVD2, N/2+LWUNLQ, LWUNQ );
-                    if (CONDA) MINWRK2 = MAX( MINWRK2, LWCON );
+                    LWLQF  = max( N/2, 1 );
+                    LWSVD2 = max( 3 * (N/2), 1 );
+                    LWUNLQ = max( N , 1 );
+                    MINWRK2 = max( LWQP3, N/2+LWLQF, N/2+LWSVD2, N/2+LWUNLQ, LWUNQ );
+                    if (CONDA) MINWRK2 = max( MINWRK2, LWCON );
                     MINWRK2 = N + MINWRK2;
-                    MINWRK = MAX( MINWRK, MINWRK2 );
+                    MINWRK = max( MINWRK, MINWRK2 );
                  }
              }
              if ( LQUERY ) {
                 if ( RTRANS ) {
                    zgesvd('O', 'A', N, N, A, LDA, S, U, LDU, V, LDV, CDUMMY, -1, RDUMMY, IERR );
                    LWRK_ZGESVD = INT( CDUMMY(1) );
-                   OPTWRK = MAX(LWRK_ZGEQP3,LWRK_ZGESVD,LWRK_ZUNMQR);
-                   if (CONDA) OPTWRK = MAX( OPTWRK, LWCON );
+                   OPTWRK = max(LWRK_ZGEQP3,LWRK_ZGESVD,LWRK_ZUNMQR);
+                   if (CONDA) OPTWRK = max( OPTWRK, LWCON );
                    OPTWRK = N + OPTWRK;
                    if ( WNTVA ) {
                        zgeqrf(N,N/2,U,LDU,CDUMMY,CDUMMY,-1,IERR);
@@ -241,16 +241,16 @@
                        LWRK_ZGESVD2 = INT( CDUMMY(1) );
                        zunmqr('R', 'C', N, N, N/2, U, LDU, CDUMMY, V, LDV, CDUMMY, -1, IERR );
                        LWRK_ZUNMQR2 = INT( CDUMMY(1) );
-                       OPTWRK2 = MAX( LWRK_ZGEQP3, N/2+LWRK_ZGEQRF, N/2+LWRK_ZGESVD2, N/2+LWRK_ZUNMQR2 );
-                       if (CONDA) OPTWRK2 = MAX( OPTWRK2, LWCON );
+                       OPTWRK2 = max( LWRK_ZGEQP3, N/2+LWRK_ZGEQRF, N/2+LWRK_ZGESVD2, N/2+LWRK_ZUNMQR2 );
+                       if (CONDA) OPTWRK2 = max( OPTWRK2, LWCON );
                        OPTWRK2 = N + OPTWRK2;
-                       OPTWRK = MAX( OPTWRK, OPTWRK2 );
+                       OPTWRK = max( OPTWRK, OPTWRK2 );
                    }
                 } else {
                    zgesvd('S', 'O', N, N, A, LDA, S, U, LDU, V, LDV, CDUMMY, -1, RDUMMY, IERR );
                    LWRK_ZGESVD = INT( CDUMMY(1) );
-                   OPTWRK = MAX(LWRK_ZGEQP3,LWRK_ZGESVD,LWRK_ZUNMQR);
-                   if (CONDA) OPTWRK = MAX( OPTWRK, LWCON );
+                   OPTWRK = max(LWRK_ZGEQP3,LWRK_ZGESVD,LWRK_ZUNMQR);
+                   if (CONDA) OPTWRK = max( OPTWRK, LWCON );
                    OPTWRK = N + OPTWRK;
                    if ( WNTVA ) {
                       zgelqf(N/2,N,U,LDU,CDUMMY,CDUMMY,-1,IERR);
@@ -259,17 +259,17 @@
                       LWRK_ZGESVD2 = INT( CDUMMY(1) );
                       zunmlq('R', 'N', N, N, N/2, U, LDU, CDUMMY, V, LDV, CDUMMY,-1,IERR );
                       LWRK_ZUNMLQ = INT( CDUMMY(1) );
-                      OPTWRK2 = MAX( LWRK_ZGEQP3, N/2+LWRK_ZGELQF, N/2+LWRK_ZGESVD2, N/2+LWRK_ZUNMLQ );
-                       if (CONDA) OPTWRK2 = MAX( OPTWRK2, LWCON );
+                      OPTWRK2 = max( LWRK_ZGEQP3, N/2+LWRK_ZGELQF, N/2+LWRK_ZGESVD2, N/2+LWRK_ZUNMLQ );
+                       if (CONDA) OPTWRK2 = max( OPTWRK2, LWCON );
                        OPTWRK2 = N + OPTWRK2;
-                       OPTWRK = MAX( OPTWRK, OPTWRK2 );
+                       OPTWRK = max( OPTWRK, OPTWRK2 );
                    }
                 }
              }
          }
 
-         MINWRK = MAX( 2, MINWRK );
-         OPTWRK = MAX( 2, OPTWRK );
+         MINWRK = max( 2, MINWRK );
+         OPTWRK = max( 2, OPTWRK );
          if ( LCWORK < MINWRK && ( !LQUERY) ) INFO = -19;
 
       }
@@ -349,10 +349,10 @@
                return;
             }
 
-            if ( RWORK(1) > BIG / SQRT(DBLE(M)) ) {
+            if ( RWORK(1) > BIG / sqrt(DBLE(M)) ) {
                 // .. to prevent overflow in the QR factorization, scale the
                 // matrix by 1/sqrt(M) if too large entry detected
-                zlascl('G',0,0,SQRT(DBLE(M)),ONE, M,N, A,LDA, IERR);
+                zlascl('G',0,0,sqrt(DBLE(M)),ONE, M,N, A,LDA, IERR);
                 ASCALED = true;
             }
             zlaswp(N, A, LDA, 1, M-1, IWORK(N+1), 1 );
@@ -370,10 +370,10 @@
                xerbla('ZGESVDQ', -INFO );
                return;
           }
-          if ( RTMP > BIG / SQRT(DBLE(M)) ) {
+          if ( RTMP > BIG / sqrt(DBLE(M)) ) {
               // .. to prevent overflow in the QR factorization, scale the
               // matrix by 1/sqrt(M) if too large entry detected
-              zlascl('G',0,0, SQRT(DBLE(M)),ONE, M,N, A,LDA, IERR);
+              zlascl('G',0,0, sqrt(DBLE(M)),ONE, M,N, A,LDA, IERR);
               ASCALED = true;
           }
       }
@@ -405,7 +405,7 @@
          // aggressive enforcement of lower numerical rank by introducing a
          // backward error of the order of N*EPS*||A||_F.
          NR = 1;
-         RTMP = SQRT(DBLE(N))*EPSLN;
+         RTMP = sqrt(DBLE(N))*EPSLN;
          for (p = 2; p <= N; p++) { // 3001
             if ( ABS(A(p,p)) < (RTMP*ABS(A(1,1))) ) GO TO 3002;
                NR = NR + 1;
@@ -457,8 +457,8 @@
                } else {
                    zpocon('U', NR, V, LDV, ONE, RTMP, CWORK(N+1), RWORK, IERR );
                }
-               SCONDA = ONE / SQRT(RTMP);
-            // For NR=N, SCONDA is an estimate of SQRT(||(R^* * R)^(-1)||_1),
+               SCONDA = ONE / sqrt(RTMP);
+            // For NR=N, SCONDA is an estimate of sqrt(||(R^* * R)^(-1)||_1),
             // N^(-1/4) * SCONDA <= ||R^(-1)||_2 <= N^(1/4) * SCONDA
             // See the reference [1] for more details.
          }
@@ -482,7 +482,7 @@
           // .. compute the singular values of R**H = [A](1:NR,1:N)**H
             // .. set the lower triangle of [A] to [A](1:NR,1:N)**H and
             // the upper triangle of [A] to zero.
-            DO 1146 p = 1, MIN( N, NR );
+            DO 1146 p = 1, min( N, NR );
                A(p,p) = CONJG(A(p,p));
                for (q = p + 1; q <= N; q++) { // 1147
                   A(q,p) = CONJG(A(p,q));
@@ -703,7 +703,7 @@
                   // with zeros. Here hard coded to 2; it must be at least
                   // two due to work space constraints.]]
                 // OPTRATIO = ILAENV(6, 'ZGESVD', 'S' // 'O', NR,N,0,0)
-                // OPTRATIO = MAX( OPTRATIO, 2 )
+                // OPTRATIO = max( OPTRATIO, 2 )
                 OPTRATIO = 2;
                 if ( OPTRATIO*NR > N ) {
                    for (p = 1; p <= NR; p++) { // 1198
@@ -809,7 +809,7 @@
                   // with zeros. Here hard coded to 2; it must be at least
                   // two due to work space constraints.]]
                 // OPTRATIO = ILAENV(6, 'ZGESVD', 'S' // 'O', NR,N,0,0)
-                // OPTRATIO = MAX( OPTRATIO, 2 )
+                // OPTRATIO = max( OPTRATIO, 2 )
                OPTRATIO = 2;
                if ( OPTRATIO * NR > N ) {
                   zlacpy('U', NR, N, A, LDA, V, LDV );
@@ -880,7 +880,7 @@
       if (NR < N) CALL DLASET( 'G', N-NR,1, ZERO,ZERO, S(NR+1), N );
       // .. undo scaling; this may cause overflow in the largest singular
       // values.
-      if (ASCALED) CALL DLASCL( 'G',0,0, ONE,SQRT(DBLE(M)), NR,1, S, N, IERR );
+      if (ASCALED) CALL DLASCL( 'G',0,0, ONE,sqrt(DBLE(M)), NR,1, S, N, IERR );
       if (CONDA) RWORK(1) = SCONDA;
       RWORK(2) = p - NR;
       // .. p-NR is the number of singular values that are computed as

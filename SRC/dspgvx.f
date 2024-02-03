@@ -60,7 +60,7 @@
          } else if ( INDEIG ) {
             if ( IL < 1 ) {
                INFO = -10;
-            } else if ( IU < MIN( N, IL ) || IU > N ) {
+            } else if ( IU < min( N, IL ) || IU > N ) {
                INFO = -11;
             }
          }

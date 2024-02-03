@@ -56,10 +56,10 @@
       TESTZEROS = false;
 
       EPS = DLAMCH( 'Epsilon' );
-      K = MIN(M,N);
-      L = MAX(M,N,1);
-      MNB = MAX ( MB, NB);
-      LWORK = MAX(3,L)*MNB;
+      K = min(M,N);
+      L = max(M,N,1);
+      MNB = max( MB, NB);
+      LWORK = max(3,L)*MNB;
 
       // Dynamically allocate local arrays
 
@@ -87,15 +87,15 @@
       TSIZE = INT( TQUERY( 1 ) );
       LWORK = INT( WORKQUERY( 1 ) );
       dgemqr('L', 'N', M, M, K, AF, M, TQUERY, TSIZE, CF, M, WORKQUERY, -1, INFO);
-      LWORK = MAX( LWORK, INT( WORKQUERY( 1 ) ) );
+      LWORK = max( LWORK, INT( WORKQUERY( 1 ) ) );
       dgemqr('L', 'N', M, N, K, AF, M, TQUERY, TSIZE, CF, M, WORKQUERY, -1, INFO);
-      LWORK = MAX( LWORK, INT( WORKQUERY( 1 ) ) );
+      LWORK = max( LWORK, INT( WORKQUERY( 1 ) ) );
       dgemqr('L', 'T', M, N, K, AF, M, TQUERY, TSIZE, CF, M, WORKQUERY, -1, INFO);
-      LWORK = MAX( LWORK, INT( WORKQUERY( 1 ) ) );
+      LWORK = max( LWORK, INT( WORKQUERY( 1 ) ) );
       dgemqr('R', 'N', N, M, K, AF, M, TQUERY, TSIZE, DF, N, WORKQUERY, -1, INFO);
-      LWORK = MAX( LWORK, INT( WORKQUERY( 1 ) ) );
+      LWORK = max( LWORK, INT( WORKQUERY( 1 ) ) );
       dgemqr('R', 'T', N, M, K, AF, M, TQUERY, TSIZE, DF, N, WORKQUERY, -1, INFO);
-      LWORK = MAX( LWORK, INT( WORKQUERY( 1 ) ) );
+      LWORK = max( LWORK, INT( WORKQUERY( 1 ) ) );
       ALLOCATE ( T( TSIZE ) );
       ALLOCATE ( WORK( LWORK ) );
       srnamt = 'DGEQR';
@@ -118,7 +118,7 @@
       ANORM = DLANGE( '1', M, N, A, M, RWORK );
       RESID = DLANGE( '1', M, N, R, M, RWORK );
       if ( ANORM > ZERO ) {
-         RESULT( 1 ) = RESID / (EPS*MAX(1,M)*ANORM);
+         RESULT( 1 ) = RESID / (EPS*max(1,M)*ANORM);
       } else {
          RESULT( 1 ) = ZERO;
       }
@@ -128,7 +128,7 @@
       dlaset('Full', M, M, ZERO, ONE, R, M );
       dsyrk('U', 'C', M, M, -ONE, Q, M, ONE, R, M );
       RESID = DLANSY( '1', 'Upper', M, R, M, RWORK );
-      RESULT( 2 ) = RESID / (EPS*MAX(1,M));
+      RESULT( 2 ) = RESID / (EPS*max(1,M));
 
       // Generate random m-by-n matrix C and a copy CF
 
@@ -148,7 +148,7 @@
       dgemm('N', 'N', M, N, M, -ONE, Q, M, C, M, ONE, CF, M );
       RESID = DLANGE( '1', M, N, CF, M, RWORK );
       if ( CNORM > ZERO ) {
-         RESULT( 3 ) = RESID / (EPS*MAX(1,M)*CNORM);
+         RESULT( 3 ) = RESID / (EPS*max(1,M)*CNORM);
       } else {
          RESULT( 3 ) = ZERO;
       }
@@ -167,7 +167,7 @@
       dgemm('T', 'N', M, N, M, -ONE, Q, M, C, M, ONE, CF, M );
       RESID = DLANGE( '1', M, N, CF, M, RWORK );
       if ( CNORM > ZERO ) {
-         RESULT( 4 ) = RESID / (EPS*MAX(1,M)*CNORM);
+         RESULT( 4 ) = RESID / (EPS*max(1,M)*CNORM);
       } else {
          RESULT( 4 ) = ZERO;
       }
@@ -190,7 +190,7 @@
       dgemm('N', 'N', N, M, M, -ONE, D, N, Q, M, ONE, DF, N );
       RESID = DLANGE( '1', N, M, DF, N, RWORK );
       if ( DNORM > ZERO ) {
-         RESULT( 5 ) = RESID / (EPS*MAX(1,M)*DNORM);
+         RESULT( 5 ) = RESID / (EPS*max(1,M)*DNORM);
       } else {
          RESULT( 5 ) = ZERO;
       }
@@ -208,7 +208,7 @@
       dgemm('N', 'T', N, M, M, -ONE, D, N, Q, M, ONE, DF, N );
       RESID = DLANGE( '1', N, M, DF, N, RWORK );
       if ( CNORM > ZERO ) {
-         RESULT( 6 ) = RESID / (EPS*MAX(1,M)*DNORM);
+         RESULT( 6 ) = RESID / (EPS*max(1,M)*DNORM);
       } else {
          RESULT( 6 ) = ZERO;
       }
@@ -220,15 +220,15 @@
       TSIZE = INT( TQUERY( 1 ) );
       LWORK = INT( WORKQUERY( 1 ) );
       dgemlq('R', 'N', N, N, K, AF, M, TQUERY, TSIZE, Q, N, WORKQUERY, -1, INFO );
-      LWORK = MAX( LWORK, INT( WORKQUERY( 1 ) ) );
+      LWORK = max( LWORK, INT( WORKQUERY( 1 ) ) );
       dgemlq('L', 'N', N, M, K, AF, M, TQUERY, TSIZE, DF, N, WORKQUERY, -1, INFO);
-      LWORK = MAX( LWORK, INT( WORKQUERY( 1 ) ) );
+      LWORK = max( LWORK, INT( WORKQUERY( 1 ) ) );
       dgemlq('L', 'T', N, M, K, AF, M, TQUERY, TSIZE, DF, N, WORKQUERY, -1, INFO);
-      LWORK = MAX( LWORK, INT( WORKQUERY( 1 ) ) );
+      LWORK = max( LWORK, INT( WORKQUERY( 1 ) ) );
       dgemlq('R', 'N', M, N, K, AF, M, TQUERY, TSIZE, CF, M, WORKQUERY, -1, INFO);
-      LWORK = MAX( LWORK, INT( WORKQUERY( 1 ) ) );
+      LWORK = max( LWORK, INT( WORKQUERY( 1 ) ) );
       dgemlq('R', 'T', M, N, K, AF, M, TQUERY, TSIZE, CF, M, WORKQUERY, -1, INFO);
-      LWORK = MAX( LWORK, INT( WORKQUERY( 1 ) ) );
+      LWORK = max( LWORK, INT( WORKQUERY( 1 ) ) );
       ALLOCATE ( T( TSIZE ) );
       ALLOCATE ( WORK( LWORK ) );
       srnamt = 'DGELQ';
@@ -252,7 +252,7 @@
       ANORM = DLANGE( '1', M, N, A, M, RWORK );
       RESID = DLANGE( '1', M, N, LQ, L, RWORK );
       if ( ANORM > ZERO ) {
-         RESULT( 1 ) = RESID / (EPS*MAX(1,N)*ANORM);
+         RESULT( 1 ) = RESID / (EPS*max(1,N)*ANORM);
       } else {
          RESULT( 1 ) = ZERO;
       }
@@ -262,7 +262,7 @@
       dlaset('Full', N, N, ZERO, ONE, LQ, L );
       dsyrk('U', 'C', N, N, -ONE, Q, N, ONE, LQ, L );
       RESID = DLANSY( '1', 'Upper', N, LQ, L, RWORK );
-      RESULT( 2 ) = RESID / (EPS*MAX(1,N));
+      RESULT( 2 ) = RESID / (EPS*max(1,N));
 
       // Generate random m-by-n matrix C and a copy CF
 
@@ -281,7 +281,7 @@
       dgemm('N', 'N', N, M, N, -ONE, Q, N, D, N, ONE, DF, N );
       RESID = DLANGE( '1', N, M, DF, N, RWORK );
       if ( DNORM > ZERO ) {
-         RESULT( 3 ) = RESID / (EPS*MAX(1,N)*DNORM);
+         RESULT( 3 ) = RESID / (EPS*max(1,N)*DNORM);
       } else {
          RESULT( 3 ) = ZERO;
       }
@@ -299,7 +299,7 @@
       dgemm('T', 'N', N, M, N, -ONE, Q, N, D, N, ONE, DF, N );
       RESID = DLANGE( '1', N, M, DF, N, RWORK );
       if ( DNORM > ZERO ) {
-         RESULT( 4 ) = RESID / (EPS*MAX(1,N)*DNORM);
+         RESULT( 4 ) = RESID / (EPS*max(1,N)*DNORM);
       } else {
          RESULT( 4 ) = ZERO;
       }
@@ -321,7 +321,7 @@
       dgemm('N', 'N', M, N, N, -ONE, C, M, Q, N, ONE, CF, M );
       RESID = DLANGE( '1', N, M, DF, N, RWORK );
       if ( CNORM > ZERO ) {
-         RESULT( 5 ) = RESID / (EPS*MAX(1,N)*CNORM);
+         RESULT( 5 ) = RESID / (EPS*max(1,N)*CNORM);
       } else {
          RESULT( 5 ) = ZERO;
       }
@@ -339,7 +339,7 @@
       dgemm('N', 'T', M, N, N, -ONE, C, M, Q, N, ONE, CF, M );
       RESID = DLANGE( '1', M, N, CF, M, RWORK );
       if ( CNORM > ZERO ) {
-         RESULT( 6 ) = RESID / (EPS*MAX(1,N)*CNORM);
+         RESULT( 6 ) = RESID / (EPS*max(1,N)*CNORM);
       } else {
          RESULT( 6 ) = ZERO;
       }

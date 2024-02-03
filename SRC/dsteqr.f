@@ -54,7 +54,7 @@
          INFO = -1;
       } else if ( N < 0 ) {
          INFO = -2;
-      } else if ( ( LDZ < 1 ) || ( ICOMPZ > 0 && LDZ < MAX( 1, N ) ) ) {
+      } else if ( ( LDZ < 1 ) || ( ICOMPZ > 0 && LDZ < max( 1, N ) ) ) {
          INFO = -6;
       }
       if ( INFO != 0 ) {
@@ -77,8 +77,8 @@
       EPS2 = EPS**2;
       SAFMIN = DLAMCH( 'S' );
       SAFMAX = ONE / SAFMIN;
-      SSFMAX = SQRT( SAFMAX ) / THREE;
-      SSFMIN = SQRT( SAFMIN ) / EPS2;
+      SSFMAX = sqrt( SAFMAX ) / THREE;
+      SSFMIN = sqrt( SAFMIN ) / EPS2;
 
       // Compute the eigenvalues and eigenvectors of the tridiagonal
       // matrix.
@@ -102,7 +102,7 @@
          for (M = L1; M <= NM1; M++) { // 20
             TST = ABS( E( M ) );
             if ( TST == ZERO ) GO TO 30;
-            IF( TST <= ( SQRT( ABS( D( M ) ) )*SQRT( ABS( D( M+ 1 ) ) ) )*EPS ) {
+            IF( TST <= ( sqrt( ABS( D( M ) ) )*sqrt( ABS( D( M+ 1 ) ) ) )*EPS ) {
                E( M ) = ZERO;
                GO TO 30;
             }

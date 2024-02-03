@@ -724,7 +724,7 @@
                }
             }
          }
-         VALUE = SCALE*SQRT( S );
+         VALUE = SCALE*sqrt( S );
       }
 
       SLANSF = VALUE;

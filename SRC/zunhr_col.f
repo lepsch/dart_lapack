@@ -38,9 +38,9 @@
          INFO = -2;
       } else if ( NB < 1 ) {
          INFO = -3;
-      } else if ( LDA < MAX( 1, M ) ) {
+      } else if ( LDA < max( 1, M ) ) {
          INFO = -5;
-      } else if ( LDT < MAX( 1, MIN( NB, N ) ) ) {
+      } else if ( LDT < max( 1, min( NB, N ) ) ) {
          INFO = -7;
       }
 
@@ -53,7 +53,7 @@
 
       // Quick return if possible
 
-      if ( MIN( M, N ) == 0 ) {
+      if ( min( M, N ) == 0 ) {
          return;
       }
 
@@ -91,7 +91,7 @@
 
          // (2-0) Determine the column block size JNB.
 
-         JNB = MIN( NPLUSONE-JB, NB );
+         JNB = min( NPLUSONE-JB, NB );
 
          // (2-1) Copy the upper-triangular part of the current JNB-by-JNB
          // diagonal block U(JB) (of the N-by-N matrix U) stored

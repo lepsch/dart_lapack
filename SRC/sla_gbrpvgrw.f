@@ -28,14 +28,14 @@
       for (J = 1; J <= NCOLS; J++) {
          AMAX = 0.0;
          UMAX = 0.0;
-         DO I = MAX( J-KU, 1 ), MIN( J+KL, N );
-            AMAX = MAX( ABS( AB( KD+I-J, J)), AMAX );
+         DO I = max( J-KU, 1 ), min( J+KL, N );
+            AMAX = max( ABS( AB( KD+I-J, J)), AMAX );
          }
-         DO I = MAX( J-KU, 1 ), J;
-            UMAX = MAX( ABS( AFB( KD+I-J, J ) ), UMAX );
+         DO I = max( J-KU, 1 ), J;
+            UMAX = max( ABS( AFB( KD+I-J, J ) ), UMAX );
          }
          if ( UMAX /= 0.0 ) {
-            RPVGRW = MIN( AMAX / UMAX, RPVGRW );
+            RPVGRW = min( AMAX / UMAX, RPVGRW );
          }
       }
       SLA_GBRPVGRW = RPVGRW;

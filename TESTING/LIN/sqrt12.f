@@ -40,14 +40,14 @@
 
       // Test that enough workspace is supplied
 
-      if ( LWORK < MAX( M*N+4*MIN( M, N )+MAX( M, N ), M*N+2*MIN( M, N )+4*N) ) {
+      if ( LWORK < max( M*N+4*min( M, N )+max( M, N ), M*N+2*min( M, N )+4*N) ) {
          xerbla('SQRT12', 7 );
          return;
       }
 
       // Quick return if possible
 
-      MN = MIN( M, N );
+      MN = min( M, N );
       if (MN <= ZERO) return;
 
       NRMSVL = SNRM2( MN, S, 1 );
@@ -56,7 +56,7 @@
 
       slaset('Full', M, N, ZERO, ZERO, WORK, M );
       for (J = 1; J <= N; J++) {
-         DO I = 1, MIN( J, M );
+         DO I = 1, min( J, M );
             WORK( ( J-1 )*M+I ) = A( I, J );
          }
       }
@@ -110,7 +110,7 @@
       // Compare s and singular values of work
 
       saxpy(MN, -ONE, S, 1, WORK( M*N+1 ), 1 );
-      SQRT12 = SASUM( MN, WORK( M*N+1 ), 1 ) / ( SLAMCH( 'Epsilon' )*REAL( MAX( M, N ) ) )       IF( NRMSVL != ZERO ) SQRT12 = SQRT12 / NRMSVL;
+      SQRT12 = SASUM( MN, WORK( M*N+1 ), 1 ) / ( SLAMCH( 'Epsilon' )*REAL( max( M, N ) ) )       IF( NRMSVL != ZERO ) SQRT12 = SQRT12 / NRMSVL;
 
       return;
 

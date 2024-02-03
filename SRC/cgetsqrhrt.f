@@ -48,9 +48,9 @@
          INFO = -4;
       } else if ( NB2 < 1 ) {
          INFO = -5;
-      } else if ( LDA < MAX( 1, M ) ) {
+      } else if ( LDA < max( 1, M ) ) {
          INFO = -7;
-      } else if ( LDT < MAX( 1, MIN( NB2, N ) ) ) {
+      } else if ( LDT < max( 1, min( NB2, N ) ) ) {
          INFO = -9;
       } else {
 
@@ -67,9 +67,9 @@
 
             // Set block size for column blocks
 
-            NB1LOCAL = MIN( NB1, N );
+            NB1LOCAL = min( NB1, N );
 
-            NUM_ALL_ROW_BLOCKS = MAX( 1, CEILING( REAL( M - N ) / REAL( MB1 - N ) ) );
+            NUM_ALL_ROW_BLOCKS = max( 1, CEILING( REAL( M - N ) / REAL( MB1 - N ) ) );
 
             // Length and leading dimension of WORK array to place
             // T array in TSQR.
@@ -84,10 +84,10 @@
 
             // Length of CUNGTSQR_ROW work array.
 
-            LW2 = NB1LOCAL * MAX( NB1LOCAL, ( N - NB1LOCAL ) );
+            LW2 = NB1LOCAL * max( NB1LOCAL, ( N - NB1LOCAL ) );
 
-            LWORKOPT = MAX( LWT + LW1, MAX( LWT+N*N+LW2, LWT+N*N+N ) );
-            LWORKOPT = MAX( 1, LWORKOPT );
+            LWORKOPT = max( LWT + LW1, max( LWT+N*N+LW2, LWT+N*N+N ) );
+            LWORKOPT = max( 1, LWORKOPT );
 
             if ( LWORK < LWORKOPT && !LQUERY ) {
                INFO = -11;
@@ -108,12 +108,12 @@
 
       // Quick return if possible
 
-      if ( MIN( M, N ) == 0 ) {
+      if ( min( M, N ) == 0 ) {
          WORK( 1 ) = SROUNDUP_LWORK( LWORKOPT );
          return;
       }
 
-      NB2LOCAL = MIN( NB2, N );
+      NB2LOCAL = min( NB2, N );
 
 
       // (1) Perform TSQR-factorization of the M-by-N matrix A.

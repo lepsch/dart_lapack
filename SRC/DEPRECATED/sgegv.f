@@ -68,7 +68,7 @@
 
       // Test the input arguments
 
-      LWKMIN = MAX( 8*N, 1 );
+      LWKMIN = max( 8*N, 1 );
       LWKOPT = LWKMIN;
       WORK( 1 ) = LWKOPT;
       LQUERY = ( LWORK == -1 );
@@ -79,9 +79,9 @@
          INFO = -2;
       } else if ( N < 0 ) {
          INFO = -3;
-      } else if ( LDA < MAX( 1, N ) ) {
+      } else if ( LDA < max( 1, N ) ) {
          INFO = -5;
-      } else if ( LDB < MAX( 1, N ) ) {
+      } else if ( LDB < max( 1, N ) ) {
          INFO = -7;
       } else if ( LDVL < 1 || ( ILVL && LDVL < N ) ) {
          INFO = -12;
@@ -95,8 +95,8 @@
          NB1 = ILAENV( 1, 'SGEQRF', ' ', N, N, -1, -1 );
          NB2 = ILAENV( 1, 'SORMQR', ' ', N, N, N, -1 );
          NB3 = ILAENV( 1, 'SORGQR', ' ', N, N, N, -1 );
-         NB = MAX( NB1, NB2, NB3 );
-         LOPT = 2*N + MAX( 6*N, N*(NB+1) );
+         NB = max( NB1, NB2, NB3 );
+         LOPT = 2*N + max( 6*N, N*(NB+1) );
          WORK( 1 ) = LOPT;
       }
 
@@ -184,14 +184,14 @@
       }
       ITAU = IWORK;
       IWORK = ITAU + IROWS;
-      sgeqrf(IROWS, ICOLS, B( ILO, ILO ), LDB, WORK( ITAU ), WORK( IWORK ), LWORK+1-IWORK, IINFO )       IF( IINFO >= 0 ) LWKOPT = MAX( LWKOPT, INT( WORK( IWORK ) )+IWORK-1 );
+      sgeqrf(IROWS, ICOLS, B( ILO, ILO ), LDB, WORK( ITAU ), WORK( IWORK ), LWORK+1-IWORK, IINFO )       IF( IINFO >= 0 ) LWKOPT = max( LWKOPT, INT( WORK( IWORK ) )+IWORK-1 );
       if ( IINFO != 0 ) {
          INFO = N + 2;
          GO TO 120;
       }
 
       sormqr('L', 'T', IROWS, ICOLS, IROWS, B( ILO, ILO ), LDB, WORK( ITAU ), A( ILO, ILO ), LDA, WORK( IWORK ), LWORK+1-IWORK, IINFO );
-      if (IINFO >= 0) LWKOPT = MAX( LWKOPT, INT( WORK( IWORK ) )+IWORK-1 );
+      if (IINFO >= 0) LWKOPT = max( LWKOPT, INT( WORK( IWORK ) )+IWORK-1 );
       if ( IINFO != 0 ) {
          INFO = N + 3;
          GO TO 120;
@@ -201,7 +201,7 @@
          slaset('Full', N, N, ZERO, ONE, VL, LDVL );
          slacpy('L', IROWS-1, IROWS-1, B( ILO+1, ILO ), LDB, VL( ILO+1, ILO ), LDVL );
          sorgqr(IROWS, IROWS, IROWS, VL( ILO, ILO ), LDVL, WORK( ITAU ), WORK( IWORK ), LWORK+1-IWORK, IINFO );
-         if (IINFO >= 0) LWKOPT = MAX( LWKOPT, INT( WORK( IWORK ) )+IWORK-1 );
+         if (IINFO >= 0) LWKOPT = max( LWKOPT, INT( WORK( IWORK ) )+IWORK-1 );
          if ( IINFO != 0 ) {
             INFO = N + 4;
             GO TO 120;
@@ -236,7 +236,7 @@
          CHTEMP = 'E';
       }
       shgeqz(CHTEMP, JOBVL, JOBVR, N, ILO, IHI, A, LDA, B, LDB, ALPHAR, ALPHAI, BETA, VL, LDVL, VR, LDVR, WORK( IWORK ), LWORK+1-IWORK, IINFO );
-      if (IINFO >= 0) LWKOPT = MAX( LWKOPT, INT( WORK( IWORK ) )+IWORK-1 );
+      if (IINFO >= 0) LWKOPT = max( LWKOPT, INT( WORK( IWORK ) )+IWORK-1 );
       if ( IINFO != 0 ) {
          if ( IINFO > 0 && IINFO <= N ) {
             INFO = IINFO;
@@ -281,11 +281,11 @@
                TEMP = ZERO;
                if ( ALPHAI( JC ) == ZERO ) {
                   for (JR = 1; JR <= N; JR++) { // 10
-                     TEMP = MAX( TEMP, ABS( VL( JR, JC ) ) );
+                     TEMP = max( TEMP, ABS( VL( JR, JC ) ) );
                   } // 10
                } else {
                   for (JR = 1; JR <= N; JR++) { // 20
-                     TEMP = MAX( TEMP, ABS( VL( JR, JC ) )+ ABS( VL( JR, JC+1 ) ) );
+                     TEMP = max( TEMP, ABS( VL( JR, JC ) )+ ABS( VL( JR, JC+1 ) ) );
                   } // 20
                }
                if (TEMP < SAFMIN) GO TO 50;
@@ -313,11 +313,11 @@
                TEMP = ZERO;
                if ( ALPHAI( JC ) == ZERO ) {
                   for (JR = 1; JR <= N; JR++) { // 60
-                     TEMP = MAX( TEMP, ABS( VR( JR, JC ) ) );
+                     TEMP = max( TEMP, ABS( VR( JR, JC ) ) );
                   } // 60
                } else {
                   for (JR = 1; JR <= N; JR++) { // 70
-                     TEMP = MAX( TEMP, ABS( VR( JR, JC ) )+ ABS( VR( JR, JC+1 ) ) );
+                     TEMP = max( TEMP, ABS( VR( JR, JC ) )+ ABS( VR( JR, JC+1 ) ) );
                   } // 70
                }
                if (TEMP < SAFMIN) GO TO 100;
@@ -359,9 +359,9 @@
 
          // Check for significant underflow in ALPHAI
 
-         if ( ABS( SALFAI ) < SAFMIN && ABSAI >= MAX( SAFMIN, EPS*ABSAR, EPS*ABSB ) ) {
+         if ( ABS( SALFAI ) < SAFMIN && ABSAI >= max( SAFMIN, EPS*ABSAR, EPS*ABSB ) ) {
             ILIMIT = true;
-            SCALE = ( ONEPLS*SAFMIN / ANRM1 ) / MAX( ONEPLS*SAFMIN, ANRM2*ABSAI );
+            SCALE = ( ONEPLS*SAFMIN / ANRM1 ) / max( ONEPLS*SAFMIN, ANRM2*ABSAI );
 
          } else if ( SALFAI == ZERO ) {
 
@@ -377,22 +377,22 @@
 
          // Check for significant underflow in ALPHAR
 
-         if ( ABS( SALFAR ) < SAFMIN && ABSAR >= MAX( SAFMIN, EPS*ABSAI, EPS*ABSB ) ) {
+         if ( ABS( SALFAR ) < SAFMIN && ABSAR >= max( SAFMIN, EPS*ABSAI, EPS*ABSB ) ) {
             ILIMIT = true;
-            SCALE = MAX( SCALE, ( ONEPLS*SAFMIN / ANRM1 ) / MAX( ONEPLS*SAFMIN, ANRM2*ABSAR ) );
+            SCALE = max( SCALE, ( ONEPLS*SAFMIN / ANRM1 ) / max( ONEPLS*SAFMIN, ANRM2*ABSAR ) );
          }
 
          // Check for significant underflow in BETA
 
-         if ( ABS( SBETA ) < SAFMIN && ABSB >= MAX( SAFMIN, EPS*ABSAR, EPS*ABSAI ) ) {
+         if ( ABS( SBETA ) < SAFMIN && ABSB >= max( SAFMIN, EPS*ABSAR, EPS*ABSAI ) ) {
             ILIMIT = true;
-            SCALE = MAX( SCALE, ( ONEPLS*SAFMIN / BNRM1 ) / MAX( ONEPLS*SAFMIN, BNRM2*ABSB ) );
+            SCALE = max( SCALE, ( ONEPLS*SAFMIN / BNRM1 ) / max( ONEPLS*SAFMIN, BNRM2*ABSB ) );
          }
 
          // Check for possible overflow when limiting scaling
 
          if ( ILIMIT ) {
-            TEMP = ( SCALE*SAFMIN )*MAX( ABS( SALFAR ), ABS( SALFAI ), ABS( SBETA ) )             IF( TEMP > ONE ) SCALE = SCALE / TEMP             IF( SCALE < ONE ) ILIMIT = false;
+            TEMP = ( SCALE*SAFMIN )*max( ABS( SALFAR ), ABS( SALFAI ), ABS( SBETA ) )             IF( TEMP > ONE ) SCALE = SCALE / TEMP             IF( SCALE < ONE ) ILIMIT = false;
          }
 
          // Recompute un-scaled ALPHAR, ALPHAI, BETA if necessary.

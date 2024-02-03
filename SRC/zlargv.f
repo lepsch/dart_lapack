@@ -44,7 +44,7 @@
       // DATA               FIRST / true /
       // ..
       // .. Statement Function definitions ..
-      ABS1( FF ) = MAX( ABS( DBLE( FF ) ), ABS( DIMAG( FF ) ) );
+      ABS1( FF ) = max( ABS( DBLE( FF ) ), ABS( DIMAG( FF ) ) );
       ABSSQ( FF ) = DBLE( FF )**2 + DIMAG( FF )**2;
       // ..
       // .. Executable Statements ..
@@ -65,7 +65,7 @@
 
          // Use identical algorithm as in ZLARTG
 
-         SCALE = MAX( ABS1( F ), ABS1( G ) );
+         SCALE = max( ABS1( F ), ABS1( G ) );
          FS = F;
          GS = G;
          COUNT = 0;
@@ -92,7 +92,7 @@
          }
          F2 = ABSSQ( FS );
          G2 = ABSSQ( GS );
-         if ( F2 <= MAX( G2, ONE )*SAFMIN ) {
+         if ( F2 <= max( G2, ONE )*SAFMIN ) {
 
             // This is a rare case: F is very small.
 
@@ -108,12 +108,12 @@
             F2S = DLAPY2( DBLE( FS ), DIMAG( FS ) );
             // G2 and G2S are accurate
             // G2 is at least SAFMIN, and G2S is at least SAFMN2
-            G2S = SQRT( G2 );
+            G2S = sqrt( G2 );
             // Error in CS from underflow in F2S is at most
             // UNFL / SAFMN2 < sqrt(UNFL*EPS) < EPS
-            // If MAX(G2,ONE)=G2, then F2 < G2*SAFMIN,
+            // If max(G2,ONE)=G2, then F2 < G2*SAFMIN,
             // and so CS < sqrt(SAFMIN)
-            // If MAX(G2,ONE)=ONE, then F2 < SAFMIN
+            // If max(G2,ONE)=ONE, then F2 < SAFMIN
             // and so CS < sqrt(SAFMIN)/SAFMN2 = sqrt(EPS)
             // Therefore, CS = F2S/G2S / sqrt( 1 + (F2S/G2S)**2 ) = F2S/G2S
             CS = F2S / G2S;
@@ -136,7 +136,7 @@
             // Neither F2 nor F2/G2 are less than SAFMIN
             // F2S cannot overflow, and it is accurate
 
-            F2S = SQRT( ONE+G2 / F2 );
+            F2S = sqrt( ONE+G2 / F2 );
             // Do the F2S(real)*FS(complex) multiply with two real
             // multiplies
             R = DCMPLX( F2S*DBLE( FS ), F2S*DIMAG( FS ) );

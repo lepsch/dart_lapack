@@ -57,7 +57,7 @@
 
       if (N == 0) return;
 
-      KLD = MAX( 1, LDAB-1 );
+      KLD = max( 1, LDAB-1 );
 
       if ( UPPER ) {
 
@@ -69,13 +69,13 @@
 
             AJJ = AB( KD+1, J );
             if (AJJ <= ZERO) GO TO 30;
-            AJJ = SQRT( AJJ );
+            AJJ = sqrt( AJJ );
             AB( KD+1, J ) = AJJ;
 
             // Compute elements J+1:J+KN of row J and update the
             // trailing submatrix within the band.
 
-            KN = MIN( KD, N-J );
+            KN = min( KD, N-J );
             if ( KN > 0 ) {
                sscal(KN, ONE / AJJ, AB( KD, J+1 ), KLD );
                ssyr('Upper', KN, -ONE, AB( KD, J+1 ), KLD, AB( KD+1, J+1 ), KLD );
@@ -91,13 +91,13 @@
 
             AJJ = AB( 1, J );
             if (AJJ <= ZERO) GO TO 30;
-            AJJ = SQRT( AJJ );
+            AJJ = sqrt( AJJ );
             AB( 1, J ) = AJJ;
 
             // Compute elements J+1:J+KN of column J and update the
             // trailing submatrix within the band.
 
-            KN = MIN( KD, N-J );
+            KN = min( KD, N-J );
             if ( KN > 0 ) {
                sscal(KN, ONE / AJJ, AB( 2, J ), 1 );
                ssyr('Lower', KN, -ONE, AB( 2, J ), 1, AB( 1, J+1 ), KLD );

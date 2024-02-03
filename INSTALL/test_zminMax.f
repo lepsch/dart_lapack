@@ -33,12 +33,12 @@
 
       for (i = 1; i <= 3; i++) { // 10
           nTests = nTests + 2;
-          R = MIN( X(i), Y(i) );
+          R = min( X(i), Y(i) );
           if ( R != X(i) ) {
               nFailingTests = nFailingTests + 1;
               WRITE( *, FMT = 9998 ) 'i',i, 'MIN', X(i), Y(i), R;
           }
-          R = MAX( X(i), Y(i) );
+          R = max( X(i), Y(i) );
           if ( R != Y(i) ) {
               nFailingTests = nFailingTests + 1;
               WRITE( *, FMT = 9998 ) 'i',i, 'MAX', X(i), Y(i), R;
@@ -46,12 +46,12 @@
       } // 10
       for (i = 4; i <= 6; i++) { // 20
           nTests = nTests + 2;
-          R = MIN( X(i), Y(i) );
+          R = min( X(i), Y(i) );
           if ( R != Y(i) ) {
               nFailingTests = nFailingTests + 1;
               WRITE( *, FMT = 9998 ) 'i',i, 'MIN', X(i), Y(i), R;
           }
-          R = MAX( X(i), Y(i) );
+          R = max( X(i), Y(i) );
           if ( R != X(i) ) {
               nFailingTests = nFailingTests + 1;
               WRITE( *, FMT = 9998 ) 'i',i, 'MAX', X(i), Y(i), R;
@@ -59,12 +59,12 @@
       } // 20
       for (i = 7; i <= 8; i++) { // 30
           nTests = nTests + 2;
-          R = MIN( X(i), Y(i) );
+          R = min( X(i), Y(i) );
           if (R == R) {
               nFailingTests = nFailingTests + 1;
               WRITE( *, FMT = 9998 ) 'i',i, 'MIN', X(i), Y(i), R;
           }
-          R = MAX( X(i), Y(i) );
+          R = max( X(i), Y(i) );
           if (R == R) {
               nFailingTests = nFailingTests + 1;
               WRITE( *, FMT = 9998 ) 'i',i, 'MAX', X(i), Y(i), R;

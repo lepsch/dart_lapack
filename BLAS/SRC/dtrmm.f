@@ -59,9 +59,9 @@
           INFO = 5;
       } else if (N < 0) {
           INFO = 6;
-      } else if (LDA < MAX(1,NROWA)) {
+      } else if (LDA < max(1,NROWA)) {
           INFO = 9;
-      } else if (LDB < MAX(1,M)) {
+      } else if (LDB < max(1,M)) {
           INFO = 11;
       }
       if (INFO != 0) {

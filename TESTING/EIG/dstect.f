@@ -40,7 +40,7 @@
 
       MX = ABS( A( 1 ) );
       for (I = 1; I <= N - 1; I++) { // 10
-         MX = MAX( MX, ABS( A( I+1 ) ), ABS( B( I ) ) );
+         MX = max( MX, ABS( A( I+1 ) ), ABS( B( I ) ) );
       } // 10
 
       // Handle easy cases, including zero matrix
@@ -57,9 +57,9 @@
       // Compute scale factors as in Kahan's report
       // At this point, MX != 0 so we can divide by it
 
-      SUN = SQRT( UNFL );
-      SSUN = SQRT( SUN );
-      SOV = SQRT( OVFL );
+      SUN = sqrt( UNFL );
+      SSUN = sqrt( SUN );
+      SOV = sqrt( OVFL );
       TOM = SSUN*SOV;
       if ( MX <= ONE ) {
          M1 = ONE / MX;

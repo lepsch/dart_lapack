@@ -43,7 +43,7 @@
 
          VALUE = ZERO;
          for (J = 1; J <= N; J++) { // 20
-            DO 10 I = MAX( KU+2-J, 1 ), MIN( N+KU+1-J, KL+KU+1 );
+            DO 10 I = max( KU+2-J, 1 ), min( N+KU+1-J, KL+KU+1 );
                TEMP = ABS( AB( I, J ) );
                if( VALUE < TEMP || DISNAN( TEMP ) ) VALUE = TEMP;
             } // 10
@@ -55,7 +55,7 @@
          VALUE = ZERO;
          for (J = 1; J <= N; J++) { // 40
             SUM = ZERO;
-            DO 30 I = MAX( KU+2-J, 1 ), MIN( N+KU+1-J, KL+KU+1 );
+            DO 30 I = max( KU+2-J, 1 ), min( N+KU+1-J, KL+KU+1 );
                SUM = SUM + ABS( AB( I, J ) );
             } // 30
             if( VALUE < SUM || DISNAN( SUM ) ) VALUE = SUM;
@@ -69,7 +69,7 @@
          } // 50
          for (J = 1; J <= N; J++) { // 70
             K = KU + 1 - J;
-            DO 60 I = MAX( 1, J-KU ), MIN( N, J+KL );
+            DO 60 I = max( 1, J-KU ), min( N, J+KL );
                WORK( I ) = WORK( I ) + ABS( AB( K+I, J ) );
             } // 60
          } // 70
@@ -85,11 +85,11 @@
          SCALE = ZERO;
          SUM = ONE;
          for (J = 1; J <= N; J++) { // 90
-            L = MAX( 1, J-KU );
+            L = max( 1, J-KU );
             K = KU + 1 - J + L;
-            zlassq(MIN( N, J+KL )-L+1, AB( K, J ), 1, SCALE, SUM );
+            zlassq(min( N, J+KL )-L+1, AB( K, J ), 1, SCALE, SUM );
          } // 90
-         VALUE = SCALE*SQRT( SUM );
+         VALUE = SCALE*sqrt( SUM );
       }
 
       ZLANGB = VALUE;

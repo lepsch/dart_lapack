@@ -33,9 +33,9 @@
          INFO = -2;
       } else if ( M < N ) {
          INFO = -1;
-      } else if ( LDA < MAX( 1, M ) ) {
+      } else if ( LDA < max( 1, M ) ) {
          INFO = -4;
-      } else if ( LDT < MAX( 1, N ) ) {
+      } else if ( LDT < max( 1, N ) ) {
          INFO = -6;
       }
       if ( INFO != 0 ) {
@@ -43,13 +43,13 @@
          return;
       }
 
-      K = MIN( M, N );
+      K = min( M, N );
 
       for (I = 1; I <= K; I++) {
 
          // Generate elem. refl. H(i) to annihilate A(i+1:m,i), tau(I) -> T(I,1)
 
-         clarfg(M-I+1, A( I, I ), A( MIN( I+1, M ), I ), 1, T( I, 1 ) );
+         clarfg(M-I+1, A( I, I ), A( min( I+1, M ), I ), 1, T( I, 1 ) );
          if ( I < N ) {
 
             // Apply H(i) to A(I:M,I+1:N) from the left

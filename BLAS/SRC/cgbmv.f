@@ -131,7 +131,7 @@
               for (J = 1; J <= N; J++) { // 60
                   TEMP = ALPHA*X(JX);
                   K = KUP1 - J;
-                  DO 50 I = MAX(1,J-KU),MIN(M,J+KL);
+                  DO 50 I = max(1,J-KU),min(M,J+KL);
                       Y(I) = Y(I) + TEMP*A(K+I,J);
                   } // 50
                   JX = JX + INCX;
@@ -141,7 +141,7 @@
                   TEMP = ALPHA*X(JX);
                   IY = KY;
                   K = KUP1 - J;
-                  DO 70 I = MAX(1,J-KU),MIN(M,J+KL);
+                  DO 70 I = max(1,J-KU),min(M,J+KL);
                       Y(IY) = Y(IY) + TEMP*A(K+I,J);
                       IY = IY + INCY;
                   } // 70
@@ -159,11 +159,11 @@
                   TEMP = ZERO;
                   K = KUP1 - J;
                   if (NOCONJ) {
-                      DO 90 I = MAX(1,J-KU),MIN(M,J+KL);
+                      DO 90 I = max(1,J-KU),min(M,J+KL);
                           TEMP = TEMP + A(K+I,J)*X(I);
                       } // 90
                   } else {
-                      DO 100 I = MAX(1,J-KU),MIN(M,J+KL);
+                      DO 100 I = max(1,J-KU),min(M,J+KL);
                           TEMP = TEMP + CONJG(A(K+I,J))*X(I);
                       } // 100
                   }
@@ -176,12 +176,12 @@
                   IX = KX;
                   K = KUP1 - J;
                   if (NOCONJ) {
-                      DO 120 I = MAX(1,J-KU),MIN(M,J+KL);
+                      DO 120 I = max(1,J-KU),min(M,J+KL);
                           TEMP = TEMP + A(K+I,J)*X(IX);
                           IX = IX + INCX;
                       } // 120
                   } else {
-                      DO 130 I = MAX(1,J-KU),MIN(M,J+KL);
+                      DO 130 I = max(1,J-KU),min(M,J+KL);
                           TEMP = TEMP + CONJG(A(K+I,J))*X(IX);
                           IX = IX + INCX;
                       } // 130

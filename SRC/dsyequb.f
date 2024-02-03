@@ -46,7 +46,7 @@
          INFO = -1;
       } else if ( N < 0 ) {
          INFO = -2;
-      } else if ( LDA < MAX( 1, N ) ) {
+      } else if ( LDA < max( 1, N ) ) {
          INFO = -4;
       }
       if ( INFO != 0 ) {
@@ -72,21 +72,21 @@
       if ( UP ) {
          for (J = 1; J <= N; J++) {
             for (I = 1; I <= J-1; I++) {
-               S( I ) = MAX( S( I ), ABS( A( I, J ) ) );
-               S( J ) = MAX( S( J ), ABS( A( I, J ) ) );
-               AMAX = MAX( AMAX, ABS( A( I, J ) ) );
+               S( I ) = max( S( I ), ABS( A( I, J ) ) );
+               S( J ) = max( S( J ), ABS( A( I, J ) ) );
+               AMAX = max( AMAX, ABS( A( I, J ) ) );
             }
-            S( J ) = MAX( S( J ), ABS( A( J, J ) ) );
-            AMAX = MAX( AMAX, ABS( A( J, J ) ) );
+            S( J ) = max( S( J ), ABS( A( J, J ) ) );
+            AMAX = max( AMAX, ABS( A( J, J ) ) );
          }
       } else {
          for (J = 1; J <= N; J++) {
-            S( J ) = MAX( S( J ), ABS( A( J, J ) ) );
-            AMAX = MAX( AMAX, ABS( A( J, J ) ) );
+            S( J ) = max( S( J ), ABS( A( J, J ) ) );
+            AMAX = max( AMAX, ABS( A( J, J ) ) );
             for (I = J+1; I <= N; I++) {
-               S( I ) = MAX( S( I ), ABS( A( I, J ) ) );
-               S( J ) = MAX( S( J ), ABS( A( I, J ) ) );
-               AMAX = MAX( AMAX, ABS( A( I, J ) ) );
+               S( I ) = max( S( I ), ABS( A( I, J ) ) );
+               S( J ) = max( S( J ), ABS( A( I, J ) ) );
+               AMAX = max( AMAX, ABS( A( I, J ) ) );
             }
          }
       }
@@ -94,7 +94,7 @@
          S( J ) = 1.0 / S( J );
       }
 
-      TOL = ONE / SQRT( 2.0 * N );
+      TOL = ONE / sqrt( 2.0 * N );
 
       for (ITER = 1; ITER <= MAX_ITER; ITER++) {
          SCALE = 0.0;
@@ -133,7 +133,7 @@
             WORK( I ) = S( I-N ) * WORK( I-N ) - AVG;
          }
          dlassq(N, WORK( N+1 ), 1, SCALE, SUMSQ );
-         STD = SCALE * SQRT( SUMSQ / N );
+         STD = SCALE * sqrt( SUMSQ / N );
 
          if (STD < TOL * AVG) GOTO 999;
 
@@ -149,7 +149,7 @@
                INFO = -1;
                return;
             }
-            SI = -2*C0 / ( C1 + SQRT( D ) );
+            SI = -2*C0 / ( C1 + sqrt( D ) );
 
             D = SI - S( I );
             U = ZERO;
@@ -188,14 +188,14 @@
       BIGNUM = ONE / SMLNUM;
       SMIN = BIGNUM;
       SMAX = ZERO;
-      T = ONE / SQRT( AVG );
+      T = ONE / sqrt( AVG );
       BASE = DLAMCH( 'B' );
       U = ONE / LOG( BASE );
       for (I = 1; I <= N; I++) {
          S( I ) = BASE ** INT( U * LOG( S( I ) * T ) );
-         SMIN = MIN( SMIN, S( I ) );
-         SMAX = MAX( SMAX, S( I ) );
+         SMIN = min( SMIN, S( I ) );
+         SMAX = max( SMAX, S( I ) );
       }
-      SCOND = MAX( SMIN, SMLNUM ) / MIN( SMAX, BIGNUM );
+      SCOND = max( SMIN, SMLNUM ) / min( SMAX, BIGNUM );
 
       }

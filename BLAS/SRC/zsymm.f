@@ -57,11 +57,11 @@
           INFO = 3;
       } else if (N < 0) {
           INFO = 4;
-      } else if (LDA < MAX(1,NROWA)) {
+      } else if (LDA < max(1,NROWA)) {
           INFO = 7;
-      } else if (LDB < MAX(1,M)) {
+      } else if (LDB < max(1,M)) {
           INFO = 9;
-      } else if (LDC < MAX(1,M)) {
+      } else if (LDC < max(1,M)) {
           INFO = 12;
       }
       if (INFO != 0) {

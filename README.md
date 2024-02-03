@@ -343,6 +343,12 @@ $1return;
 $1if$2;\n     $3
 ```
 
+### MIN/MAX/SQRT -> min/max/sqrt
+```
+^(\s+.*)\b(MAX|MIN)\b\s*(\(.*)$
+$1\L$2$3
+```
+
 # LAPACK
 
 [![Build Status](https://travis-ci.org/Reference-LAPACK/lapack.svg?branch=master)](https://travis-ci.org/Reference-LAPACK/lapack)

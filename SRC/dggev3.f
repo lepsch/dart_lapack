@@ -69,16 +69,16 @@
 
       INFO = 0;
       LQUERY = ( LWORK == -1 );
-      LWKMIN = MAX( 1, 8*N );
+      LWKMIN = max( 1, 8*N );
       if ( IJOBVL <= 0 ) {
          INFO = -1;
       } else if ( IJOBVR <= 0 ) {
          INFO = -2;
       } else if ( N < 0 ) {
          INFO = -3;
-      } else if ( LDA < MAX( 1, N ) ) {
+      } else if ( LDA < max( 1, N ) ) {
          INFO = -5;
-      } else if ( LDB < MAX( 1, N ) ) {
+      } else if ( LDB < max( 1, N ) ) {
          INFO = -7;
       } else if ( LDVL < 1 || ( ILVL && LDVL < N ) ) {
          INFO = -12;
@@ -92,23 +92,23 @@
 
       if ( INFO == 0 ) {
          dgeqrf(N, N, B, LDB, WORK, WORK, -1, IERR );
-         LWKOPT = MAX( LWKMIN, 3*N+INT( WORK( 1 ) ) );
+         LWKOPT = max( LWKMIN, 3*N+INT( WORK( 1 ) ) );
          dormqr('L', 'T', N, N, N, B, LDB, WORK, A, LDA, WORK, -1, IERR );
-         LWKOPT = MAX( LWKOPT, 3*N+INT( WORK( 1 ) ) );
+         LWKOPT = max( LWKOPT, 3*N+INT( WORK( 1 ) ) );
          if ( ILVL ) {
             dorgqr(N, N, N, VL, LDVL, WORK, WORK, -1, IERR );
-            LWKOPT = MAX( LWKOPT, 3*N+INT( WORK( 1 ) ) );
+            LWKOPT = max( LWKOPT, 3*N+INT( WORK( 1 ) ) );
          }
          if ( ILV ) {
             dgghd3(JOBVL, JOBVR, N, 1, N, A, LDA, B, LDB, VL, LDVL, VR, LDVR, WORK, -1, IERR );
-            LWKOPT = MAX( LWKOPT, 3*N+INT( WORK ( 1 ) ) );
+            LWKOPT = max( LWKOPT, 3*N+INT( WORK ( 1 ) ) );
             dlaqz0('S', JOBVL, JOBVR, N, 1, N, A, LDA, B, LDB, ALPHAR, ALPHAI, BETA, VL, LDVL, VR, LDVR, WORK, -1, 0, IERR );
-            LWKOPT = MAX( LWKOPT, 2*N+INT( WORK( 1 ) ) );
+            LWKOPT = max( LWKOPT, 2*N+INT( WORK( 1 ) ) );
          } else {
             dgghd3('N', 'N', N, 1, N, A, LDA, B, LDB, VL, LDVL, VR, LDVR, WORK, -1, IERR );
-            LWKOPT = MAX( LWKOPT, 3*N+INT( WORK( 1 ) ) );
+            LWKOPT = max( LWKOPT, 3*N+INT( WORK( 1 ) ) );
             dlaqz0('E', JOBVL, JOBVR, N, 1, N, A, LDA, B, LDB, ALPHAR, ALPHAI, BETA, VL, LDVL, VR, LDVR, WORK, -1, 0, IERR );
-            LWKOPT = MAX( LWKOPT, 2*N+INT( WORK( 1 ) ) );
+            LWKOPT = max( LWKOPT, 2*N+INT( WORK( 1 ) ) );
          }
          if ( N == 0 ) {
             WORK( 1 ) = 1;
@@ -133,7 +133,7 @@
       EPS = DLAMCH( 'P' );
       SMLNUM = DLAMCH( 'S' );
       BIGNUM = ONE / SMLNUM;
-      SMLNUM = SQRT( SMLNUM ) / EPS;
+      SMLNUM = sqrt( SMLNUM ) / EPS;
       BIGNUM = ONE / SMLNUM;
 
       // Scale A if max element outside range [SMLNUM,BIGNUM]
@@ -258,11 +258,11 @@
                TEMP = ZERO;
                if ( ALPHAI( JC ) == ZERO ) {
                   for (JR = 1; JR <= N; JR++) { // 10
-                     TEMP = MAX( TEMP, ABS( VL( JR, JC ) ) );
+                     TEMP = max( TEMP, ABS( VL( JR, JC ) ) );
                   } // 10
                } else {
                   for (JR = 1; JR <= N; JR++) { // 20
-                     TEMP = MAX( TEMP, ABS( VL( JR, JC ) )+ ABS( VL( JR, JC+1 ) ) );
+                     TEMP = max( TEMP, ABS( VL( JR, JC ) )+ ABS( VL( JR, JC+1 ) ) );
                   } // 20
                }
                if (TEMP < SMLNUM) GO TO 50;
@@ -286,11 +286,11 @@
                TEMP = ZERO;
                if ( ALPHAI( JC ) == ZERO ) {
                   for (JR = 1; JR <= N; JR++) { // 60
-                     TEMP = MAX( TEMP, ABS( VR( JR, JC ) ) );
+                     TEMP = max( TEMP, ABS( VR( JR, JC ) ) );
                   } // 60
                } else {
                   for (JR = 1; JR <= N; JR++) { // 70
-                     TEMP = MAX( TEMP, ABS( VR( JR, JC ) )+ ABS( VR( JR, JC+1 ) ) );
+                     TEMP = max( TEMP, ABS( VR( JR, JC ) )+ ABS( VR( JR, JC+1 ) ) );
                   } // 70
                }
                if (TEMP < SMLNUM) GO TO 100;

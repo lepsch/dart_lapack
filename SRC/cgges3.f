@@ -78,7 +78,7 @@
 
       INFO = 0;
       LQUERY = ( LWORK == -1 );
-      LWKMIN = MAX( 1, 2*N );
+      LWKMIN = max( 1, 2*N );
 
       if ( IJOBVL <= 0 ) {
          INFO = -1;
@@ -88,9 +88,9 @@
          INFO = -3;
       } else if ( N < 0 ) {
          INFO = -5;
-      } else if ( LDA < MAX( 1, N ) ) {
+      } else if ( LDA < max( 1, N ) ) {
          INFO = -7;
-      } else if ( LDB < MAX( 1, N ) ) {
+      } else if ( LDB < max( 1, N ) ) {
          INFO = -9;
       } else if ( LDVSL < 1 || ( ILVSL && LDVSL < N ) ) {
          INFO = -14;
@@ -104,20 +104,20 @@
 
       if ( INFO == 0 ) {
          cgeqrf(N, N, B, LDB, WORK, WORK, -1, IERR );
-         LWKOPT = MAX( LWKMIN, N + INT( WORK( 1 ) ) );
+         LWKOPT = max( LWKMIN, N + INT( WORK( 1 ) ) );
          cunmqr('L', 'C', N, N, N, B, LDB, WORK, A, LDA, WORK, -1, IERR );
-         LWKOPT = MAX( LWKOPT, N + INT( WORK( 1 ) ) );
+         LWKOPT = max( LWKOPT, N + INT( WORK( 1 ) ) );
          if ( ILVSL ) {
             cungqr(N, N, N, VSL, LDVSL, WORK, WORK, -1, IERR );
-            LWKOPT = MAX( LWKOPT, N + INT( WORK( 1 ) ) );
+            LWKOPT = max( LWKOPT, N + INT( WORK( 1 ) ) );
          }
          cgghd3(JOBVSL, JOBVSR, N, 1, N, A, LDA, B, LDB, VSL, LDVSL, VSR, LDVSR, WORK, -1, IERR );
-         LWKOPT = MAX( LWKOPT, N + INT( WORK( 1 ) ) );
+         LWKOPT = max( LWKOPT, N + INT( WORK( 1 ) ) );
          claqz0('S', JOBVSL, JOBVSR, N, 1, N, A, LDA, B, LDB, ALPHA, BETA, VSL, LDVSL, VSR, LDVSR, WORK, -1, RWORK, 0, IERR );
-         LWKOPT = MAX( LWKOPT, INT( WORK( 1 ) ) );
+         LWKOPT = max( LWKOPT, INT( WORK( 1 ) ) );
          if ( WANTST ) {
             ctgsen(0, ILVSL, ILVSR, BWORK, N, A, LDA, B, LDB, ALPHA, BETA, VSL, LDVSL, VSR, LDVSR, SDIM, PVSL, PVSR, DIF, WORK, -1, IDUM, 1, IERR );
-            LWKOPT = MAX( LWKOPT, INT( WORK( 1 ) ) );
+            LWKOPT = max( LWKOPT, INT( WORK( 1 ) ) );
          }
          if ( N == 0 ) {
             WORK( 1 ) = 1;
@@ -146,7 +146,7 @@
       EPS = SLAMCH( 'P' );
       SMLNUM = SLAMCH( 'S' );
       BIGNUM = ONE / SMLNUM;
-      SMLNUM = SQRT( SMLNUM ) / EPS;
+      SMLNUM = sqrt( SMLNUM ) / EPS;
       BIGNUM = ONE / SMLNUM;
 
       // Scale A if max element outside range [SMLNUM,BIGNUM]

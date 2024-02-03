@@ -84,7 +84,7 @@
             // A is upper triangular.
 
             for (J = 1; J <= N; J++) { // 10
-               JLEN = MIN( KD, J-1 );
+               JLEN = min( KD, J-1 );
                CNORM( J ) = SASUM( JLEN, AB( KD+1-JLEN, J ), 1 );
             } // 10
          } else {
@@ -92,7 +92,7 @@
             // A is lower triangular.
 
             for (J = 1; J <= N; J++) { // 20
-               JLEN = MIN( KD, N-J );
+               JLEN = min( KD, N-J );
                if ( JLEN > 0 ) {
                   CNORM( J ) = SASUM( JLEN, AB( 2, J ), 1 );
                } else {
@@ -148,7 +148,7 @@
             // Compute GROW = 1/G(j) and XBND = 1/M(j).
             // Initially, G(0) = max{x(i), i=1,...,n}.
 
-            GROW = ONE / MAX( XBND, SMLNUM );
+            GROW = ONE / max( XBND, SMLNUM );
             XBND = GROW;
             DO 30 J = JFIRST, JLAST, JINC;
 
@@ -159,7 +159,7 @@
                // M(j) = G(j-1) / abs(A(j,j))
 
                TJJ = ABS( AB( MAIND, J ) );
-               XBND = MIN( XBND, MIN( ONE, TJJ )*GROW );
+               XBND = min( XBND, min( ONE, TJJ )*GROW );
                if ( TJJ+CNORM( J ) >= SMLNUM ) {
 
                   // G(j) = G(j-1)*( 1 + CNORM(j) / abs(A(j,j)) )
@@ -179,7 +179,7 @@
 
             // Compute GROW = 1/G(j), where G(0) = max{x(i), i=1,...,n}.
 
-            GROW = MIN( ONE, ONE / MAX( XBND, SMLNUM ) );
+            GROW = min( ONE, ONE / max( XBND, SMLNUM ) );
             DO 40 J = JFIRST, JLAST, JINC;
 
                // Exit the loop if the growth factor is too small.
@@ -221,7 +221,7 @@
             // Compute GROW = 1/G(j) and XBND = 1/M(j).
             // Initially, M(0) = max{x(i), i=1,...,n}.
 
-            GROW = ONE / MAX( XBND, SMLNUM );
+            GROW = ONE / max( XBND, SMLNUM );
             XBND = GROW;
             DO 60 J = JFIRST, JLAST, JINC;
 
@@ -232,21 +232,21 @@
                // G(j) = max( G(j-1), M(j-1)*( 1 + CNORM(j) ) )
 
                XJ = ONE + CNORM( J );
-               GROW = MIN( GROW, XBND / XJ );
+               GROW = min( GROW, XBND / XJ );
 
                // M(j) = M(j-1)*( 1 + CNORM(j) ) / abs(A(j,j))
 
                TJJ = ABS( AB( MAIND, J ) );
                if (XJ > TJJ) XBND = XBND*( TJJ / XJ );
             } // 60
-            GROW = MIN( GROW, XBND );
+            GROW = min( GROW, XBND );
          } else {
 
             // A is unit triangular.
 
             // Compute GROW = 1/G(j), where G(0) = max{x(i), i=1,...,n}.
 
-            GROW = MIN( ONE, ONE / MAX( XBND, SMLNUM ) );
+            GROW = min( ONE, ONE / max( XBND, SMLNUM ) );
             DO 70 J = JFIRST, JLAST, JINC;
 
                // Exit the loop if the growth factor is too small.
@@ -381,7 +381,7 @@
                         // x(max(1,j-kd):j-1) := x(max(1,j-kd):j-1) -
                                               // x(j)* A(max(1,j-kd):j-1,j)
 
-                     JLEN = MIN( KD, J-1 );
+                     JLEN = min( KD, J-1 );
                      saxpy(JLEN, -X( J )*TSCAL, AB( KD+1-JLEN, J ), 1, X( J-JLEN ), 1 );
                      I = ISAMAX( J-1, X, 1 );
                      XMAX = ABS( X( I ) );
@@ -392,7 +392,7 @@
                      // x(j+1:min(j+kd,n)) := x(j+1:min(j+kd,n)) -
                                            // x(j) * A(j+1:min(j+kd,n),j)
 
-                  JLEN = MIN( KD, N-J );
+                  JLEN = min( KD, N-J );
                   if (JLEN > 0) CALL SAXPY( JLEN, -X( J )*TSCAL, AB( 2, J ), 1, X( J+1 ), 1 );
                   I = J + ISAMAX( N-J, X( J+1 ), 1 );
                   XMAX = ABS( X( I ) );
@@ -410,7 +410,7 @@
 
                XJ = ABS( X( J ) );
                USCAL = TSCAL;
-               REC = ONE / MAX( XMAX, ONE );
+               REC = ONE / max( XMAX, ONE );
                if ( CNORM( J ) > ( BIGNUM-XJ )*REC ) {
 
                   // If x(j) could overflow, scale x by 1/(2*XMAX).
@@ -426,7 +426,7 @@
 
                         // Divide by A(j,j) when scaling x if A(j,j) > 1.
 
-                        REC = MIN( ONE, REC*TJJ );
+                        REC = min( ONE, REC*TJJ );
                         USCAL = USCAL / TJJS;
                      }
                   if ( REC < ONE ) {
@@ -443,10 +443,10 @@
                   // call SDOT to perform the dot product.
 
                   if ( UPPER ) {
-                     JLEN = MIN( KD, J-1 );
+                     JLEN = min( KD, J-1 );
                      SUMJ = SDOT( JLEN, AB( KD+1-JLEN, J ), 1, X( J-JLEN ), 1 );
                   } else {
-                     JLEN = MIN( KD, N-J );
+                     JLEN = min( KD, N-J );
                      if (JLEN > 0) SUMJ = SDOT( JLEN, AB( 2, J ), 1, X( J+1 ), 1 );
                   }
                } else {
@@ -454,12 +454,12 @@
                   // Otherwise, use in-line code for the dot product.
 
                   if ( UPPER ) {
-                     JLEN = MIN( KD, J-1 );
+                     JLEN = min( KD, J-1 );
                      for (I = 1; I <= JLEN; I++) { // 110
                         SUMJ = SUMJ + ( AB( KD+I-JLEN, J )*USCAL )* X( J-JLEN-1+I );
                      } // 110
                   } else {
-                     JLEN = MIN( KD, N-J );
+                     JLEN = min( KD, N-J );
                      for (I = 1; I <= JLEN; I++) { // 120
                         SUMJ = SUMJ + ( AB( I+1, J )*USCAL )*X( J+I );
                      } // 120
@@ -533,7 +533,7 @@
 
                   X( J ) = X( J ) / TJJS - SUMJ;
                }
-               XMAX = MAX( XMAX, ABS( X( J ) ) );
+               XMAX = max( XMAX, ABS( X( J ) ) );
             } // 140
          }
          SCALE = SCALE / TSCAL;

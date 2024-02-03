@@ -95,12 +95,12 @@
 
       for (IN = 1; IN <= NN; IN++) { // 150
          N = NVAL( IN );
-         LDB = MAX( N, 1 );
+         LDB = max( N, 1 );
          XTYPE = 'N';
 
          // Set limits on the number of loop iterations.
 
-         NKL = MAX( 1, MIN( N, 4 ) );
+         NKL = max( 1, min( N, 4 ) );
          if (N == 0) NKL = 1;
          NKU = NKL;
          NIMAT = NTYPES;
@@ -114,7 +114,7 @@
             if ( IKL == 1 ) {
                KL = 0;
             } else if ( IKL == 2 ) {
-               KL = MAX( N-1, 0 );
+               KL = max( N-1, 0 );
             } else if ( IKL == 3 ) {
                KL = ( 3*N-1 ) / 4;
             } else if ( IKL == 4 ) {
@@ -129,7 +129,7 @@
                if ( IKU == 1 ) {
                   KU = 0;
                } else if ( IKU == 2 ) {
-                  KU = MAX( N-1, 0 );
+                  KU = max( N-1, 0 );
                } else if ( IKU == 3 ) {
                   KU = ( 3*N-1 ) / 4;
                } else if ( IKU == 4 ) {
@@ -195,14 +195,14 @@
                      }
                      IOFF = ( IZERO-1 )*LDA;
                      if ( IMAT < 4 ) {
-                        I1 = MAX( 1, KU+2-IZERO );
-                        I2 = MIN( KL+KU+1, KU+1+( N-IZERO ) );
+                        I1 = max( 1, KU+2-IZERO );
+                        I2 = min( KL+KU+1, KU+1+( N-IZERO ) );
                         for (I = I1; I <= I2; I++) { // 20
                            A( IOFF+I ) = ZERO;
                         } // 20
                      } else {
                         for (J = IZERO; J <= N; J++) { // 40
-                           DO 30 I = MAX( 1, KU+2-J ), MIN( KL+KU+1, KU+1+( N-J ) );
+                           DO 30 I = max( 1, KU+2-J ), min( KL+KU+1, KU+1+( N-J ) );
                               A( IOFF+I ) = ZERO;
                            } // 30
                            IOFF = IOFF + LDA;
@@ -407,10 +407,10 @@
                            if ( INFO != 0 && INFO <= N) {
                               ANRMPV = ZERO;
                               for (J = 1; J <= INFO; J++) { // 70
-                                 DO 60 I = MAX( KU+2-J, 1 ), MIN( N+KU+1-J, KL+KU+1 )                                     ANRMPV = MAX( ANRMPV, ABS( A( I+( J-1 )*LDA ) ) );
+                                 DO 60 I = max( KU+2-J, 1 ), min( N+KU+1-J, KL+KU+1 )                                     ANRMPV = max( ANRMPV, ABS( A( I+( J-1 )*LDA ) ) );
                                  } // 60
                               } // 70
-                              RPVGRW = ZLANTB( 'M', 'U', 'N', INFO, MIN( INFO-1, KL+KU ), AFB( MAX( 1, KL+KU+2-INFO ) ), LDAFB, RDUM );
+                              RPVGRW = ZLANTB( 'M', 'U', 'N', INFO, min( INFO-1, KL+KU ), AFB( max( 1, KL+KU+2-INFO ) ), LDAFB, RDUM );
                               if ( RPVGRW == ZERO ) {
                                  RPVGRW = ONE;
                               } else {
@@ -424,7 +424,7 @@
                                  RPVGRW = ZLANGB( 'M', N, KL, KU, A, LDA, RDUM ) / RPVGRW;
                               }
                            }
-                           RESULT( 7 ) = ABS( RPVGRW-RWORK( 2*NRHS+1 ) ) / MAX( RWORK( 2*NRHS+1 ), RPVGRW ) / DLAMCH( 'E' );
+                           RESULT( 7 ) = ABS( RPVGRW-RWORK( 2*NRHS+1 ) ) / max( RWORK( 2*NRHS+1 ), RPVGRW ) / DLAMCH( 'E' );
 
                            if ( !PREFAC ) {
 

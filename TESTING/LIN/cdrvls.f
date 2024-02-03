@@ -82,7 +82,7 @@
 
       // Threshold for rank estimation
 
-      RCOND = SQRT( EPS ) - ( SQRT( EPS )-EPS ) / 2;
+      RCOND = sqrt( EPS ) - ( sqrt( EPS )-EPS ) / 2;
 
       // Test the error exits
 
@@ -117,12 +117,12 @@
       M = MMAX;
       N = NMAX;
       NRHS = NSMAX;
-      MNMIN = MAX( MIN( M, N ), 1 );
+      MNMIN = max( min( M, N ), 1 );
 
       // Compute workspace needed for routines
       // CQRT14, CQRT17 (two side cases), CQRT15 and CQRT12
 
-      LWORK = MAX( 1, ( M+N )*NRHS, ( N+NRHS )*( M+2 ), ( M+NRHS )*( N+2 ), MAX( M+MNMIN, NRHS*MNMIN,2*N+M ), MAX( M*N+4*MNMIN+MAX(M,N), M*N+2*MNMIN+4*N ) );
+      LWORK = max( 1, ( M+N )*NRHS, ( N+NRHS )*( M+2 ), ( M+NRHS )*( N+2 ), max( M+MNMIN, NRHS*MNMIN,2*N+M ), max( M*N+4*MNMIN+max(M,N), M*N+2*MNMIN+4*N ) );
       LRWORK = 1;
       LIWORK = 1;
 
@@ -132,11 +132,11 @@
 
       for (IM = 1; IM <= NM; IM++) {
          M = MVAL( IM );
-         LDA = MAX( 1, M );
+         LDA = max( 1, M );
          for (IN = 1; IN <= NN; IN++) {
             N = NVAL( IN );
-            MNMIN = MAX(MIN( M, N ),1);
-            LDB = MAX( 1, M, N );
+            MNMIN = max(min( M, N ),1);
+            LDB = max( 1, M, N );
             for (INS = 1; INS <= NNS; INS++) {
                NRHS = NSVAL( INS );
                for (IRANK = 1; IRANK <= 2; IRANK++) {
@@ -175,11 +175,11 @@
                         LWORK_CGELSD = INT( WQ( 1 ) );
                         LRWORK_CGELSD = INT( RWQ ( 1 ) );
                         // Compute LIWORK workspace needed for CGELSY and CGELSD
-                        LIWORK = MAX( LIWORK, N, IWQ ( 1 ) );
+                        LIWORK = max( LIWORK, N, IWQ ( 1 ) );
                         // Compute LRWORK workspace needed for CGELSY, CGELSS and CGELSD
-                        LRWORK = MAX( LRWORK, LRWORK_CGELSY, LRWORK_CGELSS, LRWORK_CGELSD );
+                        LRWORK = max( LRWORK, LRWORK_CGELSY, LRWORK_CGELSS, LRWORK_CGELSD );
                         // Compute LWORK workspace needed for all functions
-                        LWORK = MAX( LWORK, LWORK_CGELS, LWORK_CGETSLS, LWORK_CGELSY, LWORK_CGELSS, LWORK_CGELSD );
+                        LWORK = max( LWORK, LWORK_CGELS, LWORK_CGETSLS, LWORK_CGELSY, LWORK_CGELSS, LWORK_CGELSD );
                      }
                   }
                }
@@ -196,12 +196,12 @@
 
       for (IM = 1; IM <= NM; IM++) { // 140
          M = MVAL( IM );
-         LDA = MAX( 1, M );
+         LDA = max( 1, M );
 
          for (IN = 1; IN <= NN; IN++) { // 130
             N = NVAL( IN );
-            MNMIN = MAX(MIN( M, N ),1);
-            LDB = MAX( 1, M, N );
+            MNMIN = max(min( M, N ),1);
+            LDB = max( 1, M, N );
             MB = (MNMIN+1);
 
             for (INS = 1; INS <= NNS; INS++) { // 120
@@ -239,7 +239,7 @@
                                  NROWS = N;
                                  NCOLS = M;
                               }
-                              LDWORK = MAX( 1, NCOLS );
+                              LDWORK = max( 1, NCOLS );
 
                               // Set up a consistent rhs
 
@@ -329,7 +329,7 @@
                                  NROWS = N;
                                  NCOLS = M;
                               }
-                              LDWORK = MAX( 1, NCOLS );
+                              LDWORK = max( 1, NCOLS );
 
                               // Set up a consistent rhs
 
@@ -425,7 +425,7 @@
                                     NROWS = N;
                                     NCOLS = M;
                                  }
-                                 LDWORK = MAX( 1, NCOLS );
+                                 LDWORK = max( 1, NCOLS );
 
                                  // Set up a consistent rhs
 
@@ -494,9 +494,9 @@
 
                      cqrt15(ISCALE, IRANK, M, N, NRHS, COPYA, LDA, COPYB, LDB, COPYS, RANK, NORMA, NORMB, ISEED, WORK, LWORK );
 
-                     // workspace used: MAX(M+MIN(M,N),NRHS*MIN(M,N),2*N+M)
+                     // workspace used: max(M+min(M,N),NRHS*min(M,N),2*N+M)
 
-                     LDWORK = MAX( 1, M );
+                     LDWORK = max( 1, M );
 
                      // Loop for testing different block sizes.
 
@@ -524,10 +524,10 @@
                         SRNAMT = 'CGELSY';
                         cgelsy(M, N, NRHS, A, LDA, B, LDB, IWORK, RCOND, CRANK, WORK, LWLSY, RWORK, INFO )                         IF( INFO != 0 ) CALL ALAERH( PATH, 'CGELSY', INFO, 0, ' ', M, N, NRHS, -1, NB, ITYPE, NFAIL, NERRS, NOUT );
 
-                        // workspace used: 2*MNMIN+NB*NB+NB*MAX(N,NRHS)
+                        // workspace used: 2*MNMIN+NB*NB+NB*max(N,NRHS)
 
                         // Test 7:  Compute relative error in svd
-                                 // workspace: M*N + 4*MIN(M,N) + MAX(M,N)
+                                 // workspace: M*N + 4*min(M,N) + max(M,N)
 
                         RESULT( 7 ) = CQRT12( CRANK, CRANK, A, LDA, COPYS, WORK, LWORK, RWORK );
 

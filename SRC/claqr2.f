@@ -45,7 +45,7 @@
 
       // ==== Estimate optimal workspace. ====
 
-      JW = MIN( NW, KBOT-KTOP+1 );
+      JW = min( NW, KBOT-KTOP+1 );
       if ( JW <= 2 ) {
          LWKOPT = 1;
       } else {
@@ -62,7 +62,7 @@
 
          // ==== Optimal workspace ====
 
-         LWKOPT = JW + MAX( LWK1, LWK2 );
+         LWKOPT = JW + max( LWK1, LWK2 );
       }
 
       // ==== Quick return in case of workspace query. ====
@@ -90,7 +90,7 @@
 
       // ==== Setup deflation window ====
 
-      JW = MIN( NW, KBOT-KTOP+1 );
+      JW = min( NW, KBOT-KTOP+1 );
       KWTOP = KBOT - JW + 1;
       if ( KWTOP == KTOP ) {
          S = ZERO;
@@ -105,7 +105,7 @@
          SH( KWTOP ) = H( KWTOP, KWTOP );
          NS = 1;
          ND = 0;
-         if ( CABS1( S ) <= MAX( SMLNUM, ULP*CABS1( H( KWTOP, KWTOP ) ) ) ) {
+         if ( CABS1( S ) <= max( SMLNUM, ULP*CABS1( H( KWTOP, KWTOP ) ) ) ) {
             NS = 0;
             ND = 1;
             if (KWTOP > KTOP) H( KWTOP, KWTOP-1 ) = ZERO;
@@ -136,7 +136,7 @@
 
          FOO = CABS1( T( NS, NS ) );
          if ( FOO == RZERO ) FOO = CABS1( S );
-         IF( CABS1( S )*CABS1( V( 1, NS ) ) <= MAX( SMLNUM, ULP*FOO ) ) {
+         IF( CABS1( S )*CABS1( V( 1, NS ) ) <= max( SMLNUM, ULP*FOO ) ) {
 
             // ==== One more converged eigenvalue ====
 
@@ -219,7 +219,7 @@
             LTOP = KTOP;
          }
          DO 60 KROW = LTOP, KWTOP - 1, NV;
-            KLN = MIN( NV, KWTOP-KROW );
+            KLN = min( NV, KWTOP-KROW );
             cgemm('N', 'N', KLN, JW, JW, ONE, H( KROW, KWTOP ), LDH, V, LDV, ZERO, WV, LDWV );
             clacpy('A', KLN, JW, WV, LDWV, H( KROW, KWTOP ), LDH );
          } // 60
@@ -228,7 +228,7 @@
 
          if ( WANTT ) {
             DO 70 KCOL = KBOT + 1, N, NH;
-               KLN = MIN( NH, N-KCOL+1 );
+               KLN = min( NH, N-KCOL+1 );
                cgemm('C', 'N', JW, KLN, JW, ONE, V, LDV, H( KWTOP, KCOL ), LDH, ZERO, T, LDT );
                clacpy('A', JW, KLN, T, LDT, H( KWTOP, KCOL ), LDH );
             } // 70
@@ -238,7 +238,7 @@
 
          if ( WANTZ ) {
             DO 80 KROW = ILOZ, IHIZ, NV;
-               KLN = MIN( NV, IHIZ-KROW+1 );
+               KLN = min( NV, IHIZ-KROW+1 );
                cgemm('N', 'N', KLN, JW, JW, ONE, Z( KROW, KWTOP ), LDZ, V, LDV, ZERO, WV, LDWV );
                clacpy('A', KLN, JW, WV, LDWV, Z( KROW, KWTOP ), LDZ );
             } // 80

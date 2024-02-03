@@ -66,7 +66,7 @@
 
          // Do for each possible value of NB
 
-            MINMN = MIN( M, N );
+            MINMN = min( M, N );
             for (K = 1; K <= NNB; K++) {
                NB = NBVAL( K );
 

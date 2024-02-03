@@ -35,7 +35,7 @@
       INFO = 0;
       if ( N < 0 ) {
          INFO = -1;
-      } else if ( LDA < MAX( 1, N ) ) {
+      } else if ( LDA < max( 1, N ) ) {
          INFO = -3;
       }
       if ( INFO != 0 ) {
@@ -58,8 +58,8 @@
       AMAX = S( 1 );
       for (I = 2; I <= N; I++) { // 10
          S( I ) = A( I, I );
-         SMIN = MIN( SMIN, S( I ) );
-         AMAX = MAX( AMAX, S( I ) );
+         SMIN = min( SMIN, S( I ) );
+         AMAX = max( AMAX, S( I ) );
       } // 10
 
       if ( SMIN <= ZERO ) {
@@ -78,12 +78,12 @@
          // of the diagonal elements.
 
          for (I = 1; I <= N; I++) { // 30
-            S( I ) = ONE / SQRT( S( I ) );
+            S( I ) = ONE / sqrt( S( I ) );
          } // 30
 
          // Compute SCOND = min(S(I)) / max(S(I))
 
-         SCOND = SQRT( SMIN ) / SQRT( AMAX );
+         SCOND = sqrt( SMIN ) / sqrt( AMAX );
       }
       return;
 

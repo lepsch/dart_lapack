@@ -70,11 +70,11 @@
           INFO = 4;
       } else if (K < 0) {
           INFO = 5;
-      } else if (LDA < MAX(1,NROWA)) {
+      } else if (LDA < max(1,NROWA)) {
           INFO = 8;
-      } else if (LDB < MAX(1,NROWB)) {
+      } else if (LDB < max(1,NROWB)) {
           INFO = 10;
-      } else if (LDC < MAX(1,M)) {
+      } else if (LDC < max(1,M)) {
           INFO = 13;
       }
       if (INFO != 0) {

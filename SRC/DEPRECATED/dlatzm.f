@@ -31,7 +31,7 @@
       // ..
       // .. Executable Statements ..
 
-      if( ( MIN( M, N ) == 0 ) || ( TAU == ZERO ) ) return;
+      if( ( min( M, N ) == 0 ) || ( TAU == ZERO ) ) return;
 
       if ( LSAME( SIDE, 'L' ) ) {
 

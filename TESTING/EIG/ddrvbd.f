@@ -78,12 +78,12 @@
       MNMAX = 1;
       MINWRK = 1;
       for (J = 1; J <= NSIZES; J++) { // 10
-         MMAX = MAX( MMAX, MM( J ) );
+         MMAX = max( MMAX, MM( J ) );
          if( MM( J ) < 0 ) BADMM = true;
-         NMAX = MAX( NMAX, NN( J ) );
+         NMAX = max( NMAX, NN( J ) );
          if( NN( J ) < 0 ) BADNN = true;
-         MNMAX = MAX( MNMAX, MIN( MM( J ), NN( J ) ) );
-         MINWRK = MAX( MINWRK, MAX( 3*MIN( MM( J ), NN( J ) )+MAX( MM( J ), NN( J ) ), 5*MIN( MM( J ), NN( J )-4 ) )+2*MIN( MM( J ), NN( J ) )**2 );
+         MNMAX = max( MNMAX, min( MM( J ), NN( J ) ) );
+         MINWRK = max( MINWRK, max( 3*min( MM( J ), NN( J ) )+max( MM( J ), NN( J ) ), 5*min( MM( J ), NN( J )-4 ) )+2*min( MM( J ), NN( J ) )**2 );
       } // 10
 
       // Check for errors
@@ -96,11 +96,11 @@
          INFO = -3;
       } else if ( NTYPES < 0 ) {
          INFO = -4;
-      } else if ( LDA < MAX( 1, MMAX ) ) {
+      } else if ( LDA < max( 1, MMAX ) ) {
          INFO = -10;
-      } else if ( LDU < MAX( 1, MMAX ) ) {
+      } else if ( LDU < max( 1, MMAX ) ) {
          INFO = -12;
-      } else if ( LDVT < MAX( 1, NMAX ) ) {
+      } else if ( LDVT < max( 1, NMAX ) ) {
          INFO = -14;
       } else if ( MINWRK > LWORK ) {
          INFO = -21;
@@ -120,7 +120,7 @@
       UNFL = DLAMCH( 'Safe minimum' );
       OVFL = ONE / UNFL;
       ULP = DLAMCH( 'Precision' );
-      RTUNFL = SQRT( UNFL );
+      RTUNFL = sqrt( UNFL );
       ULPINV = ONE / ULP;
       INFOT = 0;
 
@@ -129,12 +129,12 @@
       for (JSIZE = 1; JSIZE <= NSIZES; JSIZE++) { // 240
          M = MM( JSIZE );
          N = NN( JSIZE );
-         MNMIN = MIN( M, N );
+         MNMIN = min( M, N );
 
          if ( NSIZES != 1 ) {
-            MTYPES = MIN( MAXTYP, NTYPES );
+            MTYPES = min( MAXTYP, NTYPES );
          } else {
-            MTYPES = MIN( MAXTYP+1, NTYPES );
+            MTYPES = min( MAXTYP+1, NTYPES );
          }
 
          for (JTYPE = 1; JTYPE <= MTYPES; JTYPE++) { // 230
@@ -188,10 +188,10 @@
 
                // Test DGESVD: Factorize A
 
-               IWTMP = MAX( 3*MIN( M, N )+MAX( M, N ), 5*MIN( M, N ) );
+               IWTMP = max( 3*min( M, N )+max( M, N ), 5*min( M, N ) );
                LSWORK = IWTMP + ( IWS-1 )*( LWORK-IWTMP ) / 3;
-               LSWORK = MIN( LSWORK, LWORK );
-               LSWORK = MAX( LSWORK, 1 );
+               LSWORK = min( LSWORK, LWORK );
+               LSWORK = max( LSWORK, 1 );
                if (IWS == 4) LSWORK = LWORK;
 
                if (IWS > 1) CALL DLACPY( 'F', M, N, ASAV, LDA, A, LDA );
@@ -245,7 +245,7 @@
                            dort03('C', M, M, M, MNMIN, USAV, LDU, U, LDU, WORK, LWORK, DIF, IINFO );
                         }
                      }
-                     RESULT( 5 ) = MAX( RESULT( 5 ), DIF );
+                     RESULT( 5 ) = max( RESULT( 5 ), DIF );
 
                      // Compare VT
 
@@ -259,27 +259,27 @@
                            dort03('R', N, N, N, MNMIN, VTSAV, LDVT, VT, LDVT, WORK, LWORK, DIF, IINFO );
                         }
                      }
-                     RESULT( 6 ) = MAX( RESULT( 6 ), DIF );
+                     RESULT( 6 ) = max( RESULT( 6 ), DIF );
 
                      // Compare S
 
                      DIF = ZERO;
-                     DIV = MAX( MNMIN*ULP*S( 1 ), UNFL );
+                     DIV = max( MNMIN*ULP*S( 1 ), UNFL );
                      for (I = 1; I <= MNMIN - 1; I++) { // 60
                         if( SSAV( I ) < SSAV( I+1 ) ) DIF = ULPINV;
                         IF( SSAV( I ) < ZERO ) DIF = ULPINV;
-                        DIF = MAX( DIF, ABS( SSAV( I )-S( I ) ) / DIV );
+                        DIF = max( DIF, ABS( SSAV( I )-S( I ) ) / DIV );
                      } // 60
-                     RESULT( 7 ) = MAX( RESULT( 7 ), DIF );
+                     RESULT( 7 ) = max( RESULT( 7 ), DIF );
                   } // 70
                } // 80
 
                // Test DGESDD: Factorize A
 
-               IWTMP = 5*MNMIN*MNMIN + 9*MNMIN + MAX( M, N );
+               IWTMP = 5*MNMIN*MNMIN + 9*MNMIN + max( M, N );
                LSWORK = IWTMP + ( IWS-1 )*( LWORK-IWTMP ) / 3;
-               LSWORK = MIN( LSWORK, LWORK );
-               LSWORK = MAX( LSWORK, 1 );
+               LSWORK = min( LSWORK, LWORK );
+               LSWORK = max( LSWORK, 1 );
                if (IWS == 4) LSWORK = LWORK;
 
                dlacpy('F', M, N, ASAV, LDA, A, LDA );
@@ -332,7 +332,7 @@
                         dort03('C', M, MNMIN, M, MNMIN, USAV, LDU, U, LDU, WORK, LWORK, DIF, INFO );
                      }
                   }
-                  RESULT( 12 ) = MAX( RESULT( 12 ), DIF );
+                  RESULT( 12 ) = max( RESULT( 12 ), DIF );
 
                   // Compare VT
 
@@ -348,18 +348,18 @@
                         dort03('R', N, MNMIN, N, MNMIN, VTSAV, LDVT, VT, LDVT, WORK, LWORK, DIF, INFO );
                      }
                   }
-                  RESULT( 13 ) = MAX( RESULT( 13 ), DIF );
+                  RESULT( 13 ) = max( RESULT( 13 ), DIF );
 
                   // Compare S
 
                   DIF = ZERO;
-                  DIV = MAX( MNMIN*ULP*S( 1 ), UNFL );
+                  DIV = max( MNMIN*ULP*S( 1 ), UNFL );
                   for (I = 1; I <= MNMIN - 1; I++) { // 100
                      if( SSAV( I ) < SSAV( I+1 ) ) DIF = ULPINV;
                      IF( SSAV( I ) < ZERO ) DIF = ULPINV;
-                     DIF = MAX( DIF, ABS( SSAV( I )-S( I ) ) / DIV );
+                     DIF = max( DIF, ABS( SSAV( I )-S( I ) ) / DIV );
                   } // 100
-                  RESULT( 14 ) = MAX( RESULT( 14 ), DIF );
+                  RESULT( 14 ) = max( RESULT( 14 ), DIF );
                } // 110
 
                // Test DGESVDQ
@@ -371,17 +371,17 @@
                RESULT( 39 ) = ZERO;
 
                if ( M >= N ) {
-                  IWTMP = 5*MNMIN*MNMIN + 9*MNMIN + MAX( M, N );
+                  IWTMP = 5*MNMIN*MNMIN + 9*MNMIN + max( M, N );
                   LSWORK = IWTMP + ( IWS-1 )*( LWORK-IWTMP ) / 3;
-                  LSWORK = MIN( LSWORK, LWORK );
-                  LSWORK = MAX( LSWORK, 1 );
+                  LSWORK = min( LSWORK, LWORK );
+                  LSWORK = max( LSWORK, 1 );
                   if (IWS == 4) LSWORK = LWORK;
 
                   dlacpy('F', M, N, ASAV, LDA, A, LDA );
                   SRNAMT = 'DGESVDQ';
 
                   LRWORK = 2;
-                  LIWORK = MAX( N, 1 );
+                  LIWORK = max( N, 1 );
                   dgesvdq('H', 'N', 'N', 'A', 'A',  M, N, A, LDA, SSAV, USAV, LDU, VTSAV, LDVT, NUMRANK, IWORK, LIWORK, WORK, LWORK, RWORK, LRWORK, IINFO );
 
                   if ( IINFO != 0 ) {
@@ -416,10 +416,10 @@
                RESULT( 18 ) = ZERO;
 
                if ( M >= N ) {
-                  IWTMP = 5*MNMIN*MNMIN + 9*MNMIN + MAX( M, N );
+                  IWTMP = 5*MNMIN*MNMIN + 9*MNMIN + max( M, N );
                   LSWORK = IWTMP + ( IWS-1 )*( LWORK-IWTMP ) / 3;
-                  LSWORK = MIN( LSWORK, LWORK );
-                  LSWORK = MAX( LSWORK, 1 );
+                  LSWORK = min( LSWORK, LWORK );
+                  LSWORK = max( LSWORK, 1 );
                   if (IWS == 4) LSWORK = LWORK;
 
                   dlacpy('F', M, N, ASAV, LDA, USAV, LDA );
@@ -465,10 +465,10 @@
                RESULT( 21 ) = ZERO;
                RESULT( 22 ) = ZERO;
                if ( M >= N ) {
-                  IWTMP = 5*MNMIN*MNMIN + 9*MNMIN + MAX( M, N );
+                  IWTMP = 5*MNMIN*MNMIN + 9*MNMIN + max( M, N );
                   LSWORK = IWTMP + ( IWS-1 )*( LWORK-IWTMP ) / 3;
-                  LSWORK = MIN( LSWORK, LWORK );
-                  LSWORK = MAX( LSWORK, 1 );
+                  LSWORK = min( LSWORK, LWORK );
+                  LSWORK = max( LSWORK, 1 );
                   if (IWS == 4) LSWORK = LWORK;
 
                   dlacpy('F', M, N, ASAV, LDA, VTSAV, LDA );
@@ -557,7 +557,7 @@
                            dort03('C', M, MNMIN, M, MNMIN, USAV, LDU, U, LDU, WORK, LWORK, DIF, IINFO );
                         }
                      }
-                     RESULT( 27 ) = MAX( RESULT( 27 ), DIF );
+                     RESULT( 27 ) = max( RESULT( 27 ), DIF );
 
                      // Compare VT
 
@@ -567,18 +567,18 @@
                            dort03('R', N, MNMIN, N, MNMIN, VTSAV, LDVT, VT, LDVT, WORK, LWORK, DIF, IINFO );
                         }
                      }
-                     RESULT( 28 ) = MAX( RESULT( 28 ), DIF );
+                     RESULT( 28 ) = max( RESULT( 28 ), DIF );
 
                      // Compare S
 
                      DIF = ZERO;
-                     DIV = MAX( MNMIN*ULP*S( 1 ), UNFL );
+                     DIV = max( MNMIN*ULP*S( 1 ), UNFL );
                      for (I = 1; I <= MNMIN - 1; I++) { // 190
                         if( SSAV( I ) < SSAV( I+1 ) ) DIF = ULPINV;
                         IF( SSAV( I ) < ZERO ) DIF = ULPINV;
-                        DIF = MAX( DIF, ABS( SSAV( I )-S( I ) ) / DIV );
+                        DIF = max( DIF, ABS( SSAV( I )-S( I ) ) / DIV );
                      } // 190
-                     RESULT( 29 ) = MAX( RESULT( 29 ), DIF );
+                     RESULT( 29 ) = max( RESULT( 29 ), DIF );
                   } // 170
                } // 180
 
@@ -589,7 +589,7 @@
                } // 200
                if ( MNMIN <= 1 ) {
                   IL = 1;
-                  IU = MAX( 1, MNMIN );
+                  IU = max( 1, MNMIN );
                } else {
                   IL = 1 + INT( ( MNMIN-1 )*DLARND( 1, ISEED2 ) );
                   IU = 1 + INT( ( MNMIN-1 )*DLARND( 1, ISEED2 ) );
@@ -618,18 +618,18 @@
 
                if ( MNMIN > 0 && NSI > 1 ) {
                   if ( IL != 1 ) {
-                     VU = SSAV( IL ) + MAX( HALF*ABS( SSAV( IL )-SSAV( IL-1 ) ), ULP*ANORM, TWO*RTUNFL );
+                     VU = SSAV( IL ) + max( HALF*ABS( SSAV( IL )-SSAV( IL-1 ) ), ULP*ANORM, TWO*RTUNFL );
                   } else {
-                     VU = SSAV( 1 ) + MAX( HALF*ABS( SSAV( NS )-SSAV( 1 ) ), ULP*ANORM, TWO*RTUNFL );
+                     VU = SSAV( 1 ) + max( HALF*ABS( SSAV( NS )-SSAV( 1 ) ), ULP*ANORM, TWO*RTUNFL );
                   }
                   if ( IU != NS ) {
-                     VL = SSAV( IU ) - MAX( ULP*ANORM, TWO*RTUNFL, HALF*ABS( SSAV( IU+1 )-SSAV( IU ) ) );
+                     VL = SSAV( IU ) - max( ULP*ANORM, TWO*RTUNFL, HALF*ABS( SSAV( IU+1 )-SSAV( IU ) ) );
                   } else {
-                     VL = SSAV( NS ) - MAX( ULP*ANORM, TWO*RTUNFL, HALF*ABS( SSAV( NS )-SSAV( 1 ) ) );
+                     VL = SSAV( NS ) - max( ULP*ANORM, TWO*RTUNFL, HALF*ABS( SSAV( NS )-SSAV( 1 ) ) );
                   }
-                  VL = MAX( VL,ZERO );
-                  VU = MAX( VU,ZERO );
-                  if (VL >= VU) VU = MAX( VU*2, VU+VL+HALF );
+                  VL = max( VL,ZERO );
+                  VU = max( VU,ZERO );
+                  if (VL >= VU) VU = max( VU*2, VU+VL+HALF );
                } else {
                   VL = ZERO;
                   VU = ONE;

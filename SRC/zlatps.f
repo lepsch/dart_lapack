@@ -126,7 +126,7 @@
 
       XMAX = ZERO;
       for (J = 1; J <= N; J++) { // 30
-         XMAX = MAX( XMAX, CABS2( X( J ) ) );
+         XMAX = max( XMAX, CABS2( X( J ) ) );
       } // 30
       XBND = XMAX;
       if ( NOTRAN ) {
@@ -155,7 +155,7 @@
             // Compute GROW = 1/G(j) and XBND = 1/M(j).
             // Initially, G(0) = max{x(i), i=1,...,n}.
 
-            GROW = HALF / MAX( XBND, SMLNUM );
+            GROW = HALF / max( XBND, SMLNUM );
             XBND = GROW;
             IP = JFIRST*( JFIRST+1 ) / 2;
             JLEN = N;
@@ -172,7 +172,7 @@
 
                   // M(j) = G(j-1) / abs(A(j,j))
 
-                  XBND = MIN( XBND, MIN( ONE, TJJ )*GROW );
+                  XBND = min( XBND, min( ONE, TJJ )*GROW );
                } else {
 
                   // M(j) could overflow, set XBND to 0.
@@ -201,7 +201,7 @@
 
             // Compute GROW = 1/G(j), where G(0) = max{x(i), i=1,...,n}.
 
-            GROW = MIN( ONE, HALF / MAX( XBND, SMLNUM ) );
+            GROW = min( ONE, HALF / max( XBND, SMLNUM ) );
             DO 50 J = JFIRST, JLAST, JINC;
 
                // Exit the loop if the growth factor is too small.
@@ -241,7 +241,7 @@
             // Compute GROW = 1/G(j) and XBND = 1/M(j).
             // Initially, M(0) = max{x(i), i=1,...,n}.
 
-            GROW = HALF / MAX( XBND, SMLNUM );
+            GROW = HALF / max( XBND, SMLNUM );
             XBND = GROW;
             IP = JFIRST*( JFIRST+1 ) / 2;
             JLEN = 1;
@@ -254,7 +254,7 @@
                // G(j) = max( G(j-1), M(j-1)*( 1 + CNORM(j) ) )
 
                XJ = ONE + CNORM( J );
-               GROW = MIN( GROW, XBND / XJ );
+               GROW = min( GROW, XBND / XJ );
 
                TJJS = AP( IP );
                TJJ = CABS1( TJJS );
@@ -273,14 +273,14 @@
                JLEN = JLEN + 1;
                IP = IP + JINC*JLEN;
             } // 70
-            GROW = MIN( GROW, XBND );
+            GROW = min( GROW, XBND );
          } else {
 
             // A is unit triangular.
 
             // Compute GROW = 1/G(j), where G(0) = max{x(i), i=1,...,n}.
 
-            GROW = MIN( ONE, HALF / MAX( XBND, SMLNUM ) );
+            GROW = min( ONE, HALF / max( XBND, SMLNUM ) );
             DO 80 J = JFIRST, JLAST, JINC;
 
                // Exit the loop if the growth factor is too small.
@@ -449,7 +449,7 @@
 
                XJ = CABS1( X( J ) );
                USCAL = TSCAL;
-               REC = ONE / MAX( XMAX, ONE );
+               REC = ONE / max( XMAX, ONE );
                if ( CNORM( J ) > ( BIGNUM-XJ )*REC ) {
 
                   // If x(j) could overflow, scale x by 1/(2*XMAX).
@@ -465,7 +465,7 @@
 
                         // Divide by A(j,j) when scaling x if A(j,j) > 1.
 
-                     REC = MIN( ONE, REC*TJJ );
+                     REC = min( ONE, REC*TJJ );
                      USCAL = ZLADIV( USCAL, TJJS );
                   }
                   if ( REC < ONE ) {
@@ -568,7 +568,7 @@
 
                   X( J ) = ZLADIV( X( J ), TJJS ) - CSUMJ;
                }
-               XMAX = MAX( XMAX, CABS1( X( J ) ) );
+               XMAX = max( XMAX, CABS1( X( J ) ) );
                JLEN = JLEN + 1;
                IP = IP + JINC*JLEN;
             } // 170
@@ -586,7 +586,7 @@
 
                XJ = CABS1( X( J ) );
                USCAL = TSCAL;
-               REC = ONE / MAX( XMAX, ONE );
+               REC = ONE / max( XMAX, ONE );
                if ( CNORM( J ) > ( BIGNUM-XJ )*REC ) {
 
                   // If x(j) could overflow, scale x by 1/(2*XMAX).
@@ -602,7 +602,7 @@
 
                         // Divide by A(j,j) when scaling x if A(j,j) > 1.
 
-                     REC = MIN( ONE, REC*TJJ );
+                     REC = min( ONE, REC*TJJ );
                      USCAL = ZLADIV( USCAL, TJJS );
                   }
                   if ( REC < ONE ) {
@@ -705,7 +705,7 @@
 
                   X( J ) = ZLADIV( X( J ), TJJS ) - CSUMJ;
                }
-               XMAX = MAX( XMAX, CABS1( X( J ) ) );
+               XMAX = max( XMAX, CABS1( X( J ) ) );
                JLEN = JLEN + 1;
                IP = IP + JINC*JLEN;
             } // 220

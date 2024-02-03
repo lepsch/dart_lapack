@@ -43,15 +43,15 @@
 
       // IF( ICOMPQ < 0 || ICOMPQ > 2 ) THEN
          // INFO = -1
-      // ELSE IF( ( ICOMPQ == 1 ) && ( QSIZ < MAX( 0, N ) ) )
+      // ELSE IF( ( ICOMPQ == 1 ) && ( QSIZ < max( 0, N ) ) )
 // $        THEN
-      if ( QSIZ < MAX( 0, N ) ) {
+      if ( QSIZ < max( 0, N ) ) {
          INFO = -1;
       } else if ( N < 0 ) {
          INFO = -2;
-      } else if ( LDQ < MAX( 1, N ) ) {
+      } else if ( LDQ < max( 1, N ) ) {
          INFO = -6;
-      } else if ( LDQS < MAX( 1, N ) ) {
+      } else if ( LDQS < max( 1, N ) ) {
          INFO = -8;
       }
       if ( INFO != 0 ) {

@@ -246,10 +246,10 @@
 
       // Check the reliability of ZMVCH using exact data.
 
-      N = MIN( 32, NMAX );
+      N = min( 32, NMAX );
       for (J = 1; J <= N; J++) { // 120
          for (I = 1; I <= N; I++) { // 110
-            A( I, J ) = MAX( I - J + 1, 0 );
+            A( I, J ) = max( I - J + 1, 0 );
          } // 110
          X( J ) = J;
          Y( J ) = ZERO;
@@ -454,8 +454,8 @@
          ND = N/2 + 1;
 
          for (IM = 1; IM <= 2; IM++) { // 110
-            if (IM == 1) M = MAX( N - ND, 0 );
-            IF( IM == 2 ) M = MIN( N + ND, NMAX );
+            if (IM == 1) M = max( N - ND, 0 );
+            IF( IM == 2 ) M = min( N + ND, NMAX );
 
             if ( BANDED ) {
                NK = NKB;
@@ -465,7 +465,7 @@
             for (IKU = 1; IKU <= NK; IKU++) { // 100
                if ( BANDED ) {
                   KU = KB( IKU );
-                  KL = MAX( KU - 1, 0 );
+                  KL = max( KU - 1, 0 );
                } else {
                   KU = N - 1;
                   KL = M - 1;
@@ -633,7 +633,7 @@
                                  // Check the result.
 
                                  zmvch(TRANS, M, N, ALPHA, A, NMAX, X, INCX, BETA, Y, INCY, YT, G, YY, EPS, ERR, FATAL, NOUT, true );
-                                 ERRMAX = MAX( ERRMAX, ERR );
+                                 ERRMAX = max( ERRMAX, ERR );
                                  // If got really bad answer, report and
                                  // return.
                                  if (FATAL) GO TO 130;
@@ -937,7 +937,7 @@
                               // Check the result.
 
                               zmvch('N', N, N, ALPHA, A, NMAX, X, INCX, BETA, Y, INCY, YT, G, YY, EPS, ERR, FATAL, NOUT, true );
-                              ERRMAX = MAX( ERRMAX, ERR );
+                              ERRMAX = max( ERRMAX, ERR );
                               // If got really bad answer, report and
                               // return.
                               if (FATAL) GO TO 120;
@@ -1259,7 +1259,7 @@
                               } // 50
                               zmvch(TRANS, N, N, ONE, A, NMAX, Z, INCX, ZERO, X, INCX, XT, G, XX, EPS, ERR, FATAL, NOUT, false );
                            }
-                           ERRMAX = MAX( ERRMAX, ERR );
+                           ERRMAX = max( ERRMAX, ERR );
                            // If got really bad answer, report and return.
                            if (FATAL) GO TO 120;
                         } else {
@@ -1371,8 +1371,8 @@
          ND = N/2 + 1;
 
          for (IM = 1; IM <= 2; IM++) { // 110
-            if (IM == 1) M = MAX( N - ND, 0 );
-            IF( IM == 2 ) M = MIN( N + ND, NMAX );
+            if (IM == 1) M = max( N - ND, 0 );
+            IF( IM == 2 ) M = min( N + ND, NMAX );
 
             // Set LDA to 1 more than minimum value if room.
             LDA = M;
@@ -1504,7 +1504,7 @@
                            }
                            if (CONJ) W( 1 ) = DCONJG( W( 1 ) );
                            zmvch('N', M, 1, ALPHA, Z, NMAX, W, 1, ONE, A( 1, J ), 1, YT, G, AA( 1 + ( J - 1 )*LDA ), EPS, ERR, FATAL, NOUT, true );
-                           ERRMAX = MAX( ERRMAX, ERR );
+                           ERRMAX = max( ERRMAX, ERR );
                            // If got really bad answer, report and return.
                            if (FATAL) GO TO 130;
                         } // 70
@@ -1758,7 +1758,7 @@
                         } else {
                            JA = JA + LJ;
                         }
-                        ERRMAX = MAX( ERRMAX, ERR );
+                        ERRMAX = max( ERRMAX, ERR );
                         // If got really bad answer, report and return.
                         if (FATAL) GO TO 110;
                      } // 60
@@ -2043,7 +2043,7 @@
                            } else {
                               JA = JA + LJ;
                            }
-                           ERRMAX = MAX( ERRMAX, ERR );
+                           ERRMAX = max( ERRMAX, ERR );
                            // If got really bad answer, report and return.
                            if (FATAL) GO TO 150;
                         } // 90
@@ -2195,8 +2195,8 @@
       for (I = 1; I <= ML; I++) { // 50
          ERRI = ABS( YT( I ) - YY( 1 + ( I - 1 )*ABS( INCY ) ) )/EPS;
          if( G( I ) != RZERO ) ERRI = ERRI/G( I );
-         ERR = MAX( ERR, ERRI );
-         if( ERR*SQRT( EPS ) >= RONE ) GO TO 60;
+         ERR = max( ERR, ERRI );
+         if( ERR*sqrt( EPS ) >= RONE ) GO TO 60;
       } // 50
       // If the loop completes, all results are at least half accurate.
       GO TO 80;
@@ -2464,7 +2464,7 @@
             for (I1 = 1; I1 <= KU + 1 - J; I1++) { // 60
                AA( I1 + ( J - 1 )*LDA ) = ROGUE;
             } // 60
-            DO 70 I2 = I1, MIN( KL + KU + 1, KU + 1 + M - J );
+            DO 70 I2 = I1, min( KL + KU + 1, KU + 1 + M - J );
                AA( I2 + ( J - 1 )*LDA ) = A( I2 + J - KU - 1, J );
             } // 70
             for (I3 = I2; I3 <= LDA; I3++) { // 80
@@ -2506,7 +2506,7 @@
          for (J = 1; J <= N; J++) { // 170
             if ( UPPER ) {
                KK = KL + 1;
-               IBEG = MAX( 1, KL + 2 - J );
+               IBEG = max( 1, KL + 2 - J );
                if ( UNIT ) {
                   IEND = KL;
                } else {
@@ -2519,7 +2519,7 @@
                } else {
                   IBEG = 1;
                }
-               IEND = MIN( KL + 1, 1 + M - J );
+               IEND = min( KL + 1, 1 + M - J );
             }
             for (I = 1; I <= IBEG - 1; I++) { // 140
                AA( I + ( J - 1 )*LDA ) = ROGUE;

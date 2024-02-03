@@ -58,7 +58,7 @@
          INFO = -4;
       } else if ( N < 0 ) {
          INFO = -5;
-      } else if ( LDA < MAX( 1, N ) ) {
+      } else if ( LDA < max( 1, N ) ) {
          INFO = -7;
       }
       if ( INFO != 0 ) {
@@ -125,14 +125,14 @@
                // A is upper triangular.
 
                for (J = 2; J <= N; J++) {
-                  TMAX = MAX( DLANGE( 'M', J-1, 1, A( 1, J ), 1, WORK ), TMAX );
+                  TMAX = max( DLANGE( 'M', J-1, 1, A( 1, J ), 1, WORK ), TMAX );
                }
             } else {
 
                // A is lower triangular.
 
                for (J = 1; J <= N - 1; J++) {
-                  TMAX = MAX( DLANGE( 'M', N-J, 1, A( J+1, J ), 1, WORK ), TMAX );
+                  TMAX = max( DLANGE( 'M', N-J, 1, A( J+1, J ), 1, WORK ), TMAX );
                }
             }
 
@@ -197,7 +197,7 @@
             // Compute GROW = 1/G(j) and XBND = 1/M(j).
             // Initially, G(0) = max{x(i), i=1,...,n}.
 
-            GROW = ONE / MAX( XBND, SMLNUM );
+            GROW = ONE / max( XBND, SMLNUM );
             XBND = GROW;
             DO 30 J = JFIRST, JLAST, JINC;
 
@@ -208,7 +208,7 @@
                // M(j) = G(j-1) / abs(A(j,j))
 
                TJJ = ABS( A( J, J ) );
-               XBND = MIN( XBND, MIN( ONE, TJJ )*GROW );
+               XBND = min( XBND, min( ONE, TJJ )*GROW );
                if ( TJJ+CNORM( J ) >= SMLNUM ) {
 
                   // G(j) = G(j-1)*( 1 + CNORM(j) / abs(A(j,j)) )
@@ -228,7 +228,7 @@
 
             // Compute GROW = 1/G(j), where G(0) = max{x(i), i=1,...,n}.
 
-            GROW = MIN( ONE, ONE / MAX( XBND, SMLNUM ) );
+            GROW = min( ONE, ONE / max( XBND, SMLNUM ) );
             DO 40 J = JFIRST, JLAST, JINC;
 
                // Exit the loop if the growth factor is too small.
@@ -268,7 +268,7 @@
             // Compute GROW = 1/G(j) and XBND = 1/M(j).
             // Initially, M(0) = max{x(i), i=1,...,n}.
 
-            GROW = ONE / MAX( XBND, SMLNUM );
+            GROW = ONE / max( XBND, SMLNUM );
             XBND = GROW;
             DO 60 J = JFIRST, JLAST, JINC;
 
@@ -279,21 +279,21 @@
                // G(j) = max( G(j-1), M(j-1)*( 1 + CNORM(j) ) )
 
                XJ = ONE + CNORM( J );
-               GROW = MIN( GROW, XBND / XJ );
+               GROW = min( GROW, XBND / XJ );
 
                // M(j) = M(j-1)*( 1 + CNORM(j) ) / abs(A(j,j))
 
                TJJ = ABS( A( J, J ) );
                if (XJ > TJJ) XBND = XBND*( TJJ / XJ );
             } // 60
-            GROW = MIN( GROW, XBND );
+            GROW = min( GROW, XBND );
          } else {
 
             // A is unit triangular.
 
             // Compute GROW = 1/G(j), where G(0) = max{x(i), i=1,...,n}.
 
-            GROW = MIN( ONE, ONE / MAX( XBND, SMLNUM ) );
+            GROW = min( ONE, ONE / max( XBND, SMLNUM ) );
             DO 70 J = JFIRST, JLAST, JINC;
 
                // Exit the loop if the growth factor is too small.
@@ -455,7 +455,7 @@
 
                XJ = ABS( X( J ) );
                USCAL = TSCAL;
-               REC = ONE / MAX( XMAX, ONE );
+               REC = ONE / max( XMAX, ONE );
                if ( CNORM( J ) > ( BIGNUM-XJ )*REC ) {
 
                   // If x(j) could overflow, scale x by 1/(2*XMAX).
@@ -471,7 +471,7 @@
 
                         // Divide by A(j,j) when scaling x if A(j,j) > 1.
 
-                     REC = MIN( ONE, REC*TJJ );
+                     REC = min( ONE, REC*TJJ );
                      USCAL = USCAL / TJJS;
                   }
                   if ( REC < ONE ) {
@@ -574,7 +574,7 @@
 
                   X( J ) = X( J ) / TJJS - SUMJ;
                }
-               XMAX = MAX( XMAX, ABS( X( J ) ) );
+               XMAX = max( XMAX, ABS( X( J ) ) );
             } // 160
          }
          SCALE = SCALE / TSCAL;

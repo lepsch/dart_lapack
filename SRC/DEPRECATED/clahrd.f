@@ -81,7 +81,7 @@
          // A(k+i+1:n,i)
 
          EI = A( K+I, I );
-         clarfg(N-K-I+1, EI, A( MIN( K+I+1, N ), I ), 1, TAU( I ) );
+         clarfg(N-K-I+1, EI, A( min( K+I+1, N ), I ), 1, TAU( I ) );
          A( K+I, I ) = ONE;
 
          // Compute  Y(1:n,i)

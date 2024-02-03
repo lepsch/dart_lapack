@@ -32,17 +32,17 @@
       // Test the input arguments
 
       INFO = 0;
-      K = MIN( M, N );
+      K = min( M, N );
       NB = ILAENV( 1, 'DGELQF', ' ', M, N, -1, -1 );
       LQUERY = ( LWORK == -1 );
       if ( M < 0 ) {
          INFO = -1;
       } else if ( N < 0 ) {
          INFO = -2;
-      } else if ( LDA < MAX( 1, M ) ) {
+      } else if ( LDA < max( 1, M ) ) {
          INFO = -4;
       } else if ( !LQUERY ) {
-         if( LWORK <= 0 || ( N > 0 && LWORK < MAX( 1, M ) ) ) INFO = -7;
+         if( LWORK <= 0 || ( N > 0 && LWORK < max( 1, M ) ) ) INFO = -7;
       }
       if ( INFO != 0 ) {
          xerbla('DGELQF', -INFO );
@@ -71,7 +71,7 @@
 
          // Determine when to cross over from blocked to unblocked code.
 
-         NX = MAX( 0, ILAENV( 3, 'DGELQF', ' ', M, N, -1, -1 ) );
+         NX = max( 0, ILAENV( 3, 'DGELQF', ' ', M, N, -1, -1 ) );
          if ( NX < K ) {
 
             // Determine if workspace is large enough for blocked code.
@@ -84,7 +84,7 @@
                // determine the minimum value of NB.
 
                NB = LWORK / LDWORK;
-               NBMIN = MAX( 2, ILAENV( 2, 'DGELQF', ' ', M, N, -1, -1 ) );
+               NBMIN = max( 2, ILAENV( 2, 'DGELQF', ' ', M, N, -1, -1 ) );
             }
          }
       }
@@ -94,7 +94,7 @@
          // Use blocked code initially
 
          DO 10 I = 1, K - NX, NB;
-            IB = MIN( K-I+1, NB );
+            IB = min( K-I+1, NB );
 
             // Compute the LQ factorization of the current block
             // A(i:i+ib-1,i:n)

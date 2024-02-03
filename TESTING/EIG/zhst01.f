@@ -51,7 +51,7 @@
 
       // Copy A to WORK
 
-      LDWORK = MAX( 1, N );
+      LDWORK = max( 1, N );
       zlacpy(' ', N, N, A, LDA, WORK, LDWORK );
 
       // Compute Q*H
@@ -62,12 +62,12 @@
 
       zgemm('No transpose', 'Conjugate transpose', N, N, N, DCMPLX( -ONE ), WORK( LDWORK*N+1 ), LDWORK, Q, LDQ, DCMPLX( ONE ), WORK, LDWORK );
 
-      ANORM = MAX( ZLANGE( '1', N, N, A, LDA, RWORK ), UNFL );
+      ANORM = max( ZLANGE( '1', N, N, A, LDA, RWORK ), UNFL );
       WNORM = ZLANGE( '1', N, N, WORK, LDWORK, RWORK );
 
       // Note that RESULT(1) cannot overflow and is bounded by 1/(N*EPS)
 
-      RESULT( 1 ) = MIN( WNORM, ANORM ) / MAX( SMLNUM, ANORM*EPS ) / N;
+      RESULT( 1 ) = min( WNORM, ANORM ) / max( SMLNUM, ANORM*EPS ) / N;
 
       // Test 2:  Compute norm( I - Q'*Q ) / ( N * EPS )
 

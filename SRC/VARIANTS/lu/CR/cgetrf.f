@@ -40,7 +40,7 @@
          INFO = -1;
       } else if ( N < 0 ) {
          INFO = -2;
-      } else if ( LDA < MAX( 1, M ) ) {
+      } else if ( LDA < max( 1, M ) ) {
          INFO = -4;
       }
       if ( INFO != 0 ) {
@@ -55,7 +55,7 @@
       // Determine the block size for this environment.
 
       NB = ILAENV( 1, 'CGETRF', ' ', M, N, -1, -1 );
-      if ( NB <= 1 || NB >= MIN( M, N ) ) {
+      if ( NB <= 1 || NB >= min( M, N ) ) {
 
          // Use unblocked code.
 
@@ -64,8 +64,8 @@
 
          // Use blocked code.
 
-         DO 20 J = 1, MIN( M, N ), NB;
-            JB = MIN( MIN( M, N )-J+1, NB );
+         DO 20 J = 1, min( M, N ), NB;
+            JB = min( min( M, N )-J+1, NB );
 
             // Update current block.
 
@@ -80,7 +80,7 @@
             // Adjust INFO and the pivot indices.
 
             if (INFO == 0 && IINFO > 0) INFO = IINFO + J - 1;
-            DO 10 I = J, MIN( M, J+JB-1 );
+            DO 10 I = J, min( M, J+JB-1 );
                IPIV( I ) = J - 1 + IPIV( I );
             } // 10
 

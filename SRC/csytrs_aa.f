@@ -46,11 +46,11 @@
          INFO = -2;
       } else if ( NRHS < 0 ) {
          INFO = -3;
-      } else if ( LDA < MAX( 1, N ) ) {
+      } else if ( LDA < max( 1, N ) ) {
          INFO = -5;
-      } else if ( LDB < MAX( 1, N ) ) {
+      } else if ( LDB < max( 1, N ) ) {
          INFO = -8;
-      } else if ( LWORK < MAX( 1, 3*N-2 ) && !LQUERY ) {
+      } else if ( LWORK < max( 1, 3*N-2 ) && !LQUERY ) {
          INFO = -10;
       }
       if ( INFO != 0 ) {

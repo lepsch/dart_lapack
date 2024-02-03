@@ -51,7 +51,7 @@
          INFO = -5;
       } else if ( LDAB < ( 2*KL+KU+1 ) ) {
          INFO = -7;
-      } else if ( LDB < MAX( 1, N ) ) {
+      } else if ( LDB < max( 1, N ) ) {
          INFO = -10;
       }
       if ( INFO != 0 ) {
@@ -79,7 +79,7 @@
 
          if ( LNOTI ) {
             for (J = 1; J <= N - 1; J++) { // 10
-               LM = MIN( KL, N-J );
+               LM = min( KL, N-J );
                L = IPIV( J );
                if (L != J) CALL DSWAP( NRHS, B( L, 1 ), LDB, B( J, 1 ), LDB );
                dger(LM, NRHS, -ONE, AB( KD+1, J ), 1, B( J, 1 ), LDB, B( J+1, 1 ), LDB );
@@ -108,7 +108,7 @@
 
          if ( LNOTI ) {
             DO 40 J = N - 1, 1, -1;
-               LM = MIN( KL, N-J );
+               LM = min( KL, N-J );
                dgemv('Transpose', LM, NRHS, -ONE, B( J+1, 1 ), LDB, AB( KD+1, J ), 1, ONE, B( J, 1 ), LDB );
                L = IPIV( J );
                if (L != J) CALL DSWAP( NRHS, B( L, 1 ), LDB, B( J, 1 ), LDB );

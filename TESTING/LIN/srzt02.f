@@ -64,7 +64,7 @@
          WORK( ( I-1 )*N+I ) = WORK( ( I-1 )*N+I ) - ONE;
       } // 10
 
-      SRZT02 = SLANGE( 'One-norm', N, N, WORK, N, RWORK ) / ( SLAMCH( 'Epsilon' )*REAL( MAX( M, N ) ) );
+      SRZT02 = SLANGE( 'One-norm', N, N, WORK, N, RWORK ) / ( SLAMCH( 'Epsilon' )*REAL( max( M, N ) ) );
       return;
 
       // End of SRZT02

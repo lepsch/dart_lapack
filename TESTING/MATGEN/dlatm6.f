@@ -104,7 +104,7 @@
 
       if ( TYPE == 1 ) {
 
-         S( 1 ) = ONE / SQRT( ( ONE+THREE*WY*WY ) / ( ONE+A( 1, 1 )*A( 1, 1 ) ) )          S( 2 ) = ONE / SQRT( ( ONE+THREE*WY*WY ) / ( ONE+A( 2, 2 )*A( 2, 2 ) ) )          S( 3 ) = ONE / SQRT( ( ONE+TWO*WX*WX ) / ( ONE+A( 3, 3 )*A( 3, 3 ) ) )          S( 4 ) = ONE / SQRT( ( ONE+TWO*WX*WX ) / ( ONE+A( 4, 4 )*A( 4, 4 ) ) )          S( 5 ) = ONE / SQRT( ( ONE+TWO*WX*WX ) / ( ONE+A( 5, 5 )*A( 5, 5 ) ) );
+         S( 1 ) = ONE / sqrt( ( ONE+THREE*WY*WY ) / ( ONE+A( 1, 1 )*A( 1, 1 ) ) )          S( 2 ) = ONE / sqrt( ( ONE+THREE*WY*WY ) / ( ONE+A( 2, 2 )*A( 2, 2 ) ) )          S( 3 ) = ONE / sqrt( ( ONE+TWO*WX*WX ) / ( ONE+A( 3, 3 )*A( 3, 3 ) ) )          S( 4 ) = ONE / sqrt( ( ONE+TWO*WX*WX ) / ( ONE+A( 4, 4 )*A( 4, 4 ) ) )          S( 5 ) = ONE / sqrt( ( ONE+TWO*WX*WX ) / ( ONE+A( 5, 5 )*A( 5, 5 ) ) );
 
          dlakf2(1, 4, A, LDA, A( 2, 2 ), B, B( 2, 2 ), Z, 12 );
          dgesvd('N', 'N', 8, 8, Z, 12, WORK, WORK( 9 ), 1, WORK( 10 ), 1, WORK( 11 ), 40, INFO );
@@ -116,10 +116,10 @@
 
       } else if ( TYPE == 2 ) {
 
-         S( 1 ) = ONE / SQRT( ONE / THREE+WY*WY );
+         S( 1 ) = ONE / sqrt( ONE / THREE+WY*WY );
          S( 2 ) = S( 1 );
-         S( 3 ) = ONE / SQRT( ONE / TWO+WX*WX );
-         S( 4 ) = ONE / SQRT( ( ONE+TWO*WX*WX ) / ( ONE+( ONE+ALPHA )*( ONE+ALPHA )+( ONE+BETA )*( ONE+ BETA ) ) );
+         S( 3 ) = ONE / sqrt( ONE / TWO+WX*WX );
+         S( 4 ) = ONE / sqrt( ( ONE+TWO*WX*WX ) / ( ONE+( ONE+ALPHA )*( ONE+ALPHA )+( ONE+BETA )*( ONE+ BETA ) ) );
          S( 5 ) = S( 4 );
 
          dlakf2(2, 3, A, LDA, A( 3, 3 ), B, B( 3, 3 ), Z, 12 );

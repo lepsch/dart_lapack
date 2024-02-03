@@ -49,18 +49,18 @@
       for (J = 1; J <= N; J++) { // 10
          zcopy(M, A( 1, J ), 1, WORK, 1 );
          zaxpy(M, DCMPLX( -ONE ), B( 1, J ), 1, WORK, 1 );
-         WNORM = MAX( WNORM, DZASUM( N, WORK, 1 ) );
+         WNORM = max( WNORM, DZASUM( N, WORK, 1 ) );
       } // 10
 
-      ANORM = MAX( ZLANGE( '1', M, N, A, LDA, RWORK ), UNFL );
+      ANORM = max( ZLANGE( '1', M, N, A, LDA, RWORK ), UNFL );
 
       if ( ANORM > WNORM ) {
          RESULT = ( WNORM / ANORM ) / ( M*EPS );
       } else {
          if ( ANORM < ONE ) {
-            RESULT = ( MIN( WNORM, M*ANORM ) / ANORM ) / ( M*EPS );
+            RESULT = ( min( WNORM, M*ANORM ) / ANORM ) / ( M*EPS );
          } else {
-            RESULT = MIN( WNORM / ANORM, DBLE( M ) ) / ( M*EPS );
+            RESULT = min( WNORM / ANORM, DBLE( M ) ) / ( M*EPS );
          }
       }
 

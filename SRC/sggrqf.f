@@ -36,8 +36,8 @@
       NB1 = ILAENV( 1, 'SGERQF', ' ', M, N, -1, -1 );
       NB2 = ILAENV( 1, 'SGEQRF', ' ', P, N, -1, -1 );
       NB3 = ILAENV( 1, 'SORMRQ', ' ', M, N, P, -1 );
-      NB = MAX( NB1, NB2, NB3 );
-      LWKOPT = MAX( 1, MAX( N, M, P )*NB );
+      NB = max( NB1, NB2, NB3 );
+      LWKOPT = max( 1, max( N, M, P )*NB );
       WORK( 1 ) = SROUNDUP_LWORK(LWKOPT);
       LQUERY = ( LWORK == -1 );
       if ( M < 0 ) {
@@ -46,11 +46,11 @@
          INFO = -2;
       } else if ( N < 0 ) {
          INFO = -3;
-      } else if ( LDA < MAX( 1, M ) ) {
+      } else if ( LDA < max( 1, M ) ) {
          INFO = -5;
-      } else if ( LDB < MAX( 1, P ) ) {
+      } else if ( LDB < max( 1, P ) ) {
          INFO = -8;
-      } else if ( LWORK < MAX( 1, M, P, N ) && !LQUERY ) {
+      } else if ( LWORK < max( 1, M, P, N ) && !LQUERY ) {
          INFO = -11;
       }
       if ( INFO != 0 ) {
@@ -67,13 +67,13 @@
 
       // Update B := B*Q**T
 
-      sormrq('Right', 'Transpose', P, N, MIN( M, N ), A( MAX( 1, M-N+1 ), 1 ), LDA, TAUA, B, LDB, WORK, LWORK, INFO );
-      LOPT = MAX( LOPT, INT( WORK( 1 ) ) );
+      sormrq('Right', 'Transpose', P, N, min( M, N ), A( max( 1, M-N+1 ), 1 ), LDA, TAUA, B, LDB, WORK, LWORK, INFO );
+      LOPT = max( LOPT, INT( WORK( 1 ) ) );
 
       // QR factorization of P-by-N matrix B: B = Z*T
 
       sgeqrf(P, N, B, LDB, TAUB, WORK, LWORK, INFO );
-      LWKOPT = MAX( LOPT, INT( WORK( 1 ) ) );
+      LWKOPT = max( LOPT, INT( WORK( 1 ) ) );
       WORK( 1 ) = SROUNDUP_LWORK( LWKOPT );
 
       return;

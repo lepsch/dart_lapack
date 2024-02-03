@@ -95,7 +95,7 @@
 
       for (IN = 1; IN <= NN; IN++) { // 90
          N = NVAL( IN );
-         LDA = MAX( N, 1 );
+         LDA = max( N, 1 );
          XTYPE = 'N';
          NIMAT = NTYPES;
          if (N <= 0) NIMAT = 1;
@@ -226,7 +226,7 @@
                      // Form the inverse of A.
 
                      clacpy('Full', N, N, AFAC, LDA, A, LDA );
-                     LWORK = NMAX*MAX( 3, NRHS );
+                     LWORK = NMAX*max( 3, NRHS );
                      SRNAMT = 'CGETRI';
                      cgetri(N, A, LDA, IWORK, WORK, LWORK, INFO );
 
@@ -359,7 +359,7 @@
                            RPVGRW = CLANGE( 'M', N, N, A, LDA, RDUM ) / RPVGRW;
                         }
                      }
-                     RESULT( 7 ) = ABS( RPVGRW-RWORK( 2*NRHS+1 ) ) / MAX( RWORK( 2*NRHS+1 ), RPVGRW ) / SLAMCH( 'E' );
+                     RESULT( 7 ) = ABS( RPVGRW-RWORK( 2*NRHS+1 ) ) / max( RWORK( 2*NRHS+1 ), RPVGRW ) / SLAMCH( 'E' );
 
                      if ( !PREFAC ) {
 

@@ -41,7 +41,7 @@
       // ..
       // .. Executable Statements ..
 
-      MINMN = MIN( M, N );
+      MINMN = min( M, N );
       EPS = SLAMCH( 'Epsilon' );
 
       // Copy the matrix A to the array AF.
@@ -87,7 +87,7 @@
       ANORM = SLANGE( '1', M, N, A, LDA, RWORK );
       RESID = SLANGE( '1', M, N, R, LDA, RWORK );
       if ( ANORM > ZERO ) {
-         RESULT( 1 ) = ( ( RESID / REAL( MAX( 1, N ) ) ) / ANORM ) / EPS;
+         RESULT( 1 ) = ( ( RESID / REAL( max( 1, N ) ) ) / ANORM ) / EPS;
       } else {
          RESULT( 1 ) = ZERO;
       }
@@ -101,7 +101,7 @@
 
       RESID = SLANSY( '1', 'Upper', N, R, LDA, RWORK );
 
-      RESULT( 2 ) = ( RESID / REAL( MAX( 1, N ) ) ) / EPS;
+      RESULT( 2 ) = ( RESID / REAL( max( 1, N ) ) ) / EPS;
 
       return;
 

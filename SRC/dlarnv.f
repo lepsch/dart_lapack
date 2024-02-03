@@ -37,7 +37,7 @@
       // .. Executable Statements ..
 
       DO 40 IV = 1, N, LV / 2;
-         IL = MIN( LV / 2, N-IV+1 );
+         IL = min( LV / 2, N-IV+1 );
          if ( IDIST == 3 ) {
             IL2 = 2*IL;
          } else {
@@ -68,7 +68,7 @@
             // Convert generated numbers to normal (0,1) distribution
 
             for (I = 1; I <= IL; I++) { // 30
-               X( IV+I-1 ) = SQRT( -TWO*LOG( U( 2*I-1 ) ) )* COS( TWOPI*U( 2*I ) );
+               X( IV+I-1 ) = sqrt( -TWO*LOG( U( 2*I-1 ) ) )* COS( TWOPI*U( 2*I ) );
             } // 30
          }
       } // 40

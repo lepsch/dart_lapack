@@ -69,12 +69,12 @@
          INFO = -6;
       } else if ( N < 0 || ( ITYPE == 4 && N != M ) || ( ITYPE == 5 && N != M ) ) {
          INFO = -7;
-      } else if ( ITYPE <= 3 && LDA < MAX( 1, M ) ) {
+      } else if ( ITYPE <= 3 && LDA < max( 1, M ) ) {
          INFO = -9;
       } else if ( ITYPE >= 4 ) {
-         if ( KL < 0 || KL > MAX( M-1, 0 ) ) {
+         if ( KL < 0 || KL > max( M-1, 0 ) ) {
             INFO = -2;
-         } else if ( KU < 0 || KU > MAX( N-1, 0 ) || ( ( ITYPE == 4 || ITYPE == 5 ) && KL != KU ) ) {
+         } else if ( KU < 0 || KU > max( N-1, 0 ) || ( ( ITYPE == 4 || ITYPE == 5 ) && KL != KU ) ) {
             INFO = -3;
          } else if ( ( ITYPE == 4 && LDA < KL+1 ) || ( ITYPE == 5 && LDA < KU+1 ) || ( ITYPE == 6 && LDA < 2*KL+KU+1 ) ) {
             INFO = -9;
@@ -154,7 +154,7 @@
          // Upper triangular matrix
 
          for (J = 1; J <= N; J++) { // 70
-            DO 60 I = 1, MIN( J, M );
+            DO 60 I = 1, min( J, M );
                A( I, J ) = A( I, J )*MUL;
             } // 60
          } // 70
@@ -164,7 +164,7 @@
          // Upper Hessenberg matrix
 
          for (J = 1; J <= N; J++) { // 90
-            DO 80 I = 1, MIN( J+1, M );
+            DO 80 I = 1, min( J+1, M );
                A( I, J ) = A( I, J )*MUL;
             } // 80
          } // 90
@@ -176,7 +176,7 @@
          K3 = KL + 1;
          K4 = N + 1;
          for (J = 1; J <= N; J++) { // 110
-            DO 100 I = 1, MIN( K3, K4-J );
+            DO 100 I = 1, min( K3, K4-J );
                A( I, J ) = A( I, J )*MUL;
             } // 100
          } // 110
@@ -188,7 +188,7 @@
          K1 = KU + 2;
          K3 = KU + 1;
          for (J = 1; J <= N; J++) { // 130
-            DO 120 I = MAX( K1-J, 1 ), K3;
+            DO 120 I = max( K1-J, 1 ), K3;
                A( I, J ) = A( I, J )*MUL;
             } // 120
          } // 130
@@ -202,7 +202,7 @@
          K3 = 2*KL + KU + 1;
          K4 = KL + KU + 1 + M;
          for (J = 1; J <= N; J++) { // 150
-            DO 140 I = MAX( K1-J, K2 ), MIN( K3, K4-J );
+            DO 140 I = max( K1-J, K2 ), min( K3, K4-J );
                A( I, J ) = A( I, J )*MUL;
             } // 140
          } // 150

@@ -45,7 +45,7 @@
 
             // Generate reflection Q(i) to annihilate A(i+1:m,i)
 
-            slarfg(M-I+1, A( I, I ), A( MIN( I+1, M ), I ), 1, TAUQ( I ) );
+            slarfg(M-I+1, A( I, I ), A( min( I+1, M ), I ), 1, TAUQ( I ) );
             D( I ) = A( I, I );
             if ( I < N ) {
                A( I, I ) = ONE;
@@ -66,7 +66,7 @@
 
                // Generate reflection P(i) to annihilate A(i,i+2:n)
 
-               slarfg(N-I, A( I, I+1 ), A( I, MIN( I+2, N ) ), LDA, TAUP( I ) );
+               slarfg(N-I, A( I, I+1 ), A( I, min( I+2, N ) ), LDA, TAUP( I ) );
                E( I ) = A( I, I+1 );
                A( I, I+1 ) = ONE;
 
@@ -93,7 +93,7 @@
 
             // Generate reflection P(i) to annihilate A(i,i+1:n)
 
-            slarfg(N-I+1, A( I, I ), A( I, MIN( I+1, N ) ), LDA, TAUP( I ) );
+            slarfg(N-I+1, A( I, I ), A( I, min( I+1, N ) ), LDA, TAUP( I ) );
             D( I ) = A( I, I );
             if ( I < M ) {
                A( I, I ) = ONE;
@@ -114,7 +114,7 @@
 
                // Generate reflection Q(i) to annihilate A(i+2:m,i)
 
-               slarfg(M-I, A( I+1, I ), A( MIN( I+2, M ), I ), 1, TAUQ( I ) );
+               slarfg(M-I, A( I+1, I ), A( min( I+2, M ), I ), 1, TAUQ( I ) );
                E( I ) = A( I+1, I );
                A( I+1, I ) = ONE;
 

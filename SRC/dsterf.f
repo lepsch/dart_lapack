@@ -54,8 +54,8 @@
       EPS2 = EPS**2;
       SAFMIN = DLAMCH( 'S' );
       SAFMAX = ONE / SAFMIN;
-      SSFMAX = SQRT( SAFMAX ) / THREE;
-      SSFMIN = SQRT( SAFMIN ) / EPS2;
+      SSFMAX = sqrt( SAFMAX ) / THREE;
+      SSFMIN = sqrt( SAFMIN ) / EPS2;
       RMAX = DLAMCH( 'O' );
 
       // Compute the eigenvalues of the tridiagonal matrix.
@@ -74,7 +74,7 @@
       if (L1 > N) GO TO 170;
       IF( L1 > 1 ) E( L1-1 ) = ZERO;
       for (M = L1; M <= N - 1; M++) { // 20
-         if ( ABS( E( M ) ) <= ( SQRT( ABS( D( M ) ) )*SQRT( ABS( D( M+ 1 ) ) ) )*EPS ) {
+         if ( ABS( E( M ) ) <= ( sqrt( ABS( D( M ) ) )*sqrt( ABS( D( M+ 1 ) ) ) )*EPS ) {
             E( M ) = ZERO;
             GO TO 30;
          }
@@ -138,7 +138,7 @@
          // eigenvalues.
 
          if ( M == L+1 ) {
-            RTE = SQRT( E( L ) );
+            RTE = sqrt( E( L ) );
             dlae2(D( L ), RTE, D( L+1 ), RT1, RT2 );
             D( L ) = RT1;
             D( L+1 ) = RT2;
@@ -153,7 +153,7 @@
 
          // Form shift.
 
-         RTE = SQRT( E( L ) );
+         RTE = sqrt( E( L ) );
          SIGMA = ( D( L+1 )-P ) / ( TWO*RTE );
          R = DLAPY2( SIGMA, ONE );
          SIGMA = P - ( RTE / ( SIGMA+SIGN( R, SIGMA ) ) );
@@ -217,7 +217,7 @@
          // eigenvalues.
 
          if ( M == L-1 ) {
-            RTE = SQRT( E( L-1 ) );
+            RTE = sqrt( E( L-1 ) );
             dlae2(D( L ), RTE, D( L-1 ), RT1, RT2 );
             D( L ) = RT1;
             D( L-1 ) = RT2;
@@ -232,7 +232,7 @@
 
          // Form shift.
 
-         RTE = SQRT( E( L-1 ) );
+         RTE = sqrt( E( L-1 ) );
          SIGMA = ( D( L-1 )-P ) / ( TWO*RTE );
          R = DLAPY2( SIGMA, ONE );
          SIGMA = P - ( RTE / ( SIGMA+SIGN( R, SIGMA ) ) );

@@ -64,9 +64,9 @@
          INFO = -5;
       } else if ( N < 0 ) {
          INFO = -6;
-      } else if ( LDA < MAX( 1, M ) ) {
+      } else if ( LDA < max( 1, M ) ) {
          INFO = -8;
-      } else if ( LDB < MAX( 1, P ) ) {
+      } else if ( LDB < max( 1, P ) ) {
          INFO = -10;
       } else if ( LDU < 1 || ( WANTU && LDU < M ) ) {
          INFO = -16;
@@ -95,7 +95,7 @@
       // Determine the effective rank of matrix B.
 
       L = 0;
-      DO 20 I = 1, MIN( P, N );
+      DO 20 I = 1, min( P, N );
          if( CABS1( B( I, I ) ) > TOLB ) L = L + 1;
       } // 20
 
@@ -105,7 +105,7 @@
 
          zlaset('Full', P, P, CZERO, CZERO, V, LDV );
          if (P > 1) CALL ZLACPY( 'Lower', P-1, N, B( 2, 1 ), LDB, V( 2, 1 ), LDV );
-         zung2r(P, P, MIN( P, N ), V, LDV, TAU, WORK, INFO );
+         zung2r(P, P, min( P, N ), V, LDV, TAU, WORK, INFO );
       }
 
       // Clean up B
@@ -168,13 +168,13 @@
       // Determine the effective rank of A11
 
       K = 0;
-      DO 80 I = 1, MIN( M, N-L );
+      DO 80 I = 1, min( M, N-L );
          if( CABS1( A( I, I ) ) > TOLA ) K = K + 1;
       } // 80
 
       // Update A12 := U**H*A12, where A12 = A( 1:M, N-L+1:N )
 
-      zunm2r('Left', 'Conjugate transpose', M, L, MIN( M, N-L ), A, LDA, TAU, A( 1, N-L+1 ), LDA, WORK, INFO );
+      zunm2r('Left', 'Conjugate transpose', M, L, min( M, N-L ), A, LDA, TAU, A( 1, N-L+1 ), LDA, WORK, INFO );
 
       if ( WANTU ) {
 
@@ -182,7 +182,7 @@
 
          zlaset('Full', M, M, CZERO, CZERO, U, LDU );
          if (M > 1) CALL ZLACPY( 'Lower', M-1, N-L, A( 2, 1 ), LDA, U( 2, 1 ), LDU );
-         zung2r(M, M, MIN( M, N-L ), U, LDU, TAU, WORK, INFO );
+         zung2r(M, M, min( M, N-L ), U, LDU, TAU, WORK, INFO );
       }
 
       if ( WANTQ ) {
@@ -236,7 +236,7 @@
 
             // Update U(:,K+1:M) := U(:,K+1:M)*U1
 
-            zunm2r('Right', 'No transpose', M, M-K, MIN( M-K, L ), A( K+1, N-L+1 ), LDA, TAU, U( 1, K+1 ), LDU, WORK, INFO );
+            zunm2r('Right', 'No transpose', M, M-K, min( M-K, L ), A( K+1, N-L+1 ), LDA, TAU, U( 1, K+1 ), LDU, WORK, INFO );
          }
 
          // Clean up

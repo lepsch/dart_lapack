@@ -46,7 +46,7 @@
       if ( EIGEN ) {
          K = M;
       } else if ( SING ) {
-         K = MIN( M, N );
+         K = min( M, N );
       }
       if ( !EIGEN && !SING ) {
          INFO = -1;
@@ -85,15 +85,15 @@
          SEP( 1 ) = OLDGAP;
          for (I = 2; I <= K - 1; I++) { // 20
             NEWGAP = ABS( D( I+1 )-D( I ) );
-            SEP( I ) = MIN( OLDGAP, NEWGAP );
+            SEP( I ) = min( OLDGAP, NEWGAP );
             OLDGAP = NEWGAP;
          } // 20
          SEP( K ) = OLDGAP;
       }
       if ( SING ) {
          if ( ( LEFT && M > N ) || ( RIGHT && M < N ) ) {
-            if (INCR) SEP( 1 ) = MIN( SEP( 1 ), D( 1 ) );
-            IF( DECR ) SEP( K ) = MIN( SEP( K ), D( K ) );
+            if (INCR) SEP( 1 ) = min( SEP( 1 ), D( 1 ) );
+            IF( DECR ) SEP( K ) = min( SEP( K ), D( K ) );
          }
       }
 
@@ -102,14 +102,14 @@
 
       EPS = DLAMCH( 'E' );
       SAFMIN = DLAMCH( 'S' );
-      ANORM = MAX( ABS( D( 1 ) ), ABS( D( K ) ) );
+      ANORM = max( ABS( D( 1 ) ), ABS( D( K ) ) );
       if ( ANORM == ZERO ) {
          THRESH = EPS;
       } else {
-         THRESH = MAX( EPS*ANORM, SAFMIN );
+         THRESH = max( EPS*ANORM, SAFMIN );
       }
       for (I = 1; I <= K; I++) { // 30
-         SEP( I ) = MAX( SEP( I ), THRESH );
+         SEP( I ) = max( SEP( I ), THRESH );
       } // 30
 
       return;

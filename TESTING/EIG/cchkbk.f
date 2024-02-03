@@ -79,7 +79,7 @@
          for (J = 1; J <= N; J++) { // 40
             X = CABS1( E( I, J )-EIN( I, J ) ) / EPS;
             if( CABS1( E( I, J ) ) > SAFMIN ) X = X / CABS1( E( I, J ) );
-            VMAX = MAX( VMAX, X );
+            VMAX = max( VMAX, X );
          } // 40
       } // 50
 

@@ -51,7 +51,7 @@
          INFO = -1;
       } else if ( N < 0 ) {
          INFO = -2;
-      } else if ( LDA < MAX( 1, N ) ) {
+      } else if ( LDA < max( 1, N ) ) {
          INFO = -4;
       }
       if ( INFO != 0 ) {
@@ -111,7 +111,7 @@
 
                // Account for last block not being NB wide
 
-               JB = MIN( NB, N-K+1 );
+               JB = min( NB, N-K+1 );
 
                // Set relevant part of first half of WORK to zero,
                // holds dot products
@@ -169,7 +169,7 @@
                      PIV( J ) = ITEMP;
                   }
 
-                  AJJ = SQRT( AJJ );
+                  AJJ = sqrt( AJJ );
                   A( J, J ) = AJJ;
 
                   // Compute elements J+1:N of row J.
@@ -199,7 +199,7 @@
 
                // Account for last block not being NB wide
 
-               JB = MIN( NB, N-K+1 );
+               JB = min( NB, N-K+1 );
 
                // Set relevant part of first half of WORK to zero,
                // holds dot products
@@ -257,7 +257,7 @@
                      PIV( J ) = ITEMP;
                   }
 
-                  AJJ = SQRT( AJJ );
+                  AJJ = sqrt( AJJ );
                   A( J, J ) = AJJ;
 
                   // Compute elements J+1:N of column J.

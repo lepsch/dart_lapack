@@ -54,7 +54,7 @@
          INFO = 2;
       } else if ( N < 0 ) {
          INFO = 3;
-      } else if ( LDA < MAX( 1, M ) ) {
+      } else if ( LDA < max( 1, M ) ) {
          INFO = 6;
       } else if ( INCX == 0 ) {
          INFO = 8;

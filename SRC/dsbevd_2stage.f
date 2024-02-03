@@ -59,7 +59,7 @@
             LWMIN = 1 + 5*N + 2*N**2;
          } else {
             LIWMIN = 1;
-            LWMIN = MAX( 2*N, N+LHTRD+LWTRD );
+            LWMIN = max( 2*N, N+LHTRD+LWTRD );
          }
       }
       if ( !( LSAME( JOBZ, 'N' ) ) ) {
@@ -110,8 +110,8 @@
       EPS    = DLAMCH( 'Precision' );
       SMLNUM = SAFMIN / EPS;
       BIGNUM = ONE / SMLNUM;
-      RMIN   = SQRT( SMLNUM );
-      RMAX   = SQRT( BIGNUM );
+      RMIN   = sqrt( SMLNUM );
+      RMAX   = sqrt( BIGNUM );
 
       // Scale matrix to allowable range, if necessary.
 

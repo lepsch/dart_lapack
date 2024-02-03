@@ -60,9 +60,9 @@
          INFO = -2;
       } else if ( N < 0 ) {
          INFO = -4;
-      } else if ( LDA < MAX( 1, N ) ) {
+      } else if ( LDA < max( 1, N ) ) {
          INFO = -6;
-      } else if ( LDB < MAX( 1, N ) ) {
+      } else if ( LDB < max( 1, N ) ) {
          INFO = -8;
       } else if ( WANTS && LDVL < N ) {
          INFO = -10;
@@ -230,10 +230,10 @@
                ALPRQT = ONE;
                C1 = TWO*( ALPHAR*ALPHAR+ALPHAI*ALPHAI+BETA*BETA );
                C2 = FOUR*BETA*BETA*ALPHAI*ALPHAI;
-               ROOT1 = C1 + SQRT( C1*C1-4.0*C2 );
+               ROOT1 = C1 + sqrt( C1*C1-4.0*C2 );
                ROOT1 = ROOT1 / TWO;
                ROOT2 = C2 / ROOT1;
-               COND = MIN( SQRT( ROOT1 ), SQRT( ROOT2 ) );
+               COND = min( sqrt( ROOT1 ), sqrt( ROOT2 ) );
             }
 
             // Copy the matrix (A, B) to the array WORK and swap the
@@ -269,7 +269,7 @@
                   IZ = 2*N*N + 1;
                   stgsyl('N', DIFDRI, N2, N1, WORK( N*N1+N1+1 ), N, WORK, N, WORK( N1+1 ), N, WORK( N*N1+N1+I ), N, WORK( I ), N, WORK( N1+I ), N, SCALE, DIF( KS ), WORK( IZ+1 ), LWORK-2*N*N, IWORK, IERR );
 
-                  if (PAIR) DIF( KS ) = MIN( MAX( ONE, ALPRQT )*DIF( KS ), COND );
+                  if (PAIR) DIF( KS ) = min( max( ONE, ALPRQT )*DIF( KS ), COND );
                }
             }
             if (PAIR) DIF( KS+1 ) = DIF( KS );

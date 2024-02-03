@@ -72,7 +72,7 @@
       }
 
       RCOND = ZERO;
-      SMLNUM = SLAMCH( 'Safe minimum' )*REAL( MAX( 1, N ) );
+      SMLNUM = SLAMCH( 'Safe minimum' )*REAL( max( 1, N ) );
 
       // Compute the norm of the triangular matrix A.
 

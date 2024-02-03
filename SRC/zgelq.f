@@ -49,14 +49,14 @@
 
       // Determine the block size
 
-      if ( MIN( M, N ) > 0 ) {
+      if ( min( M, N ) > 0 ) {
         MB = ILAENV( 1, 'ZGELQ ', ' ', M, N, 1, -1 );
         NB = ILAENV( 1, 'ZGELQ ', ' ', M, N, 2, -1 );
       } else {
         MB = 1;
         NB = N;
       }
-      if( MB > MIN( M, N ) || MB < 1 ) MB = 1;
+      if( MB > min( M, N ) || MB < 1 ) MB = 1;
       if (NB > N || NB <= M) NB = N;
       MINTSZ = M + 5;
       if ( NB > M && N > M ) {
@@ -72,15 +72,15 @@
       // Determine if the workspace size satisfies minimal size
 
       if ( ( N <= M ) || ( NB <= M ) || ( NB >= N ) ) {
-         LWMIN = MAX( 1, N );
-         LWOPT = MAX( 1, MB*N );
+         LWMIN = max( 1, N );
+         LWOPT = max( 1, MB*N );
       } else {
-         LWMIN = MAX( 1, M );
-         LWOPT = MAX( 1, MB*M );
+         LWMIN = max( 1, M );
+         LWOPT = max( 1, MB*M );
       }
       LMINWS = false;
-      if ( ( TSIZE < MAX( 1, MB*M*NBLCKS + 5 ) || LWORK < LWOPT ) && ( LWORK >= LWMIN ) && ( TSIZE >= MINTSZ ) && ( !LQUERY ) ) {
-        if ( TSIZE < MAX( 1, MB*M*NBLCKS + 5 ) ) {
+      if ( ( TSIZE < max( 1, MB*M*NBLCKS + 5 ) || LWORK < LWOPT ) && ( LWORK >= LWMIN ) && ( TSIZE >= MINTSZ ) && ( !LQUERY ) ) {
+        if ( TSIZE < max( 1, MB*M*NBLCKS + 5 ) ) {
             LMINWS = true;
             MB = 1;
             NB = N;
@@ -91,18 +91,18 @@
         }
       }
       if ( ( N <= M ) || ( NB <= M ) || ( NB >= N ) ) {
-         LWREQ = MAX( 1, MB*N );
+         LWREQ = max( 1, MB*N );
       } else {
-         LWREQ = MAX( 1, MB*M );
+         LWREQ = max( 1, MB*M );
       }
 
       if ( M < 0 ) {
         INFO = -1;
       } else if ( N < 0 ) {
         INFO = -2;
-      } else if ( LDA < MAX( 1, M ) ) {
+      } else if ( LDA < max( 1, M ) ) {
         INFO = -4;
-      } else if ( TSIZE < MAX( 1, MB*M*NBLCKS + 5 ) && ( !LQUERY ) && ( !LMINWS ) ) {
+      } else if ( TSIZE < max( 1, MB*M*NBLCKS + 5 ) && ( !LQUERY ) && ( !LMINWS ) ) {
         INFO = -6;
       } else if ( ( LWORK < LWREQ ) .AND .( !LQUERY ) && ( !LMINWS ) ) {
         INFO = -8;
@@ -131,7 +131,7 @@
 
       // Quick return if possible
 
-      if ( MIN( M, N ) == 0 ) {
+      if ( min( M, N ) == 0 ) {
         return;
       }
 

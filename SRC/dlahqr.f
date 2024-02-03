@@ -81,7 +81,7 @@
 
       // ITMAX is the total number of QR iterations allowed.
 
-      ITMAX = 30 * MAX( 10, NH );
+      ITMAX = 30 * max( 10, NH );
 
       // KDEFL counts the number of iterations since a deflation
 
@@ -118,11 +118,11 @@
             // .    1997). It has better mathematical foundation and
             // .    improves accuracy in some cases.  ====
             if ( ABS( H( K, K-1 ) ) <= ULP*TST ) {
-               AB = MAX( ABS( H( K, K-1 ) ), ABS( H( K-1, K ) ) );
-               BA = MIN( ABS( H( K, K-1 ) ), ABS( H( K-1, K ) ) );
-               AA = MAX( ABS( H( K, K ) ), ABS( H( K-1, K-1 )-H( K, K ) ) )                BB = MIN( ABS( H( K, K ) ), ABS( H( K-1, K-1 )-H( K, K ) ) );
+               AB = max( ABS( H( K, K-1 ) ), ABS( H( K-1, K ) ) );
+               BA = min( ABS( H( K, K-1 ) ), ABS( H( K-1, K ) ) );
+               AA = max( ABS( H( K, K ) ), ABS( H( K-1, K-1 )-H( K, K ) ) )                BB = min( ABS( H( K, K ) ), ABS( H( K-1, K-1 )-H( K, K ) ) );
                S = AA + AB;
-               if( BA*( AB / S ) <= MAX( SMLNUM, ULP*( BB*( AA / S ) ) ) )GO TO 40;
+               if( BA*( AB / S ) <= max( SMLNUM, ULP*( BB*( AA / S ) ) ) )GO TO 40;
             }
          } // 30
          } // 40
@@ -189,7 +189,7 @@
             H22 = H22 / S;
             TR = ( H11+H22 ) / TWO;
             DET = ( H11-TR )*( H22-TR ) - H12*H21;
-            RTDISC = SQRT( ABS( DET ) );
+            RTDISC = sqrt( ABS( DET ) );
             if ( DET >= ZERO ) {
 
                // ==== complex conjugate shifts ====
@@ -252,7 +252,7 @@
             // chases the bulge one step toward the bottom of the active
             // submatrix. NR is the order of G.
 
-            NR = MIN( 3, I-K+1 );
+            NR = min( 3, I-K+1 );
             if (K > M) CALL DCOPY( NR, H( K, K-1 ), 1, V, 1 );
             dlarfg(NR, V( 1 ), V( 2 ), 1, T1 );
             if ( K > M ) {
@@ -285,7 +285,7 @@
                // Apply G from the right to transform the columns of the
                // matrix in rows I1 to min(K+3,I).
 
-               DO 80 J = I1, MIN( K+3, I );
+               DO 80 J = I1, min( K+3, I );
                   SUM = H( J, K ) + V2*H( J, K+1 ) + V3*H( J, K+2 );
                   H( J, K ) = H( J, K ) - SUM*T1;
                   H( J, K+1 ) = H( J, K+1 ) - SUM*T2;

@@ -65,7 +65,7 @@
          INFO = -4;
       } else if ( N < 0 ) {
          INFO = -5;
-      } else if ( LDA < MAX( 1, N ) ) {
+      } else if ( LDA < max( 1, N ) ) {
          INFO = -7;
       } else if ( LDVL < 1 || ( WANTVL && LDVL < N ) ) {
          INFO = -10;
@@ -94,12 +94,12 @@
             if ( WANTVL ) {
                ctrevc3('L', 'B', SELECT, N, A, LDA, VL, LDVL, VR, LDVR, N, NOUT, WORK, -1, RWORK, -1, IERR );
                LWORK_TREVC = INT( WORK(1) );
-               MAXWRK = MAX( MAXWRK, LWORK_TREVC );
+               MAXWRK = max( MAXWRK, LWORK_TREVC );
                chseqr('S', 'V', N, 1, N, A, LDA, W, VL, LDVL, WORK, -1, INFO );
             } else if ( WANTVR ) {
                ctrevc3('R', 'B', SELECT, N, A, LDA, VL, LDVL, VR, LDVR, N, NOUT, WORK, -1, RWORK, -1, IERR );
                LWORK_TREVC = INT( WORK(1) );
-               MAXWRK = MAX( MAXWRK, LWORK_TREVC );
+               MAXWRK = max( MAXWRK, LWORK_TREVC );
                chseqr('S', 'V', N, 1, N, A, LDA, W, VR, LDVR, WORK, -1, INFO );
             } else {
                if ( WNTSNN ) {
@@ -112,17 +112,17 @@
 
             if ( ( !WANTVL ) && ( !WANTVR ) ) {
                MINWRK = 2*N;
-               if( !( WNTSNN || WNTSNE ) ) MINWRK = MAX( MINWRK, N*N + 2*N );
-               MAXWRK = MAX( MAXWRK, HSWORK );
-               if( !( WNTSNN || WNTSNE ) ) MAXWRK = MAX( MAXWRK, N*N + 2*N );
+               if( !( WNTSNN || WNTSNE ) ) MINWRK = max( MINWRK, N*N + 2*N );
+               MAXWRK = max( MAXWRK, HSWORK );
+               if( !( WNTSNN || WNTSNE ) ) MAXWRK = max( MAXWRK, N*N + 2*N );
             } else {
                MINWRK = 2*N;
-               if( !( WNTSNN || WNTSNE ) ) MINWRK = MAX( MINWRK, N*N + 2*N );
-               MAXWRK = MAX( MAXWRK, HSWORK );
-               MAXWRK = MAX( MAXWRK, N + ( N - 1 )*ILAENV( 1, 'CUNGHR', ' ', N, 1, N, -1 ) )                IF( !( WNTSNN || WNTSNE ) ) MAXWRK = MAX( MAXWRK, N*N + 2*N );
-               MAXWRK = MAX( MAXWRK, 2*N );
+               if( !( WNTSNN || WNTSNE ) ) MINWRK = max( MINWRK, N*N + 2*N );
+               MAXWRK = max( MAXWRK, HSWORK );
+               MAXWRK = max( MAXWRK, N + ( N - 1 )*ILAENV( 1, 'CUNGHR', ' ', N, 1, N, -1 ) )                IF( !( WNTSNN || WNTSNE ) ) MAXWRK = max( MAXWRK, N*N + 2*N );
+               MAXWRK = max( MAXWRK, 2*N );
             }
-            MAXWRK = MAX( MAXWRK, MINWRK );
+            MAXWRK = max( MAXWRK, MINWRK );
          }
          WORK( 1 ) = SROUNDUP_LWORK(MAXWRK);
 
@@ -147,7 +147,7 @@
       EPS = SLAMCH( 'P' );
       SMLNUM = SLAMCH( 'S' );
       BIGNUM = ONE / SMLNUM;
-      SMLNUM = SQRT( SMLNUM ) / EPS;
+      SMLNUM = sqrt( SMLNUM ) / EPS;
       BIGNUM = ONE / SMLNUM;
 
       // Scale A if max element outside range [SMLNUM,BIGNUM]
@@ -287,7 +287,7 @@
                RWORK( K ) = REAL( VL( K, I ) )**2 + AIMAG( VL( K, I ) )**2;
             } // 10
             K = ISAMAX( N, RWORK, 1 );
-            TMP = CONJG( VL( K, I ) ) / SQRT( RWORK( K ) );
+            TMP = CONJG( VL( K, I ) ) / sqrt( RWORK( K ) );
             cscal(N, TMP, VL( 1, I ), 1 );
             VL( K, I ) = CMPLX( REAL( VL( K, I ) ), ZERO );
          } // 20
@@ -308,7 +308,7 @@
                RWORK( K ) = REAL( VR( K, I ) )**2 + AIMAG( VR( K, I ) )**2;
             } // 30
             K = ISAMAX( N, RWORK, 1 );
-            TMP = CONJG( VR( K, I ) ) / SQRT( RWORK( K ) );
+            TMP = CONJG( VR( K, I ) ) / sqrt( RWORK( K ) );
             cscal(N, TMP, VR( 1, I ), 1 );
             VR( K, I ) = CMPLX( REAL( VR( K, I ) ), ZERO );
          } // 40
@@ -318,7 +318,7 @@
 
       } // 50
       if ( SCALEA ) {
-         clascl('G', 0, 0, CSCALE, ANRM, N-INFO, 1, W( INFO+1 ), MAX( N-INFO, 1 ), IERR );
+         clascl('G', 0, 0, CSCALE, ANRM, N-INFO, 1, W( INFO+1 ), max( N-INFO, 1 ), IERR );
          if ( INFO == 0 ) {
             if( ( WNTSNV || WNTSNB ) && ICOND == 0 ) CALL SLASCL( 'G', 0, 0, CSCALE, ANRM, N, 1, RCONDV, N, IERR );
          } else {

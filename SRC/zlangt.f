@@ -87,7 +87,7 @@
             zlassq(N-1, DL, 1, SCALE, SUM );
             zlassq(N-1, DU, 1, SCALE, SUM );
          }
-         ANORM = SCALE*SQRT( SUM );
+         ANORM = SCALE*sqrt( SUM );
       }
 
       ZLANGT = ANORM;

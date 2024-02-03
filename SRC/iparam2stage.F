@@ -151,10 +151,10 @@
       // Will add the VECT OPTION HERE next release
          VECT  = OPTS(1:1);
          if ( LSAME( VECT, 'N' ) ) {
-            LHOUS = MAX( 1, 4*NI );
+            LHOUS = max( 1, 4*NI );
          } else {
             // This is not correct, it need to call the ALGO and the stage2
-            LHOUS = MAX( 1, 4*NI ) + IBI;
+            LHOUS = max( 1, 4*NI ) + IBI;
          }
          if ( LHOUS >= 0 ) {
             IPARAM2STAGE = LHOUS;
@@ -169,7 +169,7 @@
       // either or both stages for TRD and BRD. should be >= 1.
       // TRD:
       // TRD_stage 1: = LT + LW + LS1 + LS2
-                   // = LDT*KD + N*KD + N*MAX(KD,FACTOPTNB) + LDS2*KD
+                   // = LDT*KD + N*KD + N*max(KD,FACTOPTNB) + LDS2*KD
                      // where LDT=LDS2=KD
                    // = N*KD + N*max(KD,FACTOPTNB) + 2*KD*KD
       // TRD_stage 2: = (2NB+1)*N + KD*NTHREADS
@@ -184,25 +184,25 @@
          SUBNAM(2:6)  = 'GELQF';
          LQOPTNB      = ILAENV( 1, SUBNAM, ' ', NBI, NI, -1, -1 );
          // Could be QR or LQ for TRD and the max for BRD
-         FACTOPTNB    = MAX(QROPTNB, LQOPTNB);
+         FACTOPTNB    = max(QROPTNB, LQOPTNB);
          if ( ALGO == 'TRD' ) {
             if ( STAG == '2STAG' ) {
-               LWORK = NI*NBI + NI*MAX(NBI+1,FACTOPTNB) + MAX(2*NBI*NBI, NBI*NTHREADS) + (NBI+1)*NI;
+               LWORK = NI*NBI + NI*max(NBI+1,FACTOPTNB) + max(2*NBI*NBI, NBI*NTHREADS) + (NBI+1)*NI;
             } else if ( (STAG == 'HE2HB') || (STAG == 'SY2SB') ) {
-               LWORK = NI*NBI + NI*MAX(NBI,FACTOPTNB) + 2*NBI*NBI;
+               LWORK = NI*NBI + NI*max(NBI,FACTOPTNB) + 2*NBI*NBI;
             } else if ( (STAG == 'HB2ST') || (STAG == 'SB2ST') ) {
                LWORK = (2*NBI+1)*NI + NBI*NTHREADS;
             }
          } else if ( ALGO == 'BRD' ) {
             if ( STAG == '2STAG' ) {
-               LWORK = 2*NI*NBI + NI*MAX(NBI+1,FACTOPTNB) + MAX(2*NBI*NBI, NBI*NTHREADS) + (NBI+1)*NI;
+               LWORK = 2*NI*NBI + NI*max(NBI+1,FACTOPTNB) + max(2*NBI*NBI, NBI*NTHREADS) + (NBI+1)*NI;
             } else if ( STAG == 'GE2GB' ) {
-               LWORK = NI*NBI + NI*MAX(NBI,FACTOPTNB) + 2*NBI*NBI;
+               LWORK = NI*NBI + NI*max(NBI,FACTOPTNB) + 2*NBI*NBI;
             } else if ( STAG == 'GB2BD' ) {
                LWORK = (3*NBI+1)*NI + NBI*NTHREADS;
             }
          }
-         LWORK = MAX ( 1, LWORK );
+         LWORK = max( 1, LWORK );
 
          if ( LWORK > 0 ) {
             IPARAM2STAGE = LWORK;

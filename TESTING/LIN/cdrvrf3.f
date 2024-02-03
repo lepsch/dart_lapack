@@ -235,7 +235,7 @@
 
                               RESULT( 1 ) = CLANGE( 'I', M, N, B1, LDA, S_WORK_CLANGE );
 
-                              RESULT( 1 ) = RESULT( 1 ) / SQRT( EPS ) / MAX ( MAX( M, N ), 1 );
+                              RESULT( 1 ) = RESULT( 1 ) / sqrt( EPS ) / max( max( M, N ), 1 );
 
                               if ( RESULT( 1 ) >= THRESH ) {
                                  if ( NFAIL == 0 ) {

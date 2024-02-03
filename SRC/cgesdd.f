@@ -50,7 +50,7 @@
       // Test the input arguments
 
       INFO   = 0;
-      MINMN  = MIN( M, N );
+      MINMN  = min( M, N );
       MNTHR1 = INT( MINMN*17.0 / 9.0 );
       MNTHR2 = INT( MINMN*5.0 / 3.0 );
       WNTQA  = LSAME( JOBZ, 'A' );
@@ -68,7 +68,7 @@
          INFO = -2;
       } else if ( N < 0 ) {
          INFO = -3;
-      } else if ( LDA < MAX( 1, M ) ) {
+      } else if ( LDA < max( 1, M ) ) {
          INFO = -5;
       } else if ( LDU < 1 || ( WNTQAS && LDU < M ) || ( WNTQO && M < N && LDU < M ) ) {
          INFO = -8;
@@ -138,17 +138,17 @@
                   // Path 1 (M >> N, JOBZ='N')
 
                   MAXWRK = N + LWORK_CGEQRF_MN;
-                  MAXWRK = MAX( MAXWRK, 2*N + LWORK_CGEBRD_NN );
+                  MAXWRK = max( MAXWRK, 2*N + LWORK_CGEBRD_NN );
                   MINWRK = 3*N;
                } else if ( WNTQO ) {
 
                   // Path 2 (M >> N, JOBZ='O')
 
                   WRKBL = N + LWORK_CGEQRF_MN;
-                  WRKBL = MAX( WRKBL,   N + LWORK_CUNGQR_MN );
-                  WRKBL = MAX( WRKBL, 2*N + LWORK_CGEBRD_NN );
-                  WRKBL = MAX( WRKBL, 2*N + LWORK_CUNMBR_QLN_NN );
-                  WRKBL = MAX( WRKBL, 2*N + LWORK_CUNMBR_PRC_NN );
+                  WRKBL = max( WRKBL,   N + LWORK_CUNGQR_MN );
+                  WRKBL = max( WRKBL, 2*N + LWORK_CGEBRD_NN );
+                  WRKBL = max( WRKBL, 2*N + LWORK_CUNMBR_QLN_NN );
+                  WRKBL = max( WRKBL, 2*N + LWORK_CUNMBR_PRC_NN );
                   MAXWRK = M*N + N*N + WRKBL;
                   MINWRK = 2*N*N + 3*N;
                } else if ( WNTQS ) {
@@ -156,10 +156,10 @@
                   // Path 3 (M >> N, JOBZ='S')
 
                   WRKBL = N + LWORK_CGEQRF_MN;
-                  WRKBL = MAX( WRKBL,   N + LWORK_CUNGQR_MN );
-                  WRKBL = MAX( WRKBL, 2*N + LWORK_CGEBRD_NN );
-                  WRKBL = MAX( WRKBL, 2*N + LWORK_CUNMBR_QLN_NN );
-                  WRKBL = MAX( WRKBL, 2*N + LWORK_CUNMBR_PRC_NN );
+                  WRKBL = max( WRKBL,   N + LWORK_CUNGQR_MN );
+                  WRKBL = max( WRKBL, 2*N + LWORK_CGEBRD_NN );
+                  WRKBL = max( WRKBL, 2*N + LWORK_CUNMBR_QLN_NN );
+                  WRKBL = max( WRKBL, 2*N + LWORK_CUNMBR_PRC_NN );
                   MAXWRK = N*N + WRKBL;
                   MINWRK = N*N + 3*N;
                } else if ( WNTQA ) {
@@ -167,12 +167,12 @@
                   // Path 4 (M >> N, JOBZ='A')
 
                   WRKBL = N + LWORK_CGEQRF_MN;
-                  WRKBL = MAX( WRKBL,   N + LWORK_CUNGQR_MM );
-                  WRKBL = MAX( WRKBL, 2*N + LWORK_CGEBRD_NN );
-                  WRKBL = MAX( WRKBL, 2*N + LWORK_CUNMBR_QLN_NN );
-                  WRKBL = MAX( WRKBL, 2*N + LWORK_CUNMBR_PRC_NN );
+                  WRKBL = max( WRKBL,   N + LWORK_CUNGQR_MM );
+                  WRKBL = max( WRKBL, 2*N + LWORK_CGEBRD_NN );
+                  WRKBL = max( WRKBL, 2*N + LWORK_CUNMBR_QLN_NN );
+                  WRKBL = max( WRKBL, 2*N + LWORK_CUNMBR_PRC_NN );
                   MAXWRK = N*N + WRKBL;
-                  MINWRK = N*N + MAX( 3*N, N + M );
+                  MINWRK = N*N + max( 3*N, N + M );
                }
             } else if ( M >= MNTHR2 ) {
 
@@ -182,18 +182,18 @@
                MINWRK = 2*N + M;
                if ( WNTQO ) {
                   // Path 5o (M >> N, JOBZ='O')
-                  MAXWRK = MAX( MAXWRK, 2*N + LWORK_CUNGBR_P_NN );
-                  MAXWRK = MAX( MAXWRK, 2*N + LWORK_CUNGBR_Q_MN );
+                  MAXWRK = max( MAXWRK, 2*N + LWORK_CUNGBR_P_NN );
+                  MAXWRK = max( MAXWRK, 2*N + LWORK_CUNGBR_Q_MN );
                   MAXWRK = MAXWRK + M*N;
                   MINWRK = MINWRK + N*N;
                } else if ( WNTQS ) {
                   // Path 5s (M >> N, JOBZ='S')
-                  MAXWRK = MAX( MAXWRK, 2*N + LWORK_CUNGBR_P_NN );
-                  MAXWRK = MAX( MAXWRK, 2*N + LWORK_CUNGBR_Q_MN );
+                  MAXWRK = max( MAXWRK, 2*N + LWORK_CUNGBR_P_NN );
+                  MAXWRK = max( MAXWRK, 2*N + LWORK_CUNGBR_Q_MN );
                } else if ( WNTQA ) {
                   // Path 5a (M >> N, JOBZ='A')
-                  MAXWRK = MAX( MAXWRK, 2*N + LWORK_CUNGBR_P_NN );
-                  MAXWRK = MAX( MAXWRK, 2*N + LWORK_CUNGBR_Q_MM );
+                  MAXWRK = max( MAXWRK, 2*N + LWORK_CUNGBR_P_NN );
+                  MAXWRK = max( MAXWRK, 2*N + LWORK_CUNGBR_Q_MM );
                }
             } else {
 
@@ -203,18 +203,18 @@
                MINWRK = 2*N + M;
                if ( WNTQO ) {
                   // Path 6o (M >= N, JOBZ='O')
-                  MAXWRK = MAX( MAXWRK, 2*N + LWORK_CUNMBR_PRC_NN );
-                  MAXWRK = MAX( MAXWRK, 2*N + LWORK_CUNMBR_QLN_MN );
+                  MAXWRK = max( MAXWRK, 2*N + LWORK_CUNMBR_PRC_NN );
+                  MAXWRK = max( MAXWRK, 2*N + LWORK_CUNMBR_QLN_MN );
                   MAXWRK = MAXWRK + M*N;
                   MINWRK = MINWRK + N*N;
                } else if ( WNTQS ) {
                   // Path 6s (M >= N, JOBZ='S')
-                  MAXWRK = MAX( MAXWRK, 2*N + LWORK_CUNMBR_QLN_MN );
-                  MAXWRK = MAX( MAXWRK, 2*N + LWORK_CUNMBR_PRC_NN );
+                  MAXWRK = max( MAXWRK, 2*N + LWORK_CUNMBR_QLN_MN );
+                  MAXWRK = max( MAXWRK, 2*N + LWORK_CUNMBR_PRC_NN );
                } else if ( WNTQA ) {
                   // Path 6a (M >= N, JOBZ='A')
-                  MAXWRK = MAX( MAXWRK, 2*N + LWORK_CUNMBR_QLN_MM );
-                  MAXWRK = MAX( MAXWRK, 2*N + LWORK_CUNMBR_PRC_NN );
+                  MAXWRK = max( MAXWRK, 2*N + LWORK_CUNMBR_QLN_MM );
+                  MAXWRK = max( MAXWRK, 2*N + LWORK_CUNMBR_PRC_NN );
                }
             }
          } else if ( MINMN > 0 ) {
@@ -268,17 +268,17 @@
                   // Path 1t (N >> M, JOBZ='N')
 
                   MAXWRK = M + LWORK_CGELQF_MN;
-                  MAXWRK = MAX( MAXWRK, 2*M + LWORK_CGEBRD_MM );
+                  MAXWRK = max( MAXWRK, 2*M + LWORK_CGEBRD_MM );
                   MINWRK = 3*M;
                } else if ( WNTQO ) {
 
                   // Path 2t (N >> M, JOBZ='O')
 
                   WRKBL = M + LWORK_CGELQF_MN;
-                  WRKBL = MAX( WRKBL,   M + LWORK_CUNGLQ_MN );
-                  WRKBL = MAX( WRKBL, 2*M + LWORK_CGEBRD_MM );
-                  WRKBL = MAX( WRKBL, 2*M + LWORK_CUNMBR_QLN_MM );
-                  WRKBL = MAX( WRKBL, 2*M + LWORK_CUNMBR_PRC_MM );
+                  WRKBL = max( WRKBL,   M + LWORK_CUNGLQ_MN );
+                  WRKBL = max( WRKBL, 2*M + LWORK_CGEBRD_MM );
+                  WRKBL = max( WRKBL, 2*M + LWORK_CUNMBR_QLN_MM );
+                  WRKBL = max( WRKBL, 2*M + LWORK_CUNMBR_PRC_MM );
                   MAXWRK = M*N + M*M + WRKBL;
                   MINWRK = 2*M*M + 3*M;
                } else if ( WNTQS ) {
@@ -286,10 +286,10 @@
                   // Path 3t (N >> M, JOBZ='S')
 
                   WRKBL = M + LWORK_CGELQF_MN;
-                  WRKBL = MAX( WRKBL,   M + LWORK_CUNGLQ_MN );
-                  WRKBL = MAX( WRKBL, 2*M + LWORK_CGEBRD_MM );
-                  WRKBL = MAX( WRKBL, 2*M + LWORK_CUNMBR_QLN_MM );
-                  WRKBL = MAX( WRKBL, 2*M + LWORK_CUNMBR_PRC_MM );
+                  WRKBL = max( WRKBL,   M + LWORK_CUNGLQ_MN );
+                  WRKBL = max( WRKBL, 2*M + LWORK_CGEBRD_MM );
+                  WRKBL = max( WRKBL, 2*M + LWORK_CUNMBR_QLN_MM );
+                  WRKBL = max( WRKBL, 2*M + LWORK_CUNMBR_PRC_MM );
                   MAXWRK = M*M + WRKBL;
                   MINWRK = M*M + 3*M;
                } else if ( WNTQA ) {
@@ -297,12 +297,12 @@
                   // Path 4t (N >> M, JOBZ='A')
 
                   WRKBL = M + LWORK_CGELQF_MN;
-                  WRKBL = MAX( WRKBL,   M + LWORK_CUNGLQ_NN );
-                  WRKBL = MAX( WRKBL, 2*M + LWORK_CGEBRD_MM );
-                  WRKBL = MAX( WRKBL, 2*M + LWORK_CUNMBR_QLN_MM );
-                  WRKBL = MAX( WRKBL, 2*M + LWORK_CUNMBR_PRC_MM );
+                  WRKBL = max( WRKBL,   M + LWORK_CUNGLQ_NN );
+                  WRKBL = max( WRKBL, 2*M + LWORK_CGEBRD_MM );
+                  WRKBL = max( WRKBL, 2*M + LWORK_CUNMBR_QLN_MM );
+                  WRKBL = max( WRKBL, 2*M + LWORK_CUNMBR_PRC_MM );
                   MAXWRK = M*M + WRKBL;
-                  MINWRK = M*M + MAX( 3*M, M + N );
+                  MINWRK = M*M + max( 3*M, M + N );
                }
             } else if ( N >= MNTHR2 ) {
 
@@ -312,18 +312,18 @@
                MINWRK = 2*M + N;
                if ( WNTQO ) {
                   // Path 5to (N >> M, JOBZ='O')
-                  MAXWRK = MAX( MAXWRK, 2*M + LWORK_CUNGBR_Q_MM );
-                  MAXWRK = MAX( MAXWRK, 2*M + LWORK_CUNGBR_P_MN );
+                  MAXWRK = max( MAXWRK, 2*M + LWORK_CUNGBR_Q_MM );
+                  MAXWRK = max( MAXWRK, 2*M + LWORK_CUNGBR_P_MN );
                   MAXWRK = MAXWRK + M*N;
                   MINWRK = MINWRK + M*M;
                } else if ( WNTQS ) {
                   // Path 5ts (N >> M, JOBZ='S')
-                  MAXWRK = MAX( MAXWRK, 2*M + LWORK_CUNGBR_Q_MM );
-                  MAXWRK = MAX( MAXWRK, 2*M + LWORK_CUNGBR_P_MN );
+                  MAXWRK = max( MAXWRK, 2*M + LWORK_CUNGBR_Q_MM );
+                  MAXWRK = max( MAXWRK, 2*M + LWORK_CUNGBR_P_MN );
                } else if ( WNTQA ) {
                   // Path 5ta (N >> M, JOBZ='A')
-                  MAXWRK = MAX( MAXWRK, 2*M + LWORK_CUNGBR_Q_MM );
-                  MAXWRK = MAX( MAXWRK, 2*M + LWORK_CUNGBR_P_NN );
+                  MAXWRK = max( MAXWRK, 2*M + LWORK_CUNGBR_Q_MM );
+                  MAXWRK = max( MAXWRK, 2*M + LWORK_CUNGBR_P_NN );
                }
             } else {
 
@@ -333,22 +333,22 @@
                MINWRK = 2*M + N;
                if ( WNTQO ) {
                   // Path 6to (N > M, JOBZ='O')
-                  MAXWRK = MAX( MAXWRK, 2*M + LWORK_CUNMBR_QLN_MM );
-                  MAXWRK = MAX( MAXWRK, 2*M + LWORK_CUNMBR_PRC_MN );
+                  MAXWRK = max( MAXWRK, 2*M + LWORK_CUNMBR_QLN_MM );
+                  MAXWRK = max( MAXWRK, 2*M + LWORK_CUNMBR_PRC_MN );
                   MAXWRK = MAXWRK + M*N;
                   MINWRK = MINWRK + M*M;
                } else if ( WNTQS ) {
                   // Path 6ts (N > M, JOBZ='S')
-                  MAXWRK = MAX( MAXWRK, 2*M + LWORK_CUNMBR_QLN_MM );
-                  MAXWRK = MAX( MAXWRK, 2*M + LWORK_CUNMBR_PRC_MN );
+                  MAXWRK = max( MAXWRK, 2*M + LWORK_CUNMBR_QLN_MM );
+                  MAXWRK = max( MAXWRK, 2*M + LWORK_CUNMBR_PRC_MN );
                } else if ( WNTQA ) {
                   // Path 6ta (N > M, JOBZ='A')
-                  MAXWRK = MAX( MAXWRK, 2*M + LWORK_CUNMBR_QLN_MM );
-                  MAXWRK = MAX( MAXWRK, 2*M + LWORK_CUNMBR_PRC_NN );
+                  MAXWRK = max( MAXWRK, 2*M + LWORK_CUNMBR_QLN_MM );
+                  MAXWRK = max( MAXWRK, 2*M + LWORK_CUNMBR_PRC_NN );
                }
             }
          }
-         MAXWRK = MAX( MAXWRK, MINWRK );
+         MAXWRK = max( MAXWRK, MINWRK );
       }
       if ( INFO == 0 ) {
          WORK( 1 ) = SROUNDUP_LWORK( MAXWRK );
@@ -373,7 +373,7 @@
       // Get machine constants
 
       EPS = SLAMCH( 'P' );
-      SMLNUM = SQRT( SLAMCH( 'S' ) ) / EPS;
+      SMLNUM = sqrt( SLAMCH( 'S' ) ) / EPS;
       BIGNUM = ONE / SMLNUM;
 
       // Scale A if max element outside range [SMLNUM,BIGNUM]
@@ -526,7 +526,7 @@
                // RWorkspace: need   0
 
                DO 10 I = 1, M, LDWRKR;
-                  CHUNK = MIN( M-I+1, LDWRKR );
+                  CHUNK = min( M-I+1, LDWRKR );
                   cgemm('N', 'N', CHUNK, N, N, CONE, A( I, 1 ), LDA, WORK( IU ), LDWRKU, CZERO, WORK( IR ), LDWRKR );
                   clacpy('F', CHUNK, N, WORK( IR ), LDWRKR, A( I, 1 ), LDA );
                } // 10
@@ -786,7 +786,7 @@
 
                NRWORK = IRVT;
                DO 20 I = 1, M, LDWRKU;
-                  CHUNK = MIN( M-I+1, LDWRKU );
+                  CHUNK = min( M-I+1, LDWRKU );
                   clacrm(CHUNK, N, A( I, 1 ), LDA, RWORK( IRU ), N, WORK( IU ), LDWRKU, RWORK( NRWORK ) );
                   clacpy('F', CHUNK, N, WORK( IU ), LDWRKU, A( I, 1 ), LDA );
                } // 20
@@ -982,7 +982,7 @@
 
                   NRWORK = IRVT;
                   DO 30 I = 1, M, LDWRKU;
-                     CHUNK = MIN( M-I+1, LDWRKU );
+                     CHUNK = min( M-I+1, LDWRKU );
                      clacrm(CHUNK, N, A( I, 1 ), LDA, RWORK( IRU ), N, WORK( IU ), LDWRKU, RWORK( NRWORK ) );
                      clacpy('F', CHUNK, N, WORK( IU ), LDWRKU, A( I, 1 ), LDA );
                   } // 30
@@ -1201,7 +1201,7 @@
                // RWorkspace: need   0
 
                DO 40 I = 1, N, CHUNK;
-                  BLK = MIN( N-I+1, CHUNK );
+                  BLK = min( N-I+1, CHUNK );
                   cgemm('N', 'N', M, BLK, M, CONE, WORK( IVT ), M, A( 1, I ), LDA, CZERO, WORK( IL ), LDWRKL );
                   clacpy('F', M, BLK, WORK( IL ), LDWRKL, A( 1, I ), LDA );
                } // 40
@@ -1464,7 +1464,7 @@
 
                NRWORK = IRU;
                DO 50 I = 1, N, CHUNK;
-                  BLK = MIN( N-I+1, CHUNK );
+                  BLK = min( N-I+1, CHUNK );
                   clarcm(M, BLK, RWORK( IRVT ), M, A( 1, I ), LDA, WORK( IVT ), LDWKVT, RWORK( NRWORK ) );
                   clacpy('F', M, BLK, WORK( IVT ), LDWKVT, A( 1, I ), LDA );
                } // 50
@@ -1660,7 +1660,7 @@
 
                   NRWORK = IRU;
                   DO 60 I = 1, N, CHUNK;
-                     BLK = MIN( N-I+1, CHUNK );
+                     BLK = min( N-I+1, CHUNK );
                      clarcm(M, BLK, RWORK( IRVT ), M, A( 1, I ), LDA, WORK( IVT ), LDWKVT, RWORK( NRWORK ) );
                      clacpy('F', M, BLK, WORK( IVT ), LDWKVT, A( 1, I ), LDA );
                   } // 60

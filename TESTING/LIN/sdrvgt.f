@@ -80,8 +80,8 @@
          // Do for each value of N in NVAL.
 
          N = NVAL( IN );
-         M = MAX( N-1, 0 );
-         LDA = MAX( 1, N );
+         M = max( N-1, 0 );
+         LDA = max( 1, N );
          NIMAT = NTYPES;
          if (N <= 0) NIMAT = 1;
 
@@ -100,7 +100,7 @@
 
                // Types 1-6:  generate matrices of known condition number.
 
-               KOFF = MAX( 2-KU, 3-MAX( 1, N ) );
+               KOFF = max( 2-KU, 3-max( 1, N ) );
                SRNAMT = 'SLATMS';
                slatms(N, N, DIST, ISEED, TYPE, RWORK, MODE, COND, ANORM, KL, KU, 'Z', AF( KOFF ), 3, WORK, INFO );
 
@@ -213,7 +213,7 @@
                      } // 30
                      X( I ) = ONE;
                      sgttrs('No transpose', N, 1, AF, AF( M+1 ), AF( N+M+1 ), AF( N+2*M+1 ), IWORK, X, LDA, INFO );
-                     AINVNM = MAX( AINVNM, SASUM( N, X, 1 ) );
+                     AINVNM = max( AINVNM, SASUM( N, X, 1 ) );
                   } // 40
 
                   // Compute the 1-norm condition number of A.
@@ -234,7 +234,7 @@
                      } // 50
                      X( I ) = ONE;
                      sgttrs('Transpose', N, 1, AF, AF( M+1 ), AF( N+M+1 ), AF( N+2*M+1 ), IWORK, X, LDA, INFO );
-                     AINVNM = MAX( AINVNM, SASUM( N, X, 1 ) );
+                     AINVNM = max( AINVNM, SASUM( N, X, 1 ) );
                   } // 60
 
                   // Compute the infinity-norm condition number of A.

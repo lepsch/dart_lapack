@@ -40,10 +40,10 @@
       NOTRAN = LSAME( TRANS, 'N' );
 
       if ( LEFT ) {
-         LDWORK = MAX( 1, N );
+         LDWORK = max( 1, N );
          Q = M;
       } else if ( RIGHT ) {
-         LDWORK = MAX( 1, M );
+         LDWORK = max( 1, M );
          Q = N;
       }
       if ( !LEFT && !RIGHT ) {
@@ -58,11 +58,11 @@
          INFO = -5;
       } else if ( NB < 1 || (NB > K && K > 0)) {
          INFO = -6;
-      } else if ( LDV < MAX( 1, Q ) ) {
+      } else if ( LDV < max( 1, Q ) ) {
          INFO = -8;
       } else if ( LDT < NB ) {
          INFO = -10;
-      } else if ( LDC < MAX( 1, M ) ) {
+      } else if ( LDC < max( 1, M ) ) {
          INFO = -12;
       }
 
@@ -78,14 +78,14 @@
       if ( LEFT && TRAN ) {
 
          DO I = 1, K, NB;
-            IB = MIN( NB, K-I+1 );
+            IB = min( NB, K-I+1 );
             zlarfb('L', 'C', 'F', 'C', M-I+1, N, IB, V( I, I ), LDV, T( 1, I ), LDT, C( I, 1 ), LDC, WORK, LDWORK );
          }
 
       } else if ( RIGHT && NOTRAN ) {
 
          DO I = 1, K, NB;
-            IB = MIN( NB, K-I+1 );
+            IB = min( NB, K-I+1 );
             zlarfb('R', 'N', 'F', 'C', M, N-I+1, IB, V( I, I ), LDV, T( 1, I ), LDT, C( 1, I ), LDC, WORK, LDWORK );
          }
 
@@ -93,7 +93,7 @@
 
          KF = ((K-1)/NB)*NB+1;
          DO I = KF, 1, -NB;
-            IB = MIN( NB, K-I+1 );
+            IB = min( NB, K-I+1 );
             zlarfb('L', 'N', 'F', 'C', M-I+1, N, IB, V( I, I ), LDV, T( 1, I ), LDT, C( I, 1 ), LDC, WORK, LDWORK );
          }
 
@@ -101,7 +101,7 @@
 
          KF = ((K-1)/NB)*NB+1;
          DO I = KF, 1, -NB;
-            IB = MIN( NB, K-I+1 );
+            IB = min( NB, K-I+1 );
             zlarfb('R', 'C', 'F', 'C', M, N-I+1, IB, V( I, I ), LDV, T( 1, I ), LDT, C( 1, I ), LDC, WORK, LDWORK );
          }
 

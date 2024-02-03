@@ -59,17 +59,17 @@
             INFO = -3;
          } else if ( N <= 0 ) {
             INFO = -4;
-         } else if ( LDA < MAX( 1, M ) ) {
+         } else if ( LDA < max( 1, M ) ) {
             INFO = -6;
-         } else if ( LDB < MAX( 1, N ) ) {
+         } else if ( LDB < max( 1, N ) ) {
             INFO = -8;
-         } else if ( LDC < MAX( 1, M ) ) {
+         } else if ( LDC < max( 1, M ) ) {
             INFO = -10;
-         } else if ( LDD < MAX( 1, M ) ) {
+         } else if ( LDD < max( 1, M ) ) {
             INFO = -12;
-         } else if ( LDE < MAX( 1, N ) ) {
+         } else if ( LDE < max( 1, N ) ) {
             INFO = -14;
-         } else if ( LDF < MAX( 1, M ) ) {
+         } else if ( LDF < max( 1, M ) ) {
             INFO = -16;
          }
       }
@@ -77,7 +77,7 @@
       if ( INFO == 0 ) {
          if ( NOTRAN ) {
             if ( IJOB == 1 || IJOB == 2 ) {
-               LWMIN = MAX( 1, 2*M*N );
+               LWMIN = max( 1, 2*M*N );
             } else {
                LWMIN = 1;
             }
@@ -139,9 +139,9 @@
             stgsy2(TRANS, IFUNC, M, N, A, LDA, B, LDB, C, LDC, D, LDD, E, LDE, F, LDF, SCALE, DSUM, DSCALE, IWORK, PQ, INFO );
             if ( DSCALE != ZERO ) {
                if ( IJOB == 1 || IJOB == 3 ) {
-                  DIF = SQRT( REAL( 2*M*N ) ) / ( DSCALE*SQRT( DSUM ) );
+                  DIF = sqrt( REAL( 2*M*N ) ) / ( DSCALE*sqrt( DSUM ) );
                } else {
-                  DIF = SQRT( REAL( PQ ) ) / ( DSCALE*SQRT( DSUM ) );
+                  DIF = sqrt( REAL( PQ ) ) / ( DSCALE*sqrt( DSUM ) );
                }
             }
 
@@ -259,9 +259,9 @@
             } // 130
             if ( DSCALE != ZERO ) {
                if ( IJOB == 1 || IJOB == 3 ) {
-                  DIF = SQRT( REAL( 2*M*N ) ) / ( DSCALE*SQRT( DSUM ) );
+                  DIF = sqrt( REAL( 2*M*N ) ) / ( DSCALE*sqrt( DSUM ) );
                } else {
-                  DIF = SQRT( REAL( PQ ) ) / ( DSCALE*SQRT( DSUM ) );
+                  DIF = sqrt( REAL( PQ ) ) / ( DSCALE*sqrt( DSUM ) );
                }
             }
             if ( ISOLVE == 2 && IROUND == 1 ) {

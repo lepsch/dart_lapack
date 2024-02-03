@@ -76,7 +76,7 @@
          INFO = - 13;
       } else if ( RSVEC && ( LDV < N ) ) {
          INFO = - 15;
-      } else if ( ( !(LSVEC || RSVEC || ERREST) && (LWORK < MAX(7,4*N+1,2*M+N))) || ( !(LSVEC || RSVEC) && ERREST && (LWORK < MAX(7,4*N+N*N,2*M+N))) || (LSVEC && ( !RSVEC) && (LWORK < MAX(7,2*M+N,4*N+1))) || (RSVEC && ( !LSVEC) && (LWORK < MAX(7,2*M+N,4*N+1))) || (LSVEC && RSVEC && ( !JRACC) && (LWORK < MAX(2*M+N,6*N+2*N*N))) || (LSVEC && RSVEC && JRACC && LWORK < MAX(2*M+N,4*N+N*N,2*N+N*N+6))) {
+      } else if ( ( !(LSVEC || RSVEC || ERREST) && (LWORK < max(7,4*N+1,2*M+N))) || ( !(LSVEC || RSVEC) && ERREST && (LWORK < max(7,4*N+N*N,2*M+N))) || (LSVEC && ( !RSVEC) && (LWORK < max(7,2*M+N,4*N+1))) || (RSVEC && ( !LSVEC) && (LWORK < max(7,2*M+N,4*N+1))) || (LSVEC && RSVEC && ( !JRACC) && (LWORK < max(2*M+N,6*N+2*N*N))) || (LSVEC && RSVEC && JRACC && LWORK < max(2*M+N,4*N+N*N,2*N+N*N+6))) {
          INFO = - 17;
       } else {
          // #:)
@@ -150,8 +150,8 @@
       AAPP = ZERO;
       AAQQ = BIG;
       for (p = 1; p <= N; p++) { // 4781
-         AAPP = MAX( AAPP, SVA(p) );
-         if ( SVA(p) != ZERO ) AAQQ = MIN( AAQQ, SVA(p) );
+         AAPP = max( AAPP, SVA(p) );
+         if ( SVA(p) != ZERO ) AAQQ = min( AAQQ, SVA(p) );
       } // 4781
 
       // Quick return for zero M x N matrix
@@ -256,14 +256,14 @@
                // in one pass through the vector
                WORK(M+N+p)  = XSC * SCALEM;
                WORK(N+p)    = XSC * (SCALEM*DSQRT(TEMP1));
-               AATMAX = MAX( AATMAX, WORK(N+p) );
-               if (WORK(N+p) != ZERO) AATMIN = MIN(AATMIN,WORK(N+p));
+               AATMAX = max( AATMAX, WORK(N+p) );
+               if (WORK(N+p) != ZERO) AATMIN = min(AATMIN,WORK(N+p));
             } // 1950
          } else {
             for (p = 1; p <= M; p++) { // 1904
                WORK(M+N+p) = SCALEM*DABS( A(p,IDAMAX(N,A(p,1),LDA)) );
-               AATMAX = MAX( AATMAX, WORK(M+N+p) );
-               AATMIN = MIN( AATMIN, WORK(M+N+p) );
+               AATMAX = max( AATMAX, WORK(M+N+p) );
+               AATMIN = min( AATMIN, WORK(M+N+p) );
             } // 1904
          }
 
@@ -498,7 +498,7 @@
          MAXPRJ = ONE;
          for (p = 2; p <= N; p++) { // 3051
             TEMP1  = DABS(A(p,p)) / SVA(IWORK(p));
-            MAXPRJ = MIN( MAXPRJ, TEMP1 );
+            MAXPRJ = min( MAXPRJ, TEMP1 );
          } // 3051
          if ( MAXPRJ**2 >= ONE - DBLE(N)*EPSLN ) ALMORT = true;
       }
@@ -553,7 +553,7 @@
           // Singular Values only
 
           // .. transpose A(1:NR,1:N)
-         DO 1946 p = 1, MIN( N-1, NR );
+         DO 1946 p = 1, min( N-1, NR );
             dcopy(N-p, A(p,p+1), LDA, A(p+1,p), 1 );
          } // 1946
 
@@ -792,7 +792,7 @@
                   XSC = DSQRT(SMALL)/EPSLN;
                   for (p = 2; p <= NR; p++) { // 3959
                      for (q = 1; q <= p - 1; q++) { // 3958
-                        TEMP1 = XSC * MIN(DABS(V(p,p)),DABS(V(q,q)));
+                        TEMP1 = XSC * min(DABS(V(p,p)),DABS(V(q,q)));
                         if ( DABS(V(q,p)) <= TEMP1 ) V(q,p) = DSIGN( TEMP1, V(q,p) );
                      } // 3958
                   } // 3959
@@ -828,7 +828,7 @@
                   XSC = DSQRT(SMALL);
                   for (p = 2; p <= NR; p++) { // 3969
                      for (q = 1; q <= p - 1; q++) { // 3968
-                        TEMP1 = XSC * MIN(DABS(V(p,p)),DABS(V(q,q)));
+                        TEMP1 = XSC * min(DABS(V(p,p)),DABS(V(q,q)));
                         if ( DABS(V(q,p)) <= TEMP1 ) V(q,p) = DSIGN( TEMP1, V(q,p) );
                      } // 3968
                   } // 3969
@@ -840,7 +840,7 @@
                   XSC = DSQRT(SMALL);
                   for (p = 2; p <= NR; p++) { // 8970
                      for (q = 1; q <= p - 1; q++) { // 8971
-                        TEMP1 = XSC * MIN(DABS(V(p,p)),DABS(V(q,q)));
+                        TEMP1 = XSC * min(DABS(V(p,p)),DABS(V(q,q)));
                         V(p,q) = - DSIGN( TEMP1, V(q,p) );
                      } // 8971
                   } // 8970
@@ -1126,7 +1126,7 @@
             XSC = DSQRT(SMALL/EPSLN);
             for (q = 2; q <= NR; q++) { // 9970
                for (p = 1; p <= q - 1; p++) { // 9971
-                  TEMP1 = XSC * MIN(DABS(U(p,p)),DABS(U(q,q)));
+                  TEMP1 = XSC * min(DABS(U(p,p)),DABS(U(q,q)));
                   U(p,q) = - DSIGN( TEMP1, U(q,p) );
                } // 9971
             } // 9970

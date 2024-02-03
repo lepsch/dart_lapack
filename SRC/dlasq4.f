@@ -45,8 +45,8 @@
 
          if ( DMIN == DN || DMIN == DN1 ) {
 
-            B1 = SQRT( Z( NN-3 ) )*SQRT( Z( NN-5 ) );
-            B2 = SQRT( Z( NN-7 ) )*SQRT( Z( NN-9 ) );
+            B1 = sqrt( Z( NN-3 ) )*sqrt( Z( NN-5 ) );
+            B2 = sqrt( Z( NN-7 ) )*sqrt( Z( NN-9 ) );
             A2 = Z( NN-7 ) + Z( NN-5 );
 
             // Cases 2 and 3.
@@ -59,13 +59,13 @@
                   GAP1 = A2 - DN - ( B1+B2 );
                }
                if ( GAP1 > ZERO && GAP1 > B1 ) {
-                  S = MAX( DN-( B1 / GAP1 )*B1, HALF*DMIN );
+                  S = max( DN-( B1 / GAP1 )*B1, HALF*DMIN );
                   TTYPE = -2;
                } else {
                   S = ZERO;
                   if (DN > B1) S = DN - B1;
-                  IF( A2 > ( B1+B2 ) ) S = MIN( S, A2-( B1+B2 ) );
-                  S = MAX( S, THIRD*DMIN );
+                  IF( A2 > ( B1+B2 ) ) S = min( S, A2-( B1+B2 ) );
+                  S = max( S, THIRD*DMIN );
                   TTYPE = -3;
                }
             } else {
@@ -99,14 +99,14 @@
                   if( Z( I4 ) > Z( I4-2 ) ) return;
                   B2 = B2*( Z( I4 ) / Z( I4-2 ) );
                   A2 = A2 + B2;
-                  if( HUNDRD*MAX( B2, B1 ) < A2 || CNST1 < A2 ) GO TO 20;
+                  if( HUNDRD*max( B2, B1 ) < A2 || CNST1 < A2 ) GO TO 20;
                } // 10
                } // 20
                A2 = CNST3*A2;
 
                // Rayleigh quotient residual bound.
 
-               if (A2 < CNST1) S = GAM*( ONE-SQRT( A2 ) ) / ( ONE+A2 );
+               if (A2 < CNST1) S = GAM*( ONE-sqrt( A2 ) ) / ( ONE+A2 );
             }
          } else if ( DMIN == DN2 ) {
 
@@ -135,13 +135,13 @@
                   if( Z( I4 ) > Z( I4-2 ) ) return;
                   B2 = B2*( Z( I4 ) / Z( I4-2 ) );
                   A2 = A2 + B2;
-                  if( HUNDRD*MAX( B2, B1 ) < A2 || CNST1 < A2 ) GO TO 40;
+                  if( HUNDRD*max( B2, B1 ) < A2 || CNST1 < A2 ) GO TO 40;
                } // 30
                } // 40
                A2 = CNST3*A2;
             }
 
-            if (A2 < CNST1) S = GAM*( ONE-SQRT( A2 ) ) / ( ONE+A2 );
+            if (A2 < CNST1) S = GAM*( ONE-sqrt( A2 ) ) / ( ONE+A2 );
          } else {
 
             // Case 6, no information to guide us.
@@ -176,16 +176,16 @@
                if( Z( I4 ) > Z( I4-2 ) ) return;
                B1 = B1*( Z( I4 ) / Z( I4-2 ) );
                B2 = B2 + B1;
-               if( HUNDRD*MAX( B1, A2 ) < B2 ) GO TO 60;
+               if( HUNDRD*max( B1, A2 ) < B2 ) GO TO 60;
             } // 50
             } // 60
-            B2 = SQRT( CNST3*B2 );
+            B2 = sqrt( CNST3*B2 );
             A2 = DMIN1 / ( ONE+B2**2 );
             GAP2 = HALF*DMIN2 - A2;
             if ( GAP2 > ZERO && GAP2 > B2*A2 ) {
-               S = MAX( S, A2*( ONE-CNST2*A2*( B2 / GAP2 )*B2 ) );
+               S = max( S, A2*( ONE-CNST2*A2*( B2 / GAP2 )*B2 ) );
             } else {
-               S = MAX( S, A2*( ONE-CNST2*B2 ) );
+               S = max( S, A2*( ONE-CNST2*B2 ) );
                TTYPE = -8;
             }
          } else {
@@ -217,13 +217,13 @@
                if (HUNDRD*B1 < B2) GO TO 80;
             } // 70
             } // 80
-            B2 = SQRT( CNST3*B2 );
+            B2 = sqrt( CNST3*B2 );
             A2 = DMIN2 / ( ONE+B2**2 );
-            GAP2 = Z( NN-7 ) + Z( NN-9 ) - SQRT( Z( NN-11 ) )*SQRT( Z( NN-9 ) ) - A2;
+            GAP2 = Z( NN-7 ) + Z( NN-9 ) - sqrt( Z( NN-11 ) )*sqrt( Z( NN-9 ) ) - A2;
             if ( GAP2 > ZERO && GAP2 > B2*A2 ) {
-               S = MAX( S, A2*( ONE-CNST2*A2*( B2 / GAP2 )*B2 ) );
+               S = max( S, A2*( ONE-CNST2*A2*( B2 / GAP2 )*B2 ) );
             } else {
-               S = MAX( S, A2*( ONE-CNST2*B2 ) );
+               S = max( S, A2*( ONE-CNST2*B2 ) );
             }
          } else {
             S = QURTR*DMIN2;

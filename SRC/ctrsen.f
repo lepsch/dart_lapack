@@ -64,11 +64,11 @@
       LQUERY = ( LWORK == -1 );
 
       if ( WANTSP ) {
-         LWMIN = MAX( 1, 2*NN );
+         LWMIN = max( 1, 2*NN );
       } else if ( LSAME( JOB, 'N' ) ) {
          LWMIN = 1;
       } else if ( LSAME( JOB, 'E' ) ) {
-         LWMIN = MAX( 1, NN );
+         LWMIN = max( 1, NN );
       }
 
       if ( !LSAME( JOB, 'N' ) && !WANTS && !WANTSP ) {
@@ -77,7 +77,7 @@
          INFO = -2;
       } else if ( N < 0 ) {
          INFO = -4;
-      } else if ( LDT < MAX( 1, N ) ) {
+      } else if ( LDT < max( 1, N ) ) {
          INFO = -6;
       } else if ( LDQ < 1 || ( WANTQ && LDQ < N ) ) {
          INFO = -8;
@@ -133,7 +133,7 @@
          if ( RNORM == ZERO ) {
             S = ONE;
          } else {
-            S = SCALE / ( SQRT( SCALE*SCALE / RNORM+RNORM )* SQRT( RNORM ) );
+            S = SCALE / ( sqrt( SCALE*SCALE / RNORM+RNORM )* sqrt( RNORM ) );
          }
       }
 

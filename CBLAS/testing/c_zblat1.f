@@ -115,7 +115,7 @@
       for (INCX = 1; INCX <= 2; INCX++) { // 60
          for (NP1 = 1; NP1 <= 5; NP1++) { // 40
             N = NP1 - 1;
-            LEN = 2*MAX(N,1);
+            LEN = 2*max(N,1);
             // .. Set vector arguments ..
             for (I = 1; I <= LEN; I++) { // 20
                CX(I) = CV(I,NP1,INCX);
@@ -242,7 +242,7 @@
 
          for (KN = 1; KN <= 4; KN++) { // 40
             N = NS(KN);
-            KSIZE = MIN(2,KN);
+            KSIZE = min(2,KN);
             LENX = LENS(KN,MX);
             LENY = LENS(KN,MY);
             // .. initialize all argument arrays ..

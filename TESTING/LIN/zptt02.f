@@ -69,7 +69,7 @@
          if ( XNORM <= ZERO ) {
             RESID = ONE / EPS;
          } else {
-            RESID = MAX( RESID, ( ( BNORM / ANORM ) / XNORM ) / EPS );
+            RESID = max( RESID, ( ( BNORM / ANORM ) / XNORM ) / EPS );
          }
       } // 10
 

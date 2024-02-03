@@ -84,9 +84,9 @@
          INFO = -3;
       } else if ( N < 0 ) {
          INFO = -5;
-      } else if ( LDA < MAX( 1, N ) ) {
+      } else if ( LDA < max( 1, N ) ) {
          INFO = -7;
-      } else if ( LDB < MAX( 1, N ) ) {
+      } else if ( LDB < max( 1, N ) ) {
          INFO = -9;
       } else if ( LDVSL < 1 || ( ILVSL && LDVSL < N ) ) {
          INFO = -15;
@@ -103,10 +103,10 @@
 
       if ( INFO == 0 ) {
          if ( N > 0 ) {
-            MINWRK = MAX( 8*N, 6*N + 16 );
-            MAXWRK = MINWRK - N + N*ILAENV( 1, 'SGEQRF', ' ', N, 1, N, 0 )             MAXWRK = MAX( MAXWRK, MINWRK - N + N*ILAENV( 1, 'SORMQR', ' ', N, 1, N, -1 ) );
+            MINWRK = max( 8*N, 6*N + 16 );
+            MAXWRK = MINWRK - N + N*ILAENV( 1, 'SGEQRF', ' ', N, 1, N, 0 )             MAXWRK = max( MAXWRK, MINWRK - N + N*ILAENV( 1, 'SORMQR', ' ', N, 1, N, -1 ) );
             if ( ILVSL ) {
-               MAXWRK = MAX( MAXWRK, MINWRK - N + N*ILAENV( 1, 'SORGQR', ' ', N, 1, N, -1 ) );
+               MAXWRK = max( MAXWRK, MINWRK - N + N*ILAENV( 1, 'SORGQR', ' ', N, 1, N, -1 ) );
             }
          } else {
             MINWRK = 1;
@@ -136,7 +136,7 @@
       EPS = SLAMCH( 'P' );
       SAFMIN = SLAMCH( 'S' );
       SAFMAX = ONE / SAFMIN;
-      SMLNUM = SQRT( SAFMIN ) / EPS;
+      SMLNUM = sqrt( SAFMIN ) / EPS;
       BIGNUM = ONE / SMLNUM;
 
       // Scale A if max element outside range [SMLNUM,BIGNUM]

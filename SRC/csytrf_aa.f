@@ -53,9 +53,9 @@
          INFO = -1;
       } else if ( N < 0 ) {
          INFO = -2;
-      } else if ( LDA < MAX( 1, N ) ) {
+      } else if ( LDA < max( 1, N ) ) {
          INFO = -4;
-      } else if ( LWORK < MAX( 1, 2*N ) && !LQUERY ) {
+      } else if ( LWORK < max( 1, 2*N ) && !LQUERY ) {
          INFO = -7;
       }
 
@@ -113,16 +113,16 @@
            // K1=0 for the rest
 
          J1 = J + 1;
-         JB = MIN( N-J1+1, NB );
-         K1 = MAX(1, J)-J;
+         JB = min( N-J1+1, NB );
+         K1 = max(1, J)-J;
 
          // Panel factorization
 
-         clasyf_aa(UPLO, 2-K1, N-J, JB, A( MAX(1, J), J+1 ), LDA, IPIV( J+1 ), WORK, N, WORK( N*NB+1 ) );
+         clasyf_aa(UPLO, 2-K1, N-J, JB, A( max(1, J), J+1 ), LDA, IPIV( J+1 ), WORK, N, WORK( N*NB+1 ) );
 
          // Adjust IPIV and apply it back (J-th step picks (J+1)-th pivot)
 
-         DO J2 = J+2, MIN(N, J+JB+1);
+         DO J2 = J+2, min(N, J+JB+1);
             IPIV( J2 ) = IPIV( J2 ) + J;
             if ( (J2 != IPIV(J2)) && ((J1-K1) > 2) ) {
                cswap(J1-K1-2, A( 1, J2 ), 1, A( 1, IPIV(J2) ), 1 );
@@ -168,7 +168,7 @@
                }
 
                DO J2 = J+1, N, NB;
-                  NJ = MIN( NB, N-J2+1 );
+                  NJ = min( NB, N-J2+1 );
 
                   // Update (J2, J2) diagonal block with CGEMV
 
@@ -220,16 +220,16 @@
            // K1=0 for the rest
 
          J1 = J+1;
-         JB = MIN( N-J1+1, NB );
-         K1 = MAX(1, J)-J;
+         JB = min( N-J1+1, NB );
+         K1 = max(1, J)-J;
 
          // Panel factorization
 
-         clasyf_aa(UPLO, 2-K1, N-J, JB, A( J+1, MAX(1, J) ), LDA, IPIV( J+1 ), WORK, N, WORK( N*NB+1 ) );
+         clasyf_aa(UPLO, 2-K1, N-J, JB, A( J+1, max(1, J) ), LDA, IPIV( J+1 ), WORK, N, WORK( N*NB+1 ) );
 
          // Adjust IPIV and apply it back (J-th step picks (J+1)-th pivot)
 
-         DO J2 = J+2, MIN(N, J+JB+1);
+         DO J2 = J+2, min(N, J+JB+1);
             IPIV( J2 ) = IPIV( J2 ) + J;
             if ( (J2 != IPIV(J2)) && ((J1-K1) > 2) ) {
                cswap(J1-K1-2, A( J2, 1 ), LDA, A( IPIV(J2), 1 ), LDA );
@@ -275,7 +275,7 @@
                }
 
                DO J2 = J+1, N, NB;
-                  NJ = MIN( NB, N-J2+1 );
+                  NJ = min( NB, N-J2+1 );
 
                   // Update (J2, J2) diagonal block with CGEMV
 

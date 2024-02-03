@@ -211,9 +211,9 @@
 
       for (THGRID = 1; THGRID <= THGRNB; THGRID++) { // 100
           STT  = (THGRID-1)*THGRSIZ+1;
-          THED = MIN( (STT + THGRSIZ -1), (N-1));
+          THED = min( (STT + THGRSIZ -1), (N-1));
           for (I = STT; I <= N-1; I++) { // 110
-              ED = MIN( I, THED );
+              ED = min( I, THED );
               if (STT > ED) EXIT;
               for (M = 1; M <= STEPERCOL; M++) { // 120
                   ST = STT;
@@ -229,12 +229,12 @@
                           if ( TTYPE == 2 ) {
                               COLPT      = (MYID/2)*KD + SWEEPID;
                               STIND      = COLPT-KD+1;
-                              EDIND      = MIN(COLPT,N);
+                              EDIND      = min(COLPT,N);
                               BLKLASTIND = COLPT;
                           } else {
                               COLPT      = ((MYID+1)/2)*KD + SWEEPID;
                               STIND      = COLPT-KD+1;
-                              EDIND      = MIN(COLPT,N);
+                              EDIND      = min(COLPT,N);
                               if ( ( STIND >= EDIND-1 ) && ( EDIND == N ) ) {
                                   BLKLASTIND = N;
                               } else {

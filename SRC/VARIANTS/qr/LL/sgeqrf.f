@@ -34,14 +34,14 @@
       NBMIN = 2;
       NX = 0;
       IWS = N;
-      K = MIN( M, N );
+      K = min( M, N );
       NB = ILAENV( 1, 'SGEQRF', ' ', M, N, -1, -1 );
 
       if ( NB > 1 && NB < K ) {
 
          // Determine when to cross over from blocked to unblocked code.
 
-         NX = MAX( 0, ILAENV( 3, 'SGEQRF', ' ', M, N, -1, -1 ) );
+         NX = max( 0, ILAENV( 3, 'SGEQRF', ' ', M, N, -1, -1 ) );
       }
 
       // Get NT, the size of the very last T, which is the left-over from in-between K-NX and K to K, eg.:
@@ -59,7 +59,7 @@
 
       // optimal workspace = space for dlarfb + space for normal T's + space for the last T
 
-      LLWORK = MAX (MAX((N-M)*K, (N-M)*NB), MAX(K*NB, NB*NB));
+      LLWORK = max(max((N-M)*K, (N-M)*NB), max(K*NB, NB*NB));
       LLWORK = CEILING(REAL(LLWORK)/REAL(NB));
 
       if ( K == 0 ) {
@@ -72,7 +72,7 @@
 
           LBWORK = K-NT;
 
-          // Optimal workspace for dlarfb = MAX(1,N)*NT
+          // Optimal workspace for dlarfb = max(1,N)*NT
 
           LWKOPT = (LBWORK+LLWORK)*NB;
           WORK( 1 ) = DROUNDUP_LWORK(LWKOPT+NT*NT);
@@ -93,10 +93,10 @@
          INFO = -1;
       } else if ( N < 0 ) {
          INFO = -2;
-      } else if ( LDA < MAX( 1, M ) ) {
+      } else if ( LDA < max( 1, M ) ) {
          INFO = -4;
       } else if ( !LQUERY ) {
-         if( LWORK <= 0 || ( M > 0 && LWORK < MAX( 1, N ) ) ) INFO = -7;
+         if( LWORK <= 0 || ( M > 0 && LWORK < max( 1, N ) ) ) INFO = -7;
       }
       if ( INFO != 0 ) {
          xerbla('SGEQRF', -INFO );
@@ -133,7 +133,7 @@
                } else {
                     NB = (LWORK-NT*NT)/(LBWORK+LLWORK);
                }
-                NBMIN = MAX( 2, ILAENV( 2, 'SGEQRF', ' ', M, N, -1, -1 ) );
+                NBMIN = max( 2, ILAENV( 2, 'SGEQRF', ' ', M, N, -1, -1 ) );
             }
          }
       }
@@ -143,7 +143,7 @@
          // Use blocked code initially
 
          DO 10 I = 1, K - NX, NB;
-            IB = MIN( K-I+1, NB );
+            IB = min( K-I+1, NB );
 
             // Update the current column using old T's
 
@@ -216,7 +216,7 @@
 
           DO 40 J = 1, K-NX, NB;
 
-               IB = MIN( K-J+1, NB );
+               IB = min( K-J+1, NB );
                 slarfb('Left', 'Transpose', 'Forward', 'Columnwise', M-J+1, N-M, IB, A( J, J ), LDA, WORK(J), LBWORK, A( J, M+1 ), LDA, WORK(LBWORK*NB+NT*NT+1), N-M);
 
 40       CONTINUE

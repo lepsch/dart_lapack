@@ -54,7 +54,7 @@
       UNFL = DLAMCH( 'Safe minimum' );
       OVFL = ONE / UNFL;
       UPPER = LSAME( UPLO, 'U' );
-      NZ = 2*MAX( KD, N-1 ) + 1;
+      NZ = 2*max( KD, N-1 ) + 1;
 
       // Test 1:  Compute the maximum of
          // norm(X - XACT) / ( norm(X) * FERR )
@@ -63,10 +63,10 @@
       ERRBND = ZERO;
       for (J = 1; J <= NRHS; J++) { // 30
          IMAX = IZAMAX( N, X( 1, J ), 1 );
-         XNORM = MAX( CABS1( X( IMAX, J ) ), UNFL );
+         XNORM = max( CABS1( X( IMAX, J ) ), UNFL );
          DIFF = ZERO;
          for (I = 1; I <= N; I++) { // 10
-            DIFF = MAX( DIFF, CABS1( X( I, J )-XACT( I, J ) ) );
+            DIFF = max( DIFF, CABS1( X( I, J )-XACT( I, J ) ) );
          } // 10
 
          if ( XNORM > ONE ) {
@@ -80,7 +80,7 @@
 
          } // 20
          if ( DIFF / XNORM <= FERR( J ) ) {
-            ERRBND = MAX( ERRBND, ( DIFF / XNORM ) / FERR( J ) );
+            ERRBND = max( ERRBND, ( DIFF / XNORM ) / FERR( J ) );
          } else {
             ERRBND = ONE / EPS;
          }
@@ -94,33 +94,33 @@
          for (I = 1; I <= N; I++) { // 80
             TMP = CABS1( B( I, K ) );
             if ( UPPER ) {
-               DO 40 J = MAX( I-KD, 1 ), I - 1;
+               DO 40 J = max( I-KD, 1 ), I - 1;
                   TMP = TMP + CABS1( AB( KD+1-I+J, I ) )* CABS1( X( J, K ) );
                } // 40
                TMP = TMP + ABS( DBLE( AB( KD+1, I ) ) )* CABS1( X( I, K ) );
-               DO 50 J = I + 1, MIN( I+KD, N );
+               DO 50 J = I + 1, min( I+KD, N );
                   TMP = TMP + CABS1( AB( KD+1+I-J, J ) )* CABS1( X( J, K ) );
                } // 50
             } else {
-               DO 60 J = MAX( I-KD, 1 ), I - 1;
+               DO 60 J = max( I-KD, 1 ), I - 1;
                   TMP = TMP + CABS1( AB( 1+I-J, J ) )*CABS1( X( J, K ) );
                } // 60
                TMP = TMP + ABS( DBLE( AB( 1, I ) ) )*CABS1( X( I, K ) );
-               DO 70 J = I + 1, MIN( I+KD, N );
+               DO 70 J = I + 1, min( I+KD, N );
                   TMP = TMP + CABS1( AB( 1+J-I, I ) )*CABS1( X( J, K ) );
                } // 70
             }
             if ( I == 1 ) {
                AXBI = TMP;
             } else {
-               AXBI = MIN( AXBI, TMP );
+               AXBI = min( AXBI, TMP );
             }
          } // 80
-         TMP = BERR( K ) / ( NZ*EPS+NZ*UNFL / MAX( AXBI, NZ*UNFL ) );
+         TMP = BERR( K ) / ( NZ*EPS+NZ*UNFL / max( AXBI, NZ*UNFL ) );
          if ( K == 1 ) {
             RESLTS( 2 ) = TMP;
          } else {
-            RESLTS( 2 ) = MAX( RESLTS( 2 ), TMP );
+            RESLTS( 2 ) = max( RESLTS( 2 ), TMP );
          }
       } // 90
 

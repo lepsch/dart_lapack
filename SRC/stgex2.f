@@ -54,9 +54,9 @@
       if (N <= 1 || N1 <= 0 || N2 <= 0) return;
       IF( N1 > N || ( J1+N1 ) > N ) return;
       M = N1 + N2;
-      if ( LWORK < MAX( N*M, M*M*2 ) ) {
+      if ( LWORK < max( N*M, M*M*2 ) ) {
          INFO = -16;
-         WORK( 1 ) = MAX( N*M, M*M*2 );
+         WORK( 1 ) = max( N*M, M*M*2 );
          return;
       }
 
@@ -78,23 +78,23 @@
       DSUM = ONE;
       slacpy('Full', M, M, S, LDST, WORK, M );
       slassq(M*M, WORK, 1, DSCALE, DSUM );
-      DNORMA = DSCALE*SQRT( DSUM );
+      DNORMA = DSCALE*sqrt( DSUM );
       DSCALE = ZERO;
       DSUM = ONE;
       slacpy('Full', M, M, T, LDST, WORK, M );
       slassq(M*M, WORK, 1, DSCALE, DSUM );
-      DNORMB = DSCALE*SQRT( DSUM );
+      DNORMB = DSCALE*sqrt( DSUM );
 
       // THRES has been changed from
-         // THRESH = MAX( TEN*EPS*SA, SMLNUM )
+         // THRESH = max( TEN*EPS*SA, SMLNUM )
       // to
-         // THRESH = MAX( TWENTY*EPS*SA, SMLNUM )
+         // THRESH = max( TWENTY*EPS*SA, SMLNUM )
       // on 04/01/10.
       // "Bug" reported by Ondra Kamenik, confirmed by Julie Langou, fixed by
       // Jim Demmel and Guillaume Revy. See forum post 1783.
 
-      THRESHA = MAX( TWENTY*EPS*DNORMA, SMLNUM );
-      THRESHB = MAX( TWENTY*EPS*DNORMB, SMLNUM );
+      THRESHA = max( TWENTY*EPS*DNORMA, SMLNUM );
+      THRESHB = max( TWENTY*EPS*DNORMB, SMLNUM );
 
       if ( M == 2 ) {
 
@@ -140,7 +140,7 @@
             DSCALE = ZERO;
             DSUM = ONE;
             slassq(M*M, WORK( M*M+1 ), 1, DSCALE, DSUM );
-            SA = DSCALE*SQRT( DSUM );
+            SA = DSCALE*sqrt( DSUM );
 
             slacpy('Full', M, M, B( J1, J1 ), LDB, WORK( M*M+1 ), M );
             sgemm('N', 'N', M, M, M, ONE, LI, LDST, T, LDST, ZERO, WORK, M );
@@ -148,7 +148,7 @@
             DSCALE = ZERO;
             DSUM = ONE;
             slassq(M*M, WORK( M*M+1 ), 1, DSCALE, DSUM );
-            SB = DSCALE*SQRT( DSUM );
+            SB = DSCALE*sqrt( DSUM );
             STRONG = SA <= THRESHA && SB <= THRESHB;
             if ( !STRONG) GO TO 70;
          }
@@ -247,7 +247,7 @@
          for (I = 1; I <= N2; I++) { // 30
             slassq(N1, S( N2+1, I ), 1, DSCALE, DSUM );
          } // 30
-         BRQA21 = DSCALE*SQRT( DSUM );
+         BRQA21 = DSCALE*sqrt( DSUM );
 
          // Triangularize the B-part by a QR factorization.
          // Apply transformation (from right) to A-part, giving S.
@@ -264,7 +264,7 @@
          for (I = 1; I <= N2; I++) { // 40
             slassq(N1, SCPY( N2+1, I ), 1, DSCALE, DSUM );
          } // 40
-         BQRA21 = DSCALE*SQRT( DSUM );
+         BQRA21 = DSCALE*sqrt( DSUM );
 
          // Decide which method to use.
            // Weak stability test:
@@ -296,7 +296,7 @@
             DSCALE = ZERO;
             DSUM = ONE;
             slassq(M*M, WORK( M*M+1 ), 1, DSCALE, DSUM );
-            SA = DSCALE*SQRT( DSUM );
+            SA = DSCALE*sqrt( DSUM );
 
             slacpy('Full', M, M, B( J1, J1 ), LDB, WORK( M*M+1 ), M );
             sgemm('N', 'N', M, M, M, ONE, LI, LDST, T, LDST, ZERO, WORK, M );
@@ -304,7 +304,7 @@
             DSCALE = ZERO;
             DSUM = ONE;
             slassq(M*M, WORK( M*M+1 ), 1, DSCALE, DSUM );
-            SB = DSCALE*SQRT( DSUM );
+            SB = DSCALE*sqrt( DSUM );
             STRONG = SA <= THRESHA && SB <= THRESHB;
             if ( !STRONG) GO TO 70;
 

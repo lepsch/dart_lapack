@@ -80,13 +80,13 @@
       }
       RSVEC = RSVEC || APPLV;
 
-      ROOTEPS = SQRT( EPS );
-      ROOTSFMIN = SQRT( SFMIN );
+      ROOTEPS = sqrt( EPS );
+      ROOTSFMIN = sqrt( SFMIN );
       SMALL = SFMIN / EPS;
       BIG = ONE / SFMIN;
       ROOTBIG = ONE / ROOTSFMIN;
       BIGTHETA = ONE / ROOTEPS;
-      ROOTTOL = SQRT( TOL );
+      ROOTTOL = sqrt( TOL );
 
       // .. Row-cyclic Jacobi SVD algorithm with column pivoting ..
 
@@ -103,7 +103,7 @@
       // Jacobi SVD algorithm SGESVJ. For sweeps i=1:SWBAND the procedure
       // ......
 
-      KBL = MIN( 8, N );
+      KBL = min( 8, N );
 // [TP] KBL is a tuning parameter that defines the tile size in the
       // tiling of the p-q loops of pivot pairs. In general, an optimal
       // value of KBL depends on the matrix dimensions and on the
@@ -115,7 +115,7 @@
       BLSKIP = ( KBL**2 ) + 1;
 // [TP] BLKSKIP is a tuning parameter that depends on SWBAND and KBL.
 
-      ROWSKIP = MIN( 5, KBL );
+      ROWSKIP = min( 5, KBL );
 // [TP] ROWSKIP is a tuning parameter.
 
       LKAHEAD = 1;
@@ -137,11 +137,11 @@
 
             igl = ( ibr-1 )*KBL + 1;
 
-            DO 1002 ir1 = 0, MIN( LKAHEAD, NBL-ibr );
+            DO 1002 ir1 = 0, min( LKAHEAD, NBL-ibr );
 
                igl = igl + ir1*KBL;
 
-               DO 2001 p = igl, MIN( igl+KBL-1, N-1 );
+               DO 2001 p = igl, min( igl+KBL-1, N-1 );
 
       // .. de Rijk's pivoting
                   q = ISAMAX( N-p+1, SVA( p ), 1 ) + p - 1;
@@ -162,9 +162,9 @@
          // norm computation.
          // Caveat:
          // Some BLAS implementations compute SNRM2(M,A(1,p),1)
-         // as SQRT(SDOT(M,A(1,p),1,A(1,p),1)), which may result in
-         // overflow for ||A(:,p)||_2 > SQRT(overflow_threshold), and
-         // underflow for ||A(:,p)||_2 < SQRT(underflow_threshold).
+         // as sqrt(SDOT(M,A(1,p),1,A(1,p),1)), which may result in
+         // overflow for ||A(:,p)||_2 > sqrt(overflow_threshold), and
+         // underflow for ||A(:,p)||_2 < sqrt(underflow_threshold).
          // Hence, SNRM2 cannot be trusted, not even in the case when
          // the true norm is far from the under(over)flow boundaries.
          // If properly implemented SNRM2 is available, the IF-THEN-ELSE
@@ -176,7 +176,7 @@
                         TEMP1 = ZERO;
                         AAPP = ONE;
                         slassq(M, A( 1, p ), 1, TEMP1, AAPP );
-                        SVA( p ) = TEMP1*SQRT( AAPP )*D( p );
+                        SVA( p ) = TEMP1*sqrt( AAPP )*D( p );
                      }
                      AAPP = SVA( p );
                   } else {
@@ -188,7 +188,7 @@
 
                      PSKIPPED = 0;
 
-                     DO 2002 q = p + 1, MIN( igl+KBL-1, N );
+                     DO 2002 q = p + 1, min( igl+KBL-1, N );
 
                         AAQQ = SVA( q );
 
@@ -213,7 +213,7 @@
                               }
                            }
 
-                           MXAAPQ = MAX( MXAAPQ, ABS( AAPQ ) );
+                           MXAAPQ = max( MXAAPQ, ABS( AAPQ ) );
 
          // TO rotate or NOT to rotate, THAT is the question ...
 
@@ -240,20 +240,20 @@
                                     FASTR( 3 ) = T*D( p ) / D( q );
                                     FASTR( 4 ) = -T*D( q ) / D( p );
                                     srotm(M, A( 1, p ), 1, A( 1, q ), 1, FASTR )                                     IF( RSVEC )CALL SROTM( MVL, V( 1, p ), 1, V( 1, q ), 1, FASTR );
-                                    SVA( q ) = AAQQ*SQRT( MAX( ZERO, ONE+T*APOAQ*AAPQ ) )                                     AAPP = AAPP*SQRT( MAX( ZERO, ONE-T*AQOAP*AAPQ ) );
-                                    MXSINJ = MAX( MXSINJ, ABS( T ) );
+                                    SVA( q ) = AAQQ*sqrt( max( ZERO, ONE+T*APOAQ*AAPQ ) )                                     AAPP = AAPP*sqrt( max( ZERO, ONE-T*AQOAP*AAPQ ) );
+                                    MXSINJ = max( MXSINJ, ABS( T ) );
 
                                  } else {
 
                   // .. choose correct signum for THETA and rotate
 
                                     THSIGN = -SIGN( ONE, AAPQ );
-                                    T = ONE / ( THETA+THSIGN* SQRT( ONE+THETA*THETA ) );
-                                    CS = SQRT( ONE / ( ONE+T*T ) );
+                                    T = ONE / ( THETA+THSIGN* sqrt( ONE+THETA*THETA ) );
+                                    CS = sqrt( ONE / ( ONE+T*T ) );
                                     SN = T*CS;
 
-                                    MXSINJ = MAX( MXSINJ, ABS( SN ) );
-                                    SVA( q ) = AAQQ*SQRT( MAX( ZERO, ONE+T*APOAQ*AAPQ ) )                                     AAPP = AAPP*SQRT( MAX( ZERO, ONE-T*AQOAP*AAPQ ) );
+                                    MXSINJ = max( MXSINJ, ABS( SN ) );
+                                    SVA( q ) = AAQQ*sqrt( max( ZERO, ONE+T*APOAQ*AAPQ ) )                                     AAPP = AAPP*sqrt( max( ZERO, ONE-T*AQOAP*AAPQ ) );
 
                                     APOAQ = D( p ) / D( q );
                                     AQOAP = D( q ) / D( p );
@@ -315,8 +315,8 @@
                                  slascl('G', 0, 0, AAQQ, ONE, M, 1, A( 1, q ), LDA, IERR );
                                  TEMP1 = -AAPQ*D( p ) / D( q );
                                  saxpy(M, TEMP1, WORK, 1, A( 1, q ), 1 );
-                                 slascl('G', 0, 0, ONE, AAQQ, M, 1, A( 1, q ), LDA, IERR )                                  SVA( q ) = AAQQ*SQRT( MAX( ZERO, ONE-AAPQ*AAPQ ) );
-                                 MXSINJ = MAX( MXSINJ, SFMIN );
+                                 slascl('G', 0, 0, ONE, AAQQ, M, 1, A( 1, q ), LDA, IERR )                                  SVA( q ) = AAQQ*sqrt( max( ZERO, ONE-AAPQ*AAPQ ) );
+                                 MXSINJ = max( MXSINJ, SFMIN );
                               }
             // END IF ROTOK THEN ... ELSE
 
@@ -329,7 +329,7 @@
                                     T = ZERO;
                                     AAQQ = ONE;
                                     slassq(M, A( 1, q ), 1, T, AAQQ );
-                                    SVA( q ) = T*SQRT( AAQQ )*D( q );
+                                    SVA( q ) = T*sqrt( AAQQ )*D( q );
                                  }
                               }
                               if ( ( AAPP / AAPP0 ) <= ROOTEPS ) {
@@ -339,7 +339,7 @@
                                     T = ZERO;
                                     AAPP = ONE;
                                     slassq(M, A( 1, p ), 1, T, AAPP );
-                                    AAPP = T*SQRT( AAPP )*D( p );
+                                    AAPP = T*sqrt( AAPP )*D( p );
                                  }
                                  SVA( p ) = AAPP;
                               }
@@ -371,7 +371,7 @@
 
                   } else {
                      SVA( p ) = AAPP;
-                     if( ( ir1 == 0 ) && ( AAPP == ZERO ) ) NOTROT = NOTROT + MIN( igl+KBL-1, N ) - p;
+                     if( ( ir1 == 0 ) && ( AAPP == ZERO ) ) NOTROT = NOTROT + min( igl+KBL-1, N ) - p;
                   }
 
                } // 2001
@@ -392,7 +392,7 @@
          // doing the block at ( ibr, jbc )
 
                IJBLSK = 0;
-               DO 2100 p = igl, MIN( igl+KBL-1, N );
+               DO 2100 p = igl, min( igl+KBL-1, N );
 
                   AAPP = SVA( p );
 
@@ -400,7 +400,7 @@
 
                      PSKIPPED = 0;
 
-                     DO 2200 q = jgl, MIN( jgl+KBL-1, N );
+                     DO 2200 q = jgl, min( jgl+KBL-1, N );
 
                         AAQQ = SVA( q );
 
@@ -437,7 +437,7 @@
                               }
                            }
 
-                           MXAAPQ = MAX( MXAAPQ, ABS( AAPQ ) );
+                           MXAAPQ = max( MXAAPQ, ABS( AAPQ ) );
 
          // TO rotate or NOT to rotate, THAT is the question ...
 
@@ -459,19 +459,19 @@
                                     FASTR( 3 ) = T*D( p ) / D( q );
                                     FASTR( 4 ) = -T*D( q ) / D( p );
                                     srotm(M, A( 1, p ), 1, A( 1, q ), 1, FASTR )                                     IF( RSVEC )CALL SROTM( MVL, V( 1, p ), 1, V( 1, q ), 1, FASTR );
-                                    SVA( q ) = AAQQ*SQRT( MAX( ZERO, ONE+T*APOAQ*AAPQ ) )                                     AAPP = AAPP*SQRT( MAX( ZERO, ONE-T*AQOAP*AAPQ ) );
-                                    MXSINJ = MAX( MXSINJ, ABS( T ) );
+                                    SVA( q ) = AAQQ*sqrt( max( ZERO, ONE+T*APOAQ*AAPQ ) )                                     AAPP = AAPP*sqrt( max( ZERO, ONE-T*AQOAP*AAPQ ) );
+                                    MXSINJ = max( MXSINJ, ABS( T ) );
                                  } else {
 
                   // .. choose correct signum for THETA and rotate
 
                                     THSIGN = -SIGN( ONE, AAPQ );
                                     if (AAQQ > AAPP0) THSIGN = -THSIGN;
-                                    T = ONE / ( THETA+THSIGN* SQRT( ONE+THETA*THETA ) );
-                                    CS = SQRT( ONE / ( ONE+T*T ) );
+                                    T = ONE / ( THETA+THSIGN* sqrt( ONE+THETA*THETA ) );
+                                    CS = sqrt( ONE / ( ONE+T*T ) );
                                     SN = T*CS;
-                                    MXSINJ = MAX( MXSINJ, ABS( SN ) );
-                                    SVA( q ) = AAQQ*SQRT( MAX( ZERO, ONE+T*APOAQ*AAPQ ) )                                     AAPP = AAPP*SQRT( MAX( ZERO, ONE-T*AQOAP*AAPQ ) );
+                                    MXSINJ = max( MXSINJ, ABS( SN ) );
+                                    SVA( q ) = AAQQ*sqrt( max( ZERO, ONE+T*APOAQ*AAPQ ) )                                     AAPP = AAPP*sqrt( max( ZERO, ONE-T*AQOAP*AAPQ ) );
 
                                     APOAQ = D( p ) / D( q );
                                     AQOAP = D( q ) / D( p );
@@ -535,8 +535,8 @@
                                     TEMP1 = -AAPQ*D( p ) / D( q );
                                     saxpy(M, TEMP1, WORK, 1, A( 1, q ), 1 );
                                     slascl('G', 0, 0, ONE, AAQQ, M, 1, A( 1, q ), LDA, IERR );
-                                    SVA( q ) = AAQQ*SQRT( MAX( ZERO, ONE-AAPQ*AAPQ ) );
-                                    MXSINJ = MAX( MXSINJ, SFMIN );
+                                    SVA( q ) = AAQQ*sqrt( max( ZERO, ONE-AAPQ*AAPQ ) );
+                                    MXSINJ = max( MXSINJ, SFMIN );
                                  } else {
                                     scopy(M, A( 1, q ), 1, WORK, 1 );
                                     slascl('G', 0, 0, AAQQ, ONE, M, 1, WORK, LDA, IERR );
@@ -544,8 +544,8 @@
                                     TEMP1 = -AAPQ*D( q ) / D( p );
                                     saxpy(M, TEMP1, WORK, 1, A( 1, p ), 1 );
                                     slascl('G', 0, 0, ONE, AAPP, M, 1, A( 1, p ), LDA, IERR );
-                                    SVA( p ) = AAPP*SQRT( MAX( ZERO, ONE-AAPQ*AAPQ ) );
-                                    MXSINJ = MAX( MXSINJ, SFMIN );
+                                    SVA( p ) = AAPP*sqrt( max( ZERO, ONE-AAPQ*AAPQ ) );
+                                    MXSINJ = max( MXSINJ, SFMIN );
                                  }
                               }
             // END IF ROTOK THEN ... ELSE
@@ -559,7 +559,7 @@
                                     T = ZERO;
                                     AAQQ = ONE;
                                     slassq(M, A( 1, q ), 1, T, AAQQ );
-                                    SVA( q ) = T*SQRT( AAQQ )*D( q );
+                                    SVA( q ) = T*sqrt( AAQQ )*D( q );
                                  }
                               }
                               if ( ( AAPP / AAPP0 )**2 <= ROOTEPS ) {
@@ -569,7 +569,7 @@
                                     T = ZERO;
                                     AAPP = ONE;
                                     slassq(M, A( 1, p ), 1, T, AAPP );
-                                    AAPP = T*SQRT( AAPP )*D( p );
+                                    AAPP = T*sqrt( AAPP )*D( p );
                                  }
                                  SVA( p ) = AAPP;
                               }
@@ -603,7 +603,7 @@
                      SVA( p ) = AAPP;
 
                   } else {
-                     if (AAPP == ZERO) NOTROT = NOTROT + MIN( jgl+KBL-1, N ) - jgl + 1;
+                     if (AAPP == ZERO) NOTROT = NOTROT + min( jgl+KBL-1, N ) - jgl + 1;
                      if (AAPP < ZERO) NOTROT = 0;
                   }
 
@@ -613,7 +613,7 @@
       // end of the jbc-loop
             } // 2011
 // 2011 bailed out of the jbc-loop
-            DO 2012 p = igl, MIN( igl+KBL-1, N );
+            DO 2012 p = igl, min( igl+KBL-1, N );
                SVA( p ) = ABS( SVA( p ) );
             } // 2012
 
@@ -627,7 +627,7 @@
             T = ZERO;
             AAPP = ONE;
             slassq(M, A( 1, N ), 1, T, AAPP );
-            SVA( N ) = T*SQRT( AAPP )*D( N );
+            SVA( N ) = T*sqrt( AAPP )*D( N );
          }
 
       // Additional steering devices

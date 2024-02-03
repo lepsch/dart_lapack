@@ -87,9 +87,9 @@
          INFO = -3;
       } else if ( N < 0 ) {
          INFO = -5;
-      } else if ( LDA < MAX( 1, N ) ) {
+      } else if ( LDA < max( 1, N ) ) {
          INFO = -7;
-      } else if ( LDB < MAX( 1, N ) ) {
+      } else if ( LDB < max( 1, N ) ) {
          INFO = -9;
       } else if ( LDVSL < 1 || ( ILVSL && LDVSL < N ) ) {
          INFO = -14;
@@ -105,11 +105,11 @@
         // following subroutine, as returned by ILAENV.)
 
       if ( INFO == 0 ) {
-         LWKMIN = MAX( 1, 2*N );
-         LWKOPT = MAX( 1, N + N*ILAENV( 1, 'CGEQRF', ' ', N, 1, N, 0 ) );
-         LWKOPT = MAX( LWKOPT, N + N*ILAENV( 1, 'CUNMQR', ' ', N, 1, N, -1 ) );
+         LWKMIN = max( 1, 2*N );
+         LWKOPT = max( 1, N + N*ILAENV( 1, 'CGEQRF', ' ', N, 1, N, 0 ) );
+         LWKOPT = max( LWKOPT, N + N*ILAENV( 1, 'CUNMQR', ' ', N, 1, N, -1 ) );
          if ( ILVSL ) {
-            LWKOPT = MAX( LWKOPT, N + N*ILAENV( 1, 'CUNGQR', ' ', N, 1, N, -1 ) );
+            LWKOPT = max( LWKOPT, N + N*ILAENV( 1, 'CUNGQR', ' ', N, 1, N, -1 ) );
          }
          WORK( 1 ) = SROUNDUP_LWORK(LWKOPT);
 
@@ -135,7 +135,7 @@
       EPS = SLAMCH( 'P' );
       SMLNUM = SLAMCH( 'S' );
       BIGNUM = ONE / SMLNUM;
-      SMLNUM = SQRT( SMLNUM ) / EPS;
+      SMLNUM = sqrt( SMLNUM ) / EPS;
       BIGNUM = ONE / SMLNUM;
 
       // Scale A if max element outside range [SMLNUM,BIGNUM]

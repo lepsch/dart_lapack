@@ -57,7 +57,7 @@
 
       INFO = 0;
       NB = ILAENV( 1, 'STREVC', SIDE // HOWMNY, N, -1, -1, -1 );
-      MAXWRK = MAX( 1, N + 2*N*NB );
+      MAXWRK = max( 1, N + 2*N*NB );
       WORK(1) = MAXWRK;
       LQUERY = ( LWORK == -1 );
       if ( !RIGHTV && !LEFTV ) {
@@ -66,13 +66,13 @@
          INFO = -2;
       } else if ( N < 0 ) {
          INFO = -4;
-      } else if ( LDT < MAX( 1, N ) ) {
+      } else if ( LDT < max( 1, N ) ) {
          INFO = -6;
       } else if ( LDVL < 1 || ( LEFTV && LDVL < N ) ) {
          INFO = -8;
       } else if ( LDVR < 1 || ( RIGHTV && LDVR < N ) ) {
          INFO = -10;
-      } else if ( LWORK < MAX( 1, 3*N ) && !LQUERY ) {
+      } else if ( LWORK < max( 1, 3*N ) && !LQUERY ) {
          INFO = -14;
       } else {
 
@@ -127,7 +127,7 @@
 
       if ( OVER && LWORK >= N + 2*N*NBMIN ) {
          NB = (LWORK - N) / (2*N);
-         NB = MIN( NB, NBMAX );
+         NB = min( NB, NBMAX );
          slaset('F', N, 1+2*NB, ZERO, ZERO, WORK, N );
       } else {
          NB = 1;
@@ -204,8 +204,8 @@
 
             WR = T( KI, KI );
             WI = ZERO;
-            if (IP != 0) WI = SQRT( ABS( T( KI, KI-1 ) ) )* SQRT( ABS( T( KI-1, KI ) ) );
-            SMIN = MAX( ULP*( ABS( WR )+ABS( WI ) ), SMLNUM );
+            if (IP != 0) WI = sqrt( ABS( T( KI, KI-1 ) ) )* sqrt( ABS( T( KI-1, KI ) ) );
+            SMIN = max( ULP*( ABS( WR )+ABS( WI ) ), SMLNUM );
 
             if ( IP == 0 ) {
 
@@ -271,7 +271,7 @@
                      // updating the right-hand side.
 
                      if ( XNORM > ONE ) {
-                        BETA = MAX( WORK( J-1 ), WORK( J ) );
+                        BETA = max( WORK( J-1 ), WORK( J ) );
                         if ( BETA > BIGNUM / XNORM ) {
                            X( 1, 1 ) = X( 1, 1 ) / XNORM;
                            X( 2, 1 ) = X( 2, 1 ) / XNORM;
@@ -409,7 +409,7 @@
                      // the right-hand side.
 
                      if ( XNORM > ONE ) {
-                        BETA = MAX( WORK( J-1 ), WORK( J ) );
+                        BETA = max( WORK( J-1 ), WORK( J ) );
                         if ( BETA > BIGNUM / XNORM ) {
                            REC = ONE / XNORM;
                            X( 1, 1 ) = X( 1, 1 )*REC;
@@ -450,7 +450,7 @@
 
                   EMAX = ZERO;
                   for (K = 1; K <= KI; K++) { // 100
-                     EMAX = MAX( EMAX, ABS( VR( K, IS-1 ) )+ ABS( VR( K, IS   ) ) );
+                     EMAX = max( EMAX, ABS( VR( K, IS-1 ) )+ ABS( VR( K, IS   ) ) );
                   } // 100
                   REMAX = ONE / EMAX;
                   sscal(KI, REMAX, VR( 1, IS-1 ), 1 );
@@ -474,7 +474,7 @@
 
                   EMAX = ZERO;
                   for (K = 1; K <= N; K++) { // 120
-                     EMAX = MAX( EMAX, ABS( VR( K, KI-1 ) )+ ABS( VR( K, KI   ) ) );
+                     EMAX = max( EMAX, ABS( VR( K, KI-1 ) )+ ABS( VR( K, KI   ) ) );
                   } // 120
                   REMAX = ONE / EMAX;
                   sscal(N, REMAX, VR( 1, KI-1 ), 1 );
@@ -520,7 +520,7 @@
                         // first eigenvector of conjugate pair
                         EMAX = ZERO;
                         for (II = 1; II <= N; II++) {
-                           EMAX = MAX( EMAX, ABS( WORK( II + (NB+K  )*N ) )+ ABS( WORK( II + (NB+K+1)*N ) ) );
+                           EMAX = max( EMAX, ABS( WORK( II + (NB+K  )*N ) )+ ABS( WORK( II + (NB+K+1)*N ) ) );
                         }
                         REMAX = ONE / EMAX;
                      // else if ISCOMPLEX(K) == -1
@@ -579,8 +579,8 @@
 
             WR = T( KI, KI );
             WI = ZERO;
-            if (IP != 0) WI = SQRT( ABS( T( KI, KI+1 ) ) )* SQRT( ABS( T( KI+1, KI ) ) );
-            SMIN = MAX( ULP*( ABS( WR )+ABS( WI ) ), SMLNUM );
+            if (IP != 0) WI = sqrt( ABS( T( KI, KI+1 ) ) )* sqrt( ABS( T( KI+1, KI ) ) );
+            SMIN = max( ULP*( ABS( WR )+ABS( WI ) ), SMLNUM );
 
             if ( IP == 0 ) {
 
@@ -638,7 +638,7 @@
 
                      if (SCALE != ONE) CALL SSCAL( N-KI+1, SCALE, WORK( KI+IV*N ), 1 );
                      WORK( J+IV*N ) = X( 1, 1 );
-                     VMAX = MAX( ABS( WORK( J+IV*N ) ), VMAX );
+                     VMAX = max( ABS( WORK( J+IV*N ) ), VMAX );
                      VCRIT = BIGNUM / VMAX;
 
                   } else {
@@ -648,7 +648,7 @@
                      // Scale if necessary to avoid overflow when forming
                      // the right-hand side.
 
-                     BETA = MAX( WORK( J ), WORK( J+1 ) );
+                     BETA = max( WORK( J ), WORK( J+1 ) );
                      if ( BETA > VCRIT ) {
                         REC = ONE / VMAX;
                         sscal(N-KI+1, REC, WORK( KI+IV*N ), 1 );
@@ -672,7 +672,7 @@
                      WORK( J  +IV*N ) = X( 1, 1 );
                      WORK( J+1+IV*N ) = X( 2, 1 );
 
-                     VMAX = MAX( ABS( WORK( J  +IV*N ) ), ABS( WORK( J+1+IV*N ) ), VMAX );
+                     VMAX = max( ABS( WORK( J  +IV*N ) ), ABS( WORK( J+1+IV*N ) ), VMAX );
                      VCRIT = BIGNUM / VMAX;
 
                   }
@@ -787,7 +787,7 @@
                      }
                      WORK( J+(IV  )*N ) = X( 1, 1 );
                      WORK( J+(IV+1)*N ) = X( 1, 2 );
-                     VMAX = MAX( ABS( WORK( J+(IV  )*N ) ), ABS( WORK( J+(IV+1)*N ) ), VMAX );
+                     VMAX = max( ABS( WORK( J+(IV  )*N ) ), ABS( WORK( J+(IV+1)*N ) ), VMAX );
                      VCRIT = BIGNUM / VMAX;
 
                   } else {
@@ -797,7 +797,7 @@
                      // Scale if necessary to avoid overflow when forming
                      // the right-hand side elements.
 
-                     BETA = MAX( WORK( J ), WORK( J+1 ) );
+                     BETA = max( WORK( J ), WORK( J+1 ) );
                      if ( BETA > VCRIT ) {
                         REC = ONE / VMAX;
                         sscal(N-KI+1, REC, WORK(KI+(IV  )*N), 1 );
@@ -830,7 +830,7 @@
                      WORK( J  +(IV+1)*N ) = X( 1, 2 );
                      WORK( J+1+(IV  )*N ) = X( 2, 1 );
                      WORK( J+1+(IV+1)*N ) = X( 2, 2 );
-                     VMAX = MAX( ABS( X( 1, 1 ) ), ABS( X( 1, 2 ) ), ABS( X( 2, 1 ) ), ABS( X( 2, 2 ) ), VMAX );
+                     VMAX = max( ABS( X( 1, 1 ) ), ABS( X( 1, 2 ) ), ABS( X( 2, 1 ) ), ABS( X( 2, 2 ) ), VMAX );
                      VCRIT = BIGNUM / VMAX;
 
                   }
@@ -846,7 +846,7 @@
 
                   EMAX = ZERO;
                   for (K = KI; K <= N; K++) { // 220
-                     EMAX = MAX( EMAX, ABS( VL( K, IS   ) )+ ABS( VL( K, IS+1 ) ) );
+                     EMAX = max( EMAX, ABS( VL( K, IS   ) )+ ABS( VL( K, IS+1 ) ) );
                   } // 220
                   REMAX = ONE / EMAX;
                   sscal(N-KI+1, REMAX, VL( KI, IS   ), 1 );
@@ -870,7 +870,7 @@
 
                   EMAX = ZERO;
                   for (K = 1; K <= N; K++) { // 240
-                     EMAX = MAX( EMAX, ABS( VL( K, KI   ) )+ ABS( VL( K, KI+1 ) ) );
+                     EMAX = max( EMAX, ABS( VL( K, KI   ) )+ ABS( VL( K, KI+1 ) ) );
                   } // 240
                   REMAX = ONE / EMAX;
                   sscal(N, REMAX, VL( 1, KI   ), 1 );
@@ -917,7 +917,7 @@
                         // first eigenvector of conjugate pair
                         EMAX = ZERO;
                         for (II = 1; II <= N; II++) {
-                           EMAX = MAX( EMAX, ABS( WORK( II + (NB+K  )*N ) )+ ABS( WORK( II + (NB+K+1)*N ) ) );
+                           EMAX = max( EMAX, ABS( WORK( II + (NB+K  )*N ) )+ ABS( WORK( II + (NB+K+1)*N ) ) );
                         }
                         REMAX = ONE / EMAX;
                      // else if ISCOMPLEX(K) == -1

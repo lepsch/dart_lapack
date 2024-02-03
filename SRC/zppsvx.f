@@ -67,21 +67,21 @@
             SMIN = BIGNUM;
             SMAX = ZERO;
             for (J = 1; J <= N; J++) { // 10
-               SMIN = MIN( SMIN, S( J ) );
-               SMAX = MAX( SMAX, S( J ) );
+               SMIN = min( SMIN, S( J ) );
+               SMAX = max( SMAX, S( J ) );
             } // 10
             if ( SMIN <= ZERO ) {
                INFO = -8;
             } else if ( N > 0 ) {
-               SCOND = MAX( SMIN, SMLNUM ) / MIN( SMAX, BIGNUM );
+               SCOND = max( SMIN, SMLNUM ) / min( SMAX, BIGNUM );
             } else {
                SCOND = ONE;
             }
          }
          if ( INFO == 0 ) {
-            if ( LDB < MAX( 1, N ) ) {
+            if ( LDB < max( 1, N ) ) {
                INFO = -10;
-            } else if ( LDX < MAX( 1, N ) ) {
+            } else if ( LDX < max( 1, N ) ) {
                INFO = -12;
             }
          }

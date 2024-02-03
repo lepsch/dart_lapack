@@ -73,8 +73,8 @@
          for (I = 2; I <= N; I++) { // 10
             JJ = JJ + I;
             S( I ) = AP( JJ );
-            SMIN = MIN( SMIN, S( I ) );
-            AMAX = MAX( AMAX, S( I ) );
+            SMIN = min( SMIN, S( I ) );
+            AMAX = max( AMAX, S( I ) );
          } // 10
 
       } else {
@@ -86,8 +86,8 @@
          for (I = 2; I <= N; I++) { // 20
             JJ = JJ + N - I + 2;
             S( I ) = AP( JJ );
-            SMIN = MIN( SMIN, S( I ) );
-            AMAX = MAX( AMAX, S( I ) );
+            SMIN = min( SMIN, S( I ) );
+            AMAX = max( AMAX, S( I ) );
          } // 20
       }
 
@@ -107,12 +107,12 @@
          // of the diagonal elements.
 
          for (I = 1; I <= N; I++) { // 40
-            S( I ) = ONE / SQRT( S( I ) );
+            S( I ) = ONE / sqrt( S( I ) );
          } // 40
 
          // Compute SCOND = min(S(I)) / max(S(I))
 
-         SCOND = SQRT( SMIN ) / SQRT( AMAX );
+         SCOND = sqrt( SMIN ) / sqrt( AMAX );
       }
       return;
 

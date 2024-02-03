@@ -55,7 +55,7 @@
       SIGMX = ZERO;
       for (I = 1; I <= N - 1; I++) { // 10
          D( I ) = ABS( D( I ) );
-         SIGMX = MAX( SIGMX, ABS( E( I ) ) );
+         SIGMX = max( SIGMX, ABS( E( I ) ) );
       } // 10
       D( N ) = ABS( D( N ) );
 
@@ -67,7 +67,7 @@
       }
 
       for (I = 1; I <= N; I++) { // 20
-         SIGMX = MAX( SIGMX, D( I ) );
+         SIGMX = max( SIGMX, D( I ) );
       } // 20
 
       // Copy D and E into WORK (in the Z format) and scale (squaring the
@@ -75,7 +75,7 @@
 
       EPS = SLAMCH( 'Precision' );
       SAFMIN = SLAMCH( 'Safe minimum' );
-      SCALE = SQRT( EPS / SAFMIN );
+      SCALE = sqrt( EPS / SAFMIN );
       scopy(N, D, 1, WORK( 1 ), 2 );
       scopy(N-1, E, 1, WORK( 2 ), 2 );
       slascl('G', 0, 0, SIGMX, SCALE, 2*N-1, 1, WORK, 2*N-1, IINFO );
@@ -91,7 +91,7 @@
 
       if ( INFO == 0 ) {
          for (I = 1; I <= N; I++) { // 40
-            D( I ) = SQRT( WORK( I ) );
+            D( I ) = sqrt( WORK( I ) );
          } // 40
          slascl('G', 0, 0, SCALE, SIGMX, N, 1, D, N, IINFO );
       } else if ( INFO == 2 ) {
@@ -100,8 +100,8 @@
       // into D and E so the calling subroutine can try to finish
 
          for (I = 1; I <= N; I++) {
-            D( I ) = SQRT( WORK( 2*I-1 ) );
-            E( I ) = SQRT( WORK( 2*I ) );
+            D( I ) = sqrt( WORK( 2*I-1 ) );
+            E( I ) = sqrt( WORK( 2*I ) );
          }
          slascl('G', 0, 0, SCALE, SIGMX, N, 1, D, N, IINFO );
          slascl('G', 0, 0, SCALE, SIGMX, N, 1, E, N, IINFO );

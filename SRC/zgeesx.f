@@ -66,7 +66,7 @@
          INFO = -4;
       } else if ( N < 0 ) {
          INFO = -5;
-      } else if ( LDA < MAX( 1, N ) ) {
+      } else if ( LDA < max( 1, N ) ) {
          INFO = -7;
       } else if ( LDVS < 1 || ( WANTVS && LDVS < N ) ) {
          INFO = -11;
@@ -98,13 +98,13 @@
             HSWORK = INT( WORK( 1 ) );
 
             if ( !WANTVS ) {
-               MAXWRK = MAX( MAXWRK, HSWORK );
+               MAXWRK = max( MAXWRK, HSWORK );
             } else {
-               MAXWRK = MAX( MAXWRK, N + ( N - 1 )*ILAENV( 1, 'ZUNGHR', ' ', N, 1, N, -1 ) );
-               MAXWRK = MAX( MAXWRK, HSWORK );
+               MAXWRK = max( MAXWRK, N + ( N - 1 )*ILAENV( 1, 'ZUNGHR', ' ', N, 1, N, -1 ) );
+               MAXWRK = max( MAXWRK, HSWORK );
             }
             LWRK = MAXWRK;
-            if ( !WANTSN) LWRK = MAX( LWRK, ( N*N )/2 );
+            if ( !WANTSN) LWRK = max( LWRK, ( N*N )/2 );
          }
          WORK( 1 ) = LWRK;
 
@@ -132,7 +132,7 @@
       EPS = DLAMCH( 'P' );
       SMLNUM = DLAMCH( 'S' );
       BIGNUM = ONE / SMLNUM;
-      SMLNUM = SQRT( SMLNUM ) / EPS;
+      SMLNUM = sqrt( SMLNUM ) / EPS;
       BIGNUM = ONE / SMLNUM;
 
       // Scale A if max element outside range [SMLNUM,BIGNUM]
@@ -201,7 +201,7 @@
          // (RWorkspace: none)
 
          ztrsen(SENSE, JOBVS, BWORK, N, A, LDA, VS, LDVS, W, SDIM, RCONDE, RCONDV, WORK( IWRK ), LWORK-IWRK+1, ICOND );
-         if ( !WANTSN) MAXWRK = MAX( MAXWRK, 2*SDIM*( N-SDIM ) );
+         if ( !WANTSN) MAXWRK = max( MAXWRK, 2*SDIM*( N-SDIM ) );
          if ( ICOND == -14 ) {
 
             // Not enough complex workspace

@@ -789,7 +789,7 @@
  9919 FORMAT( 3X, ' 3-4: same as 1-2', 3X, ' 5-6: same as 1-2' );
  9920 FORMAT( 3X, ' 11-14: same as 7-10', 3X, ' 15-18: same as 7-10' );
  9921 FORMAT( ' Test ratios:', / '    (1-2: ', A1, 'GELS, 3-4: ', A1, 'GELST, 5-6: ', A1, 'GETSLS, 7-10: ', A1, 'GELSY, 11-14: ', A1, 'GETSS, 15-18: ', A1, 'GELSD)' );
- 9928 FORMAT( 7X, 'where ALPHA = ( 1 + SQRT( 17 ) ) / 8' );
+ 9928 FORMAT( 7X, 'where ALPHA = ( 1 + sqrt( 17 ) ) / 8' );
  9927 FORMAT( 3X, I2, ': ABS( Largest element in L )', / 12X, ' - ( 1 / ( 1 - ALPHA ) ) + THRESH' );
  9926 FORMAT( 3X, I2, ': Largest 2-Norm of 2-by-2 pivots', / 12X, ' - ( ( 1 + ALPHA ) / ( 1 - ALPHA ) ) + THRESH' );
  8011 FORMAT(3X,I2,': norm( R - Q''*A ) / ( M * norm(A) * EPS )' );

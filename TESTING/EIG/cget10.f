@@ -49,18 +49,18 @@
       for (J = 1; J <= N; J++) { // 10
          ccopy(M, A( 1, J ), 1, WORK, 1 );
          caxpy(M, CMPLX( -ONE ), B( 1, J ), 1, WORK, 1 );
-         WNORM = MAX( WNORM, SCASUM( N, WORK, 1 ) );
+         WNORM = max( WNORM, SCASUM( N, WORK, 1 ) );
       } // 10
 
-      ANORM = MAX( CLANGE( '1', M, N, A, LDA, RWORK ), UNFL );
+      ANORM = max( CLANGE( '1', M, N, A, LDA, RWORK ), UNFL );
 
       if ( ANORM > WNORM ) {
          RESULT = ( WNORM / ANORM ) / ( M*EPS );
       } else {
          if ( ANORM < ONE ) {
-            RESULT = ( MIN( WNORM, M*ANORM ) / ANORM ) / ( M*EPS );
+            RESULT = ( min( WNORM, M*ANORM ) / ANORM ) / ( M*EPS );
          } else {
-            RESULT = MIN( WNORM / ANORM, REAL( M ) ) / ( M*EPS );
+            RESULT = min( WNORM / ANORM, REAL( M ) ) / ( M*EPS );
          }
       }
 

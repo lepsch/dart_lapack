@@ -50,14 +50,14 @@
       // Set up test case parameters
 
       VAL( 1 ) = ZERO;
-      VAL( 2 ) = SQRT( SMLNUM );
+      VAL( 2 ) = sqrt( SMLNUM );
       VAL( 3 ) = ONE;
       VAL( 4 ) = TWO;
-      VAL( 5 ) = SQRT( BIGNUM );
-      VAL( 6 ) = -SQRT( SMLNUM );
+      VAL( 5 ) = sqrt( BIGNUM );
+      VAL( 6 ) = -sqrt( SMLNUM );
       VAL( 7 ) = -ONE;
       VAL( 8 ) = -TWO;
-      VAL( 9 ) = -SQRT( BIGNUM );
+      VAL( 9 ) = -sqrt( BIGNUM );
       VM( 1 ) = ONE;
       VM( 2 ) = ONE + TWO*EPS;
       dcopy(16, VAL( 4 ), 0, T( 1, 1 ), 1 );
@@ -78,7 +78,7 @@
                   T( 2, 2 ) = VAL( IC );
                   T( 1, 2 ) = VAL( IB );
                   T( 2, 1 ) = ZERO;
-                  TNRM = MAX( ABS( T( 1, 1 ) ), ABS( T( 2, 2 ) ), ABS( T( 1, 2 ) ) );
+                  TNRM = max( ABS( T( 1, 1 ) ), ABS( T( 2, 2 ) ), ABS( T( 1, 2 ) ) );
                   dcopy(16, T, 1, T1, 1 );
                   dcopy(16, VAL( 1 ), 0, Q, 1 );
                   dcopy(4, VAL( 3 ), 0, Q, 5 );
@@ -115,7 +115,7 @@
                            T( 3, 1 ) = ZERO;
                            T( 3, 2 ) = -VAL( IC21 );
                            T( 3, 3 ) = VAL( IC11 )*DBLE( IC22 );
-                           TNRM = MAX( ABS( T( 1, 1 ) ), ABS( T( 1, 2 ) ), ABS( T( 1, 3 ) ), ABS( T( 2, 2 ) ), ABS( T( 2, 3 ) ), ABS( T( 3, 2 ) ), ABS( T( 3, 3 ) ) );
+                           TNRM = max( ABS( T( 1, 1 ) ), ABS( T( 1, 2 ) ), ABS( T( 1, 3 ) ), ABS( T( 2, 2 ) ), ABS( T( 2, 3 ) ), ABS( T( 3, 2 ) ), ABS( T( 3, 3 ) ) );
                            dcopy(16, T, 1, T1, 1 );
                            dcopy(16, VAL( 1 ), 0, Q, 1 );
                            dcopy(4, VAL( 3 ), 0, Q, 5 );
@@ -157,7 +157,7 @@
                            T( 3, 1 ) = ZERO;
                            T( 3, 2 ) = ZERO;
                            T( 3, 3 ) = VAL( IC )*VM( ICM );
-                           TNRM = MAX( ABS( T( 1, 1 ) ), ABS( T( 1, 2 ) ), ABS( T( 1, 3 ) ), ABS( T( 2, 2 ) ), ABS( T( 2, 3 ) ), ABS( T( 3, 2 ) ), ABS( T( 3, 3 ) ) );
+                           TNRM = max( ABS( T( 1, 1 ) ), ABS( T( 1, 2 ) ), ABS( T( 1, 3 ) ), ABS( T( 2, 2 ) ), ABS( T( 2, 3 ) ), ABS( T( 3, 2 ) ), ABS( T( 3, 3 ) ) );
                            dcopy(16, T, 1, T1, 1 );
                            dcopy(16, VAL( 1 ), 0, Q, 1 );
                            dcopy(4, VAL( 3 ), 0, Q, 5 );
@@ -211,7 +211,7 @@
                                     TNRM = ZERO;
                                     for (I = 1; I <= 4; I++) { // 200
                                        for (J = 1; J <= 4; J++) { // 190
-                                          TNRM = MAX( TNRM, ABS( T( I, J ) ) );
+                                          TNRM = max( TNRM, ABS( T( I, J ) ) );
                                        } // 190
                                     } // 200
                                     dcopy(16, T, 1, T1, 1 );

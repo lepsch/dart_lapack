@@ -24,7 +24,7 @@
       // INTRINSIC MIN
       // ..
       // .. Executable Statements ..
-      K = MIN( M, N );
+      K = min( M, N );
       for (I = 1; I <= K; I++) {
          if ( A( I, I ) < ZERO ) {
             DGENND = false;

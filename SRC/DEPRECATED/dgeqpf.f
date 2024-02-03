@@ -42,7 +42,7 @@
          INFO = -1;
       } else if ( N < 0 ) {
          INFO = -2;
-      } else if ( LDA < MAX( 1, M ) ) {
+      } else if ( LDA < max( 1, M ) ) {
          INFO = -4;
       }
       if ( INFO != 0 ) {
@@ -50,8 +50,8 @@
          return;
       }
 
-      MN = MIN( M, N );
-      TOL3Z = SQRT(DLAMCH('Epsilon'));
+      MN = min( M, N );
+      TOL3Z = sqrt(DLAMCH('Epsilon'));
 
       // Move initial columns up front
 
@@ -75,7 +75,7 @@
       // Compute the QR factorization and update remaining columns
 
       if ( ITEMP > 0 ) {
-         MA = MIN( ITEMP, M );
+         MA = min( ITEMP, M );
          dgeqr2(M, MA, A, LDA, TAU, WORK, INFO );
          if ( MA < N ) {
             dorm2r('Left', 'Transpose', M, N-MA, MA, A, LDA, TAU, A( 1, MA+1 ), LDA, WORK, INFO );
@@ -136,7 +136,7 @@
                   // Lapack Working Note 176.
 
                   TEMP = ABS( A( I, J ) ) / WORK( J );
-                  TEMP = MAX( ZERO, ( ONE+TEMP )*( ONE-TEMP ) );
+                  TEMP = max( ZERO, ( ONE+TEMP )*( ONE-TEMP ) );
                   TEMP2 = TEMP*( WORK( J ) / WORK( N+J ) )**2;
                   if ( TEMP2 <= TOL3Z ) {
                      if ( M-I > 0 ) {
@@ -147,7 +147,7 @@
                         WORK( N+J ) = ZERO;
                      }
                   } else {
-                     WORK( J ) = WORK( J )*SQRT( TEMP );
+                     WORK( J ) = WORK( J )*sqrt( TEMP );
                   }
                }
             } // 30

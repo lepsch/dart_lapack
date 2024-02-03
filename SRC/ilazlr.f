@@ -32,10 +32,10 @@
          ILAZLR = 0;
          for (J = 1; J <= N; J++) {
             I=M;
-            DO WHILE((A(MAX(I,1),J) == ZERO) && (I >= 1));
+            DO WHILE((A(max(I,1),J) == ZERO) && (I >= 1));
                I=I-1;
             }
-            ILAZLR = MAX( ILAZLR, I );
+            ILAZLR = max( ILAZLR, I );
          }
       }
       return;

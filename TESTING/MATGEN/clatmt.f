@@ -121,11 +121,11 @@
 
       // Set certain internal parameters
 
-      MNMIN = MIN( M, N );
-      LLB = MIN( KL, M-1 );
-      UUB = MIN( KU, N-1 );
-      MR = MIN( M, N+LLB );
-      NC = MIN( N, M+UUB );
+      MNMIN = min( M, N );
+      LLB = min( KL, M-1 );
+      UUB = min( KU, N-1 );
+      MR = min( M, N+LLB );
+      NC = min( N, M+UUB );
 
       if ( IPACK == 5 || IPACK == 6 ) {
          MINLDA = UUB + 1;
@@ -140,7 +140,7 @@
 
       GIVENS = false;
       if ( ISYM == 1 ) {
-         if( REAL( LLB+UUB ) < 0.3*REAL( MAX( 1, MR+NC ) ) ) GIVENS = true;
+         if( REAL( LLB+UUB ) < 0.3*REAL( max( 1, MR+NC ) ) ) GIVENS = true;
       } else {
          if (2*LLB < M) GIVENS = true ;
       }
@@ -168,7 +168,7 @@
          INFO = -11;
       } else if ( IPACK == -1 || ( ISYMPK == 1 && ISYM == 1 ) || ( ISYMPK == 2 && ISYM == 1 && KL > 0 ) || ( ISYMPK == 3 && ISYM == 1 && KU > 0 ) || ( ISYMPK != 0 && M != N ) ) {
          INFO = -12;
-      } else if ( LDA < MAX( 1, MINLDA ) ) {
+      } else if ( LDA < max( 1, MINLDA ) ) {
          INFO = -14;
       }
 
@@ -210,7 +210,7 @@
 
          TEMP = ABS( D( 1 ) );
          for (I = 2; I <= RANK; I++) { // 110
-            TEMP = MAX( TEMP, ABS( D( I ) ) );
+            TEMP = max( TEMP, ABS( D( I ) ) );
          } // 110
 
          if ( TEMP > ZERO ) {
@@ -291,16 +291,16 @@
                   // Transform from bandwidth JKL, JKU-1 to JKL, JKU
 
                   // Last row actually rotated is M
-                  // Last column actually rotated is MIN( M+JKU, N )
+                  // Last column actually rotated is min( M+JKU, N )
 
-                  DO 150 JR = 1, MIN( M+JKU, N ) + JKL - 1;
+                  DO 150 JR = 1, min( M+JKU, N ) + JKL - 1;
                      EXTRA = CZERO;
                      ANGLE = TWOPI*SLARND( 1, ISEED );
                      C = COS( ANGLE )*CLARND( 5, ISEED );
                      S = SIN( ANGLE )*CLARND( 5, ISEED );
-                     ICOL = MAX( 1, JR-JKL );
+                     ICOL = max( 1, JR-JKL );
                      if ( JR < M ) {
-                        IL = MIN( N, JR+JKU ) + 1 - ICOL;
+                        IL = min( N, JR+JKU ) + 1 - ICOL;
                         clarot( true , JR > JKL, false , IL, C, S, A( JR-ISKEW*ICOL+IOFFST, ICOL ), ILDA, EXTRA, DUMMY );
                      }
 
@@ -315,7 +315,7 @@
                            C = CONJG( REALC*DUMMY );
                            S = CONJG( -S*DUMMY );
                         }
-                        IROW = MAX( 1, JCH-JKU );
+                        IROW = max( 1, JCH-JKU );
                         IL = IR + 2 - IROW;
                         CTEMP = CZERO;
                         ILTEMP = JCH > JKU;
@@ -326,7 +326,7 @@
                            C = CONJG( REALC*DUMMY );
                            S = CONJG( -S*DUMMY );
 
-                           ICOL = MAX( 1, JCH-JKU-JKL );
+                           ICOL = max( 1, JCH-JKU-JKL );
                            IL = IC + 2 - ICOL;
                            EXTRA = CZERO;
                            clarot( true , JCH > JKU+JKL, true , IL, C, S, A( IROW-ISKEW*ICOL+ IOFFST, ICOL ), ILDA, EXTRA, CTEMP );
@@ -342,14 +342,14 @@
 
                   // Transform from bandwidth JKL-1, JKU to JKL, JKU
 
-                  DO 180 JC = 1, MIN( N+JKL, M ) + JKU - 1;
+                  DO 180 JC = 1, min( N+JKL, M ) + JKU - 1;
                      EXTRA = CZERO;
                      ANGLE = TWOPI*SLARND( 1, ISEED );
                      C = COS( ANGLE )*CLARND( 5, ISEED );
                      S = SIN( ANGLE )*CLARND( 5, ISEED );
-                     IROW = MAX( 1, JC-JKU );
+                     IROW = max( 1, JC-JKU );
                      if ( JC < N ) {
-                        IL = MIN( M, JC+JKL ) + 1 - IROW;
+                        IL = min( M, JC+JKL ) + 1 - IROW;
                         clarot( false , JC > JKU, false , IL, C, S, A( IROW-ISKEW*JC+IOFFST, JC ), ILDA, EXTRA, DUMMY );
                      }
 
@@ -364,7 +364,7 @@
                            C = CONJG( REALC*DUMMY );
                            S = CONJG( -S*DUMMY );
                         }
-                        ICOL = MAX( 1, JCH-JKL );
+                        ICOL = max( 1, JCH-JKL );
                         IL = IC + 2 - ICOL;
                         CTEMP = CZERO;
                         ILTEMP = JCH > JKL;
@@ -374,7 +374,7 @@
                            DUMMY = CLARND( 5, ISEED );
                            C = CONJG( REALC*DUMMY );
                            S = CONJG( -S*DUMMY );
-                           IROW = MAX( 1, JCH-JKL-JKU );
+                           IROW = max( 1, JCH-JKL-JKU );
                            IL = IR + 2 - IROW;
                            EXTRA = CZERO;
                            clarot( false , JCH > JKL+JKU, true , IL, C, S, A( IROW-ISKEW*ICOL+ IOFFST, ICOL ), ILDA, EXTRA, CTEMP );
@@ -395,17 +395,17 @@
                   // Transform from bandwidth JKL, JKU-1 to JKL, JKU
 
                   // First row actually rotated is M
-                  // First column actually rotated is MIN( M+JKU, N )
+                  // First column actually rotated is min( M+JKU, N )
 
-                  IENDCH = MIN( M, N+JKL ) - 1;
-                  DO 210 JC = MIN( M+JKU, N ) - 1, 1 - JKL, -1;
+                  IENDCH = min( M, N+JKL ) - 1;
+                  DO 210 JC = min( M+JKU, N ) - 1, 1 - JKL, -1;
                      EXTRA = CZERO;
                      ANGLE = TWOPI*SLARND( 1, ISEED );
                      C = COS( ANGLE )*CLARND( 5, ISEED );
                      S = SIN( ANGLE )*CLARND( 5, ISEED );
-                     IROW = MAX( 1, JC-JKU+1 );
+                     IROW = max( 1, JC-JKU+1 );
                      if ( JC > 0 ) {
-                        IL = MIN( M, JC+JKL+1 ) + 1 - IROW;
+                        IL = min( M, JC+JKL+1 ) + 1 - IROW;
                         clarot( false , false , JC+JKL < M, IL, C, S, A( IROW-ISKEW*JC+IOFFST, JC ), ILDA, DUMMY, EXTRA );
                      }
 
@@ -420,8 +420,8 @@
                            C = REALC*DUMMY;
                            S = S*DUMMY;
                         }
-                        IC = MAX( 1, IC );
-                        ICOL = MIN( N-1, JCH+JKU );
+                        IC = max( 1, IC );
+                        ICOL = min( N-1, JCH+JKU );
                         ILTEMP = JCH + JKU < N;
                         CTEMP = CZERO;
                         clarot( true , ILEXTR, ILTEMP, ICOL+2-IC, C, S, A( JCH-ISKEW*IC+IOFFST, IC ), ILDA, EXTRA, CTEMP );
@@ -430,7 +430,7 @@
                            DUMMY = CLARND( 5, ISEED );
                            C = REALC*DUMMY;
                            S = S*DUMMY;
-                           IL = MIN( IENDCH, JCH+JKL+JKU ) + 2 - JCH;
+                           IL = min( IENDCH, JCH+JKL+JKU ) + 2 - JCH;
                            EXTRA = CZERO;
                            clarot( false , true , JCH+JKL+JKU <= IENDCH, IL, C, S, A( JCH-ISKEW*ICOL+IOFFST, ICOL ), ILDA, CTEMP, EXTRA );
                            IC = ICOL;
@@ -444,18 +444,18 @@
 
                   // Transform from bandwidth JKL-1, JKU to JKL, JKU
 
-                  // First row actually rotated is MIN( N+JKL, M )
+                  // First row actually rotated is min( N+JKL, M )
                   // First column actually rotated is N
 
-                  IENDCH = MIN( N, M+JKU ) - 1;
-                  DO 240 JR = MIN( N+JKL, M ) - 1, 1 - JKU, -1;
+                  IENDCH = min( N, M+JKU ) - 1;
+                  DO 240 JR = min( N+JKL, M ) - 1, 1 - JKU, -1;
                      EXTRA = CZERO;
                      ANGLE = TWOPI*SLARND( 1, ISEED );
                      C = COS( ANGLE )*CLARND( 5, ISEED );
                      S = SIN( ANGLE )*CLARND( 5, ISEED );
-                     ICOL = MAX( 1, JR-JKL+1 );
+                     ICOL = max( 1, JR-JKL+1 );
                      if ( JR > 0 ) {
-                        IL = MIN( N, JR+JKU+1 ) + 1 - ICOL;
+                        IL = min( N, JR+JKU+1 ) + 1 - ICOL;
                         clarot( true , false , JR+JKU < N, IL, C, S, A( JR-ISKEW*ICOL+IOFFST, ICOL ), ILDA, DUMMY, EXTRA );
                      }
 
@@ -470,8 +470,8 @@
                            C = REALC*DUMMY;
                            S = S*DUMMY;
                         }
-                        IR = MAX( 1, IR );
-                        IROW = MIN( M-1, JCH+JKL );
+                        IR = max( 1, IR );
+                        IROW = min( M-1, JCH+JKL );
                         ILTEMP = JCH + JKL < M;
                         CTEMP = CZERO;
                         clarot( false , ILEXTR, ILTEMP, IROW+2-IR, C, S, A( IR-ISKEW*JCH+IOFFST, JCH ), ILDA, EXTRA, CTEMP );
@@ -480,7 +480,7 @@
                            DUMMY = CLARND( 5, ISEED );
                            C = REALC*DUMMY;
                            S = S*DUMMY;
-                           IL = MIN( IENDCH, JCH+JKL+JKU ) + 2 - JCH;
+                           IL = min( IENDCH, JCH+JKL+JKU ) + 2 - JCH;
                            EXTRA = CZERO;
                            clarot( true , true , JCH+JKL+JKU <= IENDCH, IL, C, S, A( IROW-ISKEW*JCH+IOFFST, JCH ), ILDA, CTEMP, EXTRA );
                            IR = IROW;
@@ -516,8 +516,8 @@
 
                for (K = 1; K <= UUB; K++) { // 290
                   for (JC = 1; JC <= N - 1; JC++) { // 280
-                     IROW = MAX( 1, JC-K );
-                     IL = MIN( JC+1, K+2 );
+                     IROW = max( 1, JC-K );
+                     IL = min( JC+1, K+2 );
                      EXTRA = CZERO;
                      CTEMP = A( JC-ISKEW*( JC+1 )+IOFFG, JC+1 );
                      ANGLE = TWOPI*SLARND( 1, ISEED );
@@ -532,7 +532,7 @@
                         ST = CONJG( S );
                      }
                      clarot( false , JC > K, true , IL, C, S, A( IROW-ISKEW*JC+IOFFG, JC ), ILDA, EXTRA, CTEMP );
-                     clarot( true , true , false , MIN( K, N-JC )+1, CT, ST, A( ( 1-ISKEW )*JC+IOFFG, JC ), ILDA, CTEMP, DUMMY );
+                     clarot( true , true , false , min( K, N-JC )+1, CT, ST, A( ( 1-ISKEW )*JC+IOFFG, JC ), ILDA, CTEMP, DUMMY );
 
                      // Chase EXTRA back up the matrix
 
@@ -552,8 +552,8 @@
                            ST = CONJG( S );
                         }
                         clarot( true , true , true , K+2, C, S, A( ( 1-ISKEW )*JCH+IOFFG, JCH ), ILDA, CTEMP, EXTRA );
-                        IROW = MAX( 1, JCH-K );
-                        IL = MIN( JCH+1, K+2 );
+                        IROW = max( 1, JCH-K );
+                        IL = min( JCH+1, K+2 );
                         EXTRA = CZERO;
                         clarot( false , JCH > K, true , IL, CT, ST, A( IROW-ISKEW*JCH+IOFFG, JCH ), ILDA, EXTRA, CTEMP );
                         ICOL = JCH;
@@ -568,11 +568,11 @@
                   for (JC = 1; JC <= N; JC++) { // 320
                      IROW = IOFFST - ISKEW*JC;
                      if ( CSYM ) {
-                        DO 300 JR = JC, MIN( N, JC+UUB );
+                        DO 300 JR = JC, min( N, JC+UUB );
                            A( JR+IROW, JC ) = A( JC-ISKEW*JR+IOFFG, JR );
                         } // 300
                      } else {
-                        DO 310 JR = JC, MIN( N, JC+UUB );
+                        DO 310 JR = JC, min( N, JC+UUB );
                            A( JR+IROW, JC ) = CONJG( A( JC-ISKEW*JR+ IOFFG, JR ) );
                         } // 310
                      }
@@ -607,7 +607,7 @@
 
                for (K = 1; K <= UUB; K++) { // 380
                   DO 370 JC = N - 1, 1, -1;
-                     IL = MIN( N+1-JC, K+2 );
+                     IL = min( N+1-JC, K+2 );
                      EXTRA = CZERO;
                      CTEMP = A( 1+( 1-ISKEW )*JC+IOFFG, JC );
                      ANGLE = TWOPI*SLARND( 1, ISEED );
@@ -622,7 +622,7 @@
                         ST = CONJG( S );
                      }
                      clarot( false , true , N-JC > K, IL, C, S, A( ( 1-ISKEW )*JC+IOFFG, JC ), ILDA, CTEMP, EXTRA );
-                     ICOL = MAX( 1, JC-K+1 );
+                     ICOL = max( 1, JC-K+1 );
                      clarot( true , false , true , JC+2-ICOL, CT, ST, A( JC-ISKEW*ICOL+IOFFG, ICOL ), ILDA, DUMMY, CTEMP );
 
                      // Chase EXTRA back down the matrix
@@ -643,7 +643,7 @@
                            ST = CONJG( S );
                         }
                         clarot( true , true , true , K+2, C, S, A( JCH-ISKEW*ICOL+IOFFG, ICOL ), ILDA, EXTRA, CTEMP );
-                        IL = MIN( N+1-JCH, K+2 );
+                        IL = min( N+1-JCH, K+2 );
                         EXTRA = CZERO;
                         clarot( false , true , N-JCH > K, IL, CT, ST, A( ( 1-ISKEW )*JCH+IOFFG, JCH ), ILDA, CTEMP, EXTRA );
                         ICOL = JCH;
@@ -658,11 +658,11 @@
                   DO 410 JC = N, 1, -1;
                      IROW = IOFFST - ISKEW*JC;
                      if ( CSYM ) {
-                        DO 390 JR = JC, MAX( 1, JC-UUB ), -1;
+                        DO 390 JR = JC, max( 1, JC-UUB ), -1;
                            A( JR+IROW, JC ) = A( JC-ISKEW*JR+IOFFG, JR );
                         } // 390
                      } else {
-                        DO 400 JR = JC, MAX( 1, JC-UUB ), -1;
+                        DO 400 JR = JC, max( 1, JC-UUB ), -1;
                            A( JR+IROW, JC ) = CONJG( A( JC-ISKEW*JR+ IOFFG, JR ) );
                         } // 400
                      }
@@ -792,13 +792,13 @@
             IF( IPACK == 6 ) LLB = 0;
 
             for (J = 1; J <= UUB; J++) { // 540
-               DO 530 I = MIN( J+LLB, M ), 1, -1;
+               DO 530 I = min( J+LLB, M ), 1, -1;
                   A( I-J+UUB+1, J ) = A( I, J );
                } // 530
             } // 540
 
             for (J = UUB + 2; J <= N; J++) { // 560
-               DO 550 I = J - UUB, MIN( J+LLB, M );
+               DO 550 I = J - UUB, min( J+LLB, M );
                   A( I-J+UUB+1, J ) = A( I, J );
                } // 550
             } // 560
@@ -831,7 +831,7 @@
                for (JR = 1; JR <= UUB + 1 - JC; JR++) { // 590
                   A( JR, JC ) = CZERO;
                } // 590
-               DO 600 JR = MAX( 1, MIN( IR1, IR2-JC ) ), LDA;
+               DO 600 JR = max( 1, min( IR1, IR2-JC ) ), LDA;
                   A( JR, JC ) = CZERO;
                } // 600
             } // 610

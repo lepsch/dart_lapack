@@ -207,9 +207,9 @@
             }
          } // 90
 
-         X = SQRT( CNDNUM ) - ONE / SQRT( CNDNUM );
+         X = sqrt( CNDNUM ) - ONE / sqrt( CNDNUM );
          if ( N > 2 ) {
-            Y = SQRT( TWO / DBLE( N-2 ) )*X;
+            Y = sqrt( TWO / DBLE( N-2 ) )*X;
          } else {
             Y = ZERO;
          }
@@ -344,7 +344,7 @@
          zlarnv(2, ISEED, N, B );
          IY = IZAMAX( N, B, 1 );
          BNORM = ABS( B( IY ) );
-         BSCAL = BIGNUM / MAX( ONE, BNORM );
+         BSCAL = BIGNUM / max( ONE, BNORM );
          zdscal(N, BSCAL, B, 1 );
 
       } else if ( IMAT == 12 ) {
@@ -354,7 +354,7 @@
          // In type 12, the offdiagonal elements are small (CNORM(j) < 1).
 
          zlarnv(2, ISEED, N, B );
-         TSCAL = ONE / MAX( ONE, DBLE( N-1 ) );
+         TSCAL = ONE / max( ONE, DBLE( N-1 ) );
          if ( UPPER ) {
             JC = 1;
             for (J = 1; J <= N; J++) { // 200
@@ -462,7 +462,7 @@
          // overflow when dividing by T(j,j).  To control the amount of
          // scaling needed, the matrix is bidiagonal.
 
-         TEXP = ONE / MAX( ONE, DBLE( N-1 ) );
+         TEXP = ONE / max( ONE, DBLE( N-1 ) );
          TSCAL = SMLNUM**TEXP;
          zlarnv(4, ISEED, N, B );
          if ( UPPER ) {
@@ -590,7 +590,7 @@
          zlarnv(2, ISEED, N, B );
          IY = IZAMAX( N, B, 1 );
          BNORM = ABS( B( IY ) );
-         BSCAL = BIGNUM / MAX( ONE, BNORM );
+         BSCAL = BIGNUM / max( ONE, BNORM );
          zdscal(N, BSCAL, B, 1 );
 
       } else if ( IMAT == 19 ) {
@@ -600,8 +600,8 @@
          // norms will exceed BIGNUM.
          // 1/3/91:  ZLATPS no longer can handle this case
 
-         TLEFT = BIGNUM / MAX( ONE, DBLE( N-1 ) );
-         TSCAL = BIGNUM*( DBLE( N-1 ) / MAX( ONE, DBLE( N ) ) );
+         TLEFT = BIGNUM / max( ONE, DBLE( N-1 ) );
+         TSCAL = BIGNUM*( DBLE( N-1 ) / max( ONE, DBLE( N ) ) );
          if ( UPPER ) {
             JC = 1;
             for (J = 1; J <= N; J++) { // 420

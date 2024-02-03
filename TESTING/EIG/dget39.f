@@ -51,32 +51,32 @@
       // Set up test case parameters
 
       VM1( 1 ) = ONE;
-      VM1( 2 ) = SQRT( SMLNUM );
-      VM1( 3 ) = SQRT( VM1( 2 ) );
-      VM1( 4 ) = SQRT( BIGNUM );
-      VM1( 5 ) = SQRT( VM1( 4 ) );
+      VM1( 2 ) = sqrt( SMLNUM );
+      VM1( 3 ) = sqrt( VM1( 2 ) );
+      VM1( 4 ) = sqrt( BIGNUM );
+      VM1( 5 ) = sqrt( VM1( 4 ) );
 
       VM2( 1 ) = ONE;
-      VM2( 2 ) = SQRT( SMLNUM );
-      VM2( 3 ) = SQRT( VM2( 2 ) );
-      VM2( 4 ) = SQRT( BIGNUM );
-      VM2( 5 ) = SQRT( VM2( 4 ) );
+      VM2( 2 ) = sqrt( SMLNUM );
+      VM2( 3 ) = sqrt( VM2( 2 ) );
+      VM2( 4 ) = sqrt( BIGNUM );
+      VM2( 5 ) = sqrt( VM2( 4 ) );
 
       VM3( 1 ) = ONE;
-      VM3( 2 ) = SQRT( SMLNUM );
-      VM3( 3 ) = SQRT( VM3( 2 ) );
-      VM3( 4 ) = SQRT( BIGNUM );
-      VM3( 5 ) = SQRT( VM3( 4 ) );
+      VM3( 2 ) = sqrt( SMLNUM );
+      VM3( 3 ) = sqrt( VM3( 2 ) );
+      VM3( 4 ) = sqrt( BIGNUM );
+      VM3( 5 ) = sqrt( VM3( 4 ) );
 
       VM4( 1 ) = ONE;
-      VM4( 2 ) = SQRT( SMLNUM );
-      VM4( 3 ) = SQRT( VM4( 2 ) );
-      VM4( 4 ) = SQRT( BIGNUM );
-      VM4( 5 ) = SQRT( VM4( 4 ) );
+      VM4( 2 ) = sqrt( SMLNUM );
+      VM4( 3 ) = sqrt( VM4( 2 ) );
+      VM4( 4 ) = sqrt( BIGNUM );
+      VM4( 5 ) = sqrt( VM4( 4 ) );
 
       VM5( 1 ) = ONE;
       VM5( 2 ) = EPS;
-      VM5( 3 ) = SQRT( SMLNUM );
+      VM5( 3 ) = sqrt( SMLNUM );
 
       // Initialization
 
@@ -126,7 +126,7 @@
                         dgemv('No transpose', N, N, ONE, T, LDT, X, 1, -SCALE, Y, 1 );
                         XNORM = DASUM( N, X, 1 );
                         RESID = DASUM( N, Y, 1 );
-                        DOMIN = MAX( SMLNUM, ( SMLNUM / EPS )*NORM, ( NORM*EPS )*XNORM );
+                        DOMIN = max( SMLNUM, ( SMLNUM / EPS )*NORM, ( NORM*EPS )*XNORM );
                         RESID = RESID / DOMIN;
                         if ( RESID > RMAX ) {
                            RMAX = RESID;
@@ -144,7 +144,7 @@
                         dgemv('Transpose', N, N, ONE, T, LDT, X, 1, -SCALE, Y, 1 );
                         XNORM = DASUM( N, X, 1 );
                         RESID = DASUM( N, Y, 1 );
-                        DOMIN = MAX( SMLNUM, ( SMLNUM / EPS )*NORM, ( NORM*EPS )*XNORM );
+                        DOMIN = max( SMLNUM, ( SMLNUM / EPS )*NORM, ( NORM*EPS )*XNORM );
                         RESID = RESID / DOMIN;
                         if ( RESID > RMAX ) {
                            RMAX = RESID;
@@ -174,7 +174,7 @@
                         dgemv('No transpose', N, N, ONE, T, LDT, X( 1+N ), 1, ONE, Y( 1+N ), 1 );
 
                         RESID = DASUM( 2*N, Y, 1 );
-                        DOMIN = MAX( SMLNUM, ( SMLNUM / EPS )*NORMTB, EPS*( NORMTB*DASUM( 2*N, X, 1 ) ) );
+                        DOMIN = max( SMLNUM, ( SMLNUM / EPS )*NORMTB, EPS*( NORMTB*DASUM( 2*N, X, 1 ) ) );
                         RESID = RESID / DOMIN;
                         if ( RESID > RMAX ) {
                            RMAX = RESID;
@@ -203,7 +203,7 @@
                         dgemv('Transpose', N, N, ONE, T, LDT, X( 1+N ), 1, -ONE, Y( 1+N ), 1 );
 
                         RESID = DASUM( 2*N, Y, 1 );
-                        DOMIN = MAX( SMLNUM, ( SMLNUM / EPS )*NORMTB, EPS*( NORMTB*DASUM( 2*N, X, 1 ) ) );
+                        DOMIN = max( SMLNUM, ( SMLNUM / EPS )*NORMTB, EPS*( NORMTB*DASUM( 2*N, X, 1 ) ) );
                         RESID = RESID / DOMIN;
                         if ( RESID > RMAX ) {
                            RMAX = RESID;

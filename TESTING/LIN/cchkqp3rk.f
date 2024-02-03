@@ -79,15 +79,15 @@
          // Do for each value of M in MVAL.
 
          M = MVAL( IM );
-         LDA = MAX( 1, M );
+         LDA = max( 1, M );
 
          for (IN = 1; IN <= NN; IN++) {
 
             // Do for each value of N in NVAL.
 
             N = NVAL( IN );
-            MINMN = MIN( M, N );
-            LWORK = MAX( 1, M*MAX( M, N )+4*MINMN+MAX( M, N ), M*N + 2*MINMN + 4*N );
+            MINMN = min( M, N );
+            LWORK = max( 1, M*max( M, N )+4*MINMN+max( M, N ), M*N + 2*MINMN + 4*N );
 
             for (INS = 1; INS <= NNS; INS++) {
                NRHS = NSVAL( INS );
@@ -331,7 +331,7 @@
                      // that correspond to zero columns.
                      // The total number of singular values is MINMN.
 
-                  MINMNB_GEN = MIN( M, NB_GEN );
+                  MINMNB_GEN = min( M, NB_GEN );
 
                   slaord('Decreasing', MINMNB_GEN, S, 1 );
 
@@ -361,11 +361,11 @@
                   NX = NXVAL( INB );
                   xlaenv(3, NX );
 
-                  // We do MIN(M,N)+1 because we need a test for KMAX > N,
-                  // when KMAX is larger than MIN(M,N), KMAX should be
-                  // KMAX = MIN(M,N)
+                  // We do min(M,N)+1 because we need a test for KMAX > N,
+                  // when KMAX is larger than min(M,N), KMAX should be
+                  // KMAX = min(M,N)
 
-                  DO KMAX = 0, MIN(M,N)+1;
+                  DO KMAX = 0, min(M,N)+1;
 
                   // Get a working copy of COPYA into A( 1:M,1:N ).
                   // Get a working copy of COPYB into A( 1:M, (N+1):NRHS ).
@@ -385,7 +385,7 @@
 
                   // Compute the QR factorization with pivoting of A
 
-                  LW = MAX( 1, MAX( 2*N + NB*( N+NRHS+1 ), 3*N + NRHS - 1 ) );
+                  LW = max( 1, max( 2*N + NB*( N+NRHS+1 ), 3*N + NRHS - 1 ) );
 
                   // Compute CGEQP3RK factorization of A.
 
@@ -467,7 +467,7 @@
                   // Returns 1.0e+100 if abs(R(K+1,K+1)) > abs(R(K,K)),
                   // K=1:KFACT-1
 
-                  if ( MIN(KFACT, MINMN) >= 2 ) {
+                  if ( min(KFACT, MINMN) >= 2 ) {
 
                      DO J = 1, KFACT-1, 1;
 
@@ -508,7 +508,7 @@
 
                   if ( MINMN > 0 ) {
 
-                     LWORK_MQR = MAX(1, NRHS);
+                     LWORK_MQR = max(1, NRHS);
                      cunmqr('Left', 'Conjugate transpose', M, NRHS, KFACT, A, LDA, TAU, B, LDA, WORK, LWORK_MQR, INFO );
 
                      for (I = 1; I <= NRHS; I++) {
@@ -536,7 +536,7 @@
 
                   }
 
-                  // END DO KMAX = 1, MIN(M,N)+1
+                  // END DO KMAX = 1, min(M,N)+1
 
                   }
 

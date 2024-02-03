@@ -32,9 +32,9 @@
 
       if ( N < 0 ) {
          INFO = -1;
-      } else if ( LDQ < MAX( 1, N ) ) {
+      } else if ( LDQ < max( 1, N ) ) {
          INFO = -4;
-      } else if ( MIN( 1, N / 2 ) > CUTPNT || ( N / 2 ) < CUTPNT ) {
+      } else if ( min( 1, N / 2 ) > CUTPNT || ( N / 2 ) < CUTPNT ) {
          INFO = -7;
       }
       if ( INFO != 0 ) {

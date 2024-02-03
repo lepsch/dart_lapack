@@ -97,9 +97,9 @@
 
       for (IN = 1; IN <= NN; IN++) { // 180
          N = NVAL( IN );
-         LWORK = MAX( 3*N-2, N*(1+NB) );
-         LWORK = MAX( LWORK, 1 );
-         LDA = MAX( N, 1 );
+         LWORK = max( 3*N-2, N*(1+NB) );
+         LWORK = max( LWORK, 1 );
+         LDA = max( N, 1 );
          XTYPE = 'N';
          NIMAT = NTYPES;
          if (N <= 0) NIMAT = 1;
@@ -179,7 +179,7 @@
                         // Set the first IZERO rows and columns to zero.
 
                         for (J = 1; J <= N; J++) { // 70
-                           I2 = MIN( J, IZERO );
+                           I2 = min( J, IZERO );
                            for (I = 1; I <= I2; I++) { // 60
                               A( IOFF+I ) = ZERO;
                            } // 60
@@ -191,7 +191,7 @@
                         // Set the last IZERO rows and columns to zero.
 
                         for (J = 1; J <= N; J++) { // 90
-                           I1 = MAX( J, IZERO );
+                           I1 = max( J, IZERO );
                            for (I = I1; I <= N; I++) { // 80
                               A( IOFF+I ) = ZERO;
                            } // 80

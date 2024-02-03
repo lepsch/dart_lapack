@@ -43,7 +43,7 @@
          INFO = -1;
       } else if ( N < 0 ) {
          INFO = -2;
-      } else if ( LDA < MAX( 1, N ) ) {
+      } else if ( LDA < max( 1, N ) ) {
          INFO = -4;
       }
       if ( INFO != 0 ) {
@@ -76,7 +76,7 @@
                // Update and factorize the current diagonal block and test
                // for non-positive-definiteness.
 
-               JB = MIN( NB, N-J+1 );
+               JB = min( NB, N-J+1 );
 
                spotrf2('Upper', JB, A( J, J ), LDA, INFO );
                 if (INFO != 0) GO TO 30;
@@ -99,7 +99,7 @@
                // Update and factorize the current diagonal block and test
                // for non-positive-definiteness.
 
-               JB = MIN( NB, N-J+1 );
+               JB = min( NB, N-J+1 );
 
                spotrf2('Lower', JB, A( J, J ), LDA, INFO );
                 if (INFO != 0) GO TO 30;

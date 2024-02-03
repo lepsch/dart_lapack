@@ -55,9 +55,9 @@
          INFO = -5;
       } else if ( L < 0 || ( LEFT && ( L > M ) ) || ( !LEFT && ( L > N ) ) ) {
          INFO = -6;
-      } else if ( LDA < MAX( 1, K ) ) {
+      } else if ( LDA < max( 1, K ) ) {
          INFO = -8;
-      } else if ( LDC < MAX( 1, M ) ) {
+      } else if ( LDC < max( 1, M ) ) {
          INFO = -11;
       }
       if ( INFO != 0 ) {

@@ -43,8 +43,8 @@
       // Test the input arguments
 
       INFO = 0;
-      MINMN = MIN( M, N );
-      MAXMN = MAX( M, N );
+      MINMN = min( M, N );
+      MAXMN = max( M, N );
       LQUERY = ( LWORK == -1 );
       if ( M < 0 ) {
          INFO = -1;
@@ -52,9 +52,9 @@
          INFO = -2;
       } else if ( NRHS < 0 ) {
          INFO = -3;
-      } else if ( LDA < MAX( 1, M ) ) {
+      } else if ( LDA < max( 1, M ) ) {
          INFO = -5;
-      } else if ( LDB < MAX( 1, MAXMN ) ) {
+      } else if ( LDB < max( 1, MAXMN ) ) {
          INFO = -7;
       }
 
@@ -83,8 +83,8 @@
                sormqr('L', 'T', M, NRHS, N, A, LDA, DUM(1), B, LDB, DUM(1), -1, INFO );
                LWORK_SORMQR = INT( DUM(1) );
                MM = N;
-               MAXWRK = MAX( MAXWRK, N + LWORK_SGEQRF );
-               MAXWRK = MAX( MAXWRK, N + LWORK_SORMQR );
+               MAXWRK = max( MAXWRK, N + LWORK_SGEQRF );
+               MAXWRK = max( MAXWRK, N + LWORK_SORMQR );
             }
             if ( M >= N ) {
 
@@ -92,7 +92,7 @@
 
                // Compute workspace needed for SBDSQR
 
-               BDSPAC = MAX( 1, 5*N );
+               BDSPAC = max( 1, 5*N );
                // Compute space needed for SGEBRD
                sgebrd(MM, N, A, LDA, S, DUM(1), DUM(1), DUM(1), DUM(1), -1, INFO );
                LWORK_SGEBRD = INT( DUM(1) );
@@ -103,20 +103,20 @@
                sorgbr('P', N, N, N, A, LDA, DUM(1), DUM(1), -1, INFO );
                LWORK_SORGBR = INT( DUM(1) );
                // Compute total workspace needed
-               MAXWRK = MAX( MAXWRK, 3*N + LWORK_SGEBRD );
-               MAXWRK = MAX( MAXWRK, 3*N + LWORK_SORMBR );
-               MAXWRK = MAX( MAXWRK, 3*N + LWORK_SORGBR );
-               MAXWRK = MAX( MAXWRK, BDSPAC );
-               MAXWRK = MAX( MAXWRK, N*NRHS );
-               MINWRK = MAX( 3*N + MM, 3*N + NRHS, BDSPAC );
-               MAXWRK = MAX( MINWRK, MAXWRK );
+               MAXWRK = max( MAXWRK, 3*N + LWORK_SGEBRD );
+               MAXWRK = max( MAXWRK, 3*N + LWORK_SORMBR );
+               MAXWRK = max( MAXWRK, 3*N + LWORK_SORGBR );
+               MAXWRK = max( MAXWRK, BDSPAC );
+               MAXWRK = max( MAXWRK, N*NRHS );
+               MINWRK = max( 3*N + MM, 3*N + NRHS, BDSPAC );
+               MAXWRK = max( MINWRK, MAXWRK );
             }
             if ( N > M ) {
 
                // Compute workspace needed for SBDSQR
 
-               BDSPAC = MAX( 1, 5*M );
-               MINWRK = MAX( 3*M+NRHS, 3*M+N, BDSPAC );
+               BDSPAC = max( 1, 5*M );
+               MINWRK = max( 3*M+NRHS, 3*M+N, BDSPAC );
                if ( N >= MNTHR ) {
 
                   // Path 2a - underdetermined, with many more columns
@@ -136,16 +136,16 @@
                   LWORK_SORMLQ = INT( DUM(1) );
                   // Compute total workspace needed
                   MAXWRK = M + M*ILAENV( 1, 'SGELQF', ' ', M, N, -1, -1 );
-                  MAXWRK = MAX( MAXWRK, M*M + 4*M + LWORK_SGEBRD );
-                  MAXWRK = MAX( MAXWRK, M*M + 4*M + LWORK_SORMBR );
-                  MAXWRK = MAX( MAXWRK, M*M + 4*M + LWORK_SORGBR );
-                  MAXWRK = MAX( MAXWRK, M*M + M + BDSPAC );
+                  MAXWRK = max( MAXWRK, M*M + 4*M + LWORK_SGEBRD );
+                  MAXWRK = max( MAXWRK, M*M + 4*M + LWORK_SORMBR );
+                  MAXWRK = max( MAXWRK, M*M + 4*M + LWORK_SORGBR );
+                  MAXWRK = max( MAXWRK, M*M + M + BDSPAC );
                   if ( NRHS > 1 ) {
-                     MAXWRK = MAX( MAXWRK, M*M + M + M*NRHS );
+                     MAXWRK = max( MAXWRK, M*M + M + M*NRHS );
                   } else {
-                     MAXWRK = MAX( MAXWRK, M*M + 2*M );
+                     MAXWRK = max( MAXWRK, M*M + 2*M );
                   }
-                  MAXWRK = MAX( MAXWRK, M + LWORK_SORMLQ );
+                  MAXWRK = max( MAXWRK, M + LWORK_SORMLQ );
                } else {
 
                   // Path 2 - underdetermined
@@ -160,13 +160,13 @@
                   sorgbr('P', M, N, M, A, LDA, DUM(1), DUM(1), -1, INFO );
                   LWORK_SORGBR = INT( DUM(1) );
                   MAXWRK = 3*M + LWORK_SGEBRD;
-                  MAXWRK = MAX( MAXWRK, 3*M + LWORK_SORMBR );
-                  MAXWRK = MAX( MAXWRK, 3*M + LWORK_SORGBR );
-                  MAXWRK = MAX( MAXWRK, BDSPAC );
-                  MAXWRK = MAX( MAXWRK, N*NRHS );
+                  MAXWRK = max( MAXWRK, 3*M + LWORK_SORMBR );
+                  MAXWRK = max( MAXWRK, 3*M + LWORK_SORGBR );
+                  MAXWRK = max( MAXWRK, BDSPAC );
+                  MAXWRK = max( MAXWRK, N*NRHS );
                }
             }
-            MAXWRK = MAX( MINWRK, MAXWRK );
+            MAXWRK = max( MINWRK, MAXWRK );
          }
          WORK( 1 ) = SROUNDUP_LWORK(MAXWRK);
 
@@ -214,7 +214,7 @@
 
          // Matrix all zero. Return zero solution.
 
-         slaset('F', MAX( M, N ), NRHS, ZERO, ZERO, B, LDB );
+         slaset('F', max( M, N ), NRHS, ZERO, ZERO, B, LDB );
          slaset('F', MINMN, 1, ZERO, ZERO, S, MINMN );
          RANK = 0;
          GO TO 70;
@@ -298,8 +298,8 @@
 
          // Multiply B by reciprocals of singular values
 
-         THR = MAX( RCOND*S( 1 ), SFMIN );
-         if (RCOND < ZERO) THR = MAX( EPS*S( 1 ), SFMIN );
+         THR = max( RCOND*S( 1 ), SFMIN );
+         if (RCOND < ZERO) THR = max( EPS*S( 1 ), SFMIN );
          RANK = 0;
          for (I = 1; I <= N; I++) { // 10
             if ( S( I ) > THR ) {
@@ -319,7 +319,7 @@
          } else if ( NRHS > 1 ) {
             CHUNK = LWORK / N;
             DO 20 I = 1, NRHS, CHUNK;
-               BL = MIN( NRHS-I+1, CHUNK );
+               BL = min( NRHS-I+1, CHUNK );
                sgemm('T', 'N', N, BL, N, ONE, A, LDA, B( 1, I ), LDB, ZERO, WORK, N );
                slacpy('G', N, BL, WORK, N, B( 1, I ), LDB );
             } // 20
@@ -328,13 +328,13 @@
             scopy(N, WORK, 1, B, 1 );
          }
 
-      } else if ( N >= MNTHR && LWORK >= 4*M+M*M+ MAX( M, 2*M-4, NRHS, N-3*M ) ) {
+      } else if ( N >= MNTHR && LWORK >= 4*M+M*M+ max( M, 2*M-4, NRHS, N-3*M ) ) {
 
          // Path 2a - underdetermined, with many more columns than rows
          // and sufficient workspace for an efficient algorithm
 
          LDWORK = M;
-         if( LWORK >= MAX( 4*M+M*LDA+MAX( M, 2*M-4, NRHS, N-3*M ), M*LDA+M+M*NRHS ) )LDWORK = LDA;
+         if( LWORK >= max( 4*M+M*LDA+max( M, 2*M-4, NRHS, N-3*M ), M*LDA+M+M*NRHS ) )LDWORK = LDA;
          ITAU = 1;
          IWORK = M + 1;
 
@@ -378,8 +378,8 @@
 
          // Multiply B by reciprocals of singular values
 
-         THR = MAX( RCOND*S( 1 ), SFMIN );
-         if (RCOND < ZERO) THR = MAX( EPS*S( 1 ), SFMIN );
+         THR = max( RCOND*S( 1 ), SFMIN );
+         if (RCOND < ZERO) THR = max( EPS*S( 1 ), SFMIN );
          RANK = 0;
          for (I = 1; I <= M; I++) { // 30
             if ( S( I ) > THR ) {
@@ -400,7 +400,7 @@
          } else if ( NRHS > 1 ) {
             CHUNK = ( LWORK-IWORK+1 ) / M;
             DO 40 I = 1, NRHS, CHUNK;
-               BL = MIN( NRHS-I+1, CHUNK );
+               BL = min( NRHS-I+1, CHUNK );
                sgemm('T', 'N', M, BL, M, ONE, WORK( IL ), LDWORK, B( 1, I ), LDB, ZERO, WORK( IWORK ), M );
                slacpy('G', M, BL, WORK( IWORK ), M, B( 1, I ), LDB );
             } // 40
@@ -453,8 +453,8 @@
 
          // Multiply B by reciprocals of singular values
 
-         THR = MAX( RCOND*S( 1 ), SFMIN );
-         if (RCOND < ZERO) THR = MAX( EPS*S( 1 ), SFMIN );
+         THR = max( RCOND*S( 1 ), SFMIN );
+         if (RCOND < ZERO) THR = max( EPS*S( 1 ), SFMIN );
          RANK = 0;
          for (I = 1; I <= M; I++) { // 50
             if ( S( I ) > THR ) {
@@ -474,7 +474,7 @@
          } else if ( NRHS > 1 ) {
             CHUNK = LWORK / N;
             DO 60 I = 1, NRHS, CHUNK;
-               BL = MIN( NRHS-I+1, CHUNK );
+               BL = min( NRHS-I+1, CHUNK );
                sgemm('T', 'N', N, BL, M, ONE, A, LDA, B( 1, I ), LDB, ZERO, WORK, N );
                slacpy('F', N, BL, WORK, N, B( 1, I ), LDB );
             } // 60

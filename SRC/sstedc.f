@@ -56,7 +56,7 @@
          INFO = -1;
       } else if ( N < 0 ) {
          INFO = -2;
-      } else if ( ( LDZ < 1 ) || ( ICOMPZ > 0 && LDZ < MAX( 1, N ) ) ) {
+      } else if ( ( LDZ < 1 ) || ( ICOMPZ > 0 && LDZ < max( 1, N ) ) ) {
          INFO = -6;
       }
 
@@ -169,7 +169,7 @@
             FINISH = START;
             } // 20
             if ( FINISH < N ) {
-               TINY = EPS*SQRT( ABS( D( FINISH ) ) )* SQRT( ABS( D( FINISH+1 ) ) );
+               TINY = EPS*sqrt( ABS( D( FINISH ) ) )* sqrt( ABS( D( FINISH+1 ) ) );
                if ( ABS( E( FINISH ) ) > TINY ) {
                   FINISH = FINISH + 1;
                   GO TO 20;

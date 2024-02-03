@@ -49,7 +49,7 @@
 
       // EPSIN = 2**(-24) = precision to which input data computed
 
-      EPS = MAX( EPS, EPSIN );
+      EPS = max( EPS, EPSIN );
       RMAX( 1 ) = ZERO;
       RMAX( 2 ) = ZERO;
       RMAX( 3 ) = ZERO;
@@ -61,9 +61,9 @@
       NINFO( 2 ) = 0;
       NINFO( 3 ) = 0;
 
-      VAL( 1 ) = SQRT( SMLNUM );
+      VAL( 1 ) = sqrt( SMLNUM );
       VAL( 2 ) = ONE;
-      VAL( 3 ) = SQRT( BIGNUM );
+      VAL( 3 ) = sqrt( BIGNUM );
 
       // Read input data until N=0.  Assume input eigenvalues are sorted
       // lexicographically (increasing by real part, then decreasing by
@@ -164,7 +164,7 @@
          // Compare condition numbers for eigenvalues
          // taking their condition numbers into account
 
-         V = MAX( TWO*DBLE( N )*EPS*TNRM, SMLNUM );
+         V = max( TWO*DBLE( N )*EPS*TNRM, SMLNUM );
          if (TNRM == ZERO) V = ONE;
          for (I = 1; I <= N; I++) { // 90
             if ( V > SEPTMP( I ) ) {
@@ -177,8 +177,8 @@
             } else {
                TOLIN = V / SEPIN( I );
             }
-            TOL = MAX( TOL, SMLNUM / EPS );
-            TOLIN = MAX( TOLIN, SMLNUM / EPS );
+            TOL = max( TOL, SMLNUM / EPS );
+            TOLIN = max( TOLIN, SMLNUM / EPS );
             if ( EPS*( SIN( I )-TOLIN ) > STMP( I )+TOL ) {
                VMAX = ONE / EPS;
             } else if ( SIN( I )-TOLIN > STMP( I )+TOL ) {
@@ -210,8 +210,8 @@
             } else {
                TOLIN = V / SIN( I );
             }
-            TOL = MAX( TOL, SMLNUM / EPS );
-            TOLIN = MAX( TOLIN, SMLNUM / EPS );
+            TOL = max( TOL, SMLNUM / EPS );
+            TOLIN = max( TOLIN, SMLNUM / EPS );
             if ( EPS*( SEPIN( I )-TOLIN ) > SEPTMP( I )+TOL ) {
                VMAX = ONE / EPS;
             } else if ( SEPIN( I )-TOLIN > SEPTMP( I )+TOL ) {

@@ -53,8 +53,8 @@
       TESTZEROS = false;
 
       EPS = DLAMCH( 'Epsilon' );
-      K = MIN( M, N );
-      L = MAX( M, N, 1);
+      K = min( M, N );
+      L = max( M, N, 1);
 
       // Dynamically allocate local arrays
 
@@ -76,7 +76,7 @@
 
       // Number of row blocks in DLATSQR
 
-      NRB = MAX( 1, CEILING( DBLE( M - N ) / DBLE( MB1 - N ) ) );
+      NRB = max( 1, CEILING( DBLE( M - N ) / DBLE( MB1 - N ) ) );
 
       ALLOCATE ( T1( NB1, N * NRB ) );
       ALLOCATE ( T2( NB2, N ) );
@@ -86,7 +86,7 @@
 
       // DGEMQRT requires NB2 to be bounded by N.
 
-      NB2_UB = MIN( NB2, N);
+      NB2_UB = min( NB2, N);
 
 
       dgetsqrhrt(M, N, MB1, NB1, NB2, AF, M, T2, NB2, WORKQUERY, -1, INFO );
@@ -96,7 +96,7 @@
       // In DGEMQRT, WORK is N*NB2_UB if SIDE = 'L',
                  // or  M*NB2_UB if SIDE = 'R'.
 
-      LWORK = MAX( LWORK, NB2_UB * N, NB2_UB * M );
+      LWORK = max( LWORK, NB2_UB * N, NB2_UB * M );
 
       ALLOCATE ( WORK( LWORK ) );
 
@@ -134,7 +134,7 @@
       ANORM = DLANGE( '1', M, N, A, M, RWORK );
       RESID = DLANGE( '1', M, N, R, M, RWORK );
       if ( ANORM > ZERO ) {
-         RESULT( 1 ) = RESID / ( EPS * MAX( 1, M ) * ANORM );
+         RESULT( 1 ) = RESID / ( EPS * max( 1, M ) * ANORM );
       } else {
          RESULT( 1 ) = ZERO;
       }
@@ -145,7 +145,7 @@
       dlaset('Full', M, M, ZERO, ONE, R, M );
       dsyrk('U', 'T', M, M, -ONE, Q, M, ONE, R, M );
       RESID = DLANSY( '1', 'Upper', M, R, M, RWORK );
-      RESULT( 2 ) = RESID / ( EPS * MAX( 1, M ) );
+      RESULT( 2 ) = RESID / ( EPS * max( 1, M ) );
 
       // Generate random m-by-n matrix C
 
@@ -166,7 +166,7 @@
       dgemm('N', 'N', M, N, M, -ONE, Q, M, C, M, ONE, CF, M );
       RESID = DLANGE( '1', M, N, CF, M, RWORK );
       if ( CNORM > ZERO ) {
-         RESULT( 3 ) = RESID / ( EPS * MAX( 1, M ) * CNORM );
+         RESULT( 3 ) = RESID / ( EPS * max( 1, M ) * CNORM );
       } else {
          RESULT( 3 ) = ZERO;
       }
@@ -186,7 +186,7 @@
       dgemm('T', 'N', M, N, M, -ONE, Q, M, C, M, ONE, CF, M );
       RESID = DLANGE( '1', M, N, CF, M, RWORK );
       if ( CNORM > ZERO ) {
-         RESULT( 4 ) = RESID / ( EPS * MAX( 1, M ) * CNORM );
+         RESULT( 4 ) = RESID / ( EPS * max( 1, M ) * CNORM );
       } else {
          RESULT( 4 ) = ZERO;
       }
@@ -210,7 +210,7 @@
       dgemm('N', 'N', N, M, M, -ONE, D, N, Q, M, ONE, DF, N );
       RESID = DLANGE( '1', N, M, DF, N, RWORK );
       if ( DNORM > ZERO ) {
-         RESULT( 5 ) = RESID / ( EPS * MAX( 1, M ) * DNORM );
+         RESULT( 5 ) = RESID / ( EPS * max( 1, M ) * DNORM );
       } else {
          RESULT( 5 ) = ZERO;
       }
@@ -230,7 +230,7 @@
       dgemm('N', 'T', N, M, M, -ONE, D, N, Q, M, ONE, DF, N );
       RESID = DLANGE( '1', N, M, DF, N, RWORK );
       if ( DNORM > ZERO ) {
-         RESULT( 6 ) = RESID / ( EPS * MAX( 1, M ) * DNORM );
+         RESULT( 6 ) = RESID / ( EPS * max( 1, M ) * DNORM );
       } else {
          RESULT( 6 ) = ZERO;
       }

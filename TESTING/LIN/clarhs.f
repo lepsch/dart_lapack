@@ -68,11 +68,11 @@
          INFO = -8;
       } else if ( NRHS < 0 ) {
          INFO = -9;
-      } else if ( ( !BAND && LDA < MAX( 1, M ) ) || ( BAND && ( SYM || TRI ) && LDA < KL+1 ) || ( BAND && GEN && LDA < KL+KU+1 ) ) {
+      } else if ( ( !BAND && LDA < max( 1, M ) ) || ( BAND && ( SYM || TRI ) && LDA < KL+1 ) || ( BAND && GEN && LDA < KL+KU+1 ) ) {
          INFO = -11;
-      } else if ( ( NOTRAN && LDX < MAX( 1, N ) ) || ( TRAN && LDX < MAX( 1, M ) ) ) {
+      } else if ( ( NOTRAN && LDX < max( 1, N ) ) || ( TRAN && LDX < max( 1, M ) ) ) {
          INFO = -13;
-      } else if ( ( NOTRAN && LDB < MAX( 1, M ) ) || ( TRAN && LDB < MAX( 1, N ) ) ) {
+      } else if ( ( NOTRAN && LDB < max( 1, M ) ) || ( TRAN && LDB < max( 1, N ) ) ) {
          INFO = -15;
       }
       if ( INFO != 0 ) {

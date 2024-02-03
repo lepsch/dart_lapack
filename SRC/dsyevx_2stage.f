@@ -60,15 +60,15 @@
          INFO = -3;
       } else if ( N < 0 ) {
          INFO = -4;
-      } else if ( LDA < MAX( 1, N ) ) {
+      } else if ( LDA < max( 1, N ) ) {
          INFO = -6;
       } else {
          if ( VALEIG ) {
             if (N > 0 && VU <= VL) INFO = -8;
          } else if ( INDEIG ) {
-            if ( IL < 1 || IL > MAX( 1, N ) ) {
+            if ( IL < 1 || IL > max( 1, N ) ) {
                INFO = -9;
-            } else if ( IU < MIN( N, IL ) || IU > N ) {
+            } else if ( IU < min( N, IL ) || IU > N ) {
                INFO = -10;
             }
          }
@@ -85,7 +85,7 @@
             WORK( 1 ) = LWMIN;
          } else {
             KD    = ILAENV2STAGE( 1, 'DSYTRD_2STAGE', JOBZ, N, -1, -1, -1 )             IB    = ILAENV2STAGE( 2, 'DSYTRD_2STAGE', JOBZ, N, KD, -1, -1 )             LHTRD = ILAENV2STAGE( 3, 'DSYTRD_2STAGE', JOBZ, N, KD, IB, -1 )             LWTRD = ILAENV2STAGE( 4, 'DSYTRD_2STAGE', JOBZ, N, KD, IB, -1 );
-            LWMIN = MAX( 8*N, 3*N + LHTRD + LWTRD );
+            LWMIN = max( 8*N, 3*N + LHTRD + LWTRD );
             WORK( 1 )  = LWMIN;
          }
 
@@ -126,8 +126,8 @@
       EPS    = DLAMCH( 'Precision' );
       SMLNUM = SAFMIN / EPS;
       BIGNUM = ONE / SMLNUM;
-      RMIN   = SQRT( SMLNUM );
-      RMAX   = MIN( SQRT( BIGNUM ), ONE / SQRT( SQRT( SAFMIN ) ) );
+      RMIN   = sqrt( SMLNUM );
+      RMAX   = min( sqrt( BIGNUM ), ONE / sqrt( sqrt( SAFMIN ) ) );
 
       // Scale matrix to allowable range, if necessary.
 

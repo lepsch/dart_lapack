@@ -38,7 +38,7 @@
 
       RESID = ZERO;
       if (M <= 0 || N <= 0) return;
-      REALMN = REAL( MAX( M, N ) );
+      REALMN = REAL( max( M, N ) );
       EPS = SLAMCH( 'Precision' );
 
       // Compute norm(B - U * C)
@@ -46,7 +46,7 @@
       for (J = 1; J <= N; J++) { // 10
          scopy(M, B( 1, J ), 1, WORK, 1 );
          sgemv('No transpose', M, M, -ONE, U, LDU, C( 1, J ), 1, ONE, WORK, 1 );
-         RESID = MAX( RESID, SASUM( M, WORK, 1 ) );
+         RESID = max( RESID, SASUM( M, WORK, 1 ) );
       } // 10
 
       // Compute norm of B.
@@ -60,9 +60,9 @@
             RESID = ( RESID / BNORM ) / ( REALMN*EPS );
          } else {
             if ( BNORM < ONE ) {
-               RESID = ( MIN( RESID, REALMN*BNORM ) / BNORM ) / ( REALMN*EPS );
+               RESID = ( min( RESID, REALMN*BNORM ) / BNORM ) / ( REALMN*EPS );
             } else {
-               RESID = MIN( RESID / BNORM, REALMN ) / ( REALMN*EPS );
+               RESID = min( RESID / BNORM, REALMN ) / ( REALMN*EPS );
             }
          }
       }

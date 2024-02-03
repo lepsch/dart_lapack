@@ -83,7 +83,7 @@
 
       for (IN = 1; IN <= NN; IN++) { // 140
          N = NVAL( IN );
-         LDA = MAX( N, 1 );
+         LDA = max( N, 1 );
          NPP = N*( N+1 ) / 2;
          XTYPE = 'N';
          NIMAT = NTYPES;

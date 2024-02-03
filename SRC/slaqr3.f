@@ -37,7 +37,7 @@
 
       // ==== Estimate optimal workspace. ====
 
-      JW = MIN( NW, KBOT-KTOP+1 );
+      JW = min( NW, KBOT-KTOP+1 );
       if ( JW <= 2 ) {
          LWKOPT = 1;
       } else {
@@ -59,7 +59,7 @@
 
          // ==== Optimal workspace ====
 
-         LWKOPT = MAX( JW+MAX( LWK1, LWK2 ), LWK3 );
+         LWKOPT = max( JW+max( LWK1, LWK2 ), LWK3 );
       }
 
       // ==== Quick return in case of workspace query. ====
@@ -87,7 +87,7 @@
 
       // ==== Setup deflation window ====
 
-      JW = MIN( NW, KBOT-KTOP+1 );
+      JW = min( NW, KBOT-KTOP+1 );
       KWTOP = KBOT - JW + 1;
       if ( KWTOP == KTOP ) {
          S = ZERO;
@@ -103,7 +103,7 @@
          SI( KWTOP ) = ZERO;
          NS = 1;
          ND = 0;
-         if ( ABS( S ) <= MAX( SMLNUM, ULP*ABS( H( KWTOP, KWTOP ) ) ) ) {
+         if ( ABS( S ) <= max( SMLNUM, ULP*ABS( H( KWTOP, KWTOP ) ) ) ) {
             NS = 0;
             ND = 1;
             if (KWTOP > KTOP) H( KWTOP, KWTOP-1 ) = ZERO;
@@ -157,7 +157,7 @@
 
             FOO = ABS( T( NS, NS ) );
             if (FOO == ZERO) FOO = ABS( S );
-            if ( ABS( S*V( 1, NS ) ) <= MAX( SMLNUM, ULP*FOO ) ) {
+            if ( ABS( S*V( 1, NS ) ) <= max( SMLNUM, ULP*FOO ) ) {
 
                // ==== Deflatable ====
 
@@ -175,7 +175,7 @@
 
             // ==== Complex conjugate pair ====
 
-            FOO = ABS( T( NS, NS ) ) + SQRT( ABS( T( NS, NS-1 ) ) )* SQRT( ABS( T( NS-1, NS ) ) )             IF( FOO == ZERO ) FOO = ABS( S )             IF( MAX( ABS( S*V( 1, NS ) ), ABS( S*V( 1, NS-1 ) ) ) <= MAX( SMLNUM, ULP*FOO ) ) THEN;
+            FOO = ABS( T( NS, NS ) ) + sqrt( ABS( T( NS, NS-1 ) ) )* sqrt( ABS( T( NS-1, NS ) ) )             IF( FOO == ZERO ) FOO = ABS( S )             IF( max( ABS( S*V( 1, NS ) ), ABS( S*V( 1, NS-1 ) ) ) <= max( SMLNUM, ULP*FOO ) ) THEN;
 
                // ==== Deflatable ====
 
@@ -227,7 +227,7 @@
             if ( K == I+1 ) {
                EVI = ABS( T( I, I ) );
             } else {
-               EVI = ABS( T( I, I ) ) + SQRT( ABS( T( I+1, I ) ) )* SQRT( ABS( T( I, I+1 ) ) );
+               EVI = ABS( T( I, I ) ) + sqrt( ABS( T( I+1, I ) ) )* sqrt( ABS( T( I, I+1 ) ) );
             }
 
             if ( K == KEND ) {
@@ -235,7 +235,7 @@
             } else if ( T( K+1, K ) == ZERO ) {
                EVK = ABS( T( K, K ) );
             } else {
-               EVK = ABS( T( K, K ) ) + SQRT( ABS( T( K+1, K ) ) )* SQRT( ABS( T( K, K+1 ) ) );
+               EVK = ABS( T( K, K ) ) + sqrt( ABS( T( K+1, K ) ) )* sqrt( ABS( T( K, K+1 ) ) );
             }
 
             if ( EVI >= EVK ) {
@@ -326,7 +326,7 @@
             LTOP = KTOP;
          }
          DO 70 KROW = LTOP, KWTOP - 1, NV;
-            KLN = MIN( NV, KWTOP-KROW );
+            KLN = min( NV, KWTOP-KROW );
             sgemm('N', 'N', KLN, JW, JW, ONE, H( KROW, KWTOP ), LDH, V, LDV, ZERO, WV, LDWV );
             slacpy('A', KLN, JW, WV, LDWV, H( KROW, KWTOP ), LDH );
          } // 70
@@ -335,7 +335,7 @@
 
          if ( WANTT ) {
             DO 80 KCOL = KBOT + 1, N, NH;
-               KLN = MIN( NH, N-KCOL+1 );
+               KLN = min( NH, N-KCOL+1 );
                sgemm('C', 'N', JW, KLN, JW, ONE, V, LDV, H( KWTOP, KCOL ), LDH, ZERO, T, LDT );
                slacpy('A', JW, KLN, T, LDT, H( KWTOP, KCOL ), LDH );
             } // 80
@@ -345,7 +345,7 @@
 
          if ( WANTZ ) {
             DO 90 KROW = ILOZ, IHIZ, NV;
-               KLN = MIN( NV, IHIZ-KROW+1 );
+               KLN = min( NV, IHIZ-KROW+1 );
                sgemm('N', 'N', KLN, JW, JW, ONE, Z( KROW, KWTOP ), LDZ, V, LDV, ZERO, WV, LDWV );
                slacpy('A', KLN, JW, WV, LDWV, Z( KROW, KWTOP ), LDZ );
             } // 90

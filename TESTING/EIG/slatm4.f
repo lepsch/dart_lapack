@@ -49,8 +49,8 @@
 
       if ( ITYPE != 0 ) {
          if ( ABS( ITYPE ) >= 4 ) {
-            KBEG = MAX( 1, MIN( N, NZ1+1 ) );
-            KEND = MAX( KBEG, MIN( N, N-NZ2 ) );
+            KBEG = max( 1, min( N, NZ1+1 ) );
+            KEND = max( KBEG, min( N, N-NZ2 ) );
             KLEN = KEND + 1 - KBEG;
          } else {
             KBEG = 1;
@@ -214,7 +214,7 @@
 
                   CL = TWO*SLARAN( ISEED ) - ONE;
                   SL = TWO*SLARAN( ISEED ) - ONE;
-                  TEMP = ONE / MAX( SAFMIN, SQRT( CL**2+SL**2 ) );
+                  TEMP = ONE / max( SAFMIN, sqrt( CL**2+SL**2 ) );
                   CL = CL*TEMP;
                   SL = SL*TEMP;
 
@@ -222,7 +222,7 @@
 
                   CR = TWO*SLARAN( ISEED ) - ONE;
                   SR = TWO*SLARAN( ISEED ) - ONE;
-                  TEMP = ONE / MAX( SAFMIN, SQRT( CR**2+SR**2 ) );
+                  TEMP = ONE / max( SAFMIN, sqrt( CR**2+SR**2 ) );
                   CR = CR*TEMP;
                   SR = SR*TEMP;
 

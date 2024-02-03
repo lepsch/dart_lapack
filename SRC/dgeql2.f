@@ -36,7 +36,7 @@
          INFO = -1;
       } else if ( N < 0 ) {
          INFO = -2;
-      } else if ( LDA < MAX( 1, M ) ) {
+      } else if ( LDA < max( 1, M ) ) {
          INFO = -4;
       }
       if ( INFO != 0 ) {
@@ -44,7 +44,7 @@
          return;
       }
 
-      K = MIN( M, N );
+      K = min( M, N );
 
       DO 10 I = K, 1, -1;
 

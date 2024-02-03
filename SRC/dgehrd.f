@@ -42,13 +42,13 @@
       LQUERY = ( LWORK == -1 );
       if ( N < 0 ) {
          INFO = -1;
-      } else if ( ILO < 1 || ILO > MAX( 1, N ) ) {
+      } else if ( ILO < 1 || ILO > max( 1, N ) ) {
          INFO = -2;
-      } else if ( IHI < MIN( ILO, N ) || IHI > N ) {
+      } else if ( IHI < min( ILO, N ) || IHI > N ) {
          INFO = -3;
-      } else if ( LDA < MAX( 1, N ) ) {
+      } else if ( LDA < max( 1, N ) ) {
          INFO = -5;
-      } else if ( LWORK < MAX( 1, N ) && !LQUERY ) {
+      } else if ( LWORK < max( 1, N ) && !LQUERY ) {
          INFO = -8;
       }
 
@@ -60,7 +60,7 @@
          if ( NH <= 1 ) {
             LWKOPT = 1;
          } else {
-            NB = MIN( NBMAX, ILAENV( 1, 'DGEHRD', ' ', N, ILO, IHI, -1 ) );
+            NB = min( NBMAX, ILAENV( 1, 'DGEHRD', ' ', N, ILO, IHI, -1 ) );
             LWKOPT = N*NB + TSIZE;
          }
          WORK( 1 ) = LWKOPT;
@@ -78,7 +78,7 @@
       for (I = 1; I <= ILO - 1; I++) { // 10
          TAU( I ) = ZERO;
       } // 10
-      DO 20 I = MAX( 1, IHI ), N - 1;
+      DO 20 I = max( 1, IHI ), N - 1;
          TAU( I ) = ZERO;
       } // 20
 
@@ -91,14 +91,14 @@
 
       // Determine the block size
 
-      NB = MIN( NBMAX, ILAENV( 1, 'DGEHRD', ' ', N, ILO, IHI, -1 ) );
+      NB = min( NBMAX, ILAENV( 1, 'DGEHRD', ' ', N, ILO, IHI, -1 ) );
       NBMIN = 2;
       if ( NB > 1 && NB < NH ) {
 
          // Determine when to cross over from blocked to unblocked code
          // (last block is always handled by unblocked code)
 
-         NX = MAX( NB, ILAENV( 3, 'DGEHRD', ' ', N, ILO, IHI, -1 ) );
+         NX = max( NB, ILAENV( 3, 'DGEHRD', ' ', N, ILO, IHI, -1 ) );
          if ( NX < NH ) {
 
             // Determine if workspace is large enough for blocked code
@@ -109,7 +109,7 @@
                // minimum value of NB, and reduce NB or force use of
                // unblocked code
 
-               NBMIN = MAX( 2, ILAENV( 2, 'DGEHRD', ' ', N, ILO, IHI, -1 ) );
+               NBMIN = max( 2, ILAENV( 2, 'DGEHRD', ' ', N, ILO, IHI, -1 ) );
                if ( LWORK >= (N*NBMIN + TSIZE) ) {
                   NB = (LWORK-TSIZE) / N;
                } else {
@@ -132,7 +132,7 @@
 
          IWT = 1 + N*NB;
          DO 40 I = ILO, IHI - 1 - NX, NB;
-            IB = MIN( NB, IHI-I );
+            IB = min( NB, IHI-I );
 
             // Reduce columns i:i+ib-1 to Hessenberg form, returning the
             // matrices V and T of the block reflector H = I - V*T*V**T

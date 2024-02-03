@@ -67,9 +67,9 @@
          INFO = -4;
       } else if ( IHI > N || IHI < ILO-1 ) {
          INFO = -5;
-      } else if ( LDA < MAX( 1, N ) ) {
+      } else if ( LDA < max( 1, N ) ) {
          INFO = -7;
-      } else if ( LDB < MAX( 1, N ) ) {
+      } else if ( LDB < max( 1, N ) ) {
          INFO = -9;
       } else if ( ( WANTQ && LDQ < N ) || LDQ < 1 ) {
          INFO = -11;
@@ -108,7 +108,7 @@
 
          // Determine when to use unblocked instead of blocked code.
 
-         NX = MAX( NB, ILAENV( 3, 'SGGHD3', ' ', N, ILO, IHI, -1 ) );
+         NX = max( NB, ILAENV( 3, 'SGGHD3', ' ', N, ILO, IHI, -1 ) );
          if ( NX < NH ) {
 
             // Determine if workspace is large enough for blocked code.
@@ -119,7 +119,7 @@
                // minimum value of NB, and reduce NB or force use of
                // unblocked code.
 
-               NBMIN = MAX( 2, ILAENV( 2, 'SGGHD3', ' ', N, ILO, IHI, -1 ) );
+               NBMIN = max( 2, ILAENV( 2, 'SGGHD3', ' ', N, ILO, IHI, -1 ) );
                if ( LWORK >= 6*N*NBMIN ) {
                   NB = LWORK / ( 6*N );
                } else {
@@ -142,7 +142,7 @@
          KACC22 = ILAENV( 16, 'SGGHD3', ' ', N, ILO, IHI, -1 );
          BLK22 = KACC22 == 2;
          DO JCOL = ILO, IHI-2, NB;
-            NNB = MIN( NB, IHI-JCOL-1 );
+            NNB = min( NB, IHI-JCOL-1 );
 
             // Initialize small orthogonal factors that will hold the
             // accumulated Givens rotations in workspace.
@@ -225,7 +225,7 @@
 
                   // Update JJth column of B.
 
-                  DO I = MIN( JJ+1, IHI ), J+2, -1;
+                  DO I = min( JJ+1, IHI ), J+2, -1;
                      C = A( I, J );
                      S = B( I, J );
                      TEMP = B( I, JJ );
@@ -387,7 +387,7 @@
             if ( WANTQ ) {
                J = IHI - NBLST + 1;
                if ( INITQ ) {
-                  TOPQ = MAX( 2, J - JCOL + 1 );
+                  TOPQ = max( 2, J - JCOL + 1 );
                   NH  = IHI - TOPQ + 1;
                } else {
                   TOPQ = 1;
@@ -399,7 +399,7 @@
                J0 = J - NNB;
                DO J = J0, JCOL+1, -NNB;
                   if ( INITQ ) {
-                     TOPQ = MAX( 2, J - JCOL + 1 );
+                     TOPQ = max( 2, J - JCOL + 1 );
                      NH  = IHI - TOPQ + 1;
                   }
                   if ( BLK22 ) {
@@ -530,7 +530,7 @@
             if ( WANTZ ) {
                J = IHI - NBLST + 1;
                if ( INITQ ) {
-                  TOPQ = MAX( 2, J - JCOL + 1 );
+                  TOPQ = max( 2, J - JCOL + 1 );
                   NH  = IHI - TOPQ + 1;
                } else {
                   TOPQ = 1;
@@ -542,7 +542,7 @@
                J0 = J - NNB;
                DO J = J0, JCOL+1, -NNB;
                      if ( INITQ ) {
-                     TOPQ = MAX( 2, J - JCOL + 1 );
+                     TOPQ = max( 2, J - JCOL + 1 );
                      NH  = IHI - TOPQ + 1;
                   }
                   if ( BLK22 ) {

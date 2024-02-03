@@ -57,7 +57,7 @@
          INFO = -2;
       } else if ( N < 0 ) {
          INFO = -4;
-      } else if ( LDT < MAX( 1, N ) ) {
+      } else if ( LDT < max( 1, N ) ) {
          INFO = -6;
       } else if ( LDVL < 1 || ( WANTS && LDVL < N ) ) {
          INFO = -8;
@@ -216,7 +216,7 @@
                   // position of WORK is the complex eigenvalue lambda
                   // with negative imaginary  part.
 
-                  MU = SQRT( ABS( WORK( 1, 2 ) ) )* SQRT( ABS( WORK( 2, 1 ) ) );
+                  MU = sqrt( ABS( WORK( 1, 2 ) ) )* sqrt( ABS( WORK( 2, 1 ) ) );
                   DELTA = DLAPY2( MU, WORK( 2, 1 ) );
                   CS = MU / DELTA;
                   SN = -WORK( 2, 1 ) / DELTA;
@@ -286,7 +286,7 @@
                }
             }
 
-            SEP( KS ) = SCALE / MAX( EST, SMLNUM );
+            SEP( KS ) = SCALE / max( EST, SMLNUM );
             if (PAIR) SEP( KS+1 ) = SEP( KS );
          }
 

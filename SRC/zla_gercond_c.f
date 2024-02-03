@@ -51,9 +51,9 @@
          INFO = -1;
       } else if ( N < 0 ) {
          INFO = -2;
-      } else if ( LDA < MAX( 1, N ) ) {
+      } else if ( LDA < max( 1, N ) ) {
          INFO = -4;
-      } else if ( LDAF < MAX( 1, N ) ) {
+      } else if ( LDAF < max( 1, N ) ) {
          INFO = -6;
       }
       if ( INFO != 0 ) {
@@ -77,7 +77,7 @@
                }
             }
             RWORK( I ) = TMP;
-            ANORM = MAX( ANORM, TMP );
+            ANORM = max( ANORM, TMP );
          }
       } else {
          for (I = 1; I <= N; I++) {
@@ -92,7 +92,7 @@
                }
             }
             RWORK( I ) = TMP;
-            ANORM = MAX( ANORM, TMP );
+            ANORM = max( ANORM, TMP );
          }
       }
 

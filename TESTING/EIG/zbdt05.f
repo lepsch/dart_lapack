@@ -45,7 +45,7 @@
       // Quick return if possible.
 
       RESID = ZERO;
-      if( MIN( M, N ) <= 0 || NS <= 0 ) return;
+      if( min( M, N ) <= 0 || NS <= 0 ) return;
 
       EPS = DLAMCH( 'Precision' );
       ANORM = ZLANGE( 'M', M, N, A, LDA, DUM );
@@ -59,7 +59,7 @@
       J = 0;
       for (I = 1; I <= NS; I++) { // 10
          WORK( J+I ) =  WORK( J+I ) + DCMPLX( S( I ), ZERO );
-         RESID = MAX( RESID, DZASUM( NS, WORK( J+1 ), 1 ) );
+         RESID = max( RESID, DZASUM( NS, WORK( J+1 ), 1 ) );
          J = J + NS;
       } // 10
 
@@ -70,9 +70,9 @@
             RESID = ( RESID / ANORM ) / ( DBLE( N )*EPS );
          } else {
             if ( ANORM < ONE ) {
-               RESID = ( MIN( RESID, DBLE( N )*ANORM ) / ANORM ) / ( DBLE( N )*EPS );
+               RESID = ( min( RESID, DBLE( N )*ANORM ) / ANORM ) / ( DBLE( N )*EPS );
             } else {
-               RESID = MIN( RESID / ANORM, DBLE( N ) ) / ( DBLE( N )*EPS );
+               RESID = min( RESID / ANORM, DBLE( N ) ) / ( DBLE( N )*EPS );
             }
          }
       }

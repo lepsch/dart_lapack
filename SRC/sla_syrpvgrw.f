@@ -52,15 +52,15 @@
       if ( UPPER ) {
          for (J = 1; J <= N; J++) {
             for (I = 1; I <= J; I++) {
-               WORK( N+I ) = MAX( ABS( A( I, J ) ), WORK( N+I ) );
-               WORK( N+J ) = MAX( ABS( A( I, J ) ), WORK( N+J ) );
+               WORK( N+I ) = max( ABS( A( I, J ) ), WORK( N+I ) );
+               WORK( N+J ) = max( ABS( A( I, J ) ), WORK( N+J ) );
             }
          }
       } else {
          for (J = 1; J <= N; J++) {
             for (I = J; I <= N; I++) {
-               WORK( N+I ) = MAX( ABS( A( I, J ) ), WORK( N+I ) );
-               WORK( N+J ) = MAX( ABS( A( I, J ) ), WORK( N+J ) );
+               WORK( N+I ) = max( ABS( A( I, J ) ), WORK( N+I ) );
+               WORK( N+J ) = max( ABS( A( I, J ) ), WORK( N+J ) );
             }
          }
       }
@@ -84,7 +84,7 @@
                   WORK( N+KP ) = TMP;
                }
                for (I = 1; I <= K; I++) {
-                  WORK( K ) = MAX( ABS( AF( I, K ) ), WORK( K ) );
+                  WORK( K ) = max( ABS( AF( I, K ) ), WORK( K ) );
                }
                K = K - 1;
             } else {
@@ -94,10 +94,10 @@
                WORK( N+K-1 ) = WORK( N+KP );
                WORK( N+KP ) = TMP;
                for (I = 1; I <= K-1; I++) {
-                  WORK( K ) = MAX( ABS( AF( I, K ) ), WORK( K ) );
-                  WORK( K-1 ) = MAX( ABS( AF( I, K-1 ) ), WORK( K-1 ) );
+                  WORK( K ) = max( ABS( AF( I, K ) ), WORK( K ) );
+                  WORK( K-1 ) = max( ABS( AF( I, K-1 ) ), WORK( K-1 ) );
                }
-               WORK( K ) = MAX( ABS( AF( K, K ) ), WORK( K ) );
+               WORK( K ) = max( ABS( AF( K, K ) ), WORK( K ) );
                K = K - 2;
             }
          }
@@ -131,7 +131,7 @@
                   WORK( N+KP ) = TMP;
                }
                for (I = K; I <= N; I++) {
-                  WORK( K ) = MAX( ABS( AF( I, K ) ), WORK( K ) );
+                  WORK( K ) = max( ABS( AF( I, K ) ), WORK( K ) );
                }
                K = K + 1;
             } else {
@@ -141,10 +141,10 @@
                WORK( N+K+1 ) = WORK( N+KP );
                WORK( N+KP ) = TMP;
                for (I = K+1; I <= N; I++) {
-                  WORK( K ) = MAX( ABS( AF( I, K ) ), WORK( K ) );
-                  WORK( K+1 ) = MAX( ABS( AF(I, K+1 ) ), WORK( K+1 ) );
+                  WORK( K ) = max( ABS( AF( I, K ) ), WORK( K ) );
+                  WORK( K+1 ) = max( ABS( AF(I, K+1 ) ), WORK( K+1 ) );
                }
-               WORK( K ) = MAX( ABS( AF( K, K ) ), WORK( K ) );
+               WORK( K ) = max( ABS( AF( K, K ) ), WORK( K ) );
                K = K + 2;
             }
          }
@@ -180,7 +180,7 @@
             UMAX = WORK( I );
             AMAX = WORK( N+I );
             if ( UMAX /= 0.0 ) {
-               RPVGRW = MIN( AMAX / UMAX, RPVGRW );
+               RPVGRW = min( AMAX / UMAX, RPVGRW );
             }
          }
       } else {
@@ -188,7 +188,7 @@
             UMAX = WORK( I );
             AMAX = WORK( N+I );
             if ( UMAX /= 0.0 ) {
-               RPVGRW = MIN( AMAX / UMAX, RPVGRW );
+               RPVGRW = min( AMAX / UMAX, RPVGRW );
             }
          }
       }

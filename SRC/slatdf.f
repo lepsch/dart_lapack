@@ -126,7 +126,7 @@
          // Compute RHS
 
          slaswp(1, XM, LDZ, 1, N-1, IPIV, -1 );
-         TEMP = ONE / SQRT( SDOT( N, XM, 1, XM, 1 ) );
+         TEMP = ONE / sqrt( SDOT( N, XM, 1, XM, 1 ) );
          sscal(N, TEMP, XM, 1 );
          scopy(N, XM, 1, XP, 1 );
          saxpy(N, ONE, RHS, 1, XP, 1 );

@@ -98,9 +98,9 @@
          INFO = -4;
       } else if ( N < 0 ) {
          INFO = -5;
-      } else if ( LDA < MAX( 1, N ) ) {
+      } else if ( LDA < max( 1, N ) ) {
          INFO = -7;
-      } else if ( LDB < MAX( 1, N ) ) {
+      } else if ( LDB < max( 1, N ) ) {
          INFO = -9;
       } else if ( LDVL < 1 || ( ILVL && LDVL < N ) ) {
          INFO = -13;
@@ -128,9 +128,9 @@
                MINWRK = 2*N*( N + 1);
             }
             MAXWRK = MINWRK;
-            MAXWRK = MAX( MAXWRK, N + N*ILAENV( 1, 'CGEQRF', ' ', N, 1, N, 0 ) )             MAXWRK = MAX( MAXWRK, N + N*ILAENV( 1, 'CUNMQR', ' ', N, 1, N, 0 ) );
+            MAXWRK = max( MAXWRK, N + N*ILAENV( 1, 'CGEQRF', ' ', N, 1, N, 0 ) )             MAXWRK = max( MAXWRK, N + N*ILAENV( 1, 'CUNMQR', ' ', N, 1, N, 0 ) );
             if ( ILVL ) {
-               MAXWRK = MAX( MAXWRK, N + N*ILAENV( 1, 'CUNGQR', ' ', N, 1, N, 0 ) );
+               MAXWRK = max( MAXWRK, N + N*ILAENV( 1, 'CUNGQR', ' ', N, 1, N, 0 ) );
             }
          }
          WORK( 1 ) = SROUNDUP_LWORK(MAXWRK);
@@ -156,7 +156,7 @@
       EPS = SLAMCH( 'P' );
       SMLNUM = SLAMCH( 'S' );
       BIGNUM = ONE / SMLNUM;
-      SMLNUM = SQRT( SMLNUM ) / EPS;
+      SMLNUM = sqrt( SMLNUM ) / EPS;
       BIGNUM = ONE / SMLNUM;
 
       // Scale A if max element outside range [SMLNUM,BIGNUM]
@@ -342,7 +342,7 @@
          for (JC = 1; JC <= N; JC++) { // 50
             TEMP = ZERO;
             for (JR = 1; JR <= N; JR++) { // 30
-               TEMP = MAX( TEMP, ABS1( VL( JR, JC ) ) );
+               TEMP = max( TEMP, ABS1( VL( JR, JC ) ) );
             } // 30
             if (TEMP < SMLNUM) GO TO 50;
             TEMP = ONE / TEMP;
@@ -357,7 +357,7 @@
          for (JC = 1; JC <= N; JC++) { // 80
             TEMP = ZERO;
             for (JR = 1; JR <= N; JR++) { // 60
-               TEMP = MAX( TEMP, ABS1( VR( JR, JC ) ) );
+               TEMP = max( TEMP, ABS1( VR( JR, JC ) ) );
             } // 60
             if (TEMP < SMLNUM) GO TO 80;
             TEMP = ONE / TEMP;

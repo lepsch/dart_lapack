@@ -38,12 +38,12 @@
          INFO = -1;
       } else if ( N < 0 ) {
          INFO = -2;
-      } else if ( LDA < MAX( 1, M ) ) {
+      } else if ( LDA < max( 1, M ) ) {
          INFO = -4;
       }
 
       if ( INFO == 0 ) {
-         K = MIN( M, N );
+         K = min( M, N );
          if ( K == 0 ) {
             LWKOPT = 1;
          } else {
@@ -53,7 +53,7 @@
          WORK( 1 ) = SROUNDUP_LWORK(LWKOPT);
 
          if ( !LQUERY ) {
-            if( LWORK <= 0 || ( N > 0 && LWORK < MAX( 1, M ) ) ) INFO = -7;
+            if( LWORK <= 0 || ( N > 0 && LWORK < max( 1, M ) ) ) INFO = -7;
          }
       }
 
@@ -77,7 +77,7 @@
 
          // Determine when to cross over from blocked to unblocked code.
 
-         NX = MAX( 0, ILAENV( 3, 'SGERQF', ' ', M, N, -1, -1 ) );
+         NX = max( 0, ILAENV( 3, 'SGERQF', ' ', M, N, -1, -1 ) );
          if ( NX < K ) {
 
             // Determine if workspace is large enough for blocked code.
@@ -90,7 +90,7 @@
                // determine the minimum value of NB.
 
                NB = LWORK / LDWORK;
-               NBMIN = MAX( 2, ILAENV( 2, 'SGERQF', ' ', M, N, -1, -1 ) );
+               NBMIN = max( 2, ILAENV( 2, 'SGERQF', ' ', M, N, -1, -1 ) );
             }
          }
       }
@@ -101,10 +101,10 @@
          // The last kk rows are handled by the block method.
 
          KI = ( ( K-NX-1 ) / NB )*NB;
-         KK = MIN( K, KI+NB );
+         KK = min( K, KI+NB );
 
          DO 10 I = K - KK + KI + 1, K - KK + 1, -NB;
-            IB = MIN( K-I+1, NB );
+            IB = min( K-I+1, NB );
 
             // Compute the RQ factorization of the current block
             // A(m-k+i:m-k+i+ib-1,1:n-k+i+ib-1)

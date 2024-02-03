@@ -220,7 +220,7 @@
                } // 310
             }
          }
-         VALUE = SCALE*SQRT( SUM );
+         VALUE = SCALE*sqrt( SUM );
       }
 
       ZLANTP = VALUE;

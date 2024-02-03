@@ -56,21 +56,21 @@
          INFO = -8;
       } else if ( Q < 0 || Q > M ) {
          INFO = -9;
-      } else if ( COLMAJOR && LDX11 < MAX( 1, P ) ) {
+      } else if ( COLMAJOR && LDX11 < max( 1, P ) ) {
         INFO = -11;
-      } else if ( !COLMAJOR && LDX11 < MAX( 1, Q ) ) {
+      } else if ( !COLMAJOR && LDX11 < max( 1, Q ) ) {
         INFO = -11;
-      } else if (COLMAJOR && LDX12 < MAX( 1, P ) ) {
+      } else if (COLMAJOR && LDX12 < max( 1, P ) ) {
         INFO = -13;
-      } else if ( !COLMAJOR && LDX12 < MAX( 1, M-Q ) ) {
+      } else if ( !COLMAJOR && LDX12 < max( 1, M-Q ) ) {
         INFO = -13;
-      } else if (COLMAJOR && LDX21 < MAX( 1, M-P ) ) {
+      } else if (COLMAJOR && LDX21 < max( 1, M-P ) ) {
         INFO = -15;
-      } else if ( !COLMAJOR && LDX21 < MAX( 1, Q ) ) {
+      } else if ( !COLMAJOR && LDX21 < max( 1, Q ) ) {
         INFO = -15;
-      } else if (COLMAJOR && LDX22 < MAX( 1, M-P ) ) {
+      } else if (COLMAJOR && LDX22 < max( 1, M-P ) ) {
         INFO = -17;
-      } else if ( !COLMAJOR && LDX22 < MAX( 1, M-Q ) ) {
+      } else if ( !COLMAJOR && LDX22 < max( 1, M-Q ) ) {
         INFO = -17;
       } else if ( WANTU1 && LDU1 < P ) {
          INFO = -20;
@@ -84,7 +84,7 @@
 
       // Work with transpose if convenient
 
-      if ( INFO == 0 && MIN( P, M-P ) < MIN( Q, M-Q ) ) {
+      if ( INFO == 0 && min( P, M-P ) < min( Q, M-Q ) ) {
          if ( COLMAJOR ) {
             TRANST = 'T';
          } else {
@@ -117,36 +117,36 @@
       if ( INFO == 0 ) {
 
          IPHI = 2;
-         ITAUP1 = IPHI + MAX( 1, Q - 1 );
-         ITAUP2 = ITAUP1 + MAX( 1, P );
-         ITAUQ1 = ITAUP2 + MAX( 1, M - P );
-         ITAUQ2 = ITAUQ1 + MAX( 1, Q );
-         IORGQR = ITAUQ2 + MAX( 1, M - Q );
-         sorgqr(M-Q, M-Q, M-Q, DUMMY, MAX(1,M-Q), DUMMY, WORK, -1, CHILDINFO );
+         ITAUP1 = IPHI + max( 1, Q - 1 );
+         ITAUP2 = ITAUP1 + max( 1, P );
+         ITAUQ1 = ITAUP2 + max( 1, M - P );
+         ITAUQ2 = ITAUQ1 + max( 1, Q );
+         IORGQR = ITAUQ2 + max( 1, M - Q );
+         sorgqr(M-Q, M-Q, M-Q, DUMMY, max(1,M-Q), DUMMY, WORK, -1, CHILDINFO );
          LORGQRWORKOPT = INT( WORK(1) );
-         LORGQRWORKMIN = MAX( 1, M - Q );
-         IORGLQ = ITAUQ2 + MAX( 1, M - Q );
-         sorglq(M-Q, M-Q, M-Q, DUMMY, MAX(1,M-Q), DUMMY, WORK, -1, CHILDINFO );
+         LORGQRWORKMIN = max( 1, M - Q );
+         IORGLQ = ITAUQ2 + max( 1, M - Q );
+         sorglq(M-Q, M-Q, M-Q, DUMMY, max(1,M-Q), DUMMY, WORK, -1, CHILDINFO );
          LORGLQWORKOPT = INT( WORK(1) );
-         LORGLQWORKMIN = MAX( 1, M - Q );
-         IORBDB = ITAUQ2 + MAX( 1, M - Q );
+         LORGLQWORKMIN = max( 1, M - Q );
+         IORBDB = ITAUQ2 + max( 1, M - Q );
          sorbdb(TRANS, SIGNS, M, P, Q, X11, LDX11, X12, LDX12, X21, LDX21, X22, LDX22, DUMMY, DUMMY, DUMMY, DUMMY, DUMMY, DUMMY,WORK,-1,CHILDINFO );
          LORBDBWORKOPT = INT( WORK(1) );
          LORBDBWORKMIN = LORBDBWORKOPT;
-         IB11D = ITAUQ2 + MAX( 1, M - Q );
-         IB11E = IB11D + MAX( 1, Q );
-         IB12D = IB11E + MAX( 1, Q - 1 );
-         IB12E = IB12D + MAX( 1, Q );
-         IB21D = IB12E + MAX( 1, Q - 1 );
-         IB21E = IB21D + MAX( 1, Q );
-         IB22D = IB21E + MAX( 1, Q - 1 );
-         IB22E = IB22D + MAX( 1, Q );
-         IBBCSD = IB22E + MAX( 1, Q - 1 );
+         IB11D = ITAUQ2 + max( 1, M - Q );
+         IB11E = IB11D + max( 1, Q );
+         IB12D = IB11E + max( 1, Q - 1 );
+         IB12E = IB12D + max( 1, Q );
+         IB21D = IB12E + max( 1, Q - 1 );
+         IB21E = IB21D + max( 1, Q );
+         IB22D = IB21E + max( 1, Q - 1 );
+         IB22E = IB22D + max( 1, Q );
+         IBBCSD = IB22E + max( 1, Q - 1 );
          sbbcsd(JOBU1, JOBU2, JOBV1T, JOBV2T, TRANS, M, P, Q, DUMMY, DUMMY, U1, LDU1, U2, LDU2, V1T, LDV1T, V2T, LDV2T, DUMMY, DUMMY, DUMMY, DUMMY, DUMMY, DUMMY, DUMMY, DUMMY, WORK, -1, CHILDINFO );
          LBBCSDWORKOPT = INT( WORK(1) );
          LBBCSDWORKMIN = LBBCSDWORKOPT;
-         LWORKOPT = MAX( IORGQR + LORGQRWORKOPT, IORGLQ + LORGLQWORKOPT, IORBDB + LORBDBWORKOPT, IBBCSD + LBBCSDWORKOPT ) - 1          LWORKMIN = MAX( IORGQR + LORGQRWORKMIN, IORGLQ + LORGLQWORKMIN, IORBDB + LORBDBWORKOPT, IBBCSD + LBBCSDWORKMIN ) - 1;
-         WORK(1) = MAX(LWORKOPT,LWORKMIN);
+         LWORKOPT = max( IORGQR + LORGQRWORKOPT, IORGLQ + LORGLQWORKOPT, IORBDB + LORBDBWORKOPT, IBBCSD + LBBCSDWORKOPT ) - 1          LWORKMIN = max( IORGQR + LORGQRWORKMIN, IORGLQ + LORGLQWORKMIN, IORBDB + LORBDBWORKOPT, IBBCSD + LBBCSDWORKMIN ) - 1;
+         WORK(1) = max(LWORKOPT,LWORKMIN);
 
          if ( LWORK < LWORKMIN && !LQUERY ) {
             INFO = -22;

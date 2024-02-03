@@ -30,7 +30,7 @@
       double             ANRM, BNRM, BIGNUM, EPS, RES, RES1, RMUL, SCALE, SCALE3, SMLNUM, TNRM, XNRM;
       // ..
       // .. Local Arrays ..
-      double             DUML( MAXM ), DUMR( MAXN ), D( MAX( MAXM, MAXN ) ), DUM( MAXN ), VM( 2 );
+      double             DUML( MAXM ), DUMR( MAXN ), D( max( MAXM, MAXN ) ), DUM( MAXN ), VM( 2 );
       int                ISEED( 4 ), IWORK( MAXM + MAXN + 2 );
       // ..
       // .. Allocatable Arrays ..
@@ -108,7 +108,7 @@
                   KUB = N - 1;
                   dlatmr(N, N, 'S', ISEED, 'N', D, 6, ONE, ONE, 'T', 'N', DUML, 1, ONE, DUMR, 1, ONE, 'N', IWORK, KLB, KUB, ZERO, ONE, 'NO', B, MAXN, IWORK, IINFO );
                   BNRM = DLANGE( 'M', N, N, B, MAXN, DUM );
-                  TNRM = MAX( ANRM, BNRM );
+                  TNRM = max( ANRM, BNRM );
                   dlatmr(M, N, 'S', ISEED, 'N', D, 6, ONE, ONE, 'T', 'N', DUML, 1, ONE, DUMR, 1, ONE, 'N', IWORK, M, N, ZERO, ONE, 'NO', C, MAXM, IWORK, IINFO );
                   for (ITRANA = 1; ITRANA <= 2; ITRANA++) {
                      if ( ITRANA == 1 ) {
@@ -134,13 +134,13 @@
                         RMUL = ONE;
                         if ( XNRM > ONE && TNRM > ONE ) {
                            if ( XNRM > BIGNUM / TNRM ) {
-                              RMUL = ONE / MAX( XNRM, TNRM );
+                              RMUL = ONE / max( XNRM, TNRM );
                            }
                         }
                         dgemm(TRANA, 'N', M, N, M, RMUL, A, MAXM, X, MAXM, -SCALE*RMUL, CC, MAXM );
                         dgemm('N', TRANB, M, N, N, DBLE( ISGN )*RMUL, X, MAXM, B, MAXN, ONE, CC, MAXM );
                         RES1 = DLANGE( 'M', M, N, CC, MAXM, DUM );
-                        RES = RES1 / MAX( SMLNUM, SMLNUM*XNRM, ( ( RMUL*TNRM )*EPS )*XNRM )                         IF( RES > THRESH ) NFAIL( 1 ) = NFAIL( 1 ) + 1                         IF( RES > RMAX( 1 ) ) RMAX( 1 ) = RES;
+                        RES = RES1 / max( SMLNUM, SMLNUM*XNRM, ( ( RMUL*TNRM )*EPS )*XNRM )                         IF( RES > THRESH ) NFAIL( 1 ) = NFAIL( 1 ) + 1                         IF( RES > RMAX( 1 ) ) RMAX( 1 ) = RES;
 
                         dlacpy('All', M, N, C, MAXM, X, MAXM );
                         dlacpy('All', M, N, C, MAXM, CC, MAXM );
@@ -150,13 +150,13 @@
                         RMUL = ONE;
                         if ( XNRM > ONE && TNRM > ONE ) {
                            if ( XNRM > BIGNUM / TNRM ) {
-                              RMUL = ONE / MAX( XNRM, TNRM );
+                              RMUL = ONE / max( XNRM, TNRM );
                            }
                         }
                         dgemm(TRANA, 'N', M, N, M, RMUL, A, MAXM, X, MAXM, -SCALE3*RMUL, CC, MAXM );
                         dgemm('N', TRANB, M, N, N, DBLE( ISGN )*RMUL, X, MAXM, B, MAXN, ONE, CC, MAXM );
                         RES1 = DLANGE( 'M', M, N, CC, MAXM, DUM );
-                        RES = RES1 / MAX( SMLNUM, SMLNUM*XNRM, ( ( RMUL*TNRM )*EPS )*XNRM );
+                        RES = RES1 / max( SMLNUM, SMLNUM*XNRM, ( ( RMUL*TNRM )*EPS )*XNRM );
                         // Verify that TRSYL3 only flushes if TRSYL flushes (but
                         // there may be cases where TRSYL3 avoid flushing).
                         if ( SCALE3 == ZERO && SCALE > ZERO || IINFO != INFO ) {

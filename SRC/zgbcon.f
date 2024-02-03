@@ -107,7 +107,7 @@
 
             if ( LNOTI ) {
                for (J = 1; J <= N - 1; J++) { // 20
-                  LM = MIN( KL, N-J );
+                  LM = min( KL, N-J );
                   JP = IPIV( J );
                   T = WORK( JP );
                   if ( JP != J ) {
@@ -131,7 +131,7 @@
 
             if ( LNOTI ) {
                DO 30 J = N - 1, 1, -1;
-                  LM = MIN( KL, N-J );
+                  LM = min( KL, N-J );
                   WORK( J ) = WORK( J ) - ZDOTC( LM, AB( KD+1, J ), 1, WORK( J+1 ), 1 );
                   JP = IPIV( J );
                   if ( JP != J ) {

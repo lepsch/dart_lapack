@@ -29,7 +29,7 @@
       EPS = SLAMCH( 'Epsilon' );
       if ( RCOND > ZERO ) {
          if ( RCONDC > ZERO ) {
-            RAT = MAX( RCOND, RCONDC ) / MIN( RCOND, RCONDC ) - ( ONE-EPS );
+            RAT = max( RCOND, RCONDC ) / min( RCOND, RCONDC ) - ( ONE-EPS );
          } else {
             RAT = RCOND / EPS;
          }

@@ -61,15 +61,15 @@
          INFO = -3;
       } else if ( N < 0 ) {
          INFO = -4;
-      } else if ( LDA < MAX( 1, N ) ) {
+      } else if ( LDA < max( 1, N ) ) {
          INFO = -6;
       } else {
          if ( VALEIG ) {
             if (N > 0 && VU <= VL) INFO = -8;
          } else if ( INDEIG ) {
-            if ( IL < 1 || IL > MAX( 1, N ) ) {
+            if ( IL < 1 || IL > max( 1, N ) ) {
                INFO = -9;
-            } else if ( IU < MIN( N, IL ) || IU > N ) {
+            } else if ( IU < min( N, IL ) || IU > N ) {
                INFO = -10;
             }
          }
@@ -87,8 +87,8 @@
          } else {
             LWKMIN = 2*N;
             NB = ILAENV( 1, 'ZHETRD', UPLO, N, -1, -1, -1 );
-            NB = MAX( NB, ILAENV( 1, 'ZUNMTR', UPLO, N, -1, -1, -1 ) );
-            LWKOPT = MAX( 1, ( NB + 1 )*N );
+            NB = max( NB, ILAENV( 1, 'ZUNMTR', UPLO, N, -1, -1, -1 ) );
+            LWKOPT = max( 1, ( NB + 1 )*N );
             WORK( 1 ) = LWKOPT;
          }
 
@@ -129,8 +129,8 @@
       EPS = DLAMCH( 'Precision' );
       SMLNUM = SAFMIN / EPS;
       BIGNUM = ONE / SMLNUM;
-      RMIN = SQRT( SMLNUM );
-      RMAX = MIN( SQRT( BIGNUM ), ONE / SQRT( SQRT( SAFMIN ) ) );
+      RMIN = sqrt( SMLNUM );
+      RMAX = min( sqrt( BIGNUM ), ONE / sqrt( sqrt( SAFMIN ) ) );
 
       // Scale matrix to allowable range, if necessary.
 

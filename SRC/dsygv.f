@@ -51,16 +51,16 @@
          INFO = -3;
       } else if ( N < 0 ) {
          INFO = -4;
-      } else if ( LDA < MAX( 1, N ) ) {
+      } else if ( LDA < max( 1, N ) ) {
          INFO = -6;
-      } else if ( LDB < MAX( 1, N ) ) {
+      } else if ( LDB < max( 1, N ) ) {
          INFO = -8;
       }
 
       if ( INFO == 0 ) {
-         LWKMIN = MAX( 1, 3*N - 1 );
+         LWKMIN = max( 1, 3*N - 1 );
          NB = ILAENV( 1, 'DSYTRD', UPLO, N, -1, -1, -1 );
-         LWKOPT = MAX( LWKMIN, ( NB + 2 )*N );
+         LWKOPT = max( LWKMIN, ( NB + 2 )*N );
          WORK( 1 ) = LWKOPT;
 
          if ( LWORK < LWKMIN && !LQUERY ) {

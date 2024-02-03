@@ -92,12 +92,12 @@
 
       for (IN = 1; IN <= NN; IN++) { // 110
          N = NVAL( IN );
-         LDA = MAX( N, 1 );
+         LDA = max( N, 1 );
          XTYPE = 'N';
 
          // Set limits on the number of loop iterations.
 
-         NKD = MAX( 1, MIN( N, 4 ) );
+         NKD = max( 1, min( N, 4 ) );
          NIMAT = NTYPES;
          if (N == 0) NIMAT = 1;
 
@@ -121,7 +121,7 @@
                if ( IUPLO == 1 ) {
                   UPLO = 'U';
                   PACKIT = 'Q';
-                  KOFF = MAX( 1, KD+2-N );
+                  KOFF = max( 1, KD+2-N );
                } else {
                   UPLO = 'L';
                   PACKIT = 'B';
@@ -164,10 +164,10 @@
                         IOFF = ( IZERO-1 )*LDAB + KD + 1;
                         ccopy(IZERO-I1, WORK( IW ), 1, A( IOFF-IZERO+I1 ), 1 );
                         IW = IW + IZERO - I1;
-                        ccopy(I2-IZERO+1, WORK( IW ), 1, A( IOFF ), MAX( LDAB-1, 1 ) );
+                        ccopy(I2-IZERO+1, WORK( IW ), 1, A( IOFF ), max( LDAB-1, 1 ) );
                      } else {
                         IOFF = ( I1-1 )*LDAB + 1;
-                        ccopy(IZERO-I1, WORK( IW ), 1, A( IOFF+IZERO-I1 ), MAX( LDAB-1, 1 ) );
+                        ccopy(IZERO-I1, WORK( IW ), 1, A( IOFF+IZERO-I1 ), max( LDAB-1, 1 ) );
                         IOFF = ( IZERO-1 )*LDAB + 1;
                         IW = IW + IZERO - I1;
                         ccopy(I2-IZERO+1, WORK( IW ), 1, A( IOFF ), 1 );
@@ -190,21 +190,21 @@
                      // Save the zeroed out row and column in WORK(*,3)
 
                      IW = 2*LDA;
-                     DO 20 I = 1, MIN( 2*KD+1, N );
+                     DO 20 I = 1, min( 2*KD+1, N );
                         WORK( IW+I ) = ZERO;
                      } // 20
                      IW = IW + 1;
-                     I1 = MAX( IZERO-KD, 1 );
-                     I2 = MIN( IZERO+KD, N );
+                     I1 = max( IZERO-KD, 1 );
+                     I2 = min( IZERO+KD, N );
 
                      if ( IUPLO == 1 ) {
                         IOFF = ( IZERO-1 )*LDAB + KD + 1;
                         cswap(IZERO-I1, A( IOFF-IZERO+I1 ), 1, WORK( IW ), 1 );
                         IW = IW + IZERO - I1;
-                        cswap(I2-IZERO+1, A( IOFF ), MAX( LDAB-1, 1 ), WORK( IW ), 1 );
+                        cswap(I2-IZERO+1, A( IOFF ), max( LDAB-1, 1 ), WORK( IW ), 1 );
                      } else {
                         IOFF = ( I1-1 )*LDAB + 1;
-                        cswap(IZERO-I1, A( IOFF+IZERO-I1 ), MAX( LDAB-1, 1 ), WORK( IW ), 1 );
+                        cswap(IZERO-I1, A( IOFF+IZERO-I1 ), max( LDAB-1, 1 ), WORK( IW ), 1 );
                         IOFF = ( IZERO-1 )*LDAB + 1;
                         IW = IW + IZERO - I1;
                         cswap(I2-IZERO+1, A( IOFF ), 1, WORK( IW ), 1 );

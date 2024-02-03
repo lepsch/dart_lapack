@@ -55,7 +55,7 @@
          INFO = -2;
       } else if ( N < 0 ) {
          INFO = -3;
-      } else if ( LDA < MAX( 1, N ) ) {
+      } else if ( LDA < max( 1, N ) ) {
          INFO = -5;
       }
 
@@ -73,7 +73,7 @@
                LIWMIN = 1;
                LWMIN = 2*N + 1;
             }
-            LOPT = MAX( LWMIN, 2*N + N*ILAENV( 1, 'DSYTRD', UPLO, N, -1, -1, -1 ) );
+            LOPT = max( LWMIN, 2*N + N*ILAENV( 1, 'DSYTRD', UPLO, N, -1, -1, -1 ) );
             LIOPT = LIWMIN;
          }
          WORK( 1 ) = LOPT;
@@ -109,8 +109,8 @@
       EPS = DLAMCH( 'Precision' );
       SMLNUM = SAFMIN / EPS;
       BIGNUM = ONE / SMLNUM;
-      RMIN = SQRT( SMLNUM );
-      RMAX = SQRT( BIGNUM );
+      RMIN = sqrt( SMLNUM );
+      RMAX = sqrt( BIGNUM );
 
       // Scale matrix to allowable range, if necessary.
 

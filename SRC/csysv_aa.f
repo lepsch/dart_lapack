@@ -43,11 +43,11 @@
          INFO = -2;
       } else if ( NRHS < 0 ) {
          INFO = -3;
-      } else if ( LDA < MAX( 1, N ) ) {
+      } else if ( LDA < max( 1, N ) ) {
          INFO = -5;
-      } else if ( LDB < MAX( 1, N ) ) {
+      } else if ( LDB < max( 1, N ) ) {
          INFO = -8;
-      } else if ( LWORK < MAX(2*N, 3*N-2) && !LQUERY ) {
+      } else if ( LWORK < max(2*N, 3*N-2) && !LQUERY ) {
          INFO = -10;
       }
 
@@ -56,7 +56,7 @@
          LWKOPT_SYTRF = INT( WORK(1) );
          csytrs_aa(UPLO, N, NRHS, A, LDA, IPIV, B, LDB, WORK, -1, INFO );
          LWKOPT_SYTRS = INT( WORK(1) );
-         LWKOPT = MAX( LWKOPT_SYTRF, LWKOPT_SYTRS );
+         LWKOPT = max( LWKOPT_SYTRF, LWKOPT_SYTRS );
          WORK( 1 ) = SROUNDUP_LWORK(LWKOPT);
       }
 

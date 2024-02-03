@@ -43,7 +43,7 @@
          INFO = -1;
       } else if ( N < K ) {
          INFO = -2;
-      } else if ( LDQ < MAX( 1, N ) ) {
+      } else if ( LDQ < max( 1, N ) ) {
          INFO = -6;
       }
       if ( INFO != 0 ) {
@@ -93,7 +93,7 @@
          } // 50
       } // 60
       for (I = 1; I <= K; I++) { // 70
-         W( I ) = SIGN( SQRT( -W( I ) ), S( I ) );
+         W( I ) = SIGN( sqrt( -W( I ) ), S( I ) );
       } // 70
 
       // Compute eigenvectors of the modified rank-1 modification.

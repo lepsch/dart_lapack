@@ -79,15 +79,15 @@
 
          // Compute QR factorization of X
 
-         cgeqr2(M, N+NRHS, WORK, LDWORK, WORK( LDWORK*( N+NRHS )+1 ), WORK( LDWORK*( N+NRHS )+MIN( M, N+NRHS )+1 ), INFO );
+         cgeqr2(M, N+NRHS, WORK, LDWORK, WORK( LDWORK*( N+NRHS )+1 ), WORK( LDWORK*( N+NRHS )+min( M, N+NRHS )+1 ), INFO );
 
          // Compute largest entry in upper triangle of
          // work(n+1:m,n+1:n+nrhs)
 
          ERR = ZERO;
          for (J = N + 1; J <= N + NRHS; J++) { // 20
-            DO 10 I = N + 1, MIN( M, J );
-               ERR = MAX( ERR, ABS( WORK( I+( J-1 )*M ) ) );
+            DO 10 I = N + 1, min( M, J );
+               ERR = max( ERR, ABS( WORK( I+( J-1 )*M ) ) );
             } // 10
          } // 20
 
@@ -114,13 +114,13 @@
          ERR = ZERO;
          for (J = M + 1; J <= N; J++) { // 60
             for (I = J; I <= LDWORK; I++) { // 50
-               ERR = MAX( ERR, ABS( WORK( I+( J-1 )*LDWORK ) ) );
+               ERR = max( ERR, ABS( WORK( I+( J-1 )*LDWORK ) ) );
             } // 50
          } // 60
 
       }
 
-      CQRT14 = ERR / ( REAL( MAX( M, N, NRHS ) )*SLAMCH( 'Epsilon' ) );
+      CQRT14 = ERR / ( REAL( max( M, N, NRHS ) )*SLAMCH( 'Epsilon' ) );
 
       return;
 

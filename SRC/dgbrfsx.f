@@ -131,9 +131,9 @@
         INFO = -8;
       } else if ( LDAFB < 2*KL+KU+1 ) {
         INFO = -10;
-      } else if ( LDB < MAX( 1, N ) ) {
+      } else if ( LDB < max( 1, N ) ) {
         INFO = -13;
-      } else if ( LDX < MAX( 1, N ) ) {
+      } else if ( LDX < max( 1, N ) ) {
         INFO = -15;
       }
       if ( INFO != 0 ) {
@@ -206,7 +206,7 @@
          }
       }
 
-      ERR_LBND = MAX( 10.0, SQRT( DBLE( N ) ) ) * DLAMCH( 'Epsilon' );
+      ERR_LBND = max( 10.0, sqrt( DBLE( N ) ) ) * DLAMCH( 'Epsilon' );
       if ( N_ERR_BNDS >= 1 && N_NORMS >= 1 ) {
 
       // Compute scaled normwise condition number cond(A*C).
@@ -254,7 +254,7 @@
       // the inverse condition number is set to 0.0 when the estimated
       // cwise error is at least CWISE_WRONG.
 
-         CWISE_WRONG = SQRT( DLAMCH( 'Epsilon' ) );
+         CWISE_WRONG = sqrt( DLAMCH( 'Epsilon' ) );
          for (J = 1; J <= NRHS; J++) {
             if ( ERR_BNDS_COMP( J, LA_LINRX_ERR_I ) < CWISE_WRONG ) {
                RCOND_TMP = DLA_GBRCOND( TRANS, N, KL, KU, AB, LDAB, AFB, LDAFB, IPIV, 1, X( 1, J ), INFO, WORK, IWORK );

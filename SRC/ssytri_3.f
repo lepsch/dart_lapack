@@ -44,7 +44,7 @@
       if ( N == 0 ) {
          LWKOPT = 1;
       } else {
-         NB = MAX( 1, ILAENV( 1, 'SSYTRI_3', UPLO, N, -1, -1, -1 ) );
+         NB = max( 1, ILAENV( 1, 'SSYTRI_3', UPLO, N, -1, -1, -1 ) );
          LWKOPT = ( N+NB+1 ) * ( NB+3 );
       }
       WORK( 1 ) = SROUNDUP_LWORK( LWKOPT );
@@ -53,7 +53,7 @@
          INFO = -1;
       } else if ( N < 0 ) {
          INFO = -2;
-      } else if ( LDA < MAX( 1, N ) ) {
+      } else if ( LDA < max( 1, N ) ) {
          INFO = -4;
       } else if ( LWORK < LWKOPT && !LQUERY ) {
          INFO = -8;

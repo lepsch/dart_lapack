@@ -55,11 +55,11 @@
          INFO = -3;
       } else if ( N < 0 ) {
          INFO = -4;
-      } else if ( K < 0 || K > MAX( MU, MV ) ) {
+      } else if ( K < 0 || K > max( MU, MV ) ) {
          INFO = -5;
-      } else if ( ( IRC == 0 && LDU < MAX( 1, MU ) ) || ( IRC == 1 && LDU < MAX( 1, N ) ) ) {
+      } else if ( ( IRC == 0 && LDU < max( 1, MU ) ) || ( IRC == 1 && LDU < max( 1, N ) ) ) {
          INFO = -7;
-      } else if ( ( IRC == 0 && LDV < MAX( 1, MV ) ) || ( IRC == 1 && LDV < MAX( 1, N ) ) ) {
+      } else if ( ( IRC == 0 && LDV < max( 1, MV ) ) || ( IRC == 1 && LDV < max( 1, N ) ) ) {
          INFO = -9;
       }
       if ( INFO != 0 ) {
@@ -85,7 +85,7 @@
             LMX = ISAMAX( N, U( I, 1 ), LDU );
             S = SIGN( ONE, U( I, LMX ) )*SIGN( ONE, V( I, LMX ) );
             for (J = 1; J <= N; J++) { // 10
-               RES1 = MAX( RES1, ABS( U( I, J )-S*V( I, J ) ) );
+               RES1 = max( RES1, ABS( U( I, J )-S*V( I, J ) ) );
             } // 10
          } // 20
          RES1 = RES1 / ( REAL( N )*ULP );
@@ -103,7 +103,7 @@
             LMX = ISAMAX( N, U( 1, I ), 1 );
             S = SIGN( ONE, U( LMX, I ) )*SIGN( ONE, V( LMX, I ) );
             for (J = 1; J <= N; J++) { // 30
-               RES1 = MAX( RES1, ABS( U( J, I )-S*V( J, I ) ) );
+               RES1 = max( RES1, ABS( U( J, I )-S*V( J, I ) ) );
             } // 30
          } // 40
          RES1 = RES1 / ( REAL( N )*ULP );
@@ -113,7 +113,7 @@
          sort01('Columns', N, MV, V, LDV, WORK, LWORK, RES2 );
       }
 
-      RESULT = MIN( MAX( RES1, RES2 ), ONE / ULP );
+      RESULT = min( max( RES1, RES2 ), ONE / ULP );
       return;
 
       // End of SORT03

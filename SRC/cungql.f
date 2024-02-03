@@ -44,7 +44,7 @@
          INFO = -2;
       } else if ( K < 0 || K > N ) {
          INFO = -3;
-      } else if ( LDA < MAX( 1, M ) ) {
+      } else if ( LDA < max( 1, M ) ) {
          INFO = -5;
       }
 
@@ -57,7 +57,7 @@
          }
          WORK( 1 ) = SROUNDUP_LWORK(LWKOPT);
 
-         if ( LWORK < MAX( 1, N ) && !LQUERY ) {
+         if ( LWORK < max( 1, N ) && !LQUERY ) {
             INFO = -8;
          }
       }
@@ -82,7 +82,7 @@
 
          // Determine when to cross over from blocked to unblocked code.
 
-         NX = MAX( 0, ILAENV( 3, 'CUNGQL', ' ', M, N, K, -1 ) );
+         NX = max( 0, ILAENV( 3, 'CUNGQL', ' ', M, N, K, -1 ) );
          if ( NX < K ) {
 
             // Determine if workspace is large enough for blocked code.
@@ -95,7 +95,7 @@
                // determine the minimum value of NB.
 
                NB = LWORK / LDWORK;
-               NBMIN = MAX( 2, ILAENV( 2, 'CUNGQL', ' ', M, N, K, -1 ) );
+               NBMIN = max( 2, ILAENV( 2, 'CUNGQL', ' ', M, N, K, -1 ) );
             }
          }
       }
@@ -105,7 +105,7 @@
          // Use blocked code after the first block.
          // The last kk columns are handled by the block method.
 
-         KK = MIN( K, ( ( K-NX+NB-1 ) / NB )*NB );
+         KK = min( K, ( ( K-NX+NB-1 ) / NB )*NB );
 
          // Set A(m-kk+1:m,1:n-kk) to zero.
 
@@ -127,7 +127,7 @@
          // Use blocked code
 
          DO 50 I = K - KK + 1, K, NB;
-            IB = MIN( NB, K-I+1 );
+            IB = min( NB, K-I+1 );
             if ( N-K+I > 1 ) {
 
                // Form the triangular factor of the block reflector

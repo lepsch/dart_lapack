@@ -74,31 +74,31 @@
          for (I = 1; I <= N; I++) {
             TMP = 0.0;
             if ( CAPPLY ) {
-               DO J = MAX( I-KL, 1 ), MIN( I+KU, N );
+               DO J = max( I-KL, 1 ), min( I+KU, N );
                   TMP = TMP + CABS1( AB( KD+I-J, J ) ) / C( J );
                }
             } else {
-               DO J = MAX( I-KL, 1 ), MIN( I+KU, N );
+               DO J = max( I-KL, 1 ), min( I+KU, N );
                   TMP = TMP + CABS1( AB( KD+I-J, J ) );
                }
             }
             RWORK( I ) = TMP;
-            ANORM = MAX( ANORM, TMP );
+            ANORM = max( ANORM, TMP );
          }
       } else {
          for (I = 1; I <= N; I++) {
             TMP = 0.0;
             if ( CAPPLY ) {
-               DO J = MAX( I-KL, 1 ), MIN( I+KU, N );
+               DO J = max( I-KL, 1 ), min( I+KU, N );
                   TMP = TMP + CABS1( AB( KE-I+J, I ) ) / C( J );
                }
             } else {
-               DO J = MAX( I-KL, 1 ), MIN( I+KU, N );
+               DO J = max( I-KL, 1 ), min( I+KU, N );
                   TMP = TMP + CABS1( AB( KE-I+J, I ) );
                }
             }
             RWORK( I ) = TMP;
-            ANORM = MAX( ANORM, TMP );
+            ANORM = max( ANORM, TMP );
          }
       }
 

@@ -42,7 +42,7 @@
          INFO = -1;
       } else if ( N < 0 ) {
          INFO = -2;
-      } else if ( LDA < MAX( 1, N ) ) {
+      } else if ( LDA < max( 1, N ) ) {
          INFO = -4;
       } else if ( LWORK < 1 && !LQUERY ) {
          INFO = -7;
@@ -53,7 +53,7 @@
          // Determine the block size
 
          NB = ILAENV( 1, 'CSYTRF', UPLO, N, -1, -1, -1 );
-         LWKOPT = MAX( 1, N*NB );
+         LWKOPT = max( 1, N*NB );
          WORK( 1 ) = SROUNDUP_LWORK(LWKOPT);
       }
 
@@ -69,8 +69,8 @@
       if ( NB > 1 && NB < N ) {
          IWS = LDWORK*NB;
          if ( LWORK < IWS ) {
-            NB = MAX( LWORK / LDWORK, 1 );
-            NBMIN = MAX( 2, ILAENV( 2, 'CSYTRF', UPLO, N, -1, -1, -1 ) );
+            NB = max( LWORK / LDWORK, 1 );
+            NBMIN = max( 2, ILAENV( 2, 'CSYTRF', UPLO, N, -1, -1, -1 ) );
          }
       } else {
          IWS = 1;

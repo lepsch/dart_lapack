@@ -38,7 +38,7 @@
 
       // Scale A
 
-      ANORM = MAX( ABS( A( 1, 1 ) )+ABS( A( 2, 1 ) ), ABS( A( 1, 2 ) )+ABS( A( 2, 2 ) ), SAFMIN );
+      ANORM = max( ABS( A( 1, 1 ) )+ABS( A( 2, 1 ) ), ABS( A( 1, 2 ) )+ABS( A( 2, 2 ) ), SAFMIN );
       ASCALE = ONE / ANORM;
       A( 1, 1 ) = ASCALE*A( 1, 1 );
       A( 1, 2 ) = ASCALE*A( 1, 2 );
@@ -47,7 +47,7 @@
 
       // Scale B
 
-      BNORM = MAX( ABS( B( 1, 1 ) ), ABS( B( 1, 2 ) )+ABS( B( 2, 2 ) ), SAFMIN );
+      BNORM = max( ABS( B( 1, 1 ) ), ABS( B( 1, 2 ) )+ABS( B( 2, 2 ) ), SAFMIN );
       BSCALE = ONE / BNORM;
       B( 1, 1 ) = BSCALE*B( 1, 1 );
       B( 1, 2 ) = BSCALE*B( 1, 2 );
@@ -128,7 +128,7 @@
 
             // compute inf norms of A and B
 
-            H1 = MAX( ABS( A( 1, 1 ) )+ABS( A( 1, 2 ) ), ABS( A( 2, 1 ) )+ABS( A( 2, 2 ) ) )             H2 = MAX( ABS( B( 1, 1 ) )+ABS( B( 1, 2 ) ), ABS( B( 2, 1 ) )+ABS( B( 2, 2 ) ) );
+            H1 = max( ABS( A( 1, 1 ) )+ABS( A( 1, 2 ) ), ABS( A( 2, 1 ) )+ABS( A( 2, 2 ) ) )             H2 = max( ABS( B( 1, 1 ) )+ABS( B( 1, 2 ) ), ABS( B( 2, 1 ) )+ABS( B( 2, 2 ) ) );
 
             if ( ( SCALE1*H1 ) >= ABS( WR1 )*H2 ) {
 

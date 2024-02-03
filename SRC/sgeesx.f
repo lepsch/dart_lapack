@@ -66,7 +66,7 @@
          INFO = -4;
       } else if ( N < 0 ) {
          INFO = -5;
-      } else if ( LDA < MAX( 1, N ) ) {
+      } else if ( LDA < max( 1, N ) ) {
          INFO = -7;
       } else if ( LDVS < 1 || ( WANTVS && LDVS < N ) ) {
          INFO = -12;
@@ -99,13 +99,13 @@
             HSWORK = INT( WORK( 1 ) );
 
             if ( !WANTVS ) {
-               MAXWRK = MAX( MAXWRK, N + HSWORK );
+               MAXWRK = max( MAXWRK, N + HSWORK );
             } else {
-               MAXWRK = MAX( MAXWRK, 2*N + ( N - 1 )*ILAENV( 1, 'SORGHR', ' ', N, 1, N, -1 ) );
-               MAXWRK = MAX( MAXWRK, N + HSWORK );
+               MAXWRK = max( MAXWRK, 2*N + ( N - 1 )*ILAENV( 1, 'SORGHR', ' ', N, 1, N, -1 ) );
+               MAXWRK = max( MAXWRK, N + HSWORK );
             }
             LWRK = MAXWRK;
-            if ( !WANTSN) LWRK = MAX( LWRK, N + ( N*N )/2 );
+            if ( !WANTSN) LWRK = max( LWRK, N + ( N*N )/2 );
             IF( WANTSV || WANTSB ) LIWRK = ( N*N )/4;
          }
          IWORK( 1 ) = LIWRK;
@@ -137,7 +137,7 @@
       EPS = SLAMCH( 'P' );
       SMLNUM = SLAMCH( 'S' );
       BIGNUM = ONE / SMLNUM;
-      SMLNUM = SQRT( SMLNUM ) / EPS;
+      SMLNUM = sqrt( SMLNUM ) / EPS;
       BIGNUM = ONE / SMLNUM;
 
       // Scale A if max element outside range [SMLNUM,BIGNUM]
@@ -205,7 +205,7 @@
                       // otherwise, need 0 )
 
          strsen(SENSE, JOBVS, BWORK, N, A, LDA, VS, LDVS, WR, WI, SDIM, RCONDE, RCONDV, WORK( IWRK ), LWORK-IWRK+1, IWORK, LIWORK, ICOND );
-         if ( !WANTSN) MAXWRK = MAX( MAXWRK, N+2*SDIM*( N-SDIM ) );
+         if ( !WANTSN) MAXWRK = max( MAXWRK, N+2*SDIM*( N-SDIM ) );
          if ( ICOND == -15 ) {
 
             // Not enough real workspace
@@ -284,7 +284,7 @@
                }
             } // 20
          }
-         slascl('G', 0, 0, CSCALE, ANRM, N-IEVAL, 1, WI( IEVAL+1 ), MAX( N-IEVAL, 1 ), IERR );
+         slascl('G', 0, 0, CSCALE, ANRM, N-IEVAL, 1, WI( IEVAL+1 ), max( N-IEVAL, 1 ), IERR );
       }
 
       if ( WANTST && INFO == 0 ) {

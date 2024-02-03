@@ -36,13 +36,13 @@
       LQUERY = ( LWORK == -1 );
       if ( N < 0 ) {
          INFO = -3;
-      } else if ( LDA < MAX( 1, N ) ) {
+      } else if ( LDA < max( 1, N ) ) {
          INFO = -5;
-      } else if ( LDB < MAX( 1, N ) ) {
+      } else if ( LDB < max( 1, N ) ) {
          INFO = -7;
-      } else if ( LDQ < 1 || WANTQ && ( LDQ < MAX( 1, N ) ) ) {
+      } else if ( LDQ < 1 || WANTQ && ( LDQ < max( 1, N ) ) ) {
          INFO = -9;
-      } else if ( LDZ < 1 || WANTZ && ( LDZ < MAX( 1, N ) ) ) {
+      } else if ( LDZ < 1 || WANTZ && ( LDZ < max( 1, N ) ) ) {
          INFO = -11;
       } else if ( IFST < 1 || IFST > N ) {
          INFO = -12;

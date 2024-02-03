@@ -50,16 +50,16 @@
          INFO = -2;
       } else if ( N < 0 ) {
          INFO = -3;
-      } else if ( LDA < MAX( 1, N ) ) {
+      } else if ( LDA < max( 1, N ) ) {
          INFO = -5;
       }
 
       if ( INFO == 0 ) {
          NB = ILAENV( 1, 'SSYTRD', UPLO, N, -1, -1, -1 );
-         LWKOPT = MAX( 1, ( NB+2 )*N );
+         LWKOPT = max( 1, ( NB+2 )*N );
          WORK( 1 ) = SROUNDUP_LWORK(LWKOPT);
 
-         if( LWORK < MAX( 1, 3*N-1 ) && !LQUERY ) INFO = -8;
+         if( LWORK < max( 1, 3*N-1 ) && !LQUERY ) INFO = -8;
       }
 
       if ( INFO != 0 ) {
@@ -88,8 +88,8 @@
       EPS = SLAMCH( 'Precision' );
       SMLNUM = SAFMIN / EPS;
       BIGNUM = ONE / SMLNUM;
-      RMIN = SQRT( SMLNUM );
-      RMAX = SQRT( BIGNUM );
+      RMIN = sqrt( SMLNUM );
+      RMAX = sqrt( BIGNUM );
 
       // Scale matrix to allowable range, if necessary.
 

@@ -36,7 +36,7 @@
 
       LQUERY = ( LWORK == -1 );
 
-      MINMN = MIN( M, N );
+      MINMN = min( M, N );
       if ( MINMN == 0 ) {
          LWMIN = 1;
       } else {
@@ -51,7 +51,7 @@
         INFO = -3;
       } else if ( NB < 0 ) {
         INFO = -4;
-      } else if ( LDA < MAX( 1, M ) ) {
+      } else if ( LDA < max( 1, M ) ) {
         INFO = -6;
       } else if ( LDT < MB ) {
         INFO = -8;

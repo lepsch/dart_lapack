@@ -51,7 +51,7 @@
 
       // Set up test case parameters
 
-      VM1( 1 ) = SQRT( SMLNUM );
+      VM1( 1 ) = sqrt( SMLNUM );
       VM1( 2 ) = ONE;
       VM1( 3 ) = LARGE;
       VM2( 1 ) = ONE;
@@ -92,15 +92,15 @@
                            for (I = 1; I <= M; I++) { // 60
                               for (J = 1; J <= M; J++) { // 50
                                  A( I, J ) = ATMP( I, J )*VM1( IMLA );
-                                 TNRM = MAX( TNRM, ABS( A( I, J ) ) );
+                                 TNRM = max( TNRM, ABS( A( I, J ) ) );
                               } // 50
                               A( I, I ) = A( I, I )*VM2( IMLAD );
-                              TNRM = MAX( TNRM, ABS( A( I, I ) ) );
+                              TNRM = max( TNRM, ABS( A( I, I ) ) );
                            } // 60
                            for (I = 1; I <= N; I++) { // 80
                               for (J = 1; J <= N; J++) { // 70
                                  B( I, J ) = BTMP( I, J )*VM1( IMLB );
-                                 TNRM = MAX( TNRM, ABS( B( I, J ) ) );
+                                 TNRM = max( TNRM, ABS( B( I, J ) ) );
                               } // 70
                            } // 80
                            if (TNRM == ZERO) TNRM = ONE;
@@ -117,14 +117,14 @@
                            RMUL = CONE;
                            if ( XNRM > ONE && TNRM > ONE ) {
                               if ( XNRM > BIGNUM / TNRM ) {
-                                 RMUL = MAX( XNRM, TNRM );
+                                 RMUL = max( XNRM, TNRM );
                                  RMUL = CONE / RMUL;
                               }
                            }
                            cgemm(TRANA, 'N', M, N, M, RMUL, A, LDT, C, LDT, -SCALE*RMUL, CSAV, LDT );
                            cgemm('N', TRANB, M, N, N, REAL( ISGN )*RMUL, C, LDT, B, LDT, CONE, CSAV, LDT );
                            RES1 = CLANGE( 'M', M, N, CSAV, LDT, DUM );
-                           RES = RES1 / MAX( SMLNUM, SMLNUM*XNRM, ( ( ABS( RMUL )*TNRM )*EPS )*XNRM );
+                           RES = RES1 / max( SMLNUM, SMLNUM*XNRM, ( ( ABS( RMUL )*TNRM )*EPS )*XNRM );
                            if ( RES > RMAX ) {
                               LMAX = KNT;
                               RMAX = RES;

@@ -50,7 +50,7 @@
 
          // Presumably, I=1 upon entry
 
-         SIGMA = SQRT( D( 1 )*D( 1 )+RHO*Z( 1 )*Z( 1 ) );
+         SIGMA = sqrt( D( 1 )*D( 1 )+RHO*Z( 1 )*Z( 1 ) );
          DELTA( 1 ) = ONE;
          WORK( 1 ) = ONE;
          return;
@@ -82,7 +82,7 @@
          // If ||Z||_2 is not one, then TEMP should be set to
          // RHO * ||Z||_2^2 / TWO
 
-         TEMP1 = TEMP / ( D( N )+SQRT( D( N )*D( N )+TEMP ) );
+         TEMP1 = TEMP / ( D( N )+sqrt( D( N )*D( N )+TEMP ) );
          for (J = 1; J <= N; J++) { // 10
             WORK( J ) = D( J ) + D( N ) + TEMP1;
             DELTA( J ) = ( D( J )-D( N ) ) - TEMP1;
@@ -97,7 +97,7 @@
          W = C + Z( II )*Z( II ) / ( DELTA( II )*WORK( II ) ) + Z( N )*Z( N ) / ( DELTA( N )*WORK( N ) );
 
          if ( W <= ZERO ) {
-            TEMP1 = SQRT( D( N )*D( N )+RHO );
+            TEMP1 = sqrt( D( N )*D( N )+RHO );
             TEMP = Z( N-1 )*Z( N-1 ) / ( ( D( N-1 )+TEMP1 )* ( D( N )-D( N-1 )+RHO / ( D( N )+TEMP1 ) ) ) + Z( N )*Z( N ) / RHO;
 
             // The following TAU2 is to approximate
@@ -110,11 +110,11 @@
                A = -C*DELSQ + Z( N-1 )*Z( N-1 ) + Z( N )*Z( N );
                B = Z( N )*Z( N )*DELSQ;
                if ( A < ZERO ) {
-                  TAU2 = TWO*B / ( SQRT( A*A+FOUR*B*C )-A );
+                  TAU2 = TWO*B / ( sqrt( A*A+FOUR*B*C )-A );
                } else {
-                  TAU2 = ( A+SQRT( A*A+FOUR*B*C ) ) / ( TWO*C );
+                  TAU2 = ( A+sqrt( A*A+FOUR*B*C ) ) / ( TWO*C );
                }
-               TAU = TAU2 / ( D( N )+SQRT( D( N )*D( N )+TAU2 ) );
+               TAU = TAU2 / ( D( N )+sqrt( D( N )*D( N )+TAU2 ) );
             }
 
             // It can be proved that
@@ -129,11 +129,11 @@
             // SIGMA_n^2 - D( N )*D( N )
 
             if ( A < ZERO ) {
-               TAU2 = TWO*B / ( SQRT( A*A+FOUR*B*C )-A );
+               TAU2 = TWO*B / ( sqrt( A*A+FOUR*B*C )-A );
             } else {
-               TAU2 = ( A+SQRT( A*A+FOUR*B*C ) ) / ( TWO*C );
+               TAU2 = ( A+sqrt( A*A+FOUR*B*C ) ) / ( TWO*C );
             }
-            TAU = TAU2 / ( D( N )+SQRT( D( N )*D( N )+TAU2 ) );
+            TAU = TAU2 / ( D( N )+sqrt( D( N )*D( N )+TAU2 ) );
 
 
             // It can be proved that
@@ -143,7 +143,7 @@
 
          // The following TAU is to approximate SIGMA_n - D( N )
 
-          // TAU = TAU2 / ( D( N )+SQRT( D( N )*D( N )+TAU2 ) )
+          // TAU = TAU2 / ( D( N )+sqrt( D( N )*D( N )+TAU2 ) )
 
          SIGMA = D( N ) + TAU;
          for (J = 1; J <= N; J++) { // 30
@@ -192,9 +192,9 @@
          if ( C == ZERO ) {
             ETA = RHO - SIGMA*SIGMA;
          } else if ( A >= ZERO ) {
-            ETA = ( A+SQRT( ABS( A*A-FOUR*B*C ) ) ) / ( TWO*C );
+            ETA = ( A+sqrt( ABS( A*A-FOUR*B*C ) ) ) / ( TWO*C );
          } else {
-            ETA = TWO*B / ( A-SQRT( ABS( A*A-FOUR*B*C ) ) );
+            ETA = TWO*B / ( A-sqrt( ABS( A*A-FOUR*B*C ) ) );
          }
 
          // Note, eta should be positive if w is negative, and
@@ -207,7 +207,7 @@
          TEMP = ETA - DTNSQ;
          if (TEMP > RHO) ETA = RHO + DTNSQ;
 
-         ETA = ETA / ( SIGMA+SQRT( ETA+SIGMA*SIGMA ) );
+         ETA = ETA / ( SIGMA+sqrt( ETA+SIGMA*SIGMA ) );
          TAU = TAU + ETA;
          SIGMA = SIGMA + ETA;
 
@@ -260,9 +260,9 @@
             A = ( DTNSQ+DTNSQ1 )*W - DTNSQ1*DTNSQ*( DPSI+DPHI );
             B = DTNSQ1*DTNSQ*W;
             if ( A >= ZERO ) {
-               ETA = ( A+SQRT( ABS( A*A-FOUR*B*C ) ) ) / ( TWO*C );
+               ETA = ( A+sqrt( ABS( A*A-FOUR*B*C ) ) ) / ( TWO*C );
             } else {
-               ETA = TWO*B / ( A-SQRT( ABS( A*A-FOUR*B*C ) ) );
+               ETA = TWO*B / ( A-sqrt( ABS( A*A-FOUR*B*C ) ) );
             }
 
             // Note, eta should be positive if w is negative, and
@@ -275,7 +275,7 @@
             TEMP = ETA - DTNSQ;
             if (TEMP <= ZERO) ETA = ETA / TWO;
 
-            ETA = ETA / ( SIGMA+SQRT( ETA+SIGMA*SIGMA ) );
+            ETA = ETA / ( SIGMA+sqrt( ETA+SIGMA*SIGMA ) );
             TAU = TAU + ETA;
             SIGMA = SIGMA + ETA;
 
@@ -327,7 +327,7 @@
 
          DELSQ = ( D( IP1 )-D( I ) )*( D( IP1 )+D( I ) );
          DELSQ2 = DELSQ / TWO;
-         SQ2=SQRT( ( D( I )*D( I )+D( IP1 )*D( IP1 ) ) / TWO );
+         SQ2=sqrt( ( D( I )*D( I )+D( IP1 )*D( IP1 ) ) / TWO );
          TEMP = DELSQ2 / ( D( I )+SQ2 );
          for (J = 1; J <= N; J++) { // 100
             WORK( J ) = D( J ) + D( I ) + TEMP;
@@ -360,19 +360,19 @@
             A = C*DELSQ + Z( I )*Z( I ) + Z( IP1 )*Z( IP1 );
             B = Z( I )*Z( I )*DELSQ;
             if ( A > ZERO ) {
-               TAU2 = TWO*B / ( A+SQRT( ABS( A*A-FOUR*B*C ) ) );
+               TAU2 = TWO*B / ( A+sqrt( ABS( A*A-FOUR*B*C ) ) );
             } else {
-               TAU2 = ( A-SQRT( ABS( A*A-FOUR*B*C ) ) ) / ( TWO*C );
+               TAU2 = ( A-sqrt( ABS( A*A-FOUR*B*C ) ) ) / ( TWO*C );
             }
 
             // TAU2 now is an estimation of SIGMA^2 - D( I )^2. The
             // following, however, is the corresponding estimation of
             // SIGMA - D( I ).
 
-            TAU = TAU2 / ( D( I )+SQRT( D( I )*D( I )+TAU2 ) );
-            TEMP = SQRT(EPS);
+            TAU = TAU2 / ( D( I )+sqrt( D( I )*D( I )+TAU2 ) );
+            TEMP = sqrt(EPS);
             if ( (D(I) <= TEMP*D(IP1)) && (ABS(Z(I)) <= TEMP) && (D(I) > ZERO) ) {
-               TAU = MIN( TEN*D(I), SGUB );
+               TAU = min( TEN*D(I), SGUB );
                GEOMAVG = true;
             }
          } else {
@@ -388,16 +388,16 @@
             A = C*DELSQ - Z( I )*Z( I ) - Z( IP1 )*Z( IP1 );
             B = Z( IP1 )*Z( IP1 )*DELSQ;
             if ( A < ZERO ) {
-               TAU2 = TWO*B / ( A-SQRT( ABS( A*A+FOUR*B*C ) ) );
+               TAU2 = TWO*B / ( A-sqrt( ABS( A*A+FOUR*B*C ) ) );
             } else {
-               TAU2 = -( A+SQRT( ABS( A*A+FOUR*B*C ) ) ) / ( TWO*C );
+               TAU2 = -( A+sqrt( ABS( A*A+FOUR*B*C ) ) ) / ( TWO*C );
             }
 
             // TAU2 now is an estimation of SIGMA^2 - D( IP1 )^2. The
             // following, however, is the corresponding estimation of
             // SIGMA - D( IP1 ).
 
-            TAU = TAU2 / ( D( IP1 )+SQRT( ABS( D( IP1 )*D( IP1 )+ TAU2 ) ) );
+            TAU = TAU2 / ( D( IP1 )+sqrt( ABS( D( IP1 )*D( IP1 )+ TAU2 ) ) );
          }
 
          SIGMA = D( II ) + TAU;
@@ -459,9 +459,9 @@
          }
 
          if ( W <= ZERO ) {
-            SGLB = MAX( SGLB, TAU );
+            SGLB = max( SGLB, TAU );
          } else {
-            SGUB = MIN( SGUB, TAU );
+            SGUB = min( SGUB, TAU );
          }
 
          // Calculate the new step
@@ -487,9 +487,9 @@
                }
                ETA = B / A;
             } else if ( A <= ZERO ) {
-               ETA = ( A-SQRT( ABS( A*A-FOUR*B*C ) ) ) / ( TWO*C );
+               ETA = ( A-sqrt( ABS( A*A-FOUR*B*C ) ) ) / ( TWO*C );
             } else {
-               ETA = TWO*B / ( A+SQRT( ABS( A*A-FOUR*B*C ) ) );
+               ETA = TWO*B / ( A+sqrt( ABS( A*A-FOUR*B*C ) ) );
             }
          } else {
 
@@ -551,9 +551,9 @@
                   }
                   ETA = B / A;
                } else if ( A <= ZERO ) {
-                  ETA = ( A-SQRT( ABS( A*A-FOUR*B*C ) ) ) / ( TWO*C );
+                  ETA = ( A-sqrt( ABS( A*A-FOUR*B*C ) ) ) / ( TWO*C );
                } else {
-                  ETA = TWO*B / ( A+SQRT( ABS( A*A-FOUR*B*C ) ) );
+                  ETA = TWO*B / ( A+sqrt( ABS( A*A-FOUR*B*C ) ) );
                }
             }
          }
@@ -566,7 +566,7 @@
 
          if (W*ETA >= ZERO) ETA = -W / DW;
 
-         ETA = ETA / ( SIGMA+SQRT( SIGMA*SIGMA+ETA ) );
+         ETA = ETA / ( SIGMA+sqrt( SIGMA*SIGMA+ETA ) );
          TEMP = TAU + ETA;
          if ( TEMP > SGUB || TEMP < SGLB ) {
             if ( W < ZERO ) {
@@ -577,11 +577,11 @@
             if ( GEOMAVG ) {
                if ( W < ZERO ) {
                   if ( TAU > ZERO ) {
-                     ETA = SQRT(SGUB*TAU)-TAU;
+                     ETA = sqrt(SGUB*TAU)-TAU;
                   }
                } else {
                   if ( SGLB > ZERO ) {
-                     ETA = SQRT(SGLB*TAU)-TAU;
+                     ETA = sqrt(SGLB*TAU)-TAU;
                   }
                }
             }
@@ -650,9 +650,9 @@
             }
 
             if ( W <= ZERO ) {
-               SGLB = MAX( SGLB, TAU );
+               SGLB = max( SGLB, TAU );
             } else {
-               SGUB = MIN( SGUB, TAU );
+               SGUB = min( SGUB, TAU );
             }
 
             // Calculate the new step
@@ -691,9 +691,9 @@
                   }
                   ETA = B / A;
                } else if ( A <= ZERO ) {
-                  ETA = ( A-SQRT( ABS( A*A-FOUR*B*C ) ) ) / ( TWO*C );
+                  ETA = ( A-sqrt( ABS( A*A-FOUR*B*C ) ) ) / ( TWO*C );
                } else {
-                  ETA = TWO*B / ( A+SQRT( ABS( A*A-FOUR*B*C ) ) );
+                  ETA = TWO*B / ( A+sqrt( ABS( A*A-FOUR*B*C ) ) );
                }
             } else {
 
@@ -776,9 +776,9 @@
                      }
                      ETA = B / A;
                   } else if ( A <= ZERO ) {
-                     ETA = ( A-SQRT( ABS( A*A-FOUR*B*C ) ) ) / ( TWO*C );
+                     ETA = ( A-sqrt( ABS( A*A-FOUR*B*C ) ) ) / ( TWO*C );
                   } else {
-                     ETA = TWO*B / ( A+SQRT( ABS( A*A-FOUR*B*C ) ) );
+                     ETA = TWO*B / ( A+sqrt( ABS( A*A-FOUR*B*C ) ) );
                   }
                }
             }
@@ -791,7 +791,7 @@
 
             if (W*ETA >= ZERO) ETA = -W / DW;
 
-            ETA = ETA / ( SIGMA+SQRT( SIGMA*SIGMA+ETA ) );
+            ETA = ETA / ( SIGMA+sqrt( SIGMA*SIGMA+ETA ) );
             TEMP=TAU+ETA;
             if ( TEMP > SGUB || TEMP < SGLB ) {
                if ( W < ZERO ) {
@@ -802,11 +802,11 @@
                if ( GEOMAVG ) {
                   if ( W < ZERO ) {
                      if ( TAU > ZERO ) {
-                        ETA = SQRT(SGUB*TAU)-TAU;
+                        ETA = sqrt(SGUB*TAU)-TAU;
                      }
                   } else {
                      if ( SGLB > ZERO ) {
-                        ETA = SQRT(SGLB*TAU)-TAU;
+                        ETA = sqrt(SGLB*TAU)-TAU;
                      }
                   }
                }

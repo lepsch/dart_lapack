@@ -30,13 +30,13 @@
       // ..
       // .. Executable Statements ..
 
-      RTMIN = SQRT( SAFMIN );
+      RTMIN = sqrt( SAFMIN );
       RTMAX = ONE / RTMIN;
       SAFMAX = ONE / SAFMIN;
 
       // Scale A
 
-      ANORM = MAX( ABS( A( 1, 1 ) )+ABS( A( 2, 1 ) ), ABS( A( 1, 2 ) )+ABS( A( 2, 2 ) ), SAFMIN );
+      ANORM = max( ABS( A( 1, 1 ) )+ABS( A( 2, 1 ) ), ABS( A( 1, 2 ) )+ABS( A( 2, 2 ) ), SAFMIN );
       ASCALE = ONE / ANORM;
       A11 = ASCALE*A( 1, 1 );
       A21 = ASCALE*A( 2, 1 );
@@ -48,14 +48,14 @@
       B11 = B( 1, 1 );
       B12 = B( 1, 2 );
       B22 = B( 2, 2 );
-      BMIN = RTMIN*MAX( ABS( B11 ), ABS( B12 ), ABS( B22 ), RTMIN );
+      BMIN = RTMIN*max( ABS( B11 ), ABS( B12 ), ABS( B22 ), RTMIN );
       if( ABS( B11 ) < BMIN ) B11 = SIGN( BMIN, B11 );
       IF( ABS( B22 ) < BMIN ) B22 = SIGN( BMIN, B22 );
 
       // Scale B
 
-      BNORM = MAX( ABS( B11 ), ABS( B12 )+ABS( B22 ), SAFMIN );
-      BSIZE = MAX( ABS( B11 ), ABS( B22 ) );
+      BNORM = max( ABS( B11 ), ABS( B12 )+ABS( B22 ), SAFMIN );
+      BSIZE = max( ABS( B11 ), ABS( B22 ) );
       BSCALE = ONE / BSIZE;
       B11 = B11*BSCALE;
       B12 = B12*BSCALE;
@@ -87,14 +87,14 @@
       QQ = SS*AS12;
       if ( ABS( PP*RTMIN ) >= ONE ) {
          DISCR = ( RTMIN*PP )**2 + QQ*SAFMIN;
-         R = SQRT( ABS( DISCR ) )*RTMAX;
+         R = sqrt( ABS( DISCR ) )*RTMAX;
       } else {
          if ( PP**2+ABS( QQ ) <= SAFMIN ) {
             DISCR = ( RTMAX*PP )**2 + QQ*SAFMAX;
-            R = SQRT( ABS( DISCR ) )*RTMIN;
+            R = sqrt( ABS( DISCR ) )*RTMIN;
          } else {
             DISCR = PP**2 + QQ;
-            R = SQRT( ABS( DISCR ) );
+            R = sqrt( ABS( DISCR ) );
          }
       }
 
@@ -112,7 +112,7 @@
          // Compute smaller eigenvalue
 
          WSMALL = SHIFT + DIFF;
-         if ( HALF*ABS( WBIG ) > MAX( ABS( WSMALL ), SAFMIN ) ) {
+         if ( HALF*ABS( WBIG ) > max( ABS( WSMALL ), SAFMIN ) ) {
             WDET = ( A11*A22-A12*A21 )*( BINV11*BINV22 );
             WSMALL = WDET / WBIG;
          }
@@ -121,11 +121,11 @@
          // for WR1.
 
          if ( PP > ABI22 ) {
-            WR1 = MIN( WBIG, WSMALL );
-            WR2 = MAX( WBIG, WSMALL );
+            WR1 = min( WBIG, WSMALL );
+            WR2 = max( WBIG, WSMALL );
          } else {
-            WR1 = MAX( WBIG, WSMALL );
-            WR2 = MIN( WBIG, WSMALL );
+            WR1 = max( WBIG, WSMALL );
+            WR2 = min( WBIG, WSMALL );
          }
          WI = ZERO;
       } else {
@@ -149,16 +149,16 @@
          // C4 implements the condition  s    should not underflow.
          // C5 implements the condition  max(s,|w|) should be at least 2.
 
-      C1 = BSIZE*( SAFMIN*MAX( ONE, ASCALE ) );
-      C2 = SAFMIN*MAX( ONE, BNORM );
+      C1 = BSIZE*( SAFMIN*max( ONE, ASCALE ) );
+      C2 = SAFMIN*max( ONE, BNORM );
       C3 = BSIZE*SAFMIN;
       if ( ASCALE <= ONE && BSIZE <= ONE ) {
-         C4 = MIN( ONE, ( ASCALE / SAFMIN )*BSIZE );
+         C4 = min( ONE, ( ASCALE / SAFMIN )*BSIZE );
       } else {
          C4 = ONE;
       }
       if ( ASCALE <= ONE || BSIZE <= ONE ) {
-         C5 = MIN( ONE, ASCALE*BSIZE );
+         C5 = min( ONE, ASCALE*BSIZE );
       } else {
          C5 = ONE;
       }
@@ -166,13 +166,13 @@
       // Scale first eigenvalue
 
       WABS = ABS( WR1 ) + ABS( WI );
-      WSIZE = MAX( SAFMIN, C1, FUZZY1*( WABS*C2+C3 ), MIN( C4, HALF*MAX( WABS, C5 ) ) );
+      WSIZE = max( SAFMIN, C1, FUZZY1*( WABS*C2+C3 ), min( C4, HALF*max( WABS, C5 ) ) );
       if ( WSIZE != ONE ) {
          WSCALE = ONE / WSIZE;
          if ( WSIZE > ONE ) {
-            SCALE1 = ( MAX( ASCALE, BSIZE )*WSCALE )* MIN( ASCALE, BSIZE );
+            SCALE1 = ( max( ASCALE, BSIZE )*WSCALE )* min( ASCALE, BSIZE );
          } else {
-            SCALE1 = ( MIN( ASCALE, BSIZE )*WSCALE )* MAX( ASCALE, BSIZE );
+            SCALE1 = ( min( ASCALE, BSIZE )*WSCALE )* max( ASCALE, BSIZE );
          }
          WR1 = WR1*WSCALE;
          if ( WI != ZERO ) {
@@ -188,13 +188,13 @@
       // Scale second eigenvalue (if real)
 
       if ( WI == ZERO ) {
-         WSIZE = MAX( SAFMIN, C1, FUZZY1*( ABS( WR2 )*C2+C3 ), MIN( C4, HALF*MAX( ABS( WR2 ), C5 ) ) );
+         WSIZE = max( SAFMIN, C1, FUZZY1*( ABS( WR2 )*C2+C3 ), min( C4, HALF*max( ABS( WR2 ), C5 ) ) );
          if ( WSIZE != ONE ) {
             WSCALE = ONE / WSIZE;
             if ( WSIZE > ONE ) {
-               SCALE2 = ( MAX( ASCALE, BSIZE )*WSCALE )* MIN( ASCALE, BSIZE );
+               SCALE2 = ( max( ASCALE, BSIZE )*WSCALE )* min( ASCALE, BSIZE );
             } else {
-               SCALE2 = ( MIN( ASCALE, BSIZE )*WSCALE )* MAX( ASCALE, BSIZE );
+               SCALE2 = ( min( ASCALE, BSIZE )*WSCALE )* max( ASCALE, BSIZE );
             }
             WR2 = WR2*WSCALE;
          } else {

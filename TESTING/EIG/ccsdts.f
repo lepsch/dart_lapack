@@ -47,11 +47,11 @@
       claset('Full', M, M, ZERO, ONE, WORK, LDX );
       cherk('Upper', 'Conjugate transpose', M, M, -REALONE, X, LDX, REALONE, WORK, LDX );
       if (M > 0) {
-         EPS2 = MAX( ULP, CLANGE( '1', M, M, WORK, LDX, RWORK ) / REAL( M ) );
+         EPS2 = max( ULP, CLANGE( '1', M, M, WORK, LDX, RWORK ) / REAL( M ) );
       } else {
          EPS2 = ULP;
       }
-      R = MIN( P, M-P, Q, M-Q );
+      R = min( P, M-P, Q, M-Q );
 
       // Copy the matrix X to the array XF.
 
@@ -69,105 +69,105 @@
 
       cgemm('Conjugate transpose', 'No transpose', P, Q, P, ONE, U1, LDU1, WORK, LDX, ZERO, XF, LDX );
 
-      DO I = 1, MIN(P,Q)-R;
+      DO I = 1, min(P,Q)-R;
          XF(I,I) = XF(I,I) - ONE;
       }
       for (I = 1; I <= R; I++) {
-         XF(MIN(P,Q)-R+I,MIN(P,Q)-R+I) = XF(MIN(P,Q)-R+I,MIN(P,Q)-R+I) - CMPLX( COS(THETA(I)), 0.0 );
+         XF(min(P,Q)-R+I,min(P,Q)-R+I) = XF(min(P,Q)-R+I,min(P,Q)-R+I) - CMPLX( COS(THETA(I)), 0.0 );
       }
 
       cgemm('No transpose', 'Conjugate transpose', P, M-Q, M-Q, ONE, XF(1,Q+1), LDX, V2T, LDV2T, ZERO, WORK, LDX );
 
       cgemm('Conjugate transpose', 'No transpose', P, M-Q, P, ONE, U1, LDU1, WORK, LDX, ZERO, XF(1,Q+1), LDX );
 
-      DO I = 1, MIN(P,M-Q)-R;
+      DO I = 1, min(P,M-Q)-R;
          XF(P-I+1,M-I+1) = XF(P-I+1,M-I+1) + ONE;
       }
       for (I = 1; I <= R; I++) {
-         XF(P-(MIN(P,M-Q)-R)+1-I,M-(MIN(P,M-Q)-R)+1-I) = XF(P-(MIN(P,M-Q)-R)+1-I,M-(MIN(P,M-Q)-R)+1-I) + CMPLX( SIN(THETA(R-I+1)), 0.0 );
+         XF(P-(min(P,M-Q)-R)+1-I,M-(min(P,M-Q)-R)+1-I) = XF(P-(min(P,M-Q)-R)+1-I,M-(min(P,M-Q)-R)+1-I) + CMPLX( SIN(THETA(R-I+1)), 0.0 );
       }
 
       cgemm('No transpose', 'Conjugate transpose', M-P, Q, Q, ONE, XF(P+1,1), LDX, V1T, LDV1T, ZERO, WORK, LDX );
 
       cgemm('Conjugate transpose', 'No transpose', M-P, Q, M-P, ONE, U2, LDU2, WORK, LDX, ZERO, XF(P+1,1), LDX );
 
-      DO I = 1, MIN(M-P,Q)-R;
+      DO I = 1, min(M-P,Q)-R;
          XF(M-I+1,Q-I+1) = XF(M-I+1,Q-I+1) - ONE;
       }
       for (I = 1; I <= R; I++) {
-         XF(M-(MIN(M-P,Q)-R)+1-I,Q-(MIN(M-P,Q)-R)+1-I) = XF(M-(MIN(M-P,Q)-R)+1-I,Q-(MIN(M-P,Q)-R)+1-I) - CMPLX( SIN(THETA(R-I+1)), 0.0 );
+         XF(M-(min(M-P,Q)-R)+1-I,Q-(min(M-P,Q)-R)+1-I) = XF(M-(min(M-P,Q)-R)+1-I,Q-(min(M-P,Q)-R)+1-I) - CMPLX( SIN(THETA(R-I+1)), 0.0 );
       }
 
       cgemm('No transpose', 'Conjugate transpose', M-P, M-Q, M-Q, ONE, XF(P+1,Q+1), LDX, V2T, LDV2T, ZERO, WORK, LDX );
 
       cgemm('Conjugate transpose', 'No transpose', M-P, M-Q, M-P, ONE, U2, LDU2, WORK, LDX, ZERO, XF(P+1,Q+1), LDX );
 
-      DO I = 1, MIN(M-P,M-Q)-R;
+      DO I = 1, min(M-P,M-Q)-R;
          XF(P+I,Q+I) = XF(P+I,Q+I) - ONE;
       }
       for (I = 1; I <= R; I++) {
-         XF(P+(MIN(M-P,M-Q)-R)+I,Q+(MIN(M-P,M-Q)-R)+I) = XF(P+(MIN(M-P,M-Q)-R)+I,Q+(MIN(M-P,M-Q)-R)+I) - CMPLX( COS(THETA(I)), 0.0 );
+         XF(P+(min(M-P,M-Q)-R)+I,Q+(min(M-P,M-Q)-R)+I) = XF(P+(min(M-P,M-Q)-R)+I,Q+(min(M-P,M-Q)-R)+I) - CMPLX( COS(THETA(I)), 0.0 );
       }
 
-      // Compute norm( U1'*X11*V1 - D11 ) / ( MAX(1,P,Q)*EPS2 ) .
+      // Compute norm( U1'*X11*V1 - D11 ) / ( max(1,P,Q)*EPS2 ) .
 
       RESID = CLANGE( '1', P, Q, XF, LDX, RWORK );
-      RESULT( 1 ) = ( RESID / REAL(MAX(1,P,Q)) ) / EPS2;
+      RESULT( 1 ) = ( RESID / REAL(max(1,P,Q)) ) / EPS2;
 
-      // Compute norm( U1'*X12*V2 - D12 ) / ( MAX(1,P,M-Q)*EPS2 ) .
+      // Compute norm( U1'*X12*V2 - D12 ) / ( max(1,P,M-Q)*EPS2 ) .
 
       RESID = CLANGE( '1', P, M-Q, XF(1,Q+1), LDX, RWORK );
-      RESULT( 2 ) = ( RESID / REAL(MAX(1,P,M-Q)) ) / EPS2;
+      RESULT( 2 ) = ( RESID / REAL(max(1,P,M-Q)) ) / EPS2;
 
-      // Compute norm( U2'*X21*V1 - D21 ) / ( MAX(1,M-P,Q)*EPS2 ) .
+      // Compute norm( U2'*X21*V1 - D21 ) / ( max(1,M-P,Q)*EPS2 ) .
 
       RESID = CLANGE( '1', M-P, Q, XF(P+1,1), LDX, RWORK );
-      RESULT( 3 ) = ( RESID / REAL(MAX(1,M-P,Q)) ) / EPS2;
+      RESULT( 3 ) = ( RESID / REAL(max(1,M-P,Q)) ) / EPS2;
 
-      // Compute norm( U2'*X22*V2 - D22 ) / ( MAX(1,M-P,M-Q)*EPS2 ) .
+      // Compute norm( U2'*X22*V2 - D22 ) / ( max(1,M-P,M-Q)*EPS2 ) .
 
       RESID = CLANGE( '1', M-P, M-Q, XF(P+1,Q+1), LDX, RWORK );
-      RESULT( 4 ) = ( RESID / REAL(MAX(1,M-P,M-Q)) ) / EPS2;
+      RESULT( 4 ) = ( RESID / REAL(max(1,M-P,M-Q)) ) / EPS2;
 
       // Compute I - U1'*U1
 
       claset('Full', P, P, ZERO, ONE, WORK, LDU1 );
       cherk('Upper', 'Conjugate transpose', P, P, -REALONE, U1, LDU1, REALONE, WORK, LDU1 );
 
-      // Compute norm( I - U'*U ) / ( MAX(1,P) * ULP ) .
+      // Compute norm( I - U'*U ) / ( max(1,P) * ULP ) .
 
       RESID = CLANHE( '1', 'Upper', P, WORK, LDU1, RWORK );
-      RESULT( 5 ) = ( RESID / REAL(MAX(1,P)) ) / ULP;
+      RESULT( 5 ) = ( RESID / REAL(max(1,P)) ) / ULP;
 
       // Compute I - U2'*U2
 
       claset('Full', M-P, M-P, ZERO, ONE, WORK, LDU2 );
       cherk('Upper', 'Conjugate transpose', M-P, M-P, -REALONE, U2, LDU2, REALONE, WORK, LDU2 );
 
-      // Compute norm( I - U2'*U2 ) / ( MAX(1,M-P) * ULP ) .
+      // Compute norm( I - U2'*U2 ) / ( max(1,M-P) * ULP ) .
 
       RESID = CLANHE( '1', 'Upper', M-P, WORK, LDU2, RWORK );
-      RESULT( 6 ) = ( RESID / REAL(MAX(1,M-P)) ) / ULP;
+      RESULT( 6 ) = ( RESID / REAL(max(1,M-P)) ) / ULP;
 
       // Compute I - V1T*V1T'
 
       claset('Full', Q, Q, ZERO, ONE, WORK, LDV1T );
       cherk('Upper', 'No transpose', Q, Q, -REALONE, V1T, LDV1T, REALONE, WORK, LDV1T );
 
-      // Compute norm( I - V1T*V1T' ) / ( MAX(1,Q) * ULP ) .
+      // Compute norm( I - V1T*V1T' ) / ( max(1,Q) * ULP ) .
 
       RESID = CLANHE( '1', 'Upper', Q, WORK, LDV1T, RWORK );
-      RESULT( 7 ) = ( RESID / REAL(MAX(1,Q)) ) / ULP;
+      RESULT( 7 ) = ( RESID / REAL(max(1,Q)) ) / ULP;
 
       // Compute I - V2T*V2T'
 
       claset('Full', M-Q, M-Q, ZERO, ONE, WORK, LDV2T );
       cherk('Upper', 'No transpose', M-Q, M-Q, -REALONE, V2T, LDV2T, REALONE, WORK, LDV2T );
 
-      // Compute norm( I - V2T*V2T' ) / ( MAX(1,M-Q) * ULP ) .
+      // Compute norm( I - V2T*V2T' ) / ( max(1,M-Q) * ULP ) .
 
       RESID = CLANHE( '1', 'Upper', M-Q, WORK, LDV2T, RWORK );
-      RESULT( 8 ) = ( RESID / REAL(MAX(1,M-Q)) ) / ULP;
+      RESULT( 8 ) = ( RESID / REAL(max(1,M-Q)) ) / ULP;
 
       // Check sorting
 
@@ -188,11 +188,11 @@
       claset('Full', Q, Q, ZERO, ONE, WORK, LDX );
       cherk('Upper', 'Conjugate transpose', Q, M, -REALONE, X, LDX, REALONE, WORK, LDX );
       if (M > 0) {
-         EPS2 = MAX( ULP, CLANGE( '1', Q, Q, WORK, LDX, RWORK ) / REAL( M ) );
+         EPS2 = max( ULP, CLANGE( '1', Q, Q, WORK, LDX, RWORK ) / REAL( M ) );
       } else {
          EPS2 = ULP;
       }
-      R = MIN( P, M-P, Q, M-Q );
+      R = min( P, M-P, Q, M-Q );
 
       // Copy the matrix X to the array XF.
 
@@ -208,63 +208,63 @@
 
       cgemm('Conjugate transpose', 'No transpose', P, Q, P, ONE, U1, LDU1, WORK, LDX, ZERO, X, LDX );
 
-      DO I = 1, MIN(P,Q)-R;
+      DO I = 1, min(P,Q)-R;
          X(I,I) = X(I,I) - ONE;
       }
       for (I = 1; I <= R; I++) {
-         X(MIN(P,Q)-R+I,MIN(P,Q)-R+I) = X(MIN(P,Q)-R+I,MIN(P,Q)-R+I) - CMPLX( COS(THETA(I)), 0.0 );
+         X(min(P,Q)-R+I,min(P,Q)-R+I) = X(min(P,Q)-R+I,min(P,Q)-R+I) - CMPLX( COS(THETA(I)), 0.0 );
       }
 
       cgemm('No transpose', 'Conjugate transpose', M-P, Q, Q, ONE, X(P+1,1), LDX, V1T, LDV1T, ZERO, WORK, LDX );
 
       cgemm('Conjugate transpose', 'No transpose', M-P, Q, M-P, ONE, U2, LDU2, WORK, LDX, ZERO, X(P+1,1), LDX );
 
-      DO I = 1, MIN(M-P,Q)-R;
+      DO I = 1, min(M-P,Q)-R;
          X(M-I+1,Q-I+1) = X(M-I+1,Q-I+1) - ONE;
       }
       for (I = 1; I <= R; I++) {
-         X(M-(MIN(M-P,Q)-R)+1-I,Q-(MIN(M-P,Q)-R)+1-I) = X(M-(MIN(M-P,Q)-R)+1-I,Q-(MIN(M-P,Q)-R)+1-I) - CMPLX( SIN(THETA(R-I+1)), 0.0 );
+         X(M-(min(M-P,Q)-R)+1-I,Q-(min(M-P,Q)-R)+1-I) = X(M-(min(M-P,Q)-R)+1-I,Q-(min(M-P,Q)-R)+1-I) - CMPLX( SIN(THETA(R-I+1)), 0.0 );
       }
 
-      // Compute norm( U1'*X11*V1 - D11 ) / ( MAX(1,P,Q)*EPS2 ) .
+      // Compute norm( U1'*X11*V1 - D11 ) / ( max(1,P,Q)*EPS2 ) .
 
       RESID = CLANGE( '1', P, Q, X, LDX, RWORK );
-      RESULT( 10 ) = ( RESID / REAL(MAX(1,P,Q)) ) / EPS2;
+      RESULT( 10 ) = ( RESID / REAL(max(1,P,Q)) ) / EPS2;
 
-      // Compute norm( U2'*X21*V1 - D21 ) / ( MAX(1,M-P,Q)*EPS2 ) .
+      // Compute norm( U2'*X21*V1 - D21 ) / ( max(1,M-P,Q)*EPS2 ) .
 
       RESID = CLANGE( '1', M-P, Q, X(P+1,1), LDX, RWORK );
-      RESULT( 11 ) = ( RESID / REAL(MAX(1,M-P,Q)) ) / EPS2;
+      RESULT( 11 ) = ( RESID / REAL(max(1,M-P,Q)) ) / EPS2;
 
       // Compute I - U1'*U1
 
       claset('Full', P, P, ZERO, ONE, WORK, LDU1 );
       cherk('Upper', 'Conjugate transpose', P, P, -REALONE, U1, LDU1, REALONE, WORK, LDU1 );
 
-      // Compute norm( I - U1'*U1 ) / ( MAX(1,P) * ULP ) .
+      // Compute norm( I - U1'*U1 ) / ( max(1,P) * ULP ) .
 
       RESID = CLANHE( '1', 'Upper', P, WORK, LDU1, RWORK );
-      RESULT( 12 ) = ( RESID / REAL(MAX(1,P)) ) / ULP;
+      RESULT( 12 ) = ( RESID / REAL(max(1,P)) ) / ULP;
 
       // Compute I - U2'*U2
 
       claset('Full', M-P, M-P, ZERO, ONE, WORK, LDU2 );
       cherk('Upper', 'Conjugate transpose', M-P, M-P, -REALONE, U2, LDU2, REALONE, WORK, LDU2 );
 
-      // Compute norm( I - U2'*U2 ) / ( MAX(1,M-P) * ULP ) .
+      // Compute norm( I - U2'*U2 ) / ( max(1,M-P) * ULP ) .
 
       RESID = CLANHE( '1', 'Upper', M-P, WORK, LDU2, RWORK );
-      RESULT( 13 ) = ( RESID / REAL(MAX(1,M-P)) ) / ULP;
+      RESULT( 13 ) = ( RESID / REAL(max(1,M-P)) ) / ULP;
 
       // Compute I - V1T*V1T'
 
       claset('Full', Q, Q, ZERO, ONE, WORK, LDV1T );
       cherk('Upper', 'No transpose', Q, Q, -REALONE, V1T, LDV1T, REALONE, WORK, LDV1T );
 
-      // Compute norm( I - V1T*V1T' ) / ( MAX(1,Q) * ULP ) .
+      // Compute norm( I - V1T*V1T' ) / ( max(1,Q) * ULP ) .
 
       RESID = CLANHE( '1', 'Upper', Q, WORK, LDV1T, RWORK );
-      RESULT( 14 ) = ( RESID / REAL(MAX(1,Q)) ) / ULP;
+      RESULT( 14 ) = ( RESID / REAL(max(1,Q)) ) / ULP;
 
       // Check sorting
 

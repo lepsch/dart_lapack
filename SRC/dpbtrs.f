@@ -44,7 +44,7 @@
          INFO = -4;
       } else if ( LDAB < KD+1 ) {
          INFO = -6;
-      } else if ( LDB < MAX( 1, N ) ) {
+      } else if ( LDB < max( 1, N ) ) {
          INFO = -8;
       }
       if ( INFO != 0 ) {

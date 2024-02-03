@@ -106,7 +106,7 @@
          // JTOP = Index from which updates from the right start.
 
          if ( ACCUM ) {
-            JTOP = MAX( KTOP, INCOL );
+            JTOP = max( KTOP, INCOL );
          } else if ( WANTT ) {
             JTOP = 1;
          } else {
@@ -128,7 +128,7 @@
          // .    bulges before they are actually introduced or to which
          // .    to chase bulges beyond column KBOT.)  ====
 
-         DO 145 KRCOL = INCOL, MIN( INCOL+2*NBMPS-1, KBOT-2 );
+         DO 145 KRCOL = INCOL, min( INCOL+2*NBMPS-1, KBOT-2 );
 
             // ==== Bulges number MTOP to MBOT are active double implicit
             // .    shift bulges.  There may or may not also be small
@@ -137,8 +137,8 @@
             // .    down the diagonal to make room.  The phantom matrix
             // .    paradigm described above helps keep track.  ====
 
-            MTOP = MAX( 1, ( KTOP-KRCOL ) / 2+1 );
-            MBOT = MIN( NBMPS, ( KBOT-KRCOL-1 ) / 2 );
+            MTOP = max( 1, ( KTOP-KRCOL ) / 2+1 );
+            MBOT = min( NBMPS, ( KBOT-KRCOL-1 ) / 2 );
             M22 = MBOT + 1;
             BMP22 = ( MBOT < NBMPS ) && ( KRCOL+2*( M22-1 ) ) == ( KBOT-2 );
 
@@ -169,7 +169,7 @@
 
                T1 = V( 1, M22 );
                T2 = T1*V( 2, M22 );
-               DO 30 J = JTOP, MIN( KBOT, K+3 );
+               DO 30 J = JTOP, min( KBOT, K+3 );
                   REFSUM = H( J, K+1 ) + V( 2, M22 )*H( J, K+2 );
                   H( J, K+1 ) = H( J, K+1 ) - REFSUM*T1;
                   H( J, K+2 ) = H( J, K+2 ) - REFSUM*T2;
@@ -179,7 +179,7 @@
                // .    computational window. ====
 
                if ( ACCUM ) {
-                  JBOT = MIN( NDCOL, KBOT );
+                  JBOT = min( NDCOL, KBOT );
                } else if ( WANTT ) {
                   JBOT = N;
                } else {
@@ -213,12 +213,12 @@
                         if( K <= KBOT-3 ) TST1 = TST1 + ABS( H( K+3, K+1 ) );
                         IF( K <= KBOT-4 ) TST1 = TST1 + ABS( H( K+4, K+1 ) );
                      }
-                     if( ABS( H( K+1, K ) ) <= MAX( SMLNUM, ULP*TST1 ) ) {
-                        H12 = MAX( ABS( H( K+1, K ) ), ABS( H( K, K+1 ) ) )                         H21 = MIN( ABS( H( K+1, K ) ), ABS( H( K, K+1 ) ) )                         H11 = MAX( ABS( H( K+1, K+1 ) ), ABS( H( K, K )-H( K+1, K+1 ) ) )                         H22 = MIN( ABS( H( K+1, K+1 ) ), ABS( H( K, K )-H( K+1, K+1 ) ) );
+                     if( ABS( H( K+1, K ) ) <= max( SMLNUM, ULP*TST1 ) ) {
+                        H12 = max( ABS( H( K+1, K ) ), ABS( H( K, K+1 ) ) )                         H21 = min( ABS( H( K+1, K ) ), ABS( H( K, K+1 ) ) )                         H11 = max( ABS( H( K+1, K+1 ) ), ABS( H( K, K )-H( K+1, K+1 ) ) )                         H22 = min( ABS( H( K+1, K+1 ) ), ABS( H( K, K )-H( K+1, K+1 ) ) );
                         SCL = H11 + H12;
                         TST2 = H22*( H11 / SCL );
 
-                        if ( TST2 == ZERO || H21*( H12 / SCL ) <= MAX( SMLNUM, ULP*TST2 ) ) {
+                        if ( TST2 == ZERO || H21*( H12 / SCL ) <= max( SMLNUM, ULP*TST2 ) ) {
                            H( K+1, K ) = ZERO;
                         }
                      }
@@ -231,7 +231,7 @@
                   KMS = K - INCOL;
                   T1 = V( 1, M22 );
                   T2 = T1*V( 2, M22 );
-                  DO 50 J = MAX( 1, KTOP-INCOL ), KDU;
+                  DO 50 J = max( 1, KTOP-INCOL ), KDU;
                      REFSUM = U( J, KMS+1 ) + V( 2, M22 )*U( J, KMS+2 );
                      U( J, KMS+1 ) = U( J, KMS+1 ) - REFSUM*T1;
                      U( J, KMS+2 ) = U( J, KMS+2 ) - REFSUM*T2;
@@ -340,7 +340,7 @@
                T1 = V( 1, M );
                T2 = T1*V( 2, M );
                T3 = T1*V( 3, M );
-               DO 70 J = JTOP, MIN( KBOT, K+3 );
+               DO 70 J = JTOP, min( KBOT, K+3 );
                   REFSUM = H( J, K+1 ) + V( 2, M )*H( J, K+2 ) + V( 3, M )*H( J, K+3 );
                   H( J, K+1 ) = H( J, K+1 ) - REFSUM*T1;
                   H( J, K+2 ) = H( J, K+2 ) - REFSUM*T2;
@@ -375,14 +375,14 @@
                      if( K <= KBOT-3 ) TST1 = TST1 + ABS( H( K+3, K+1 ) );
                      IF( K <= KBOT-4 ) TST1 = TST1 + ABS( H( K+4, K+1 ) );
                   }
-                  if ( ABS( H( K+1, K ) ) <= MAX( SMLNUM, ULP*TST1 ) ) {
-                     H12 = MAX( ABS( H( K+1, K ) ), ABS( H( K, K+1 ) ) );
-                     H21 = MIN( ABS( H( K+1, K ) ), ABS( H( K, K+1 ) ) );
-                     H11 = MAX( ABS( H( K+1, K+1 ) ), ABS( H( K, K )-H( K+1, K+1 ) ) )                      H22 = MIN( ABS( H( K+1, K+1 ) ), ABS( H( K, K )-H( K+1, K+1 ) ) );
+                  if ( ABS( H( K+1, K ) ) <= max( SMLNUM, ULP*TST1 ) ) {
+                     H12 = max( ABS( H( K+1, K ) ), ABS( H( K, K+1 ) ) );
+                     H21 = min( ABS( H( K+1, K ) ), ABS( H( K, K+1 ) ) );
+                     H11 = max( ABS( H( K+1, K+1 ) ), ABS( H( K, K )-H( K+1, K+1 ) ) )                      H22 = min( ABS( H( K+1, K+1 ) ), ABS( H( K, K )-H( K+1, K+1 ) ) );
                      SCL = H11 + H12;
                      TST2 = H22*( H11 / SCL );
 
-                     if ( TST2 == ZERO || H21*( H12 / SCL ) <= MAX( SMLNUM, ULP*TST2 ) ) {
+                     if ( TST2 == ZERO || H21*( H12 / SCL ) <= max( SMLNUM, ULP*TST2 ) ) {
                         H( K+1, K ) = ZERO;
                      }
                   }
@@ -392,7 +392,7 @@
             // ==== Multiply H by reflections from the left ====
 
             if ( ACCUM ) {
-               JBOT = MIN( NDCOL, KBOT );
+               JBOT = min( NDCOL, KBOT );
             } else if ( WANTT ) {
                JBOT = N;
             } else {
@@ -404,7 +404,7 @@
                T1 = V( 1, M );
                T2 = T1*V( 2, M );
                T3 = T1*V( 3, M );
-               DO 90 J = MAX( KTOP, KRCOL + 2*M ), JBOT;
+               DO 90 J = max( KTOP, KRCOL + 2*M ), JBOT;
                   REFSUM = H( K+1, J ) + V( 2, M )*H( K+2, J ) + V( 3, M )*H( K+3, J );
                   H( K+1, J ) = H( K+1, J ) - REFSUM*T1;
                   H( K+2, J ) = H( K+2, J ) - REFSUM*T2;
@@ -423,9 +423,9 @@
                DO 120 M = MBOT, MTOP, -1;
                   K = KRCOL + 2*( M-1 );
                   KMS = K - INCOL;
-                  I2 = MAX( 1, KTOP-INCOL );
-                  I2 = MAX( I2, KMS-(KRCOL-INCOL)+1 );
-                  I4 = MIN( KDU, KRCOL + 2*( MBOT-1 ) - INCOL + 5 );
+                  I2 = max( 1, KTOP-INCOL );
+                  I2 = max( I2, KMS-(KRCOL-INCOL)+1 );
+                  I4 = min( KDU, KRCOL + 2*( MBOT-1 ) - INCOL + 5 );
                   T1 = V( 1, M );
                   T2 = T1*V( 2, M );
                   T3 = T1*V( 3, M );
@@ -472,21 +472,21 @@
                JTOP = KTOP;
                JBOT = KBOT;
             }
-            K1 = MAX( 1, KTOP-INCOL );
-            NU = ( KDU-MAX( 0, NDCOL-KBOT ) ) - K1 + 1;
+            K1 = max( 1, KTOP-INCOL );
+            NU = ( KDU-max( 0, NDCOL-KBOT ) ) - K1 + 1;
 
             // ==== Horizontal Multiply ====
 
-            DO 150 JCOL = MIN( NDCOL, KBOT ) + 1, JBOT, NH;
-               JLEN = MIN( NH, JBOT-JCOL+1 );
+            DO 150 JCOL = min( NDCOL, KBOT ) + 1, JBOT, NH;
+               JLEN = min( NH, JBOT-JCOL+1 );
                sgemm('C', 'N', NU, JLEN, NU, ONE, U( K1, K1 ), LDU, H( INCOL+K1, JCOL ), LDH, ZERO, WH, LDWH );
                slacpy('ALL', NU, JLEN, WH, LDWH, H( INCOL+K1, JCOL ), LDH );
             } // 150
 
             // ==== Vertical multiply ====
 
-            DO 160 JROW = JTOP, MAX( KTOP, INCOL ) - 1, NV;
-               JLEN = MIN( NV, MAX( KTOP, INCOL )-JROW );
+            DO 160 JROW = JTOP, max( KTOP, INCOL ) - 1, NV;
+               JLEN = min( NV, max( KTOP, INCOL )-JROW );
                sgemm('N', 'N', JLEN, NU, NU, ONE, H( JROW, INCOL+K1 ), LDH, U( K1, K1 ), LDU, ZERO, WV, LDWV );
                slacpy('ALL', JLEN, NU, WV, LDWV, H( JROW, INCOL+K1 ), LDH );
             } // 160
@@ -495,7 +495,7 @@
 
             if ( WANTZ ) {
                DO 170 JROW = ILOZ, IHIZ, NV;
-                  JLEN = MIN( NV, IHIZ-JROW+1 );
+                  JLEN = min( NV, IHIZ-JROW+1 );
                   sgemm('N', 'N', JLEN, NU, NU, ONE, Z( JROW, INCOL+K1 ), LDZ, U( K1, K1 ), LDU, ZERO, WV, LDWV );
                   slacpy('ALL', JLEN, NU, WV, LDWV, Z( JROW, INCOL+K1 ), LDZ );
                } // 170

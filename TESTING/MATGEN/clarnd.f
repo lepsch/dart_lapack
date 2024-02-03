@@ -51,12 +51,12 @@
 
          // real and imaginary parts each normal (0,1)
 
-         CLARND = SQRT( -TWO*LOG( T1 ) )*EXP( CMPLX( ZERO, TWOPI*T2 ) );
+         CLARND = sqrt( -TWO*LOG( T1 ) )*EXP( CMPLX( ZERO, TWOPI*T2 ) );
       } else if ( IDIST == 4 ) {
 
          // uniform distribution on the unit disc abs(z) <= 1
 
-         CLARND = SQRT( T1 )*EXP( CMPLX( ZERO, TWOPI*T2 ) );
+         CLARND = sqrt( T1 )*EXP( CMPLX( ZERO, TWOPI*T2 ) );
       } else if ( IDIST == 5 ) {
 
          // uniform distribution on the unit circle abs(z) = 1

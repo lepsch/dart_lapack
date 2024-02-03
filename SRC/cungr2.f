@@ -37,7 +37,7 @@
          INFO = -2;
       } else if ( K < 0 || K > M ) {
          INFO = -3;
-      } else if ( LDA < MAX( 1, M ) ) {
+      } else if ( LDA < max( 1, M ) ) {
          INFO = -5;
       }
       if ( INFO != 0 ) {

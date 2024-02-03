@@ -52,8 +52,8 @@
 
       if ( ITYPE != 0 ) {
          if ( ABS( ITYPE ) >= 4 ) {
-            KBEG = MAX( 1, MIN( N, NZ1+1 ) );
-            KEND = MAX( KBEG, MIN( N, N-NZ2 ) );
+            KBEG = max( 1, min( N, NZ1+1 ) );
+            KEND = max( KBEG, min( N, N-NZ2 ) );
             KLEN = KEND + 1 - KBEG;
          } else {
             KBEG = 1;

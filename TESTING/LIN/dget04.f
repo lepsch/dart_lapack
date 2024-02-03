@@ -57,12 +57,12 @@
          XNORM = ABS( XACT( IX, J ) );
          DIFFNM = ZERO;
          for (I = 1; I <= N; I++) { // 10
-            DIFFNM = MAX( DIFFNM, ABS( X( I, J )-XACT( I, J ) ) );
+            DIFFNM = max( DIFFNM, ABS( X( I, J )-XACT( I, J ) ) );
          } // 10
          if ( XNORM <= ZERO ) {
             if (DIFFNM > ZERO) RESID = 1.0 / EPS;
          } else {
-            RESID = MAX( RESID, ( DIFFNM / XNORM )*RCOND );
+            RESID = max( RESID, ( DIFFNM / XNORM )*RCOND );
          }
       } // 20
       if (RESID*EPS < 1.0) RESID = RESID / EPS;

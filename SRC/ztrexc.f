@@ -40,9 +40,9 @@
          INFO = -1;
       } else if ( N < 0 ) {
          INFO = -2;
-      } else if ( LDT < MAX( 1, N ) ) {
+      } else if ( LDT < max( 1, N ) ) {
          INFO = -4;
-      } else if ( LDQ < 1 || ( WANTQ && LDQ < MAX( 1, N ) ) ) {
+      } else if ( LDQ < 1 || ( WANTQ && LDQ < max( 1, N ) ) ) {
          INFO = -6;
       } else if (( IFST < 1 || IFST > N ) && ( N > 0 )) {
          INFO = -7;

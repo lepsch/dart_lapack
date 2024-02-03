@@ -42,7 +42,7 @@
 
       MX = ABS( S( 1 ) );
       for (I = 1; I <= N - 1; I++) { // 10
-         MX = MAX( MX, ABS( S( I+1 ) ), ABS( E( I ) ) );
+         MX = max( MX, ABS( S( I+1 ) ), ABS( E( I ) ) );
       } // 10
 
       if ( MX == ZERO ) {
@@ -56,9 +56,9 @@
 
       // Compute scale factors as in Kahan's report
 
-      SUN = SQRT( UNFL );
-      SSUN = SQRT( SUN );
-      SOV = SQRT( OVFL );
+      SUN = sqrt( UNFL );
+      SSUN = sqrt( SUN );
+      SOV = sqrt( OVFL );
       TOM = SSUN*SOV;
       if ( MX <= ONE ) {
          M1 = ONE / MX;

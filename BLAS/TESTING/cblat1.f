@@ -127,7 +127,7 @@
       for (INCX = 1; INCX <= 2; INCX++) { // 60
          for (NP1 = 1; NP1 <= 5; NP1++) { // 40
             N = NP1 - 1;
-            LEN = 2*MAX(N,1);
+            LEN = 2*max(N,1);
             // .. Set vector arguments ..
             for (I = 1; I <= LEN; I++) { // 20
                CX(I) = CV(I,NP1,INCX);
@@ -275,7 +275,7 @@
 
          for (KN = 1; KN <= 4; KN++) { // 40
             N = NS(KN);
-            KSIZE = MIN(2,KN);
+            KSIZE = min(2,KN);
             LENX = LENS(KN,MX);
             LENY = LENS(KN,MY);
             // .. initialize all argument arrays ..
@@ -601,7 +601,7 @@
          for (IW = 1; IW <= NV; IW++) {
             V1 = VALUES(IW);
             if (ABS(V1) > ONE) {
-               V1 = (V1*HALF) / SQRT(REAL(KS+1));
+               V1 = (V1*HALF) / sqrt(REAL(KS+1));
             }
             for (I = 1; I <= N-1; I++) {
                Z(I+1) = CMPLX(V1*WORK(2*I-1),V1*WORK(2*I));
@@ -609,14 +609,14 @@
 
             // Compute the expected value of the 2-norm
 
-            Y1 = ABS(V0) * SQRT(10.0);
+            Y1 = ABS(V0) * sqrt(10.0);
             if (N > 1) {
-               Y2 = ABS(V1)*SQRT(WORKSSQ);
+               Y2 = ABS(V1)*sqrt(WORKSSQ);
             } else {
                Y2 = ZERO;
             }
-            YMIN = MIN(Y1, Y2);
-            YMAX = MAX(Y1, Y2);
+            YMIN = min(Y1, Y2);
+            YMAX = max(Y1, Y2);
 
             // Expected value is NaN if either is NaN. The test
             // for YMIN == YMAX avoids further computation if both
@@ -626,11 +626,11 @@
                // add to propagate NaN
                YNRM = Y1 + Y2;
             } else if (YMIN == YMAX) {
-               YNRM = SQRT(TWO)*YMAX;
+               YNRM = sqrt(TWO)*YMAX;
             } else if (YMAX == ZERO) {
                YNRM = ZERO;
             } else {
-               YNRM = YMAX*SQRT(ONE + (YMIN / YMAX)**2);
+               YNRM = YMAX*sqrt(ONE + (YMIN / YMAX)**2);
             }
 
             // Fill the input array to SCNRM2 with steps of incx
@@ -655,19 +655,19 @@
             if (INCX == 0) {
                Y1 = ABS(REAL(X(1)));
                Y2 = ABS(AIMAG(X(1)));
-               YMIN = MIN(Y1, Y2);
-               YMAX = MAX(Y1, Y2);
+               YMIN = min(Y1, Y2);
+               YMAX = max(Y1, Y2);
                if ((Y1 != Y1) || (Y2 != Y2)) {
                   // add to propagate NaN
                   ZNRM = Y1 + Y2;
                } else if (YMIN == YMAX) {
-                  ZNRM = SQRT(TWO)*YMAX;
+                  ZNRM = sqrt(TWO)*YMAX;
                } else if (YMAX == ZERO) {
                   ZNRM = ZERO;
                } else {
-                  ZNRM = YMAX * SQRT(ONE + (YMIN / YMAX)**2);
+                  ZNRM = YMAX * sqrt(ONE + (YMIN / YMAX)**2);
                }
-               ZNRM = SQRT(REAL(n)) * ZNRM;
+               ZNRM = sqrt(REAL(n)) * ZNRM;
             } else {
                ZNRM = YNRM;
             }

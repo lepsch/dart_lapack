@@ -54,7 +54,7 @@
          INFO = -1;
       } else if ( M < 0 || M > N ) {
          INFO = -4;
-      } else if ( LDZ < MAX( 1, N ) ) {
+      } else if ( LDZ < max( 1, N ) ) {
          INFO = -9;
       } else {
          for (J = 2; J <= M; J++) { // 20
@@ -122,13 +122,13 @@
          // Compute reorthogonalization criterion and stopping criterion.
 
          ONENRM = ABS( D( B1 ) ) + ABS( E( B1 ) );
-         ONENRM = MAX( ONENRM, ABS( D( BN ) )+ABS( E( BN-1 ) ) );
+         ONENRM = max( ONENRM, ABS( D( BN ) )+ABS( E( BN-1 ) ) );
          for (I = B1 + 1; I <= BN - 1; I++) { // 50
-            ONENRM = MAX( ONENRM, ABS( D( I ) )+ABS( E( I-1 ) )+ ABS( E( I ) ) );
+            ONENRM = max( ONENRM, ABS( D( I ) )+ABS( E( I-1 ) )+ ABS( E( I ) ) );
          } // 50
          ORTOL = ODM3*ONENRM;
 
-         STPCRT = SQRT( ODM1 / BLKSIZ );
+         STPCRT = sqrt( ODM1 / BLKSIZ );
 
          // Loop through eigenvalues of block nblk.
 
@@ -186,7 +186,7 @@
             // Normalize and scale the righthand side vector Pb.
 
             JMAX = ISAMAX( BLKSIZ, WORK( INDRV1+1 ), 1 );
-            SCL = BLKSIZ*ONENRM*MAX( EPS, ABS( WORK( INDRV4+BLKSIZ ) ) ) / ABS( WORK( INDRV1+JMAX ) );
+            SCL = BLKSIZ*ONENRM*max( EPS, ABS( WORK( INDRV4+BLKSIZ ) ) ) / ABS( WORK( INDRV1+JMAX ) );
             sscal(BLKSIZ, SCL, WORK( INDRV1+1 ), 1 );
 
             // Solve the system LU = Pb.

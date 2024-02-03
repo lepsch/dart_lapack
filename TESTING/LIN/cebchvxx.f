@@ -68,7 +68,7 @@
          KL = N-1;
          KU = N-1;
          NRHS = n;
-         M = MAX(SQRT(REAL(N)), 10.0);
+         M = max(sqrt(REAL(N)), 10.0);
 
          // Generate the Hilbert matrix, its inverse, and the
          // right hand side, all scaled by the LCM(1,..,2N-1).
@@ -84,7 +84,7 @@
             }
          }
          for (J = 1; J <= N; J++) {
-            DO I = MAX( 1, J-KU ), MIN( N, J+KL );
+            DO I = max( 1, J-KU ), min( N, J+KL );
                AB( KU+1+I-J, J ) = A( I, J );
             }
          }
@@ -145,8 +145,8 @@
                   SUMR = SUMR + S(I) * CABS1(A(I,J)) * S(J);
                   SUMRI = SUMRI + CABS1(INVHILB(I, J)) / (S(J) * S(I));
                }
-               RNORM = MAX(RNORM,SUMR);
-               RINORM = MAX(RINORM,SUMRI);
+               RNORM = max(RNORM,SUMR);
+               RINORM = max(RINORM,SUMRI);
             }
          } else if ( LSAMEN( 2, C2, 'GE' ) || LSAMEN( 2, C2, 'GB' ) ) {
             for (I = 1; I <= N; I++) {
@@ -156,8 +156,8 @@
                   SUMR = SUMR + R(I) * CABS1(A(I,J)) * C(J);
                   SUMRI = SUMRI + CABS1(INVHILB(I, J)) / (R(J) * C(I));
                }
-               RNORM = MAX(RNORM,SUMR);
-               RINORM = MAX(RINORM,SUMRI);
+               RNORM = max(RNORM,SUMR);
+               RINORM = max(RINORM,SUMRI);
             }
          }
 
@@ -181,7 +181,7 @@
             for (J = 1; J <= N; J++) {
                SUMRI = SUMRI + CABS1(INVHILB(I,J) * RINV(J));
             }
-            RINORM = MAX(RINORM, SUMRI);
+            RINORM = max(RINORM, SUMRI);
          }
 
          // invhilb is the inverse *unscaled* Hilbert matrix, so scale its norm
@@ -196,10 +196,10 @@
             NORMDIF = 0.0;
             CWISE_ERR = 0.0;
             for (I = 1; I <= N; I++) {
-               NORMT = MAX(CABS1(INVHILB(I, K)), NORMT);
-               NORMDIF = MAX(CABS1(X(I,K) - INVHILB(I,K)), NORMDIF);
+               NORMT = max(CABS1(INVHILB(I, K)), NORMT);
+               NORMDIF = max(CABS1(X(I,K) - INVHILB(I,K)), NORMDIF);
                if (INVHILB(I,K) != 0.0) {
-                  CWISE_ERR = MAX(CABS1(X(I,K) - INVHILB(I,K)) /CABS1(INVHILB(I,K)), CWISE_ERR);
+                  CWISE_ERR = max(CABS1(X(I,K) - INVHILB(I,K)) /CABS1(INVHILB(I,K)), CWISE_ERR);
                } else if (X(I, K) != 0.0) {
                   CWISE_ERR = SLAMCH('OVERFLOW');
                }
@@ -226,7 +226,7 @@
                for (J = 1; J <= N; J++) {
                   SUMRI = SUMRI + CABS1(INVHILB(I, J) * RINV(J) / INVHILB(I, K));
                }
-               RINORM = MAX(RINORM, SUMRI);
+               RINORM = max(RINORM, SUMRI);
             }
          // invhilb is the inverse *unscaled* Hilbert matrix, so scale its norm
          // by 1/A(1,1) to make the scaling match A (the scaled Hilbert matrix)
@@ -350,7 +350,7 @@
  9998 FORMAT( ' C', A2, 'SVXX: ', I6, ' out of ', I6, ' tests failed to pass the threshold' );
  9997 FORMAT( ' C', A2, 'SVXX passed the tests of error bounds' );
       // Test ratios.
- 9996 FORMAT( 3X, I2, ': Normwise guaranteed forward error', / 5X, 'Guaranteed case: if norm ( abs( Xc - Xt )', ' / norm ( Xt ) <= ERRBND( *, nwise_i, bnd_i ), then', / 5X, 'ERRBND( *, nwise_i, bnd_i ) <= MAX(SQRT(N), 10) * EPS');
+ 9996 FORMAT( 3X, I2, ': Normwise guaranteed forward error', / 5X, 'Guaranteed case: if norm ( abs( Xc - Xt )', ' / norm ( Xt ) <= ERRBND( *, nwise_i, bnd_i ), then', / 5X, 'ERRBND( *, nwise_i, bnd_i ) <= max(sqrt(N), 10) * EPS');
  9995 FORMAT( 3X, I2, ': Componentwise guaranteed forward error' );
  9994 FORMAT( 3X, I2, ': Backwards error' );
  9993 FORMAT( 3X, I2, ': Reciprocal condition number' );

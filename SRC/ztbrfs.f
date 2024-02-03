@@ -71,9 +71,9 @@
          INFO = -6;
       } else if ( LDAB < KD+1 ) {
          INFO = -8;
-      } else if ( LDB < MAX( 1, N ) ) {
+      } else if ( LDB < max( 1, N ) ) {
          INFO = -10;
-      } else if ( LDX < MAX( 1, N ) ) {
+      } else if ( LDX < max( 1, N ) ) {
          INFO = -12;
       }
       if ( INFO != 0 ) {
@@ -139,14 +139,14 @@
                if ( NOUNIT ) {
                   for (K = 1; K <= N; K++) { // 40
                      XK = CABS1( X( K, J ) );
-                     DO 30 I = MAX( 1, K-KD ), K;
+                     DO 30 I = max( 1, K-KD ), K;
                         RWORK( I ) = RWORK( I ) + CABS1( AB( KD+1+I-K, K ) )*XK;
                      } // 30
                   } // 40
                } else {
                   for (K = 1; K <= N; K++) { // 60
                      XK = CABS1( X( K, J ) );
-                     DO 50 I = MAX( 1, K-KD ), K - 1;
+                     DO 50 I = max( 1, K-KD ), K - 1;
                         RWORK( I ) = RWORK( I ) + CABS1( AB( KD+1+I-K, K ) )*XK;
                      } // 50
                      RWORK( K ) = RWORK( K ) + XK;
@@ -156,14 +156,14 @@
                if ( NOUNIT ) {
                   for (K = 1; K <= N; K++) { // 80
                      XK = CABS1( X( K, J ) );
-                     DO 70 I = K, MIN( N, K+KD );
+                     DO 70 I = K, min( N, K+KD );
                         RWORK( I ) = RWORK( I ) + CABS1( AB( 1+I-K, K ) )*XK;
                      } // 70
                   } // 80
                } else {
                   for (K = 1; K <= N; K++) { // 100
                      XK = CABS1( X( K, J ) );
-                     DO 90 I = K + 1, MIN( N, K+KD );
+                     DO 90 I = K + 1, min( N, K+KD );
                         RWORK( I ) = RWORK( I ) + CABS1( AB( 1+I-K, K ) )*XK;
                      } // 90
                      RWORK( K ) = RWORK( K ) + XK;
@@ -178,7 +178,7 @@
                if ( NOUNIT ) {
                   for (K = 1; K <= N; K++) { // 120
                      S = ZERO;
-                     DO 110 I = MAX( 1, K-KD ), K;
+                     DO 110 I = max( 1, K-KD ), K;
                         S = S + CABS1( AB( KD+1+I-K, K ) )* CABS1( X( I, J ) );
                      } // 110
                      RWORK( K ) = RWORK( K ) + S;
@@ -186,7 +186,7 @@
                } else {
                   for (K = 1; K <= N; K++) { // 140
                      S = CABS1( X( K, J ) );
-                     DO 130 I = MAX( 1, K-KD ), K - 1;
+                     DO 130 I = max( 1, K-KD ), K - 1;
                         S = S + CABS1( AB( KD+1+I-K, K ) )* CABS1( X( I, J ) );
                      } // 130
                      RWORK( K ) = RWORK( K ) + S;
@@ -196,7 +196,7 @@
                if ( NOUNIT ) {
                   for (K = 1; K <= N; K++) { // 160
                      S = ZERO;
-                     DO 150 I = K, MIN( N, K+KD );
+                     DO 150 I = K, min( N, K+KD );
                         S = S + CABS1( AB( 1+I-K, K ) )* CABS1( X( I, J ) );
                      } // 150
                      RWORK( K ) = RWORK( K ) + S;
@@ -204,7 +204,7 @@
                } else {
                   for (K = 1; K <= N; K++) { // 180
                      S = CABS1( X( K, J ) );
-                     DO 170 I = K + 1, MIN( N, K+KD );
+                     DO 170 I = K + 1, min( N, K+KD );
                         S = S + CABS1( AB( 1+I-K, K ) )* CABS1( X( I, J ) );
                      } // 170
                      RWORK( K ) = RWORK( K ) + S;
@@ -215,9 +215,9 @@
          S = ZERO;
          for (I = 1; I <= N; I++) { // 190
             if ( RWORK( I ) > SAFE2 ) {
-               S = MAX( S, CABS1( WORK( I ) ) / RWORK( I ) );
+               S = max( S, CABS1( WORK( I ) ) / RWORK( I ) );
             } else {
-               S = MAX( S, ( CABS1( WORK( I ) )+SAFE1 ) / ( RWORK( I )+SAFE1 ) );
+               S = max( S, ( CABS1( WORK( I ) )+SAFE1 ) / ( RWORK( I )+SAFE1 ) );
             }
          } // 190
          BERR( J ) = S;
@@ -280,7 +280,7 @@
 
          LSTRES = ZERO;
          for (I = 1; I <= N; I++) { // 240
-            LSTRES = MAX( LSTRES, CABS1( X( I, J ) ) );
+            LSTRES = max( LSTRES, CABS1( X( I, J ) ) );
          } // 240
          if (LSTRES != ZERO) FERR( J ) = FERR( J ) / LSTRES;
 

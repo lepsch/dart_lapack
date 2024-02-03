@@ -52,9 +52,9 @@
          INFO = -5;
       } else if ( P < 0 ) {
          INFO = -6;
-      } else if ( LDA < MAX( 1, M ) ) {
+      } else if ( LDA < max( 1, M ) ) {
          INFO = -10;
-      } else if ( LDB < MAX( 1, P ) ) {
+      } else if ( LDB < max( 1, P ) ) {
          INFO = -12;
       } else if ( LDU < 1 || ( WANTU && LDU < M ) ) {
          INFO = -16;
@@ -78,8 +78,8 @@
 
       ULP = DLAMCH( 'Precision' );
       UNFL = DLAMCH( 'Safe Minimum' );
-      TOLA = MAX( M, N )*MAX( ANORM, UNFL )*ULP;
-      TOLB = MAX( P, N )*MAX( BNORM, UNFL )*ULP;
+      TOLA = max( M, N )*max( ANORM, UNFL )*ULP;
+      TOLB = max( P, N )*max( BNORM, UNFL )*ULP;
 
       // Preprocessing
 
@@ -93,7 +93,7 @@
       // Copy ALPHA to WORK, then sort ALPHA in WORK
 
       dcopy(N, ALPHA, 1, WORK, 1 );
-      IBND = MIN( L, M-K );
+      IBND = min( L, M-K );
       for (I = 1; I <= IBND; I++) { // 20
 
          // Scan for largest ALPHA(K+I)

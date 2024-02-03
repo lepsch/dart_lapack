@@ -59,7 +59,7 @@
          INFO = -7;
       } else if ( LDBB < KB+1 ) {
          INFO = -9;
-      } else if ( LDX < 1 || WANTX && LDX < MAX( 1, N ) ) {
+      } else if ( LDX < 1 || WANTX && LDX < max( 1, N ) ) {
          INFO = -11;
       }
       if ( INFO != 0 ) {
@@ -147,9 +147,9 @@
       } // 10
       if ( UPDATE ) {
          I = I - 1;
-         KBT = MIN( KB, I-1 );
+         KBT = min( KB, I-1 );
          I0 = I - 1;
-         I1 = MIN( N, I+KA );
+         I1 = min( N, I+KA );
          I2 = I - KBT + KA1;
          if ( I < M+1 ) {
             UPDATE = false;
@@ -176,19 +176,19 @@
             for (J = I + 1; J <= I1; J++) { // 20
                AB( I-J+KA1, J ) = AB( I-J+KA1, J ) / BII;
             } // 20
-            DO 30 J = MAX( 1, I-KA ), I - 1;
+            DO 30 J = max( 1, I-KA ), I - 1;
                AB( J-I+KA1, I ) = AB( J-I+KA1, I ) / BII;
             } // 30
             for (K = I - KBT; K <= I - 1; K++) { // 60
                for (J = I - KBT; J <= K; J++) { // 40
                   AB( J-K+KA1, K ) = AB( J-K+KA1, K ) - BB( J-I+KB1, I )* CONJG( AB( K-I+KA1, I ) ) - CONJG( BB( K-I+KB1, I ) )* AB( J-I+KA1, I ) + REAL( AB( KA1, I ) )* BB( J-I+KB1, I )* CONJG( BB( K-I+KB1, I ) );
                } // 40
-               DO 50 J = MAX( 1, I-KA ), I - KBT - 1;
+               DO 50 J = max( 1, I-KA ), I - KBT - 1;
                   AB( J-K+KA1, K ) = AB( J-K+KA1, K ) - CONJG( BB( K-I+KB1, I ) )* AB( J-I+KA1, I );
                } // 50
             } // 60
             for (J = I; J <= I1; J++) { // 80
-               DO 70 K = MAX( J-KA, I-KBT ), I - 1;
+               DO 70 K = max( J-KA, I-KBT ), I - 1;
                   AB( K-J+KA1, J ) = AB( K-J+KA1, J ) - BB( K-I+KB1, I )*AB( I-J+KA1, J );
                } // 70
             } // 80
@@ -231,11 +231,11 @@
                   RA1 = RA;
                }
             }
-            J2 = I - K - 1 + MAX( 1, K-I0+2 )*KA1;
+            J2 = I - K - 1 + max( 1, K-I0+2 )*KA1;
             NR = ( N-J2+KA ) / KA1;
             J1 = J2 + ( NR-1 )*KA1;
             if ( UPDATE ) {
-               J2T = MAX( J2, I+2*KA-K+1 );
+               J2T = max( J2, I+2*KA-K+1 );
             } else {
                J2T = J2;
             }
@@ -298,9 +298,9 @@
 
          DO 170 K = KB, 1, -1;
             if ( UPDATE ) {
-               J2 = I - K - 1 + MAX( 2, K-I0+1 )*KA1;
+               J2 = I - K - 1 + max( 2, K-I0+1 )*KA1;
             } else {
-               J2 = I - K - 1 + MAX( 1, K-I0+1 )*KA1;
+               J2 = I - K - 1 + max( 1, K-I0+1 )*KA1;
             }
 
             // finish applying rotations in 2nd set from the left
@@ -329,7 +329,7 @@
          } // 170
 
          DO 210 K = KB, 1, -1;
-            J2 = I - K - 1 + MAX( 1, K-I0+1 )*KA1;
+            J2 = I - K - 1 + max( 1, K-I0+1 )*KA1;
             NR = ( N-J2+KA ) / KA1;
             J1 = J2 + ( NR-1 )*KA1;
             if ( NR > 0 ) {
@@ -371,7 +371,7 @@
          } // 210
 
          for (K = 1; K <= KB - 1; K++) { // 230
-            J2 = I - K - 1 + MAX( 1, K-I0+2 )*KA1;
+            J2 = I - K - 1 + max( 1, K-I0+2 )*KA1;
 
             // finish applying rotations in 1st set from the left
 
@@ -401,19 +401,19 @@
             for (J = I + 1; J <= I1; J++) { // 250
                AB( J-I+1, I ) = AB( J-I+1, I ) / BII;
             } // 250
-            DO 260 J = MAX( 1, I-KA ), I - 1;
+            DO 260 J = max( 1, I-KA ), I - 1;
                AB( I-J+1, J ) = AB( I-J+1, J ) / BII;
             } // 260
             for (K = I - KBT; K <= I - 1; K++) { // 290
                for (J = I - KBT; J <= K; J++) { // 270
                   AB( K-J+1, J ) = AB( K-J+1, J ) - BB( I-J+1, J )*CONJG( AB( I-K+1, K ) ) - CONJG( BB( I-K+1, K ) )* AB( I-J+1, J ) + REAL( AB( 1, I ) )* BB( I-J+1, J )*CONJG( BB( I-K+1, K ) );
                } // 270
-               DO 280 J = MAX( 1, I-KA ), I - KBT - 1;
+               DO 280 J = max( 1, I-KA ), I - KBT - 1;
                   AB( K-J+1, J ) = AB( K-J+1, J ) - CONJG( BB( I-K+1, K ) )* AB( I-J+1, J );
                } // 280
             } // 290
             for (J = I; J <= I1; J++) { // 310
-               DO 300 K = MAX( J-KA, I-KBT ), I - 1;
+               DO 300 K = max( J-KA, I-KBT ), I - 1;
                   AB( J-K+1, K ) = AB( J-K+1, K ) - BB( I-K+1, K )*AB( J-I+1, I );
                } // 300
             } // 310
@@ -455,11 +455,11 @@
                   RA1 = RA;
                }
             }
-            J2 = I - K - 1 + MAX( 1, K-I0+2 )*KA1;
+            J2 = I - K - 1 + max( 1, K-I0+2 )*KA1;
             NR = ( N-J2+KA ) / KA1;
             J1 = J2 + ( NR-1 )*KA1;
             if ( UPDATE ) {
-               J2T = MAX( J2, I+2*KA-K+1 );
+               J2T = max( J2, I+2*KA-K+1 );
             } else {
                J2T = J2;
             }
@@ -522,9 +522,9 @@
 
          DO 400 K = KB, 1, -1;
             if ( UPDATE ) {
-               J2 = I - K - 1 + MAX( 2, K-I0+1 )*KA1;
+               J2 = I - K - 1 + max( 2, K-I0+1 )*KA1;
             } else {
-               J2 = I - K - 1 + MAX( 1, K-I0+1 )*KA1;
+               J2 = I - K - 1 + max( 1, K-I0+1 )*KA1;
             }
 
             // finish applying rotations in 2nd set from the right
@@ -553,7 +553,7 @@
          } // 400
 
          DO 440 K = KB, 1, -1;
-            J2 = I - K - 1 + MAX( 1, K-I0+1 )*KA1;
+            J2 = I - K - 1 + max( 1, K-I0+1 )*KA1;
             NR = ( N-J2+KA ) / KA1;
             J1 = J2 + ( NR-1 )*KA1;
             if ( NR > 0 ) {
@@ -595,7 +595,7 @@
          } // 440
 
          for (K = 1; K <= KB - 1; K++) { // 460
-            J2 = I - K - 1 + MAX( 1, K-I0+2 )*KA1;
+            J2 = I - K - 1 + max( 1, K-I0+2 )*KA1;
 
             // finish applying rotations in 1st set from the right
 
@@ -639,9 +639,9 @@
       } // 490
       if ( UPDATE ) {
          I = I + 1;
-         KBT = MIN( KB, M-I );
+         KBT = min( KB, M-I );
          I0 = I + 1;
-         I1 = MAX( 1, I-KA );
+         I1 = max( 1, I-KA );
          I2 = I + KBT - KA1;
          if ( I > M ) {
             UPDATE = false;
@@ -674,19 +674,19 @@
             for (J = I1; J <= I - 1; J++) { // 500
                AB( J-I+KA1, I ) = AB( J-I+KA1, I ) / BII;
             } // 500
-            DO 510 J = I + 1, MIN( N, I+KA );
+            DO 510 J = I + 1, min( N, I+KA );
                AB( I-J+KA1, J ) = AB( I-J+KA1, J ) / BII;
             } // 510
             for (K = I + 1; K <= I + KBT; K++) { // 540
                for (J = K; J <= I + KBT; J++) { // 520
                   AB( K-J+KA1, J ) = AB( K-J+KA1, J ) - BB( I-J+KB1, J )* CONJG( AB( I-K+KA1, K ) ) - CONJG( BB( I-K+KB1, K ) )* AB( I-J+KA1, J ) + REAL( AB( KA1, I ) )* BB( I-J+KB1, J )* CONJG( BB( I-K+KB1, K ) );
                } // 520
-               DO 530 J = I + KBT + 1, MIN( N, I+KA );
+               DO 530 J = I + KBT + 1, min( N, I+KA );
                   AB( K-J+KA1, J ) = AB( K-J+KA1, J ) - CONJG( BB( I-K+KB1, K ) )* AB( I-J+KA1, J );
                } // 530
             } // 540
             for (J = I1; J <= I; J++) { // 560
-               DO 550 K = I + 1, MIN( J+KA, I+KBT );
+               DO 550 K = I + 1, min( J+KA, I+KBT );
                   AB( J-K+KA1, K ) = AB( J-K+KA1, K ) - BB( I-K+KB1, K )*AB( J-I+KA1, I );
                } // 550
             } // 560
@@ -728,11 +728,11 @@
                   RA1 = RA;
                }
             }
-            J2 = I + K + 1 - MAX( 1, K+I0-M+1 )*KA1;
+            J2 = I + K + 1 - max( 1, K+I0-M+1 )*KA1;
             NR = ( J2+KA-1 ) / KA1;
             J1 = J2 - ( NR-1 )*KA1;
             if ( UPDATE ) {
-               J2T = MIN( J2, I-2*KA+K-1 );
+               J2T = min( J2, I-2*KA+K-1 );
             } else {
                J2T = J2;
             }
@@ -796,9 +796,9 @@
 
          DO 650 K = KB, 1, -1;
             if ( UPDATE ) {
-               J2 = I + K + 1 - MAX( 2, K+I0-M )*KA1;
+               J2 = I + K + 1 - max( 2, K+I0-M )*KA1;
             } else {
-               J2 = I + K + 1 - MAX( 1, K+I0-M )*KA1;
+               J2 = I + K + 1 - max( 1, K+I0-M )*KA1;
             }
 
             // finish applying rotations in 2nd set from the right
@@ -828,7 +828,7 @@
          } // 650
 
          DO 690 K = KB, 1, -1;
-            J2 = I + K + 1 - MAX( 1, K+I0-M )*KA1;
+            J2 = I + K + 1 - max( 1, K+I0-M )*KA1;
             NR = ( J2+KA-1 ) / KA1;
             J1 = J2 - ( NR-1 )*KA1;
             if ( NR > 0 ) {
@@ -871,7 +871,7 @@
          } // 690
 
          for (K = 1; K <= KB - 1; K++) { // 710
-            J2 = I + K + 1 - MAX( 1, K+I0-M+1 )*KA1;
+            J2 = I + K + 1 - max( 1, K+I0-M+1 )*KA1;
 
             // finish applying rotations in 1st set from the right
 
@@ -902,19 +902,19 @@
             for (J = I1; J <= I - 1; J++) { // 730
                AB( I-J+1, J ) = AB( I-J+1, J ) / BII;
             } // 730
-            DO 740 J = I + 1, MIN( N, I+KA );
+            DO 740 J = I + 1, min( N, I+KA );
                AB( J-I+1, I ) = AB( J-I+1, I ) / BII;
             } // 740
             for (K = I + 1; K <= I + KBT; K++) { // 770
                for (J = K; J <= I + KBT; J++) { // 750
                   AB( J-K+1, K ) = AB( J-K+1, K ) - BB( J-I+1, I )*CONJG( AB( K-I+1, I ) ) - CONJG( BB( K-I+1, I ) )* AB( J-I+1, I ) + REAL( AB( 1, I ) )* BB( J-I+1, I )*CONJG( BB( K-I+1, I ) );
                } // 750
-               DO 760 J = I + KBT + 1, MIN( N, I+KA );
+               DO 760 J = I + KBT + 1, min( N, I+KA );
                   AB( J-K+1, K ) = AB( J-K+1, K ) - CONJG( BB( K-I+1, I ) )* AB( J-I+1, I );
                } // 760
             } // 770
             for (J = I1; J <= I; J++) { // 790
-               DO 780 K = I + 1, MIN( J+KA, I+KBT );
+               DO 780 K = I + 1, min( J+KA, I+KBT );
                   AB( K-J+1, J ) = AB( K-J+1, J ) - BB( K-I+1, I )*AB( I-J+1, J );
                } // 780
             } // 790
@@ -956,11 +956,11 @@
                   RA1 = RA;
                }
             }
-            J2 = I + K + 1 - MAX( 1, K+I0-M+1 )*KA1;
+            J2 = I + K + 1 - max( 1, K+I0-M+1 )*KA1;
             NR = ( J2+KA-1 ) / KA1;
             J1 = J2 - ( NR-1 )*KA1;
             if ( UPDATE ) {
-               J2T = MIN( J2, I-2*KA+K-1 );
+               J2T = min( J2, I-2*KA+K-1 );
             } else {
                J2T = J2;
             }
@@ -1024,9 +1024,9 @@
 
          DO 880 K = KB, 1, -1;
             if ( UPDATE ) {
-               J2 = I + K + 1 - MAX( 2, K+I0-M )*KA1;
+               J2 = I + K + 1 - max( 2, K+I0-M )*KA1;
             } else {
-               J2 = I + K + 1 - MAX( 1, K+I0-M )*KA1;
+               J2 = I + K + 1 - max( 1, K+I0-M )*KA1;
             }
 
             // finish applying rotations in 2nd set from the left
@@ -1056,7 +1056,7 @@
          } // 880
 
          DO 920 K = KB, 1, -1;
-            J2 = I + K + 1 - MAX( 1, K+I0-M )*KA1;
+            J2 = I + K + 1 - max( 1, K+I0-M )*KA1;
             NR = ( J2+KA-1 ) / KA1;
             J1 = J2 - ( NR-1 )*KA1;
             if ( NR > 0 ) {
@@ -1099,7 +1099,7 @@
          } // 920
 
          for (K = 1; K <= KB - 1; K++) { // 940
-            J2 = I + K + 1 - MAX( 1, K+I0-M+1 )*KA1;
+            J2 = I + K + 1 - max( 1, K+I0-M+1 )*KA1;
 
             // finish applying rotations in 1st set from the left
 

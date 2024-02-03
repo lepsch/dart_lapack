@@ -87,7 +87,7 @@
          // Do for each value of N in NVAL
 
          N = NVAL( IN );
-         LDA = MAX( 1, N );
+         LDA = max( 1, N );
          XTYPE = 'N';
 
          for (IMAT = 1; IMAT <= NTYPE1; IMAT++) { // 80
@@ -321,7 +321,7 @@
                   ccopy(N, X, 1, B, 1 );
                   ccopy(N, X, 1, B( N+1 ), 1 );
                   csscal(N, BIGNUM, B( N+1 ), 1 );
-                  clatrs3(UPLO, TRANS, DIAG, 'N', N, 2, A, LDA, B, MAX(1, N), SCALE3, RWORK, RWORK2, 2*NMAX, INFO );
+                  clatrs3(UPLO, TRANS, DIAG, 'N', N, 2, A, LDA, B, max(1, N), SCALE3, RWORK, RWORK2, 2*NMAX, INFO );
 
                   // Check error code from CLATRS3.
 
@@ -329,7 +329,7 @@
                   ctrt03(UPLO, TRANS, DIAG, N, 1, A, LDA, SCALE3( 1 ), RWORK, ONE, B( 1 ), LDA, X, LDA, WORK, RESULT( 10 ) );
                   csscal(N, BIGNUM, X, 1 );
                   ctrt03(UPLO, TRANS, DIAG, N, 1, A, LDA, SCALE3( 2 ), RWORK, ONE, B( N+1 ), LDA, X, LDA, WORK, RES );
-                  RESULT( 10 ) = MAX( RESULT( 10 ), RES );
+                  RESULT( 10 ) = max( RESULT( 10 ), RES );
 
                   // Print information about the tests that did not pass
                   // the threshold.

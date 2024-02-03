@@ -107,7 +107,7 @@
          }
          SUM = 2*SUM;
          classq(N, A, LDA+1, SCALE, SUM );
-         VALUE = SCALE*SQRT( SUM );
+         VALUE = SCALE*sqrt( SUM );
       }
 
       CLANSY = VALUE;

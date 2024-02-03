@@ -78,7 +78,7 @@
             ctrmv('Lower', 'No transpose', 'Unit', K-1, AFAC, LDAFAC, AFAC( 1, K ), 1 );
          }
       } // 10
-      claswp(N, AFAC, LDAFAC, 1, MIN( M, N ), IPIV, -1 );
+      claswp(N, AFAC, LDAFAC, 1, min( M, N ), IPIV, -1 );
 
       // Compute the difference  L*U - A  and store in AFAC.
 

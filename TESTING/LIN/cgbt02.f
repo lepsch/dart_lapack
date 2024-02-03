@@ -63,8 +63,8 @@
 
          KD = KU + 1;
          for (J = 1; J <= N; J++) { // 10
-            I1 = MAX( KD+1-J, 1 );
-            I2 = MIN( KD+M-J, KL+KD );
+            I1 = max( KD+1-J, 1 );
+            I2 = min( KD+M-J, KL+KD );
             if ( I2 >= I1 ) {
                TEMP = SCASUM( I2-I1+1, A( I1, J ), 1 );
                if( ANORM < TEMP || SISNAN( TEMP ) ) ANORM = TEMP;
@@ -79,7 +79,7 @@
          } // 12
          for (J = 1; J <= N; J++) { // 16
             KD = KU + 1 - J;
-            DO 14 I1 = MAX( 1, J-KU ), MIN( M, J+KL );
+            DO 14 I1 = max( 1, J-KU ), min( M, J+KL );
                RWORK( I1 ) = RWORK( I1 ) + CABS1( A( KD+I1, J ) );
             } // 14
          } // 16
@@ -115,7 +115,7 @@
          if ( XNORM <= ZERO ) {
             RESID = ONE / EPS;
          } else {
-            RESID = MAX( RESID, ( ( BNORM/ANORM )/XNORM )/EPS );
+            RESID = max( RESID, ( ( BNORM/ANORM )/XNORM )/EPS );
          }
       } // 30
 

@@ -31,9 +31,9 @@
          INFO = -1;
       } else if ( N < 0 ) {
          INFO = -2;
-      } else if ( NB < 1 || ( NB > MIN(M,N) && MIN(M,N) > 0 ) ) {
+      } else if ( NB < 1 || ( NB > min(M,N) && min(M,N) > 0 ) ) {
          INFO = -3;
-      } else if ( LDA < MAX( 1, M ) ) {
+      } else if ( LDA < max( 1, M ) ) {
          INFO = -5;
       } else if ( LDT < NB ) {
          INFO = -7;
@@ -45,13 +45,13 @@
 
       // Quick return if possible
 
-      K = MIN( M, N );
+      K = min( M, N );
       if (K == 0) return;
 
       // Blocked loop of length K
 
       DO I = 1, K,  NB;
-         IB = MIN( K-I+1, NB );
+         IB = min( K-I+1, NB );
 
       // Compute the QR factorization of the current block A(I:M,I:I+IB-1)
 

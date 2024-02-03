@@ -42,10 +42,10 @@
 
       if ( LEFT ) {
          NQ = M;
-         NW = MAX( 1, N );
+         NW = max( 1, N );
       } else {
          NQ = N;
-         NW = MAX( 1, M );
+         NW = max( 1, M );
       }
       if ( !LEFT && !LSAME( SIDE, 'R' ) ) {
          INFO = -1;
@@ -57,9 +57,9 @@
          INFO = -4;
       } else if ( N < 0 ) {
          INFO = -5;
-      } else if ( LDA < MAX( 1, NQ ) ) {
+      } else if ( LDA < max( 1, NQ ) ) {
          INFO = -7;
-      } else if ( LDC < MAX( 1, M ) ) {
+      } else if ( LDC < max( 1, M ) ) {
          INFO = -10;
       } else if ( LWORK < NW && !LQUERY ) {
          INFO = -12;

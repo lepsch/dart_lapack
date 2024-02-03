@@ -53,19 +53,19 @@
          INFO = -5;
       } else if ( Q < 0 || Q > M ) {
          INFO = -6;
-      } else if ( LDX11 < MAX( 1, P ) ) {
+      } else if ( LDX11 < max( 1, P ) ) {
          INFO = -8;
-      } else if ( LDX21 < MAX( 1, M-P ) ) {
+      } else if ( LDX21 < max( 1, M-P ) ) {
          INFO = -10;
-      } else if ( WANTU1 && LDU1 < MAX( 1, P ) ) {
+      } else if ( WANTU1 && LDU1 < max( 1, P ) ) {
          INFO = -13;
-      } else if ( WANTU2 && LDU2 < MAX( 1, M - P ) ) {
+      } else if ( WANTU2 && LDU2 < max( 1, M - P ) ) {
          INFO = -15;
-      } else if ( WANTV1T && LDV1T < MAX( 1, Q ) ) {
+      } else if ( WANTV1T && LDV1T < max( 1, Q ) ) {
          INFO = -17;
       }
 
-      R = MIN( P, M-P, Q, M-Q );
+      R = min( P, M-P, Q, M-Q );
 
       // Compute workspace
 
@@ -73,11 +73,11 @@
       // |-------------------------------------------------------|
       // | LWORKOPT (1)                                          |
       // |-------------------------------------------------------|
-      // | PHI (MAX(1,R-1))                                      |
+      // | PHI (max(1,R-1))                                      |
       // |-------------------------------------------------------|
-      // | TAUP1 (MAX(1,P))                        | B11D (R)    |
-      // | TAUP2 (MAX(1,M-P))                      | B11E (R-1)  |
-      // | TAUQ1 (MAX(1,Q))                        | B12D (R)    |
+      // | TAUP1 (max(1,P))                        | B11D (R)    |
+      // | TAUP2 (max(1,M-P))                      | B11E (R-1)  |
+      // | TAUQ1 (max(1,Q))                        | B12D (R)    |
       // |-----------------------------------------| B12E (R-1)  |
       // | SORBDB WORK | SORGQR WORK | SORGLQ WORK | B21D (R)    |
       // |             |             |             | B21E (R-1)  |
@@ -88,21 +88,21 @@
 
       if ( INFO == 0 ) {
          IPHI = 2;
-         IB11D = IPHI + MAX( 1, R-1 );
-         IB11E = IB11D + MAX( 1, R );
-         IB12D = IB11E + MAX( 1, R - 1 );
-         IB12E = IB12D + MAX( 1, R );
-         IB21D = IB12E + MAX( 1, R - 1 );
-         IB21E = IB21D + MAX( 1, R );
-         IB22D = IB21E + MAX( 1, R - 1 );
-         IB22E = IB22D + MAX( 1, R );
-         IBBCSD = IB22E + MAX( 1, R - 1 );
-         ITAUP1 = IPHI + MAX( 1, R-1 );
-         ITAUP2 = ITAUP1 + MAX( 1, P );
-         ITAUQ1 = ITAUP2 + MAX( 1, M-P );
-         IORBDB = ITAUQ1 + MAX( 1, Q );
-         IORGQR = ITAUQ1 + MAX( 1, Q );
-         IORGLQ = ITAUQ1 + MAX( 1, Q );
+         IB11D = IPHI + max( 1, R-1 );
+         IB11E = IB11D + max( 1, R );
+         IB12D = IB11E + max( 1, R - 1 );
+         IB12E = IB12D + max( 1, R );
+         IB21D = IB12E + max( 1, R - 1 );
+         IB21E = IB21D + max( 1, R );
+         IB22D = IB21E + max( 1, R - 1 );
+         IB22E = IB22D + max( 1, R );
+         IBBCSD = IB22E + max( 1, R - 1 );
+         ITAUP1 = IPHI + max( 1, R-1 );
+         ITAUP2 = ITAUP1 + max( 1, P );
+         ITAUQ1 = ITAUP2 + max( 1, M-P );
+         IORBDB = ITAUQ1 + max( 1, Q );
+         IORGQR = ITAUQ1 + max( 1, Q );
+         IORGLQ = ITAUQ1 + max( 1, Q );
          LORGQRMIN = 1;
          LORGQROPT = 1;
          LORGLQMIN = 1;
@@ -112,18 +112,18 @@
             LORBDB = INT( WORK(1) );
             if ( WANTU1 && P > 0 ) {
                sorgqr(P, P, Q, U1, LDU1, DUM1, WORK(1), -1, CHILDINFO );
-               LORGQRMIN = MAX( LORGQRMIN, P );
-               LORGQROPT = MAX( LORGQROPT, INT( WORK(1) ) );
+               LORGQRMIN = max( LORGQRMIN, P );
+               LORGQROPT = max( LORGQROPT, INT( WORK(1) ) );
             }
             if ( WANTU2 && M-P > 0 ) {
                sorgqr(M-P, M-P, Q, U2, LDU2, DUM1, WORK(1), -1, CHILDINFO );
-               LORGQRMIN = MAX( LORGQRMIN, M-P );
-               LORGQROPT = MAX( LORGQROPT, INT( WORK(1) ) );
+               LORGQRMIN = max( LORGQRMIN, M-P );
+               LORGQROPT = max( LORGQROPT, INT( WORK(1) ) );
             }
             if ( WANTV1T && Q > 0 ) {
                sorglq(Q-1, Q-1, Q-1, V1T, LDV1T, DUM1, WORK(1), -1, CHILDINFO );
-               LORGLQMIN = MAX( LORGLQMIN, Q-1 );
-               LORGLQOPT = MAX( LORGLQOPT, INT( WORK(1) ) );
+               LORGLQMIN = max( LORGLQMIN, Q-1 );
+               LORGLQOPT = max( LORGLQOPT, INT( WORK(1) ) );
             }
             sbbcsd(JOBU1, JOBU2, JOBV1T, 'N', 'N', M, P, Q, THETA, DUM1, U1, LDU1, U2, LDU2, V1T, LDV1T, DUM2, 1, DUM1, DUM1, DUM1, DUM1, DUM1, DUM1, DUM1, DUM1, WORK(1), -1, CHILDINFO );
             LBBCSD = INT( WORK(1) );
@@ -132,18 +132,18 @@
             LORBDB = INT( WORK(1) );
             if ( WANTU1 && P > 0 ) {
                sorgqr(P-1, P-1, P-1, U1(2,2), LDU1, DUM1, WORK(1), -1, CHILDINFO );
-               LORGQRMIN = MAX( LORGQRMIN, P-1 );
-               LORGQROPT = MAX( LORGQROPT, INT( WORK(1) ) );
+               LORGQRMIN = max( LORGQRMIN, P-1 );
+               LORGQROPT = max( LORGQROPT, INT( WORK(1) ) );
             }
             if ( WANTU2 && M-P > 0 ) {
                sorgqr(M-P, M-P, Q, U2, LDU2, DUM1, WORK(1), -1, CHILDINFO );
-               LORGQRMIN = MAX( LORGQRMIN, M-P );
-               LORGQROPT = MAX( LORGQROPT, INT( WORK(1) ) );
+               LORGQRMIN = max( LORGQRMIN, M-P );
+               LORGQROPT = max( LORGQROPT, INT( WORK(1) ) );
             }
             if ( WANTV1T && Q > 0 ) {
                sorglq(Q, Q, R, V1T, LDV1T, DUM1, WORK(1), -1, CHILDINFO );
-               LORGLQMIN = MAX( LORGLQMIN, Q );
-               LORGLQOPT = MAX( LORGLQOPT, INT( WORK(1) ) );
+               LORGLQMIN = max( LORGLQMIN, Q );
+               LORGLQOPT = max( LORGLQOPT, INT( WORK(1) ) );
             }
             sbbcsd(JOBV1T, 'N', JOBU1, JOBU2, 'T', M, Q, P, THETA, DUM1, V1T, LDV1T, DUM2, 1, U1, LDU1, U2, LDU2, DUM1, DUM1, DUM1, DUM1, DUM1, DUM1, DUM1, DUM1, WORK(1), -1, CHILDINFO );
             LBBCSD = INT( WORK(1) );
@@ -152,18 +152,18 @@
             LORBDB = INT( WORK(1) );
             if ( WANTU1 && P > 0 ) {
                sorgqr(P, P, Q, U1, LDU1, DUM1, WORK(1), -1, CHILDINFO );
-               LORGQRMIN = MAX( LORGQRMIN, P );
-               LORGQROPT = MAX( LORGQROPT, INT( WORK(1) ) );
+               LORGQRMIN = max( LORGQRMIN, P );
+               LORGQROPT = max( LORGQROPT, INT( WORK(1) ) );
             }
             if ( WANTU2 && M-P > 0 ) {
                sorgqr(M-P-1, M-P-1, M-P-1, U2(2,2), LDU2, DUM1, WORK(1), -1, CHILDINFO );
-               LORGQRMIN = MAX( LORGQRMIN, M-P-1 );
-               LORGQROPT = MAX( LORGQROPT, INT( WORK(1) ) );
+               LORGQRMIN = max( LORGQRMIN, M-P-1 );
+               LORGQROPT = max( LORGQROPT, INT( WORK(1) ) );
             }
             if ( WANTV1T && Q > 0 ) {
                sorglq(Q, Q, R, V1T, LDV1T, DUM1, WORK(1), -1, CHILDINFO );
-               LORGLQMIN = MAX( LORGLQMIN, Q );
-               LORGLQOPT = MAX( LORGLQOPT, INT( WORK(1) ) );
+               LORGLQMIN = max( LORGLQMIN, Q );
+               LORGLQOPT = max( LORGLQOPT, INT( WORK(1) ) );
             }
             sbbcsd('N', JOBV1T, JOBU2, JOBU1, 'T', M, M-Q, M-P, THETA, DUM1, DUM2, 1, V1T, LDV1T, U2, LDU2, U1, LDU1, DUM1, DUM1, DUM1, DUM1, DUM1, DUM1, DUM1, DUM1, WORK(1), -1, CHILDINFO );
             LBBCSD = INT( WORK(1) );
@@ -172,23 +172,23 @@
             LORBDB = M + INT( WORK(1) );
             if ( WANTU1 && P > 0 ) {
                sorgqr(P, P, M-Q, U1, LDU1, DUM1, WORK(1), -1, CHILDINFO );
-               LORGQRMIN = MAX( LORGQRMIN, P );
-               LORGQROPT = MAX( LORGQROPT, INT( WORK(1) ) );
+               LORGQRMIN = max( LORGQRMIN, P );
+               LORGQROPT = max( LORGQROPT, INT( WORK(1) ) );
             }
             if ( WANTU2 && M-P > 0 ) {
                sorgqr(M-P, M-P, M-Q, U2, LDU2, DUM1, WORK(1), -1, CHILDINFO );
-               LORGQRMIN = MAX( LORGQRMIN, M-P );
-               LORGQROPT = MAX( LORGQROPT, INT( WORK(1) ) );
+               LORGQRMIN = max( LORGQRMIN, M-P );
+               LORGQROPT = max( LORGQROPT, INT( WORK(1) ) );
             }
             if ( WANTV1T && Q > 0 ) {
                sorglq(Q, Q, Q, V1T, LDV1T, DUM1, WORK(1), -1, CHILDINFO );
-               LORGLQMIN = MAX( LORGLQMIN, Q );
-               LORGLQOPT = MAX( LORGLQOPT, INT( WORK(1) ) );
+               LORGLQMIN = max( LORGLQMIN, Q );
+               LORGLQOPT = max( LORGLQOPT, INT( WORK(1) ) );
             }
             sbbcsd(JOBU2, JOBU1, 'N', JOBV1T, 'N', M, M-P, M-Q, THETA, DUM1, U2, LDU2, U1, LDU1, DUM2, 1, V1T, LDV1T, DUM1, DUM1, DUM1, DUM1, DUM1, DUM1, DUM1, DUM1, WORK(1), -1, CHILDINFO );
             LBBCSD = INT( WORK(1) );
          }
-         LWORKMIN = MAX( IORBDB+LORBDB-1, IORGQR+LORGQRMIN-1, IORGLQ+LORGLQMIN-1, IBBCSD+LBBCSD-1 )          LWORKOPT = MAX( IORBDB+LORBDB-1, IORGQR+LORGQROPT-1, IORGLQ+LORGLQOPT-1, IBBCSD+LBBCSD-1 );
+         LWORKMIN = max( IORBDB+LORBDB-1, IORGQR+LORGQRMIN-1, IORGLQ+LORGLQMIN-1, IBBCSD+LBBCSD-1 )          LWORKOPT = max( IORBDB+LORBDB-1, IORGQR+LORGQROPT-1, IORGLQ+LORGLQOPT-1, IBBCSD+LBBCSD-1 );
          WORK(1) = LWORKOPT;
          if ( LWORK < LWORKMIN && !LQUERY ) {
             INFO = -19;
@@ -204,7 +204,7 @@
       LORGLQ = LWORK-IORGLQ+1;
 
       // Handle four cases separately: R = Q, R = P, R = M-P, and R = M-Q,
-      // in which R = MIN(P,M-P,Q,M-Q)
+      // in which R = min(P,M-P,Q,M-Q)
 
       if ( R == Q ) {
 

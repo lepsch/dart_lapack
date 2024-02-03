@@ -51,13 +51,13 @@
       if ( N > 1 ) {
          ANORM = ABS( AD( 1 ) ) + ABS( AE( 1 ) );
          for (J = 2; J <= N - 1; J++) { // 10
-            ANORM = MAX( ANORM, ABS( AD( J ) )+ABS( AE( J ) )+ ABS( AE( J-1 ) ) );
+            ANORM = max( ANORM, ABS( AD( J ) )+ABS( AE( J ) )+ ABS( AE( J-1 ) ) );
          } // 10
-         ANORM = MAX( ANORM, ABS( AD( N ) )+ABS( AE( N-1 ) ) );
+         ANORM = max( ANORM, ABS( AD( N ) )+ABS( AE( N-1 ) ) );
       } else {
          ANORM = ABS( AD( 1 ) );
       }
-      ANORM = MAX( ANORM, UNFL );
+      ANORM = max( ANORM, UNFL );
 
       // Norm of U*AU - S
 
@@ -84,9 +84,9 @@
          RESULT( 1 ) = ( WNORM / ANORM ) / ( M*ULP );
       } else {
          if ( ANORM < ONE ) {
-            RESULT( 1 ) = ( MIN( WNORM, M*ANORM ) / ANORM ) / ( M*ULP );
+            RESULT( 1 ) = ( min( WNORM, M*ANORM ) / ANORM ) / ( M*ULP );
          } else {
-            RESULT( 1 ) = MIN( WNORM / ANORM, REAL( M ) ) / ( M*ULP );
+            RESULT( 1 ) = min( WNORM / ANORM, REAL( M ) ) / ( M*ULP );
          }
       }
 
@@ -100,7 +100,7 @@
          WORK( J, J ) = WORK( J, J ) - ONE;
       } // 50
 
-      RESULT( 2 ) = MIN( REAL( M ), CLANGE( '1', M, M, WORK, M, RWORK ) ) / ( M*ULP );
+      RESULT( 2 ) = min( REAL( M ), CLANGE( '1', M, M, WORK, M, RWORK ) ) / ( M*ULP );
 
       return;
 

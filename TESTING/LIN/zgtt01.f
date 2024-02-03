@@ -75,7 +75,7 @@
          zaxpy(LASTJ-I+1, LI, WORK( I, I ), LDWORK, WORK( I+1, I ), LDWORK );
          IP = IPIV( I );
          if ( IP == I ) {
-            LASTJ = MIN( I+2, N );
+            LASTJ = min( I+2, N );
          } else {
             zswap(LASTJ-I+1, WORK( I, I ), LDWORK, WORK( I+1, I ), LDWORK );
          }

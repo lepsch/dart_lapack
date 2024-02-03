@@ -185,7 +185,7 @@
                         // supposed to be unchanged and the diagonal that
                         // is supposed to be real -> ZLANGE
 
-                        RESULT(1) = ZLANGE( 'I', N, N, C1, LDC, D_WORK_ZLANGE )                         RESULT(1) = RESULT(1) / MAX( DABS( ALPHA ) * NORMA * NORMA + DABS( BETA ) * NORMC, ONE ) / MAX( N , 1 ) / EPS;
+                        RESULT(1) = ZLANGE( 'I', N, N, C1, LDC, D_WORK_ZLANGE )                         RESULT(1) = RESULT(1) / max( DABS( ALPHA ) * NORMA * NORMA + DABS( BETA ) * NORMC, ONE ) / max( N , 1 ) / EPS;
 
                         if ( RESULT(1) >= THRESH ) {
                            if ( NFAIL == 0 ) {

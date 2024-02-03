@@ -92,7 +92,7 @@
          if (NORMRS != ZERO) ERR = ERR / NORMRS;
       }
 
-      DQRT17 = ERR / ( DLAMCH( 'Epsilon' )*DBLE( MAX( M, N, NRHS ) ) );
+      DQRT17 = ERR / ( DLAMCH( 'Epsilon' )*DBLE( max( M, N, NRHS ) ) );
       return;
 
       // End of DQRT17

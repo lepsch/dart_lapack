@@ -45,7 +45,7 @@
           INFO = 5;
       } else if (INCY == 0) {
           INFO = 7;
-      } else if (LDA < MAX(1,N)) {
+      } else if (LDA < max(1,N)) {
           INFO = 9;
       }
       if (INFO != 0) {

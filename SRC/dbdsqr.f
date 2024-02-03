@@ -64,11 +64,11 @@
          INFO = -4;
       } else if ( NCC < 0 ) {
          INFO = -5;
-      } else if ( ( NCVT == 0 && LDVT < 1 ) || ( NCVT > 0 && LDVT < MAX( 1, N ) ) ) {
+      } else if ( ( NCVT == 0 && LDVT < 1 ) || ( NCVT > 0 && LDVT < max( 1, N ) ) ) {
          INFO = -9;
-      } else if ( LDU < MAX( 1, NRU ) ) {
+      } else if ( LDU < max( 1, NRU ) ) {
          INFO = -11;
-      } else if ( ( NCC == 0 && LDC < 1 ) || ( NCC > 0 && LDC < MAX( 1, N ) ) ) {
+      } else if ( ( NCC == 0 && LDC < 1 ) || ( NCC > 0 && LDC < max( 1, N ) ) ) {
          INFO = -13;
       }
       if ( INFO != 0 ) {
@@ -126,17 +126,17 @@
       // (By setting TOL to be negative, algorithm will compute
       // singular values to absolute accuracy ABS(TOL)*norm(input matrix))
 
-      TOLMUL = MAX( TEN, MIN( HNDRD, EPS**MEIGTH ) );
+      TOLMUL = max( TEN, min( HNDRD, EPS**MEIGTH ) );
       TOL = TOLMUL*EPS;
 
       // Compute approximate maximum, minimum singular values
 
       SMAX = ZERO;
       for (I = 1; I <= N; I++) { // 20
-         SMAX = MAX( SMAX, ABS( D( I ) ) );
+         SMAX = max( SMAX, ABS( D( I ) ) );
       } // 20
       for (I = 1; I <= N - 1; I++) { // 30
-         SMAX = MAX( SMAX, ABS( E( I ) ) );
+         SMAX = max( SMAX, ABS( E( I ) ) );
       } // 30
       SMIN = ZERO;
       if ( TOL >= ZERO ) {
@@ -148,17 +148,17 @@
          MU = SMINOA;
          for (I = 2; I <= N; I++) { // 40
             MU = ABS( D( I ) )*( MU / ( MU+ABS( E( I-1 ) ) ) );
-            SMINOA = MIN( SMINOA, MU );
+            SMINOA = min( SMINOA, MU );
             if (SMINOA == ZERO) GO TO 50;
          } // 40
          } // 50
-         SMINOA = SMINOA / SQRT( DBLE( N ) );
-         THRESH = MAX( TOL*SMINOA, MAXITR*(N*(N*UNFL)) );
+         SMINOA = SMINOA / sqrt( DBLE( N ) );
+         THRESH = max( TOL*SMINOA, MAXITR*(N*(N*UNFL)) );
       } else {
 
          // Absolute accuracy desired
 
-         THRESH = MAX( ABS( TOL )*SMAX, MAXITR*(N*(N*UNFL)) );
+         THRESH = max( ABS( TOL )*SMAX, MAXITR*(N*(N*UNFL)) );
       }
 
       // Prepare for main iteration loop for the singular values
@@ -199,7 +199,7 @@
          ABSE = ABS( E( LL ) );
          if (TOL < ZERO && ABSS <= THRESH) D( LL ) = ZERO;
          IF( ABSE <= THRESH ) GO TO 80;
-         SMAX = MAX( SMAX, ABSS, ABSE );
+         SMAX = max( SMAX, ABSS, ABSE );
       } // 70
       LL = 0;
       GO TO 90;
@@ -280,7 +280,7 @@
                   GO TO 60;
                }
                MU = ABS( D( LLL+1 ) )*( MU / ( MU+ABS( E( LLL ) ) ) );
-               SMIN = MIN( SMIN, MU );
+               SMIN = min( SMIN, MU );
             } // 100
          }
 
@@ -307,7 +307,7 @@
                   GO TO 60;
                }
                MU = ABS( D( LLL ) )*( MU / ( MU+ABS( E( LLL ) ) ) );
-               SMIN = MIN( SMIN, MU );
+               SMIN = min( SMIN, MU );
             } // 110
          }
       }
@@ -317,7 +317,7 @@
       // Compute shift.  First, test if shifting would ruin relative
       // accuracy, and if so set the shift to zero.
 
-      if ( TOL >= ZERO && N*TOL*( SMIN / SMAX ) <= MAX( EPS, HNDRTH*TOL ) ) {
+      if ( TOL >= ZERO && N*TOL*( SMIN / SMAX ) <= max( EPS, HNDRTH*TOL ) ) {
 
          // Use a zero shift to avoid loss of relative accuracy
 

@@ -75,7 +75,7 @@
 
       NMAX = 7;
       for (J = 1; J <= NSIZES; J++) { // 10
-         NMAX = MAX( NMAX, NN( J ) );
+         NMAX = max( NMAX, NN( J ) );
          if( NN( J ) < 0 ) BADNN = true;
       } // 10
 
@@ -116,7 +116,7 @@
       OVFL = ONE / UNFL;
       ULP = SLAMCH( 'Precision' );
       ULPINV = ONE / ULP;
-      RTULP = SQRT( ULP );
+      RTULP = sqrt( ULP );
       RTULPI = ONE / RTULP;
 
       // Loop over sizes, types
@@ -126,9 +126,9 @@
       for (JSIZE = 1; JSIZE <= NSIZES; JSIZE++) { // 150
          N = NN( JSIZE );
          if ( NSIZES != 1 ) {
-            MTYPES = MIN( MAXTYP, NTYPES );
+            MTYPES = min( MAXTYP, NTYPES );
          } else {
-            MTYPES = MIN( MAXTYP+1, NTYPES );
+            MTYPES = min( MAXTYP+1, NTYPES );
          }
 
          for (JTYPE = 1; JTYPE <= MTYPES; JTYPE++) { // 140
@@ -286,7 +286,7 @@
                } else {
                   NNWORK = 6*N + 2*N**2;
                }
-               NNWORK = MAX( NNWORK, 1 );
+               NNWORK = max( NNWORK, 1 );
 
                // Test for all balancing options
 

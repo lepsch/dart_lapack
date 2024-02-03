@@ -43,7 +43,7 @@
       // ..
       // .. Executable Statements ..
 
-      MN = MIN( M, N );
+      MN = min( M, N );
       ISMIN = MN + 1;
       ISMAX = 2*MN + 1;
 
@@ -54,8 +54,8 @@
       NB2 = ILAENV( 1, 'CGERQF', ' ', M, N, -1, -1 );
       NB3 = ILAENV( 1, 'CUNMQR', ' ', M, N, NRHS, -1 );
       NB4 = ILAENV( 1, 'CUNMRQ', ' ', M, N, NRHS, -1 );
-      NB = MAX( NB1, NB2, NB3, NB4 );
-      LWKOPT = MAX( 1, MN+2*N+NB*(N+1), 2*MN+NB*NRHS );
+      NB = max( NB1, NB2, NB3, NB4 );
+      LWKOPT = max( 1, MN+2*N+NB*(N+1), 2*MN+NB*NRHS );
       WORK( 1 ) = CMPLX( LWKOPT );
       LQUERY = ( LWORK == -1 );
       if ( M < 0 ) {
@@ -64,11 +64,11 @@
          INFO = -2;
       } else if ( NRHS < 0 ) {
          INFO = -3;
-      } else if ( LDA < MAX( 1, M ) ) {
+      } else if ( LDA < max( 1, M ) ) {
          INFO = -5;
-      } else if ( LDB < MAX( 1, M, N ) ) {
+      } else if ( LDB < max( 1, M, N ) ) {
          INFO = -7;
-      } else if ( LWORK < ( MN+MAX( 2*MN, N+1, MN+NRHS ) ) && !LQUERY ) {
+      } else if ( LWORK < ( MN+max( 2*MN, N+1, MN+NRHS ) ) && !LQUERY ) {
          INFO = -12;
       }
 
@@ -81,7 +81,7 @@
 
       // Quick return if possible
 
-      if ( MIN( M, N, NRHS ) == 0 ) {
+      if ( min( M, N, NRHS ) == 0 ) {
          RANK = 0;
          return;
       }
@@ -111,7 +111,7 @@
 
          // Matrix all zero. Return zero solution.
 
-         claset('F', MAX( M, N ), NRHS, CZERO, CZERO, B, LDB );
+         claset('F', max( M, N ), NRHS, CZERO, CZERO, B, LDB );
          RANK = 0;
          GO TO 70;
       }
@@ -149,7 +149,7 @@
       SMIN = SMAX;
       if ( ABS( A( 1, 1 ) ) == ZERO ) {
          RANK = 0;
-         claset('F', MAX( M, N ), NRHS, CZERO, CZERO, B, LDB );
+         claset('F', max( M, N ), NRHS, CZERO, CZERO, B, LDB );
          GO TO 70;
       } else {
          RANK = 1;
@@ -191,7 +191,7 @@
       // B(1:M,1:NRHS) := Q**H * B(1:M,1:NRHS)
 
       cunmqr('Left', 'Conjugate transpose', M, NRHS, MN, A, LDA, WORK( 1 ), B, LDB, WORK( 2*MN+1 ), LWORK-2*MN, INFO );
-      WSIZE = MAX( WSIZE, 2*MN+REAL( WORK( 2*MN+1 ) ) );
+      WSIZE = max( WSIZE, 2*MN+REAL( WORK( 2*MN+1 ) ) );
 
       // complex workspace: 2*MN+NB*NRHS.
 

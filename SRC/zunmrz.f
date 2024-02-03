@@ -47,10 +47,10 @@
 
       if ( LEFT ) {
          NQ = M;
-         NW = MAX( 1, N );
+         NW = max( 1, N );
       } else {
          NQ = N;
-         NW = MAX( 1, M );
+         NW = max( 1, M );
       }
       if ( !LEFT && !LSAME( SIDE, 'R' ) ) {
          INFO = -1;
@@ -64,11 +64,11 @@
          INFO = -5;
       } else if ( L < 0 || ( LEFT && ( L > M ) ) || ( !LEFT && ( L > N ) ) ) {
          INFO = -6;
-      } else if ( LDA < MAX( 1, K ) ) {
+      } else if ( LDA < max( 1, K ) ) {
          INFO = -8;
-      } else if ( LDC < MAX( 1, M ) ) {
+      } else if ( LDC < max( 1, M ) ) {
          INFO = -11;
-      } else if ( LWORK < MAX( 1, NW ) && !LQUERY ) {
+      } else if ( LWORK < max( 1, NW ) && !LQUERY ) {
          INFO = -13;
       }
 
@@ -79,7 +79,7 @@
          if ( M == 0 || N == 0 ) {
             LWKOPT = 1;
          } else {
-            NB = MIN( NBMAX, ILAENV( 1, 'ZUNMRQ', SIDE // TRANS, M, N, K, -1 ) );
+            NB = min( NBMAX, ILAENV( 1, 'ZUNMRQ', SIDE // TRANS, M, N, K, -1 ) );
             LWKOPT = NW*NB + TSIZE;
          }
          WORK( 1 ) = LWKOPT;
@@ -101,13 +101,13 @@
       // Determine the block size.  NB may be at most NBMAX, where NBMAX
       // is used to define the local array T.
 
-      NB = MIN( NBMAX, ILAENV( 1, 'ZUNMRQ', SIDE // TRANS, M, N, K, -1 ) );
+      NB = min( NBMAX, ILAENV( 1, 'ZUNMRQ', SIDE // TRANS, M, N, K, -1 ) );
       NBMIN = 2;
       LDWORK = NW;
       if ( NB > 1 && NB < K ) {
          if ( LWORK < LWKOPT ) {
             NB = (LWORK-TSIZE) / LDWORK;
-            NBMIN = MAX( 2, ILAENV( 2, 'ZUNMRQ', SIDE // TRANS, M, N, K, -1 ) );
+            NBMIN = max( 2, ILAENV( 2, 'ZUNMRQ', SIDE // TRANS, M, N, K, -1 ) );
          }
       }
 
@@ -148,7 +148,7 @@
          }
 
          DO 10 I = I1, I2, I3;
-            IB = MIN( NB, K-I+1 );
+            IB = min( NB, K-I+1 );
 
             // Form the triangular factor of the block reflector
             // H = H(i+ib-1) . . . H(i+1) H(i)

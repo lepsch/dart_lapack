@@ -53,11 +53,11 @@
       TNORM = ZERO;
       if ( LSAME( DIAG, 'N' ) ) {
          for (J = 1; J <= N; J++) { // 10
-            TNORM = MAX( TNORM, TSCAL*ABS( A( J, J ) )+CNORM( J ) );
+            TNORM = max( TNORM, TSCAL*ABS( A( J, J ) )+CNORM( J ) );
          } // 10
       } else {
          for (J = 1; J <= N; J++) { // 20
-            TNORM = MAX( TNORM, TSCAL+CNORM( J ) );
+            TNORM = max( TNORM, TSCAL+CNORM( J ) );
          } // 20
       }
 
@@ -68,7 +68,7 @@
       for (J = 1; J <= NRHS; J++) { // 30
          dcopy(N, X( 1, J ), 1, WORK, 1 );
          IX = IDAMAX( N, WORK, 1 );
-         XNORM = MAX( ONE, ABS( X( IX, J ) ) );
+         XNORM = max( ONE, ABS( X( IX, J ) ) );
          XSCAL = ( ONE / XNORM ) / DBLE( N );
          dscal(N, XSCAL, WORK, 1 );
          dtrmv(UPLO, TRANS, DIAG, N, A, LDA, WORK, 1 );
@@ -87,7 +87,7 @@
          } else {
             if (ERR > ZERO) ERR = ONE / EPS;
          }
-         RESID = MAX( RESID, ERR );
+         RESID = max( RESID, ERR );
       } // 30
 
       return;

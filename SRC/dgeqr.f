@@ -49,7 +49,7 @@
 
       // Determine the block size
 
-      if ( MIN( M, N ) > 0 ) {
+      if ( min( M, N ) > 0 ) {
         MB = ILAENV( 1, 'DGEQR ', ' ', M, N, 1, -1 );
         NB = ILAENV( 1, 'DGEQR ', ' ', M, N, 2, -1 );
       } else {
@@ -57,7 +57,7 @@
         NB = 1;
       }
       if (MB > M || MB <= N) MB = M;
-      if( NB > MIN( M, N ) || NB < 1 ) NB = 1;
+      if( NB > min( M, N ) || NB < 1 ) NB = 1;
       MINTSZ = N + 5;
       if ( MB > N && M > N ) {
         if ( MOD( M - N, MB - N ) == 0 ) {
@@ -71,11 +71,11 @@
 
       // Determine if the workspace size satisfies minimal size
 
-      LWMIN = MAX( 1, N );
-      LWREQ = MAX( 1, N*NB );
+      LWMIN = max( 1, N );
+      LWREQ = max( 1, N*NB );
       LMINWS = false;
-      if ( ( TSIZE < MAX( 1, NB*N*NBLCKS + 5 ) || LWORK < LWREQ ) && ( LWORK >= N ) && ( TSIZE >= MINTSZ ) && ( !LQUERY ) ) {
-        if ( TSIZE < MAX( 1, NB*N*NBLCKS + 5 ) ) {
+      if ( ( TSIZE < max( 1, NB*N*NBLCKS + 5 ) || LWORK < LWREQ ) && ( LWORK >= N ) && ( TSIZE >= MINTSZ ) && ( !LQUERY ) ) {
+        if ( TSIZE < max( 1, NB*N*NBLCKS + 5 ) ) {
           LMINWS = true;
           NB = 1;
           MB = M;
@@ -90,9 +90,9 @@
         INFO = -1;
       } else if ( N < 0 ) {
         INFO = -2;
-      } else if ( LDA < MAX( 1, M ) ) {
+      } else if ( LDA < max( 1, M ) ) {
         INFO = -4;
-      } else if ( TSIZE < MAX( 1, NB*N*NBLCKS + 5 ) && ( !LQUERY ) && ( !LMINWS ) ) {
+      } else if ( TSIZE < max( 1, NB*N*NBLCKS + 5 ) && ( !LQUERY ) && ( !LMINWS ) ) {
         INFO = -6;
       } else if ( ( LWORK < LWREQ ) && ( !LQUERY ) && ( !LMINWS ) ) {
         INFO = -8;
@@ -121,7 +121,7 @@
 
       // Quick return if possible
 
-      if ( MIN( M, N ) == 0 ) {
+      if ( min( M, N ) == 0 ) {
         return;
       }
 

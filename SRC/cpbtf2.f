@@ -57,7 +57,7 @@
 
       if (N == 0) return;
 
-      KLD = MAX( 1, LDAB-1 );
+      KLD = max( 1, LDAB-1 );
 
       if ( UPPER ) {
 
@@ -72,13 +72,13 @@
                AB( KD+1, J ) = AJJ;
                GO TO 30;
             }
-            AJJ = SQRT( AJJ );
+            AJJ = sqrt( AJJ );
             AB( KD+1, J ) = AJJ;
 
             // Compute elements J+1:J+KN of row J and update the
             // trailing submatrix within the band.
 
-            KN = MIN( KD, N-J );
+            KN = min( KD, N-J );
             if ( KN > 0 ) {
                csscal(KN, ONE / AJJ, AB( KD, J+1 ), KLD );
                clacgv(KN, AB( KD, J+1 ), KLD );
@@ -99,13 +99,13 @@
                AB( 1, J ) = AJJ;
                GO TO 30;
             }
-            AJJ = SQRT( AJJ );
+            AJJ = sqrt( AJJ );
             AB( 1, J ) = AJJ;
 
             // Compute elements J+1:J+KN of column J and update the
             // trailing submatrix within the band.
 
-            KN = MIN( KD, N-J );
+            KN = min( KD, N-J );
             if ( KN > 0 ) {
                csscal(KN, ONE / AJJ, AB( 2, J ), 1 );
                cher('Lower', KN, -ONE, AB( 2, J ), 1, AB( 1, J+1 ), KLD );

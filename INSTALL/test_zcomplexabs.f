@@ -194,7 +194,7 @@
             }
         } else {
             do while( Xj != limX(i) );
-                answerD = (oneHalf * Xj) * SQRT(2.0);
+                answerD = (oneHalf * Xj) * sqrt(2.0);
                 if (answerD == 0.0) {
                     subnormalTreatedAs0 = subnormalTreatedAs0 + 1;
                     if (debug || subnormalTreatedAs0 == 1) {

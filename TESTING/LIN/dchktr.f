@@ -87,7 +87,7 @@
          // Do for each value of N in NVAL
 
          N = NVAL( IN );
-         LDA = MAX( 1, N );
+         LDA = max( 1, N );
          XTYPE = 'N';
 
          for (IMAT = 1; IMAT <= NTYPE1; IMAT++) { // 80
@@ -322,7 +322,7 @@
                   dcopy(N, X, 1, B, 1 );
                   dcopy(N, X, 1, B( N+1 ), 1 );
                   dscal(N, BIGNUM, B( N+1 ), 1 );
-                  dlatrs3(UPLO, TRANS, DIAG, 'N', N, 2, A, LDA, B, MAX(1, N), SCALE3, RWORK, WORK, NMAX, INFO );
+                  dlatrs3(UPLO, TRANS, DIAG, 'N', N, 2, A, LDA, B, max(1, N), SCALE3, RWORK, WORK, NMAX, INFO );
 
                   // Check error code from DLATRS3.
 
@@ -330,7 +330,7 @@
                   dtrt03(UPLO, TRANS, DIAG, N, 1, A, LDA, SCALE3( 1 ), RWORK, ONE, B( 1 ), LDA, X, LDA, WORK, RESULT( 10 ) );
                   dscal(N, BIGNUM, X, 1 );
                   dtrt03(UPLO, TRANS, DIAG, N, 1, A, LDA, SCALE3( 2 ), RWORK, ONE, B( N+1 ), LDA, X, LDA, WORK, RES );
-                  RESULT( 10 ) = MAX( RESULT( 10 ), RES );
+                  RESULT( 10 ) = max( RESULT( 10 ), RES );
 
                   // Print information about the tests that did not pass
                   // the threshold.

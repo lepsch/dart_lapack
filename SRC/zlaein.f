@@ -54,9 +54,9 @@
       // GROWTO is the threshold used in the acceptance test for an
       // eigenvector.
 
-      ROOTN = SQRT( DBLE( N ) );
+      ROOTN = sqrt( DBLE( N ) );
       GROWTO = TENTH / ROOTN;
-      NRMSML = MAX( ONE, EPS3*ROOTN )*SMLNUM;
+      NRMSML = max( ONE, EPS3*ROOTN )*SMLNUM;
 
       // Form B = H - W*I (except that the subdiagonal elements are not
       // stored).
@@ -80,7 +80,7 @@
          // Scale supplied initial vector.
 
          VNORM = DZNRM2( N, V, 1 );
-         zdscal(N, ( EPS3*ROOTN ) / MAX( VNORM, NRMSML ), V, 1 );
+         zdscal(N, ( EPS3*ROOTN ) / max( VNORM, NRMSML ), V, 1 );
       }
 
       if ( RIGHTV ) {

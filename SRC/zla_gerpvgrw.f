@@ -35,13 +35,13 @@
          AMAX = 0.0;
          UMAX = 0.0;
          for (I = 1; I <= N; I++) {
-            AMAX = MAX( CABS1( A( I, J ) ), AMAX );
+            AMAX = max( CABS1( A( I, J ) ), AMAX );
          }
          for (I = 1; I <= J; I++) {
-            UMAX = MAX( CABS1( AF( I, J ) ), UMAX );
+            UMAX = max( CABS1( AF( I, J ) ), UMAX );
          }
          if ( UMAX /= 0.0 ) {
-            RPVGRW = MIN( AMAX / UMAX, RPVGRW );
+            RPVGRW = min( AMAX / UMAX, RPVGRW );
          }
       }
       ZLA_GERPVGRW = RPVGRW;

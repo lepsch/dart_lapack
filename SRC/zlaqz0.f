@@ -113,17 +113,17 @@
       NMIN = ILAENV( 12, 'ZLAQZ0', JBCMPZ, N, ILO, IHI, LWORK );
 
       NWR = ILAENV( 13, 'ZLAQZ0', JBCMPZ, N, ILO, IHI, LWORK );
-      NWR = MAX( 2, NWR );
-      NWR = MIN( IHI-ILO+1, ( N-1 ) / 3, NWR );
+      NWR = max( 2, NWR );
+      NWR = min( IHI-ILO+1, ( N-1 ) / 3, NWR );
 
       NIBBLE = ILAENV( 14, 'ZLAQZ0', JBCMPZ, N, ILO, IHI, LWORK );
 
       NSR = ILAENV( 15, 'ZLAQZ0', JBCMPZ, N, ILO, IHI, LWORK );
-      NSR = MIN( NSR, ( N+6 ) / 9, IHI-ILO );
-      NSR = MAX( 2, NSR-MOD( NSR, 2 ) );
+      NSR = min( NSR, ( N+6 ) / 9, IHI-ILO );
+      NSR = max( 2, NSR-MOD( NSR, 2 ) );
 
       RCOST = ILAENV( 17, 'ZLAQZ0', JBCMPZ, N, ILO, IHI, LWORK );
-      ITEMP1 = INT( NSR/SQRT( 1+2*NSR/( DBLE( RCOST )/100*N ) ) );
+      ITEMP1 = INT( NSR/sqrt( 1+2*NSR/( DBLE( RCOST )/100*N ) ) );
       ITEMP1 = ( ( ITEMP1-1 )/4 )*4+4;
       NBR = NSR+ITEMP1;
 
@@ -137,14 +137,14 @@
 
 
       // Workspace query to ZLAQZ2
-      NW = MAX( NWR, NMIN );
+      NW = max( NWR, NMIN );
       zlaqz2(ILSCHUR, ILQ, ILZ, N, ILO, IHI, NW, A, LDA, B, LDB, Q, LDQ, Z, LDZ, N_UNDEFLATED, N_DEFLATED, ALPHA, BETA, WORK, NW, WORK, NW, WORK, -1, RWORK, REC, AED_INFO );
       ITEMP1 = INT( WORK( 1 ) );
       // Workspace query to ZLAQZ3
       zlaqz3(ILSCHUR, ILQ, ILZ, N, ILO, IHI, NSR, NBR, ALPHA, BETA, A, LDA, B, LDB, Q, LDQ, Z, LDZ, WORK, NBR, WORK, NBR, WORK, -1, SWEEP_INFO );
       ITEMP2 = INT( WORK( 1 ) );
 
-      LWORKREQ = MAX( ITEMP1+2*NW**2, ITEMP2+2*NBR**2 );
+      LWORKREQ = max( ITEMP1+2*NW**2, ITEMP2+2*NBR**2 );
       if ( LWORK == -1 ) {
          WORK( 1 ) = DBLE( LWORKREQ );
          return;
@@ -168,7 +168,7 @@
       SMLNUM = SAFMIN*( DBLE( N )/ULP );
 
       BNORM = ZLANHS( 'F', IHI-ILO+1, B( ILO, ILO ), LDB, RWORK );
-      BTOL = MAX( SAFMIN, ULP*BNORM );
+      BTOL = max( SAFMIN, ULP*BNORM );
 
       ISTART = ILO;
       ISTOP = IHI;
@@ -186,14 +186,14 @@
          }
 
          // Check deflations at the end
-         if ( ABS( A( ISTOP, ISTOP-1 ) ) <= MAX( SMLNUM, ULP*( ABS( A( ISTOP, ISTOP ) )+ABS( A( ISTOP-1, ISTOP-1 ) ) ) ) ) {
+         if ( ABS( A( ISTOP, ISTOP-1 ) ) <= max( SMLNUM, ULP*( ABS( A( ISTOP, ISTOP ) )+ABS( A( ISTOP-1, ISTOP-1 ) ) ) ) ) {
             A( ISTOP, ISTOP-1 ) = CZERO;
             ISTOP = ISTOP-1;
             LD = 0;
             ESHIFT = CZERO;
          }
          // Check deflations at the start
-         if ( ABS( A( ISTART+1, ISTART ) ) <= MAX( SMLNUM, ULP*( ABS( A( ISTART, ISTART ) )+ABS( A( ISTART+1, ISTART+1 ) ) ) ) ) {
+         if ( ABS( A( ISTART+1, ISTART ) ) <= max( SMLNUM, ULP*( ABS( A( ISTART, ISTART ) )+ABS( A( ISTART+1, ISTART+1 ) ) ) ) ) {
             A( ISTART+1, ISTART ) = CZERO;
             ISTART = ISTART+1;
             LD = 0;
@@ -207,7 +207,7 @@
          // Check interior deflations
          ISTART2 = ISTART;
          DO K = ISTOP, ISTART+1, -1;
-            if ( ABS( A( K, K-1 ) ) <= MAX( SMLNUM, ULP*( ABS( A( K, K ) )+ABS( A( K-1, K-1 ) ) ) ) ) {
+            if ( ABS( A( K, K-1 ) ) <= max( SMLNUM, ULP*( ABS( A( K, K ) )+ABS( A( K-1, K-1 ) ) ) ) ) {
                A( K, K-1 ) = CZERO;
                ISTART2 = K;
                EXIT;
@@ -237,7 +237,7 @@
                   B( K2-1, K2 ) = TEMP;
                   B( K2-1, K2-1 ) = CZERO;
                    zrot(K2-2-ISTARTM+1, B( ISTARTM, K2 ), 1, B( ISTARTM, K2-1 ), 1, C1, S1 );
-                  zrot(MIN( K2+1, ISTOP )-ISTARTM+1, A( ISTARTM, K2 ), 1, A( ISTARTM, K2-1 ), 1, C1, S1 );
+                  zrot(min( K2+1, ISTOP )-ISTARTM+1, A( ISTARTM, K2 ), 1, A( ISTARTM, K2-1 ), 1, C1, S1 );
                   if ( ILZ ) {
                      zrot(N, Z( 1, K2 ), 1, Z( 1, K2-1 ), 1, C1, S1 );
                   }
@@ -315,8 +315,8 @@
 
          LD = LD+1;
 
-         NS = MIN( NSHIFTS, ISTOP-ISTART2 );
-         NS = MIN( NS, N_UNDEFLATED );
+         NS = min( NSHIFTS, ISTOP-ISTART2 );
+         NS = min( NS, N_UNDEFLATED );
          SHIFTPOS = ISTOP-N_UNDEFLATED+1;
 
          if ( MOD( LD, 6 ) == 0 ) {

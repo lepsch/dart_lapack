@@ -117,7 +117,7 @@
                TEMP1 = ALPHA*X( J );
                TEMP2 = ZERO;
                L = KPLUS1 - J;
-               DO 50 I = MAX( 1, J-K ), J - 1;
+               DO 50 I = max( 1, J-K ), J - 1;
                   Y( I ) = Y( I ) + TEMP1*A( L+I, J );
                   TEMP2 = TEMP2 + A( L+I, J )*X( I );
                } // 50
@@ -132,7 +132,7 @@
                IX = KX;
                IY = KY;
                L = KPLUS1 - J;
-               DO 70 I = MAX( 1, J-K ), J - 1;
+               DO 70 I = max( 1, J-K ), J - 1;
                   Y( IY ) = Y( IY ) + TEMP1*A( L+I, J );
                   TEMP2 = TEMP2 + A( L+I, J )*X( IX );
                   IX = IX + INCX;
@@ -157,7 +157,7 @@
                TEMP2 = ZERO;
                Y( J ) = Y( J ) + TEMP1*A( 1, J );
                L = 1 - J;
-               DO 90 I = J + 1, MIN( N, J+K );
+               DO 90 I = J + 1, min( N, J+K );
                   Y( I ) = Y( I ) + TEMP1*A( L+I, J );
                   TEMP2 = TEMP2 + A( L+I, J )*X( I );
                } // 90
@@ -173,7 +173,7 @@
                L = 1 - J;
                IX = JX;
                IY = JY;
-               DO 110 I = J + 1, MIN( N, J+K );
+               DO 110 I = J + 1, min( N, J+K );
                   IX = IX + INCX;
                   IY = IY + INCY;
                   Y( IY ) = Y( IY ) + TEMP1*A( L+I, J );

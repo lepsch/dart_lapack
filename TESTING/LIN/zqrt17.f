@@ -90,7 +90,7 @@
          if (NORMRS != ZERO) ERR = ERR / NORMRS;
       }
 
-      ZQRT17 = ERR / ( DLAMCH( 'Epsilon' )*DBLE( MAX( M, N, NRHS ) ) );
+      ZQRT17 = ERR / ( DLAMCH( 'Epsilon' )*DBLE( max( M, N, NRHS ) ) );
       return;
 
       // End of ZQRT17

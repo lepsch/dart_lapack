@@ -219,7 +219,7 @@
       for (INCX = 1; INCX <= 2; INCX++) { // 80
          for (NP1 = 1; NP1 <= 5; NP1++) { // 60
             N = NP1 - 1;
-            LEN = 2*MAX(N,1);
+            LEN = 2*max(N,1);
             // .. Set vector arguments ..
             for (I = 1; I <= LEN; I++) { // 20
                SX(I) = DV(I,NP1,INCX);
@@ -342,7 +342,7 @@
 
          for (KN = 1; KN <= 4; KN++) { // 100
             N = NS(KN);
-            KSIZE = MIN(2,KN);
+            KSIZE = min(2,KN);
             LENX = LENS(KN,MX);
             LENY = LENS(KN,MY);
             // .. Initialize all argument arrays ..
@@ -477,7 +477,7 @@
 
          for (KN = 1; KN <= 4; KN++) { // 40
             N = NS(KN);
-            KSIZE = MIN(2,KN);
+            KSIZE = min(2,KN);
             LENX = LENS(KN,MX);
             LENY = LENS(KN,MY);
 
@@ -876,7 +876,7 @@
          for (IW = 1; IW <= NV; IW++) {
             V1 = VALUES(IW);
             if (ABS(V1) > ONE) {
-               V1 = (V1*HALF) / SQRT(DBLE(N));
+               V1 = (V1*HALF) / sqrt(DBLE(N));
             }
             for (I = 2; I <= N; I++) {
                Z(I) = V1*WORK(I);
@@ -886,12 +886,12 @@
 
             Y1 = ABS(V0);
             if (N > 1) {
-               Y2 = ABS(V1)*SQRT(WORKSSQ);
+               Y2 = ABS(V1)*sqrt(WORKSSQ);
             } else {
                Y2 = ZERO;
             }
-            YMIN = MIN(Y1, Y2);
-            YMAX = MAX(Y1, Y2);
+            YMIN = min(Y1, Y2);
+            YMAX = max(Y1, Y2);
 
             // Expected value is NaN if either is NaN. The test
             // for YMIN == YMAX avoids further computation if both
@@ -903,9 +903,9 @@
             } else if (YMAX == ZERO) {
                YNRM = ZERO;
             } else if (YMIN == YMAX) {
-               YNRM = SQRT(TWO)*YMAX;
+               YNRM = sqrt(TWO)*YMAX;
             } else {
-               YNRM = YMAX*SQRT(ONE + (YMIN / YMAX)**2);
+               YNRM = YMAX*sqrt(ONE + (YMIN / YMAX)**2);
             }
 
             // Fill the input array to DNRM2 with steps of incx
@@ -928,7 +928,7 @@
             // in this implementation so we scale the test ratio accordingly.
 
             if (INCX == 0) {
-               ZNRM = SQRT(DBLE(N))*ABS(X(1));
+               ZNRM = sqrt(DBLE(N))*ABS(X(1));
             } else {
                ZNRM = YNRM;
             }

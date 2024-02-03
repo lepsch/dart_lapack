@@ -50,10 +50,10 @@
       // MINMNFACT in the smallest dimension of the submatrix
       // A(IOFFSET+1:M,1:N) to be factorized.
 
-      MINMNFACT = MIN( M-IOFFSET, N );
-      MINMNUPDT = MIN( M-IOFFSET, N+NRHS );
-      NB = MIN( NB, MINMNFACT );
-      TOL3Z = SQRT( DLAMCH( 'Epsilon' ) );
+      MINMNFACT = min( M-IOFFSET, N );
+      MINMNUPDT = min( M-IOFFSET, N+NRHS );
+      NB = min( NB, MINMNFACT );
+      TOL3Z = sqrt( DLAMCH( 'Epsilon' ) );
       HUGEVAL = DLAMCH( 'Overflow' );
 
       // Compute factorization in a while loop over NB columns,
@@ -443,7 +443,7 @@
                   // Lapack Working Note 176.
 
                   TEMP = ABS( A( I, J ) ) / VN1( J );
-                  TEMP = MAX( ZERO, ( ONE+TEMP )*( ONE-TEMP ) );
+                  TEMP = max( ZERO, ( ONE+TEMP )*( ONE-TEMP ) );
                   TEMP2 = TEMP*( VN1( J ) / VN2( J ) )**2;
                   if ( TEMP2 <= TOL3Z ) {
 
@@ -461,7 +461,7 @@
                      LSTICC = J;
 
                   } else {
-                     VN1( J ) = VN1( J )*SQRT( TEMP );
+                     VN1( J ) = VN1( J )*sqrt( TEMP );
                   }
                }
             }
@@ -511,7 +511,7 @@
 
          // NOTE: The computation of VN1( LSTICC ) relies on the fact that
          // DZNRM2 does not fail on vectors with norm below the value of
-         // SQRT(DLAMCH('S'))
+         // sqrt(DLAMCH('S'))
 
          VN1( LSTICC ) = DZNRM2( M-IF, A( IF+1, LSTICC ), 1 );
          VN2( LSTICC ) = VN1( LSTICC );

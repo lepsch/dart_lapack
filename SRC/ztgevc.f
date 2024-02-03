@@ -90,9 +90,9 @@
          INFO = -2;
       } else if ( N < 0 ) {
          INFO = -4;
-      } else if ( LDS < MAX( 1, N ) ) {
+      } else if ( LDS < max( 1, N ) ) {
          INFO = -6;
-      } else if ( LDP < MAX( 1, N ) ) {
+      } else if ( LDP < max( 1, N ) ) {
          INFO = -8;
       }
       if ( INFO != 0 ) {
@@ -161,12 +161,12 @@
             RWORK( J ) = RWORK( J ) + ABS1( S( I, J ) );
             RWORK( N+J ) = RWORK( N+J ) + ABS1( P( I, J ) );
          } // 30
-         ANORM = MAX( ANORM, RWORK( J )+ABS1( S( J, J ) ) );
-         BNORM = MAX( BNORM, RWORK( N+J )+ABS1( P( J, J ) ) );
+         ANORM = max( ANORM, RWORK( J )+ABS1( S( J, J ) ) );
+         BNORM = max( BNORM, RWORK( N+J )+ABS1( P( J, J ) ) );
       } // 40
 
-      ASCALE = ONE / MAX( ANORM, SAFMIN );
-      BSCALE = ONE / MAX( BNORM, SAFMIN );
+      ASCALE = ONE / max( ANORM, SAFMIN );
+      BSCALE = ONE / max( BNORM, SAFMIN );
 
       // Left eigenvectors
 
@@ -200,7 +200,7 @@
                     // H
                   // y  ( a A - b B ) = 0
 
-               TEMP = ONE / MAX( ABS1( S( JE, JE ) )*ASCALE, ABS( DBLE( P( JE, JE ) ) )*BSCALE, SAFMIN );
+               TEMP = ONE / max( ABS1( S( JE, JE ) )*ASCALE, ABS( DBLE( P( JE, JE ) ) )*BSCALE, SAFMIN );
                SALPHA = ( TEMP*S( JE, JE ) )*ASCALE;
                SBETA = ( TEMP*DBLE( P( JE, JE ) ) )*BSCALE;
                ACOEFF = SBETA*ASCALE;
@@ -212,10 +212,10 @@
                LSB = ABS1( SALPHA ) >= SAFMIN && ABS1( BCOEFF ) < SMALL;
 
                SCALE = ONE;
-               if (LSA) SCALE = ( SMALL / ABS( SBETA ) )*MIN( ANORM, BIG );
-               IF( LSB ) SCALE = MAX( SCALE, ( SMALL / ABS1( SALPHA ) )* MIN( BNORM, BIG ) );
+               if (LSA) SCALE = ( SMALL / ABS( SBETA ) )*min( ANORM, BIG );
+               IF( LSB ) SCALE = max( SCALE, ( SMALL / ABS1( SALPHA ) )* min( BNORM, BIG ) );
                if ( LSA || LSB ) {
-                  SCALE = MIN( SCALE, ONE / ( SAFMIN*MAX( ONE, ABS( ACOEFF ), ABS1( BCOEFF ) ) ) );
+                  SCALE = min( SCALE, ONE / ( SAFMIN*max( ONE, ABS( ACOEFF ), ABS1( BCOEFF ) ) ) );
                   if ( LSA ) {
                      ACOEFF = ASCALE*( SCALE*SBETA );
                   } else {
@@ -235,7 +235,7 @@
                   WORK( JR ) = CZERO;
                } // 60
                WORK( JE ) = CONE;
-               DMIN = MAX( ULP*ACOEFA*ANORM, ULP*BCOEFA*BNORM, SAFMIN );
+               DMIN = max( ULP*ACOEFA*ANORM, ULP*BCOEFA*BNORM, SAFMIN );
 
                                                // H
                // Triangular solve of  (a A - b B)  y = 0
@@ -285,7 +285,7 @@
                      }
                   }
                   WORK( J ) = ZLADIV( -SUM, D );
-                  XMAX = MAX( XMAX, ABS1( WORK( J ) ) );
+                  XMAX = max( XMAX, ABS1( WORK( J ) ) );
                } // 100
 
                // Back transform eigenvector if HOWMNY='B'.
@@ -303,7 +303,7 @@
 
                XMAX = ZERO;
                for (JR = IBEG; JR <= N; JR++) { // 110
-                  XMAX = MAX( XMAX, ABS1( WORK( ( ISRC-1 )*N+JR ) ) );
+                  XMAX = max( XMAX, ABS1( WORK( ( ISRC-1 )*N+JR ) ) );
                } // 110
 
                if ( XMAX > SAFMIN ) {
@@ -355,7 +355,7 @@
 
                // ( a A - b B ) x  = 0
 
-               TEMP = ONE / MAX( ABS1( S( JE, JE ) )*ASCALE, ABS( DBLE( P( JE, JE ) ) )*BSCALE, SAFMIN );
+               TEMP = ONE / max( ABS1( S( JE, JE ) )*ASCALE, ABS( DBLE( P( JE, JE ) ) )*BSCALE, SAFMIN );
                SALPHA = ( TEMP*S( JE, JE ) )*ASCALE;
                SBETA = ( TEMP*DBLE( P( JE, JE ) ) )*BSCALE;
                ACOEFF = SBETA*ASCALE;
@@ -367,10 +367,10 @@
                LSB = ABS1( SALPHA ) >= SAFMIN && ABS1( BCOEFF ) < SMALL;
 
                SCALE = ONE;
-               if (LSA) SCALE = ( SMALL / ABS( SBETA ) )*MIN( ANORM, BIG );
-               IF( LSB ) SCALE = MAX( SCALE, ( SMALL / ABS1( SALPHA ) )* MIN( BNORM, BIG ) );
+               if (LSA) SCALE = ( SMALL / ABS( SBETA ) )*min( ANORM, BIG );
+               IF( LSB ) SCALE = max( SCALE, ( SMALL / ABS1( SALPHA ) )* min( BNORM, BIG ) );
                if ( LSA || LSB ) {
-                  SCALE = MIN( SCALE, ONE / ( SAFMIN*MAX( ONE, ABS( ACOEFF ), ABS1( BCOEFF ) ) ) );
+                  SCALE = min( SCALE, ONE / ( SAFMIN*max( ONE, ABS( ACOEFF ), ABS1( BCOEFF ) ) ) );
                   if ( LSA ) {
                      ACOEFF = ASCALE*( SCALE*SBETA );
                   } else {
@@ -390,7 +390,7 @@
                   WORK( JR ) = CZERO;
                } // 160
                WORK( JE ) = CONE;
-               DMIN = MAX( ULP*ACOEFA*ANORM, ULP*BCOEFA*BNORM, SAFMIN );
+               DMIN = max( ULP*ACOEFA*ANORM, ULP*BCOEFA*BNORM, SAFMIN );
 
                // Triangular solve of  (a A - b B) x = 0  (columnwise)
 
@@ -457,7 +457,7 @@
 
                XMAX = ZERO;
                for (JR = 1; JR <= IEND; JR++) { // 220
-                  XMAX = MAX( XMAX, ABS1( WORK( ( ISRC-1 )*N+JR ) ) );
+                  XMAX = max( XMAX, ABS1( WORK( ( ISRC-1 )*N+JR ) ) );
                } // 220
 
                if ( XMAX > SAFMIN ) {

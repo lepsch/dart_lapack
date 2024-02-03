@@ -79,8 +79,8 @@
 
       KD = KU + 1;
       for (J = 1; J <= N; J++) { // 30
-         DO 20 I = MAX( J-KU, 1 ), MIN( J+KL, M );
-            R( I ) = MAX( R( I ), ABS( AB( KD+I-J, J ) ) );
+         DO 20 I = max( J-KU, 1 ), min( J+KL, M );
+            R( I ) = max( R( I ), ABS( AB( KD+I-J, J ) ) );
          } // 20
       } // 30
       for (I = 1; I <= M; I++) {
@@ -94,8 +94,8 @@
       RCMIN = BIGNUM;
       RCMAX = ZERO;
       for (I = 1; I <= M; I++) { // 40
-         RCMAX = MAX( RCMAX, R( I ) );
-         RCMIN = MIN( RCMIN, R( I ) );
+         RCMAX = max( RCMAX, R( I ) );
+         RCMIN = min( RCMIN, R( I ) );
       } // 40
       AMAX = RCMAX;
 
@@ -114,12 +114,12 @@
          // Invert the scale factors.
 
          for (I = 1; I <= M; I++) { // 60
-            R( I ) = ONE / MIN( MAX( R( I ), SMLNUM ), BIGNUM );
+            R( I ) = ONE / min( max( R( I ), SMLNUM ), BIGNUM );
          } // 60
 
          // Compute ROWCND = min(R(I)) / max(R(I)).
 
-         ROWCND = MAX( RCMIN, SMLNUM ) / MIN( RCMAX, BIGNUM );
+         ROWCND = max( RCMIN, SMLNUM ) / min( RCMAX, BIGNUM );
       }
 
       // Compute column scale factors.
@@ -132,8 +132,8 @@
       // assuming the row scaling computed above.
 
       for (J = 1; J <= N; J++) { // 90
-         DO 80 I = MAX( J-KU, 1 ), MIN( J+KL, M );
-            C( J ) = MAX( C( J ), ABS( AB( KD+I-J, J ) )*R( I ) );
+         DO 80 I = max( J-KU, 1 ), min( J+KL, M );
+            C( J ) = max( C( J ), ABS( AB( KD+I-J, J ) )*R( I ) );
          } // 80
          if ( C( J ) > ZERO ) {
             C( J ) = RADIX**INT( LOG( C( J ) ) / LOGRDX );
@@ -145,8 +145,8 @@
       RCMIN = BIGNUM;
       RCMAX = ZERO;
       for (J = 1; J <= N; J++) { // 100
-         RCMIN = MIN( RCMIN, C( J ) );
-         RCMAX = MAX( RCMAX, C( J ) );
+         RCMIN = min( RCMIN, C( J ) );
+         RCMAX = max( RCMAX, C( J ) );
       } // 100
 
       if ( RCMIN == ZERO ) {
@@ -164,12 +164,12 @@
          // Invert the scale factors.
 
          for (J = 1; J <= N; J++) { // 120
-            C( J ) = ONE / MIN( MAX( C( J ), SMLNUM ), BIGNUM );
+            C( J ) = ONE / min( max( C( J ), SMLNUM ), BIGNUM );
          } // 120
 
          // Compute COLCND = min(C(J)) / max(C(J)).
 
-         COLCND = MAX( RCMIN, SMLNUM ) / MIN( RCMAX, BIGNUM );
+         COLCND = max( RCMIN, SMLNUM ) / min( RCMAX, BIGNUM );
       }
 
       return;

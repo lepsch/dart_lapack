@@ -40,13 +40,13 @@
 
       if ( ICOMPQ < 0 || ICOMPQ > 2 ) {
          INFO = -1;
-      } else if ( ( ICOMPQ == 1 ) && ( QSIZ < MAX( 0, N ) ) ) {
+      } else if ( ( ICOMPQ == 1 ) && ( QSIZ < max( 0, N ) ) ) {
          INFO = -2;
       } else if ( N < 0 ) {
          INFO = -3;
-      } else if ( LDQ < MAX( 1, N ) ) {
+      } else if ( LDQ < max( 1, N ) ) {
          INFO = -7;
-      } else if ( LDQS < MAX( 1, N ) ) {
+      } else if ( LDQS < max( 1, N ) ) {
          INFO = -9;
       }
       if ( INFO != 0 ) {

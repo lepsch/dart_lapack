@@ -64,9 +64,9 @@
          INFO = -3;
       } else if ( N < 0 ) {
          INFO = -4;
-      } else if ( LDA < MAX( 1, N ) ) {
+      } else if ( LDA < max( 1, N ) ) {
          INFO = -6;
-      } else if ( LDB < MAX( 1, N ) ) {
+      } else if ( LDB < max( 1, N ) ) {
          INFO = -8;
       }
 
@@ -104,8 +104,8 @@
 
       ssygst(ITYPE, UPLO, N, A, LDA, B, LDB, INFO );
       ssyevd(JOBZ, UPLO, N, A, LDA, W, WORK, LWORK, IWORK, LIWORK, INFO );
-      LOPT = INT( MAX( REAL( LOPT ), REAL( WORK( 1 ) ) ) );
-      LIOPT = INT( MAX( REAL( LIOPT ), REAL( IWORK( 1 ) ) ) );
+      LOPT = INT( max( REAL( LOPT ), REAL( WORK( 1 ) ) ) );
+      LIOPT = INT( max( REAL( LIOPT ), REAL( IWORK( 1 ) ) ) );
 
       if ( WANTZ && INFO == 0 ) {
 

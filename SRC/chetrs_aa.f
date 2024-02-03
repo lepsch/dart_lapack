@@ -40,7 +40,7 @@
       INFO = 0;
       UPPER = LSAME( UPLO, 'U' );
       LQUERY = ( LWORK == -1 );
-      if ( MIN( N, NRHS ) == 0 ) {
+      if ( min( N, NRHS ) == 0 ) {
          LWKMIN = 1;
       } else {
          LWKMIN = 3*N-2;
@@ -52,9 +52,9 @@
          INFO = -2;
       } else if ( NRHS < 0 ) {
          INFO = -3;
-      } else if ( LDA < MAX( 1, N ) ) {
+      } else if ( LDA < max( 1, N ) ) {
          INFO = -5;
-      } else if ( LDB < MAX( 1, N ) ) {
+      } else if ( LDB < max( 1, N ) ) {
          INFO = -8;
       } else if ( LWORK < LWKMIN && !LQUERY ) {
          INFO = -10;
@@ -69,7 +69,7 @@
 
       // Quick return if possible
 
-      if( MIN( N, NRHS ) == 0 ) return;
+      if( min( N, NRHS ) == 0 ) return;
 
       if ( UPPER ) {
 

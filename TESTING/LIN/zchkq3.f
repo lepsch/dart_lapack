@@ -77,15 +77,15 @@
          // Do for each value of M in MVAL.
 
          M = MVAL( IM );
-         LDA = MAX( 1, M );
+         LDA = max( 1, M );
 
          for (IN = 1; IN <= NN; IN++) { // 80
 
             // Do for each value of N in NVAL.
 
             N = NVAL( IN );
-            MNMIN = MIN( M, N );
-            LWORK = MAX( 1, M*MAX( M, N )+4*MNMIN+MAX( M, N ) );
+            MNMIN = min( M, N );
+            LWORK = max( 1, M*max( M, N )+4*MNMIN+max( M, N ) );
 
             for (IMODE = 1; IMODE <= NTYPES; IMODE++) { // 70
                if( !DOTYPE( IMODE ) ) GO TO 70;
@@ -118,9 +118,9 @@
                      if ( IMODE == 4 ) {
                         ILOW = 1;
                         ISTEP = 1;
-                        IHIGH = MAX( 1, N / 2 );
+                        IHIGH = max( 1, N / 2 );
                      } else if ( IMODE == 5 ) {
-                        ILOW = MAX( 1, N / 2 );
+                        ILOW = max( 1, N / 2 );
                         ISTEP = 1;
                         IHIGH = N;
                      } else if ( IMODE == 6 ) {

@@ -57,7 +57,7 @@
          INFO = -6;
       } else if ( N < 0 ) {
          INFO = -7;
-      } else if ( LDB < MAX( 1, M ) ) {
+      } else if ( LDB < max( 1, M ) ) {
          INFO = -11;
       }
       if ( INFO != 0 ) {

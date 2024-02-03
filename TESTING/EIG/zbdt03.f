@@ -62,11 +62,11 @@
                WORK( J ) = WORK( J ) + D( J );
                if ( J > 1 ) {
                   WORK( J-1 ) = WORK( J-1 ) + E( J-1 );
-                  BNORM = MAX( BNORM, ABS( D( J ) )+ABS( E( J-1 ) ) );
+                  BNORM = max( BNORM, ABS( D( J ) )+ABS( E( J-1 ) ) );
                } else {
-                  BNORM = MAX( BNORM, ABS( D( J ) ) );
+                  BNORM = max( BNORM, ABS( D( J ) ) );
                }
-               RESID = MAX( RESID, DZASUM( N, WORK, 1 ) );
+               RESID = max( RESID, DZASUM( N, WORK, 1 ) );
             } // 20
          } else {
 
@@ -80,11 +80,11 @@
                WORK( J ) = WORK( J ) + D( J );
                if ( J < N ) {
                   WORK( J+1 ) = WORK( J+1 ) + E( J );
-                  BNORM = MAX( BNORM, ABS( D( J ) )+ABS( E( J ) ) );
+                  BNORM = max( BNORM, ABS( D( J ) )+ABS( E( J ) ) );
                } else {
-                  BNORM = MAX( BNORM, ABS( D( J ) ) );
+                  BNORM = max( BNORM, ABS( D( J ) ) );
                }
-               RESID = MAX( RESID, DZASUM( N, WORK, 1 ) );
+               RESID = max( RESID, DZASUM( N, WORK, 1 ) );
             } // 40
          }
       } else {
@@ -97,7 +97,7 @@
             } // 50
             zgemv('No transpose', N, N, -DCMPLX( ONE ), U, LDU, WORK( N+1 ), 1, DCMPLX( ZERO ), WORK, 1 );
             WORK( J ) = WORK( J ) + D( J );
-            RESID = MAX( RESID, DZASUM( N, WORK, 1 ) );
+            RESID = max( RESID, DZASUM( N, WORK, 1 ) );
          } // 60
          J = IDAMAX( N, D, 1 );
          BNORM = ABS( D( J ) );
@@ -114,9 +114,9 @@
             RESID = ( RESID / BNORM ) / ( DBLE( N )*EPS );
          } else {
             if ( BNORM < ONE ) {
-               RESID = ( MIN( RESID, DBLE( N )*BNORM ) / BNORM ) / ( DBLE( N )*EPS );
+               RESID = ( min( RESID, DBLE( N )*BNORM ) / BNORM ) / ( DBLE( N )*EPS );
             } else {
-               RESID = MIN( RESID / BNORM, DBLE( N ) ) / ( DBLE( N )*EPS );
+               RESID = min( RESID / BNORM, DBLE( N ) ) / ( DBLE( N )*EPS );
             }
          }
       }

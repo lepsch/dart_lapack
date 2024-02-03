@@ -57,7 +57,7 @@
          INFO = -2;
       } else if ( N < 0 ) {
          INFO = -3;
-      } else if ( LDA < MAX( 1, N ) ) {
+      } else if ( LDA < max( 1, N ) ) {
          INFO = -5;
       } else if ( LDVL < 1 || ( WANTVL && LDVL < N ) ) {
          INFO = -8;
@@ -84,22 +84,22 @@
             MAXWRK = N + N*ILAENV( 1, 'ZGEHRD', ' ', N, 1, N, 0 );
             MINWRK = 2*N;
             if ( WANTVL ) {
-               MAXWRK = MAX( MAXWRK, N + ( N - 1 )*ILAENV( 1, 'ZUNGHR', ' ', N, 1, N, -1 ) );
+               MAXWRK = max( MAXWRK, N + ( N - 1 )*ILAENV( 1, 'ZUNGHR', ' ', N, 1, N, -1 ) );
                ztrevc3('L', 'B', SELECT, N, A, LDA, VL, LDVL, VR, LDVR, N, NOUT, WORK, -1, RWORK, -1, IERR );
                LWORK_TREVC = INT( WORK(1) );
-               MAXWRK = MAX( MAXWRK, N + LWORK_TREVC );
+               MAXWRK = max( MAXWRK, N + LWORK_TREVC );
                zhseqr('S', 'V', N, 1, N, A, LDA, W, VL, LDVL, WORK, -1, INFO );
             } else if ( WANTVR ) {
-               MAXWRK = MAX( MAXWRK, N + ( N - 1 )*ILAENV( 1, 'ZUNGHR', ' ', N, 1, N, -1 ) );
+               MAXWRK = max( MAXWRK, N + ( N - 1 )*ILAENV( 1, 'ZUNGHR', ' ', N, 1, N, -1 ) );
                ztrevc3('R', 'B', SELECT, N, A, LDA, VL, LDVL, VR, LDVR, N, NOUT, WORK, -1, RWORK, -1, IERR );
                LWORK_TREVC = INT( WORK(1) );
-               MAXWRK = MAX( MAXWRK, N + LWORK_TREVC );
+               MAXWRK = max( MAXWRK, N + LWORK_TREVC );
                zhseqr('S', 'V', N, 1, N, A, LDA, W, VR, LDVR, WORK, -1, INFO );
             } else {
                zhseqr('E', 'N', N, 1, N, A, LDA, W, VR, LDVR, WORK, -1, INFO );
             }
             HSWORK = INT( WORK(1) );
-            MAXWRK = MAX( MAXWRK, HSWORK, MINWRK );
+            MAXWRK = max( MAXWRK, HSWORK, MINWRK );
          }
          WORK( 1 ) = MAXWRK;
 
@@ -124,7 +124,7 @@
       EPS = DLAMCH( 'P' );
       SMLNUM = DLAMCH( 'S' );
       BIGNUM = ONE / SMLNUM;
-      SMLNUM = SQRT( SMLNUM ) / EPS;
+      SMLNUM = sqrt( SMLNUM ) / EPS;
       BIGNUM = ONE / SMLNUM;
 
       // Scale A if max element outside range [SMLNUM,BIGNUM]
@@ -247,7 +247,7 @@
                RWORK( IRWORK+K-1 ) = DBLE( VL( K, I ) )**2 + AIMAG( VL( K, I ) )**2;
             } // 10
             K = IDAMAX( N, RWORK( IRWORK ), 1 );
-            TMP = CONJG( VL( K, I ) ) / SQRT( RWORK( IRWORK+K-1 ) );
+            TMP = CONJG( VL( K, I ) ) / sqrt( RWORK( IRWORK+K-1 ) );
             zscal(N, TMP, VL( 1, I ), 1 );
             VL( K, I ) = DCMPLX( DBLE( VL( K, I ) ), ZERO );
          } // 20
@@ -270,7 +270,7 @@
                RWORK( IRWORK+K-1 ) = DBLE( VR( K, I ) )**2 + AIMAG( VR( K, I ) )**2;
             } // 30
             K = IDAMAX( N, RWORK( IRWORK ), 1 );
-            TMP = CONJG( VR( K, I ) ) / SQRT( RWORK( IRWORK+K-1 ) );
+            TMP = CONJG( VR( K, I ) ) / sqrt( RWORK( IRWORK+K-1 ) );
             zscal(N, TMP, VR( 1, I ), 1 );
             VR( K, I ) = DCMPLX( DBLE( VR( K, I ) ), ZERO );
          } // 40
@@ -280,7 +280,7 @@
 
       } // 50
       if ( SCALEA ) {
-         zlascl('G', 0, 0, CSCALE, ANRM, N-INFO, 1, W( INFO+1 ), MAX( N-INFO, 1 ), IERR );
+         zlascl('G', 0, 0, CSCALE, ANRM, N-INFO, 1, W( INFO+1 ), max( N-INFO, 1 ), IERR );
          if ( INFO > 0 ) {
             zlascl('G', 0, 0, CSCALE, ANRM, ILO-1, 1, W, N, IERR );
          }

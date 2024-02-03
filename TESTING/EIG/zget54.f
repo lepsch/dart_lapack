@@ -50,7 +50,7 @@
 
       zlacpy('Full', N, N, A, LDA, WORK, N );
       zlacpy('Full', N, N, B, LDB, WORK( N*N+1 ), N );
-      ABNORM = MAX( ZLANGE( '1', N, 2*N, WORK, N, DUM ), UNFL );
+      ABNORM = max( ZLANGE( '1', N, 2*N, WORK, N, DUM ), UNFL );
 
       // Compute W1 = A - U*S*V', and put in the array WORK(1:N*N)
 
@@ -74,9 +74,9 @@
          RESULT = ( WNORM / ABNORM ) / ( 2*N*ULP );
       } else {
          if ( ABNORM < ONE ) {
-            RESULT = ( MIN( WNORM, 2*N*ABNORM ) / ABNORM ) / ( 2*N*ULP );
+            RESULT = ( min( WNORM, 2*N*ABNORM ) / ABNORM ) / ( 2*N*ULP );
          } else {
-            RESULT = MIN( WNORM / ABNORM, DBLE( 2*N ) ) / ( 2*N*ULP );
+            RESULT = min( WNORM / ABNORM, DBLE( 2*N ) ) / ( 2*N*ULP );
          }
       }
 

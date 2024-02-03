@@ -63,15 +63,15 @@
          INFO = -3;
       } else if ( N < 0 ) {
          INFO = -4;
-      } else if ( LDA < MAX( 1, N ) ) {
+      } else if ( LDA < max( 1, N ) ) {
          INFO = -6;
       } else {
          if ( VALEIG ) {
             if (N > 0 && VU <= VL) INFO = -8;
          } else if ( INDEIG ) {
-            if ( IL < 1 || IL > MAX( 1, N ) ) {
+            if ( IL < 1 || IL > max( 1, N ) ) {
                INFO = -9;
-            } else if ( IU < MIN( N, IL ) || IU > N ) {
+            } else if ( IU < min( N, IL ) || IU > N ) {
                INFO = -10;
             }
          }
@@ -129,8 +129,8 @@
       EPS    = SLAMCH( 'Precision' );
       SMLNUM = SAFMIN / EPS;
       BIGNUM = ONE / SMLNUM;
-      RMIN   = SQRT( SMLNUM );
-      RMAX   = MIN( SQRT( BIGNUM ), ONE / SQRT( SQRT( SAFMIN ) ) );
+      RMIN   = sqrt( SMLNUM );
+      RMAX   = min( sqrt( BIGNUM ), ONE / sqrt( sqrt( SAFMIN ) ) );
 
       // Scale matrix to allowable range, if necessary.
 

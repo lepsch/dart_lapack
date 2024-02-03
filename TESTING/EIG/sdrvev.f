@@ -67,7 +67,7 @@
       BADNN = false;
       NMAX = 0;
       for (J = 1; J <= NSIZES; J++) { // 10
-         NMAX = MAX( NMAX, NN( J ) );
+         NMAX = max( NMAX, NN( J ) );
          if( NN( J ) < 0 ) BADNN = true;
       } // 10
 
@@ -110,7 +110,7 @@
       OVFL = ONE / UNFL;
       ULP = SLAMCH( 'Precision' );
       ULPINV = ONE / ULP;
-      RTULP = SQRT( ULP );
+      RTULP = sqrt( ULP );
       RTULPI = ONE / RTULP;
 
       // Loop over sizes, types
@@ -120,9 +120,9 @@
       for (JSIZE = 1; JSIZE <= NSIZES; JSIZE++) { // 270
          N = NN( JSIZE );
          if ( NSIZES != 1 ) {
-            MTYPES = MIN( MAXTYP, NTYPES );
+            MTYPES = min( MAXTYP, NTYPES );
          } else {
-            MTYPES = MIN( MAXTYP+1, NTYPES );
+            MTYPES = min( MAXTYP+1, NTYPES );
          }
 
          for (JTYPE = 1; JTYPE <= MTYPES; JTYPE++) { // 260
@@ -279,7 +279,7 @@
                } else {
                   NNWORK = 5*N + 2*N**2;
                }
-               NNWORK = MAX( NNWORK, 1 );
+               NNWORK = max( NNWORK, 1 );
 
                // Initialize RESULT
 
@@ -317,7 +317,7 @@
                   } else if ( WI( J ) > ZERO ) {
                      TNRM = SLAPY2( SNRM2( N, VR( 1, J ), 1 ), SNRM2( N, VR( 1, J+1 ), 1 ) );
                   }
-                  RESULT( 3 ) = MAX( RESULT( 3 ), MIN( ULPINV, ABS( TNRM-ONE ) / ULP ) );
+                  RESULT( 3 ) = max( RESULT( 3 ), min( ULPINV, ABS( TNRM-ONE ) / ULP ) );
                   if ( WI( J ) > ZERO ) {
                      VMX = ZERO;
                      VRMX = ZERO;
@@ -339,7 +339,7 @@
                   } else if ( WI( J ) > ZERO ) {
                      TNRM = SLAPY2( SNRM2( N, VL( 1, J ), 1 ), SNRM2( N, VL( 1, J+1 ), 1 ) );
                   }
-                  RESULT( 4 ) = MAX( RESULT( 4 ), MIN( ULPINV, ABS( TNRM-ONE ) / ULP ) );
+                  RESULT( 4 ) = max( RESULT( 4 ), min( ULPINV, ABS( TNRM-ONE ) / ULP ) );
                   if ( WI( J ) > ZERO ) {
                      VMX = ZERO;
                      VRMX = ZERO;

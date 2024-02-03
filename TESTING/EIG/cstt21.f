@@ -58,12 +58,12 @@
          WORK( ( N+1 )*( J-1 )+1 ) = AD( J );
          WORK( ( N+1 )*( J-1 )+2 ) = AE( J );
          TEMP2 = ABS( AE( J ) );
-         ANORM = MAX( ANORM, ABS( AD( J ) )+TEMP1+TEMP2 );
+         ANORM = max( ANORM, ABS( AD( J ) )+TEMP1+TEMP2 );
          TEMP1 = TEMP2;
       } // 10
 
       WORK( N**2 ) = AD( N );
-      ANORM = MAX( ANORM, ABS( AD( N ) )+TEMP1, UNFL );
+      ANORM = max( ANORM, ABS( AD( N ) )+TEMP1, UNFL );
 
       // Norm of A - U S U**H
 
@@ -83,9 +83,9 @@
          RESULT( 1 ) = ( WNORM / ANORM ) / ( N*ULP );
       } else {
          if ( ANORM < ONE ) {
-            RESULT( 1 ) = ( MIN( WNORM, N*ANORM ) / ANORM ) / ( N*ULP );
+            RESULT( 1 ) = ( min( WNORM, N*ANORM ) / ANORM ) / ( N*ULP );
          } else {
-            RESULT( 1 ) = MIN( WNORM / ANORM, REAL( N ) ) / ( N*ULP );
+            RESULT( 1 ) = min( WNORM / ANORM, REAL( N ) ) / ( N*ULP );
          }
       }
 
@@ -99,7 +99,7 @@
          WORK( ( N+1 )*( J-1 )+1 ) = WORK( ( N+1 )*( J-1 )+1 ) - CONE;
       } // 40
 
-      RESULT( 2 ) = MIN( REAL( N ), CLANGE( '1', N, N, WORK, N, RWORK ) ) / ( N*ULP );
+      RESULT( 2 ) = min( REAL( N ), CLANGE( '1', N, N, WORK, N, RWORK ) ) / ( N*ULP );
 
       return;
 

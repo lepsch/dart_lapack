@@ -87,7 +87,7 @@
                   GO TO 20;
                }
             } else if ( IMAT == 2 ) {
-               R = MIN( P, M-P, Q, M-Q );
+               R = min( P, M-P, Q, M-Q );
                for (I = 1; I <= R; I++) {
                   THETA(I) = PIOVER2 * SLARND( 1, ISEED );
                }
@@ -98,7 +98,7 @@
                   }
                }
             } else if ( IMAT == 3 ) {
-               R = MIN( P, M-P, Q, M-Q );
+               R = min( P, M-P, Q, M-Q );
                for (I = 1; I <= R+1; I++) {
                   THETA(I) = TEN**(-SLARND(1,ISEED)*GAPDIGIT);
                }
@@ -167,33 +167,33 @@
 
       int                I, INFO, R;
 
-      R = MIN( P, M-P, Q, M-Q );
+      R = min( P, M-P, Q, M-Q );
 
       claset('Full', M, M, ZERO, ZERO, X, LDX );
 
-      DO I = 1, MIN(P,Q)-R;
+      DO I = 1, min(P,Q)-R;
          X(I,I) = ONE;
       }
       for (I = 1; I <= R; I++) {
-         X(MIN(P,Q)-R+I,MIN(P,Q)-R+I) = CMPLX ( COS(THETA(I)), 0.0 );
+         X(min(P,Q)-R+I,min(P,Q)-R+I) = CMPLX ( COS(THETA(I)), 0.0 );
       }
-      DO I = 1, MIN(P,M-Q)-R;
+      DO I = 1, min(P,M-Q)-R;
          X(P-I+1,M-I+1) = -ONE;
       }
       for (I = 1; I <= R; I++) {
-         X(P-(MIN(P,M-Q)-R)+1-I,M-(MIN(P,M-Q)-R)+1-I) = CMPLX( -SIN(THETA(R-I+1)), 0.0 );
+         X(P-(min(P,M-Q)-R)+1-I,M-(min(P,M-Q)-R)+1-I) = CMPLX( -SIN(THETA(R-I+1)), 0.0 );
       }
-      DO I = 1, MIN(M-P,Q)-R;
+      DO I = 1, min(M-P,Q)-R;
          X(M-I+1,Q-I+1) = ONE;
       }
       for (I = 1; I <= R; I++) {
-         X(M-(MIN(M-P,Q)-R)+1-I,Q-(MIN(M-P,Q)-R)+1-I) = CMPLX( SIN(THETA(R-I+1)), 0.0 );
+         X(M-(min(M-P,Q)-R)+1-I,Q-(min(M-P,Q)-R)+1-I) = CMPLX( SIN(THETA(R-I+1)), 0.0 );
       }
-      DO I = 1, MIN(M-P,M-Q)-R;
+      DO I = 1, min(M-P,M-Q)-R;
          X(P+I,Q+I) = ONE;
       }
       for (I = 1; I <= R; I++) {
-         X(P+(MIN(M-P,M-Q)-R)+I,Q+(MIN(M-P,M-Q)-R)+I) = CMPLX( COS(THETA(I)), 0.0 );
+         X(P+(min(M-P,M-Q)-R)+I,Q+(min(M-P,M-Q)-R)+I) = CMPLX( COS(THETA(I)), 0.0 );
       }
       claror('Left', 'No init', P, M, X, LDX, ISEED, WORK, INFO );
       claror('Left', 'No init', M-P, M, X(P+1,1), LDX, ISEED, WORK, INFO )       CALL CLAROR( 'Right', 'No init', M, Q, X, LDX, ISEED, WORK, INFO )       CALL CLAROR( 'Right', 'No init', M, M-Q, X(1,Q+1), LDX, ISEED, WORK, INFO );

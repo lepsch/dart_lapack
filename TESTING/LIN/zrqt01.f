@@ -42,7 +42,7 @@
       // ..
       // .. Executable Statements ..
 
-      MINMN = MIN( M, N );
+      MINMN = min( M, N );
       EPS = DLAMCH( 'Epsilon' );
 
       // Copy the matrix A to the array AF.
@@ -88,7 +88,7 @@
       ANORM = ZLANGE( '1', M, N, A, LDA, RWORK );
       RESID = ZLANGE( '1', M, N, R, LDA, RWORK );
       if ( ANORM > ZERO ) {
-         RESULT( 1 ) = ( ( RESID / DBLE( MAX( 1, N ) ) ) / ANORM ) / EPS;
+         RESULT( 1 ) = ( ( RESID / DBLE( max( 1, N ) ) ) / ANORM ) / EPS;
       } else {
          RESULT( 1 ) = ZERO;
       }
@@ -102,7 +102,7 @@
 
       RESID = ZLANSY( '1', 'Upper', N, R, LDA, RWORK );
 
-      RESULT( 2 ) = ( RESID / DBLE( MAX( 1, N ) ) ) / EPS;
+      RESULT( 2 ) = ( RESID / DBLE( max( 1, N ) ) ) / EPS;
 
       return;
 

@@ -60,7 +60,7 @@
          TRANSU = 'C';
          K = M;
       }
-      MNMIN = MIN( M, N );
+      MNMIN = min( M, N );
 
       if ( ( MNMIN+1 )*MNMIN <= LWORK ) {
          LDWORK = MNMIN;
@@ -90,7 +90,7 @@
                   TMP = ONE;
                }
                TMP = TMP - CDOTC( M, U( 1, I ), 1, U( 1, J ), 1 );
-               RESID = MAX( RESID, CABS1( TMP ) );
+               RESID = max( RESID, CABS1( TMP ) );
             } // 10
          } // 20
          RESID = ( RESID / REAL( M ) ) / EPS;
@@ -106,7 +106,7 @@
                   TMP = ONE;
                }
                TMP = TMP - CDOTC( N, U( J, 1 ), LDU, U( I, 1 ), LDU );
-               RESID = MAX( RESID, CABS1( TMP ) );
+               RESID = max( RESID, CABS1( TMP ) );
             } // 30
          } // 40
          RESID = ( RESID / REAL( N ) ) / EPS;

@@ -88,7 +88,7 @@
                           L = KPLUS1 - J;
                           if (NOUNIT) X(J) = X(J)/A(KPLUS1,J);
                           TEMP = X(J);
-                          DO 10 I = J - 1,MAX(1,J-K),-1;
+                          DO 10 I = J - 1,max(1,J-K),-1;
                               X(I) = X(I) - TEMP*A(L+I,J);
                           } // 10
                       }
@@ -103,7 +103,7 @@
                           L = KPLUS1 - J;
                           if (NOUNIT) X(JX) = X(JX)/A(KPLUS1,J);
                           TEMP = X(JX);
-                          DO 30 I = J - 1,MAX(1,J-K),-1;
+                          DO 30 I = J - 1,max(1,J-K),-1;
                               X(IX) = X(IX) - TEMP*A(L+I,J);
                               IX = IX - INCX;
                           } // 30
@@ -118,7 +118,7 @@
                           L = 1 - J;
                           if (NOUNIT) X(J) = X(J)/A(1,J);
                           TEMP = X(J);
-                          DO 50 I = J + 1,MIN(N,J+K);
+                          DO 50 I = J + 1,min(N,J+K);
                               X(I) = X(I) - TEMP*A(L+I,J);
                           } // 50
                       }
@@ -132,7 +132,7 @@
                           L = 1 - J;
                           if (NOUNIT) X(JX) = X(JX)/A(1,J);
                           TEMP = X(JX);
-                          DO 70 I = J + 1,MIN(N,J+K);
+                          DO 70 I = J + 1,min(N,J+K);
                               X(IX) = X(IX) - TEMP*A(L+I,J);
                               IX = IX + INCX;
                           } // 70
@@ -152,12 +152,12 @@
                       TEMP = X(J);
                       L = KPLUS1 - J;
                       if (NOCONJ) {
-                          DO 90 I = MAX(1,J-K),J - 1;
+                          DO 90 I = max(1,J-K),J - 1;
                               TEMP = TEMP - A(L+I,J)*X(I);
                           } // 90
                           if (NOUNIT) TEMP = TEMP/A(KPLUS1,J);
                       } else {
-                          DO 100 I = MAX(1,J-K),J - 1;
+                          DO 100 I = max(1,J-K),J - 1;
                               TEMP = TEMP - DCONJG(A(L+I,J))*X(I);
                           } // 100
                           if (NOUNIT) TEMP = TEMP/DCONJG(A(KPLUS1,J));
@@ -171,13 +171,13 @@
                       IX = KX;
                       L = KPLUS1 - J;
                       if (NOCONJ) {
-                          DO 120 I = MAX(1,J-K),J - 1;
+                          DO 120 I = max(1,J-K),J - 1;
                               TEMP = TEMP - A(L+I,J)*X(IX);
                               IX = IX + INCX;
                           } // 120
                           if (NOUNIT) TEMP = TEMP/A(KPLUS1,J);
                       } else {
-                          DO 130 I = MAX(1,J-K),J - 1;
+                          DO 130 I = max(1,J-K),J - 1;
                               TEMP = TEMP - DCONJG(A(L+I,J))*X(IX);
                               IX = IX + INCX;
                           } // 130
@@ -194,12 +194,12 @@
                       TEMP = X(J);
                       L = 1 - J;
                       if (NOCONJ) {
-                          DO 150 I = MIN(N,J+K),J + 1,-1;
+                          DO 150 I = min(N,J+K),J + 1,-1;
                               TEMP = TEMP - A(L+I,J)*X(I);
                           } // 150
                           if (NOUNIT) TEMP = TEMP/A(1,J);
                       } else {
-                          DO 160 I = MIN(N,J+K),J + 1,-1;
+                          DO 160 I = min(N,J+K),J + 1,-1;
                               TEMP = TEMP - DCONJG(A(L+I,J))*X(I);
                           } // 160
                           if (NOUNIT) TEMP = TEMP/DCONJG(A(1,J));
@@ -214,13 +214,13 @@
                       IX = KX;
                       L = 1 - J;
                       if (NOCONJ) {
-                          DO 180 I = MIN(N,J+K),J + 1,-1;
+                          DO 180 I = min(N,J+K),J + 1,-1;
                               TEMP = TEMP - A(L+I,J)*X(IX);
                               IX = IX - INCX;
                           } // 180
                           if (NOUNIT) TEMP = TEMP/A(1,J);
                       } else {
-                          DO 190 I = MIN(N,J+K),J + 1,-1;
+                          DO 190 I = min(N,J+K),J + 1,-1;
                               TEMP = TEMP - DCONJG(A(L+I,J))*X(IX);
                               IX = IX - INCX;
                           } // 190

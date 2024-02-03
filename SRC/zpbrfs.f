@@ -71,9 +71,9 @@
          INFO = -6;
       } else if ( LDAFB < KD+1 ) {
          INFO = -8;
-      } else if ( LDB < MAX( 1, N ) ) {
+      } else if ( LDB < max( 1, N ) ) {
          INFO = -10;
-      } else if ( LDX < MAX( 1, N ) ) {
+      } else if ( LDX < max( 1, N ) ) {
          INFO = -12;
       }
       if ( INFO != 0 ) {
@@ -93,7 +93,7 @@
 
       // NZ = maximum number of nonzero elements in each row of A, plus 1
 
-      NZ = MIN( N+1, 2*KD+2 );
+      NZ = min( N+1, 2*KD+2 );
       EPS = DLAMCH( 'Epsilon' );
       SAFMIN = DLAMCH( 'Safe minimum' );
       SAFE1 = NZ*SAFMIN;
@@ -134,7 +134,7 @@
                S = ZERO;
                XK = CABS1( X( K, J ) );
                L = KD + 1 - K;
-               DO 40 I = MAX( 1, K-KD ), K - 1;
+               DO 40 I = max( 1, K-KD ), K - 1;
                   RWORK( I ) = RWORK( I ) + CABS1( AB( L+I, K ) )*XK;
                   S = S + CABS1( AB( L+I, K ) )*CABS1( X( I, J ) );
                } // 40
@@ -146,7 +146,7 @@
                XK = CABS1( X( K, J ) );
                RWORK( K ) = RWORK( K ) + ABS( DBLE( AB( 1, K ) ) )*XK;
                L = 1 - K;
-               DO 60 I = K + 1, MIN( N, K+KD );
+               DO 60 I = K + 1, min( N, K+KD );
                   RWORK( I ) = RWORK( I ) + CABS1( AB( L+I, K ) )*XK;
                   S = S + CABS1( AB( L+I, K ) )*CABS1( X( I, J ) );
                } // 60
@@ -156,9 +156,9 @@
          S = ZERO;
          for (I = 1; I <= N; I++) { // 80
             if ( RWORK( I ) > SAFE2 ) {
-               S = MAX( S, CABS1( WORK( I ) ) / RWORK( I ) );
+               S = max( S, CABS1( WORK( I ) ) / RWORK( I ) );
             } else {
-               S = MAX( S, ( CABS1( WORK( I ) )+SAFE1 ) / ( RWORK( I )+SAFE1 ) );
+               S = max( S, ( CABS1( WORK( I ) )+SAFE1 ) / ( RWORK( I )+SAFE1 ) );
             }
          } // 80
          BERR( J ) = S;
@@ -238,7 +238,7 @@
 
          LSTRES = ZERO;
          for (I = 1; I <= N; I++) { // 130
-            LSTRES = MAX( LSTRES, CABS1( X( I, J ) ) );
+            LSTRES = max( LSTRES, CABS1( X( I, J ) ) );
          } // 130
          if (LSTRES != ZERO) FERR( J ) = FERR( J ) / LSTRES;
 

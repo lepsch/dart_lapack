@@ -35,7 +35,7 @@
       // ..
       // .. Executable Statements ..
 
-      if ( MIN( M, N ) == 0 ) {
+      if ( min( M, N ) == 0 ) {
          VALUE = ZERO;
       } else if ( LSAME( NORM, 'M' ) ) {
 
@@ -86,7 +86,7 @@
          for (J = 1; J <= N; J++) { // 90
             zlassq(M, A( 1, J ), 1, SCALE, SUM );
          } // 90
-         VALUE = SCALE*SQRT( SUM );
+         VALUE = SCALE*sqrt( SUM );
       }
 
       ZLANGE = VALUE;

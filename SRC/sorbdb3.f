@@ -46,9 +46,9 @@
          INFO = -2;
       } else if ( Q < M-P || M-Q < M-P ) {
          INFO = -3;
-      } else if ( LDX11 < MAX( 1, P ) ) {
+      } else if ( LDX11 < max( 1, P ) ) {
          INFO = -5;
-      } else if ( LDX21 < MAX( 1, M-P ) ) {
+      } else if ( LDX21 < max( 1, M-P ) ) {
          INFO = -7;
       }
 
@@ -56,10 +56,10 @@
 
       if ( INFO == 0 ) {
          ILARF = 2;
-         LLARF = MAX( P, M-P-1, Q-1 );
+         LLARF = max( P, M-P-1, Q-1 );
          IORBDB5 = 2;
          LORBDB5 = Q-1;
-         LWORKOPT = MAX( ILARF+LLARF-1, IORBDB5+LORBDB5-1 );
+         LWORKOPT = max( ILARF+LLARF-1, IORBDB5+LORBDB5-1 );
          LWORKMIN = LWORKOPT;
          WORK(1) = LWORKOPT;
          if ( LWORK < LWORKMIN && !LQUERY ) {
@@ -85,7 +85,7 @@
          S = X21(I,I);
          X21(I,I) = ONE;
          slarf('R', P-I+1, Q-I+1, X21(I,I), LDX21, TAUQ1(I), X11(I,I), LDX11, WORK(ILARF) );
-         slarf('R', M-P-I, Q-I+1, X21(I,I), LDX21, TAUQ1(I), X21(I+1,I), LDX21, WORK(ILARF) )          C = SQRT( SNRM2( P-I+1, X11(I,I), 1 )**2 + SNRM2( M-P-I, X21(I+1,I), 1 )**2 );
+         slarf('R', M-P-I, Q-I+1, X21(I,I), LDX21, TAUQ1(I), X21(I+1,I), LDX21, WORK(ILARF) )          C = sqrt( SNRM2( P-I+1, X11(I,I), 1 )**2 + SNRM2( M-P-I, X21(I+1,I), 1 )**2 );
          THETA(I) = ATAN2( S, C );
 
          sorbdb5(P-I+1, M-P-I, Q-I, X11(I,I), 1, X21(I+1,I), 1, X11(I,I+1), LDX11, X21(I+1,I+1), LDX21, WORK(IORBDB5), LORBDB5, CHILDINFO );

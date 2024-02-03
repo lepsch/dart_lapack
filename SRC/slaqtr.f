@@ -56,8 +56,8 @@
       BIGNUM = ONE / SMLNUM;
 
       XNORM = SLANGE( 'M', N, N, T, LDT, D );
-      if ( !LREAL) XNORM = MAX( XNORM, ABS( W ), SLANGE( 'M', N, 1, B, N, D ) );
-      SMIN = MAX( SMLNUM, EPS*XNORM );
+      if ( !LREAL) XNORM = max( XNORM, ABS( W ), SLANGE( 'M', N, 1, B, N, D ) );
+      SMIN = max( SMLNUM, EPS*XNORM );
 
       // Compute 1-norm of each column of strictly upper triangular
       // part of T to control overflow in triangular solver.
@@ -172,10 +172,10 @@
                   // Scale V(1,1) (= X(J1)) and/or V(2,1) (=X(J2))
                   // to avoid overflow in updating right-hand side.
 
-                  XJ = MAX( ABS( V( 1, 1 ) ), ABS( V( 2, 1 ) ) );
+                  XJ = max( ABS( V( 1, 1 ) ), ABS( V( 2, 1 ) ) );
                   if ( XJ > ONE ) {
                      REC = ONE / XJ;
-                     if ( MAX( WORK( J1 ), WORK( J2 ) ) > ( BIGNUM-XMAX )*REC ) {
+                     if ( max( WORK( J1 ), WORK( J2 ) ) > ( BIGNUM-XMAX )*REC ) {
                         sscal(N, REC, X, 1 );
                         SCALE = SCALE*REC;
                      }
@@ -248,7 +248,7 @@
                      }
                   }
                   X( J1 ) = X( J1 ) / TMP;
-                  XMAX = MAX( XMAX, ABS( X( J1 ) ) );
+                  XMAX = max( XMAX, ABS( X( J1 ) ) );
 
                } else {
 
@@ -257,10 +257,10 @@
                   // Scale if necessary to avoid overflow in forming the
                   // right-hand side elements by inner product.
 
-                  XJ = MAX( ABS( X( J1 ) ), ABS( X( J2 ) ) );
+                  XJ = max( ABS( X( J1 ) ), ABS( X( J2 ) ) );
                   if ( XMAX > ONE ) {
                      REC = ONE / XMAX;
-                     if ( MAX( WORK( J2 ), WORK( J1 ) ) > ( BIGNUM-XJ )* REC ) {
+                     if ( max( WORK( J2 ), WORK( J1 ) ) > ( BIGNUM-XJ )* REC ) {
                         sscal(N, REC, X, 1 );
                         SCALE = SCALE*REC;
                         XMAX = XMAX*REC;
@@ -278,7 +278,7 @@
                   }
                   X( J1 ) = V( 1, 1 );
                   X( J2 ) = V( 2, 1 );
-                  XMAX = MAX( ABS( X( J1 ) ), ABS( X( J2 ) ), XMAX );
+                  XMAX = max( ABS( X( J1 ) ), ABS( X( J2 ) ), XMAX );
 
                }
             } // 40
@@ -286,7 +286,7 @@
 
       } else {
 
-         SMINW = MAX( EPS*ABS( W ), SMIN );
+         SMINW = max( EPS*ABS( W ), SMIN );
          if ( NOTRAN ) {
 
             // Solve (T + iB)*(p+iq) = c+id
@@ -356,7 +356,7 @@
 
                      XMAX = ZERO;
                      for (K = 1; K <= J1 - 1; K++) { // 50
-                        XMAX = MAX( XMAX, ABS( X( K ) )+ ABS( X( K+N ) ) );
+                        XMAX = max( XMAX, ABS( X( K ) )+ ABS( X( K+N ) ) );
                      } // 50
                   }
 
@@ -383,10 +383,10 @@
                   // Scale X(J1), .... to avoid overflow in
                   // updating right hand side.
 
-                  XJ = MAX( ABS( V( 1, 1 ) )+ABS( V( 1, 2 ) ), ABS( V( 2, 1 ) )+ABS( V( 2, 2 ) ) );
+                  XJ = max( ABS( V( 1, 1 ) )+ABS( V( 1, 2 ) ), ABS( V( 2, 1 ) )+ABS( V( 2, 2 ) ) );
                   if ( XJ > ONE ) {
                      REC = ONE / XJ;
-                     if ( MAX( WORK( J1 ), WORK( J2 ) ) > ( BIGNUM-XMAX )*REC ) {
+                     if ( max( WORK( J1 ), WORK( J2 ) ) > ( BIGNUM-XMAX )*REC ) {
                         sscal(N2, REC, X, 1 );
                         SCALE = SCALE*REC;
                      }
@@ -405,7 +405,7 @@
 
                      XMAX = ZERO;
                      for (K = 1; K <= J1 - 1; K++) { // 60
-                        XMAX = MAX( ABS( X( K ) )+ABS( X( K+N ) ), XMAX );
+                        XMAX = max( ABS( X( K ) )+ABS( X( K+N ) ), XMAX );
                      } // 60
                   }
 
@@ -479,7 +479,7 @@
                   sladiv(X( J1 ), X( N+J1 ), TMP, -Z, SR, SI );
                   X( J1 ) = SR;
                   X( J1+N ) = SI;
-                  XMAX = MAX( ABS( X( J1 ) )+ABS( X( J1+N ) ), XMAX );
+                  XMAX = max( ABS( X( J1 ) )+ABS( X( J1+N ) ), XMAX );
 
                } else {
 
@@ -488,10 +488,10 @@
                   // Scale if necessary to avoid overflow in forming the
                   // right-hand side element by inner product.
 
-                  XJ = MAX( ABS( X( J1 ) )+ABS( X( N+J1 ) ), ABS( X( J2 ) )+ABS( X( N+J2 ) ) );
+                  XJ = max( ABS( X( J1 ) )+ABS( X( N+J1 ) ), ABS( X( J2 ) )+ABS( X( N+J2 ) ) );
                   if ( XMAX > ONE ) {
                      REC = ONE / XMAX;
-                     if ( MAX( WORK( J1 ), WORK( J2 ) ) > ( BIGNUM-XJ ) / XMAX ) {
+                     if ( max( WORK( J1 ), WORK( J2 ) ) > ( BIGNUM-XJ ) / XMAX ) {
                         sscal(N2, REC, X, 1 );
                         SCALE = SCALE*REC;
                         XMAX = XMAX*REC;
@@ -515,7 +515,7 @@
                   X( J2 ) = V( 2, 1 );
                   X( N+J1 ) = V( 1, 2 );
                   X( N+J2 ) = V( 2, 2 );
-                  XMAX = MAX( ABS( X( J1 ) )+ABS( X( N+J1 ) ), ABS( X( J2 ) )+ABS( X( N+J2 ) ), XMAX );
+                  XMAX = max( ABS( X( J1 ) )+ABS( X( N+J1 ) ), ABS( X( J2 ) )+ABS( X( N+J2 ) ), XMAX );
 
                }
 

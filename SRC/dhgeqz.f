@@ -81,7 +81,7 @@
       // Check Argument Values
 
       INFO = 0;
-      WORK( 1 ) = MAX( 1, N );
+      WORK( 1 ) = max( 1, N );
       LQUERY = ( LWORK == -1 );
       if ( ISCHUR == 0 ) {
          INFO = -1;
@@ -103,7 +103,7 @@
          INFO = -15;
       } else if ( LDZ < 1 || ( ILZ && LDZ < N ) ) {
          INFO = -17;
-      } else if ( LWORK < MAX( 1, N ) && !LQUERY ) {
+      } else if ( LWORK < max( 1, N ) && !LQUERY ) {
          INFO = -19;
       }
       if ( INFO != 0 ) {
@@ -133,10 +133,10 @@
       ULP = DLAMCH( 'E' )*DLAMCH( 'B' );
       ANORM = DLANHS( 'F', IN, H( ILO, ILO ), LDH, WORK );
       BNORM = DLANHS( 'F', IN, T( ILO, ILO ), LDT, WORK );
-      ATOL = MAX( SAFMIN, ULP*ANORM );
-      BTOL = MAX( SAFMIN, ULP*BNORM );
-      ASCALE = ONE / MAX( SAFMIN, ANORM );
-      BSCALE = ONE / MAX( SAFMIN, BNORM );
+      ATOL = max( SAFMIN, ULP*ANORM );
+      BTOL = max( SAFMIN, ULP*BNORM );
+      ASCALE = ONE / max( SAFMIN, ANORM );
+      BSCALE = ONE / max( SAFMIN, BNORM );
 
       // Set Eigenvalues IHI+1:N
 
@@ -207,7 +207,7 @@
 
             GO TO 80;
          } else {
-            if ( ABS( H( ILAST, ILAST-1 ) ) <= MAX( SAFMIN, ULP*(  ABS( H( ILAST, ILAST ) ) + ABS( H( ILAST-1, ILAST-1 ) ) ) ) ) {
+            if ( ABS( H( ILAST, ILAST-1 ) ) <= max( SAFMIN, ULP*(  ABS( H( ILAST, ILAST ) ) + ABS( H( ILAST-1, ILAST-1 ) ) ) ) ) {
                H( ILAST, ILAST-1 ) = ZERO;
                GO TO 80;
             }
@@ -227,7 +227,7 @@
             if ( J == ILO ) {
                ILAZRO = true;
             } else {
-               if ( ABS( H( J, J-1 ) ) <= MAX( SAFMIN, ULP*(  ABS( H( J, J ) ) + ABS( H( J-1, J-1 ) ) ) ) ) {
+               if ( ABS( H( J, J-1 ) ) <= max( SAFMIN, ULP*(  ABS( H( J, J ) ) + ABS( H( J-1, J-1 ) ) ) ) ) {
                   H( J, J-1 ) = ZERO;
                   ILAZRO = true;
                } else {
@@ -246,7 +246,7 @@
                if ( !ILAZRO ) {
                   TEMP = ABS( H( J, J-1 ) );
                   TEMP2 = ABS( H( J, J ) );
-                  TEMPR = MAX( TEMP, TEMP2 );
+                  TEMPR = max( TEMP, TEMP2 );
                   if ( TEMPR < ONE && TEMPR != ZERO ) {
                      TEMP = TEMP / TEMPR;
                      TEMP2 = TEMP2 / TEMPR;
@@ -411,21 +411,21 @@
                S1 = S2;
                S2 = TEMP;
             }
-            TEMP = MAX( S1, SAFMIN*MAX( ONE, ABS( WR ), ABS( WI ) ) );
+            TEMP = max( S1, SAFMIN*max( ONE, ABS( WR ), ABS( WI ) ) );
             if (WI != ZERO) GO TO 200;
          }
 
          // Fiddle with shift to avoid overflow
 
-         TEMP = MIN( ASCALE, ONE )*( HALF*SAFMAX );
+         TEMP = min( ASCALE, ONE )*( HALF*SAFMAX );
          if ( S1 > TEMP ) {
             SCALE = TEMP / S1;
          } else {
             SCALE = ONE;
          }
 
-         TEMP = MIN( BSCALE, ONE )*( HALF*SAFMAX );
-         if( ABS( WR ) > TEMP ) SCALE = MIN( SCALE, TEMP / ABS( WR ) );
+         TEMP = min( BSCALE, ONE )*( HALF*SAFMAX );
+         if( ABS( WR ) > TEMP ) SCALE = min( SCALE, TEMP / ABS( WR ) );
          S1 = SCALE*S1;
          WR = SCALE*WR;
 
@@ -435,7 +435,7 @@
             ISTART = J;
             TEMP = ABS( S1*H( J, J-1 ) );
             TEMP2 = ABS( S1*H( J, J )-WR*T( J, J ) );
-            TEMPR = MAX( TEMP, TEMP2 );
+            TEMPR = max( TEMP, TEMP2 );
             if ( TEMPR < ONE && TEMPR != ZERO ) {
                TEMP = TEMP / TEMPR;
                TEMP2 = TEMP2 / TEMPR;
@@ -483,7 +483,7 @@
             dlartg(TEMP, T( J+1, J ), C, S, T( J+1, J+1 ) );
             T( J+1, J ) = ZERO;
 
-            DO 160 JR = IFRSTM, MIN( J+2, ILAST );
+            DO 160 JR = IFRSTM, min( J+2, ILAST );
                TEMP = C*H( JR, J+1 ) + S*H( JR, J );
                H( JR, J ) = -S*H( JR, J+1 ) + C*H( JR, J );
                H( JR, J+1 ) = TEMP;
@@ -755,9 +755,9 @@
                // Swap rows to pivot
 
                ILPIVT = false;
-               TEMP = MAX( ABS( T( J+1, J+1 ) ), ABS( T( J+1, J+2 ) ) );
-               TEMP2 = MAX( ABS( T( J+2, J+1 ) ), ABS( T( J+2, J+2 ) ) );
-               if ( MAX( TEMP, TEMP2 ) < SAFMIN ) {
+               TEMP = max( ABS( T( J+1, J+1 ) ), ABS( T( J+1, J+2 ) ) );
+               TEMP2 = max( ABS( T( J+2, J+1 ) ), ABS( T( J+2, J+2 ) ) );
+               if ( max( TEMP, TEMP2 ) < SAFMIN ) {
                   SCALE = ZERO;
                   U1 = ONE;
                   U2 = ZERO;
@@ -807,7 +807,7 @@
                   GO TO 250;
                }
                if( ABS( W22 ) < ABS( U2 ) ) SCALE = ABS( W22 / U2 );
-               IF( ABS( W11 ) < ABS( U1 ) ) SCALE = MIN( SCALE, ABS( W11 / U1 ) );
+               IF( ABS( W11 ) < ABS( U1 ) ) SCALE = min( SCALE, ABS( W11 / U1 ) );
 
                // Solve
 
@@ -823,7 +823,7 @@
 
                // Compute Householder Vector
 
-               T1 = SQRT( SCALE**2+U1**2+U2**2 );
+               T1 = sqrt( SCALE**2+U1**2+U2**2 );
                TAU = ONE + SCALE / T1;
                VS = -ONE / ( SCALE+T1 );
                V( 1 ) = ONE;
@@ -834,7 +834,7 @@
 
                T2 = TAU*V(2);
                T3 = TAU*V(3);
-               DO 260 JR = IFRSTM, MIN( J+3, ILAST );
+               DO 260 JR = IFRSTM, min( J+3, ILAST );
                   TEMP = H( JR, J )+V( 2 )*H( JR, J+1 )+V( 3 )* H( JR, J+2 );
                   H( JR, J ) = H( JR, J ) - TEMP*TAU;
                   H( JR, J+1 ) = H( JR, J+1 ) - TEMP*T2;

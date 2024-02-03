@@ -28,7 +28,7 @@
 
       if ( LSAME( UPLO, 'U' ) ) {
          for (J = 1; J <= N; J++) { // 20
-            DO 10 I = 1, MIN( J, M );
+            DO 10 I = 1, min( J, M );
                B( I, J ) = A( I, J );
             } // 10
          } // 20

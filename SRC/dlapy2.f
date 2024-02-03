@@ -41,12 +41,12 @@
       if ( !( X_IS_NAN || Y_IS_NAN ) ) {
          XABS = ABS( X );
          YABS = ABS( Y );
-         W = MAX( XABS, YABS );
-         Z = MIN( XABS, YABS );
+         W = max( XABS, YABS );
+         Z = min( XABS, YABS );
          if ( Z == ZERO || W > HUGEVAL ) {
             DLAPY2 = W;
          } else {
-            DLAPY2 = W*SQRT( ONE+( Z / W )**2 );
+            DLAPY2 = W*sqrt( ONE+( Z / W )**2 );
          }
       }
       return;

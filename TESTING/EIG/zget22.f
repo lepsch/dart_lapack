@@ -78,10 +78,10 @@
          for (JVEC = 1; JVEC <= N; JVEC++) { // 20
             TEMP1 = ZERO;
             for (J = 1; J <= N; J++) { // 10
-               TEMP1 = MAX( TEMP1, ABS( DBLE( E( J, JVEC ) ) )+ ABS( DIMAG( E( J, JVEC ) ) ) );
+               TEMP1 = max( TEMP1, ABS( DBLE( E( J, JVEC ) ) )+ ABS( DIMAG( E( J, JVEC ) ) ) );
             } // 10
-            ENRMIN = MIN( ENRMIN, TEMP1 );
-            ENRMAX = MAX( ENRMAX, TEMP1 );
+            ENRMIN = min( ENRMIN, TEMP1 );
+            ENRMAX = max( ENRMAX, TEMP1 );
          } // 20
       } else {
          for (JVEC = 1; JVEC <= N; JVEC++) { // 30
@@ -90,23 +90,23 @@
 
          for (J = 1; J <= N; J++) { // 50
             for (JVEC = 1; JVEC <= N; JVEC++) { // 40
-               RWORK( JVEC ) = MAX( RWORK( JVEC ), ABS( DBLE( E( JVEC, J ) ) )+ ABS( DIMAG( E( JVEC, J ) ) ) );
+               RWORK( JVEC ) = max( RWORK( JVEC ), ABS( DBLE( E( JVEC, J ) ) )+ ABS( DIMAG( E( JVEC, J ) ) ) );
             } // 40
          } // 50
 
          for (JVEC = 1; JVEC <= N; JVEC++) { // 60
-            ENRMIN = MIN( ENRMIN, RWORK( JVEC ) );
-            ENRMAX = MAX( ENRMAX, RWORK( JVEC ) );
+            ENRMIN = min( ENRMIN, RWORK( JVEC ) );
+            ENRMAX = max( ENRMAX, RWORK( JVEC ) );
          } // 60
       }
 
       // Norm of A:
 
-      ANORM = MAX( ZLANGE( NORMA, N, N, A, LDA, RWORK ), UNFL );
+      ANORM = max( ZLANGE( NORMA, N, N, A, LDA, RWORK ), UNFL );
 
       // Norm of E:
 
-      ENORM = MAX( ZLANGE( NORME, N, N, E, LDE, RWORK ), ULP );
+      ENORM = max( ZLANGE( NORME, N, N, E, LDE, RWORK ), ULP );
 
       // Norm of error:
 
@@ -150,13 +150,13 @@
          if ( ANORM < ONE ) {
             RESULT( 1 ) = ONE / ULP;
          } else {
-            RESULT( 1 ) = MIN( ERRNRM / ANORM, ONE ) / ULP;
+            RESULT( 1 ) = min( ERRNRM / ANORM, ONE ) / ULP;
          }
       }
 
       // Compute RESULT(2) : the normalization error in E.
 
-      RESULT( 2 ) = MAX( ABS( ENRMAX-ONE ), ABS( ENRMIN-ONE ) ) / ( DBLE( N )*ULP );
+      RESULT( 2 ) = max( ABS( ENRMAX-ONE ), ABS( ENRMIN-ONE ) ) / ( DBLE( N )*ULP );
 
       return;
 

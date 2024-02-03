@@ -104,9 +104,9 @@
 
             // Generate the right-hand sides C and D for the LSE.
 
-            clarhs('CGE', 'New solution', 'Upper', 'N', M, N, MAX( M-1, 0 ), MAX( N-1, 0 ), 1, A, LDA, X( 4*NMAX+1 ), MAX( N, 1 ), X, MAX( M, 1 ), ISEED, IINFO );
+            clarhs('CGE', 'New solution', 'Upper', 'N', M, N, max( M-1, 0 ), max( N-1, 0 ), 1, A, LDA, X( 4*NMAX+1 ), max( N, 1 ), X, max( M, 1 ), ISEED, IINFO );
 
-            clarhs('CGE', 'Computed', 'Upper', 'N', P, N, MAX( P-1, 0 ), MAX( N-1, 0 ), 1, B, LDB, X( 4*NMAX+1 ), MAX( N, 1 ), X( 2*NMAX+1 ), MAX( P, 1 ), ISEED, IINFO );
+            clarhs('CGE', 'Computed', 'Upper', 'N', P, N, max( P-1, 0 ), max( N-1, 0 ), 1, B, LDB, X( 4*NMAX+1 ), max( N, 1 ), X( 2*NMAX+1 ), max( P, 1 ), ISEED, IINFO );
 
             NT = 2;
 

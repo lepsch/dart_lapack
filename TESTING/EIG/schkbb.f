@@ -60,17 +60,17 @@
       NMAX = 1;
       MNMAX = 1;
       for (J = 1; J <= NSIZES; J++) { // 10
-         MMAX = MAX( MMAX, MVAL( J ) );
+         MMAX = max( MMAX, MVAL( J ) );
          if( MVAL( J ) < 0 ) BADMM = true;
-         NMAX = MAX( NMAX, NVAL( J ) );
+         NMAX = max( NMAX, NVAL( J ) );
          if( NVAL( J ) < 0 ) BADNN = true;
-         MNMAX = MAX( MNMAX, MIN( MVAL( J ), NVAL( J ) ) );
+         MNMAX = max( MNMAX, min( MVAL( J ), NVAL( J ) ) );
       } // 10
 
       BADNNB = false;
       KMAX = 0;
       for (J = 1; J <= NWDTHS; J++) { // 20
-         KMAX = MAX( KMAX, KK( J ) );
+         KMAX = max( KMAX, KK( J ) );
          if( KK( J ) < 0 ) BADNNB = true;
       } // 20
 
@@ -100,7 +100,7 @@
          INFO = -21;
       } else if ( LDC < NMAX ) {
          INFO = -23;
-      } else if ( ( MAX( LDA, NMAX )+1 )*NMAX > LWORK ) {
+      } else if ( ( max( LDA, NMAX )+1 )*NMAX > LWORK ) {
          INFO = -26;
       }
 
@@ -119,8 +119,8 @@
       OVFL = ONE / UNFL;
       ULP = SLAMCH( 'Epsilon' )*SLAMCH( 'Base' );
       ULPINV = ONE / ULP;
-      RTUNFL = SQRT( UNFL );
-      RTOVFL = SQRT( OVFL );
+      RTUNFL = sqrt( UNFL );
+      RTOVFL = sqrt( OVFL );
 
       // Loop over sizes, widths, types
 
@@ -130,19 +130,19 @@
       for (JSIZE = 1; JSIZE <= NSIZES; JSIZE++) { // 160
          M = MVAL( JSIZE );
          N = NVAL( JSIZE );
-         MNMIN = MIN( M, N );
-         AMNINV = ONE / REAL( MAX( 1, M, N ) );
+         MNMIN = min( M, N );
+         AMNINV = ONE / REAL( max( 1, M, N ) );
 
          for (JWIDTH = 1; JWIDTH <= NWDTHS; JWIDTH++) { // 150
             K = KK( JWIDTH );
             if (K >= M && K >= N) GO TO 150;
-            KL = MAX( 0, MIN( M-1, K ) );
-            KU = MAX( 0, MIN( N-1, K ) );
+            KL = max( 0, min( M-1, K ) );
+            KU = max( 0, min( N-1, K ) );
 
             if ( NSIZES != 1 ) {
-               MTYPES = MIN( MAXTYP, NTYPES );
+               MTYPES = min( MAXTYP, NTYPES );
             } else {
-               MTYPES = MIN( MAXTYP+1, NTYPES );
+               MTYPES = min( MAXTYP+1, NTYPES );
             }
 
             for (JTYPE = 1; JTYPE <= MTYPES; JTYPE++) { // 140
@@ -187,7 +187,7 @@
                GO TO 70;
 
                } // 60
-               ANORM = RTUNFL*MAX( M, N )*ULPINV;
+               ANORM = RTUNFL*max( M, N )*ULPINV;
                GO TO 70;
 
                } // 70
@@ -250,7 +250,7 @@
                // Copy A to band storage.
 
                for (J = 1; J <= N; J++) { // 110
-                  DO 100 I = MAX( 1, J-KU ), MIN( M, J+KL );
+                  DO 100 I = max( 1, J-KU ), min( M, J+KL );
                      AB( KU+1+I-J, J ) = A( I, J );
                   } // 100
                } // 110

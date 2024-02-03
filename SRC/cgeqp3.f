@@ -45,12 +45,12 @@
          INFO = -1;
       } else if ( N < 0 ) {
          INFO = -2;
-      } else if ( LDA < MAX( 1, M ) ) {
+      } else if ( LDA < max( 1, M ) ) {
          INFO = -4;
       }
 
       if ( INFO == 0 ) {
-         MINMN = MIN( M, N );
+         MINMN = min( M, N );
          if ( MINMN == 0 ) {
             IWS = 1;
             LWKOPT = 1;
@@ -99,16 +99,16 @@
       // remaining columns.
 
       if ( NFXD > 0 ) {
-         NA = MIN( M, NFXD );
+         NA = min( M, NFXD );
 // CC      CALL CGEQR2( M, NA, A, LDA, TAU, WORK, INFO )
          cgeqrf(M, NA, A, LDA, TAU, WORK, LWORK, INFO );
-         IWS = MAX( IWS, INT( WORK( 1 ) ) );
+         IWS = max( IWS, INT( WORK( 1 ) ) );
          if ( NA < N ) {
 // CC         CALL CUNM2R( 'Left', 'Conjugate Transpose', M, N-NA,
 // CC  $                   NA, A, LDA, TAU, A( 1, NA+1 ), LDA, WORK,
 // CC  $                   INFO )
             cunmqr('Left', 'Conjugate Transpose', M, N-NA, NA, A, LDA, TAU, A( 1, NA+1 ), LDA, WORK, LWORK, INFO );
-            IWS = MAX( IWS, INT( WORK( 1 ) ) );
+            IWS = max( IWS, INT( WORK( 1 ) ) );
          }
       }
 
@@ -131,7 +131,7 @@
 
             // Determine when to cross over from blocked to unblocked code.
 
-            NX = MAX( 0, ILAENV( IXOVER, 'CGEQRF', ' ', SM, SN, -1, -1 ) );
+            NX = max( 0, ILAENV( IXOVER, 'CGEQRF', ' ', SM, SN, -1, -1 ) );
 
 
             if ( NX < SMINMN ) {
@@ -139,14 +139,14 @@
                // Determine if workspace is large enough for blocked code.
 
                MINWS = ( SN+1 )*NB;
-               IWS = MAX( IWS, MINWS );
+               IWS = max( IWS, MINWS );
                if ( LWORK < MINWS ) {
 
                   // Not enough workspace to use optimal NB: Reduce NB and
                   // determine the minimum value of NB.
 
                   NB = LWORK / ( SN+1 );
-                  NBMIN = MAX( 2, ILAENV( INBMIN, 'CGEQRF', ' ', SM, SN, -1, -1 ) );
+                  NBMIN = max( 2, ILAENV( INBMIN, 'CGEQRF', ' ', SM, SN, -1, -1 ) );
 
 
                }
@@ -173,7 +173,7 @@
             TOPBMN = MINMN - NX;
             } // 30
             if ( J <= TOPBMN ) {
-               JB = MIN( NB, TOPBMN-J+1 );
+               JB = min( NB, TOPBMN-J+1 );
 
                // Factorize JB columns among columns J:N.
 

@@ -82,7 +82,7 @@
       BADNN = false;
       NMAX = 0;
       for (J = 1; J <= NSIZES; J++) { // 10
-         NMAX = MAX( NMAX, NN( J ) );
+         NMAX = max( NMAX, NN( J ) );
          if( NN( J ) < 0 ) BADNN = true;
       } // 10
 
@@ -121,7 +121,7 @@
       OVFL = ONE / UNFL;
       ULP = SLAMCH( 'Precision' );
       ULPINV = ONE / ULP;
-      RTULP = SQRT( ULP );
+      RTULP = sqrt( ULP );
       RTULPI = ONE / RTULP;
 
       // Loop over sizes, types
@@ -131,9 +131,9 @@
       for (JSIZE = 1; JSIZE <= NSIZES; JSIZE++) { // 240
          N = NN( JSIZE );
          if ( NSIZES != 1 ) {
-            MTYPES = MIN( MAXTYP, NTYPES );
+            MTYPES = min( MAXTYP, NTYPES );
          } else {
-            MTYPES = MIN( MAXTYP+1, NTYPES );
+            MTYPES = min( MAXTYP+1, NTYPES );
          }
 
          for (JTYPE = 1; JTYPE <= MTYPES; JTYPE++) { // 230
@@ -290,7 +290,7 @@
                } else {
                   NNWORK = 5*N + 2*N**2;
                }
-               NNWORK = MAX( NNWORK, 1 );
+               NNWORK = max( NNWORK, 1 );
 
                // Initialize RESULT
 
@@ -331,7 +331,7 @@
 
                   // Do Tests (2) and (3) or Tests (8) and (9)
 
-                  LWORK = MAX( 1, 2*N*N );
+                  LWORK = max( 1, 2*N*N );
                   chst01(N, 1, N, A, LDA, H, LDA, VS, LDVS, WORK, LWORK, RWORK, RES );
                   RESULT( 2+RSUB ) = RES( 1 );
                   RESULT( 3+RSUB ) = RES( 2 );

@@ -41,7 +41,7 @@
          INFO = -1;
       } else if ( N < M ) {
          INFO = -2;
-      } else if ( LDA < MAX( 1, M ) ) {
+      } else if ( LDA < max( 1, M ) ) {
          INFO = -4;
       }
 
@@ -55,7 +55,7 @@
 
             NB = ILAENV( 1, 'DGERQF', ' ', M, N, -1, -1 );
             LWKOPT = M*NB;
-            LWKMIN = MAX( 1, M );
+            LWKMIN = max( 1, M );
          }
          WORK( 1 ) = LWKOPT;
 
@@ -89,7 +89,7 @@
 
          // Determine when to cross over from blocked to unblocked code.
 
-         NX = MAX( 0, ILAENV( 3, 'DGERQF', ' ', M, N, -1, -1 ) );
+         NX = max( 0, ILAENV( 3, 'DGERQF', ' ', M, N, -1, -1 ) );
          if ( NX < M ) {
 
             // Determine if workspace is large enough for blocked code.
@@ -102,7 +102,7 @@
                // determine the minimum value of NB.
 
                NB = LWORK / LDWORK;
-               NBMIN = MAX( 2, ILAENV( 2, 'DGERQF', ' ', M, N, -1, -1 ) );
+               NBMIN = max( 2, ILAENV( 2, 'DGERQF', ' ', M, N, -1, -1 ) );
             }
          }
       }
@@ -112,12 +112,12 @@
          // Use blocked code initially.
          // The last kk rows are handled by the block method.
 
-         M1 = MIN( M+1, N );
+         M1 = min( M+1, N );
          KI = ( ( M-NX-1 ) / NB )*NB;
-         KK = MIN( M, KI+NB );
+         KK = min( M, KI+NB );
 
          DO 20 I = M - KK + KI + 1, M - KK + 1, -NB;
-            IB = MIN( M-I+1, NB );
+            IB = min( M-I+1, NB );
 
             // Compute the TZ factorization of the current block
             // A(i:i+ib-1,i:n)

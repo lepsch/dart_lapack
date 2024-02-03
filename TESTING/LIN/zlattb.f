@@ -66,7 +66,7 @@
       if ( UPPER ) {
          zlatb4(PATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST );
          KU = KD;
-         IOFF = 1 + MAX( 0, KD-N+1 );
+         IOFF = 1 + max( 0, KD-N+1 );
          KL = 0;
          PACKIT = 'Q';
       } else {
@@ -90,7 +90,7 @@
       } else if ( IMAT == 6 ) {
          if ( UPPER ) {
             for (J = 1; J <= N; J++) { // 20
-               DO 10 I = MAX( 1, KD+2-J ), KD;
+               DO 10 I = max( 1, KD+2-J ), KD;
                   AB( I, J ) = ZERO;
                } // 10
                AB( KD+1, J ) = J;
@@ -98,7 +98,7 @@
          } else {
             for (J = 1; J <= N; J++) { // 40
                AB( 1, J ) = J;
-               DO 30 I = 2, MIN( KD+1, N-J+1 );
+               DO 30 I = 2, min( KD+1, N-J+1 );
                   AB( I, J ) = ZERO;
                } // 30
             } // 40
@@ -110,20 +110,20 @@
       // In this version, T only has bandwidth 2, the rest of it is zero.
 
       } else if ( IMAT <= 9 ) {
-         TNORM = SQRT( CNDNUM );
+         TNORM = sqrt( CNDNUM );
 
          // Initialize AB to zero.
 
          if ( UPPER ) {
             for (J = 1; J <= N; J++) { // 60
-               DO 50 I = MAX( 1, KD+2-J ), KD;
+               DO 50 I = max( 1, KD+2-J ), KD;
                   AB( I, J ) = ZERO;
                } // 50
                AB( KD+1, J ) = DBLE( J );
             } // 60
          } else {
             for (J = 1; J <= N; J++) { // 80
-               DO 70 I = 2, MIN( KD+1, N-J+1 );
+               DO 70 I = 2, min( KD+1, N-J+1 );
                   AB( I, J ) = ZERO;
                } // 70
                AB( 1, J ) = DBLE( J );
@@ -168,7 +168,7 @@
          // The two offdiagonals of T are stored in WORK.
 
             STAR1 = TNORM*ZLARND( 5, ISEED );
-            SFAC = SQRT( TNORM );
+            SFAC = sqrt( TNORM );
             PLUS1 = SFAC*ZLARND( 5, ISEED );
             DO 110 J = 1, N, 2;
                PLUS2 = STAR1 / PLUS1;
@@ -214,13 +214,13 @@
 
          if ( UPPER ) {
             for (J = 1; J <= N; J++) { // 120
-               LENJ = MIN( J-1, KD );
+               LENJ = min( J-1, KD );
                zlarnv(4, ISEED, LENJ, AB( KD+1-LENJ, J ) );
                AB( KD+1, J ) = ZLARND( 5, ISEED )*TWO;
             } // 120
          } else {
             for (J = 1; J <= N; J++) { // 130
-               LENJ = MIN( N-J, KD );
+               LENJ = min( N-J, KD );
                if (LENJ > 0) CALL ZLARNV( 4, ISEED, LENJ, AB( 2, J ) );
                AB( 1, J ) = ZLARND( 5, ISEED )*TWO;
             } // 130
@@ -231,7 +231,7 @@
          zlarnv(2, ISEED, N, B );
          IY = IZAMAX( N, B, 1 );
          BNORM = ABS( B( IY ) );
-         BSCAL = BIGNUM / MAX( ONE, BNORM );
+         BSCAL = BIGNUM / max( ONE, BNORM );
          zdscal(N, BSCAL, B, 1 );
 
       } else if ( IMAT == 11 ) {
@@ -244,7 +244,7 @@
          TSCAL = ONE / DBLE( KD+1 );
          if ( UPPER ) {
             for (J = 1; J <= N; J++) { // 140
-               LENJ = MIN( J-1, KD );
+               LENJ = min( J-1, KD );
                if ( LENJ > 0 ) {
                   zlarnv(4, ISEED, LENJ, AB( KD+2-LENJ, J ) );
                   zdscal(LENJ, TSCAL, AB( KD+2-LENJ, J ), 1 );
@@ -254,7 +254,7 @@
             AB( KD+1, N ) = SMLNUM*AB( KD+1, N );
          } else {
             for (J = 1; J <= N; J++) { // 150
-               LENJ = MIN( N-J, KD );
+               LENJ = min( N-J, KD );
                if ( LENJ > 0 ) {
                   zlarnv(4, ISEED, LENJ, AB( 2, J ) );
                   zdscal(LENJ, TSCAL, AB( 2, J ), 1 );
@@ -273,14 +273,14 @@
          zlarnv(2, ISEED, N, B );
          if ( UPPER ) {
             for (J = 1; J <= N; J++) { // 160
-               LENJ = MIN( J-1, KD );
+               LENJ = min( J-1, KD );
                if (LENJ > 0) CALL ZLARNV( 4, ISEED, LENJ, AB( KD+2-LENJ, J ) );
                AB( KD+1, J ) = ZLARND( 5, ISEED );
             } // 160
             AB( KD+1, N ) = SMLNUM*AB( KD+1, N );
          } else {
             for (J = 1; J <= N; J++) { // 170
-               LENJ = MIN( N-J, KD );
+               LENJ = min( N-J, KD );
                if (LENJ > 0) CALL ZLARNV( 4, ISEED, LENJ, AB( 2, J ) );
                AB( 1, J ) = ZLARND( 5, ISEED );
             } // 170
@@ -296,7 +296,7 @@
          if ( UPPER ) {
             JCOUNT = 1;
             DO 190 J = N, 1, -1;
-               DO 180 I = MAX( 1, KD+1-( J-1 ) ), KD;
+               DO 180 I = max( 1, KD+1-( J-1 ) ), KD;
                   AB( I, J ) = ZERO;
                } // 180
                if ( JCOUNT <= 2 ) {
@@ -310,7 +310,7 @@
          } else {
             JCOUNT = 1;
             for (J = 1; J <= N; J++) { // 210
-               DO 200 I = 2, MIN( N-J+1, KD+1 );
+               DO 200 I = 2, min( N-J+1, KD+1 );
                   AB( I, J ) = ZERO;
                } // 200
                if ( JCOUNT <= 2 ) {
@@ -350,7 +350,7 @@
          zlarnv(4, ISEED, N, B );
          if ( UPPER ) {
             for (J = 1; J <= N; J++) { // 250
-               DO 240 I = MAX( 1, KD+2-J ), KD;
+               DO 240 I = max( 1, KD+2-J ), KD;
                   AB( I, J ) = ZERO;
                } // 240
                if (J > 1 && KD > 0) AB( KD, J ) = DCMPLX( -ONE, -ONE );
@@ -359,7 +359,7 @@
             B( N ) = DCMPLX( ONE, ONE );
          } else {
             for (J = 1; J <= N; J++) { // 270
-               DO 260 I = 3, MIN( N-J+1, KD+1 );
+               DO 260 I = 3, min( N-J+1, KD+1 );
                   AB( I, J ) = ZERO;
                } // 260
                if (J < N && KD > 0) AB( 2, J ) = DCMPLX( -ONE, -ONE );
@@ -375,7 +375,7 @@
          IY = N / 2 + 1;
          if ( UPPER ) {
             for (J = 1; J <= N; J++) { // 280
-               LENJ = MIN( J, KD+1 );
+               LENJ = min( J, KD+1 );
                zlarnv(4, ISEED, LENJ, AB( KD+2-LENJ, J ) );
                if ( J != IY ) {
                   AB( KD+1, J ) = ZLARND( 5, ISEED )*TWO;
@@ -385,7 +385,7 @@
             } // 280
          } else {
             for (J = 1; J <= N; J++) { // 290
-               LENJ = MIN( N-J+1, KD+1 );
+               LENJ = min( N-J+1, KD+1 );
                zlarnv(4, ISEED, LENJ, AB( 1, J ) );
                if ( J != IY ) {
                   AB( 1, J ) = ZLARND( 5, ISEED )*TWO;
@@ -415,35 +415,35 @@
          if ( KD > 0 ) {
             if ( UPPER ) {
                DO 330 J = N, 1, -KD;
-                  DO 320 I = J, MAX( 1, J-KD+1 ), -2;
+                  DO 320 I = J, max( 1, J-KD+1 ), -2;
                      AB( 1+( J-I ), I ) = -TSCAL / DBLE( KD+2 );
                      AB( KD+1, I ) = ONE;
                      B( I ) = TEXP*( ONE-ULP );
-                     if ( I > MAX( 1, J-KD+1 ) ) {
+                     if ( I > max( 1, J-KD+1 ) ) {
                         AB( 2+( J-I ), I-1 ) = -( TSCAL / DBLE( KD+2 ) ) / DBLE( KD+3 );
                         AB( KD+1, I-1 ) = ONE;
                         B( I-1 ) = TEXP*DBLE( ( KD+1 )*( KD+1 )+KD );
                      }
                      TEXP = TEXP*TWO;
                   } // 320
-                  B( MAX( 1, J-KD+1 ) ) = ( DBLE( KD+2 ) / DBLE( KD+3 ) )*TSCAL;
+                  B( max( 1, J-KD+1 ) ) = ( DBLE( KD+2 ) / DBLE( KD+3 ) )*TSCAL;
                } // 330
             } else {
                DO 350 J = 1, N, KD;
                   TEXP = ONE;
-                  LENJ = MIN( KD+1, N-J+1 );
-                  DO 340 I = J, MIN( N, J+KD-1 ), 2;
+                  LENJ = min( KD+1, N-J+1 );
+                  DO 340 I = J, min( N, J+KD-1 ), 2;
                      AB( LENJ-( I-J ), J ) = -TSCAL / DBLE( KD+2 );
                      AB( 1, J ) = ONE;
                      B( J ) = TEXP*( ONE-ULP );
-                     if ( I < MIN( N, J+KD-1 ) ) {
+                     if ( I < min( N, J+KD-1 ) ) {
                         AB( LENJ-( I-J+1 ), I+1 ) = -( TSCAL / DBLE( KD+2 ) ) / DBLE( KD+3 );
                         AB( 1, I+1 ) = ONE;
                         B( I+1 ) = TEXP*DBLE( ( KD+1 )*( KD+1 )+KD );
                      }
                      TEXP = TEXP*TWO;
                   } // 340
-                  B( MIN( N, J+KD-1 ) ) = ( DBLE( KD+2 ) / DBLE( KD+3 ) )*TSCAL;
+                  B( min( N, J+KD-1 ) ) = ( DBLE( KD+2 ) / DBLE( KD+3 ) )*TSCAL;
                } // 350
             }
          }
@@ -456,13 +456,13 @@
 
          if ( UPPER ) {
             for (J = 1; J <= N; J++) { // 360
-               LENJ = MIN( J-1, KD );
+               LENJ = min( J-1, KD );
                zlarnv(4, ISEED, LENJ, AB( KD+1-LENJ, J ) );
                AB( KD+1, J ) = DBLE( J );
             } // 360
          } else {
             for (J = 1; J <= N; J++) { // 370
-               LENJ = MIN( N-J, KD );
+               LENJ = min( N-J, KD );
                if (LENJ > 0) CALL ZLARNV( 4, ISEED, LENJ, AB( 2, J ) );
                AB( 1, J ) = DBLE( J );
             } // 370
@@ -473,7 +473,7 @@
          zlarnv(2, ISEED, N, B );
          IY = IZAMAX( N, B, 1 );
          BNORM = ABS( B( IY ) );
-         BSCAL = BIGNUM / MAX( ONE, BNORM );
+         BSCAL = BIGNUM / max( ONE, BNORM );
          zdscal(N, BSCAL, B, 1 );
 
       } else if ( IMAT == 18 ) {
@@ -487,7 +487,7 @@
          TSCAL = BIGNUM*( DBLE( KD+1 ) / DBLE( KD+2 ) );
          if ( UPPER ) {
             for (J = 1; J <= N; J++) { // 390
-               LENJ = MIN( J, KD+1 );
+               LENJ = min( J, KD+1 );
                zlarnv(5, ISEED, LENJ, AB( KD+2-LENJ, J ) );
                dlarnv(1, ISEED, LENJ, RWORK( KD+2-LENJ ) );
                for (I = KD + 2 - LENJ; I <= KD + 1; I++) { // 380
@@ -496,7 +496,7 @@
             } // 390
          } else {
             for (J = 1; J <= N; J++) { // 410
-               LENJ = MIN( N-J+1, KD+1 );
+               LENJ = min( N-J+1, KD+1 );
                zlarnv(5, ISEED, LENJ, AB( 1, J ) );
                dlarnv(1, ISEED, LENJ, RWORK );
                for (I = 1; I <= LENJ; I++) { // 400
@@ -513,12 +513,12 @@
       if ( !LSAME( TRANS, 'N' ) ) {
          if ( UPPER ) {
             for (J = 1; J <= N / 2; J++) { // 420
-               LENJ = MIN( N-2*J+1, KD+1 );
+               LENJ = min( N-2*J+1, KD+1 );
                zswap(LENJ, AB( KD+1, J ), LDAB-1, AB( KD+2-LENJ, N-J+1 ), -1 );
             } // 420
          } else {
             for (J = 1; J <= N / 2; J++) { // 430
-               LENJ = MIN( N-2*J+1, KD+1 );
+               LENJ = min( N-2*J+1, KD+1 );
                zswap(LENJ, AB( 1, J ), 1, AB( LENJ, N-J+2-LENJ ), -LDAB+1 );
             } // 430
          }

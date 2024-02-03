@@ -48,9 +48,9 @@
          INFO = -5;
       } else if ( INCX2 < 1 ) {
          INFO = -7;
-      } else if ( LDQ1 < MAX( 1, M1 ) ) {
+      } else if ( LDQ1 < max( 1, M1 ) ) {
          INFO = -9;
-      } else if ( LDQ2 < MAX( 1, M2 ) ) {
+      } else if ( LDQ2 < max( 1, M2 ) ) {
          INFO = -11;
       } else if ( LWORK < N ) {
          INFO = -13;
@@ -69,7 +69,7 @@
       SSQ = REALZERO;
       zlassq(M1, X1, INCX1, SCL, SSQ );
       zlassq(M2, X2, INCX2, SCL, SSQ );
-      NORM = SCL * SQRT( SSQ );
+      NORM = SCL * sqrt( SSQ );
 
       if ( NORM > N * EPS ) {
          // Scale vector to unit norm to avoid problems in the caller code.

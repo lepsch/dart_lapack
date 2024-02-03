@@ -57,7 +57,7 @@
          // Copy the upper triangular part of the factor R stored
          // in AF(1:K,1:K) into the work array WORK.
 
-         DO I = 1, MIN( J, M );
+         DO I = 1, min( J, M );
             WORK( ( J-1 )*M+I ) = AF( I, J );
          }
 
@@ -86,7 +86,7 @@
          daxpy(M, -ONE, A( 1, JPVT( J ) ), 1, WORK( ( J-1 )*M+1 ), 1 );
       }
 
-      DQPT01 = DLANGE( 'One-norm', M, N, WORK, M, RWORK ) / ( DBLE( MAX( M, N ) )*DLAMCH( 'Epsilon' ) )       IF( NORMA != ZERO ) DQPT01 = DQPT01 / NORMA;
+      DQPT01 = DLANGE( 'One-norm', M, N, WORK, M, RWORK ) / ( DBLE( max( M, N ) )*DLAMCH( 'Epsilon' ) )       IF( NORMA != ZERO ) DQPT01 = DQPT01 / NORMA;
 
       return;
 

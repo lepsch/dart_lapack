@@ -50,7 +50,7 @@
          // normal (0,1)
 
          T2 = SLARAN( ISEED );
-         SLARND = SQRT( -TWO*LOG( T1 ) )*COS( TWOPI*T2 );
+         SLARND = sqrt( -TWO*LOG( T1 ) )*COS( TWOPI*T2 );
       }
       return;
 

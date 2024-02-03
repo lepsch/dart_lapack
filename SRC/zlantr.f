@@ -36,7 +36,7 @@
       // ..
       // .. Executable Statements ..
 
-      if ( MIN( M, N ) == 0 ) {
+      if ( min( M, N ) == 0 ) {
          VALUE = ZERO;
       } else if ( LSAME( NORM, 'M' ) ) {
 
@@ -46,7 +46,7 @@
             VALUE = ONE;
             if ( LSAME( UPLO, 'U' ) ) {
                for (J = 1; J <= N; J++) { // 20
-                  DO 10 I = 1, MIN( M, J-1 );
+                  DO 10 I = 1, min( M, J-1 );
                      SUM = ABS( A( I, J ) );
                      if( VALUE < SUM || DISNAN( SUM ) ) VALUE = SUM;
                   } // 10
@@ -63,7 +63,7 @@
             VALUE = ZERO;
             if ( LSAME( UPLO, 'U' ) ) {
                for (J = 1; J <= N; J++) { // 60
-                  DO 50 I = 1, MIN( M, J );
+                  DO 50 I = 1, min( M, J );
                      SUM = ABS( A( I, J ) );
                      if( VALUE < SUM || DISNAN( SUM ) ) VALUE = SUM;
                   } // 50
@@ -92,7 +92,7 @@
                   } // 90
                } else {
                   SUM = ZERO;
-                  DO 100 I = 1, MIN( M, J );
+                  DO 100 I = 1, min( M, J );
                      SUM = SUM + ABS( A( I, J ) );
                   } // 100
                }
@@ -124,7 +124,7 @@
                   WORK( I ) = ONE;
                } // 150
                for (J = 1; J <= N; J++) { // 170
-                  DO 160 I = 1, MIN( M, J-1 );
+                  DO 160 I = 1, min( M, J-1 );
                      WORK( I ) = WORK( I ) + ABS( A( I, J ) );
                   } // 160
                } // 170
@@ -133,14 +133,14 @@
                   WORK( I ) = ZERO;
                } // 180
                for (J = 1; J <= N; J++) { // 200
-                  DO 190 I = 1, MIN( M, J );
+                  DO 190 I = 1, min( M, J );
                      WORK( I ) = WORK( I ) + ABS( A( I, J ) );
                   } // 190
                } // 200
             }
          } else {
             if ( LSAME( DIAG, 'U' ) ) {
-               DO 210 I = 1, MIN( M, N );
+               DO 210 I = 1, min( M, N );
                   WORK( I ) = ONE;
                } // 210
                for (I = N + 1; I <= M; I++) { // 220
@@ -174,23 +174,23 @@
          if ( LSAME( UPLO, 'U' ) ) {
             if ( LSAME( DIAG, 'U' ) ) {
                SCALE = ONE;
-               SUM = MIN( M, N );
+               SUM = min( M, N );
                for (J = 2; J <= N; J++) { // 290
-                  zlassq(MIN( M, J-1 ), A( 1, J ), 1, SCALE, SUM );
+                  zlassq(min( M, J-1 ), A( 1, J ), 1, SCALE, SUM );
                } // 290
             } else {
                SCALE = ZERO;
                SUM = ONE;
                for (J = 1; J <= N; J++) { // 300
-                  zlassq(MIN( M, J ), A( 1, J ), 1, SCALE, SUM );
+                  zlassq(min( M, J ), A( 1, J ), 1, SCALE, SUM );
                } // 300
             }
          } else {
             if ( LSAME( DIAG, 'U' ) ) {
                SCALE = ONE;
-               SUM = MIN( M, N );
+               SUM = min( M, N );
                for (J = 1; J <= N; J++) { // 310
-                  zlassq(M-J, A( MIN( M, J+1 ), J ), 1, SCALE, SUM );
+                  zlassq(M-J, A( min( M, J+1 ), J ), 1, SCALE, SUM );
                } // 310
             } else {
                SCALE = ZERO;
@@ -200,7 +200,7 @@
                } // 320
             }
          }
-         VALUE = SCALE*SQRT( SUM );
+         VALUE = SCALE*sqrt( SUM );
       }
 
       ZLANTR = VALUE;

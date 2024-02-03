@@ -25,7 +25,7 @@
       // INTRINSIC MIN, REAL, AIMAG
       // ..
       // .. Executable Statements ..
-      K = MIN( M, N );
+      K = min( M, N );
       for (I = 1; I <= K; I++) {
          AII = A( I, I );
          if ( REAL( AII ) < ZERO || AIMAG( AII ) != ZERO ) {

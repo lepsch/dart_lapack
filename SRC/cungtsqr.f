@@ -42,9 +42,9 @@
          INFO = -3;
       } else if ( NB < 1 ) {
          INFO = -4;
-      } else if ( LDA < MAX( 1, M ) ) {
+      } else if ( LDA < max( 1, M ) ) {
          INFO = -6;
-      } else if ( LDT < MAX( 1, MIN( NB, N ) ) ) {
+      } else if ( LDT < max( 1, min( NB, N ) ) ) {
          INFO = -8;
       } else {
 
@@ -58,7 +58,7 @@
 
             // Set block size for column blocks
 
-            NBLOCAL = MIN( NB, N );
+            NBLOCAL = min( NB, N );
 
             // LWORK = -1, then set the size for the array C(LDC,N)
             // in CLAMTSQR call and set the optimal size of the work array
@@ -70,7 +70,7 @@
 
             LWORKOPT = LC+LW;
 
-            if ( ( LWORK < MAX( 1, LWORKOPT ) ) && ( !LQUERY) ) {
+            if ( ( LWORK < max( 1, LWORKOPT ) ) && ( !LQUERY) ) {
                INFO = -10;
             }
          }
@@ -89,7 +89,7 @@
 
       // Quick return if possible
 
-      if ( MIN( M, N ) == 0 ) {
+      if ( min( M, N ) == 0 ) {
          WORK( 1 ) = CMPLX( LWORKOPT );
          return;
       }

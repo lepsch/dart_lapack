@@ -52,9 +52,9 @@
          INFO = -1;
       } else if ( N < 0 ) {
          INFO = -5;
-      } else if ( LDA < MAX( 1, N ) ) {
+      } else if ( LDA < max( 1, N ) ) {
          INFO = -7;
-      } else if ( LDB < MAX( 1, N ) ) {
+      } else if ( LDB < max( 1, N ) ) {
          INFO = -9;
       } else if ( LDQ < 1 || ( WANTQ && LDQ < N ) ) {
          INFO = -14;
@@ -103,13 +103,13 @@
       }
 
       if ( IJOB == 1 || IJOB == 2 || IJOB == 4 ) {
-         LWMIN = MAX( 1, 4*N+16, 2*M*( N-M ) );
-         LIWMIN = MAX( 1, N+6 );
+         LWMIN = max( 1, 4*N+16, 2*M*( N-M ) );
+         LIWMIN = max( 1, N+6 );
       } else if ( IJOB == 3 || IJOB == 5 ) {
-         LWMIN = MAX( 1, 4*N+16, 4*M*( N-M ) );
-         LIWMIN = MAX( 1, 2*M*( N-M ), N+6 );
+         LWMIN = max( 1, 4*N+16, 4*M*( N-M ) );
+         LIWMIN = max( 1, 2*M*( N-M ), N+6 );
       } else {
-         LWMIN = MAX( 1, 4*N+16 );
+         LWMIN = max( 1, 4*N+16 );
          LIWMIN = 1;
       }
 
@@ -143,7 +143,7 @@
                dlassq(N, A( 1, I ), 1, DSCALE, DSUM );
                dlassq(N, B( 1, I ), 1, DSCALE, DSUM );
             } // 20
-            DIF( 1 ) = DSCALE*SQRT( DSUM );
+            DIF( 1 ) = DSCALE*sqrt( DSUM );
             DIF( 2 ) = DIF( 1 );
          }
          GO TO 60;
@@ -216,20 +216,20 @@
          RDSCAL = ZERO;
          DSUM = ONE;
          dlassq(N1*N2, WORK, 1, RDSCAL, DSUM );
-         PL = RDSCAL*SQRT( DSUM );
+         PL = RDSCAL*sqrt( DSUM );
          if ( PL == ZERO ) {
             PL = ONE;
          } else {
-            PL = DSCALE / ( SQRT( DSCALE*DSCALE / PL+PL )*SQRT( PL ) );
+            PL = DSCALE / ( sqrt( DSCALE*DSCALE / PL+PL )*sqrt( PL ) );
          }
          RDSCAL = ZERO;
          DSUM = ONE;
          dlassq(N1*N2, WORK( N1*N2+1 ), 1, RDSCAL, DSUM );
-         PR = RDSCAL*SQRT( DSUM );
+         PR = RDSCAL*sqrt( DSUM );
          if ( PR == ZERO ) {
             PR = ONE;
          } else {
-            PR = DSCALE / ( SQRT( DSCALE*DSCALE / PR+PR )*SQRT( PR ) );
+            PR = DSCALE / ( sqrt( DSCALE*DSCALE / PR+PR )*sqrt( PR ) );
          }
       }
 

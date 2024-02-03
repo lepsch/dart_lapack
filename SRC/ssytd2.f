@@ -44,7 +44,7 @@
          INFO = -1;
       } else if ( N < 0 ) {
          INFO = -2;
-      } else if ( LDA < MAX( 1, N ) ) {
+      } else if ( LDA < max( 1, N ) ) {
          INFO = -4;
       }
       if ( INFO != 0 ) {
@@ -103,7 +103,7 @@
             // Generate elementary reflector H(i) = I - tau * v * v**T
             // to annihilate A(i+2:n,i)
 
-            slarfg(N-I, A( I+1, I ), A( MIN( I+2, N ), I ), 1, TAUI );
+            slarfg(N-I, A( I+1, I ), A( min( I+2, N ), I ), 1, TAUI );
             E( I ) = A( I+1, I );
 
             if ( TAUI != ZERO ) {

@@ -76,9 +76,9 @@
          INFO = -3;
       } else if ( IRANGE == VALRNG ) {
          if ( VL >= VU ) INFO = -5;
-      ELSE IF( IRANGE == INDRNG && ( IL < 1 || IL > MAX( 1, N ) ) ) {
+      ELSE IF( IRANGE == INDRNG && ( IL < 1 || IL > max( 1, N ) ) ) {
          INFO = -6;
-      } else if ( IRANGE == INDRNG && ( IU < MIN( N, IL ) || IU > N ) ) {
+      } else if ( IRANGE == INDRNG && ( IU < min( N, IL ) || IU > N ) ) {
          INFO = -7;
       }
 
@@ -121,11 +121,11 @@
       GL = D(1);
       GU = D(1);
       for (I = 1; I <= N; I++) { // 5
-         GL =  MIN( GL, GERS( 2*I - 1));
-         GU = MAX( GU, GERS(2*I) );
+         GL =  min( GL, GERS( 2*I - 1));
+         GU = max( GU, GERS(2*I) );
       } // 5
       // Compute global Gerschgorin bounds and spectral diameter
-      TNORM = MAX( ABS( GL ), ABS( GU ) );
+      TNORM = max( ABS( GL ), ABS( GU ) );
       GL = GL - FUDGE*TNORM*EPS*N - FUDGE*TWO*PIVMIN;
       GU = GU + FUDGE*TNORM*EPS*N + FUDGE*TWO*PIVMIN;
       // [JAN/28/2009] remove the line below since SPDIAM variable not use
@@ -245,7 +245,7 @@
 
           // ELSE IF( IN == 2 ) THEN
 // *           2x2 block
-             // DISC = SQRT( (HALF*(D(IBEGIN)-D(IEND)))**2 + E(IBEGIN)**2 )
+             // DISC = sqrt( (HALF*(D(IBEGIN)-D(IEND)))**2 + E(IBEGIN)**2 )
              // TMP1 = HALF*(D(IBEGIN)+D(IEND))
              // L1 = TMP1 - DISC
              // IF( WL >= L1-PIVMIN )
@@ -284,8 +284,8 @@
             TMP1 = ZERO;
 
             for (J = IBEGIN; J <= IEND; J++) { // 40
-               GL =  MIN( GL, GERS( 2*J - 1));
-               GU = MAX( GU, GERS(2*J) );
+               GL =  min( GL, GERS( 2*J - 1));
+               GU = max( GU, GERS(2*J) );
             } // 40
             // [JAN/28/2009]
             // change SPDIAM by TNORM in lines 2 and 3 thereafter
@@ -304,8 +304,8 @@
                   GO TO 70;
                }
                // refine search interval if possible, only range (WL,WU] matters
-               GL = MAX( GL, WL );
-               GU = MIN( GU, WU );
+               GL = max( GL, WL );
+               GU = min( GU, WU );
                if (GL >= GU) GO TO 70;
             }
 

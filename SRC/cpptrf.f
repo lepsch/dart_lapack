@@ -74,7 +74,7 @@
                AP( JJ ) = AJJ;
                GO TO 30;
             }
-            AP( JJ ) = SQRT( AJJ );
+            AP( JJ ) = sqrt( AJJ );
          } // 10
       } else {
 
@@ -90,7 +90,7 @@
                AP( JJ ) = AJJ;
                GO TO 30;
             }
-            AJJ = SQRT( AJJ );
+            AJJ = sqrt( AJJ );
             AP( JJ ) = AJJ;
 
             // Compute elements J+1:N of column J and update the trailing

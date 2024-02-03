@@ -54,9 +54,9 @@
       // GROWTO is the threshold used in the acceptance test for an
       // eigenvector.
 
-      ROOTN = SQRT( REAL( N ) );
+      ROOTN = sqrt( REAL( N ) );
       GROWTO = TENTH / ROOTN;
-      NRMSML = MAX( ONE, EPS3*ROOTN )*SMLNUM;
+      NRMSML = max( ONE, EPS3*ROOTN )*SMLNUM;
 
       // Form B = H - W*I (except that the subdiagonal elements are not
       // stored).
@@ -80,7 +80,7 @@
          // Scale supplied initial vector.
 
          VNORM = SCNRM2( N, V, 1 );
-         csscal(N, ( EPS3*ROOTN ) / MAX( VNORM, NRMSML ), V, 1 );
+         csscal(N, ( EPS3*ROOTN ) / max( VNORM, NRMSML ), V, 1 );
       }
 
       if ( RIGHTV ) {

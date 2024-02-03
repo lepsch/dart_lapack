@@ -36,7 +36,7 @@
       // Test the input parameters
 
       INFO = 0;
-      MN = MIN( M, N );
+      MN = min( M, N );
       LQUERY = ( LWORK == -1 );
       if ( M < 0 ) {
          INFO = -1;
@@ -44,9 +44,9 @@
          INFO = -2;
       } else if ( P < 0 || P > N || P < N-M ) {
          INFO = -3;
-      } else if ( LDA < MAX( 1, M ) ) {
+      } else if ( LDA < max( 1, M ) ) {
          INFO = -5;
-      } else if ( LDB < MAX( 1, P ) ) {
+      } else if ( LDB < max( 1, P ) ) {
          INFO = -7;
       }
 
@@ -61,9 +61,9 @@
             NB2 = ILAENV( 1, 'DGERQF', ' ', M, N, -1, -1 );
             NB3 = ILAENV( 1, 'DORMQR', ' ', M, N, P, -1 );
             NB4 = ILAENV( 1, 'DORMRQ', ' ', M, N, P, -1 );
-            NB = MAX( NB1, NB2, NB3, NB4 );
+            NB = max( NB1, NB2, NB3, NB4 );
             LWKMIN = M + N + P;
-            LWKOPT = P + MN + MAX( M, N )*NB;
+            LWKOPT = P + MN + max( M, N )*NB;
          }
          WORK( 1 ) = LWKOPT;
 
@@ -98,8 +98,8 @@
       // Update c = Z**T *c = ( c1 ) N-P
                            // ( c2 ) M+P-N
 
-      dormqr('Left', 'Transpose', M, 1, MN, A, LDA, WORK( P+1 ), C, MAX( 1, M ), WORK( P+MN+1 ), LWORK-P-MN, INFO );
-      LOPT = MAX( LOPT, INT( WORK( P+MN+1 ) ) );
+      dormqr('Left', 'Transpose', M, 1, MN, A, LDA, WORK( P+1 ), C, max( 1, M ), WORK( P+MN+1 ), LWORK-P-MN, INFO );
+      LOPT = max( LOPT, INT( WORK( P+MN+1 ) ) );
 
       // Solve T12*x2 = d for x2
 
@@ -151,7 +151,7 @@
       // Backward transformation x = Q**T*x
 
       dormrq('Left', 'Transpose', N, 1, P, B, LDB, WORK( 1 ), X, N, WORK( P+MN+1 ), LWORK-P-MN, INFO );
-      WORK( 1 ) = P + MN + MAX( LOPT, INT( WORK( P+MN+1 ) ) );
+      WORK( 1 ) = P + MN + max( LOPT, INT( WORK( P+MN+1 ) ) );
 
       return;
 

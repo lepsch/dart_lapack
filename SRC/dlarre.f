@@ -73,8 +73,8 @@
       EPS = DLAMCH( 'P' );
 
       // Set parameters
-      RTL = SQRT(EPS);
-      BSRTOL = SQRT(EPS);
+      RTL = sqrt(EPS);
+      BSRTOL = sqrt(EPS);
 
       // Treat case of 1x1 matrix for quick return;
       if ( N == 1 ) {
@@ -112,15 +112,15 @@
          }
          TMP1 = EABS + EOLD;
          GERS( 2*I-1) = D(I) - TMP1;
-         GL =  MIN( GL, GERS( 2*I - 1));
+         GL =  min( GL, GERS( 2*I - 1));
          GERS( 2*I ) = D(I) + TMP1;
-         GU = MAX( GU, GERS(2*I) );
+         GU = max( GU, GERS(2*I) );
          EOLD  = EABS;
       } // 5
       // The minimum pivot allowed in the Sturm sequence for T
-      PIVMIN = SAFMIN * MAX( ONE, EMAX**2 );
+      PIVMIN = SAFMIN * max( ONE, EMAX**2 );
       // Compute spectral diameter. The Gerschgorin bounds give an
-      // estimate that is wrong by at most a factor of SQRT(2)
+      // estimate that is wrong by at most a factor of sqrt(2)
       SPDIAM = GU - GL;
 
       // Compute splitting points
@@ -143,7 +143,7 @@
          // in the desired range. In case IRANGE = INDRNG, we also obtain the
          // interval (VL,VU] that contains all the wanted eigenvalues.
          // An interval [LEFT,RIGHT] has converged if
-         // RIGHT-LEFT < RTOL*MAX(ABS(LEFT),ABS(RIGHT))
+         // RIGHT-LEFT < RTOL*max(ABS(LEFT),ABS(RIGHT))
          // DLARRD needs a WORK of size 4*N, IWORK of size 3*N
          dlarrd(RANGE, 'B', N, VL, VU, IL, IU, GERS, BSRTOL, D, E, E2, PIVMIN, NSPLIT, ISPLIT, MM, W, WERR, VL, VU, IBLOCK, INDEXW, WORK, IWORK, IINFO );
          if ( IINFO != 0 ) {
@@ -196,8 +196,8 @@
          GL = D(IBEGIN);
          GU = D(IBEGIN);
          for (I = IBEGIN; I <= IEND; I++) { // 15
-            GL = MIN( GERS( 2*I-1 ), GL );
-            GU = MAX( GERS( 2*I ), GU );
+            GL = min( GERS( 2*I-1 ), GL );
+            GU = max( GERS( 2*I ), GU );
          } // 15
          SPDIAM = GU - GL;
 
@@ -229,9 +229,9 @@
                // eigenvalues are different, we use SIGMA = E( IEND ).
                SIGMA = ZERO;
                for (I = WBEGIN; I <= WEND - 1; I++) { // 30
-                  WGAP( I ) = MAX( ZERO, W(I+1)-WERR(I+1) - (W(I)+WERR(I)) );
+                  WGAP( I ) = max( ZERO, W(I+1)-WERR(I+1) - (W(I)+WERR(I)) );
                } // 30
-               WGAP( WEND ) = MAX( ZERO, VU - SIGMA - (W( WEND )+WERR( WEND )));
+               WGAP( WEND ) = max( ZERO, VU - SIGMA - (W( WEND )+WERR( WEND )));
                // Find local index of the first and last desired evalue.
                INDL = INDEXW(WBEGIN);
                INDU = INDEXW( WEND );
@@ -245,19 +245,19 @@
                INFO = -1;
                return;
             }
-            ISLEFT = MAX(GL, TMP - TMP1 - HNDRD * EPS* ABS(TMP - TMP1));
+            ISLEFT = max(GL, TMP - TMP1 - HNDRD * EPS* ABS(TMP - TMP1));
              dlarrk(IN, IN, GL, GU, D(IBEGIN), E2(IBEGIN), PIVMIN, RTL, TMP, TMP1, IINFO );
             if ( IINFO != 0 ) {
                INFO = -1;
                return;
             }
-            ISRGHT = MIN(GU, TMP + TMP1 + HNDRD * EPS * ABS(TMP + TMP1));
+            ISRGHT = min(GU, TMP + TMP1 + HNDRD * EPS * ABS(TMP + TMP1));
             // Improve the estimate of the spectral diameter
             SPDIAM = ISRGHT - ISLEFT;
          } else {
             // Case of bisection
             // Find approximations to the wanted extremal eigenvalues
-            ISLEFT = MAX(GL, W(WBEGIN) - WERR(WBEGIN) - HNDRD * EPS*ABS(W(WBEGIN)- WERR(WBEGIN) ))             ISRGHT = MIN(GU,W(WEND) + WERR(WEND) + HNDRD * EPS * ABS(W(WEND)+ WERR(WEND)));
+            ISLEFT = max(GL, W(WBEGIN) - WERR(WBEGIN) - HNDRD * EPS*ABS(W(WBEGIN)- WERR(WBEGIN) ))             ISRGHT = min(GU,W(WEND) + WERR(WEND) + HNDRD * EPS * ABS(W(WEND)+ WERR(WEND)));
          }
 
 
@@ -289,9 +289,9 @@
                S1 = ISLEFT + FOURTH * SPDIAM;
                S2 = ISRGHT - FOURTH * SPDIAM;
             } else {
-               TMP = MIN(ISRGHT,VU) -  MAX(ISLEFT,VL);
-               S1 =  MAX(ISLEFT,VL) + FOURTH * TMP;
-               S2 =  MIN(ISRGHT,VU) - FOURTH * TMP;
+               TMP = min(ISRGHT,VU) -  max(ISLEFT,VL);
+               S1 =  max(ISLEFT,VL) + FOURTH * TMP;
+               S2 =  min(ISRGHT,VU) - FOURTH * TMP;
             }
          }
 
@@ -305,7 +305,7 @@
             SGNDEF = ONE;
          } else if ( CNT1 - INDL >= INDU - CNT2 ) {
             if ( ( IRANGE == ALLRNG ) && ( !FORCEB) ) {
-               SIGMA = MAX(ISLEFT,GL);
+               SIGMA = max(ISLEFT,GL);
             } else if ( USEDQD ) {
                // use Gerschgorin bound as shift to get pos def matrix
                // for dqds
@@ -313,12 +313,12 @@
             } else {
                // use approximation of the first desired eigenvalue of the
                // block as shift
-               SIGMA = MAX(ISLEFT,VL);
+               SIGMA = max(ISLEFT,VL);
             }
             SGNDEF = ONE;
          } else {
             if ( ( IRANGE == ALLRNG ) && ( !FORCEB) ) {
-               SIGMA = MIN(ISRGHT,GU);
+               SIGMA = min(ISRGHT,GU);
             } else if ( USEDQD ) {
                // use Gerschgorin bound as shift to get neg def matrix
                // for dqds
@@ -326,7 +326,7 @@
             } else {
                // use approximation of the first desired eigenvalue of the
                // block as shift
-               SIGMA = MIN(ISRGHT,VU);
+               SIGMA = min(ISRGHT,VU);
             }
             SGNDEF = -ONE;
          }
@@ -341,17 +341,17 @@
             // The initial SIGMA was to the outer end of the spectrum
             // the matrix is definite and we need not retreat.
             TAU = SPDIAM*EPS*N + TWO*PIVMIN;
-            TAU = MAX( TAU,TWO*EPS*ABS(SIGMA) );
+            TAU = max( TAU,TWO*EPS*ABS(SIGMA) );
          } else {
             if (MB > 1) {
                CLWDTH = W(WEND) + WERR(WEND) - W(WBEGIN) - WERR(WBEGIN);
                AVGAP = ABS(CLWDTH / DBLE(WEND-WBEGIN));
                if ( SGNDEF == ONE ) {
-                  TAU = HALF*MAX(WGAP(WBEGIN),AVGAP);
-                  TAU = MAX(TAU,WERR(WBEGIN));
+                  TAU = HALF*max(WGAP(WBEGIN),AVGAP);
+                  TAU = max(TAU,WERR(WBEGIN));
                } else {
-                  TAU = HALF*MAX(WGAP(WEND-1),AVGAP);
-                  TAU = MAX(TAU,WERR(WEND));
+                  TAU = HALF*max(WGAP(WEND-1),AVGAP);
+                  TAU = max(TAU,WERR(WEND));
                }
             } else {
                TAU = WERR(WBEGIN);
@@ -372,7 +372,7 @@
                WORK( IN+I ) = TMP;
                DPIVOT = ( D( J+1 )-SIGMA ) - TMP*E( J );
                WORK( I+1 ) = DPIVOT;
-               DMAX = MAX( DMAX, ABS(DPIVOT) );
+               DMAX = max( DMAX, ABS(DPIVOT) );
                J = J + 1;
             } // 70
             // check for element growth
@@ -472,7 +472,7 @@
             }
             // DLARRB computes all gaps correctly except for the last one
             // Record distance to VU/GU
-            WGAP( WEND ) = MAX( ZERO, ( VU-SIGMA ) - ( W( WEND ) + WERR( WEND ) ) );
+            WGAP( WEND ) = max( ZERO, ( VU-SIGMA ) - ( W( WEND ) + WERR( WEND ) ) );
             for (I = INDL; I <= INDU; I++) { // 138
                M = M + 1;
                IBLOCK(M) = JBLK;
@@ -537,9 +537,9 @@
             } // 165
             for (I = M - MB + 1; I <= M - 1; I++) { // 166
                // compute the right gap between the intervals
-               WGAP( I ) = MAX( ZERO, W(I+1)-WERR(I+1) - (W(I)+WERR(I)) );
+               WGAP( I ) = max( ZERO, W(I+1)-WERR(I+1) - (W(I)+WERR(I)) );
             } // 166
-            WGAP( M ) = MAX( ZERO, ( VU-SIGMA ) - ( W( M ) + WERR( M ) ) );
+            WGAP( M ) = max( ZERO, ( VU-SIGMA ) - ( W( M ) + WERR( M ) ) );
          }
          // proceed with next block
          IBEGIN = IEND + 1;

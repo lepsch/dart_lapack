@@ -41,7 +41,7 @@
          INFO = -1;
       } else if ( K < 0 || K > N-1 ) {
          INFO = -2;
-      } else if ( LDA < MAX( 1, N ) ) {
+      } else if ( LDA < max( 1, N ) ) {
          INFO = -5;
       }
       if ( INFO < 0 ) {

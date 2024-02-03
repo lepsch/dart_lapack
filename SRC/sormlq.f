@@ -48,10 +48,10 @@
 
       if ( LEFT ) {
          NQ = M;
-         NW = MAX( 1, N );
+         NW = max( 1, N );
       } else {
          NQ = N;
-         NW = MAX( 1, M );
+         NW = max( 1, M );
       }
       if ( !LEFT && !LSAME( SIDE, 'R' ) ) {
          INFO = -1;
@@ -63,9 +63,9 @@
          INFO = -4;
       } else if ( K < 0 || K > NQ ) {
          INFO = -5;
-      } else if ( LDA < MAX( 1, K ) ) {
+      } else if ( LDA < max( 1, K ) ) {
          INFO = -7;
-      } else if ( LDC < MAX( 1, M ) ) {
+      } else if ( LDC < max( 1, M ) ) {
          INFO = -10;
       } else if ( LWORK < NW && !LQUERY ) {
          INFO = -12;
@@ -75,7 +75,7 @@
 
          // Compute the workspace requirements
 
-         NB = MIN( NBMAX, ILAENV( 1, 'SORMLQ', SIDE // TRANS, M, N, K, -1 ) );
+         NB = min( NBMAX, ILAENV( 1, 'SORMLQ', SIDE // TRANS, M, N, K, -1 ) );
          LWKOPT = NW*NB + TSIZE;
          WORK( 1 ) = SROUNDUP_LWORK(LWKOPT);
       }
@@ -99,7 +99,7 @@
       if ( NB > 1 && NB < K ) {
          if ( LWORK < LWKOPT ) {
             NB = (LWORK-TSIZE) / LDWORK;
-            NBMIN = MAX( 2, ILAENV( 2, 'SORMLQ', SIDE // TRANS, M, N, K, -1 ) );
+            NBMIN = max( 2, ILAENV( 2, 'SORMLQ', SIDE // TRANS, M, N, K, -1 ) );
          }
       }
 
@@ -138,7 +138,7 @@
          }
 
          DO 10 I = I1, I2, I3;
-            IB = MIN( NB, K-I+1 );
+            IB = min( NB, K-I+1 );
 
             // Form the triangular factor of the block reflector
             // H = H(i) H(i+1) . . . H(i+ib-1)

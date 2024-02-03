@@ -64,11 +64,11 @@
       UPPER = LSAME( JOBA, 'U' );
       LOWER = LSAME( JOBA, 'L' );
 
-      MINMN = MIN( M, N );
+      MINMN = min( M, N );
       if ( MINMN == 0 ) {
          LWMIN = 1;
       } else {
-         LWMIN = MAX( 6, M+N );
+         LWMIN = max( 6, M+N );
       }
 
       LQUERY = ( LWORK == -1 );
@@ -259,8 +259,8 @@
       AAPP = ZERO;
       AAQQ = BIG;
       for (p = 1; p <= N; p++) { // 4781
-         if( SVA( p ) != ZERO )AAQQ = MIN( AAQQ, SVA( p ) );
-         AAPP = MAX( AAPP, SVA( p ) );
+         if( SVA( p ) != ZERO )AAQQ = min( AAQQ, SVA( p ) );
+         AAPP = max( AAPP, SVA( p ) );
       } // 4781
 
 // #:) Quick return for zero matrix
@@ -299,19 +299,19 @@
       SN = DSQRT( SFMIN / EPSLN );
       TEMP1 = DSQRT( BIG / DBLE( N ) );
       if ( ( AAPP <= SN ) || ( AAQQ >= TEMP1 ) || ( ( SN <= AAQQ ) && ( AAPP <= TEMP1 ) ) ) {
-         TEMP1 = MIN( BIG, TEMP1 / AAPP );
+         TEMP1 = min( BIG, TEMP1 / AAPP );
           // AAQQ  = AAQQ*TEMP1
           // AAPP  = AAPP*TEMP1
       } else if ( ( AAQQ <= SN ) && ( AAPP <= TEMP1 ) ) {
-         TEMP1 = MIN( SN / AAQQ, BIG / ( AAPP*DSQRT( DBLE( N ) ) ) );
+         TEMP1 = min( SN / AAQQ, BIG / ( AAPP*DSQRT( DBLE( N ) ) ) );
           // AAQQ  = AAQQ*TEMP1
           // AAPP  = AAPP*TEMP1
       } else if ( ( AAQQ >= SN ) && ( AAPP >= TEMP1 ) ) {
-         TEMP1 = MAX( SN / AAQQ, TEMP1 / AAPP );
+         TEMP1 = max( SN / AAQQ, TEMP1 / AAPP );
           // AAQQ  = AAQQ*TEMP1
           // AAPP  = AAPP*TEMP1
       } else if ( ( AAQQ <= SN ) && ( AAPP >= TEMP1 ) ) {
-         TEMP1 = MIN( SN / AAQQ, BIG / ( DSQRT( DBLE( N ) )*AAPP ) );
+         TEMP1 = min( SN / AAQQ, BIG / ( DSQRT( DBLE( N ) )*AAPP ) );
           // AAQQ  = AAQQ*TEMP1
           // AAPP  = AAPP*TEMP1
       } else {
@@ -352,7 +352,7 @@
       // The boundaries are determined dynamically, based on the number of
       // pivots above a threshold.
 
-      KBL = MIN( 8, N );
+      KBL = min( 8, N );
 // [TP] KBL is a tuning parameter that defines the tile size in the
       // tiling of the p-q loops of pivot pairs. In general, an optimal
       // value of KBL depends on the matrix dimensions and on the
@@ -364,7 +364,7 @@
       BLSKIP = KBL**2;
 // [TP] BLKSKIP is a tuning parameter that depends on SWBAND and KBL.
 
-      ROWSKIP = MIN( 5, KBL );
+      ROWSKIP = min( 5, KBL );
 // [TP] ROWSKIP is a tuning parameter.
 
       LKAHEAD = 1;
@@ -375,7 +375,7 @@
       // invokes cubic convergence. Big part of this cycle is done inside
       // canonical subspaces of dimensions less than M.
 
-      if ( ( LOWER || UPPER ) && ( N > MAX( 64, 4*KBL ) ) ) {
+      if ( ( LOWER || UPPER ) && ( N > max( 64, 4*KBL ) ) ) {
 // [TP] The number of partition levels and the actual partition are
       // tuning parameters.
          N4 = N / 4;
@@ -447,11 +447,11 @@
 
             igl = ( ibr-1 )*KBL + 1;
 
-            DO 1002 ir1 = 0, MIN( LKAHEAD, NBL-ibr );
+            DO 1002 ir1 = 0, min( LKAHEAD, NBL-ibr );
 
                igl = igl + ir1*KBL;
 
-               DO 2001 p = igl, MIN( igl+KBL-1, N-1 );
+               DO 2001 p = igl, min( igl+KBL-1, N-1 );
 
       // .. de Rijk's pivoting
 
@@ -498,7 +498,7 @@
 
                      PSKIPPED = 0;
 
-                     DO 2002 q = p + 1, MIN( igl+KBL-1, N );
+                     DO 2002 q = p + 1, min( igl+KBL-1, N );
 
                         AAQQ = SVA( q );
 
@@ -525,7 +525,7 @@
                               }
                            }
 
-                           MXAAPQ = MAX( MXAAPQ, DABS( AAPQ ) );
+                           MXAAPQ = max( MXAAPQ, DABS( AAPQ ) );
 
          // TO rotate or NOT to rotate, THAT is the question ...
 
@@ -552,8 +552,8 @@
                                     FASTR( 3 ) = T*WORK( p ) / WORK( q );
                                     FASTR( 4 ) = -T*WORK( q ) / WORK( p );
                                     drotm(M, A( 1, p ), 1, A( 1, q ), 1, FASTR )                                     IF( RSVEC )CALL DROTM( MVL, V( 1, p ), 1, V( 1, q ), 1, FASTR );
-                                    SVA( q ) = AAQQ*DSQRT( MAX( ZERO, ONE+T*APOAQ*AAPQ ) )                                     AAPP = AAPP*DSQRT( MAX( ZERO, ONE-T*AQOAP*AAPQ ) );
-                                    MXSINJ = MAX( MXSINJ, DABS( T ) );
+                                    SVA( q ) = AAQQ*DSQRT( max( ZERO, ONE+T*APOAQ*AAPQ ) )                                     AAPP = AAPP*DSQRT( max( ZERO, ONE-T*AQOAP*AAPQ ) );
+                                    MXSINJ = max( MXSINJ, DABS( T ) );
 
                                  } else {
 
@@ -564,8 +564,8 @@
                                     CS = DSQRT( ONE / ( ONE+T*T ) );
                                     SN = T*CS;
 
-                                    MXSINJ = MAX( MXSINJ, DABS( SN ) );
-                                    SVA( q ) = AAQQ*DSQRT( MAX( ZERO, ONE+T*APOAQ*AAPQ ) )                                     AAPP = AAPP*DSQRT( MAX( ZERO, ONE-T*AQOAP*AAPQ ) );
+                                    MXSINJ = max( MXSINJ, DABS( SN ) );
+                                    SVA( q ) = AAQQ*DSQRT( max( ZERO, ONE+T*APOAQ*AAPQ ) )                                     AAPP = AAPP*DSQRT( max( ZERO, ONE-T*AQOAP*AAPQ ) );
 
                                     APOAQ = WORK( p ) / WORK( q );
                                     AQOAP = WORK( q ) / WORK( p );
@@ -627,8 +627,8 @@
                                  dlascl('G', 0, 0, AAQQ, ONE, M, 1, A( 1, q ), LDA, IERR );
                                  TEMP1 = -AAPQ*WORK( p ) / WORK( q );
                                  daxpy(M, TEMP1, WORK( N+1 ), 1, A( 1, q ), 1 );
-                                 dlascl('G', 0, 0, ONE, AAQQ, M, 1, A( 1, q ), LDA, IERR )                                  SVA( q ) = AAQQ*DSQRT( MAX( ZERO, ONE-AAPQ*AAPQ ) );
-                                 MXSINJ = MAX( MXSINJ, SFMIN );
+                                 dlascl('G', 0, 0, ONE, AAQQ, M, 1, A( 1, q ), LDA, IERR )                                  SVA( q ) = AAQQ*DSQRT( max( ZERO, ONE-AAPQ*AAPQ ) );
+                                 MXSINJ = max( MXSINJ, SFMIN );
                               }
             // END IF ROTOK THEN ... ELSE
 
@@ -685,7 +685,7 @@
 
                   } else {
                      SVA( p ) = AAPP;
-                     if( ( ir1 == 0 ) && ( AAPP == ZERO ) ) NOTROT = NOTROT + MIN( igl+KBL-1, N ) - p;
+                     if( ( ir1 == 0 ) && ( AAPP == ZERO ) ) NOTROT = NOTROT + min( igl+KBL-1, N ) - p;
                   }
 
                } // 2001
@@ -705,14 +705,14 @@
          // doing the block at ( ibr, jbc )
 
                IJBLSK = 0;
-               DO 2100 p = igl, MIN( igl+KBL-1, N );
+               DO 2100 p = igl, min( igl+KBL-1, N );
 
                   AAPP = SVA( p );
                   if ( AAPP > ZERO ) {
 
                      PSKIPPED = 0;
 
-                     DO 2200 q = jgl, MIN( jgl+KBL-1, N );
+                     DO 2200 q = jgl, min( jgl+KBL-1, N );
 
                         AAQQ = SVA( q );
                         if ( AAQQ > ZERO ) {
@@ -750,7 +750,7 @@
                               }
                            }
 
-                           MXAAPQ = MAX( MXAAPQ, DABS( AAPQ ) );
+                           MXAAPQ = max( MXAAPQ, DABS( AAPQ ) );
 
          // TO rotate or NOT to rotate, THAT is the question ...
 
@@ -772,8 +772,8 @@
                                     FASTR( 3 ) = T*WORK( p ) / WORK( q );
                                     FASTR( 4 ) = -T*WORK( q ) / WORK( p );
                                     drotm(M, A( 1, p ), 1, A( 1, q ), 1, FASTR )                                     IF( RSVEC )CALL DROTM( MVL, V( 1, p ), 1, V( 1, q ), 1, FASTR );
-                                    SVA( q ) = AAQQ*DSQRT( MAX( ZERO, ONE+T*APOAQ*AAPQ ) )                                     AAPP = AAPP*DSQRT( MAX( ZERO, ONE-T*AQOAP*AAPQ ) );
-                                    MXSINJ = MAX( MXSINJ, DABS( T ) );
+                                    SVA( q ) = AAQQ*DSQRT( max( ZERO, ONE+T*APOAQ*AAPQ ) )                                     AAPP = AAPP*DSQRT( max( ZERO, ONE-T*AQOAP*AAPQ ) );
+                                    MXSINJ = max( MXSINJ, DABS( T ) );
                                  } else {
 
                   // .. choose correct signum for THETA and rotate
@@ -783,8 +783,8 @@
                                     T = ONE / ( THETA+THSIGN* DSQRT( ONE+THETA*THETA ) );
                                     CS = DSQRT( ONE / ( ONE+T*T ) );
                                     SN = T*CS;
-                                    MXSINJ = MAX( MXSINJ, DABS( SN ) );
-                                    SVA( q ) = AAQQ*DSQRT( MAX( ZERO, ONE+T*APOAQ*AAPQ ) )                                     AAPP = AAPP*DSQRT( MAX( ZERO, ONE-T*AQOAP*AAPQ ) );
+                                    MXSINJ = max( MXSINJ, DABS( SN ) );
+                                    SVA( q ) = AAQQ*DSQRT( max( ZERO, ONE+T*APOAQ*AAPQ ) )                                     AAPP = AAPP*DSQRT( max( ZERO, ONE-T*AQOAP*AAPQ ) );
 
                                     APOAQ = WORK( p ) / WORK( q );
                                     AQOAP = WORK( q ) / WORK( p );
@@ -848,8 +848,8 @@
                                     TEMP1 = -AAPQ*WORK( p ) / WORK( q );
                                     daxpy(M, TEMP1, WORK( N+1 ), 1, A( 1, q ), 1 );
                                     dlascl('G', 0, 0, ONE, AAQQ, M, 1, A( 1, q ), LDA, IERR );
-                                    SVA( q ) = AAQQ*DSQRT( MAX( ZERO, ONE-AAPQ*AAPQ ) );
-                                    MXSINJ = MAX( MXSINJ, SFMIN );
+                                    SVA( q ) = AAQQ*DSQRT( max( ZERO, ONE-AAPQ*AAPQ ) );
+                                    MXSINJ = max( MXSINJ, SFMIN );
                                  } else {
                                     dcopy(M, A( 1, q ), 1, WORK( N+1 ), 1 );
                                     dlascl('G', 0, 0, AAQQ, ONE, M, 1, WORK( N+1 ), LDA, IERR );
@@ -857,8 +857,8 @@
                                     TEMP1 = -AAPQ*WORK( q ) / WORK( p );
                                     daxpy(M, TEMP1, WORK( N+1 ), 1, A( 1, p ), 1 );
                                     dlascl('G', 0, 0, ONE, AAPP, M, 1, A( 1, p ), LDA, IERR );
-                                    SVA( p ) = AAPP*DSQRT( MAX( ZERO, ONE-AAPQ*AAPQ ) );
-                                    MXSINJ = MAX( MXSINJ, SFMIN );
+                                    SVA( p ) = AAPP*DSQRT( max( ZERO, ONE-AAPQ*AAPQ ) );
+                                    MXSINJ = max( MXSINJ, SFMIN );
                                  }
                               }
             // END IF ROTOK THEN ... ELSE
@@ -918,7 +918,7 @@
 
                   } else {
 
-                     if (AAPP == ZERO) NOTROT = NOTROT + MIN( jgl+KBL-1, N ) - jgl + 1;
+                     if (AAPP == ZERO) NOTROT = NOTROT + min( jgl+KBL-1, N ) - jgl + 1;
                      if (AAPP < ZERO) NOTROT = 0;
 
                   }
@@ -929,7 +929,7 @@
       // end of the jbc-loop
             } // 2011
 // 2011 bailed out of the jbc-loop
-            DO 2012 p = igl, MIN( igl+KBL-1, N );
+            DO 2012 p = igl, min( igl+KBL-1, N );
                SVA( p ) = DABS( SVA( p ) );
             } // 2012
 // **
@@ -1022,7 +1022,7 @@
       }
 
       // Undo scaling, if necessary (and possible).
-      if ( ( ( SKL > ONE ) && ( SVA( 1 ) < ( BIG / SKL) ) ) || ( ( SKL < ONE ) && ( SVA( MAX( N2, 1 ) ) > ( SFMIN / SKL) ) ) ) {
+      if ( ( ( SKL > ONE ) && ( SVA( 1 ) < ( BIG / SKL) ) ) || ( ( SKL < ONE ) && ( SVA( max( N2, 1 ) ) > ( SFMIN / SKL) ) ) ) {
          for (p = 1; p <= N; p++) { // 2400
             SVA( P ) = SKL*SVA( P );
          } // 2400

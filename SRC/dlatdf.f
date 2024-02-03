@@ -126,7 +126,7 @@
          // Compute RHS
 
          dlaswp(1, XM, LDZ, 1, N-1, IPIV, -1 );
-         TEMP = ONE / SQRT( DDOT( N, XM, 1, XM, 1 ) );
+         TEMP = ONE / sqrt( DDOT( N, XM, 1, XM, 1 ) );
          dscal(N, TEMP, XM, 1 );
          dcopy(N, XM, 1, XP, 1 );
          daxpy(N, ONE, RHS, 1, XP, 1 );

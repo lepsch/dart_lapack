@@ -116,7 +116,7 @@
          for (J = I; J <= K - 1; J++) { // 50
             Z( I ) = Z( I )*( U( I, J )*VT( I, J ) / ( DSIGMA( I )-DSIGMA( J+1 ) ) / ( DSIGMA( I )+DSIGMA( J+1 ) ) );
          } // 50
-         Z( I ) = SIGN( SQRT( ABS( Z( I ) ) ), Q( I, 1 ) );
+         Z( I ) = SIGN( sqrt( ABS( Z( I ) ) ), Q( I, 1 ) );
       } // 60
 
       // Compute left singular vectors of the modified diagonal matrix,

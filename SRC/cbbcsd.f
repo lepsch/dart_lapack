@@ -109,9 +109,9 @@
 
       EPS = SLAMCH( 'Epsilon' );
       UNFL = SLAMCH( 'Safe minimum' );
-      TOLMUL = MAX( TEN, MIN( HUNDRED, EPS**MEIGHTH ) );
+      TOLMUL = max( TEN, min( HUNDRED, EPS**MEIGHTH ) );
       TOL = TOLMUL*EPS;
-      THRESH = MAX( TOL, MAXITR*Q*Q*UNFL );
+      THRESH = max( TOL, MAXITR*Q*Q*UNFL );
 
       // Test for negligible sines or cosines
 
@@ -219,14 +219,14 @@
 
             if ( SIGMA11 <= SIGMA21 ) {
                MU = SIGMA11;
-               NU = SQRT( ONE - MU**2 );
+               NU = sqrt( ONE - MU**2 );
                if ( MU < THRESH ) {
                   MU = ZERO;
                   NU = ONE;
                }
             } else {
                NU = SIGMA21;
-               MU = SQRT( 1.0 - NU**2 );
+               MU = sqrt( 1.0 - NU**2 );
                if ( NU < THRESH ) {
                   MU = ONE;
                   NU = ZERO;
@@ -253,7 +253,7 @@
 
          // Compute THETA(IMIN)
 
-         THETA( IMIN ) = ATAN2( SQRT( B21D(IMIN)**2+B21BULGE**2 ), SQRT( B11D(IMIN)**2+B11BULGE**2 ) );
+         THETA( IMIN ) = ATAN2( sqrt( B21D(IMIN)**2+B21BULGE**2 ), sqrt( B11D(IMIN)**2+B11BULGE**2 ) );
 
          // Chase the bulges in B11(IMIN+1,IMIN) and B21(IMIN+1,IMIN)
 
@@ -308,7 +308,7 @@
             Y1 = SIN(THETA(I-1))*B12D(I-1) + COS(THETA(I-1))*B22D(I-1);
             Y2 = SIN(THETA(I-1))*B12BULGE + COS(THETA(I-1))*B22BULGE;
 
-            PHI(I-1) = ATAN2( SQRT(X1**2+X2**2), SQRT(Y1**2+Y2**2) );
+            PHI(I-1) = ATAN2( sqrt(X1**2+X2**2), sqrt(Y1**2+Y2**2) );
 
             // Determine if there are bulges to chase or if a new direct
             // summand has been reached
@@ -373,7 +373,7 @@
             Y1 = COS(PHI(I-1))*B21D(I) + SIN(PHI(I-1))*B22E(I-1);
             Y2 = COS(PHI(I-1))*B21BULGE + SIN(PHI(I-1))*B22BULGE;
 
-            THETA(I) = ATAN2( SQRT(Y1**2+Y2**2), SQRT(X1**2+X2**2) );
+            THETA(I) = ATAN2( sqrt(Y1**2+Y2**2), sqrt(X1**2+X2**2) );
 
             // Determine if there are bulges to chase or if a new direct
             // summand has been reached
@@ -444,7 +444,7 @@
          X1 = SIN(THETA(IMAX-1))*B11E(IMAX-1) + COS(THETA(IMAX-1))*B21E(IMAX-1)          Y1 = SIN(THETA(IMAX-1))*B12D(IMAX-1) + COS(THETA(IMAX-1))*B22D(IMAX-1);
          Y2 = SIN(THETA(IMAX-1))*B12BULGE + COS(THETA(IMAX-1))*B22BULGE;
 
-         PHI(IMAX-1) = ATAN2( ABS(X1), SQRT(Y1**2+Y2**2) );
+         PHI(IMAX-1) = ATAN2( ABS(X1), sqrt(Y1**2+Y2**2) );
 
          // Chase bulges from B12(IMAX-1,IMAX) and B22(IMAX-1,IMAX)
 

@@ -80,7 +80,7 @@
 
       for (IM = 1; IM <= NM; IM++) { // 120
          N = MVAL( IM );
-         LDA = MAX( N, 1 );
+         LDA = max( N, 1 );
          NIMAT = NTYPES;
          if (N <= 0) NIMAT = 1;
 
@@ -217,7 +217,7 @@
                   // NORM1(B - A*X)/(NORM1(A)*NORM1(X)*EPS) < THRES
                   // (Cf. the linear solver testing routines)
 
-                  if ((THRESH <= 0.0e+00) || ((ITER >= 0) && (N > 0) && (RESULT(1) >= SQRT(DBLE(N)))) || ((ITER < 0) && (RESULT(1) >= THRESH))) {
+                  if ((THRESH <= 0.0e+00) || ((ITER >= 0) && (N > 0) && (RESULT(1) >= sqrt(DBLE(N)))) || ((ITER < 0) && (RESULT(1) >= THRESH))) {
 
                      if ( NFAIL == 0 && NERRS == 0 ) {
                         WRITE( NOUT, FMT = 8999 )'ZPO';
@@ -266,7 +266,7 @@
  9975 FORMAT( ' *** Error code from ', A6, '=', I5, ' for M=', I5, ', type ', I2 );
  8999 FORMAT( / 1X, A3, ':  positive definite dense matrices' );
  8979 FORMAT( 4X, '1. Diagonal', 24X, '7. Last n/2 columns zero', / 4X, '2. Upper triangular', 16X, '8. Random, CNDNUM = sqrt(0.1/EPS)', / 4X, '3. Lower triangular', 16X, '9. Random, CNDNUM = 0.1/EPS', / 4X, '4. Random, CNDNUM = 2', 13X, '10. Scaled near underflow', / 4X, '5. First column zero', 14X, '11. Scaled near overflow', / 4X, '6. Last column zero' );
- 8960 FORMAT( 3X, I2, ': norm_1( B - A * X )  / ', '( norm_1(A) * norm_1(X) * EPS * SQRT(N) ) > 1 if ITERREF', / 4x, 'or norm_1( B - A * X )  / ', '( norm_1(A) * norm_1(X) * EPS ) > THRES if ZPOTRF' );
+ 8960 FORMAT( 3X, I2, ': norm_1( B - A * X )  / ', '( norm_1(A) * norm_1(X) * EPS * sqrt(N) ) > 1 if ITERREF', / 4x, 'or norm_1( B - A * X )  / ', '( norm_1(A) * norm_1(X) * EPS ) > THRES if ZPOTRF' );
 
       return;
 

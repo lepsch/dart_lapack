@@ -67,7 +67,7 @@
       // The block size must not exceed the semi-bandwidth KD, and must not
       // exceed the limit set by the size of the local array WORK.
 
-      NB = MIN( NB, NBMAX );
+      NB = min( NB, NBMAX );
 
       if ( NB <= 1 || NB > KD ) {
 
@@ -95,7 +95,7 @@
             // Process the band matrix one diagonal block at a time.
 
             DO 70 I = 1, N, NB;
-               IB = MIN( NB, N-I+1 );
+               IB = min( NB, N-I+1 );
 
                // Factorize the diagonal block
 
@@ -120,8 +120,8 @@
                   // A23 are empty if IB = KD. The upper triangle of A13
                   // lies outside the band.
 
-                  I2 = MIN( KD-IB, N-I-IB+1 );
-                  I3 = MIN( IB, N-I-KD+1 );
+                  I2 = min( KD-IB, N-I-IB+1 );
+                  I3 = min( IB, N-I-KD+1 );
 
                   if ( I2 > 0 ) {
 
@@ -183,7 +183,7 @@
             // Process the band matrix one diagonal block at a time.
 
             DO 140 I = 1, N, NB;
-               IB = MIN( NB, N-I+1 );
+               IB = min( NB, N-I+1 );
 
                // Factorize the diagonal block
 
@@ -208,8 +208,8 @@
                   // A32 are empty if IB = KD. The lower triangle of A31
                   // lies outside the band.
 
-                  I2 = MIN( KD-IB, N-I-IB+1 );
-                  I3 = MIN( IB, N-I-KD+1 );
+                  I2 = min( KD-IB, N-I-IB+1 );
+                  I3 = min( IB, N-I-KD+1 );
 
                   if ( I2 > 0 ) {
 
@@ -227,7 +227,7 @@
                      // Copy the upper triangle of A31 into the work array.
 
                      for (JJ = 1; JJ <= IB; JJ++) { // 110
-                        DO 100 II = 1, MIN( JJ, I3 );
+                        DO 100 II = 1, min( JJ, I3 );
                            WORK( II, JJ ) = AB( KD+1-JJ+II, JJ+I-1 );
                         } // 100
                      } // 110
@@ -247,7 +247,7 @@
                      // Copy the upper triangle of A31 back into place.
 
                      for (JJ = 1; JJ <= IB; JJ++) { // 130
-                        DO 120 II = 1, MIN( JJ, I3 );
+                        DO 120 II = 1, min( JJ, I3 );
                            AB( KD+1-JJ+II, JJ+I-1 ) = WORK( II, JJ );
                         } // 120
                      } // 130

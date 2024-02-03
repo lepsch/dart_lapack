@@ -70,7 +70,7 @@
 
       ZRZT01 = ZLANGE( 'One-norm', M, N, WORK, M, RWORK );
 
-      ZRZT01 = ZRZT01 / ( DLAMCH( 'Epsilon' )*DBLE( MAX( M, N ) ) );
+      ZRZT01 = ZRZT01 / ( DLAMCH( 'Epsilon' )*DBLE( max( M, N ) ) );
       if (NORMA != ZERO) ZRZT01 = ZRZT01 / NORMA;
 
       return;

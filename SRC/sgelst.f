@@ -43,7 +43,7 @@
       // Test the input arguments.
 
       INFO = 0;
-      MN = MIN( M, N );
+      MN = min( M, N );
       LQUERY = ( LWORK == -1 );
       if ( !( LSAME( TRANS, 'N' ) || LSAME( TRANS, 'T' ) ) ) {
          INFO = -1;
@@ -53,11 +53,11 @@
          INFO = -3;
       } else if ( NRHS < 0 ) {
          INFO = -4;
-      } else if ( LDA < MAX( 1, M ) ) {
+      } else if ( LDA < max( 1, M ) ) {
          INFO = -6;
-      } else if ( LDB < MAX( 1, M, N ) ) {
+      } else if ( LDB < max( 1, M, N ) ) {
          INFO = -8;
-      } else if ( LWORK < MAX( 1, MN+MAX( MN, NRHS ) ) && !LQUERY ) {
+      } else if ( LWORK < max( 1, MN+max( MN, NRHS ) ) && !LQUERY ) {
          INFO = -10;
       }
 
@@ -70,8 +70,8 @@
 
          NB = ILAENV( 1, 'SGELST', ' ', M, N, -1, -1 );
 
-         MNNRHS = MAX( MN, NRHS );
-         LWOPT = MAX( 1, (MN+MNNRHS)*NB );
+         MNNRHS = max( MN, NRHS );
+         LWOPT = max( 1, (MN+MNNRHS)*NB );
          WORK( 1 ) = SROUNDUP_LWORK( LWOPT );
 
       }
@@ -85,8 +85,8 @@
 
       // Quick return if possible
 
-      if ( MIN( M, N, NRHS ) == 0 ) {
-         slaset('Full', MAX( M, N ), NRHS, ZERO, ZERO, B, LDB );
+      if ( min( M, N, NRHS ) == 0 ) {
+         slaset('Full', max( M, N ), NRHS, ZERO, ZERO, B, LDB );
          WORK( 1 ) = SROUNDUP_LWORK( LWOPT );
          return;
       }
@@ -99,11 +99,11 @@
       // ( at this stage we know that LWORK >= (minimum required workspace,
       // but it may be less than optimal)
 
-      NB = MIN( NB, LWORK/( MN + MNNRHS ) );
+      NB = min( NB, LWORK/( MN + MNNRHS ) );
 
       // The minimum value of NB, when blocked code is used
 
-      NBMIN = MAX( 2, ILAENV( 2, 'SGELST', ' ', M, N, -1, -1 ) );
+      NBMIN = max( 2, ILAENV( 2, 'SGELST', ' ', M, N, -1, -1 ) );
 
       if ( NB < NBMIN ) {
          NB = 1;
@@ -134,7 +134,7 @@
 
          // Matrix all zero. Return zero solution.
 
-         slaset('Full', MAX( M, N ), NRHS, ZERO, ZERO, B, LDB );
+         slaset('Full', max( M, N ), NRHS, ZERO, ZERO, B, LDB );
          WORK( 1 ) = SROUNDUP_LWORK( LWOPT );
          return;
       }

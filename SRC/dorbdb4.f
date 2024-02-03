@@ -46,9 +46,9 @@
          INFO = -2;
       } else if ( Q < M-Q || Q > M ) {
          INFO = -3;
-      } else if ( LDX11 < MAX( 1, P ) ) {
+      } else if ( LDX11 < max( 1, P ) ) {
          INFO = -5;
-      } else if ( LDX21 < MAX( 1, M-P ) ) {
+      } else if ( LDX21 < max( 1, M-P ) ) {
          INFO = -7;
       }
 
@@ -56,11 +56,11 @@
 
       if ( INFO == 0 ) {
          ILARF = 2;
-         LLARF = MAX( Q-1, P-1, M-P-1 );
+         LLARF = max( Q-1, P-1, M-P-1 );
          IORBDB5 = 2;
          LORBDB5 = Q;
          LWORKOPT = ILARF + LLARF - 1;
-         LWORKOPT = MAX( LWORKOPT, IORBDB5 + LORBDB5 - 1 );
+         LWORKOPT = max( LWORKOPT, IORBDB5 + LORBDB5 - 1 );
          LWORKMIN = LWORKOPT;
          WORK(1) = LWORKOPT;
          if ( LWORK < LWORKMIN && !LQUERY ) {
@@ -114,7 +114,7 @@
          dlarf('R', P-I, Q-I+1, X21(I,I), LDX21, TAUQ1(I), X11(I+1,I), LDX11, WORK(ILARF) );
          dlarf('R', M-P-I, Q-I+1, X21(I,I), LDX21, TAUQ1(I), X21(I+1,I), LDX21, WORK(ILARF) );
          if ( I < M-Q ) {
-            S = SQRT( DNRM2( P-I, X11(I+1,I), 1 )**2 + DNRM2( M-P-I, X21(I+1,I), 1 )**2 );
+            S = sqrt( DNRM2( P-I, X11(I+1,I), 1 )**2 + DNRM2( M-P-I, X21(I+1,I), 1 )**2 );
             PHI(I) = ATAN2( S, C );
          }
 

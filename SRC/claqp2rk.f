@@ -54,10 +54,10 @@
       // contains the submatrices A(IOFFSET+1:M,1:N) and
       // B(IOFFSET+1:M,1:NRHS) as column blocks.
 
-      MINMNFACT = MIN( M-IOFFSET, N );
-      MINMNUPDT = MIN( M-IOFFSET, N+NRHS );
-      KMAX = MIN( KMAX, MINMNFACT );
-      TOL3Z = SQRT( SLAMCH( 'Epsilon' ) );
+      MINMNFACT = min( M-IOFFSET, N );
+      MINMNUPDT = min( M-IOFFSET, N+NRHS );
+      KMAX = min( KMAX, MINMNFACT );
+      TOL3Z = sqrt( SLAMCH( 'Epsilon' ) );
       HUGEVAL = SLAMCH( 'Overflow' );
 
       // Compute the factorization, KK is the lomn loop index.
@@ -305,7 +305,7 @@
                   // Lapack Working Note 176.
 
                   TEMP = ONE - ( ABS( A( I, J ) ) / VN1( J ) )**2;
-                  TEMP = MAX( TEMP, ZERO );
+                  TEMP = max( TEMP, ZERO );
                   TEMP2 = TEMP*( VN1( J ) / VN2( J ) )**2;
                   if ( TEMP2 <= TOL3Z ) {
 
@@ -324,7 +324,7 @@
                      // element A(I,J) and store it in partial
                      // 2-norm vector VN1.
 
-                     VN1( J ) = VN1( J )*SQRT( TEMP );
+                     VN1( J ) = VN1( J )*sqrt( TEMP );
 
                   }
                }

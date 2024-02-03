@@ -111,8 +111,8 @@
       EPS = SLAMCH( 'Precision' );
       SMLNUM = SAFMIN / EPS;
       BIGNUM = ONE / SMLNUM;
-      RMIN = SQRT( SMLNUM );
-      RMAX = MIN( SQRT( BIGNUM ), ONE / SQRT( SQRT( SAFMIN ) ) );
+      RMIN = sqrt( SMLNUM );
+      RMAX = min( sqrt( BIGNUM ), ONE / sqrt( sqrt( SAFMIN ) ) );
 
       if ( INFO == 0 ) {
          WORK( 1 ) = SROUNDUP_LWORK(LWMIN);
@@ -318,8 +318,8 @@
             // CLARRV will refine the eigenvalue approximations, and we only
             // need less accurate initial bisection in SLARRE.
             // Note: these settings do only affect the subset case and SLARRE
-            RTOL1 = MAX( SQRT(EPS)*5.0e-2, FOUR * EPS );
-            RTOL2 = MAX( SQRT(EPS)*5.0e-3, FOUR * EPS );
+            RTOL1 = max( sqrt(EPS)*5.0e-2, FOUR * EPS );
+            RTOL2 = max( sqrt(EPS)*5.0e-3, FOUR * EPS );
          }
          slarre(RANGE, N, WL, WU, IIL, IIU, D, E, WORK(INDE2), RTOL1, RTOL2, THRESH, NSPLIT, IWORK( IINSPL ), M, W, WORK( INDERR ), WORK( INDGP ), IWORK( IINDBL ), IWORK( IINDW ), WORK( INDGRS ), PIVMIN, WORK( INDWRK ), IWORK( IINDWK ), IINFO );
          if ( IINFO != 0 ) {

@@ -45,7 +45,7 @@
          INFO = -1;
       } else if ( N < 0 ) {
          INFO = -2;
-      } else if ( LDA < MAX( 1, N ) ) {
+      } else if ( LDA < max( 1, N ) ) {
          INFO = -4;
       }
       if ( INFO != 0 ) {
@@ -110,7 +110,7 @@
             // to annihilate A(i+2:n,i)
 
             ALPHA = A( I+1, I );
-            clarfg(N-I, ALPHA, A( MIN( I+2, N ), I ), 1, TAUI );
+            clarfg(N-I, ALPHA, A( min( I+2, N ), I ), 1, TAUI );
             E( I ) = REAL( ALPHA );
 
             if ( TAUI != ZERO ) {

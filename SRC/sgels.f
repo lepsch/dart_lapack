@@ -43,7 +43,7 @@
       // Test the input arguments.
 
       INFO = 0;
-      MN = MIN( M, N );
+      MN = min( M, N );
       LQUERY = ( LWORK == -1 );
       if ( !( LSAME( TRANS, 'N' ) || LSAME( TRANS, 'T' ) ) ) {
          INFO = -1;
@@ -53,11 +53,11 @@
          INFO = -3;
       } else if ( NRHS < 0 ) {
          INFO = -4;
-      } else if ( LDA < MAX( 1, M ) ) {
+      } else if ( LDA < max( 1, M ) ) {
          INFO = -6;
-      } else if ( LDB < MAX( 1, M, N ) ) {
+      } else if ( LDB < max( 1, M, N ) ) {
          INFO = -8;
-      } else if ( LWORK < MAX( 1, MN + MAX( MN, NRHS ) ) && !LQUERY ) {
+      } else if ( LWORK < max( 1, MN + max( MN, NRHS ) ) && !LQUERY ) {
          INFO = -10;
       }
 
@@ -71,20 +71,20 @@
          if ( M >= N ) {
             NB = ILAENV( 1, 'SGEQRF', ' ', M, N, -1, -1 );
             if ( TPSD ) {
-               NB = MAX( NB, ILAENV( 1, 'SORMQR', 'LN', M, NRHS, N, -1 ) );
+               NB = max( NB, ILAENV( 1, 'SORMQR', 'LN', M, NRHS, N, -1 ) );
             } else {
-               NB = MAX( NB, ILAENV( 1, 'SORMQR', 'LT', M, NRHS, N, -1 ) );
+               NB = max( NB, ILAENV( 1, 'SORMQR', 'LT', M, NRHS, N, -1 ) );
             }
          } else {
             NB = ILAENV( 1, 'SGELQF', ' ', M, N, -1, -1 );
             if ( TPSD ) {
-               NB = MAX( NB, ILAENV( 1, 'SORMLQ', 'LT', N, NRHS, M, -1 ) );
+               NB = max( NB, ILAENV( 1, 'SORMLQ', 'LT', N, NRHS, M, -1 ) );
             } else {
-               NB = MAX( NB, ILAENV( 1, 'SORMLQ', 'LN', N, NRHS, M, -1 ) );
+               NB = max( NB, ILAENV( 1, 'SORMLQ', 'LN', N, NRHS, M, -1 ) );
             }
          }
 
-         WSIZE = MAX( 1, MN + MAX( MN, NRHS )*NB );
+         WSIZE = max( 1, MN + max( MN, NRHS )*NB );
          WORK( 1 ) = SROUNDUP_LWORK( WSIZE );
 
       }
@@ -98,8 +98,8 @@
 
       // Quick return if possible
 
-      if ( MIN( M, N, NRHS ) == 0 ) {
-         slaset('Full', MAX( M, N ), NRHS, ZERO, ZERO, B, LDB );
+      if ( min( M, N, NRHS ) == 0 ) {
+         slaset('Full', max( M, N ), NRHS, ZERO, ZERO, B, LDB );
          return;
       }
 
@@ -128,7 +128,7 @@
 
          // Matrix all zero. Return zero solution.
 
-         slaset('F', MAX( M, N ), NRHS, ZERO, ZERO, B, LDB );
+         slaset('F', max( M, N ), NRHS, ZERO, ZERO, B, LDB );
          GO TO 50;
       }
 

@@ -55,19 +55,19 @@
          if ( LSAME( UPLO, 'U' ) ) {
             JJ = 1;
             for (J = 1; J <= N; J++) { // 10
-               TNORM = MAX( TNORM, TSCAL*ABS( AP( JJ ) )+CNORM( J ) );
+               TNORM = max( TNORM, TSCAL*ABS( AP( JJ ) )+CNORM( J ) );
                JJ = JJ + J + 1;
             } // 10
          } else {
             JJ = 1;
             for (J = 1; J <= N; J++) { // 20
-               TNORM = MAX( TNORM, TSCAL*ABS( AP( JJ ) )+CNORM( J ) );
+               TNORM = max( TNORM, TSCAL*ABS( AP( JJ ) )+CNORM( J ) );
                JJ = JJ + N - J + 1;
             } // 20
          }
       } else {
          for (J = 1; J <= N; J++) { // 30
-            TNORM = MAX( TNORM, TSCAL+CNORM( J ) );
+            TNORM = max( TNORM, TSCAL+CNORM( J ) );
          } // 30
       }
 
@@ -78,7 +78,7 @@
       for (J = 1; J <= NRHS; J++) { // 40
          scopy(N, X( 1, J ), 1, WORK, 1 );
          IX = ISAMAX( N, WORK, 1 );
-         XNORM = MAX( ONE, ABS( X( IX, J ) ) );
+         XNORM = max( ONE, ABS( X( IX, J ) ) );
          XSCAL = ( ONE / XNORM ) / REAL( N );
          sscal(N, XSCAL, WORK, 1 );
          stpmv(UPLO, TRANS, DIAG, N, AP, WORK, 1 );
@@ -97,7 +97,7 @@
          } else {
             if (ERR > ZERO) ERR = ONE / EPS;
          }
-         RESID = MAX( RESID, ERR );
+         RESID = max( RESID, ERR );
       } // 40
 
       return;

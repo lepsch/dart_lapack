@@ -45,7 +45,7 @@
          INFO = -1;
       } else if ( N < 0 ) {
          INFO = -2;
-      } else if ( LDA < MAX( 1, N ) ) {
+      } else if ( LDA < max( 1, N ) ) {
          INFO = -4;
       }
       if ( INFO != 0 ) {
@@ -75,7 +75,7 @@
             // Compute the product U * U**H.
 
             DO 10 I = 1, N, NB;
-               IB = MIN( NB, N-I+1 );
+               IB = min( NB, N-I+1 );
                ztrmm('Right', 'Upper', 'Conjugate transpose', 'Non-unit', I-1, IB, CONE, A( I, I ), LDA, A( 1, I ), LDA );
                zlauu2('Upper', IB, A( I, I ), LDA, INFO );
                if ( I+IB <= N ) {
@@ -88,7 +88,7 @@
             // Compute the product L**H * L.
 
             DO 20 I = 1, N, NB;
-               IB = MIN( NB, N-I+1 );
+               IB = min( NB, N-I+1 );
                ztrmm('Left', 'Lower', 'Conjugate transpose', 'Non-unit', IB, I-1, CONE, A( I, I ), LDA, A( I, 1 ), LDA );
                zlauu2('Lower', IB, A( I, I ), LDA, INFO );
                if ( I+IB <= N ) {

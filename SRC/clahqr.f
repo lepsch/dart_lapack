@@ -85,7 +85,7 @@
             SC = CONJG( SC ) / ABS( SC );
             H( I, I-1 ) = ABS( H( I, I-1 ) );
             cscal(JHI-I+1, SC, H( I, I ), LDH );
-            cscal(MIN( JHI, I+1 )-JLO+1, CONJG( SC ), H( JLO, I ), 1 )             IF( WANTZ ) CALL CSCAL( IHIZ-ILOZ+1, CONJG( SC ), Z( ILOZ, I ), 1 );
+            cscal(min( JHI, I+1 )-JLO+1, CONJG( SC ), H( JLO, I ), 1 )             IF( WANTZ ) CALL CSCAL( IHIZ-ILOZ+1, CONJG( SC ), Z( ILOZ, I ), 1 );
          }
       } // 20
 
@@ -110,7 +110,7 @@
 
       // ITMAX is the total number of QR iterations allowed.
 
-      ITMAX = 30 * MAX( 10, NH );
+      ITMAX = 30 * max( 10, NH );
 
       // KDEFL counts the number of iterations since a deflation
 
@@ -147,11 +147,11 @@
             // .    1997). It has better mathematical foundation and
             // .    improves accuracy in some examples.  ====
             if ( ABS( REAL( H( K, K-1 ) ) ) <= ULP*TST ) {
-               AB = MAX( CABS1( H( K, K-1 ) ), CABS1( H( K-1, K ) ) );
-               BA = MIN( CABS1( H( K, K-1 ) ), CABS1( H( K-1, K ) ) );
-               AA = MAX( CABS1( H( K, K ) ), CABS1( H( K-1, K-1 )-H( K, K ) ) )                BB = MIN( CABS1( H( K, K ) ), CABS1( H( K-1, K-1 )-H( K, K ) ) );
+               AB = max( CABS1( H( K, K-1 ) ), CABS1( H( K-1, K ) ) );
+               BA = min( CABS1( H( K, K-1 ) ), CABS1( H( K-1, K ) ) );
+               AA = max( CABS1( H( K, K ) ), CABS1( H( K-1, K-1 )-H( K, K ) ) )                BB = min( CABS1( H( K, K ) ), CABS1( H( K-1, K-1 )-H( K, K ) ) );
                S = AA + AB;
-               if( BA*( AB / S ) <= MAX( SMLNUM, ULP*( BB*( AA / S ) ) ) )GO TO 50;
+               if( BA*( AB / S ) <= max( SMLNUM, ULP*( BB*( AA / S ) ) ) )GO TO 50;
             }
          } // 40
          } // 50
@@ -194,13 +194,13 @@
             // Wilkinson's shift.
 
             T = H( I, I );
-            U = SQRT( H( I-1, I ) )*SQRT( H( I, I-1 ) );
+            U = sqrt( H( I-1, I ) )*sqrt( H( I, I-1 ) );
             S = CABS1( U );
             if ( S != RZERO ) {
                X = HALF*( H( I-1, I-1 )-T );
                SX = CABS1( X );
-               S = MAX( S, CABS1( X ) );
-               Y = S*SQRT( ( X / S )**2+( U / S )**2 );
+               S = max( S, CABS1( X ) );
+               Y = S*sqrt( ( X / S )**2+( U / S )**2 );
                if ( SX > RZERO ) {
                   if( REAL( X / SX )*REAL( Y )+AIMAG( X / SX )* AIMAG( Y ) < RZERO )Y = -Y;
                }
@@ -276,7 +276,7 @@
             // Apply G from the right to transform the columns of the
             // matrix in rows I1 to min(K+2,I).
 
-            DO 90 J = I1, MIN( K+2, I );
+            DO 90 J = I1, min( K+2, I );
                SUM = T1*H( J, K ) + T2*H( J, K+1 );
                H( J, K ) = H( J, K ) - SUM;
                H( J, K+1 ) = H( J, K+1 ) - SUM*CONJG( V2 );

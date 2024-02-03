@@ -98,7 +98,7 @@
 
       for (IN = 1; IN <= NN; IN++) { // 180
          N = NVAL( IN );
-         LDA = MAX( N, 1 );
+         LDA = max( N, 1 );
          XTYPE = 'N';
          NIMAT = NTYPES;
          if (N <= 0) NIMAT = 1;
@@ -182,7 +182,7 @@
                         // Set the first IZERO rows and columns to zero.
 
                            for (J = 1; J <= N; J++) { // 70
-                              I2 = MIN( J, IZERO );
+                              I2 = min( J, IZERO );
                               for (I = 1; I <= I2; I++) { // 60
                                  A( IOFF+I ) = ZERO;
                               } // 60
@@ -195,7 +195,7 @@
 
                            IOFF = 0;
                            for (J = 1; J <= N; J++) { // 90
-                              I1 = MAX( J, IZERO );
+                              I1 = max( J, IZERO );
                               for (I = I1; I <= N; I++) { // 80
                                  A( IOFF+I ) = ZERO;
                               } // 80
@@ -231,8 +231,8 @@
                      // Factor the matrix and solve the system using DSYSV_AA.
 
                      SRNAMT = 'DSYSV_AA_2STAGE ';
-                     LWORK = MIN( MAX( 1, N*NB ), 3*NMAX*NMAX );
-                     dsysv_aa_2stage(UPLO, N, NRHS, AFAC, LDA, AINV, MAX( 1, (3*NB+1)*N ), IWORK, IWORK( 1+N ), X, LDA, WORK, LWORK, INFO );
+                     LWORK = min( max( 1, N*NB ), 3*NMAX*NMAX );
+                     dsysv_aa_2stage(UPLO, N, NRHS, AFAC, LDA, AINV, max( 1, (3*NB+1)*N ), IWORK, IWORK( 1+N ), X, LDA, WORK, LWORK, INFO );
 
                      // Adjust the expected value of INFO to account for
                      // pivoting.

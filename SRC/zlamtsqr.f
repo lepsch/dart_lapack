@@ -44,11 +44,11 @@
         Q = N;
       }
 
-      MINMNK = MIN( M, N, K );
+      MINMNK = min( M, N, K );
       if ( MINMNK == 0 ) {
         LWMIN = 1;
       } else {
-        LWMIN = MAX( 1, LW );
+        LWMIN = max( 1, LW );
       }
 
       if ( !LEFT && !RIGHT ) {
@@ -63,11 +63,11 @@
         INFO = -5;
       } else if ( K < NB || NB < 1 ) {
         INFO = -7;
-      } else if ( LDA < MAX( 1, Q ) ) {
+      } else if ( LDA < max( 1, Q ) ) {
         INFO = -9;
-      } else if ( LDT < MAX( 1, NB ) ) {
+      } else if ( LDT < max( 1, NB ) ) {
         INFO = -11;
-      } else if ( LDC < MAX( 1, M ) ) {
+      } else if ( LDC < max( 1, M ) ) {
         INFO = -13;
       } else if ( LWORK < LWMIN && ( !LQUERY) ) {
         INFO = -15;
@@ -92,7 +92,7 @@
 
       // Determine the block size if it is tall skinny or short and wide
 
-      if ((MB <= K) || (MB >= MAX(M,N,K))) {
+      if ((MB <= K) || (MB >= max(M,N,K))) {
         zgemqrt(SIDE, TRANS, M, N, K, NB, A, LDA, T, LDT, C, LDC, WORK, INFO );
         return;
       }

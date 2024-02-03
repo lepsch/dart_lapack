@@ -37,8 +37,8 @@
       BB = B;
       CC = C;
       DD = D;
-      AB = MAX( ABS(A), ABS(B) );
-      CD = MAX( ABS(C), ABS(D) );
+      AB = max( ABS(A), ABS(B) );
+      CD = max( ABS(C), ABS(D) );
       S = 1.0;
 
       OV = DLAMCH( 'Overflow threshold' );

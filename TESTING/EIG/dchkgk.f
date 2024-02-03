@@ -111,10 +111,10 @@
       VMAX = ZERO;
       for (J = 1; J <= M; J++) { // 70
          for (I = 1; I <= M; I++) { // 60
-            VMAX = MAX( VMAX, ABS( E( I, J )-F( I, J ) ) );
+            VMAX = max( VMAX, ABS( E( I, J )-F( I, J ) ) );
          } // 60
       } // 70
-      VMAX = VMAX / ( EPS*MAX( ANORM, BNORM ) );
+      VMAX = VMAX / ( EPS*max( ANORM, BNORM ) );
       if ( VMAX > RMAX ) {
          LMAX( 4 ) = KNT;
          RMAX = VMAX;
@@ -129,10 +129,10 @@
       VMAX = ZERO;
       for (J = 1; J <= M; J++) { // 90
          for (I = 1; I <= M; I++) { // 80
-            VMAX = MAX( VMAX, ABS( E( I, J )-F( I, J ) ) );
+            VMAX = max( VMAX, ABS( E( I, J )-F( I, J ) ) );
          } // 80
       } // 90
-      VMAX = VMAX / ( EPS*MAX( ANORM, BNORM ) );
+      VMAX = VMAX / ( EPS*max( ANORM, BNORM ) );
       if ( VMAX > RMAX ) {
          LMAX( 4 ) = KNT;
          RMAX = VMAX;

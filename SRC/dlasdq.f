@@ -53,11 +53,11 @@
          INFO = -5;
       } else if ( NCC < 0 ) {
          INFO = -6;
-      } else if ( ( NCVT == 0 && LDVT < 1 ) || ( NCVT > 0 && LDVT < MAX( 1, N ) ) ) {
+      } else if ( ( NCVT == 0 && LDVT < 1 ) || ( NCVT > 0 && LDVT < max( 1, N ) ) ) {
          INFO = -10;
-      } else if ( LDU < MAX( 1, NRU ) ) {
+      } else if ( LDU < max( 1, NRU ) ) {
          INFO = -12;
-      } else if ( ( NCC == 0 && LDC < 1 ) || ( NCC > 0 && LDC < MAX( 1, N ) ) ) {
+      } else if ( ( NCC == 0 && LDC < 1 ) || ( NCC > 0 && LDC < max( 1, N ) ) ) {
          INFO = -14;
       }
       if ( INFO != 0 ) {

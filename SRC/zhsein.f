@@ -75,7 +75,7 @@
          INFO = -3;
       } else if ( N < 0 ) {
          INFO = -5;
-      } else if ( LDH < MAX( 1, N ) ) {
+      } else if ( LDH < max( 1, N ) ) {
          INFO = -7;
       } else if ( LDVL < 1 || ( LEFTV && LDVL < N ) ) {
          INFO = -10;

@@ -55,9 +55,9 @@
          INFO = -1;
       } else if ( N < 0 ) {
          INFO = -2;
-      } else if ( LDA < MAX( 1, N ) ) {
+      } else if ( LDA < max( 1, N ) ) {
          INFO = -4;
-      } else if ( LDB < MAX( 1, N ) ) {
+      } else if ( LDB < max( 1, N ) ) {
          INFO = -6;
       }
       if ( INFO != 0 ) {
@@ -332,18 +332,18 @@
          IRAB = ICAMAX( N-ILO+1, A( I, ILO ), LDA );
          RAB = ABS( A( I, IRAB+ILO-1 ) );
          IRAB = ICAMAX( N-ILO+1, B( I, ILO ), LDB );
-         RAB = MAX( RAB, ABS( B( I, IRAB+ILO-1 ) ) );
+         RAB = max( RAB, ABS( B( I, IRAB+ILO-1 ) ) );
          LRAB = INT( LOG10( RAB+SFMIN ) / BASL+ONE );
          IR = INT( LSCALE( I ) + SIGN( HALF, LSCALE( I ) ) );
-         IR = MIN( MAX( IR, LSFMIN ), LSFMAX, LSFMAX-LRAB );
+         IR = min( max( IR, LSFMIN ), LSFMAX, LSFMAX-LRAB );
          LSCALE( I ) = SCLFAC**IR;
          ICAB = ICAMAX( IHI, A( 1, I ), 1 );
          CAB = ABS( A( ICAB, I ) );
          ICAB = ICAMAX( IHI, B( 1, I ), 1 );
-         CAB = MAX( CAB, ABS( B( ICAB, I ) ) );
+         CAB = max( CAB, ABS( B( ICAB, I ) ) );
          LCAB = INT( LOG10( CAB+SFMIN ) / BASL+ONE );
          JC = INT( RSCALE( I ) + SIGN( HALF, RSCALE( I ) ) );
-         JC = MIN( MAX( JC, LSFMIN ), LSFMAX, LSFMAX-LCAB );
+         JC = min( max( JC, LSFMIN ), LSFMAX, LSFMAX-LCAB );
          RSCALE( I ) = SCLFAC**JC;
       } // 360
 

@@ -36,13 +36,13 @@
          INFO = -1;
       } else if ( N < 0 ) {
          INFO = -2;
-      } else if ( L < 0 || L > MIN(M,N) ) {
+      } else if ( L < 0 || L > min(M,N) ) {
          INFO = -3;
-      } else if ( LDA < MAX( 1, M ) ) {
+      } else if ( LDA < max( 1, M ) ) {
          INFO = -5;
-      } else if ( LDB < MAX( 1, M ) ) {
+      } else if ( LDB < max( 1, M ) ) {
          INFO = -7;
-      } else if ( LDT < MAX( 1, M ) ) {
+      } else if ( LDT < max( 1, M ) ) {
          INFO = -9;
       }
       if ( INFO != 0 ) {
@@ -58,7 +58,7 @@
 
          // Generate elementary reflector H(I) to annihilate B(I,:)
 
-         P = N-L+MIN( L, I );
+         P = N-L+min( L, I );
          dlarfg(P+1, A( I, I ), B( I, 1 ), LDB, T( 1, I ) );
          if ( I < M ) {
 
@@ -88,9 +88,9 @@
          for (J = 1; J <= I-1; J++) {
             T( I, J ) = ZERO;
          }
-         P = MIN( I-1, L );
-         NP = MIN( N-L+1, N );
-         MP = MIN( P+1, M );
+         P = min( I-1, L );
+         NP = min( N-L+1, N );
+         MP = min( P+1, M );
 
          // Triangular part of B2
 

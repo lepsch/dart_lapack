@@ -49,11 +49,11 @@
         MN = N;
       }
 
-      MINMNK = MIN( M, N, K );
+      MINMNK = min( M, N, K );
       if ( MINMNK == 0 ) {
         LWMIN = 1;
       } else {
-        LWMIN = MAX( 1, LW );
+        LWMIN = max( 1, LW );
       }
 
       if ( ( NB > K ) && ( MN > K ) ) {
@@ -77,11 +77,11 @@
         INFO = -4;
       } else if ( K < 0 || K > MN ) {
         INFO = -5;
-      } else if ( LDA < MAX( 1, K ) ) {
+      } else if ( LDA < max( 1, K ) ) {
         INFO = -7;
       } else if ( TSIZE < 5 ) {
         INFO = -9;
-      } else if ( LDC < MAX( 1, M ) ) {
+      } else if ( LDC < max( 1, M ) ) {
         INFO = -11;
       } else if ( ( LWORK < LWMIN ) && ( !LQUERY ) ) {
         INFO = -13;
@@ -104,7 +104,7 @@
         return;
       }
 
-      if( ( LEFT && M <= K ) || ( RIGHT && N <= K ) || ( NB <= K ) || ( NB >= MAX( M, N, K ) ) ) {
+      if( ( LEFT && M <= K ) || ( RIGHT && N <= K ) || ( NB <= K ) || ( NB >= max( M, N, K ) ) ) {
         CALL ZGEMLQT( SIDE, TRANS, M, N, K, MB, A, LDA, T( 6 ), MB, C, LDC, WORK, INFO );
       } else {
         zlamswlq(SIDE, TRANS, M, N, K, MB, NB, A, LDA, T( 6 ), MB, C, LDC, WORK, LWORK, INFO );

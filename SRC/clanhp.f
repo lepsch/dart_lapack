@@ -139,7 +139,7 @@
                K = K + N - I + 1;
             }
          } // 130
-         VALUE = SCALE*SQRT( SUM );
+         VALUE = SCALE*sqrt( SUM );
       }
 
       CLANHP = VALUE;

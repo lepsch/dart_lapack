@@ -98,7 +98,7 @@
             WRITE(NOUT, 9995) 'M ', N, NMAX;
             GO TO 180;
          }
-         LDA = MAX( N, 1 );
+         LDA = max( N, 1 );
          XTYPE = 'N';
          NIMAT = NTYPES;
          if (N <= 0) NIMAT = 1;
@@ -191,7 +191,7 @@
 
                         IOFF = 0;
                         for (J = 1; J <= N; J++) { // 70
-                           I2 = MIN( J, IZERO );
+                           I2 = min( J, IZERO );
                            for (I = 1; I <= I2; I++) { // 60
                               A( IOFF+I ) = ZERO;
                            } // 60
@@ -204,7 +204,7 @@
 
                         IOFF = 0;
                         for (J = 1; J <= N; J++) { // 90
-                           I1 = MAX( J, IZERO );
+                           I1 = max( J, IZERO );
                            for (I = I1; I <= N; I++) { // 80
                               A( IOFF+I ) = ZERO;
                            } // 80
@@ -240,7 +240,7 @@
                   // block factorization, LWORK is the length of AINV.
 
                   SRNAMT = 'SSYTRF_AA';
-                  LWORK = MAX( 1, N*NB + N );
+                  LWORK = max( 1, N*NB + N );
                   ssytrf_aa(UPLO, N, AFAC, LDA, IWORK, AINV, LWORK, INFO );
 
                   // Adjust the expected value of INFO to account for
@@ -310,7 +310,7 @@
                      slacpy('Full', N, NRHS, B, LDA, X, LDA );
 
                      SRNAMT = 'SSYTRS_AA';
-                     LWORK = MAX( 1, 3*N-2 );
+                     LWORK = max( 1, 3*N-2 );
                      ssytrs_aa(UPLO, N, NRHS, AFAC, LDA, IWORK, X, LDA, WORK, LWORK, INFO );
 
                      // Check error code from SSYTRS and handle error.

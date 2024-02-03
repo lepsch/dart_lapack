@@ -91,7 +91,7 @@
                // Generate elementary reflector H(i) to annihilate
                // A(i+2:n,i)
 
-               dlarfg(N-I, A( I+1, I ), A( MIN( I+2, N ), I ), 1, TAU( I ) );
+               dlarfg(N-I, A( I+1, I ), A( min( I+2, N ), I ), 1, TAU( I ) );
                E( I ) = A( I+1, I );
                A( I+1, I ) = ONE;
 

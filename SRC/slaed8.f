@@ -47,11 +47,11 @@
          INFO = -3;
       } else if ( ICOMPQ == 1 && QSIZ < N ) {
          INFO = -4;
-      } else if ( LDQ < MAX( 1, N ) ) {
+      } else if ( LDQ < max( 1, N ) ) {
          INFO = -7;
-      } else if ( CUTPNT < MIN( 1, N ) || CUTPNT > N ) {
+      } else if ( CUTPNT < min( 1, N ) || CUTPNT > N ) {
          INFO = -10;
-      } else if ( LDQ2 < MAX( 1, N ) ) {
+      } else if ( LDQ2 < max( 1, N ) ) {
          INFO = -14;
       }
       if ( INFO != 0 ) {
@@ -80,7 +80,7 @@
 
       // Normalize z so that norm(z) = 1
 
-      T = ONE / SQRT( TWO );
+      T = ONE / sqrt( TWO );
       for (J = 1; J <= N; J++) { // 10
          INDX( J ) = J;
       } // 10

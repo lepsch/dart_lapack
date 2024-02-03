@@ -62,7 +62,7 @@
       BADNN = false;
       NMAX = 1;
       for (J = 1; J <= NSIZES; J++) { // 10
-         NMAX = MAX( NMAX, NN( J ) );
+         NMAX = max( NMAX, NN( J ) );
          if( NN( J ) < 0 ) BADNN = true;
       } // 10
 
@@ -78,7 +78,7 @@
          INFO = -9;
       } else if ( LDU < NMAX ) {
          INFO = -16;
-      } else if ( 2*MAX( 2, NMAX )**2 > LWORK ) {
+      } else if ( 2*max( 2, NMAX )**2 > LWORK ) {
          INFO = -22;
       }
 
@@ -97,8 +97,8 @@
       OVFL = DLAMCH( 'Overflow' );
       ULP = DLAMCH( 'Epsilon' )*DLAMCH( 'Base' );
       ULPINV = ONE / ULP;
-      RTUNFL = SQRT( UNFL );
-      RTOVFL = SQRT( OVFL );
+      RTUNFL = sqrt( UNFL );
+      RTOVFL = sqrt( OVFL );
 
       // Loop over sizes, types
 
@@ -116,7 +116,7 @@
             LGN = INT( LOG( DBLE( N ) ) / LOG( TWO ) );
             if (2**LGN < N) LGN = LGN + 1;
             IF( 2**LGN < N ) LGN = LGN + 1;
-            LWEDC = MAX( 2*N+N*N, 2*N*N );
+            LWEDC = max( 2*N+N*N, 2*N*N );
             LRWEDC = 1 + 4*N + 2*N*LGN + 3*N**2;
             LIWEDC = 3 + 5*N;
          } else {
@@ -124,12 +124,12 @@
             LRWEDC = 8;
             LIWEDC = 8;
          }
-         ANINV = ONE / DBLE( MAX( 1, N ) );
+         ANINV = ONE / DBLE( max( 1, N ) );
 
          if ( NSIZES != 1 ) {
-            MTYPES = MIN( MAXTYP, NTYPES );
+            MTYPES = min( MAXTYP, NTYPES );
          } else {
-            MTYPES = MIN( MAXTYP+1, NTYPES );
+            MTYPES = min( MAXTYP+1, NTYPES );
          }
 
          for (JTYPE = 1; JTYPE <= MTYPES; JTYPE++) { // 1210
@@ -234,8 +234,8 @@
                zlaset('Full', LDA, N, CZERO, CZERO, A, LDA );
                for (IDIAG = -IHBW; IDIAG <= IHBW; IDIAG++) { // 100
                   IROW = IHBW - IDIAG + 1;
-                  J1 = MAX( 1, IDIAG+1 );
-                  J2 = MIN( N, N+IDIAG );
+                  J1 = max( 1, IDIAG+1 );
+                  J2 = min( N, N+IDIAG );
                   for (J = J1; J <= J2; J++) { // 90
                      I = J - IDIAG;
                      A( I, J ) = U( IROW, J );
@@ -320,10 +320,10 @@
                TEMP1 = ZERO;
                TEMP2 = ZERO;
                for (J = 1; J <= N; J++) { // 120
-                  TEMP1 = MAX( TEMP1, ABS( D1( J ) ), ABS( D3( J ) ) );
-                  TEMP2 = MAX( TEMP2, ABS( D1( J )-D3( J ) ) );
+                  TEMP1 = max( TEMP1, ABS( D1( J ) ), ABS( D3( J ) ) );
+                  TEMP2 = max( TEMP2, ABS( D1( J )-D3( J ) ) );
                } // 120
-               RESULT( NTEST ) = TEMP2 / MAX( UNFL, ULP*MAX( TEMP1, TEMP2 ) );
+               RESULT( NTEST ) = TEMP2 / max( UNFL, ULP*max( TEMP1, TEMP2 ) );
 
                } // 130
                zlacpy(' ', N, N, V, LDU, A, LDA );
@@ -331,16 +331,16 @@
                NTEST = NTEST + 1;
 
                if ( N > 0 ) {
-                  TEMP3 = MAX( ABS( D1( 1 ) ), ABS( D1( N ) ) );
+                  TEMP3 = max( ABS( D1( 1 ) ), ABS( D1( N ) ) );
                   if ( IL != 1 ) {
-                     VL = D1( IL ) - MAX( HALF*( D1( IL )-D1( IL-1 ) ), TEN*ULP*TEMP3, TEN*RTUNFL );
+                     VL = D1( IL ) - max( HALF*( D1( IL )-D1( IL-1 ) ), TEN*ULP*TEMP3, TEN*RTUNFL );
                   } else if ( N > 0 ) {
-                     VL = D1( 1 ) - MAX( HALF*( D1( N )-D1( 1 ) ), TEN*ULP*TEMP3, TEN*RTUNFL );
+                     VL = D1( 1 ) - max( HALF*( D1( N )-D1( 1 ) ), TEN*ULP*TEMP3, TEN*RTUNFL );
                   }
                   if ( IU != N ) {
-                     VU = D1( IU ) + MAX( HALF*( D1( IU+1 )-D1( IU ) ), TEN*ULP*TEMP3, TEN*RTUNFL );
+                     VU = D1( IU ) + max( HALF*( D1( IU+1 )-D1( IU ) ), TEN*ULP*TEMP3, TEN*RTUNFL );
                   } else if ( N > 0 ) {
-                     VU = D1( N ) + MAX( HALF*( D1( N )-D1( 1 ) ), TEN*ULP*TEMP3, TEN*RTUNFL );
+                     VU = D1( N ) + max( HALF*( D1( N )-D1( 1 ) ), TEN*ULP*TEMP3, TEN*RTUNFL );
                   }
                } else {
                   TEMP3 = ZERO;
@@ -386,10 +386,10 @@
                TEMP1 = ZERO;
                TEMP2 = ZERO;
                for (J = 1; J <= N; J++) { // 140
-                  TEMP1 = MAX( TEMP1, ABS( WA1( J ) ), ABS( WA2( J ) ) );
-                  TEMP2 = MAX( TEMP2, ABS( WA1( J )-WA2( J ) ) );
+                  TEMP1 = max( TEMP1, ABS( WA1( J ) ), ABS( WA2( J ) ) );
+                  TEMP2 = max( TEMP2, ABS( WA1( J )-WA2( J ) ) );
                } // 140
-               RESULT( NTEST ) = TEMP2 / MAX( UNFL, ULP*MAX( TEMP1, TEMP2 ) );
+               RESULT( NTEST ) = TEMP2 / max( UNFL, ULP*max( TEMP1, TEMP2 ) );
 
                } // 150
                zlacpy(' ', N, N, V, LDU, A, LDA );
@@ -433,11 +433,11 @@
                TEMP1 = DSXT1( 1, WA2, M2, WA3, M3, ABSTOL, ULP, UNFL );
                TEMP2 = DSXT1( 1, WA3, M3, WA2, M2, ABSTOL, ULP, UNFL );
                if ( N > 0 ) {
-                  TEMP3 = MAX( ABS( WA1( 1 ) ), ABS( WA1( N ) ) );
+                  TEMP3 = max( ABS( WA1( 1 ) ), ABS( WA1( N ) ) );
                } else {
                   TEMP3 = ZERO;
                }
-               RESULT( NTEST ) = ( TEMP1+TEMP2 ) / MAX( UNFL, TEMP3*ULP );
+               RESULT( NTEST ) = ( TEMP1+TEMP2 ) / max( UNFL, TEMP3*ULP );
 
                } // 160
                zlacpy(' ', N, N, V, LDU, A, LDA );
@@ -486,11 +486,11 @@
                TEMP1 = DSXT1( 1, WA2, M2, WA3, M3, ABSTOL, ULP, UNFL );
                TEMP2 = DSXT1( 1, WA3, M3, WA2, M2, ABSTOL, ULP, UNFL );
                if ( N > 0 ) {
-                  TEMP3 = MAX( ABS( WA1( 1 ) ), ABS( WA1( N ) ) );
+                  TEMP3 = max( ABS( WA1( 1 ) ), ABS( WA1( N ) ) );
                } else {
                   TEMP3 = ZERO;
                }
-               RESULT( NTEST ) = ( TEMP1+TEMP2 ) / MAX( UNFL, TEMP3*ULP );
+               RESULT( NTEST ) = ( TEMP1+TEMP2 ) / max( UNFL, TEMP3*ULP );
 
                } // 170
 
@@ -576,10 +576,10 @@
                TEMP1 = ZERO;
                TEMP2 = ZERO;
                for (J = 1; J <= N; J++) { // 260
-                  TEMP1 = MAX( TEMP1, ABS( D1( J ) ), ABS( D3( J ) ) );
-                  TEMP2 = MAX( TEMP2, ABS( D1( J )-D3( J ) ) );
+                  TEMP1 = max( TEMP1, ABS( D1( J ) ), ABS( D3( J ) ) );
+                  TEMP2 = max( TEMP2, ABS( D1( J )-D3( J ) ) );
                } // 260
-               RESULT( NTEST ) = TEMP2 / MAX( UNFL, ULP*MAX( TEMP1, TEMP2 ) );
+               RESULT( NTEST ) = TEMP2 / max( UNFL, ULP*max( TEMP1, TEMP2 ) );
 
                // Load array WORK with the upper or lower triangular part
                // of the matrix in packed form.
@@ -606,16 +606,16 @@
                NTEST = NTEST + 1;
 
                if ( N > 0 ) {
-                  TEMP3 = MAX( ABS( D1( 1 ) ), ABS( D1( N ) ) );
+                  TEMP3 = max( ABS( D1( 1 ) ), ABS( D1( N ) ) );
                   if ( IL != 1 ) {
-                     VL = D1( IL ) - MAX( HALF*( D1( IL )-D1( IL-1 ) ), TEN*ULP*TEMP3, TEN*RTUNFL );
+                     VL = D1( IL ) - max( HALF*( D1( IL )-D1( IL-1 ) ), TEN*ULP*TEMP3, TEN*RTUNFL );
                   } else if ( N > 0 ) {
-                     VL = D1( 1 ) - MAX( HALF*( D1( N )-D1( 1 ) ), TEN*ULP*TEMP3, TEN*RTUNFL );
+                     VL = D1( 1 ) - max( HALF*( D1( N )-D1( 1 ) ), TEN*ULP*TEMP3, TEN*RTUNFL );
                   }
                   if ( IU != N ) {
-                     VU = D1( IU ) + MAX( HALF*( D1( IU+1 )-D1( IU ) ), TEN*ULP*TEMP3, TEN*RTUNFL );
+                     VU = D1( IU ) + max( HALF*( D1( IU+1 )-D1( IU ) ), TEN*ULP*TEMP3, TEN*RTUNFL );
                   } else if ( N > 0 ) {
-                     VU = D1( N ) + MAX( HALF*( D1( N )-D1( 1 ) ), TEN*ULP*TEMP3, TEN*RTUNFL );
+                     VU = D1( N ) + max( HALF*( D1( N )-D1( 1 ) ), TEN*ULP*TEMP3, TEN*RTUNFL );
                   }
                } else {
                   TEMP3 = ZERO;
@@ -678,10 +678,10 @@
                TEMP1 = ZERO;
                TEMP2 = ZERO;
                for (J = 1; J <= N; J++) { // 360
-                  TEMP1 = MAX( TEMP1, ABS( WA1( J ) ), ABS( WA2( J ) ) );
-                  TEMP2 = MAX( TEMP2, ABS( WA1( J )-WA2( J ) ) );
+                  TEMP1 = max( TEMP1, ABS( WA1( J ) ), ABS( WA2( J ) ) );
+                  TEMP2 = max( TEMP2, ABS( WA1( J )-WA2( J ) ) );
                } // 360
-               RESULT( NTEST ) = TEMP2 / MAX( UNFL, ULP*MAX( TEMP1, TEMP2 ) );
+               RESULT( NTEST ) = TEMP2 / max( UNFL, ULP*max( TEMP1, TEMP2 ) );
 
                } // 370
                NTEST = NTEST + 1;
@@ -758,11 +758,11 @@
                TEMP1 = DSXT1( 1, WA2, M2, WA3, M3, ABSTOL, ULP, UNFL );
                TEMP2 = DSXT1( 1, WA3, M3, WA2, M2, ABSTOL, ULP, UNFL );
                if ( N > 0 ) {
-                  TEMP3 = MAX( ABS( WA1( 1 ) ), ABS( WA1( N ) ) );
+                  TEMP3 = max( ABS( WA1( 1 ) ), ABS( WA1( N ) ) );
                } else {
                   TEMP3 = ZERO;
                }
-               RESULT( NTEST ) = ( TEMP1+TEMP2 ) / MAX( UNFL, TEMP3*ULP );
+               RESULT( NTEST ) = ( TEMP1+TEMP2 ) / max( UNFL, TEMP3*ULP );
 
                } // 460
                NTEST = NTEST + 1;
@@ -844,11 +844,11 @@
                TEMP1 = DSXT1( 1, WA2, M2, WA3, M3, ABSTOL, ULP, UNFL );
                TEMP2 = DSXT1( 1, WA3, M3, WA2, M2, ABSTOL, ULP, UNFL );
                if ( N > 0 ) {
-                  TEMP3 = MAX( ABS( WA1( 1 ) ), ABS( WA1( N ) ) );
+                  TEMP3 = max( ABS( WA1( 1 ) ), ABS( WA1( N ) ) );
                } else {
                   TEMP3 = ZERO;
                }
-               RESULT( NTEST ) = ( TEMP1+TEMP2 ) / MAX( UNFL, TEMP3*ULP );
+               RESULT( NTEST ) = ( TEMP1+TEMP2 ) / max( UNFL, TEMP3*ULP );
 
                } // 550
 
@@ -857,7 +857,7 @@
                if ( JTYPE <= 7 ) {
                   KD = 0;
                } else if ( JTYPE >= 8 && JTYPE <= 15 ) {
-                  KD = MAX( N-1, 0 );
+                  KD = max( N-1, 0 );
                } else {
                   KD = IHBW;
                }
@@ -867,13 +867,13 @@
 
                if ( IUPLO == 1 ) {
                   for (J = 1; J <= N; J++) { // 570
-                     DO 560 I = MAX( 1, J-KD ), J;
+                     DO 560 I = max( 1, J-KD ), J;
                         V( KD+1+I-J, J ) = A( I, J );
                      } // 560
                   } // 570
                } else {
                   for (J = 1; J <= N; J++) { // 590
-                     DO 580 I = J, MIN( N, J+KD );
+                     DO 580 I = J, min( N, J+KD );
                         V( 1+I-J, J ) = A( I, J );
                      } // 580
                   } // 590
@@ -900,13 +900,13 @@
 
                if ( IUPLO == 1 ) {
                   for (J = 1; J <= N; J++) { // 610
-                     DO 600 I = MAX( 1, J-KD ), J;
+                     DO 600 I = max( 1, J-KD ), J;
                         V( KD+1+I-J, J ) = A( I, J );
                      } // 600
                   } // 610
                } else {
                   for (J = 1; J <= N; J++) { // 630
-                     DO 620 I = J, MIN( N, J+KD );
+                     DO 620 I = J, min( N, J+KD );
                         V( 1+I-J, J ) = A( I, J );
                      } // 620
                   } // 630
@@ -930,10 +930,10 @@
                TEMP1 = ZERO;
                TEMP2 = ZERO;
                for (J = 1; J <= N; J++) { // 640
-                  TEMP1 = MAX( TEMP1, ABS( D1( J ) ), ABS( D3( J ) ) );
-                  TEMP2 = MAX( TEMP2, ABS( D1( J )-D3( J ) ) );
+                  TEMP1 = max( TEMP1, ABS( D1( J ) ), ABS( D3( J ) ) );
+                  TEMP2 = max( TEMP2, ABS( D1( J )-D3( J ) ) );
                } // 640
-               RESULT( NTEST ) = TEMP2 / MAX( UNFL, ULP*MAX( TEMP1, TEMP2 ) );
+               RESULT( NTEST ) = TEMP2 / max( UNFL, ULP*max( TEMP1, TEMP2 ) );
 
                // Load array V with the upper or lower triangular part
                // of the matrix in band form.
@@ -941,13 +941,13 @@
                } // 650
                if ( IUPLO == 1 ) {
                   for (J = 1; J <= N; J++) { // 670
-                     DO 660 I = MAX( 1, J-KD ), J;
+                     DO 660 I = max( 1, J-KD ), J;
                         V( KD+1+I-J, J ) = A( I, J );
                      } // 660
                   } // 670
                } else {
                   for (J = 1; J <= N; J++) { // 690
-                     DO 680 I = J, MIN( N, J+KD );
+                     DO 680 I = J, min( N, J+KD );
                         V( 1+I-J, J ) = A( I, J );
                      } // 680
                   } // 690
@@ -976,13 +976,13 @@
 
                if ( IUPLO == 1 ) {
                   for (J = 1; J <= N; J++) { // 710
-                     DO 700 I = MAX( 1, J-KD ), J;
+                     DO 700 I = max( 1, J-KD ), J;
                         V( KD+1+I-J, J ) = A( I, J );
                      } // 700
                   } // 710
                } else {
                   for (J = 1; J <= N; J++) { // 730
-                     DO 720 I = J, MIN( N, J+KD );
+                     DO 720 I = J, min( N, J+KD );
                         V( 1+I-J, J ) = A( I, J );
                      } // 720
                   } // 730
@@ -1005,10 +1005,10 @@
                TEMP1 = ZERO;
                TEMP2 = ZERO;
                for (J = 1; J <= N; J++) { // 740
-                  TEMP1 = MAX( TEMP1, ABS( WA1( J ) ), ABS( WA2( J ) ) );
-                  TEMP2 = MAX( TEMP2, ABS( WA1( J )-WA2( J ) ) );
+                  TEMP1 = max( TEMP1, ABS( WA1( J ) ), ABS( WA2( J ) ) );
+                  TEMP2 = max( TEMP2, ABS( WA1( J )-WA2( J ) ) );
                } // 740
-               RESULT( NTEST ) = TEMP2 / MAX( UNFL, ULP*MAX( TEMP1, TEMP2 ) );
+               RESULT( NTEST ) = TEMP2 / max( UNFL, ULP*max( TEMP1, TEMP2 ) );
 
                // Load array V with the upper or lower triangular part
                // of the matrix in band form.
@@ -1017,13 +1017,13 @@
                NTEST = NTEST + 1;
                if ( IUPLO == 1 ) {
                   for (J = 1; J <= N; J++) { // 770
-                     DO 760 I = MAX( 1, J-KD ), J;
+                     DO 760 I = max( 1, J-KD ), J;
                         V( KD+1+I-J, J ) = A( I, J );
                      } // 760
                   } // 770
                } else {
                   for (J = 1; J <= N; J++) { // 790
-                     DO 780 I = J, MIN( N, J+KD );
+                     DO 780 I = J, min( N, J+KD );
                         V( 1+I-J, J ) = A( I, J );
                      } // 780
                   } // 790
@@ -1051,13 +1051,13 @@
 
                if ( IUPLO == 1 ) {
                   for (J = 1; J <= N; J++) { // 810
-                     DO 800 I = MAX( 1, J-KD ), J;
+                     DO 800 I = max( 1, J-KD ), J;
                         V( KD+1+I-J, J ) = A( I, J );
                      } // 800
                   } // 810
                } else {
                   for (J = 1; J <= N; J++) { // 830
-                     DO 820 I = J, MIN( N, J+KD );
+                     DO 820 I = J, min( N, J+KD );
                         V( 1+I-J, J ) = A( I, J );
                      } // 820
                   } // 830
@@ -1079,11 +1079,11 @@
                TEMP1 = DSXT1( 1, WA2, M2, WA3, M3, ABSTOL, ULP, UNFL );
                TEMP2 = DSXT1( 1, WA3, M3, WA2, M2, ABSTOL, ULP, UNFL );
                if ( N > 0 ) {
-                  TEMP3 = MAX( ABS( WA1( 1 ) ), ABS( WA1( N ) ) );
+                  TEMP3 = max( ABS( WA1( 1 ) ), ABS( WA1( N ) ) );
                } else {
                   TEMP3 = ZERO;
                }
-               RESULT( NTEST ) = ( TEMP1+TEMP2 ) / MAX( UNFL, TEMP3*ULP );
+               RESULT( NTEST ) = ( TEMP1+TEMP2 ) / max( UNFL, TEMP3*ULP );
 
                // Load array V with the upper or lower triangular part
                // of the matrix in band form.
@@ -1092,13 +1092,13 @@
                NTEST = NTEST + 1;
                if ( IUPLO == 1 ) {
                   for (J = 1; J <= N; J++) { // 860
-                     DO 850 I = MAX( 1, J-KD ), J;
+                     DO 850 I = max( 1, J-KD ), J;
                         V( KD+1+I-J, J ) = A( I, J );
                      } // 850
                   } // 860
                } else {
                   for (J = 1; J <= N; J++) { // 880
-                     DO 870 I = J, MIN( N, J+KD );
+                     DO 870 I = J, min( N, J+KD );
                         V( 1+I-J, J ) = A( I, J );
                      } // 870
                   } // 880
@@ -1125,13 +1125,13 @@
 
                if ( IUPLO == 1 ) {
                   for (J = 1; J <= N; J++) { // 900
-                     DO 890 I = MAX( 1, J-KD ), J;
+                     DO 890 I = max( 1, J-KD ), J;
                         V( KD+1+I-J, J ) = A( I, J );
                      } // 890
                   } // 900
                } else {
                   for (J = 1; J <= N; J++) { // 920
-                     DO 910 I = J, MIN( N, J+KD );
+                     DO 910 I = J, min( N, J+KD );
                         V( 1+I-J, J ) = A( I, J );
                      } // 910
                   } // 920
@@ -1158,11 +1158,11 @@
                TEMP1 = DSXT1( 1, WA2, M2, WA3, M3, ABSTOL, ULP, UNFL );
                TEMP2 = DSXT1( 1, WA3, M3, WA2, M2, ABSTOL, ULP, UNFL );
                if ( N > 0 ) {
-                  TEMP3 = MAX( ABS( WA1( 1 ) ), ABS( WA1( N ) ) );
+                  TEMP3 = max( ABS( WA1( 1 ) ), ABS( WA1( N ) ) );
                } else {
                   TEMP3 = ZERO;
                }
-               RESULT( NTEST ) = ( TEMP1+TEMP2 ) / MAX( UNFL, TEMP3*ULP );
+               RESULT( NTEST ) = ( TEMP1+TEMP2 ) / max( UNFL, TEMP3*ULP );
 
                } // 930
 
@@ -1209,10 +1209,10 @@
                TEMP1 = ZERO;
                TEMP2 = ZERO;
                for (J = 1; J <= N; J++) { // 940
-                  TEMP1 = MAX( TEMP1, ABS( D1( J ) ), ABS( D3( J ) ) );
-                  TEMP2 = MAX( TEMP2, ABS( D1( J )-D3( J ) ) );
+                  TEMP1 = max( TEMP1, ABS( D1( J ) ), ABS( D3( J ) ) );
+                  TEMP2 = max( TEMP2, ABS( D1( J )-D3( J ) ) );
                } // 940
-               RESULT( NTEST ) = TEMP2 / MAX( UNFL, ULP*MAX( TEMP1, TEMP2 ) );
+               RESULT( NTEST ) = TEMP2 / max( UNFL, ULP*max( TEMP1, TEMP2 ) );
 
                } // 950
 
@@ -1298,10 +1298,10 @@
                TEMP1 = ZERO;
                TEMP2 = ZERO;
                for (J = 1; J <= N; J++) { // 1040
-                  TEMP1 = MAX( TEMP1, ABS( D1( J ) ), ABS( D3( J ) ) );
-                  TEMP2 = MAX( TEMP2, ABS( D1( J )-D3( J ) ) );
+                  TEMP1 = max( TEMP1, ABS( D1( J ) ), ABS( D3( J ) ) );
+                  TEMP2 = max( TEMP2, ABS( D1( J )-D3( J ) ) );
                } // 1040
-               RESULT( NTEST ) = TEMP2 / MAX( UNFL, ULP*MAX( TEMP1, TEMP2 ) );
+               RESULT( NTEST ) = TEMP2 / max( UNFL, ULP*max( TEMP1, TEMP2 ) );
 
                } // 1050
 
@@ -1310,7 +1310,7 @@
                if ( JTYPE <= 7 ) {
                   KD = 0;
                } else if ( JTYPE >= 8 && JTYPE <= 15 ) {
-                  KD = MAX( N-1, 0 );
+                  KD = max( N-1, 0 );
                } else {
                   KD = IHBW;
                }
@@ -1320,13 +1320,13 @@
 
                if ( IUPLO == 1 ) {
                   for (J = 1; J <= N; J++) { // 1070
-                     DO 1060 I = MAX( 1, J-KD ), J;
+                     DO 1060 I = max( 1, J-KD ), J;
                         V( KD+1+I-J, J ) = A( I, J );
                      } // 1060
                   } // 1070
                } else {
                   for (J = 1; J <= N; J++) { // 1090
-                     DO 1080 I = J, MIN( N, J+KD );
+                     DO 1080 I = J, min( N, J+KD );
                         V( 1+I-J, J ) = A( I, J );
                      } // 1080
                   } // 1090
@@ -1353,13 +1353,13 @@
 
                if ( IUPLO == 1 ) {
                   for (J = 1; J <= N; J++) { // 1110
-                     DO 1100 I = MAX( 1, J-KD ), J;
+                     DO 1100 I = max( 1, J-KD ), J;
                         V( KD+1+I-J, J ) = A( I, J );
                      } // 1100
                   } // 1110
                } else {
                   for (J = 1; J <= N; J++) { // 1130
-                     DO 1120 I = J, MIN( N, J+KD );
+                     DO 1120 I = J, min( N, J+KD );
                         V( 1+I-J, J ) = A( I, J );
                      } // 1120
                   } // 1130
@@ -1385,10 +1385,10 @@
                TEMP1 = ZERO;
                TEMP2 = ZERO;
                for (J = 1; J <= N; J++) { // 1150
-                  TEMP1 = MAX( TEMP1, ABS( D1( J ) ), ABS( D3( J ) ) );
-                  TEMP2 = MAX( TEMP2, ABS( D1( J )-D3( J ) ) );
+                  TEMP1 = max( TEMP1, ABS( D1( J ) ), ABS( D3( J ) ) );
+                  TEMP2 = max( TEMP2, ABS( D1( J )-D3( J ) ) );
                } // 1150
-               RESULT( NTEST ) = TEMP2 / MAX( UNFL, ULP*MAX( TEMP1, TEMP2 ) );
+               RESULT( NTEST ) = TEMP2 / max( UNFL, ULP*max( TEMP1, TEMP2 ) );
 
                zlacpy(' ', N, N, A, LDA, V, LDU );
                NTEST = NTEST + 1;
@@ -1430,10 +1430,10 @@
                TEMP1 = ZERO;
                TEMP2 = ZERO;
                for (J = 1; J <= N; J++) { // 1160
-                  TEMP1 = MAX( TEMP1, ABS( WA1( J ) ), ABS( WA2( J ) ) );
-                  TEMP2 = MAX( TEMP2, ABS( WA1( J )-WA2( J ) ) );
+                  TEMP1 = max( TEMP1, ABS( WA1( J ) ), ABS( WA2( J ) ) );
+                  TEMP2 = max( TEMP2, ABS( WA1( J )-WA2( J ) ) );
                } // 1160
-               RESULT( NTEST ) = TEMP2 / MAX( UNFL, ULP*MAX( TEMP1, TEMP2 ) );
+               RESULT( NTEST ) = TEMP2 / max( UNFL, ULP*max( TEMP1, TEMP2 ) );
 
                } // 1170
 
@@ -1477,7 +1477,7 @@
 
                TEMP1 = DSXT1( 1, WA2, M2, WA3, M3, ABSTOL, ULP, UNFL );
                TEMP2 = DSXT1( 1, WA3, M3, WA2, M2, ABSTOL, ULP, UNFL );
-               RESULT( NTEST ) = ( TEMP1+TEMP2 ) / MAX( UNFL, ULP*TEMP3 );
+               RESULT( NTEST ) = ( TEMP1+TEMP2 ) / max( UNFL, ULP*TEMP3 );
                } // 1180
 
                NTEST = NTEST + 1;
@@ -1526,11 +1526,11 @@
                TEMP1 = DSXT1( 1, WA2, M2, WA3, M3, ABSTOL, ULP, UNFL );
                TEMP2 = DSXT1( 1, WA3, M3, WA2, M2, ABSTOL, ULP, UNFL );
                if ( N > 0 ) {
-                  TEMP3 = MAX( ABS( WA1( 1 ) ), ABS( WA1( N ) ) );
+                  TEMP3 = max( ABS( WA1( 1 ) ), ABS( WA1( N ) ) );
                } else {
                   TEMP3 = ZERO;
                }
-               RESULT( NTEST ) = ( TEMP1+TEMP2 ) / MAX( UNFL, TEMP3*ULP );
+               RESULT( NTEST ) = ( TEMP1+TEMP2 ) / max( UNFL, TEMP3*ULP );
 
                zlacpy(' ', N, N, V, LDU, A, LDA );
 

@@ -57,21 +57,21 @@
          INFO = -8;
       } else if ( Q < 0 || Q > M ) {
          INFO = -9;
-      } else if ( COLMAJOR && LDX11 < MAX( 1, P ) ) {
+      } else if ( COLMAJOR && LDX11 < max( 1, P ) ) {
         INFO = -11;
-      } else if ( !COLMAJOR && LDX11 < MAX( 1, Q ) ) {
+      } else if ( !COLMAJOR && LDX11 < max( 1, Q ) ) {
         INFO = -11;
-      } else if (COLMAJOR && LDX12 < MAX( 1, P ) ) {
+      } else if (COLMAJOR && LDX12 < max( 1, P ) ) {
         INFO = -13;
-      } else if ( !COLMAJOR && LDX12 < MAX( 1, M-Q ) ) {
+      } else if ( !COLMAJOR && LDX12 < max( 1, M-Q ) ) {
         INFO = -13;
-      } else if (COLMAJOR && LDX21 < MAX( 1, M-P ) ) {
+      } else if (COLMAJOR && LDX21 < max( 1, M-P ) ) {
         INFO = -15;
-      } else if ( !COLMAJOR && LDX21 < MAX( 1, Q ) ) {
+      } else if ( !COLMAJOR && LDX21 < max( 1, Q ) ) {
         INFO = -15;
-      } else if (COLMAJOR && LDX22 < MAX( 1, M-P ) ) {
+      } else if (COLMAJOR && LDX22 < max( 1, M-P ) ) {
         INFO = -17;
-      } else if ( !COLMAJOR && LDX22 < MAX( 1, M-Q ) ) {
+      } else if ( !COLMAJOR && LDX22 < max( 1, M-Q ) ) {
         INFO = -17;
       } else if ( WANTU1 && LDU1 < P ) {
          INFO = -20;
@@ -85,7 +85,7 @@
 
       // Work with transpose if convenient
 
-      if ( INFO == 0 && MIN( P, M-P ) < MIN( Q, M-Q ) ) {
+      if ( INFO == 0 && min( P, M-P ) < min( Q, M-Q ) ) {
          if ( COLMAJOR ) {
             TRANST = 'T';
          } else {
@@ -120,15 +120,15 @@
          // Real workspace
 
          IPHI = 2;
-         IB11D = IPHI + MAX( 1, Q - 1 );
-         IB11E = IB11D + MAX( 1, Q );
-         IB12D = IB11E + MAX( 1, Q - 1 );
-         IB12E = IB12D + MAX( 1, Q );
-         IB21D = IB12E + MAX( 1, Q - 1 );
-         IB21E = IB21D + MAX( 1, Q );
-         IB22D = IB21E + MAX( 1, Q - 1 );
-         IB22E = IB22D + MAX( 1, Q );
-         IBBCSD = IB22E + MAX( 1, Q - 1 );
+         IB11D = IPHI + max( 1, Q - 1 );
+         IB11E = IB11D + max( 1, Q );
+         IB12D = IB11E + max( 1, Q - 1 );
+         IB12E = IB12D + max( 1, Q );
+         IB21D = IB12E + max( 1, Q - 1 );
+         IB21E = IB21D + max( 1, Q );
+         IB22D = IB21E + max( 1, Q - 1 );
+         IB22E = IB22D + max( 1, Q );
+         IBBCSD = IB22E + max( 1, Q - 1 );
          zbbcsd(JOBU1, JOBU2, JOBV1T, JOBV2T, TRANS, M, P, Q, THETA, THETA, U1, LDU1, U2, LDU2, V1T, LDV1T, V2T, LDV2T, THETA, THETA, THETA, THETA, THETA, THETA, THETA, THETA, RWORK, -1, CHILDINFO );
          LBBCSDWORKOPT = INT( RWORK(1) );
          LBBCSDWORKMIN = LBBCSDWORKOPT;
@@ -139,23 +139,23 @@
          // Complex workspace
 
          ITAUP1 = 2;
-         ITAUP2 = ITAUP1 + MAX( 1, P );
-         ITAUQ1 = ITAUP2 + MAX( 1, M - P );
-         ITAUQ2 = ITAUQ1 + MAX( 1, Q );
-         IORGQR = ITAUQ2 + MAX( 1, M - Q );
-         zungqr(M-Q, M-Q, M-Q, U1, MAX(1,M-Q), U1, WORK, -1, CHILDINFO );
+         ITAUP2 = ITAUP1 + max( 1, P );
+         ITAUQ1 = ITAUP2 + max( 1, M - P );
+         ITAUQ2 = ITAUQ1 + max( 1, Q );
+         IORGQR = ITAUQ2 + max( 1, M - Q );
+         zungqr(M-Q, M-Q, M-Q, U1, max(1,M-Q), U1, WORK, -1, CHILDINFO );
          LORGQRWORKOPT = INT( WORK(1) );
-         LORGQRWORKMIN = MAX( 1, M - Q );
-         IORGLQ = ITAUQ2 + MAX( 1, M - Q );
-         zunglq(M-Q, M-Q, M-Q, U1, MAX(1,M-Q), U1, WORK, -1, CHILDINFO );
+         LORGQRWORKMIN = max( 1, M - Q );
+         IORGLQ = ITAUQ2 + max( 1, M - Q );
+         zunglq(M-Q, M-Q, M-Q, U1, max(1,M-Q), U1, WORK, -1, CHILDINFO );
          LORGLQWORKOPT = INT( WORK(1) );
-         LORGLQWORKMIN = MAX( 1, M - Q );
-         IORBDB = ITAUQ2 + MAX( 1, M - Q );
+         LORGLQWORKMIN = max( 1, M - Q );
+         IORBDB = ITAUQ2 + max( 1, M - Q );
          zunbdb(TRANS, SIGNS, M, P, Q, X11, LDX11, X12, LDX12, X21, LDX21, X22, LDX22, THETA, THETA, U1, U2, V1T, V2T, WORK, -1, CHILDINFO );
          LORBDBWORKOPT = INT( WORK(1) );
          LORBDBWORKMIN = LORBDBWORKOPT;
-         LWORKOPT = MAX( IORGQR + LORGQRWORKOPT, IORGLQ + LORGLQWORKOPT, IORBDB + LORBDBWORKOPT ) - 1          LWORKMIN = MAX( IORGQR + LORGQRWORKMIN, IORGLQ + LORGLQWORKMIN, IORBDB + LORBDBWORKMIN ) - 1;
-         WORK(1) = MAX(LWORKOPT,LWORKMIN);
+         LWORKOPT = max( IORGQR + LORGQRWORKOPT, IORGLQ + LORGLQWORKOPT, IORBDB + LORBDBWORKOPT ) - 1          LWORKMIN = max( IORGQR + LORGQRWORKMIN, IORGLQ + LORGLQWORKMIN, IORBDB + LORBDBWORKMIN ) - 1;
+         WORK(1) = max(LWORKOPT,LWORKMIN);
 
          if ( LWORK < LWORKMIN && !( LQUERY || LRQUERY ) ) {
             INFO = -22;
@@ -230,8 +230,8 @@
             zungqr(Q-1, Q-1, Q-1, V1T(2,2), LDV1T, WORK(ITAUQ1), WORK(IORGQR), LORGQRWORK, INFO );
          }
          if ( WANTV2T && M-Q > 0 ) {
-            P1 = MIN( P+1, M );
-            Q1 = MIN( Q+1, M );
+            P1 = min( P+1, M );
+            Q1 = min( Q+1, M );
             zlacpy('L', M-Q, P, X12, LDX12, V2T, LDV2T );
             if ( M > P+Q ) {
                zlacpy('L', M-P-Q, M-P-Q, X22(P1,Q1), LDX22, V2T(P+1,P+1), LDV2T );

@@ -87,7 +87,7 @@
             slassq(N-1, DL, 1, SCALE, SUM );
             slassq(N-1, DU, 1, SCALE, SUM );
          }
-         ANORM = SCALE*SQRT( SUM );
+         ANORM = SCALE*sqrt( SUM );
       }
 
       SLANGT = ANORM;

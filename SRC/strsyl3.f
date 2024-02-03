@@ -20,7 +20,7 @@
       REAL               ANRM, BIGNUM, BNRM, CNRM, SCAL, SCALOC, SCAMIN, SGN, XNRM, BUF, SMLNUM;
       // ..
       // .. Local Arrays ..
-      REAL               WNRM( MAX( M, N ) );
+      REAL               WNRM( max( M, N ) );
       // ..
       // .. External Functions ..
       bool               LSAME;
@@ -43,12 +43,12 @@
 
       // Use the same block size for all matrices.
 
-      NB = MAX(8, ILAENV( 1, 'STRSYL', '', M, N, -1, -1) );
+      NB = max(8, ILAENV( 1, 'STRSYL', '', M, N, -1, -1) );
 
       // Compute number of blocks in A and B
 
-      NBA = MAX( 1, (M + NB - 1) / NB );
-      NBB = MAX( 1, (N + NB - 1) / NB );
+      NBA = max( 1, (M + NB - 1) / NB );
+      NBB = max( 1, (N + NB - 1) / NB );
 
       // Compute workspace
 
@@ -57,7 +57,7 @@
       IWORK( 1 ) = NBA + NBB + 2;
       if ( LQUERY ) {
          LDSWORK = 2;
-         SWORK( 1, 1 ) = MAX( NBA, NBB );
+         SWORK( 1, 1 ) = max( NBA, NBB );
          SWORK( 2, 1 ) = 2 * NBB + NBA;
       }
 
@@ -73,15 +73,15 @@
          INFO = -4;
       } else if ( N < 0 ) {
          INFO = -5;
-      } else if ( LDA < MAX( 1, M ) ) {
+      } else if ( LDA < max( 1, M ) ) {
          INFO = -7;
-      } else if ( LDB < MAX( 1, N ) ) {
+      } else if ( LDB < max( 1, N ) ) {
          INFO = -9;
-      } else if ( LDC < MAX( 1, M ) ) {
+      } else if ( LDC < max( 1, M ) ) {
          INFO = -11;
       } else if ( !LQUERY && LIWORK < IWORK(1) ) {
          INFO = -14;
-      } else if ( !LQUERY && LDSWORK < MAX( NBA, NBB ) ) {
+      } else if ( !LQUERY && LDSWORK < max( NBA, NBB ) ) {
          INFO = -16;
       }
       if ( INFO != 0 ) {
@@ -99,7 +99,7 @@
       // Use unblocked code for small problems or if insufficient
       // workspaces are provided
 
-      if( MIN( NBA, NBB ) == 1 || LDSWORK < MAX( NBA, NBB ) || LIWORK < IWORK(1) ) {
+      if( min( NBA, NBB ) == 1 || LDSWORK < max( NBA, NBB ) || LIWORK < IWORK(1) ) {
         CALL STRSYL( TRANA, TRANB, ISGN, M, N, A, LDA, B, LDB, C, LDC, SCALE, INFO );
         return;
       }
@@ -260,7 +260,7 @@
                L2 = IWORK( PC + L + 1 );
 
                strsyl(TRANA, TRANB, ISGN, K2-K1, L2-L1, A( K1, K1 ), LDA, B( L1, L1 ), LDB, C( K1, L1 ), LDC, SCALOC, IINFO );
-               INFO = MAX( INFO, IINFO );
+               INFO = max( INFO, IINFO );
 
                if ( SCALOC * SWORK( K, L ) == ZERO ) {
                   if ( SCALOC == ZERO ) {
@@ -278,7 +278,7 @@
                         // Bound by BIGNUM to not introduce Inf. The value
                         // is irrelevant; corresponding entries of the
                         // solution will be flushed in consistency scaling.
-                        SWORK( LL, JJ ) = MIN( BIGNUM, SWORK( LL, JJ ) / 2.0**EXPONENT( SCALOC ) );
+                        SWORK( LL, JJ ) = min( BIGNUM, SWORK( LL, JJ ) / 2.0**EXPONENT( SCALOC ) );
                      }
                   }
                }
@@ -296,7 +296,7 @@
                   // simulating consistent scaling.
 
                   CNRM = SLANGE( 'I', I2-I1, L2-L1, C( I1, L1 ), LDC, WNRM );
-                  SCAMIN = MIN( SWORK( I, L ), SWORK( K, L ) );
+                  SCAMIN = min( SWORK( I, L ), SWORK( K, L ) );
                   CNRM = CNRM * ( SCAMIN / SWORK( I, L ) );
                   XNRM = XNRM * ( SCAMIN / SWORK( K, L ) );
                   ANRM = SWORK( I, AWRK + K );
@@ -306,7 +306,7 @@
                      BUF = BUF*2.0**EXPONENT( SCALOC );
                      for (JJ = 1; JJ <= NBB; JJ++) {
                         for (LL = 1; LL <= NBA; LL++) {
-                        SWORK( LL, JJ ) = MIN( BIGNUM, SWORK( LL, JJ ) / 2.0**EXPONENT( SCALOC ) );
+                        SWORK( LL, JJ ) = min( BIGNUM, SWORK( LL, JJ ) / 2.0**EXPONENT( SCALOC ) );
                         }
                      }
                      SCAMIN = SCAMIN / 2.0**EXPONENT( SCALOC );
@@ -352,7 +352,7 @@
                   // simulating consistent scaling.
 
                   CNRM = SLANGE( 'I', K2-K1, J2-J1, C( K1, J1 ), LDC, WNRM );
-                  SCAMIN = MIN( SWORK( K, J ), SWORK( K, L ) );
+                  SCAMIN = min( SWORK( K, J ), SWORK( K, L ) );
                   CNRM = CNRM * ( SCAMIN / SWORK( K, J ) );
                   XNRM = XNRM * ( SCAMIN / SWORK( K, L ) );
                   BNRM = SWORK(L, BWRK + J);
@@ -362,7 +362,7 @@
                      BUF = BUF*2.0**EXPONENT( SCALOC );
                      for (JJ = 1; JJ <= NBB; JJ++) {
                         for (LL = 1; LL <= NBA; LL++) {
-                        SWORK( LL, JJ ) = MIN( BIGNUM, SWORK( LL, JJ ) / 2.0**EXPONENT( SCALOC ) );
+                        SWORK( LL, JJ ) = min( BIGNUM, SWORK( LL, JJ ) / 2.0**EXPONENT( SCALOC ) );
                         }
                      }
                      SCAMIN = SCAMIN / 2.0**EXPONENT( SCALOC );
@@ -431,7 +431,7 @@
                L2 = IWORK( PC + L + 1 );
 
                strsyl(TRANA, TRANB, ISGN, K2-K1, L2-L1, A( K1, K1 ), LDA, B( L1, L1 ), LDB, C( K1, L1 ), LDC, SCALOC, IINFO );
-               INFO = MAX( INFO, IINFO );
+               INFO = max( INFO, IINFO );
 
                if ( SCALOC * SWORK( K, L ) == ZERO ) {
                   if ( SCALOC == ZERO ) {
@@ -449,7 +449,7 @@
                         // Bound by BIGNUM to not introduce Inf. The value
                         // is irrelevant; corresponding entries of the
                         // solution will be flushed in consistency scaling.
-                        SWORK( LL, JJ ) = MIN( BIGNUM, SWORK( LL, JJ ) / 2.0**EXPONENT( SCALOC ) );
+                        SWORK( LL, JJ ) = min( BIGNUM, SWORK( LL, JJ ) / 2.0**EXPONENT( SCALOC ) );
                      }
                   }
                }
@@ -467,7 +467,7 @@
                   // simulating consistent scaling.
 
                   CNRM = SLANGE( 'I', I2-I1, L2-L1, C( I1, L1 ), LDC, WNRM );
-                  SCAMIN = MIN( SWORK( I, L ), SWORK( K, L ) );
+                  SCAMIN = min( SWORK( I, L ), SWORK( K, L ) );
                   CNRM = CNRM * ( SCAMIN / SWORK( I, L ) );
                   XNRM = XNRM * ( SCAMIN / SWORK( K, L ) );
                   ANRM = SWORK( I, AWRK + K );
@@ -477,7 +477,7 @@
                      BUF = BUF*2.0**EXPONENT( SCALOC );
                      for (JJ = 1; JJ <= NBB; JJ++) {
                         for (LL = 1; LL <= NBA; LL++) {
-                        SWORK( LL, JJ ) = MIN( BIGNUM, SWORK( LL, JJ ) / 2.0**EXPONENT( SCALOC ) );
+                        SWORK( LL, JJ ) = min( BIGNUM, SWORK( LL, JJ ) / 2.0**EXPONENT( SCALOC ) );
                         }
                      }
                      SCAMIN = SCAMIN / 2.0**EXPONENT( SCALOC );
@@ -522,7 +522,7 @@
                   // simulating consistent scaling.
 
                   CNRM = SLANGE( 'I', K2-K1, J2-J1, C( K1, J1 ), LDC, WNRM );
-                  SCAMIN = MIN( SWORK( K, J ), SWORK( K, L ) );
+                  SCAMIN = min( SWORK( K, J ), SWORK( K, L ) );
                   CNRM = CNRM * ( SCAMIN / SWORK( K, J ) );
                   XNRM = XNRM * ( SCAMIN / SWORK( K, L ) );
                   BNRM = SWORK( L, BWRK + J );
@@ -532,7 +532,7 @@
                      BUF = BUF*2.0**EXPONENT( SCALOC );
                      for (JJ = 1; JJ <= NBB; JJ++) {
                         for (LL = 1; LL <= NBA; LL++) {
-                        SWORK( LL, JJ ) = MIN( BIGNUM, SWORK( LL, JJ ) / 2.0**EXPONENT( SCALOC ) );
+                        SWORK( LL, JJ ) = min( BIGNUM, SWORK( LL, JJ ) / 2.0**EXPONENT( SCALOC ) );
                         }
                      }
                      SCAMIN = SCAMIN / 2.0**EXPONENT( SCALOC );
@@ -601,7 +601,7 @@
                L2 = IWORK( PC + L + 1 );
 
                strsyl(TRANA, TRANB, ISGN, K2-K1, L2-L1, A( K1, K1 ), LDA, B( L1, L1 ), LDB, C( K1, L1 ), LDC, SCALOC, IINFO );
-               INFO = MAX( INFO, IINFO );
+               INFO = max( INFO, IINFO );
 
                if ( SCALOC * SWORK( K, L ) == ZERO ) {
                   if ( SCALOC == ZERO ) {
@@ -619,7 +619,7 @@
                         // Bound by BIGNUM to not introduce Inf. The value
                         // is irrelevant; corresponding entries of the
                         // solution will be flushed in consistency scaling.
-                        SWORK( LL, JJ ) = MIN( BIGNUM, SWORK( LL, JJ ) / 2.0**EXPONENT( SCALOC ) );
+                        SWORK( LL, JJ ) = min( BIGNUM, SWORK( LL, JJ ) / 2.0**EXPONENT( SCALOC ) );
                      }
                   }
                }
@@ -637,7 +637,7 @@
                   // simulating consistent scaling.
 
                   CNRM = SLANGE( 'I', I2-I1, L2-L1, C( I1, L1 ), LDC, WNRM );
-                  SCAMIN = MIN( SWORK( I, L ), SWORK( K, L ) );
+                  SCAMIN = min( SWORK( I, L ), SWORK( K, L ) );
                   CNRM = CNRM * ( SCAMIN / SWORK( I, L ) );
                   XNRM = XNRM * ( SCAMIN / SWORK( K, L ) );
                   ANRM = SWORK( I, AWRK + K );
@@ -647,7 +647,7 @@
                      BUF = BUF*2.0**EXPONENT( SCALOC );
                      for (JJ = 1; JJ <= NBB; JJ++) {
                         for (LL = 1; LL <= NBA; LL++) {
-                        SWORK( LL, JJ ) = MIN( BIGNUM, SWORK( LL, JJ ) / 2.0**EXPONENT( SCALOC ) );
+                        SWORK( LL, JJ ) = min( BIGNUM, SWORK( LL, JJ ) / 2.0**EXPONENT( SCALOC ) );
                         }
                      }
                      SCAMIN = SCAMIN / 2.0**EXPONENT( SCALOC );
@@ -692,7 +692,7 @@
                   // simulating consistent scaling.
 
                   CNRM = SLANGE( 'I', K2-K1, J2-J1, C( K1, J1 ), LDC, WNRM );
-                  SCAMIN = MIN( SWORK( K, J ), SWORK( K, L ) );
+                  SCAMIN = min( SWORK( K, J ), SWORK( K, L ) );
                   CNRM = CNRM * ( SCAMIN / SWORK( K, J ) );
                   XNRM = XNRM * ( SCAMIN / SWORK( K, L ) );
                   BNRM = SWORK( L, BWRK + J );
@@ -702,7 +702,7 @@
                      BUF = BUF*2.0**EXPONENT( SCALOC );
                      for (JJ = 1; JJ <= NBB; JJ++) {
                         for (LL = 1; LL <= NBA; LL++) {
-                        SWORK( LL, JJ ) = MIN( BIGNUM, SWORK( LL, JJ ) / 2.0**EXPONENT( SCALOC ) );
+                        SWORK( LL, JJ ) = min( BIGNUM, SWORK( LL, JJ ) / 2.0**EXPONENT( SCALOC ) );
                         }
                      }
                      SCAMIN = SCAMIN / 2.0**EXPONENT( SCALOC );
@@ -771,7 +771,7 @@
                L2 = IWORK( PC + L + 1 );
 
                strsyl(TRANA, TRANB, ISGN, K2-K1, L2-L1, A( K1, K1 ), LDA, B( L1, L1 ), LDB, C( K1, L1 ), LDC, SCALOC, IINFO );
-               INFO = MAX( INFO, IINFO );
+               INFO = max( INFO, IINFO );
 
                if ( SCALOC * SWORK( K, L ) == ZERO ) {
                   if ( SCALOC == ZERO ) {
@@ -789,7 +789,7 @@
                         // Bound by BIGNUM to not introduce Inf. The value
                         // is irrelevant; corresponding entries of the
                         // solution will be flushed in consistency scaling.
-                        SWORK( LL, JJ ) = MIN( BIGNUM, SWORK( LL, JJ ) / 2.0**EXPONENT( SCALOC ) );
+                        SWORK( LL, JJ ) = min( BIGNUM, SWORK( LL, JJ ) / 2.0**EXPONENT( SCALOC ) );
                      }
                   }
                }
@@ -807,7 +807,7 @@
                   // simulating consistent scaling.
 
                   CNRM = SLANGE( 'I', I2-I1, L2-L1, C( I1, L1 ), LDC, WNRM );
-                  SCAMIN = MIN( SWORK( I, L ), SWORK( K, L ) );
+                  SCAMIN = min( SWORK( I, L ), SWORK( K, L ) );
                   CNRM = CNRM * ( SCAMIN / SWORK( I, L ) );
                   XNRM = XNRM * ( SCAMIN / SWORK( K, L ) );
                   ANRM = SWORK( I, AWRK + K );
@@ -817,7 +817,7 @@
                      BUF = BUF*2.0**EXPONENT( SCALOC );
                      for (JJ = 1; JJ <= NBB; JJ++) {
                         for (LL = 1; LL <= NBA; LL++) {
-                        SWORK( LL, JJ ) = MIN( BIGNUM, SWORK( LL, JJ ) / 2.0**EXPONENT( SCALOC ) );
+                        SWORK( LL, JJ ) = min( BIGNUM, SWORK( LL, JJ ) / 2.0**EXPONENT( SCALOC ) );
                         }
                      }
                      SCAMIN = SCAMIN / 2.0**EXPONENT( SCALOC );
@@ -863,7 +863,7 @@
                   // simulating consistent scaling.
 
                   CNRM = SLANGE( 'I', K2-K1, J2-J1, C( K1, J1 ), LDC, WNRM );
-                  SCAMIN = MIN( SWORK( K, J ), SWORK( K, L ) );
+                  SCAMIN = min( SWORK( K, J ), SWORK( K, L ) );
                   CNRM = CNRM * ( SCAMIN / SWORK( K, J ) );
                   XNRM = XNRM * ( SCAMIN / SWORK( K, L ) );
                   BNRM = SWORK( L, BWRK + J );
@@ -873,7 +873,7 @@
                      BUF = BUF*2.0**EXPONENT( SCALOC );
                      for (JJ = 1; JJ <= NBB; JJ++) {
                         for (LL = 1; LL <= NBA; LL++) {
-                        SWORK( LL, JJ ) = MIN( BIGNUM, SWORK( LL, JJ ) / 2.0**EXPONENT( SCALOC ) );
+                        SWORK( LL, JJ ) = min( BIGNUM, SWORK( LL, JJ ) / 2.0**EXPONENT( SCALOC ) );
                         }
                      }
                      SCAMIN = SCAMIN / 2.0**EXPONENT( SCALOC );
@@ -916,7 +916,7 @@
       SCALE = SWORK( 1, 1 );
       for (K = 1; K <= NBA; K++) {
          for (L = 1; L <= NBB; L++) {
-            SCALE = MIN( SCALE, SWORK( K, L ) );
+            SCALE = min( SCALE, SWORK( K, L ) );
          }
       }
 
@@ -927,7 +927,7 @@
          // form (1/SCALE)*X if SCALE is REAL. Set SCALE to zero and give up.
 
          IWORK(1) = NBA + NBB + 2;
-         SWORK(1,1) = MAX( NBA, NBB );
+         SWORK(1,1) = max( NBA, NBB );
          SWORK(2,1) = 2 * NBB + NBA;
          return;
       }
@@ -953,7 +953,7 @@
 
          // Decrease SCALE as much as possible.
 
-         SCALOC = MIN( SCALE / SMLNUM, ONE / BUF );
+         SCALOC = min( SCALE / SMLNUM, ONE / BUF );
          BUF = BUF * SCALOC;
          SCALE = SCALE / SCALOC;
       }
@@ -971,13 +971,13 @@
          SCAL = C( 1, 1 );
          for (K = 1; K <= M; K++) {
             for (L = 1; L <= N; L++) {
-               SCAL = MAX( SCAL, ABS( C( K, L ) ) );
+               SCAL = max( SCAL, ABS( C( K, L ) ) );
             }
          }
 
          // Increase BUF as close to 1 as possible and apply scaling.
 
-         SCALOC = MIN( BIGNUM / SCAL, ONE / BUF );
+         SCALOC = min( BIGNUM / SCAL, ONE / BUF );
          BUF = BUF * SCALOC;
          slascl('G', -1, -1, ONE, SCALOC, M, N, C, LDC, IWORK(1) );
       }
@@ -990,7 +990,7 @@
       // Restore workspace dimensions
 
       IWORK(1) = NBA + NBB + 2;
-      SWORK(1,1) = MAX( NBA, NBB );
+      SWORK(1,1) = max( NBA, NBB );
       SWORK(2,1) = 2 * NBB + NBA;
 
       return;

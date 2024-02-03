@@ -106,7 +106,7 @@
                // A(i+2:n,i)
 
                ALPHA = A( I+1, I );
-               clarfg(N-I, ALPHA, A( MIN( I+2, N ), I ), 1, TAU( I ) );
+               clarfg(N-I, ALPHA, A( min( I+2, N ), I ), 1, TAU( I ) );
                E( I ) = REAL( ALPHA );
                A( I+1, I ) = ONE;
 

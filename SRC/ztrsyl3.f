@@ -23,7 +23,7 @@
       COMPLEX*16         CSGN;
       // ..
       // .. Local Arrays ..
-      double             WNRM( MAX( M, N ) );
+      double             WNRM( max( M, N ) );
       // ..
       // .. External Functions ..
       bool               LSAME;
@@ -46,12 +46,12 @@
 
       // Use the same block size for all matrices.
 
-      NB = MAX( 8, ILAENV( 1, 'ZTRSYL', '', M, N, -1, -1) );
+      NB = max( 8, ILAENV( 1, 'ZTRSYL', '', M, N, -1, -1) );
 
       // Compute number of blocks in A and B
 
-      NBA = MAX( 1, (M + NB - 1) / NB );
-      NBB = MAX( 1, (N + NB - 1) / NB );
+      NBA = max( 1, (M + NB - 1) / NB );
+      NBB = max( 1, (N + NB - 1) / NB );
 
       // Compute workspace
 
@@ -59,7 +59,7 @@
       LQUERY = ( LDSWORK == -1 );
       if ( LQUERY ) {
          LDSWORK = 2;
-         SWORK(1,1) = MAX( NBA, NBB );
+         SWORK(1,1) = max( NBA, NBB );
          SWORK(2,1) = 2 * NBB + NBA;
       }
 
@@ -75,11 +75,11 @@
          INFO = -4;
       } else if ( N < 0 ) {
          INFO = -5;
-      } else if ( LDA < MAX( 1, M ) ) {
+      } else if ( LDA < max( 1, M ) ) {
          INFO = -7;
-      } else if ( LDB < MAX( 1, N ) ) {
+      } else if ( LDB < max( 1, N ) ) {
          INFO = -9;
-      } else if ( LDC < MAX( 1, M ) ) {
+      } else if ( LDC < max( 1, M ) ) {
          INFO = -11;
       }
       if ( INFO != 0 ) {
@@ -97,7 +97,7 @@
       // Use unblocked code for small problems or if insufficient
       // workspace is provided
 
-      if ( MIN( NBA, NBB ) == 1 || LDSWORK < MAX( NBA, NBB ) ) {
+      if ( min( NBA, NBB ) == 1 || LDSWORK < max( NBA, NBB ) ) {
         ztrsyl(TRANA, TRANB, ISGN, M, N, A, LDA, B, LDB, C, LDC, SCALE, INFO );
         return;
       }
@@ -125,10 +125,10 @@
       AWRK = NBB;
       for (K = 1; K <= NBA; K++) {
          K1 = (K - 1) * NB + 1;
-         K2 = MIN( K * NB, M ) + 1;
+         K2 = min( K * NB, M ) + 1;
          for (L = K; L <= NBA; L++) {
             L1 = (L - 1) * NB + 1;
-            L2 = MIN( L * NB, M ) + 1;
+            L2 = min( L * NB, M ) + 1;
             if ( NOTRNA ) {
                SWORK( K, AWRK + L ) = ZLANGE( 'I', K2-K1, L2-L1, A( K1, L1 ), LDA, WNRM );
             } else {
@@ -139,10 +139,10 @@
       BWRK = NBB + NBA;
       for (K = 1; K <= NBB; K++) {
          K1 = (K - 1) * NB + 1;
-         K2 = MIN( K * NB, N ) + 1;
+         K2 = min( K * NB, N ) + 1;
          for (L = K; L <= NBB; L++) {
             L1 = (L - 1) * NB + 1;
-            L2 = MIN( L * NB, N ) + 1;
+            L2 = min( L * NB, N ) + 1;
             if ( NOTRNB ) {
                SWORK( K, BWRK + L ) = ZLANGE( 'I', K2-K1, L2-L1, B( K1, L1 ), LDB, WNRM );
             } else {
@@ -177,7 +177,7 @@
             // so the K2 - K1 is the column count of the block X( K, L )
 
             K1 = (K - 1) * NB + 1;
-            K2 = MIN( K * NB, M ) + 1;
+            K2 = min( K * NB, M ) + 1;
             for (L = 1; L <= NBB; L++) {
 
                // L1: column index of the first column in X( K, L )
@@ -185,10 +185,10 @@
                // so that L2 - L1 is the row count of the block X( K, L )
 
                L1 = (L - 1) * NB + 1;
-               L2 = MIN( L * NB, N ) + 1;
+               L2 = min( L * NB, N ) + 1;
 
                ztrsyl(TRANA, TRANB, ISGN, K2-K1, L2-L1, A( K1, K1 ), LDA, B( L1, L1 ), LDB, C( K1, L1 ), LDC, SCALOC, IINFO );
-               INFO = MAX( INFO, IINFO );
+               INFO = max( INFO, IINFO );
 
                if ( SCALOC * SWORK( K, L ) == ZERO ) {
                   if ( SCALOC == ZERO ) {
@@ -205,7 +205,7 @@
                         // Bound by BIGNUM to not introduce Inf. The value
                         // is irrelevant; corresponding entries of the
                         // solution will be flushed in consistency scaling.
-                        SWORK( LL, JJ ) = MIN( BIGNUM, SWORK( LL, JJ ) / 2.0**EXPONENT( SCALOC ) );
+                        SWORK( LL, JJ ) = min( BIGNUM, SWORK( LL, JJ ) / 2.0**EXPONENT( SCALOC ) );
                      }
                   }
                }
@@ -217,13 +217,13 @@
                   // C( I, L ) := C( I, L ) - A( I, K ) * C( K, L )
 
                   I1 = (I - 1) * NB + 1;
-                  I2 = MIN( I * NB, M ) + 1;
+                  I2 = min( I * NB, M ) + 1;
 
                   // Compute scaling factor to survive the linear update
                   // simulating consistent scaling.
 
                   CNRM = ZLANGE( 'I', I2-I1, L2-L1, C( I1, L1 ), LDC, WNRM );
-                  SCAMIN = MIN( SWORK( I, L ), SWORK( K, L ) );
+                  SCAMIN = min( SWORK( I, L ), SWORK( K, L ) );
                   CNRM = CNRM * ( SCAMIN / SWORK( I, L ) );
                   XNRM = XNRM * ( SCAMIN / SWORK( K, L ) );
                   ANRM = SWORK( I, AWRK + K );
@@ -233,7 +233,7 @@
                      BUF = BUF*2.0**EXPONENT( SCALOC );
                      for (JJ = 1; JJ <= NBB; JJ++) {
                         for (LL = 1; LL <= NBA; LL++) {
-                        SWORK( LL, JJ ) = MIN( BIGNUM, SWORK( LL, JJ ) / 2.0**EXPONENT( SCALOC ) );
+                        SWORK( LL, JJ ) = min( BIGNUM, SWORK( LL, JJ ) / 2.0**EXPONENT( SCALOC ) );
                         }
                      }
                      SCAMIN = SCAMIN / 2.0**EXPONENT( SCALOC );
@@ -273,13 +273,13 @@
                   // C( K, J ) := C( K, J ) - SGN * C( K, L ) * B( L, J )
 
                   J1 = (J - 1) * NB + 1;
-                  J2 = MIN( J * NB, N ) + 1;
+                  J2 = min( J * NB, N ) + 1;
 
                   // Compute scaling factor to survive the linear update
                   // simulating consistent scaling.
 
                   CNRM = ZLANGE( 'I', K2-K1, J2-J1, C( K1, J1 ), LDC, WNRM );
-                  SCAMIN = MIN( SWORK( K, J ), SWORK( K, L ) );
+                  SCAMIN = min( SWORK( K, J ), SWORK( K, L ) );
                   CNRM = CNRM * ( SCAMIN / SWORK( K, J ) );
                   XNRM = XNRM * ( SCAMIN / SWORK( K, L ) );
                   BNRM = SWORK(L, BWRK + J);
@@ -289,7 +289,7 @@
                      BUF = BUF*2.0**EXPONENT( SCALOC );
                      for (JJ = 1; JJ <= NBB; JJ++) {
                         for (LL = 1; LL <= NBA; LL++) {
-                        SWORK( LL, JJ ) = MIN( BIGNUM, SWORK( LL, JJ ) / 2.0**EXPONENT( SCALOC ) );
+                        SWORK( LL, JJ ) = min( BIGNUM, SWORK( LL, JJ ) / 2.0**EXPONENT( SCALOC ) );
                         }
                      }
                      SCAMIN = SCAMIN / 2.0**EXPONENT( SCALOC );
@@ -347,7 +347,7 @@
             // so the K2 - K1 is the column count of the block X( K, L )
 
             K1 = (K - 1) * NB + 1;
-            K2 = MIN( K * NB, M ) + 1;
+            K2 = min( K * NB, M ) + 1;
             for (L = 1; L <= NBB; L++) {
 
                // L1: column index of the first column in X( K, L )
@@ -355,10 +355,10 @@
                // so that L2 - L1 is the row count of the block X( K, L )
 
                L1 = (L - 1) * NB + 1;
-               L2 = MIN( L * NB, N ) + 1;
+               L2 = min( L * NB, N ) + 1;
 
                ztrsyl(TRANA, TRANB, ISGN, K2-K1, L2-L1, A( K1, K1 ), LDA, B( L1, L1 ), LDB, C( K1, L1 ), LDC, SCALOC, IINFO );
-               INFO = MAX( INFO, IINFO );
+               INFO = max( INFO, IINFO );
 
                if ( SCALOC * SWORK( K, L ) == ZERO ) {
                   if ( SCALOC == ZERO ) {
@@ -376,7 +376,7 @@
                         // Bound by BIGNUM to not introduce Inf. The value
                         // is irrelevant; corresponding entries of the
                         // solution will be flushed in consistency scaling.
-                        SWORK( LL, JJ ) = MIN( BIGNUM, SWORK( LL, JJ ) / 2.0**EXPONENT( SCALOC ) );
+                        SWORK( LL, JJ ) = min( BIGNUM, SWORK( LL, JJ ) / 2.0**EXPONENT( SCALOC ) );
                      }
                   }
                }
@@ -388,13 +388,13 @@
                   // C( I, L ) := C( I, L ) - A( K, I )**H * C( K, L )
 
                   I1 = (I - 1) * NB + 1;
-                  I2 = MIN( I * NB, M ) + 1;
+                  I2 = min( I * NB, M ) + 1;
 
                   // Compute scaling factor to survive the linear update
                   // simulating consistent scaling.
 
                   CNRM = ZLANGE( 'I', I2-I1, L2-L1, C( I1, L1 ), LDC, WNRM );
-                  SCAMIN = MIN( SWORK( I, L ), SWORK( K, L ) );
+                  SCAMIN = min( SWORK( I, L ), SWORK( K, L ) );
                   CNRM = CNRM * ( SCAMIN / SWORK( I, L ) );
                   XNRM = XNRM * ( SCAMIN / SWORK( K, L ) );
                   ANRM = SWORK( I, AWRK + K );
@@ -404,7 +404,7 @@
                      BUF = BUF*2.0**EXPONENT( SCALOC );
                      for (JJ = 1; JJ <= NBB; JJ++) {
                         for (LL = 1; LL <= NBA; LL++) {
-                        SWORK( LL, JJ ) = MIN( BIGNUM, SWORK( LL, JJ ) / 2.0**EXPONENT( SCALOC ) );
+                        SWORK( LL, JJ ) = min( BIGNUM, SWORK( LL, JJ ) / 2.0**EXPONENT( SCALOC ) );
                         }
                      }
                      SCAMIN = SCAMIN / 2.0**EXPONENT( SCALOC );
@@ -443,13 +443,13 @@
                   // C( K, J ) := C( K, J ) - SGN * C( K, L ) * B( L, J )
 
                   J1 = (J - 1) * NB + 1;
-                  J2 = MIN( J * NB, N ) + 1;
+                  J2 = min( J * NB, N ) + 1;
 
                   // Compute scaling factor to survive the linear update
                   // simulating consistent scaling.
 
                   CNRM = ZLANGE( 'I', K2-K1, J2-J1, C( K1, J1 ), LDC, WNRM );
-                  SCAMIN = MIN( SWORK( K, J ), SWORK( K, L ) );
+                  SCAMIN = min( SWORK( K, J ), SWORK( K, L ) );
                   CNRM = CNRM * ( SCAMIN / SWORK( K, J ) );
                   XNRM = XNRM * ( SCAMIN / SWORK( K, L ) );
                   BNRM = SWORK( L, BWRK + J );
@@ -459,7 +459,7 @@
                      BUF = BUF*2.0**EXPONENT( SCALOC );
                      for (JJ = 1; JJ <= NBB; JJ++) {
                         for (LL = 1; LL <= NBA; LL++) {
-                        SWORK( LL, JJ ) = MIN( BIGNUM, SWORK( LL, JJ ) / 2.0**EXPONENT( SCALOC ) );
+                        SWORK( LL, JJ ) = min( BIGNUM, SWORK( LL, JJ ) / 2.0**EXPONENT( SCALOC ) );
                         }
                      }
                      SCAMIN = SCAMIN / 2.0**EXPONENT( SCALOC );
@@ -517,7 +517,7 @@
             // so the K2 - K1 is the column count of the block X( K, L )
 
             K1 = (K - 1) * NB + 1;
-            K2 = MIN( K * NB, M ) + 1;
+            K2 = min( K * NB, M ) + 1;
             DO L = NBB, 1, -1;
 
                // L1: column index of the first column in X( K, L )
@@ -525,10 +525,10 @@
                // so that L2 - L1 is the row count of the block X( K, L )
 
                L1 = (L - 1) * NB + 1;
-               L2 = MIN( L * NB, N ) + 1;
+               L2 = min( L * NB, N ) + 1;
 
                ztrsyl(TRANA, TRANB, ISGN, K2-K1, L2-L1, A( K1, K1 ), LDA, B( L1, L1 ), LDB, C( K1, L1 ), LDC, SCALOC, IINFO );
-               INFO = MAX( INFO, IINFO );
+               INFO = max( INFO, IINFO );
 
                if ( SCALOC * SWORK( K, L ) == ZERO ) {
                   if ( SCALOC == ZERO ) {
@@ -546,7 +546,7 @@
                         // Bound by BIGNUM to not introduce Inf. The value
                         // is irrelevant; corresponding entries of the
                         // solution will be flushed in consistency scaling.
-                        SWORK( LL, JJ ) = MIN( BIGNUM, SWORK( LL, JJ ) / 2.0**EXPONENT( SCALOC ) );
+                        SWORK( LL, JJ ) = min( BIGNUM, SWORK( LL, JJ ) / 2.0**EXPONENT( SCALOC ) );
                      }
                   }
                }
@@ -558,13 +558,13 @@
                   // C( I, L ) := C( I, L ) - A( K, I )**H * C( K, L )
 
                   I1 = (I - 1) * NB + 1;
-                  I2 = MIN( I * NB, M ) + 1;
+                  I2 = min( I * NB, M ) + 1;
 
                   // Compute scaling factor to survive the linear update
                   // simulating consistent scaling.
 
                   CNRM = ZLANGE( 'I', I2-I1, L2-L1, C( I1, L1 ), LDC, WNRM );
-                  SCAMIN = MIN( SWORK( I, L ), SWORK( K, L ) );
+                  SCAMIN = min( SWORK( I, L ), SWORK( K, L ) );
                   CNRM = CNRM * ( SCAMIN / SWORK( I, L ) );
                   XNRM = XNRM * ( SCAMIN / SWORK( K, L ) );
                   ANRM = SWORK( I, AWRK + K );
@@ -574,7 +574,7 @@
                      BUF = BUF*2.0**EXPONENT( SCALOC );
                      for (JJ = 1; JJ <= NBB; JJ++) {
                         for (LL = 1; LL <= NBA; LL++) {
-                        SWORK( LL, JJ ) = MIN( BIGNUM, SWORK( LL, JJ ) / 2.0**EXPONENT( SCALOC ) );
+                        SWORK( LL, JJ ) = min( BIGNUM, SWORK( LL, JJ ) / 2.0**EXPONENT( SCALOC ) );
                         }
                      }
                      SCAMIN = SCAMIN / 2.0**EXPONENT( SCALOC );
@@ -613,13 +613,13 @@
                   // C( K, J ) := C( K, J ) - SGN * C( K, L ) * B( J, L )**H
 
                   J1 = (J - 1) * NB + 1;
-                  J2 = MIN( J * NB, N ) + 1;
+                  J2 = min( J * NB, N ) + 1;
 
                   // Compute scaling factor to survive the linear update
                   // simulating consistent scaling.
 
                   CNRM = ZLANGE( 'I', K2-K1, J2-J1, C( K1, J1 ), LDC, WNRM );
-                  SCAMIN = MIN( SWORK( K, J ), SWORK( K, L ) );
+                  SCAMIN = min( SWORK( K, J ), SWORK( K, L ) );
                   CNRM = CNRM * ( SCAMIN / SWORK( K, J ) );
                   XNRM = XNRM * ( SCAMIN / SWORK( K, L ) );
                   BNRM = SWORK( L, BWRK + J );
@@ -629,7 +629,7 @@
                      BUF = BUF*2.0**EXPONENT( SCALOC );
                      for (JJ = 1; JJ <= NBB; JJ++) {
                         for (LL = 1; LL <= NBA; LL++) {
-                        SWORK( LL, JJ ) = MIN( BIGNUM, SWORK( LL, JJ ) / 2.0**EXPONENT( SCALOC ) );
+                        SWORK( LL, JJ ) = min( BIGNUM, SWORK( LL, JJ ) / 2.0**EXPONENT( SCALOC ) );
                         }
                      }
                      SCAMIN = SCAMIN / 2.0**EXPONENT( SCALOC );
@@ -687,7 +687,7 @@
             // so the K2 - K1 is the column count of the block X( K, L )
 
             K1 = (K - 1) * NB + 1;
-            K2 = MIN( K * NB, M ) + 1;
+            K2 = min( K * NB, M ) + 1;
             DO L = NBB, 1, -1;
 
                // L1: column index of the first column in X( K, L )
@@ -695,10 +695,10 @@
                // so that L2 - L1 is the row count of the block X( K, L )
 
                L1 = (L - 1) * NB + 1;
-               L2 = MIN( L * NB, N ) + 1;
+               L2 = min( L * NB, N ) + 1;
 
                ztrsyl(TRANA, TRANB, ISGN, K2-K1, L2-L1, A( K1, K1 ), LDA, B( L1, L1 ), LDB, C( K1, L1 ), LDC, SCALOC, IINFO );
-               INFO = MAX( INFO, IINFO );
+               INFO = max( INFO, IINFO );
 
                if ( SCALOC * SWORK( K, L ) == ZERO ) {
                   if ( SCALOC == ZERO ) {
@@ -716,7 +716,7 @@
                         // Bound by BIGNUM to not introduce Inf. The value
                         // is irrelevant; corresponding entries of the
                         // solution will be flushed in consistency scaling.
-                        SWORK( LL, JJ ) = MIN( BIGNUM, SWORK( LL, JJ ) / 2.0**EXPONENT( SCALOC ) );
+                        SWORK( LL, JJ ) = min( BIGNUM, SWORK( LL, JJ ) / 2.0**EXPONENT( SCALOC ) );
                      }
                   }
                }
@@ -728,13 +728,13 @@
                   // C( I, L ) := C( I, L ) - A( I, K ) * C( K, L )
 
                   I1 = (I - 1) * NB + 1;
-                  I2 = MIN( I * NB, M ) + 1;
+                  I2 = min( I * NB, M ) + 1;
 
                   // Compute scaling factor to survive the linear update
                   // simulating consistent scaling.
 
                   CNRM = ZLANGE( 'I', I2-I1, L2-L1, C( I1, L1 ), LDC, WNRM );
-                  SCAMIN = MIN( SWORK( I, L ), SWORK( K, L ) );
+                  SCAMIN = min( SWORK( I, L ), SWORK( K, L ) );
                   CNRM = CNRM * ( SCAMIN / SWORK( I, L ) );
                   XNRM = XNRM * ( SCAMIN / SWORK( K, L ) );
                   ANRM = SWORK( I, AWRK + K );
@@ -744,7 +744,7 @@
                      BUF = BUF*2.0**EXPONENT( SCALOC );
                      for (JJ = 1; JJ <= NBB; JJ++) {
                         for (LL = 1; LL <= NBA; LL++) {
-                        SWORK( LL, JJ ) = MIN( BIGNUM, SWORK( LL, JJ ) / 2.0**EXPONENT( SCALOC ) );
+                        SWORK( LL, JJ ) = min( BIGNUM, SWORK( LL, JJ ) / 2.0**EXPONENT( SCALOC ) );
                         }
                      }
                      SCAMIN = SCAMIN / 2.0**EXPONENT( SCALOC );
@@ -784,13 +784,13 @@
                   // C( K, J ) := C( K, J ) - SGN * C( K, L ) * B( J, L )**H
 
                   J1 = (J - 1) * NB + 1;
-                  J2 = MIN( J * NB, N ) + 1;
+                  J2 = min( J * NB, N ) + 1;
 
                   // Compute scaling factor to survive the linear update
                   // simulating consistent scaling.
 
                   CNRM = ZLANGE( 'I', K2-K1, J2-J1, C( K1, J1 ), LDC, WNRM );
-                  SCAMIN = MIN( SWORK( K, J ), SWORK( K, L ) );
+                  SCAMIN = min( SWORK( K, J ), SWORK( K, L ) );
                   CNRM = CNRM * ( SCAMIN / SWORK( K, J ) );
                   XNRM = XNRM * ( SCAMIN / SWORK( K, L ) );
                   BNRM = SWORK( L, BWRK + J );
@@ -800,7 +800,7 @@
                      BUF = BUF*2.0**EXPONENT( SCALOC );
                      for (JJ = 1; JJ <= NBB; JJ++) {
                         for (LL = 1; LL <= NBA; LL++) {
-                        SWORK( LL, JJ ) = MIN( BIGNUM, SWORK( LL, JJ ) / 2.0**EXPONENT( SCALOC ) );
+                        SWORK( LL, JJ ) = min( BIGNUM, SWORK( LL, JJ ) / 2.0**EXPONENT( SCALOC ) );
                         }
                      }
                      SCAMIN = SCAMIN / 2.0**EXPONENT( SCALOC );
@@ -843,7 +843,7 @@
       SCALE = SWORK( 1, 1 );
       for (K = 1; K <= NBA; K++) {
          for (L = 1; L <= NBB; L++) {
-            SCALE = MIN( SCALE, SWORK( K, L ) );
+            SCALE = min( SCALE, SWORK( K, L ) );
          }
       }
       if ( SCALE == ZERO ) {
@@ -853,7 +853,7 @@
          // form (1/SCALE)*X if SCALE is double          . Set SCALE to;
          // zero and give up.
 
-         SWORK(1,1) = MAX( NBA, NBB );
+         SWORK(1,1) = max( NBA, NBB );
          SWORK(2,1) = 2 * NBB + NBA;
          return;
       }
@@ -862,10 +862,10 @@
 
       for (K = 1; K <= NBA; K++) {
          K1 = (K - 1) * NB + 1;
-         K2 = MIN( K * NB, M ) + 1;
+         K2 = min( K * NB, M ) + 1;
          for (L = 1; L <= NBB; L++) {
             L1 = (L - 1) * NB + 1;
-            L2 = MIN( L * NB, N ) + 1;
+            L2 = min( L * NB, N ) + 1;
             SCAL = SCALE / SWORK( K, L );
             if ( SCAL != ONE ) {
                for (LL = L1; LL <= L2-1; LL++) {
@@ -879,7 +879,7 @@
 
          // Decrease SCALE as much as possible.
 
-         SCALOC = MIN( SCALE / SMLNUM, ONE / BUF );
+         SCALOC = min( SCALE / SMLNUM, ONE / BUF );
          BUF = BUF * SCALOC;
          SCALE = SCALE / SCALOC;
       }
@@ -894,16 +894,16 @@
 
          // How much can the normwise largest entry be upscaled?
 
-         SCAL = MAX( ABS( DBLE( C( 1, 1 ) ) ), ABS( DIMAG( C ( 1, 1 ) ) ) );
+         SCAL = max( ABS( DBLE( C( 1, 1 ) ) ), ABS( DIMAG( C ( 1, 1 ) ) ) );
          for (K = 1; K <= M; K++) {
             for (L = 1; L <= N; L++) {
-               SCAL = MAX( SCAL, ABS( DBLE ( C( K, L ) ) ), ABS( DIMAG ( C( K, L ) ) ) );
+               SCAL = max( SCAL, ABS( DBLE ( C( K, L ) ) ), ABS( DIMAG ( C( K, L ) ) ) );
             }
          }
 
          // Increase BUF as close to 1 as possible and apply scaling.
 
-         SCALOC = MIN( BIGNUM / SCAL, ONE / BUF );
+         SCALOC = min( BIGNUM / SCAL, ONE / BUF );
          BUF = BUF * SCALOC;
          zlascl('G', -1, -1, ONE, SCALOC, M, N, C, LDC, IINFO );
       }
@@ -915,7 +915,7 @@
 
       // Restore workspace dimensions
 
-      SWORK(1,1) = MAX( NBA, NBB );
+      SWORK(1,1) = max( NBA, NBB );
       SWORK(2,1) = 2 * NBB + NBA;
 
       return;

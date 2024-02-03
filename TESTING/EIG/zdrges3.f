@@ -80,7 +80,7 @@
       BADNN = false;
       NMAX = 1;
       for (J = 1; J <= NSIZES; J++) { // 10
-         NMAX = MAX( NMAX, NN( J ) );
+         NMAX = max( NMAX, NN( J ) );
          if( NN( J ) < 0 ) BADNN = true;
       } // 10
 
@@ -108,8 +108,8 @@
       MINWRK = 1;
       if ( INFO == 0 && LWORK >= 1 ) {
          MINWRK = 3*NMAX*NMAX;
-         NB = MAX( 1, ILAENV( 1, 'ZGEQRF', ' ', NMAX, NMAX, -1, -1 ), ILAENV( 1, 'ZUNMQR', 'LC', NMAX, NMAX, NMAX, -1 ), ILAENV( 1, 'ZUNGQR', ' ', NMAX, NMAX, NMAX, -1 ) );
-         MAXWRK = MAX( NMAX+NMAX*NB, 3*NMAX*NMAX );
+         NB = max( 1, ILAENV( 1, 'ZGEQRF', ' ', NMAX, NMAX, -1, -1 ), ILAENV( 1, 'ZUNMQR', 'LC', NMAX, NMAX, NMAX, -1 ), ILAENV( 1, 'ZUNGQR', ' ', NMAX, NMAX, NMAX, -1 ) );
+         MAXWRK = max( NMAX+NMAX*NB, 3*NMAX*NMAX );
          WORK( 1 ) = MAXWRK;
       }
 
@@ -143,14 +143,14 @@
 
       for (JSIZE = 1; JSIZE <= NSIZES; JSIZE++) { // 190
          N = NN( JSIZE );
-         N1 = MAX( 1, N );
+         N1 = max( 1, N );
          RMAGN( 2 ) = SAFMAX*ULP / DBLE( N1 );
          RMAGN( 3 ) = SAFMIN*ULPINV*DBLE( N1 );
 
          if ( NSIZES != 1 ) {
-            MTYPES = MIN( MAXTYP, NTYPES );
+            MTYPES = min( MAXTYP, NTYPES );
          } else {
-            MTYPES = MIN( MAXTYP+1, NTYPES );
+            MTYPES = min( MAXTYP+1, NTYPES );
          }
 
          // Loop over matrix types
@@ -342,7 +342,7 @@
 
                for (J = 1; J <= N; J++) { // 130
                   ILABAD = false;
-                  TEMP2 = ( ABS1( ALPHA( J )-S( J, J ) ) / MAX( SAFMIN, ABS1( ALPHA( J ) ), ABS1( S( J, J ) ) )+ABS1( BETA( J )-T( J, J ) ) / MAX( SAFMIN, ABS1( BETA( J ) ), ABS1( T( J, J ) ) ) ) / ULP;
+                  TEMP2 = ( ABS1( ALPHA( J )-S( J, J ) ) / max( SAFMIN, ABS1( ALPHA( J ) ), ABS1( S( J, J ) ) )+ABS1( BETA( J )-T( J, J ) ) / max( SAFMIN, ABS1( BETA( J ) ), ABS1( T( J, J ) ) ) ) / ULP;
 
                   if ( J < N ) {
                      if ( S( J+1, J ) != ZERO ) {
@@ -356,7 +356,7 @@
                         RESULT( 5+RSUB ) = ULPINV;
                      }
                   }
-                  TEMP1 = MAX( TEMP1, TEMP2 );
+                  TEMP1 = max( TEMP1, TEMP2 );
                   if ( ILABAD ) {
                      WRITE( NOUNIT, FMT = 9998 )J, N, JTYPE, IOLDSD;
                   }

@@ -463,35 +463,35 @@
              // ( Non twos-complement machines, with gradual underflow;
                // e.g., IEEE standard followers )
             } else {
-               LEMIN = MIN( NGPMIN, GPMIN );
+               LEMIN = min( NGPMIN, GPMIN );
              // ( A guess; no known machine )
                IWARN = true;
             }
 
          } else if ( ( NGPMIN == GPMIN ) && ( NGNMIN == GNMIN ) ) {
             if ( ABS( NGPMIN-NGNMIN ) == 1 ) {
-               LEMIN = MAX( NGPMIN, NGNMIN );
+               LEMIN = max( NGPMIN, NGNMIN );
              // ( Twos-complement machines, no gradual underflow;
                // e.g., CYBER 205 )
             } else {
-               LEMIN = MIN( NGPMIN, NGNMIN );
+               LEMIN = min( NGPMIN, NGNMIN );
              // ( A guess; no known machine )
                IWARN = true;
             }
 
          } else if ( ( ABS( NGPMIN-NGNMIN ) == 1 ) && ( GPMIN == GNMIN ) ) {
-            if ( ( GPMIN-MIN( NGPMIN, NGNMIN ) ) == 3 ) {
-               LEMIN = MAX( NGPMIN, NGNMIN ) - 1 + LT;
+            if ( ( GPMIN-min( NGPMIN, NGNMIN ) ) == 3 ) {
+               LEMIN = max( NGPMIN, NGNMIN ) - 1 + LT;
              // ( Twos-complement machines with gradual underflow;
                // no known machine )
             } else {
-               LEMIN = MIN( NGPMIN, NGNMIN );
+               LEMIN = min( NGPMIN, NGNMIN );
              // ( A guess; no known machine )
                IWARN = true;
             }
 
          } else {
-            LEMIN = MIN( NGPMIN, NGNMIN, GPMIN, GNMIN );
+            LEMIN = min( NGPMIN, NGNMIN, GPMIN, GNMIN );
           // ( A guess; no known machine )
             IWARN = true;
          }

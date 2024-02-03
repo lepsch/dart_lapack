@@ -40,15 +40,15 @@
 
       INFO = 0;
       NB = ILAENV( 1, 'SGETRI', ' ', N, -1, -1, -1 );
-      LWKOPT = MAX( 1, N*NB );
+      LWKOPT = max( 1, N*NB );
       WORK( 1 ) = SROUNDUP_LWORK( LWKOPT );
 
       LQUERY = ( LWORK == -1 );
       if ( N < 0 ) {
          INFO = -1;
-      } else if ( LDA < MAX( 1, N ) ) {
+      } else if ( LDA < max( 1, N ) ) {
          INFO = -3;
-      } else if ( LWORK < MAX( 1, N ) && !LQUERY ) {
+      } else if ( LWORK < max( 1, N ) && !LQUERY ) {
          INFO = -6;
       }
       if ( INFO != 0 ) {
@@ -71,10 +71,10 @@
       NBMIN = 2;
       LDWORK = N;
       if ( NB > 1 && NB < N ) {
-         IWS = MAX( LDWORK*NB, 1 );
+         IWS = max( LDWORK*NB, 1 );
          if ( LWORK < IWS ) {
             NB = LWORK / LDWORK;
-            NBMIN = MAX( 2, ILAENV( 2, 'SGETRI', ' ', N, -1, -1, -1 ) );
+            NBMIN = max( 2, ILAENV( 2, 'SGETRI', ' ', N, -1, -1, -1 ) );
          }
       } else {
          IWS = N;
@@ -105,7 +105,7 @@
 
          NN = ( ( N-1 ) / NB )*NB + 1;
          DO 50 J = NN, 1, -NB;
-            JB = MIN( NB, N-J+1 );
+            JB = min( NB, N-J+1 );
 
             // Copy current block column of L to WORK and replace with
             // zeros.

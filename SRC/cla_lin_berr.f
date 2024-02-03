@@ -47,7 +47,7 @@
          for (I = 1; I <= N; I++) {
             if (AYB(I,J) != 0.0) {
                TMP = (SAFE1 + CABS1(RES(I,J)))/AYB(I,J);
-               BERR(J) = MAX( BERR(J), TMP );
+               BERR(J) = max( BERR(J), TMP );
             }
 
       // If AYB is exactly 0.0 (and if computed by CLA_yyAMV), then we know

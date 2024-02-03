@@ -80,7 +80,7 @@
          // Do for each value of N in NVAL.
 
          N = NVAL( IN );
-         LDA = MAX( 1, N );
+         LDA = max( 1, N );
          NIMAT = NTYPES;
          if (N <= 0) NIMAT = 1;
 
@@ -250,9 +250,9 @@
                } // 40
                X( I ) = ONE;
                spttrs(N, 1, D( N+1 ), E( N+1 ), X, LDA, INFO );
-               AINVNM = MAX( AINVNM, SASUM( N, X, 1 ) );
+               AINVNM = max( AINVNM, SASUM( N, X, 1 ) );
             } // 50
-            RCONDC = ONE / MAX( ONE, ANORM*AINVNM );
+            RCONDC = ONE / max( ONE, ANORM*AINVNM );
 
             for (IRHS = 1; IRHS <= NNS; IRHS++) { // 80
                NRHS = NSVAL( IRHS );

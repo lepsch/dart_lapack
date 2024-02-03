@@ -29,13 +29,13 @@
          INFO = -1;
       } else if ( N < 0 ) {
          INFO = -2;
-      } else if ( L < 0 || (L > MIN(M,N) && MIN(M,N) >= 0)) {
+      } else if ( L < 0 || (L > min(M,N) && min(M,N) >= 0)) {
          INFO = -3;
       } else if ( MB < 1 || (MB > M && M > 0)) {
          INFO = -4;
-      } else if ( LDA < MAX( 1, M ) ) {
+      } else if ( LDA < max( 1, M ) ) {
          INFO = -6;
-      } else if ( LDB < MAX( 1, M ) ) {
+      } else if ( LDB < max( 1, M ) ) {
          INFO = -8;
       } else if ( LDT < MB ) {
          INFO = -10;
@@ -53,8 +53,8 @@
 
       // Compute the QR factorization of the current block
 
-         IB = MIN( M-I+1, MB );
-         NB = MIN( N-L+I+IB-1, N );
+         IB = min( M-I+1, MB );
+         NB = min( N-L+I+IB-1, N );
          if ( I >= L ) {
             LB = 0;
          } else {

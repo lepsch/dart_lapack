@@ -41,7 +41,7 @@
       // ..
       // .. Executable Statements ..
 
-      MN = MIN( M, N );
+      MN = min( M, N );
       ISMIN = MN + 1;
       ISMAX = 2*MN + 1;
 
@@ -54,9 +54,9 @@
          INFO = -2;
       } else if ( NRHS < 0 ) {
          INFO = -3;
-      } else if ( LDA < MAX( 1, M ) ) {
+      } else if ( LDA < max( 1, M ) ) {
          INFO = -5;
-      } else if ( LDB < MAX( 1, M, N ) ) {
+      } else if ( LDB < max( 1, M, N ) ) {
          INFO = -7;
       }
 
@@ -67,7 +67,7 @@
 
       // Quick return if possible
 
-      if ( MIN( M, N, NRHS ) == 0 ) {
+      if ( min( M, N, NRHS ) == 0 ) {
          RANK = 0;
          return;
       }
@@ -97,7 +97,7 @@
 
          // Matrix all zero. Return zero solution.
 
-         claset('F', MAX( M, N ), NRHS, CZERO, CZERO, B, LDB );
+         claset('F', max( M, N ), NRHS, CZERO, CZERO, B, LDB );
          RANK = 0;
          GO TO 100;
       }
@@ -134,7 +134,7 @@
       SMIN = SMAX;
       if ( ABS( A( 1, 1 ) ) == ZERO ) {
          RANK = 0;
-         claset('F', MAX( M, N ), NRHS, CZERO, CZERO, B, LDB );
+         claset('F', max( M, N ), NRHS, CZERO, CZERO, B, LDB );
          GO TO 100;
       } else {
          RANK = 1;

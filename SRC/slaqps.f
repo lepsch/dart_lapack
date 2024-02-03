@@ -35,10 +35,10 @@
       // ..
       // .. Executable Statements ..
 
-      LASTRK = MIN( M, N+OFFSET );
+      LASTRK = min( M, N+OFFSET );
       LSTICC = 0;
       K = 0;
-      TOL3Z = SQRT(SLAMCH('Epsilon'));
+      TOL3Z = sqrt(SLAMCH('Epsilon'));
 
       // Beginning of while loop.
 
@@ -119,13 +119,13 @@
                   // Lapack Working Note 176.
 
                   TEMP = ABS( A( RK, J ) ) / VN1( J );
-                  TEMP = MAX( ZERO, ( ONE+TEMP )*( ONE-TEMP ) );
+                  TEMP = max( ZERO, ( ONE+TEMP )*( ONE-TEMP ) );
                   TEMP2 = TEMP*( VN1( J ) / VN2( J ) )**2;
                   if ( TEMP2 <= TOL3Z ) {
                      VN2( J ) = REAL( LSTICC );
                      LSTICC = J;
                   } else {
-                     VN1( J ) = VN1( J )*SQRT( TEMP );
+                     VN1( J ) = VN1( J )*sqrt( TEMP );
                   }
                }
             } // 30
@@ -144,7 +144,7 @@
       // A(OFFSET+KB+1:M,KB+1:N) := A(OFFSET+KB+1:M,KB+1:N) -
                           // A(OFFSET+KB+1:M,1:KB)*F(KB+1:N,1:KB)**T.
 
-      if ( KB < MIN( N, M-OFFSET ) ) {
+      if ( KB < min( N, M-OFFSET ) ) {
          sgemm('No transpose', 'Transpose', M-RK, N-KB, KB, -ONE, A( RK+1, 1 ), LDA, F( KB+1, 1 ), LDF, ONE, A( RK+1, KB+1 ), LDA );
       }
 
@@ -157,7 +157,7 @@
 
          // NOTE: The computation of VN1( LSTICC ) relies on the fact that
          // SNRM2 does not fail on vectors with norm below the value of
-         // SQRT(DLAMCH('S'))
+         // sqrt(DLAMCH('S'))
 
          VN2( LSTICC ) = VN1( LSTICC );
          LSTICC = ITEMP;

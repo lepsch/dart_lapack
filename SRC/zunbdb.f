@@ -65,21 +65,21 @@
          INFO = -4;
       } else if ( Q < 0 || Q > P || Q > M-P || Q > M-Q ) {
          INFO = -5;
-      } else if ( COLMAJOR && LDX11 < MAX( 1, P ) ) {
+      } else if ( COLMAJOR && LDX11 < max( 1, P ) ) {
          INFO = -7;
-      } else if ( !COLMAJOR && LDX11 < MAX( 1, Q ) ) {
+      } else if ( !COLMAJOR && LDX11 < max( 1, Q ) ) {
          INFO = -7;
-      } else if ( COLMAJOR && LDX12 < MAX( 1, P ) ) {
+      } else if ( COLMAJOR && LDX12 < max( 1, P ) ) {
          INFO = -9;
-      } else if ( !COLMAJOR && LDX12 < MAX( 1, M-Q ) ) {
+      } else if ( !COLMAJOR && LDX12 < max( 1, M-Q ) ) {
          INFO = -9;
-      } else if ( COLMAJOR && LDX21 < MAX( 1, M-P ) ) {
+      } else if ( COLMAJOR && LDX21 < max( 1, M-P ) ) {
          INFO = -11;
-      } else if ( !COLMAJOR && LDX21 < MAX( 1, Q ) ) {
+      } else if ( !COLMAJOR && LDX21 < max( 1, Q ) ) {
          INFO = -11;
-      } else if ( COLMAJOR && LDX22 < MAX( 1, M-P ) ) {
+      } else if ( COLMAJOR && LDX22 < max( 1, M-P ) ) {
          INFO = -13;
-      } else if ( !COLMAJOR && LDX22 < MAX( 1, M-Q ) ) {
+      } else if ( !COLMAJOR && LDX22 < max( 1, M-Q ) ) {
          INFO = -13;
       }
 

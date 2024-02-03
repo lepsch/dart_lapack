@@ -38,11 +38,11 @@
          }
          if ( J == 1 ) {
             TEMP2 = ABS( D2( J )-D1( I ) );
-            if (IJOB == 2) TEMP2 = TEMP2 / MAX( UNFL, ABSTOL+ULP*ABS( D1( I ) ) );
+            if (IJOB == 2) TEMP2 = TEMP2 / max( UNFL, ABSTOL+ULP*ABS( D1( I ) ) );
          } else {
-            TEMP2 = MIN( ABS( D2( J )-D1( I ) ), ABS( D1( I )-D2( J-1 ) ) )             IF( IJOB == 2 ) TEMP2 = TEMP2 / MAX( UNFL, ABSTOL+ULP*ABS( D1( I ) ) );
+            TEMP2 = min( ABS( D2( J )-D1( I ) ), ABS( D1( I )-D2( J-1 ) ) )             IF( IJOB == 2 ) TEMP2 = TEMP2 / max( UNFL, ABSTOL+ULP*ABS( D1( I ) ) );
          }
-         TEMP1 = MAX( TEMP1, TEMP2 );
+         TEMP1 = max( TEMP1, TEMP2 );
       } // 20
 
       SSXT1 = TEMP1;

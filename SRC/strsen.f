@@ -57,7 +57,7 @@
          INFO = -2;
       } else if ( N < 0 ) {
          INFO = -4;
-      } else if ( LDT < MAX( 1, N ) ) {
+      } else if ( LDT < max( 1, N ) ) {
          INFO = -6;
       } else if ( LDQ < 1 || ( WANTQ && LDQ < N ) ) {
          INFO = -8;
@@ -90,13 +90,13 @@
          NN = N1*N2;
 
          if (  WANTSP ) {
-            LWMIN = MAX( 1, 2*NN );
-            LIWMIN = MAX( 1, NN );
+            LWMIN = max( 1, 2*NN );
+            LIWMIN = max( 1, NN );
          } else if ( LSAME( JOB, 'N' ) ) {
-            LWMIN = MAX( 1, N );
+            LWMIN = max( 1, N );
             LIWMIN = 1;
          } else if ( LSAME( JOB, 'E' ) ) {
-            LWMIN = MAX( 1, NN );
+            LWMIN = max( 1, NN );
             LIWMIN = 1;
          }
 
@@ -180,7 +180,7 @@
          if ( RNORM == ZERO ) {
             S = ONE;
          } else {
-            S = SCALE / ( SQRT( SCALE*SCALE / RNORM+RNORM )* SQRT( RNORM ) );
+            S = SCALE / ( sqrt( SCALE*SCALE / RNORM+RNORM )* sqrt( RNORM ) );
          }
       }
 
@@ -220,7 +220,7 @@
       } // 50
       for (K = 1; K <= N - 1; K++) { // 60
          if ( T( K+1, K ) != ZERO ) {
-            WI( K ) = SQRT( ABS( T( K, K+1 ) ) )* SQRT( ABS( T( K+1, K ) ) );
+            WI( K ) = sqrt( ABS( T( K, K+1 ) ) )* sqrt( ABS( T( K+1, K ) ) );
             WI( K+1 ) = -WI( K );
          }
       } // 60

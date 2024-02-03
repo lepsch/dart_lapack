@@ -48,18 +48,18 @@
                Z( J4-2 ) = D + Z( J4-1 );
                TEMP = Z( J4+1 ) / Z( J4-2 );
                D = D*TEMP - TAU;
-               DMIN = MIN( DMIN, D );
+               DMIN = min( DMIN, D );
                Z( J4 ) = Z( J4-1 )*TEMP;
-               EMIN = MIN( Z( J4 ), EMIN );
+               EMIN = min( Z( J4 ), EMIN );
             } // 10
          } else {
             DO 20 J4 = 4*I0, 4*( N0-3 ), 4;
                Z( J4-3 ) = D + Z( J4 );
                TEMP = Z( J4+2 ) / Z( J4-3 );
                D = D*TEMP - TAU;
-               DMIN = MIN( DMIN, D );
+               DMIN = min( DMIN, D );
                Z( J4-1 ) = Z( J4 )*TEMP;
-               EMIN = MIN( Z( J4-1 ), EMIN );
+               EMIN = min( Z( J4-1 ), EMIN );
             } // 20
          }
 
@@ -72,7 +72,7 @@
          Z( J4-2 ) = DNM2 + Z( J4P2 );
          Z( J4 ) = Z( J4P2+2 )*( Z( J4P2 ) / Z( J4-2 ) );
          DNM1 = Z( J4P2+2 )*( DNM2 / Z( J4-2 ) ) - TAU;
-         DMIN = MIN( DMIN, DNM1 );
+         DMIN = min( DMIN, DNM1 );
 
          DMIN1 = DMIN;
          J4 = J4 + 4;
@@ -80,7 +80,7 @@
          Z( J4-2 ) = DNM1 + Z( J4P2 );
          Z( J4 ) = Z( J4P2+2 )*( Z( J4P2 ) / Z( J4-2 ) );
          DN = Z( J4P2+2 )*( DNM1 / Z( J4-2 ) ) - TAU;
-         DMIN = MIN( DMIN, DN );
+         DMIN = min( DMIN, DN );
 
       } else {
 
@@ -95,8 +95,8 @@
                   Z( J4 ) = Z( J4+1 )*( Z( J4-1 ) / Z( J4-2 ) );
                   D = Z( J4+1 )*( D / Z( J4-2 ) ) - TAU;
                }
-               DMIN = MIN( DMIN, D );
-               EMIN = MIN( EMIN, Z( J4 ) );
+               DMIN = min( DMIN, D );
+               EMIN = min( EMIN, Z( J4 ) );
             } // 30
          } else {
             DO 40 J4 = 4*I0, 4*( N0-3 ), 4;
@@ -107,8 +107,8 @@
                   Z( J4-1 ) = Z( J4+2 )*( Z( J4 ) / Z( J4-3 ) );
                   D = Z( J4+2 )*( D / Z( J4-3 ) ) - TAU;
                }
-               DMIN = MIN( DMIN, D );
-               EMIN = MIN( EMIN, Z( J4-1 ) );
+               DMIN = min( DMIN, D );
+               EMIN = min( EMIN, Z( J4-1 ) );
             } // 40
          }
 
@@ -125,7 +125,7 @@
             Z( J4 ) = Z( J4P2+2 )*( Z( J4P2 ) / Z( J4-2 ) );
             DNM1 = Z( J4P2+2 )*( DNM2 / Z( J4-2 ) ) - TAU;
          }
-         DMIN = MIN( DMIN, DNM1 );
+         DMIN = min( DMIN, DNM1 );
 
          DMIN1 = DMIN;
          J4 = J4 + 4;
@@ -137,7 +137,7 @@
             Z( J4 ) = Z( J4P2+2 )*( Z( J4P2 ) / Z( J4-2 ) );
             DN = Z( J4P2+2 )*( DNM1 / Z( J4-2 ) ) - TAU;
          }
-         DMIN = MIN( DMIN, DN );
+         DMIN = min( DMIN, DN );
 
       }
       } else {
@@ -157,9 +157,9 @@
                   TEMP = Z( J4+1 ) / Z( J4-2 );
                   D = D*TEMP - TAU;
                   if (D < DTHRESH) D = ZERO;
-                  DMIN = MIN( DMIN, D );
+                  DMIN = min( DMIN, D );
                   Z( J4 ) = Z( J4-1 )*TEMP;
-                  EMIN = MIN( Z( J4 ), EMIN );
+                  EMIN = min( Z( J4 ), EMIN );
                } // 50
             } else {
                DO 60 J4 = 4*I0, 4*( N0-3 ), 4;
@@ -167,9 +167,9 @@
                   TEMP = Z( J4+2 ) / Z( J4-3 );
                   D = D*TEMP - TAU;
                   if (D < DTHRESH) D = ZERO;
-                  DMIN = MIN( DMIN, D );
+                  DMIN = min( DMIN, D );
                   Z( J4-1 ) = Z( J4 )*TEMP;
-                  EMIN = MIN( Z( J4-1 ), EMIN );
+                  EMIN = min( Z( J4-1 ), EMIN );
                } // 60
             }
 
@@ -182,7 +182,7 @@
             Z( J4-2 ) = DNM2 + Z( J4P2 );
             Z( J4 ) = Z( J4P2+2 )*( Z( J4P2 ) / Z( J4-2 ) );
             DNM1 = Z( J4P2+2 )*( DNM2 / Z( J4-2 ) ) - TAU;
-            DMIN = MIN( DMIN, DNM1 );
+            DMIN = min( DMIN, DNM1 );
 
             DMIN1 = DMIN;
             J4 = J4 + 4;
@@ -190,7 +190,7 @@
             Z( J4-2 ) = DNM1 + Z( J4P2 );
             Z( J4 ) = Z( J4P2+2 )*( Z( J4P2 ) / Z( J4-2 ) );
             DN = Z( J4P2+2 )*( DNM1 / Z( J4-2 ) ) - TAU;
-            DMIN = MIN( DMIN, DN );
+            DMIN = min( DMIN, DN );
 
          } else {
 
@@ -206,8 +206,8 @@
                      D = Z( J4+1 )*( D / Z( J4-2 ) ) - TAU;
                   }
                   if (D < DTHRESH) D = ZERO;
-                  DMIN = MIN( DMIN, D );
-                  EMIN = MIN( EMIN, Z( J4 ) );
+                  DMIN = min( DMIN, D );
+                  EMIN = min( EMIN, Z( J4 ) );
                } // 70
             } else {
                DO 80 J4 = 4*I0, 4*( N0-3 ), 4;
@@ -219,8 +219,8 @@
                      D = Z( J4+2 )*( D / Z( J4-3 ) ) - TAU;
                   }
                   if (D < DTHRESH) D = ZERO;
-                  DMIN = MIN( DMIN, D );
-                  EMIN = MIN( EMIN, Z( J4-1 ) );
+                  DMIN = min( DMIN, D );
+                  EMIN = min( EMIN, Z( J4-1 ) );
                } // 80
             }
 
@@ -237,7 +237,7 @@
                Z( J4 ) = Z( J4P2+2 )*( Z( J4P2 ) / Z( J4-2 ) );
                DNM1 = Z( J4P2+2 )*( DNM2 / Z( J4-2 ) ) - TAU;
             }
-            DMIN = MIN( DMIN, DNM1 );
+            DMIN = min( DMIN, DNM1 );
 
             DMIN1 = DMIN;
             J4 = J4 + 4;
@@ -249,7 +249,7 @@
                Z( J4 ) = Z( J4P2+2 )*( Z( J4P2 ) / Z( J4-2 ) );
                DN = Z( J4P2+2 )*( DNM1 / Z( J4-2 ) ) - TAU;
             }
-            DMIN = MIN( DMIN, DN );
+            DMIN = min( DMIN, DN );
 
          }
       }

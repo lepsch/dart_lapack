@@ -37,13 +37,13 @@
       // Test the input parameters
 
       INFO = 0;
-      MINMN = MIN( M, N );
+      MINMN = min( M, N );
       if ( MINMN == 0 ) {
          LWKMIN = 1;
          LWKOPT = 1;
       } else {
-         LWKMIN = MAX( M, N );
-         NB = MAX( 1, ILAENV( 1, 'ZGEBRD', ' ', M, N, -1, -1 ) );
+         LWKMIN = max( M, N );
+         NB = max( 1, ILAENV( 1, 'ZGEBRD', ' ', M, N, -1, -1 ) );
          LWKOPT = ( M+N )*NB;
       }
       WORK( 1 ) = DBLE( LWKOPT );
@@ -53,7 +53,7 @@
          INFO = -1;
       } else if ( N < 0 ) {
          INFO = -2;
-      } else if ( LDA < MAX( 1, M ) ) {
+      } else if ( LDA < max( 1, M ) ) {
          INFO = -4;
       } else if ( LWORK < LWKMIN && !LQUERY ) {
          INFO = -10;
@@ -72,7 +72,7 @@
          return;
       }
 
-      WS = MAX( M, N );
+      WS = max( M, N );
       LDWRKX = M;
       LDWRKY = N;
 
@@ -80,7 +80,7 @@
 
          // Set the crossover point NX.
 
-         NX = MAX( NB, ILAENV( 3, 'ZGEBRD', ' ', M, N, -1, -1 ) );
+         NX = max( NB, ILAENV( 3, 'ZGEBRD', ' ', M, N, -1, -1 ) );
 
          // Determine when to switch from blocked to unblocked code.
 

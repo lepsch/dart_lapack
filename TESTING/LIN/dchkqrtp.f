@@ -66,8 +66,8 @@
 
             // Do for each value of L
 
-            MINMN = MIN( M, N );
-            DO L = 0, MINMN, MAX( MINMN, 1 );
+            MINMN = min( M, N );
+            DO L = 0, MINMN, max( MINMN, 1 );
 
                // Do for each possible value of NB
 

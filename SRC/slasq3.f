@@ -79,9 +79,9 @@
       if ( Z( NN-5 ) > Z( NN-3 )*TOL2 && T != ZERO ) {
          S = Z( NN-3 )*( Z( NN-5 ) / T );
          if ( S <= T ) {
-            S = Z( NN-3 )*( Z( NN-5 ) / ( T*( ONE+SQRT( ONE+S / T ) ) ) );
+            S = Z( NN-3 )*( Z( NN-5 ) / ( T*( ONE+sqrt( ONE+S / T ) ) ) );
          } else {
-            S = Z( NN-3 )*( Z( NN-5 ) / ( T+SQRT( T )*SQRT( T+S ) ) );
+            S = Z( NN-3 )*( Z( NN-5 ) / ( T+sqrt( T )*sqrt( T+S ) ) );
          }
          T = Z( NN-7 ) + ( S+Z( NN-5 ) );
          Z( NN-3 ) = Z( NN-3 )*( Z( NN-7 ) / T );
@@ -118,9 +118,9 @@
                Z( 4*N0+PP-1 ) = Z( 4*I0+PP-1 );
                Z( 4*N0-PP ) = Z( 4*I0-PP );
             }
-            DMIN2 = MIN( DMIN2, Z( 4*N0+PP-1 ) );
-            Z( 4*N0+PP-1 ) = MIN( Z( 4*N0+PP-1 ), Z( 4*I0+PP-1 ), Z( 4*I0+PP+3 ) )             Z( 4*N0-PP ) = MIN( Z( 4*N0-PP ), Z( 4*I0-PP ), Z( 4*I0-PP+4 ) );
-            QMAX = MAX( QMAX, Z( 4*I0+PP-3 ), Z( 4*I0+PP+1 ) );
+            DMIN2 = min( DMIN2, Z( 4*N0+PP-1 ) );
+            Z( 4*N0+PP-1 ) = min( Z( 4*N0+PP-1 ), Z( 4*I0+PP-1 ), Z( 4*I0+PP+3 ) )             Z( 4*N0-PP ) = min( Z( 4*N0-PP ), Z( 4*I0-PP ), Z( 4*I0-PP+4 ) );
+            QMAX = max( QMAX, Z( 4*I0+PP-3 ), Z( 4*I0+PP+1 ) );
             DMIN = -ZERO;
          }
       }

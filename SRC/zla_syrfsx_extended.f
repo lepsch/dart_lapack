@@ -69,13 +69,13 @@
          INFO = -3;
       } else if ( NRHS < 0 ) {
          INFO = -4;
-      } else if ( LDA < MAX( 1, N ) ) {
+      } else if ( LDA < max( 1, N ) ) {
          INFO = -6;
-      } else if ( LDAF < MAX( 1, N ) ) {
+      } else if ( LDAF < max( 1, N ) ) {
          INFO = -8;
-      } else if ( LDB < MAX( 1, N ) ) {
+      } else if ( LDB < max( 1, N ) ) {
          INFO = -13;
-      } else if ( LDY < MAX( 1, N ) ) {
+      } else if ( LDY < max( 1, N ) ) {
          INFO = -15;
       }
       if ( INFO != 0 ) {
@@ -149,21 +149,21 @@
                DYK = CABS1( DY( I ) );
 
                if ( YK != 0.0 ) {
-                  DZ_Z = MAX( DZ_Z, DYK / YK );
+                  DZ_Z = max( DZ_Z, DYK / YK );
                } else if ( DYK != 0.0 ) {
                   DZ_Z = HUGEVAL;
                }
 
-               YMIN = MIN( YMIN, YK );
+               YMIN = min( YMIN, YK );
 
-               NORMY = MAX( NORMY, YK );
+               NORMY = max( NORMY, YK );
 
                if ( COLEQU ) {
-                  NORMX = MAX( NORMX, YK * C( I ) );
-                  NORMDX = MAX( NORMDX, DYK * C( I ) );
+                  NORMX = max( NORMX, YK * C( I ) );
+                  NORMDX = max( NORMDX, DYK * C( I ) );
                } else {
                   NORMX = NORMY;
-                  NORMDX = MAX( NORMDX, DYK );
+                  NORMDX = max( NORMDX, DYK );
                }
             }
 

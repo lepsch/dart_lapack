@@ -53,8 +53,8 @@
       TESTZEROS = false;
 
       EPS = SLAMCH( 'Epsilon' );
-      K = MIN( M, N );
-      L = MAX( M, N, 1);
+      K = min( M, N );
+      L = max( M, N, 1);
 
       // Dynamically allocate local arrays
 
@@ -76,7 +76,7 @@
 
       // Number of row blocks in SLATSQR
 
-      NRB = MAX( 1, CEILING( REAL( M - N ) / REAL( MB1 - N ) ) );
+      NRB = max( 1, CEILING( REAL( M - N ) / REAL( MB1 - N ) ) );
 
       ALLOCATE ( T1( NB1, N * NRB ) );
       ALLOCATE ( T2( NB2, N ) );
@@ -86,22 +86,22 @@
 
       // SLATSQR requires NB1 to be bounded by N.
 
-      NB1_UB = MIN( NB1, N);
+      NB1_UB = min( NB1, N);
 
       // SGEMQRT requires NB2 to be bounded by N.
 
-      NB2_UB = MIN( NB2, N);
+      NB2_UB = min( NB2, N);
 
       slatsqr(M, N, MB1, NB1_UB, AF, M, T1, NB1, WORKQUERY, -1, INFO );
       LWORK = INT( WORKQUERY( 1 ) );
       sorgtsqr(M, N, MB1, NB1, AF, M, T1, NB1, WORKQUERY, -1, INFO );
 
-      LWORK = MAX( LWORK, INT( WORKQUERY( 1 ) ) );
+      LWORK = max( LWORK, INT( WORKQUERY( 1 ) ) );
 
       // In SGEMQRT, WORK is N*NB2_UB if SIDE = 'L',
                  // or  M*NB2_UB if SIDE = 'R'.
 
-      LWORK = MAX( LWORK, NB2_UB * N, NB2_UB * M );
+      LWORK = max( LWORK, NB2_UB * N, NB2_UB * M );
 
       ALLOCATE ( WORK( LWORK ) );
 
@@ -171,7 +171,7 @@
       ANORM = SLANGE( '1', M, N, A, M, RWORK );
       RESID = SLANGE( '1', M, N, R, M, RWORK );
       if ( ANORM > ZERO ) {
-         RESULT( 1 ) = RESID / ( EPS * MAX( 1, M ) * ANORM );
+         RESULT( 1 ) = RESID / ( EPS * max( 1, M ) * ANORM );
       } else {
          RESULT( 1 ) = ZERO;
       }
@@ -182,7 +182,7 @@
       slaset('Full', M, M, ZERO, ONE, R, M );
       ssyrk('U', 'T', M, M, -ONE, Q, M, ONE, R, M );
       RESID = SLANSY( '1', 'Upper', M, R, M, RWORK );
-      RESULT( 2 ) = RESID / ( EPS * MAX( 1, M ) );
+      RESULT( 2 ) = RESID / ( EPS * max( 1, M ) );
 
       // Generate random m-by-n matrix C
 
@@ -203,7 +203,7 @@
       sgemm('N', 'N', M, N, M, -ONE, Q, M, C, M, ONE, CF, M );
       RESID = SLANGE( '1', M, N, CF, M, RWORK );
       if ( CNORM > ZERO ) {
-         RESULT( 3 ) = RESID / ( EPS * MAX( 1, M ) * CNORM );
+         RESULT( 3 ) = RESID / ( EPS * max( 1, M ) * CNORM );
       } else {
          RESULT( 3 ) = ZERO;
       }
@@ -223,7 +223,7 @@
       sgemm('T', 'N', M, N, M, -ONE, Q, M, C, M, ONE, CF, M );
       RESID = SLANGE( '1', M, N, CF, M, RWORK );
       if ( CNORM > ZERO ) {
-         RESULT( 4 ) = RESID / ( EPS * MAX( 1, M ) * CNORM );
+         RESULT( 4 ) = RESID / ( EPS * max( 1, M ) * CNORM );
       } else {
          RESULT( 4 ) = ZERO;
       }
@@ -247,7 +247,7 @@
       sgemm('N', 'N', N, M, M, -ONE, D, N, Q, M, ONE, DF, N );
       RESID = SLANGE( '1', N, M, DF, N, RWORK );
       if ( DNORM > ZERO ) {
-         RESULT( 5 ) = RESID / ( EPS * MAX( 1, M ) * DNORM );
+         RESULT( 5 ) = RESID / ( EPS * max( 1, M ) * DNORM );
       } else {
          RESULT( 5 ) = ZERO;
       }
@@ -267,7 +267,7 @@
       sgemm('N', 'T', N, M, M, -ONE, D, N, Q, M, ONE, DF, N );
       RESID = SLANGE( '1', N, M, DF, N, RWORK );
       if ( DNORM > ZERO ) {
-         RESULT( 6 ) = RESID / ( EPS * MAX( 1, M ) * DNORM );
+         RESULT( 6 ) = RESID / ( EPS * max( 1, M ) * DNORM );
       } else {
          RESULT( 6 ) = ZERO;
       }

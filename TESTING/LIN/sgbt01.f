@@ -46,9 +46,9 @@
       KD = KU + 1;
       ANORM = ZERO;
       for (J = 1; J <= N; J++) { // 10
-         I1 = MAX( KD+1-J, 1 );
-         I2 = MIN( KD+M-J, KL+KD );
-         if (I2 >= I1) ANORM = MAX( ANORM, SASUM( I2-I1+1, A( I1, J ), 1 ) );
+         I1 = max( KD+1-J, 1 );
+         I2 = min( KD+M-J, KL+KD );
+         if (I2 >= I1) ANORM = max( ANORM, SASUM( I2-I1+1, A( I1, J ), 1 ) );
       } // 10
 
       // Compute one column at a time of L*U - A.
@@ -58,9 +58,9 @@
 
          // Copy the J-th column of U to WORK.
 
-         JU = MIN( KL+KU, J-1 );
-         JL = MIN( KL, M-J );
-         LENJ = MIN( M, J ) - J + JU + 1;
+         JU = min( KL+KU, J-1 );
+         JL = min( KL, M-J );
+         LENJ = min( M, J ) - J + JU + 1;
          if ( LENJ > 0 ) {
             scopy(LENJ, AFAC( KD-JU, J ), 1, WORK, 1 );
             for (I = LENJ + 1; I <= JU + JL + 1; I++) { // 20
@@ -70,8 +70,8 @@
             // Multiply by the unit lower triangular matrix L.  Note that L
             // is stored as a product of transformations and permutations.
 
-            DO 30 I = MIN( M-1, J ), J - JU, -1;
-               IL = MIN( KL, M-I );
+            DO 30 I = min( M-1, J ), J - JU, -1;
+               IL = min( KL, M-I );
                if ( IL > 0 ) {
                   IW = I - J + JU + 1;
                   T = WORK( IW );
@@ -87,12 +87,12 @@
 
             // Subtract the corresponding column of A.
 
-            JUA = MIN( JU, KU );
+            JUA = min( JU, KU );
             if (JUA+JL+1 > 0) CALL SAXPY( JUA+JL+1, -ONE, A( KU+1-JUA, J ), 1, WORK( JU+1-JUA ), 1 );
 
             // Compute the 1-norm of the column.
 
-            RESID = MAX( RESID, SASUM( JU+JL+1, WORK, 1 ) );
+            RESID = max( RESID, SASUM( JU+JL+1, WORK, 1 ) );
          }
       } // 40
 

@@ -27,7 +27,7 @@
       INFO = 0;
 
       // Set up deflation window
-      JW = MIN( NW, IHI-ILO+1 );
+      JW = min( NW, IHI-ILO+1 );
       KWTOP = IHI-JW+1;
       if ( KWTOP == ILO ) {
          S = CZERO;
@@ -40,7 +40,7 @@
       ILST = JW;
       claqz0('S', 'V', 'V', JW, 1, JW, A( KWTOP, KWTOP ), LDA, B( KWTOP, KWTOP ), LDB, ALPHA, BETA, QC, LDQC, ZC, LDZC, WORK, -1, RWORK, REC+1, QZ_SMALL_INFO );
       LWORKREQ = INT( WORK( 1 ) )+2*JW**2;
-      LWORKREQ = MAX( LWORKREQ, N*NW, 2*NW**2+N );
+      LWORKREQ = max( LWORKREQ, N*NW, 2*NW**2+N );
       if ( LWORK == -1 ) {
          // workspace query, quick return;
          WORK( 1 ) = LWORKREQ;
@@ -66,7 +66,7 @@
          BETA( KWTOP ) = B( KWTOP, KWTOP );
          NS = 1;
          ND = 0;
-         if ( ABS( S ) <= MAX( SMLNUM, ULP*ABS( A( KWTOP, KWTOP ) ) ) ) {
+         if ( ABS( S ) <= max( SMLNUM, ULP*ABS( A( KWTOP, KWTOP ) ) ) ) {
             NS = 0;
             ND = 1;
             if ( KWTOP > ILO ) {
@@ -107,7 +107,7 @@
                if ( TEMPR == ZERO ) {
                   TEMPR = ABS( S );
                }
-               if ( ( ABS( S*QC( 1, KWBOT-KWTOP+1 ) ) ) <= MAX( ULP* TEMPR, SMLNUM ) ) {
+               if ( ( ABS( S*QC( 1, KWBOT-KWTOP+1 ) ) ) <= max( ULP* TEMPR, SMLNUM ) ) {
                   // Deflatable
                   KWBOT = KWBOT-1;
                } else {
@@ -139,7 +139,7 @@
             clartg(A( K, KWTOP-1 ), A( K+1, KWTOP-1 ), C1, S1, TEMP );
             A( K, KWTOP-1 ) = TEMP;
             A( K+1, KWTOP-1 ) = CZERO;
-            K2 = MAX( KWTOP, K-1 );
+            K2 = max( KWTOP, K-1 );
             crot(IHI-K2+1, A( K, K2 ), LDA, A( K+1, K2 ), LDA, C1, S1 );
             crot(IHI-( K-1 )+1, B( K, K-1 ), LDB, B( K+1, K-1 ), LDB, C1, S1 );
             crot(JW, QC( 1, K-KWTOP+1 ), 1, QC( 1, K+1-KWTOP+1 ), 1, C1, CONJG( S1 ) );

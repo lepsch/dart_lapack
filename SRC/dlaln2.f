@@ -54,7 +54,7 @@
 
       SMLNUM = TWO*DLAMCH( 'Safe minimum' );
       BIGNUM = ONE / SMLNUM;
-      SMINI = MAX( SMIN, SMLNUM );
+      SMINI = max( SMIN, SMLNUM );
 
       // Don't check for input errors
 
@@ -163,7 +163,7 @@
             // If norm(C) < SMINI, use SMINI*identity.
 
             if ( CMAX < SMINI ) {
-               BNORM = MAX( ABS( B( 1, 1 ) ), ABS( B( 2, 1 ) ) );
+               BNORM = max( ABS( B( 1, 1 ) ), ABS( B( 2, 1 ) ) );
                if ( SMINI < ONE && BNORM > ONE ) {
                   if (BNORM > BIGNUM*SMINI) SCALE = ONE / BNORM;
                }
@@ -199,7 +199,7 @@
                BR2 = B( 2, 1 );
             }
             BR2 = BR2 - LR21*BR1;
-            BBND = MAX( ABS( BR1*( UR22*UR11R ) ), ABS( BR2 ) );
+            BBND = max( ABS( BR1*( UR22*UR11R ) ), ABS( BR2 ) );
             if ( BBND > ONE && ABS( UR22 ) < ONE ) {
                if( BBND >= BIGNUM*ABS( UR22 ) ) SCALE = ONE / BBND;
             }
@@ -213,7 +213,7 @@
                X( 1, 1 ) = XR1;
                X( 2, 1 ) = XR2;
             }
-            XNORM = MAX( ABS( XR1 ), ABS( XR2 ) );
+            XNORM = max( ABS( XR1 ), ABS( XR2 ) );
 
             // Further scaling if  norm(A) norm(X) > overflow
 
@@ -249,7 +249,7 @@
             // If norm(C) < SMINI, use SMINI*identity.
 
             if ( CMAX < SMINI ) {
-               BNORM = MAX( ABS( B( 1, 1 ) )+ABS( B( 1, 2 ) ), ABS( B( 2, 1 ) )+ABS( B( 2, 2 ) ) );
+               BNORM = max( ABS( B( 1, 1 ) )+ABS( B( 1, 2 ) ), ABS( B( 2, 1 ) )+ABS( B( 2, 2 ) ) );
                if ( SMINI < ONE && BNORM > ONE ) {
                   if (BNORM > BIGNUM*SMINI) SCALE = ONE / BNORM;
                }
@@ -327,7 +327,7 @@
             }
             BR2 = BR2 - LR21*BR1 + LI21*BI1;
             BI2 = BI2 - LI21*BR1 - LR21*BI1;
-            BBND = MAX( ( ABS( BR1 )+ABS( BI1 ) )* ( U22ABS*( ABS( UR11R )+ABS( UI11R ) ) ), ABS( BR2 )+ABS( BI2 ) );
+            BBND = max( ( ABS( BR1 )+ABS( BI1 ) )* ( U22ABS*( ABS( UR11R )+ABS( UI11R ) ) ), ABS( BR2 )+ABS( BI2 ) );
             if ( BBND > ONE && U22ABS < ONE ) {
                if ( BBND >= BIGNUM*U22ABS ) {
                   SCALE = ONE / BBND;
@@ -352,7 +352,7 @@
                X( 1, 2 ) = XI1;
                X( 2, 2 ) = XI2;
             }
-            XNORM = MAX( ABS( XR1 )+ABS( XI1 ), ABS( XR2 )+ABS( XI2 ) );
+            XNORM = max( ABS( XR1 )+ABS( XI1 ), ABS( XR2 )+ABS( XI2 ) );
 
             // Further scaling if  norm(A) norm(X) > overflow
 

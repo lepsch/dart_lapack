@@ -62,7 +62,7 @@
       BADNN = false;
       NMAX = 0;
       for (J = 1; J <= NSIZES; J++) { // 10
-         NMAX = MAX( NMAX, NN( J ) );
+         NMAX = max( NMAX, NN( J ) );
          if( NN( J ) < 0 ) BADNN = true;
       } // 10
 
@@ -78,11 +78,11 @@
          INFO = -9;
       } else if ( LDZ <= 1 || LDZ < NMAX ) {
          INFO = -16;
-      } else if ( 2*MAX( NMAX, 2 )**2 > NWORK ) {
+      } else if ( 2*max( NMAX, 2 )**2 > NWORK ) {
          INFO = -21;
-      } else if ( 2*MAX( NMAX, 2 )**2 > LRWORK ) {
+      } else if ( 2*max( NMAX, 2 )**2 > LRWORK ) {
          INFO = -23;
-      } else if ( 2*MAX( NMAX, 2 )**2 > LIWORK ) {
+      } else if ( 2*max( NMAX, 2 )**2 > LIWORK ) {
          INFO = -25;
       }
 
@@ -101,8 +101,8 @@
       OVFL = DLAMCH( 'Overflow' );
       ULP = DLAMCH( 'Epsilon' )*DLAMCH( 'Base' );
       ULPINV = ONE / ULP;
-      RTUNFL = SQRT( UNFL );
-      RTOVFL = SQRT( OVFL );
+      RTUNFL = sqrt( UNFL );
+      RTOVFL = sqrt( OVFL );
 
       for (I = 1; I <= 4; I++) { // 20
          ISEED2( I ) = ISEED( I );
@@ -115,12 +115,12 @@
 
       for (JSIZE = 1; JSIZE <= NSIZES; JSIZE++) { // 650
          N = NN( JSIZE );
-         ANINV = ONE / DBLE( MAX( 1, N ) );
+         ANINV = ONE / DBLE( max( 1, N ) );
 
          if ( NSIZES != 1 ) {
-            MTYPES = MIN( MAXTYP, NTYPES );
+            MTYPES = min( MAXTYP, NTYPES );
          } else {
-            MTYPES = MIN( MAXTYP+1, NTYPES );
+            MTYPES = min( MAXTYP+1, NTYPES );
          }
 
          KA9 = 0;
@@ -208,7 +208,7 @@
 
                // Hermitian, eigenvalues specified
 
-               KA = MAX( 0, N-1 );
+               KA = max( 0, N-1 );
                KB = KA;
                zlatms(N, N, 'S', ISEED, 'H', RWORK, IMODE, COND, ANORM, N, N, 'N', A, LDA, WORK, IINFO );
 
@@ -224,7 +224,7 @@
 
                // Hermitian, random eigenvalues
 
-               KA = MAX( 0, N-1 );
+               KA = max( 0, N-1 );
                KB = KA;
                zlatmr(N, N, 'S', ISEED, 'H', WORK, 6, ONE, CONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, N, N, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO );
 
@@ -246,8 +246,8 @@
                   KA9 = KA9 + 1;
                   KB9 = 1;
                }
-               KA = MAX( 0, MIN( N-1, KA9 ) );
-               KB = MAX( 0, MIN( N-1, KB9 ) );
+               KA = max( 0, min( N-1, KA9 ) );
+               KB = max( 0, min( N-1, KB9 ) );
                zlatms(N, N, 'S', ISEED, 'H', RWORK, IMODE, COND, ANORM, KA, KA, 'N', A, LDA, WORK, IINFO );
 
             } else {
@@ -352,11 +352,11 @@
                   TEMP1 = ZERO;
                   TEMP2 = ZERO;
                   for (J = 1; J <= N; J++) { // 151
-                     TEMP1 = MAX( TEMP1, ABS( D( J ) ),  ABS( D2( J ) ) );
-                     TEMP2 = MAX( TEMP2, ABS( D( J )-D2( J ) ) );
+                     TEMP1 = max( TEMP1, ABS( D( J ) ),  ABS( D2( J ) ) );
+                     TEMP2 = max( TEMP2, ABS( D( J )-D2( J ) ) );
                   } // 151
 
-                  RESULT( NTEST ) = TEMP2 /  MAX( UNFL, ULP*MAX( TEMP1, TEMP2 ) );
+                  RESULT( NTEST ) = TEMP2 /  max( UNFL, ULP*max( TEMP1, TEMP2 ) );
 
                   // Test ZHEGVD
 
@@ -675,19 +675,19 @@
 
                      if ( LSAME( UPLO, 'U' ) ) {
                         for (J = 1; J <= N; J++) { // 340
-                           DO 320 I = MAX( 1, J-KA ), J;
+                           DO 320 I = max( 1, J-KA ), J;
                               AB( KA+1+I-J, J ) = A( I, J );
                            } // 320
-                           DO 330 I = MAX( 1, J-KB ), J;
+                           DO 330 I = max( 1, J-KB ), J;
                               BB( KB+1+I-J, J ) = B( I, J );
                            } // 330
                         } // 340
                      } else {
                         for (J = 1; J <= N; J++) { // 370
-                           DO 350 I = J, MIN( N, J+KA );
+                           DO 350 I = J, min( N, J+KA );
                               AB( 1+I-J, J ) = A( I, J );
                            } // 350
-                           DO 360 I = J, MIN( N, J+KB );
+                           DO 360 I = J, min( N, J+KB );
                               BB( 1+I-J, J ) = B( I, J );
                            } // 360
                         } // 370
@@ -717,19 +717,19 @@
 
                      if ( LSAME( UPLO, 'U' ) ) {
                         for (J = 1; J <= N; J++) { // 400
-                           DO 380 I = MAX( 1, J-KA ), J;
+                           DO 380 I = max( 1, J-KA ), J;
                               AB( KA+1+I-J, J ) = A( I, J );
                            } // 380
-                           DO 390 I = MAX( 1, J-KB ), J;
+                           DO 390 I = max( 1, J-KB ), J;
                               BB( KB+1+I-J, J ) = B( I, J );
                            } // 390
                         } // 400
                      } else {
                         for (J = 1; J <= N; J++) { // 430
-                           DO 410 I = J, MIN( N, J+KA );
+                           DO 410 I = J, min( N, J+KA );
                               AB( 1+I-J, J ) = A( I, J );
                            } // 410
-                           DO 420 I = J, MIN( N, J+KB );
+                           DO 420 I = J, min( N, J+KB );
                               BB( 1+I-J, J ) = B( I, J );
                            } // 420
                         } // 430
@@ -759,25 +759,25 @@
 
                      if ( LSAME( UPLO, 'U' ) ) {
                         for (J = 1; J <= N; J++) { // 460
-                           DO 440 I = MAX( 1, J-KA ), J;
+                           DO 440 I = max( 1, J-KA ), J;
                               AB( KA+1+I-J, J ) = A( I, J );
                            } // 440
-                           DO 450 I = MAX( 1, J-KB ), J;
+                           DO 450 I = max( 1, J-KB ), J;
                               BB( KB+1+I-J, J ) = B( I, J );
                            } // 450
                         } // 460
                      } else {
                         for (J = 1; J <= N; J++) { // 490
-                           DO 470 I = J, MIN( N, J+KA );
+                           DO 470 I = J, min( N, J+KA );
                               AB( 1+I-J, J ) = A( I, J );
                            } // 470
-                           DO 480 I = J, MIN( N, J+KB );
+                           DO 480 I = J, min( N, J+KB );
                               BB( 1+I-J, J ) = B( I, J );
                            } // 480
                         } // 490
                      }
 
-                     zhbgvx('V', 'A', UPLO, N, KA, KB, AB, LDA, BB, LDB, BP, MAX( 1, N ), VL, VU, IL, IU, ABSTOL, M, D, Z, LDZ, WORK, RWORK, IWORK( N+1 ), IWORK, IINFO );
+                     zhbgvx('V', 'A', UPLO, N, KA, KB, AB, LDA, BB, LDB, BP, max( 1, N ), VL, VU, IL, IU, ABSTOL, M, D, Z, LDZ, WORK, RWORK, IWORK( N+1 ), IWORK, IINFO );
                      if ( IINFO != 0 ) {
                         WRITE( NOUNIT, FMT = 9999 )'ZHBGVX(V,A' // UPLO // ')', IINFO, N, JTYPE, IOLDSD;
                         INFO = ABS( IINFO );
@@ -799,19 +799,19 @@
 
                      if ( LSAME( UPLO, 'U' ) ) {
                         for (J = 1; J <= N; J++) { // 520
-                           DO 500 I = MAX( 1, J-KA ), J;
+                           DO 500 I = max( 1, J-KA ), J;
                               AB( KA+1+I-J, J ) = A( I, J );
                            } // 500
-                           DO 510 I = MAX( 1, J-KB ), J;
+                           DO 510 I = max( 1, J-KB ), J;
                               BB( KB+1+I-J, J ) = B( I, J );
                            } // 510
                         } // 520
                      } else {
                         for (J = 1; J <= N; J++) { // 550
-                           DO 530 I = J, MIN( N, J+KA );
+                           DO 530 I = J, min( N, J+KA );
                               AB( 1+I-J, J ) = A( I, J );
                            } // 530
-                           DO 540 I = J, MIN( N, J+KB );
+                           DO 540 I = J, min( N, J+KB );
                               BB( 1+I-J, J ) = B( I, J );
                            } // 540
                         } // 550
@@ -819,7 +819,7 @@
 
                      VL = ZERO;
                      VU = ANORM;
-                     zhbgvx('V', 'V', UPLO, N, KA, KB, AB, LDA, BB, LDB, BP, MAX( 1, N ), VL, VU, IL, IU, ABSTOL, M, D, Z, LDZ, WORK, RWORK, IWORK( N+1 ), IWORK, IINFO );
+                     zhbgvx('V', 'V', UPLO, N, KA, KB, AB, LDA, BB, LDB, BP, max( 1, N ), VL, VU, IL, IU, ABSTOL, M, D, Z, LDZ, WORK, RWORK, IWORK( N+1 ), IWORK, IINFO );
                      if ( IINFO != 0 ) {
                         WRITE( NOUNIT, FMT = 9999 )'ZHBGVX(V,V' // UPLO // ')', IINFO, N, JTYPE, IOLDSD;
                         INFO = ABS( IINFO );
@@ -841,25 +841,25 @@
 
                      if ( LSAME( UPLO, 'U' ) ) {
                         for (J = 1; J <= N; J++) { // 580
-                           DO 560 I = MAX( 1, J-KA ), J;
+                           DO 560 I = max( 1, J-KA ), J;
                               AB( KA+1+I-J, J ) = A( I, J );
                            } // 560
-                           DO 570 I = MAX( 1, J-KB ), J;
+                           DO 570 I = max( 1, J-KB ), J;
                               BB( KB+1+I-J, J ) = B( I, J );
                            } // 570
                         } // 580
                      } else {
                         for (J = 1; J <= N; J++) { // 610
-                           DO 590 I = J, MIN( N, J+KA );
+                           DO 590 I = J, min( N, J+KA );
                               AB( 1+I-J, J ) = A( I, J );
                            } // 590
-                           DO 600 I = J, MIN( N, J+KB );
+                           DO 600 I = J, min( N, J+KB );
                               BB( 1+I-J, J ) = B( I, J );
                            } // 600
                         } // 610
                      }
 
-                     zhbgvx('V', 'I', UPLO, N, KA, KB, AB, LDA, BB, LDB, BP, MAX( 1, N ), VL, VU, IL, IU, ABSTOL, M, D, Z, LDZ, WORK, RWORK, IWORK( N+1 ), IWORK, IINFO );
+                     zhbgvx('V', 'I', UPLO, N, KA, KB, AB, LDA, BB, LDB, BP, max( 1, N ), VL, VU, IL, IU, ABSTOL, M, D, Z, LDZ, WORK, RWORK, IWORK( N+1 ), IWORK, IINFO );
                      if ( IINFO != 0 ) {
                         WRITE( NOUNIT, FMT = 9999 )'ZHBGVX(V,I' // UPLO // ')', IINFO, N, JTYPE, IOLDSD;
                         INFO = ABS( IINFO );

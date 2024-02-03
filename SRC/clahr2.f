@@ -80,7 +80,7 @@
          // Generate the elementary reflector H(I) to annihilate
          // A(K+I+1:N,I)
 
-         clarfg(N-K-I+1, A( K+I, I ), A( MIN( K+I+1, N ), I ), 1, TAU( I ) );
+         clarfg(N-K-I+1, A( K+I, I ), A( min( K+I+1, N ), I ), 1, TAU( I ) );
          EI = A( K+I, I );
          A( K+I, I ) = ONE;
 

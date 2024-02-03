@@ -36,7 +36,7 @@
          INFO = -1;
       } else if ( N < 0 ) {
          INFO = -2;
-      } else if ( LDA < MAX( 1, M ) ) {
+      } else if ( LDA < max( 1, M ) ) {
          INFO = -4;
       }
       if ( INFO != 0 ) {
@@ -44,7 +44,7 @@
          return;
       }
 
-      K = MIN( M, N );
+      K = min( M, N );
 
       for (I = 1; I <= K; I++) { // 10
 
@@ -52,7 +52,7 @@
 
          zlacgv(N-I+1, A( I, I ), LDA );
          ALPHA = A( I, I );
-         zlarfg(N-I+1, ALPHA, A( I, MIN( I+1, N ) ), LDA, TAU( I ) );
+         zlarfg(N-I+1, ALPHA, A( I, min( I+1, N ) ), LDA, TAU( I ) );
          if ( I < M ) {
 
             // Apply H(i) to A(i+1:m,i:n) from the right

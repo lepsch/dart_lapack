@@ -65,9 +65,9 @@
          INFO = -5;
       } else if ( N2 < 0 ) {
          INFO = -6;
-      } else if ( LDQ < MAX( 1, NQ ) ) {
+      } else if ( LDQ < max( 1, NQ ) ) {
          INFO = -8;
-      } else if ( LDC < MAX( 1, M ) ) {
+      } else if ( LDC < max( 1, M ) ) {
          INFO = -10;
       } else if ( LWORK < NW && !LQUERY ) {
          INFO = -12;
@@ -106,12 +106,12 @@
 
       // Compute the largest chunk size available from the workspace.
 
-      NB = MAX( 1, MIN( LWORK, LWKOPT ) / NQ );
+      NB = max( 1, min( LWORK, LWKOPT ) / NQ );
 
       if ( LEFT ) {
          if ( NOTRAN ) {
             DO I = 1, N, NB;
-               LEN = MIN( NB, N-I+1 );
+               LEN = min( NB, N-I+1 );
                LDWORK = M;
 
                // Multiply bottom part of C by Q12.
@@ -138,7 +138,7 @@
             }
          } else {
             DO I = 1, N, NB;
-               LEN = MIN( NB, N-I+1 );
+               LEN = min( NB, N-I+1 );
                LDWORK = M;
 
                // Multiply bottom part of C by Q21**H.
@@ -167,7 +167,7 @@
       } else {
          if ( NOTRAN ) {
             DO I = 1, M, NB;
-               LEN = MIN( NB, M-I+1 );
+               LEN = min( NB, M-I+1 );
                LDWORK = LEN;
 
                // Multiply right part of C by Q21.
@@ -194,7 +194,7 @@
             }
          } else {
             DO I = 1, M, NB;
-               LEN = MIN( NB, M-I+1 );
+               LEN = min( NB, M-I+1 );
                LDWORK = LEN;
 
                // Multiply right part of C by Q12**H.

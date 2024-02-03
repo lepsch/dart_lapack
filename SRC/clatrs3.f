@@ -52,10 +52,10 @@
 
       // Partition A and X into blocks.
 
-      NB = MAX( NBMIN, ILAENV( 1, 'CLATRS', '', N, N, -1, -1 ) );
-      NB = MIN( NBMAX, NB );
-      NBA = MAX( 1, (N + NB - 1) / NB );
-      NBX = MAX( 1, (NRHS + NBRHS - 1) / NBRHS );
+      NB = max( NBMIN, ILAENV( 1, 'CLATRS', '', N, N, -1, -1 ) );
+      NB = min( NBMAX, NB );
+      NBA = max( 1, (N + NB - 1) / NB );
+      NBX = max( 1, (NRHS + NBRHS - 1) / NBRHS );
 
       // Compute the workspace
 
@@ -66,7 +66,7 @@
       // segment associated with the I-th block row and the KK-th vector
       // in the block column.
 
-      LSCALE = NBA * MAX( NBA, MIN( NRHS, NBRHS ) );
+      LSCALE = NBA * max( NBA, min( NRHS, NBRHS ) );
       LDS = NBA;
 
       // The second part stores upper bounds of the triangular A. There are
@@ -77,7 +77,7 @@
       LANRM = NBA * NBA;
       AWRK = LSCALE;
 
-      if ( MIN( N, NRHS ) == 0 ) {
+      if ( min( N, NRHS ) == 0 ) {
          LWMIN = 1;
       } else {
          LWMIN = LSCALE + LANRM;
@@ -98,9 +98,9 @@
          INFO = -5;
       } else if ( NRHS < 0 ) {
          INFO = -6;
-      } else if ( LDA < MAX( 1, N ) ) {
+      } else if ( LDA < max( 1, N ) ) {
          INFO = -8;
-      } else if ( LDX < MAX( 1, N ) ) {
+      } else if ( LDX < max( 1, N ) ) {
          INFO = -10;
       } else if ( !LQUERY && LWORK < LWMIN ) {
          INFO = -14;
@@ -120,7 +120,7 @@
 
       // Quick return if possible
 
-      if( MIN( N, NRHS ) == 0 ) return;
+      if( min( N, NRHS ) == 0 ) return;
 
       // Determine machine dependent constant to control overflow.
 
@@ -143,7 +143,7 @@
       TMAX = ZERO;
       for (J = 1; J <= NBA; J++) {
          J1 = (J-1)*NB + 1;
-         J2 = MIN( J*NB, N ) + 1;
+         J2 = min( J*NB, N ) + 1;
          if ( UPPER ) {
             IFIRST = 1;
             ILAST = J - 1;
@@ -153,7 +153,7 @@
          }
          for (I = IFIRST; I <= ILAST; I++) {
             I1 = (I-1)*NB + 1;
-            I2 = MIN( I*NB, N ) + 1;
+            I2 = min( I*NB, N ) + 1;
 
             // Compute upper bound of A( I1:I2-1, J1:J2-1 ).
 
@@ -164,7 +164,7 @@
                ANRM = CLANGE( '1', I2-I1, J2-J1, A( I1, J1 ), LDA, W );
                WORK( AWRK + J+(I-1)*NBA ) = ANRM;
             }
-            TMAX = MAX( TMAX, ANRM );
+            TMAX = max( TMAX, ANRM );
          }
       }
 
@@ -194,7 +194,7 @@
          // K2: column index of the first column in X( J, K+1 )
          // so the K2 - K1 is the column count of the block X( J, K )
          K1 = (K-1)*NBRHS + 1;
-         K2 = MIN( K*NBRHS, NRHS ) + 1;
+         K2 = min( K*NBRHS, NRHS ) + 1;
 
          // Initialize local scaling factors of current block column X( J, K )
 
@@ -238,7 +238,7 @@
             // J2: row index of the first row in A( J+1, J+1 )
             // so that J2 - J1 is the row count of the block A( J, J )
             J1 = (J-1)*NB + 1;
-            J2 = MIN( J*NB, N ) + 1;
+            J2 = min( J*NB, N ) + 1;
 
             // Solve op(A( J, J )) * X( J, RHS ) = SCALOC * B( J, RHS )
 
@@ -339,7 +339,7 @@
                // I2: row index of the first column in X( I+1, K )
                // so the I2 - I1 is the row count of the block X( I, K )
                I1 = (I-1)*NB + 1;
-               I2 = MIN( I*NB, N ) + 1;
+               I2 = min( I*NB, N ) + 1;
 
                // Prepare the linear update to be executed with GEMM.
                // For each column, compute a consistent scaling, a
@@ -350,7 +350,7 @@
                for (KK = 1; KK <= K2-K1; KK++) {
                   RHS = K1 + KK - 1;
                   // Compute consistent scaling
-                  SCAMIN = MIN( WORK( I+KK*LDS), WORK( J+KK*LDS ) );
+                  SCAMIN = min( WORK( I+KK*LDS), WORK( J+KK*LDS ) );
 
                   // Compute scaling factor to survive the linear update
                   // simulating consistent scaling.
@@ -401,7 +401,7 @@
          for (KK = 1; KK <= K2-K1; KK++) {
             RHS = K1 + KK - 1;
             for (I = 1; I <= NBA; I++) {
-               SCALE( RHS ) = MIN( SCALE( RHS ), WORK( I+KK*LDS ) );
+               SCALE( RHS ) = min( SCALE( RHS ), WORK( I+KK*LDS ) );
             }
          }
 
@@ -412,7 +412,7 @@
             if ( SCALE( RHS ) != ONE && SCALE( RHS ) != ZERO ) {
                for (I = 1; I <= NBA; I++) {
                   I1 = (I-1)*NB + 1;
-                  I2 = MIN( I*NB, N ) + 1;
+                  I2 = min( I*NB, N ) + 1;
                   SCAL = SCALE( RHS ) / WORK( I+KK*LDS );
                   if (SCAL != ONE) CALL CSSCAL( I2-I1, SCAL, X( I1, RHS ), 1 );
                }

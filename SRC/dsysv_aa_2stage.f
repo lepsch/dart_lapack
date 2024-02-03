@@ -39,18 +39,18 @@
       UPPER = LSAME( UPLO, 'U' );
       WQUERY = ( LWORK == -1 );
       TQUERY = ( LTB == -1 );
-      LWKMIN = MAX( 1, N );
+      LWKMIN = max( 1, N );
       if ( !UPPER && !LSAME( UPLO, 'L' ) ) {
          INFO = -1;
       } else if ( N < 0 ) {
          INFO = -2;
       } else if ( NRHS < 0 ) {
          INFO = -3;
-      } else if ( LDA < MAX( 1, N ) ) {
+      } else if ( LDA < max( 1, N ) ) {
          INFO = -5;
-      } else if ( LTB < MAX( 1, 4*N ) && !TQUERY ) {
+      } else if ( LTB < max( 1, 4*N ) && !TQUERY ) {
          INFO = -7;
-      } else if ( LDB < MAX( 1, N ) ) {
+      } else if ( LDB < max( 1, N ) ) {
          INFO = -11;
       } else if ( LWORK < LWKMIN && !WQUERY ) {
          INFO = -13;
@@ -58,7 +58,7 @@
 
       if ( INFO == 0 ) {
          dsytrf_aa_2stage(UPLO, N, A, LDA, TB, -1, IPIV, IPIV2, WORK, -1, INFO );
-         LWKOPT = MAX( LWKMIN, INT( WORK( 1 ) ) );
+         LWKOPT = max( LWKMIN, INT( WORK( 1 ) ) );
          WORK( 1 ) = LWKOPT;
       }
 

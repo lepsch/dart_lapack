@@ -53,7 +53,7 @@
 
          // Tests scaled by the norm(A)
 
-         ANORM = MAX( SLANGE( '1', N, N, A, LDA, WORK ), UNFL );
+         ANORM = max( SLANGE( '1', N, N, A, LDA, WORK ), UNFL );
 
          if ( ITYPE == 1 ) {
 
@@ -85,9 +85,9 @@
             RESULT = ( WNORM / ANORM ) / ( N*ULP );
          } else {
             if ( ANORM < ONE ) {
-               RESULT = ( MIN( WNORM, N*ANORM ) / ANORM ) / ( N*ULP );
+               RESULT = ( min( WNORM, N*ANORM ) / ANORM ) / ( N*ULP );
             } else {
-               RESULT = MIN( WNORM / ANORM, REAL( N ) ) / ( N*ULP );
+               RESULT = min( WNORM / ANORM, REAL( N ) ) / ( N*ULP );
             }
          }
 
@@ -103,7 +103,7 @@
             WORK( ( N+1 )*( JDIAG-1 )+1 ) = WORK( ( N+1 )*( JDIAG-1 )+ 1 ) - ONE;
          } // 30
 
-         RESULT = MIN( SLANGE( '1', N, N, WORK, N, WORK( N**2+1 ) ), REAL( N ) ) / ( N*ULP );
+         RESULT = min( SLANGE( '1', N, N, WORK, N, WORK( N**2+1 ) ), REAL( N ) ) / ( N*ULP );
       }
 
       return;

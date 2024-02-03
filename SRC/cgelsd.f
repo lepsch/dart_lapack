@@ -43,8 +43,8 @@
       // Test the input arguments.
 
       INFO = 0;
-      MINMN = MIN( M, N );
-      MAXMN = MAX( M, N );
+      MINMN = min( M, N );
+      MAXMN = max( M, N );
       LQUERY = ( LWORK == -1 );
       if ( M < 0 ) {
          INFO = -1;
@@ -52,9 +52,9 @@
          INFO = -2;
       } else if ( NRHS < 0 ) {
          INFO = -3;
-      } else if ( LDA < MAX( 1, M ) ) {
+      } else if ( LDA < max( 1, M ) ) {
          INFO = -5;
-      } else if ( LDB < MAX( 1, MAXMN ) ) {
+      } else if ( LDB < max( 1, MAXMN ) ) {
          INFO = -7;
       }
 
@@ -73,7 +73,7 @@
          if ( MINMN > 0 ) {
             SMLSIZ = ILAENV( 9, 'CGELSD', ' ', 0, 0, 0, 0 );
             MNTHR = ILAENV( 6, 'CGELSD', ' ', M, N, NRHS, -1 );
-            NLVL = MAX( INT( LOG( REAL( MINMN ) / REAL( SMLSIZ + 1 ) ) / LOG( TWO ) ) + 1, 0 );
+            NLVL = max( INT( LOG( REAL( MINMN ) / REAL( SMLSIZ + 1 ) ) / LOG( TWO ) ) + 1, 0 );
             LIWORK = 3*MINMN*NLVL + 11*MINMN;
             MM = M;
             if ( M >= N && M >= MNTHR ) {
@@ -82,44 +82,44 @@
                          // columns.
 
                MM = N;
-               MAXWRK = MAX( MAXWRK, N*ILAENV( 1, 'CGEQRF', ' ', M, N, -1, -1 ) )                MAXWRK = MAX( MAXWRK, NRHS*ILAENV( 1, 'CUNMQR', 'LC', M, NRHS, N, -1 ) );
+               MAXWRK = max( MAXWRK, N*ILAENV( 1, 'CGEQRF', ' ', M, N, -1, -1 ) )                MAXWRK = max( MAXWRK, NRHS*ILAENV( 1, 'CUNMQR', 'LC', M, NRHS, N, -1 ) );
             }
             if ( M >= N ) {
 
                // Path 1 - overdetermined or exactly determined.
 
-               LRWORK = 10*N + 2*N*SMLSIZ + 8*N*NLVL + 3*SMLSIZ*NRHS + MAX( (SMLSIZ+1)**2, N*(1+NRHS) + 2*NRHS )                MAXWRK = MAX( MAXWRK, 2*N + ( MM + N )*ILAENV( 1, 'CGEBRD', ' ', MM, N, -1, -1 ) )                MAXWRK = MAX( MAXWRK, 2*N + NRHS*ILAENV( 1, 'CUNMBR', 'QLC', MM, NRHS, N, -1 ) )                MAXWRK = MAX( MAXWRK, 2*N + ( N - 1 )*ILAENV( 1, 'CUNMBR', 'PLN', N, NRHS, N, -1 ) );
-               MAXWRK = MAX( MAXWRK, 2*N + N*NRHS );
-               MINWRK = MAX( 2*N + MM, 2*N + N*NRHS );
+               LRWORK = 10*N + 2*N*SMLSIZ + 8*N*NLVL + 3*SMLSIZ*NRHS + max( (SMLSIZ+1)**2, N*(1+NRHS) + 2*NRHS )                MAXWRK = max( MAXWRK, 2*N + ( MM + N )*ILAENV( 1, 'CGEBRD', ' ', MM, N, -1, -1 ) )                MAXWRK = max( MAXWRK, 2*N + NRHS*ILAENV( 1, 'CUNMBR', 'QLC', MM, NRHS, N, -1 ) )                MAXWRK = max( MAXWRK, 2*N + ( N - 1 )*ILAENV( 1, 'CUNMBR', 'PLN', N, NRHS, N, -1 ) );
+               MAXWRK = max( MAXWRK, 2*N + N*NRHS );
+               MINWRK = max( 2*N + MM, 2*N + N*NRHS );
             }
             if ( N > M ) {
-               LRWORK = 10*M + 2*M*SMLSIZ + 8*M*NLVL + 3*SMLSIZ*NRHS + MAX( (SMLSIZ+1)**2, N*(1+NRHS) + 2*NRHS );
+               LRWORK = 10*M + 2*M*SMLSIZ + 8*M*NLVL + 3*SMLSIZ*NRHS + max( (SMLSIZ+1)**2, N*(1+NRHS) + 2*NRHS );
                if ( N >= MNTHR ) {
 
                   // Path 2a - underdetermined, with many more columns
                             // than rows.
 
-                  MAXWRK = M + M*ILAENV( 1, 'CGELQF', ' ', M, N, -1, -1 )                   MAXWRK = MAX( MAXWRK, M*M + 4*M + 2*M*ILAENV( 1, 'CGEBRD', ' ', M, M, -1, -1 ) )                   MAXWRK = MAX( MAXWRK, M*M + 4*M + NRHS*ILAENV( 1, 'CUNMBR', 'QLC', M, NRHS, M, -1 ) )                   MAXWRK = MAX( MAXWRK, M*M + 4*M + ( M - 1 )*ILAENV( 1, 'CUNMLQ', 'LC', N, NRHS, M, -1 ) );
+                  MAXWRK = M + M*ILAENV( 1, 'CGELQF', ' ', M, N, -1, -1 )                   MAXWRK = max( MAXWRK, M*M + 4*M + 2*M*ILAENV( 1, 'CGEBRD', ' ', M, M, -1, -1 ) )                   MAXWRK = max( MAXWRK, M*M + 4*M + NRHS*ILAENV( 1, 'CUNMBR', 'QLC', M, NRHS, M, -1 ) )                   MAXWRK = max( MAXWRK, M*M + 4*M + ( M - 1 )*ILAENV( 1, 'CUNMLQ', 'LC', N, NRHS, M, -1 ) );
                   if ( NRHS > 1 ) {
-                     MAXWRK = MAX( MAXWRK, M*M + M + M*NRHS );
+                     MAXWRK = max( MAXWRK, M*M + M + M*NRHS );
                   } else {
-                     MAXWRK = MAX( MAXWRK, M*M + 2*M );
+                     MAXWRK = max( MAXWRK, M*M + 2*M );
                   }
-                  MAXWRK = MAX( MAXWRK, M*M + 4*M + M*NRHS );
+                  MAXWRK = max( MAXWRK, M*M + 4*M + M*NRHS );
       // XXX: Ensure the Path 2a case below is triggered.  The workspace
       // calculation should use queries for all routines eventually.
-                  MAXWRK = MAX( MAXWRK, 4*M+M*M+MAX( M, 2*M-4, NRHS, N-3*M ) );
+                  MAXWRK = max( MAXWRK, 4*M+M*M+max( M, 2*M-4, NRHS, N-3*M ) );
                } else {
 
                   // Path 2 - underdetermined.
 
-                  MAXWRK = 2*M + ( N + M )*ILAENV( 1, 'CGEBRD', ' ', M, N, -1, -1 )                   MAXWRK = MAX( MAXWRK, 2*M + NRHS*ILAENV( 1, 'CUNMBR', 'QLC', M, NRHS, M, -1 ) )                   MAXWRK = MAX( MAXWRK, 2*M + M*ILAENV( 1, 'CUNMBR', 'PLN', N, NRHS, M, -1 ) );
-                  MAXWRK = MAX( MAXWRK, 2*M + M*NRHS );
+                  MAXWRK = 2*M + ( N + M )*ILAENV( 1, 'CGEBRD', ' ', M, N, -1, -1 )                   MAXWRK = max( MAXWRK, 2*M + NRHS*ILAENV( 1, 'CUNMBR', 'QLC', M, NRHS, M, -1 ) )                   MAXWRK = max( MAXWRK, 2*M + M*ILAENV( 1, 'CUNMBR', 'PLN', N, NRHS, M, -1 ) );
+                  MAXWRK = max( MAXWRK, 2*M + M*NRHS );
                }
-               MINWRK = MAX( 2*M + N, 2*M + M*NRHS );
+               MINWRK = max( 2*M + N, 2*M + M*NRHS );
             }
          }
-         MINWRK = MIN( MINWRK, MAXWRK );
+         MINWRK = min( MINWRK, MAXWRK );
          WORK( 1 ) = SROUNDUP_LWORK(MAXWRK);
          IWORK( 1 ) = LIWORK;
          RWORK( 1 ) = LRWORK;
@@ -170,7 +170,7 @@
 
          // Matrix all zero. Return zero solution.
 
-         claset('F', MAX( M, N ), NRHS, CZERO, CZERO, B, LDB );
+         claset('F', max( M, N ), NRHS, CZERO, CZERO, B, LDB );
          slaset('F', MINMN, 1, ZERO, ZERO, S, 1 );
          RANK = 0;
          GO TO 10;
@@ -260,13 +260,13 @@
 
          cunmbr('P', 'L', 'N', N, NRHS, N, A, LDA, WORK( ITAUP ), B, LDB, WORK( NWORK ), LWORK-NWORK+1, INFO );
 
-      } else if ( N >= MNTHR && LWORK >= 4*M+M*M+ MAX( M, 2*M-4, NRHS, N-3*M ) ) {
+      } else if ( N >= MNTHR && LWORK >= 4*M+M*M+ max( M, 2*M-4, NRHS, N-3*M ) ) {
 
          // Path 2a - underdetermined, with many more columns than rows
          // and sufficient workspace for an efficient algorithm.
 
          LDWORK = M;
-         if( LWORK >= MAX( 4*M+M*LDA+MAX( M, 2*M-4, NRHS, N-3*M ), M*LDA+M+M*NRHS ) )LDWORK = LDA;
+         if( LWORK >= max( 4*M+M*LDA+max( M, 2*M-4, NRHS, N-3*M ), M*LDA+M+M*NRHS ) )LDWORK = LDA;
          ITAU = 1;
          NWORK = M + 1;
 

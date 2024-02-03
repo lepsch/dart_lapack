@@ -79,9 +79,9 @@
          INFO = -4;
       } else if ( IHI > N || IHI < ILO-1 ) {
          INFO = -5;
-      } else if ( LDA < MAX( 1, N ) ) {
+      } else if ( LDA < max( 1, N ) ) {
          INFO = -7;
-      } else if ( LDB < MAX( 1, N ) ) {
+      } else if ( LDB < max( 1, N ) ) {
          INFO = -9;
       } else if ( ( ILQ && LDQ < N ) || LDQ < 1 ) {
          INFO = -11;

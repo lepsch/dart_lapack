@@ -55,7 +55,7 @@
          // Criterion that guarantees relative accuracy
          for (I = 1; I <= N-1; I++) { // 10
             EABS = ABS( E(I) );
-            if ( EABS <= SPLTOL * SQRT(ABS(D(I)))*SQRT(ABS(D(I+1))) ) {
+            if ( EABS <= SPLTOL * sqrt(ABS(D(I)))*sqrt(ABS(D(I+1))) ) {
                E(I) = ZERO;
                E2(I) = ZERO;
                ISPLIT( NSPLIT ) = I;

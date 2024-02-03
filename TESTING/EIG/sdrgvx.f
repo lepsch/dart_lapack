@@ -71,7 +71,7 @@
       if ( INFO == 0 && LWORK >= 1 ) {
          MINWRK = 2*NMAX*NMAX + 12*NMAX + 16;
          MAXWRK = 6*NMAX + NMAX*ILAENV( 1, 'SGEQRF', ' ', NMAX, 1, NMAX, 0 );
-         MAXWRK = MAX( MAXWRK, 2*NMAX*NMAX+12*NMAX+16 );
+         MAXWRK = max( MAXWRK, 2*NMAX*NMAX+12*NMAX+16 );
          WORK( 1 ) = MAXWRK;
       }
 
@@ -153,8 +153,8 @@
                         } else if ( STRU( I ) == ZERO ) {
                            if( S( I ) > ABNORM*ULP ) RESULT( 3 ) = ULPINV;
                         } else {
-                           WORK( I ) = MAX( ABS( STRU( I ) / S( I ) ), ABS( S( I ) / STRU( I ) ) );
-                           RESULT( 3 ) = MAX( RESULT( 3 ), WORK( I ) );
+                           WORK( I ) = max( ABS( STRU( I ) / S( I ) ), ABS( S( I ) / STRU( I ) ) );
+                           RESULT( 3 ) = max( RESULT( 3 ), WORK( I ) );
                         }
                      } // 10
 
@@ -170,8 +170,8 @@
                      } else if ( DIFTRU( 5 ) == ZERO ) {
                         if( DIF( 5 ) > ABNORM*ULP ) RESULT( 4 ) = ULPINV;
                      } else {
-                        RATIO1 = MAX( ABS( DIFTRU( 1 ) / DIF( 1 ) ), ABS( DIF( 1 ) / DIFTRU( 1 ) ) )                         RATIO2 = MAX( ABS( DIFTRU( 5 ) / DIF( 5 ) ), ABS( DIF( 5 ) / DIFTRU( 5 ) ) );
-                        RESULT( 4 ) = MAX( RATIO1, RATIO2 );
+                        RATIO1 = max( ABS( DIFTRU( 1 ) / DIF( 1 ) ), ABS( DIF( 1 ) / DIFTRU( 1 ) ) )                         RATIO2 = max( ABS( DIFTRU( 5 ) / DIF( 5 ) ), ABS( DIF( 5 ) / DIFTRU( 5 ) ) );
+                        RESULT( 4 ) = max( RATIO1, RATIO2 );
                      }
 
                      NTESTT = NTESTT + 4;
@@ -281,8 +281,8 @@
          } else if ( STRU( I ) == ZERO ) {
             if( S( I ) > ABNORM*ULP ) RESULT( 3 ) = ULPINV;
          } else {
-            WORK( I ) = MAX( ABS( STRU( I ) / S( I ) ), ABS( S( I ) / STRU( I ) ) );
-            RESULT( 3 ) = MAX( RESULT( 3 ), WORK( I ) );
+            WORK( I ) = max( ABS( STRU( I ) / S( I ) ), ABS( S( I ) / STRU( I ) ) );
+            RESULT( 3 ) = max( RESULT( 3 ), WORK( I ) );
          }
       } // 120
 
@@ -298,8 +298,8 @@
       } else if ( DIFTRU( 5 ) == ZERO ) {
          if( DIF( 5 ) > ABNORM*ULP ) RESULT( 4 ) = ULPINV;
       } else {
-         RATIO1 = MAX( ABS( DIFTRU( 1 ) / DIF( 1 ) ), ABS( DIF( 1 ) / DIFTRU( 1 ) ) )          RATIO2 = MAX( ABS( DIFTRU( 5 ) / DIF( 5 ) ), ABS( DIF( 5 ) / DIFTRU( 5 ) ) );
-         RESULT( 4 ) = MAX( RATIO1, RATIO2 );
+         RATIO1 = max( ABS( DIFTRU( 1 ) / DIF( 1 ) ), ABS( DIF( 1 ) / DIFTRU( 1 ) ) )          RATIO2 = max( ABS( DIFTRU( 5 ) / DIF( 5 ) ), ABS( DIF( 5 ) / DIFTRU( 5 ) ) );
+         RESULT( 4 ) = max( RATIO1, RATIO2 );
       }
 
       NTESTT = NTESTT + 4;

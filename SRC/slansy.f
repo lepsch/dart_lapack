@@ -106,7 +106,7 @@
          }
          SUM = 2*SUM;
          slassq(N, A, LDA+1, SCALE, SUM );
-         VALUE = SCALE*SQRT( SUM );
+         VALUE = SCALE*sqrt( SUM );
       }
 
       SLANSY = VALUE;

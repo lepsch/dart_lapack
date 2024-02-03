@@ -46,8 +46,8 @@
       clacpy('Full', N, M, A, LDA, AF, LDA );
       clacpy('Full', N, P, B, LDB, BF, LDB );
 
-      ANORM = MAX( CLANGE( '1', N, M, A, LDA, RWORK ), UNFL );
-      BNORM = MAX( CLANGE( '1', N, P, B, LDB, RWORK ), UNFL );
+      ANORM = max( CLANGE( '1', N, M, A, LDA, RWORK ), UNFL );
+      BNORM = max( CLANGE( '1', N, P, B, LDB, RWORK ), UNFL );
 
       // Factorize the matrices A and B in the arrays AF and BF.
 
@@ -57,7 +57,7 @@
 
       claset('Full', N, N, CROGUE, CROGUE, Q, LDA );
       clacpy('Lower', N-1, M, AF( 2,1 ), LDA, Q( 2,1 ), LDA );
-      cungqr(N, N, MIN( N, M ), Q, LDA, TAUA, WORK, LWORK, INFO );
+      cungqr(N, N, min( N, M ), Q, LDA, TAUA, WORK, LWORK, INFO );
 
       // Generate the P-by-P matrix Z
 
@@ -68,7 +68,7 @@
       } else {
          if (P > 1) CALL CLACPY( 'Lower', P-1, P-1, BF( N-P+2, 1 ), LDB, Z( 2, 1 ), LDB );
       }
-      cungrq(P, P, MIN( N, P ), Z, LDB, TAUB, WORK, LWORK, INFO );
+      cungrq(P, P, min( N, P ), Z, LDB, TAUB, WORK, LWORK, INFO );
 
       // Copy R
 
@@ -89,11 +89,11 @@
 
       cgemm('Conjugate transpose', 'No transpose', N, M, N, -CONE, Q, LDA, A, LDA, CONE, R, LDA );
 
-      // Compute norm( R - Q'*A ) / ( MAX(M,N)*norm(A)*ULP ) .
+      // Compute norm( R - Q'*A ) / ( max(M,N)*norm(A)*ULP ) .
 
       RESID = CLANGE( '1', N, M, R, LDA, RWORK );
       if ( ANORM > ZERO ) {
-         RESULT( 1 ) = ( ( RESID / REAL( MAX(1,M,N) ) ) / ANORM ) / ULP;
+         RESULT( 1 ) = ( ( RESID / REAL( max(1,M,N) ) ) / ANORM ) / ULP;
       } else {
          RESULT( 1 ) = ZERO;
       }
@@ -102,11 +102,11 @@
 
       cgemm('No Transpose', 'No transpose', N, P, P, CONE, T, LDB, Z, LDB, CZERO, BWK, LDB )       CALL CGEMM( 'Conjugate transpose', 'No transpose', N, P, N, -CONE, Q, LDA, B, LDB, CONE, BWK, LDB );
 
-      // Compute norm( T*Z - Q'*B ) / ( MAX(P,N)*norm(A)*ULP ) .
+      // Compute norm( T*Z - Q'*B ) / ( max(P,N)*norm(A)*ULP ) .
 
       RESID = CLANGE( '1', N, P, BWK, LDB, RWORK );
       if ( BNORM > ZERO ) {
-         RESULT( 2 ) = ( ( RESID / REAL( MAX(1,P,N ) ) )/BNORM ) / ULP;
+         RESULT( 2 ) = ( ( RESID / REAL( max(1,P,N ) ) )/BNORM ) / ULP;
       } else {
          RESULT( 2 ) = ZERO;
       }
@@ -119,7 +119,7 @@
       // Compute norm( I - Q'*Q ) / ( N * ULP ) .
 
       RESID = CLANHE( '1', 'Upper', N, R, LDA, RWORK );
-      RESULT( 3 ) = ( RESID / REAL( MAX( 1, N ) ) ) / ULP;
+      RESULT( 3 ) = ( RESID / REAL( max( 1, N ) ) ) / ULP;
 
       // Compute I - Z'*Z
 
@@ -129,7 +129,7 @@
       // Compute norm( I - Z'*Z ) / ( P*ULP ) .
 
       RESID = CLANHE( '1', 'Upper', P, T, LDB, RWORK );
-      RESULT( 4 ) = ( RESID / REAL( MAX( 1, P ) ) ) / ULP;
+      RESULT( 4 ) = ( RESID / REAL( max( 1, P ) ) ) / ULP;
 
       return;
 

@@ -51,7 +51,7 @@
          // .....................................................
 
          } // 10
-         if ( J > MIN(M, NB) ) GO TO 20;
+         if ( J > min(M, NB) ) GO TO 20;
 
          // K is the column to be factorized
           // when being called from CHETRF_AA,
@@ -195,7 +195,7 @@
          // .....................................................
 
          } // 30
-         if( J > MIN( M, NB ) ) GO TO 40;
+         if( J > min( M, NB ) ) GO TO 40;
 
          // K is the column to be factorized
           // when being called from CHETRF_AA,

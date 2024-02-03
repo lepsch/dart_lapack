@@ -78,7 +78,7 @@
 
       NMAX = 12;
       for (J = 1; J <= NSIZES; J++) { // 10
-         NMAX = MAX( NMAX, NN( J ) );
+         NMAX = max( NMAX, NN( J ) );
          if( NN( J ) < 0 ) BADNN = true;
       } // 10
 
@@ -100,7 +100,7 @@
          INFO = -10;
       } else if ( LDVS < 1 || LDVS < NMAX ) {
          INFO = -20;
-      } else if ( MAX( 3*NMAX, 2*NMAX**2 ) > LWORK ) {
+      } else if ( max( 3*NMAX, 2*NMAX**2 ) > LWORK ) {
          INFO = -24;
       }
 
@@ -119,7 +119,7 @@
       OVFL = ONE / UNFL;
       ULP = DLAMCH( 'Precision' );
       ULPINV = ONE / ULP;
-      RTULP = SQRT( ULP );
+      RTULP = sqrt( ULP );
       RTULPI = ONE / RTULP;
 
       // Loop over sizes, types
@@ -129,9 +129,9 @@
       for (JSIZE = 1; JSIZE <= NSIZES; JSIZE++) { // 140
          N = NN( JSIZE );
          if ( NSIZES != 1 ) {
-            MTYPES = MIN( MAXTYP, NTYPES );
+            MTYPES = min( MAXTYP, NTYPES );
          } else {
-            MTYPES = MIN( MAXTYP+1, NTYPES );
+            MTYPES = min( MAXTYP+1, NTYPES );
          }
 
          for (JTYPE = 1; JTYPE <= MTYPES; JTYPE++) { // 130
@@ -286,9 +286,9 @@
                if ( IWK == 1 ) {
                   NNWORK = 3*N;
                } else {
-                  NNWORK = MAX( 3*N, 2*N*N );
+                  NNWORK = max( 3*N, 2*N*N );
                }
-               NNWORK = MAX( NNWORK, 1 );
+               NNWORK = max( NNWORK, 1 );
 
                dget24( false , JTYPE, THRESH, IOLDSD, NOUNIT, N, A, LDA, H, HT, WR, WI, WRT, WIT, WRTMP, WITMP, VS, LDVS, VS1, RCDEIN, RCDVIN, NSLCT, ISLCT, RESULT, WORK, NNWORK, IWORK, BWORK, INFO );
 

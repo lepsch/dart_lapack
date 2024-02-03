@@ -205,9 +205,9 @@
             }
          } // 90
 
-         X = SQRT( CNDNUM ) - ONE / SQRT( CNDNUM );
+         X = sqrt( CNDNUM ) - ONE / sqrt( CNDNUM );
          if ( N > 2 ) {
-            Y = SQRT( TWO / REAL( N-2 ) )*X;
+            Y = sqrt( TWO / REAL( N-2 ) )*X;
          } else {
             Y = ZERO;
          }
@@ -341,7 +341,7 @@
          slarnv(2, ISEED, N, B );
          IY = ISAMAX( N, B, 1 );
          BNORM = ABS( B( IY ) );
-         BSCAL = BIGNUM / MAX( ONE, BNORM );
+         BSCAL = BIGNUM / max( ONE, BNORM );
          sscal(N, BSCAL, B, 1 );
 
       } else if ( IMAT == 12 ) {
@@ -351,7 +351,7 @@
          // In type 12, the offdiagonal elements are small (CNORM(j) < 1).
 
          slarnv(2, ISEED, N, B );
-         TSCAL = ONE / MAX( ONE, REAL( N-1 ) );
+         TSCAL = ONE / max( ONE, REAL( N-1 ) );
          if ( UPPER ) {
             JC = 1;
             for (J = 1; J <= N; J++) { // 200
@@ -459,7 +459,7 @@
          // overflow when dividing by T(j,j).  To control the amount of
          // scaling needed, the matrix is bidiagonal.
 
-         TEXP = ONE / MAX( ONE, REAL( N-1 ) );
+         TEXP = ONE / max( ONE, REAL( N-1 ) );
          TSCAL = SMLNUM**TEXP;
          slarnv(2, ISEED, N, B );
          if ( UPPER ) {
@@ -587,7 +587,7 @@
          slarnv(2, ISEED, N, B );
          IY = ISAMAX( N, B, 1 );
          BNORM = ABS( B( IY ) );
-         BSCAL = BIGNUM / MAX( ONE, BNORM );
+         BSCAL = BIGNUM / max( ONE, BNORM );
          sscal(N, BSCAL, B, 1 );
 
       } else if ( IMAT == 19 ) {
@@ -596,8 +596,8 @@
          // BIGNUM/(n-1) and BIGNUM so that at least one of the column
          // norms will exceed BIGNUM.
 
-         TLEFT = BIGNUM / MAX( ONE, REAL( N-1 ) );
-         TSCAL = BIGNUM*( REAL( N-1 ) / MAX( ONE, REAL( N ) ) );
+         TLEFT = BIGNUM / max( ONE, REAL( N-1 ) );
+         TSCAL = BIGNUM*( REAL( N-1 ) / max( ONE, REAL( N ) ) );
          if ( UPPER ) {
             JC = 1;
             for (J = 1; J <= N; J++) { // 420

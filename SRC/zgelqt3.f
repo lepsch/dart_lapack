@@ -31,9 +31,9 @@
          INFO = -1;
       } else if ( N < M ) {
          INFO = -2;
-      } else if ( LDA < MAX( 1, M ) ) {
+      } else if ( LDA < max( 1, M ) ) {
          INFO = -4;
-      } else if ( LDT < MAX( 1, M ) ) {
+      } else if ( LDT < max( 1, M ) ) {
          INFO = -6;
       }
       if ( INFO != 0 ) {
@@ -45,7 +45,7 @@
 
          // Compute Householder transform when M=1
 
-         zlarfg(N, A( 1, 1 ), A( 1, MIN( 2, N ) ), LDA, T( 1, 1 ) );
+         zlarfg(N, A( 1, 1 ), A( 1, min( 2, N ) ), LDA, T( 1, 1 ) );
          T(1,1)=CONJG(T(1,1));
 
       } else {
@@ -54,8 +54,8 @@
 
          M1 = M/2;
          M2 = M-M1;
-         I1 = MIN( M1+1, M );
-         J1 = MIN( M+1, N );
+         I1 = min( M1+1, M );
+         J1 = min( M+1, N );
 
          // Compute A(1:M1,1:N) <- (Y1,R1,T1), where Q1 = I - Y1 T1 Y1^H
 

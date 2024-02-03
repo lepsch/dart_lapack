@@ -65,7 +65,7 @@
          INFO = -3;
       } else if ( N < 0 ) {
          INFO = -4;
-      } else if ( LDA < MAX( 1, N ) ) {
+      } else if ( LDA < max( 1, N ) ) {
          INFO = -6;
       }
       if ( INFO != 0 ) {
@@ -81,7 +81,7 @@
       }
 
       RCOND = ZERO;
-      SMLNUM = DLAMCH( 'Safe minimum' )*DBLE( MAX( 1, N ) );
+      SMLNUM = DLAMCH( 'Safe minimum' )*DBLE( max( 1, N ) );
 
       // Compute the norm of the triangular matrix A.
 

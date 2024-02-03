@@ -89,9 +89,9 @@
          INFO = -4;
       } else if ( N < 0 ) {
          INFO = -5;
-      } else if ( LDA < MAX( 1, N ) ) {
+      } else if ( LDA < max( 1, N ) ) {
          INFO = -7;
-      } else if ( LDB < MAX( 1, N ) ) {
+      } else if ( LDB < max( 1, N ) ) {
          INFO = -9;
       } else if ( LDVL < 1 || ( ILVL && LDVL < N ) ) {
          INFO = -14;
@@ -121,12 +121,12 @@
                MINWRK = 10*N;
             }
             if ( WANTSV || WANTSB ) {
-               MINWRK = MAX( MINWRK, 2*N*( N + 4 ) + 16 );
+               MINWRK = max( MINWRK, 2*N*( N + 4 ) + 16 );
             }
             MAXWRK = MINWRK;
-            MAXWRK = MAX( MAXWRK, N + N*ILAENV( 1, 'DGEQRF', ' ', N, 1, N, 0 ) )             MAXWRK = MAX( MAXWRK, N + N*ILAENV( 1, 'DORMQR', ' ', N, 1, N, 0 ) );
+            MAXWRK = max( MAXWRK, N + N*ILAENV( 1, 'DGEQRF', ' ', N, 1, N, 0 ) )             MAXWRK = max( MAXWRK, N + N*ILAENV( 1, 'DORMQR', ' ', N, 1, N, 0 ) );
             if ( ILVL ) {
-               MAXWRK = MAX( MAXWRK, N + N*ILAENV( 1, 'DORGQR', ' ', N, 1, N, 0 ) );
+               MAXWRK = max( MAXWRK, N + N*ILAENV( 1, 'DORGQR', ' ', N, 1, N, 0 ) );
             }
          }
          WORK( 1 ) = MAXWRK;
@@ -153,7 +153,7 @@
       EPS = DLAMCH( 'P' );
       SMLNUM = DLAMCH( 'S' );
       BIGNUM = ONE / SMLNUM;
-      SMLNUM = SQRT( SMLNUM ) / EPS;
+      SMLNUM = sqrt( SMLNUM ) / EPS;
       BIGNUM = ONE / SMLNUM;
 
       // Scale A if max element outside range [SMLNUM,BIGNUM]
@@ -358,11 +358,11 @@
             TEMP = ZERO;
             if ( ALPHAI( JC ) == ZERO ) {
                for (JR = 1; JR <= N; JR++) { // 30
-                  TEMP = MAX( TEMP, ABS( VL( JR, JC ) ) );
+                  TEMP = max( TEMP, ABS( VL( JR, JC ) ) );
                } // 30
             } else {
                for (JR = 1; JR <= N; JR++) { // 40
-                  TEMP = MAX( TEMP, ABS( VL( JR, JC ) )+ ABS( VL( JR, JC+1 ) ) );
+                  TEMP = max( TEMP, ABS( VL( JR, JC ) )+ ABS( VL( JR, JC+1 ) ) );
                } // 40
             }
             if (TEMP < SMLNUM) GO TO 70;
@@ -386,11 +386,11 @@
             TEMP = ZERO;
             if ( ALPHAI( JC ) == ZERO ) {
                for (JR = 1; JR <= N; JR++) { // 80
-                  TEMP = MAX( TEMP, ABS( VR( JR, JC ) ) );
+                  TEMP = max( TEMP, ABS( VR( JR, JC ) ) );
                } // 80
             } else {
                for (JR = 1; JR <= N; JR++) { // 90
-                  TEMP = MAX( TEMP, ABS( VR( JR, JC ) )+ ABS( VR( JR, JC+1 ) ) );
+                  TEMP = max( TEMP, ABS( VR( JR, JC ) )+ ABS( VR( JR, JC+1 ) ) );
                } // 90
             }
             if (TEMP < SMLNUM) GO TO 120;

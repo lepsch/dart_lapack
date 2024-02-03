@@ -56,11 +56,11 @@
          INFO = -4;
       } else if ( N < 0 ) {
          INFO = -5;
-      } else if ( LDA < MAX( 1, M ) ) {
+      } else if ( LDA < max( 1, M ) ) {
          INFO = -7;
-      } else if ( LDB < MAX( 1, N ) ) {
+      } else if ( LDB < max( 1, N ) ) {
          INFO = -9;
-      } else if ( LDC < MAX( 1, M ) ) {
+      } else if ( LDC < max( 1, M ) ) {
          INFO = -11;
       }
       if ( INFO != 0 ) {
@@ -81,7 +81,7 @@
       SMLNUM = SMLNUM*DBLE( M*N ) / EPS;
       BIGNUM = ONE / SMLNUM;
 
-      SMIN = MAX( SMLNUM, EPS*DLANGE( 'M', M, M, A, LDA, DUM ), EPS*DLANGE( 'M', N, N, B, LDB, DUM ) );
+      SMIN = max( SMLNUM, EPS*DLANGE( 'M', M, M, A, LDA, DUM ), EPS*DLANGE( 'M', N, N, B, LDB, DUM ) );
 
       SGN = ISGN;
 
@@ -142,7 +142,7 @@
                }
 
                if ( L1 == L2 && K1 == K2 ) {
-                  SUML = DDOT( M-K1, A( K1, MIN( K1+1, M ) ), LDA, C( MIN( K1+1, M ), L1 ), 1 );
+                  SUML = DDOT( M-K1, A( K1, min( K1+1, M ) ), LDA, C( min( K1+1, M ), L1 ), 1 );
                   SUMR = DDOT( L1-1, C( K1, 1 ), LDC, B( 1, L1 ), 1 );
                   VEC( 1, 1 ) = C( K1, L1 ) - ( SUML+SGN*SUMR );
                   SCALOC = ONE;
@@ -170,11 +170,11 @@
 
                } else if ( L1 == L2 && K1 != K2 ) {
 
-                  SUML = DDOT( M-K2, A( K1, MIN( K2+1, M ) ), LDA, C( MIN( K2+1, M ), L1 ), 1 );
+                  SUML = DDOT( M-K2, A( K1, min( K2+1, M ) ), LDA, C( min( K2+1, M ), L1 ), 1 );
                   SUMR = DDOT( L1-1, C( K1, 1 ), LDC, B( 1, L1 ), 1 );
                   VEC( 1, 1 ) = C( K1, L1 ) - ( SUML+SGN*SUMR );
 
-                  SUML = DDOT( M-K2, A( K2, MIN( K2+1, M ) ), LDA, C( MIN( K2+1, M ), L1 ), 1 );
+                  SUML = DDOT( M-K2, A( K2, min( K2+1, M ) ), LDA, C( min( K2+1, M ), L1 ), 1 );
                   SUMR = DDOT( L1-1, C( K2, 1 ), LDC, B( 1, L1 ), 1 );
                   VEC( 2, 1 ) = C( K2, L1 ) - ( SUML+SGN*SUMR );
 
@@ -192,11 +192,11 @@
 
                } else if ( L1 != L2 && K1 == K2 ) {
 
-                  SUML = DDOT( M-K1, A( K1, MIN( K1+1, M ) ), LDA, C( MIN( K1+1, M ), L1 ), 1 );
+                  SUML = DDOT( M-K1, A( K1, min( K1+1, M ) ), LDA, C( min( K1+1, M ), L1 ), 1 );
                   SUMR = DDOT( L1-1, C( K1, 1 ), LDC, B( 1, L1 ), 1 );
                   VEC( 1, 1 ) = SGN*( C( K1, L1 )-( SUML+SGN*SUMR ) );
 
-                  SUML = DDOT( M-K1, A( K1, MIN( K1+1, M ) ), LDA, C( MIN( K1+1, M ), L2 ), 1 );
+                  SUML = DDOT( M-K1, A( K1, min( K1+1, M ) ), LDA, C( min( K1+1, M ), L2 ), 1 );
                   SUMR = DDOT( L1-1, C( K1, 1 ), LDC, B( 1, L2 ), 1 );
                   VEC( 2, 1 ) = SGN*( C( K1, L2 )-( SUML+SGN*SUMR ) );
 
@@ -214,19 +214,19 @@
 
                } else if ( L1 != L2 && K1 != K2 ) {
 
-                  SUML = DDOT( M-K2, A( K1, MIN( K2+1, M ) ), LDA, C( MIN( K2+1, M ), L1 ), 1 );
+                  SUML = DDOT( M-K2, A( K1, min( K2+1, M ) ), LDA, C( min( K2+1, M ), L1 ), 1 );
                   SUMR = DDOT( L1-1, C( K1, 1 ), LDC, B( 1, L1 ), 1 );
                   VEC( 1, 1 ) = C( K1, L1 ) - ( SUML+SGN*SUMR );
 
-                  SUML = DDOT( M-K2, A( K1, MIN( K2+1, M ) ), LDA, C( MIN( K2+1, M ), L2 ), 1 );
+                  SUML = DDOT( M-K2, A( K1, min( K2+1, M ) ), LDA, C( min( K2+1, M ), L2 ), 1 );
                   SUMR = DDOT( L1-1, C( K1, 1 ), LDC, B( 1, L2 ), 1 );
                   VEC( 1, 2 ) = C( K1, L2 ) - ( SUML+SGN*SUMR );
 
-                  SUML = DDOT( M-K2, A( K2, MIN( K2+1, M ) ), LDA, C( MIN( K2+1, M ), L1 ), 1 );
+                  SUML = DDOT( M-K2, A( K2, min( K2+1, M ) ), LDA, C( min( K2+1, M ), L1 ), 1 );
                   SUMR = DDOT( L1-1, C( K2, 1 ), LDC, B( 1, L1 ), 1 );
                   VEC( 2, 1 ) = C( K2, L1 ) - ( SUML+SGN*SUMR );
 
-                  SUML = DDOT( M-K2, A( K2, MIN( K2+1, M ) ), LDA, C( MIN( K2+1, M ), L2 ), 1 );
+                  SUML = DDOT( M-K2, A( K2, min( K2+1, M ) ), LDA, C( min( K2+1, M ), L2 ), 1 );
                   SUMR = DDOT( L1-1, C( K2, 1 ), LDC, B( 1, L2 ), 1 );
                   VEC( 2, 2 ) = C( K2, L2 ) - ( SUML+SGN*SUMR );
 
@@ -470,7 +470,7 @@
 
                if ( L1 == L2 && K1 == K2 ) {
                   SUML = DDOT( K1-1, A( 1, K1 ), 1, C( 1, L1 ), 1 );
-                  SUMR = DDOT( N-L1, C( K1, MIN( L1+1, N ) ), LDC, B( L1, MIN( L1+1, N ) ), LDB );
+                  SUMR = DDOT( N-L1, C( K1, min( L1+1, N ) ), LDC, B( L1, min( L1+1, N ) ), LDB );
                   VEC( 1, 1 ) = C( K1, L1 ) - ( SUML+SGN*SUMR );
                   SCALOC = ONE;
 
@@ -498,11 +498,11 @@
                } else if ( L1 == L2 && K1 != K2 ) {
 
                   SUML = DDOT( K1-1, A( 1, K1 ), 1, C( 1, L1 ), 1 );
-                  SUMR = DDOT( N-L2, C( K1, MIN( L2+1, N ) ), LDC, B( L1, MIN( L2+1, N ) ), LDB );
+                  SUMR = DDOT( N-L2, C( K1, min( L2+1, N ) ), LDC, B( L1, min( L2+1, N ) ), LDB );
                   VEC( 1, 1 ) = C( K1, L1 ) - ( SUML+SGN*SUMR );
 
                   SUML = DDOT( K1-1, A( 1, K2 ), 1, C( 1, L1 ), 1 );
-                  SUMR = DDOT( N-L2, C( K2, MIN( L2+1, N ) ), LDC, B( L1, MIN( L2+1, N ) ), LDB );
+                  SUMR = DDOT( N-L2, C( K2, min( L2+1, N ) ), LDC, B( L1, min( L2+1, N ) ), LDB );
                   VEC( 2, 1 ) = C( K2, L1 ) - ( SUML+SGN*SUMR );
 
                   dlaln2( true , 2, 1, SMIN, ONE, A( K1, K1 ), LDA, ONE, ONE, VEC, 2, -SGN*B( L1, L1 ), ZERO, X, 2, SCALOC, XNORM, IERR );
@@ -520,11 +520,11 @@
                } else if ( L1 != L2 && K1 == K2 ) {
 
                   SUML = DDOT( K1-1, A( 1, K1 ), 1, C( 1, L1 ), 1 );
-                  SUMR = DDOT( N-L2, C( K1, MIN( L2+1, N ) ), LDC, B( L1, MIN( L2+1, N ) ), LDB );
+                  SUMR = DDOT( N-L2, C( K1, min( L2+1, N ) ), LDC, B( L1, min( L2+1, N ) ), LDB );
                   VEC( 1, 1 ) = SGN*( C( K1, L1 )-( SUML+SGN*SUMR ) );
 
                   SUML = DDOT( K1-1, A( 1, K1 ), 1, C( 1, L2 ), 1 );
-                  SUMR = DDOT( N-L2, C( K1, MIN( L2+1, N ) ), LDC, B( L2, MIN( L2+1, N ) ), LDB );
+                  SUMR = DDOT( N-L2, C( K1, min( L2+1, N ) ), LDC, B( L2, min( L2+1, N ) ), LDB );
                   VEC( 2, 1 ) = SGN*( C( K1, L2 )-( SUML+SGN*SUMR ) );
 
                   dlaln2( false , 2, 1, SMIN, ONE, B( L1, L1 ), LDB, ONE, ONE, VEC, 2, -SGN*A( K1, K1 ), ZERO, X, 2, SCALOC, XNORM, IERR );
@@ -542,19 +542,19 @@
                } else if ( L1 != L2 && K1 != K2 ) {
 
                   SUML = DDOT( K1-1, A( 1, K1 ), 1, C( 1, L1 ), 1 );
-                  SUMR = DDOT( N-L2, C( K1, MIN( L2+1, N ) ), LDC, B( L1, MIN( L2+1, N ) ), LDB );
+                  SUMR = DDOT( N-L2, C( K1, min( L2+1, N ) ), LDC, B( L1, min( L2+1, N ) ), LDB );
                   VEC( 1, 1 ) = C( K1, L1 ) - ( SUML+SGN*SUMR );
 
                   SUML = DDOT( K1-1, A( 1, K1 ), 1, C( 1, L2 ), 1 );
-                  SUMR = DDOT( N-L2, C( K1, MIN( L2+1, N ) ), LDC, B( L2, MIN( L2+1, N ) ), LDB );
+                  SUMR = DDOT( N-L2, C( K1, min( L2+1, N ) ), LDC, B( L2, min( L2+1, N ) ), LDB );
                   VEC( 1, 2 ) = C( K1, L2 ) - ( SUML+SGN*SUMR );
 
                   SUML = DDOT( K1-1, A( 1, K2 ), 1, C( 1, L1 ), 1 );
-                  SUMR = DDOT( N-L2, C( K2, MIN( L2+1, N ) ), LDC, B( L1, MIN( L2+1, N ) ), LDB );
+                  SUMR = DDOT( N-L2, C( K2, min( L2+1, N ) ), LDC, B( L1, min( L2+1, N ) ), LDB );
                   VEC( 2, 1 ) = C( K2, L1 ) - ( SUML+SGN*SUMR );
 
                   SUML = DDOT( K1-1, A( 1, K2 ), 1, C( 1, L2 ), 1 );
-                  SUMR = DDOT( N-L2, C( K2, MIN( L2+1, N ) ), LDC, B( L2, MIN( L2+1, N ) ), LDB );
+                  SUMR = DDOT( N-L2, C( K2, min( L2+1, N ) ), LDC, B( L2, min( L2+1, N ) ), LDB );
                   VEC( 2, 2 ) = C( K2, L2 ) - ( SUML+SGN*SUMR );
 
                   dlasy2( true , true , ISGN, 2, 2, A( K1, K1 ), LDA, B( L1, L1 ), LDB, VEC, 2, SCALOC, X, 2, XNORM, IERR );
@@ -632,7 +632,7 @@
                }
 
                if ( L1 == L2 && K1 == K2 ) {
-                  SUML = DDOT( M-K1, A( K1, MIN( K1+1, M ) ), LDA, C( MIN( K1+1, M ), L1 ), 1 )                   SUMR = DDOT( N-L1, C( K1, MIN( L1+1, N ) ), LDC, B( L1, MIN( L1+1, N ) ), LDB );
+                  SUML = DDOT( M-K1, A( K1, min( K1+1, M ) ), LDA, C( min( K1+1, M ), L1 ), 1 )                   SUMR = DDOT( N-L1, C( K1, min( L1+1, N ) ), LDC, B( L1, min( L1+1, N ) ), LDB );
                   VEC( 1, 1 ) = C( K1, L1 ) - ( SUML+SGN*SUMR );
                   SCALOC = ONE;
 
@@ -659,10 +659,10 @@
 
                } else if ( L1 == L2 && K1 != K2 ) {
 
-                  SUML = DDOT( M-K2, A( K1, MIN( K2+1, M ) ), LDA, C( MIN( K2+1, M ), L1 ), 1 )                   SUMR = DDOT( N-L2, C( K1, MIN( L2+1, N ) ), LDC, B( L1, MIN( L2+1, N ) ), LDB );
+                  SUML = DDOT( M-K2, A( K1, min( K2+1, M ) ), LDA, C( min( K2+1, M ), L1 ), 1 )                   SUMR = DDOT( N-L2, C( K1, min( L2+1, N ) ), LDC, B( L1, min( L2+1, N ) ), LDB );
                   VEC( 1, 1 ) = C( K1, L1 ) - ( SUML+SGN*SUMR );
 
-                  SUML = DDOT( M-K2, A( K2, MIN( K2+1, M ) ), LDA, C( MIN( K2+1, M ), L1 ), 1 )                   SUMR = DDOT( N-L2, C( K2, MIN( L2+1, N ) ), LDC, B( L1, MIN( L2+1, N ) ), LDB );
+                  SUML = DDOT( M-K2, A( K2, min( K2+1, M ) ), LDA, C( min( K2+1, M ), L1 ), 1 )                   SUMR = DDOT( N-L2, C( K2, min( L2+1, N ) ), LDC, B( L1, min( L2+1, N ) ), LDB );
                   VEC( 2, 1 ) = C( K2, L1 ) - ( SUML+SGN*SUMR );
 
                   dlaln2( false , 2, 1, SMIN, ONE, A( K1, K1 ), LDA, ONE, ONE, VEC, 2, -SGN*B( L1, L1 ), ZERO, X, 2, SCALOC, XNORM, IERR );
@@ -679,10 +679,10 @@
 
                } else if ( L1 != L2 && K1 == K2 ) {
 
-                  SUML = DDOT( M-K1, A( K1, MIN( K1+1, M ) ), LDA, C( MIN( K1+1, M ), L1 ), 1 )                   SUMR = DDOT( N-L2, C( K1, MIN( L2+1, N ) ), LDC, B( L1, MIN( L2+1, N ) ), LDB );
+                  SUML = DDOT( M-K1, A( K1, min( K1+1, M ) ), LDA, C( min( K1+1, M ), L1 ), 1 )                   SUMR = DDOT( N-L2, C( K1, min( L2+1, N ) ), LDC, B( L1, min( L2+1, N ) ), LDB );
                   VEC( 1, 1 ) = SGN*( C( K1, L1 )-( SUML+SGN*SUMR ) );
 
-                  SUML = DDOT( M-K1, A( K1, MIN( K1+1, M ) ), LDA, C( MIN( K1+1, M ), L2 ), 1 )                   SUMR = DDOT( N-L2, C( K1, MIN( L2+1, N ) ), LDC, B( L2, MIN( L2+1, N ) ), LDB );
+                  SUML = DDOT( M-K1, A( K1, min( K1+1, M ) ), LDA, C( min( K1+1, M ), L2 ), 1 )                   SUMR = DDOT( N-L2, C( K1, min( L2+1, N ) ), LDC, B( L2, min( L2+1, N ) ), LDB );
                   VEC( 2, 1 ) = SGN*( C( K1, L2 )-( SUML+SGN*SUMR ) );
 
                   dlaln2( false , 2, 1, SMIN, ONE, B( L1, L1 ), LDB, ONE, ONE, VEC, 2, -SGN*A( K1, K1 ), ZERO, X, 2, SCALOC, XNORM, IERR );
@@ -699,16 +699,16 @@
 
                } else if ( L1 != L2 && K1 != K2 ) {
 
-                  SUML = DDOT( M-K2, A( K1, MIN( K2+1, M ) ), LDA, C( MIN( K2+1, M ), L1 ), 1 )                   SUMR = DDOT( N-L2, C( K1, MIN( L2+1, N ) ), LDC, B( L1, MIN( L2+1, N ) ), LDB );
+                  SUML = DDOT( M-K2, A( K1, min( K2+1, M ) ), LDA, C( min( K2+1, M ), L1 ), 1 )                   SUMR = DDOT( N-L2, C( K1, min( L2+1, N ) ), LDC, B( L1, min( L2+1, N ) ), LDB );
                   VEC( 1, 1 ) = C( K1, L1 ) - ( SUML+SGN*SUMR );
 
-                  SUML = DDOT( M-K2, A( K1, MIN( K2+1, M ) ), LDA, C( MIN( K2+1, M ), L2 ), 1 )                   SUMR = DDOT( N-L2, C( K1, MIN( L2+1, N ) ), LDC, B( L2, MIN( L2+1, N ) ), LDB );
+                  SUML = DDOT( M-K2, A( K1, min( K2+1, M ) ), LDA, C( min( K2+1, M ), L2 ), 1 )                   SUMR = DDOT( N-L2, C( K1, min( L2+1, N ) ), LDC, B( L2, min( L2+1, N ) ), LDB );
                   VEC( 1, 2 ) = C( K1, L2 ) - ( SUML+SGN*SUMR );
 
-                  SUML = DDOT( M-K2, A( K2, MIN( K2+1, M ) ), LDA, C( MIN( K2+1, M ), L1 ), 1 )                   SUMR = DDOT( N-L2, C( K2, MIN( L2+1, N ) ), LDC, B( L1, MIN( L2+1, N ) ), LDB );
+                  SUML = DDOT( M-K2, A( K2, min( K2+1, M ) ), LDA, C( min( K2+1, M ), L1 ), 1 )                   SUMR = DDOT( N-L2, C( K2, min( L2+1, N ) ), LDC, B( L1, min( L2+1, N ) ), LDB );
                   VEC( 2, 1 ) = C( K2, L1 ) - ( SUML+SGN*SUMR );
 
-                  SUML = DDOT( M-K2, A( K2, MIN( K2+1, M ) ), LDA, C( MIN( K2+1, M ), L2 ), 1 )                   SUMR = DDOT( N-L2, C( K2, MIN( L2+1, N ) ), LDC, B( L2, MIN( L2+1, N ) ), LDB );
+                  SUML = DDOT( M-K2, A( K2, min( K2+1, M ) ), LDA, C( min( K2+1, M ), L2 ), 1 )                   SUMR = DDOT( N-L2, C( K2, min( L2+1, N ) ), LDC, B( L2, min( L2+1, N ) ), LDB );
                   VEC( 2, 2 ) = C( K2, L2 ) - ( SUML+SGN*SUMR );
 
                   dlasy2( false , true , ISGN, 2, 2, A( K1, K1 ), LDA, B( L1, L1 ), LDB, VEC, 2, SCALOC, X, 2, XNORM, IERR );

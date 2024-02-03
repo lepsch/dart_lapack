@@ -86,7 +86,7 @@
                       if (X(J) != ZERO) {
                           TEMP = X(J);
                           L = KPLUS1 - J;
-                          DO 10 I = MAX(1,J-K),J - 1;
+                          DO 10 I = max(1,J-K),J - 1;
                               X(I) = X(I) + TEMP*A(L+I,J);
                           } // 10
                           if (NOUNIT) X(J) = X(J)*A(KPLUS1,J);
@@ -99,7 +99,7 @@
                           TEMP = X(JX);
                           IX = KX;
                           L = KPLUS1 - J;
-                          DO 30 I = MAX(1,J-K),J - 1;
+                          DO 30 I = max(1,J-K),J - 1;
                               X(IX) = X(IX) + TEMP*A(L+I,J);
                               IX = IX + INCX;
                           } // 30
@@ -115,7 +115,7 @@
                       if (X(J) != ZERO) {
                           TEMP = X(J);
                           L = 1 - J;
-                          DO 50 I = MIN(N,J+K),J + 1,-1;
+                          DO 50 I = min(N,J+K),J + 1,-1;
                               X(I) = X(I) + TEMP*A(L+I,J);
                           } // 50
                           if (NOUNIT) X(J) = X(J)*A(1,J);
@@ -129,7 +129,7 @@
                           TEMP = X(JX);
                           IX = KX;
                           L = 1 - J;
-                          DO 70 I = MIN(N,J+K),J + 1,-1;
+                          DO 70 I = min(N,J+K),J + 1,-1;
                               X(IX) = X(IX) + TEMP*A(L+I,J);
                               IX = IX - INCX;
                           } // 70
@@ -151,7 +151,7 @@
                       TEMP = X(J);
                       L = KPLUS1 - J;
                       if (NOUNIT) TEMP = TEMP*A(KPLUS1,J);
-                      DO 90 I = J - 1,MAX(1,J-K),-1;
+                      DO 90 I = J - 1,max(1,J-K),-1;
                           TEMP = TEMP + A(L+I,J)*X(I);
                       } // 90
                       X(J) = TEMP;
@@ -165,7 +165,7 @@
                       IX = KX;
                       L = KPLUS1 - J;
                       if (NOUNIT) TEMP = TEMP*A(KPLUS1,J);
-                      DO 110 I = J - 1,MAX(1,J-K),-1;
+                      DO 110 I = J - 1,max(1,J-K),-1;
                           TEMP = TEMP + A(L+I,J)*X(IX);
                           IX = IX - INCX;
                       } // 110
@@ -179,7 +179,7 @@
                       TEMP = X(J);
                       L = 1 - J;
                       if (NOUNIT) TEMP = TEMP*A(1,J);
-                      DO 130 I = J + 1,MIN(N,J+K);
+                      DO 130 I = J + 1,min(N,J+K);
                           TEMP = TEMP + A(L+I,J)*X(I);
                       } // 130
                       X(J) = TEMP;
@@ -192,7 +192,7 @@
                       IX = KX;
                       L = 1 - J;
                       if (NOUNIT) TEMP = TEMP*A(1,J);
-                      DO 150 I = J + 1,MIN(N,J+K);
+                      DO 150 I = J + 1,min(N,J+K);
                           TEMP = TEMP + A(L+I,J)*X(IX);
                           IX = IX + INCX;
                       } // 150

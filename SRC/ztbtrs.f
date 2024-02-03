@@ -53,7 +53,7 @@
          INFO = -6;
       } else if ( LDAB < KD+1 ) {
          INFO = -8;
-      } else if ( LDB < MAX( 1, N ) ) {
+      } else if ( LDB < max( 1, N ) ) {
          INFO = -10;
       }
       if ( INFO != 0 ) {

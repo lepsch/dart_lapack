@@ -53,7 +53,7 @@
 
       EPS = DLAMCH( 'Epsilon' );
 
-      TL = MAX( TOL, EPS );
+      TL = max( TOL, EPS );
       SCALE1 = ABS( A( 1 ) ) + ABS( B( 1 ) );
       for (K = 1; K <= N - 1; K++) { // 10
          A( K+1 ) = A( K+1 ) - LAMBDA;
@@ -91,7 +91,7 @@
                C( K ) = MULT;
             }
          }
-         if( ( MAX( PIV1, PIV2 ) <= TL ) && ( IN( N ) == 0 ) ) IN( N ) = K;
+         if( ( max( PIV1, PIV2 ) <= TL ) && ( IN( N ) == 0 ) ) IN( N ) = K;
       } // 10
       if( ( ABS( A( N ) ) <= SCALE1*TL ) && ( IN( N ) == 0 ) ) IN( N ) = N;
 

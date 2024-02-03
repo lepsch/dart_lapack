@@ -59,7 +59,7 @@
          INFO = -4;
       } else if ( K < 0 ) {
          INFO = -5;
-      } else if ( LDA < MAX( 1, NROWA ) ) {
+      } else if ( LDA < max( 1, NROWA ) ) {
          INFO = -8;
       }
       if ( INFO != 0 ) {

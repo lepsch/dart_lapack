@@ -86,9 +86,9 @@
             T = HALF*( ( Z( 1 )-Z( 3 ) )+Z( 2 ) );
             S = Z( 3 )*( Z( 2 ) / T );
             if ( S <= T ) {
-               S = Z( 3 )*( Z( 2 ) / ( T*( ONE+SQRT( ONE+S / T ) ) ) );
+               S = Z( 3 )*( Z( 2 ) / ( T*( ONE+sqrt( ONE+S / T ) ) ) );
             } else {
-               S = Z( 3 )*( Z( 2 ) / ( T+SQRT( T )*SQRT( T+S ) ) );
+               S = Z( 3 )*( Z( 2 ) / ( T+sqrt( T )*sqrt( T+S ) ) );
             }
             T = Z( 1 ) + ( S+Z( 2 ) );
             Z( 3 ) = Z( 3 )*( Z( 1 ) / T );
@@ -120,9 +120,9 @@
          }
          D = D + Z( K );
          E = E + Z( K+1 );
-         QMAX = MAX( QMAX, Z( K ) );
-         EMIN = MIN( EMIN, Z( K+1 ) );
-         ZMAX = MAX( QMAX, ZMAX, Z( K+1 ) );
+         QMAX = max( QMAX, Z( K ) );
+         EMIN = min( EMIN, Z( K+1 ) );
+         ZMAX = max( QMAX, ZMAX, Z( K+1 ) );
       } // 10
       if ( Z( 2*N-1 ) < ZERO ) {
          INFO = -( 200+2*N-1 );
@@ -130,8 +130,8 @@
          return;
       }
       D = D + Z( 2*N-1 );
-      QMAX = MAX( QMAX, Z( 2*N-1 ) );
-      ZMAX = MAX( QMAX, ZMAX );
+      QMAX = max( QMAX, Z( 2*N-1 ) );
+      ZMAX = max( QMAX, ZMAX );
 
       // Check for diagonality.
 
@@ -223,7 +223,7 @@
                Z( I4-2*PP ) = Z( I4+1 )*( Z( I4-1 ) / Z( I4-2*PP-2 ) );
                D = Z( I4+1 )*( D / Z( I4-2*PP-2 ) );
             }
-            EMIN = MIN( EMIN, Z( I4-2*PP ) );
+            EMIN = min( EMIN, Z( I4-2*PP ) );
          } // 60
          Z( 4*N0-PP-2 ) = D;
 
@@ -231,7 +231,7 @@
 
          QMAX = Z( 4*I0-PP-2 );
          DO 70 I4 = 4*I0 - PP + 2, 4*N0 - PP - 2, 4;
-            QMAX = MAX( QMAX, Z( I4 ) );
+            QMAX = max( QMAX, Z( I4 ) );
          } // 70
 
          // Prepare for the next iteration on K.
@@ -287,11 +287,11 @@
          DO 90 I4 = 4*N0, 8, -4;
             if( Z( I4-5 ) <= ZERO ) GO TO 100;
             if ( QMIN >= FOUR*EMAX ) {
-               QMIN = MIN( QMIN, Z( I4-3 ) );
-               EMAX = MAX( EMAX, Z( I4-5 ) );
+               QMIN = min( QMIN, Z( I4-3 ) );
+               EMAX = max( EMAX, Z( I4-5 ) );
             }
-            QMAX = MAX( QMAX, Z( I4-7 )+Z( I4-5 ) );
-            EMIN = MIN( EMIN, Z( I4-5 ) );
+            QMAX = max( QMAX, Z( I4-7 )+Z( I4-5 ) );
+            EMIN = min( EMIN, Z( I4-5 ) );
          } // 90
          I4 = 4;
 
@@ -332,7 +332,7 @@
 
          // Put -(initial shift) into DMIN.
 
-         DMIN = -MAX( ZERO, QMIN-TWO*SQRT( QMIN )*SQRT( EMAX ) );
+         DMIN = -max( ZERO, QMIN-TWO*sqrt( QMIN )*sqrt( EMAX ) );
 
          // Now I0:N0 is unreduced.
          // PP = 0 for ping, PP = 1 for pong.
@@ -366,9 +366,9 @@
                         EMIN = Z( I4+3 );
                         OLDEMN = Z( I4+4 );
                      } else {
-                        QMAX = MAX( QMAX, Z( I4+1 ) );
-                        EMIN = MIN( EMIN, Z( I4-1 ) );
-                        OLDEMN = MIN( OLDEMN, Z( I4 ) );
+                        QMAX = max( QMAX, Z( I4+1 ) );
+                        EMIN = min( EMIN, Z( I4-1 ) );
+                        OLDEMN = min( OLDEMN, Z( I4 ) );
                      }
                   } // 130
                   Z( 4*N0-1 ) = EMIN;

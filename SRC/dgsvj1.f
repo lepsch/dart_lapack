@@ -101,7 +101,7 @@
 
       // .. Row-cyclic pivot strategy with de Rijk's pivoting ..
 
-      KBL = MIN( 8, N );
+      KBL = min( 8, N );
       NBLR = N1 / KBL;
       if( ( NBLR*KBL ) != N1 )NBLR = NBLR + 1;
 
@@ -112,7 +112,7 @@
       BLSKIP = ( KBL**2 ) + 1;
 // [TP] BLKSKIP is a tuning parameter that depends on SWBAND and KBL.
 
-      ROWSKIP = MIN( 5, KBL );
+      ROWSKIP = min( 5, KBL );
 // [TP] ROWSKIP is a tuning parameter.
       SWBAND = 0;
 // [TP] SWBAND is a tuning parameter. It is meaningful and effective
@@ -155,7 +155,7 @@
          // doing the block at ( ibr, jbc )
 
                IJBLSK = 0;
-               DO 2100 p = igl, MIN( igl+KBL-1, N1 );
+               DO 2100 p = igl, min( igl+KBL-1, N1 );
 
                   AAPP = SVA( p );
 
@@ -163,7 +163,7 @@
 
                      PSKIPPED = 0;
 
-                     DO 2200 q = jgl, MIN( jgl+KBL-1, N );
+                     DO 2200 q = jgl, min( jgl+KBL-1, N );
 
                         AAQQ = SVA( q );
 
@@ -200,7 +200,7 @@
                               }
                            }
 
-                           MXAAPQ = MAX( MXAAPQ, DABS( AAPQ ) );
+                           MXAAPQ = max( MXAAPQ, DABS( AAPQ ) );
 
          // TO rotate or NOT to rotate, THAT is the question ...
 
@@ -222,8 +222,8 @@
                                     FASTR( 3 ) = T*D( p ) / D( q );
                                     FASTR( 4 ) = -T*D( q ) / D( p );
                                     drotm(M, A( 1, p ), 1, A( 1, q ), 1, FASTR )                                     IF( RSVEC )CALL DROTM( MVL, V( 1, p ), 1, V( 1, q ), 1, FASTR );
-                                    SVA( q ) = AAQQ*DSQRT( MAX( ZERO, ONE+T*APOAQ*AAPQ ) )                                     AAPP = AAPP*DSQRT( MAX( ZERO, ONE-T*AQOAP*AAPQ ) );
-                                    MXSINJ = MAX( MXSINJ, DABS( T ) );
+                                    SVA( q ) = AAQQ*DSQRT( max( ZERO, ONE+T*APOAQ*AAPQ ) )                                     AAPP = AAPP*DSQRT( max( ZERO, ONE-T*AQOAP*AAPQ ) );
+                                    MXSINJ = max( MXSINJ, DABS( T ) );
                                  } else {
 
                   // .. choose correct signum for THETA and rotate
@@ -233,8 +233,8 @@
                                     T = ONE / ( THETA+THSIGN* DSQRT( ONE+THETA*THETA ) );
                                     CS = DSQRT( ONE / ( ONE+T*T ) );
                                     SN = T*CS;
-                                    MXSINJ = MAX( MXSINJ, DABS( SN ) );
-                                    SVA( q ) = AAQQ*DSQRT( MAX( ZERO, ONE+T*APOAQ*AAPQ ) )                                     AAPP = AAPP*DSQRT( MAX( ZERO, ONE-T*AQOAP*AAPQ ) );
+                                    MXSINJ = max( MXSINJ, DABS( SN ) );
+                                    SVA( q ) = AAQQ*DSQRT( max( ZERO, ONE+T*APOAQ*AAPQ ) )                                     AAPP = AAPP*DSQRT( max( ZERO, ONE-T*AQOAP*AAPQ ) );
 
                                     APOAQ = D( p ) / D( q );
                                     AQOAP = D( q ) / D( p );
@@ -298,8 +298,8 @@
                                     TEMP1 = -AAPQ*D( p ) / D( q );
                                     daxpy(M, TEMP1, WORK, 1, A( 1, q ), 1 );
                                     dlascl('G', 0, 0, ONE, AAQQ, M, 1, A( 1, q ), LDA, IERR );
-                                    SVA( q ) = AAQQ*DSQRT( MAX( ZERO, ONE-AAPQ*AAPQ ) );
-                                    MXSINJ = MAX( MXSINJ, SFMIN );
+                                    SVA( q ) = AAQQ*DSQRT( max( ZERO, ONE-AAPQ*AAPQ ) );
+                                    MXSINJ = max( MXSINJ, SFMIN );
                                  } else {
                                     dcopy(M, A( 1, q ), 1, WORK, 1 );
                                     dlascl('G', 0, 0, AAQQ, ONE, M, 1, WORK, LDA, IERR );
@@ -307,8 +307,8 @@
                                     TEMP1 = -AAPQ*D( q ) / D( p );
                                     daxpy(M, TEMP1, WORK, 1, A( 1, p ), 1 );
                                     dlascl('G', 0, 0, ONE, AAPP, M, 1, A( 1, p ), LDA, IERR );
-                                    SVA( p ) = AAPP*DSQRT( MAX( ZERO, ONE-AAPQ*AAPQ ) );
-                                    MXSINJ = MAX( MXSINJ, SFMIN );
+                                    SVA( p ) = AAPP*DSQRT( max( ZERO, ONE-AAPQ*AAPQ ) );
+                                    MXSINJ = max( MXSINJ, SFMIN );
                                  }
                               }
             // END IF ROTOK THEN ... ELSE
@@ -369,7 +369,7 @@
                      SVA( p ) = AAPP;
 
                   } else {
-                     if (AAPP == ZERO) NOTROT = NOTROT + MIN( jgl+KBL-1, N ) - jgl + 1;
+                     if (AAPP == ZERO) NOTROT = NOTROT + min( jgl+KBL-1, N ) - jgl + 1;
                      if (AAPP < ZERO) NOTROT = 0;
 // **      IF ( NOTROT >= EMPTSW )  GO TO 2011
                   }
@@ -380,7 +380,7 @@
       // end of the jbc-loop
             } // 2011
 // 2011 bailed out of the jbc-loop
-            DO 2012 p = igl, MIN( igl+KBL-1, N );
+            DO 2012 p = igl, min( igl+KBL-1, N );
                SVA( p ) = DABS( SVA( p ) );
             } // 2012
 // **   IF ( NOTROT >= EMPTSW ) GO TO 1994

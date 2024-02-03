@@ -64,10 +64,10 @@
       if ( CHKFERR ) {
          for (J = 1; J <= NRHS; J++) { // 30
             IMAX = IZAMAX( N, X( 1, J ), 1 );
-            XNORM = MAX( CABS1( X( IMAX, J ) ), UNFL );
+            XNORM = max( CABS1( X( IMAX, J ) ), UNFL );
             DIFF = ZERO;
             for (I = 1; I <= N; I++) { // 10
-               DIFF = MAX( DIFF, CABS1( X( I, J )-XACT( I, J ) ) );
+               DIFF = max( DIFF, CABS1( X( I, J )-XACT( I, J ) ) );
             } // 10
 
             if ( XNORM > ONE ) {
@@ -81,7 +81,7 @@
 
             } // 20
             if ( DIFF / XNORM <= FERR( J ) ) {
-               ERRBND = MAX( ERRBND, ( DIFF / XNORM ) / FERR( J ) );
+               ERRBND = max( ERRBND, ( DIFF / XNORM ) / FERR( J ) );
             } else {
                ERRBND = ONE / EPS;
             }
@@ -107,14 +107,14 @@
             if ( I == 1 ) {
                AXBI = TMP;
             } else {
-               AXBI = MIN( AXBI, TMP );
+               AXBI = min( AXBI, TMP );
             }
          } // 60
-         TMP = BERR( K ) / ( ( N+1 )*EPS+( N+1 )*UNFL / MAX( AXBI, ( N+1 )*UNFL ) );
+         TMP = BERR( K ) / ( ( N+1 )*EPS+( N+1 )*UNFL / max( AXBI, ( N+1 )*UNFL ) );
          if ( K == 1 ) {
             RESLTS( 2 ) = TMP;
          } else {
-            RESLTS( 2 ) = MAX( RESLTS( 2 ), TMP );
+            RESLTS( 2 ) = max( RESLTS( 2 ), TMP );
          }
       } // 70
 

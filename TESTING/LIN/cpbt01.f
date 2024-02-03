@@ -78,7 +78,7 @@
 
       if ( LSAME( UPLO, 'U' ) ) {
          DO 30 K = N, 1, -1;
-            KC = MAX( 1, KD+2-K );
+            KC = max( 1, KD+2-K );
             KLEN = KD + 1 - KC;
 
             // Compute the (K,K) element of the result.
@@ -96,7 +96,7 @@
 
       } else {
          DO 40 K = N, 1, -1;
-            KLEN = MIN( KD, N-K );
+            KLEN = min( KD, N-K );
 
             // Add a multiple of column K of the factor L to each of
             // columns K+1 through N.
@@ -115,14 +115,14 @@
 
       if ( LSAME( UPLO, 'U' ) ) {
          for (J = 1; J <= N; J++) { // 60
-            MU = MAX( 1, KD+2-J );
+            MU = max( 1, KD+2-J );
             for (I = MU; I <= KD + 1; I++) { // 50
                AFAC( I, J ) = AFAC( I, J ) - A( I, J );
             } // 50
          } // 60
       } else {
          for (J = 1; J <= N; J++) { // 80
-            ML = MIN( KD+1, N-J+1 );
+            ML = min( KD+1, N-J+1 );
             for (I = 1; I <= ML; I++) { // 70
                AFAC( I, J ) = AFAC( I, J ) - A( I, J );
             } // 70

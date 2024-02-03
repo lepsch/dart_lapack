@@ -72,12 +72,12 @@
       TRYRAC = true;
       NMAX = 1;
       for (J = 1; J <= NSIZES; J++) { // 10
-         NMAX = MAX( NMAX, NN( J ) );
+         NMAX = max( NMAX, NN( J ) );
          if( NN( J ) < 0 ) BADNN = true;
       } // 10
 
       NBLOCK = ILAENV( 1, 'ZHETRD', 'L', NMAX, -1, -1, -1 );
-      NBLOCK = MIN( NMAX, MAX( 1, NBLOCK ) );
+      NBLOCK = min( NMAX, max( 1, NBLOCK ) );
 
       // Check for errors
 
@@ -91,7 +91,7 @@
          INFO = -9;
       } else if ( LDU < NMAX ) {
          INFO = -23;
-      } else if ( 2*MAX( 2, NMAX )**2 > LWORK ) {
+      } else if ( 2*max( 2, NMAX )**2 > LWORK ) {
          INFO = -29;
       }
 
@@ -111,8 +111,8 @@
       ULP = DLAMCH( 'Epsilon' )*DLAMCH( 'Base' );
       ULPINV = ONE / ULP;
       LOG2UI = INT( LOG( ULPINV ) / LOG( TWO ) );
-      RTUNFL = SQRT( UNFL );
-      RTOVFL = SQRT( OVFL );
+      RTUNFL = sqrt( UNFL );
+      RTOVFL = sqrt( OVFL );
 
       // Loop over sizes, types
 
@@ -137,12 +137,12 @@
             LIWEDC = 12;
          }
          NAP = ( N*( N+1 ) ) / 2;
-         ANINV = ONE / DBLE( MAX( 1, N ) );
+         ANINV = ONE / DBLE( max( 1, N ) );
 
          if ( NSIZES != 1 ) {
-            MTYPES = MIN( MAXTYP, NTYPES );
+            MTYPES = min( MAXTYP, NTYPES );
          } else {
-            MTYPES = MIN( MAXTYP+1, NTYPES );
+            MTYPES = min( MAXTYP+1, NTYPES );
          }
 
          for (JTYPE = 1; JTYPE <= MTYPES; JTYPE++) { // 300
@@ -254,7 +254,7 @@
                zlatms(N, N, 'S', ISEED, 'P', RWORK, IMODE, COND, ANORM, 1, 1, 'N', A, LDA, WORK, IINFO );
                for (I = 2; I <= N; I++) { // 90
                   TEMP1 = ABS( A( I-1, I ) );
-                  TEMP2 = SQRT( ABS( A( I-1, I-1 )*A( I, I ) ) );
+                  TEMP2 = sqrt( ABS( A( I-1, I-1 )*A( I, I ) ) );
                   if ( TEMP1 > HALF*TEMP2 ) {
                      A( I-1, I ) = A( I-1, I )* ( HALF*TEMP2 / ( UNFL+TEMP1 ) );
                      A( I, I-1 ) = DCONJG( A( I-1, I ) );
@@ -343,7 +343,7 @@
             dlaset('Full', N, 1, ZERO, ZERO, SD, N );
             dlaset('Full', N, 1, ZERO, ZERO, SE, N );
             zlacpy('U', N, N, A, LDA, V, LDU );
-            LH = MAX(1, 4*N);
+            LH = max(1, 4*N);
             LW = LWORK - LH;
             zhetrd_2stage('N', "U", N, V, LDU, SD, SE, TAU,  WORK, LH, WORK( LH+1 ), LW, IINFO );
 
@@ -403,14 +403,14 @@
             TEMP4 = ZERO;
 
             for (J = 1; J <= N; J++) { // 151
-               TEMP1 = MAX( TEMP1, ABS( D1( J ) ), ABS( D2( J ) ) );
-               TEMP2 = MAX( TEMP2, ABS( D1( J )-D2( J ) ) );
-               TEMP3 = MAX( TEMP3, ABS( D1( J ) ), ABS( D3( J ) ) );
-               TEMP4 = MAX( TEMP4, ABS( D1( J )-D3( J ) ) );
+               TEMP1 = max( TEMP1, ABS( D1( J ) ), ABS( D2( J ) ) );
+               TEMP2 = max( TEMP2, ABS( D1( J )-D2( J ) ) );
+               TEMP3 = max( TEMP3, ABS( D1( J ) ), ABS( D3( J ) ) );
+               TEMP4 = max( TEMP4, ABS( D1( J )-D3( J ) ) );
             } // 151
 
-            RESULT( 3 ) = TEMP2 / MAX( UNFL, ULP*MAX( TEMP1, TEMP2 ) );
-            RESULT( 4 ) = TEMP4 / MAX( UNFL, ULP*MAX( TEMP3, TEMP4 ) );
+            RESULT( 3 ) = TEMP2 / max( UNFL, ULP*max( TEMP1, TEMP2 ) );
+            RESULT( 4 ) = TEMP4 / max( UNFL, ULP*max( TEMP3, TEMP4 ) );
 
             // Store the upper triangle of A in AP
 
@@ -571,14 +571,14 @@
             TEMP4 = ZERO;
 
             for (J = 1; J <= N; J++) { // 150
-               TEMP1 = MAX( TEMP1, ABS( D1( J ) ), ABS( D2( J ) ) );
-               TEMP2 = MAX( TEMP2, ABS( D1( J )-D2( J ) ) );
-               TEMP3 = MAX( TEMP3, ABS( D1( J ) ), ABS( D3( J ) ) );
-               TEMP4 = MAX( TEMP4, ABS( D1( J )-D3( J ) ) );
+               TEMP1 = max( TEMP1, ABS( D1( J ) ), ABS( D2( J ) ) );
+               TEMP2 = max( TEMP2, ABS( D1( J )-D2( J ) ) );
+               TEMP3 = max( TEMP3, ABS( D1( J ) ), ABS( D3( J ) ) );
+               TEMP4 = max( TEMP4, ABS( D1( J )-D3( J ) ) );
             } // 150
 
-            RESULT( 11 ) = TEMP2 / MAX( UNFL, ULP*MAX( TEMP1, TEMP2 ) );
-            RESULT( 12 ) = TEMP4 / MAX( UNFL, ULP*MAX( TEMP3, TEMP4 ) );
+            RESULT( 11 ) = TEMP2 / max( UNFL, ULP*max( TEMP1, TEMP2 ) );
+            RESULT( 12 ) = TEMP4 / max( UNFL, ULP*max( TEMP3, TEMP4 ) );
 
             // Do Test 13 -- Sturm Sequence Test of Eigenvalues
                           // Go up by factors of two until it succeeds
@@ -646,11 +646,11 @@
                TEMP1 = ZERO;
                TEMP2 = ZERO;
                for (J = 1; J <= N; J++) { // 180
-                  TEMP1 = MAX( TEMP1, ABS( D4( J ) ), ABS( D5( J ) ) );
-                  TEMP2 = MAX( TEMP2, ABS( D4( J )-D5( J ) ) );
+                  TEMP1 = max( TEMP1, ABS( D4( J ) ), ABS( D5( J ) ) );
+                  TEMP2 = max( TEMP2, ABS( D4( J )-D5( J ) ) );
                } // 180
 
-               RESULT( 16 ) = TEMP2 / MAX( UNFL, HUN*ULP*MAX( TEMP1, TEMP2 ) );
+               RESULT( 16 ) = TEMP2 / max( UNFL, HUN*ULP*max( TEMP1, TEMP2 ) );
             } else {
                RESULT( 14 ) = ZERO;
                RESULT( 15 ) = ZERO;
@@ -687,7 +687,7 @@
 
                TEMP1 = ZERO;
                for (J = 1; J <= N; J++) { // 190
-                  TEMP1 = MAX( TEMP1, ABS( D4( J )-WR( N-J+1 ) ) / ( ABSTOL+ABS( D4( J ) ) ) );
+                  TEMP1 = max( TEMP1, ABS( D4( J )-WR( N-J+1 ) ) / ( ABSTOL+ABS( D4( J ) ) ) );
                } // 190
 
                RESULT( 17 ) = TEMP1 / TEMP2;
@@ -716,11 +716,11 @@
             TEMP1 = ZERO;
             TEMP2 = ZERO;
             for (J = 1; J <= N; J++) { // 200
-               TEMP1 = MAX( TEMP1, ABS( D3( J ) ), ABS( WA1( J ) ) );
-               TEMP2 = MAX( TEMP2, ABS( D3( J )-WA1( J ) ) );
+               TEMP1 = max( TEMP1, ABS( D3( J ) ), ABS( WA1( J ) ) );
+               TEMP2 = max( TEMP2, ABS( D3( J )-WA1( J ) ) );
             } // 200
 
-            RESULT( 18 ) = TEMP2 / MAX( UNFL, ULP*MAX( TEMP1, TEMP2 ) );
+            RESULT( 18 ) = TEMP2 / max( UNFL, ULP*max( TEMP1, TEMP2 ) );
 
             // Choose random values for IL and IU, and ask for the
             // IL-th through IU-th eigenvalues.
@@ -756,14 +756,14 @@
 
             if ( N > 0 ) {
                if ( IL != 1 ) {
-                  VL = WA1( IL ) - MAX( HALF*( WA1( IL )-WA1( IL-1 ) ), ULP*ANORM, TWO*RTUNFL );
+                  VL = WA1( IL ) - max( HALF*( WA1( IL )-WA1( IL-1 ) ), ULP*ANORM, TWO*RTUNFL );
                } else {
-                  VL = WA1( 1 ) - MAX( HALF*( WA1( N )-WA1( 1 ) ), ULP*ANORM, TWO*RTUNFL );
+                  VL = WA1( 1 ) - max( HALF*( WA1( N )-WA1( 1 ) ), ULP*ANORM, TWO*RTUNFL );
                }
                if ( IU != N ) {
-                  VU = WA1( IU ) + MAX( HALF*( WA1( IU+1 )-WA1( IU ) ), ULP*ANORM, TWO*RTUNFL );
+                  VU = WA1( IU ) + max( HALF*( WA1( IU+1 )-WA1( IU ) ), ULP*ANORM, TWO*RTUNFL );
                } else {
-                  VU = WA1( N ) + MAX( HALF*( WA1( N )-WA1( 1 ) ), ULP*ANORM, TWO*RTUNFL );
+                  VU = WA1( N ) + max( HALF*( WA1( N )-WA1( 1 ) ), ULP*ANORM, TWO*RTUNFL );
                }
             } else {
                VL = ZERO;
@@ -792,12 +792,12 @@
             TEMP1 = DSXT1( 1, WA2, M2, WA3, M3, ABSTOL, ULP, UNFL );
             TEMP2 = DSXT1( 1, WA3, M3, WA2, M2, ABSTOL, ULP, UNFL );
             if ( N > 0 ) {
-               TEMP3 = MAX( ABS( WA1( N ) ), ABS( WA1( 1 ) ) );
+               TEMP3 = max( ABS( WA1( N ) ), ABS( WA1( 1 ) ) );
             } else {
                TEMP3 = ZERO;
             }
 
-            RESULT( 19 ) = ( TEMP1+TEMP2 ) / MAX( UNFL, TEMP3*ULP );
+            RESULT( 19 ) = ( TEMP1+TEMP2 ) / max( UNFL, TEMP3*ULP );
 
             // Call ZSTEIN to compute eigenvectors corresponding to
             // eigenvalues in WA1.  (First call DSTEBZ again, to make sure
@@ -913,11 +913,11 @@
             TEMP2 = ZERO;
 
             for (J = 1; J <= N; J++) { // 210
-               TEMP1 = MAX( TEMP1, ABS( D1( J ) ), ABS( D2( J ) ) );
-               TEMP2 = MAX( TEMP2, ABS( D1( J )-D2( J ) ) );
+               TEMP1 = max( TEMP1, ABS( D1( J ) ), ABS( D2( J ) ) );
+               TEMP2 = max( TEMP2, ABS( D1( J )-D2( J ) ) );
             } // 210
 
-            RESULT( 26 ) = TEMP2 / MAX( UNFL, ULP*MAX( TEMP1, TEMP2 ) );
+            RESULT( 26 ) = TEMP2 / max( UNFL, ULP*max( TEMP1, TEMP2 ) );
 
             // Only test ZSTEMR if IEEE compliant
 
@@ -953,7 +953,7 @@
 
                   TEMP1 = ZERO;
                   for (J = 1; J <= N; J++) { // 220
-                     TEMP1 = MAX( TEMP1, ABS( D4( J )-WR( N-J+1 ) ) / ( ABSTOL+ABS( D4( J ) ) ) );
+                     TEMP1 = max( TEMP1, ABS( D4( J )-WR( N-J+1 ) ) / ( ABSTOL+ABS( D4( J ) ) ) );
                   } // 220
 
                   RESULT( 27 ) = TEMP1 / TEMP2;
@@ -988,7 +988,7 @@
 
                      TEMP1 = ZERO;
                      for (J = IL; J <= IU; J++) { // 230
-                        TEMP1 = MAX( TEMP1, ABS( WR( J-IL+1 )-D4( N-J+ 1 ) ) / ( ABSTOL+ABS( WR( J-IL+1 ) ) ) );
+                        TEMP1 = max( TEMP1, ABS( WR( J-IL+1 )-D4( N-J+ 1 ) ) / ( ABSTOL+ABS( WR( J-IL+1 ) ) ) );
                      } // 230
 
                      RESULT( 28 ) = TEMP1 / TEMP2;
@@ -1057,11 +1057,11 @@
                   TEMP2 = ZERO;
 
                   for (J = 1; J <= IU - IL + 1; J++) { // 240
-                     TEMP1 = MAX( TEMP1, ABS( D1( J ) ), ABS( D2( J ) ) );
-                     TEMP2 = MAX( TEMP2, ABS( D1( J )-D2( J ) ) );
+                     TEMP1 = max( TEMP1, ABS( D1( J ) ), ABS( D2( J ) ) );
+                     TEMP2 = max( TEMP2, ABS( D1( J )-D2( J ) ) );
                   } // 240
 
-                  RESULT( 31 ) = TEMP2 / MAX( UNFL, ULP*MAX( TEMP1, TEMP2 ) );
+                  RESULT( 31 ) = TEMP2 / max( UNFL, ULP*max( TEMP1, TEMP2 ) );
 
             // Call ZSTEMR(V,V) to compute D1 and Z, do tests.
 
@@ -1075,14 +1075,14 @@
 
                   if ( N > 0 ) {
                      if ( IL != 1 ) {
-                        VL = D2( IL ) - MAX( HALF* ( D2( IL )-D2( IL-1 ) ), ULP*ANORM, TWO*RTUNFL );
+                        VL = D2( IL ) - max( HALF* ( D2( IL )-D2( IL-1 ) ), ULP*ANORM, TWO*RTUNFL );
                      } else {
-                        VL = D2( 1 ) - MAX( HALF*( D2( N )-D2( 1 ) ), ULP*ANORM, TWO*RTUNFL );
+                        VL = D2( 1 ) - max( HALF*( D2( N )-D2( 1 ) ), ULP*ANORM, TWO*RTUNFL );
                      }
                      if ( IU != N ) {
-                        VU = D2( IU ) + MAX( HALF* ( D2( IU+1 )-D2( IU ) ), ULP*ANORM, TWO*RTUNFL );
+                        VU = D2( IU ) + max( HALF* ( D2( IU+1 )-D2( IU ) ), ULP*ANORM, TWO*RTUNFL );
                      } else {
-                        VU = D2( N ) + MAX( HALF*( D2( N )-D2( 1 ) ), ULP*ANORM, TWO*RTUNFL );
+                        VU = D2( N ) + max( HALF*( D2( N )-D2( 1 ) ), ULP*ANORM, TWO*RTUNFL );
                      }
                   } else {
                      VL = ZERO;
@@ -1131,11 +1131,11 @@
                   TEMP2 = ZERO;
 
                   for (J = 1; J <= IU - IL + 1; J++) { // 250
-                     TEMP1 = MAX( TEMP1, ABS( D1( J ) ), ABS( D2( J ) ) );
-                     TEMP2 = MAX( TEMP2, ABS( D1( J )-D2( J ) ) );
+                     TEMP1 = max( TEMP1, ABS( D1( J ) ), ABS( D2( J ) ) );
+                     TEMP2 = max( TEMP2, ABS( D1( J )-D2( J ) ) );
                   } // 250
 
-                  RESULT( 34 ) = TEMP2 / MAX( UNFL, ULP*MAX( TEMP1, TEMP2 ) );
+                  RESULT( 34 ) = TEMP2 / max( UNFL, ULP*max( TEMP1, TEMP2 ) );
                } else {
                   RESULT( 29 ) = ZERO;
                   RESULT( 30 ) = ZERO;
@@ -1196,11 +1196,11 @@
                TEMP2 = ZERO;
 
                for (J = 1; J <= N; J++) { // 260
-                  TEMP1 = MAX( TEMP1, ABS( D1( J ) ), ABS( D2( J ) ) );
-                  TEMP2 = MAX( TEMP2, ABS( D1( J )-D2( J ) ) );
+                  TEMP1 = max( TEMP1, ABS( D1( J ) ), ABS( D2( J ) ) );
+                  TEMP2 = max( TEMP2, ABS( D1( J )-D2( J ) ) );
                } // 260
 
-               RESULT( 37 ) = TEMP2 / MAX( UNFL, ULP*MAX( TEMP1, TEMP2 ) );
+               RESULT( 37 ) = TEMP2 / max( UNFL, ULP*max( TEMP1, TEMP2 ) );
             }
             } // 270
             } // 280

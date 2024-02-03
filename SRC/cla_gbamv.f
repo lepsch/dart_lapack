@@ -122,7 +122,7 @@
                   Y( IY ) = BETA * ABS( Y( IY ) );
                }
                if ( ALPHA != 0.0 ) {
-                  DO J = MAX( I-KL, 1 ), MIN( I+KU, LENX );
+                  DO J = max( I-KL, 1 ), min( I+KU, LENX );
                      TEMP = CABS1( AB( KD+I-J, J ) );
                      SYMB_ZERO = SYMB_ZERO && ( X( J ) == ZERO || TEMP == ZERO );
 
@@ -145,7 +145,7 @@
                   Y( IY ) = BETA * ABS( Y( IY ) );
                }
                if ( ALPHA != 0.0 ) {
-                  DO J = MAX( I-KL, 1 ), MIN( I+KU, LENX );
+                  DO J = max( I-KL, 1 ), min( I+KU, LENX );
                      TEMP = CABS1( AB( KE-I+J, I ) );
                      SYMB_ZERO = SYMB_ZERO && ( X( J ) == ZERO || TEMP == ZERO );
 
@@ -171,7 +171,7 @@
                }
                if ( ALPHA != 0.0 ) {
                   JX = KX;
-                  DO J = MAX( I-KL, 1 ), MIN( I+KU, LENX );
+                  DO J = max( I-KL, 1 ), min( I+KU, LENX );
                      TEMP = CABS1( AB( KD+I-J, J ) );
                      SYMB_ZERO = SYMB_ZERO && ( X( JX ) == ZERO || TEMP == ZERO );
 
@@ -196,7 +196,7 @@
                }
                if ( ALPHA != 0.0 ) {
                   JX = KX;
-                  DO J = MAX( I-KL, 1 ), MIN( I+KU, LENX );
+                  DO J = max( I-KL, 1 ), min( I+KU, LENX );
                      TEMP = CABS1( AB( KE-I+J, I ) );
                      SYMB_ZERO = SYMB_ZERO && ( X( JX ) == ZERO || TEMP == ZERO );
 

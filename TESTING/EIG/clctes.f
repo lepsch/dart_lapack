@@ -33,7 +33,7 @@
          } else if ( AIMAG( Z ) == ZERO || AIMAG( D ) == ZERO ) {
             CLCTES = ( SIGN( ONE, REAL( Z ) ) != SIGN( ONE, REAL( D ) ) );
          } else {
-            ZMAX = MAX( ABS( REAL( Z ) ), ABS( AIMAG( Z ) ) );
+            ZMAX = max( ABS( REAL( Z ) ), ABS( AIMAG( Z ) ) );
             CLCTES = ( ( REAL( Z ) / ZMAX )*REAL( D )+ ( AIMAG( Z ) / ZMAX )*AIMAG( D ) < ZERO );
          }
       }

@@ -153,16 +153,16 @@
 
          dgemm('No transpose', 'Transpose', N, N, N, -ONE, HT, LDA, VS, LDVS, ONE, VS1, LDVS );
 
-         ANORM = MAX( DLANGE( '1', N, N, A, LDA, WORK ), SMLNUM );
+         ANORM = max( DLANGE( '1', N, N, A, LDA, WORK ), SMLNUM );
          WNORM = DLANGE( '1', N, N, VS1, LDVS, WORK );
 
          if ( ANORM > WNORM ) {
             RESULT( 2+RSUB ) = ( WNORM / ANORM ) / ( N*ULP );
          } else {
             if ( ANORM < ONE ) {
-               RESULT( 2+RSUB ) = ( MIN( WNORM, N*ANORM ) / ANORM ) / ( N*ULP );
+               RESULT( 2+RSUB ) = ( min( WNORM, N*ANORM ) / ANORM ) / ( N*ULP );
             } else {
-               RESULT( 2+RSUB ) = MIN( WNORM / ANORM, DBLE( N ) ) / ( N*ULP );
+               RESULT( 2+RSUB ) = min( WNORM / ANORM, DBLE( N ) ) / ( N*ULP );
             }
          }
 
@@ -182,7 +182,7 @@
          }
          for (I = 1; I <= N - 1; I++) { // 70
             if ( H( I+1, I ) != ZERO ) {
-               TMP = SQRT( ABS( H( I+1, I ) ) )* SQRT( ABS( H( I, I+1 ) ) )                RESULT( 4+RSUB ) = MAX( RESULT( 4+RSUB ), ABS( WI( I )-TMP ) / MAX( ULP*TMP, SMLNUM ) )                RESULT( 4+RSUB ) = MAX( RESULT( 4+RSUB ), ABS( WI( I+1 )+TMP ) / MAX( ULP*TMP, SMLNUM ) );
+               TMP = sqrt( ABS( H( I+1, I ) ) )* sqrt( ABS( H( I, I+1 ) ) )                RESULT( 4+RSUB ) = max( RESULT( 4+RSUB ), ABS( WI( I )-TMP ) / max( ULP*TMP, SMLNUM ) )                RESULT( 4+RSUB ) = max( RESULT( 4+RSUB ), ABS( WI( I+1 )+TMP ) / max( ULP*TMP, SMLNUM ) );
             } else if ( I > 1 ) {
                if( H( I+1, I ) == ZERO && H( I, I-1 ) == ZERO && WI( I ) != ZERO )RESULT( 4+RSUB ) = ULPINV;
             }
@@ -435,7 +435,7 @@
 
          SELDIM = N;
          SELOPT = 1;
-         EPS = MAX( ULP, EPSIN );
+         EPS = max( ULP, EPSIN );
          for (I = 1; I <= N; I++) { // 260
             IPNT( I ) = I;
             SELVAL( I ) = false;
@@ -481,7 +481,7 @@
          // taking its condition number into account
 
          ANORM = DLANGE( '1', N, N, A, LDA, WORK );
-         V = MAX( DBLE( N )*EPS*ANORM, SMLNUM );
+         V = max( DBLE( N )*EPS*ANORM, SMLNUM );
          if (ANORM == ZERO) V = ONE;
          if ( V > RCONDV ) {
             TOL = ONE;
@@ -493,8 +493,8 @@
          } else {
             TOLIN = V / RCDVIN;
          }
-         TOL = MAX( TOL, SMLNUM / EPS );
-         TOLIN = MAX( TOLIN, SMLNUM / EPS );
+         TOL = max( TOL, SMLNUM / EPS );
+         TOLIN = max( TOLIN, SMLNUM / EPS );
          if ( EPS*( RCDEIN-TOLIN ) > RCONDE+TOL ) {
             RESULT( 16 ) = ULPINV;
          } else if ( RCDEIN-TOLIN > RCONDE+TOL ) {
@@ -520,8 +520,8 @@
          } else {
             TOLIN = V / RCDEIN;
          }
-         TOL = MAX( TOL, SMLNUM / EPS );
-         TOLIN = MAX( TOLIN, SMLNUM / EPS );
+         TOL = max( TOL, SMLNUM / EPS );
+         TOLIN = max( TOLIN, SMLNUM / EPS );
          if ( EPS*( RCDVIN-TOLIN ) > RCONDV+TOL ) {
             RESULT( 17 ) = ULPINV;
          } else if ( RCDVIN-TOLIN > RCONDV+TOL ) {

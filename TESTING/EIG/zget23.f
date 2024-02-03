@@ -134,7 +134,7 @@
 
       for (J = 1; J <= N; J++) { // 30
          TNRM = DZNRM2( N, VR( 1, J ), 1 );
-         RESULT( 3 ) = MAX( RESULT( 3 ), MIN( ULPINV, ABS( TNRM-ONE ) / ULP ) );
+         RESULT( 3 ) = max( RESULT( 3 ), min( ULPINV, ABS( TNRM-ONE ) / ULP ) );
          VMX = ZERO;
          VRMX = ZERO;
          for (JJ = 1; JJ <= N; JJ++) { // 20
@@ -149,7 +149,7 @@
 
       for (J = 1; J <= N; J++) { // 50
          TNRM = DZNRM2( N, VL( 1, J ), 1 );
-         RESULT( 4 ) = MAX( RESULT( 4 ), MIN( ULPINV, ABS( TNRM-ONE ) / ULP ) );
+         RESULT( 4 ) = max( RESULT( 4 ), min( ULPINV, ABS( TNRM-ONE ) / ULP ) );
          VMX = ZERO;
          VRMX = ZERO;
          for (JJ = 1; JJ <= N; JJ++) { // 40
@@ -354,8 +354,8 @@
          // taking their condition numbers into account
 
          RESULT( 10 ) = ZERO;
-         EPS = MAX( EPSIN, ULP );
-         V = MAX( DBLE( N )*EPS*ABNRM, SMLNUM );
+         EPS = max( EPSIN, ULP );
+         V = max( DBLE( N )*EPS*ABNRM, SMLNUM );
          if (ABNRM == ZERO) V = ONE;
          for (I = 1; I <= N; I++) { // 230
             if ( V > RCONDV( I )*RCONDE( I ) ) {
@@ -368,8 +368,8 @@
             } else {
                TOLIN = V / RCDEIN( I );
             }
-            TOL = MAX( TOL, SMLNUM / EPS );
-            TOLIN = MAX( TOLIN, SMLNUM / EPS );
+            TOL = max( TOL, SMLNUM / EPS );
+            TOLIN = max( TOLIN, SMLNUM / EPS );
             if ( EPS*( RCDVIN( I )-TOLIN ) > RCONDV( I )+TOL ) {
                VMAX = ONE / EPS;
             } else if ( RCDVIN( I )-TOLIN > RCONDV( I )+TOL ) {
@@ -381,7 +381,7 @@
             } else {
                VMAX = ONE;
             }
-            RESULT( 10 ) = MAX( RESULT( 10 ), VMAX );
+            RESULT( 10 ) = max( RESULT( 10 ), VMAX );
          } // 230
 
          // Compare condition numbers for eigenvalues
@@ -399,8 +399,8 @@
             } else {
                TOLIN = V / RCDVIN( I );
             }
-            TOL = MAX( TOL, SMLNUM / EPS );
-            TOLIN = MAX( TOLIN, SMLNUM / EPS );
+            TOL = max( TOL, SMLNUM / EPS );
+            TOLIN = max( TOLIN, SMLNUM / EPS );
             if ( EPS*( RCDEIN( I )-TOLIN ) > RCONDE( I )+TOL ) {
                VMAX = ONE / EPS;
             } else if ( RCDEIN( I )-TOLIN > RCONDE( I )+TOL ) {
@@ -412,7 +412,7 @@
             } else {
                VMAX = ONE;
             }
-            RESULT( 11 ) = MAX( RESULT( 11 ), VMAX );
+            RESULT( 11 ) = max( RESULT( 11 ), VMAX );
          } // 240
          } // 250
 

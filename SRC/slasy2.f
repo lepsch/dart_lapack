@@ -91,7 +91,7 @@
 
       } // 20
 
-      SMIN = MAX( EPS*MAX( ABS( TL( 1, 1 ) ), ABS( TR( 1, 1 ) ), ABS( TR( 1, 2 ) ), ABS( TR( 2, 1 ) ), ABS( TR( 2, 2 ) ) ), SMLNUM );
+      SMIN = max( EPS*max( ABS( TL( 1, 1 ) ), ABS( TR( 1, 1 ) ), ABS( TR( 1, 2 ) ), ABS( TR( 2, 1 ) ), ABS( TR( 2, 2 ) ) ), SMLNUM );
       TMP( 1 ) = TL( 1, 1 ) + SGN*TR( 1, 1 );
       TMP( 4 ) = TL( 1, 1 ) + SGN*TR( 2, 2 );
       if ( LTRANR ) {
@@ -110,7 +110,7 @@
              // [TL21 TL22] [X21]         [X21]         [B21]
 
       } // 30
-      SMIN = MAX( EPS*MAX( ABS( TR( 1, 1 ) ), ABS( TL( 1, 1 ) ), ABS( TL( 1, 2 ) ), ABS( TL( 2, 1 ) ), ABS( TL( 2, 2 ) ) ), SMLNUM );
+      SMIN = max( EPS*max( ABS( TR( 1, 1 ) ), ABS( TL( 1, 1 ) ), ABS( TL( 1, 2 ) ), ABS( TL( 2, 1 ) ), ABS( TL( 2, 2 ) ) ), SMLNUM );
       TMP( 1 ) = TL( 1, 1 ) + SGN*TR( 1, 1 );
       TMP( 4 ) = TL( 2, 2 ) + SGN*TR( 1, 1 );
       if ( LTRANL ) {
@@ -151,7 +151,7 @@
       }
       SCALE = ONE;
       if ( ( TWO*SMLNUM )*ABS( BTMP( 2 ) ) > ABS( U22 ) || ( TWO*SMLNUM )*ABS( BTMP( 1 ) ) > ABS( U11 ) ) {
-         SCALE = HALF / MAX( ABS( BTMP( 1 ) ), ABS( BTMP( 2 ) ) );
+         SCALE = HALF / max( ABS( BTMP( 1 ) ), ABS( BTMP( 2 ) ) );
          BTMP( 1 ) = BTMP( 1 )*SCALE;
          BTMP( 2 ) = BTMP( 2 )*SCALE;
       }
@@ -168,7 +168,7 @@
          XNORM = ABS( X( 1, 1 ) ) + ABS( X( 1, 2 ) );
       } else {
          X( 2, 1 ) = X2( 2 );
-         XNORM = MAX( ABS( X( 1, 1 ) ), ABS( X( 2, 1 ) ) );
+         XNORM = max( ABS( X( 1, 1 ) ), ABS( X( 2, 1 ) ) );
       }
       return;
 
@@ -180,8 +180,8 @@
       // Set pivots less than SMIN to SMIN.
 
       } // 50
-      SMIN = MAX( ABS( TR( 1, 1 ) ), ABS( TR( 1, 2 ) ), ABS( TR( 2, 1 ) ), ABS( TR( 2, 2 ) ) )       SMIN = MAX( SMIN, ABS( TL( 1, 1 ) ), ABS( TL( 1, 2 ) ), ABS( TL( 2, 1 ) ), ABS( TL( 2, 2 ) ) );
-      SMIN = MAX( EPS*SMIN, SMLNUM );
+      SMIN = max( ABS( TR( 1, 1 ) ), ABS( TR( 1, 2 ) ), ABS( TR( 2, 1 ) ), ABS( TR( 2, 2 ) ) )       SMIN = max( SMIN, ABS( TL( 1, 1 ) ), ABS( TL( 1, 2 ) ), ABS( TL( 2, 1 ) ), ABS( TL( 2, 2 ) ) );
+      SMIN = max( EPS*SMIN, SMLNUM );
       BTMP( 1 ) = ZERO;
       scopy(16, BTMP, 0, T16, 1 );
       T16( 1, 1 ) = TL( 1, 1 ) + SGN*TR( 1, 1 );
@@ -254,7 +254,7 @@
       }
       SCALE = ONE;
       if ( ( EIGHT*SMLNUM )*ABS( BTMP( 1 ) ) > ABS( T16( 1, 1 ) ) || ( EIGHT*SMLNUM )*ABS( BTMP( 2 ) ) > ABS( T16( 2, 2 ) ) || ( EIGHT*SMLNUM )*ABS( BTMP( 3 ) ) > ABS( T16( 3, 3 ) ) || ( EIGHT*SMLNUM )*ABS( BTMP( 4 ) ) > ABS( T16( 4, 4 ) ) ) {
-         SCALE = ( ONE / EIGHT ) / MAX( ABS( BTMP( 1 ) ), ABS( BTMP( 2 ) ), ABS( BTMP( 3 ) ), ABS( BTMP( 4 ) ) );
+         SCALE = ( ONE / EIGHT ) / max( ABS( BTMP( 1 ) ), ABS( BTMP( 2 ) ), ABS( BTMP( 3 ) ), ABS( BTMP( 4 ) ) );
          BTMP( 1 ) = BTMP( 1 )*SCALE;
          BTMP( 2 ) = BTMP( 2 )*SCALE;
          BTMP( 3 ) = BTMP( 3 )*SCALE;
@@ -279,7 +279,7 @@
       X( 2, 1 ) = TMP( 2 );
       X( 1, 2 ) = TMP( 3 );
       X( 2, 2 ) = TMP( 4 );
-      XNORM = MAX( ABS( TMP( 1 ) )+ABS( TMP( 3 ) ), ABS( TMP( 2 ) )+ABS( TMP( 4 ) ) );
+      XNORM = max( ABS( TMP( 1 ) )+ABS( TMP( 3 ) ), ABS( TMP( 2 ) )+ABS( TMP( 4 ) ) );
       return;
 
       // End of SLASY2

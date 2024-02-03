@@ -47,9 +47,9 @@
          INFO = -2;
       } else if ( N < 0 ) {
          INFO = -3;
-      } else if ( LDA < MAX( 1, N ) ) {
+      } else if ( LDA < max( 1, N ) ) {
          INFO = -5;
-      } else if ( LDB < MAX( 1, N ) ) {
+      } else if ( LDB < max( 1, N ) ) {
          INFO = -7;
       }
       if ( INFO != 0 ) {
@@ -80,7 +80,7 @@
                // Compute inv(U**H)*A*inv(U)
 
                DO 10 K = 1, N, NB;
-                  KB = MIN( N-K+1, NB );
+                  KB = min( N-K+1, NB );
 
                   // Update the upper triangle of A(k:n,k:n)
 
@@ -98,7 +98,7 @@
                // Compute inv(L)*A*inv(L**H)
 
                DO 20 K = 1, N, NB;
-                  KB = MIN( N-K+1, NB );
+                  KB = min( N-K+1, NB );
 
                   // Update the lower triangle of A(k:n,k:n)
 
@@ -118,7 +118,7 @@
                // Compute U*A*U**H
 
                DO 30 K = 1, N, NB;
-                  KB = MIN( N-K+1, NB );
+                  KB = min( N-K+1, NB );
 
                   // Update the upper triangle of A(1:k+kb-1,1:k+kb-1)
 
@@ -134,7 +134,7 @@
                // Compute L**H*A*L
 
                DO 40 K = 1, N, NB;
-                  KB = MIN( N-K+1, NB );
+                  KB = min( N-K+1, NB );
 
                   // Update the lower triangle of A(1:k+kb-1,1:k+kb-1)
 

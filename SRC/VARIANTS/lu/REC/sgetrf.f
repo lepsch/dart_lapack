@@ -45,7 +45,7 @@
          INFO = -1;
       } else if ( N < 0 ) {
          INFO = -2;
-      } else if ( LDA < MAX( 1, M ) ) {
+      } else if ( LDA < max( 1, M ) ) {
          INFO = -4;
       }
       if ( INFO != 0 ) {
@@ -61,11 +61,11 @@
 
       SFMIN = SLAMCH( 'S' );
 
-      NSTEP = MIN( M, N );
+      NSTEP = min( M, N );
       for (J = 1; J <= NSTEP; J++) {
          KAHEAD = IAND( J, -J );
          KSTART = J + 1 - KAHEAD;
-         KCOLS = MIN( KAHEAD, M-J );
+         KCOLS = min( KAHEAD, M-J );
 
          // Find pivot.
 

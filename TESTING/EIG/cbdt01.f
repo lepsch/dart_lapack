@@ -60,7 +60,7 @@
                } // 10
                WORK( M+N ) = D( N )*PT( N, J );
                cgemv('No transpose', M, N, -CMPLX( ONE ), Q, LDQ, WORK( M+1 ), 1, CMPLX( ONE ), WORK, 1 );
-               RESID = MAX( RESID, SCASUM( M, WORK, 1 ) );
+               RESID = max( RESID, SCASUM( M, WORK, 1 ) );
             } // 20
          } else if ( KD < 0 ) {
 
@@ -73,7 +73,7 @@
                } // 30
                WORK( M+M ) = D( M )*PT( M, J );
                cgemv('No transpose', M, M, -CMPLX( ONE ), Q, LDQ, WORK( M+1 ), 1, CMPLX( ONE ), WORK, 1 );
-               RESID = MAX( RESID, SCASUM( M, WORK, 1 ) );
+               RESID = max( RESID, SCASUM( M, WORK, 1 ) );
             } // 40
          } else {
 
@@ -86,7 +86,7 @@
                   WORK( M+I ) = E( I-1 )*PT( I-1, J ) + D( I )*PT( I, J );
                } // 50
                cgemv('No transpose', M, M, -CMPLX( ONE ), Q, LDQ, WORK( M+1 ), 1, CMPLX( ONE ), WORK, 1 );
-               RESID = MAX( RESID, SCASUM( M, WORK, 1 ) );
+               RESID = max( RESID, SCASUM( M, WORK, 1 ) );
             } // 60
          }
       } else {
@@ -100,7 +100,7 @@
                   WORK( M+I ) = D( I )*PT( I, J );
                } // 70
                cgemv('No transpose', M, N, -CMPLX( ONE ), Q, LDQ, WORK( M+1 ), 1, CMPLX( ONE ), WORK, 1 );
-               RESID = MAX( RESID, SCASUM( M, WORK, 1 ) );
+               RESID = max( RESID, SCASUM( M, WORK, 1 ) );
             } // 80
          } else {
             for (J = 1; J <= N; J++) { // 100
@@ -109,7 +109,7 @@
                   WORK( M+I ) = D( I )*PT( I, J );
                } // 90
                cgemv('No transpose', M, M, -CMPLX( ONE ), Q, LDQ, WORK( M+1 ), 1, CMPLX( ONE ), WORK, 1 );
-               RESID = MAX( RESID, SCASUM( M, WORK, 1 ) );
+               RESID = max( RESID, SCASUM( M, WORK, 1 ) );
             } // 100
          }
       }
@@ -126,9 +126,9 @@
             RESID = ( RESID / ANORM ) / ( REAL( N )*EPS );
          } else {
             if ( ANORM < ONE ) {
-               RESID = ( MIN( RESID, REAL( N )*ANORM ) / ANORM ) / ( REAL( N )*EPS );
+               RESID = ( min( RESID, REAL( N )*ANORM ) / ANORM ) / ( REAL( N )*EPS );
             } else {
-               RESID = MIN( RESID / ANORM, REAL( N ) ) / ( REAL( N )*EPS );
+               RESID = min( RESID / ANORM, REAL( N ) ) / ( REAL( N )*EPS );
             }
          }
       }

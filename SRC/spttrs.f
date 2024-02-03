@@ -35,7 +35,7 @@
          INFO = -1;
       } else if ( NRHS < 0 ) {
          INFO = -2;
-      } else if ( LDB < MAX( 1, N ) ) {
+      } else if ( LDB < max( 1, N ) ) {
          INFO = -6;
       }
       if ( INFO != 0 ) {
@@ -52,14 +52,14 @@
       if ( NRHS == 1 ) {
          NB = 1;
       } else {
-         NB = MAX( 1, ILAENV( 1, 'SPTTRS', ' ', N, NRHS, -1, -1 ) );
+         NB = max( 1, ILAENV( 1, 'SPTTRS', ' ', N, NRHS, -1, -1 ) );
       }
 
       if ( NB >= NRHS ) {
          sptts2(N, NRHS, D, E, B, LDB );
       } else {
          DO 10 J = 1, NRHS, NB;
-            JB = MIN( NRHS-J+1, NB );
+            JB = min( NRHS-J+1, NB );
             sptts2(N, JB, D, E, B( 1, J ), LDB );
          } // 10
       }

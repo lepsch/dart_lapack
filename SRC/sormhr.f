@@ -43,10 +43,10 @@
 
       if ( LEFT ) {
          NQ = M;
-         NW = MAX( 1, N );
+         NW = max( 1, N );
       } else {
          NQ = N;
-         NW = MAX( 1, M );
+         NW = max( 1, M );
       }
       if ( !LEFT && !LSAME( SIDE, 'R' ) ) {
          INFO = -1;
@@ -56,13 +56,13 @@
          INFO = -3;
       } else if ( N < 0 ) {
          INFO = -4;
-      } else if ( ILO < 1 || ILO > MAX( 1, NQ ) ) {
+      } else if ( ILO < 1 || ILO > max( 1, NQ ) ) {
          INFO = -5;
-      } else if ( IHI < MIN( ILO, NQ ) || IHI > NQ ) {
+      } else if ( IHI < min( ILO, NQ ) || IHI > NQ ) {
          INFO = -6;
-      } else if ( LDA < MAX( 1, NQ ) ) {
+      } else if ( LDA < max( 1, NQ ) ) {
          INFO = -8;
-      } else if ( LDC < MAX( 1, M ) ) {
+      } else if ( LDC < max( 1, M ) ) {
          INFO = -11;
       } else if ( LWORK < NW && !LQUERY ) {
          INFO = -13;

@@ -197,10 +197,10 @@
 
       // Check the reliability of DMMCH using exact data.
 
-      N = MIN( 32, NMAX );
+      N = min( 32, NMAX );
       for (J = 1; J <= N; J++) { // 100
          for (I = 1; I <= N; I++) { // 90
-            AB( I, J ) = MAX( I - J + 1, 0 );
+            AB( I, J ) = max( I - J + 1, 0 );
          } // 90
          AB( J, NMAX + 1 ) = J;
          AB( 1, NMAX + J ) = J;
@@ -549,7 +549,7 @@
                               // Check the result.
 
                               dmmch(TRANSA, TRANSB, M, N, K, ALPHA, A, NMAX, B, NMAX, BETA, C, NMAX, CT, G, CC, LDC, EPS, ERR, FATAL, NOUT, true );
-                              ERRMAX = MAX( ERRMAX, ERR );
+                              ERRMAX = max( ERRMAX, ERR );
                               // If got really bad answer, report and
                               // return.
                               if (FATAL) GO TO 120;
@@ -820,7 +820,7 @@
                            } else {
                               dmmch('N', 'N', M, N, N, ALPHA, B, NMAX, A, NMAX, BETA, C, NMAX, CT, G, CC, LDC, EPS, ERR, FATAL, NOUT, true );
                            }
-                           ERRMAX = MAX( ERRMAX, ERR );
+                           ERRMAX = max( ERRMAX, ERR );
                            // If got really bad answer, report and
                            // return.
                            if (FATAL) GO TO 110;
@@ -1104,7 +1104,7 @@
                                     dmmch('N', TRANSA, M, N, N, ONE, C, NMAX, A, NMAX, ZERO, B, NMAX, CT, G, BB, LDB, EPS, ERR, FATAL, NOUT, false );
                                  }
                               }
-                              ERRMAX = MAX( ERRMAX, ERR );
+                              ERRMAX = max( ERRMAX, ERR );
                               // If got really bad answer, report and
                               // return.
                               if (FATAL) GO TO 150;
@@ -1383,7 +1383,7 @@
                               } else {
                                  JC = JC + LDC + 1;
                               }
-                              ERRMAX = MAX( ERRMAX, ERR );
+                              ERRMAX = max( ERRMAX, ERR );
                               // If got really bad answer, report and
                               // return.
                               if (FATAL) GO TO 110;
@@ -1683,7 +1683,7 @@
                                  JC = JC + LDC + 1;
                                  if (TRAN) JJAB = JJAB + 2*NMAX;
                               }
-                              ERRMAX = MAX( ERRMAX, ERR );
+                              ERRMAX = max( ERRMAX, ERR );
                               // If got really bad answer, report and
                               // return.
                               if (FATAL) GO TO 140;
@@ -1958,8 +1958,8 @@
          for (I = 1; I <= M; I++) { // 110
             ERRI = ABS( CT( I ) - CC( I, J ) )/EPS;
             if( G( I ) != ZERO ) ERRI = ERRI/G( I );
-            ERR = MAX( ERR, ERRI );
-            if( ERR*SQRT( EPS ) >= ONE ) GO TO 130;
+            ERR = max( ERR, ERRI );
+            if( ERR*sqrt( EPS ) >= ONE ) GO TO 130;
          } // 110
 
       } // 120

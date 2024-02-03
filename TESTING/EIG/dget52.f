@@ -54,11 +54,11 @@
 
       // Norm of A, B, and E:
 
-      ANORM = MAX( DLANGE( NORMAB, N, N, A, LDA, WORK ), SAFMIN );
-      BNORM = MAX( DLANGE( NORMAB, N, N, B, LDB, WORK ), SAFMIN );
-      ENORM = MAX( DLANGE( 'O', N, N, E, LDE, WORK ), ULP );
-      ALFMAX = SAFMAX / MAX( ONE, BNORM );
-      BETMAX = SAFMAX / MAX( ONE, ANORM );
+      ANORM = max( DLANGE( NORMAB, N, N, A, LDA, WORK ), SAFMIN );
+      BNORM = max( DLANGE( NORMAB, N, N, B, LDB, WORK ), SAFMIN );
+      ENORM = max( DLANGE( 'O', N, N, E, LDE, WORK ), ULP );
+      ALFMAX = SAFMAX / max( ONE, BNORM );
+      BETMAX = SAFMAX / max( ONE, ANORM );
 
       // Compute error matrix.
       // Column i = ( b(i) A - a(i) B ) E(i) / max( |a(i) B|, |b(i) A| )
@@ -78,13 +78,13 @@
 
                // Real eigenvalue and -vector
 
-               ABMAX = MAX( ABS( SALFR ), ABS( SBETA ) );
+               ABMAX = max( ABS( SALFR ), ABS( SBETA ) );
                if ( ABS( SALFR ) > ALFMAX || ABS( SBETA ) > BETMAX || ABMAX < ONE ) {
-                  SCALE = ONE / MAX( ABMAX, SAFMIN );
+                  SCALE = ONE / max( ABMAX, SAFMIN );
                   SALFR = SCALE*SALFR;
                   SBETA = SCALE*SBETA;
                }
-               SCALE = ONE / MAX( ABS( SALFR )*BNORM, ABS( SBETA )*ANORM, SAFMIN );
+               SCALE = ONE / max( ABS( SALFR )*BNORM, ABS( SBETA )*ANORM, SAFMIN );
                ACOEF = SCALE*SBETA;
                BCOEFR = SCALE*SALFR;
                dgemv(TRANS, N, N, ACOEF, A, LDA, E( 1, JVEC ), 1, ZERO, WORK( N*( JVEC-1 )+1 ), 1 );
@@ -98,14 +98,14 @@
                   RESULT( 1 ) = TEN / ULP;
                   return;
                }
-               ABMAX = MAX( ABS( SALFR )+ABS( SALFI ), ABS( SBETA ) );
+               ABMAX = max( ABS( SALFR )+ABS( SALFI ), ABS( SBETA ) );
                if ( ABS( SALFR )+ABS( SALFI ) > ALFMAX || ABS( SBETA ) > BETMAX || ABMAX < ONE ) {
-                  SCALE = ONE / MAX( ABMAX, SAFMIN );
+                  SCALE = ONE / max( ABMAX, SAFMIN );
                   SALFR = SCALE*SALFR;
                   SALFI = SCALE*SALFI;
                   SBETA = SCALE*SBETA;
                }
-               SCALE = ONE / MAX( ( ABS( SALFR )+ABS( SALFI ) )*BNORM, ABS( SBETA )*ANORM, SAFMIN );
+               SCALE = ONE / max( ( ABS( SALFR )+ABS( SALFI ) )*BNORM, ABS( SBETA )*ANORM, SAFMIN );
                ACOEF = SCALE*SBETA;
                BCOEFR = SCALE*SALFR;
                BCOEFI = SCALE*SALFI;
@@ -141,15 +141,15 @@
             TEMP1 = ZERO;
             if ( ALPHAI( JVEC ) == ZERO ) {
                for (J = 1; J <= N; J++) { // 20
-                  TEMP1 = MAX( TEMP1, ABS( E( J, JVEC ) ) );
+                  TEMP1 = max( TEMP1, ABS( E( J, JVEC ) ) );
                } // 20
-               ENRMER = MAX( ENRMER, ABS( TEMP1-ONE ) );
+               ENRMER = max( ENRMER, ABS( TEMP1-ONE ) );
             } else {
                ILCPLX = true;
                for (J = 1; J <= N; J++) { // 30
-                  TEMP1 = MAX( TEMP1, ABS( E( J, JVEC ) )+ ABS( E( J, JVEC+1 ) ) );
+                  TEMP1 = max( TEMP1, ABS( E( J, JVEC ) )+ ABS( E( J, JVEC+1 ) ) );
                } // 30
-               ENRMER = MAX( ENRMER, ABS( TEMP1-ONE ) );
+               ENRMER = max( ENRMER, ABS( TEMP1-ONE ) );
             }
          }
       } // 40

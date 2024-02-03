@@ -43,9 +43,9 @@
       const ISEED = [ 1988, 1989, 1990, 1991 ];
 
       EPS = SLAMCH( 'Epsilon' );
-      K = MIN(M,N);
-      L = MAX(M,N);
-      LWORK = MAX(2,L)*MAX(2,L)*NB;
+      K = min(M,N);
+      L = max(M,N);
+      LWORK = max(2,L)*max(2,L)*NB;
 
       // Dynamically allocate local arrays
 
@@ -79,7 +79,7 @@
       ANORM = SLANGE( '1', M, N, A, M, RWORK );
       RESID = SLANGE( '1', M, N, R, M, RWORK );
       if ( ANORM > ZERO ) {
-         RESULT( 1 ) = RESID / (EPS*MAX(1,M)*ANORM);
+         RESULT( 1 ) = RESID / (EPS*max(1,M)*ANORM);
       } else {
          RESULT( 1 ) = ZERO;
       }
@@ -89,7 +89,7 @@
       slaset('Full', M, M, ZERO, ONE, R, M );
       ssyrk('U', 'C', M, M, -ONE, Q, M, ONE, R, M );
       RESID = SLANSY( '1', 'Upper', M, R, M, RWORK );
-      RESULT( 2 ) = RESID / (EPS*MAX(1,M));
+      RESULT( 2 ) = RESID / (EPS*max(1,M));
 
       // Generate random m-by-n matrix C and a copy CF
 
@@ -108,7 +108,7 @@
       sgemm('N', 'N', M, N, M, -ONE, Q, M, C, M, ONE, CF, M );
       RESID = SLANGE( '1', M, N, CF, M, RWORK );
       if ( CNORM > ZERO ) {
-         RESULT( 3 ) = RESID / (EPS*MAX(1,M)*CNORM);
+         RESULT( 3 ) = RESID / (EPS*max(1,M)*CNORM);
       } else {
          RESULT( 3 ) = ZERO;
       }
@@ -126,7 +126,7 @@
       sgemm('T', 'N', M, N, M, -ONE, Q, M, C, M, ONE, CF, M );
       RESID = SLANGE( '1', M, N, CF, M, RWORK );
       if ( CNORM > ZERO ) {
-         RESULT( 4 ) = RESID / (EPS*MAX(1,M)*CNORM);
+         RESULT( 4 ) = RESID / (EPS*max(1,M)*CNORM);
       } else {
          RESULT( 4 ) = ZERO;
       }
@@ -148,7 +148,7 @@
       sgemm('N', 'N', N, M, M, -ONE, D, N, Q, M, ONE, DF, N );
       RESID = SLANGE( '1', N, M, DF, N, RWORK );
       if ( CNORM > ZERO ) {
-         RESULT( 5 ) = RESID / (EPS*MAX(1,M)*DNORM);
+         RESULT( 5 ) = RESID / (EPS*max(1,M)*DNORM);
       } else {
          RESULT( 5 ) = ZERO;
       }
@@ -166,7 +166,7 @@
       sgemm('N', 'T', N, M, M, -ONE, D, N, Q, M, ONE, DF, N );
       RESID = SLANGE( '1', N, M, DF, N, RWORK );
       if ( CNORM > ZERO ) {
-         RESULT( 6 ) = RESID / (EPS*MAX(1,M)*DNORM);
+         RESULT( 6 ) = RESID / (EPS*max(1,M)*DNORM);
       } else {
          RESULT( 6 ) = ZERO;
       }

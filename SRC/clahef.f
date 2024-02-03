@@ -51,7 +51,7 @@
 
       // Initialize ALPHA for use in choosing pivot block size.
 
-      ALPHA = ( ONE+SQRT( SEVTEN ) ) / EIGHT;
+      ALPHA = ( ONE+sqrt( SEVTEN ) ) / EIGHT;
 
       if ( LSAME( UPLO, 'U' ) ) {
 
@@ -99,7 +99,7 @@
             COLMAX = ZERO;
          }
 
-         if ( MAX( ABSAKK, COLMAX ) == ZERO ) {
+         if ( max( ABSAKK, COLMAX ) == ZERO ) {
 
             // Column K is zero or underflow: set INFO and continue
 
@@ -142,7 +142,7 @@
                ROWMAX = CABS1( W( JMAX, KW-1 ) );
                if ( IMAX > 1 ) {
                   JMAX = ICAMAX( IMAX-1, W( 1, KW-1 ), 1 );
-                  ROWMAX = MAX( ROWMAX, CABS1( W( JMAX, KW-1 ) ) );
+                  ROWMAX = max( ROWMAX, CABS1( W( JMAX, KW-1 ) ) );
                }
 
                // Case(2)
@@ -364,7 +364,7 @@
          // actually stored)
 
          DO 50 J = ( ( K-1 ) / NB )*NB + 1, 1, -NB;
-            JB = MIN( NB, K-J+1 );
+            JB = min( NB, K-J+1 );
 
             // Update the upper triangle of the diagonal block
 
@@ -446,7 +446,7 @@
             COLMAX = ZERO;
          }
 
-         if ( MAX( ABSAKK, COLMAX ) == ZERO ) {
+         if ( max( ABSAKK, COLMAX ) == ZERO ) {
 
             // Column K is zero or underflow: set INFO and continue
 
@@ -487,7 +487,7 @@
                ROWMAX = CABS1( W( JMAX, K+1 ) );
                if ( IMAX < N ) {
                   JMAX = IMAX + ICAMAX( N-IMAX, W( IMAX+1, K+1 ), 1 );
-                  ROWMAX = MAX( ROWMAX, CABS1( W( JMAX, K+1 ) ) );
+                  ROWMAX = max( ROWMAX, CABS1( W( JMAX, K+1 ) ) );
                }
 
                // Case(2)
@@ -705,7 +705,7 @@
          // actually stored)
 
          DO 110 J = K, N, NB;
-            JB = MIN( NB, N-J+1 );
+            JB = min( NB, N-J+1 );
 
             // Update the lower triangle of the diagonal block
 

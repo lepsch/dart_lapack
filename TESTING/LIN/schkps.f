@@ -75,7 +75,7 @@
 
       for (IN = 1; IN <= NN; IN++) { // 150
          N = NVAL( IN );
-         LDA = MAX( N, 1 );
+         LDA = max( N, 1 );
          NIMAT = NTYPES;
          if (N <= 0) NIMAT = 1;
 

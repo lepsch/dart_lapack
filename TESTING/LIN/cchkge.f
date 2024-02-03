@@ -86,7 +86,7 @@
 
       for (IM = 1; IM <= NM; IM++) { // 120
          M = MVAL( IM );
-         LDA = MAX( 1, M );
+         LDA = max( 1, M );
 
          // Do for each value of N in NVAL
 
@@ -129,9 +129,9 @@
                   if ( IMAT == 5 ) {
                      IZERO = 1;
                   } else if ( IMAT == 6 ) {
-                     IZERO = MIN( M, N );
+                     IZERO = min( M, N );
                   } else {
-                     IZERO = MIN( M, N ) / 2 + 1;
+                     IZERO = min( M, N ) / 2 + 1;
                   }
                   IOFF = ( IZERO-1 )*LDA;
                   if ( IMAT < 7 ) {
@@ -183,7 +183,7 @@
                      clacpy('Full', N, N, AFAC, LDA, AINV, LDA );
                      SRNAMT = 'CGETRI';
                      NRHS = NSVAL( 1 );
-                     LWORK = NMAX*MAX( 3, NRHS );
+                     LWORK = NMAX*max( 3, NRHS );
                      cgetri(N, AINV, LDA, IWORK, WORK, LWORK, INFO );
 
                      // Check error code from CGETRI.

@@ -55,8 +55,8 @@
                Z( J4 ) = Z( J4+1 )*( Z( J4-1 ) / Z( J4-2 ) );
                D = Z( J4+1 )*( D / Z( J4-2 ) );
             }
-            DMIN = MIN( DMIN, D );
-            EMIN = MIN( EMIN, Z( J4 ) );
+            DMIN = min( DMIN, D );
+            EMIN = min( EMIN, Z( J4 ) );
          } // 10
       } else {
          DO 20 J4 = 4*I0, 4*( N0-3 ), 4;
@@ -74,8 +74,8 @@
                Z( J4-1 ) = Z( J4+2 )*( Z( J4 ) / Z( J4-3 ) );
                D = Z( J4+2 )*( D / Z( J4-3 ) );
             }
-            DMIN = MIN( DMIN, D );
-            EMIN = MIN( EMIN, Z( J4-1 ) );
+            DMIN = min( DMIN, D );
+            EMIN = min( EMIN, Z( J4-1 ) );
          } // 20
       }
 
@@ -99,7 +99,7 @@
          Z( J4 ) = Z( J4P2+2 )*( Z( J4P2 ) / Z( J4-2 ) );
          DNM1 = Z( J4P2+2 )*( DNM2 / Z( J4-2 ) );
       }
-      DMIN = MIN( DMIN, DNM1 );
+      DMIN = min( DMIN, DNM1 );
 
       DMIN1 = DMIN;
       J4 = J4 + 4;
@@ -118,7 +118,7 @@
          Z( J4 ) = Z( J4P2+2 )*( Z( J4P2 ) / Z( J4-2 ) );
          DN = Z( J4P2+2 )*( DNM1 / Z( J4-2 ) );
       }
-      DMIN = MIN( DMIN, DN );
+      DMIN = min( DMIN, DN );
 
       Z( J4+2 ) = DN;
       Z( 4*N0-PP ) = EMIN;

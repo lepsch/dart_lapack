@@ -78,7 +78,7 @@
 
       // Test the input arguments
 
-      LWKMIN = MAX( 2*N, 1 );
+      LWKMIN = max( 2*N, 1 );
       LWKOPT = LWKMIN;
       WORK( 1 ) = LWKOPT;
       LQUERY = ( LWORK == -1 );
@@ -89,9 +89,9 @@
          INFO = -2;
       } else if ( N < 0 ) {
          INFO = -3;
-      } else if ( LDA < MAX( 1, N ) ) {
+      } else if ( LDA < max( 1, N ) ) {
          INFO = -5;
-      } else if ( LDB < MAX( 1, N ) ) {
+      } else if ( LDB < max( 1, N ) ) {
          INFO = -7;
       } else if ( LDVL < 1 || ( ILVL && LDVL < N ) ) {
          INFO = -11;
@@ -105,8 +105,8 @@
          NB1 = ILAENV( 1, 'CGEQRF', ' ', N, N, -1, -1 );
          NB2 = ILAENV( 1, 'CUNMQR', ' ', N, N, N, -1 );
          NB3 = ILAENV( 1, 'CUNGQR', ' ', N, N, N, -1 );
-         NB = MAX( NB1, NB2, NB3 );
-         LOPT = MAX( 2*N, N*(NB+1) );
+         NB = max( NB1, NB2, NB3 );
+         LOPT = max( 2*N, N*(NB+1) );
          WORK( 1 ) = LOPT;
       }
 
@@ -190,14 +190,14 @@
       }
       ITAU = 1;
       IWORK = ITAU + IROWS;
-      cgeqrf(IROWS, ICOLS, B( ILO, ILO ), LDB, WORK( ITAU ), WORK( IWORK ), LWORK+1-IWORK, IINFO )       IF( IINFO >= 0 ) LWKOPT = MAX( LWKOPT, INT( WORK( IWORK ) )+IWORK-1 );
+      cgeqrf(IROWS, ICOLS, B( ILO, ILO ), LDB, WORK( ITAU ), WORK( IWORK ), LWORK+1-IWORK, IINFO )       IF( IINFO >= 0 ) LWKOPT = max( LWKOPT, INT( WORK( IWORK ) )+IWORK-1 );
       if ( IINFO != 0 ) {
          INFO = N + 2;
          GO TO 80;
       }
 
       cunmqr('L', 'C', IROWS, ICOLS, IROWS, B( ILO, ILO ), LDB, WORK( ITAU ), A( ILO, ILO ), LDA, WORK( IWORK ), LWORK+1-IWORK, IINFO );
-      if (IINFO >= 0) LWKOPT = MAX( LWKOPT, INT( WORK( IWORK ) )+IWORK-1 );
+      if (IINFO >= 0) LWKOPT = max( LWKOPT, INT( WORK( IWORK ) )+IWORK-1 );
       if ( IINFO != 0 ) {
          INFO = N + 3;
          GO TO 80;
@@ -207,7 +207,7 @@
          claset('Full', N, N, CZERO, CONE, VL, LDVL );
          clacpy('L', IROWS-1, IROWS-1, B( ILO+1, ILO ), LDB, VL( ILO+1, ILO ), LDVL );
          cungqr(IROWS, IROWS, IROWS, VL( ILO, ILO ), LDVL, WORK( ITAU ), WORK( IWORK ), LWORK+1-IWORK, IINFO );
-         if (IINFO >= 0) LWKOPT = MAX( LWKOPT, INT( WORK( IWORK ) )+IWORK-1 );
+         if (IINFO >= 0) LWKOPT = max( LWKOPT, INT( WORK( IWORK ) )+IWORK-1 );
          if ( IINFO != 0 ) {
             INFO = N + 4;
             GO TO 80;
@@ -240,7 +240,7 @@
          CHTEMP = 'E';
       }
       chgeqz(CHTEMP, JOBVL, JOBVR, N, ILO, IHI, A, LDA, B, LDB, ALPHA, BETA, VL, LDVL, VR, LDVR, WORK( IWORK ), LWORK+1-IWORK, RWORK( IRWORK ), IINFO );
-      if (IINFO >= 0) LWKOPT = MAX( LWKOPT, INT( WORK( IWORK ) )+IWORK-1 );
+      if (IINFO >= 0) LWKOPT = max( LWKOPT, INT( WORK( IWORK ) )+IWORK-1 );
       if ( IINFO != 0 ) {
          if ( IINFO > 0 && IINFO <= N ) {
             INFO = IINFO;
@@ -283,7 +283,7 @@
             for (JC = 1; JC <= N; JC++) { // 30
                TEMP = ZERO;
                for (JR = 1; JR <= N; JR++) { // 10
-                  TEMP = MAX( TEMP, ABS1( VL( JR, JC ) ) );
+                  TEMP = max( TEMP, ABS1( VL( JR, JC ) ) );
                } // 10
                if (TEMP < SAFMIN) GO TO 30;
                TEMP = ONE / TEMP;
@@ -301,7 +301,7 @@
             for (JC = 1; JC <= N; JC++) { // 60
                TEMP = ZERO;
                for (JR = 1; JR <= N; JR++) { // 40
-                  TEMP = MAX( TEMP, ABS1( VR( JR, JC ) ) );
+                  TEMP = max( TEMP, ABS1( VR( JR, JC ) ) );
                } // 40
                if (TEMP < SAFMIN) GO TO 60;
                TEMP = ONE / TEMP;
@@ -335,29 +335,29 @@
 
          // Check for significant underflow in imaginary part of ALPHA
 
-         if ( ABS( SALFAI ) < SAFMIN && ABSAI >= MAX( SAFMIN, EPS*ABSAR, EPS*ABSB ) ) {
+         if ( ABS( SALFAI ) < SAFMIN && ABSAI >= max( SAFMIN, EPS*ABSAR, EPS*ABSB ) ) {
             ILIMIT = true;
-            SCALE = ( SAFMIN / ANRM1 ) / MAX( SAFMIN, ANRM2*ABSAI );
+            SCALE = ( SAFMIN / ANRM1 ) / max( SAFMIN, ANRM2*ABSAI );
          }
 
          // Check for significant underflow in real part of ALPHA
 
-         if ( ABS( SALFAR ) < SAFMIN && ABSAR >= MAX( SAFMIN, EPS*ABSAI, EPS*ABSB ) ) {
+         if ( ABS( SALFAR ) < SAFMIN && ABSAR >= max( SAFMIN, EPS*ABSAI, EPS*ABSB ) ) {
             ILIMIT = true;
-            SCALE = MAX( SCALE, ( SAFMIN / ANRM1 ) / MAX( SAFMIN, ANRM2*ABSAR ) );
+            SCALE = max( SCALE, ( SAFMIN / ANRM1 ) / max( SAFMIN, ANRM2*ABSAR ) );
          }
 
          // Check for significant underflow in BETA
 
-         if ( ABS( SBETA ) < SAFMIN && ABSB >= MAX( SAFMIN, EPS*ABSAR, EPS*ABSAI ) ) {
+         if ( ABS( SBETA ) < SAFMIN && ABSB >= max( SAFMIN, EPS*ABSAR, EPS*ABSAI ) ) {
             ILIMIT = true;
-            SCALE = MAX( SCALE, ( SAFMIN / BNRM1 ) / MAX( SAFMIN, BNRM2*ABSB ) );
+            SCALE = max( SCALE, ( SAFMIN / BNRM1 ) / max( SAFMIN, BNRM2*ABSB ) );
          }
 
          // Check for possible overflow when limiting scaling
 
          if ( ILIMIT ) {
-            TEMP = ( SCALE*SAFMIN )*MAX( ABS( SALFAR ), ABS( SALFAI ), ABS( SBETA ) )             IF( TEMP > ONE ) SCALE = SCALE / TEMP             IF( SCALE < ONE ) ILIMIT = false;
+            TEMP = ( SCALE*SAFMIN )*max( ABS( SALFAR ), ABS( SALFAI ), ABS( SBETA ) )             IF( TEMP > ONE ) SCALE = SCALE / TEMP             IF( SCALE < ONE ) ILIMIT = false;
          }
 
          // Recompute un-scaled ALPHA, BETA if necessary.

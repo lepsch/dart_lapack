@@ -67,9 +67,9 @@
                INFO = -8;
             }
          } else if ( INDSV ) {
-            if ( IL < 1 || IL > MAX( 1, N ) ) {
+            if ( IL < 1 || IL > max( 1, N ) ) {
                INFO = -9;
-            } else if ( IU < MIN( N, IL ) || IU > N ) {
+            } else if ( IU < min( N, IL ) || IU > N ) {
                INFO = -10;
             }
          }
@@ -108,22 +108,22 @@
       ABSTOL = 2*DLAMCH( 'Safe Minimum' );
       ULP = DLAMCH( 'Precision' );
       EPS = DLAMCH( 'Epsilon' );
-      SQRT2 = SQRT( 2.0 );
-      ORTOL = SQRT( ULP );
+      SQRT2 = sqrt( 2.0 );
+      ORTOL = sqrt( ULP );
 
       // Criterion for splitting is taken from DBDSQR when singular
       // values are computed to relative accuracy TOL. (See J. Demmel and
       // W. Kahan, Accurate singular values of bidiagonal matrices, SIAM
       // J. Sci. and Stat. Comput., 11:873–912, 1990.)
 
-      TOL = MAX( TEN, MIN( HNDRD, EPS**MEIGTH ) )*EPS;
+      TOL = max( TEN, min( HNDRD, EPS**MEIGTH ) )*EPS;
 
       // Compute approximate maximum, minimum singular values.
 
       I = IDAMAX( N, D, 1 );
       SMAX = ABS( D( I ) );
       I = IDAMAX( N-1, E, 1 );
-      SMAX = MAX( SMAX, ABS( E( I ) ) );
+      SMAX = max( SMAX, ABS( E( I ) ) );
 
       // Compute threshold for neglecting D's and E's.
 
@@ -132,11 +132,11 @@
          MU = SMIN;
          for (I = 2; I <= N; I++) {
             MU = ABS( D( I ) )*( MU / ( MU+ABS( E( I-1 ) ) ) );
-            SMIN = MIN( SMIN, MU );
+            SMIN = min( SMIN, MU );
             if (SMIN == ZERO) EXIT;
          }
       }
-      SMIN = SMIN / SQRT( DBLE( N ) );
+      SMIN = SMIN / sqrt( DBLE( N ) );
       THRESH = TOL*SMIN;
 
       // Check for zeros in D and E (splits), i.e. submatrices.
@@ -213,7 +213,7 @@
          dcopy(N-1, E, 1, WORK( IETGK+1 ), 2 );
          dstevx('N', 'I', N*2, WORK( IDTGK ), WORK( IETGK ), VUTGK, VUTGK, IUTGK, IUTGK, ABSTOL, NS, S, Z, LDZ, WORK( ITEMP ), IWORK( IIWORK ), IWORK( IIFAIL ), INFO );
          VUTGK = S( 1 ) + FUDGE*SMAX*ULP*N;
-         VUTGK = MIN( VUTGK, ZERO );
+         VUTGK = min( VUTGK, ZERO );
 
          // If VLTGK=VUTGK, DSTEVX returns an error message,
          // so if needed we change VUTGK slightly.
@@ -377,7 +377,7 @@
                         // END IF
                      }
 
-                     DO I = 0, MIN( NSL-1, NRU-1 );
+                     DO I = 0, min( NSL-1, NRU-1 );
                         NRMU = DNRM2( NRU, Z( IROWU, ICOLZ+I ), 2 );
                         if ( NRMU == ZERO ) {
                            INFO = N*2 + 1;
@@ -392,7 +392,7 @@
                            dscal(NRU, ONE/NRMU, Z( IROWU,ICOLZ+I ), 2 );
                         }
                      }
-                     DO I = 0, MIN( NSL-1, NRV-1 );
+                     DO I = 0, min( NSL-1, NRV-1 );
                         NRMV = DNRM2( NRV, Z( IROWV, ICOLZ+I ), 2 );
                         if ( NRMV == ZERO ) {
                            INFO = N*2 + 1;
@@ -419,7 +419,7 @@
                      }
                   END IF !** WANTZ **!;
 
-                  NSL = MIN( NSL, NRU );
+                  NSL = min( NSL, NRU );
                   SVEQ0 = false;
 
                   // Absolute values of the eigenvalues of TGK.

@@ -45,9 +45,9 @@
 
       if ( N < 0 ) {
          INFO = -2;
-      } else if ( LDQ < MAX( 1, N ) ) {
+      } else if ( LDQ < max( 1, N ) ) {
          INFO = -6;
-      } else if ( MIN( 1, ( N / 2 ) ) > N1 || ( N / 2 ) < N1 ) {
+      } else if ( min( 1, ( N / 2 ) ) > N1 || ( N / 2 ) < N1 ) {
          INFO = -3;
       }
       if ( INFO != 0 ) {
@@ -69,7 +69,7 @@
       // Normalize z so that norm(z) = 1.  Since z is the concatenation of
       // two normalized vectors, norm2(z) = sqrt(2).
 
-      T = ONE / SQRT( TWO );
+      T = ONE / sqrt( TWO );
       dscal(N, T, Z, 1 );
 
       // RHO = ABS( norm(z)**2 * RHO )
@@ -97,7 +97,7 @@
       IMAX = IDAMAX( N, Z, 1 );
       JMAX = IDAMAX( N, D, 1 );
       EPS = DLAMCH( 'Epsilon' );
-      TOL = EIGHT*EPS*MAX( ABS( D( JMAX ) ), ABS( Z( IMAX ) ) );
+      TOL = EIGHT*EPS*max( ABS( D( JMAX ) ), ABS( Z( IMAX ) ) );
 
       // If the rank-1 modifier is small enough, no more needs to be done
       // except to reorganize Q so that its columns correspond with the

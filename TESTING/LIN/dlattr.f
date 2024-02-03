@@ -195,9 +195,9 @@
             }
          } // 90
 
-         X = SQRT( CNDNUM ) - 1 / SQRT( CNDNUM );
+         X = sqrt( CNDNUM ) - 1 / sqrt( CNDNUM );
          if ( N > 2 ) {
-            Y = SQRT( 2.0 / ( N-2 ) )*X;
+            Y = sqrt( 2.0 / ( N-2 ) )*X;
          } else {
             Y = ZERO;
          }
@@ -292,7 +292,7 @@
          dlarnv(2, ISEED, N, B );
          IY = IDAMAX( N, B, 1 );
          BNORM = ABS( B( IY ) );
-         BSCAL = BIGNUM / MAX( ONE, BNORM );
+         BSCAL = BIGNUM / max( ONE, BNORM );
          dscal(N, BSCAL, B, 1 );
 
       } else if ( IMAT == 12 ) {
@@ -302,7 +302,7 @@
          // In type 12, the offdiagonal elements are small (CNORM(j) < 1).
 
          dlarnv(2, ISEED, N, B );
-         TSCAL = ONE / MAX( ONE, DBLE( N-1 ) );
+         TSCAL = ONE / max( ONE, DBLE( N-1 ) );
          if ( UPPER ) {
             for (J = 1; J <= N; J++) { // 160
                dlarnv(2, ISEED, J, A( 1, J ) );
@@ -398,7 +398,7 @@
          // overflow when dividing by T(j,j).  To control the amount of
          // scaling needed, the matrix is bidiagonal.
 
-         TEXP = ONE / MAX( ONE, DBLE( N-1 ) );
+         TEXP = ONE / max( ONE, DBLE( N-1 ) );
          TSCAL = SMLNUM**TEXP;
          dlarnv(2, ISEED, N, B );
          if ( UPPER ) {
@@ -510,7 +510,7 @@
          dlarnv(2, ISEED, N, B );
          IY = IDAMAX( N, B, 1 );
          BNORM = ABS( B( IY ) );
-         BSCAL = BIGNUM / MAX( ONE, BNORM );
+         BSCAL = BIGNUM / max( ONE, BNORM );
          dscal(N, BSCAL, B, 1 );
 
       } else if ( IMAT == 19 ) {
@@ -520,8 +520,8 @@
          // norms will exceed BIGNUM.
          // 1/3/91:  DLATRS no longer can handle this case
 
-         TLEFT = BIGNUM / MAX( ONE, DBLE( N-1 ) );
-         TSCAL = BIGNUM*( DBLE( N-1 ) / MAX( ONE, DBLE( N ) ) );
+         TLEFT = BIGNUM / max( ONE, DBLE( N-1 ) );
+         TSCAL = BIGNUM*( DBLE( N-1 ) / max( ONE, DBLE( N ) ) );
          if ( UPPER ) {
             for (J = 1; J <= N; J++) { // 390
                dlarnv(2, ISEED, J, A( 1, J ) );

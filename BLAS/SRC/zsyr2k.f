@@ -55,11 +55,11 @@
           INFO = 3;
       } else if (K < 0) {
           INFO = 4;
-      } else if (LDA < MAX(1,NROWA)) {
+      } else if (LDA < max(1,NROWA)) {
           INFO = 7;
-      } else if (LDB < MAX(1,NROWA)) {
+      } else if (LDB < max(1,NROWA)) {
           INFO = 9;
-      } else if (LDC < MAX(1,N)) {
+      } else if (LDC < max(1,N)) {
           INFO = 12;
       }
       if (INFO != 0) {

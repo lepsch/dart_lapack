@@ -74,7 +74,7 @@
       // The block size must not exceed the limit set by the size of the
       // local arrays WORK13 and WORK31.
 
-      NB = MIN( NB, NBMAX );
+      NB = min( NB, NBMAX );
 
       if ( NB <= 1 || NB > KL ) {
 
@@ -105,7 +105,7 @@
 
          // Set fill-in elements in columns KU+2 to KV to zero
 
-         DO 60 J = KU + 2, MIN( KV, N );
+         DO 60 J = KU + 2, min( KV, N );
             for (I = KV - J + 2; I <= KL; I++) { // 50
                AB( I, J ) = ZERO;
             } // 50
@@ -116,8 +116,8 @@
 
          JU = 1;
 
-         DO 180 J = 1, MIN( M, N ), NB;
-            JB = MIN( NB, MIN( M, N )-J+1 );
+         DO 180 J = 1, min( M, N ), NB;
+            JB = min( NB, min( M, N )-J+1 );
 
             // The active part of the matrix is partitioned
 
@@ -131,8 +131,8 @@
             // of columns are JB, J2, J3. The superdiagonal elements of A13
             // and the subdiagonal elements of A31 lie outside the band.
 
-            I2 = MIN( KL-JB, M-J-JB+1 );
-            I3 = MIN( JB, M-J-KL+1 );
+            I2 = min( KL-JB, M-J-JB+1 );
+            I3 = min( JB, M-J-KL+1 );
 
             // J2 and J3 are computed after JU has been updated.
 
@@ -151,11 +151,11 @@
                // Find pivot and test for singularity. KM is the number of
                // subdiagonal elements in the current column.
 
-               KM = MIN( KL, M-JJ );
+               KM = min( KL, M-JJ );
                JP = ICAMAX( KM+1, AB( KV+1, JJ ), 1 );
                IPIV( JJ ) = JP + JJ - J;
                if ( AB( KV+JP, JJ ) != ZERO ) {
-                  JU = MAX( JU, MIN( JJ+KU+JP-1, N ) );
+                  JU = max( JU, min( JJ+KU+JP-1, N ) );
                   if ( JP != 1 ) {
 
                      // Apply interchange to columns J to J+JB-1
@@ -181,7 +181,7 @@
                   // the current block. JM is the index of the last column
                   // which needs to be updated.
 
-                  JM = MIN( JU, J+JB-1 );
+                  JM = min( JU, J+JB-1 );
                   if (JM > JJ) CALL CGERU( KM, JM-JJ, -ONE, AB( KV+2, JJ ), 1, AB( KV, JJ+1 ), LDAB-1, AB( KV+1, JJ+1 ), LDAB-1 );
                } else {
 
@@ -193,15 +193,15 @@
 
                // Copy current column of A31 into the work array WORK31
 
-               NW = MIN( JJ-J+1, I3 );
+               NW = min( JJ-J+1, I3 );
                if (NW > 0) CALL CCOPY( NW, AB( KV+KL+1-JJ+J, JJ ), 1, WORK31( 1, JJ-J+1 ), 1 );
             } // 80
             if ( J+JB <= N ) {
 
                // Apply the row interchanges to the other blocks.
 
-               J2 = MIN( JU-J+1, KV ) - JB;
-               J3 = MAX( 0, JU-J-KV+1 );
+               J2 = min( JU-J+1, KV ) - JB;
+               J3 = max( 0, JU-J-KV+1 );
 
                // Use CLASWP to apply the row interchanges to A12, A22, and
                // A32.
@@ -324,7 +324,7 @@
 
                // Copy the current column of A31 back into place
 
-               NW = MIN( I3, JJ-J+1 );
+               NW = min( I3, JJ-J+1 );
                if (NW > 0) CALL CCOPY( NW, WORK31( 1, JJ-J+1 ), 1, AB( KV+KL+1-JJ+J, JJ ), 1 );
             } // 170
          } // 180

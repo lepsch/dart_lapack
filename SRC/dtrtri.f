@@ -46,7 +46,7 @@
          INFO = -2;
       } else if ( N < 0 ) {
          INFO = -3;
-      } else if ( LDA < MAX( 1, N ) ) {
+      } else if ( LDA < max( 1, N ) ) {
          INFO = -5;
       }
       if ( INFO != 0 ) {
@@ -84,7 +84,7 @@
             // Compute inverse of upper triangular matrix
 
             DO 20 J = 1, N, NB;
-               JB = MIN( NB, N-J+1 );
+               JB = min( NB, N-J+1 );
 
                // Compute rows 1:j-1 of current block column
 
@@ -101,7 +101,7 @@
 
             NN = ( ( N-1 ) / NB )*NB + 1;
             DO 30 J = NN, 1, -NB;
-               JB = MIN( NB, N-J+1 );
+               JB = min( NB, N-J+1 );
                if ( J+JB <= N ) {
 
                   // Compute rows j+jb:n of current block column

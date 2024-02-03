@@ -44,14 +44,14 @@
          VALUE = ZERO;
          if ( LSAME( UPLO, 'U' ) ) {
             for (J = 1; J <= N; J++) { // 20
-               DO 10 I = MAX( K+2-J, 1 ), K + 1;
+               DO 10 I = max( K+2-J, 1 ), K + 1;
                   SUM = ABS( AB( I, J ) );
                   if( VALUE < SUM || SISNAN( SUM ) ) VALUE = SUM;
                } // 10
             } // 20
          } else {
             for (J = 1; J <= N; J++) { // 40
-               DO 30 I = 1, MIN( N+1-J, K+1 );
+               DO 30 I = 1, min( N+1-J, K+1 );
                   SUM = ABS( AB( I, J ) );
                   if( VALUE < SUM || SISNAN( SUM ) ) VALUE = SUM;
                } // 30
@@ -66,7 +66,7 @@
             for (J = 1; J <= N; J++) { // 60
                SUM = ZERO;
                L = K + 1 - J;
-               DO 50 I = MAX( 1, J-K ), J - 1;
+               DO 50 I = max( 1, J-K ), J - 1;
                   ABSA = ABS( AB( L+I, J ) );
                   SUM = SUM + ABSA;
                   WORK( I ) = WORK( I ) + ABSA;
@@ -84,7 +84,7 @@
             for (J = 1; J <= N; J++) { // 100
                SUM = WORK( J ) + ABS( AB( 1, J ) );
                L = 1 - J;
-               DO 90 I = J + 1, MIN( N, J+K );
+               DO 90 I = J + 1, min( N, J+K );
                   ABSA = ABS( AB( L+I, J ) );
                   SUM = SUM + ABSA;
                   WORK( I ) = WORK( I ) + ABSA;
@@ -101,12 +101,12 @@
          if ( K > 0 ) {
             if ( LSAME( UPLO, 'U' ) ) {
                for (J = 2; J <= N; J++) { // 110
-                  classq(MIN( J-1, K ), AB( MAX( K+2-J, 1 ), J ), 1, SCALE, SUM );
+                  classq(min( J-1, K ), AB( max( K+2-J, 1 ), J ), 1, SCALE, SUM );
                } // 110
                L = K + 1;
             } else {
                for (J = 1; J <= N - 1; J++) { // 120
-                  classq(MIN( N-J, K ), AB( 2, J ), 1, SCALE, SUM );
+                  classq(min( N-J, K ), AB( 2, J ), 1, SCALE, SUM );
                } // 120
                L = 1;
             }
@@ -115,7 +115,7 @@
             L = 1;
          }
          classq(N, AB( L, 1 ), LDAB, SCALE, SUM );
-         VALUE = SCALE*SQRT( SUM );
+         VALUE = SCALE*sqrt( SUM );
       }
 
       CLANSB = VALUE;

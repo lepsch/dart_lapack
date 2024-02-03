@@ -41,14 +41,14 @@
 
       // Test that enough workspace is supplied
 
-      if ( LWORK < M*N+2*MIN( M, N )+MAX( M, N ) ) {
+      if ( LWORK < M*N+2*min( M, N )+max( M, N ) ) {
          xerbla('ZQRT12', 7 );
          return;
       }
 
       // Quick return if possible
 
-      MN = MIN( M, N );
+      MN = min( M, N );
       if (MN <= ZERO) return;
 
       NRMSVL = DNRM2( MN, S, 1 );
@@ -57,7 +57,7 @@
 
       zlaset('Full', M, N, DCMPLX( ZERO ), DCMPLX( ZERO ), WORK, M );
       for (J = 1; J <= N; J++) {
-         DO I = 1, MIN( J, M );
+         DO I = 1, min( J, M );
             WORK( ( J-1 )*M+I ) = A( I, J );
          }
       }
@@ -111,7 +111,7 @@
       // Compare s and singular values of work
 
       daxpy(MN, -ONE, S, 1, RWORK( 1 ), 1 );
-      ZQRT12 = DASUM( MN, RWORK( 1 ), 1 ) / ( DLAMCH( 'Epsilon' )*DBLE( MAX( M, N ) ) );
+      ZQRT12 = DASUM( MN, RWORK( 1 ), 1 ) / ( DLAMCH( 'Epsilon' )*DBLE( max( M, N ) ) );
 
       if (NRMSVL != ZERO) ZQRT12 = ZQRT12 / NRMSVL;
 

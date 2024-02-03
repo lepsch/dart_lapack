@@ -104,7 +104,7 @@
       // Compute updated Z.
 
       for (I = 1; I <= K; I++) { // 50
-         Z( I ) = SIGN( SQRT( ABS( WORK( IWK3I+I ) ) ), Z( I ) );
+         Z( I ) = SIGN( sqrt( ABS( WORK( IWK3I+I ) ) ), Z( I ) );
       } // 50
 
       // Update VF and VL.

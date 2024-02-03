@@ -116,13 +116,13 @@
         INFO = -3;
       } else if ( NRHS < 0 ) {
         INFO = -4;
-      } else if ( LDA < MAX( 1, N ) ) {
+      } else if ( LDA < max( 1, N ) ) {
         INFO = -6;
-      } else if ( LDAF < MAX( 1, N ) ) {
+      } else if ( LDAF < max( 1, N ) ) {
         INFO = -8;
-      } else if ( LDB < MAX( 1, N ) ) {
+      } else if ( LDB < max( 1, N ) ) {
         INFO = -12;
-      } else if ( LDX < MAX( 1, N ) ) {
+      } else if ( LDX < max( 1, N ) ) {
         INFO = -14;
       }
       if ( INFO != 0 ) {
@@ -186,7 +186,7 @@
           cla_herfsx_extended(PREC_TYPE, UPLO,  N, NRHS, A, LDA, AF, LDAF, IPIV, RCEQU, S, B, LDB, X, LDX, BERR, N_NORMS, ERR_BNDS_NORM, ERR_BNDS_COMP, WORK, RWORK, WORK(N+1), TRANSFER (RWORK(1:2*N), (/ (ZERO, ZERO) /), N), RCOND, ITHRESH, RTHRESH, UNSTABLE_THRESH, IGNORE_CWISE, INFO );
       }
 
-      ERR_LBND = MAX( 10.0, SQRT( REAL( N ) ) ) * SLAMCH( 'Epsilon' );
+      ERR_LBND = max( 10.0, sqrt( REAL( N ) ) ) * SLAMCH( 'Epsilon' );
       if ( N_ERR_BNDS >= 1 && N_NORMS >= 1 ) {
 
       // Compute scaled normwise condition number cond(A*C).
@@ -231,7 +231,7 @@
       // the inverse condition number is set to 0.0 when the estimated
       // cwise error is at least CWISE_WRONG.
 
-         CWISE_WRONG = SQRT( SLAMCH( 'Epsilon' ) );
+         CWISE_WRONG = sqrt( SLAMCH( 'Epsilon' ) );
          for (J = 1; J <= NRHS; J++) {
             if ( ERR_BNDS_COMP( J, LA_LINRX_ERR_I ) < CWISE_WRONG ) {
                RCOND_TMP = CLA_HERCOND_X( UPLO, N, A, LDA, AF, LDAF, IPIV, X( 1, J ), INFO, WORK, RWORK );
