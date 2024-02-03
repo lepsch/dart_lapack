@@ -86,7 +86,7 @@
                   LK = MIN( KD+1, N-I+1 )
                   dcopy(LK, A( I, I ), 1, AB( 1, I ), 1 );
               } // 110
-          ENDIF
+          }
           WORK( 1 ) = 1
           RETURN
       }
@@ -110,7 +110,7 @@
       } else {
           LDW    = N
           LDS2   = N
-      ENDIF
+      }
 
 
       // Set the workspace of the triangular matrix T to zero once such a

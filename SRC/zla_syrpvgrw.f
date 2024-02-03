@@ -172,7 +172,7 @@
                WORK( N+K ) = WORK( N+KP )
                WORK( N+KP ) = TMP
                K = K - 2
-            ENDIF
+            }
          END DO
       }
 

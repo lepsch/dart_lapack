@@ -125,7 +125,7 @@
                zgetrs('No transpose', N, 1, AF, LDAF, IPIV, WORK, N, INFO );
             } else {
                zgetrs('Conjugate transpose', N, 1, AF, LDAF, IPIV, WORK, N, INFO );
-            ENDIF
+            }
 
             // Multiply by inv(C).
 

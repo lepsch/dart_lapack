@@ -54,7 +54,7 @@
          RCEQU = .FALSE.
       } else {
          RCEQU = LSAME( EQUED, 'Y' )
-      ENDIF
+      }
 
       // Default is failure.  If an input parameter is wrong or
       // factorization fails, make everything look horrible.  Only the
@@ -143,7 +143,7 @@
 
             RPVGRW = SLA_PORPVGRW( UPLO, INFO, A, LDA, AF, LDAF, WORK )
             RETURN
-         ENDIF
+         }
       }
 
       // Compute the reciprocal growth factor RPVGRW.

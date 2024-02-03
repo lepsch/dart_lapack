@@ -178,7 +178,7 @@
 
                   if (ITER.LT.0) {
                      dlacpy('All', N, N, A, LDA, AFAC, LDA );
-                  ENDIF
+                  }
 
                   // Check error code from DSPOSV .
 

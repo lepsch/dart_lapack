@@ -94,6 +94,6 @@
              A(I,I2)=TMP
           END DO
 
-      ENDIF
+      }
 
       END SUBROUTINE CHESWAPR

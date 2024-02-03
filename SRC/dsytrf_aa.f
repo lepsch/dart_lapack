@@ -81,7 +81,7 @@
 
       if ( N.EQ.0 ) {
           RETURN
-      ENDIF
+      }
       IPIV( 1 ) = 1
       if ( N.EQ.1 ) {
          RETURN

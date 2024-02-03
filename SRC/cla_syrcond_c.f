@@ -141,7 +141,7 @@
                csytrs('U', N, 1, AF, LDAF, IPIV, WORK, N, INFO );
             } else {
                csytrs('L', N, 1, AF, LDAF, IPIV, WORK, N, INFO );
-            ENDIF
+            }
 
             // Multiply by inv(C).
 

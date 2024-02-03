@@ -88,7 +88,7 @@
             INDEXW( 1 ) = 1
             GERS(1) = D( 1 )
             GERS(2) = D( 1 )
-         ENDIF
+         }
          // store the shift for the initial RRR, which is zero in this case
          E(1) = ZERO
          RETURN
@@ -149,7 +149,7 @@
          if ( IINFO.NE.0 ) {
             INFO = -1
             RETURN
-         ENDIF
+         }
          // Make sure that the entries M+1 to N in W, WERR, IBLOCK, INDEXW are 0
          DO 14 I = MM+1,N
             W( I ) = ZERO
@@ -180,7 +180,7 @@
                IBLOCK( M ) = JBLK
                INDEXW( M ) = 1
                WBEGIN = WBEGIN + 1
-            ENDIF
+            }
             // E( IEND ) holds the shift for the initial RRR
             E( IEND ) = ZERO
             IBEGIN = IEND + 1
@@ -209,7 +209,7 @@
                   MB = MB+1
                } else {
                   GOTO 21
-               ENDIF
+               }
             } // 20
             } // 21
 
@@ -235,8 +235,8 @@
                // Find local index of the first and last desired evalue.
                INDL = INDEXW(WBEGIN)
                INDU = INDEXW( WEND )
-            ENDIF
-         ENDIF
+            }
+         }
          if (( (IRANGE.EQ.ALLRNG) .AND. (.NOT. FORCEB) ).OR.USEDQD) {
             // Case of DQDS
             // Find approximations to the extremal eigenvalues of the block
@@ -244,13 +244,13 @@
             if ( IINFO.NE.0 ) {
                INFO = -1
                RETURN
-            ENDIF
+            }
             ISLEFT = MAX(GL, TMP - TMP1 - HNDRD * EPS* ABS(TMP - TMP1))
              dlarrk(IN, IN, GL, GU, D(IBEGIN), E2(IBEGIN), PIVMIN, RTL, TMP, TMP1, IINFO );
             if ( IINFO.NE.0 ) {
                INFO = -1
                RETURN
-            ENDIF
+            }
             ISRGHT = MIN(GU, TMP + TMP1 + HNDRD * EPS * ABS(TMP + TMP1))
             // Improve the estimate of the spectral diameter
             SPDIAM = ISRGHT - ISLEFT
@@ -258,7 +258,7 @@
             // Case of bisection
             // Find approximations to the wanted extremal eigenvalues
             ISLEFT = MAX(GL, W(WBEGIN) - WERR(WBEGIN) - HNDRD * EPS*ABS(W(WBEGIN)- WERR(WBEGIN) ))             ISRGHT = MIN(GU,W(WEND) + WERR(WEND) + HNDRD * EPS * ABS(W(WEND)+ WERR(WEND)))
-         ENDIF
+         }
 
 
          // Decide whether the base representation for the current block
@@ -292,13 +292,13 @@
                TMP = MIN(ISRGHT,VU) -  MAX(ISLEFT,VL)
                S1 =  MAX(ISLEFT,VL) + FOURTH * TMP
                S2 =  MIN(ISRGHT,VU) - FOURTH * TMP
-            ENDIF
-         ENDIF
+            }
+         }
 
          // Compute the negcount at the 1/4 and 3/4 points
          if (MB.GT.1) {
             dlarrc('T', IN, S1, S2, D(IBEGIN), E(IBEGIN), PIVMIN, CNT, CNT1, CNT2, IINFO);
-         ENDIF
+         }
 
          if (MB.EQ.1) {
             SIGMA = GL
@@ -314,7 +314,7 @@
                // use approximation of the first desired eigenvalue of the
                // block as shift
                SIGMA = MAX(ISLEFT,VL)
-            ENDIF
+            }
             SGNDEF = ONE
          } else {
             if ( ( IRANGE.EQ.ALLRNG ) .AND. (.NOT.FORCEB) ) {
@@ -327,9 +327,9 @@
                // use approximation of the first desired eigenvalue of the
                // block as shift
                SIGMA = MIN(ISRGHT,VU)
-            ENDIF
+            }
             SGNDEF = -ONE
-         ENDIF
+         }
 
 
          // An initial SIGMA has been chosen that will be used for computing
@@ -352,11 +352,11 @@
                } else {
                   TAU = HALF*MAX(WGAP(WEND-1),AVGAP)
                   TAU = MAX(TAU,WERR(WEND))
-               ENDIF
+               }
             } else {
                TAU = WERR(WBEGIN)
-            ENDIF
-         ENDIF
+            }
+         }
 
          for (IDUM = 1; IDUM <= MAXTRY; IDUM++) { // 80
             // Compute L D L^T factorization of tridiagonal matrix T - sigma I.
@@ -380,7 +380,7 @@
                NOREP = .TRUE.
             } else {
                NOREP = .FALSE.
-            ENDIF
+            }
             if ( USEDQD .AND. .NOT.NOREP ) {
                // Ensure the definiteness of the representation
                // All entries of D (of L D L^T) must have the same sign
@@ -388,7 +388,7 @@
                   TMP = SGNDEF*WORK( I )
                   IF( TMP.LT.ZERO ) NOREP = .TRUE.
                } // 71
-            ENDIF
+            }
             if (NOREP) {
                // Note that in the case of IRANGE=ALLRNG, we use the Gerschgorin
                // shift which makes the matrix definite. So we should end up
@@ -441,7 +441,7 @@
             } // 125
             D(IEND) = D(IEND)*(ONE+EPS*FOUR*WORK(IN))
 
-         ENDIF
+         }
 
          // Don't update the Gerschgorin intervals because keeping track
          // of the updates would be too much work in DLARRV.
@@ -512,7 +512,7 @@
                   if ( WORK( I ).LT.ZERO ) {
                      INFO = -6
                      RETURN
-                  ENDIF
+                  }
                } // 149
             }
             if ( SGNDEF.GT.ZERO ) {

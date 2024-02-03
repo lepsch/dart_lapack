@@ -44,7 +44,7 @@
          LWKMIN = MAX( M, N )
          NB = MAX( 1, ILAENV( 1, 'DGEBRD', ' ', M, N, -1, -1 ) )
          LWKOPT = ( M+N )*NB
-      ENDIF
+      }
       WORK( 1 ) = DBLE( LWKOPT )
 
       LQUERY = ( LWORK.EQ.-1 )

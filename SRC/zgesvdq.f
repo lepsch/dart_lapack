@@ -463,7 +463,7 @@
             // See the reference [1] for more details.
          }
 
-      ENDIF
+      }
 
       if ( WNTUR ) {
           N1 = NR

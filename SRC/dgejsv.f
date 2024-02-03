@@ -95,7 +95,7 @@
          IWORK(1:3) = 0
          WORK(1:7) = 0
          RETURN
-      ENDIF
+      }
 
       // Determine whether the matrix U should be M x N or M x M
 

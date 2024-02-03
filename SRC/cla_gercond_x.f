@@ -112,7 +112,7 @@
                cgetrs('No transpose', N, 1, AF, LDAF, IPIV, WORK, N, INFO );
             } else {
                cgetrs('Conjugate transpose', N, 1, AF, LDAF, IPIV, WORK, N, INFO );
-            ENDIF
+            }
 
             // Multiply by inv(X).
 

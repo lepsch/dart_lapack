@@ -73,7 +73,7 @@
                   I=I-1
                } else {
                   E(I)=ZERO
-               ENDIF
+               }
                I=I-1
             END DO
 
@@ -89,7 +89,7 @@
                     A(IP,J)=A(I,J)
                     A(I,J)=TEMP
                } // 12
-               ENDIF
+               }
             } else {
               IP=-IPIV(I)
                if ( I .LT. N) {
@@ -98,9 +98,9 @@
                  A(IP,J)=A(I-1,J)
                  A(I-1,J)=TEMP
                } // 13
-                ENDIF
+                }
                 I=I-1
-           ENDIF
+           }
            I=I-1
         END DO
 
@@ -121,7 +121,7 @@
                     A(IP,J)=A(I,J)
                     A(I,J)=TEMP
                   END DO
-                  ENDIF
+                  }
                } else {
                  IP=-IPIV(I)
                  I=I+1
@@ -131,8 +131,8 @@
                        A(IP,J)=A(I-1,J)
                        A(I-1,J)=TEMP
                     END DO
-                 ENDIF
-               ENDIF
+                 }
+               }
                I=I+1
             END DO
 
@@ -143,7 +143,7 @@
                if ( IPIV(I) .LT. 0 ) {
                   A(I-1,I)=E(I)
                   I=I-1
-               ENDIF
+               }
                I=I-1
             END DO
          }
@@ -168,7 +168,7 @@
                   I=I+1
                } else {
                   E(I)=ZERO
-               ENDIF
+               }
                I=I+1
             END DO
 
@@ -184,7 +184,7 @@
                  A(IP,J)=A(I,J)
                  A(I,J)=TEMP
                } // 22
-               ENDIF
+               }
             } else {
               IP=-IPIV(I)
               if (I .GT. 1) {
@@ -193,9 +193,9 @@
                  A(IP,J)=A(I+1,J)
                  A(I+1,J)=TEMP
               } // 23
-              ENDIF
+              }
               I=I+1
-           ENDIF
+           }
            I=I+1
         END DO
          } else {
@@ -215,7 +215,7 @@
                         A(I,J)=A(IP,J)
                         A(IP,J)=TEMP
                      END DO
-                  ENDIF
+                  }
                } else {
                   IP=-IPIV(I)
                   I=I-1
@@ -225,8 +225,8 @@
                         A(I+1,J)=A(IP,J)
                         A(IP,J)=TEMP
                      END DO
-                  ENDIF
-               ENDIF
+                  }
+               }
                I=I-1
             END DO
 
@@ -237,7 +237,7 @@
                if ( IPIV(I) .LT. 0 ) {
                   A(I+1,I)=E(I)
                   I=I+1
-               ENDIF
+               }
                I=I+1
             END DO
          }

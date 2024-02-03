@@ -64,7 +64,7 @@
             LWKOPT = N*NB + TSIZE
          }
          WORK( 1 ) = LWKOPT
-      ENDIF
+      }
 
       if ( INFO.NE.0 ) {
          xerbla('ZGEHRD', -INFO );

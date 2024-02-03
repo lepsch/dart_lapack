@@ -133,7 +133,7 @@
           ABDPOS   = 1
           ABOFDPOS = 2
 
-      ENDIF
+      }
 
       // Case KD=0:
       // The matrix is diagonal. We just copy it (convert to "real" for
@@ -203,7 +203,7 @@
                      // CALL ZSCAL( N, TMP, Q( 1, I+1 ), 1 )
                   // END IF
               } // 70
-          ENDIF
+          }
 
           HOUS( 1 ) = 1
           WORK( 1 ) = 1
@@ -253,7 +253,7 @@
                               TTYPE = 1
                           } else {
                               TTYPE = MOD( MYID, 2 ) + 2
-                          ENDIF
+                          }
 
                           if ( TTYPE.EQ.2 ) {
                               COLPT      = (MYID/2)*KD + SWEEPID
@@ -268,8 +268,8 @@
                                   BLKLASTIND = N
                               } else {
                                   BLKLASTIND = 0
-                              ENDIF
-                          ENDIF
+                              }
+                          }
 
                           // Call the kernel
 
@@ -288,14 +288,14 @@
                               TID      = OMP_GET_THREAD_NUM()
                               zhb2st_kernels(UPLO, WANTQ, TTYPE, STIND, EDIND, SWEEPID, N, KD, IB, WORK ( INDA ), LDA, HOUS( INDV ), HOUS( INDTAU ), LDV, WORK( INDW + TID*KD ) );
 !$OMP END TASK
-                          ENDIF
+                          }
 #else
                           zhb2st_kernels(UPLO, WANTQ, TTYPE, STIND, EDIND, SWEEPID, N, KD, IB, WORK ( INDA ), LDA, HOUS( INDV ), HOUS( INDTAU ), LDV, WORK( INDW ) );
 #endif
                           if ( BLKLASTIND.GE.(N-1) ) {
                               STT = STT + 1
                               EXIT
-                          ENDIF
+                          }
                       } // 140
                   } // 130
               } // 120
@@ -325,7 +325,7 @@
           DO 170 I = 1, N-1
              E( I ) = DBLE( WORK( OFDPOS+(I-1)*LDA ) )
           } // 170
-      ENDIF
+      }
 
       WORK( 1 ) = LWMIN
       RETURN

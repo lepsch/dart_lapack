@@ -210,7 +210,7 @@
                NWISE_ERR = DLAMCH('OVERFLOW')
             } else {
                NWISE_ERR = 0.0D+0
-            ENDIF
+            }
 
             for (I = 1; I <= N; I++) {
                RINV(I) = 0.0D+0

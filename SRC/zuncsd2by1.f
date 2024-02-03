@@ -131,7 +131,7 @@
                zungqr(P, P, Q, U1, LDU1, CDUM, WORK(1), -1, CHILDINFO );
                LORGQRMIN = MAX( LORGQRMIN, P )
                LORGQROPT = MAX( LORGQROPT, INT( WORK(1) ) )
-            ENDIF
+            }
             if ( WANTU2 .AND. M-P .GT. 0 ) {
                zungqr(M-P, M-P, Q, U2, LDU2, CDUM, WORK(1), -1, CHILDINFO );
                LORGQRMIN = MAX( LORGQRMIN, M-P )

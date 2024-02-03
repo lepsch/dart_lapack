@@ -140,7 +140,7 @@
                cpotrs('U', N, 1, AF, LDAF, WORK, N, INFO );
             } else {
                cpotrs('L', N, 1, AF, LDAF, WORK, N, INFO );
-            ENDIF
+            }
 
             // Multiply by inv(C).
 

@@ -107,7 +107,7 @@
             if ( K.GT.1 ) {
                ALPHA = -A( K, J )
                daxpy(M-J, ALPHA, A( K-1, J+1 ), LDA, WORK( 2 ), 1 );
-            ENDIF
+            }
 
             // Find max(|WORK(2:M)|)
 
@@ -154,7 +154,7 @@
                }
             } else {
                IPIV( J+1 ) = J+1
-            ENDIF
+            }
 
             // Set A(J, J+1) = T(J, J+1)
 
@@ -247,7 +247,7 @@
             if ( K.GT.1 ) {
                ALPHA = -A( J, K )
                daxpy(M-J, ALPHA, A( J+1, K-1 ), 1, WORK( 2 ), 1 );
-            ENDIF
+            }
 
             // Find max(|WORK(2:M)|)
 
@@ -294,7 +294,7 @@
                }
             } else {
                IPIV( J+1 ) = J+1
-            ENDIF
+            }
 
             // Set A(J+1, J) = T(J+1, J)
 

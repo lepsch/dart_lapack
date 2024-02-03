@@ -119,7 +119,7 @@
                zgbtrs('No transpose', N, KL, KU, 1, AFB, LDAFB, IPIV, WORK, N, INFO );
             } else {
                zgbtrs('Conjugate transpose', N, KL, KU, 1, AFB, LDAFB, IPIV, WORK, N, INFO );
-            ENDIF
+            }
 
             // Multiply by inv(X).
 

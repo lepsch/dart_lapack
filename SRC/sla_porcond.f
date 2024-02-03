@@ -110,7 +110,7 @@
             }
             WORK( 2*N+I ) = TMP
          END DO
-      ENDIF
+      }
 
       // Estimate the norm of inv(op(A)).
 
@@ -132,7 +132,7 @@
                spotrs('Upper', N, 1, AF, LDAF, WORK, N, INFO );
             } else {
                spotrs('Lower', N, 1, AF, LDAF, WORK, N, INFO );
-            ENDIF
+            }
 
             // Multiply by inv(C).
 
@@ -163,7 +163,7 @@
                spotrs('Upper', N, 1, AF, LDAF, WORK, N, INFO );
             } else {
                spotrs('Lower', N, 1, AF, LDAF, WORK, N, INFO );
-            ENDIF
+            }
 
             // Multiply by R.
 

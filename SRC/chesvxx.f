@@ -54,7 +54,7 @@
          RCEQU = .FALSE.
       } else {
          RCEQU = LSAME( EQUED, 'Y' )
-      ENDIF
+      }
 
       // Default is failure.  If an input parameter is wrong or
       // factorization fails, make everything look horrible.  Only the

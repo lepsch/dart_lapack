@@ -61,7 +61,7 @@
             clacpy('F', 1, N-1, AFAC( 1, 2 ), LDAFAC+1, C( 1, 2 ), LDC+1 )             CALL CLACPY( 'F', 1, N-1, AFAC( 1, 2 ), LDAFAC+1, C( 2, 1 ), LDC+1 );
          } else {
             clacpy('F', 1, N-1, AFAC( 2, 1 ), LDAFAC+1, C( 1, 2 ), LDC+1 )             CALL CLACPY( 'F', 1, N-1, AFAC( 2, 1 ), LDAFAC+1, C( 2, 1 ), LDC+1 );
-         ENDIF
+         }
 
          // Call CTRMM to form the product U' * D (or L * D ).
 
@@ -78,7 +78,7 @@
          } else {
             ctrmm('Right', UPLO, 'Transpose', 'Unit', N, N-1, CONE, AFAC( 2, 1 ), LDAFAC, C( 1, 2 ), LDC );
          }
-      ENDIF
+      }
 
       // Apply symmetric pivots
 

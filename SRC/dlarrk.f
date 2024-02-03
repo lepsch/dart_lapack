@@ -61,7 +61,7 @@
       if ( TMP1.LT.MAX( ATOLI, PIVMIN, RTOLI*TMP2 ) ) {
          INFO = 0
          GOTO 30
-      ENDIF
+      }
       IF(IT.GT.ITMAX) GOTO 30
 
 
@@ -82,7 +82,7 @@
          RIGHT = MID
       } else {
          LEFT = MID
-      ENDIF
+      }
       GOTO 10
 
       } // 30

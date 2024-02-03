@@ -115,7 +115,7 @@
             }
             WORK( 2*N+I ) = TMP
          END DO
-      ENDIF
+      }
 
       // Estimate the norm of inv(op(A)).
 
@@ -139,7 +139,7 @@
                dsytrs('U', N, 1, AF, LDAF, IPIV, WORK, N, INFO );
             } else {
                dsytrs('L', N, 1, AF, LDAF, IPIV, WORK, N, INFO );
-            ENDIF
+            }
 
             // Multiply by inv(C).
 
@@ -170,7 +170,7 @@
                dsytrs('U', N, 1, AF, LDAF, IPIV, WORK, N, INFO );
             } else {
                dsytrs('L', N, 1, AF, LDAF, IPIV, WORK, N, INFO );
-            ENDIF
+            }
 
             // Multiply by R.
 

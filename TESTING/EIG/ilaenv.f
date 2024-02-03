@@ -83,7 +83,7 @@
              ILAENV = IPARMS( 1 )
          } else {
              ILAENV = IPARAM2STAGE( ISPEC, NAME, OPTS, N1, N2, N3, N4 )
-         ENDIF
+         }
 
       } else {
 
@@ -131,7 +131,7 @@
          } else {
              IISPEC = 16 + ISPEC
              ILAENV2STAGE = IPARAM2STAGE( IISPEC, NAME, OPTS, N1, N2, N3, N4 )
-         ENDIF
+         }
 
       } else {
 

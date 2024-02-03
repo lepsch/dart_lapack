@@ -101,7 +101,7 @@
       }
       if ( LQUERY ) {
          RETURN
-      ENDIF
+      }
 
       // QR with column pivoting of B: B*P = V*( S11 S12 )
                                             // (  0   0  )

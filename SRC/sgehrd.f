@@ -63,7 +63,7 @@
          } else {
             NB = MIN( NBMAX, ILAENV( 1, 'SGEHRD', ' ', N, ILO, IHI, -1 ) )
             LWKOPT = N*NB + TSIZE
-         ENDIF
+         }
          WORK( 1 ) = SROUNDUP_LWORK( LWKOPT )
       }
 

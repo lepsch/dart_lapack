@@ -555,7 +555,7 @@
                         RPVGRW = ZLA_GBRPVGRW(N, KL, KU, INFO, A, LDA, AFB, LDAFB)
                      } else {
                         RPVGRW = ZLA_GBRPVGRW(N, KL, KU, N, A, LDA, AFB, LDAFB)
-                     ENDIF
+                     }
                       RESULT( 7 ) = ABS( RPVGRW-rpvgrw_svxx ) / MAX( rpvgrw_svxx, RPVGRW ) / DLAMCH( 'E' )
 
                      if ( .NOT.PREFAC ) {

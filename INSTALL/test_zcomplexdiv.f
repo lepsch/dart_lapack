@@ -85,14 +85,14 @@
         print *, '# X :=', X
         print *, '# Blue min constant :=', blueMin
         print *, '# Blue max constant :=', blueMax
-      endif
+      }
 
       Xj = X(1)
       if( Xj .eq. 0.0d0 ) then
         subnormalTreatedAs0 = subnormalTreatedAs0 + 1
         if( debug .or. subnormalTreatedAs0 .eq. 1 ) then
             print *, "!! fl( subnormal ) may be 0"
-        endif
+        }
       else
         for (i = 1; i <= N; i++) { // 100
             Xj = X(i)
@@ -100,10 +100,10 @@
                 subnormalTreatedAs0 = subnormalTreatedAs0 + 1
                 if( debug .or. subnormalTreatedAs0 .eq. 1 ) then
                     print *, "!! fl( subnormal ) may be 0"
-                endif
-            endif
+                }
+            }
         } // 100
-      endif
+      }
 
       // Test (a) y = x + 0 * I, y/y = 1
       for (i = 1; i <= N; i++) { // 10
@@ -112,7 +112,7 @@
             subnormalTreatedAs0 = subnormalTreatedAs0 + 1
             if( debug .or. subnormalTreatedAs0 .eq. 1 ) then
                 print *, "!! [a] fl( subnormal ) may be 0"
-            endif
+            }
         else
             do while( Xj .ne. limX(i) )
                 nTests = nTests + 1
@@ -122,12 +122,12 @@
                     caseAFails = caseAFails + 1
                     if( caseAFails .eq. 1 ) then
                         print *, "!! Some (x+0*I)/(x+0*I) differ from 1"
-                    endif
+                    }
                     WRITE( 0, FMT = 9999 ) 'a',i, Xj, '(x+0*I)/(x+0*I)', R, 1.0D0
-                endif
+                }
                 Xj = Xj * stepX(i)
             end do
-        endif
+        }
       } // 10
 
       // Test (b) y = 0 + x * I, y/y = 1
@@ -137,7 +137,7 @@
             subnormalTreatedAs0 = subnormalTreatedAs0 + 1
             if( debug .or. subnormalTreatedAs0 .eq. 1 ) then
                 print *, "!! [b] fl( subnormal ) may be 0"
-            endif
+            }
         else
             do while( Xj .ne. limX(i) )
                 nTests = nTests + 1
@@ -147,12 +147,12 @@
                     caseBFails = caseBFails + 1
                     if( caseBFails .eq. 1 ) then
                         print *, "!! Some (0+x*I)/(0+x*I) differ from 1"
-                    endif
+                    }
                     WRITE( 0, FMT = 9999 ) 'b',i, Xj, '(0+x*I)/(0+x*I)', R, 1.0D0
-                endif
+                }
                 Xj = Xj * stepX(i)
             end do
-        endif
+        }
       } // 20
 
       // Test (c) y = x + x * I, y/y = 1
@@ -162,7 +162,7 @@
             subnormalTreatedAs0 = subnormalTreatedAs0 + 1
             if( debug .or. subnormalTreatedAs0 .eq. 1 ) then
                 print *, "!! [c] fl( subnormal ) may be 0"
-            endif
+            }
         else
             do while( Xj .ne. limX(i) )
                 nTests = nTests + 1
@@ -172,12 +172,12 @@
                     caseCFails = caseCFails + 1
                     if( caseCFails .eq. 1 ) then
                         print *, "!! Some (x+x*I)/(x+x*I) differ from 1"
-                    endif
+                    }
                     WRITE( 0, FMT = 9999 ) 'c',i, Xj, '(x+x*I)/(x+x*I)', R, 1.0D0
-                endif
+                }
                 Xj = Xj * stepX(i)
             end do
-        endif
+        }
       } // 30
 
       // Test (d) y1 = 0 + x * I, y2 = x + 0 * I, y1/y2 = I
@@ -187,7 +187,7 @@
             subnormalTreatedAs0 = subnormalTreatedAs0 + 1
             if( debug .or. subnormalTreatedAs0 .eq. 1 ) then
                 print *, "!! [d] fl( subnormal ) may be 0"
-            endif
+            }
         else
             do while( Xj .ne. limX(i) )
                 nTests = nTests + 1
@@ -198,12 +198,12 @@
                     caseDFails = caseDFails + 1
                     if( caseDFails .eq. 1 ) then
                         print *, "!! Some (0+x*I)/(x+0*I) differ from I"
-                    endif
+                    }
                     WRITE( 0, FMT = 9999 ) 'd',i, Xj, '(0+x*I)/(x+0*I)', R, DCMPLX(0.0D0,1.0D0)
-                endif
+                }
                 Xj = Xj * stepX(i)
             end do
-        endif
+        }
       } // 40
 
       // Test (e) y1 = 0 + x * I, y2 = x + 0 * I, y2/y1 = -I
@@ -213,7 +213,7 @@
             subnormalTreatedAs0 = subnormalTreatedAs0 + 1
             if( debug .or. subnormalTreatedAs0 .eq. 1 ) then
                 print *, "!! [e] fl( subnormal ) may be 0"
-            endif
+            }
         else
             do while( Xj .ne. limX(i) )
                 nTests = nTests + 1
@@ -224,12 +224,12 @@
                     caseEFails = caseEFails + 1
                     if( caseEFails .eq. 1 ) then
                         print *,"!! Some (x+0*I)/(0+x*I) differ from -I"
-                    endif
+                    }
                     WRITE( 0, FMT = 9999 ) 'e',i, Xj, '(x+0*I)/(0+x*I)', R, DCMPLX(0.0D0,-1.0D0)
-                endif
+                }
                 Xj = Xj * stepX(i)
             end do
-        endif
+        }
       } // 50
 
       // Test (f) y = x + x * I, y/conj(y) = I
@@ -239,7 +239,7 @@
             subnormalTreatedAs0 = subnormalTreatedAs0 + 1
             if( debug .or. subnormalTreatedAs0 .eq. 1 ) then
                 print *, "!! [f] fl( subnormal ) may be 0"
-            endif
+            }
         else
             do while( Xj .ne. limX(i) )
                 nTests = nTests + 1
@@ -249,12 +249,12 @@
                     caseFFails = caseFFails + 1
                     if( caseFFails .eq. 1 ) then
                         print *, "!! Some (x+x*I)/(x-x*I) differ from I"
-                    endif
+                    }
                     WRITE( 0, FMT = 9999 ) 'f',i, Xj, '(x+x*I)/(x-x*I)', R, DCMPLX(0.0D0,1.0D0)
-                endif
+                }
                 Xj = Xj * stepX(i)
             end do
-        endif
+        }
       } // 60
 
       // Test (g) Infs
@@ -265,17 +265,17 @@
           if( (R .ne. czero) .and. (R .eq. R) ) then
               caseInfFails = caseInfFails + 1
               WRITE( *, FMT = 9998 ) 'ia',i, czero, Y, R, 'NaN and 0'
-          endif
+          }
           R = cone / Y
           if( (R .ne. czero) .and. (R .eq. R) ) then
               caseInfFails = caseInfFails + 1
               WRITE( *, FMT = 9998 ) 'ib',i, cone, Y, R, 'NaN and 0'
-          endif
+          }
           R = Y / Y
           if( R .eq. R ) then
               caseInfFails = caseInfFails + 1
               WRITE( *, FMT = 9998 ) 'ic',i, Y, Y, R, 'NaN'
-          endif
+          }
       } // 70
 
       // Test (h) NaNs
@@ -286,17 +286,17 @@
           if( R .eq. R ) then
               caseNaNFails = caseNaNFails + 1
               WRITE( *, FMT = 9998 ) 'na',i, czero, Y, R, 'NaN'
-          endif
+          }
           R = cone / Y
           if( R .eq. R ) then
               caseNaNFails = caseNaNFails + 1
               WRITE( *, FMT = 9998 ) 'nb',i, cone, Y, R, 'NaN'
-          endif
+          }
           R = Y / Y
           if( R .eq. R ) then
               caseNaNFails = caseNaNFails + 1
               WRITE( *, FMT = 9998 ) 'nc',i, Y, Y, R, 'NaN'
-          endif
+          }
       } // 80
 
       // If any test fails, displays a message
@@ -305,7 +305,7 @@
          print *, "# ", nTests-nFailingTests, " tests out of ", nTests, " pass for complex division,", nFailingTests," fail."
       else
          print *, "# All tests pass for complex division."
-      endif
+      }
 
       // If anything was written to stderr, print the message
       if( (caseAFails .gt. 0) .or. (caseBFails .gt. 0) .or. (caseCFails .gt. 0) .or. (caseDFails .gt. 0) .or. (caseEFails .gt. 0) .or. (caseFFails .gt. 0) ) print *, "# Please check the failed divisions in [stderr]"

@@ -63,7 +63,7 @@
          } else {
             zlacpy('F', 1, N-1, AFAC( 2, 1 ), LDAFAC+1, C( 1, 2 ), LDC+1 )             CALL ZLACPY( 'F', 1, N-1, AFAC( 2, 1 ), LDAFAC+1, C( 2, 1 ), LDC+1 );
             zlacgv(N-1, C( 1, 2 ), LDC+1 );
-         ENDIF
+         }
 
          // Call ZTRMM to form the product U' * D (or L * D ).
 
@@ -91,7 +91,7 @@
             I = IPIV( J )
             IF( I.NE.J ) CALL ZSWAP( N, C( 1, J ), 1, C( 1, I ), 1 )
          END DO
-      ENDIF
+      }
 
 
       // Compute the difference  C - A .

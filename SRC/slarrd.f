@@ -107,7 +107,7 @@
             WERR(1) = ZERO
             IBLOCK( 1 ) = 1
             INDEXW( 1 ) = 1
-         ENDIF
+         }
          RETURN
       }
 
@@ -195,7 +195,7 @@
       ELSEIF( IRANGE.EQ.ALLRNG ) THEN
          WL = GL
          WU = GU
-      ENDIF
+      }
 
 
 

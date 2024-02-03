@@ -148,7 +148,7 @@
          NEGCNT = NEG1 + NEG2
       } else {
          NEGCNT = -1
-      ENDIF
+      }
       IF( ABS(MINGMA).EQ.ZERO ) MINGMA = EPS*WORK( INDS+R1-1 )
       R = R1
       DO 110 I = R1, R2 - 1
@@ -176,7 +176,7 @@
                Z( I ) = ZERO
                ISUPPZ( 1 ) = I + 1
                GOTO 220
-            ENDIF
+            }
             ZTZ = ZTZ + Z( I )*Z( I )
          } // 210
          } // 220
@@ -196,7 +196,7 @@
             ZTZ = ZTZ + Z( I )*Z( I )
          } // 230
          } // 240
-      ENDIF
+      }
 
       // Compute the FP vector downwards from R in blocks of size BLKSIZ
       if ( .NOT.SAWNAN1 .AND. .NOT.SAWNAN2 ) {

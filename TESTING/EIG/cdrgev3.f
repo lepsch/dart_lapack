@@ -329,7 +329,7 @@
             for (J = 1; J <= N; J++) { // 130
                if ( ALPHA( J ).NE.ALPHA1( J ) .OR. BETA( J ).NE.BETA1( J ) ) {
                   RESULT( 6 ) = ULPINV
-               ENDIF
+               }
             } // 130
 
             for (J = 1; J <= N; J++) { // 150

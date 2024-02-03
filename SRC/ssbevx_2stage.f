@@ -89,7 +89,7 @@
             IB    = ILAENV2STAGE( 2, 'SSYTRD_SB2ST', JOBZ, N, KD, -1, -1 )             LHTRD = ILAENV2STAGE( 3, 'SSYTRD_SB2ST', JOBZ, N, KD, IB, -1 )             LWTRD = ILAENV2STAGE( 4, 'SSYTRD_SB2ST', JOBZ, N, KD, IB, -1 )
             LWMIN = 2*N + LHTRD + LWTRD
             WORK( 1 )  = SROUNDUP_LWORK(LWMIN)
-         ENDIF
+         }
 
          IF( LWORK.LT.LWMIN .AND. .NOT.LQUERY ) INFO = -20
       }

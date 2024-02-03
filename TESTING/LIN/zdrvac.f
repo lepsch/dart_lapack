@@ -179,7 +179,7 @@
 
                   if (ITER.LT.0) {
                      zlacpy('All', N, N, A, LDA, AFAC, LDA );
-                  ENDIF
+                  }
 
                   // Check error code from ZCPOSV .
 

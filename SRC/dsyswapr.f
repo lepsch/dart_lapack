@@ -68,5 +68,5 @@
            // - swap col I1 and I2 from I2+1 to N
          IF ( I2.LT.N ) CALL DSWAP( N-I2, A(I2+1,I1), 1, A(I2+1,I2), 1 )
 
-      ENDIF
+      }
       END SUBROUTINE DSYSWAPR

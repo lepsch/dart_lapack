@@ -47,7 +47,7 @@
       } else {
           DPOS    = 1
           OFDPOS  = 2
-      ENDIF
+      }
 
 
       // Upper case
@@ -60,7 +60,7 @@
           } else {
               VPOS   = MOD( SWEEP-1, 2 ) * N + ST
               TAUPOS = MOD( SWEEP-1, 2 ) * N + ST
-          ENDIF
+          }
 
           if ( TTYPE.EQ.1 ) {
               LM = ED - ST + 1
@@ -76,13 +76,13 @@
 
               LM = ED - ST + 1
               dlarfy(UPLO, LM, V( VPOS ), 1, ( TAU( TAUPOS ) ), A( DPOS, ST ), LDA-1, WORK);
-          ENDIF
+          }
 
           if ( TTYPE.EQ.3 ) {
 
               LM = ED - ST + 1
               dlarfy(UPLO, LM, V( VPOS ), 1, ( TAU( TAUPOS ) ), A( DPOS, ST ), LDA-1, WORK);
-          ENDIF
+          }
 
           if ( TTYPE.EQ.2 ) {
               J1 = ED+1
@@ -98,7 +98,7 @@
                   } else {
                       VPOS   = MOD( SWEEP-1, 2 ) * N + J1
                       TAUPOS = MOD( SWEEP-1, 2 ) * N + J1
-                  ENDIF
+                  }
 
                   V( VPOS ) = ONE
                   DO 30 I = 1, LM-1
@@ -110,8 +110,8 @@
                   A( DPOS-NB, J1 ) = CTMP
 
                   dlarfx('Right', LN-1, LM, V( VPOS ), TAU( TAUPOS ), A( DPOS-NB+1, J1 ), LDA-1, WORK);
-              ENDIF
-          ENDIF
+              }
+          }
 
       // Lower case
 
@@ -123,7 +123,7 @@
           } else {
               VPOS   = MOD( SWEEP-1, 2 ) * N + ST
               TAUPOS = MOD( SWEEP-1, 2 ) * N + ST
-          ENDIF
+          }
 
           if ( TTYPE.EQ.1 ) {
               LM = ED - ST + 1
@@ -139,14 +139,14 @@
 
               dlarfy(UPLO, LM, V( VPOS ), 1, ( TAU( TAUPOS ) ), A( DPOS, ST ), LDA-1, WORK);
 
-          ENDIF
+          }
 
           if ( TTYPE.EQ.3 ) {
               LM = ED - ST + 1
 
               dlarfy(UPLO, LM, V( VPOS ), 1, ( TAU( TAUPOS ) ), A( DPOS, ST ), LDA-1, WORK);
 
-          ENDIF
+          }
 
           if ( TTYPE.EQ.2 ) {
               J1 = ED+1
@@ -163,7 +163,7 @@
                   } else {
                       VPOS   = MOD( SWEEP-1, 2 ) * N + J1
                       TAUPOS = MOD( SWEEP-1, 2 ) * N + J1
-                  ENDIF
+                  }
 
                   V( VPOS ) = ONE
                   DO 40 I = 1, LM-1
@@ -174,9 +174,9 @@
 
                   dlarfx('Left', LM, LN-1, V( VPOS ), ( TAU( TAUPOS ) ), A( DPOS+NB-1, ST+1 ), LDA-1, WORK);
 
-              ENDIF
-          ENDIF
-      ENDIF
+              }
+          }
+      }
 
       RETURN
 

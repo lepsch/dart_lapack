@@ -76,12 +76,12 @@
       if (DOL.GT.1) {
          // Set lower bound for use of Z
          ZUSEDL = DOL-1
-      ENDIF
+      }
       ZUSEDU = M
       if (DOU.LT.M) {
          // Set lower bound for use of Z
          ZUSEDU = DOU+1
-      ENDIF
+      }
       // The width of the part of Z that is used
       ZUSEDW = ZUSEDU - ZUSEDL + 1
 
@@ -100,7 +100,7 @@
          // accuracy.
          RTOL1 = FOUR * EPS
          RTOL2 = FOUR * EPS
-      ENDIF
+      }
 
       // The entries WBEGIN:WEND in W, WERR, WGAP correspond to the
       // desired eigenvalues. The support of the nonzero eigenvector
@@ -200,7 +200,7 @@
             if ( NDEPTH.GT.M ) {
                INFO = -2
                RETURN
-            ENDIF
+            }
             // breadth first processing of the current level of the representation
             // tree: OLDNCL = number of clusters on current level
             OLDNCL = NCLUS
@@ -242,8 +242,8 @@
                         J = DOU
                      } else {
                         J = WBEGIN + OLDFST - 1
-                     ENDIF
-                  ENDIF
+                     }
+                  }
                   dcopy(IN, Z( IBEGIN, J ), 1, D( IBEGIN ), 1 );
                   dcopy(IN-1, Z( IBEGIN, J+1 ), 1, L( IBEGIN ), 1 );
                   SIGMA = Z( IEND, J+1 )
@@ -274,7 +274,7 @@
                   if ( IINFO.NE.0 ) {
                      INFO = -1
                      RETURN
-                  ENDIF
+                  }
                   // We also recompute the extremal gaps. W holds all eigenvalues
                   // of the unshifted matrix and must be used for computation
                   // of WGAP, the entries of WORK might stem from RRRs with
@@ -284,10 +284,10 @@
                   // this is what should happen when we decrease WERR
                   if ( OLDFST.GT.1) {
                      WGAP( WBEGIN+OLDFST-2 ) = MAX(WGAP(WBEGIN+OLDFST-2), W(WBEGIN+OLDFST-1)-WERR(WBEGIN+OLDFST-1) - W(WBEGIN+OLDFST-2)-WERR(WBEGIN+OLDFST-2) )
-                  ENDIF
+                  }
                   if ( WBEGIN + OLDLST -1 .LT. WEND ) {
                      WGAP( WBEGIN+OLDLST-1 ) = MAX(WGAP(WBEGIN+OLDLST-1), W(WBEGIN+OLDLST)-WERR(WBEGIN+OLDLST) - W(WBEGIN+OLDLST-1)-WERR(WBEGIN+OLDLST-1) )
-                  ENDIF
+                  }
                   // Each time the eigenvalues in WORK get refined, we store
                   // the newly found approximation with all shifts applied in W
                   for (J = OLDFST; J <= OLDLST; J++) { // 53
@@ -330,8 +330,8 @@
                         NEWFTT = DOU
                      } else {
                         NEWFTT = WBEGIN + NEWFST - 1
-                     ENDIF
-                  ENDIF
+                     }
+                  }
 
                   if ( NEWSIZ.GT.1) {
 
@@ -352,7 +352,7 @@
                         LGAP = MAX( ZERO, W(WBEGIN)-WERR(WBEGIN) - VL )
                     } else {
                         LGAP = WGAP( WBEGIN+NEWFST-2 )
-                     ENDIF
+                     }
                      RGAP = WGAP( WBEGIN+NEWLST-1 )
 
                      // Compute left- and rightmost eigenvalue of child
@@ -365,7 +365,7 @@
                            P = INDEXW( WBEGIN-1+NEWFST )
                         } else {
                            P = INDEXW( WBEGIN-1+NEWLST )
-                        ENDIF
+                        }
                         OFFSET = INDEXW( WBEGIN ) - 1
                         dlarrb(IN, D(IBEGIN), WORK( INDLLD+IBEGIN-1 ),P,P, RQTOL, RQTOL, OFFSET, WORK(WBEGIN),WGAP(WBEGIN), WERR(WBEGIN),WORK( INDWRK ), IWORK( IINDWK ), PIVMIN, SPDIAM, IN, IINFO );
                      } // 55
@@ -380,7 +380,7 @@
                         // skipped. For this reason we skip at this place.
                         IDONE = IDONE + NEWLST - NEWFST + 1
                         GOTO 139
-                     ENDIF
+                     }
 
                      // Compute RRR of child cluster.
                      // Note that the new RRR is stored in Z
@@ -414,7 +414,7 @@
                      } else {
                         INFO = -2
                         RETURN
-                     ENDIF
+                     }
                   } else {
 
                      // Compute eigenvector of singleton
@@ -435,7 +435,7 @@
                         GOTO 125
                      } else {
                         ESKIP = .FALSE.
-                     ENDIF
+                     }
                      LEFT = WORK( WINDEX ) - WERR( WINDEX )
                      RIGHT = WORK( WINDEX ) + WERR( WINDEX )
                      INDEIG = INDEXW( WINDEX )
@@ -456,7 +456,7 @@
                         LGAP = EPS*MAX(ABS(LEFT),ABS(RIGHT))
                      } else {
                         LGAP = WGAP(WINDMN)
-                     ENDIF
+                     }
                      if ( K .EQ. IM) {
                         // In the case RANGE='I' and with not much initial
                         // accuracy in LAMBDA and VU, the formula
@@ -466,7 +466,7 @@
                         RGAP = EPS*MAX(ABS(LEFT),ABS(RIGHT))
                      } else {
                         RGAP = WGAP(WINDEX)
-                     ENDIF
+                     }
                      GAP = MIN( LGAP, RGAP )
                      if (( K .EQ. 1).OR.(K .EQ. IM)) {
                         // The eigenvector support can become wrong
@@ -475,7 +475,7 @@
                         GAPTOL = ZERO
                      } else {
                         GAPTOL = GAP * EPS
-                     ENDIF
+                     }
                      ISUPMN = IN
                      ISUPMX = 1
                      // Update WGAP so that it holds the minimum gap
@@ -506,12 +506,12 @@
                         if ( IINFO.NE.0 ) {
                            INFO = -3
                            RETURN
-                        ENDIF
+                        }
                         LAMBDA = WORK( WINDEX )
                         // Reset twist index from inaccurate LAMBDA to
                         // force computation of true MINGMA
                         IWORK( IINDR+WINDEX ) = 0
-                     ENDIF
+                     }
                      // Given LAMBDA, compute the eigenvector.
                      dlar1v(IN, 1, IN, LAMBDA, D( IBEGIN ), L( IBEGIN ), WORK(INDLD+IBEGIN-1), WORK(INDLLD+IBEGIN-1), PIVMIN, GAPTOL, Z( IBEGIN, WINDEX ), .NOT.USEDBS, NEGCNT, ZTZ, MINGMA, IWORK( IINDR+WINDEX ), ISUPPZ( 2*WINDEX-1 ), NRMINV, RESID, RQCORR, WORK( INDWRK ) );
                      if (ITER .EQ. 0) {
@@ -520,7 +520,7 @@
                      ELSEIF(RESID.LT.BSTRES) THEN
                         BSTRES = RESID
                         BSTW = LAMBDA
-                     ENDIF
+                     }
                      ISUPMN = MIN(ISUPMN,ISUPPZ( 2*WINDEX-1 ))
                      ISUPMX = MAX(ISUPMX,ISUPPZ( 2*WINDEX ))
                      ITER = ITER + 1
@@ -544,7 +544,7 @@
                         } else {
                            // The wanted eigenvalue lies to the right
                            SGNDEF = ONE
-                        ENDIF
+                        }
                         // We only use the RQCORR if it improves the
                         // the iterate reasonably.
                         if ( ( RQCORR*SGNDEF.GE.ZERO ) .AND.( LAMBDA + RQCORR.LE. RIGHT) .AND.( LAMBDA + RQCORR.GE. LEFT) ) {
@@ -567,7 +567,7 @@
                               // See comment about assuming the error estimate is
                               // correct above.
                                // LEFT = MIN(LEFT, LAMBDA + RQCORR)
-                           ENDIF
+                           }
                            WORK( WINDEX ) = HALF * (RIGHT + LEFT)
                            // Take RQCORR since it has the correct sign and
                            // improves the iterate reasonably
@@ -576,7 +576,7 @@
                            WERR( WINDEX ) = HALF * (RIGHT-LEFT)
                         } else {
                            NEEDBS = .TRUE.
-                        ENDIF
+                        }
                         if (RIGHT-LEFT.LT.RQTOL*ABS(LAMBDA)) {
                               // The eigenvalue is computed to bisection accuracy
                               // compute eigenvector and stop
@@ -596,11 +596,11 @@
         if (USEDRQ .AND. USEDBS .AND. BSTRES.LE.RESID) {
                            LAMBDA = BSTW
                            STP2II = .TRUE.
-                        ENDIF
+                        }
                         if (STP2II) {
                            // improve error angle by second step
                            dlar1v(IN, 1, IN, LAMBDA, D( IBEGIN ), L( IBEGIN ), WORK(INDLD+IBEGIN-1), WORK(INDLLD+IBEGIN-1), PIVMIN, GAPTOL, Z( IBEGIN, WINDEX ), .NOT.USEDBS, NEGCNT, ZTZ, MINGMA, IWORK( IINDR+WINDEX ), ISUPPZ( 2*WINDEX-1 ), NRMINV, RESID, RQCORR, WORK( INDWRK ) );
-                        ENDIF
+                        }
                         WORK( WINDEX ) = LAMBDA
                      }
 
@@ -617,12 +617,12 @@
                         DO 122 II = ISUPMN,ZFROM-1
                            Z( II, WINDEX ) = ZERO
                         } // 122
-                     ENDIF
+                     }
                      if (ISUPMX.GT.ZTO) {
                         DO 123 II = ZTO+1,ISUPMX
                            Z( II, WINDEX ) = ZERO
                         } // 123
-                     ENDIF
+                     }
                      dscal(ZTO-ZFROM+1, NRMINV, Z( ZFROM, WINDEX ), 1 );
                      } // 125
                      // Update W
@@ -636,13 +636,13 @@
                      if (.NOT.ESKIP) {
                         if ( K.GT.1) {
                            WGAP( WINDMN ) = MAX( WGAP(WINDMN), W(WINDEX)-WERR(WINDEX) - W(WINDMN)-WERR(WINDMN) )
-                        ENDIF
+                        }
                         if ( WINDEX.LT.WEND ) {
                            WGAP( WINDEX ) = MAX( SAVGAP, W( WINDPL )-WERR( WINDPL ) - W( WINDEX )-WERR( WINDEX) )
-                        ENDIF
-                     ENDIF
+                        }
+                     }
                      IDONE = IDONE + 1
-                  ENDIF
+                  }
                   // here ends the code for the current child
 
                   } // 139

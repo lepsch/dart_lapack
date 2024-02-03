@@ -62,7 +62,7 @@
                NSPLIT = NSPLIT + 1
             }
          } // 10
-      ENDIF
+      }
       ISPLIT( NSPLIT ) = N
 
       RETURN

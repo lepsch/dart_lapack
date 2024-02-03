@@ -110,7 +110,7 @@
       } else {
          VLL = ZERO
          VUU = ZERO
-      ENDIF
+      }
       TNRM = SLANST( 'M', N, D, E )
       if ( TNRM.GT.ZERO .AND. TNRM.LT.RMIN ) {
          ISCALE = 1

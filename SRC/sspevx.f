@@ -113,7 +113,7 @@
       } else {
          VLL = ZERO
          VUU = ZERO
-      ENDIF
+      }
       ANRM = SLANSP( 'M', UPLO, N, AP, WORK )
       if ( ANRM.GT.ZERO .AND. ANRM.LT.RMIN ) {
          ISCALE = 1

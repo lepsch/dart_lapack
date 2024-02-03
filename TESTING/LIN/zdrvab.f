@@ -151,7 +151,7 @@
 
                if (ITER.LT.0) {
                    zlacpy('Full', M, N, AFAC, LDA, A, LDA );
-               ENDIF
+               }
 
                // Check error code from ZCGESV. This should be the same as
                // the one of DGETRF.

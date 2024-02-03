@@ -82,7 +82,7 @@
 
       if ( N.EQ.0 ) {
          RETURN
-      ENDIF
+      }
 
       // Determine the number of the block size
 
@@ -241,7 +241,7 @@
                      if ( J.GT.0 ) {
                         cswap(J*NB, A( 1, I1 ), 1, A( 1, I2 ), 1 );
                      }
-                  ENDIF
+                  }
                END DO
             }
          END DO
@@ -372,7 +372,7 @@
                      if ( J.GT.0 ) {
                         cswap(J*NB, A( I1, 1 ), LDA, A( I2, 1 ), LDA );
                      }
-                  ENDIF
+                  }
                END DO
 
                // Apply pivots to previous columns of L

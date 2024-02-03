@@ -487,7 +487,7 @@
                         RPVGRW = SLA_GERPVGRW (N, INFO, A, LDA, AFAC, LDA)
                      } else {
                         RPVGRW = SLA_GERPVGRW (N, N, A, LDA, AFAC, LDA)
-                     ENDIF
+                     }
                       RESULT( 7 ) = ABS( RPVGRW-RPVGRW_SVXX ) / MAX( RPVGRW_SVXX, RPVGRW ) / SLAMCH( 'E' )
 
                      if ( .NOT.PREFAC ) {

@@ -64,7 +64,7 @@
          // need less workspace if only the eigenvalues are wanted
          LWMIN = 12*N
          LIWMIN = 8*N
-      ENDIF
+      }
 
       WL = ZERO
       WU = ZERO
@@ -82,7 +82,7 @@
          // We do not reference IL, IU in the cases RANGE = 'V','A'
          IIL = IL
          IIU = IU
-      ENDIF
+      }
 
       INFO = 0
       if ( .NOT.( WANTZ .OR. LSAME( JOBZ, 'N' ) ) ) {
@@ -127,7 +127,7 @@
          } else {
             // WANTZ .EQ. FALSE.
             NZCMIN = 0
-         ENDIF
+         }
          if ( ZQUERY .AND. INFO.EQ.0 ) {
             Z( 1,1 ) = NZCMIN
          } else if ( NZC.LT.NZCMIN .AND. .NOT.ZQUERY ) {
@@ -181,7 +181,7 @@
             R1 = R2
             R2 = E(2)
             LAESWAP = .TRUE.
-         ENDIF
+         }
          if ( ALLEIG.OR. (VALEIG.AND.(R2.GT.WL).AND. (R2.LE.WU)).OR. (INDEIG.AND.(IIL.EQ.1)) ) {
             M = M+1
             W( M ) = R2
@@ -192,7 +192,7 @@
                } else {
                   Z( 1, M ) = -SN
                   Z( 2, M ) = CS
-               ENDIF
+               }
                // Note: At most one of SN and CS can be zero.
                if (SN.NE.ZERO) {
                   if (CS.NE.ZERO) {
@@ -206,8 +206,8 @@
                   ISUPPZ(2*M-1) = 2
                   ISUPPZ(2*M) = 2
                }
-            ENDIF
-         ENDIF
+            }
+         }
          if ( ALLEIG.OR. (VALEIG.AND.(R1.GT.WL).AND. (R1.LE.WU)).OR. (INDEIG.AND.(IIU.EQ.2)) ) {
             M = M+1
             W( M ) = R1
@@ -218,7 +218,7 @@
                } else {
                   Z( 1, M ) = CS
                   Z( 2, M ) = SN
-               ENDIF
+               }
                // Note: At most one of SN and CS can be zero.
                if (SN.NE.ZERO) {
                   if (CS.NE.ZERO) {
@@ -232,8 +232,8 @@
                   ISUPPZ(2*M-1) = 2
                   ISUPPZ(2*M) = 2
                }
-            ENDIF
-         ENDIF
+            }
+         }
       } else {
 
          // Continue with general N
@@ -272,7 +272,7 @@
                // scale (WL, WU] accordingly
                WL = WL*SCALE
                WU = WU*SCALE
-            ENDIF
+            }
          }
 
          // Compute the desired eigenvalues of the tridiagonal after splitting
@@ -289,7 +289,7 @@
          } else {
             // The user does not care about relative accurately eigenvalues
             IINFO = -1
-         ENDIF
+         }
          // Set the splitting criterion
          if (IINFO.EQ.0) {
             THRESH = EPS
@@ -297,12 +297,12 @@
             THRESH = -EPS
             // relative accuracy is desired but T does not guarantee it
             TRYRAC = .FALSE.
-         ENDIF
+         }
 
          if ( TRYRAC ) {
             // Copy original diagonal, needed to guarantee relative accuracy
             scopy(N,D,1,WORK(INDD),1);
-         ENDIF
+         }
          // Store the squares of the offdiagonal values of T
          DO 5 J = 1, N-1
             WORK( INDE2+J-1 ) = E(J)**2
@@ -320,7 +320,7 @@
             // Note: these settings do only affect the subset case and SLARRE
             RTOL1 = MAX( SQRT(EPS)*5.0E-2, FOUR * EPS )
             RTOL2 = MAX( SQRT(EPS)*5.0E-3, FOUR * EPS )
-         ENDIF
+         }
          slarre(RANGE, N, WL, WU, IIL, IIU, D, E, WORK(INDE2), RTOL1, RTOL2, THRESH, NSPLIT, IWORK( IINSPL ), M, W, WORK( INDERR ), WORK( INDGP ), IWORK( IINDBL ), IWORK( IINDW ), WORK( INDGRS ), PIVMIN, WORK( INDWRK ), IWORK( IINDWK ), IINFO );
          if ( IINFO.NE.0 ) {
             INFO = 10 + ABS( IINFO )
@@ -384,7 +384,7 @@
                IBEGIN = IEND + 1
                WBEGIN = WEND + 1
          } // 39
-         ENDIF
+         }
 
          // If matrix was scaled, then rescale eigenvalues appropriately.
 
@@ -428,7 +428,7 @@
                }
             } // 60
          }
-      ENDIF
+      }
 
 
       WORK( 1 ) = SROUNDUP_LWORK(LWMIN)

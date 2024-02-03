@@ -116,7 +116,7 @@
          // Need to set SAWNAN1 because refined RRR test should not be used
          // in this case
          SAWNAN1 = .TRUE.
-      ENDIF
+      }
       MAX1 = ABS( DPLUS( 1 ) )
       DO 6 I = 1, N - 1
          LPLUS( I ) = LD( I ) / DPLUS( I )
@@ -127,7 +127,7 @@
             // Need to set SAWNAN1 because refined RRR test should not be used
             // in this case
             SAWNAN1 = .TRUE.
-         ENDIF
+         }
          MAX1 = MAX( MAX1,ABS(DPLUS(I+1)) )
       } // 6
       SAWNAN1 = SAWNAN1 .OR.  DISNAN( MAX1 )
@@ -135,7 +135,7 @@
          SIGMA = LSIGMA
          SHIFT = SLEFT
          GOTO 100
-      ENDIF
+      }
 
       // Right end
       S = -RSIGMA
@@ -145,7 +145,7 @@
          // Need to set SAWNAN2 because refined RRR test should not be used
          // in this case
          SAWNAN2 = .TRUE.
-      ENDIF
+      }
       MAX2 = ABS( WORK( 1 ) )
       DO 7 I = 1, N - 1
          WORK( N+I ) = LD( I ) / WORK( I )
@@ -156,7 +156,7 @@
             // Need to set SAWNAN2 because refined RRR test should not be used
             // in this case
             SAWNAN2 = .TRUE.
-         ENDIF
+         }
          MAX2 = MAX( MAX2,ABS(WORK(I+1)) )
       } // 7
       SAWNAN2 = SAWNAN2 .OR.  DISNAN( MAX2 )
@@ -164,7 +164,7 @@
          SIGMA = RSIGMA
          SHIFT = SRIGHT
          GOTO 100
-      ENDIF
+      }
       // If we are at this point, both shifts led to too much element growth
 
       // Record the better of the two shifts (provided it didn't lead to NaN)
@@ -177,16 +177,16 @@
             if (MAX1.LE.SMLGROWTH) {
                SMLGROWTH = MAX1
                BESTSHIFT = LSIGMA
-            ENDIF
-         ENDIF
+            }
+         }
          if ( .NOT.SAWNAN2 ) {
             IF(SAWNAN1 .OR. MAX2.LE.MAX1) INDX = 2
             if (MAX2.LE.SMLGROWTH) {
                SMLGROWTH = MAX2
                BESTSHIFT = RSIGMA
-            ENDIF
-         ENDIF
-      ENDIF
+            }
+         }
+      }
 
       // If we are here, both the left and the right shift led to
       // element growth. If the element growth is moderate, then
@@ -197,7 +197,7 @@
          DORRR1 = .TRUE.
       } else {
          DORRR1 = .FALSE.
-      ENDIF
+      }
       TRYRRR1 = .TRUE.
       if ( TRYRRR1 .AND. DORRR1 ) {
       if (INDX.EQ.1) {
@@ -220,7 +220,7 @@
             SIGMA = LSIGMA
             SHIFT = SLEFT
             GOTO 100
-         ENDIF
+         }
       } else if (INDX.EQ.2) {
          TMP = ABS( WORK( N ) )
          ZNM2 = ONE
@@ -241,9 +241,9 @@
             SIGMA = RSIGMA
             SHIFT = SRIGHT
             GOTO 100
-         ENDIF
+         }
       }
-      ENDIF
+      }
 
       } // 50
 
@@ -266,7 +266,7 @@
          } else {
             INFO = 1
             RETURN
-         ENDIF
+         }
       }
 
       } // 100
@@ -275,7 +275,7 @@
          // store new L and D back into DPLUS, LPLUS
          dcopy(N, WORK, 1, DPLUS, 1 );
          dcopy(N-1, WORK(N+1), 1, LPLUS, 1 );
-      ENDIF
+      }
 
       RETURN
 

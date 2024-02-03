@@ -80,14 +80,14 @@
         print *, '# X :=', X
         print *, '# Blue min constant :=', blueMin
         print *, '# Blue max constant :=', blueMax
-      endif
+      }
 
       Xj = X(1)
       if( Xj .eq. 0.0d0 ) then
         subnormalTreatedAs0 = subnormalTreatedAs0 + 1
         if( debug .or. subnormalTreatedAs0 .eq. 1 ) then
             print *, "!! fl( subnormal ) may be 0"
-        endif
+        }
       else
         for (i = 1; i <= N; i++) { // 100
             Xj = X(i)
@@ -95,10 +95,10 @@
                 subnormalTreatedAs0 = subnormalTreatedAs0 + 1
                 if( debug .or. subnormalTreatedAs0 .eq. 1 ) then
                     print *, "!! fl( subnormal ) may be 0"
-                endif
-            endif
+                }
+            }
         } // 100
-      endif
+      }
 
       // Test (a) y = x + 0 * I, |y| = x
       for (i = 1; i <= N; i++) { // 10
@@ -107,7 +107,7 @@
             subnormalTreatedAs0 = subnormalTreatedAs0 + 1
             if( debug .or. subnormalTreatedAs0 .eq. 1 ) then
                 print *, "!! [a] fl( subnormal ) may be 0"
-            endif
+            }
         else
             do while( Xj .ne. limX(i) )
                 nTests = nTests + 1
@@ -117,12 +117,12 @@
                     caseAFails = caseAFails + 1
                     if( caseAFails .eq. 1 ) then
                         print *, "!! Some ABS(x+0*I) differ from ABS(x)"
-                    endif
+                    }
                     WRITE( 0, FMT = 9999 ) 'a',i, Xj, '(1+0*I)', R, Xj
-                endif
+                }
                 Xj = Xj * stepX(i)
             end do
-        endif
+        }
       } // 10
 
       // Test (b) y = 0 + x * I, |y| = x
@@ -132,7 +132,7 @@
             subnormalTreatedAs0 = subnormalTreatedAs0 + 1
             if( debug .or. subnormalTreatedAs0 .eq. 1 ) then
                 print *, "!! [b] fl( subnormal ) may be 0"
-            endif
+            }
         else
             do while( Xj .ne. limX(i) )
                 nTests = nTests + 1
@@ -142,12 +142,12 @@
                     caseBFails = caseBFails + 1
                     if( caseBFails .eq. 1 ) then
                         print *, "!! Some ABS(0+x*I) differ from ABS(x)"
-                    endif
+                    }
                     WRITE( 0, FMT = 9999 ) 'b',i, Xj, '(0+1*I)', R, Xj
-                endif
+                }
                 Xj = Xj * stepX(i)
             end do
-        endif
+        }
       } // 20
 
       // Test (c) y = (3/4)*x + x * I, |y| = (5/4)*x
@@ -157,12 +157,12 @@
             Xj = 4*X(i)
         else
             Xj = X(i)
-        endif
+        }
         if( Xj .eq. 0.0d0 ) then
             subnormalTreatedAs0 = subnormalTreatedAs0 + 1
             if( debug .or. subnormalTreatedAs0 .eq. 1 ) then
                 print *, "!! [c] fl( subnormal ) may be 0"
-            endif
+            }
         else
             do while( Xj .ne. limX(i) )
                 nTests = nTests + 1
@@ -173,12 +173,12 @@
                     caseCFails = caseCFails + 1
                     if( caseCFails .eq. 1 ) then
                         print *,  "!! Some ABS(x*(3/4+I)) differ from (5/4)*ABS(x)"
-                    endif
+                    }
                     WRITE( 0, FMT = 9999 ) 'c',i, Xj, '(3/4+I)', R, answerC
-                endif
+                }
                 Xj = Xj * stepX(i)
             end do
-        endif
+        }
       } // 30
 
       // Test (d) y = (1/2)*x + (1/2)*x * I, |y| = (1/2)*x*sqrt(2)
@@ -187,12 +187,12 @@
             Xj = 2*X(i)
         else
             Xj = X(i)
-        endif
+        }
         if( Xj .eq. 0.0d0 ) then
             subnormalTreatedAs0 = subnormalTreatedAs0 + 1
             if( debug .or. subnormalTreatedAs0 .eq. 1 ) then
                 print *, "!! [d] fl( subnormal ) may be 0"
-            endif
+            }
         else
             do while( Xj .ne. limX(i) )
                 answerD = (oneHalf * Xj) * SQRT(2.0d0)
@@ -200,7 +200,7 @@
                     subnormalTreatedAs0 = subnormalTreatedAs0 + 1
                     if( debug .or. subnormalTreatedAs0 .eq. 1 ) then
                         print *, "!! [d] fl( subnormal ) may be 0"
-                    endif
+                    }
                 else
                     nTests = nTests + 1
                     Y = DCMPLX( oneHalf * Xj, oneHalf * Xj )
@@ -210,13 +210,13 @@
                         caseDFails = caseDFails + 1
                         if( caseDFails .eq. 1 ) then
                             print *,  "!! Some ABS(x*(1+I)) differ from sqrt(2)*ABS(x)"
-                        endif
+                        }
                         WRITE( 0, FMT = 9999 ) 'd',i, (oneHalf*Xj), '(1+1*I)', R, answerD
-                    endif
-                endif
+                    }
+                }
                 Xj = Xj * stepX(i)
             end do
-        endif
+        }
       } // 40
 
       // Test (e) Infs
@@ -227,7 +227,7 @@
         if( .not.(R .gt. HUGE(0.0d0)) ) then
             caseEFails = caseEFails + 1
             WRITE( *, FMT = 9997 ) 'i',i, Y, R
-        endif
+        }
       } // 50
 
       // Test (f) NaNs
@@ -238,7 +238,7 @@
         if( R .eq. R ) then
             caseFFails = caseFFails + 1
             WRITE( *, FMT = 9998 ) 'n',i, Y, R
-        endif
+        }
       } // 60
 
       // If any test fails, displays a message
@@ -247,12 +247,12 @@
          print *, "# ", nTests-nFailingTests, " tests out of ", nTests, " pass for ABS(a+b*I),", nFailingTests, " tests fail."
       else
          print *, "# All tests pass for ABS(a+b*I)"
-      endif
+      }
 
       // If anything was written to stderr, print the message
       if( (caseAFails .gt. 0) .or. (caseBFails .gt. 0) .or. (caseCFails .gt. 0) .or. (caseDFails .gt. 0) ) then
          print *, "# Please check the failed ABS(a+b*I) in [stderr]"
-      endif
+      }
 
       // .. Formats ..
  9997 FORMAT( '[',A1,I1, '] ABS(', (ES8.1,SP,ES8.1,"*I"), ' ) = ', ES8.1, ' differs from Inf' )

@@ -61,7 +61,7 @@
          RESULT( 3 ) = ZERO
          RESULT( 4 ) = ZERO
          RETURN
-      ENDIF
+      }
 
       // Copy the last k columns of the factorization to the array Q
 

@@ -109,8 +109,8 @@
                      B( I, J ) = ( AKM1*BK-BKM1 ) / DENOM
                  } // 15
                I = I - 1
-               ENDIF
-            ENDIF
+               }
+            }
             I = I - 1
          END DO
 
@@ -134,7 +134,7 @@
             KP = -IPIV( K )
             IF( K .LT. N .AND. KP.EQ.-IPIV( K+1 ) ) CALL CSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB )
             K=K+2
-         ENDIF
+         }
         END DO
 
       } else {
@@ -156,7 +156,7 @@
             KP = -IPIV( K+1 )
             IF( KP.EQ.-IPIV( K ) ) CALL CSWAP( NRHS, B( K+1, 1 ), LDB, B( KP, 1 ), LDB )
             K=K+2
-         ENDIF
+         }
         END DO
 
 *  Compute (L \P**T * B) -> B    [ (L \P**T * B) ]
@@ -182,7 +182,7 @@
                      B( I+1, J ) = ( AKM1*BK-BKM1 ) / DENOM
                  } // 25
                   I = I + 1
-            ENDIF
+            }
             I = I + 1
          END DO
 
@@ -206,7 +206,7 @@
             KP = -IPIV( K )
             IF( K.GT.1 .AND. KP.EQ.-IPIV( K-1 ) ) CALL CSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB )
             K=K-2
-         ENDIF
+         }
         END DO
 
       }

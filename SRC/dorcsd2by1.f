@@ -114,7 +114,7 @@
                dorgqr(P, P, Q, U1, LDU1, DUM1, WORK(1), -1, CHILDINFO );
                LORGQRMIN = MAX( LORGQRMIN, P )
                LORGQROPT = MAX( LORGQROPT, INT( WORK(1) ) )
-            ENDIF
+            }
             if ( WANTU2 .AND. M-P .GT. 0 ) {
                dorgqr(M-P, M-P, Q, U2, LDU2, DUM1, WORK(1), -1, CHILDINFO );
                LORGQRMIN = MAX( LORGQRMIN, M-P )

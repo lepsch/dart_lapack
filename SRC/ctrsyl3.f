@@ -251,14 +251,14 @@
                       DO JJ = L1, L2-1
                          csscal(K2-K1, SCAL, C( K1, JJ ), 1);
                       END DO
-                  ENDIF
+                  }
 
                   SCAL = ( SCAMIN / SWORK( I, L ) ) * SCALOC
                   if ( SCAL.NE.ONE ) {
                       DO LL = L1, L2-1
                          csscal(I2-I1, SCAL, C( I1, LL ), 1);
                       END DO
-                  ENDIF
+                  }
 
                   // Record current scaling factor
 
@@ -307,14 +307,14 @@
                      DO LL = L1, L2-1
                         csscal(K2-K1, SCAL, C( K1, LL ), 1 );
                      END DO
-                  ENDIF
+                  }
 
                   SCAL = ( SCAMIN / SWORK( K, J ) ) * SCALOC
                   if ( SCAL .NE. ONE ) {
                       DO JJ = J1, J2-1
                          csscal(K2-K1, SCAL, C( K1, JJ ), 1 );
                       END DO
-                  ENDIF
+                  }
 
                   // Record current scaling factor
 
@@ -422,14 +422,14 @@
                      DO LL = L1, L2-1
                         csscal(K2-K1, SCAL, C( K1, LL ), 1 );
                      END DO
-                  ENDIF
+                  }
 
                   SCAL = ( SCAMIN / SWORK( I, L ) ) * SCALOC
                   if ( SCAL .NE. ONE ) {
                      DO LL = L1, L2-1
                         csscal(I2-I1, SCAL, C( I1, LL ), 1 );
                      END DO
-                  ENDIF
+                  }
 
                   // Record current scaling factor
 
@@ -477,14 +477,14 @@
                       DO LL = L1, L2-1
                          csscal(K2-K1, SCAL, C( K1, LL ), 1 );
                       END DO
-                  ENDIF
+                  }
 
                   SCAL = ( SCAMIN / SWORK( K, J ) ) * SCALOC
                   if ( SCAL .NE. ONE ) {
                      DO JJ = J1, J2-1
                         csscal(K2-K1, SCAL, C( K1, JJ ), 1 );
                      END DO
-                  ENDIF
+                  }
 
                   // Record current scaling factor
 
@@ -592,14 +592,14 @@
                      DO LL = L1, L2-1
                         csscal(K2-K1, SCAL, C( K1, LL ), 1 );
                      END DO
-                  ENDIF
+                  }
 
                   SCAL = ( SCAMIN / SWORK( I, L ) ) * SCALOC
                   if ( SCAL .NE. ONE ) {
                      DO LL = L1, L2-1
                         csscal(I2-I1, SCAL, C( I1, LL ), 1 );
                      END DO
-                  ENDIF
+                  }
 
                   // Record current scaling factor
 
@@ -647,14 +647,14 @@
                      DO LL = L1, L2-1
                         csscal(K2-K1, SCAL, C( K1, LL ), 1);
                      END DO
-                  ENDIF
+                  }
 
                   SCAL = ( SCAMIN / SWORK( K, J ) ) * SCALOC
                   if ( SCAL .NE. ONE ) {
                      DO JJ = J1, J2-1
                         csscal(K2-K1, SCAL, C( K1, JJ ), 1 );
                      END DO
-                  ENDIF
+                  }
 
                   // Record current scaling factor
 
@@ -762,14 +762,14 @@
                      DO LL = L1, L2-1
                         csscal(K2-K1, SCAL, C( K1, LL ), 1 );
                      END DO
-                  ENDIF
+                  }
 
                   SCAL = ( SCAMIN / SWORK( I, L ) ) * SCALOC
                   if ( SCAL .NE. ONE ) {
                      DO LL = L1, L2-1
                         csscal(I2-I1, SCAL, C( I1, LL ), 1 );
                      END DO
-                  ENDIF
+                  }
 
                   // Record current scaling factor
 
@@ -818,14 +818,14 @@
                      DO JJ = L1, L2-1
                         csscal(K2-K1, SCAL, C( K1, JJ ), 1 );
                      END DO
-                  ENDIF
+                  }
 
                   SCAL = ( SCAMIN / SWORK( K, J ) ) * SCALOC
                   if ( SCAL .NE. ONE ) {
                      DO JJ = J1, J2-1
                         csscal(K2-K1, SCAL, C( K1, JJ ), 1 );
                      END DO
-                  ENDIF
+                  }
 
                   // Record current scaling factor
 
@@ -872,7 +872,7 @@
                DO LL = L1, L2-1
                   csscal(K2-K1, SCAL, C( K1, LL ), 1 );
                END DO
-            ENDIF
+            }
          END DO
       END DO
 

@@ -116,7 +116,7 @@
       } else {
          VLL = ZERO
          VUU = ZERO
-      ENDIF
+      }
       ANRM = CLANHP( 'M', UPLO, N, AP, RWORK )
       if ( ANRM.GT.ZERO .AND. ANRM.LT.RMIN ) {
          ISCALE = 1

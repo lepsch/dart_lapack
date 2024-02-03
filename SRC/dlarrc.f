@@ -51,20 +51,20 @@
          RPIVOT = D( 1 ) - VU
          if ( LPIVOT.LE.ZERO ) {
             LCNT = LCNT + 1
-         ENDIF
+         }
          if ( RPIVOT.LE.ZERO ) {
             RCNT = RCNT + 1
-         ENDIF
+         }
          DO 10 I = 1, N-1
             TMP = E(I)**2
             LPIVOT = ( D( I+1 )-VL ) - TMP/LPIVOT
             RPIVOT = ( D( I+1 )-VU ) - TMP/RPIVOT
             if ( LPIVOT.LE.ZERO ) {
                LCNT = LCNT + 1
-            ENDIF
+            }
             if ( RPIVOT.LE.ZERO ) {
                RCNT = RCNT + 1
-            ENDIF
+            }
          } // 10
       } else {
          // Sturm sequence count on L D L^T
@@ -75,10 +75,10 @@
             RPIVOT = D( I ) + SU
             if ( LPIVOT.LE.ZERO ) {
                LCNT = LCNT + 1
-            ENDIF
+            }
             if ( RPIVOT.LE.ZERO ) {
                RCNT = RCNT + 1
-            ENDIF
+            }
             TMP = E(I) * D(I) * E(I)
 
             TMP2 = TMP / LPIVOT
@@ -99,11 +99,11 @@
          RPIVOT = D( N ) + SU
          if ( LPIVOT.LE.ZERO ) {
             LCNT = LCNT + 1
-         ENDIF
+         }
          if ( RPIVOT.LE.ZERO ) {
             RCNT = RCNT + 1
-         ENDIF
-      ENDIF
+         }
+      }
       EIGCNT = RCNT - LCNT
 
       RETURN

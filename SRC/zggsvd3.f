@@ -87,7 +87,7 @@
       }
       if ( LQUERY ) {
          RETURN
-      ENDIF
+      }
 
       // Compute the Frobenius norm of matrices A and B
 

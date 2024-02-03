@@ -86,7 +86,7 @@
          INFO = 0
          RETURN
       } else {
-      ENDIF
+      }
 
 
 

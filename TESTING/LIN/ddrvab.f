@@ -150,7 +150,7 @@
 
                if (ITER.LT.0) {
                    dlacpy('Full', M, N, AFAC, LDA, A, LDA );
-               ENDIF
+               }
 
                // Check error code from DSGESV. This should be the same as
                // the one of DGETRF.

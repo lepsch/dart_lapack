@@ -257,7 +257,7 @@
                  IP=-IPIV(I)
                  I=I+1
                  IF ( (I-1) .LT. IP) CALL SSYSWAPR( UPLO, N, A, LDA, I-1 ,IP )                  IF ( (I-1) .GT. IP) CALL SSYSWAPR( UPLO, N, A, LDA, IP ,I-1 )
-              ENDIF
+              }
                I=I+1
             END DO
       } else {
@@ -432,7 +432,7 @@
                  IF ( I .LT. IP) CALL SSYSWAPR( UPLO, N, A, LDA, I ,IP )
                  IF ( I .GT. IP) CALL SSYSWAPR( UPLO, N, A, LDA, IP ,I )
                  I=I-1
-               ENDIF
+               }
                I=I-1
             END DO
       }

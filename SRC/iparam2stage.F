@@ -34,7 +34,7 @@
       if ( (ISPEC.LT.17).OR.(ISPEC.GT.21) ) {
           IPARAM2STAGE = -1
           RETURN
-      ENDIF
+      }
 
       // Get the number of threads
 
@@ -102,8 +102,8 @@
          if ( .NOT.( RPREC .OR. CPREC ) ) {
              IPARAM2STAGE = -1
              RETURN
-         ENDIF
-      ENDIF
+         }
+      }
        // WRITE(*,*),'RPREC,CPREC ',RPREC,CPREC,
       // $           '   ALGO ',ALGO,'    STAGE ',STAG
 
@@ -121,7 +121,7 @@
             } else {
                KD = 160
                IB = 40
-            ENDIF
+            }
          } else if ( NTHREADS.GT.1 ) {
             if ( CPREC ) {
                KD = 64
@@ -129,7 +129,7 @@
             } else {
                KD = 64
                IB = 32
-            ENDIF
+            }
          } else {
             if ( CPREC ) {
                KD = 16
@@ -137,8 +137,8 @@
             } else {
                KD = 32
                IB = 16
-            ENDIF
-         ENDIF
+            }
+         }
          IF( ISPEC.EQ.17 ) IPARAM2STAGE = KD
          IF( ISPEC.EQ.18 ) IPARAM2STAGE = IB
 
@@ -155,12 +155,12 @@
          } else {
             // This is not correct, it need to call the ALGO and the stage2
             LHOUS = MAX( 1, 4*NI ) + IBI
-         ENDIF
+         }
          if ( LHOUS.GE.0 ) {
             IPARAM2STAGE = LHOUS
          } else {
             IPARAM2STAGE = -1
-         ENDIF
+         }
 
       } else if ( ISPEC .EQ. 20 ) {
 
@@ -192,7 +192,7 @@
                LWORK = NI*NBI + NI*MAX(NBI,FACTOPTNB) + 2*NBI*NBI
             } else if ( (STAG.EQ.'HB2ST').OR.(STAG.EQ.'SB2ST') ) {
                LWORK = (2*NBI+1)*NI + NBI*NTHREADS
-            ENDIF
+            }
          } else if ( ALGO.EQ.'BRD' ) {
             if ( STAG.EQ.'2STAG' ) {
                LWORK = 2*NI*NBI + NI*MAX(NBI+1,FACTOPTNB) + MAX(2*NBI*NBI, NBI*NTHREADS) + (NBI+1)*NI
@@ -200,21 +200,21 @@
                LWORK = NI*NBI + NI*MAX(NBI,FACTOPTNB) + 2*NBI*NBI
             } else if ( STAG.EQ.'GB2BD' ) {
                LWORK = (3*NBI+1)*NI + NBI*NTHREADS
-            ENDIF
-         ENDIF
+            }
+         }
          LWORK = MAX ( 1, LWORK )
 
          if ( LWORK.GT.0 ) {
             IPARAM2STAGE = LWORK
          } else {
             IPARAM2STAGE = -1
-         ENDIF
+         }
 
       } else if ( ISPEC .EQ. 21 ) {
 
       // ISPEC = 21 for future use
          IPARAM2STAGE = NXI
-      ENDIF
+      }
 
       // ==== End of IPARAM2STAGE ====
 

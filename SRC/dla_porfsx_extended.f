@@ -65,7 +65,7 @@
          UPLO2 = ILAUPLO( 'L' )
       } else {
          UPLO2 = ILAUPLO( 'U' )
-      ENDIF
+      }
 
       for (J = 1; J <= NRHS; J++) {
          Y_PREC_STATE = EXTRA_RESIDUAL
