@@ -50,7 +50,7 @@
 
       APPLV = LSAME( JOBV, 'A' )
       RSVEC = LSAME( JOBV, 'V' )
-      if ( .NOT.( RSVEC || APPLV || LSAME( JOBV, 'N' ) ) ) {
+      if ( !( RSVEC || APPLV || LSAME( JOBV, 'N' ) ) ) {
          INFO = -1
       } else if ( M < 0 ) {
          INFO = -2

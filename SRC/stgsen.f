@@ -83,7 +83,7 @@
 
       M = 0
       PAIR = false;
-      if ( .NOT.LQUERY || IJOB != 0 ) {
+      if ( !LQUERY || IJOB != 0 ) {
       for (K = 1; K <= N; K++) { // 10
          if ( PAIR ) {
             PAIR = false;
@@ -116,9 +116,9 @@
       WORK( 1 ) = SROUNDUP_LWORK(LWMIN)
       IWORK( 1 ) = LIWMIN
 
-      if ( LWORK < LWMIN && .NOT.LQUERY ) {
+      if ( LWORK < LWMIN && !LQUERY ) {
          INFO = -22
-      } else if ( LIWORK < LIWMIN && .NOT.LQUERY ) {
+      } else if ( LIWORK < LIWMIN && !LQUERY ) {
          INFO = -24
       }
 

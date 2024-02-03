@@ -210,10 +210,10 @@
          RWORK(1) = LRWORKOPT
          LWORKMIN = MAX( IORBDB+LORBDB-1, IORGQR+LORGQRMIN-1, IORGLQ+LORGLQMIN-1 )          LWORKOPT = MAX( IORBDB+LORBDB-1, IORGQR+LORGQROPT-1, IORGLQ+LORGLQOPT-1 )
          WORK(1) = LWORKOPT
-         if ( LWORK < LWORKMIN && .NOT.LQUERY ) {
+         if ( LWORK < LWORKMIN && !LQUERY ) {
             INFO = -19
          }
-         if ( LRWORK < LRWORKMIN && .NOT.LQUERY ) {
+         if ( LRWORK < LRWORKMIN && !LQUERY ) {
             INFO = -21
          }
       }

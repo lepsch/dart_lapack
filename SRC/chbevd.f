@@ -62,9 +62,9 @@
             LIWMIN = 1
          }
       }
-      if ( .NOT.( WANTZ || LSAME( JOBZ, 'N' ) ) ) {
+      if ( !( WANTZ || LSAME( JOBZ, 'N' ) ) ) {
          INFO = -1
-      } else if ( .NOT.( LOWER || LSAME( UPLO, 'U' ) ) ) {
+      } else if ( !( LOWER || LSAME( UPLO, 'U' ) ) ) {
          INFO = -2
       } else if ( N < 0 ) {
          INFO = -3
@@ -81,11 +81,11 @@
          RWORK( 1 ) = LRWMIN
          IWORK( 1 ) = LIWMIN
 
-         if ( LWORK < LWMIN && .NOT.LQUERY ) {
+         if ( LWORK < LWMIN && !LQUERY ) {
             INFO = -11
-         } else if ( LRWORK < LRWMIN && .NOT.LQUERY ) {
+         } else if ( LRWORK < LRWMIN && !LQUERY ) {
             INFO = -13
-         } else if ( LIWORK < LIWMIN && .NOT.LQUERY ) {
+         } else if ( LIWORK < LIWMIN && !LQUERY ) {
             INFO = -15
          }
       }
@@ -146,7 +146,7 @@
 
       // For eigenvalues only, call SSTERF.  For eigenvectors, call CSTEDC.
 
-      if ( .NOT.WANTZ ) {
+      if ( !WANTZ ) {
          ssterf(N, W, RWORK( INDE ), INFO );
       } else {
          cstedc('I', N, W, RWORK( INDE ), WORK, N, WORK( INDWK2 ), LLWK2, RWORK( INDWRK ), LLRWK, IWORK, LIWORK, INFO );

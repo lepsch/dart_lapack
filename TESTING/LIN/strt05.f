@@ -89,7 +89,7 @@
          for (I = 1; I <= N; I++) { // 80
             TMP = ABS( B( I, K ) )
             if ( UPPER ) {
-               if ( .NOT.NOTRAN ) {
+               if ( !NOTRAN ) {
                   for (J = 1; J <= I - IFU; J++) { // 40
                      TMP = TMP + ABS( A( J, I ) )*ABS( X( J, K ) )
                   } // 40

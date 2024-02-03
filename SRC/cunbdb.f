@@ -45,8 +45,8 @@
       // Test input arguments
 
       INFO = 0
-      COLMAJOR = .NOT. LSAME( TRANS, 'T' )
-      if ( .NOT. LSAME( SIGNS, 'O' ) ) {
+      COLMAJOR = !LSAME( TRANS, 'T' )
+      if ( !LSAME( SIGNS, 'O' ) ) {
          Z1 = REALONE
          Z2 = REALONE
          Z3 = REALONE
@@ -67,19 +67,19 @@
          INFO = -5
       } else if ( COLMAJOR && LDX11 < MAX( 1, P ) ) {
          INFO = -7
-      } else if ( .NOT.COLMAJOR && LDX11 < MAX( 1, Q ) ) {
+      } else if ( !COLMAJOR && LDX11 < MAX( 1, Q ) ) {
          INFO = -7
       } else if ( COLMAJOR && LDX12 < MAX( 1, P ) ) {
          INFO = -9
-      } else if ( .NOT.COLMAJOR && LDX12 < MAX( 1, M-Q ) ) {
+      } else if ( !COLMAJOR && LDX12 < MAX( 1, M-Q ) ) {
          INFO = -9
       } else if ( COLMAJOR && LDX21 < MAX( 1, M-P ) ) {
          INFO = -11
-      } else if ( .NOT.COLMAJOR && LDX21 < MAX( 1, Q ) ) {
+      } else if ( !COLMAJOR && LDX21 < MAX( 1, Q ) ) {
          INFO = -11
       } else if ( COLMAJOR && LDX22 < MAX( 1, M-P ) ) {
          INFO = -13
-      } else if ( .NOT.COLMAJOR && LDX22 < MAX( 1, M-Q ) ) {
+      } else if ( !COLMAJOR && LDX22 < MAX( 1, M-Q ) ) {
          INFO = -13
       }
 
@@ -89,7 +89,7 @@
          LWORKOPT = M - Q
          LWORKMIN = M - Q
          WORK(1) = SROUNDUP_LWORK(LWORKOPT)
-         if ( LWORK < LWORKMIN && .NOT. LQUERY ) {
+         if ( LWORK < LWORKMIN && !LQUERY ) {
             INFO = -21
          }
       }

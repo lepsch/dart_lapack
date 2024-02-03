@@ -120,7 +120,7 @@
          WORK( 1 ) = SROUNDUP_LWORK(MAXWRK)
          IWORK( 1 ) = LIWORK
 
-         if ( LWORK < MINWRK && .NOT.LQUERY ) {
+         if ( LWORK < MINWRK && !LQUERY ) {
             INFO = -12
          }
       }

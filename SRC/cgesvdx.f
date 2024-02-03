@@ -66,11 +66,11 @@
       INDS = LSAME( RANGE, 'I' )
 
       INFO = 0
-      if ( .NOT.LSAME( JOBU, 'V' ) && .NOT.LSAME( JOBU, 'N' ) ) {
+      if ( !LSAME( JOBU, 'V' ) && !LSAME( JOBU, 'N' ) ) {
          INFO = -1
-      } else if ( .NOT.LSAME( JOBVT, 'V' ) && .NOT.LSAME( JOBVT, 'N' ) ) {
+      } else if ( !LSAME( JOBVT, 'V' ) && !LSAME( JOBVT, 'N' ) ) {
          INFO = -2
-      } else if ( .NOT.( ALLS || VALS || INDS ) ) {
+      } else if ( !( ALLS || VALS || INDS ) ) {
          INFO = -3
       } else if ( M < 0 ) {
          INFO = -4
@@ -168,7 +168,7 @@
          MAXWRK = MAX( MAXWRK, MINWRK )
          WORK( 1 ) = SROUNDUP_LWORK( MAXWRK )
 
-         if ( LWORK < MINWRK && .NOT.LQUERY ) {
+         if ( LWORK < MINWRK && !LQUERY ) {
             INFO = -19
          }
       }

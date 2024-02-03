@@ -45,7 +45,7 @@
          INFO = -1
       } else if ( LDA < MAX( 1, N ) ) {
          INFO = -3
-      } else if ( LWORK < MAX( 1, N ) && .NOT.LQUERY ) {
+      } else if ( LWORK < MAX( 1, N ) && !LQUERY ) {
          INFO = -6
       }
       if ( INFO != 0 ) {

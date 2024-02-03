@@ -43,9 +43,9 @@
       LOWER = LSAME( UPLO, 'L' )
 
       INFO = 0
-      if ( .NOT.( WANTZ || LSAME( JOBZ, 'N' ) ) ) {
+      if ( !( WANTZ || LSAME( JOBZ, 'N' ) ) ) {
          INFO = -1
-      } else if ( .NOT.( LOWER || LSAME( UPLO, 'U' ) ) ) {
+      } else if ( !( LOWER || LSAME( UPLO, 'U' ) ) ) {
          INFO = -2
       } else if ( N < 0 ) {
          INFO = -3
@@ -111,7 +111,7 @@
 
       // For eigenvalues only, call SSTERF.  For eigenvectors, call CSTEQR.
 
-      if ( .NOT.WANTZ ) {
+      if ( !WANTZ ) {
          ssterf(N, W, RWORK( INDE ), INFO );
       } else {
          INDRWK = INDE + N

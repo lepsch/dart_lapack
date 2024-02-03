@@ -41,9 +41,9 @@
       INFO = 0
       NOFACT = LSAME( FACT, 'N' )
       NOTRAN = LSAME( TRANS, 'N' )
-      if ( .NOT.NOFACT && .NOT.LSAME( FACT, 'F' ) ) {
+      if ( !NOFACT && !LSAME( FACT, 'F' ) ) {
          INFO = -1
-      } else if ( .NOT.NOTRAN && .NOT.LSAME( TRANS, 'T' ) && .NOT. LSAME( TRANS, 'C' ) ) {
+      } else if ( !NOTRAN && !LSAME( TRANS, 'T' ) && !LSAME( TRANS, 'C' ) ) {
          INFO = -2
       } else if ( N < 0 ) {
          INFO = -3

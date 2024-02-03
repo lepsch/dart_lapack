@@ -51,11 +51,11 @@
       LOWER = LSAME( UPLO, 'L' )
 
       INFO = 0
-      if ( .NOT.LSAME( UPLO, 'U' ) && .NOT.LOWER ) {
+      if ( !LSAME( UPLO, 'U' ) && !LOWER ) {
          INFO = -1
-      } else if ( .NOT.( WANTZ || LSAME( JOBZ, 'N' ) ) ) {
+      } else if ( !( WANTZ || LSAME( JOBZ, 'N' ) ) ) {
          INFO = -2
-      } else if ( .NOT.( ALLSV || VALSV || INDSV ) ) {
+      } else if ( !( ALLSV || VALSV || INDSV ) ) {
          INFO = -3
       } else if ( N < 0 ) {
          INFO = -4
@@ -362,7 +362,7 @@
                      // those norms and, if needed, reorthogonalize the
                      // vectors.
 
-                     if ( NSL > 1 && VUTGK == ZERO && MOD(NTGK,2) == 0 && EMIN == 0 && .NOT.SPLIT ) {
+                     if ( NSL > 1 && VUTGK == ZERO && MOD(NTGK,2) == 0 && EMIN == 0 && !SPLIT ) {
 
                         // D=0 at the top or bottom of the active submatrix:
                         // one eigenvalue is equal to zero; concatenate the

@@ -48,7 +48,7 @@
       } else if ( SING ) {
          K = MIN( M, N )
       }
-      if ( .NOT.EIGEN && .NOT.SING ) {
+      if ( !EIGEN && !SING ) {
          INFO = -1
       } else if ( M < 0 ) {
          INFO = -2
@@ -63,7 +63,7 @@
          if ( SING && K > 0 ) {
             if (INCR) INCR = INCR && ZERO <= D( 1 )             IF( DECR ) DECR = DECR && D( K ) >= ZERO;
          }
-         IF( .NOT.( INCR || DECR ) ) INFO = -4
+         IF( !( INCR || DECR ) ) INFO = -4
       }
       if ( INFO != 0 ) {
          xerbla('DDISNA', -INFO );

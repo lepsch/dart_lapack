@@ -101,7 +101,7 @@
 
             // Do the tests only if DOTYPE( IMAT ) is true.
 
-            IF( .NOT.DOTYPE( IMAT ) ) GO TO 120
+            IF( !DOTYPE( IMAT ) ) GO TO 120
 
             // Skip types 3, 4, or 5 if the matrix size is too small.
 
@@ -189,7 +189,7 @@
                         if (PREFAC) GO TO 90;
                         RCONDC = ZERO
 
-                     } else if ( .NOT.LSAME( FACT, 'N' ) ) {
+                     } else if ( !LSAME( FACT, 'N' ) ) {
 
                         // Compute the condition number for comparison with
                         // the value returned by DPOSVX (FACT = 'N' reuses
@@ -303,7 +303,7 @@
 
                      // --- Test DPOSVX ---
 
-                     if (.NOT.PREFAC) CALL DLASET( UPLO, N, N, ZERO, ZERO, AFAC, LDA );
+                     if ( !PREFAC) CALL DLASET( UPLO, N, N, ZERO, ZERO, AFAC, LDA );
                      dlaset('Full', N, NRHS, ZERO, ZERO, X, LDA );
                      if ( IEQUED > 1 && N > 0 ) {
 
@@ -327,7 +327,7 @@
                      }
 
                      if ( INFO == 0 ) {
-                        if ( .NOT.PREFAC ) {
+                        if ( !PREFAC ) {
 
                            // Reconstruct matrix from factors and compute
                            // residual.

@@ -47,9 +47,9 @@
       // Test the input parameters.
 
       INFO = 0
-      if ((.NOT.LSAME(SIDE,'L')) && (.NOT.LSAME(SIDE,'R'))) {
+      if (( !LSAME(SIDE,'L')) && ( !LSAME(SIDE,'R'))) {
           INFO = 1
-      } else if ((.NOT.UPPER) && (.NOT.LSAME(UPLO,'L'))) {
+      } else if (( !UPPER) && ( !LSAME(UPLO,'L'))) {
           INFO = 2
       } else if (M < 0) {
           INFO = 3

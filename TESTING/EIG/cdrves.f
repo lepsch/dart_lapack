@@ -137,7 +137,7 @@
          }
 
          for (JTYPE = 1; JTYPE <= MTYPES; JTYPE++) { // 230
-            IF( .NOT.DOTYPE( JTYPE ) ) GO TO 230
+            IF( !DOTYPE( JTYPE ) ) GO TO 230
 
             // Save ISEED in case of an error.
 
@@ -376,7 +376,7 @@
                      for (I = 1; I <= N; I++) { // 170
                         IF( CSLECT( W( I ) ) ) KNTEIG = KNTEIG + 1
                         if ( I < N ) {
-                           IF( CSLECT( W( I+1 ) ) && ( .NOT.CSLECT( W( I ) ) ) )RESULT( 13 ) = ULPINV
+                           IF( CSLECT( W( I+1 ) ) && ( !CSLECT( W( I ) ) ) )RESULT( 13 ) = ULPINV
                         }
                      } // 170
                      if (SDIM != KNTEIG) RESULT( 13 ) = ULPINV;

@@ -142,7 +142,7 @@ void main() {
       WRITE( NOUT, FMT = 9994 )( IDIM( I ), I = 1, NIDIM )
       WRITE( NOUT, FMT = 9993 )( ALF( I ), I = 1, NALF )
       WRITE( NOUT, FMT = 9992 )( BET( I ), I = 1, NBET )
-      if ( .NOT.TSTERR ) {
+      if ( !TSTERR ) {
          WRITE( NOUT, FMT = * )
          WRITE( NOUT, FMT = 9984 )
       }
@@ -215,14 +215,14 @@ void main() {
       TRANSB = 'N'
       dmmch(TRANSA, TRANSB, N, 1, N, ONE, AB, NMAX, AB( 1, NMAX + 1 ), NMAX, ZERO, C, NMAX, CT, G, CC, NMAX, EPS, ERR, FATAL, NOUT, true );
       SAME = LDE( CC, CT, N )
-      if ( .NOT.SAME || ERR != ZERO ) {
+      if ( !SAME || ERR != ZERO ) {
          WRITE( NOUT, FMT = 9989 )TRANSA, TRANSB, SAME, ERR
          STOP
       }
       TRANSB = 'T'
       dmmch(TRANSA, TRANSB, N, 1, N, ONE, AB, NMAX, AB( 1, NMAX + 1 ), NMAX, ZERO, C, NMAX, CT, G, CC, NMAX, EPS, ERR, FATAL, NOUT, true );
       SAME = LDE( CC, CT, N )
-      if ( .NOT.SAME || ERR != ZERO ) {
+      if ( !SAME || ERR != ZERO ) {
          WRITE( NOUT, FMT = 9989 )TRANSA, TRANSB, SAME, ERR
          STOP
       }
@@ -237,14 +237,14 @@ void main() {
       TRANSB = 'N'
       dmmch(TRANSA, TRANSB, N, 1, N, ONE, AB, NMAX, AB( 1, NMAX + 1 ), NMAX, ZERO, C, NMAX, CT, G, CC, NMAX, EPS, ERR, FATAL, NOUT, true );
       SAME = LDE( CC, CT, N )
-      if ( .NOT.SAME || ERR != ZERO ) {
+      if ( !SAME || ERR != ZERO ) {
          WRITE( NOUT, FMT = 9989 )TRANSA, TRANSB, SAME, ERR
          STOP
       }
       TRANSB = 'T'
       dmmch(TRANSA, TRANSB, N, 1, N, ONE, AB, NMAX, AB( 1, NMAX + 1 ), NMAX, ZERO, C, NMAX, CT, G, CC, NMAX, EPS, ERR, FATAL, NOUT, true );
       SAME = LDE( CC, CT, N )
-      if ( .NOT.SAME || ERR != ZERO ) {
+      if ( !SAME || ERR != ZERO ) {
          WRITE( NOUT, FMT = 9989 )TRANSA, TRANSB, SAME, ERR
          STOP
       }
@@ -253,7 +253,7 @@ void main() {
 
       for (ISNUM = 1; ISNUM <= NSUBS; ISNUM++) { // 200
          WRITE( NOUT, FMT = * )
-         if ( .NOT.LTEST( ISNUM ) ) {
+         if ( !LTEST( ISNUM ) ) {
             // Subprogram is not to be tested.
             WRITE( NOUT, FMT = 9987 )SNAMES( ISNUM )
          } else {
@@ -505,7 +505,7 @@ void main() {
 
                            // Check if error-exit was taken incorrectly.
 
-                           if ( .NOT.OK ) {
+                           if ( !OK ) {
                               WRITE( NOUT, FMT = 9994 )
                               FATAL = true;
                               GO TO 120
@@ -537,14 +537,14 @@ void main() {
                            SAME = true;
                            for (I = 1; I <= NARGS; I++) { // 40
                               SAME = SAME && ISAME( I )
-                              IF( .NOT.ISAME( I ) ) WRITE( NOUT, FMT = 9998 )I
+                              IF( !ISAME( I ) ) WRITE( NOUT, FMT = 9998 )I
                            } // 40
-                           if ( .NOT.SAME ) {
+                           if ( !SAME ) {
                               FATAL = true;
                               GO TO 120
                            }
 
-                           if ( .NOT.NULL ) {
+                           if ( !NULL ) {
 
                               // Check the result.
 
@@ -773,7 +773,7 @@ void main() {
 
                         // Check if error-exit was taken incorrectly.
 
-                        if ( .NOT.OK ) {
+                        if ( !OK ) {
                            WRITE( NOUT, FMT = 9994 )
                            FATAL = true;
                            GO TO 110
@@ -804,14 +804,14 @@ void main() {
                         SAME = true;
                         for (I = 1; I <= NARGS; I++) { // 40
                            SAME = SAME && ISAME( I )
-                           IF( .NOT.ISAME( I ) ) WRITE( NOUT, FMT = 9998 )I
+                           IF( !ISAME( I ) ) WRITE( NOUT, FMT = 9998 )I
                         } // 40
-                        if ( .NOT.SAME ) {
+                        if ( !SAME ) {
                            FATAL = true;
                            GO TO 110
                         }
 
-                        if ( .NOT.NULL ) {
+                        if ( !NULL ) {
 
                            // Check the result.
 
@@ -1040,7 +1040,7 @@ void main() {
 
                            // Check if error-exit was taken incorrectly.
 
-                           if ( .NOT.OK ) {
+                           if ( !OK ) {
                               WRITE( NOUT, FMT = 9994 )
                               FATAL = true;
                               GO TO 150
@@ -1070,14 +1070,14 @@ void main() {
                            SAME = true;
                            for (I = 1; I <= NARGS; I++) { // 50
                               SAME = SAME && ISAME( I )
-                              IF( .NOT.ISAME( I ) ) WRITE( NOUT, FMT = 9998 )I
+                              IF( !ISAME( I ) ) WRITE( NOUT, FMT = 9998 )I
                            } // 50
-                           if ( .NOT.SAME ) {
+                           if ( !SAME ) {
                               FATAL = true;
                               GO TO 150
                            }
 
-                           if ( .NOT.NULL ) {
+                           if ( !NULL ) {
                               if ( SNAME( 10: 11 ) == 'mm' ) {
 
                                  // Check the result.
@@ -1324,7 +1324,7 @@ void main() {
 
                         // Check if error-exit was taken incorrectly.
 
-                        if ( .NOT.OK ) {
+                        if ( !OK ) {
                            WRITE( NOUT, FMT = 9993 )
                            FATAL = true;
                            GO TO 120
@@ -1353,14 +1353,14 @@ void main() {
                         SAME = true;
                         for (I = 1; I <= NARGS; I++) { // 30
                            SAME = SAME && ISAME( I )
-                           IF( .NOT.ISAME( I ) ) WRITE( NOUT, FMT = 9998 )I
+                           IF( !ISAME( I ) ) WRITE( NOUT, FMT = 9998 )I
                         } // 30
-                        if ( .NOT.SAME ) {
+                        if ( !SAME ) {
                            FATAL = true;
                            GO TO 120
                         }
 
-                        if ( .NOT.NULL ) {
+                        if ( !NULL ) {
 
                            // Check the result column by column.
 
@@ -1613,7 +1613,7 @@ void main() {
 
                         // Check if error-exit was taken incorrectly.
 
-                        if ( .NOT.OK ) {
+                        if ( !OK ) {
                            WRITE( NOUT, FMT = 9993 )
                            FATAL = true;
                            GO TO 150
@@ -1644,14 +1644,14 @@ void main() {
                         SAME = true;
                         for (I = 1; I <= NARGS; I++) { // 40
                            SAME = SAME && ISAME( I )
-                           IF( .NOT.ISAME( I ) ) WRITE( NOUT, FMT = 9998 )I
+                           IF( !ISAME( I ) ) WRITE( NOUT, FMT = 9998 )I
                         } // 40
-                        if ( .NOT.SAME ) {
+                        if ( !SAME ) {
                            FATAL = true;
                            GO TO 150
                         }
 
-                        if ( .NOT.NULL ) {
+                        if ( !NULL ) {
 
                            // Check the result column by column.
 
@@ -1916,21 +1916,21 @@ void main() {
             CT( I ) = ZERO
             G( I ) = ZERO
          } // 10
-         if ( .NOT.TRANA && .NOT.TRANB ) {
+         if ( !TRANA && !TRANB ) {
             for (K = 1; K <= KK; K++) { // 30
                for (I = 1; I <= M; I++) { // 20
                   CT( I ) = CT( I ) + A( I, K )*B( K, J )
                   G( I ) = G( I ) + ABS( A( I, K ) )*ABS( B( K, J ) )
                } // 20
             } // 30
-         } else if ( TRANA && .NOT.TRANB ) {
+         } else if ( TRANA && !TRANB ) {
             for (K = 1; K <= KK; K++) { // 50
                for (I = 1; I <= M; I++) { // 40
                   CT( I ) = CT( I ) + A( K, I )*B( K, J )
                   G( I ) = G( I ) + ABS( A( K, I ) )*ABS( B( K, J ) )
                } // 40
             } // 50
-         } else if ( .NOT.TRANA && TRANB ) {
+         } else if ( !TRANA && TRANB ) {
             for (K = 1; K <= KK; K++) { // 70
                for (I = 1; I <= M; I++) { // 60
                   CT( I ) = CT( I ) + A( I, K )*B( J, K )

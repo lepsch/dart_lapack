@@ -85,9 +85,9 @@
       }
 
       INFO = 0
-      if ( .NOT.( WANTZ || LSAME( JOBZ, 'N' ) ) ) {
+      if ( !( WANTZ || LSAME( JOBZ, 'N' ) ) ) {
          INFO = -1
-      } else if ( .NOT.( ALLEIG || VALEIG || INDEIG ) ) {
+      } else if ( !( ALLEIG || VALEIG || INDEIG ) ) {
          INFO = -2
       } else if ( N < 0 ) {
          INFO = -3
@@ -99,9 +99,9 @@
          INFO = -9
       } else if ( LDZ < 1 || ( WANTZ && LDZ < N ) ) {
          INFO = -13
-      } else if ( LWORK < LWMIN && .NOT.LQUERY ) {
+      } else if ( LWORK < LWMIN && !LQUERY ) {
          INFO = -17
-      } else if ( LIWORK < LIWMIN && .NOT.LQUERY ) {
+      } else if ( LIWORK < LIWMIN && !LQUERY ) {
          INFO = -19
       }
 
@@ -130,7 +130,7 @@
          }
          if ( ZQUERY && INFO == 0 ) {
             Z( 1,1 ) = NZCMIN
-         } else if ( NZC < NZCMIN && .NOT.ZQUERY ) {
+         } else if ( NZC < NZCMIN && !ZQUERY ) {
             INFO = -14
          }
       }
@@ -159,7 +159,7 @@
                W( 1 ) = D( 1 )
             }
          }
-         if ( WANTZ && (.NOT.ZQUERY) ) {
+         if ( WANTZ && ( !ZQUERY) ) {
             Z( 1, 1 ) = ONE
             ISUPPZ(1) = 1
             ISUPPZ(2) = 1
@@ -168,9 +168,9 @@
       }
 
       if ( N == 2 ) {
-         if ( .NOT.WANTZ ) {
+         if ( !WANTZ ) {
             dlae2(D(1), E(1), D(2), R1, R2 );
-         } else if ( WANTZ && (.NOT.ZQUERY) ) {
+         } else if ( WANTZ && ( !ZQUERY) ) {
             dlaev2(D(1), E(1), D(2), R1, R2, CS, SN );
          }
          // D/S/LAE2 and D/S/LAEV2 outputs satisfy |R1| >= |R2|. However,
@@ -185,7 +185,7 @@
          if ( ALLEIG || (VALEIG && (R2 > WL) && (R2 <= WU)) || (INDEIG && (IIL == 1)) ) {
             M = M+1
             W( M ) = R2
-            if ( WANTZ && (.NOT.ZQUERY) ) {
+            if ( WANTZ && ( !ZQUERY) ) {
                if ( LAESWAP ) {
                   Z( 1, M ) = CS
                   Z( 2, M ) = SN
@@ -211,7 +211,7 @@
          if ( ALLEIG || (VALEIG && (R1 > WL) && (R1 <= WU)) || (INDEIG && (IIU == 2)) ) {
             M = M+1
             W( M ) = R1
-            if ( WANTZ && (.NOT.ZQUERY) ) {
+            if ( WANTZ && ( !ZQUERY) ) {
                if ( LAESWAP ) {
                   Z( 1, M ) = -SN
                   Z( 2, M ) = CS
@@ -310,7 +310,7 @@
          } // 5
 
          // Set the tolerance parameters for bisection
-         if ( .NOT.WANTZ ) {
+         if ( !WANTZ ) {
             // DLARRE computes the eigenvalues to full precision.
             RTOL1 = FOUR * EPS
             RTOL2 = FOUR * EPS
@@ -400,7 +400,7 @@
       // possibly along with eigenvectors.
 
       if ( NSPLIT > 1 || N == 2 ) {
-         if ( .NOT. WANTZ ) {
+         if ( !WANTZ ) {
             dlasrt('I', M, W, IINFO );
             if ( IINFO != 0 ) {
                INFO = 3

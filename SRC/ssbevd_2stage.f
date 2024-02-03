@@ -62,9 +62,9 @@
             LWMIN = MAX( 2*N, N+LHTRD+LWTRD )
          }
       }
-      if ( .NOT.( LSAME( JOBZ, 'N' ) ) ) {
+      if ( !( LSAME( JOBZ, 'N' ) ) ) {
          INFO = -1
-      } else if ( .NOT.( LOWER || LSAME( UPLO, 'U' ) ) ) {
+      } else if ( !( LOWER || LSAME( UPLO, 'U' ) ) ) {
          INFO = -2
       } else if ( N < 0 ) {
          INFO = -3
@@ -80,9 +80,9 @@
          WORK( 1 )  = SROUNDUP_LWORK(LWMIN)
          IWORK( 1 ) = LIWMIN
 
-         if ( LWORK < LWMIN && .NOT.LQUERY ) {
+         if ( LWORK < LWMIN && !LQUERY ) {
             INFO = -11
-         } else if ( LIWORK < LIWMIN && .NOT.LQUERY ) {
+         } else if ( LIWORK < LIWMIN && !LQUERY ) {
             INFO = -13
          }
       }
@@ -145,7 +145,7 @@
 
       // For eigenvalues only, call SSTERF.  For eigenvectors, call SSTEDC.
 
-      if ( .NOT.WANTZ ) {
+      if ( !WANTZ ) {
          ssterf(N, W, WORK( INDE ), INFO );
       } else {
          sstedc('I', N, W, WORK( INDE ), WORK( INDWRK ), N, WORK( INDWK2 ), LLWRK2, IWORK, LIWORK, INFO );

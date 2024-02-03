@@ -73,7 +73,7 @@
       // Skip single precision iterative refinement if a priori slower
       // than double precision factorization.
 
-      if ( .NOT.DOITREF ) {
+      if ( !DOITREF ) {
          ITER = -1
          GO TO 40
       }

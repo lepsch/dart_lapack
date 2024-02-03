@@ -50,11 +50,11 @@
       LQUERY = ( LWORK == -1 )
 
       INFO = 0
-      if ( .NOT.( WANTZ || LSAME( JOBZ, 'N' ) ) ) {
+      if ( !( WANTZ || LSAME( JOBZ, 'N' ) ) ) {
          INFO = -1
-      } else if ( .NOT.( ALLEIG || VALEIG || INDEIG ) ) {
+      } else if ( !( ALLEIG || VALEIG || INDEIG ) ) {
          INFO = -2
-      } else if ( .NOT.( LOWER || LSAME( UPLO, 'U' ) ) ) {
+      } else if ( !( LOWER || LSAME( UPLO, 'U' ) ) ) {
          INFO = -3
       } else if ( N < 0 ) {
          INFO = -4
@@ -89,7 +89,7 @@
          }
          WORK( 1 ) = LWKOPT
 
-         if (LWORK < LWKMIN && .NOT.LQUERY) INFO = -17;
+         if (LWORK < LWKMIN && !LQUERY) INFO = -17;
       }
 
       if ( INFO != 0 ) {
@@ -184,7 +184,7 @@
       if ( ( ALLEIG || TEST ) && ( ABSTOL <= ZERO ) ) {
          dcopy(N, WORK( INDD ), 1, W, 1 );
          INDEE = INDWRK + 2*N
-         if ( .NOT.WANTZ ) {
+         if ( !WANTZ ) {
             dcopy(N-1, WORK( INDE ), 1, WORK( INDEE ), 1 );
             dsterf(N, W, WORK( INDEE ), INFO );
          } else {

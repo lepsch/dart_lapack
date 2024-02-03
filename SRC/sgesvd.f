@@ -57,9 +57,9 @@
       WNTVN = LSAME( JOBVT, 'N' )
       LQUERY = ( LWORK == -1 )
 
-      if ( .NOT.( WNTUA || WNTUS || WNTUO || WNTUN ) ) {
+      if ( !( WNTUA || WNTUS || WNTUO || WNTUN ) ) {
          INFO = -1
-      } else if ( .NOT.( WNTVA || WNTVS || WNTVO || WNTVN ) || ( WNTVO && WNTUO ) ) {
+      } else if ( !( WNTVA || WNTVS || WNTVO || WNTVN ) || ( WNTVO && WNTUO ) ) {
          INFO = -2
       } else if ( M < 0 ) {
          INFO = -3
@@ -231,7 +231,7 @@
                   LWORK_SORGBR_Q = INT( DUM(1) )
                   MAXWRK = MAX( MAXWRK, 3*N+LWORK_SORGBR_Q )
                }
-               if ( .NOT.WNTVN ) {
+               if ( !WNTVN ) {
                  MAXWRK = MAX( MAXWRK, 3*N+LWORK_SORGBR_P )
                }
                MAXWRK = MAX( MAXWRK, BDSPAC )
@@ -386,7 +386,7 @@
                  LWORK_SORGBR_P = INT( DUM(1) )
                  MAXWRK = MAX( MAXWRK, 3*M+LWORK_SORGBR_P )
                }
-               if ( .NOT.WNTUN ) {
+               if ( !WNTUN ) {
                   MAXWRK = MAX( MAXWRK, 3*M+LWORK_SORGBR_Q )
                }
                MAXWRK = MAX( MAXWRK, BDSPAC )
@@ -396,7 +396,7 @@
          MAXWRK = MAX( MAXWRK, MINWRK )
          WORK( 1 ) = SROUNDUP_LWORK(MAXWRK)
 
-         if ( LWORK < MINWRK && .NOT.LQUERY ) {
+         if ( LWORK < MINWRK && !LQUERY ) {
             INFO = -13
          }
       }
@@ -1591,7 +1591,7 @@
             }
             IWORK = IE + N
             if (WNTUAS || WNTUO) NRU = M             IF( WNTUN ) NRU = 0             IF( WNTVAS || WNTVO ) NCVT = N             IF( WNTVN ) NCVT = 0;
-            if ( ( .NOT.WNTUO ) && ( .NOT.WNTVO ) ) {
+            if ( ( !WNTUO ) && ( !WNTVO ) ) {
 
                // Perform bidiagonal QR iteration, if desired, computing
                // left singular vectors in U and computing right singular
@@ -1599,7 +1599,7 @@
                // (Workspace: need BDSPAC)
 
                sbdsqr('U', N, NCVT, NRU, 0, S, WORK( IE ), VT, LDVT, U, LDU, DUM, 1, WORK( IWORK ), INFO );
-            } else if ( ( .NOT.WNTUO ) && WNTVO ) {
+            } else if ( ( !WNTUO ) && WNTVO ) {
 
                // Perform bidiagonal QR iteration, if desired, computing
                // left singular vectors in U and computing right singular
@@ -2778,7 +2778,7 @@
             }
             IWORK = IE + M
             if (WNTUAS || WNTUO) NRU = M             IF( WNTUN ) NRU = 0             IF( WNTVAS || WNTVO ) NCVT = N             IF( WNTVN ) NCVT = 0;
-            if ( ( .NOT.WNTUO ) && ( .NOT.WNTVO ) ) {
+            if ( ( !WNTUO ) && ( !WNTVO ) ) {
 
                // Perform bidiagonal QR iteration, if desired, computing
                // left singular vectors in U and computing right singular
@@ -2786,7 +2786,7 @@
                // (Workspace: need BDSPAC)
 
                sbdsqr('L', M, NCVT, NRU, 0, S, WORK( IE ), VT, LDVT, U, LDU, DUM, 1, WORK( IWORK ), INFO );
-            } else if ( ( .NOT.WNTUO ) && WNTVO ) {
+            } else if ( ( !WNTUO ) && WNTVO ) {
 
                // Perform bidiagonal QR iteration, if desired, computing
                // left singular vectors in U and computing right singular

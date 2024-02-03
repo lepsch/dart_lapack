@@ -49,7 +49,7 @@
 
       INFO = 0
       ONENRM = NORM == '1' || LSAME( NORM, 'O' )
-      if ( .NOT.ONENRM && .NOT.LSAME( NORM, 'I' ) ) {
+      if ( !ONENRM && !LSAME( NORM, 'I' ) ) {
          INFO = -1
       } else if ( N < 0 ) {
          INFO = -2

@@ -43,15 +43,15 @@
       LSIDE = LSAME( SIDE, 'L' )
       LOWER = LSAME( UPLO, 'L' )
       NOTRANS = LSAME( TRANS, 'N' )
-      if ( .NOT.NORMALTRANSR && .NOT.LSAME( TRANSR, 'T' ) ) {
+      if ( !NORMALTRANSR && !LSAME( TRANSR, 'T' ) ) {
          INFO = -1
-      } else if ( .NOT.LSIDE && .NOT.LSAME( SIDE, 'R' ) ) {
+      } else if ( !LSIDE && !LSAME( SIDE, 'R' ) ) {
          INFO = -2
-      } else if ( .NOT.LOWER && .NOT.LSAME( UPLO, 'U' ) ) {
+      } else if ( !LOWER && !LSAME( UPLO, 'U' ) ) {
          INFO = -3
-      } else if ( .NOT.NOTRANS && .NOT.LSAME( TRANS, 'T' ) ) {
+      } else if ( !NOTRANS && !LSAME( TRANS, 'T' ) ) {
          INFO = -4
-      } else if ( .NOT.LSAME( DIAG, 'N' ) && .NOT.LSAME( DIAG, 'U' ) ) {
+      } else if ( !LSAME( DIAG, 'N' ) && !LSAME( DIAG, 'U' ) ) {
          INFO = -5
       } else if ( M < 0 ) {
          INFO = -6
@@ -147,7 +147,7 @@
 
                   // SIDE  ='L', N is odd, TRANSR = 'N', and UPLO = 'U'
 
-                  if ( .NOT.NOTRANS ) {
+                  if ( !NOTRANS ) {
 
                      // SIDE  ='L', N is odd, TRANSR = 'N', UPLO = 'U', and
                      // TRANS = 'N'
@@ -209,7 +209,7 @@
 
                   // SIDE  ='L', N is odd, TRANSR = 'T', and UPLO = 'U'
 
-                  if ( .NOT.NOTRANS ) {
+                  if ( !NOTRANS ) {
 
                      // SIDE  ='L', N is odd, TRANSR = 'T', UPLO = 'U', and
                      // TRANS = 'N'
@@ -269,7 +269,7 @@
 
                   // SIDE  ='L', N is even, TRANSR = 'N', and UPLO = 'U'
 
-                  if ( .NOT.NOTRANS ) {
+                  if ( !NOTRANS ) {
 
                      // SIDE  ='L', N is even, TRANSR = 'N', UPLO = 'U',
                      // and TRANS = 'N'
@@ -322,7 +322,7 @@
 
                   // SIDE  ='L', N is even, TRANSR = 'T', and UPLO = 'U'
 
-                  if ( .NOT.NOTRANS ) {
+                  if ( !NOTRANS ) {
 
                      // SIDE  ='L', N is even, TRANSR = 'T', UPLO = 'U',
                      // and TRANS = 'N'

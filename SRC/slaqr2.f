@@ -140,7 +140,7 @@
 
          // ==== Small spike tip test for deflation ====
 
-         if ( .NOT.BULGE ) {
+         if ( !BULGE ) {
 
             // ==== Real eigenvalue ====
 

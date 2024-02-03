@@ -47,9 +47,9 @@
       INDEIG = LSAME( RANGE, 'I' )
 
       INFO = 0
-      if ( .NOT.( WANTZ || LSAME( JOBZ, 'N' ) ) ) {
+      if ( !( WANTZ || LSAME( JOBZ, 'N' ) ) ) {
          INFO = -1
-      } else if ( .NOT.( ALLEIG || VALEIG || INDEIG ) ) {
+      } else if ( !( ALLEIG || VALEIG || INDEIG ) ) {
          INFO = -2
       } else if ( N < 0 ) {
          INFO = -3
@@ -142,7 +142,7 @@
          scopy(N, D, 1, W, 1 );
          scopy(N-1, E( 1 ), 1, WORK( 1 ), 1 );
          INDWRK = N + 1
-         if ( .NOT.WANTZ ) {
+         if ( !WANTZ ) {
             ssterf(N, W, WORK, INFO );
          } else {
             ssteqr('I', N, W, WORK, Z, LDZ, WORK( INDWRK ), INFO );

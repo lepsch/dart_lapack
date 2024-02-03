@@ -35,9 +35,9 @@
       UPPER = LSAME( UPLO, 'U' )
 
       INFO = 0
-      if ( .NOT.( WANTZ || LSAME( JOBZ, 'N' ) ) ) {
+      if ( !( WANTZ || LSAME( JOBZ, 'N' ) ) ) {
          INFO = -1
-      } else if ( .NOT.( UPPER || LSAME( UPLO, 'L' ) ) ) {
+      } else if ( !( UPPER || LSAME( UPLO, 'L' ) ) ) {
          INFO = -2
       } else if ( N < 0 ) {
          INFO = -3
@@ -86,7 +86,7 @@
 
       // For eigenvalues only, call DSTERF.  For eigenvectors, call ZSTEQR.
 
-      if ( .NOT.WANTZ ) {
+      if ( !WANTZ ) {
          dsterf(N, W, RWORK( INDE ), INFO );
       } else {
          zsteqr(JOBZ, N, W, RWORK( INDE ), Z, LDZ, RWORK( INDWRK ), INFO );

@@ -88,7 +88,7 @@
 
             // Do the tests only if DOTYPE( IMAT ) is true.
 
-            IF( .NOT.DOTYPE( IMAT ) ) GO TO 100
+            IF( !DOTYPE( IMAT ) ) GO TO 100
 
             // Skip types 5, 6, or 7 if the matrix size is too small.
 

@@ -57,7 +57,7 @@
          }
          WORK( 1 ) = SROUNDUP_LWORK(LWKOPT)
 
-         if ( LWORK < MAX( 1, M ) && .NOT.LQUERY ) {
+         if ( LWORK < MAX( 1, M ) && !LQUERY ) {
             INFO = -8
          }
       }

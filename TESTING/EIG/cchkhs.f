@@ -121,7 +121,7 @@
          }
 
          for (JTYPE = 1; JTYPE <= MTYPES; JTYPE++) { // 250
-            IF( .NOT.DOTYPE( JTYPE ) ) GO TO 250
+            IF( !DOTYPE( JTYPE ) ) GO TO 250
             NMATS = NMATS + 1
             NTEST = 0
 
@@ -422,7 +422,7 @@
                }
             } // 170
             } // 180
-            if (.NOT.MATCH) WRITE( NOUNIT, FMT = 9997 )'Right', 'CTREVC', N, JTYPE, IOLDSD;
+            if ( !MATCH) WRITE( NOUNIT, FMT = 9997 )'Right', 'CTREVC', N, JTYPE, IOLDSD;
 
             // Compute the Left eigenvector Matrix:
 
@@ -467,7 +467,7 @@
                }
             } // 200
             } // 210
-            if (.NOT.MATCH) WRITE( NOUNIT, FMT = 9997 )'Left', 'CTREVC', N, JTYPE, IOLDSD;
+            if ( !MATCH) WRITE( NOUNIT, FMT = 9997 )'Left', 'CTREVC', N, JTYPE, IOLDSD;
 
             // Call CHSEIN for Right eigenvectors of H, do test 11
 

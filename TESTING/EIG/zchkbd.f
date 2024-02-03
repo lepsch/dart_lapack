@@ -140,7 +140,7 @@
          }
 
          for (JTYPE = 1; JTYPE <= MTYPES; JTYPE++) { // 170
-            IF( .NOT.DOTYPE( JTYPE ) ) GO TO 170
+            IF( !DOTYPE( JTYPE ) ) GO TO 170
 
             for (J = 1; J <= 4; J++) { // 20
                IOLDSD( J ) = ISEED( J )
@@ -290,7 +290,7 @@
 
             // Call ZGEBRD and ZUNGBR to compute B, Q, and P, do tests.
 
-            if ( .NOT.BIDIAG ) {
+            if ( !BIDIAG ) {
 
                // Compute transformations to reduce A to bidiagonal form:
                // B := Q' * A * P.
@@ -446,7 +446,7 @@
             // Use ZBDSQR to form the decomposition A := (QU) S (VT PT)
             // from the bidiagonal form A := Q B PT.
 
-            if ( .NOT.BIDIAG ) {
+            if ( !BIDIAG ) {
                dcopy(MNMIN, BD, 1, S2, 1 );
                if (MNMIN > 0) CALL DCOPY( MNMIN-1, BE, 1, RWORK, 1 );
 
@@ -472,7 +472,7 @@
                   NFAIL = NFAIL + 1
                }
             } // 160
-            if ( .NOT.BIDIAG ) {
+            if ( !BIDIAG ) {
                NTEST = NTEST + 14
             } else {
                NTEST = NTEST + 5

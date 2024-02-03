@@ -56,13 +56,13 @@
       WNTSNE = LSAME( SENSE, 'E' )
       WNTSNV = LSAME( SENSE, 'V' )
       WNTSNB = LSAME( SENSE, 'B' )
-      if ( .NOT.( LSAME( BALANC, 'N' ) || LSAME( BALANC, 'S' ) || LSAME( BALANC, 'P' ) || LSAME( BALANC, 'B' ) ) ) {
+      if ( !( LSAME( BALANC, 'N' ) || LSAME( BALANC, 'S' ) || LSAME( BALANC, 'P' ) || LSAME( BALANC, 'B' ) ) ) {
          INFO = -1
-      } else if ( ( .NOT.WANTVL ) && ( .NOT.LSAME( JOBVL, 'N' ) ) ) {
+      } else if ( ( !WANTVL ) && ( !LSAME( JOBVL, 'N' ) ) ) {
          INFO = -2
-      } else if ( ( .NOT.WANTVR ) && ( .NOT.LSAME( JOBVR, 'N' ) ) ) {
+      } else if ( ( !WANTVR ) && ( !LSAME( JOBVR, 'N' ) ) ) {
          INFO = -3
-      } else if ( .NOT.( WNTSNN || WNTSNE || WNTSNB || WNTSNV ) || ( ( WNTSNE || WNTSNB ) && .NOT.( WANTVL && WANTVR ) ) ) {
+      } else if ( !( WNTSNN || WNTSNE || WNTSNB || WNTSNV ) || ( ( WNTSNE || WNTSNB ) && !( WANTVL && WANTVR ) ) ) {
          INFO = -4
       } else if ( N < 0 ) {
          INFO = -5
@@ -111,23 +111,23 @@
             }
             HSWORK = INT( WORK(1) )
 
-            if ( ( .NOT.WANTVL ) && ( .NOT.WANTVR ) ) {
+            if ( ( !WANTVL ) && ( !WANTVR ) ) {
                MINWRK = 2*N
-               IF( .NOT.( WNTSNN || WNTSNE ) ) MINWRK = MAX( MINWRK, N*N + 2*N )
+               IF( !( WNTSNN || WNTSNE ) ) MINWRK = MAX( MINWRK, N*N + 2*N )
                MAXWRK = MAX( MAXWRK, HSWORK )
-               IF( .NOT.( WNTSNN || WNTSNE ) ) MAXWRK = MAX( MAXWRK, N*N + 2*N )
+               IF( !( WNTSNN || WNTSNE ) ) MAXWRK = MAX( MAXWRK, N*N + 2*N )
             } else {
                MINWRK = 2*N
-               IF( .NOT.( WNTSNN || WNTSNE ) ) MINWRK = MAX( MINWRK, N*N + 2*N )
+               IF( !( WNTSNN || WNTSNE ) ) MINWRK = MAX( MINWRK, N*N + 2*N )
                MAXWRK = MAX( MAXWRK, HSWORK )
-               MAXWRK = MAX( MAXWRK, N + ( N - 1 )*ILAENV( 1, 'ZUNGHR', ' ', N, 1, N, -1 ) )                IF( .NOT.( WNTSNN || WNTSNE ) ) MAXWRK = MAX( MAXWRK, N*N + 2*N )
+               MAXWRK = MAX( MAXWRK, N + ( N - 1 )*ILAENV( 1, 'ZUNGHR', ' ', N, 1, N, -1 ) )                IF( !( WNTSNN || WNTSNE ) ) MAXWRK = MAX( MAXWRK, N*N + 2*N )
                MAXWRK = MAX( MAXWRK, 2*N )
             }
             MAXWRK = MAX( MAXWRK, MINWRK )
          }
          WORK( 1 ) = MAXWRK
 
-         if ( LWORK < MINWRK && .NOT.LQUERY ) {
+         if ( LWORK < MINWRK && !LQUERY ) {
             INFO = -20
          }
       }
@@ -269,7 +269,7 @@
       // (CWorkspace: need N*N+2*N unless SENSE = 'E')
       // (RWorkspace: need 2*N unless SENSE = 'E')
 
-      if ( .NOT.WNTSNN ) {
+      if ( !WNTSNN ) {
          ztrsna(SENSE, 'A', SELECT, N, A, LDA, VL, LDVL, VR, LDVR, RCONDE, RCONDV, N, NOUT, WORK( IWRK ), N, RWORK, ICOND );
       }
 

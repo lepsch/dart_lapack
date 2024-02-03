@@ -158,7 +158,7 @@
 
                      // Do the tests only if DOTYPE( IMAT ) is true.
 
-                     IF( .NOT.DOTYPE( IMAT ) ) GO TO 120
+                     IF( !DOTYPE( IMAT ) ) GO TO 120
 
                      // Skip types 2, 3, or 4 if the matrix size is too
                      // small.
@@ -166,7 +166,7 @@
                      ZEROT = IMAT >= 2 && IMAT <= 4
                      if (ZEROT && N < IMAT-1) GO TO 120;
 
-                     if ( .NOT.ZEROT || .NOT.DOTYPE( 1 ) ) {
+                     if ( !ZEROT || !DOTYPE( 1 ) ) {
 
                         // Set up parameters with SLATB4 and generate a
                         // test matrix with SLATMS.

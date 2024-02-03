@@ -78,17 +78,17 @@
       }
       LQUERY = (LIWORK == -1 || LWORK == -1 || LRWORK == -1)
       INFO  = 0
-      if ( .NOT. ( ACCLA || ACCLM || ACCLH ) ) {
+      if ( !( ACCLA || ACCLM || ACCLH ) ) {
          INFO = -1
-      } else if ( .NOT.( ROWPRM || LSAME( JOBP, 'N' ) ) ) {
+      } else if ( !( ROWPRM || LSAME( JOBP, 'N' ) ) ) {
           INFO = -2
-      } else if ( .NOT.( RTRANS || LSAME( JOBR, 'N' ) ) ) {
+      } else if ( !( RTRANS || LSAME( JOBR, 'N' ) ) ) {
           INFO = -3
-      } else if ( .NOT.( LSVEC || DNTWU ) ) {
+      } else if ( !( LSVEC || DNTWU ) ) {
          INFO = -4
       } else if ( WNTUR && WNTVA ) {
          INFO = -5
-      } else if ( .NOT.( RSVEC || DNTWV )) {
+      } else if ( !( RSVEC || DNTWV )) {
          INFO = -5
       } else if ( M < 0 ) {
          INFO = -6
@@ -100,7 +100,7 @@
          INFO = -12
       } else if ( LDV < 1 || ( RSVEC && LDV < N ) || ( CONDA && LDV < N ) ) {
          INFO = -14
-      } else if ( LIWORK < IMINWRK && .NOT. LQUERY ) {
+      } else if ( LIWORK < IMINWRK && !LQUERY ) {
          INFO = -17
       }
 
@@ -139,7 +139,7 @@
          }
          MINWRK = 2
          OPTWRK = 2
-         if ( .NOT. (LSVEC || RSVEC )) {
+         if ( !(LSVEC || RSVEC )) {
              // .. minimal and optimal sizes of the workspace if
              // only the singular values are requested
              if ( CONDA ) {
@@ -156,7 +156,7 @@
                     OPTWRK = MAX( N+LWRK_SGEQP3, LWRK_SGESVD )
                  }
              }
-         } else if ( LSVEC && (.NOT.RSVEC) ) {
+         } else if ( LSVEC && ( !RSVEC) ) {
              // .. minimal and optimal sizes of the workspace if the
              // singular values and the left singular vectors are requested
              if ( CONDA ) {
@@ -177,7 +177,7 @@
                     OPTWRK = N + MAX( LWRK_SGEQP3, LWRK_SGESVD, LWRK_SORMQR )
                 }
              }
-         } else if ( RSVEC && (.NOT.LSVEC) ) {
+         } else if ( RSVEC && ( !LSVEC) ) {
              // .. minimal and optimal sizes of the workspace if the
              // singular values and the right singular vectors are requested
              if ( CONDA ) {
@@ -274,11 +274,11 @@
 
          MINWRK = MAX( 2, MINWRK )
          OPTWRK = MAX( 2, OPTWRK )
-         IF ( LWORK < MINWRK && (.NOT.LQUERY) ) INFO = -19
+         IF ( LWORK < MINWRK && ( !LQUERY) ) INFO = -19
 
       }
 
-      if (INFO == 0 && LRWORK < RMINWRK && .NOT. LQUERY) {
+      if (INFO == 0 && LRWORK < RMINWRK && !LQUERY) {
          INFO = -21
       }
       if ( INFO != 0 ) {
@@ -369,7 +369,7 @@
 *    have its own scaling to save the singular values from overflows and
 *    underflows. That depends on the SVD procedure.
 
-      if ( .NOT.ROWPRM ) {
+      if ( !ROWPRM ) {
           RTMP = SLANGE( 'M', M, N, A, LDA, RDUMMY )
           if ( ( RTMP != RTMP ) || ( (RTMP*ZERO) != ZERO ) ) {
                INFO = -8
@@ -458,7 +458,7 @@
                   RTMP = SNRM2( p, V(1,p), 1 )
                   sscal(p, ONE/RTMP, V(1,p), 1 );
                } // 3053
-               if ( .NOT. ( LSVEC || RSVEC ) ) {
+               if ( !( LSVEC || RSVEC ) ) {
                    spocon('U', NR, V, LDV, ONE, RTMP, WORK, IWORK(N+IWOFF), IERR );
                } else {
                    spocon('U', NR, V, LDV, ONE, RTMP, WORK(N+1), IWORK(N+IWOFF), IERR );
@@ -479,7 +479,7 @@
           N1 = M
       }
 
-      if ( .NOT. ( RSVEC || LSVEC ) ) {
+      if ( !( RSVEC || LSVEC ) ) {
 *.......................................................................
          // .. only the singular values are requested
 *.......................................................................
@@ -506,7 +506,7 @@
 
          }
 
-      } else if ( LSVEC && ( .NOT. RSVEC) ) {
+      } else if ( LSVEC && ( !RSVEC) ) {
 *.......................................................................
         // .. the singular values and the left singular vectors requested
 *.......................................................................""""""""
@@ -548,7 +548,7 @@
 
             // .. assemble the left singular vector matrix U of dimensions
                // (M x NR) or (M x N) or (M x M).
-         if ( ( NR < M ) && ( .NOT.WNTUF ) ) {
+         if ( ( NR < M ) && ( !WNTUF ) ) {
              slaset('A', M-NR, NR, ZERO, ZERO, U(NR+1,1), LDU);
              if ( NR < N1 ) {
                 slaset('A',NR,N1-NR,ZERO,ZERO,U(1,NR+1), LDU );
@@ -559,10 +559,10 @@
             // The Q matrix from the first QRF is built into the left singular
             // vectors matrix U.
 
-         if (.NOT.WNTUF) CALL SORMQR( 'L', 'N', M, N1, N, A, LDA, WORK, U, LDU, WORK(N+1), LWORK-N, IERR );
-         if (ROWPRM && .NOT.WNTUF) CALL SLASWP( N1, U, LDU, 1, M-1, IWORK(N+1), -1 );
+         if ( !WNTUF) CALL SORMQR( 'L', 'N', M, N1, N, A, LDA, WORK, U, LDU, WORK(N+1), LWORK-N, IERR );
+         if (ROWPRM && !WNTUF) CALL SLASWP( N1, U, LDU, 1, M-1, IWORK(N+1), -1 );
 
-      } else if ( RSVEC && ( .NOT. LSVEC ) ) {
+      } else if ( RSVEC && ( !LSVEC ) ) {
 *.......................................................................
         // .. the singular values and the right singular vectors requested
 *.......................................................................
@@ -686,7 +686,7 @@
                    } // 1118
                 } // 1117
 
-                if ( ( NR < M ) && .NOT.(WNTUF)) {
+                if ( ( NR < M ) && !(WNTUF)) {
                   slaset('A', M-NR,NR, ZERO,ZERO, U(NR+1,1), LDU);
                   if ( NR < N1 ) {
                      slaset('A',NR,N1-NR,ZERO,ZERO,U(1,NR+1),LDU);
@@ -734,7 +734,7 @@
                       } // 1112
                    } // 1111
 
-                   if ( ( N < M ) && .NOT.(WNTUF)) {
+                   if ( ( N < M ) && !(WNTUF)) {
                       slaset('A',M-N,N,ZERO,ZERO,U(N+1,1),LDU);
                       if ( N < N1 ) {
                         slaset('A',N,N1-N,ZERO,ZERO,U(1,N+1),LDU);
@@ -765,7 +765,7 @@
                   slapmt( false , N, N, V, LDV, IWORK );
                   // .. assemble the left singular vector matrix U of dimensions
                   // (M x NR) or (M x N) or (M x M).
-                  if ( ( NR < M ) && .NOT.(WNTUF)) {
+                  if ( ( NR < M ) && !(WNTUF)) {
                      slaset('A',M-NR,NR,ZERO,ZERO,U(NR+1,1),LDU);
                      if ( NR < N1 ) {
                      slaset('A',NR,N1-NR,ZERO,ZERO,U(1,NR+1),LDU);
@@ -790,7 +790,7 @@
                 // .. now [V](1:NR,1:N) contains V(1:N,1:NR)**T
                 // .. assemble the left singular vector matrix U of dimensions
                // (M x NR) or (M x N) or (M x M).
-               if ( ( NR < M ) && .NOT.(WNTUF)) {
+               if ( ( NR < M ) && !(WNTUF)) {
                   slaset('A', M-NR,NR, ZERO,ZERO, U(NR+1,1), LDU);
                   if ( NR < N1 ) {
                      slaset('A',NR,N1-NR,ZERO,ZERO,U(1,NR+1),LDU);
@@ -821,7 +821,7 @@
                   // are in [U](1:N,1:N)
                   // .. assemble the left singular vector matrix U of dimensions
                   // (M x N1), i.e. (M x N) or (M x M).
-                  if ( ( N < M ) && .NOT.(WNTUF)) {
+                  if ( ( N < M ) && !(WNTUF)) {
                       slaset('A',M-N,N,ZERO,ZERO,U(N+1,1),LDU);
                       if ( N < N1 ) {
                         slaset('A',N,N1-N,ZERO,ZERO,U(1,N+1),LDU);
@@ -842,7 +842,7 @@
                   slapmt( false , N, N, V, LDV, IWORK );
                 // .. assemble the left singular vector matrix U of dimensions
                // (M x NR) or (M x N) or (M x M).
-                  if ( ( NR < M ) && .NOT.(WNTUF)) {
+                  if ( ( NR < M ) && !(WNTUF)) {
                      slaset('A',M-NR,NR,ZERO,ZERO,U(NR+1,1),LDU);
                      if ( NR < N1 ) {
                      slaset('A',NR,N1-NR,ZERO,ZERO,U(1,NR+1),LDU);
@@ -857,8 +857,8 @@
             // The Q matrix from the first QRF is built into the left singular
             // vectors matrix U.
 
-         if (.NOT. WNTUF) CALL SORMQR( 'L', 'N', M, N1, N, A, LDA, WORK, U, LDU, WORK(N+1), LWORK-N, IERR );
-         if (ROWPRM && .NOT.WNTUF) CALL SLASWP( N1, U, LDU, 1, M-1, IWORK(N+1), -1 );
+         if ( !WNTUF) CALL SORMQR( 'L', 'N', M, N1, N, A, LDA, WORK, U, LDU, WORK(N+1), LWORK-N, IERR );
+         if (ROWPRM && !WNTUF) CALL SLASWP( N1, U, LDU, 1, M-1, IWORK(N+1), -1 );
 
       // ... end of the "full SVD" branch
       }

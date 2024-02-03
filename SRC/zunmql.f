@@ -51,9 +51,9 @@
          NQ = N
          NW = MAX( 1, M )
       }
-      if ( .NOT.LEFT && .NOT.LSAME( SIDE, 'R' ) ) {
+      if ( !LEFT && !LSAME( SIDE, 'R' ) ) {
          INFO = -1
-      } else if ( .NOT.NOTRAN && .NOT.LSAME( TRANS, 'C' ) ) {
+      } else if ( !NOTRAN && !LSAME( TRANS, 'C' ) ) {
          INFO = -2
       } else if ( M < 0 ) {
          INFO = -3
@@ -65,7 +65,7 @@
          INFO = -7
       } else if ( LDC < MAX( 1, M ) ) {
          INFO = -10
-      } else if ( LWORK < NW && .NOT.LQUERY ) {
+      } else if ( LWORK < NW && !LQUERY ) {
          INFO = -12
       }
 
@@ -114,7 +114,7 @@
          // Use blocked code
 
          IWT = 1 + NW*NB
-         if ( ( LEFT && NOTRAN ) || ( .NOT.LEFT && .NOT.NOTRAN ) ) {
+         if ( ( LEFT && NOTRAN ) || ( !LEFT && !NOTRAN ) ) {
             I1 = 1
             I2 = K
             I3 = NB

@@ -114,7 +114,7 @@
          }
          WORK( 1 ) = DCMPLX( LWKOPT )
 
-         if ( ( LWORK < IWS ) && .NOT.LQUERY ) {
+         if ( ( LWORK < IWS ) && !LQUERY ) {
             INFO = -15
          }
       }

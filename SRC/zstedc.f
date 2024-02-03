@@ -89,11 +89,11 @@
          RWORK( 1 ) = LRWMIN
          IWORK( 1 ) = LIWMIN
 
-         if ( LWORK < LWMIN && .NOT.LQUERY ) {
+         if ( LWORK < LWMIN && !LQUERY ) {
             INFO = -8
-         } else if ( LRWORK < LRWMIN && .NOT.LQUERY ) {
+         } else if ( LRWORK < LRWMIN && !LQUERY ) {
             INFO = -10
-         } else if ( LIWORK < LIWMIN && .NOT.LQUERY ) {
+         } else if ( LIWORK < LIWMIN && !LQUERY ) {
             INFO = -12
          }
       }

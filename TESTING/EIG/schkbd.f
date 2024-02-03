@@ -138,7 +138,7 @@
          }
 
          for (JTYPE = 1; JTYPE <= MTYPES; JTYPE++) { // 290
-            IF( .NOT.DOTYPE( JTYPE ) ) GO TO 290
+            IF( !DOTYPE( JTYPE ) ) GO TO 290
 
             for (J = 1; J <= 4; J++) { // 20
                IOLDSD( J ) = ISEED( J )
@@ -288,7 +288,7 @@
 
             // Call SGEBRD and SORGBR to compute B, Q, and P, do tests.
 
-            if ( .NOT.BIDIAG ) {
+            if ( !BIDIAG ) {
 
                // Compute transformations to reduce A to bidiagonal form:
                // B := Q' * A * P.
@@ -444,7 +444,7 @@
             // Use SBDSQR to form the decomposition A := (QU) S (VT PT)
             // from the bidiagonal form A := Q B PT.
 
-            if ( .NOT.BIDIAG ) {
+            if ( !BIDIAG ) {
                scopy(MNMIN, BD, 1, S2, 1 );
                if (MNMIN > 0) CALL SCOPY( MNMIN-1, BE, 1, WORK, 1 );
 
@@ -841,7 +841,7 @@
                   NFAIL = NFAIL + 1
                }
             } // 280
-            if ( .NOT.BIDIAG ) {
+            if ( !BIDIAG ) {
                NTEST = NTEST + 34
             } else {
                NTEST = NTEST + 30

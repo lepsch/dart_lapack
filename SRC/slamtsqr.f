@@ -53,9 +53,9 @@
         LWMIN = MAX( 1, LW )
       }
 
-      if ( .NOT.LEFT && .NOT.RIGHT ) {
+      if ( !LEFT && !RIGHT ) {
         INFO = -1
-      } else if ( .NOT.TRAN && .NOT.NOTRAN ) {
+      } else if ( !TRAN && !NOTRAN ) {
         INFO = -2
       } else if ( M < K ) {
         INFO = -3
@@ -71,7 +71,7 @@
         INFO = -11
       } else if ( LDC < MAX( 1, M ) ) {
         INFO = -13
-      } else if ( LWORK < LWMIN. AND. (.NOT.LQUERY) ) {
+      } else if ( LWORK < LWMIN. AND. ( !LQUERY) ) {
         INFO = -15
       }
 

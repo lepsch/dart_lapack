@@ -56,7 +56,7 @@
          // This workspace is used to store array C(LDC, N) and WORK(LWORK)
          // in the call to SLAMTSQR. See the documentation for SLAMTSQR.
 
-         if ( LWORK < 2 && (.NOT.LQUERY) ) {
+         if ( LWORK < 2 && ( !LQUERY) ) {
             INFO = -10
          } else {
 
@@ -74,7 +74,7 @@
 
             LWORKOPT = LC+LW
 
-            if ( ( LWORK < MAX( 1, LWORKOPT ) ) && (.NOT.LQUERY) ) {
+            if ( ( LWORK < MAX( 1, LWORKOPT ) ) && ( !LQUERY) ) {
                INFO = -10
             }
          }

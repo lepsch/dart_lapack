@@ -237,7 +237,7 @@ void main() {
 
       // Read the values of M
 
-      if ( .NOT.( DGX || DXV ) ) {
+      if ( !( DGX || DXV ) ) {
          READ( NIN, FMT = * )( MVAL( I ), I = 1, NN )
          if ( SVD ) {
             VNAME = '    M '
@@ -290,7 +290,7 @@ void main() {
             NVAL( I ) = MVAL( I )
          } // 50
       }
-      if ( .NOT.( DGX || DXV ) ) {
+      if ( !( DGX || DXV ) ) {
          WRITE( NOUT, FMT = 9983 )'N:    ', ( NVAL( I ), I = 1, NN )
       } else {
          WRITE( NOUT, FMT = 9983 )'N:    ', NN
@@ -394,7 +394,7 @@ void main() {
          WRITE( NOUT, FMT = 9983 )'NS:   ', NSVAL( 1 )
          WRITE( NOUT, FMT = 9983 )'MAXB: ', MXBVAL( 1 )
 
-      } else if ( .NOT.DSB && .NOT.GLM && .NOT.GQR && .NOT. GSV && .NOT.CSD && .NOT.LSE ) {
+      } else if ( !DSB && !GLM && !GQR && !GSV && !CSD && !LSE ) {
 
          // For the other paths, the number of parameters can be varied
          // from the input file.  Read the number of parameter values.
@@ -412,7 +412,7 @@ void main() {
 
          // Read the values of NB
 
-         if ( .NOT.DBB ) {
+         if ( !DBB ) {
             READ( NIN, FMT = * )( NBVAL( I ), I = 1, NPARMS )
             for (I = 1; I <= NPARMS; I++) { // 70
                if ( NBVAL( I ) < 0 ) {
@@ -666,7 +666,7 @@ void main() {
 
       } // 190
 
-      if ( .NOT.( DGX || DXV ) ) {
+      if ( !( DGX || DXV ) ) {
 
          } // 200
          READ( NIN, FMT = '(A80)', END = 380 )LINE
@@ -712,7 +712,7 @@ void main() {
 
       // Skip the tests if NTYPES is <= 0.
 
-         if ( .NOT.( DEV || DES || DVX || DSX || DGV || DGS ) && NTYPES <= 0 ) {
+         if ( !( DEV || DES || DVX || DSX || DGV || DGS ) && NTYPES <= 0 ) {
             WRITE( NOUT, FMT = 9990 )C3
             GO TO 200
          }
@@ -1207,7 +1207,7 @@ void main() {
          WRITE( NOUT, FMT = * )
          WRITE( NOUT, FMT = 9992 )C3
       }
-      IF( .NOT.( DGX || DXV ) ) GO TO 190
+      IF( !( DGX || DXV ) ) GO TO 190
       } // 380
       WRITE( NOUT, FMT = 9994 )
       S2 = DSECND( )

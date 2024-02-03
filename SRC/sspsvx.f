@@ -41,9 +41,9 @@
 
       INFO = 0
       NOFACT = LSAME( FACT, 'N' )
-      if ( .NOT.NOFACT && .NOT.LSAME( FACT, 'F' ) ) {
+      if ( !NOFACT && !LSAME( FACT, 'F' ) ) {
          INFO = -1
-      } else if ( .NOT.LSAME( UPLO, 'U' ) && .NOT.LSAME( UPLO, 'L' ) ) {
+      } else if ( !LSAME( UPLO, 'U' ) && !LSAME( UPLO, 'L' ) ) {
          INFO = -2
       } else if ( N < 0 ) {
          INFO = -3

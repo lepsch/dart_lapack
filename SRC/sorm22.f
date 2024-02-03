@@ -54,9 +54,9 @@
       }
       NW = NQ
       if (N1 == 0 || N2 == 0) NW = 1;
-      if ( .NOT.LEFT && .NOT.LSAME( SIDE, 'R' ) ) {
+      if ( !LEFT && !LSAME( SIDE, 'R' ) ) {
          INFO = -1
-      } else if ( .NOT.LSAME( TRANS, 'N' ) && .NOT.LSAME( TRANS, 'T' ) ) {
+      } else if ( !LSAME( TRANS, 'N' ) && !LSAME( TRANS, 'T' ) ) {
          INFO = -2
       } else if ( M < 0 ) {
          INFO = -3
@@ -70,7 +70,7 @@
          INFO = -8
       } else if ( LDC < MAX( 1, M ) ) {
          INFO = -10
-      } else if ( LWORK < NW && .NOT.LQUERY ) {
+      } else if ( LWORK < NW && !LQUERY ) {
          INFO = -12
       }
 

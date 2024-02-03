@@ -138,7 +138,7 @@
          }
 
          for (JTYPE = 1; JTYPE <= MTYPES; JTYPE++) { // 230
-            IF( .NOT.DOTYPE( JTYPE ) ) GO TO 230
+            IF( !DOTYPE( JTYPE ) ) GO TO 230
 
             for (J = 1; J <= 4; J++) { // 20
                IOLDSD( J ) = ISEED( J )

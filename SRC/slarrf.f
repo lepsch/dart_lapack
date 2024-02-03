@@ -131,7 +131,7 @@
          MAX1 = MAX( MAX1,ABS(DPLUS(I+1)) )
       } // 6
       SAWNAN1 = SAWNAN1 || SISNAN( MAX1 )
-       if ( FORCER || (MAX1 <= GROWTHBOUND && .NOT.SAWNAN1 ) ) {
+       if ( FORCER || (MAX1 <= GROWTHBOUND && !SAWNAN1 ) ) {
          SIGMA = LSIGMA
          SHIFT = SLEFT
          GOTO 100
@@ -160,7 +160,7 @@
          MAX2 = MAX( MAX2,ABS(WORK(I+1)) )
       } // 7
       SAWNAN2 = SAWNAN2 || SISNAN( MAX2 )
-       if ( FORCER || (MAX2 <= GROWTHBOUND && .NOT.SAWNAN2 ) ) {
+       if ( FORCER || (MAX2 <= GROWTHBOUND && !SAWNAN2 ) ) {
          SIGMA = RSIGMA
          SHIFT = SRIGHT
          GOTO 100
@@ -172,14 +172,14 @@
          // both MAX1 and MAX2 are NaN
          GOTO 50
       } else {
-         if ( .NOT.SAWNAN1 ) {
+         if ( !SAWNAN1 ) {
             INDX = 1
             if (MAX1 <= SMLGROWTH) {
                SMLGROWTH = MAX1
                BESTSHIFT = LSIGMA
             }
          }
-         if ( .NOT.SAWNAN2 ) {
+         if ( !SAWNAN2 ) {
             if (SAWNAN1 || MAX2 <= MAX1) INDX = 2;
             if (MAX2 <= SMLGROWTH) {
                SMLGROWTH = MAX2
@@ -193,7 +193,7 @@
       // we may still accept the representation, if it passes a
       // refined test for RRR. This test supposes that no NaN occurred.
       // Moreover, we use the refined RRR test only for isolated clusters.
-      if ((CLWDTH < MINGAP/REAL(128)) && (MIN(MAX1,MAX2) < FAIL2) && (.NOT.SAWNAN1) && (.NOT.SAWNAN2)) {
+      if ((CLWDTH < MINGAP/REAL(128)) && (MIN(MAX1,MAX2) < FAIL2) && ( !SAWNAN1) && ( !SAWNAN2)) {
          DORRR1 = true;
       } else {
          DORRR1 = false;

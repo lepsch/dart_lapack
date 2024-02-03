@@ -47,9 +47,9 @@
       LQUERY = ( LWORK == -1 )
 
       INFO = 0
-      if ( .NOT.( WANTZ || LSAME( JOBZ, 'N' ) ) ) {
+      if ( !( WANTZ || LSAME( JOBZ, 'N' ) ) ) {
          INFO = -1
-      } else if ( .NOT.( LOWER || LSAME( UPLO, 'U' ) ) ) {
+      } else if ( !( LOWER || LSAME( UPLO, 'U' ) ) ) {
          INFO = -2
       } else if ( N < 0 ) {
          INFO = -3
@@ -62,7 +62,7 @@
          LWKOPT = MAX( 1, ( NB+1 )*N )
          WORK( 1 ) = SROUNDUP_LWORK(LWKOPT)
 
-         IF( LWORK < MAX( 1, 2*N-1 ) && .NOT.LQUERY ) INFO = -8
+         IF( LWORK < MAX( 1, 2*N-1 ) && !LQUERY ) INFO = -8
       }
 
       if ( INFO != 0 ) {
@@ -118,7 +118,7 @@
       // For eigenvalues only, call SSTERF.  For eigenvectors, first call
       // CUNGTR to generate the unitary matrix, then call CSTEQR.
 
-      if ( .NOT.WANTZ ) {
+      if ( !WANTZ ) {
          ssterf(N, W, RWORK( INDE ), INFO );
       } else {
          cungtr(UPLO, N, A, LDA, WORK( INDTAU ), WORK( INDWRK ), LLWORK, IINFO );

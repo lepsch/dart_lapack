@@ -61,7 +61,7 @@
          // c) Matrix T and array WORK for SORGTSQR_ROW;
          // d) Diagonal D for SORHR_COL.
 
-         if ( LWORK < N*N+1 && .NOT.LQUERY ) {
+         if ( LWORK < N*N+1 && !LQUERY ) {
             INFO = -11
          } else {
 
@@ -89,7 +89,7 @@
             LWORKOPT = MAX( LWT + LW1, MAX( LWT+N*N+LW2, LWT+N*N+N ) )
             LWORKOPT = MAX( 1, LWORKOPT )
 
-            if ( LWORK < LWORKOPT && .NOT.LQUERY ) {
+            if ( LWORK < LWORKOPT && !LQUERY ) {
                INFO = -11
             }
 

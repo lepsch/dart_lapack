@@ -132,9 +132,9 @@
 
       // Initialize USEDQD, DQDS should be used for ALLRNG unless someone
       // explicitly wants bisection.
-      USEDQD = (( IRANGE == ALLRNG ) && (.NOT.FORCEB))
+      USEDQD = (( IRANGE == ALLRNG ) && ( !FORCEB))
 
-      if ( (IRANGE == ALLRNG) && (.NOT. FORCEB) ) {
+      if ( (IRANGE == ALLRNG) && ( !FORCEB) ) {
          // Set interval [VL,VU] that contains all eigenvalues
          VL = GL
          VU = GU
@@ -201,7 +201,7 @@
          } // 15
          SPDIAM = GU - GL
 
-         if (.NOT. ((IRANGE == ALLRNG) && (.NOT.FORCEB)) ) {
+         if ( !((IRANGE == ALLRNG) && ( !FORCEB)) ) {
             // Count the number of eigenvalues in the current block.
             MB = 0
             for (I = WBEGIN; I <= MM; I++) { // 20
@@ -222,7 +222,7 @@
             } else {
 
                // Decide whether dqds or bisection is more efficient
-               USEDQD = ( (MB > FAC*IN) && (.NOT.FORCEB) )
+               USEDQD = ( (MB > FAC*IN) && ( !FORCEB) )
                WEND = WBEGIN + MB - 1
                // Calculate gaps for the current block
                // In later stages, when representations for individual
@@ -237,7 +237,7 @@
                INDU = INDEXW( WEND )
             }
          }
-         if (( (IRANGE == ALLRNG) && (.NOT. FORCEB) ) || USEDQD) {
+         if (( (IRANGE == ALLRNG) && ( !FORCEB) ) || USEDQD) {
             // Case of DQDS
             // Find approximations to the extremal eigenvalues of the block
             dlarrk(IN, 1, GL, GU, D(IBEGIN), E2(IBEGIN), PIVMIN, RTL, TMP, TMP1, IINFO );
@@ -269,7 +269,7 @@
          // the eigenvalue approximations at the end of DLARRE or bisection.
          // dqds is chosen if all eigenvalues are desired or the number of
          // eigenvalues to be computed is large compared to the blocksize.
-         if ( ( IRANGE == ALLRNG ) && (.NOT.FORCEB) ) {
+         if ( ( IRANGE == ALLRNG ) && ( !FORCEB) ) {
             // If all the eigenvalues have to be computed, we use dqd
             USEDQD = true;
             // INDL is the local index of the first eigenvalue to compute
@@ -304,7 +304,7 @@
             SIGMA = GL
             SGNDEF = ONE
          } else if ( CNT1 - INDL >= INDU - CNT2 ) {
-            if ( ( IRANGE == ALLRNG ) && (.NOT.FORCEB) ) {
+            if ( ( IRANGE == ALLRNG ) && ( !FORCEB) ) {
                SIGMA = MAX(ISLEFT,GL)
             } else if ( USEDQD ) {
                // use Gerschgorin bound as shift to get pos def matrix
@@ -317,7 +317,7 @@
             }
             SGNDEF = ONE
          } else {
-            if ( ( IRANGE == ALLRNG ) && (.NOT.FORCEB) ) {
+            if ( ( IRANGE == ALLRNG ) && ( !FORCEB) ) {
                SIGMA = MIN(ISRGHT,GU)
             } else if ( USEDQD ) {
                // use Gerschgorin bound as shift to get neg def matrix
@@ -381,7 +381,7 @@
             } else {
                NOREP = false;
             }
-            if ( USEDQD && .NOT.NOREP ) {
+            if ( USEDQD && !NOREP ) {
                // Ensure the definiteness of the representation
                // All entries of D (of L D L^T) must have the same sign
                for (I = 1; I <= IN; I++) { // 71
@@ -449,7 +449,7 @@
          // intervals.
 
          // Compute the required eigenvalues of L D L' by bisection or dqds
-         if ( .NOT.USEDQD ) {
+         if ( !USEDQD ) {
             // If DLARRD has been used, shift the eigenvalue approximations
             // according to their representation. This is necessary for
             // a uniform DLARRV since dqds computes eigenvalues of the

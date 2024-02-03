@@ -73,9 +73,9 @@
       }
 
       INFO = 0
-      if ( .NOT.WANTS && .NOT.WANTSP ) {
+      if ( !WANTS && !WANTSP ) {
          INFO = -1
-      } else if ( .NOT.LSAME( HOWMNY, 'A' ) && .NOT.SOMCON ) {
+      } else if ( !LSAME( HOWMNY, 'A' ) && !SOMCON ) {
          INFO = -2
       } else if ( N < 0 ) {
          INFO = -4
@@ -101,7 +101,7 @@
 
       if ( N == 1 ) {
          if ( SOMCON ) {
-            IF( .NOT.SELECT( 1 ) ) RETURN
+            IF( !SELECT( 1 ) ) RETURN
          }
          if (WANTS) S( 1 ) = ONE          IF( WANTSP ) SEP( 1 ) = ABS( T( 1, 1 ) );
          RETURN
@@ -117,7 +117,7 @@
       for (K = 1; K <= N; K++) { // 50
 
          if ( SOMCON ) {
-            IF( .NOT.SELECT( K ) ) GO TO 50
+            IF( !SELECT( K ) ) GO TO 50
          }
 
          if ( WANTS ) {

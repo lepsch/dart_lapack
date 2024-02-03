@@ -226,7 +226,7 @@
                               RESULT( 5 ) = ULPINV
                            }
                         }
-                        if ( .NOT.ILABAD ) {
+                        if ( !ILABAD ) {
                            sget53(AI( I1, I1 ), LDA, BI( I1, I1 ), LDA, BETA( J ), ALPHAR( J ), ALPHAI( J ), TEMP2, IINFO );
                            if ( IINFO >= 3 ) {
                               WRITE( NOUT, FMT = 9997 )IINFO, J, MPLUSN, PRTYPE
@@ -415,7 +415,7 @@
                   RESULT( 5 ) = ULPINV
                }
             }
-            if ( .NOT.ILABAD ) {
+            if ( !ILABAD ) {
                sget53(AI( I1, I1 ), LDA, BI( I1, I1 ), LDA, BETA( J ), ALPHAR( J ), ALPHAI( J ), TEMP2, IINFO );
                if ( IINFO >= 3 ) {
                   WRITE( NOUT, FMT = 9997 )IINFO, J, MPLUSN, NPTKNT

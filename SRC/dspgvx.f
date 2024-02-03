@@ -44,11 +44,11 @@
       INFO = 0
       if ( ITYPE < 1 || ITYPE > 3 ) {
          INFO = -1
-      } else if ( .NOT.( WANTZ || LSAME( JOBZ, 'N' ) ) ) {
+      } else if ( !( WANTZ || LSAME( JOBZ, 'N' ) ) ) {
          INFO = -2
-      } else if ( .NOT.( ALLEIG || VALEIG || INDEIG ) ) {
+      } else if ( !( ALLEIG || VALEIG || INDEIG ) ) {
          INFO = -3
-      } else if ( .NOT.( UPPER || LSAME( UPLO, 'L' ) ) ) {
+      } else if ( !( UPPER || LSAME( UPLO, 'L' ) ) ) {
          INFO = -4
       } else if ( N < 0 ) {
          INFO = -5

@@ -42,9 +42,9 @@
       WANTZ = LSAME( JOBZ, 'V' )
 
       INFO = 0
-      if ( .NOT.( WANTZ || LSAME( JOBZ, 'N' ) ) ) {
+      if ( !( WANTZ || LSAME( JOBZ, 'N' ) ) ) {
          INFO = -1
-      } else if ( .NOT.( LSAME( UPLO, 'L' ) || LSAME( UPLO, 'U' ) ) ) {
+      } else if ( !( LSAME( UPLO, 'L' ) || LSAME( UPLO, 'U' ) ) ) {
          INFO = -2
       } else if ( N < 0 ) {
          INFO = -3
@@ -101,7 +101,7 @@
       // For eigenvalues only, call DSTERF.  For eigenvectors, first call
       // ZUPGTR to generate the orthogonal matrix, then call ZSTEQR.
 
-      if ( .NOT.WANTZ ) {
+      if ( !WANTZ ) {
          dsterf(N, W, RWORK( INDE ), INFO );
       } else {
          INDWRK = INDTAU + N

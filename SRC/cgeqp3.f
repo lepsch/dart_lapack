@@ -61,7 +61,7 @@
          }
          WORK( 1 ) = CMPLX( LWKOPT )
 
-         if ( ( LWORK < IWS ) && .NOT.LQUERY ) {
+         if ( ( LWORK < IWS ) && !LQUERY ) {
             INFO = -8
          }
       }

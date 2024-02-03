@@ -58,9 +58,9 @@
       LIOPT = LIWMIN
       if ( ITYPE < 1 || ITYPE > 3 ) {
          INFO = -1
-      } else if ( .NOT.( WANTZ || LSAME( JOBZ, 'N' ) ) ) {
+      } else if ( !( WANTZ || LSAME( JOBZ, 'N' ) ) ) {
          INFO = -2
-      } else if ( .NOT.( UPPER || LSAME( UPLO, 'L' ) ) ) {
+      } else if ( !( UPPER || LSAME( UPLO, 'L' ) ) ) {
          INFO = -3
       } else if ( N < 0 ) {
          INFO = -4
@@ -74,9 +74,9 @@
          WORK( 1 ) = SROUNDUP_LWORK(LOPT)
          IWORK( 1 ) = LIOPT
 
-         if ( LWORK < LWMIN && .NOT.LQUERY ) {
+         if ( LWORK < LWMIN && !LQUERY ) {
             INFO = -11
-         } else if ( LIWORK < LIWMIN && .NOT.LQUERY ) {
+         } else if ( LIWORK < LIWMIN && !LQUERY ) {
             INFO = -13
          }
       }

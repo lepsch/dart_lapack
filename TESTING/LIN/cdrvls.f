@@ -210,7 +210,7 @@
                for (IRANK = 1; IRANK <= 2; IRANK++) { // 110
                   for (ISCALE = 1; ISCALE <= 3; ISCALE++) { // 100
                      ITYPE = ( IRANK-1 )*3 + ISCALE
-                     IF( .NOT.DOTYPE( ITYPE ) ) GO TO 100
+                     IF( !DOTYPE( ITYPE ) ) GO TO 100
                   // =====================================================
                         // Begin test CGELS
                   // =====================================================

@@ -55,7 +55,7 @@
          INFO = -2
       } else if ( LDA < MAX( 1, M ) ) {
          INFO = -4
-      } else if ( LWORK < LWKMIN && .NOT.LQUERY ) {
+      } else if ( LWORK < LWKMIN && !LQUERY ) {
          INFO = -10
       }
       if ( INFO < 0 ) {

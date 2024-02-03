@@ -46,7 +46,7 @@
          LWKMIN = 3*N-2
       }
 
-      if ( .NOT.UPPER && .NOT.LSAME( UPLO, 'L' ) ) {
+      if ( !UPPER && !LSAME( UPLO, 'L' ) ) {
          INFO = -1
       } else if ( N < 0 ) {
          INFO = -2
@@ -56,7 +56,7 @@
          INFO = -5
       } else if ( LDB < MAX( 1, N ) ) {
          INFO = -8
-      } else if ( LWORK < LWKMIN && .NOT.LQUERY ) {
+      } else if ( LWORK < LWKMIN && !LQUERY ) {
          INFO = -10
       }
       if ( INFO != 0 ) {

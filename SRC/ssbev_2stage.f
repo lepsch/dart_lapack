@@ -46,9 +46,9 @@
       LQUERY = ( LWORK == -1 )
 
       INFO = 0
-      if ( .NOT.( LSAME( JOBZ, 'N' ) ) ) {
+      if ( !( LSAME( JOBZ, 'N' ) ) ) {
          INFO = -1
-      } else if ( .NOT.( LOWER || LSAME( UPLO, 'U' ) ) ) {
+      } else if ( !( LOWER || LSAME( UPLO, 'U' ) ) ) {
          INFO = -2
       } else if ( N < 0 ) {
          INFO = -3
@@ -70,7 +70,7 @@
             WORK( 1 )  = SROUNDUP_LWORK(LWMIN)
          }
 
-         if (LWORK < LWMIN && .NOT.LQUERY) INFO = -11;
+         if (LWORK < LWMIN && !LQUERY) INFO = -11;
       }
 
       if ( INFO != 0 ) {
@@ -133,7 +133,7 @@
 
       // For eigenvalues only, call SSTERF.  For eigenvectors, call SSTEQR.
 
-      if ( .NOT.WANTZ ) {
+      if ( !WANTZ ) {
          ssterf(N, W, WORK( INDE ), INFO );
       } else {
          ssteqr(JOBZ, N, W, WORK( INDE ), Z, LDZ, WORK( INDWRK ), INFO );

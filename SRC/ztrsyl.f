@@ -48,9 +48,9 @@
       NOTRNB = LSAME( TRANB, 'N' )
 
       INFO = 0
-      if ( .NOT.NOTRNA && .NOT.LSAME( TRANA, 'C' ) ) {
+      if ( !NOTRNA && !LSAME( TRANA, 'C' ) ) {
          INFO = -1
-      } else if ( .NOT.NOTRNB && .NOT.LSAME( TRANB, 'C' ) ) {
+      } else if ( !NOTRNB && !LSAME( TRANB, 'C' ) ) {
          INFO = -2
       } else if ( ISGN != 1 && ISGN != -1 ) {
          INFO = -3
@@ -131,7 +131,7 @@
             } // 20
          } // 30
 
-      } else if ( .NOT.NOTRNA && NOTRNB ) {
+      } else if ( !NOTRNA && NOTRNB ) {
 
          // Solve    A**H *X + ISGN*X*B = scale*C.
 
@@ -178,7 +178,7 @@
             } // 50
          } // 60
 
-      } else if ( .NOT.NOTRNA && .NOT.NOTRNB ) {
+      } else if ( !NOTRNA && !NOTRNB ) {
 
          // Solve    A**H*X + ISGN*X*B**H = C.
 
@@ -228,7 +228,7 @@
             } // 80
          } // 90
 
-      } else if ( NOTRNA && .NOT.NOTRNB ) {
+      } else if ( NOTRNA && !NOTRNB ) {
 
          // Solve    A*X + ISGN*X*B**H = C.
 

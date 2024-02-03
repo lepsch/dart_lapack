@@ -52,7 +52,7 @@
 
       INFO = 0
       UPPER = LSAME( UPLO, 'U' )
-      if ( .NOT.UPPER && .NOT.LSAME( UPLO, 'L' ) ) {
+      if ( !UPPER && !LSAME( UPLO, 'L' ) ) {
          INFO = -1
       } else if ( N < 0 ) {
          INFO = -2
@@ -121,7 +121,7 @@
             // Equivalent to testing for ABSAKK >= ALPHA*COLMAX
             // (used to handle NaN and Inf)
 
-            if ( .NOT.( ABSAKK < ALPHA*COLMAX ) ) {
+            if ( !( ABSAKK < ALPHA*COLMAX ) ) {
 
                // no interchange, use 1-by-1 pivot block
 
@@ -163,7 +163,7 @@
                   // ABS( REAL( W( IMAX,KW-1 ) ) ) >= ALPHA*ROWMAX
                   // (used to handle NaN and Inf)
 
-                  if ( .NOT.( ABS( REAL( A( IMAX, IMAX ) ) ) < ALPHA*ROWMAX ) ) {
+                  if ( !( ABS( REAL( A( IMAX, IMAX ) ) ) < ALPHA*ROWMAX ) ) {
 
                      // interchange rows and columns K and IMAX,
                      // use 1-by-1 pivot block
@@ -196,7 +196,7 @@
 
                   // END pivot search loop body
 
-               if (.NOT.DONE) GOTO 12;
+               if ( !DONE) GOTO 12;
 
             }
 
@@ -421,7 +421,7 @@
             // Equivalent to testing for ABSAKK >= ALPHA*COLMAX
             // (used to handle NaN and Inf)
 
-            if ( .NOT.( ABSAKK < ALPHA*COLMAX ) ) {
+            if ( !( ABSAKK < ALPHA*COLMAX ) ) {
 
                // no interchange, use 1-by-1 pivot block
 
@@ -463,7 +463,7 @@
                   // ABS( REAL( W( IMAX,KW-1 ) ) ) >= ALPHA*ROWMAX
                   // (used to handle NaN and Inf)
 
-                  if ( .NOT.( ABS( REAL( A( IMAX, IMAX ) ) ) < ALPHA*ROWMAX ) ) {
+                  if ( !( ABS( REAL( A( IMAX, IMAX ) ) ) < ALPHA*ROWMAX ) ) {
 
                      // interchange rows and columns K and IMAX,
                      // use 1-by-1 pivot block
@@ -497,7 +497,7 @@
 
                   // END pivot search loop body
 
-               if (.NOT.DONE) GOTO 42;
+               if ( !DONE) GOTO 42;
 
             }
 

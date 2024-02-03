@@ -52,11 +52,11 @@
       WANTQ = INITQ || LSAME( JOBQ, 'Q' )
 
       INFO = 0
-      if ( .NOT.( INITU || WANTU || LSAME( JOBU, 'N' ) ) ) {
+      if ( !( INITU || WANTU || LSAME( JOBU, 'N' ) ) ) {
          INFO = -1
-      } else if ( .NOT.( INITV || WANTV || LSAME( JOBV, 'N' ) ) ) {
+      } else if ( !( INITV || WANTV || LSAME( JOBV, 'N' ) ) ) {
          INFO = -2
-      } else if ( .NOT.( INITQ || WANTQ || LSAME( JOBQ, 'N' ) ) ) {
+      } else if ( !( INITQ || WANTQ || LSAME( JOBQ, 'N' ) ) ) {
          INFO = -3
       } else if ( M < 0 ) {
          INFO = -4
@@ -89,7 +89,7 @@
       UPPER = false;
       for (KCYCLE = 1; KCYCLE <= MAXIT; KCYCLE++) { // 40
 
-         UPPER = .NOT.UPPER
+         UPPER = !UPPER
 
          for (I = 1; I <= L - 1; I++) { // 20
             for (J = I + 1; J <= L; J++) { // 10
@@ -146,7 +146,7 @@
             } // 10
          } // 20
 
-         if ( .NOT.UPPER ) {
+         if ( !UPPER ) {
 
             // The matrices A13 and B13 were lower triangular at the start
             // of the cycle, and are now upper triangular.

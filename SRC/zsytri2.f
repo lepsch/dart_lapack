@@ -42,13 +42,13 @@
          MINSIZE = (N+NBMAX+1)*(NBMAX+3)
       }
 
-      if ( .NOT.UPPER && .NOT.LSAME( UPLO, 'L' ) ) {
+      if ( !UPPER && !LSAME( UPLO, 'L' ) ) {
          INFO = -1
       } else if ( N < 0 ) {
          INFO = -2
       } else if ( LDA < MAX( 1, N ) ) {
          INFO = -4
-      } else if (LWORK < MINSIZE && .NOT.LQUERY ) {
+      } else if (LWORK < MINSIZE && !LQUERY ) {
          INFO = -7
       }
 

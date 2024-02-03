@@ -56,9 +56,9 @@
 
 
       INFO = 0
-      if ( .NOT.( WANTZ || LSAME( JOBZ, 'N' ) ) ) {
+      if ( !( WANTZ || LSAME( JOBZ, 'N' ) ) ) {
          INFO = -1
-      } else if ( .NOT.( ALLEIG || VALEIG || INDEIG ) ) {
+      } else if ( !( ALLEIG || VALEIG || INDEIG ) ) {
          INFO = -2
       } else if ( N < 0 ) {
          INFO = -3
@@ -83,9 +83,9 @@
          WORK( 1 ) = SROUNDUP_LWORK(LWMIN)
          IWORK( 1 ) = LIWMIN
 
-         if ( LWORK < LWMIN && .NOT.LQUERY ) {
+         if ( LWORK < LWMIN && !LQUERY ) {
             INFO = -17
-         } else if ( LIWORK < LIWMIN && .NOT.LQUERY ) {
+         } else if ( LIWORK < LIWMIN && !LQUERY ) {
             INFO = -19
          }
       }
@@ -181,7 +181,7 @@
       }
       if ( ( ALLEIG || TEST ) && IEEEOK == 1 ) {
          scopy(N-1, E( 1 ), 1, WORK( 1 ), 1 );
-         if ( .NOT.WANTZ ) {
+         if ( !WANTZ ) {
             scopy(N, D, 1, W, 1 );
             ssterf(N, W, WORK, INFO );
          } else {

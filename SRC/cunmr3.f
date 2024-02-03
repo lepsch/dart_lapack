@@ -44,9 +44,9 @@
       } else {
          NQ = N
       }
-      if ( .NOT.LEFT && .NOT.LSAME( SIDE, 'R' ) ) {
+      if ( !LEFT && !LSAME( SIDE, 'R' ) ) {
          INFO = -1
-      } else if ( .NOT.NOTRAN && .NOT.LSAME( TRANS, 'C' ) ) {
+      } else if ( !NOTRAN && !LSAME( TRANS, 'C' ) ) {
          INFO = -2
       } else if ( M < 0 ) {
          INFO = -3
@@ -54,7 +54,7 @@
          INFO = -4
       } else if ( K < 0 || K > NQ ) {
          INFO = -5
-      } else if ( L < 0 || ( LEFT && ( L > M ) ) || ( .NOT.LEFT && ( L > N ) ) ) {
+      } else if ( L < 0 || ( LEFT && ( L > M ) ) || ( !LEFT && ( L > N ) ) ) {
          INFO = -6
       } else if ( LDA < MAX( 1, K ) ) {
          INFO = -8
@@ -70,7 +70,7 @@
 
       if (M == 0 || N == 0 || K == 0) RETURN;
 
-      if ( ( LEFT && .NOT.NOTRAN || .NOT.LEFT && NOTRAN ) ) {
+      if ( ( LEFT && !NOTRAN || !LEFT && NOTRAN ) ) {
          I1 = 1
          I2 = K
          I3 = 1

@@ -93,7 +93,7 @@
 
                // Do the tests only if DOTYPE( IMAT ) is true.
 
-               IF( .NOT.DOTYPE( IMAT ) ) GO TO 50
+               IF( !DOTYPE( IMAT ) ) GO TO 50
 
                // Set up parameters with SLATB4 and generate a test matrix
                // with SLATMS.
@@ -153,7 +153,7 @@
                         // Test SGEQRFP
 
                         sqrt01p(M, N, A, AF, AQ, AR, LDA, TAU, WORK, LWORK, RWORK, RESULT( 8 ) );
-                          IF( .NOT. SGENND( M, N, AF, LDA ) ) RESULT( 9 ) = 2*THRESH
+                          IF( !SGENND( M, N, AF, LDA ) ) RESULT( 9 ) = 2*THRESH
                          NT = NT + 1
                      } else if ( M >= N ) {
 

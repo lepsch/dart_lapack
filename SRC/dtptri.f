@@ -37,9 +37,9 @@
       INFO = 0
       UPPER = LSAME( UPLO, 'U' )
       NOUNIT = LSAME( DIAG, 'N' )
-      if ( .NOT.UPPER && .NOT.LSAME( UPLO, 'L' ) ) {
+      if ( !UPPER && !LSAME( UPLO, 'L' ) ) {
          INFO = -1
-      } else if ( .NOT.NOUNIT && .NOT.LSAME( DIAG, 'U' ) ) {
+      } else if ( !NOUNIT && !LSAME( DIAG, 'U' ) ) {
          INFO = -2
       } else if ( N < 0 ) {
          INFO = -3

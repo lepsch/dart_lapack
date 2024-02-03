@@ -51,9 +51,9 @@
       LQUERY = ( LWORK == -1 || LRWORK == -1 || LIWORK == -1 )
 
       INFO = 0
-      if ( .NOT.( LSAME( JOBZ, 'N' ) ) ) {
+      if ( !( LSAME( JOBZ, 'N' ) ) ) {
          INFO = -1
-      } else if ( .NOT.( LOWER || LSAME( UPLO, 'U' ) ) ) {
+      } else if ( !( LOWER || LSAME( UPLO, 'U' ) ) ) {
          INFO = -2
       } else if ( N < 0 ) {
          INFO = -3
@@ -82,11 +82,11 @@
          RWORK( 1 ) = LRWMIN
          IWORK( 1 ) = LIWMIN
 
-         if ( LWORK < LWMIN && .NOT.LQUERY ) {
+         if ( LWORK < LWMIN && !LQUERY ) {
             INFO = -8
-         } else if ( LRWORK < LRWMIN && .NOT.LQUERY ) {
+         } else if ( LRWORK < LRWMIN && !LQUERY ) {
             INFO = -10
-         } else if ( LIWORK < LIWMIN && .NOT.LQUERY ) {
+         } else if ( LIWORK < LIWMIN && !LQUERY ) {
             INFO = -12
          }
       }
@@ -150,7 +150,7 @@
       // Householder transformations represented as Householder vectors in
       // A.
 
-      if ( .NOT.WANTZ ) {
+      if ( !WANTZ ) {
          dsterf(N, W, RWORK( INDE ), INFO );
       } else {
          zstedc('I', N, W, RWORK( INDE ), WORK( INDWRK ), N, WORK( INDWK2 ), LLWRK2, RWORK( INDRWK ), LLRWK, IWORK, LIWORK, INFO );

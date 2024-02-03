@@ -99,7 +99,7 @@
 
          // Invalid value for PRECISION
 
-         if ( .NOT.( RPREC || CPREC ) ) {
+         if ( !( RPREC || CPREC ) ) {
              IPARAM2STAGE = -1
              RETURN
          }

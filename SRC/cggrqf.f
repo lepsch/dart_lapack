@@ -50,7 +50,7 @@
          INFO = -5
       } else if ( LDB < MAX( 1, P ) ) {
          INFO = -8
-      } else if ( LWORK < MAX( 1, M, P, N ) && .NOT.LQUERY ) {
+      } else if ( LWORK < MAX( 1, M, P, N ) && !LQUERY ) {
          INFO = -11
       }
       if ( INFO != 0 ) {

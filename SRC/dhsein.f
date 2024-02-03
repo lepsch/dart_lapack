@@ -71,11 +71,11 @@
       } // 10
 
       INFO = 0
-      if ( .NOT.RIGHTV && .NOT.LEFTV ) {
+      if ( !RIGHTV && !LEFTV ) {
          INFO = -1
-      } else if ( .NOT.FROMQR && .NOT.LSAME( EIGSRC, 'N' ) ) {
+      } else if ( !FROMQR && !LSAME( EIGSRC, 'N' ) ) {
          INFO = -2
-      } else if ( .NOT.NOINIT && .NOT.LSAME( INITV, 'U' ) ) {
+      } else if ( !NOINIT && !LSAME( INITV, 'U' ) ) {
          INFO = -3
       } else if ( N < 0 ) {
          INFO = -5

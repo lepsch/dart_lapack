@@ -41,7 +41,7 @@
       WANTZ = LSAME( JOBZ, 'V' )
 
       INFO = 0
-      if ( .NOT.( WANTZ || LSAME( JOBZ, 'N' ) ) ) {
+      if ( !( WANTZ || LSAME( JOBZ, 'N' ) ) ) {
          INFO = -1
       } else if ( N < 0 ) {
          INFO = -2
@@ -91,7 +91,7 @@
       // For eigenvalues only, call DSTERF.  For eigenvalues and
       // eigenvectors, call DSTEQR.
 
-      if ( .NOT.WANTZ ) {
+      if ( !WANTZ ) {
          dsterf(N, D, E, INFO );
       } else {
          dsteqr('I', N, D, E, Z, LDZ, WORK, INFO );

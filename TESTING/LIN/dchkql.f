@@ -89,7 +89,7 @@
 
                // Do the tests only if DOTYPE( IMAT ) is true.
 
-               IF( .NOT.DOTYPE( IMAT ) ) GO TO 50
+               IF( !DOTYPE( IMAT ) ) GO TO 50
 
                // Set up parameters with DLATB4 and generate a test matrix
                // with DLATMS.

@@ -54,7 +54,7 @@
       WNTQN  = LSAME( JOBZ, 'N' )
       LQUERY = ( LWORK == -1 )
 
-      if ( .NOT.( WNTQA || WNTQS || WNTQO || WNTQN ) ) {
+      if ( !( WNTQA || WNTQS || WNTQO || WNTQN ) ) {
          INFO = -1
       } else if ( M < 0 ) {
          INFO = -2
@@ -323,7 +323,7 @@
          MAXWRK = MAX( MAXWRK, MINWRK )
          WORK( 1 ) = SROUNDUP_LWORK( MAXWRK )
 
-         if ( LWORK < MINWRK && .NOT.LQUERY ) {
+         if ( LWORK < MINWRK && !LQUERY ) {
             INFO = -12
          }
       }

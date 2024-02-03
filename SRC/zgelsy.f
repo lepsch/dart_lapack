@@ -68,7 +68,7 @@
          INFO = -5
       } else if ( LDB < MAX( 1, M, N ) ) {
          INFO = -7
-      } else if ( LWORK < ( MN+MAX( 2*MN, N+1, MN+NRHS ) ) && .NOT. LQUERY ) {
+      } else if ( LWORK < ( MN+MAX( 2*MN, N+1, MN+NRHS ) ) && !LQUERY ) {
          INFO = -12
       }
 

@@ -85,9 +85,9 @@
          WORK( 1 ) = SROUNDUP_LWORK(LWMIN)
          IWORK( 1 ) = LIWMIN
 
-         if ( LWORK < LWMIN && .NOT. LQUERY ) {
+         if ( LWORK < LWMIN && !LQUERY ) {
             INFO = -8
-         } else if ( LIWORK < LIWMIN && .NOT. LQUERY ) {
+         } else if ( LIWORK < LIWMIN && !LQUERY ) {
             INFO = -10
          }
       }

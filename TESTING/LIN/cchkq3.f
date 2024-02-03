@@ -88,7 +88,7 @@
             LWORK = MAX( 1, M*MAX( M, N )+4*MNMIN+MAX( M, N ) )
 
             for (IMODE = 1; IMODE <= NTYPES; IMODE++) { // 70
-               IF( .NOT.DOTYPE( IMODE ) ) GO TO 70
+               IF( !DOTYPE( IMODE ) ) GO TO 70
 
                // Do for each type of matrix
                   // 1:  zero matrix

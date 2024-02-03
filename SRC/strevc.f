@@ -52,9 +52,9 @@
       SOMEV = LSAME( HOWMNY, 'S' )
 
       INFO = 0
-      if ( .NOT.RIGHTV && .NOT.LEFTV ) {
+      if ( !RIGHTV && !LEFTV ) {
          INFO = -1
-      } else if ( .NOT.ALLV && .NOT.OVER && .NOT.SOMEV ) {
+      } else if ( !ALLV && !OVER && !SOMEV ) {
          INFO = -2
       } else if ( N < 0 ) {
          INFO = -4
@@ -150,9 +150,9 @@
             } // 40
             if ( SOMEV ) {
                if ( IP == 0 ) {
-                  IF( .NOT.SELECT( KI ) ) GO TO 130
+                  IF( !SELECT( KI ) ) GO TO 130
                } else {
-                  IF( .NOT.SELECT( KI-1 ) ) GO TO 130
+                  IF( !SELECT( KI-1 ) ) GO TO 130
                }
             }
 
@@ -249,7 +249,7 @@
 
                // Copy the vector x or Q*x to VR and normalize.
 
-               if ( .NOT.OVER ) {
+               if ( !OVER ) {
                   scopy(KI, WORK( 1+N ), 1, VR( 1, IS ), 1 );
 
                   II = ISAMAX( KI, VR( 1, IS ), 1 )
@@ -382,7 +382,7 @@
 
                // Copy the vector x or Q*x to VR and normalize.
 
-               if ( .NOT.OVER ) {
+               if ( !OVER ) {
                   scopy(KI, WORK( 1+N ), 1, VR( 1, IS-1 ), 1 );
                   scopy(KI, WORK( 1+N2 ), 1, VR( 1, IS ), 1 );
 
@@ -440,7 +440,7 @@
 
             } // 150
             if ( SOMEV ) {
-               IF( .NOT.SELECT( KI ) ) GO TO 250
+               IF( !SELECT( KI ) ) GO TO 250
             }
 
             // Compute the KI-th eigenvalue (WR,WI).
@@ -547,7 +547,7 @@
 
                // Copy the vector x or Q*x to VL and normalize.
 
-               if ( .NOT.OVER ) {
+               if ( !OVER ) {
                   scopy(N-KI+1, WORK( KI+N ), 1, VL( KI, IS ), 1 );
 
                   II = ISAMAX( N-KI+1, VL( KI, IS ), 1 ) + KI - 1
@@ -692,7 +692,7 @@
 
                // Copy the vector x or Q*x to VL and normalize.
 
-               if ( .NOT.OVER ) {
+               if ( !OVER ) {
                   scopy(N-KI+1, WORK( KI+N ), 1, VL( KI, IS ), 1 );
                   scopy(N-KI+1, WORK( KI+N2 ), 1, VL( KI, IS+1 ), 1 );
 

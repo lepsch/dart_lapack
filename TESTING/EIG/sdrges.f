@@ -144,7 +144,7 @@
          // Loop over matrix types
 
          for (JTYPE = 1; JTYPE <= MTYPES; JTYPE++) { // 180
-            IF( .NOT.DOTYPE( JTYPE ) ) GO TO 180
+            IF( !DOTYPE( JTYPE ) ) GO TO 180
             NMATS = NMATS + 1
             NTEST = 0
 
@@ -356,7 +356,7 @@
                            RESULT( 5+RSUB ) = ULPINV
                         }
                      }
-                     if ( .NOT.ILABAD ) {
+                     if ( !ILABAD ) {
                         sget53(S( I1, I1 ), LDA, T( I1, I1 ), LDA, BETA( J ), ALPHAR( J ), ALPHAI( J ), TEMP2, IERR );
                         if ( IERR >= 3 ) {
                            WRITE( NOUNIT, FMT = 9998 )IERR, J, N, JTYPE, IOLDSD
@@ -386,7 +386,7 @@
                         KNTEIG = KNTEIG + 1
                      }
                      if ( I < N ) {
-                        if ( ( SLCTES( ALPHAR( I+1 ), ALPHAI( I+1 ), BETA( I+1 ) ) || SLCTES( ALPHAR( I+1 ), -ALPHAI( I+1 ), BETA( I+1 ) ) ) && ( .NOT.( SLCTES( ALPHAR( I ), ALPHAI( I ), BETA( I ) ) || SLCTES( ALPHAR( I ), -ALPHAI( I ), BETA( I ) ) ) ) && IINFO != N+2 ) {
+                        if ( ( SLCTES( ALPHAR( I+1 ), ALPHAI( I+1 ), BETA( I+1 ) ) || SLCTES( ALPHAR( I+1 ), -ALPHAI( I+1 ), BETA( I+1 ) ) ) && ( !( SLCTES( ALPHAR( I ), ALPHAI( I ), BETA( I ) ) || SLCTES( ALPHAR( I ), -ALPHAI( I ), BETA( I ) ) ) ) && IINFO != N+2 ) {
                            RESULT( 12 ) = ULPINV
                         }
                      }

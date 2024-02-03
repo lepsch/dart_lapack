@@ -42,7 +42,7 @@
 
       // Do not test the input parameters for errors
 
-      NOTRAN = .NOT.LTRAN
+      NOTRAN = !LTRAN
       INFO = 0
 
       // Quick return if possible
@@ -56,7 +56,7 @@
       BIGNUM = ONE / SMLNUM
 
       XNORM = DLANGE( 'M', N, N, T, LDT, D )
-      if (.NOT.LREAL) XNORM = MAX( XNORM, ABS( W ), DLANGE( 'M', N, 1, B, N, D ) );
+      if ( !LREAL) XNORM = MAX( XNORM, ABS( W ), DLANGE( 'M', N, 1, B, N, D ) );
       SMIN = MAX( SMLNUM, EPS*XNORM )
 
       // Compute 1-norm of each column of strictly upper triangular
@@ -67,7 +67,7 @@
          WORK( J ) = DASUM( J-1, T( 1, J ), 1 )
       } // 10
 
-      if ( .NOT.LREAL ) {
+      if ( !LREAL ) {
          for (I = 2; I <= N; I++) { // 20
             WORK( I ) = WORK( I ) + ABS( B( I ) )
          } // 20
@@ -75,7 +75,7 @@
 
       N2 = 2*N
       N1 = N
-      if (.NOT.LREAL) N1 = N2;
+      if ( !LREAL) N1 = N2;
       K = IDAMAX( N1, X, 1 )
       XMAX = ABS( X( K ) )
       SCALE = ONE

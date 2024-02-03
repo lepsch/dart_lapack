@@ -156,7 +156,7 @@
          // Loop over matrix types
 
          for (JTYPE = 1; JTYPE <= MTYPES; JTYPE++) { // 180
-            IF( .NOT.DOTYPE( JTYPE ) ) GO TO 180
+            IF( !DOTYPE( JTYPE ) ) GO TO 180
             NMATS = NMATS + 1
             NTEST = 0
 

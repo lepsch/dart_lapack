@@ -94,7 +94,7 @@
          slaswp(KCOLS, A( 1,J+1 ), LDA, KSTART, J, IPIV, 1 );
 
          // Factor the current column
-         if ( A( J, J ) != ZERO && .NOT.SISNAN( A( J, J ) ) ) {
+         if ( A( J, J ) != ZERO && !SISNAN( A( J, J ) ) ) {
                if ( ABS(A( J, J )) >= SFMIN ) {
                   sscal(M-J, ONE / A( J, J ), A( J+1, J ), 1 );
                } else {

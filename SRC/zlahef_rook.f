@@ -123,7 +123,7 @@
             // Case(1)
             // Equivalent to testing for ABSAKK >= ALPHA*COLMAX
             // (used to handle NaN and Inf)
-            if ( .NOT.( ABSAKK < ALPHA*COLMAX ) ) {
+            if ( !( ABSAKK < ALPHA*COLMAX ) ) {
 
                // no interchange, use 1-by-1 pivot block
 
@@ -178,7 +178,7 @@
                   // ABS( DBLE( W( IMAX,KW-1 ) ) ) >= ALPHA*ROWMAX
                   // (used to handle NaN and Inf)
 
-                  if ( .NOT.( ABS( DBLE( W( IMAX,KW-1 ) ) ) < ALPHA*ROWMAX ) ) {
+                  if ( !( ABS( DBLE( W( IMAX,KW-1 ) ) ) < ALPHA*ROWMAX ) ) {
 
                      // interchange rows and columns K and IMAX,
                      // use 1-by-1 pivot block
@@ -222,7 +222,7 @@
 
                   // END pivot search loop body
 
-               if (.NOT.DONE) GOTO 12;
+               if ( !DONE) GOTO 12;
 
             }
 
@@ -553,7 +553,7 @@
             // Equivalent to testing for ABSAKK >= ALPHA*COLMAX
             // (used to handle NaN and Inf)
 
-            if ( .NOT.( ABSAKK < ALPHA*COLMAX ) ) {
+            if ( !( ABSAKK < ALPHA*COLMAX ) ) {
 
                // no interchange, use 1-by-1 pivot block
 
@@ -608,7 +608,7 @@
                   // ABS( DBLE( W( IMAX,K+1 ) ) ) >= ALPHA*ROWMAX
                   // (used to handle NaN and Inf)
 
-                  if ( .NOT.( ABS( DBLE( W( IMAX,K+1 ) ) ) < ALPHA*ROWMAX ) ) {
+                  if ( !( ABS( DBLE( W( IMAX,K+1 ) ) ) < ALPHA*ROWMAX ) ) {
 
                      // interchange rows and columns K and IMAX,
                      // use 1-by-1 pivot block
@@ -652,7 +652,7 @@
 
                   // End pivot search loop body
 
-               if (.NOT.DONE) GOTO 72;
+               if ( !DONE) GOTO 72;
 
             }
 

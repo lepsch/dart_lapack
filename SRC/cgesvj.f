@@ -77,11 +77,11 @@
       }
 
       LQUERY = ( LWORK == -1 ) || ( LRWORK == -1 )
-      if ( .NOT.( UPPER || LOWER || LSAME( JOBA, 'G' ) ) ) {
+      if ( !( UPPER || LOWER || LSAME( JOBA, 'G' ) ) ) {
          INFO = -1
-      } else if ( .NOT.( LSVEC || UCTOL || LSAME( JOBU, 'N' ) ) ) {
+      } else if ( !( LSVEC || UCTOL || LSAME( JOBU, 'N' ) ) ) {
          INFO = -2
-      } else if ( .NOT.( RSVEC || APPLV || LSAME( JOBV, 'N' ) ) ) {
+      } else if ( !( RSVEC || APPLV || LSAME( JOBV, 'N' ) ) ) {
          INFO = -3
       } else if ( M < 0 ) {
          INFO = -4
@@ -95,9 +95,9 @@
          INFO = -11
       } else if ( UCTOL && ( RWORK( 1 ) <= ONE ) ) {
          INFO = -12
-      } else if ( LWORK < LWMIN && ( .NOT.LQUERY ) ) {
+      } else if ( LWORK < LWMIN && ( !LQUERY ) ) {
          INFO = -13
-      } else if ( LRWORK < LRWMIN && ( .NOT.LQUERY ) ) {
+      } else if ( LRWORK < LRWMIN && ( !LQUERY ) ) {
          INFO = -15
       } else {
          INFO = 0

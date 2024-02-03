@@ -43,7 +43,7 @@
       WANTC = NCC > 0
       KLU1 = KL + KU + 1
       INFO = 0
-      if ( .NOT.WANTQ && .NOT.WANTPT && .NOT.LSAME( VECT, 'N' ) ) {
+      if ( !WANTQ && !WANTPT && !LSAME( VECT, 'N' ) ) {
          INFO = -1
       } else if ( M < 0 ) {
          INFO = -2

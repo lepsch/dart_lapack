@@ -80,7 +80,7 @@
       // subspaces.
 
       M = 0
-      if ( .NOT.LQUERY || IJOB != 0 ) {
+      if ( !LQUERY || IJOB != 0 ) {
       for (K = 1; K <= N; K++) { // 10
          ALPHA( K ) = A( K, K )
          BETA( K ) = B( K, K )
@@ -106,9 +106,9 @@
       WORK( 1 ) = LWMIN
       IWORK( 1 ) = LIWMIN
 
-      if ( LWORK < LWMIN && .NOT.LQUERY ) {
+      if ( LWORK < LWMIN && !LQUERY ) {
          INFO = -21
-      } else if ( LIWORK < LIWMIN && .NOT.LQUERY ) {
+      } else if ( LIWORK < LIWMIN && !LQUERY ) {
          INFO = -23
       }
 

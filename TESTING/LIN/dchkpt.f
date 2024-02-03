@@ -88,7 +88,7 @@
 
             // Do the tests only if DOTYPE( IMAT ) is true.
 
-            IF( N > 0 && .NOT.DOTYPE( IMAT ) ) GO TO 100
+            IF( N > 0 && !DOTYPE( IMAT ) ) GO TO 100
 
             // Set up parameters with DLATB4.
 
@@ -125,7 +125,7 @@
                // Type 7-12:  generate a diagonally dominant matrix with
                // unknown condition number in the vectors D and E.
 
-               if ( .NOT.ZEROT || .NOT.DOTYPE( 7 ) ) {
+               if ( !ZEROT || !DOTYPE( 7 ) ) {
 
                   // Let D and E have values from [-1,1].
 

@@ -63,9 +63,9 @@
 
       // Test the input arguments
 
-      if ( .NOT.NOTRNA && .NOT.LSAME( TRANA, 'T' ) && .NOT. LSAME( TRANA, 'C' ) ) {
+      if ( !NOTRNA && !LSAME( TRANA, 'T' ) && !LSAME( TRANA, 'C' ) ) {
          INFO = -1
-      } else if ( .NOT.NOTRNB && .NOT.LSAME( TRANB, 'T' ) && .NOT. LSAME( TRANB, 'C' ) ) {
+      } else if ( !NOTRNB && !LSAME( TRANB, 'T' ) && !LSAME( TRANB, 'C' ) ) {
          INFO = -2
       } else if ( ISGN != 1 && ISGN != -1 ) {
          INFO = -3
@@ -79,9 +79,9 @@
          INFO = -9
       } else if ( LDC < MAX( 1, M ) ) {
          INFO = -11
-      } else if ( .NOT.LQUERY && LIWORK < IWORK(1) ) {
+      } else if ( !LQUERY && LIWORK < IWORK(1) ) {
          INFO = -14
-      } else if ( .NOT.LQUERY && LDSWORK < MAX( NBA, NBB ) ) {
+      } else if ( !LQUERY && LDSWORK < MAX( NBA, NBB ) ) {
          INFO = -16
       }
       if ( INFO != 0 ) {
@@ -396,7 +396,7 @@
                }
             }
          }
-      } else if ( .NOT.NOTRNA && NOTRNB ) {
+      } else if ( !NOTRNA && NOTRNB ) {
 
          // Solve    A**T*X + ISGN*X*B = scale*C.
 
@@ -566,7 +566,7 @@
                }
             }
          }
-      } else if ( .NOT.NOTRNA && .NOT.NOTRNB ) {
+      } else if ( !NOTRNA && !NOTRNB ) {
 
          // Solve    A**T*X + ISGN*X*B**T = scale*C.
 
@@ -736,7 +736,7 @@
                }
             }
          }
-      } else if ( NOTRNA && .NOT.NOTRNB ) {
+      } else if ( NOTRNA && !NOTRNB ) {
 
          // Solve    A*X + ISGN*X*B**T = scale*C.
 

@@ -51,9 +51,9 @@
          LWMIN = 2*N
       }
 
-      if ( .NOT.( WANTZ || LSAME( JOBZ, 'N' ) ) ) {
+      if ( !( WANTZ || LSAME( JOBZ, 'N' ) ) ) {
          INFO = -1
-      } else if ( .NOT.( UPPER || LSAME( UPLO, 'L' ) ) ) {
+      } else if ( !( UPPER || LSAME( UPLO, 'L' ) ) ) {
          INFO = -2
       } else if ( N < 0 ) {
          INFO = -3
@@ -73,9 +73,9 @@
          WORK( 1 ) = LWMIN
          IWORK( 1 ) = LIWMIN
 
-         if ( LWORK < LWMIN && .NOT.LQUERY ) {
+         if ( LWORK < LWMIN && !LQUERY ) {
             INFO = -14
-         } else if ( LIWORK < LIWMIN && .NOT.LQUERY ) {
+         } else if ( LIWORK < LIWMIN && !LQUERY ) {
             INFO = -16
          }
       }
@@ -118,7 +118,7 @@
 
       // For eigenvalues only, call DSTERF. For eigenvectors, call SSTEDC.
 
-      if ( .NOT.WANTZ ) {
+      if ( !WANTZ ) {
          dsterf(N, W, WORK( INDE ), INFO );
       } else {
          dstedc('I', N, W, WORK( INDE ), WORK( INDWRK ), N, WORK( INDWK2 ), LLWRK2, IWORK, LIWORK, INFO );

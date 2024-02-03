@@ -59,7 +59,7 @@
       INFO = 0
       if ( ISRT != 0 && ISRT != 1 ) {
          INFO = -2
-      } else if ( .NOT.BALOK ) {
+      } else if ( !BALOK ) {
          INFO = -3
       } else if ( THRESH < ZERO ) {
          INFO = -5
@@ -187,7 +187,7 @@
 
          // Do Test (8)
 
-         if ( .NOT.NOBAL ) {
+         if ( !NOBAL ) {
             for (J = 1; J <= N; J++) { // 70
                IF( SCALE( J ) != SCALE1( J ) ) RESULT( 8 ) = ULPINV
             } // 70
@@ -233,7 +233,7 @@
 
          // Do Test (8) again
 
-         if ( .NOT.NOBAL ) {
+         if ( !NOBAL ) {
             for (J = 1; J <= N; J++) { // 120
                IF( SCALE( J ) != SCALE1( J ) ) RESULT( 8 ) = ULPINV
             } // 120
@@ -279,7 +279,7 @@
 
          // Do Test (8) again
 
-         if ( .NOT.NOBAL ) {
+         if ( !NOBAL ) {
             for (J = 1; J <= N; J++) { // 170
                IF( SCALE( J ) != SCALE1( J ) ) RESULT( 8 ) = ULPINV
             } // 170

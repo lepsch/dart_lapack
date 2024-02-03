@@ -141,7 +141,7 @@
          }
 
          for (JTYPE = 1; JTYPE <= MTYPES; JTYPE++) { // 300
-            IF( .NOT.DOTYPE( JTYPE ) ) GO TO 300
+            IF( !DOTYPE( JTYPE ) ) GO TO 300
             NTEST = 0
 
             for (J = 1; J <= 4; J++) { // 20

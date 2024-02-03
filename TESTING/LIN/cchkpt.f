@@ -91,7 +91,7 @@
 
             // Do the tests only if DOTYPE( IMAT ) is true.
 
-            IF( N > 0 && .NOT.DOTYPE( IMAT ) ) GO TO 110
+            IF( N > 0 && !DOTYPE( IMAT ) ) GO TO 110
 
             // Set up parameters with CLATB4.
 
@@ -128,7 +128,7 @@
                // Type 7-12:  generate a diagonally dominant matrix with
                // unknown condition number in the vectors D and E.
 
-               if ( .NOT.ZEROT || .NOT.DOTYPE( 7 ) ) {
+               if ( !ZEROT || !DOTYPE( 7 ) ) {
 
                   // Let E be complex, D real, with values from [-1,1].
 

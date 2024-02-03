@@ -93,9 +93,9 @@
          INFO = -1
       } else if ( IJOBVR <= 0 ) {
          INFO = -2
-      } else if ( ( .NOT.WANTST ) && ( .NOT.LSAME( SORT, 'N' ) ) ) {
+      } else if ( ( !WANTST ) && ( !LSAME( SORT, 'N' ) ) ) {
          INFO = -3
-      } else if ( .NOT.( WANTSN || WANTSE || WANTSV || WANTSB ) || ( .NOT.WANTST && .NOT.WANTSN ) ) {
+      } else if ( !( WANTSN || WANTSE || WANTSV || WANTSB ) || ( !WANTST && !WANTSN ) ) {
          INFO = -5
       } else if ( N < 0 ) {
          INFO = -6
@@ -138,9 +138,9 @@
          }
          IWORK( 1 ) = LIWMIN
 
-         if ( LWORK < MINWRK && .NOT.LQUERY ) {
+         if ( LWORK < MINWRK && !LQUERY ) {
             INFO = -22
-         } else if ( LIWORK < LIWMIN && .NOT.LQUERY ) {
+         } else if ( LIWORK < LIWMIN && !LQUERY ) {
             INFO = -24
          }
       }
@@ -367,7 +367,7 @@
             if ( ALPHAI( I ) == ZERO ) {
                if (CURSL) SDIM = SDIM + 1;
                IP = 0
-               if (CURSL && .NOT.LASTSL) INFO = N + 2;
+               if (CURSL && !LASTSL) INFO = N + 2;
             } else {
                if ( IP == 1 ) {
 
@@ -377,7 +377,7 @@
                   LASTSL = CURSL
                   if (CURSL) SDIM = SDIM + 2;
                   IP = -1
-                  if (CURSL && .NOT.LST2SL) INFO = N + 2;
+                  if (CURSL && !LST2SL) INFO = N + 2;
                } else {
 
                   // First eigenvalue of conjugate pair

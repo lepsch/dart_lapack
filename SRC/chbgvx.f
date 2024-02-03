@@ -50,11 +50,11 @@
       INDEIG = LSAME( RANGE, 'I' )
 
       INFO = 0
-      if ( .NOT.( WANTZ || LSAME( JOBZ, 'N' ) ) ) {
+      if ( !( WANTZ || LSAME( JOBZ, 'N' ) ) ) {
          INFO = -1
-      } else if ( .NOT.( ALLEIG || VALEIG || INDEIG ) ) {
+      } else if ( !( ALLEIG || VALEIG || INDEIG ) ) {
          INFO = -2
-      } else if ( .NOT.( UPPER || LSAME( UPLO, 'L' ) ) ) {
+      } else if ( !( UPPER || LSAME( UPLO, 'L' ) ) ) {
          INFO = -3
       } else if ( N < 0 ) {
          INFO = -4
@@ -135,7 +135,7 @@
          scopy(N, RWORK( INDD ), 1, W, 1 );
          INDEE = INDRWK + 2*N
          scopy(N-1, RWORK( INDE ), 1, RWORK( INDEE ), 1 );
-         if ( .NOT.WANTZ ) {
+         if ( !WANTZ ) {
             ssterf(N, W, RWORK( INDEE ), INFO );
          } else {
             clacpy('A', N, N, Q, LDQ, Z, LDZ );

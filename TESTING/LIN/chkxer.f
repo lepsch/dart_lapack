@@ -13,7 +13,7 @@
       // INTRINSIC LEN_TRIM
       // ..
       // .. Executable Statements ..
-      if ( .NOT.LERR ) {
+      if ( !LERR ) {
          WRITE( NOUT, FMT = 9999 )INFOT, SRNAMT( 1:LEN_TRIM( SRNAMT ) )
          OK = false;
       }

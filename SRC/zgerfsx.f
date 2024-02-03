@@ -116,7 +116,7 @@
 
       if ( TRANS_TYPE == -1 ) {
         INFO = -1
-      } else if ( .NOT.ROWEQU && .NOT.COLEQU && .NOT.LSAME( EQUED, 'N' ) ) {
+      } else if ( !ROWEQU && !COLEQU && !LSAME( EQUED, 'N' ) ) {
         INFO = -2
       } else if ( N < 0 ) {
         INFO = -3
@@ -208,7 +208,7 @@
 
          if ( COLEQU && NOTRAN ) {
             RCOND_TMP = ZLA_GERCOND_C( TRANS, N, A, LDA, AF, LDAF, IPIV, C, true , INFO, WORK, RWORK )
-         } else if ( ROWEQU && .NOT. NOTRAN ) {
+         } else if ( ROWEQU && !NOTRAN ) {
             RCOND_TMP = ZLA_GERCOND_C( TRANS, N, A, LDA, AF, LDAF, IPIV, R, true , INFO, WORK, RWORK )
          } else {
             RCOND_TMP = ZLA_GERCOND_C( TRANS, N, A, LDA, AF, LDAF, IPIV, C, false , INFO, WORK, RWORK )

@@ -144,7 +144,7 @@
 
           // Check termination criteria.
 
-            if (.NOT.IGNORE_CWISE && YMIN*RCOND < INCR_THRESH*NORMY && Y_PREC_STATE < EXTRA_Y) INCR_PREC = true ;
+            if ( !IGNORE_CWISE && YMIN*RCOND < INCR_THRESH*NORMY && Y_PREC_STATE < EXTRA_Y) INCR_PREC = true ;
              if (X_STATE == NOPROG_STATE && DXRAT <= RTHRESH) X_STATE = WORKING_STATE;
             if ( X_STATE == WORKING_STATE ) {
                if ( DX_X <= EPS ) {

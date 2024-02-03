@@ -467,7 +467,7 @@
          // Calculate the new step
 
          NITER = NITER + 1
-         if ( .NOT.SWTCH3 ) {
+         if ( !SWTCH3 ) {
             DTIPSQ = WORK( IP1 )*DELTA( IP1 )
             DTISQ = WORK( I )*DELTA( I )
             if ( ORGATI ) {
@@ -657,10 +657,10 @@
 
             // Calculate the new step
 
-            if ( .NOT.SWTCH3 ) {
+            if ( !SWTCH3 ) {
                DTIPSQ = WORK( IP1 )*DELTA( IP1 )
                DTISQ = WORK( I )*DELTA( I )
-               if ( .NOT.SWTCH ) {
+               if ( !SWTCH ) {
                   if ( ORGATI ) {
                      C = W - DTIPSQ*DW + DELSQ*( Z( I ) / DTISQ )**2
                   } else {
@@ -679,7 +679,7 @@
                B = DTIPSQ*DTISQ*W
                if ( C == ZERO ) {
                   if ( A == ZERO ) {
-                     if ( .NOT.SWTCH ) {
+                     if ( !SWTCH ) {
                         if ( ORGATI ) {
                            A = Z( I )*Z( I ) + DTIPSQ*DTIPSQ* ( DPSI+DPHI )
                         } else {
@@ -745,7 +745,7 @@
                   INFO = 0
                   DTIPSQ = WORK( IP1 )*DELTA( IP1 )
                   DTISQ = WORK( I )*DELTA( I )
-                  if ( .NOT.SWTCH ) {
+                  if ( !SWTCH ) {
                      if ( ORGATI ) {
                         C = W - DTIPSQ*DW + DELSQ*( Z( I )/DTISQ )**2
                      } else {
@@ -764,7 +764,7 @@
                   B = DTIPSQ*DTISQ*W
                   if ( C == ZERO ) {
                      if ( A == ZERO ) {
-                        if ( .NOT.SWTCH ) {
+                        if ( !SWTCH ) {
                            if ( ORGATI ) {
                               A = Z( I )*Z( I ) + DTIPSQ*DTIPSQ* ( DPSI+DPHI )
                            } else {
@@ -854,7 +854,7 @@
             ERRETM = EIGHT*( PHI-PSI ) + ERRETM + TWO*RHOINV + THREE*ABS( TEMP )
 *    $             + ABS( TAU2 )*DW
 
-            IF( W*PREW > ZERO && ABS( W ) > ABS( PREW ) / TEN ) SWTCH = .NOT.SWTCH
+            IF( W*PREW > ZERO && ABS( W ) > ABS( PREW ) / TEN ) SWTCH = !SWTCH
 
          } // 230
 

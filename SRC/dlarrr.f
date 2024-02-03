@@ -69,14 +69,14 @@
       OFFDIG = ZERO
       TMP = SQRT(ABS(D(1)))
       if (TMP < RMIN) YESREL = false ;
-      if (.NOT.YESREL) GOTO 11;
+      if ( !YESREL) GOTO 11;
       for (I = 2; I <= N; I++) { // 10
          TMP2 = SQRT(ABS(D(I)))
          if (TMP2 < RMIN) YESREL = false ;
-         if (.NOT.YESREL) GOTO 11;
+         if ( !YESREL) GOTO 11;
          OFFDIG2 = ABS(E(I-1))/(TMP*TMP2)
          if (OFFDIG+OFFDIG2 >= RELCOND) YESREL = false ;
-         if (.NOT.YESREL) GOTO 11;
+         if ( !YESREL) GOTO 11;
          TMP = TMP2
          OFFDIG = OFFDIG2
       } // 10

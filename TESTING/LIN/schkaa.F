@@ -302,7 +302,7 @@ void main() {
 
       // Check first character for correct precision.
 
-      if ( .NOT.LSAME( C1, 'Single precision' ) ) {
+      if ( !LSAME( C1, 'Single precision' ) ) {
          WRITE( NOUT, FMT = 9990 )PATH
 
       } else if ( NMATS <= 0 ) {

@@ -684,7 +684,7 @@
 
             // Ensure that the diagonal is real if Hermitian
 
-            if ( .NOT.ZSYM ) {
+            if ( !ZSYM ) {
                for (JC = 1; JC <= N; JC++) { // 350
                   IROW = IOFFST + ( 1-ISKEW )*JC
                   A( IROW, JC ) = DCMPLX( DBLE( A( IROW, JC ) ) )

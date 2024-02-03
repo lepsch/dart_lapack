@@ -39,11 +39,11 @@
       // Test the input parameters
 
       INFO = 0
-      if ( .NOT.( LSAME( SIDE, 'L' ) || LSAME( SIDE, 'R' ) ) ) {
+      if ( !( LSAME( SIDE, 'L' ) || LSAME( SIDE, 'R' ) ) ) {
          INFO = 1
-      } else if ( .NOT.( LSAME( PIVOT, 'V' ) || LSAME( PIVOT, 'T' ) || LSAME( PIVOT, 'B' ) ) ) {
+      } else if ( !( LSAME( PIVOT, 'V' ) || LSAME( PIVOT, 'T' ) || LSAME( PIVOT, 'B' ) ) ) {
          INFO = 2
-      } else if ( .NOT.( LSAME( DIRECT, 'F' ) || LSAME( DIRECT, 'B' ) ) ) {
+      } else if ( !( LSAME( DIRECT, 'F' ) || LSAME( DIRECT, 'B' ) ) ) {
          INFO = 3
       } else if ( M < 0 ) {
          INFO = 4

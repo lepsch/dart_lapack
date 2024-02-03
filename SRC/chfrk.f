@@ -53,11 +53,11 @@
          NROWA = K
       }
 
-      if ( .NOT.NORMALTRANSR && .NOT.LSAME( TRANSR, 'C' ) ) {
+      if ( !NORMALTRANSR && !LSAME( TRANSR, 'C' ) ) {
          INFO = -1
-      } else if ( .NOT.LOWER && .NOT.LSAME( UPLO, 'U' ) ) {
+      } else if ( !LOWER && !LSAME( UPLO, 'U' ) ) {
          INFO = -2
-      } else if ( .NOT.NOTRANS && .NOT.LSAME( TRANS, 'C' ) ) {
+      } else if ( !NOTRANS && !LSAME( TRANS, 'C' ) ) {
          INFO = -3
       } else if ( N < 0 ) {
          INFO = -4

@@ -45,9 +45,9 @@
       KA1 = KA + 1
       KB1 = KB + 1
       INFO = 0
-      if ( .NOT.WANTX && .NOT.LSAME( VECT, 'N' ) ) {
+      if ( !WANTX && !LSAME( VECT, 'N' ) ) {
          INFO = -1
-      } else if ( .NOT.UPPER && .NOT.LSAME( UPLO, 'L' ) ) {
+      } else if ( !UPPER && !LSAME( UPLO, 'L' ) ) {
          INFO = -2
       } else if ( N < 0 ) {
          INFO = -3

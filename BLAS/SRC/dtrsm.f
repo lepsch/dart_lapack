@@ -47,13 +47,13 @@
       UPPER = LSAME(UPLO,'U')
 
       INFO = 0
-      if ((.NOT.LSIDE) && (.NOT.LSAME(SIDE,'R'))) {
+      if (( !LSIDE) && ( !LSAME(SIDE,'R'))) {
           INFO = 1
-      } else if ((.NOT.UPPER) && (.NOT.LSAME(UPLO,'L'))) {
+      } else if (( !UPPER) && ( !LSAME(UPLO,'L'))) {
           INFO = 2
-      } else if ((.NOT.LSAME(TRANSA,'N')) && (.NOT.LSAME(TRANSA,'T')) && (.NOT.LSAME(TRANSA,'C'))) {
+      } else if (( !LSAME(TRANSA,'N')) && ( !LSAME(TRANSA,'T')) && ( !LSAME(TRANSA,'C'))) {
           INFO = 3
-      } else if ((.NOT.LSAME(DIAG,'U')) && (.NOT.LSAME(DIAG,'N'))) {
+      } else if (( !LSAME(DIAG,'U')) && ( !LSAME(DIAG,'N'))) {
           INFO = 4
       } else if (M < 0) {
           INFO = 5

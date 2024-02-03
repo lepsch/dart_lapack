@@ -63,9 +63,9 @@
       LQUERY = LWORK == -1
 
       INFO = 0
-      if ( .NOT.LSAME( JOB, 'E' ) && .NOT.WANTT ) {
+      if ( !LSAME( JOB, 'E' ) && !WANTT ) {
          INFO = -1
-      } else if ( .NOT.LSAME( COMPZ, 'N' ) && .NOT.WANTZ ) {
+      } else if ( !LSAME( COMPZ, 'N' ) && !WANTZ ) {
          INFO = -2
       } else if ( N < 0 ) {
          INFO = -3
@@ -77,7 +77,7 @@
          INFO = -7
       } else if ( LDZ < 1 || ( WANTZ && LDZ < MAX( 1, N ) ) ) {
          INFO = -11
-      } else if ( LWORK < MAX( 1, N ) && .NOT.LQUERY ) {
+      } else if ( LWORK < MAX( 1, N ) && !LQUERY ) {
          INFO = -13
       }
 

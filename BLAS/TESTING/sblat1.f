@@ -637,7 +637,7 @@ void main() {
 
                               // HERE    SCOMP(I) IS NOT CLOSE TO STRUE(I).
 
-         if (.NOT. PASS) GO TO 20;
+         if ( !PASS) GO TO 20;
                               // PRINT FAIL MESSAGE AND HEADER.
          PASS = false;
          WRITE (NOUT,99999)
@@ -719,7 +719,7 @@ void main() {
 
                              // HERE ICOMP IS NOT EQUAL TO ITRUE.
 
-      if (.NOT. PASS) GO TO 20;
+      if ( !PASS) GO TO 20;
                               // PRINT FAIL MESSAGE AND HEADER.
       PASS = false;
       WRITE (NOUT,99999)

@@ -60,9 +60,9 @@
       MAXWRK = MAX( 1, N + 2*N*NB )
       WORK(1) = MAXWRK
       LQUERY = ( LWORK == -1 )
-      if ( .NOT.RIGHTV && .NOT.LEFTV ) {
+      if ( !RIGHTV && !LEFTV ) {
          INFO = -1
-      } else if ( .NOT.ALLV && .NOT.OVER && .NOT.SOMEV ) {
+      } else if ( !ALLV && !OVER && !SOMEV ) {
          INFO = -2
       } else if ( N < 0 ) {
          INFO = -4
@@ -72,7 +72,7 @@
          INFO = -8
       } else if ( LDVR < 1 || ( RIGHTV && LDVR < N ) ) {
          INFO = -10
-      } else if ( LWORK < MAX( 1, 3*N ) && .NOT.LQUERY ) {
+      } else if ( LWORK < MAX( 1, 3*N ) && !LQUERY ) {
          INFO = -14
       } else {
 
@@ -194,9 +194,9 @@
 
             if ( SOMEV ) {
                if ( IP == 0 ) {
-                  IF( .NOT.SELECT( KI ) ) GO TO 140
+                  IF( !SELECT( KI ) ) GO TO 140
                } else {
-                  IF( .NOT.SELECT( KI-1 ) ) GO TO 140
+                  IF( !SELECT( KI-1 ) ) GO TO 140
                }
             }
 
@@ -294,7 +294,7 @@
 
                // Copy the vector x or Q*x to VR and normalize.
 
-               if ( .NOT.OVER ) {
+               if ( !OVER ) {
                   // ------------------------------
                   // no back-transform: copy x to VR and normalize.
                   dcopy(KI, WORK( 1 + IV*N ), 1, VR( 1, IS ), 1 );
@@ -442,7 +442,7 @@
 
                // Copy the vector x or Q*x to VR and normalize.
 
-               if ( .NOT.OVER ) {
+               if ( !OVER ) {
                   // ------------------------------
                   // no back-transform: copy x to VR and normalize.
                   dcopy(KI, WORK( 1+(IV-1)*N ), 1, VR(1,IS-1), 1 );
@@ -572,7 +572,7 @@
             }
 
             if ( SOMEV ) {
-               IF( .NOT.SELECT( KI ) ) GO TO 260
+               IF( !SELECT( KI ) ) GO TO 260
             }
 
             // Compute the KI-th eigenvalue (WR,WI).
@@ -680,7 +680,7 @@
 
                // Copy the vector x or Q*x to VL and normalize.
 
-               if ( .NOT.OVER ) {
+               if ( !OVER ) {
                   // ------------------------------
                   // no back-transform: copy x to VL and normalize.
                   dcopy(N-KI+1, WORK( KI + IV*N ), 1, VL( KI, IS ), 1 );
@@ -838,7 +838,7 @@
 
                // Copy the vector x or Q*x to VL and normalize.
 
-               if ( .NOT.OVER ) {
+               if ( !OVER ) {
                   // ------------------------------
                   // no back-transform: copy x to VL and normalize.
                   dcopy(N-KI+1, WORK( KI + (IV  )*N ), 1, VL( KI, IS   ), 1 );

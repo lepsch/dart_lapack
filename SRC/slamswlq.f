@@ -51,9 +51,9 @@
       }
 
       INFO = 0
-      if ( .NOT.LEFT && .NOT.RIGHT ) {
+      if ( !LEFT && !RIGHT ) {
         INFO = -1
-      } else if ( .NOT.TRAN && .NOT.NOTRAN ) {
+      } else if ( !TRAN && !NOTRAN ) {
         INFO = -2
       } else if ( K < 0 ) {
         INFO = -5
@@ -69,7 +69,7 @@
         INFO = -11
       } else if ( LDC < MAX( 1, M ) ) {
         INFO = -13
-      } else if ( LWORK < LWMIN && (.NOT.LQUERY) ) {
+      } else if ( LWORK < LWMIN && ( !LQUERY) ) {
         INFO = -15
       }
 

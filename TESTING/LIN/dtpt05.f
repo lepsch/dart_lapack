@@ -90,7 +90,7 @@
             TMP = ABS( B( I, K ) )
             if ( UPPER ) {
                JC = ( ( I-1 )*I ) / 2
-               if ( .NOT.NOTRAN ) {
+               if ( !NOTRAN ) {
                   for (J = 1; J <= I - IFU; J++) { // 40
                      TMP = TMP + ABS( AP( JC+J ) )*ABS( X( J, K ) )
                   } // 40

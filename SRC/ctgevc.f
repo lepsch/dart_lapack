@@ -102,7 +102,7 @@
 
       // Count the number of eigenvectors
 
-      if ( .NOT.ILALL ) {
+      if ( !ILALL ) {
          IM = 0
          for (J = 1; J <= N; J++) { // 10
             IF( SELECT( J ) ) IM = IM + 1

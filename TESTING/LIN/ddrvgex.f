@@ -103,7 +103,7 @@
 
             // Do the tests only if DOTYPE( IMAT ) is true.
 
-            IF( .NOT.DOTYPE( IMAT ) ) GO TO 80
+            IF( !DOTYPE( IMAT ) ) GO TO 80
 
             // Skip types 5, 6, or 7 if the matrix size is too small.
 
@@ -172,7 +172,7 @@
                      RCONDO = ZERO
                      RCONDI = ZERO
 
-                  } else if ( .NOT.NOFACT ) {
+                  } else if ( !NOFACT ) {
 
                      // Compute the condition number for comparison with
                      // the value returned by DGESVX (FACT = 'N' reuses
@@ -317,7 +317,7 @@
 
                      // --- Test DGESVX ---
 
-                     if (.NOT.PREFAC) CALL DLASET( 'Full', N, N, ZERO, ZERO, AFAC, LDA );
+                     if ( !PREFAC) CALL DLASET( 'Full', N, N, ZERO, ZERO, AFAC, LDA );
                      dlaset('Full', N, NRHS, ZERO, ZERO, X, LDA );
                      if ( IEQUED > 1 && N > 0 ) {
 
@@ -357,7 +357,7 @@
                      }
                      RESULT( 7 ) = ABS( RPVGRW-WORK( 1 ) ) / MAX( WORK( 1 ), RPVGRW ) / DLAMCH( 'E' )
 
-                     if ( .NOT.PREFAC ) {
+                     if ( !PREFAC ) {
 
                         // Reconstruct matrix from factors and compute
                         // residual.
@@ -405,7 +405,7 @@
                      // Print information about the tests that did not pass
                      // the threshold.
 
-                     if ( .NOT.TRFCON ) {
+                     if ( !TRFCON ) {
                         for (K = K1; K <= NTESTS; K++) { // 40
                            if ( RESULT( K ) >= THRESH ) {
                               if (NFAIL == 0 && NERRS == 0) CALL ALADHD( NOUT, PATH );
@@ -419,7 +419,7 @@
                         } // 40
                         NRUN = NRUN + 7 - K1
                      } else {
-                        IF( RESULT( 1 ) >= THRESH && .NOT.PREFAC ) THEN                            IF( NFAIL == 0 && NERRS == 0 ) CALL ALADHD( NOUT, PATH )
+                        IF( RESULT( 1 ) >= THRESH && !PREFAC ) THEN                            IF( NFAIL == 0 && NERRS == 0 ) CALL ALADHD( NOUT, PATH )
                            if ( PREFAC ) {
                               WRITE( NOUT, FMT = 9997 )'DGESVX', FACT, TRANS, N, EQUED, IMAT, 1, RESULT( 1 )
                            } else {
@@ -457,7 +457,7 @@
 
                      dlacpy('Full', N, N, ASAV, LDA, A, LDA );
                      dlacpy('Full', N, NRHS, BSAV, LDA, B, LDA );
-                      if (.NOT.PREFAC) CALL DLASET( 'Full', N, N, ZERO, ZERO, AFAC, LDA );
+                      if ( !PREFAC) CALL DLASET( 'Full', N, N, ZERO, ZERO, AFAC, LDA );
                      dlaset('Full', N, NRHS, ZERO, ZERO, X, LDA );
                      if ( IEQUED > 1 && N > 0 ) {
 
@@ -493,7 +493,7 @@
                      }
                       RESULT( 7 ) = ABS( RPVGRW-RPVGRW_SVXX ) / MAX( RPVGRW_SVXX, RPVGRW ) / DLAMCH( 'E' )
 
-                     if ( .NOT.PREFAC ) {
+                     if ( !PREFAC ) {
 
                         // Reconstruct matrix from factors and compute
                         // residual.
@@ -536,7 +536,7 @@
                      // Print information about the tests that did not pass
                      // the threshold.
 
-                     if ( .NOT.TRFCON ) {
+                     if ( !TRFCON ) {
                         for (K = K1; K <= NTESTS; K++) { // 45
                            if ( RESULT( K ) >= THRESH ) {
                               if (NFAIL == 0 && NERRS == 0) CALL ALADHD( NOUT, PATH );
@@ -550,7 +550,7 @@
                         } // 45
                         NRUN = NRUN + 7 - K1
                      } else {
-                        IF( RESULT( 1 ) >= THRESH && .NOT.PREFAC ) THEN                            IF( NFAIL == 0 && NERRS == 0 ) CALL ALADHD( NOUT, PATH )
+                        IF( RESULT( 1 ) >= THRESH && !PREFAC ) THEN                            IF( NFAIL == 0 && NERRS == 0 ) CALL ALADHD( NOUT, PATH )
                            if ( PREFAC ) {
                               WRITE( NOUT, FMT = 9997 )'DGESVXX', FACT, TRANS, N, EQUED, IMAT, 1, RESULT( 1 )
                            } else {

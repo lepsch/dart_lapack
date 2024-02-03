@@ -56,9 +56,9 @@
       INFO = 0
       LQUERY = ( LWORK == -1 )
 
-      if ( .NOT.WANTS && .NOT.WANTDF ) {
+      if ( !WANTS && !WANTDF ) {
          INFO = -1
-      } else if ( .NOT.LSAME( HOWMNY, 'A' ) && .NOT.SOMCON ) {
+      } else if ( !LSAME( HOWMNY, 'A' ) && !SOMCON ) {
          INFO = -2
       } else if ( N < 0 ) {
          INFO = -4
@@ -95,7 +95,7 @@
 
          if ( MM < M ) {
             INFO = -15
-         } else if ( LWORK < LWMIN && .NOT.LQUERY ) {
+         } else if ( LWORK < LWMIN && !LQUERY ) {
             INFO = -18
          }
       }
@@ -123,7 +123,7 @@
          // eigenpair.
 
          if ( SOMCON ) {
-            IF( .NOT.SELECT( K ) ) GO TO 20
+            IF( !SELECT( K ) ) GO TO 20
          }
 
          KS = KS + 1

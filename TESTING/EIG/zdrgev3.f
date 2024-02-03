@@ -148,7 +148,7 @@
          }
 
          for (JTYPE = 1; JTYPE <= MTYPES; JTYPE++) { // 210
-            IF( .NOT.DOTYPE( JTYPE ) ) GO TO 210
+            IF( !DOTYPE( JTYPE ) ) GO TO 210
             NMATS = NMATS + 1
 
             // Save ISEED in case of an error.

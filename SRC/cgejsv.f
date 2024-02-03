@@ -68,17 +68,17 @@
 
       LQUERY = ( LWORK == -1 ) || ( LRWORK == -1 )
 
-      if ( .NOT.(ROWPIV || L2RANK || L2ABER || ERREST || LSAME( JOBA, 'C' ) )) {
+      if ( !(ROWPIV || L2RANK || L2ABER || ERREST || LSAME( JOBA, 'C' ) )) {
          INFO = - 1
-      } else if ( .NOT.( LSVEC || LSAME( JOBU, 'N' ) || ( LSAME( JOBU, 'W' ) && RSVEC && L2TRAN ) ) ) {
+      } else if ( !( LSVEC || LSAME( JOBU, 'N' ) || ( LSAME( JOBU, 'W' ) && RSVEC && L2TRAN ) ) ) {
          INFO = - 2
-      } else if ( .NOT.( RSVEC || LSAME( JOBV, 'N' ) || ( LSAME( JOBV, 'W' ) && LSVEC && L2TRAN ) ) ) {
+      } else if ( !( RSVEC || LSAME( JOBV, 'N' ) || ( LSAME( JOBV, 'W' ) && LSVEC && L2TRAN ) ) ) {
          INFO = - 3
-      } else if ( .NOT. ( L2KILL || DEFR ) ) {
+      } else if ( !( L2KILL || DEFR ) ) {
          INFO = - 4
-      } else if ( .NOT. ( LSAME(JOBT,'T') || LSAME(JOBT,'N') ) ) {
+      } else if ( !( LSAME(JOBT,'T') || LSAME(JOBT,'N') ) ) {
          INFO = - 5
-      } else if ( .NOT. ( L2PERT || LSAME( JOBP, 'N' ) ) ) {
+      } else if ( !( L2PERT || LSAME( JOBP, 'N' ) ) ) {
          INFO = - 6
       } else if ( M < 0 ) {
          INFO = - 7
@@ -133,7 +133,7 @@
           MINWRK  = 2
           OPTWRK  = 2
           MINIWRK = N
-          if ( .NOT. (LSVEC || RSVEC ) ) {
+          if ( !(LSVEC || RSVEC ) ) {
               // .. minimal and optimal sizes of the complex workspace if
               // only the singular values are requested
               if ( ERREST ) {
@@ -164,7 +164,7 @@
                   }
               }
               if (ROWPIV || L2TRAN) MINIWRK = MINIWRK + M;
-          } else if ( RSVEC && (.NOT.LSVEC) ) {
+          } else if ( RSVEC && ( !LSVEC) ) {
              // .. minimal and optimal sizes of the complex workspace if the
              // singular values and the right singular vectors are requested
              if ( ERREST ) {
@@ -197,7 +197,7 @@
                   }
              }
              if (ROWPIV || L2TRAN) MINIWRK = MINIWRK + M;
-          } else if ( LSVEC && (.NOT.RSVEC) ) {
+          } else if ( LSVEC && ( !RSVEC) ) {
              // .. minimal and optimal sizes of the complex workspace if the
              // singular values and the left singular vectors are requested
              if ( ERREST ) {
@@ -233,7 +233,7 @@
           } else {
              // .. minimal and optimal sizes of the complex workspace if the
              // full SVD is requested
-             if ( .NOT. JRACC ) {
+             if ( !JRACC ) {
                  if ( ERREST ) {
                     MINWRK = MAX( N+LWQP3, N+LWCON,  2*N+N**2+LWCON,  2*N+LWQRF,         2*N+LWQP3, 2*N+N**2+N+LWLQF,  2*N+N**2+N+N**2+LWCON, 2*N+N**2+N+LWSVDJ, 2*N+N**2+N+LWSVDJV, 2*N+N**2+N+LWUNMQR,2*N+N**2+N+LWUNMLQ, N+N**2+LWSVDJ,   N+LWUNMQRM )
                  } else {
@@ -254,7 +254,7 @@
                  LWRK_CUNMQRM = INT( CDUMMY(1) )
                  cunmqr('L', 'N', N, N, N, A, LDA, CDUMMY, U, LDU, CDUMMY, -1, IERR );
                  LWRK_CUNMQR = INT( CDUMMY(1) )
-                 if ( .NOT. JRACC ) {
+                 if ( !JRACC ) {
                      cgeqp3(N,N, A, LDA, IWORK, CDUMMY,CDUMMY, -1, RDUMMY, IERR );
                      LWRK_CGEQP3N = INT( CDUMMY(1) )
                      cgesvj('L', 'U', 'N', N, N, U, LDU, SVA, N, V, LDV, CDUMMY, -1, RDUMMY, -1, IERR );
@@ -292,8 +292,8 @@
           }
           MINWRK = MAX( 2, MINWRK )
           OPTWRK = MAX( OPTWRK, MINWRK )
-          IF ( LWORK < MINWRK && (.NOT.LQUERY) ) INFO = - 17
-          IF ( LRWORK < MINRWRK && (.NOT.LQUERY) ) INFO = - 19
+          IF ( LWORK < MINWRK && ( !LQUERY) ) INFO = - 17
+          IF ( LRWORK < MINRWRK && ( !LQUERY) ) INFO = - 19
       }
 
       if ( INFO != 0 ) {
@@ -636,7 +636,7 @@
          // row pivoting combined with standard column pivoting
          // has similar effect as Powell-Reid complete pivoting.
          // The ell-infinity norms of A are made nonincreasing.
-         if ( ( LSVEC && RSVEC ) && .NOT.( JRACC ) ) {
+         if ( ( LSVEC && RSVEC ) && !( JRACC ) ) {
               IWOFF = 2*N
          } else {
               IWOFF = N
@@ -796,7 +796,7 @@
 
       // Phase 3:
 
-      if ( .NOT. ( RSVEC || LSVEC ) ) {
+      if ( !( RSVEC || LSVEC ) ) {
 
           // Singular Values only
 
@@ -819,7 +819,7 @@
          // The licence for this perturbation is in the variable L2PERT, which
          // should be false if FLUSH TO ZERO underflow is active.
 
-         if ( .NOT. ALMORT ) {
+         if ( !ALMORT ) {
 
             if ( L2PERT ) {
                // XSC = SQRT(SMALL)
@@ -875,7 +875,7 @@
             NUMRANK = NINT(RWORK(2))
 
 
-      } else if ( ( RSVEC && ( .NOT. LSVEC ) && ( .NOT. JRACC ) ) || ( JRACC && ( .NOT. LSVEC ) && ( NR != N ) ) ) {
+      } else if ( ( RSVEC && ( !LSVEC ) && ( !JRACC ) ) || ( JRACC && ( !LSVEC ) && ( NR != N ) ) ) {
 
          // -> Singular Values and Right Singular Vectors <-
 
@@ -931,7 +931,7 @@
             clacpy('A', N, N, V, LDV, U, LDU );
           }
 
-      } else if ( JRACC && (.NOT. LSVEC) && ( NR == N ) ) {
+      } else if ( JRACC && ( !LSVEC) && ( NR == N ) ) {
 
          claset('L', N-1,N-1, CZERO, CZERO, A(2,1), LDA );
 
@@ -940,7 +940,7 @@
           NUMRANK = NINT(RWORK(2))
           clapmr( false , N, N, V, LDV, IWORK );
 
-      } else if ( LSVEC && ( .NOT. RSVEC ) ) {
+      } else if ( LSVEC && ( !RSVEC ) ) {
 
          // .. Singular Values and Left Singular Vectors                 ..
 
@@ -989,9 +989,9 @@
 
          // .. Full SVD ..
 
-         if ( .NOT. JRACC ) {
+         if ( !JRACC ) {
 
-         if ( .NOT. ALMORT ) {
+         if ( !ALMORT ) {
 
             // Second Preconditioning Step (QRF [with pivoting])
             // Note that the composition of TRANSPOSE, QRF and TRANSPOSE is

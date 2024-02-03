@@ -115,7 +115,7 @@
          INFO = -14
       } else if ( LDZ < 1 || ( ILZ && LDZ < N ) ) {
          INFO = -16
-      } else if ( LWORK < MAX( 1, N ) && .NOT.LQUERY ) {
+      } else if ( LWORK < MAX( 1, N ) && !LQUERY ) {
          INFO = -18
       }
       if ( INFO != 0 ) {
@@ -255,7 +255,7 @@
                // Test 1a: Check for 2 consecutive small subdiagonals in A
 
                ILAZR2 = false;
-               if ( .NOT.ILAZRO ) {
+               if ( !ILAZRO ) {
                   IF( ABS1( H( J, J-1 ) )*( ASCALE*ABS1( H( J+1, J ) ) ) <= ABS1( H( J, J ) )*( ASCALE*ATOL ) ) ILAZR2 = true;
                }
 
@@ -360,7 +360,7 @@
 
          IITER = 0
          ESHIFT = CZERO
-         if ( .NOT.ILSCHR ) {
+         if ( !ILSCHR ) {
             ILASTM = ILAST
             if (IFRSTM > ILAST) IFRSTM = ILO;
          }
@@ -373,7 +373,7 @@
 
          } // 70
          IITER = IITER + 1
-         if ( .NOT.ILSCHR ) {
+         if ( !ILSCHR ) {
             IFRSTM = IFIRST
          }
 

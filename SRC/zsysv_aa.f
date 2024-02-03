@@ -36,7 +36,7 @@
 
       INFO = 0
       LQUERY = ( LWORK == -1 )
-      if ( .NOT.LSAME( UPLO, 'U' ) && .NOT.LSAME( UPLO, 'L' ) ) {
+      if ( !LSAME( UPLO, 'U' ) && !LSAME( UPLO, 'L' ) ) {
          INFO = -1
       } else if ( N < 0 ) {
          INFO = -2
@@ -46,7 +46,7 @@
          INFO = -5
       } else if ( LDB < MAX( 1, N ) ) {
          INFO = -8
-      } else if ( LWORK < MAX(2*N, 3*N-2) && .NOT.LQUERY ) {
+      } else if ( LWORK < MAX(2*N, 3*N-2) && !LQUERY ) {
          INFO = -10
       }
 

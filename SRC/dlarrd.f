@@ -70,7 +70,7 @@
 
       if ( IRANGE <= 0 ) {
          INFO = -1
-      } else if ( .NOT.(LSAME(ORDER,'B') || LSAME(ORDER,'E')) ) {
+      } else if ( !(LSAME(ORDER,'B') || LSAME(ORDER,'E')) ) {
          INFO = -2
       } else if ( N < 0 ) {
          INFO = -3

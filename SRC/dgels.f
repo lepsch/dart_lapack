@@ -45,7 +45,7 @@
       INFO = 0
       MN = MIN( M, N )
       LQUERY = ( LWORK == -1 )
-      if ( .NOT.( LSAME( TRANS, 'N' ) || LSAME( TRANS, 'T' ) ) ) {
+      if ( !( LSAME( TRANS, 'N' ) || LSAME( TRANS, 'T' ) ) ) {
          INFO = -1
       } else if ( M < 0 ) {
          INFO = -2
@@ -57,7 +57,7 @@
          INFO = -6
       } else if ( LDB < MAX( 1, M, N ) ) {
          INFO = -8
-      } else if ( LWORK < MAX( 1, MN+MAX( MN, NRHS ) ) && .NOT.LQUERY ) {
+      } else if ( LWORK < MAX( 1, MN+MAX( MN, NRHS ) ) && !LQUERY ) {
          INFO = -10
       }
 
@@ -158,7 +158,7 @@
 
          // workspace at least N, optimally N*NB
 
-         if ( .NOT.TPSD ) {
+         if ( !TPSD ) {
 
             // Least-Squares Problem min || A * X - B ||
 
@@ -216,7 +216,7 @@
 
          // workspace at least M, optimally M*NB.
 
-         if ( .NOT.TPSD ) {
+         if ( !TPSD ) {
 
             // underdetermined system of equations A * X = B
 

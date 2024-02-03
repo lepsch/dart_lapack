@@ -83,7 +83,7 @@
          INFO = -1
       } else if ( IJOBVR <= 0 ) {
          INFO = -2
-      } else if ( ( .NOT.WANTST ) && ( .NOT.LSAME( SORT, 'N' ) ) ) {
+      } else if ( ( !WANTST ) && ( !LSAME( SORT, 'N' ) ) ) {
          INFO = -3
       } else if ( N < 0 ) {
          INFO = -5
@@ -113,7 +113,7 @@
          }
          WORK( 1 ) = SROUNDUP_LWORK(LWKOPT)
 
-         if (LWORK < LWKMIN && .NOT.LQUERY) INFO = -18;
+         if (LWORK < LWKMIN && !LQUERY) INFO = -18;
       }
 
       if ( INFO != 0 ) {
@@ -272,7 +272,7 @@
          SDIM = 0
          for (I = 1; I <= N; I++) { // 20
             CURSL = SELCTG( ALPHA( I ), BETA( I ) )
-            if (CURSL) SDIM = SDIM + 1             IF( CURSL && .NOT.LASTSL ) INFO = N + 2;
+            if (CURSL) SDIM = SDIM + 1             IF( CURSL && !LASTSL ) INFO = N + 2;
             LASTSL = CURSL
          } // 20
 

@@ -505,7 +505,7 @@
 
       // Flip the matrix if the transpose will be used.
 
-      if ( .NOT.LSAME( TRANS, 'N' ) ) {
+      if ( !LSAME( TRANS, 'N' ) ) {
          if ( UPPER ) {
             for (J = 1; J <= N / 2; J++) { // 430
                LENJ = MIN( N-2*J+1, KD+1 )

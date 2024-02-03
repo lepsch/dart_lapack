@@ -93,7 +93,7 @@
 
             // Do the tests only if DOTYPE( IMAT ) is true.
 
-            IF( .NOT.DOTYPE( IMAT ) ) GO TO 130
+            IF( !DOTYPE( IMAT ) ) GO TO 130
 
             // Skip types 3, 4, or 5 if the matrix size is too small.
 
@@ -183,7 +183,7 @@
                         if (PREFAC) GO TO 100;
                         RCONDC = ZERO
 
-                     } else if ( .NOT.LSAME( FACT, 'N' ) ) {
+                     } else if ( !LSAME( FACT, 'N' ) ) {
 
                         // Compute the condition number for comparison with
                         // the value returned by SPPSVX (FACT = 'N' reuses
@@ -297,7 +297,7 @@
 
                      // --- Test SPPSVX ---
 
-                     if (.NOT.PREFAC && NPP > 0) CALL SLASET( 'Full', NPP, 1, ZERO, ZERO, AFAC, NPP );
+                     if ( !PREFAC && NPP > 0) CALL SLASET( 'Full', NPP, 1, ZERO, ZERO, AFAC, NPP );
                      slaset('Full', N, NRHS, ZERO, ZERO, X, LDA );
                      if ( IEQUED > 1 && N > 0 ) {
 
@@ -321,7 +321,7 @@
                      }
 
                      if ( INFO == 0 ) {
-                        if ( .NOT.PREFAC ) {
+                        if ( !PREFAC ) {
 
                            // Reconstruct matrix from factors and compute
                            // residual.

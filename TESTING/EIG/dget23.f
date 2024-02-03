@@ -55,7 +55,7 @@
       NOBAL = LSAME( BALANC, 'N' )
       BALOK = NOBAL || LSAME( BALANC, 'P' ) || LSAME( BALANC, 'S' ) || LSAME( BALANC, 'B' )
       INFO = 0
-      if ( .NOT.BALOK ) {
+      if ( !BALOK ) {
          INFO = -2
       } else if ( THRESH < ZERO ) {
          INFO = -4
@@ -197,7 +197,7 @@
 
          // Do Test (8)
 
-         if ( .NOT.NOBAL ) {
+         if ( !NOBAL ) {
             for (J = 1; J <= N; J++) { // 70
                IF( SCALE( J ) != SCALE1( J ) ) RESULT( 8 ) = ULPINV
             } // 70
@@ -243,7 +243,7 @@
 
          // Do Test (8) again
 
-         if ( .NOT.NOBAL ) {
+         if ( !NOBAL ) {
             for (J = 1; J <= N; J++) { // 120
                IF( SCALE( J ) != SCALE1( J ) ) RESULT( 8 ) = ULPINV
             } // 120
@@ -289,7 +289,7 @@
 
          // Do Test (8) again
 
-         if ( .NOT.NOBAL ) {
+         if ( !NOBAL ) {
             for (J = 1; J <= N; J++) { // 170
                IF( SCALE( J ) != SCALE1( J ) ) RESULT( 8 ) = ULPINV
             } // 170

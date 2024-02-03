@@ -43,9 +43,9 @@
       LQUERY = ( LWORK == -1 || LIWORK == -1 )
 
       INFO = 0
-      if ( .NOT.( WANTZ || LSAME( JOBZ, 'N' ) ) ) {
+      if ( !( WANTZ || LSAME( JOBZ, 'N' ) ) ) {
          INFO = -1
-      } else if ( .NOT.( LSAME( UPLO, 'U' ) || LSAME( UPLO, 'L' ) ) ) {
+      } else if ( !( LSAME( UPLO, 'U' ) || LSAME( UPLO, 'L' ) ) ) {
          INFO = -2
       } else if ( N < 0 ) {
          INFO = -3
@@ -69,9 +69,9 @@
          IWORK( 1 ) = LIWMIN
          WORK( 1 ) = LWMIN
 
-         if ( LWORK < LWMIN && .NOT.LQUERY ) {
+         if ( LWORK < LWMIN && !LQUERY ) {
             INFO = -9
-         } else if ( LIWORK < LIWMIN && .NOT.LQUERY ) {
+         } else if ( LIWORK < LIWMIN && !LQUERY ) {
             INFO = -11
          }
       }
@@ -128,7 +128,7 @@
       // tridiagonal matrix, then call DOPMTR to multiply it by the
       // Householder transformations represented in AP.
 
-      if ( .NOT.WANTZ ) {
+      if ( !WANTZ ) {
          dsterf(N, W, WORK( INDE ), INFO );
       } else {
          INDWRK = INDTAU + N

@@ -95,7 +95,7 @@
 
       // Count the number of eigenvectors to be computed
 
-      if ( .NOT.ILALL ) {
+      if ( !ILALL ) {
          IM = 0
          ILCPLX = false;
          for (J = 1; J <= N; J++) { // 10
@@ -228,12 +228,12 @@
             } else {
                ILCOMP = SELECT( JE )
             }
-            if (.NOT.ILCOMP) GO TO 220;
+            if ( !ILCOMP) GO TO 220;
 
             // Decide if (a) singular pencil, (b) real eigenvalue, or
             // (c) complex eigenvalue.
 
-            if ( .NOT.ILCPLX ) {
+            if ( !ILCPLX ) {
                if ( ABS( S( JE, JE ) ) <= SAFMIN && ABS( P( JE, JE ) ) <= SAFMIN ) {
 
                   // Singular matrix pencil -- return unit eigenvector
@@ -257,7 +257,7 @@
                // a  is  ACOEF
                // b  is  BCOEFR + i*BCOEFI
 
-            if ( .NOT.ILCPLX ) {
+            if ( !ILCPLX ) {
 
                // Real eigenvalue
 
@@ -506,12 +506,12 @@
             } else {
                ILCOMP = SELECT( JE )
             }
-            if (.NOT.ILCOMP) GO TO 500;
+            if ( !ILCOMP) GO TO 500;
 
             // Decide if (a) singular pencil, (b) real eigenvalue, or
             // (c) complex eigenvalue.
 
-            if ( .NOT.ILCPLX ) {
+            if ( !ILCPLX ) {
                if ( ABS( S( JE, JE ) ) <= SAFMIN && ABS( P( JE, JE ) ) <= SAFMIN ) {
 
                   // Singular matrix pencil -- unit eigenvector
@@ -537,7 +537,7 @@
                // a  is  ACOEF
                // b  is  BCOEFR + i*BCOEFI
 
-            if ( .NOT.ILCPLX ) {
+            if ( !ILCPLX ) {
 
                // Real eigenvalue
 
@@ -650,7 +650,7 @@
                // If a 2-by-2 block, is in position j-1:j, wait until
                // next iteration to process it (when it will be j:j+1)
 
-               if ( .NOT.IL2BY2 && J > 1 ) {
+               if ( !IL2BY2 && J > 1 ) {
                   if ( S( J, J-1 ) != ZERO ) {
                      IL2BY2 = true;
                      GO TO 370

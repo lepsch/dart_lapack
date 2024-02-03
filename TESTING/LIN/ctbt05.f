@@ -98,7 +98,7 @@
          for (I = 1; I <= N; I++) { // 80
             TMP = CABS1( B( I, K ) )
             if ( UPPER ) {
-               if ( .NOT.NOTRAN ) {
+               if ( !NOTRAN ) {
                   DO 40 J = MAX( I-KD, 1 ), I - IFU
                      TMP = TMP + CABS1( AB( KD+1-I+J, I ) )* CABS1( X( J, K ) )
                   } // 40

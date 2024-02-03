@@ -38,7 +38,7 @@
       if (Y_IS_NAN) SLAPY2 = Y;
       HUGEVAL = SLAMCH( 'Overflow' )
 
-      if ( .NOT.( X_IS_NAN || Y_IS_NAN ) ) {
+      if ( !( X_IS_NAN || Y_IS_NAN ) ) {
          XABS = ABS( X )
          YABS = ABS( Y )
          W = MAX( XABS, YABS )

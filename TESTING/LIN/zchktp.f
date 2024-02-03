@@ -94,7 +94,7 @@
 
             // Do the tests only if DOTYPE( IMAT ) is true.
 
-            IF( .NOT.DOTYPE( IMAT ) ) GO TO 70
+            IF( !DOTYPE( IMAT ) ) GO TO 70
 
             for (IUPLO = 1; IUPLO <= 2; IUPLO++) { // 60
 
@@ -252,7 +252,7 @@
 
             // Do the tests only if DOTYPE( IMAT ) is true.
 
-            IF( .NOT.DOTYPE( IMAT ) ) GO TO 100
+            IF( !DOTYPE( IMAT ) ) GO TO 100
 
             for (IUPLO = 1; IUPLO <= 2; IUPLO++) { // 90
 

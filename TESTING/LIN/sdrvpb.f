@@ -131,14 +131,14 @@
 
                   // Do the tests only if DOTYPE( IMAT ) is true.
 
-                  IF( .NOT.DOTYPE( IMAT ) ) GO TO 80
+                  IF( !DOTYPE( IMAT ) ) GO TO 80
 
                   // Skip types 2, 3, or 4 if the matrix size is too small.
 
                   ZEROT = IMAT >= 2 && IMAT <= 4
                   if (ZEROT && N < IMAT-1) GO TO 80;
 
-                  if ( .NOT.ZEROT || .NOT.DOTYPE( 1 ) ) {
+                  if ( !ZEROT || !DOTYPE( 1 ) ) {
 
                      // Set up parameters with SLATB4 and generate a test
                      // matrix with SLATMS.
@@ -233,7 +233,7 @@
                            if (PREFAC) GO TO 60;
                            RCONDC = ZERO
 
-                        } else if ( .NOT.LSAME( FACT, 'N' ) ) {
+                        } else if ( !LSAME( FACT, 'N' ) ) {
 
                            // Compute the condition number for comparison
                            // with the value returned by SPBSVX (FACT =
@@ -349,7 +349,7 @@
 
                         // --- Test SPBSVX ---
 
-                        if (.NOT.PREFAC) CALL SLASET( 'Full', KD+1, N, ZERO, ZERO, AFAC, LDAB );
+                        if ( !PREFAC) CALL SLASET( 'Full', KD+1, N, ZERO, ZERO, AFAC, LDAB );
                         slaset('Full', N, NRHS, ZERO, ZERO, X, LDA );
                         if ( IEQUED > 1 && N > 0 ) {
 
@@ -373,7 +373,7 @@
                         }
 
                         if ( INFO == 0 ) {
-                           if ( .NOT.PREFAC ) {
+                           if ( !PREFAC ) {
 
                               // Reconstruct matrix from factors and
                               // compute residual.

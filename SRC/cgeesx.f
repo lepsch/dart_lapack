@@ -58,11 +58,11 @@
       WANTSB = LSAME( SENSE, 'B' )
       LQUERY = ( LWORK == -1 )
 
-      if ( ( .NOT.WANTVS ) && ( .NOT.LSAME( JOBVS, 'N' ) ) ) {
+      if ( ( !WANTVS ) && ( !LSAME( JOBVS, 'N' ) ) ) {
          INFO = -1
-      } else if ( ( .NOT.WANTST ) && ( .NOT.LSAME( SORT, 'N' ) ) ) {
+      } else if ( ( !WANTST ) && ( !LSAME( SORT, 'N' ) ) ) {
          INFO = -2
-      } else if ( .NOT.( WANTSN || WANTSE || WANTSV || WANTSB ) || ( .NOT.WANTST && .NOT.WANTSN ) ) {
+      } else if ( !( WANTSN || WANTSE || WANTSV || WANTSB ) || ( !WANTST && !WANTSN ) ) {
          INFO = -4
       } else if ( N < 0 ) {
          INFO = -5
@@ -97,18 +97,18 @@
             chseqr('S', JOBVS, N, 1, N, A, LDA, W, VS, LDVS, WORK, -1, IEVAL );
             HSWORK = INT( WORK( 1 ) )
 
-            if ( .NOT.WANTVS ) {
+            if ( !WANTVS ) {
                MAXWRK = MAX( MAXWRK, HSWORK )
             } else {
                MAXWRK = MAX( MAXWRK, N + ( N - 1 )*ILAENV( 1, 'CUNGHR', ' ', N, 1, N, -1 ) )
                MAXWRK = MAX( MAXWRK, HSWORK )
             }
             LWRK = MAXWRK
-            if (.NOT.WANTSN) LWRK = MAX( LWRK, ( N*N )/2 );
+            if ( !WANTSN) LWRK = MAX( LWRK, ( N*N )/2 );
          }
          WORK( 1 ) = SROUNDUP_LWORK(LWRK)
 
-         if ( LWORK < MINWRK && .NOT.LQUERY ) {
+         if ( LWORK < MINWRK && !LQUERY ) {
             INFO = -15
          }
       }
@@ -201,7 +201,7 @@
          // (RWorkspace: none)
 
          ctrsen(SENSE, JOBVS, BWORK, N, A, LDA, VS, LDVS, W, SDIM, RCONDE, RCONDV, WORK( IWRK ), LWORK-IWRK+1, ICOND );
-         if (.NOT.WANTSN) MAXWRK = MAX( MAXWRK, 2*SDIM*( N-SDIM ) );
+         if ( !WANTSN) MAXWRK = MAX( MAXWRK, 2*SDIM*( N-SDIM ) );
          if ( ICOND == -14 ) {
 
             // Not enough complex workspace

@@ -108,7 +108,7 @@
       // Weak stability test: |S21| <= O(EPS F-norm((A)))
                            // and  |T21| <= O(EPS F-norm((B)))
 
-      WEAK = ABS( S( 2, 1 ) ) <= THRESHA && ABS( T( 2, 1 ) ) <= THRESHB       IF( .NOT.WEAK ) GO TO 20
+      WEAK = ABS( S( 2, 1 ) ) <= THRESHA && ABS( T( 2, 1 ) ) <= THRESHB       IF( !WEAK ) GO TO 20
 
       if ( WANDS ) {
 
@@ -138,7 +138,7 @@
          zlassq(M*M, WORK(M*M+1), 1, SCALE, SUM );
          SB = SCALE*SQRT( SUM )
          STRONG = SA <= THRESHA && SB <= THRESHB
-         if (.NOT.STRONG) GO TO 20;
+         if ( !STRONG) GO TO 20;
       }
 
       // If the swap is accepted ("weakly" and "strongly"), apply the

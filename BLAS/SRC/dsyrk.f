@@ -45,9 +45,9 @@
       UPPER = LSAME(UPLO,'U')
 
       INFO = 0
-      if ((.NOT.UPPER) && (.NOT.LSAME(UPLO,'L'))) {
+      if (( !UPPER) && ( !LSAME(UPLO,'L'))) {
           INFO = 1
-      } else if ((.NOT.LSAME(TRANS,'N')) && (.NOT.LSAME(TRANS,'T')) && (.NOT.LSAME(TRANS,'C'))) {
+      } else if (( !LSAME(TRANS,'N')) && ( !LSAME(TRANS,'T')) && ( !LSAME(TRANS,'C'))) {
           INFO = 2
       } else if (N < 0) {
           INFO = 3

@@ -118,7 +118,7 @@
 
             // Do the tests only if DOTYPE( IMAT ) is true.
 
-            IF( .NOT.DOTYPE( IMAT ) ) GO TO 260
+            IF( !DOTYPE( IMAT ) ) GO TO 260
 
             // Skip types 3, 4, 5, or 6 if the matrix size is too small.
 
@@ -302,7 +302,7 @@
                   // (i.e. there is no zero rows and columns).
                   // Do it only for the first block size.
 
-                  if ( INB == 1 && .NOT.TRFCON ) {
+                  if ( INB == 1 && !TRFCON ) {
                      clacpy(UPLO, N, N, AFAC, LDA, AINV, LDA );
                      SRNAMT = 'CSYTRI_3'
 

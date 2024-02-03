@@ -550,7 +550,7 @@
 
       // Flip the matrix if the transpose will be used.
 
-      if ( .NOT.LSAME( TRANS, 'N' ) ) {
+      if ( !LSAME( TRANS, 'N' ) ) {
          if ( UPPER ) {
             for (J = 1; J <= N / 2; J++) { // 420
                cswap(N-2*J+1, A( J, J ), LDA, A( J+1, N-J+1 ), -1 );

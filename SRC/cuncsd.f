@@ -48,8 +48,8 @@
       WANTU2 = LSAME( JOBU2, 'Y' )
       WANTV1T = LSAME( JOBV1T, 'Y' )
       WANTV2T = LSAME( JOBV2T, 'Y' )
-      COLMAJOR = .NOT. LSAME( TRANS, 'T' )
-      DEFAULTSIGNS = .NOT. LSAME( SIGNS, 'O' )
+      COLMAJOR = !LSAME( TRANS, 'T' )
+      DEFAULTSIGNS = !LSAME( SIGNS, 'O' )
       LQUERY = LWORK == -1
       LRQUERY = LRWORK == -1
       if ( M < 0 ) {
@@ -60,19 +60,19 @@
          INFO = -9
       } else if ( COLMAJOR && LDX11 < MAX( 1, P ) ) {
         INFO = -11
-      } else if (.NOT. COLMAJOR && LDX11 < MAX( 1, Q ) ) {
+      } else if ( !COLMAJOR && LDX11 < MAX( 1, Q ) ) {
         INFO = -11
       } else if (COLMAJOR && LDX12 < MAX( 1, P ) ) {
         INFO = -13
-      } else if (.NOT. COLMAJOR && LDX12 < MAX( 1, M-Q ) ) {
+      } else if ( !COLMAJOR && LDX12 < MAX( 1, M-Q ) ) {
         INFO = -13
       } else if (COLMAJOR && LDX21 < MAX( 1, M-P ) ) {
         INFO = -15
-      } else if (.NOT. COLMAJOR && LDX21 < MAX( 1, Q ) ) {
+      } else if ( !COLMAJOR && LDX21 < MAX( 1, Q ) ) {
         INFO = -15
       } else if (COLMAJOR && LDX22 < MAX( 1, M-P ) ) {
         INFO = -17
-      } else if (.NOT. COLMAJOR && LDX22 < MAX( 1, M-Q ) ) {
+      } else if ( !COLMAJOR && LDX22 < MAX( 1, M-Q ) ) {
         INFO = -17
       } else if ( WANTU1 && LDU1 < P ) {
          INFO = -20
@@ -159,9 +159,9 @@
          LWORKOPT = MAX(LWORKOPT,LWORKMIN)
          WORK(1) = SROUNDUP_LWORK(LWORKOPT)
 
-         if ( LWORK < LWORKMIN && .NOT. ( LQUERY || LRQUERY ) ) {
+         if ( LWORK < LWORKMIN && !( LQUERY || LRQUERY ) ) {
             INFO = -22
-         } else if ( LRWORK < LRWORKMIN && .NOT. ( LQUERY || LRQUERY ) ) {
+         } else if ( LRWORK < LRWORKMIN && !( LQUERY || LRQUERY ) ) {
             INFO = -24
          } else {
             LORGQRWORK = LWORK - IORGQR + 1
@@ -271,7 +271,7 @@
          for (I = P + 1; I <= M - Q; I++) {
             IWORK(I) = I - P
          }
-         if ( .NOT. COLMAJOR ) {
+         if ( !COLMAJOR ) {
             clapmt( false , M-Q, M-Q, V2T, LDV2T, IWORK );
          } else {
             clapmr( false , M-Q, M-Q, V2T, LDV2T, IWORK );

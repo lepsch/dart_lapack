@@ -114,7 +114,7 @@
 
                // Do the tests only if DOTYPE( IMAT ) is true.
 
-               IF( .NOT.DOTYPE( IMAT ) ) CYCLE
+               IF( !DOTYPE( IMAT ) ) CYCLE
 
                // The type of distribution used to generate the random
                // eigen-/singular values:

@@ -141,7 +141,7 @@
 
          for (JTYPE = 1; JTYPE <= MTYPES; JTYPE++) { // 1730
 
-            IF( .NOT.DOTYPE( JTYPE ) ) GO TO 1730
+            IF( !DOTYPE( JTYPE ) ) GO TO 1730
             NMATS = NMATS + 1
             NTEST = 0
 

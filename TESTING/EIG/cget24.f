@@ -208,7 +208,7 @@
             for (I = 1; I <= N; I++) { // 80
                IF( CSLECT( W( I ) ) ) KNTEIG = KNTEIG + 1
                if ( I < N ) {
-                  IF( CSLECT( W( I+1 ) ) && ( .NOT.CSLECT( W( I ) ) ) )RESULT( 13 ) = ULPINV
+                  IF( CSLECT( W( I+1 ) ) && ( !CSLECT( W( I ) ) ) )RESULT( 13 ) = ULPINV
                }
             } // 80
             if (SDIM != KNTEIG) RESULT( 13 ) = ULPINV;

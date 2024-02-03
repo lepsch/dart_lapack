@@ -41,11 +41,11 @@
       WANTQ = LSAME( JOBQ, 'Q' )
 
       INFO = 0
-      if ( .NOT.( WANTU || LSAME( JOBU, 'N' ) ) ) {
+      if ( !( WANTU || LSAME( JOBU, 'N' ) ) ) {
          INFO = -1
-      } else if ( .NOT.( WANTV || LSAME( JOBV, 'N' ) ) ) {
+      } else if ( !( WANTV || LSAME( JOBV, 'N' ) ) ) {
          INFO = -2
-      } else if ( .NOT.( WANTQ || LSAME( JOBQ, 'N' ) ) ) {
+      } else if ( !( WANTQ || LSAME( JOBQ, 'N' ) ) ) {
          INFO = -3
       } else if ( M < 0 ) {
          INFO = -4

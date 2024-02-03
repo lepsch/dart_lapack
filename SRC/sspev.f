@@ -41,9 +41,9 @@
       WANTZ = LSAME( JOBZ, 'V' )
 
       INFO = 0
-      if ( .NOT.( WANTZ || LSAME( JOBZ, 'N' ) ) ) {
+      if ( !( WANTZ || LSAME( JOBZ, 'N' ) ) ) {
          INFO = -1
-      } else if ( .NOT.( LSAME( UPLO, 'U' ) || LSAME( UPLO, 'L' ) ) ) {
+      } else if ( !( LSAME( UPLO, 'U' ) || LSAME( UPLO, 'L' ) ) ) {
          INFO = -2
       } else if ( N < 0 ) {
          INFO = -3
@@ -99,7 +99,7 @@
       // For eigenvalues only, call SSTERF.  For eigenvectors, first call
       // SOPGTR to generate the orthogonal matrix, then call SSTEQR.
 
-      if ( .NOT.WANTZ ) {
+      if ( !WANTZ ) {
          ssterf(N, W, WORK( INDE ), INFO );
       } else {
          INDWRK = INDTAU + N

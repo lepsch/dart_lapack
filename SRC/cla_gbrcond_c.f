@@ -47,7 +47,7 @@
 
       INFO = 0
       NOTRANS = LSAME( TRANS, 'N' )
-      if ( .NOT. NOTRANS && .NOT. LSAME( TRANS, 'T' ) && .NOT. LSAME( TRANS, 'C' ) ) {
+      if ( !NOTRANS && !LSAME( TRANS, 'T' ) && !LSAME( TRANS, 'C' ) ) {
          INFO = -1
       } else if ( N < 0 ) {
          INFO = -2

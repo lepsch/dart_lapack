@@ -46,9 +46,9 @@
       LQUERY = ( LWORK == -1 || LRWORK == -1 || LIWORK == -1 )
 
       INFO = 0
-      if ( .NOT.( WANTZ || LSAME( JOBZ, 'N' ) ) ) {
+      if ( !( WANTZ || LSAME( JOBZ, 'N' ) ) ) {
          INFO = -1
-      } else if ( .NOT.( LSAME( UPLO, 'L' ) || LSAME( UPLO, 'U' ) ) ) {
+      } else if ( !( LSAME( UPLO, 'L' ) || LSAME( UPLO, 'U' ) ) ) {
          INFO = -2
       } else if ( N < 0 ) {
          INFO = -3
@@ -76,11 +76,11 @@
          RWORK( 1 ) = LRWMIN
          IWORK( 1 ) = LIWMIN
 
-         if ( LWORK < LWMIN && .NOT.LQUERY ) {
+         if ( LWORK < LWMIN && !LQUERY ) {
             INFO = -9
-         } else if ( LRWORK < LRWMIN && .NOT.LQUERY ) {
+         } else if ( LRWORK < LRWMIN && !LQUERY ) {
             INFO = -11
-         } else if ( LIWORK < LIWMIN && .NOT.LQUERY ) {
+         } else if ( LIWORK < LIWMIN && !LQUERY ) {
             INFO = -13
          }
       }
@@ -139,7 +139,7 @@
       // For eigenvalues only, call SSTERF.  For eigenvectors, first call
       // CUPGTR to generate the orthogonal matrix, then call CSTEDC.
 
-      if ( .NOT.WANTZ ) {
+      if ( !WANTZ ) {
          ssterf(N, W, RWORK( INDE ), INFO );
       } else {
          cstedc('I', N, W, RWORK( INDE ), Z, LDZ, WORK( INDWRK ), LLWRK, RWORK( INDRWK ), LLRWK, IWORK, LIWORK, INFO );

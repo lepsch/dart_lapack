@@ -37,11 +37,11 @@
 
       INFO = 0
       NOUNIT = LSAME( DIAG, 'N' )
-      if ( .NOT.LSAME( UPLO, 'U' ) && .NOT.LSAME( UPLO, 'L' ) ) {
+      if ( !LSAME( UPLO, 'U' ) && !LSAME( UPLO, 'L' ) ) {
          INFO = -1
-      } else if ( .NOT.LSAME( TRANS, 'N' ) && .NOT. LSAME( TRANS, 'T' ) && .NOT.LSAME( TRANS, 'C' ) ) {
+      } else if ( !LSAME( TRANS, 'N' ) && !LSAME( TRANS, 'T' ) && !LSAME( TRANS, 'C' ) ) {
          INFO = -2
-      } else if ( .NOT.NOUNIT && .NOT.LSAME( DIAG, 'U' ) ) {
+      } else if ( !NOUNIT && !LSAME( DIAG, 'U' ) ) {
          INFO = -3
       } else if ( N < 0 ) {
          INFO = -4

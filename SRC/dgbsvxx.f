@@ -68,9 +68,9 @@
 
       // Test the input parameters.  PARAMS is not tested until DGBRFSX.
 
-      if ( .NOT.NOFACT && .NOT.EQUIL && .NOT. LSAME( FACT, 'F' ) ) {
+      if ( !NOFACT && !EQUIL && !LSAME( FACT, 'F' ) ) {
          INFO = -1
-      } else if ( .NOT.NOTRAN && .NOT.LSAME( TRANS, 'T' ) && .NOT. LSAME( TRANS, 'C' ) ) {
+      } else if ( !NOTRAN && !LSAME( TRANS, 'T' ) && !LSAME( TRANS, 'C' ) ) {
          INFO = -2
       } else if ( N < 0 ) {
          INFO = -3
@@ -84,7 +84,7 @@
          INFO = -8
       } else if ( LDAFB < 2*KL+KU+1 ) {
          INFO = -10
-      } else if ( LSAME( FACT, 'F' ) && .NOT. ( ROWEQU || COLEQU || LSAME( EQUED, 'N' ) ) ) {
+      } else if ( LSAME( FACT, 'F' ) && !( ROWEQU || COLEQU || LSAME( EQUED, 'N' ) ) ) {
          INFO = -12
       } else {
          if ( ROWEQU ) {
@@ -147,12 +147,12 @@
 
       // If the scaling factors are not applied, set them to 1.0.
 
-         if ( .NOT.ROWEQU ) {
+         if ( !ROWEQU ) {
             for (J = 1; J <= N; J++) {
                R( J ) = 1.0;
             }
          }
-         if ( .NOT.COLEQU ) {
+         if ( !COLEQU ) {
             for (J = 1; J <= N; J++) {
                C( J ) = 1.0;
             }
@@ -209,7 +209,7 @@
 
       if ( COLEQU && NOTRAN ) {
          dlascl2(N, NRHS, C, X, LDX );
-      } else if ( ROWEQU && .NOT.NOTRAN ) {
+      } else if ( ROWEQU && !NOTRAN ) {
          dlascl2(N, NRHS, R, X, LDX );
       }
 

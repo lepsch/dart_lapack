@@ -454,7 +454,7 @@
          // Calculate the new step
 
          NITER = NITER + 1
-         if ( .NOT.SWTCH3 ) {
+         if ( !SWTCH3 ) {
             if ( ORGATI ) {
                C = W - DELTA( IP1 )*DW - ( D( I )-D( IP1 ) )* ( Z( I ) / DELTA( I ) )**2
             } else {
@@ -583,8 +583,8 @@
 
             // Calculate the new step
 
-            if ( .NOT.SWTCH3 ) {
-               if ( .NOT.SWTCH ) {
+            if ( !SWTCH3 ) {
+               if ( !SWTCH ) {
                   if ( ORGATI ) {
                      C = W - DELTA( IP1 )*DW - ( D( I )-D( IP1 ) )*( Z( I ) / DELTA( I ) )**2
                   } else {
@@ -603,7 +603,7 @@
                B = DELTA( I )*DELTA( IP1 )*W
                if ( C == ZERO ) {
                   if ( A == ZERO ) {
-                     if ( .NOT.SWTCH ) {
+                     if ( !SWTCH ) {
                         if ( ORGATI ) {
                            A = Z( I )*Z( I ) + DELTA( IP1 )* DELTA( IP1 )*( DPSI+DPHI )
                         } else {
@@ -696,7 +696,7 @@
             DW = DPSI + DPHI + TEMP*TEMP
             TEMP = Z( II )*TEMP
             W = RHOINV + PHI + PSI + TEMP
-            ERRETM = EIGHT*( PHI-PSI ) + ERRETM + TWO*RHOINV + THREE*ABS( TEMP ) + ABS( TAU )*DW             IF( W*PREW > ZERO && ABS( W ) > ABS( PREW ) / TEN ) SWTCH = .NOT.SWTCH
+            ERRETM = EIGHT*( PHI-PSI ) + ERRETM + TWO*RHOINV + THREE*ABS( TEMP ) + ABS( TAU )*DW             IF( W*PREW > ZERO && ABS( W ) > ABS( PREW ) / TEN ) SWTCH = !SWTCH
 
          } // 240
 

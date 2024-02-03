@@ -100,7 +100,7 @@
 
             // Do the tests only if DOTYPE( IMAT ) is true.
 
-            IF( .NOT.DOTYPE( IMAT ) ) GO TO 170
+            IF( !DOTYPE( IMAT ) ) GO TO 170
 
             // Skip types 3, 4, 5, or 6 if the matrix size is too small.
 
@@ -270,7 +270,7 @@
 *+    TEST 2
                   // Form the inverse and compute the residual.
 
-                  if ( INB == 1 && .NOT.TRFCON ) {
+                  if ( INB == 1 && !TRFCON ) {
                      zlacpy(UPLO, N, N, AFAC, LDA, AINV, LDA );
                      SRNAMT = 'ZHETRI2'
                      LWORK = (N+NB+1)*(NB+3)

@@ -108,9 +108,9 @@
 
       // Test input parameters.
 
-      if ( .NOT.LSAME( UPLO, 'U' ) && .NOT.LSAME( UPLO, 'L' ) ) {
+      if ( !LSAME( UPLO, 'U' ) && !LSAME( UPLO, 'L' ) ) {
         INFO = -1
-      } else if ( .NOT.RCEQU && .NOT.LSAME( EQUED, 'N' ) ) {
+      } else if ( !RCEQU && !LSAME( EQUED, 'N' ) ) {
         INFO = -2
       } else if ( N < 0 ) {
         INFO = -3
@@ -247,7 +247,7 @@
             if ( RCOND_TMP < ILLRCOND_THRESH ) {
                ERR_BNDS_COMP( J, LA_LINRX_ERR_I ) = 1.0
                ERR_BNDS_COMP( J, LA_LINRX_TRUST_I ) = 0.0
-               if ( .NOT. IGNORE_CWISE && INFO < N + J ) INFO = N + J             ELSE IF ( ERR_BNDS_COMP( J, LA_LINRX_ERR_I ) < ERR_LBND ) {
+               if ( !IGNORE_CWISE && INFO < N + J ) INFO = N + J             ELSE IF ( ERR_BNDS_COMP( J, LA_LINRX_ERR_I ) < ERR_LBND ) {
                ERR_BNDS_COMP( J, LA_LINRX_ERR_I ) = ERR_LBND
                ERR_BNDS_COMP( J, LA_LINRX_TRUST_I ) = 1.0
             }

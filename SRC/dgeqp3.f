@@ -60,7 +60,7 @@
          }
          WORK( 1 ) = LWKOPT
 
-         if ( ( LWORK < IWS ) && .NOT.LQUERY ) {
+         if ( ( LWORK < IWS ) && !LQUERY ) {
             INFO = -8
          }
       }

@@ -41,7 +41,7 @@
       // Test the input parameters
 
       INFO = 0
-      if ( .NOT.LSAME( JOB, 'N' ) && .NOT.LSAME( JOB, 'P' ) && .NOT.LSAME( JOB, 'S' ) && .NOT.LSAME( JOB, 'B' ) ) {
+      if ( !LSAME( JOB, 'N' ) && !LSAME( JOB, 'P' ) && !LSAME( JOB, 'S' ) && !LSAME( JOB, 'B' ) ) {
          INFO = -1
       } else if ( N < 0 ) {
          INFO = -2

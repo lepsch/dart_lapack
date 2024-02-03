@@ -36,9 +36,9 @@
       INFO = 0
       NORMALTRANSR = LSAME( TRANSR, 'N' )
       LOWER = LSAME( UPLO, 'L' )
-      if ( .NOT.NORMALTRANSR && .NOT.LSAME( TRANSR, 'T' ) ) {
+      if ( !NORMALTRANSR && !LSAME( TRANSR, 'T' ) ) {
          INFO = -1
-      } else if ( .NOT.LOWER && .NOT.LSAME( UPLO, 'U' ) ) {
+      } else if ( !LOWER && !LSAME( UPLO, 'U' ) ) {
          INFO = -2
       } else if ( N < 0 ) {
          INFO = -3
@@ -80,10 +80,10 @@
       if ( MOD( N, 2 ) == 0 ) {
          K = N / 2
          NISODD = false;
-         if (.NOT.LOWER) NP1X2 = N + N + 2;
+         if ( !LOWER) NP1X2 = N + N + 2;
       } else {
          NISODD = true;
-         if (.NOT.LOWER) NX2 = N + N;
+         if ( !LOWER) NX2 = N + N;
       }
 
       if ( NISODD ) {

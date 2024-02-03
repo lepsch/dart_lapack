@@ -52,15 +52,15 @@
 
       // Test the input parameters.
 
-      if ( .NOT.NOFACT && .NOT.EQUIL && .NOT.LSAME( FACT, 'F' ) ) {
+      if ( !NOFACT && !EQUIL && !LSAME( FACT, 'F' ) ) {
          INFO = -1
-      } else if ( .NOT.LSAME( UPLO, 'U' ) && .NOT.LSAME( UPLO, 'L' ) ) {
+      } else if ( !LSAME( UPLO, 'U' ) && !LSAME( UPLO, 'L' ) ) {
          INFO = -2
       } else if ( N < 0 ) {
          INFO = -3
       } else if ( NRHS < 0 ) {
          INFO = -4
-      } else if ( LSAME( FACT, 'F' ) && .NOT. ( RCEQU || LSAME( EQUED, 'N' ) ) ) {
+      } else if ( LSAME( FACT, 'F' ) && !( RCEQU || LSAME( EQUED, 'N' ) ) ) {
          INFO = -7
       } else {
          if ( RCEQU ) {

@@ -36,7 +36,7 @@
 
       INFO = 0
       WANTQ = LSAME( COMPQ, 'V' )
-      if ( .NOT.LSAME( COMPQ, 'N' ) && .NOT.WANTQ ) {
+      if ( !LSAME( COMPQ, 'N' ) && !WANTQ ) {
          INFO = -1
       } else if ( N < 0 ) {
          INFO = -2

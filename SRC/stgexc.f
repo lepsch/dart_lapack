@@ -62,7 +62,7 @@
          }
          WORK(1) = LWMIN
 
-         if (LWORK < LWMIN && .NOT.LQUERY) {
+         if (LWORK < LWMIN && !LQUERY) {
             INFO = -15
          }
       }

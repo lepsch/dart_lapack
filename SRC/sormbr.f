@@ -50,11 +50,11 @@
          NQ = N
          NW = MAX( 1, M )
       }
-      if ( .NOT.APPLYQ && .NOT.LSAME( VECT, 'P' ) ) {
+      if ( !APPLYQ && !LSAME( VECT, 'P' ) ) {
          INFO = -1
-      } else if ( .NOT.LEFT && .NOT.LSAME( SIDE, 'R' ) ) {
+      } else if ( !LEFT && !LSAME( SIDE, 'R' ) ) {
          INFO = -2
-      } else if ( .NOT.NOTRAN && .NOT.LSAME( TRANS, 'T' ) ) {
+      } else if ( !NOTRAN && !LSAME( TRANS, 'T' ) ) {
          INFO = -3
       } else if ( M < 0 ) {
          INFO = -4
@@ -62,11 +62,11 @@
          INFO = -5
       } else if ( K < 0 ) {
          INFO = -6
-      } else if ( ( APPLYQ && LDA < MAX( 1, NQ ) ) || ( .NOT.APPLYQ && LDA < MAX( 1, MIN( NQ, K ) ) ) ) {
+      } else if ( ( APPLYQ && LDA < MAX( 1, NQ ) ) || ( !APPLYQ && LDA < MAX( 1, MIN( NQ, K ) ) ) ) {
          INFO = -8
       } else if ( LDC < MAX( 1, M ) ) {
          INFO = -11
-      } else if ( LWORK < NW && .NOT.LQUERY ) {
+      } else if ( LWORK < NW && !LQUERY ) {
          INFO = -13
       }
 

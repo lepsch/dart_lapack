@@ -60,9 +60,9 @@
       // Test the input parameters.
 
       INFO = 0
-      if ((.NOT.NOTA) && (.NOT.CONJA) && (.NOT.LSAME(TRANSA,'T'))) {
+      if (( !NOTA) && ( !CONJA) && ( !LSAME(TRANSA,'T'))) {
           INFO = 1
-      } else if ((.NOT.NOTB) && (.NOT.CONJB) && (.NOT.LSAME(TRANSB,'T'))) {
+      } else if (( !NOTB) && ( !CONJB) && ( !LSAME(TRANSB,'T'))) {
           INFO = 2
       } else if (M < 0) {
           INFO = 3

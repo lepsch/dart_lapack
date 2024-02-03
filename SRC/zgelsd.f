@@ -124,7 +124,7 @@
          IWORK( 1 ) = LIWORK
          RWORK( 1 ) = LRWORK
 
-         if ( LWORK < MINWRK && .NOT.LQUERY ) {
+         if ( LWORK < MINWRK && !LQUERY ) {
             INFO = -12
          }
       }

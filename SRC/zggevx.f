@@ -89,13 +89,13 @@
 
       INFO = 0
       LQUERY = ( LWORK == -1 )
-      if ( .NOT.( NOSCL || LSAME( BALANC,'S' ) || LSAME( BALANC, 'B' ) ) ) {
+      if ( !( NOSCL || LSAME( BALANC,'S' ) || LSAME( BALANC, 'B' ) ) ) {
          INFO = -1
       } else if ( IJOBVL <= 0 ) {
          INFO = -2
       } else if ( IJOBVR <= 0 ) {
          INFO = -3
-      } else if ( .NOT.( WANTSN || WANTSE || WANTSB || WANTSV ) ) {
+      } else if ( !( WANTSN || WANTSE || WANTSB || WANTSV ) ) {
          INFO = -4
       } else if ( N < 0 ) {
          INFO = -5
@@ -136,7 +136,7 @@
          }
          WORK( 1 ) = MAXWRK
 
-         if ( LWORK < MINWRK && .NOT.LQUERY ) {
+         if ( LWORK < MINWRK && !LQUERY ) {
             INFO = -25
          }
       }
@@ -211,7 +211,7 @@
       // (Complex Workspace: need N, prefer N*NB )
 
       IROWS = IHI + 1 - ILO
-      if ( ILV || .NOT.WANTSN ) {
+      if ( ILV || !WANTSN ) {
          ICOLS = N + 1 - ILO
       } else {
          ICOLS = IROWS
@@ -241,7 +241,7 @@
       // Reduce to generalized Hessenberg form
       // (Workspace: none needed)
 
-      if ( ILV || .NOT.WANTSN ) {
+      if ( ILV || !WANTSN ) {
 
          // Eigenvectors requested -- work on whole matrix.
 
@@ -256,7 +256,7 @@
       // (Real Workspace: need N)
 
       IWRK = ITAU
-      if ( ILV || .NOT.WANTSN ) {
+      if ( ILV || !WANTSN ) {
          CHTEMP = 'S'
       } else {
          CHTEMP = 'E'
@@ -280,7 +280,7 @@
       // ZTGSNA: (Complex Workspace: need 2*N*N if SENSE='V' or 'B')
               // (Integer Workspace: need N+2 )
 
-      if ( ILV || .NOT.WANTSN ) {
+      if ( ILV || !WANTSN ) {
          if ( ILV ) {
             if ( ILVL ) {
                if ( ILVR ) {
@@ -299,7 +299,7 @@
             }
          }
 
-         if ( .NOT.WANTSN ) {
+         if ( !WANTSN ) {
 
             // compute eigenvectors (ZTGEVC) and estimate condition
             // numbers (ZTGSNA). Note that the definition of the condition

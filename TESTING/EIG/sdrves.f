@@ -130,7 +130,7 @@
          if (NSIZES == 1 && NTYPES == MAXTYP+1) MTYPES = MTYPES + 1;
 
          for (JTYPE = 1; JTYPE <= MTYPES; JTYPE++) { // 260
-            IF( .NOT.DOTYPE( JTYPE ) ) GO TO 260
+            IF( !DOTYPE( JTYPE ) ) GO TO 260
 
             // Save ISEED in case of an error.
 
@@ -387,7 +387,7 @@
                      for (I = 1; I <= N; I++) { // 200
                         IF( SSLECT( WR( I ), WI( I ) ) || SSLECT( WR( I ), -WI( I ) ) ) KNTEIG = KNTEIG + 1
                         if ( I < N ) {
-                           IF( ( SSLECT( WR( I+1 ), WI( I+1 ) ) || SSLECT( WR( I+1 ), -WI( I+1 ) ) ) && ( .NOT.( SSLECT( WR( I ), WI( I ) ) || SSLECT( WR( I ), -WI( I ) ) ) ) && IINFO != N+2 ) RESULT( 13 ) = ULPINV
+                           IF( ( SSLECT( WR( I+1 ), WI( I+1 ) ) || SSLECT( WR( I+1 ), -WI( I+1 ) ) ) && ( !( SSLECT( WR( I ), WI( I ) ) || SSLECT( WR( I ), -WI( I ) ) ) ) && IINFO != N+2 ) RESULT( 13 ) = ULPINV
                         }
                      } // 200
                      if ( SDIM != KNTEIG ) {

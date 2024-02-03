@@ -47,11 +47,11 @@
          NQ = N
          NW = MAX( 1, M )
       }
-      if ( .NOT.LEFT && .NOT.LSAME( SIDE, 'R' ) ) {
+      if ( !LEFT && !LSAME( SIDE, 'R' ) ) {
          INFO = -1
-      } else if ( .NOT.UPPER && .NOT.LSAME( UPLO, 'L' ) ) {
+      } else if ( !UPPER && !LSAME( UPLO, 'L' ) ) {
          INFO = -2
-      } else if ( .NOT.LSAME( TRANS, 'N' ) && .NOT.LSAME( TRANS, 'C' ) ) {
+      } else if ( !LSAME( TRANS, 'N' ) && !LSAME( TRANS, 'C' ) ) {
          INFO = -3
       } else if ( M < 0 ) {
          INFO = -4
@@ -61,7 +61,7 @@
          INFO = -7
       } else if ( LDC < MAX( 1, M ) ) {
          INFO = -10
-      } else if ( LWORK < NW && .NOT.LQUERY ) {
+      } else if ( LWORK < NW && !LQUERY ) {
          INFO = -12
       }
 

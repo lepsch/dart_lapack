@@ -44,7 +44,7 @@
       TRAN  = LSAME( TRANS, 'T' )
 
       LQUERY = ( LWORK == -1 || LWORK == -2 )
-      if ( .NOT.( LSAME( TRANS, 'N' ) || LSAME( TRANS, 'T' ) ) ) {
+      if ( !( LSAME( TRANS, 'N' ) || LSAME( TRANS, 'T' ) ) ) {
          INFO = -1
       } else if ( M < 0 ) {
          INFO = -2
@@ -93,7 +93,7 @@
          WSIZEM = TSZM + LWM
        }
 
-       if ( ( LWORK < WSIZEM ) && ( .NOT.LQUERY ) ) {
+       if ( ( LWORK < WSIZEM ) && ( !LQUERY ) ) {
           INFO = -10
        }
 
@@ -178,7 +178,7 @@
          // compute QR factorization of A
 
         sgeqr(M, N, A, LDA, WORK( LW2+1 ), LW1, WORK( 1 ), LW2, INFO );
-        if ( .NOT.TRAN ) {
+        if ( !TRAN ) {
 
             // Least-Squares Problem min || A * X - B ||
 
@@ -229,7 +229,7 @@
 
          // workspace at least M, optimally M*NB.
 
-         if ( .NOT.TRAN ) {
+         if ( !TRAN ) {
 
             // underdetermined system of equations A * X = B
 

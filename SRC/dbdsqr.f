@@ -54,7 +54,7 @@
 
       INFO = 0
       LOWER = LSAME( UPLO, 'L' )
-      if ( .NOT.LSAME( UPLO, 'U' ) && .NOT.LOWER ) {
+      if ( !LSAME( UPLO, 'U' ) && !LOWER ) {
          INFO = -1
       } else if ( N < 0 ) {
          INFO = -2
@@ -83,7 +83,7 @@
 
       // If no singular vectors desired, use qd algorithm
 
-      if ( .NOT.ROTATE ) {
+      if ( !ROTATE ) {
          dlasq1(N, D, E, WORK, INFO );
 
       // If INFO equals 2, dqds didn't finish, try to finish

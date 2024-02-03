@@ -56,9 +56,9 @@
 
       // Test the input parameters.
 
-      if ( .NOT.NOFACT && .NOT.EQUIL && .NOT.LSAME( FACT, 'F' ) ) {
+      if ( !NOFACT && !EQUIL && !LSAME( FACT, 'F' ) ) {
          INFO = -1
-      } else if ( .NOT.NOTRAN && .NOT.LSAME( TRANS, 'T' ) && .NOT. LSAME( TRANS, 'C' ) ) {
+      } else if ( !NOTRAN && !LSAME( TRANS, 'T' ) && !LSAME( TRANS, 'C' ) ) {
          INFO = -2
       } else if ( N < 0 ) {
          INFO = -3
@@ -72,7 +72,7 @@
          INFO = -8
       } else if ( LDAFB < 2*KL+KU+1 ) {
          INFO = -10
-      } else if ( LSAME( FACT, 'F' ) && .NOT. ( ROWEQU || COLEQU || LSAME( EQUED, 'N' ) ) ) {
+      } else if ( LSAME( FACT, 'F' ) && !( ROWEQU || COLEQU || LSAME( EQUED, 'N' ) ) ) {
          INFO = -12
       } else {
          if ( ROWEQU ) {

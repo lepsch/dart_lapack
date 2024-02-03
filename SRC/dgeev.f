@@ -49,9 +49,9 @@
       LQUERY = ( LWORK == -1 )
       WANTVL = LSAME( JOBVL, 'V' )
       WANTVR = LSAME( JOBVR, 'V' )
-      if ( ( .NOT.WANTVL ) && ( .NOT.LSAME( JOBVL, 'N' ) ) ) {
+      if ( ( !WANTVL ) && ( !LSAME( JOBVL, 'N' ) ) ) {
          INFO = -1
-      } else if ( ( .NOT.WANTVR ) && ( .NOT.LSAME( JOBVR, 'N' ) ) ) {
+      } else if ( ( !WANTVR ) && ( !LSAME( JOBVR, 'N' ) ) ) {
          INFO = -2
       } else if ( N < 0 ) {
          INFO = -3
@@ -109,7 +109,7 @@
          }
          WORK( 1 ) = MAXWRK
 
-         if ( LWORK < MINWRK && .NOT.LQUERY ) {
+         if ( LWORK < MINWRK && !LQUERY ) {
             INFO = -13
          }
       }

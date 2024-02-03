@@ -208,7 +208,7 @@
             for (I = 1; I <= N; I++) { // 80
                IF( ZSLECT( W( I ) ) ) KNTEIG = KNTEIG + 1
                if ( I < N ) {
-                  IF( ZSLECT( W( I+1 ) ) && ( .NOT.ZSLECT( W( I ) ) ) )RESULT( 13 ) = ULPINV
+                  IF( ZSLECT( W( I+1 ) ) && ( !ZSLECT( W( I ) ) ) )RESULT( 13 ) = ULPINV
                }
             } // 80
             if (SDIM != KNTEIG) RESULT( 13 ) = ULPINV;

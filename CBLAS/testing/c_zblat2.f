@@ -193,7 +193,7 @@ void main() {
       WRITE( NOUT, FMT = 9990 )( INC( I ), I = 1, NINC )
       WRITE( NOUT, FMT = 9989 )( ALF( I ), I = 1, NALF )
       WRITE( NOUT, FMT = 9988 )( BET( I ), I = 1, NBET )
-      if ( .NOT.TSTERR ) {
+      if ( !TSTERR ) {
          WRITE( NOUT, FMT = * )
          WRITE( NOUT, FMT = 9980 )
       }
@@ -262,14 +262,14 @@ void main() {
       TRANS = 'N'
       zmvch(TRANS, N, N, ONE, A, NMAX, X, 1, ZERO, Y, 1, YT, G, YY, EPS, ERR, FATAL, NOUT, true );
       SAME = LZE( YY, YT, N )
-      if ( .NOT.SAME || ERR != RZERO ) {
+      if ( !SAME || ERR != RZERO ) {
          WRITE( NOUT, FMT = 9985 )TRANS, SAME, ERR
          STOP
       }
       TRANS = 'T'
       zmvch(TRANS, N, N, ONE, A, NMAX, X, -1, ZERO, Y, -1, YT, G, YY, EPS, ERR, FATAL, NOUT, true );
       SAME = LZE( YY, YT, N )
-      if ( .NOT.SAME || ERR != RZERO ) {
+      if ( !SAME || ERR != RZERO ) {
          WRITE( NOUT, FMT = 9985 )TRANS, SAME, ERR
          STOP
       }
@@ -278,7 +278,7 @@ void main() {
 
       for (ISNUM = 1; ISNUM <= NSUBS; ISNUM++) { // 210
          WRITE( NOUT, FMT = * )
-         if ( .NOT.LTEST( ISNUM ) ) {
+         if ( !LTEST( ISNUM ) ) {
             // Subprogram is not to be tested.
             WRITE( NOUT, FMT = 9983 )SNAMES( ISNUM )
          } else {
@@ -572,7 +572,7 @@ void main() {
 
                              // Check if error-exit was taken incorrectly.
 
-                              if ( .NOT.OK ) {
+                              if ( !OK ) {
                                  WRITE( NOUT, FMT = 9993 )
                                  FATAL = true;
                                  GO TO 130
@@ -620,14 +620,14 @@ void main() {
                               SAME = true;
                               for (I = 1; I <= NARGS; I++) { // 40
                                  SAME = SAME && ISAME( I )
-                                 IF( .NOT.ISAME( I ) ) WRITE( NOUT, FMT = 9998 )I
+                                 IF( !ISAME( I ) ) WRITE( NOUT, FMT = 9998 )I
                               } // 40
-                              if ( .NOT.SAME ) {
+                              if ( !SAME ) {
                                  FATAL = true;
                                  GO TO 130
                               }
 
-                              if ( .NOT.NULL ) {
+                              if ( !NULL ) {
 
                                  // Check the result.
 
@@ -866,7 +866,7 @@ void main() {
 
                            // Check if error-exit was taken incorrectly.
 
-                           if ( .NOT.OK ) {
+                           if ( !OK ) {
                               WRITE( NOUT, FMT = 9992 )
                               FATAL = true;
                               GO TO 120
@@ -923,14 +923,14 @@ void main() {
                            SAME = true;
                            for (I = 1; I <= NARGS; I++) { // 40
                               SAME = SAME && ISAME( I )
-                              IF( .NOT.ISAME( I ) ) WRITE( NOUT, FMT = 9998 )I
+                              IF( !ISAME( I ) ) WRITE( NOUT, FMT = 9998 )I
                            } // 40
-                           if ( .NOT.SAME ) {
+                           if ( !SAME ) {
                               FATAL = true;
                               GO TO 120
                            }
 
-                           if ( .NOT.NULL ) {
+                           if ( !NULL ) {
 
                               // Check the result.
 
@@ -1188,7 +1188,7 @@ void main() {
 
                         // Check if error-exit was taken incorrectly.
 
-                        if ( .NOT.OK ) {
+                        if ( !OK ) {
                            WRITE( NOUT, FMT = 9992 )
                            FATAL = true;
                            GO TO 120
@@ -1235,14 +1235,14 @@ void main() {
                         SAME = true;
                         for (I = 1; I <= NARGS; I++) { // 40
                            SAME = SAME && ISAME( I )
-                           IF( .NOT.ISAME( I ) ) WRITE( NOUT, FMT = 9998 )I
+                           IF( !ISAME( I ) ) WRITE( NOUT, FMT = 9998 )I
                         } // 40
-                        if ( .NOT.SAME ) {
+                        if ( !SAME ) {
                            FATAL = true;
                            GO TO 120
                         }
 
-                        if ( .NOT.NULL ) {
+                        if ( !NULL ) {
                            if ( SNAME( 10: 11 ) == 'mv' ) {
 
                               // Check the result.
@@ -1446,7 +1446,7 @@ void main() {
 
                      // Check if error-exit was taken incorrectly.
 
-                     if ( .NOT.OK ) {
+                     if ( !OK ) {
                         WRITE( NOUT, FMT = 9993 )
                         FATAL = true;
                         GO TO 140
@@ -1473,14 +1473,14 @@ void main() {
                      SAME = true;
                      for (I = 1; I <= NARGS; I++) { // 40
                         SAME = SAME && ISAME( I )
-                        IF( .NOT.ISAME( I ) ) WRITE( NOUT, FMT = 9998 )I
+                        IF( !ISAME( I ) ) WRITE( NOUT, FMT = 9998 )I
                      } // 40
-                     if ( .NOT.SAME ) {
+                     if ( !SAME ) {
                         FATAL = true;
                         GO TO 140
                      }
 
-                     if ( .NOT.NULL ) {
+                     if ( !NULL ) {
 
                         // Check the result column by column.
 
@@ -1688,7 +1688,7 @@ void main() {
 
                   // Check if error-exit was taken incorrectly.
 
-                  if ( .NOT.OK ) {
+                  if ( !OK ) {
                      WRITE( NOUT, FMT = 9992 )
                      FATAL = true;
                      GO TO 120
@@ -1706,7 +1706,7 @@ void main() {
                   } else {
                     ISAME( 6 ) = LZERES( SNAME( 8: 9 ), UPLO, N, N, AS, AA, LDA )
                   }
-                  if ( .NOT.PACKED ) {
+                  if ( !PACKED ) {
                      ISAME( 7 ) = LDAS == LDA
                   }
 
@@ -1715,14 +1715,14 @@ void main() {
                   SAME = true;
                   for (I = 1; I <= NARGS; I++) { // 30
                      SAME = SAME && ISAME( I )
-                     IF( .NOT.ISAME( I ) ) WRITE( NOUT, FMT = 9998 )I
+                     IF( !ISAME( I ) ) WRITE( NOUT, FMT = 9998 )I
                   } // 30
-                  if ( .NOT.SAME ) {
+                  if ( !SAME ) {
                      FATAL = true;
                      GO TO 120
                   }
 
-                  if ( .NOT.NULL ) {
+                  if ( !NULL ) {
 
                      // Check the result column by column.
 
@@ -1961,7 +1961,7 @@ void main() {
 
                      // Check if error-exit was taken incorrectly.
 
-                     if ( .NOT.OK ) {
+                     if ( !OK ) {
                         WRITE( NOUT, FMT = 9992 )
                         FATAL = true;
                         GO TO 160
@@ -1981,7 +1981,7 @@ void main() {
                      } else {
                         ISAME( 8 ) = LZERES( SNAME( 8: 9 ), UPLO, N, N, AS, AA, LDA )
                      }
-                     if ( .NOT.PACKED ) {
+                     if ( !PACKED ) {
                         ISAME( 9 ) = LDAS == LDA
                      }
 
@@ -1990,14 +1990,14 @@ void main() {
                      SAME = true;
                      for (I = 1; I <= NARGS; I++) { // 40
                         SAME = SAME && ISAME( I )
-                        IF( .NOT.ISAME( I ) ) WRITE( NOUT, FMT = 9998 )I
+                        IF( !ISAME( I ) ) WRITE( NOUT, FMT = 9998 )I
                      } // 40
-                     if ( .NOT.SAME ) {
+                     if ( !SAME ) {
                         FATAL = true;
                         GO TO 160
                      }
 
-                     if ( .NOT.NULL ) {
+                     if ( !NULL ) {
 
                         // Check the result column by column.
 

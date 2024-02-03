@@ -83,13 +83,13 @@
 
       // Test the input parameters.
 
-      if ( .NOT.UPPER && .NOT.LSAME( UPLO, 'L' ) ) {
+      if ( !UPPER && !LSAME( UPLO, 'L' ) ) {
          INFO = -1
-      } else if ( .NOT.NOTRAN && .NOT.LSAME( TRANS, 'T' ) && .NOT. LSAME( TRANS, 'C' ) ) {
+      } else if ( !NOTRAN && !LSAME( TRANS, 'T' ) && !LSAME( TRANS, 'C' ) ) {
          INFO = -2
-      } else if ( .NOT.NOUNIT && .NOT.LSAME( DIAG, 'U' ) ) {
+      } else if ( !NOUNIT && !LSAME( DIAG, 'U' ) ) {
          INFO = -3
-      } else if ( .NOT.LSAME( NORMIN, 'Y' ) && .NOT. LSAME( NORMIN, 'N' ) ) {
+      } else if ( !LSAME( NORMIN, 'Y' ) && !LSAME( NORMIN, 'N' ) ) {
          INFO = -4
       } else if ( N < 0 ) {
          INFO = -5
@@ -99,7 +99,7 @@
          INFO = -8
       } else if ( LDX < MAX( 1, N ) ) {
          INFO = -10
-      } else if ( .NOT.LQUERY && LWORK < LWMIN ) {
+      } else if ( !LQUERY && LWORK < LWMIN ) {
          INFO = -14
       }
       if ( INFO != 0 ) {
@@ -165,7 +165,7 @@
          }
       }
 
-      if ( .NOT. TMAX <= SLAMCH('Overflow') ) {
+      if ( !TMAX <= SLAMCH('Overflow') ) {
 
          // Some matrix entries have huge absolute value. At least one upper
          // bound norm( A(I1:I2-1, J1:J2-1), 'I') is not a valid floating-point

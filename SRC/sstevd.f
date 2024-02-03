@@ -50,7 +50,7 @@
          LIWMIN = 3 + 5*N
       }
 
-      if ( .NOT.( WANTZ || LSAME( JOBZ, 'N' ) ) ) {
+      if ( !( WANTZ || LSAME( JOBZ, 'N' ) ) ) {
          INFO = -1
       } else if ( N < 0 ) {
          INFO = -2
@@ -62,9 +62,9 @@
          WORK( 1 ) = SROUNDUP_LWORK(LWMIN)
          IWORK( 1 ) = LIWMIN
 
-         if ( LWORK < LWMIN && .NOT.LQUERY ) {
+         if ( LWORK < LWMIN && !LQUERY ) {
             INFO = -8
-         } else if ( LIWORK < LIWMIN && .NOT.LQUERY ) {
+         } else if ( LIWORK < LIWMIN && !LQUERY ) {
             INFO = -10
          }
       }
@@ -113,7 +113,7 @@
       // For eigenvalues only, call SSTERF.  For eigenvalues and
       // eigenvectors, call SSTEDC.
 
-      if ( .NOT.WANTZ ) {
+      if ( !WANTZ ) {
          ssterf(N, D, E, INFO );
       } else {
          sstedc('I', N, D, E, Z, LDZ, WORK, LWORK, IWORK, LIWORK, INFO );

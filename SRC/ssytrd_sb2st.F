@@ -64,11 +64,11 @@
          LWMIN = ILAENV2STAGE( 4, 'SSYTRD_SB2ST', VECT, N, KD, IB, -1 )
       }
 
-      if ( .NOT.AFTERS1 && .NOT.LSAME( STAGE1, 'N' ) ) {
+      if ( !AFTERS1 && !LSAME( STAGE1, 'N' ) ) {
          INFO = -1
-      } else if ( .NOT.LSAME( VECT, 'N' ) ) {
+      } else if ( !LSAME( VECT, 'N' ) ) {
          INFO = -2
-      } else if ( .NOT.UPPER && .NOT.LSAME( UPLO, 'L' ) ) {
+      } else if ( !UPPER && !LSAME( UPLO, 'L' ) ) {
          INFO = -3
       } else if ( N < 0 ) {
          INFO = -4
@@ -76,9 +76,9 @@
          INFO = -5
       } else if ( LDAB < (KD+1) ) {
          INFO = -7
-      } else if ( LHOUS < LHMIN && .NOT.LQUERY ) {
+      } else if ( LHOUS < LHMIN && !LQUERY ) {
          INFO = -11
-      } else if ( LWORK < LWMIN && .NOT.LQUERY ) {
+      } else if ( LWORK < LWMIN && !LQUERY ) {
          INFO = -13
       }
 

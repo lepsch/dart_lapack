@@ -79,7 +79,7 @@
          LWOPT = MAX( 1, MB*M )
       }
       LMINWS = false;
-      if ( ( TSIZE < MAX( 1, MB*M*NBLCKS + 5 ) || LWORK < LWOPT ) && ( LWORK >= LWMIN ) && ( TSIZE >= MINTSZ ) && ( .NOT.LQUERY ) ) {
+      if ( ( TSIZE < MAX( 1, MB*M*NBLCKS + 5 ) || LWORK < LWOPT ) && ( LWORK >= LWMIN ) && ( TSIZE >= MINTSZ ) && ( !LQUERY ) ) {
         if ( TSIZE < MAX( 1, MB*M*NBLCKS + 5 ) ) {
             LMINWS = true;
             MB = 1
@@ -102,9 +102,9 @@
         INFO = -2
       } else if ( LDA < MAX( 1, M ) ) {
         INFO = -4
-      } else if ( TSIZE < MAX( 1, MB*M*NBLCKS + 5 ) && ( .NOT.LQUERY ) && ( .NOT.LMINWS ) ) {
+      } else if ( TSIZE < MAX( 1, MB*M*NBLCKS + 5 ) && ( !LQUERY ) && ( !LMINWS ) ) {
         INFO = -6
-      } else if ( ( LWORK < LWREQ ) .AND .( .NOT.LQUERY ) && ( .NOT.LMINWS ) ) {
+      } else if ( ( LWORK < LWREQ ) .AND .( !LQUERY ) && ( !LMINWS ) ) {
         INFO = -8
       }
 

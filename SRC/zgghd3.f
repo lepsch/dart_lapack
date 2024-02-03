@@ -57,9 +57,9 @@
       WANTZ = INITZ || LSAME( COMPZ, 'V' )
       LQUERY = ( LWORK == -1 )
 
-      if ( .NOT.LSAME( COMPQ, 'N' ) && .NOT.WANTQ ) {
+      if ( !LSAME( COMPQ, 'N' ) && !WANTQ ) {
          INFO = -1
-      } else if ( .NOT.LSAME( COMPZ, 'N' ) && .NOT.WANTZ ) {
+      } else if ( !LSAME( COMPZ, 'N' ) && !WANTZ ) {
          INFO = -2
       } else if ( N < 0 ) {
          INFO = -3
@@ -75,7 +75,7 @@
          INFO = -11
       } else if ( ( WANTZ && LDZ < N ) || LDZ < 1 ) {
          INFO = -13
-      } else if ( LWORK < 1 && .NOT.LQUERY ) {
+      } else if ( LWORK < 1 && !LQUERY ) {
          INFO = -15
       }
       if ( INFO != 0 ) {

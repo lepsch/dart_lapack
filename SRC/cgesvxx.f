@@ -67,9 +67,9 @@
 
       // Test the input parameters.  PARAMS is not tested until CGERFSX.
 
-      if ( .NOT.NOFACT && .NOT.EQUIL && .NOT. LSAME( FACT, 'F' ) ) {
+      if ( !NOFACT && !EQUIL && !LSAME( FACT, 'F' ) ) {
          INFO = -1
-      } else if ( .NOT.NOTRAN && .NOT.LSAME( TRANS, 'T' ) && .NOT. LSAME( TRANS, 'C' ) ) {
+      } else if ( !NOTRAN && !LSAME( TRANS, 'T' ) && !LSAME( TRANS, 'C' ) ) {
          INFO = -2
       } else if ( N < 0 ) {
          INFO = -3
@@ -79,7 +79,7 @@
          INFO = -6
       } else if ( LDAF < MAX( 1, N ) ) {
          INFO = -8
-      } else if ( LSAME( FACT, 'F' ) && .NOT. ( ROWEQU || COLEQU || LSAME( EQUED, 'N' ) ) ) {
+      } else if ( LSAME( FACT, 'F' ) && !( ROWEQU || COLEQU || LSAME( EQUED, 'N' ) ) ) {
          INFO = -10
       } else {
          if ( ROWEQU ) {
@@ -142,12 +142,12 @@
 
       // If the scaling factors are not applied, set them to 1.0.
 
-         if ( .NOT.ROWEQU ) {
+         if ( !ROWEQU ) {
             for (J = 1; J <= N; J++) {
                R( J ) = 1.0
             }
          }
-         if ( .NOT.COLEQU ) {
+         if ( !COLEQU ) {
             for (J = 1; J <= N; J++) {
                C( J ) = 1.0
             }
@@ -200,7 +200,7 @@
 
       if ( COLEQU && NOTRAN ) {
          clascl2(N, NRHS, C, X, LDX );
-      } else if ( ROWEQU && .NOT.NOTRAN ) {
+      } else if ( ROWEQU && !NOTRAN ) {
          clascl2(N, NRHS, R, X, LDX );
       }
 

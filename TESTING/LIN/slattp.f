@@ -623,7 +623,7 @@
       // Flip the matrix across its counter-diagonal if the transpose will
       // be used.
 
-      if ( .NOT.LSAME( TRANS, 'N' ) ) {
+      if ( !LSAME( TRANS, 'N' ) ) {
          if ( UPPER ) {
             JJ = 1
             JR = N*( N+1 ) / 2

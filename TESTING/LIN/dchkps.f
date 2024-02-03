@@ -84,7 +84,7 @@
 
             // Do the tests only if DOTYPE( IMAT ) is true.
 
-            IF( .NOT.DOTYPE( IMAT ) ) GO TO 140
+            IF( !DOTYPE( IMAT ) ) GO TO 140
 
                // Do for each value of RANK in RANKVAL
 

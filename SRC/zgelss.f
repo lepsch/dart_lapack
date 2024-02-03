@@ -165,7 +165,7 @@
          }
          WORK( 1 ) = MAXWRK
 
-         if (LWORK < MINWRK && .NOT.LQUERY) INFO = -12;
+         if (LWORK < MINWRK && !LQUERY) INFO = -12;
       }
 
       if ( INFO != 0 ) {

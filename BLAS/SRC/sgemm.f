@@ -55,9 +55,9 @@
       // Test the input parameters.
 
       INFO = 0
-      if ((.NOT.NOTA) && (.NOT.LSAME(TRANSA,'C')) && (.NOT.LSAME(TRANSA,'T'))) {
+      if (( !NOTA) && ( !LSAME(TRANSA,'C')) && ( !LSAME(TRANSA,'T'))) {
           INFO = 1
-      } else if ((.NOT.NOTB) && (.NOT.LSAME(TRANSB,'C')) && (.NOT.LSAME(TRANSB,'T'))) {
+      } else if (( !NOTB) && ( !LSAME(TRANSB,'C')) && ( !LSAME(TRANSB,'T'))) {
           INFO = 2
       } else if (M < 0) {
           INFO = 3

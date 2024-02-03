@@ -296,7 +296,7 @@
 
             for (I = 1; I <= NTESTS; I++) {
                if (TSTRAT(I) > THRESH) {
-                  if (.NOT.PRINTED_GUIDE) {
+                  if ( !PRINTED_GUIDE) {
                      WRITE(*,*)
                      WRITE( *, 9996) 1
                      WRITE( *, 9995) 2

@@ -44,7 +44,7 @@
       WQUERY = ( LWORK == -1 )
       TQUERY = ( LTB == -1 )
       LWKMIN = MAX( 1, N )
-      if ( .NOT.UPPER && .NOT.LSAME( UPLO, 'L' ) ) {
+      if ( !UPPER && !LSAME( UPLO, 'L' ) ) {
          INFO = -1
       } else if ( N < 0 ) {
          INFO = -2
@@ -52,11 +52,11 @@
          INFO = -3
       } else if ( LDA < MAX( 1, N ) ) {
          INFO = -5
-      } else if ( LTB < MAX( 1, 4*N ) && .NOT.TQUERY ) {
+      } else if ( LTB < MAX( 1, 4*N ) && !TQUERY ) {
          INFO = -7
       } else if ( LDB < MAX( 1, N ) ) {
          INFO = -11
-      } else if ( LWORK < LWKMIN && .NOT.WQUERY ) {
+      } else if ( LWORK < LWKMIN && !WQUERY ) {
          INFO = -13
       }
 

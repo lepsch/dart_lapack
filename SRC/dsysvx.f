@@ -45,9 +45,9 @@
       NOFACT = LSAME( FACT, 'N' )
       LQUERY = ( LWORK == -1 )
       LWKMIN = MAX( 1, 3*N )
-      if ( .NOT.NOFACT && .NOT.LSAME( FACT, 'F' ) ) {
+      if ( !NOFACT && !LSAME( FACT, 'F' ) ) {
          INFO = -1
-      } else if ( .NOT.LSAME( UPLO, 'U' ) && .NOT.LSAME( UPLO, 'L' ) ) {
+      } else if ( !LSAME( UPLO, 'U' ) && !LSAME( UPLO, 'L' ) ) {
          INFO = -2
       } else if ( N < 0 ) {
          INFO = -3
@@ -61,7 +61,7 @@
          INFO = -11
       } else if ( LDX < MAX( 1, N ) ) {
          INFO = -13
-      } else if ( LWORK < LWKMIN && .NOT.LQUERY ) {
+      } else if ( LWORK < LWKMIN && !LQUERY ) {
          INFO = -18
       }
 

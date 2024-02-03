@@ -38,7 +38,7 @@
       // Test the input parameters.
 
       INFO = 0
-      if ( .NOT.( ( TRANS == ILATRANS( 'N' ) ) || ( TRANS == ILATRANS( 'T' ) ) || ( TRANS == ILATRANS( 'C' ) ) ) ) {
+      if ( !( ( TRANS == ILATRANS( 'N' ) ) || ( TRANS == ILATRANS( 'T' ) ) || ( TRANS == ILATRANS( 'C' ) ) ) ) {
          INFO = 1
       } else if ( M < 0 ) {
          INFO = 2
@@ -120,7 +120,7 @@
                      Y( IY ) = Y( IY ) + ALPHA*ABS( X( J ) )*TEMP
                   }
                }
-                if (.NOT.SYMB_ZERO) Y( IY ) = Y( IY ) + SIGN( SAFE1, Y( IY ) );
+                if ( !SYMB_ZERO) Y( IY ) = Y( IY ) + SIGN( SAFE1, Y( IY ) );
                IY = IY + INCY
             }
          } else {
@@ -142,7 +142,7 @@
                      Y( IY ) = Y( IY ) + ALPHA*ABS( X( J ) )*TEMP
                   }
                }
-                if (.NOT.SYMB_ZERO) Y( IY ) = Y( IY ) + SIGN( SAFE1, Y( IY ) );
+                if ( !SYMB_ZERO) Y( IY ) = Y( IY ) + SIGN( SAFE1, Y( IY ) );
                IY = IY + INCY
             }
          }
@@ -168,7 +168,7 @@
                      JX = JX + INCX
                   }
                }
-                if (.NOT.SYMB_ZERO) Y( IY ) = Y( IY ) + SIGN( SAFE1, Y( IY ) );
+                if ( !SYMB_ZERO) Y( IY ) = Y( IY ) + SIGN( SAFE1, Y( IY ) );
 
                IY = IY + INCY
             }
@@ -193,7 +193,7 @@
                      JX = JX + INCX
                   }
                }
-                if (.NOT.SYMB_ZERO) Y( IY ) = Y( IY ) + SIGN( SAFE1, Y( IY ) );
+                if ( !SYMB_ZERO) Y( IY ) = Y( IY ) + SIGN( SAFE1, Y( IY ) );
 
                IY = IY + INCY
             }

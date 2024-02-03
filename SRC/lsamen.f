@@ -32,7 +32,7 @@
 
          // Test if the characters are equal using LSAME.
 
-         IF( .NOT.LSAME( CA( I: I ), CB( I: I ) ) ) GO TO 20
+         IF( !LSAME( CA( I: I ), CB( I: I ) ) ) GO TO 20
 
       } // 10
       LSAMEN = true;

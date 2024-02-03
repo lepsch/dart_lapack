@@ -51,7 +51,7 @@
 
       // Test the input parameters.
 
-      if ( .NOT.LSAME( UPLO, 'U' ) && .NOT.LSAME( UPLO, 'L' ) ) {
+      if ( !LSAME( UPLO, 'U' ) && !LSAME( UPLO, 'L' ) ) {
          INFO = -1
       } else if ( N < 0 ) {
          INFO = -2
@@ -76,7 +76,7 @@
       // Skip single precision iterative refinement if a priori slower
       // than double precision factorization.
 
-      if ( .NOT.DOITREF ) {
+      if ( !DOITREF ) {
          ITER = -1
          GO TO 40
       }

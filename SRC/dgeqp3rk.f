@@ -113,7 +113,7 @@
          }
          WORK( 1 ) = DBLE( LWKOPT )
 
-         if ( ( LWORK < IWS ) && .NOT.LQUERY ) {
+         if ( ( LWORK < IWS ) && !LQUERY ) {
             INFO = -15
          }
       }

@@ -46,9 +46,9 @@
       INFO = 0
       if ( ITYPE < 1 || ITYPE > 3 ) {
          INFO = -1
-      } else if ( .NOT.( WANTZ || LSAME( JOBZ, 'N' ) ) ) {
+      } else if ( !( WANTZ || LSAME( JOBZ, 'N' ) ) ) {
          INFO = -2
-      } else if ( .NOT.( UPPER || LSAME( UPLO, 'L' ) ) ) {
+      } else if ( !( UPPER || LSAME( UPLO, 'L' ) ) ) {
          INFO = -3
       } else if ( N < 0 ) {
          INFO = -4
@@ -64,7 +64,7 @@
          LWKOPT = MAX( LWKMIN, ( NB + 2 )*N )
          WORK( 1 ) = SROUNDUP_LWORK(LWKOPT)
 
-         if ( LWORK < LWKMIN && .NOT.LQUERY ) {
+         if ( LWORK < LWKMIN && !LQUERY ) {
             INFO = -11
          }
       }

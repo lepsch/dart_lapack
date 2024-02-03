@@ -41,7 +41,7 @@
 
       INFO = 0
       NOFACT = LSAME( FACT, 'N' )
-      if ( .NOT.NOFACT && .NOT.LSAME( FACT, 'F' ) ) {
+      if ( !NOFACT && !LSAME( FACT, 'F' ) ) {
          INFO = -1
       } else if ( N < 0 ) {
          INFO = -2

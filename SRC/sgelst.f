@@ -45,7 +45,7 @@
       INFO = 0
       MN = MIN( M, N )
       LQUERY = ( LWORK == -1 )
-      if ( .NOT.( LSAME( TRANS, 'N' ) || LSAME( TRANS, 'T' ) ) ) {
+      if ( !( LSAME( TRANS, 'N' ) || LSAME( TRANS, 'T' ) ) ) {
          INFO = -1
       } else if ( M < 0 ) {
          INFO = -2
@@ -57,7 +57,7 @@
          INFO = -6
       } else if ( LDB < MAX( 1, M, N ) ) {
          INFO = -8
-      } else if ( LWORK < MAX( 1, MN+MAX( MN, NRHS ) ) && .NOT.LQUERY ) {
+      } else if ( LWORK < MAX( 1, MN+MAX( MN, NRHS ) ) && !LQUERY ) {
          INFO = -10
       }
 
@@ -166,7 +166,7 @@
 
          sgeqrt(M, N, NB, A, LDA, WORK( 1 ), NB, WORK( MN*NB+1 ), INFO );
 
-         if ( .NOT.TPSD ) {
+         if ( !TPSD ) {
 
             // M > N, A is not transposed:
             // Overdetermined system of equations,
@@ -232,7 +232,7 @@
 
          sgelqt(M, N, NB, A, LDA, WORK( 1 ), NB, WORK( MN*NB+1 ), INFO );
 
-         if ( .NOT.TPSD ) {
+         if ( !TPSD ) {
 
             // M < N, A is not transposed:
             // Underdetermined system of equations,

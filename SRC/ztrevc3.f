@@ -79,9 +79,9 @@
       WORK(1) = MAXWRK
       RWORK(1) = MAX( 1, N )
       LQUERY = ( LWORK == -1 || LRWORK == -1 )
-      if ( .NOT.RIGHTV && .NOT.LEFTV ) {
+      if ( !RIGHTV && !LEFTV ) {
          INFO = -1
-      } else if ( .NOT.ALLV && .NOT.OVER && .NOT.SOMEV ) {
+      } else if ( !ALLV && !OVER && !SOMEV ) {
          INFO = -2
       } else if ( N < 0 ) {
          INFO = -4
@@ -93,9 +93,9 @@
          INFO = -10
       } else if ( MM < M ) {
          INFO = -11
-      } else if ( LWORK < MAX( 1, 2*N ) && .NOT.LQUERY ) {
+      } else if ( LWORK < MAX( 1, 2*N ) && !LQUERY ) {
          INFO = -14
-      } else if ( LRWORK < MAX( 1, N ) && .NOT.LQUERY ) {
+      } else if ( LRWORK < MAX( 1, N ) && !LQUERY ) {
          INFO = -16
       }
       if ( INFO != 0 ) {
@@ -154,7 +154,7 @@
          IS = M
          DO 80 KI = N, 1, -1
             if ( SOMEV ) {
-               IF( .NOT.SELECT( KI ) ) GO TO 80
+               IF( !SELECT( KI ) ) GO TO 80
             }
             SMIN = MAX( ULP*( CABS1( T( KI, KI ) ) ), SMLNUM )
 
@@ -184,7 +184,7 @@
 
             // Copy the vector x or Q*x to VR and normalize.
 
-            if ( .NOT.OVER ) {
+            if ( !OVER ) {
                // ------------------------------
                // no back-transform: copy x to VR and normalize.
                zcopy(KI, WORK( 1 + IV*N ), 1, VR( 1, IS ), 1 );
@@ -256,7 +256,7 @@
          for (KI = 1; KI <= N; KI++) { // 130
 
             if ( SOMEV ) {
-               IF( .NOT.SELECT( KI ) ) GO TO 130
+               IF( !SELECT( KI ) ) GO TO 130
             }
             SMIN = MAX( ULP*( CABS1( T( KI, KI ) ) ), SMLNUM )
 
@@ -286,7 +286,7 @@
 
             // Copy the vector x or Q*x to VL and normalize.
 
-            if ( .NOT.OVER ) {
+            if ( !OVER ) {
                // ------------------------------
                // no back-transform: copy x to VL and normalize.
                zcopy(N-KI+1, WORK( KI + IV*N ), 1, VL(KI,IS), 1 );

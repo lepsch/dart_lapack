@@ -57,7 +57,7 @@
         INFO = -6
       } else if ( LDT < NB ) {
         INFO = -8
-      } else if ( LWORK < LWMIN && (.NOT.LQUERY) ) {
+      } else if ( LWORK < LWMIN && ( !LQUERY) ) {
         INFO = -10
       }
 

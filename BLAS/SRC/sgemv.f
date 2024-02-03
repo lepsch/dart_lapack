@@ -37,7 +37,7 @@
       // Test the input parameters.
 
       INFO = 0
-      if (.NOT.LSAME(TRANS,'N') && .NOT.LSAME(TRANS,'T') && .NOT.LSAME(TRANS,'C')) {
+      if ( !LSAME(TRANS,'N') && !LSAME(TRANS,'T') && !LSAME(TRANS,'C')) {
           INFO = 1
       } else if (M < 0) {
           INFO = 2

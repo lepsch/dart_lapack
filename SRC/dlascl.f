@@ -209,7 +209,7 @@
 
       }
 
-      if (.NOT.DONE) GO TO 10;
+      if ( !DONE) GO TO 10;
 
       RETURN
 

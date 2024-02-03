@@ -193,7 +193,7 @@ void main() {
 
       // Check first character for correct precision.
 
-      if ( .NOT.LSAME( C1, 'double          ' ) ) {
+      if ( !LSAME( C1, 'double          ' ) ) {
          WRITE( NOUT, FMT = 9990 )PATH
 
 

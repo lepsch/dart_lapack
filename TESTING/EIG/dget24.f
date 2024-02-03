@@ -224,7 +224,7 @@
             for (I = 1; I <= N; I++) { // 110
                IF( DSLECT( WR( I ), WI( I ) ) || DSLECT( WR( I ), -WI( I ) ) )KNTEIG = KNTEIG + 1
                if ( I < N ) {
-                  IF( ( DSLECT( WR( I+1 ), WI( I+1 ) ) || DSLECT( WR( I+1 ), -WI( I+1 ) ) ) && ( .NOT.( DSLECT( WR( I ), WI( I ) ) || DSLECT( WR( I ), -WI( I ) ) ) ) && IINFO != N+2 )RESULT( 13 ) = ULPINV
+                  IF( ( DSLECT( WR( I+1 ), WI( I+1 ) ) || DSLECT( WR( I+1 ), -WI( I+1 ) ) ) && ( !( DSLECT( WR( I ), WI( I ) ) || DSLECT( WR( I ), -WI( I ) ) ) ) && IINFO != N+2 )RESULT( 13 ) = ULPINV
                }
             } // 110
             if (SDIM != KNTEIG) RESULT( 13 ) = ULPINV;

@@ -49,11 +49,11 @@
       } else {
          NQ = N
       }
-      if ( .NOT.LEFT && .NOT.LSAME( SIDE, 'R' ) ) {
+      if ( !LEFT && !LSAME( SIDE, 'R' ) ) {
          INFO = -1
-      } else if ( .NOT.UPPER && .NOT.LSAME( UPLO, 'L' ) ) {
+      } else if ( !UPPER && !LSAME( UPLO, 'L' ) ) {
          INFO = -2
-      } else if ( .NOT.NOTRAN && .NOT.LSAME( TRANS, 'C' ) ) {
+      } else if ( !NOTRAN && !LSAME( TRANS, 'C' ) ) {
          INFO = -3
       } else if ( M < 0 ) {
          INFO = -4
@@ -75,7 +75,7 @@
 
          // Q was determined by a call to CHPTRD with UPLO = 'U'
 
-         FORWRD = ( LEFT && NOTRAN ) || ( .NOT.LEFT && .NOT.NOTRAN )
+         FORWRD = ( LEFT && NOTRAN ) || ( !LEFT && !NOTRAN )
 
          if ( FORWRD ) {
             I1 = 1
@@ -130,7 +130,7 @@
 
          // Q was determined by a call to CHPTRD with UPLO = 'L'.
 
-         FORWRD = ( LEFT && .NOT.NOTRAN ) || ( .NOT.LEFT && NOTRAN )
+         FORWRD = ( LEFT && !NOTRAN ) || ( !LEFT && NOTRAN )
 
          if ( FORWRD ) {
             I1 = 1

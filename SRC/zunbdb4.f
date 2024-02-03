@@ -63,7 +63,7 @@
          LWORKOPT = MAX( LWORKOPT, IORBDB5 + LORBDB5 - 1 )
          LWORKMIN = LWORKOPT
          WORK(1) = LWORKOPT
-         if ( LWORK < LWORKMIN && .NOT.LQUERY ) {
+         if ( LWORK < LWORKMIN && !LQUERY ) {
            INFO = -14
          }
       }

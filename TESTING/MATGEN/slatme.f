@@ -79,7 +79,7 @@
                if ( LSAME( EI( J ), 'I' ) ) {
                   IF( LSAME( EI( J-1 ), 'I' ) ) BADEI = true;
                } else {
-                  IF( .NOT.LSAME( EI( J ), 'R' ) ) BADEI = true;
+                  IF( !LSAME( EI( J ), 'R' ) ) BADEI = true;
                }
             } // 10
          } else {

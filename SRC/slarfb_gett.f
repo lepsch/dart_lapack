@@ -36,7 +36,7 @@
 
       if (M < 0 || N <= 0 || K == 0 || K > N) RETURN;
 
-      LNOTIDENT = .NOT.LSAME( IDENT, 'I' )
+      LNOTIDENT = !LSAME( IDENT, 'I' )
 
       // ------------------------------------------------------------------
 

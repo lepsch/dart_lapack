@@ -389,7 +389,7 @@
 
       // Print a summary line.
 
-      if ( .NOT.LSAMEN( 2, C2, 'BD' ) ) {
+      if ( !LSAMEN( 2, C2, 'BD' ) ) {
          if ( OK ) {
             WRITE( NOUT, FMT = 9999 )SRNAMT( 1:LEN_TRIM( SRNAMT ) ), NT
          } else {

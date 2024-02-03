@@ -102,7 +102,7 @@
          }
          WORK( 1 ) = SROUNDUP_LWORK(MAXWRK)
 
-         if (LWORK < MINWRK && .NOT.LQUERY) INFO = -16;
+         if (LWORK < MINWRK && !LQUERY) INFO = -16;
       }
 
       if ( INFO != 0 ) {

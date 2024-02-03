@@ -48,9 +48,9 @@
       } else {
          NQ = N
       }
-      if ( .NOT.LEFT && .NOT.LSAME( SIDE, 'R' ) ) {
+      if ( !LEFT && !LSAME( SIDE, 'R' ) ) {
          INFO = -1
-      } else if ( .NOT.NOTRAN && .NOT.LSAME( TRANS, 'C' ) ) {
+      } else if ( !NOTRAN && !LSAME( TRANS, 'C' ) ) {
          INFO = -2
       } else if ( M < 0 ) {
          INFO = -3
@@ -72,7 +72,7 @@
 
       if (M == 0 || N == 0 || K == 0) RETURN;
 
-      if ( ( LEFT && .NOT.NOTRAN || .NOT.LEFT && NOTRAN ) ) {
+      if ( ( LEFT && !NOTRAN || !LEFT && NOTRAN ) ) {
          I1 = 1
          I2 = K
          I3 = 1

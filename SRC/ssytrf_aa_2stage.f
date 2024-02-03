@@ -46,15 +46,15 @@
       UPPER = LSAME( UPLO, 'U' )
       WQUERY = ( LWORK == -1 )
       TQUERY = ( LTB == -1 )
-      if ( .NOT.UPPER && .NOT.LSAME( UPLO, 'L' ) ) {
+      if ( !UPPER && !LSAME( UPLO, 'L' ) ) {
          INFO = -1
       } else if ( N < 0 ) {
          INFO = -2
       } else if ( LDA < MAX( 1, N ) ) {
          INFO = -4
-      } else if ( LTB < MAX( 1, 4*N ) && .NOT.TQUERY ) {
+      } else if ( LTB < MAX( 1, 4*N ) && !TQUERY ) {
          INFO = -6
-      } else if ( LWORK < MAX( 1, N ) && .NOT.WQUERY ) {
+      } else if ( LWORK < MAX( 1, N ) && !WQUERY ) {
          INFO = -10
       }
 

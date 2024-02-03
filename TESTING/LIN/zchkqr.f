@@ -94,7 +94,7 @@
 
                // Do the tests only if DOTYPE( IMAT ) is true.
 
-               IF( .NOT.DOTYPE( IMAT ) ) GO TO 50
+               IF( !DOTYPE( IMAT ) ) GO TO 50
 
                // Set up parameters with ZLATB4 and generate a test matrix
                // with ZLATMS.
@@ -154,7 +154,7 @@
                         // Test ZGEQRFP
 
                         zqrt01p(M, N, A, AF, AQ, AR, LDA, TAU, WORK, LWORK, RWORK, RESULT( 8 ) );
-                          IF( .NOT. ZGENND( M, N, AF, LDA ) ) RESULT( 9 ) = 2*THRESH
+                          IF( !ZGENND( M, N, AF, LDA ) ) RESULT( 9 ) = 2*THRESH
                         NT = NT + 1
                      } else if ( M >= N ) {
 

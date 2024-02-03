@@ -171,7 +171,7 @@
          // eigenvalues only are being computed, only the active submatrix
          // need be transformed.
 
-         if ( .NOT.WANTT ) {
+         if ( !WANTT ) {
             I1 = L
             I2 = I
          }

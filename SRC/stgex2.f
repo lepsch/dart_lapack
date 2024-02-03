@@ -124,7 +124,7 @@
          // Weak stability test: |S21| <= O(EPS F-norm((A)))
                             // and  |T21| <= O(EPS F-norm((B)))
 
-         WEAK = ABS( S( 2, 1 ) ) <= THRESHA && ABS( T( 2, 1 ) ) <= THRESHB          IF( .NOT.WEAK ) GO TO 70
+         WEAK = ABS( S( 2, 1 ) ) <= THRESHA && ABS( T( 2, 1 ) ) <= THRESHB          IF( !WEAK ) GO TO 70
 
          if ( WANDS ) {
 
@@ -149,7 +149,7 @@
             slassq(M*M, WORK( M*M+1 ), 1, DSCALE, DSUM );
             SB = DSCALE*SQRT( DSUM )
             STRONG = SA <= THRESHA && SB <= THRESHB
-            if (.NOT.STRONG) GO TO 70;
+            if ( !STRONG) GO TO 70;
          }
 
          // Update (A(J1:J1+M-1, M+J1:N), B(J1:J1+M-1, M+J1:N)) and
@@ -304,7 +304,7 @@
             slassq(M*M, WORK( M*M+1 ), 1, DSCALE, DSUM );
             SB = DSCALE*SQRT( DSUM )
             STRONG = SA <= THRESHA && SB <= THRESHB
-            if (.NOT.STRONG) GO TO 70;
+            if ( !STRONG) GO TO 70;
 
          }
 

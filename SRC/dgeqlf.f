@@ -51,7 +51,7 @@
          }
          WORK( 1 ) = LWKOPT
 
-         if ( .NOT.LQUERY ) {
+         if ( !LQUERY ) {
             IF( LWORK <= 0 || ( M > 0 && LWORK < MAX( 1, N ) ) ) INFO = -7
          }
       }

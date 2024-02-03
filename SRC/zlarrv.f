@@ -509,7 +509,7 @@
                      USEDBS = false;
                      USEDRQ = false;
                      // Bisection is initially turned off unless it is forced
-                     NEEDBS =  .NOT.TRYRQC
+                     NEEDBS = !TRYRQC
                      } // 120
                      // Check if bisection should be used to refine eigenvalue
                      if (NEEDBS) {
@@ -528,7 +528,7 @@
                         IWORK( IINDR+WINDEX ) = 0
                      }
                      // Given LAMBDA, compute the eigenvector.
-                     zlar1v(IN, 1, IN, LAMBDA, D( IBEGIN ), L( IBEGIN ), WORK(INDLD+IBEGIN-1), WORK(INDLLD+IBEGIN-1), PIVMIN, GAPTOL, Z( IBEGIN, WINDEX ), .NOT.USEDBS, NEGCNT, ZTZ, MINGMA, IWORK( IINDR+WINDEX ), ISUPPZ( 2*WINDEX-1 ), NRMINV, RESID, RQCORR, WORK( INDWRK ) );
+                     zlar1v(IN, 1, IN, LAMBDA, D( IBEGIN ), L( IBEGIN ), WORK(INDLD+IBEGIN-1), WORK(INDLLD+IBEGIN-1), PIVMIN, GAPTOL, Z( IBEGIN, WINDEX ), !USEDBS, NEGCNT, ZTZ, MINGMA, IWORK( IINDR+WINDEX ), ISUPPZ( 2*WINDEX-1 ), NRMINV, RESID, RQCORR, WORK( INDWRK ) );
                      if (ITER == 0) {
                         BSTRES = RESID
                         BSTW = LAMBDA
@@ -549,7 +549,7 @@
                      // Convergence test for Rayleigh-Quotient iteration
                      // (omitted when Bisection has been used)
 
-                     if ( RESID > TOL*GAP && ABS( RQCORR ) > RQTOL*ABS( LAMBDA ) && .NOT. USEDBS) {
+                     if ( RESID > TOL*GAP && ABS( RQCORR ) > RQTOL*ABS( LAMBDA ) && !USEDBS) {
                         // We need to check that the RQCORR update doesn't
                         // move the eigenvalue away from the desired one and
                         // towards a neighbor. -> protection with bisection
@@ -614,7 +614,7 @@
                         }
                         if (STP2II) {
                            // improve error angle by second step
-                           zlar1v(IN, 1, IN, LAMBDA, D( IBEGIN ), L( IBEGIN ), WORK(INDLD+IBEGIN-1), WORK(INDLLD+IBEGIN-1), PIVMIN, GAPTOL, Z( IBEGIN, WINDEX ), .NOT.USEDBS, NEGCNT, ZTZ, MINGMA, IWORK( IINDR+WINDEX ), ISUPPZ( 2*WINDEX-1 ), NRMINV, RESID, RQCORR, WORK( INDWRK ) );
+                           zlar1v(IN, 1, IN, LAMBDA, D( IBEGIN ), L( IBEGIN ), WORK(INDLD+IBEGIN-1), WORK(INDLLD+IBEGIN-1), PIVMIN, GAPTOL, Z( IBEGIN, WINDEX ), !USEDBS, NEGCNT, ZTZ, MINGMA, IWORK( IINDR+WINDEX ), ISUPPZ( 2*WINDEX-1 ), NRMINV, RESID, RQCORR, WORK( INDWRK ) );
                         }
                         WORK( WINDEX ) = LAMBDA
                      }
@@ -648,7 +648,7 @@
                      // cancellation and doesn't reflect the theory
                      // where the initial gaps are underestimated due
                      // to WERR being too crude.)
-                     if (.NOT.ESKIP) {
+                     if ( !ESKIP) {
                         if ( K > 1) {
                            WGAP( WINDMN ) = MAX( WGAP(WINDMN), W(WINDEX)-WERR(WINDEX) - W(WINDMN)-WERR(WINDMN) )
                         }

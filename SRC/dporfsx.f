@@ -111,9 +111,9 @@
 
       // Test input parameters.
 
-      if (.NOT.LSAME(UPLO, 'U') && .NOT.LSAME(UPLO, 'L')) {
+      if ( !LSAME(UPLO, 'U') && !LSAME(UPLO, 'L')) {
         INFO = -1
-      } else if ( .NOT.RCEQU && .NOT.LSAME( EQUED, 'N' ) ) {
+      } else if ( !RCEQU && !LSAME( EQUED, 'N' ) ) {
         INFO = -2
       } else if ( N < 0 ) {
         INFO = -3

@@ -71,9 +71,9 @@
          LWMIN = MAX( 1, NN )
       }
 
-      if ( .NOT.LSAME( JOB, 'N' ) && .NOT.WANTS && .NOT.WANTSP ) {
+      if ( !LSAME( JOB, 'N' ) && !WANTS && !WANTSP ) {
          INFO = -1
-      } else if ( .NOT.LSAME( COMPQ, 'N' ) && .NOT.WANTQ ) {
+      } else if ( !LSAME( COMPQ, 'N' ) && !WANTQ ) {
          INFO = -2
       } else if ( N < 0 ) {
          INFO = -4
@@ -81,7 +81,7 @@
          INFO = -6
       } else if ( LDQ < 1 || ( WANTQ && LDQ < N ) ) {
          INFO = -8
-      } else if ( LWORK < LWMIN && .NOT.LQUERY ) {
+      } else if ( LWORK < LWMIN && !LQUERY ) {
          INFO = -14
       }
 

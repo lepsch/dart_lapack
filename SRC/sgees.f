@@ -52,9 +52,9 @@
       LQUERY = ( LWORK == -1 )
       WANTVS = LSAME( JOBVS, 'V' )
       WANTST = LSAME( SORT, 'S' )
-      if ( ( .NOT.WANTVS ) && ( .NOT.LSAME( JOBVS, 'N' ) ) ) {
+      if ( ( !WANTVS ) && ( !LSAME( JOBVS, 'N' ) ) ) {
          INFO = -1
-      } else if ( ( .NOT.WANTST ) && ( .NOT.LSAME( SORT, 'N' ) ) ) {
+      } else if ( ( !WANTST ) && ( !LSAME( SORT, 'N' ) ) ) {
          INFO = -2
       } else if ( N < 0 ) {
          INFO = -4
@@ -85,7 +85,7 @@
             shseqr('S', JOBVS, N, 1, N, A, LDA, WR, WI, VS, LDVS, WORK, -1, IEVAL );
             HSWORK = INT( WORK( 1 ) )
 
-            if ( .NOT.WANTVS ) {
+            if ( !WANTVS ) {
                MAXWRK = MAX( MAXWRK, N + HSWORK )
             } else {
                MAXWRK = MAX( MAXWRK, 2*N + ( N - 1 )*ILAENV( 1, 'SORGHR', ' ', N, 1, N, -1 ) )
@@ -94,7 +94,7 @@
          }
          WORK( 1 ) = SROUNDUP_LWORK(MAXWRK)
 
-         if ( LWORK < MINWRK && .NOT.LQUERY ) {
+         if ( LWORK < MINWRK && !LQUERY ) {
             INFO = -13
          }
       }
@@ -258,7 +258,7 @@
             if ( WI( I ) == ZERO ) {
                if (CURSL) SDIM = SDIM + 1;
                IP = 0
-               if (CURSL && .NOT.LASTSL) INFO = N + 2;
+               if (CURSL && !LASTSL) INFO = N + 2;
             } else {
                if ( IP == 1 ) {
 
@@ -268,7 +268,7 @@
                   LASTSL = CURSL
                   if (CURSL) SDIM = SDIM + 2;
                   IP = -1
-                  if (CURSL && .NOT.LST2SL) INFO = N + 2;
+                  if (CURSL && !LST2SL) INFO = N + 2;
                } else {
 
                   // First eigenvalue of conjugate pair

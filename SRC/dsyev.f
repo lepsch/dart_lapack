@@ -44,9 +44,9 @@
       LQUERY = ( LWORK == -1 )
 
       INFO = 0
-      if ( .NOT.( WANTZ || LSAME( JOBZ, 'N' ) ) ) {
+      if ( !( WANTZ || LSAME( JOBZ, 'N' ) ) ) {
          INFO = -1
-      } else if ( .NOT.( LOWER || LSAME( UPLO, 'U' ) ) ) {
+      } else if ( !( LOWER || LSAME( UPLO, 'U' ) ) ) {
          INFO = -2
       } else if ( N < 0 ) {
          INFO = -3
@@ -59,7 +59,7 @@
          LWKOPT = MAX( 1, ( NB+2 )*N )
          WORK( 1 ) = LWKOPT
 
-         IF( LWORK < MAX( 1, 3*N-1 ) && .NOT.LQUERY ) INFO = -8
+         IF( LWORK < MAX( 1, 3*N-1 ) && !LQUERY ) INFO = -8
       }
 
       if ( INFO != 0 ) {
@@ -115,7 +115,7 @@
       // For eigenvalues only, call DSTERF.  For eigenvectors, first call
       // DORGTR to generate the orthogonal matrix, then call DSTEQR.
 
-      if ( .NOT.WANTZ ) {
+      if ( !WANTZ ) {
          dsterf(N, W, WORK( INDE ), INFO );
       } else {
          dorgtr(UPLO, N, A, LDA, WORK( INDTAU ), WORK( INDWRK ), LLWORK, IINFO );

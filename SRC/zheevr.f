@@ -64,11 +64,11 @@
       }
 
       INFO = 0
-      if ( .NOT.( WANTZ || LSAME( JOBZ, 'N' ) ) ) {
+      if ( !( WANTZ || LSAME( JOBZ, 'N' ) ) ) {
          INFO = -1
-      } else if ( .NOT.( ALLEIG || VALEIG || INDEIG ) ) {
+      } else if ( !( ALLEIG || VALEIG || INDEIG ) ) {
          INFO = -2
-      } else if ( .NOT.( LOWER || LSAME( UPLO, 'U' ) ) ) {
+      } else if ( !( LOWER || LSAME( UPLO, 'U' ) ) ) {
          INFO = -3
       } else if ( N < 0 ) {
          INFO = -4
@@ -99,11 +99,11 @@
          RWORK( 1 ) = LRWMIN
          IWORK( 1 ) = LIWMIN
 
-         if ( LWORK < LWMIN && .NOT.LQUERY ) {
+         if ( LWORK < LWMIN && !LQUERY ) {
             INFO = -18
-         } else if ( LRWORK < LRWMIN && .NOT.LQUERY ) {
+         } else if ( LRWORK < LRWMIN && !LQUERY ) {
             INFO = -20
-         } else if ( LIWORK < LIWMIN && .NOT.LQUERY ) {
+         } else if ( LIWORK < LIWMIN && !LQUERY ) {
             INFO = -22
          }
       }
@@ -241,7 +241,7 @@
          }
       }
       if ( ( ALLEIG || TEST ) && ( IEEEOK == 1 ) ) {
-         if ( .NOT.WANTZ ) {
+         if ( !WANTZ ) {
             dcopy(N, RWORK( INDRD ), 1, W, 1 );
             dcopy(N-1, RWORK( INDRE ), 1, RWORK( INDREE ), 1 );
             dsterf(N, W, RWORK( INDREE ), INFO );

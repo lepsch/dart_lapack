@@ -79,13 +79,13 @@
 
       INFO = 0
       LQUERY = ( LWORK == -1 )
-      if ( .NOT.( NOSCL || LSAME( BALANC, 'S' ) || LSAME( BALANC, 'B' ) ) ) {
+      if ( !( NOSCL || LSAME( BALANC, 'S' ) || LSAME( BALANC, 'B' ) ) ) {
          INFO = -1
       } else if ( IJOBVL <= 0 ) {
          INFO = -2
       } else if ( IJOBVR <= 0 ) {
          INFO = -3
-      } else if ( .NOT.( WANTSN || WANTSE || WANTSB || WANTSV ) ) {
+      } else if ( !( WANTSN || WANTSE || WANTSB || WANTSV ) ) {
          INFO = -4
       } else if ( N < 0 ) {
          INFO = -5
@@ -112,7 +112,7 @@
             MINWRK = 1
             MAXWRK = 1
          } else {
-            if ( NOSCL && .NOT.ILV ) {
+            if ( NOSCL && !ILV ) {
                MINWRK = 2*N
             } else {
                MINWRK = 6*N
@@ -130,7 +130,7 @@
          }
          WORK( 1 ) = SROUNDUP_LWORK(MAXWRK)
 
-         if ( LWORK < MINWRK && .NOT.LQUERY ) {
+         if ( LWORK < MINWRK && !LQUERY ) {
             INFO = -26
          }
       }
@@ -206,7 +206,7 @@
       // (Workspace: need N, prefer N*NB )
 
       IROWS = IHI + 1 - ILO
-      if ( ILV || .NOT.WANTSN ) {
+      if ( ILV || !WANTSN ) {
          ICOLS = N + 1 - ILO
       } else {
          ICOLS = IROWS
@@ -236,7 +236,7 @@
       // Reduce to generalized Hessenberg form
       // (Workspace: none needed)
 
-      if ( ILV || .NOT.WANTSN ) {
+      if ( ILV || !WANTSN ) {
 
          // Eigenvectors requested -- work on whole matrix.
 
@@ -249,7 +249,7 @@
       // Schur forms and Schur vectors)
       // (Workspace: need N)
 
-      if ( ILV || .NOT.WANTSN ) {
+      if ( ILV || !WANTSN ) {
          CHTEMP = 'S'
       } else {
          CHTEMP = 'E'
@@ -272,7 +272,7 @@
                   // STGSNA: need 2*N*(N+2)+16 if SENSE = 'V' or 'B',
                           // need N otherwise )
 
-      if ( ILV || .NOT.WANTSN ) {
+      if ( ILV || !WANTSN ) {
          if ( ILV ) {
             if ( ILVL ) {
                if ( ILVR ) {
@@ -291,7 +291,7 @@
             }
          }
 
-         if ( .NOT.WANTSN ) {
+         if ( !WANTSN ) {
 
             // compute eigenvectors (STGEVC) and estimate condition
             // numbers (STGSNA). Note that the definition of the condition

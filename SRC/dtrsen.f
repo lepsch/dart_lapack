@@ -51,9 +51,9 @@
 
       INFO = 0
       LQUERY = ( LWORK == -1 )
-      if ( .NOT.LSAME( JOB, 'N' ) && .NOT.WANTS && .NOT.WANTSP ) {
+      if ( !LSAME( JOB, 'N' ) && !WANTS && !WANTSP ) {
          INFO = -1
-      } else if ( .NOT.LSAME( COMPQ, 'N' ) && .NOT.WANTQ ) {
+      } else if ( !LSAME( COMPQ, 'N' ) && !WANTQ ) {
          INFO = -2
       } else if ( N < 0 ) {
          INFO = -4
@@ -100,9 +100,9 @@
             LIWMIN = 1
          }
 
-         if ( LWORK < LWMIN && .NOT.LQUERY ) {
+         if ( LWORK < LWMIN && !LQUERY ) {
             INFO = -15
-         } else if ( LIWORK < LIWMIN && .NOT.LQUERY ) {
+         } else if ( LIWORK < LIWMIN && !LQUERY ) {
             INFO = -17
          }
       }

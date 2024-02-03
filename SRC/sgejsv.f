@@ -54,17 +54,17 @@
       DEFR   = LSAME( JOBR, 'N' )
       L2PERT = LSAME( JOBP, 'P' )
 
-      if ( .NOT.(ROWPIV || L2RANK || L2ABER || ERREST || LSAME( JOBA, 'C' ) )) {
+      if ( !(ROWPIV || L2RANK || L2ABER || ERREST || LSAME( JOBA, 'C' ) )) {
          INFO = - 1
-      } else if ( .NOT.( LSVEC || LSAME( JOBU, 'N' ) || LSAME( JOBU, 'W' )) ) {
+      } else if ( !( LSVEC || LSAME( JOBU, 'N' ) || LSAME( JOBU, 'W' )) ) {
          INFO = - 2
-      } else if ( .NOT.( RSVEC || LSAME( JOBV, 'N' ) || LSAME( JOBV, 'W' )) || ( JRACC && (.NOT.LSVEC) ) ) {
+      } else if ( !( RSVEC || LSAME( JOBV, 'N' ) || LSAME( JOBV, 'W' )) || ( JRACC && ( !LSVEC) ) ) {
          INFO = - 3
-      } else if ( .NOT. ( L2KILL || DEFR ) ) {
+      } else if ( !( L2KILL || DEFR ) ) {
          INFO = - 4
-      } else if ( .NOT. ( L2TRAN || LSAME( JOBT, 'N' ) ) ) {
+      } else if ( !( L2TRAN || LSAME( JOBT, 'N' ) ) ) {
          INFO = - 5
-      } else if ( .NOT. ( L2PERT || LSAME( JOBP, 'N' ) ) ) {
+      } else if ( !( L2PERT || LSAME( JOBP, 'N' ) ) ) {
          INFO = - 6
       } else if ( M < 0 ) {
          INFO = - 7
@@ -76,7 +76,7 @@
          INFO = - 13
       } else if ( RSVEC && ( LDV < N ) ) {
          INFO = - 15
-      } else if ( (.NOT.(LSVEC || RSVEC || ERREST) && (LWORK < MAX(7,4*N+1,2*M+N))) || (.NOT.(LSVEC || RSVEC) && ERREST && (LWORK < MAX(7,4*N+N*N,2*M+N))) || (LSVEC && (.NOT.RSVEC) && (LWORK < MAX(7,2*M+N,4*N+1))) || (RSVEC && (.NOT.LSVEC) && (LWORK < MAX(7,2*M+N,4*N+1))) || (LSVEC && RSVEC && (.NOT.JRACC) && (LWORK < MAX(2*M+N,6*N+2*N*N))) || (LSVEC && RSVEC && JRACC && LWORK < MAX(2*M+N,4*N+N*N,2*N+N*N+6))) {
+      } else if ( ( !(LSVEC || RSVEC || ERREST) && (LWORK < MAX(7,4*N+1,2*M+N))) || ( !(LSVEC || RSVEC) && ERREST && (LWORK < MAX(7,4*N+N*N,2*M+N))) || (LSVEC && ( !RSVEC) && (LWORK < MAX(7,2*M+N,4*N+1))) || (RSVEC && ( !LSVEC) && (LWORK < MAX(7,2*M+N,4*N+1))) || (LSVEC && RSVEC && ( !JRACC) && (LWORK < MAX(2*M+N,6*N+2*N*N))) || (LSVEC && RSVEC && JRACC && LWORK < MAX(2*M+N,4*N+N*N,2*N+N*N+6))) {
          INFO = - 17
       } else {
          // #:)
@@ -548,7 +548,7 @@
 
       // Phase 3:
 
-      if ( .NOT. ( RSVEC || LSVEC ) ) {
+      if ( !( RSVEC || LSVEC ) ) {
 
           // Singular Values only
 
@@ -569,7 +569,7 @@
          // The licence for this perturbation is in the variable L2PERT, which
          // should be false if FLUSH TO ZERO underflow is active.
 
-         if ( .NOT. ALMORT ) {
+         if ( !ALMORT ) {
 
             if ( L2PERT ) {
                // XSC = SQRT(SMALL)
@@ -622,7 +622,7 @@
             NUMRANK = NINT(WORK(2))
 
 
-      } else if ( RSVEC && ( .NOT. LSVEC ) ) {
+      } else if ( RSVEC && ( !LSVEC ) ) {
 
          // -> Singular Values and Right Singular Vectors <-
 
@@ -675,7 +675,7 @@
             slacpy('All', N, N, V, LDV, U, LDU );
          }
 
-      } else if ( LSVEC && ( .NOT. RSVEC ) ) {
+      } else if ( LSVEC && ( !RSVEC ) ) {
 
          // .. Singular Values and Left Singular Vectors                 ..
 
@@ -722,9 +722,9 @@
 
          // .. Full SVD ..
 
-         if ( .NOT. JRACC ) {
+         if ( !JRACC ) {
 
-         if ( .NOT. ALMORT ) {
+         if ( !ALMORT ) {
 
             // Second Preconditioning Step (QRF [with pivoting])
             // Note that the composition of TRANSPOSE, QRF and TRANSPOSE is

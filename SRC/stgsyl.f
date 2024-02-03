@@ -47,7 +47,7 @@
       NOTRAN = LSAME( TRANS, 'N' )
       LQUERY = ( LWORK == -1 )
 
-      if ( .NOT.NOTRAN && .NOT.LSAME( TRANS, 'T' ) ) {
+      if ( !NOTRAN && !LSAME( TRANS, 'T' ) ) {
          INFO = -1
       } else if ( NOTRAN ) {
          if ( ( IJOB < 0 ) || ( IJOB > 4 ) ) {
@@ -86,7 +86,7 @@
          }
          WORK( 1 ) = SROUNDUP_LWORK(LWMIN)
 
-         if ( LWORK < LWMIN && .NOT.LQUERY ) {
+         if ( LWORK < LWMIN && !LQUERY ) {
             INFO = -20
          }
       }

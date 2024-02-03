@@ -68,11 +68,11 @@
       }
 
       INFO = 0
-      if ( .NOT.( LSAME( JOBZ, 'N' ) ) ) {
+      if ( !( LSAME( JOBZ, 'N' ) ) ) {
          INFO = -1
-      } else if ( .NOT.( ALLEIG || VALEIG || INDEIG ) ) {
+      } else if ( !( ALLEIG || VALEIG || INDEIG ) ) {
          INFO = -2
-      } else if ( .NOT.( LOWER || LSAME( UPLO, 'U' ) ) ) {
+      } else if ( !( LOWER || LSAME( UPLO, 'U' ) ) ) {
          INFO = -3
       } else if ( N < 0 ) {
          INFO = -4
@@ -92,9 +92,9 @@
       if ( INFO == 0 ) {
          if ( LDZ < 1 || ( WANTZ && LDZ < N ) ) {
             INFO = -15
-         } else if ( LWORK < LWMIN && .NOT.LQUERY ) {
+         } else if ( LWORK < LWMIN && !LQUERY ) {
             INFO = -18
-         } else if ( LIWORK < LIWMIN && .NOT.LQUERY ) {
+         } else if ( LIWORK < LIWMIN && !LQUERY ) {
             INFO = -20
          }
       }
@@ -238,7 +238,7 @@
          }
       }
       if ( ( ALLEIG || TEST ) && ( IEEEOK == 1 ) ) {
-         if ( .NOT.WANTZ ) {
+         if ( !WANTZ ) {
             scopy(N, WORK( INDD ), 1, W, 1 );
             scopy(N-1, WORK( INDE ), 1, WORK( INDEE ), 1 );
             ssterf(N, W, WORK( INDEE ), INFO );

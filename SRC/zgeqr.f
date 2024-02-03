@@ -74,7 +74,7 @@
       LWMIN = MAX( 1, N )
       LWREQ = MAX( 1, N*NB )
       LMINWS = false;
-      if ( ( TSIZE < MAX( 1, NB*N*NBLCKS + 5 ) || LWORK < LWREQ ) && ( LWORK >= N ) && ( TSIZE >= MINTSZ ) && ( .NOT.LQUERY ) ) {
+      if ( ( TSIZE < MAX( 1, NB*N*NBLCKS + 5 ) || LWORK < LWREQ ) && ( LWORK >= N ) && ( TSIZE >= MINTSZ ) && ( !LQUERY ) ) {
         if ( TSIZE < MAX( 1, NB*N*NBLCKS + 5 ) ) {
           LMINWS = true;
           NB = 1
@@ -92,9 +92,9 @@
         INFO = -2
       } else if ( LDA < MAX( 1, M ) ) {
         INFO = -4
-      } else if ( TSIZE < MAX( 1, NB*N*NBLCKS + 5 ) && ( .NOT.LQUERY ) && ( .NOT.LMINWS ) ) {
+      } else if ( TSIZE < MAX( 1, NB*N*NBLCKS + 5 ) && ( !LQUERY ) && ( !LMINWS ) ) {
         INFO = -6
-      } else if ( ( LWORK < LWREQ ) && ( .NOT.LQUERY ) && ( .NOT.LMINWS ) ) {
+      } else if ( ( LWORK < LWREQ ) && ( !LQUERY ) && ( !LMINWS ) ) {
         INFO = -8
       }
 

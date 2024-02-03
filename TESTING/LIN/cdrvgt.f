@@ -90,7 +90,7 @@
 
             // Do the tests only if DOTYPE( IMAT ) is true.
 
-            IF( .NOT.DOTYPE( IMAT ) ) GO TO 130
+            IF( !DOTYPE( IMAT ) ) GO TO 130
 
             // Set up parameters with CLATB4.
 
@@ -123,7 +123,7 @@
                // Types 7-12:  generate tridiagonal matrices with
                // unknown condition numbers.
 
-               if ( .NOT.ZEROT || .NOT.DOTYPE( 7 ) ) {
+               if ( !ZEROT || !DOTYPE( 7 ) ) {
 
                   // Generate a matrix with elements from [-1,1].
 
@@ -149,7 +149,7 @@
 
                // If IMAT > 7, set one column of the matrix to 0.
 
-               if ( .NOT.ZEROT ) {
+               if ( !ZEROT ) {
                   IZERO = 0
                } else if ( IMAT == 8 ) {
                   IZERO = 1

@@ -45,13 +45,13 @@
 
       // Test the input parameters.
 
-      if ( .NOT.UPPER && .NOT.LSAME( UPLO, 'L' ) ) {
+      if ( !UPPER && !LSAME( UPLO, 'L' ) ) {
          INFO = -1
-      } else if ( .NOT.NOTRAN && .NOT.LSAME( TRANS, 'T' ) && .NOT. LSAME( TRANS, 'C' ) ) {
+      } else if ( !NOTRAN && !LSAME( TRANS, 'T' ) && !LSAME( TRANS, 'C' ) ) {
          INFO = -2
-      } else if ( .NOT.NOUNIT && .NOT.LSAME( DIAG, 'U' ) ) {
+      } else if ( !NOUNIT && !LSAME( DIAG, 'U' ) ) {
          INFO = -3
-      } else if ( .NOT.LSAME( NORMIN, 'Y' ) && .NOT. LSAME( NORMIN, 'N' ) ) {
+      } else if ( !LSAME( NORMIN, 'Y' ) && !LSAME( NORMIN, 'N' ) ) {
          INFO = -4
       } else if ( N < 0 ) {
          INFO = -5

@@ -25,7 +25,7 @@
       if (IOUNIT <= 0) RETURN;
       SORD = LSAME( PATH, 'S' ) || LSAME( PATH, 'D' )
       CORZ = LSAME( PATH, 'C' ) || LSAME( PATH, 'Z' )
-      if ( .NOT.SORD && .NOT.CORZ ) {
+      if ( !SORD && !CORZ ) {
          WRITE( IOUNIT, FMT = 9999 )PATH
       }
       C2 = PATH( 2: 3 )

@@ -223,7 +223,7 @@ void main() {
         nTests = nTests + 1
         Y = cInf(i)
         R = ABS( Y )
-        if ( .not.(R > HUGE(0.0)) ) {
+        if ( !(R > HUGE(0.0)) ) {
             caseEFails = caseEFails + 1
             WRITE( *, FMT = 9997 ) 'i',i, Y, R
         }

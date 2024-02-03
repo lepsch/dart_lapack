@@ -44,9 +44,9 @@
       } else if ( RIGHT ) {
          LDAQ = MAX( 1, M )
       }
-      if ( .NOT.LEFT && .NOT.RIGHT ) {
+      if ( !LEFT && !RIGHT ) {
          INFO = -1
-      } else if ( .NOT.TRAN && .NOT.NOTRAN ) {
+      } else if ( !TRAN && !NOTRAN ) {
          INFO = -2
       } else if ( M < 0 ) {
          INFO = -3

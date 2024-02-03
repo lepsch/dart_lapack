@@ -94,7 +94,7 @@
          INFO = -11
       } else if ( LDVR < 1 || ( ILVR && LDVR < N ) ) {
          INFO = -13
-      } else if ( LWORK < LWKMIN && .NOT.LQUERY ) {
+      } else if ( LWORK < LWKMIN && !LQUERY ) {
          INFO = -15
       }
 

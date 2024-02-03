@@ -62,7 +62,7 @@
       MINWRK = 1
       MAXWRK = 1
 
-      if ( .NOT.( WNTQA || WNTQS || WNTQO || WNTQN ) ) {
+      if ( !( WNTQA || WNTQS || WNTQO || WNTQN ) ) {
          INFO = -1
       } else if ( M < 0 ) {
          INFO = -2
@@ -352,7 +352,7 @@
       }
       if ( INFO == 0 ) {
          WORK( 1 ) = DROUNDUP_LWORK( MAXWRK )
-         if ( LWORK < MINWRK && .NOT. LQUERY ) {
+         if ( LWORK < MINWRK && !LQUERY ) {
             INFO = -12
          }
       }

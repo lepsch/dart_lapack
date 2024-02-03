@@ -89,7 +89,7 @@
 
             // Do the tests only if DOTYPE( IMAT ) is true.
 
-            IF( .NOT.DOTYPE( IMAT ) ) GO TO 100
+            IF( !DOTYPE( IMAT ) ) GO TO 100
 
             // Set up parameters with DLATB4.
 
@@ -122,7 +122,7 @@
                // Types 7-12:  generate tridiagonal matrices with
                // unknown condition numbers.
 
-               if ( .NOT.ZEROT || .NOT.DOTYPE( 7 ) ) {
+               if ( !ZEROT || !DOTYPE( 7 ) ) {
 
                   // Generate a matrix with elements from [-1,1].
 
@@ -148,7 +148,7 @@
 
                // If IMAT > 7, set one column of the matrix to 0.
 
-               if ( .NOT.ZEROT ) {
+               if ( !ZEROT ) {
                   IZERO = 0
                } else if ( IMAT == 8 ) {
                   IZERO = 1
@@ -209,7 +209,7 @@
                }
                ANORM = DLANGT( NORM, N, A, A( M+1 ), A( N+M+1 ) )
 
-               if ( .NOT.TRFCON ) {
+               if ( !TRFCON ) {
 
                   // Use DGTTRS to solve for one column at a time of inv(A)
                   // or inv(A^T), computing the maximum column sum as we

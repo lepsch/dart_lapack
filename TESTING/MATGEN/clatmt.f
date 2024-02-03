@@ -684,7 +684,7 @@
 
             // Ensure that the diagonal is real if Hermitian
 
-            if ( .NOT.CSYM ) {
+            if ( !CSYM ) {
                for (JC = 1; JC <= N; JC++) { // 440
                   IROW = IOFFST + ( 1-ISKEW )*JC
                   A( IROW, JC ) = CMPLX( REAL( A( IROW, JC ) ) )

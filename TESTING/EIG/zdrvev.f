@@ -131,7 +131,7 @@
          }
 
          for (JTYPE = 1; JTYPE <= MTYPES; JTYPE++) { // 260
-            IF( .NOT.DOTYPE( JTYPE ) ) GO TO 260
+            IF( !DOTYPE( JTYPE ) ) GO TO 260
 
             // Save ISEED in case of an error.
 

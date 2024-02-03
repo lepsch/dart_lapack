@@ -33,7 +33,7 @@
 
       INFO = 0
       NOTRAN = ( TRANS == 'N' || TRANS == 'n' )
-      if ( .NOT.NOTRAN && .NOT.( TRANS == 'T' || TRANS == 't' ) && .NOT.( TRANS == 'C' || TRANS == 'c' ) ) {
+      if ( !NOTRAN && !( TRANS == 'T' || TRANS == 't' ) && !( TRANS == 'C' || TRANS == 'c' ) ) {
          INFO = -1
       } else if ( N < 0 ) {
          INFO = -2

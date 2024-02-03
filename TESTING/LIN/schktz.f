@@ -92,7 +92,7 @@
 
             if ( M <= N ) {
                for (IMODE = 1; IMODE <= NTYPES; IMODE++) { // 50
-                  IF( .NOT.DOTYPE( IMODE ) ) GO TO 50
+                  IF( !DOTYPE( IMODE ) ) GO TO 50
 
                   // Do for each type of singular value distribution.
                      // 0:  zero matrix

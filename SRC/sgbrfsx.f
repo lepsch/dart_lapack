@@ -115,7 +115,7 @@
 
       if ( TRANS_TYPE == -1 ) {
         INFO = -1
-      } else if ( .NOT.ROWEQU && .NOT.COLEQU && .NOT.LSAME( EQUED, 'N' ) ) {
+      } else if ( !ROWEQU && !COLEQU && !LSAME( EQUED, 'N' ) ) {
         INFO = -2
       } else if ( N < 0 ) {
         INFO = -3
@@ -211,7 +211,7 @@
 
          if ( COLEQU && NOTRAN ) {
             RCOND_TMP = SLA_GBRCOND( TRANS, N, KL, KU, AB, LDAB, AFB, LDAFB, IPIV, -1, C, INFO, WORK, IWORK )
-         } else if ( ROWEQU && .NOT. NOTRAN ) {
+         } else if ( ROWEQU && !NOTRAN ) {
             RCOND_TMP = SLA_GBRCOND( TRANS, N, KL, KU, AB, LDAB, AFB, LDAFB, IPIV, -1, R, INFO, WORK, IWORK )
          } else {
             RCOND_TMP = SLA_GBRCOND( TRANS, N, KL, KU, AB, LDAB, AFB, LDAFB, IPIV, 0, R, INFO, WORK, IWORK )

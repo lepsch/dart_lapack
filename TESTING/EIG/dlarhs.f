@@ -44,19 +44,19 @@
       C1 = PATH( 1: 1 )
       C2 = PATH( 2: 3 )
       TRAN = LSAME( TRANS, 'T' ) || LSAME( TRANS, 'C' )
-      NOTRAN = .NOT.TRAN
+      NOTRAN = !TRAN
       GEN = LSAME( PATH( 2: 2 ), 'G' )
       QRS = LSAME( PATH( 2: 2 ), 'Q' ) || LSAME( PATH( 3: 3 ), 'Q' )
       SYM = LSAME( PATH( 2: 2 ), 'P' ) || LSAME( PATH( 2: 2 ), 'S' )
       TRI = LSAME( PATH( 2: 2 ), 'T' )
       BAND = LSAME( PATH( 3: 3 ), 'B' )
-      if ( .NOT.LSAME( C1, 'double          ' ) ) {
+      if ( !LSAME( C1, 'double          ' ) ) {
          INFO = -1
-      } else if ( .NOT.( LSAME( XTYPE, 'N' ) || LSAME( XTYPE, 'C' ) ) ) {
+      } else if ( !( LSAME( XTYPE, 'N' ) || LSAME( XTYPE, 'C' ) ) ) {
          INFO = -2
-      } else if ( ( SYM || TRI ) && .NOT. ( LSAME( UPLO, 'U' ) || LSAME( UPLO, 'L' ) ) ) {
+      } else if ( ( SYM || TRI ) && !( LSAME( UPLO, 'U' ) || LSAME( UPLO, 'L' ) ) ) {
          INFO = -3
-      } else if ( ( GEN || QRS ) && .NOT. ( TRAN || LSAME( TRANS, 'N' ) ) ) {
+      } else if ( ( GEN || QRS ) && !( TRAN || LSAME( TRANS, 'N' ) ) ) {
          INFO = -4
       } else if ( M < 0 ) {
          INFO = -5
@@ -68,7 +68,7 @@
          INFO = -8
       } else if ( NRHS < 0 ) {
          INFO = -9
-      } else if ( ( .NOT.BAND && LDA < MAX( 1, M ) ) || ( BAND && ( SYM || TRI ) && LDA < KL+1 ) || ( BAND && GEN && LDA < KL+KU+1 ) ) {
+      } else if ( ( !BAND && LDA < MAX( 1, M ) ) || ( BAND && ( SYM || TRI ) && LDA < KL+1 ) || ( BAND && GEN && LDA < KL+KU+1 ) ) {
          INFO = -11
       } else if ( ( NOTRAN && LDX < MAX( 1, N ) ) || ( TRAN && LDX < MAX( 1, M ) ) ) {
          INFO = -13
@@ -89,7 +89,7 @@
          NX = N
          MB = M
       }
-      if ( .NOT.LSAME( XTYPE, 'C' ) ) {
+      if ( !LSAME( XTYPE, 'C' ) ) {
          for (J = 1; J <= NRHS; J++) { // 10
             dlarnv(2, ISEED, N, X( 1, J ) );
          } // 10

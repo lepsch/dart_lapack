@@ -50,7 +50,7 @@
          LWMIN = ILAENV2STAGE( 4, 'DSYTRD_SY2SB', ' ', N, KD, -1, -1 )
       }
 
-      if ( .NOT.UPPER && .NOT.LSAME( UPLO, 'L' ) ) {
+      if ( !UPPER && !LSAME( UPLO, 'L' ) ) {
          INFO = -1
       } else if ( N < 0 ) {
          INFO = -2
@@ -60,7 +60,7 @@
          INFO = -5
       } else if ( LDAB < MAX( 1, KD+1 ) ) {
          INFO = -7
-      } else if ( LWORK < LWMIN && .NOT.LQUERY ) {
+      } else if ( LWORK < LWMIN && !LQUERY ) {
          INFO = -10
       }
 

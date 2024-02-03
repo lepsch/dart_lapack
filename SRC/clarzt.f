@@ -33,9 +33,9 @@
       // Check for currently supported options
 
       INFO = 0
-      if ( .NOT.LSAME( DIRECT, 'B' ) ) {
+      if ( !LSAME( DIRECT, 'B' ) ) {
          INFO = -1
-      } else if ( .NOT.LSAME( STOREV, 'R' ) ) {
+      } else if ( !LSAME( STOREV, 'R' ) ) {
          INFO = -2
       }
       if ( INFO != 0 ) {

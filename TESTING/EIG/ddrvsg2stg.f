@@ -121,7 +121,7 @@
          KA9 = 0
          KB9 = 0
          for (JTYPE = 1; JTYPE <= MTYPES; JTYPE++) { // 640
-            IF( .NOT.DOTYPE( JTYPE ) ) GO TO 640
+            IF( !DOTYPE( JTYPE ) ) GO TO 640
             NMATS = NMATS + 1
             NTEST = 0
 

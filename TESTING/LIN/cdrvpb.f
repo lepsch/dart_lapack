@@ -131,14 +131,14 @@
 
                   // Do the tests only if DOTYPE( IMAT ) is true.
 
-                  IF( .NOT.DOTYPE( IMAT ) ) GO TO 80
+                  IF( !DOTYPE( IMAT ) ) GO TO 80
 
                   // Skip types 2, 3, or 4 if the matrix size is too small.
 
                   ZEROT = IMAT >= 2 && IMAT <= 4
                   if (ZEROT && N < IMAT-1) GO TO 80;
 
-                  if ( .NOT.ZEROT || .NOT.DOTYPE( 1 ) ) {
+                  if ( !ZEROT || !DOTYPE( 1 ) ) {
 
                      // Set up parameters with CLATB4 and generate a test
                      // matrix with CLATMS.
@@ -241,7 +241,7 @@
                            if (PREFAC) GO TO 60;
                            RCONDC = ZERO
 
-                        } else if ( .NOT.LSAME( FACT, 'N' ) ) {
+                        } else if ( !LSAME( FACT, 'N' ) ) {
 
                            // Compute the condition number for comparison
                            // with the value returned by CPBSVX (FACT =
@@ -357,7 +357,7 @@
 
                         // --- Test CPBSVX ---
 
-                        if (.NOT.PREFAC) CALL CLASET( 'Full', KD+1, N, CMPLX( ZERO ), CMPLX( ZERO ), AFAC, LDAB );
+                        if ( !PREFAC) CALL CLASET( 'Full', KD+1, N, CMPLX( ZERO ), CMPLX( ZERO ), AFAC, LDAB );
                         claset('Full', N, NRHS, CMPLX( ZERO ), CMPLX( ZERO ), X, LDA );
                         if ( IEQUED > 1 && N > 0 ) {
 
@@ -381,7 +381,7 @@
                         }
 
                         if ( INFO == 0 ) {
-                           if ( .NOT.PREFAC ) {
+                           if ( !PREFAC ) {
 
                               // Reconstruct matrix from factors and
                               // compute residual.
