@@ -32,11 +32,11 @@ abstract interface class Array<T> {
 
 class Matrix<T> {
   final Array<T> _entries;
-  final ({int m, int n}) dimension;
+  final int _ld;
   final ({int x, int y}) offset;
 
   Matrix({required int m, required int n, this.offset = (x: 0, y: 0)})
-      : dimension = (m: m, n: n),
+      : _ld = m,
         _entries = _Array<T>(m * n, offset: offset.x, ld: m);
 
   Matrix.fromList(List<List<T>> list, {this.offset = (x: 0, y: 0)})
@@ -48,14 +48,14 @@ class Matrix<T> {
           ],
           ld: list.length,
         ),
-        dimension = (m: list.length, n: list.isEmpty ? 0 : list[0].length);
+        _ld = list.length;
 
-  Matrix.fromSlice(this._entries, this.dimension, {this.offset = (x: 0, y: 0)});
+  Matrix.fromSlice(this._entries, this._ld, {this.offset = (x: 0, y: 0)});
 
   Matrix<T> call(int i, int j, [({int x, int y}) offset = (x: 0, y: 0)]) {
     return Matrix.fromSlice(
       _entries,
-      dimension,
+      _ld,
       offset: (x: offset.x + j - 1, y: offset.y + i - 1),
     );
   }
@@ -70,7 +70,8 @@ class Matrix<T> {
 
   Box<T> box(int i, int j) => this[i].box(j);
 
-  Array<T> asArray() => _Array.fromSlice(_entries.toRawList(), offset: offset.x * dimension.m + offset.y);
+  Array<T> asArray() =>
+      _Array.fromSlice(_entries.toRawList(), offset: offset.x * _ld + offset.y);
 }
 
 class _Array<T> implements Array<T> {
@@ -148,7 +149,7 @@ class _Array<T> implements Array<T> {
   Matrix<T> asMatrix(int ld) {
     return Matrix.fromSlice(
       _Array.fromSlice(_elements, offset: offset, ld: ld),
-      (m: ld, n: -1),
+      ld,
     );
   }
 }
