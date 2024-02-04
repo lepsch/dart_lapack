@@ -51,7 +51,7 @@
             INFO = I;
             GO TO 30;
          }
-         EIR = DBLE( E( I ) );
+         EIR = (E( I )).toDouble();
          EII = DIMAG( E( I ) );
          F = EIR / D( I );
          G = EII / D( I );
@@ -71,7 +71,7 @@
 
          // Solve for e(i) and d(i+1).
 
-         EIR = DBLE( E( I ) );
+         EIR = (E( I )).toDouble();
          EII = DIMAG( E( I ) );
          F = EIR / D( I );
          G = EII / D( I );
@@ -85,7 +85,7 @@
 
          // Solve for e(i+1) and d(i+2).
 
-         EIR = DBLE( E( I+1 ) );
+         EIR = (E( I+1 )).toDouble();
          EII = DIMAG( E( I+1 ) );
          F = EIR / D( I+1 );
          G = EII / D( I+1 );
@@ -99,7 +99,7 @@
 
          // Solve for e(i+2) and d(i+3).
 
-         EIR = DBLE( E( I+2 ) );
+         EIR = (E( I+2 )).toDouble();
          EII = DIMAG( E( I+2 ) );
          F = EIR / D( I+2 );
          G = EII / D( I+2 );
@@ -113,7 +113,7 @@
 
          // Solve for e(i+3) and d(i+4).
 
-         EIR = DBLE( E( I+3 ) );
+         EIR = (E( I+3 )).toDouble();
          EII = DIMAG( E( I+3 ) );
          F = EIR / D( I+3 );
          G = EII / D( I+3 );

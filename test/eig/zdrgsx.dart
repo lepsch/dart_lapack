@@ -56,7 +56,7 @@
       double             ABS1;
       // ..
       // .. Statement Function definitions ..
-      ABS1[X] = ( DBLE( X ) ).abs() + ( DIMAG( X ) ).abs();
+      ABS1[X] = ( X.toDouble() ).abs() + ( DIMAG( X ) ).abs();
       // ..
       // .. Executable Statements ..
 

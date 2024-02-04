@@ -80,7 +80,7 @@
       SAFMIN = DLAMCH( 'SAFE MINIMUM' );
       SAFMAX = ONE / SAFMIN;
       ULP = DLAMCH( 'PRECISION' );
-      SMLNUM = SAFMIN*( DBLE( N ) / ULP );
+      SMLNUM = SAFMIN*( N.toDouble() / ULP );
 
       // ==== Use accumulated reflections to update far-from-diagonal
       // .    entries ? ====

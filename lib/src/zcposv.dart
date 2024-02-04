@@ -49,7 +49,7 @@
       double             CABS1;
       // ..
       // .. Statement Function definitions ..
-      CABS1[ZDUM] = ( DBLE( ZDUM ) ).abs() + ( DIMAG( ZDUM ) ).abs();
+      CABS1[ZDUM] = ( ZDUM.toDouble() ).abs() + ( DIMAG( ZDUM ) ).abs();
       // ..
       // .. Executable Statements ..
 
@@ -92,7 +92,7 @@
 
       ANRM = ZLANHE( 'I', UPLO, N, A, LDA, RWORK );
       EPS = DLAMCH( 'Epsilon' );
-      CTE = ANRM*EPS*sqrt( DBLE( N ) )*BWDMAX;
+      CTE = ANRM*EPS*sqrt( N.toDouble() )*BWDMAX;
 
       // Set the indices PTSA, PTSX for referencing SA and SX in SWORK.
 

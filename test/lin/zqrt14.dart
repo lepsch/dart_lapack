@@ -120,7 +120,7 @@
 
       }
 
-      ZQRT14 = ERR / ( DBLE( max( M, N, NRHS ) )*DLAMCH( 'Epsilon' ) );
+      ZQRT14 = ERR / ( (max( M, N, NRHS )).toDouble()*DLAMCH( 'Epsilon' ) );
 
       return;
       }

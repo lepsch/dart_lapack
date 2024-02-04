@@ -461,9 +461,21 @@ $1[$2] =
 ```
 
 ### DBLE -> toDouble
+A word
+```
+^(\s+.*)\bDBLE\s*\(\s*(\w+?)\s*\)
+$1$2.toDouble()
+```
+
 Simple
 ```
 ^(\s+.*)\bDBLE\s*\(\s*([^()]+?)\s*\)
+$1($2).toDouble()
+```
+
+1 level
+```
+^(\s+.*)\bDBLE\s*\(\s*([^()]*\([^()]+?\)+[^()]*?)\s*\)
 $1($2).toDouble()
 ```
 

@@ -359,7 +359,7 @@
 
          RESULT[10] = ZERO;
          EPS = max( EPSIN, ULP );
-         V = max( DBLE( N )*EPS*ABNRM, SMLNUM );
+         V = max( N.toDouble()*EPS*ABNRM, SMLNUM );
          if (ABNRM == ZERO) V = ONE;
          for (I = 1; I <= N; I++) { // 230
             if ( V > RCONDV( I )*RCONDE( I ) ) {

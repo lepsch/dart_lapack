@@ -61,12 +61,12 @@
          if (RESID != ZERO) RESID = ONE / EPS;
       } else {
          if ( ANORM >= RESID ) {
-            RESID = ( RESID / ANORM ) / ( DBLE( N )*EPS );
+            RESID = ( RESID / ANORM ) / ( N.toDouble()*EPS );
          } else {
             if ( ANORM < ONE ) {
-               RESID = ( min( RESID, DBLE( N )*ANORM ) / ANORM ) / ( DBLE( N )*EPS );
+               RESID = ( min( RESID, (N).toDouble()*ANORM ) / ANORM ) / ( N.toDouble()*EPS );
             } else {
-               RESID = min( RESID / ANORM, DBLE( N ) ) / ( DBLE( N )*EPS );
+               RESID = min( RESID / ANORM, (N).toDouble() ) / ( N.toDouble()*EPS );
             }
          }
       }

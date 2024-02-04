@@ -153,7 +153,7 @@
             if (SMINOA == ZERO) GO TO 50;
          } // 40
          } // 50
-         SMINOA = SMINOA / sqrt( DBLE( N ) );
+         SMINOA = SMINOA / sqrt( N.toDouble() );
          THRESH = max( TOL*SMINOA, MAXITR*(N*(N*UNFL)) );
       } else {
 

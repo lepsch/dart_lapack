@@ -68,7 +68,7 @@
 
       RESID = ZLANGE( '1', N, N, WORK, LDWORK, RWORK );
 
-      RESID = ( ( RESID*RCOND ) / EPS ) / DBLE( N );
+      RESID = ( ( RESID*RCOND ) / EPS ) / N.toDouble();
 
       return;
       }

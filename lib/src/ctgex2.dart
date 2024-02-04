@@ -70,8 +70,8 @@
       clacpy('Full', M, M, T, LDST, WORK( M*M+1 ), M );
       classq(M*M, WORK, 1, SCALE, SUM );
       SA = SCALE*sqrt( SUM );
-      SCALE = DBLE( CZERO );
-      SUM = DBLE( CONE );
+      SCALE = CZERO.toDouble();
+      SUM = CONE.toDouble();
       classq(M*M, WORK(M*M+1), 1, SCALE, SUM );
       SB = SCALE*sqrt( SUM );
 
@@ -127,12 +127,12 @@
             WORK[I+4] = WORK( I+4 ) - B( J1+I-1, J1 );
             WORK[I+6] = WORK( I+6 ) - B( J1+I-1, J1+1 );
          } // 10
-         SCALE = DBLE( CZERO );
-         SUM = DBLE( CONE );
+         SCALE = CZERO.toDouble();
+         SUM = CONE.toDouble();
          classq(M*M, WORK, 1, SCALE, SUM );
          SA = SCALE*sqrt( SUM );
-         SCALE = DBLE( CZERO );
-         SUM = DBLE( CONE );
+         SCALE = CZERO.toDouble();
+         SUM = CONE.toDouble();
          classq(M*M, WORK(M*M+1), 1, SCALE, SUM );
          SB = SCALE*sqrt( SUM );
          STRONG = SA <= THRESHA && SB <= THRESHB;

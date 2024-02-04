@@ -116,11 +116,11 @@
 
                IA = 1;
                for (I = 1; I <= N - 1; I++) { // 20
-                  D[I] = DBLE( A( IA ) );
+                  D[I] = (A( IA )).toDouble();
                   E[I] = A( IA+1 );
                   IA = IA + 2;
                } // 20
-               if (N > 0) D( N ) = DBLE( A( IA ) );
+               if (N > 0) D( N ) = (A( IA )).toDouble();
             } else {
 
                // Type 7-12:  generate a diagonally dominant matrix with
@@ -179,13 +179,13 @@
                   Z[2] = D( 1 );
                   D[1] = ZERO;
                   if ( N > 1 ) {
-                     Z[3] = DBLE( E( 1 ) );
+                     Z[3] = (E( 1 )).toDouble();
                      E[1] = ZERO;
                   }
                } else if ( IMAT == 9 ) {
                   IZERO = N;
                   if ( N > 1 ) {
-                     Z[1] = DBLE( E( N-1 ) );
+                     Z[1] = (E( N-1 )).toDouble();
                      E[N-1] = ZERO;
                   }
                   Z[2] = D( N );
@@ -193,9 +193,9 @@
                } else if ( IMAT == 10 ) {
                   IZERO = ( N+1 ) / 2;
                   if ( IZERO > 1 ) {
-                     Z[1] = DBLE( E( IZERO-1 ) );
+                     Z[1] = (E( IZERO-1 )).toDouble();
                      E[IZERO-1] = ZERO;
-                     Z[3] = DBLE( E( IZERO ) );
+                     Z[3] = (E( IZERO )).toDouble();
                      E[IZERO] = ZERO;
                   }
                   Z[2] = D( IZERO );

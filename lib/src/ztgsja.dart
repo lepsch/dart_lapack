@@ -103,11 +103,11 @@
                A1 = ZERO;
                A2 = CZERO;
                A3 = ZERO;
-               if (K+I <= M) A1 = DBLE( A( K+I, N-L+I ) );
-               IF( K+J <= M ) A3 = DBLE( A( K+J, N-L+J ) );
+               if (K+I <= M) A1 = (A( K+I, N-L+I )).toDouble();
+               IF( K+J <= M ) A3 = (A( K+J, N-L+J )).toDouble();
 
-               B1 = DBLE( B( I, N-L+I ) );
-               B3 = DBLE( B( J, N-L+J ) );
+               B1 = (B( I, N-L+I )).toDouble();
+               B3 = (B( J, N-L+J )).toDouble();
 
                if ( UPPER ) {
                   if (K+I <= M) A2 = A( K+I, N-L+J );
@@ -144,10 +144,10 @@
 
                // Ensure that the diagonal elements of A and B are real.
 
-               if (K+I <= M) A( K+I, N-L+I ) = DBLE( A( K+I, N-L+I ) );
-               IF( K+J <= M ) A( K+J, N-L+J ) = DBLE( A( K+J, N-L+J ) );
-               B[I, N-L+I] = DBLE( B( I, N-L+I ) );
-               B[J, N-L+J] = DBLE( B( J, N-L+J ) );
+               if (K+I <= M) A( K+I, N-L+I ) = (A( K+I, N-L+I )).toDouble();
+               IF( K+J <= M ) A( K+J, N-L+J ) = (A( K+J, N-L+J )).toDouble();
+               B[I, N-L+I] = (B( I, N-L+I )).toDouble();
+               B[J, N-L+J] = (B( J, N-L+J )).toDouble();
 
                // Update unitary matrices U, V, Q, if desired.
 
@@ -201,8 +201,8 @@
 
       for (I = 1; I <= min( L, M-K ); I++) { // 70
 
-         A1 = DBLE( A( K+I, N-L+I ) );
-         B1 = DBLE( B( I, N-L+I ) );
+         A1 = (A( K+I, N-L+I )).toDouble();
+         B1 = (B( I, N-L+I )).toDouble();
          GAMMA = B1 / A1;
 
          if ( (GAMMA <= HUGENUM) && (GAMMA >= -HUGENUM) ) {

@@ -76,7 +76,7 @@
          if ( ABNORM < ONE ) {
             RESULT = ( min( WNORM, 2*N*ABNORM ) / ABNORM ) / ( 2*N*ULP );
          } else {
-            RESULT = min( WNORM / ABNORM, DBLE( 2*N ) ) / ( 2*N*ULP );
+            RESULT = min( WNORM / ABNORM, (2*N).toDouble() ) / ( 2*N*ULP );
          }
       }
 

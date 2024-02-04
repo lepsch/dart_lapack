@@ -173,7 +173,7 @@
          // Compare condition number for eigenvalue cluster
          // taking its condition number into account
 
-         V = max( TWO*DBLE( N )*EPS*TNRM, SMLNUM );
+         V = max( TWO*N.toDouble()*EPS*TNRM, SMLNUM );
          if (TNRM == ZERO) V = ONE;
          if ( V > SEPTMP ) {
             TOL = ONE;
@@ -237,7 +237,7 @@
          // Compare condition number for eigenvalue cluster
          // without taking its condition number into account
 
-         if ( SIN <= DBLE( 2*N )*EPS && STMP <= DBLE( 2*N )*EPS ) {
+         if ( SIN <= DBLE( 2*N )*EPS && STMP <= (2*N).toDouble()*EPS ) {
             VMAX = ONE;
          } else if ( EPS*SIN > STMP ) {
             VMAX = ONE / EPS;

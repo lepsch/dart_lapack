@@ -68,9 +68,9 @@
 
       if ( N == 1 ) {
          if ( LOWER ) {
-            W[1] = DBLE( AB( 1, 1 ) );
+            W[1] = (AB( 1, 1 )).toDouble();
          } else {
-            W[1] = DBLE( AB( KD+1, 1 ) );
+            W[1] = (AB( KD+1, 1 )).toDouble();
          }
          if (WANTZ) Z( 1, 1 ) = ONE;
          return;

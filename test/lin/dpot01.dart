@@ -106,7 +106,7 @@
 
       RESID = DLANSY( '1', UPLO, N, AFAC, LDAFAC, RWORK );
 
-      RESID = ( ( RESID / DBLE( N ) ) / ANORM ) / EPS;
+      RESID = ( ( RESID / N.toDouble() ) / ANORM ) / EPS;
 
       return;
       }

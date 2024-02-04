@@ -244,12 +244,12 @@
             SCL = ONE / DZNRM2( N, VL( 1, I ), 1 );
             zdscal(N, SCL, VL( 1, I ), 1 );
             for (K = 1; K <= N; K++) { // 10
-               RWORK[IRWORK+K-1] = DBLE( VL( K, I ) )**2 + AIMAG( VL( K, I ) )**2;
+               RWORK[IRWORK+K-1] = (VL( K, I )).toDouble()**2 + AIMAG( VL( K, I ) )**2;
             } // 10
             K = IDAMAX( N, RWORK( IRWORK ), 1 );
             TMP = CONJG( VL( K, I ) ) / sqrt( RWORK( IRWORK+K-1 ) );
             zscal(N, TMP, VL( 1, I ), 1 );
-            VL[K, I] = DCMPLX( DBLE( VL( K, I ) ), ZERO );
+            VL[K, I] = DCMPLX( (VL( K, I )).toDouble(), ZERO );
          } // 20
       }
 
@@ -267,12 +267,12 @@
             SCL = ONE / DZNRM2( N, VR( 1, I ), 1 );
             zdscal(N, SCL, VR( 1, I ), 1 );
             for (K = 1; K <= N; K++) { // 30
-               RWORK[IRWORK+K-1] = DBLE( VR( K, I ) )**2 + AIMAG( VR( K, I ) )**2;
+               RWORK[IRWORK+K-1] = (VR( K, I )).toDouble()**2 + AIMAG( VR( K, I ) )**2;
             } // 30
             K = IDAMAX( N, RWORK( IRWORK ), 1 );
             TMP = CONJG( VR( K, I ) ) / sqrt( RWORK( IRWORK+K-1 ) );
             zscal(N, TMP, VR( 1, I ), 1 );
-            VR[K, I] = DCMPLX( DBLE( VR( K, I ) ), ZERO );
+            VR[K, I] = DCMPLX( (VR( K, I )).toDouble(), ZERO );
          } // 40
       }
 

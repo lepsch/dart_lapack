@@ -198,7 +198,7 @@
                WORK[J+1] = PLUS2;
                WORK[N+J+1] = ZERO;
                PLUS1 = STAR1 / PLUS2;
-               REXP = DBLE( ZLARND( 2, ISEED ) );
+               REXP = (ZLARND( 2, ISEED )).toDouble();
                if ( REXP < ZERO ) {
                   STAR1 = -SFAC**( ONE-REXP )*ZLARND( 5, ISEED );
                } else {
@@ -209,7 +209,7 @@
 
          X = sqrt( CNDNUM ) - ONE / sqrt( CNDNUM );
          if ( N > 2 ) {
-            Y = sqrt( TWO / DBLE( N-2 ) )*X;
+            Y = sqrt( TWO / (N-2).toDouble() )*X;
          } else {
             Y = ZERO;
          }
@@ -354,7 +354,7 @@
          // In type 12, the offdiagonal elements are small (CNORM(j) < 1).
 
          zlarnv(2, ISEED, N, B );
-         TSCAL = ONE / max( ONE, DBLE( N-1 ) );
+         TSCAL = ONE / max( ONE, (N-1).toDouble() );
          if ( UPPER ) {
             JC = 1;
             for (J = 1; J <= N; J++) { // 200
@@ -462,7 +462,7 @@
          // overflow when dividing by T(j,j).  To control the amount of
          // scaling needed, the matrix is bidiagonal.
 
-         TEXP = ONE / max( ONE, DBLE( N-1 ) );
+         TEXP = ONE / max( ONE, (N-1).toDouble() );
          TSCAL = SMLNUM**TEXP;
          zlarnv(4, ISEED, N, B );
          if ( UPPER ) {
@@ -536,31 +536,31 @@
          if ( UPPER ) {
             JC = ( N-1 )*N / 2 + 1;
             for (J = N; J >= 2; J -= 2) { // 370
-               AP[JC] = -TSCAL / DBLE( N+1 );
+               AP[JC] = -TSCAL / (N+1).toDouble();
                AP[JC+J-1] = ONE;
                B[J] = TEXP*( ONE-ULP );
                JC = JC - J + 1;
-               AP[JC] = -( TSCAL / DBLE( N+1 ) ) / DBLE( N+2 );
+               AP[JC] = -( TSCAL / DBLE( N+1 ) ) / (N+2).toDouble();
                AP[JC+J-2] = ONE;
-               B[J-1] = TEXP*DBLE( N*N+N-1 );
+               B[J-1] = TEXP*(N*N+N-1).toDouble();
                TEXP = TEXP*TWO;
                JC = JC - J + 2;
             } // 370
-            B[1] = ( DBLE( N+1 ) / DBLE( N+2 ) )*TSCAL;
+            B[1] = ( DBLE( N+1 ) / (N+2).toDouble() )*TSCAL;
          } else {
             JC = 1;
             for (J = 1; 2 < 0 ? J >= N - 1 : J <= N - 1; J += 2) { // 380
-               AP[JC+N-J] = -TSCAL / DBLE( N+1 );
+               AP[JC+N-J] = -TSCAL / (N+1).toDouble();
                AP[JC] = ONE;
                B[J] = TEXP*( ONE-ULP );
                JC = JC + N - J + 1;
-               AP[JC+N-J-1] = -( TSCAL / DBLE( N+1 ) ) / DBLE( N+2 );
+               AP[JC+N-J-1] = -( TSCAL / DBLE( N+1 ) ) / (N+2).toDouble();
                AP[JC] = ONE;
-               B[J+1] = TEXP*DBLE( N*N+N-1 );
+               B[J+1] = TEXP*(N*N+N-1).toDouble();
                TEXP = TEXP*TWO;
                JC = JC + N - J;
             } // 380
-            B[N] = ( DBLE( N+1 ) / DBLE( N+2 ) )*TSCAL;
+            B[N] = ( DBLE( N+1 ) / (N+2).toDouble() )*TSCAL;
          }
 
       } else if ( IMAT == 18 ) {
@@ -600,8 +600,8 @@
          // norms will exceed BIGNUM.
          // 1/3/91:  ZLATPS no longer can handle this case
 
-         TLEFT = BIGNUM / max( ONE, DBLE( N-1 ) );
-         TSCAL = BIGNUM*( DBLE( N-1 ) / max( ONE, DBLE( N ) ) );
+         TLEFT = BIGNUM / max( ONE, (N-1).toDouble() );
+         TSCAL = BIGNUM*( (N-1).toDouble() / max( ONE, N.toDouble() ) );
          if ( UPPER ) {
             JC = 1;
             for (J = 1; J <= N; J++) { // 420
@@ -637,7 +637,7 @@
             for (J = 1; J <= N / 2; J++) { // 460
                JL = JJ;
                for (I = J; I <= N - J; I++) { // 450
-                  T = DBLE( AP( JR-I+J ) );
+                  T = (AP( JR-I+J )).toDouble();
                   AP[JR-I+J] = AP( JL );
                   AP[JL] = T;
                   JL = JL + I;
@@ -651,7 +651,7 @@
             for (J = 1; J <= N / 2; J++) { // 480
                JR = JJ;
                for (I = J; I <= N - J; I++) { // 470
-                  T = DBLE( AP( JL+I-J ) );
+                  T = (AP( JL+I-J )).toDouble();
                   AP[JL+I-J] = AP( JR );
                   AP[JR] = T;
                   JR = JR - I;

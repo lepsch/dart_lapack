@@ -108,7 +108,7 @@
             // Compute error in the difference
 
             RESID = ZLANGE( '1', MC, NC, CC, LDA, RWORK );
-            RESULT[( ISIDE-1 )*2+ITRANS] = RESID / ( DBLE( max( 1, M ) )*CNORM*EPS );
+            RESULT[( ISIDE-1 )*2+ITRANS] = RESID / ( (max( 1, M )).toDouble()*CNORM*EPS );
 
          } // 20
       } // 30

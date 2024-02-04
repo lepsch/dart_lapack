@@ -119,7 +119,7 @@
 
       for (JSIZE = 1; JSIZE <= NSIZES; JSIZE++) { // 190
          N = NN( JSIZE );
-         ANINV = ONE / DBLE( max( 1, N ) );
+         ANINV = ONE / (max( 1, N )).toDouble();
 
          for (JWIDTH = 1; JWIDTH <= NWDTHS; JWIDTH++) { // 180
             K = KK( JWIDTH );

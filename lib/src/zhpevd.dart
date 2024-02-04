@@ -97,7 +97,7 @@
       if (N == 0) return;
 
       if ( N == 1 ) {
-         W[1] = DBLE( AP( 1 ) );
+         W[1] = (AP( 1 )).toDouble();
          if (WANTZ) Z( 1, 1 ) = CONE;
          return;
       }

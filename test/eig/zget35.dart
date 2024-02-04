@@ -122,7 +122,7 @@
                               }
                            }
                            zgemm(TRANA, 'N', M, N, M, RMUL, A, LDT, C, LDT, -SCALE*RMUL, CSAV, LDT );
-                           zgemm('N', TRANB, M, N, N, DBLE( ISGN )*RMUL, C, LDT, B, LDT, CONE, CSAV, LDT );
+                           zgemm('N', TRANB, M, N, N, ISGN.toDouble()*RMUL, C, LDT, B, LDT, CONE, CSAV, LDT );
                            RES1 = ZLANGE( 'M', M, N, CSAV, LDT, DUM );
                            RES = RES1 / max( SMLNUM, SMLNUM*XNRM, ( ( ( RMUL ).abs()*TNRM )*EPS )*XNRM );
                            if ( RES > RMAX ) {

@@ -283,7 +283,7 @@
 
       if ( ISYM == 0 ) {
          for (I = 1; I <= MNMIN; I++) { // 60
-            D[I] = DBLE( D( I ) );
+            D[I] = (D( I )).toDouble();
          } // 60
       }
 

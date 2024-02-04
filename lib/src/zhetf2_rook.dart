@@ -44,7 +44,7 @@
       double             CABS1;
       // ..
       // .. Statement Function definitions ..
-      CABS1[Z] = ( DBLE( Z ) ).abs() + ( DIMAG( Z ) ).abs();
+      CABS1[Z] = ( Z.toDouble() ).abs() + ( DIMAG( Z ) ).abs();
       // ..
       // .. Executable Statements ..
 
@@ -91,7 +91,7 @@
          // Determine rows and columns to be interchanged and whether
          // a 1-by-1 or 2-by-2 pivot block will be used
 
-         ABSAKK = ABS( DBLE( A( K, K ) ) );
+         ABSAKK = ABS( (A( K, K )).toDouble() );
 
          // IMAX is the row-index of the largest off-diagonal element in
          // column K, and COLMAX is its absolute value.
@@ -110,7 +110,7 @@
 
             if (INFO == 0) INFO = K;
             KP = K;
-            A[K, K] = DBLE( A( K, K ) );
+            A[K, K] = (A( K, K )).toDouble();
          } else {
 
             // ============================================================
@@ -160,10 +160,10 @@
 
                   // Case(2)
                   // Equivalent to testing for
-                  // ABS( DBLE( W( IMAX,KW-1 ) ) ) >= ALPHA*ROWMAX
+                  // ABS( (W( IMAX,KW-1 )).toDouble() ) >= ALPHA*ROWMAX
                   // (used to handle NaN and Inf)
 
-                  if ( !( ABS( DBLE( A( IMAX, IMAX ) ) ) < ALPHA*ROWMAX ) ) {
+                  if ( !( ABS( (A( IMAX, IMAX )).toDouble() ) < ALPHA*ROWMAX ) ) {
 
                      // interchange rows and columns K and IMAX,
                      // use 1-by-1 pivot block
@@ -223,8 +223,8 @@
                // (3) Swap and conjugate corner elements at row-col intersection
                A[P, K] = DCONJG( A( P, K ) );
                // (4) Swap diagonal elements at row-col intersection
-               R1 = DBLE( A( K, K ) );
-               A[K, K] = DBLE( A( P, P ) );
+               R1 = (A( K, K )).toDouble();
+               A[K, K] = (A( P, P )).toDouble();
                A[P, P] = R1;
             }
 
@@ -243,13 +243,13 @@
                // (3) Swap and conjugate corner elements at row-col intersection
                A[KP, KK] = DCONJG( A( KP, KK ) );
                // (4) Swap diagonal elements at row-col intersection
-               R1 = DBLE( A( KK, KK ) );
-               A[KK, KK] = DBLE( A( KP, KP ) );
+               R1 = (A( KK, KK )).toDouble();
+               A[KK, KK] = (A( KP, KP )).toDouble();
                A[KP, KP] = R1;
 
                if ( KSTEP == 2 ) {
                   // (*) Make sure that diagonal element of pivot is real
-                  A[K, K] = DBLE( A( K, K ) );
+                  A[K, K] = (A( K, K )).toDouble();
                   // (5) Swap row elements
                   T = A( K-1, K );
                   A[K-1, K] = A( KP, K );
@@ -257,8 +257,8 @@
                }
             } else {
                // (*) Make sure that diagonal element of pivot is real
-               A[K, K] = DBLE( A( K, K ) );
-               if (KSTEP == 2) A( K-1, K-1 ) = DBLE( A( K-1, K-1 ) );
+               A[K, K] = (A( K, K )).toDouble();
+               if (KSTEP == 2) A( K-1, K-1 ) = (A( K-1, K-1 )).toDouble();
             }
 
             // Update the leading submatrix
@@ -276,13 +276,13 @@
                   // Perform a rank-1 update of A(1:k-1,1:k-1) and
                   // store U(k) in column k
 
-                  if ( ABS( DBLE( A( K, K ) ) ) >= SFMIN ) {
+                  if ( ABS( (A( K, K )).toDouble() ) >= SFMIN ) {
 
                      // Perform a rank-1 update of A(1:k-1,1:k-1) as
                      // A := A - U(k)*D(k)*U(k)**T
                         // = A - W(k)*1/D(k)*W(k)**T
 
-                     D11 = ONE / DBLE( A( K, K ) );
+                     D11 = ONE / (A( K, K )).toDouble();
                      zher(UPLO, K-1, -D11, A( 1, K ), 1, A, LDA );
 
                      // Store U(k) in column k
@@ -292,7 +292,7 @@
 
                      // Store L(k) in column K
 
-                     D11 = DBLE( A( K, K ) );
+                     D11 = (A( K, K )).toDouble();
                      for (II = 1; II <= K - 1; II++) { // 16
                         A[II, K] = A( II, K ) / D11;
                      } // 16
@@ -324,9 +324,9 @@
 
                if ( K > 2 ) {
                   // D = |A12|
-                  D = DLAPY2( DBLE( A( K-1, K ) ), DIMAG( A( K-1, K ) ) );
-                  D11 = DBLE( A( K, K ) / D );
-                  D22 = DBLE( A( K-1, K-1 ) / D );
+                  D = DLAPY2( (A( K-1, K )).toDouble(), DIMAG( A( K-1, K ) ) );
+                  D11 = (A( K, K ) / D).toDouble();
+                  D22 = (A( K-1, K-1 ) / D).toDouble();
                   D12 = A( K-1, K ) / D;
                   TT = ONE / ( D11*D22-ONE );
 
@@ -348,7 +348,7 @@
                      A[J, K] = WK / D;
                      A[J, K-1] = WKM1 / D;
                      // (*) Make sure that diagonal element of pivot is real
-                     A[J, J] = DCMPLX( DBLE( A( J, J ) ), ZERO );
+                     A[J, J] = DCMPLX( (A( J, J )).toDouble(), ZERO );
 
                   } // 30
 
@@ -391,7 +391,7 @@
          // Determine rows and columns to be interchanged and whether
          // a 1-by-1 or 2-by-2 pivot block will be used
 
-         ABSAKK = ABS( DBLE( A( K, K ) ) );
+         ABSAKK = ABS( (A( K, K )).toDouble() );
 
          // IMAX is the row-index of the largest off-diagonal element in
          // column K, and COLMAX is its absolute value.
@@ -410,7 +410,7 @@
 
             if (INFO == 0) INFO = K;
             KP = K;
-            A[K, K] = DBLE( A( K, K ) );
+            A[K, K] = (A( K, K )).toDouble();
          } else {
 
             // ============================================================
@@ -460,10 +460,10 @@
 
                   // Case(2)
                   // Equivalent to testing for
-                  // ABS( DBLE( W( IMAX,KW-1 ) ) ) >= ALPHA*ROWMAX
+                  // ABS( (W( IMAX,KW-1 )).toDouble() ) >= ALPHA*ROWMAX
                   // (used to handle NaN and Inf)
 
-                  if ( !( ABS( DBLE( A( IMAX, IMAX ) ) ) < ALPHA*ROWMAX ) ) {
+                  if ( !( ABS( (A( IMAX, IMAX )).toDouble() ) < ALPHA*ROWMAX ) ) {
 
                      // interchange rows and columns K and IMAX,
                      // use 1-by-1 pivot block
@@ -524,8 +524,8 @@
                // (3) Swap and conjugate corner elements at row-col intersection
                A[P, K] = DCONJG( A( P, K ) );
                // (4) Swap diagonal elements at row-col intersection
-               R1 = DBLE( A( K, K ) );
-               A[K, K] = DBLE( A( P, P ) );
+               R1 = (A( K, K )).toDouble();
+               A[K, K] = (A( P, P )).toDouble();
                A[P, P] = R1;
             }
 
@@ -544,13 +544,13 @@
                // (3) Swap and conjugate corner elements at row-col intersection
                A[KP, KK] = DCONJG( A( KP, KK ) );
                // (4) Swap diagonal elements at row-col intersection
-               R1 = DBLE( A( KK, KK ) );
-               A[KK, KK] = DBLE( A( KP, KP ) );
+               R1 = (A( KK, KK )).toDouble();
+               A[KK, KK] = (A( KP, KP )).toDouble();
                A[KP, KP] = R1;
 
                if ( KSTEP == 2 ) {
                   // (*) Make sure that diagonal element of pivot is real
-                  A[K, K] = DBLE( A( K, K ) );
+                  A[K, K] = (A( K, K )).toDouble();
                   // (5) Swap row elements
                   T = A( K+1, K );
                   A[K+1, K] = A( KP, K );
@@ -558,8 +558,8 @@
                }
             } else {
                // (*) Make sure that diagonal element of pivot is real
-               A[K, K] = DBLE( A( K, K ) );
-               if (KSTEP == 2) A( K+1, K+1 ) = DBLE( A( K+1, K+1 ) );
+               A[K, K] = (A( K, K )).toDouble();
+               if (KSTEP == 2) A( K+1, K+1 ) = (A( K+1, K+1 )).toDouble();
             }
 
             // Update the trailing submatrix
@@ -579,13 +579,13 @@
 
                   // Handle division by a small number
 
-                  if ( ABS( DBLE( A( K, K ) ) ) >= SFMIN ) {
+                  if ( ABS( (A( K, K )).toDouble() ) >= SFMIN ) {
 
                      // Perform a rank-1 update of A(k+1:n,k+1:n) as
                      // A := A - L(k)*D(k)*L(k)**T
                         // = A - W(k)*(1/D(k))*W(k)**T
 
-                     D11 = ONE / DBLE( A( K, K ) );
+                     D11 = ONE / (A( K, K )).toDouble();
                      zher(UPLO, N-K, -D11, A( K+1, K ), 1, A( K+1, K+1 ), LDA );
 
                      // Store L(k) in column k
@@ -595,7 +595,7 @@
 
                      // Store L(k) in column k
 
-                     D11 = DBLE( A( K, K ) );
+                     D11 = (A( K, K )).toDouble();
                      for (II = K + 1; II <= N; II++) { // 46
                         A[II, K] = A( II, K ) / D11;
                      } // 46
@@ -628,9 +628,9 @@
 
                if ( K < N-1 ) {
                   // D = |A21|
-                  D = DLAPY2( DBLE( A( K+1, K ) ), DIMAG( A( K+1, K ) ) );
-                  D11 = DBLE( A( K+1, K+1 ) ) / D;
-                  D22 = DBLE( A( K, K ) ) / D;
+                  D = DLAPY2( (A( K+1, K )).toDouble(), DIMAG( A( K+1, K ) ) );
+                  D11 = (A( K+1, K+1 )).toDouble() / D;
+                  D22 = (A( K, K )).toDouble() / D;
                   D21 = A( K+1, K ) / D;
                   TT = ONE / ( D11*D22-ONE );
 
@@ -652,7 +652,7 @@
                      A[J, K] = WK / D;
                      A[J, K+1] = WKP1 / D;
                      // (*) Make sure that diagonal element of pivot is real
-                     A[J, J] = DCMPLX( DBLE( A( J, J ) ), ZERO );
+                     A[J, J] = DCMPLX( (A( J, J )).toDouble(), ZERO );
 
                   } // 60
 

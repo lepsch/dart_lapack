@@ -46,7 +46,7 @@
 
       // Initialize constants related to A.
 
-      AR = DBLE( A );
+      AR = A.toDouble();
       AI = DIMAG( A );
       ABSR = ( AR ).abs();
       ABSI = ( AI ).abs();

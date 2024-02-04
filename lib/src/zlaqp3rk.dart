@@ -332,8 +332,8 @@
          // TAU(K) to contain NaN. Therefore, this case of generating Inf
          // by ZLARFG is covered by checking TAU(K) for NaN.
 
-         if ( DISNAN( DBLE( TAU(K) ) ) ) {
-            TAUNAN = DBLE( TAU(K) );
+         if ( DISNAN( (TAU(K)).toDouble() ) ) {
+            TAUNAN = (TAU(K)).toDouble();
          } else if ( DISNAN( DIMAG( TAU(K) ) ) ) {
             TAUNAN = DIMAG( TAU(K) );
          } else {

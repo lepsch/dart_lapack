@@ -68,7 +68,7 @@
          // Compute norm( I - U*U' ) / ( K * EPS ) .
 
          RESID = DLANSY( '1', 'Upper', MNMIN, WORK, LDWORK, WORK( LDWORK*MNMIN+1 ) );
-         RESID = ( RESID / DBLE( K ) ) / EPS;
+         RESID = ( RESID / K.toDouble() ) / EPS;
       } else if ( TRANSU == 'T' ) {
 
          // Find the maximum element in abs( I - U'*U ) / ( m * EPS )
@@ -84,7 +84,7 @@
                RESID = max( RESID, ( TMP ).abs() );
             } // 10
          } // 20
-         RESID = ( RESID / DBLE( M ) ) / EPS;
+         RESID = ( RESID / M.toDouble() ) / EPS;
       } else {
 
          // Find the maximum element in abs( I - U*U' ) / ( n * EPS )
@@ -100,7 +100,7 @@
                RESID = max( RESID, ( TMP ).abs() );
             } // 30
          } // 40
-         RESID = ( RESID / DBLE( N ) ) / EPS;
+         RESID = ( RESID / N.toDouble() ) / EPS;
       }
       return;
       }

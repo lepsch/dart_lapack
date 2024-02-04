@@ -162,7 +162,7 @@
             if ( ANORM < ONE ) {
                RESULT[2+RSUB] = ( min( WNORM, N*ANORM ) / ANORM ) / ( N*ULP );
             } else {
-               RESULT[2+RSUB] = min( WNORM / ANORM, DBLE( N ) ) / ( N*ULP );
+               RESULT[2+RSUB] = min( WNORM / ANORM, N.toDouble() ) / ( N*ULP );
             }
          }
 
@@ -481,7 +481,7 @@
          // taking its condition number into account
 
          ANORM = DLANGE( '1', N, N, A, LDA, WORK );
-         V = max( DBLE( N )*EPS*ANORM, SMLNUM );
+         V = max( N.toDouble()*EPS*ANORM, SMLNUM );
          if (ANORM == ZERO) V = ONE;
          if ( V > RCONDV ) {
             TOL = ONE;

@@ -39,7 +39,7 @@
       double             CABS1;
       // ..
       // .. Statement Function definitions ..
-      CABS1[Z] = ( DBLE( Z ) ).abs() + ( DIMAG( Z ) ).abs();
+      CABS1[Z] = ( Z.toDouble() ).abs() + ( DIMAG( Z ) ).abs();
       // ..
       // .. Executable Statements ..
 
@@ -69,7 +69,7 @@
 
          // Transfer the sign
 
-         D[1] = DCMPLX( -DSIGN( ONE, DBLE( A( 1, 1 ) ) ) );
+         D[1] = DCMPLX( -DSIGN( ONE, (A( 1, 1 )).toDouble() ) );
 
          // Construct the row of U
 
@@ -82,7 +82,7 @@
 
          // Transfer the sign
 
-         D[1] = DCMPLX( -DSIGN( ONE, DBLE( A( 1, 1 ) ) ) );
+         D[1] = DCMPLX( -DSIGN( ONE, (A( 1, 1 )).toDouble() ) );
 
          // Construct the row of U
 

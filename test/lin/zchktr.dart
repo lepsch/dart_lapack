@@ -195,7 +195,7 @@
 
                         // This line is needed on a Sun SPARCstation.
 
-                        if (N > 0) DUMMY = DBLE( A( 1 ) );
+                        if (N > 0) DUMMY = (A( 1 )).toDouble();
 
                         ztrt02(UPLO, TRANS, DIAG, N, NRHS, A, LDA, X, LDA, B, LDA, WORK, RWORK, RESULT( 2 ) );
 

@@ -90,7 +90,7 @@
             if ( ANORM < ONE ) {
                RESULT = ( min( WNORM, N*ANORM ) / ANORM ) / ( N*ULP );
             } else {
-               RESULT = min( WNORM / ANORM, DBLE( N ) ) / ( N*ULP );
+               RESULT = min( WNORM / ANORM, N.toDouble() ) / ( N*ULP );
             }
          }
 
@@ -106,7 +106,7 @@
             WORK[( N+1 )*( JDIAG-1 )+1] = WORK( ( N+1 )*( JDIAG-1 )+ 1 ) - CONE;
          } // 30
 
-         RESULT = min( ZLANGE( '1', N, N, WORK, N, RWORK ), DBLE( N ) ) / ( N*ULP );
+         RESULT = min( ZLANGE( '1', N, N, WORK, N, RWORK ), N.toDouble() ) / ( N*ULP );
       }
 
       return;

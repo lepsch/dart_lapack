@@ -146,7 +146,7 @@
          for (JCOL = 1; JCOL <= NRHS; JCOL++) { // 50
             for (JROW = 1; JROW <= N; JROW++) { // 40
                J = J + 1;
-               RWORK[J] = DBLE( B( JROW, JCOL ) );
+               RWORK[J] = (B( JROW, JCOL )).toDouble();
             } // 40
          } // 50
          dgemm('T', 'N', N, NRHS, N, ONE, RWORK( IRWU ), N, RWORK( IRWB ), N, ZERO, RWORK( IRWRB ), N );
@@ -189,7 +189,7 @@
          for (JCOL = 1; JCOL <= NRHS; JCOL++) { // 120
             for (JROW = 1; JROW <= N; JROW++) { // 110
                J = J + 1;
-               RWORK[J] = DBLE( B( JROW, JCOL ) );
+               RWORK[J] = (B( JROW, JCOL )).toDouble();
             } // 110
          } // 120
          dgemm('T', 'N', N, NRHS, N, ONE, RWORK( IRWVT ), N, RWORK( IRWB ), N, ZERO, RWORK( IRWRB ), N );
@@ -222,7 +222,7 @@
 
       // Book-keeping and setting up some constants.
 
-      NLVL = INT( LOG( DBLE( N ) / DBLE( SMLSIZ+1 ) ) / LOG( TWO ) ) + 1;
+      NLVL = INT( LOG( N.toDouble() / (SMLSIZ+1).toDouble() ) / LOG( TWO ) ) + 1;
 
       SMLSZP = SMLSIZ + 1;
 
@@ -320,7 +320,7 @@
                for (JCOL = 1; JCOL <= NRHS; JCOL++) { // 190
                   for (JROW = ST; JROW <= ST + NSIZE - 1; JROW++) { // 180
                      J = J + 1;
-                     RWORK[J] = DBLE( B( JROW, JCOL ) );
+                     RWORK[J] = (B( JROW, JCOL )).toDouble();
                   } // 180
                } // 190
                dgemm('T', 'N', NSIZE, NRHS, NSIZE, ONE, RWORK( U+ST1 ), N, RWORK( IRWB ), NSIZE, ZERO, RWORK( IRWRB ), NSIZE );
@@ -404,7 +404,7 @@
                J = J + N;
                for (JROW = 1; JROW <= NSIZE; JROW++) { // 260
                   JREAL = JREAL + 1;
-                  RWORK[JREAL] = DBLE( WORK( J+JROW ) );
+                  RWORK[JREAL] = (WORK( J+JROW )).toDouble();
                } // 260
             } // 270
             dgemm('T', 'N', NSIZE, NRHS, NSIZE, ONE, RWORK( VT+ST1 ), N, RWORK( IRWB ), NSIZE, ZERO, RWORK( IRWRB ), NSIZE );

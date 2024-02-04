@@ -421,7 +421,7 @@
 
                      ITER = 0;
 
-                     TOL = FOUR * LOG(DBLE(IN)) * EPS;
+                     TOL = FOUR * LOG(IN.toDouble()) * EPS;
 
                      K = NEWFST;
                      WINDEX = WBEGIN + K - 1;

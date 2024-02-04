@@ -95,7 +95,7 @@
 
                if( ( IMAT < 3 || IMAT > 5 ) && IRANK > 1 ) GO TO 130;
 
-               RANK = CEILING( ( N * DBLE( RANKVAL( IRANK ) ) ) / 100.0 );
+               RANK = CEILING( ( N * (RANKVAL( IRANK )).toDouble() ) / 100.0 );
 
 
             // Do first for UPLO = 'U', then for UPLO = 'L'

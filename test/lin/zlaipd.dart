@@ -30,7 +30,7 @@
       IA = 1;
       IXA = INDA;
       for (I = 1; I <= N; I++) { // 10
-         A[IA] = DCMPLX( DBLE( A( IA ) ), BIGNUM );
+         A[IA] = DCMPLX( (A( IA )).toDouble(), BIGNUM );
          IA = IA + IXA;
          IXA = IXA + VINDA;
       } // 10

@@ -69,8 +69,8 @@
 
                // Compute the j-th column of the upper triangle of A
 
-               AP[JJ] = DBLE( AP( JJ ) );
-               BJJ = DBLE( BP( JJ ) );
+               AP[JJ] = (AP( JJ )).toDouble();
+               BJJ = (BP( JJ )).toDouble();
                ztpsv(UPLO, 'Conjugate transpose', 'Non-unit', J, BP, AP( J1 ), 1 );
                zhpmv(UPLO, J-1, -CONE, AP, BP( J1 ), 1, CONE, AP( J1 ), 1 );
                zdscal(J-1, ONE / BJJ, AP( J1 ), 1 );
@@ -88,8 +88,8 @@
 
                // Update the lower triangle of A(k:n,k:n)
 
-               AKK = DBLE( AP( KK ) );
-               BKK = DBLE( BP( KK ) );
+               AKK = (AP( KK )).toDouble();
+               BKK = (BP( KK )).toDouble();
                AKK = AKK / BKK**2;
                AP[KK] = AKK;
                if ( K < N ) {
@@ -117,8 +117,8 @@
 
                // Update the upper triangle of A(1:k,1:k)
 
-               AKK = DBLE( AP( KK ) );
-               BKK = DBLE( BP( KK ) );
+               AKK = (AP( KK )).toDouble();
+               BKK = (BP( KK )).toDouble();
                ztpmv(UPLO, 'No transpose', 'Non-unit', K-1, BP, AP( K1 ), 1 );
                CT = HALF*AKK;
                zaxpy(K-1, CT, BP( K1 ), 1, AP( K1 ), 1 );
@@ -139,8 +139,8 @@
 
                // Compute the j-th column of the lower triangle of A
 
-               AJJ = DBLE( AP( JJ ) );
-               BJJ = DBLE( BP( JJ ) );
+               AJJ = (AP( JJ )).toDouble();
+               BJJ = (BP( JJ )).toDouble();
                AP[JJ] = AJJ*BJJ + ZDOTC( N-J, AP( JJ+1 ), 1, BP( JJ+1 ), 1 );
                zdscal(N-J, BJJ, AP( JJ+1 ), 1 );
                zhpmv(UPLO, N-J, CONE, AP( J1J1 ), BP( JJ+1 ), 1, CONE, AP( JJ+1 ), 1 );

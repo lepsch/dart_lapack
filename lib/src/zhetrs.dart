@@ -91,7 +91,7 @@
 
             // Multiply by the inverse of the diagonal block.
 
-            S = DBLE( ONE ) / DBLE( A( K, K ) );
+            S = ONE.toDouble() / (A( K, K )).toDouble();
             zdscal(NRHS, S, B( K, 1 ), LDB );
             K = K - 1;
          } else {
@@ -216,7 +216,7 @@
 
             // Multiply by the inverse of the diagonal block.
 
-            S = DBLE( ONE ) / DBLE( A( K, K ) );
+            S = ONE.toDouble() / (A( K, K )).toDouble();
             zdscal(NRHS, S, B( K, 1 ), LDB );
             K = K + 1;
          } else {

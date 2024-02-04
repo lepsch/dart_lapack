@@ -131,7 +131,7 @@
 
             for (J = I; J <= I + NB - 1; J++) { // 10
                A[J-1, J] = E( J-1 );
-               D[J] = DBLE( A( J, J ) );
+               D[J] = (A( J, J )).toDouble();
             } // 10
          } // 20
 
@@ -160,7 +160,7 @@
 
             for (J = I; J <= I + NB - 1; J++) { // 30
                A[J+1, J] = E( J );
-               D[J] = DBLE( A( J, J ) );
+               D[J] = (A( J, J )).toDouble();
             } // 30
          } // 40
 

@@ -53,11 +53,11 @@
 
       for (J = 1; J <= NMAX; J++) { // 20
          for (I = 1; I <= NMAX; I++) { // 10
-            A[I, J] = 1.0 / DBLE( I+J );
+            A[I, J] = 1.0 / (I+J).toDouble();
          } // 10
       } // 20
       for (J = 1; J <= NMAX; J++) { // 30
-         D[J] = DBLE( J );
+         D[J] = J.toDouble();
          E[J] = 0.0;
          I1[J] = J;
          I2[J] = J;

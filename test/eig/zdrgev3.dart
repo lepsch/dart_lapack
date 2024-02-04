@@ -138,7 +138,7 @@
       for (JSIZE = 1; JSIZE <= NSIZES; JSIZE++) { // 220
          N = NN( JSIZE );
          N1 = max( 1, N );
-         RMAGN[2] = SAFMAX*ULP / DBLE( N1 );
+         RMAGN[2] = SAFMAX*ULP / N1.toDouble();
          RMAGN[3] = SAFMIN*ULPINV*N1;
 
          if ( NSIZES != 1 ) {
@@ -219,10 +219,10 @@
                         Z[JR, JC] = ZLARND( 3, ISEED );
                      } // 30
                      zlarfg(N+1-JC, Q( JC, JC ), Q( JC+1, JC ), 1, WORK( JC ) );
-                     WORK[2*N+JC] = SIGN( ONE, DBLE( Q( JC, JC ) ) );
+                     WORK[2*N+JC] = SIGN( ONE, (Q( JC, JC )).toDouble() );
                      Q[JC, JC] = CONE;
                      zlarfg(N+1-JC, Z( JC, JC ), Z( JC+1, JC ), 1, WORK( N+JC ) );
-                     WORK[3*N+JC] = SIGN( ONE, DBLE( Z( JC, JC ) ) );
+                     WORK[3*N+JC] = SIGN( ONE, (Z( JC, JC )).toDouble() );
                      Z[JC, JC] = CONE;
                   } // 40
                   CTEMP = ZLARND( 3, ISEED );

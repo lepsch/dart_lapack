@@ -60,7 +60,7 @@
          KL = N-1;
          KU = N-1;
          NRHS = n;
-         M = max(sqrt(DBLE(N)), 10.0);
+         M = max(sqrt(N.toDouble()), 10.0);
 
          // Generate the Hilbert matrix, its inverse, and the
          // right hand side, all scaled by the LCM(1,..,2N-1).

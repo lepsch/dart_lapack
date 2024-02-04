@@ -345,7 +345,7 @@
          } else {
             if (MB > 1) {
                CLWDTH = W(WEND) + WERR(WEND) - W(WBEGIN) - WERR(WBEGIN);
-               AVGAP = (CLWDTH / DBLE(WEND-WBEGIN)).abs();
+               AVGAP = (CLWDTH / (WEND-WBEGIN).toDouble()).abs();
                if ( SGNDEF == ONE ) {
                   TAU = HALF*max(WGAP(WBEGIN),AVGAP);
                   TAU = max(TAU,WERR(WBEGIN));
@@ -490,7 +490,7 @@
             // This is an ESTIMATED error, the worst case bound is 4*N*EPS
             // which is usually too large and requires unnecessary work to be
             // done by bisection when computing the eigenvectors
-            RTOL = LOG(DBLE(IN)) * FOUR * EPS;
+            RTOL = LOG(IN.toDouble()) * FOUR * EPS;
             J = IBEGIN;
             for (I = 1; I <= IN - 1; I++) { // 140
                WORK[2*I-1] = ( D( J ) ).abs();

@@ -158,7 +158,7 @@
 
       EPS = (0.9)*DLAMCH( 'Epsilon' );
 
-      MLVL = INT( LOG( DBLE( N ) / DBLE( SMLSIZ+1 ) ) / LOG( TWO ) ) + 1;
+      MLVL = INT( LOG( N.toDouble() / (SMLSIZ+1).toDouble() ) / LOG( TWO ) ) + 1;
       SMLSZP = SMLSIZ + 1;
 
       if ( ICOMPQ == 1 ) {

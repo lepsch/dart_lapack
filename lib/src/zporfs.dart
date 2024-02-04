@@ -51,7 +51,7 @@
       double             CABS1;
       // ..
       // .. Statement Function definitions ..
-      CABS1[ZDUM] = ( DBLE( ZDUM ) ).abs() + ( DIMAG( ZDUM ) ).abs();
+      CABS1[ZDUM] = ( ZDUM.toDouble() ).abs() + ( DIMAG( ZDUM ) ).abs();
       // ..
       // .. Executable Statements ..
 
@@ -135,13 +135,13 @@
                   RWORK[I] = RWORK( I ) + CABS1( A( I, K ) )*XK;
                   S = S + CABS1( A( I, K ) )*CABS1( X( I, J ) );
                } // 40
-               RWORK[K] = RWORK( K ) + ABS( DBLE( A( K, K ) ) )*XK + S;
+               RWORK[K] = RWORK( K ) + ABS( (A( K, K )).toDouble() )*XK + S;
             } // 50
          } else {
             for (K = 1; K <= N; K++) { // 70
                S = ZERO;
                XK = CABS1( X( K, J ) );
-               RWORK[K] = RWORK( K ) + ABS( DBLE( A( K, K ) ) )*XK;
+               RWORK[K] = RWORK( K ) + ABS( (A( K, K )).toDouble() )*XK;
                for (I = K + 1; I <= N; I++) { // 60
                   RWORK[I] = RWORK( I ) + CABS1( A( I, K ) )*XK;
                   S = S + CABS1( A( I, K ) )*CABS1( X( I, J ) );

@@ -92,7 +92,7 @@
          } // 50
          D[1] = ONE;
          if ( N > 1 ) {
-            ALPHA = COND**( -ONE / DBLE( N-1 ) );
+            ALPHA = COND**( -ONE / (N-1).toDouble() );
             for (I = 2; I <= N; I++) { // 60
                D[I] = ALPHA**( I-1 );
             } // 60
@@ -105,9 +105,9 @@
          D[1] = ONE;
          if ( N > 1 ) {
             TEMP = ONE / COND;
-            ALPHA = ( ONE-TEMP ) / DBLE( N-1 );
+            ALPHA = ( ONE-TEMP ) / (N-1).toDouble();
             for (I = 2; I <= N; I++) { // 80
-               D[I] = DBLE( N-I )*ALPHA + TEMP;
+               D[I] = (N-I).toDouble()*ALPHA + TEMP;
             } // 80
          }
          GO TO 120;

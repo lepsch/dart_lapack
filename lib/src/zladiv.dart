@@ -21,7 +21,7 @@
       // ..
       // .. Executable Statements ..
 
-      dladiv(DBLE( X ), DIMAG( X ), DBLE( Y ), DIMAG( Y ), ZR, ZI );
+      dladiv((X).toDouble(), DIMAG( X ), Y.toDouble(), DIMAG( Y ), ZR, ZI );
       ZLADIV = DCMPLX( ZR, ZI );
 
       return;

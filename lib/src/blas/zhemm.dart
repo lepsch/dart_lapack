@@ -108,9 +108,9 @@
                           TEMP2 = TEMP2 + B(K,J)*DCONJG(A(K,I));
                       } // 50
                       if (BETA == ZERO) {
-                          C[I,J] = TEMP1*DBLE(A(I,I)) + ALPHA*TEMP2;
+                          C[I,J] = TEMP1*(A(I,I)).toDouble() + ALPHA*TEMP2;
                       } else {
-                          C[I,J] = BETA*C(I,J) + TEMP1*DBLE(A(I,I)) + ALPHA*TEMP2;
+                          C[I,J] = BETA*C(I,J) + TEMP1*(A(I,I)).toDouble() + ALPHA*TEMP2;
                       }
                   } // 60
               } // 70
@@ -124,9 +124,9 @@
                           TEMP2 = TEMP2 + B(K,J)*DCONJG(A(K,I));
                       } // 80
                       if (BETA == ZERO) {
-                          C[I,J] = TEMP1*DBLE(A(I,I)) + ALPHA*TEMP2;
+                          C[I,J] = TEMP1*(A(I,I)).toDouble() + ALPHA*TEMP2;
                       } else {
-                          C[I,J] = BETA*C(I,J) + TEMP1*DBLE(A(I,I)) + ALPHA*TEMP2;
+                          C[I,J] = BETA*C(I,J) + TEMP1*(A(I,I)).toDouble() + ALPHA*TEMP2;
                       }
                   } // 90
               } // 100
@@ -136,7 +136,7 @@
          // Form  C := alpha*B*A + beta*C.
 
           for (J = 1; J <= N; J++) { // 170
-              TEMP1 = ALPHA*DBLE(A(J,J));
+              TEMP1 = ALPHA*(A(J,J)).toDouble();
               if (BETA == ZERO) {
                   for (I = 1; I <= M; I++) { // 110
                       C[I,J] = TEMP1*B(I,J);

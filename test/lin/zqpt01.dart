@@ -73,7 +73,7 @@
          zaxpy(M, DCMPLX( -ONE ), A( 1, JPVT( J ) ), 1, WORK( ( J-1 )*M+1 ), 1 );
       }
 
-      ZQPT01 = ZLANGE( 'One-norm', M, N, WORK, M, RWORK ) / ( DBLE( max( M, N ) )*DLAMCH( 'Epsilon' ) )       IF( NORMA != ZERO ) ZQPT01 = ZQPT01 / NORMA;
+      ZQPT01 = ZLANGE( 'One-norm', M, N, WORK, M, RWORK ) / ( (max( M, N )).toDouble()*DLAMCH( 'Epsilon' ) )       IF( NORMA != ZERO ) ZQPT01 = ZQPT01 / NORMA;
 
       return;
       }

@@ -78,7 +78,7 @@
          for (JVEC = 1; JVEC <= N; JVEC++) { // 20
             TEMP1 = ZERO;
             for (J = 1; J <= N; J++) { // 10
-               TEMP1 = max( TEMP1, ABS( DBLE( E( J, JVEC ) ) )+ ABS( DIMAG( E( J, JVEC ) ) ) );
+               TEMP1 = max( TEMP1, ABS( (E( J, JVEC )).toDouble() )+ ABS( DIMAG( E( J, JVEC ) ) ) );
             } // 10
             ENRMIN = min( ENRMIN, TEMP1 );
             ENRMAX = max( ENRMAX, TEMP1 );
@@ -90,7 +90,7 @@
 
          for (J = 1; J <= N; J++) { // 50
             for (JVEC = 1; JVEC <= N; JVEC++) { // 40
-               RWORK[JVEC] = max( RWORK( JVEC ), ABS( DBLE( E( JVEC, J ) ) )+ ABS( DIMAG( E( JVEC, J ) ) ) );
+               RWORK[JVEC] = max( RWORK( JVEC ), ABS( (E( JVEC, J )).toDouble() )+ ABS( DIMAG( E( JVEC, J ) ) ) );
             } // 40
          } // 50
 
@@ -156,7 +156,7 @@
 
       // Compute RESULT(2) : the normalization error in E.
 
-      RESULT[2] = max( ( ENRMAX-ONE ).abs(), ( ENRMIN-ONE ).abs() ) / ( DBLE( N )*ULP );
+      RESULT[2] = max( ( ENRMAX-ONE ).abs(), ( ENRMIN-ONE ).abs() ) / ( N.toDouble()*ULP );
 
       return;
       }

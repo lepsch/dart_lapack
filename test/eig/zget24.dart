@@ -156,7 +156,7 @@
             if ( ANORM < ONE ) {
                RESULT[2+RSUB] = ( min( WNORM, N*ANORM ) / ANORM ) / ( N*ULP );
             } else {
-               RESULT[2+RSUB] = min( WNORM / ANORM, DBLE( N ) ) / ( N*ULP );
+               RESULT[2+RSUB] = min( WNORM / ANORM, N.toDouble() ) / ( N*ULP );
             }
          }
 
@@ -422,19 +422,19 @@
          for (I = 1; I <= N; I++) { // 230
             IPNT[I] = I;
             SELVAL[I] = false;
-            SELWR[I] = DBLE( WTMP( I ) );
+            SELWR[I] = (WTMP( I )).toDouble();
             SELWI[I] = DIMAG( WTMP( I ) );
          } // 230
          for (I = 1; I <= N - 1; I++) { // 250
             KMIN = I;
             if ( ISRT == 0 ) {
-               VRIMIN = DBLE( WTMP( I ) );
+               VRIMIN = (WTMP( I )).toDouble();
             } else {
                VRIMIN = DIMAG( WTMP( I ) );
             }
             for (J = I + 1; J <= N; J++) { // 240
                if ( ISRT == 0 ) {
-                  VRICMP = DBLE( WTMP( J ) );
+                  VRICMP = (WTMP( J )).toDouble();
                } else {
                   VRICMP = DIMAG( WTMP( J ) );
                }
@@ -470,7 +470,7 @@
          // taking its condition number into account
 
          ANORM = ZLANGE( '1', N, N, A, LDA, RWORK );
-         V = max( DBLE( N )*EPS*ANORM, SMLNUM );
+         V = max( N.toDouble()*EPS*ANORM, SMLNUM );
          if (ANORM == ZERO) V = ONE;
          if ( V > RCONDV ) {
             TOL = ONE;

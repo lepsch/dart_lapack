@@ -2617,7 +2617,7 @@
          IC = 0;
          GO TO 10;
       }
-      DBEG = DBLE( I - 500 )/1001.0;
+      DBEG = (I - 500).toDouble()/1001.0;
       return;
       }
       double ddiff(X, Y ) {
@@ -2684,7 +2684,7 @@
       INCY = 1;
       LY = ( INCY ).abs()*N;
       for (I = 1; I <= LY; I++) { // 10
-         Y[I] = 42.0 + DBLE( I );
+         Y[I] = 42.0 + I.toDouble();
          YS[I] = Y( I );
       } // 10
       return;

@@ -90,7 +90,7 @@
             for (I = L; I >= 1; I--) {
                CANSWAP = true;
                for (J = 1; J <= L; J++) {
-                  if ( I != J && ( DBLE( A( I, J ) ) != ZERO || DIMAG( A( I, J ) ) != ZERO ) ) {
+                  if ( I != J && ( (A( I, J )).toDouble() != ZERO || DIMAG( A( I, J ) ) != ZERO ) ) {
                      CANSWAP = false;
                      EXIT;
                   }
@@ -125,7 +125,7 @@
             for (J = K; J <= L; J++) {
                CANSWAP = true;
                for (I = K; I <= L; I++) {
-                  if ( I != J && ( DBLE( A( I, J ) ) != ZERO || DIMAG( A( I, J ) ) != ZERO ) ) {
+                  if ( I != J && ( (A( I, J )).toDouble() != ZERO || DIMAG( A( I, J ) ) != ZERO ) ) {
                      CANSWAP = false;
                      EXIT;
                   }

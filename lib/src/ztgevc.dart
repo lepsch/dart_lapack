@@ -45,7 +45,7 @@
       double             ABS1;
       // ..
       // .. Statement Function definitions ..
-      ABS1[X] = ( DBLE( X ) ).abs() + ( DIMAG( X ) ).abs();
+      ABS1[X] = ( X.toDouble() ).abs() + ( DIMAG( X ) ).abs();
       // ..
       // .. Executable Statements ..
 
@@ -184,7 +184,7 @@
             if ( ILCOMP ) {
                IEIG = IEIG + 1;
 
-               if ( ABS1( S( JE, JE ) ) <= SAFMIN && ABS( DBLE( P( JE, JE ) ) ) <= SAFMIN ) {
+               if ( ABS1( S( JE, JE ) ) <= SAFMIN && ABS( (P( JE, JE )).toDouble() ) <= SAFMIN ) {
 
                   // Singular matrix pencil -- return unit eigenvector
 
@@ -200,9 +200,9 @@
                     // H
                   // y  ( a A - b B ) = 0
 
-               TEMP = ONE / max( ABS1( S( JE, JE ) )*ASCALE, ABS( DBLE( P( JE, JE ) ) )*BSCALE, SAFMIN );
+               TEMP = ONE / max( ABS1( S( JE, JE ) )*ASCALE, ABS( (P( JE, JE )).toDouble() )*BSCALE, SAFMIN );
                SALPHA = ( TEMP*S( JE, JE ) )*ASCALE;
-               SBETA = ( TEMP*DBLE( P( JE, JE ) ) )*BSCALE;
+               SBETA = ( TEMP*(P( JE, JE )).toDouble() )*BSCALE;
                ACOEFF = SBETA*ASCALE;
                BCOEFF = SALPHA*BSCALE;
 
@@ -339,7 +339,7 @@
             if ( ILCOMP ) {
                IEIG = IEIG - 1;
 
-               if ( ABS1( S( JE, JE ) ) <= SAFMIN && ABS( DBLE( P( JE, JE ) ) ) <= SAFMIN ) {
+               if ( ABS1( S( JE, JE ) ) <= SAFMIN && ABS( (P( JE, JE )).toDouble() ) <= SAFMIN ) {
 
                   // Singular matrix pencil -- return unit eigenvector
 
@@ -355,9 +355,9 @@
 
                // ( a A - b B ) x  = 0
 
-               TEMP = ONE / max( ABS1( S( JE, JE ) )*ASCALE, ABS( DBLE( P( JE, JE ) ) )*BSCALE, SAFMIN );
+               TEMP = ONE / max( ABS1( S( JE, JE ) )*ASCALE, ABS( (P( JE, JE )).toDouble() )*BSCALE, SAFMIN );
                SALPHA = ( TEMP*S( JE, JE ) )*ASCALE;
-               SBETA = ( TEMP*DBLE( P( JE, JE ) ) )*BSCALE;
+               SBETA = ( TEMP*(P( JE, JE )).toDouble() )*BSCALE;
                ACOEFF = SBETA*ASCALE;
                BCOEFF = SALPHA*BSCALE;
 

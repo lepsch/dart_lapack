@@ -231,7 +231,7 @@
                   // A(1:k-1,k) := U(1:k-1,k) = W(1:k-1,kw)/D(k,k)
 
                // (NOTE: No need to use for Hermitian matrix
-               // A( K, K ) = DBLE( W( K, K) ) to separately copy diagonal
+               // A( K, K ) = (W( K, K)).toDouble() to separately copy diagonal
                // element D(k,k) from W (potentially saves only one load))
                ccopy(K, W( 1, KW ), 1, A( 1, K ), 1 );
                if ( K > 1 ) {
@@ -572,7 +572,7 @@
                   // A(k+1:N,k) := L(k+1:N,k) = W(k+1:N,k)/D(k,k)
 
                // (NOTE: No need to use for Hermitian matrix
-               // A( K, K ) = DBLE( W( K, K) ) to separately copy diagonal
+               // A( K, K ) = (W( K, K)).toDouble() to separately copy diagonal
                // element D(k,k) from W (potentially saves only one load))
                ccopy(N-K+1, W( K, K ), 1, A( K, K ), 1 );
                if ( K < N ) {

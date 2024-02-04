@@ -96,8 +96,8 @@
 
       dspgst(ITYPE, UPLO, N, AP, BP, INFO );
       dspevd(JOBZ, UPLO, N, AP, W, Z, LDZ, WORK, LWORK, IWORK, LIWORK, INFO );
-      LWMIN = INT( max( DBLE( LWMIN ), DBLE( WORK( 1 ) ) ) );
-      LIWMIN = INT( max( DBLE( LIWMIN ), DBLE( IWORK( 1 ) ) ) );
+      LWMIN = INT( max( LWMIN.toDouble(), (WORK( 1 )).toDouble() ) );
+      LIWMIN = INT( max( LIWMIN.toDouble(), (IWORK( 1 )).toDouble() ) );
 
       if ( WANTZ ) {
 

@@ -159,11 +159,11 @@
             for (I = 1; I <= J - 1; I++) { // 210
                PERM[I, J] = PERM( I, J ) - A( I, J );
             } // 210
-            PERM[J, J] = PERM( J, J ) - DBLE( A( J, J ) );
+            PERM[J, J] = PERM( J, J ) - (A( J, J )).toDouble();
          } // 220
       } else {
          for (J = 1; J <= N; J++) { // 240
-            PERM[J, J] = PERM( J, J ) - DBLE( A( J, J ) );
+            PERM[J, J] = PERM( J, J ) - (A( J, J )).toDouble();
             for (I = J + 1; I <= N; I++) { // 230
                PERM[I, J] = PERM( I, J ) - A( I, J );
             } // 230
@@ -175,7 +175,7 @@
 
       RESID = ZLANHE( '1', UPLO, N, PERM, LDAFAC, RWORK );
 
-      RESID = ( ( RESID / DBLE( N ) ) / ANORM ) / EPS;
+      RESID = ( ( RESID / N.toDouble() ) / ANORM ) / EPS;
 
       return;
       }

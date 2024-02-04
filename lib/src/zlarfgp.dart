@@ -43,7 +43,7 @@
 
       EPS = DLAMCH( 'Precision' );
       XNORM = DZNRM2( N-1, X, INCX );
-      ALPHR = DBLE( ALPHA );
+      ALPHR = ALPHA.toDouble();
       ALPHI = DIMAG( ALPHA );
 
       if ( XNORM <= EPS*(ALPHA).abs() && ALPHI == ZERO ) {
@@ -97,8 +97,8 @@
             BETA = -BETA;
             TAU = -ALPHA / BETA;
          } else {
-            ALPHR = ALPHI * (ALPHI/DBLE( ALPHA ));
-            ALPHR = ALPHR + XNORM * (XNORM/DBLE( ALPHA ));
+            ALPHR = ALPHI * (ALPHI/ALPHA.toDouble());
+            ALPHR = ALPHR + XNORM * (XNORM/ALPHA.toDouble());
             TAU = DCMPLX( ALPHR/BETA, -ALPHI/BETA );
             ALPHA = DCMPLX( -ALPHR, ALPHI );
          }
@@ -113,7 +113,7 @@
             // (Bug report provided by Pat Quillen from MathWorks on Jul 29, 2009.)
             // (Thanks Pat. Thanks MathWorks.)
 
-            ALPHR = DBLE( SAVEALPHA );
+            ALPHR = SAVEALPHA.toDouble();
             ALPHI = DIMAG( SAVEALPHA );
             if ( ALPHI == ZERO ) {
                if ( ALPHR >= ZERO ) {
@@ -123,7 +123,7 @@
                   for (J = 1; J <= N-1; J++) {
                      X[1 + (J-1)*INCX] = ZERO;
                   }
-                  BETA = DBLE( -SAVEALPHA );
+                  BETA = (-SAVEALPHA).toDouble();
                }
             } else {
                XNORM = DLAPY2( ALPHR, ALPHI );

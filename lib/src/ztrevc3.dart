@@ -47,7 +47,7 @@
       double             CABS1;
       // ..
       // .. Statement Function definitions ..
-      CABS1[CDUM] = ( DBLE( CDUM ) ).abs() + ( DIMAG( CDUM ) ).abs();
+      CABS1[CDUM] = ( CDUM.toDouble() ).abs() + ( DIMAG( CDUM ) ).abs();
       // ..
       // .. Executable Statements ..
 

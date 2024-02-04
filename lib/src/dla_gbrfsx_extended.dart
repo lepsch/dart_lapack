@@ -57,7 +57,7 @@
       // Force HUGEVAL to Inf
       HUGEVAL = HUGEVAL * HUGEVAL;
       // Using HUGEVAL may lead to spurious underflows.
-      INCR_THRESH = DBLE( N ) * EPS;
+      INCR_THRESH = N.toDouble() * EPS;
       M = KL+KU+1;
 
       for (J = 1; J <= NRHS; J++) {

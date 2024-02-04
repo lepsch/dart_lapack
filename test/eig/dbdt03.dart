@@ -110,12 +110,12 @@
          if (RESID != ZERO) RESID = ONE / EPS;
       } else {
          if ( BNORM >= RESID ) {
-            RESID = ( RESID / BNORM ) / ( DBLE( N )*EPS );
+            RESID = ( RESID / BNORM ) / ( N.toDouble()*EPS );
          } else {
             if ( BNORM < ONE ) {
-               RESID = ( min( RESID, DBLE( N )*BNORM ) / BNORM ) / ( DBLE( N )*EPS );
+               RESID = ( min( RESID, (N).toDouble()*BNORM ) / BNORM ) / ( N.toDouble()*EPS );
             } else {
-               RESID = min( RESID / BNORM, DBLE( N ) ) / ( DBLE( N )*EPS );
+               RESID = min( RESID / BNORM, (N).toDouble() ) / ( N.toDouble()*EPS );
             }
          }
       }

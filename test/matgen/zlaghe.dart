@@ -78,7 +78,7 @@
             WB = WORK( 1 ) + WA;
             zscal(N-I, ONE / WB, WORK( 2 ), 1 );
             WORK[1] = ONE;
-            TAU = DBLE( WB / WA );
+            TAU = (WB / WA).toDouble();
          }
 
          // apply random reflection to A(i:n,i:n) from the left
@@ -112,7 +112,7 @@
             WB = A( K+I, I ) + WA;
             zscal(N-K-I, ONE / WB, A( K+I+1, I ), 1 );
             A[K+I, I] = ONE;
-            TAU = DBLE( WB / WA );
+            TAU = (WB / WA).toDouble();
          }
 
          // apply reflection to A(k+i:n,i+1:k+i-1) from the left

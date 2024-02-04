@@ -39,17 +39,17 @@
       min = MINEXPONENT(0.0);
       Max = MAXEXPONENT(0.0);
       m = DIGITS(0.0);
-      b = DBLE(RADIX(0.0));
+      b = (RADIX(0.0)).toDouble();
       eps = EPSILON(0.0);
       blueMin = b**CEILING( (min - 1) * 0.5 );
       blueMax = b**FLOOR( (Max - m + 1) * 0.5 );
       OV = HUGE(0.0);
 
       // .. Vector X ..
-      X[1] = TINY(0.0) * b**( DBLE(1-m) );
+      X[1] = TINY(0.0) * b**( (1-m).toDouble() );
       X[2] = TINY(0.0);
       X[3] = OV;
-      X[4] = b**( DBLE(Max-1) );
+      X[4] = b**( (Max-1).toDouble() );
 
       // .. Then modify X using the step ..
       stepX[1] = 2.0;

@@ -60,7 +60,7 @@
          if ( ANORM < ONE ) {
             RESULT = ( min( WNORM, M*ANORM ) / ANORM ) / ( M*EPS );
          } else {
-            RESULT = min( WNORM / ANORM, DBLE( M ) ) / ( M*EPS );
+            RESULT = min( WNORM / ANORM, M.toDouble() ) / ( M*EPS );
          }
       }
 

@@ -102,7 +102,7 @@
          for (JCOL = 1; JCOL <= NRHS; JCOL++) { // 20
             for (JROW = NLF; JROW <= NLF + NL - 1; JROW++) { // 10
                J = J + 1;
-               RWORK[J] = DBLE( B( JROW, JCOL ) );
+               RWORK[J] = (B( JROW, JCOL )).toDouble();
             } // 10
          } // 20
          dgemm('T', 'N', NL, NRHS, NL, ONE, U( NLF, 1 ), LDU, RWORK( 1+NL*NRHS*2 ), NL, ZERO, RWORK( 1 ), NL );
@@ -134,7 +134,7 @@
          for (JCOL = 1; JCOL <= NRHS; JCOL++) { // 80
             for (JROW = NRF; JROW <= NRF + NR - 1; JROW++) { // 70
                J = J + 1;
-               RWORK[J] = DBLE( B( JROW, JCOL ) );
+               RWORK[J] = (B( JROW, JCOL )).toDouble();
             } // 70
          } // 80
          dgemm('T', 'N', NR, NRHS, NR, ONE, U( NRF, 1 ), LDU, RWORK( 1+NR*NRHS*2 ), NR, ZERO, RWORK( 1 ), NR );
@@ -265,7 +265,7 @@
          for (JCOL = 1; JCOL <= NRHS; JCOL++) { // 210
             for (JROW = NLF; JROW <= NLF + NLP1 - 1; JROW++) { // 200
                J = J + 1;
-               RWORK[J] = DBLE( B( JROW, JCOL ) );
+               RWORK[J] = (B( JROW, JCOL )).toDouble();
             } // 200
          } // 210
          dgemm('T', 'N', NLP1, NRHS, NLP1, ONE, VT( NLF, 1 ), LDU, RWORK( 1+NLP1*NRHS*2 ), NLP1, ZERO, RWORK( 1 ), NLP1 );
@@ -297,7 +297,7 @@
          for (JCOL = 1; JCOL <= NRHS; JCOL++) { // 270
             for (JROW = NRF; JROW <= NRF + NRP1 - 1; JROW++) { // 260
                J = J + 1;
-               RWORK[J] = DBLE( B( JROW, JCOL ) );
+               RWORK[J] = (B( JROW, JCOL )).toDouble();
             } // 260
          } // 270
          dgemm('T', 'N', NRP1, NRHS, NRP1, ONE, VT( NRF, 1 ), LDU, RWORK( 1+NRP1*NRHS*2 ), NRP1, ZERO, RWORK( 1 ), NRP1 );

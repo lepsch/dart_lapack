@@ -99,7 +99,7 @@
 
          // Set A(J, J) = T(J, J)
 
-         A[K, J] = DBLE( WORK( 1 ) );
+         A[K, J] = (WORK( 1 )).toDouble();
 
          if ( J < M ) {
 
@@ -243,7 +243,7 @@
 
          // Set A(J, J) = T(J, J)
 
-         A[J, K] = DBLE( WORK( 1 ) );
+         A[J, K] = (WORK( 1 )).toDouble();
 
          if ( J < M ) {
 

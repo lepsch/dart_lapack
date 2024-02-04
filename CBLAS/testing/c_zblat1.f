@@ -388,11 +388,11 @@
       // INTRINSIC DIMAG, DBLE
       // .. Executable Statements ..
       for (I = 1; I <= LEN; I++) { // 20
-         SCOMP[2*I-1] = DBLE(CCOMP(I));
+         SCOMP[2*I-1] = (CCOMP(I)).toDouble();
          SCOMP[2*I] = DIMAG(CCOMP(I));
-         STRUE[2*I-1] = DBLE(CTRUE(I));
+         STRUE[2*I-1] = (CTRUE(I)).toDouble();
          STRUE[2*I] = DIMAG(CTRUE(I));
-         SSIZE[2*I-1] = DBLE(CSIZE(I));
+         SSIZE[2*I-1] = (CSIZE(I)).toDouble();
          SSIZE[2*I] = DIMAG(CSIZE(I));
       } // 20
 

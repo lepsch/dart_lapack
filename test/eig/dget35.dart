@@ -105,7 +105,7 @@
                                  CNRM = ZERO;
                                  for (I = 1; I <= M; I++) { // 60
                                     for (J = 1; J <= N; J++) { // 50
-                                       C[I, J] = SIN( DBLE( I*J ) );
+                                       C[I, J] = SIN( (I*J).toDouble() );
                                        CNRM = max( CNRM, C( I, J ) );
                                        CC[I, J] = C( I, J );
                                     } // 50
@@ -121,7 +121,7 @@
                                     }
                                  }
                                  dgemm(TRANA, 'N', M, N, M, RMUL, A, 6, C, 6, -SCALE*RMUL, CC, 6 );
-                                 dgemm('N', TRANB, M, N, N, DBLE( ISGN )*RMUL, C, 6, B, 6, ONE, CC, 6 );
+                                 dgemm('N', TRANB, M, N, N, ISGN.toDouble()*RMUL, C, 6, B, 6, ONE, CC, 6 );
                                  RES1 = DLANGE( 'M', M, N, CC, 6, DUM );
                                  RES = RES1 / max( SMLNUM, SMLNUM*XNRM, ( ( RMUL*TNRM )*EPS )*XNRM );
                                  if ( RES > RMAX ) {

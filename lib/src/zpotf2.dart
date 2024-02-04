@@ -66,7 +66,7 @@
 
             // Compute U(J,J) and test for non-positive-definiteness.
 
-            AJJ = DBLE( A( J, J ) ) - DBLE( ZDOTC( J-1, A( 1, J ), 1, A( 1, J ), 1 ) );
+            AJJ = (A( J, J )).toDouble() - DBLE( ZDOTC( J-1, A( 1, J ), 1, A( 1, J ), 1 ) );
             if ( AJJ <= ZERO || DISNAN( AJJ ) ) {
                A[J, J] = AJJ;
                GO TO 30;
@@ -91,7 +91,7 @@
 
             // Compute L(J,J) and test for non-positive-definiteness.
 
-            AJJ = DBLE( A( J, J ) ) - DBLE( ZDOTC( J-1, A( J, 1 ), LDA, A( J, 1 ), LDA ) );
+            AJJ = (A( J, J )).toDouble() - DBLE( ZDOTC( J-1, A( J, 1 ), LDA, A( J, 1 ), LDA ) );
             if ( AJJ <= ZERO || DISNAN( AJJ ) ) {
                A[J, J] = AJJ;
                GO TO 30;

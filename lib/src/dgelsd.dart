@@ -68,7 +68,7 @@
       MINWRK = 1;
       LIWORK = 1;
       MINMN = max( 1, MINMN );
-      NLVL = max( INT( LOG( DBLE( MINMN ) / DBLE( SMLSIZ+1 ) ) / LOG( TWO ) ) + 1, 0 );
+      NLVL = max( INT( LOG( MINMN.toDouble() / (SMLSIZ+1).toDouble() ) / LOG( TWO ) ) + 1, 0 );
 
       if ( INFO == 0 ) {
          MAXWRK = 1;

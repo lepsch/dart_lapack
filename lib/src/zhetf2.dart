@@ -43,7 +43,7 @@
       double             CABS1;
       // ..
       // .. Statement Function definitions ..
-      CABS1[ZDUM] = ( DBLE( ZDUM ) ).abs() + ( DIMAG( ZDUM ) ).abs();
+      CABS1[ZDUM] = ( ZDUM.toDouble() ).abs() + ( DIMAG( ZDUM ) ).abs();
       // ..
       // .. Executable Statements ..
 
@@ -85,7 +85,7 @@
          // Determine rows and columns to be interchanged and whether
          // a 1-by-1 or 2-by-2 pivot block will be used
 
-         ABSAKK = ABS( DBLE( A( K, K ) ) );
+         ABSAKK = ABS( (A( K, K )).toDouble() );
 
          // IMAX is the row-index of the largest off-diagonal element in
          // column K, and COLMAX is its absolute value.
@@ -105,7 +105,7 @@
 
             if (INFO == 0) INFO = K;
             KP = K;
-            A[K, K] = DBLE( A( K, K ) );
+            A[K, K] = (A( K, K )).toDouble();
          } else {
 
             // ============================================================
@@ -136,7 +136,7 @@
 
                   KP = K;
 
-               } else if ( ABS( DBLE( A( IMAX, IMAX ) ) ) >= ALPHA*ROWMAX ) {
+               } else if ( ABS( (A( IMAX, IMAX )).toDouble() ) >= ALPHA*ROWMAX ) {
 
                   // interchange rows and columns K and IMAX, use 1-by-1
                   // pivot block
@@ -168,18 +168,18 @@
                   A[KP, J] = T;
                } // 20
                A[KP, KK] = DCONJG( A( KP, KK ) );
-               R1 = DBLE( A( KK, KK ) );
-               A[KK, KK] = DBLE( A( KP, KP ) );
+               R1 = (A( KK, KK )).toDouble();
+               A[KK, KK] = (A( KP, KP )).toDouble();
                A[KP, KP] = R1;
                if ( KSTEP == 2 ) {
-                  A[K, K] = DBLE( A( K, K ) );
+                  A[K, K] = (A( K, K )).toDouble();
                   T = A( K-1, K );
                   A[K-1, K] = A( KP, K );
                   A[KP, K] = T;
                }
             } else {
-               A[K, K] = DBLE( A( K, K ) );
-               if (KSTEP == 2) A( K-1, K-1 ) = DBLE( A( K-1, K-1 ) );
+               A[K, K] = (A( K, K )).toDouble();
+               if (KSTEP == 2) A( K-1, K-1 ) = (A( K-1, K-1 )).toDouble();
             }
 
             // Update the leading submatrix
@@ -196,7 +196,7 @@
 
                // A := A - U(k)*D(k)*U(k)**H = A - W(k)*1/D(k)*W(k)**H
 
-               R1 = ONE / DBLE( A( K, K ) );
+               R1 = ONE / (A( K, K )).toDouble();
                zher(UPLO, K-1, -R1, A( 1, K ), 1, A, LDA );
 
                // Store U(k) in column k
@@ -218,9 +218,9 @@
 
                if ( K > 2 ) {
 
-                  D = DLAPY2( DBLE( A( K-1, K ) ), DIMAG( A( K-1, K ) ) );
-                  D22 = DBLE( A( K-1, K-1 ) ) / D;
-                  D11 = DBLE( A( K, K ) ) / D;
+                  D = DLAPY2( (A( K-1, K )).toDouble(), DIMAG( A( K-1, K ) ) );
+                  D22 = (A( K-1, K-1 )).toDouble() / D;
+                  D11 = (A( K, K )).toDouble() / D;
                   TT = ONE / ( D11*D22-ONE );
                   D12 = A( K-1, K ) / D;
                   D = TT / D;
@@ -233,7 +233,7 @@
                      } // 30
                      A[J, K] = WK;
                      A[J, K-1] = WKM1;
-                     A[J, J] = DCMPLX( DBLE( A( J, J ) ), 0.0 );
+                     A[J, J] = DCMPLX( (A( J, J )).toDouble(), 0.0 );
                   } // 40
 
                }
@@ -273,7 +273,7 @@
          // Determine rows and columns to be interchanged and whether
          // a 1-by-1 or 2-by-2 pivot block will be used
 
-         ABSAKK = ABS( DBLE( A( K, K ) ) );
+         ABSAKK = ABS( (A( K, K )).toDouble() );
 
          // IMAX is the row-index of the largest off-diagonal element in
          // column K, and COLMAX is its absolute value.
@@ -293,7 +293,7 @@
 
             if (INFO == 0) INFO = K;
             KP = K;
-            A[K, K] = DBLE( A( K, K ) );
+            A[K, K] = (A( K, K )).toDouble();
          } else {
 
             // ============================================================
@@ -324,7 +324,7 @@
 
                   KP = K;
 
-               } else if ( ABS( DBLE( A( IMAX, IMAX ) ) ) >= ALPHA*ROWMAX ) {
+               } else if ( ABS( (A( IMAX, IMAX )).toDouble() ) >= ALPHA*ROWMAX ) {
 
                   // interchange rows and columns K and IMAX, use 1-by-1
                   // pivot block
@@ -356,18 +356,18 @@
                   A[KP, J] = T;
                } // 60
                A[KP, KK] = DCONJG( A( KP, KK ) );
-               R1 = DBLE( A( KK, KK ) );
-               A[KK, KK] = DBLE( A( KP, KP ) );
+               R1 = (A( KK, KK )).toDouble();
+               A[KK, KK] = (A( KP, KP )).toDouble();
                A[KP, KP] = R1;
                if ( KSTEP == 2 ) {
-                  A[K, K] = DBLE( A( K, K ) );
+                  A[K, K] = (A( K, K )).toDouble();
                   T = A( K+1, K );
                   A[K+1, K] = A( KP, K );
                   A[KP, K] = T;
                }
             } else {
-               A[K, K] = DBLE( A( K, K ) );
-               if (KSTEP == 2) A( K+1, K+1 ) = DBLE( A( K+1, K+1 ) );
+               A[K, K] = (A( K, K )).toDouble();
+               if (KSTEP == 2) A( K+1, K+1 ) = (A( K+1, K+1 )).toDouble();
             }
 
             // Update the trailing submatrix
@@ -386,7 +386,7 @@
 
                   // A := A - L(k)*D(k)*L(k)**H = A - W(k)*(1/D(k))*W(k)**H
 
-                  R1 = ONE / DBLE( A( K, K ) );
+                  R1 = ONE / (A( K, K )).toDouble();
                   zher(UPLO, N-K, -R1, A( K+1, K ), 1, A( K+1, K+1 ), LDA );
 
                   // Store L(k) in column K
@@ -407,9 +407,9 @@
                   // where L(k) and L(k+1) are the k-th and (k+1)-th
                   // columns of L
 
-                  D = DLAPY2( DBLE( A( K+1, K ) ), DIMAG( A( K+1, K ) ) );
-                  D11 = DBLE( A( K+1, K+1 ) ) / D;
-                  D22 = DBLE( A( K, K ) ) / D;
+                  D = DLAPY2( (A( K+1, K )).toDouble(), DIMAG( A( K+1, K ) ) );
+                  D11 = (A( K+1, K+1 )).toDouble() / D;
+                  D22 = (A( K, K )).toDouble() / D;
                   TT = ONE / ( D11*D22-ONE );
                   D21 = A( K+1, K ) / D;
                   D = TT / D;
@@ -422,7 +422,7 @@
                      } // 70
                      A[J, K] = WK;
                      A[J, K+1] = WKP1;
-                     A[J, J] = DCMPLX( DBLE( A( J, J ) ), 0.0 );
+                     A[J, J] = DCMPLX( (A( J, J )).toDouble(), 0.0 );
                   } // 80
                }
             }

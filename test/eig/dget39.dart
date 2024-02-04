@@ -97,18 +97,18 @@
                         N = IDIM( NDIM );
                         for (I = 1; I <= N; I++) { // 20
                            for (J = 1; J <= N; J++) { // 10
-                              T[I, J] = DBLE( IVAL( I, J, NDIM ) )* VM1( IVM1 )                               IF( I >= J ) T( I, J ) = T( I, J )*VM5( IVM5 );
+                              T[I, J] = (IVAL( I, J, NDIM )).toDouble()* VM1( IVM1 )                               IF( I >= J ) T( I, J ) = T( I, J )*VM5( IVM5 );
                            } // 10
                         } // 20
 
                         W = ONE*VM2( IVM2 );
 
                         for (I = 1; I <= N; I++) { // 30
-                           B[I] = COS( DBLE( I ) )*VM3( IVM3 );
+                           B[I] = COS( I.toDouble() )*VM3( IVM3 );
                         } // 30
 
                         for (I = 1; I <= 2*N; I++) { // 40
-                           D[I] = SIN( DBLE( I ) )*VM4( IVM4 );
+                           D[I] = SIN( I.toDouble() )*VM4( IVM4 );
                         } // 40
 
                         NORM = DLANGE( '1', N, N, T, LDT, WORK );

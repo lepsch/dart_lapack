@@ -116,7 +116,7 @@
       // Quick return if possible
 
       if ( N <= 0 ) {
-         WORK[1] = DBLE( 1 );
+         WORK[1] = 1.toDouble();
          return;
       }
 
@@ -387,10 +387,10 @@
             // Exceptional shift.  Chosen for no particularly good reason.
             // (Single shift only.)
 
-            if( ( DBLE( MAXIT )*SAFMIN )*( H( ILAST, ILAST-1 ) ).abs() < ( T( ILAST-1, ILAST-1 ) ) ).abs() {
+            if( ( MAXIT.toDouble()*SAFMIN )*( H( ILAST, ILAST-1 ) ).abs() < ( T( ILAST-1, ILAST-1 ) ) ).abs() {
                ESHIFT = H( ILAST, ILAST-1 ) / T( ILAST-1, ILAST-1 );
             } else {
-               ESHIFT = ESHIFT + ONE / ( SAFMIN*DBLE( MAXIT ) );
+               ESHIFT = ESHIFT + ONE / ( SAFMIN*MAXIT.toDouble() );
             }
             S1 = ONE;
             WR = ESHIFT;
@@ -958,6 +958,6 @@
       // Exit (other than argument error) -- return optimal workspace size
 
       } // 420
-      WORK[1] = DBLE( N );
+      WORK[1] = N.toDouble();
       return;
       }

@@ -28,7 +28,7 @@
       K = min( M, N );
       for (I = 1; I <= K; I++) {
          AII = A( I, I );
-         if ( DBLE( AII ) < ZERO || DIMAG( AII ) != ZERO ) {
+         if ( AII.toDouble() < ZERO || DIMAG( AII ) != ZERO ) {
             ZGENND = false;
             return;
          }

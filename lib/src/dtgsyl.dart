@@ -138,9 +138,9 @@
             dtgsy2(TRANS, IFUNC, M, N, A, LDA, B, LDB, C, LDC, D, LDD, E, LDE, F, LDF, SCALE, DSUM, DSCALE, IWORK, PQ, INFO );
             if ( DSCALE != ZERO ) {
                if ( IJOB == 1 || IJOB == 3 ) {
-                  DIF = sqrt( DBLE( 2*M*N ) ) / ( DSCALE*sqrt( DSUM ) );
+                  DIF = sqrt( (2*M*N).toDouble() ) / ( DSCALE*sqrt( DSUM ) );
                } else {
-                  DIF = sqrt( DBLE( PQ ) ) / ( DSCALE*sqrt( DSUM ) );
+                  DIF = sqrt( PQ.toDouble() ) / ( DSCALE*sqrt( DSUM ) );
                }
             }
 
@@ -258,9 +258,9 @@
             } // 130
             if ( DSCALE != ZERO ) {
                if ( IJOB == 1 || IJOB == 3 ) {
-                  DIF = sqrt( DBLE( 2*M*N ) ) / ( DSCALE*sqrt( DSUM ) );
+                  DIF = sqrt( (2*M*N).toDouble() ) / ( DSCALE*sqrt( DSUM ) );
                } else {
-                  DIF = sqrt( DBLE( PQ ) ) / ( DSCALE*sqrt( DSUM ) );
+                  DIF = sqrt( PQ.toDouble() ) / ( DSCALE*sqrt( DSUM ) );
                }
             }
             if ( ISOLVE == 2 && IROUND == 1 ) {

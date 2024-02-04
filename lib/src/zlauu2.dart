@@ -61,7 +61,7 @@
          // Compute the product U * U**H.
 
          for (I = 1; I <= N; I++) { // 10
-            AII = DBLE( A( I, I ) );
+            AII = (A( I, I )).toDouble();
             if ( I < N ) {
                A[I, I] = AII*AII + DBLE( ZDOTC( N-I, A( I, I+1 ), LDA, A( I, I+1 ), LDA ) );
                zlacgv(N-I, A( I, I+1 ), LDA );
@@ -77,7 +77,7 @@
          // Compute the product L**H * L.
 
          for (I = 1; I <= N; I++) { // 20
-            AII = DBLE( A( I, I ) );
+            AII = (A( I, I )).toDouble();
             if ( I < N ) {
                A[I, I] = AII*AII + DBLE( ZDOTC( N-I, A( I+1, I ), 1, A( I+1, I ), 1 ) );
                zlacgv(I-1, A( I, 1 ), LDA );

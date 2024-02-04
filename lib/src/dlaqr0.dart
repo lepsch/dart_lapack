@@ -130,7 +130,7 @@
          // ==== Quick return in case of workspace query. ====
 
          if ( LWORK == -1 ) {
-            WORK[1] = DBLE( LWKOPT );
+            WORK[1] = LWKOPT.toDouble();
             return;
          }
 
@@ -445,7 +445,7 @@
 
       // ==== Return the optimal value of LWORK. ====
 
-      WORK[1] = DBLE( LWKOPT );
+      WORK[1] = LWKOPT.toDouble();
 
       // ==== End of DLAQR0 ====
 

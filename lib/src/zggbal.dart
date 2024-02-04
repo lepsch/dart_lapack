@@ -44,7 +44,7 @@
       double             CABS1;
       // ..
       // .. Statement Function definitions ..
-      CABS1[CDUM] = ( DBLE( CDUM ) ).abs() + ( DIMAG( CDUM ) ).abs();
+      CABS1[CDUM] = ( CDUM.toDouble() ).abs() + ( DIMAG( CDUM ) ).abs();
       // ..
       // .. Executable Statements ..
 
@@ -229,7 +229,7 @@
          } // 230
       } // 240
 
-      COEF = ONE / DBLE( 2*NR );
+      COEF = ONE / (2*NR).toDouble();
       COEF2 = COEF*COEF;
       COEF5 = HALF*COEF2;
       NRP2 = NR + 2;
@@ -280,7 +280,7 @@
             KOUNT = KOUNT + 1;
             SUM = SUM + WORK( J );
          } // 290
-         WORK[I+2*N] = DBLE( KOUNT )*WORK( I+N ) + SUM;
+         WORK[I+2*N] = KOUNT.toDouble()*WORK( I+N ) + SUM;
       } // 300
 
       for (J = ILO; J <= IHI; J++) { // 330
@@ -295,7 +295,7 @@
             KOUNT = KOUNT + 1;
             SUM = SUM + WORK( I+N );
          } // 320
-         WORK[J+3*N] = DBLE( KOUNT )*WORK( J ) + SUM;
+         WORK[J+3*N] = KOUNT.toDouble()*WORK( J ) + SUM;
       } // 330
 
       SUM = DDOT( NR, WORK( ILO+N ), 1, WORK( ILO+2*N ), 1 ) + DDOT( NR, WORK( ILO ), 1, WORK( ILO+3*N ), 1 );

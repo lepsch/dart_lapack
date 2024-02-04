@@ -120,7 +120,7 @@
       // overflow. It is possible that this scaling pushes the smallest
       // column norm left from the underflow threshold (extreme case).
 
-      SCALEM  = ONE / DSQRT(DBLE(M)*DBLE(N));
+      SCALEM  = ONE / DSQRT((M).toDouble()*N.toDouble());
       NOSCAL  = true;
       GOSCAL  = true;
       for (p = 1; p <= N; p++) { // 1874
@@ -290,7 +290,7 @@
             BIG1  = ( ( SVA(p) / XSC )**2 ) * TEMP1;
             if (BIG1 != ZERO) ENTRA = ENTRA + BIG1 * DLOG(BIG1);
          } // 1113
-         ENTRA = - ENTRA / DLOG(DBLE(N));
+         ENTRA = - ENTRA / DLOG(N.toDouble());
 
          // Now, SVA().^2/Trace(A^t * A) is a point in the probability simplex.
          // It is derived from the diagonal of  A^t * A.  Do the same with the
@@ -303,7 +303,7 @@
             BIG1 = ( ( WORK(p) / XSC )**2 ) * TEMP1;
             if (BIG1 != ZERO) ENTRAT = ENTRAT + BIG1 * DLOG(BIG1);
          } // 1114
-         ENTRAT = - ENTRAT / DLOG(DBLE(M));
+         ENTRAT = - ENTRAT / DLOG(M.toDouble());
 
          // Analyze the entropies and decide A or A^t. Smaller entropy
          // usually means better input for the algorithm.
@@ -354,7 +354,7 @@
       // one should use DGESVJ instead of DGEJSV.
 
       BIG1   = DSQRT( BIG );
-      TEMP1  = DSQRT( BIG / DBLE(N) );
+      TEMP1  = DSQRT( BIG / N.toDouble() );
 
       dlascl('G', 0, 0, AAPP, TEMP1, N, 1, SVA, N, IERR );
       if ( AAQQ > (AAPP * SFMIN) ) {
@@ -456,7 +456,7 @@
          // sigma_i < N*EPSLN*||A|| are flushed to zero. This is an
          // aggressive enforcement of lower numerical rank by introducing a
          // backward error of the order of N*EPSLN*||A||.
-         TEMP1 = DSQRT(DBLE(N))*EPSLN;
+         TEMP1 = DSQRT(N.toDouble())*EPSLN;
          for (p = 2; p <= N; p++) { // 3001
             if ( (A(p,p)).abs() >= (TEMP1*(A(1,1)).abs()) ) {
                NR = NR + 1;
@@ -500,7 +500,7 @@
             TEMP1  = (A(p,p)).abs() / SVA(IWORK(p));
             MAXPRJ = min( MAXPRJ, TEMP1 );
          } // 3051
-         if ( MAXPRJ**2 >= ONE - DBLE(N)*EPSLN ) ALMORT = true;
+         if ( MAXPRJ**2 >= ONE - N.toDouble()*EPSLN ) ALMORT = true;
       }
 
 
@@ -573,7 +573,7 @@
 
             if ( L2PERT ) {
                // XSC = DSQRT(SMALL)
-               XSC = EPSLN / DBLE(N);
+               XSC = EPSLN / N.toDouble();
                for (q = 1; q <= NR; q++) { // 4947
                   TEMP1 = XSC*(A(q,q)).abs();
                   for (p = 1; p <= N; p++) { // 4949
@@ -601,7 +601,7 @@
             // to drown denormals
             if ( L2PERT ) {
                // XSC = DSQRT(SMALL)
-               XSC = EPSLN / DBLE(N);
+               XSC = EPSLN / N.toDouble();
                for (q = 1; q <= NR; q++) { // 1947
                   TEMP1 = XSC*(A(q,q)).abs();
                   for (p = 1; p <= NR; p++) { // 1949
@@ -775,10 +775,10 @@
             CONDR1 = ONE / DSQRT(TEMP1);
             // .. here need a second opinion on the condition number
             // .. then assume worst case scenario
-            // R1 is OK for inverse <=> CONDR1 < DBLE(N)
-            // more conservative    <=> CONDR1 < DSQRT(DBLE(N))
+            // R1 is OK for inverse <=> CONDR1 < N.toDouble()
+            // more conservative    <=> CONDR1 < DSQRT(N.toDouble())
 
-            COND_OK = DSQRT(DBLE(NR));
+            COND_OK = DSQRT(NR.toDouble());
 // [TP]       COND_OK is a tuning parameter.
 
             if ( CONDR1 < COND_OK ) {
@@ -990,7 +990,7 @@
             // first QRF. Also, scale the columns to make them unit in
             // Euclidean norm. This applies to all cases.
 
-            TEMP1 = DSQRT(DBLE(N)) * EPSLN;
+            TEMP1 = DSQRT(N.toDouble()) * EPSLN;
             for (q = 1; q <= N; q++) { // 1972
                for (p = 1; p <= N; p++) { // 972
                   WORK[2*N+N*NR+NR+IWORK(p)] = V(p,q);
@@ -1017,7 +1017,7 @@
             dormqr('Left', 'No_Tr', M, N1, N, A, LDA, WORK, U, LDU, WORK(N+1), LWORK-N, IERR );
 
             // The columns of U are normalized. The cost is O(M*N) flops.
-            TEMP1 = DSQRT(DBLE(M)) * EPSLN;
+            TEMP1 = DSQRT(M.toDouble()) * EPSLN;
             for (p = 1; p <= NR; p++) { // 1973
                XSC = ONE / DNRM2( M, U(1,p), 1 );
                if ( (XSC < (ONE-TEMP1)) || (XSC > (ONE+TEMP1)) ) dscal( M, XSC, U(1,p), 1 );
@@ -1059,7 +1059,7 @@
             for (p = 1; p <= N; p++) { // 6972
                dcopy(N, WORK(N+p), N, V(IWORK(p),1), LDV );
             } // 6972
-            TEMP1 = DSQRT(DBLE(N))*EPSLN;
+            TEMP1 = DSQRT(N.toDouble())*EPSLN;
             for (p = 1; p <= N; p++) { // 6971
                XSC = ONE / DNRM2( N, V(1,p), 1 );
                if ( (XSC < (ONE-TEMP1)) || (XSC > (ONE+TEMP1)) ) dscal( N, XSC, V(1,p), 1 );
@@ -1075,7 +1075,7 @@
                }
             }
             dormqr('Left', 'No Tr', M, N1, N, A, LDA, WORK, U, LDU, WORK(N+1), LWORK-N, IERR );
-            TEMP1 = DSQRT(DBLE(M))*EPSLN;
+            TEMP1 = DSQRT(M.toDouble())*EPSLN;
             for (p = 1; p <= N1; p++) { // 6973
                XSC = ONE / DNRM2( M, U(1,p), 1 );
                if ( (XSC < (ONE-TEMP1)) || (XSC > (ONE+TEMP1)) ) dscal( M, XSC, U(1,p), 1 );
@@ -1148,7 +1148,7 @@
             // first QRF. Also, scale the columns to make them unit in
             // Euclidean norm. This applies to all cases.
 
-            TEMP1 = DSQRT(DBLE(N)) * EPSLN;
+            TEMP1 = DSQRT(N.toDouble()) * EPSLN;
             for (q = 1; q <= N; q++) { // 7972
                for (p = 1; p <= N; p++) { // 8972
                   WORK[2*N+N*NR+NR+IWORK(p)] = V(p,q);

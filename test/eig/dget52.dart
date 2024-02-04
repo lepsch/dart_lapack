@@ -156,7 +156,7 @@
 
       // Compute RESULT(2) : the normalization error in E.
 
-      RESULT[2] = ENRMER / ( DBLE( N )*ULP );
+      RESULT[2] = ENRMER / ( N.toDouble()*ULP );
 
       return;
       }

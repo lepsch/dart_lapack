@@ -117,7 +117,7 @@
                       TEMP2 = TEMP2 + DCONJG(AP(K))*X(I);
                       K = K + 1;
                   } // 50
-                  Y[J] = Y(J) + TEMP1*DBLE(AP(KK+J-1)) + ALPHA*TEMP2;
+                  Y[J] = Y(J) + TEMP1*(AP(KK+J-1)).toDouble() + ALPHA*TEMP2;
                   KK = KK + J;
               } // 60
           } else {
@@ -134,7 +134,7 @@
                       IX = IX + INCX;
                       IY = IY + INCY;
                   } // 70
-                  Y[JY] = Y(JY) + TEMP1*DBLE(AP(KK+J-1)) + ALPHA*TEMP2;
+                  Y[JY] = Y(JY) + TEMP1*(AP(KK+J-1)).toDouble() + ALPHA*TEMP2;
                   JX = JX + INCX;
                   JY = JY + INCY;
                   KK = KK + J;
@@ -148,7 +148,7 @@
               for (J = 1; J <= N; J++) { // 100
                   TEMP1 = ALPHA*X(J);
                   TEMP2 = ZERO;
-                  Y[J] = Y(J) + TEMP1*DBLE(AP(KK));
+                  Y[J] = Y(J) + TEMP1*(AP(KK)).toDouble();
                   K = KK + 1;
                   for (I = J + 1; I <= N; I++) { // 90
                       Y[I] = Y(I) + TEMP1*AP(K);
@@ -164,7 +164,7 @@
               for (J = 1; J <= N; J++) { // 120
                   TEMP1 = ALPHA*X(JX);
                   TEMP2 = ZERO;
-                  Y[JY] = Y(JY) + TEMP1*DBLE(AP(KK));
+                  Y[JY] = Y(JY) + TEMP1*(AP(KK)).toDouble();
                   IX = JX;
                   IY = JY;
                   for (K = KK + 1; K <= KK + N - J; K++) { // 110

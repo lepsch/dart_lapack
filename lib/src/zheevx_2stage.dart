@@ -112,11 +112,11 @@
       if ( N == 1 ) {
          if ( ALLEIG || INDEIG ) {
             M = 1;
-         W[1] = DBLE( A( 1, 1 ) );
+         W[1] = (A( 1, 1 )).toDouble();
          } else if ( VALEIG ) {
-            if ( VL < DBLE( A( 1, 1 ) ) && VU >= DBLE( A( 1, 1 ) ) ) {
+            if ( VL < (A( 1, 1 )).toDouble() && VU >= (A( 1, 1 )).toDouble() ) {
                M = 1;
-               W[1] = DBLE( A( 1, 1 ) );
+               W[1] = (A( 1, 1 )).toDouble();
             }
          }
          if (WANTZ) Z( 1, 1 ) = CONE;

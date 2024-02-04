@@ -88,7 +88,7 @@
                RES1 = max( RES1, ABS( U( I, J )-S*V( I, J ) ) );
             } // 10
          } // 20
-         RES1 = RES1 / ( DBLE( N )*ULP );
+         RES1 = RES1 / ( N.toDouble()*ULP );
 
          // Compute orthogonality of rows of V.
 
@@ -106,7 +106,7 @@
                RES1 = max( RES1, ABS( U( J, I )-S*V( J, I ) ) );
             } // 30
          } // 40
-         RES1 = RES1 / ( DBLE( N )*ULP );
+         RES1 = RES1 / ( N.toDouble()*ULP );
 
          // Compute orthogonality of columns of V.
 

@@ -49,7 +49,7 @@
       } else {
          LWKOPT = 6*N*NB;
       }
-      WORK[1] = DBLE( LWKOPT );
+      WORK[1] = LWKOPT.toDouble();
       INITQ = LSAME( COMPQ, 'I' );
       WANTQ = INITQ || LSAME( COMPQ, 'V' );
       INITZ = LSAME( COMPZ, 'I' );
@@ -574,7 +574,7 @@
 
       if (JCOL < IHI) dgghrd( COMPQ2, COMPZ2, N, JCOL, IHI, A, LDA, B, LDB, Q, LDQ, Z, LDZ, IERR );
 
-      WORK[1] = DBLE( LWKOPT );
+      WORK[1] = LWKOPT.toDouble();
 
       return;
       }

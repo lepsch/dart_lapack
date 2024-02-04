@@ -85,11 +85,11 @@
             for (I = 1; I <= J - 1; I++) {
                C[I, J] = C( I, J ) - A( I, J );
             }
-            C[J, J] = C( J, J ) - DBLE( A( J, J ) );
+            C[J, J] = C( J, J ) - (A( J, J )).toDouble();
          }
       } else {
          for (J = 1; J <= N; J++) {
-            C[J, J] = C( J, J ) - DBLE( A( J, J ) );
+            C[J, J] = C( J, J ) - (A( J, J )).toDouble();
             for (I = J + 1; I <= N; I++) {
                C[I, J] = C( I, J ) - A( I, J );
             }
@@ -103,7 +103,7 @@
       if ( ANORM <= ZERO ) {
          if (RESID != ZERO) RESID = ONE / EPS;
       } else {
-         RESID = ( ( RESID/DBLE( N ) )/ANORM ) / EPS;
+         RESID = ( ( RESID/N.toDouble() )/ANORM ) / EPS;
       }
 
       // b) Convert to factor of L (or U)

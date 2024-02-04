@@ -87,7 +87,7 @@
          }
 
          WSIZE = max( 1, MN+max( MN, NRHS )*NB );
-         WORK[1] = DBLE( WSIZE );
+         WORK[1] = WSIZE.toDouble();
 
       }
 
@@ -284,7 +284,7 @@
       }
 
       } // 50
-      WORK[1] = DBLE( WSIZE );
+      WORK[1] = WSIZE.toDouble();
 
       return;
       }

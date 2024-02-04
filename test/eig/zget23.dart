@@ -140,7 +140,7 @@
          for (JJ = 1; JJ <= N; JJ++) { // 20
             VTST = ( VR( JJ, J ) ).abs();
             if (VTST > VMX) VMX = VTST;
-            IF( DIMAG( VR( JJ, J ) ) == ZERO && ABS( DBLE( VR( JJ, J ) ) ) > VRMX ) VRMX = ABS( DBLE( VR( JJ, J ) ) );
+            IF( DIMAG( VR( JJ, J ) ) == ZERO && ABS( (VR( JJ, J )).toDouble() ) > VRMX ) VRMX = ABS( (VR( JJ, J )).toDouble() );
          } // 20
          if (VRMX / VMX < ONE-TWO*ULP) RESULT( 3 ) = ULPINV;
       } // 30
@@ -155,7 +155,7 @@
          for (JJ = 1; JJ <= N; JJ++) { // 40
             VTST = ( VL( JJ, J ) ).abs();
             if (VTST > VMX) VMX = VTST;
-            IF( DIMAG( VL( JJ, J ) ) == ZERO && ABS( DBLE( VL( JJ, J ) ) ) > VRMX ) VRMX = ABS( DBLE( VL( JJ, J ) ) );
+            IF( DIMAG( VL( JJ, J ) ) == ZERO && ABS( (VL( JJ, J )).toDouble() ) > VRMX ) VRMX = ABS( (VL( JJ, J )).toDouble() );
          } // 40
          if (VRMX / VMX < ONE-TWO*ULP) RESULT( 4 ) = ULPINV;
       } // 50
@@ -324,13 +324,13 @@
          for (I = 1; I <= N - 1; I++) { // 220
             KMIN = I;
             if ( ISRT == 0 ) {
-               VRIMIN = DBLE( W( I ) );
+               VRIMIN = (W( I )).toDouble();
             } else {
                VRIMIN = DIMAG( W( I ) );
             }
             for (J = I + 1; J <= N; J++) { // 210
                if ( ISRT == 0 ) {
-                  VRICMP = DBLE( W( J ) );
+                  VRICMP = (W( J )).toDouble();
                } else {
                   VRICMP = DIMAG( W( J ) );
                }
@@ -355,7 +355,7 @@
 
          RESULT[10] = ZERO;
          EPS = max( EPSIN, ULP );
-         V = max( DBLE( N )*EPS*ABNRM, SMLNUM );
+         V = max( N.toDouble()*EPS*ABNRM, SMLNUM );
          if (ABNRM == ZERO) V = ONE;
          for (I = 1; I <= N; I++) { // 230
             if ( V > RCONDV( I )*RCONDE( I ) ) {

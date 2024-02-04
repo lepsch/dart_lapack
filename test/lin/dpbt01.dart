@@ -112,7 +112,7 @@
 
       RESID = DLANSB( 'I', UPLO, N, KD, AFAC, LDAFAC, RWORK );
 
-      RESID = ( ( RESID / DBLE( N ) ) / ANORM ) / EPS;
+      RESID = ( ( RESID / N.toDouble() ) / ANORM ) / EPS;
 
       return;
       }

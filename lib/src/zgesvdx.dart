@@ -166,7 +166,7 @@
             }
          }
          MAXWRK = max( MAXWRK, MINWRK );
-         WORK[1] = DCMPLX( DBLE( MAXWRK ), ZERO );
+         WORK[1] = DCMPLX( MAXWRK.toDouble(), ZERO );
 
          if ( LWORK < MINWRK && !LQUERY ) {
             INFO = -19;
@@ -514,7 +514,7 @@
 
       // Return optimal workspace in WORK(1)
 
-      WORK[1] = DCMPLX( DBLE( MAXWRK ), ZERO );
+      WORK[1] = DCMPLX( MAXWRK.toDouble(), ZERO );
 
       return;
       }

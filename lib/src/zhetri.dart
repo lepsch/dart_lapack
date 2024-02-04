@@ -98,7 +98,7 @@
 
             // Invert the diagonal block.
 
-            A[K, K] = ONE / DBLE( A( K, K ) );
+            A[K, K] = ONE / (A( K, K )).toDouble();
 
             // Compute column K of the inverse.
 
@@ -114,8 +114,8 @@
             // Invert the diagonal block.
 
             T = ( A( K, K+1 ) ).abs();
-            AK = DBLE( A( K, K ) ) / T;
-            AKP1 = DBLE( A( K+1, K+1 ) ) / T;
+            AK = (A( K, K )).toDouble() / T;
+            AKP1 = (A( K+1, K+1 )).toDouble() / T;
             AKKP1 = A( K, K+1 ) / T;
             D = T*( AK*AKP1-ONE );
             A[K, K] = AKP1 / D;
@@ -180,7 +180,7 @@
 
             // Invert the diagonal block.
 
-            A[K, K] = ONE / DBLE( A( K, K ) );
+            A[K, K] = ONE / (A( K, K )).toDouble();
 
             // Compute column K of the inverse.
 
@@ -196,8 +196,8 @@
             // Invert the diagonal block.
 
             T = ( A( K, K-1 ) ).abs();
-            AK = DBLE( A( K-1, K-1 ) ) / T;
-            AKP1 = DBLE( A( K, K ) ) / T;
+            AK = (A( K-1, K-1 )).toDouble() / T;
+            AKP1 = (A( K, K )).toDouble() / T;
             AKKP1 = A( K, K-1 ) / T;
             D = T*( AK*AKP1-ONE );
             A[K-1, K-1] = AKP1 / D;

@@ -64,7 +64,7 @@
 
             SPLUS = SPLUS + DBLE( ZDOTC( N-J, Z( J+1, J ), 1, Z( J+1, J ), 1 ) );
             SMINU = DBLE( ZDOTC( N-J, Z( J+1, J ), 1, RHS( J+1 ), 1 ) );
-            SPLUS = SPLUS*DBLE( RHS( J ) );
+            SPLUS = SPLUS*(RHS( J )).toDouble();
             if ( SPLUS > SMINU ) {
                RHS[J] = BP;
             } else if ( SMINU > SPLUS ) {

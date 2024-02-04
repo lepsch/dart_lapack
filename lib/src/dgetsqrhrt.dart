@@ -65,7 +65,7 @@
 
             NB1LOCAL = min( NB1, N );
 
-            NUM_ALL_ROW_BLOCKS = max( 1, CEILING( DBLE( M - N ) / DBLE( MB1 - N ) ) );
+            NUM_ALL_ROW_BLOCKS = max( 1, CEILING( DBLE( M - N ) / (MB1 - N).toDouble() ) );
 
             // Length and leading dimension of WORK array to place
             // T array in TSQR.
@@ -98,14 +98,14 @@
          xerbla('DGETSQRHRT', -INFO );
          return;
       } else if ( LQUERY ) {
-         WORK[1] = DBLE( LWORKOPT );
+         WORK[1] = LWORKOPT.toDouble();
          return;
       }
 
       // Quick return if possible
 
       if ( min( M, N ) == 0 ) {
-         WORK[1] = DBLE( LWORKOPT );
+         WORK[1] = LWORKOPT.toDouble();
          return;
       }
 
@@ -158,6 +158,6 @@
          }
       }
 
-      WORK[1] = DBLE( LWORKOPT );
+      WORK[1] = LWORKOPT.toDouble();
       return;
       }

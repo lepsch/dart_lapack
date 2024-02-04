@@ -52,7 +52,7 @@
 
       // convert 48-bit integer to a real number in the interval (0,1)
 
-      RNDOUT = R*( DBLE( IT1 )+R*( DBLE( IT2 )+R*( DBLE( IT3 )+R* ( DBLE( IT4 ) ) ) ) );
+      RNDOUT = R*( (IT1).toDouble()+R*( (IT2).toDouble()+R*( (IT3).toDouble()+R* ( IT4.toDouble() ) ) ) );
 
       if (RNDOUT == 1.0) {
          // If a real number has n bits of precision, and the first

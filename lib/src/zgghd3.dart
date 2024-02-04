@@ -272,7 +272,7 @@
 
                if ( JJ > 0 ) {
                   for (I = JJ; I >= 1; I--) {
-                     C = DBLE( A( J+1+I, J ) );
+                     C = (A( J+1+I, J )).toDouble();
                      zrot(IHI-TOP, A( TOP+1, J+I+1 ), 1, A( TOP+1, J+I ), 1, C, -DCONJG( B( J+1+I, J ) ) );
                   }
                }

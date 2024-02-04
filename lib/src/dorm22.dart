@@ -75,7 +75,7 @@
 
       if ( INFO == 0 ) {
          LWKOPT = M*N;
-         WORK[1] = DBLE( LWKOPT );
+         WORK[1] = LWKOPT.toDouble();
       }
 
       if ( INFO != 0 ) {
@@ -222,6 +222,6 @@
          }
       }
 
-      WORK[1] = DBLE( LWKOPT );
+      WORK[1] = LWKOPT.toDouble();
       return;
       }

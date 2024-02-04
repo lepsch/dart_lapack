@@ -77,7 +77,7 @@
          LWKOPT = N + INT( WORK( 1 ) );
          LWKOPT = max( 2*N, LWKOPT );
          LWKOPT = max( 1, LWKOPT );
-         WORK[1] = DBLE( LWKOPT );
+         WORK[1] = LWKOPT.toDouble();
       }
 
       if ( INFO != 0 ) {
@@ -136,6 +136,6 @@
          }
       } // 20
 
-      WORK[1] = DBLE( LWKOPT );
+      WORK[1] = LWKOPT.toDouble();
       return;
       }

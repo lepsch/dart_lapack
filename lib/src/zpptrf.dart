@@ -69,7 +69,7 @@
 
             // Compute U(J,J) and test for non-positive-definiteness.
 
-            AJJ = DBLE( AP( JJ ) ) - DBLE( ZDOTC( J-1, AP( JC ), 1, AP( JC ), 1 ) );
+            AJJ = (AP( JJ )).toDouble() - DBLE( ZDOTC( J-1, AP( JC ), 1, AP( JC ), 1 ) );
             if ( AJJ <= ZERO ) {
                AP[JJ] = AJJ;
                GO TO 30;
@@ -85,7 +85,7 @@
 
             // Compute L(J,J) and test for non-positive-definiteness.
 
-            AJJ = DBLE( AP( JJ ) );
+            AJJ = (AP( JJ )).toDouble();
             if ( AJJ <= ZERO ) {
                AP[JJ] = AJJ;
                GO TO 30;

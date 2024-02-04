@@ -92,7 +92,7 @@
          dgeqp3(M, N, A, LDA, IWORK, TAU, WORK, -1, INFO );
          LWKOPT = max( LWKOPT, INT( WORK ( 1 ) ) );
          LWKOPT = max( 1, LWKOPT );
-         WORK[1] = DBLE( LWKOPT );
+         WORK[1] = LWKOPT.toDouble();
       }
 
       if ( INFO != 0 ) {
@@ -273,6 +273,6 @@
 
       }
 
-      WORK[1] = DBLE( LWKOPT );
+      WORK[1] = LWKOPT.toDouble();
       return;
       }

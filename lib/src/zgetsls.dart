@@ -100,7 +100,7 @@
           INFO = -10;
        }
 
-       WORK[1] = DBLE( WSIZEO );
+       WORK[1] = WSIZEO.toDouble();
 
       }
 
@@ -109,7 +109,7 @@
         return;
       }
       if ( LQUERY ) {
-        if (LWORK == -2) WORK( 1 ) = DBLE( WSIZEM );
+        if (LWORK == -2) WORK( 1 ) = WSIZEM.toDouble();
         return;
       }
       if ( LWORK < WSIZEO ) {
@@ -298,6 +298,6 @@
       }
 
       } // 50
-      WORK[1] = DBLE( TSZO + LWO );
+      WORK[1] = (TSZO + LWO).toDouble();
       return;
       }

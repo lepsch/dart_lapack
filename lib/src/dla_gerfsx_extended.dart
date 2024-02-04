@@ -57,7 +57,7 @@
       // Force HUGEVAL to Inf
       HUGEVAL = HUGEVAL * HUGEVAL;
       // Using HUGEVAL may lead to spurious underflows.
-      INCR_THRESH = DBLE( N ) * EPS;
+      INCR_THRESH = N.toDouble() * EPS;
 
       for (J = 1; J <= NRHS; J++) {
          Y_PREC_STATE = EXTRA_RESIDUAL;

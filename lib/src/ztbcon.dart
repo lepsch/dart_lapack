@@ -46,7 +46,7 @@
       double             CABS1;
       // ..
       // .. Statement Function definitions ..
-      CABS1[ZDUM] = ( DBLE( ZDUM ) ).abs() + ( DIMAG( ZDUM ) ).abs();
+      CABS1[ZDUM] = ( ZDUM.toDouble() ).abs() + ( DIMAG( ZDUM ) ).abs();
       // ..
       // .. Executable Statements ..
 
@@ -83,7 +83,7 @@
       }
 
       RCOND = ZERO;
-      SMLNUM = DLAMCH( 'Safe minimum' )*DBLE( max( N, 1 ) );
+      SMLNUM = DLAMCH( 'Safe minimum' )*(max( N, 1 )).toDouble();
 
       // Compute the 1-norm of the triangular matrix A or A**H.
 

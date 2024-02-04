@@ -106,11 +106,11 @@
             for (I = 1; I <= J - 1; I++) { // 40
                AFAC[I, J] = AFAC( I, J ) - A( I, J );
             } // 40
-            AFAC[J, J] = AFAC( J, J ) - DBLE( A( J, J ) );
+            AFAC[J, J] = AFAC( J, J ) - (A( J, J )).toDouble();
          } // 50
       } else {
          for (J = 1; J <= N; J++) { // 70
-            AFAC[J, J] = AFAC( J, J ) - DBLE( A( J, J ) );
+            AFAC[J, J] = AFAC( J, J ) - (A( J, J )).toDouble();
             for (I = J + 1; I <= N; I++) { // 60
                AFAC[I, J] = AFAC( I, J ) - A( I, J );
             } // 60
@@ -121,7 +121,7 @@
 
       RESID = ZLANHE( '1', UPLO, N, AFAC, LDAFAC, RWORK );
 
-      RESID = ( ( RESID / DBLE( N ) ) / ANORM ) / EPS;
+      RESID = ( ( RESID / N.toDouble() ) / ANORM ) / EPS;
 
       return;
       }

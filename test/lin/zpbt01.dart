@@ -105,7 +105,7 @@
 
             // Scale column K by the diagonal element.
 
-            AKK = DBLE( AFAC( 1, K ) );
+            AKK = (AFAC( 1, K )).toDouble();
             zdscal(KLEN+1, AKK, AFAC( 1, K ), 1 );
 
          } // 40
@@ -133,7 +133,7 @@
 
       RESID = ZLANHB( '1', UPLO, N, KD, AFAC, LDAFAC, RWORK );
 
-      RESID = ( ( RESID / DBLE( N ) ) / ANORM ) / EPS;
+      RESID = ( ( RESID / N.toDouble() ) / ANORM ) / EPS;
 
       return;
       }

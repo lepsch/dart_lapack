@@ -83,7 +83,7 @@
                       for (I = 1; I <= J - 1; I++) { // 30
                           C[I,J] = BETA*C(I,J);
                       } // 30
-                      C[J,J] = BETA*DBLE(C(J,J));
+                      C[J,J] = BETA*(C(J,J)).toDouble();
                   } // 40
               }
           } else {
@@ -95,7 +95,7 @@
                   } // 60
               } else {
                   for (J = 1; J <= N; J++) { // 80
-                      C[J,J] = BETA*DBLE(C(J,J));
+                      C[J,J] = BETA*(C(J,J)).toDouble();
                       for (I = J + 1; I <= N; I++) { // 70
                           C[I,J] = BETA*C(I,J);
                       } // 70
@@ -121,9 +121,9 @@
                       for (I = 1; I <= J - 1; I++) { // 100
                           C[I,J] = BETA*C(I,J);
                       } // 100
-                      C[J,J] = BETA*DBLE(C(J,J));
+                      C[J,J] = BETA*(C(J,J)).toDouble();
                   } else {
-                      C[J,J] = DBLE(C(J,J));
+                      C[J,J] = (C(J,J)).toDouble();
                   }
                   for (L = 1; L <= K; L++) { // 120
                       if (A(J,L) != DCMPLX(ZERO)) {
@@ -131,7 +131,7 @@
                           for (I = 1; I <= J - 1; I++) { // 110
                               C[I,J] = C(I,J) + TEMP*A(I,L);
                           } // 110
-                          C[J,J] = DBLE(C(J,J)) + DBLE(TEMP*A(I,L));
+                          C[J,J] = (C(J,J)).toDouble() + (TEMP*A(I,L)).toDouble();
                       }
                   } // 120
               } // 130
@@ -142,17 +142,17 @@
                           C[I,J] = ZERO;
                       } // 140
                   } else if (BETA != ONE) {
-                      C[J,J] = BETA*DBLE(C(J,J));
+                      C[J,J] = BETA*(C(J,J)).toDouble();
                       for (I = J + 1; I <= N; I++) { // 150
                           C[I,J] = BETA*C(I,J);
                       } // 150
                   } else {
-                      C[J,J] = DBLE(C(J,J));
+                      C[J,J] = (C(J,J)).toDouble();
                   }
                   for (L = 1; L <= K; L++) { // 170
                       if (A(J,L) != DCMPLX(ZERO)) {
                           TEMP = ALPHA*DCONJG(A(J,L));
-                          C[J,J] = DBLE(C(J,J)) + DBLE(TEMP*A(J,L));
+                          C[J,J] = (C(J,J)).toDouble() + (TEMP*A(J,L)).toDouble();
                           for (I = J + 1; I <= N; I++) { // 160
                               C[I,J] = C(I,J) + TEMP*A(I,L);
                           } // 160
@@ -184,7 +184,7 @@
                   if (BETA == ZERO) {
                       C[J,J] = ALPHA*RTEMP;
                   } else {
-                      C[J,J] = ALPHA*RTEMP + BETA*DBLE(C(J,J));
+                      C[J,J] = ALPHA*RTEMP + BETA*(C(J,J)).toDouble();
                   }
               } // 220
           } else {
@@ -196,7 +196,7 @@
                   if (BETA == ZERO) {
                       C[J,J] = ALPHA*RTEMP;
                   } else {
-                      C[J,J] = ALPHA*RTEMP + BETA*DBLE(C(J,J));
+                      C[J,J] = ALPHA*RTEMP + BETA*(C(J,J)).toDouble();
                   }
                   for (I = J + 1; I <= N; I++) { // 250
                       TEMP = ZERO;

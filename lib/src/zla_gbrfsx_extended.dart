@@ -53,7 +53,7 @@
       double             CABS1;
       // ..
       // .. Statement Function Definitions ..
-      CABS1[ZDUM] = ( DBLE( ZDUM ) ).abs() + ( DIMAG( ZDUM ) ).abs();
+      CABS1[ZDUM] = ( ZDUM.toDouble() ).abs() + ( DIMAG( ZDUM ) ).abs();
       // ..
       // .. Executable Statements ..
 
@@ -64,7 +64,7 @@
       // Force HUGEVAL to Inf
       HUGEVAL = HUGEVAL * HUGEVAL;
       // Using HUGEVAL may lead to spurious underflows.
-      INCR_THRESH = DBLE( N ) * EPS;
+      INCR_THRESH = N.toDouble() * EPS;
       M = KL+KU+1;
 
       for (J = 1; J <= NRHS; J++) {

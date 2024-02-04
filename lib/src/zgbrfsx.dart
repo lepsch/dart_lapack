@@ -71,7 +71,7 @@
 
       // Set default parameters.
 
-      ILLRCOND_THRESH = DBLE( N ) * DLAMCH( 'Epsilon' );
+      ILLRCOND_THRESH = N.toDouble() * DLAMCH( 'Epsilon' );
       ITHRESH = INT( ITHRESH_DEFAULT );
       RTHRESH = RTHRESH_DEFAULT;
       UNSTABLE_THRESH = DZTHRESH_DEFAULT;
@@ -200,7 +200,7 @@
          }
       }
 
-      ERR_LBND = max( 10.0, sqrt( DBLE( N ) ) ) * DLAMCH( 'Epsilon' );
+      ERR_LBND = max( 10.0, sqrt( N.toDouble() ) ) * DLAMCH( 'Epsilon' );
       if (N_ERR_BNDS >= 1 && N_NORMS >= 1) {
 
       // Compute scaled normwise condition number cond(A*C).

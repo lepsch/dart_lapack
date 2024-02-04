@@ -139,7 +139,7 @@
             // Sort by increasing real part
 
             for (I = 1; I <= N; I++) { // 80
-               WSRT[I] = DBLE( W( I ) );
+               WSRT[I] = (W( I )).toDouble();
             } // 80
          } else {
 
@@ -163,7 +163,7 @@
             } // 100
             WSRT[KMIN] = WSRT( I );
             WSRT[I] = VMIN;
-            VCMIN = DBLE( WTMP( I ) );
+            VCMIN = (WTMP( I )).toDouble();
             WTMP[I] = W( KMIN );
             WTMP[KMIN] = VCMIN;
             VMIN = STMP( KMIN );
@@ -177,7 +177,7 @@
          // Compare condition numbers for eigenvalues
          // taking their condition numbers into account
 
-         V = max( TWO*DBLE( N )*EPS*TNRM, SMLNUM );
+         V = max( TWO*N.toDouble()*EPS*TNRM, SMLNUM );
          if (TNRM == ZERO) V = ONE;
          for (I = 1; I <= N; I++) { // 120
             if ( V > SEPTMP( I ) ) {
@@ -246,7 +246,7 @@
          // without taking their condition numbers into account
 
          for (I = 1; I <= N; I++) { // 140
-            if ( SIN( I ) <= DBLE( 2*N )*EPS && STMP( I ) <= DBLE( 2*N )*EPS ) {
+            if ( SIN( I ) <= DBLE( 2*N )*EPS && STMP( I ) <= (2*N).toDouble()*EPS ) {
                VMAX = ONE;
             } else if ( EPS*SIN( I ) > STMP( I ) ) {
                VMAX = ONE / EPS;

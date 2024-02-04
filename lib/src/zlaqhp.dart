@@ -65,7 +65,7 @@
                for (I = 1; I <= J - 1; I++) { // 10
                   AP[JC+I-1] = CJ*S( I )*AP( JC+I-1 );
                } // 10
-               AP[JC+J-1] = CJ*CJ*DBLE( AP( JC+J-1 ) );
+               AP[JC+J-1] = CJ*CJ*(AP( JC+J-1 )).toDouble();
                JC = JC + J;
             } // 20
          } else {
@@ -75,7 +75,7 @@
             JC = 1;
             for (J = 1; J <= N; J++) { // 40
                CJ = S( J );
-               AP[JC] = CJ*CJ*DBLE( AP( JC ) );
+               AP[JC] = CJ*CJ*(AP( JC )).toDouble();
                for (I = J + 1; I <= N; I++) { // 30
                   AP[JC+I-J] = CJ*S( I )*AP( JC+I-J );
                } // 30

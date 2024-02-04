@@ -43,7 +43,7 @@
       SAFMIN = DLAMCH( 'Safe minimum' );
       if ( KASE == 0 ) {
          for (I = 1; I <= N; I++) { // 10
-            X[I] = DCMPLX( ONE / DBLE( N ) );
+            X[I] = DCMPLX( ONE / N.toDouble() );
          } // 10
          KASE = 1;
          ISAVE[1] = 1;
@@ -67,7 +67,7 @@
       for (I = 1; I <= N; I++) { // 30
          ABSXI = ( X( I ) ).abs();
          if ( ABSXI > SAFMIN ) {
-            X[I] = DCMPLX( DBLE( X( I ) ) / ABSXI, DIMAG( X( I ) ) / ABSXI );
+            X[I] = DCMPLX( (X( I )).toDouble() / ABSXI, DIMAG( X( I ) ) / ABSXI );
          } else {
             X[I] = CONE;
          }
@@ -108,7 +108,7 @@
       for (I = 1; I <= N; I++) { // 80
          ABSXI = ( X( I ) ).abs();
          if ( ABSXI > SAFMIN ) {
-            X[I] = DCMPLX( DBLE( X( I ) ) / ABSXI, DIMAG( X( I ) ) / ABSXI );
+            X[I] = DCMPLX( (X( I )).toDouble() / ABSXI, DIMAG( X( I ) ) / ABSXI );
          } else {
             X[I] = CONE;
          }
@@ -133,7 +133,7 @@
       } // 100
       ALTSGN = ONE;
       for (I = 1; I <= N; I++) { // 110
-         X[I] = DCMPLX( ALTSGN*( ONE+DBLE( I-1 ) / DBLE( N-1 ) ) );
+         X[I] = DCMPLX( ALTSGN*( ONE+DBLE( I-1 ) / (N-1).toDouble() ) );
          ALTSGN = -ALTSGN;
       } // 110
       KASE = 1;
@@ -144,7 +144,7 @@
       // X HAS BEEN OVERWRITTEN BY A*X.
 
       } // 120
-      TEMP = TWO*( DZSUM1( N, X, 1 ) / DBLE( 3*N ) );
+      TEMP = TWO*( DZSUM1( N, X, 1 ) / (3*N).toDouble() );
       if ( TEMP > EST ) {
          zcopy(N, X, 1, V, 1 );
          EST = TEMP;

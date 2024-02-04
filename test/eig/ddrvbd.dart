@@ -167,7 +167,7 @@
                if (JTYPE == 3) ANORM = ONE;
                if( JTYPE == 4 ) ANORM = UNFL / ULP;
                IF( JTYPE == 5 ) ANORM = OVFL*ULP;
-               dlatms(M, N, 'U', ISEED, 'N', S, 4, DBLE( MNMIN ), ANORM, M-1, N-1, 'N', A, LDA, WORK, IINFO );
+               dlatms(M, N, 'U', ISEED, 'N', S, 4, MNMIN.toDouble(), ANORM, M-1, N-1, 'N', A, LDA, WORK, IINFO );
                if ( IINFO != 0 ) {
                   WRITE( NOUT, FMT = 9996 )'Generator', IINFO, M, N, JTYPE, IOLDSD;
                   INFO = ( IINFO ).abs();

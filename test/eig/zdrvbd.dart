@@ -177,7 +177,7 @@
                if (JTYPE == 3) ANORM = ONE;
                if( JTYPE == 4 ) ANORM = UNFL / ULP;
                IF( JTYPE == 5 ) ANORM = OVFL*ULP;
-               zlatms(M, N, 'U', ISEED, 'N', S, 4, DBLE( MNMIN ), ANORM, M-1, N-1, 'N', A, LDA, WORK, IINFO );
+               zlatms(M, N, 'U', ISEED, 'N', S, 4, MNMIN.toDouble(), ANORM, M-1, N-1, 'N', A, LDA, WORK, IINFO );
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9996 )'Generator', IINFO, M, N, JTYPE, IOLDSD;
                   INFO = ( IINFO ).abs();
@@ -276,7 +276,7 @@
                      // Compare S
 
                      DIF = ZERO;
-                     DIV = max( DBLE( MNMIN )*ULP*S( 1 ), DLAMCH( 'Safe minimum' ) );
+                     DIV = max( MNMIN.toDouble()*ULP*S( 1 ), DLAMCH( 'Safe minimum' ) );
                      for (I = 1; I <= MNMIN - 1; I++) { // 80
                         if( SSAV( I ) < SSAV( I+1 ) ) DIF = ULPINV;
                         IF( SSAV( I ) < ZERO ) DIF = ULPINV;
@@ -367,7 +367,7 @@
                   // Compare S
 
                   DIF = ZERO;
-                  DIV = max( DBLE( MNMIN )*ULP*S( 1 ), DLAMCH( 'Safe minimum' ) );
+                  DIV = max( MNMIN.toDouble()*ULP*S( 1 ), DLAMCH( 'Safe minimum' ) );
                   for (I = 1; I <= MNMIN - 1; I++) { // 120
                      if( SSAV( I ) < SSAV( I+1 ) ) DIF = ULPINV;
                      IF( SSAV( I ) < ZERO ) DIF = ULPINV;
@@ -592,7 +592,7 @@
                      // Compare S
 
                      DIF = ZERO;
-                     DIV = max( DBLE( MNMIN )*ULP*S( 1 ), DLAMCH( 'Safe minimum' ) );
+                     DIV = max( MNMIN.toDouble()*ULP*S( 1 ), DLAMCH( 'Safe minimum' ) );
                      for (I = 1; I <= MNMIN - 1; I++) { // 150
                         if( SSAV( I ) < SSAV( I+1 ) ) DIF = ULPINV;
                         IF( SSAV( I ) < ZERO ) DIF = ULPINV;

@@ -44,7 +44,7 @@
       double             CABS1;
       // ..
       // .. Statement Function definitions ..
-      CABS1[CDUM] = ( DBLE( CDUM ) ).abs() + ( DIMAG( CDUM ) ).abs();
+      CABS1[CDUM] = ( CDUM.toDouble() ).abs() + ( DIMAG( CDUM ) ).abs();
       // ..
       // .. Executable Statements ..
 
@@ -67,7 +67,7 @@
       SAFMIN = DLAMCH( 'SAFE MINIMUM' );
       SAFMAX = RONE / SAFMIN;
       ULP = DLAMCH( 'PRECISION' );
-      SMLNUM = SAFMIN*( DBLE( N ) / ULP );
+      SMLNUM = SAFMIN*( N.toDouble() / ULP );
 
       // ==== Use accumulated reflections to update far-from-diagonal
       // .    entries ? ====

@@ -79,7 +79,7 @@
 
       // Number of row blocks in ZLATSQR
 
-      NRB = max( 1, CEILING( DBLE( M - N ) / DBLE( MB1 - N ) ) );
+      NRB = max( 1, CEILING( DBLE( M - N ) / (MB1 - N).toDouble() ) );
 
       ALLOCATE ( T1( NB1, N * NRB ) );
       ALLOCATE ( T2( NB2, N ) );

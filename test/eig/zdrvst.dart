@@ -113,7 +113,7 @@
       for (JSIZE = 1; JSIZE <= NSIZES; JSIZE++) { // 1220
          N = NN( JSIZE );
          if ( N > 0 ) {
-            LGN = INT( LOG( DBLE( N ) ) / LOG( TWO ) );
+            LGN = INT( LOG( N.toDouble() ) / LOG( TWO ) );
             if (2**LGN < N) LGN = LGN + 1;
             IF( 2**LGN < N ) LGN = LGN + 1;
             LWEDC = max( 2*N+N*N, 2*N*N );
@@ -124,7 +124,7 @@
             LRWEDC = 8;
             LIWEDC = 8;
          }
-         ANINV = ONE / DBLE( max( 1, N ) );
+         ANINV = ONE / (max( 1, N )).toDouble();
 
          if ( NSIZES != 1 ) {
             MTYPES = min( MAXTYP, NTYPES );

@@ -28,7 +28,7 @@
 
          NS = N*INCX;
          for (I = 1; INCX < 0 ? I >= NS : I <= NS; I += INCX) {
-            DSDOT = DSDOT + DBLE(SX(I))*DBLE(SY(I));
+            DSDOT = DSDOT + (SX(I)).toDouble()*(SY(I)).toDouble();
          }
       } else {
 
@@ -39,7 +39,7 @@
          if (INCX < 0) KX = 1 + (1-N)*INCX;
          if (INCY < 0) KY = 1 + (1-N)*INCY;
          for (I = 1; I <= N; I++) {
-            DSDOT = DSDOT + DBLE(SX(KX))*DBLE(SY(KY));
+            DSDOT = DSDOT + (SX(KX)).toDouble()*(SY(KY)).toDouble();
             KX = KX + INCX;
             KY = KY + INCY;
          }

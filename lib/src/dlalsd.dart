@@ -151,7 +151,7 @@
 
       // Book-keeping and setting up some constants.
 
-      NLVL = INT( LOG( DBLE( N ) / DBLE( SMLSIZ+1 ) ) / LOG( TWO ) ) + 1;
+      NLVL = INT( LOG( N.toDouble() / (SMLSIZ+1).toDouble() ) / LOG( TWO ) ) + 1;
 
       SMLSZP = SMLSIZ + 1;
 

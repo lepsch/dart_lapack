@@ -74,7 +74,7 @@
       }
 
       RCOND = ZERO;
-      SMLNUM = DLAMCH( 'Safe minimum' )*DBLE( max( 1, N ) );
+      SMLNUM = DLAMCH( 'Safe minimum' )*(max( 1, N )).toDouble();
 
       // Compute the norm of the triangular matrix A.
 

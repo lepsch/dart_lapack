@@ -54,7 +54,7 @@
       double             ABS1;
       // ..
       // .. Statement Function definitions ..
-      ABS1[X] = ( DBLE( X ) ).abs() + ( DIMAG( X ) ).abs();
+      ABS1[X] = ( X.toDouble() ).abs() + ( DIMAG( X ) ).abs();
       // ..
       // .. Data statements ..
       const KCLASS = [ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3,];
@@ -144,8 +144,8 @@
       for (JSIZE = 1; JSIZE <= NSIZES; JSIZE++) { // 190
          N = NN( JSIZE );
          N1 = max( 1, N );
-         RMAGN[2] = SAFMAX*ULP / DBLE( N1 );
-         RMAGN[3] = SAFMIN*ULPINV*DBLE( N1 );
+         RMAGN[2] = SAFMAX*ULP / N1.toDouble();
+         RMAGN[3] = SAFMIN*ULPINV*N1.toDouble();
 
          if ( NSIZES != 1 ) {
             MTYPES = min( MAXTYP, NTYPES );
@@ -234,10 +234,10 @@
                         Z[JR, JC] = ZLARND( 3, ISEED );
                      } // 40
                      zlarfg(N+1-JC, Q( JC, JC ), Q( JC+1, JC ), 1, WORK( JC ) );
-                     WORK[2*N+JC] = SIGN( ONE, DBLE( Q( JC, JC ) ) );
+                     WORK[2*N+JC] = SIGN( ONE, (Q( JC, JC )).toDouble() );
                      Q[JC, JC] = CONE;
                      zlarfg(N+1-JC, Z( JC, JC ), Z( JC+1, JC ), 1, WORK( N+JC ) );
-                     WORK[3*N+JC] = SIGN( ONE, DBLE( Z( JC, JC ) ) );
+                     WORK[3*N+JC] = SIGN( ONE, (Z( JC, JC )).toDouble() );
                      Z[JC, JC] = CONE;
                   } // 50
                   CTEMP = ZLARND( 3, ISEED );

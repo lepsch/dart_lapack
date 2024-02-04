@@ -79,7 +79,7 @@
          zcopy(N, X( 1, J ), 1, WORK, 1 );
          IX = IZAMAX( N, WORK, 1 );
          XNORM = max( ONE, ( X( IX, J ) ) ).abs();
-         XSCAL = ( ONE / XNORM ) / DBLE( N );
+         XSCAL = ( ONE / XNORM ) / N.toDouble();
          zdscal(N, XSCAL, WORK, 1 );
          ztpmv(UPLO, TRANS, DIAG, N, AP, WORK, 1 );
          zaxpy(N, DCMPLX( -SCALE*XSCAL ), B( 1, J ), 1, WORK, 1 );

@@ -250,8 +250,8 @@
          // TAU(KK) to contain NaN. Therefore, this case of generating Inf
          // by ZLARFG is covered by checking TAU(KK) for NaN.
 
-         if ( DISNAN( DBLE( TAU(KK) ) ) ) {
-            TAUNAN = DBLE( TAU(KK) );
+         if ( DISNAN( (TAU(KK)).toDouble() ) ) {
+            TAUNAN = (TAU(KK)).toDouble();
          } else if ( DISNAN( DIMAG( TAU(KK) ) ) ) {
             TAUNAN = DIMAG( TAU(KK) );
          } else {

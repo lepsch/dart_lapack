@@ -151,7 +151,7 @@
          }
       }
 
-      SGN = DBLE( ISGN );
+      SGN = ISGN.toDouble();
       CSGN = DCMPLX( SGN, ZERO );
 
       if ( NOTRNA && NOTRNB ) {
@@ -894,10 +894,10 @@
 
          // How much can the normwise largest entry be upscaled?
 
-         SCAL = max( ABS( DBLE( C( 1, 1 ) ) ), ABS( DIMAG( C ( 1, 1 ) ) ) );
+         SCAL = max( ABS( (C( 1, 1 )).toDouble() ), ABS( DIMAG( C ( 1, 1 ) ) ) );
          for (K = 1; K <= M; K++) {
             for (L = 1; L <= N; L++) {
-               SCAL = max( SCAL, ABS( DBLE ( C( K, L ) ) ), ABS( DIMAG ( C( K, L ) ) ) );
+               SCAL = max( SCAL, ABS( (C( K, L )).toDouble() ), ABS( DIMAG ( C( K, L ) ) ) );
             }
          }
 

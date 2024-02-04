@@ -113,7 +113,7 @@
 
       for (JSIZE = 1; JSIZE <= NSIZES; JSIZE++) { // 650
          N = NN( JSIZE );
-         ANINV = ONE / DBLE( max( 1, N ) );
+         ANINV = ONE / (max( 1, N )).toDouble();
 
          if ( NSIZES != 1 ) {
             MTYPES = min( MAXTYP, NTYPES );

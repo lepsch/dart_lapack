@@ -1100,14 +1100,14 @@
                   for (IA = 1; IA <= NALF; IA++) { // 60
                      ALPHA = ALF( IA );
                      if ( CONJ ) {
-                        RALPHA = DBLE( ALPHA );
+                        RALPHA = ALPHA.toDouble();
                         ALPHA = DCMPLX( RALPHA, RZERO );
                      }
 
                      for (IB = 1; IB <= NBET; IB++) { // 50
                         BETA = BET( IB );
                         if ( CONJ ) {
-                           RBETA = DBLE( BETA );
+                           RBETA = BETA.toDouble();
                            BETA = DCMPLX( RBETA, RZERO );
                         }
                         NULL = N <= 0;
@@ -1396,7 +1396,7 @@
                      for (IB = 1; IB <= NBET; IB++) { // 80
                         BETA = BET( IB );
                         if ( CONJ ) {
-                           RBETA = DBLE( BETA );
+                           RBETA = BETA.toDouble();
                            BETA = DCMPLX( RBETA, RZERO );
                         }
                         NULL = N <= 0;
@@ -2592,7 +2592,7 @@
                }
             }
          } // 10
-         if (HER) A( J, J ) = DCMPLX( DBLE( A( J, J ) ), RZERO );
+         if (HER) A( J, J ) = DCMPLX( (A( J, J )).toDouble(), RZERO );
          if[TRI ) A( J, J] = A( J, J ) + ONE;
          IF[UNIT ) A( J, J] = ONE;
       } // 20
@@ -2636,7 +2636,7 @@
             } // 80
             if ( HER ) {
                JJ = J + ( J - 1 )*LDA;
-               AA[JJ] = DCMPLX( DBLE( AA( JJ ) ), RROGUE );
+               AA[JJ] = DCMPLX( (AA( JJ )).toDouble(), RROGUE );
             }
          } // 90
       }
@@ -2678,7 +2678,7 @@
       // .. Statement Functions ..
       double             ABS1;
       // .. Statement Function definitions ..
-      ABS1[CL] = ( DBLE( CL ) ).abs() + ( DIMAG( CL ) ).abs();
+      ABS1[CL] = ( CL.toDouble() ).abs() + ( DIMAG( CL ) ).abs();
       // .. Executable Statements ..
       TRANA = TRANSA == 'T' || TRANSA == 'C';
       TRANB = TRANSB == 'T' || TRANSB == 'C';

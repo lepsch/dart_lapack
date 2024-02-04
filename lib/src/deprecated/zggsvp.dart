@@ -40,7 +40,7 @@
       double             CABS1;
       // ..
       // .. Statement Function definitions ..
-      CABS1[T] = ( DBLE( T ) ).abs() + ( DIMAG( T ) ).abs();
+      CABS1[T] = ( T.toDouble() ).abs() + ( DIMAG( T ) ).abs();
       // ..
       // .. Executable Statements ..
 

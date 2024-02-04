@@ -21,13 +21,13 @@
       // .. Executable Statements ..
 
 // .. Figure TOTAL flops ..
-      TOTAL = DBLE(NMAX) * DBLE(ITS) * 2.0;
+      TOTAL = (NMAX).toDouble() * ITS.toDouble() * 2.0;
 
       // Initialize X and Y
 
       for (I = 1; I <= NMAX; I++) { // 10
-         X[I] = DBLE( 1 ) / DBLE( I );
-         Y[I] = DBLE( NMAX-I ) / DBLE( NMAX );
+         X[I] = (1).toDouble() / I.toDouble();
+         Y[I] = (NMAX-I).toDouble() / NMAX.toDouble();
       } // 10
       ALPHA = 0.315;
 
@@ -64,7 +64,7 @@
       // to DSECND.
 
       WRITE( 6, 9997 )T2 - T1;
-      AVG = ( ( T2-T1 ) - TNOSEC ) * 1000.0e+00/DBLE( ITS );
+      AVG = ( ( T2-T1 ) - TNOSEC ) * 1000.0e+00/ITS.toDouble();
       if (AVG > 0.0) WRITE( 6, 9996 )AVG;
 
       // Compute the equivalent number of floating point operations used

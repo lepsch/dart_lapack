@@ -576,7 +576,7 @@
 
          if( ( i < SWBAND ) && ( ( MXAAPQ <= ROOTTOL ) || ( ISWROT <= N ) ) )SWBAND = i;
 
-         if ( ( i > SWBAND+1 ) && ( MXAAPQ < sqrt( DBLE( N ) )* TOL ) && ( DBLE( N )*MXAAPQ*MXSINJ < TOL ) ) {
+         if ( ( i > SWBAND+1 ) && ( MXAAPQ < sqrt( (N).toDouble() )* TOL ) && ( N.toDouble()*MXAAPQ*MXSINJ < TOL ) ) {
             GO TO 1994;
          }
 

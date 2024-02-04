@@ -54,7 +54,7 @@
             LWKOPT = 1;
          } else {
             zsytrf(UPLO, N, A, LDA, IPIV, WORK, -1, INFO );
-            LWKOPT = INT( DBLE( WORK( 1 ) ) );
+            LWKOPT = INT( (WORK( 1 )).toDouble() );
          }
          WORK[1] = LWKOPT;
       }

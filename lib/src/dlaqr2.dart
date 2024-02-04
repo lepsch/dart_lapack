@@ -59,7 +59,7 @@
       // ==== Quick return in case of workspace query. ====
 
       if ( LWORK == -1 ) {
-         WORK[1] = DBLE( LWKOPT );
+         WORK[1] = LWKOPT.toDouble();
          return;
       }
 
@@ -77,7 +77,7 @@
       SAFMIN = DLAMCH( 'SAFE MINIMUM' );
       SAFMAX = ONE / SAFMIN;
       ULP = DLAMCH( 'PRECISION' );
-      SMLNUM = SAFMIN*( DBLE( N ) / ULP );
+      SMLNUM = SAFMIN*( N.toDouble() / ULP );
 
       // ==== Setup deflation window ====
 
@@ -355,7 +355,7 @@
 
        // ==== Return optimal workspace. ====
 
-      WORK[1] = DBLE( LWKOPT );
+      WORK[1] = LWKOPT.toDouble();
 
       // ==== End of DLAQR2 ====
 

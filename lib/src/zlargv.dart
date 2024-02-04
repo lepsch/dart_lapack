@@ -44,8 +44,8 @@
       // DATA               FIRST / true /
       // ..
       // .. Statement Function definitions ..
-      ABS1[FF] = max( ( DBLE( FF ) ).abs(), ( DIMAG( FF ) ) ).abs();
-      ABSSQ[FF] = DBLE( FF )**2 + DIMAG( FF )**2;
+      ABS1[FF] = max( ( FF.toDouble() ).abs(), ( DIMAG( FF ) ) ).abs();
+      ABSSQ[FF] = FF.toDouble()**2 + DIMAG( FF )**2;
       // ..
       // .. Executable Statements ..
 
@@ -98,14 +98,14 @@
 
             if ( F == CZERO ) {
                CS = ZERO;
-               R = DLAPY2( DBLE( G ), DIMAG( G ) );
+               R = DLAPY2( G.toDouble(), DIMAG( G ) );
                // Do complex/real division explicitly with two real
                // divisions
-               D = DLAPY2( DBLE( GS ), DIMAG( GS ) );
-               SN = DCMPLX( DBLE( GS ) / D, -DIMAG( GS ) / D );
+               D = DLAPY2( GS.toDouble(), DIMAG( GS ) );
+               SN = DCMPLX( GS.toDouble() / D, -DIMAG( GS ) / D );
                GO TO 50;
             }
-            F2S = DLAPY2( DBLE( FS ), DIMAG( FS ) );
+            F2S = DLAPY2( FS.toDouble(), DIMAG( FS ) );
             // G2 and G2S are accurate
             // G2 is at least SAFMIN, and G2S is at least SAFMN2
             G2S = sqrt( G2 );
@@ -120,15 +120,15 @@
             // Make sure abs(FF) = 1
             // Do complex/real division explicitly with 2 real divisions
             if ( ABS1( F ) > ONE ) {
-               D = DLAPY2( DBLE( F ), DIMAG( F ) );
-               FF = DCMPLX( DBLE( F ) / D, DIMAG( F ) / D );
+               D = DLAPY2( F.toDouble(), DIMAG( F ) );
+               FF = DCMPLX( F.toDouble() / D, DIMAG( F ) / D );
             } else {
-               DR = SAFMX2*DBLE( F );
+               DR = SAFMX2*F.toDouble();
                DI = SAFMX2*DIMAG( F );
                D = DLAPY2( DR, DI );
                FF = DCMPLX( DR / D, DI / D );
             }
-            SN = FF*DCMPLX( DBLE( GS ) / G2S, -DIMAG( GS ) / G2S );
+            SN = FF*DCMPLX( GS.toDouble() / G2S, -DIMAG( GS ) / G2S );
             R = CS*F + SN*G;
          } else {
 
@@ -139,11 +139,11 @@
             F2S = sqrt( ONE+G2 / F2 );
             // Do the F2S(real)*FS(complex) multiply with two real
             // multiplies
-            R = DCMPLX( F2S*DBLE( FS ), F2S*DIMAG( FS ) );
+            R = DCMPLX( F2S*FS.toDouble(), F2S*DIMAG( FS ) );
             CS = ONE / F2S;
             D = F2 + G2;
             // Do complex/real division explicitly with two real divisions
-            SN = DCMPLX( DBLE( R ) / D, DIMAG( R ) / D );
+            SN = DCMPLX( R.toDouble() / D, DIMAG( R ) / D );
             SN = SN*DCONJG( GS );
             if ( COUNT != 0 ) {
                if ( COUNT > 0 ) {

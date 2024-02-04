@@ -61,7 +61,7 @@
 
       // Initialize SMIN and AMAX.
 
-      S[1] = DBLE( AP( 1 ) );
+      S[1] = (AP( 1 )).toDouble();
       SMIN = S( 1 );
       AMAX = S( 1 );
 
@@ -73,7 +73,7 @@
          JJ = 1;
          for (I = 2; I <= N; I++) { // 10
             JJ = JJ + I;
-            S[I] = DBLE( AP( JJ ) );
+            S[I] = (AP( JJ )).toDouble();
             SMIN = min( SMIN, S( I ) );
             AMAX = max( AMAX, S( I ) );
          } // 10
@@ -86,7 +86,7 @@
          JJ = 1;
          for (I = 2; I <= N; I++) { // 20
             JJ = JJ + N - I + 2;
-            S[I] = DBLE( AP( JJ ) );
+            S[I] = (AP( JJ )).toDouble();
             SMIN = min( SMIN, S( I ) );
             AMAX = max( AMAX, S( I ) );
          } // 20

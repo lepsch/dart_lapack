@@ -251,10 +251,10 @@
                      }
                   }
                   for (K = 1; K <= IN - 1; K++) { // 45
-                     D[IBEGIN+K-1] = DBLE( Z( IBEGIN+K-1, J ) )                      L( IBEGIN+K-1 ) = DBLE( Z( IBEGIN+K-1, J+1 ) );
+                     D[IBEGIN+K-1] = (Z( IBEGIN+K-1, J )).toDouble()                      L( IBEGIN+K-1 ) = (Z( IBEGIN+K-1, J+1 )).toDouble();
                   } // 45
-                  D[IEND] = DBLE( Z( IEND, J ) );
-                  SIGMA = DBLE( Z( IEND, J+1 ) );
+                  D[IEND] = (Z( IEND, J )).toDouble();
+                  SIGMA = (Z( IEND, J+1 )).toDouble();
 
                   // Set the corresponding entries in Z to zero
                   zlaset('Full', IN, 2, CZERO, CZERO, Z( IBEGIN, J), LDZ );
@@ -436,7 +436,7 @@
 
                      ITER = 0;
 
-                     TOL = FOUR * LOG(DBLE(IN)) * EPS;
+                     TOL = FOUR * LOG(IN.toDouble()) * EPS;
 
                      K = NEWFST;
                      WINDEX = WBEGIN + K - 1;

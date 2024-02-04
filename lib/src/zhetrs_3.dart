@@ -90,7 +90,7 @@
          I = N;
          DO WHILE ( I >= 1 );
             if ( IPIV( I ) > 0 ) {
-               S = DBLE( ONE ) / DBLE( A( I, I ) );
+               S = ONE.toDouble() / (A( I, I )).toDouble();
                zdscal(NRHS, S, B( I, 1 ), LDB );
             } else if ( I > 1 ) {
                AKM1K = E( I );
@@ -158,7 +158,7 @@
          I = 1;
          DO WHILE ( I <= N );
             if ( IPIV( I ) > 0 ) {
-               S = DBLE( ONE ) / DBLE( A( I, I ) );
+               S = ONE.toDouble() / (A( I, I )).toDouble();
                zdscal(NRHS, S, B( I, 1 ), LDB );
             } else if ( I < N ) {
                AKM1K = E( I );

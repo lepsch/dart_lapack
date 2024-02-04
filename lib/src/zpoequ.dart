@@ -54,11 +54,11 @@
 
       // Find the minimum and maximum diagonal elements.
 
-      S[1] = DBLE( A( 1, 1 ) );
+      S[1] = (A( 1, 1 )).toDouble();
       SMIN = S( 1 );
       AMAX = S( 1 );
       for (I = 2; I <= N; I++) { // 10
-         S[I] = DBLE( A( I, I ) );
+         S[I] = (A( I, I )).toDouble();
          SMIN = min( SMIN, S( I ) );
          AMAX = max( AMAX, S( I ) );
       } // 10

@@ -428,11 +428,11 @@
       // INTRINSIC DIMAG, DBLE
       // .. Executable Statements ..
       for (I = 1; I <= LEN; I++) { // 20
-         SCOMP[2*I-1] = DBLE(CCOMP(I));
+         SCOMP[2*I-1] = (CCOMP(I)).toDouble();
          SCOMP[2*I] = DIMAG(CCOMP(I));
-         STRUE[2*I-1] = DBLE(CTRUE(I));
+         STRUE[2*I-1] = (CTRUE(I)).toDouble();
          STRUE[2*I] = DIMAG(CTRUE(I));
-         SSIZE[2*I-1] = DBLE(CSIZE(I));
+         SSIZE[2*I-1] = (CSIZE(I)).toDouble();
          SSIZE[2*I] = DIMAG(CSIZE(I));
       } // 20
 
@@ -574,7 +574,7 @@
          for (IW = 1; IW <= NV; IW++) {
             V1 = VALUES(IW);
             if ((V1).abs() > ONE) {
-               V1 = (V1*HALF) / sqrt(DBLE(KS+1));
+               V1 = (V1*HALF) / sqrt((KS+1).toDouble());
             }
             for (I = 1; I <= N-1; I++) {
                Z[I+1] = DCMPLX(V1*WORK(2*I-1),V1*WORK(2*I));
@@ -626,7 +626,7 @@
             // in this implementation so we scale the test ratio accordingly.
 
             if (INCX == 0) {
-               Y1 = ABS(DBLE(X(1)));
+               Y1 = ABS((X(1))).toDouble();
                Y2 = ABS(AIMAG(X(1)));
                YMIN = min(Y1, Y2);
                YMAX = max(Y1, Y2);
@@ -640,7 +640,7 @@
                } else {
                   ZNRM = YMAX * sqrt(ONE + (YMIN / YMAX)**2);
                }
-               ZNRM = sqrt(DBLE(n)) * ZNRM;
+               ZNRM = sqrt(n.toDouble()) * ZNRM;
             } else {
                ZNRM = YNRM;
             }
@@ -656,7 +656,7 @@
             } else if (ZNRM == ZERO) {
                TRAT = SNRM / ULP;
             } else {
-               TRAT = ((SNRM-ZNRM).abs() / ZNRM) / (TWO*DBLE(N)*ULP);
+               TRAT = ((SNRM-ZNRM).abs() / ZNRM) / (TWO*N.toDouble()*ULP);
             }
             if ((TRAT != TRAT) || (TRAT >= THRESH)) {
                if (FIRST) {

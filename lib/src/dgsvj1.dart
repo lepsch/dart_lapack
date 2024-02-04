@@ -87,7 +87,7 @@
       SMALL = SFMIN / EPS;
       BIG = ONE / SFMIN;
       ROOTBIG = ONE / ROOTSFMIN;
-      LARGE = BIG / DSQRT( DBLE( M*N ) );
+      LARGE = BIG / DSQRT( (M*N).toDouble() );
       BIGTHETA = ONE / ROOTEPS;
       ROOTTOL = DSQRT( TOL );
 
@@ -400,7 +400,7 @@
       // Additional steering devices
 
          if( ( i < SWBAND ) && ( ( MXAAPQ <= ROOTTOL ) || ( ISWROT <= N ) ) )SWBAND = i;
-          if ( ( i > SWBAND+1 ) && ( MXAAPQ < DBLE( N )*TOL ) && ( DBLE( N )*MXAAPQ*MXSINJ < TOL ) ) {
+          if ( ( i > SWBAND+1 ) && ( MXAAPQ < (N).toDouble()*TOL ) && ( N.toDouble()*MXAAPQ*MXSINJ < TOL ) ) {
             GO TO 1994;
          }
 

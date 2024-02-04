@@ -2495,7 +2495,7 @@
          IC = 0;
          GO TO 10;
       }
-      DBEG = DBLE( I - 500 )/1001.0;
+      DBEG = (I - 500).toDouble()/1001.0;
       return;
 
       // End of DBEG.

@@ -65,7 +65,7 @@
 
             NB1LOCAL = min( NB1, N );
 
-            NUM_ALL_ROW_BLOCKS = max( 1, CEILING( DBLE( M - N ) / DBLE( MB1 - N ) ) );
+            NUM_ALL_ROW_BLOCKS = max( 1, CEILING( DBLE( M - N ) / (MB1 - N).toDouble() ) );
 
             // Length and leading dimension of WORK array to place
             // T array in TSQR.

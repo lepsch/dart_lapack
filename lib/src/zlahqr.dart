@@ -48,7 +48,7 @@
       // INTRINSIC ABS, DBLE, DCONJG, DIMAG, MAX, MIN, SQRT
       // ..
       // .. Statement Function definitions ..
-      CABS1[CDUM] = ( DBLE( CDUM ) ).abs() + ( DIMAG( CDUM ) ).abs();
+      CABS1[CDUM] = ( CDUM.toDouble() ).abs() + ( DIMAG( CDUM ) ).abs();
       // ..
       // .. Executable Statements ..
 
@@ -97,7 +97,7 @@
       SAFMIN = DLAMCH( 'SAFE MINIMUM' );
       SAFMAX = RONE / SAFMIN;
       ULP = DLAMCH( 'PRECISION' );
-      SMLNUM = SAFMIN*( DBLE( NH ) / ULP );
+      SMLNUM = SAFMIN*( NH.toDouble() / ULP );
 
       // I1 and I2 are the indices of the first row and last column of H
       // to which transformations must be applied. If eigenvalues only are
@@ -139,14 +139,14 @@
             if( CABS1( H( K, K-1 ) ) <= SMLNUM ) GO TO 50;
             TST = CABS1( H( K-1, K-1 ) ) + CABS1( H( K, K ) );
             if ( TST == ZERO ) {
-               if (K-2 >= ILO) TST = TST + ABS( DBLE( H( K-1, K-2 ) ) );
-               IF( K+1 <= IHI ) TST = TST + ABS( DBLE( H( K+1, K ) ) );
+               if (K-2 >= ILO) TST = TST + ABS( (H( K-1, K-2 )).toDouble() );
+               IF( K+1 <= IHI ) TST = TST + ABS( (H( K+1, K )).toDouble() );
             }
             // ==== The following is a conservative small subdiagonal
             // .    deflation criterion due to Ahues & Tisseur (LAWN 122,
             // .    1997). It has better mathematical foundation and
             // .    improves accuracy in some examples.  ====
-            if ( ABS( DBLE( H( K, K-1 ) ) ) <= ULP*TST ) {
+            if ( ABS( (H( K, K-1 )).toDouble() ) <= ULP*TST ) {
                AB = max( CABS1( H( K, K-1 ) ), CABS1( H( K-1, K ) ) );
                BA = min( CABS1( H( K, K-1 ) ), CABS1( H( K-1, K ) ) );
                AA = max( CABS1( H( K, K ) ), CABS1( H( K-1, K-1 )-H( K, K ) ) )                BB = min( CABS1( H( K, K ) ), CABS1( H( K-1, K-1 )-H( K, K ) ) );
@@ -181,13 +181,13 @@
 
             // Exceptional shift.
 
-            S = DAT1*ABS( DBLE( H( I, I-1 ) ) );
+            S = DAT1*ABS( (H( I, I-1 )).toDouble() );
             T = S + H( I, I );
          } else if ( (KDEFL % KEXSH) == 0 ) {
 
             // Exceptional shift.
 
-            S = DAT1*ABS( DBLE( H( L+1, L ) ) );
+            S = DAT1*ABS( (H( L+1, L )).toDouble() );
             T = S + H( L, L );
          } else {
 
@@ -202,7 +202,7 @@
                S = max( S, CABS1( X ) );
                Y = S*sqrt( ( X / S )**2+( U / S )**2 );
                if ( SX > RZERO ) {
-                  if( DBLE( X / SX )*DBLE( Y )+DIMAG( X / SX )* DIMAG( Y ) < RZERO )Y = -Y;
+                  if( (X / SX).toDouble()*Y.toDouble()+DIMAG( X / SX )* DIMAG( Y ) < RZERO )Y = -Y;
                }
                T = T - U*ZLADIV( U, ( X+Y ) );
             }
@@ -219,19 +219,19 @@
             H11 = H( M, M );
             H22 = H( M+1, M+1 );
             H11S = H11 - T;
-            H21 = DBLE( H( M+1, M ) );
+            H21 = (H( M+1, M )).toDouble();
             S = CABS1( H11S ) + ( H21 ).abs();
             H11S = H11S / S;
             H21 = H21 / S;
             V[1] = H11S;
             V[2] = H21;
-            H10 = DBLE( H( M, M-1 ) );
+            H10 = (H( M, M-1 )).toDouble();
             if( ( H10 ).abs()*( H21 ).abs() <= ULP* ( CABS1( H11S )*( CABS1( H11 )+CABS1( H22 ) ) ) ) GO TO 70;
          } // 60
          H11 = H( L, L );
          H22 = H( L+1, L+1 );
          H11S = H11 - T;
-         H21 = DBLE( H( L+1, L ) );
+         H21 = (H( L+1, L )).toDouble();
          S = CABS1( H11S ) + ( H21 ).abs();
          H11S = H11S / S;
          H21 = H21 / S;
@@ -262,7 +262,7 @@
                H[K+1, K-1] = ZERO;
             }
             V2 = V( 2 );
-            T2 = DBLE( T1*V2 );
+            T2 = (T1*V2).toDouble();
 
             // Apply G from the left to transform the rows of the matrix
             // in columns K to I2.

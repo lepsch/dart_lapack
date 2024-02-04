@@ -47,7 +47,7 @@
       double             ABS1;
       // ..
       // .. Statement Function definitions ..
-      ABS1[X] = ( DBLE( X ) ).abs() + ( DIMAG( X ) ).abs();
+      ABS1[X] = ( X.toDouble() ).abs() + ( DIMAG( X ) ).abs();
       // ..
       // .. Executable Statements ..
 
@@ -324,12 +324,12 @@
       // if they are significant.
 
       for (JC = 1; JC <= N; JC++) { // 70
-         ABSAR = ABS( DBLE( ALPHA( JC ) ) );
+         ABSAR = ABS( (ALPHA( JC )).toDouble() );
          ABSAI = ABS( DIMAG( ALPHA( JC ) ) );
-         ABSB = ABS( DBLE( BETA( JC ) ) );
-         SALFAR = ANRM*DBLE( ALPHA( JC ) );
+         ABSB = ABS( (BETA( JC )).toDouble() );
+         SALFAR = ANRM*(ALPHA( JC )).toDouble();
          SALFAI = ANRM*DIMAG( ALPHA( JC ) );
-         SBETA = BNRM*DBLE( BETA( JC ) );
+         SBETA = BNRM*(BETA( JC )).toDouble();
          ILIMIT = false;
          SCALE = ONE;
 
@@ -363,7 +363,7 @@
          // Recompute un-scaled ALPHA, BETA if necessary.
 
          if ( ILIMIT ) {
-            SALFAR = ( SCALE*DBLE( ALPHA( JC ) ) )*ANRM;
+            SALFAR = ( SCALE*(ALPHA( JC )).toDouble() )*ANRM;
             SALFAI = ( SCALE*DIMAG( ALPHA( JC ) ) )*ANRM;
             SBETA = ( SCALE*BETA( JC ) )*BNRM;
          }

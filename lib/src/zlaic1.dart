@@ -113,7 +113,7 @@
             if ( B > ZERO ) {
                T = DBLE( C / ( B+sqrt( B*B+C ) ) );
             } else {
-               T = DBLE( sqrt( B*B+C ) - B );
+               T = (sqrt( B*B+C ) - B).toDouble();
             }
 
             SINE = -( ALPHA / ABSEST ) / T;
@@ -214,7 +214,7 @@
                if ( B >= ZERO ) {
                   T = DBLE( -C / ( B+sqrt( B*B+C ) ) );
                } else {
-                  T = DBLE( B - sqrt( B*B+C ) );
+                  T = (B - sqrt( B*B+C )).toDouble();
                }
                SINE = -( ALPHA / ABSEST ) / T;
                COSINE = -( GAMMA / ABSEST ) / ( ONE+T );

@@ -43,8 +43,8 @@
       double             CABS1, CABS2;
       // ..
       // .. Statement Function definitions ..
-      CABS1[ZDUM] = ( DBLE( ZDUM ) ).abs() + ( DIMAG( ZDUM ) ).abs();
-      CABS2[ZDUM] = ABS( DBLE( ZDUM ) / 2.0 ) + ABS( DIMAG( ZDUM ) / 2.0 );
+      CABS1[ZDUM] = ( ZDUM.toDouble() ).abs() + ( DIMAG( ZDUM ) ).abs();
+      CABS2[ZDUM] = ABS( ZDUM.toDouble() / 2.0 ) + ABS( DIMAG( ZDUM ) / 2.0 );
       // ..
       // .. Executable Statements ..
 

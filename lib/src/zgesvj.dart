@@ -130,9 +130,9 @@
       } else {
          // ... default
          if ( LSVEC || RSVEC || APPLV ) {
-            CTOL = sqrt( DBLE( M ) );
+            CTOL = sqrt( M.toDouble() );
          } else {
-            CTOL = DBLE( M );
+            CTOL = M.toDouble();
          }
       }
       // ... and the machine dependent parameters are
@@ -146,13 +146,13 @@
       BIG = DLAMCH( 'Overflow' );
       // BIG         = ONE    / SFMIN
       ROOTBIG = ONE / ROOTSFMIN;
-       // LARGE = BIG / sqrt( DBLE( M*N ) )
+       // LARGE = BIG / sqrt( (M*N).toDouble() )
       BIGTHETA = ONE / ROOTEPS;
 
       TOL = CTOL*EPSLN;
       ROOTTOL = sqrt( TOL );
 
-      if ( DBLE( M )*EPSLN >= ONE ) {
+      if ( M.toDouble()*EPSLN >= ONE ) {
          INFO = -4;
          xerbla('ZGESVJ', -INFO );
          return;
@@ -177,7 +177,7 @@
       // sqrt(N)*max_i SVA(i) does not overflow. If INFinite entries
       // in A are detected, the procedure returns with INFO=-6.
 
-      SKL = ONE / sqrt( DBLE( M )*DBLE( N ) );
+      SKL = ONE / sqrt( (M).toDouble()*N.toDouble() );
       NOSCALE = true;
       GOSCALE = true;
 
@@ -305,13 +305,13 @@
       // avoid underflows/overflows in computing Jacobi rotations.
 
       SN = sqrt( SFMIN / EPSLN );
-      TEMP1 = sqrt( BIG / DBLE( N ) );
+      TEMP1 = sqrt( BIG / N.toDouble() );
       if ( ( AAPP <= SN ) || ( AAQQ >= TEMP1 ) || ( ( SN <= AAQQ ) && ( AAPP <= TEMP1 ) ) ) {
          TEMP1 = min( BIG, TEMP1 / AAPP );
           // AAQQ  = AAQQ*TEMP1
           // AAPP  = AAPP*TEMP1
       } else if ( ( AAQQ <= SN ) && ( AAPP <= TEMP1 ) ) {
-         TEMP1 = min( SN / AAQQ, BIG / (AAPP*sqrt( DBLE(N)) ) );
+         TEMP1 = min( SN / AAQQ, BIG / (AAPP*sqrt( N.toDouble()) ) );
           // AAQQ  = AAQQ*TEMP1
           // AAPP  = AAPP*TEMP1
       } else if ( ( AAQQ >= SN ) && ( AAPP >= TEMP1 ) ) {
@@ -319,7 +319,7 @@
           // AAQQ  = AAQQ*TEMP1
           // AAPP  = AAPP*TEMP1
       } else if ( ( AAQQ <= SN ) && ( AAPP >= TEMP1 ) ) {
-         TEMP1 = min( SN / AAQQ, BIG / ( sqrt( DBLE( N ) )*AAPP ) );
+         TEMP1 = min( SN / AAQQ, BIG / ( sqrt( N.toDouble() )*AAPP ) );
           // AAQQ  = AAQQ*TEMP1
           // AAPP  = AAPP*TEMP1
       } else {
@@ -867,7 +867,7 @@
 
          if( ( i < SWBAND ) && ( ( MXAAPQ <= ROOTTOL ) || ( ISWROT <= N ) ) )SWBAND = i;
 
-         if ( ( i > SWBAND+1 ) && ( MXAAPQ < sqrt( DBLE( N ) )* TOL ) && ( DBLE( N )*MXAAPQ*MXSINJ < TOL ) ) {
+         if ( ( i > SWBAND+1 ) && ( MXAAPQ < sqrt( (N).toDouble() )* TOL ) && ( N.toDouble()*MXAAPQ*MXSINJ < TOL ) ) {
             GO TO 1994;
          }
 
@@ -943,15 +943,15 @@
       // then some of the singular values may overflow or underflow and
       // the spectrum is given in this factored representation.
 
-      RWORK[2] = DBLE( N4 );
+      RWORK[2] = N4.toDouble();
       // N4 is the number of computed nonzero singular values of A.
 
-      RWORK[3] = DBLE( N2 );
+      RWORK[3] = N2.toDouble();
       // N2 is the number of singular values of A greater than SFMIN.
       // If N2<N, SVA(N2:N) contains ZEROS and/or denormalized numbers
       // that may carry some information.
 
-      RWORK[4] = DBLE( i );
+      RWORK[4] = i.toDouble();
       // i is the index of the last sweep before declaring convergence.
 
       RWORK[5] = MXAAPQ;

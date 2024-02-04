@@ -80,7 +80,7 @@
 
          zlarfgp(P-I+1, X11(I,I), X11(I+1,I), 1, TAUP1(I) );
          zlarfgp(M-P-I+1, X21(I,I), X21(I+1,I), 1, TAUP2(I) );
-         THETA[I] = ATAN2( DBLE( X21(I,I) ), DBLE( X11(I,I) ) );
+         THETA[I] = ATAN2( (X21(I,I)).toDouble(), (X11(I,I)).toDouble() );
          C = COS( THETA(I) );
          S = SIN( THETA(I) );
          X11[I,I] = ONE;
@@ -92,7 +92,7 @@
             zdrot(Q-I, X11(I,I+1), LDX11, X21(I,I+1), LDX21, C, S );
             zlacgv(Q-I, X21(I,I+1), LDX21 );
             zlarfgp(Q-I, X21(I,I+1), X21(I,I+2), LDX21, TAUQ1(I) );
-            S = DBLE( X21(I,I+1) );
+            S = (X21(I,I+1)).toDouble();
             X21[I,I+1] = ONE;
             zlarf('R', P-I, Q-I, X21(I,I+1), LDX21, TAUQ1(I), X11(I+1,I+1), LDX11, WORK(ILARF) );
             zlarf('R', M-P-I, Q-I, X21(I,I+1), LDX21, TAUQ1(I), X21(I+1,I+1), LDX21, WORK(ILARF) );

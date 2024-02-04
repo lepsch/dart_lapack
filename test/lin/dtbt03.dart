@@ -75,7 +75,7 @@
          dcopy(N, X( 1, J ), 1, WORK, 1 );
          IX = IDAMAX( N, WORK, 1 );
          XNORM = max( ONE, ( X( IX, J ) ) ).abs();
-         XSCAL = ( ONE / XNORM ) / DBLE( KD+1 );
+         XSCAL = ( ONE / XNORM ) / (KD+1).toDouble();
          dscal(N, XSCAL, WORK, 1 );
          dtbmv(UPLO, TRANS, DIAG, N, KD, AB, LDAB, WORK, 1 );
          daxpy(N, -SCALE*XSCAL, B( 1, J ), 1, WORK, 1 );

@@ -49,7 +49,7 @@ void dlacon(final int N, final Array<double> V, final Array<double> X, final Arr
 
       if ( KASE == 0 ) {
          for (I = 1; I <= N; I++) { // 10
-            X[I] = ONE / DBLE( N );
+            X[I] = ONE / N.toDouble();
          } // 10
          KASE = 1;
          _JUMP = 1;
@@ -137,7 +137,7 @@ void dlacon(final int N, final Array<double> V, final Array<double> X, final Arr
       } // 120
       ALTSGN = ONE;
       for (I = 1; I <= N; I++) { // 130
-         X[I] = ALTSGN*( ONE+DBLE( I-1 ) / DBLE( N-1 ) );
+         X[I] = ALTSGN*( ONE+DBLE( I-1 ) / (N-1).toDouble() );
          ALTSGN = -ALTSGN;
       } // 130
       KASE = 1;
@@ -148,7 +148,7 @@ void dlacon(final int N, final Array<double> V, final Array<double> X, final Arr
       // X HAS BEEN OVERWRITTEN BY A*X.
 
       } // 140;
-      double TEMP = TWO*( dasum( N, X, 1 ) / DBLE( 3*N ) );
+      double TEMP = TWO*( dasum( N, X, 1 ) / (3*N).toDouble() );
       if ;
         double TEMP > EST ) {
          dcopy(N, X, 1, V, 1 );

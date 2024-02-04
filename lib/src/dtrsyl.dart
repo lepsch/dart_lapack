@@ -78,7 +78,7 @@
       EPS = DLAMCH( 'P' );
       SMLNUM = DLAMCH( 'S' );
       BIGNUM = ONE / SMLNUM;
-      SMLNUM = SMLNUM*DBLE( M*N ) / EPS;
+      SMLNUM = SMLNUM*(M*N).toDouble() / EPS;
       BIGNUM = ONE / SMLNUM;
 
       SMIN = max( SMLNUM, EPS*DLANGE( 'M', M, M, A, LDA, DUM ), EPS*DLANGE( 'M', N, N, B, LDB, DUM ) );

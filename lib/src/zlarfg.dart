@@ -41,7 +41,7 @@
       }
 
       XNORM = DZNRM2( N-1, X, INCX );
-      ALPHR = DBLE( ALPHA );
+      ALPHR = ALPHA.toDouble();
       ALPHI = DIMAG( ALPHA );
 
       if ( XNORM == ZERO && ALPHI == ZERO ) {

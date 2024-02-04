@@ -43,7 +43,7 @@
       double             CABS1;
       // ..
       // .. Statement Function definitions ..
-      CABS1[ZDUM] = ( DBLE( ZDUM ) ).abs() + ( DIMAG( ZDUM ) ).abs();
+      CABS1[ZDUM] = ( ZDUM.toDouble() ).abs() + ( DIMAG( ZDUM ) ).abs();
       // ..
       // .. Executable Statements ..
 
@@ -85,7 +85,7 @@
          // Determine rows and columns to be interchanged and whether
          // a 1-by-1 or 2-by-2 pivot block will be used
 
-         ABSAKK = ABS( DBLE( AP( KC+K-1 ) ) );
+         ABSAKK = ABS( (AP( KC+K-1 )).toDouble() );
 
          // IMAX is the row-index of the largest off-diagonal element in
          // column K, and COLMAX is its absolute value
@@ -103,7 +103,7 @@
 
             if (INFO == 0) INFO = K;
             KP = K;
-            AP[KC+K-1] = DBLE( AP( KC+K-1 ) );
+            AP[KC+K-1] = (AP( KC+K-1 )).toDouble();
          } else {
             if ( ABSAKK >= ALPHA*COLMAX ) {
 
@@ -136,7 +136,7 @@
                   // no interchange, use 1-by-1 pivot block
 
                   KP = K;
-               } else if ( ABS( DBLE( AP( KPC+IMAX-1 ) ) ) >= ALPHA* ROWMAX ) {
+               } else if ( ABS( (AP( KPC+IMAX-1 )).toDouble() ) >= ALPHA* ROWMAX ) {
 
                   // interchange rows and columns K and IMAX, use 1-by-1
                   // pivot block
@@ -168,18 +168,18 @@
                   AP[KX] = T;
                } // 30
                AP[KX+KK-1] = DCONJG( AP( KX+KK-1 ) );
-               R1 = DBLE( AP( KNC+KK-1 ) );
-               AP[KNC+KK-1] = DBLE( AP( KPC+KP-1 ) );
+               R1 = (AP( KNC+KK-1 )).toDouble();
+               AP[KNC+KK-1] = (AP( KPC+KP-1 )).toDouble();
                AP[KPC+KP-1] = R1;
                if ( KSTEP == 2 ) {
-                  AP[KC+K-1] = DBLE( AP( KC+K-1 ) );
+                  AP[KC+K-1] = (AP( KC+K-1 )).toDouble();
                   T = AP( KC+K-2 );
                   AP[KC+K-2] = AP( KC+KP-1 );
                   AP[KC+KP-1] = T;
                }
             } else {
-               AP[KC+K-1] = DBLE( AP( KC+K-1 ) );
-               if (KSTEP == 2) AP( KC-1 ) = DBLE( AP( KC-1 ) );
+               AP[KC+K-1] = (AP( KC+K-1 )).toDouble();
+               if (KSTEP == 2) AP( KC-1 ) = (AP( KC-1 )).toDouble();
             }
 
             // Update the leading submatrix
@@ -196,7 +196,7 @@
 
                // A := A - U(k)*D(k)*U(k)**H = A - W(k)*1/D(k)*W(k)**H
 
-               R1 = ONE / DBLE( AP( KC+K-1 ) );
+               R1 = ONE / (AP( KC+K-1 )).toDouble();
                zhpr(UPLO, K-1, -R1, AP( KC ), 1, AP );
 
                // Store U(k) in column k
@@ -276,7 +276,7 @@
          // Determine rows and columns to be interchanged and whether
          // a 1-by-1 or 2-by-2 pivot block will be used
 
-         ABSAKK = ABS( DBLE( AP( KC ) ) );
+         ABSAKK = ABS( (AP( KC )).toDouble() );
 
          // IMAX is the row-index of the largest off-diagonal element in
          // column K, and COLMAX is its absolute value
@@ -294,7 +294,7 @@
 
             if (INFO == 0) INFO = K;
             KP = K;
-            AP[KC] = DBLE( AP( KC ) );
+            AP[KC] = (AP( KC )).toDouble();
          } else {
             if ( ABSAKK >= ALPHA*COLMAX ) {
 
@@ -326,7 +326,7 @@
                   // no interchange, use 1-by-1 pivot block
 
                   KP = K;
-               } else if ( ABS( DBLE( AP( KPC ) ) ) >= ALPHA*ROWMAX ) {
+               } else if ( ABS( (AP( KPC )).toDouble() ) >= ALPHA*ROWMAX ) {
 
                   // interchange rows and columns K and IMAX, use 1-by-1
                   // pivot block
@@ -358,18 +358,18 @@
                   AP[KX] = T;
                } // 80
                AP[KNC+KP-KK] = DCONJG( AP( KNC+KP-KK ) );
-               R1 = DBLE( AP( KNC ) );
-               AP[KNC] = DBLE( AP( KPC ) );
+               R1 = (AP( KNC )).toDouble();
+               AP[KNC] = (AP( KPC )).toDouble();
                AP[KPC] = R1;
                if ( KSTEP == 2 ) {
-                  AP[KC] = DBLE( AP( KC ) );
+                  AP[KC] = (AP( KC )).toDouble();
                   T = AP( KC+1 );
                   AP[KC+1] = AP( KC+KP-K );
                   AP[KC+KP-K] = T;
                }
             } else {
-               AP[KC] = DBLE( AP( KC ) );
-               if (KSTEP == 2) AP( KNC ) = DBLE( AP( KNC ) );
+               AP[KC] = (AP( KC )).toDouble();
+               if (KSTEP == 2) AP( KNC ) = (AP( KNC )).toDouble();
             }
 
             // Update the trailing submatrix
@@ -388,7 +388,7 @@
 
                   // A := A - L(k)*D(k)*L(k)**H = A - W(k)*(1/D(k))*W(k)**H
 
-                  R1 = ONE / DBLE( AP( KC ) );
+                  R1 = ONE / (AP( KC )).toDouble();
                   zhpr(UPLO, N-K, -R1, AP( KC+1 ), 1, AP( KC+N-K+1 ) );
 
                   // Store L(k) in column K

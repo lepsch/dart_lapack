@@ -39,7 +39,7 @@
 
       RESID = ZERO;
       if (M <= 0 || N <= 0) return;
-      REALMN = DBLE( max( M, N ) );
+      REALMN = (max( M, N )).toDouble();
       EPS = DLAMCH( 'Precision' );
 
       // Compute norm(B - U * C)

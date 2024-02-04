@@ -111,7 +111,7 @@
 
             LWKOPT = 2*N + NB*( N+NRHS+1 );
          }
-         WORK[1] = DBLE( LWKOPT );
+         WORK[1] = LWKOPT.toDouble();
 
          if ( ( LWORK < IWS ) && !LQUERY ) {
             INFO = -15;
@@ -134,7 +134,7 @@
          K = 0;
          MAXC2NRMK = ZERO;
          RELMAXC2NRMK = ZERO;
-         WORK[1] = DBLE( LWKOPT );
+         WORK[1] = LWKOPT.toDouble();
          return;
       }
 
@@ -187,7 +187,7 @@
 
          // Array TAU is not set and contains undefined elements.
 
-         WORK[1] = DBLE( LWKOPT );
+         WORK[1] = LWKOPT.toDouble();
          return;
       }
 
@@ -206,7 +206,7 @@
             TAU[J] = ZERO;
          }
 
-         WORK[1] = DBLE( LWKOPT );
+         WORK[1] = LWKOPT.toDouble();
          return;
 
       }
@@ -237,7 +237,7 @@
          for (J = 1; J <= MINMN; J++) {
             TAU[J] = ZERO;
          }
-         WORK[1] = DBLE( LWKOPT );
+         WORK[1] = LWKOPT.toDouble();
          return;
       }
 
@@ -282,7 +282,7 @@
             TAU[J] = ZERO;
          }
 
-         WORK[1] = DBLE( LWKOPT );
+         WORK[1] = LWKOPT.toDouble();
          return;
       }
 
@@ -393,7 +393,7 @@
 
                // Return from the routine.
 
-               WORK[1] = DBLE( LWKOPT );
+               WORK[1] = LWKOPT.toDouble();
 
                return;
 
@@ -476,7 +476,7 @@
 
       }
 
-      WORK[1] = DBLE( LWKOPT );
+      WORK[1] = LWKOPT.toDouble();
 
       return;
       }

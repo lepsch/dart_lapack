@@ -85,7 +85,7 @@
 
       ANRM = DLANSY( 'I', UPLO, N, A, LDA, WORK );
       EPS = DLAMCH( 'Epsilon' );
-      CTE = ANRM*EPS*sqrt( DBLE( N ) )*BWDMAX;
+      CTE = ANRM*EPS*sqrt( N.toDouble() )*BWDMAX;
 
       // Set the indices PTSA, PTSX for referencing SA and SX in SWORK.
 

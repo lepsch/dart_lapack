@@ -132,8 +132,8 @@
       for (JSIZE = 1; JSIZE <= NSIZES; JSIZE++) { // 190
          N = NN( JSIZE );
          N1 = max( 1, N );
-         RMAGN[2] = SAFMAX*ULP / DBLE( N1 );
-         RMAGN[3] = SAFMIN*ULPINV*DBLE( N1 );
+         RMAGN[2] = SAFMAX*ULP / N1.toDouble();
+         RMAGN[3] = SAFMIN*ULPINV*N1.toDouble();
 
          if ( NSIZES != 1 ) {
             MTYPES = min( MAXTYP, NTYPES );

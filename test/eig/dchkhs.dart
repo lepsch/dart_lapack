@@ -109,7 +109,7 @@
          N = NN( JSIZE );
          if (N == 0) GO TO 270;
          N1 = max( 1, N );
-         ANINV = ONE / DBLE( N1 );
+         ANINV = ONE / N1.toDouble();
 
          if ( NSIZES != 1 ) {
             MTYPES = min( MAXTYP, NTYPES );

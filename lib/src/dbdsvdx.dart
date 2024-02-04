@@ -136,7 +136,7 @@
             if (SMIN == ZERO) EXIT;
          }
       }
-      SMIN = SMIN / sqrt( DBLE( N ) );
+      SMIN = SMIN / sqrt( N.toDouble() );
       THRESH = TOL*SMIN;
 
       // Check for zeros in D and E (splits), i.e. submatrices.

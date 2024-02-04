@@ -202,10 +202,10 @@
                for (I = GPIND; I <= J - 1; I++) { // 100
                   ZTR = ZERO;
                   for (JR = 1; JR <= BLKSIZ; JR++) { // 80
-                     ZTR = ZTR + WORK( INDRV1+JR )* DBLE( Z( B1-1+JR, I ) );
+                     ZTR = ZTR + WORK( INDRV1+JR )* (Z( B1-1+JR, I )).toDouble();
                   } // 80
                   for (JR = 1; JR <= BLKSIZ; JR++) { // 90
-                     WORK[INDRV1+JR] = WORK( INDRV1+JR ) - ZTR*DBLE( Z( B1-1+JR, I ) );
+                     WORK[INDRV1+JR] = WORK( INDRV1+JR ) - ZTR*(Z( B1-1+JR, I )).toDouble();
                   } // 90
                } // 100
             }

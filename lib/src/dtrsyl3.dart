@@ -220,7 +220,7 @@
          }
       }
 
-      SGN = DBLE( ISGN );
+      SGN = ISGN.toDouble();
 
       if ( NOTRNA && NOTRNB ) {
 

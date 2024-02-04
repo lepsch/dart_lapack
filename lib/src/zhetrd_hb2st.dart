@@ -143,7 +143,7 @@
 
       if ( KD == 0 ) {
           for (I = 1; I <= N; I++) { // 30
-              D[I] = DBLE( AB( ABDPOS, I ) );
+              D[I] = (AB( ABDPOS, I )).toDouble();
           } // 30
           for (I = 1; I <= N-1; I++) { // 40
               E[I] = RZERO;
@@ -166,7 +166,7 @@
 
       if ( KD == 1 ) {
           for (I = 1; I <= N; I++) { // 50
-              D[I] = DBLE( AB( ABDPOS, I ) );
+              D[I] = (AB( ABDPOS, I )).toDouble();
           } // 50
 
           // make off-diagonal elements real and copy them to E
@@ -319,7 +319,7 @@
 
       if ( UPPER ) {
           for (I = 1; I <= N-1; I++) { // 160
-             E[I] = DBLE( WORK( OFDPOS+I*LDA ) );
+             E[I] = (WORK( OFDPOS+I*LDA )).toDouble();
           } // 160
       } else {
           for (I = 1; I <= N-1; I++) { // 170

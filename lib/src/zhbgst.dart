@@ -171,8 +171,8 @@
 
             // Form  inv(S(i))**H * A * inv(S(i))
 
-            BII = DBLE( BB( KB1, I ) );
-            AB[KA1, I] = ( DBLE( AB( KA1, I ) ) / BII ) / BII;
+            BII = (BB( KB1, I )).toDouble();
+            AB[KA1, I] = ( (AB( KA1, I )).toDouble() / BII ) / BII;
             for (J = I + 1; J <= I1; J++) { // 20
                AB[I-J+KA1, J] = AB( I-J+KA1, J ) / BII;
             } // 20
@@ -181,7 +181,7 @@
             } // 30
             for (K = I - KBT; K <= I - 1; K++) { // 60
                for (J = I - KBT; J <= K; J++) { // 40
-                  AB[J-K+KA1, K] = AB( J-K+KA1, K ) - BB( J-I+KB1, I )* DCONJG( AB( K-I+KA1, I ) ) - DCONJG( BB( K-I+KB1, I ) )* AB( J-I+KA1, I ) + DBLE( AB( KA1, I ) )* BB( J-I+KB1, I )* DCONJG( BB( K-I+KB1, I ) );
+                  AB[J-K+KA1, K] = AB( J-K+KA1, K ) - BB( J-I+KB1, I )* DCONJG( AB( K-I+KA1, I ) ) - DCONJG( BB( K-I+KB1, I ) )* AB( J-I+KA1, I ) + (AB( KA1, I )).toDouble()* BB( J-I+KB1, I )* DCONJG( BB( K-I+KB1, I ) );
                } // 40
                for (J = max( 1, I-KA ); J <= I - KBT - 1; J++) { // 50
                   AB[J-K+KA1, K] = AB( J-K+KA1, K ) - DCONJG( BB( K-I+KB1, I ) )* AB( J-I+KA1, I );
@@ -396,8 +396,8 @@
 
             // Form  inv(S(i))**H * A * inv(S(i))
 
-            BII = DBLE( BB( 1, I ) );
-            AB[1, I] = ( DBLE( AB( 1, I ) ) / BII ) / BII;
+            BII = (BB( 1, I )).toDouble();
+            AB[1, I] = ( (AB( 1, I )).toDouble() / BII ) / BII;
             for (J = I + 1; J <= I1; J++) { // 250
                AB[J-I+1, I] = AB( J-I+1, I ) / BII;
             } // 250
@@ -406,7 +406,7 @@
             } // 260
             for (K = I - KBT; K <= I - 1; K++) { // 290
                for (J = I - KBT; J <= K; J++) { // 270
-                  AB[K-J+1, J] = AB( K-J+1, J ) - BB( I-J+1, J )*DCONJG( AB( I-K+1, K ) ) - DCONJG( BB( I-K+1, K ) )* AB( I-J+1, J ) + DBLE( AB( 1, I ) )* BB( I-J+1, J )*DCONJG( BB( I-K+1, K ) );
+                  AB[K-J+1, J] = AB( K-J+1, J ) - BB( I-J+1, J )*DCONJG( AB( I-K+1, K ) ) - DCONJG( BB( I-K+1, K ) )* AB( I-J+1, J ) + (AB( 1, I )).toDouble()* BB( I-J+1, J )*DCONJG( BB( I-K+1, K ) );
                } // 270
                for (J = max( 1, I-KA ); J <= I - KBT - 1; J++) { // 280
                   AB[K-J+1, J] = AB( K-J+1, J ) - DCONJG( BB( I-K+1, K ) )* AB( I-J+1, J );
@@ -670,8 +670,8 @@
 
             // Form  inv(S(i))**H * A * inv(S(i))
 
-            BII = DBLE( BB( KB1, I ) );
-            AB[KA1, I] = ( DBLE( AB( KA1, I ) ) / BII ) / BII;
+            BII = (BB( KB1, I )).toDouble();
+            AB[KA1, I] = ( (AB( KA1, I )).toDouble() / BII ) / BII;
             for (J = I1; J <= I - 1; J++) { // 500
                AB[J-I+KA1, I] = AB( J-I+KA1, I ) / BII;
             } // 500
@@ -680,7 +680,7 @@
             } // 510
             for (K = I + 1; K <= I + KBT; K++) { // 540
                for (J = K; J <= I + KBT; J++) { // 520
-                  AB[K-J+KA1, J] = AB( K-J+KA1, J ) - BB( I-J+KB1, J )* DCONJG( AB( I-K+KA1, K ) ) - DCONJG( BB( I-K+KB1, K ) )* AB( I-J+KA1, J ) + DBLE( AB( KA1, I ) )* BB( I-J+KB1, J )* DCONJG( BB( I-K+KB1, K ) );
+                  AB[K-J+KA1, J] = AB( K-J+KA1, J ) - BB( I-J+KB1, J )* DCONJG( AB( I-K+KA1, K ) ) - DCONJG( BB( I-K+KB1, K ) )* AB( I-J+KA1, J ) + (AB( KA1, I )).toDouble()* BB( I-J+KB1, J )* DCONJG( BB( I-K+KB1, K ) );
                } // 520
                for (J = I + KBT + 1; J <= min( N, I+KA ); J++) { // 530
                   AB[K-J+KA1, J] = AB( K-J+KA1, J ) - DCONJG( BB( I-K+KB1, K ) )* AB( I-J+KA1, J );
@@ -898,8 +898,8 @@
 
             // Form  inv(S(i))**H * A * inv(S(i))
 
-            BII = DBLE( BB( 1, I ) );
-            AB[1, I] = ( DBLE( AB( 1, I ) ) / BII ) / BII;
+            BII = (BB( 1, I )).toDouble();
+            AB[1, I] = ( (AB( 1, I )).toDouble() / BII ) / BII;
             for (J = I1; J <= I - 1; J++) { // 730
                AB[I-J+1, J] = AB( I-J+1, J ) / BII;
             } // 730
@@ -908,7 +908,7 @@
             } // 740
             for (K = I + 1; K <= I + KBT; K++) { // 770
                for (J = K; J <= I + KBT; J++) { // 750
-                  AB[J-K+1, K] = AB( J-K+1, K ) - BB( J-I+1, I )*DCONJG( AB( K-I+1, I ) ) - DCONJG( BB( K-I+1, I ) )* AB( J-I+1, I ) + DBLE( AB( 1, I ) )* BB( J-I+1, I )*DCONJG( BB( K-I+1, I ) );
+                  AB[J-K+1, K] = AB( J-K+1, K ) - BB( J-I+1, I )*DCONJG( AB( K-I+1, I ) ) - DCONJG( BB( K-I+1, I ) )* AB( J-I+1, I ) + (AB( 1, I )).toDouble()* BB( J-I+1, I )*DCONJG( BB( K-I+1, I ) );
                } // 750
                for (J = I + KBT + 1; J <= min( N, I+KA ); J++) { // 760
                   AB[J-K+1, K] = AB( J-K+1, K ) - DCONJG( BB( K-I+1, I ) )* AB( J-I+1, I );

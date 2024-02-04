@@ -121,7 +121,7 @@
       for (JSIZE = 1; JSIZE <= NSIZES; JSIZE++) { // 1740
          N = NN( JSIZE );
          if ( N > 0 ) {
-            LGN = INT( LOG( DBLE( N ) ) / LOG( TWO ) );
+            LGN = INT( LOG( N.toDouble() ) / LOG( TWO ) );
             if (2**LGN < N) LGN = LGN + 1;
             IF( 2**LGN < N ) LGN = LGN + 1;
             LWEDC = 1 + 4*N + 2*N*LGN + 4*N**2;
@@ -132,7 +132,7 @@
             // LIWEDC = 12
             LIWEDC = 8;
          }
-         ANINV = ONE / DBLE( max( 1, N ) );
+         ANINV = ONE / (max( 1, N )).toDouble();
 
          if ( NSIZES != 1 ) {
             MTYPES = min( MAXTYP, NTYPES );
@@ -283,10 +283,10 @@
             if ( JTYPE <= 7 ) {
                NTEST = 1;
                for (I = 1; I <= N; I++) { // 120
-                  D1[I] = DBLE( A( I, I ) );
+                  D1[I] = (A( I, I )).toDouble();
                } // 120
                for (I = 1; I <= N - 1; I++) { // 130
-                  D2[I] = DBLE( A( I+1, I ) );
+                  D2[I] = (A( I+1, I )).toDouble();
                } // 130
                SRNAMT = 'DSTEV';
                dstev('V', N, D1, D2, Z, LDU, WORK, IINFO );
@@ -306,16 +306,16 @@
                // Do tests 1 and 2.
 
                for (I = 1; I <= N; I++) { // 140
-                  D3[I] = DBLE( A( I, I ) );
+                  D3[I] = (A( I, I )).toDouble();
                } // 140
                for (I = 1; I <= N - 1; I++) { // 150
-                  D4[I] = DBLE( A( I+1, I ) );
+                  D4[I] = (A( I+1, I )).toDouble();
                } // 150
                dstt21(N, 0, D3, D4, D1, D2, Z, LDU, WORK, RESULT( 1 ) );
 
                NTEST = 3;
                for (I = 1; I <= N - 1; I++) { // 160
-                  D4[I] = DBLE( A( I+1, I ) );
+                  D4[I] = (A( I+1, I )).toDouble();
                } // 160
                SRNAMT = 'DSTEV';
                dstev('N', N, D3, D4, Z, LDU, WORK, IINFO );
@@ -345,10 +345,10 @@
                NTEST = 4;
                for (I = 1; I <= N; I++) { // 190
                   EVEIGS[I] = D3( I );
-                  D1[I] = DBLE( A( I, I ) );
+                  D1[I] = (A( I, I )).toDouble();
                } // 190
                for (I = 1; I <= N - 1; I++) { // 200
-                  D2[I] = DBLE( A( I+1, I ) );
+                  D2[I] = (A( I+1, I )).toDouble();
                } // 200
                SRNAMT = 'DSTEVX';
                dstevx('V', 'A', N, D1, D2, VL, VU, IL, IU, ABSTOL, M, WA1, Z, LDU, WORK, IWORK, IWORK( 5*N+1 ), IINFO );
@@ -373,16 +373,16 @@
                // Do tests 4 and 5.
 
                for (I = 1; I <= N; I++) { // 210
-                  D3[I] = DBLE( A( I, I ) );
+                  D3[I] = (A( I, I )).toDouble();
                } // 210
                for (I = 1; I <= N - 1; I++) { // 220
-                  D4[I] = DBLE( A( I+1, I ) );
+                  D4[I] = (A( I+1, I )).toDouble();
                } // 220
                dstt21(N, 0, D3, D4, WA1, D2, Z, LDU, WORK, RESULT( 4 ) );
 
                NTEST = 6;
                for (I = 1; I <= N - 1; I++) { // 230
-                  D4[I] = DBLE( A( I+1, I ) );
+                  D4[I] = (A( I+1, I )).toDouble();
                } // 230
                SRNAMT = 'DSTEVX';
                dstevx('N', 'A', N, D3, D4, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, WORK, IWORK, IWORK( 5*N+1 ), IINFO );
@@ -411,10 +411,10 @@
 
                NTEST = 7;
                for (I = 1; I <= N; I++) { // 260
-                  D1[I] = DBLE( A( I, I ) );
+                  D1[I] = (A( I, I )).toDouble();
                } // 260
                for (I = 1; I <= N - 1; I++) { // 270
-                  D2[I] = DBLE( A( I+1, I ) );
+                  D2[I] = (A( I+1, I )).toDouble();
                } // 270
                SRNAMT = 'DSTEVR';
                dstevr('V', 'A', N, D1, D2, VL, VU, IL, IU, ABSTOL, M, WA1, Z, LDU, IWORK, WORK, LWORK, IWORK(2*N+1), LIWORK-2*N, IINFO );
@@ -438,16 +438,16 @@
                // Do tests 7 and 8.
 
                for (I = 1; I <= N; I++) { // 280
-                  D3[I] = DBLE( A( I, I ) );
+                  D3[I] = (A( I, I )).toDouble();
                } // 280
                for (I = 1; I <= N - 1; I++) { // 290
-                  D4[I] = DBLE( A( I+1, I ) );
+                  D4[I] = (A( I+1, I )).toDouble();
                } // 290
                dstt21(N, 0, D3, D4, WA1, D2, Z, LDU, WORK, RESULT( 7 ) );
 
                NTEST = 9;
                for (I = 1; I <= N - 1; I++) { // 300
-                  D4[I] = DBLE( A( I+1, I ) );
+                  D4[I] = (A( I+1, I )).toDouble();
                } // 300
                SRNAMT = 'DSTEVR';
                dstevr('N', 'A', N, D3, D4, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, IWORK, WORK, LWORK, IWORK(2*N+1), LIWORK-2*N, IINFO );
@@ -477,10 +477,10 @@
 
                NTEST = 10;
                for (I = 1; I <= N; I++) { // 330
-                  D1[I] = DBLE( A( I, I ) );
+                  D1[I] = (A( I, I )).toDouble();
                } // 330
                for (I = 1; I <= N - 1; I++) { // 340
-                  D2[I] = DBLE( A( I+1, I ) );
+                  D2[I] = (A( I+1, I )).toDouble();
                } // 340
                SRNAMT = 'DSTEVX';
                dstevx('V', 'I', N, D1, D2, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, WORK, IWORK, IWORK( 5*N+1 ), IINFO );
@@ -500,17 +500,17 @@
                // Do tests 10 and 11.
 
                for (I = 1; I <= N; I++) { // 350
-                  D3[I] = DBLE( A( I, I ) );
+                  D3[I] = (A( I, I )).toDouble();
                } // 350
                for (I = 1; I <= N - 1; I++) { // 360
-                  D4[I] = DBLE( A( I+1, I ) );
+                  D4[I] = (A( I+1, I )).toDouble();
                } // 360
                dstt22(N, M2, 0, D3, D4, WA2, D2, Z, LDU, WORK, max( 1, M2 ), RESULT( 10 ) );
 
 
                NTEST = 12;
                for (I = 1; I <= N - 1; I++) { // 370
-                  D4[I] = DBLE( A( I+1, I ) );
+                  D4[I] = (A( I+1, I )).toDouble();
                } // 370
                SRNAMT = 'DSTEVX';
                dstevx('N', 'I', N, D3, D4, VL, VU, IL, IU, ABSTOL, M3, WA3, Z, LDU, WORK, IWORK, IWORK( 5*N+1 ), IINFO );
@@ -551,10 +551,10 @@
                }
 
                for (I = 1; I <= N; I++) { // 390
-                  D1[I] = DBLE( A( I, I ) );
+                  D1[I] = (A( I, I )).toDouble();
                } // 390
                for (I = 1; I <= N - 1; I++) { // 400
-                  D2[I] = DBLE( A( I+1, I ) );
+                  D2[I] = (A( I+1, I )).toDouble();
                } // 400
                SRNAMT = 'DSTEVX';
                dstevx('V', 'V', N, D1, D2, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, WORK, IWORK, IWORK( 5*N+1 ), IINFO );
@@ -581,16 +581,16 @@
                // Do tests 13 and 14.
 
                for (I = 1; I <= N; I++) { // 410
-                  D3[I] = DBLE( A( I, I ) );
+                  D3[I] = (A( I, I )).toDouble();
                } // 410
                for (I = 1; I <= N - 1; I++) { // 420
-                  D4[I] = DBLE( A( I+1, I ) );
+                  D4[I] = (A( I+1, I )).toDouble();
                } // 420
                dstt22(N, M2, 0, D3, D4, WA2, D2, Z, LDU, WORK, max( 1, M2 ), RESULT( 13 ) );
 
                NTEST = 15;
                for (I = 1; I <= N - 1; I++) { // 430
-                  D4[I] = DBLE( A( I+1, I ) );
+                  D4[I] = (A( I+1, I )).toDouble();
                } // 430
                SRNAMT = 'DSTEVX';
                dstevx('N', 'V', N, D3, D4, VL, VU, IL, IU, ABSTOL, M3, WA3, Z, LDU, WORK, IWORK, IWORK( 5*N+1 ), IINFO );
@@ -615,10 +615,10 @@
 
                NTEST = 16;
                for (I = 1; I <= N; I++) { // 450
-                  D1[I] = DBLE( A( I, I ) );
+                  D1[I] = (A( I, I )).toDouble();
                } // 450
                for (I = 1; I <= N - 1; I++) { // 460
-                  D2[I] = DBLE( A( I+1, I ) );
+                  D2[I] = (A( I+1, I )).toDouble();
                } // 460
                SRNAMT = 'DSTEVD';
                dstevd('V', N, D1, D2, Z, LDU, WORK, LWEDC, IWORK, LIWEDC, IINFO );
@@ -638,16 +638,16 @@
                // Do tests 16 and 17.
 
                for (I = 1; I <= N; I++) { // 470
-                  D3[I] = DBLE( A( I, I ) );
+                  D3[I] = (A( I, I )).toDouble();
                } // 470
                for (I = 1; I <= N - 1; I++) { // 480
-                  D4[I] = DBLE( A( I+1, I ) );
+                  D4[I] = (A( I+1, I )).toDouble();
                } // 480
                dstt21(N, 0, D3, D4, D1, D2, Z, LDU, WORK, RESULT( 16 ) );
 
                NTEST = 18;
                for (I = 1; I <= N - 1; I++) { // 490
-                  D4[I] = DBLE( A( I+1, I ) );
+                  D4[I] = (A( I+1, I )).toDouble();
                } // 490
                SRNAMT = 'DSTEVD';
                dstevd('N', N, D3, D4, Z, LDU, WORK, LWEDC, IWORK, LIWEDC, IINFO );
@@ -676,10 +676,10 @@
 
                NTEST = 19;
                for (I = 1; I <= N; I++) { // 520
-                  D1[I] = DBLE( A( I, I ) );
+                  D1[I] = (A( I, I )).toDouble();
                } // 520
                for (I = 1; I <= N - 1; I++) { // 530
-                  D2[I] = DBLE( A( I+1, I ) );
+                  D2[I] = (A( I+1, I )).toDouble();
                } // 530
                SRNAMT = 'DSTEVR';
                dstevr('V', 'I', N, D1, D2, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, IWORK, WORK, LWORK, IWORK(2*N+1), LIWORK-2*N, IINFO );
@@ -699,17 +699,17 @@
                // DO tests 19 and 20.
 
                for (I = 1; I <= N; I++) { // 540
-                  D3[I] = DBLE( A( I, I ) );
+                  D3[I] = (A( I, I )).toDouble();
                } // 540
                for (I = 1; I <= N - 1; I++) { // 550
-                  D4[I] = DBLE( A( I+1, I ) );
+                  D4[I] = (A( I+1, I )).toDouble();
                } // 550
                dstt22(N, M2, 0, D3, D4, WA2, D2, Z, LDU, WORK, max( 1, M2 ), RESULT( 19 ) );
 
 
                NTEST = 21;
                for (I = 1; I <= N - 1; I++) { // 560
-                  D4[I] = DBLE( A( I+1, I ) );
+                  D4[I] = (A( I+1, I )).toDouble();
                } // 560
                SRNAMT = 'DSTEVR';
                dstevr('N', 'I', N, D3, D4, VL, VU, IL, IU, ABSTOL, M3, WA3, Z, LDU, IWORK, WORK, LWORK, IWORK(2*N+1), LIWORK-2*N, IINFO );
@@ -750,10 +750,10 @@
                }
 
                for (I = 1; I <= N; I++) { // 580
-                  D1[I] = DBLE( A( I, I ) );
+                  D1[I] = (A( I, I )).toDouble();
                } // 580
                for (I = 1; I <= N - 1; I++) { // 590
-                  D2[I] = DBLE( A( I+1, I ) );
+                  D2[I] = (A( I+1, I )).toDouble();
                } // 590
                SRNAMT = 'DSTEVR';
                dstevr('V', 'V', N, D1, D2, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, IWORK, WORK, LWORK, IWORK(2*N+1), LIWORK-2*N, IINFO );
@@ -780,16 +780,16 @@
                // Do tests 22 and 23.
 
                for (I = 1; I <= N; I++) { // 600
-                  D3[I] = DBLE( A( I, I ) );
+                  D3[I] = (A( I, I )).toDouble();
                } // 600
                for (I = 1; I <= N - 1; I++) { // 610
-                  D4[I] = DBLE( A( I+1, I ) );
+                  D4[I] = (A( I+1, I )).toDouble();
                } // 610
                dstt22(N, M2, 0, D3, D4, WA2, D2, Z, LDU, WORK, max( 1, M2 ), RESULT( 22 ) );
 
                NTEST = 24;
                for (I = 1; I <= N - 1; I++) { // 620
-                  D4[I] = DBLE( A( I+1, I ) );
+                  D4[I] = (A( I+1, I )).toDouble();
                } // 620
                SRNAMT = 'DSTEVR';
                dstevr('N', 'V', N, D3, D4, VL, VU, IL, IU, ABSTOL, M3, WA3, Z, LDU, IWORK, WORK, LWORK, IWORK(2*N+1), LIWORK-2*N, IINFO );

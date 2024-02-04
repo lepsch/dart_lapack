@@ -35,7 +35,7 @@
       double             CABS1;
 
       // .. Statement Function Definitions ..
-      CABS1[ZDUM] = ( DBLE( ZDUM ) ).abs() + ( DIMAG( ZDUM ) ).abs();
+      CABS1[ZDUM] = ( ZDUM.toDouble() ).abs() + ( DIMAG( ZDUM ) ).abs();
 
       // .. Parameters ..
       int                NWISE_I, CWISE_I;
@@ -68,7 +68,7 @@
          KL = N-1;
          KU = N-1;
          NRHS = n;
-         M = max(sqrt(DBLE(N)), 10.0);
+         M = max(sqrt(N.toDouble()), 10.0);
 
          // Generate the Hilbert matrix, its inverse, and the
          // right hand side, all scaled by the LCM(1,..,2N-1).

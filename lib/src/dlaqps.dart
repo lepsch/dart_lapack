@@ -122,7 +122,7 @@
                   TEMP = max( ZERO, ( ONE+TEMP )*( ONE-TEMP ) );
                   TEMP2 = TEMP*( VN1( J ) / VN2( J ) )**2;
                   if ( TEMP2 <= TOL3Z ) {
-                     VN2[J] = DBLE( LSTICC );
+                     VN2[J] = LSTICC.toDouble();
                      LSTICC = J;
                   } else {
                      VN1[J] = VN1( J )*sqrt( TEMP );

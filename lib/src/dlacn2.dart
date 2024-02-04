@@ -40,7 +40,7 @@
 
       if ( KASE == 0 ) {
          for (I = 1; I <= N; I++) { // 10
-            X[I] = ONE / DBLE( N );
+            X[I] = ONE / N.toDouble();
          } // 10
          KASE = 1;
          ISAVE[1] = 1;
@@ -141,7 +141,7 @@
       } // 120
       ALTSGN = ONE;
       for (I = 1; I <= N; I++) { // 130
-         X[I] = ALTSGN*( ONE+DBLE( I-1 ) / DBLE( N-1 ) );
+         X[I] = ALTSGN*( ONE+DBLE( I-1 ) / (N-1).toDouble() );
          ALTSGN = -ALTSGN;
       } // 130
       KASE = 1;
@@ -152,7 +152,7 @@
       // X HAS BEEN OVERWRITTEN BY A*X.
 
       } // 140
-      TEMP = TWO*( DASUM( N, X, 1 ) / DBLE( 3*N ) );
+      TEMP = TWO*( DASUM( N, X, 1 ) / (3*N).toDouble() );
       if ( TEMP > EST ) {
          dcopy(N, X, 1, V, 1 );
          EST = TEMP;

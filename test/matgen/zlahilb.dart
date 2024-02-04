@@ -90,20 +90,20 @@
       if ( LSAMEN( 2, C2, 'SY' ) ) {
          for (J = 1; J <= N; J++) {
             for (I = 1; I <= N; I++) {
-               A[I, J] = D1((J % SIZE_D)+1) * (DBLE(M) / (I + J - 1)) * D1((I % SIZE_D)+1);
+               A[I, J] = D1((J % SIZE_D)+1) * (M.toDouble() / (I + J - 1)) * D1((I % SIZE_D)+1);
             }
          }
       } else {
          for (J = 1; J <= N; J++) {
             for (I = 1; I <= N; I++) {
-               A[I, J] = D1((J % SIZE_D)+1) * (DBLE(M) / (I + J - 1)) * D2((I % SIZE_D)+1);
+               A[I, J] = D1((J % SIZE_D)+1) * (M.toDouble() / (I + J - 1)) * D2((I % SIZE_D)+1);
             }
          }
       }
 
       // Generate matrix B as simply the first NRHS columns of M * the
       // identity.
-      TMP = DBLE(M);
+      TMP = M.toDouble();
       zlaset('Full', N, NRHS, (0.0,0.0), TMP, B, LDB);
 
       // Generate the true solutions in X.  Because B = the first NRHS

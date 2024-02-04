@@ -63,7 +63,7 @@
 
          for (I = 1; I <= M; I++) { // 60
             for (J = 1; J <= N; J++) { // 50
-               R[I, J] = ( HALF-SIN( DBLE( I / J ) ) )*TWENTY;
+               R[I, J] = ( HALF-SIN( (I / J).toDouble() ) )*TWENTY;
                L[I, J] = R( I, J );
             } // 50
          } // 60
@@ -72,8 +72,8 @@
          for (I = 1; I <= M; I++) { // 80
             for (J = 1; J <= M; J++) { // 70
                if ( I <= J ) {
-                  A[I, J] = ( HALF-SIN( DBLE( I ) ) )*TWO;
-                  D[I, J] = ( HALF-SIN( DBLE( I*J ) ) )*TWO;
+                  A[I, J] = ( HALF-SIN( I.toDouble() ) )*TWO;
+                  D[I, J] = ( HALF-SIN( (I*J).toDouble() ) )*TWO;
                } else {
                   A[I, J] = ZERO;
                   D[I, J] = ZERO;
@@ -84,8 +84,8 @@
          for (I = 1; I <= N; I++) { // 100
             for (J = 1; J <= N; J++) { // 90
                if ( I <= J ) {
-                  B[I, J] = ( HALF-SIN( DBLE( I+J ) ) )*TWO;
-                  E[I, J] = ( HALF-SIN( DBLE( J ) ) )*TWO;
+                  B[I, J] = ( HALF-SIN( (I+J).toDouble() ) )*TWO;
+                  E[I, J] = ( HALF-SIN( J.toDouble() ) )*TWO;
                } else {
                   B[I, J] = ZERO;
                   E[I, J] = ZERO;
@@ -95,8 +95,8 @@
 
          for (I = 1; I <= M; I++) { // 120
             for (J = 1; J <= N; J++) { // 110
-               R[I, J] = ( HALF-SIN( DBLE( I*J ) ) )*TWENTY;
-               L[I, J] = ( HALF-SIN( DBLE( I+J ) ) )*TWENTY;
+               R[I, J] = ( HALF-SIN( (I*J).toDouble() ) )*TWENTY;
+               L[I, J] = ( HALF-SIN( (I+J).toDouble() ) )*TWENTY;
             } // 110
          } // 120
 
@@ -117,22 +117,22 @@
       } else if ( PRTYPE == 4 ) {
          for (I = 1; I <= M; I++) { // 160
             for (J = 1; J <= M; J++) { // 150
-               A[I, J] = ( HALF-SIN( DBLE( I*J ) ) )*TWENTY;
-               D[I, J] = ( HALF-SIN( DBLE( I+J ) ) )*TWO;
+               A[I, J] = ( HALF-SIN( (I*J).toDouble() ) )*TWENTY;
+               D[I, J] = ( HALF-SIN( (I+J).toDouble() ) )*TWO;
             } // 150
          } // 160
 
          for (I = 1; I <= N; I++) { // 180
             for (J = 1; J <= N; J++) { // 170
-               B[I, J] = ( HALF-SIN( DBLE( I+J ) ) )*TWENTY;
-               E[I, J] = ( HALF-SIN( DBLE( I*J ) ) )*TWO;
+               B[I, J] = ( HALF-SIN( (I+J).toDouble() ) )*TWENTY;
+               E[I, J] = ( HALF-SIN( (I*J).toDouble() ) )*TWO;
             } // 170
          } // 180
 
          for (I = 1; I <= M; I++) { // 200
             for (J = 1; J <= N; J++) { // 190
-               R[I, J] = ( HALF-SIN( DBLE( J / I ) ) )*TWENTY;
-               L[I, J] = ( HALF-SIN( DBLE( I*J ) ) )*TWO;
+               R[I, J] = ( HALF-SIN( (J / I).toDouble() ) )*TWENTY;
+               L[I, J] = ( HALF-SIN( (I*J).toDouble() ) )*TWO;
             } // 190
          } // 200
 
@@ -141,8 +141,8 @@
          IMEPS = ( HALF-TWO ) / ALPHA;
          for (I = 1; I <= M; I++) { // 220
             for (J = 1; J <= N; J++) { // 210
-               R[I, J] = ( HALF-SIN( DBLE( I*J ) ) )*ALPHA / TWENTY;
-               L[I, J] = ( HALF-SIN( DBLE( I+J ) ) )*ALPHA / TWENTY;
+               R[I, J] = ( HALF-SIN( (I*J).toDouble() ) )*ALPHA / TWENTY;
+               L[I, J] = ( HALF-SIN( (I+J).toDouble() ) )*ALPHA / TWENTY;
             } // 210
          } // 220
 

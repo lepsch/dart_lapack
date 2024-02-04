@@ -94,7 +94,7 @@
 
       RESID = DLANTP( '1', UPLO, 'Non-unit', N, AINVP, WORK );
 
-      RESID = ( ( RESID*RCOND ) / DBLE( N ) ) / EPS;
+      RESID = ( ( RESID*RCOND ) / N.toDouble() ) / EPS;
 
       return;
       }

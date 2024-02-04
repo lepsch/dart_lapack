@@ -515,7 +515,7 @@
                         daxpy(M, -ONE, A( ( N+I-1 )*LDA+1 ), 1, B( ( I-1 )*LDA+1 ), 1 );
                      }
 
-                   RESULT[5] = ABS( DLANGE( 'One-norm', M, NRHS, B, LDA, RDUMMY ) / ( DBLE( M )*DLAMCH( 'Epsilon' ) ) );
+                   RESULT[5] = ABS( DLANGE( 'One-norm', M, NRHS, B, LDA, RDUMMY ) / ( M.toDouble()*DLAMCH( 'Epsilon' ) ) );
 
                      // Print information about the tests that did not pass
                      // the threshold.

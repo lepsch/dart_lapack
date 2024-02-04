@@ -93,7 +93,7 @@
 
       RESID = ZLANGE( '1', M, N, R, LDA, RWORK );
       if ( ANORM > ZERO ) {
-         RESULT[1] = ( ( RESID / DBLE( max( 1, M, N ) ) ) / ANORM ) / ULP;
+         RESULT[1] = ( ( RESID / (max( 1, M, N )).toDouble() ) / ANORM ) / ULP;
       } else {
          RESULT[1] = ZERO;
       }
@@ -106,7 +106,7 @@
 
       RESID = ZLANGE( '1', P, N, BWK, LDB, RWORK );
       if ( BNORM > ZERO ) {
-         RESULT[2] = ( ( RESID / DBLE( max( 1, P, M ) ) ) / BNORM ) / ULP;
+         RESULT[2] = ( ( RESID / (max( 1, P, M )).toDouble() ) / BNORM ) / ULP;
       } else {
          RESULT[2] = ZERO;
       }
@@ -119,7 +119,7 @@
       // Compute norm( I - Q'*Q ) / ( N * ULP ) .
 
       RESID = ZLANHE( '1', 'Upper', N, R, LDA, RWORK );
-      RESULT[3] = ( RESID / DBLE( max( 1, N ) ) ) / ULP;
+      RESULT[3] = ( RESID / (max( 1, N )).toDouble() ) / ULP;
 
       // Compute I - Z'*Z
 
@@ -129,7 +129,7 @@
       // Compute norm( I - Z'*Z ) / ( P*ULP ) .
 
       RESID = ZLANHE( '1', 'Upper', P, T, LDB, RWORK );
-      RESULT[4] = ( RESID / DBLE( max( 1, P ) ) ) / ULP;
+      RESULT[4] = ( RESID / (max( 1, P )).toDouble() ) / ULP;
 
       return;
       }

@@ -117,12 +117,12 @@
          } else {
             CTMP1 = AB( KD+1, 1 );
          }
-         TMP1 = DBLE( CTMP1 );
+         TMP1 = CTMP1.toDouble();
          if ( VALEIG ) {
             if( !( VL < TMP1 && VU >= TMP1 ) ) M = 0;
          }
          if ( M == 1 ) {
-            W[1] = DBLE( CTMP1 );
+            W[1] = CTMP1.toDouble();
             if (WANTZ) Z( 1, 1 ) = CONE;
          }
          return;

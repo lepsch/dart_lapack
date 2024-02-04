@@ -47,7 +47,7 @@
       zlaset('Full', M, M, ZERO, ONE, WORK, LDX );
       zherk('Upper', 'Conjugate transpose', M, M, -REALONE, X, LDX, REALONE, WORK, LDX );
       if (M > 0) {
-         EPS2 = max( ULP, ZLANGE( '1', M, M, WORK, LDX, RWORK ) / DBLE( M ) );
+         EPS2 = max( ULP, ZLANGE( '1', M, M, WORK, LDX, RWORK ) / M.toDouble() );
       } else {
          EPS2 = ULP;
       }
@@ -188,7 +188,7 @@
       zlaset('Full', Q, Q, ZERO, ONE, WORK, LDX );
       zherk('Upper', 'Conjugate transpose', Q, M, -REALONE, X, LDX, REALONE, WORK, LDX );
       if (M > 0) {
-         EPS2 = max( ULP, ZLANGE( '1', Q, Q, WORK, LDX, RWORK ) / DBLE( M ) );
+         EPS2 = max( ULP, ZLANGE( '1', Q, Q, WORK, LDX, RWORK ) / M.toDouble() );
       } else {
          EPS2 = ULP;
       }

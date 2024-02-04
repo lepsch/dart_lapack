@@ -245,7 +245,7 @@
 
                               if ( NCOLS > 0 ) {
                                  zlarnv(2, ISEED, NCOLS*NRHS, WORK );
-                                 zdscal(NCOLS*NRHS, ONE / DBLE( NCOLS ), WORK, 1 );
+                                 zdscal(NCOLS*NRHS, ONE / NCOLS.toDouble(), WORK, 1 );
                               }
                               zgemm(TRANS, 'No transpose', NROWS, NRHS, NCOLS, CONE, COPYA, LDA, WORK, LDWORK, CZERO, B, LDB );
                               zlacpy('Full', NROWS, NRHS, B, LDB, COPYB, LDB );
@@ -335,7 +335,7 @@
 
                               if ( NCOLS > 0 ) {
                                  zlarnv(2, ISEED, NCOLS*NRHS, WORK );
-                                 zdscal(NCOLS*NRHS, ONE / DBLE( NCOLS ), WORK, 1 );
+                                 zdscal(NCOLS*NRHS, ONE / NCOLS.toDouble(), WORK, 1 );
                               }
                               zgemm(TRANS, 'No transpose', NROWS, NRHS, NCOLS, CONE, COPYA, LDA, WORK, LDWORK, CZERO, B, LDB );
                               zlacpy('Full', NROWS, NRHS, B, LDB, COPYB, LDB );
@@ -431,7 +431,7 @@
 
                                  if ( NCOLS > 0 ) {
                                     zlarnv(2, ISEED, NCOLS*NRHS, WORK );
-                                    zscal(NCOLS*NRHS, CONE / DBLE( NCOLS ), WORK, 1 );
+                                    zscal(NCOLS*NRHS, CONE / NCOLS.toDouble(), WORK, 1 );
                                  }
                                  zgemm(TRANS, 'No transpose', NROWS, NRHS, NCOLS, CONE, COPYA, LDA, WORK, LDWORK, CZERO, B, LDB );
                                  zlacpy('Full', NROWS, NRHS, B, LDB, COPYB, LDB );
@@ -570,7 +570,7 @@
 
                         if ( RANK > 0 ) {
                            daxpy(MNMIN, -ONE, COPYS, 1, S, 1 );
-                           RESULT[11] = DASUM( MNMIN, S, 1 ) / DASUM( MNMIN, COPYS, 1 ) / ( EPS*DBLE( MNMIN ) );
+                           RESULT[11] = DASUM( MNMIN, S, 1 ) / DASUM( MNMIN, COPYS, 1 ) / ( EPS*MNMIN.toDouble() );
                         } else {
                            RESULT[11] = ZERO;
                         }
@@ -608,7 +608,7 @@
 
                         if ( RANK > 0 ) {
                            daxpy(MNMIN, -ONE, COPYS, 1, S, 1 );
-                           RESULT[15] = DASUM( MNMIN, S, 1 ) / DASUM( MNMIN, COPYS, 1 ) / ( EPS*DBLE( MNMIN ) );
+                           RESULT[15] = DASUM( MNMIN, S, 1 ) / DASUM( MNMIN, COPYS, 1 ) / ( EPS*MNMIN.toDouble() );
                         } else {
                            RESULT[15] = ZERO;
                         }

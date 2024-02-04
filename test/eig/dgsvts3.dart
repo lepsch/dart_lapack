@@ -89,7 +89,7 @@
       RESID = DLANGE( '1', M, N, A, LDA, RWORK );
 
       if ( ANORM > ZERO ) {
-         RESULT[1] = ( ( RESID / DBLE( max( 1, M, N ) ) ) / ANORM ) / ULP;
+         RESULT[1] = ( ( RESID / (max( 1, M, N )).toDouble() ) / ANORM ) / ULP;
       } else {
          RESULT[1] = ZERO;
       }
@@ -110,7 +110,7 @@
 
       RESID = DLANGE( '1', P, N, B, LDB, RWORK );
       if ( BNORM > ZERO ) {
-         RESULT[2] = ( ( RESID / DBLE( max( 1, P, N ) ) ) / BNORM ) / ULP;
+         RESULT[2] = ( ( RESID / (max( 1, P, N )).toDouble() ) / BNORM ) / ULP;
       } else {
          RESULT[2] = ZERO;
       }
@@ -123,7 +123,7 @@
       // Compute norm( I - U'*U ) / ( M * ULP ) .
 
       RESID = DLANSY( '1', 'Upper', M, WORK, LDU, RWORK );
-      RESULT[3] = ( RESID / DBLE( max( 1, M ) ) ) / ULP;
+      RESULT[3] = ( RESID / (max( 1, M )).toDouble() ) / ULP;
 
       // Compute I - V'*V
 
@@ -133,7 +133,7 @@
       // Compute norm( I - V'*V ) / ( P * ULP ) .
 
       RESID = DLANSY( '1', 'Upper', P, WORK, LDV, RWORK );
-      RESULT[4] = ( RESID / DBLE( max( 1, P ) ) ) / ULP;
+      RESULT[4] = ( RESID / (max( 1, P )).toDouble() ) / ULP;
 
       // Compute I - Q'*Q
 
@@ -143,7 +143,7 @@
       // Compute norm( I - Q'*Q ) / ( N * ULP ) .
 
       RESID = DLANSY( '1', 'Upper', N, WORK, LDQ, RWORK );
-      RESULT[5] = ( RESID / DBLE( max( 1, N ) ) ) / ULP;
+      RESULT[5] = ( RESID / (max( 1, N )).toDouble() ) / ULP;
 
       // Check sorting
 

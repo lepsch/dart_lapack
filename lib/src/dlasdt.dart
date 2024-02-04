@@ -29,7 +29,7 @@
       // Find the number of levels on the tree.
 
       MAXN = max( 1, N );
-      TEMP = LOG( DBLE( MAXN ) / DBLE( MSUB+1 ) ) / LOG( TWO );
+      TEMP = LOG( MAXN.toDouble() / (MSUB+1).toDouble() ) / LOG( TWO );
       LVL = INT( TEMP ) + 1;
 
       I = N / 2;

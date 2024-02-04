@@ -92,6 +92,6 @@
          if (NORMRS != ZERO) ERR = ERR / NORMRS;
       }
 
-      DQRT17 = ERR / ( DLAMCH( 'Epsilon' )*DBLE( max( M, N, NRHS ) ) );
+      DQRT17 = ERR / ( DLAMCH( 'Epsilon' )*(max( M, N, NRHS )).toDouble() );
       return;
       }

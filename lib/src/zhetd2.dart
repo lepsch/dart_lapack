@@ -61,7 +61,7 @@
 
          // Reduce the upper triangle of A
 
-         A[N, N] = DBLE( A( N, N ) );
+         A[N, N] = (A( N, N )).toDouble();
          for (I = N - 1; I >= 1; I--) { // 10
 
             // Generate elementary reflector H(i) = I - tau * v * v**H
@@ -69,7 +69,7 @@
 
             ALPHA = A( I, I+1 );
             zlarfg(I, ALPHA, A( 1, I+1 ), 1, TAUI );
-            E[I] = DBLE( ALPHA );
+            E[I] = ALPHA.toDouble();
 
             if ( TAUI != ZERO ) {
 
@@ -92,18 +92,18 @@
                zher2(UPLO, I, -ONE, A( 1, I+1 ), 1, TAU, 1, A, LDA );
 
             } else {
-               A[I, I] = DBLE( A( I, I ) );
+               A[I, I] = (A( I, I )).toDouble();
             }
             A[I, I+1] = E( I );
-            D[I+1] = DBLE( A( I+1, I+1 ) );
+            D[I+1] = (A( I+1, I+1 )).toDouble();
             TAU[I] = TAUI;
          } // 10
-         D[1] = DBLE( A( 1, 1 ) );
+         D[1] = (A( 1, 1 )).toDouble();
       } else {
 
          // Reduce the lower triangle of A
 
-         A[1, 1] = DBLE( A( 1, 1 ) );
+         A[1, 1] = (A( 1, 1 )).toDouble();
          for (I = 1; I <= N - 1; I++) { // 20
 
             // Generate elementary reflector H(i) = I - tau * v * v**H
@@ -111,7 +111,7 @@
 
             ALPHA = A( I+1, I );
             zlarfg(N-I, ALPHA, A( min( I+2, N ), I ), 1, TAUI );
-            E[I] = DBLE( ALPHA );
+            E[I] = ALPHA.toDouble();
 
             if ( TAUI != ZERO ) {
 
@@ -134,13 +134,13 @@
                zher2(UPLO, N-I, -ONE, A( I+1, I ), 1, TAU( I ), 1, A( I+1, I+1 ), LDA );
 
             } else {
-               A[I+1, I+1] = DBLE( A( I+1, I+1 ) );
+               A[I+1, I+1] = (A( I+1, I+1 )).toDouble();
             }
             A[I+1, I] = E( I );
-            D[I] = DBLE( A( I, I ) );
+            D[I] = (A( I, I )).toDouble();
             TAU[I] = TAUI;
          } // 20
-         D[N] = DBLE( A( N, N ) );
+         D[N] = (A( N, N )).toDouble();
       }
 
       return;

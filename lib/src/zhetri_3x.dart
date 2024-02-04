@@ -112,13 +112,13 @@
          DO WHILE( K <= N );
             if ( IPIV( K ) > 0 ) {
                // 1 x 1 diagonal NNB
-               WORK[K, INVD] = ONE / DBLE( A( K, K ) );
+               WORK[K, INVD] = ONE / (A( K, K )).toDouble();
                WORK[K, INVD+1] = CZERO;
             } else {
                // 2 x 2 diagonal NNB
                T = ( WORK( K+1, 1 ) ).abs();
-               AK = DBLE( A( K, K ) ) / T;
-               AKP1 = DBLE( A( K+1, K+1 ) ) / T;
+               AK = (A( K, K )).toDouble() / T;
+               AKP1 = (A( K+1, K+1 )).toDouble() / T;
                AKKP1 = WORK( K+1, 1 )  / T;
                D = T*( AK*AKP1-CONE );
                WORK[K, INVD] = AKP1 / D;
@@ -282,13 +282,13 @@
          DO WHILE ( K >= 1 );
             if ( IPIV( K ) > 0 ) {
                // 1 x 1 diagonal NNB
-               WORK[K, INVD] = ONE / DBLE( A( K, K ) );
+               WORK[K, INVD] = ONE / (A( K, K )).toDouble();
                WORK[K, INVD+1] = CZERO;
             } else {
                // 2 x 2 diagonal NNB
                T = ( WORK( K-1, 1 ) ).abs();
-               AK = DBLE( A( K-1, K-1 ) ) / T;
-               AKP1 = DBLE( A( K, K ) ) / T;
+               AK = (A( K-1, K-1 )).toDouble() / T;
+               AKP1 = (A( K, K )).toDouble() / T;
                AKKP1 = WORK( K-1, 1 ) / T;
                D = T*( AK*AKP1-CONE );
                WORK[K-1, INVD] = AKP1 / D;

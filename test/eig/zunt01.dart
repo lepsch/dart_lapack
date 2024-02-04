@@ -42,7 +42,7 @@
       double             CABS1;
       // ..
       // .. Statement Function definitions ..
-      CABS1[ZDUM] = ( DBLE( ZDUM ) ).abs() + ( DIMAG( ZDUM ) ).abs();
+      CABS1[ZDUM] = ( ZDUM.toDouble() ).abs() + ( DIMAG( ZDUM ) ).abs();
       // ..
       // .. Executable Statements ..
 
@@ -77,7 +77,7 @@
          // Compute norm( I - U*U' ) / ( K * EPS ) .
 
          RESID = ZLANSY( '1', 'Upper', MNMIN, WORK, LDWORK, RWORK );
-         RESID = ( RESID / DBLE( K ) ) / EPS;
+         RESID = ( RESID / K.toDouble() ) / EPS;
       } else if ( TRANSU == 'C' ) {
 
          // Find the maximum element in abs( I - U'*U ) / ( m * EPS )
@@ -93,7 +93,7 @@
                RESID = max( RESID, CABS1( TMP ) );
             } // 10
          } // 20
-         RESID = ( RESID / DBLE( M ) ) / EPS;
+         RESID = ( RESID / M.toDouble() ) / EPS;
       } else {
 
          // Find the maximum element in abs( I - U*U' ) / ( n * EPS )
@@ -109,7 +109,7 @@
                RESID = max( RESID, CABS1( TMP ) );
             } // 30
          } // 40
-         RESID = ( RESID / DBLE( N ) ) / EPS;
+         RESID = ( RESID / N.toDouble() ) / EPS;
       }
       return;
       }

@@ -77,7 +77,7 @@
       ANORM = DLANGE( '1', M, N, A, LDA, RWORK );
       RESID = DLANGE( '1', M, N, R, LDA, RWORK );
       if ( ANORM > ZERO ) {
-         RESULT[1] = ( ( RESID / DBLE( max( 1, M ) ) ) / ANORM ) / EPS;
+         RESULT[1] = ( ( RESID / (max( 1, M )).toDouble() ) / ANORM ) / EPS;
       } else {
          RESULT[1] = ZERO;
       }
@@ -91,7 +91,7 @@
 
       RESID = DLANSY( '1', 'Upper', M, R, LDA, RWORK );
 
-      RESULT[2] = ( RESID / DBLE( max( 1, M ) ) ) / EPS;
+      RESULT[2] = ( RESID / (max( 1, M )).toDouble() ) / EPS;
 
       return;
       }

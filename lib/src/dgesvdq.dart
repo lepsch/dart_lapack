@@ -352,10 +352,10 @@
                return;
             }
 
-            if ( RWORK(1) > BIG / sqrt(DBLE(M)) ) {
+            if ( RWORK(1) > BIG / sqrt(M.toDouble()) ) {
                 // .. to prevent overflow in the QR factorization, scale the
                 // matrix by 1/sqrt(M) if too large entry detected
-                dlascl('G',0,0,sqrt(DBLE(M)),ONE, M,N, A,LDA, IERR);
+                dlascl('G',0,0,sqrt(M.toDouble()),ONE, M,N, A,LDA, IERR);
                 ASCALED = true;
             }
             dlaswp(N, A, LDA, 1, M-1, IWORK(N+1), 1 );
@@ -373,10 +373,10 @@
                xerbla('DGESVDQ', -INFO );
                return;
           }
-          if ( RTMP > BIG / sqrt(DBLE(M)) ) {
+          if ( RTMP > BIG / sqrt(M.toDouble()) ) {
               // .. to prevent overflow in the QR factorization, scale the
               // matrix by 1/sqrt(M) if too large entry detected
-              dlascl('G',0,0, sqrt(DBLE(M)),ONE, M,N, A,LDA, IERR);
+              dlascl('G',0,0, sqrt(M.toDouble()),ONE, M,N, A,LDA, IERR);
               ASCALED = true;
           }
       }
@@ -408,7 +408,7 @@
          // aggressive enforcement of lower numerical rank by introducing a
          // backward error of the order of N*EPS*||A||_F.
          NR = 1;
-         RTMP = sqrt(DBLE(N))*EPSLN;
+         RTMP = sqrt(N.toDouble())*EPSLN;
          for (p = 2; p <= N; p++) { // 3001
             if ( (A(p,p)).abs() < (RTMP*(A(1,1))) ).abs() GO TO 3002;
                NR = NR + 1;
@@ -874,7 +874,7 @@
       if (NR < N) dlaset( 'G', N-NR,1, ZERO,ZERO, S(NR+1), N );
       // .. undo scaling; this may cause overflow in the largest singular
       // values.
-      if (ASCALED) dlascl( 'G',0,0, ONE,sqrt(DBLE(M)), NR,1, S, N, IERR );
+      if (ASCALED) dlascl( 'G',0,0, ONE,sqrt(M.toDouble()), NR,1, S, N, IERR );
       if (CONDA) RWORK(1) = SCONDA;
       RWORK[2] = p - NR;
       // .. p-NR is the number of singular values that are computed as

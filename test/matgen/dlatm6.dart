@@ -39,7 +39,7 @@
          for (J = 1; J <= N; J++) { // 10
 
             if ( I == J ) {
-               A[I, I] = DBLE( I ) + ALPHA;
+               A[I, I] = I.toDouble() + ALPHA;
                B[I, I] = ONE;
             } else {
                A[I, J] = ZERO;

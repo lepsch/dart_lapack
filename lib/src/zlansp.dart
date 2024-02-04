@@ -120,8 +120,8 @@
          SUM = 2*SUM;
          K = 1;
          for (I = 1; I <= N; I++) { // 130
-            if ( DBLE( AP( K ) ) != ZERO ) {
-               ABSA = ABS( DBLE( AP( K ) ) );
+            if ( (AP( K )).toDouble() != ZERO ) {
+               ABSA = ABS( (AP( K )).toDouble() );
                if ( SCALE < ABSA ) {
                   SUM = ONE + SUM*( SCALE / ABSA )**2;
                   SCALE = ABSA;

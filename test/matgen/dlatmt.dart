@@ -131,7 +131,7 @@
 
       GIVENS = false;
       if ( ISYM == 1 ) {
-         if( DBLE( LLB+UUB ) < 0.3*DBLE( max( 1, MR+NC ) ) ) GIVENS = true;
+         if( (LLB+UUB).toDouble() < 0.3*(max( 1, MR+NC )).toDouble() ) GIVENS = true;
       } else {
          if (2*LLB < M) GIVENS = true ;
       }

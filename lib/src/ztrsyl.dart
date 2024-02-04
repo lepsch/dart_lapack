@@ -80,7 +80,7 @@
       EPS = DLAMCH( 'P' );
       SMLNUM = DLAMCH( 'S' );
       BIGNUM = ONE / SMLNUM;
-      SMLNUM = SMLNUM*DBLE( M*N ) / EPS;
+      SMLNUM = SMLNUM*(M*N).toDouble() / EPS;
       BIGNUM = ONE / SMLNUM;
       SMIN = max( SMLNUM, EPS*ZLANGE( 'M', M, M, A, LDA, DUM ), EPS*ZLANGE( 'M', N, N, B, LDB, DUM ) );
       SGN = ISGN;
@@ -108,13 +108,13 @@
 
                SCALOC = ONE;
                A11 = A( K, K ) + SGN*B( L, L );
-               DA11 = ( DBLE( A11 ) ).abs() + ( DIMAG( A11 ) ).abs();
+               DA11 = ( A11.toDouble() ).abs() + ( DIMAG( A11 ) ).abs();
                if ( DA11 <= SMIN ) {
                   A11 = SMIN;
                   DA11 = SMIN;
                   INFO = 1;
                }
-               DB = ( DBLE( VEC ) ).abs() + ( DIMAG( VEC ) ).abs();
+               DB = ( VEC.toDouble() ).abs() + ( DIMAG( VEC ) ).abs();
                if ( DA11 < ONE && DB > ONE ) {
                   if (DB > BIGNUM*DA11) SCALOC = ONE / DB;
                }
@@ -154,13 +154,13 @@
 
                SCALOC = ONE;
                A11 = DCONJG( A( K, K ) ) + SGN*B( L, L );
-               DA11 = ( DBLE( A11 ) ).abs() + ( DIMAG( A11 ) ).abs();
+               DA11 = ( A11.toDouble() ).abs() + ( DIMAG( A11 ) ).abs();
                if ( DA11 <= SMIN ) {
                   A11 = SMIN;
                   DA11 = SMIN;
                   INFO = 1;
                }
-               DB = ( DBLE( VEC ) ).abs() + ( DIMAG( VEC ) ).abs();
+               DB = ( VEC.toDouble() ).abs() + ( DIMAG( VEC ) ).abs();
                if ( DA11 < ONE && DB > ONE ) {
                   if (DB > BIGNUM*DA11) SCALOC = ONE / DB;
                }
@@ -204,13 +204,13 @@
 
                SCALOC = ONE;
                A11 = DCONJG( A( K, K )+SGN*B( L, L ) );
-               DA11 = ( DBLE( A11 ) ).abs() + ( DIMAG( A11 ) ).abs();
+               DA11 = ( A11.toDouble() ).abs() + ( DIMAG( A11 ) ).abs();
                if ( DA11 <= SMIN ) {
                   A11 = SMIN;
                   DA11 = SMIN;
                   INFO = 1;
                }
-               DB = ( DBLE( VEC ) ).abs() + ( DIMAG( VEC ) ).abs();
+               DB = ( VEC.toDouble() ).abs() + ( DIMAG( VEC ) ).abs();
                if ( DA11 < ONE && DB > ONE ) {
                   if (DB > BIGNUM*DA11) SCALOC = ONE / DB;
                }
@@ -250,13 +250,13 @@
 
                SCALOC = ONE;
                A11 = A( K, K ) + SGN*DCONJG( B( L, L ) );
-               DA11 = ( DBLE( A11 ) ).abs() + ( DIMAG( A11 ) ).abs();
+               DA11 = ( A11.toDouble() ).abs() + ( DIMAG( A11 ) ).abs();
                if ( DA11 <= SMIN ) {
                   A11 = SMIN;
                   DA11 = SMIN;
                   INFO = 1;
                }
-               DB = ( DBLE( VEC ) ).abs() + ( DIMAG( VEC ) ).abs();
+               DB = ( VEC.toDouble() ).abs() + ( DIMAG( VEC ) ).abs();
                if ( DA11 < ONE && DB > ONE ) {
                   if (DB > BIGNUM*DA11) SCALOC = ONE / DB;
                }

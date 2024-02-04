@@ -74,7 +74,7 @@
 
          MNNRHS = max( MN, NRHS );
          LWOPT = max( 1, (MN+MNNRHS)*NB );
-         WORK[1] = DBLE( LWOPT );
+         WORK[1] = LWOPT.toDouble();
 
       }
 
@@ -89,7 +89,7 @@
 
       if ( min( M, N, NRHS ) == 0 ) {
          zlaset('Full', max( M, N ), NRHS, CZERO, CZERO, B, LDB );
-         WORK[1] = DBLE( LWOPT );
+         WORK[1] = LWOPT.toDouble();
          return;
       }
 
@@ -137,7 +137,7 @@
          // Matrix all zero. Return zero solution.
 
          zlaset('Full', max( M, N ), NRHS, CZERO, CZERO, B, LDB );
-         WORK[1] = DBLE( LWOPT );
+         WORK[1] = LWOPT.toDouble();
          return;
       }
 
@@ -306,7 +306,7 @@
          zlascl('G', 0, 0, BIGNUM, BNRM, SCLLEN, NRHS, B, LDB, INFO );
       }
 
-      WORK[1] = DBLE( LWOPT );
+      WORK[1] = LWOPT.toDouble();
 
       return;
       }

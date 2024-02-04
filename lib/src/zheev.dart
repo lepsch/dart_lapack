@@ -79,7 +79,7 @@
       }
 
       if ( N == 1 ) {
-         W[1] = DBLE( A( 1, 1 ) );
+         W[1] = (A( 1, 1 )).toDouble();
          WORK[1] = 1;
          if (WANTZ) A( 1, 1 ) = CONE;
          return;

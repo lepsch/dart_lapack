@@ -305,7 +305,7 @@
          // In type 12, the offdiagonal elements are small (CNORM(j) < 1).
 
          zlarnv(2, ISEED, N, B );
-         TSCAL = ONE / max( ONE, DBLE( N-1 ) );
+         TSCAL = ONE / max( ONE, (N-1).toDouble() );
          if ( UPPER ) {
             for (J = 1; J <= N; J++) { // 160
                zlarnv(4, ISEED, J-1, A( 1, J ) );
@@ -403,7 +403,7 @@
          // overflow when dividing by T(j,j).  To control the amount of
          // scaling needed, the matrix is bidiagonal.
 
-         TEXP = ONE / max( ONE, DBLE( N-1 ) );
+         TEXP = ONE / max( ONE, (N-1).toDouble() );
          TSCAL = SMLNUM**TEXP;
          zlarnv(4, ISEED, N, B );
          if ( UPPER ) {
@@ -470,26 +470,26 @@
          TEXP = ONE;
          if ( UPPER ) {
             for (J = N; J >= 2; J -= 2) { // 340
-               A[1, J] = -TSCAL / DBLE( N+1 );
+               A[1, J] = -TSCAL / (N+1).toDouble();
                A[J, J] = ONE;
                B[J] = TEXP*( ONE-ULP );
-               A[1, J-1] = -( TSCAL / DBLE( N+1 ) ) / DBLE( N+2 );
+               A[1, J-1] = -( TSCAL / DBLE( N+1 ) ) / (N+2).toDouble();
                A[J-1, J-1] = ONE;
-               B[J-1] = TEXP*DBLE( N*N+N-1 );
+               B[J-1] = TEXP*(N*N+N-1).toDouble();
                TEXP = TEXP*2.0;
             } // 340
-            B[1] = ( DBLE( N+1 ) / DBLE( N+2 ) )*TSCAL;
+            B[1] = ( DBLE( N+1 ) / (N+2).toDouble() )*TSCAL;
          } else {
             for (J = 1; 2 < 0 ? J >= N - 1 : J <= N - 1; J += 2) { // 350
-               A[N, J] = -TSCAL / DBLE( N+1 );
+               A[N, J] = -TSCAL / (N+1).toDouble();
                A[J, J] = ONE;
                B[J] = TEXP*( ONE-ULP );
-               A[N, J+1] = -( TSCAL / DBLE( N+1 ) ) / DBLE( N+2 );
+               A[N, J+1] = -( TSCAL / DBLE( N+1 ) ) / (N+2).toDouble();
                A[J+1, J+1] = ONE;
-               B[J+1] = TEXP*DBLE( N*N+N-1 );
+               B[J+1] = TEXP*(N*N+N-1).toDouble();
                TEXP = TEXP*2.0;
             } // 350
-            B[N] = ( DBLE( N+1 ) / DBLE( N+2 ) )*TSCAL;
+            B[N] = ( DBLE( N+1 ) / (N+2).toDouble() )*TSCAL;
          }
 
       } else if ( IMAT == 18 ) {
@@ -525,8 +525,8 @@
          // norms will exceed BIGNUM.
          // 1/3/91:  ZLATRS no longer can handle this case
 
-         TLEFT = BIGNUM / max( ONE, DBLE( N-1 ) );
-         TSCAL = BIGNUM*( DBLE( N-1 ) / max( ONE, DBLE( N ) ) );
+         TLEFT = BIGNUM / max( ONE, (N-1).toDouble() );
+         TSCAL = BIGNUM*( (N-1).toDouble() / max( ONE, N.toDouble() ) );
          if ( UPPER ) {
             for (J = 1; J <= N; J++) { // 390
                zlarnv(5, ISEED, J, A( 1, J ) );

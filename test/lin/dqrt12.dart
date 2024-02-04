@@ -111,7 +111,7 @@
 
       daxpy(MN, -ONE, S, 1, WORK( M*N+1 ), 1 );
 
-      DQRT12 = DASUM( MN, WORK( M*N+1 ), 1 ) / ( DLAMCH('Epsilon') * DBLE( max( M, N ) ) );
+      DQRT12 = DASUM( MN, WORK( M*N+1 ), 1 ) / ( DLAMCH('Epsilon') * (max( M, N )).toDouble() );
 
       if (NRMSVL != ZERO) DQRT12 = DQRT12 / NRMSVL;
 

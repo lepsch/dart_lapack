@@ -58,7 +58,7 @@
       WANTT = LSAME( JOB, 'S' );
       INITZ = LSAME( COMPZ, 'I' );
       WANTZ = INITZ || LSAME( COMPZ, 'V' );
-      WORK[1] = DBLE( max( 1, N ) );
+      WORK[1] = (max( 1, N )).toDouble();
       LQUERY = LWORK == -1;
 
       INFO = 0;
@@ -100,7 +100,7 @@
          dlaqr0(WANTT, WANTZ, N, ILO, IHI, H, LDH, WR, WI, ILO, IHI, Z, LDZ, WORK, LWORK, INFO );
          // ==== Ensure reported workspace size is backward-compatible with
          // .    previous LAPACK versions. ====
-         WORK[1] = max( DBLE( max( 1, N ) ), WORK( 1 ) );
+         WORK[1] = max( (max( 1, N )).toDouble(), WORK( 1 ) );
          return;
 
       } else {
@@ -179,7 +179,7 @@
          // ==== Ensure reported workspace size is backward-compatible with
          // .    previous LAPACK versions. ====
 
-         WORK[1] = max( DBLE( max( 1, N ) ), WORK( 1 ) );
+         WORK[1] = max( (max( 1, N )).toDouble(), WORK( 1 ) );
       }
 
       // ==== End of DHSEQR ====

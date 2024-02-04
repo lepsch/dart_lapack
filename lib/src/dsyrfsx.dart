@@ -74,7 +74,7 @@
 
       // Set default parameters.
 
-      ILLRCOND_THRESH = DBLE( N )*DLAMCH( 'Epsilon' );
+      ILLRCOND_THRESH = N.toDouble()*DLAMCH( 'Epsilon' );
       ITHRESH = INT( ITHRESH_DEFAULT );
       RTHRESH = RTHRESH_DEFAULT;
       UNSTABLE_THRESH = DZTHRESH_DEFAULT;
@@ -188,7 +188,7 @@
           dla_syrfsx_extended(PREC_TYPE, UPLO,  N, NRHS, A, LDA, AF, LDAF, IPIV, RCEQU, S, B, LDB, X, LDX, BERR, N_NORMS, ERR_BNDS_NORM, ERR_BNDS_COMP, WORK( N+1 ), WORK( 1 ), WORK( 2*N+1 ), WORK( 1 ), RCOND, ITHRESH, RTHRESH, UNSTABLE_THRESH, IGNORE_CWISE, INFO );
       }
 
-      ERR_LBND = max( 10.0, sqrt( DBLE( N ) ) )*DLAMCH( 'Epsilon' );
+      ERR_LBND = max( 10.0, sqrt( N.toDouble() ) )*DLAMCH( 'Epsilon' );
       if (N_ERR_BNDS >= 1 && N_NORMS >= 1) {
 
       // Compute scaled normwise condition number cond(A*C).

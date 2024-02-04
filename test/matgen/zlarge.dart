@@ -63,7 +63,7 @@
             WB = WORK( 1 ) + WA;
             zscal(N-I, ONE / WB, WORK( 2 ), 1 );
             WORK[1] = ONE;
-            TAU = DBLE( WB / WA );
+            TAU = (WB / WA).toDouble();
          }
 
          // multiply A(i:n,1:n) by random reflection from the left

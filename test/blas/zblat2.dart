@@ -1509,7 +1509,7 @@
                }
 
                for (IA = 1; IA <= NALF; IA++) { // 70
-                  RALPHA = DBLE( ALF( IA ) );
+                  RALPHA = (ALF( IA )).toDouble();
                   ALPHA = DCMPLX( RALPHA, RZERO );
                   NULL = N <= 0 || RALPHA == RZERO;
 
@@ -2344,7 +2344,7 @@
                }
             }
          } // 10
-         if (SYM) A( J, J ) = DCMPLX( DBLE( A( J, J ) ), RZERO );
+         if (SYM) A( J, J ) = DCMPLX( (A( J, J )).toDouble(), RZERO );
          if[TRI ) A( J, J] = A( J, J ) + ONE;
          IF[UNIT ) A( J, J] = ONE;
       } // 20
@@ -2400,7 +2400,7 @@
             } // 120
             if ( SYM ) {
                JJ = J + ( J - 1 )*LDA;
-               AA[JJ] = DCMPLX( DBLE( AA( JJ ) ), RROGUE );
+               AA[JJ] = DCMPLX( (AA( JJ )).toDouble(), RROGUE );
             }
          } // 130
       } else if ( TYPE == 'HB' || TYPE == 'TB' ) {
@@ -2433,7 +2433,7 @@
             } // 160
             if ( SYM ) {
                JJ = KK + ( J - 1 )*LDA;
-               AA[JJ] = DCMPLX( DBLE( AA( JJ ) ), RROGUE );
+               AA[JJ] = DCMPLX( (AA( JJ )).toDouble(), RROGUE );
             }
          } // 170
       } else if ( TYPE == 'HP' || TYPE == 'TP' ) {
@@ -2451,7 +2451,7 @@
                AA[IOFF] = A( I, J );
                if ( I == J ) {
                   if (UNIT) AA( IOFF ) = ROGUE;
-                  IF[SYM ) AA( IOFF] = DCMPLX( DBLE( AA( IOFF ) ), RROGUE );
+                  IF[SYM ) AA( IOFF] = DCMPLX( (AA( IOFF )).toDouble(), RROGUE );
                }
             } // 180
          } // 190
@@ -2492,7 +2492,7 @@
       // .. Statement Functions ..
       double             ABS1;
       // .. Statement Function definitions ..
-      ABS1[C] = ( DBLE( C ) ).abs() + ( DIMAG( C ) ).abs();
+      ABS1[C] = ( C.toDouble() ).abs() + ( DIMAG( C ) ).abs();
       // .. Executable Statements ..
       TRAN = TRANS == 'T';
       CTRAN = TRANS == 'C';
@@ -2772,7 +2772,7 @@
       INCY = 1;
       LY = ( INCY ).abs()*N;
       for (I = 1; I <= LY; I++) { // 10
-         Y[I] = DCMPLX( 42.0, DBLE( I ) );
+         Y[I] = DCMPLX( 42.0, I.toDouble() );
          YS[I] = Y( I );
       } // 10
       return;

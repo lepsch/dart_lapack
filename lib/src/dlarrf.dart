@@ -45,7 +45,7 @@
          return;
       }
 
-      FACT = DBLE(2**KTRYMAX);
+      FACT = (2**KTRYMAX).toDouble();
       EPS = DLAMCH( 'Precision' );
       SHIFT = 0;
       FORCER = false;
@@ -69,7 +69,7 @@
 
       // Compute the average gap length of the cluster
       CLWDTH = ABS(W(CLEND)-W(CLSTRT)) + WERR(CLEND) + WERR(CLSTRT);
-      AVGAP = CLWDTH / DBLE(CLEND-CLSTRT);
+      AVGAP = CLWDTH / (CLEND-CLSTRT).toDouble();
       MINGAP = min(CLGAPL, CLGAPR);
       // Initial values for shifts to both ends of cluster
       LSIGMA = min(W( CLSTRT ),W( CLEND )) - WERR( CLSTRT );
@@ -90,8 +90,8 @@
 
       S = DLAMCH( 'S' );
       SMLGROWTH = ONE / S;
-      FAIL = DBLE(N-1)*MINGAP/(SPDIAM*EPS);
-      FAIL2 = DBLE(N-1)*MINGAP/(SPDIAM*sqrt(EPS));
+      FAIL = (N-1).toDouble()*MINGAP/(SPDIAM*EPS);
+      FAIL2 = (N-1).toDouble()*MINGAP/(SPDIAM*sqrt(EPS));
       BESTSHIFT = LSIGMA;
 
       // while (KTRY <= KTRYMAX)
@@ -193,7 +193,7 @@
       // we may still accept the representation, if it passes a
       // refined test for RRR. This test supposes that no NaN occurred.
       // Moreover, we use the refined RRR test only for isolated clusters.
-      if ((CLWDTH < MINGAP/DBLE(128)) && (min(MAX1,MAX2) < FAIL2) && ( !SAWNAN1) && ( !SAWNAN2)) {
+      if ((CLWDTH < MINGAP/128.toDouble()) && (min(MAX1,MAX2) < FAIL2) && ( !SAWNAN1) && ( !SAWNAN2)) {
          DORRR1 = true;
       } else {
          DORRR1 = false;

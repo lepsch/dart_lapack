@@ -46,9 +46,9 @@
 
       for (J = 1; J <= NMAX; J++) {
          for (I = 1; I <= NMAX; I++) {
-            A[I, J] = 1.0 / DBLE( I+J );
-            C[I, J] = 1.0 / DBLE( I+J );
-            T[I, J] = 1.0 / DBLE( I+J );
+            A[I, J] = 1.0 / (I+J).toDouble();
+            C[I, J] = 1.0 / (I+J).toDouble();
+            T[I, J] = 1.0 / (I+J).toDouble();
          }
          W[J] = 0.0;
       }

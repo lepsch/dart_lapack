@@ -56,7 +56,7 @@
          A[1, 1] = DCMPLX( RONE, RONE );
          A[2, 2] = DCONJG( A( 1, 1 ) );
          A[3, 3] = ONE;
-         A[4, 4] = DCMPLX( DBLE( ONE+ALPHA ), DBLE( ONE+BETA ) );
+         A[4, 4] = DCMPLX( DBLE( ONE+ALPHA ), (ONE+BETA).toDouble() );
          A[5, 5] = DCONJG( A( 4, 4 ) );
       }
 

@@ -95,7 +95,7 @@
             J1 = KDN + 2;
             J2 = 1;
 
-            AB[KD1, 1] = DBLE( AB( KD1, 1 ) );
+            AB[KD1, 1] = (AB( KD1, 1 )).toDouble();
             for (I = 1; I <= N - 2; I++) { // 90
 
                // Reduce i-th row of matrix to tridiagonal form
@@ -265,7 +265,7 @@
          // copy diagonal elements to D
 
          for (I = 1; I <= N; I++) { // 120
-            D[I] = DBLE( AB( KD1, I ) );
+            D[I] = (AB( KD1, I )).toDouble();
          } // 120
 
       } else {
@@ -279,7 +279,7 @@
             J1 = KDN + 2;
             J2 = 1;
 
-            AB[1, 1] = DBLE( AB( 1, 1 ) );
+            AB[1, 1] = (AB( 1, 1 )).toDouble();
             for (I = 1; I <= N - 2; I++) { // 210
 
                // Reduce i-th column of matrix to tridiagonal form
@@ -449,7 +449,7 @@
          // copy diagonal elements to D
 
          for (I = 1; I <= N; I++) { // 240
-            D[I] = DBLE( AB( 1, I ) );
+            D[I] = (AB( 1, I )).toDouble();
          } // 240
       }
 

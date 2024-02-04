@@ -71,7 +71,7 @@
 
             // Compute s(j,j) and test for non-positive-definiteness.
 
-            AJJ = DBLE( AB( KD+1, J ) );
+            AJJ = (AB( KD+1, J )).toDouble();
             if ( AJJ <= ZERO ) {
                AB[KD+1, J] = AJJ;
                GO TO 50;
@@ -93,7 +93,7 @@
 
             // Compute s(j,j) and test for non-positive-definiteness.
 
-            AJJ = DBLE( AB( KD+1, J ) );
+            AJJ = (AB( KD+1, J )).toDouble();
             if ( AJJ <= ZERO ) {
                AB[KD+1, J] = AJJ;
                GO TO 50;
@@ -120,7 +120,7 @@
 
             // Compute s(j,j) and test for non-positive-definiteness.
 
-            AJJ = DBLE( AB( 1, J ) );
+            AJJ = (AB( 1, J )).toDouble();
             if ( AJJ <= ZERO ) {
                AB[1, J] = AJJ;
                GO TO 50;
@@ -144,7 +144,7 @@
 
             // Compute s(j,j) and test for non-positive-definiteness.
 
-            AJJ = DBLE( AB( 1, J ) );
+            AJJ = (AB( 1, J )).toDouble();
             if ( AJJ <= ZERO ) {
                AB[1, J] = AJJ;
                GO TO 50;

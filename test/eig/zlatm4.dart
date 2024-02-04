@@ -128,9 +128,9 @@
          } // 140
          A[KBEG, KBEG] = CONE;
          if ( KLEN > 1 ) {
-            ALPHA = RCOND**( ONE / DBLE( KLEN-1 ) );
+            ALPHA = RCOND**( ONE / (KLEN-1).toDouble() );
             for (I = 2; I <= KLEN; I++) { // 150
-               A[NZ1+I, NZ1+I] = DCMPLX( ALPHA**DBLE( I-1 ) );
+               A[NZ1+I, NZ1+I] = DCMPLX( ALPHA**(I-1).toDouble() );
             } // 150
          }
          GO TO 220;
@@ -140,9 +140,9 @@
          } // 160
          A[KBEG, KBEG] = CONE;
          if ( KLEN > 1 ) {
-            ALPHA = ( ONE-RCOND ) / DBLE( KLEN-1 );
+            ALPHA = ( ONE-RCOND ) / (KLEN-1).toDouble();
             for (I = 2; I <= KLEN; I++) { // 170
-               A[NZ1+I, NZ1+I] = DCMPLX( DBLE( KLEN-I )*ALPHA+RCOND );
+               A[NZ1+I, NZ1+I] = DCMPLX( (KLEN-I).toDouble()*ALPHA+RCOND );
             } // 170
          }
          GO TO 220;
@@ -168,10 +168,10 @@
          // Scale by AMAGN
 
          for (JD = KBEG; JD <= KEND; JD++) { // 230
-            A[JD, JD] = AMAGN*DBLE( A( JD, JD ) );
+            A[JD, JD] = AMAGN*(A( JD, JD )).toDouble();
          } // 230
          for (JD = ISDB; JD <= ISDE; JD++) { // 240
-            A[JD+1, JD] = AMAGN*DBLE( A( JD+1, JD ) );
+            A[JD+1, JD] = AMAGN*(A( JD+1, JD )).toDouble();
          } // 240
 
          // If RSIGN = true , assign random signs to diagonal and
@@ -179,17 +179,17 @@
 
          if ( RSIGN ) {
             for (JD = KBEG; JD <= KEND; JD++) { // 250
-               if ( DBLE( A( JD, JD ) ) != ZERO ) {
+               if ( (A( JD, JD )).toDouble() != ZERO ) {
                   CTEMP = ZLARND( 3, ISEED );
                   CTEMP = CTEMP / ( CTEMP ).abs();
-                  A[JD, JD] = CTEMP*DBLE( A( JD, JD ) );
+                  A[JD, JD] = CTEMP*(A( JD, JD )).toDouble();
                }
             } // 250
             for (JD = ISDB; JD <= ISDE; JD++) { // 260
-               if ( DBLE( A( JD+1, JD ) ) != ZERO ) {
+               if ( (A( JD+1, JD )).toDouble() != ZERO ) {
                   CTEMP = ZLARND( 3, ISEED );
                   CTEMP = CTEMP / ( CTEMP ).abs();
-                  A[JD+1, JD] = CTEMP*DBLE( A( JD+1, JD ) );
+                  A[JD+1, JD] = CTEMP*(A( JD+1, JD )).toDouble();
                }
             } // 260
          }

@@ -114,7 +114,7 @@
                            T[2, 3] = VAL( IC12 );
                            T[3, 1] = ZERO;
                            T[3, 2] = -VAL( IC21 );
-                           T[3, 3] = VAL( IC11 )*DBLE( IC22 );
+                           T[3, 3] = VAL( IC11 )*IC22.toDouble();
                            TNRM = max( ( T( 1, 1 ) ).abs(), ( T( 1, 2 ) ).abs(), ( T( 1, 3 ) ).abs(), ( T( 2, 2 ) ).abs(), ( T( 2, 3 ) ).abs(), ( T( 3, 2 ) ).abs(), ( T( 3, 3 ) ) ).abs();
                            dcopy(16, T, 1, T1, 1 );
                            dcopy(16, VAL( 1 ), 0, Q, 1 );
@@ -152,7 +152,7 @@
                            T[1, 2] = VAL( IA12 );
                            T[1, 3] = -TWO*VAL( IB );
                            T[2, 1] = -VAL( IA21 );
-                           T[2, 2] = VAL( IA11 )*DBLE( IA22 );
+                           T[2, 2] = VAL( IA11 )*IA22.toDouble();
                            T[2, 3] = VAL( IB );
                            T[3, 1] = ZERO;
                            T[3, 2] = ZERO;
@@ -199,7 +199,7 @@
                                     T[1, 3] = -TWO*VAL( IB );
                                     T[1, 4] = HALF*VAL( IB );
                                     T[2, 1] = -T( 1, 2 )*VAL( IA21 );
-                                    T[2, 2] = VAL( IA11 )* DBLE( IA22 )*VM( IAM );
+                                    T[2, 2] = VAL( IA11 )* IA22.toDouble()*VM( IAM );
                                     T[2, 3] = VAL( IB );
                                     T[2, 4] = THREE*VAL( IB );
                                     T[3, 1] = ZERO;
@@ -207,7 +207,7 @@
                                     T[3, 3] = VAL( IC11 )* ( VAL( ICM ) ).abs()                                     T( 3, 4 ) = VAL( IC12 )* ( VAL( ICM ) ).abs();
                                     T[4, 1] = ZERO;
                                     T[4, 2] = ZERO;
-                                    T[4, 3] = -T( 3, 4 )*VAL( IC21 )* ( VAL( ICM ) ).abs()                                     T( 4, 4 ) = VAL( IC11 )* DBLE( IC22 )* ( VAL( ICM ) ).abs();
+                                    T[4, 3] = -T( 3, 4 )*VAL( IC21 )* ( VAL( ICM ) ).abs()                                     T( 4, 4 ) = VAL( IC11 )* IC22.toDouble()* ( VAL( ICM ) ).abs();
                                     TNRM = ZERO;
                                     for (I = 1; I <= 4; I++) { // 200
                                        for (J = 1; J <= 4; J++) { // 190

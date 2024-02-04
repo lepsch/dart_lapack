@@ -60,7 +60,7 @@
       WANTT = LSAME( JOB, 'S' );
       INITZ = LSAME( COMPZ, 'I' );
       WANTZ = INITZ || LSAME( COMPZ, 'V' );
-      WORK[1] = DCMPLX( DBLE( max( 1, N ) ), RZERO );
+      WORK[1] = DCMPLX( (max( 1, N )).toDouble(), RZERO );
       LQUERY = LWORK == -1;
 
       INFO = 0;
@@ -102,7 +102,7 @@
          zlaqr0(WANTT, WANTZ, N, ILO, IHI, H, LDH, W, ILO, IHI, Z, LDZ, WORK, LWORK, INFO );
          // ==== Ensure reported workspace size is backward-compatible with
          // .    previous LAPACK versions. ====
-         WORK[1] = DCMPLX( max( DBLE( WORK( 1 ) ), DBLE( max( 1, N ) ) ), RZERO );
+         WORK[1] = DCMPLX( max( (WORK( 1 )).toDouble(), (max( 1, N )).toDouble() ), RZERO );
          return;
 
       } else {
@@ -174,7 +174,7 @@
          // ==== Ensure reported workspace size is backward-compatible with
          // .    previous LAPACK versions. ====
 
-         WORK[1] = DCMPLX( max( DBLE( max( 1, N ) ), DBLE( WORK( 1 ) ) ), RZERO );
+         WORK[1] = DCMPLX( max( (max( 1, N )).toDouble(), (WORK( 1 )).toDouble() ), RZERO );
       }
 
       // ==== End of ZHSEQR ====

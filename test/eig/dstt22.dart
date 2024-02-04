@@ -82,7 +82,7 @@
          if ( ANORM < ONE ) {
             RESULT[1] = ( min( WNORM, M*ANORM ) / ANORM ) / ( M*ULP );
          } else {
-            RESULT[1] = min( WNORM / ANORM, DBLE( M ) ) / ( M*ULP );
+            RESULT[1] = min( WNORM / ANORM, M.toDouble() ) / ( M*ULP );
          }
       }
 
@@ -96,7 +96,7 @@
          WORK[J, J] = WORK( J, J ) - ONE;
       } // 50
 
-      RESULT[2] = min( DBLE( M ), DLANGE( '1', M, M, WORK, M, WORK( 1, M+1 ) ) ) / ( M*ULP );
+      RESULT[2] = min( M.toDouble(), DLANGE( '1', M, M, WORK, M, WORK( 1, M+1 ) ) ) / ( M*ULP );
 
       return;
       }

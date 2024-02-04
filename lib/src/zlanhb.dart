@@ -48,12 +48,12 @@
                   SUM = ( AB( I, J ) ).abs();
                   if( VALUE < SUM || DISNAN( SUM ) ) VALUE = SUM;
                } // 10
-               SUM = ABS( DBLE( AB( K+1, J ) ) );
+               SUM = ABS( (AB( K+1, J )).toDouble() );
                if( VALUE < SUM || DISNAN( SUM ) ) VALUE = SUM;
             } // 20
          } else {
             for (J = 1; J <= N; J++) { // 40
-               SUM = ABS( DBLE( AB( 1, J ) ) );
+               SUM = ABS( (AB( 1, J )).toDouble() );
                if( VALUE < SUM || DISNAN( SUM ) ) VALUE = SUM;
                for (I = 2; I <= min( N+1-J, K+1 ); I++) { // 30
                   SUM = ( AB( I, J ) ).abs();
@@ -75,7 +75,7 @@
                   SUM = SUM + ABSA;
                   WORK[I] = WORK( I ) + ABSA;
                } // 50
-               WORK[J] = SUM + ABS( DBLE( AB( K+1, J ) ) );
+               WORK[J] = SUM + ABS( (AB( K+1, J )).toDouble() );
             } // 60
             for (I = 1; I <= N; I++) { // 70
                SUM = WORK( I );
@@ -86,7 +86,7 @@
                WORK[I] = ZERO;
             } // 80
             for (J = 1; J <= N; J++) { // 100
-               SUM = WORK( J ) + ABS( DBLE( AB( 1, J ) ) );
+               SUM = WORK( J ) + ABS( (AB( 1, J )).toDouble() );
                L = 1 - J;
                for (I = J + 1; I <= min( N, J+K ); I++) { // 90
                   ABSA = ( AB( L+I, J ) ).abs();
@@ -119,8 +119,8 @@
             L = 1;
          }
          for (J = 1; J <= N; J++) { // 130
-            if ( DBLE( AB( L, J ) ) != ZERO ) {
-               ABSA = ABS( DBLE( AB( L, J ) ) );
+            if ( (AB( L, J )).toDouble() != ZERO ) {
+               ABSA = ABS( (AB( L, J )).toDouble() );
                if ( SCALE < ABSA ) {
                   SUM = ONE + SUM*( SCALE / ABSA )**2;
                   SCALE = ABSA;

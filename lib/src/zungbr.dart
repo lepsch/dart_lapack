@@ -73,7 +73,7 @@
                }
             }
          }
-         LWKOPT = INT( DBLE( WORK( 1 ) ) );
+         LWKOPT = INT( (WORK( 1 )).toDouble() );
          LWKOPT = max(LWKOPT, MN);
       }
 

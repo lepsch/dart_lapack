@@ -116,14 +116,14 @@
                for (I = max( 1, KD+2-J ); I <= KD; I++) { // 50
                   AB[I, J] = ZERO;
                } // 50
-               AB[KD+1, J] = DBLE( J );
+               AB[KD+1, J] = J.toDouble();
             } // 60
          } else {
             for (J = 1; J <= N; J++) { // 80
                for (I = 2; I <= min( KD+1, N-J+1 ); I++) { // 70
                   AB[I, J] = ZERO;
                } // 70
-               AB[1, J] = DBLE( J );
+               AB[1, J] = J.toDouble();
             } // 80
          }
 
@@ -238,7 +238,7 @@
          // In type 11, the offdiagonal elements are small (CNORM(j) < 1).
 
          dlarnv(2, ISEED, N, B );
-         TSCAL = ONE / DBLE( KD+1 );
+         TSCAL = ONE / (KD+1).toDouble();
          if ( UPPER ) {
             for (J = 1; J <= N; J++) { // 140
                LENJ = min( J, KD+1 );
@@ -338,7 +338,7 @@
          // overflow when dividing by T(j,j).  To control the amount of
          // scaling needed, the matrix is bidiagonal.
 
-         TEXP = ONE / DBLE( KD+1 );
+         TEXP = ONE / (KD+1).toDouble();
          TSCAL = SMLNUM**TEXP;
          dlarnv(2, ISEED, N, B );
          if ( UPPER ) {
@@ -409,40 +409,40 @@
             if ( UPPER ) {
                for (J = N; -KD < 0 ? J >= 1 : J <= 1; J += -KD) { // 330
                   for (I = J; I >= max( 1, J-KD+1 ); I -= 2) { // 320
-                     AB[1+( J-I ), I] = -TSCAL / DBLE( KD+2 );
+                     AB[1+( J-I ), I] = -TSCAL / (KD+2).toDouble();
                      AB[KD+1, I] = ONE;
                      B[I] = TEXP*( ONE-ULP );
                      if ( I > max( 1, J-KD+1 ) ) {
-                        AB[2+( J-I ), I-1] = -( TSCAL / DBLE( KD+2 ) ) / DBLE( KD+3 );
+                        AB[2+( J-I ), I-1] = -( TSCAL / DBLE( KD+2 ) ) / (KD+3).toDouble();
                         AB[KD+1, I-1] = ONE;
                         B[I-1] = TEXP*DBLE( ( KD+1 )*( KD+1 )+KD );
                      }
                      TEXP = TEXP*TWO;
                   } // 320
-                  B[max( 1, J-KD+1 )] = ( DBLE( KD+2 ) / DBLE( KD+3 ) )*TSCAL;
+                  B[max( 1, J-KD+1 )] = ( DBLE( KD+2 ) / (KD+3).toDouble() )*TSCAL;
                } // 330
             } else {
                for (J = 1; KD < 0 ? J >= N : J <= N; J += KD) { // 350
                   TEXP = ONE;
                   LENJ = min( KD+1, N-J+1 );
                   for (I = J; 2 < 0 ? I >= min( N, J+KD-1 ) : I <= min( N, J+KD-1 ); I += 2) { // 340
-                     AB[LENJ-( I-J ), J] = -TSCAL / DBLE( KD+2 );
+                     AB[LENJ-( I-J ), J] = -TSCAL / (KD+2).toDouble();
                      AB[1, J] = ONE;
                      B[J] = TEXP*( ONE-ULP );
                      if ( I < min( N, J+KD-1 ) ) {
-                        AB[LENJ-( I-J+1 ), I+1] = -( TSCAL / DBLE( KD+2 ) ) / DBLE( KD+3 );
+                        AB[LENJ-( I-J+1 ), I+1] = -( TSCAL / DBLE( KD+2 ) ) / (KD+3).toDouble();
                         AB[1, I+1] = ONE;
                         B[I+1] = TEXP*DBLE( ( KD+1 )*( KD+1 )+KD );
                      }
                      TEXP = TEXP*TWO;
                   } // 340
-                  B[min( N, J+KD-1 )] = ( DBLE( KD+2 ) / DBLE( KD+3 ) )*TSCAL;
+                  B[min( N, J+KD-1 )] = ( DBLE( KD+2 ) / (KD+3).toDouble() )*TSCAL;
                } // 350
             }
          } else {
             for (J = 1; J <= N; J++) { // 360
                AB[1, J] = ONE;
-               B[J] = DBLE( J );
+               B[J] = J.toDouble();
             } // 360
          }
 
@@ -456,13 +456,13 @@
             for (J = 1; J <= N; J++) { // 370
                LENJ = min( J-1, KD );
                dlarnv(2, ISEED, LENJ, AB( KD+1-LENJ, J ) );
-               AB[KD+1, J] = DBLE( J );
+               AB[KD+1, J] = J.toDouble();
             } // 370
          } else {
             for (J = 1; J <= N; J++) { // 380
                LENJ = min( N-J, KD );
                if (LENJ > 0) dlarnv( 2, ISEED, LENJ, AB( 2, J ) );
-               AB[1, J] = DBLE( J );
+               AB[1, J] = J.toDouble();
             } // 380
          }
 
@@ -480,8 +480,8 @@
          // BIGNUM/KD and BIGNUM so that at least one of the column
          // norms will exceed BIGNUM.
 
-         TLEFT = BIGNUM / max( ONE, DBLE( KD ) );
-         TSCAL = BIGNUM*( DBLE( KD ) / DBLE( KD+1 ) );
+         TLEFT = BIGNUM / max( ONE, KD.toDouble() );
+         TSCAL = BIGNUM*( KD.toDouble() / (KD+1).toDouble() );
          if ( UPPER ) {
             for (J = 1; J <= N; J++) { // 400
                LENJ = min( J, KD+1 );

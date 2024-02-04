@@ -84,7 +84,7 @@
       }
       IPIV[1] = 1;
       if ( N == 1 ) {
-         A[1, 1] = DBLE( A( 1, 1 ) );
+         A[1, 1] = (A( 1, 1 )).toDouble();
          return;
       }
 

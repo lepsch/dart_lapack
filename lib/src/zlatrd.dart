@@ -50,14 +50,14 @@
 
                // Update A(1:i,i)
 
-               A[I, I] = DBLE( A( I, I ) );
+               A[I, I] = (A( I, I )).toDouble();
                zlacgv(N-I, W( I, IW+1 ), LDW );
                zgemv('No transpose', I, N-I, -ONE, A( 1, I+1 ), LDA, W( I, IW+1 ), LDW, ONE, A( 1, I ), 1 );
                zlacgv(N-I, W( I, IW+1 ), LDW );
                zlacgv(N-I, A( I, I+1 ), LDA );
                zgemv('No transpose', I, N-I, -ONE, W( 1, IW+1 ), LDW, A( I, I+1 ), LDA, ONE, A( 1, I ), 1 );
                zlacgv(N-I, A( I, I+1 ), LDA );
-               A[I, I] = DBLE( A( I, I ) );
+               A[I, I] = (A( I, I )).toDouble();
             }
             if ( I > 1 ) {
 
@@ -66,7 +66,7 @@
 
                ALPHA = A( I-1, I );
                zlarfg(I-1, ALPHA, A( 1, I ), 1, TAU( I-1 ) );
-               E[I-1] = DBLE( ALPHA );
+               E[I-1] = ALPHA.toDouble();
                A[I-1, I] = ONE;
 
                // Compute W(1:i-1,i)
@@ -92,14 +92,14 @@
 
             // Update A(i:n,i)
 
-            A[I, I] = DBLE( A( I, I ) );
+            A[I, I] = (A( I, I )).toDouble();
             zlacgv(I-1, W( I, 1 ), LDW );
             zgemv('No transpose', N-I+1, I-1, -ONE, A( I, 1 ), LDA, W( I, 1 ), LDW, ONE, A( I, I ), 1 );
             zlacgv(I-1, W( I, 1 ), LDW );
             zlacgv(I-1, A( I, 1 ), LDA );
             zgemv('No transpose', N-I+1, I-1, -ONE, W( I, 1 ), LDW, A( I, 1 ), LDA, ONE, A( I, I ), 1 );
             zlacgv(I-1, A( I, 1 ), LDA );
-            A[I, I] = DBLE( A( I, I ) );
+            A[I, I] = (A( I, I )).toDouble();
             if ( I < N ) {
 
                // Generate elementary reflector H(i) to annihilate
@@ -107,7 +107,7 @@
 
                ALPHA = A( I+1, I );
                zlarfg(N-I, ALPHA, A( min( I+2, N ), I ), 1, TAU( I ) );
-               E[I] = DBLE( ALPHA );
+               E[I] = ALPHA.toDouble();
                A[I+1, I] = ONE;
 
                // Compute W(i+1:n,i)

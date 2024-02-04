@@ -51,7 +51,7 @@
 
       // Quick return if possible.
 
-      if ((N == 0) || (ALPHA == DBLE(ZERO))) return;
+      if ((N == 0) || (ALPHA == ZERO.toDouble())) return;
 
       // Set the start point in X if the increment is not unity.
 
@@ -78,9 +78,9 @@
                           AP[K] = AP(K) + X(I)*TEMP;
                           K = K + 1;
                       } // 10
-                      AP[KK+J-1] = DBLE(AP(KK+J-1)) + DBLE(X(J)*TEMP);
+                      AP[KK+J-1] = (AP(KK+J-1)).toDouble() + (X(J)*TEMP).toDouble();
                   } else {
-                      AP[KK+J-1] = DBLE(AP(KK+J-1));
+                      AP[KK+J-1] = (AP(KK+J-1)).toDouble();
                   }
                   KK = KK + J;
               } // 20
@@ -94,9 +94,9 @@
                           AP[K] = AP(K) + X(IX)*TEMP;
                           IX = IX + INCX;
                       } // 30
-                      AP[KK+J-1] = DBLE(AP(KK+J-1)) + DBLE(X(JX)*TEMP);
+                      AP[KK+J-1] = (AP(KK+J-1)).toDouble() + (X(JX)*TEMP).toDouble();
                   } else {
-                      AP[KK+J-1] = DBLE(AP(KK+J-1));
+                      AP[KK+J-1] = (AP(KK+J-1)).toDouble();
                   }
                   JX = JX + INCX;
                   KK = KK + J;
@@ -110,14 +110,14 @@
               for (J = 1; J <= N; J++) { // 60
                   if (X(J) != ZERO) {
                       TEMP = ALPHA*DCONJG(X(J));
-                      AP[KK] = DBLE(AP(KK)) + DBLE(TEMP*X(J));
+                      AP[KK] = (AP(KK)).toDouble() + (TEMP*X(J)).toDouble();
                       K = KK + 1;
                       for (I = J + 1; I <= N; I++) { // 50
                           AP[K] = AP(K) + X(I)*TEMP;
                           K = K + 1;
                       } // 50
                   } else {
-                      AP[KK] = DBLE(AP(KK));
+                      AP[KK] = (AP(KK)).toDouble();
                   }
                   KK = KK + N - J + 1;
               } // 60
@@ -126,14 +126,14 @@
               for (J = 1; J <= N; J++) { // 80
                   if (X(JX) != ZERO) {
                       TEMP = ALPHA*DCONJG(X(JX));
-                      AP[KK] = DBLE(AP(KK)) + DBLE(TEMP*X(JX));
+                      AP[KK] = (AP(KK)).toDouble() + (TEMP*X(JX)).toDouble();
                       IX = JX;
                       for (K = KK + 1; K <= KK + N - J; K++) { // 70
                           IX = IX + INCX;
                           AP[K] = AP(K) + X(IX)*TEMP;
                       } // 70
                   } else {
-                      AP[KK] = DBLE(AP(KK));
+                      AP[KK] = (AP(KK)).toDouble();
                   }
                   JX = JX + INCX;
                   KK = KK + N - J + 1;

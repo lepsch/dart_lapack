@@ -65,7 +65,7 @@
       if ( TWO*SMLNUM*( RHS( I ) ).abs() > ( A( N, N ) ) ).abs() {
          TEMP = DCMPLX( ONE / TWO, ZERO ) / ( RHS( I ) ).abs();
          zscal(N, TEMP, RHS( 1 ), 1 );
-         SCALE = SCALE*DBLE( TEMP );
+         SCALE = SCALE*TEMP.toDouble();
       }
       for (I = N; I >= 1; I--) { // 40
          TEMP = DCMPLX( ONE, ZERO ) / A( I, I );

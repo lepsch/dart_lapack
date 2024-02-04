@@ -98,7 +98,7 @@
 
          } // 80
          for (JD = KBEG; JD <= KEND; JD++) { // 90
-            A[JD, JD] = DBLE( JD-NZ1 );
+            A[JD, JD] = (JD-NZ1).toDouble();
          } // 90
          GO TO 220;
 
@@ -125,9 +125,9 @@
          } // 140
          A[KBEG, KBEG] = ONE;
          if ( KLEN > 1 ) {
-            ALPHA = RCOND**( ONE / DBLE( KLEN-1 ) );
+            ALPHA = RCOND**( ONE / (KLEN-1).toDouble() );
             for (I = 2; I <= KLEN; I++) { // 150
-               A[NZ1+I, NZ1+I] = ALPHA**DBLE( I-1 );
+               A[NZ1+I, NZ1+I] = ALPHA**(I-1).toDouble();
             } // 150
          }
          GO TO 220;
@@ -137,9 +137,9 @@
          } // 160
          A[KBEG, KBEG] = ONE;
          if ( KLEN > 1 ) {
-            ALPHA = ( ONE-RCOND ) / DBLE( KLEN-1 );
+            ALPHA = ( ONE-RCOND ) / (KLEN-1).toDouble();
             for (I = 2; I <= KLEN; I++) { // 170
-               A[NZ1+I, NZ1+I] = DBLE( KLEN-I )*ALPHA + RCOND;
+               A[NZ1+I, NZ1+I] = (KLEN-I).toDouble()*ALPHA + RCOND;
             } // 170
          }
          GO TO 220;
@@ -165,10 +165,10 @@
          // Scale by AMAGN
 
          for (JD = KBEG; JD <= KEND; JD++) { // 230
-            A[JD, JD] = AMAGN*DBLE( A( JD, JD ) );
+            A[JD, JD] = AMAGN*(A( JD, JD )).toDouble();
          } // 230
          for (JD = ISDB; JD <= ISDE; JD++) { // 240
-            A[JD+1, JD] = AMAGN*DBLE( A( JD+1, JD ) );
+            A[JD+1, JD] = AMAGN*(A( JD+1, JD )).toDouble();
          } // 240
 
          // If ISIGN = 1 or 2, assign random signs to diagonal and
@@ -176,12 +176,12 @@
 
          if ( ISIGN > 0 ) {
             for (JD = KBEG; JD <= KEND; JD++) { // 250
-               if ( DBLE( A( JD, JD ) ) != ZERO ) {
+               if ( (A( JD, JD )).toDouble() != ZERO ) {
                   if[DLARAN( ISEED ) > HALF ) A( JD, JD] = -A( JD, JD );
                }
             } // 250
             for (JD = ISDB; JD <= ISDE; JD++) { // 260
-               if ( DBLE( A( JD+1, JD ) ) != ZERO ) {
+               if ( (A( JD+1, JD )).toDouble() != ZERO ) {
                   if[DLARAN( ISEED ) > HALF ) A( JD+1, JD] = -A( JD+1, JD );
                }
             } // 260

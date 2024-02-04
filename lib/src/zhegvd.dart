@@ -111,9 +111,9 @@
 
       zhegst(ITYPE, UPLO, N, A, LDA, B, LDB, INFO );
       zheevd(JOBZ, UPLO, N, A, LDA, W, WORK, LWORK, RWORK, LRWORK, IWORK, LIWORK, INFO );
-      LOPT = INT( max( DBLE( LOPT ), DBLE( WORK( 1 ) ) ) );
-      LROPT = INT( max( DBLE( LROPT ), DBLE( RWORK( 1 ) ) ) );
-      LIOPT = INT( max( DBLE( LIOPT ), DBLE( IWORK( 1 ) ) ) );
+      LOPT = INT( max( LOPT.toDouble(), (WORK( 1 )).toDouble() ) );
+      LROPT = INT( max( LROPT.toDouble(), (RWORK( 1 )).toDouble() ) );
+      LIOPT = INT( max( LIOPT.toDouble(), (IWORK( 1 )).toDouble() ) );
 
       if ( WANTZ && INFO == 0 ) {
 

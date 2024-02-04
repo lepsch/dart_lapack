@@ -207,7 +207,7 @@
 
          X = sqrt( CNDNUM ) - ONE / sqrt( CNDNUM );
          if ( N > 2 ) {
-            Y = sqrt( TWO / DBLE( N-2 ) )*X;
+            Y = sqrt( TWO / (N-2).toDouble() )*X;
          } else {
             Y = ZERO;
          }
@@ -351,7 +351,7 @@
          // In type 12, the offdiagonal elements are small (CNORM(j) < 1).
 
          dlarnv(2, ISEED, N, B );
-         TSCAL = ONE / max( ONE, DBLE( N-1 ) );
+         TSCAL = ONE / max( ONE, (N-1).toDouble() );
          if ( UPPER ) {
             JC = 1;
             for (J = 1; J <= N; J++) { // 200
@@ -459,7 +459,7 @@
          // overflow when dividing by T(j,j).  To control the amount of
          // scaling needed, the matrix is bidiagonal.
 
-         TEXP = ONE / max( ONE, DBLE( N-1 ) );
+         TEXP = ONE / max( ONE, (N-1).toDouble() );
          TSCAL = SMLNUM**TEXP;
          dlarnv(2, ISEED, N, B );
          if ( UPPER ) {
@@ -533,31 +533,31 @@
          if ( UPPER ) {
             JC = ( N-1 )*N / 2 + 1;
             for (J = N; J >= 2; J -= 2) { // 370
-               A[JC] = -TSCAL / DBLE( N+1 );
+               A[JC] = -TSCAL / (N+1).toDouble();
                A[JC+J-1] = ONE;
                B[J] = TEXP*( ONE-ULP );
                JC = JC - J + 1;
-               A[JC] = -( TSCAL / DBLE( N+1 ) ) / DBLE( N+2 );
+               A[JC] = -( TSCAL / DBLE( N+1 ) ) / (N+2).toDouble();
                A[JC+J-2] = ONE;
-               B[J-1] = TEXP*DBLE( N*N+N-1 );
+               B[J-1] = TEXP*(N*N+N-1).toDouble();
                TEXP = TEXP*TWO;
                JC = JC - J + 2;
             } // 370
-            B[1] = ( DBLE( N+1 ) / DBLE( N+2 ) )*TSCAL;
+            B[1] = ( DBLE( N+1 ) / (N+2).toDouble() )*TSCAL;
          } else {
             JC = 1;
             for (J = 1; 2 < 0 ? J >= N - 1 : J <= N - 1; J += 2) { // 380
-               A[JC+N-J] = -TSCAL / DBLE( N+1 );
+               A[JC+N-J] = -TSCAL / (N+1).toDouble();
                A[JC] = ONE;
                B[J] = TEXP*( ONE-ULP );
                JC = JC + N - J + 1;
-               A[JC+N-J-1] = -( TSCAL / DBLE( N+1 ) ) / DBLE( N+2 );
+               A[JC+N-J-1] = -( TSCAL / DBLE( N+1 ) ) / (N+2).toDouble();
                A[JC] = ONE;
-               B[J+1] = TEXP*DBLE( N*N+N-1 );
+               B[J+1] = TEXP*(N*N+N-1).toDouble();
                TEXP = TEXP*TWO;
                JC = JC + N - J;
             } // 380
-            B[N] = ( DBLE( N+1 ) / DBLE( N+2 ) )*TSCAL;
+            B[N] = ( DBLE( N+1 ) / (N+2).toDouble() )*TSCAL;
          }
 
       } else if ( IMAT == 18 ) {
@@ -596,8 +596,8 @@
          // BIGNUM/(n-1) and BIGNUM so that at least one of the column
          // norms will exceed BIGNUM.
 
-         TLEFT = BIGNUM / max( ONE, DBLE( N-1 ) );
-         TSCAL = BIGNUM*( DBLE( N-1 ) / max( ONE, DBLE( N ) ) );
+         TLEFT = BIGNUM / max( ONE, (N-1).toDouble() );
+         TSCAL = BIGNUM*( (N-1).toDouble() / max( ONE, N.toDouble() ) );
          if ( UPPER ) {
             JC = 1;
             for (J = 1; J <= N; J++) { // 420

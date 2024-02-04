@@ -45,7 +45,7 @@
          NB = max( 1, ILAENV( 1, 'DGEBRD', ' ', M, N, -1, -1 ) );
          LWKOPT = ( M+N )*NB;
       }
-      WORK[1] = DBLE( LWKOPT );
+      WORK[1] = LWKOPT.toDouble();
 
       LQUERY = ( LWORK == -1 );
       if ( M < 0 ) {

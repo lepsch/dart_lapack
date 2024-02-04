@@ -55,7 +55,7 @@
 
             ALPHA = A( I, I );
             zlarfg(M-I+1, ALPHA, A( min( I+1, M ), I ), 1, TAUQ( I ) );
-            D[I] = DBLE( ALPHA );
+            D[I] = ALPHA.toDouble();
             A[I, I] = ONE;
 
             // Apply H(i)**H to A(i:m,i+1:n) from the left
@@ -71,7 +71,7 @@
                zlacgv(N-I, A( I, I+1 ), LDA );
                ALPHA = A( I, I+1 );
                zlarfg(N-I, ALPHA, A( I, min( I+2, N ) ), LDA, TAUP( I ) );
-               E[I] = DBLE( ALPHA );
+               E[I] = ALPHA.toDouble();
                A[I, I+1] = ONE;
 
                // Apply G(i) to A(i+1:m,i+1:n) from the right
@@ -94,7 +94,7 @@
             zlacgv(N-I+1, A( I, I ), LDA );
             ALPHA = A( I, I );
             zlarfg(N-I+1, ALPHA, A( I, min( I+1, N ) ), LDA, TAUP( I ) );
-            D[I] = DBLE( ALPHA );
+            D[I] = ALPHA.toDouble();
             A[I, I] = ONE;
 
             // Apply G(i) to A(i+1:m,i:n) from the right
@@ -110,7 +110,7 @@
 
                ALPHA = A( I+1, I );
                zlarfg(M-I, ALPHA, A( min( I+2, M ), I ), 1, TAUQ( I ) );
-               E[I] = DBLE( ALPHA );
+               E[I] = ALPHA.toDouble();
                A[I+1, I] = ONE;
 
                // Apply H(i)**H to A(i+1:m,i+1:n) from the left

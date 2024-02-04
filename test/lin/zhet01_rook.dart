@@ -81,11 +81,11 @@
             for (I = 1; I <= J - 1; I++) { // 20
                C[I, J] = C( I, J ) - A( I, J );
             } // 20
-            C[J, J] = C( J, J ) - DBLE( A( J, J ) );
+            C[J, J] = C( J, J ) - (A( J, J )).toDouble();
          } // 30
       } else {
          for (J = 1; J <= N; J++) { // 50
-            C[J, J] = C( J, J ) - DBLE( A( J, J ) );
+            C[J, J] = C( J, J ) - (A( J, J )).toDouble();
             for (I = J + 1; I <= N; I++) { // 40
                C[I, J] = C( I, J ) - A( I, J );
             } // 40
@@ -99,7 +99,7 @@
       if ( ANORM <= ZERO ) {
          if (RESID != ZERO) RESID = ONE / EPS;
       } else {
-         RESID = ( ( RESID/DBLE( N ) )/ANORM ) / EPS;
+         RESID = ( ( RESID/N.toDouble() )/ANORM ) / EPS;
       }
 
       return;

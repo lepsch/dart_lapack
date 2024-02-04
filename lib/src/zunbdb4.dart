@@ -86,7 +86,7 @@
             zscal(P, NEGONE, PHANTOM(1), 1 );
             zlarfgp(P, PHANTOM(1), PHANTOM(2), 1, TAUP1(1) );
             zlarfgp(M-P, PHANTOM(P+1), PHANTOM(P+2), 1, TAUP2(1) );
-            THETA[I] = ATAN2( DBLE( PHANTOM(1) ), DBLE( PHANTOM(P+1) ) );
+            THETA[I] = ATAN2( (PHANTOM(1)).toDouble(), (PHANTOM(P+1)).toDouble() );
             C = COS( THETA(I) );
             S = SIN( THETA(I) );
             PHANTOM[1] = ONE;
@@ -98,7 +98,7 @@
             zscal(P-I+1, NEGONE, X11(I,I-1), 1 );
             zlarfgp(P-I+1, X11(I,I-1), X11(I+1,I-1), 1, TAUP1(I) );
             zlarfgp(M-P-I+1, X21(I,I-1), X21(I+1,I-1), 1, TAUP2(I) );
-            THETA[I] = ATAN2( DBLE( X11(I,I-1) ), DBLE( X21(I,I-1) ) );
+            THETA[I] = ATAN2( (X11(I,I-1)).toDouble(), (X21(I,I-1)).toDouble() );
             C = COS( THETA(I) );
             S = SIN( THETA(I) );
             X11[I,I-1] = ONE;
@@ -110,7 +110,7 @@
          zdrot(Q-I+1, X11(I,I), LDX11, X21(I,I), LDX21, S, -C );
          zlacgv(Q-I+1, X21(I,I), LDX21 );
          zlarfgp(Q-I+1, X21(I,I), X21(I,I+1), LDX21, TAUQ1(I) );
-         C = DBLE( X21(I,I) );
+         C = (X21(I,I)).toDouble();
          X21[I,I] = ONE;
          zlarf('R', P-I, Q-I+1, X21(I,I), LDX21, TAUQ1(I), X11(I+1,I), LDX11, WORK(ILARF) );
          zlarf('R', M-P-I, Q-I+1, X21(I,I), LDX21, TAUQ1(I), X21(I+1,I), LDX21, WORK(ILARF) );

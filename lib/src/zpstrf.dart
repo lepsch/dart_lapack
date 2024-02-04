@@ -84,10 +84,10 @@
       // Compute stopping value
 
          for (I = 1; I <= N; I++) { // 110
-            WORK[I] = DBLE( A( I, I ) );
+            WORK[I] = (A( I, I )).toDouble();
          } // 110
          PVT = MAXLOC( WORK( 1:N ), 1 );
-         AJJ = DBLE( A( PVT, PVT ) );
+         AJJ = (A( PVT, PVT )).toDouble();
          if ( AJJ <= ZERO || DISNAN( AJJ ) ) {
             RANK = 0;
             INFO = 1;
@@ -131,7 +131,7 @@
                      if ( J > K ) {
                         WORK[I] = WORK( I ) + DBLE( DCONJG( A( J-1, I ) )* A( J-1, I ) );
                      }
-                     WORK[N+I] = DBLE( A( I, I ) ) - WORK( I );
+                     WORK[N+I] = (A( I, I )).toDouble() - WORK( I );
 
                   } // 130
 
@@ -219,7 +219,7 @@
                      if ( J > K ) {
                         WORK[I] = WORK( I ) + DBLE( DCONJG( A( I, J-1 ) )* A( I, J-1 ) );
                      }
-                     WORK[N+I] = DBLE( A( I, I ) ) - WORK( I );
+                     WORK[N+I] = (A( I, I )).toDouble() - WORK( I );
 
                   } // 180
 

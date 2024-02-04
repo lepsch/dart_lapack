@@ -27,14 +27,14 @@
       IX = 1;
       IC = 1;
       for (I = 1; I <= N; I++) { // 10
-         XI = DBLE( X( IX ) );
-         YI = DBLE( Y( IX ) );
+         XI = (X( IX )).toDouble();
+         YI = (Y( IX )).toDouble();
          ZI = Z( IX );
-         ZIR = DBLE( ZI );
+         ZIR = ZI.toDouble();
          ZII = DIMAG( ZI );
          CI = C( IC );
          SI = S( IC );
-         SIR = DBLE( SI );
+         SIR = SI.toDouble();
          SII = DIMAG( SI );
          T1R = SIR*ZIR - SII*ZII;
          T1I = SIR*ZII + SII*ZIR;
@@ -43,8 +43,8 @@
          T4 = DCONJG( T2 ) + SI*YI;
          T5 = CI*XI + T1R;
          T6 = CI*YI - T1R;
-         X[IX] = CI*T5 + ( SIR*DBLE( T4 )+SII*DIMAG( T4 ) );
-         Y[IX] = CI*T6 - ( SIR*DBLE( T3 )-SII*DIMAG( T3 ) );
+         X[IX] = CI*T5 + ( SIR*T4.toDouble()+SII*DIMAG( T4 ) );
+         Y[IX] = CI*T6 - ( SIR*T3.toDouble()-SII*DIMAG( T3 ) );
          Z[IX] = CI*T3 + DCONJG( SI )*DCMPLX( T6, T1I );
          IX = IX + INCX;
          IC = IC + INCC;

@@ -30,7 +30,7 @@
       RMAX = SLAMCH( 'O' );
       for (J = 1; J <= N; J++) { // 20
          for (I = 1; I <= M; I++) { // 10
-            if ( ( DBLE( A( I, J ) ) < -RMAX ) || ( DBLE( A( I, J ) ) > RMAX ) || ( DIMAG( A( I, J ) ) < -RMAX ) || ( DIMAG( A( I, J ) ) > RMAX ) ) {
+            if ( ( (A( I, J )).toDouble() < -RMAX ) || ( (A( I, J )).toDouble() > RMAX ) || ( DIMAG( A( I, J ) ) < -RMAX ) || ( DIMAG( A( I, J ) ) > RMAX ) ) {
                INFO = 1;
                GO TO 30;
             }

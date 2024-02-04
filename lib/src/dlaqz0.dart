@@ -96,7 +96,7 @@
       // Quick return if possible
 
       if ( N <= 0 ) {
-         WORK[1] = DBLE( 1 );
+         WORK[1] = 1.toDouble();
          return;
       }
 
@@ -120,7 +120,7 @@
       NSR = max( 2, NSR-(NSR % 2) );
 
       RCOST = ILAENV( 17, 'DLAQZ0', JBCMPZ, N, ILO, IHI, LWORK );
-      ITEMP1 = INT( NSR/sqrt( 1+2*NSR/( DBLE( RCOST )/100*N ) ) );
+      ITEMP1 = INT( NSR/sqrt( 1+2*NSR/( RCOST.toDouble()/100*N ) ) );
       ITEMP1 = ( ( ITEMP1-1 )/4 )*4+4;
       NBR = NSR+ITEMP1;
 
@@ -143,7 +143,7 @@
 
       LWORKREQ = max( ITEMP1+2*NW**2, ITEMP2+2*NBR**2 );
       if ( LWORK == -1 ) {
-         WORK[1] = DBLE( LWORKREQ );
+         WORK[1] = LWORKREQ.toDouble();
          return;
       } else if ( LWORK < LWORKREQ ) {
          INFO = -19;
@@ -162,7 +162,7 @@
       SAFMIN = DLAMCH( 'SAFE MINIMUM' );
       SAFMAX = ONE/SAFMIN;
       ULP = DLAMCH( 'PRECISION' );
-      SMLNUM = SAFMIN*( DBLE( N )/ULP );
+      SMLNUM = SAFMIN*( N.toDouble()/ULP );
 
       BNORM = DLANHS( 'F', IHI-ILO+1, B( ILO, ILO ), LDB, WORK );
       BTOL = max( SAFMIN, ULP*BNORM );
@@ -353,10 +353,10 @@
 
             // Exceptional shift.  Chosen for no particularly good reason.
 
-            if ( ( DBLE( MAXIT )*SAFMIN )*( A( ISTOP, ISTOP-1 ) ).abs() < ( A( ISTOP-1, ISTOP-1 ) ) ).abs() {
+            if ( ( MAXIT.toDouble()*SAFMIN )*( A( ISTOP, ISTOP-1 ) ).abs() < ( A( ISTOP-1, ISTOP-1 ) ) ).abs() {
                ESHIFT = A( ISTOP, ISTOP-1 )/B( ISTOP-1, ISTOP-1 );
             } else {
-               ESHIFT = ESHIFT+ONE/( SAFMIN*DBLE( MAXIT ) );
+               ESHIFT = ESHIFT+ONE/( SAFMIN*MAXIT.toDouble() );
             }
             ALPHAR[SHIFTPOS] = ONE;
             ALPHAR[SHIFTPOS+1] = ZERO;

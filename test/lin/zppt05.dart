@@ -38,7 +38,7 @@
       double             CABS1;
       // ..
       // .. Statement Function definitions ..
-      CABS1[ZDUM] = ( DBLE( ZDUM ) ).abs() + ( DIMAG( ZDUM ) ).abs();
+      CABS1[ZDUM] = ( ZDUM.toDouble() ).abs() + ( DIMAG( ZDUM ) ).abs();
       // ..
       // .. Executable Statements ..
 
@@ -97,7 +97,7 @@
                for (J = 1; J <= I - 1; J++) { // 40
                   TMP = TMP + CABS1( AP( JC+J ) )*CABS1( X( J, K ) );
                } // 40
-               TMP = TMP + ABS( DBLE( AP( JC+I ) ) )*CABS1( X( I, K ) );
+               TMP = TMP + ABS( (AP( JC+I )).toDouble() )*CABS1( X( I, K ) );
                JC = JC + I + I;
                for (J = I + 1; J <= N; J++) { // 50
                   TMP = TMP + CABS1( AP( JC ) )*CABS1( X( J, K ) );
@@ -109,7 +109,7 @@
                   TMP = TMP + CABS1( AP( JC ) )*CABS1( X( J, K ) );
                   JC = JC + N - J;
                } // 60
-               TMP = TMP + ABS( DBLE( AP( JC ) ) )*CABS1( X( I, K ) );
+               TMP = TMP + ABS( (AP( JC )).toDouble() )*CABS1( X( I, K ) );
                for (J = I + 1; J <= N; J++) { // 70
                   TMP = TMP + CABS1( AP( JC+J-I ) )*CABS1( X( J, K ) );
                } // 70

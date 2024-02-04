@@ -75,7 +75,7 @@
             LIWMIN = 1;
             LRWMIN = 2*( N - 1 );
          } else if ( ICOMPZ == 1 ) {
-            LGN = INT( LOG( DBLE( N ) ) / LOG( TWO ) );
+            LGN = INT( LOG( N.toDouble() ) / LOG( TWO ) );
             if (2**LGN < N) LGN = LGN + 1;
             IF( 2**LGN < N ) LGN = LGN + 1;
             LWMIN = N*N;

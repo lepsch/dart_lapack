@@ -103,7 +103,7 @@
             for (I = 1; I <= K - 1; I++) { // 40
                AFAC[KC+I-1] = AFAC( KC+I-1 ) - A( KC+I-1 );
             } // 40
-            AFAC[KC+K-1] = AFAC( KC+K-1 ) - DBLE( A( KC+K-1 ) );
+            AFAC[KC+K-1] = AFAC( KC+K-1 ) - (A( KC+K-1 )).toDouble();
             KC = KC + K;
          } // 50
 
@@ -130,7 +130,7 @@
 
          KC = 1;
          for (K = 1; K <= N; K++) { // 80
-            AFAC[KC] = AFAC( KC ) - DBLE( A( KC ) );
+            AFAC[KC] = AFAC( KC ) - (A( KC )).toDouble();
             for (I = K + 1; I <= N; I++) { // 70
                AFAC[KC+I-K] = AFAC( KC+I-K ) - A( KC+I-K );
             } // 70
@@ -142,7 +142,7 @@
 
       RESID = ZLANHP( '1', UPLO, N, AFAC, RWORK );
 
-      RESID = ( ( RESID / DBLE( N ) ) / ANORM ) / EPS;
+      RESID = ( ( RESID / N.toDouble() ) / ANORM ) / EPS;
 
       return;
       }

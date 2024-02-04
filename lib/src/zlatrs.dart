@@ -43,8 +43,8 @@
       double             CABS1, CABS2;
       // ..
       // .. Statement Function definitions ..
-      CABS1[ZDUM] = ( DBLE( ZDUM ) ).abs() + ( DIMAG( ZDUM ) ).abs();
-      CABS2[ZDUM] = ABS( DBLE( ZDUM ) / 2.0 ) + ABS( DIMAG( ZDUM ) / 2.0 );
+      CABS1[ZDUM] = ( ZDUM.toDouble() ).abs() + ( DIMAG( ZDUM ) ).abs();
+      CABS2[ZDUM] = ABS( ZDUM.toDouble() / 2.0 ) + ABS( DIMAG( ZDUM ) / 2.0 );
       // ..
       // .. Executable Statements ..
 
@@ -134,7 +134,7 @@
 
                for (J = 2; J <= N; J++) {
                   for (I = 1; I <= J - 1; I++) {
-                     TMAX = max( TMAX, ABS( DBLE( A( I, J ) ) ), ABS( DIMAG(A ( I, J ) ) ) );
+                     TMAX = max( TMAX, ABS( (A( I, J )).toDouble() ), ABS( DIMAG(A ( I, J ) ) ) );
                   }
                }
             } else {
@@ -143,7 +143,7 @@
 
                for (J = 1; J <= N - 1; J++) {
                   for (I = J + 1; I <= N; I++) {
-                     TMAX = max( TMAX, ABS( DBLE( A( I, J ) ) ), ABS( DIMAG(A ( I, J ) ) ) );
+                     TMAX = max( TMAX, ABS( (A( I, J )).toDouble() ), ABS( DIMAG(A ( I, J ) ) ) );
                   }
                }
             }

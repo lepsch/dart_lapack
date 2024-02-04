@@ -67,7 +67,7 @@
             JC = JJ + 1;
             JJ = JJ + J;
             if (J > 1) zhpr( 'Upper', J-1, ONE, AP( JC ), 1, AP );
-            AJJ = DBLE( AP( JJ ) );
+            AJJ = (AP( JJ )).toDouble();
             zdscal(J, AJJ, AP( JC ), 1 );
          } // 10
 

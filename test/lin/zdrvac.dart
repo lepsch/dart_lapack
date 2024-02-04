@@ -217,7 +217,7 @@
                   // NORM1(B - A*X)/(NORM1(A)*NORM1(X)*EPS) < THRES
                   // (Cf. the linear solver testing routines)
 
-                  if ((THRESH <= 0.0e+00) || ((ITER >= 0) && (N > 0) && (RESULT(1) >= sqrt(DBLE(N)))) || ((ITER < 0) && (RESULT(1) >= THRESH))) {
+                  if ((THRESH <= 0.0e+00) || ((ITER >= 0) && (N > 0) && (RESULT(1) >= sqrt(N.toDouble()))) || ((ITER < 0) && (RESULT(1) >= THRESH))) {
 
                      if ( NFAIL == 0 && NERRS == 0 ) {
                         WRITE( NOUT, FMT = 8999 )'ZPO';

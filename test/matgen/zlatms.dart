@@ -140,7 +140,7 @@
 
       GIVENS = false;
       if ( ISYM == 1 ) {
-         if( DBLE( LLB+UUB ) < 0.3*DBLE( max( 1, MR+NC ) ) ) GIVENS = true;
+         if( (LLB+UUB).toDouble() < 0.3*(max( 1, MR+NC )).toDouble() ) GIVENS = true;
       } else {
          if (2*LLB < M) GIVENS = true ;
       }
@@ -687,7 +687,7 @@
             if ( !ZSYM ) {
                for (JC = 1; JC <= N; JC++) { // 350
                   IROW = IOFFST + ( 1-ISKEW )*JC;
-                  A[IROW, JC] = DCMPLX( DBLE( A( IROW, JC ) ) );
+                  A[IROW, JC] = DCMPLX( (A( IROW, JC )).toDouble() );
                } // 350
             }
 

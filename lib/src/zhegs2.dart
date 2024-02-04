@@ -67,8 +67,8 @@
 
                // Update the upper triangle of A(k:n,k:n)
 
-               AKK = DBLE( A( K, K ) );
-               BKK = DBLE( B( K, K ) );
+               AKK = (A( K, K )).toDouble();
+               BKK = (B( K, K )).toDouble();
                AKK = AKK / BKK**2;
                A[K, K] = AKK;
                if ( K < N ) {
@@ -92,8 +92,8 @@
 
                // Update the lower triangle of A(k:n,k:n)
 
-               AKK = DBLE( A( K, K ) );
-               BKK = DBLE( B( K, K ) );
+               AKK = (A( K, K )).toDouble();
+               BKK = (B( K, K )).toDouble();
                AKK = AKK / BKK**2;
                A[K, K] = AKK;
                if ( K < N ) {
@@ -115,8 +115,8 @@
 
                // Update the upper triangle of A(1:k,1:k)
 
-               AKK = DBLE( A( K, K ) );
-               BKK = DBLE( B( K, K ) );
+               AKK = (A( K, K )).toDouble();
+               BKK = (B( K, K )).toDouble();
                ztrmv(UPLO, 'No transpose', 'Non-unit', K-1, B, LDB, A( 1, K ), 1 );
                CT = HALF*AKK;
                zaxpy(K-1, CT, B( 1, K ), 1, A( 1, K ), 1 );
@@ -133,8 +133,8 @@
 
                // Update the lower triangle of A(1:k,1:k)
 
-               AKK = DBLE( A( K, K ) );
-               BKK = DBLE( B( K, K ) );
+               AKK = (A( K, K )).toDouble();
+               BKK = (B( K, K )).toDouble();
                zlacgv(K-1, A( K, 1 ), LDA );
                ztrmv(UPLO, 'Conjugate transpose', 'Non-unit', K-1, B, LDB, A( K, 1 ), LDA );
                CT = HALF*AKK;

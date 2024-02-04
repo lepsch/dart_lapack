@@ -843,7 +843,7 @@
          for (IW = 1; IW <= NV; IW++) {
             V1 = VALUES(IW);
             if ((V1).abs() > ONE) {
-               V1 = (V1*HALF) / sqrt(DBLE(N));
+               V1 = (V1*HALF) / sqrt(N.toDouble());
             }
             for (I = 2; I <= N; I++) {
                Z[I] = V1*WORK(I);
@@ -895,7 +895,7 @@
             // in this implementation so we scale the test ratio accordingly.
 
             if (INCX == 0) {
-               ZNRM = sqrt(DBLE(N))*(X(1)).abs();
+               ZNRM = sqrt(N.toDouble())*(X(1)).abs();
             } else {
                ZNRM = YNRM;
             }
@@ -913,7 +913,7 @@
             } else if (ZNRM == ZERO) {
                TRAT = SNRM / ULP;
             } else {
-               TRAT = ((SNRM-ZNRM).abs() / ZNRM) / (DBLE(N)*ULP);
+               TRAT = ((SNRM-ZNRM).abs() / ZNRM) / (N.toDouble()*ULP);
             }
             if ((TRAT != TRAT) || (TRAT >= THRESH)) {
                if (FIRST) {

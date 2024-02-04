@@ -100,7 +100,7 @@
          } // 160
          D[1] = ONE;
          if ( N > 1 && RANK > 1 ) {
-            ALPHA = COND**( -ONE / DBLE( RANK-1 ) );
+            ALPHA = COND**( -ONE / (RANK-1).toDouble() );
             for (I = 2; I <= RANK; I++) { // 170
                D[I] = ALPHA**( I-1 );
             } // 170
@@ -116,9 +116,9 @@
          D[1] = ONE;
          if ( N > 1 ) {
             TEMP = ONE / COND;
-            ALPHA = ( ONE-TEMP ) / DBLE( N-1 );
+            ALPHA = ( ONE-TEMP ) / (N-1).toDouble();
             for (I = 2; I <= N; I++) { // 200
-               D[I] = DBLE( N-I )*ALPHA + TEMP;
+               D[I] = (N-I).toDouble()*ALPHA + TEMP;
             } // 200
          }
          GO TO 240;

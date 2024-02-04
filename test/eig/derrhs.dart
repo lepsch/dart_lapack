@@ -53,9 +53,9 @@
 
       for (J = 1; J <= NMAX; J++) { // 20
          for (I = 1; I <= NMAX; I++) { // 10
-            A[I, J] = 1.0 / DBLE( I+J );
+            A[I, J] = 1.0 / (I+J).toDouble();
          } // 10
-         WI[J] = DBLE( J );
+         WI[J] = J.toDouble();
          SEL[J] = true;
       } // 20
       OK = true;

@@ -73,7 +73,7 @@
          if ( MINMN > 0 ) {
             SMLSIZ = ILAENV( 9, 'ZGELSD', ' ', 0, 0, 0, 0 );
             MNTHR = ILAENV( 6, 'ZGELSD', ' ', M, N, NRHS, -1 );
-            NLVL = max( INT( LOG( DBLE( MINMN ) / DBLE( SMLSIZ + 1 ) ) / LOG( TWO ) ) + 1, 0 );
+            NLVL = max( INT( LOG( MINMN.toDouble() / (SMLSIZ + 1).toDouble() ) / LOG( TWO ) ) + 1, 0 );
             LIWORK = 3*MINMN*NLVL + 11*MINMN;
             MM = M;
             if ( M >= N && M >= MNTHR ) {

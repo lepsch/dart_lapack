@@ -45,7 +45,7 @@
       double             ABS1;
       // ..
       // .. Statement Function definitions ..
-      ABS1[X] = ( DBLE( X ) ).abs() + ( DIMAG( X ) ).abs();
+      ABS1[X] = ( X.toDouble() ).abs() + ( DIMAG( X ) ).abs();
       // ..
       // .. Executable Statements ..
 
@@ -406,7 +406,7 @@
                TEMP = max( TEMP, ABS1( X ) );
                Y = TEMP*sqrt( ( X / TEMP )**2+( CTEMP / TEMP )**2 );
                if ( TEMP2 > ZERO ) {
-                  if( DBLE( X / TEMP2 )*DBLE( Y )+ DIMAG( X / TEMP2 )*DIMAG( Y ) < ZERO )Y = -Y;
+                  if( (X / TEMP2).toDouble()*Y.toDouble()+ DIMAG( X / TEMP2 )*DIMAG( Y ) < ZERO )Y = -Y;
                }
                SHIFT = SHIFT - CTEMP*ZLADIV( CTEMP, ( X+Y ) );
             }

@@ -53,7 +53,7 @@
 
       // Quick return if possible.
 
-      if ((N == 0) || (ALPHA == DBLE(ZERO))) return;
+      if ((N == 0) || (ALPHA == ZERO.toDouble())) return;
 
       // Set the start point in X if the increment is not unity.
 
@@ -78,9 +78,9 @@
                       for (I = 1; I <= J - 1; I++) { // 10
                           A[I,J] = A(I,J) + X(I)*TEMP;
                       } // 10
-                      A[J,J] = DBLE(A(J,J)) + DBLE(X(J)*TEMP);
+                      A[J,J] = (A(J,J)).toDouble() + (X(J)*TEMP).toDouble();
                   } else {
-                      A[J,J] = DBLE(A(J,J));
+                      A[J,J] = (A(J,J)).toDouble();
                   }
               } // 20
           } else {
@@ -93,9 +93,9 @@
                           A[I,J] = A(I,J) + X(IX)*TEMP;
                           IX = IX + INCX;
                       } // 30
-                      A[J,J] = DBLE(A(J,J)) + DBLE(X(JX)*TEMP);
+                      A[J,J] = (A(J,J)).toDouble() + (X(JX)*TEMP).toDouble();
                   } else {
-                      A[J,J] = DBLE(A(J,J));
+                      A[J,J] = (A(J,J)).toDouble();
                   }
                   JX = JX + INCX;
               } // 40
@@ -108,12 +108,12 @@
               for (J = 1; J <= N; J++) { // 60
                   if (X(J) != ZERO) {
                       TEMP = ALPHA*DCONJG(X(J));
-                      A[J,J] = DBLE(A(J,J)) + DBLE(TEMP*X(J));
+                      A[J,J] = (A(J,J)).toDouble() + (TEMP*X(J)).toDouble();
                       for (I = J + 1; I <= N; I++) { // 50
                           A[I,J] = A(I,J) + X(I)*TEMP;
                       } // 50
                   } else {
-                      A[J,J] = DBLE(A(J,J));
+                      A[J,J] = (A(J,J)).toDouble();
                   }
               } // 60
           } else {
@@ -121,14 +121,14 @@
               for (J = 1; J <= N; J++) { // 80
                   if (X(JX) != ZERO) {
                       TEMP = ALPHA*DCONJG(X(JX));
-                      A[J,J] = DBLE(A(J,J)) + DBLE(TEMP*X(JX));
+                      A[J,J] = (A(J,J)).toDouble() + (TEMP*X(JX)).toDouble();
                       IX = JX;
                       for (I = J + 1; I <= N; I++) { // 70
                           IX = IX + INCX;
                           A[I,J] = A(I,J) + X(IX)*TEMP;
                       } // 70
                   } else {
-                      A[J,J] = DBLE(A(J,J));
+                      A[J,J] = (A(J,J)).toDouble();
                   }
                   JX = JX + INCX;
               } // 80

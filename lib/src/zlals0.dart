@@ -143,7 +143,7 @@
                for (JCOL = 1; JCOL <= NRHS; JCOL++) { // 60
                   for (JROW = 1; JROW <= K; JROW++) { // 50
                      I = I + 1;
-                     RWORK[I] = DBLE( BX( JROW, JCOL ) );
+                     RWORK[I] = (BX( JROW, JCOL )).toDouble();
                   } // 50
                } // 60
                dgemv('T', K, NRHS, ONE, RWORK( 1+K+NRHS*2 ), K, RWORK( 1 ), 1, ZERO, RWORK( 1+K ), 1 );
@@ -212,7 +212,7 @@
                for (JCOL = 1; JCOL <= NRHS; JCOL++) { // 140
                   for (JROW = 1; JROW <= K; JROW++) { // 130
                      I = I + 1;
-                     RWORK[I] = DBLE( B( JROW, JCOL ) );
+                     RWORK[I] = (B( JROW, JCOL )).toDouble();
                   } // 130
                } // 140
                dgemv('T', K, NRHS, ONE, RWORK( 1+K+NRHS*2 ), K, RWORK( 1 ), 1, ZERO, RWORK( 1+K ), 1 );

@@ -86,7 +86,7 @@
 
       RESID = DLANTR( '1', UPLO, 'Non-unit', N, N, AINV, LDAINV, WORK );
 
-      RESID = ( ( RESID*RCOND ) / DBLE( N ) ) / EPS;
+      RESID = ( ( RESID*RCOND ) / N.toDouble() ) / EPS;
 
       return;
       }

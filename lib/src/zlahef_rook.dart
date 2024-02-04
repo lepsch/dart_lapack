@@ -45,7 +45,7 @@
       double             CABS1;
       // ..
       // .. Statement Function definitions ..
-      CABS1[Z] = ( DBLE( Z ) ).abs() + ( DIMAG( Z ) ).abs();
+      CABS1[Z] = ( Z.toDouble() ).abs() + ( DIMAG( Z ) ).abs();
       // ..
       // .. Executable Statements ..
 
@@ -84,16 +84,16 @@
          // Copy column K of A to column KW of W and update it
 
          if (K > 1) zcopy( K-1, A( 1, K ), 1, W( 1, KW ), 1 );
-         W[K, KW] = DBLE( A( K, K ) );
+         W[K, KW] = (A( K, K )).toDouble();
          if ( K < N ) {
             zgemv('No transpose', K, N-K, -CONE, A( 1, K+1 ), LDA, W( K, KW+1 ), LDW, CONE, W( 1, KW ), 1 );
-            W[K, KW] = DBLE( W( K, KW ) );
+            W[K, KW] = (W( K, KW )).toDouble();
          }
 
          // Determine rows and columns to be interchanged and whether
          // a 1-by-1 or 2-by-2 pivot block will be used
 
-         ABSAKK = ABS( DBLE( W( K, KW ) ) );
+         ABSAKK = ABS( (W( K, KW )).toDouble() );
 
          // IMAX is the row-index of the largest off-diagonal element in
          // column K, and COLMAX is its absolute value.
@@ -112,7 +112,7 @@
 
             if (INFO == 0) INFO = K;
             KP = K;
-            A[K, K] = DBLE( W( K, KW ) );
+            A[K, K] = (W( K, KW )).toDouble();
             if (K > 1) zcopy( K-1, W( 1, KW ), 1, A( 1, K ), 1 );
          } else {
 
@@ -143,14 +143,14 @@
                   // Copy column IMAX to column KW-1 of W and update it
 
                   if (IMAX > 1) zcopy( IMAX-1, A( 1, IMAX ), 1, W( 1, KW-1 ), 1 );
-                  W[IMAX, KW-1] = DBLE( A( IMAX, IMAX ) );
+                  W[IMAX, KW-1] = (A( IMAX, IMAX )).toDouble();
 
                   zcopy(K-IMAX, A( IMAX, IMAX+1 ), LDA, W( IMAX+1, KW-1 ), 1 );
                   zlacgv(K-IMAX, W( IMAX+1, KW-1 ), 1 );
 
                   if ( K < N ) {
                      zgemv('No transpose', K, N-K, -CONE, A( 1, K+1 ), LDA, W( IMAX, KW+1 ), LDW, CONE, W( 1, KW-1 ), 1 );
-                     W[IMAX, KW-1] = DBLE( W( IMAX, KW-1 ) );
+                     W[IMAX, KW-1] = (W( IMAX, KW-1 )).toDouble();
                   }
 
                   // JMAX is the column-index of the largest off-diagonal
@@ -175,10 +175,10 @@
 
                   // Case(2)
                   // Equivalent to testing for
-                  // ABS( DBLE( W( IMAX,KW-1 ) ) ) >= ALPHA*ROWMAX
+                  // ABS( (W( IMAX,KW-1 )).toDouble() ) >= ALPHA*ROWMAX
                   // (used to handle NaN and Inf)
 
-                  if ( !( ABS( DBLE( W( IMAX,KW-1 ) ) ) < ALPHA*ROWMAX ) ) {
+                  if ( !( ABS( (W( IMAX,KW-1 )).toDouble() ) < ALPHA*ROWMAX ) ) {
 
                      // interchange rows and columns K and IMAX,
                      // use 1-by-1 pivot block
@@ -248,7 +248,7 @@
                // K and K-1 of A for 2-by-2 pivot, since these columns
                // will be later overwritten.
 
-               A[P, P] = DBLE( A( K, K ) );
+               A[P, P] = (A( K, K )).toDouble();
                zcopy(K-1-P, A( P+1, K ), 1, A( P, P+1 ), LDA );
                zlacgv(K-1-P, A( P, P+1 ), LDA );
                if (P > 1) zcopy( P-1, A( 1, K ), 1, A( 1, P ), 1 );
@@ -272,7 +272,7 @@
                // (or K and K-1 for 2-by-2 pivot) of A, since these columns
                // will be later overwritten.
 
-               A[KP, KP] = DBLE( A( KK, KK ) );
+               A[KP, KP] = (A( KK, KK )).toDouble();
                zcopy(KK-1-KP, A( KP+1, KK ), 1, A( KP, KP+1 ), LDA );
                zlacgv(KK-1-KP, A( KP, KP+1 ), LDA );
                if (KP > 1) zcopy( KP-1, A( 1, KK ), 1, A( 1, KP ), 1 );
@@ -302,7 +302,7 @@
                   // A(1:k-1,k) := U(1:k-1,k) = W(1:k-1,kw)/D(k,k)
 
                // (NOTE: No need to use for Hermitian matrix
-               // A( K, K ) = DBLE( W( K, K) ) to separately copy diagonal
+               // A( K, K ) = (W( K, K)).toDouble() to separately copy diagonal
                // element D(k,k) from W (potentially saves only one load))
                zcopy(K, W( 1, KW ), 1, A( 1, K ), 1 );
                if ( K > 1 ) {
@@ -313,7 +313,7 @@
 
                   // Handle division by a small number
 
-                  T = DBLE( A( K, K ) );
+                  T = (A( K, K )).toDouble();
                   if ( ( T ).abs() >= SFMIN ) {
                      R1 = ONE / T;
                      zdscal(K-1, R1, A( 1, K ), 1 );
@@ -395,7 +395,7 @@
                   D21 = W( K-1, KW );
                   D11 = W( K, KW ) / DCONJG( D21 );
                   D22 = W( K-1, KW-1 ) / D21;
-                  T = ONE / ( DBLE( D11*D22 )-ONE );
+                  T = ONE / ( (D11*D22).toDouble()-ONE );
 
                   // Update elements in columns A(k-1) and A(k) as
                   // dot products of rows of ( W(kw-1) W(kw) ) and columns
@@ -450,9 +450,9 @@
             // Update the upper triangle of the diagonal block
 
             for (JJ = J; JJ <= J + JB - 1; JJ++) { // 40
-               A[JJ, JJ] = DBLE( A( JJ, JJ ) );
+               A[JJ, JJ] = (A( JJ, JJ )).toDouble();
                zgemv('No transpose', JJ-J+1, N-K, -CONE, A( J, K+1 ), LDA, W( JJ, KW+1 ), LDW, CONE, A( J, JJ ), 1 );
-               A[JJ, JJ] = DBLE( A( JJ, JJ ) );
+               A[JJ, JJ] = (A( JJ, JJ )).toDouble();
             } // 40
 
             // Update the rectangular superdiagonal block
@@ -513,17 +513,17 @@
 
          // Copy column K of A to column K of W and update column K of W
 
-         W[K, K] = DBLE( A( K, K ) );
+         W[K, K] = (A( K, K )).toDouble();
          if (K < N) zcopy( N-K, A( K+1, K ), 1, W( K+1, K ), 1 );
          if ( K > 1 ) {
             zgemv('No transpose', N-K+1, K-1, -CONE, A( K, 1 ), LDA, W( K, 1 ), LDW, CONE, W( K, K ), 1 );
-            W[K, K] = DBLE( W( K, K ) );
+            W[K, K] = (W( K, K )).toDouble();
          }
 
          // Determine rows and columns to be interchanged and whether
          // a 1-by-1 or 2-by-2 pivot block will be used
 
-         ABSAKK = ABS( DBLE( W( K, K ) ) );
+         ABSAKK = ABS( (W( K, K )).toDouble() );
 
          // IMAX is the row-index of the largest off-diagonal element in
          // column K, and COLMAX is its absolute value.
@@ -542,7 +542,7 @@
 
             if (INFO == 0) INFO = K;
             KP = K;
-            A[K, K] = DBLE( W( K, K ) );
+            A[K, K] = (W( K, K )).toDouble();
             if (K < N) zcopy( N-K, W( K+1, K ), 1, A( K+1, K ), 1 );
          } else {
 
@@ -575,13 +575,13 @@
 
                   zcopy(IMAX-K, A( IMAX, K ), LDA, W( K, K+1 ), 1);
                   zlacgv(IMAX-K, W( K, K+1 ), 1 );
-                  W[IMAX, K+1] = DBLE( A( IMAX, IMAX ) );
+                  W[IMAX, K+1] = (A( IMAX, IMAX )).toDouble();
 
                   if (IMAX < N) zcopy( N-IMAX, A( IMAX+1, IMAX ), 1, W( IMAX+1, K+1 ), 1 );
 
                   if ( K > 1 ) {
                      zgemv('No transpose', N-K+1, K-1, -CONE, A( K, 1 ), LDA, W( IMAX, 1 ), LDW, CONE, W( K, K+1 ), 1 );
-                     W[IMAX, K+1] = DBLE( W( IMAX, K+1 ) );
+                     W[IMAX, K+1] = (W( IMAX, K+1 )).toDouble();
                   }
 
                   // JMAX is the column-index of the largest off-diagonal
@@ -606,10 +606,10 @@
 
                   // Case(2)
                   // Equivalent to testing for
-                  // ABS( DBLE( W( IMAX,K+1 ) ) ) >= ALPHA*ROWMAX
+                  // ABS( (W( IMAX,K+1 )).toDouble() ) >= ALPHA*ROWMAX
                   // (used to handle NaN and Inf)
 
-                  if ( !( ABS( DBLE( W( IMAX,K+1 ) ) ) < ALPHA*ROWMAX ) ) {
+                  if ( !( ABS( (W( IMAX,K+1 )).toDouble() ) < ALPHA*ROWMAX ) ) {
 
                      // interchange rows and columns K and IMAX,
                      // use 1-by-1 pivot block
@@ -675,7 +675,7 @@
                // K and K+1 of A for 2-by-2 pivot, since these columns
                // will be later overwritten.
 
-               A[P, P] = DBLE( A( K, K ) );
+               A[P, P] = (A( K, K )).toDouble();
                zcopy(P-K-1, A( K+1, K ), 1, A( P, K+1 ), LDA );
                zlacgv(P-K-1, A( P, K+1 ), LDA );
                if (P < N) zcopy( N-P, A( P+1, K ), 1, A( P+1, P ), 1 );
@@ -699,7 +699,7 @@
                // (or K and K+1 for 2-by-2 pivot) of A, since these columns
                // will be later overwritten.
 
-               A[KP, KP] = DBLE( A( KK, KK ) );
+               A[KP, KP] = (A( KK, KK )).toDouble();
                zcopy(KP-KK-1, A( KK+1, KK ), 1, A( KP, KK+1 ), LDA );
                zlacgv(KP-KK-1, A( KP, KK+1 ), LDA );
                if (KP < N) zcopy( N-KP, A( KP+1, KK ), 1, A( KP+1, KP ), 1 );
@@ -729,7 +729,7 @@
                   // A(k+1:N,k) := L(k+1:N,k) = W(k+1:N,k)/D(k,k)
 
                // (NOTE: No need to use for Hermitian matrix
-               // A( K, K ) = DBLE( W( K, K) ) to separately copy diagonal
+               // A( K, K ) = (W( K, K)).toDouble() to separately copy diagonal
                // element D(k,k) from W (potentially saves only one load))
                zcopy(N-K+1, W( K, K ), 1, A( K, K ), 1 );
                if ( K < N ) {
@@ -740,7 +740,7 @@
 
                   // Handle division by a small number
 
-                  T = DBLE( A( K, K ) );
+                  T = (A( K, K )).toDouble();
                   if ( ( T ).abs() >= SFMIN ) {
                      R1 = ONE / T;
                      zdscal(N-K, R1, A( K+1, K ), 1 );
@@ -822,7 +822,7 @@
                   D21 = W( K+1, K );
                   D11 = W( K+1, K+1 ) / D21;
                   D22 = W( K, K ) / DCONJG( D21 );
-                  T = ONE / ( DBLE( D11*D22 )-ONE );
+                  T = ONE / ( (D11*D22).toDouble()-ONE );
 
                   // Update elements in columns A(k) and A(k+1) as
                   // dot products of rows of ( W(k) W(k+1) ) and columns
@@ -877,9 +877,9 @@
             // Update the lower triangle of the diagonal block
 
             for (JJ = J; JJ <= J + JB - 1; JJ++) { // 100
-               A[JJ, JJ] = DBLE( A( JJ, JJ ) );
+               A[JJ, JJ] = (A( JJ, JJ )).toDouble();
                zgemv('No transpose', J+JB-JJ, K-1, -CONE, A( JJ, 1 ), LDA, W( JJ, 1 ), LDW, CONE, A( JJ, JJ ), 1 );
-               A[JJ, JJ] = DBLE( A( JJ, JJ ) );
+               A[JJ, JJ] = (A( JJ, JJ )).toDouble();
             } // 100
 
             // Update the rectangular subdiagonal block

@@ -41,7 +41,7 @@
       double             ABS1;
       // ..
       // .. Statement Function definitions ..
-      ABS1[X] = ( DBLE( X ) ).abs() + ( DIMAG( X ) ).abs();
+      ABS1[X] = ( X.toDouble() ).abs() + ( DIMAG( X ) ).abs();
       // ..
       // .. Executable Statements ..
 
@@ -111,7 +111,7 @@
 
       // Compute RESULT(2) : the normalization error in E.
 
-      RESULT[2] = ENRMER / ( DBLE( N )*ULP );
+      RESULT[2] = ENRMER / ( N.toDouble()*ULP );
 
       return;
       }

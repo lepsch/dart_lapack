@@ -38,7 +38,7 @@
       double             CABS1;
       // ..
       // .. Statement Function definitions ..
-      CABS1[ZDUM] = ( DBLE( ZDUM ) ).abs() + ( DIMAG( ZDUM ) ).abs();
+      CABS1[ZDUM] = ( ZDUM.toDouble() ).abs() + ( DIMAG( ZDUM ) ).abs();
       // ..
       // .. Executable Statements ..
 
@@ -97,7 +97,7 @@
                for (J = max( I-KD, 1 ); J <= I - 1; J++) { // 40
                   TMP = TMP + CABS1( AB( KD+1-I+J, I ) )* CABS1( X( J, K ) );
                } // 40
-               TMP = TMP + ABS( DBLE( AB( KD+1, I ) ) )* CABS1( X( I, K ) );
+               TMP = TMP + ABS( (AB( KD+1, I )).toDouble() )* CABS1( X( I, K ) );
                for (J = I + 1; J <= min( I+KD, N ); J++) { // 50
                   TMP = TMP + CABS1( AB( KD+1+I-J, J ) )* CABS1( X( J, K ) );
                } // 50
@@ -105,7 +105,7 @@
                for (J = max( I-KD, 1 ); J <= I - 1; J++) { // 60
                   TMP = TMP + CABS1( AB( 1+I-J, J ) )*CABS1( X( J, K ) );
                } // 60
-               TMP = TMP + ABS( DBLE( AB( 1, I ) ) )*CABS1( X( I, K ) );
+               TMP = TMP + ABS( (AB( 1, I )).toDouble() )*CABS1( X( I, K ) );
                for (J = I + 1; J <= min( I+KD, N ); J++) { // 70
                   TMP = TMP + CABS1( AB( 1+J-I, I ) )*CABS1( X( J, K ) );
                } // 70

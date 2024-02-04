@@ -62,7 +62,7 @@
          WORK[( J-1 )*M+J] = WORK( ( J-1 )*M+J ) - ONE;
       }
 
-      DQRT11 = DLANGE( 'One-norm', M, M, WORK, M, RDUMMY ) / ( DBLE( M )*DLAMCH( 'Epsilon' ) );
+      DQRT11 = DLANGE( 'One-norm', M, M, WORK, M, RDUMMY ) / ( M.toDouble()*DLAMCH( 'Epsilon' ) );
 
       return;
       }

@@ -42,7 +42,7 @@
       // GROWTO is the threshold used in the acceptance test for an
       // eigenvector.
 
-      ROOTN = sqrt( DBLE( N ) );
+      ROOTN = sqrt( N.toDouble() );
       GROWTO = TENTH / ROOTN;
       NRMSML = max( ONE, EPS3*ROOTN )*SMLNUM;
 

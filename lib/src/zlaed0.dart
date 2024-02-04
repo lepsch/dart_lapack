@@ -101,7 +101,7 @@
       // Set up workspaces for eigenvalues only/accumulate new vectors
       // routine
 
-      TEMP = LOG( DBLE( N ) ) / LOG( TWO );
+      TEMP = LOG( N.toDouble() ) / LOG( TWO );
       LGN = INT( TEMP );
       if (2**LGN < N) LGN = LGN + 1;
       IF( 2**LGN < N ) LGN = LGN + 1;

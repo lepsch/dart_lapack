@@ -153,16 +153,16 @@
                   IZERO = 0;
                } else if ( IMAT == 8 ) {
                   IZERO = 1;
-                  Z[2] = DBLE( A( N ) );
+                  Z[2] = (A( N )).toDouble();
                   A[N] = ZERO;
                   if ( N > 1 ) {
-                     Z[3] = DBLE( A( 1 ) );
+                     Z[3] = (A( 1 )).toDouble();
                      A[1] = ZERO;
                   }
                } else if ( IMAT == 9 ) {
                   IZERO = N;
-                  Z[1] = DBLE( A( 3*N-2 ) );
-                  Z[2] = DBLE( A( 2*N-1 ) );
+                  Z[1] = (A( 3*N-2 )).toDouble();
+                  Z[2] = (A( 2*N-1 )).toDouble();
                   A[3*N-2] = ZERO;
                   A[2*N-1] = ZERO;
                } else {

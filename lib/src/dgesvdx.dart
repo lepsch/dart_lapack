@@ -172,7 +172,7 @@
             }
          }
          MAXWRK = max( MAXWRK, MINWRK );
-         WORK[1] = DBLE( MAXWRK );
+         WORK[1] = MAXWRK.toDouble();
 
          if ( LWORK < MINWRK && !LQUERY ) {
              INFO = -19;
@@ -496,7 +496,7 @@
 
       // Return optimal workspace in WORK(1)
 
-      WORK[1] = DBLE( MAXWRK );
+      WORK[1] = MAXWRK.toDouble();
 
       return;
       }

@@ -131,7 +131,7 @@
          M = MVAL( JSIZE );
          N = NVAL( JSIZE );
          MNMIN = min( M, N );
-         AMNINV = ONE / DBLE( max( 1, M, N ) );
+         AMNINV = ONE / (max( 1, M, N )).toDouble();
 
          for (JWIDTH = 1; JWIDTH <= NWDTHS; JWIDTH++) { // 150
             K = KK( JWIDTH );
