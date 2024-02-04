@@ -23,7 +23,7 @@ abstract interface class Array<T> {
   T operator [](int index);
   void operator []=(int index, T value);
 
-  Box<T> box(index);
+  Box<T> box(int index);
 
   List<T> toRawList();
 }
@@ -38,18 +38,24 @@ class Matrix<T> {
         _entries = _Array<T>(m * n, offset: offset.x, ld: m);
 
   Matrix.fromList(List<List<T>> list, {this.offset = (x: 0, y: 0)})
-      : _entries = _Array<T>.fromList([
-          for (var j = 0; j < (list.firstOrNull ?? []).length; j++) ...[
-            for (var i = 0; i < list.length; i++) list[i][j]
-          ]
-        ], ld: list.length),
+      : _entries = _Array<T>.fromList(
+          [
+            for (var j = 0; j < (list.firstOrNull ?? []).length; j++) ...[
+              for (var i = 0; i < list.length; i++) list[i][j],
+            ],
+          ],
+          ld: list.length,
+        ),
         dimension = (m: list.length, n: list.isEmpty ? 0 : list[0].length);
 
   Matrix.fromSlice(this._entries, this.dimension, {this.offset = (x: 0, y: 0)});
 
   Matrix<T> call(int i, int j, [({int x, int y}) offset = (x: 0, y: 0)]) {
-    return Matrix.fromSlice(_entries, dimension,
-        offset: (x: offset.x + j - 1, y: offset.y + i - 1));
+    return Matrix.fromSlice(
+      _entries,
+      dimension,
+      offset: (x: offset.x + j - 1, y: offset.y + i - 1),
+    );
   }
 
   Array<T> operator [](int i) {
@@ -91,13 +97,15 @@ class _Array<T> implements Array<T> {
     return _Array.fromSlice(
       switch (T) {
         double => (_elements as Float64List).buffer.asFloat64List(
-            (_elements as Float64List).offsetInBytes +
-                ((index - 1) * ld + offset) *
-                    (_elements as Float64List).elementSizeInBytes),
+              (_elements as Float64List).offsetInBytes +
+                  ((index - 1) * ld + offset) *
+                      (_elements as Float64List).elementSizeInBytes,
+            ),
         int => (_elements as Int64List).buffer.asInt64List(
-            (_elements as Int64List).offsetInBytes +
-                ((index - 1) * ld + offset) *
-                    (_elements as Int64List).elementSizeInBytes),
+              (_elements as Int64List).offsetInBytes +
+                  ((index - 1) * ld + offset) *
+                      (_elements as Int64List).elementSizeInBytes,
+            ),
         bool => _elements is ListSlice
             ? _elements.slice((index - 1) * ld + offset, _elements.length)
             : ListSlice(_elements, (index - 1) * ld + offset, _elements.length),
@@ -123,7 +131,7 @@ class _Array<T> implements Array<T> {
   }
 
   @override
-  Box<T> box(index) {
+  Box<T> box(int index) {
     return _ArrayElementBox(this, index);
   }
 

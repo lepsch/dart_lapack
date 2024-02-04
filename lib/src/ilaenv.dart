@@ -1,551 +1,526 @@
-      int ilaenv(ISPEC, NAME, OPTS, N1, N2, N3, N4 ) {
+import 'dart:math';
 
+import 'package:lapack/src/ieeeck.dart';
+import 'package:lapack/src/iparmq.dart';
+
+int ilaenv(
+  final int ISPEC,
+  final String NAME,
+  final String OPTS,
+  final int N1,
+  final int N2,
+  final int N3,
+  final int N4,
+) {
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  int NB, NBMIN, NX;
+  bool CNAME, SNAME, TWOSTAGE;
+  String C1 = '', C2 = '', C4 = '', C3 = '', SUBNAM = '';
 
-      // .. Scalar Arguments ..
-      List<String>       NAME, OPTS;
-      int                ISPEC, N1, N2, N3, N4;
-      // ..
+  switch (ISPEC) {
+    case 1:
+    case 2:
+    case 3:
+      // Convert NAME to upper case in case the first character is lower case.
+      SUBNAM = NAME.toUpperCase();
 
-// =====================================================================
-
-      // .. Local Scalars ..
-      int                I, IC, IZ, NB, NBMIN, NX;
-      bool               CNAME, SNAME, TWOSTAGE;
-      String             C1*1, C2*2, C4*2, C3*3, SUBNAM*16;
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC CHAR, ICHAR, INT, MIN, REAL
-      // ..
-      // .. External Functions ..
-      //- int                IEEECK, IPARMQ, IPARAM2STAGE;
-      // EXTERNAL IEEECK, IPARMQ, IPARAM2STAGE
-      // ..
-      // .. Executable Statements ..
-
-      GO TO ( 10, 10, 10, 80, 90, 100, 110, 120, 130, 140, 150, 160, 160, 160, 160, 160, 160)ISPEC;
-
-      // Invalid value for ISPEC
-
-      ILAENV = -1;
-      return;
-
-      } // 10
-
-      // Convert NAME to upper case if the first character is lower case.
-
-      ILAENV = 1;
-      SUBNAM = NAME;
-      IC = ICHAR( SUBNAM( 1: 1 ) );
-      IZ = ICHAR( 'Z' );
-      if ( IZ == 90 || IZ == 122 ) {
-
-         // ASCII character set
-
-         if ( IC >= 97 && IC <= 122 ) {
-            SUBNAM[1: 1] = CHAR( IC-32 );
-            for (I = 2; I <= 6; I++) { // 20
-               IC = ICHAR( SUBNAM( I: I ) );
-               if (IC >= 97 && IC <= 122) SUBNAM( I: I ) = CHAR( IC-32 );
-            } // 20
-         }
-
-      } else if ( IZ == 233 || IZ == 169 ) {
-
-         // EBCDIC character set
-
-         if ( ( IC >= 129 && IC <= 137 ) || ( IC >= 145 && IC <= 153 ) || ( IC >= 162 && IC <= 169 ) ) {
-            SUBNAM[1: 1] = CHAR( IC+64 );
-            for (I = 2; I <= 6; I++) { // 30
-               IC = ICHAR( SUBNAM( I: I ) );
-               if( ( IC >= 129 && IC <= 137 ) || ( IC >= 145 && IC <= 153 ) || ( IC >= 162 && IC <= 169 ) )SUBNAM( I: I ) = CHAR( IC+64 );
-            } // 30
-         }
-
-      } else if ( IZ == 218 || IZ == 250 ) {
-
-         // Prime machines:  ASCII+128
-
-         if ( IC >= 225 && IC <= 250 ) {
-            SUBNAM[1: 1] = CHAR( IC-32 );
-            for (I = 2; I <= 6; I++) { // 40
-               IC = ICHAR( SUBNAM( I: I ) );
-               if (IC >= 225 && IC <= 250) SUBNAM( I: I ) = CHAR( IC-32 );
-            } // 40
-         }
-      }
-
-      C1 = SUBNAM( 1: 1 );
+      C1 = SUBNAM.substring(0, 1);
       SNAME = C1 == 'S' || C1 == 'D';
       CNAME = C1 == 'C' || C1 == 'Z';
-      if( !( CNAME || SNAME ) ) return;
-      C2 = SUBNAM( 2: 3 );
-      C3 = SUBNAM( 4: 6 );
-      C4 = C3( 2: 3 );
-      TWOSTAGE = LEN( SUBNAM ) >= 11 && SUBNAM( 11: 11 ) == '2';
+      if (!(CNAME || SNAME)) return 1;
+      C2 = SUBNAM.substring(1, 3);
+      C3 = SUBNAM.substring(3, 6);
+      C4 = C3.substring(1, 3);
+      TWOSTAGE = SUBNAM.length >= 11 && SUBNAM.substring(10, 11) == '2';
 
-      GO TO ( 50, 60, 70 )ISPEC;
+      if (ISPEC == 1) {
+        // ISPEC = 1:  block size
 
-      } // 50
+        // In these examples, separate code is provided for setting NB for
+        // real and complex.  We assume that NB will take the same value in
+        // single or double precision.
 
-      // ISPEC = 1:  block size
+        NB = 1;
 
-      // In these examples, separate code is provided for setting NB for
-      // real and complex.  We assume that NB will take the same value in
-      // single or double precision.
+        if (SUBNAM.substring(1, 6) == 'LAORH') {
+          // This is for *LAORHR_GETRFNP routine
 
-      NB = 1;
-
-      if ( SUBNAM(2:6) == 'LAORH' ) {
-
-         // This is for *LAORHR_GETRFNP routine
-
-         if ( SNAME ) {
-             NB = 32;
-         } else {
-             NB = 32;
-         }
-      } else if ( C2 == 'GE' ) {
-         if ( C3 == 'TRF' ) {
-            if ( SNAME ) {
-               NB = 64;
-            } else {
-               NB = 64;
-            }
-         } else if ( C3 == 'QRF' || C3 == 'RQF' || C3 == 'LQF' || C3 == 'QLF' ) {
-            if ( SNAME ) {
-               NB = 32;
-            } else {
-               NB = 32;
-            }
-         } else if ( C3 == 'QR ') {
-            if ( N3 == 1) {
-               if ( SNAME ) {
-      // M*N
-                  if ((N1*N2 <= 131072) || (N1 <= 8192)) {
-                     NB = N1;
-                  } else {
-                     NB = 32768/N2;
-                  }
-               } else {
-                  if ((N1*N2 <= 131072) || (N1 <= 8192)) {
-                     NB = N1;
-                  } else {
-                     NB = 32768/N2;
-                  }
-               }
-            } else {
-               if ( SNAME ) {
-                  NB = 1;
-               } else {
-                  NB = 1;
-               }
-            }
-         } else if ( C3 == 'LQ ') {
-            if ( N3 == 2) {
-               if ( SNAME ) {
-      // M*N
-                  if ((N1*N2 <= 131072) || (N1 <= 8192)) {
-                     NB = N1;
-                  } else {
-                     NB = 32768/N2;
-                  }
-               } else {
-                  if ((N1*N2 <= 131072) || (N1 <= 8192)) {
-                     NB = N1;
-                  } else {
-                     NB = 32768/N2;
-                  }
-               }
-            } else {
-               if ( SNAME ) {
-                  NB = 1;
-               } else {
-                  NB = 1;
-               }
-            }
-         } else if ( C3 == 'HRD' ) {
-            if ( SNAME ) {
-               NB = 32;
-            } else {
-               NB = 32;
-            }
-         } else if ( C3 == 'BRD' ) {
-            if ( SNAME ) {
-               NB = 32;
-            } else {
-               NB = 32;
-            }
-         } else if ( C3 == 'TRI' ) {
-            if ( SNAME ) {
-               NB = 64;
-            } else {
-               NB = 64;
-            }
-         } else if ( SUBNAM( 4: 7 ) == 'QP3RK' ) {
-            if ( SNAME ) {
-               NB = 32;
-            } else {
-               NB = 32;
-            }
-         }
-      } else if ( C2 == 'PO' ) {
-         if ( C3 == 'TRF' ) {
-            if ( SNAME ) {
-               NB = 64;
-            } else {
-               NB = 64;
-            }
-         }
-      } else if ( C2 == 'SY' ) {
-         if ( C3 == 'TRF' ) {
-            if ( SNAME ) {
-               if ( TWOSTAGE ) {
-                  NB = 192;
-               } else {
-                  NB = 64;
-               }
-            } else {
-               if ( TWOSTAGE ) {
-                  NB = 192;
-               } else {
-                  NB = 64;
-               }
-            }
-         } else if ( SNAME && C3 == 'TRD' ) {
+          if (SNAME) {
             NB = 32;
-         } else if ( SNAME && C3 == 'GST' ) {
-            NB = 64;
-         }
-      } else if ( CNAME && C2 == 'HE' ) {
-         if ( C3 == 'TRF' ) {
-            if ( TWOSTAGE ) {
-               NB = 192;
-            } else {
-               NB = 64;
-            }
-         } else if ( C3 == 'TRD' ) {
+          } else {
             NB = 32;
-         } else if ( C3 == 'GST' ) {
+          }
+        } else if (C2 == 'GE') {
+          if (C3 == 'TRF') {
+            if (SNAME) {
+              NB = 64;
+            } else {
+              NB = 64;
+            }
+          } else if (C3 == 'QRF' || C3 == 'RQF' || C3 == 'LQF' || C3 == 'QLF') {
+            if (SNAME) {
+              NB = 32;
+            } else {
+              NB = 32;
+            }
+          } else if (C3 == 'QR ') {
+            if (N3 == 1) {
+              if (SNAME) {
+                // M*N
+                if ((N1 * N2 <= 131072) || (N1 <= 8192)) {
+                  NB = N1;
+                } else {
+                  NB = 32768 ~/ N2;
+                }
+              } else {
+                if ((N1 * N2 <= 131072) || (N1 <= 8192)) {
+                  NB = N1;
+                } else {
+                  NB = 32768 ~/ N2;
+                }
+              }
+            } else {
+              if (SNAME) {
+                NB = 1;
+              } else {
+                NB = 1;
+              }
+            }
+          } else if (C3 == 'LQ ') {
+            if (N3 == 2) {
+              if (SNAME) {
+                // M*N
+                if ((N1 * N2 <= 131072) || (N1 <= 8192)) {
+                  NB = N1;
+                } else {
+                  NB = 32768 ~/ N2;
+                }
+              } else {
+                if ((N1 * N2 <= 131072) || (N1 <= 8192)) {
+                  NB = N1;
+                } else {
+                  NB = 32768 ~/ N2;
+                }
+              }
+            } else {
+              if (SNAME) {
+                NB = 1;
+              } else {
+                NB = 1;
+              }
+            }
+          } else if (C3 == 'HRD') {
+            if (SNAME) {
+              NB = 32;
+            } else {
+              NB = 32;
+            }
+          } else if (C3 == 'BRD') {
+            if (SNAME) {
+              NB = 32;
+            } else {
+              NB = 32;
+            }
+          } else if (C3 == 'TRI') {
+            if (SNAME) {
+              NB = 64;
+            } else {
+              NB = 64;
+            }
+          } else if (SUBNAM.substring(3, 7) == 'QP3RK') {
+            if (SNAME) {
+              NB = 32;
+            } else {
+              NB = 32;
+            }
+          }
+        } else if (C2 == 'PO') {
+          if (C3 == 'TRF') {
+            if (SNAME) {
+              NB = 64;
+            } else {
+              NB = 64;
+            }
+          }
+        } else if (C2 == 'SY') {
+          if (C3 == 'TRF') {
+            if (SNAME) {
+              if (TWOSTAGE) {
+                NB = 192;
+              } else {
+                NB = 64;
+              }
+            } else {
+              if (TWOSTAGE) {
+                NB = 192;
+              } else {
+                NB = 64;
+              }
+            }
+          } else if (SNAME && C3 == 'TRD') {
+            NB = 32;
+          } else if (SNAME && C3 == 'GST') {
             NB = 64;
-         }
-      } else if ( SNAME && C2 == 'OR' ) {
-         if ( C3( 1: 1 ) == 'G' ) {
-            if ( C4 == 'QR' || C4 == 'RQ' || C4 == 'LQ' || C4 == 'QL' || C4 == 'HR' || C4 == 'TR' || C4 == 'BR' ) {
-               NB = 32;
-            }
-         } else if ( C3( 1: 1 ) == 'M' ) {
-            if ( C4 == 'QR' || C4 == 'RQ' || C4 == 'LQ' || C4 == 'QL' || C4 == 'HR' || C4 == 'TR' || C4 == 'BR' ) {
-               NB = 32;
-            }
-         }
-      } else if ( CNAME && C2 == 'UN' ) {
-         if ( C3( 1: 1 ) == 'G' ) {
-            if ( C4 == 'QR' || C4 == 'RQ' || C4 == 'LQ' || C4 == 'QL' || C4 == 'HR' || C4 == 'TR' || C4 == 'BR' ) {
-               NB = 32;
-            }
-         } else if ( C3( 1: 1 ) == 'M' ) {
-            if ( C4 == 'QR' || C4 == 'RQ' || C4 == 'LQ' || C4 == 'QL' || C4 == 'HR' || C4 == 'TR' || C4 == 'BR' ) {
-               NB = 32;
-            }
-         }
-      } else if ( C2 == 'GB' ) {
-         if ( C3 == 'TRF' ) {
-            if ( SNAME ) {
-               if ( N4 <= 64 ) {
-                  NB = 1;
-               } else {
-                  NB = 32;
-               }
+          }
+        } else if (CNAME && C2 == 'HE') {
+          if (C3 == 'TRF') {
+            if (TWOSTAGE) {
+              NB = 192;
             } else {
-               if ( N4 <= 64 ) {
-                  NB = 1;
-               } else {
-                  NB = 32;
-               }
+              NB = 64;
             }
-         }
-      } else if ( C2 == 'PB' ) {
-         if ( C3 == 'TRF' ) {
-            if ( SNAME ) {
-               if ( N2 <= 64 ) {
-                  NB = 1;
-               } else {
-                  NB = 32;
-               }
+          } else if (C3 == 'TRD') {
+            NB = 32;
+          } else if (C3 == 'GST') {
+            NB = 64;
+          }
+        } else if (SNAME && C2 == 'OR') {
+          if (C3.substring(0, 1) == 'G') {
+            if (C4 == 'QR' ||
+                C4 == 'RQ' ||
+                C4 == 'LQ' ||
+                C4 == 'QL' ||
+                C4 == 'HR' ||
+                C4 == 'TR' ||
+                C4 == 'BR') {
+              NB = 32;
+            }
+          } else if (C3.substring(0, 1) == 'M') {
+            if (C4 == 'QR' ||
+                C4 == 'RQ' ||
+                C4 == 'LQ' ||
+                C4 == 'QL' ||
+                C4 == 'HR' ||
+                C4 == 'TR' ||
+                C4 == 'BR') {
+              NB = 32;
+            }
+          }
+        } else if (CNAME && C2 == 'UN') {
+          if (C3.substring(0, 1) == 'G') {
+            if (C4 == 'QR' ||
+                C4 == 'RQ' ||
+                C4 == 'LQ' ||
+                C4 == 'QL' ||
+                C4 == 'HR' ||
+                C4 == 'TR' ||
+                C4 == 'BR') {
+              NB = 32;
+            }
+          } else if (C3.substring(0, 1) == 'M') {
+            if (C4 == 'QR' ||
+                C4 == 'RQ' ||
+                C4 == 'LQ' ||
+                C4 == 'QL' ||
+                C4 == 'HR' ||
+                C4 == 'TR' ||
+                C4 == 'BR') {
+              NB = 32;
+            }
+          }
+        } else if (C2 == 'GB') {
+          if (C3 == 'TRF') {
+            if (SNAME) {
+              if (N4 <= 64) {
+                NB = 1;
+              } else {
+                NB = 32;
+              }
             } else {
-               if ( N2 <= 64 ) {
-                  NB = 1;
-               } else {
-                  NB = 32;
-               }
+              if (N4 <= 64) {
+                NB = 1;
+              } else {
+                NB = 32;
+              }
             }
-         }
-      } else if ( C2 == 'TR' ) {
-         if ( C3 == 'TRI' ) {
-            if ( SNAME ) {
-               NB = 64;
+          }
+        } else if (C2 == 'PB') {
+          if (C3 == 'TRF') {
+            if (SNAME) {
+              if (N2 <= 64) {
+                NB = 1;
+              } else {
+                NB = 32;
+              }
             } else {
-               NB = 64;
+              if (N2 <= 64) {
+                NB = 1;
+              } else {
+                NB = 32;
+              }
             }
-         } else if ( C3 == 'EVC' ) {
-            if ( SNAME ) {
-               NB = 64;
+          }
+        } else if (C2 == 'TR') {
+          if (C3 == 'TRI') {
+            if (SNAME) {
+              NB = 64;
             } else {
-               NB = 64;
+              NB = 64;
             }
-         } else if ( C3 == 'SYL' ) {
+          } else if (C3 == 'EVC') {
+            if (SNAME) {
+              NB = 64;
+            } else {
+              NB = 64;
+            }
+          } else if (C3 == 'SYL') {
             // The upper bound is to prevent overly aggressive scaling.
-            if ( SNAME ) {
-               NB = min( max( 48, INT( ( min( N1, N2 ) * 16 ) / 100) ), 240 );
+            if (SNAME) {
+              NB = min(max(48, (min(N1, N2) * 16) ~/ 100), 240);
             } else {
-               NB = min( max( 24, INT( ( min( N1, N2 ) * 8 ) / 100) ), 80 );
+              NB = min(max(24, (min(N1, N2) * 8) ~/ 100), 80);
             }
-         }
-      } else if ( C2 == 'LA' ) {
-         if ( C3 == 'UUM' ) {
-            if ( SNAME ) {
-               NB = 64;
+          }
+        } else if (C2 == 'LA') {
+          if (C3 == 'UUM') {
+            if (SNAME) {
+              NB = 64;
             } else {
-               NB = 64;
+              NB = 64;
             }
-         } else if ( C3 == 'TRS' ) {
-            if ( SNAME ) {
-               NB = 32;
+          } else if (C3 == 'TRS') {
+            if (SNAME) {
+              NB = 32;
             } else {
-               NB = 32;
+              NB = 32;
             }
-         }
-      } else if ( SNAME && C2 == 'ST' ) {
-         if ( C3 == 'EBZ' ) {
+          }
+        } else if (SNAME && C2 == 'ST') {
+          if (C3 == 'EBZ') {
             NB = 1;
-         }
-      } else if ( C2 == 'GG' ) {
-         NB = 32;
-         if ( C3 == 'HD3' ) {
-            if ( SNAME ) {
-               NB = 32;
+          }
+        } else if (C2 == 'GG') {
+          NB = 32;
+          if (C3 == 'HD3') {
+            if (SNAME) {
+              NB = 32;
             } else {
-               NB = 32;
+              NB = 32;
             }
-         }
+          }
+        }
+        return NB;
       }
-      ILAENV = NB;
-      return;
 
-      } // 60
+      if (ISPEC == 2) {
+        // ISPEC = 2:  minimum block size
 
-      // ISPEC = 2:  minimum block size
-
-      NBMIN = 2;
-      if ( C2 == 'GE' ) {
-         if ( C3 == 'QRF' || C3 == 'RQF' || C3 == 'LQF' || C3 == 'QLF' ) {
-            if ( SNAME ) {
-               NBMIN = 2;
+        NBMIN = 2;
+        if (C2 == 'GE') {
+          if (C3 == 'QRF' || C3 == 'RQF' || C3 == 'LQF' || C3 == 'QLF') {
+            if (SNAME) {
+              NBMIN = 2;
             } else {
-               NBMIN = 2;
+              NBMIN = 2;
             }
-         } else if ( C3 == 'HRD' ) {
-            if ( SNAME ) {
-               NBMIN = 2;
+          } else if (C3 == 'HRD') {
+            if (SNAME) {
+              NBMIN = 2;
             } else {
-               NBMIN = 2;
+              NBMIN = 2;
             }
-         } else if ( C3 == 'BRD' ) {
-            if ( SNAME ) {
-               NBMIN = 2;
+          } else if (C3 == 'BRD') {
+            if (SNAME) {
+              NBMIN = 2;
             } else {
-               NBMIN = 2;
+              NBMIN = 2;
             }
-         } else if ( C3 == 'TRI' ) {
-            if ( SNAME ) {
-               NBMIN = 2;
+          } else if (C3 == 'TRI') {
+            if (SNAME) {
+              NBMIN = 2;
             } else {
-               NBMIN = 2;
+              NBMIN = 2;
             }
-         } else if ( SUBNAM( 4: 7 ) == 'QP3RK' ) {
-            if ( SNAME ) {
-               NBMIN = 2;
+          } else if (SUBNAM.substring(3, 7) == 'QP3RK') {
+            if (SNAME) {
+              NBMIN = 2;
             } else {
-               NBMIN = 2;
+              NBMIN = 2;
             }
-         }
-
-      } else if ( C2 == 'SY' ) {
-         if ( C3 == 'TRF' ) {
-            if ( SNAME ) {
-               NBMIN = 8;
+          }
+        } else if (C2 == 'SY') {
+          if (C3 == 'TRF') {
+            if (SNAME) {
+              NBMIN = 8;
             } else {
-               NBMIN = 8;
+              NBMIN = 8;
             }
-         } else if ( SNAME && C3 == 'TRD' ) {
+          } else if (SNAME && C3 == 'TRD') {
             NBMIN = 2;
-         }
-      } else if ( CNAME && C2 == 'HE' ) {
-         if ( C3 == 'TRD' ) {
+          }
+        } else if (CNAME && C2 == 'HE') {
+          if (C3 == 'TRD') {
             NBMIN = 2;
-         }
-      } else if ( SNAME && C2 == 'OR' ) {
-         if ( C3( 1: 1 ) == 'G' ) {
-            if ( C4 == 'QR' || C4 == 'RQ' || C4 == 'LQ' || C4 == 'QL' || C4 == 'HR' || C4 == 'TR' || C4 == 'BR' ) {
-               NBMIN = 2;
+          }
+        } else if (SNAME && C2 == 'OR') {
+          if (C3.substring(0, 1) == 'G') {
+            if (C4 == 'QR' ||
+                C4 == 'RQ' ||
+                C4 == 'LQ' ||
+                C4 == 'QL' ||
+                C4 == 'HR' ||
+                C4 == 'TR' ||
+                C4 == 'BR') {
+              NBMIN = 2;
             }
-         } else if ( C3( 1: 1 ) == 'M' ) {
-            if ( C4 == 'QR' || C4 == 'RQ' || C4 == 'LQ' || C4 == 'QL' || C4 == 'HR' || C4 == 'TR' || C4 == 'BR' ) {
-               NBMIN = 2;
+          } else if (C3.substring(0, 1) == 'M') {
+            if (C4 == 'QR' ||
+                C4 == 'RQ' ||
+                C4 == 'LQ' ||
+                C4 == 'QL' ||
+                C4 == 'HR' ||
+                C4 == 'TR' ||
+                C4 == 'BR') {
+              NBMIN = 2;
             }
-         }
-      } else if ( CNAME && C2 == 'UN' ) {
-         if ( C3( 1: 1 ) == 'G' ) {
-            if ( C4 == 'QR' || C4 == 'RQ' || C4 == 'LQ' || C4 == 'QL' || C4 == 'HR' || C4 == 'TR' || C4 == 'BR' ) {
-               NBMIN = 2;
+          }
+        } else if (CNAME && C2 == 'UN') {
+          if (C3.substring(0, 1) == 'G') {
+            if (C4 == 'QR' ||
+                C4 == 'RQ' ||
+                C4 == 'LQ' ||
+                C4 == 'QL' ||
+                C4 == 'HR' ||
+                C4 == 'TR' ||
+                C4 == 'BR') {
+              NBMIN = 2;
             }
-         } else if ( C3( 1: 1 ) == 'M' ) {
-            if ( C4 == 'QR' || C4 == 'RQ' || C4 == 'LQ' || C4 == 'QL' || C4 == 'HR' || C4 == 'TR' || C4 == 'BR' ) {
-               NBMIN = 2;
+          } else if (C3.substring(0, 1) == 'M') {
+            if (C4 == 'QR' ||
+                C4 == 'RQ' ||
+                C4 == 'LQ' ||
+                C4 == 'QL' ||
+                C4 == 'HR' ||
+                C4 == 'TR' ||
+                C4 == 'BR') {
+              NBMIN = 2;
             }
-         }
-      } else if ( C2 == 'GG' ) {
-         NBMIN = 2;
-         if ( C3 == 'HD3' ) {
+          }
+        } else if (C2 == 'GG') {
+          NBMIN = 2;
+          if (C3 == 'HD3') {
             NBMIN = 2;
-         }
+          }
+        }
+        return NBMIN;
       }
-      ILAENV = NBMIN;
-      return;
 
-      } // 70
-
-      // ISPEC = 3:  crossover point
-
-      NX = 0;
-      if ( C2 == 'GE' ) {
-         if ( C3 == 'QRF' || C3 == 'RQF' || C3 == 'LQF' || C3 == 'QLF' ) {
-            if ( SNAME ) {
-               NX = 128;
+      if (ISPEC == 3) {
+        // ISPEC = 3:  crossover point
+        NX = 0;
+        if (C2 == 'GE') {
+          if (C3 == 'QRF' || C3 == 'RQF' || C3 == 'LQF' || C3 == 'QLF') {
+            if (SNAME) {
+              NX = 128;
             } else {
-               NX = 128;
+              NX = 128;
             }
-         } else if ( C3 == 'HRD' ) {
-            if ( SNAME ) {
-               NX = 128;
+          } else if (C3 == 'HRD') {
+            if (SNAME) {
+              NX = 128;
             } else {
-               NX = 128;
+              NX = 128;
             }
-         } else if ( C3 == 'BRD' ) {
-            if ( SNAME ) {
-               NX = 128;
+          } else if (C3 == 'BRD') {
+            if (SNAME) {
+              NX = 128;
             } else {
-               NX = 128;
+              NX = 128;
             }
-         } else if ( SUBNAM( 4: 7 ) == 'QP3RK' ) {
-            if ( SNAME ) {
-               NX = 128;
+          } else if (SUBNAM.substring(3, 7) == 'QP3RK') {
+            if (SNAME) {
+              NX = 128;
             } else {
-               NX = 128;
+              NX = 128;
             }
-         }
-      } else if ( C2 == 'SY' ) {
-         if ( SNAME && C3 == 'TRD' ) {
+          }
+        } else if (C2 == 'SY') {
+          if (SNAME && C3 == 'TRD') {
             NX = 32;
-         }
-      } else if ( CNAME && C2 == 'HE' ) {
-         if ( C3 == 'TRD' ) {
+          }
+        } else if (CNAME && C2 == 'HE') {
+          if (C3 == 'TRD') {
             NX = 32;
-         }
-      } else if ( SNAME && C2 == 'OR' ) {
-         if ( C3( 1: 1 ) == 'G' ) {
-            if ( C4 == 'QR' || C4 == 'RQ' || C4 == 'LQ' || C4 == 'QL' || C4 == 'HR' || C4 == 'TR' || C4 == 'BR' ) {
-               NX = 128;
+          }
+        } else if (SNAME && C2 == 'OR') {
+          if (C3.substring(0, 1) == 'G') {
+            if (C4 == 'QR' ||
+                C4 == 'RQ' ||
+                C4 == 'LQ' ||
+                C4 == 'QL' ||
+                C4 == 'HR' ||
+                C4 == 'TR' ||
+                C4 == 'BR') {
+              NX = 128;
             }
-         }
-      } else if ( CNAME && C2 == 'UN' ) {
-         if ( C3( 1: 1 ) == 'G' ) {
-            if ( C4 == 'QR' || C4 == 'RQ' || C4 == 'LQ' || C4 == 'QL' || C4 == 'HR' || C4 == 'TR' || C4 == 'BR' ) {
-               NX = 128;
+          }
+        } else if (CNAME && C2 == 'UN') {
+          if (C3.substring(0, 1) == 'G') {
+            if (C4 == 'QR' ||
+                C4 == 'RQ' ||
+                C4 == 'LQ' ||
+                C4 == 'QL' ||
+                C4 == 'HR' ||
+                C4 == 'TR' ||
+                C4 == 'BR') {
+              NX = 128;
             }
-         }
-      } else if ( C2 == 'GG' ) {
-         NX = 128;
-         if ( C3 == 'HD3' ) {
+          }
+        } else if (C2 == 'GG') {
+          NX = 128;
+          if (C3 == 'HD3') {
             NX = 128;
-         }
+          }
+        }
+        return NX;
       }
-      ILAENV = NX;
-      return;
 
-      } // 80
-
+    case 4:
       // ISPEC = 4:  number of shifts (used by xHSEQR)
+      return 6;
 
-      ILAENV = 6;
-      return;
-
-      } // 90
-
+    case 5:
       // ISPEC = 5:  minimum column dimension (not used)
+      return 2;
 
-      ILAENV = 2;
-      return;
-
-      } // 100
-
+    case 6:
       // ISPEC = 6:  crossover point for SVD (used by xGELSS and xGESVD)
+      return (min(N1, N2) * 1.6).toInt();
 
-      ILAENV = INT( double( min( N1, N2 ) )*1.6 );
-      return;
-
-      } // 110
-
+    case 7:
       // ISPEC = 7:  number of processors (not used)
+      return 1;
 
-      ILAENV = 1;
-      return;
-
-      } // 120
-
+    case 8:
       // ISPEC = 8:  crossover point for multishift (used by xHSEQR)
+      return 50;
 
-      ILAENV = 50;
-      return;
-
-      } // 130
-
+    case 9:
       // ISPEC = 9:  maximum size of the subproblems at the bottom of the
-                  // computation tree in the divide-and-conquer algorithm
-                  // (used by xGELSD and xGESDD)
+      // computation tree in the divide-and-conquer algorithm
+      // (used by xGELSD and xGESDD)
+      return 25;
 
-      ILAENV = 25;
-      return;
-
-      } // 140
-
+    case 10:
       // ISPEC = 10: ieee and infinity NaN arithmetic can be trusted not to trap
+      return ieeeck(1, 0.0, 1.0);
 
-      // ILAENV = 0
-      ILAENV = 1;
-      if ( ILAENV == 1 ) {
-         ILAENV = IEEECK( 1, 0.0, 1.0 );
-      }
-      return;
-
-      } // 150
+    case 11:
 
       // ISPEC = 11: ieee infinity arithmetic can be trusted not to trap
+      return ieeeck(0, 0.0, 1.0);
 
-      // ILAENV = 0
-      ILAENV = 1;
-      if ( ILAENV == 1 ) {
-         ILAENV = IEEECK( 0, 0.0, 1.0 );
-      }
-      return;
-
-      } // 160
-
+    case 12:
+    case 13:
+    case 14:
+    case 15:
+    case 16:
+    case 17:
       // 12 <= ISPEC <= 17: xHSEQR or related subroutines.
-
-      ILAENV = IPARMQ( ISPEC, NAME, OPTS, N1, N2, N3, N4 );
-      return;
-      }
+      return iparmq(ISPEC, NAME, OPTS, N1, N2, N3, N4);
+  }
+  // Invalid value for ISPEC
+  return -1;
+}

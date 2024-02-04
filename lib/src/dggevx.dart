@@ -1,48 +1,78 @@
-      void dggevx(BALANC, JOBVL, JOBVR, SENSE, N, A, LDA, B, LDB, ALPHAR, ALPHAI, BETA, VL, LDVL, VR, LDVR, ILO, IHI, LSCALE, RSCALE, ABNRM, BBNRM, RCONDE, RCONDV, WORK, LWORK, IWORK, BWORK, INFO ) {
+      import 'dart:math';
+
+import 'package:lapack/src/blas/lsame.dart';
+import 'package:lapack/src/box.dart';
+import 'package:lapack/src/dgeqrf.dart';
+import 'package:lapack/src/dggbak.dart';
+import 'package:lapack/src/dggbal.dart';
+import 'package:lapack/src/dgghrd.dart';
+import 'package:lapack/src/dhgeqz.dart';
+import 'package:lapack/src/dlacpy.dart';
+import 'package:lapack/src/dlange.dart';
+import 'package:lapack/src/dlascl.dart';
+import 'package:lapack/src/dlaset.dart';
+import 'package:lapack/src/dorgqr.dart';
+import 'package:lapack/src/dormqr.dart';
+import 'package:lapack/src/dtgevc.dart';
+import 'package:lapack/src/dtgsna.dart';
+import 'package:lapack/src/ilaenv.dart';
+import 'package:lapack/src/install/dlamch.dart';
+import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/xerbla.dart';
+
+void dggevx(
+      final String BALANC,
+      final String JOBVL,
+      final String JOBVR,
+      final String SENSE,
+      final int N,
+      final Matrix<double> A,
+      final int LDA,
+      final Matrix<double> B,
+      final int LDB,
+      final Array<double> ALPHAR,
+      final Array<double> ALPHAI,
+      final Array<double> BETA,
+      final Matrix<double> VL,
+      final int LDVL,
+      final Matrix<double> VR,
+      final int LDVR,
+      final int ILO,
+      final int IHI,
+      final Array<double> LSCALE,
+      final Array<double> RSCALE,
+      final Box<double> ABNRM,
+      final Box<double> BBNRM,
+      final Array<double> RCONDE,
+      final Array<double> RCONDV,
+      final Array<double> WORK,
+      final int LWORK,
+      final Array<int> IWORK,
+      final Array<bool> BWORK,
+      final Box<int> INFO,
+      ) {
 
 // -- LAPACK driver routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
-      String             BALANC, JOBVL, JOBVR, SENSE;
-      int                IHI, ILO, INFO, LDA, LDB, LDVL, LDVR, LWORK, N;
-      double             ABNRM, BBNRM;
+      // String             BALANC, JOBVL, JOBVR, SENSE;
+      // int                IHI, ILO, INFO.value, LDA, LDB, LDVL, LDVR, LWORK, N;
+      // double             ABNRM.value, BBNRM.value;
       // ..
       // .. Array Arguments ..
-      bool               BWORK( * );
-      int                IWORK( * );
-      double             A( LDA, * ), ALPHAI( * ), ALPHAR( * ), B( LDB, * ), BETA( * ), LSCALE( * ), RCONDE( * ), RCONDV( * ), RSCALE( * ), VL( LDVL, * ), VR( LDVR, * ), WORK( * );
-      // ..
+      // bool               BWORK( * );
+      // int                IWORK( * );
+      // double             A( LDA, * ), ALPHAI( * ), ALPHAR( * ), B( LDB, * ), BETA( * ), LSCALE( * ), RCONDE( * ), RCONDV( * ), RSCALE( * ), VL( LDVL, * ), VR( LDVR, * ), WORK( * );
 
-// =====================================================================
-
-      // .. Parameters ..
-      double             ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
-      // ..
-      // .. Local Scalars ..
       bool               ILASCL, ILBSCL, ILV, ILVL, ILVR, LQUERY, NOSCL, PAIR, WANTSB, WANTSE, WANTSN, WANTSV;
       String             CHTEMP;
-      int                I, ICOLS, IERR, IJOBVL, IJOBVR, IN, IROWS, ITAU, IWRK, IWRK1, J, JC, JR, M, MAXWRK, MINWRK, MM;
-      double             ANRM, ANRMTO, BIGNUM, BNRM, BNRMTO, EPS, SMLNUM, TEMP;
-      // ..
-      // .. Local Arrays ..
-      bool               LDUMMA( 1 );
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL DGEQRF, DGGBAK, DGGBAL, DGGHRD, DHGEQZ, DLACPY, DLASCL, DLASET, DORGQR, DORMQR, DTGEVC, DTGSNA, XERBLA
-      // ..
-      // .. External Functions ..
-      //- bool               lsame;
-      //- int                ILAENV;
-      //- double             DLAMCH, DLANGE;
-      // EXTERNAL lsame, ILAENV, DLAMCH, DLANGE
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC ABS, MAX, SQRT
-      // ..
-      // .. Executable Statements ..
+      int                I, ICOLS, IJOBVL, IJOBVR, IN, IROWS, ITAU, IWRK, IWRK1, J, JC, JR, M, MAXWRK=0, MINWRK, MM;
+      double             ANRM, ANRMTO=0, BIGNUM, BNRM, BNRMTO=0, EPS, SMLNUM, TEMP;
+      final IERR=Box(0);
+      final               LDUMMA = Array<bool>( 1 );
 
       // Decode the input arguments
 
@@ -77,26 +107,26 @@
 
       // Test the input arguments
 
-      INFO = 0;
+      INFO.value = 0;
       LQUERY = ( LWORK == -1 );
       if ( !( lsame( BALANC, 'N' ) || lsame( BALANC, 'S' ) || lsame( BALANC, 'P' ) || lsame( BALANC, 'B' ) ) ) {
-         INFO = -1;
+         INFO.value = -1;
       } else if ( IJOBVL <= 0 ) {
-         INFO = -2;
+         INFO.value = -2;
       } else if ( IJOBVR <= 0 ) {
-         INFO = -3;
+         INFO.value = -3;
       } else if ( !( WANTSN || WANTSE || WANTSB || WANTSV ) ) {
-         INFO = -4;
+         INFO.value = -4;
       } else if ( N < 0 ) {
-         INFO = -5;
+         INFO.value = -5;
       } else if ( LDA < max( 1, N ) ) {
-         INFO = -7;
+         INFO.value = -7;
       } else if ( LDB < max( 1, N ) ) {
-         INFO = -9;
+         INFO.value = -9;
       } else if ( LDVL < 1 || ( ILVL && LDVL < N ) ) {
-         INFO = -14;
+         INFO.value = -14;
       } else if ( LDVR < 1 || ( ILVR && LDVR < N ) ) {
-         INFO = -16;
+         INFO.value = -16;
       }
 
       // Compute workspace
@@ -104,10 +134,10 @@
         // minimal amount of workspace needed at that point in the code,
         // as well as the preferred amount for good performance.
         // NB refers to the optimal block size for the immediately
-        // following subroutine, as returned by ILAENV. The workspace is
+        // following subroutine, as returned by ilaenv. The workspace is
         // computed assuming ILO = 1 and IHI = N, the worst case.)
 
-      if ( INFO == 0 ) {
+      if ( INFO.value == 0 ) {
          if ( N == 0 ) {
             MINWRK = 1;
             MAXWRK = 1;
@@ -124,20 +154,21 @@
                MINWRK = max( MINWRK, 2*N*( N + 4 ) + 16 );
             }
             MAXWRK = MINWRK;
-            MAXWRK = max( MAXWRK, N + N*ILAENV( 1, 'DGEQRF', ' ', N, 1, N, 0 ) )             MAXWRK = max( MAXWRK, N + N*ILAENV( 1, 'DORMQR', ' ', N, 1, N, 0 ) );
+            MAXWRK = max( MAXWRK, N + N*ilaenv( 1, 'DGEQRF', ' ', N, 1, N, 0 ) );
+                         MAXWRK = max( MAXWRK, N + N*ilaenv( 1, 'DORMQR', ' ', N, 1, N, 0 ) );
             if ( ILVL ) {
-               MAXWRK = max( MAXWRK, N + N*ILAENV( 1, 'DORGQR', ' ', N, 1, N, 0 ) );
+               MAXWRK = max( MAXWRK, N + N*ilaenv( 1, 'DORGQR', ' ', N, 1, N, 0 ) );
             }
          }
-         WORK[1] = MAXWRK;
+         WORK[1] = MAXWRK.toDouble();
 
          if ( LWORK < MINWRK && !LQUERY ) {
-            INFO = -26;
+            INFO.value = -26;
          }
       }
 
-      if ( INFO != 0 ) {
-         xerbla('DGGEVX', -INFO );
+      if ( INFO.value != 0 ) {
+         xerbla('DGGEVX', -INFO.value );
          return;
       } else if ( LQUERY ) {
          return;
@@ -150,15 +181,15 @@
 
       // Get machine constants
 
-      EPS = DLAMCH( 'P' );
-      SMLNUM = DLAMCH( 'S' );
+      EPS = dlamch( 'P' );
+      SMLNUM = dlamch( 'S' );
       BIGNUM = ONE / SMLNUM;
       SMLNUM = sqrt( SMLNUM ) / EPS;
       BIGNUM = ONE / SMLNUM;
 
       // Scale A if max element outside range [SMLNUM,BIGNUM]
 
-      ANRM = DLANGE( 'M', N, N, A, LDA, WORK );
+      ANRM = dlange( 'M', N, N, A, LDA, WORK );
       ILASCL = false;
       if ( ANRM > ZERO && ANRM < SMLNUM ) {
          ANRMTO = SMLNUM;
@@ -167,11 +198,11 @@
          ANRMTO = BIGNUM;
          ILASCL = true;
       }
-      if (ILASCL) dlascl( 'G', 0, 0, ANRM, ANRMTO, N, N, A, LDA, IERR );
+      if (ILASCL) dlascl( 'G', 0, 0, ANRM, ANRMTO, N, N, A, LDA, IERR.value );
 
       // Scale B if max element outside range [SMLNUM,BIGNUM]
 
-      BNRM = DLANGE( 'M', N, N, B, LDB, WORK );
+      BNRM = dlange( 'M', N, N, B, LDB, WORK );
       ILBSCL = false;
       if ( BNRM > ZERO && BNRM < SMLNUM ) {
          BNRMTO = SMLNUM;
@@ -180,27 +211,27 @@
          BNRMTO = BIGNUM;
          ILBSCL = true;
       }
-      if (ILBSCL) dlascl( 'G', 0, 0, BNRM, BNRMTO, N, N, B, LDB, IERR );
+      if (ILBSCL) dlascl( 'G', 0, 0, BNRM, BNRMTO, N, N, B, LDB, IERR.value );
 
       // Permute and/or balance the matrix pair (A,B)
       // (Workspace: need 6*N if BALANC = 'S' or 'B', 1 otherwise)
 
-      dggbal(BALANC, N, A, LDA, B, LDB, ILO, IHI, LSCALE, RSCALE, WORK, IERR );
+      dggbal(BALANC, N, A, LDA, B, LDB, ILO, IHI, LSCALE, RSCALE, WORK, IERR.value );
 
-      // Compute ABNRM and BBNRM
+      // Compute ABNRM.value and BBNRM.value
 
-      ABNRM = DLANGE( '1', N, N, A, LDA, WORK( 1 ) );
+      ABNRM.value = dlange( '1', N, N, A, LDA, WORK( 1 ) );
       if ( ILASCL ) {
-         WORK[1] = ABNRM;
-         dlascl('G', 0, 0, ANRMTO, ANRM, 1, 1, WORK( 1 ), 1, IERR );
-         ABNRM = WORK( 1 );
+         WORK[1] = ABNRM.value;
+         dlascl('G', 0, 0, ANRMTO, ANRM, 1, 1, WORK( 1 ), 1, IERR.value );
+         ABNRM.value = WORK[1];
       }
 
-      BBNRM = DLANGE( '1', N, N, B, LDB, WORK( 1 ) );
+      BBNRM.value = dlange( '1', N, N, B, LDB, WORK( 1 ) );
       if ( ILBSCL ) {
-         WORK[1] = BBNRM;
-         dlascl('G', 0, 0, BNRMTO, BNRM, 1, 1, WORK( 1 ), 1, IERR );
-         BBNRM = WORK( 1 );
+         WORK[1] = BBNRM.value;
+         dlascl('G', 0, 0, BNRMTO, BNRM, 1, 1, WORK( 1 ), 1, IERR.value );
+         BBNRM.value = WORK[1];
       }
 
       // Reduce B to triangular form (QR decomposition of B)
@@ -214,12 +245,12 @@
       }
       ITAU = 1;
       IWRK = ITAU + IROWS;
-      dgeqrf(IROWS, ICOLS, B( ILO, ILO ), LDB, WORK( ITAU ), WORK( IWRK ), LWORK+1-IWRK, IERR );
+      dgeqrf(IROWS, ICOLS, B( ILO, ILO ), LDB, WORK( ITAU ), WORK( IWRK ), LWORK+1-IWRK, IERR.value );
 
       // Apply the orthogonal transformation to A
       // (Workspace: need N, prefer N*NB)
 
-      dormqr('L', 'T', IROWS, ICOLS, IROWS, B( ILO, ILO ), LDB, WORK( ITAU ), A( ILO, ILO ), LDA, WORK( IWRK ), LWORK+1-IWRK, IERR );
+      dormqr('L', 'T', IROWS, ICOLS, IROWS, B( ILO, ILO ), LDB, WORK( ITAU ), A( ILO, ILO ), LDA, WORK( IWRK ), LWORK+1-IWRK, IERR.value );
 
       // Initialize VL and/or VR
       // (Workspace: need N, prefer N*NB)
@@ -229,7 +260,7 @@
          if ( IROWS > 1 ) {
             dlacpy('L', IROWS-1, IROWS-1, B( ILO+1, ILO ), LDB, VL( ILO+1, ILO ), LDVL );
          }
-         dorgqr(IROWS, IROWS, IROWS, VL( ILO, ILO ), LDVL, WORK( ITAU ), WORK( IWRK ), LWORK+1-IWRK, IERR );
+         dorgqr(IROWS, IROWS, IROWS, VL( ILO, ILO ), LDVL, WORK( ITAU ), WORK( IWRK ), LWORK+1-IWRK, IERR.value );
       }
 
       if (ILVR) dlaset( 'Full', N, N, ZERO, ONE, VR, LDVR );
@@ -241,9 +272,9 @@
 
          // Eigenvectors requested -- work on whole matrix.
 
-         dgghrd(JOBVL, JOBVR, N, ILO, IHI, A, LDA, B, LDB, VL, LDVL, VR, LDVR, IERR );
+         dgghrd(JOBVL, JOBVR, N, ILO, IHI, A, LDA, B, LDB, VL, LDVL, VR, LDVR, IERR.value );
       } else {
-         dgghrd('N', 'N', IROWS, 1, IROWS, A( ILO, ILO ), LDA, B( ILO, ILO ), LDB, VL, LDVL, VR, LDVR, IERR );
+         dgghrd('N', 'N', IROWS, 1, IROWS, A( ILO, ILO ), LDA, B( ILO, ILO ), LDB, VL, LDVL, VR, LDVR, IERR.value );
       }
 
       // Perform QZ algorithm (Compute eigenvalues, and optionally, the
@@ -256,14 +287,14 @@
          CHTEMP = 'E';
       }
 
-      dhgeqz(CHTEMP, JOBVL, JOBVR, N, ILO, IHI, A, LDA, B, LDB, ALPHAR, ALPHAI, BETA, VL, LDVL, VR, LDVR, WORK, LWORK, IERR );
-      if ( IERR != 0 ) {
-         if ( IERR > 0 && IERR <= N ) {
-            INFO = IERR;
-         } else if ( IERR > N && IERR <= 2*N ) {
-            INFO = IERR - N;
+      dhgeqz(CHTEMP, JOBVL, JOBVR, N, ILO, IHI, A, LDA, B, LDB, ALPHAR, ALPHAI, BETA, VL, LDVL, VR, LDVR, WORK, LWORK, IERR.value );
+      if ( IERR.value != 0 ) {
+         if ( IERR.value > 0 && IERR.value <= N ) {
+            INFO.value = IERR.value;
+         } else if ( IERR.value > N && IERR.value <= 2*N ) {
+            INFO.value = IERR.value - N;
          } else {
-            INFO = N + 1;
+            INFO.value = N + 1;
          }
          GO TO 130;
       }
@@ -285,9 +316,9 @@
                CHTEMP = 'R';
             }
 
-            dtgevc(CHTEMP, 'B', LDUMMA, N, A, LDA, B, LDB, VL, LDVL, VR, LDVR, N, IN, WORK, IERR );
-            if ( IERR != 0 ) {
-               INFO = N + 2;
+            dtgevc(CHTEMP, 'B', LDUMMA, N, A, LDA, B, LDB, VL, LDVL, VR, LDVR, N, IN, WORK, IERR.value );
+            if ( IERR.value != 0 ) {
+               INFO.value = N + 2;
                GO TO 130;
             }
          }
@@ -334,14 +365,14 @@
                // (compute workspace: need up to 4*N + 6*N)
 
                if ( WANTSE || WANTSB ) {
-                  dtgevc('B', 'S', BWORK, N, A, LDA, B, LDB, WORK( 1 ), N, WORK( IWRK ), N, MM, M, WORK( IWRK1 ), IERR );
-                  if ( IERR != 0 ) {
-                     INFO = N + 2;
+                  dtgevc('B', 'S', BWORK, N, A, LDA, B, LDB, WORK( 1 ), N, WORK( IWRK ), N, MM, M, WORK( IWRK1 ), IERR.value );
+                  if ( IERR.value != 0 ) {
+                     INFO.value = N + 2;
                      GO TO 130;
                   }
                }
 
-               dtgsna(SENSE, 'S', BWORK, N, A, LDA, B, LDB, WORK( 1 ), N, WORK( IWRK ), N, RCONDE( I ), RCONDV( I ), MM, M, WORK( IWRK1 ), LWORK-IWRK1+1, IWORK, IERR );
+               dtgsna(SENSE, 'S', BWORK, N, A, LDA, B, LDB, WORK( 1 ), N, WORK( IWRK ), N, RCONDE( I ), RCONDV( I ), MM, M, WORK( IWRK1 ), LWORK-IWRK1+1, IWORK, IERR.value );
 
             } // 20
          }
@@ -351,40 +382,40 @@
       // (Workspace: none needed)
 
       if ( ILVL ) {
-         dggbak(BALANC, 'L', N, ILO, IHI, LSCALE, RSCALE, N, VL, LDVL, IERR );
+         dggbak(BALANC, 'L', N, ILO, IHI, LSCALE, RSCALE, N, VL, LDVL, IERR.value );
 
          for (JC = 1; JC <= N; JC++) { // 70
-            if( ALPHAI( JC ) < ZERO ) GO TO 70;
+            if( ALPHAI[JC ] < ZERO ) GO TO 70;
             TEMP = ZERO;
-            if ( ALPHAI( JC ) == ZERO ) {
+            if ( ALPHAI[JC ] == ZERO ) {
                for (JR = 1; JR <= N; JR++) { // 30
-                  TEMP = max( TEMP, ( VL( JR, JC ) ) ).abs();
+                  TEMP = max( TEMP, ( VL[JR][JC ].abs() ) );
                } // 30
             } else {
                for (JR = 1; JR <= N; JR++) { // 40
-                  TEMP = max( TEMP, ( VL( JR, JC ) ).abs()+ ( VL( JR, JC+1 ) ) ).abs();
+                  TEMP = max( TEMP, VL[JR][JC] .abs()+ VL[JR][JC+1].abs() );
                } // 40
             }
             if (TEMP < SMLNUM) GO TO 70;
             TEMP = ONE / TEMP;
-            if ( ALPHAI( JC ) == ZERO ) {
+            if ( ALPHAI[JC ] == ZERO ) {
                for (JR = 1; JR <= N; JR++) { // 50
-                  VL[JR, JC] = VL( JR, JC )*TEMP;
+                  VL[JR, JC] = VL[JR][JC]*TEMP;
                } // 50
             } else {
                for (JR = 1; JR <= N; JR++) { // 60
-                  VL[JR, JC] = VL( JR, JC )*TEMP;
+                  VL[JR, JC] = VL[JR][JC]*TEMP;
                   VL[JR, JC+1] = VL( JR, JC+1 )*TEMP;
                } // 60
             }
          } // 70
       }
       if ( ILVR ) {
-         dggbak(BALANC, 'R', N, ILO, IHI, LSCALE, RSCALE, N, VR, LDVR, IERR );
+         dggbak(BALANC, 'R', N, ILO, IHI, LSCALE, RSCALE, N, VR, LDVR, IERR.value );
          for (JC = 1; JC <= N; JC++) { // 120
-            if( ALPHAI( JC ) < ZERO ) GO TO 120;
+            if( ALPHAI[JC ] < ZERO ) GO TO 120;
             TEMP = ZERO;
-            if ( ALPHAI( JC ) == ZERO ) {
+            if ( ALPHAI[JC ] == ZERO ) {
                for (JR = 1; JR <= N; JR++) { // 80
                   TEMP = max( TEMP, ( VR( JR, JC ) ) ).abs();
                } // 80
@@ -395,7 +426,7 @@
             }
             if (TEMP < SMLNUM) GO TO 120;
             TEMP = ONE / TEMP;
-            if ( ALPHAI( JC ) == ZERO ) {
+            if ( ALPHAI[JC ] == ZERO ) {
                for (JR = 1; JR <= N; JR++) { // 100
                   VR[JR, JC] = VR( JR, JC )*TEMP;
                } // 100
@@ -410,17 +441,17 @@
 
       // Undo scaling if necessary
 
-      } // 130
+      // } // 130
 
       if ( ILASCL ) {
-         dlascl('G', 0, 0, ANRMTO, ANRM, N, 1, ALPHAR, N, IERR );
-         dlascl('G', 0, 0, ANRMTO, ANRM, N, 1, ALPHAI, N, IERR );
+         dlascl('G', 0, 0, ANRMTO, ANRM, N, 1, ALPHAR, N, IERR.value );
+         dlascl('G', 0, 0, ANRMTO, ANRM, N, 1, ALPHAI, N, IERR.value );
       }
 
       if ( ILBSCL ) {
-         dlascl('G', 0, 0, BNRMTO, BNRM, N, 1, BETA, N, IERR );
+         dlascl('G', 0, 0, BNRMTO, BNRM, N, 1, BETA, N, IERR.value );
       }
 
-      WORK[1] = MAXWRK;
+      WORK[1] = MAXWRK.toDouble();
       return;
       }

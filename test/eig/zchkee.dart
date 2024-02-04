@@ -672,7 +672,7 @@
          } // 200
          READ( NIN, FMT = '(A80)', END = 380 )LINE;
          C3 = LINE( 1: 3 );
-         LENP = LEN( LINE );
+         LENP = LINE.length;
          I = 3;
          ITMP = 0;
          I1 = 0;

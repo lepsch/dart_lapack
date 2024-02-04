@@ -49,7 +49,7 @@
 
          if ( NMATS > 0 ) {
             READ( NIN, FMT = '(A80)', END = 90 )LINE;
-            LENP = LEN( LINE );
+            LENP = LINE.length;
             I = 0;
             for (J = 1; J <= NMATS; J++) { // 60
                NREQ[J] = 0;

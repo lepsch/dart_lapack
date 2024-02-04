@@ -28,11 +28,9 @@
       // ..
       // .. Executable Statements ..
       SRNAME = ' ';
-      DO I = 1, min( SRNAME_LEN, LEN( SRNAME ) );
+      DO I = 1, min( SRNAME_LEN, SRNAME.length );
          SRNAME[I:I] = SRNAME_ARRAY( I );
       }
 
       xerbla(SRNAME, INFO );
-
-      return;
       }

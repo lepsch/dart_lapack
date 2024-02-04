@@ -32,7 +32,7 @@ class Complex {
   @override
   bool operator ==(Object? other) =>
       identical(this, other) ||
-      other is Complex && real == other.double && imaginary == other.imaginary;
+      other is Complex && real == other.real && imaginary == other.imaginary;
 
   @override
   int get hashCode => Object.hash(real, imaginary);
@@ -42,6 +42,8 @@ class Complex {
   Complex conjugate() => Complex._fromImpl(_impl.conjugate());
 
   double toDouble() => real;
+
+  double abs() => _impl.abs();
 }
 
 extension DoubleComplexExtension on double {
