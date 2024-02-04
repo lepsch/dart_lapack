@@ -1,196 +1,185 @@
-      void dsyr2k(UPLO,TRANS,N,K,ALPHA,A,LDA,B,LDB,BETA,C,LDC) {
+import 'dart:math';
 
+import 'package:lapack/src/blas/lsame.dart';
+import 'package:lapack/src/blas/xerbla.dart';
+import 'package:lapack/src/matrix.dart';
+
+void dsyr2k(
+  final String UPLO,
+  final String TRANS,
+  final int N,
+  final int K,
+  final double ALPHA,
+  final Matrix<double> A,
+  final int LDA,
+  final Matrix<double> B,
+  final int LDB,
+  final double BETA,
+  final Matrix<double> C,
+  final int LDC,
+) {
 // -- Reference BLAS level3 routine --
 // -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  double TEMP1, TEMP2;
+  int I, INFO, J, L, NROWA;
+  bool UPPER;
+  const ONE = 1.0, ZERO = 0.0;
 
-      // .. Scalar Arguments ..
-      double           ALPHA,BETA;
-      int     K,LDA,LDB,LDC,N;
-      String    TRANS,UPLO;
-      // ..
-      // .. Array Arguments ..
-      double           A(LDA,*),B(LDB,*),C(LDC,*);
-      // ..
+  // Test the input parameters.
 
-// =====================================================================
+  if (lsame(TRANS, 'N')) {
+    NROWA = N;
+  } else {
+    NROWA = K;
+  }
+  UPPER = lsame(UPLO, 'U');
 
-      // .. External Functions ..
-      //- bool    lsame;
-      // EXTERNAL lsame
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL XERBLA
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC MAX
-      // ..
-      // .. Local Scalars ..
-      double           TEMP1,TEMP2;
-      int     I,INFO,J,L,NROWA;
-      bool    UPPER;
-      // ..
-      // .. Parameters ..
-      double           ONE,ZERO;
-      const     ONE=1.0,ZERO=0.0;
-      // ..
+  INFO = 0;
+  if ((!UPPER) && (!lsame(UPLO, 'L'))) {
+    INFO = 1;
+  } else if ((!lsame(TRANS, 'N')) &&
+      (!lsame(TRANS, 'T')) &&
+      (!lsame(TRANS, 'C'))) {
+    INFO = 2;
+  } else if (N < 0) {
+    INFO = 3;
+  } else if (K < 0) {
+    INFO = 4;
+  } else if (LDA < max(1, NROWA)) {
+    INFO = 7;
+  } else if (LDB < max(1, NROWA)) {
+    INFO = 9;
+  } else if (LDC < max(1, N)) {
+    INFO = 12;
+  }
+  if (INFO != 0) {
+    xerbla('DSYR2K', INFO);
+    return;
+  }
 
-      // Test the input parameters.
+  // Quick return if possible.
 
-      if (lsame(TRANS,'N')) {
-          NROWA = N;
+  if ((N == 0) || (((ALPHA == ZERO) || (K == 0)) && (BETA == ONE))) return;
+
+  // And when  alpha == zero.
+
+  if (ALPHA == ZERO) {
+    if (UPPER) {
+      if (BETA == ZERO) {
+        for (J = 1; J <= N; J++) {
+          for (I = 1; I <= J; I++) {
+            C[I][J] = ZERO;
+          }
+        }
       } else {
-          NROWA = K;
-      }
-      UPPER = lsame(UPLO,'U');
-
-      INFO = 0;
-      if (( !UPPER) && ( !lsame(UPLO,'L'))) {
-          INFO = 1;
-      } else if (( !lsame(TRANS,'N')) && ( !lsame(TRANS,'T')) && ( !lsame(TRANS,'C'))) {
-          INFO = 2;
-      } else if (N < 0) {
-          INFO = 3;
-      } else if (K < 0) {
-          INFO = 4;
-      } else if (LDA < max(1,NROWA)) {
-          INFO = 7;
-      } else if (LDB < max(1,NROWA)) {
-          INFO = 9;
-      } else if (LDC < max(1,N)) {
-          INFO = 12;
-      }
-      if (INFO != 0) {
-          xerbla('DSYR2K',INFO);
-          return;
-      }
-
-      // Quick return if possible.
-
-      if ((N == 0) || (((ALPHA == ZERO) || (K == 0)) && (BETA == ONE))) return;
-
-      // And when  alpha == zero.
-
-      if (ALPHA == ZERO) {
-          if (UPPER) {
-              if (BETA == ZERO) {
-                  for (J = 1; J <= N; J++) { // 20
-                      for (I = 1; I <= J; I++) { // 10
-                          C[I,J] = ZERO;
-                      } // 10
-                  } // 20
-              } else {
-                  for (J = 1; J <= N; J++) { // 40
-                      for (I = 1; I <= J; I++) { // 30
-                          C[I,J] = BETA*C(I,J);
-                      } // 30
-                  } // 40
-              }
-          } else {
-              if (BETA == ZERO) {
-                  for (J = 1; J <= N; J++) { // 60
-                      for (I = J; I <= N; I++) { // 50
-                          C[I,J] = ZERO;
-                      } // 50
-                  } // 60
-              } else {
-                  for (J = 1; J <= N; J++) { // 80
-                      for (I = J; I <= N; I++) { // 70
-                          C[I,J] = BETA*C(I,J);
-                      } // 70
-                  } // 80
-              }
+        for (J = 1; J <= N; J++) {
+          for (I = 1; I <= J; I++) {
+            C[I][J] = BETA * C[I][J];
           }
-          return;
+        }
       }
-
-      // Start the operations.
-
-      if (lsame(TRANS,'N')) {
-
-         // Form  C := alpha*A*B**T + alpha*B*A**T + C.
-
-          if (UPPER) {
-              for (J = 1; J <= N; J++) { // 130
-                  if (BETA == ZERO) {
-                      for (I = 1; I <= J; I++) { // 90
-                          C[I,J] = ZERO;
-                      } // 90
-                  } else if (BETA != ONE) {
-                      for (I = 1; I <= J; I++) { // 100
-                          C[I,J] = BETA*C(I,J);
-                      } // 100
-                  }
-                  for (L = 1; L <= K; L++) { // 120
-                      if ((A(J,L) != ZERO) || (B(J,L) != ZERO)) {
-                          TEMP1 = ALPHA*B(J,L);
-                          TEMP2 = ALPHA*A(J,L);
-                          for (I = 1; I <= J; I++) { // 110
-                              C[I,J] = C(I,J) + A(I,L)*TEMP1 + B(I,L)*TEMP2;
-                          } // 110
-                      }
-                  } // 120
-              } // 130
-          } else {
-              for (J = 1; J <= N; J++) { // 180
-                  if (BETA == ZERO) {
-                      for (I = J; I <= N; I++) { // 140
-                          C[I,J] = ZERO;
-                      } // 140
-                  } else if (BETA != ONE) {
-                      for (I = J; I <= N; I++) { // 150
-                          C[I,J] = BETA*C(I,J);
-                      } // 150
-                  }
-                  for (L = 1; L <= K; L++) { // 170
-                      if ((A(J,L) != ZERO) || (B(J,L) != ZERO)) {
-                          TEMP1 = ALPHA*B(J,L);
-                          TEMP2 = ALPHA*A(J,L);
-                          for (I = J; I <= N; I++) { // 160
-                              C[I,J] = C(I,J) + A(I,L)*TEMP1 + B(I,L)*TEMP2;
-                          } // 160
-                      }
-                  } // 170
-              } // 180
+    } else {
+      if (BETA == ZERO) {
+        for (J = 1; J <= N; J++) {
+          for (I = J; I <= N; I++) {
+            C[I][J] = ZERO;
           }
+        }
       } else {
-
-         // Form  C := alpha*A**T*B + alpha*B**T*A + C.
-
-          if (UPPER) {
-              for (J = 1; J <= N; J++) { // 210
-                  for (I = 1; I <= J; I++) { // 200
-                      TEMP1 = ZERO;
-                      TEMP2 = ZERO;
-                      for (L = 1; L <= K; L++) { // 190
-                          TEMP1 = TEMP1 + A(L,I)*B(L,J);
-                          TEMP2 = TEMP2 + B(L,I)*A(L,J);
-                      } // 190
-                      if (BETA == ZERO) {
-                          C[I,J] = ALPHA*TEMP1 + ALPHA*TEMP2;
-                      } else {
-                          C[I,J] = BETA*C(I,J) + ALPHA*TEMP1 + ALPHA*TEMP2;
-                      }
-                  } // 200
-              } // 210
-          } else {
-              for (J = 1; J <= N; J++) { // 240
-                  for (I = J; I <= N; I++) { // 230
-                      TEMP1 = ZERO;
-                      TEMP2 = ZERO;
-                      for (L = 1; L <= K; L++) { // 220
-                          TEMP1 = TEMP1 + A(L,I)*B(L,J);
-                          TEMP2 = TEMP2 + B(L,I)*A(L,J);
-                      } // 220
-                      if (BETA == ZERO) {
-                          C[I,J] = ALPHA*TEMP1 + ALPHA*TEMP2;
-                      } else {
-                          C[I,J] = BETA*C(I,J) + ALPHA*TEMP1 + ALPHA*TEMP2;
-                      }
-                  } // 230
-              } // 240
+        for (J = 1; J <= N; J++) {
+          for (I = J; I <= N; I++) {
+            C[I][J] = BETA * C[I][J];
           }
+        }
       }
+    }
+    return;
+  }
 
-      return;
+  // Start the operations.
+
+  if (lsame(TRANS, 'N')) {
+    // Form  C := alpha*A*B**T + alpha*B*A**T + C.
+
+    if (UPPER) {
+      for (J = 1; J <= N; J++) {
+        if (BETA == ZERO) {
+          for (I = 1; I <= J; I++) {
+            C[I][J] = ZERO;
+          }
+        } else if (BETA != ONE) {
+          for (I = 1; I <= J; I++) {
+            C[I][J] = BETA * C[I][J];
+          }
+        }
+        for (L = 1; L <= K; L++) {
+          if ((A[J][L] != ZERO) || (B[J][L] != ZERO)) {
+            TEMP1 = ALPHA * B[J][L];
+            TEMP2 = ALPHA * A[J][L];
+            for (I = 1; I <= J; I++) {
+              C[I][J] = C[I][J] + A[I][L] * TEMP1 + B[I][L] * TEMP2;
+            }
+          }
+        }
       }
+    } else {
+      for (J = 1; J <= N; J++) {
+        if (BETA == ZERO) {
+          for (I = J; I <= N; I++) {
+            C[I][J] = ZERO;
+          }
+        } else if (BETA != ONE) {
+          for (I = J; I <= N; I++) {
+            C[I][J] = BETA * C[I][J];
+          }
+        }
+        for (L = 1; L <= K; L++) {
+          if ((A[J][L] != ZERO) || (B[J][L] != ZERO)) {
+            TEMP1 = ALPHA * B[J][L];
+            TEMP2 = ALPHA * A[J][L];
+            for (I = J; I <= N; I++) {
+              C[I][J] = C[I][J] + A[I][L] * TEMP1 + B[I][L] * TEMP2;
+            }
+          }
+        }
+      }
+    }
+  } else {
+    // Form  C := alpha*A**T*B + alpha*B**T*A + C.
+
+    if (UPPER) {
+      for (J = 1; J <= N; J++) {
+        for (I = 1; I <= J; I++) {
+          TEMP1 = ZERO;
+          TEMP2 = ZERO;
+          for (L = 1; L <= K; L++) {
+            TEMP1 = TEMP1 + A[L][I] * B[L][J];
+            TEMP2 = TEMP2 + B[L][I] * A[L][J];
+          }
+          if (BETA == ZERO) {
+            C[I][J] = ALPHA * TEMP1 + ALPHA * TEMP2;
+          } else {
+            C[I][J] = BETA * C[I][J] + ALPHA * TEMP1 + ALPHA * TEMP2;
+          }
+        }
+      }
+    } else {
+      for (J = 1; J <= N; J++) {
+        for (I = J; I <= N; I++) {
+          TEMP1 = ZERO;
+          TEMP2 = ZERO;
+          for (L = 1; L <= K; L++) {
+            TEMP1 = TEMP1 + A[L][I] * B[L][J];
+            TEMP2 = TEMP2 + B[L][I] * A[L][J];
+          }
+          if (BETA == ZERO) {
+            C[I][J] = ALPHA * TEMP1 + ALPHA * TEMP2;
+          } else {
+            C[I][J] = BETA * C[I][J] + ALPHA * TEMP1 + ALPHA * TEMP2;
+          }
+        }
+      }
+    }
+  }
+}

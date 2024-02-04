@@ -127,7 +127,7 @@
                      A[IOFF+I] = ZERO;
                   } // 20
                } else {
-                  zlaset('Full', M, N-IZERO+1, DCMPLX(ZERO), DCMPLX(ZERO), A( IOFF+1 ), LDA );
+                  zlaset('Full', M, N-IZERO+1, Complex.zero, Complex.zero, A( IOFF+1 ), LDA );
                }
             } else {
                IZERO = 0;

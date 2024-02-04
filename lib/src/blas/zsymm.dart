@@ -1,173 +1,160 @@
-      void zsymm(SIDE,UPLO,M,N,ALPHA,A,LDA,B,LDB,BETA,C,LDC) {
+import 'dart:math';
 
+import 'package:lapack/src/blas/lsame.dart';
+import 'package:lapack/src/blas/xerbla.dart';
+import 'package:lapack/src/complex.dart';
+import 'package:lapack/src/matrix.dart';
+
+void zsymm(
+  final String SIDE,
+  final String UPLO,
+  final int M,
+  final int N,
+  final Complex ALPHA,
+  final Matrix<Complex> A,
+  final int LDA,
+  final Matrix<Complex> B,
+  final int LDB,
+  final Complex BETA,
+  final Matrix<Complex> C,
+  final int LDC,
+) {
 // -- Reference BLAS level3 routine --
 // -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  Complex TEMP1, TEMP2;
+  int I, INFO, J, K, NROWA;
+  bool UPPER;
 
-      // .. Scalar Arguments ..
-      Complex ALPHA,BETA;
-      int     LDA,LDB,LDC,M,N;
-      String    SIDE,UPLO;
-      // ..
-      // .. Array Arguments ..
-      Complex A(LDA,*),B(LDB,*),C(LDC,*);
-      // ..
+  // Set NROWA as the number of rows of A.
 
-// =====================================================================
+  if (lsame(SIDE, 'L')) {
+    NROWA = M;
+  } else {
+    NROWA = N;
+  }
+  UPPER = lsame(UPLO, 'U');
 
-      // .. External Functions ..
-      //- bool    lsame;
-      // EXTERNAL lsame
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL XERBLA
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC MAX
-      // ..
-      // .. Local Scalars ..
-      Complex TEMP1,TEMP2;
-      int     I,INFO,J,K,NROWA;
-      bool    UPPER;
-      // ..
-      // .. Parameters ..
-      Complex ONE;
-      const     ONE= (1.0,0.0);
-      Complex ZERO;
-      const     ZERO= (0.0,0.0);
-      // ..
+  // Test the input parameters.
 
-      // Set NROWA as the number of rows of A.
+  INFO = 0;
+  if ((!lsame(SIDE, 'L')) && (!lsame(SIDE, 'R'))) {
+    INFO = 1;
+  } else if ((!UPPER) && (!lsame(UPLO, 'L'))) {
+    INFO = 2;
+  } else if (M < 0) {
+    INFO = 3;
+  } else if (N < 0) {
+    INFO = 4;
+  } else if (LDA < max(1, NROWA)) {
+    INFO = 7;
+  } else if (LDB < max(1, M)) {
+    INFO = 9;
+  } else if (LDC < max(1, M)) {
+    INFO = 12;
+  }
+  if (INFO != 0) {
+    xerbla('ZSYMM ', INFO);
+    return;
+  }
 
-      if (lsame(SIDE,'L')) {
-          NROWA = M;
-      } else {
-          NROWA = N;
+  // Quick return if possible.
+
+  if ((M == 0) ||
+      (N == 0) ||
+      ((ALPHA == Complex.zero) && (BETA == Complex.one))) return;
+
+  // And when  alpha == zero.
+
+  if (ALPHA == Complex.zero) {
+    if (BETA == Complex.zero) {
+      for (J = 1; J <= N; J++) {
+        for (I = 1; I <= M; I++) {
+          C[I][J] = Complex.zero;
+        }
       }
-      UPPER = lsame(UPLO,'U');
-
-      // Test the input parameters.
-
-      INFO = 0;
-      if (( !lsame(SIDE,'L')) && ( !lsame(SIDE,'R'))) {
-          INFO = 1;
-      } else if (( !UPPER) && ( !lsame(UPLO,'L'))) {
-          INFO = 2;
-      } else if (M < 0) {
-          INFO = 3;
-      } else if (N < 0) {
-          INFO = 4;
-      } else if (LDA < max(1,NROWA)) {
-          INFO = 7;
-      } else if (LDB < max(1,M)) {
-          INFO = 9;
-      } else if (LDC < max(1,M)) {
-          INFO = 12;
+    } else {
+      for (J = 1; J <= N; J++) {
+        for (I = 1; I <= M; I++) {
+          C[I][J] = BETA * C[I][J];
+        }
       }
-      if (INFO != 0) {
-          xerbla('ZSYMM ',INFO);
-          return;
-      }
+    }
+    return;
+  }
 
-      // Quick return if possible.
+  // Start the operations.
 
-      if ((M == 0) || (N == 0) || ((ALPHA == ZERO) && (BETA == ONE))) return;
+  if (lsame(SIDE, 'L')) {
+    // Form  C := alpha*A*B + beta*C.
 
-      // And when  alpha == zero.
-
-      if (ALPHA == ZERO) {
-          if (BETA == ZERO) {
-              for (J = 1; J <= N; J++) { // 20
-                  for (I = 1; I <= M; I++) { // 10
-                      C[I,J] = ZERO;
-                  } // 10
-              } // 20
-          } else {
-              for (J = 1; J <= N; J++) { // 40
-                  for (I = 1; I <= M; I++) { // 30
-                      C[I,J] = BETA*C(I,J);
-                  } // 30
-              } // 40
+    if (UPPER) {
+      for (J = 1; J <= N; J++) {
+        for (I = 1; I <= M; I++) {
+          TEMP1 = ALPHA * B[I][J];
+          TEMP2 = Complex.zero;
+          for (K = 1; K <= I - 1; K++) {
+            C[K][J] = C[K][J] + TEMP1 * A[K][I];
+            TEMP2 = TEMP2 + B[K][J] * A[K][I];
           }
-          return;
-      }
-
-      // Start the operations.
-
-      if (lsame(SIDE,'L')) {
-
-         // Form  C := alpha*A*B + beta*C.
-
-          if (UPPER) {
-              for (J = 1; J <= N; J++) { // 70
-                  for (I = 1; I <= M; I++) { // 60
-                      TEMP1 = ALPHA*B(I,J);
-                      TEMP2 = ZERO;
-                      for (K = 1; K <= I - 1; K++) { // 50
-                          C[K,J] = C(K,J) + TEMP1*A(K,I);
-                          TEMP2 = TEMP2 + B(K,J)*A(K,I);
-                      } // 50
-                      if (BETA == ZERO) {
-                          C[I,J] = TEMP1*A(I,I) + ALPHA*TEMP2;
-                      } else {
-                          C[I,J] = BETA*C(I,J) + TEMP1*A(I,I) + ALPHA*TEMP2;
-                      }
-                  } // 60
-              } // 70
+          if (BETA == Complex.zero) {
+            C[I][J] = TEMP1 * A[I][I] + ALPHA * TEMP2;
           } else {
-              for (J = 1; J <= N; J++) { // 100
-                  for (I = M; I >= 1; I--) { // 90
-                      TEMP1 = ALPHA*B(I,J);
-                      TEMP2 = ZERO;
-                      for (K = I + 1; K <= M; K++) { // 80
-                          C[K,J] = C(K,J) + TEMP1*A(K,I);
-                          TEMP2 = TEMP2 + B(K,J)*A(K,I);
-                      } // 80
-                      if (BETA == ZERO) {
-                          C[I,J] = TEMP1*A(I,I) + ALPHA*TEMP2;
-                      } else {
-                          C[I,J] = BETA*C(I,J) + TEMP1*A(I,I) + ALPHA*TEMP2;
-                      }
-                  } // 90
-              } // 100
+            C[I][J] = BETA * C[I][J] + TEMP1 * A[I][I] + ALPHA * TEMP2;
           }
+        }
+      }
+    } else {
+      for (J = 1; J <= N; J++) {
+        for (I = M; I >= 1; I--) {
+          TEMP1 = ALPHA * B[I][J];
+          TEMP2 = Complex.zero;
+          for (K = I + 1; K <= M; K++) {
+            C[K][J] = C[K][J] + TEMP1 * A[K][I];
+            TEMP2 = TEMP2 + B[K][J] * A[K][I];
+          }
+          if (BETA == Complex.zero) {
+            C[I][J] = TEMP1 * A[I][I] + ALPHA * TEMP2;
+          } else {
+            C[I][J] = BETA * C[I][J] + TEMP1 * A[I][I] + ALPHA * TEMP2;
+          }
+        }
+      }
+    }
+  } else {
+    // Form  C := alpha*B*A + beta*C.
+
+    for (J = 1; J <= N; J++) {
+      TEMP1 = ALPHA * A[J][J];
+      if (BETA == Complex.zero) {
+        for (I = 1; I <= M; I++) {
+          C[I][J] = TEMP1 * B[I][J];
+        }
       } else {
-
-         // Form  C := alpha*B*A + beta*C.
-
-          for (J = 1; J <= N; J++) { // 170
-              TEMP1 = ALPHA*A(J,J);
-              if (BETA == ZERO) {
-                  for (I = 1; I <= M; I++) { // 110
-                      C[I,J] = TEMP1*B(I,J);
-                  } // 110
-              } else {
-                  for (I = 1; I <= M; I++) { // 120
-                      C[I,J] = BETA*C(I,J) + TEMP1*B(I,J);
-                  } // 120
-              }
-              for (K = 1; K <= J - 1; K++) { // 140
-                  if (UPPER) {
-                      TEMP1 = ALPHA*A(K,J);
-                  } else {
-                      TEMP1 = ALPHA*A(J,K);
-                  }
-                  for (I = 1; I <= M; I++) { // 130
-                      C[I,J] = C(I,J) + TEMP1*B(I,K);
-                  } // 130
-              } // 140
-              for (K = J + 1; K <= N; K++) { // 160
-                  if (UPPER) {
-                      TEMP1 = ALPHA*A(J,K);
-                  } else {
-                      TEMP1 = ALPHA*A(K,J);
-                  }
-                  for (I = 1; I <= M; I++) { // 150
-                      C[I,J] = C(I,J) + TEMP1*B(I,K);
-                  } // 150
-              } // 160
-          } // 170
+        for (I = 1; I <= M; I++) {
+          C[I][J] = BETA * C[I][J] + TEMP1 * B[I][J];
+        }
       }
-
-      return;
+      for (K = 1; K <= J - 1; K++) {
+        if (UPPER) {
+          TEMP1 = ALPHA * A[K][J];
+        } else {
+          TEMP1 = ALPHA * A[J][K];
+        }
+        for (I = 1; I <= M; I++) {
+          C[I][J] = C[I][J] + TEMP1 * B[I][K];
+        }
       }
+      for (K = J + 1; K <= N; K++) {
+        if (UPPER) {
+          TEMP1 = ALPHA * A[J][K];
+        } else {
+          TEMP1 = ALPHA * A[K][J];
+        }
+        for (I = 1; I <= M; I++) {
+          C[I][J] = C[I][J] + TEMP1 * B[I][K];
+        }
+      }
+    }
+  }
+}

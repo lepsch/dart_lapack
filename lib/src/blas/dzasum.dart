@@ -1,45 +1,32 @@
-      double dzasum(N,ZX,INCX) {
+import 'package:lapack/src/complex.dart';
+import 'package:lapack/src/blas/dcabs1.dart';
+import 'package:lapack/src/matrix.dart';
 
+double dzasum(
+  final int N,
+  final Array<Complex> ZX,
+  final int INCX,
+) {
 // -- Reference BLAS level1 routine --
 // -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  double STEMP;
+  int I, NINCX;
+  STEMP = 0.0;
+  if (N <= 0 || INCX <= 0) return 0.0;
+  if (INCX == 1) {
+    // code for increment equal to 1
 
-      // .. Scalar Arguments ..
-      int     INCX,N;
-      // ..
-      // .. Array Arguments ..
-      Complex ZX(*);
-      // ..
+    for (I = 1; I <= N; I++) {
+      STEMP = STEMP + dcabs1(ZX[I]);
+    }
+  } else {
+    // code for increment not equal to 1
 
-// =====================================================================
-
-      // .. Local Scalars ..
-      double           STEMP;
-      int     I,NINCX;
-      // ..
-      // .. External Functions ..
-      //- double           DCABS1;
-      // EXTERNAL DCABS1
-      // ..
-      DZASUM = 0.0;
-      STEMP = 0.0;
-      if (N <= 0 || INCX <= 0) return;
-      if (INCX == 1) {
-
-         // code for increment equal to 1
-
-         for (I = 1; I <= N; I++) {
-            STEMP = STEMP + DCABS1(ZX(I));
-         }
-      } else {
-
-         // code for increment not equal to 1
-
-         NINCX = N*INCX;
-         for (I = 1; INCX < 0 ? I >= NINCX : I <= NINCX; I += INCX) {
-            STEMP = STEMP + DCABS1(ZX(I));
-         }
-      }
-      DZASUM = STEMP;
-      return;
-      }
+    NINCX = N * INCX;
+    for (I = 1; INCX < 0 ? I >= NINCX : I <= NINCX; I += INCX) {
+      STEMP = STEMP + dcabs1(ZX[I]);
+    }
+  }
+  return STEMP;
+}

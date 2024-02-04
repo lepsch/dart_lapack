@@ -1,93 +1,84 @@
-      void zgerc(M,N,ALPHA,X,INCX,Y,INCY,A,LDA) {
+import 'dart:math';
 
+import 'package:lapack/src/blas/xerbla.dart';
+import 'package:lapack/src/complex.dart';
+import 'package:lapack/src/matrix.dart';
+
+void zgerc(
+  final int M,
+  final int N,
+  final double ALPHA,
+  final Array<Complex> X,
+  final int INCX,
+  final Array<Complex> Y,
+  final int INCY,
+  final Matrix<Complex> A,
+  final int LDA,
+) {
 // -- Reference BLAS level2 routine --
 // -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
-      // .. Scalar Arguments ..
-      Complex ALPHA;
-      int     INCX,INCY,LDA,M,N;
-      // ..
-      // .. Array Arguments ..
-      Complex A(LDA,*),X(*),Y(*);
-      // ..
+  Complex TEMP;
+  int I, INFO, IX, J, JY, KX;
 
-// =====================================================================
+  // Test the input parameters.
 
-      // .. Parameters ..
-      Complex ZERO;
-      const     ZERO= (0.0,0.0);
-      // ..
-      // .. Local Scalars ..
-      Complex TEMP;
-      int     I,INFO,IX,J,JY,KX;
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL XERBLA
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC DCONJG,MAX
-      // ..
+  INFO = 0;
+  if (M < 0) {
+    INFO = 1;
+  } else if (N < 0) {
+    INFO = 2;
+  } else if (INCX == 0) {
+    INFO = 5;
+  } else if (INCY == 0) {
+    INFO = 7;
+  } else if (LDA < max(1, M)) {
+    INFO = 9;
+  }
+  if (INFO != 0) {
+    xerbla('ZGERC ', INFO);
+    return;
+  }
 
-      // Test the input parameters.
+  // Quick return if possible.
 
-      INFO = 0;
-      if (M < 0) {
-          INFO = 1;
-      } else if (N < 0) {
-          INFO = 2;
-      } else if (INCX == 0) {
-          INFO = 5;
-      } else if (INCY == 0) {
-          INFO = 7;
-      } else if (LDA < max(1,M)) {
-          INFO = 9;
+  if ((M == 0) || (N == 0) || (ALPHA.toComplex() == Complex.zero)) return;
+
+  // Start the operations. In this version the elements of A are
+  // accessed sequentially with one pass through A.
+
+  if (INCY > 0) {
+    JY = 1;
+  } else {
+    JY = 1 - (N - 1) * INCY;
+  }
+  if (INCX == 1) {
+    for (J = 1; J <= N; J++) {
+      if (Y[JY] != Complex.zero) {
+        TEMP = ALPHA.toComplex() * Y[JY].conjugate();
+        for (I = 1; I <= M; I++) {
+          A[I][J] = A[I][J] + X[I] * TEMP;
+        }
       }
-      if (INFO != 0) {
-          xerbla('ZGERC ',INFO);
-          return;
+      JY = JY + INCY;
+    }
+  } else {
+    if (INCX > 0) {
+      KX = 1;
+    } else {
+      KX = 1 - (M - 1) * INCX;
+    }
+    for (J = 1; J <= N; J++) {
+      if (Y[JY] != Complex.zero) {
+        TEMP = ALPHA.toComplex() * Y[JY].conjugate();
+        IX = KX;
+        for (I = 1; I <= M; I++) {
+          A[I][J] = A[I][J] + X[IX] * TEMP;
+          IX = IX + INCX;
+        }
       }
-
-      // Quick return if possible.
-
-      if ((M == 0) || (N == 0) || (ALPHA == ZERO)) return;
-
-      // Start the operations. In this version the elements of A are
-      // accessed sequentially with one pass through A.
-
-      if (INCY > 0) {
-          JY = 1;
-      } else {
-          JY = 1 - (N-1)*INCY;
-      }
-      if (INCX == 1) {
-          for (J = 1; J <= N; J++) { // 20
-              if (Y(JY) != ZERO) {
-                  TEMP = ALPHA*DCONJG(Y(JY));
-                  for (I = 1; I <= M; I++) { // 10
-                      A[I,J] = A(I,J) + X(I)*TEMP;
-                  } // 10
-              }
-              JY = JY + INCY;
-          } // 20
-      } else {
-          if (INCX > 0) {
-              KX = 1;
-          } else {
-              KX = 1 - (M-1)*INCX;
-          }
-          for (J = 1; J <= N; J++) { // 40
-              if (Y(JY) != ZERO) {
-                  TEMP = ALPHA*DCONJG(Y(JY));
-                  IX = KX;
-                  for (I = 1; I <= M; I++) { // 30
-                      A[I,J] = A(I,J) + X(IX)*TEMP;
-                      IX = IX + INCX;
-                  } // 30
-              }
-              JY = JY + INCY;
-          } // 40
-      }
-
-      return;
-      }
+      JY = JY + INCY;
+    }
+  }
+}

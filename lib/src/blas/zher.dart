@@ -1,139 +1,121 @@
-      void zher(UPLO,N,ALPHA,X,INCX,A,LDA) {
+import 'dart:math';
 
+import 'package:lapack/src/blas/lsame.dart';
+import 'package:lapack/src/blas/xerbla.dart';
+import 'package:lapack/src/complex.dart';
+import 'package:lapack/src/matrix.dart';
+
+void zher(
+  final String UPLO,
+  final int N,
+  final double ALPHA,
+  final Array<Complex> X,
+  final int INCX,
+  final Matrix<Complex> A,
+  final int LDA,
+) {
 // -- Reference BLAS level2 routine --
 // -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  Complex TEMP;
+  int I, INFO, IX, J, JX, KX = 0;
 
-      // .. Scalar Arguments ..
-      double           ALPHA;
-      int     INCX,LDA,N;
-      String    UPLO;
-      // ..
-      // .. Array Arguments ..
-      Complex A(LDA,*),X(*);
-      // ..
+  // Test the input parameters.
 
-// =====================================================================
+  INFO = 0;
+  if (!lsame(UPLO, 'U') && !lsame(UPLO, 'L')) {
+    INFO = 1;
+  } else if (N < 0) {
+    INFO = 2;
+  } else if (INCX == 0) {
+    INFO = 5;
+  } else if (LDA < max(1, N)) {
+    INFO = 7;
+  }
+  if (INFO != 0) {
+    xerbla('ZHER  ', INFO);
+    return;
+  }
 
-      // .. Parameters ..
-      Complex ZERO;
-      const     ZERO= (0.0,0.0);
-      // ..
-      // .. Local Scalars ..
-      Complex TEMP;
-      int     I,INFO,IX,J,JX,KX;
-      // ..
-      // .. External Functions ..
-      //- bool    lsame;
-      // EXTERNAL lsame
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL XERBLA
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC DBLE,DCONJG,MAX
-      // ..
+  // Quick return if possible.
 
-      // Test the input parameters.
+  if ((N == 0) || (ALPHA == Complex.zero.toDouble())) return;
 
-      INFO = 0;
-      if ( !lsame(UPLO,'U') && !lsame(UPLO,'L')) {
-          INFO = 1;
-      } else if (N < 0) {
-          INFO = 2;
-      } else if (INCX == 0) {
-          INFO = 5;
-      } else if (LDA < max(1,N)) {
-          INFO = 7;
-      }
-      if (INFO != 0) {
-          xerbla('ZHER  ',INFO);
-          return;
-      }
+  // Set the start point in X if the increment is not unity.
 
-      // Quick return if possible.
+  if (INCX <= 0) {
+    KX = 1 - (N - 1) * INCX;
+  } else if (INCX != 1) {
+    KX = 1;
+  }
 
-      if ((N == 0) || (ALPHA == ZERO.toDouble())) return;
+  // Start the operations. In this version the elements of A are
+  // accessed sequentially with one pass through the triangular part
+  // of A.
 
-      // Set the start point in X if the increment is not unity.
+  if (lsame(UPLO, 'U')) {
+    // Form  A  when A is stored in upper triangle.
 
-      if (INCX <= 0) {
-          KX = 1 - (N-1)*INCX;
-      } else if (INCX != 1) {
-          KX = 1;
-      }
-
-      // Start the operations. In this version the elements of A are
-      // accessed sequentially with one pass through the triangular part
-      // of A.
-
-      if (lsame(UPLO,'U')) {
-
-         // Form  A  when A is stored in upper triangle.
-
-          if (INCX == 1) {
-              for (J = 1; J <= N; J++) { // 20
-                  if (X(J) != ZERO) {
-                      TEMP = ALPHA*DCONJG(X(J));
-                      for (I = 1; I <= J - 1; I++) { // 10
-                          A[I,J] = A(I,J) + X(I)*TEMP;
-                      } // 10
-                      A[J,J] = (A(J,J)).toDouble() + (X(J)*TEMP).toDouble();
-                  } else {
-                      A[J,J] = (A(J,J)).toDouble();
-                  }
-              } // 20
-          } else {
-              JX = KX;
-              for (J = 1; J <= N; J++) { // 40
-                  if (X(JX) != ZERO) {
-                      TEMP = ALPHA*DCONJG(X(JX));
-                      IX = KX;
-                      for (I = 1; I <= J - 1; I++) { // 30
-                          A[I,J] = A(I,J) + X(IX)*TEMP;
-                          IX = IX + INCX;
-                      } // 30
-                      A[J,J] = (A(J,J)).toDouble() + (X(JX)*TEMP).toDouble();
-                  } else {
-                      A[J,J] = (A(J,J)).toDouble();
-                  }
-                  JX = JX + INCX;
-              } // 40
+    if (INCX == 1) {
+      for (J = 1; J <= N; J++) {
+        if (X[J] != Complex.zero) {
+          TEMP = ALPHA.toComplex() * X[J].conjugate();
+          for (I = 1; I <= J - 1; I++) {
+            A[I][J] = A[I][J] + X[I] * TEMP;
           }
-      } else {
-
-         // Form  A  when A is stored in lower triangle.
-
-          if (INCX == 1) {
-              for (J = 1; J <= N; J++) { // 60
-                  if (X(J) != ZERO) {
-                      TEMP = ALPHA*DCONJG(X(J));
-                      A[J,J] = (A(J,J)).toDouble() + (TEMP*X(J)).toDouble();
-                      for (I = J + 1; I <= N; I++) { // 50
-                          A[I,J] = A(I,J) + X(I)*TEMP;
-                      } // 50
-                  } else {
-                      A[J,J] = (A(J,J)).toDouble();
-                  }
-              } // 60
-          } else {
-              JX = KX;
-              for (J = 1; J <= N; J++) { // 80
-                  if (X(JX) != ZERO) {
-                      TEMP = ALPHA*DCONJG(X(JX));
-                      A[J,J] = (A(J,J)).toDouble() + (TEMP*X(JX)).toDouble();
-                      IX = JX;
-                      for (I = J + 1; I <= N; I++) { // 70
-                          IX = IX + INCX;
-                          A[I,J] = A(I,J) + X(IX)*TEMP;
-                      } // 70
-                  } else {
-                      A[J,J] = (A(J,J)).toDouble();
-                  }
-                  JX = JX + INCX;
-              } // 80
+          A[J][J] = A[J][J].real.toComplex() + (X[J] * TEMP).real.toComplex();
+        } else {
+          A[J][J] = A[J][J].real.toComplex();
+        }
+      }
+    } else {
+      JX = KX;
+      for (J = 1; J <= N; J++) {
+        if (X[JX] != Complex.zero) {
+          TEMP = ALPHA.toComplex() * X[JX].conjugate();
+          IX = KX;
+          for (I = 1; I <= J - 1; I++) {
+            A[I][J] = A[I][J] + X[IX] * TEMP;
+            IX = IX + INCX;
           }
+          A[J][J] = A[J][J].real.toComplex() + (X[JX] * TEMP).real.toComplex();
+        } else {
+          A[J][J] = A[J][J].real.toComplex();
+        }
+        JX = JX + INCX;
       }
+    }
+  } else {
+    // Form  A  when A is stored in lower triangle.
 
-      return;
+    if (INCX == 1) {
+      for (J = 1; J <= N; J++) {
+        if (X[J] != Complex.zero) {
+          TEMP = ALPHA.toComplex() * X[J].conjugate();
+          A[J][J] = A[J][J].real.toComplex() + (TEMP * X[J]).real.toComplex();
+          for (I = J + 1; I <= N; I++) {
+            A[I][J] = A[I][J] + X[I] * TEMP;
+          }
+        } else {
+          A[J][J] = A[J][J].real.toComplex();
+        }
       }
+    } else {
+      JX = KX;
+      for (J = 1; J <= N; J++) {
+        if (X[JX] != Complex.zero) {
+          TEMP = ALPHA.toComplex() * X[JX].conjugate();
+          A[J][J] = A[J][J].real.toComplex() + (TEMP * X[JX]).real.toComplex();
+          IX = JX;
+          for (I = J + 1; I <= N; I++) {
+            IX = IX + INCX;
+            A[I][J] = A[I][J] + X[IX] * TEMP;
+          }
+        } else {
+          A[J][J] = A[J][J].real.toComplex();
+        }
+        JX = JX + INCX;
+      }
+    }
+  }
+}

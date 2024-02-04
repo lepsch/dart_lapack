@@ -4,24 +4,10 @@ double dasum(final int N, Array<double> DX, final int INCX) {
 // -- Reference BLAS level1 routine --
 // -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-  // .. Scalar Arguments ..
-  // int     INCX,N;
-  // ..
-  // .. Array Arguments ..
-  // double           DX(*);
-  // ..
-
-// =====================================================================
-
-  // .. Local Scalars ..
   double DTEMP;
   int I, M, MP1, NINCX;
-  // ..
-  // .. Intrinsic Functions ..
-  // INTRINSIC DABS,MOD
-  // ..
   DTEMP = 0.0;
+  
   if (N <= 0 || INCX <= 0) return 0.0;
   if (INCX == 1) {
     // code for increment equal to 1

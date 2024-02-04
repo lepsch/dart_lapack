@@ -1,221 +1,207 @@
-      void ztrsv(UPLO,TRANS,DIAG,N,A,LDA,X,INCX) {
+import 'dart:math';
 
+import 'package:lapack/src/blas/lsame.dart';
+import 'package:lapack/src/blas/xerbla.dart';
+import 'package:lapack/src/complex.dart';
+import 'package:lapack/src/matrix.dart';
+
+void ztrsv(
+  final String UPLO,
+  final String TRANS,
+  final String DIAG,
+  final int N,
+  final Matrix<Complex> A,
+  final int LDA,
+  final Array<Complex> X,
+  final int INCX,
+) {
 // -- Reference BLAS level2 routine --
 // -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  Complex TEMP;
+  int I, INFO, IX, J, JX, KX = 0;
+  bool NOCONJ, NOUNIT;
 
-      // .. Scalar Arguments ..
-      int     INCX,LDA,N;
-      String    DIAG,TRANS,UPLO;
-      // ..
-      // .. Array Arguments ..
-      Complex A(LDA,*),X(*);
-      // ..
+  // Test the input parameters.
 
-// =====================================================================
+  INFO = 0;
+  if (!lsame(UPLO, 'U') && !lsame(UPLO, 'L')) {
+    INFO = 1;
+  } else if (!lsame(TRANS, 'N') && !lsame(TRANS, 'T') && !lsame(TRANS, 'C')) {
+    INFO = 2;
+  } else if (!lsame(DIAG, 'U') && !lsame(DIAG, 'N')) {
+    INFO = 3;
+  } else if (N < 0) {
+    INFO = 4;
+  } else if (LDA < max(1, N)) {
+    INFO = 6;
+  } else if (INCX == 0) {
+    INFO = 8;
+  }
+  if (INFO != 0) {
+    xerbla('ZTRSV ', INFO);
+    return;
+  }
 
-      // .. Parameters ..
-      Complex ZERO;
-      const     ZERO= (0.0,0.0);
-      // ..
-      // .. Local Scalars ..
-      Complex TEMP;
-      int     I,INFO,IX,J,JX,KX;
-      bool    NOCONJ,NOUNIT;
-      // ..
-      // .. External Functions ..
-      //- bool    lsame;
-      // EXTERNAL lsame
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL XERBLA
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC DCONJG,MAX
-      // ..
+  // Quick return if possible.
 
-      // Test the input parameters.
+  if (N == 0) return;
 
-      INFO = 0;
-      if ( !lsame(UPLO,'U') && !lsame(UPLO,'L')) {
-          INFO = 1;
-      } else if ( !lsame(TRANS,'N') && !lsame(TRANS,'T') && !lsame(TRANS,'C')) {
-          INFO = 2;
-      } else if ( !lsame(DIAG,'U') && !lsame(DIAG,'N')) {
-          INFO = 3;
-      } else if (N < 0) {
-          INFO = 4;
-      } else if (LDA < max(1,N)) {
-          INFO = 6;
-      } else if (INCX == 0) {
-          INFO = 8;
-      }
-      if (INFO != 0) {
-          xerbla('ZTRSV ',INFO);
-          return;
-      }
+  NOCONJ = lsame(TRANS, 'T');
+  NOUNIT = lsame(DIAG, 'N');
 
-      // Quick return if possible.
+  // Set up the start point in X if the increment is not unity. This
+  // will be  ( N - 1 )*INCX  too small for descending loops.
 
-      if (N == 0) return;
+  if (INCX <= 0) {
+    KX = 1 - (N - 1) * INCX;
+  } else if (INCX != 1) {
+    KX = 1;
+  }
 
-      NOCONJ = lsame(TRANS,'T');
-      NOUNIT = lsame(DIAG,'N');
+  // Start the operations. In this version the elements of A are
+  // accessed sequentially with one pass through A.
 
-      // Set up the start point in X if the increment is not unity. This
-      // will be  ( N - 1 )*INCX  too small for descending loops.
+  if (lsame(TRANS, 'N')) {
+    // Form  x := inv( A )*x.
 
-      if (INCX <= 0) {
-          KX = 1 - (N-1)*INCX;
-      } else if (INCX != 1) {
-          KX = 1;
-      }
-
-      // Start the operations. In this version the elements of A are
-      // accessed sequentially with one pass through A.
-
-      if (lsame(TRANS,'N')) {
-
-         // Form  x := inv( A )*x.
-
-          if (lsame(UPLO,'U')) {
-              if (INCX == 1) {
-                  for (J = N; J >= 1; J--) { // 20
-                      if (X(J) != ZERO) {
-                          if (NOUNIT) X(J) = X(J)/A(J,J);
-                          TEMP = X(J);
-                          for (I = J - 1; I >= 1; I--) { // 10
-                              X[I] = X(I) - TEMP*A(I,J);
-                          } // 10
-                      }
-                  } // 20
-              } else {
-                  JX = KX + (N-1)*INCX;
-                  for (J = N; J >= 1; J--) { // 40
-                      if (X(JX) != ZERO) {
-                          if (NOUNIT) X(JX) = X(JX)/A(J,J);
-                          TEMP = X(JX);
-                          IX = JX;
-                          for (I = J - 1; I >= 1; I--) { // 30
-                              IX = IX - INCX;
-                              X[IX] = X(IX) - TEMP*A(I,J);
-                          } // 30
-                      }
-                      JX = JX - INCX;
-                  } // 40
-              }
-          } else {
-              if (INCX == 1) {
-                  for (J = 1; J <= N; J++) { // 60
-                      if (X(J) != ZERO) {
-                          if (NOUNIT) X(J) = X(J)/A(J,J);
-                          TEMP = X(J);
-                          for (I = J + 1; I <= N; I++) { // 50
-                              X[I] = X(I) - TEMP*A(I,J);
-                          } // 50
-                      }
-                  } // 60
-              } else {
-                  JX = KX;
-                  for (J = 1; J <= N; J++) { // 80
-                      if (X(JX) != ZERO) {
-                          if (NOUNIT) X(JX) = X(JX)/A(J,J);
-                          TEMP = X(JX);
-                          IX = JX;
-                          for (I = J + 1; I <= N; I++) { // 70
-                              IX = IX + INCX;
-                              X[IX] = X(IX) - TEMP*A(I,J);
-                          } // 70
-                      }
-                      JX = JX + INCX;
-                  } // 80
-              }
+    if (lsame(UPLO, 'U')) {
+      if (INCX == 1) {
+        for (J = N; J >= 1; J--) {
+          if (X[J] != Complex.zero) {
+            if (NOUNIT) X[J] = X[J] / A[J][J];
+            TEMP = X[J];
+            for (I = J - 1; I >= 1; I--) {
+              X[I] = X[I] - TEMP * A[I][J];
+            }
           }
+        }
       } else {
-
-         // Form  x := inv( A**T )*x  or  x := inv( A**H )*x.
-
-          if (lsame(UPLO,'U')) {
-              if (INCX == 1) {
-                  for (J = 1; J <= N; J++) { // 110
-                      TEMP = X(J);
-                      if (NOCONJ) {
-                          for (I = 1; I <= J - 1; I++) { // 90
-                              TEMP = TEMP - A(I,J)*X(I);
-                          } // 90
-                          if (NOUNIT) TEMP = TEMP/A(J,J);
-                      } else {
-                          for (I = 1; I <= J - 1; I++) { // 100
-                              TEMP = TEMP - DCONJG(A(I,J))*X(I);
-                          } // 100
-                          if (NOUNIT) TEMP = TEMP/DCONJG(A(J,J));
-                      }
-                      X[J] = TEMP;
-                  } // 110
-              } else {
-                  JX = KX;
-                  for (J = 1; J <= N; J++) { // 140
-                      IX = KX;
-                      TEMP = X(JX);
-                      if (NOCONJ) {
-                          for (I = 1; I <= J - 1; I++) { // 120
-                              TEMP = TEMP - A(I,J)*X(IX);
-                              IX = IX + INCX;
-                          } // 120
-                          if (NOUNIT) TEMP = TEMP/A(J,J);
-                      } else {
-                          for (I = 1; I <= J - 1; I++) { // 130
-                              TEMP = TEMP - DCONJG(A(I,J))*X(IX);
-                              IX = IX + INCX;
-                          } // 130
-                          if (NOUNIT) TEMP = TEMP/DCONJG(A(J,J));
-                      }
-                      X[JX] = TEMP;
-                      JX = JX + INCX;
-                  } // 140
-              }
-          } else {
-              if (INCX == 1) {
-                  for (J = N; J >= 1; J--) { // 170
-                      TEMP = X(J);
-                      if (NOCONJ) {
-                          for (I = N; I >= J + 1; I--) { // 150
-                              TEMP = TEMP - A(I,J)*X(I);
-                          } // 150
-                          if (NOUNIT) TEMP = TEMP/A(J,J);
-                      } else {
-                          for (I = N; I >= J + 1; I--) { // 160
-                              TEMP = TEMP - DCONJG(A(I,J))*X(I);
-                          } // 160
-                          if (NOUNIT) TEMP = TEMP/DCONJG(A(J,J));
-                      }
-                      X[J] = TEMP;
-                  } // 170
-              } else {
-                  KX = KX + (N-1)*INCX;
-                  JX = KX;
-                  for (J = N; J >= 1; J--) { // 200
-                      IX = KX;
-                      TEMP = X(JX);
-                      if (NOCONJ) {
-                          for (I = N; I >= J + 1; I--) { // 180
-                              TEMP = TEMP - A(I,J)*X(IX);
-                              IX = IX - INCX;
-                          } // 180
-                          if (NOUNIT) TEMP = TEMP/A(J,J);
-                      } else {
-                          for (I = N; I >= J + 1; I--) { // 190
-                              TEMP = TEMP - DCONJG(A(I,J))*X(IX);
-                              IX = IX - INCX;
-                          } // 190
-                          if (NOUNIT) TEMP = TEMP/DCONJG(A(J,J));
-                      }
-                      X[JX] = TEMP;
-                      JX = JX - INCX;
-                  } // 200
-              }
+        JX = KX + (N - 1) * INCX;
+        for (J = N; J >= 1; J--) {
+          if (X[JX] != Complex.zero) {
+            if (NOUNIT) X[JX] = X[JX] / A[J][J];
+            TEMP = X[JX];
+            IX = JX;
+            for (I = J - 1; I >= 1; I--) {
+              IX = IX - INCX;
+              X[IX] = X[IX] - TEMP * A[I][J];
+            }
           }
+          JX = JX - INCX;
+        }
       }
+    } else {
+      if (INCX == 1) {
+        for (J = 1; J <= N; J++) {
+          if (X[J] != Complex.zero) {
+            if (NOUNIT) X[J] = X[J] / A[J][J];
+            TEMP = X[J];
+            for (I = J + 1; I <= N; I++) {
+              X[I] = X[I] - TEMP * A[I][J];
+            }
+          }
+        }
+      } else {
+        JX = KX;
+        for (J = 1; J <= N; J++) {
+          if (X[JX] != Complex.zero) {
+            if (NOUNIT) X[JX] = X[JX] / A[J][J];
+            TEMP = X[JX];
+            IX = JX;
+            for (I = J + 1; I <= N; I++) {
+              IX = IX + INCX;
+              X[IX] = X[IX] - TEMP * A[I][J];
+            }
+          }
+          JX = JX + INCX;
+        }
+      }
+    }
+  } else {
+    // Form  x := inv( A**T )*x  or  x := inv( A**H )*x.
 
-      return;
+    if (lsame(UPLO, 'U')) {
+      if (INCX == 1) {
+        for (J = 1; J <= N; J++) {
+          TEMP = X[J];
+          if (NOCONJ) {
+            for (I = 1; I <= J - 1; I++) {
+              TEMP = TEMP - A[I][J] * X[I];
+            }
+            if (NOUNIT) TEMP = TEMP / A[J][J];
+          } else {
+            for (I = 1; I <= J - 1; I++) {
+              TEMP = TEMP - A[I][J].conjugate() * X[I];
+            }
+            if (NOUNIT) TEMP = TEMP / A[J][J].conjugate();
+          }
+          X[J] = TEMP;
+        }
+      } else {
+        JX = KX;
+        for (J = 1; J <= N; J++) {
+          IX = KX;
+          TEMP = X[JX];
+          if (NOCONJ) {
+            for (I = 1; I <= J - 1; I++) {
+              TEMP = TEMP - A[I][J] * X[IX];
+              IX = IX + INCX;
+            }
+            if (NOUNIT) TEMP = TEMP / A[J][J];
+          } else {
+            for (I = 1; I <= J - 1; I++) {
+              TEMP = TEMP - A[I][J].conjugate() * X[IX];
+              IX = IX + INCX;
+            }
+            if (NOUNIT) TEMP = TEMP / A[J][J].conjugate();
+          }
+          X[JX] = TEMP;
+          JX = JX + INCX;
+        }
       }
+    } else {
+      if (INCX == 1) {
+        for (J = N; J >= 1; J--) {
+          TEMP = X[J];
+          if (NOCONJ) {
+            for (I = N; I >= J + 1; I--) {
+              TEMP = TEMP - A[I][J] * X[I];
+            }
+            if (NOUNIT) TEMP = TEMP / A[J][J];
+          } else {
+            for (I = N; I >= J + 1; I--) {
+              TEMP = TEMP - A[I][J].conjugate() * X[I];
+            }
+            if (NOUNIT) TEMP = TEMP / A[J][J].conjugate();
+          }
+          X[J] = TEMP;
+        }
+      } else {
+        KX = KX + (N - 1) * INCX;
+        JX = KX;
+        for (J = N; J >= 1; J--) {
+          IX = KX;
+          TEMP = X[JX];
+          if (NOCONJ) {
+            for (I = N; I >= J + 1; I--) {
+              TEMP = TEMP - A[I][J] * X[IX];
+              IX = IX - INCX;
+            }
+            if (NOUNIT) TEMP = TEMP / A[J][J];
+          } else {
+            for (I = N; I >= J + 1; I--) {
+              TEMP = TEMP - A[I][J].conjugate() * X[IX];
+              IX = IX - INCX;
+            }
+            if (NOUNIT) TEMP = TEMP / A[J][J].conjugate();
+          }
+          X[JX] = TEMP;
+          JX = JX - INCX;
+        }
+      }
+    }
+  }
+
+  return;
+}

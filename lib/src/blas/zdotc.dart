@@ -1,50 +1,40 @@
-      Complex FUNCTION ZDOTC(N,ZX,INCX,ZY,INCY);
+import 'package:lapack/src/complex.dart';
+import 'package:lapack/src/matrix.dart';
 
+Complex zdotc(
+  final int N,
+  final Array<Complex> ZX,
+  final int INCX,
+  final Array<Complex> ZY,
+  final int INCY,
+) {
 // -- Reference BLAS level1 routine --
 // -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  Complex ZTEMP;
+  int I, IX, IY;
 
-      // .. Scalar Arguments ..
-      int     INCX,INCY,N;
-      // ..
-      // .. Array Arguments ..
-      Complex ZX(*),ZY(*);
-      // ..
+  ZTEMP = Complex.zero;
+  if (N <= 0) return Complex.zero;
+  if (INCX == 1 && INCY == 1) {
+    // code for both increments equal to 1
 
-// =====================================================================
+    for (I = 1; I <= N; I++) {
+      ZTEMP = ZTEMP + ZX[I].conjugate() * ZY[I];
+    }
+  } else {
+    // code for unequal increments or equal increments
+    // not equal to 1
 
-      // .. Local Scalars ..
-      Complex ZTEMP;
-      int     I,IX,IY;
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC DCONJG
-      // ..
-      ZTEMP = (0.0,0.0);
-      ZDOTC = (0.0,0.0);
-      if (N <= 0) return;
-      if (INCX == 1 && INCY == 1) {
-
-         // code for both increments equal to 1
-
-         for (I = 1; I <= N; I++) {
-            ZTEMP = ZTEMP + DCONJG(ZX(I))*ZY(I);
-         }
-      } else {
-
-         // code for unequal increments or equal increments
-           // not equal to 1
-
-         IX = 1;
-         IY = 1;
-         if (INCX < 0) IX = (-N+1)*INCX + 1;
-         if (INCY < 0) IY = (-N+1)*INCY + 1;
-         for (I = 1; I <= N; I++) {
-            ZTEMP = ZTEMP + DCONJG(ZX(IX))*ZY(IY);
-            IX = IX + INCX;
-            IY = IY + INCY;
-         }
-      }
-      ZDOTC = ZTEMP;
-      return;
-      }
+    IX = 1;
+    IY = 1;
+    if (INCX < 0) IX = (-N + 1) * INCX + 1;
+    if (INCY < 0) IY = (-N + 1) * INCY + 1;
+    for (I = 1; I <= N; I++) {
+      ZTEMP = ZTEMP + ZX[IX].conjugate() * ZY[IY];
+      IX = IX + INCX;
+      IY = IY + INCY;
+    }
+  }
+  return ZTEMP;
+}

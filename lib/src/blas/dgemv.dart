@@ -9,7 +9,7 @@ void dgemv(
   final int M,
   final int N,
   final double ALPHA,
-  final Matrix2d<double> A,
+  final Matrix<double> A,
   final int LDA,
   final Array<double> X,
   final int INCX,
@@ -79,12 +79,10 @@ void dgemv(
     if (INCY == 1) {
       if (BETA == ZERO) {
         for (I = 1; I <= LENY; I++) {
-
           Y[I] = ZERO;
         }
       } else {
         for (I = 1; I <= LENY; I++) {
-
           Y[I] = BETA * Y[I];
         }
       }
@@ -92,13 +90,11 @@ void dgemv(
       IY = KY;
       if (BETA == ZERO) {
         for (I = 1; I <= LENY; I++) {
-
           Y[IY] = ZERO;
           IY = IY + INCY;
         }
       } else {
         for (I = 1; I <= LENY; I++) {
-
           Y[IY] = BETA * Y[IY];
           IY = IY + INCY;
         }
@@ -112,22 +108,18 @@ void dgemv(
     JX = KX;
     if (INCY == 1) {
       for (J = 1; J <= N; J++) {
-
         TEMP = ALPHA * X[JX];
         for (I = 1; I <= M; I++) {
-
-          Y[I] = Y[I] + TEMP * A[I, J];
+          Y[I] = Y[I] + TEMP * A[I][J];
         }
         JX = JX + INCX;
       }
     } else {
       for (J = 1; J <= N; J++) {
-
         TEMP = ALPHA * X[JX];
         IY = KY;
         for (I = 1; I <= M; I++) {
-
-          Y[IY] = Y[IY] + TEMP * A[I, J];
+          Y[IY] = Y[IY] + TEMP * A[I][J];
           IY = IY + INCY;
         }
         JX = JX + INCX;
@@ -138,23 +130,19 @@ void dgemv(
     JY = KY;
     if (INCX == 1) {
       for (J = 1; J <= N; J++) {
-
         TEMP = ZERO;
         for (I = 1; I <= M; I++) {
-
-          TEMP = TEMP + A[I, J] * X[I];
+          TEMP = TEMP + A[I][J] * X[I];
         }
         Y[JY] = Y[JY] + ALPHA * TEMP;
         JY = JY + INCY;
       }
     } else {
       for (J = 1; J <= N; J++) {
-
         TEMP = ZERO;
         IX = KX;
         for (I = 1; I <= M; I++) {
-
-          TEMP = TEMP + A[I, J] * X[IX];
+          TEMP = TEMP + A[I][J] * X[IX];
           IX = IX + INCX;
         }
         Y[JY] = Y[JY] + ALPHA * TEMP;
@@ -162,6 +150,4 @@ void dgemv(
       }
     }
   }
-
-  return;
 }

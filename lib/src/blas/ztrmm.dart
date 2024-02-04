@@ -1,269 +1,253 @@
-      void ztrmm(SIDE,UPLO,TRANSA,DIAG,M,N,ALPHA,A,LDA,B,LDB) {
+import 'dart:math';
 
+import 'package:lapack/src/blas/lsame.dart';
+import 'package:lapack/src/blas/xerbla.dart';
+import 'package:lapack/src/complex.dart';
+import 'package:lapack/src/matrix.dart';
+
+void ztrmm(
+  final String SIDE,
+  final String UPLO,
+  final String TRANSA,
+  final String DIAG,
+  final int M,
+  final int N,
+  final Complex ALPHA,
+  final Matrix<Complex> A,
+  final int LDA,
+  final Matrix<Complex> B,
+  final int LDB,
+) {
 // -- Reference BLAS level3 routine --
 // -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  Complex TEMP;
+  int I, INFO, J, K, NROWA;
+  bool LSIDE, NOCONJ, NOUNIT, UPPER;
 
-      // .. Scalar Arguments ..
-      Complex ALPHA;
-      int     LDA,LDB,M,N;
-      String    DIAG,SIDE,TRANSA,UPLO;
-      // ..
-      // .. Array Arguments ..
-      Complex A(LDA,*),B(LDB,*);
-      // ..
+  // Test the input parameters.
 
-// =====================================================================
+  LSIDE = lsame(SIDE, 'L');
+  if (LSIDE) {
+    NROWA = M;
+  } else {
+    NROWA = N;
+  }
+  NOCONJ = lsame(TRANSA, 'T');
+  NOUNIT = lsame(DIAG, 'N');
+  UPPER = lsame(UPLO, 'U');
 
-      // .. External Functions ..
-      //- bool    lsame;
-      // EXTERNAL lsame
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL XERBLA
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC DCONJG,MAX
-      // ..
-      // .. Local Scalars ..
-      Complex TEMP;
-      int     I,INFO,J,K,NROWA;
-      bool    LSIDE,NOCONJ,NOUNIT,UPPER;
-      // ..
-      // .. Parameters ..
-      Complex ONE;
-      const     ONE= (1.0,0.0);
-      Complex ZERO;
-      const     ZERO= (0.0,0.0);
-      // ..
+  INFO = 0;
+  if ((!LSIDE) && (!lsame(SIDE, 'R'))) {
+    INFO = 1;
+  } else if ((!UPPER) && (!lsame(UPLO, 'L'))) {
+    INFO = 2;
+  } else if ((!lsame(TRANSA, 'N')) &&
+      (!lsame(TRANSA, 'T')) &&
+      (!lsame(TRANSA, 'C'))) {
+    INFO = 3;
+  } else if ((!lsame(DIAG, 'U')) && (!lsame(DIAG, 'N'))) {
+    INFO = 4;
+  } else if (M < 0) {
+    INFO = 5;
+  } else if (N < 0) {
+    INFO = 6;
+  } else if (LDA < max(1, NROWA)) {
+    INFO = 9;
+  } else if (LDB < max(1, M)) {
+    INFO = 11;
+  }
+  if (INFO != 0) {
+    xerbla('ZTRMM ', INFO);
+    return;
+  }
 
-      // Test the input parameters.
+  // Quick return if possible.
 
-      LSIDE = lsame(SIDE,'L');
-      if (LSIDE) {
-          NROWA = M;
-      } else {
-          NROWA = N;
+  if (M == 0 || N == 0) return;
+
+  // And when  alpha == zero.
+
+  if (ALPHA == Complex.zero) {
+    for (J = 1; J <= N; J++) {
+      for (I = 1; I <= M; I++) {
+        B[I][J] = Complex.zero;
       }
-      NOCONJ = lsame(TRANSA,'T');
-      NOUNIT = lsame(DIAG,'N');
-      UPPER = lsame(UPLO,'U');
+    }
+    return;
+  }
 
-      INFO = 0;
-      if (( !LSIDE) && ( !lsame(SIDE,'R'))) {
-          INFO = 1;
-      } else if (( !UPPER) && ( !lsame(UPLO,'L'))) {
-          INFO = 2;
-      } else if (( !lsame(TRANSA,'N')) && ( !lsame(TRANSA,'T')) && ( !lsame(TRANSA,'C'))) {
-          INFO = 3;
-      } else if (( !lsame(DIAG,'U')) && ( !lsame(DIAG,'N'))) {
-          INFO = 4;
-      } else if (M < 0) {
-          INFO = 5;
-      } else if (N < 0) {
-          INFO = 6;
-      } else if (LDA < max(1,NROWA)) {
-          INFO = 9;
-      } else if (LDB < max(1,M)) {
-          INFO = 11;
-      }
-      if (INFO != 0) {
-          xerbla('ZTRMM ',INFO);
-          return;
-      }
+  // Start the operations.
 
-      // Quick return if possible.
+  if (LSIDE) {
+    if (lsame(TRANSA, 'N')) {
+      // Form  B := alpha*A*B.
 
-      if (M == 0 || N == 0) return;
-
-      // And when  alpha == zero.
-
-      if (ALPHA == ZERO) {
-          for (J = 1; J <= N; J++) { // 20
-              for (I = 1; I <= M; I++) { // 10
-                  B[I,J] = ZERO;
-              } // 10
-          } // 20
-          return;
-      }
-
-      // Start the operations.
-
-      if (LSIDE) {
-          if (lsame(TRANSA,'N')) {
-
-            // Form  B := alpha*A*B.
-
-              if (UPPER) {
-                  for (J = 1; J <= N; J++) { // 50
-                      for (K = 1; K <= M; K++) { // 40
-                          if (B(K,J) != ZERO) {
-                              TEMP = ALPHA*B(K,J);
-                              for (I = 1; I <= K - 1; I++) { // 30
-                                  B[I,J] = B(I,J) + TEMP*A(I,K);
-                              } // 30
-                              if (NOUNIT) TEMP = TEMP*A(K,K);
-                              B[K,J] = TEMP;
-                          }
-                      } // 40
-                  } // 50
-              } else {
-                  for (J = 1; J <= N; J++) { // 80
-                      for (K = M; K >= 1; K--) { // 70
-                          if (B(K,J) != ZERO) {
-                              TEMP = ALPHA*B(K,J);
-                              B[K,J] = TEMP;
-                              if (NOUNIT) B(K,J) = B(K,J)*A(K,K);
-                              for (I = K + 1; I <= M; I++) { // 60
-                                  B[I,J] = B(I,J) + TEMP*A(I,K);
-                              } // 60
-                          }
-                      } // 70
-                  } // 80
+      if (UPPER) {
+        for (J = 1; J <= N; J++) {
+          for (K = 1; K <= M; K++) {
+            if (B[K][J] != Complex.zero) {
+              TEMP = ALPHA * B[K][J];
+              for (I = 1; I <= K - 1; I++) {
+                B[I][J] = B[I][J] + TEMP * A[I][K];
               }
-          } else {
-
-            // Form  B := alpha*A**T*B   or   B := alpha*A**H*B.
-
-              if (UPPER) {
-                  for (J = 1; J <= N; J++) { // 120
-                      for (I = M; I >= 1; I--) { // 110
-                          TEMP = B(I,J);
-                          if (NOCONJ) {
-                              if (NOUNIT) TEMP = TEMP*A(I,I);
-                              for (K = 1; K <= I - 1; K++) { // 90
-                                  TEMP = TEMP + A(K,I)*B(K,J);
-                              } // 90
-                          } else {
-                              if (NOUNIT) TEMP = TEMP*DCONJG(A(I,I));
-                              for (K = 1; K <= I - 1; K++) { // 100
-                                  TEMP = TEMP + DCONJG(A(K,I))*B(K,J);
-                              } // 100
-                          }
-                          B[I,J] = ALPHA*TEMP;
-                      } // 110
-                  } // 120
-              } else {
-                  for (J = 1; J <= N; J++) { // 160
-                      for (I = 1; I <= M; I++) { // 150
-                          TEMP = B(I,J);
-                          if (NOCONJ) {
-                              if (NOUNIT) TEMP = TEMP*A(I,I);
-                              for (K = I + 1; K <= M; K++) { // 130
-                                  TEMP = TEMP + A(K,I)*B(K,J);
-                              } // 130
-                          } else {
-                              if (NOUNIT) TEMP = TEMP*DCONJG(A(I,I));
-                              for (K = I + 1; K <= M; K++) { // 140
-                                  TEMP = TEMP + DCONJG(A(K,I))*B(K,J);
-                              } // 140
-                          }
-                          B[I,J] = ALPHA*TEMP;
-                      } // 150
-                  } // 160
-              }
+              if (NOUNIT) TEMP = TEMP * A[K][K];
+              B[K][J] = TEMP;
+            }
           }
+        }
       } else {
-          if (lsame(TRANSA,'N')) {
-
-            // Form  B := alpha*B*A.
-
-              if (UPPER) {
-                  for (J = N; J >= 1; J--) { // 200
-                      TEMP = ALPHA;
-                      if (NOUNIT) TEMP = TEMP*A(J,J);
-                      for (I = 1; I <= M; I++) { // 170
-                          B[I,J] = TEMP*B(I,J);
-                      } // 170
-                      for (K = 1; K <= J - 1; K++) { // 190
-                          if (A(K,J) != ZERO) {
-                              TEMP = ALPHA*A(K,J);
-                              for (I = 1; I <= M; I++) { // 180
-                                  B[I,J] = B(I,J) + TEMP*B(I,K);
-                              } // 180
-                          }
-                      } // 190
-                  } // 200
-              } else {
-                  for (J = 1; J <= N; J++) { // 240
-                      TEMP = ALPHA;
-                      if (NOUNIT) TEMP = TEMP*A(J,J);
-                      for (I = 1; I <= M; I++) { // 210
-                          B[I,J] = TEMP*B(I,J);
-                      } // 210
-                      for (K = J + 1; K <= N; K++) { // 230
-                          if (A(K,J) != ZERO) {
-                              TEMP = ALPHA*A(K,J);
-                              for (I = 1; I <= M; I++) { // 220
-                                  B[I,J] = B(I,J) + TEMP*B(I,K);
-                              } // 220
-                          }
-                      } // 230
-                  } // 240
+        for (J = 1; J <= N; J++) {
+          for (K = M; K >= 1; K--) {
+            if (B[K][J] != Complex.zero) {
+              TEMP = ALPHA * B[K][J];
+              B[K][J] = TEMP;
+              if (NOUNIT) B[K][J] = B[K][J] * A[K][K];
+              for (I = K + 1; I <= M; I++) {
+                B[I][J] = B[I][J] + TEMP * A[I][K];
               }
-          } else {
-
-            // Form  B := alpha*B*A**T   or   B := alpha*B*A**H.
-
-              if (UPPER) {
-                  for (K = 1; K <= N; K++) { // 280
-                      for (J = 1; J <= K - 1; J++) { // 260
-                          if (A(J,K) != ZERO) {
-                              if (NOCONJ) {
-                                  TEMP = ALPHA*A(J,K);
-                              } else {
-                                  TEMP = ALPHA*DCONJG(A(J,K));
-                              }
-                              for (I = 1; I <= M; I++) { // 250
-                                  B[I,J] = B(I,J) + TEMP*B(I,K);
-                              } // 250
-                          }
-                      } // 260
-                      TEMP = ALPHA;
-                      if (NOUNIT) {
-                          if (NOCONJ) {
-                              TEMP = TEMP*A(K,K);
-                          } else {
-                              TEMP = TEMP*DCONJG(A(K,K));
-                          }
-                      }
-                      if (TEMP != ONE) {
-                          for (I = 1; I <= M; I++) { // 270
-                              B[I,K] = TEMP*B(I,K);
-                          } // 270
-                      }
-                  } // 280
-              } else {
-                  for (K = N; K >= 1; K--) { // 320
-                      for (J = K + 1; J <= N; J++) { // 300
-                          if (A(J,K) != ZERO) {
-                              if (NOCONJ) {
-                                  TEMP = ALPHA*A(J,K);
-                              } else {
-                                  TEMP = ALPHA*DCONJG(A(J,K));
-                              }
-                              for (I = 1; I <= M; I++) { // 290
-                                  B[I,J] = B(I,J) + TEMP*B(I,K);
-                              } // 290
-                          }
-                      } // 300
-                      TEMP = ALPHA;
-                      if (NOUNIT) {
-                          if (NOCONJ) {
-                              TEMP = TEMP*A(K,K);
-                          } else {
-                              TEMP = TEMP*DCONJG(A(K,K));
-                          }
-                      }
-                      if (TEMP != ONE) {
-                          for (I = 1; I <= M; I++) { // 310
-                              B[I,K] = TEMP*B(I,K);
-                          } // 310
-                      }
-                  } // 320
-              }
+            }
           }
+        }
       }
+    } else {
+      // Form  B := alpha*A**T*B   or   B := alpha*A**H*B.
 
-      return;
+      if (UPPER) {
+        for (J = 1; J <= N; J++) {
+          for (I = M; I >= 1; I--) {
+            TEMP = B[I][J];
+            if (NOCONJ) {
+              if (NOUNIT) TEMP = TEMP * A[I][I];
+              for (K = 1; K <= I - 1; K++) {
+                TEMP = TEMP + A[K][I] * B[K][J];
+              }
+            } else {
+              if (NOUNIT) TEMP = TEMP * A[I][I].conjugate();
+              for (K = 1; K <= I - 1; K++) {
+                TEMP = TEMP + A[K][I].conjugate() * B[K][J];
+              }
+            }
+            B[I][J] = ALPHA * TEMP;
+          }
+        }
+      } else {
+        for (J = 1; J <= N; J++) {
+          for (I = 1; I <= M; I++) {
+            TEMP = B[I][J];
+            if (NOCONJ) {
+              if (NOUNIT) TEMP = TEMP * A[I][I];
+              for (K = I + 1; K <= M; K++) {
+                TEMP = TEMP + A[K][I] * B[K][J];
+              }
+            } else {
+              if (NOUNIT) TEMP = TEMP * A[I][I].conjugate();
+              for (K = I + 1; K <= M; K++) {
+                TEMP = TEMP + A[K][I].conjugate() * B[K][J];
+              }
+            }
+            B[I][J] = ALPHA * TEMP;
+          }
+        }
       }
+    }
+  } else {
+    if (lsame(TRANSA, 'N')) {
+      // Form  B := alpha*B*A.
+
+      if (UPPER) {
+        for (J = N; J >= 1; J--) {
+          TEMP = ALPHA;
+          if (NOUNIT) TEMP = TEMP * A[J][J];
+          for (I = 1; I <= M; I++) {
+            B[I][J] = TEMP * B[I][J];
+          }
+          for (K = 1; K <= J - 1; K++) {
+            if (A[K][J] != Complex.zero) {
+              TEMP = ALPHA * A[K][J];
+              for (I = 1; I <= M; I++) {
+                B[I][J] = B[I][J] + TEMP * B[I][K];
+              }
+            }
+          }
+        }
+      } else {
+        for (J = 1; J <= N; J++) {
+          TEMP = ALPHA;
+          if (NOUNIT) TEMP = TEMP * A[J][J];
+          for (I = 1; I <= M; I++) {
+            B[I][J] = TEMP * B[I][J];
+          }
+          for (K = J + 1; K <= N; K++) {
+            if (A[K][J] != Complex.zero) {
+              TEMP = ALPHA * A[K][J];
+              for (I = 1; I <= M; I++) {
+                B[I][J] = B[I][J] + TEMP * B[I][K];
+              }
+            }
+          }
+        }
+      }
+    } else {
+      // Form  B := alpha*B*A**T   or   B := alpha*B*A**H.
+
+      if (UPPER) {
+        for (K = 1; K <= N; K++) {
+          for (J = 1; J <= K - 1; J++) {
+            if (A[J][K] != Complex.zero) {
+              if (NOCONJ) {
+                TEMP = ALPHA * A[J][K];
+              } else {
+                TEMP = ALPHA * A[J][K].conjugate();
+              }
+              for (I = 1; I <= M; I++) {
+                B[I][J] = B[I][J] + TEMP * B[I][K];
+              }
+            }
+          }
+          TEMP = ALPHA;
+          if (NOUNIT) {
+            if (NOCONJ) {
+              TEMP = TEMP * A[K][K];
+            } else {
+              TEMP = TEMP * A[K][K].conjugate();
+            }
+          }
+          if (TEMP != Complex.one) {
+            for (I = 1; I <= M; I++) {
+              B[I][K] = TEMP * B[I][K];
+            }
+          }
+        }
+      } else {
+        for (K = N; K >= 1; K--) {
+          for (J = K + 1; J <= N; J++) {
+            if (A[J][K] != Complex.zero) {
+              if (NOCONJ) {
+                TEMP = ALPHA * A[J][K];
+              } else {
+                TEMP = ALPHA * A[J][K].conjugate();
+              }
+              for (I = 1; I <= M; I++) {
+                B[I][J] = B[I][J] + TEMP * B[I][K];
+              }
+            }
+          }
+          TEMP = ALPHA;
+          if (NOUNIT) {
+            if (NOCONJ) {
+              TEMP = TEMP * A[K][K];
+            } else {
+              TEMP = TEMP * A[K][K].conjugate();
+            }
+          }
+          if (TEMP != Complex.one) {
+            for (I = 1; I <= M; I++) {
+              B[I][K] = TEMP * B[I][K];
+            }
+          }
+        }
+      }
+    }
+  }
+}

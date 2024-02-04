@@ -10,21 +10,13 @@
 // =====================================================================
 
       // .. Parameters ..
-      int                NMAX;
       const              NMAX = 132 ;
-      int                NCMAX;
       const              NCMAX = 20 ;
-      int                NEED;
       const              NEED = 14 ;
-      int                LWORK;
       const              LWORK = NMAX*( 5*NMAX+5 )+1 ;
-      int                LIWORK;
       const              LIWORK = NMAX*( 5*NMAX+20 ) ;
-      int                MAXIN;
       const              MAXIN = 20 ;
-      int                MAXT;
       const              MAXT = 30 ;
-      int                NIN, NOUT;
       const              NIN = 5, NOUT = 6 ;
       // ..
       // .. Local Scalars ..

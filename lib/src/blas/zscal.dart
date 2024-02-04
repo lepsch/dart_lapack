@@ -1,42 +1,30 @@
-      void zscal(N,ZA,ZX,INCX) {
+import 'package:lapack/src/complex.dart';
+import 'package:lapack/src/matrix.dart';
 
+void zscal(
+  final int N,
+  final Complex ZA,
+  final Array<Complex> ZX,
+  final int INCX,
+) {
 // -- Reference BLAS level1 routine --
 // -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  int I, NINCX;
 
-      // .. Scalar Arguments ..
-      Complex ZA;
-      int     INCX,N;
-      // ..
-      // .. Array Arguments ..
-      Complex ZX(*);
-      // ..
+  if (N <= 0 || INCX <= 0 || ZA == Complex.one) return;
+  if (INCX == 1) {
+    // code for increment equal to 1
 
-// =====================================================================
+    for (I = 1; I <= N; I++) {
+      ZX[I] = ZA * ZX[I];
+    }
+  } else {
+    // code for increment not equal to 1
 
-      // .. Local Scalars ..
-      int     I,NINCX;
-      // ..
-      // .. Parameters ..
-      Complex ONE;
-      const     ONE= (1.0,0.0);
-      // ..
-      if (N <= 0 || INCX <= 0 || ZA == ONE) return;
-      if (INCX == 1) {
-
-         // code for increment equal to 1
-
-         for (I = 1; I <= N; I++) {
-            ZX[I] = ZA*ZX(I);
-         }
-      } else {
-
-         // code for increment not equal to 1
-
-         NINCX = N*INCX;
-         for (I = 1; INCX < 0 ? I >= NINCX : I <= NINCX; I += INCX) {
-            ZX[I] = ZA*ZX(I);
-         }
-      }
-      return;
-      }
+    NINCX = N * INCX;
+    for (I = 1; INCX < 0 ? I >= NINCX : I <= NINCX; I += INCX) {
+      ZX[I] = ZA * ZX[I];
+    }
+  }
+}

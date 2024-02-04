@@ -1,197 +1,188 @@
-      void zgbmv(TRANS,M,N,KL,KU,ALPHA,A,LDA,X,INCX, BETA,Y,INCY) {
+import 'dart:math';
 
+import 'package:lapack/src/blas/lsame.dart';
+import 'package:lapack/src/blas/xerbla.dart';
+import 'package:lapack/src/complex.dart';
+import 'package:lapack/src/matrix.dart';
+
+void zgbmv(
+  final String TRANS,
+  final int M,
+  final int N,
+  final int KL,
+  final int KU,
+  final double ALPHA,
+  final Matrix<Complex> A,
+  final int LDA,
+  final Array<Complex> X,
+  final int INCX,
+  final double BETA,
+  final Array<Complex> Y,
+  final int INCY,
+) {
 // -- Reference BLAS level2 routine --
 // -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  Complex TEMP;
+  int I, INFO, IX, IY, J, JX, JY, K, KUP1, KX, KY, LENX, LENY;
+  bool NOCONJ;
 
-      // .. Scalar Arguments ..
-      Complex ALPHA,BETA;
-      int     INCX,INCY,KL,KU,LDA,M,N;
-      String    TRANS;
-      // ..
-      // .. Array Arguments ..
-      Complex A(LDA,*),X(*),Y(*);
-      // ..
+  // Test the input parameters.
 
-// =====================================================================
+  INFO = 0;
+  if (!lsame(TRANS, 'N') && !lsame(TRANS, 'T') && !lsame(TRANS, 'C')) {
+    INFO = 1;
+  } else if (M < 0) {
+    INFO = 2;
+  } else if (N < 0) {
+    INFO = 3;
+  } else if (KL < 0) {
+    INFO = 4;
+  } else if (KU < 0) {
+    INFO = 5;
+  } else if (LDA < (KL + KU + 1)) {
+    INFO = 8;
+  } else if (INCX == 0) {
+    INFO = 10;
+  } else if (INCY == 0) {
+    INFO = 13;
+  }
+  if (INFO != 0) {
+    xerbla('ZGBMV ', INFO);
+    return;
+  }
 
-      // .. Parameters ..
-      Complex ONE;
-      const     ONE= (1.0,0.0);
-      Complex ZERO;
-      const     ZERO= (0.0,0.0);
-      // ..
-      // .. Local Scalars ..
-      Complex TEMP;
-      int     I,INFO,IX,IY,J,JX,JY,K,KUP1,KX,KY,LENX,LENY;
-      bool    NOCONJ;
-      // ..
-      // .. External Functions ..
-      //- bool    lsame;
-      // EXTERNAL lsame
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL XERBLA
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC DCONJG,MAX,MIN
-      // ..
+  // Quick return if possible.
 
-      // Test the input parameters.
+  if ((M == 0) ||
+      (N == 0) ||
+      ((ALPHA.toComplex() == Complex.zero) &&
+          (BETA.toComplex() == Complex.one))) return;
 
-      INFO = 0;
-      if ( !lsame(TRANS,'N') && !lsame(TRANS,'T') && !lsame(TRANS,'C')) {
-          INFO = 1;
-      } else if (M < 0) {
-          INFO = 2;
-      } else if (N < 0) {
-          INFO = 3;
-      } else if (KL < 0) {
-          INFO = 4;
-      } else if (KU < 0) {
-          INFO = 5;
-      } else if (LDA < (KL+KU+1)) {
-          INFO = 8;
-      } else if (INCX == 0) {
-          INFO = 10;
-      } else if (INCY == 0) {
-          INFO = 13;
-      }
-      if (INFO != 0) {
-          xerbla('ZGBMV ',INFO);
-          return;
-      }
+  NOCONJ = lsame(TRANS, 'T');
 
-      // Quick return if possible.
+  // Set  LENX  and  LENY, the lengths of the vectors x and y, and set
+  // up the start points in  X  and  Y.
 
-      if ((M == 0) || (N == 0) || ((ALPHA == ZERO) && (BETA == ONE))) return;
+  if (lsame(TRANS, 'N')) {
+    LENX = N;
+    LENY = M;
+  } else {
+    LENX = M;
+    LENY = N;
+  }
+  if (INCX > 0) {
+    KX = 1;
+  } else {
+    KX = 1 - (LENX - 1) * INCX;
+  }
+  if (INCY > 0) {
+    KY = 1;
+  } else {
+    KY = 1 - (LENY - 1) * INCY;
+  }
 
-      NOCONJ = lsame(TRANS,'T');
+  // Start the operations. In this version the elements of A are
+  // accessed sequentially with one pass through the band part of A.
 
-      // Set  LENX  and  LENY, the lengths of the vectors x and y, and set
-      // up the start points in  X  and  Y.
+  // First form  y := beta*y.
 
-      if (lsame(TRANS,'N')) {
-          LENX = N;
-          LENY = M;
+  if (BETA.toComplex() != Complex.one) {
+    if (INCY == 1) {
+      if (BETA.toComplex() == Complex.zero) {
+        for (I = 1; I <= LENY; I++) {
+          Y[I] = Complex.zero;
+        }
       } else {
-          LENX = M;
-          LENY = N;
+        for (I = 1; I <= LENY; I++) {
+          Y[I] = Complex(BETA) * Y[I];
+        }
       }
-      if (INCX > 0) {
-          KX = 1;
+    } else {
+      IY = KY;
+      if (BETA.toComplex() == Complex.zero) {
+        for (I = 1; I <= LENY; I++) {
+          Y[IY] = Complex.zero;
+          IY = IY + INCY;
+        }
       } else {
-          KX = 1 - (LENX-1)*INCX;
+        for (I = 1; I <= LENY; I++) {
+          Y[IY] = Complex(BETA) * Y[IY];
+          IY = IY + INCY;
+        }
       }
-      if (INCY > 0) {
-          KY = 1;
-      } else {
-          KY = 1 - (LENY-1)*INCY;
+    }
+  }
+  if (ALPHA.toComplex() == Complex.zero) return;
+  KUP1 = KU + 1;
+  if (lsame(TRANS, 'N')) {
+    // Form  y := alpha*A*x + y.
+
+    JX = KX;
+    if (INCY == 1) {
+      for (J = 1; J <= N; J++) {
+        TEMP = Complex(ALPHA) * X[JX];
+        K = KUP1 - J;
+        for (I = max(1, J - KU); I <= min(M, J + KL); I++) {
+          Y[I] = Y[I] + TEMP * A[K + I][J];
+        }
+        JX = JX + INCX;
       }
+    } else {
+      for (J = 1; J <= N; J++) {
+        TEMP = Complex(ALPHA) * X[JX];
+        IY = KY;
+        K = KUP1 - J;
+        for (I = max(1, J - KU); I <= min(M, J + KL); I++) {
+          Y[IY] = Y[IY] + TEMP * A[K + I][J];
+          IY = IY + INCY;
+        }
+        JX = JX + INCX;
+        if (J > KU) KY = KY + INCY;
+      }
+    }
+  } else {
+    // Form  y := alpha*A**T*x + y  or  y := alpha*A**H*x + y.
 
-      // Start the operations. In this version the elements of A are
-      // accessed sequentially with one pass through the band part of A.
-
-      // First form  y := beta*y.
-
-      if (BETA != ONE) {
-          if (INCY == 1) {
-              if (BETA == ZERO) {
-                  for (I = 1; I <= LENY; I++) { // 10
-                      Y[I] = ZERO;
-                  } // 10
-              } else {
-                  for (I = 1; I <= LENY; I++) { // 20
-                      Y[I] = BETA*Y(I);
-                  } // 20
-              }
-          } else {
-              IY = KY;
-              if (BETA == ZERO) {
-                  for (I = 1; I <= LENY; I++) { // 30
-                      Y[IY] = ZERO;
-                      IY = IY + INCY;
-                  } // 30
-              } else {
-                  for (I = 1; I <= LENY; I++) { // 40
-                      Y[IY] = BETA*Y(IY);
-                      IY = IY + INCY;
-                  } // 40
-              }
+    JY = KY;
+    if (INCX == 1) {
+      for (J = 1; J <= N; J++) {
+        TEMP = Complex.zero;
+        K = KUP1 - J;
+        if (NOCONJ) {
+          for (I = max(1, J - KU); I <= min(M, J + KL); I++) {
+            TEMP = TEMP + A[K + I][J] * X[I];
           }
-      }
-      if (ALPHA == ZERO) return;
-      KUP1 = KU + 1;
-      if (lsame(TRANS,'N')) {
-
-         // Form  y := alpha*A*x + y.
-
-          JX = KX;
-          if (INCY == 1) {
-              for (J = 1; J <= N; J++) { // 60
-                  TEMP = ALPHA*X(JX);
-                  K = KUP1 - J;
-                  for (I = max(1,J-KU); I <= min(M,J+KL); I++) { // 50
-                      Y[I] = Y(I) + TEMP*A(K+I,J);
-                  } // 50
-                  JX = JX + INCX;
-              } // 60
-          } else {
-              for (J = 1; J <= N; J++) { // 80
-                  TEMP = ALPHA*X(JX);
-                  IY = KY;
-                  K = KUP1 - J;
-                  for (I = max(1,J-KU); I <= min(M,J+KL); I++) { // 70
-                      Y[IY] = Y(IY) + TEMP*A(K+I,J);
-                      IY = IY + INCY;
-                  } // 70
-                  JX = JX + INCX;
-                  if (J > KU) KY = KY + INCY;
-              } // 80
+        } else {
+          for (I = max(1, J - KU); I <= min(M, J + KL); I++) {
+            TEMP = TEMP + A[K + I][J].conjugate() * X[I];
           }
-      } else {
-
-         // Form  y := alpha*A**T*x + y  or  y := alpha*A**H*x + y.
-
-          JY = KY;
-          if (INCX == 1) {
-              for (J = 1; J <= N; J++) { // 110
-                  TEMP = ZERO;
-                  K = KUP1 - J;
-                  if (NOCONJ) {
-                      for (I = max(1,J-KU); I <= min(M,J+KL); I++) { // 90
-                          TEMP = TEMP + A(K+I,J)*X(I);
-                      } // 90
-                  } else {
-                      for (I = max(1,J-KU); I <= min(M,J+KL); I++) { // 100
-                          TEMP = TEMP + DCONJG(A(K+I,J))*X(I);
-                      } // 100
-                  }
-                  Y[JY] = Y(JY) + ALPHA*TEMP;
-                  JY = JY + INCY;
-              } // 110
-          } else {
-              for (J = 1; J <= N; J++) { // 140
-                  TEMP = ZERO;
-                  IX = KX;
-                  K = KUP1 - J;
-                  if (NOCONJ) {
-                      for (I = max(1,J-KU); I <= min(M,J+KL); I++) { // 120
-                          TEMP = TEMP + A(K+I,J)*X(IX);
-                          IX = IX + INCX;
-                      } // 120
-                  } else {
-                      for (I = max(1,J-KU); I <= min(M,J+KL); I++) { // 130
-                          TEMP = TEMP + DCONJG(A(K+I,J))*X(IX);
-                          IX = IX + INCX;
-                      } // 130
-                  }
-                  Y[JY] = Y(JY) + ALPHA*TEMP;
-                  JY = JY + INCY;
-                  if (J > KU) KX = KX + INCX;
-              } // 140
+        }
+        Y[JY] = Y[JY] + Complex(ALPHA) * TEMP;
+        JY = JY + INCY;
+      }
+    } else {
+      for (J = 1; J <= N; J++) {
+        TEMP = Complex.zero;
+        IX = KX;
+        K = KUP1 - J;
+        if (NOCONJ) {
+          for (I = max(1, J - KU); I <= min(M, J + KL); I++) {
+            TEMP = TEMP + A[K + I][J] * X[IX];
+            IX = IX + INCX;
           }
+        } else {
+          for (I = max(1, J - KU); I <= min(M, J + KL); I++) {
+            TEMP = TEMP + (A[K + I][J]).conjugate() * X[IX];
+            IX = IX + INCX;
+          }
+        }
+        Y[JY] = Y[JY] + Complex(ALPHA) * TEMP;
+        JY = JY + INCY;
+        if (J > KU) KX = KX + INCX;
       }
+    }
+  }
 
-      return;
-      }
+  return;
+}

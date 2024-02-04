@@ -136,5 +136,4 @@ void dlacon(
       }
   }
   KASE.value = 0;
-  return;
 }

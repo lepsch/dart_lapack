@@ -1,38 +1,22 @@
-      void xerbla_array(SRNAME_ARRAY, SRNAME_LEN, INFO) {
+import 'dart:math';
 
+import 'package:lapack/src/blas/xerbla.dart';
+
+void xerbla_array(
+  final List<int> SRNAME_ARRAY,
+  final int SRNAME_LEN,
+  final int INFO,
+) {
 // -- Reference BLAS level1 routine --
 // -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+  int I;
+  String SRNAME;
 
-      // .. Scalar Arguments ..
-      int     SRNAME_LEN, INFO;
-      // ..
-      // .. Array Arguments ..
-      String   (1) SRNAME_ARRAY(SRNAME_LEN);
-      // ..
+  SRNAME = ' ';
+  for (I = 1; I <= min(SRNAME_LEN, SRNAME.length); I++) {
+    SRNAME += String.fromCharCode(SRNAME_ARRAY[I]);
+  }
 
-// =====================================================================
-
-      // ..
-      // .. Local Scalars ..
-      int     I;
-      // ..
-      // .. Local Arrays ..
-      String       SRNAME;
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC MIN, LEN
-      // ..
-      // .. External Functions ..
-      // EXTERNAL XERBLA
-      // ..
-      // .. Executable Statements ..
-      SRNAME = ' ';
-      DO I = 1, min( SRNAME_LEN, LEN( SRNAME ) );
-         SRNAME[I:I] = SRNAME_ARRAY( I );
-      }
-
-      xerbla(SRNAME, INFO );
-
-      return;
-      }
+  xerbla(SRNAME, INFO);
+}

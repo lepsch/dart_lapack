@@ -1,17 +1,8 @@
-double dcabs1(Z) {
+import 'package:lapack/src/complex.dart';
+
+double dcabs1(final Complex Z) {
 // -- Reference BLAS level1 routine --
 // -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-  // .. Scalar Arguments ..
-  Complex Z;
-  // ..
-  // ..
-// =====================================================================
-
-  // .. Intrinsic Functions ..
-  // INTRINSIC ABS,DBLE,DIMAG
-
-  DCABS1 = (Z.toDouble()).abs() + (DIMAG(Z)).abs();
-  return;
+  return Z.real.abs() + Z.imaginary.abs();
 }

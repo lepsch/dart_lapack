@@ -11,7 +11,7 @@ void dgbmv(
   final int KL,
   final int KU,
   final double ALPHA,
-  final Matrix2d<double> A,
+  final Matrix<double> A,
   final int LDA,
   final Array<double> X,
   final int INCX,
@@ -117,7 +117,7 @@ void dgbmv(
         TEMP = ALPHA * X[JX];
         K = KUP1 - J;
         for (I = max(1, J - KU); I <= min(M, J + KL); I++) {
-          Y[I] = Y[I] + TEMP * A[K + I, J];
+          Y[I] = Y[I] + TEMP * A[K + I][J];
         }
         JX = JX + INCX;
       }
@@ -127,7 +127,7 @@ void dgbmv(
         IY = KY;
         K = KUP1 - J;
         for (I = max(1, J - KU); I <= min(M, J + KL); I++) {
-          Y[IY] = Y[IY] + TEMP * A[K + I, J];
+          Y[IY] = Y[IY] + TEMP * A[K + I][J];
           IY = IY + INCY;
         }
         JX = JX + INCX;
@@ -140,33 +140,27 @@ void dgbmv(
     JY = KY;
     if (INCX == 1) {
       for (J = 1; J <= N; J++) {
-        // 100
         TEMP = ZERO;
         K = KUP1 - J;
         for (I = max(1, J - KU); I <= min(M, J + KL); I++) {
-          // 90
-          TEMP = TEMP + A[K + I, J] * X[I];
-        } // 90
+          TEMP = TEMP + A[K + I][J] * X[I];
+        }
         Y[JY] = Y[JY] + ALPHA * TEMP;
         JY = JY + INCY;
-      } // 100
+      }
     } else {
       for (J = 1; J <= N; J++) {
-        // 120
         TEMP = ZERO;
         IX = KX;
         K = KUP1 - J;
         for (I = max(1, J - KU); I <= min(M, J + KL); I++) {
-          // 110
-          TEMP = TEMP + A[K + I, J] * X[IX];
+          TEMP = TEMP + A[K + I][J] * X[IX];
           IX = IX + INCX;
-        } // 110
+        }
         Y[JY] = Y[JY] + ALPHA * TEMP;
         JY = JY + INCY;
         if (J > KU) KX = KX + INCX;
-      } // 120
+      }
     }
   }
-
-  return;
 }
