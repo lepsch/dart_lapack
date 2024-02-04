@@ -51,7 +51,7 @@
       A[2, 1] = 4.0;
       OK = true;
 
-      if ( LSAMEN( 2, C2, 'QP' ) ) {
+      if ( lsamen( 2, C2, 'QP' ) ) {
 
          // Test error exits for QR factorization with pivoting
 

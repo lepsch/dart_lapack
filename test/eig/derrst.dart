@@ -68,7 +68,7 @@
 
       // Test error exits for the ST path.
 
-      if ( LSAMEN( 2, C2, 'ST' ) ) {
+      if ( lsamen( 2, C2, 'ST' ) ) {
 
          // DSYTRD
 
@@ -872,7 +872,7 @@
 
       // Test error exits for the SB path.
 
-      } else if ( LSAMEN( 2, C2, 'SB' ) ) {
+      } else if ( lsamen( 2, C2, 'SB' ) ) {
 
          // DSBTRD
 

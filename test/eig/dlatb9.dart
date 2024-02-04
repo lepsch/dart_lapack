@@ -62,9 +62,9 @@ void dlatb9(PATH, IMAT, M, P, N, TYPE, KLA, KUA, KLB, KUB, ANORM, BNORM, MODEA,
 
   // Set the lower and upper bandwidths.
 
-  if (LSAMEN(3, PATH, 'GRQ') ||
-      LSAMEN(3, PATH, 'LSE') ||
-      LSAMEN(3, PATH, 'GSV')) {
+  if (lsamen(3, PATH, 'GRQ') ||
+      lsamen(3, PATH, 'LSE') ||
+      lsamen(3, PATH, 'GSV')) {
     // A: M by N, B: P by N
 
     if (IMAT == 1) {
@@ -96,7 +96,7 @@ void dlatb9(PATH, IMAT, M, P, N, TYPE, KLA, KUA, KLB, KUB, ANORM, BNORM, MODEA,
       KLB = max(P - 1, 0);
       KUB = max(N - 1, 0);
     }
-  } else if (LSAMEN(3, PATH, 'GQR') || LSAMEN(3, PATH, 'GLM')) {
+  } else if (lsamen(3, PATH, 'GQR') || lsamen(3, PATH, 'GLM')) {
     // A: N by M, B: N by P
 
     if (IMAT == 1) {
@@ -134,9 +134,9 @@ void dlatb9(PATH, IMAT, M, P, N, TYPE, KLA, KUA, KLB, KUB, ANORM, BNORM, MODEA,
 
   CNDNMA = TEN * TEN;
   CNDNMB = TEN;
-  if (LSAMEN(3, PATH, 'GQR') ||
-      LSAMEN(3, PATH, 'GRQ') ||
-      LSAMEN(3, PATH, 'GSV')) {
+  if (lsamen(3, PATH, 'GQR') ||
+      lsamen(3, PATH, 'GRQ') ||
+      lsamen(3, PATH, 'GSV')) {
     if (IMAT == 5) {
       CNDNMA = BADC1;
       CNDNMB = BADC1;
@@ -154,7 +154,7 @@ void dlatb9(PATH, IMAT, M, P, N, TYPE, KLA, KUA, KLB, KUB, ANORM, BNORM, MODEA,
 
   ANORM = TEN;
   BNORM = TEN * TEN * TEN;
-  if (LSAMEN(3, PATH, 'GQR') || LSAMEN(3, PATH, 'GRQ')) {
+  if (lsamen(3, PATH, 'GQR') || lsamen(3, PATH, 'GRQ')) {
     if (IMAT == 7) {
       ANORM = SMALL;
       BNORM = LARGE;

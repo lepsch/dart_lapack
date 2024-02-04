@@ -69,7 +69,7 @@
       OK = true;
       NT = 0;
 
-      if ( LSAMEN( 2, C2, 'EV' ) ) {
+      if ( lsamen( 2, C2, 'EV' ) ) {
 
          // Test DGEEV
 
@@ -97,7 +97,7 @@
          chkxer('DGEEV ', INFOT, NOUT, LERR, OK );
          NT = NT + 7;
 
-      } else if ( LSAMEN( 2, C2, 'ES' ) ) {
+      } else if ( lsamen( 2, C2, 'ES' ) ) {
 
          // Test DGEES
 
@@ -122,7 +122,7 @@
          chkxer('DGEES ', INFOT, NOUT, LERR, OK );
          NT = NT + 6;
 
-      } else if ( LSAMEN( 2, C2, 'VX' ) ) {
+      } else if ( lsamen( 2, C2, 'VX' ) ) {
 
          // Test DGEEVX
 
@@ -162,7 +162,7 @@
          chkxer('DGEEVX', INFOT, NOUT, LERR, OK );
          NT = NT + 11;
 
-      } else if ( LSAMEN( 2, C2, 'SX' ) ) {
+      } else if ( lsamen( 2, C2, 'SX' ) ) {
 
          // Test DGEESX
 
@@ -190,7 +190,7 @@
          chkxer('DGEESX', INFOT, NOUT, LERR, OK );
          NT = NT + 7;
 
-      } else if ( LSAMEN( 2, C2, 'BD' ) ) {
+      } else if ( lsamen( 2, C2, 'BD' ) ) {
 
          // Test DGESVD
 
@@ -389,7 +389,7 @@
 
       // Print a summary line.
 
-      if ( !LSAMEN( 2, C2, 'BD' ) ) {
+      if ( !lsamen( 2, C2, 'BD' ) ) {
          if ( OK ) {
             WRITE( NOUT, FMT = 9999 )SRNAMT( 1:LEN_TRIM( SRNAMT ) ), NT;
          } else {

@@ -73,7 +73,7 @@
       EQ = ' ';
       OK = true;
 
-      if ( LSAMEN( 2, C2, 'GE' ) ) {
+      if ( lsamen( 2, C2, 'GE' ) ) {
 
          // CGESV
 
@@ -173,7 +173,7 @@
          cgesvxx('N', 'N', 2, 1, A, 2, AF, 2, IP, EQ, R, C, B, 2, X, 1, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, RW, INFO );
          chkxer('CGESVXX', INFOT, NOUT, LERR, OK );
 
-      } else if ( LSAMEN( 2, C2, 'GB' ) ) {
+      } else if ( lsamen( 2, C2, 'GB' ) ) {
 
          // CGBSV
 
@@ -291,7 +291,7 @@
          cgbsvxx('N', 'N', 2, 1, 1, 1, A, 3, AF, 4, IP, EQ, R, C, B, 2, X, 1, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, RW, INFO );
          chkxer('CGBSVXX', INFOT, NOUT, LERR, OK );
 
-      } else if ( LSAMEN( 2, C2, 'GT' ) ) {
+      } else if ( lsamen( 2, C2, 'GT' ) ) {
 
          // CGTSV
 
@@ -328,7 +328,7 @@
          cgtsvx('N', 'N', 2, 0, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), AF( 1, 1 ), AF( 1, 2 ), AF( 1, 3 ), AF( 1, 4 ), IP, B, 2, X, 1, RCOND, R1, R2, W, RW, INFO );
          chkxer('CGTSVX', INFOT, NOUT, LERR, OK );
 
-      } else if ( LSAMEN( 2, C2, 'PO' ) ) {
+      } else if ( lsamen( 2, C2, 'PO' ) ) {
 
          // CPOSV
 
@@ -423,7 +423,7 @@
          cposvxx('N', 'U', 2, 0, A, 2, AF, 2, EQ, C, B, 2, X, 1, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, RW, INFO );
          chkxer('CPOSVXX', INFOT, NOUT, LERR, OK );
 
-      } else if ( LSAMEN( 2, C2, 'PP' ) ) {
+      } else if ( lsamen( 2, C2, 'PP' ) ) {
 
          // CPPSV
 
@@ -471,7 +471,7 @@
          cppsvx('N', 'U', 2, 0, A, AF, EQ, C, B, 2, X, 1, RCOND, R1, R2, W, RW, INFO );
          chkxer('CPPSVX', INFOT, NOUT, LERR, OK );
 
-      } else if ( LSAMEN( 2, C2, 'PB' ) ) {
+      } else if ( lsamen( 2, C2, 'PB' ) ) {
 
          // CPBSV
 
@@ -534,7 +534,7 @@
          cpbsvx('N', 'U', 2, 0, 0, A, 1, AF, 1, EQ, C, B, 2, X, 1, RCOND, R1, R2, W, RW, INFO );
          chkxer('CPBSVX', INFOT, NOUT, LERR, OK );
 
-      } else if ( LSAMEN( 2, C2, 'PT' ) ) {
+      } else if ( lsamen( 2, C2, 'PT' ) ) {
 
          // CPTSV
 
@@ -568,7 +568,7 @@
          cptsvx('N', 2, 0, R, A( 1, 1 ), RF, AF( 1, 1 ), B, 2, X, 1, RCOND, R1, R2, W, RW, INFO );
          chkxer('CPTSVX', INFOT, NOUT, LERR, OK );
 
-      } else if ( LSAMEN( 2, C2, 'HE' ) ) {
+      } else if ( lsamen( 2, C2, 'HE' ) ) {
 
          // CHESV
 
@@ -664,7 +664,7 @@
          chesvxx('N', 'U', 2, 0, A, 2, AF, 2, IP, EQ, C, B, 2, X, 1, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, RW, INFO );
          chkxer('CHESVXX', INFOT, NOUT, LERR, OK );
 
-      } else if ( LSAMEN( 2, C2, 'HR' ) ) {
+      } else if ( lsamen( 2, C2, 'HR' ) ) {
 
          // CHESV_ROOK
 
@@ -688,7 +688,7 @@
          chesv_rook('U', 0, 0, A, 1, IP, B, 1, W, -2, INFO );
          chkxer('CHESV_ROOK', INFOT, NOUT, LERR, OK );
 
-      } else if ( LSAMEN( 2, C2, 'HK' ) ) {
+      } else if ( lsamen( 2, C2, 'HK' ) ) {
 
          // CHESV_RK
 
@@ -723,7 +723,7 @@
          chesv_rk('U', 0, 0, A, 1, E, IP, B, 1, W, -2, INFO );
          chkxer('CHESV_RK', INFOT, NOUT, LERR, OK );
 
-      } else if ( LSAMEN( 2, C2, 'HP' ) ) {
+      } else if ( lsamen( 2, C2, 'HP' ) ) {
 
          // CHPSV
 
@@ -763,7 +763,7 @@
          chpsvx('N', 'U', 2, 0, A, AF, IP, B, 2, X, 1, RCOND, R1, R2, W, RW, INFO );
          chkxer('CHPSVX', INFOT, NOUT, LERR, OK );
 
-      } else if ( LSAMEN( 2, C2, 'SY' ) ) {
+      } else if ( lsamen( 2, C2, 'SY' ) ) {
 
          // CSYSV
 
@@ -864,7 +864,7 @@
          csysvxx('N', 'U', 2, 0, A, 2, AF, 2, IP, EQ, R, B, 2, X, 1, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, RW, INFO );
          chkxer('CSYSVXX', INFOT, NOUT, LERR, OK );
 
-      } else if ( LSAMEN( 2, C2, 'SR' ) ) {
+      } else if ( lsamen( 2, C2, 'SR' ) ) {
 
          // CSYSV_ROOK
 
@@ -888,7 +888,7 @@
          csysv_rook('U', 0, 0, A, 1, IP, B, 1, W, -2, INFO );
          chkxer('CSYSV_ROOK', INFOT, NOUT, LERR, OK );
 
-      } else if ( LSAMEN( 2, C2, 'SK' ) ) {
+      } else if ( lsamen( 2, C2, 'SK' ) ) {
 
          // CSYSV_RK
 
@@ -923,7 +923,7 @@
          csysv_rk('U', 0, 0, A, 1, E, IP, B, 1, W, -2, INFO );
          chkxer('CSYSV_RK', INFOT, NOUT, LERR, OK );
 
-      } else if ( LSAMEN( 2, C2, 'SP' ) ) {
+      } else if ( lsamen( 2, C2, 'SP' ) ) {
 
          // CSPSV
 

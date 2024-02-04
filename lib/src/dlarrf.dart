@@ -1,3 +1,11 @@
+import 'dart:math';
+
+import 'package:lapack/src/blas/lsame.dart';
+import 'package:lapack/src/box.dart';
+import 'package:lapack/src/ilaenv.dart';
+import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/xerbla.dart';
+
       void dlarrf(N, D, L, LD, CLSTRT, CLEND, W, WGAP, WERR, SPDIAM, CLGAPL, CLGAPR, PIVMIN, SIGMA, DPLUS, LPLUS, WORK, INFO ) {
 
 // -- LAPACK auxiliary routine --
@@ -130,7 +138,7 @@
          }
          MAX1 = max( MAX1,(DPLUS(I+1)) ).abs();
       } // 6
-      SAWNAN1 = SAWNAN1 || DISNAN( MAX1 );
+      SAWNAN1 = SAWNAN1 || disnan( MAX1 );
        if ( FORCER || (MAX1 <= GROWTHBOUND && !SAWNAN1 ) ) {
          SIGMA = LSIGMA;
          SHIFT = SLEFT;
@@ -159,7 +167,7 @@
          }
          MAX2 = max( MAX2,(WORK(I+1)) ).abs();
       } // 7
-      SAWNAN2 = SAWNAN2 || DISNAN( MAX2 );
+      SAWNAN2 = SAWNAN2 || disnan( MAX2 );
        if ( FORCER || (MAX2 <= GROWTHBOUND && !SAWNAN2 ) ) {
          SIGMA = RSIGMA;
          SHIFT = SRIGHT;

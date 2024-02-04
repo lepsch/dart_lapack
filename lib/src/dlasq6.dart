@@ -1,3 +1,11 @@
+import 'dart:math';
+
+import 'package:lapack/src/blas/lsame.dart';
+import 'package:lapack/src/box.dart';
+import 'package:lapack/src/ilaenv.dart';
+import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/xerbla.dart';
+
       void dlasq6(I0, N0, Z, PP, DMIN, DMIN1, DMIN2, DN, DNM1, DNM2 ) {
 
 // -- LAPACK computational routine --

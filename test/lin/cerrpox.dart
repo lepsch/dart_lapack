@@ -70,7 +70,7 @@
       // Test error exits of the routines that use the Cholesky
       // decomposition of a Hermitian positive definite matrix.
 
-      if ( LSAMEN( 2, C2, 'PO' ) ) {
+      if ( lsamen( 2, C2, 'PO' ) ) {
 
          // CPOTRF
 
@@ -225,7 +225,7 @@
       // Test error exits of the routines that use the Cholesky
       // decomposition of a Hermitian positive definite packed matrix.
 
-      } else if ( LSAMEN( 2, C2, 'PP' ) ) {
+      } else if ( lsamen( 2, C2, 'PP' ) ) {
 
          // CPPTRF
 
@@ -308,7 +308,7 @@
       // Test error exits of the routines that use the Cholesky
       // decomposition of a Hermitian positive definite band matrix.
 
-      } else if ( LSAMEN( 2, C2, 'PB' ) ) {
+      } else if ( lsamen( 2, C2, 'PB' ) ) {
 
          // CPBTRF
 

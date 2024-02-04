@@ -66,7 +66,7 @@
       // xQR, xLQ, xQL, xRQ:  Set parameters to generate a general
                            // M x N matrix.
 
-      if ( LSAMEN( 2, C2, 'QR' ) || LSAMEN( 2, C2, 'LQ' ) || LSAMEN( 2, C2, 'QL' ) || LSAMEN( 2, C2, 'RQ' ) ) {
+      if ( lsamen( 2, C2, 'QR' ) || lsamen( 2, C2, 'LQ' ) || lsamen( 2, C2, 'QL' ) || lsamen( 2, C2, 'RQ' ) ) {
 
          // Set TYPE, the type of matrix to be generated.
 
@@ -106,7 +106,7 @@
             ANORM = ONE;
          }
 
-      } else if ( LSAMEN( 2, C2, 'QK' ) ) {
+      } else if ( lsamen( 2, C2, 'QK' ) ) {
 
          // xQK: truncated QR with pivoting.
               // Set parameters to generate a general
@@ -210,7 +210,7 @@
 
          }
 
-      } else if ( LSAMEN( 2, C2, 'GE' ) ) {
+      } else if ( lsamen( 2, C2, 'GE' ) ) {
 
          // xGE:  Set parameters to generate a general M x N matrix.
 
@@ -252,7 +252,7 @@
             ANORM = ONE;
          }
 
-      } else if ( LSAMEN( 2, C2, 'GB' ) ) {
+      } else if ( lsamen( 2, C2, 'GB' ) ) {
 
          // xGB:  Set parameters to generate a general banded matrix.
 
@@ -278,7 +278,7 @@
             ANORM = ONE;
          }
 
-      } else if ( LSAMEN( 2, C2, 'GT' ) ) {
+      } else if ( lsamen( 2, C2, 'GT' ) ) {
 
          // xGT:  Set parameters to generate a general tridiagonal matrix.
 
@@ -313,7 +313,7 @@
             ANORM = ONE;
          }
 
-      } else if ( LSAMEN( 2, C2, 'PO' ) || LSAMEN( 2, C2, 'PP' ) ) {
+      } else if ( lsamen( 2, C2, 'PO' ) || lsamen( 2, C2, 'PP' ) ) {
 
          // xPO, xPP: Set parameters to generate a
          // symmetric or Hermitian positive definite matrix.
@@ -349,7 +349,7 @@
             ANORM = ONE;
          }
 
-      } else if ( LSAMEN( 2, C2, 'HE' ) || LSAMEN( 2, C2, 'HP' ) || LSAMEN( 2, C2, 'SY' ) || LSAMEN( 2, C2, 'SP' ) ) {
+      } else if ( lsamen( 2, C2, 'HE' ) || lsamen( 2, C2, 'HP' ) || lsamen( 2, C2, 'SY' ) || lsamen( 2, C2, 'SP' ) ) {
 
          // xHE, xHP, xSY, xSP: Set parameters to generate a
          // symmetric or Hermitian matrix.
@@ -385,7 +385,7 @@
             ANORM = ONE;
          }
 
-      } else if ( LSAMEN( 2, C2, 'PB' ) ) {
+      } else if ( lsamen( 2, C2, 'PB' ) ) {
 
          // xPB:  Set parameters to generate a symmetric band matrix.
 
@@ -411,7 +411,7 @@
             ANORM = ONE;
          }
 
-      } else if ( LSAMEN( 2, C2, 'PT' ) ) {
+      } else if ( lsamen( 2, C2, 'PT' ) ) {
 
          // xPT:  Set parameters to generate a symmetric positive definite
          // tridiagonal matrix.
@@ -442,7 +442,7 @@
             ANORM = ONE;
          }
 
-      } else if ( LSAMEN( 2, C2, 'TR' ) || LSAMEN( 2, C2, 'TP' ) ) {
+      } else if ( lsamen( 2, C2, 'TR' ) || lsamen( 2, C2, 'TP' ) ) {
 
          // xTR, xTP:  Set parameters to generate a triangular matrix
 
@@ -482,7 +482,7 @@
             ANORM = ONE;
          }
 
-      } else if ( LSAMEN( 2, C2, 'TB' ) ) {
+      } else if ( lsamen( 2, C2, 'TB' ) ) {
 
          // xTB:  Set parameters to generate a triangular band matrix.
 

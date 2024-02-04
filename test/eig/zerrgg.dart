@@ -81,7 +81,7 @@
 
       // Test error exits for the GG path.
 
-      if ( LSAMEN( 2, C2, 'GG' ) ) {
+      if ( lsamen( 2, C2, 'GG' ) ) {
 
          // ZGGHRD
 
@@ -213,7 +213,7 @@
 
       // Test error exits for the GSV path.
 
-      } else if ( LSAMEN( 3, PATH, 'GSV' ) ) {
+      } else if ( lsamen( 3, PATH, 'GSV' ) ) {
 
          // ZGGSVD3
 
@@ -331,7 +331,7 @@
 
       // Test error exits for the GLM path.
 
-      } else if ( LSAMEN( 3, PATH, 'GLM' ) ) {
+      } else if ( lsamen( 3, PATH, 'GLM' ) ) {
 
          // ZGGGLM
 
@@ -364,7 +364,7 @@
 
       // Test error exits for the LSE path.
 
-      } else if ( LSAMEN( 3, PATH, 'LSE' ) ) {
+      } else if ( lsamen( 3, PATH, 'LSE' ) ) {
 
          // ZGGLSE
 
@@ -397,7 +397,7 @@
 
       // Test error exits for the CSD path.
 
-      } else if ( LSAMEN( 3, PATH, 'CSD' ) ) {
+      } else if ( lsamen( 3, PATH, 'CSD' ) ) {
 
          // ZUNCSD
 
@@ -430,7 +430,7 @@
 
       // Test error exits for the GQR path.
 
-      } else if ( LSAMEN( 3, PATH, 'GQR' ) ) {
+      } else if ( lsamen( 3, PATH, 'GQR' ) ) {
 
          // ZGGQRF
 
@@ -480,7 +480,7 @@
 
       // Test error exits for the ZGS, ZGV, ZGX, and ZXV paths.
 
-      } else if ( LSAMEN( 3, PATH, 'ZGS' ) || LSAMEN( 3, PATH, 'ZGV' ) || LSAMEN( 3, PATH, 'ZGX' ) || LSAMEN( 3, PATH, 'ZXV' ) ) {
+      } else if ( lsamen( 3, PATH, 'ZGS' ) || lsamen( 3, PATH, 'ZGV' ) || lsamen( 3, PATH, 'ZGX' ) || lsamen( 3, PATH, 'ZXV' ) ) {
 
          // ZGGES
 

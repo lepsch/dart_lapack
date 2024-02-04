@@ -1,3 +1,10 @@
+import 'dart:math';
+
+import 'package:lapack/src/box.dart';
+import 'package:lapack/src/ilaenv.dart';
+import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/xerbla.dart';
+
       void ddisna(JOB, M, N, D, SEP, INFO ) {
 
 // -- LAPACK computational routine --

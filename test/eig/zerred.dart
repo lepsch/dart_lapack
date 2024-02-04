@@ -71,7 +71,7 @@
       OK = true;
       NT = 0;
 
-      if ( LSAMEN( 2, C2, 'EV' ) ) {
+      if ( lsamen( 2, C2, 'EV' ) ) {
 
          // Test ZGEEV
 
@@ -99,7 +99,7 @@
          chkxer('ZGEEV ', INFOT, NOUT, LERR, OK );
          NT = NT + 7;
 
-      } else if ( LSAMEN( 2, C2, 'ES' ) ) {
+      } else if ( lsamen( 2, C2, 'ES' ) ) {
 
          // Test ZGEES
 
@@ -124,7 +124,7 @@
          chkxer('ZGEES ', INFOT, NOUT, LERR, OK );
          NT = NT + 6;
 
-      } else if ( LSAMEN( 2, C2, 'VX' ) ) {
+      } else if ( lsamen( 2, C2, 'VX' ) ) {
 
          // Test ZGEEVX
 
@@ -161,7 +161,7 @@
          chkxer('ZGEEVX', INFOT, NOUT, LERR, OK );
          NT = NT + 10;
 
-      } else if ( LSAMEN( 2, C2, 'SX' ) ) {
+      } else if ( lsamen( 2, C2, 'SX' ) ) {
 
          // Test ZGEESX
 
@@ -189,7 +189,7 @@
          chkxer('ZGEESX', INFOT, NOUT, LERR, OK );
          NT = NT + 7;
 
-      } else if ( LSAMEN( 2, C2, 'BD' ) ) {
+      } else if ( lsamen( 2, C2, 'BD' ) ) {
 
          // Test ZGESVD
 
@@ -388,7 +388,7 @@
 
       // Print a summary line.
 
-      if ( !LSAMEN( 2, C2, 'BD' ) ) {
+      if ( !lsamen( 2, C2, 'BD' ) ) {
          if ( OK ) {
             WRITE( NOUT, FMT = 9999 )SRNAMT( 1:LEN_TRIM( SRNAMT ) ), NT;
          } else {

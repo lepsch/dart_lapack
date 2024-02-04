@@ -149,7 +149,7 @@
                // has not ben computed before.
 
                HNORM = ZLANHS( 'I', KR-KL+1, H( KL, KL ), LDH, RWORK );
-               if ( DISNAN( HNORM ) ) {
+               if ( disnan( HNORM ) ) {
                   INFO = -6;
                   return;
                } else if ( HNORM > RZERO ) {

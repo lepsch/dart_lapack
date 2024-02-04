@@ -110,30 +110,30 @@
 
       READ( NIN, FMT = '(A80)', END = 380 )LINE;
       PATH = LINE( 1: 3 );
-      NEP = LSAMEN( 3, PATH, 'NEP' ) || LSAMEN( 3, PATH, 'SHS' );
-      SEP = LSAMEN( 3, PATH, 'SEP' ) || LSAMEN( 3, PATH, 'SST' ) || LSAMEN( 3, PATH, 'SSG' ) || LSAMEN( 3, PATH, 'SE2' );
-      SVD = LSAMEN( 3, PATH, 'SVD' ) || LSAMEN( 3, PATH, 'DBD' );
-      SVD = LSAMEN( 3, PATH, 'SVD' ) || LSAMEN( 3, PATH, 'SBD' );
-      SEV = LSAMEN( 3, PATH, 'SEV' );
-      SES = LSAMEN( 3, PATH, 'SES' );
-      SVX = LSAMEN( 3, PATH, 'SVX' );
-      SSX = LSAMEN( 3, PATH, 'SSX' );
-      SGG = LSAMEN( 3, PATH, 'SGG' );
-      SGS = LSAMEN( 3, PATH, 'SGS' );
-      SGX = LSAMEN( 3, PATH, 'SGX' );
-      SGV = LSAMEN( 3, PATH, 'SGV' );
-      SXV = LSAMEN( 3, PATH, 'SXV' );
-      SSB = LSAMEN( 3, PATH, 'SSB' );
-      SBB = LSAMEN( 3, PATH, 'SBB' );
-      GLM = LSAMEN( 3, PATH, 'GLM' );
-      GQR = LSAMEN( 3, PATH, 'GQR' ) || LSAMEN( 3, PATH, 'GRQ' );
-      GSV = LSAMEN( 3, PATH, 'GSV' );
-      CSD = LSAMEN( 3, PATH, 'CSD' );
-      LSE = LSAMEN( 3, PATH, 'LSE' );
-      SBL = LSAMEN( 3, PATH, 'SBL' );
-      SBK = LSAMEN( 3, PATH, 'SBK' );
-      SGL = LSAMEN( 3, PATH, 'SGL' );
-      SGK = LSAMEN( 3, PATH, 'SGK' );
+      NEP = lsamen( 3, PATH, 'NEP' ) || lsamen( 3, PATH, 'SHS' );
+      SEP = lsamen( 3, PATH, 'SEP' ) || lsamen( 3, PATH, 'SST' ) || lsamen( 3, PATH, 'SSG' ) || lsamen( 3, PATH, 'SE2' );
+      SVD = lsamen( 3, PATH, 'SVD' ) || lsamen( 3, PATH, 'DBD' );
+      SVD = lsamen( 3, PATH, 'SVD' ) || lsamen( 3, PATH, 'SBD' );
+      SEV = lsamen( 3, PATH, 'SEV' );
+      SES = lsamen( 3, PATH, 'SES' );
+      SVX = lsamen( 3, PATH, 'SVX' );
+      SSX = lsamen( 3, PATH, 'SSX' );
+      SGG = lsamen( 3, PATH, 'SGG' );
+      SGS = lsamen( 3, PATH, 'SGS' );
+      SGX = lsamen( 3, PATH, 'SGX' );
+      SGV = lsamen( 3, PATH, 'SGV' );
+      SXV = lsamen( 3, PATH, 'SXV' );
+      SSB = lsamen( 3, PATH, 'SSB' );
+      SBB = lsamen( 3, PATH, 'SBB' );
+      GLM = lsamen( 3, PATH, 'GLM' );
+      GQR = lsamen( 3, PATH, 'GQR' ) || lsamen( 3, PATH, 'GRQ' );
+      GSV = lsamen( 3, PATH, 'GSV' );
+      CSD = lsamen( 3, PATH, 'CSD' );
+      LSE = lsamen( 3, PATH, 'LSE' );
+      SBL = lsamen( 3, PATH, 'SBL' );
+      SBK = lsamen( 3, PATH, 'SBK' );
+      SGL = lsamen( 3, PATH, 'SGL' );
+      SGK = lsamen( 3, PATH, 'SGK' );
 
       // Report values of parameters.
 
@@ -201,7 +201,7 @@
 
          schkgk(NIN, NOUT );
          GO TO 10;
-      } else if ( LSAMEN( 3, PATH, 'SEC' ) ) {
+      } else if ( lsamen( 3, PATH, 'SEC' ) ) {
 
          // SEC:  Eigencondition estimation
 
@@ -731,7 +731,7 @@
          } // 250
       }
 
-      if ( LSAMEN( 3, C3, 'SHS' ) || LSAMEN( 3, C3, 'NEP' ) ) {
+      if ( lsamen( 3, C3, 'SHS' ) || lsamen( 3, C3, 'NEP' ) ) {
 
          // -------------------------------------
          // NEP:  Nonsymmetric Eigenvalue Problem
@@ -768,7 +768,7 @@
             if (INFO != 0) WRITE( NOUT, FMT = 9980 )'SCHKHS', INFO;
          } // 270
 
-      } else if ( LSAMEN( 3, C3, 'SST' ) || LSAMEN( 3, C3, 'SEP' ) || LSAMEN( 3, C3, 'SE2' ) ) {
+      } else if ( lsamen( 3, C3, 'SST' ) || lsamen( 3, C3, 'SEP' ) || lsamen( 3, C3, 'SE2' ) ) {
 
          // ----------------------------------
          // SEP:  Symmetric Eigenvalue Problem
@@ -806,7 +806,7 @@
             }
             WRITE( NOUT, FMT = 9997 )C3, NBVAL( I ), NBMIN( I ), NXVAL( I );
             if ( TSTCHK ) {
-               if ( LSAMEN( 3, C3, 'SE2' ) ) {
+               if ( lsamen( 3, C3, 'SE2' ) ) {
                schkst2stg(NN, NVAL, MAXTYP, DOTYPE, ISEED, THRESH, NOUT, A( 1, 1 ), NMAX, A( 1, 2 ), D( 1, 1 ), D( 1, 2 ), D( 1, 3 ), D( 1, 4 ), D( 1, 5 ), D( 1, 6 ), D( 1, 7 ), D( 1, 8 ), D( 1, 9 ), D( 1, 10 ), D( 1, 11 ), A( 1, 3 ), NMAX, A( 1, 4 ), A( 1, 5 ), D( 1, 12 ), A( 1, 6 ), WORK, LWORK, IWORK, LIWORK, RESULT, INFO );
                } else {
                schkst(NN, NVAL, MAXTYP, DOTYPE, ISEED, THRESH, NOUT, A( 1, 1 ), NMAX, A( 1, 2 ), D( 1, 1 ), D( 1, 2 ), D( 1, 3 ), D( 1, 4 ), D( 1, 5 ), D( 1, 6 ), D( 1, 7 ), D( 1, 8 ), D( 1, 9 ), D( 1, 10 ), D( 1, 11 ), A( 1, 3 ), NMAX, A( 1, 4 ), A( 1, 5 ), D( 1, 12 ), A( 1, 6 ), WORK, LWORK, IWORK, LIWORK, RESULT, INFO );
@@ -814,7 +814,7 @@
                if (INFO != 0) WRITE( NOUT, FMT = 9980 )'SCHKST', INFO;
             }
             if ( TSTDRV ) {
-               if ( LSAMEN( 3, C3, 'SE2' ) ) {
+               if ( lsamen( 3, C3, 'SE2' ) ) {
                sdrvst2stg(NN, NVAL, 18, DOTYPE, ISEED, THRESH, NOUT, A( 1, 1 ), NMAX, D( 1, 3 ), D( 1, 4 ), D( 1, 5 ), D( 1, 6 ), D( 1, 8 ), D( 1, 9 ), D( 1, 10 ), D( 1, 11), A( 1, 2 ), NMAX, A( 1, 3 ), D( 1, 12 ), A( 1, 4 ), WORK, LWORK, IWORK, LIWORK, RESULT, INFO );
                } else {
                sdrvst(NN, NVAL, 18, DOTYPE, ISEED, THRESH, NOUT, A( 1, 1 ), NMAX, D( 1, 3 ), D( 1, 4 ), D( 1, 5 ), D( 1, 6 ), D( 1, 8 ), D( 1, 9 ), D( 1, 10 ), D( 1, 11), A( 1, 2 ), NMAX, A( 1, 3 ), D( 1, 12 ), A( 1, 4 ), WORK, LWORK, IWORK, LIWORK, RESULT, INFO );
@@ -823,7 +823,7 @@
             }
          } // 290
 
-      } else if ( LSAMEN( 3, C3, 'SSG' ) ) {
+      } else if ( lsamen( 3, C3, 'SSG' ) ) {
 
          // ----------------------------------------------
          // SSG:  Symmetric Generalized Eigenvalue Problem
@@ -859,7 +859,7 @@
             }
          } // 310
 
-      } else if ( LSAMEN( 3, C3, 'SBD' ) || LSAMEN( 3, C3, 'SVD' ) ) {
+      } else if ( lsamen( 3, C3, 'SBD' ) || lsamen( 3, C3, 'SVD' ) ) {
 
          // ----------------------------------
          // SVD:  Singular Value Decomposition
@@ -899,7 +899,7 @@
             if (TSTDRV) sdrvbd( NN, MVAL, NVAL, MAXTYP, DOTYPE, ISEED, THRESH, A( 1, 1 ), NMAX, A( 1, 2 ), NMAX, A( 1, 3 ), NMAX, A( 1, 4 ), A( 1, 5 ), A( 1, 6 ), D( 1, 1 ), D( 1, 2 ), D( 1, 3 ), WORK, LWORK, IWORK, NOUT, INFO );
          } // 330
 
-      } else if ( LSAMEN( 3, C3, 'SEV' ) ) {
+      } else if ( lsamen( 3, C3, 'SEV' ) ) {
 
          // --------------------------------------------
          // SEV:  Nonsymmetric Eigenvalue Problem Driver
@@ -919,7 +919,7 @@
          WRITE( NOUT, FMT = 9973 );
          GO TO 10;
 
-      } else if ( LSAMEN( 3, C3, 'SES' ) ) {
+      } else if ( lsamen( 3, C3, 'SES' ) ) {
 
          // --------------------------------------------
          // SES:  Nonsymmetric Eigenvalue Problem Driver
@@ -939,7 +939,7 @@
          WRITE( NOUT, FMT = 9973 );
          GO TO 10;
 
-      } else if ( LSAMEN( 3, C3, 'SVX' ) ) {
+      } else if ( lsamen( 3, C3, 'SVX' ) ) {
 
          // --------------------------------------------------------------
          // SVX:  Nonsymmetric Eigenvalue Problem Expert Driver
@@ -959,7 +959,7 @@
          WRITE( NOUT, FMT = 9973 );
          GO TO 10;
 
-      } else if ( LSAMEN( 3, C3, 'SSX' ) ) {
+      } else if ( lsamen( 3, C3, 'SSX' ) ) {
 
          // ---------------------------------------------------
          // SSX:  Nonsymmetric Eigenvalue Problem Expert Driver
@@ -979,7 +979,7 @@
          WRITE( NOUT, FMT = 9973 );
          GO TO 10;
 
-      } else if ( LSAMEN( 3, C3, 'SGG' ) ) {
+      } else if ( lsamen( 3, C3, 'SGG' ) ) {
 
          // -------------------------------------------------
          // SGG:  Generalized Nonsymmetric Eigenvalue Problem
@@ -1019,7 +1019,7 @@
             }
          } // 350
 
-      } else if ( LSAMEN( 3, C3, 'SGS' ) ) {
+      } else if ( lsamen( 3, C3, 'SGS' ) ) {
 
          // -------------------------------------------------
          // SGS:  Generalized Nonsymmetric Eigenvalue Problem
@@ -1068,7 +1068,7 @@
          WRITE( NOUT, FMT = 9973 );
          GO TO 10;
 
-      } else if ( LSAMEN( 3, C3, 'SGV' ) ) {
+      } else if ( lsamen( 3, C3, 'SGV' ) ) {
 
          // -------------------------------------------------
          // SGV:  Generalized Nonsymmetric Eigenvalue Problem
@@ -1114,7 +1114,7 @@
          WRITE( NOUT, FMT = 9973 );
          GO TO 10;
 
-      } else if ( LSAMEN( 3, C3, 'SSB' ) ) {
+      } else if ( lsamen( 3, C3, 'SSB' ) ) {
 
          // ------------------------------
          // SSB:  Symmetric Band Reduction
@@ -1130,7 +1130,7 @@
          schksb2stg(NN, NVAL, NK, KVAL, MAXTYP, DOTYPE, ISEED, THRESH, NOUT, A( 1, 1 ), NMAX, D( 1, 1 ), D( 1, 2 ), D( 1, 3 ), D( 1, 4 ), D( 1, 5 ), A( 1, 2 ), NMAX, WORK, LWORK, RESULT, INFO );
          if (INFO != 0) WRITE( NOUT, FMT = 9980 )'SCHKSB', INFO;
 
-      } else if ( LSAMEN( 3, C3, 'SBB' ) ) {
+      } else if ( lsamen( 3, C3, 'SBB' ) ) {
 
          // ------------------------------
          // SBB:  General Band Reduction
@@ -1152,7 +1152,7 @@
             if (INFO != 0) WRITE( NOUT, FMT = 9980 )'SCHKBB', INFO;
          } // 370
 
-      } else if ( LSAMEN( 3, C3, 'GLM' ) ) {
+      } else if ( lsamen( 3, C3, 'GLM' ) ) {
 
          // -----------------------------------------
          // GLM:  Generalized Linear Regression Model
@@ -1163,7 +1163,7 @@
          sckglm(NN, MVAL, PVAL, NVAL, NTYPES, ISEED, THRESH, NMAX, A( 1, 1 ), A( 1, 2 ), B( 1, 1 ), B( 1, 2 ), X, WORK, D( 1, 1 ), NIN, NOUT, INFO );
          if (INFO != 0) WRITE( NOUT, FMT = 9980 )'SCKGLM', INFO;
 
-      } else if ( LSAMEN( 3, C3, 'GQR' ) ) {
+      } else if ( lsamen( 3, C3, 'GQR' ) ) {
 
          // ------------------------------------------
          // GQR:  Generalized QR and RQ factorizations
@@ -1174,7 +1174,7 @@
          sckgqr(NN, MVAL, NN, PVAL, NN, NVAL, NTYPES, ISEED, THRESH, NMAX, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), A( 1, 4 ), TAUA, B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), B( 1, 4 ), B( 1, 5 ), TAUB, WORK, D( 1, 1 ), NIN, NOUT, INFO );
          if (INFO != 0) WRITE( NOUT, FMT = 9980 )'SCKGQR', INFO;
 
-      } else if ( LSAMEN( 3, C3, 'GSV' ) ) {
+      } else if ( lsamen( 3, C3, 'GSV' ) ) {
 
          // ----------------------------------------------
          // GSV:  Generalized Singular Value Decomposition
@@ -1185,7 +1185,7 @@
          sckgsv(NN, MVAL, PVAL, NVAL, NTYPES, ISEED, THRESH, NMAX, A( 1, 1 ), A( 1, 2 ), B( 1, 1 ), B( 1, 2 ), A( 1, 3 ), B( 1, 3 ), A( 1, 4 ), TAUA, TAUB, B( 1, 4 ), IWORK, WORK, D( 1, 1 ), NIN, NOUT, INFO );
          if (INFO != 0) WRITE( NOUT, FMT = 9980 )'SCKGSV', INFO;
 
-      } else if ( LSAMEN( 3, C3, 'CSD' ) ) {
+      } else if ( lsamen( 3, C3, 'CSD' ) ) {
 
          // ----------------------------------------------
          // CSD:  CS Decomposition
@@ -1196,7 +1196,7 @@
          sckcsd(NN, MVAL, PVAL, NVAL, NTYPES, ISEED, THRESH, NMAX, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), A( 1, 4 ), A( 1, 5 ), A( 1, 6 ), A( 1, 7 ), IWORK, WORK, D( 1, 1 ), NIN, NOUT, INFO );
          if (INFO != 0) WRITE( NOUT, FMT = 9980 )'SCKCSD', INFO;
 
-      } else if ( LSAMEN( 3, C3, 'LSE' ) ) {
+      } else if ( lsamen( 3, C3, 'LSE' ) ) {
 
          // --------------------------------------
          // LSE:  Constrained Linear Least Squares

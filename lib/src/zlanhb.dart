@@ -46,18 +46,18 @@
             for (J = 1; J <= N; J++) { // 20
                for (I = max( K+2-J, 1 ); I <= K; I++) { // 10
                   SUM = ( AB( I, J ) ).abs();
-                  if( VALUE < SUM || DISNAN( SUM ) ) VALUE = SUM;
+                  if( VALUE < SUM || disnan( SUM ) ) VALUE = SUM;
                } // 10
                SUM = ABS( (AB( K+1, J )).toDouble() );
-               if( VALUE < SUM || DISNAN( SUM ) ) VALUE = SUM;
+               if( VALUE < SUM || disnan( SUM ) ) VALUE = SUM;
             } // 20
          } else {
             for (J = 1; J <= N; J++) { // 40
                SUM = ABS( (AB( 1, J )).toDouble() );
-               if( VALUE < SUM || DISNAN( SUM ) ) VALUE = SUM;
+               if( VALUE < SUM || disnan( SUM ) ) VALUE = SUM;
                for (I = 2; I <= min( N+1-J, K+1 ); I++) { // 30
                   SUM = ( AB( I, J ) ).abs();
-                  if( VALUE < SUM || DISNAN( SUM ) ) VALUE = SUM;
+                  if( VALUE < SUM || disnan( SUM ) ) VALUE = SUM;
                } // 30
             } // 40
          }
@@ -79,7 +79,7 @@
             } // 60
             for (I = 1; I <= N; I++) { // 70
                SUM = WORK( I );
-               if( VALUE < SUM || DISNAN( SUM ) ) VALUE = SUM;
+               if( VALUE < SUM || disnan( SUM ) ) VALUE = SUM;
             } // 70
          } else {
             for (I = 1; I <= N; I++) { // 80
@@ -93,7 +93,7 @@
                   SUM = SUM + ABSA;
                   WORK[I] = WORK( I ) + ABSA;
                } // 90
-               if( VALUE < SUM || DISNAN( SUM ) ) VALUE = SUM;
+               if( VALUE < SUM || disnan( SUM ) ) VALUE = SUM;
             } // 100
          }
       } else if ( ( lsame( NORM, 'F' ) ) || ( lsame( NORM, 'E' ) ) ) {

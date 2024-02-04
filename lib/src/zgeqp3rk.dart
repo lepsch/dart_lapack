@@ -57,9 +57,9 @@
          INFO = -3;
       } else if ( KMAX < 0 ) {
          INFO = -4;
-      } else if ( DISNAN( ABSTOL ) ) {
+      } else if ( disnan( ABSTOL ) ) {
          INFO = -5;
-      } else if ( DISNAN( RELTOL ) ) {
+      } else if ( disnan( RELTOL ) ) {
          INFO = -6;
       } else if ( LDA < max( 1, M ) ) {
          INFO = -8;
@@ -171,7 +171,7 @@
 
       // ==================================================================.
 
-      if ( DISNAN( MAXC2NRM ) ) {
+      if ( disnan( MAXC2NRM ) ) {
 
          // Check if the matrix A contains NaN, set INFO parameter
          // to the column number where the first NaN is found and return;

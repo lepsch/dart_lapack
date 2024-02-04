@@ -70,7 +70,7 @@
       RCOND = 1.0;
       OK = true;
 
-      if ( LSAMEN( 2, C2, 'SY' ) ) {
+      if ( lsamen( 2, C2, 'SY' ) ) {
 
          // Test error exits of the routines that use factorization
          // of a symmetric indefinite matrix with partial
@@ -238,7 +238,7 @@
          ssycon('U', 1, A, 1, IP, -1.0, RCOND, W, IW, INFO );
          chkxer('SSYCON', INFOT, NOUT, LERR, OK );
 
-      } else if ( LSAMEN( 2, C2, 'SR' ) ) {
+      } else if ( lsamen( 2, C2, 'SR' ) ) {
 
          // Test error exits of the routines that use factorization
          // of a symmetric indefinite matrix with rook
@@ -324,7 +324,7 @@
          ssycon_rook('U', 1, A, 1, IP, -1.0, RCOND, W, IW, INFO );
          chkxer('SSYCON_ROOK', INFOT, NOUT, LERR, OK );
 
-      } else if ( LSAMEN( 2, C2, 'SK' ) ) {
+      } else if ( lsamen( 2, C2, 'SK' ) ) {
 
          // Test error exits of the routines that use factorization
          // of a symmetric indefinite matrix with rook
@@ -433,7 +433,7 @@
          ssycon_3('U', 1, A, 1, E, IP, -1.0, RCOND, W, IW, INFO);
          chkxer('SSYCON_3', INFOT, NOUT, LERR, OK );
 
-      } else if ( LSAMEN( 2, C2, 'SP' ) ) {
+      } else if ( lsamen( 2, C2, 'SP' ) ) {
 
          // Test error exits of the routines that use factorization
          // of a symmetric indefinite packed matrix with partial

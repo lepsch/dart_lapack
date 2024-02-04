@@ -69,7 +69,7 @@
       } // 20
       OK = true;
 
-      if ( LSAMEN( 2, C2, 'GE' ) ) {
+      if ( lsamen( 2, C2, 'GE' ) ) {
 
          // Test error exits of the routines that use the LU decomposition
          // of a general matrix.
@@ -226,7 +226,7 @@
          dgeequb(2, 2, A, 1, R1, R2, RCOND, CCOND, ANRM, INFO );
          chkxer('DGEEQUB', INFOT, NOUT, LERR, OK );
 
-      } else if ( LSAMEN( 2, C2, 'GB' ) ) {
+      } else if ( lsamen( 2, C2, 'GB' ) ) {
 
          // Test error exits of the routines that use the LU decomposition
          // of a general band matrix.

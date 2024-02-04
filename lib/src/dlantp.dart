@@ -1,3 +1,11 @@
+import 'dart:math';
+
+import 'package:lapack/src/blas/lsame.dart';
+import 'package:lapack/src/box.dart';
+import 'package:lapack/src/ilaenv.dart';
+import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/xerbla.dart';
+
       double dlantp(NORM, UPLO, DIAG, N, AP, WORK ) {
 
 // -- LAPACK auxiliary routine --
@@ -48,7 +56,7 @@
                for (J = 1; J <= N; J++) { // 20
                   for (I = K; I <= K + J - 2; I++) { // 10
                      SUM = ( AP( I ) ).abs();
-                     if( VALUE < SUM || DISNAN( SUM ) ) VALUE = SUM;
+                     if( VALUE < SUM || disnan( SUM ) ) VALUE = SUM;
                   } // 10
                   K = K + J;
                } // 20
@@ -56,7 +64,7 @@
                for (J = 1; J <= N; J++) { // 40
                   for (I = K + 1; I <= K + N - J; I++) { // 30
                      SUM = ( AP( I ) ).abs();
-                     if( VALUE < SUM || DISNAN( SUM ) ) VALUE = SUM;
+                     if( VALUE < SUM || disnan( SUM ) ) VALUE = SUM;
                   } // 30
                   K = K + N - J + 1;
                } // 40
@@ -67,7 +75,7 @@
                for (J = 1; J <= N; J++) { // 60
                   for (I = K; I <= K + J - 1; I++) { // 50
                      SUM = ( AP( I ) ).abs();
-                     if( VALUE < SUM || DISNAN( SUM ) ) VALUE = SUM;
+                     if( VALUE < SUM || disnan( SUM ) ) VALUE = SUM;
                   } // 50
                   K = K + J;
                } // 60
@@ -75,7 +83,7 @@
                for (J = 1; J <= N; J++) { // 80
                   for (I = K; I <= K + N - J; I++) { // 70
                      SUM = ( AP( I ) ).abs();
-                     if( VALUE < SUM || DISNAN( SUM ) ) VALUE = SUM;
+                     if( VALUE < SUM || disnan( SUM ) ) VALUE = SUM;
                   } // 70
                   K = K + N - J + 1;
                } // 80
@@ -102,7 +110,7 @@
                   } // 100
                }
                K = K + J;
-               if( VALUE < SUM || DISNAN( SUM ) ) VALUE = SUM;
+               if( VALUE < SUM || disnan( SUM ) ) VALUE = SUM;
             } // 110
          } else {
             for (J = 1; J <= N; J++) { // 140
@@ -118,7 +126,7 @@
                   } // 130
                }
                K = K + N - J + 1;
-               if( VALUE < SUM || DISNAN( SUM ) ) VALUE = SUM;
+               if( VALUE < SUM || disnan( SUM ) ) VALUE = SUM;
             } // 140
          }
       } else if ( lsame( NORM, 'I' ) ) {
@@ -176,7 +184,7 @@
          VALUE = ZERO;
          for (I = 1; I <= N; I++) { // 270
             SUM = WORK( I );
-            if( VALUE < SUM || DISNAN( SUM ) ) VALUE = SUM;
+            if( VALUE < SUM || disnan( SUM ) ) VALUE = SUM;
          } // 270
       } else if ( ( lsame( NORM, 'F' ) ) || ( lsame( NORM, 'E' ) ) ) {
 

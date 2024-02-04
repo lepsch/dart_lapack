@@ -45,7 +45,7 @@
          for (J = 1; J <= N; J++) { // 20
             for (I = 1; I <= min( N, J+1 ); I++) { // 10
                SUM = ( A( I, J ) ).abs();
-               if( VALUE < SUM || DISNAN( SUM ) ) VALUE = SUM;
+               if( VALUE < SUM || disnan( SUM ) ) VALUE = SUM;
             } // 10
          } // 20
       } else if ( ( lsame( NORM, 'O' ) ) || ( NORM == '1' ) ) {
@@ -58,7 +58,7 @@
             for (I = 1; I <= min( N, J+1 ); I++) { // 30
                SUM = SUM + ( A( I, J ) ).abs();
             } // 30
-            if( VALUE < SUM || DISNAN( SUM ) ) VALUE = SUM;
+            if( VALUE < SUM || disnan( SUM ) ) VALUE = SUM;
          } // 40
       } else if ( lsame( NORM, 'I' ) ) {
 
@@ -75,7 +75,7 @@
          VALUE = ZERO;
          for (I = 1; I <= N; I++) { // 80
             SUM = WORK( I );
-            if( VALUE < SUM || DISNAN( SUM ) ) VALUE = SUM;
+            if( VALUE < SUM || disnan( SUM ) ) VALUE = SUM;
          } // 80
       } else if ( ( lsame( NORM, 'F' ) ) || ( lsame( NORM, 'E' ) ) ) {
 

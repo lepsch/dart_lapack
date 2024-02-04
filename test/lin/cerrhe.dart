@@ -69,7 +69,7 @@
       ANRM = 1.0;
       OK = true;
 
-      if ( LSAMEN( 2, C2, 'HE' ) ) {
+      if ( lsamen( 2, C2, 'HE' ) ) {
 
          // Test error exits of the routines that use factorization
          // of a Hermitian indefinite matrix with partial
@@ -206,7 +206,7 @@
          checon('U', 1, A, 1, IP, -ANRM, RCOND, W, INFO );
          chkxer('CHECON', INFOT, NOUT, LERR, OK );
 
-      } else if ( LSAMEN( 2, C2, 'HR' ) ) {
+      } else if ( lsamen( 2, C2, 'HR' ) ) {
 
          // Test error exits of the routines that use factorization
          // of a Hermitian indefinite matrix with rook
@@ -292,7 +292,7 @@
          checon_rook('U', 1, A, 1, IP, -ANRM, RCOND, W, INFO );
          chkxer('CHECON_ROOK', INFOT, NOUT, LERR, OK );
 
-      } else if ( LSAMEN( 2, C2, 'HK' ) ) {
+      } else if ( lsamen( 2, C2, 'HK' ) ) {
 
          // Test error exits of the routines that use factorization
          // of a Hermitian indefinite matrix with rook
@@ -401,7 +401,7 @@
          checon_3('U', 1, A, 1, E, IP, -1.0, RCOND, W, INFO);
          chkxer('CHECON_3', INFOT, NOUT, LERR, OK );
 
-      } else if ( LSAMEN( 2, C2, 'HA' ) ) {
+      } else if ( lsamen( 2, C2, 'HA' ) ) {
 
          // Test error exits of the routines that use factorization
          // of a Hermitian indefinite matrix with Aasen's algorithm.
@@ -450,7 +450,7 @@
          chetrs_aa('U', 2, 1, A, 2, IP, B, 2, W, -2, INFO );
          chkxer('CHETRS_AA', INFOT, NOUT, LERR, OK );
 
-      } else if ( LSAMEN( 2, C2, 'H2' ) ) {
+      } else if ( lsamen( 2, C2, 'H2' ) ) {
 
          // Test error exits of the routines that use factorization
          // of a symmetric indefinite matrix with Aasen's algorithm.
@@ -500,7 +500,7 @@
          // of a Hermitian indefinite packed matrix with partial
          // (Bunch-Kaufman) diagonal pivoting method.
 
-      } else if ( LSAMEN( 2, C2, 'HP' ) ) {
+      } else if ( lsamen( 2, C2, 'HP' ) ) {
 
          // CHPTRF
 

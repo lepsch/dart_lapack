@@ -1,3 +1,11 @@
+import 'dart:math';
+
+import 'package:lapack/src/blas/lsame.dart';
+import 'package:lapack/src/box.dart';
+import 'package:lapack/src/ilaenv.dart';
+import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/xerbla.dart';
+
       void dgbequ(M, N, KL, KU, AB, LDAB, R, C, ROWCND, COLCND, AMAX, INFO ) {
 
 // -- LAPACK computational routine --

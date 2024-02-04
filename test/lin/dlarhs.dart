@@ -99,19 +99,19 @@
       // Multiply X by op(A) using an appropriate
       // matrix multiply routine.
 
-      if ( LSAMEN( 2, C2, 'GE' ) || LSAMEN( 2, C2, 'QR' ) || LSAMEN( 2, C2, 'LQ' ) || LSAMEN( 2, C2, 'QL' ) || LSAMEN( 2, C2, 'RQ' ) ) {
+      if ( lsamen( 2, C2, 'GE' ) || lsamen( 2, C2, 'QR' ) || lsamen( 2, C2, 'LQ' ) || lsamen( 2, C2, 'QL' ) || lsamen( 2, C2, 'RQ' ) ) {
 
          // General matrix
 
          dgemm(TRANS, 'N', MB, NRHS, NX, ONE, A, LDA, X, LDX, ZERO, B, LDB );
 
-      } else if ( LSAMEN( 2, C2, 'PO' ) || LSAMEN( 2, C2, 'SY' ) ) {
+      } else if ( lsamen( 2, C2, 'PO' ) || lsamen( 2, C2, 'SY' ) ) {
 
          // Symmetric matrix, 2-D storage
 
          dsymm('Left', UPLO, N, NRHS, ONE, A, LDA, X, LDX, ZERO, B, LDB );
 
-      } else if ( LSAMEN( 2, C2, 'GB' ) ) {
+      } else if ( lsamen( 2, C2, 'GB' ) ) {
 
          // General matrix, band storage
 
@@ -119,7 +119,7 @@
             dgbmv(TRANS, MB, NX, KL, KU, ONE, A, LDA, X( 1, J ), 1, ZERO, B( 1, J ), 1 );
          } // 20
 
-      } else if ( LSAMEN( 2, C2, 'PB' ) ) {
+      } else if ( lsamen( 2, C2, 'PB' ) ) {
 
          // Symmetric matrix, band storage
 
@@ -127,7 +127,7 @@
             dsbmv(UPLO, N, KL, ONE, A, LDA, X( 1, J ), 1, ZERO, B( 1, J ), 1 );
          } // 30
 
-      } else if ( LSAMEN( 2, C2, 'PP' ) || LSAMEN( 2, C2, 'SP' ) ) {
+      } else if ( lsamen( 2, C2, 'PP' ) || lsamen( 2, C2, 'SP' ) ) {
 
          // Symmetric matrix, packed storage
 
@@ -135,7 +135,7 @@
             dspmv(UPLO, N, ONE, A, X( 1, J ), 1, ZERO, B( 1, J ), 1 );
          } // 40
 
-      } else if ( LSAMEN( 2, C2, 'TR' ) ) {
+      } else if ( lsamen( 2, C2, 'TR' ) ) {
 
          // Triangular matrix.  Note that for triangular matrices,
             // KU = 1 => non-unit triangular
@@ -149,7 +149,7 @@
          }
          dtrmm('Left', UPLO, TRANS, DIAG, N, NRHS, ONE, A, LDA, B, LDB );
 
-      } else if ( LSAMEN( 2, C2, 'TP' ) ) {
+      } else if ( lsamen( 2, C2, 'TP' ) ) {
 
          // Triangular matrix, packed storage
 
@@ -163,7 +163,7 @@
             dtpmv(UPLO, TRANS, DIAG, N, A, B( 1, J ), 1 );
          } // 50
 
-      } else if ( LSAMEN( 2, C2, 'TB' ) ) {
+      } else if ( lsamen( 2, C2, 'TB' ) ) {
 
          // Triangular matrix, banded storage
 

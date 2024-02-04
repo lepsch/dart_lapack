@@ -98,7 +98,7 @@
 
          // Factor the current column
          PIVMAG = ( A( J, J ) ).abs();
-         if ( PIVMAG != ZERO && !DISNAN( PIVMAG ) ) {
+         if ( PIVMAG != ZERO && !disnan( PIVMAG ) ) {
                if ( PIVMAG >= SFMIN ) {
                   zscal(M-J, ONE / A( J, J ), A( J+1, J ), 1 );
                } else {

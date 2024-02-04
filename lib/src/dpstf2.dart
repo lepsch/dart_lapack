@@ -1,3 +1,11 @@
+import 'dart:math';
+
+import 'package:lapack/src/blas/lsame.dart';
+import 'package:lapack/src/box.dart';
+import 'package:lapack/src/ilaenv.dart';
+import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/xerbla.dart';
+
       void dpstf2(UPLO, N, A, LDA, PIV, RANK, TOL, WORK, INFO ) {
 
 // -- LAPACK computational routine --
@@ -74,7 +82,7 @@
             AJJ = A( PVT, PVT );
          }
       }
-      if ( AJJ <= ZERO || DISNAN( AJJ ) ) {
+      if ( AJJ <= ZERO || disnan( AJJ ) ) {
          RANK = 0;
          INFO = 1;
          GO TO 170;
@@ -117,7 +125,7 @@
                ITEMP = MAXLOC( WORK( (N+J):(2*N) ), 1 );
                PVT = ITEMP + J - 1;
                AJJ = WORK( N+PVT );
-               if ( AJJ <= DSTOP || DISNAN( AJJ ) ) {
+               if ( AJJ <= DSTOP || disnan( AJJ ) ) {
                   A[J, J] = AJJ;
                   GO TO 160;
                }
@@ -177,7 +185,7 @@
                ITEMP = MAXLOC( WORK( (N+J):(2*N) ), 1 );
                PVT = ITEMP + J - 1;
                AJJ = WORK( N+PVT );
-               if ( AJJ <= DSTOP || DISNAN( AJJ ) ) {
+               if ( AJJ <= DSTOP || disnan( AJJ ) ) {
                   A[J, J] = AJJ;
                   GO TO 160;
                }

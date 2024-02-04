@@ -1,3 +1,11 @@
+import 'dart:math';
+
+import 'package:lapack/src/blas/lsame.dart';
+import 'package:lapack/src/box.dart';
+import 'package:lapack/src/ilaenv.dart';
+import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/xerbla.dart';
+
       void dlasyf_aa(UPLO, J1, M, NB, A, LDA, IPIV, H, LDH, WORK ) {
 
 // -- LAPACK computational routine --

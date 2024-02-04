@@ -64,7 +64,7 @@
          // Test for non-positive-definiteness
 
          AJJ = (A( 1, 1 )).toDouble();
-         if ( AJJ <= ZERO || DISNAN( AJJ ) ) {
+         if ( AJJ <= ZERO || disnan( AJJ ) ) {
             INFO = 1;
             return;
          }

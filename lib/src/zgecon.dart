@@ -78,7 +78,7 @@
          return;
       } else if ( ANORM == ZERO ) {
          return;
-      } else if ( DISNAN( ANORM ) ) {
+      } else if ( disnan( ANORM ) ) {
          RCOND = ANORM;
          INFO = -5;
          return;
@@ -145,7 +145,7 @@
 
       // Check for NaNs and Infs
 
-      if( DISNAN( RCOND ) || RCOND > HUGEVAL ) INFO = 1;
+      if( disnan( RCOND ) || RCOND > HUGEVAL ) INFO = 1;
 
       } // 20
       return;

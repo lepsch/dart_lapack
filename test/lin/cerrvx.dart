@@ -70,7 +70,7 @@
       EQ = ' ';
       OK = true;
 
-      if ( LSAMEN( 2, C2, 'GE' ) ) {
+      if ( lsamen( 2, C2, 'GE' ) ) {
 
          // CGESV
 
@@ -128,7 +128,7 @@
          cgesvx('N', 'N', 2, 1, A, 2, AF, 2, IP, EQ, R, C, B, 2, X, 1, RCOND, R1, R2, W, RW, INFO );
          chkxer('CGESVX', INFOT, NOUT, LERR, OK );
 
-      } else if ( LSAMEN( 2, C2, 'GB' ) ) {
+      } else if ( lsamen( 2, C2, 'GB' ) ) {
 
          // CGBSV
 
@@ -198,7 +198,7 @@
          cgbsvx('N', 'N', 2, 0, 0, 0, A, 1, AF, 1, IP, EQ, R, C, B, 2, X, 1, RCOND, R1, R2, W, RW, INFO );
          chkxer('CGBSVX', INFOT, NOUT, LERR, OK );
 
-      } else if ( LSAMEN( 2, C2, 'GT' ) ) {
+      } else if ( lsamen( 2, C2, 'GT' ) ) {
 
          // CGTSV
 
@@ -235,7 +235,7 @@
          cgtsvx('N', 'N', 2, 0, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), AF( 1, 1 ), AF( 1, 2 ), AF( 1, 3 ), AF( 1, 4 ), IP, B, 2, X, 1, RCOND, R1, R2, W, RW, INFO );
          chkxer('CGTSVX', INFOT, NOUT, LERR, OK );
 
-      } else if ( LSAMEN( 2, C2, 'PO' ) ) {
+      } else if ( lsamen( 2, C2, 'PO' ) ) {
 
          // CPOSV
 
@@ -292,7 +292,7 @@
          cposvx('N', 'U', 2, 0, A, 2, AF, 2, EQ, C, B, 2, X, 1, RCOND, R1, R2, W, RW, INFO );
          chkxer('CPOSVX', INFOT, NOUT, LERR, OK );
 
-      } else if ( LSAMEN( 2, C2, 'PP' ) ) {
+      } else if ( lsamen( 2, C2, 'PP' ) ) {
 
          // CPPSV
 
@@ -340,7 +340,7 @@
          cppsvx('N', 'U', 2, 0, A, AF, EQ, C, B, 2, X, 1, RCOND, R1, R2, W, RW, INFO );
          chkxer('CPPSVX', INFOT, NOUT, LERR, OK );
 
-      } else if ( LSAMEN( 2, C2, 'PB' ) ) {
+      } else if ( lsamen( 2, C2, 'PB' ) ) {
 
          // CPBSV
 
@@ -403,7 +403,7 @@
          cpbsvx('N', 'U', 2, 0, 0, A, 1, AF, 1, EQ, C, B, 2, X, 1, RCOND, R1, R2, W, RW, INFO );
          chkxer('CPBSVX', INFOT, NOUT, LERR, OK );
 
-      } else if ( LSAMEN( 2, C2, 'PT' ) ) {
+      } else if ( lsamen( 2, C2, 'PT' ) ) {
 
          // CPTSV
 
@@ -437,7 +437,7 @@
          cptsvx('N', 2, 0, R, A( 1, 1 ), RF, AF( 1, 1 ), B, 2, X, 1, RCOND, R1, R2, W, RW, INFO );
          chkxer('CPTSVX', INFOT, NOUT, LERR, OK );
 
-      } else if ( LSAMEN( 2, C2, 'HE' ) ) {
+      } else if ( lsamen( 2, C2, 'HE' ) ) {
 
          // CHESV
 
@@ -495,7 +495,7 @@
          chesvx('N', 'U', 2, 0, A, 2, AF, 2, IP, B, 2, X, 2, RCOND, R1, R2, W, 3, RW, INFO );
          chkxer('CHESVX', INFOT, NOUT, LERR, OK );
 
-      } else if ( LSAMEN( 2, C2, 'HR' ) ) {
+      } else if ( lsamen( 2, C2, 'HR' ) ) {
 
          // CHESV_ROOK
 
@@ -522,7 +522,7 @@
          chesv_rook('U', 0, 0, A, 1, IP, B, 1, W, -2, INFO );
          chkxer('CHESV_ROOK', INFOT, NOUT, LERR, OK );
 
-      } else if ( LSAMEN( 2, C2, 'HK' ) ) {
+      } else if ( lsamen( 2, C2, 'HK' ) ) {
 
          // CHESV_RK
 
@@ -557,7 +557,7 @@
          chesv_rk('U', 0, 0, A, 1, E, IP, B, 1, W, -2, INFO );
          chkxer('CHESV_RK', INFOT, NOUT, LERR, OK );
 
-      } else if ( LSAMEN( 2, C2, 'HA' ) ) {
+      } else if ( lsamen( 2, C2, 'HA' ) ) {
 
          // CHESV_AASEN
 
@@ -581,7 +581,7 @@
          chesv_aa('U', 3, 1, A, 3, IP, B, 3, W, 6, INFO );
          chkxer('CHESV_AA', INFOT, NOUT, LERR, OK );
 
-      } else if ( LSAMEN( 2, C2, 'H2' ) ) {
+      } else if ( lsamen( 2, C2, 'H2' ) ) {
 
          // CHESV_AASEN_2STAGE
 
@@ -608,7 +608,7 @@
          chesv_aa_2stage('U', 2, 1, A, 2, A, 8, IP, IP, B, 2, W, 1, INFO );
          chkxer('CHESV_AA_2STAGE', INFOT, NOUT, LERR, OK );
 
-      } else if ( LSAMEN( 2, C2, 'SA' ) ) {
+      } else if ( lsamen( 2, C2, 'SA' ) ) {
 
          // CSYSV_AASEN
 
@@ -632,7 +632,7 @@
          csysv_aa('U', 3, 1, A, 3, IP, B, 3, W, 6, INFO );
          chkxer('CSYSV_AA', INFOT, NOUT, LERR, OK );
 
-      } else if ( LSAMEN( 2, C2, 'S2' ) ) {
+      } else if ( lsamen( 2, C2, 'S2' ) ) {
 
          // CSYSV_AASEN_2STAGE
 
@@ -659,7 +659,7 @@
          csysv_aa_2stage('U', 2, 1, A, 2, A, 8, IP, IP, B, 2, W, 1, INFO );
          chkxer('CSYSV_AA_2STAGE', INFOT, NOUT, LERR, OK );
 
-      } else if ( LSAMEN( 2, C2, 'HP' ) ) {
+      } else if ( lsamen( 2, C2, 'HP' ) ) {
 
          // CHPSV
 
@@ -699,7 +699,7 @@
          chpsvx('N', 'U', 2, 0, A, AF, IP, B, 2, X, 1, RCOND, R1, R2, W, RW, INFO );
          chkxer('CHPSVX', INFOT, NOUT, LERR, OK );
 
-      } else if ( LSAMEN( 2, C2, 'SY' ) ) {
+      } else if ( lsamen( 2, C2, 'SY' ) ) {
 
          // CSYSV
 
@@ -757,7 +757,7 @@
          csysvx('N', 'U', 2, 0, A, 2, AF, 2, IP, B, 2, X, 2, RCOND, R1, R2, W, 3, RW, INFO );
          chkxer('CSYSVX', INFOT, NOUT, LERR, OK );
 
-      } else if ( LSAMEN( 2, C2, 'SR' ) ) {
+      } else if ( lsamen( 2, C2, 'SR' ) ) {
 
          // CSYSV_ROOK
 
@@ -784,7 +784,7 @@
          csysv_rook('U', 0, 0, A, 1, IP, B, 1, W, -2, INFO );
          chkxer('CSYSV_ROOK', INFOT, NOUT, LERR, OK );
 
-      } else if ( LSAMEN( 2, C2, 'SK' ) ) {
+      } else if ( lsamen( 2, C2, 'SK' ) ) {
 
          // CSYSV_RK
 
@@ -819,7 +819,7 @@
          csysv_rk('U', 0, 0, A, 1, E, IP, B, 1, W, -2, INFO );
          chkxer('CSYSV_RK', INFOT, NOUT, LERR, OK );
 
-      } else if ( LSAMEN( 2, C2, 'SP' ) ) {
+      } else if ( lsamen( 2, C2, 'SP' ) ) {
 
          // CSPSV
 

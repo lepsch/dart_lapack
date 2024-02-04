@@ -37,7 +37,7 @@
       // Print the header if this is the first error message.
 
       if ( NFAIL == 0 && NERRS == 0 ) {
-         if ( LSAMEN( 3, C3, 'SV ' ) || LSAMEN( 3, C3, 'SVX' ) ) {
+         if ( lsamen( 3, C3, 'SV ' ) || lsamen( 3, C3, 'SVX' ) ) {
             aladhd(NOUT, PATH );
          } else {
             alahd(NOUT, PATH );
@@ -48,11 +48,11 @@
       // Print the message detailing the error and form of recovery,
       // if any.
 
-      if ( LSAMEN( 2, P2, 'GE' ) ) {
+      if ( lsamen( 2, P2, 'GE' ) ) {
 
          // xGE:  General matrices
 
-         if ( LSAMEN( 3, C3, 'TRF' ) ) {
+         if ( lsamen( 3, C3, 'TRF' ) ) {
             if ( INFO != INFOE && INFOE != 0 ) {
                WRITE( NOUT, FMT = 9988 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, INFOE, M, N, N5, IMAT;
             } else {
@@ -60,7 +60,7 @@
             }
             if (INFO != 0) WRITE( NOUT, FMT = 9949 );
 
-         } else if ( LSAMEN( 3, C3, 'SV ' ) ) {
+         } else if ( lsamen( 3, C3, 'SV ' ) ) {
 
             if ( INFO != INFOE && INFOE != 0 ) {
                WRITE( NOUT, FMT = 9984 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, INFOE, N, N5, IMAT;
@@ -68,7 +68,7 @@
                WRITE( NOUT, FMT = 9970 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, N, N5, IMAT;
             }
 
-         } else if ( LSAMEN( 3, C3, 'SVX' ) ) {
+         } else if ( lsamen( 3, C3, 'SVX' ) ) {
 
             if ( INFO != INFOE && INFOE != 0 ) {
                WRITE( NOUT, FMT = 9992 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, INFOE, OPTS( 1: 1 ), OPTS( 2: 2 ), N, N5, IMAT;
@@ -76,23 +76,23 @@
                WRITE( NOUT, FMT = 9997 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, OPTS( 1: 1 ), OPTS( 2: 2 ), N, N5, IMAT;
             }
 
-         } else if ( LSAMEN( 3, C3, 'TRI' ) ) {
+         } else if ( lsamen( 3, C3, 'TRI' ) ) {
 
             WRITE( NOUT, FMT = 9971 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, N, N5, IMAT;
 
-         } else if ( LSAMEN( 5, SUBNAM( 2: 6 ), 'LATMS' ) ) {
+         } else if ( lsamen( 5, SUBNAM( 2: 6 ), 'LATMS' ) ) {
 
             WRITE( NOUT, FMT = 9978 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, M, N, IMAT;
 
-         } else if ( LSAMEN( 3, C3, 'CON' ) ) {
+         } else if ( lsamen( 3, C3, 'CON' ) ) {
 
             WRITE( NOUT, FMT = 9969 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, OPTS( 1: 1 ), M, IMAT;
 
-         } else if ( LSAMEN( 3, C3, 'LS ' ) ) {
+         } else if ( lsamen( 3, C3, 'LS ' ) ) {
 
             WRITE( NOUT, FMT = 9965 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, OPTS( 1: 1 ), M, N, KL, N5, IMAT;
 
-         } else if ( LSAMEN( 3, C3, 'LSX' ) || LSAMEN( 3, C3, 'LSS' ) ) {
+         } else if ( lsamen( 3, C3, 'LSX' ) || lsamen( 3, C3, 'LSS' ) ) {
 
             WRITE( NOUT, FMT = 9974 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, M, N, KL, N5, IMAT;
 
@@ -101,11 +101,11 @@
             WRITE( NOUT, FMT = 9963 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, OPTS( 1: 1 ), M, N5, IMAT;
          }
 
-      } else if ( LSAMEN( 2, P2, 'GB' ) ) {
+      } else if ( lsamen( 2, P2, 'GB' ) ) {
 
          // xGB:  General band matrices
 
-         if ( LSAMEN( 3, C3, 'TRF' ) ) {
+         if ( lsamen( 3, C3, 'TRF' ) ) {
             if ( INFO != INFOE && INFOE != 0 ) {
                WRITE( NOUT, FMT = 9989 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, INFOE, M, N, KL, KU, N5, IMAT;
             } else {
@@ -113,7 +113,7 @@
             }
             if (INFO != 0) WRITE( NOUT, FMT = 9949 );
 
-         } else if ( LSAMEN( 3, C3, 'SV ' ) ) {
+         } else if ( lsamen( 3, C3, 'SV ' ) ) {
 
             if ( INFO != INFOE && INFOE != 0 ) {
                WRITE( NOUT, FMT = 9986 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, INFOE, N, KL, KU, N5, IMAT;
@@ -121,7 +121,7 @@
                WRITE( NOUT, FMT = 9972 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, N, KL, KU, N5, IMAT;
             }
 
-         } else if ( LSAMEN( 3, C3, 'SVX' ) ) {
+         } else if ( lsamen( 3, C3, 'SVX' ) ) {
 
             if ( INFO != INFOE && INFOE != 0 ) {
                WRITE( NOUT, FMT = 9993 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, INFOE, OPTS( 1: 1 ), OPTS( 2: 2 ), N, KL, KU, N5, IMAT;
@@ -129,11 +129,11 @@
                WRITE( NOUT, FMT = 9998 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, OPTS( 1: 1 ), OPTS( 2: 2 ), N, KL, KU, N5, IMAT;
             }
 
-         } else if ( LSAMEN( 5, SUBNAM( 2: 6 ), 'LATMS' ) ) {
+         } else if ( lsamen( 5, SUBNAM( 2: 6 ), 'LATMS' ) ) {
 
             WRITE( NOUT, FMT = 9977 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, M, N, KL, KU, IMAT;
 
-         } else if ( LSAMEN( 3, C3, 'CON' ) ) {
+         } else if ( lsamen( 3, C3, 'CON' ) ) {
 
             WRITE( NOUT, FMT = 9968 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, OPTS( 1: 1 ), M, KL, KU, IMAT;
 
@@ -142,11 +142,11 @@
             WRITE( NOUT, FMT = 9964 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, OPTS( 1: 1 ), M, KL, KU, N5, IMAT;
          }
 
-      } else if ( LSAMEN( 2, P2, 'GT' ) ) {
+      } else if ( lsamen( 2, P2, 'GT' ) ) {
 
          // xGT:  General tridiagonal matrices
 
-         if ( LSAMEN( 3, C3, 'TRF' ) ) {
+         if ( lsamen( 3, C3, 'TRF' ) ) {
             if ( INFO != INFOE && INFOE != 0 ) {
                WRITE( NOUT, FMT = 9987 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, INFOE, N, IMAT;
             } else {
@@ -154,7 +154,7 @@
             }
             if (INFO != 0) WRITE( NOUT, FMT = 9949 );
 
-         } else if ( LSAMEN( 3, C3, 'SV ' ) ) {
+         } else if ( lsamen( 3, C3, 'SV ' ) ) {
 
             if ( INFO != INFOE && INFOE != 0 ) {
                WRITE( NOUT, FMT = 9984 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, INFOE, N, N5, IMAT;
@@ -162,7 +162,7 @@
                WRITE( NOUT, FMT = 9970 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, N, N5, IMAT;
             }
 
-         } else if ( LSAMEN( 3, C3, 'SVX' ) ) {
+         } else if ( lsamen( 3, C3, 'SVX' ) ) {
 
             if ( INFO != INFOE && INFOE != 0 ) {
                WRITE( NOUT, FMT = 9992 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, INFOE, OPTS( 1: 1 ), OPTS( 2: 2 ), N, N5, IMAT;
@@ -170,7 +170,7 @@
                WRITE( NOUT, FMT = 9997 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, OPTS( 1: 1 ), OPTS( 2: 2 ), N, N5, IMAT;
             }
 
-         } else if ( LSAMEN( 3, C3, 'CON' ) ) {
+         } else if ( lsamen( 3, C3, 'CON' ) ) {
 
             WRITE( NOUT, FMT = 9969 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, OPTS( 1: 1 ), M, IMAT;
 
@@ -179,12 +179,12 @@
             WRITE( NOUT, FMT = 9963 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, OPTS( 1: 1 ), M, N5, IMAT;
          }
 
-      } else if ( LSAMEN( 2, P2, 'PO' ) ) {
+      } else if ( lsamen( 2, P2, 'PO' ) ) {
 
          // xPO:  Symmetric or Hermitian positive definite matrices
 
          UPLO = OPTS( 1: 1 );
-         if ( LSAMEN( 3, C3, 'TRF' ) ) {
+         if ( lsamen( 3, C3, 'TRF' ) ) {
             if ( INFO != INFOE && INFOE != 0 ) {
                WRITE( NOUT, FMT = 9980 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, INFOE, UPLO, M, N5, IMAT;
             } else {
@@ -192,7 +192,7 @@
             }
             if (INFO != 0) WRITE( NOUT, FMT = 9949 );
 
-         } else if ( LSAMEN( 3, C3, 'SV ' ) ) {
+         } else if ( lsamen( 3, C3, 'SV ' ) ) {
 
             if ( INFO != INFOE && INFOE != 0 ) {
                WRITE( NOUT, FMT = 9979 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, INFOE, UPLO, N, N5, IMAT;
@@ -200,7 +200,7 @@
                WRITE( NOUT, FMT = 9955 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, UPLO, N, N5, IMAT;
             }
 
-         } else if ( LSAMEN( 3, C3, 'SVX' ) ) {
+         } else if ( lsamen( 3, C3, 'SVX' ) ) {
 
             if ( INFO != INFOE && INFOE != 0 ) {
                WRITE( NOUT, FMT = 9990 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, INFOE, OPTS( 1: 1 ), OPTS( 2: 2 ), N, N5, IMAT;
@@ -208,11 +208,11 @@
                WRITE( NOUT, FMT = 9995 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, OPTS( 1: 1 ), OPTS( 2: 2 ), N, N5, IMAT;
             }
 
-         } else if ( LSAMEN( 3, C3, 'TRI' ) ) {
+         } else if ( lsamen( 3, C3, 'TRI' ) ) {
 
             WRITE( NOUT, FMT = 9956 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, UPLO, M, N5, IMAT;
 
-         } else if ( LSAMEN( 5, SUBNAM( 2: 6 ), 'LATMS' ) || LSAMEN( 3, C3, 'CON' ) ) {
+         } else if ( lsamen( 5, SUBNAM( 2: 6 ), 'LATMS' ) || lsamen( 3, C3, 'CON' ) ) {
 
             WRITE( NOUT, FMT = 9960 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, UPLO, M, IMAT;
 
@@ -221,12 +221,12 @@
             WRITE( NOUT, FMT = 9955 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, UPLO, M, N5, IMAT;
          }
 
-      } else if ( LSAMEN( 2, P2, 'PS' ) ) {
+      } else if ( lsamen( 2, P2, 'PS' ) ) {
 
          // xPS:  Symmetric or Hermitian positive semi-definite matrices
 
          UPLO = OPTS( 1: 1 );
-         if ( LSAMEN( 3, C3, 'TRF' ) ) {
+         if ( lsamen( 3, C3, 'TRF' ) ) {
             if ( INFO != INFOE && INFOE != 0 ) {
                WRITE( NOUT, FMT = 9980 )SUBNAM, INFO, INFOE, UPLO, M, N5, IMAT;
             } else {
@@ -234,7 +234,7 @@
             }
             if (INFO != 0) WRITE( NOUT, FMT = 9949 );
 
-         } else if ( LSAMEN( 3, C3, 'SV ' ) ) {
+         } else if ( lsamen( 3, C3, 'SV ' ) ) {
 
             if ( INFO != INFOE && INFOE != 0 ) {
                WRITE( NOUT, FMT = 9979 )SUBNAM, INFO, INFOE, UPLO, N, N5, IMAT;
@@ -242,7 +242,7 @@
                WRITE( NOUT, FMT = 9955 )SUBNAM, INFO, UPLO, N, N5, IMAT;
             }
 
-         } else if ( LSAMEN( 3, C3, 'SVX' ) ) {
+         } else if ( lsamen( 3, C3, 'SVX' ) ) {
 
             if ( INFO != INFOE && INFOE != 0 ) {
                WRITE( NOUT, FMT = 9990 )SUBNAM, INFO, INFOE, OPTS( 1: 1 ), OPTS( 2: 2 ), N, N5, IMAT;
@@ -250,11 +250,11 @@
                WRITE( NOUT, FMT = 9995 )SUBNAM, INFO, OPTS( 1: 1 ), OPTS( 2: 2 ), N, N5, IMAT;
             }
 
-         } else if ( LSAMEN( 3, C3, 'TRI' ) ) {
+         } else if ( lsamen( 3, C3, 'TRI' ) ) {
 
             WRITE( NOUT, FMT = 9956 )SUBNAM, INFO, UPLO, M, N5, IMAT;
 
-         } else if ( LSAMEN( 5, SUBNAM( 2: 6 ), 'LATMT' ) || LSAMEN( 3, C3, 'CON' ) ) {
+         } else if ( lsamen( 5, SUBNAM( 2: 6 ), 'LATMT' ) || lsamen( 3, C3, 'CON' ) ) {
 
             WRITE( NOUT, FMT = 9960 )SUBNAM, INFO, UPLO, M, IMAT;
 
@@ -263,7 +263,7 @@
             WRITE( NOUT, FMT = 9955 )SUBNAM, INFO, UPLO, M, N5, IMAT;
          }
 
-      } else if ( LSAMEN( 2, P2, 'SY' ) || LSAMEN( 2, P2, 'SR' ) || LSAMEN( 2, P2, 'SK' ) || LSAMEN( 2, P2, 'HE' ) || LSAMEN( 2, P2, 'HR' ) || LSAMEN( 2, P2, 'HK' ) || LSAMEN( 2, P2, 'HA' ) ) {
+      } else if ( lsamen( 2, P2, 'SY' ) || lsamen( 2, P2, 'SR' ) || lsamen( 2, P2, 'SK' ) || lsamen( 2, P2, 'HE' ) || lsamen( 2, P2, 'HR' ) || lsamen( 2, P2, 'HK' ) || lsamen( 2, P2, 'HA' ) ) {
 
          // xSY: symmetric indefinite matrices
               // with partial (Bunch-Kaufman) pivoting;
@@ -283,7 +283,7 @@
               // Aasen Algorithm
 
          UPLO = OPTS( 1: 1 );
-         if ( LSAMEN( 3, C3, 'TRF' ) ) {
+         if ( lsamen( 3, C3, 'TRF' ) ) {
             if ( INFO != INFOE && INFOE != 0 ) {
                WRITE( NOUT, FMT = 9980 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, INFOE, UPLO, M, N5, IMAT;
             } else {
@@ -291,7 +291,7 @@
             }
             if (INFO != 0) WRITE( NOUT, FMT = 9949 );
 
-         } else if ( LSAMEN( 2, C3, 'SV' ) ) {
+         } else if ( lsamen( 2, C3, 'SV' ) ) {
 
             if ( INFO != INFOE && INFOE != 0 ) {
                WRITE( NOUT, FMT = 9979 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, INFOE, UPLO, N, N5, IMAT;
@@ -299,7 +299,7 @@
                WRITE( NOUT, FMT = 9955 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, UPLO, N, N5, IMAT;
             }
 
-         } else if ( LSAMEN( 3, C3, 'SVX' ) ) {
+         } else if ( lsamen( 3, C3, 'SVX' ) ) {
 
             if ( INFO != INFOE && INFOE != 0 ) {
                WRITE( NOUT, FMT = 9990 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, INFOE, OPTS( 1: 1 ), OPTS( 2: 2 ), N, N5, IMAT;
@@ -307,7 +307,7 @@
                WRITE( NOUT, FMT = 9995 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, OPTS( 1: 1 ), OPTS( 2: 2 ), N, N5, IMAT;
             }
 
-         } else if ( LSAMEN( 5, SUBNAM( 2: 6 ), 'LATMS' ) || LSAMEN( 3, C3, 'TRI' ) || LSAMEN( 3, C3, 'CON' ) ) {
+         } else if ( lsamen( 5, SUBNAM( 2: 6 ), 'LATMS' ) || lsamen( 3, C3, 'TRI' ) || lsamen( 3, C3, 'CON' ) ) {
 
             WRITE( NOUT, FMT = 9960 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, UPLO, M, IMAT;
 
@@ -316,12 +316,12 @@
             WRITE( NOUT, FMT = 9955 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, UPLO, M, N5, IMAT;
          }
 
-      } else if ( LSAMEN( 2, P2, 'PP' ) || LSAMEN( 2, P2, 'SP' ) || LSAMEN( 2, P2, 'HP' ) ) {
+      } else if ( lsamen( 2, P2, 'PP' ) || lsamen( 2, P2, 'SP' ) || lsamen( 2, P2, 'HP' ) ) {
 
          // xPP, xHP, or xSP:  Symmetric or Hermitian packed matrices
 
          UPLO = OPTS( 1: 1 );
-         if ( LSAMEN( 3, C3, 'TRF' ) ) {
+         if ( lsamen( 3, C3, 'TRF' ) ) {
             if ( INFO != INFOE && INFOE != 0 ) {
                WRITE( NOUT, FMT = 9983 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, INFOE, UPLO, M, IMAT;
             } else {
@@ -329,7 +329,7 @@
             }
             if (INFO != 0) WRITE( NOUT, FMT = 9949 );
 
-         } else if ( LSAMEN( 3, C3, 'SV ' ) ) {
+         } else if ( lsamen( 3, C3, 'SV ' ) ) {
 
             if ( INFO != INFOE && INFOE != 0 ) {
                WRITE( NOUT, FMT = 9979 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, INFOE, UPLO, N, N5, IMAT;
@@ -337,7 +337,7 @@
                WRITE( NOUT, FMT = 9955 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, UPLO, N, N5, IMAT;
             }
 
-         } else if ( LSAMEN( 3, C3, 'SVX' ) ) {
+         } else if ( lsamen( 3, C3, 'SVX' ) ) {
 
             if ( INFO != INFOE && INFOE != 0 ) {
                WRITE( NOUT, FMT = 9990 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, INFOE, OPTS( 1: 1 ), OPTS( 2: 2 ), N, N5, IMAT;
@@ -345,7 +345,7 @@
                WRITE( NOUT, FMT = 9995 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, OPTS( 1: 1 ), OPTS( 2: 2 ), N, N5, IMAT;
             }
 
-         } else if ( LSAMEN( 5, SUBNAM( 2: 6 ), 'LATMS' ) || LSAMEN( 3, C3, 'TRI' ) || LSAMEN( 3, C3, 'CON' ) ) {
+         } else if ( lsamen( 5, SUBNAM( 2: 6 ), 'LATMS' ) || lsamen( 3, C3, 'TRI' ) || lsamen( 3, C3, 'CON' ) ) {
 
             WRITE( NOUT, FMT = 9960 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, UPLO, M, IMAT;
 
@@ -354,12 +354,12 @@
             WRITE( NOUT, FMT = 9955 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, UPLO, M, N5, IMAT;
          }
 
-      } else if ( LSAMEN( 2, P2, 'PB' ) ) {
+      } else if ( lsamen( 2, P2, 'PB' ) ) {
 
          // xPB:  Symmetric (Hermitian) positive definite band matrix
 
          UPLO = OPTS( 1: 1 );
-         if ( LSAMEN( 3, C3, 'TRF' ) ) {
+         if ( lsamen( 3, C3, 'TRF' ) ) {
             if ( INFO != INFOE && INFOE != 0 ) {
                WRITE( NOUT, FMT = 9982 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, INFOE, UPLO, M, KL, N5, IMAT;
             } else {
@@ -367,7 +367,7 @@
             }
             if (INFO != 0) WRITE( NOUT, FMT = 9949 );
 
-         } else if ( LSAMEN( 3, C3, 'SV ' ) ) {
+         } else if ( lsamen( 3, C3, 'SV ' ) ) {
 
             if ( INFO != INFOE && INFOE != 0 ) {
                WRITE( NOUT, FMT = 9981 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, INFOE, UPLO, N, KL, N5, IMAT;
@@ -375,7 +375,7 @@
                WRITE( NOUT, FMT = 9957 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, UPLO, N, KL, N5, IMAT;
             }
 
-         } else if ( LSAMEN( 3, C3, 'SVX' ) ) {
+         } else if ( lsamen( 3, C3, 'SVX' ) ) {
 
             if ( INFO != INFOE && INFOE != 0 ) {
                WRITE( NOUT, FMT = 9991 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, INFOE, OPTS( 1: 1 ), OPTS( 2: 2 ), N, KL, N5, IMAT;
@@ -383,7 +383,7 @@
                WRITE( NOUT, FMT = 9996 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, OPTS( 1: 1 ), OPTS( 2: 2 ), N, KL, N5, IMAT;
             }
 
-         } else if ( LSAMEN( 5, SUBNAM( 2: 6 ), 'LATMS' ) || LSAMEN( 3, C3, 'CON' ) ) {
+         } else if ( lsamen( 5, SUBNAM( 2: 6 ), 'LATMS' ) || lsamen( 3, C3, 'CON' ) ) {
 
             WRITE( NOUT, FMT = 9959 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, UPLO, M, KL, IMAT;
 
@@ -392,11 +392,11 @@
             WRITE( NOUT, FMT = 9957 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, UPLO, M, KL, N5, IMAT;
          }
 
-      } else if ( LSAMEN( 2, P2, 'PT' ) ) {
+      } else if ( lsamen( 2, P2, 'PT' ) ) {
 
          // xPT:  Positive definite tridiagonal matrices
 
-         if ( LSAMEN( 3, C3, 'TRF' ) ) {
+         if ( lsamen( 3, C3, 'TRF' ) ) {
             if ( INFO != INFOE && INFOE != 0 ) {
                WRITE( NOUT, FMT = 9987 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, INFOE, N, IMAT;
             } else {
@@ -404,7 +404,7 @@
             }
             if (INFO != 0) WRITE( NOUT, FMT = 9949 );
 
-         } else if ( LSAMEN( 3, C3, 'SV ' ) ) {
+         } else if ( lsamen( 3, C3, 'SV ' ) ) {
 
             if ( INFO != INFOE && INFOE != 0 ) {
                WRITE( NOUT, FMT = 9984 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, INFOE, N, N5, IMAT;
@@ -412,7 +412,7 @@
                WRITE( NOUT, FMT = 9970 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, N, N5, IMAT;
             }
 
-         } else if ( LSAMEN( 3, C3, 'SVX' ) ) {
+         } else if ( lsamen( 3, C3, 'SVX' ) ) {
 
             if ( INFO != INFOE && INFOE != 0 ) {
                WRITE( NOUT, FMT = 9994 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, INFOE, OPTS( 1: 1 ), N, N5, IMAT;
@@ -420,7 +420,7 @@
                WRITE( NOUT, FMT = 9999 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, OPTS( 1: 1 ), N, N5, IMAT;
             }
 
-         } else if ( LSAMEN( 3, C3, 'CON' ) ) {
+         } else if ( lsamen( 3, C3, 'CON' ) ) {
 
             if( lsame( SUBNAM( 1: 1 ), 'S' ) || lsame( SUBNAM( 1: 1 ), 'D' ) ) {
                WRITE( NOUT, FMT = 9973 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, M, IMAT;
@@ -433,97 +433,97 @@
             WRITE( NOUT, FMT = 9963 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, OPTS( 1: 1 ), M, N5, IMAT;
          }
 
-      } else if ( LSAMEN( 2, P2, 'TR' ) ) {
+      } else if ( lsamen( 2, P2, 'TR' ) ) {
 
          // xTR:  Triangular matrix
 
-         if ( LSAMEN( 3, C3, 'TRI' ) ) {
+         if ( lsamen( 3, C3, 'TRI' ) ) {
             WRITE( NOUT, FMT = 9961 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, OPTS( 1: 1 ), OPTS( 2: 2 ), M, N5, IMAT;
-         } else if ( LSAMEN( 3, C3, 'CON' ) ) {
+         } else if ( lsamen( 3, C3, 'CON' ) ) {
             WRITE( NOUT, FMT = 9967 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, OPTS( 1: 1 ), OPTS( 2: 2 ), OPTS( 3: 3 ), M, IMAT;
-         } else if ( LSAMEN( 5, SUBNAM( 2: 6 ), 'LATRS' ) ) {
+         } else if ( lsamen( 5, SUBNAM( 2: 6 ), 'LATRS' ) ) {
             WRITE( NOUT, FMT = 9952 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, OPTS( 1: 1 ), OPTS( 2: 2 ), OPTS( 3: 3 ), OPTS( 4: 4 ), M, IMAT;
          } else {
             WRITE( NOUT, FMT = 9953 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, OPTS( 1: 1 ), OPTS( 2: 2 ), OPTS( 3: 3 ), M, N5, IMAT;
          }
 
-      } else if ( LSAMEN( 2, P2, 'TP' ) ) {
+      } else if ( lsamen( 2, P2, 'TP' ) ) {
 
          // xTP:  Triangular packed matrix
 
-         if ( LSAMEN( 3, C3, 'TRI' ) ) {
+         if ( lsamen( 3, C3, 'TRI' ) ) {
             WRITE( NOUT, FMT = 9962 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, OPTS( 1: 1 ), OPTS( 2: 2 ), M, IMAT;
-         } else if ( LSAMEN( 3, C3, 'CON' ) ) {
+         } else if ( lsamen( 3, C3, 'CON' ) ) {
             WRITE( NOUT, FMT = 9967 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, OPTS( 1: 1 ), OPTS( 2: 2 ), OPTS( 3: 3 ), M, IMAT;
-         } else if ( LSAMEN( 5, SUBNAM( 2: 6 ), 'LATPS' ) ) {
+         } else if ( lsamen( 5, SUBNAM( 2: 6 ), 'LATPS' ) ) {
             WRITE( NOUT, FMT = 9952 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, OPTS( 1: 1 ), OPTS( 2: 2 ), OPTS( 3: 3 ), OPTS( 4: 4 ), M, IMAT;
          } else {
             WRITE( NOUT, FMT = 9953 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, OPTS( 1: 1 ), OPTS( 2: 2 ), OPTS( 3: 3 ), M, N5, IMAT;
          }
 
-      } else if ( LSAMEN( 2, P2, 'TB' ) ) {
+      } else if ( lsamen( 2, P2, 'TB' ) ) {
 
          // xTB:  Triangular band matrix
 
-         if ( LSAMEN( 3, C3, 'CON' ) ) {
+         if ( lsamen( 3, C3, 'CON' ) ) {
             WRITE( NOUT, FMT = 9966 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, OPTS( 1: 1 ), OPTS( 2: 2 ), OPTS( 3: 3 ), M, KL, IMAT;
-         } else if ( LSAMEN( 5, SUBNAM( 2: 6 ), 'LATBS' ) ) {
+         } else if ( lsamen( 5, SUBNAM( 2: 6 ), 'LATBS' ) ) {
             WRITE( NOUT, FMT = 9951 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, OPTS( 1: 1 ), OPTS( 2: 2 ), OPTS( 3: 3 ), OPTS( 4: 4 ), M, KL, IMAT;
          } else {
             WRITE( NOUT, FMT = 9954 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, OPTS( 1: 1 ), OPTS( 2: 2 ), OPTS( 3: 3 ), M, KL, N5, IMAT;
          }
 
-      } else if ( LSAMEN( 2, P2, 'QR' ) ) {
+      } else if ( lsamen( 2, P2, 'QR' ) ) {
 
          // xQR:  QR factorization
 
-         if ( LSAMEN( 3, C3, 'QRS' ) ) {
+         if ( lsamen( 3, C3, 'QRS' ) ) {
             WRITE( NOUT, FMT = 9974 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, M, N, KL, N5, IMAT;
-         } else if ( LSAMEN( 5, SUBNAM( 2: 6 ), 'LATMS' ) ) {
+         } else if ( lsamen( 5, SUBNAM( 2: 6 ), 'LATMS' ) ) {
             WRITE( NOUT, FMT = 9978 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, M, N, IMAT;
          }
 
-      } else if ( LSAMEN( 2, P2, 'QK' ) ) {
+      } else if ( lsamen( 2, P2, 'QK' ) ) {
 
          // xQK:  truncated QR factorization with pivoting
 
-         if ( LSAMEN( 7, SUBNAM( 2: 8 ), 'GEQP3RK' )  ) {
+         if ( lsamen( 7, SUBNAM( 2: 8 ), 'GEQP3RK' )  ) {
             WRITE( NOUT, FMT = 9930 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, M, N, KL, N5, IMAT;
-         } else if ( LSAMEN( 5, SUBNAM( 2: 6 ), 'LATMS' ) ) {
+         } else if ( lsamen( 5, SUBNAM( 2: 6 ), 'LATMS' ) ) {
             WRITE( NOUT, FMT = 9978 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, M, N, IMAT;
          }
 
-      } else if ( LSAMEN( 2, P2, 'LQ' ) ) {
+      } else if ( lsamen( 2, P2, 'LQ' ) ) {
 
          // xLQ:  LQ factorization
 
-         if ( LSAMEN( 3, C3, 'LQS' ) ) {
+         if ( lsamen( 3, C3, 'LQS' ) ) {
             WRITE( NOUT, FMT = 9974 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, M, N, KL, N5, IMAT;
-         } else if ( LSAMEN( 5, SUBNAM( 2: 6 ), 'LATMS' ) ) {
+         } else if ( lsamen( 5, SUBNAM( 2: 6 ), 'LATMS' ) ) {
             WRITE( NOUT, FMT = 9978 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, M, N, IMAT;
          }
 
-      } else if ( LSAMEN( 2, P2, 'QL' ) ) {
+      } else if ( lsamen( 2, P2, 'QL' ) ) {
 
          // xQL:  QL factorization
 
-         if ( LSAMEN( 3, C3, 'QLS' ) ) {
+         if ( lsamen( 3, C3, 'QLS' ) ) {
             WRITE( NOUT, FMT = 9974 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, M, N, KL, N5, IMAT;
-         } else if ( LSAMEN( 5, SUBNAM( 2: 6 ), 'LATMS' ) ) {
+         } else if ( lsamen( 5, SUBNAM( 2: 6 ), 'LATMS' ) ) {
             WRITE( NOUT, FMT = 9978 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, M, N, IMAT;
          }
 
-      } else if ( LSAMEN( 2, P2, 'RQ' ) ) {
+      } else if ( lsamen( 2, P2, 'RQ' ) ) {
 
          // xRQ:  RQ factorization
 
-         if ( LSAMEN( 3, C3, 'RQS' ) ) {
+         if ( lsamen( 3, C3, 'RQS' ) ) {
             WRITE( NOUT, FMT = 9974 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, M, N, KL, N5, IMAT;
-         } else if ( LSAMEN( 5, SUBNAM( 2: 6 ), 'LATMS' ) ) {
+         } else if ( lsamen( 5, SUBNAM( 2: 6 ), 'LATMS' ) ) {
             WRITE( NOUT, FMT = 9978 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, M, N, IMAT;
          }
 
-      } else if ( LSAMEN( 2, P2, 'LU' ) ) {
+      } else if ( lsamen( 2, P2, 'LU' ) ) {
 
          if ( INFO != INFOE && INFOE != 0 ) {
             WRITE( NOUT, FMT = 9988 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, INFOE, M, N, N5, IMAT;
@@ -531,7 +531,7 @@
             WRITE( NOUT, FMT = 9975 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, M, N, N5, IMAT;
          }
 
-      } else if ( LSAMEN( 2, P2, 'CH' ) ) {
+      } else if ( lsamen( 2, P2, 'CH' ) ) {
 
          if ( INFO != INFOE && INFOE != 0 ) {
             WRITE( NOUT, FMT = 9985 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, INFOE, M, N5, IMAT;

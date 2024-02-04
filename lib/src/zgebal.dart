@@ -189,7 +189,7 @@
 
             // Exit if NaN to avoid infinite loop
 
-            if ( DISNAN( C+CA+R+RA ) ) {
+            if ( disnan( C+CA+R+RA ) ) {
                INFO = -3;
                xerbla('ZGEBAL', -INFO );
                return;

@@ -1,3 +1,11 @@
+import 'dart:math';
+
+import 'package:lapack/src/blas/lsame.dart';
+import 'package:lapack/src/box.dart';
+import 'package:lapack/src/ilaenv.dart';
+import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/xerbla.dart';
+
       void dlasq3(I0, N0, Z, PP, DMIN, SIGMA, DESIG, QMAX, NFAIL, ITER, NDIV, IEEE, TTYPE, DMIN1, DMIN2, DN, DN1, DN2, G, TAU ) {
 
 // -- LAPACK computational routine --
@@ -177,7 +185,7 @@
             TTYPE = TTYPE - 12;
          }
          GO TO 70;
-      } else if ( DISNAN( DMIN ) ) {
+      } else if ( disnan( DMIN ) ) {
 
          // NaN.
 

@@ -68,7 +68,7 @@
       ANRM = 1.0;
       OK = true;
 
-      if ( LSAMEN( 2, C2, 'HE' ) ) {
+      if ( lsamen( 2, C2, 'HE' ) ) {
 
          // Test error exits of the routines that use factorization
          // of a Hermitian indefinite matrix with partial
@@ -205,7 +205,7 @@
          zhecon('U', 1, A, 1, IP, -ANRM, RCOND, W, INFO );
          chkxer('ZHECON', INFOT, NOUT, LERR, OK );
 
-      } else if ( LSAMEN( 2, C2, 'HR' ) ) {
+      } else if ( lsamen( 2, C2, 'HR' ) ) {
 
          // Test error exits of the routines that use factorization
          // of a Hermitian indefinite matrix with rook
@@ -291,7 +291,7 @@
          zhecon_rook('U', 1, A, 1, IP, -ANRM, RCOND, W, INFO );
          chkxer('ZHECON_ROOK', INFOT, NOUT, LERR, OK );
 
-      } else if ( LSAMEN( 2, C2, 'HK' ) ) {
+      } else if ( lsamen( 2, C2, 'HK' ) ) {
 
          // Test error exits of the routines that use factorization
          // of a symmetric indefinite matrix with rook
@@ -403,7 +403,7 @@
          // Test error exits of the routines that use factorization
          // of a Hermitian indefinite matrix with Aasen's algorithm.
 
-      } else if ( LSAMEN( 2, C2, 'HA' ) ) {
+      } else if ( lsamen( 2, C2, 'HA' ) ) {
 
          // ZHETRF_AA
 
@@ -449,7 +449,7 @@
          zhetrs_aa('U', 0, 1, A, 1, IP, B, 1, W, -2, INFO );
          chkxer('ZHETRS_AA', INFOT, NOUT, LERR, OK );
 
-      } else if ( LSAMEN( 2, C2, 'S2' ) ) {
+      } else if ( lsamen( 2, C2, 'S2' ) ) {
 
          // Test error exits of the routines that use factorization
          // of a symmetric indefinite matrix with Aasen's algorithm.
@@ -495,7 +495,7 @@
          zhetrs_aa_2stage('U', 2, 1, A, 2, A, 8, IP, IP, B, 1, INFO );
          chkxer('ZHETRS_AA_STAGE', INFOT, NOUT, LERR, OK );
 
-      } else if ( LSAMEN( 2, C2, 'HP' ) ) {
+      } else if ( lsamen( 2, C2, 'HP' ) ) {
 
          // Test error exits of the routines that use factorization
          // of a Hermitian indefinite packed matrix with partial

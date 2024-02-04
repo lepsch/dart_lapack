@@ -116,29 +116,29 @@
 
       READ( NIN, FMT = '(A80)', END = 380 )LINE;
       PATH = LINE( 1: 3 );
-      NEP = LSAMEN( 3, PATH, 'NEP' ) || LSAMEN( 3, PATH, 'CHS' );
-      SEP = LSAMEN( 3, PATH, 'SEP' ) || LSAMEN( 3, PATH, 'CST' ) || LSAMEN( 3, PATH, 'CSG' ) || LSAMEN( 3, PATH, 'SE2' );
-      SVD = LSAMEN( 3, PATH, 'SVD' ) || LSAMEN( 3, PATH, 'CBD' );
-      CEV = LSAMEN( 3, PATH, 'CEV' );
-      CES = LSAMEN( 3, PATH, 'CES' );
-      CVX = LSAMEN( 3, PATH, 'CVX' );
-      CSX = LSAMEN( 3, PATH, 'CSX' );
-      CGG = LSAMEN( 3, PATH, 'CGG' );
-      CGS = LSAMEN( 3, PATH, 'CGS' );
-      CGX = LSAMEN( 3, PATH, 'CGX' );
-      CGV = LSAMEN( 3, PATH, 'CGV' );
-      CXV = LSAMEN( 3, PATH, 'CXV' );
-      CHB = LSAMEN( 3, PATH, 'CHB' );
-      CBB = LSAMEN( 3, PATH, 'CBB' );
-      GLM = LSAMEN( 3, PATH, 'GLM' );
-      GQR = LSAMEN( 3, PATH, 'GQR' ) || LSAMEN( 3, PATH, 'GRQ' );
-      GSV = LSAMEN( 3, PATH, 'GSV' );
-      CSD = LSAMEN( 3, PATH, 'CSD' );
-      LSE = LSAMEN( 3, PATH, 'LSE' );
-      CBL = LSAMEN( 3, PATH, 'CBL' );
-      CBK = LSAMEN( 3, PATH, 'CBK' );
-      CGL = LSAMEN( 3, PATH, 'CGL' );
-      CGK = LSAMEN( 3, PATH, 'CGK' );
+      NEP = lsamen( 3, PATH, 'NEP' ) || lsamen( 3, PATH, 'CHS' );
+      SEP = lsamen( 3, PATH, 'SEP' ) || lsamen( 3, PATH, 'CST' ) || lsamen( 3, PATH, 'CSG' ) || lsamen( 3, PATH, 'SE2' );
+      SVD = lsamen( 3, PATH, 'SVD' ) || lsamen( 3, PATH, 'CBD' );
+      CEV = lsamen( 3, PATH, 'CEV' );
+      CES = lsamen( 3, PATH, 'CES' );
+      CVX = lsamen( 3, PATH, 'CVX' );
+      CSX = lsamen( 3, PATH, 'CSX' );
+      CGG = lsamen( 3, PATH, 'CGG' );
+      CGS = lsamen( 3, PATH, 'CGS' );
+      CGX = lsamen( 3, PATH, 'CGX' );
+      CGV = lsamen( 3, PATH, 'CGV' );
+      CXV = lsamen( 3, PATH, 'CXV' );
+      CHB = lsamen( 3, PATH, 'CHB' );
+      CBB = lsamen( 3, PATH, 'CBB' );
+      GLM = lsamen( 3, PATH, 'GLM' );
+      GQR = lsamen( 3, PATH, 'GQR' ) || lsamen( 3, PATH, 'GRQ' );
+      GSV = lsamen( 3, PATH, 'GSV' );
+      CSD = lsamen( 3, PATH, 'CSD' );
+      LSE = lsamen( 3, PATH, 'LSE' );
+      CBL = lsamen( 3, PATH, 'CBL' );
+      CBK = lsamen( 3, PATH, 'CBK' );
+      CGL = lsamen( 3, PATH, 'CGL' );
+      CGK = lsamen( 3, PATH, 'CGK' );
 
       // Report values of parameters.
 
@@ -206,7 +206,7 @@
 
          cchkgk(NIN, NOUT );
          GO TO 380;
-      } else if ( LSAMEN( 3, PATH, 'CEC' ) ) {
+      } else if ( lsamen( 3, PATH, 'CEC' ) ) {
 
          // CEC:  Eigencondition estimation
 
@@ -731,7 +731,7 @@
          } // 250
       }
 
-      if ( LSAMEN( 3, C3, 'CHS' ) || LSAMEN( 3, C3, 'NEP' ) ) {
+      if ( lsamen( 3, C3, 'CHS' ) || lsamen( 3, C3, 'NEP' ) ) {
 
          // -------------------------------------
          // NEP:  Nonsymmetric Eigenvalue Problem
@@ -768,7 +768,7 @@
             if (INFO != 0) WRITE( NOUT, FMT = 9980 )'CCHKHS', INFO;
          } // 270
 
-      } else if ( LSAMEN( 3, C3, 'CST' ) || LSAMEN( 3, C3, 'SEP' ) || LSAMEN( 3, C3, 'SE2' ) ) {
+      } else if ( lsamen( 3, C3, 'CST' ) || lsamen( 3, C3, 'SEP' ) || lsamen( 3, C3, 'SE2' ) ) {
 
          // ----------------------------------
          // SEP:  Symmetric Eigenvalue Problem
@@ -806,7 +806,7 @@
             }
             WRITE( NOUT, FMT = 9997 )C3, NBVAL( I ), NBMIN( I ), NXVAL( I );
             if ( TSTCHK ) {
-               if ( LSAMEN( 3, C3, 'SE2' ) ) {
+               if ( lsamen( 3, C3, 'SE2' ) ) {
                cchkst2stg(NN, NVAL, MAXTYP, DOTYPE, ISEED, THRESH, NOUT, A( 1, 1 ), NMAX, A( 1, 2 ), DR( 1, 1 ), DR( 1, 2 ), DR( 1, 3 ), DR( 1, 4 ), DR( 1, 5 ), DR( 1, 6 ), DR( 1, 7 ), DR( 1, 8 ), DR( 1, 9 ), DR( 1, 10 ), DR( 1, 11 ), A( 1, 3 ), NMAX, A( 1, 4 ), A( 1, 5 ), DC( 1, 1 ), A( 1, 6 ), WORK, LWORK, RWORK, LWORK, IWORK, LIWORK, RESULT, INFO );
                } else {
                cchkst(NN, NVAL, MAXTYP, DOTYPE, ISEED, THRESH, NOUT, A( 1, 1 ), NMAX, A( 1, 2 ), DR( 1, 1 ), DR( 1, 2 ), DR( 1, 3 ), DR( 1, 4 ), DR( 1, 5 ), DR( 1, 6 ), DR( 1, 7 ), DR( 1, 8 ), DR( 1, 9 ), DR( 1, 10 ), DR( 1, 11 ), A( 1, 3 ), NMAX, A( 1, 4 ), A( 1, 5 ), DC( 1, 1 ), A( 1, 6 ), WORK, LWORK, RWORK, LWORK, IWORK, LIWORK, RESULT, INFO );
@@ -814,7 +814,7 @@
                if (INFO != 0) WRITE( NOUT, FMT = 9980 )'CCHKST', INFO;
             }
             if ( TSTDRV ) {
-               if ( LSAMEN( 3, C3, 'SE2' ) ) {
+               if ( lsamen( 3, C3, 'SE2' ) ) {
                cdrvst2stg(NN, NVAL, 18, DOTYPE, ISEED, THRESH, NOUT, A( 1, 1 ), NMAX, DR( 1, 3 ), DR( 1, 4 ), DR( 1, 5 ), DR( 1, 8 ), DR( 1, 9 ), DR( 1, 10 ), A( 1, 2 ), NMAX, A( 1, 3 ), DC( 1, 1 ), A( 1, 4 ), WORK, LWORK, RWORK, LWORK, IWORK, LIWORK, RESULT, INFO );
                } else {
                cdrvst(NN, NVAL, 18, DOTYPE, ISEED, THRESH, NOUT, A( 1, 1 ), NMAX, DR( 1, 3 ), DR( 1, 4 ), DR( 1, 5 ), DR( 1, 8 ), DR( 1, 9 ), DR( 1, 10 ), A( 1, 2 ), NMAX, A( 1, 3 ), DC( 1, 1 ), A( 1, 4 ), WORK, LWORK, RWORK, LWORK, IWORK, LIWORK, RESULT, INFO );
@@ -823,7 +823,7 @@
             }
          } // 290
 
-      } else if ( LSAMEN( 3, C3, 'CSG' ) ) {
+      } else if ( lsamen( 3, C3, 'CSG' ) ) {
 
          // ----------------------------------------------
          // CSG:  Hermitian Generalized Eigenvalue Problem
@@ -860,7 +860,7 @@
             }
          } // 310
 
-      } else if ( LSAMEN( 3, C3, 'CBD' ) || LSAMEN( 3, C3, 'SVD' ) ) {
+      } else if ( lsamen( 3, C3, 'CBD' ) || lsamen( 3, C3, 'SVD' ) ) {
 
          // ----------------------------------
          // SVD:  Singular Value Decomposition
@@ -900,7 +900,7 @@
             if (TSTDRV) cdrvbd( NN, MVAL, NVAL, MAXTYP, DOTYPE, ISEED, THRESH, A( 1, 1 ), NMAX, A( 1, 2 ), NMAX, A( 1, 3 ), NMAX, A( 1, 4 ), A( 1, 5 ), A( 1, 6 ), DR( 1, 1 ), DR( 1, 2 ), DR( 1, 3 ), WORK, LWORK, RWORK, IWORK, NOUT, INFO );
          } // 330
 
-      } else if ( LSAMEN( 3, C3, 'CEV' ) ) {
+      } else if ( lsamen( 3, C3, 'CEV' ) ) {
 
          // --------------------------------------------
          // CEV:  Nonsymmetric Eigenvalue Problem Driver
@@ -920,7 +920,7 @@
          WRITE( NOUT, FMT = 9973 );
          GO TO 10;
 
-      } else if ( LSAMEN( 3, C3, 'CES' ) ) {
+      } else if ( lsamen( 3, C3, 'CES' ) ) {
 
          // --------------------------------------------
          // CES:  Nonsymmetric Eigenvalue Problem Driver
@@ -940,7 +940,7 @@
          WRITE( NOUT, FMT = 9973 );
          GO TO 10;
 
-      } else if ( LSAMEN( 3, C3, 'CVX' ) ) {
+      } else if ( lsamen( 3, C3, 'CVX' ) ) {
 
          // --------------------------------------------------------------
          // CVX:  Nonsymmetric Eigenvalue Problem Expert Driver
@@ -960,7 +960,7 @@
          WRITE( NOUT, FMT = 9973 );
          GO TO 10;
 
-      } else if ( LSAMEN( 3, C3, 'CSX' ) ) {
+      } else if ( lsamen( 3, C3, 'CSX' ) ) {
 
          // ---------------------------------------------------
          // CSX:  Nonsymmetric Eigenvalue Problem Expert Driver
@@ -980,7 +980,7 @@
          WRITE( NOUT, FMT = 9973 );
          GO TO 10;
 
-      } else if ( LSAMEN( 3, C3, 'CGG' ) ) {
+      } else if ( lsamen( 3, C3, 'CGG' ) ) {
 
          // -------------------------------------------------
          // CGG:  Generalized Nonsymmetric Eigenvalue Problem
@@ -1020,7 +1020,7 @@
             }
          } // 350
 
-      } else if ( LSAMEN( 3, C3, 'CGS' ) ) {
+      } else if ( lsamen( 3, C3, 'CGS' ) ) {
 
          // -------------------------------------------------
          // CGS:  Generalized Nonsymmetric Eigenvalue Problem
@@ -1070,7 +1070,7 @@
          WRITE( NOUT, FMT = 9973 );
          GO TO 10;
 
-      } else if ( LSAMEN( 3, C3, 'CGV' ) ) {
+      } else if ( lsamen( 3, C3, 'CGV' ) ) {
 
          // -------------------------------------------------
          // CGV:  Generalized Nonsymmetric Eigenvalue Problem
@@ -1117,7 +1117,7 @@
          WRITE( NOUT, FMT = 9973 );
          GO TO 10;
 
-      } else if ( LSAMEN( 3, C3, 'CHB' ) ) {
+      } else if ( lsamen( 3, C3, 'CHB' ) ) {
 
          // ------------------------------
          // CHB:  Hermitian Band Reduction
@@ -1144,7 +1144,7 @@
          cchkhb2stg(NN, NVAL, NK, KVAL, MAXTYP, DOTYPE, ISEED, THRESH, NOUT, A( 1, 1 ), NMAX, DR( 1, 1 ), DR( 1, 2 ), DR( 1, 3 ), DR( 1, 4 ), DR( 1, 5 ), A( 1, 2 ), NMAX, WORK, LWORK, RWORK, RESULT, INFO );
          if (INFO != 0) WRITE( NOUT, FMT = 9980 )'CCHKHB', INFO;
 
-      } else if ( LSAMEN( 3, C3, 'CBB' ) ) {
+      } else if ( lsamen( 3, C3, 'CBB' ) ) {
 
          // ------------------------------
          // CBB:  General Band Reduction
@@ -1166,7 +1166,7 @@
             if (INFO != 0) WRITE( NOUT, FMT = 9980 )'CCHKBB', INFO;
          } // 370
 
-      } else if ( LSAMEN( 3, C3, 'GLM' ) ) {
+      } else if ( lsamen( 3, C3, 'GLM' ) ) {
 
          // -----------------------------------------
          // GLM:  Generalized Linear Regression Model
@@ -1177,7 +1177,7 @@
          cckglm(NN, NVAL, MVAL, PVAL, NTYPES, ISEED, THRESH, NMAX, A( 1, 1 ), A( 1, 2 ), B( 1, 1 ), B( 1, 2 ), X, WORK, DR( 1, 1 ), NIN, NOUT, INFO );
          if (INFO != 0) WRITE( NOUT, FMT = 9980 )'CCKGLM', INFO;
 
-      } else if ( LSAMEN( 3, C3, 'GQR' ) ) {
+      } else if ( lsamen( 3, C3, 'GQR' ) ) {
 
          // ------------------------------------------
          // GQR:  Generalized QR and RQ factorizations
@@ -1188,7 +1188,7 @@
          cckgqr(NN, MVAL, NN, PVAL, NN, NVAL, NTYPES, ISEED, THRESH, NMAX, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), A( 1, 4 ), TAUA, B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), B( 1, 4 ), B( 1, 5 ), TAUB, WORK, DR( 1, 1 ), NIN, NOUT, INFO );
          if (INFO != 0) WRITE( NOUT, FMT = 9980 )'CCKGQR', INFO;
 
-      } else if ( LSAMEN( 3, C3, 'GSV' ) ) {
+      } else if ( lsamen( 3, C3, 'GSV' ) ) {
 
          // ----------------------------------------------
          // GSV:  Generalized Singular Value Decomposition
@@ -1199,7 +1199,7 @@
          cckgsv(NN, MVAL, PVAL, NVAL, NTYPES, ISEED, THRESH, NMAX, A( 1, 1 ), A( 1, 2 ), B( 1, 1 ), B( 1, 2 ), A( 1, 3 ), B( 1, 3 ), A( 1, 4 ), ALPHA, BETA, B( 1, 4 ), IWORK, WORK, DR( 1, 1 ), NIN, NOUT, INFO );
          if (INFO != 0) WRITE( NOUT, FMT = 9980 )'CCKGSV', INFO;
 
-      } else if ( LSAMEN( 3, C3, 'CSD' ) ) {
+      } else if ( lsamen( 3, C3, 'CSD' ) ) {
 
          // ----------------------------------------------
          // CSD:  CS Decomposition
@@ -1210,7 +1210,7 @@
          cckcsd(NN, MVAL, PVAL, NVAL, NTYPES, ISEED, THRESH, NMAX, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), A( 1, 4 ), A( 1, 5 ), A( 1, 6 ), RWORK, IWORK, WORK, DR( 1, 1 ), NIN, NOUT, INFO );
          if (INFO != 0) WRITE( NOUT, FMT = 9980 )'CCKCSD', INFO;
 
-      } else if ( LSAMEN( 3, C3, 'LSE' ) ) {
+      } else if ( lsamen( 3, C3, 'LSE' ) ) {
 
          // --------------------------------------
          // LSE:  Constrained Linear Least Squares

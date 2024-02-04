@@ -1,3 +1,11 @@
+import 'dart:math';
+
+import 'package:lapack/src/blas/lsame.dart';
+import 'package:lapack/src/box.dart';
+import 'package:lapack/src/ilaenv.dart';
+import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/xerbla.dart';
+
       int dlaneg(N, D, LLD, SIGMA, PIVMIN, R ) {
 
 // -- LAPACK auxiliary routine --
@@ -52,7 +60,7 @@
             TMP = T / DPLUS;
             T = TMP * LLD( J ) - SIGMA;
          } // 21
-         SAWNAN = DISNAN( T );
+         SAWNAN = disnan( T );
       // Run a slower version of the above loop if a NaN is detected.
       // A NaN should occur only with a zero pivot after an infinite
       // pivot.  In that case, substituting 1 for T/DPLUS is the
@@ -64,7 +72,7 @@
                DPLUS = D( J ) + T;
                if (DPLUS < ZERO) NEG1 = NEG1 + 1;
                TMP = T / DPLUS;
-               if (DISNAN(TMP)) TMP = ONE;
+               if (disnan(TMP)) TMP = ONE;
                T = TMP * LLD(J) - SIGMA;
             } // 22
          }
@@ -82,7 +90,7 @@
             TMP = P / DMINUS;
             P = TMP * D( J ) - SIGMA;
          } // 23
-         SAWNAN = DISNAN( P );
+         SAWNAN = disnan( P );
       // As above, run a slower version that substitutes 1 for Inf/Inf.
 
          if ( SAWNAN ) {
@@ -92,7 +100,7 @@
                DMINUS = LLD( J ) + P;
                if (DMINUS < ZERO) NEG2 = NEG2 + 1;
                TMP = P / DMINUS;
-               if (DISNAN(TMP)) TMP = ONE;
+               if (disnan(TMP)) TMP = ONE;
                P = TMP * D(J) - SIGMA;
             } // 24
          }

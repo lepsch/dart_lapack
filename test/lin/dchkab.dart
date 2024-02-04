@@ -205,7 +205,7 @@
          WRITE( NOUT, FMT = 9989 )PATH;
          GO TO 140;
 
-      } else if ( LSAMEN( 2, C2, 'GE' ) ) {
+      } else if ( lsamen( 2, C2, 'GE' ) ) {
 
          // GE:  general matrices
 
@@ -222,7 +222,7 @@
             WRITE( NOUT, FMT = 9989 )'DSGESV';
          }
 
-      } else if ( LSAMEN( 2, C2, 'PO' ) ) {
+      } else if ( lsamen( 2, C2, 'PO' ) ) {
 
          // PO:  positive definite matrices
 

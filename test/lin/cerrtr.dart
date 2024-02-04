@@ -53,7 +53,7 @@
 
       // Test error exits for the general triangular routines.
 
-      if ( LSAMEN( 2, C2, 'TR' ) ) {
+      if ( lsamen( 2, C2, 'TR' ) ) {
 
          // CTRTRI
 
@@ -210,7 +210,7 @@
 
       // Test error exits for the packed triangular routines.
 
-      } else if ( LSAMEN( 2, C2, 'TP' ) ) {
+      } else if ( lsamen( 2, C2, 'TP' ) ) {
 
          // CTPTRI
 
@@ -309,7 +309,7 @@
 
       // Test error exits for the banded triangular routines.
 
-      } else if ( LSAMEN( 2, C2, 'TB' ) ) {
+      } else if ( lsamen( 2, C2, 'TB' ) ) {
 
          // CTBTRS
 

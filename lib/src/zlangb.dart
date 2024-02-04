@@ -45,7 +45,7 @@
          for (J = 1; J <= N; J++) { // 20
             for (I = max( KU+2-J, 1 ); I <= min( N+KU+1-J, KL+KU+1 ); I++) { // 10
                TEMP = ( AB( I, J ) ).abs();
-               if( VALUE < TEMP || DISNAN( TEMP ) ) VALUE = TEMP;
+               if( VALUE < TEMP || disnan( TEMP ) ) VALUE = TEMP;
             } // 10
          } // 20
       } else if ( ( lsame( NORM, 'O' ) ) || ( NORM == '1' ) ) {
@@ -58,7 +58,7 @@
             for (I = max( KU+2-J, 1 ); I <= min( N+KU+1-J, KL+KU+1 ); I++) { // 30
                SUM = SUM + ( AB( I, J ) ).abs();
             } // 30
-            if( VALUE < SUM || DISNAN( SUM ) ) VALUE = SUM;
+            if( VALUE < SUM || disnan( SUM ) ) VALUE = SUM;
          } // 40
       } else if ( lsame( NORM, 'I' ) ) {
 
@@ -76,7 +76,7 @@
          VALUE = ZERO;
          for (I = 1; I <= N; I++) { // 80
             TEMP = WORK( I );
-            if( VALUE < TEMP || DISNAN( TEMP ) ) VALUE = TEMP;
+            if( VALUE < TEMP || disnan( TEMP ) ) VALUE = TEMP;
          } // 80
       } else if ( ( lsame( NORM, 'F' ) ) || ( lsame( NORM, 'E' ) ) ) {
 

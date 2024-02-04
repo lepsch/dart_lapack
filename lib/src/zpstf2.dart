@@ -75,7 +75,7 @@
       } // 110
       PVT = MAXLOC( WORK( 1:N ), 1 );
       AJJ = (A( PVT, PVT )).toDouble();
-      if ( AJJ <= ZERO || DISNAN( AJJ ) ) {
+      if ( AJJ <= ZERO || disnan( AJJ ) ) {
          RANK = 0;
          INFO = 1;
          GO TO 200;
@@ -118,7 +118,7 @@
                ITEMP = MAXLOC( WORK( (N+J):(2*N) ), 1 );
                PVT = ITEMP + J - 1;
                AJJ = WORK( N+PVT );
-               if ( AJJ <= DSTOP || DISNAN( AJJ ) ) {
+               if ( AJJ <= DSTOP || disnan( AJJ ) ) {
                   A[J, J] = AJJ;
                   GO TO 190;
                }
@@ -185,7 +185,7 @@
                ITEMP = MAXLOC( WORK( (N+J):(2*N) ), 1 );
                PVT = ITEMP + J - 1;
                AJJ = WORK( N+PVT );
-               if ( AJJ <= DSTOP || DISNAN( AJJ ) ) {
+               if ( AJJ <= DSTOP || disnan( AJJ ) ) {
                   A[J, J] = AJJ;
                   GO TO 190;
                }

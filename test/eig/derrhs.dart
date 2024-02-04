@@ -63,7 +63,7 @@
 
       // Test error exits of the nonsymmetric eigenvalue routines.
 
-      if ( LSAMEN( 2, C2, 'HS' ) ) {
+      if ( lsamen( 2, C2, 'HS' ) ) {
 
          // DGEBAL
 

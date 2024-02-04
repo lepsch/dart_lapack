@@ -90,11 +90,11 @@
          slacpy('ALL', KL+KU+1, N, AB, LDAB, ABCOPY, LDAB);
 
          // Call S**SVXX with default PARAMS and N_ERR_BND = 3.
-         if ( LSAMEN( 2, C2, 'SY' ) ) {
+         if ( lsamen( 2, C2, 'SY' ) ) {
             ssysvxx(FACT, UPLO, N, NRHS, ACOPY, LDA, AF, LDA, IPIV, EQUED, S, B, LDA, X, LDA, ORCOND, RPVGRW, BERR, NERRBND, ERRBND_N, ERRBND_C, NPARAMS, PARAMS, WORK, IWORK, INFO);
-         } else if ( LSAMEN( 2, C2, 'PO' ) ) {
+         } else if ( lsamen( 2, C2, 'PO' ) ) {
             sposvxx(FACT, UPLO, N, NRHS, ACOPY, LDA, AF, LDA, EQUED, S, B, LDA, X, LDA, ORCOND, RPVGRW, BERR, NERRBND, ERRBND_N, ERRBND_C, NPARAMS, PARAMS, WORK, IWORK, INFO);
-         } else if ( LSAMEN( 2, C2, 'GB' ) ) {
+         } else if ( lsamen( 2, C2, 'GB' ) ) {
             sgbsvxx(FACT, TRANS, N, KL, KU, NRHS, ABCOPY, LDAB, AFB, LDAFB, IPIV, EQUED, R, C, B, LDA, X, LDA, ORCOND, RPVGRW, BERR, NERRBND, ERRBND_N, ERRBND_C, NPARAMS, PARAMS, WORK, IWORK, INFO);
          } else {
             sgesvxx(FACT, TRANS, N, NRHS, ACOPY, LDA, AF, LDA, IPIV, EQUED, R, C, B, LDA, X, LDA, ORCOND, RPVGRW, BERR, NERRBND, ERRBND_N, ERRBND_C, NPARAMS, PARAMS, WORK, IWORK, INFO);
@@ -127,7 +127,7 @@
          // Calculating the RCOND
          RNORM = 0;
          RINORM = 0;
-         if ( LSAMEN( 2, C2, 'PO' ) || LSAMEN( 2, C2, 'SY' ) ) {
+         if ( lsamen( 2, C2, 'PO' ) || lsamen( 2, C2, 'SY' ) ) {
             for (I = 1; I <= N; I++) {
                SUMR = 0;
                SUMRI = 0;
@@ -138,7 +138,7 @@
                RNORM = max(RNORM,SUMR);
                RINORM = max(RINORM,SUMRI);
             }
-         } else if ( LSAMEN( 2, C2, 'GE' ) || LSAMEN( 2, C2, 'GB' ) ) {
+         } else if ( lsamen( 2, C2, 'GE' ) || lsamen( 2, C2, 'GB' ) ) {
             for (I = 1; I <= N; I++) {
                SUMR = 0;
                SUMRI = 0;

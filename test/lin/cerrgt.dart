@@ -54,7 +54,7 @@
       ANORM = 1.0;
       OK = true;
 
-      if ( LSAMEN( 2, C2, 'GT' ) ) {
+      if ( lsamen( 2, C2, 'GT' ) ) {
 
          // Test error exits for the general tridiagonal routines.
 
@@ -113,7 +113,7 @@
          cgtcon('I', 0, DL, E, DU, DU2, IP, -ANORM, RCOND, W, INFO );
          chkxer('CGTCON', INFOT, NOUT, LERR, OK );
 
-      } else if ( LSAMEN( 2, C2, 'PT' ) ) {
+      } else if ( lsamen( 2, C2, 'PT' ) ) {
 
          // Test error exits for the positive definite tridiagonal
          // routines.

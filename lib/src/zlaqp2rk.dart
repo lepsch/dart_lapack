@@ -105,7 +105,7 @@
             // matrix is larger than 1, since the condition for whole
             // original matrix is checked in the main routine.
 
-            if ( DISNAN( MAXC2NRMK ) ) {
+            if ( disnan( MAXC2NRMK ) ) {
 
                // Set K, the number of factorized columns.
                // that are not zero.
@@ -250,15 +250,15 @@
          // TAU(KK) to contain NaN. Therefore, this case of generating Inf
          // by ZLARFG is covered by checking TAU(KK) for NaN.
 
-         if ( DISNAN( (TAU(KK)).toDouble() ) ) {
+         if ( disnan( (TAU(KK)).toDouble() ) ) {
             TAUNAN = (TAU(KK)).toDouble();
-         } else if ( DISNAN( DIMAG( TAU(KK) ) ) ) {
+         } else if ( disnan( DIMAG( TAU(KK) ) ) ) {
             TAUNAN = DIMAG( TAU(KK) );
          } else {
             TAUNAN = ZERO;
          }
 
-         if ( DISNAN( TAUNAN ) ) {
+         if ( disnan( TAUNAN ) ) {
             K = KK - 1;
             INFO = KK;
 

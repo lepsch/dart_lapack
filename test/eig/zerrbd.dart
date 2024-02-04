@@ -60,7 +60,7 @@
 
       // Test error exits of the SVD routines.
 
-      if ( LSAMEN( 2, C2, 'BD' ) ) {
+      if ( lsamen( 2, C2, 'BD' ) ) {
 
          // ZGEBRD
 

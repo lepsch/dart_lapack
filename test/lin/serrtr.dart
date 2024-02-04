@@ -51,7 +51,7 @@
       A[2, 1] = 4.;
       OK = true;
 
-      if ( LSAMEN( 2, C2, 'TR' ) ) {
+      if ( lsamen( 2, C2, 'TR' ) ) {
 
          // Test error exits for the general triangular routines.
 
@@ -212,7 +212,7 @@
          slatrs3('U', 'N', 'N', 'N', 1, 0, A, 1, X, 1, SCALES, W, W( 2 ), 0, INFO );
          chkxer('SLATRS3', INFOT, NOUT, LERR, OK );
 
-      } else if ( LSAMEN( 2, C2, 'TP' ) ) {
+      } else if ( lsamen( 2, C2, 'TP' ) ) {
 
          // Test error exits for the packed triangular routines.
 
@@ -311,7 +311,7 @@
          slatps('U', 'N', 'N', 'N', -1, A, X, SCALE, W, INFO );
          chkxer('SLATPS', INFOT, NOUT, LERR, OK );
 
-      } else if ( LSAMEN( 2, C2, 'TB' ) ) {
+      } else if ( lsamen( 2, C2, 'TB' ) ) {
 
          // Test error exits for the banded triangular routines.
 

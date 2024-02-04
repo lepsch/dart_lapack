@@ -84,7 +84,7 @@
       // Generate the scaled Hilbert matrix in A
       // If we are testing SY routines,
          // take D1_i = D2_i, else, D1_i = D2_i*
-      if ( LSAMEN( 2, C2, 'SY' ) ) {
+      if ( lsamen( 2, C2, 'SY' ) ) {
          for (J = 1; J <= N; J++) {
             for (I = 1; I <= N; I++) {
                A[I, J] = D1((J % SIZE_D)+1) * (M.toDouble() / (I + J - 1)) * D1((I % SIZE_D)+1);
@@ -113,7 +113,7 @@
 
       // If we are testing SY routines,
             // take D1_i = D2_i, else, D1_i = D2_i*
-      if ( LSAMEN( 2, C2, 'SY' ) ) {
+      if ( lsamen( 2, C2, 'SY' ) ) {
          for (J = 1; J <= NRHS; J++) {
             for (I = 1; I <= N; I++) {
                X[I, J] = INVD1((J % SIZE_D)+1) * ((WORK(I)*WORK(J)) / (I + J - 1)) * INVD1((I % SIZE_D)+1);

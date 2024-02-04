@@ -68,7 +68,7 @@
 
       // Test error exits for the ST path.
 
-      if ( LSAMEN( 2, C2, 'ST' ) ) {
+      if ( lsamen( 2, C2, 'ST' ) ) {
 
          // ZHETRD
 
@@ -747,7 +747,7 @@
 
       // Test error exits for the HB path.
 
-      } else if ( LSAMEN( 2, C2, 'HB' ) ) {
+      } else if ( lsamen( 2, C2, 'HB' ) ) {
 
          // ZHBTRD
 

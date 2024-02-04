@@ -379,7 +379,7 @@
       // Scale A if max element outside range [SMLNUM,BIGNUM]
 
       ANRM = ZLANGE( 'M', M, N, A, LDA, DUM );
-      if ( DISNAN( ANRM ) ) {
+      if ( disnan( ANRM ) ) {
           INFO = -4;
           return;
       }

@@ -1,3 +1,11 @@
+import 'dart:math';
+
+import 'package:lapack/src/blas/lsame.dart';
+import 'package:lapack/src/box.dart';
+import 'package:lapack/src/ilaenv.dart';
+import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/xerbla.dart';
+
       double dlansf(NORM, TRANSR, UPLO, N, A, WORK ) {
 
 // -- LAPACK computational routine --
@@ -86,7 +94,7 @@
                for (J = 0; J <= K - 1; J++) {
                   for (I = 0; I <= N - 1; I++) {
                      TEMP = ( A( I+J*LDA ) ).abs();
-                     if( VALUE < TEMP || DISNAN( TEMP ) ) VALUE = TEMP;
+                     if( VALUE < TEMP || disnan( TEMP ) ) VALUE = TEMP;
                   }
                }
             } else {
@@ -94,7 +102,7 @@
                for (J = 0; J <= N - 1; J++) {
                   for (I = 0; I <= K - 1; I++) {
                      TEMP = ( A( I+J*LDA ) ).abs();
-                     if( VALUE < TEMP || DISNAN( TEMP ) ) VALUE = TEMP;
+                     if( VALUE < TEMP || disnan( TEMP ) ) VALUE = TEMP;
                   }
                }
             }
@@ -105,7 +113,7 @@
                for (J = 0; J <= K - 1; J++) {
                   for (I = 0; I <= N; I++) {
                      TEMP = ( A( I+J*LDA ) ).abs();
-                     if( VALUE < TEMP || DISNAN( TEMP ) ) VALUE = TEMP;
+                     if( VALUE < TEMP || disnan( TEMP ) ) VALUE = TEMP;
                   }
                }
             } else {
@@ -113,7 +121,7 @@
                for (J = 0; J <= N; J++) {
                   for (I = 0; I <= K - 1; I++) {
                      TEMP = ( A( I+J*LDA ) ).abs();
-                     if( VALUE < TEMP || DISNAN( TEMP ) ) VALUE = TEMP;
+                     if( VALUE < TEMP || disnan( TEMP ) ) VALUE = TEMP;
                   }
                }
             }
@@ -160,7 +168,7 @@
                   VALUE = WORK( 0 );
                   for (I = 1; I <= N-1; I++) {
                      TEMP = WORK( I );
-                     if( VALUE < TEMP || DISNAN( TEMP ) ) VALUE = TEMP;
+                     if( VALUE < TEMP || disnan( TEMP ) ) VALUE = TEMP;
                   }
                } else {
                   // ilu = 1
@@ -201,7 +209,7 @@
                   VALUE = WORK( 0 );
                   for (I = 1; I <= N-1; I++) {
                      TEMP = WORK( I );
-                     if( VALUE < TEMP || DISNAN( TEMP ) ) VALUE = TEMP;
+                     if( VALUE < TEMP || disnan( TEMP ) ) VALUE = TEMP;
                   }
                }
             } else {
@@ -238,7 +246,7 @@
                   VALUE = WORK( 0 );
                   for (I = 1; I <= N-1; I++) {
                      TEMP = WORK( I );
-                     if( VALUE < TEMP || DISNAN( TEMP ) ) VALUE = TEMP;
+                     if( VALUE < TEMP || disnan( TEMP ) ) VALUE = TEMP;
                   }
                } else {
                   // ilu = 1
@@ -275,7 +283,7 @@
                   VALUE = WORK( 0 );
                   for (I = 1; I <= N-1; I++) {
                      TEMP = WORK( I );
-                     if( VALUE < TEMP || DISNAN( TEMP ) ) VALUE = TEMP;
+                     if( VALUE < TEMP || disnan( TEMP ) ) VALUE = TEMP;
                   }
                }
             }
@@ -340,7 +348,7 @@
                   VALUE = WORK( 0 );
                   for (I = 1; I <= N-1; I++) {
                      TEMP = WORK( I );
-                     if( VALUE < TEMP || DISNAN( TEMP ) ) VALUE = TEMP;
+                     if( VALUE < TEMP || disnan( TEMP ) ) VALUE = TEMP;
                   }
                } else {
                   // ilu=1
@@ -404,7 +412,7 @@
                   VALUE = WORK( 0 );
                   for (I = 1; I <= N-1; I++) {
                      TEMP = WORK( I );
-                     if( VALUE < TEMP || DISNAN( TEMP ) ) VALUE = TEMP;
+                     if( VALUE < TEMP || disnan( TEMP ) ) VALUE = TEMP;
                   }
                }
             } else {
@@ -476,7 +484,7 @@
                   VALUE = WORK( 0 );
                   for (I = 1; I <= N-1; I++) {
                      TEMP = WORK( I );
-                     if( VALUE < TEMP || DISNAN( TEMP ) ) VALUE = TEMP;
+                     if( VALUE < TEMP || disnan( TEMP ) ) VALUE = TEMP;
                   }
                } else {
                   // ilu=1
@@ -548,7 +556,7 @@
                   VALUE = WORK( 0 );
                   for (I = 1; I <= N-1; I++) {
                      TEMP = WORK( I );
-                     if( VALUE < TEMP || DISNAN( TEMP ) ) VALUE = TEMP;
+                     if( VALUE < TEMP || disnan( TEMP ) ) VALUE = TEMP;
                   }
                }
             }

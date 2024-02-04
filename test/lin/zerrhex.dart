@@ -74,7 +74,7 @@
       // of a Hermitian indefinite matrix with partial
       // (Bunch-Kaufman) diagonal pivoting method.
 
-      if ( LSAMEN( 2, C2, 'HE' ) ) {
+      if ( lsamen( 2, C2, 'HE' ) ) {
 
          // ZHETRF
 
@@ -238,7 +238,7 @@
          zhecon('U', 1, A, 1, IP, -ANRM, RCOND, W, INFO );
          chkxer('ZHECON', INFOT, NOUT, LERR, OK );
 
-      } else if ( LSAMEN( 2, C2, 'HR' ) ) {
+      } else if ( lsamen( 2, C2, 'HR' ) ) {
 
          // Test error exits of the routines that use factorization
          // of a Hermitian indefinite matrix with rook
@@ -324,7 +324,7 @@
          zhecon_rook('U', 1, A, 1, IP, -ANRM, RCOND, W, INFO );
          chkxer('ZHECON_ROOK', INFOT, NOUT, LERR, OK );
 
-      } else if ( LSAMEN( 2, C2, 'HK' ) ) {
+      } else if ( lsamen( 2, C2, 'HK' ) ) {
 
          // Test error exits of the routines that use factorization
          // of a symmetric indefinite matrix with rook
@@ -433,7 +433,7 @@
          zhecon_3('U', 1, A, 1, E, IP, -1.0, RCOND, W, INFO);
          chkxer('ZHECON_3', INFOT, NOUT, LERR, OK );
 
-      } else if ( LSAMEN( 2, C2, 'HP' ) ) {
+      } else if ( lsamen( 2, C2, 'HP' ) ) {
 
          // Test error exits of the routines that use factorization
          // of a Hermitian indefinite packed matrix with partial

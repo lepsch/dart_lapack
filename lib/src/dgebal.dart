@@ -1,3 +1,11 @@
+import 'dart:math';
+
+import 'package:lapack/src/blas/lsame.dart';
+import 'package:lapack/src/box.dart';
+import 'package:lapack/src/ilaenv.dart';
+import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/xerbla.dart';
+
       void dgebal(JOB, N, A, LDA, ILO, IHI, SCALE, INFO ) {
 
 // -- LAPACK computational routine --
@@ -188,7 +196,7 @@
 
             // Exit if NaN to avoid infinite loop
 
-            if ( DISNAN( C+CA+R+RA ) ) {
+            if ( disnan( C+CA+R+RA ) ) {
                INFO = -3;
                xerbla('DGEBAL', -INFO );
                return;

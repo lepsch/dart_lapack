@@ -1,3 +1,11 @@
+import 'dart:math';
+
+import 'package:lapack/src/blas/lsame.dart';
+import 'package:lapack/src/box.dart';
+import 'package:lapack/src/ilaenv.dart';
+import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/xerbla.dart';
+
       void dgecon(NORM, N, A, LDA, ANORM, RCOND, WORK, IWORK, INFO ) {
 
 // -- LAPACK computational routine --
@@ -71,7 +79,7 @@
          return;
       } else if ( ANORM == ZERO ) {
          return;
-      } else if ( DISNAN( ANORM ) ) {
+      } else if ( disnan( ANORM ) ) {
          RCOND = ANORM;
          INFO = -5;
          return;
@@ -138,7 +146,7 @@
 
       // Check for NaNs and Infs
 
-      if( DISNAN( RCOND ) || RCOND > HUGEVAL ) INFO = 1;
+      if( disnan( RCOND ) || RCOND > HUGEVAL ) INFO = 1;
 
       } // 20
       return;

@@ -72,7 +72,7 @@
       EQ = ' ';
       OK = true;
 
-      if ( LSAMEN( 2, C2, 'GE' ) ) {
+      if ( lsamen( 2, C2, 'GE' ) ) {
 
          // ZGESV
 
@@ -172,7 +172,7 @@
          zgesvxx('N', 'N', 2, 1, A, 2, AF, 2, IP, EQ, R, C, B, 2, X, 1, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, RW, INFO );
          chkxer('ZGESVXX', INFOT, NOUT, LERR, OK );
 
-      } else if ( LSAMEN( 2, C2, 'GB' ) ) {
+      } else if ( lsamen( 2, C2, 'GB' ) ) {
 
          // ZGBSV
 
@@ -290,7 +290,7 @@
          zgbsvxx('N', 'N', 2, 1, 1, 1, A, 3, AF, 4, IP, EQ, R, C, B, 2, X, 1, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, RW, INFO );
          chkxer('ZGBSVXX', INFOT, NOUT, LERR, OK );
 
-      } else if ( LSAMEN( 2, C2, 'GT' ) ) {
+      } else if ( lsamen( 2, C2, 'GT' ) ) {
 
          // ZGTSV
 
@@ -327,7 +327,7 @@
          zgtsvx('N', 'N', 2, 0, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), AF( 1, 1 ), AF( 1, 2 ), AF( 1, 3 ), AF( 1, 4 ), IP, B, 2, X, 1, RCOND, R1, R2, W, RW, INFO );
          chkxer('ZGTSVX', INFOT, NOUT, LERR, OK );
 
-      } else if ( LSAMEN( 2, C2, 'HR' ) ) {
+      } else if ( lsamen( 2, C2, 'HR' ) ) {
 
          // ZHESV_ROOK
 
@@ -345,7 +345,7 @@
          zhesv_rook('U', 2, 0, A, 2, IP, B, 1, W, 1, INFO );
          chkxer('ZHESV_ROOK', INFOT, NOUT, LERR, OK );
 
-      } else if ( LSAMEN( 2, C2, 'PO' ) ) {
+      } else if ( lsamen( 2, C2, 'PO' ) ) {
 
          // ZPOSV
 
@@ -440,7 +440,7 @@
          zposvxx('N', 'U', 2, 0, A, 2, AF, 2, EQ, C, B, 2, X, 1, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, RW, INFO );
          chkxer('ZPOSVXX', INFOT, NOUT, LERR, OK );
 
-      } else if ( LSAMEN( 2, C2, 'PP' ) ) {
+      } else if ( lsamen( 2, C2, 'PP' ) ) {
 
          // ZPPSV
 
@@ -488,7 +488,7 @@
          zppsvx('N', 'U', 2, 0, A, AF, EQ, C, B, 2, X, 1, RCOND, R1, R2, W, RW, INFO );
          chkxer('ZPPSVX', INFOT, NOUT, LERR, OK );
 
-      } else if ( LSAMEN( 2, C2, 'PB' ) ) {
+      } else if ( lsamen( 2, C2, 'PB' ) ) {
 
          // ZPBSV
 
@@ -551,7 +551,7 @@
          zpbsvx('N', 'U', 2, 0, 0, A, 1, AF, 1, EQ, C, B, 2, X, 1, RCOND, R1, R2, W, RW, INFO );
          chkxer('ZPBSVX', INFOT, NOUT, LERR, OK );
 
-      } else if ( LSAMEN( 2, C2, 'PT' ) ) {
+      } else if ( lsamen( 2, C2, 'PT' ) ) {
 
          // ZPTSV
 
@@ -585,7 +585,7 @@
          zptsvx('N', 2, 0, R, A( 1, 1 ), RF, AF( 1, 1 ), B, 2, X, 1, RCOND, R1, R2, W, RW, INFO );
          chkxer('ZPTSVX', INFOT, NOUT, LERR, OK );
 
-      } else if ( LSAMEN( 2, C2, 'HE' ) ) {
+      } else if ( lsamen( 2, C2, 'HE' ) ) {
 
          // ZHESV
 
@@ -681,7 +681,7 @@
          zhesvxx('N', 'U', 2, 0, A, 2, AF, 2, IP, EQ, C, B, 2, X, 1, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, RW, INFO );
          chkxer('ZHESVXX', INFOT, NOUT, LERR, OK );
 
-      } else if ( LSAMEN( 2, C2, 'HR' ) ) {
+      } else if ( lsamen( 2, C2, 'HR' ) ) {
 
          // ZHESV_ROOK
 
@@ -705,7 +705,7 @@
          zhesv_rook('U', 0, 0, A, 1, IP, B, 1, W, -2, INFO );
          chkxer('ZHESV_ROOK', INFOT, NOUT, LERR, OK );
 
-      } else if ( LSAMEN( 2, C2, 'HK' ) ) {
+      } else if ( lsamen( 2, C2, 'HK' ) ) {
 
          // ZSYSV_RK
 
@@ -740,7 +740,7 @@
          zhesv_rk('U', 0, 0, A, 1, E, IP, B, 1, W, -2, INFO );
          chkxer('ZHESV_RK', INFOT, NOUT, LERR, OK );
 
-      } else if ( LSAMEN( 2, C2, 'HP' ) ) {
+      } else if ( lsamen( 2, C2, 'HP' ) ) {
 
          // ZHPSV
 
@@ -780,7 +780,7 @@
          zhpsvx('N', 'U', 2, 0, A, AF, IP, B, 2, X, 1, RCOND, R1, R2, W, RW, INFO );
          chkxer('ZHPSVX', INFOT, NOUT, LERR, OK );
 
-      } else if ( LSAMEN( 2, C2, 'SY' ) ) {
+      } else if ( lsamen( 2, C2, 'SY' ) ) {
 
          // ZSYSV
 
@@ -881,7 +881,7 @@
          zsysvxx('N', 'U', 2, 0, A, 2, AF, 2, IP, EQ, R, B, 2, X, 1, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, RW, INFO );
          chkxer('ZSYSVXX', INFOT, NOUT, LERR, OK );
 
-      } else if ( LSAMEN( 2, C2, 'SR' ) ) {
+      } else if ( lsamen( 2, C2, 'SR' ) ) {
 
          // ZSYSV_ROOK
 
@@ -904,7 +904,7 @@
          INFOT = 10;
          zsysv_rook('U', 0, 0, A, 1, IP, B, 1, W, -2, INFO );
 
-      } else if ( LSAMEN( 2, C2, 'SK' ) ) {
+      } else if ( lsamen( 2, C2, 'SK' ) ) {
 
          // ZSYSV_RK
 
@@ -939,7 +939,7 @@
          zsysv_rk('U', 0, 0, A, 1, E, IP, B, 1, W, -2, INFO );
          chkxer('ZSYSV_RK', INFOT, NOUT, LERR, OK );
 
-      } else if ( LSAMEN( 2, C2, 'SP' ) ) {
+      } else if ( lsamen( 2, C2, 'SP' ) ) {
 
          // ZSPSV
 

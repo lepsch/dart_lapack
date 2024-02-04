@@ -1,114 +1,83 @@
-int ieeeck(ISPEC, ZERO, ONE) {
+bool ieeeck(final int ISPEC, final double ZERO, final double ONE) {
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-  // .. Scalar Arguments ..
-  int ISPEC;
-  double ONE, ZERO;
-  // ..
-
-// =====================================================================
-
-  // .. Local Scalars ..
-  double NAN1, NAN2, NAN3, NAN4, NAN5, NAN6, NEGINF, NEGZRO, NEWZRO, POSINF;
-  // ..
-  // .. Executable Statements ..
-  IEEECK = 1;
+  double NEGINF, NEGZRO, NEWZRO, POSINF;
 
   POSINF = ONE / ZERO;
   if (POSINF <= ONE) {
-    IEEECK = 0;
-    return;
+    return false;
   }
 
   NEGINF = -ONE / ZERO;
   if (NEGINF >= ZERO) {
-    IEEECK = 0;
-    return;
+    return false;
   }
 
   NEGZRO = ONE / (NEGINF + ONE);
   if (NEGZRO != ZERO) {
-    IEEECK = 0;
-    return;
+    return false;
   }
 
   NEGINF = ONE / NEGZRO;
   if (NEGINF >= ZERO) {
-    IEEECK = 0;
-    return;
+    return false;
   }
 
   NEWZRO = NEGZRO + ZERO;
   if (NEWZRO != ZERO) {
-    IEEECK = 0;
-    return;
+    return false;
   }
 
   POSINF = ONE / NEWZRO;
   if (POSINF <= ONE) {
-    IEEECK = 0;
-    return;
+    return false;
   }
 
   NEGINF = NEGINF * POSINF;
   if (NEGINF >= ZERO) {
-    IEEECK = 0;
-    return;
+    return false;
   }
 
   POSINF = POSINF * POSINF;
   if (POSINF <= ONE) {
-    IEEECK = 0;
-    return;
+    return false;
   }
 
   // Return if we were only asked to check infinity arithmetic
 
-  if (ISPEC == 0) return;
+  if (ISPEC == 0) return true;
 
-  NAN1 = POSINF + NEGINF;
-
-  NAN2 = POSINF / NEGINF;
-
-  NAN3 = POSINF / POSINF;
-
-  NAN4 = POSINF * ZERO;
-
-  NAN5 = NEGINF * NEGZRO;
-
-  NAN6 = NAN5 * ZERO;
+  final NAN1 = POSINF + NEGINF;
+  final NAN2 = POSINF / NEGINF;
+  final NAN3 = POSINF / POSINF;
+  final NAN4 = POSINF * ZERO;
+  final NAN5 = NEGINF * NEGZRO;
+  final NAN6 = NAN5 * ZERO;
 
   if (NAN1 == NAN1) {
-    IEEECK = 0;
-    return;
+    return false;
   }
 
   if (NAN2 == NAN2) {
-    IEEECK = 0;
-    return;
+    return false;
   }
 
   if (NAN3 == NAN3) {
-    IEEECK = 0;
-    return;
+    return false;
   }
 
   if (NAN4 == NAN4) {
-    IEEECK = 0;
-    return;
+    return false;
   }
 
   if (NAN5 == NAN5) {
-    IEEECK = 0;
-    return;
+    return false;
   }
 
   if (NAN6 == NAN6) {
-    IEEECK = 0;
-    return;
+    return false;
   }
 
-  return;
+  return true;
 }

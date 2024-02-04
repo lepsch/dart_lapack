@@ -165,7 +165,7 @@
                         if ( SCALE3 == ZERO && SCALE > ZERO || IINFO != INFO ) {
                            NFAIL[3] = NFAIL( 3 ) + 1;
                         }
-                        if[RES > THRESH || DISNAN( RES ) ) NFAIL( 2] = NFAIL( 2 ) + 1;
+                        if[RES > THRESH || disnan( RES ) ) NFAIL( 2] = NFAIL( 2 ) + 1;
                         IF[RES > RMAX( 2 ) ) RMAX( 2] = RES;
                      }
                   }

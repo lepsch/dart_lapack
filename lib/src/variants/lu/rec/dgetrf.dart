@@ -94,7 +94,7 @@
          dlaswp(KCOLS, A( 1,J+1 ), LDA, KSTART, J, IPIV, 1 );
 
          // Factor the current column
-         if ( A( J, J ) != ZERO && !DISNAN( A( J, J ) ) ) {
+         if ( A( J, J ) != ZERO && !disnan( A( J, J ) ) ) {
                if ( (A( J, J )).abs() >= SFMIN ) {
                   dscal(M-J, ONE / A( J, J ), A( J+1, J ), 1 );
                } else {

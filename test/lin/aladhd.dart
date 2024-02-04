@@ -31,7 +31,7 @@
       CORZ = lsame( C1, 'C' ) || lsame( C1, 'Z' );
       if( !( SORD || CORZ ) ) return;
 
-      if ( LSAMEN( 2, P2, 'GE' ) ) {
+      if ( lsamen( 2, P2, 'GE' ) ) {
 
          // GE: General dense
 
@@ -48,7 +48,7 @@
          WRITE( IOUNIT, FMT = 9972 )7;
          WRITE( IOUNIT, FMT = '( '' Messages:'' )' );
 
-      } else if ( LSAMEN( 2, P2, 'GB' ) ) {
+      } else if ( lsamen( 2, P2, 'GB' ) ) {
 
          // GB: General band
 
@@ -65,7 +65,7 @@
          WRITE( IOUNIT, FMT = 9972 )7;
          WRITE( IOUNIT, FMT = '( '' Messages:'' )' );
 
-      } else if ( LSAMEN( 2, P2, 'GT' ) ) {
+      } else if ( lsamen( 2, P2, 'GT' ) ) {
 
          // GT: General tridiagonal
 
@@ -80,7 +80,7 @@
          WRITE( IOUNIT, FMT = 9976 )6;
          WRITE( IOUNIT, FMT = '( '' Messages:'' )' );
 
-      } else if ( LSAMEN( 2, P2, 'PO' ) || LSAMEN( 2, P2, 'PP' ) || LSAMEN( 2, P2, 'PS' ) ) {
+      } else if ( lsamen( 2, P2, 'PO' ) || lsamen( 2, P2, 'PP' ) || lsamen( 2, P2, 'PS' ) ) {
 
          // PO: Positive definite full
          // PS: Positive definite full
@@ -107,7 +107,7 @@
          WRITE( IOUNIT, FMT = 9976 )6;
          WRITE( IOUNIT, FMT = '( '' Messages:'' )' );
 
-      } else if ( LSAMEN( 2, P2, 'PB' ) ) {
+      } else if ( lsamen( 2, P2, 'PB' ) ) {
 
          // PB: Positive definite band
 
@@ -127,7 +127,7 @@
          WRITE( IOUNIT, FMT = 9976 )6;
          WRITE( IOUNIT, FMT = '( '' Messages:'' )' );
 
-      } else if ( LSAMEN( 2, P2, 'PT' ) ) {
+      } else if ( lsamen( 2, P2, 'PT' ) ) {
 
          // PT: Positive definite tridiagonal
 
@@ -146,7 +146,7 @@
          WRITE( IOUNIT, FMT = 9976 )6;
          WRITE( IOUNIT, FMT = '( '' Messages:'' )' );
 
-      } else if ( LSAMEN( 2, P2, 'SY' ) || LSAMEN( 2, P2, 'SP' ) ) {
+      } else if ( lsamen( 2, P2, 'SY' ) || lsamen( 2, P2, 'SP' ) ) {
 
          // SY: Symmetric indefinite full
              // with partial (Bunch-Kaufman) pivoting algorithm
@@ -173,7 +173,7 @@
          WRITE( IOUNIT, FMT = 9976 )6;
          WRITE( IOUNIT, FMT = '( '' Messages:'' )' );
 
-      } else if ( LSAMEN( 2, P2, 'SR' ) || LSAMEN( 2, P2, 'SK') ) {
+      } else if ( lsamen( 2, P2, 'SR' ) || lsamen( 2, P2, 'SK') ) {
 
          // SR: Symmetric indefinite full,
              // with rook (bounded Bunch-Kaufman) pivoting algorithm
@@ -199,7 +199,7 @@
          WRITE( IOUNIT, FMT = 9979 )3;
          WRITE( IOUNIT, FMT = '( '' Messages:'' )' );
 
-      } else if ( LSAMEN( 2, P2, 'HA' ) ) {
+      } else if ( lsamen( 2, P2, 'HA' ) ) {
 
          // HA: Hermitian
              // Aasen algorithm
@@ -217,7 +217,7 @@
          WRITE( IOUNIT, FMT = 9976 )6;
          WRITE( IOUNIT, FMT = '( '' Messages:'' )' );
 
-       } else if ( LSAMEN( 2, P2, 'HE' ) || LSAMEN( 2, P2, 'HP' ) ) {
+       } else if ( lsamen( 2, P2, 'HE' ) || lsamen( 2, P2, 'HP' ) ) {
 
          // HE: Hermitian indefinite full
              // with partial (Bunch-Kaufman) pivoting algorithm
@@ -242,7 +242,7 @@
          WRITE( IOUNIT, FMT = 9976 )6;
          WRITE( IOUNIT, FMT = '( '' Messages:'' )' );
 
-      } else if ( LSAMEN( 2, P2, 'HR' ) || LSAMEN( 2, P2, 'HK' ) ) {
+      } else if ( lsamen( 2, P2, 'HR' ) || lsamen( 2, P2, 'HK' ) ) {
 
          // HR: Hermitian indefinite full,
              // with rook (bounded Bunch-Kaufman) pivoting algorithm

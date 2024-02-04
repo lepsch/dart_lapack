@@ -1,3 +1,11 @@
+import 'dart:math';
+
+import 'package:lapack/src/blas/lsame.dart';
+import 'package:lapack/src/box.dart';
+import 'package:lapack/src/ilaenv.dart';
+import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/xerbla.dart';
+
       void dlaqp2(M, N, OFFSET, A, LDA, JPVT, TAU, VN1, VN2, WORK ) {
 
 // -- LAPACK auxiliary routine --

@@ -1,59 +1,43 @@
-      void dgehrd(N, ILO, IHI, A, LDA, TAU, WORK, LWORK, INFO ) {
+import 'dart:math';
+
+import 'package:lapack/src/box.dart';
+import 'package:lapack/src/ilaenv.dart';
+import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/xerbla.dart';
+
+void dgehrd(final int N, final int ILO, final int IHI,
+  final
+  Matrix<double> A, final int LDA, final
+  Array<double> TAU, final
+  Array<double> WORK, final int LWORK, final Box<int> INFO, ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
-      int                IHI, ILO, INFO, LDA, LWORK, N;
-      // ..
-      // .. Array Arguments ..
-      double             A( LDA, * ), TAU( * ), WORK( * );
-      // ..
-
-// =====================================================================
-
-      // .. Parameters ..
-      int                NBMAX, LDT, TSIZE;
       const              NBMAX = 64, LDT = NBMAX+1, TSIZE = LDT*NBMAX ;
-      double             ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
-      // ..
-      // .. Local Scalars ..
       bool               LQUERY;
       int                I, IB, IINFO, IWT, J, LDWORK, LWKOPT, NB, NBMIN, NH, NX;
       double             EI;
-      // ..
-      // .. External Subroutines ..
-      // EXTERNAL DAXPY, DGEHD2, DGEMM, DLAHR2, DLARFB, DTRMM, XERBLA
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC MAX, MIN
-      // ..
-      // .. External Functions ..
-      //- int                ILAENV;
-      // EXTERNAL ILAENV
-      // ..
-      // .. Executable Statements ..
 
       // Test the input parameters
 
-      INFO = 0;
+      INFO.value = 0;
       LQUERY = ( LWORK == -1 );
       if ( N < 0 ) {
-         INFO = -1;
+         INFO.value = -1;
       } else if ( ILO < 1 || ILO > max( 1, N ) ) {
-         INFO = -2;
+         INFO.value = -2;
       } else if ( IHI < min( ILO, N ) || IHI > N ) {
-         INFO = -3;
+         INFO.value = -3;
       } else if ( LDA < max( 1, N ) ) {
-         INFO = -5;
+         INFO.value = -5;
       } else if ( LWORK < max( 1, N ) && !LQUERY ) {
-         INFO = -8;
+         INFO.value = -8;
       }
 
       NH = IHI - ILO + 1;
-      if ( INFO == 0 ) {
+      if ( INFO.value == 0 ) {
 
          // Compute the workspace requirements
 
@@ -63,11 +47,11 @@
             NB = min( NBMAX, ilaenv( 1, 'DGEHRD', ' ', N, ILO, IHI, -1 ) );
             LWKOPT = N*NB + TSIZE;
          }
-         WORK[1] = LWKOPT;
+         WORK[1] = LWKOPT.toDouble();
       }
 
-      if ( INFO != 0 ) {
-         xerbla('DGEHRD', -INFO );
+      if ( INFO.value != 0 ) {
+         xerbla('DGEHRD', -INFO.value );
          return;
       } else if ( LQUERY ) {
          return;
@@ -168,7 +152,7 @@
 
       dgehd2(N, I, IHI, A, LDA, TAU, WORK, IINFO );
 
-      WORK[1] = LWKOPT;
+      WORK[1] = LWKOPT.toDouble();
 
       return;
       }

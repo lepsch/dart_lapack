@@ -1,3 +1,11 @@
+import 'dart:math';
+
+import 'package:lapack/src/blas/lsame.dart';
+import 'package:lapack/src/box.dart';
+import 'package:lapack/src/ilaenv.dart';
+import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/xerbla.dart';
+
       void dgesdd(JOBZ, M, N, A, LDA, S, U, LDU, VT, LDVT, WORK, LWORK, IWORK, INFO ) {
       // implicit none
 
@@ -350,7 +358,7 @@
       // Scale A if max element outside range [SMLNUM,BIGNUM]
 
       ANRM = DLANGE( 'M', M, N, A, LDA, DUM );
-      if ( DISNAN( ANRM ) ) {
+      if ( disnan( ANRM ) ) {
           INFO = -4;
           return;
       }

@@ -23,32 +23,8 @@ void dggbak(
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-  // .. Scalar Arguments ..
-  // String             JOB, SIDE;
-  // int                IHI, ILO, INFO.value, LDV, M, N;
-  // // ..
-  // // .. Array Arguments ..
-  // double             LSCALE( * ), RSCALE( * ), V( LDV, * );
-  // ..
-
-// =====================================================================
-
-  // .. Local Scalars ..
   bool LEFTV, RIGHTV;
   int I, K;
-  // ..
-  // .. External Functions ..
-  //- bool               lsame;
-  // EXTERNAL lsame
-  // ..
-  // .. External Subroutines ..
-  // EXTERNAL DSCAL, DSWAP, XERBLA
-  // ..
-  // .. Intrinsic Functions ..
-  // INTRINSIC MAX, INT
-  // ..
-  // .. Executable Statements ..
 
   // Test the input parameters
 

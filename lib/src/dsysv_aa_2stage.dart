@@ -1,3 +1,11 @@
+import 'dart:math';
+
+import 'package:lapack/src/blas/lsame.dart';
+import 'package:lapack/src/box.dart';
+import 'package:lapack/src/ilaenv.dart';
+import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/xerbla.dart';
+
       void dsysv_aa_2stage(UPLO, N, NRHS, A, LDA, TB, LTB, IPIV, IPIV2, B, LDB, WORK, LWORK, INFO ) {
 
 // -- LAPACK computational routine --
@@ -20,8 +28,7 @@
       // .. Local Scalars ..
       bool               UPPER, TQUERY, WQUERY;
       int                LWKMIN, LWKOPT;
-      // ..
-      // .. External Functions ..
+r      // .. External Functions ..
       //- bool               lsame;
       // EXTERNAL lsame
       // ..

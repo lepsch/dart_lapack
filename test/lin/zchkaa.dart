@@ -308,7 +308,7 @@
 
          WRITE( NOUT, FMT = 9989 )PATH;
 
-      } else if ( LSAMEN( 2, C2, 'GE' ) ) {
+      } else if ( lsamen( 2, C2, 'GE' ) ) {
 
          // GE:  general matrices
 
@@ -327,7 +327,7 @@
             WRITE( NOUT, FMT = 9988 )PATH;
          }
 
-      } else if ( LSAMEN( 2, C2, 'GB' ) ) {
+      } else if ( lsamen( 2, C2, 'GB' ) ) {
 
          // GB:  general banded matrices
 
@@ -348,7 +348,7 @@
             WRITE( NOUT, FMT = 9988 )PATH;
          }
 
-      } else if ( LSAMEN( 2, C2, 'GT' ) ) {
+      } else if ( lsamen( 2, C2, 'GT' ) ) {
 
          // GT:  general tridiagonal matrices
 
@@ -367,7 +367,7 @@
             WRITE( NOUT, FMT = 9988 )PATH;
          }
 
-      } else if ( LSAMEN( 2, C2, 'PO' ) ) {
+      } else if ( lsamen( 2, C2, 'PO' ) ) {
 
          // PO:  positive definite matrices
 
@@ -386,7 +386,7 @@
             WRITE( NOUT, FMT = 9988 )PATH;
          }
 
-      } else if ( LSAMEN( 2, C2, 'PS' ) ) {
+      } else if ( lsamen( 2, C2, 'PS' ) ) {
 
          // PS:  positive semi-definite matrices
 
@@ -400,7 +400,7 @@
             WRITE( NOUT, FMT = 9989 )PATH;
          }
 
-      } else if ( LSAMEN( 2, C2, 'PP' ) ) {
+      } else if ( lsamen( 2, C2, 'PP' ) ) {
 
          // PP:  positive definite packed matrices
 
@@ -419,7 +419,7 @@
             WRITE( NOUT, FMT = 9988 )PATH;
          }
 
-      } else if ( LSAMEN( 2, C2, 'PB' ) ) {
+      } else if ( lsamen( 2, C2, 'PB' ) ) {
 
          // PB:  positive definite banded matrices
 
@@ -438,7 +438,7 @@
             WRITE( NOUT, FMT = 9988 )PATH;
          }
 
-      } else if ( LSAMEN( 2, C2, 'PT' ) ) {
+      } else if ( lsamen( 2, C2, 'PT' ) ) {
 
          // PT:  positive definite tridiagonal matrices
 
@@ -457,7 +457,7 @@
             WRITE( NOUT, FMT = 9988 )PATH;
          }
 
-      } else if ( LSAMEN( 2, C2, 'HE' ) ) {
+      } else if ( lsamen( 2, C2, 'HE' ) ) {
 
          // HE:  Hermitian indefinite matrices
 
@@ -476,7 +476,7 @@
             WRITE( NOUT, FMT = 9988 )PATH;
          }
 
-      } else if ( LSAMEN( 2, C2, 'HR' ) ) {
+      } else if ( lsamen( 2, C2, 'HR' ) ) {
 
          // HR:  Hermitian indefinite matrices,
               // with bounded Bunch-Kaufman (rook) pivoting algorithm,
@@ -496,7 +496,7 @@
             WRITE( NOUT, FMT = 9988 )PATH;
          }
 
-      } else if ( LSAMEN( 2, C2, 'HK' ) ) {
+      } else if ( lsamen( 2, C2, 'HK' ) ) {
 
          // HK:  Hermitian indefinite matrices,
               // with bounded Bunch-Kaufman (rook) pivoting algorithm,
@@ -517,7 +517,7 @@
             WRITE( NOUT, FMT = 9988 )PATH;
          }
 
-      } else if ( LSAMEN( 2, C2, 'HA' ) ) {
+      } else if ( lsamen( 2, C2, 'HA' ) ) {
 
          // HA:  Hermitian matrices,
               // Aasen Algorithm
@@ -537,7 +537,7 @@
             WRITE( NOUT, FMT = 9988 )PATH;
          }
 
-      } else if ( LSAMEN( 2, C2, 'H2' ) ) {
+      } else if ( lsamen( 2, C2, 'H2' ) ) {
 
          // H2:  Hermitian matrices,
               // with partial (Aasen's) pivoting algorithm
@@ -558,7 +558,7 @@
          }
 
 
-      } else if ( LSAMEN( 2, C2, 'HP' ) ) {
+      } else if ( lsamen( 2, C2, 'HP' ) ) {
 
          // HP:  Hermitian indefinite packed matrices
 
@@ -577,7 +577,7 @@
             WRITE( NOUT, FMT = 9988 )PATH;
          }
 
-      } else if ( LSAMEN( 2, C2, 'SY' ) ) {
+      } else if ( lsamen( 2, C2, 'SY' ) ) {
 
          // SY:  symmetric indefinite matrices,
               // with partial (Bunch-Kaufman) pivoting algorithm
@@ -597,7 +597,7 @@
             WRITE( NOUT, FMT = 9988 )PATH;
          }
 
-      } else if ( LSAMEN( 2, C2, 'SR' ) ) {
+      } else if ( lsamen( 2, C2, 'SR' ) ) {
 
          // SR:  symmetric indefinite matrices,
               // with bounded Bunch-Kaufman (rook) pivoting algorithm
@@ -617,7 +617,7 @@
             WRITE( NOUT, FMT = 9988 )PATH;
          }
 
-      } else if ( LSAMEN( 2, C2, 'SK' ) ) {
+      } else if ( lsamen( 2, C2, 'SK' ) ) {
 
          // SK:  symmetric indefinite matrices,
               // with bounded Bunch-Kaufman (rook) pivoting algorithm,
@@ -638,7 +638,7 @@
             WRITE( NOUT, FMT = 9988 )PATH;
          }
 
-      } else if ( LSAMEN( 2, C2, 'SA' ) ) {
+      } else if ( lsamen( 2, C2, 'SA' ) ) {
 
          // SA:  symmetric indefinite matrices with Aasen's algorithm,
 
@@ -657,7 +657,7 @@
             WRITE( NOUT, FMT = 9988 )PATH;
          }
 
-      } else if ( LSAMEN( 2, C2, 'S2' ) ) {
+      } else if ( lsamen( 2, C2, 'S2' ) ) {
 
          // S2:  symmetric indefinite matrices with Aasen's algorithm
               // 2 stage
@@ -677,7 +677,7 @@
             WRITE( NOUT, FMT = 9988 )PATH;
          }
 
-      } else if ( LSAMEN( 2, C2, 'SP' ) ) {
+      } else if ( lsamen( 2, C2, 'SP' ) ) {
 
          // SP:  symmetric indefinite packed matrices,
               // with partial (Bunch-Kaufman) pivoting algorithm
@@ -697,7 +697,7 @@
             WRITE( NOUT, FMT = 9988 )PATH;
          }
 
-      } else if ( LSAMEN( 2, C2, 'TR' ) ) {
+      } else if ( lsamen( 2, C2, 'TR' ) ) {
 
          // TR:  triangular matrices
 
@@ -710,7 +710,7 @@
             WRITE( NOUT, FMT = 9989 )PATH;
          }
 
-      } else if ( LSAMEN( 2, C2, 'TP' ) ) {
+      } else if ( lsamen( 2, C2, 'TP' ) ) {
 
          // TP:  triangular packed matrices
 
@@ -723,7 +723,7 @@
             WRITE( NOUT, FMT = 9989 )PATH;
          }
 
-      } else if ( LSAMEN( 2, C2, 'TB' ) ) {
+      } else if ( lsamen( 2, C2, 'TB' ) ) {
 
          // TB:  triangular banded matrices
 
@@ -736,7 +736,7 @@
             WRITE( NOUT, FMT = 9989 )PATH;
          }
 
-      } else if ( LSAMEN( 2, C2, 'QR' ) ) {
+      } else if ( lsamen( 2, C2, 'QR' ) ) {
 
          // QR:  QR factorization
 
@@ -749,7 +749,7 @@
             WRITE( NOUT, FMT = 9989 )PATH;
          }
 
-      } else if ( LSAMEN( 2, C2, 'LQ' ) ) {
+      } else if ( lsamen( 2, C2, 'LQ' ) ) {
 
          // LQ:  LQ factorization
 
@@ -762,7 +762,7 @@
             WRITE( NOUT, FMT = 9989 )PATH;
          }
 
-      } else if ( LSAMEN( 2, C2, 'QL' ) ) {
+      } else if ( lsamen( 2, C2, 'QL' ) ) {
 
          // QL:  QL factorization
 
@@ -775,7 +775,7 @@
             WRITE( NOUT, FMT = 9989 )PATH;
          }
 
-      } else if ( LSAMEN( 2, C2, 'RQ' ) ) {
+      } else if ( lsamen( 2, C2, 'RQ' ) ) {
 
          // RQ:  RQ factorization
 
@@ -788,7 +788,7 @@
             WRITE( NOUT, FMT = 9989 )PATH;
          }
 
-      } else if ( LSAMEN( 2, C2, 'EQ' ) ) {
+      } else if ( lsamen( 2, C2, 'EQ' ) ) {
 
          // EQ:  Equilibration routines for general and positive definite
               // matrices (THREQ should be between 2 and 10)
@@ -799,7 +799,7 @@
             WRITE( NOUT, FMT = 9989 )PATH;
          }
 
-      } else if ( LSAMEN( 2, C2, 'TZ' ) ) {
+      } else if ( lsamen( 2, C2, 'TZ' ) ) {
 
          // TZ:  Trapezoidal matrix
 
@@ -812,7 +812,7 @@
             WRITE( NOUT, FMT = 9989 )PATH;
          }
 
-      } else if ( LSAMEN( 2, C2, 'QP' ) ) {
+      } else if ( lsamen( 2, C2, 'QP' ) ) {
 
          // QP:  QR factorization with pivoting
 
@@ -825,7 +825,7 @@
             WRITE( NOUT, FMT = 9989 )PATH;
          }
 
-      } else if ( LSAMEN( 2, C2, 'QK' ) ) {
+      } else if ( lsamen( 2, C2, 'QK' ) ) {
 
          // QK: truncated QR factorization with pivoting
 
@@ -838,7 +838,7 @@
             WRITE( NOUT, FMT = 9989 )PATH;
          }
 
-      } else if ( LSAMEN( 2, C2, 'LS' ) ) {
+      } else if ( lsamen( 2, C2, 'LS' ) ) {
 
          // LS:  Least squares drivers
 
@@ -852,7 +852,7 @@
          }
 
 
-      } else if ( LSAMEN( 2, C2, 'QT' ) ) {
+      } else if ( lsamen( 2, C2, 'QT' ) ) {
 
          // QT:  QRT routines for general matrices
 
@@ -862,7 +862,7 @@
             WRITE( NOUT, FMT = 9989 )PATH;
          }
 
-      } else if ( LSAMEN( 2, C2, 'QX' ) ) {
+      } else if ( lsamen( 2, C2, 'QX' ) ) {
 
          // QX:  QRT routines for triangular-pentagonal matrices
 
@@ -872,7 +872,7 @@
             WRITE( NOUT, FMT = 9989 )PATH;
          }
 
-      } else if ( LSAMEN( 2, C2, 'TQ' ) ) {
+      } else if ( lsamen( 2, C2, 'TQ' ) ) {
 
          // TQ:  LQT routines for general matrices
 
@@ -882,7 +882,7 @@
             WRITE( NOUT, FMT = 9989 )PATH;
          }
 
-      } else if ( LSAMEN( 2, C2, 'XQ' ) ) {
+      } else if ( lsamen( 2, C2, 'XQ' ) ) {
 
          // XQ:  LQT routines for triangular-pentagonal matrices
 
@@ -892,7 +892,7 @@
             WRITE( NOUT, FMT = 9989 )PATH;
          }
 
-      } else if ( LSAMEN( 2, C2, 'TS' ) ) {
+      } else if ( lsamen( 2, C2, 'TS' ) ) {
 
          // TS:  QR routines for tall-skinny matrices
 
@@ -902,7 +902,7 @@
             WRITE( NOUT, FMT = 9989 )PATH;
          }
 
-      } else if ( LSAMEN( 2, C2, 'TQ' ) ) {
+      } else if ( lsamen( 2, C2, 'TQ' ) ) {
 
          // TQ:  LQT routines for general matrices
 
@@ -912,7 +912,7 @@
             WRITE( NOUT, FMT = 9989 )PATH;
          }
 
-      } else if ( LSAMEN( 2, C2, 'XQ' ) ) {
+      } else if ( lsamen( 2, C2, 'XQ' ) ) {
 
          // XQ:  LQT routines for triangular-pentagonal matrices
 
@@ -922,7 +922,7 @@
             WRITE( NOUT, FMT = 9989 )PATH;
          }
 
-      } else if ( LSAMEN( 2, C2, 'TS' ) ) {
+      } else if ( lsamen( 2, C2, 'TS' ) ) {
 
          // TS:  QR routines for tall-skinny matrices
 
@@ -932,7 +932,7 @@
             WRITE( NOUT, FMT = 9989 )PATH;
          }
 
-      } else if ( LSAMEN( 2, C2, 'HH' ) ) {
+      } else if ( lsamen( 2, C2, 'HH' ) ) {
 
          // HH:  Householder reconstruction for tall-skinny matrices
 

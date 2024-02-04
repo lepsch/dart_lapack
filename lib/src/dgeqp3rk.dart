@@ -1,3 +1,11 @@
+import 'dart:math';
+
+import 'package:lapack/src/blas/lsame.dart';
+import 'package:lapack/src/box.dart';
+import 'package:lapack/src/ilaenv.dart';
+import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/xerbla.dart';
+
       void dgeqp3rk(M, N, NRHS, KMAX, ABSTOL, RELTOL, A, LDA, K, MAXC2NRMK, RELMAXC2NRMK, JPIV, TAU, WORK, LWORK, IWORK, INFO ) {
       // IMPLICIT NONE
 
@@ -54,9 +62,9 @@
          INFO = -3;
       } else if ( KMAX < 0 ) {
          INFO = -4;
-      } else if ( DISNAN( ABSTOL ) ) {
+      } else if ( disnan( ABSTOL ) ) {
          INFO = -5;
-      } else if ( DISNAN( RELTOL ) ) {
+      } else if ( disnan( RELTOL ) ) {
          INFO = -6;
       } else if ( LDA < max( 1, M ) ) {
          INFO = -8;
@@ -171,7 +179,7 @@
 
       // ==================================================================.
 
-      if ( DISNAN( MAXC2NRM ) ) {
+      if ( disnan( MAXC2NRM ) ) {
 
          // Check if the matrix A contains NaN, set INFO parameter
          // to the column number where the first NaN is found and return;

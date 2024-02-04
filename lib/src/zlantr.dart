@@ -48,14 +48,14 @@
                for (J = 1; J <= N; J++) { // 20
                   for (I = 1; I <= min( M, J-1 ); I++) { // 10
                      SUM = ( A( I, J ) ).abs();
-                     if( VALUE < SUM || DISNAN( SUM ) ) VALUE = SUM;
+                     if( VALUE < SUM || disnan( SUM ) ) VALUE = SUM;
                   } // 10
                } // 20
             } else {
                for (J = 1; J <= N; J++) { // 40
                   for (I = J + 1; I <= M; I++) { // 30
                      SUM = ( A( I, J ) ).abs();
-                     if( VALUE < SUM || DISNAN( SUM ) ) VALUE = SUM;
+                     if( VALUE < SUM || disnan( SUM ) ) VALUE = SUM;
                   } // 30
                } // 40
             }
@@ -65,14 +65,14 @@
                for (J = 1; J <= N; J++) { // 60
                   for (I = 1; I <= min( M, J ); I++) { // 50
                      SUM = ( A( I, J ) ).abs();
-                     if( VALUE < SUM || DISNAN( SUM ) ) VALUE = SUM;
+                     if( VALUE < SUM || disnan( SUM ) ) VALUE = SUM;
                   } // 50
                } // 60
             } else {
                for (J = 1; J <= N; J++) { // 80
                   for (I = J; I <= M; I++) { // 70
                      SUM = ( A( I, J ) ).abs();
-                     if( VALUE < SUM || DISNAN( SUM ) ) VALUE = SUM;
+                     if( VALUE < SUM || disnan( SUM ) ) VALUE = SUM;
                   } // 70
                } // 80
             }
@@ -96,7 +96,7 @@
                      SUM = SUM + ( A( I, J ) ).abs();
                   } // 100
                }
-               if( VALUE < SUM || DISNAN( SUM ) ) VALUE = SUM;
+               if( VALUE < SUM || disnan( SUM ) ) VALUE = SUM;
             } // 110
          } else {
             for (J = 1; J <= N; J++) { // 140
@@ -111,7 +111,7 @@
                      SUM = SUM + ( A( I, J ) ).abs();
                   } // 130
                }
-               if( VALUE < SUM || DISNAN( SUM ) ) VALUE = SUM;
+               if( VALUE < SUM || disnan( SUM ) ) VALUE = SUM;
             } // 140
          }
       } else if ( lsame( NORM, 'I' ) ) {
@@ -165,7 +165,7 @@
          VALUE = ZERO;
          for (I = 1; I <= M; I++) { // 280
             SUM = WORK( I );
-            if( VALUE < SUM || DISNAN( SUM ) ) VALUE = SUM;
+            if( VALUE < SUM || disnan( SUM ) ) VALUE = SUM;
          } // 280
       } else if ( ( lsame( NORM, 'F' ) ) || ( lsame( NORM, 'E' ) ) ) {
 

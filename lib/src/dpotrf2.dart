@@ -1,3 +1,11 @@
+import 'dart:math';
+
+import 'package:lapack/src/blas/lsame.dart';
+import 'package:lapack/src/box.dart';
+import 'package:lapack/src/ilaenv.dart';
+import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/xerbla.dart';
+
       RECURSIVE SUBROUTINE DPOTRF2( UPLO, N, A, LDA, INFO );
 
 // -- LAPACK computational routine --
@@ -60,7 +68,7 @@
 
          // Test for non-positive-definiteness
 
-         if ( A( 1, 1 ) <= ZERO || DISNAN( A( 1, 1 ) ) ) {
+         if ( A( 1, 1 ) <= ZERO || disnan( A( 1, 1 ) ) ) {
             INFO = 1;
             return;
          }

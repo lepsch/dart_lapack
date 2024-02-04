@@ -1,3 +1,11 @@
+import 'dart:math';
+
+import 'package:lapack/src/blas/lsame.dart';
+import 'package:lapack/src/box.dart';
+import 'package:lapack/src/ilaenv.dart';
+import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/xerbla.dart';
+
       void dhsein(SIDE, EIGSRC, INITV, SELECT, N, H, LDH, WR, WI, VL, LDVL, VR, LDVR, MM, M, WORK, IFAILL, IFAILR, INFO ) {
 
 // -- LAPACK computational routine --
@@ -154,7 +162,7 @@
                // has not ben computed before.
 
                HNORM = DLANHS( 'I', KR-KL+1, H( KL, KL ), LDH, WORK );
-               if ( DISNAN( HNORM ) ) {
+               if ( disnan( HNORM ) ) {
                   INFO = -6;
                   return;
                } else if ( HNORM > ZERO ) {

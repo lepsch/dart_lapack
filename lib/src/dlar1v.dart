@@ -1,3 +1,11 @@
+import 'dart:math';
+
+import 'package:lapack/src/blas/lsame.dart';
+import 'package:lapack/src/box.dart';
+import 'package:lapack/src/ilaenv.dart';
+import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/xerbla.dart';
+
       void dlar1v(N, B1, BN, LAMBDA, D, L, LD, LLD, PIVMIN, GAPTOL, Z, WANTNC, NEGCNT, ZTZ, MINGMA, R, ISUPPZ, NRMINV, RESID, RQCORR, WORK ) {
 
 // -- LAPACK auxiliary routine --
@@ -75,7 +83,7 @@
          WORK[INDS+I] = S*WORK( INDLPL+I )*L( I );
          S = WORK( INDS+I ) - LAMBDA;
       } // 50
-      SAWNAN1 = DISNAN( S );
+      SAWNAN1 = disnan( S );
       if (SAWNAN1) GOTO 60;
       for (I = R1; I <= R2 - 1; I++) { // 51
          DPLUS = D( I ) + S;
@@ -83,7 +91,7 @@
          WORK[INDS+I] = S*WORK( INDLPL+I )*L( I );
          S = WORK( INDS+I ) - LAMBDA;
       } // 51
-      SAWNAN1 = DISNAN( S );
+      SAWNAN1 = disnan( S );
 
       } // 60
       if ( SAWNAN1 ) {
@@ -123,7 +131,7 @@
          WORK[INDP+I-1] = WORK( INDP+I )*TMP - LAMBDA;
       } // 80
       TMP = WORK( INDP+R1-1 );
-      SAWNAN2 = DISNAN( TMP );
+      SAWNAN2 = disnan( TMP );
 
       if ( SAWNAN2 ) {
          // Runs a slower version of the above loop if a NaN is detected

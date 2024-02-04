@@ -30,7 +30,7 @@
       }
       C2 = PATH( 2: 3 );
 
-      if ( LSAMEN( 2, C2, 'HS' ) ) {
+      if ( lsamen( 2, C2, 'HS' ) ) {
          if ( SORD ) {
 
             // Real Non-symmetric Eigenvalue Problem:
@@ -66,7 +66,7 @@
             WRITE( IOUNIT, FMT = 9984 )'unitary', '*=conj.transp.', ( '*', J = 1, 6 );
          }
 
-      } else if ( LSAMEN( 2, C2, 'ST' ) ) {
+      } else if ( lsamen( 2, C2, 'ST' ) ) {
 
          if ( SORD ) {
 
@@ -101,7 +101,7 @@
             WRITE( IOUNIT, FMT = 9967 );
          }
 
-      } else if ( LSAMEN( 2, C2, 'SG' ) ) {
+      } else if ( lsamen( 2, C2, 'SG' ) ) {
 
          if ( SORD ) {
 
@@ -139,7 +139,7 @@
 
          }
 
-      } else if ( LSAMEN( 2, C2, 'BD' ) ) {
+      } else if ( lsamen( 2, C2, 'BD' ) ) {
 
          if ( SORD ) {
 
@@ -171,7 +171,7 @@
             WRITE( IOUNIT, FMT = 9971 );
          }
 
-      } else if ( LSAMEN( 2, C2, 'BB' ) ) {
+      } else if ( lsamen( 2, C2, 'BB' ) ) {
 
          if ( SORD ) {
 

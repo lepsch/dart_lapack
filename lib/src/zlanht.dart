@@ -44,9 +44,9 @@
          ANORM = ( D( N ) ).abs();
          for (I = 1; I <= N - 1; I++) { // 10
             SUM =  ( D( I ) ).abs();
-            if( ANORM < SUM || DISNAN( SUM ) ) ANORM = SUM;
+            if( ANORM < SUM || disnan( SUM ) ) ANORM = SUM;
             SUM = ( E( I ) ).abs();
-            if( ANORM < SUM || DISNAN( SUM ) ) ANORM = SUM;
+            if( ANORM < SUM || disnan( SUM ) ) ANORM = SUM;
          } // 10
       } else if ( lsame( NORM, 'O' ) || NORM == '1' || lsame( NORM, 'I' ) ) {
 
@@ -57,10 +57,10 @@
          } else {
             ANORM = ( D( 1 ) ).abs()+( E( 1 ) ).abs();
             SUM = ( E( N-1 ) ).abs()+( D( N ) ).abs();
-            if( ANORM < SUM || DISNAN( SUM ) ) ANORM = SUM;
+            if( ANORM < SUM || disnan( SUM ) ) ANORM = SUM;
             for (I = 2; I <= N - 1; I++) { // 20
                SUM = ( D( I ) ).abs()+( E( I ) ).abs()+( E( I-1 ) ).abs();
-               if( ANORM < SUM || DISNAN( SUM ) ) ANORM = SUM;
+               if( ANORM < SUM || disnan( SUM ) ) ANORM = SUM;
             } // 20
          }
       } else if ( ( lsame( NORM, 'F' ) ) || ( lsame( NORM, 'E' ) ) ) {

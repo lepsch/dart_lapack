@@ -51,7 +51,7 @@
       A[2, 1] = 4.0;
       OK = true;
 
-      if ( LSAMEN( 2, C2, 'LS' ) ) {
+      if ( lsamen( 2, C2, 'LS' ) ) {
 
          // Test error exits for the least squares driver routines.
 

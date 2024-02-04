@@ -54,7 +54,7 @@
 
       // Test error exits for the least squares driver routines.
 
-      if ( LSAMEN( 2, C2, 'LS' ) ) {
+      if ( lsamen( 2, C2, 'LS' ) ) {
 
          // ZGELS
 

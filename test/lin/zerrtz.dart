@@ -55,7 +55,7 @@
 
       // Test error exits for the trapezoidal routines.
       WRITE( NOUT, FMT = * );
-      if ( LSAMEN( 2, C2, 'TZ' ) ) {
+      if ( lsamen( 2, C2, 'TZ' ) ) {
 
 
          // ZTZRZF

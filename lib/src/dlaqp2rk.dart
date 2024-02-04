@@ -1,3 +1,11 @@
+import 'dart:math';
+
+import 'package:lapack/src/blas/lsame.dart';
+import 'package:lapack/src/box.dart';
+import 'package:lapack/src/ilaenv.dart';
+import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/xerbla.dart';
+
       void dlaqp2rk(M, N, NRHS, IOFFSET, KMAX, ABSTOL, RELTOL, KP1, MAXC2NRM, A, LDA, K, MAXC2NRMK, RELMAXC2NRMK, JPIV, TAU, VN1, VN2, WORK, INFO ) {
       // IMPLICIT NONE
 
@@ -102,7 +110,7 @@
             // matrix is larger than 1, since the condition for whole
             // original matrix is checked in the main routine.
 
-            if ( DISNAN( MAXC2NRMK ) ) {
+            if ( disnan( MAXC2NRMK ) ) {
 
                // Set K, the number of factorized columns.
                // that are not zero.
@@ -247,7 +255,7 @@
          // TAU(KK) to contain NaN. Therefore, this case of generating Inf
          // by DLARFG is covered by checking TAU(KK) for NaN.
 
-         if ( DISNAN( TAU(KK) ) ) {
+         if ( disnan( TAU(KK) ) ) {
             K = KK - 1;
             INFO = KK;
 

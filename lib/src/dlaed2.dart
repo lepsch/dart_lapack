@@ -1,3 +1,11 @@
+import 'dart:math';
+
+import 'package:lapack/src/blas/lsame.dart';
+import 'package:lapack/src/box.dart';
+import 'package:lapack/src/ilaenv.dart';
+import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/xerbla.dart';
+
       void dlaed2(K, N, N1, D, Q, LDQ, INDXQ, RHO, Z, DLAMBDA, W, Q2, INDX, INDXC, INDXP, COLTYP, INFO ) {
 
 // -- LAPACK computational routine --

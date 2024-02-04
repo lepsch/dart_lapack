@@ -51,7 +51,7 @@
       W[2] = 0.0;
       OK = true;
 
-      if ( LSAMEN( 2, C2, 'TZ' ) ) {
+      if ( lsamen( 2, C2, 'TZ' ) ) {
 
          // Test error exits for the trapezoidal routines.
 

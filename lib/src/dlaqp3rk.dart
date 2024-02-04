@@ -1,3 +1,11 @@
+import 'dart:math';
+
+import 'package:lapack/src/blas/lsame.dart';
+import 'package:lapack/src/box.dart';
+import 'package:lapack/src/ilaenv.dart';
+import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/xerbla.dart';
+
       void dlaqp3rk(M, N, NRHS, IOFFSET, NB, ABSTOL, RELTOL, KP1, MAXC2NRM, A, LDA, DONE, KB, MAXC2NRMK, RELMAXC2NRMK, JPIV, TAU, VN1, VN2, AUXV, F, LDF, IWORK, INFO ) {
       // IMPLICIT NONE
 
@@ -94,7 +102,7 @@
             // matrix is larger than 1, since the condition for whole
             // original matrix is checked in the main routine.
 
-            if ( DISNAN( MAXC2NRMK ) ) {
+            if ( disnan( MAXC2NRMK ) ) {
 
                DONE = true;
 
@@ -322,7 +330,7 @@
          // TAU(K) to contain NaN. Therefore, this case of generating Inf
          // by DLARFG is covered by checking TAU(K) for NaN.
 
-         if ( DISNAN( TAU(K) ) ) {
+         if ( disnan( TAU(K) ) ) {
 
             DONE = true;
 

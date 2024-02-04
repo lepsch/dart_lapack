@@ -98,7 +98,7 @@
             // matrix is larger than 1, since the condition for whole
             // original matrix is checked in the main routine.
 
-            if ( DISNAN( MAXC2NRMK ) ) {
+            if ( disnan( MAXC2NRMK ) ) {
 
                DONE = true;
 
@@ -332,15 +332,15 @@
          // TAU(K) to contain NaN. Therefore, this case of generating Inf
          // by ZLARFG is covered by checking TAU(K) for NaN.
 
-         if ( DISNAN( (TAU(K)).toDouble() ) ) {
+         if ( disnan( (TAU(K)).toDouble() ) ) {
             TAUNAN = (TAU(K)).toDouble();
-         } else if ( DISNAN( DIMAG( TAU(K) ) ) ) {
+         } else if ( disnan( DIMAG( TAU(K) ) ) ) {
             TAUNAN = DIMAG( TAU(K) );
          } else {
             TAUNAN = ZERO;
          }
 
-         if ( DISNAN( TAUNAN ) ) {
+         if ( disnan( TAUNAN ) ) {
 
             DONE = true;
 

@@ -42,8 +42,8 @@
 
          ANORM = ( D( N ) ).abs();
          for (I = 1; I <= N - 1; I++) { // 10
-            if( ANORM < ( DL( I ) ).abs() || DISNAN( ( DL( I ) ) ) ).abs() ANORM = (DL(I)).abs();
-            if( ANORM < ( D( I ) ).abs() || DISNAN( ( D( I ) ) ) ).abs() ANORM = (D(I)).abs();
+            if( ANORM < ( DL( I ) ).abs() || disnan( ( DL( I ) ) ) ).abs() ANORM = (DL(I)).abs();
+            if( ANORM < ( D( I ) ).abs() || disnan( ( D( I ) ) ) ).abs() ANORM = (D(I)).abs();
             IF( ANORM < ( DU( I ) ).abs() || DISNAN (( DU( I ) ) ) ).abs() ANORM = (DU(I)).abs();
          } // 10
       } else if ( lsame( NORM, 'O' ) || NORM == '1' ) {
@@ -55,10 +55,10 @@
          } else {
             ANORM = ( D( 1 ) ).abs()+( DL( 1 ) ).abs();
             TEMP = ( D( N ) ).abs()+( DU( N-1 ) ).abs();
-            if( ANORM < TEMP || DISNAN( TEMP ) ) ANORM = TEMP;
+            if( ANORM < TEMP || disnan( TEMP ) ) ANORM = TEMP;
             for (I = 2; I <= N - 1; I++) { // 20
                TEMP = ( D( I ) ).abs()+( DL( I ) ).abs()+( DU( I-1 ) ).abs();
-               if( ANORM < TEMP || DISNAN( TEMP ) ) ANORM = TEMP;
+               if( ANORM < TEMP || disnan( TEMP ) ) ANORM = TEMP;
             } // 20
          }
       } else if ( lsame( NORM, 'I' ) ) {
@@ -70,10 +70,10 @@
          } else {
             ANORM = ( D( 1 ) ).abs()+( DU( 1 ) ).abs();
             TEMP = ( D( N ) ).abs()+( DL( N-1 ) ).abs();
-            if( ANORM < TEMP || DISNAN( TEMP ) ) ANORM = TEMP;
+            if( ANORM < TEMP || disnan( TEMP ) ) ANORM = TEMP;
             for (I = 2; I <= N - 1; I++) { // 30
                TEMP = ( D( I ) ).abs()+( DU( I ) ).abs()+( DL( I-1 ) ).abs();
-               if( ANORM < TEMP || DISNAN( TEMP ) ) ANORM = TEMP;
+               if( ANORM < TEMP || disnan( TEMP ) ) ANORM = TEMP;
             } // 30
          }
       } else if ( ( lsame( NORM, 'F' ) ) || ( lsame( NORM, 'E' ) ) ) {

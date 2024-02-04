@@ -26,22 +26,22 @@
 
       // First line describing matrices in this path
 
-      if ( LSAMEN( 3, C2, 'GQR' ) ) {
+      if ( lsamen( 3, C2, 'GQR' ) ) {
          ITYPE = 1;
          WRITE( IOUNIT, FMT = 9991 )PATH;
-      } else if ( LSAMEN( 3, C2, 'GRQ' ) ) {
+      } else if ( lsamen( 3, C2, 'GRQ' ) ) {
          ITYPE = 2;
          WRITE( IOUNIT, FMT = 9992 )PATH;
-      } else if ( LSAMEN( 3, C2, 'LSE' ) ) {
+      } else if ( lsamen( 3, C2, 'LSE' ) ) {
          ITYPE = 3;
          WRITE( IOUNIT, FMT = 9993 )PATH;
-      } else if ( LSAMEN( 3, C2, 'GLM' ) ) {
+      } else if ( lsamen( 3, C2, 'GLM' ) ) {
          ITYPE = 4;
          WRITE( IOUNIT, FMT = 9994 )PATH;
-      } else if ( LSAMEN( 3, C2, 'GSV' ) ) {
+      } else if ( lsamen( 3, C2, 'GSV' ) ) {
          ITYPE = 5;
          WRITE( IOUNIT, FMT = 9995 )PATH;
-      } else if ( LSAMEN( 3, C2, 'CSD' ) ) {
+      } else if ( lsamen( 3, C2, 'CSD' ) ) {
          ITYPE = 6;
          WRITE( IOUNIT, FMT = 9996 )PATH;
       }

@@ -98,13 +98,13 @@
          clacpy('ALL', KL+KU+1, N, AB, LDAB, ABCOPY, LDAB);
 
          // Call C**SVXX with default PARAMS and N_ERR_BND = 3.
-         if ( LSAMEN( 2, C2, 'SY' ) ) {
+         if ( lsamen( 2, C2, 'SY' ) ) {
             csysvxx(FACT, UPLO, N, NRHS, ACOPY, LDA, AF, LDA, IPIV, EQUED, S, B, LDA, X, LDA, ORCOND, RPVGRW, BERR, NERRBND, ERRBND_N, ERRBND_C, NPARAMS, PARAMS, WORK, RWORK, INFO);
-         } else if ( LSAMEN( 2, C2, 'PO' ) ) {
+         } else if ( lsamen( 2, C2, 'PO' ) ) {
             cposvxx(FACT, UPLO, N, NRHS, ACOPY, LDA, AF, LDA, EQUED, S, B, LDA, X, LDA, ORCOND, RPVGRW, BERR, NERRBND, ERRBND_N, ERRBND_C, NPARAMS, PARAMS, WORK, RWORK, INFO);
-         } else if ( LSAMEN( 2, C2, 'HE' ) ) {
+         } else if ( lsamen( 2, C2, 'HE' ) ) {
             chesvxx(FACT, UPLO, N, NRHS, ACOPY, LDA, AF, LDA, IPIV, EQUED, S, B, LDA, X, LDA, ORCOND, RPVGRW, BERR, NERRBND, ERRBND_N, ERRBND_C, NPARAMS, PARAMS, WORK, RWORK, INFO);
-         } else if ( LSAMEN( 2, C2, 'GB' ) ) {
+         } else if ( lsamen( 2, C2, 'GB' ) ) {
             cgbsvxx(FACT, TRANS, N, KL, KU, NRHS, ABCOPY, LDAB, AFB, LDAFB, IPIV, EQUED, R, C, B, LDA, X, LDA, ORCOND, RPVGRW, BERR, NERRBND, ERRBND_N, ERRBND_C, NPARAMS, PARAMS, WORK, RWORK, INFO);
          } else {
             cgesvxx(FACT, TRANS, N, NRHS, ACOPY, LDA, AF, LDA, IPIV, EQUED, R, C, B, LDA, X, LDA, ORCOND, RPVGRW, BERR, NERRBND, ERRBND_N, ERRBND_C, NPARAMS, PARAMS, WORK, RWORK, INFO);
@@ -137,7 +137,7 @@
          // Calculating the RCOND
          RNORM = 0;
          RINORM = 0;
-         if ( LSAMEN( 2, C2, 'PO' ) || LSAMEN( 2, C2, 'SY' ) || LSAMEN( 2, C2, 'HE' ) ) {
+         if ( lsamen( 2, C2, 'PO' ) || lsamen( 2, C2, 'SY' ) || lsamen( 2, C2, 'HE' ) ) {
             for (I = 1; I <= N; I++) {
                SUMR = 0;
                SUMRI = 0;
@@ -148,7 +148,7 @@
                RNORM = max(RNORM,SUMR);
                RINORM = max(RINORM,SUMRI);
             }
-         } else if ( LSAMEN( 2, C2, 'GE' ) || LSAMEN( 2, C2, 'GB' ) ) {
+         } else if ( lsamen( 2, C2, 'GE' ) || lsamen( 2, C2, 'GB' ) ) {
             for (I = 1; I <= N; I++) {
                SUMR = 0;
                SUMRI = 0;

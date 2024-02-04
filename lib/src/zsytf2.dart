@@ -99,7 +99,7 @@
             COLMAX = ZERO;
          }
 
-         if ( max( ABSAKK, COLMAX ) == ZERO || DISNAN(ABSAKK) ) {
+         if ( max( ABSAKK, COLMAX ) == ZERO || disnan(ABSAKK) ) {
 
             // Column K is zero or underflow, or contains a NaN:
             // set INFO and continue
@@ -265,7 +265,7 @@
             COLMAX = ZERO;
          }
 
-         if ( max( ABSAKK, COLMAX ) == ZERO || DISNAN(ABSAKK) ) {
+         if ( max( ABSAKK, COLMAX ) == ZERO || disnan(ABSAKK) ) {
 
             // Column K is zero or underflow, or contains a NaN:
             // set INFO and continue

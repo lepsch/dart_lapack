@@ -36,7 +36,7 @@
       CORZ = lsame( C1, 'C' ) || lsame( C1, 'Z' );
       if( !( SORD || CORZ ) ) return;
 
-      if ( LSAMEN( 2, P2, 'GE' ) ) {
+      if ( lsamen( 2, P2, 'GE' ) ) {
 
          // GE: General dense
 
@@ -54,7 +54,7 @@
          WRITE( IOUNIT, FMT = 9955 )8;
          WRITE( IOUNIT, FMT = '( '' Messages:'' )' );
 
-      } else if ( LSAMEN( 2, P2, 'GB' ) ) {
+      } else if ( lsamen( 2, P2, 'GB' ) ) {
 
          // GB: General band
 
@@ -71,7 +71,7 @@
          WRITE( IOUNIT, FMT = 9955 )7;
          WRITE( IOUNIT, FMT = '( '' Messages:'' )' );
 
-      } else if ( LSAMEN( 2, P2, 'GT' ) ) {
+      } else if ( lsamen( 2, P2, 'GT' ) ) {
 
          // GT: General tridiagonal
 
@@ -87,7 +87,7 @@
          WRITE( IOUNIT, FMT = 9955 )7;
          WRITE( IOUNIT, FMT = '( '' Messages:'' )' );
 
-      } else if ( LSAMEN( 2, P2, 'PO' ) || LSAMEN( 2, P2, 'PP' ) ) {
+      } else if ( lsamen( 2, P2, 'PO' ) || lsamen( 2, P2, 'PP' ) ) {
 
          // PO: Positive definite full
          // PP: Positive definite packed
@@ -115,7 +115,7 @@
          WRITE( IOUNIT, FMT = 9955 )8;
          WRITE( IOUNIT, FMT = '( '' Messages:'' )' );
 
-      } else if ( LSAMEN( 2, P2, 'PS' ) ) {
+      } else if ( lsamen( 2, P2, 'PS' ) ) {
 
          // PS: Positive semi-definite full
 
@@ -137,7 +137,7 @@
          WRITE( IOUNIT, FMT = '( '' Test ratio:'' )' );
          WRITE( IOUNIT, FMT = 8950 );
          WRITE( IOUNIT, FMT = '( '' Messages:'' )' );
-      } else if ( LSAMEN( 2, P2, 'PB' ) ) {
+      } else if ( lsamen( 2, P2, 'PB' ) ) {
 
          // PB: Positive definite band
 
@@ -158,7 +158,7 @@
          WRITE( IOUNIT, FMT = 9955 )7;
          WRITE( IOUNIT, FMT = '( '' Messages:'' )' );
 
-      } else if ( LSAMEN( 2, P2, 'PT' ) ) {
+      } else if ( lsamen( 2, P2, 'PT' ) ) {
 
          // PT: Positive definite tridiagonal
 
@@ -178,7 +178,7 @@
          WRITE( IOUNIT, FMT = 9955 )7;
          WRITE( IOUNIT, FMT = '( '' Messages:'' )' );
 
-      } else if ( LSAMEN( 2, P2, 'SY' )  ) {
+      } else if ( lsamen( 2, P2, 'SY' )  ) {
 
          // SY: Symmetric indefinite full,
              // with partial (Bunch-Kaufman) pivoting algorithm
@@ -206,7 +206,7 @@
          WRITE( IOUNIT, FMT = 9955 )9;
          WRITE( IOUNIT, FMT = '( '' Messages:'' )' );
 
-      } else if ( LSAMEN( 2, P2, 'SR' ) || LSAMEN( 2, P2, 'SK') ) {
+      } else if ( lsamen( 2, P2, 'SR' ) || lsamen( 2, P2, 'SK') ) {
 
          // SR: Symmetric indefinite full,
              // with rook (bounded Bunch-Kaufman) pivoting algorithm
@@ -238,7 +238,7 @@
          WRITE( IOUNIT, FMT = 9955 )7;
          WRITE( IOUNIT, FMT = '( '' Messages:'' )' );
 
-      } else if ( LSAMEN( 2, P2, 'SP' ) ) {
+      } else if ( lsamen( 2, P2, 'SP' ) ) {
 
          // SP: Symmetric indefinite packed,
              // with partial (Bunch-Kaufman) pivoting algorithm
@@ -265,7 +265,7 @@
          WRITE( IOUNIT, FMT = 9955 )8;
          WRITE( IOUNIT, FMT = '( '' Messages:'' )' );
 
-      } else if ( LSAMEN( 2, P2, 'HA' )  ) {
+      } else if ( lsamen( 2, P2, 'HA' )  ) {
 
          // HA: Hermitian,
              // with Assen Algorithm
@@ -287,7 +287,7 @@
          WRITE( IOUNIT, FMT = 9955 )9;
          WRITE( IOUNIT, FMT = '( '' Messages:'' )' );
 
-      } else if ( LSAMEN( 2, P2, 'HE' )  ) {
+      } else if ( lsamen( 2, P2, 'HE' )  ) {
 
          // HE: Hermitian indefinite full,
              // with partial (Bunch-Kaufman) pivoting algorithm
@@ -309,7 +309,7 @@
          WRITE( IOUNIT, FMT = 9955 )9;
          WRITE( IOUNIT, FMT = '( '' Messages:'' )' );
 
-      } else if ( LSAMEN( 2, P2, 'HR' ) || LSAMEN( 2, P2, 'HR' ) ) {
+      } else if ( lsamen( 2, P2, 'HR' ) || lsamen( 2, P2, 'HR' ) ) {
 
          // HR: Hermitian indefinite full,
              // with rook (bounded Bunch-Kaufman) pivoting algorithm
@@ -337,7 +337,7 @@
          WRITE( IOUNIT, FMT = 9955 )7;
          WRITE( IOUNIT, FMT = '( '' Messages:'' )' );
 
-      } else if ( LSAMEN( 2, P2, 'HP' ) ) {
+      } else if ( lsamen( 2, P2, 'HP' ) ) {
 
          // HP: Hermitian indefinite packed,
              // with partial (Bunch-Kaufman) pivoting algorithm
@@ -360,7 +360,7 @@
          WRITE( IOUNIT, FMT = 9955 )8;
          WRITE( IOUNIT, FMT = '( '' Messages:'' )' );
 
-      } else if ( LSAMEN( 2, P2, 'TR' ) || LSAMEN( 2, P2, 'TP' ) ) {
+      } else if ( lsamen( 2, P2, 'TR' ) || lsamen( 2, P2, 'TP' ) ) {
 
          // TR: Triangular full
          // TP: Triangular packed
@@ -385,7 +385,7 @@
          WRITE( IOUNIT, FMT = 9951 )SUBNAM(1:LEN_TRIM( SUBNAM )), 8;
          WRITE( IOUNIT, FMT = '( '' Messages:'' )' );
 
-      } else if ( LSAMEN( 2, P2, 'TB' ) ) {
+      } else if ( lsamen( 2, P2, 'TB' ) ) {
 
          // TB: Triangular band
 
@@ -403,7 +403,7 @@
          WRITE( IOUNIT, FMT = 9951 )SUBNAM(1:LEN_TRIM( SUBNAM )), 7;
          WRITE( IOUNIT, FMT = '( '' Messages:'' )' );
 
-      } else if ( LSAMEN( 2, P2, 'QR' ) ) {
+      } else if ( lsamen( 2, P2, 'QR' ) ) {
 
          // QR decomposition of rectangular matrices
 
@@ -422,7 +422,7 @@
          WRITE( IOUNIT, FMT = 6660 )9;
          WRITE( IOUNIT, FMT = '( '' Messages:'' )' );
 
-      } else if ( LSAMEN( 2, P2, 'LQ' ) ) {
+      } else if ( lsamen( 2, P2, 'LQ' ) ) {
 
          // LQ decomposition of rectangular matrices
 
@@ -439,7 +439,7 @@
          WRITE( IOUNIT, FMT = 9960 )7;
          WRITE( IOUNIT, FMT = '( '' Messages:'' )' );
 
-      } else if ( LSAMEN( 2, P2, 'QL' ) ) {
+      } else if ( lsamen( 2, P2, 'QL' ) ) {
 
          // QL decomposition of rectangular matrices
 
@@ -456,7 +456,7 @@
          WRITE( IOUNIT, FMT = 9960 )7;
          WRITE( IOUNIT, FMT = '( '' Messages:'' )' );
 
-      } else if ( LSAMEN( 2, P2, 'RQ' ) ) {
+      } else if ( lsamen( 2, P2, 'RQ' ) ) {
 
          // RQ decomposition of rectangular matrices
 
@@ -473,7 +473,7 @@
          WRITE( IOUNIT, FMT = 9960 )7;
          WRITE( IOUNIT, FMT = '( '' Messages:'' )' );
 
-      } else if ( LSAMEN( 2, P2, 'QP' ) ) {
+      } else if ( lsamen( 2, P2, 'QP' ) ) {
 
          // QR decomposition with column pivoting
 
@@ -485,7 +485,7 @@
          WRITE( IOUNIT, FMT = 9938 )3;
          WRITE( IOUNIT, FMT = '( '' Messages:'' )' );
 
-      } else if ( LSAMEN( 2, P2, 'QK' ) ) {
+      } else if ( lsamen( 2, P2, 'QK' ) ) {
 
          // truncated QR decomposition with column pivoting
 
@@ -499,7 +499,7 @@
          WRITE( IOUNIT, FMT = 8064 )5;
          WRITE( IOUNIT, FMT = '( '' Messages:'' )' );
 
-      } else if ( LSAMEN( 2, P2, 'TZ' ) ) {
+      } else if ( lsamen( 2, P2, 'TZ' ) ) {
 
          // TZ:  Trapezoidal
 
@@ -512,7 +512,7 @@
          WRITE( IOUNIT, FMT = 9938 )3;
          WRITE( IOUNIT, FMT = '( '' Messages:'' )' );
 
-      } else if ( LSAMEN( 2, P2, 'LS' ) ) {
+      } else if ( lsamen( 2, P2, 'LS' ) ) {
 
          // LS:  Least Squares driver routines for
               // LS, LST, TSLS, LSD, LSS, LSX and LSY.
@@ -530,7 +530,7 @@
          WRITE( IOUNIT, FMT = 9920 );
          WRITE( IOUNIT, FMT = '( '' Messages:'' )' );
 
-      } else if ( LSAMEN( 2, P2, 'LU' ) ) {
+      } else if ( lsamen( 2, P2, 'LU' ) ) {
 
          // LU factorization variants
 
@@ -541,7 +541,7 @@
          WRITE( IOUNIT, FMT = 9962 )1;
          WRITE( IOUNIT, FMT = '( '' Messages:'' )' );
 
-      } else if ( LSAMEN( 2, P2, 'CH' ) ) {
+      } else if ( lsamen( 2, P2, 'CH' ) ) {
 
          // Cholesky factorization variants
 
@@ -552,7 +552,7 @@
          WRITE( IOUNIT, FMT = 9954 )1;
          WRITE( IOUNIT, FMT = '( '' Messages:'' )' );
 
-      } else if ( LSAMEN( 2, P2, 'QS' ) ) {
+      } else if ( lsamen( 2, P2, 'QS' ) ) {
 
          // QR factorization variants
 
@@ -561,7 +561,7 @@
          WRITE( IOUNIT, FMT = 9970 );
          WRITE( IOUNIT, FMT = '( '' Test ratios:'' )' );
 
-      } else if ( LSAMEN( 2, P2, 'QT' ) ) {
+      } else if ( lsamen( 2, P2, 'QT' ) ) {
 
          // QRT (general matrices)
 
@@ -574,7 +574,7 @@
          WRITE( IOUNIT, FMT = 8015 ) 5;
          WRITE( IOUNIT, FMT = 8016 ) 6;
 
-      } else if ( LSAMEN( 2, P2, 'QX' ) ) {
+      } else if ( lsamen( 2, P2, 'QX' ) ) {
 
          // QRT (triangular-pentagonal)
 
@@ -587,7 +587,7 @@
          WRITE( IOUNIT, FMT = 8021 ) 5;
          WRITE( IOUNIT, FMT = 8022 ) 6;
 
-      } else if ( LSAMEN( 2, P2, 'TQ' ) ) {
+      } else if ( lsamen( 2, P2, 'TQ' ) ) {
 
          // QRT (triangular-pentagonal)
 
@@ -600,7 +600,7 @@
          WRITE( IOUNIT, FMT = 8027 ) 5;
          WRITE( IOUNIT, FMT = 8028 ) 6;
 
-      } else if ( LSAMEN( 2, P2, 'XQ' ) ) {
+      } else if ( lsamen( 2, P2, 'XQ' ) ) {
 
          // QRT (triangular-pentagonal)
 
@@ -613,7 +613,7 @@
          WRITE( IOUNIT, FMT = 8033 ) 5;
          WRITE( IOUNIT, FMT = 8034 ) 6;
 
-      } else if ( LSAMEN( 2, P2, 'TS' ) ) {
+      } else if ( lsamen( 2, P2, 'TS' ) ) {
 
          // TS:  QR routines for tall-skinny and short-wide matrices
 
@@ -626,7 +626,7 @@
          WRITE( IOUNIT, FMT = 8039 ) 5;
          WRITE( IOUNIT, FMT = 8040 ) 6;
 
-      } else if ( LSAMEN( 2, P2, 'HH' ) ) {
+      } else if ( lsamen( 2, P2, 'HH' ) ) {
 
          // HH:  Householder reconstruction for tall-skinny matrices
 

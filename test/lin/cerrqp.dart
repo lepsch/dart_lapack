@@ -57,7 +57,7 @@
 
       // Test error exits for QR factorization with pivoting
 
-      if ( LSAMEN( 2, C2, 'QP' ) ) {
+      if ( lsamen( 2, C2, 'QP' ) ) {
 
          // CGEQP3
 

@@ -1,3 +1,11 @@
+import 'dart:math';
+
+import 'package:lapack/src/blas/lsame.dart';
+import 'package:lapack/src/box.dart';
+import 'package:lapack/src/ilaenv.dart';
+import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/xerbla.dart';
+
       void dlaqz1(A, LDA, B, LDB, SR1, SR2, SI, BETA1, BETA2, V ) {
       // IMPLICIT NONE
 
@@ -50,7 +58,7 @@
 
       // Check for overflow
 
-      if ( ( V( 1 ) ).abs() > SAFMAX || ( V( 2 ) ).abs() > SAFMAX || ( V( 3 ) ).abs() > SAFMAX || DISNAN( V( 1 ) ) || DISNAN( V( 2 ) ) || DISNAN( V( 3 ) ) ) {
+      if ( ( V( 1 ) ).abs() > SAFMAX || ( V( 2 ) ).abs() > SAFMAX || ( V( 3 ) ).abs() > SAFMAX || disnan( V( 1 ) ) || disnan( V( 2 ) ) || disnan( V( 3 ) ) ) {
          V[1] = ZERO;
          V[2] = ZERO;
          V[3] = ZERO;

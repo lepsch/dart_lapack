@@ -1,3 +1,11 @@
+import 'dart:math';
+
+import 'package:lapack/src/blas/lsame.dart';
+import 'package:lapack/src/box.dart';
+import 'package:lapack/src/ilaenv.dart';
+import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/xerbla.dart';
+
       void dsytf2(UPLO, N, A, LDA, IPIV, INFO ) {
 
 // -- LAPACK computational routine --
@@ -90,7 +98,7 @@
             COLMAX = ZERO;
          }
 
-         if ( (max( ABSAKK, COLMAX ) == ZERO) || DISNAN(ABSAKK) ) {
+         if ( (max( ABSAKK, COLMAX ) == ZERO) || disnan(ABSAKK) ) {
 
             // Column K is zero or underflow, or contains a NaN:
             // set INFO and continue
@@ -256,7 +264,7 @@
             COLMAX = ZERO;
          }
 
-         if ( (max( ABSAKK, COLMAX ) == ZERO) || DISNAN(ABSAKK) ) {
+         if ( (max( ABSAKK, COLMAX ) == ZERO) || disnan(ABSAKK) ) {
 
             // Column K is zero or underflow, or contains a NaN:
             // set INFO and continue

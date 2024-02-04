@@ -61,9 +61,9 @@
 
       if ( ITYPE == -1 ) {
          INFO = -1;
-      } else if ( CFROM == ZERO || DISNAN(CFROM) ) {
+      } else if ( CFROM == ZERO || disnan(CFROM) ) {
          INFO = -4;
-      } else if ( DISNAN(CTO) ) {
+      } else if ( disnan(CTO) ) {
          INFO = -5;
       } else if ( M < 0 ) {
          INFO = -6;

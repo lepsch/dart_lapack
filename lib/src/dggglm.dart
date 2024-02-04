@@ -1,3 +1,11 @@
+import 'dart:math';
+
+import 'package:lapack/src/blas/lsame.dart';
+import 'package:lapack/src/box.dart';
+import 'package:lapack/src/ilaenv.dart';
+import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/xerbla.dart';
+
       void dggglm(N, M, P, A, LDA, B, LDB, D, X, Y, WORK, LWORK, INFO ) {
 
 // -- LAPACK driver routine --
