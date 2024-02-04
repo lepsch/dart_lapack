@@ -1,39 +1,46 @@
-      void dtgsna(JOB, HOWMNY, SELECT, N, A, LDA, B, LDB, VL, LDVL, VR, LDVR, S, DIF, MM, M, WORK, LWORK, IWORK, INFO ) {
+      import 'dart:math';
+
+import 'package:lapack/src/blas/lsame.dart';
+import 'package:lapack/src/box.dart';
+import 'package:lapack/src/install/dlamch.dart';
+import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/xerbla.dart';
+
+void dtgsna(final String JOB, final String HOWMNY,
+      final Array<bool> SELECT, final int N,
+      final Matrix<double> A, final int LDA,
+      final Matrix<double> B, final int LDB,
+      final Matrix<double> VL, final int LDVL,
+      final Matrix<double> VR,final int LDVR,
+      final Array<double> S,
+      final Array<double> DIF, final int MM, final int M,
+      final Array<double> WORK, final int LWORK,
+      final Array<int> IWORK, final Box<int> INFO, ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
-      // .. Scalar Arguments ..
-      String             HOWMNY, JOB;
-      int                INFO, LDA, LDB, LDVL, LDVR, LWORK, M, MM, N;
-      // ..
-      // .. Array Arguments ..
-      bool               SELECT( * );
-      int                IWORK( * );
-      double             A( LDA, * ), B( LDB, * ), DIF( * ), S( * ), VL( LDVL, * ), VR( LDVR, * ), WORK( * );
-      // ..
-
-// =====================================================================
-
-      // .. Parameters ..
-      int                DIFDRI;
+      // // .. Scalar Arguments ..
+      // String             HOWMNY, JOB;
+      // int                INFO.value, LDA, LDB, LDVL, LDVR, LWORK, M, MM, N;
+      // // ..
+      // // .. Array Arguments ..
+      // bool               SELECT( * );
+      // int                IWORK( * );
+      // double             A( LDA, * ), B( LDB, * ), DIF( * ), S( * ), VL( LDVL, * ), VR( LDVR, * ), WORK( * );
       const              DIFDRI = 3 ;
-      double             ZERO, ONE, TWO, FOUR;
       const              ZERO = 0.0, ONE = 1.0, TWO = 2.0, FOUR = 4.0 ;
-      // ..
-      // .. Local Scalars ..
+
       bool               LQUERY, PAIR, SOMCON, WANTBH, WANTDF, WANTS;
       int                I, IERR, IFST, ILST, IZ, K, KS, LWMIN, N1, N2;
       double             ALPHAI, ALPHAR, ALPRQT, BETA, C1, C2, COND, EPS, LNRM, RNRM, ROOT1, ROOT2, SCALE, SMLNUM, TMPII, TMPIR, TMPRI, TMPRR, UHAV, UHAVI, UHBV, UHBVI;
-      // ..
-      // .. Local Arrays ..
-      double             DUMMY( 1 ), DUMMY1( 1 );
+      final             DUMMY = Array<double>( 1 ), DUMMY1 = Array<double>( 1 );
       // ..
       // .. External Functions ..
       //- bool               lsame;
-      //- double             DDOT, DLAMCH, DLAPY2, DNRM2;
-      // EXTERNAL lsame, DDOT, DLAMCH, DLAPY2, DNRM2
+      //- double             DDOT, dlamch, DLAPY2, DNRM2;
+      // EXTERNAL lsame, DDOT, dlamch, DLAPY2, DNRM2
       // ..
       // .. External Subroutines ..
       // EXTERNAL DGEMV, DLACPY, DLAG2, DTGEXC, DTGSYL, XERBLA
@@ -51,23 +58,23 @@
 
       SOMCON = lsame( HOWMNY, 'S' );
 
-      INFO = 0;
+      INFO.value = 0;
       LQUERY = ( LWORK == -1 );
 
       if ( !WANTS && !WANTDF ) {
-         INFO = -1;
+         INFO.value = -1;
       } else if ( !lsame( HOWMNY, 'A' ) && !SOMCON ) {
-         INFO = -2;
+         INFO.value = -2;
       } else if ( N < 0 ) {
-         INFO = -4;
+         INFO.value = -4;
       } else if ( LDA < max( 1, N ) ) {
-         INFO = -6;
+         INFO.value = -6;
       } else if ( LDB < max( 1, N ) ) {
-         INFO = -8;
+         INFO.value = -8;
       } else if ( WANTS && LDVL < N ) {
-         INFO = -10;
+         INFO.value = -10;
       } else if ( WANTS && LDVR < N ) {
-         INFO = -12;
+         INFO.value = -12;
       } else {
 
          // Set M to the number of eigenpairs for which condition numbers
@@ -106,14 +113,14 @@
          WORK[1] = LWMIN;
 
          if ( MM < M ) {
-            INFO = -15;
+            INFO.value = -15;
          } else if ( LWORK < LWMIN && !LQUERY ) {
-            INFO = -18;
+            INFO.value = -18;
          }
       }
 
-      if ( INFO != 0 ) {
-         xerbla('DTGSNA', -INFO );
+      if ( INFO.value != 0 ) {
+         xerbla('DTGSNA', -INFO.value );
          return;
       } else if ( LQUERY ) {
          return;
@@ -125,8 +132,8 @@
 
       // Get machine constants
 
-      EPS = DLAMCH( 'P' );
-      SMLNUM = DLAMCH( 'S' ) / EPS;
+      EPS = dlamch( 'P' );
+      SMLNUM = dlamch( 'S' ) / EPS;
       KS = 0;
       PAIR = false;
 

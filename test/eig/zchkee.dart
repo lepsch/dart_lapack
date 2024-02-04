@@ -35,7 +35,7 @@
       String             INTSTR;
       String             LINE;
       int                I, I1, IC, INFO, ITMP, K, LENP, MAXTYP, NEWSD, NK, NN, NPARMS, NRHS, NTYPES, VERS_MAJOR, VERS_MINOR, VERS_PATCH;
-      int    *4          N_THREADS, ONE_THREAD;
+      int          N_THREADS, ONE_THREAD;
       double             EPS, S1, S2, THRESH, THRSHN;
       // ..
       // .. Local Arrays ..

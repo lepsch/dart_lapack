@@ -26,6 +26,8 @@ abstract interface class Array<T> {
   Box<T> box(int index);
 
   List<T> toRawList();
+
+  Matrix<T> asMatrix(int ld);
 }
 
 class Matrix<T> {
@@ -67,6 +69,8 @@ class Matrix<T> {
   }
 
   Box<T> box(int i, int j) => this[i].box(j);
+
+  Array<T> asArray() => _entries(1);
 }
 
 class _Array<T> implements Array<T> {
@@ -138,6 +142,14 @@ class _Array<T> implements Array<T> {
   @override
   List<T> toRawList() {
     return _elements;
+  }
+
+  @override
+  Matrix<T> asMatrix(int ld) {
+    return Matrix.fromSlice(
+      _Array.fromSlice(_elements, offset: offset, ld: ld),
+      (m: ld, n: -1),
+    );
   }
 }
 

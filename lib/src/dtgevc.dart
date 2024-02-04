@@ -1,37 +1,52 @@
-      void dtgevc(SIDE, HOWMNY, SELECT, N, S, LDS, P, LDP, VL, LDVL, VR, LDVR, MM, M, WORK, INFO ) {
+      import 'dart:math';
+
+import 'package:lapack/src/blas/dgemv.dart';
+import 'package:lapack/src/blas/lsame.dart';
+import 'package:lapack/src/blas/xerbla.dart';
+import 'package:lapack/src/box.dart';
+import 'package:lapack/src/install/dlamch.dart';
+import 'package:lapack/src/matrix.dart';
+
+void dtgevc(final String SIDE, final String HOWMNY,
+      final Array<bool> SELECT, final int N,
+      final Matrix<double> S, final int LDS,
+      final Matrix<double> P, final int LDP,
+      final Matrix<double> VL, final int LDVL,
+      final Matrix<double> VR, final int LDVR, final int MM, final Box<int> M,
+      final Array<double> WORK, final Box<int> INFO, ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
-      String             HOWMNY, SIDE;
-      int                INFO, LDP, LDS, LDVL, LDVR, M, MM, N;
-      // ..
-      // .. Array Arguments ..
-      bool               SELECT( * );
-      double             P( LDP, * ), S( LDS, * ), VL( LDVL, * ), VR( LDVR, * ), WORK( * );
+      // String             HOWMNY, SIDE;
+      // int                INFO.value, LDP, LDS, LDVL, LDVR, M.value, MM, N;
+      // // ..
+      // // .. Array Arguments ..
+      // bool               SELECT( * );
+      // double             P( LDP, * ), S( LDS, * ), VL( LDVL, * ), VR( LDVR, * ), WORK( * );
       // ..
 
 
 // =====================================================================
 
       // .. Parameters ..
-      double             ZERO, ONE, SAFETY;
       const              ZERO = 0.0, ONE = 1.0, SAFETY = 1.0e+2 ;
       // ..
       // .. Local Scalars ..
-      bool               COMPL, COMPR, IL2BY2, ILABAD, ILALL, ILBACK, ILBBAD, ILCOMP, ILCPLX, LSA, LSB;
+      bool               COMPL=false, COMPR=false, IL2BY2, ILABAD, ILALL, ILBACK, ILBBAD, ILCOMP, ILCPLX, LSA, LSB;
       int                I, IBEG, IEIG, IEND, IHWMNY, IINFO, IM, ISIDE, J, JA, JC, JE, JR, JW, NA, NW;
       double             ACOEF, ACOEFA, ANORM, ASCALE, BCOEFA, BCOEFI, BCOEFR, BIG, BIGNUM, BNORM, BSCALE, CIM2A, CIM2B, CIMAGA, CIMAGB, CRE2A, CRE2B, CREALA, CREALB, DMIN, SAFMIN, SALFAR, SBETA, SCALE, SMALL, TEMP, TEMP2, TEMP2I, TEMP2R, ULP, XMAX, XSCALE;
       // ..
       // .. Local Arrays ..
-      double             BDIAG( 2 ), SUM( 2, 2 ), SUMS( 2, 2 ), SUMP( 2, 2 );
+      final             BDIAG=Array<double>( 2 );
+      final SUM=Matrix<double>(m:2, n:2 ), SUMS=Matrix<double>(m:2, n:2 ), SUMP=Matrix<double>(m:2, n:2 );
       // ..
       // .. External Functions ..
       //- bool               lsame;
-      //- double             DLAMCH;
-      // EXTERNAL lsame, DLAMCH
+      //- double             dlamch;
+      // EXTERNAL lsame, dlamch
       // ..
       // .. External Subroutines ..
       // EXTERNAL DGEMV, DLACPY, DLAG2, DLALN2, XERBLA
@@ -76,20 +91,20 @@
          ISIDE = -1;
       }
 
-      INFO = 0;
+      INFO.value = 0;
       if ( ISIDE < 0 ) {
-         INFO = -1;
+         INFO.value = -1;
       } else if ( IHWMNY < 0 ) {
-         INFO = -2;
+         INFO.value = -2;
       } else if ( N < 0 ) {
-         INFO = -4;
+         INFO.value = -4;
       } else if ( LDS < max( 1, N ) ) {
-         INFO = -6;
+         INFO.value = -6;
       } else if ( LDP < max( 1, N ) ) {
-         INFO = -8;
+         INFO.value = -8;
       }
-      if ( INFO != 0 ) {
-         xerbla('DTGEVC', -INFO );
+      if ( INFO.value != 0 ) {
+         xerbla('DTGEVC', -INFO.value );
          return;
       }
 
@@ -98,10 +113,10 @@
       if ( !ILALL ) {
          IM = 0;
          ILCPLX = false;
-         for (J = 1; J <= N; J++) { // 10
+         for (J = 1; J <= N; J++) {
             if ( ILCPLX ) {
                ILCPLX = false;
-               GO TO 10;
+               continue;
             }
             if ( J < N ) {
                if( S( J+1, J ) != ZERO ) ILCPLX = true;
@@ -111,7 +126,7 @@
             } else {
                if( SELECT( J ) ) IM = IM + 1;
             }
-         } // 10
+         }
       } else {
          IM = N;
       }
@@ -130,31 +145,31 @@
       } // 20
 
       if ( ILABAD ) {
-         INFO = -5;
+         INFO.value = -5;
       } else if ( ILBBAD ) {
-         INFO = -7;
+         INFO.value = -7;
       } else if ( COMPL && LDVL < N || LDVL < 1 ) {
-         INFO = -10;
+         INFO.value = -10;
       } else if ( COMPR && LDVR < N || LDVR < 1 ) {
-         INFO = -12;
+         INFO.value = -12;
       } else if ( MM < IM ) {
-         INFO = -13;
+         INFO.value = -13;
       }
-      if ( INFO != 0 ) {
-         xerbla('DTGEVC', -INFO );
+      if ( INFO.value != 0 ) {
+         xerbla('DTGEVC', -INFO.value );
          return;
       }
 
       // Quick return if possible
 
-      M = IM;
+      M.value = IM;
       if (N == 0) return;
 
       // Machine Constants
 
-      SAFMIN = DLAMCH( 'Safe minimum' );
+      SAFMIN = dlamch( 'Safe minimum' );
       BIG = ONE / SAFMIN;
-      ULP = DLAMCH( 'Epsilon' )*DLAMCH( 'Base' );
+      ULP = dlamch( 'Epsilon' )*dlamch( 'Base' );
       SMALL = SAFMIN*N / ULP;
       BIG = ONE / SMALL;
       BIGNUM = ONE / ( SAFMIN*N );
@@ -300,7 +315,7 @@
                dlag2(S( JE, JE ), LDS, P( JE, JE ), LDP, SAFMIN*SAFETY, ACOEF, TEMP, BCOEFR, TEMP2, BCOEFI );
                BCOEFI = -BCOEFI;
                if ( BCOEFI == ZERO ) {
-                  INFO = JE;
+                  INFO.value = JE;
                   return;
                }
 
@@ -589,7 +604,7 @@
 
                dlag2(S( JE-1, JE-1 ), LDS, P( JE-1, JE-1 ), LDP, SAFMIN*SAFETY, ACOEF, TEMP, BCOEFR, TEMP2, BCOEFI );
                if ( BCOEFI == ZERO ) {
-                  INFO = JE - 1;
+                  INFO.value = JE - 1;
                   return;
                }
 

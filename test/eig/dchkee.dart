@@ -1,4 +1,6 @@
-      void main() {
+      import 'package:lapack/src/matrix.dart';
+
+void main() {
 // #if defined(_OPENMP)
       use omp_lib;
 // #endif
@@ -27,19 +29,20 @@
       String             INTSTR;
       String             LINE;
       int                I, I1, IC, INFO, ITMP, K, LENP, MAXTYP, NEWSD, NK, NN, NPARMS, NRHS, NTYPES, VERS_MAJOR, VERS_MINOR, VERS_PATCH;
-      int    *4          N_THREADS, ONE_THREAD;
+      int          N_THREADS, ONE_THREAD;
       double             EPS, S1, S2, THRESH, THRSHN;
       // ..
       // .. Local Arrays ..
-      bool               DOTYPE( MAXT ), LOGWRK( NMAX );
-      int                IOLDSD( 4 ), ISEED( 4 ), IWORK( LIWORK ), KVAL( MAXIN ), MVAL( MAXIN ), MXBVAL( MAXIN ), NBCOL( MAXIN ), NBMIN( MAXIN ), NBVAL( MAXIN ), NSVAL( MAXIN ), NVAL( MAXIN ), NXVAL( MAXIN ), PVAL( MAXIN );
-      int                INMIN( MAXIN ), INWIN( MAXIN ), INIBL( MAXIN ), ISHFTS( MAXIN ), IACC22( MAXIN );
-      double             D( NMAX, 12 ), RESULT( 500 ), TAUA( NMAX ), TAUB( NMAX ), X( 5*NMAX );
+      final               DOTYPE=Array<bool>( MAXT ), LOGWRK=Array<bool>( NMAX );
+      final                IOLDSD=Array<int>( 4 ), ISEED=Array<int>( 4 ), IWORK=Array<int>( LIWORK ), KVAL=Array<int>( MAXIN ), MVAL=Array<int>( MAXIN ), MXBVAL=Array<int>( MAXIN ), NBCOL=Array<int>( MAXIN ), NBMIN=Array<int>( MAXIN ), NBVAL=Array<int>( MAXIN ), NSVAL=Array<int>( MAXIN ), NVAL=Array<int>( MAXIN ), NXVAL=Array<int>( MAXIN ), PVAL=Array<int>( MAXIN );
+      final                INMIN=Array<int>( MAXIN ), INWIN=Array<int>( MAXIN ), INIBL=Array<int>( MAXIN ), ISHFTS=Array<int>( MAXIN ), IACC22=Array<int>( MAXIN );
+      final             D=Matrix<double>( NMAX, 12 );
+      final RESULT=Array<double>( 500 ), TAUA=Array<double>( NMAX ), TAUB=Array<double>( NMAX ), X=Array<double>( 5*NMAX );
       // ..
       // .. Allocatable Arrays ..
-      int     AllocateStatus;
-      double          , DIMENSION(:), ALLOCATABLE :: WORK;
-      double          , DIMENSION(:,:), ALLOCATABLE :: A, B, C;
+      // int     AllocateStatus;
+      // double          , DIMENSION(:), ALLOCATABLE :: WORK;
+      // double          , DIMENSION(:,:), ALLOCATABLE :: A, B, C;
       // ..
       // .. External Functions ..
       //- bool               LSAMEN;
@@ -58,9 +61,9 @@
       int                INFOT, MAXB, NPROC, NSHIFT, NUNIT, SELDIM, SELOPT;
       // ..
       // .. Arrays in Common ..
-      bool               SELVAL( 20 );
-      int                IPARMS( 100 );
-      double             SELWI( 20 ), SELWR( 20 );
+      bool               SELVAL=Array<bool>( 20 );
+      int                IPARMS=Array<int>( 100 );
+      double             SELWI=Array<double>( 20 ), SELWR=Array<double>( 20 );
       // ..
       // .. Common blocks ..
       // COMMON / CENVIR / NPROC, NSHIFT, MAXB
