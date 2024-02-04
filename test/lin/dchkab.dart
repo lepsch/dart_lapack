@@ -28,13 +28,13 @@
       String             ALINE;
       int                I, IC, K, LDA, NM, NMATS, NNS, NRHS, NTYPES, VERS_MAJOR, VERS_MINOR, VERS_PATCH;
       double             EPS, S1, S2, THRESH;
-      REAL               SEPS;
+      double               SEPS;
       // ..
       // .. Local Arrays ..
       bool               DOTYPE( MATMAX );
       int                IWORK( NMAX ), MVAL( MAXIN ), NSVAL( MAXIN );
       double             A( LDAMAX*NMAX, 2 ), B( NMAX*MAXRHS, 2 ), RWORK( NMAX ), WORK( NMAX*MAXRHS*2 );
-      REAL               SWORK(NMAX*(NMAX+MAXRHS));
+      double               SWORK(NMAX*(NMAX+MAXRHS));
       // ..
       // .. External Functions ..
       //- double             DLAMCH, DSECND;

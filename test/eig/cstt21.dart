@@ -8,21 +8,21 @@
       int                KBAND, LDU, N;
       // ..
       // .. Array Arguments ..
-      REAL               AD( * ), AE( * ), RESULT( 2 ), RWORK( * ), SD( * ), SE( * );
+      double               AD( * ), AE( * ), RESULT( 2 ), RWORK( * ), SD( * ), SE( * );
       Complex            U( LDU, * ), WORK( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       Complex            CZERO, CONE;
       const              CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
       int                J;
-      REAL               ANORM, TEMP1, TEMP2, ULP, UNFL, WNORM;
+      double               ANORM, TEMP1, TEMP2, ULP, UNFL, WNORM;
       // ..
       // .. External Functions ..
       //- REAL               CLANGE, CLANHE, SLAMCH;
@@ -99,7 +99,7 @@
          WORK[( N+1 )*( J-1 )+1] = WORK( ( N+1 )*( J-1 )+1 ) - CONE;
       } // 40
 
-      RESULT[2] = min( REAL( N ), CLANGE( '1', N, N, WORK, N, RWORK ) ) / ( N*ULP );
+      RESULT[2] = min( double( N ), CLANGE( '1', N, N, WORK, N, RWORK ) ) / ( N*ULP );
 
       return;
       }

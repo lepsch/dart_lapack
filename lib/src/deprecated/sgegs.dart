@@ -9,19 +9,19 @@
       int                INFO, LDA, LDB, LDVSL, LDVSR, LWORK, N;
       // ..
       // .. Array Arguments ..
-      REAL               A( LDA, * ), ALPHAI( * ), ALPHAR( * ), B( LDB, * ), BETA( * ), VSL( LDVSL, * ), VSR( LDVSR, * ), WORK( * );
+      double               A( LDA, * ), ALPHAI( * ), ALPHAR( * ), B( LDB, * ), BETA( * ), VSL( LDVSL, * ), VSR( LDVSR, * ), WORK( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
       bool               ILASCL, ILBSCL, ILVSL, ILVSR, LQUERY;
       int                ICOLS, IHI, IINFO, IJOBVL, IJOBVR, ILEFT, ILO, IRIGHT, IROWS, ITAU, IWORK, LOPT, LWKMIN, LWKOPT, NB, NB1, NB2, NB3;
-      REAL               ANRM, ANRMTO, BIGNUM, BNRM, BNRMTO, EPS, SAFMIN, SMLNUM;
+      double               ANRM, ANRMTO, BIGNUM, BNRM, BNRMTO, EPS, SAFMIN, SMLNUM;
       // ..
       // .. External Subroutines ..
       // EXTERNAL SGEQRF, SGGBAK, SGGBAL, SGGHRD, SHGEQZ, SLACPY, SLASCL, SLASET, SORGQR, SORMQR, XERBLA

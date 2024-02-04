@@ -17,21 +17,21 @@
       // .. Parameters ..
       Complex            ZERO;
       const              ZERO = ( 0.0, 0.0 ) ;
-      REAL               RZERO;
+      double               RZERO;
       const              RZERO = 0.0 ;
       // ..
       // .. Local Scalars ..
       Complex            CDUM, H21S, H31S;
-      REAL               S;
+      double               S;
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC ABS, AIMAG, REAL
       // ..
       // .. Statement Functions ..
-      REAL               CABS1;
+      double               CABS1;
       // ..
       // .. Statement Function definitions ..
-      CABS1[CDUM] = ( REAL( CDUM ) ).abs() + ( AIMAG( CDUM ) ).abs();
+      CABS1[CDUM] = ( double( CDUM ) ).abs() + ( AIMAG( CDUM ) ).abs();
       // ..
       // .. Executable Statements ..
 

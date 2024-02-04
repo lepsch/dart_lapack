@@ -6,22 +6,22 @@
 
       // .. Scalar Arguments ..
       int                INFO, JOB, N;
-      REAL               TOL;
+      double               TOL;
       // ..
       // .. Array Arguments ..
       int                IN( * );
-      REAL               A( * ), B( * ), C( * ), D( * ), Y( * );
+      double               A( * ), B( * ), C( * ), D( * ), Y( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ONE, ZERO;
+      double               ONE, ZERO;
       const              ONE = 1.0, ZERO = 0.0 ;
       // ..
       // .. Local Scalars ..
       int                K;
-      REAL               ABSAK, AK, BIGNUM, EPS, PERT, SFMIN, TEMP;
+      double               ABSAK, AK, BIGNUM, EPS, PERT, SFMIN, TEMP;
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, SIGN

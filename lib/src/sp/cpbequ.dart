@@ -7,23 +7,23 @@
       // .. Scalar Arguments ..
       String             UPLO;
       int                INFO, KD, LDAB, N;
-      REAL               AMAX, SCOND;
+      double               AMAX, SCOND;
       // ..
       // .. Array Arguments ..
-      REAL               S( * );
+      double               S( * );
       Complex            AB( LDAB, * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
       bool               UPPER;
       int                I, J;
-      REAL               SMIN;
+      double               SMIN;
       // ..
       // .. External Functions ..
       //- bool               lsame;
@@ -71,14 +71,14 @@
 
       // Initialize SMIN and AMAX.
 
-      S[1] = REAL( AB( J, 1 ) );
+      S[1] = double( AB( J, 1 ) );
       SMIN = S( 1 );
       AMAX = S( 1 );
 
       // Find the minimum and maximum diagonal elements.
 
       for (I = 2; I <= N; I++) { // 10
-         S[I] = REAL( AB( J, I ) );
+         S[I] = double( AB( J, I ) );
          SMIN = min( SMIN, S( I ) );
          AMAX = max( AMAX, S( I ) );
       } // 10

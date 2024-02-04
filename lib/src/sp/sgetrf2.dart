@@ -9,17 +9,17 @@
       // ..
       // .. Array Arguments ..
       int                IPIV( * );
-      REAL               A( LDA, * );
+      double               A( LDA, * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ONE, ZERO;
+      double               ONE, ZERO;
       const              ONE = 1.0, ZERO = 0.0 ;
       // ..
       // .. Local Scalars ..
-      REAL               SFMIN, TEMP;
+      double               SFMIN, TEMP;
       int                I, IINFO, n1, n2;
       // ..
       // .. External Functions ..

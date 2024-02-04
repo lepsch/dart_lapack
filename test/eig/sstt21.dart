@@ -8,18 +8,18 @@
       int                KBAND, LDU, N;
       // ..
       // .. Array Arguments ..
-      REAL               AD( * ), AE( * ), RESULT( 2 ), SD( * ), SE( * ), U( LDU, * ), WORK( * );
+      double               AD( * ), AE( * ), RESULT( 2 ), SD( * ), SE( * ), U( LDU, * ), WORK( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
       int                J;
-      REAL               ANORM, TEMP1, TEMP2, ULP, UNFL, WNORM;
+      double               ANORM, TEMP1, TEMP2, ULP, UNFL, WNORM;
       // ..
       // .. External Functions ..
       //- REAL               SLAMCH, SLANGE, SLANSY;
@@ -96,7 +96,7 @@
          WORK[( N+1 )*( J-1 )+1] = WORK( ( N+1 )*( J-1 )+1 ) - ONE;
       } // 40
 
-      RESULT[2] = min( REAL( N ), SLANGE( '1', N, N, WORK, N, WORK( N**2+1 ) ) ) / ( N*ULP );
+      RESULT[2] = min( double( N ), SLANGE( '1', N, N, WORK, N, WORK( N**2+1 ) ) ) / ( N*ULP );
 
       return;
       }

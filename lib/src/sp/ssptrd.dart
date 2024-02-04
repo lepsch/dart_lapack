@@ -9,19 +9,19 @@
       int                INFO, N;
       // ..
       // .. Array Arguments ..
-      REAL               AP( * ), D( * ), E( * ), TAU( * );
+      double               AP( * ), D( * ), E( * ), TAU( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ONE, ZERO, HALF;
+      double               ONE, ZERO, HALF;
       const              ONE = 1.0, ZERO = 0.0, HALF = 1.0 / 2.0 ;
       // ..
       // .. Local Scalars ..
       bool               UPPER;
       int                I, I1, I1I1, II;
-      REAL               ALPHA, TAUI;
+      double               ALPHA, TAUI;
       // ..
       // .. External Subroutines ..
       // EXTERNAL SAXPY, SLARFG, SSPMV, SSPR2, XERBLA

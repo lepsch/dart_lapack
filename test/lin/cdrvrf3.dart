@@ -6,11 +6,11 @@
 
       // .. Scalar Arguments ..
       int                LDA, NN, NOUT;
-      REAL               THRESH;
+      double               THRESH;
       // ..
       // .. Array Arguments ..
       int                NVAL( NN );
-      REAL               S_WORK_CLANGE( * );
+      double               S_WORK_CLANGE( * );
       Complex            A( LDA, * ), ARF( * ), B1( LDA, * ), B2( LDA, * );
       Complex            C_WORK_CGEQRF( * ), TAU( * );
       // ..
@@ -27,12 +27,12 @@
       String             UPLO, CFORM, DIAG, TRANS, SIDE;
       int                I, IFORM, IIM, IIN, INFO, IUPLO, J, M, N, NA, NFAIL, NRUN, ISIDE, IDIAG, IALPHA, ITRANS;
       Complex            ALPHA;
-      REAL               EPS;
+      double               EPS;
       // ..
       // .. Local Arrays ..
       String             UPLOS( 2 ), FORMS( 2 ), TRANSS( 2 ), DIAGS( 2 ), SIDES( 2 );
       int                ISEED( 4 ), ISEEDY( 4 );
-      REAL               RESULT( NTESTS );
+      double               RESULT( NTESTS );
       // ..
       // .. External Functions ..
       //- bool               lsame;

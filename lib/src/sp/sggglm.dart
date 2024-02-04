@@ -8,13 +8,13 @@
       int                INFO, LDA, LDB, LWORK, M, N, P;
       // ..
       // .. Array Arguments ..
-      REAL               A( LDA, * ), B( LDB, * ), D( * ), WORK( * ), X( * ), Y( * );
+      double               A( LDA, * ), B( LDB, * ), D( * ), WORK( * ), X( * ), Y( * );
       // ..
 
 // ===================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       // ..
       // .. Local Scalars ..

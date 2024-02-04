@@ -8,18 +8,18 @@
       int       INFO, LDA, LDB, LDT, N, M, L;
       // ..
       // .. Array Arguments ..
-      REAL   A( LDA, * ), B( LDB, * ), T( LDT, * );
+      double   A( LDA, * ), B( LDB, * ), T( LDT, * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL  ONE, ZERO;
+      double  ONE, ZERO;
       const    ONE = 1.0, ZERO = 0.0 ;
       // ..
       // .. Local Scalars ..
       int       I, J, P, MP, NP;
-      REAL   ALPHA;
+      double   ALPHA;
       // ..
       // .. External Subroutines ..
       // EXTERNAL SLARFG, SGEMV, SGER, STRMV, XERBLA

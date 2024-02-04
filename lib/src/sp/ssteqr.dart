@@ -9,20 +9,20 @@
       int                INFO, LDZ, N;
       // ..
       // .. Array Arguments ..
-      REAL               D( * ), E( * ), WORK( * ), Z( LDZ, * );
+      double               D( * ), E( * ), WORK( * ), Z( LDZ, * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE, TWO, THREE;
+      double               ZERO, ONE, TWO, THREE;
       const              ZERO = 0.0, ONE = 1.0, TWO = 2.0, THREE = 3.0 ;
       int                MAXIT;
       const              MAXIT = 30 ;
       // ..
       // .. Local Scalars ..
       int                I, ICOMPZ, II, ISCALE, J, JTOT, K, L, L1, LEND, LENDM1, LENDP1, LENDSV, LM1, LSV, M, MM, MM1, NM1, NMAXIT;
-      REAL               ANORM, B, C, EPS, EPS2, F, G, P, R, RT1, RT2, S, SAFMAX, SAFMIN, SSFMAX, SSFMIN, TST;
+      double               ANORM, B, C, EPS, EPS2, F, G, P, R, RT1, RT2, S, SAFMAX, SAFMIN, SSFMAX, SSFMIN, TST;
       // ..
       // .. External Functions ..
       //- bool               lsame;

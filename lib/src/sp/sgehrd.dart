@@ -8,7 +8,7 @@
       int                IHI, ILO, INFO, LDA, LWORK, N;
       // ..
       // .. Array Arguments ..
-      REAL               A( LDA, * ), TAU( * ), WORK( * );
+      double               A( LDA, * ), TAU( * ), WORK( * );
       // ..
 
 // =====================================================================
@@ -16,13 +16,13 @@
       // .. Parameters ..
       int                NBMAX, LDT, TSIZE;
       const              NBMAX = 64, LDT = NBMAX+1, TSIZE = LDT*NBMAX ;
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
       bool               LQUERY;
       int                I, IB, IINFO, IWT, J, LDWORK, LWKOPT, NB, NBMIN, NH, NX;
-      REAL               EI;
+      double               EI;
       // ..
       // .. External Subroutines ..
       // EXTERNAL SAXPY, SGEHD2, SGEMM, SLAHR2, SLARFB, STRMM, XERBLA

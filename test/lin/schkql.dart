@@ -7,12 +7,12 @@
       // .. Scalar Arguments ..
       bool               TSTERR;
       int                NM, NMAX, NN, NNB, NOUT, NRHS;
-      REAL               THRESH;
+      double               THRESH;
       // ..
       // .. Array Arguments ..
       bool               DOTYPE( * );
       int                MVAL( * ), NBVAL( * ), NVAL( * ), NXVAL( * );
-      REAL               A( * ), AC( * ), AF( * ), AL( * ), AQ( * ), B( * ), RWORK( * ), TAU( * ), WORK( * ), X( * ), XACT( * );
+      double               A( * ), AC( * ), AF( * ), AL( * ), AQ( * ), B( * ), RWORK( * ), TAU( * ), WORK( * ), X( * ), XACT( * );
       // ..
 
 // =====================================================================
@@ -22,18 +22,18 @@
       const              NTESTS = 7 ;
       int                NTYPES;
       const              NTYPES = 8 ;
-      REAL               ZERO;
+      double               ZERO;
       const              ZERO = 0.0 ;
       // ..
       // .. Local Scalars ..
       String             DIST, TYPE;
       String             PATH;
       int                I, IK, IM, IMAT, IN, INB, INFO, K, KL, KU, LDA, LWORK, M, MINMN, MODE, N, NB, NERRS, NFAIL, NK, NRUN, NT, NX;
-      REAL               ANORM, CNDNUM;
+      double               ANORM, CNDNUM;
       // ..
       // .. Local Arrays ..
       int                ISEED( 4 ), ISEEDY( 4 ), KVAL( 4 );
-      REAL               RESULT( NTESTS );
+      double               RESULT( NTESTS );
       // ..
       // .. External Subroutines ..
       // EXTERNAL ALAERH, ALAHD, ALASUM, SERRQL, SGEQLS, SGET02, SLACPY, SLARHS, SLATB4, SLATMS, SQLT01, SQLT02, SQLT03, XLAENV

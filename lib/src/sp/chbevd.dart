@@ -10,14 +10,14 @@
       // ..
       // .. Array Arguments ..
       int                IWORK( * );
-      REAL               RWORK( * ), W( * );
+      double               RWORK( * ), W( * );
       Complex            AB( LDAB, * ), WORK( * ), Z( LDZ, * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       Complex            CZERO, CONE;
       const              CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
@@ -25,7 +25,7 @@
       // .. Local Scalars ..
       bool               LOWER, LQUERY, WANTZ;
       int                IINFO, IMAX, INDE, INDWK2, INDWRK, ISCALE, LIWMIN, LLRWK, LLWK2, LRWMIN, LWMIN;
-      REAL               ANRM, BIGNUM, EPS, RMAX, RMIN, SAFMIN, SIGMA, SMLNUM;
+      double               ANRM, BIGNUM, EPS, RMAX, RMIN, SAFMIN, SIGMA, SMLNUM;
       // ..
       // .. External Functions ..
       //- bool               lsame;
@@ -102,7 +102,7 @@
       if (N == 0) return;
 
       if ( N == 1 ) {
-         W[1] = REAL( AB( 1, 1 ) );
+         W[1] = double( AB( 1, 1 ) );
          if (WANTZ) Z( 1, 1 ) = CONE;
          return;
       }

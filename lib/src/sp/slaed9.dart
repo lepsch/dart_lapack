@@ -6,17 +6,17 @@
 
       // .. Scalar Arguments ..
       int                INFO, K, KSTART, KSTOP, LDQ, LDS, N;
-      REAL               RHO;
+      double               RHO;
       // ..
       // .. Array Arguments ..
-      REAL               D( * ), DLAMBDA( * ), Q( LDQ, * ), S( LDS, * ), W( * );
+      double               D( * ), DLAMBDA( * ), Q( LDQ, * ), S( LDS, * ), W( * );
       // ..
 
 // =====================================================================
 
       // .. Local Scalars ..
       int                I, J;
-      REAL               TEMP;
+      double               TEMP;
       // ..
       // .. External Functions ..
       //- REAL               SNRM2;

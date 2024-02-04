@@ -7,22 +7,22 @@
       // .. Scalar Arguments ..
       String             FACT, UPLO;
       int                INFO, LDB, LDX, N, NRHS;
-      REAL               RCOND;
+      double               RCOND;
       // ..
       // .. Array Arguments ..
       int                IPIV( * ), IWORK( * );
-      REAL               AFP( * ), AP( * ), B( LDB, * ), BERR( * ), FERR( * ), WORK( * ), X( LDX, * );
+      double               AFP( * ), AP( * ), B( LDB, * ), BERR( * ), FERR( * ), WORK( * ), X( LDX, * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO;
+      double               ZERO;
       const              ZERO = 0.0 ;
       // ..
       // .. Local Scalars ..
       bool               NOFACT;
-      REAL               ANORM;
+      double               ANORM;
       // ..
       // .. External Functions ..
       //- bool               lsame;

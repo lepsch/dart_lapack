@@ -9,14 +9,14 @@
       int                INFO, LDA, LDB, LDVSL, LDVSR, LWORK, N;
       // ..
       // .. Array Arguments ..
-      REAL               RWORK( * );
+      double               RWORK( * );
       Complex            A( LDA, * ), ALPHA( * ), B( LDB, * ), BETA( * ), VSL( LDVSL, * ), VSR( LDVSR, * ), WORK( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       Complex            CZERO, CONE;
       const              CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
@@ -24,7 +24,7 @@
       // .. Local Scalars ..
       bool               ILASCL, ILBSCL, ILVSL, ILVSR, LQUERY;
       int                ICOLS, IHI, IINFO, IJOBVL, IJOBVR, ILEFT, ILO, IRIGHT, IROWS, IRWORK, ITAU, IWORK, LOPT, LWKMIN, LWKOPT, NB, NB1, NB2, NB3;
-      REAL               ANRM, ANRMTO, BIGNUM, BNRM, BNRMTO, EPS, SAFMIN, SMLNUM;
+      double               ANRM, ANRMTO, BIGNUM, BNRM, BNRMTO, EPS, SAFMIN, SMLNUM;
       // ..
       // .. External Subroutines ..
       // EXTERNAL CGEQRF, CGGBAK, CGGBAL, CGGHRD, CHGEQZ, CLACPY, CLASCL, CLASET, CUNGQR, CUNMQR, XERBLA

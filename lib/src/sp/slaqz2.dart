@@ -4,14 +4,14 @@
       // Arguments
       bool   , INTENT( IN ) :: ILQ, ILZ;
       int    , INTENT( IN ) :: K, LDA, LDB, LDQ, LDZ, ISTARTM, ISTOPM, NQ, NZ, QSTART, ZSTART, IHI;
-      REAL :: A( LDA, * ), B( LDB, * ), Q( LDQ, * ), Z( LDZ, * );
+      double :: A( LDA, * ), B( LDB, * ), Q( LDQ, * ), Z( LDZ, * );
 
       // Parameters
-      REAL :: ZERO, ONE, HALF;
+      double :: ZERO, ONE, HALF;
       const    ZERO = 0.0, ONE = 1.0, HALF = 0.5 ;
 
       // Local variables
-      REAL :: H( 2, 3 ), C1, S1, C2, S2, TEMP;
+      double :: H( 2, 3 ), C1, S1, C2, S2, TEMP;
 
       // External functions
       // EXTERNAL :: SLARTG, SROT

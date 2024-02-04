@@ -15,11 +15,11 @@
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
-      REAL               SAFMAX, SAFMIN, OV, AR, AI, ABSR, ABSI, UR , UI;
+      double               SAFMAX, SAFMIN, OV, AR, AI, ABSR, ABSI, UR , UI;
       // ..
       // .. External Functions ..
       //- REAL               SLAMCH;
@@ -46,7 +46,7 @@
 
       // Initialize constants related to A.
 
-      AR = REAL( A );
+      AR = double( A );
       AI = AIMAG( A );
       ABSR = ( AR ).abs();
       ABSI = ( AI ).abs();

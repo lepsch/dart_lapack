@@ -15,7 +15,7 @@
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       Complex            CZERO;
       const              CZERO = ( 0.0, 0.0 ) ;
@@ -23,10 +23,10 @@
       // .. Local Scalars ..
       bool               LQUERY, TPSD;
       int                BROW, I, IASCL, IBSCL, J, MN, NB, SCLLEN, WSIZE;
-      REAL               ANRM, BIGNUM, BNRM, SMLNUM;
+      double               ANRM, BIGNUM, BNRM, SMLNUM;
       // ..
       // .. Local Arrays ..
-      REAL               RWORK( 1 );
+      double               RWORK( 1 );
       // ..
       // .. External Functions ..
       //- bool               lsame;
@@ -87,7 +87,7 @@
          }
 
          WSIZE = max( 1, MN + max( MN, NRHS )*NB );
-         WORK[1] = REAL( WSIZE );
+         WORK[1] = double( WSIZE );
 
       }
 
@@ -284,7 +284,7 @@
       }
 
       } // 50
-      WORK[1] = REAL( WSIZE );
+      WORK[1] = double( WSIZE );
 
       return;
       }

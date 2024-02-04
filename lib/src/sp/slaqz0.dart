@@ -6,21 +6,21 @@
       int    , INTENT( IN ) :: N, ILO, IHI, LDA, LDB, LDQ, LDZ, LWORK, REC;
 
       int    , INTENT( OUT ) :: INFO;
-       REAL, INTENT( INOUT ) :: A( LDA, * ), B( LDB, * ), Q( LDQ, * ), Z( LDZ, * ), ALPHAR( * ), ALPHAI( * ), BETA( * ), WORK( * );
+       double, INTENT( INOUT ) :: A( LDA, * ), B( LDB, * ), Q( LDQ, * ), Z( LDZ, * ), ALPHAR( * ), ALPHAI( * ), BETA( * ), WORK( * );
 
       // Parameters
-      REAL :: ZERO, ONE, HALF;
+      double :: ZERO, ONE, HALF;
       const    ZERO = 0.0, ONE = 1.0, HALF = 0.5 ;
 
       // Local scalars
-      REAL :: SMLNUM, ULP, ESHIFT, SAFMIN, SAFMAX, C1, S1, TEMP, SWAP, BNORM, BTOL;
+      double :: SMLNUM, ULP, ESHIFT, SAFMIN, SAFMAX, C1, S1, TEMP, SWAP, BNORM, BTOL;
       int     :: ISTART, ISTOP, IITER, MAXIT, ISTART2, K, LD, NSHIFTS, NBLOCK, NW, NMIN, NIBBLE, N_UNDEFLATED, N_DEFLATED, NS, SWEEP_INFO, SHIFTPOS, LWORKREQ, K2, ISTARTM, ISTOPM, IWANTS, IWANTQ, IWANTZ, NORM_INFO, AED_INFO, NWR, NBR, NSR, ITEMP1, ITEMP2, RCOST, I;
       bool    :: ILSCHUR, ILQ, ILZ;
       String    :: JBCMPZ*3;
 
       // External Functions
       // EXTERNAL :: XERBLA, SHGEQZ, SLAQZ3, SLAQZ4, SLASET, SLARTG, SROT
-      REAL, EXTERNAL :: SLAMCH, SLANHS, SROUNDUP_LWORK;
+      double, EXTERNAL :: SLAMCH, SLANHS, SROUNDUP_LWORK;
       bool   , EXTERNAL :: lsame;
       int    , EXTERNAL :: ILAENV;
 
@@ -96,7 +96,7 @@
       // Quick return if possible
 
       if ( N <= 0 ) {
-         WORK[1] = REAL( 1 );
+         WORK[1] = double( 1 );
          return;
       }
 
@@ -162,7 +162,7 @@
       SAFMIN = SLAMCH( 'SAFE MINIMUM' );
       SAFMAX = ONE/SAFMIN;
       ULP = SLAMCH( 'PRECISION' );
-      SMLNUM = SAFMIN*( REAL( N )/ULP );
+      SMLNUM = SAFMIN*( double( N )/ULP );
 
       BNORM = SLANHS( 'F', IHI-ILO+1, B( ILO, ILO ), LDB, WORK );
       BTOL = max( SAFMIN, ULP*BNORM );
@@ -353,7 +353,7 @@
 
             // Exceptional shift.  Chosen for no particularly good reason.
 
-            if ( ( REAL( MAXIT )*SAFMIN )*( A( ISTOP, ISTOP-1 ) ).abs() < ( A( ISTOP-1, ISTOP-1 ) ) ).abs() {
+            if ( ( double( MAXIT )*SAFMIN )*( A( ISTOP, ISTOP-1 ) ).abs() < ( A( ISTOP-1, ISTOP-1 ) ) ).abs() {
                ESHIFT = A( ISTOP, ISTOP-1 )/B( ISTOP-1, ISTOP-1 );
             } else {
                ESHIFT = ESHIFT+ONE/( SAFMIN*REAL( MAXIT ) );

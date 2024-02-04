@@ -5,27 +5,27 @@
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
-      REAL               TOL;
+      double               TOL;
       int                INFO, LDA, N, RANK;
       String             UPLO;
       // ..
       // .. Array Arguments ..
       Complex            A( LDA, * );
-      REAL               WORK( 2*N );
+      double               WORK( 2*N );
       int                PIV( N );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ONE, ZERO;
+      double               ONE, ZERO;
       const              ONE = 1.0, ZERO = 0.0 ;
       Complex            CONE;
       const              CONE = ( 1.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
       Complex            CTEMP;
-      REAL               AJJ, SSTOP, STEMP;
+      double               AJJ, SSTOP, STEMP;
       int                I, ITEMP, J, JB, K, NB, PVT;
       bool               UPPER;
       // ..
@@ -84,10 +84,10 @@
       // Compute stopping value
 
          for (I = 1; I <= N; I++) { // 110
-            WORK[I] = REAL( A( I, I ) );
+            WORK[I] = double( A( I, I ) );
          } // 110
          PVT = MAXLOC( WORK( 1:N ), 1 );
-         AJJ = REAL( A( PVT, PVT ) );
+         AJJ = double( A( PVT, PVT ) );
          if ( AJJ <= ZERO || SISNAN( AJJ ) ) {
             RANK = 0;
             INFO = 1;
@@ -129,9 +129,9 @@
                   for (I = J; I <= N; I++) { // 130
 
                      if ( J > K ) {
-                        WORK[I] = WORK( I ) + REAL( CONJG( A( J-1, I ) )* A( J-1, I ) );
+                        WORK[I] = WORK( I ) + double( CONJG( A( J-1, I ) )* A( J-1, I ) );
                      }
-                     WORK[N+I] = REAL( A( I, I ) ) - WORK( I );
+                     WORK[N+I] = double( A( I, I ) ) - WORK( I );
 
                   } // 130
 
@@ -217,9 +217,9 @@
                   for (I = J; I <= N; I++) { // 180
 
                      if ( J > K ) {
-                        WORK[I] = WORK( I ) + REAL( CONJG( A( I, J-1 ) )* A( I, J-1 ) );
+                        WORK[I] = WORK( I ) + double( CONJG( A( I, J-1 ) )* A( I, J-1 ) );
                      }
-                     WORK[N+I] = REAL( A( I, I ) ) - WORK( I );
+                     WORK[N+I] = double( A( I, I ) ) - WORK( I );
 
                   } // 180
 

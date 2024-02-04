@@ -9,13 +9,13 @@
       int                IFST, ILST, INFO, LDQ, LDT, N;
       // ..
       // .. Array Arguments ..
-      REAL               Q( LDQ, * ), T( LDT, * ), WORK( * );
+      double               Q( LDQ, * ), T( LDT, * ), WORK( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO;
+      double               ZERO;
       const              ZERO = 0.0 ;
       // ..
       // .. Local Scalars ..

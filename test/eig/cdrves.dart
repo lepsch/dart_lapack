@@ -6,12 +6,12 @@
 
       // .. Scalar Arguments ..
       int                INFO, LDA, LDVS, NOUNIT, NSIZES, NTYPES, NWORK;
-      REAL               THRESH;
+      double               THRESH;
       // ..
       // .. Array Arguments ..
       bool               BWORK( * ), DOTYPE( * );
       int                ISEED( 4 ), IWORK( * ), NN( * );
-      REAL               RESULT( 13 ), RWORK( * );
+      double               RESULT( 13 ), RWORK( * );
       Complex            A( LDA, * ), H( LDA, * ), HT( LDA, * ), VS( LDVS, * ), W( * ), WORK( * ), WT( * );
       // ..
 
@@ -22,7 +22,7 @@
       const              CZERO = ( 0.0, 0.0 ) ;
       Complex            CONE;
       const              CONE = ( 1.0, 0.0 ) ;
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       int                MAXTYP;
       const              MAXTYP = 21 ;
@@ -32,15 +32,15 @@
       String             SORT;
       String             PATH;
       int                I, IINFO, IMODE, ISORT, ITYPE, IWK, J, JCOL, JSIZE, JTYPE, KNTEIG, LWORK, MTYPES, N, NERRS, NFAIL, NMAX, NNWORK, NTEST, NTESTF, NTESTT, RSUB, SDIM;
-      REAL               ANORM, COND, CONDS, OVFL, RTULP, RTULPI, ULP, ULPINV, UNFL;
+      double               ANORM, COND, CONDS, OVFL, RTULP, RTULPI, ULP, ULPINV, UNFL;
       // ..
       // .. Local Arrays ..
       int                IDUMMA( 1 ), IOLDSD( 4 ), KCONDS( MAXTYP ), KMAGN( MAXTYP ), KMODE( MAXTYP ), KTYPE( MAXTYP );
-      REAL               RES( 2 );
+      double               RES( 2 );
       // ..
       // .. Arrays in Common ..
       bool               SELVAL( 20 );
-      REAL               SELWI( 20 ), SELWR( 20 );
+      double               SELWI( 20 ), SELWR( 20 );
       // ..
       // .. Scalars in Common ..
       int                SELDIM, SELOPT;

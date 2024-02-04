@@ -6,7 +6,7 @@
 
       // .. Scalar Arguments ..
       int                INCX, INCY, N;
-      REAL               SSMIN;
+      double               SSMIN;
       // ..
       // .. Array Arguments ..
       Complex            X( * ), Y( * );
@@ -15,13 +15,13 @@
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO;
+      double               ZERO;
       const              ZERO = 0.0 ;
       Complex            CONE;
       const              CONE = ( 1.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
-      REAL               SSMAX;
+      double               SSMAX;
       Complex            A11, A12, A22, C, TAU;
       // ..
       // .. Intrinsic Functions ..

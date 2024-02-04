@@ -7,23 +7,23 @@
       // .. Scalar Arguments ..
       bool               TSTERR;
       int                NMAX, NN, NNB, NNS, NOUT;
-      REAL               THRESH;
+      double               THRESH;
       // ..
       // .. Array Arguments ..
       bool               DOTYPE( * );
       int                IWORK( * ), NBVAL( * ), NSVAL( * ), NVAL( * );
-      REAL               RWORK( * );
+      double               RWORK( * );
       Complex            A( * ), AFAC( * ), AINV( * ), B( * ), E( * ), WORK( * ), X( * ), XACT( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
-      REAL               ONEHALF;
+      double               ONEHALF;
       const              ONEHALF = 0.5 ;
-      REAL               EIGHT, SEVTEN;
+      double               EIGHT, SEVTEN;
       const              EIGHT = 8.0, SEVTEN = 17.0 ;
       Complex            CZERO;
       const              CZERO = ( 0.0, 0.0 ) ;
@@ -37,12 +37,12 @@
       String             DIST, TYPE, UPLO, XTYPE;
       String             PATH, MATPATH;
       int                I, I1, I2, IMAT, IN, INB, INFO, IOFF, IRHS, ITEMP, ITEMP2, IUPLO, IZERO, J, K, KL, KU, LDA, LWORK, MODE, N, NB, NERRS, NFAIL, NIMAT, NRHS, NRUN, NT;
-      REAL               ALPHA, ANORM, CNDNUM, CONST, SING_MAX, SING_MIN, RCOND, RCONDC, STEMP;
+      double               ALPHA, ANORM, CNDNUM, CONST, SING_MAX, SING_MIN, RCOND, RCONDC, STEMP;
       // ..
       // .. Local Arrays ..
       String             UPLOS( 2 );
       int                ISEED( 4 ), ISEEDY( 4 );
-      REAL               RESULT( NTESTS );
+      double               RESULT( NTESTS );
       Complex            BLOCK( 2, 2 ), CDUMMY( 1 );
       // ..
       // .. External Functions ..

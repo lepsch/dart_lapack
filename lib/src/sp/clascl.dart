@@ -7,7 +7,7 @@
       // .. Scalar Arguments ..
       String             TYPE;
       int                INFO, KL, KU, LDA, M, N;
-      REAL               CFROM, CTO;
+      double               CFROM, CTO;
       // ..
       // .. Array Arguments ..
       Complex            A( LDA, * );
@@ -16,13 +16,13 @@
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
       bool               DONE;
       int                I, ITYPE, J, K1, K2, K3, K4;
-      REAL               BIGNUM, CFROM1, CFROMC, CTO1, CTOC, MUL, SMLNUM;
+      double               BIGNUM, CFROM1, CFROMC, CTO1, CTOC, MUL, SMLNUM;
       // ..
       // .. External Functions ..
       //- bool               lsame, SISNAN;

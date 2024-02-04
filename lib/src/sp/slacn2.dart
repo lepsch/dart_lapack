@@ -6,11 +6,11 @@
 
       // .. Scalar Arguments ..
       int                KASE, N;
-      REAL               EST;
+      double               EST;
       // ..
       // .. Array Arguments ..
       int                ISGN( * ), ISAVE( 3 );
-      REAL               V( * ), X( * );
+      double               V( * ), X( * );
       // ..
 
 // =====================================================================
@@ -18,12 +18,12 @@
       // .. Parameters ..
       int                ITMAX;
       const              ITMAX = 5 ;
-      REAL               ZERO, ONE, TWO;
+      double               ZERO, ONE, TWO;
       const              ZERO = 0.0, ONE = 1.0, TWO = 2.0 ;
       // ..
       // .. Local Scalars ..
       int                I, JLAST;
-      REAL               ALTSGN, ESTOLD, TEMP, XS;
+      double               ALTSGN, ESTOLD, TEMP, XS;
       // ..
       // .. External Functions ..
       //- int                ISAMAX;
@@ -141,7 +141,7 @@
       } // 120
       ALTSGN = ONE;
       for (I = 1; I <= N; I++) { // 130
-         X[I] = ALTSGN*( ONE+REAL( I-1 ) / REAL( N-1 ) );
+         X[I] = ALTSGN*( ONE+double( I-1 ) / REAL( N-1 ) );
          ALTSGN = -ALTSGN;
       } // 130
       KASE = 1;

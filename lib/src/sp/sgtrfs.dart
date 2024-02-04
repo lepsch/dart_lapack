@@ -10,7 +10,7 @@
       // ..
       // .. Array Arguments ..
       int                IPIV( * ), IWORK( * );
-      REAL               B( LDB, * ), BERR( * ), D( * ), DF( * ), DL( * ), DLF( * ), DU( * ), DU2( * ), DUF( * ), FERR( * ), WORK( * ), X( LDX, * );
+      double               B( LDB, * ), BERR( * ), D( * ), DF( * ), DL( * ), DLF( * ), DU( * ), DU2( * ), DUF( * ), FERR( * ), WORK( * ), X( LDX, * );
       // ..
 
 // =====================================================================
@@ -18,18 +18,18 @@
       // .. Parameters ..
       int                ITMAX;
       const              ITMAX = 5 ;
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
-      REAL               TWO;
+      double               TWO;
       const              TWO = 2.0 ;
-      REAL               THREE;
+      double               THREE;
       const              THREE = 3.0 ;
       // ..
       // .. Local Scalars ..
       bool               NOTRAN;
       String             TRANSN, TRANST;
       int                COUNT, I, J, KASE, NZ;
-      REAL               EPS, LSTRES, S, SAFE1, SAFE2, SAFMIN;
+      double               EPS, LSTRES, S, SAFE1, SAFE2, SAFMIN;
       // ..
       // .. Local Arrays ..
       int                ISAVE( 3 );

@@ -9,18 +9,18 @@
       int                ITYPE, LDA, LDB, LDZ, M, N;
       // ..
       // .. Array Arguments ..
-      REAL               A( LDA, * ), B( LDB, * ), D( * ), RESULT( * ), WORK( * ), Z( LDZ, * );
+      double               A( LDA, * ), B( LDB, * ), D( * ), RESULT( * ), WORK( * ), Z( LDZ, * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
       int                I;
-      REAL               ANORM, ULP;
+      double               ANORM, ULP;
       // ..
       // .. External Functions ..
       //- REAL               SLAMCH, SLANGE, SLANSY;

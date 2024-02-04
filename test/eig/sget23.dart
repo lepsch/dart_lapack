@@ -8,31 +8,31 @@
       bool               COMP;
       String             BALANC;
       int                INFO, JTYPE, LDA, LDLRE, LDVL, LDVR, LWORK, N, NOUNIT;
-      REAL               THRESH;
+      double               THRESH;
       // ..
       // .. Array Arguments ..
       int                ISEED( 4 ), IWORK( * );
-      REAL               A( LDA, * ), H( LDA, * ), LRE( LDLRE, * ), RCDEIN( * ), RCDVIN( * ), RCNDE1( * ), RCNDV1( * ), RCONDE( * ), RCONDV( * ), RESULT( 11 ), SCALE( * ), SCALE1( * ), VL( LDVL, * ), VR( LDVR, * ), WI( * ), WI1( * ), WORK( * ), WR( * ), WR1( * );
+      double               A( LDA, * ), H( LDA, * ), LRE( LDLRE, * ), RCDEIN( * ), RCDVIN( * ), RCNDE1( * ), RCNDV1( * ), RCONDE( * ), RCONDV( * ), RESULT( 11 ), SCALE( * ), SCALE1( * ), VL( LDVL, * ), VR( LDVR, * ), WI( * ), WI1( * ), WORK( * ), WR( * ), WR1( * );
       // ..
 
 // =====================================================================
 
 
       // .. Parameters ..
-      REAL               ZERO, ONE, TWO;
+      double               ZERO, ONE, TWO;
       const              ZERO = 0.0, ONE = 1.0, TWO = 2.0 ;
-      REAL               EPSIN;
+      double               EPSIN;
       const              EPSIN = 5.9605e-8 ;
       // ..
       // .. Local Scalars ..
       bool               BALOK, NOBAL;
       String             SENSE;
       int                I, IHI, IHI1, IINFO, ILO, ILO1, ISENS, ISENSM, J, JJ, KMIN;
-      REAL               ABNRM, ABNRM1, EPS, SMLNUM, TNRM, TOL, TOLIN, ULP, ULPINV, V, VIMIN, VMAX, VMX, VRMIN, VRMX, VTST;
+      double               ABNRM, ABNRM1, EPS, SMLNUM, TNRM, TOL, TOLIN, ULP, ULPINV, V, VIMIN, VMAX, VMX, VRMIN, VRMX, VTST;
       // ..
       // .. Local Arrays ..
       String             SENS( 2 );
-      REAL               DUM( 1 ), RES( 2 );
+      double               DUM( 1 ), RES( 2 );
       // ..
       // .. External Functions ..
       //- bool               lsame;
@@ -359,7 +359,7 @@
 
          RESULT[10] = ZERO;
          EPS = max( EPSIN, ULP );
-         V = max( REAL( N )*EPS*ABNRM, SMLNUM );
+         V = max( double( N )*EPS*ABNRM, SMLNUM );
          if (ABNRM == ZERO) V = ONE;
          for (I = 1; I <= N; I++) { // 230
             if ( V > RCONDV( I )*RCONDE( I ) ) {

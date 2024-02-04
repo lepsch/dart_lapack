@@ -7,25 +7,25 @@
       // .. Scalar Arguments ..
       String             NORM;
       int                INFO, KL, KU, LDAB, N;
-      REAL               ANORM, RCOND;
+      double               ANORM, RCOND;
       // ..
       // .. Array Arguments ..
       int                IPIV( * );
-      REAL               RWORK( * );
+      double               RWORK( * );
       Complex            AB( LDAB, * ), WORK( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ONE, ZERO;
+      double               ONE, ZERO;
       const              ONE = 1.0, ZERO = 0.0 ;
       // ..
       // .. Local Scalars ..
       bool               LNOTI, ONENRM;
       String             NORMIN;
       int                IX, J, JP, KASE, KASE1, KD, LM;
-      REAL               AINVNM, SCALE, SMLNUM;
+      double               AINVNM, SCALE, SMLNUM;
       Complex            T, ZDUM;
       // ..
       // .. Local Arrays ..
@@ -45,10 +45,10 @@
       // INTRINSIC ABS, AIMAG, MIN, REAL
       // ..
       // .. Statement Functions ..
-      REAL               CABS1;
+      double               CABS1;
       // ..
       // .. Statement Function definitions ..
-      CABS1[ZDUM] = ( REAL( ZDUM ) ).abs() + ( AIMAG( ZDUM ) ).abs();
+      CABS1[ZDUM] = ( double( ZDUM ) ).abs() + ( AIMAG( ZDUM ) ).abs();
       // ..
       // .. Executable Statements ..
 

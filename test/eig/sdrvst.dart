@@ -6,20 +6,20 @@
 
       // .. Scalar Arguments ..
       int                INFO, LDA, LDU, LIWORK, LWORK, NOUNIT, NSIZES, NTYPES;
-      REAL               THRESH;
+      double               THRESH;
       // ..
       // .. Array Arguments ..
       bool               DOTYPE( * );
       int                ISEED( 4 ), IWORK( * ), NN( * );
-      REAL               A( LDA, * ), D1( * ), D2( * ), D3( * ), D4( * ), EVEIGS( * ), RESULT( * ), TAU( * ), U( LDU, * ), V( LDU, * ), WA1( * ), WA2( * ), WA3( * ), WORK( * ), Z( LDU, * );
+      double               A( LDA, * ), D1( * ), D2( * ), D3( * ), D4( * ), EVEIGS( * ), RESULT( * ), TAU( * ), U( LDU, * ), V( LDU, * ), WA1( * ), WA2( * ), WA3( * ), WORK( * ), Z( LDU, * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE, TWO, TEN;
+      double               ZERO, ONE, TWO, TEN;
       const              ZERO = 0.0, ONE = 1.0, TWO = 2.0, TEN = 10.0 ;
-      REAL               HALF;
+      double               HALF;
       const              HALF = 0.5 ;
       int                MAXTYP;
       const              MAXTYP = 18 ;
@@ -28,7 +28,7 @@
       bool               BADNN;
       String             UPLO;
       int                I, IDIAG, IHBW, IINFO, IL, IMODE, INDX, IROW, ITEMP, ITYPE, IU, IUPLO, J, J1, J2, JCOL, JSIZE, JTYPE, KD, LGN, LIWEDC, LWEDC, M, M2, M3, MTYPES, N, NERRS, NMATS, NMAX, NTEST, NTESTT;
-      REAL               ABSTOL, ANINV, ANORM, COND, OVFL, RTOVFL, RTUNFL, TEMP1, TEMP2, TEMP3, ULP, ULPINV, UNFL, VL, VU;
+      double               ABSTOL, ANINV, ANORM, COND, OVFL, RTOVFL, RTUNFL, TEMP1, TEMP2, TEMP3, ULP, ULPINV, UNFL, VL, VU;
       // ..
       // .. Local Arrays ..
       int                IDUMMA( 1 ), IOLDSD( 4 ), ISEED2( 4 ), ISEED3( 4 ), KMAGN( MAXTYP ), KMODE( MAXTYP ), KTYPE( MAXTYP );
@@ -121,7 +121,7 @@
       for (JSIZE = 1; JSIZE <= NSIZES; JSIZE++) { // 1740
          N = NN( JSIZE );
          if ( N > 0 ) {
-            LGN = INT( LOG( REAL( N ) ) / LOG( TWO ) );
+            LGN = INT( LOG( double( N ) ) / LOG( TWO ) );
             if (2**LGN < N) LGN = LGN + 1;
             IF( 2**LGN < N ) LGN = LGN + 1;
             LWEDC = 1 + 4*N + 2*N*LGN + 4*N**2;
@@ -283,10 +283,10 @@
             if ( JTYPE <= 7 ) {
                NTEST = 1;
                for (I = 1; I <= N; I++) { // 120
-                  D1[I] = REAL( A( I, I ) );
+                  D1[I] = double( A( I, I ) );
                } // 120
                for (I = 1; I <= N - 1; I++) { // 130
-                  D2[I] = REAL( A( I+1, I ) );
+                  D2[I] = double( A( I+1, I ) );
                } // 130
                SRNAMT = 'SSTEV';
                sstev('V', N, D1, D2, Z, LDU, WORK, IINFO );
@@ -306,16 +306,16 @@
                // Do tests 1 and 2.
 
                for (I = 1; I <= N; I++) { // 140
-                  D3[I] = REAL( A( I, I ) );
+                  D3[I] = double( A( I, I ) );
                } // 140
                for (I = 1; I <= N - 1; I++) { // 150
-                  D4[I] = REAL( A( I+1, I ) );
+                  D4[I] = double( A( I+1, I ) );
                } // 150
                sstt21(N, 0, D3, D4, D1, D2, Z, LDU, WORK, RESULT( 1 ) );
 
                NTEST = 3;
                for (I = 1; I <= N - 1; I++) { // 160
-                  D4[I] = REAL( A( I+1, I ) );
+                  D4[I] = double( A( I+1, I ) );
                } // 160
                SRNAMT = 'SSTEV';
                sstev('N', N, D3, D4, Z, LDU, WORK, IINFO );
@@ -345,10 +345,10 @@
                NTEST = 4;
                for (I = 1; I <= N; I++) { // 190
                   EVEIGS[I] = D3( I );
-                  D1[I] = REAL( A( I, I ) );
+                  D1[I] = double( A( I, I ) );
                } // 190
                for (I = 1; I <= N - 1; I++) { // 200
-                  D2[I] = REAL( A( I+1, I ) );
+                  D2[I] = double( A( I+1, I ) );
                } // 200
                SRNAMT = 'SSTEVX';
                sstevx('V', 'A', N, D1, D2, VL, VU, IL, IU, ABSTOL, M, WA1, Z, LDU, WORK, IWORK, IWORK( 5*N+1 ), IINFO );
@@ -373,16 +373,16 @@
                // Do tests 4 and 5.
 
                for (I = 1; I <= N; I++) { // 210
-                  D3[I] = REAL( A( I, I ) );
+                  D3[I] = double( A( I, I ) );
                } // 210
                for (I = 1; I <= N - 1; I++) { // 220
-                  D4[I] = REAL( A( I+1, I ) );
+                  D4[I] = double( A( I+1, I ) );
                } // 220
                sstt21(N, 0, D3, D4, WA1, D2, Z, LDU, WORK, RESULT( 4 ) );
 
                NTEST = 6;
                for (I = 1; I <= N - 1; I++) { // 230
-                  D4[I] = REAL( A( I+1, I ) );
+                  D4[I] = double( A( I+1, I ) );
                } // 230
                SRNAMT = 'SSTEVX';
                sstevx('N', 'A', N, D3, D4, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, WORK, IWORK, IWORK( 5*N+1 ), IINFO );
@@ -411,10 +411,10 @@
 
                NTEST = 7;
                for (I = 1; I <= N; I++) { // 260
-                  D1[I] = REAL( A( I, I ) );
+                  D1[I] = double( A( I, I ) );
                } // 260
                for (I = 1; I <= N - 1; I++) { // 270
-                  D2[I] = REAL( A( I+1, I ) );
+                  D2[I] = double( A( I+1, I ) );
                } // 270
                SRNAMT = 'SSTEVR';
                sstevr('V', 'A', N, D1, D2, VL, VU, IL, IU, ABSTOL, M, WA1, Z, LDU, IWORK, WORK, LWORK, IWORK(2*N+1), LIWORK-2*N, IINFO );
@@ -438,16 +438,16 @@
                // Do tests 7 and 8.
 
                for (I = 1; I <= N; I++) { // 280
-                  D3[I] = REAL( A( I, I ) );
+                  D3[I] = double( A( I, I ) );
                } // 280
                for (I = 1; I <= N - 1; I++) { // 290
-                  D4[I] = REAL( A( I+1, I ) );
+                  D4[I] = double( A( I+1, I ) );
                } // 290
                sstt21(N, 0, D3, D4, WA1, D2, Z, LDU, WORK, RESULT( 7 ) );
 
                NTEST = 9;
                for (I = 1; I <= N - 1; I++) { // 300
-                  D4[I] = REAL( A( I+1, I ) );
+                  D4[I] = double( A( I+1, I ) );
                } // 300
                SRNAMT = 'SSTEVR';
                sstevr('N', 'A', N, D3, D4, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, IWORK, WORK, LWORK, IWORK(2*N+1), LIWORK-2*N, IINFO );
@@ -477,10 +477,10 @@
 
                NTEST = 10;
                for (I = 1; I <= N; I++) { // 330
-                  D1[I] = REAL( A( I, I ) );
+                  D1[I] = double( A( I, I ) );
                } // 330
                for (I = 1; I <= N - 1; I++) { // 340
-                  D2[I] = REAL( A( I+1, I ) );
+                  D2[I] = double( A( I+1, I ) );
                } // 340
                SRNAMT = 'SSTEVX';
                sstevx('V', 'I', N, D1, D2, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, WORK, IWORK, IWORK( 5*N+1 ), IINFO );
@@ -500,17 +500,17 @@
                // Do tests 10 and 11.
 
                for (I = 1; I <= N; I++) { // 350
-                  D3[I] = REAL( A( I, I ) );
+                  D3[I] = double( A( I, I ) );
                } // 350
                for (I = 1; I <= N - 1; I++) { // 360
-                  D4[I] = REAL( A( I+1, I ) );
+                  D4[I] = double( A( I+1, I ) );
                } // 360
                sstt22(N, M2, 0, D3, D4, WA2, D2, Z, LDU, WORK, max( 1, M2 ), RESULT( 10 ) );
 
 
                NTEST = 12;
                for (I = 1; I <= N - 1; I++) { // 370
-                  D4[I] = REAL( A( I+1, I ) );
+                  D4[I] = double( A( I+1, I ) );
                } // 370
                SRNAMT = 'SSTEVX';
                sstevx('N', 'I', N, D3, D4, VL, VU, IL, IU, ABSTOL, M3, WA3, Z, LDU, WORK, IWORK, IWORK( 5*N+1 ), IINFO );
@@ -551,10 +551,10 @@
                }
 
                for (I = 1; I <= N; I++) { // 390
-                  D1[I] = REAL( A( I, I ) );
+                  D1[I] = double( A( I, I ) );
                } // 390
                for (I = 1; I <= N - 1; I++) { // 400
-                  D2[I] = REAL( A( I+1, I ) );
+                  D2[I] = double( A( I+1, I ) );
                } // 400
                SRNAMT = 'SSTEVX';
                sstevx('V', 'V', N, D1, D2, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, WORK, IWORK, IWORK( 5*N+1 ), IINFO );
@@ -581,16 +581,16 @@
                // Do tests 13 and 14.
 
                for (I = 1; I <= N; I++) { // 410
-                  D3[I] = REAL( A( I, I ) );
+                  D3[I] = double( A( I, I ) );
                } // 410
                for (I = 1; I <= N - 1; I++) { // 420
-                  D4[I] = REAL( A( I+1, I ) );
+                  D4[I] = double( A( I+1, I ) );
                } // 420
                sstt22(N, M2, 0, D3, D4, WA2, D2, Z, LDU, WORK, max( 1, M2 ), RESULT( 13 ) );
 
                NTEST = 15;
                for (I = 1; I <= N - 1; I++) { // 430
-                  D4[I] = REAL( A( I+1, I ) );
+                  D4[I] = double( A( I+1, I ) );
                } // 430
                SRNAMT = 'SSTEVX';
                sstevx('N', 'V', N, D3, D4, VL, VU, IL, IU, ABSTOL, M3, WA3, Z, LDU, WORK, IWORK, IWORK( 5*N+1 ), IINFO );
@@ -615,10 +615,10 @@
 
                NTEST = 16;
                for (I = 1; I <= N; I++) { // 450
-                  D1[I] = REAL( A( I, I ) );
+                  D1[I] = double( A( I, I ) );
                } // 450
                for (I = 1; I <= N - 1; I++) { // 460
-                  D2[I] = REAL( A( I+1, I ) );
+                  D2[I] = double( A( I+1, I ) );
                } // 460
                SRNAMT = 'SSTEVD';
                sstevd('V', N, D1, D2, Z, LDU, WORK, LWEDC, IWORK, LIWEDC, IINFO );
@@ -638,16 +638,16 @@
                // Do tests 16 and 17.
 
                for (I = 1; I <= N; I++) { // 470
-                  D3[I] = REAL( A( I, I ) );
+                  D3[I] = double( A( I, I ) );
                } // 470
                for (I = 1; I <= N - 1; I++) { // 480
-                  D4[I] = REAL( A( I+1, I ) );
+                  D4[I] = double( A( I+1, I ) );
                } // 480
                sstt21(N, 0, D3, D4, D1, D2, Z, LDU, WORK, RESULT( 16 ) );
 
                NTEST = 18;
                for (I = 1; I <= N - 1; I++) { // 490
-                  D4[I] = REAL( A( I+1, I ) );
+                  D4[I] = double( A( I+1, I ) );
                } // 490
                SRNAMT = 'SSTEVD';
                sstevd('N', N, D3, D4, Z, LDU, WORK, LWEDC, IWORK, LIWEDC, IINFO );
@@ -676,10 +676,10 @@
 
                NTEST = 19;
                for (I = 1; I <= N; I++) { // 520
-                  D1[I] = REAL( A( I, I ) );
+                  D1[I] = double( A( I, I ) );
                } // 520
                for (I = 1; I <= N - 1; I++) { // 530
-                  D2[I] = REAL( A( I+1, I ) );
+                  D2[I] = double( A( I+1, I ) );
                } // 530
                SRNAMT = 'SSTEVR';
                sstevr('V', 'I', N, D1, D2, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, IWORK, WORK, LWORK, IWORK(2*N+1), LIWORK-2*N, IINFO );
@@ -699,17 +699,17 @@
                // DO tests 19 and 20.
 
                for (I = 1; I <= N; I++) { // 540
-                  D3[I] = REAL( A( I, I ) );
+                  D3[I] = double( A( I, I ) );
                } // 540
                for (I = 1; I <= N - 1; I++) { // 550
-                  D4[I] = REAL( A( I+1, I ) );
+                  D4[I] = double( A( I+1, I ) );
                } // 550
                sstt22(N, M2, 0, D3, D4, WA2, D2, Z, LDU, WORK, max( 1, M2 ), RESULT( 19 ) );
 
 
                NTEST = 21;
                for (I = 1; I <= N - 1; I++) { // 560
-                  D4[I] = REAL( A( I+1, I ) );
+                  D4[I] = double( A( I+1, I ) );
                } // 560
                SRNAMT = 'SSTEVR';
                sstevr('N', 'I', N, D3, D4, VL, VU, IL, IU, ABSTOL, M3, WA3, Z, LDU, IWORK, WORK, LWORK, IWORK(2*N+1), LIWORK-2*N, IINFO );
@@ -750,10 +750,10 @@
                }
 
                for (I = 1; I <= N; I++) { // 580
-                  D1[I] = REAL( A( I, I ) );
+                  D1[I] = double( A( I, I ) );
                } // 580
                for (I = 1; I <= N - 1; I++) { // 590
-                  D2[I] = REAL( A( I+1, I ) );
+                  D2[I] = double( A( I+1, I ) );
                } // 590
                SRNAMT = 'SSTEVR';
                sstevr('V', 'V', N, D1, D2, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, IWORK, WORK, LWORK, IWORK(2*N+1), LIWORK-2*N, IINFO );
@@ -780,16 +780,16 @@
                // Do tests 22 and 23.
 
                for (I = 1; I <= N; I++) { // 600
-                  D3[I] = REAL( A( I, I ) );
+                  D3[I] = double( A( I, I ) );
                } // 600
                for (I = 1; I <= N - 1; I++) { // 610
-                  D4[I] = REAL( A( I+1, I ) );
+                  D4[I] = double( A( I+1, I ) );
                } // 610
                sstt22(N, M2, 0, D3, D4, WA2, D2, Z, LDU, WORK, max( 1, M2 ), RESULT( 22 ) );
 
                NTEST = 24;
                for (I = 1; I <= N - 1; I++) { // 620
-                  D4[I] = REAL( A( I+1, I ) );
+                  D4[I] = double( A( I+1, I ) );
                } // 620
                SRNAMT = 'SSTEVR';
                sstevr('N', 'V', N, D3, D4, VL, VU, IL, IU, ABSTOL, M3, WA3, Z, LDU, IWORK, WORK, LWORK, IWORK(2*N+1), LIWORK-2*N, IINFO );

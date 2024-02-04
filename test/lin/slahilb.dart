@@ -7,7 +7,7 @@
       // .. Scalar Arguments ..
       int     N, NRHS, LDA, LDX, LDB, INFO;
       // .. Array Arguments ..
-      REAL A(LDA, N), X(LDX, NRHS), B(LDB, NRHS), WORK(N);
+      double A(LDA, N), X(LDX, NRHS), B(LDB, NRHS), WORK(N);
       // ..
 
 // =====================================================================
@@ -70,13 +70,13 @@
       // Generate the scaled Hilbert matrix in A
       for (J = 1; J <= N; J++) {
          for (I = 1; I <= N; I++) {
-            A[I, J] = REAL(M) / (I + J - 1);
+            A[I, J] = double(M) / (I + J - 1);
          }
       }
 
       // Generate matrix B as simply the first NRHS columns of M * the
       // identity.
-      slaset('Full', N, NRHS, 0.0, REAL(M), B, LDB);
+      slaset('Full', N, NRHS, 0.0, double(M), B, LDB);
 
       // Generate the true solutions in X.  Because B = the first NRHS
       // columns of M*I, the true solutions are just the first NRHS columns

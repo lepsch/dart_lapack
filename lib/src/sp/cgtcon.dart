@@ -7,7 +7,7 @@
       // .. Scalar Arguments ..
       String             NORM;
       int                INFO, N;
-      REAL               ANORM, RCOND;
+      double               ANORM, RCOND;
       // ..
       // .. Array Arguments ..
       int                IPIV( * );
@@ -17,13 +17,13 @@
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ONE, ZERO;
+      double               ONE, ZERO;
       const              ONE = 1.0, ZERO = 0.0 ;
       // ..
       // .. Local Scalars ..
       bool               ONENRM;
       int                I, KASE, KASE1;
-      REAL               AINVNM;
+      double               AINVNM;
       // ..
       // .. Local Arrays ..
       int                ISAVE( 3 );

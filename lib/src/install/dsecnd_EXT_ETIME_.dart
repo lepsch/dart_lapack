@@ -5,10 +5,10 @@
 // =====================================================================
 
       // .. Local Scalars ..
-      REAL               T1;
+      double               T1;
       // ..
       // .. Local Arrays ..
-      REAL               TARRAY( 2 );
+      double               TARRAY( 2 );
       // ..
       // .. External Functions ..
       //- REAL               ETIME_;

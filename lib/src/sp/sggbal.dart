@@ -9,20 +9,20 @@
       int                IHI, ILO, INFO, LDA, LDB, N;
       // ..
       // .. Array Arguments ..
-      REAL               A( LDA, * ), B( LDB, * ), LSCALE( * ), RSCALE( * ), WORK( * );
+      double               A( LDA, * ), B( LDB, * ), LSCALE( * ), RSCALE( * ), WORK( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, HALF, ONE;
+      double               ZERO, HALF, ONE;
       const              ZERO = 0.0, HALF = 0.5, ONE = 1.0 ;
-      REAL               THREE, SCLFAC;
+      double               THREE, SCLFAC;
       const              THREE = 3.0, SCLFAC = 1.0e+1 ;
       // ..
       // .. Local Scalars ..
       int                I, ICAB, IFLOW, IP1, IR, IRAB, IT, J, JC, JP1, K, KOUNT, L, LCAB, LM1, LRAB, LSFMAX, LSFMIN, M, NR, NRP2;
-      REAL               ALPHA, BASL, BETA, CAB, CMAX, COEF, COEF2, COEF5, COR, EW, EWC, GAMMA, PGAMMA, RAB, SFMAX, SFMIN, SUM, T, TA, TB, TC;
+      double               ALPHA, BASL, BETA, CAB, CMAX, COEF, COEF2, COEF5, COR, EW, EWC, GAMMA, PGAMMA, RAB, SFMAX, SFMIN, SUM, T, TA, TB, TC;
       // ..
       // .. External Functions ..
       //- bool               lsame;
@@ -264,7 +264,7 @@
             KOUNT = KOUNT + 1;
             SUM = SUM + WORK( J );
          } // 290
-         WORK[I+2*N] = REAL( KOUNT )*WORK( I+N ) + SUM;
+         WORK[I+2*N] = double( KOUNT )*WORK( I+N ) + SUM;
       } // 300
 
       for (J = ILO; J <= IHI; J++) { // 330
@@ -279,7 +279,7 @@
             KOUNT = KOUNT + 1;
             SUM = SUM + WORK( I+N );
          } // 320
-         WORK[J+3*N] = REAL( KOUNT )*WORK( J ) + SUM;
+         WORK[J+3*N] = double( KOUNT )*WORK( J ) + SUM;
       } // 330
 
       SUM = SDOT( NR, WORK( ILO+N ), 1, WORK( ILO+2*N ), 1 ) + SDOT( NR, WORK( ILO ), 1, WORK( ILO+3*N ), 1 );

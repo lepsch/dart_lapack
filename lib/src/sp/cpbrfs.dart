@@ -9,7 +9,7 @@
       int                INFO, KD, LDAB, LDAFB, LDB, LDX, N, NRHS;
       // ..
       // .. Array Arguments ..
-      REAL               BERR( * ), FERR( * ), RWORK( * );
+      double               BERR( * ), FERR( * ), RWORK( * );
       Complex            AB( LDAB, * ), AFB( LDAFB, * ), B( LDB, * ), WORK( * ), X( LDX, * );
       // ..
 
@@ -18,19 +18,19 @@
       // .. Parameters ..
       int                ITMAX;
       const              ITMAX = 5 ;
-      REAL               ZERO;
+      double               ZERO;
       const              ZERO = 0.0 ;
       Complex            ONE;
       const              ONE = ( 1.0, 0.0 ) ;
-      REAL               TWO;
+      double               TWO;
       const              TWO = 2.0 ;
-      REAL               THREE;
+      double               THREE;
       const              THREE = 3.0 ;
       // ..
       // .. Local Scalars ..
       bool               UPPER;
       int                COUNT, I, J, K, KASE, L, NZ;
-      REAL               EPS, LSTRES, S, SAFE1, SAFE2, SAFMIN, XK;
+      double               EPS, LSTRES, S, SAFE1, SAFE2, SAFMIN, XK;
       Complex            ZDUM;
       // ..
       // .. Local Arrays ..
@@ -48,10 +48,10 @@
       // EXTERNAL lsame, SLAMCH
       // ..
       // .. Statement Functions ..
-      REAL               CABS1;
+      double               CABS1;
       // ..
       // .. Statement Function definitions ..
-      CABS1[ZDUM] = ( REAL( ZDUM ) ).abs() + ( AIMAG( ZDUM ) ).abs();
+      CABS1[ZDUM] = ( double( ZDUM ) ).abs() + ( AIMAG( ZDUM ) ).abs();
       // ..
       // .. Executable Statements ..
 
@@ -138,13 +138,13 @@
                   RWORK[I] = RWORK( I ) + CABS1( AB( L+I, K ) )*XK;
                   S = S + CABS1( AB( L+I, K ) )*CABS1( X( I, J ) );
                } // 40
-               RWORK[K] = RWORK( K ) + ABS( REAL( AB( KD+1, K ) ) )* XK + S;
+               RWORK[K] = RWORK( K ) + ABS( double( AB( KD+1, K ) ) )* XK + S;
             } // 50
          } else {
             for (K = 1; K <= N; K++) { // 70
                S = ZERO;
                XK = CABS1( X( K, J ) );
-               RWORK[K] = RWORK( K ) + ABS( REAL( AB( 1, K ) ) )*XK;
+               RWORK[K] = RWORK( K ) + ABS( double( AB( 1, K ) ) )*XK;
                L = 1 - K;
                for (I = K + 1; I <= min( N, K+KD ); I++) { // 60
                   RWORK[I] = RWORK( I ) + CABS1( AB( L+I, K ) )*XK;

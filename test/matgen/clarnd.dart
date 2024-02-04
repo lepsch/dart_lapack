@@ -14,13 +14,13 @@
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE, TWO;
+      double               ZERO, ONE, TWO;
       const              ZERO = 0.0, ONE = 1.0, TWO = 2.0 ;
-      REAL               TWOPI;
+      double               TWOPI;
       const      TWOPI = 6.28318530717958647692528676655900576839 ;
       // ..
       // .. Local Scalars ..
-      REAL               T1, T2;
+      double               T1, T2;
       // ..
       // .. External Functions ..
       //- REAL               SLARAN;

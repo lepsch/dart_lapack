@@ -9,19 +9,19 @@
       int                LDA, M, N;
       // ..
       // .. Array Arguments ..
-      REAL               C( * ), S( * );
+      double               C( * ), S( * );
       Complex            A( LDA, * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ONE, ZERO;
+      double               ONE, ZERO;
       const              ONE = 1.0, ZERO = 0.0 ;
       // ..
       // .. Local Scalars ..
       int                I, INFO, J;
-      REAL               CTEMP, STEMP;
+      double               CTEMP, STEMP;
       Complex            TEMP;
       // ..
       // .. Intrinsic Functions ..

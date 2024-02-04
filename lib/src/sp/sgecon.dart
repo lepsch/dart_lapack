@@ -7,24 +7,24 @@
       // .. Scalar Arguments ..
       String             NORM;
       int                INFO, LDA, N;
-      REAL               ANORM, RCOND;
+      double               ANORM, RCOND;
       // ..
       // .. Array Arguments ..
       int                IWORK( * );
-      REAL               A( LDA, * ), WORK( * );
+      double               A( LDA, * ), WORK( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ONE, ZERO;
+      double               ONE, ZERO;
       const              ONE = 1.0, ZERO = 0.0 ;
       // ..
       // .. Local Scalars ..
       bool               ONENRM;
       String             NORMIN;
       int                IX, KASE, KASE1;
-      REAL               AINVNM, SCALE, SL, SMLNUM, SU, HUGEVAL;
+      double               AINVNM, SCALE, SL, SMLNUM, SU, HUGEVAL;
       // ..
       // .. Local Arrays ..
       int                ISAVE( 3 );

@@ -9,22 +9,22 @@
       int                ITYPE, KBAND, LDU, N;
       // ..
       // .. Array Arguments ..
-      REAL               AP( * ), D( * ), E( * ), RESULT( 2 ), TAU( * ), U( LDU, * ), VP( * ), WORK( * );
+      double               AP( * ), D( * ), E( * ), RESULT( 2 ), TAU( * ), U( LDU, * ), VP( * ), WORK( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE, TEN;
+      double               ZERO, ONE, TEN;
       const              ZERO = 0.0, ONE = 1.0, TEN = 10.0 ;
-      REAL               HALF;
+      double               HALF;
       const              HALF = 1.0 / 2.0 ;
       // ..
       // .. Local Scalars ..
       bool               LOWER;
       String             CUPLO;
       int                IINFO, J, JP, JP1, JR, LAP;
-      REAL               ANORM, TEMP, ULP, UNFL, VSAVE, WNORM;
+      double               ANORM, TEMP, ULP, UNFL, VSAVE, WNORM;
       // ..
       // .. External Functions ..
       //- bool               lsame;
@@ -192,7 +192,7 @@
             WORK[( N+1 )*( J-1 )+1] = WORK( ( N+1 )*( J-1 )+1 ) - ONE;
          } // 90
 
-         RESULT[2] = min( SLANGE( '1', N, N, WORK, N, WORK( N**2+1 ) ), REAL( N ) ) / ( N*ULP );
+         RESULT[2] = min( SLANGE( '1', N, N, WORK, N, WORK( N**2+1 ) ), double( N ) ) / ( N*ULP );
       }
 
       return;

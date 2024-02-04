@@ -6,22 +6,22 @@
 
       // .. Scalar Arguments ..
       int                INFO, LDA, M, N;
-      REAL               AMAX, COLCND, ROWCND;
+      double               AMAX, COLCND, ROWCND;
       // ..
       // .. Array Arguments ..
-      REAL               C( * ), R( * );
+      double               C( * ), R( * );
       Complex            A( LDA, * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ONE, ZERO;
+      double               ONE, ZERO;
       const              ONE = 1.0, ZERO = 0.0 ;
       // ..
       // .. Local Scalars ..
       int                I, J;
-      REAL               BIGNUM, RCMAX, RCMIN, SMLNUM;
+      double               BIGNUM, RCMAX, RCMIN, SMLNUM;
       Complex            ZDUM;
       // ..
       // .. External Functions ..
@@ -35,10 +35,10 @@
       // INTRINSIC ABS, AIMAG, MAX, MIN, REAL
       // ..
       // .. Statement Functions ..
-      REAL               CABS1;
+      double               CABS1;
       // ..
       // .. Statement Function definitions ..
-      CABS1[ZDUM] = ( REAL( ZDUM ) ).abs() + ( AIMAG( ZDUM ) ).abs();
+      CABS1[ZDUM] = ( double( ZDUM ) ).abs() + ( AIMAG( ZDUM ) ).abs();
       // ..
       // .. Executable Statements ..
 

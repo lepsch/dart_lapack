@@ -8,24 +8,24 @@
       String             DIST, TYPE;
       String             PATH;
       int                IMAT, KL, KU, M, MODE, N;
-      REAL               ANORM, CNDNUM;
+      double               ANORM, CNDNUM;
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               SHRINK, TENTH;
+      double               SHRINK, TENTH;
       const              SHRINK = 0.25, TENTH = 0.1 ;
-      REAL               ONE;
+      double               ONE;
       const              ONE = 1.0 ;
-      REAL               TWO;
+      double               TWO;
       const              TWO = 2.0 ;
       // ..
       // .. Local Scalars ..
       bool               FIRST;
       String             C2;
       int                MAT;
-      REAL               BADC1, BADC2, EPS, LARGE, SMALL;
+      double               BADC1, BADC2, EPS, LARGE, SMALL;
       // ..
       // .. External Functions ..
       //- bool               LSAMEN;

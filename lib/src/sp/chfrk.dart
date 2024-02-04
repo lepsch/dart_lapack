@@ -5,7 +5,7 @@
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
-      REAL               ALPHA, BETA;
+      double               ALPHA, BETA;
       int                K, LDA, N;
       String             TRANS, TRANSR, UPLO;
       // ..
@@ -17,7 +17,7 @@
 
       // ..
       // .. Parameters ..
-      REAL               ONE, ZERO;
+      double               ONE, ZERO;
       Complex            CZERO;
       const              ONE = 1.0, ZERO = 0.0 ;
       const              CZERO = ( 0.0, 0.0 ) ;

@@ -7,30 +7,30 @@
       // .. Scalar Arguments ..
       String             DIST, PACK, SYM;
       int                INFO, KL, KU, LDA, M, MODE, N;
-      REAL               COND, DMAX;
+      double               COND, DMAX;
       // ..
       // .. Array Arguments ..
       int                ISEED( 4 );
-      REAL               D( * );
+      double               D( * );
       Complex            A( LDA, * ), WORK( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO;
+      double               ZERO;
       const              ZERO = 0.0 ;
-      REAL               ONE;
+      double               ONE;
       const              ONE = 1.0 ;
       Complex            CZERO;
       const              CZERO = ( 0.0, 0.0 ) ;
-      REAL               TWOPI;
+      double               TWOPI;
       const      TWOPI = 6.28318530717958647692528676655900576839 ;
       // ..
       // .. Local Scalars ..
       bool               CSYM, GIVENS, ILEXTR, ILTEMP, TOPDWN;
       int                I, IC, ICOL, IDIST, IENDCH, IINFO, IL, ILDA, IOFFG, IOFFST, IPACK, IPACKG, IR, IR1, IR2, IROW, IRSIGN, ISKEW, ISYM, ISYMPK, J, JC, JCH, JKL, JKU, JR, K, LLB, MINLDA, MNMIN, MR, NC, UUB;
-      REAL               ALPHA, ANGLE, REALC, TEMP;
+      double               ALPHA, ANGLE, REALC, TEMP;
       Complex            C, CT, CTEMP, DUMMY, EXTRA, S, ST;
       // ..
       // .. External Functions ..
@@ -140,7 +140,7 @@
 
       GIVENS = false;
       if ( ISYM == 1 ) {
-         if( REAL( LLB+UUB ) < 0.3*REAL( max( 1, MR+NC ) ) ) GIVENS = true;
+         if( REAL( LLB+UUB ) < 0.3*double( max( 1, MR+NC ) ) ) GIVENS = true;
       } else {
          if (2*LLB < M) GIVENS = true ;
       }
@@ -687,7 +687,7 @@
             if ( !CSYM ) {
                for (JC = 1; JC <= N; JC++) { // 350
                   IROW = IOFFST + ( 1-ISKEW )*JC;
-                  A[IROW, JC] = CMPLX( REAL( A( IROW, JC ) ) );
+                  A[IROW, JC] = CMPLX( double( A( IROW, JC ) ) );
                } // 350
             }
 

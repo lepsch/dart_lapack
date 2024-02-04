@@ -7,22 +7,22 @@
       // .. Scalar Arguments ..
       String             EQUED, UPLO;
       int                N;
-      REAL               AMAX, SCOND;
+      double               AMAX, SCOND;
       // ..
       // .. Array Arguments ..
-      REAL               S( * );
+      double               S( * );
       Complex            AP( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ONE, THRESH;
+      double               ONE, THRESH;
       const              ONE = 1.0, THRESH = 0.1 ;
       // ..
       // .. Local Scalars ..
       int                I, J, JC;
-      REAL               CJ, LARGE, SMALL;
+      double               CJ, LARGE, SMALL;
       // ..
       // .. External Functions ..
       //- bool               lsame;
@@ -65,7 +65,7 @@
                for (I = 1; I <= J - 1; I++) { // 10
                   AP[JC+I-1] = CJ*S( I )*AP( JC+I-1 );
                } // 10
-               AP[JC+J-1] = CJ*CJ*REAL( AP( JC+J-1 ) );
+               AP[JC+J-1] = CJ*CJ*double( AP( JC+J-1 ) );
                JC = JC + J;
             } // 20
          } else {
@@ -75,7 +75,7 @@
             JC = 1;
             for (J = 1; J <= N; J++) { // 40
                CJ = S( J );
-               AP[JC] = CJ*CJ*REAL( AP( JC ) );
+               AP[JC] = CJ*CJ*double( AP( JC ) );
                for (I = J + 1; I <= N; I++) { // 30
                   AP[JC+I-J] = CJ*S( I )*AP( JC+I-J );
                } // 30

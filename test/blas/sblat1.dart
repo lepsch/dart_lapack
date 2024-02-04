@@ -12,7 +12,7 @@
       int              ICASE, INCX, INCY, N;
       bool             PASS;
       // .. Local Scalars ..
-      REAL             SFAC;
+      double             SFAC;
       int              IC;
       // .. External Subroutines ..
       // EXTERNAL CHECK0, CHECK1, CHECK2, CHECK3, HEADER
@@ -87,15 +87,15 @@
       int               NOUT;
       const             NOUT=6;
       // .. Scalar Arguments ..
-      REAL              SFAC;
+      double              SFAC;
       // .. Scalars in Common ..
       int               ICASE, INCX, INCY, N;
       bool              PASS;
       // .. Local Scalars ..
-      REAL              D12, SA, SB, SC, SS;
+      double              D12, SA, SB, SC, SS;
       int               I, K;
       // .. Local Arrays ..
-      REAL              DA1(8), DATRUE(8), DB1(8), DBTRUE(8), DC1(8), DS1(8), DAB(4,9), DTEMP(9), DTRUE(9,9);
+      double              DA1(8), DATRUE(8), DB1(8), DBTRUE(8), DC1(8), DS1(8), DAB(4,9), DTEMP(9), DTRUE(9,9);
       // .. External Subroutines ..
       // EXTERNAL SROTG, SROTMG, STEST, STEST1
       // .. Common blocks ..
@@ -175,17 +175,17 @@
       void check1(SFAC) {
       // .. Parameters ..
       int               NOUT;
-      REAL              THRESH;
+      double              THRESH;
       const             NOUT=6, THRESH=10.0;
       // .. Scalar Arguments ..
-      REAL              SFAC;
+      double              SFAC;
       // .. Scalars in Common ..
       int               ICASE, INCX, INCY, N;
       bool              PASS;
       // .. Local Scalars ..
       int               I, IX, LEN, NP1;
       // .. Local Arrays ..
-      REAL              DTRUE1(5), DTRUE3(5), DTRUE5(8,5,2), DV(8,5,2), DVR(8), SA(10), STEMP(1), STRUE(8), SX(8), SXR(15);
+      double              DTRUE1(5), DTRUE3(5), DTRUE5(8,5,2), DV(8,5,2), DVR(8), SA(10), STEMP(1), STRUE(8), SX(8), SXR(15);
       int               ITRUE2(5), ITRUEC(5);
       // .. External Functions ..
       //- REAL              SASUM, SNRM2;
@@ -264,15 +264,15 @@
       int               NOUT;
       const             NOUT=6;
       // .. Scalar Arguments ..
-      REAL              SFAC;
+      double              SFAC;
       // .. Scalars in Common ..
       int               ICASE, INCX, INCY, N;
       bool              PASS;
       // .. Local Scalars ..
-      REAL              SA;
+      double              SA;
       int               I, J, KI, KN, KNI, KPAR, KSIZE, LENX, LENY, LINCX, LINCY, MX, MY;
       // .. Local Arrays ..
-      REAL              DT10X(7,4,4), DT10Y(7,4,4), DT7(4,4), DT8(7,4,4), DX1(7), DY1(7), SSIZE1(4), SSIZE2(14,2), SSIZE3(4), SSIZE(7), STX(7), STY(7), SX(7), SY(7), DPAR(5,4), DT19X(7,4,16),DT19XA(7,4,4), DT19XB(7,4,4), DT19XC(7,4,4),DT19XD(7,4,4), DT19Y(7,4,16), DT19YA(7,4,4),DT19YB(7,4,4), DT19YC(7,4,4), DT19YD(7,4,4), DTEMP(5), ST7B(4,4), STY0(1), SX0(1), SY0(1);
+      double              DT10X(7,4,4), DT10Y(7,4,4), DT7(4,4), DT8(7,4,4), DX1(7), DY1(7), SSIZE1(4), SSIZE2(14,2), SSIZE3(4), SSIZE(7), STX(7), STY(7), SX(7), SY(7), DPAR(5,4), DT19X(7,4,16),DT19XA(7,4,4), DT19XB(7,4,4), DT19XC(7,4,4),DT19XD(7,4,4), DT19Y(7,4,16), DT19YA(7,4,4),DT19YB(7,4,4), DT19YC(7,4,4), DT19YD(7,4,4), DTEMP(5), ST7B(4,4), STY0(1), SX0(1), SY0(1);
       int               INCXS(4), INCYS(4), LENS(4,2), NS(4);
       // .. External Functions ..
       //- REAL              SDOT, SDSDOT;
@@ -427,15 +427,15 @@
       int               NOUT;
       const             NOUT=6;
       // .. Scalar Arguments ..
-      REAL              SFAC;
+      double              SFAC;
       // .. Scalars in Common ..
       int               ICASE, INCX, INCY, N;
       bool              PASS;
       // .. Local Scalars ..
-      REAL              SC, SS;
+      double              SC, SS;
       int               I, K, KI, KN, KSIZE, LENX, LENY, MX, MY;
       // .. Local Arrays ..
-      REAL              COPYX(5), COPYY(5), DT9X(7,4,4), DT9Y(7,4,4), DX1(7), DY1(7), MWPC(11), MWPS(11), MWPSTX(5), MWPSTY(5), MWPTX(11,5), MWPTY(11,5), MWPX(5), MWPY(5), SSIZE2(14,2), STX(7), STY(7), SX(7), SY(7);
+      double              COPYX(5), COPYY(5), DT9X(7,4,4), DT9Y(7,4,4), DX1(7), DY1(7), MWPC(11), MWPS(11), MWPSTX(5), MWPSTY(5), MWPTX(11,5), MWPTY(11,5), MWPX(5), MWPY(5), SSIZE2(14,2), STX(7), STY(7), SX(7), SY(7);
       int               INCXS(4), INCYS(4), LENS(4,2), MWPINX(11), MWPINY(11), MWPN(11), NS(4);
       // .. External Subroutines ..
       // EXTERNAL SROT, STEST
@@ -592,18 +592,18 @@
 
       // .. Parameters ..
       int              NOUT;
-      REAL             ZERO;
+      double             ZERO;
       const            NOUT=6, ZERO=0.0;
       // .. Scalar Arguments ..
-      REAL             SFAC;
+      double             SFAC;
       int              LEN;
       // .. Array Arguments ..
-      REAL             SCOMP(LEN), SSIZE(LEN), STRUE(LEN);
+      double             SCOMP(LEN), SSIZE(LEN), STRUE(LEN);
       // .. Scalars in Common ..
       int              ICASE, INCX, INCY, N;
       bool             PASS;
       // .. Local Scalars ..
-      REAL             SD;
+      double             SD;
       int              I;
       // .. External Functions ..
       //- REAL             SDIFF;
@@ -643,11 +643,11 @@
       // C.L. LAWSON, JPL, 1978 DEC 6
 
       // .. Scalar Arguments ..
-      REAL              SCOMP1, SFAC, STRUE1;
+      double              SCOMP1, SFAC, STRUE1;
       // .. Array Arguments ..
-      REAL              SSIZE(*);
+      double              SSIZE(*);
       // .. Local Arrays ..
-      REAL              SCOMP(1), STRUE(1);
+      double              SCOMP(1), STRUE(1);
       // .. External Subroutines ..
       // EXTERNAL STEST
       // .. Executable Statements ..
@@ -658,12 +658,12 @@
 
       return;
       }
-      REAL sdiff(SA,SB) {
+      double sdiff(SA,SB) {
       // ********************************* SDIFF **************************
       // COMPUTES DIFFERENCE OF TWO NUMBERS.  C. L. LAWSON, JPL 1974 FEB 15
 
       // .. Scalar Arguments ..
-      REAL                            SA, SB;
+      double                            SA, SB;
       // .. Executable Statements ..
       SDIFF = SA - SB;
       return;
@@ -726,13 +726,13 @@
       // IMPLICIT NONE
       // .. Scalar Arguments ..
       int               INCX, N;
-      REAL              THRESH;
+      double              THRESH;
 
 // =====================================================================
       // .. Parameters ..
       int               NMAX, NOUT, NV;
       const             NMAX=20, NOUT=6, NV=10;
-      REAL              HALF, ONE, TWO, ZERO;
+      double              HALF, ONE, TWO, ZERO;
       const             HALF=0.5, ONE=1.0, TWO= 2.0, ZERO=0.0;
       // .. External Functions ..
       //- REAL              SNRM2;
@@ -740,14 +740,14 @@
       // .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, MIN, REAL, SQRT
       // .. Model parameters ..
-      REAL              BIGNUM, SAFMAX, SAFMIN, SMLNUM, ULP;
+      double              BIGNUM, SAFMAX, SAFMIN, SMLNUM, ULP;
       const             BIGNUM=0.1014120480e+32, SAFMAX=0.8507059173e+38, SAFMIN=0.1175494351e-37, SMLNUM=0.9860761315e-31, ULP=0.1192092896e-06;
       // .. Local Scalars ..
-      REAL              ROGUE, SNRM, TRAT, V0, V1, WORKSSQ, Y1, Y2, YMAX, YMIN, YNRM, ZNRM;
+      double              ROGUE, SNRM, TRAT, V0, V1, WORKSSQ, Y1, Y2, YMAX, YMIN, YNRM, ZNRM;
       int               I, IV, IW, IX;
       bool              FIRST;
       // .. Local Arrays ..
-      REAL              VALUES(NV), WORK(NMAX), X(NMAX), Z(NMAX);
+      double              VALUES(NV), WORK(NMAX), X(NMAX), Z(NMAX);
       // .. Executable Statements ..
       VALUES[1] = ZERO;
       VALUES[2] = TWO*SAFMIN;
@@ -854,7 +854,7 @@
             // in this implementation so we scale the test ratio accordingly.
 
             if (INCX == 0) {
-               ZNRM = sqrt(REAL(N))*(X(1)).abs();
+               ZNRM = sqrt(double(N))*(X(1)).abs();
             } else {
                ZNRM = YNRM;
             }
@@ -888,12 +888,12 @@
    98 FORMAT( 1X, A6, ': N=', I6,', INCX=', I4, ', IV=', I2, ', IW=', I2, ', test=', E15.8 );
       return;
       CONTAINS;
-      REAL sxvals(XX,K) {
+      double sxvals(XX,K) {
       // .. Scalar Arguments ..
-      REAL              XX;
+      double              XX;
       int               K;
       // .. Local Scalars ..
-      REAL              X, Y, YY, Z;
+      double              X, Y, YY, Z;
       // .. Intrinsic Functions ..
       // INTRINSIC HUGE
       // .. Executable Statements ..

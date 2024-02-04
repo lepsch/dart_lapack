@@ -7,7 +7,7 @@
       // .. Scalar Arguments ..
       String             TRANS;
       int                IJOB, INFO, LDA, LDB, LDC, LDD, LDE, LDF, LWORK, M, N;
-      REAL               DIF, SCALE;
+      double               DIF, SCALE;
       // ..
       // .. Array Arguments ..
       int                IWORK( * );
@@ -19,7 +19,7 @@
 // Sven Hammarling, 1/5/02.
 
       // .. Parameters ..
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       Complex            CZERO;
       const              CZERO = (0.0, 0.0) ;
@@ -27,7 +27,7 @@
       // .. Local Scalars ..
       bool               LQUERY, NOTRAN;
       int                I, IE, IFUNC, IROUND, IS, ISOLVE, J, JE, JS, K, LINFO, LWMIN, MB, NB, P, PQ, Q;
-      REAL               DSCALE, DSUM, SCALE2, SCALOC;
+      double               DSCALE, DSUM, SCALE2, SCALOC;
       // ..
       // .. External Functions ..
       //- bool               lsame;
@@ -142,9 +142,9 @@
             ctgsy2(TRANS, IFUNC, M, N, A, LDA, B, LDB, C, LDC, D, LDD, E, LDE, F, LDF, SCALE, DSUM, DSCALE, INFO );
             if ( DSCALE != ZERO ) {
                if ( IJOB == 1 || IJOB == 3 ) {
-                  DIF = sqrt( REAL( 2*M*N ) ) / ( DSCALE*sqrt( DSUM ) );
+                  DIF = sqrt( double( 2*M*N ) ) / ( DSCALE*sqrt( DSUM ) );
                } else {
-                  DIF = sqrt( REAL( PQ ) ) / ( DSCALE*sqrt( DSUM ) );
+                  DIF = sqrt( double( PQ ) ) / ( DSCALE*sqrt( DSUM ) );
                }
             }
             if ( ISOLVE == 2 && IROUND == 1 ) {
@@ -256,9 +256,9 @@
             } // 130
             if ( DSCALE != ZERO ) {
                if ( IJOB == 1 || IJOB == 3 ) {
-                  DIF = sqrt( REAL( 2*M*N ) ) / ( DSCALE*sqrt( DSUM ) );
+                  DIF = sqrt( double( 2*M*N ) ) / ( DSCALE*sqrt( DSUM ) );
                } else {
-                  DIF = sqrt( REAL( PQ ) ) / ( DSCALE*sqrt( DSUM ) );
+                  DIF = sqrt( double( PQ ) ) / ( DSCALE*sqrt( DSUM ) );
                }
             }
             if ( ISOLVE == 2 && IROUND == 1 ) {

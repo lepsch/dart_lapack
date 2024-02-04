@@ -13,17 +13,17 @@
 
       // .. Parameters ..
       int                NMAX;
-      REAL               ONE, ZERO;
+      double               ONE, ZERO;
       const              NMAX = 4, ONE = 1.0, ZERO = 0.0 ;
       // ..
       // .. Local Scalars ..
       int                I, IFST, ILST, INFO, J, M, NT;
-      REAL               SCALE;
+      double               SCALE;
       // ..
       // .. Local Arrays ..
       bool               SEL( NMAX );
       int                IWORK( NMAX );
-      REAL               A( NMAX, NMAX ), B( NMAX, NMAX ), C( NMAX, NMAX ), S( NMAX ), SEP( NMAX ), WI( NMAX ), WORK( NMAX ), WR( NMAX );
+      double               A( NMAX, NMAX ), B( NMAX, NMAX ), C( NMAX, NMAX ), S( NMAX ), SEP( NMAX ), WI( NMAX ), WORK( NMAX ), WR( NMAX );
       // ..
       // .. External Subroutines ..
       // EXTERNAL CHKXER, STREXC, STRSEN, STRSNA, STRSYL, STRSYL3

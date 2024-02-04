@@ -8,20 +8,20 @@
       int                INCX1, INCX2, INFO, LDQ1, LDQ2, LWORK, M1, M2, N;
       // ..
       // .. Array Arguments ..
-      REAL               Q1(LDQ1,*), Q2(LDQ2,*), WORK(*), X1(*), X2(*);
+      double               Q1(LDQ1,*), Q2(LDQ2,*), WORK(*), X1(*), X2(*);
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               REALZERO;
+      double               REALZERO;
       const              REALZERO = 0.0 ;
-      REAL               ONE, ZERO;
+      double               ONE, ZERO;
       const              ONE = 1.0, ZERO = 0.0 ;
       // ..
       // .. Local Scalars ..
       int                CHILDINFO, I, J;
-      REAL               EPS, NORM, SCL, SSQ;
+      double               EPS, NORM, SCL, SSQ;
       // ..
       // .. External Subroutines ..
       // EXTERNAL SLASSQ, SORBDB6, SSCAL, XERBLA

@@ -8,18 +8,18 @@
       int                INFO, LDA, M, N;
       // ..
       // .. Array Arguments ..
-      REAL               A( LDA, * ), TAU( * ), WORK( * );
+      double               A( LDA, * ), TAU( * ), WORK( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ONE;
+      double               ONE;
       const              ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
       int                I, K;
-      REAL               AII;
+      double               AII;
       // ..
       // .. External Subroutines ..
       // EXTERNAL SLARF, SLARFG, XERBLA

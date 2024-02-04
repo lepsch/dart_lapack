@@ -7,26 +7,26 @@
       // .. Scalar Arguments ..
       String             JOBZ, RANGE, UPLO;
       int                IL, INFO, IU, LDZ, N, NS;
-      REAL               VL, VU;
+      double               VL, VU;
       // ..
       // .. Array Arguments ..
       int                IWORK( * );
-      REAL               D( * ), E( * ), S( * ), WORK( * ), Z( LDZ, * );
+      double               D( * ), E( * ), S( * ), WORK( * ), Z( LDZ, * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE, TEN, HNDRD, MEIGTH;
+      double               ZERO, ONE, TEN, HNDRD, MEIGTH;
       const              ZERO = 0.0, ONE = 1.0, TEN = 10.0, HNDRD = 100.0, MEIGTH = -0.1250 ;
-      REAL               FUDGE;
+      double               FUDGE;
       const              FUDGE = 2.0 ;
       // ..
       // .. Local Scalars ..
       String             RNGVX;
       bool               ALLSV, INDSV, LOWER, SPLIT, SVEQ0, VALSV, WANTZ;
       int                I, ICOLZ, IDBEG, IDEND, IDTGK, IDPTR, IEPTR, IETGK, IIFAIL, IIWORK, ILTGK, IROWU, IROWV, IROWZ, ISBEG, ISPLT, ITEMP, IUTGK, J, K, NTGK, NRU, NRV, NSL;
-      REAL               ABSTOL, EPS, EMIN, MU, NRMU, NRMV, ORTOL, SMAX, SMIN, SQRT2, THRESH, TOL, ULP, VLTGK, VUTGK, ZJTJI;
+      double               ABSTOL, EPS, EMIN, MU, NRMU, NRMV, ORTOL, SMAX, SMIN, SQRT2, THRESH, TOL, ULP, VLTGK, VUTGK, ZJTJI;
       // ..
       // .. External Functions ..
       //- bool               lsame;

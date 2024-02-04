@@ -6,28 +6,28 @@
 
       // .. Scalar Arguments ..
       int                LDA, LDB, LWORK, M, N, NRHS, RANK, RKSEL, SCALE;
-      REAL               NORMA, NORMB;
+      double               NORMA, NORMB;
       // ..
       // .. Array Arguments ..
       int                ISEED( 4 );
-      REAL               S( * );
+      double               S( * );
       Complex            A( LDA, * ), B( LDB, * ), WORK( LWORK );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE, TWO, SVMIN;
+      double               ZERO, ONE, TWO, SVMIN;
       const              ZERO = 0.0, ONE = 1.0, TWO = 2.0, SVMIN = 0.1 ;
       Complex            CZERO, CONE;
       const              CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
       int                INFO, J, MN;
-      REAL               BIGNUM, EPS, SMLNUM, TEMP;
+      double               BIGNUM, EPS, SMLNUM, TEMP;
       // ..
       // .. Local Arrays ..
-      REAL               DUMMY( 1 );
+      double               DUMMY( 1 );
       // ..
       // .. External Functions ..
       //- REAL               CLANGE, SASUM, SCNRM2, SLAMCH, SLARND;

@@ -1,4 +1,4 @@
-      REAL slatm2(M, N, I, J, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE ) {
+      double slatm2(M, N, I, J, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE ) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -7,32 +7,32 @@
       // .. Scalar Arguments ..
 
       int                I, IDIST, IGRADE, IPVTNG, J, KL, KU, M, N;
-      REAL               SPARSE;
+      double               SPARSE;
       // ..
 
       // .. Array Arguments ..
 
       int                ISEED( 4 ), IWORK( * );
-      REAL               D( * ), DL( * ), DR( * );
+      double               D( * ), DL( * ), DR( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
 
-      REAL               ZERO;
+      double               ZERO;
       const              ZERO = 0.0 ;
       // ..
 
       // .. Local Scalars ..
 
       int                ISUB, JSUB;
-      REAL               TEMP;
+      double               TEMP;
       // ..
 
       // .. External Functions ..
 
-      REAL               SLARAN, SLARND;
+      double               SLARAN, SLARND;
       // EXTERNAL SLARAN, SLARND
       // ..
 

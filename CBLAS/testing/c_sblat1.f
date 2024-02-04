@@ -9,7 +9,7 @@
       int              ICASE, INCX, INCY, MODE, N;
       bool             PASS;
       // .. Local Scalars ..
-      REAL             SFAC;
+      double             SFAC;
       int              IC;
       // .. External Subroutines ..
       // EXTERNAL CHECK0, CHECK1, CHECK2, CHECK3, HEADER
@@ -82,15 +82,15 @@
       int               NOUT;
       const             NOUT=6;
       // .. Scalar Arguments ..
-      REAL              SFAC;
+      double              SFAC;
       // .. Scalars in Common ..
       int               ICASE, INCX, INCY, MODE, N;
       bool              PASS;
       // .. Local Scalars ..
-      REAL              SA, SB, SC, SS;
+      double              SA, SB, SC, SS;
       int               K;
       // .. Local Arrays ..
-      REAL              DA1(8), DATRUE(8), DB1(8), DBTRUE(8), DC1(8), DS1(8);
+      double              DA1(8), DATRUE(8), DB1(8), DBTRUE(8), DC1(8), DS1(8);
       // .. External Subroutines ..
       // EXTERNAL SROTGTEST, STEST1
       // .. Common blocks ..
@@ -136,14 +136,14 @@
       int               NOUT;
       const             NOUT=6;
       // .. Scalar Arguments ..
-      REAL              SFAC;
+      double              SFAC;
       // .. Scalars in Common ..
       int               ICASE, INCX, INCY, MODE, N;
       bool              PASS;
       // .. Local Scalars ..
       int               I, LEN, NP1;
       // .. Local Arrays ..
-      REAL              DTRUE1(5), DTRUE3(5), DTRUE5(8,5,2), DV(8,5,2), SA(10), STEMP(1), STRUE(8), SX(8);
+      double              DTRUE1(5), DTRUE3(5), DTRUE5(8,5,2), DV(8,5,2), SA(10), STEMP(1), STRUE(8), SX(8);
       int               ITRUE2(5);
       // .. External Functions ..
       //- REAL              SASUMTEST, SNRM2TEST;
@@ -203,15 +203,15 @@
       int               NOUT;
       const             NOUT=6;
       // .. Scalar Arguments ..
-      REAL              SFAC;
+      double              SFAC;
       // .. Scalars in Common ..
       int               ICASE, INCX, INCY, MODE, N;
       bool              PASS;
       // .. Local Scalars ..
-      REAL              SA;
+      double              SA;
       int               I, J, KI, KN, KSIZE, LENX, LENY, MX, MY;
       // .. Local Arrays ..
-      REAL              DT10X(7,4,4), DT10Y(7,4,4), DT7(4,4), DT8(7,4,4), DX1(7), DY1(7), SSIZE1(4), SSIZE2(14,2), STX(7), STY(7), SX(7), SY(7);
+      double              DT10X(7,4,4), DT10Y(7,4,4), DT7(4,4), DT8(7,4,4), DX1(7), DY1(7), SSIZE1(4), SSIZE2(14,2), STX(7), STY(7), SX(7), SY(7);
       int               INCXS(4), INCYS(4), LENS(4,2), NS(4);
       // .. External Functions ..
       //- REAL              SDOTTEST;
@@ -294,15 +294,15 @@
       int               NOUT;
       const             NOUT=6;
       // .. Scalar Arguments ..
-      REAL              SFAC;
+      double              SFAC;
       // .. Scalars in Common ..
       int               ICASE, INCX, INCY, MODE, N;
       bool              PASS;
       // .. Local Scalars ..
-      REAL              SC, SS;
+      double              SC, SS;
       int               I, K, KI, KN, KSIZE, LENX, LENY, MX, MY;
       // .. Local Arrays ..
-      REAL              COPYX(5), COPYY(5), DT9X(7,4,4), DT9Y(7,4,4), DX1(7), DY1(7), MWPC(11), MWPS(11), MWPSTX(5), MWPSTY(5), MWPTX(11,5), MWPTY(11,5), MWPX(5), MWPY(5), SSIZE2(14,2), STX(7), STY(7), SX(7), SY(7);
+      double              COPYX(5), COPYY(5), DT9X(7,4,4), DT9Y(7,4,4), DX1(7), DY1(7), MWPC(11), MWPS(11), MWPSTX(5), MWPSTY(5), MWPTX(11,5), MWPTY(11,5), MWPX(5), MWPY(5), SSIZE2(14,2), STX(7), STY(7), SX(7), SY(7);
       int               INCXS(4), INCYS(4), LENS(4,2), MWPINX(11), MWPINY(11), MWPN(11), NS(4);
       // .. External Subroutines ..
       // EXTERNAL SROTTEST, STEST
@@ -461,15 +461,15 @@
       int              NOUT;
       const            NOUT=6;
       // .. Scalar Arguments ..
-      REAL             SFAC;
+      double             SFAC;
       int              LEN;
       // .. Array Arguments ..
-      REAL             SCOMP(LEN), SSIZE(LEN), STRUE(LEN);
+      double             SCOMP(LEN), SSIZE(LEN), STRUE(LEN);
       // .. Scalars in Common ..
       int              ICASE, INCX, INCY, MODE, N;
       bool             PASS;
       // .. Local Scalars ..
-      REAL             SD;
+      double             SD;
       int              I;
       // .. External Functions ..
       //- REAL             SDIFF;
@@ -509,11 +509,11 @@
       // C.L. LAWSON, JPL, 1978 DEC 6
 
       // .. Scalar Arguments ..
-      REAL              SCOMP1, SFAC, STRUE1;
+      double              SCOMP1, SFAC, STRUE1;
       // .. Array Arguments ..
-      REAL              SSIZE(*);
+      double              SSIZE(*);
       // .. Local Arrays ..
-      REAL              SCOMP(1), STRUE(1);
+      double              SCOMP(1), STRUE(1);
       // .. External Subroutines ..
       // EXTERNAL STEST
       // .. Executable Statements ..
@@ -524,12 +524,12 @@
 
       return;
       }
-      REAL sdiff(SA,SB) {
+      double sdiff(SA,SB) {
       // ********************************* SDIFF **************************
       // COMPUTES DIFFERENCE OF TWO NUMBERS.  C. L. LAWSON, JPL 1974 FEB 15
 
       // .. Scalar Arguments ..
-      REAL                            SA, SB;
+      double                            SA, SB;
       // .. Executable Statements ..
       SDIFF = SA - SB;
       return;

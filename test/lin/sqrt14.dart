@@ -1,4 +1,4 @@
-      REAL sqrt14(TRANS, M, N, NRHS, A, LDA, X, LDX, WORK, LWORK ) {
+      double sqrt14(TRANS, M, N, NRHS, A, LDA, X, LDX, WORK, LWORK ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -9,22 +9,22 @@
       int                LDA, LDX, LWORK, M, N, NRHS;
       // ..
       // .. Array Arguments ..
-      REAL               A( LDA, * ), WORK( LWORK ), X( LDX, * );
+      double               A( LDA, * ), WORK( LWORK ), X( LDX, * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
       bool               TPSD;
       int                I, INFO, J, LDWORK;
-      REAL               ANRM, ERR, XNRM;
+      double               ANRM, ERR, XNRM;
       // ..
       // .. Local Arrays ..
-      REAL               RWORK( 1 );
+      double               RWORK( 1 );
       // ..
       // .. External Functions ..
       //- bool               lsame;

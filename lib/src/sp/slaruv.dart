@@ -9,16 +9,16 @@
       // ..
       // .. Array Arguments ..
       int                ISEED( 4 );
-      REAL               X( N );
+      double               X( N );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ONE;
+      double               ONE;
       const              ONE = 1.0 ;
       int                LV, IPW2;
-      REAL               R;
+      double               R;
       const              LV = 128, IPW2 = 4096, R = ONE / IPW2 ;
       // ..
       // .. Local Scalars ..
@@ -192,7 +192,7 @@
 
          // Convert 48-bit integer to a real number in the interval (0,1)
 
-         X[I] = R*( REAL( IT1 )+R*( REAL( IT2 )+R*( REAL( IT3 )+R* REAL( IT4 ) ) ) );
+         X[I] = R*( REAL( IT1 )+R*( REAL( IT2 )+R*( REAL( IT3 )+R* double( IT4 ) ) ) );
 
          if (X( I ) == 1.0) {
             // If a real number has n bits of precision, and the first

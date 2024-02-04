@@ -8,7 +8,7 @@
       int                INFO, LDA, LDSA, M, N;
       // ..
       // .. Array Arguments ..
-      REAL               SA( LDSA, * );
+      double               SA( LDSA, * );
       double             A( LDA, * );
       // ..
 

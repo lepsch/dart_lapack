@@ -8,14 +8,14 @@
       int                INCC, INCX, INCY, N;
       // ..
       // .. Array Arguments ..
-      REAL               C( * ), S( * ), X( * ), Y( * );
+      double               C( * ), S( * ), X( * ), Y( * );
       // ..
 
 // =====================================================================
 
       // .. Local Scalars ..
       int                I, IC, IX, IY;
-      REAL               XI, YI;
+      double               XI, YI;
       // ..
       // .. Executable Statements ..
 

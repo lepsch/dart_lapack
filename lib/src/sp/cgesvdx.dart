@@ -7,11 +7,11 @@
       // .. Scalar Arguments ..
       String             JOBU, JOBVT, RANGE;
       int                IL, INFO, IU, LDA, LDU, LDVT, LWORK, M, N, NS;
-      REAL               VL, VU;
+      double               VL, VU;
       // ..
       // .. Array Arguments ..
       int                IWORK( * );
-      REAL               S( * ), RWORK( * );
+      double               S( * ), RWORK( * );
       Complex            A( LDA, * ), U( LDU, * ), VT( LDVT, * ), WORK( * );
       // ..
 
@@ -20,17 +20,17 @@
       // .. Parameters ..
       Complex            CZERO, CONE;
       const              CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
       String             JOBZ, RNGTGK;
       bool               ALLS, INDS, LQUERY, VALS, WANTU, WANTVT;
       int                I, ID, IE, IERR, ILQF, ILTGK, IQRF, ISCL, ITAU, ITAUP, ITAUQ, ITEMP, ITEMPR, ITGKZ, IUTGK, J, K, MAXWRK, MINMN, MINWRK, MNTHR;
-      REAL               ABSTOL, ANRM, BIGNUM, EPS, SMLNUM;
+      double               ABSTOL, ANRM, BIGNUM, EPS, SMLNUM;
       // ..
       // .. Local Arrays ..
-      REAL               DUM( 1 );
+      double               DUM( 1 );
       // ..
       // .. External Subroutines ..
       // EXTERNAL CGEBRD, CGELQF, CGEQRF, CLASCL, CLASET, CUNMBR, CUNMQR, CUNMLQ, CLACPY, SBDSVDX, SLASCL, XERBLA

@@ -7,7 +7,7 @@
       // .. Scalar Arguments ..
       String             DIST, GRADE, PACK, PIVTNG, RSIGN, SYM;
       int                INFO, KL, KU, LDA, M, MODE, MODEL, MODER, N;
-      REAL               ANORM, COND, CONDL, CONDR, SPARSE;
+      double               ANORM, COND, CONDL, CONDR, SPARSE;
       Complex            DMAX;
       // ..
       // .. Array Arguments ..
@@ -18,9 +18,9 @@
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO;
+      double               ZERO;
       const              ZERO = 0.0 ;
-      REAL               ONE;
+      double               ONE;
       const              ONE = 1.0 ;
       Complex            CONE;
       const              CONE = ( 1.0, 0.0 ) ;
@@ -30,11 +30,11 @@
       // .. Local Scalars ..
       bool               BADPVT, DZERO, FULBND;
       int                I, IDIST, IGRADE, IISUB, IPACK, IPVTNG, IRSIGN, ISUB, ISYM, J, JJSUB, JSUB, K, KLL, KUU, MNMIN, MNSUB, MXSUB, NPVTS;
-      REAL               ONORM, TEMP;
+      double               ONORM, TEMP;
       Complex            CALPHA, CTEMP;
       // ..
       // .. Local Arrays ..
-      REAL               TEMPA( 1 );
+      double               TEMPA( 1 );
       // ..
       // .. External Functions ..
       //- bool               lsame;
@@ -283,7 +283,7 @@
 
       if ( ISYM == 0 ) {
          for (I = 1; I <= MNMIN; I++) { // 60
-            D[I] = REAL( D( I ) );
+            D[I] = double( D( I ) );
          } // 60
       }
 

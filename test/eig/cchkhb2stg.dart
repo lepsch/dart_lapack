@@ -6,12 +6,12 @@
 
       // .. Scalar Arguments ..
       int                INFO, LDA, LDU, LWORK, NOUNIT, NSIZES, NTYPES, NWDTHS;
-      REAL               THRESH;
+      double               THRESH;
       // ..
       // .. Array Arguments ..
       bool               DOTYPE( * );
       int                ISEED( 4 ), KK( * ), NN( * );
-      REAL               RESULT( * ), RWORK( * ), SD( * ), SE( * ), D1( * ), D2( * ), D3( * );
+      double               RESULT( * ), RWORK( * ), SD( * ), SE( * ), D1( * ), D2( * ), D3( * );
       Complex            A( LDA, * ), U( LDU, * ), WORK( * );
       // ..
 
@@ -20,9 +20,9 @@
       // .. Parameters ..
       Complex            CZERO, CONE;
       const              CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
-      REAL               ZERO, ONE, TWO, TEN;
+      double               ZERO, ONE, TWO, TEN;
       const              ZERO = 0.0, ONE = 1.0, TWO = 2.0, TEN = 10.0 ;
-      REAL               HALF;
+      double               HALF;
       const              HALF = ONE / TWO ;
       int                MAXTYP;
       const              MAXTYP = 15 ;
@@ -30,7 +30,7 @@
       // .. Local Scalars ..
       bool               BADNN, BADNNB;
       int                I, IINFO, IMODE, ITYPE, J, JC, JCOL, JR, JSIZE, JTYPE, JWIDTH, K, KMAX, LH, LW, MTYPES, N, NERRS, NMATS, NMAX, NTEST, NTESTT;
-      REAL               ANINV, ANORM, COND, OVFL, RTOVFL, RTUNFL, TEMP1, TEMP2, TEMP3, TEMP4, ULP, ULPINV, UNFL;
+      double               ANINV, ANORM, COND, OVFL, RTOVFL, RTUNFL, TEMP1, TEMP2, TEMP3, TEMP4, ULP, ULPINV, UNFL;
       // ..
       // .. Local Arrays ..
       int                IDUMMA( 1 ), IOLDSD( 4 ), KMAGN( MAXTYP ), KMODE( MAXTYP ), KTYPE( MAXTYP );

@@ -6,7 +6,7 @@
 
       // .. Scalar Arguments ..
       int                KASE, N;
-      REAL               EST;
+      double               EST;
       // ..
       // .. Array Arguments ..
       int                ISAVE( 3 );
@@ -18,14 +18,14 @@
       // .. Parameters ..
       int                  ITMAX;
       const              ITMAX = 5 ;
-      REAL                 ONE,         TWO;
+      double                 ONE,         TWO;
       const              ONE = 1.0, TWO = 2.0 ;
       Complex              CZERO, CONE;
       const              CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
       int                I, JLAST;
-      REAL               ABSXI, ALTSGN, ESTOLD, SAFMIN, TEMP;
+      double               ABSXI, ALTSGN, ESTOLD, SAFMIN, TEMP;
       // ..
       // .. External Functions ..
       //- int                ICMAX1;
@@ -67,7 +67,7 @@
       for (I = 1; I <= N; I++) { // 30
          ABSXI = ( X( I ) ).abs();
          if ( ABSXI > SAFMIN ) {
-            X[I] = CMPLX( REAL( X( I ) ) / ABSXI, AIMAG( X( I ) ) / ABSXI );
+            X[I] = CMPLX( double( X( I ) ) / ABSXI, AIMAG( X( I ) ) / ABSXI );
          } else {
             X[I] = CONE;
          }
@@ -108,7 +108,7 @@
       for (I = 1; I <= N; I++) { // 80
          ABSXI = ( X( I ) ).abs();
          if ( ABSXI > SAFMIN ) {
-            X[I] = CMPLX( REAL( X( I ) ) / ABSXI, AIMAG( X( I ) ) / ABSXI );
+            X[I] = CMPLX( double( X( I ) ) / ABSXI, AIMAG( X( I ) ) / ABSXI );
          } else {
             X[I] = CONE;
          }
@@ -133,7 +133,7 @@
       } // 100
       ALTSGN = ONE;
       for (I = 1; I <= N; I++) { // 110
-         X[I] = CMPLX( ALTSGN*( ONE + REAL( I-1 ) / REAL( N-1 ) ) );
+         X[I] = CMPLX( ALTSGN*( ONE + double( I-1 ) / REAL( N-1 ) ) );
          ALTSGN = -ALTSGN;
       } // 110
       KASE = 1;

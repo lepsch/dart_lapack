@@ -9,25 +9,25 @@
       int                INFO, J1, LDQ, LDT, N, N1, N2;
       // ..
       // .. Array Arguments ..
-      REAL               Q( LDQ, * ), T( LDT, * ), WORK( * );
+      double               Q( LDQ, * ), T( LDT, * ), WORK( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
-      REAL               TEN;
+      double               TEN;
       const              TEN = 1.0e+1 ;
       int                LDD, LDX;
       const              LDD = 4, LDX = 2 ;
       // ..
       // .. Local Scalars ..
       int                IERR, J2, J3, J4, K, ND;
-      REAL               CS, DNORM, EPS, SCALE, SMLNUM, SN, T11, T22, T33, TAU, TAU1, TAU2, TEMP, THRESH, WI1, WI2, WR1, WR2, XNORM;
+      double               CS, DNORM, EPS, SCALE, SMLNUM, SN, T11, T22, T33, TAU, TAU1, TAU2, TEMP, THRESH, WI1, WI2, WR1, WR2, XNORM;
       // ..
       // .. Local Arrays ..
-      REAL               D( LDD, 4 ), U( 3 ), U1( 3 ), U2( 3 ), X( LDX, 2 );
+      double               D( LDD, 4 ), U( 3 ), U1( 3 ), U2( 3 ), X( LDX, 2 );
       // ..
       // .. External Functions ..
       //- REAL               SLAMCH, SLANGE;

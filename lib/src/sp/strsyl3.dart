@@ -4,23 +4,23 @@
       // .. Scalar Arguments ..
       String             TRANA, TRANB;
       int                INFO, ISGN, LDA, LDB, LDC, M, N, LIWORK, LDSWORK;
-      REAL               SCALE;
+      double               SCALE;
       // ..
       // .. Array Arguments ..
       int                IWORK( * );
-      REAL               A( LDA, * ), B( LDB, * ), C( LDC, * ), SWORK( LDSWORK, * );
+      double               A( LDA, * ), B( LDB, * ), C( LDC, * ), SWORK( LDSWORK, * );
       // ..
       // .. Parameters ..
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
       bool               NOTRNA, NOTRNB, LQUERY, SKIP;
       int                AWRK, BWRK, I, I1, I2, IINFO, J, J1, J2, JJ, K, K1, K2, L, L1, L2, LL, NBA, NB, NBB, PC;
-      REAL               ANRM, BIGNUM, BNRM, CNRM, SCAL, SCALOC, SCAMIN, SGN, XNRM, BUF, SMLNUM;
+      double               ANRM, BIGNUM, BNRM, CNRM, SCAL, SCALOC, SCAMIN, SGN, XNRM, BUF, SMLNUM;
       // ..
       // .. Local Arrays ..
-      REAL               WNRM( max( M, N ) );
+      double               WNRM( max( M, N ) );
       // ..
       // .. External Functions ..
       //- bool               lsame;
@@ -224,7 +224,7 @@
          }
       }
 
-      SGN = REAL( ISGN );
+      SGN = double( ISGN );
 
       if ( NOTRNA && NOTRNB ) {
 

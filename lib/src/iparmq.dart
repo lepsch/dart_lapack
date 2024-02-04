@@ -14,7 +14,7 @@
       const              INMIN = 12, INWIN = 13, INIBL = 14, ISHFTS = 15, IACC22 = 16, ICOST = 17 ;
       int                NMIN, K22MIN, KACMIN, NIBBLE, KNWSWP, RCOST;
       const              NMIN = 75, K22MIN = 14, KACMIN = 14, NIBBLE = 14, KNWSWP = 500, RCOST = 10 ;
-      REAL               TWO;
+      double               TWO;
       const              TWO = 2.0 ;
       // ..
       // .. Local Scalars ..

@@ -9,7 +9,7 @@
       // ..
       // .. Array Arguments ..
       int                IBLOCK( * ), IFAIL( * ), ISPLIT( * ), IWORK( * );
-      REAL               D( * ), E( * ), W( * ), WORK( * );
+      double               D( * ), E( * ), W( * ), WORK( * );
       Complex            Z( LDZ, * );
       // ..
 
@@ -18,14 +18,14 @@
       // .. Parameters ..
       Complex            CZERO, CONE;
       const              CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
-      REAL               ZERO, ONE, TEN, ODM3, ODM1;
+      double               ZERO, ONE, TEN, ODM3, ODM1;
       const              ZERO = 0.0, ONE = 1.0, TEN = 1.0e+1, ODM3 = 1.0e-3, ODM1 = 1.0e-1 ;
       int                MAXITS, EXTRA;
       const              MAXITS = 5, EXTRA = 2 ;
       // ..
       // .. Local Scalars ..
       int                B1, BLKSIZ, BN, GPIND, I, IINFO, INDRV1, INDRV2, INDRV3, INDRV4, INDRV5, ITS, J, J1, JBLK, JMAX, JR, NBLK, NRMCHK;
-      REAL               CTR, EPS, EPS1, NRM, ONENRM, ORTOL, PERTOL, SCL, SEP, STPCRT, TOL, XJ, XJM;
+      double               CTR, EPS, EPS1, NRM, ONENRM, ORTOL, PERTOL, SCL, SEP, STPCRT, TOL, XJ, XJM;
       // ..
       // .. Local Arrays ..
       int                ISEED( 4 );
@@ -202,10 +202,10 @@
                for (I = GPIND; I <= J - 1; I++) { // 100
                   CTR = ZERO;
                   for (JR = 1; JR <= BLKSIZ; JR++) { // 80
-                     CTR = CTR + WORK( INDRV1+JR )* REAL( Z( B1-1+JR, I ) );
+                     CTR = CTR + WORK( INDRV1+JR )* double( Z( B1-1+JR, I ) );
                   } // 80
                   for (JR = 1; JR <= BLKSIZ; JR++) { // 90
-                     WORK[INDRV1+JR] = WORK( INDRV1+JR ) - CTR*REAL( Z( B1-1+JR, I ) );
+                     WORK[INDRV1+JR] = WORK( INDRV1+JR ) - CTR*double( Z( B1-1+JR, I ) );
                   } // 90
                } // 100
             }

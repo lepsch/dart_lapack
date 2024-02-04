@@ -7,12 +7,12 @@
       // .. Scalar Arguments ..
       bool               TSTERR;
       int                NM, NN, NOUT;
-      REAL               THRESH;
+      double               THRESH;
       // ..
       // .. Array Arguments ..
       bool               DOTYPE( * );
       int                MVAL( * ), NVAL( * );
-      REAL               A( * ), COPYA( * ), S( * ), TAU( * ), WORK( * );
+      double               A( * ), COPYA( * ), S( * ), TAU( * ), WORK( * );
       // ..
 
 // =====================================================================
@@ -22,17 +22,17 @@
       const              NTYPES = 3 ;
       int                NTESTS;
       const              NTESTS = 3 ;
-      REAL               ONE, ZERO;
+      double               ONE, ZERO;
       const              ONE = 1.0, ZERO = 0.0 ;
       // ..
       // .. Local Scalars ..
       String             PATH;
       int                I, IM, IMODE, IN, INFO, K, LDA, LWORK, M, MNMIN, MODE, N, NERRS, NFAIL, NRUN;
-      REAL               EPS;
+      double               EPS;
       // ..
       // .. Local Arrays ..
       int                ISEED( 4 ), ISEEDY( 4 );
-      REAL               RESULT( NTESTS );
+      double               RESULT( NTESTS );
       // ..
       // .. External Functions ..
       //- REAL               SLAMCH, SQRT12, SRZT01, SRZT02;

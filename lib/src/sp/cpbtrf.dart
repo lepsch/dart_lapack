@@ -15,7 +15,7 @@
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ONE, ZERO;
+      double               ONE, ZERO;
       const              ONE = 1.0, ZERO = 0.0 ;
       Complex            CONE;
       const              CONE = ( 1.0, 0.0 ) ;

@@ -7,22 +7,22 @@
       // .. Scalar Arguments ..
       String             UPLO;
       int                INFO, N;
-      REAL               AMAX, SCOND;
+      double               AMAX, SCOND;
       // ..
       // .. Array Arguments ..
-      REAL               AP( * ), S( * );
+      double               AP( * ), S( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ONE, ZERO;
+      double               ONE, ZERO;
       const              ONE = 1.0, ZERO = 0.0 ;
       // ..
       // .. Local Scalars ..
       bool               UPPER;
       int                I, JJ;
-      REAL               SMIN;
+      double               SMIN;
       // ..
       // .. External Functions ..
       //- bool               lsame;

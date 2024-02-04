@@ -1,15 +1,15 @@
-      REAL sdsdot(N,SB,SX,INCX,SY,INCY) {
+      double sdsdot(N,SB,SX,INCX,SY,INCY) {
 
 // -- Reference BLAS level1 routine --
 // -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
-      REAL SB;
+      double SB;
       int     INCX,INCY,N;
       // ..
       // .. Array Arguments ..
-      REAL SX(*),SY(*);
+      double SX(*),SY(*);
       // .. Local Scalars ..
       double           DSDOT;
       int     I,KX,KY,NS;
@@ -19,7 +19,7 @@
       // ..
       DSDOT = SB;
       if (N <= 0) {
-         SDSDOT = REAL(DSDOT);
+         SDSDOT = double(DSDOT);
          return;
       }
       if (INCX == INCY && INCX > 0) {
@@ -44,6 +44,6 @@
             KY = KY + INCY;
          }
       }
-      SDSDOT = REAL(DSDOT);
+      SDSDOT = double(DSDOT);
       return;
       }

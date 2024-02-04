@@ -10,7 +10,7 @@
       // ..
       // .. Array Arguments ..
       int                IWORK( * );
-      REAL               AFP( * ), AP( * ), B( LDB, * ), BERR( * ), FERR( * ), WORK( * ), X( LDX, * );
+      double               AFP( * ), AP( * ), B( LDB, * ), BERR( * ), FERR( * ), WORK( * ), X( LDX, * );
       // ..
 
 // =====================================================================
@@ -18,19 +18,19 @@
       // .. Parameters ..
       int                ITMAX;
       const              ITMAX = 5 ;
-      REAL               ZERO;
+      double               ZERO;
       const              ZERO = 0.0 ;
-      REAL               ONE;
+      double               ONE;
       const              ONE = 1.0 ;
-      REAL               TWO;
+      double               TWO;
       const              TWO = 2.0 ;
-      REAL               THREE;
+      double               THREE;
       const              THREE = 3.0 ;
       // ..
       // .. Local Scalars ..
       bool               UPPER;
       int                COUNT, I, IK, J, K, KASE, KK, NZ;
-      REAL               EPS, LSTRES, S, SAFE1, SAFE2, SAFMIN, XK;
+      double               EPS, LSTRES, S, SAFE1, SAFE2, SAFMIN, XK;
       // ..
       // .. Local Arrays ..
       int                ISAVE( 3 );

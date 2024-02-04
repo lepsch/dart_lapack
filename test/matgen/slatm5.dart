@@ -6,21 +6,21 @@
 
       // .. Scalar Arguments ..
       int                LDA, LDB, LDC, LDD, LDE, LDF, LDL, LDR, M, N, PRTYPE, QBLCKA, QBLCKB;
-      REAL               ALPHA;
+      double               ALPHA;
       // ..
       // .. Array Arguments ..
-      REAL               A( LDA, * ), B( LDB, * ), C( LDC, * ), D( LDD, * ), E( LDE, * ), F( LDF, * ), L( LDL, * ), R( LDR, * );
+      double               A( LDA, * ), B( LDB, * ), C( LDC, * ), D( LDD, * ), E( LDE, * ), F( LDF, * ), L( LDL, * ), R( LDR, * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ONE, ZERO, TWENTY, HALF, TWO;
+      double               ONE, ZERO, TWENTY, HALF, TWO;
       const              ONE = 1.0, ZERO = 0.0, TWENTY = 2.0e+1, HALF = 0.5, TWO = 2.0 ;
       // ..
       // .. Local Scalars ..
       int                I, J, K;
-      REAL               IMEPS, REEPS;
+      double               IMEPS, REEPS;
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC MOD, REAL, SIN
@@ -63,7 +63,7 @@
 
          for (I = 1; I <= M; I++) { // 60
             for (J = 1; J <= N; J++) { // 50
-               R[I, J] = ( HALF-SIN( REAL( I / J ) ) )*TWENTY;
+               R[I, J] = ( HALF-SIN( double( I / J ) ) )*TWENTY;
                L[I, J] = R( I, J );
             } // 50
          } // 60
@@ -72,8 +72,8 @@
          for (I = 1; I <= M; I++) { // 80
             for (J = 1; J <= M; J++) { // 70
                if ( I <= J ) {
-                  A[I, J] = ( HALF-SIN( REAL( I ) ) )*TWO;
-                  D[I, J] = ( HALF-SIN( REAL( I*J ) ) )*TWO;
+                  A[I, J] = ( HALF-SIN( double( I ) ) )*TWO;
+                  D[I, J] = ( HALF-SIN( double( I*J ) ) )*TWO;
                } else {
                   A[I, J] = ZERO;
                   D[I, J] = ZERO;
@@ -84,8 +84,8 @@
          for (I = 1; I <= N; I++) { // 100
             for (J = 1; J <= N; J++) { // 90
                if ( I <= J ) {
-                  B[I, J] = ( HALF-SIN( REAL( I+J ) ) )*TWO;
-                  E[I, J] = ( HALF-SIN( REAL( J ) ) )*TWO;
+                  B[I, J] = ( HALF-SIN( double( I+J ) ) )*TWO;
+                  E[I, J] = ( HALF-SIN( double( J ) ) )*TWO;
                } else {
                   B[I, J] = ZERO;
                   E[I, J] = ZERO;
@@ -95,8 +95,8 @@
 
          for (I = 1; I <= M; I++) { // 120
             for (J = 1; J <= N; J++) { // 110
-               R[I, J] = ( HALF-SIN( REAL( I*J ) ) )*TWENTY;
-               L[I, J] = ( HALF-SIN( REAL( I+J ) ) )*TWENTY;
+               R[I, J] = ( HALF-SIN( double( I*J ) ) )*TWENTY;
+               L[I, J] = ( HALF-SIN( double( I+J ) ) )*TWENTY;
             } // 110
          } // 120
 
@@ -117,22 +117,22 @@
       } else if ( PRTYPE == 4 ) {
          for (I = 1; I <= M; I++) { // 160
             for (J = 1; J <= M; J++) { // 150
-               A[I, J] = ( HALF-SIN( REAL( I*J ) ) )*TWENTY;
-               D[I, J] = ( HALF-SIN( REAL( I+J ) ) )*TWO;
+               A[I, J] = ( HALF-SIN( double( I*J ) ) )*TWENTY;
+               D[I, J] = ( HALF-SIN( double( I+J ) ) )*TWO;
             } // 150
          } // 160
 
          for (I = 1; I <= N; I++) { // 180
             for (J = 1; J <= N; J++) { // 170
-               B[I, J] = ( HALF-SIN( REAL( I+J ) ) )*TWENTY;
-               E[I, J] = ( HALF-SIN( REAL( I*J ) ) )*TWO;
+               B[I, J] = ( HALF-SIN( double( I+J ) ) )*TWENTY;
+               E[I, J] = ( HALF-SIN( double( I*J ) ) )*TWO;
             } // 170
          } // 180
 
          for (I = 1; I <= M; I++) { // 200
             for (J = 1; J <= N; J++) { // 190
-               R[I, J] = ( HALF-SIN( REAL( J / I ) ) )*TWENTY;
-               L[I, J] = ( HALF-SIN( REAL( I*J ) ) )*TWO;
+               R[I, J] = ( HALF-SIN( double( J / I ) ) )*TWENTY;
+               L[I, J] = ( HALF-SIN( double( I*J ) ) )*TWO;
             } // 190
          } // 200
 
@@ -141,8 +141,8 @@
          IMEPS = ( HALF-TWO ) / ALPHA;
          for (I = 1; I <= M; I++) { // 220
             for (J = 1; J <= N; J++) { // 210
-               R[I, J] = ( HALF-SIN( REAL( I*J ) ) )*ALPHA / TWENTY;
-               L[I, J] = ( HALF-SIN( REAL( I+J ) ) )*ALPHA / TWENTY;
+               R[I, J] = ( HALF-SIN( double( I*J ) ) )*ALPHA / TWENTY;
+               L[I, J] = ( HALF-SIN( double( I+J ) ) )*ALPHA / TWENTY;
             } // 210
          } // 220
 

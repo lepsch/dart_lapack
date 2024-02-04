@@ -7,10 +7,10 @@
       // .. Scalar Arguments ..
       String             JOBQ, JOBU, JOBV;
       int                INFO, K, L, LDA, LDB, LDQ, LDU, LDV, M, N, NCYCLE, P;
-      REAL               TOLA, TOLB;
+      double               TOLA, TOLB;
       // ..
       // .. Array Arguments ..
-      REAL               A( LDA, * ), ALPHA( * ), B( LDB, * ), BETA( * ), Q( LDQ, * ), U( LDU, * ), V( LDV, * ), WORK( * );
+      double               A( LDA, * ), ALPHA( * ), B( LDB, * ), BETA( * ), Q( LDQ, * ), U( LDU, * ), V( LDV, * ), WORK( * );
       // ..
 
 // =====================================================================
@@ -18,14 +18,14 @@
       // .. Parameters ..
       int                MAXIT;
       const              MAXIT = 40 ;
-      REAL               ZERO, ONE, HUGENUM;
+      double               ZERO, ONE, HUGENUM;
       const              ZERO = 0.0, ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
 
       bool               INITQ, INITU, INITV, UPPER, WANTQ, WANTU, WANTV;
       int                I, J, KCYCLE;
-      REAL               A1, A2, A3, B1, B2, B3, CSQ, CSU, CSV, ERROR, GAMMA, RWK, SNQ, SNU, SNV, SSMIN;
+      double               A1, A2, A3, B1, B2, B3, CSQ, CSU, CSV, ERROR, GAMMA, RWK, SNQ, SNU, SNV, SSMIN;
       // ..
       // .. External Functions ..
       //- bool               lsame;

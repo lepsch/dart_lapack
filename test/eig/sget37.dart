@@ -9,27 +9,27 @@
       // ..
       // .. Array Arguments ..
       int                LMAX( 3 ), NINFO( 3 );
-      REAL               RMAX( 3 );
+      double               RMAX( 3 );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE, TWO;
+      double               ZERO, ONE, TWO;
       const              ZERO = 0.0, ONE = 1.0, TWO = 2.0 ;
-      REAL               EPSIN;
+      double               EPSIN;
       const              EPSIN = 5.9605e-8 ;
       int                LDT, LWORK;
       const              LDT = 20, LWORK = 2*LDT*( 10+LDT ) ;
       // ..
       // .. Local Scalars ..
       int                I, ICMP, IFND, INFO, ISCL, J, KMIN, M, N;
-      REAL               BIGNUM, EPS, SMLNUM, TNRM, TOL, TOLIN, V, VIMIN, VMAX, VMUL, VRMIN;
+      double               BIGNUM, EPS, SMLNUM, TNRM, TOL, TOLIN, V, VIMIN, VMAX, VMUL, VRMIN;
       // ..
       // .. Local Arrays ..
       bool               SELECT( LDT );
       int                IWORK( 2*LDT ), LCMP( 3 );
-      REAL               DUM( 1 ), LE( LDT, LDT ), RE( LDT, LDT ), S( LDT ), SEP( LDT ), SEPIN( LDT ), SEPTMP( LDT ), SIN( LDT ), STMP( LDT ), T( LDT, LDT ), TMP( LDT, LDT ), VAL( 3 ), WI( LDT ), WIIN( LDT ), WITMP( LDT ), WORK( LWORK ), WR( LDT ), WRIN( LDT ), WRTMP( LDT );
+      double               DUM( 1 ), LE( LDT, LDT ), RE( LDT, LDT ), S( LDT ), SEP( LDT ), SEPIN( LDT ), SEPTMP( LDT ), SIN( LDT ), STMP( LDT ), T( LDT, LDT ), TMP( LDT, LDT ), VAL( 3 ), WI( LDT ), WIIN( LDT ), WITMP( LDT ), WORK( LWORK ), WR( LDT ), WRIN( LDT ), WRTMP( LDT );
       // ..
       // .. External Functions ..
       //- REAL               SLAMCH, SLANGE;
@@ -164,7 +164,7 @@
          // Compare condition numbers for eigenvalues
          // taking their condition numbers into account
 
-         V = max( TWO*REAL( N )*EPS*TNRM, SMLNUM );
+         V = max( TWO*double( N )*EPS*TNRM, SMLNUM );
          if (TNRM == ZERO) V = ONE;
          for (I = 1; I <= N; I++) { // 90
             if ( V > SEPTMP( I ) ) {
@@ -233,7 +233,7 @@
          // without taking their condition numbers into account
 
          for (I = 1; I <= N; I++) { // 110
-            if ( SIN( I ) <= REAL( 2*N )*EPS && STMP( I ) <= REAL( 2*N )*EPS ) {
+            if ( SIN( I ) <= REAL( 2*N )*EPS && STMP( I ) <= double( 2*N )*EPS ) {
                VMAX = ONE;
             } else if ( EPS*SIN( I ) > STMP( I ) ) {
                VMAX = ONE / EPS;

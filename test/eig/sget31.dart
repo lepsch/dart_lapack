@@ -6,7 +6,7 @@
 
       // .. Scalar Arguments ..
       int                KNT, LMAX;
-      REAL               RMAX;
+      double               RMAX;
       // ..
       // .. Array Arguments ..
       int                NINFO( 2 );
@@ -15,22 +15,22 @@
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, HALF, ONE;
+      double               ZERO, HALF, ONE;
       const              ZERO = 0.0, HALF = 0.5, ONE = 1.0 ;
-      REAL               TWO, THREE, FOUR;
+      double               TWO, THREE, FOUR;
       const              TWO = 2.0, THREE = 3.0, FOUR = 4.0 ;
-      REAL               SEVEN, TEN;
+      double               SEVEN, TEN;
       const              SEVEN = 7.0, TEN = 10.0 ;
-      REAL               TWNONE;
+      double               TWNONE;
       const              TWNONE = 21.0 ;
       // ..
       // .. Local Scalars ..
       int                IA, IB, ICA, ID1, ID2, INFO, ISMIN, ITRANS, IWI, IWR, NA, NW;
-      REAL               BIGNUM, CA, D1, D2, DEN, EPS, RES, SCALE, SMIN, SMLNUM, TMP, UNFL, WI, WR, XNORM;
+      double               BIGNUM, CA, D1, D2, DEN, EPS, RES, SCALE, SMIN, SMLNUM, TMP, UNFL, WI, WR, XNORM;
       // ..
       // .. Local Arrays ..
       bool               LTRANS( 0: 1 );
-      REAL               A( 2, 2 ), B( 2, 2 ), VAB( 3 ), VCA( 5 ), VDD( 4 ), VSMIN( 4 ), VWI( 4 ), VWR( 4 ), X( 2, 2 );
+      double               A( 2, 2 ), B( 2, 2 ), VAB( 3 ), VCA( 5 ), VDD( 4 ), VSMIN( 4 ), VWI( 4 ), VWR( 4 ), X( 2, 2 );
       // ..
       // .. External Functions ..
       //- REAL               SLAMCH;

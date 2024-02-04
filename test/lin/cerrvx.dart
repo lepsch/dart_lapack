@@ -19,11 +19,11 @@
       String             EQ;
       String             C2;
       int                I, INFO, J;
-      REAL               RCOND;
+      double               RCOND;
       // ..
       // .. Local Arrays ..
       int                IP( NMAX );
-      REAL               C( NMAX ), R( NMAX ), R1( NMAX ), R2( NMAX ), RF( NMAX ), RW( NMAX )       Complex            A( NMAX, NMAX ), AF( NMAX, NMAX ), B( NMAX ), E( NMAX ), W( 2*NMAX ), X( NMAX );
+      double               C( NMAX ), R( NMAX ), R1( NMAX ), R2( NMAX ), RF( NMAX ), RW( NMAX )       Complex            A( NMAX, NMAX ), AF( NMAX, NMAX ), B( NMAX ), E( NMAX ), W( 2*NMAX ), X( NMAX );
       // ..
       // .. External Functions ..
       //- bool               LSAMEN;

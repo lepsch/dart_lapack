@@ -17,12 +17,12 @@
       // .. Parameters ..
       Complex            ZERO, ONE;
       const              ZERO = ( 0.0, 0.0 ), ONE = ( 1.0, 0.0 ) ;
-      REAL               RZERO, RONE;
+      double               RZERO, RONE;
       const              RZERO = 0.0, RONE = 1.0 ;
       // ..
       // .. Local Scalars ..
       Complex            BETA, CDUM, S, TAU;
-      REAL               FOO, SAFMAX, SAFMIN, SMLNUM, ULP;
+      double               FOO, SAFMAX, SAFMIN, SMLNUM, ULP;
       int                I, IFST, ILST, INFO, INFQR, J, JW, KCOL, KLN, KNT, KROW, KWTOP, LTOP, LWK1, LWK2, LWKOPT;
       // ..
       // .. External Functions ..
@@ -36,10 +36,10 @@
       // INTRINSIC ABS, AIMAG, CMPLX, CONJG, INT, MAX, MIN, REAL
       // ..
       // .. Statement Functions ..
-      REAL               CABS1;
+      double               CABS1;
       // ..
       // .. Statement Function definitions ..
-      CABS1[CDUM] = ( REAL( CDUM ) ).abs() + ( AIMAG( CDUM ) ).abs();
+      CABS1[CDUM] = ( double( CDUM ) ).abs() + ( AIMAG( CDUM ) ).abs();
       // ..
       // .. Executable Statements ..
 
@@ -86,7 +86,7 @@
       SAFMIN = SLAMCH( 'SAFE MINIMUM' );
       SAFMAX = RONE / SAFMIN;
       ULP = SLAMCH( 'PRECISION' );
-      SMLNUM = SAFMIN*( REAL( N ) / ULP );
+      SMLNUM = SAFMIN*( double( N ) / ULP );
 
       // ==== Setup deflation window ====
 

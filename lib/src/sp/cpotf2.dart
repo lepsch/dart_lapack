@@ -15,7 +15,7 @@
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ONE, ZERO;
+      double               ONE, ZERO;
       const              ONE = 1.0, ZERO = 0.0 ;
       Complex            CONE;
       const              CONE = ( 1.0, 0.0 ) ;
@@ -23,7 +23,7 @@
       // .. Local Scalars ..
       bool               UPPER;
       int                J;
-      REAL               AJJ;
+      double               AJJ;
       // ..
       // .. External Functions ..
       //- bool               lsame, SISNAN;
@@ -66,7 +66,7 @@
 
             // Compute U(J,J) and test for non-positive-definiteness.
 
-            AJJ = REAL( REAL( A( J, J ) ) - CDOTC( J-1, A( 1, J ), 1, A( 1, J ), 1 ) );
+            AJJ = REAL( double( A( J, J ) ) - CDOTC( J-1, A( 1, J ), 1, A( 1, J ), 1 ) );
             if ( AJJ <= ZERO || SISNAN( AJJ ) ) {
                A[J, J] = AJJ;
                GO TO 30;
@@ -91,7 +91,7 @@
 
             // Compute L(J,J) and test for non-positive-definiteness.
 
-            AJJ = REAL( REAL( A( J, J ) ) - CDOTC( J-1, A( J, 1 ), LDA, A( J, 1 ), LDA ) );
+            AJJ = REAL( double( A( J, J ) ) - CDOTC( J-1, A( J, 1 ), LDA, A( J, 1 ), LDA ) );
             if ( AJJ <= ZERO || SISNAN( AJJ ) ) {
                A[J, J] = AJJ;
                GO TO 30;

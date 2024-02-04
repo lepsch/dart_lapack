@@ -10,13 +10,13 @@
       // ..
       // .. Array Arguments ..
       int                IWORK( * );
-      REAL               A( LDA, * ), B( LDB, * ), W( * ), WORK( * );
+      double               A( LDA, * ), B( LDB, * ), W( * ), WORK( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ONE;
+      double               ONE;
       const              ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
@@ -104,8 +104,8 @@
 
       ssygst(ITYPE, UPLO, N, A, LDA, B, LDB, INFO );
       ssyevd(JOBZ, UPLO, N, A, LDA, W, WORK, LWORK, IWORK, LIWORK, INFO );
-      LOPT = INT( max( REAL( LOPT ), REAL( WORK( 1 ) ) ) );
-      LIOPT = INT( max( REAL( LIOPT ), REAL( IWORK( 1 ) ) ) );
+      LOPT = INT( max( REAL( LOPT ), double( WORK( 1 ) ) ) );
+      LIOPT = INT( max( REAL( LIOPT ), double( IWORK( 1 ) ) ) );
 
       if ( WANTZ && INFO == 0 ) {
 

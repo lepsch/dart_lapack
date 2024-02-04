@@ -7,24 +7,24 @@
       // .. Scalar Arguments ..
       String             TRANS;
       int                KL, KU, LDA, LDB, LDX, M, N, NRHS;
-      REAL               RESID;
+      double               RESID;
       // ..
       // .. Array Arguments ..
-      REAL               RWORK( * );
+      double               RWORK( * );
       Complex            A( LDA, * ), B( LDB, * ), X( LDX, * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       Complex            CONE;
       const              CONE = ( 1.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
       int                I1, I2, J, KD, N1;
-      REAL               ANORM, BNORM, EPS, TEMP, XNORM;
+      double               ANORM, BNORM, EPS, TEMP, XNORM;
       Complex            CDUM;
       // ..
       // .. External Functions ..
@@ -36,13 +36,13 @@
       // EXTERNAL CGBMV
       // ..
       // .. Statement Functions ..
-      REAL               CABS1;
+      double               CABS1;
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC ABS, AIMAG, MAX, MIN, REAL
       // ..
       // .. Statement Function definitions ..
-      CABS1[CDUM] = ( REAL( CDUM ) ).abs() + ( AIMAG( CDUM ) ).abs();
+      CABS1[CDUM] = ( double( CDUM ) ).abs() + ( AIMAG( CDUM ) ).abs();
       // ..
       // .. Executable Statements ..
 

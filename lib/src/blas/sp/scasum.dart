@@ -1,4 +1,4 @@
-      REAL scasum(N,CX,INCX) {
+      double scasum(N,CX,INCX) {
 
 // -- Reference BLAS level1 routine --
 // -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
@@ -14,7 +14,7 @@
 // =====================================================================
 
       // .. Local Scalars ..
-      REAL STEMP;
+      double STEMP;
       int     I,NINCX;
       // ..
       // .. Intrinsic Functions ..
@@ -28,7 +28,7 @@
          // code for increment equal to 1
 
          for (I = 1; I <= N; I++) {
-            STEMP = STEMP + ABS(REAL(CX(I))) + ABS(AIMAG(CX(I)));
+            STEMP = STEMP + ABS(double(CX(I))) + ABS(AIMAG(CX(I)));
          }
       } else {
 
@@ -36,7 +36,7 @@
 
          NINCX = N*INCX;
          for (I = 1; INCX < 0 ? I >= NINCX : I <= NINCX; I += INCX) {
-            STEMP = STEMP + ABS(REAL(CX(I))) + ABS(AIMAG(CX(I)));
+            STEMP = STEMP + ABS(double(CX(I))) + ABS(AIMAG(CX(I)));
          }
       }
       SCASUM = STEMP;

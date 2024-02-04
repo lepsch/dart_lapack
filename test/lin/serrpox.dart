@@ -19,11 +19,11 @@
       String             EQ;
       String             C2;
       int                I, INFO, J, N_ERR_BNDS, NPARAMS;
-      REAL               ANRM, RCOND, BERR;
+      double               ANRM, RCOND, BERR;
       // ..
       // .. Local Arrays ..
       int                IW( NMAX );
-      REAL               A( NMAX, NMAX ), AF( NMAX, NMAX ), B( NMAX ), R1( NMAX ), R2( NMAX ), W( 3*NMAX ), X( NMAX ), S( NMAX ), ERR_BNDS_N( NMAX, 3 ), ERR_BNDS_C( NMAX, 3 ), PARAMS( 1 );
+      double               A( NMAX, NMAX ), AF( NMAX, NMAX ), B( NMAX ), R1( NMAX ), R2( NMAX ), W( 3*NMAX ), X( NMAX ), S( NMAX ), ERR_BNDS_N( NMAX, 3 ), ERR_BNDS_C( NMAX, 3 ), PARAMS( 1 );
       // ..
       // .. External Functions ..
       //- bool               LSAMEN;

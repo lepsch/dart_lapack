@@ -9,7 +9,7 @@
       int                INFO, LDA, M, N, K, TSIZE, LWORK, LDC;
       // ..
       // .. Array Arguments ..
-      REAL               A( LDA, * ), T( * ), C( LDC, * ), WORK( * );
+      double               A( LDA, * ), T( * ), C( LDC, * ), WORK( * );
       // ..
 
 // =====================================================================

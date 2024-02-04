@@ -13,17 +13,17 @@
       // .. Parameters ..
       int                LDE;
       const              LDE = 20 ;
-      REAL               ZERO;
+      double               ZERO;
       const              ZERO = 0.0 ;
       // ..
       // .. Local Scalars ..
       int                I, IHI, ILO, INFO, J, KNT, N, NINFO;
-      REAL               EPS, RMAX, SAFMIN, VMAX, X;
+      double               EPS, RMAX, SAFMIN, VMAX, X;
       Complex            CDUM;
       // ..
       // .. Local Arrays ..
       int                LMAX( 2 );
-      REAL               SCALE( LDE );
+      double               SCALE( LDE );
       Complex            E( LDE, LDE ), EIN( LDE, LDE );
       // ..
       // .. External Functions ..
@@ -37,10 +37,10 @@
       // INTRINSIC ABS, AIMAG, MAX, REAL
       // ..
       // .. Statement Functions ..
-      REAL               CABS1;
+      double               CABS1;
       // ..
       // .. Statement Function definitions ..
-      CABS1[CDUM] = ( REAL( CDUM ) ).abs() + ( AIMAG( CDUM ) ).abs();
+      CABS1[CDUM] = ( double( CDUM ) ).abs() + ( AIMAG( CDUM ) ).abs();
       // ..
       // .. Executable Statements ..
 

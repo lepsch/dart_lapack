@@ -9,19 +9,19 @@
       // .. Scalar Arguments ..
       bool               TSTERR;
       int                NN, NNB, NNS, NMAX, NOUT;
-      REAL               THRESH;
+      double               THRESH;
       // ..
       // .. Array Arguments ..
       bool               DOTYPE( * );
       int                IWORK( * ), NBVAL( * ), NSVAL( * ), NVAL( * );
-      REAL               RWORK( * );
+      double               RWORK( * );
       Complex            A( * ), AFAC( * ), AINV( * ), B( * ), WORK( * ), X( * ), XACT( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO;
+      double               ZERO;
       const              ZERO = 0.0 ;
       Complex            CZERO;
       const              CZERO = 0.0 ;
@@ -35,12 +35,12 @@
       String             DIST, TYPE, UPLO, XTYPE;
       String             PATH, MATPATH;
       int                I, I1, I2, IMAT, IN, INB, INFO, IOFF, IRHS, IUPLO, IZERO, J, K, KL, KU, LDA, LWORK, MODE, N, NB, NERRS, NFAIL, NIMAT, NRHS, NRUN, NT;
-      REAL               ANORM, CNDNUM;
+      double               ANORM, CNDNUM;
       // ..
       // .. Local Arrays ..
       String             UPLOS( 2 );
       int                ISEED( 4 ), ISEEDY( 4 );
-      REAL               RESULT( NTESTS );
+      double               RESULT( NTESTS );
       // ..
       // .. External Subroutines ..
       // EXTERNAL ALAERH, ALAHD, ALASUM, CERRSY, CLACPY, CLARHS, CLATB4, CLATMS, CSYT02, CSYT01_AA, CSYTRF_AA, CSYTRS_AA, XLAENV

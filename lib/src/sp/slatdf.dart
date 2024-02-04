@@ -6,11 +6,11 @@
 
       // .. Scalar Arguments ..
       int                IJOB, LDZ, N;
-      REAL               RDSCAL, RDSUM;
+      double               RDSCAL, RDSUM;
       // ..
       // .. Array Arguments ..
       int                IPIV( * ), JPIV( * );
-      REAL               RHS( * ), Z( LDZ, * );
+      double               RHS( * ), Z( LDZ, * );
       // ..
 
 // =====================================================================
@@ -18,16 +18,16 @@
       // .. Parameters ..
       int                MAXDIM;
       const              MAXDIM = 8 ;
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
       int                I, INFO, J, K;
-      REAL               BM, BP, PMONE, SMINU, SPLUS, TEMP;
+      double               BM, BP, PMONE, SMINU, SPLUS, TEMP;
       // ..
       // .. Local Arrays ..
       int                IWORK( MAXDIM );
-      REAL               WORK( 4*MAXDIM ), XM( MAXDIM ), XP( MAXDIM );
+      double               WORK( 4*MAXDIM ), XM( MAXDIM ), XP( MAXDIM );
       // ..
       // .. External Subroutines ..
       // EXTERNAL SAXPY, SCOPY, SGECON, SGESC2, SLASSQ, SLASWP, SSCAL

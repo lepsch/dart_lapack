@@ -10,19 +10,19 @@
       // ..
       // .. Array Arguments ..
       int                IWORK( * );
-      REAL               D( * ), E( * ), WORK( * ), Z( LDZ, * );
+      double               D( * ), E( * ), WORK( * ), Z( LDZ, * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE, TWO;
+      double               ZERO, ONE, TWO;
       const              ZERO = 0.0, ONE = 1.0, TWO = 2.0 ;
       // ..
       // .. Local Scalars ..
       bool               LQUERY;
       int                FINISH, I, ICOMPZ, II, J, K, LGN, LIWMIN, LWMIN, M, SMLSIZ, START, STOREZ, STRTRW;
-      REAL               EPS, ORGNRM, P, TINY;
+      double               EPS, ORGNRM, P, TINY;
       // ..
       // .. External Functions ..
       //- bool               lsame;
@@ -72,7 +72,7 @@
             LIWMIN = 1;
             LWMIN = 2*( N - 1 );
          } else {
-            LGN = INT( LOG( REAL( N ) )/LOG( TWO ) );
+            LGN = INT( LOG( double( N ) )/LOG( TWO ) );
             if (2**LGN < N) LGN = LGN + 1;
             IF( 2**LGN < N ) LGN = LGN + 1;
             if ( ICOMPZ == 1 ) {

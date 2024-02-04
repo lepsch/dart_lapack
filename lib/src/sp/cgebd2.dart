@@ -8,7 +8,7 @@
       int                INFO, LDA, M, N;
       // ..
       // .. Array Arguments ..
-      REAL               D( * ), E( * );
+      double               D( * ), E( * );
       Complex            A( LDA, * ), TAUP( * ), TAUQ( * ), WORK( * );
       // ..
 
@@ -55,7 +55,7 @@
 
             ALPHA = A( I, I );
             clarfg(M-I+1, ALPHA, A( min( I+1, M ), I ), 1, TAUQ( I ) );
-            D[I] = REAL( ALPHA );
+            D[I] = double( ALPHA );
             A[I, I] = ONE;
 
             // Apply H(i)**H to A(i:m,i+1:n) from the left
@@ -71,7 +71,7 @@
                clacgv(N-I, A( I, I+1 ), LDA );
                ALPHA = A( I, I+1 );
                clarfg(N-I, ALPHA, A( I, min( I+2, N ) ), LDA, TAUP( I ) );
-               E[I] = REAL( ALPHA );
+               E[I] = double( ALPHA );
                A[I, I+1] = ONE;
 
                // Apply G(i) to A(i+1:m,i+1:n) from the right
@@ -94,7 +94,7 @@
             clacgv(N-I+1, A( I, I ), LDA );
             ALPHA = A( I, I );
             clarfg(N-I+1, ALPHA, A( I, min( I+1, N ) ), LDA, TAUP( I ) );
-            D[I] = REAL( ALPHA );
+            D[I] = double( ALPHA );
             A[I, I] = ONE;
 
             // Apply G(i) to A(i+1:m,i:n) from the right
@@ -110,7 +110,7 @@
 
                ALPHA = A( I+1, I );
                clarfg(M-I, ALPHA, A( min( I+2, M ), I ), 1, TAUQ( I ) );
-               E[I] = REAL( ALPHA );
+               E[I] = double( ALPHA );
                A[I+1, I] = ONE;
 
                // Apply H(i)**H to A(i+1:m,i+1:n) from the left

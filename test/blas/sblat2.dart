@@ -10,21 +10,21 @@
       const              NIN = 5 ;
       int                NSUBS;
       const              NSUBS = 16 ;
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       int                NMAX, INCMAX;
       const              NMAX = 65, INCMAX = 2 ;
       int                NINMAX, NIDMAX, NKBMAX, NALMAX, NBEMAX;
       const              NINMAX = 7, NIDMAX = 9, NKBMAX = 7, NALMAX = 7, NBEMAX = 7 ;
       // .. Local Scalars ..
-      REAL               EPS, ERR, THRESH;
+      double               EPS, ERR, THRESH;
       int                I, ISNUM, J, N, NALF, NBET, NIDIM, NINC, NKB, NOUT, NTRA;
       bool               FATAL, LTESTT, REWI, SAME, SFATAL, TRACE, TSTERR;
       String             TRANS;
       String             SNAMET;
       String             SNAPS, SUMMRY;
       // .. Local Arrays ..
-      REAL               A( NMAX, NMAX ), AA( NMAX*NMAX ), ALF( NALMAX ), AS( NMAX*NMAX ), BET( NBEMAX ), G( NMAX ), X( NMAX ), XS( NMAX*INCMAX ), XX( NMAX*INCMAX ), Y( NMAX ), YS( NMAX*INCMAX ), YT( NMAX ), YY( NMAX*INCMAX ), Z( 2*NMAX );
+      double               A( NMAX, NMAX ), AA( NMAX*NMAX ), ALF( NALMAX ), AS( NMAX*NMAX ), BET( NBEMAX ), G( NMAX ), X( NMAX ), XS( NMAX*INCMAX ), XX( NMAX*INCMAX ), Y( NMAX ), YS( NMAX*INCMAX ), YT( NMAX ), YY( NMAX*INCMAX ), Z( 2*NMAX );
       int                IDIM( NIDMAX ), INC( NINMAX ), KB( NKBMAX );
       bool               LTEST( NSUBS );
       String             SNAMES( NSUBS );
@@ -285,18 +285,18 @@
       // Jeremy Du Croz, NAG Central Office.
 
       // .. Parameters ..
-      REAL               ZERO, HALF;
+      double               ZERO, HALF;
       const              ZERO = 0.0, HALF = 0.5 ;
       // .. Scalar Arguments ..
-      REAL               EPS, THRESH;
+      double               EPS, THRESH;
       int                INCMAX, NALF, NBET, NIDIM, NINC, NKB, NMAX, NOUT, NTRA;
       bool               FATAL, REWI, TRACE;
       String             SNAME;
       // .. Array Arguments ..
-      REAL               A( NMAX, NMAX ), AA( NMAX*NMAX ), ALF( NALF ), AS( NMAX*NMAX ), BET( NBET ), G( NMAX ), X( NMAX ), XS( NMAX*INCMAX ), XX( NMAX*INCMAX ), Y( NMAX ), YS( NMAX*INCMAX ), YT( NMAX ), YY( NMAX*INCMAX );
+      double               A( NMAX, NMAX ), AA( NMAX*NMAX ), ALF( NALF ), AS( NMAX*NMAX ), BET( NBET ), G( NMAX ), X( NMAX ), XS( NMAX*INCMAX ), XX( NMAX*INCMAX ), Y( NMAX ), YS( NMAX*INCMAX ), YT( NMAX ), YY( NMAX*INCMAX );
       int                IDIM( NIDIM ), INC( NINC ), KB( NKB );
       // .. Local Scalars ..
-      REAL               ALPHA, ALS, BETA, BLS, ERR, ERRMAX, TRANSL;
+      double               ALPHA, ALS, BETA, BLS, ERR, ERRMAX, TRANSL;
       int                I, IA, IB, IC, IKU, IM, IN, INCX, INCXS, INCY, INCYS, IX, IY, KL, KLS, KU, KUS, LAA, LDA, LDAS, LX, LY, M, ML, MS, N, NARGS, NC, ND, NK, NL, NS;
       bool               BANDED, FULL, NULL, RESET, SAME, TRAN;
       String             TRANS, TRANSS;
@@ -591,18 +591,18 @@
       // Jeremy Du Croz, NAG Central Office.
 
       // .. Parameters ..
-      REAL               ZERO, HALF;
+      double               ZERO, HALF;
       const              ZERO = 0.0, HALF = 0.5 ;
       // .. Scalar Arguments ..
-      REAL               EPS, THRESH;
+      double               EPS, THRESH;
       int                INCMAX, NALF, NBET, NIDIM, NINC, NKB, NMAX, NOUT, NTRA;
       bool               FATAL, REWI, TRACE;
       String             SNAME;
       // .. Array Arguments ..
-      REAL               A( NMAX, NMAX ), AA( NMAX*NMAX ), ALF( NALF ), AS( NMAX*NMAX ), BET( NBET ), G( NMAX ), X( NMAX ), XS( NMAX*INCMAX ), XX( NMAX*INCMAX ), Y( NMAX ), YS( NMAX*INCMAX ), YT( NMAX ), YY( NMAX*INCMAX );
+      double               A( NMAX, NMAX ), AA( NMAX*NMAX ), ALF( NALF ), AS( NMAX*NMAX ), BET( NBET ), G( NMAX ), X( NMAX ), XS( NMAX*INCMAX ), XX( NMAX*INCMAX ), Y( NMAX ), YS( NMAX*INCMAX ), YT( NMAX ), YY( NMAX*INCMAX );
       int                IDIM( NIDIM ), INC( NINC ), KB( NKB );
       // .. Local Scalars ..
-      REAL               ALPHA, ALS, BETA, BLS, ERR, ERRMAX, TRANSL;
+      double               ALPHA, ALS, BETA, BLS, ERR, ERRMAX, TRANSL;
       int                I, IA, IB, IC, IK, IN, INCX, INCXS, INCY, INCYS, IX, IY, K, KS, LAA, LDA, LDAS, LX, LY, N, NARGS, NC, NK, NS;
       bool               BANDED, FULL, NULL, PACKED, RESET, SAME;
       String             UPLO, UPLOS;
@@ -881,18 +881,18 @@
       // Jeremy Du Croz, NAG Central Office.
 
       // .. Parameters ..
-      REAL               ZERO, HALF, ONE;
+      double               ZERO, HALF, ONE;
       const              ZERO = 0.0, HALF = 0.5, ONE = 1.0 ;
       // .. Scalar Arguments ..
-      REAL               EPS, THRESH;
+      double               EPS, THRESH;
       int                INCMAX, NIDIM, NINC, NKB, NMAX, NOUT, NTRA;
       bool               FATAL, REWI, TRACE;
       String             SNAME;
       // .. Array Arguments ..
-      REAL               A( NMAX, NMAX ), AA( NMAX*NMAX ), AS( NMAX*NMAX ), G( NMAX ), X( NMAX ), XS( NMAX*INCMAX ), XT( NMAX ), XX( NMAX*INCMAX ), Z( NMAX );
+      double               A( NMAX, NMAX ), AA( NMAX*NMAX ), AS( NMAX*NMAX ), G( NMAX ), X( NMAX ), XS( NMAX*INCMAX ), XT( NMAX ), XX( NMAX*INCMAX ), Z( NMAX );
       int                IDIM( NIDIM ), INC( NINC ), KB( NKB );
       // .. Local Scalars ..
-      REAL               ERR, ERRMAX, TRANSL;
+      double               ERR, ERRMAX, TRANSL;
       int                I, ICD, ICT, ICU, IK, IN, INCX, INCXS, IX, K, KS, LAA, LDA, LDAS, LX, N, NARGS, NC, NK, NS;
       bool               BANDED, FULL, NULL, PACKED, RESET, SAME;
       String             DIAG, DIAGS, TRANS, TRANSS, UPLO, UPLOS;
@@ -1175,22 +1175,22 @@
       // Jeremy Du Croz, NAG Central Office.
 
       // .. Parameters ..
-      REAL               ZERO, HALF, ONE;
+      double               ZERO, HALF, ONE;
       const              ZERO = 0.0, HALF = 0.5, ONE = 1.0 ;
       // .. Scalar Arguments ..
-      REAL               EPS, THRESH;
+      double               EPS, THRESH;
       int                INCMAX, NALF, NIDIM, NINC, NMAX, NOUT, NTRA;
       bool               FATAL, REWI, TRACE;
       String             SNAME;
       // .. Array Arguments ..
-      REAL               A( NMAX, NMAX ), AA( NMAX*NMAX ), ALF( NALF ), AS( NMAX*NMAX ), G( NMAX ), X( NMAX ), XS( NMAX*INCMAX ), XX( NMAX*INCMAX ), Y( NMAX ), YS( NMAX*INCMAX ), YT( NMAX ), YY( NMAX*INCMAX ), Z( NMAX );
+      double               A( NMAX, NMAX ), AA( NMAX*NMAX ), ALF( NALF ), AS( NMAX*NMAX ), G( NMAX ), X( NMAX ), XS( NMAX*INCMAX ), XX( NMAX*INCMAX ), Y( NMAX ), YS( NMAX*INCMAX ), YT( NMAX ), YY( NMAX*INCMAX ), Z( NMAX );
       int                IDIM( NIDIM ), INC( NINC );
       // .. Local Scalars ..
-      REAL               ALPHA, ALS, ERR, ERRMAX, TRANSL;
+      double               ALPHA, ALS, ERR, ERRMAX, TRANSL;
       int                I, IA, IM, IN, INCX, INCXS, INCY, INCYS, IX, IY, J, LAA, LDA, LDAS, LX, LY, M, MS, N, NARGS, NC, ND, NS;
       bool               NULL, RESET, SAME;
       // .. Local Arrays ..
-      REAL               W( 1 );
+      double               W( 1 );
       bool               ISAME( 13 );
       // .. External Functions ..
       //- bool               LSE, LSERES;
@@ -1401,24 +1401,24 @@
       // Jeremy Du Croz, NAG Central Office.
 
       // .. Parameters ..
-      REAL               ZERO, HALF, ONE;
+      double               ZERO, HALF, ONE;
       const              ZERO = 0.0, HALF = 0.5, ONE = 1.0 ;
       // .. Scalar Arguments ..
-      REAL               EPS, THRESH;
+      double               EPS, THRESH;
       int                INCMAX, NALF, NIDIM, NINC, NMAX, NOUT, NTRA;
       bool               FATAL, REWI, TRACE;
       String             SNAME;
       // .. Array Arguments ..
-      REAL               A( NMAX, NMAX ), AA( NMAX*NMAX ), ALF( NALF ), AS( NMAX*NMAX ), G( NMAX ), X( NMAX ), XS( NMAX*INCMAX ), XX( NMAX*INCMAX ), Y( NMAX ), YS( NMAX*INCMAX ), YT( NMAX ), YY( NMAX*INCMAX ), Z( NMAX );
+      double               A( NMAX, NMAX ), AA( NMAX*NMAX ), ALF( NALF ), AS( NMAX*NMAX ), G( NMAX ), X( NMAX ), XS( NMAX*INCMAX ), XX( NMAX*INCMAX ), Y( NMAX ), YS( NMAX*INCMAX ), YT( NMAX ), YY( NMAX*INCMAX ), Z( NMAX );
       int                IDIM( NIDIM ), INC( NINC );
       // .. Local Scalars ..
-      REAL               ALPHA, ALS, ERR, ERRMAX, TRANSL;
+      double               ALPHA, ALS, ERR, ERRMAX, TRANSL;
       int                I, IA, IC, IN, INCX, INCXS, IX, J, JA, JJ, LAA, LDA, LDAS, LJ, LX, N, NARGS, NC, NS;
       bool               FULL, NULL, PACKED, RESET, SAME, UPPER;
       String             UPLO, UPLOS;
       String             ICH;
       // .. Local Arrays ..
-      REAL               W( 1 );
+      double               W( 1 );
       bool               ISAME( 13 );
       // .. External Functions ..
       //- bool               LSE, LSERES;
@@ -1644,24 +1644,24 @@
       // Jeremy Du Croz, NAG Central Office.
 
       // .. Parameters ..
-      REAL               ZERO, HALF, ONE;
+      double               ZERO, HALF, ONE;
       const              ZERO = 0.0, HALF = 0.5, ONE = 1.0 ;
       // .. Scalar Arguments ..
-      REAL               EPS, THRESH;
+      double               EPS, THRESH;
       int                INCMAX, NALF, NIDIM, NINC, NMAX, NOUT, NTRA;
       bool               FATAL, REWI, TRACE;
       String             SNAME;
       // .. Array Arguments ..
-      REAL               A( NMAX, NMAX ), AA( NMAX*NMAX ), ALF( NALF ), AS( NMAX*NMAX ), G( NMAX ), X( NMAX ), XS( NMAX*INCMAX ), XX( NMAX*INCMAX ), Y( NMAX ), YS( NMAX*INCMAX ), YT( NMAX ), YY( NMAX*INCMAX ), Z( NMAX, 2 );
+      double               A( NMAX, NMAX ), AA( NMAX*NMAX ), ALF( NALF ), AS( NMAX*NMAX ), G( NMAX ), X( NMAX ), XS( NMAX*INCMAX ), XX( NMAX*INCMAX ), Y( NMAX ), YS( NMAX*INCMAX ), YT( NMAX ), YY( NMAX*INCMAX ), Z( NMAX, 2 );
       int                IDIM( NIDIM ), INC( NINC );
       // .. Local Scalars ..
-      REAL               ALPHA, ALS, ERR, ERRMAX, TRANSL;
+      double               ALPHA, ALS, ERR, ERRMAX, TRANSL;
       int                I, IA, IC, IN, INCX, INCXS, INCY, INCYS, IX, IY, J, JA, JJ, LAA, LDA, LDAS, LJ, LX, LY, N, NARGS, NC, NS;
       bool               FULL, NULL, PACKED, RESET, SAME, UPPER;
       String             UPLO, UPLOS;
       String             ICH;
       // .. Local Arrays ..
-      REAL               W( 2 );
+      double               W( 2 );
       bool               ISAME( 13 );
       // .. External Functions ..
       //- bool               LSE, LSERES;
@@ -1926,9 +1926,9 @@
       int                INFOT, NOUTC;
       bool               LERR, OK;
       // .. Local Scalars ..
-      REAL               ALPHA, BETA;
+      double               ALPHA, BETA;
       // .. Local Arrays ..
-      REAL               A( 1, 1 ), X( 1 ), Y( 1 );
+      double               A( 1, 1 ), X( 1 ), Y( 1 );
       // .. External Subroutines ..
       // EXTERNAL CHKXER, SGBMV, SGEMV, SGER, SSBMV, SSPMV, SSPR, SSPR2, SSYMV, SSYR, SSYR2, STBMV, STBSV, STPMV, STPSV, STRMV, STRSV
       // .. Common blocks ..
@@ -2241,18 +2241,18 @@
       // Jeremy Du Croz, NAG Central Office.
 
       // .. Parameters ..
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
-      REAL               ROGUE;
+      double               ROGUE;
       const              ROGUE = -1.0e10 ;
       // .. Scalar Arguments ..
-      REAL               TRANSL;
+      double               TRANSL;
       int                KL, KU, LDA, M, N, NMAX;
       bool               RESET;
       String             DIAG, UPLO;
       String             TYPE;
       // .. Array Arguments ..
-      REAL               A( NMAX, * ), AA( * );
+      double               A( NMAX, * ), AA( * );
       // .. Local Scalars ..
       int                I, I1, I2, I3, IBEG, IEND, IOFF, J, KK;
       bool               GEN, LOWER, SYM, TRI, UNIT, UPPER;
@@ -2403,17 +2403,17 @@
       // Jeremy Du Croz, NAG Central Office.
 
       // .. Parameters ..
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       // .. Scalar Arguments ..
-      REAL               ALPHA, BETA, EPS, ERR;
+      double               ALPHA, BETA, EPS, ERR;
       int                INCX, INCY, M, N, NMAX, NOUT;
       bool               FATAL, MV;
       String             TRANS;
       // .. Array Arguments ..
-      REAL               A( NMAX, * ), G( * ), X( * ), Y( * ), YT( * ), YY( * );
+      double               A( NMAX, * ), G( * ), X( * ), Y( * ), YT( * ), YY( * );
       // .. Local Scalars ..
-      REAL               ERRI;
+      double               ERRI;
       int                I, INCXL, INCYL, IY, J, JX, KX, KY, ML, NL;
       bool               TRAN;
       // .. Intrinsic Functions ..
@@ -2511,7 +2511,7 @@
       // .. Scalar Arguments ..
       int                LR;
       // .. Array Arguments ..
-      REAL               RI( * ), RJ( * );
+      double               RI( * ), RJ( * );
       // .. Local Scalars ..
       int                I;
       // .. Executable Statements ..
@@ -2541,7 +2541,7 @@
       String             UPLO;
       String             TYPE;
       // .. Array Arguments ..
-      REAL               AA( LDA, * ), AS( LDA, * );
+      double               AA( LDA, * ), AS( LDA, * );
       // .. Local Scalars ..
       int                I, IBEG, IEND, J;
       bool               UPPER;
@@ -2577,7 +2577,7 @@
       LSERES = false;
    80 return;
       }
-      REAL sbeg(RESET ) {
+      double sbeg(RESET ) {
 
 // Generates random numbers uniformly distributed between -0.5 and 0.5.
 
@@ -2617,10 +2617,10 @@
          IC = 0;
          GO TO 10;
       }
-      SBEG = REAL( I - 500 )/1001.0;
+      SBEG = double( I - 500 )/1001.0;
       return;
       }
-      REAL sdiff(X, Y ) {
+      double sdiff(X, Y ) {
 
 // Auxiliary routine for test program for Level 2 Blas.
 
@@ -2628,7 +2628,7 @@
       // Richard Hanson, Sandia National Labs.
 
       // .. Scalar Arguments ..
-      REAL               X, Y;
+      double               X, Y;
       // .. Executable Statements ..
       SDIFF = X - Y;
       return;
@@ -2664,9 +2664,9 @@
       // .. Scalar Arguments ..
       String             TRANS;
       int                LY, M, N, KL, KU, LDA, INCX, INCY;
-      REAL               ALPHA, BETA;
+      double               ALPHA, BETA;
       // .. Array Arguments ..
-      REAL               A(LDA,*), X(*), Y(*), YS(*);
+      double               A(LDA,*), X(*), Y(*), YS(*);
       // .. Local Scalars ..
       int                I;
       // .. Intrinsic Functions ..
@@ -2684,7 +2684,7 @@
       INCY = 1;
       LY = ( INCY ).abs()*N;
       for (I = 1; I <= LY; I++) { // 10
-         Y[I] = 42.0 + REAL( I );
+         Y[I] = 42.0 + double( I );
          YS[I] = Y( I );
       } // 10
       return;

@@ -9,14 +9,14 @@
       int              I1, I2, LDA, N;
       // ..
       // .. Array Arguments ..
-      REAL             A( LDA, * );
+      double             A( LDA, * );
 
 // =====================================================================
 
       // ..
       // .. Local Scalars ..
       bool               UPPER;
-      REAL               TMP;
+      double               TMP;
 
       // .. External Functions ..
       //- bool               lsame;

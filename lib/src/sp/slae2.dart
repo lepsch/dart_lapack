@@ -5,23 +5,23 @@
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
-      REAL               A, B, C, RT1, RT2;
+      double               A, B, C, RT1, RT2;
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ONE;
+      double               ONE;
       const              ONE = 1.0 ;
-      REAL               TWO;
+      double               TWO;
       const              TWO = 2.0 ;
-      REAL               ZERO;
+      double               ZERO;
       const              ZERO = 0.0 ;
-      REAL               HALF;
+      double               HALF;
       const              HALF = 0.5 ;
       // ..
       // .. Local Scalars ..
-      REAL               AB, ACMN, ACMX, ADF, DF, RT, SM, TB;
+      double               AB, ACMN, ACMX, ADF, DF, RT, SM, TB;
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC ABS, SQRT

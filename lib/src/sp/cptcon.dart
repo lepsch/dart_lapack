@@ -6,22 +6,22 @@
 
       // .. Scalar Arguments ..
       int                INFO, N;
-      REAL               ANORM, RCOND;
+      double               ANORM, RCOND;
       // ..
       // .. Array Arguments ..
-      REAL               D( * ), RWORK( * );
+      double               D( * ), RWORK( * );
       Complex            E( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ONE, ZERO;
+      double               ONE, ZERO;
       const              ONE = 1.0, ZERO = 0.0 ;
       // ..
       // .. Local Scalars ..
       int                I, IX;
-      REAL               AINVNM;
+      double               AINVNM;
       // ..
       // .. External Functions ..
       //- int                ISAMAX;

@@ -10,13 +10,13 @@
       // ..
       // .. Array Arguments ..
       int                IPIV( * );
-      REAL               A( LDA, * ), E( * );
+      double               A( LDA, * ), E( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO;
+      double               ZERO;
       const              ZERO = 0.0 ;
       // ..
       // .. External Functions ..
@@ -28,7 +28,7 @@
       // .. Local Scalars ..
       bool               UPPER, CONVERT;
       int                I, IP, J;
-      REAL               TEMP;
+      double               TEMP;
       // ..
       // .. Executable Statements ..
 

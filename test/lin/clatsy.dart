@@ -21,7 +21,7 @@
       // ..
       // .. Local Scalars ..
       int                I, J, N5;
-      REAL               ALPHA, ALPHA3, BETA;
+      double               ALPHA, ALPHA3, BETA;
       Complex            A, B, C, R;
       // ..
       // .. External Functions ..

@@ -1,4 +1,4 @@
-      REAL cla_herpvgrw(UPLO, N, INFO, A, LDA, AF, LDAF, IPIV, WORK ) {
+      double cla_herpvgrw(UPLO, N, INFO, A, LDA, AF, LDAF, IPIV, WORK ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -11,14 +11,14 @@
       // .. Array Arguments ..
       int                IPIV( * );
       Complex            A( LDA, * ), AF( LDAF, * );
-      REAL               WORK( * );
+      double               WORK( * );
       // ..
 
 // =====================================================================
 
       // .. Local Scalars ..
       int                NCOLS, I, J, K, KP;
-      REAL               AMAX, UMAX, RPVGRW, TMP;
+      double               AMAX, UMAX, RPVGRW, TMP;
       bool               UPPER, lsame;
       Complex            ZDUM;
       // ..
@@ -29,10 +29,10 @@
       // INTRINSIC ABS, REAL, AIMAG, MAX, MIN
       // ..
       // .. Statement Functions ..
-      REAL               CABS1;
+      double               CABS1;
       // ..
       // .. Statement Function Definitions ..
-      CABS1[ZDUM] = ( REAL ( ZDUM ) ).abs() + ( AIMAG ( ZDUM ) ).abs();
+      CABS1[ZDUM] = ( double ( ZDUM ) ).abs() + ( AIMAG ( ZDUM ) ).abs();
       // ..
       // .. Executable Statements ..
 

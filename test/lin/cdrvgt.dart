@@ -7,19 +7,19 @@
       // .. Scalar Arguments ..
       bool               TSTERR;
       int                NN, NOUT, NRHS;
-      REAL               THRESH;
+      double               THRESH;
       // ..
       // .. Array Arguments ..
       bool               DOTYPE( * );
       int                IWORK( * ), NVAL( * );
-      REAL               RWORK( * );
+      double               RWORK( * );
       Complex            A( * ), AF( * ), B( * ), WORK( * ), X( * ), XACT( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ONE, ZERO;
+      double               ONE, ZERO;
       const              ONE = 1.0, ZERO = 0.0 ;
       int                NTYPES;
       const              NTYPES = 12 ;
@@ -31,12 +31,12 @@
       String             DIST, FACT, TRANS, TYPE;
       String             PATH;
       int                I, IFACT, IMAT, IN, INFO, ITRAN, IX, IZERO, J, K, K1, KL, KOFF, KU, LDA, M, MODE, N, NERRS, NFAIL, NIMAT, NRUN, NT;
-      REAL               AINVNM, ANORM, ANORMI, ANORMO, COND, RCOND, RCONDC, RCONDI, RCONDO;
+      double               AINVNM, ANORM, ANORMI, ANORMO, COND, RCOND, RCONDC, RCONDI, RCONDO;
       // ..
       // .. Local Arrays ..
       String             TRANSS( 3 );
       int                ISEED( 4 ), ISEEDY( 4 );
-      REAL               RESULT( NTESTS ), Z( 3 );
+      double               RESULT( NTESTS ), Z( 3 );
       // ..
       // .. External Functions ..
       //- REAL               CLANGT, SCASUM, SGET06;
@@ -153,16 +153,16 @@
                   IZERO = 0;
                } else if ( IMAT == 8 ) {
                   IZERO = 1;
-                  Z[2] = REAL( A( N ) );
+                  Z[2] = double( A( N ) );
                   A[N] = ZERO;
                   if ( N > 1 ) {
-                     Z[3] = REAL( A( 1 ) );
+                     Z[3] = double( A( 1 ) );
                      A[1] = ZERO;
                   }
                } else if ( IMAT == 9 ) {
                   IZERO = N;
-                  Z[1] = REAL( A( 3*N-2 ) );
-                  Z[2] = REAL( A( 2*N-1 ) );
+                  Z[1] = double( A( 3*N-2 ) );
+                  Z[2] = double( A( 2*N-1 ) );
                   A[3*N-2] = ZERO;
                   A[2*N-1] = ZERO;
                } else {

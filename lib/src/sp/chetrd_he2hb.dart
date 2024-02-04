@@ -17,7 +17,7 @@
 // =====================================================================
 
       // .. Parameters ..
-      REAL               RONE;
+      double               RONE;
       Complex            ZERO, ONE, HALF;
       const              RONE = 1.0, ZERO = ( 0.0, 0.0 ), ONE = ( 1.0, 0.0 ), HALF = ( 0.5, 0.0 ) ;
       // ..

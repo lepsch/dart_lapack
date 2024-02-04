@@ -10,14 +10,14 @@
       // ..
       // .. Array Arguments ..
       bool               SELECT( * );
-      REAL               RWORK( * );
+      double               RWORK( * );
       Complex            T( LDT, * ), VL( LDVL, * ), VR( LDVR, * ), WORK( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       Complex            CMZERO, CMONE;
       const              CMZERO = ( 0.0, 0.0 ), CMONE = ( 1.0, 0.0 ) ;
@@ -25,7 +25,7 @@
       // .. Local Scalars ..
       bool               ALLV, BOTHV, LEFTV, OVER, RIGHTV, SOMEV;
       int                I, II, IS, J, K, KI;
-      REAL               OVFL, REMAX, SCALE, SMIN, SMLNUM, ULP, UNFL;
+      double               OVFL, REMAX, SCALE, SMIN, SMLNUM, ULP, UNFL;
       Complex            CDUM;
       // ..
       // .. External Functions ..
@@ -41,10 +41,10 @@
       // INTRINSIC ABS, AIMAG, CMPLX, CONJG, MAX, REAL
       // ..
       // .. Statement Functions ..
-      REAL               CABS1;
+      double               CABS1;
       // ..
       // .. Statement Function definitions ..
-      CABS1[CDUM] = ( REAL( CDUM ) ).abs() + ( AIMAG( CDUM ) ).abs();
+      CABS1[CDUM] = ( double( CDUM ) ).abs() + ( AIMAG( CDUM ) ).abs();
       // ..
       // .. Executable Statements ..
 

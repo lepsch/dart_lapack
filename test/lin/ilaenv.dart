@@ -53,7 +53,7 @@
 
          // Compute SVD crossover point.
 
-         ILAENV = INT( REAL( min( N1, N2 ) )*1.6 );
+         ILAENV = INT( double( min( N1, N2 ) )*1.6 );
 
       } else if ( ISPEC >= 7 && ISPEC <= 9 ) {
 

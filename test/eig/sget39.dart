@@ -6,7 +6,7 @@
 
       // .. Scalar Arguments ..
       int                KNT, LMAX, NINFO;
-      REAL               RMAX;
+      double               RMAX;
       // ..
 
 // =====================================================================
@@ -14,12 +14,12 @@
       // .. Parameters ..
       int                LDT, LDT2;
       const              LDT = 10, LDT2 = 2*LDT ;
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
       int                I, INFO, IVM1, IVM2, IVM3, IVM4, IVM5, J, K, N, NDIM;
-      REAL               BIGNUM, DOMIN, DUMM, EPS, NORM, NORMTB, RESID, SCALE, SMLNUM, W, XNORM;
+      double               BIGNUM, DOMIN, DUMM, EPS, NORM, NORMTB, RESID, SCALE, SMLNUM, W, XNORM;
       // ..
       // .. External Functions ..
       //- int                ISAMAX;
@@ -34,7 +34,7 @@
       // ..
       // .. Local Arrays ..
       int                IDIM( 6 ), IVAL( 5, 5, 6 );
-      REAL               B( LDT ), D( LDT2 ), DUM( 1 ), T( LDT, LDT ), VM1( 5 ), VM2( 5 ), VM3( 5 ), VM4( 5 ), VM5( 3 ), WORK( LDT ), X( LDT2 ), Y( LDT2 );
+      double               B( LDT ), D( LDT2 ), DUM( 1 ), T( LDT, LDT ), VM1( 5 ), VM2( 5 ), VM3( 5 ), VM4( 5 ), VM5( 3 ), WORK( LDT ), X( LDT2 ), Y( LDT2 );
       // ..
       // .. Data statements ..
       const IDIM = [ 4, 5, 5, 5, 5, 5,];
@@ -97,18 +97,18 @@
                         N = IDIM( NDIM );
                         for (I = 1; I <= N; I++) { // 20
                            for (J = 1; J <= N; J++) { // 10
-                              T[I, J] = REAL( IVAL( I, J, NDIM ) )* VM1( IVM1 )                               IF( I >= J ) T( I, J ) = T( I, J )*VM5( IVM5 );
+                              T[I, J] = double( IVAL( I, J, NDIM ) )* VM1( IVM1 )                               IF( I >= J ) T( I, J ) = T( I, J )*VM5( IVM5 );
                            } // 10
                         } // 20
 
                         W = ONE*VM2( IVM2 );
 
                         for (I = 1; I <= N; I++) { // 30
-                           B[I] = COS( REAL( I ) )*VM3( IVM3 );
+                           B[I] = COS( double( I ) )*VM3( IVM3 );
                         } // 30
 
                         for (I = 1; I <= 2*N; I++) { // 40
-                           D[I] = SIN( REAL( I ) )*VM4( IVM4 );
+                           D[I] = SIN( double( I ) )*VM4( IVM4 );
                         } // 40
 
                         NORM = SLANGE( '1', N, N, T, LDT, WORK );

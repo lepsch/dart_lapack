@@ -9,7 +9,7 @@
       int                KA, KS, LDA, LDU, N;
       // ..
       // .. Array Arguments ..
-      REAL               D( * ), E( * ), RESULT( 2 ), RWORK( * );
+      double               D( * ), E( * ), RESULT( 2 ), RWORK( * );
       Complex            A( LDA, * ), U( LDU, * ), WORK( * );
       // ..
 
@@ -18,14 +18,14 @@
       // .. Parameters ..
       Complex            CZERO, CONE;
       const              CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
       bool               LOWER;
       String             CUPLO;
       int                IKA, J, JC, JR;
-      REAL               ANORM, ULP, UNFL, WNORM;
+      double               ANORM, ULP, UNFL, WNORM;
       // ..
       // .. External Functions ..
       //- bool               lsame;
@@ -125,7 +125,7 @@
          WORK[( N+1 )*( J-1 )+1] = WORK( ( N+1 )*( J-1 )+1 ) - CONE;
       } // 80
 
-      RESULT[2] = min( CLANGE( '1', N, N, WORK, N, RWORK ), REAL( N ) ) / ( N*ULP );
+      RESULT[2] = min( CLANGE( '1', N, N, WORK, N, RWORK ), double( N ) ) / ( N*ULP );
 
       return;
       }

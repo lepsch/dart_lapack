@@ -9,19 +9,19 @@
       int                INFO, LDA, LWORK, N;
       // ..
       // .. Array Arguments ..
-      REAL               A( LDA, * ), W( * ), WORK( * );
+      double               A( LDA, * ), W( * ), WORK( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
       bool               LOWER, LQUERY, WANTZ;
       int                IINFO, IMAX, INDE, INDTAU, INDWRK, ISCALE, LLWORK, LWKOPT, NB;
-      REAL               ANRM, BIGNUM, EPS, RMAX, RMIN, SAFMIN, SIGMA, SMLNUM;
+      double               ANRM, BIGNUM, EPS, RMAX, RMIN, SAFMIN, SIGMA, SMLNUM;
       // ..
       // .. External Functions ..
       //- bool               lsame;

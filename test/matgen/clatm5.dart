@@ -6,7 +6,7 @@
 
       // .. Scalar Arguments ..
       int                LDA, LDB, LDC, LDD, LDE, LDF, LDL, LDR, M, N, PRTYPE, QBLCKA, QBLCKB;
-      REAL               ALPHA;
+      double               ALPHA;
       // ..
       // .. Array Arguments ..
       Complex            A( LDA, * ), B( LDB, * ), C( LDC, * ), D( LDD, * ), E( LDE, * ), F( LDF, * ), L( LDL, * ), R( LDR, * );

@@ -7,21 +7,21 @@
       // .. Scalar Arguments ..
       String             UPLO;
       int                N;
-      REAL               RESID;
+      double               RESID;
       // ..
       // .. Array Arguments ..
-      REAL               A( * ), AFAC( * ), RWORK( * );
+      double               A( * ), AFAC( * ), RWORK( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
       int                I, K, KC, NPP;
-      REAL               ANORM, EPS, T;
+      double               ANORM, EPS, T;
       // ..
       // .. External Functions ..
       //- bool               lsame;

@@ -91,9 +91,9 @@
                       for (I = 1; I <= J - 1; I++) { // 10
                           A[I,J] = A(I,J) + X(I)*TEMP1 + Y(I)*TEMP2;
                       } // 10
-                      A[J,J] = REAL(A(J,J)) + REAL(X(J)*TEMP1+Y(J)*TEMP2);
+                      A[J,J] = REAL(A(J,J)) + double(X(J)*TEMP1+Y(J)*TEMP2);
                   } else {
-                      A[J,J] = REAL(A(J,J));
+                      A[J,J] = double(A(J,J));
                   }
               } // 20
           } else {
@@ -108,9 +108,9 @@
                           IX = IX + INCX;
                           IY = IY + INCY;
                       } // 30
-                      A[J,J] = REAL(A(J,J)) + REAL(X(JX)*TEMP1+Y(JY)*TEMP2);
+                      A[J,J] = REAL(A(J,J)) + double(X(JX)*TEMP1+Y(JY)*TEMP2);
                   } else {
-                      A[J,J] = REAL(A(J,J));
+                      A[J,J] = double(A(J,J));
                   }
                   JX = JX + INCX;
                   JY = JY + INCY;
@@ -125,12 +125,12 @@
                   if ((X(J) != ZERO) || (Y(J) != ZERO)) {
                       TEMP1 = ALPHA*CONJG(Y(J));
                       TEMP2 = CONJG(ALPHA*X(J));
-                      A[J,J] = REAL(A(J,J)) + REAL(X(J)*TEMP1+Y(J)*TEMP2);
+                      A[J,J] = REAL(A(J,J)) + double(X(J)*TEMP1+Y(J)*TEMP2);
                       for (I = J + 1; I <= N; I++) { // 50
                           A[I,J] = A(I,J) + X(I)*TEMP1 + Y(I)*TEMP2;
                       } // 50
                   } else {
-                      A[J,J] = REAL(A(J,J));
+                      A[J,J] = double(A(J,J));
                   }
               } // 60
           } else {
@@ -138,7 +138,7 @@
                   if ((X(JX) != ZERO) || (Y(JY) != ZERO)) {
                       TEMP1 = ALPHA*CONJG(Y(JY));
                       TEMP2 = CONJG(ALPHA*X(JX));
-                      A[J,J] = REAL(A(J,J)) + REAL(X(JX)*TEMP1+Y(JY)*TEMP2);
+                      A[J,J] = REAL(A(J,J)) + double(X(JX)*TEMP1+Y(JY)*TEMP2);
                       IX = JX;
                       IY = JY;
                       for (I = J + 1; I <= N; I++) { // 70
@@ -147,7 +147,7 @@
                           A[I,J] = A(I,J) + X(IX)*TEMP1 + Y(IY)*TEMP2;
                       } // 70
                   } else {
-                      A[J,J] = REAL(A(J,J));
+                      A[J,J] = double(A(J,J));
                   }
                   JX = JX + INCX;
                   JY = JY + INCY;

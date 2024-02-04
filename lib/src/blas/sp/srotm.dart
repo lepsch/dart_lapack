@@ -8,13 +8,13 @@
       int     INCX,INCY,N;
       // ..
       // .. Array Arguments ..
-      REAL SPARAM(5),SX(*),SY(*);
+      double SPARAM(5),SX(*),SY(*);
       // ..
 
 // =====================================================================
 
       // .. Local Scalars ..
-      REAL SFLAG,SH11,SH12,SH21,SH22,TWO,W,Z,ZERO;
+      double SFLAG,SH11,SH12,SH21,SH22,TWO,W,Z,ZERO;
       int     I,KX,KY,NSTEPS;
       // ..
       // .. Data statements ..

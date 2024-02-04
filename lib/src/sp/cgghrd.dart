@@ -21,7 +21,7 @@
       // .. Local Scalars ..
       bool               ILQ, ILZ;
       int                ICOMPQ, ICOMPZ, JCOL, JROW;
-      REAL               C;
+      double               C;
       Complex            CTEMP, S;
       // ..
       // .. External Functions ..

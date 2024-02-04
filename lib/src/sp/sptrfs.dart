@@ -8,7 +8,7 @@
       int                INFO, LDB, LDX, N, NRHS;
       // ..
       // .. Array Arguments ..
-      REAL               B( LDB, * ), BERR( * ), D( * ), DF( * ), E( * ), EF( * ), FERR( * ), WORK( * ), X( LDX, * );
+      double               B( LDB, * ), BERR( * ), D( * ), DF( * ), E( * ), EF( * ), FERR( * ), WORK( * ), X( LDX, * );
       // ..
 
 // =====================================================================
@@ -16,18 +16,18 @@
       // .. Parameters ..
       int                ITMAX;
       const              ITMAX = 5 ;
-      REAL               ZERO;
+      double               ZERO;
       const              ZERO = 0.0 ;
-      REAL               ONE;
+      double               ONE;
       const              ONE = 1.0 ;
-      REAL               TWO;
+      double               TWO;
       const              TWO = 2.0 ;
-      REAL               THREE;
+      double               THREE;
       const              THREE = 3.0 ;
       // ..
       // .. Local Scalars ..
       int                COUNT, I, IX, J, NZ;
-      REAL               BI, CX, DX, EPS, EX, LSTRES, S, SAFE1, SAFE2, SAFMIN;
+      double               BI, CX, DX, EPS, EX, LSTRES, S, SAFE1, SAFE2, SAFMIN;
       // ..
       // .. External Subroutines ..
       // EXTERNAL SAXPY, SPTTRS, XERBLA

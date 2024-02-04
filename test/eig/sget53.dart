@@ -6,20 +6,20 @@
 
       // .. Scalar Arguments ..
       int                INFO, LDA, LDB;
-      REAL               RESULT, SCALE, WI, WR;
+      double               RESULT, SCALE, WI, WR;
       // ..
       // .. Array Arguments ..
-      REAL               A( LDA, * ), B( LDB, * );
+      double               A( LDA, * ), B( LDB, * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
-      REAL               ABSW, ANORM, BNORM, CI11, CI12, CI22, CNORM, CR11, CR12, CR21, CR22, CSCALE, DETI, DETR, S1, SAFMIN, SCALES, SIGMIN, TEMP, ULP, WIS, WRS;
+      double               ABSW, ANORM, BNORM, CI11, CI12, CI22, CNORM, CR11, CR12, CR21, CR22, CSCALE, DETI, DETR, S1, SAFMIN, SCALES, SIGMIN, TEMP, ULP, WIS, WRS;
       // ..
       // .. External Functions ..
       //- REAL               SLAMCH;

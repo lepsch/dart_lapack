@@ -10,7 +10,7 @@
       // ..
       // .. Array Arguments ..
       int                IWORK( * );
-      REAL               RWORK( * ), W( * );
+      double               RWORK( * ), W( * );
       Complex            AB( LDAB, * ), BB( LDBB, * ), WORK( * ), Z( LDZ, * );
       // ..
 

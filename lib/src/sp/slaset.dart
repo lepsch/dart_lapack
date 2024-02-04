@@ -7,10 +7,10 @@
       // .. Scalar Arguments ..
       String             UPLO;
       int                LDA, M, N;
-      REAL               ALPHA, BETA;
+      double               ALPHA, BETA;
       // ..
       // .. Array Arguments ..
-      REAL               A( LDA, * );
+      double               A( LDA, * );
       // ..
 
 // =====================================================================

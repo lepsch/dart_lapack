@@ -5,13 +5,13 @@
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
-      REAL               ALPHA, BETA;
+      double               ALPHA, BETA;
       int                INCX, INCY, LDA, M, N;
       int                TRANS;
       // ..
       // .. Array Arguments ..
       Complex            A( LDA, * ), X( * );
-      REAL               Y( * );
+      double               Y( * );
       // ..
 
 // =====================================================================
@@ -22,13 +22,13 @@
       // ..
       // .. Local Scalars ..
       bool               SYMB_ZERO;
-      REAL               TEMP, SAFE1;
+      double               TEMP, SAFE1;
       int                I, INFO, IY, J, JX, KX, KY, LENX, LENY;
       Complex            CDUM;
       // ..
       // .. External Subroutines ..
       // EXTERNAL XERBLA, SLAMCH
-      REAL               SLAMCH;
+      double               SLAMCH;
       // ..
       // .. External Functions ..
       // EXTERNAL ILATRANS
@@ -38,10 +38,10 @@
       // INTRINSIC MAX, ABS, REAL, AIMAG, SIGN
       // ..
       // .. Statement Functions ..
-      REAL               CABS1;
+      double               CABS1;
       // ..
       // .. Statement Function Definitions ..
-      CABS1[CDUM] = ( REAL( CDUM ) ).abs() + ( AIMAG( CDUM ) ).abs();
+      CABS1[CDUM] = ( double( CDUM ) ).abs() + ( AIMAG( CDUM ) ).abs();
       // ..
       // .. Executable Statements ..
 

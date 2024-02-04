@@ -6,21 +6,21 @@
 
       // .. Scalar Arguments ..
       int                INFO, LDA, LDU, LIWORK, LRWORK, LWORK, NOUNIT, NSIZES, NTYPES;
-      REAL               THRESH;
+      double               THRESH;
       // ..
       // .. Array Arguments ..
       bool               DOTYPE( * );
       int                ISEED( 4 ), IWORK( * ), NN( * );
-      REAL               D1( * ), D2( * ), D3( * ), RESULT( * ), RWORK( * ), WA1( * ), WA2( * ), WA3( * )       Complex            A( LDA, * ), TAU( * ), U( LDU, * ), V( LDU, * ), WORK( * ), Z( LDU, * );
+      double               D1( * ), D2( * ), D3( * ), RESULT( * ), RWORK( * ), WA1( * ), WA2( * ), WA3( * )       Complex            A( LDA, * ), TAU( * ), U( LDU, * ), V( LDU, * ), WORK( * ), Z( LDU, * );
       // ..
 
 // =====================================================================
 
 
       // .. Parameters ..
-      REAL               ZERO, ONE, TWO, TEN;
+      double               ZERO, ONE, TWO, TEN;
       const              ZERO = 0.0, ONE = 1.0, TWO = 2.0, TEN = 10.0 ;
-      REAL               HALF;
+      double               HALF;
       const              HALF = ONE / TWO ;
       Complex            CZERO, CONE;
       const              CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
@@ -31,7 +31,7 @@
       bool               BADNN;
       String             UPLO;
       int                I, IDIAG, IHBW, IINFO, IL, IMODE, INDWRK, INDX, IROW, ITEMP, ITYPE, IU, IUPLO, J, J1, J2, JCOL, JSIZE, JTYPE, KD, LGN, LIWEDC, LRWEDC, LWEDC, M, M2, M3, MTYPES, N, NERRS, NMATS, NMAX, NTEST, NTESTT;
-      REAL               ABSTOL, ANINV, ANORM, COND, OVFL, RTOVFL, RTUNFL, TEMP1, TEMP2, TEMP3, ULP, ULPINV, UNFL, VL, VU;
+      double               ABSTOL, ANINV, ANORM, COND, OVFL, RTOVFL, RTUNFL, TEMP1, TEMP2, TEMP3, ULP, ULPINV, UNFL, VL, VU;
       // ..
       // .. Local Arrays ..
       int                IDUMMA( 1 ), IOLDSD( 4 ), ISEED2( 4 ), ISEED3( 4 ), KMAGN( MAXTYP ), KMODE( MAXTYP ), KTYPE( MAXTYP );
@@ -112,7 +112,7 @@
       for (JSIZE = 1; JSIZE <= NSIZES; JSIZE++) { // 1220
          N = NN( JSIZE );
          if ( N > 0 ) {
-            LGN = INT( LOG( REAL( N ) ) / LOG( TWO ) );
+            LGN = INT( LOG( double( N ) ) / LOG( TWO ) );
             if (2**LGN < N) LGN = LGN + 1;
             IF( 2**LGN < N ) LGN = LGN + 1;
             LWEDC = max( 2*N+N*N, 2*N*N );

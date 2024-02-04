@@ -22,7 +22,7 @@
       // .. Local Arrays ..
       bool               SEL( NMAX );
       int                IFAILL( NMAX ), IFAILR( NMAX );
-      REAL               RW( NMAX ), S( NMAX );
+      double               RW( NMAX ), S( NMAX );
       Complex            A( NMAX, NMAX ), C( NMAX, NMAX ), TAU( NMAX ), VL( NMAX, NMAX ), VR( NMAX, NMAX ), W( LW ), X( NMAX );
       // ..
       // .. External Functions ..

@@ -11,13 +11,13 @@
       // ..
       // .. Array Arguments ..
       Complex            A( LDA, * ),  V( LDV, * ), CWORK( LWORK );
-      REAL               RWORK( LRWORK ), SVA( N );
+      double               RWORK( LRWORK ), SVA( N );
       // ..
 
 // =====================================================================
 
       // .. Local Parameters ..
-      REAL         ZERO,         HALF,         ONE;
+      double         ZERO,         HALF,         ONE;
       const      ZERO = 0.0, HALF = 0.5, ONE = 1.0;
       Complex      CZERO,                  CONE;
       const      CZERO = (0.0, 0.0), CONE = (1.0, 0.0) ;
@@ -26,7 +26,7 @@
       // ..
       // .. Local Scalars ..
       Complex    AAPQ, OMPQ;
-      REAL       AAPP, AAPP0, AAPQ1, AAQQ, APOAQ, AQOAP, BIG, BIGTHETA, CS, CTOL, EPSLN, MXAAPQ, MXSINJ, ROOTBIG, ROOTEPS, ROOTSFMIN, ROOTTOL, SKL, SFMIN, SMALL, SN, T, TEMP1, THETA, THSIGN, TOL;
+      double       AAPP, AAPP0, AAPQ1, AAQQ, APOAQ, AQOAP, BIG, BIGTHETA, CS, CTOL, EPSLN, MXAAPQ, MXSINJ, ROOTBIG, ROOTEPS, ROOTSFMIN, ROOTTOL, SKL, SFMIN, SMALL, SN, T, TEMP1, THETA, THSIGN, TOL;
       int        BLSKIP, EMPTSW, i, ibr, IERR, igl, IJBLSK, ir1, ISWROT, jbc, jgl, KBL, LKAHEAD, MVL, N2, N34, N4, NBL, NOTROT, p, PSKIPPED, q, ROWSKIP, SWBAND, MINMN, LWMIN, LRWMIN;
       bool       APPLV, GOSCALE, LOWER, LQUERY, LSVEC, NOSCALE, ROTOK, RSVEC, UCTOL, UPPER;
       // ..
@@ -37,13 +37,13 @@
       // .. External Functions ..
       // ..
       // from BLAS
-      REAL               SCNRM2;
+      double               SCNRM2;
       Complex            CDOTC;
       // EXTERNAL CDOTC, SCNRM2
       int                ISAMAX;
       // EXTERNAL ISAMAX
       // from LAPACK
-      REAL               SLAMCH, SROUNDUP_LWORK;
+      double               SLAMCH, SROUNDUP_LWORK;
       // EXTERNAL SLAMCH, SROUNDUP_LWORK
       bool               lsame;
       // EXTERNAL lsame
@@ -130,9 +130,9 @@
       } else {
          // ... default
          if ( LSVEC || RSVEC || APPLV ) {
-            CTOL = sqrt( REAL( M ) );
+            CTOL = sqrt( double( M ) );
          } else {
-            CTOL = REAL( M );
+            CTOL = double( M );
          }
       }
       // ... and the machine dependent parameters are
@@ -152,7 +152,7 @@
       TOL = CTOL*EPSLN;
       ROOTTOL = sqrt( TOL );
 
-      if ( REAL( M )*EPSLN >= ONE ) {
+      if ( double( M )*EPSLN >= ONE ) {
          INFO = -4;
          xerbla('CGESVJ', -INFO );
          return;
@@ -866,7 +866,7 @@
 
          if( ( i < SWBAND ) && ( ( MXAAPQ <= ROOTTOL ) || ( ISWROT <= N ) ) )SWBAND = i;
 
-         if ( ( i > SWBAND+1 ) && ( MXAAPQ < sqrt( REAL( N ) )* TOL ) && ( REAL( N )*MXAAPQ*MXSINJ < TOL ) ) {
+         if ( ( i > SWBAND+1 ) && ( MXAAPQ < sqrt( REAL( N ) )* TOL ) && ( double( N )*MXAAPQ*MXSINJ < TOL ) ) {
             GO TO 1994;
          }
 
@@ -942,15 +942,15 @@
       // then some of the singular values may overflow or underflow and
       // the spectrum is given in this factored representation.
 
-      RWORK[2] = REAL( N4 );
+      RWORK[2] = double( N4 );
       // N4 is the number of computed nonzero singular values of A.
 
-      RWORK[3] = REAL( N2 );
+      RWORK[3] = double( N2 );
       // N2 is the number of singular values of A greater than SFMIN.
       // If N2<N, SVA(N2:N) contains ZEROS and/or denormalized numbers
       // that may carry some information.
 
-      RWORK[4] = REAL( i );
+      RWORK[4] = double( i );
       // i is the index of the last sweep before declaring convergence.
 
       RWORK[5] = MXAAPQ;

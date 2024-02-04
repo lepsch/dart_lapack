@@ -5,21 +5,21 @@
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
-      REAL               SI1, SI2, SR1, SR2;
+      double               SI1, SI2, SR1, SR2;
       int                LDH, N;
       // ..
       // .. Array Arguments ..
-      REAL               H( LDH, * ), V( * );
+      double               H( LDH, * ), V( * );
       // ..
 
 // ================================================================
 
       // .. Parameters ..
-      REAL               ZERO;
+      double               ZERO;
       const              ZERO = 0.0 ;
       // ..
       // .. Local Scalars ..
-      REAL               H21S, H31S, S;
+      double               H21S, H31S, S;
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC ABS

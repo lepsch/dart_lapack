@@ -9,7 +9,7 @@
       int                INFO, LDA, LDB, N, NRHS;
       // ..
       // .. Array Arguments ..
-      REAL               A( LDA, * ), B( LDB, * );
+      double               A( LDA, * ), B( LDB, * );
       // ..
 
 // =====================================================================

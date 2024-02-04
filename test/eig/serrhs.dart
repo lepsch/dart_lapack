@@ -22,7 +22,7 @@
       // .. Local Arrays ..
       bool               SEL( NMAX );
       int                IFAILL( NMAX ), IFAILR( NMAX );
-      REAL               A( NMAX, NMAX ), C( NMAX, NMAX ), TAU( NMAX ), VL( NMAX, NMAX ), VR( NMAX, NMAX ), W( LW ), WI( NMAX ), WR( NMAX ), S( NMAX );
+      double               A( NMAX, NMAX ), C( NMAX, NMAX ), TAU( NMAX ), VL( NMAX, NMAX ), VR( NMAX, NMAX ), W( LW ), WI( NMAX ), WR( NMAX ), S( NMAX );
       // ..
       // .. External Functions ..
       //- bool               LSAMEN;
@@ -55,7 +55,7 @@
          for (I = 1; I <= NMAX; I++) { // 10
             A[I, J] = 1. / REAL( I+J );
          } // 10
-         WI[J] = REAL( J );
+         WI[J] = double( J );
          SEL[J] = true;
       } // 20
       OK = true;

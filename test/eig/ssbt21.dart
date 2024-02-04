@@ -9,20 +9,20 @@
       int                KA, KS, LDA, LDU, N;
       // ..
       // .. Array Arguments ..
-      REAL               A( LDA, * ), D( * ), E( * ), RESULT( 2 ), U( LDU, * ), WORK( * );
+      double               A( LDA, * ), D( * ), E( * ), RESULT( 2 ), U( LDU, * ), WORK( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
       bool               LOWER;
       String             CUPLO;
       int                IKA, J, JC, JR, LW;
-      REAL               ANORM, ULP, UNFL, WNORM;
+      double               ANORM, ULP, UNFL, WNORM;
       // ..
       // .. External Functions ..
       //- bool               lsame;
@@ -123,7 +123,7 @@
          WORK[( N+1 )*( J-1 )+1] = WORK( ( N+1 )*( J-1 )+1 ) - ONE;
       } // 80
 
-      RESULT[2] = min( SLANGE( '1', N, N, WORK, N, WORK( N**2+1 ) ), REAL( N ) ) / ( N*ULP );
+      RESULT[2] = min( SLANGE( '1', N, N, WORK, N, WORK( N**2+1 ) ), double( N ) ) / ( N*ULP );
 
       return;
       }

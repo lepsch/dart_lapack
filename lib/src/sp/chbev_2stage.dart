@@ -11,20 +11,20 @@
       int                INFO, KD, LDAB, LDZ, N, LWORK;
       // ..
       // .. Array Arguments ..
-      REAL               RWORK( * ), W( * );
+      double               RWORK( * ), W( * );
       Complex            AB( LDAB, * ), WORK( * ), Z( LDZ, * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
       bool               LOWER, WANTZ, LQUERY;
       int                IINFO, IMAX, INDE, INDWRK, INDRWK, ISCALE, LLWORK, LWMIN, LHTRD, LWTRD, IB, INDHOUS;
-      REAL               ANRM, BIGNUM, EPS, RMAX, RMIN, SAFMIN, SIGMA, SMLNUM;
+      double               ANRM, BIGNUM, EPS, RMAX, RMIN, SAFMIN, SIGMA, SMLNUM;
       // ..
       // .. External Functions ..
       //- bool               lsame;
@@ -87,9 +87,9 @@
 
       if ( N == 1 ) {
          if ( LOWER ) {
-            W[1] = REAL( AB( 1, 1 ) );
+            W[1] = double( AB( 1, 1 ) );
          } else {
-            W[1] = REAL( AB( KD+1, 1 ) );
+            W[1] = double( AB( KD+1, 1 ) );
          }
          if (WANTZ) Z( 1, 1 ) = ONE;
          return;

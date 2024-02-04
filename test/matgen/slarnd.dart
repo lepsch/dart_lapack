@@ -1,4 +1,4 @@
-      REAL slarnd(IDIST, ISEED ) {
+      double slarnd(IDIST, ISEED ) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -14,13 +14,13 @@
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ONE, TWO;
+      double               ONE, TWO;
       const              ONE = 1.0, TWO = 2.0 ;
-      REAL               TWOPI;
+      double               TWOPI;
       const      TWOPI = 6.28318530717958647692528676655900576839 ;
       // ..
       // .. Local Scalars ..
-      REAL               T1, T2;
+      double               T1, T2;
       // ..
       // .. External Functions ..
       //- REAL               SLARAN;

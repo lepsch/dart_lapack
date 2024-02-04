@@ -9,7 +9,7 @@
       int                INFO, KA, KB, LDAB, LDBB, LDZ, N;
       // ..
       // .. Array Arguments ..
-      REAL               RWORK( * ), W( * );
+      double               RWORK( * ), W( * );
       Complex            AB( LDAB, * ), BB( LDBB, * ), WORK( * ), Z( LDZ, * );
       // ..
 

@@ -6,24 +6,24 @@
 
       // .. Scalar Arguments ..
       int                INFO, LDA, N;
-      REAL               AMAX, SCOND;
+      double               AMAX, SCOND;
       String             UPLO;
       // ..
       // .. Array Arguments ..
-      REAL               A( LDA, * ), S( * ), WORK( * );
+      double               A( LDA, * ), S( * ), WORK( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ONE, ZERO;
+      double               ONE, ZERO;
       const              ONE = 1.0, ZERO = 0.0 ;
       int                MAX_ITER;
       const              MAX_ITER = 100 ;
       // ..
       // .. Local Scalars ..
       int                I, J, ITER;
-      REAL               AVG, STD, TOL, C0, C1, C2, T, U, SI, D, BASE, SMIN, SMAX, SMLNUM, BIGNUM, SCALE, SUMSQ;
+      double               AVG, STD, TOL, C0, C1, C2, T, U, SI, D, BASE, SMIN, SMAX, SMLNUM, BIGNUM, SCALE, SUMSQ;
       bool               UP;
       // ..
       // .. External Functions ..

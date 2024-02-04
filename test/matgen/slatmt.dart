@@ -5,27 +5,27 @@
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
-      REAL               COND, DMAX;
+      double               COND, DMAX;
       int                INFO, KL, KU, LDA, M, MODE, N, RANK;
       String             DIST, PACK, SYM;
       // ..
       // .. Array Arguments ..
-      REAL               A( LDA, * ), D( * ), WORK( * );
+      double               A( LDA, * ), D( * ), WORK( * );
       int                ISEED( 4 );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO;
+      double               ZERO;
       const              ZERO = 0.0 ;
-      REAL               ONE;
+      double               ONE;
       const              ONE = 1.0 ;
-      REAL               TWOPI;
+      double               TWOPI;
       const      TWOPI = 6.28318530717958647692528676655900576839 ;
       // ..
       // .. Local Scalars ..
-      REAL               ALPHA, ANGLE, C, DUMMY, EXTRA, S, TEMP;
+      double               ALPHA, ANGLE, C, DUMMY, EXTRA, S, TEMP;
       int                I, IC, ICOL, IDIST, IENDCH, IINFO, IL, ILDA, IOFFG, IOFFST, IPACK, IPACKG, IR, IR1, IR2, IROW, IRSIGN, ISKEW, ISYM, ISYMPK, J, JC, JCH, JKL, JKU, JR, K, LLB, MINLDA, MNMIN, MR, NC, UUB;
       bool               GIVENS, ILEXTR, ILTEMP, TOPDWN;
       // ..
@@ -131,7 +131,7 @@
 
       GIVENS = false;
       if ( ISYM == 1 ) {
-         if( REAL( LLB+UUB ) < 0.3*REAL( max( 1, MR+NC ) ) ) GIVENS = true;
+         if( REAL( LLB+UUB ) < 0.3*double( max( 1, MR+NC ) ) ) GIVENS = true;
       } else {
          if (2*LLB < M) GIVENS = true ;
       }

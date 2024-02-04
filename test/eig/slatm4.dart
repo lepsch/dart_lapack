@@ -6,24 +6,24 @@
 
       // .. Scalar Arguments ..
       int                IDIST, ISIGN, ITYPE, LDA, N, NZ1, NZ2;
-      REAL               AMAGN, RCOND, TRIANG;
+      double               AMAGN, RCOND, TRIANG;
       // ..
       // .. Array Arguments ..
       int                ISEED( 4 );
-      REAL               A( LDA, * );
+      double               A( LDA, * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE, TWO;
+      double               ZERO, ONE, TWO;
       const              ZERO = 0.0, ONE = 1.0, TWO = 2.0 ;
-      REAL               HALF;
+      double               HALF;
       const              HALF = ONE / TWO ;
       // ..
       // .. Local Scalars ..
       int                I, IOFF, ISDB, ISDE, JC, JD, JR, K, KBEG, KEND, KLEN;
-      REAL               ALPHA, CL, CR, SAFMIN, SL, SR, SV1, SV2, TEMP;
+      double               ALPHA, CL, CR, SAFMIN, SL, SR, SV1, SV2, TEMP;
       // ..
       // .. External Functions ..
       //- REAL               SLAMCH, SLARAN, SLARND;
@@ -98,7 +98,7 @@
 
          } // 80
          for (JD = KBEG; JD <= KEND; JD++) { // 90
-            A[JD, JD] = REAL( JD-NZ1 );
+            A[JD, JD] = double( JD-NZ1 );
          } // 90
          GO TO 220;
 
@@ -127,7 +127,7 @@
          if ( KLEN > 1 ) {
             ALPHA = RCOND**( ONE / REAL( KLEN-1 ) );
             for (I = 2; I <= KLEN; I++) { // 150
-               A[NZ1+I, NZ1+I] = ALPHA**REAL( I-1 );
+               A[NZ1+I, NZ1+I] = ALPHA**double( I-1 );
             } // 150
          }
          GO TO 220;
@@ -139,7 +139,7 @@
          if ( KLEN > 1 ) {
             ALPHA = ( ONE-RCOND ) / REAL( KLEN-1 );
             for (I = 2; I <= KLEN; I++) { // 170
-               A[NZ1+I, NZ1+I] = REAL( KLEN-I )*ALPHA + RCOND;
+               A[NZ1+I, NZ1+I] = double( KLEN-I )*ALPHA + RCOND;
             } // 170
          }
          GO TO 220;
@@ -165,10 +165,10 @@
          // Scale by AMAGN
 
          for (JD = KBEG; JD <= KEND; JD++) { // 230
-            A[JD, JD] = AMAGN*REAL( A( JD, JD ) );
+            A[JD, JD] = AMAGN*double( A( JD, JD ) );
          } // 230
          for (JD = ISDB; JD <= ISDE; JD++) { // 240
-            A[JD+1, JD] = AMAGN*REAL( A( JD+1, JD ) );
+            A[JD+1, JD] = AMAGN*double( A( JD+1, JD ) );
          } // 240
 
          // If ISIGN = 1 or 2, assign random signs to diagonal and
@@ -176,12 +176,12 @@
 
          if ( ISIGN > 0 ) {
             for (JD = KBEG; JD <= KEND; JD++) { // 250
-               if ( REAL( A( JD, JD ) ) != ZERO ) {
+               if ( double( A( JD, JD ) ) != ZERO ) {
                   if[SLARAN( ISEED ) > HALF ) A( JD, JD] = -A( JD, JD );
                }
             } // 250
             for (JD = ISDB; JD <= ISDE; JD++) { // 260
-               if ( REAL( A( JD+1, JD ) ) != ZERO ) {
+               if ( double( A( JD+1, JD ) ) != ZERO ) {
                   if[SLARAN( ISEED ) > HALF ) A( JD+1, JD] = -A( JD+1, JD );
                }
             } // 260

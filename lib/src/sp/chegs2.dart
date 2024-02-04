@@ -15,7 +15,7 @@
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ONE, HALF;
+      double               ONE, HALF;
       const              ONE = 1.0, HALF = 0.5 ;
       Complex            CONE;
       const              CONE = ( 1.0, 0.0 ) ;
@@ -23,7 +23,7 @@
       // .. Local Scalars ..
       bool               UPPER;
       int                K;
-      REAL               AKK, BKK;
+      double               AKK, BKK;
       Complex            CT;
       // ..
       // .. External Subroutines ..
@@ -67,8 +67,8 @@
 
                // Update the upper triangle of A(k:n,k:n)
 
-               AKK = REAL( A( K, K ) );
-               BKK = REAL( B( K, K ) );
+               AKK = double( A( K, K ) );
+               BKK = double( B( K, K ) );
                AKK = AKK / BKK**2;
                A[K, K] = AKK;
                if ( K < N ) {
@@ -92,8 +92,8 @@
 
                // Update the lower triangle of A(k:n,k:n)
 
-               AKK = REAL( A( K, K ) );
-               BKK = REAL( B( K, K ) );
+               AKK = double( A( K, K ) );
+               BKK = double( B( K, K ) );
                AKK = AKK / BKK**2;
                A[K, K] = AKK;
                if ( K < N ) {
@@ -115,8 +115,8 @@
 
                // Update the upper triangle of A(1:k,1:k)
 
-               AKK = REAL( A( K, K ) );
-               BKK = REAL( B( K, K ) );
+               AKK = double( A( K, K ) );
+               BKK = double( B( K, K ) );
                ctrmv(UPLO, 'No transpose', 'Non-unit', K-1, B, LDB, A( 1, K ), 1 );
                CT = HALF*AKK;
                caxpy(K-1, CT, B( 1, K ), 1, A( 1, K ), 1 );
@@ -133,8 +133,8 @@
 
                // Update the lower triangle of A(1:k,1:k)
 
-               AKK = REAL( A( K, K ) );
-               BKK = REAL( B( K, K ) );
+               AKK = double( A( K, K ) );
+               BKK = double( B( K, K ) );
                clacgv(K-1, A( K, 1 ), LDA );
                ctrmv(UPLO, 'Conjugate transpose', 'Non-unit', K-1, B, LDB, A( K, 1 ), LDA );
                CT = HALF*AKK;

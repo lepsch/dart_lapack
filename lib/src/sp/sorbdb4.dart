@@ -8,18 +8,18 @@
       int                INFO, LWORK, M, P, Q, LDX11, LDX21;
       // ..
       // .. Array Arguments ..
-      REAL               PHI(*), THETA(*);
-      REAL               PHANTOM(*), TAUP1(*), TAUP2(*), TAUQ1(*), WORK(*), X11(LDX11,*), X21(LDX21,*);
+      double               PHI(*), THETA(*);
+      double               PHANTOM(*), TAUP1(*), TAUP2(*), TAUQ1(*), WORK(*), X11(LDX11,*), X21(LDX21,*);
       // ..
 
 // ====================================================================
 
       // .. Parameters ..
-      REAL               NEGONE, ONE, ZERO;
+      double               NEGONE, ONE, ZERO;
       const              NEGONE = -1.0, ONE = 1.0, ZERO = 0.0 ;
       // ..
       // .. Local Scalars ..
-      REAL               C, S;
+      double               C, S;
       int                CHILDINFO, I, ILARF, IORBDB5, J, LLARF, LORBDB5, LWORKMIN, LWORKOPT;
       bool               LQUERY;
       // ..

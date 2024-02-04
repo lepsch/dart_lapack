@@ -16,13 +16,13 @@
 
       // .. Parameters ..
       Complex            ONE, NEGONE;
-      REAL               ZERO;
+      double               ZERO;
       const              ONE = (1.0, 0.0) ;
       const              NEGONE = (-1.0, 0.0) ;
       const              ZERO = 0.0 ;
       // ..
       // .. Local Scalars ..
-      REAL               SFMIN, PIVMAG;
+      double               SFMIN, PIVMAG;
       Complex            TMP;
       int                I, J, JP, NSTEP, NTOPIV, NPIVED, KAHEAD;
       int                KSTART, IPIVSTART, JPIVSTART, KCOLS;

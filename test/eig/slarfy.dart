@@ -7,20 +7,20 @@
       // .. Scalar Arguments ..
       String             UPLO;
       int                INCV, LDC, N;
-      REAL               TAU;
+      double               TAU;
       // ..
       // .. Array Arguments ..
-      REAL               C( LDC, * ), V( * ), WORK( * );
+      double               C( LDC, * ), V( * ), WORK( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ONE, ZERO, HALF;
+      double               ONE, ZERO, HALF;
       const              ONE = 1.0, ZERO = 0.0, HALF = 0.5 ;
       // ..
       // .. Local Scalars ..
-      REAL               ALPHA;
+      double               ALPHA;
       // ..
       // .. External Subroutines ..
       // EXTERNAL SAXPY, SSYMV, SSYR2

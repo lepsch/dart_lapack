@@ -15,13 +15,13 @@
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ONE, ZERO;
+      double               ONE, ZERO;
       const              ONE = 1.0, ZERO = 0.0 ;
       // ..
       // .. Local Scalars ..
       bool               UPPER;
       int                J, KLD, KM, M;
-      REAL               AJJ;
+      double               AJJ;
       // ..
       // .. External Functions ..
       //- bool               lsame;
@@ -71,7 +71,7 @@
 
             // Compute s(j,j) and test for non-positive-definiteness.
 
-            AJJ = REAL( AB( KD+1, J ) );
+            AJJ = double( AB( KD+1, J ) );
             if ( AJJ <= ZERO ) {
                AB[KD+1, J] = AJJ;
                GO TO 50;
@@ -93,7 +93,7 @@
 
             // Compute s(j,j) and test for non-positive-definiteness.
 
-            AJJ = REAL( AB( KD+1, J ) );
+            AJJ = double( AB( KD+1, J ) );
             if ( AJJ <= ZERO ) {
                AB[KD+1, J] = AJJ;
                GO TO 50;
@@ -120,7 +120,7 @@
 
             // Compute s(j,j) and test for non-positive-definiteness.
 
-            AJJ = REAL( AB( 1, J ) );
+            AJJ = double( AB( 1, J ) );
             if ( AJJ <= ZERO ) {
                AB[1, J] = AJJ;
                GO TO 50;
@@ -144,7 +144,7 @@
 
             // Compute s(j,j) and test for non-positive-definiteness.
 
-            AJJ = REAL( AB( 1, J ) );
+            AJJ = double( AB( 1, J ) );
             if ( AJJ <= ZERO ) {
                AB[1, J] = AJJ;
                GO TO 50;

@@ -7,12 +7,12 @@
       // .. Scalar Arguments ..
       bool               COMP;
       int                INFO, ISRT, JTYPE, LDA, LDVS, LWORK, N, NOUNIT, NSLCT;
-      REAL               RCDEIN, RCDVIN, THRESH;
+      double               RCDEIN, RCDVIN, THRESH;
       // ..
       // .. Array Arguments ..
       bool               BWORK( * );
       int                ISEED( 4 ), ISLCT( * );
-      REAL               RESULT( 17 ), RWORK( * );
+      double               RESULT( 17 ), RWORK( * );
       Complex            A( LDA, * ), H( LDA, * ), HT( LDA, * ), VS( LDVS, * ), VS1( LDVS, * ), W( * ), WORK( * ), WT( * ), WTMP( * );
       // ..
 
@@ -21,15 +21,15 @@
       // .. Parameters ..
       Complex            CZERO, CONE;
       const              CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
-      REAL               EPSIN;
+      double               EPSIN;
       const              EPSIN = 5.9605e-8 ;
       // ..
       // .. Local Scalars ..
       String             SORT;
       int                I, IINFO, ISORT, ITMP, J, KMIN, KNTEIG, RSUB, SDIM, SDIM1;
-      REAL               ANORM, EPS, RCNDE1, RCNDV1, RCONDE, RCONDV, SMLNUM, TOL, TOLIN, ULP, ULPINV, V, VRICMP, VRIMIN, WNORM;
+      double               ANORM, EPS, RCNDE1, RCNDV1, RCONDE, RCONDV, SMLNUM, TOL, TOLIN, ULP, ULPINV, V, VRICMP, VRIMIN, WNORM;
       Complex            CTMP;
       // ..
       // .. Local Arrays ..
@@ -48,7 +48,7 @@
       // ..
       // .. Arrays in Common ..
       bool               SELVAL( 20 );
-      REAL               SELWI( 20 ), SELWR( 20 );
+      double               SELWI( 20 ), SELWR( 20 );
       // ..
       // .. Scalars in Common ..
       int                SELDIM, SELOPT;
@@ -422,19 +422,19 @@
          for (I = 1; I <= N; I++) { // 230
             IPNT[I] = I;
             SELVAL[I] = false;
-            SELWR[I] = REAL( WTMP( I ) );
+            SELWR[I] = double( WTMP( I ) );
             SELWI[I] = AIMAG( WTMP( I ) );
          } // 230
          for (I = 1; I <= N - 1; I++) { // 250
             KMIN = I;
             if ( ISRT == 0 ) {
-               VRIMIN = REAL( WTMP( I ) );
+               VRIMIN = double( WTMP( I ) );
             } else {
                VRIMIN = AIMAG( WTMP( I ) );
             }
             for (J = I + 1; J <= N; J++) { // 240
                if ( ISRT == 0 ) {
-                  VRICMP = REAL( WTMP( J ) );
+                  VRICMP = double( WTMP( J ) );
                } else {
                   VRICMP = AIMAG( WTMP( J ) );
                }
@@ -470,7 +470,7 @@
          // taking its condition number into account
 
          ANORM = CLANGE( '1', N, N, A, LDA, RWORK );
-         V = max( REAL( N )*EPS*ANORM, SMLNUM );
+         V = max( double( N )*EPS*ANORM, SMLNUM );
          if (ANORM == ZERO) V = ONE;
          if ( V > RCONDV ) {
             TOL = ONE;

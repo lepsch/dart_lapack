@@ -16,21 +16,21 @@
       int                N, KD, LDAB, LHOUS, LWORK, INFO;
       // ..
       // .. Array Arguments ..
-      REAL               D( * ), E( * );
+      double               D( * ), E( * );
       Complex            AB( LDAB, * ), HOUS( * ), WORK( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               RZERO;
+      double               RZERO;
       Complex            ZERO, ONE;
       const              RZERO = 0.0, ZERO = ( 0.0, 0.0 ), ONE  = ( 1.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
       bool               LQUERY, WANTQ, UPPER, AFTERS1;
       int                I, M, K, IB, SWEEPID, MYID, SHIFT, STT, ST, ED, STIND, EDIND, BLKLASTIND, COLPT, THED, STEPERCOL, GRSIZ, THGRSIZ, THGRNB, THGRID, NBTILES, TTYPE, TID, NTHREADS, ABDPOS, ABOFDPOS, DPOS, OFDPOS, AWPOS, INDA, INDW, APOS, SIZEA, LDA, INDV, INDTAU, SICEV, SIZETAU, LDV, LHMIN, LWMIN;
-      REAL               ABSTMP;
+      double               ABSTMP;
       Complex            TMP;
       // ..
       // .. External Subroutines ..
@@ -144,7 +144,7 @@
 
       if ( KD == 0 ) {
           for (I = 1; I <= N; I++) { // 30
-              D[I] = REAL( AB( ABDPOS, I ) );
+              D[I] = double( AB( ABDPOS, I ) );
           } // 30
           for (I = 1; I <= N-1; I++) { // 40
               E[I] = RZERO;
@@ -167,7 +167,7 @@
 
       if ( KD == 1 ) {
           for (I = 1; I <= N; I++) { // 50
-              D[I] = REAL( AB( ABDPOS, I ) );
+              D[I] = double( AB( ABDPOS, I ) );
           } // 50
 
           // make off-diagonal elements real and copy them to E
@@ -217,9 +217,9 @@
       THGRSIZ   = N;
       GRSIZ     = 1;
       SHIFT     = 3;
-      NBTILES   = CEILING( REAL(N)/REAL(KD) );
-      STEPERCOL = CEILING( REAL(SHIFT)/REAL(GRSIZ) );
-      THGRNB    = CEILING( REAL(N-1)/REAL(THGRSIZ) );
+      NBTILES   = CEILING( double(N)/REAL(KD) );
+      STEPERCOL = CEILING( double(SHIFT)/REAL(GRSIZ) );
+      THGRNB    = CEILING( double(N-1)/REAL(THGRSIZ) );
 
       clacpy("A", KD+1, N, AB, LDAB, WORK( APOS ), LDA );
       claset("A", KD,   N, ZERO, ZERO, WORK( AWPOS ), LDA );
@@ -311,7 +311,7 @@
       // the Real part is needed, the imaginary part should be zero.
 
       for (I = 1; I <= N; I++) { // 150
-          D[I] = REAL( WORK( DPOS+(I-1)*LDA ) );
+          D[I] = double( WORK( DPOS+(I-1)*LDA ) );
       } // 150
 
       // Copy the off diagonal from A to E. Note that E is REAL thus only
@@ -319,11 +319,11 @@
 
       if ( UPPER ) {
           for (I = 1; I <= N-1; I++) { // 160
-             E[I] = REAL( WORK( OFDPOS+I*LDA ) );
+             E[I] = double( WORK( OFDPOS+I*LDA ) );
           } // 160
       } else {
           for (I = 1; I <= N-1; I++) { // 170
-             E[I] = REAL( WORK( OFDPOS+(I-1)*LDA ) );
+             E[I] = double( WORK( OFDPOS+(I-1)*LDA ) );
           } // 170
       }
 

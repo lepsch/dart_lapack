@@ -9,7 +9,7 @@
       // ..
       // .. Array Arguments ..
       int                ISEED( 4 );
-      REAL               D( * );
+      double               D( * );
       Complex            A( LDA, * ), WORK( * );
       // ..
 
@@ -21,7 +21,7 @@
       // ..
       // .. Local Scalars ..
       int                I, J;
-      REAL               WN;
+      double               WN;
       Complex            TAU, WA, WB;
       // ..
       // .. External Subroutines ..
@@ -86,7 +86,7 @@
                WB = WORK( 1 ) + WA;
                cscal(M-I, ONE / WB, WORK( 2 ), 1 );
                WORK[1] = ONE;
-               TAU = REAL( WB / WA );
+               TAU = double( WB / WA );
             }
 
             // multiply A(i:m,i:n) by random reflection from the left
@@ -107,7 +107,7 @@
                WB = WORK( 1 ) + WA;
                cscal(N-I, ONE / WB, WORK( 2 ), 1 );
                WORK[1] = ONE;
-               TAU = REAL( WB / WA );
+               TAU = double( WB / WA );
             }
 
             // multiply A(i:m,i:n) by random reflection from the right
@@ -137,7 +137,7 @@
                   WB = A( KL+I, I ) + WA;
                   cscal(M-KL-I, ONE / WB, A( KL+I+1, I ), 1 );
                   A[KL+I, I] = ONE;
-                  TAU = REAL( WB / WA );
+                  TAU = double( WB / WA );
                }
 
                // apply reflection to A(kl+i:m,i+1:n) from the left
@@ -159,7 +159,7 @@
                   WB = A( I, KU+I ) + WA;
                   cscal(N-KU-I, ONE / WB, A( I, KU+I+1 ), LDA );
                   A[I, KU+I] = ONE;
-                  TAU = REAL( WB / WA );
+                  TAU = double( WB / WA );
                }
 
                // apply reflection to A(i+1:m,ku+i:n) from the right
@@ -186,7 +186,7 @@
                   WB = A( I, KU+I ) + WA;
                   cscal(N-KU-I, ONE / WB, A( I, KU+I+1 ), LDA );
                   A[I, KU+I] = ONE;
-                  TAU = REAL( WB / WA );
+                  TAU = double( WB / WA );
                }
 
                // apply reflection to A(i+1:m,ku+i:n) from the right
@@ -209,7 +209,7 @@
                   WB = A( KL+I, I ) + WA;
                   cscal(M-KL-I, ONE / WB, A( KL+I+1, I ), 1 );
                   A[KL+I, I] = ONE;
-                  TAU = REAL( WB / WA );
+                  TAU = double( WB / WA );
                }
 
                // apply reflection to A(kl+i:m,i+1:n) from the left

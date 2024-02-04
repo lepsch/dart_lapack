@@ -6,20 +6,20 @@
 
       // .. Scalar Arguments ..
       int                LDA, LDB;
-      REAL               CSL, CSR, SNL, SNR;
+      double               CSL, CSR, SNL, SNR;
       // ..
       // .. Array Arguments ..
-      REAL               A( LDA, * ), ALPHAI( 2 ), ALPHAR( 2 ), B( LDB, * ), BETA( 2 );
+      double               A( LDA, * ), ALPHAI( 2 ), ALPHAR( 2 ), B( LDB, * ), BETA( 2 );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
-      REAL               ANORM, ASCALE, BNORM, BSCALE, H1, H2, H3, QQ, R, RR, SAFMIN, SCALE1, SCALE2, T, ULP, WI, WR1, WR2;
+      double               ANORM, ASCALE, BNORM, BSCALE, H1, H2, H3, QQ, R, RR, SAFMIN, SCALE1, SCALE2, T, ULP, WI, WR1, WR2;
       // ..
       // .. External Subroutines ..
       // EXTERNAL SLAG2, SLARTG, SLASV2, SROT

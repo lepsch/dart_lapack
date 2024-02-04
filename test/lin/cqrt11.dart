@@ -1,4 +1,4 @@
-      REAL cqrt11(M, K, A, LDA, TAU, WORK, LWORK ) {
+      double cqrt11(M, K, A, LDA, TAU, WORK, LWORK ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -14,7 +14,7 @@
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
@@ -31,7 +31,7 @@
       // INTRINSIC CMPLX, REAL
       // ..
       // .. Local Arrays ..
-      REAL               RDUMMY( 1 );
+      double               RDUMMY( 1 );
       // ..
       // .. Executable Statements ..
 

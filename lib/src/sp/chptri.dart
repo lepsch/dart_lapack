@@ -16,14 +16,14 @@
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ONE;
+      double               ONE;
       Complex            CONE, ZERO;
       const              ONE = 1.0, CONE = ( 1.0, 0.0 ), ZERO = ( 0.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
       bool               UPPER;
       int                J, K, KC, KCNEXT, KP, KPC, KSTEP, KX, NPP;
-      REAL               AK, AKP1, D, T;
+      double               AK, AKP1, D, T;
       Complex            AKKP1, TEMP;
       // ..
       // .. External Functions ..
@@ -108,7 +108,7 @@
 
             if ( K > 1 ) {
                ccopy(K-1, AP( KC ), 1, WORK, 1 );
-               chpmv[UPLO, K-1, -CONE, AP, WORK, 1, ZERO, AP( KC ), 1 )                AP( KC+K-1] = AP( KC+K-1 ) - REAL( CDOTC( K-1, WORK, 1, AP( KC ), 1 ) );
+               chpmv[UPLO, K-1, -CONE, AP, WORK, 1, ZERO, AP( KC ), 1 )                AP( KC+K-1] = AP( KC+K-1 ) - double( CDOTC( K-1, WORK, 1, AP( KC ), 1 ) );
             }
             KSTEP = 1;
          } else {
@@ -118,8 +118,8 @@
             // Invert the diagonal block.
 
             T = ( AP( KCNEXT+K-1 ) ).abs();
-            AK = REAL( AP( KC+K-1 ) ) / T;
-            AKP1 = REAL( AP( KCNEXT+K ) ) / T;
+            AK = double( AP( KC+K-1 ) ) / T;
+            AKP1 = double( AP( KCNEXT+K ) ) / T;
             AKKP1 = AP( KCNEXT+K-1 ) / T;
             D = T*( AK*AKP1-ONE );
             AP[KC+K-1] = AKP1 / D;
@@ -130,9 +130,9 @@
 
             if ( K > 1 ) {
                ccopy(K-1, AP( KC ), 1, WORK, 1 );
-               chpmv[UPLO, K-1, -CONE, AP, WORK, 1, ZERO, AP( KC ), 1 )                AP( KC+K-1] = AP( KC+K-1 ) - REAL( CDOTC( K-1, WORK, 1, AP( KC ), 1 ) )                AP( KCNEXT+K-1 ) = AP( KCNEXT+K-1 ) - CDOTC( K-1, AP( KC ), 1, AP( KCNEXT ), 1 );
+               chpmv[UPLO, K-1, -CONE, AP, WORK, 1, ZERO, AP( KC ), 1 )                AP( KC+K-1] = AP( KC+K-1 ) - double( CDOTC( K-1, WORK, 1, AP( KC ), 1 ) )                AP( KCNEXT+K-1 ) = AP( KCNEXT+K-1 ) - CDOTC( K-1, AP( KC ), 1, AP( KCNEXT ), 1 );
                ccopy(K-1, AP( KCNEXT ), 1, WORK, 1 );
-               chpmv[UPLO, K-1, -CONE, AP, WORK, 1, ZERO, AP( KCNEXT ), 1 )                AP( KCNEXT+K] = AP( KCNEXT+K ) - REAL( CDOTC( K-1, WORK, 1, AP( KCNEXT ), 1 ) );
+               chpmv[UPLO, K-1, -CONE, AP, WORK, 1, ZERO, AP( KCNEXT ), 1 )                AP( KCNEXT+K] = AP( KCNEXT+K ) - double( CDOTC( K-1, WORK, 1, AP( KCNEXT ), 1 ) );
             }
             KSTEP = 2;
             KCNEXT = KCNEXT + K + 1;
@@ -198,7 +198,7 @@
 
             if ( K < N ) {
                ccopy(N-K, AP( KC+1 ), 1, WORK, 1 );
-               chpmv[UPLO, N-K, -CONE, AP( KC+N-K+1 ), WORK, 1, ZERO, AP( KC+1 ), 1 )                AP( KC] = AP( KC ) - REAL( CDOTC( N-K, WORK, 1, AP( KC+1 ), 1 ) );
+               chpmv[UPLO, N-K, -CONE, AP( KC+N-K+1 ), WORK, 1, ZERO, AP( KC+1 ), 1 )                AP( KC] = AP( KC ) - double( CDOTC( N-K, WORK, 1, AP( KC+1 ), 1 ) );
             }
             KSTEP = 1;
          } else {
@@ -208,8 +208,8 @@
             // Invert the diagonal block.
 
             T = ( AP( KCNEXT+1 ) ).abs();
-            AK = REAL( AP( KCNEXT ) ) / T;
-            AKP1 = REAL( AP( KC ) ) / T;
+            AK = double( AP( KCNEXT ) ) / T;
+            AKP1 = double( AP( KC ) ) / T;
             AKKP1 = AP( KCNEXT+1 ) / T;
             D = T*( AK*AKP1-ONE );
             AP[KCNEXT] = AKP1 / D;
@@ -220,9 +220,9 @@
 
             if ( K < N ) {
                ccopy(N-K, AP( KC+1 ), 1, WORK, 1 );
-               chpmv[UPLO, N-K, -CONE, AP( KC+( N-K+1 ) ), WORK, 1, ZERO, AP( KC+1 ), 1 )                AP( KC] = AP( KC ) - REAL( CDOTC( N-K, WORK, 1, AP( KC+1 ), 1 ) )                AP( KCNEXT+1 ) = AP( KCNEXT+1 ) - CDOTC( N-K, AP( KC+1 ), 1, AP( KCNEXT+2 ), 1 );
+               chpmv[UPLO, N-K, -CONE, AP( KC+( N-K+1 ) ), WORK, 1, ZERO, AP( KC+1 ), 1 )                AP( KC] = AP( KC ) - double( CDOTC( N-K, WORK, 1, AP( KC+1 ), 1 ) )                AP( KCNEXT+1 ) = AP( KCNEXT+1 ) - CDOTC( N-K, AP( KC+1 ), 1, AP( KCNEXT+2 ), 1 );
                ccopy(N-K, AP( KCNEXT+2 ), 1, WORK, 1 );
-               chpmv[UPLO, N-K, -CONE, AP( KC+( N-K+1 ) ), WORK, 1, ZERO, AP( KCNEXT+2 ), 1 )                AP( KCNEXT] = AP( KCNEXT ) - REAL( CDOTC( N-K, WORK, 1, AP( KCNEXT+2 ), 1 ) );
+               chpmv[UPLO, N-K, -CONE, AP( KC+( N-K+1 ) ), WORK, 1, ZERO, AP( KCNEXT+2 ), 1 )                AP( KCNEXT] = AP( KCNEXT ) - double( CDOTC( N-K, WORK, 1, AP( KCNEXT+2 ), 1 ) );
             }
             KSTEP = 2;
             KCNEXT = KCNEXT - ( N-K+3 );

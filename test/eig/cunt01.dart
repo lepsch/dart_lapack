@@ -7,23 +7,23 @@
       // .. Scalar Arguments ..
       String             ROWCOL;
       int                LDU, LWORK, M, N;
-      REAL               RESID;
+      double               RESID;
       // ..
       // .. Array Arguments ..
-      REAL               RWORK( * );
+      double               RWORK( * );
       Complex            U( LDU, * ), WORK( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
       String             TRANSU;
       int                I, J, K, LDWORK, MNMIN;
-      REAL               EPS;
+      double               EPS;
       Complex            TMP, ZDUM;
       // ..
       // .. External Functions ..
@@ -39,10 +39,10 @@
       // INTRINSIC ABS, AIMAG, CMPLX, MAX, MIN, REAL
       // ..
       // .. Statement Functions ..
-      REAL               CABS1;
+      double               CABS1;
       // ..
       // .. Statement Function definitions ..
-      CABS1[ZDUM] = ( REAL( ZDUM ) ).abs() + ( AIMAG( ZDUM ) ).abs();
+      CABS1[ZDUM] = ( double( ZDUM ) ).abs() + ( AIMAG( ZDUM ) ).abs();
       // ..
       // .. Executable Statements ..
 

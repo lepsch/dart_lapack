@@ -1,9 +1,9 @@
       void sasumsub(n,x,incx,asum) {
 
       // external sasum
-      real sasum,asum;
+      double sasum,asum;
       int     n,incx;
-      real x(*);
+      double x(*);
 
       asum=sasum(n,x,incx);
       return;

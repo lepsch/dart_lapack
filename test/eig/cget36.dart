@@ -6,13 +6,13 @@
 
       // .. Scalar Arguments ..
       int                KNT, LMAX, NIN, NINFO;
-      REAL               RMAX;
+      double               RMAX;
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       Complex            CZERO, CONE;
       const              CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
@@ -21,11 +21,11 @@
       // ..
       // .. Local Scalars ..
       int                I, IFST, ILST, INFO1, INFO2, J, N;
-      REAL               EPS, RES;
+      double               EPS, RES;
       Complex            CTEMP;
       // ..
       // .. Local Arrays ..
-      REAL               RESULT( 2 ), RWORK( LDT );
+      double               RESULT( 2 ), RWORK( LDT );
       Complex            DIAG( LDT ), Q( LDT, LDT ), T1( LDT, LDT ), T2( LDT, LDT ), TMP( LDT, LDT ), WORK( LWORK );
       // ..
       // .. External Functions ..

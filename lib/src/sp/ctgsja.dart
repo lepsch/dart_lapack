@@ -7,10 +7,10 @@
       // .. Scalar Arguments ..
       String             JOBQ, JOBU, JOBV;
       int                INFO, K, L, LDA, LDB, LDQ, LDU, LDV, M, N, NCYCLE, P;
-      REAL               TOLA, TOLB;
+      double               TOLA, TOLB;
       // ..
       // .. Array Arguments ..
-      REAL               ALPHA( * ), BETA( * );
+      double               ALPHA( * ), BETA( * );
       Complex            A( LDA, * ), B( LDB, * ), Q( LDQ, * ), U( LDU, * ), V( LDV, * ), WORK( * );
       // ..
 
@@ -19,7 +19,7 @@
       // .. Parameters ..
       int                MAXIT;
       const              MAXIT = 40 ;
-      REAL               ZERO, ONE, HUGENUM;
+      double               ZERO, ONE, HUGENUM;
       const              ZERO = 0.0, ONE = 1.0 ;
       Complex            CZERO, CONE;
       const              CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
@@ -28,7 +28,7 @@
 
       bool               INITQ, INITU, INITV, UPPER, WANTQ, WANTU, WANTV;
       int                I, J, KCYCLE;
-      REAL               A1, A3, B1, B3, CSQ, CSU, CSV, ERROR, GAMMA, RWK, SSMIN;
+      double               A1, A3, B1, B3, CSQ, CSU, CSV, ERROR, GAMMA, RWK, SSMIN;
       Complex            A2, B2, SNQ, SNU, SNV;
       // ..
       // .. External Functions ..
@@ -103,11 +103,11 @@
                A1 = ZERO;
                A2 = CZERO;
                A3 = ZERO;
-               if (K+I <= M) A1 = REAL( A( K+I, N-L+I ) );
-               IF( K+J <= M ) A3 = REAL( A( K+J, N-L+J ) );
+               if (K+I <= M) A1 = double( A( K+I, N-L+I ) );
+               IF( K+J <= M ) A3 = double( A( K+J, N-L+J ) );
 
-               B1 = REAL( B( I, N-L+I ) );
-               B3 = REAL( B( J, N-L+J ) );
+               B1 = double( B( I, N-L+I ) );
+               B3 = double( B( J, N-L+J ) );
 
                if ( UPPER ) {
                   if (K+I <= M) A2 = A( K+I, N-L+J );
@@ -144,10 +144,10 @@
 
                // Ensure that the diagonal elements of A and B are real.
 
-               if (K+I <= M) A( K+I, N-L+I ) = REAL( A( K+I, N-L+I ) );
-               IF( K+J <= M ) A( K+J, N-L+J ) = REAL( A( K+J, N-L+J ) );
-               B[I, N-L+I] = REAL( B( I, N-L+I ) );
-               B[J, N-L+J] = REAL( B( J, N-L+J ) );
+               if (K+I <= M) A( K+I, N-L+I ) = double( A( K+I, N-L+I ) );
+               IF( K+J <= M ) A( K+J, N-L+J ) = double( A( K+J, N-L+J ) );
+               B[I, N-L+I] = double( B( I, N-L+I ) );
+               B[J, N-L+J] = double( B( J, N-L+J ) );
 
                // Update unitary matrices U, V, Q, if desired.
 
@@ -201,8 +201,8 @@
 
       for (I = 1; I <= min( L, M-K ); I++) { // 70
 
-         A1 = REAL( A( K+I, N-L+I ) );
-         B1 = REAL( B( I, N-L+I ) );
+         A1 = double( A( K+I, N-L+I ) );
+         B1 = double( B( I, N-L+I ) );
          GAMMA = B1 / A1;
 
          if ( (GAMMA <= HUGENUM) && (GAMMA >= -HUGENUM) ) {

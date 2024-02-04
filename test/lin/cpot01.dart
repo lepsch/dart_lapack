@@ -7,22 +7,22 @@
       // .. Scalar Arguments ..
       String             UPLO;
       int                LDA, LDAFAC, N;
-      REAL               RESID;
+      double               RESID;
       // ..
       // .. Array Arguments ..
-      REAL               RWORK( * );
+      double               RWORK( * );
       Complex            A( LDA, * ), AFAC( LDAFAC, * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
       int                I, J, K;
-      REAL               ANORM, EPS, TR;
+      double               ANORM, EPS, TR;
       Complex            TC;
       // ..
       // .. External Functions ..
@@ -72,7 +72,7 @@
 
             // Compute the (K,K) element of the result.
 
-            TR = REAL( CDOTC( K, AFAC( 1, K ), 1, AFAC( 1, K ), 1 ) );
+            TR = double( CDOTC( K, AFAC( 1, K ), 1, AFAC( 1, K ), 1 ) );
             AFAC[K, K] = TR;
 
             // Compute the rest of column K.
@@ -106,11 +106,11 @@
             for (I = 1; I <= J - 1; I++) { // 40
                AFAC[I, J] = AFAC( I, J ) - A( I, J );
             } // 40
-            AFAC[J, J] = AFAC( J, J ) - REAL( A( J, J ) );
+            AFAC[J, J] = AFAC( J, J ) - double( A( J, J ) );
          } // 50
       } else {
          for (J = 1; J <= N; J++) { // 70
-            AFAC[J, J] = AFAC( J, J ) - REAL( A( J, J ) );
+            AFAC[J, J] = AFAC( J, J ) - double( A( J, J ) );
             for (I = J + 1; I <= N; I++) { // 60
                AFAC[I, J] = AFAC( I, J ) - A( I, J );
             } // 60

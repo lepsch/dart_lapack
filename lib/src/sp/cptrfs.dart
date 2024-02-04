@@ -9,7 +9,7 @@
       int                INFO, LDB, LDX, N, NRHS;
       // ..
       // .. Array Arguments ..
-      REAL               BERR( * ), D( * ), DF( * ), FERR( * ), RWORK( * )       Complex            B( LDB, * ), E( * ), EF( * ), WORK( * ), X( LDX, * );
+      double               BERR( * ), D( * ), DF( * ), FERR( * ), RWORK( * )       Complex            B( LDB, * ), E( * ), EF( * ), WORK( * ), X( LDX, * );
       // ..
 
 // =====================================================================
@@ -17,19 +17,19 @@
       // .. Parameters ..
       int                ITMAX;
       const              ITMAX = 5 ;
-      REAL               ZERO;
+      double               ZERO;
       const              ZERO = 0.0 ;
-      REAL               ONE;
+      double               ONE;
       const              ONE = 1.0 ;
-      REAL               TWO;
+      double               TWO;
       const              TWO = 2.0 ;
-      REAL               THREE;
+      double               THREE;
       const              THREE = 3.0 ;
       // ..
       // .. Local Scalars ..
       bool               UPPER;
       int                COUNT, I, IX, J, NZ;
-      REAL               EPS, LSTRES, S, SAFE1, SAFE2, SAFMIN;
+      double               EPS, LSTRES, S, SAFE1, SAFE2, SAFMIN;
       Complex            BI, CX, DX, EX, ZDUM;
       // ..
       // .. External Functions ..
@@ -45,10 +45,10 @@
       // INTRINSIC ABS, AIMAG, CMPLX, CONJG, MAX, REAL
       // ..
       // .. Statement Functions ..
-      REAL               CABS1;
+      double               CABS1;
       // ..
       // .. Statement Function definitions ..
-      CABS1[ZDUM] = ( REAL( ZDUM ) ).abs() + ( AIMAG( ZDUM ) ).abs();
+      CABS1[ZDUM] = ( double( ZDUM ) ).abs() + ( AIMAG( ZDUM ) ).abs();
       // ..
       // .. Executable Statements ..
 

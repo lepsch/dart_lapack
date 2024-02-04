@@ -9,7 +9,7 @@
       int                INFO, ITYPE, LDA, LDB, LWORK, N;
       // ..
       // .. Array Arguments ..
-      REAL               RWORK( * ), W( * );
+      double               RWORK( * ), W( * );
       Complex            A( LDA, * ), B( LDB, * ), WORK( * );
       // ..
 

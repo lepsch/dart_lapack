@@ -14,7 +14,7 @@
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO;
+      double               ZERO;
       const              ZERO = 0.0 ;
       // ..
       // .. Local Scalars ..
@@ -28,7 +28,7 @@
       K = min( M, N );
       for (I = 1; I <= K; I++) {
          AII = A( I, I );
-         if ( REAL( AII ) < ZERO || AIMAG( AII ) != ZERO ) {
+         if ( double( AII ) < ZERO || AIMAG( AII ) != ZERO ) {
             CGENND = false;
             return;
          }

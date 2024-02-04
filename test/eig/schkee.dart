@@ -36,18 +36,18 @@
       String             LINE;
       int                I, I1, IC, INFO, ITMP, K, LENP, MAXTYP, NEWSD, NK, NN, NPARMS, NRHS, NTYPES, VERS_MAJOR, VERS_MINOR, VERS_PATCH;
       int    *4          N_THREADS, ONE_THREAD;
-      REAL               EPS, S1, S2, THRESH, THRSHN;
+      double               EPS, S1, S2, THRESH, THRSHN;
       // ..
       // .. Local Arrays ..
       bool               DOTYPE( MAXT ), LOGWRK( NMAX );
       int                IOLDSD( 4 ), ISEED( 4 ), IWORK( LIWORK ), KVAL( MAXIN ), MVAL( MAXIN ), MXBVAL( MAXIN ), NBCOL( MAXIN ), NBMIN( MAXIN ), NBVAL( MAXIN ), NSVAL( MAXIN ), NVAL( MAXIN ), NXVAL( MAXIN ), PVAL( MAXIN );
       int                INMIN( MAXIN ), INWIN( MAXIN ), INIBL( MAXIN ), ISHFTS( MAXIN ), IACC22( MAXIN );
-      REAL               D( NMAX, 12 ), RESULT( 500 ), TAUA( NMAX ), TAUB( NMAX ), X( 5*NMAX );
+      double               D( NMAX, 12 ), RESULT( 500 ), TAUA( NMAX ), TAUB( NMAX ), X( 5*NMAX );
       // ..
       // .. Allocatable Arrays ..
       int     AllocateStatus;
-      REAL, DIMENSION(:), ALLOCATABLE :: WORK;
-      REAL, DIMENSION(:,:), ALLOCATABLE :: A, B, C;
+      double, DIMENSION(:), ALLOCATABLE :: WORK;
+      double, DIMENSION(:,:), ALLOCATABLE :: A, B, C;
       // ..
       // .. External Functions ..
       //- bool               LSAMEN;
@@ -68,7 +68,7 @@
       // .. Arrays in Common ..
       bool               SELVAL( 20 );
       int                IPARMS( 100 );
-      REAL               SELWI( 20 ), SELWR( 20 );
+      double               SELWI( 20 ), SELWR( 20 );
       // ..
       // .. Common blocks ..
       // COMMON / CENVIR / NPROC, NSHIFT, MAXB

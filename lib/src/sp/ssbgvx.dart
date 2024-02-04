@@ -7,24 +7,24 @@
       // .. Scalar Arguments ..
       String             JOBZ, RANGE, UPLO;
       int                IL, INFO, IU, KA, KB, LDAB, LDBB, LDQ, LDZ, M, N;
-      REAL               ABSTOL, VL, VU;
+      double               ABSTOL, VL, VU;
       // ..
       // .. Array Arguments ..
       int                IFAIL( * ), IWORK( * );
-      REAL               AB( LDAB, * ), BB( LDBB, * ), Q( LDQ, * ), W( * ), WORK( * ), Z( LDZ, * );
+      double               AB( LDAB, * ), BB( LDBB, * ), Q( LDQ, * ), W( * ), WORK( * ), Z( LDZ, * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
       bool               ALLEIG, INDEIG, TEST, UPPER, VALEIG, WANTZ;
       String             ORDER, VECT;
       int                I, IINFO, INDD, INDE, INDEE, INDISP, INDIWO, INDWRK, ITMP1, J, JJ, NSPLIT;
-      REAL               TMP1;
+      double               TMP1;
       // ..
       // .. External Functions ..
       //- bool               lsame;

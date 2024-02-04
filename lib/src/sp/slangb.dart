@@ -1,4 +1,4 @@
-      REAL slangb(NORM, N, KL, KU, AB, LDAB, WORK ) {
+      double slangb(NORM, N, KL, KU, AB, LDAB, WORK ) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -9,19 +9,19 @@
       int                KL, KU, LDAB, N;
       // ..
       // .. Array Arguments ..
-      REAL               AB( LDAB, * ), WORK( * );
+      double               AB( LDAB, * ), WORK( * );
       // ..
 
 // =====================================================================
 
 
       // .. Parameters ..
-      REAL               ONE, ZERO;
+      double               ONE, ZERO;
       const              ONE = 1.0, ZERO = 0.0 ;
       // ..
       // .. Local Scalars ..
       int                I, J, K, L;
-      REAL               SCALE, SUM, VALUE, TEMP;
+      double               SCALE, SUM, VALUE, TEMP;
       // ..
       // .. External Subroutines ..
       // EXTERNAL SLASSQ

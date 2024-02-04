@@ -5,21 +5,21 @@
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
-      REAL               F, G, H, SSMAX, SSMIN;
+      double               F, G, H, SSMAX, SSMIN;
       // ..
 
 // ====================================================================
 
       // .. Parameters ..
-      REAL               ZERO;
+      double               ZERO;
       const              ZERO = 0.0 ;
-      REAL               ONE;
+      double               ONE;
       const              ONE = 1.0 ;
-      REAL               TWO;
+      double               TWO;
       const              TWO = 2.0 ;
       // ..
       // .. Local Scalars ..
-      REAL               AS, AT, AU, C, FA, FHMN, FHMX, GA, HA;
+      double               AS, AT, AU, C, FA, FHMN, FHMX, GA, HA;
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, MIN, SQRT

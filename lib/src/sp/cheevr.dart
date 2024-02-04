@@ -7,25 +7,25 @@
       // .. Scalar Arguments ..
       String             JOBZ, RANGE, UPLO;
       int                IL, INFO, IU, LDA, LDZ, LIWORK, LRWORK, LWORK, M, N;
-      REAL               ABSTOL, VL, VU;
+      double               ABSTOL, VL, VU;
       // ..
       // .. Array Arguments ..
       int                ISUPPZ( * ), IWORK( * );
-      REAL               RWORK( * ), W( * );
+      double               RWORK( * ), W( * );
       Complex            A( LDA, * ), WORK( * ), Z( LDZ, * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE, TWO;
+      double               ZERO, ONE, TWO;
       const              ZERO = 0.0, ONE = 1.0, TWO = 2.0 ;
       // ..
       // .. Local Scalars ..
       bool               ALLEIG, INDEIG, LOWER, LQUERY, TEST, VALEIG, WANTZ, TRYRAC;
       String             ORDER;
       int                I, IEEEOK, IINFO, IMAX, INDIBL, INDIFL, INDISP, INDIWO, INDRD, INDRDD, INDRE, INDREE, INDRWK, INDTAU, INDWK, INDWKN, ISCALE, ITMP1, J, JJ, LIWMIN, LLWORK, LLRWORK, LLWRKN, LRWMIN, LWKOPT, LWMIN, NB, NSPLIT;
-      REAL               ABSTLL, ANRM, BIGNUM, EPS, RMAX, RMIN, SAFMIN, SIGMA, SMLNUM, TMP1, VLL, VUU;
+      double               ABSTLL, ANRM, BIGNUM, EPS, RMAX, RMIN, SAFMIN, SIGMA, SMLNUM, TMP1, VLL, VUU;
       // ..
       // .. External Functions ..
       //- bool               lsame;
@@ -127,11 +127,11 @@
          WORK[1] = 1;
          if ( ALLEIG || INDEIG ) {
             M = 1;
-            W[1] = REAL( A( 1, 1 ) );
+            W[1] = double( A( 1, 1 ) );
          } else {
-            if ( VL < REAL( A( 1, 1 ) ) && VU >= REAL( A( 1, 1 ) ) ) {
+            if ( VL < REAL( A( 1, 1 ) ) && VU >= double( A( 1, 1 ) ) ) {
                M = 1;
-               W[1] = REAL( A( 1, 1 ) );
+               W[1] = double( A( 1, 1 ) );
             }
          }
          if ( WANTZ ) {

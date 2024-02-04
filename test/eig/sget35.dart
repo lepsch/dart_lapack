@@ -6,25 +6,25 @@
 
       // .. Scalar Arguments ..
       int                KNT, LMAX, NINFO;
-      REAL               RMAX;
+      double               RMAX;
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
-      REAL               TWO, FOUR;
+      double               TWO, FOUR;
       const              TWO = 2.0, FOUR = 4.0 ;
       // ..
       // .. Local Scalars ..
       String             TRANA, TRANB;
       int                I, IMA, IMB, IMLDA1, IMLDA2, IMLDB1, IMLOFF, INFO, ISGN, ITRANA, ITRANB, J, M, N;
-      REAL               BIGNUM, CNRM, EPS, RES, RES1, RMUL, SCALE, SMLNUM, TNRM, XNRM;
+      double               BIGNUM, CNRM, EPS, RES, RES1, RMUL, SCALE, SMLNUM, TNRM, XNRM;
       // ..
       // .. Local Arrays ..
       int                IDIM( 8 ), IVAL( 6, 6, 8 );
-      REAL               A( 6, 6 ), B( 6, 6 ), C( 6, 6 ), CC( 6, 6 ), DUM( 1 ), VM1( 3 ), VM2( 3 );
+      double               A( 6, 6 ), B( 6, 6 ), C( 6, 6 ), CC( 6, 6 ), DUM( 1 ), VM1( 3 ), VM2( 3 );
       // ..
       // .. External Functions ..
       //- REAL               SLAMCH, SLANGE;
@@ -105,7 +105,7 @@
                                  CNRM = ZERO;
                                  for (I = 1; I <= M; I++) { // 60
                                     for (J = 1; J <= N; J++) { // 50
-                                       C[I, J] = SIN( REAL( I*J ) );
+                                       C[I, J] = SIN( double( I*J ) );
                                        CNRM = max( CNRM, C( I, J ) );
                                        CC[I, J] = C( I, J );
                                     } // 50
@@ -121,7 +121,7 @@
                                     }
                                  }
                                  sgemm(TRANA, 'N', M, N, M, RMUL, A, 6, C, 6, -SCALE*RMUL, CC, 6 );
-                                 sgemm('N', TRANB, M, N, N, REAL( ISGN )*RMUL, C, 6, B, 6, ONE, CC, 6 );
+                                 sgemm('N', TRANB, M, N, N, double( ISGN )*RMUL, C, 6, B, 6, ONE, CC, 6 );
                                  RES1 = SLANGE( 'M', M, N, CC, 6, DUM );
                                  RES = RES1 / max( SMLNUM, SMLNUM*XNRM, ( ( RMUL*TNRM )*EPS )*XNRM );
                                  if ( RES > RMAX ) {

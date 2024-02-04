@@ -8,13 +8,13 @@
       int     INCX,N;
       // ..
       // .. Array Arguments ..
-      REAL SX(*);
+      double SX(*);
       // ..
 
 // =====================================================================
 
       // .. Local Scalars ..
-      REAL SMAX;
+      double SMAX;
       int     I,IX;
       // ..
       // .. Intrinsic Functions ..

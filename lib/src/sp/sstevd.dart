@@ -10,19 +10,19 @@
       // ..
       // .. Array Arguments ..
       int                IWORK( * );
-      REAL               D( * ), E( * ), WORK( * ), Z( LDZ, * );
+      double               D( * ), E( * ), WORK( * ), Z( LDZ, * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
       bool               LQUERY, WANTZ;
       int                ISCALE, LIWMIN, LWMIN;
-      REAL               BIGNUM, EPS, RMAX, RMIN, SAFMIN, SIGMA, SMLNUM, TNRM;
+      double               BIGNUM, EPS, RMAX, RMIN, SAFMIN, SIGMA, SMLNUM, TNRM;
       // ..
       // .. External Functions ..
       //- bool               lsame;

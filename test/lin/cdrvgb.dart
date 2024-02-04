@@ -7,19 +7,19 @@
       // .. Scalar Arguments ..
       bool               TSTERR;
       int                LA, LAFB, NN, NOUT, NRHS;
-      REAL               THRESH;
+      double               THRESH;
       // ..
       // .. Array Arguments ..
       bool               DOTYPE( * );
       int                IWORK( * ), NVAL( * );
-      REAL               RWORK( * ), S( * );
+      double               RWORK( * ), S( * );
       Complex            A( * ), AFB( * ), ASAV( * ), B( * ), BSAV( * ), WORK( * ), X( * ), XACT( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ONE, ZERO;
+      double               ONE, ZERO;
       const              ONE = 1.0, ZERO = 0.0 ;
       int                NTYPES;
       const              NTYPES = 8 ;
@@ -33,12 +33,12 @@
       String             DIST, EQUED, FACT, TRANS, TYPE, XTYPE;
       String             PATH;
       int                I, I1, I2, IEQUED, IFACT, IKL, IKU, IMAT, IN, INFO, IOFF, ITRAN, IZERO, J, K, K1, KL, KU, LDA, LDAFB, LDB, MODE, N, NB, NBMIN, NERRS, NFACT, NFAIL, NIMAT, NKL, NKU, NRUN, NT;
-      REAL               AINVNM, AMAX, ANORM, ANORMI, ANORMO, ANRMPV, CNDNUM, COLCND, RCOND, RCONDC, RCONDI, RCONDO, ROLDC, ROLDI, ROLDO, ROWCND, RPVGRW;
+      double               AINVNM, AMAX, ANORM, ANORMI, ANORMO, ANRMPV, CNDNUM, COLCND, RCOND, RCONDC, RCONDI, RCONDO, ROLDC, ROLDI, ROLDO, ROWCND, RPVGRW;
       // ..
       // .. Local Arrays ..
       String             EQUEDS( 4 ), FACTS( 3 ), TRANSS( NTRAN );
       int                ISEED( 4 ), ISEEDY( 4 );
-      REAL               RDUM( 1 ), RESULT( NTESTS );
+      double               RDUM( 1 ), RESULT( NTESTS );
       // ..
       // .. External Functions ..
       //- bool               lsame;

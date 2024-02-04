@@ -9,20 +9,20 @@
       // ..
       // .. Array Arguments ..
       int                JPVT( * );
-      REAL               VN1( * ), VN2( * );
+      double               VN1( * ), VN2( * );
       Complex            A( LDA, * ), AUXV( * ), F( LDF, * ), TAU( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       Complex            CZERO, CONE;
       const              ZERO = 0.0, ONE = 1.0, CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
       int                ITEMP, J, K, LASTRK, LSTICC, PVT, RK;
-      REAL               TEMP, TEMP2, TOL3Z;
+      double               TEMP, TEMP2, TOL3Z;
       Complex            AKK;
       // ..
       // .. External Subroutines ..
@@ -131,7 +131,7 @@
                   TEMP = max( ZERO, ( ONE+TEMP )*( ONE-TEMP ) );
                   TEMP2 = TEMP*( VN1( J ) / VN2( J ) )**2;
                   if ( TEMP2 <= TOL3Z ) {
-                     VN2[J] = REAL( LSTICC );
+                     VN2[J] = double( LSTICC );
                      LSTICC = J;
                   } else {
                      VN1[J] = VN1( J )*sqrt( TEMP );

@@ -6,7 +6,7 @@
 
       // .. Scalar Arguments ..
       int                NN, NNS, NNT, NOUT;
-      REAL               THRESH;
+      double               THRESH;
       // ..
       // .. Array Arguments ..
       int                NVAL( NN ), NSVAL( NNS ), NTVAL( NNT );
@@ -23,17 +23,17 @@
       Complex            C_WORK_CLATMS( * );
       Complex            C_WORK_CPOT02( * );
       Complex            C_WORK_CPOT03( * );
-      REAL               S_WORK_CLATMS( * );
-      REAL               S_WORK_CLANHE( * );
-      REAL               S_WORK_CPOT01( * );
-      REAL               S_WORK_CPOT02( * );
-      REAL               S_WORK_CPOT03( * );
+      double               S_WORK_CLATMS( * );
+      double               S_WORK_CLANHE( * );
+      double               S_WORK_CPOT01( * );
+      double               S_WORK_CPOT02( * );
+      double               S_WORK_CPOT03( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ONE, ZERO;
+      double               ONE, ZERO;
       const              ONE = 1.0, ZERO = 0.0 ;
       int                NTESTS;
       const              NTESTS = 4 ;
@@ -43,12 +43,12 @@
       int                I, INFO, IUPLO, LDA, LDB, IMAT, NERRS, NFAIL, NRHS, NRUN, IZERO, IOFF, K, NT, N, IFORM, IIN, IIT, IIS;
       String             DIST, CTYPE, UPLO, CFORM;
       int                KL, KU, MODE;
-      REAL               ANORM, AINVNM, CNDNUM, RCONDC;
+      double               ANORM, AINVNM, CNDNUM, RCONDC;
       // ..
       // .. Local Arrays ..
       String             UPLOS( 2 ), FORMS( 2 );
       int                ISEED( 4 ), ISEEDY( 4 );
-      REAL               RESULT( NTESTS );
+      double               RESULT( NTESTS );
       // ..
       // .. External Functions ..
       //- REAL               CLANHE;

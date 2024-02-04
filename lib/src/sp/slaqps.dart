@@ -9,18 +9,18 @@
       // ..
       // .. Array Arguments ..
       int                JPVT( * );
-      REAL               A( LDA, * ), AUXV( * ), F( LDF, * ), TAU( * ), VN1( * ), VN2( * );
+      double               A( LDA, * ), AUXV( * ), F( LDF, * ), TAU( * ), VN1( * ), VN2( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
       int                ITEMP, J, K, LASTRK, LSTICC, PVT, RK;
-      REAL               AKK, TEMP, TEMP2, TOL3Z;
+      double               AKK, TEMP, TEMP2, TOL3Z;
       // ..
       // .. External Subroutines ..
       // EXTERNAL SGEMM, SGEMV, SLARFG, SSWAP
@@ -122,7 +122,7 @@
                   TEMP = max( ZERO, ( ONE+TEMP )*( ONE-TEMP ) );
                   TEMP2 = TEMP*( VN1( J ) / VN2( J ) )**2;
                   if ( TEMP2 <= TOL3Z ) {
-                     VN2[J] = REAL( LSTICC );
+                     VN2[J] = double( LSTICC );
                      LSTICC = J;
                   } else {
                      VN1[J] = VN1( J )*sqrt( TEMP );

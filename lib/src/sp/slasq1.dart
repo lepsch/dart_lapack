@@ -8,18 +8,18 @@
       int                INFO, N;
       // ..
       // .. Array Arguments ..
-      REAL               D( * ), E( * ), WORK( * );
+      double               D( * ), E( * ), WORK( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO;
+      double               ZERO;
       const              ZERO = 0.0 ;
       // ..
       // .. Local Scalars ..
       int                I, IINFO;
-      REAL               EPS, SCALE, SAFMIN, SIGMN, SIGMX;
+      double               EPS, SCALE, SAFMIN, SIGMN, SIGMX;
       // ..
       // .. External Subroutines ..
       // EXTERNAL SCOPY, SLAS2, SLASCL, SLASQ2, SLASRT, XERBLA

@@ -6,22 +6,22 @@
 
       // .. Scalar Arguments ..
       int                IJOB, INFO, MINP, MMAX, MOUT, N, NBMIN, NITMAX;
-      REAL               ABSTOL, PIVMIN, RELTOL;
+      double               ABSTOL, PIVMIN, RELTOL;
       // ..
       // .. Array Arguments ..
       int                IWORK( * ), NAB( MMAX, * ), NVAL( * );
-      REAL               AB( MMAX, * ), C( * ), D( * ), E( * ), E2( * ), WORK( * );
+      double               AB( MMAX, * ), C( * ), D( * ), E( * ), E2( * ), WORK( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, TWO, HALF;
+      double               ZERO, TWO, HALF;
       const              ZERO = 0.0, TWO = 2.0, HALF = 1.0 / TWO ;
       // ..
       // .. Local Scalars ..
       int                ITMP1, ITMP2, J, JI, JIT, JP, KF, KFNEW, KL, KLNEW;
-      REAL               TMP1, TMP2;
+      double               TMP1, TMP2;
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, MIN

@@ -9,14 +9,14 @@
       int                LDA, LDB, LDE, N;
       // ..
       // .. Array Arguments ..
-      REAL               RESULT( 2 ), RWORK( * );
+      double               RESULT( 2 ), RWORK( * );
       Complex            A( LDA, * ), ALPHA( * ), B( LDB, * ), BETA( * ), E( LDE, * ), WORK( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       Complex            CZERO, CONE;
       const              CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
@@ -24,7 +24,7 @@
       // .. Local Scalars ..
       String             NORMAB, TRANS;
       int                J, JVEC;
-      REAL               ABMAX, ALFMAX, ANORM, BETMAX, BNORM, ENORM, ENRMER, ERRNRM, SAFMAX, SAFMIN, SCALE, TEMP1, ULP;
+      double               ABMAX, ALFMAX, ANORM, BETMAX, BNORM, ENORM, ENRMER, ERRNRM, SAFMAX, SAFMIN, SCALE, TEMP1, ULP;
       Complex            ACOEFF, ALPHAI, BCOEFF, BETAI, X;
       // ..
       // .. External Functions ..
@@ -38,10 +38,10 @@
       // INTRINSIC ABS, AIMAG, CONJG, MAX, REAL
       // ..
       // .. Statement Functions ..
-      REAL               ABS1;
+      double               ABS1;
       // ..
       // .. Statement Function definitions ..
-      ABS1[X] = ( REAL( X ) ).abs() + ( AIMAG( X ) ).abs();
+      ABS1[X] = ( double( X ) ).abs() + ( AIMAG( X ) ).abs();
       // ..
       // .. Executable Statements ..
 

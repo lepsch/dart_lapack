@@ -7,10 +7,10 @@
       // .. Scalar Arguments ..
       bool               ORGATI;
       int                INFO, KNITER;
-      REAL               FINIT, RHO, TAU;
+      double               FINIT, RHO, TAU;
       // ..
       // .. Array Arguments ..
-      REAL               D( 3 ), Z( 3 );
+      double               D( 3 ), Z( 3 );
       // ..
 
 // =====================================================================
@@ -18,7 +18,7 @@
       // .. Parameters ..
       int                MAXIT;
       const              MAXIT = 40 ;
-      REAL               ZERO, ONE, TWO, THREE, FOUR, EIGHT;
+      double               ZERO, ONE, TWO, THREE, FOUR, EIGHT;
       const              ZERO = 0.0, ONE = 1.0, TWO = 2.0, THREE = 3.0, FOUR = 4.0, EIGHT = 8.0 ;
       // ..
       // .. External Functions ..
@@ -26,12 +26,12 @@
       // EXTERNAL SLAMCH
       // ..
       // .. Local Arrays ..
-      REAL               DSCALE( 3 ), ZSCALE( 3 );
+      double               DSCALE( 3 ), ZSCALE( 3 );
       // ..
       // .. Local Scalars ..
       bool               SCALE;
       int                I, ITER, NITER;
-      REAL               A, B, BASE, C, DDF, DF, EPS, ERRETM, ETA, F, FC, SCLFAC, SCLINV, SMALL1, SMALL2, SMINV1, SMINV2, TEMP, TEMP1, TEMP2, TEMP3, TEMP4, LBD, UBD;
+      double               A, B, BASE, C, DDF, DF, EPS, ERRETM, ETA, F, FC, SCLFAC, SCLINV, SMALL1, SMALL2, SMINV1, SMINV2, TEMP, TEMP1, TEMP2, TEMP3, TEMP4, LBD, UBD;
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC ABS, INT, LOG, MAX, MIN, SQRT

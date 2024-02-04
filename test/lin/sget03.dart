@@ -6,21 +6,21 @@
 
       // .. Scalar Arguments ..
       int                LDA, LDAINV, LDWORK, N;
-      REAL               RCOND, RESID;
+      double               RCOND, RESID;
       // ..
       // .. Array Arguments ..
-      REAL               A( LDA, * ), AINV( LDAINV, * ), RWORK( * ), WORK( LDWORK, * );
+      double               A( LDA, * ), AINV( LDAINV, * ), RWORK( * ), WORK( LDWORK, * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
       int                I;
-      REAL               AINVNM, ANORM, EPS;
+      double               AINVNM, ANORM, EPS;
       // ..
       // .. External Functions ..
       //- REAL               SLAMCH, SLANGE;

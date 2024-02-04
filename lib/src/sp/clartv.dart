@@ -8,7 +8,7 @@
       int                INCC, INCX, INCY, N;
       // ..
       // .. Array Arguments ..
-      REAL               C( * );
+      double               C( * );
       Complex            S( * ), X( * ), Y( * );
       // ..
 

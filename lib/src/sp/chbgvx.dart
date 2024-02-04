@@ -7,18 +7,18 @@
       // .. Scalar Arguments ..
       String             JOBZ, RANGE, UPLO;
       int                IL, INFO, IU, KA, KB, LDAB, LDBB, LDQ, LDZ, M, N;
-      REAL               ABSTOL, VL, VU;
+      double               ABSTOL, VL, VU;
       // ..
       // .. Array Arguments ..
       int                IFAIL( * ), IWORK( * );
-      REAL               RWORK( * ), W( * );
+      double               RWORK( * ), W( * );
       Complex            AB( LDAB, * ), BB( LDBB, * ), Q( LDQ, * ), WORK( * ), Z( LDZ, * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO;
+      double               ZERO;
       const              ZERO = 0.0 ;
       Complex            CZERO, CONE;
       const              CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
@@ -27,7 +27,7 @@
       bool               ALLEIG, INDEIG, TEST, UPPER, VALEIG, WANTZ;
       String             ORDER, VECT;
       int                I, IINFO, INDD, INDE, INDEE, INDISP, INDIWK, INDRWK, INDWRK, ITMP1, J, JJ, NSPLIT;
-      REAL               TMP1;
+      double               TMP1;
       // ..
       // .. External Functions ..
       //- bool               lsame;

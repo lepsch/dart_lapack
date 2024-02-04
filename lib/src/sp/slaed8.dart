@@ -6,23 +6,23 @@
 
       // .. Scalar Arguments ..
       int                CUTPNT, GIVPTR, ICOMPQ, INFO, K, LDQ, LDQ2, N, QSIZ;
-      REAL               RHO;
+      double               RHO;
       // ..
       // .. Array Arguments ..
       int                GIVCOL( 2, * ), INDX( * ), INDXP( * ), INDXQ( * ), PERM( * );
-      REAL               D( * ), DLAMBDA( * ), GIVNUM( 2, * ), Q( LDQ, * ), Q2( LDQ2, * ), W( * ), Z( * );
+      double               D( * ), DLAMBDA( * ), GIVNUM( 2, * ), Q( LDQ, * ), Q2( LDQ2, * ), W( * ), Z( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               MONE, ZERO, ONE, TWO, EIGHT;
+      double               MONE, ZERO, ONE, TWO, EIGHT;
       const              MONE = -1.0, ZERO = 0.0, ONE = 1.0, TWO = 2.0, EIGHT = 8.0 ;
       // ..
       // .. Local Scalars ..
 
       int                I, IMAX, J, JLAM, JMAX, JP, K2, N1, N1P1, N2;
-      REAL               C, EPS, S, T, TAU, TOL;
+      double               C, EPS, S, T, TAU, TOL;
       // ..
       // .. External Functions ..
       //- int                ISAMAX;

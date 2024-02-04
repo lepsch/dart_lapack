@@ -7,21 +7,21 @@
       // .. Scalar Arguments ..
       String             FACT;
       int                INFO, LDB, LDX, N, NRHS;
-      REAL               RCOND;
+      double               RCOND;
       // ..
       // .. Array Arguments ..
-      REAL               BERR( * ), D( * ), DF( * ), FERR( * ), RWORK( * )       Complex            B( LDB, * ), E( * ), EF( * ), WORK( * ), X( LDX, * );
+      double               BERR( * ), D( * ), DF( * ), FERR( * ), RWORK( * )       Complex            B( LDB, * ), E( * ), EF( * ), WORK( * ), X( LDX, * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO;
+      double               ZERO;
       const              ZERO = 0.0 ;
       // ..
       // .. Local Scalars ..
       bool               NOFACT;
-      REAL               ANORM;
+      double               ANORM;
       // ..
       // .. External Functions ..
       //- bool               lsame;

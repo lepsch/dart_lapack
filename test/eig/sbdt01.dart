@@ -6,21 +6,21 @@
 
       // .. Scalar Arguments ..
       int                KD, LDA, LDPT, LDQ, M, N;
-      REAL               RESID;
+      double               RESID;
       // ..
       // .. Array Arguments ..
-      REAL               A( LDA, * ), D( * ), E( * ), PT( LDPT, * ), Q( LDQ, * ), WORK( * );
+      double               A( LDA, * ), D( * ), E( * ), PT( LDPT, * ), Q( LDQ, * ), WORK( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
       int                I, J;
-      REAL               ANORM, EPS;
+      double               ANORM, EPS;
       // ..
       // .. External Functions ..
       //- REAL               SASUM, SLAMCH, SLANGE;
@@ -125,7 +125,7 @@
             RESID = ( RESID / ANORM ) / ( REAL( N )*EPS );
          } else {
             if ( ANORM < ONE ) {
-               RESID = ( min( RESID, REAL( N )*ANORM ) / ANORM ) / ( REAL( N )*EPS );
+               RESID = ( min( RESID, double( N )*ANORM ) / ANORM ) / ( REAL( N )*EPS );
             } else {
                RESID = min( RESID / ANORM, REAL( N ) ) / ( REAL( N )*EPS );
             }

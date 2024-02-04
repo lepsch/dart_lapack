@@ -4,22 +4,22 @@
       // Arguments
       bool   , INTENT( IN ) :: ILSCHUR, ILQ, ILZ;
       int    , INTENT( IN ) :: N, ILO, IHI, NW, LDA, LDB, LDQ, LDZ, LDQC, LDZC, LWORK, REC;
-       REAL, INTENT( INOUT ) :: A( LDA, * ), B( LDB, * ), Q( LDQ, * ), Z( LDZ, * ), ALPHAR( * ), ALPHAI( * ), BETA( * );
+       double, INTENT( INOUT ) :: A( LDA, * ), B( LDB, * ), Q( LDQ, * ), Z( LDZ, * ), ALPHAR( * ), ALPHAI( * ), BETA( * );
       int    , INTENT( OUT ) :: NS, ND, INFO;
-      REAL :: QC( LDQC, * ), ZC( LDZC, * ), WORK( * );
+      double :: QC( LDQC, * ), ZC( LDZC, * ), WORK( * );
 
       // Parameters
-      REAL :: ZERO, ONE, HALF;
+      double :: ZERO, ONE, HALF;
       const    ZERO = 0.0, ONE = 1.0, HALF = 0.5 ;
 
       // Local Scalars
       bool    :: BULGE;
       int     :: JW, KWTOP, KWBOT, ISTOPM, ISTARTM, K, K2, STGEXC_INFO, IFST, ILST, LWORKREQ, QZ_SMALL_INFO;
-      REAL :: S, SMLNUM, ULP, SAFMIN, SAFMAX, C1, S1, TEMP;
+      double :: S, SMLNUM, ULP, SAFMIN, SAFMAX, C1, S1, TEMP;
 
       // External Functions
       // EXTERNAL :: XERBLA, STGEXC, SLAQZ0, SLACPY, SLASET, SLAQZ2, SROT, SLARTG, SLAG2, SGEMM
-      REAL, EXTERNAL :: SLAMCH, SROUNDUP_LWORK;
+      double, EXTERNAL :: SLAMCH, SROUNDUP_LWORK;
 
       INFO = 0;
 
@@ -57,7 +57,7 @@
       SAFMIN = SLAMCH( 'SAFE MINIMUM' );
       SAFMAX = ONE/SAFMIN;
       ULP = SLAMCH( 'PRECISION' );
-      SMLNUM = SAFMIN*( REAL( N )/ULP );
+      SMLNUM = SAFMIN*( double( N )/ULP );
 
       if ( IHI == KWTOP ) {
          // 1 by 1 deflation window, just try a regular deflation

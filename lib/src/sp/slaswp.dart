@@ -9,14 +9,14 @@
       // ..
       // .. Array Arguments ..
       int                IPIV( * );
-      REAL               A( LDA, * );
+      double               A( LDA, * );
       // ..
 
 // =====================================================================
 
       // .. Local Scalars ..
       int                I, I1, I2, INC, IP, IX, IX0, J, K, N32;
-      REAL               TEMP;
+      double               TEMP;
       // ..
       // .. Executable Statements ..
 

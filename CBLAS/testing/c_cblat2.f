@@ -69,14 +69,14 @@
       const              NSUBS = 17 ;
       Complex            ZERO, ONE;
       const              ZERO = ( 0.0, 0.0 ), ONE = ( 1.0, 0.0 ) ;
-      REAL               RZERO, RHALF, RONE;
+      double               RZERO, RHALF, RONE;
       const              RZERO = 0.0, RHALF = 0.5, RONE = 1.0 ;
       int                NMAX, INCMAX;
       const              NMAX = 65, INCMAX = 2 ;
       int                NINMAX, NIDMAX, NKBMAX, NALMAX, NBEMAX;
       const              NINMAX = 7, NIDMAX = 9, NKBMAX = 7, NALMAX = 7, NBEMAX = 7 ;
       // .. Local Scalars ..
-      REAL               EPS, ERR, THRESH;
+      double               EPS, ERR, THRESH;
       int                I, ISNUM, J, N, NALF, NBET, NIDIM, NINC, NKB, NTRA, LAYOUT;
       bool               FATAL, LTESTT, REWI, SAME, SFATAL, TRACE, TSTERR, CORDER, RORDER;
       String             TRANS;
@@ -84,7 +84,7 @@
       String             SNAPS;
       // .. Local Arrays ..
       Complex            A( NMAX, NMAX ), AA( NMAX*NMAX ), ALF( NALMAX ), AS( NMAX*NMAX ), BET( NBEMAX ), X( NMAX ), XS( NMAX*INCMAX ), XX( NMAX*INCMAX ), Y( NMAX ), YS( NMAX*INCMAX ), YT( NMAX ), YY( NMAX*INCMAX ), Z( 2*NMAX );
-      REAL               G( NMAX );
+      double               G( NMAX );
       int                IDIM( NIDMAX ), INC( NINMAX ), KB( NKBMAX );
       bool               LTEST( NSUBS );
       String             SNAMES( NSUBS );
@@ -401,20 +401,20 @@
       // .. Parameters ..
       Complex            ZERO, HALF;
       const              ZERO = ( 0.0, 0.0 ), HALF = ( 0.5, 0.0 ) ;
-      REAL               RZERO;
+      double               RZERO;
       const              RZERO = 0.0 ;
       // .. Scalar Arguments ..
-      REAL               EPS, THRESH;
+      double               EPS, THRESH;
       int                INCMAX, NALF, NBET, NIDIM, NINC, NKB, NMAX, NOUT, NTRA, IORDER;
       bool               FATAL, REWI, TRACE;
       String             SNAME;
       // .. Array Arguments ..
       Complex            A( NMAX, NMAX ), AA( NMAX*NMAX ), ALF( NALF ), AS( NMAX*NMAX ), BET( NBET ), X( NMAX ), XS( NMAX*INCMAX ), XX( NMAX*INCMAX ), Y( NMAX ), YS( NMAX*INCMAX ), YT( NMAX ), YY( NMAX*INCMAX );
-      REAL               G( NMAX );
+      double               G( NMAX );
       int                IDIM( NIDIM ), INC( NINC ), KB( NKB );
       // .. Local Scalars ..
       Complex            ALPHA, ALS, BETA, BLS, TRANSL;
-      REAL               ERR, ERRMAX;
+      double               ERR, ERRMAX;
       int                I, IA, IB, IC, IKU, IM, IN, INCX, INCXS, INCY, INCYS, IX, IY, KL, KLS, KU, KUS, LAA, LDA, LDAS, LX, LY, M, ML, MS, N, NARGS, NC, ND, NK, NL, NS;
       bool               BANDED, FULL, NULL, RESET, SAME, TRAN;
       String             TRANS, TRANSS;
@@ -705,20 +705,20 @@
       // .. Parameters ..
       Complex            ZERO, HALF;
       const              ZERO = ( 0.0, 0.0 ), HALF = ( 0.5, 0.0 ) ;
-      REAL               RZERO;
+      double               RZERO;
       const              RZERO = 0.0 ;
       // .. Scalar Arguments ..
-      REAL               EPS, THRESH;
+      double               EPS, THRESH;
       int                INCMAX, NALF, NBET, NIDIM, NINC, NKB, NMAX, NOUT, NTRA, IORDER;
       bool               FATAL, REWI, TRACE;
       String             SNAME;
       // .. Array Arguments ..
       Complex            A( NMAX, NMAX ), AA( NMAX*NMAX ), ALF( NALF ), AS( NMAX*NMAX ), BET( NBET ), X( NMAX ), XS( NMAX*INCMAX ), XX( NMAX*INCMAX ), Y( NMAX ), YS( NMAX*INCMAX ), YT( NMAX ), YY( NMAX*INCMAX );
-      REAL               G( NMAX );
+      double               G( NMAX );
       int                IDIM( NIDIM ), INC( NINC ), KB( NKB );
       // .. Local Scalars ..
       Complex            ALPHA, ALS, BETA, BLS, TRANSL;
-      REAL               ERR, ERRMAX;
+      double               ERR, ERRMAX;
       int                I, IA, IB, IC, IK, IN, INCX, INCXS, INCY, INCYS, IX, IY, K, KS, LAA, LDA, LDAS, LX, LY, N, NARGS, NC, NK, NS;
       bool               BANDED, FULL, NULL, PACKED, RESET, SAME;
       String             UPLO, UPLOS;
@@ -1008,20 +1008,20 @@
       // .. Parameters ..
       Complex            ZERO, HALF, ONE;
       const              ZERO = ( 0.0, 0.0 ), HALF = ( 0.5, 0.0 ), ONE = ( 1.0, 0.0 ) ;
-      REAL               RZERO;
+      double               RZERO;
       const              RZERO = 0.0 ;
       // .. Scalar Arguments ..
-      REAL               EPS, THRESH;
+      double               EPS, THRESH;
       int                INCMAX, NIDIM, NINC, NKB, NMAX, NOUT, NTRA, IORDER;
       bool               FATAL, REWI, TRACE;
       String             SNAME;
       // .. Array Arguments ..
       Complex            A( NMAX, NMAX ), AA( NMAX*NMAX ), AS( NMAX*NMAX ), X( NMAX ), XS( NMAX*INCMAX ), XT( NMAX ), XX( NMAX*INCMAX ), Z( NMAX );
-      REAL               G( NMAX );
+      double               G( NMAX );
       int                IDIM( NIDIM ), INC( NINC ), KB( NKB );
       // .. Local Scalars ..
       Complex            TRANSL;
-      REAL               ERR, ERRMAX;
+      double               ERR, ERRMAX;
       int                I, ICD, ICT, ICU, IK, IN, INCX, INCXS, IX, K, KS, LAA, LDA, LDAS, LX, N, NARGS, NC, NK, NS;
       bool               BANDED, FULL, NULL, PACKED, RESET, SAME;
       String             DIAG, DIAGS, TRANS, TRANSS, UPLO, UPLOS;
@@ -1327,20 +1327,20 @@
       // .. Parameters ..
       Complex            ZERO, HALF, ONE;
       const              ZERO = ( 0.0, 0.0 ), HALF = ( 0.5, 0.0 ), ONE = ( 1.0, 0.0 ) ;
-      REAL               RZERO;
+      double               RZERO;
       const              RZERO = 0.0 ;
       // .. Scalar Arguments ..
-      REAL               EPS, THRESH;
+      double               EPS, THRESH;
       int                INCMAX, NALF, NIDIM, NINC, NMAX, NOUT, NTRA, IORDER;
       bool               FATAL, REWI, TRACE;
       String             SNAME;
       // .. Array Arguments ..
       Complex            A( NMAX, NMAX ), AA( NMAX*NMAX ), ALF( NALF ), AS( NMAX*NMAX ), X( NMAX ), XS( NMAX*INCMAX ), XX( NMAX*INCMAX ), Y( NMAX ), YS( NMAX*INCMAX ), YT( NMAX ), YY( NMAX*INCMAX ), Z( NMAX );
-      REAL               G( NMAX );
+      double               G( NMAX );
       int                IDIM( NIDIM ), INC( NINC );
       // .. Local Scalars ..
       Complex            ALPHA, ALS, TRANSL;
-      REAL               ERR, ERRMAX;
+      double               ERR, ERRMAX;
       int                I, IA, IM, IN, INCX, INCXS, INCY, INCYS, IX, IY, J, LAA, LDA, LDAS, LX, LY, M, MS, N, NARGS, NC, ND, NS;
       bool               CONJ, NULL, RESET, SAME;
       // .. Local Arrays ..
@@ -1567,20 +1567,20 @@
       // .. Parameters ..
       Complex            ZERO, HALF, ONE;
       const              ZERO = ( 0.0, 0.0 ), HALF = ( 0.5, 0.0 ), ONE = ( 1.0, 0.0 ) ;
-      REAL               RZERO;
+      double               RZERO;
       const              RZERO = 0.0 ;
       // .. Scalar Arguments ..
-      REAL               EPS, THRESH;
+      double               EPS, THRESH;
       int                INCMAX, NALF, NIDIM, NINC, NMAX, NOUT, NTRA, IORDER;
       bool               FATAL, REWI, TRACE;
       String             SNAME;
       // .. Array Arguments ..
       Complex            A( NMAX, NMAX ), AA( NMAX*NMAX ), ALF( NALF ), AS( NMAX*NMAX ), X( NMAX ), XS( NMAX*INCMAX ), XX( NMAX*INCMAX ), Y( NMAX ), YS( NMAX*INCMAX ), YT( NMAX ), YY( NMAX*INCMAX ), Z( NMAX );
-      REAL               G( NMAX );
+      double               G( NMAX );
       int                IDIM( NIDIM ), INC( NINC );
       // .. Local Scalars ..
       Complex            ALPHA, TRANSL;
-      REAL               ERR, ERRMAX, RALPHA, RALS;
+      double               ERR, ERRMAX, RALPHA, RALS;
       int               I, IA, IC, IN, INCX, INCXS, IX, J, JA, JJ, LAA, LDA, LDAS, LJ, LX, N, NARGS, NC, NS;
       bool               FULL, NULL, PACKED, RESET, SAME, UPPER;
       String             UPLO, UPLOS;
@@ -1653,7 +1653,7 @@
                }
 
                for (IA = 1; IA <= NALF; IA++) { // 70
-                  RALPHA = REAL( ALF( IA ) );
+                  RALPHA = double( ALF( IA ) );
                   ALPHA = CMPLX( RALPHA, RZERO );
                   NULL = N <= 0 || RALPHA == RZERO;
 
@@ -1824,20 +1824,20 @@
       // .. Parameters ..
       Complex            ZERO, HALF, ONE;
       const              ZERO = ( 0.0, 0.0 ), HALF = ( 0.5, 0.0 ), ONE = ( 1.0, 0.0 ) ;
-      REAL               RZERO;
+      double               RZERO;
       const              RZERO = 0.0 ;
       // .. Scalar Arguments ..
-      REAL               EPS, THRESH;
+      double               EPS, THRESH;
       int                INCMAX, NALF, NIDIM, NINC, NMAX, NOUT, NTRA, IORDER;
       bool               FATAL, REWI, TRACE;
       String             SNAME;
       // .. Array Arguments ..
       Complex            A( NMAX, NMAX ), AA( NMAX*NMAX ), ALF( NALF ), AS( NMAX*NMAX ), X( NMAX ), XS( NMAX*INCMAX ), XX( NMAX*INCMAX ), Y( NMAX ), YS( NMAX*INCMAX ), YT( NMAX ), YY( NMAX*INCMAX ), Z( NMAX, 2 );
-      REAL               G( NMAX );
+      double               G( NMAX );
       int                IDIM( NIDIM ), INC( NINC );
       // .. Local Scalars ..
       Complex            ALPHA, ALS, TRANSL;
-      REAL               ERR, ERRMAX;
+      double               ERR, ERRMAX;
       int                I, IA, IC, IN, INCX, INCXS, INCY, INCYS, IX, IY, J, JA, JJ, LAA, LDA, LDAS, LJ, LX, LY, N, NARGS, NC, NS;
       bool               FULL, NULL, PACKED, RESET, SAME, UPPER;
       String             UPLO, UPLOS;
@@ -2111,28 +2111,28 @@
       // .. Parameters ..
       Complex            ZERO;
       const              ZERO = ( 0.0, 0.0 ) ;
-      REAL               RZERO, RONE;
+      double               RZERO, RONE;
       const              RZERO = 0.0, RONE = 1.0 ;
       // .. Scalar Arguments ..
       Complex            ALPHA, BETA;
-      REAL               EPS, ERR;
+      double               EPS, ERR;
       int                INCX, INCY, M, N, NMAX, NOUT;
       bool               FATAL, MV;
       String             TRANS;
       // .. Array Arguments ..
       Complex            A( NMAX, * ), X( * ), Y( * ), YT( * ), YY( * );
-      REAL               G( * );
+      double               G( * );
       // .. Local Scalars ..
       Complex            C;
-      REAL               ERRI;
+      double               ERRI;
       int                I, INCXL, INCYL, IY, J, JX, KX, KY, ML, NL;
       bool               CTRAN, TRAN;
       // .. Intrinsic Functions ..
       // INTRINSIC ABS, AIMAG, CONJG, MAX, REAL, SQRT
       // .. Statement Functions ..
-      REAL               ABS1;
+      double               ABS1;
       // .. Statement Function definitions ..
-      ABS1[C] = ( REAL( C ) ).abs() + ( AIMAG( C ) ).abs();
+      ABS1[C] = ( double( C ) ).abs() + ( AIMAG( C ) ).abs();
       // .. Executable Statements ..
       TRAN = TRANS == 'T';
       CTRAN = TRANS == 'C';
@@ -2361,7 +2361,7 @@
       // End of CBEG.
 
       }
-      REAL sdiff(X, Y ) {
+      double sdiff(X, Y ) {
 
 // Auxiliary routine for test program for Level 2 Blas.
 
@@ -2369,7 +2369,7 @@
       // Richard Hanson, Sandia National Labs.
 
       // .. Scalar Arguments ..
-      REAL               X, Y;
+      double               X, Y;
       // .. Executable Statements ..
       SDIFF = X - Y;
       return;
@@ -2397,9 +2397,9 @@
       const              ZERO = ( 0.0, 0.0 ), ONE = ( 1.0, 0.0 ) ;
       Complex            ROGUE;
       const              ROGUE = ( -1.0e10, 1.0e10 ) ;
-      REAL               RZERO;
+      double               RZERO;
       const              RZERO = 0.0 ;
-      REAL               RROGUE;
+      double               RROGUE;
       const              RROGUE = -1.0e10 ;
       // .. Scalar Arguments ..
       Complex            TRANSL;
@@ -2444,7 +2444,7 @@
                }
             }
          } // 10
-         if (SYM) A( J, J ) = CMPLX( REAL( A( J, J ) ), RZERO );
+         if (SYM) A( J, J ) = CMPLX( double( A( J, J ) ), RZERO );
          if[TRI ) A( J, J] = A( J, J ) + ONE;
          IF[UNIT ) A( J, J] = ONE;
       } // 20
@@ -2500,7 +2500,7 @@
             } // 120
             if ( SYM ) {
                JJ = J + ( J - 1 )*LDA;
-               AA[JJ] = CMPLX( REAL( AA( JJ ) ), RROGUE );
+               AA[JJ] = CMPLX( double( AA( JJ ) ), RROGUE );
             }
          } // 130
       } else if ( TYPE == 'hb' || TYPE == 'tb' ) {
@@ -2533,7 +2533,7 @@
             } // 160
             if ( SYM ) {
                JJ = KK + ( J - 1 )*LDA;
-               AA[JJ] = CMPLX( REAL( AA( JJ ) ), RROGUE );
+               AA[JJ] = CMPLX( double( AA( JJ ) ), RROGUE );
             }
          } // 170
       } else if ( TYPE == 'hp' || TYPE == 'tp' ) {
@@ -2551,7 +2551,7 @@
                AA[IOFF] = A( I, J );
                if ( I == J ) {
                   if (UNIT) AA( IOFF ) = ROGUE;
-                  IF[SYM ) AA( IOFF] = CMPLX( REAL( AA( IOFF ) ), RROGUE );
+                  IF[SYM ) AA( IOFF] = CMPLX( double( AA( IOFF ) ), RROGUE );
                }
             } // 180
          } // 190

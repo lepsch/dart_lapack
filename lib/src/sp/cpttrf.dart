@@ -8,19 +8,19 @@
       int                INFO, N;
       // ..
       // .. Array Arguments ..
-      REAL               D( * );
+      double               D( * );
       Complex            E( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO;
+      double               ZERO;
       const              ZERO = 0.0 ;
       // ..
       // .. Local Scalars ..
       int                I, I4;
-      REAL               EII, EIR, F, G;
+      double               EII, EIR, F, G;
       // ..
       // .. External Subroutines ..
       // EXTERNAL XERBLA
@@ -51,7 +51,7 @@
             INFO = I;
             GO TO 20;
          }
-         EIR = REAL( E( I ) );
+         EIR = double( E( I ) );
          EII = AIMAG( E( I ) );
          F = EIR / D( I );
          G = EII / D( I );
@@ -71,7 +71,7 @@
 
          // Solve for e(i) and d(i+1).
 
-         EIR = REAL( E( I ) );
+         EIR = double( E( I ) );
          EII = AIMAG( E( I ) );
          F = EIR / D( I );
          G = EII / D( I );
@@ -85,7 +85,7 @@
 
          // Solve for e(i+1) and d(i+2).
 
-         EIR = REAL( E( I+1 ) );
+         EIR = double( E( I+1 ) );
          EII = AIMAG( E( I+1 ) );
          F = EIR / D( I+1 );
          G = EII / D( I+1 );
@@ -99,7 +99,7 @@
 
          // Solve for e(i+2) and d(i+3).
 
-         EIR = REAL( E( I+2 ) );
+         EIR = double( E( I+2 ) );
          EII = AIMAG( E( I+2 ) );
          F = EIR / D( I+2 );
          G = EII / D( I+2 );
@@ -113,7 +113,7 @@
 
          // Solve for e(i+3) and d(i+4).
 
-         EIR = REAL( E( I+3 ) );
+         EIR = double( E( I+3 ) );
          EII = AIMAG( E( I+3 ) );
          F = EIR / D( I+3 );
          G = EII / D( I+3 );

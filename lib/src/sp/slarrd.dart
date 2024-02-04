@@ -7,17 +7,17 @@
       // .. Scalar Arguments ..
       String             ORDER, RANGE;
       int                IL, INFO, IU, M, N, NSPLIT;
-      REAL                PIVMIN, RELTOL, VL, VU, WL, WU;
+      double                PIVMIN, RELTOL, VL, VU, WL, WU;
       // ..
       // .. Array Arguments ..
       int                IBLOCK( * ), INDEXW( * ), ISPLIT( * ), IWORK( * );
-      REAL               D( * ), E( * ), E2( * ), GERS( * ), W( * ), WERR( * ), WORK( * );
+      double               D( * ), E( * ), E2( * ), GERS( * ), W( * ), WERR( * ), WORK( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE, TWO, HALF, FUDGE;
+      double               ZERO, ONE, TWO, HALF, FUDGE;
       const              ZERO = 0.0, ONE = 1.0, TWO = 2.0, HALF = ONE/TWO, FUDGE = TWO ;
       int       ALLRNG, VALRNG, INDRNG;
       const     ALLRNG = 1, VALRNG = 2, INDRNG = 3 ;
@@ -25,7 +25,7 @@
       // .. Local Scalars ..
       bool               NCNVRG, TOOFEW;
       int                I, IB, IBEGIN, IDISCL, IDISCU, IE, IEND, IINFO, IM, IN, IOFF, IOUT, IRANGE, ITMAX, ITMP1, ITMP2, IW, IWOFF, J, JBLK, JDISC, JE, JEE, NB, NWL, NWU;
-      REAL               ATOLI, EPS, GL, GU, RTOLI, TMP1, TMP2, TNORM, UFLOW, WKILL, WLU, WUL;
+      double               ATOLI, EPS, GL, GU, RTOLI, TMP1, TMP2, TNORM, UFLOW, WKILL, WLU, WUL;
 
       // ..
       // .. Local Arrays ..

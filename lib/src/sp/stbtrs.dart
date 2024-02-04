@@ -9,13 +9,13 @@
       int                INFO, KD, LDAB, LDB, N, NRHS;
       // ..
       // .. Array Arguments ..
-      REAL               AB( LDAB, * ), B( LDB, * );
+      double               AB( LDAB, * ), B( LDB, * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO;
+      double               ZERO;
       const              ZERO = 0.0 ;
       // ..
       // .. Local Scalars ..

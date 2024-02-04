@@ -12,20 +12,20 @@
       // ..
       // .. Array Arguments ..
       int                IWORK( * );
-      REAL               A( LDA, * ), W( * ), WORK( * );
+      double               A( LDA, * ), W( * ), WORK( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
 
       bool               LOWER, LQUERY, WANTZ;
       int                IINFO, INDE, INDTAU, INDWK2, INDWRK, ISCALE, LIWMIN, LLWORK, LLWRK2, LWMIN, LHTRD, LWTRD, KD, IB, INDHOUS;
-      REAL               ANRM, BIGNUM, EPS, RMAX, RMIN, SAFMIN, SIGMA, SMLNUM;
+      double               ANRM, BIGNUM, EPS, RMAX, RMIN, SAFMIN, SIGMA, SMLNUM;
       // ..
       // .. External Functions ..
       //- bool               lsame;

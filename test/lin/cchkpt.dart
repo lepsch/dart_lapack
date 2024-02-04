@@ -7,19 +7,19 @@
       // .. Scalar Arguments ..
       bool               TSTERR;
       int                NN, NNS, NOUT;
-      REAL               THRESH;
+      double               THRESH;
       // ..
       // .. Array Arguments ..
       bool               DOTYPE( * );
       int                NSVAL( * ), NVAL( * );
-      REAL               D( * ), RWORK( * );
+      double               D( * ), RWORK( * );
       Complex            A( * ), B( * ), E( * ), WORK( * ), X( * ), XACT( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ONE, ZERO;
+      double               ONE, ZERO;
       const              ONE = 1.0, ZERO = 0.0 ;
       int                NTYPES;
       const              NTYPES = 12 ;
@@ -31,12 +31,12 @@
       String             DIST, TYPE, UPLO;
       String             PATH;
       int                I, IA, IMAT, IN, INFO, IRHS, IUPLO, IX, IZERO, J, K, KL, KU, LDA, MODE, N, NERRS, NFAIL, NIMAT, NRHS, NRUN;
-      REAL               AINVNM, ANORM, COND, DMAX, RCOND, RCONDC;
+      double               AINVNM, ANORM, COND, DMAX, RCOND, RCONDC;
       // ..
       // .. Local Arrays ..
       String             UPLOS( 2 );
       int                ISEED( 4 ), ISEEDY( 4 );
-      REAL               RESULT( NTESTS );
+      double               RESULT( NTESTS );
       Complex            Z( 3 );
       // ..
       // .. External Functions ..
@@ -118,11 +118,11 @@
 
                IA = 1;
                for (I = 1; I <= N - 1; I++) { // 20
-                  D[I] = REAL( A( IA ) );
+                  D[I] = double( A( IA ) );
                   E[I] = A( IA+1 );
                   IA = IA + 2;
                } // 20
-               if (N > 0) D( N ) = REAL( A( IA ) );
+               if (N > 0) D( N ) = double( A( IA ) );
             } else {
 
                // Type 7-12:  generate a diagonally dominant matrix with
@@ -160,14 +160,14 @@
                   // elements.
 
                   if ( IZERO == 1 ) {
-                     D[1] = REAL( Z( 2 ) );
+                     D[1] = double( Z( 2 ) );
                      if (N > 1) E( 1 ) = Z( 3 );
                   } else if ( IZERO == N ) {
                      E[N-1] = Z( 1 );
-                     D[N] = REAL( Z( 2 ) );
+                     D[N] = double( Z( 2 ) );
                   } else {
                      E[IZERO-1] = Z( 1 );
-                     D[IZERO] = REAL( Z( 2 ) );
+                     D[IZERO] = double( Z( 2 ) );
                      E[IZERO] = Z( 3 );
                   }
                }

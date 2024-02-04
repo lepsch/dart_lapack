@@ -8,14 +8,14 @@
       int                K, LDA, LWORK, M, N;
       // ..
       // .. Array Arguments ..
-      REAL               RESULT( * ), RWORK( * );
+      double               RESULT( * ), RWORK( * );
       Complex            AF( LDA, * ), C( LDA, * ), CC( LDA, * ), Q( LDA, * ), TAU( * ), WORK( LWORK );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       Complex            ROGUE;
       const              ROGUE = ( -1.0e+10, -1.0e+10 ) ;
@@ -23,7 +23,7 @@
       // .. Local Scalars ..
       String             SIDE, TRANS;
       int                INFO, ISIDE, ITRANS, J, MC, MINMN, NC;
-      REAL               CNORM, EPS, RESID;
+      double               CNORM, EPS, RESID;
       // ..
       // .. External Functions ..
       //- bool               lsame;

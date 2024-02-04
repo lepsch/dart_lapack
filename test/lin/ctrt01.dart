@@ -7,22 +7,22 @@
       // .. Scalar Arguments ..
       String             DIAG, UPLO;
       int                LDA, LDAINV, N;
-      REAL               RCOND, RESID;
+      double               RCOND, RESID;
       // ..
       // .. Array Arguments ..
-      REAL               RWORK( * );
+      double               RWORK( * );
       Complex            A( LDA, * ), AINV( LDAINV, * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
       int                J;
-      REAL               AINVNM, ANORM, EPS;
+      double               AINVNM, ANORM, EPS;
       // ..
       // .. External Functions ..
       //- bool               lsame;

@@ -1,4 +1,4 @@
-      REAL srzt02(M, N, AF, LDA, TAU, WORK, LWORK ) {
+      double srzt02(M, N, AF, LDA, TAU, WORK, LWORK ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -8,20 +8,20 @@
       int                LDA, LWORK, M, N;
       // ..
       // .. Array Arguments ..
-      REAL               AF( LDA, * ), TAU( * ), WORK( LWORK );
+      double               AF( LDA, * ), TAU( * ), WORK( LWORK );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
       int                I, INFO;
       // ..
       // .. Local Arrays ..
-      REAL               RWORK( 1 );
+      double               RWORK( 1 );
       // ..
       // .. External Functions ..
       //- REAL               SLAMCH, SLANGE;

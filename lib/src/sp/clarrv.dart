@@ -6,11 +6,11 @@
 
       // .. Scalar Arguments ..
       int                DOL, DOU, INFO, LDZ, M, N;
-      REAL               MINRGP, PIVMIN, RTOL1, RTOL2, VL, VU;
+      double               MINRGP, PIVMIN, RTOL1, RTOL2, VL, VU;
       // ..
       // .. Array Arguments ..
       int                IBLOCK( * ), INDEXW( * ), ISPLIT( * ), ISUPPZ( * ), IWORK( * );
-      REAL               D( * ), GERS( * ), L( * ), W( * ), WERR( * ), WGAP( * ), WORK( * );
+      double               D( * ), GERS( * ), L( * ), W( * ), WERR( * ), WGAP( * ), WORK( * );
       Complex           Z( LDZ, * );
       // ..
 
@@ -21,14 +21,14 @@
       const              MAXITR = 10 ;
       Complex            CZERO;
       const              CZERO = ( 0.0, 0.0 ) ;
-      REAL               ZERO, ONE, TWO, THREE, FOUR, HALF;
+      double               ZERO, ONE, TWO, THREE, FOUR, HALF;
       const              ZERO = 0.0, ONE = 1.0, TWO = 2.0, THREE = 3.0, FOUR = 4.0, HALF = 0.5;
       // ..
       // .. Local Scalars ..
       bool               ESKIP, NEEDBS, STP2II, TRYRQC, USEDBS, USEDRQ;
       int                DONE, I, IBEGIN, IDONE, IEND, II, IINDC1, IINDC2, IINDR, IINDWK, IINFO, IM, IN, INDEIG, INDLD, INDLLD, INDWRK, ISUPMN, ISUPMX, ITER, ITMP1, J, JBLK, K, MINIWSIZE, MINWSIZE, NCLUS, NDEPTH, NEGCNT, NEWCLS, NEWFST, NEWFTT, NEWLST, NEWSIZ, OFFSET, OLDCLS, OLDFST, OLDIEN, OLDLST, OLDNCL, P, PARITY, Q, WBEGIN, WEND, WINDEX, WINDMN, WINDPL, ZFROM, ZTO, ZUSEDL, ZUSEDU, ZUSEDW;
       int                INDIN1, INDIN2;
-      REAL               BSTRES, BSTW, EPS, FUDGE, GAP, GAPTOL, GL, GU, LAMBDA, LEFT, LGAP, MINGMA, NRMINV, RESID, RGAP, RIGHT, RQCORR, RQTOL, SAVGAP, SGNDEF, SIGMA, SPDIAM, SSIGMA, TAU, TMP, TOL, ZTZ;
+      double               BSTRES, BSTW, EPS, FUDGE, GAP, GAPTOL, GL, GU, LAMBDA, LEFT, LGAP, MINGMA, NRMINV, RESID, RGAP, RIGHT, RQCORR, RQTOL, SAVGAP, SGNDEF, SIGMA, SPDIAM, SSIGMA, TAU, TMP, TOL, ZTZ;
       // ..
       // .. External Functions ..
       //- REAL               SLAMCH;
@@ -251,10 +251,10 @@
                      }
                   }
                   for (K = 1; K <= IN - 1; K++) { // 45
-                     D[IBEGIN+K-1] = REAL( Z( IBEGIN+K-1, J ) )                      L( IBEGIN+K-1 ) = REAL( Z( IBEGIN+K-1, J+1 ) );
+                     D[IBEGIN+K-1] = REAL( Z( IBEGIN+K-1, J ) )                      L( IBEGIN+K-1 ) = double( Z( IBEGIN+K-1, J+1 ) );
                   } // 45
-                  D[IEND] = REAL( Z( IEND, J ) );
-                  SIGMA = REAL( Z( IEND, J+1 ) );
+                  D[IEND] = double( Z( IEND, J ) );
+                  SIGMA = double( Z( IEND, J+1 ) );
 
                   // Set the corresponding entries in Z to zero
                   claset('Full', IN, 2, CZERO, CZERO, Z( IBEGIN, J), LDZ );
@@ -436,7 +436,7 @@
 
                      ITER = 0;
 
-                     TOL = FOUR * LOG(REAL(IN)) * EPS;
+                     TOL = FOUR * LOG(double(IN)) * EPS;
 
                      K = NEWFST;
                      WINDEX = WBEGIN + K - 1;

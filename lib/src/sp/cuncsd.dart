@@ -10,8 +10,8 @@
       // ..
       // .. Array Arguments ..
       int                IWORK( * );
-      REAL               THETA( * );
-      REAL               RWORK( * );
+      double               THETA( * );
+      double               RWORK( * );
       Complex            U1( LDU1, * ), U2( LDU2, * ), V1T( LDV1T, * ), V2T( LDV2T, * ), WORK( * ), X11( LDX11, * ), X12( LDX12, * ), X21( LDX21, * ), X22( LDX22, * );
       // ..
 

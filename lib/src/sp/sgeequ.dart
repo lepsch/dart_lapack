@@ -6,21 +6,21 @@
 
       // .. Scalar Arguments ..
       int                INFO, LDA, M, N;
-      REAL               AMAX, COLCND, ROWCND;
+      double               AMAX, COLCND, ROWCND;
       // ..
       // .. Array Arguments ..
-      REAL               A( LDA, * ), C( * ), R( * );
+      double               A( LDA, * ), C( * ), R( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ONE, ZERO;
+      double               ONE, ZERO;
       const              ONE = 1.0, ZERO = 0.0 ;
       // ..
       // .. Local Scalars ..
       int                I, J;
-      REAL               BIGNUM, RCMAX, RCMIN, SMLNUM;
+      double               BIGNUM, RCMAX, RCMIN, SMLNUM;
       // ..
       // .. External Functions ..
       //- REAL               SLAMCH;

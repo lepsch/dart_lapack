@@ -6,7 +6,7 @@
 
       // .. Scalar Arguments ..
       int                KL, KU, LDA, LDAFAC, M, N;
-      REAL               RESID;
+      double               RESID;
       // ..
       // .. Array Arguments ..
       int                IPIV( * );
@@ -16,12 +16,12 @@
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
       int                I, I1, I2, IL, IP, IW, J, JL, JU, JUA, KD, LENJ;
-      REAL               ANORM, EPS;
+      double               ANORM, EPS;
       Complex            T;
       // ..
       // .. External Functions ..

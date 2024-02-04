@@ -9,24 +9,24 @@
       // ..
       // .. Array Arguments ..
       int                ISEED( 4 );
-      REAL               X( * );
+      double               X( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ONE, TWO;
+      double               ONE, TWO;
       const              ONE = 1.0, TWO = 2.0 ;
       int                LV;
       const              LV = 128 ;
-      REAL               TWOPI;
+      double               TWOPI;
       const      TWOPI = 6.28318530717958647692528676655900576839 ;
       // ..
       // .. Local Scalars ..
       int                I, IL, IL2, IV;
       // ..
       // .. Local Arrays ..
-      REAL               U( LV );
+      double               U( LV );
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC COS, LOG, MIN, SQRT

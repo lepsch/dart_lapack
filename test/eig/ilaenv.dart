@@ -39,7 +39,7 @@
 
          // Compute SVD crossover point.
 
-         ILAENV = INT( REAL( min( N1, N2 ) )*1.6 );
+         ILAENV = INT( double( min( N1, N2 ) )*1.6 );
 
       } else if ( ISPEC >= 7 && ISPEC <= 9 ) {
 
@@ -145,7 +145,7 @@
       const              INMIN = 12, INWIN = 13, INIBL = 14, ISHFTS = 15, IACC22 = 16 ;
       int                NMIN, K22MIN, KACMIN, NIBBLE, KNWSWP;
       const              NMIN = 11, K22MIN = 14, KACMIN = 14, NIBBLE = 14, KNWSWP = 500 ;
-      REAL               TWO;
+      double               TWO;
       const              TWO = 2.0 ;
       // ..
       // .. Scalar Arguments ..

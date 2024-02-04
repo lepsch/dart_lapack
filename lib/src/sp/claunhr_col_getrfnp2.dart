@@ -15,13 +15,13 @@
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ONE;
+      double               ONE;
       const              ONE = 1.0 ;
       Complex            CONE;
       const              CONE = ( 1.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
-      REAL               SFMIN;
+      double               SFMIN;
       int                I, IINFO, N1, N2;
       Complex            Z;
       // ..
@@ -39,7 +39,7 @@
       double             CABS1;
       // ..
       // .. Statement Function definitions ..
-      CABS1[Z] = ( REAL( Z ) ).abs() + ( AIMAG( Z ) ).abs();
+      CABS1[Z] = ( double( Z ) ).abs() + ( AIMAG( Z ) ).abs();
       // ..
       // .. Executable Statements ..
 
@@ -69,7 +69,7 @@
 
          // Transfer the sign
 
-         D[1] = CMPLX( -SIGN( ONE, REAL( A( 1, 1 ) ) ) );
+         D[1] = CMPLX( -SIGN( ONE, double( A( 1, 1 ) ) ) );
 
          // Construct the row of U
 
@@ -82,7 +82,7 @@
 
          // Transfer the sign
 
-         D[1] = CMPLX( -SIGN( ONE, REAL( A( 1, 1 ) ) ) );
+         D[1] = CMPLX( -SIGN( ONE, double( A( 1, 1 ) ) ) );
 
          // Construct the row of U
 

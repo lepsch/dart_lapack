@@ -146,7 +146,7 @@
       // Compute |I - (Q**T)*Q| / ( eps * m ) and store in RESULT(2)
 
       zlaset('Full', M, M, CZERO, CONE, R, M );
-      zherk('U', 'C', M, M, REAL(-CONE), Q, M, REAL(CONE), R, M );
+      zherk('U', 'C', M, M, REAL(-CONE), Q, M, double(CONE), R, M );
       RESID = ZLANSY( '1', 'Upper', M, R, M, RWORK );
       RESULT[2] = RESID / ( EPS * max( 1, M ) );
 

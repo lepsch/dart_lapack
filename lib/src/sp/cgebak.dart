@@ -9,20 +9,20 @@
       int                IHI, ILO, INFO, LDV, M, N;
       // ..
       // .. Array Arguments ..
-      REAL               SCALE( * );
+      double               SCALE( * );
       Complex            V( LDV, * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ONE;
+      double               ONE;
       const              ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
       bool               LEFTV, RIGHTV;
       int                I, II, K;
-      REAL               S;
+      double               S;
       // ..
       // .. External Functions ..
       //- bool               lsame;

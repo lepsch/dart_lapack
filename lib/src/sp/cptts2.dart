@@ -8,7 +8,7 @@
       int                IUPLO, LDB, N, NRHS;
       // ..
       // .. Array Arguments ..
-      REAL               D( * );
+      double               D( * );
       Complex            B( LDB, * ), E( * );
       // ..
 

@@ -17,7 +17,7 @@
       // .. Local Scalars ..
       bool               WANTQ;
       int                K, M1, M2, M3;
-      REAL               CS;
+      double               CS;
       Complex            SN, T11, T22, TEMP;
       // ..
       // .. External Functions ..

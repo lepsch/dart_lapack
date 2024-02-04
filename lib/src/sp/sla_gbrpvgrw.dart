@@ -1,4 +1,4 @@
-      REAL sla_gbrpvgrw(N, KL, KU, NCOLS, AB, LDAB, AFB, LDAFB ) {
+      double sla_gbrpvgrw(N, KL, KU, NCOLS, AB, LDAB, AFB, LDAFB ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -8,14 +8,14 @@
       int                N, KL, KU, NCOLS, LDAB, LDAFB;
       // ..
       // .. Array Arguments ..
-      REAL               AB( LDAB, * ), AFB( LDAFB, * );
+      double               AB( LDAB, * ), AFB( LDAFB, * );
       // ..
 
 // =====================================================================
 
       // .. Local Scalars ..
       int                I, J, KD;
-      REAL               AMAX, UMAX, RPVGRW;
+      double               AMAX, UMAX, RPVGRW;
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, MIN

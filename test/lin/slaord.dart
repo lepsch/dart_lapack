@@ -9,14 +9,14 @@
       int                INCX, N;
       // ..
       // .. Array Arguments ..
-      REAL               X( * );
+      double               X( * );
       // ..
 
 // =====================================================================
 
       // .. Local Scalars ..
       int                I, INC, IX, IXNEXT;
-      REAL               TEMP;
+      double               TEMP;
       // ..
       // .. External Functions ..
       //- bool               lsame;

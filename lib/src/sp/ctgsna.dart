@@ -11,21 +11,21 @@
       // .. Array Arguments ..
       bool               SELECT( * );
       int                IWORK( * );
-      REAL               DIF( * ), S( * );
+      double               DIF( * ), S( * );
       Complex            A( LDA, * ), B( LDB, * ), VL( LDVL, * ), VR( LDVR, * ), WORK( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       int                IDIFJB;
       const              ZERO = 0.0, ONE = 1.0, IDIFJB = 3 ;
       // ..
       // .. Local Scalars ..
       bool               LQUERY, SOMCON, WANTBH, WANTDF, WANTS;
       int                I, IERR, IFST, ILST, K, KS, LWMIN, N1, N2;
-      REAL               BIGNUM, COND, EPS, LNRM, RNRM, SCALE, SMLNUM;
+      double               BIGNUM, COND, EPS, LNRM, RNRM, SCALE, SMLNUM;
       Complex            YHAX, YHBX;
       // ..
       // .. Local Arrays ..

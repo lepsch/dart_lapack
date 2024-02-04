@@ -7,18 +7,18 @@
       // .. Scalar Arguments ..
       bool               NOINIT, RIGHTV;
       int                INFO, LDB, LDH, N;
-      REAL               EPS3, SMLNUM;
+      double               EPS3, SMLNUM;
       Complex            W;
       // ..
       // .. Array Arguments ..
-      REAL               RWORK( * );
+      double               RWORK( * );
       Complex            B( LDB, * ), H( LDH, * ), V( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ONE, TENTH;
+      double               ONE, TENTH;
       const              ONE = 1.0, TENTH = 1.0e-1 ;
       Complex            ZERO;
       const              ZERO = ( 0.0, 0.0 ) ;
@@ -26,7 +26,7 @@
       // .. Local Scalars ..
       String             NORMIN, TRANS;
       int                I, IERR, ITS, J;
-      REAL               GROWTO, NRMSML, ROOTN, RTEMP, SCALE, VNORM;
+      double               GROWTO, NRMSML, ROOTN, RTEMP, SCALE, VNORM;
       Complex            CDUM, EI, EJ, TEMP, X;
       // ..
       // .. External Functions ..
@@ -42,10 +42,10 @@
       // INTRINSIC ABS, AIMAG, MAX, REAL, SQRT
       // ..
       // .. Statement Functions ..
-      REAL               CABS1;
+      double               CABS1;
       // ..
       // .. Statement Function definitions ..
-      CABS1[CDUM] = ( REAL( CDUM ) ).abs() + ( AIMAG( CDUM ) ).abs();
+      CABS1[CDUM] = ( double( CDUM ) ).abs() + ( AIMAG( CDUM ) ).abs();
       // ..
       // .. Executable Statements ..
 
@@ -54,7 +54,7 @@
       // GROWTO is the threshold used in the acceptance test for an
       // eigenvector.
 
-      ROOTN = sqrt( REAL( N ) );
+      ROOTN = sqrt( double( N ) );
       GROWTO = TENTH / ROOTN;
       NRMSML = max( ONE, EPS3*ROOTN )*SMLNUM;
 

@@ -1,4 +1,4 @@
-      REAL sqrt11(M, K, A, LDA, TAU, WORK, LWORK ) {
+      double sqrt11(M, K, A, LDA, TAU, WORK, LWORK ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -8,13 +8,13 @@
       int                K, LDA, LWORK, M;
       // ..
       // .. Array Arguments ..
-      REAL               A( LDA, * ), TAU( * ), WORK( LWORK );
+      double               A( LDA, * ), TAU( * ), WORK( LWORK );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
@@ -31,7 +31,7 @@
       // INTRINSIC REAL
       // ..
       // .. Local Arrays ..
-      REAL               RDUMMY( 1 );
+      double               RDUMMY( 1 );
       // ..
       // .. Executable Statements ..
 

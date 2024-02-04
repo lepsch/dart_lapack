@@ -27,7 +27,7 @@
       int                INFO, LWORK, M, P, Q, LDX11, LDX21;
       // ..
       // .. Array Arguments ..
-      REAL               PHI(*), THETA(*);
+      double               PHI(*), THETA(*);
       Complex            TAUP1(*), TAUP2(*), TAUQ1(*), WORK(*), X11(LDX11,*), X21(LDX21,*);
       // ..
 
@@ -38,7 +38,7 @@
       const              ONE = (1.0,0.0) ;
       // ..
       // .. Local Scalars ..
-      REAL               C, S;
+      double               C, S;
       int                CHILDINFO, I, ILARF, IORBDB5, LLARF, LORBDB5, LWORKMIN, LWORKOPT;
       bool               LQUERY;
       // ..
@@ -102,7 +102,7 @@
 
          clacgv(Q-I+1, X21(I,I), LDX21 );
          clarfgp(Q-I+1, X21(I,I), X21(I,I+1), LDX21, TAUQ1(I) );
-         S = REAL( X21(I,I) );
+         S = double( X21(I,I) );
          X21[I,I] = ONE;
          clarf('R', P-I+1, Q-I+1, X21(I,I), LDX21, TAUQ1(I), X11(I,I), LDX11, WORK(ILARF) );
          clarf('R', M-P-I, Q-I+1, X21(I,I), LDX21, TAUQ1(I), X21(I+1,I), LDX21, WORK(ILARF) );
@@ -114,7 +114,7 @@
          clarfgp(P-I+1, X11(I,I), X11(I+1,I), 1, TAUP1(I) );
          if ( I < M-P ) {
             clarfgp(M-P-I, X21(I+1,I), X21(I+2,I), 1, TAUP2(I) );
-            PHI[I] = ATAN2( REAL( X21(I+1,I) ), REAL( X11(I,I) ) );
+            PHI[I] = ATAN2( REAL( X21(I+1,I) ), double( X11(I,I) ) );
             C = COS( PHI(I) );
             S = SIN( PHI(I) );
             X21[I+1,I] = ONE;

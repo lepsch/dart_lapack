@@ -91,9 +91,9 @@
                           AP[K] = AP(K) + X(I)*TEMP1 + Y(I)*TEMP2;
                           K = K + 1;
                       } // 10
-                      AP[KK+J-1] = REAL(AP(KK+J-1)) + REAL(X(J)*TEMP1+Y(J)*TEMP2);
+                      AP[KK+J-1] = REAL(AP(KK+J-1)) + double(X(J)*TEMP1+Y(J)*TEMP2);
                   } else {
-                      AP[KK+J-1] = REAL(AP(KK+J-1));
+                      AP[KK+J-1] = double(AP(KK+J-1));
                   }
                   KK = KK + J;
               } // 20
@@ -109,9 +109,9 @@
                           IX = IX + INCX;
                           IY = IY + INCY;
                       } // 30
-                      AP[KK+J-1] = REAL(AP(KK+J-1)) + REAL(X(JX)*TEMP1+Y(JY)*TEMP2);
+                      AP[KK+J-1] = REAL(AP(KK+J-1)) + double(X(JX)*TEMP1+Y(JY)*TEMP2);
                   } else {
-                      AP[KK+J-1] = REAL(AP(KK+J-1));
+                      AP[KK+J-1] = double(AP(KK+J-1));
                   }
                   JX = JX + INCX;
                   JY = JY + INCY;
@@ -127,14 +127,14 @@
                   if ((X(J) != ZERO) || (Y(J) != ZERO)) {
                       TEMP1 = ALPHA*CONJG(Y(J));
                       TEMP2 = CONJG(ALPHA*X(J));
-                      AP[KK] = REAL(AP(KK)) + REAL(X(J)*TEMP1+Y(J)*TEMP2);
+                      AP[KK] = REAL(AP(KK)) + double(X(J)*TEMP1+Y(J)*TEMP2);
                       K = KK + 1;
                       for (I = J + 1; I <= N; I++) { // 50
                           AP[K] = AP(K) + X(I)*TEMP1 + Y(I)*TEMP2;
                           K = K + 1;
                       } // 50
                   } else {
-                      AP[KK] = REAL(AP(KK));
+                      AP[KK] = double(AP(KK));
                   }
                   KK = KK + N - J + 1;
               } // 60
@@ -143,7 +143,7 @@
                   if ((X(JX) != ZERO) || (Y(JY) != ZERO)) {
                       TEMP1 = ALPHA*CONJG(Y(JY));
                       TEMP2 = CONJG(ALPHA*X(JX));
-                      AP[KK] = REAL(AP(KK)) + REAL(X(JX)*TEMP1+Y(JY)*TEMP2);
+                      AP[KK] = REAL(AP(KK)) + double(X(JX)*TEMP1+Y(JY)*TEMP2);
                       IX = JX;
                       IY = JY;
                       for (K = KK + 1; K <= KK + N - J; K++) { // 70
@@ -152,7 +152,7 @@
                           AP[K] = AP(K) + X(IX)*TEMP1 + Y(IY)*TEMP2;
                       } // 70
                   } else {
-                      AP[KK] = REAL(AP(KK));
+                      AP[KK] = double(AP(KK));
                   }
                   JX = JX + INCX;
                   JY = JY + INCY;

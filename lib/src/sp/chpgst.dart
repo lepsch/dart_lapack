@@ -15,7 +15,7 @@
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ONE, HALF;
+      double               ONE, HALF;
       const              ONE = 1.0, HALF = 0.5 ;
       Complex            CONE;
       const              CONE = ( 1.0, 0.0 ) ;
@@ -23,7 +23,7 @@
       // .. Local Scalars ..
       bool               UPPER;
       int                J, J1, J1J1, JJ, K, K1, K1K1, KK;
-      REAL               AJJ, AKK, BJJ, BKK;
+      double               AJJ, AKK, BJJ, BKK;
       Complex            CT;
       // ..
       // .. External Subroutines ..
@@ -69,8 +69,8 @@
 
                // Compute the j-th column of the upper triangle of A
 
-               AP[JJ] = REAL( AP( JJ ) );
-               BJJ = REAL( BP( JJ ) );
+               AP[JJ] = double( AP( JJ ) );
+               BJJ = double( BP( JJ ) );
                ctpsv(UPLO, 'Conjugate transpose', 'Non-unit', J, BP, AP( J1 ), 1 );
                chpmv(UPLO, J-1, -CONE, AP, BP( J1 ), 1, CONE, AP( J1 ), 1 );
                csscal(J-1, ONE / BJJ, AP( J1 ), 1 );
@@ -88,8 +88,8 @@
 
                // Update the lower triangle of A(k:n,k:n)
 
-               AKK = REAL( AP( KK ) );
-               BKK = REAL( BP( KK ) );
+               AKK = double( AP( KK ) );
+               BKK = double( BP( KK ) );
                AKK = AKK / BKK**2;
                AP[KK] = AKK;
                if ( K < N ) {
@@ -117,8 +117,8 @@
 
                // Update the upper triangle of A(1:k,1:k)
 
-               AKK = REAL( AP( KK ) );
-               BKK = REAL( BP( KK ) );
+               AKK = double( AP( KK ) );
+               BKK = double( BP( KK ) );
                ctpmv(UPLO, 'No transpose', 'Non-unit', K-1, BP, AP( K1 ), 1 );
                CT = HALF*AKK;
                caxpy(K-1, CT, BP( K1 ), 1, AP( K1 ), 1 );
@@ -139,8 +139,8 @@
 
                // Compute the j-th column of the lower triangle of A
 
-               AJJ = REAL( AP( JJ ) );
-               BJJ = REAL( BP( JJ ) );
+               AJJ = double( AP( JJ ) );
+               BJJ = double( BP( JJ ) );
                AP[JJ] = AJJ*BJJ + CDOTC( N-J, AP( JJ+1 ), 1, BP( JJ+1 ), 1 );
                csscal(N-J, BJJ, AP( JJ+1 ), 1 );
                chpmv(UPLO, N-J, CONE, AP( J1J1 ), BP( JJ+1 ), 1, CONE, AP( JJ+1 ), 1 );

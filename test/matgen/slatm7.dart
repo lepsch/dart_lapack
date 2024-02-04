@@ -5,26 +5,26 @@
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
-      REAL               COND;
+      double               COND;
       int                IDIST, INFO, IRSIGN, MODE, N, RANK;
       // ..
       // .. Array Arguments ..
-      REAL               D( * );
+      double               D( * );
       int                ISEED( 4 );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ONE;
+      double               ONE;
       const              ONE = 1.0 ;
-      REAL               ZERO;
+      double               ZERO;
       const              ZERO = 0.0 ;
-      REAL               HALF;
+      double               HALF;
       const              HALF = 0.5 ;
       // ..
       // .. Local Scalars ..
-      REAL               ALPHA, TEMP;
+      double               ALPHA, TEMP;
       int                I;
       // ..
       // .. External Functions ..
@@ -118,7 +118,7 @@
             TEMP = ONE / COND;
             ALPHA = ( ONE-TEMP ) / REAL( N-1 );
             for (I = 2; I <= N; I++) { // 200
-               D[I] = REAL( N-I )*ALPHA + TEMP;
+               D[I] = double( N-I )*ALPHA + TEMP;
             } // 200
          }
          GO TO 240;

@@ -9,19 +9,19 @@
       int                INFO, ITYPE, N;
       // ..
       // .. Array Arguments ..
-      REAL               AP( * ), BP( * );
+      double               AP( * ), BP( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ONE, HALF;
+      double               ONE, HALF;
       const              ONE = 1.0, HALF = 0.5 ;
       // ..
       // .. Local Scalars ..
       bool               UPPER;
       int                J, J1, J1J1, JJ, K, K1, K1K1, KK;
-      REAL               AJJ, AKK, BJJ, BKK, CT;
+      double               AJJ, AKK, BJJ, BKK, CT;
       // ..
       // .. External Subroutines ..
       // EXTERNAL SAXPY, SSCAL, SSPMV, SSPR2, STPMV, STPSV, XERBLA

@@ -18,10 +18,10 @@
       // .. Local Scalars ..
       String             C2;
       int                INFO;
-      REAL               RCOND, SCALE, SCALES(0);
+      double               RCOND, SCALE, SCALES(0);
       // ..
       // .. Local Arrays ..
-      REAL               R1( NMAX ), R2( NMAX ), RW( NMAX );
+      double               R1( NMAX ), R2( NMAX ), RW( NMAX );
       Complex            A( NMAX, NMAX ), B( NMAX ), W( NMAX ), X( NMAX );
       // ..
       // .. External Functions ..

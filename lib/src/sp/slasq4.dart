@@ -6,23 +6,23 @@
 
       // .. Scalar Arguments ..
       int                I0, N0, N0IN, PP, TTYPE;
-      REAL               DMIN, DMIN1, DMIN2, DN, DN1, DN2, G, TAU;
+      double               DMIN, DMIN1, DMIN2, DN, DN1, DN2, G, TAU;
       // ..
       // .. Array Arguments ..
-      REAL               Z( * );
+      double               Z( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               CNST1, CNST2, CNST3;
+      double               CNST1, CNST2, CNST3;
       const              CNST1 = 0.5630, CNST2 = 1.010, CNST3 = 1.050 ;
-      REAL               QURTR, THIRD, HALF, ZERO, ONE, TWO, HUNDRD;
+      double               QURTR, THIRD, HALF, ZERO, ONE, TWO, HUNDRD;
       const              QURTR = 0.250, THIRD = 0.3330, HALF = 0.50, ZERO = 0.0, ONE = 1.0, TWO = 2.0, HUNDRD = 100.0 ;
       // ..
       // .. Local Scalars ..
       int                I4, NN, NP;
-      REAL               A2, B1, B2, GAM, GAP1, GAP2, S;
+      double               A2, B1, B2, GAM, GAP1, GAP2, S;
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN, SQRT

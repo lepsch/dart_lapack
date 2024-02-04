@@ -11,7 +11,7 @@
       int                N, LDA, LWORK, LHOUS2, INFO;
       // ..
       // .. Array Arguments ..
-      REAL               D( * ), E( * );
+      double               D( * ), E( * );
       Complex            A( LDA, * ), TAU( * ), HOUS2( * ), WORK( * );
       // ..
 

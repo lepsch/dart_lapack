@@ -8,7 +8,7 @@
       int                M, N, LDX;
       // ..
       // .. Array Arguments ..
-      REAL               D( * );
+      double               D( * );
       Complex            X( LDX, * );
       // ..
 

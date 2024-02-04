@@ -9,14 +9,14 @@
       int                LDA, LDE, N;
       // ..
       // .. Array Arguments ..
-      REAL               RESULT( 2 ), RWORK( * );
+      double               RESULT( 2 ), RWORK( * );
       Complex            A( LDA, * ), E( LDE, * ), W( * ), WORK( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       Complex            CZERO, CONE;
       const              CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
@@ -24,7 +24,7 @@
       // .. Local Scalars ..
       String             NORMA, NORME;
       int                ITRNSE, ITRNSW, J, JCOL, JOFF, JROW, JVEC;
-      REAL               ANORM, ENORM, ENRMAX, ENRMIN, ERRNRM, TEMP1, ULP, UNFL;
+      double               ANORM, ENORM, ENRMAX, ENRMIN, ERRNRM, TEMP1, ULP, UNFL;
       Complex            WTEMP;
       // ..
       // .. External Functions ..
@@ -78,7 +78,7 @@
          for (JVEC = 1; JVEC <= N; JVEC++) { // 20
             TEMP1 = ZERO;
             for (J = 1; J <= N; J++) { // 10
-               TEMP1 = max( TEMP1, ABS( REAL( E( J, JVEC ) ) )+ ABS( AIMAG( E( J, JVEC ) ) ) );
+               TEMP1 = max( TEMP1, ABS( double( E( J, JVEC ) ) )+ ABS( AIMAG( E( J, JVEC ) ) ) );
             } // 10
             ENRMIN = min( ENRMIN, TEMP1 );
             ENRMAX = max( ENRMAX, TEMP1 );
@@ -90,7 +90,7 @@
 
          for (J = 1; J <= N; J++) { // 50
             for (JVEC = 1; JVEC <= N; JVEC++) { // 40
-               RWORK[JVEC] = max( RWORK( JVEC ), ABS( REAL( E( JVEC, J ) ) )+ ABS( AIMAG( E( JVEC, J ) ) ) );
+               RWORK[JVEC] = max( RWORK( JVEC ), ABS( double( E( JVEC, J ) ) )+ ABS( AIMAG( E( JVEC, J ) ) ) );
             } // 40
          } // 50
 

@@ -8,18 +8,18 @@
       int                INCC, INCX, INCY, N;
       // ..
       // .. Array Arguments ..
-      REAL               C( * ), X( * ), Y( * );
+      double               C( * ), X( * ), Y( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
       int                I, IC, IX, IY;
-      REAL               F, G, T, TT;
+      double               F, G, T, TT;
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC ABS, SQRT

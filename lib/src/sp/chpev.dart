@@ -9,20 +9,20 @@
       int                INFO, LDZ, N;
       // ..
       // .. Array Arguments ..
-      REAL               RWORK( * ), W( * );
+      double               RWORK( * ), W( * );
       Complex            AP( * ), WORK( * ), Z( LDZ, * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
       bool               WANTZ;
       int                IINFO, IMAX, INDE, INDRWK, INDTAU, INDWRK, ISCALE;
-      REAL               ANRM, BIGNUM, EPS, RMAX, RMIN, SAFMIN, SIGMA, SMLNUM;
+      double               ANRM, BIGNUM, EPS, RMAX, RMIN, SAFMIN, SIGMA, SMLNUM;
       // ..
       // .. External Functions ..
       //- bool               lsame;
@@ -62,7 +62,7 @@
       if (N == 0) return;
 
       if ( N == 1 ) {
-         W[1] = REAL( AP( 1 ) );
+         W[1] = double( AP( 1 ) );
          RWORK[1] = 1;
          if (WANTZ) Z( 1, 1 ) = ONE;
          return;

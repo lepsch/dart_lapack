@@ -5,13 +5,13 @@
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
-      REAL               THRESH;
+      double               THRESH;
       int                NMAX, NN, NNB, NOUT, NRANK;
       bool               TSTERR;
       // ..
       // .. Array Arguments ..
       Complex            A( * ), AFAC( * ), PERM( * ), WORK( * );
-      REAL               RWORK( * );
+      double               RWORK( * );
       int                NBVAL( * ), NVAL( * ), PIV( * ), RANKVAL( * );
       bool               DOTYPE( * );
       // ..
@@ -19,13 +19,13 @@
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ONE;
+      double               ONE;
       const              ONE = 1.0 ;
       int                NTYPES;
       const              NTYPES = 9 ;
       // ..
       // .. Local Scalars ..
-      REAL               ANORM, CNDNUM, RESULT, TOL;
+      double               ANORM, CNDNUM, RESULT, TOL;
       int                COMPRANK, I, IMAT, IN, INB, INFO, IRANK, IUPLO, IZERO, KL, KU, LDA, MODE, N, NB, NERRS, NFAIL, NIMAT, NRUN, RANK, RANKDIFF;
       String             DIST, TYPE, UPLO;
       String             PATH;
@@ -95,7 +95,7 @@
 
                if( ( IMAT < 3 || IMAT > 5 ) && IRANK > 1 ) GO TO 130;
 
-               RANK = CEILING( ( N * REAL( RANKVAL( IRANK ) ) ) / 100.0 );
+               RANK = CEILING( ( N * double( RANKVAL( IRANK ) ) ) / 100.0 );
 
 
             // Do first for UPLO = 'U', then for UPLO = 'L'

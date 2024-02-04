@@ -7,22 +7,22 @@
       // .. Scalar Arguments ..
       String             JOBT;
       int                EIGCNT, INFO, LCNT, N, RCNT;
-      REAL               PIVMIN, VL, VU;
+      double               PIVMIN, VL, VU;
       // ..
       // .. Array Arguments ..
-      REAL               D( * ), E( * );
+      double               D( * ), E( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO;
+      double               ZERO;
       const              ZERO = 0.0 ;
       // ..
       // .. Local Scalars ..
       int                I;
       bool               MATT;
-      REAL               LPIVOT, RPIVOT, SL, SU, TMP, TMP2;
+      double               LPIVOT, RPIVOT, SL, SU, TMP, TMP2;
 
       // ..
       // .. External Functions ..

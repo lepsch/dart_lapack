@@ -5,7 +5,7 @@
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
-      REAL, INTENT(IN) :: SIN;
+      double, INTENT(IN) :: SIN;
       // ..
 
 // =====================================================================

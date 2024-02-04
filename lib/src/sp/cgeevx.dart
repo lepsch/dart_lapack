@@ -8,28 +8,28 @@
       // .. Scalar Arguments ..
       String             BALANC, JOBVL, JOBVR, SENSE;
       int                IHI, ILO, INFO, LDA, LDVL, LDVR, LWORK, N;
-      REAL               ABNRM;
+      double               ABNRM;
       // ..
       // .. Array Arguments ..
-      REAL               RCONDE( * ), RCONDV( * ), RWORK( * ), SCALE( * )       Complex            A( LDA, * ), VL( LDVL, * ), VR( LDVR, * ), W( * ), WORK( * );
+      double               RCONDE( * ), RCONDV( * ), RWORK( * ), SCALE( * )       Complex            A( LDA, * ), VL( LDVL, * ), VR( LDVR, * ), W( * ), WORK( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
       bool               LQUERY, SCALEA, WANTVL, WANTVR, WNTSNB, WNTSNE, WNTSNN, WNTSNV;
       String             JOB, SIDE;
       int                HSWORK, I, ICOND, IERR, ITAU, IWRK, K, LWORK_TREVC, MAXWRK, MINWRK, NOUT;
-      REAL               ANRM, BIGNUM, CSCALE, EPS, SCL, SMLNUM;
+      double               ANRM, BIGNUM, CSCALE, EPS, SCL, SMLNUM;
       Complex            TMP;
       // ..
       // .. Local Arrays ..
       bool               SELECT( 1 );
-      REAL   DUM( 1 );
+      double   DUM( 1 );
       // ..
       // .. External Subroutines ..
       // EXTERNAL SLASCL, XERBLA, CSSCAL, CGEBAK, CGEBAL, CGEHRD, CHSEQR, CLACPY, CLASCL, CSCAL, CTREVC3, CTRSNA, CUNGHR
@@ -284,12 +284,12 @@
             SCL = ONE / SCNRM2( N, VL( 1, I ), 1 );
             csscal(N, SCL, VL( 1, I ), 1 );
             for (K = 1; K <= N; K++) { // 10
-               RWORK[K] = REAL( VL( K, I ) )**2 + AIMAG( VL( K, I ) )**2;
+               RWORK[K] = double( VL( K, I ) )**2 + AIMAG( VL( K, I ) )**2;
             } // 10
             K = ISAMAX( N, RWORK, 1 );
             TMP = CONJG( VL( K, I ) ) / sqrt( RWORK( K ) );
             cscal(N, TMP, VL( 1, I ), 1 );
-            VL[K, I] = CMPLX( REAL( VL( K, I ) ), ZERO );
+            VL[K, I] = CMPLX( double( VL( K, I ) ), ZERO );
          } // 20
       }
 
@@ -305,12 +305,12 @@
             SCL = ONE / SCNRM2( N, VR( 1, I ), 1 );
             csscal(N, SCL, VR( 1, I ), 1 );
             for (K = 1; K <= N; K++) { // 30
-               RWORK[K] = REAL( VR( K, I ) )**2 + AIMAG( VR( K, I ) )**2;
+               RWORK[K] = double( VR( K, I ) )**2 + AIMAG( VR( K, I ) )**2;
             } // 30
             K = ISAMAX( N, RWORK, 1 );
             TMP = CONJG( VR( K, I ) ) / sqrt( RWORK( K ) );
             cscal(N, TMP, VR( 1, I ), 1 );
-            VR[K, I] = CMPLX( REAL( VR( K, I ) ), ZERO );
+            VR[K, I] = CMPLX( double( VR( K, I ) ), ZERO );
          } // 40
       }
 

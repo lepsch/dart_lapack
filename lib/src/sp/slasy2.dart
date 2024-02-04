@@ -7,29 +7,29 @@
       // .. Scalar Arguments ..
       bool               LTRANL, LTRANR;
       int                INFO, ISGN, LDB, LDTL, LDTR, LDX, N1, N2;
-      REAL               SCALE, XNORM;
+      double               SCALE, XNORM;
       // ..
       // .. Array Arguments ..
-      REAL               B( LDB, * ), TL( LDTL, * ), TR( LDTR, * ), X( LDX, * );
+      double               B( LDB, * ), TL( LDTL, * ), TR( LDTR, * ), X( LDX, * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
-      REAL               TWO, HALF, EIGHT;
+      double               TWO, HALF, EIGHT;
       const              TWO = 2.0, HALF = 0.5, EIGHT = 8.0 ;
       // ..
       // .. Local Scalars ..
       bool               BSWAP, XSWAP;
       int                I, IP, IPIV, IPSV, J, JP, JPSV, K;
-      REAL               BET, EPS, GAM, L21, SGN, SMIN, SMLNUM, TAU1, TEMP, U11, U12, U22, XMAX;
+      double               BET, EPS, GAM, L21, SGN, SMIN, SMLNUM, TAU1, TEMP, U11, U12, U22, XMAX;
       // ..
       // .. Local Arrays ..
       bool               BSWPIV( 4 ), XSWPIV( 4 );
       int                JPIV( 4 ), LOCL21( 4 ), LOCU12( 4 ), LOCU22( 4 );
-      REAL               BTMP( 4 ), T16( 4, 4 ), TMP( 4 ), X2( 2 );
+      double               BTMP( 4 ), T16( 4, 4 ), TMP( 4 ), X2( 2 );
       // ..
       // .. External Functions ..
       //- int                ISAMAX;

@@ -9,19 +9,19 @@
       // ..
       // .. Array Arguments ..
       int                JPVT( * );
-      REAL               RWORK( * );
+      double               RWORK( * );
       Complex            A( LDA, * ), TAU( * ), WORK( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
       int                I, ITEMP, J, MA, MN, PVT;
-      REAL               TEMP, TEMP2, TOL3Z;
+      double               TEMP, TEMP2, TOL3Z;
       Complex            AII;
       // ..
       // .. External Subroutines ..

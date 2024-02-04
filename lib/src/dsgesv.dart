@@ -9,7 +9,7 @@
       // ..
       // .. Array Arguments ..
       int                IPIV( * );
-      REAL               SWORK( * );
+      double               SWORK( * );
       double             A( LDA, * ), B( LDB, * ), WORK( N, * ), X( LDX, * );
       // ..
 

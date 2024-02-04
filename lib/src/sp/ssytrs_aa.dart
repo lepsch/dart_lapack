@@ -12,12 +12,12 @@
       // ..
       // .. Array Arguments ..
       int                IPIV( * );
-      REAL               A( LDA, * ), B( LDB, * ), WORK( * );
+      double               A( LDA, * ), B( LDB, * ), WORK( * );
       // ..
 
 // =====================================================================
 
-      REAL               ONE;
+      double               ONE;
       const              ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
@@ -27,7 +27,7 @@
       // .. External Functions ..
       //- bool               lsame;
       // EXTERNAL lsame
-      REAL               SROUNDUP_LWORK;
+      double               SROUNDUP_LWORK;
       // EXTERNAL SROUNDUP_LWORK
       // ..
       // .. External Subroutines ..

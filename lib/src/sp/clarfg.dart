@@ -15,12 +15,12 @@
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ONE, ZERO;
+      double               ONE, ZERO;
       const              ONE = 1.0, ZERO = 0.0 ;
       // ..
       // .. Local Scalars ..
       int                J, KNT;
-      REAL               ALPHI, ALPHR, BETA, RSAFMN, SAFMIN, XNORM;
+      double               ALPHI, ALPHR, BETA, RSAFMN, SAFMIN, XNORM;
       // ..
       // .. External Functions ..
       //- REAL               SCNRM2, SLAMCH, SLAPY3;
@@ -41,7 +41,7 @@
       }
 
       XNORM = SCNRM2( N-1, X, INCX );
-      ALPHR = REAL( ALPHA );
+      ALPHR = double( ALPHA );
       ALPHI = AIMAG( ALPHA );
 
       if ( XNORM == ZERO && ALPHI == ZERO ) {

@@ -6,22 +6,22 @@
 
       // .. Scalar Arguments ..
       int                GIVPTR, ICOMPQ, INFO, K, LDB, LDBX, LDGCOL, LDGNUM, NL, NR, NRHS, SQRE;
-      REAL               C, S;
+      double               C, S;
       // ..
       // .. Array Arguments ..
       int                GIVCOL( LDGCOL, * ), PERM( * );
-      REAL               B( LDB, * ), BX( LDBX, * ), DIFL( * ), DIFR( LDGNUM, * ), GIVNUM( LDGNUM, * ), POLES( LDGNUM, * ), WORK( * ), Z( * );
+      double               B( LDB, * ), BX( LDBX, * ), DIFL( * ), DIFR( LDGNUM, * ), GIVNUM( LDGNUM, * ), POLES( LDGNUM, * ), WORK( * ), Z( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ONE, ZERO, NEGONE;
+      double               ONE, ZERO, NEGONE;
       const              ONE = 1.0, ZERO = 0.0, NEGONE = -1.0 ;
       // ..
       // .. Local Scalars ..
       int                I, J, M, N, NLP1;
-      REAL               DIFLJ, DIFRJ, DJ, DSIGJ, DSIGJP, TEMP;
+      double               DIFLJ, DIFRJ, DJ, DSIGJ, DSIGJP, TEMP;
       // ..
       // .. External Subroutines ..
       // EXTERNAL SCOPY, SGEMV, SLACPY, SLASCL, SROT, SSCAL, XERBLA

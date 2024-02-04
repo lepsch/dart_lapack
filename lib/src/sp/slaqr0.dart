@@ -9,7 +9,7 @@
       bool               WANTT, WANTZ;
       // ..
       // .. Array Arguments ..
-      REAL               H( LDH, * ), WI( * ), WORK( * ), WR( * ), Z( LDZ, * );
+      double               H( LDH, * ), WI( * ), WORK( * ), WR( * ), Z( LDZ, * );
       // ..
 
 // ================================================================
@@ -35,13 +35,13 @@
 
       // ==== The constants WILK1 and WILK2 are used to form the
       // .    exceptional shifts. ====
-      REAL               WILK1, WILK2;
+      double               WILK1, WILK2;
       const              WILK1 = 0.75, WILK2 = -0.4375 ;
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
-      REAL               AA, BB, CC, CS, DD, SN, SS, SWAP;
+      double               AA, BB, CC, CS, DD, SN, SS, SWAP;
       int                I, INF, IT, ITMAX, K, KACC22, KBOT, KDU, KS, KT, KTOP, KU, KV, KWH, KWTOP, KWV, LD, LS, LWKOPT, NDEC, NDFL, NH, NHO, NIBBLE, NMIN, NS, NSMAX, NSR, NVE, NW, NWMAX, NWR, NWUPBD;
       bool               SORTED;
       String             JBCMPZ*2;
@@ -51,7 +51,7 @@
       // EXTERNAL ILAENV
       // ..
       // .. Local Arrays ..
-      REAL               ZDUM( 1, 1 );
+      double               ZDUM( 1, 1 );
       // ..
       // .. External Subroutines ..
       // EXTERNAL SLACPY, SLAHQR, SLANV2, SLAQR3, SLAQR4, SLAQR5
@@ -129,7 +129,7 @@
          // ==== Quick return in case of workspace query. ====
 
          if ( LWORK == -1 ) {
-            WORK[1] = REAL( LWKOPT );
+            WORK[1] = double( LWKOPT );
             return;
          }
 
@@ -444,7 +444,7 @@
 
       // ==== Return the optimal value of LWORK. ====
 
-      WORK[1] = REAL( LWKOPT );
+      WORK[1] = double( LWKOPT );
 
       // ==== End of SLAQR0 ====
 

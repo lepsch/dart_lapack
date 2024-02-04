@@ -5,27 +5,27 @@
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
-      REAL               EPS, SFMIN, TOL;
+      double               EPS, SFMIN, TOL;
       int                INFO, LDA, LDV, LWORK, M, MV, N, N1, NSWEEP;
       String             JOBV;
       // ..
       // .. Array Arguments ..
-      REAL               A( LDA, * ), D( N ), SVA( N ), V( LDV, * ), WORK( LWORK );
+      double               A( LDA, * ), D( N ), SVA( N ), V( LDV, * ), WORK( LWORK );
       // ..
 
 // =====================================================================
 
       // .. Local Parameters ..
-      REAL               ZERO, HALF, ONE;
+      double               ZERO, HALF, ONE;
       const              ZERO = 0.0, HALF = 0.5, ONE = 1.0;
       // ..
       // .. Local Scalars ..
-      REAL               AAPP, AAPP0, AAPQ, AAQQ, APOAQ, AQOAP, BIG, BIGTHETA, CS, LARGE, MXAAPQ, MXSINJ, ROOTBIG, ROOTEPS, ROOTSFMIN, ROOTTOL, SMALL, SN, T, TEMP1, THETA, THSIGN;
+      double               AAPP, AAPP0, AAPQ, AAQQ, APOAQ, AQOAP, BIG, BIGTHETA, CS, LARGE, MXAAPQ, MXSINJ, ROOTBIG, ROOTEPS, ROOTSFMIN, ROOTTOL, SMALL, SN, T, TEMP1, THETA, THSIGN;
       int                BLSKIP, EMPTSW, i, ibr, igl, IERR, IJBLSK, ISWROT, jbc, jgl, KBL, MVL, NOTROT, nblc, nblr, p, PSKIPPED, q, ROWSKIP, SWBAND;
       bool               APPLV, ROTOK, RSVEC;
       // ..
       // .. Local Arrays ..
-      REAL               FASTR( 5 );
+      double               FASTR( 5 );
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, FLOAT, MIN, SIGN, SQRT

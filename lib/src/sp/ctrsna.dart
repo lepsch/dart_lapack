@@ -10,21 +10,21 @@
       // ..
       // .. Array Arguments ..
       bool               SELECT( * );
-      REAL               RWORK( * ), S( * ), SEP( * );
+      double               RWORK( * ), S( * ), SEP( * );
       Complex            T( LDT, * ), VL( LDVL, * ), VR( LDVR, * ), WORK( LDWORK, * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0+0 ;
       // ..
       // .. Local Scalars ..
       bool               SOMCON, WANTBH, WANTS, WANTSP;
       String             NORMIN;
       int                I, IERR, IX, J, K, KASE, KS;
-      REAL               BIGNUM, EPS, EST, LNRM, RNRM, SCALE, SMLNUM, XNORM;
+      double               BIGNUM, EPS, EST, LNRM, RNRM, SCALE, SMLNUM, XNORM;
       Complex            CDUM, PROD;
       // ..
       // .. Local Arrays ..
@@ -45,10 +45,10 @@
       // INTRINSIC ABS, AIMAG, MAX, REAL
       // ..
       // .. Statement Functions ..
-      REAL               CABS1;
+      double               CABS1;
       // ..
       // .. Statement Function definitions ..
-      CABS1[CDUM] = ( REAL( CDUM ) ).abs() + ( AIMAG( CDUM ) ).abs();
+      CABS1[CDUM] = ( double( CDUM ) ).abs() + ( AIMAG( CDUM ) ).abs();
       // ..
       // .. Executable Statements ..
 

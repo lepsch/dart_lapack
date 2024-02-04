@@ -1,4 +1,4 @@
-      REAL slansb(NORM, UPLO, N, K, AB, LDAB, WORK ) {
+      double slansb(NORM, UPLO, N, K, AB, LDAB, WORK ) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -9,18 +9,18 @@
       int                K, LDAB, N;
       // ..
       // .. Array Arguments ..
-      REAL               AB( LDAB, * ), WORK( * );
+      double               AB( LDAB, * ), WORK( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ONE, ZERO;
+      double               ONE, ZERO;
       const              ONE = 1.0, ZERO = 0.0 ;
       // ..
       // .. Local Scalars ..
       int                I, J, L;
-      REAL               ABSA, SCALE, SUM, VALUE;
+      double               ABSA, SCALE, SUM, VALUE;
       // ..
       // .. External Subroutines ..
       // EXTERNAL SLASSQ

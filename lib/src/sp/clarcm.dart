@@ -8,14 +8,14 @@
       int                LDA, LDB, LDC, M, N;
       // ..
       // .. Array Arguments ..
-      REAL               A( LDA, * ), RWORK( * );
+      double               A( LDA, * ), RWORK( * );
       Complex            B( LDB, * ), C( LDC, * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ONE, ZERO;
+      double               ONE, ZERO;
       const              ONE = 1.0, ZERO = 0.0 ;
       // ..
       // .. Local Scalars ..
@@ -35,7 +35,7 @@
 
       for (J = 1; J <= N; J++) { // 20
          for (I = 1; I <= M; I++) { // 10
-            RWORK[( J-1 )*M+I] = REAL( B( I, J ) );
+            RWORK[( J-1 )*M+I] = double( B( I, J ) );
          } // 10
       } // 20
 
@@ -55,7 +55,7 @@
       sgemm('N', 'N', M, N, M, ONE, A, LDA, RWORK, M, ZERO, RWORK( L ), M );
       for (J = 1; J <= N; J++) { // 80
          for (I = 1; I <= M; I++) { // 70
-            C[I, J] = CMPLX( REAL( C( I, J ) ), RWORK( L+( J-1 )*M+I-1 ) );
+            C[I, J] = CMPLX( double( C( I, J ) ), RWORK( L+( J-1 )*M+I-1 ) );
          } // 70
       } // 80
 

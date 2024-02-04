@@ -9,7 +9,7 @@
       int                INFO, N;
       // ..
       // .. Array Arguments ..
-      REAL               D( * ), E( * );
+      double               D( * ), E( * );
       Complex            AP( * ), TAU( * );
       // ..
 
@@ -61,7 +61,7 @@
          // I1 is the index in AP of A(1,I+1).
 
          I1 = N*( N-1 ) / 2 + 1;
-         AP[I1+N-1] = REAL( AP( I1+N-1 ) );
+         AP[I1+N-1] = double( AP( I1+N-1 ) );
          for (I = N - 1; I >= 1; I--) { // 10
 
             // Generate elementary reflector H(i) = I - tau * v * v**H
@@ -69,7 +69,7 @@
 
             ALPHA = AP( I1+I-1 );
             clarfg(I, ALPHA, AP( I1 ), 1, TAUI );
-            E[I] = REAL( ALPHA );
+            E[I] = double( ALPHA );
 
             if ( TAUI != ZERO ) {
 
@@ -93,18 +93,18 @@
 
             }
             AP[I1+I-1] = E( I );
-            D[I+1] = REAL( AP( I1+I ) );
+            D[I+1] = double( AP( I1+I ) );
             TAU[I] = TAUI;
             I1 = I1 - I;
          } // 10
-         D[1] = REAL( AP( 1 ) );
+         D[1] = double( AP( 1 ) );
       } else {
 
          // Reduce the lower triangle of A. II is the index in AP of
          // A(i,i) and I1I1 is the index of A(i+1,i+1).
 
          II = 1;
-         AP[1] = REAL( AP( 1 ) );
+         AP[1] = double( AP( 1 ) );
          for (I = 1; I <= N - 1; I++) { // 20
             I1I1 = II + N - I + 1;
 
@@ -113,7 +113,7 @@
 
             ALPHA = AP( II+1 );
             clarfg(N-I, ALPHA, AP( II+2 ), 1, TAUI );
-            E[I] = REAL( ALPHA );
+            E[I] = double( ALPHA );
 
             if ( TAUI != ZERO ) {
 
@@ -137,11 +137,11 @@
 
             }
             AP[II+1] = E( I );
-            D[I] = REAL( AP( II ) );
+            D[I] = double( AP( II ) );
             TAU[I] = TAUI;
             II = I1I1;
          } // 20
-         D[N] = REAL( AP( II ) );
+         D[N] = double( AP( II ) );
       }
 
       return;

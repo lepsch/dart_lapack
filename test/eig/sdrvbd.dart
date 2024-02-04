@@ -8,18 +8,18 @@
 
       // .. Scalar Arguments ..
       int                INFO, LDA, LDU, LDVT, LWORK, NOUT, NSIZES, NTYPES;
-      REAL               THRESH;
+      double               THRESH;
       // ..
       // .. Array Arguments ..
       bool               DOTYPE( * );
       int                ISEED( 4 ), IWORK( * ), MM( * ), NN( * );
-      REAL               A( LDA, * ), ASAV( LDA, * ), E( * ), S( * ), SSAV( * ), U( LDU, * ), USAV( LDU, * ), VT( LDVT, * ), VTSAV( LDVT, * ), WORK( * );
+      double               A( LDA, * ), ASAV( LDA, * ), E( * ), S( * ), SSAV( * ), U( LDU, * ), USAV( LDU, * ), VT( LDVT, * ), VTSAV( LDVT, * ), WORK( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL              ZERO, ONE, TWO, HALF;
+      double              ZERO, ONE, TWO, HALF;
       const              ZERO = 0.0, ONE = 1.0, TWO = 2.0, HALF = 0.5 ;
       int                MAXTYP;
       const              MAXTYP = 5 ;
@@ -29,18 +29,18 @@
       String             JOBQ, JOBU, JOBVT, RANGE;
       String             PATH;
       int                I, IINFO, IJQ, IJU, IJVT, IL,IU, IWS, IWTMP, ITEMP, J, JSIZE, JTYPE, LSWORK, M, MINWRK, MMAX, MNMAX, MNMIN, MTYPES, N, NFAIL, NMAX, NS, NSI, NSV, NTEST;
-      REAL               ANORM, DIF, DIV, OVFL, RTUNFL, ULP, ULPINV, UNFL, VL, VU;
+      double               ANORM, DIF, DIV, OVFL, RTUNFL, ULP, ULPINV, UNFL, VL, VU;
       // ..
       // .. Local Scalars for DGESVDQ ..
       int                LIWORK, LRWORK, NUMRANK;
       // ..
       // .. Local Arrays for DGESVDQ ..
-      REAL               RWORK( 2 );
+      double               RWORK( 2 );
       // ..
       // .. Local Arrays ..
       String             CJOB( 4 ), CJOBR( 3 ), CJOBV( 2 );
       int                IOLDSD( 4 ), ISEED2( 4 );
-      REAL               RESULT( 39 );
+      double               RESULT( 39 );
       // ..
       // .. External Functions ..
       //- REAL               SLAMCH, SLARND;
@@ -167,7 +167,7 @@
                if (JTYPE == 3) ANORM = ONE;
                if( JTYPE == 4 ) ANORM = UNFL / ULP;
                IF( JTYPE == 5 ) ANORM = OVFL*ULP;
-               slatms(M, N, 'U', ISEED, 'N', S, 4, REAL( MNMIN ), ANORM, M-1, N-1, 'N', A, LDA, WORK, IINFO );
+               slatms(M, N, 'U', ISEED, 'N', S, 4, double( MNMIN ), ANORM, M-1, N-1, 'N', A, LDA, WORK, IINFO );
                if ( IINFO != 0 ) {
                   WRITE( NOUT, FMT = 9996 )'Generator', IINFO, M, N, JTYPE, IOLDSD;
                   INFO = ( IINFO ).abs();

@@ -8,21 +8,21 @@
       // .. Scalar Arguments ..
       int     M, N, NB, LDT;
       // .. Return values ..
-      REAL RESULT(6);
+      double RESULT(6);
 
 // =====================================================================
 
       // ..
       // .. Local allocatable arrays
-      REAL, ALLOCATABLE :: AF(:,:), Q(:,:), R(:,:), RWORK(:), WORK( : ), T(:,:), CF(:,:), DF(:,:), A(:,:), C(:,:), D(:,:);
+      double, ALLOCATABLE :: AF(:,:), Q(:,:), R(:,:), RWORK(:), WORK( : ), T(:,:), CF(:,:), DF(:,:), A(:,:), C(:,:), D(:,:);
 
       // .. Parameters ..
-      REAL ONE, ZERO;
+      double ONE, ZERO;
       const    ZERO = 0.0, ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
       int     INFO, J, K, L, LWORK;
-      REAL   ANORM, EPS, RESID, CNORM, DNORM;
+      double   ANORM, EPS, RESID, CNORM, DNORM;
       // ..
       // .. Local Arrays ..
       int                ISEED( 4 );

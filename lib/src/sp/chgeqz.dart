@@ -9,7 +9,7 @@
       int                IHI, ILO, INFO, LDH, LDQ, LDT, LDZ, LWORK, N;
       // ..
       // .. Array Arguments ..
-      REAL               RWORK( * );
+      double               RWORK( * );
       Complex            ALPHA( * ), BETA( * ), H( LDH, * ), Q( LDQ, * ), T( LDT, * ), WORK( * ), Z( LDZ, * );
       // ..
 
@@ -18,15 +18,15 @@
       // .. Parameters ..
       Complex            CZERO, CONE;
       const              CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
-      REAL               HALF;
+      double               HALF;
       const              HALF = 0.5 ;
       // ..
       // .. Local Scalars ..
       bool               ILAZR2, ILAZRO, ILQ, ILSCHR, ILZ, LQUERY;
       int                ICOMPQ, ICOMPZ, IFIRST, IFRSTM, IITER, ILAST, ILASTM, IN, ISCHUR, ISTART, J, JC, JCH, JITER, JR, MAXIT;
-      REAL               ABSB, ANORM, ASCALE, ATOL, BNORM, BSCALE, BTOL, C, SAFMIN, TEMP, TEMP2, TEMPR, ULP;
+      double               ABSB, ANORM, ASCALE, ATOL, BNORM, BSCALE, BTOL, C, SAFMIN, TEMP, TEMP2, TEMPR, ULP;
       Complex            ABI22, AD11, AD12, AD21, AD22, CTEMP, CTEMP2, CTEMP3, ESHIFT, S, SHIFT, SIGNBC, U12, X, ABI12, Y;
       // ..
       // .. External Functions ..
@@ -42,10 +42,10 @@
       // INTRINSIC ABS, AIMAG, CMPLX, CONJG, MAX, MIN, REAL, SQRT
       // ..
       // .. Statement Functions ..
-      REAL               ABS1;
+      double               ABS1;
       // ..
       // .. Statement Function definitions ..
-      ABS1[X] = ( REAL( X ) ).abs() + ( AIMAG( X ) ).abs();
+      ABS1[X] = ( double( X ) ).abs() + ( AIMAG( X ) ).abs();
       // ..
       // .. Executable Statements ..
 
@@ -406,7 +406,7 @@
                TEMP = max( TEMP, ABS1( X ) );
                Y = TEMP*sqrt( ( X / TEMP )**2+( CTEMP / TEMP )**2 );
                if ( TEMP2 > ZERO ) {
-                  if( REAL( X / TEMP2 )*REAL( Y )+ AIMAG( X / TEMP2 )*AIMAG( Y ) < ZERO )Y = -Y;
+                  if( double( X / TEMP2 )*REAL( Y )+ AIMAG( X / TEMP2 )*AIMAG( Y ) < ZERO )Y = -Y;
                }
                SHIFT = SHIFT - CTEMP*CLADIV( CTEMP, ( X+Y ) );
             }

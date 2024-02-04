@@ -8,24 +8,24 @@
       // .. Scalar Arguments ..
       int     M, N, NB;
       // .. Return values ..
-      REAL RESULT(6);
+      double RESULT(6);
 
 // =====================================================================
 
       // ..
       // .. Local allocatable arrays
       Complex, ALLOCATABLE :: AF(:,:), Q(:,:), L(:,:), WORK( : ), T(:,:), CF(:,:), DF(:,:), A(:,:), C(:,:), D(:,:);
-      REAL, ALLOCATABLE :: RWORK(:);
+      double, ALLOCATABLE :: RWORK(:);
 
       // .. Parameters ..
-      REAL       ZERO;
+      double       ZERO;
       Complex    ONE, CZERO;
       const    ZERO = 0.0;
       const    ONE = (1.0,0.0), CZERO=(0.0,0.0) ;
       // ..
       // .. Local Scalars ..
       int     INFO, J, K, LL, LWORK, LDT;
-      REAL    ANORM, EPS, RESID, CNORM, DNORM;
+      double    ANORM, EPS, RESID, CNORM, DNORM;
       // ..
       // .. Local Arrays ..
       int                ISEED( 4 );
@@ -87,7 +87,7 @@
       // Compute |I - Q'*Q| and store in RESULT(2)
 
       claset('Full', N, N, CZERO, ONE, L, LL );
-      cherk('U', 'C', N, N, REAL(-ONE), Q, N, REAL(ONE), L, LL);
+      cherk('U', 'C', N, N, REAL(-ONE), Q, N, double(ONE), L, LL);
       RESID = CLANSY( '1', 'Upper', N, L, LL, RWORK );
       RESULT[2] = RESID / (EPS*max(1,N));
 

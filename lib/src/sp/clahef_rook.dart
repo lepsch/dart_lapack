@@ -16,17 +16,17 @@
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       Complex            CONE;
       const              CONE = ( 1.0, 0.0 ) ;
-      REAL               EIGHT, SEVTEN;
+      double               EIGHT, SEVTEN;
       const              EIGHT = 8.0, SEVTEN = 17.0 ;
       // ..
       // .. Local Scalars ..
       bool               DONE;
       int                IMAX, ITEMP, II, J, JB, JJ, JMAX, JP1, JP2, K, KK, KKW, KP, KSTEP, KW, P;
-      REAL               ABSAKK, ALPHA, COLMAX, STEMP, R1, ROWMAX, T, SFMIN;
+      double               ABSAKK, ALPHA, COLMAX, STEMP, R1, ROWMAX, T, SFMIN;
       Complex            D11, D21, D22, Z;
       // ..
       // .. External Functions ..
@@ -42,10 +42,10 @@
       // INTRINSIC ABS, CONJG, AIMAG, MAX, MIN, REAL, SQRT
       // ..
       // .. Statement Functions ..
-      REAL               CABS1;
+      double               CABS1;
       // ..
       // .. Statement Function definitions ..
-      CABS1[Z] = ( REAL( Z ) ).abs() + ( AIMAG( Z ) ).abs();
+      CABS1[Z] = ( double( Z ) ).abs() + ( AIMAG( Z ) ).abs();
       // ..
       // .. Executable Statements ..
 
@@ -84,16 +84,16 @@
          // Copy column K of A to column KW of W and update it
 
          if (K > 1) ccopy( K-1, A( 1, K ), 1, W( 1, KW ), 1 );
-         W[K, KW] = REAL( A( K, K ) );
+         W[K, KW] = double( A( K, K ) );
          if ( K < N ) {
             cgemv('No transpose', K, N-K, -CONE, A( 1, K+1 ), LDA, W( K, KW+1 ), LDW, CONE, W( 1, KW ), 1 );
-            W[K, KW] = REAL( W( K, KW ) );
+            W[K, KW] = double( W( K, KW ) );
          }
 
          // Determine rows and columns to be interchanged and whether
          // a 1-by-1 or 2-by-2 pivot block will be used
 
-         ABSAKK = ABS( REAL( W( K, KW ) ) );
+         ABSAKK = ABS( double( W( K, KW ) ) );
 
          // IMAX is the row-index of the largest off-diagonal element in
          // column K, and COLMAX is its absolute value.
@@ -112,7 +112,7 @@
 
             if (INFO == 0) INFO = K;
             KP = K;
-            A[K, K] = REAL( W( K, KW ) );
+            A[K, K] = double( W( K, KW ) );
             if (K > 1) ccopy( K-1, W( 1, KW ), 1, A( 1, K ), 1 );
          } else {
 
@@ -143,14 +143,14 @@
                   // Copy column IMAX to column KW-1 of W and update it
 
                   if (IMAX > 1) ccopy( IMAX-1, A( 1, IMAX ), 1, W( 1, KW-1 ), 1 );
-                  W[IMAX, KW-1] = REAL( A( IMAX, IMAX ) );
+                  W[IMAX, KW-1] = double( A( IMAX, IMAX ) );
 
                   ccopy(K-IMAX, A( IMAX, IMAX+1 ), LDA, W( IMAX+1, KW-1 ), 1 );
                   clacgv(K-IMAX, W( IMAX+1, KW-1 ), 1 );
 
                   if ( K < N ) {
                      cgemv('No transpose', K, N-K, -CONE, A( 1, K+1 ), LDA, W( IMAX, KW+1 ), LDW, CONE, W( 1, KW-1 ), 1 );
-                     W[IMAX, KW-1] = REAL( W( IMAX, KW-1 ) );
+                     W[IMAX, KW-1] = double( W( IMAX, KW-1 ) );
                   }
 
                   // JMAX is the column-index of the largest off-diagonal
@@ -178,7 +178,7 @@
                   // ABS( REAL( W( IMAX,KW-1 ) ) ) >= ALPHA*ROWMAX
                   // (used to handle NaN and Inf)
 
-                  if ( !( ABS( REAL( W( IMAX,KW-1 ) ) ) < ALPHA*ROWMAX ) ) {
+                  if ( !( ABS( double( W( IMAX,KW-1 ) ) ) < ALPHA*ROWMAX ) ) {
 
                      // interchange rows and columns K and IMAX,
                      // use 1-by-1 pivot block
@@ -248,7 +248,7 @@
                // K and K-1 of A for 2-by-2 pivot, since these columns
                // will be later overwritten.
 
-               A[P, P] = REAL( A( K, K ) );
+               A[P, P] = double( A( K, K ) );
                ccopy(K-1-P, A( P+1, K ), 1, A( P, P+1 ), LDA );
                clacgv(K-1-P, A( P, P+1 ), LDA );
                if (P > 1) ccopy( P-1, A( 1, K ), 1, A( 1, P ), 1 );
@@ -272,7 +272,7 @@
                // (or K and K-1 for 2-by-2 pivot) of A, since these columns
                // will be later overwritten.
 
-               A[KP, KP] = REAL( A( KK, KK ) );
+               A[KP, KP] = double( A( KK, KK ) );
                ccopy(KK-1-KP, A( KP+1, KK ), 1, A( KP, KP+1 ), LDA );
                clacgv(KK-1-KP, A( KP, KP+1 ), LDA );
                if (KP > 1) ccopy( KP-1, A( 1, KK ), 1, A( 1, KP ), 1 );
@@ -313,7 +313,7 @@
 
                   // Handle division by a small number
 
-                  T = REAL( A( K, K ) );
+                  T = double( A( K, K ) );
                   if ( ( T ).abs() >= SFMIN ) {
                      R1 = ONE / T;
                      csscal(K-1, R1, A( 1, K ), 1 );
@@ -450,9 +450,9 @@
             // Update the upper triangle of the diagonal block
 
             for (JJ = J; JJ <= J + JB - 1; JJ++) { // 40
-               A[JJ, JJ] = REAL( A( JJ, JJ ) );
+               A[JJ, JJ] = double( A( JJ, JJ ) );
                cgemv('No transpose', JJ-J+1, N-K, -CONE, A( J, K+1 ), LDA, W( JJ, KW+1 ), LDW, CONE, A( J, JJ ), 1 );
-               A[JJ, JJ] = REAL( A( JJ, JJ ) );
+               A[JJ, JJ] = double( A( JJ, JJ ) );
             } // 40
 
             // Update the rectangular superdiagonal block
@@ -513,17 +513,17 @@
 
          // Copy column K of A to column K of W and update column K of W
 
-         W[K, K] = REAL( A( K, K ) );
+         W[K, K] = double( A( K, K ) );
          if (K < N) ccopy( N-K, A( K+1, K ), 1, W( K+1, K ), 1 );
          if ( K > 1 ) {
             cgemv('No transpose', N-K+1, K-1, -CONE, A( K, 1 ), LDA, W( K, 1 ), LDW, CONE, W( K, K ), 1 );
-            W[K, K] = REAL( W( K, K ) );
+            W[K, K] = double( W( K, K ) );
          }
 
          // Determine rows and columns to be interchanged and whether
          // a 1-by-1 or 2-by-2 pivot block will be used
 
-         ABSAKK = ABS( REAL( W( K, K ) ) );
+         ABSAKK = ABS( double( W( K, K ) ) );
 
          // IMAX is the row-index of the largest off-diagonal element in
          // column K, and COLMAX is its absolute value.
@@ -542,7 +542,7 @@
 
             if (INFO == 0) INFO = K;
             KP = K;
-            A[K, K] = REAL( W( K, K ) );
+            A[K, K] = double( W( K, K ) );
             if (K < N) ccopy( N-K, W( K+1, K ), 1, A( K+1, K ), 1 );
          } else {
 
@@ -575,13 +575,13 @@
 
                   ccopy(IMAX-K, A( IMAX, K ), LDA, W( K, K+1 ), 1);
                   clacgv(IMAX-K, W( K, K+1 ), 1 );
-                  W[IMAX, K+1] = REAL( A( IMAX, IMAX ) );
+                  W[IMAX, K+1] = double( A( IMAX, IMAX ) );
 
                   if (IMAX < N) ccopy( N-IMAX, A( IMAX+1, IMAX ), 1, W( IMAX+1, K+1 ), 1 );
 
                   if ( K > 1 ) {
                      cgemv('No transpose', N-K+1, K-1, -CONE, A( K, 1 ), LDA, W( IMAX, 1 ), LDW, CONE, W( K, K+1 ), 1 );
-                     W[IMAX, K+1] = REAL( W( IMAX, K+1 ) );
+                     W[IMAX, K+1] = double( W( IMAX, K+1 ) );
                   }
 
                   // JMAX is the column-index of the largest off-diagonal
@@ -609,7 +609,7 @@
                   // ABS( REAL( W( IMAX,K+1 ) ) ) >= ALPHA*ROWMAX
                   // (used to handle NaN and Inf)
 
-                  if ( !( ABS( REAL( W( IMAX,K+1 ) ) ) < ALPHA*ROWMAX ) ) {
+                  if ( !( ABS( double( W( IMAX,K+1 ) ) ) < ALPHA*ROWMAX ) ) {
 
                      // interchange rows and columns K and IMAX,
                      // use 1-by-1 pivot block
@@ -675,7 +675,7 @@
                // K and K+1 of A for 2-by-2 pivot, since these columns
                // will be later overwritten.
 
-               A[P, P] = REAL( A( K, K ) );
+               A[P, P] = double( A( K, K ) );
                ccopy(P-K-1, A( K+1, K ), 1, A( P, K+1 ), LDA );
                clacgv(P-K-1, A( P, K+1 ), LDA );
                if (P < N) ccopy( N-P, A( P+1, K ), 1, A( P+1, P ), 1 );
@@ -699,7 +699,7 @@
                // (or K and K+1 for 2-by-2 pivot) of A, since these columns
                // will be later overwritten.
 
-               A[KP, KP] = REAL( A( KK, KK ) );
+               A[KP, KP] = double( A( KK, KK ) );
                ccopy(KP-KK-1, A( KK+1, KK ), 1, A( KP, KK+1 ), LDA );
                clacgv(KP-KK-1, A( KP, KK+1 ), LDA );
                if (KP < N) ccopy( N-KP, A( KP+1, KK ), 1, A( KP+1, KP ), 1 );
@@ -740,7 +740,7 @@
 
                   // Handle division by a small number
 
-                  T = REAL( A( K, K ) );
+                  T = double( A( K, K ) );
                   if ( ( T ).abs() >= SFMIN ) {
                      R1 = ONE / T;
                      csscal(N-K, R1, A( K+1, K ), 1 );
@@ -877,9 +877,9 @@
             // Update the lower triangle of the diagonal block
 
             for (JJ = J; JJ <= J + JB - 1; JJ++) { // 100
-               A[JJ, JJ] = REAL( A( JJ, JJ ) );
+               A[JJ, JJ] = double( A( JJ, JJ ) );
                cgemv('No transpose', J+JB-JJ, K-1, -CONE, A( JJ, 1 ), LDA, W( JJ, 1 ), LDW, CONE, A( JJ, JJ ), 1 );
-               A[JJ, JJ] = REAL( A( JJ, JJ ) );
+               A[JJ, JJ] = double( A( JJ, JJ ) );
             } // 100
 
             // Update the rectangular subdiagonal block

@@ -9,19 +9,19 @@
       int                KD, LDAB, LDB, LDX, LDXACT, N, NRHS;
       // ..
       // .. Array Arguments ..
-      REAL               AB( LDAB, * ), B( LDB, * ), BERR( * ), FERR( * ), RESLTS( * ), X( LDX, * ), XACT( LDXACT, * );
+      double               AB( LDAB, * ), B( LDB, * ), BERR( * ), FERR( * ), RESLTS( * ), X( LDX, * ), XACT( LDXACT, * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
       bool               UPPER;
       int                I, IMAX, J, K, NZ;
-      REAL               AXBI, DIFF, EPS, ERRBND, OVFL, TMP, UNFL, XNORM;
+      double               AXBI, DIFF, EPS, ERRBND, OVFL, TMP, UNFL, XNORM;
       // ..
       // .. External Functions ..
       //- bool               lsame;

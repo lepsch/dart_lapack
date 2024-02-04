@@ -7,20 +7,20 @@
       // .. Scalar Arguments ..
       bool               TSTERR;
       int                NMAX, NN, NNB, NNS, NOUT;
-      REAL               THRESH;
+      double               THRESH;
       // ..
       // .. Array Arguments ..
       bool               DOTYPE( * );
       int                IWORK( * ), NBVAL( * ), NSVAL( * ), NVAL( * );
-      REAL               A( * ), AFAC( * ), AINV( * ), B( * ), RWORK( * ), WORK( * ), X( * ), XACT( * );
+      double               A( * ), AFAC( * ), AINV( * ), B( * ), RWORK( * ), WORK( * ), X( * ), XACT( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
-      REAL               EIGHT, SEVTEN;
+      double               EIGHT, SEVTEN;
       const              EIGHT = 8.0, SEVTEN = 17.0 ;
       int                NTYPES;
       const              NTYPES = 10 ;
@@ -32,12 +32,12 @@
       String             DIST, TYPE, UPLO, XTYPE;
       String             PATH, MATPATH;
       int                I, I1, I2, IMAT, IN, INB, INFO, IOFF, IRHS, IUPLO, IZERO, J, K, KL, KU, LDA, LWORK, MODE, N, NB, NERRS, NFAIL, NIMAT, NRHS, NRUN, NT;
-      REAL               ALPHA, ANORM, CNDNUM, CONST, SING_MAX, SING_MIN, RCOND, RCONDC, STEMP;
+      double               ALPHA, ANORM, CNDNUM, CONST, SING_MAX, SING_MIN, RCOND, RCONDC, STEMP;
       // ..
       // .. Local Arrays ..
       String             UPLOS( 2 );
       int                ISEED( 4 ), ISEEDY( 4 );
-      REAL               BLOCK( 2, 2 ), RESULT( NTESTS ), SDUMMY( 1 );
+      double               BLOCK( 2, 2 ), RESULT( NTESTS ), SDUMMY( 1 );
       // ..
       // .. External Functions ..
       //- REAL               SGET06, SLANGE, SLANSY;

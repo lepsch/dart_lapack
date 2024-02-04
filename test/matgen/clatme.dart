@@ -7,21 +7,21 @@
       // .. Scalar Arguments ..
       String             DIST, RSIGN, SIM, UPPER;
       int                INFO, KL, KU, LDA, MODE, MODES, N;
-      REAL               ANORM, COND, CONDS;
+      double               ANORM, COND, CONDS;
       Complex            DMAX;
       // ..
       // .. Array Arguments ..
       int                ISEED( 4 );
-      REAL               DS( * );
+      double               DS( * );
       Complex            A( LDA, * ), D( * ), WORK( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO;
+      double               ZERO;
       const              ZERO = 0.0 ;
-      REAL               ONE;
+      double               ONE;
       const              ONE = 1.0 ;
       Complex            CZERO;
       const              CZERO = ( 0.0, 0.0 ) ;
@@ -31,11 +31,11 @@
       // .. Local Scalars ..
       bool               BADS;
       int                I, IC, ICOLS, IDIST, IINFO, IR, IROWS, IRSIGN, ISIM, IUPPER, J, JC, JCR;
-      REAL               RALPHA, TEMP;
+      double               RALPHA, TEMP;
       Complex            ALPHA, TAU, XNORMS;
       // ..
       // .. Local Arrays ..
-      REAL               TEMPA( 1 );
+      double               TEMPA( 1 );
       // ..
       // .. External Functions ..
       //- bool               lsame;

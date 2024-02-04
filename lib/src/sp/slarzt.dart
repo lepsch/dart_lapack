@@ -9,13 +9,13 @@
       int                K, LDT, LDV, N;
       // ..
       // .. Array Arguments ..
-      REAL               T( LDT, * ), TAU( * ), V( LDV, * );
+      double               T( LDT, * ), TAU( * ), V( LDV, * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO;
+      double               ZERO;
       const              ZERO = 0.0 ;
       // ..
       // .. Local Scalars ..

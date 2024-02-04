@@ -9,13 +9,13 @@
       int       K, L, LDA, LDB, LDT, LDV, LDWORK, M, N;
       // ..
       // .. Array Arguments ..
-      REAL   A( LDA, * ), B( LDB, * ), T( LDT, * ), V( LDV, * ), WORK( LDWORK, * );
+      double   A( LDA, * ), B( LDB, * ), T( LDT, * ), V( LDV, * ), WORK( LDWORK, * );
       // ..
 
 // ==========================================================================
 
       // .. Parameters ..
-      REAL   ONE, ZERO;
+      double   ONE, ZERO;
       const     ONE = 1.0, ZERO = 0.0 ;
       // ..
       // .. Local Scalars ..

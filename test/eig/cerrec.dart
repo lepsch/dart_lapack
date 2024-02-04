@@ -14,16 +14,16 @@
       // .. Parameters ..
       int                NMAX, LW;
       const              NMAX = 4, LW = NMAX*( NMAX+2 ) ;
-      REAL               ONE, ZERO;
+      double               ONE, ZERO;
       const              ONE = 1.0, ZERO = 0.0 ;
       // ..
       // .. Local Scalars ..
       int                I, IFST, ILST, INFO, J, M, NT;
-      REAL               SCALE;
+      double               SCALE;
       // ..
       // .. Local Arrays ..
       bool               SEL( NMAX );
-      REAL               RW( LW ), S( NMAX ), SEP( NMAX ), SWORK( NMAX );
+      double               RW( LW ), S( NMAX ), SEP( NMAX ), SWORK( NMAX );
       Complex            A( NMAX, NMAX ), B( NMAX, NMAX ), C( NMAX, NMAX ), WORK( LW ), X( NMAX );
       // ..
       // .. External Subroutines ..

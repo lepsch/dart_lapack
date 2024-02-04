@@ -6,27 +6,27 @@
 
       // .. Scalar Arguments ..
       int                LDA, LDU, LDVT, M, N, NS;
-      REAL               RESID;
+      double               RESID;
       // ..
       // .. Array Arguments ..
-      REAL               S( * );
+      double               S( * );
       Complex            A( LDA, * ), U( * ), VT( LDVT, * ), WORK( * );
       // ..
 
 // ======================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       Complex            CZERO, CONE;
       const              CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
       int                I, J;
-      REAL               ANORM, EPS;
+      double               ANORM, EPS;
       // ..
       // .. Local Arrays ..
-      REAL               DUM( 1 );
+      double               DUM( 1 );
       // ..
       // .. External Functions ..
       //- bool               lsame;
@@ -70,7 +70,7 @@
             RESID = ( RESID / ANORM ) / ( REAL( N )*EPS );
          } else {
             if ( ANORM < ONE ) {
-               RESID = ( min( RESID, REAL( N )*ANORM ) / ANORM ) / ( REAL( N )*EPS );
+               RESID = ( min( RESID, double( N )*ANORM ) / ANORM ) / ( REAL( N )*EPS );
             } else {
                RESID = min( RESID / ANORM, REAL( N ) ) / ( REAL( N )*EPS );
             }

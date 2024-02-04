@@ -8,7 +8,7 @@
       int                LDA, LDB, LWORK, M, P, N;
       // ..
       // .. Array Arguments ..
-      REAL               A( LDA, * ), AF( LDA, * ), B( LDB, * ), BF( LDB, * ), RESULT( 2 ), RWORK( * ), C( * ), D( * ), CF( * ), DF( * ), WORK( LWORK ), X( * );
+      double               A( LDA, * ), AF( LDA, * ), B( LDB, * ), BF( LDB, * ), RESULT( 2 ), RWORK( * ), C( * ), D( * ), CF( * ), DF( * ), WORK( LWORK ), X( * );
 
 // ====================================================================
 

@@ -8,7 +8,7 @@
       int                INFO, LDA, LWORK, M, N;
       // ..
       // .. Array Arguments ..
-      REAL               D( * ), E( * );
+      double               D( * ), E( * );
       Complex            A( LDA, * ), TAUP( * ), TAUQ( * ), WORK( * );
       // ..
 

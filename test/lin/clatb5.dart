@@ -5,7 +5,7 @@
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
-      REAL               ANORM, CNDNUM;
+      double               ANORM, CNDNUM;
       int                IMAT, KL, KU, MODE, N;
       String             DIST, TYPE;
       String             PATH;
@@ -14,15 +14,15 @@
 // =====================================================================
 
       // .. Parameters ..
-      REAL               SHRINK, TENTH;
+      double               SHRINK, TENTH;
       const              SHRINK = 0.25, TENTH = 0.1 ;
-      REAL               ONE;
+      double               ONE;
       const              ONE = 1.0 ;
-      REAL               TWO;
+      double               TWO;
       const              TWO = 2.0 ;
       // ..
       // .. Local Scalars ..
-      REAL               BADC1, BADC2, EPS, LARGE, SMALL;
+      double               BADC1, BADC2, EPS, LARGE, SMALL;
       bool               FIRST;
       String             C2;
       // ..

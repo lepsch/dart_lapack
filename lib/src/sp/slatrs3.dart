@@ -6,25 +6,25 @@
       int                INFO, LDA, LWORK, LDX, N, NRHS;
       // ..
       // .. Array Arguments ..
-      REAL               A( LDA, * ), CNORM( * ), X( LDX, * ), SCALE( * ), WORK( * );
+      double               A( LDA, * ), CNORM( * ), X( LDX, * ), SCALE( * ), WORK( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       int                NBMAX, NBMIN, NBRHS, NRHSMIN;
       const              NRHSMIN = 2, NBRHS = 32 ;
       const              NBMIN = 8, NBMAX = 64 ;
       // ..
       // .. Local Arrays ..
-      REAL               W( NBMAX ), XNRM( NBRHS );
+      double               W( NBMAX ), XNRM( NBRHS );
       // ..
       // .. Local Scalars ..
       bool               LQUERY, NOTRAN, NOUNIT, UPPER;
       int                AWRK, I, IFIRST, IINC, ILAST, II, I1, I2, J, JFIRST, JINC, JLAST, J1, J2, K, KK, K1, K2, LANRM, LDS, LSCALE, NB, NBA, NBX, RHS, LWMIN;
-      REAL               ANRM, BIGNUM, BNRM, RSCAL, SCAL, SCALOC, SCAMIN, SMLNUM, TMAX;
+      double               ANRM, BIGNUM, BNRM, RSCAL, SCAL, SCALOC, SCAMIN, SMLNUM, TMAX;
       // ..
       // .. External Functions ..
       //- bool               lsame;
@@ -33,7 +33,7 @@
       // EXTERNAL ILAENV, lsame, SLAMCH, SLANGE, SLARMM
       // ..
       // .. External Subroutines ..
-      REAL               SROUNDUP_LWORK;
+      double               SROUNDUP_LWORK;
       // EXTERNAL SLATRS, SSCAL, SROUNDUP_LWORK, XERBLA
       // ..
       // .. Intrinsic Functions ..

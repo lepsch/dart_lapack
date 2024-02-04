@@ -9,18 +9,18 @@
       // ..
       // .. Array Arguments ..
       int                IWORK( * );
-      REAL               D( * ), E( * ), Q( LDQ, * ), QSTORE( LDQS, * ), WORK( * );
+      double               D( * ), E( * ), Q( LDQ, * ), QSTORE( LDQS, * ), WORK( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE, TWO;
+      double               ZERO, ONE, TWO;
       const              ZERO = 0.0, ONE = 1.0, TWO = 2.0 ;
       // ..
       // .. Local Scalars ..
       int                CURLVL, CURPRB, CURR, I, IGIVCL, IGIVNM, IGIVPT, INDXQ, IPERM, IPRMPT, IQ, IQPTR, IWREM, J, K, LGN, MATSIZ, MSD2, SMLSIZ, SMM1, SPM1, SPM2, SUBMAT, SUBPBS, TLVLS;
-      REAL               TEMP;
+      double               TEMP;
       // ..
       // .. External Subroutines ..
       // EXTERNAL SCOPY, SGEMM, SLACPY, SLAED1, SLAED7, SSTEQR, XERBLA
@@ -97,7 +97,7 @@
          // Set up workspaces for eigenvalues only/accumulate new vectors
          // routine
 
-         TEMP = LOG( REAL( N ) ) / LOG( TWO );
+         TEMP = LOG( double( N ) ) / LOG( TWO );
          LGN = INT( TEMP );
          if (2**LGN < N) LGN = LGN + 1;
          IF( 2**LGN < N ) LGN = LGN + 1;

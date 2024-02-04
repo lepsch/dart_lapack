@@ -9,18 +9,18 @@
       // .. Scalar Arguments ..
       bool         TSTERR;
       int          NN, NNB, NNS, NMAX, NOUT;
-      REAL         THRESH;
+      double         THRESH;
       // ..
       // .. Array Arguments ..
       bool         DOTYPE( * );
       int          IWORK( * ), NBVAL( * ), NSVAL( * ), NVAL( * );
-      REAL         A( * ), AFAC( * ), AINV( * ), B( * ), RWORK( * ), WORK( * ), X( * ), XACT( * );
+      double         A( * ), AFAC( * ), AINV( * ), B( * ), RWORK( * ), WORK( * ), X( * ), XACT( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL         ZERO;
+      double         ZERO;
       const        ZERO = 0.0 ;
       int          NTYPES;
       const        NTYPES = 10 ;
@@ -32,12 +32,12 @@
       String       DIST, TYPE, UPLO, XTYPE;
       String       PATH, MATPATH;
       int          I, I1, I2, IMAT, IN, INB, INFO, IOFF, IRHS, IUPLO, IZERO, J, K, KL, KU, LDA, LWORK, MODE, N, NB, NERRS, NFAIL, NIMAT, NRHS, NRUN, NT;
-      REAL         ANORM, CNDNUM;
+      double         ANORM, CNDNUM;
       // ..
       // .. Local Arrays ..
       String       UPLOS( 2 );
       int          ISEED( 4 ), ISEEDY( 4 );
-      REAL         RESULT( NTESTS );
+      double         RESULT( NTESTS );
       // ..
       // .. External Subroutines ..
       // EXTERNAL ALAERH, ALAHD, ALASUM, SERRSY, SLACPY, SLARHS, SLATB4, SLATMS, SPOT02, SSYT01_AA, SSYTRF_AA_2STAGE, SSYTRS_AA_2STAGE, XLAENV

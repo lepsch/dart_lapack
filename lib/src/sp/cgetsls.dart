@@ -16,7 +16,7 @@
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       Complex            CZERO;
       const              CZERO = ( 0.0, 0.0 ) ;
@@ -24,7 +24,7 @@
       // .. Local Scalars ..
       bool               LQUERY, TRAN;
       int                I, IASCL, IBSCL, J, MAXMN, BROW, SCLLEN, TSZO, TSZM, LWO, LWM, LW1, LW2, WSIZEO, WSIZEM, INFO2;
-      REAL               ANRM, BIGNUM, BNRM, SMLNUM, DUM( 1 );
+      double               ANRM, BIGNUM, BNRM, SMLNUM, DUM( 1 );
       Complex            TQ( 5 ), WORKQ( 1 );
       // ..
       // .. External Functions ..

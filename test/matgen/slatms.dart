@@ -7,27 +7,27 @@
       // .. Scalar Arguments ..
       String             DIST, PACK, SYM;
       int                INFO, KL, KU, LDA, M, MODE, N;
-      REAL               COND, DMAX;
+      double               COND, DMAX;
       // ..
       // .. Array Arguments ..
       int                ISEED( 4 );
-      REAL               A( LDA, * ), D( * ), WORK( * );
+      double               A( LDA, * ), D( * ), WORK( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO;
+      double               ZERO;
       const              ZERO = 0.0 ;
-      REAL               ONE;
+      double               ONE;
       const              ONE = 1.0 ;
-      REAL               TWOPI;
+      double               TWOPI;
       const      TWOPI = 6.28318530717958647692528676655900576839 ;
       // ..
       // .. Local Scalars ..
       bool               GIVENS, ILEXTR, ILTEMP, TOPDWN;
       int                I, IC, ICOL, IDIST, IENDCH, IINFO, IL, ILDA, IOFFG, IOFFST, IPACK, IPACKG, IR, IR1, IR2, IROW, IRSIGN, ISKEW, ISYM, ISYMPK, J, JC, JCH, JKL, JKU, JR, K, LLB, MINLDA, MNMIN, MR, NC, UUB;
-      REAL               ALPHA, ANGLE, C, DUMMY, EXTRA, S, TEMP;
+      double               ALPHA, ANGLE, C, DUMMY, EXTRA, S, TEMP;
       // ..
       // .. External Functions ..
       //- bool               lsame;
@@ -131,7 +131,7 @@
 
       GIVENS = false;
       if ( ISYM == 1 ) {
-         if( REAL( LLB+UUB ) < 0.3*REAL( max( 1, MR+NC ) ) ) GIVENS = true;
+         if( REAL( LLB+UUB ) < 0.3*double( max( 1, MR+NC ) ) ) GIVENS = true;
       } else {
          if (2*LLB < M) GIVENS = true ;
       }

@@ -15,15 +15,15 @@
       int                N, KD, LDAB, LHOUS, LWORK, INFO;
       // ..
       // .. Array Arguments ..
-      REAL               D( * ), E( * );
-      REAL               AB( LDAB, * ), HOUS( * ), WORK( * );
+      double               D( * ), E( * );
+      double               AB( LDAB, * ), HOUS( * ), WORK( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               RZERO;
-      REAL               ZERO, ONE;
+      double               RZERO;
+      double               ZERO, ONE;
       const              RZERO = 0.0, ZERO = 0.0, ONE  = 1.0 ;
       // ..
       // .. Local Scalars ..
@@ -188,9 +188,9 @@
       THGRSIZ   = N;
       GRSIZ     = 1;
       SHIFT     = 3;
-      NBTILES   = CEILING( REAL(N)/REAL(KD) );
-      STEPERCOL = CEILING( REAL(SHIFT)/REAL(GRSIZ) );
-      THGRNB    = CEILING( REAL(N-1)/REAL(THGRSIZ) );
+      NBTILES   = CEILING( double(N)/REAL(KD) );
+      STEPERCOL = CEILING( double(SHIFT)/REAL(GRSIZ) );
+      THGRNB    = CEILING( double(N-1)/REAL(THGRSIZ) );
 
       slacpy("A", KD+1, N, AB, LDAB, WORK( APOS ), LDA );
       slaset("A", KD,   N, ZERO, ZERO, WORK( AWPOS ), LDA );

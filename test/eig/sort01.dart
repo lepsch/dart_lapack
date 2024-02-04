@@ -7,22 +7,22 @@
       // .. Scalar Arguments ..
       String             ROWCOL;
       int                LDU, LWORK, M, N;
-      REAL               RESID;
+      double               RESID;
       // ..
       // .. Array Arguments ..
-      REAL               U( LDU, * ), WORK( * );
+      double               U( LDU, * ), WORK( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
       String             TRANSU;
       int                I, J, K, LDWORK, MNMIN;
-      REAL               EPS, TMP;
+      double               EPS, TMP;
       // ..
       // .. External Functions ..
       //- bool               lsame;

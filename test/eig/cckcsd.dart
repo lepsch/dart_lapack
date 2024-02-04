@@ -6,11 +6,11 @@
 
       // .. Scalar Arguments ..
       int                INFO, NIN, NM, NMATS, MMAX, NOUT;
-      REAL               THRESH;
+      double               THRESH;
       // ..
       // .. Array Arguments ..
       int                ISEED( 4 ), IWORK( * ), MVAL( * ), PVAL( * ), QVAL( * );
-      REAL               RWORK( * ), THETA( * );
+      double               RWORK( * ), THETA( * );
       Complex            U1( * ), U2( * ), V1T( * ), V2T( * ), WORK( * ), X( * ), XF( * );
       // ..
 
@@ -21,11 +21,11 @@
       const              NTESTS = 15 ;
       int                NTYPES;
       const              NTYPES = 4 ;
-      REAL               GAPDIGIT, ORTH, REALONE, REALZERO, TEN;
+      double               GAPDIGIT, ORTH, REALONE, REALZERO, TEN;
       const              GAPDIGIT = 10.0, ORTH = 1.0e-4, REALONE = 1.0, REALZERO = 0.0, TEN = 10.0 ;
       Complex            ONE, ZERO;
       const              ONE = (1.0,0.0), ZERO = (0.0,0.0) ;
-      REAL               PIOVER2;
+      double               PIOVER2;
       const     PIOVER2 = 1.57079632679489661923132169163975144210 ;
       // ..
       // .. Local Scalars ..
@@ -35,7 +35,7 @@
       // ..
       // .. Local Arrays ..
       bool               DOTYPE( NTYPES );
-      REAL               RESULT( NTESTS );
+      double               RESULT( NTESTS );
       // ..
       // .. External Subroutines ..
       // EXTERNAL ALAHDG, ALAREQ, ALASUM, CCSDTS, CLACSG, CLAROR, CLASET, CSROT
@@ -156,7 +156,7 @@
 
       int                LDX, M, P, Q;
       int                ISEED( 4 );
-      REAL               THETA( * );
+      double               THETA( * );
       Complex            WORK( * ), X( LDX, * );
 
       Complex            ONE, ZERO;

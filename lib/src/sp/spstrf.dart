@@ -5,23 +5,23 @@
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
-      REAL               TOL;
+      double               TOL;
       int                INFO, LDA, N, RANK;
       String             UPLO;
       // ..
       // .. Array Arguments ..
-      REAL               A( LDA, * ), WORK( 2*N );
+      double               A( LDA, * ), WORK( 2*N );
       int                PIV( N );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ONE, ZERO;
+      double               ONE, ZERO;
       const              ONE = 1.0, ZERO = 0.0 ;
       // ..
       // .. Local Scalars ..
-      REAL               AJJ, SSTOP, STEMP;
+      double               AJJ, SSTOP, STEMP;
       int                I, ITEMP, J, JB, K, NB, PVT;
       bool               UPPER;
       // ..

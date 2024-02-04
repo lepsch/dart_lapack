@@ -8,14 +8,14 @@
       int                N, NZ, NRHS;
       // ..
       // .. Array Arguments ..
-      REAL               AYB( N, NRHS ), BERR( NRHS );
+      double               AYB( N, NRHS ), BERR( NRHS );
       Complex            RES( N, NRHS );
       // ..
 
 // =====================================================================
 
       // .. Local Scalars ..
-      REAL               TMP;
+      double               TMP;
       int                I, J;
       Complex            CDUM;
       // ..
@@ -24,14 +24,14 @@
       // ..
       // .. External Functions ..
       // EXTERNAL SLAMCH
-      REAL               SLAMCH;
-      REAL               SAFE1;
+      double               SLAMCH;
+      double               SAFE1;
       // ..
       // .. Statement Functions ..
       Complex            CABS1;
       // ..
       // .. Statement Function Definitions ..
-      CABS1[CDUM] = ( REAL( CDUM ) ).abs() + ( AIMAG( CDUM ) ).abs();
+      CABS1[CDUM] = ( double( CDUM ) ).abs() + ( AIMAG( CDUM ) ).abs();
       // ..
       // .. Executable Statements ..
 

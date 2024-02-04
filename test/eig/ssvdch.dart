@@ -6,23 +6,23 @@
 
       // .. Scalar Arguments ..
       int                INFO, N;
-      REAL               TOL;
+      double               TOL;
       // ..
       // .. Array Arguments ..
-      REAL               E( * ), S( * ), SVD( * );
+      double               E( * ), S( * ), SVD( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ONE;
+      double               ONE;
       const              ONE = 1.0 ;
-      REAL               ZERO;
+      double               ZERO;
       const              ZERO = 0.0 ;
       // ..
       // .. Local Scalars ..
       int                BPNT, COUNT, NUML, NUMU, TPNT;
-      REAL               EPS, LOWER, OVFL, TUPPR, UNFL, UNFLEP, UPPER;
+      double               EPS, LOWER, OVFL, TUPPR, UNFL, UNFLEP, UPPER;
       // ..
       // .. External Functions ..
       //- REAL               SLAMCH;

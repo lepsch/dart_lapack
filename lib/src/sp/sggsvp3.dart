@@ -9,17 +9,17 @@
       // .. Scalar Arguments ..
       String             JOBQ, JOBU, JOBV;
       int                INFO, K, L, LDA, LDB, LDQ, LDU, LDV, M, N, P, LWORK;
-      REAL               TOLA, TOLB;
+      double               TOLA, TOLB;
       // ..
       // .. Array Arguments ..
       int                IWORK( * );
-      REAL               A( LDA, * ), B( LDB, * ), Q( LDQ, * ), TAU( * ), U( LDU, * ), V( LDV, * ), WORK( * );
+      double               A( LDA, * ), B( LDB, * ), Q( LDQ, * ), TAU( * ), U( LDU, * ), V( LDV, * ), WORK( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
@@ -29,7 +29,7 @@
       // .. External Functions ..
       //- bool               lsame;
       // EXTERNAL lsame
-      REAL               SROUNDUP_LWORK;
+      double               SROUNDUP_LWORK;
       // EXTERNAL SROUNDUP_LWORK
       // ..
       // .. External Subroutines ..

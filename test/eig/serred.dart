@@ -13,18 +13,18 @@
 
       // .. Parameters ..
       int                NMAX;
-      REAL               ONE, ZERO;
+      double               ONE, ZERO;
       const              NMAX = 4, ONE = 1.0, ZERO = 0.0 ;
       // ..
       // .. Local Scalars ..
       String             C2;
       int                I, IHI, ILO, INFO, J, NS, NT, SDIM;
-      REAL               ABNRM;
+      double               ABNRM;
       // ..
       // .. Local Arrays ..
       bool               B( NMAX );
       int                IW( 2*NMAX );
-      REAL               A( NMAX, NMAX ), R1( NMAX ), R2( NMAX ), S( NMAX ), U( NMAX, NMAX ), VL( NMAX, NMAX ), VR( NMAX, NMAX ), VT( NMAX, NMAX ), W( 10*NMAX ), WI( NMAX ), WR( NMAX );
+      double               A( NMAX, NMAX ), R1( NMAX ), R2( NMAX ), S( NMAX ), U( NMAX, NMAX ), VL( NMAX, NMAX ), VR( NMAX, NMAX ), VT( NMAX, NMAX ), W( 10*NMAX ), WI( NMAX ), WR( NMAX );
       // ..
       // .. External Subroutines ..
       // EXTERNAL CHKXER, SGEES, SGEESX, SGEEV, SGEEVX, SGEJSV, SGESDD, SGESVD, SGESVDX, SGESVDQ
@@ -38,7 +38,7 @@
       // ..
       // .. Arrays in Common ..
       bool               SELVAL( 20 );
-      REAL               SELWI( 20 ), SELWR( 20 );
+      double               SELWI( 20 ), SELWR( 20 );
       // ..
       // .. Scalars in Common ..
       bool               LERR, OK;

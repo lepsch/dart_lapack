@@ -9,11 +9,11 @@
 
       // .. Scalar Arguments ..
       int                KNT;
-      REAL               THRESH;
+      double               THRESH;
       // ..
       // .. Array Arguments ..
       int                NFAIL( 3 ), NINFO( 2 );
-      REAL               RMAX( 2 );
+      double               RMAX( 2 );
       // ..
 
 // =====================================================================
@@ -21,7 +21,7 @@
       // .. Parameters ..
       Complex            CONE;
       const              CONE = ( 1.0, 0.0 ) ;
-      REAL               ONE, ZERO;
+      double               ONE, ZERO;
       const              ZERO = 0.0, ONE = 1.0 ;
       int                MAXM, MAXN, LDSWORK;
       const              MAXM = 101, MAXN = 138, LDSWORK = 18 ;
@@ -29,18 +29,18 @@
       // .. Local Scalars ..
       String             TRANA, TRANB;
       int                I, INFO, IINFO, ISGN, ITRANA, ITRANB, J, KLA, KUA, KLB, KUB, M, N;
-      REAL               ANRM, BNRM, BIGNUM, EPS, RES, RES1, SCALE, SCALE3, SMLNUM, TNRM, XNRM;
+      double               ANRM, BNRM, BIGNUM, EPS, RES, RES1, SCALE, SCALE3, SMLNUM, TNRM, XNRM;
       Complex            RMUL;
       // ..
       // .. Local Arrays ..
       Complex            DUML( MAXM ), DUMR( MAXN ), D( max( MAXM, MAXN ) );
-      REAL               DUM( MAXN ), VM( 2 );
+      double               DUM( MAXN ), VM( 2 );
       int                ISEED( 4 ), IWORK( MAXM + MAXN + 2 );
       // ..
       // .. Allocatable Arrays ..
       int                AllocateStatus;
       Complex, DIMENSION(:,:), ALLOCATABLE :: A, B, C, CC, X;
-      REAL,    DIMENSION(:,:), ALLOCATABLE :: SWORK;
+      double,    DIMENSION(:,:), ALLOCATABLE :: SWORK;
       // ..
       // .. External Functions ..
       //- bool               SISNAN;
@@ -141,7 +141,7 @@
                            }
                         }
                         cgemm(TRANA, 'N', M, N, M, RMUL, A, MAXM, X, MAXM, -SCALE*RMUL, CC, MAXM );
-                        cgemm('N', TRANB, M, N, N, REAL( ISGN )*RMUL, X, MAXM, B, MAXN, CONE, CC, MAXM );
+                        cgemm('N', TRANB, M, N, N, double( ISGN )*RMUL, X, MAXM, B, MAXN, CONE, CC, MAXM );
                         RES1 = CLANGE( 'M', M, N, CC, MAXM, DUM );
                         RES = RES1 / max( SMLNUM, SMLNUM*XNRM, ( ( ( RMUL ).abs()*TNRM )*EPS )*XNRM )                         IF( RES > THRESH ) NFAIL( 1 ) = NFAIL( 1 ) + 1                         IF( RES > RMAX( 1 ) ) RMAX( 1 ) = RES;
 
@@ -157,7 +157,7 @@
                            }
                         }
                         cgemm(TRANA, 'N', M, N, M, RMUL, A, MAXM, X, MAXM, -SCALE3*RMUL, CC, MAXM );
-                        cgemm('N', TRANB, M, N, N, REAL( ISGN )*RMUL, X, MAXM, B, MAXN, CONE, CC, MAXM );
+                        cgemm('N', TRANB, M, N, N, double( ISGN )*RMUL, X, MAXM, B, MAXN, CONE, CC, MAXM );
                         RES1 = CLANGE( 'M', M, N, CC, MAXM, DUM );
                         RES = RES1 / max( SMLNUM, SMLNUM*XNRM, ( ( ( RMUL ).abs()*TNRM )*EPS )*XNRM );
                         // Verify that TRSYL3 only flushes if TRSYL flushes (but

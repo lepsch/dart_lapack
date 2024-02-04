@@ -10,25 +10,25 @@
       bool               WANTT, WANTZ;
       // ..
       // .. Array Arguments ..
-      REAL               H( LDH, * ), WI( * ), WR( * ), Z( LDZ, * );
+      double               H( LDH, * ), WI( * ), WR( * ), Z( LDZ, * );
       // ..
 
 // =========================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE, TWO;
+      double               ZERO, ONE, TWO;
       const              ZERO = 0.0, ONE = 1.0, TWO = 2.0 ;
-      REAL               DAT1, DAT2;
+      double               DAT1, DAT2;
       const              DAT1 = 3.0 / 4.0, DAT2 = -0.4375 ;
       int                KEXSH;
       const              KEXSH = 10 ;
       // ..
       // .. Local Scalars ..
-      REAL               AA, AB, BA, BB, CS, DET, H11, H12, H21, H21S, H22, RT1I, RT1R, RT2I, RT2R, RTDISC, S, SAFMAX, SAFMIN, SMLNUM, SN, SUM, T1, T2, T3, TR, TST, ULP, V2, V3;
+      double               AA, AB, BA, BB, CS, DET, H11, H12, H21, H21S, H22, RT1I, RT1R, RT2I, RT2R, RTDISC, S, SAFMAX, SAFMIN, SMLNUM, SN, SUM, T1, T2, T3, TR, TST, ULP, V2, V3;
       int                I, I1, I2, ITS, ITMAX, J, K, L, M, NH, NR, NZ, KDEFL;
       // ..
       // .. Local Arrays ..
-      REAL               V( 3 );
+      double               V( 3 );
       // ..
       // .. External Functions ..
       //- REAL               SLAMCH;
@@ -68,7 +68,7 @@
       SAFMIN = SLAMCH( 'SAFE MINIMUM' );
       SAFMAX = ONE / SAFMIN;
       ULP = SLAMCH( 'PRECISION' );
-      SMLNUM = SAFMIN*( REAL( NH ) / ULP );
+      SMLNUM = SAFMIN*( double( NH ) / ULP );
 
       // I1 and I2 are the indices of the first row and last column of H
       // to which transformations must be applied. If eigenvalues only are

@@ -7,12 +7,12 @@
       // .. Scalar Arguments ..
       bool               WANTQ, WANTZ;
       int                IJOB, INFO, LDA, LDB, LDQ, LDZ, LIWORK, LWORK, M, N;
-      REAL               PL, PR;
+      double               PL, PR;
       // ..
       // .. Array Arguments ..
       bool               SELECT( * );
       int                IWORK( * );
-      REAL               A( LDA, * ), ALPHAI( * ), ALPHAR( * ), B( LDB, * ), BETA( * ), DIF( * ), Q( LDQ, * ), WORK( * ), Z( LDZ, * );
+      double               A( LDA, * ), ALPHAI( * ), ALPHAR( * ), B( LDB, * ), BETA( * ), DIF( * ), Q( LDQ, * ), WORK( * ), Z( LDZ, * );
       // ..
 
 // =====================================================================
@@ -20,13 +20,13 @@
       // .. Parameters ..
       int                IDIFJB;
       const              IDIFJB = 3 ;
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
       bool               LQUERY, PAIR, SWAP, WANTD, WANTD1, WANTD2, WANTP;
       int                I, IERR, IJB, K, KASE, KK, KS, LIWMIN, LWMIN, MN2, N1, N2;
-      REAL               DSCALE, DSUM, EPS, RDSCAL, SMLNUM;
+      double               DSCALE, DSUM, EPS, RDSCAL, SMLNUM;
       // ..
       // .. Local Arrays ..
       int                ISAVE( 3 );

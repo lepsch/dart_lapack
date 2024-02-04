@@ -11,13 +11,13 @@
       int                M, N, N1, N2, LDQ, LDC, LWORK, INFO;
       // ..
       // .. Array Arguments ..
-      REAL               Q( LDQ, * ), C( LDC, * ), WORK( * );
+      double               Q( LDQ, * ), C( LDC, * ), WORK( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ONE;
+      double               ONE;
       const              ONE = 1.0 ;
 
       // .. Local Scalars ..

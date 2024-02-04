@@ -1,4 +1,4 @@
-      REAL clangt(NORM, N, DL, D, DU ) {
+      double clangt(NORM, N, DL, D, DU ) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -15,12 +15,12 @@
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ONE, ZERO;
+      double               ONE, ZERO;
       const              ONE = 1.0, ZERO = 0.0 ;
       // ..
       // .. Local Scalars ..
       int                I;
-      REAL               ANORM, SCALE, SUM, TEMP;
+      double               ANORM, SCALE, SUM, TEMP;
       // ..
       // .. External Functions ..
       //- bool               lsame, SISNAN;

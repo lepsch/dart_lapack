@@ -6,25 +6,25 @@
 
       // .. Scalar Arguments ..
       int                LDA, LDAFAC, M, N;
-      REAL               RESID;
+      double               RESID;
       // ..
       // .. Array Arguments ..
       int                IPIV( * );
-      REAL               RWORK( * );
+      double               RWORK( * );
       Complex            A( LDA, * ), AFAC( LDAFAC, * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ONE, ZERO;
+      double               ONE, ZERO;
       const              ZERO = 0.0, ONE = 1.0 ;
       Complex            CONE;
       const              CONE = ( 1.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
       int                I, J, K;
-      REAL               ANORM, EPS;
+      double               ANORM, EPS;
       Complex            T;
       // ..
       // .. External Functions ..

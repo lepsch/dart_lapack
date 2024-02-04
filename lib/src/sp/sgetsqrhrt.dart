@@ -9,13 +9,13 @@
       int               INFO, LDA, LDT, LWORK, M, N, NB1, NB2, MB1;
       // ..
       // .. Array Arguments ..
-      REAL              A( LDA, * ), T( LDT, * ), WORK( * );
+      double              A( LDA, * ), T( LDT, * ), WORK( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ONE;
+      double               ONE;
       const              ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
@@ -69,7 +69,7 @@
 
             NB1LOCAL = min( NB1, N );
 
-            NUM_ALL_ROW_BLOCKS = max( 1, CEILING( REAL( M - N ) / REAL( MB1 - N ) ) );
+            NUM_ALL_ROW_BLOCKS = max( 1, CEILING( double( M - N ) / REAL( MB1 - N ) ) );
 
             // Length and leading dimension of WORK array to place
             // T array in TSQR.

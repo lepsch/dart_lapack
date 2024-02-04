@@ -6,20 +6,20 @@
 
       // .. Scalar Arguments ..
       int                I;
-      REAL               DSIGMA, RHO;
+      double               DSIGMA, RHO;
       // ..
       // .. Array Arguments ..
-      REAL               D( 2 ), DELTA( 2 ), WORK( 2 ), Z( 2 );
+      double               D( 2 ), DELTA( 2 ), WORK( 2 ), Z( 2 );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE, TWO, THREE, FOUR;
+      double               ZERO, ONE, TWO, THREE, FOUR;
       const              ZERO = 0.0, ONE = 1.0, TWO = 2.0, THREE = 3.0, FOUR = 4.0 ;
       // ..
       // .. Local Scalars ..
-      REAL               B, C, DEL, DELSQ, TAU, W;
+      double               B, C, DEL, DELSQ, TAU, W;
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC ABS, SQRT

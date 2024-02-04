@@ -5,12 +5,12 @@
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
-      REAL ALPHA;
+      double ALPHA;
       int     LDA,LDB,M,N;
       String    DIAG,SIDE,TRANSA,UPLO;
       // ..
       // .. Array Arguments ..
-      REAL A(LDA,*),B(LDB,*);
+      double A(LDA,*),B(LDB,*);
       // ..
 
 // =====================================================================
@@ -26,12 +26,12 @@
       // INTRINSIC MAX
       // ..
       // .. Local Scalars ..
-      REAL TEMP;
+      double TEMP;
       int     I,INFO,J,K,NROWA;
       bool    LSIDE,NOUNIT,UPPER;
       // ..
       // .. Parameters ..
-      REAL ONE,ZERO;
+      double ONE,ZERO;
       const     ONE=1.0,ZERO=0.0;
       // ..
 

@@ -9,13 +9,13 @@
       // ..
       // .. Array Arguments ..
       int                GIVCOL( 2, * ), GIVPTR( * ), PERM( * ), PRMPTR( * ), QPTR( * );
-      REAL               GIVNUM( 2, * ), Q( * ), Z( * ), ZTEMP( * );
+      double               GIVNUM( 2, * ), Q( * ), Z( * ), ZTEMP( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, HALF, ONE;
+      double               ZERO, HALF, ONE;
       const              ZERO = 0.0, HALF = 0.5, ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
@@ -62,8 +62,8 @@
       // the SQRT in case the machine underestimates one of these square
       // roots.
 
-      BSIZ1 = INT( HALF+sqrt( REAL( QPTR( CURR+1 )-QPTR( CURR ) ) ) );
-      BSIZ2 = INT( HALF+sqrt( REAL( QPTR( CURR+2 )-QPTR( CURR+1 ) ) ) );
+      BSIZ1 = INT( HALF+sqrt( double( QPTR( CURR+1 )-QPTR( CURR ) ) ) );
+      BSIZ2 = INT( HALF+sqrt( double( QPTR( CURR+2 )-QPTR( CURR+1 ) ) ) );
       for (K = 1; K <= MID - BSIZ1 - 1; K++) { // 10
          Z[K] = ZERO;
       } // 10
@@ -107,8 +107,8 @@
          // the SQRT in case the machine underestimates one of these
          // square roots.
 
-         BSIZ1 = INT( HALF+sqrt( REAL( QPTR( CURR+1 )-QPTR( CURR ) ) ) );
-         BSIZ2 = INT( HALF+sqrt( REAL( QPTR( CURR+2 )-QPTR( CURR+ 1 ) ) ) );
+         BSIZ1 = INT( HALF+sqrt( double( QPTR( CURR+1 )-QPTR( CURR ) ) ) );
+         BSIZ2 = INT( HALF+sqrt( double( QPTR( CURR+2 )-QPTR( CURR+ 1 ) ) ) );
          if ( BSIZ1 > 0 ) {
             sgemv('T', BSIZ1, BSIZ1, ONE, Q( QPTR( CURR ) ), BSIZ1, ZTEMP( 1 ), 1, ZERO, Z( ZPTR1 ), 1 );
          }

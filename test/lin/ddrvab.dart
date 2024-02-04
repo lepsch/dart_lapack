@@ -11,7 +11,7 @@
       // .. Array Arguments ..
       bool               DOTYPE( * );
       int                MVAL( * ), NSVAL( * ), IWORK( * );
-      REAL               SWORK(*);
+      double               SWORK(*);
       double             A( * ), AFAC( * ), B( * ), RWORK( * ), WORK( * ), X( * );
       // ..
 

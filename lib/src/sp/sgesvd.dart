@@ -9,23 +9,23 @@
       int                INFO, LDA, LDU, LDVT, LWORK, M, N;
       // ..
       // .. Array Arguments ..
-      REAL               A( LDA, * ), S( * ), U( LDU, * ), VT( LDVT, * ), WORK( * );
+      double               A( LDA, * ), S( * ), U( LDU, * ), VT( LDVT, * ), WORK( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
       bool               LQUERY, WNTUA, WNTUAS, WNTUN, WNTUO, WNTUS, WNTVA, WNTVAS, WNTVN, WNTVO, WNTVS;
       int                BDSPAC, BLK, CHUNK, I, IE, IERR, IR, ISCL, ITAU, ITAUP, ITAUQ, IU, IWORK, LDWRKR, LDWRKU, MAXWRK, MINMN, MINWRK, MNTHR, NCU, NCVT, NRU, NRVT, WRKBL;
       int                LWORK_SGEQRF, LWORK_SORGQR_N, LWORK_SORGQR_M, LWORK_SGEBRD, LWORK_SORGBR_P, LWORK_SORGBR_Q, LWORK_SGELQF, LWORK_SORGLQ_N, LWORK_SORGLQ_M;
-      REAL               ANRM, BIGNUM, EPS, SMLNUM;
+      double               ANRM, BIGNUM, EPS, SMLNUM;
       // ..
       // .. Local Arrays ..
-      REAL               DUM( 1 );
+      double               DUM( 1 );
       // ..
       // .. External Subroutines ..
       // EXTERNAL SBDSQR, SGEBRD, SGELQF, SGEMM, SGEQRF, SLACPY, SLASCL, SLASET, SORGBR, SORGLQ, SORGQR, SORMBR, XERBLA

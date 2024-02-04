@@ -9,26 +9,26 @@
       int                INFO, LDC, LDU, LDVT, N, NCC, NCVT, NRU;
       // ..
       // .. Array Arguments ..
-      REAL               D( * ), E( * ), RWORK( * );
+      double               D( * ), E( * ), RWORK( * );
       Complex            C( LDC, * ), U( LDU, * ), VT( LDVT, * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO;
+      double               ZERO;
       const              ZERO = 0.0 ;
-      REAL               ONE;
+      double               ONE;
       const              ONE = 1.0 ;
-      REAL               NEGONE;
+      double               NEGONE;
       const              NEGONE = -1.0 ;
-      REAL               HNDRTH;
+      double               HNDRTH;
       const              HNDRTH = 0.01 ;
-      REAL               TEN;
+      double               TEN;
       const              TEN = 10.0 ;
-      REAL               HNDRD;
+      double               HNDRD;
       const              HNDRD = 100.0 ;
-      REAL               MEIGTH;
+      double               MEIGTH;
       const              MEIGTH = -0.125 ;
       int                MAXITR;
       const              MAXITR = 6 ;
@@ -36,7 +36,7 @@
       // .. Local Scalars ..
       bool               LOWER, ROTATE;
       int                I, IDIR, ISUB, ITER, ITERDIVN, J, LL, LLL, M, MAXITDIVN, NM1, NM12, NM13, OLDLL, OLDM;
-      REAL               ABSE, ABSS, COSL, COSR, CS, EPS, F, G, H, MU, OLDCS, OLDSN, R, SHIFT, SIGMN, SIGMX, SINL, SINR, SLL, SMAX, SMIN, SMINOA, SN, THRESH, TOL, TOLMUL, UNFL;
+      double               ABSE, ABSS, COSL, COSR, CS, EPS, F, G, H, MU, OLDCS, OLDSN, R, SHIFT, SIGMN, SIGMX, SINL, SINR, SLL, SMAX, SMIN, SMINOA, SN, THRESH, TOL, TOLMUL, UNFL;
       // ..
       // .. External Functions ..
       //- bool               lsame;

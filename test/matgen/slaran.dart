@@ -1,4 +1,4 @@
-      REAL slaran(ISEED ) {
+      double slaran(ISEED ) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -13,15 +13,15 @@
       // .. Parameters ..
       int                M1, M2, M3, M4;
       const              M1 = 494, M2 = 322, M3 = 2508, M4 = 2549 ;
-      REAL               ONE;
+      double               ONE;
       const              ONE = 1.0 ;
       int                IPW2;
-      REAL               R;
+      double               R;
       const              IPW2 = 4096, R = ONE / IPW2 ;
       // ..
       // .. Local Scalars ..
       int                IT1, IT2, IT3, IT4;
-      REAL               RNDOUT;
+      double               RNDOUT;
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC MOD, REAL
@@ -52,7 +52,7 @@
 
       // convert 48-bit integer to a real number in the interval (0,1)
 
-      RNDOUT = R*( REAL( IT1 )+R*( REAL( IT2 )+R*( REAL( IT3 )+R* ( REAL( IT4 ) ) ) ) );
+      RNDOUT = R*( REAL( IT1 )+R*( REAL( IT2 )+R*( REAL( IT3 )+R* ( double( IT4 ) ) ) ) );
 
       if (RNDOUT == 1.0) {
          // If a real number has n bits of precision, and the first

@@ -20,7 +20,7 @@
       int                INFO;
       // ..
       // .. Local Arrays ..
-      REAL               A( NMAX, NMAX ), TAU( NMAX ), W( NMAX );
+      double               A( NMAX, NMAX ), TAU( NMAX ), W( NMAX );
       // ..
       // .. External Functions ..
       //- bool               LSAMEN;

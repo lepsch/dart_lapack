@@ -1,4 +1,4 @@
-      REAL slantr(NORM, UPLO, DIAG, M, N, A, LDA, WORK ) {
+      double slantr(NORM, UPLO, DIAG, M, N, A, LDA, WORK ) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -9,19 +9,19 @@
       int                LDA, M, N;
       // ..
       // .. Array Arguments ..
-      REAL               A( LDA, * ), WORK( * );
+      double               A( LDA, * ), WORK( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ONE, ZERO;
+      double               ONE, ZERO;
       const              ONE = 1.0, ZERO = 0.0 ;
       // ..
       // .. Local Scalars ..
       bool               UDIAG;
       int                I, J;
-      REAL               SCALE, SUM, VALUE;
+      double               SCALE, SUM, VALUE;
       // ..
       // .. External Subroutines ..
       // EXTERNAL SLASSQ

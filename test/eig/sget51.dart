@@ -6,21 +6,21 @@
 
       // .. Scalar Arguments ..
       int                ITYPE, LDA, LDB, LDU, LDV, N;
-      REAL               RESULT;
+      double               RESULT;
       // ..
       // .. Array Arguments ..
-      REAL               A( LDA, * ), B( LDB, * ), U( LDU, * ), V( LDV, * ), WORK( * );
+      double               A( LDA, * ), B( LDB, * ), U( LDU, * ), V( LDV, * ), WORK( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE, TEN;
+      double               ZERO, ONE, TEN;
       const              ZERO = 0.0, ONE = 1.0, TEN = 10.0 ;
       // ..
       // .. Local Scalars ..
       int                JCOL, JDIAG, JROW;
-      REAL               ANORM, ULP, UNFL, WNORM;
+      double               ANORM, ULP, UNFL, WNORM;
       // ..
       // .. External Functions ..
       //- REAL               SLAMCH, SLANGE;
@@ -103,7 +103,7 @@
             WORK[( N+1 )*( JDIAG-1 )+1] = WORK( ( N+1 )*( JDIAG-1 )+ 1 ) - ONE;
          } // 30
 
-         RESULT = min( SLANGE( '1', N, N, WORK, N, WORK( N**2+1 ) ), REAL( N ) ) / ( N*ULP );
+         RESULT = min( SLANGE( '1', N, N, WORK, N, WORK( N**2+1 ) ), double( N ) ) / ( N*ULP );
       }
 
       return;

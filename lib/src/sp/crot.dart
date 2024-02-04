@@ -6,7 +6,7 @@
 
       // .. Scalar Arguments ..
       int                INCX, INCY, N;
-      REAL               C;
+      double               C;
       Complex            S;
       // ..
       // .. Array Arguments ..

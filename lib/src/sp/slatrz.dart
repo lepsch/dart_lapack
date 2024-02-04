@@ -8,13 +8,13 @@
       int                L, LDA, M, N;
       // ..
       // .. Array Arguments ..
-      REAL               A( LDA, * ), TAU( * ), WORK( * );
+      double               A( LDA, * ), TAU( * ), WORK( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO;
+      double               ZERO;
       const              ZERO = 0.0 ;
       // ..
       // .. Local Scalars ..

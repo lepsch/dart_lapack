@@ -159,7 +159,7 @@
             // Expand T(J,J) into full format
 
             for (I = 1; I <= KB; I++) {
-               TB[TD+1 + (J*NB+I-1)*LDTB] = REAL( TB( TD+1 + (J*NB+I-1)*LDTB ) );
+               TB[TD+1 + (J*NB+I-1)*LDTB] = double( TB( TD+1 + (J*NB+I-1)*LDTB ) );
                for (K = I+1; K <= KB; K++) {
                   TB[TD+(K-I)+1 + (J*NB+I-1)*LDTB] = CONJG( TB( TD-(K-(I+1)) + (J*NB+K-1)*LDTB ) );
                }
@@ -305,7 +305,7 @@
             // Expand T(J,J) into full format
 
             for (I = 1; I <= KB; I++) {
-               TB[TD+1 + (J*NB+I-1)*LDTB] = REAL( TB( TD+1 + (J*NB+I-1)*LDTB ) );
+               TB[TD+1 + (J*NB+I-1)*LDTB] = double( TB( TD+1 + (J*NB+I-1)*LDTB ) );
                for (K = I+1; K <= KB; K++) {
                   TB[TD-(K-(I+1)) + (J*NB+K-1)*LDTB] = CONJG( TB( TD+(K-I)+1 + (J*NB+I-1)*LDTB ) );
                }

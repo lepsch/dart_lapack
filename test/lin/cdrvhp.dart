@@ -7,19 +7,19 @@
       // .. Scalar Arguments ..
       bool               TSTERR;
       int                NMAX, NN, NOUT, NRHS;
-      REAL               THRESH;
+      double               THRESH;
       // ..
       // .. Array Arguments ..
       bool               DOTYPE( * );
       int                IWORK( * ), NVAL( * );
-      REAL               RWORK( * );
+      double               RWORK( * );
       Complex            A( * ), AFAC( * ), AINV( * ), B( * ), WORK( * ), X( * ), XACT( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ONE, ZERO;
+      double               ONE, ZERO;
       const              ONE = 1.0, ZERO = 0.0 ;
       int                NTYPES, NTESTS;
       const              NTYPES = 10, NTESTS = 6 ;
@@ -31,12 +31,12 @@
       String             DIST, FACT, PACKIT, TYPE, UPLO, XTYPE;
       String             PATH;
       int                I, I1, I2, IFACT, IMAT, IN, INFO, IOFF, IUPLO, IZERO, J, K, K1, KL, KU, LDA, MODE, N, NB, NBMIN, NERRS, NFAIL, NIMAT, NPP, NRUN, NT;
-      REAL               AINVNM, ANORM, CNDNUM, RCOND, RCONDC;
+      double               AINVNM, ANORM, CNDNUM, RCOND, RCONDC;
       // ..
       // .. Local Arrays ..
       String             FACTS( NFACT );
       int                ISEED( 4 ), ISEEDY( 4 );
-      REAL               RESULT( NTESTS );
+      double               RESULT( NTESTS );
       // ..
       // .. External Functions ..
       //- REAL               CLANHP, SGET06;

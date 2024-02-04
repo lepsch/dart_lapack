@@ -9,19 +9,19 @@
       int                IHI, ILO, INFO, LDA, LDB, LDQ, LDZ, N;
       // ..
       // .. Array Arguments ..
-      REAL               A( LDA, * ), B( LDB, * ), Q( LDQ, * ), Z( LDZ, * );
+      double               A( LDA, * ), B( LDB, * ), Q( LDQ, * ), Z( LDZ, * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ONE, ZERO;
+      double               ONE, ZERO;
       const              ONE = 1.0, ZERO = 0.0 ;
       // ..
       // .. Local Scalars ..
       bool               ILQ, ILZ;
       int                ICOMPQ, ICOMPZ, JCOL, JROW;
-      REAL               C, S, TEMP;
+      double               C, S, TEMP;
       // ..
       // .. External Functions ..
       //- bool               lsame;

@@ -10,19 +10,19 @@
       // ..
       // .. Array Arguments ..
       int                IPIV( * );
-      REAL               A( LDA, * ), B( LDB, * ), E( * );
+      double               A( LDA, * ), B( LDB, * ), E( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ONE;
+      double               ONE;
       const              ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
       bool               UPPER;
       int                I, J, K, KP;
-      REAL               AK, AKM1, AKM1K, BK, BKM1, DENOM;
+      double               AK, AKM1, AKM1K, BK, BKM1, DENOM;
       // ..
       // .. External Functions ..
       //- bool               lsame;

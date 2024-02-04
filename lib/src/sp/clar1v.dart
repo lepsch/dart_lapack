@@ -7,18 +7,18 @@
       // .. Scalar Arguments ..
       bool               WANTNC;
       int       B1, BN, N, NEGCNT, R;
-      REAL               GAPTOL, LAMBDA, MINGMA, NRMINV, PIVMIN, RESID, RQCORR, ZTZ;
+      double               GAPTOL, LAMBDA, MINGMA, NRMINV, PIVMIN, RESID, RQCORR, ZTZ;
       // ..
       // .. Array Arguments ..
       int                ISUPPZ( * );
-      REAL               D( * ), L( * ), LD( * ), LLD( * ), WORK( * );
+      double               D( * ), L( * ), LD( * ), LLD( * ), WORK( * );
       Complex          Z( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       Complex            CONE;
       const              CONE = ( 1.0, 0.0 ) ;
@@ -27,7 +27,7 @@
       // .. Local Scalars ..
       bool               SAWNAN1, SAWNAN2;
       int                I, INDLPL, INDP, INDS, INDUMN, NEG1, NEG2, R1, R2;
-      REAL               DMINUS, DPLUS, EPS, S, TMP;
+      double               DMINUS, DPLUS, EPS, S, TMP;
       // ..
       // .. External Functions ..
       //- bool    SISNAN;
@@ -179,7 +179,7 @@
                ISUPPZ[1] = I + 1;
                GOTO 220;
             }
-            ZTZ = ZTZ + REAL( Z( I )*Z( I ) );
+            ZTZ = ZTZ + double( Z( I )*Z( I ) );
          } // 210
          } // 220
       } else {
@@ -195,7 +195,7 @@
                ISUPPZ[1] = I + 1;
                GO TO 240;
             }
-            ZTZ = ZTZ + REAL( Z( I )*Z( I ) );
+            ZTZ = ZTZ + double( Z( I )*Z( I ) );
          } // 230
          } // 240
       }
@@ -209,7 +209,7 @@
                ISUPPZ[2] = I;
                GO TO 260;
             }
-            ZTZ = ZTZ + REAL( Z( I+1 )*Z( I+1 ) );
+            ZTZ = ZTZ + double( Z( I+1 )*Z( I+1 ) );
          } // 250
          } // 260
       } else {
@@ -225,7 +225,7 @@
                ISUPPZ[2] = I;
                GO TO 280;
             }
-            ZTZ = ZTZ + REAL( Z( I+1 )*Z( I+1 ) );
+            ZTZ = ZTZ + double( Z( I+1 )*Z( I+1 ) );
          } // 270
          } // 280
       }

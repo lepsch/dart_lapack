@@ -7,22 +7,22 @@
       // .. Scalar Arguments ..
       bool               NOINIT, RIGHTV;
       int                INFO, LDB, LDH, N;
-      REAL               BIGNUM, EPS3, SMLNUM, WI, WR;
+      double               BIGNUM, EPS3, SMLNUM, WI, WR;
       // ..
       // .. Array Arguments ..
-      REAL               B( LDB, * ), H( LDH, * ), VI( * ), VR( * ), WORK( * );
+      double               B( LDB, * ), H( LDH, * ), VI( * ), VR( * ), WORK( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE, TENTH;
+      double               ZERO, ONE, TENTH;
       const              ZERO = 0.0, ONE = 1.0, TENTH = 1.0e-1 ;
       // ..
       // .. Local Scalars ..
       String             NORMIN, TRANS;
       int                I, I1, I2, I3, IERR, ITS, J;
-      REAL               ABSBII, ABSBJJ, EI, EJ, GROWTO, NORM, NRMSML, REC, ROOTN, SCALE, TEMP, VCRIT, VMAX, VNORM, W, W1, X, XI, XR, Y;
+      double               ABSBII, ABSBJJ, EI, EJ, GROWTO, NORM, NRMSML, REC, ROOTN, SCALE, TEMP, VCRIT, VMAX, VNORM, W, W1, X, XI, XR, Y;
       // ..
       // .. External Functions ..
       //- int                ISAMAX;
@@ -42,7 +42,7 @@
       // GROWTO is the threshold used in the acceptance test for an
       // eigenvector.
 
-      ROOTN = sqrt( REAL( N ) );
+      ROOTN = sqrt( double( N ) );
       GROWTO = TENTH / ROOTN;
       NRMSML = max( ONE, EPS3*ROOTN )*SMLNUM;
 

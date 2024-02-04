@@ -16,14 +16,14 @@
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ONE;
+      double               ONE;
       Complex            CONE, CZERO;
       const              ONE = 1.0, CONE = ( 1.0, 0.0 ), CZERO = ( 0.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
       bool               UPPER;
       int                J, K, KP, KSTEP;
-      REAL               AK, AKP1, D, T;
+      double               AK, AKP1, D, T;
       Complex            AKKP1, TEMP;
       // ..
       // .. External Functions ..
@@ -104,7 +104,7 @@
 
             if ( K > 1 ) {
                ccopy(K-1, A( 1, K ), 1, WORK, 1 );
-               chemv[UPLO, K-1, -CONE, A, LDA, WORK, 1, CZERO, A( 1, K ), 1 )                A( K, K] = A( K, K ) - REAL( CDOTC( K-1, WORK, 1, A( 1, K ), 1 ) );
+               chemv[UPLO, K-1, -CONE, A, LDA, WORK, 1, CZERO, A( 1, K ), 1 )                A( K, K] = A( K, K ) - double( CDOTC( K-1, WORK, 1, A( 1, K ), 1 ) );
             }
             KSTEP = 1;
          } else {
@@ -114,8 +114,8 @@
             // Invert the diagonal block.
 
             T = ( A( K, K+1 ) ).abs();
-            AK = REAL( A( K, K ) ) / T;
-            AKP1 = REAL( A( K+1, K+1 ) ) / T;
+            AK = double( A( K, K ) ) / T;
+            AKP1 = double( A( K+1, K+1 ) ) / T;
             AKKP1 = A( K, K+1 ) / T;
             D = T*( AK*AKP1-ONE );
             A[K, K] = AKP1 / D;
@@ -126,9 +126,9 @@
 
             if ( K > 1 ) {
                ccopy(K-1, A( 1, K ), 1, WORK, 1 );
-               chemv[UPLO, K-1, -CONE, A, LDA, WORK, 1, CZERO, A( 1, K ), 1 )                A( K, K] = A( K, K ) - REAL( CDOTC( K-1, WORK, 1, A( 1, K ), 1 ) )                A( K, K+1 ) = A( K, K+1 ) - CDOTC( K-1, A( 1, K ), 1, A( 1, K+1 ), 1 );
+               chemv[UPLO, K-1, -CONE, A, LDA, WORK, 1, CZERO, A( 1, K ), 1 )                A( K, K] = A( K, K ) - double( CDOTC( K-1, WORK, 1, A( 1, K ), 1 ) )                A( K, K+1 ) = A( K, K+1 ) - CDOTC( K-1, A( 1, K ), 1, A( 1, K+1 ), 1 );
                ccopy(K-1, A( 1, K+1 ), 1, WORK, 1 );
-               chemv[UPLO, K-1, -CONE, A, LDA, WORK, 1, CZERO, A( 1, K+1 ), 1 )                A( K+1, K+1] = A( K+1, K+1 ) - REAL( CDOTC( K-1, WORK, 1, A( 1, K+1 ), 1 ) );
+               chemv[UPLO, K-1, -CONE, A, LDA, WORK, 1, CZERO, A( 1, K+1 ), 1 )                A( K+1, K+1] = A( K+1, K+1 ) - double( CDOTC( K-1, WORK, 1, A( 1, K+1 ), 1 ) );
             }
             KSTEP = 2;
          }
@@ -236,7 +236,7 @@
 
             if ( K < N ) {
                ccopy(N-K, A( K+1, K ), 1, WORK, 1 );
-               chemv[UPLO, N-K, -CONE, A( K+1, K+1 ), LDA, WORK, 1, CZERO, A( K+1, K ), 1 )                A( K, K] = A( K, K ) - REAL( CDOTC( N-K, WORK, 1, A( K+1, K ), 1 ) );
+               chemv[UPLO, N-K, -CONE, A( K+1, K+1 ), LDA, WORK, 1, CZERO, A( K+1, K ), 1 )                A( K, K] = A( K, K ) - double( CDOTC( N-K, WORK, 1, A( K+1, K ), 1 ) );
             }
             KSTEP = 1;
          } else {
@@ -246,8 +246,8 @@
             // Invert the diagonal block.
 
             T = ( A( K, K-1 ) ).abs();
-            AK = REAL( A( K-1, K-1 ) ) / T;
-            AKP1 = REAL( A( K, K ) ) / T;
+            AK = double( A( K-1, K-1 ) ) / T;
+            AKP1 = double( A( K, K ) ) / T;
             AKKP1 = A( K, K-1 ) / T;
             D = T*( AK*AKP1-ONE );
             A[K-1, K-1] = AKP1 / D;
@@ -258,9 +258,9 @@
 
             if ( K < N ) {
                ccopy(N-K, A( K+1, K ), 1, WORK, 1 );
-               chemv[UPLO, N-K, -CONE, A( K+1, K+1 ), LDA, WORK, 1, CZERO, A( K+1, K ), 1 )                A( K, K] = A( K, K ) - REAL( CDOTC( N-K, WORK, 1, A( K+1, K ), 1 ) )                A( K, K-1 ) = A( K, K-1 ) - CDOTC( N-K, A( K+1, K ), 1, A( K+1, K-1 ), 1 );
+               chemv[UPLO, N-K, -CONE, A( K+1, K+1 ), LDA, WORK, 1, CZERO, A( K+1, K ), 1 )                A( K, K] = A( K, K ) - double( CDOTC( N-K, WORK, 1, A( K+1, K ), 1 ) )                A( K, K-1 ) = A( K, K-1 ) - CDOTC( N-K, A( K+1, K ), 1, A( K+1, K-1 ), 1 );
                ccopy(N-K, A( K+1, K-1 ), 1, WORK, 1 );
-               chemv[UPLO, N-K, -CONE, A( K+1, K+1 ), LDA, WORK, 1, CZERO, A( K+1, K-1 ), 1 )                A( K-1, K-1] = A( K-1, K-1 ) - REAL( CDOTC( N-K, WORK, 1, A( K+1, K-1 ), 1 ) );
+               chemv[UPLO, N-K, -CONE, A( K+1, K+1 ), LDA, WORK, 1, CZERO, A( K+1, K-1 ), 1 )                A( K-1, K-1] = A( K-1, K-1 ) - double( CDOTC( N-K, WORK, 1, A( K+1, K-1 ), 1 ) );
             }
             KSTEP = 2;
          }

@@ -11,23 +11,23 @@
       // .. Array Arguments ..
       bool               SELECT( * );
       int                IWORK( * );
-      REAL               S( * ), SEP( * ), T( LDT, * ), VL( LDVL, * ), VR( LDVR, * ), WORK( LDWORK, * );
+      double               S( * ), SEP( * ), T( LDT, * ), VL( LDVL, * ), VR( LDVR, * ), WORK( LDWORK, * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE, TWO;
+      double               ZERO, ONE, TWO;
       const              ZERO = 0.0, ONE = 1.0, TWO = 2.0 ;
       // ..
       // .. Local Scalars ..
       bool               PAIR, SOMCON, WANTBH, WANTS, WANTSP;
       int                I, IERR, IFST, ILST, J, K, KASE, KS, N2, NN;
-      REAL               BIGNUM, COND, CS, DELTA, DUMM, EPS, EST, LNRM, MU, PROD, PROD1, PROD2, RNRM, SCALE, SMLNUM, SN;
+      double               BIGNUM, COND, CS, DELTA, DUMM, EPS, EST, LNRM, MU, PROD, PROD1, PROD2, RNRM, SCALE, SMLNUM, SN;
       // ..
       // .. Local Arrays ..
       int                ISAVE( 3 );
-      REAL               DUMMY( 1 );
+      double               DUMMY( 1 );
       // ..
       // .. External Functions ..
       //- bool               lsame;

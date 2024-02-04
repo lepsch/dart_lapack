@@ -9,7 +9,7 @@
       int                INFO, KD, LDAB, LDB, N, NRHS;
       // ..
       // .. Array Arguments ..
-      REAL               AB( LDAB, * ), B( LDB, * );
+      double               AB( LDAB, * ), B( LDB, * );
       // ..
 
 // =====================================================================

@@ -5,27 +5,27 @@
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
-      REAL               CSL, CSR, F, G, H, SNL, SNR, SSMAX, SSMIN;
+      double               CSL, CSR, F, G, H, SNL, SNR, SSMAX, SSMIN;
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO;
+      double               ZERO;
       const              ZERO = 0.0 ;
-      REAL               HALF;
+      double               HALF;
       const              HALF = 0.5 ;
-      REAL               ONE;
+      double               ONE;
       const              ONE = 1.0 ;
-      REAL               TWO;
+      double               TWO;
       const              TWO = 2.0 ;
-      REAL               FOUR;
+      double               FOUR;
       const              FOUR = 4.0 ;
       // ..
       // .. Local Scalars ..
       bool               GASMAL, SWAP;
       int                PMAX;
-      REAL               A, CLT, CRT, D, FA, FT, GA, GT, HA, HT, L, M, MM, R, S, SLT, SRT, T, TEMP, TSIGN, TT;
+      double               A, CLT, CRT, D, FA, FT, GA, GT, HA, HT, L, M, MM, R, S, SLT, SRT, T, TEMP, TSIGN, TT;
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC ABS, SIGN, SQRT

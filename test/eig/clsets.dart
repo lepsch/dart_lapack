@@ -8,7 +8,7 @@
       int                LDA, LDB, LWORK, M, P, N;
       // ..
       // .. Array Arguments ..
-      REAL               RESULT( 2 ), RWORK( * );
+      double               RESULT( 2 ), RWORK( * );
       Complex            A( LDA, * ), AF( LDA, * ), B( LDB, * ), BF( LDB, * ), C( * ), D( * ), CF( * ), DF( * ), WORK( LWORK ), X( * );
 
 // ====================================================================

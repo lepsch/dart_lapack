@@ -7,31 +7,31 @@
       // .. Scalar Arguments ..
       String             DIST, RSIGN, SIM, UPPER;
       int                INFO, KL, KU, LDA, MODE, MODES, N;
-      REAL               ANORM, COND, CONDS, DMAX;
+      double               ANORM, COND, CONDS, DMAX;
       // ..
       // .. Array Arguments ..
       String             EI( * );
       int                ISEED( 4 );
-      REAL               A( LDA, * ), D( * ), DS( * ), WORK( * );
+      double               A( LDA, * ), D( * ), DS( * ), WORK( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO;
+      double               ZERO;
       const              ZERO = 0.0 ;
-      REAL               ONE;
+      double               ONE;
       const              ONE = 1.0 ;
-      REAL               HALF;
+      double               HALF;
       const              HALF = 1.0 / 2.0 ;
       // ..
       // .. Local Scalars ..
       bool               BADEI, BADS, USEEI;
       int                I, IC, ICOLS, IDIST, IINFO, IR, IROWS, IRSIGN, ISIM, IUPPER, J, JC, JCR, JR;
-      REAL               ALPHA, TAU, TEMP, XNORMS;
+      double               ALPHA, TAU, TEMP, XNORMS;
       // ..
       // .. Local Arrays ..
-      REAL               TEMPA( 1 );
+      double               TEMPA( 1 );
       // ..
       // .. External Functions ..
       //- bool               lsame;

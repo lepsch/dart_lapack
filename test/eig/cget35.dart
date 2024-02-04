@@ -6,7 +6,7 @@
 
       // .. Scalar Arguments ..
       int                KNT, LMAX, NIN, NINFO;
-      REAL               RMAX;
+      double               RMAX;
       // ..
 
 // =====================================================================
@@ -14,9 +14,9 @@
       // .. Parameters ..
       int                LDT;
       const              LDT = 10 ;
-      REAL               ZERO, ONE, TWO;
+      double               ZERO, ONE, TWO;
       const              ZERO = 0.0, ONE = 1.0, TWO = 2.0 ;
-      REAL               LARGE;
+      double               LARGE;
       const              LARGE = 1.0e6 ;
       Complex            CONE;
       const              CONE = 1.0 ;
@@ -24,11 +24,11 @@
       // .. Local Scalars ..
       String             TRANA, TRANB;
       int                I, IMLA, IMLAD, IMLB, IMLC, INFO, ISGN, ITRANA, ITRANB, J, M, N;
-      REAL               BIGNUM, EPS, RES, RES1, SCALE, SMLNUM, TNRM, XNRM;
+      double               BIGNUM, EPS, RES, RES1, SCALE, SMLNUM, TNRM, XNRM;
       Complex            RMUL;
       // ..
       // .. Local Arrays ..
-      REAL               DUM( 1 ), VM1( 3 ), VM2( 3 );
+      double               DUM( 1 ), VM1( 3 ), VM2( 3 );
       Complex            A( LDT, LDT ), ATMP( LDT, LDT ), B( LDT, LDT ), BTMP( LDT, LDT ), C( LDT, LDT ), CSAV( LDT, LDT ), CTMP( LDT, LDT );
       // ..
       // .. External Functions ..
@@ -122,7 +122,7 @@
                               }
                            }
                            cgemm(TRANA, 'N', M, N, M, RMUL, A, LDT, C, LDT, -SCALE*RMUL, CSAV, LDT );
-                           cgemm('N', TRANB, M, N, N, REAL( ISGN )*RMUL, C, LDT, B, LDT, CONE, CSAV, LDT );
+                           cgemm('N', TRANB, M, N, N, double( ISGN )*RMUL, C, LDT, B, LDT, CONE, CSAV, LDT );
                            RES1 = CLANGE( 'M', M, N, CSAV, LDT, DUM );
                            RES = RES1 / max( SMLNUM, SMLNUM*XNRM, ( ( ( RMUL ).abs()*TNRM )*EPS )*XNRM );
                            if ( RES > RMAX ) {

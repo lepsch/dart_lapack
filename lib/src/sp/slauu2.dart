@@ -9,19 +9,19 @@
       int                INFO, LDA, N;
       // ..
       // .. Array Arguments ..
-      REAL               A( LDA, * );
+      double               A( LDA, * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ONE;
+      double               ONE;
       const              ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
       bool               UPPER;
       int                I;
-      REAL               AII;
+      double               AII;
       // ..
       // .. External Functions ..
       //- bool               lsame;

@@ -10,19 +10,19 @@
       // ..
       // .. Array Arguments ..
       int                IPIV( * );
-      REAL               A( LDA, * ), WORK( * );
+      double               A( LDA, * ), WORK( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ONE, ZERO;
+      double               ONE, ZERO;
       const              ONE = 1.0, ZERO = 0.0 ;
       // ..
       // .. Local Scalars ..
       bool               UPPER;
       int                K, KP, KSTEP;
-      REAL               AK, AKKP1, AKP1, D, T, TEMP;
+      double               AK, AKKP1, AKP1, D, T, TEMP;
       // ..
       // .. External Functions ..
       //- bool               lsame;

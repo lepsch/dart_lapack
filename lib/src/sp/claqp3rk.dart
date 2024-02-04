@@ -8,25 +8,25 @@
       // .. Scalar Arguments ..
       bool               DONE;
       int                INFO, IOFFSET, KB, KP1, LDA, LDF, M, N, NB, NRHS;
-      REAL               ABSTOL, MAXC2NRM, MAXC2NRMK, RELMAXC2NRMK, RELTOL;
+      double               ABSTOL, MAXC2NRM, MAXC2NRMK, RELMAXC2NRMK, RELTOL;
       // ..
       // .. Array Arguments ..
       int                IWORK( * ), JPIV( * );
-      REAL               VN1( * ), VN2( * );
+      double               VN1( * ), VN2( * );
       Complex            A( LDA, * ), AUXV( * ), F( LDF, * ), TAU( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       Complex            CZERO, CONE;
       const              CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
       int                ITEMP, J, K, MINMNFACT, MINMNUPDT, LSTICC, KP, I, IF;
-      REAL               HUGEVAL, TAUNAN, TEMP, TEMP2, TOL3Z;
+      double               HUGEVAL, TAUNAN, TEMP, TEMP2, TOL3Z;
       Complex            AIK;
       // ..
       // .. External Subroutines ..
@@ -332,8 +332,8 @@
          // TAU(K) to contain NaN. Therefore, this case of generating Inf
          // by CLARFG is covered by checking TAU(K) for NaN.
 
-         if ( SISNAN( REAL( TAU(K) ) ) ) {
-            TAUNAN = REAL( TAU(K) );
+         if ( SISNAN( double( TAU(K) ) ) ) {
+            TAUNAN = double( TAU(K) );
          } else if ( SISNAN( AIMAG( TAU(K) ) ) ) {
             TAUNAN = AIMAG( TAU(K) );
          } else {

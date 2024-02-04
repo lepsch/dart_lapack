@@ -3,15 +3,15 @@
 
       // Arguments
       int    , INTENT( IN ) :: LDA, LDB;
-      REAL, INTENT( IN ) :: A( LDA, * ), B( LDB, * ), SR1, SR2, SI, BETA1, BETA2;
-      REAL, INTENT( OUT ) :: V( * );
+      double, INTENT( IN ) :: A( LDA, * ), B( LDB, * ), SR1, SR2, SI, BETA1, BETA2;
+      double, INTENT( OUT ) :: V( * );
 
       // Parameters
-      REAL :: ZERO, ONE, HALF;
+      double :: ZERO, ONE, HALF;
       const    ZERO = 0.0, ONE = 1.0, HALF = 0.5 ;
 
       // Local scalars
-      REAL :: W( 2 ), SAFMIN, SAFMAX, SCALE1, SCALE2;
+      double :: W( 2 ), SAFMIN, SAFMAX, SCALE1, SCALE2;
 
       // External Functions
       //- REAL, EXTERNAL :: SLAMCH;

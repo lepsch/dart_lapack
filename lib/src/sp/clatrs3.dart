@@ -7,13 +7,13 @@
       // ..
       // .. Array Arguments ..
       Complex            A( LDA, * ), X( LDX, * );
-      REAL               CNORM( * ), SCALE( * ), WORK( * );
+      double               CNORM( * ), SCALE( * ), WORK( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       Complex            CZERO, CONE;
       const              CZERO = ( 0.0, 0.0 ) ;
@@ -23,12 +23,12 @@
       const              NBMIN = 8, NBMAX = 64 ;
       // ..
       // .. Local Arrays ..
-      REAL               W( NBMAX ), XNRM( NBRHS );
+      double               W( NBMAX ), XNRM( NBRHS );
       // ..
       // .. Local Scalars ..
       bool               LQUERY, NOTRAN, NOUNIT, UPPER;
       int                AWRK, I, IFIRST, IINC, ILAST, II, I1, I2, J, JFIRST, JINC, JLAST, J1, J2, K, KK, K1, K2, LANRM, LDS, LSCALE, NB, NBA, NBX, RHS, LWMIN;
-      REAL               ANRM, BIGNUM, BNRM, RSCAL, SCAL, SCALOC, SCAMIN, SMLNUM, TMAX;
+      double               ANRM, BIGNUM, BNRM, RSCAL, SCAL, SCALOC, SCAMIN, SMLNUM, TMAX;
       // ..
       // .. External Functions ..
       //- bool               lsame;

@@ -6,23 +6,23 @@
 
       // .. Scalar Arguments ..
       int                LDWORK, N;
-      REAL               RESID;
+      double               RESID;
       // ..
       // .. Array Arguments ..
       int                IPIV( * );
-      REAL               RWORK( * );
+      double               RWORK( * );
       Complex            D( * ), DF( * ), DL( * ), DLF( * ), DU( * ), DU2( * ), DUF( * ), WORK( LDWORK, * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ONE, ZERO;
+      double               ONE, ZERO;
       const              ONE = 1.0, ZERO = 0.0 ;
       // ..
       // .. Local Scalars ..
       int                I, IP, J, LASTJ;
-      REAL               ANORM, EPS;
+      double               ANORM, EPS;
       Complex            LI;
       // ..
       // .. External Functions ..

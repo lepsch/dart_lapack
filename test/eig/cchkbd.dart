@@ -6,19 +6,19 @@
 
       // .. Scalar Arguments ..
       int                INFO, LDA, LDPT, LDQ, LDX, LWORK, NOUT, NRHS, NSIZES, NTYPES;
-      REAL               THRESH;
+      double               THRESH;
       // ..
       // .. Array Arguments ..
       bool               DOTYPE( * );
       int                ISEED( 4 ), MVAL( * ), NVAL( * );
-      REAL               BD( * ), BE( * ), RWORK( * ), S1( * ), S2( * );
+      double               BD( * ), BE( * ), RWORK( * ), S1( * ), S2( * );
       Complex            A( LDA, * ), PT( LDPT, * ), Q( LDQ, * ), U( LDPT, * ), VT( LDPT, * ), WORK( * ), X( LDX, * ), Y( LDX, * ), Z( LDX, * );
       // ..
 
 // ======================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE, TWO, HALF;
+      double               ZERO, ONE, TWO, HALF;
       const              ZERO = 0.0, ONE = 1.0, TWO = 2.0, HALF = 0.5 ;
       Complex            CZERO, CONE;
       const              CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
@@ -30,11 +30,11 @@
       String             UPLO;
       String             PATH;
       int                I, IINFO, IMODE, ITYPE, J, JCOL, JSIZE, JTYPE, LOG2UI, M, MINWRK, MMAX, MNMAX, MNMIN, MQ, MTYPES, N, NFAIL, NMAX, NTEST;
-      REAL               AMNINV, ANORM, COND, OVFL, RTOVFL, RTUNFL, TEMP1, TEMP2, ULP, ULPINV, UNFL;
+      double               AMNINV, ANORM, COND, OVFL, RTOVFL, RTUNFL, TEMP1, TEMP2, ULP, ULPINV, UNFL;
       // ..
       // .. Local Arrays ..
       int                IOLDSD( 4 ), IWORK( 1 ), KMAGN( MAXTYP ), KMODE( MAXTYP ), KTYPE( MAXTYP );
-      REAL               DUMMA( 1 ), RESULT( 14 );
+      double               DUMMA( 1 ), RESULT( 14 );
       // ..
       // .. External Functions ..
       //- REAL               SLAMCH, SLARND;

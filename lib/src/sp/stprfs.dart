@@ -10,22 +10,22 @@
       // ..
       // .. Array Arguments ..
       int                IWORK( * );
-      REAL               AP( * ), B( LDB, * ), BERR( * ), FERR( * ), WORK( * ), X( LDX, * );
+      double               AP( * ), B( LDB, * ), BERR( * ), FERR( * ), WORK( * ), X( LDX, * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO;
+      double               ZERO;
       const              ZERO = 0.0 ;
-      REAL               ONE;
+      double               ONE;
       const              ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
       bool               NOTRAN, NOUNIT, UPPER;
       String             TRANST;
       int                I, J, K, KASE, KC, NZ;
-      REAL               EPS, LSTRES, S, SAFE1, SAFE2, SAFMIN, XK;
+      double               EPS, LSTRES, S, SAFE1, SAFE2, SAFMIN, XK;
       // ..
       // .. Local Arrays ..
       int                ISAVE( 3 );

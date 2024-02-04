@@ -10,20 +10,20 @@
       // ..
       // .. Array Arguments ..
       int                IPIV( * );
-      REAL               A( LDA, * ), W( LDW, * );
+      double               A( LDA, * ), W( LDW, * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
-      REAL               EIGHT, SEVTEN;
+      double               EIGHT, SEVTEN;
       const              EIGHT = 8.0, SEVTEN = 17.0 ;
       // ..
       // .. Local Scalars ..
       int                IMAX, J, JB, JJ, JMAX, JP, K, KK, KKW, KP, KSTEP, KW;
-      REAL               ABSAKK, ALPHA, COLMAX, D11, D21, D22, R1, ROWMAX, T;
+      double               ABSAKK, ALPHA, COLMAX, D11, D21, D22, R1, ROWMAX, T;
       // ..
       // .. External Functions ..
       //- bool               lsame;

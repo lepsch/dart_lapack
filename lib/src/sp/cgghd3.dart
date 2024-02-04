@@ -25,7 +25,7 @@
       bool               BLK22, INITQ, INITZ, LQUERY, WANTQ, WANTZ;
       String             COMPQ2, COMPZ2;
       int                COLA, I, IERR, J, J0, JCOL, JJ, JROW, K, KACC22, LEN, LWKOPT, N2NB, NB, NBLST, NBMIN, NH, NNB, NX, PPW, PPWO, PW, TOP, TOPQ;
-      REAL               C;
+      double               C;
       Complex            C1, C2, CTEMP, S, S1, S2, TEMP, TEMP1, TEMP2, TEMP3;
       // ..
       // .. External Functions ..
@@ -274,7 +274,7 @@
 
                if ( JJ > 0 ) {
                   for (I = JJ; I >= 1; I--) {
-                     C = REAL( A( J+1+I, J ) );
+                     C = double( A( J+1+I, J ) );
                      crot(IHI-TOP, A( TOP+1, J+I+1 ), 1, A( TOP+1, J+I ), 1, C, -CONJG( B( J+1+I, J ) ) );
                   }
                }

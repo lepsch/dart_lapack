@@ -9,13 +9,13 @@
       int                INFO, ITYPE, LDA, LDB, N;
       // ..
       // .. Array Arguments ..
-      REAL               A( LDA, * ), B( LDB, * );
+      double               A( LDA, * ), B( LDB, * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ONE, HALF;
+      double               ONE, HALF;
       const              ONE = 1.0, HALF = 0.5 ;
       // ..
       // .. Local Scalars ..

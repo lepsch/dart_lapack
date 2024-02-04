@@ -6,21 +6,21 @@
 
       // .. Scalar Arguments ..
       int                N;
-      REAL               RESID;
+      double               RESID;
       // ..
       // .. Array Arguments ..
-      REAL               D( * ), DF( * ), E( * ), EF( * ), WORK( * );
+      double               D( * ), DF( * ), E( * ), EF( * ), WORK( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ONE, ZERO;
+      double               ONE, ZERO;
       const              ONE = 1.0, ZERO = 0.0 ;
       // ..
       // .. Local Scalars ..
       int                I;
-      REAL               ANORM, DE, EPS;
+      double               ANORM, DE, EPS;
       // ..
       // .. External Functions ..
       //- REAL               SLAMCH;

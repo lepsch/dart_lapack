@@ -6,7 +6,7 @@
 
       // .. Scalar Arguments ..
       int                IJOB, LDZ, N;
-      REAL               RDSCAL, RDSUM;
+      double               RDSCAL, RDSUM;
       // ..
       // .. Array Arguments ..
       int                IPIV( * ), JPIV( * );
@@ -18,18 +18,18 @@
       // .. Parameters ..
       int                MAXDIM;
       const              MAXDIM = 2 ;
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       Complex            CONE;
       const              CONE = ( 1.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
       int                I, INFO, J, K;
-      REAL               RTEMP, SCALE, SMINU, SPLUS;
+      double               RTEMP, SCALE, SMINU, SPLUS;
       Complex            BM, BP, PMONE, TEMP;
       // ..
       // .. Local Arrays ..
-      REAL               RWORK( MAXDIM );
+      double               RWORK( MAXDIM );
       Complex            WORK( 4*MAXDIM ), XM( MAXDIM ), XP( MAXDIM );
       // ..
       // .. External Subroutines ..
@@ -62,9 +62,9 @@
             // Look-ahead for L- part RHS(1:N-1) = +-1
             // SPLUS and SMIN computed more efficiently than in BSOLVE[1].
 
-            SPLUS = SPLUS + REAL( CDOTC( N-J, Z( J+1, J ), 1, Z( J+1, J ), 1 ) );
-            SMINU = REAL( CDOTC( N-J, Z( J+1, J ), 1, RHS( J+1 ), 1 ) );
-            SPLUS = SPLUS*REAL( RHS( J ) );
+            SPLUS = SPLUS + double( CDOTC( N-J, Z( J+1, J ), 1, Z( J+1, J ), 1 ) );
+            SMINU = double( CDOTC( N-J, Z( J+1, J ), 1, RHS( J+1 ), 1 ) );
+            SPLUS = SPLUS*double( RHS( J ) );
             if ( SPLUS > SMINU ) {
                RHS[J] = BP;
             } else if ( SMINU > SPLUS ) {

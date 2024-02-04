@@ -9,13 +9,13 @@
       int                INFO, LDZ, N;
       // ..
       // .. Array Arguments ..
-      REAL               D( * ), E( * ), WORK( * ), Z( LDZ, * );
+      double               D( * ), E( * ), WORK( * ), Z( LDZ, * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       // ..
       // .. External Functions ..
@@ -26,7 +26,7 @@
       // EXTERNAL SBDSQR, SLASET, SPTTRF, XERBLA
       // ..
       // .. Local Arrays ..
-      REAL               C( 1, 1 ), VT( 1, 1 );
+      double               C( 1, 1 ), VT( 1, 1 );
       // ..
       // .. Local Scalars ..
       int                I, ICOMPZ, NRU;

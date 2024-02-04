@@ -5,30 +5,30 @@
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
-      REAL               ALPHA, BETA;
+      double               ALPHA, BETA;
       int                INCX, INCY, LDA, N;
       int                UPLO;
       // ..
       // .. Array Arguments ..
       Complex            A( LDA, * ), X( * );
-      REAL               Y( * );
+      double               Y( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ONE, ZERO;
+      double               ONE, ZERO;
       const              ONE = 1.0, ZERO = 0.0 ;
       // ..
       // .. Local Scalars ..
       bool               SYMB_ZERO;
-      REAL               TEMP, SAFE1;
+      double               TEMP, SAFE1;
       int                I, INFO, IY, J, JX, KX, KY;
       Complex            ZDUM;
       // ..
       // .. External Subroutines ..
       // EXTERNAL XERBLA, SLAMCH
-      REAL               SLAMCH;
+      double               SLAMCH;
       // ..
       // .. External Functions ..
       // EXTERNAL ILAUPLO
@@ -38,10 +38,10 @@
       // INTRINSIC MAX, ABS, SIGN, REAL, AIMAG
       // ..
       // .. Statement Functions ..
-      REAL               CABS1;
+      double               CABS1;
       // ..
       // .. Statement Function Definitions ..
-      CABS1[ZDUM] = ( REAL ( ZDUM ) ).abs() + ( AIMAG ( ZDUM ) ).abs();
+      CABS1[ZDUM] = ( double ( ZDUM ) ).abs() + ( AIMAG ( ZDUM ) ).abs();
       // ..
       // .. Executable Statements ..
 

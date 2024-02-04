@@ -7,28 +7,28 @@
       // .. Scalar Arguments ..
       String             DIST, GRADE, PACK, PIVTNG, RSIGN, SYM;
       int                INFO, KL, KU, LDA, M, MODE, MODEL, MODER, N;
-      REAL               ANORM, COND, CONDL, CONDR, DMAX, SPARSE;
+      double               ANORM, COND, CONDL, CONDR, DMAX, SPARSE;
       // ..
       // .. Array Arguments ..
       int                IPIVOT( * ), ISEED( 4 ), IWORK( * );
-      REAL               A( LDA, * ), D( * ), DL( * ), DR( * );
+      double               A( LDA, * ), D( * ), DL( * ), DR( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO;
+      double               ZERO;
       const              ZERO = 0.0 ;
-      REAL               ONE;
+      double               ONE;
       const              ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
       bool               BADPVT, DZERO, FULBND;
       int                I, IDIST, IGRADE, IISUB, IPACK, IPVTNG, IRSIGN, ISUB, ISYM, J, JJSUB, JSUB, K, KLL, KUU, MNMIN, MNSUB, MXSUB, NPVTS;
-      REAL               ALPHA, ONORM, TEMP;
+      double               ALPHA, ONORM, TEMP;
       // ..
       // .. Local Arrays ..
-      REAL               TEMPA( 1 );
+      double               TEMPA( 1 );
       // ..
       // .. External Functions ..
       //- bool               lsame;

@@ -7,7 +7,7 @@
       // .. Scalar Arguments ..
       String             TRANA, TRANB;
       int                INFO, ISGN, LDA, LDB, LDC, M, N;
-      REAL               SCALE;
+      double               SCALE;
       // ..
       // .. Array Arguments ..
       Complex            A( LDA, * ), B( LDB, * ), C( LDC, * );
@@ -16,17 +16,17 @@
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ONE;
+      double               ONE;
       const              ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
       bool               NOTRNA, NOTRNB;
       int                J, K, L;
-      REAL               BIGNUM, DA11, DB, EPS, SCALOC, SGN, SMIN, SMLNUM;
+      double               BIGNUM, DA11, DB, EPS, SCALOC, SGN, SMIN, SMLNUM;
       Complex            A11, SUML, SUMR, VEC, X11;
       // ..
       // .. Local Arrays ..
-      REAL               DUM( 1 );
+      double               DUM( 1 );
       // ..
       // .. External Functions ..
       //- bool               lsame;
@@ -80,7 +80,7 @@
       EPS = SLAMCH( 'P' );
       SMLNUM = SLAMCH( 'S' );
       BIGNUM = ONE / SMLNUM;
-      SMLNUM = SMLNUM*REAL( M*N ) / EPS;
+      SMLNUM = SMLNUM*double( M*N ) / EPS;
       BIGNUM = ONE / SMLNUM;
       SMIN = max( SMLNUM, EPS*CLANGE( 'M', M, M, A, LDA, DUM ), EPS*CLANGE( 'M', N, N, B, LDB, DUM ) );
       SGN = ISGN;
@@ -108,13 +108,13 @@
 
                SCALOC = ONE;
                A11 = A( K, K ) + SGN*B( L, L );
-               DA11 = ( REAL( A11 ) ).abs() + ( AIMAG( A11 ) ).abs();
+               DA11 = ( double( A11 ) ).abs() + ( AIMAG( A11 ) ).abs();
                if ( DA11 <= SMIN ) {
                   A11 = SMIN;
                   DA11 = SMIN;
                   INFO = 1;
                }
-               DB = ( REAL( VEC ) ).abs() + ( AIMAG( VEC ) ).abs();
+               DB = ( double( VEC ) ).abs() + ( AIMAG( VEC ) ).abs();
                if ( DA11 < ONE && DB > ONE ) {
                   if (DB > BIGNUM*DA11) SCALOC = ONE / DB;
                }
@@ -154,13 +154,13 @@
 
                SCALOC = ONE;
                A11 = CONJG( A( K, K ) ) + SGN*B( L, L );
-               DA11 = ( REAL( A11 ) ).abs() + ( AIMAG( A11 ) ).abs();
+               DA11 = ( double( A11 ) ).abs() + ( AIMAG( A11 ) ).abs();
                if ( DA11 <= SMIN ) {
                   A11 = SMIN;
                   DA11 = SMIN;
                   INFO = 1;
                }
-               DB = ( REAL( VEC ) ).abs() + ( AIMAG( VEC ) ).abs();
+               DB = ( double( VEC ) ).abs() + ( AIMAG( VEC ) ).abs();
                if ( DA11 < ONE && DB > ONE ) {
                   if (DB > BIGNUM*DA11) SCALOC = ONE / DB;
                }
@@ -204,13 +204,13 @@
 
                SCALOC = ONE;
                A11 = CONJG( A( K, K )+SGN*B( L, L ) );
-               DA11 = ( REAL( A11 ) ).abs() + ( AIMAG( A11 ) ).abs();
+               DA11 = ( double( A11 ) ).abs() + ( AIMAG( A11 ) ).abs();
                if ( DA11 <= SMIN ) {
                   A11 = SMIN;
                   DA11 = SMIN;
                   INFO = 1;
                }
-               DB = ( REAL( VEC ) ).abs() + ( AIMAG( VEC ) ).abs();
+               DB = ( double( VEC ) ).abs() + ( AIMAG( VEC ) ).abs();
                if ( DA11 < ONE && DB > ONE ) {
                   if (DB > BIGNUM*DA11) SCALOC = ONE / DB;
                }
@@ -250,13 +250,13 @@
 
                SCALOC = ONE;
                A11 = A( K, K ) + SGN*CONJG( B( L, L ) );
-               DA11 = ( REAL( A11 ) ).abs() + ( AIMAG( A11 ) ).abs();
+               DA11 = ( double( A11 ) ).abs() + ( AIMAG( A11 ) ).abs();
                if ( DA11 <= SMIN ) {
                   A11 = SMIN;
                   DA11 = SMIN;
                   INFO = 1;
                }
-               DB = ( REAL( VEC ) ).abs() + ( AIMAG( VEC ) ).abs();
+               DB = ( double( VEC ) ).abs() + ( AIMAG( VEC ) ).abs();
                if ( DA11 < ONE && DB > ONE ) {
                   if (DB > BIGNUM*DA11) SCALOC = ONE / DB;
                }

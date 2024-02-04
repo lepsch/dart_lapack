@@ -11,13 +11,13 @@
       int                INFO, ITYPE, LDA, LDB, LWORK, N;
       // ..
       // .. Array Arguments ..
-      REAL               A( LDA, * ), B( LDB, * ), W( * ), WORK( * );
+      double               A( LDA, * ), B( LDB, * ), W( * ), WORK( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ONE;
+      double               ONE;
       const              ONE = 1.0 ;
       // ..
       // .. Local Scalars ..

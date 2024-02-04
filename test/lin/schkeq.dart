@@ -6,13 +6,13 @@
 
       // .. Scalar Arguments ..
       int                NOUT;
-      REAL               THRESH;
+      double               THRESH;
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE, TEN;
+      double               ZERO, ONE, TEN;
       const              ZERO = 0.0, ONE = 1.0, TEN = 1.0e1 ;
       int                NSZ, NSZB;
       const              NSZ = 5, NSZB = 3*NSZ-2 ;
@@ -23,10 +23,10 @@
       bool               OK;
       String             PATH;
       int                I, INFO, J, KL, KU, M, N;
-      REAL               CCOND, EPS, NORM, RATIO, RCMAX, RCMIN, RCOND;
+      double               CCOND, EPS, NORM, RATIO, RCMAX, RCMIN, RCOND;
       // ..
       // .. Local Arrays ..
-      REAL               A( NSZ, NSZ ), AB( NSZB, NSZ ), AP( NSZP ), C( NSZ ), POW( NPOW ), R( NSZ ), RESLTS( 5 ), RPOW( NPOW );
+      double               A( NSZ, NSZ ), AB( NSZB, NSZ ), AP( NSZP ), C( NSZ ), POW( NPOW ), R( NSZ ), RESLTS( 5 ), RPOW( NPOW );
       // ..
       // .. External Functions ..
       //- REAL               SLAMCH;

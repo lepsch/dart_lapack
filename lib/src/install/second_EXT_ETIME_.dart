@@ -1,14 +1,14 @@
-      REAL second() {
+      double second() {
 
 // -- LAPACK auxiliary routine --
       // Univ. of Tennessee, Univ. of California Berkeley and NAG Ltd..
 // =====================================================================
 
       // .. Local Scalars ..
-      REAL               T1;
+      double               T1;
       // ..
       // .. Local Arrays ..
-      REAL               TARRAY( 2 );
+      double               TARRAY( 2 );
       // ..
       // .. External Functions ..
       //- REAL               ETIME_;

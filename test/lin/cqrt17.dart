@@ -1,4 +1,4 @@
-      REAL cqrt17(TRANS, IRESID, M, N, NRHS, A, LDA, X, LDX, B, LDB, C, WORK, LWORK ) {
+      double cqrt17(TRANS, IRESID, M, N, NRHS, A, LDA, X, LDX, B, LDB, C, WORK, LWORK ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -15,15 +15,15 @@
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
       int                INFO, ISCL, NCOLS, NROWS;
-      REAL               ERR, NORMA, NORMB, NORMRS, SMLNUM;
+      double               ERR, NORMA, NORMB, NORMRS, SMLNUM;
       // ..
       // .. Local Arrays ..
-      REAL               RWORK( 1 );
+      double               RWORK( 1 );
       // ..
       // .. External Functions ..
       //- bool               lsame;

@@ -9,18 +9,18 @@
       int                LDA, M, N;
       // ..
       // .. Array Arguments ..
-      REAL               A( LDA, * ), C( * ), S( * );
+      double               A( LDA, * ), C( * ), S( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ONE, ZERO;
+      double               ONE, ZERO;
       const              ONE = 1.0, ZERO = 0.0 ;
       // ..
       // .. Local Scalars ..
       int                I, INFO, J;
-      REAL               CTEMP, STEMP, TEMP;
+      double               CTEMP, STEMP, TEMP;
       // ..
       // .. External Functions ..
       //- bool               lsame;

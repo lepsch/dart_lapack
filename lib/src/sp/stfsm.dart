@@ -7,17 +7,17 @@
       // .. Scalar Arguments ..
       String             TRANSR, DIAG, SIDE, TRANS, UPLO;
       int                LDB, M, N;
-      REAL               ALPHA;
+      double               ALPHA;
       // ..
       // .. Array Arguments ..
-      REAL               A( 0: * ), B( 0: LDB-1, 0: * );
+      double               A( 0: * ), B( 0: LDB-1, 0: * );
       // ..
 
 // =====================================================================
 
       // ..
       // .. Parameters ..
-      REAL               ONE, ZERO;
+      double               ONE, ZERO;
       const              ONE = 1.0, ZERO = 0.0 ;
       // ..
       // .. Local Scalars ..

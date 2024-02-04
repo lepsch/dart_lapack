@@ -6,33 +6,33 @@
 
       // .. Scalar Arguments ..
       int                NN, NNS, NNT, NOUT;
-      REAL               THRESH;
+      double               THRESH;
       // ..
       // .. Array Arguments ..
       int                NVAL( NN ), NSVAL( NNS ), NTVAL( NNT );
-      REAL               A( * );
-      REAL               AINV( * );
-      REAL               ASAV( * );
-      REAL               B( * );
-      REAL               BSAV( * );
-      REAL               AFAC( * );
-      REAL               ARF( * );
-      REAL               ARFINV( * );
-      REAL               XACT( * );
-      REAL               X( * );
-      REAL               S_WORK_SLATMS( * );
-      REAL               S_WORK_SPOT01( * );
-      REAL               S_TEMP_SPOT02( * );
-      REAL               S_TEMP_SPOT03( * );
-      REAL               S_WORK_SLANSY( * );
-      REAL               S_WORK_SPOT02( * );
-      REAL               S_WORK_SPOT03( * );
+      double               A( * );
+      double               AINV( * );
+      double               ASAV( * );
+      double               B( * );
+      double               BSAV( * );
+      double               AFAC( * );
+      double               ARF( * );
+      double               ARFINV( * );
+      double               XACT( * );
+      double               X( * );
+      double               S_WORK_SLATMS( * );
+      double               S_WORK_SPOT01( * );
+      double               S_TEMP_SPOT02( * );
+      double               S_TEMP_SPOT03( * );
+      double               S_WORK_SLANSY( * );
+      double               S_WORK_SPOT02( * );
+      double               S_WORK_SPOT03( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ONE, ZERO;
+      double               ONE, ZERO;
       const              ONE = 1.0, ZERO = 0.0 ;
       int                NTESTS;
       const              NTESTS = 4 ;
@@ -42,12 +42,12 @@
       int                I, INFO, IUPLO, LDA, LDB, IMAT, NERRS, NFAIL, NRHS, NRUN, IZERO, IOFF, K, NT, N, IFORM, IIN, IIT, IIS;
       String             DIST, CTYPE, UPLO, CFORM;
       int                KL, KU, MODE;
-      REAL               ANORM, AINVNM, CNDNUM, RCONDC;
+      double               ANORM, AINVNM, CNDNUM, RCONDC;
       // ..
       // .. Local Arrays ..
       String             UPLOS( 2 ), FORMS( 2 );
       int                ISEED( 4 ), ISEEDY( 4 );
-      REAL               RESULT( NTESTS );
+      double               RESULT( NTESTS );
       // ..
       // .. External Functions ..
       //- REAL               SLANSY;

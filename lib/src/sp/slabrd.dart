@@ -8,13 +8,13 @@
       int                LDA, LDX, LDY, M, N, NB;
       // ..
       // .. Array Arguments ..
-      REAL               A( LDA, * ), D( * ), E( * ), TAUP( * ), TAUQ( * ), X( LDX, * ), Y( LDY, * );
+      double               A( LDA, * ), D( * ), E( * ), TAUP( * ), TAUQ( * ), X( LDX, * ), Y( LDY, * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       // ..
       // .. Local Scalars ..

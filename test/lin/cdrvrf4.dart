@@ -6,18 +6,18 @@
 
       // .. Scalar Arguments ..
       int                LDA, LDC, NN, NOUT;
-      REAL               THRESH;
+      double               THRESH;
       // ..
       // .. Array Arguments ..
       int                NVAL( NN );
-      REAL               S_WORK_CLANGE( * );
+      double               S_WORK_CLANGE( * );
       Complex            A( LDA, * ), C1( LDC, * ), C2( LDC, *), CRF( * );
       // ..
 
 // =====================================================================
       // ..
       // .. Parameters ..
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE  = 1.0 ;
       int                NTESTS;
       const              NTESTS = 1 ;
@@ -25,12 +25,12 @@
       // .. Local Scalars ..
       String             UPLO, CFORM, TRANS;
       int                I, IFORM, IIK, IIN, INFO, IUPLO, J, K, N, NFAIL, NRUN, IALPHA, ITRANS;
-      REAL               ALPHA, BETA, EPS, NORMA, NORMC;
+      double               ALPHA, BETA, EPS, NORMA, NORMC;
       // ..
       // .. Local Arrays ..
       String             UPLOS( 2 ), FORMS( 2 ), TRANSS( 2 );
       int                ISEED( 4 ), ISEEDY( 4 );
-      REAL               RESULT( NTESTS );
+      double               RESULT( NTESTS );
       // ..
       // .. External Functions ..
       //- REAL               SLAMCH, SLARND, CLANGE;

@@ -10,7 +10,7 @@
       // ..
       // .. Array Arguments ..
       int                IQ( * ), IWORK( * );
-      REAL               D( * ), E( * ), Q( * ), U( LDU, * ), VT( LDVT, * ), WORK( * );
+      double               D( * ), E( * ), Q( * ), U( LDU, * ), VT( LDVT, * ), WORK( * );
       // ..
 
 // =====================================================================
@@ -19,12 +19,12 @@
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE, TWO;
+      double               ZERO, ONE, TWO;
       const              ZERO = 0.0, ONE = 1.0, TWO = 2.0 ;
       // ..
       // .. Local Scalars ..
       int                DIFL, DIFR, GIVCOL, GIVNUM, GIVPTR, I, IC, ICOMPQ, IERR, II, IS, IU, IUPLO, IVT, J, K, KK, MLVL, NM1, NSIZE, PERM, POLES, QSTART, SMLSIZ, SMLSZP, SQRE, START, WSTART, Z;
-      REAL               CS, EPS, ORGNRM, P, R, SN;
+      double               CS, EPS, ORGNRM, P, R, SN;
       // ..
       // .. External Functions ..
       //- bool               lsame;
@@ -158,7 +158,7 @@
 
       EPS = SLAMCH( 'Epsilon' );
 
-      MLVL = INT( LOG( REAL( N ) / REAL( SMLSIZ+1 ) ) / LOG( TWO ) ) + 1;
+      MLVL = INT( LOG( double( N ) / REAL( SMLSIZ+1 ) ) / LOG( TWO ) ) + 1;
       SMLSZP = SMLSIZ + 1;
 
       if ( ICOMPQ == 1 ) {

@@ -1,4 +1,4 @@
-      REAL sla_gercond(TRANS, N, A, LDA, AF, LDAF, IPIV, CMODE, C, INFO, WORK, IWORK ) {
+      double sla_gercond(TRANS, N, A, LDA, AF, LDAF, IPIV, CMODE, C, INFO, WORK, IWORK ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -10,7 +10,7 @@
       // ..
       // .. Array Arguments ..
       int                IPIV( * ), IWORK( * );
-      REAL               A( LDA, * ), AF( LDAF, * ), WORK( * ), C( * );
+      double               A( LDA, * ), AF( LDAF, * ), WORK( * ), C( * );
 // ..
 
 // =====================================================================
@@ -18,7 +18,7 @@
       // .. Local Scalars ..
       bool               NOTRANS;
       int                KASE, I, J;
-      REAL               AINVNM, TMP;
+      double               AINVNM, TMP;
       // ..
       // .. Local Arrays ..
       int                ISAVE( 3 );

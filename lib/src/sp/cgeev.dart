@@ -10,26 +10,26 @@
       int                INFO, LDA, LDVL, LDVR, LWORK, N;
       // ..
       // .. Array Arguments ..
-      REAL   RWORK( * );
+      double   RWORK( * );
       Complex         A( LDA, * ), VL( LDVL, * ), VR( LDVR, * ), W( * ), WORK( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL   ZERO, ONE;
+      double   ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
       bool               LQUERY, SCALEA, WANTVL, WANTVR;
       String             SIDE;
       int                HSWORK, I, IBAL, IERR, IHI, ILO, IRWORK, ITAU, IWRK, K, LWORK_TREVC, MAXWRK, MINWRK, NOUT;
-      REAL   ANRM, BIGNUM, CSCALE, EPS, SCL, SMLNUM;
+      double   ANRM, BIGNUM, CSCALE, EPS, SCL, SMLNUM;
       Complex         TMP;
       // ..
       // .. Local Arrays ..
       bool               SELECT( 1 );
-      REAL   DUM( 1 );
+      double   DUM( 1 );
       // ..
       // .. External Subroutines ..
       // EXTERNAL XERBLA, CSSCAL, CGEBAK, CGEBAL, CGEHRD, CHSEQR, CLACPY, CLASCL, CSCAL, CTREVC3, CUNGHR
@@ -244,12 +244,12 @@
             SCL = ONE / SCNRM2( N, VL( 1, I ), 1 );
             csscal(N, SCL, VL( 1, I ), 1 );
             for (K = 1; K <= N; K++) { // 10
-               RWORK[IRWORK+K-1] = REAL( VL( K, I ) )**2 + AIMAG( VL( K, I ) )**2;
+               RWORK[IRWORK+K-1] = double( VL( K, I ) )**2 + AIMAG( VL( K, I ) )**2;
             } // 10
             K = ISAMAX( N, RWORK( IRWORK ), 1 );
             TMP = CONJG( VL( K, I ) ) / sqrt( RWORK( IRWORK+K-1 ) );
             cscal(N, TMP, VL( 1, I ), 1 );
-            VL[K, I] = CMPLX( REAL( VL( K, I ) ), ZERO );
+            VL[K, I] = CMPLX( double( VL( K, I ) ), ZERO );
          } // 20
       }
 
@@ -267,12 +267,12 @@
             SCL = ONE / SCNRM2( N, VR( 1, I ), 1 );
             csscal(N, SCL, VR( 1, I ), 1 );
             for (K = 1; K <= N; K++) { // 30
-               RWORK[IRWORK+K-1] = REAL( VR( K, I ) )**2 + AIMAG( VR( K, I ) )**2;
+               RWORK[IRWORK+K-1] = double( VR( K, I ) )**2 + AIMAG( VR( K, I ) )**2;
             } // 30
             K = ISAMAX( N, RWORK( IRWORK ), 1 );
             TMP = CONJG( VR( K, I ) ) / sqrt( RWORK( IRWORK+K-1 ) );
             cscal(N, TMP, VR( 1, I ), 1 );
-            VR[K, I] = CMPLX( REAL( VR( K, I ) ), ZERO );
+            VR[K, I] = CMPLX( double( VR( K, I ) ), ZERO );
          } // 40
       }
 

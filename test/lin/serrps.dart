@@ -19,7 +19,7 @@
       int                I, INFO, J, RANK;
       // ..
       // .. Local Arrays ..
-      REAL               A( NMAX, NMAX ), WORK( 2*NMAX );
+      double               A( NMAX, NMAX ), WORK( 2*NMAX );
       int                PIV( NMAX );
       // ..
       // .. External Subroutines ..

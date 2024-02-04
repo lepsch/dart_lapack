@@ -22,7 +22,7 @@
       // .. Local Scalars ..
       bool               UPPER;
       int                J, K, KC, KP;
-      REAL               S;
+      double               S;
       Complex            AK, AKM1, AKM1K, BK, BKM1, DENOM;
       // ..
       // .. External Functions ..
@@ -91,7 +91,7 @@
 
             // Multiply by the inverse of the diagonal block.
 
-            S = REAL( ONE ) / REAL( AP( KC+K-1 ) );
+            S = double( ONE ) / REAL( AP( KC+K-1 ) );
             csscal(NRHS, S, B( K, 1 ), LDB );
             K = K - 1;
          } else {
@@ -221,7 +221,7 @@
 
             // Multiply by the inverse of the diagonal block.
 
-            S = REAL( ONE ) / REAL( AP( KC ) );
+            S = double( ONE ) / REAL( AP( KC ) );
             csscal(NRHS, S, B( K, 1 ), LDB );
             KC = KC + N - K + 1;
             K = K + 1;

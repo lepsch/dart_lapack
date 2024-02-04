@@ -7,12 +7,12 @@
       // .. Scalar Arguments ..
       bool               TSTERR;
       int                NMAX, NN, NOUT, NRHS;
-      REAL               THRESH;
+      double               THRESH;
       // ..
       // .. Array Arguments ..
       bool               DOTYPE( * );
       int                IWORK( * ), NVAL( * );
-      REAL               RWORK( * );
+      double               RWORK( * );
       Complex            A( * ), AFAC( * ), AINV( * ), B( * ), WORK( * ), X( * ), XACT( * );
       // ..
 
@@ -31,12 +31,12 @@
       String             DIST, FACT, TYPE, UPLO, XTYPE;
       String             MATPATH, PATH;
       int                I, I1, I2, IFACT, IMAT, IN, INFO, IOFF, IUPLO, IZERO, J, K, KL, KU, LDA, LWORK, MODE, N, NB, NBMIN, NERRS, NFAIL, NIMAT, NRUN, NT;
-      REAL               ANORM, CNDNUM;
+      double               ANORM, CNDNUM;
       // ..
       // .. Local Arrays ..
       String             FACTS( NFACT ), UPLOS( 2 );
       int                ISEED( 4 ), ISEEDY( 4 );
-      REAL               RESULT( NTESTS );
+      double               RESULT( NTESTS );
       // ..
       // .. External Functions ..
       //- COMPLEX            CLANSY, SGET06;

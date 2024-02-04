@@ -1,4 +1,4 @@
-      REAL clanhs(NORM, N, A, LDA, WORK ) {
+      double clanhs(NORM, N, A, LDA, WORK ) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -9,19 +9,19 @@
       int                LDA, N;
       // ..
       // .. Array Arguments ..
-      REAL               WORK( * );
+      double               WORK( * );
       Complex            A( LDA, * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ONE, ZERO;
+      double               ONE, ZERO;
       const              ONE = 1.0, ZERO = 0.0 ;
       // ..
       // .. Local Scalars ..
       int                I, J;
-      REAL               SCALE, SUM, VALUE;
+      double               SCALE, SUM, VALUE;
       // ..
       // .. External Functions ..
       //- bool               lsame, SISNAN;

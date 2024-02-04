@@ -9,14 +9,14 @@
       int                INFO, LDA, LDB, LDVL, LDVR, LWORK, N;
       // ..
       // .. Array Arguments ..
-      REAL               RWORK( * );
+      double               RWORK( * );
       Complex            A( LDA, * ), ALPHA( * ), B( LDB, * ), BETA( * ), VL( LDVL, * ), VR( LDVR, * ), WORK( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       Complex            CZERO, CONE;
       const              CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
@@ -25,7 +25,7 @@
       bool               ILIMIT, ILV, ILVL, ILVR, LQUERY;
       String             CHTEMP;
       int                ICOLS, IHI, IINFO, IJOBVL, IJOBVR, ILEFT, ILO, IN, IRIGHT, IROWS, IRWORK, ITAU, IWORK, JC, JR, LOPT, LWKMIN, LWKOPT, NB, NB1, NB2, NB3;
-      REAL               ABSAI, ABSAR, ABSB, ANRM, ANRM1, ANRM2, BNRM, BNRM1, BNRM2, EPS, SAFMAX, SAFMIN, SALFAI, SALFAR, SBETA, SCALE, TEMP;
+      double               ABSAI, ABSAR, ABSB, ANRM, ANRM1, ANRM2, BNRM, BNRM1, BNRM2, EPS, SAFMAX, SAFMIN, SALFAI, SALFAR, SBETA, SCALE, TEMP;
       Complex            X;
       // ..
       // .. Local Arrays ..
@@ -44,10 +44,10 @@
       // INTRINSIC ABS, AIMAG, CMPLX, INT, MAX, REAL
       // ..
       // .. Statement Functions ..
-      REAL               ABS1;
+      double               ABS1;
       // ..
       // .. Statement Function definitions ..
-      ABS1[X] = ( REAL( X ) ).abs() + ( AIMAG( X ) ).abs();
+      ABS1[X] = ( double( X ) ).abs() + ( AIMAG( X ) ).abs();
       // ..
       // .. Executable Statements ..
 
@@ -324,12 +324,12 @@
       // if they are significant.
 
       for (JC = 1; JC <= N; JC++) { // 70
-         ABSAR = ABS( REAL( ALPHA( JC ) ) );
+         ABSAR = ABS( double( ALPHA( JC ) ) );
          ABSAI = ABS( AIMAG( ALPHA( JC ) ) );
-         ABSB = ABS( REAL( BETA( JC ) ) );
-         SALFAR = ANRM*REAL( ALPHA( JC ) );
+         ABSB = ABS( double( BETA( JC ) ) );
+         SALFAR = ANRM*double( ALPHA( JC ) );
          SALFAI = ANRM*AIMAG( ALPHA( JC ) );
-         SBETA = BNRM*REAL( BETA( JC ) );
+         SBETA = BNRM*double( BETA( JC ) );
          ILIMIT = false;
          SCALE = ONE;
 
@@ -363,7 +363,7 @@
          // Recompute un-scaled ALPHA, BETA if necessary.
 
          if ( ILIMIT ) {
-            SALFAR = ( SCALE*REAL( ALPHA( JC ) ) )*ANRM;
+            SALFAR = ( SCALE*double( ALPHA( JC ) ) )*ANRM;
             SALFAI = ( SCALE*AIMAG( ALPHA( JC ) ) )*ANRM;
             SBETA = ( SCALE*BETA( JC ) )*BNRM;
          }

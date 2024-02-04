@@ -6,23 +6,23 @@
 
       // .. Scalar Arguments ..
       int                CLSTRT, CLEND, INFO, N;
-      REAL               CLGAPL, CLGAPR, PIVMIN, SIGMA, SPDIAM;
+      double               CLGAPL, CLGAPR, PIVMIN, SIGMA, SPDIAM;
       // ..
       // .. Array Arguments ..
-      REAL               D( * ), DPLUS( * ), L( * ), LD( * ), LPLUS( * ), W( * ), WGAP( * ), WERR( * ), WORK( * );
+      double               D( * ), DPLUS( * ), L( * ), LD( * ), LPLUS( * ), W( * ), WGAP( * ), WERR( * ), WORK( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               MAXGROWTH1, MAXGROWTH2, ONE, QUART, TWO;
+      double               MAXGROWTH1, MAXGROWTH2, ONE, QUART, TWO;
       const              ONE = 1.0, TWO = 2.0, QUART = 0.25, MAXGROWTH1 = 8.0, MAXGROWTH2 = 8.0 ;
       // ..
       // .. Local Scalars ..
       bool      DORRR1, FORCER, NOFAIL, SAWNAN1, SAWNAN2, TRYRRR1;
       int                I, INDX, KTRY, KTRYMAX, SLEFT, SRIGHT, SHIFT;
       const              KTRYMAX = 1, SLEFT = 1, SRIGHT = 2 ;
-      REAL               AVGAP, BESTSHIFT, CLWDTH, EPS, FACT, FAIL, FAIL2, GROWTHBOUND, LDELTA, LDMAX, LSIGMA, MAX1, MAX2, MINGAP, OLDP, PROD, RDELTA, RDMAX, RRR1, RRR2, RSIGMA, S, SMLGROWTH, TMP, ZNM2;
+      double               AVGAP, BESTSHIFT, CLWDTH, EPS, FACT, FAIL, FAIL2, GROWTHBOUND, LDELTA, LDMAX, LSIGMA, MAX1, MAX2, MINGAP, OLDP, PROD, RDELTA, RDMAX, RRR1, RRR2, RSIGMA, S, SMLGROWTH, TMP, ZNM2;
       // ..
       // .. External Functions ..
       //- bool    SISNAN;
@@ -45,7 +45,7 @@
          return;
       }
 
-      FACT = REAL(2**KTRYMAX);
+      FACT = double(2**KTRYMAX);
       EPS = SLAMCH( 'Precision' );
       SHIFT = 0;
       FORCER = false;
@@ -90,8 +90,8 @@
 
       S = SLAMCH( 'S' );
       SMLGROWTH = ONE / S;
-      FAIL = REAL(N-1)*MINGAP/(SPDIAM*EPS);
-      FAIL2 = REAL(N-1)*MINGAP/(SPDIAM*sqrt(EPS));
+      FAIL = double(N-1)*MINGAP/(SPDIAM*EPS);
+      FAIL2 = double(N-1)*MINGAP/(SPDIAM*sqrt(EPS));
       BESTSHIFT = LSIGMA;
 
       // while (KTRY <= KTRYMAX)

@@ -8,20 +8,20 @@
       int                LDA, LDB, LWORK, M, P, N;
       // ..
       // .. Array Arguments ..
-      REAL               A( LDA, * ), AF( LDA, * ), R( LDA, * ), Q( LDA, * ), B( LDB, * ), BF( LDB, * ), T( LDB, * ), Z( LDB, * ), BWK( LDB, * ), TAUA( * ), TAUB( * ), RESULT( 4 ), RWORK( * ), WORK( LWORK );
+      double               A( LDA, * ), AF( LDA, * ), R( LDA, * ), Q( LDA, * ), B( LDB, * ), BF( LDB, * ), T( LDB, * ), Z( LDB, * ), BWK( LDB, * ), TAUA( * ), TAUB( * ), RESULT( 4 ), RWORK( * ), WORK( LWORK );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
-      REAL               ROGUE;
+      double               ROGUE;
       const              ROGUE = -1.0e+10 ;
       // ..
       // .. Local Scalars ..
       int                INFO;
-      REAL               ANORM, BNORM, ULP, UNFL, RESID;
+      double               ANORM, BNORM, ULP, UNFL, RESID;
       // ..
       // .. External Functions ..
       //- REAL               SLAMCH, SLANGE, SLANSY;

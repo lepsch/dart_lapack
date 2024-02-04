@@ -9,27 +9,27 @@
       // ..
       // .. Array Arguments ..
       int                LMAX( 3 ), NINFO( 3 );
-      REAL               RMAX( 3 );
+      double               RMAX( 3 );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE, TWO;
+      double               ZERO, ONE, TWO;
       const              ZERO = 0.0, ONE = 1.0, TWO = 2.0 ;
-      REAL               EPSIN;
+      double               EPSIN;
       const              EPSIN = 5.9605e-8 ;
       int                LDT, LWORK;
       const              LDT = 20, LWORK = 2*LDT*( 10+LDT ) ;
       // ..
       // .. Local Scalars ..
       int                I, ICMP, INFO, ISCL, ISRT, J, KMIN, M, N;
-      REAL               BIGNUM, EPS, SMLNUM, TNRM, TOL, TOLIN, V, VCMIN, VMAX, VMIN, VMUL;
+      double               BIGNUM, EPS, SMLNUM, TNRM, TOL, TOLIN, V, VCMIN, VMAX, VMIN, VMUL;
       // ..
       // .. Local Arrays ..
       bool               SELECT( LDT );
       int                LCMP( 3 );
-      REAL               DUM( 1 ), RWORK( 2*LDT ), S( LDT ), SEP( LDT ), SEPIN( LDT ), SEPTMP( LDT ), SIN( LDT ), STMP( LDT ), VAL( 3 ), WIIN( LDT ), WRIN( LDT ), WSRT( LDT );
+      double               DUM( 1 ), RWORK( 2*LDT ), S( LDT ), SEP( LDT ), SEPIN( LDT ), SEPTMP( LDT ), SIN( LDT ), STMP( LDT ), VAL( 3 ), WIIN( LDT ), WRIN( LDT ), WSRT( LDT );
       Complex            CDUM( 1 ), LE( LDT, LDT ), RE( LDT, LDT ), T( LDT, LDT ), TMP( LDT, LDT ), W( LDT ), WORK( LWORK ), WTMP( LDT );
       // ..
       // .. External Functions ..
@@ -139,7 +139,7 @@
             // Sort by increasing real part
 
             for (I = 1; I <= N; I++) { // 80
-               WSRT[I] = REAL( W( I ) );
+               WSRT[I] = double( W( I ) );
             } // 80
          } else {
 
@@ -163,7 +163,7 @@
             } // 100
             WSRT[KMIN] = WSRT( I );
             WSRT[I] = VMIN;
-            VCMIN = REAL( WTMP( I ) );
+            VCMIN = double( WTMP( I ) );
             WTMP[I] = W( KMIN );
             WTMP[KMIN] = VCMIN;
             VMIN = STMP( KMIN );
@@ -177,7 +177,7 @@
          // Compare condition numbers for eigenvalues
          // taking their condition numbers into account
 
-         V = max( TWO*REAL( N )*EPS*TNRM, SMLNUM );
+         V = max( TWO*double( N )*EPS*TNRM, SMLNUM );
          if (TNRM == ZERO) V = ONE;
          for (I = 1; I <= N; I++) { // 120
             if ( V > SEPTMP( I ) ) {
@@ -246,7 +246,7 @@
          // without taking their condition numbers into account
 
          for (I = 1; I <= N; I++) { // 140
-            if ( SIN( I ) <= REAL( 2*N )*EPS && STMP( I ) <= REAL( 2*N )*EPS ) {
+            if ( SIN( I ) <= REAL( 2*N )*EPS && STMP( I ) <= double( 2*N )*EPS ) {
                VMAX = ONE;
             } else if ( EPS*SIN( I ) > STMP( I ) ) {
                VMAX = ONE / EPS;

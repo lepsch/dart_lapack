@@ -12,7 +12,7 @@
       int              ICASE, INCX, INCY, MODE, N;
       bool             PASS;
       // .. Local Scalars ..
-      REAL             SFAC;
+      double             SFAC;
       int              IC;
       // .. External Subroutines ..
       // EXTERNAL CHECK1, CHECK2, HEADER
@@ -79,20 +79,20 @@
       void check1(SFAC) {
       // .. Parameters ..
       int               NOUT;
-      REAL              THRESH;
+      double              THRESH;
       const             NOUT=6, THRESH=10.0;
       // .. Scalar Arguments ..
-      REAL              SFAC;
+      double              SFAC;
       // .. Scalars in Common ..
       int               ICASE, INCX, INCY, MODE, N;
       bool              PASS;
       // .. Local Scalars ..
       Complex           CA;
-      REAL              SA;
+      double              SA;
       int               I, IX, J, LEN, NP1;
       // .. Local Arrays ..
       Complex           CTRUE5(8,5,2), CTRUE6(8,5,2), CV(8,5,2), CVR(8), CX(8), CXR(15), MWPCS(5), MWPCT(5);
-      REAL              STRUE2(5), STRUE4(5);
+      double              STRUE2(5), STRUE4(5);
       int               ITRUE3(5), ITRUEC(5);
       // .. External Functions ..
       //- REAL              SCASUM, SCNRM2;
@@ -213,7 +213,7 @@
       int               NOUT;
       const             NOUT=6;
       // .. Scalar Arguments ..
-      REAL              SFAC;
+      double              SFAC;
       // .. Scalars in Common ..
       int               ICASE, INCX, INCY, MODE, N;
       bool              PASS;
@@ -332,18 +332,18 @@
 
       // .. Parameters ..
       int              NOUT;
-      REAL             ZERO;
+      double             ZERO;
       const            NOUT=6, ZERO=0.0;
       // .. Scalar Arguments ..
-      REAL             SFAC;
+      double             SFAC;
       int              LEN;
       // .. Array Arguments ..
-      REAL             SCOMP(LEN), SSIZE(LEN), STRUE(LEN);
+      double             SCOMP(LEN), SSIZE(LEN), STRUE(LEN);
       // .. Scalars in Common ..
       int              ICASE, INCX, INCY, MODE, N;
       bool             PASS;
       // .. Local Scalars ..
-      REAL             SD;
+      double             SD;
       int              I;
       // .. External Functions ..
       //- REAL             SDIFF;
@@ -383,11 +383,11 @@
       // C.L. LAWSON, JPL, 1978 DEC 6
 
       // .. Scalar Arguments ..
-      REAL              SCOMP1, SFAC, STRUE1;
+      double              SCOMP1, SFAC, STRUE1;
       // .. Array Arguments ..
-      REAL              SSIZE(*);
+      double              SSIZE(*);
       // .. Local Arrays ..
-      REAL              SCOMP(1), STRUE(1);
+      double              SCOMP(1), STRUE(1);
       // .. External Subroutines ..
       // EXTERNAL STEST
       // .. Executable Statements ..
@@ -398,12 +398,12 @@
 
       return;
       }
-      REAL sdiff(SA,SB) {
+      double sdiff(SA,SB) {
       // ********************************* SDIFF **************************
       // COMPUTES DIFFERENCE OF TWO NUMBERS.  C. L. LAWSON, JPL 1974 FEB 15
 
       // .. Scalar Arguments ..
-      REAL                            SA, SB;
+      double                            SA, SB;
       // .. Executable Statements ..
       SDIFF = SA - SB;
       return;
@@ -414,25 +414,25 @@
       // C.L. LAWSON, JPL, 1978 DEC 6
 
       // .. Scalar Arguments ..
-      REAL             SFAC;
+      double             SFAC;
       int              LEN;
       // .. Array Arguments ..
       Complex          CCOMP(LEN), CSIZE(LEN), CTRUE(LEN);
       // .. Local Scalars ..
       int              I;
       // .. Local Arrays ..
-      REAL             SCOMP(20), SSIZE(20), STRUE(20);
+      double             SCOMP(20), SSIZE(20), STRUE(20);
       // .. External Subroutines ..
       // EXTERNAL STEST
       // .. Intrinsic Functions ..
       // INTRINSIC AIMAG, REAL
       // .. Executable Statements ..
       for (I = 1; I <= LEN; I++) { // 20
-         SCOMP[2*I-1] = REAL(CCOMP(I));
+         SCOMP[2*I-1] = double(CCOMP(I));
          SCOMP[2*I] = AIMAG(CCOMP(I));
-         STRUE[2*I-1] = REAL(CTRUE(I));
+         STRUE[2*I-1] = double(CTRUE(I));
          STRUE[2*I] = AIMAG(CTRUE(I));
-         SSIZE[2*I-1] = REAL(CSIZE(I));
+         SSIZE[2*I-1] = double(CSIZE(I));
          SSIZE[2*I] = AIMAG(CSIZE(I));
       } // 20
 
@@ -495,13 +495,13 @@
 
       // .. Scalar Arguments ..
       int               INCX, N;
-      REAL              THRESH;
+      double              THRESH;
 
 // =====================================================================
       // .. Parameters ..
       int               NMAX, NOUT, NV;
       const             NMAX=20, NOUT=6, NV=10;
-      REAL              HALF, ONE, THREE, TWO, ZERO;
+      double              HALF, ONE, THREE, TWO, ZERO;
       const             HALF=0.5, ONE=1.0, TWO= 2.0, THREE=3.0, ZERO=0.0;
       // .. External Functions ..
       //- REAL              SCNRM2;
@@ -509,16 +509,16 @@
       // .. Intrinsic Functions ..
       // INTRINSIC AIMAG, ABS, CMPLX, MAX, MIN, REAL, SQRT
       // .. Model parameters ..
-      REAL              BIGNUM, SAFMAX, SAFMIN, SMLNUM, ULP;
+      double              BIGNUM, SAFMAX, SAFMIN, SMLNUM, ULP;
       const             BIGNUM=0.1014120480e+32, SAFMAX=0.8507059173e+38, SAFMIN=0.1175494351e-37, SMLNUM=0.9860761315e-31, ULP=0.1192092896e-06;
       // .. Local Scalars ..
       Complex           ROGUE;
-      REAL              SNRM, TRAT, V0, V1, WORKSSQ, Y1, Y2, YMAX, YMIN, YNRM, ZNRM;
+      double              SNRM, TRAT, V0, V1, WORKSSQ, Y1, Y2, YMAX, YMIN, YNRM, ZNRM;
       int               I, IV, IW, IX, KS;
       bool              FIRST;
       // .. Local Arrays ..
       Complex           X(NMAX), Z(NMAX);
-      REAL              VALUES(NV), WORK(NMAX);
+      double              VALUES(NV), WORK(NMAX);
       // .. Executable Statements ..
       VALUES[1] = ZERO;
       VALUES[2] = TWO*SAFMIN;
@@ -626,7 +626,7 @@
             // in this implementation so we scale the test ratio accordingly.
 
             if (INCX == 0) {
-               Y1 = ABS(REAL(X(1)));
+               Y1 = ABS(double(X(1)));
                Y2 = ABS(AIMAG(X(1)));
                YMIN = min(Y1, Y2);
                YMAX = max(Y1, Y2);
@@ -640,7 +640,7 @@
                } else {
                   ZNRM = YMAX * sqrt(ONE + (YMIN / YMAX)**2);
                }
-               ZNRM = sqrt(REAL(n)) * ZNRM;
+               ZNRM = sqrt(double(n)) * ZNRM;
             } else {
                ZNRM = YNRM;
             }
@@ -672,12 +672,12 @@
    98 FORMAT( 1X, A6, ': N=', I6,', INCX=', I4, ', IV=', I2, ', IW=', I2, ', test=', E15.8 );
       return;
       CONTAINS;
-      REAL sxvals(XX,K) {
+      double sxvals(XX,K) {
       // .. Scalar Arguments ..
-      REAL              XX;
+      double              XX;
       int               K;
       // .. Local Scalars ..
-      REAL              X, Y, YY, Z;
+      double              X, Y, YY, Z;
       // .. Intrinsic Functions ..
       // INTRINSIC HUGE
       // .. Executable Statements ..

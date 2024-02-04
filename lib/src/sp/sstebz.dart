@@ -7,25 +7,25 @@
       // .. Scalar Arguments ..
       String             ORDER, RANGE;
       int                IL, INFO, IU, M, N, NSPLIT;
-      REAL               ABSTOL, VL, VU;
+      double               ABSTOL, VL, VU;
       // ..
       // .. Array Arguments ..
       int                IBLOCK( * ), ISPLIT( * ), IWORK( * );
-      REAL               D( * ), E( * ), W( * ), WORK( * );
+      double               D( * ), E( * ), W( * ), WORK( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE, TWO, HALF;
+      double               ZERO, ONE, TWO, HALF;
       const              ZERO = 0.0, ONE = 1.0, TWO = 2.0, HALF = 1.0 / TWO ;
-      REAL               FUDGE, RELFAC;
+      double               FUDGE, RELFAC;
       const              FUDGE = 2.1, RELFAC = 2.0 ;
       // ..
       // .. Local Scalars ..
       bool               NCNVRG, TOOFEW;
       int                IB, IBEGIN, IDISCL, IDISCU, IE, IEND, IINFO, IM, IN, IOFF, IORDER, IOUT, IRANGE, ITMAX, ITMP1, IW, IWOFF, J, JB, JDISC, JE, NB, NWL, NWU;
-      REAL               ATOLI, BNORM, GL, GU, PIVMIN, RTOLI, SAFEMN, TMP1, TMP2, TNORM, ULP, WKILL, WL, WLU, WU, WUL;
+      double               ATOLI, BNORM, GL, GU, PIVMIN, RTOLI, SAFEMN, TMP1, TMP2, TNORM, ULP, WKILL, WL, WLU, WU, WUL;
       // ..
       // .. Local Arrays ..
       int                IDUMMA( 1 );

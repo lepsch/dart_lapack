@@ -9,16 +9,16 @@
       int                ITYPE, KBAND, LDU, N;
       // ..
       // .. Array Arguments ..
-      REAL               D( * ), E( * ), RESULT( 2 ), RWORK( * );
+      double               D( * ), E( * ), RESULT( 2 ), RWORK( * );
       Complex            AP( * ), TAU( * ), U( LDU, * ), VP( * ), WORK( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE, TEN;
+      double               ZERO, ONE, TEN;
       const              ZERO = 0.0, ONE = 1.0, TEN = 10.0 ;
-      REAL               HALF;
+      double               HALF;
       const              HALF = 1.0 / 2.0 ;
       Complex            CZERO, CONE;
       const              CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
@@ -27,7 +27,7 @@
       bool               LOWER;
       String             CUPLO;
       int                IINFO, J, JP, JP1, JR, LAP;
-      REAL               ANORM, ULP, UNFL, WNORM;
+      double               ANORM, ULP, UNFL, WNORM;
       Complex            TEMP, VSAVE;
       // ..
       // .. External Functions ..
@@ -198,7 +198,7 @@
             WORK[( N+1 )*( J-1 )+1] = WORK( ( N+1 )*( J-1 )+1 ) - CONE;
          } // 90
 
-         RESULT[2] = min( CLANGE( '1', N, N, WORK, N, RWORK ), REAL( N ) ) / ( N*ULP );
+         RESULT[2] = min( CLANGE( '1', N, N, WORK, N, RWORK ), double( N ) ) / ( N*ULP );
       }
 
       return;

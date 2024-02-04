@@ -6,21 +6,21 @@
 
       // .. Scalar Arguments ..
       int                INFO, N;
-      REAL               TOL;
+      double               TOL;
       // ..
       // .. Array Arguments ..
-      REAL               A( * ), B( * ), EIG( * ), WORK( * );
+      double               A( * ), B( * ), EIG( * ), WORK( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO;
+      double               ZERO;
       const              ZERO = 0.0 ;
       // ..
       // .. Local Scalars ..
       int                BPNT, COUNT, I, ISUB, J, NUML, NUMU, TPNT;
-      REAL               EMIN, EPS, LOWER, MX, TUPPR, UNFLEP, UPPER;
+      double               EMIN, EPS, LOWER, MX, TUPPR, UNFLEP, UPPER;
       // ..
       // .. External Functions ..
       //- REAL               SLAMCH;

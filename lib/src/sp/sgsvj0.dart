@@ -6,26 +6,26 @@
 
       // .. Scalar Arguments ..
       int                INFO, LDA, LDV, LWORK, M, MV, N, NSWEEP;
-      REAL               EPS, SFMIN, TOL;
+      double               EPS, SFMIN, TOL;
       String             JOBV;
       // ..
       // .. Array Arguments ..
-      REAL               A( LDA, * ), SVA( N ), D( N ), V( LDV, * ), WORK( LWORK );
+      double               A( LDA, * ), SVA( N ), D( N ), V( LDV, * ), WORK( LWORK );
       // ..
 
 // =====================================================================
 
       // .. Local Parameters ..
-      REAL               ZERO, HALF, ONE;
+      double               ZERO, HALF, ONE;
       const              ZERO = 0.0, HALF = 0.5, ONE = 1.0;
       // ..
       // .. Local Scalars ..
-      REAL               AAPP, AAPP0, AAPQ, AAQQ, APOAQ, AQOAP, BIG, BIGTHETA, CS, MXAAPQ, MXSINJ, ROOTBIG, ROOTEPS, ROOTSFMIN, ROOTTOL, SMALL, SN, T, TEMP1, THETA, THSIGN;
+      double               AAPP, AAPP0, AAPQ, AAQQ, APOAQ, AQOAP, BIG, BIGTHETA, CS, MXAAPQ, MXSINJ, ROOTBIG, ROOTEPS, ROOTSFMIN, ROOTTOL, SMALL, SN, T, TEMP1, THETA, THSIGN;
       int                BLSKIP, EMPTSW, i, ibr, IERR, igl, IJBLSK, ir1, ISWROT, jbc, jgl, KBL, LKAHEAD, MVL, NBL, NOTROT, p, PSKIPPED, q, ROWSKIP, SWBAND;
       bool               APPLV, ROTOK, RSVEC;
       // ..
       // .. Local Arrays ..
-      REAL               FASTR( 5 );
+      double               FASTR( 5 );
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, FLOAT, MIN, SIGN, SQRT

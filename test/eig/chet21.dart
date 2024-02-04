@@ -9,14 +9,14 @@
       int                ITYPE, KBAND, LDA, LDU, LDV, N;
       // ..
       // .. Array Arguments ..
-      REAL               D( * ), E( * ), RESULT( 2 ), RWORK( * );
+      double               D( * ), E( * ), RESULT( 2 ), RWORK( * );
       Complex            A( LDA, * ), TAU( * ), U( LDU, * ), V( LDV, * ), WORK( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE, TEN;
+      double               ZERO, ONE, TEN;
       const              ZERO = 0.0, ONE = 1.0, TEN = 10.0 ;
       Complex            CZERO, CONE;
       const              CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
@@ -25,7 +25,7 @@
       bool               LOWER;
       String             CUPLO;
       int                IINFO, J, JCOL, JR, JROW;
-      REAL               ANORM, ULP, UNFL, WNORM;
+      double               ANORM, ULP, UNFL, WNORM;
       Complex            VSAVE;
       // ..
       // .. External Functions ..
@@ -190,7 +190,7 @@
             WORK[( N+1 )*( J-1 )+1] = WORK( ( N+1 )*( J-1 )+1 ) - CONE;
          } // 110
 
-         RESULT[2] = min( CLANGE( '1', N, N, WORK, N, RWORK ), REAL( N ) ) / ( N*ULP );
+         RESULT[2] = min( CLANGE( '1', N, N, WORK, N, RWORK ), double( N ) ) / ( N*ULP );
       }
 
       return;

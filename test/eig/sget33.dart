@@ -6,23 +6,23 @@
 
       // .. Scalar Arguments ..
       int                KNT, LMAX, NINFO;
-      REAL               RMAX;
+      double               RMAX;
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
-      REAL               TWO, FOUR;
+      double               TWO, FOUR;
       const              TWO = 2.0, FOUR = 4.0 ;
       // ..
       // .. Local Scalars ..
       int                I1, I2, I3, I4, IM1, IM2, IM3, IM4, J1, J2, J3;
-      REAL               BIGNUM, CS, EPS, RES, SMLNUM, SN, SUM, TNRM, WI1, WI2, WR1, WR2;
+      double               BIGNUM, CS, EPS, RES, SMLNUM, SN, SUM, TNRM, WI1, WI2, WR1, WR2;
       // ..
       // .. Local Arrays ..
-      REAL               Q( 2, 2 ), T( 2, 2 ), T1( 2, 2 ), T2( 2, 2 ), VAL( 4 ), VM( 3 );
+      double               Q( 2, 2 ), T( 2, 2 ), T1( 2, 2 ), T2( 2, 2 ), VAL( 4 ), VM( 3 );
       // ..
       // .. External Functions ..
       //- REAL               SLAMCH;

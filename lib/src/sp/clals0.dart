@@ -6,23 +6,23 @@
 
       // .. Scalar Arguments ..
       int                GIVPTR, ICOMPQ, INFO, K, LDB, LDBX, LDGCOL, LDGNUM, NL, NR, NRHS, SQRE;
-      REAL               C, S;
+      double               C, S;
       // ..
       // .. Array Arguments ..
       int                GIVCOL( LDGCOL, * ), PERM( * );
-      REAL               DIFL( * ), DIFR( LDGNUM, * ), GIVNUM( LDGNUM, * ), POLES( LDGNUM, * ), RWORK( * ), Z( * );
+      double               DIFL( * ), DIFR( LDGNUM, * ), GIVNUM( LDGNUM, * ), POLES( LDGNUM, * ), RWORK( * ), Z( * );
       Complex            B( LDB, * ), BX( LDBX, * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ONE, ZERO, NEGONE;
+      double               ONE, ZERO, NEGONE;
       const              ONE = 1.0, ZERO = 0.0, NEGONE = -1.0 ;
       // ..
       // .. Local Scalars ..
       int                I, J, JCOL, JROW, M, N, NLP1;
-      REAL               DIFLJ, DIFRJ, DJ, DSIGJ, DSIGJP, TEMP;
+      double               DIFLJ, DIFRJ, DJ, DSIGJ, DSIGJP, TEMP;
       // ..
       // .. External Subroutines ..
       // EXTERNAL CCOPY, CLACPY, CLASCL, CSROT, CSSCAL, SGEMV, XERBLA
@@ -143,7 +143,7 @@
                for (JCOL = 1; JCOL <= NRHS; JCOL++) { // 60
                   for (JROW = 1; JROW <= K; JROW++) { // 50
                      I = I + 1;
-                     RWORK[I] = REAL( BX( JROW, JCOL ) );
+                     RWORK[I] = double( BX( JROW, JCOL ) );
                   } // 50
                } // 60
                sgemv('T', K, NRHS, ONE, RWORK( 1+K+NRHS*2 ), K, RWORK( 1 ), 1, ZERO, RWORK( 1+K ), 1 );
@@ -212,7 +212,7 @@
                for (JCOL = 1; JCOL <= NRHS; JCOL++) { // 140
                   for (JROW = 1; JROW <= K; JROW++) { // 130
                      I = I + 1;
-                     RWORK[I] = REAL( B( JROW, JCOL ) );
+                     RWORK[I] = double( B( JROW, JCOL ) );
                   } // 130
                } // 140
                sgemv('T', K, NRHS, ONE, RWORK( 1+K+NRHS*2 ), K, RWORK( 1 ), 1, ZERO, RWORK( 1+K ), 1 );

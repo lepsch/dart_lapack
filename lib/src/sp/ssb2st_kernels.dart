@@ -12,19 +12,19 @@
       int                TTYPE, ST, ED, SWEEP, N, NB, IB, LDA, LDVT;
       // ..
       // .. Array Arguments ..
-      REAL               A( LDA, * ), V( * ), TAU( * ), WORK( * );
+      double               A( LDA, * ), V( * ), TAU( * ), WORK( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
       bool               UPPER;
       int                I, J1, J2, LM, LN, VPOS, TAUPOS, DPOS, OFDPOS, AJETER;
-      REAL               CTMP;
+      double               CTMP;
       // ..
       // .. External Subroutines ..
       // EXTERNAL SLARFG, SLARFX, SLARFY

@@ -1,7 +1,7 @@
       void scnrm2sub(n,x,incx,nrm2) {
 
       // external scnrm2
-      real scnrm2,nrm2;
+      double scnrm2,nrm2;
       int     n,incx;
       Complex x(*);
 

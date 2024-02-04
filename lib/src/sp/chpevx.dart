@@ -7,18 +7,18 @@
       // .. Scalar Arguments ..
       String             JOBZ, RANGE, UPLO;
       int                IL, INFO, IU, LDZ, M, N;
-      REAL               ABSTOL, VL, VU;
+      double               ABSTOL, VL, VU;
       // ..
       // .. Array Arguments ..
       int                IFAIL( * ), IWORK( * );
-      REAL               RWORK( * ), W( * );
+      double               RWORK( * ), W( * );
       Complex            AP( * ), WORK( * ), Z( LDZ, * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       Complex            CONE;
       const              CONE = ( 1.0, 0.0 ) ;
@@ -27,7 +27,7 @@
       bool               ALLEIG, INDEIG, TEST, VALEIG, WANTZ;
       String             ORDER;
       int                I, IINFO, IMAX, INDD, INDE, INDEE, INDISP, INDIWK, INDRWK, INDTAU, INDWRK, ISCALE, ITMP1, J, JJ, NSPLIT;
-      REAL               ABSTLL, ANRM, BIGNUM, EPS, RMAX, RMIN, SAFMIN, SIGMA, SMLNUM, TMP1, VLL, VUU;
+      double               ABSTLL, ANRM, BIGNUM, EPS, RMAX, RMIN, SAFMIN, SIGMA, SMLNUM, TMP1, VLL, VUU;
       // ..
       // .. External Functions ..
       //- bool               lsame;
@@ -86,11 +86,11 @@
       if ( N == 1 ) {
          if ( ALLEIG || INDEIG ) {
             M = 1;
-            W[1] = REAL( AP( 1 ) );
+            W[1] = double( AP( 1 ) );
          } else {
-            if ( VL < REAL( AP( 1 ) ) && VU >= REAL( AP( 1 ) ) ) {
+            if ( VL < REAL( AP( 1 ) ) && VU >= double( AP( 1 ) ) ) {
                M = 1;
-               W[1] = REAL( AP( 1 ) );
+               W[1] = double( AP( 1 ) );
             }
          }
          if (WANTZ) Z( 1, 1 ) = CONE;

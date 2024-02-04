@@ -16,16 +16,16 @@
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
-      REAL               EIGHT, SEVTEN;
+      double               EIGHT, SEVTEN;
       const              EIGHT = 8.0, SEVTEN = 17.0 ;
       Complex            CONE;
       const              CONE = ( 1.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
       int                IMAX, J, JB, JJ, JMAX, JP, K, KK, KKW, KP, KSTEP, KW;
-      REAL               ABSAKK, ALPHA, COLMAX, ROWMAX;
+      double               ABSAKK, ALPHA, COLMAX, ROWMAX;
       Complex            D11, D21, D22, R1, T, Z;
       // ..
       // .. External Functions ..
@@ -40,10 +40,10 @@
       // INTRINSIC ABS, AIMAG, MAX, MIN, REAL, SQRT
       // ..
       // .. Statement Functions ..
-      REAL               CABS1;
+      double               CABS1;
       // ..
       // .. Statement Function definitions ..
-      CABS1[Z] = ( REAL( Z ) ).abs() + ( AIMAG( Z ) ).abs();
+      CABS1[Z] = ( double( Z ) ).abs() + ( AIMAG( Z ) ).abs();
       // ..
       // .. Executable Statements ..
 

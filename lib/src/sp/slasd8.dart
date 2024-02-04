@@ -8,18 +8,18 @@
       int                ICOMPQ, INFO, K, LDDIFR;
       // ..
       // .. Array Arguments ..
-      REAL               D( * ), DIFL( * ), DIFR( LDDIFR, * ), DSIGMA( * ), VF( * ), VL( * ), WORK( * ), Z( * );
+      double               D( * ), DIFL( * ), DIFR( LDDIFR, * ), DSIGMA( * ), VF( * ), VL( * ), WORK( * ), Z( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ONE;
+      double               ONE;
       const              ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
       int                I, IWK1, IWK2, IWK2I, IWK3, IWK3I, J;
-      REAL               DIFLJ, DIFRJ, DJ, DSIGJ, DSIGJP, RHO, TEMP;
+      double               DIFLJ, DIFRJ, DJ, DSIGJ, DSIGJP, RHO, TEMP;
       // ..
       // .. External Subroutines ..
       // EXTERNAL SCOPY, SLASCL, SLASD4, SLASET, XERBLA

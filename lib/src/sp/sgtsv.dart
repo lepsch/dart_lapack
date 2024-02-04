@@ -8,18 +8,18 @@
       int                INFO, LDB, N, NRHS;
       // ..
       // .. Array Arguments ..
-      REAL               B( LDB, * ), D( * ), DL( * ), DU( * );
+      double               B( LDB, * ), D( * ), DL( * ), DU( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO;
+      double               ZERO;
       const              ZERO = 0.0 ;
       // ..
       // .. Local Scalars ..
       int                I, J;
-      REAL               FACT, TEMP;
+      double               FACT, TEMP;
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX

@@ -10,7 +10,7 @@
       // ..
       // .. Array Arguments ..
       bool               BWORK( * );
-      REAL               A( LDA, * ), VS( LDVS, * ), WI( * ), WORK( * ), WR( * );
+      double               A( LDA, * ), VS( LDVS, * ), WI( * ), WORK( * ), WR( * );
       // ..
       // .. Function Arguments ..
       bool               SELECT;
@@ -20,17 +20,17 @@
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
       bool               CURSL, LASTSL, LQUERY, LST2SL, SCALEA, WANTST, WANTVS;
       int                HSWORK, I, I1, I2, IBAL, ICOND, IERR, IEVAL, IHI, ILO, INXT, IP, ITAU, IWRK, MAXWRK, MINWRK;
-      REAL               ANRM, BIGNUM, CSCALE, EPS, S, SEP, SMLNUM;
+      double               ANRM, BIGNUM, CSCALE, EPS, S, SEP, SMLNUM;
       // ..
       // .. Local Arrays ..
       int                IDUM( 1 );
-      REAL               DUM( 1 );
+      double               DUM( 1 );
       // ..
       // .. External Subroutines ..
       // EXTERNAL SCOPY, SGEBAK, SGEBAL, SGEHRD, SHSEQR, SLACPY, SLASCL, SORGHR, SSWAP, STRSEN, XERBLA

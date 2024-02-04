@@ -6,26 +6,26 @@
 
       // .. Scalar Arguments ..
       int                INFO, LDA, LDB, LWORK, M, N, NRHS, RANK;
-      REAL               RCOND;
+      double               RCOND;
       // ..
       // .. Array Arguments ..
-      REAL               A( LDA, * ), B( LDB, * ), S( * ), WORK( * );
+      double               A( LDA, * ), B( LDB, * ), S( * ), WORK( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
       bool               LQUERY;
       int                BDSPAC, BL, CHUNK, I, IASCL, IBSCL, IE, IL, ITAU, ITAUP, ITAUQ, IWORK, LDWORK, MAXMN, MAXWRK, MINMN, MINWRK, MM, MNTHR;
       int                LWORK_SGEQRF, LWORK_SORMQR, LWORK_SGEBRD, LWORK_SORMBR, LWORK_SORGBR, LWORK_SORMLQ;
-      REAL               ANRM, BIGNUM, BNRM, EPS, SFMIN, SMLNUM, THR;
+      double               ANRM, BIGNUM, BNRM, EPS, SFMIN, SMLNUM, THR;
       // ..
       // .. Local Arrays ..
-      REAL               DUM( 1 );
+      double               DUM( 1 );
       // ..
       // .. External Subroutines ..
       // EXTERNAL SBDSQR, SCOPY, SGEBRD, SGELQF, SGEMM, SGEMV, SGEQRF, SLACPY, SLASCL, SLASET, SORGBR, SORMBR, SORMLQ, SORMQR, SRSCL, XERBLA

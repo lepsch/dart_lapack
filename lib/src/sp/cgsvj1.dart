@@ -5,24 +5,24 @@
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
-      REAL               EPS, SFMIN, TOL;
+      double               EPS, SFMIN, TOL;
       int                INFO, LDA, LDV, LWORK, M, MV, N, N1, NSWEEP;
       String             JOBV;
       // ..
       // .. Array Arguments ..
       Complex            A( LDA, * ), D( N ), V( LDV, * ), WORK( LWORK );
-      REAL               SVA( N );
+      double               SVA( N );
       // ..
 
 // =====================================================================
 
       // .. Local Parameters ..
-      REAL               ZERO, HALF, ONE;
+      double               ZERO, HALF, ONE;
       const              ZERO = 0.0, HALF = 0.5, ONE = 1.0;
       // ..
       // .. Local Scalars ..
       Complex            AAPQ, OMPQ;
-      REAL               AAPP, AAPP0, AAPQ1, AAQQ, APOAQ, AQOAP, BIG, BIGTHETA, CS, MXAAPQ, MXSINJ, ROOTBIG, ROOTEPS, ROOTSFMIN, ROOTTOL, SMALL, SN, T, TEMP1, THETA, THSIGN;
+      double               AAPP, AAPP0, AAPQ1, AAQQ, APOAQ, AQOAP, BIG, BIGTHETA, CS, MXAAPQ, MXSINJ, ROOTBIG, ROOTEPS, ROOTSFMIN, ROOTTOL, SMALL, SN, T, TEMP1, THETA, THSIGN;
       int                BLSKIP, EMPTSW, i, ibr, igl, IERR, IJBLSK, ISWROT, jbc, jgl, KBL, MVL, NOTROT, nblc, nblr, p, PSKIPPED, q, ROWSKIP, SWBAND;
       bool               APPLV, ROTOK, RSVEC;
       // ..
@@ -367,7 +367,7 @@
 
          if( ( i < SWBAND ) && ( ( MXAAPQ <= ROOTTOL ) || ( ISWROT <= N ) ) )SWBAND = i;
 
-         if ( ( i > SWBAND+1 ) && ( MXAAPQ < sqrt( REAL( N ) )* TOL ) && ( REAL( N )*MXAAPQ*MXSINJ < TOL ) ) {
+         if ( ( i > SWBAND+1 ) && ( MXAAPQ < sqrt( REAL( N ) )* TOL ) && ( double( N )*MXAAPQ*MXSINJ < TOL ) ) {
             GO TO 1994;
          }
 

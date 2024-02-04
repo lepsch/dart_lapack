@@ -20,7 +20,7 @@
       int                I, INFO, J;
       // ..
       // .. Local Arrays ..
-      REAL               A( NMAX, NMAX ), T( NMAX, NMAX ), W( NMAX ), B( NMAX, NMAX ), C( NMAX, NMAX );
+      double               A( NMAX, NMAX ), T( NMAX, NMAX ), W( NMAX ), B( NMAX, NMAX ), C( NMAX, NMAX );
       // ..
       // .. External Subroutines ..
       // EXTERNAL ALAESM, CHKXER, STPQRT2, STPQRT, STPMQRT

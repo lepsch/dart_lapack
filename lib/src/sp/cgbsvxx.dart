@@ -7,17 +7,17 @@
       // .. Scalar Arguments ..
       String             EQUED, FACT, TRANS;
       int                INFO, LDAB, LDAFB, LDB, LDX, N, NRHS, NPARAMS, N_ERR_BNDS;
-      REAL               RCOND, RPVGRW;
+      double               RCOND, RPVGRW;
       // ..
       // .. Array Arguments ..
       int                IPIV( * );
-      Complex            AB( LDAB, * ), AFB( LDAFB, * ), B( LDB, * ), X( LDX , * ),WORK( * )       REAL               R( * ), C( * ), PARAMS( * ), BERR( * ), ERR_BNDS_NORM( NRHS, * ), ERR_BNDS_COMP( NRHS, * ), RWORK( * );
+      Complex            AB( LDAB, * ), AFB( LDAFB, * ), B( LDB, * ), X( LDX , * ),WORK( * )       double               R( * ), C( * ), PARAMS( * ), BERR( * ), ERR_BNDS_NORM( NRHS, * ), ERR_BNDS_COMP( NRHS, * ), RWORK( * );
       // ..
 
 // ==================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       int                FINAL_NRM_ERR_I, FINAL_CMP_ERR_I, BERR_I;
       int                RCOND_I, NRM_RCOND_I, NRM_ERR_I, CMP_RCOND_I;
@@ -29,12 +29,12 @@
       // .. Local Scalars ..
       bool               COLEQU, EQUIL, NOFACT, NOTRAN, ROWEQU;
       int                INFEQU, I, J, KL, KU;
-      REAL               AMAX, BIGNUM, COLCND, RCMAX, RCMIN, ROWCND, SMLNUM;
+      double               AMAX, BIGNUM, COLCND, RCMAX, RCMIN, ROWCND, SMLNUM;
       // ..
       // .. External Functions ..
       // EXTERNAL lsame, SLAMCH, CLA_GBRPVGRW
       bool               lsame;
-      REAL               SLAMCH, CLA_GBRPVGRW;
+      double               SLAMCH, CLA_GBRPVGRW;
       // ..
       // .. External Subroutines ..
       // EXTERNAL CGBEQUB, CGBTRF, CGBTRS, CLACPY, CLAQGB, XERBLA, CLASCL2, CGBRFSX

@@ -9,20 +9,20 @@
       int                LDB, LDX, LDXACT, N, NRHS;
       // ..
       // .. Array Arguments ..
-      REAL               BERR( * ), FERR( * ), RESLTS( * );
+      double               BERR( * ), FERR( * ), RESLTS( * );
       Complex            AP( * ), B( LDB, * ), X( LDX, * ), XACT( LDXACT, * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
       bool               UPPER;
       int                I, IMAX, J, JC, K;
-      REAL               AXBI, DIFF, EPS, ERRBND, OVFL, TMP, UNFL, XNORM;
+      double               AXBI, DIFF, EPS, ERRBND, OVFL, TMP, UNFL, XNORM;
       Complex            ZDUM;
       // ..
       // .. External Functions ..
@@ -35,10 +35,10 @@
       // INTRINSIC ABS, AIMAG, MAX, MIN, REAL
       // ..
       // .. Statement Functions ..
-      REAL               CABS1;
+      double               CABS1;
       // ..
       // .. Statement Function definitions ..
-      CABS1[ZDUM] = ( REAL( ZDUM ) ).abs() + ( AIMAG( ZDUM ) ).abs();
+      CABS1[ZDUM] = ( double( ZDUM ) ).abs() + ( AIMAG( ZDUM ) ).abs();
       // ..
       // .. Executable Statements ..
 
@@ -97,7 +97,7 @@
                for (J = 1; J <= I - 1; J++) { // 40
                   TMP = TMP + CABS1( AP( JC+J ) )*CABS1( X( J, K ) );
                } // 40
-               TMP = TMP + ABS( REAL( AP( JC+I ) ) )*CABS1( X( I, K ) );
+               TMP = TMP + ABS( double( AP( JC+I ) ) )*CABS1( X( I, K ) );
                JC = JC + I + I;
                for (J = I + 1; J <= N; J++) { // 50
                   TMP = TMP + CABS1( AP( JC ) )*CABS1( X( J, K ) );
@@ -109,7 +109,7 @@
                   TMP = TMP + CABS1( AP( JC ) )*CABS1( X( J, K ) );
                   JC = JC + N - J;
                } // 60
-               TMP = TMP + ABS( REAL( AP( JC ) ) )*CABS1( X( I, K ) );
+               TMP = TMP + ABS( double( AP( JC ) ) )*CABS1( X( I, K ) );
                for (J = I + 1; J <= N; J++) { // 70
                   TMP = TMP + CABS1( AP( JC+J-I ) )*CABS1( X( J, K ) );
                } // 70

@@ -9,11 +9,11 @@
       // Parameters
       Complex         CZERO, CONE;
       const              CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
-      REAL :: ZERO, ONE, HALF;
+      double :: ZERO, ONE, HALF;
       const    ZERO = 0.0, ONE = 1.0, HALF = 0.5 ;
 
       // Local variables
-      REAL :: C;
+      double :: C;
       Complex :: S, TEMP;
 
       // External Functions

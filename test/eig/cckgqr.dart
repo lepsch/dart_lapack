@@ -6,11 +6,11 @@
 
       // .. Scalar Arguments ..
       int                INFO, NIN, NM, NMATS, NMAX, NN, NOUT, NP;
-      REAL               THRESH;
+      double               THRESH;
       // ..
       // .. Array Arguments ..
       int                ISEED( 4 ), MVAL( * ), NVAL( * ), PVAL( * );
-      REAL               RWORK( * );
+      double               RWORK( * );
       Complex            A( * ), AF( * ), AQ( * ), AR( * ), B( * ), BF( * ), BT( * ), BWK( * ), BZ( * ), TAUA( * ), TAUB( * ), WORK( * );
       // ..
 
@@ -27,11 +27,11 @@
       String             DISTA, DISTB, TYPE;
       String             PATH;
       int                I, IINFO, IM, IMAT, IN, IP, KLA, KLB, KUA, KUB, LDA, LDB, LWORK, M, MODEA, MODEB, N, NFAIL, NRUN, NT, P;
-      REAL               ANORM, BNORM, CNDNMA, CNDNMB;
+      double               ANORM, BNORM, CNDNMA, CNDNMB;
       // ..
       // .. Local Arrays ..
       bool               DOTYPE( NTYPES );
-      REAL               RESULT( NTESTS );
+      double               RESULT( NTESTS );
       // ..
       // .. External Subroutines ..
       // EXTERNAL ALAHDG, ALAREQ, ALASUM, CGQRTS, CGRQTS, CLATMS, SLATB9

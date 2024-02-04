@@ -32,7 +32,7 @@
       const              NL = 49 ;
       Complex            ZERO, ONE;
       const              ZERO = ( 0.0, 0.0 ), ONE = ( 1.0, 0.0 ) ;
-      REAL               RZERO;
+      double               RZERO;
       const              RZERO = 0.0 ;
       // ..
       // .. Local Arrays ..
@@ -61,7 +61,7 @@
       WANTT = lsame( JOB, 'S' );
       INITZ = lsame( COMPZ, 'I' );
       WANTZ = INITZ || lsame( COMPZ, 'V' );
-      WORK[1] = CMPLX( REAL( max( 1, N ) ), RZERO );
+      WORK[1] = CMPLX( double( max( 1, N ) ), RZERO );
       LQUERY = LWORK == -1;
 
       INFO = 0;
@@ -103,7 +103,7 @@
          claqr0(WANTT, WANTZ, N, ILO, IHI, H, LDH, W, ILO, IHI, Z, LDZ, WORK, LWORK, INFO );
          // ==== Ensure reported workspace size is backward-compatible with
          // .    previous LAPACK versions. ====
-         WORK[1] = CMPLX( max( REAL( WORK( 1 ) ), REAL( max( 1, N ) ) ), RZERO );
+         WORK[1] = CMPLX( max( REAL( WORK( 1 ) ), double( max( 1, N ) ) ), RZERO );
          return;
 
       } else {
@@ -175,7 +175,7 @@
          // ==== Ensure reported workspace size is backward-compatible with
          // .    previous LAPACK versions. ====
 
-         WORK[1] = CMPLX( max( REAL( max( 1, N ) ), REAL( WORK( 1 ) ) ), RZERO );
+         WORK[1] = CMPLX( max( REAL( max( 1, N ) ), double( WORK( 1 ) ) ), RZERO );
       }
 
       // ==== End of CHSEQR ====

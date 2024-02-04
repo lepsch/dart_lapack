@@ -15,12 +15,12 @@
 // =====================================================================
 
       // .. Parameters ..
-      REAL               TWO, ONE, ZERO;
+      double               TWO, ONE, ZERO;
       const              TWO = 2.0, ONE = 1.0, ZERO = 0.0 ;
       // ..
       // .. Local Scalars ..
       int                J, KNT;
-      REAL               ALPHI, ALPHR, BETA, BIGNUM, EPS, SMLNUM, XNORM;
+      double               ALPHI, ALPHR, BETA, BIGNUM, EPS, SMLNUM, XNORM;
       Complex            SAVEALPHA;
       // ..
       // .. External Functions ..
@@ -43,7 +43,7 @@
 
       EPS = SLAMCH( 'Precision' );
       XNORM = SCNRM2( N-1, X, INCX );
-      ALPHR = REAL( ALPHA );
+      ALPHR = double( ALPHA );
       ALPHI = AIMAG( ALPHA );
 
       if ( XNORM <= EPS*(ALPHA).abs() && ALPHI == ZERO ) {
@@ -113,7 +113,7 @@
             // (Bug report provided by Pat Quillen from MathWorks on Jul 29, 2009.)
             // (Thanks Pat. Thanks MathWorks.)
 
-            ALPHR = REAL( SAVEALPHA );
+            ALPHR = double( SAVEALPHA );
             ALPHI = AIMAG( SAVEALPHA );
             if ( ALPHI == ZERO ) {
                if ( ALPHR >= ZERO ) {
@@ -123,7 +123,7 @@
                   for (J = 1; J <= N-1; J++) {
                      X[1 + (J-1)*INCX] = ZERO;
                   }
-                  BETA = REAL( -SAVEALPHA );
+                  BETA = double( -SAVEALPHA );
                }
             } else {
                XNORM = SLAPY2( ALPHR, ALPHI );

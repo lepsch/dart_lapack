@@ -6,22 +6,22 @@
 
       // .. Scalar Arguments ..
       int                INFO, K, LDQ, N, N1;
-      REAL               RHO;
+      double               RHO;
       // ..
       // .. Array Arguments ..
       int                CTOT( * ), INDX( * );
-      REAL               D( * ), DLAMBDA( * ), Q( LDQ, * ), Q2( * ), S( * ), W( * );
+      double               D( * ), DLAMBDA( * ), Q( LDQ, * ), Q2( * ), S( * ), W( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ONE, ZERO;
+      double               ONE, ZERO;
       const              ONE = 1.0, ZERO = 0.0 ;
       // ..
       // .. Local Scalars ..
       int                I, II, IQ2, J, N12, N2, N23;
-      REAL               TEMP;
+      double               TEMP;
       // ..
       // .. External Functions ..
       //- REAL               SNRM2;

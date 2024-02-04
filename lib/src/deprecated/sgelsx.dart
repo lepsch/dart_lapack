@@ -6,11 +6,11 @@
 
       // .. Scalar Arguments ..
       int                INFO, LDA, LDB, M, N, NRHS, RANK;
-      REAL               RCOND;
+      double               RCOND;
       // ..
       // .. Array Arguments ..
       int                JPVT( * );
-      REAL               A( LDA, * ), B( LDB, * ), WORK( * );
+      double               A( LDA, * ), B( LDB, * ), WORK( * );
       // ..
 
 // =====================================================================
@@ -18,12 +18,12 @@
       // .. Parameters ..
       int                IMAX, IMIN;
       const              IMAX = 1, IMIN = 2 ;
-      REAL               ZERO, ONE, DONE, NTDONE;
+      double               ZERO, ONE, DONE, NTDONE;
       const              ZERO = 0.0, ONE = 1.0, DONE = ZERO, NTDONE = ONE ;
       // ..
       // .. Local Scalars ..
       int                I, IASCL, IBSCL, ISMAX, ISMIN, J, K, MN;
-      REAL               ANRM, BIGNUM, BNRM, C1, C2, S1, S2, SMAX, SMAXPR, SMIN, SMINPR, SMLNUM, T1, T2;
+      double               ANRM, BIGNUM, BNRM, C1, C2, S1, S2, SMAX, SMAXPR, SMIN, SMINPR, SMLNUM, T1, T2;
       // ..
       // .. External Functions ..
       //- REAL               SLAMCH, SLANGE;

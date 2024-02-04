@@ -21,7 +21,7 @@
       // ..
       // .. Local Arrays ..
       int                I1( NMAX ), I2( NMAX ), I3( NMAX ), IW( LIW );
-      REAL               D( NMAX ), E( NMAX ), R( LW ), RW( LW ), X( NMAX )       Complex            A( NMAX, NMAX ), C( NMAX, NMAX ), Q( NMAX, NMAX ), TAU( NMAX ), W( LW ), Z( NMAX, NMAX );
+      double               D( NMAX ), E( NMAX ), R( LW ), RW( LW ), X( NMAX )       Complex            A( NMAX, NMAX ), C( NMAX, NMAX ), Q( NMAX, NMAX ), TAU( NMAX ), W( LW ), Z( NMAX, NMAX );
       // ..
       // .. External Functions ..
       //- bool               LSAMEN;
@@ -56,7 +56,7 @@
          } // 10
       } // 20
       for (J = 1; J <= NMAX; J++) { // 30
-         D[J] = REAL( J );
+         D[J] = double( J );
          E[J] = 0.0;
          I1[J] = J;
          I2[J] = J;

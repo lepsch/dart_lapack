@@ -9,18 +9,18 @@
       // ..
       // .. Array Arguments ..
       int                JPVT( * );
-      REAL               A( LDA, * ), TAU( * ), WORK( * );
+      double               A( LDA, * ), TAU( * ), WORK( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
       int                I, ITEMP, J, MA, MN, PVT;
-      REAL               AII, TEMP, TEMP2, TOL3Z;
+      double               AII, TEMP, TEMP2, TOL3Z;
       // ..
       // .. External Subroutines ..
       // EXTERNAL SGEQR2, SLARF, SLARFG, SORM2R, SSWAP, XERBLA

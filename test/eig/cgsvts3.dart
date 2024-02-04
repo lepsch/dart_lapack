@@ -9,21 +9,21 @@
       // ..
       // .. Array Arguments ..
       int                IWORK( * );
-      REAL               ALPHA( * ), BETA( * ), RESULT( 6 ), RWORK( * );
+      double               ALPHA( * ), BETA( * ), RESULT( 6 ), RWORK( * );
       Complex            A( LDA, * ), AF( LDA, * ), B( LDB, * ), BF( LDB, * ), Q( LDQ, * ), R( LDR, * ), U( LDU, * ), V( LDV, * ), WORK( LWORK );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       Complex            CZERO, CONE;
       const              CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
       int                I, INFO, J, K, L;
-      REAL               ANORM, BNORM, RESID, TEMP, ULP, ULPINV, UNFL;
+      double               ANORM, BNORM, RESID, TEMP, ULP, ULPINV, UNFL;
       // ..
       // .. External Functions ..
       //- REAL               CLANGE, CLANHE, SLAMCH;

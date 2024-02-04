@@ -1,4 +1,4 @@
-      REAL sla_gerpvgrw(N, NCOLS, A, LDA, AF, LDAF ) {
+      double sla_gerpvgrw(N, NCOLS, A, LDA, AF, LDAF ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -8,14 +8,14 @@
       int                N, NCOLS, LDA, LDAF;
       // ..
       // .. Array Arguments ..
-      REAL               A( LDA, * ), AF( LDAF, * );
+      double               A( LDA, * ), AF( LDAF, * );
       // ..
 
 // =====================================================================
 
       // .. Local Scalars ..
       int                I, J;
-      REAL               AMAX, UMAX, RPVGRW;
+      double               AMAX, UMAX, RPVGRW;
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, MIN

@@ -9,7 +9,7 @@
       int              ICASE, INCX, INCY, MODE, N;
       bool             PASS;
       // .. Local Scalars ..
-      REAL             SFAC;
+      double             SFAC;
       int              IC;
       // .. External Subroutines ..
       // EXTERNAL CHECK1, CHECK2, HEADER
@@ -78,17 +78,17 @@
       int               NOUT;
       const             NOUT=6;
       // .. Scalar Arguments ..
-      REAL              SFAC;
+      double              SFAC;
       // .. Scalars in Common ..
       int               ICASE, INCX, INCY, MODE, N;
       bool              PASS;
       // .. Local Scalars ..
       Complex           CA;
-      REAL              SA;
+      double              SA;
       int               I, J, LEN, NP1;
       // .. Local Arrays ..
       Complex           CTRUE5(8,5,2), CTRUE6(8,5,2), CV(8,5,2), CX(8), MWPCS(5), MWPCT(5);
-      REAL              STRUE2(5), STRUE4(5);
+      double              STRUE2(5), STRUE4(5);
       int               ITRUE3(5);
       // .. External Functions ..
       //- REAL              SCASUMTEST, SCNRM2TEST;
@@ -190,7 +190,7 @@
       int               NOUT;
       const             NOUT=6;
       // .. Scalar Arguments ..
-      REAL              SFAC;
+      double              SFAC;
       // .. Scalars in Common ..
       int               ICASE, INCX, INCY, MODE, N;
       bool              PASS;
@@ -295,15 +295,15 @@
       int              NOUT;
       const            NOUT=6;
       // .. Scalar Arguments ..
-      REAL             SFAC;
+      double             SFAC;
       int              LEN;
       // .. Array Arguments ..
-      REAL             SCOMP(LEN), SSIZE(LEN), STRUE(LEN);
+      double             SCOMP(LEN), SSIZE(LEN), STRUE(LEN);
       // .. Scalars in Common ..
       int              ICASE, INCX, INCY, MODE, N;
       bool             PASS;
       // .. Local Scalars ..
-      REAL             SD;
+      double             SD;
       int              I;
       // .. External Functions ..
       //- REAL             SDIFF;
@@ -343,11 +343,11 @@
       // C.L. LAWSON, JPL, 1978 DEC 6
 
       // .. Scalar Arguments ..
-      REAL              SCOMP1, SFAC, STRUE1;
+      double              SCOMP1, SFAC, STRUE1;
       // .. Array Arguments ..
-      REAL              SSIZE(*);
+      double              SSIZE(*);
       // .. Local Arrays ..
-      REAL              SCOMP(1), STRUE(1);
+      double              SCOMP(1), STRUE(1);
       // .. External Subroutines ..
       // EXTERNAL STEST
       // .. Executable Statements ..
@@ -358,12 +358,12 @@
 
       return;
       }
-      REAL sdiff(SA,SB) {
+      double sdiff(SA,SB) {
       // ********************************* SDIFF **************************
       // COMPUTES DIFFERENCE OF TWO NUMBERS.  C. L. LAWSON, JPL 1974 FEB 15
 
       // .. Scalar Arguments ..
-      REAL                            SA, SB;
+      double                            SA, SB;
       // .. Executable Statements ..
       SDIFF = SA - SB;
       return;
@@ -374,25 +374,25 @@
       // C.L. LAWSON, JPL, 1978 DEC 6
 
       // .. Scalar Arguments ..
-      REAL             SFAC;
+      double             SFAC;
       int              LEN;
       // .. Array Arguments ..
       Complex          CCOMP(LEN), CSIZE(LEN), CTRUE(LEN);
       // .. Local Scalars ..
       int              I;
       // .. Local Arrays ..
-      REAL             SCOMP(20), SSIZE(20), STRUE(20);
+      double             SCOMP(20), SSIZE(20), STRUE(20);
       // .. External Subroutines ..
       // EXTERNAL STEST
       // .. Intrinsic Functions ..
       // INTRINSIC AIMAG, REAL
       // .. Executable Statements ..
       for (I = 1; I <= LEN; I++) { // 20
-         SCOMP[2*I-1] = REAL(CCOMP(I));
+         SCOMP[2*I-1] = double(CCOMP(I));
          SCOMP[2*I] = AIMAG(CCOMP(I));
-         STRUE[2*I-1] = REAL(CTRUE(I));
+         STRUE[2*I-1] = double(CTRUE(I));
          STRUE[2*I] = AIMAG(CTRUE(I));
-         SSIZE[2*I-1] = REAL(CSIZE(I));
+         SSIZE[2*I-1] = double(CSIZE(I));
          SSIZE[2*I] = AIMAG(CSIZE(I));
       } // 20
 

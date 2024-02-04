@@ -10,24 +10,24 @@
       int                INFO, LDA, LDVL, LDVR, LWORK, N;
       // ..
       // .. Array Arguments ..
-      REAL   A( LDA, * ), VL( LDVL, * ), VR( LDVR, * ), WI( * ), WORK( * ), WR( * );
+      double   A( LDA, * ), VL( LDVL, * ), VR( LDVR, * ), WI( * ), WORK( * ), WR( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL   ZERO, ONE;
+      double   ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
       bool               LQUERY, SCALEA, WANTVL, WANTVR;
       String             SIDE;
       int                HSWORK, I, IBAL, IERR, IHI, ILO, ITAU, IWRK, K, LWORK_TREVC, MAXWRK, MINWRK, NOUT;
-      REAL   ANRM, BIGNUM, CS, CSCALE, EPS, R, SCL, SMLNUM, SN;
+      double   ANRM, BIGNUM, CS, CSCALE, EPS, R, SCL, SMLNUM, SN;
       // ..
       // .. Local Arrays ..
       bool               SELECT( 1 );
-      REAL   DUM( 1 );
+      double   DUM( 1 );
       // ..
       // .. External Subroutines ..
       // EXTERNAL SGEBAK, SGEBAL, SGEHRD, SHSEQR, SLACPY, SLARTG, SLASCL, SORGHR, SROT, SSCAL, STREVC3, XERBLA

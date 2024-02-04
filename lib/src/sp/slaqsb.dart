@@ -7,21 +7,21 @@
       // .. Scalar Arguments ..
       String             EQUED, UPLO;
       int                KD, LDAB, N;
-      REAL               AMAX, SCOND;
+      double               AMAX, SCOND;
       // ..
       // .. Array Arguments ..
-      REAL               AB( LDAB, * ), S( * );
+      double               AB( LDAB, * ), S( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ONE, THRESH;
+      double               ONE, THRESH;
       const              ONE = 1.0, THRESH = 0.1 ;
       // ..
       // .. Local Scalars ..
       int                I, J;
-      REAL               CJ, LARGE, SMALL;
+      double               CJ, LARGE, SMALL;
       // ..
       // .. External Functions ..
       //- bool               lsame;

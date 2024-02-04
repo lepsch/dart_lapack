@@ -10,7 +10,7 @@
       // ..
       // .. Array Arguments ..
       Complex     A( LDA, * ), U( LDU, * ), V( LDV, * ), CWORK( LWORK );
-      REAL        SVA( N ), RWORK( LRWORK );
+      double        SVA( N ), RWORK( LRWORK );
       int         IWORK( * );
       String      JOBA, JOBP, JOBR, JOBT, JOBU, JOBV;
       // ..
@@ -18,14 +18,14 @@
 // ===========================================================================
 
       // .. Local Parameters ..
-      REAL        ZERO,         ONE;
+      double        ZERO,         ONE;
       const     ZERO = 0.0, ONE = 1.0 ;
       Complex     CZERO,                    CONE;
       const     CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
       Complex CTEMP;
-      REAL    AAPP,   AAQQ,   AATMAX, AATMIN, BIG,    BIG1,   COND_OK, CONDR1, CONDR2, ENTRA,  ENTRAT, EPSLN,  MAXPRJ, SCALEM, SCONDA, SFMIN,  SMALL,  TEMP1,  USCAL1, USCAL2, XSC;
+      double    AAPP,   AAQQ,   AATMAX, AATMIN, BIG,    BIG1,   COND_OK, CONDR1, CONDR2, ENTRA,  ENTRAT, EPSLN,  MAXPRJ, SCALEM, SCONDA, SFMIN,  SMALL,  TEMP1,  USCAL1, USCAL2, XSC;
       int     IERR,   N1,     NR,     NUMRANK,        p, q,   WARNING;
       bool    ALMORT, DEFR,   ERREST, GOSCAL,  JRACC,  KILL,   LQUERY, LSVEC,  L2ABER, L2KILL, L2PERT,  L2RANK, L2TRAN, NOSCAL, ROWPIV, RSVEC,  TRANSP;
 
@@ -35,7 +35,7 @@
       // ..
       // .. Local Arrays
       Complex CDUMMY(1);
-      REAL    RDUMMY(1);
+      double    RDUMMY(1);
 
       // .. Intrinsic Functions ..
       // INTRINSIC ABS, CMPLX, CONJG, ALOG, MAX, MIN, REAL, NINT, SQRT
@@ -688,7 +688,7 @@
          // sigma_i < N*EPSLN*||A|| are flushed to zero. This is an
          // aggressive enforcement of lower numerical rank by introducing a
          // backward error of the order of N*EPSLN*||A||.
-         TEMP1 = sqrt(REAL(N))*EPSLN;
+         TEMP1 = sqrt(double(N))*EPSLN;
          for (p = 2; p <= N; p++) { // 3001
             if ( (A(p,p)).abs() >= (TEMP1*(A(1,1))) ).abs() {
                NR = NR + 1;
@@ -732,7 +732,7 @@
             TEMP1  = (A(p,p)).abs() / SVA(IWORK(p));
             MAXPRJ = min( MAXPRJ, TEMP1 );
          } // 3051
-         if ( MAXPRJ**2 >= ONE - REAL(N)*EPSLN ) ALMORT = true;
+         if ( MAXPRJ**2 >= ONE - double(N)*EPSLN ) ALMORT = true;
       }
 
 
@@ -1047,7 +1047,7 @@
             // R1 is OK for inverse <=> CONDR1 < REAL(N)
             // more conservative    <=> CONDR1 < sqrt(REAL(N))
 
-            COND_OK = sqrt(sqrt(REAL(NR)));
+            COND_OK = sqrt(sqrt(double(NR)));
 // [TP]       COND_OK is a tuning parameter.
 
             if ( CONDR1 < COND_OK ) {
@@ -1263,7 +1263,7 @@
             // first QRF. Also, scale the columns to make them unit in
             // Euclidean norm. This applies to all cases.
 
-            TEMP1 = sqrt(REAL(N)) * EPSLN;
+            TEMP1 = sqrt(double(N)) * EPSLN;
             for (q = 1; q <= N; q++) { // 1972
                for (p = 1; p <= N; p++) { // 972
                   CWORK[2*N+N*NR+NR+IWORK(p)] = V(p,q);
@@ -1290,7 +1290,7 @@
             cunmqr('L', 'N', M, N1, N, A, LDA, CWORK, U, LDU, CWORK(N+1), LWORK-N, IERR );
 
             // The columns of U are normalized. The cost is O(M*N) flops.
-            TEMP1 = sqrt(REAL(M)) * EPSLN;
+            TEMP1 = sqrt(double(M)) * EPSLN;
             for (p = 1; p <= NR; p++) { // 1973
                XSC = ONE / SCNRM2( M, U(1,p), 1 );
                if ( (XSC < (ONE-TEMP1)) || (XSC > (ONE+TEMP1)) ) csscal( M, XSC, U(1,p), 1 );
@@ -1334,7 +1334,7 @@
             for (p = 1; p <= N; p++) { // 6972
                ccopy(N, CWORK(N+p), N, V(IWORK(p),1), LDV );
             } // 6972
-            TEMP1 = sqrt(REAL(N))*EPSLN;
+            TEMP1 = sqrt(double(N))*EPSLN;
             for (p = 1; p <= N; p++) { // 6971
                XSC = ONE / SCNRM2( N, V(1,p), 1 );
                if ( (XSC < (ONE-TEMP1)) || (XSC > (ONE+TEMP1)) ) csscal( N, XSC, V(1,p), 1 );
@@ -1350,7 +1350,7 @@
                }
             }
             cunmqr('L', 'N', M, N1, N, A, LDA, CWORK, U, LDU, CWORK(N+1), LWORK-N, IERR );
-            TEMP1 = sqrt(REAL(M))*EPSLN;
+            TEMP1 = sqrt(double(M))*EPSLN;
             for (p = 1; p <= N1; p++) { // 6973
                XSC = ONE / SCNRM2( M, U(1,p), 1 );
                if ( (XSC < (ONE-TEMP1)) || (XSC > (ONE+TEMP1)) ) csscal( M, XSC, U(1,p), 1 );
@@ -1428,7 +1428,7 @@
             // first QRF. Also, scale the columns to make them unit in
             // Euclidean norm. This applies to all cases.
 
-            TEMP1 = sqrt(REAL(N)) * EPSLN;
+            TEMP1 = sqrt(double(N)) * EPSLN;
             for (q = 1; q <= N; q++) { // 7972
                for (p = 1; p <= N; p++) { // 8972
                   CWORK[2*N+N*NR+NR+IWORK(p)] = V(p,q);

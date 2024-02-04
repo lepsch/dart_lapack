@@ -21,28 +21,28 @@
       bool               FATAL, TSTERR;
       int                VERS_MAJOR, VERS_MINOR, VERS_PATCH;
       int                I, NN, NNS, NNT;
-      REAL               EPS, S1, S2, THRESH;
+      double               EPS, S1, S2, THRESH;
       // ..
       // .. Local Arrays ..
       int                NVAL( MAXIN ), NSVAL( MAXIN ), NTVAL( NTYPES );
-      REAL               WORKA( NMAX, NMAX );
-      REAL               WORKASAV( NMAX, NMAX );
-      REAL               WORKB( NMAX, MAXRHS );
-      REAL               WORKXACT( NMAX, MAXRHS );
-      REAL               WORKBSAV( NMAX, MAXRHS );
-      REAL               WORKX( NMAX, MAXRHS );
-      REAL               WORKAFAC( NMAX, NMAX );
-      REAL               WORKAINV( NMAX, NMAX );
-      REAL               WORKARF( (NMAX*(NMAX+1))/2 );
-      REAL               WORKAP( (NMAX*(NMAX+1))/2 );
-      REAL               WORKARFINV( (NMAX*(NMAX+1))/2 );
-      REAL               S_WORK_SLATMS( 3 * NMAX );
-      REAL               S_WORK_SPOT01( NMAX );
-      REAL               S_TEMP_SPOT02( NMAX, MAXRHS );
-      REAL               S_TEMP_SPOT03( NMAX, NMAX );
-      REAL               S_WORK_SLANSY( NMAX );
-      REAL               S_WORK_SPOT02( NMAX );
-      REAL               S_WORK_SPOT03( NMAX );
+      double               WORKA( NMAX, NMAX );
+      double               WORKASAV( NMAX, NMAX );
+      double               WORKB( NMAX, MAXRHS );
+      double               WORKXACT( NMAX, MAXRHS );
+      double               WORKBSAV( NMAX, MAXRHS );
+      double               WORKX( NMAX, MAXRHS );
+      double               WORKAFAC( NMAX, NMAX );
+      double               WORKAINV( NMAX, NMAX );
+      double               WORKARF( (NMAX*(NMAX+1))/2 );
+      double               WORKAP( (NMAX*(NMAX+1))/2 );
+      double               WORKARFINV( (NMAX*(NMAX+1))/2 );
+      double               S_WORK_SLATMS( 3 * NMAX );
+      double               S_WORK_SPOT01( NMAX );
+      double               S_TEMP_SPOT02( NMAX, MAXRHS );
+      double               S_TEMP_SPOT03( NMAX, NMAX );
+      double               S_WORK_SLANSY( NMAX );
+      double               S_WORK_SPOT02( NMAX );
+      double               S_WORK_SPOT03( NMAX );
       // ..
       // .. External Functions ..
       //- REAL               SLAMCH, SECOND;

@@ -5,23 +5,23 @@
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
-      REAL               CS, F, G, R, SN;
+      double               CS, F, G, R, SN;
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO;
+      double               ZERO;
       const              ZERO = 0.0 ;
-      REAL               ONE;
+      double               ONE;
       const              ONE = 1.0 ;
-      REAL               TWO;
+      double               TWO;
       const              TWO = 2.0 ;
       // ..
       // .. Local Scalars ..
       // LOGICAL            FIRST
       int                COUNT, I;
-      REAL               EPS, F1, G1, SAFMIN, SAFMN2, SAFMX2, SCALE;
+      double               EPS, F1, G1, SAFMIN, SAFMN2, SAFMX2, SCALE;
       // ..
       // .. External Functions ..
       //- REAL               SLAMCH;

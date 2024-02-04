@@ -8,17 +8,17 @@
       int                INFO, LDA, LDAF, LDB, LDY, N, NRHS, PREC_TYPE, N_NORMS, ITHRESH;
       String             UPLO;
       bool               COLEQU, IGNORE_CWISE;
-      REAL               RTHRESH, DZ_UB;
+      double               RTHRESH, DZ_UB;
       // ..
       // .. Array Arguments ..
-      Complex            A( LDA, * ), AF( LDAF, * ), B( LDB, * ), Y( LDY, * ), RES( * ), DY( * ), Y_TAIL( * )       REAL               C( * ), AYB( * ), RCOND, BERR_OUT( * ), ERR_BNDS_NORM( NRHS, * ), ERR_BNDS_COMP( NRHS, * );
+      Complex            A( LDA, * ), AF( LDAF, * ), B( LDB, * ), Y( LDY, * ), RES( * ), DY( * ), Y_TAIL( * )       double               C( * ), AYB( * ), RCOND, BERR_OUT( * ), ERR_BNDS_NORM( NRHS, * ), ERR_BNDS_COMP( NRHS, * );
       // ..
 
 // =====================================================================
 
       // .. Local Scalars ..
       int                UPLO2, CNT, I, J, X_STATE, Z_STATE, Y_PREC_STATE;
-      REAL               YK, DYK, YMIN, NORMY, NORMX, NORMDX, DXRAT, DZRAT, PREVNORMDX, PREV_DZ_Z, DXRATMAX, DZRATMAX, DX_X, DZ_Z, FINAL_DX_X, FINAL_DZ_Z, EPS, HUGEVAL, INCR_THRESH;
+      double               YK, DYK, YMIN, NORMY, NORMX, NORMDX, DXRAT, DZRAT, PREVNORMDX, PREV_DZ_Z, DXRATMAX, DZRATMAX, DX_X, DZ_Z, FINAL_DX_X, FINAL_DZ_Z, EPS, HUGEVAL, INCR_THRESH;
       bool               INCR_PREC;
       Complex            ZDUM;
       // ..
@@ -46,16 +46,16 @@
       // ..
       // .. External Subroutines ..
       // EXTERNAL CAXPY, CCOPY, CPOTRS, CHEMV, BLAS_CHEMV_X, BLAS_CHEMV2_X, CLA_HEAMV, CLA_WWADDW, CLA_LIN_BERR, SLAMCH
-      REAL               SLAMCH;
+      double               SLAMCH;
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC ABS, REAL, AIMAG, MAX, MIN
       // ..
       // .. Statement Functions ..
-      REAL               CABS1;
+      double               CABS1;
       // ..
       // .. Statement Function Definitions ..
-      CABS1[ZDUM] = ( REAL( ZDUM ) ).abs() + ( AIMAG( ZDUM ) ).abs();
+      CABS1[ZDUM] = ( double( ZDUM ) ).abs() + ( AIMAG( ZDUM ) ).abs();
       // ..
       // .. Executable Statements ..
 
@@ -65,7 +65,7 @@
       // Force HUGEVAL to Inf
       HUGEVAL = HUGEVAL * HUGEVAL;
       // Using HUGEVAL may lead to spurious underflows.
-      INCR_THRESH = REAL(N) * EPS;
+      INCR_THRESH = double(N) * EPS;
 
       if (lsame (UPLO, 'L')) {
          UPLO2 = ILAUPLO( 'L' );

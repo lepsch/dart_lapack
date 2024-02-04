@@ -5,14 +5,14 @@
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
-      REAL               ZI, ZR;
+      double               ZI, ZR;
       // ..
 
 // =====================================================================
 
       // .. Arrays in Common ..
       bool               SELVAL( 20 );
-      REAL               SELWI( 20 ), SELWR( 20 );
+      double               SELWI( 20 ), SELWR( 20 );
       // ..
       // .. Scalars in Common ..
       int                SELDIM, SELOPT;
@@ -22,10 +22,10 @@
       // ..
       // .. Local Scalars ..
       int                I;
-      REAL               RMIN, X;
+      double               RMIN, X;
       // ..
       // .. Parameters ..
-      REAL               ZERO;
+      double               ZERO;
       const              ZERO = 0.0 ;
       // ..
       // .. External Functions ..

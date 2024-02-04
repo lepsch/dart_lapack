@@ -28,7 +28,7 @@
       String             ALINE;
       int                I, IC, K, LDA, NM, NMATS, NNS, NRHS, NTYPES, VERS_MAJOR, VERS_MINOR, VERS_PATCH;
       double             EPS, S1, S2, THRESH;
-      REAL               SEPS;
+      double               SEPS;
       // ..
       // .. Local Arrays ..
       bool               DOTYPE( MATMAX );

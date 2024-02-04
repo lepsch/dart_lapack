@@ -9,13 +9,13 @@
       int                INFO, LDA, N;
       // ..
       // .. Array Arguments ..
-      REAL               A( LDA, * );
+      double               A( LDA, * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ONE;
+      double               ONE;
       const              ONE = 1.0 ;
       // ..
       // .. Local Scalars ..

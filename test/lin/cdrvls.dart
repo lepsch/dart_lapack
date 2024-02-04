@@ -7,12 +7,12 @@
       // .. Scalar Arguments ..
       bool               TSTERR;
       int                NM, NN, NNB, NNS, NOUT;
-      REAL               THRESH;
+      double               THRESH;
       // ..
       // .. Array Arguments ..
       bool               DOTYPE( * );
       int                MVAL( * ), NBVAL( * ), NSVAL( * ), NVAL( * ), NXVAL( * );
-      REAL               COPYS( * ), S( * );
+      double               COPYS( * ), S( * );
       Complex            A( * ), B( * ), C( * ), COPYA( * ), COPYB( * );
       // ..
 
@@ -23,7 +23,7 @@
       const              NTESTS = 18 ;
       int                SMLSIZ;
       const              SMLSIZ = 25 ;
-      REAL               ONE, ZERO;
+      double               ONE, ZERO;
       const              ONE = 1.0, ZERO = 0.0 ;
       Complex            CONE, CZERO;
       const              CONE = ( 1.0, 0.0 ), CZERO = ( 0.0, 0.0 ) ;
@@ -32,16 +32,16 @@
       String             TRANS;
       String             PATH;
       int                CRANK, I, IM, IMB, IN, INB, INFO, INS, IRANK, ISCALE, ITRAN, ITYPE, J, K, LDA, LDB, LDWORK, LWLSY, LWORK, M, MNMIN, N, NB, NCOLS, NERRS, NFAIL, NRHS, NROWS, NRUN, RANK, MB, MMAX, NMAX, NSMAX, LIWORK, LRWORK, LWORK_CGELS, LWORK_CGELST, LWORK_CGETSLS, LWORK_CGELSS, LWORK_CGELSY,  LWORK_CGELSD, LRWORK_CGELSY, LRWORK_CGELSS, LRWORK_CGELSD;
-      REAL               EPS, NORMA, NORMB, RCOND;
+      double               EPS, NORMA, NORMB, RCOND;
       // ..
       // .. Local Arrays ..
       int                ISEED( 4 ), ISEEDY( 4 ), IWQ( 1 );
-      REAL               RESULT( NTESTS ), RWQ( 1 );
+      double               RESULT( NTESTS ), RWQ( 1 );
       Complex            WQ( 1 );
       // ..
       // .. Allocatable Arrays ..
       Complex, ALLOCATABLE :: WORK (:);
-      REAL, ALLOCATABLE :: RWORK (:), WORK2 (:);
+      double, ALLOCATABLE :: RWORK (:), WORK2 (:);
       int    , ALLOCATABLE :: IWORK (:);
       // ..
       // .. External Functions ..

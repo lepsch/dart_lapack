@@ -7,7 +7,7 @@
       // .. Scalar Arguments ..
 
       int                I, IDIST, IGRADE, IPVTNG, J, KL, KU, M, N;
-      REAL               SPARSE;
+      double               SPARSE;
       // ..
 
       // .. Array Arguments ..
@@ -22,7 +22,7 @@
 
       Complex            CZERO;
       const              CZERO = ( 0.0, 0.0 ) ;
-      REAL               ZERO;
+      double               ZERO;
       const              ZERO = 0.0 ;
       // ..
 
@@ -34,7 +34,7 @@
 
       // .. External Functions ..
 
-      REAL               SLARAN;
+      double               SLARAN;
       Complex            CLARND;
       // EXTERNAL SLARAN, CLARND
       // ..

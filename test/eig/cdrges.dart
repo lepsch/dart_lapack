@@ -6,19 +6,19 @@
 
       // .. Scalar Arguments ..
       int                INFO, LDA, LDQ, LWORK, NOUNIT, NSIZES, NTYPES;
-      REAL               THRESH;
+      double               THRESH;
       // ..
       // .. Array Arguments ..
       bool               BWORK( * ), DOTYPE( * );
       int                ISEED( 4 ), NN( * );
-      REAL               RESULT( 13 ), RWORK( * );
+      double               RESULT( 13 ), RWORK( * );
       Complex            A( LDA, * ), ALPHA( * ), B( LDA, * ), BETA( * ), Q( LDQ, * ), S( LDA, * ), T( LDA, * ), WORK( * ), Z( LDQ, * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       Complex            CZERO, CONE;
       const              CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
@@ -29,13 +29,13 @@
       bool               BADNN, ILABAD;
       String             SORT;
       int                I, IADD, IINFO, IN, ISORT, J, JC, JR, JSIZE, JTYPE, KNTEIG, MAXWRK, MINWRK, MTYPES, N, N1, NB, NERRS, NMATS, NMAX, NTEST, NTESTT, RSUB, SDIM;
-      REAL               SAFMAX, SAFMIN, TEMP1, TEMP2, ULP, ULPINV;
+      double               SAFMAX, SAFMIN, TEMP1, TEMP2, ULP, ULPINV;
       Complex            CTEMP, X;
       // ..
       // .. Local Arrays ..
       bool               LASIGN( MAXTYP ), LBSIGN( MAXTYP );
       int                IOLDSD( 4 ), KADD( 6 ), KAMAGN( MAXTYP ), KATYPE( MAXTYP ), KAZERO( MAXTYP ), KBMAGN( MAXTYP ), KBTYPE( MAXTYP ), KBZERO( MAXTYP ), KCLASS( MAXTYP ), KTRIAN( MAXTYP ), KZ1( 6 ), KZ2( 6 );
-      REAL               RMAGN( 0: 3 );
+      double               RMAGN( 0: 3 );
       // ..
       // .. External Functions ..
       //- bool               CLCTES;
@@ -51,10 +51,10 @@
       // INTRINSIC ABS, AIMAG, CONJG, MAX, MIN, REAL, SIGN
       // ..
       // .. Statement Functions ..
-      REAL               ABS1;
+      double               ABS1;
       // ..
       // .. Statement Function definitions ..
-      ABS1[X] = ( REAL( X ) ).abs() + ( AIMAG( X ) ).abs();
+      ABS1[X] = ( double( X ) ).abs() + ( AIMAG( X ) ).abs();
       // ..
       // .. Data statements ..
       const KCLASS = [ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3,];
@@ -145,7 +145,7 @@
          N = NN( JSIZE );
          N1 = max( 1, N );
          RMAGN[2] = SAFMAX*ULP / REAL( N1 );
-         RMAGN[3] = SAFMIN*ULPINV*REAL( N1 );
+         RMAGN[3] = SAFMIN*ULPINV*double( N1 );
 
          if ( NSIZES != 1 ) {
             MTYPES = min( MAXTYP, NTYPES );
@@ -234,10 +234,10 @@
                         Z[JR, JC] = CLARND( 3, ISEED );
                      } // 40
                      clarfg(N+1-JC, Q( JC, JC ), Q( JC+1, JC ), 1, WORK( JC ) );
-                     WORK[2*N+JC] = SIGN( ONE, REAL( Q( JC, JC ) ) );
+                     WORK[2*N+JC] = SIGN( ONE, double( Q( JC, JC ) ) );
                      Q[JC, JC] = CONE;
                      clarfg(N+1-JC, Z( JC, JC ), Z( JC+1, JC ), 1, WORK( N+JC ) );
-                     WORK[3*N+JC] = SIGN( ONE, REAL( Z( JC, JC ) ) );
+                     WORK[3*N+JC] = SIGN( ONE, double( Z( JC, JC ) ) );
                      Z[JC, JC] = CONE;
                   } // 50
                   CTEMP = CLARND( 3, ISEED );

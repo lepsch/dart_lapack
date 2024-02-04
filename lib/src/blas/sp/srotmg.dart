@@ -5,16 +5,16 @@
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
-      REAL SD1,SD2,SX1,SY1;
+      double SD1,SD2,SX1,SY1;
       // ..
       // .. Array Arguments ..
-      REAL SPARAM(5);
+      double SPARAM(5);
       // ..
 
 // =====================================================================
 
       // .. Local Scalars ..
-      REAL GAM,GAMSQ,ONE,RGAMSQ,SFLAG,SH11,SH12,SH21,SH22,SP1,SP2,SQ1, SQ2,STEMP,SU,TWO,ZERO;
+      double GAM,GAMSQ,ONE,RGAMSQ,SFLAG,SH11,SH12,SH21,SH22,SP1,SP2,SQ1, SQ2,STEMP,SU,TWO,ZERO;
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC ABS

@@ -9,24 +9,24 @@
       String             JOBA, JOBU, JOBV;
       // ..
       // .. Array Arguments ..
-      REAL               A( LDA, * ), SVA( N ), V( LDV, * ), WORK( LWORK );
+      double               A( LDA, * ), SVA( N ), V( LDV, * ), WORK( LWORK );
       // ..
 
 // =====================================================================
 
       // .. Local Parameters ..
-      REAL               ZERO, HALF, ONE;
+      double               ZERO, HALF, ONE;
       const              ZERO = 0.0, HALF = 0.5, ONE = 1.0;
       int                NSWEEP;
       const              NSWEEP = 30 ;
       // ..
       // .. Local Scalars ..
-      REAL               AAPP, AAPP0, AAPQ, AAQQ, APOAQ, AQOAP, BIG, BIGTHETA, CS, CTOL, EPSLN, LARGE, MXAAPQ, MXSINJ, ROOTBIG, ROOTEPS, ROOTSFMIN, ROOTTOL, SKL, SFMIN, SMALL, SN, T, TEMP1, THETA, THSIGN, TOL;
+      double               AAPP, AAPP0, AAPQ, AAQQ, APOAQ, AQOAP, BIG, BIGTHETA, CS, CTOL, EPSLN, LARGE, MXAAPQ, MXSINJ, ROOTBIG, ROOTEPS, ROOTSFMIN, ROOTTOL, SKL, SFMIN, SMALL, SN, T, TEMP1, THETA, THSIGN, TOL;
       int                BLSKIP, EMPTSW, i, ibr, IERR, igl, IJBLSK, ir1, ISWROT, jbc, jgl, KBL, LKAHEAD, MVL, N2, N34, N4, NBL, NOTROT, p, PSKIPPED, q, ROWSKIP, SWBAND, MINMN, LWMIN;
       bool               APPLV, GOSCALE, LOWER, LQUERY, LSVEC, NOSCALE, ROTOK, RSVEC, UCTOL, UPPER;
       // ..
       // .. Local Arrays ..
-      REAL               FASTR( 5 );
+      double               FASTR( 5 );
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, MIN, FLOAT, SIGN, SQRT
@@ -34,12 +34,12 @@
       // .. External Functions ..
       // ..
       // from BLAS
-      REAL               SDOT, SNRM2;
+      double               SDOT, SNRM2;
       // EXTERNAL SDOT, SNRM2
       int                ISAMAX;
       // EXTERNAL ISAMAX
       // from LAPACK
-      REAL               SLAMCH, SROUNDUP_LWORK;
+      double               SLAMCH, SROUNDUP_LWORK;
       // EXTERNAL SLAMCH, SROUNDUP_LWORK
       bool               lsame;
       // EXTERNAL lsame

@@ -6,16 +6,16 @@
 
       // .. Scalar Arguments ..
       int                N, R;
-      REAL               PIVMIN, SIGMA;
+      double               PIVMIN, SIGMA;
       // ..
       // .. Array Arguments ..
-      REAL               D( * ), LLD( * );
+      double               D( * ), LLD( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const            ZERO = 0.0, ONE = 1.0 ;
       // Some architectures propagate Infinities and NaNs very slowly, so
       // the code computes counts in BLKLEN chunks.  Then a NaN can
@@ -27,7 +27,7 @@
       // ..
       // .. Local Scalars ..
       int                BJ, J, NEG1, NEG2, NEGCNT;
-      REAL               BSAV, DMINUS, DPLUS, GAMMA, P, T, TMP;
+      double               BSAV, DMINUS, DPLUS, GAMMA, P, T, TMP;
       bool    SAWNAN;
       // ..
       // .. Intrinsic Functions ..

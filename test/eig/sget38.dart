@@ -9,15 +9,15 @@
       // ..
       // .. Array Arguments ..
       int                LMAX( 3 ), NINFO( 3 );
-      REAL               RMAX( 3 );
+      double               RMAX( 3 );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE, TWO;
+      double               ZERO, ONE, TWO;
       const              ZERO = 0.0, ONE = 1.0, TWO = 2.0 ;
-      REAL               EPSIN;
+      double               EPSIN;
       const              EPSIN = 5.9605e-8 ;
       int                LDT, LWORK;
       const              LDT = 20, LWORK = 2*LDT*( 10+LDT ) ;
@@ -26,12 +26,12 @@
       // ..
       // .. Local Scalars ..
       int                I, INFO, ISCL, ITMP, J, KMIN, M, N, NDIM;
-      REAL               BIGNUM, EPS, S, SEP, SEPIN, SEPTMP, SIN, SMLNUM, STMP, TNRM, TOL, TOLIN, V, VIMIN, VMAX, VMUL, VRMIN;
+      double               BIGNUM, EPS, S, SEP, SEPIN, SEPTMP, SIN, SMLNUM, STMP, TNRM, TOL, TOLIN, V, VIMIN, VMAX, VMUL, VRMIN;
       // ..
       // .. Local Arrays ..
       bool               SELECT( LDT );
       int                IPNT( LDT ), ISELEC( LDT ), IWORK( LIWORK );
-      REAL               Q( LDT, LDT ), QSAV( LDT, LDT ), QTMP( LDT, LDT ), RESULT( 2 ), T( LDT, LDT ), TMP( LDT, LDT ), TSAV( LDT, LDT ), TSAV1( LDT, LDT ), TTMP( LDT, LDT ), VAL( 3 ), WI( LDT ), WITMP( LDT ), WORK( LWORK ), WR( LDT ), WRTMP( LDT );
+      double               Q( LDT, LDT ), QSAV( LDT, LDT ), QTMP( LDT, LDT ), RESULT( 2 ), T( LDT, LDT ), TMP( LDT, LDT ), TSAV( LDT, LDT ), TSAV1( LDT, LDT ), TTMP( LDT, LDT ), VAL( 3 ), WI( LDT ), WITMP( LDT ), WORK( LWORK ), WR( LDT ), WRTMP( LDT );
       // ..
       // .. External Functions ..
       //- REAL               SLAMCH, SLANGE;
@@ -173,7 +173,7 @@
          // Compare condition number for eigenvalue cluster
          // taking its condition number into account
 
-         V = max( TWO*REAL( N )*EPS*TNRM, SMLNUM );
+         V = max( TWO*double( N )*EPS*TNRM, SMLNUM );
          if (TNRM == ZERO) V = ONE;
          if ( V > SEPTMP ) {
             TOL = ONE;
@@ -237,7 +237,7 @@
          // Compare condition number for eigenvalue cluster
          // without taking its condition number into account
 
-         if ( SIN <= REAL( 2*N )*EPS && STMP <= REAL( 2*N )*EPS ) {
+         if ( SIN <= REAL( 2*N )*EPS && STMP <= double( 2*N )*EPS ) {
             VMAX = ONE;
          } else if ( EPS*SIN > STMP ) {
             VMAX = ONE / EPS;

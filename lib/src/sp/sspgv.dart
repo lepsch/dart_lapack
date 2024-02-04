@@ -9,7 +9,7 @@
       int                INFO, ITYPE, LDZ, N;
       // ..
       // .. Array Arguments ..
-      REAL               AP( * ), BP( * ), W( * ), WORK( * ), Z( LDZ, * );
+      double               AP( * ), BP( * ), W( * ), WORK( * ), Z( LDZ, * );
       // ..
 
 // =====================================================================

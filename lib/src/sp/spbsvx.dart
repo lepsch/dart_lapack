@@ -7,23 +7,23 @@
       // .. Scalar Arguments ..
       String             EQUED, FACT, UPLO;
       int                INFO, KD, LDAB, LDAFB, LDB, LDX, N, NRHS;
-      REAL               RCOND;
+      double               RCOND;
       // ..
       // .. Array Arguments ..
       int                IWORK( * );
-      REAL               AB( LDAB, * ), AFB( LDAFB, * ), B( LDB, * ), BERR( * ), FERR( * ), S( * ), WORK( * ), X( LDX, * );
+      double               AB( LDAB, * ), AFB( LDAFB, * ), B( LDB, * ), BERR( * ), FERR( * ), S( * ), WORK( * ), X( LDX, * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
       bool               EQUIL, NOFACT, RCEQU, UPPER;
       int                I, INFEQU, J, J1, J2;
-      REAL               AMAX, ANORM, BIGNUM, SCOND, SMAX, SMIN, SMLNUM;
+      double               AMAX, ANORM, BIGNUM, SCOND, SMAX, SMIN, SMLNUM;
       // ..
       // .. External Functions ..
       //- bool               lsame;

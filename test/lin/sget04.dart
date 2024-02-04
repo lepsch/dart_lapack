@@ -6,21 +6,21 @@
 
       // .. Scalar Arguments ..
       int                LDX, LDXACT, N, NRHS;
-      REAL               RCOND, RESID;
+      double               RCOND, RESID;
       // ..
       // .. Array Arguments ..
-      REAL               X( LDX, * ), XACT( LDXACT, * );
+      double               X( LDX, * ), XACT( LDXACT, * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO;
+      double               ZERO;
       const              ZERO = 0.0 ;
       // ..
       // .. Local Scalars ..
       int                I, IX, J;
-      REAL               DIFFNM, EPS, XNORM;
+      double               DIFFNM, EPS, XNORM;
       // ..
       // .. External Functions ..
       //- int                ISAMAX;

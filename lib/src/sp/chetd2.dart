@@ -9,7 +9,7 @@
       int                INFO, LDA, N;
       // ..
       // .. Array Arguments ..
-      REAL               D( * ), E( * );
+      double               D( * ), E( * );
       Complex            A( LDA, * ), TAU( * );
       // ..
 
@@ -61,7 +61,7 @@
 
          // Reduce the upper triangle of A
 
-         A[N, N] = REAL( A( N, N ) );
+         A[N, N] = double( A( N, N ) );
          for (I = N - 1; I >= 1; I--) { // 10
 
             // Generate elementary reflector H(i) = I - tau * v * v**H
@@ -69,7 +69,7 @@
 
             ALPHA = A( I, I+1 );
             clarfg(I, ALPHA, A( 1, I+1 ), 1, TAUI );
-            E[I] = REAL( ALPHA );
+            E[I] = double( ALPHA );
 
             if ( TAUI != ZERO ) {
 
@@ -92,18 +92,18 @@
                cher2(UPLO, I, -ONE, A( 1, I+1 ), 1, TAU, 1, A, LDA );
 
             } else {
-               A[I, I] = REAL( A( I, I ) );
+               A[I, I] = double( A( I, I ) );
             }
             A[I, I+1] = E( I );
-            D[I+1] = REAL( A( I+1, I+1 ) );
+            D[I+1] = double( A( I+1, I+1 ) );
             TAU[I] = TAUI;
          } // 10
-         D[1] = REAL( A( 1, 1 ) );
+         D[1] = double( A( 1, 1 ) );
       } else {
 
          // Reduce the lower triangle of A
 
-         A[1, 1] = REAL( A( 1, 1 ) );
+         A[1, 1] = double( A( 1, 1 ) );
          for (I = 1; I <= N - 1; I++) { // 20
 
             // Generate elementary reflector H(i) = I - tau * v * v**H
@@ -111,7 +111,7 @@
 
             ALPHA = A( I+1, I );
             clarfg(N-I, ALPHA, A( min( I+2, N ), I ), 1, TAUI );
-            E[I] = REAL( ALPHA );
+            E[I] = double( ALPHA );
 
             if ( TAUI != ZERO ) {
 
@@ -134,13 +134,13 @@
                cher2(UPLO, N-I, -ONE, A( I+1, I ), 1, TAU( I ), 1, A( I+1, I+1 ), LDA );
 
             } else {
-               A[I+1, I+1] = REAL( A( I+1, I+1 ) );
+               A[I+1, I+1] = double( A( I+1, I+1 ) );
             }
             A[I+1, I] = E( I );
-            D[I] = REAL( A( I, I ) );
+            D[I] = double( A( I, I ) );
             TAU[I] = TAUI;
          } // 20
-         D[N] = REAL( A( N, N ) );
+         D[N] = double( A( N, N ) );
       }
 
       return;

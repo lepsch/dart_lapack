@@ -6,17 +6,17 @@
 
       // .. Scalar Arguments ..
       int                CURLVL, CURPBM, CUTPNT, ICOMPQ, INFO, LDQ, N, QSIZ, TLVLS;
-      REAL               RHO;
+      double               RHO;
       // ..
       // .. Array Arguments ..
       int                GIVCOL( 2, * ), GIVPTR( * ), INDXQ( * ), IWORK( * ), PERM( * ), PRMPTR( * ), QPTR( * );
-      REAL               D( * ), GIVNUM( 2, * ), Q( LDQ, * ), QSTORE( * ), WORK( * );
+      double               D( * ), GIVNUM( 2, * ), Q( LDQ, * ), QSTORE( * ), WORK( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ONE, ZERO;
+      double               ONE, ZERO;
       const              ONE = 1.0, ZERO = 0.0 ;
       // ..
       // .. Local Scalars ..

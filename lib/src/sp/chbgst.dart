@@ -9,7 +9,7 @@
       int                INFO, KA, KB, LDAB, LDBB, LDX, N;
       // ..
       // .. Array Arguments ..
-      REAL               RWORK( * );
+      double               RWORK( * );
       Complex            AB( LDAB, * ), BB( LDBB, * ), WORK( * ), X( LDX, * );
       // ..
 
@@ -17,13 +17,13 @@
 
       // .. Parameters ..
       Complex            CZERO, CONE;
-      REAL               ONE;
+      double               ONE;
       const              CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ), ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
       bool               UPDATE, UPPER, WANTX;
       int                I, I0, I1, I2, INCA, J, J1, J1T, J2, J2T, K, KA1, KB1, KBT, L, M, NR, NRT, NX;
-      REAL               BII;
+      double               BII;
       Complex            RA, RA1, T;
       // ..
       // .. External Functions ..
@@ -171,8 +171,8 @@
 
             // Form  inv(S(i))**H * A * inv(S(i))
 
-            BII = REAL( BB( KB1, I ) );
-            AB[KA1, I] = ( REAL( AB( KA1, I ) ) / BII ) / BII;
+            BII = double( BB( KB1, I ) );
+            AB[KA1, I] = ( double( AB( KA1, I ) ) / BII ) / BII;
             for (J = I + 1; J <= I1; J++) { // 20
                AB[I-J+KA1, J] = AB( I-J+KA1, J ) / BII;
             } // 20
@@ -181,7 +181,7 @@
             } // 30
             for (K = I - KBT; K <= I - 1; K++) { // 60
                for (J = I - KBT; J <= K; J++) { // 40
-                  AB[J-K+KA1, K] = AB( J-K+KA1, K ) - BB( J-I+KB1, I )* CONJG( AB( K-I+KA1, I ) ) - CONJG( BB( K-I+KB1, I ) )* AB( J-I+KA1, I ) + REAL( AB( KA1, I ) )* BB( J-I+KB1, I )* CONJG( BB( K-I+KB1, I ) );
+                  AB[J-K+KA1, K] = AB( J-K+KA1, K ) - BB( J-I+KB1, I )* CONJG( AB( K-I+KA1, I ) ) - CONJG( BB( K-I+KB1, I ) )* AB( J-I+KA1, I ) + double( AB( KA1, I ) )* BB( J-I+KB1, I )* CONJG( BB( K-I+KB1, I ) );
                } // 40
                for (J = max( 1, I-KA ); J <= I - KBT - 1; J++) { // 50
                   AB[J-K+KA1, K] = AB( J-K+KA1, K ) - CONJG( BB( K-I+KB1, I ) )* AB( J-I+KA1, I );
@@ -396,8 +396,8 @@
 
             // Form  inv(S(i))**H * A * inv(S(i))
 
-            BII = REAL( BB( 1, I ) );
-            AB[1, I] = ( REAL( AB( 1, I ) ) / BII ) / BII;
+            BII = double( BB( 1, I ) );
+            AB[1, I] = ( double( AB( 1, I ) ) / BII ) / BII;
             for (J = I + 1; J <= I1; J++) { // 250
                AB[J-I+1, I] = AB( J-I+1, I ) / BII;
             } // 250
@@ -406,7 +406,7 @@
             } // 260
             for (K = I - KBT; K <= I - 1; K++) { // 290
                for (J = I - KBT; J <= K; J++) { // 270
-                  AB[K-J+1, J] = AB( K-J+1, J ) - BB( I-J+1, J )*CONJG( AB( I-K+1, K ) ) - CONJG( BB( I-K+1, K ) )* AB( I-J+1, J ) + REAL( AB( 1, I ) )* BB( I-J+1, J )*CONJG( BB( I-K+1, K ) );
+                  AB[K-J+1, J] = AB( K-J+1, J ) - BB( I-J+1, J )*CONJG( AB( I-K+1, K ) ) - CONJG( BB( I-K+1, K ) )* AB( I-J+1, J ) + double( AB( 1, I ) )* BB( I-J+1, J )*CONJG( BB( I-K+1, K ) );
                } // 270
                for (J = max( 1, I-KA ); J <= I - KBT - 1; J++) { // 280
                   AB[K-J+1, J] = AB( K-J+1, J ) - CONJG( BB( I-K+1, K ) )* AB( I-J+1, J );
@@ -669,8 +669,8 @@
 
             // Form  inv(S(i))**H * A * inv(S(i))
 
-            BII = REAL( BB( KB1, I ) );
-            AB[KA1, I] = ( REAL( AB( KA1, I ) ) / BII ) / BII;
+            BII = double( BB( KB1, I ) );
+            AB[KA1, I] = ( double( AB( KA1, I ) ) / BII ) / BII;
             for (J = I1; J <= I - 1; J++) { // 500
                AB[J-I+KA1, I] = AB( J-I+KA1, I ) / BII;
             } // 500
@@ -679,7 +679,7 @@
             } // 510
             for (K = I + 1; K <= I + KBT; K++) { // 540
                for (J = K; J <= I + KBT; J++) { // 520
-                  AB[K-J+KA1, J] = AB( K-J+KA1, J ) - BB( I-J+KB1, J )* CONJG( AB( I-K+KA1, K ) ) - CONJG( BB( I-K+KB1, K ) )* AB( I-J+KA1, J ) + REAL( AB( KA1, I ) )* BB( I-J+KB1, J )* CONJG( BB( I-K+KB1, K ) );
+                  AB[K-J+KA1, J] = AB( K-J+KA1, J ) - BB( I-J+KB1, J )* CONJG( AB( I-K+KA1, K ) ) - CONJG( BB( I-K+KB1, K ) )* AB( I-J+KA1, J ) + double( AB( KA1, I ) )* BB( I-J+KB1, J )* CONJG( BB( I-K+KB1, K ) );
                } // 520
                for (J = I + KBT + 1; J <= min( N, I+KA ); J++) { // 530
                   AB[K-J+KA1, J] = AB( K-J+KA1, J ) - CONJG( BB( I-K+KB1, K ) )* AB( I-J+KA1, J );
@@ -897,8 +897,8 @@
 
             // Form  inv(S(i))**H * A * inv(S(i))
 
-            BII = REAL( BB( 1, I ) );
-            AB[1, I] = ( REAL( AB( 1, I ) ) / BII ) / BII;
+            BII = double( BB( 1, I ) );
+            AB[1, I] = ( double( AB( 1, I ) ) / BII ) / BII;
             for (J = I1; J <= I - 1; J++) { // 730
                AB[I-J+1, J] = AB( I-J+1, J ) / BII;
             } // 730
@@ -907,7 +907,7 @@
             } // 740
             for (K = I + 1; K <= I + KBT; K++) { // 770
                for (J = K; J <= I + KBT; J++) { // 750
-                  AB[J-K+1, K] = AB( J-K+1, K ) - BB( J-I+1, I )*CONJG( AB( K-I+1, I ) ) - CONJG( BB( K-I+1, I ) )* AB( J-I+1, I ) + REAL( AB( 1, I ) )* BB( J-I+1, I )*CONJG( BB( K-I+1, I ) );
+                  AB[J-K+1, K] = AB( J-K+1, K ) - BB( J-I+1, I )*CONJG( AB( K-I+1, I ) ) - CONJG( BB( K-I+1, I ) )* AB( J-I+1, I ) + double( AB( 1, I ) )* BB( J-I+1, I )*CONJG( BB( K-I+1, I ) );
                } // 750
                for (J = I + KBT + 1; J <= min( N, I+KA ); J++) { // 760
                   AB[J-K+1, K] = AB( J-K+1, K ) - CONJG( BB( K-I+1, I ) )* AB( J-I+1, I );

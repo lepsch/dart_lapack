@@ -7,16 +7,16 @@
       // .. Scalar Arguments ..
       String             SIDE;
       int                INCV, LDC, M, N;
-      REAL               TAU;
+      double               TAU;
       // ..
       // .. Array Arguments ..
-      REAL               C1( LDC, * ), C2( LDC, * ), V( * ), WORK( * );
+      double               C1( LDC, * ), C2( LDC, * ), V( * ), WORK( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ONE, ZERO;
+      double               ONE, ZERO;
       const              ONE = 1.0, ZERO = 0.0 ;
       // ..
       // .. External Subroutines ..

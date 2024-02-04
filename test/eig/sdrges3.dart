@@ -6,18 +6,18 @@
 
       // .. Scalar Arguments ..
       int                INFO, LDA, LDQ, LWORK, NOUNIT, NSIZES, NTYPES;
-      REAL               THRESH;
+      double               THRESH;
       // ..
       // .. Array Arguments ..
       bool               BWORK( * ), DOTYPE( * );
       int                ISEED( 4 ), NN( * );
-      REAL               A( LDA, * ), ALPHAI( * ), ALPHAR( * ), B( LDA, * ), BETA( * ), Q( LDQ, * ), RESULT( 13 ), S( LDA, * ), T( LDA, * ), WORK( * ), Z( LDQ, * );
+      double               A( LDA, * ), ALPHAI( * ), ALPHAR( * ), B( LDA, * ), BETA( * ), Q( LDQ, * ), RESULT( 13 ), S( LDA, * ), T( LDA, * ), WORK( * ), Z( LDQ, * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       int                MAXTYP;
       const              MAXTYP = 26 ;
@@ -26,11 +26,11 @@
       bool               BADNN, ILABAD;
       String             SORT;
       int                I, I1, IADD, IERR, IINFO, IN, ISORT, J, JC, JR, JSIZE, JTYPE, KNTEIG, MAXWRK, MINWRK, MTYPES, N, N1, NB, NERRS, NMATS, NMAX, NTEST, NTESTT, RSUB, SDIM;
-      REAL               SAFMAX, SAFMIN, TEMP1, TEMP2, ULP, ULPINV;
+      double               SAFMAX, SAFMIN, TEMP1, TEMP2, ULP, ULPINV;
       // ..
       // .. Local Arrays ..
       int                IASIGN( MAXTYP ), IBSIGN( MAXTYP ), IOLDSD( 4 ), KADD( 6 ), KAMAGN( MAXTYP ), KATYPE( MAXTYP ), KAZERO( MAXTYP ), KBMAGN( MAXTYP ), KBTYPE( MAXTYP ), KBZERO( MAXTYP ), KCLASS( MAXTYP ), KTRIAN( MAXTYP ), KZ1( 6 ), KZ2( 6 );
-      REAL               RMAGN( 0: 3 );
+      double               RMAGN( 0: 3 );
       // ..
       // .. External Functions ..
       //- bool               SLCTES;
@@ -133,7 +133,7 @@
          N = NN( JSIZE );
          N1 = max( 1, N );
          RMAGN[2] = SAFMAX*ULP / REAL( N1 );
-         RMAGN[3] = SAFMIN*ULPINV*REAL( N1 );
+         RMAGN[3] = SAFMIN*ULPINV*double( N1 );
 
          if ( NSIZES != 1 ) {
             MTYPES = min( MAXTYP, NTYPES );

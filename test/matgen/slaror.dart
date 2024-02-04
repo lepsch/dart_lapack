@@ -10,18 +10,18 @@
       // ..
       // .. Array Arguments ..
       int                ISEED( 4 );
-      REAL               A( LDA, * ), X( * );
+      double               A( LDA, * ), X( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE, TOOSML;
+      double               ZERO, ONE, TOOSML;
       const              ZERO = 0.0, ONE = 1.0, TOOSML = 1.0e-20 ;
       // ..
       // .. Local Scalars ..
       int                IROW, ITYPE, IXFRM, J, JCOL, KBEG, NXFRM;
-      REAL               FACTOR, XNORM, XNORMS;
+      double               FACTOR, XNORM, XNORMS;
       // ..
       // .. External Functions ..
       //- bool               lsame;

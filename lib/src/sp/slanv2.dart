@@ -5,19 +5,19 @@
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
-      REAL               A, B, C, CS, D, RT1I, RT1R, RT2I, RT2R, SN;
+      double               A, B, C, CS, D, RT1I, RT1R, RT2I, RT2R, SN;
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, HALF, ONE, TWO;
+      double               ZERO, HALF, ONE, TWO;
       const              ZERO = 0.0, HALF = 0.5, ONE = 1.0, TWO = 2.0 ;
-      REAL               MULTPL;
+      double               MULTPL;
       const              MULTPL = 4.0 ;
       // ..
       // .. Local Scalars ..
-      REAL               AA, BB, BCMAX, BCMIS, CC, CS1, DD, EPS, P, SAB, SAC, SCALE, SIGMA, SN1, TAU, TEMP, Z, SAFMIN, SAFMN2, SAFMX2;
+      double               AA, BB, BCMAX, BCMIS, CC, CS1, DD, EPS, P, SAB, SAC, SCALE, SIGMA, SN1, TAU, TEMP, Z, SAFMIN, SAFMN2, SAFMX2;
       int                COUNT;
       // ..
       // .. External Functions ..

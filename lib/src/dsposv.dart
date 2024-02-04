@@ -9,7 +9,7 @@
       int                INFO, ITER, LDA, LDB, LDX, N, NRHS;
       // ..
       // .. Array Arguments ..
-      REAL               SWORK( * );
+      double               SWORK( * );
       double             A( LDA, * ), B( LDB, * ), WORK( N, * ), X( LDX, * );
       // ..
 

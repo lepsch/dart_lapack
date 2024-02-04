@@ -1,4 +1,4 @@
-      REAL slamch(CMACH ) {
+      double slamch(CMACH ) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -8,13 +8,13 @@
       String             CMACH;
       // ..
       // .. Parameters ..
-      REAL               ONE, ZERO;
+      double               ONE, ZERO;
       const              ONE = 1.0, ZERO = 0.0 ;
       // ..
       // .. Local Scalars ..
       bool               FIRST, LRND;
       int                BETA, IMAX, IMIN, IT;
-      REAL               BASE, EMAX, EMIN, EPS, PREC, RMACH, RMAX, RMIN, RND, SFMIN, SMALL, T;
+      double               BASE, EMAX, EMIN, EPS, PREC, RMACH, RMAX, RMIN, RND, SFMIN, SMALL, T;
       // ..
       // .. External Functions ..
       //- bool               lsame;
@@ -147,7 +147,7 @@
       // .. Local Scalars ..
       bool               FIRST, LIEEE1, LRND;
       int                LBETA, LT;
-      REAL               A, B, C, F, ONE, QTR, SAVEC, T1, T2;
+      double               A, B, C, F, ONE, QTR, SAVEC, T1, T2;
       // ..
       // .. External Functions ..
       //- REAL               SLAMC3;
@@ -349,14 +349,14 @@
       // .. Scalar Arguments ..
       bool               RND;
       int                BETA, EMAX, EMIN, T;
-      REAL               EPS, RMAX, RMIN;
+      double               EPS, RMAX, RMIN;
       // ..
 // =====================================================================
 
       // .. Local Scalars ..
       bool               FIRST, IEEE, IWARN, LIEEE1, LRND;
       int                GNMIN, GPMIN, I, LBETA, LEMAX, LEMIN, LT, NGNMIN, NGPMIN;
-      REAL               A, B, C, HALF, LEPS, LRMAX, LRMIN, ONE, RBASE, SIXTH, SMALL, THIRD, TWO, ZERO;
+      double               A, B, C, HALF, LEPS, LRMAX, LRMIN, ONE, RBASE, SIXTH, SMALL, THIRD, TWO, ZERO;
       // ..
       // .. External Functions ..
       //- REAL               SLAMC3;
@@ -550,13 +550,13 @@
 // >
 // > \ingroup lamc3
 // >
-      REAL slamc3(A, B ) {
+      double slamc3(A, B ) {
 
 // -- LAPACK auxiliary routine --
       // Univ. of Tennessee, Univ. of California Berkeley and NAG Ltd..
 
       // .. Scalar Arguments ..
-      REAL               A, B;
+      double               A, B;
       // ..
 // =====================================================================
 
@@ -602,13 +602,13 @@
       // .. Scalar Arguments ..
       int                BASE;
       int                EMIN;
-      REAL               START;
+      double               START;
       // ..
 // =====================================================================
 
       // .. Local Scalars ..
       int                I;
-      REAL               A, B1, B2, C1, C2, D1, D2, ONE, RBASE, ZERO;
+      double               A, B1, B2, C1, C2, D1, D2, ONE, RBASE, ZERO;
       // ..
       // .. External Functions ..
       //- REAL               SLAMC3;
@@ -706,17 +706,17 @@
       // .. Scalar Arguments ..
       bool               IEEE;
       int                BETA, EMAX, EMIN, P;
-      REAL               RMAX;
+      double               RMAX;
       // ..
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
       int                EXBITS, EXPSUM, I, LEXP, NBITS, TRY, UEXP;
-      REAL               OLDY, RECBAS, Y, Z;
+      double               OLDY, RECBAS, Y, Z;
       // ..
       // .. External Functions ..
       //- REAL               SLAMC3;

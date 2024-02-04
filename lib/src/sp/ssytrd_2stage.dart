@@ -11,8 +11,8 @@
       int                N, LDA, LWORK, LHOUS2, INFO;
       // ..
       // .. Array Arguments ..
-      REAL               D( * ), E( * );
-      REAL               A( LDA, * ), TAU( * ), HOUS2( * ), WORK( * );
+      double               D( * ), E( * );
+      double               A( LDA, * ), TAU( * ), HOUS2( * ), WORK( * );
       // ..
 
 // =====================================================================

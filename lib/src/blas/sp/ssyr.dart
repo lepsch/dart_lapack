@@ -5,22 +5,22 @@
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
-      REAL ALPHA;
+      double ALPHA;
       int     INCX,LDA,N;
       String    UPLO;
       // ..
       // .. Array Arguments ..
-      REAL A(LDA,*),X(*);
+      double A(LDA,*),X(*);
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL ZERO;
+      double ZERO;
       const     ZERO=0.0;
       // ..
       // .. Local Scalars ..
-      REAL TEMP;
+      double TEMP;
       int     I,INFO,IX,J,JX,KX;
       // ..
       // .. External Functions ..

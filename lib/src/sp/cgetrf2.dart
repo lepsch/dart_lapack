@@ -19,7 +19,7 @@
       const              ONE = ( 1.0, 0.0 ), ZERO = ( 0.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
-      REAL               SFMIN;
+      double               SFMIN;
       Complex            TEMP;
       int                I, IINFO, N1, N2;
       // ..

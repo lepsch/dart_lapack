@@ -8,18 +8,18 @@
       int                INFO, N;
       // ..
       // .. Array Arguments ..
-      REAL               D( * ), E( * );
+      double               D( * ), E( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO;
+      double               ZERO;
       const              ZERO = 0.0 ;
       // ..
       // .. Local Scalars ..
       int                I, I4;
-      REAL               EI;
+      double               EI;
       // ..
       // .. External Subroutines ..
       // EXTERNAL XERBLA

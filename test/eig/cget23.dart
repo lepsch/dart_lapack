@@ -8,32 +8,32 @@
       bool               COMP;
       String             BALANC;
       int                INFO, ISRT, JTYPE, LDA, LDLRE, LDVL, LDVR, LWORK, N, NOUNIT;
-      REAL               THRESH;
+      double               THRESH;
       // ..
       // .. Array Arguments ..
       int                ISEED( 4 );
-      REAL               RCDEIN( * ), RCDVIN( * ), RCNDE1( * ), RCNDV1( * ), RCONDE( * ), RCONDV( * ), RESULT( 11 ), RWORK( * ), SCALE( * ), SCALE1( * );
+      double               RCDEIN( * ), RCDVIN( * ), RCNDE1( * ), RCNDV1( * ), RCONDE( * ), RCONDV( * ), RESULT( 11 ), RWORK( * ), SCALE( * ), SCALE1( * );
       Complex            A( LDA, * ), H( LDA, * ), LRE( LDLRE, * ), VL( LDVL, * ), VR( LDVR, * ), W( * ), W1( * ), WORK( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE, TWO;
+      double               ZERO, ONE, TWO;
       const              ZERO = 0.0, ONE = 1.0, TWO = 2.0 ;
-      REAL               EPSIN;
+      double               EPSIN;
       const              EPSIN = 5.9605e-8 ;
       // ..
       // .. Local Scalars ..
       bool               BALOK, NOBAL;
       String             SENSE;
       int                I, IHI, IHI1, IINFO, ILO, ILO1, ISENS, ISENSM, J, JJ, KMIN;
-      REAL               ABNRM, ABNRM1, EPS, SMLNUM, TNRM, TOL, TOLIN, ULP, ULPINV, V, VMAX, VMX, VRICMP, VRIMIN, VRMX, VTST;
+      double               ABNRM, ABNRM1, EPS, SMLNUM, TNRM, TOL, TOLIN, ULP, ULPINV, V, VMAX, VMX, VRICMP, VRIMIN, VRMX, VTST;
       Complex            CTMP;
       // ..
       // .. Local Arrays ..
       String             SENS( 2 );
-      REAL               RES( 2 );
+      double               RES( 2 );
       Complex            CDUM( 1 );
       // ..
       // .. External Functions ..
@@ -140,7 +140,7 @@
          for (JJ = 1; JJ <= N; JJ++) { // 20
             VTST = ( VR( JJ, J ) ).abs();
             if (VTST > VMX) VMX = VTST;
-            IF( AIMAG( VR( JJ, J ) ) == ZERO && ABS( REAL( VR( JJ, J ) ) ) > VRMX ) VRMX = ABS( REAL( VR( JJ, J ) ) );
+            IF( AIMAG( VR( JJ, J ) ) == ZERO && ABS( REAL( VR( JJ, J ) ) ) > VRMX ) VRMX = ABS( double( VR( JJ, J ) ) );
          } // 20
          if (VRMX / VMX < ONE-TWO*ULP) RESULT( 3 ) = ULPINV;
       } // 30
@@ -155,7 +155,7 @@
          for (JJ = 1; JJ <= N; JJ++) { // 40
             VTST = ( VL( JJ, J ) ).abs();
             if (VTST > VMX) VMX = VTST;
-            IF( AIMAG( VL( JJ, J ) ) == ZERO && ABS( REAL( VL( JJ, J ) ) ) > VRMX ) VRMX = ABS( REAL( VL( JJ, J ) ) );
+            IF( AIMAG( VL( JJ, J ) ) == ZERO && ABS( REAL( VL( JJ, J ) ) ) > VRMX ) VRMX = ABS( double( VL( JJ, J ) ) );
          } // 40
          if (VRMX / VMX < ONE-TWO*ULP) RESULT( 4 ) = ULPINV;
       } // 50
@@ -324,13 +324,13 @@
          for (I = 1; I <= N - 1; I++) { // 220
             KMIN = I;
             if ( ISRT == 0 ) {
-               VRIMIN = REAL( W( I ) );
+               VRIMIN = double( W( I ) );
             } else {
                VRIMIN = AIMAG( W( I ) );
             }
             for (J = I + 1; J <= N; J++) { // 210
                if ( ISRT == 0 ) {
-                  VRICMP = REAL( W( J ) );
+                  VRICMP = double( W( J ) );
                } else {
                   VRICMP = AIMAG( W( J ) );
                }
@@ -355,7 +355,7 @@
 
          RESULT[10] = ZERO;
          EPS = max( EPSIN, ULP );
-         V = max( REAL( N )*EPS*ABNRM, SMLNUM );
+         V = max( double( N )*EPS*ABNRM, SMLNUM );
          if (ABNRM == ZERO) V = ONE;
          for (I = 1; I <= N; I++) { // 230
             if ( V > RCONDV( I )*RCONDE( I ) ) {

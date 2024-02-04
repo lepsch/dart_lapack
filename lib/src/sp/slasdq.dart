@@ -9,19 +9,19 @@
       int                INFO, LDC, LDU, LDVT, N, NCC, NCVT, NRU, SQRE;
       // ..
       // .. Array Arguments ..
-      REAL               C( LDC, * ), D( * ), E( * ), U( LDU, * ), VT( LDVT, * ), WORK( * );
+      double               C( LDC, * ), D( * ), E( * ), U( LDU, * ), VT( LDVT, * ), WORK( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO;
+      double               ZERO;
       const              ZERO = 0.0 ;
       // ..
       // .. Local Scalars ..
       bool               ROTATE;
       int                I, ISUB, IUPLO, J, NP1, SQRE1;
-      REAL               CS, R, SMIN, SN;
+      double               CS, R, SMIN, SN;
       // ..
       // .. External Subroutines ..
       // EXTERNAL SBDSQR, SLARTG, SLASR, SSWAP, XERBLA

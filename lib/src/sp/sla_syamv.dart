@@ -5,27 +5,27 @@
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
-      REAL               ALPHA, BETA;
+      double               ALPHA, BETA;
       int                INCX, INCY, LDA, N, UPLO;
       // ..
       // .. Array Arguments ..
-      REAL               A( LDA, * ), X( * ), Y( * );
+      double               A( LDA, * ), X( * ), Y( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ONE, ZERO;
+      double               ONE, ZERO;
       const              ONE = 1.0, ZERO = 0.0 ;
       // ..
       // .. Local Scalars ..
       bool               SYMB_ZERO;
-      REAL               TEMP, SAFE1;
+      double               TEMP, SAFE1;
       int                I, INFO, IY, J, JX, KX, KY;
       // ..
       // .. External Subroutines ..
       // EXTERNAL XERBLA, SLAMCH
-      REAL               SLAMCH;
+      double               SLAMCH;
       // ..
       // .. External Functions ..
       // EXTERNAL ILAUPLO

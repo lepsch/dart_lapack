@@ -20,7 +20,7 @@
       int                I, INFO, J, MB, NB;
       // ..
       // .. Local Arrays ..
-      REAL               A( NMAX, NMAX ), T( NMAX, NMAX ), W( NMAX ), C( NMAX, NMAX ), TAU(NMAX*2);
+      double               A( NMAX, NMAX ), T( NMAX, NMAX ), W( NMAX ), C( NMAX, NMAX ), TAU(NMAX*2);
       // ..
       // .. External Subroutines ..
       // EXTERNAL ALAESM, CHKXER, SGEQR, SGEMQR, SGELQ, SGEMLQ

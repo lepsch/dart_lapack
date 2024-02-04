@@ -7,19 +7,19 @@
       // .. Scalar Arguments ..
       bool               TSTDIF;
       int                INFO, LDA, LDU, LWORK, NOUNIT, NSIZES, NTYPES;
-      REAL               THRESH, THRSHN;
+      double               THRESH, THRSHN;
       // ..
       // .. Array Arguments ..
       bool               DOTYPE( * ), LLWORK( * );
       int                ISEED( 4 ), NN( * );
-      REAL               RESULT( 15 ), RWORK( * );
+      double               RESULT( 15 ), RWORK( * );
       Complex            A( LDA, * ), ALPHA1( * ), ALPHA3( * ), B( LDA, * ), BETA1( * ), BETA3( * ), EVECTL( LDU, * ), EVECTR( LDU, * ), H( LDA, * ), P1( LDA, * ), P2( LDA, * ), Q( LDU, * ), S1( LDA, * ), S2( LDA, * ), T( LDA, * ), U( LDU, * ), V( LDU, * ), WORK( * ), Z( LDU, * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       Complex            CZERO, CONE;
       const              CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
@@ -29,13 +29,13 @@
       // .. Local Scalars ..
       bool               BADNN;
       int                I1, IADD, IINFO, IN, J, JC, JR, JSIZE, JTYPE, LWKOPT, MTYPES, N, N1, NERRS, NMATS, NMAX, NTEST, NTESTT;
-      REAL               ANORM, BNORM, SAFMAX, SAFMIN, TEMP1, TEMP2, ULP, ULPINV;
+      double               ANORM, BNORM, SAFMAX, SAFMIN, TEMP1, TEMP2, ULP, ULPINV;
       Complex            CTEMP;
       // ..
       // .. Local Arrays ..
       bool               LASIGN( MAXTYP ), LBSIGN( MAXTYP );
       int                IOLDSD( 4 ), KADD( 6 ), KAMAGN( MAXTYP ), KATYPE( MAXTYP ), KAZERO( MAXTYP ), KBMAGN( MAXTYP ), KBTYPE( MAXTYP ), KBZERO( MAXTYP ), KCLASS( MAXTYP ), KTRIAN( MAXTYP ), KZ1( 6 ), KZ2( 6 );
-      REAL               DUMMA( 4 ), RMAGN( 0: 3 );
+      double               DUMMA( 4 ), RMAGN( 0: 3 );
       Complex            CDUMMA( 4 );
       // ..
       // .. External Functions ..
@@ -215,10 +215,10 @@
                         V[JR, JC] = CLARND( 3, ISEED );
                      } // 40
                      clarfg(N+1-JC, U( JC, JC ), U( JC+1, JC ), 1, WORK( JC ) );
-                     WORK[2*N+JC] = SIGN( ONE, REAL( U( JC, JC ) ) );
+                     WORK[2*N+JC] = SIGN( ONE, double( U( JC, JC ) ) );
                      U[JC, JC] = CONE;
                      clarfg(N+1-JC, V( JC, JC ), V( JC+1, JC ), 1, WORK( N+JC ) );
-                     WORK[3*N+JC] = SIGN( ONE, REAL( V( JC, JC ) ) );
+                     WORK[3*N+JC] = SIGN( ONE, double( V( JC, JC ) ) );
                      V[JC, JC] = CONE;
                   } // 50
                   CTEMP = CLARND( 3, ISEED );

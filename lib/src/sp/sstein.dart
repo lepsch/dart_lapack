@@ -9,20 +9,20 @@
       // ..
       // .. Array Arguments ..
       int                IBLOCK( * ), IFAIL( * ), ISPLIT( * ), IWORK( * );
-      REAL               D( * ), E( * ), W( * ), WORK( * ), Z( LDZ, * );
+      double               D( * ), E( * ), W( * ), WORK( * ), Z( LDZ, * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE, TEN, ODM3, ODM1;
+      double               ZERO, ONE, TEN, ODM3, ODM1;
       const              ZERO = 0.0, ONE = 1.0, TEN = 1.0e+1, ODM3 = 1.0e-3, ODM1 = 1.0e-1 ;
       int                MAXITS, EXTRA;
       const              MAXITS = 5, EXTRA = 2 ;
       // ..
       // .. Local Scalars ..
       int                B1, BLKSIZ, BN, GPIND, I, IINFO, INDRV1, INDRV2, INDRV3, INDRV4, INDRV5, ITS, J, J1, JBLK, JMAX, NBLK, NRMCHK;
-      REAL               CTR, EPS, EPS1, NRM, ONENRM, ORTOL, PERTOL, SCL, SEP, STPCRT, TOL, XJ, XJM;
+      double               CTR, EPS, EPS1, NRM, ONENRM, ORTOL, PERTOL, SCL, SEP, STPCRT, TOL, XJ, XJM;
       // ..
       // .. Local Arrays ..
       int                ISEED( 4 );

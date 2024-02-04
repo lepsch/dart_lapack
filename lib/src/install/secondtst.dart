@@ -3,10 +3,10 @@
       // ..
       // .. Local Scalars ..
       int                I, J;
-      REAL               ALPHA, AVG, T1, T2, TNOSEC, TOTAL;
+      double               ALPHA, AVG, T1, T2, TNOSEC, TOTAL;
       // ..
       // .. Local Arrays ..
-      REAL               X( NMAX ), Y( NMAX );
+      double               X( NMAX ), Y( NMAX );
       // ..
       // .. External Functions ..
       //- REAL               SECOND;
@@ -21,13 +21,13 @@
       // .. Executable Statements ..
 
 // .. Figure TOTAL flops ..
-      TOTAL = REAL(NMAX) * REAL(ITS) * 2.0;
+      TOTAL = REAL(NMAX) * double(ITS) * 2.0;
 
       // Initialize X and Y
 
       for (I = 1; I <= NMAX; I++) { // 10
-         X[I] = REAL( 1 ) / REAL( I );
-         Y[I] = REAL( NMAX-I ) / REAL( NMAX );
+         X[I] = double( 1 ) / REAL( I );
+         Y[I] = double( NMAX-I ) / REAL( NMAX );
       } // 10
       ALPHA = 0.315;
 
@@ -82,6 +82,6 @@
       }
       void mysub(N,X,Y) {
       int     N;
-      REAL X(N), Y(N);
+      double X(N), Y(N);
       return;
       }

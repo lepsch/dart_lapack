@@ -6,18 +6,18 @@
 
       // .. Scalar Arguments ..
       int                INFO, LDA, LDQ, LDQE, LWORK, NOUNIT, NSIZES, NTYPES;
-      REAL               THRESH;
+      double               THRESH;
       // ..
       // .. Array Arguments ..
       bool               DOTYPE( * );
       int                ISEED( 4 ), NN( * );
-      REAL               A( LDA, * ), ALPHAI( * ), ALPHI1( * ), ALPHAR( * ), ALPHR1( * ), B( LDA, * ), BETA( * ), BETA1( * ), Q( LDQ, * ), QE( LDQE, * ), RESULT( * ), S( LDA, * ), T( LDA, * ), WORK( * ), Z( LDQ, * );
+      double               A( LDA, * ), ALPHAI( * ), ALPHI1( * ), ALPHAR( * ), ALPHR1( * ), B( LDA, * ), BETA( * ), BETA1( * ), Q( LDQ, * ), QE( LDQE, * ), RESULT( * ), S( LDA, * ), T( LDA, * ), WORK( * ), Z( LDQ, * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       int                MAXTYP;
       const              MAXTYP = 26 ;
@@ -25,11 +25,11 @@
       // .. Local Scalars ..
       bool               BADNN;
       int                I, IADD, IERR, IN, J, JC, JR, JSIZE, JTYPE, MAXWRK, MINWRK, MTYPES, N, N1, NERRS, NMATS, NMAX, NTESTT;
-      REAL               SAFMAX, SAFMIN, ULP, ULPINV;
+      double               SAFMAX, SAFMIN, ULP, ULPINV;
       // ..
       // .. Local Arrays ..
       int                IASIGN( MAXTYP ), IBSIGN( MAXTYP ), IOLDSD( 4 ), KADD( 6 ), KAMAGN( MAXTYP ), KATYPE( MAXTYP ), KAZERO( MAXTYP ), KBMAGN( MAXTYP ), KBTYPE( MAXTYP ), KBZERO( MAXTYP ), KCLASS( MAXTYP ), KTRIAN( MAXTYP ), KZ1( 6 ), KZ2( 6 );
-      REAL               RMAGN( 0: 3 );
+      double               RMAGN( 0: 3 );
       // ..
       // .. External Functions ..
       //- int                ILAENV;

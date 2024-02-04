@@ -1,23 +1,23 @@
-      REAL slapy2(X, Y ) {
+      double slapy2(X, Y ) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
-      REAL               X, Y;
+      double               X, Y;
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO;
+      double               ZERO;
       const              ZERO = 0.0 ;
-      REAL               ONE;
+      double               ONE;
       const              ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
-      REAL               W, XABS, YABS, Z, HUGEVAL;
+      double               W, XABS, YABS, Z, HUGEVAL;
       bool               X_IS_NAN, Y_IS_NAN;
       // ..
       // .. External Functions ..
@@ -25,7 +25,7 @@
       // EXTERNAL SISNAN
       // ..
       // .. External Subroutines ..
-      REAL               SLAMCH;
+      double               SLAMCH;
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, MIN, SQRT

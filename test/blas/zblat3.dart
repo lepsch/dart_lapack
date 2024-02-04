@@ -1611,7 +1611,7 @@
       int                INFOT, NOUTC;
       bool               LERR, OK;
       // .. Parameters ..
-      REAL               ONE, TWO;
+      double               ONE, TWO;
       const              ONE = 1.0, TWO = 2.0 ;
       // .. Local Scalars ..
       Complex         ALPHA, BETA;

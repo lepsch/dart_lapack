@@ -19,7 +19,7 @@
       int                I, INFO, J;
       // ..
       // .. Local Arrays ..
-      REAL               A( NMAX, NMAX ), AF( NMAX, NMAX ), B( NMAX ), W( NMAX ), X( NMAX );
+      double               A( NMAX, NMAX ), AF( NMAX, NMAX ), B( NMAX ), W( NMAX ), X( NMAX );
       // ..
       // .. External Subroutines ..
       // EXTERNAL ALAESM, CHKXER, SGEQR2, SGEQR2P, SGEQRF, SGEQRFP, SORG2R, SORGQR, SORM2R, SORMQR

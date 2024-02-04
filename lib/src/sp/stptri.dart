@@ -9,19 +9,19 @@
       int                INFO, N;
       // ..
       // .. Array Arguments ..
-      REAL               AP( * );
+      double               AP( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ONE, ZERO;
+      double               ONE, ZERO;
       const              ONE = 1.0, ZERO = 0.0 ;
       // ..
       // .. Local Scalars ..
       bool               NOUNIT, UPPER;
       int                J, JC, JCLAST, JJ;
-      REAL               AJJ;
+      double               AJJ;
       // ..
       // .. External Functions ..
       //- bool               lsame;

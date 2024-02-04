@@ -8,14 +8,14 @@
       int                LDA, LDB, LWORK, M, P, N;
       // ..
       // .. Array Arguments ..
-      REAL               RESULT( 4 ), RWORK( * );
+      double               RESULT( 4 ), RWORK( * );
       Complex            A( LDA, * ), AF( LDA, * ), R( LDA, * ), Q( LDA, * ), B( LDB, * ), BF( LDB, * ), T( LDB, * ),  Z( LDB, * ), BWK( LDB, * ), TAUA( * ), TAUB( * ), WORK( LWORK );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       Complex            CZERO, CONE;
       const              CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
@@ -24,7 +24,7 @@
       // ..
       // .. Local Scalars ..
       int                INFO;
-      REAL               ANORM, BNORM, ULP, UNFL, RESID;
+      double               ANORM, BNORM, ULP, UNFL, RESID;
       // ..
       // .. External Functions ..
       //- REAL               SLAMCH, CLANGE, CLANHE;

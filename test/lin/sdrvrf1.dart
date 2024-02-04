@@ -6,17 +6,17 @@
 
       // .. Scalar Arguments ..
       int                LDA, NN, NOUT;
-      REAL               THRESH;
+      double               THRESH;
       // ..
       // .. Array Arguments ..
       int                NVAL( NN );
-      REAL               A( LDA, * ), ARF( * ), WORK( * );
+      double               A( LDA, * ), ARF( * ), WORK( * );
       // ..
 
 // =====================================================================
       // ..
       // .. Parameters ..
-      REAL               ONE;
+      double               ONE;
       const              ONE = 1.0 ;
       int                NTESTS;
       const              NTESTS = 1 ;
@@ -24,12 +24,12 @@
       // .. Local Scalars ..
       String             UPLO, CFORM, NORM;
       int                I, IFORM, IIN, IIT, INFO, INORM, IUPLO, J, N, NERRS, NFAIL, NRUN;
-      REAL               EPS, LARGE, NORMA, NORMARF, SMALL;
+      double               EPS, LARGE, NORMA, NORMARF, SMALL;
       // ..
       // .. Local Arrays ..
       String             UPLOS( 2 ), FORMS( 2 ), NORMS( 4 );
       int                ISEED( 4 ), ISEEDY( 4 );
-      REAL               RESULT( NTESTS );
+      double               RESULT( NTESTS );
       // ..
       // .. External Functions ..
       //- REAL               SLAMCH, SLANSY, SLANSF, SLARND;

@@ -7,21 +7,21 @@
       // .. Scalar Arguments ..
       bool               IEEE;
       int                I0, N0, PP;
-      REAL               DMIN, DMIN1, DMIN2, DN, DNM1, DNM2, TAU, SIGMA, EPS;
+      double               DMIN, DMIN1, DMIN2, DN, DNM1, DNM2, TAU, SIGMA, EPS;
       // ..
       // .. Array Arguments ..
-      REAL               Z( * );
+      double               Z( * );
       // ..
 
 // =====================================================================
 
       // .. Parameter ..
-      REAL               ZERO, HALF;
+      double               ZERO, HALF;
       const              ZERO = 0.0, HALF = 0.5 ;
       // ..
       // .. Local Scalars ..
       int                J4, J4P2;
-      REAL               D, EMIN, TEMP, DTHRESH;
+      double               D, EMIN, TEMP, DTHRESH;
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC MIN

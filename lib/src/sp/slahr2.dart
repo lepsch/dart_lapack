@@ -8,18 +8,18 @@
       int                K, LDA, LDT, LDY, N, NB;
       // ..
       // .. Array Arguments ..
-      REAL              A( LDA, * ), T( LDT, NB ), TAU( NB ), Y( LDY, NB );
+      double              A( LDA, * ), T( LDT, NB ), TAU( NB ), Y( LDY, NB );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL              ZERO, ONE;
+      double              ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
       int                I;
-      REAL              EI;
+      double              EI;
       // ..
       // .. External Subroutines ..
       // EXTERNAL SAXPY, SCOPY, SGEMM, SGEMV, SLACPY, SLARFG, SSCAL, STRMM, STRMV

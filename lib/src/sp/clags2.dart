@@ -6,18 +6,18 @@
 
       // .. Scalar Arguments ..
       bool               UPPER;
-      REAL               A1, A3, B1, B3, CSQ, CSU, CSV;
+      double               A1, A3, B1, B3, CSQ, CSU, CSV;
       Complex            A2, B2, SNQ, SNU, SNV;
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
-      REAL               A, AUA11, AUA12, AUA21, AUA22, AVB11, AVB12, AVB21, AVB22, CSL, CSR, D, FB, FC, S1, S2, SNL, SNR, UA11R, UA22R, VB11R, VB22R;
+      double               A, AUA11, AUA12, AUA21, AUA22, AVB11, AVB12, AVB21, AVB22, CSL, CSR, D, FB, FC, S1, S2, SNL, SNR, UA11R, UA22R, VB11R, VB22R;
       Complex            B, C, D1, R, T, UA11, UA12, UA21, UA22, VB11, VB12, VB21, VB22;
       // ..
       // .. External Subroutines ..
@@ -27,10 +27,10 @@
       // INTRINSIC ABS, AIMAG, CMPLX, CONJG, REAL
       // ..
       // .. Statement Functions ..
-      REAL               ABS1;
+      double               ABS1;
       // ..
       // .. Statement Function definitions ..
-      ABS1[T] = ( REAL( T ) ).abs() + ( AIMAG( T ) ).abs();
+      ABS1[T] = ( double( T ) ).abs() + ( AIMAG( T ) ).abs();
       // ..
       // .. Executable Statements ..
 

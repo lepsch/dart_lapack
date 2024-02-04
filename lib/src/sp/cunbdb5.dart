@@ -14,14 +14,14 @@
 // =====================================================================
 
       // .. Parameters ..
-      REAL               REALZERO;
+      double               REALZERO;
       const              REALZERO = 0.0 ;
       Complex            ONE, ZERO;
       const              ONE = (1.0,0.0), ZERO = (0.0,0.0) ;
       // ..
       // .. Local Scalars ..
       int                CHILDINFO, I, J;
-      REAL               EPS, NORM, SCL, SSQ;
+      double               EPS, NORM, SCL, SSQ;
       // ..
       // .. External Subroutines ..
       // EXTERNAL CLASSQ, CUNBDB6, CSCAL, XERBLA

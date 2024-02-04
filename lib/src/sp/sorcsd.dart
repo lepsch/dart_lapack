@@ -10,18 +10,18 @@
       // ..
       // .. Array Arguments ..
       int                IWORK( * );
-      REAL               THETA( * );
-      REAL               U1( LDU1, * ), U2( LDU2, * ), V1T( LDV1T, * ), V2T( LDV2T, * ), WORK( * ), X11( LDX11, * ), X12( LDX12, * ), X21( LDX21, * ), X22( LDX22, * );
+      double               THETA( * );
+      double               U1( LDU1, * ), U2( LDU2, * ), V1T( LDV1T, * ), V2T( LDV2T, * ), WORK( * ), X11( LDX11, * ), X12( LDX12, * ), X21( LDX21, * ), X22( LDX22, * );
       // ..
 
 // ===================================================================
 
       // .. Parameters ..
-      REAL               ONE, ZERO;
+      double               ONE, ZERO;
       const              ONE = 1.0, ZERO = 0.0 ;
       // ..
       // .. Local Arrays ..
-      REAL               DUMMY(1);
+      double               DUMMY(1);
       // ..
       // .. Local Scalars ..
       String             TRANST, SIGNST;

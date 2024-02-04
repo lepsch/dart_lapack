@@ -9,14 +9,14 @@
       int                INFO, LDB, LDX, N, NRHS;
       // ..
       // .. Array Arguments ..
-      REAL               BERR( * ), FERR( * ), RWORK( * );
+      double               BERR( * ), FERR( * ), RWORK( * );
       Complex            AP( * ), B( LDB, * ), WORK( * ), X( LDX, * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO;
+      double               ZERO;
       const              ZERO = 0.0 ;
       Complex            ONE;
       const              ONE = ( 1.0, 0.0 ) ;
@@ -25,7 +25,7 @@
       bool               NOTRAN, NOUNIT, UPPER;
       String             TRANSN, TRANST;
       int                I, J, K, KASE, KC, NZ;
-      REAL               EPS, LSTRES, S, SAFE1, SAFE2, SAFMIN, XK;
+      double               EPS, LSTRES, S, SAFE1, SAFE2, SAFMIN, XK;
       Complex            ZDUM;
       // ..
       // .. Local Arrays ..
@@ -43,10 +43,10 @@
       // EXTERNAL lsame, SLAMCH
       // ..
       // .. Statement Functions ..
-      REAL               CABS1;
+      double               CABS1;
       // ..
       // .. Statement Function definitions ..
-      CABS1[ZDUM] = ( REAL( ZDUM ) ).abs() + ( AIMAG( ZDUM ) ).abs();
+      CABS1[ZDUM] = ( double( ZDUM ) ).abs() + ( AIMAG( ZDUM ) ).abs();
       // ..
       // .. Executable Statements ..
 

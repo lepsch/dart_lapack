@@ -9,23 +9,23 @@
       int                IHI, ILO, INFO, LDA, N;
       // ..
       // .. Array Arguments ..
-      REAL               A( LDA, * ), SCALE( * );
+      double               A( LDA, * ), SCALE( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
-      REAL               SCLFAC;
+      double               SCLFAC;
       const              SCLFAC = 2.0 ;
-      REAL               FACTOR;
+      double               FACTOR;
       const              FACTOR = 0.95 ;
       // ..
       // .. Local Scalars ..
       bool               NOCONV, CANSWAP;
       int                I, ICA, IRA, J, K, L;
-      REAL               C, CA, F, G, R, RA, S, SFMAX1, SFMAX2, SFMIN1, SFMIN2;
+      double               C, CA, F, G, R, RA, S, SFMAX1, SFMAX2, SFMIN1, SFMIN2;
       // ..
       // .. External Functions ..
       //- bool               SISNAN, lsame;

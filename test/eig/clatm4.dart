@@ -7,7 +7,7 @@
       // .. Scalar Arguments ..
       bool               RSIGN;
       int                IDIST, ITYPE, LDA, N, NZ1, NZ2;
-      REAL               AMAGN, RCOND, TRIANG;
+      double               AMAGN, RCOND, TRIANG;
       // ..
       // .. Array Arguments ..
       int                ISEED( 4 );
@@ -17,14 +17,14 @@
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       Complex            CZERO, CONE;
       const              CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
       int                I, ISDB, ISDE, JC, JD, JR, K, KBEG, KEND, KLEN;
-      REAL               ALPHA;
+      double               ALPHA;
       Complex            CTEMP;
       // ..
       // .. External Functions ..
@@ -130,7 +130,7 @@
          if ( KLEN > 1 ) {
             ALPHA = RCOND**( ONE / REAL( KLEN-1 ) );
             for (I = 2; I <= KLEN; I++) { // 150
-               A[NZ1+I, NZ1+I] = CMPLX( ALPHA**REAL( I-1 ) );
+               A[NZ1+I, NZ1+I] = CMPLX( ALPHA**double( I-1 ) );
             } // 150
          }
          GO TO 220;
@@ -142,7 +142,7 @@
          if ( KLEN > 1 ) {
             ALPHA = ( ONE-RCOND ) / REAL( KLEN-1 );
             for (I = 2; I <= KLEN; I++) { // 170
-               A[NZ1+I, NZ1+I] = CMPLX( REAL( KLEN-I )*ALPHA+RCOND );
+               A[NZ1+I, NZ1+I] = CMPLX( double( KLEN-I )*ALPHA+RCOND );
             } // 170
          }
          GO TO 220;
@@ -168,10 +168,10 @@
          // Scale by AMAGN
 
          for (JD = KBEG; JD <= KEND; JD++) { // 230
-            A[JD, JD] = AMAGN*REAL( A( JD, JD ) );
+            A[JD, JD] = AMAGN*double( A( JD, JD ) );
          } // 230
          for (JD = ISDB; JD <= ISDE; JD++) { // 240
-            A[JD+1, JD] = AMAGN*REAL( A( JD+1, JD ) );
+            A[JD+1, JD] = AMAGN*double( A( JD+1, JD ) );
          } // 240
 
          // If RSIGN = true , assign random signs to diagonal and
@@ -179,17 +179,17 @@
 
          if ( RSIGN ) {
             for (JD = KBEG; JD <= KEND; JD++) { // 250
-               if ( REAL( A( JD, JD ) ) != ZERO ) {
+               if ( double( A( JD, JD ) ) != ZERO ) {
                   CTEMP = CLARND( 3, ISEED );
                   CTEMP = CTEMP / ( CTEMP ).abs();
-                  A[JD, JD] = CTEMP*REAL( A( JD, JD ) );
+                  A[JD, JD] = CTEMP*double( A( JD, JD ) );
                }
             } // 250
             for (JD = ISDB; JD <= ISDE; JD++) { // 260
-               if ( REAL( A( JD+1, JD ) ) != ZERO ) {
+               if ( double( A( JD+1, JD ) ) != ZERO ) {
                   CTEMP = CLARND( 3, ISEED );
                   CTEMP = CTEMP / ( CTEMP ).abs();
-                  A[JD+1, JD] = CTEMP*REAL( A( JD+1, JD ) );
+                  A[JD+1, JD] = CTEMP*double( A( JD+1, JD ) );
                }
             } // 260
          }

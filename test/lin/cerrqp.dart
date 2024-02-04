@@ -21,7 +21,7 @@
       // ..
       // .. Local Arrays ..
       int                IP( NMAX );
-      REAL               RW( 2*NMAX );
+      double               RW( 2*NMAX );
       Complex            A( NMAX, NMAX ), TAU( NMAX ), W( 2*NMAX+3*NMAX );
       // ..
       // .. External Functions ..

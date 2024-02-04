@@ -172,8 +172,9 @@ void zher2k(
           }
           if (I == J) {
             if (BETA == Complex.zero.toDouble()) {
-              C[J][J] =
-                  (ALPHA * TEMP1 + ALPHA.conjugate() * TEMP2).real.toComplex();
+              C[J][J] = (ALPHA * TEMP1 + ALPHA.conjugate() * TEMP2)
+                  .real
+                  .toComplex();
             } else {
               C[J][J] = (BETA * (C[J][J]).toDouble() +
                       (ALPHA * TEMP1 + ALPHA.conjugate() * TEMP2).toDouble())
@@ -201,8 +202,9 @@ void zher2k(
           }
           if (I == J) {
             if (BETA == Complex.zero.toDouble()) {
-              C[J][J] =
-                  (ALPHA * TEMP1 + ALPHA.conjugate() * TEMP2).real.toComplex();
+              C[J][J] = (ALPHA * TEMP1 + ALPHA.conjugate() * TEMP2)
+                  .real
+                  .toComplex();
             } else {
               C[J][J] = (BETA * C[J][J].toDouble() +
                       (ALPHA * TEMP1 + ALPHA.conjugate() * TEMP2).toDouble())

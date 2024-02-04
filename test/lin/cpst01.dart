@@ -5,27 +5,27 @@
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
-      REAL               RESID;
+      double               RESID;
       int                LDA, LDAFAC, LDPERM, N, RANK;
       String             UPLO;
       // ..
       // .. Array Arguments ..
       Complex            A( LDA, * ), AFAC( LDAFAC, * ), PERM( LDPERM, * );
-      REAL               RWORK( * );
+      double               RWORK( * );
       int                PIV( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       Complex            CZERO;
       const              CZERO = ( 0.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
       Complex            TC;
-      REAL               ANORM, EPS, TR;
+      double               ANORM, EPS, TR;
       int                I, J, K;
       // ..
       // .. External Functions ..
@@ -84,7 +84,7 @@
 
             // Compute the (K,K) element of the result.
 
-            TR = REAL( CDOTC( K, AFAC( 1, K ), 1, AFAC( 1, K ), 1 ) );
+            TR = double( CDOTC( K, AFAC( 1, K ), 1, AFAC( 1, K ), 1 ) );
             AFAC[K, K] = TR;
 
             // Compute the rest of column K.
@@ -159,11 +159,11 @@
             for (I = 1; I <= J - 1; I++) { // 210
                PERM[I, J] = PERM( I, J ) - A( I, J );
             } // 210
-            PERM[J, J] = PERM( J, J ) - REAL( A( J, J ) );
+            PERM[J, J] = PERM( J, J ) - double( A( J, J ) );
          } // 220
       } else {
          for (J = 1; J <= N; J++) { // 240
-            PERM[J, J] = PERM( J, J ) - REAL( A( J, J ) );
+            PERM[J, J] = PERM( J, J ) - double( A( J, J ) );
             for (I = J + 1; I <= N; I++) { // 230
                PERM[I, J] = PERM( I, J ) - A( I, J );
             } // 230

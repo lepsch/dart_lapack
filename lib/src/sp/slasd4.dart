@@ -6,10 +6,10 @@
 
       // .. Scalar Arguments ..
       int                I, INFO, N;
-      REAL   RHO, SIGMA;
+      double   RHO, SIGMA;
       // ..
       // .. Array Arguments ..
-      REAL   D( * ), DELTA( * ), WORK( * ), Z( * );
+      double   D( * ), DELTA( * ), WORK( * ), Z( * );
       // ..
 
 // =====================================================================
@@ -17,16 +17,16 @@
       // .. Parameters ..
       int                MAXIT;
       const              MAXIT = 400 ;
-      REAL               ZERO, ONE, TWO, THREE, FOUR, EIGHT, TEN;
+      double               ZERO, ONE, TWO, THREE, FOUR, EIGHT, TEN;
       const              ZERO = 0.0, ONE = 1.0, TWO = 2.0, THREE = 3.0, FOUR = 4.0, EIGHT = 8.0, TEN = 10.0 ;
       // ..
       // .. Local Scalars ..
       bool               ORGATI, SWTCH, SWTCH3, GEOMAVG;
       int                II, IIM1, IIP1, IP1, ITER, J, NITER;
-      REAL               A, B, C, DELSQ, DELSQ2, SQ2, DPHI, DPSI, DTIIM, DTIIP, DTIPSQ, DTISQ, DTNSQ, DTNSQ1, DW, EPS, ERRETM, ETA, PHI, PREW, PSI, RHOINV, SGLB, SGUB, TAU, TAU2, TEMP, TEMP1, TEMP2, W;
+      double               A, B, C, DELSQ, DELSQ2, SQ2, DPHI, DPSI, DTIIM, DTIIP, DTIPSQ, DTISQ, DTNSQ, DTNSQ1, DW, EPS, ERRETM, ETA, PHI, PREW, PSI, RHOINV, SGLB, SGUB, TAU, TAU2, TEMP, TEMP1, TEMP2, W;
       // ..
       // .. Local Arrays ..
-      REAL               DD( 3 ), ZZ( 3 );
+      double               DD( 3 ), ZZ( 3 );
       // ..
       // .. External Subroutines ..
       // EXTERNAL SLAED6, SLASD5

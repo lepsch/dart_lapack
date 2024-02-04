@@ -9,18 +9,18 @@
       // ..
       // .. Array Arguments ..
       int                ISEED( 4 );
-      REAL               A( LDA, * ), D( * ), WORK( * );
+      double               A( LDA, * ), D( * ), WORK( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE, HALF;
+      double               ZERO, ONE, HALF;
       const              ZERO = 0.0, ONE = 1.0, HALF = 0.5 ;
       // ..
       // .. Local Scalars ..
       int                I, J;
-      REAL               ALPHA, TAU, WA, WB, WN;
+      double               ALPHA, TAU, WA, WB, WN;
       // ..
       // .. External Subroutines ..
       // EXTERNAL SAXPY, SGEMV, SGER, SLARNV, SSCAL, SSYMV, SSYR2, XERBLA

@@ -3,7 +3,7 @@
       // external isamax
       int      isamax,iamax;
       int     n,incx;
-      real x(*);
+      double x(*);
 
       iamax=isamax(n,x,incx);
       return;

@@ -11,7 +11,7 @@
       // .. Array Arguments ..
       bool               BWORK( * );
       int                IWORK( * );
-      REAL               A( LDA, * ), ALPHAI( * ), ALPHAR( * ), B( LDB, * ), BETA( * ), RCONDE( 2 ), RCONDV( 2 ), VSL( LDVSL, * ), VSR( LDVSR, * ), WORK( * );
+      double               A( LDA, * ), ALPHAI( * ), ALPHAR( * ), B( LDB, * ), BETA( * ), RCONDE( 2 ), RCONDV( 2 ), VSL( LDVSL, * ), VSR( LDVSR, * ), WORK( * );
       // ..
       // .. Function Arguments ..
       bool               SELCTG;
@@ -21,16 +21,16 @@
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
       bool               CURSL, ILASCL, ILBSCL, ILVSL, ILVSR, LASTSL, LQUERY, LST2SL, WANTSB, WANTSE, WANTSN, WANTST, WANTSV;
       int                I, ICOLS, IERR, IHI, IJOB, IJOBVL, IJOBVR, ILEFT, ILO, IP, IRIGHT, IROWS, ITAU, IWRK, LIWMIN, LWRK, MAXWRK, MINWRK;
-      REAL               ANRM, ANRMTO, BIGNUM, BNRM, BNRMTO, EPS, PL, PR, SAFMAX, SAFMIN, SMLNUM;
+      double               ANRM, ANRMTO, BIGNUM, BNRM, BNRMTO, EPS, PL, PR, SAFMAX, SAFMIN, SMLNUM;
       // ..
       // .. Local Arrays ..
-      REAL               DIF( 2 );
+      double               DIF( 2 );
       // ..
       // .. External Subroutines ..
       // EXTERNAL SGEQRF, SGGBAK, SGGBAL, SGGHRD, SHGEQZ, SLACPY, SLASCL, SLASET, SORGQR, SORMQR, STGSEN, XERBLA

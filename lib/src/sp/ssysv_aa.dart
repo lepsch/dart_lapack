@@ -10,7 +10,7 @@
       // ..
       // .. Array Arguments ..
       int                IPIV( * );
-      REAL               A( LDA, * ), B( LDB, * ), WORK( * );
+      double               A( LDA, * ), B( LDB, * ), WORK( * );
       // ..
 
 // =====================================================================
@@ -22,7 +22,7 @@
       // .. External Functions ..
       //- bool               lsame;
       // EXTERNAL lsame
-      REAL               SROUNDUP_LWORK;
+      double               SROUNDUP_LWORK;
       // EXTERNAL SROUNDUP_LWORK
       // ..
       // .. External Subroutines ..

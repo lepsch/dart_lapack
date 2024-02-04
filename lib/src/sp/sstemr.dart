@@ -8,24 +8,24 @@
       String             JOBZ, RANGE;
       bool               TRYRAC;
       int                IL, INFO, IU, LDZ, NZC, LIWORK, LWORK, M, N;
-      REAL               VL, VU;
+      double               VL, VU;
       // ..
       // .. Array Arguments ..
       int                ISUPPZ( * ), IWORK( * );
-      REAL               D( * ), E( * ), W( * ), WORK( * );
-      REAL               Z( LDZ, * );
+      double               D( * ), E( * ), W( * ), WORK( * );
+      double               Z( LDZ, * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE, FOUR, MINRGP;
+      double               ZERO, ONE, FOUR, MINRGP;
       const              ZERO = 0.0, ONE = 1.0, FOUR = 4.0, MINRGP = 3.0e-3 ;
       // ..
       // .. Local Scalars ..
       bool               ALLEIG, INDEIG, LQUERY, VALEIG, WANTZ, ZQUERY, LAESWAP;
       int                I, IBEGIN, IEND, IFIRST, IIL, IINDBL, IINDW, IINDWK, IINFO, IINSPL, IIU, ILAST, IN, INDD, INDE2, INDERR, INDGP, INDGRS, INDWRK, ITMP, ITMP2, J, JBLK, JJ, LIWMIN, LWMIN, NSPLIT, NZCMIN, OFFSET, WBEGIN, WEND;
-      REAL               BIGNUM, CS, EPS, PIVMIN, R1, R2, RMAX, RMIN, RTOL1, RTOL2, SAFMIN, SCALE, SMLNUM, SN, THRESH, TMP, TNRM, WL, WU;
+      double               BIGNUM, CS, EPS, PIVMIN, R1, R2, RMAX, RMIN, RTOL1, RTOL2, SAFMIN, SCALE, SMLNUM, SN, THRESH, TMP, TNRM, WL, WU;
       // ..
       // ..
       // .. External Functions ..

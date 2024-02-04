@@ -8,13 +8,13 @@
       int     INCX,INCY,N;
       // ..
       // .. Array Arguments ..
-      REAL SX(*),SY(*);
+      double SX(*),SY(*);
       // ..
 
 // =====================================================================
 
       // .. Local Scalars ..
-      REAL STEMP;
+      double STEMP;
       int     I,IX,IY,M,MP1;
       // ..
       // .. Intrinsic Functions ..

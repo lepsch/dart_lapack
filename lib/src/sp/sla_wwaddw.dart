@@ -8,13 +8,13 @@
       int                N;
       // ..
       // .. Array Arguments ..
-      REAL               X( * ), Y( * ), W( * );
+      double               X( * ), Y( * ), W( * );
       // ..
 
 // =====================================================================
 
       // .. Local Scalars ..
-      REAL               S;
+      double               S;
       int                I;
       // ..
       // .. Executable Statements ..

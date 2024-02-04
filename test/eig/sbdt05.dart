@@ -6,21 +6,21 @@
 
       // .. Scalar Arguments ..
       int                LDA, LDU, LDVT, M, N, NS;
-      REAL               RESID;
+      double               RESID;
       // ..
       // .. Array Arguments ..
-      REAL               A( LDA, * ), S( * ), U( LDU, * ), VT( LDVT, * ), WORK( * );
+      double               A( LDA, * ), S( * ), U( LDU, * ), VT( LDVT, * ), WORK( * );
       // ..
 
 // ======================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
       int                I, J;
-      REAL               ANORM, EPS;
+      double               ANORM, EPS;
       // ..
       // .. External Functions ..
       //- bool               lsame;
@@ -64,7 +64,7 @@
             RESID = ( RESID / ANORM ) / ( REAL( N )*EPS );
          } else {
             if ( ANORM < ONE ) {
-               RESID = ( min( RESID, REAL( N )*ANORM ) / ANORM ) / ( REAL( N )*EPS );
+               RESID = ( min( RESID, double( N )*ANORM ) / ANORM ) / ( REAL( N )*EPS );
             } else {
                RESID = min( RESID / ANORM, REAL( N ) ) / ( REAL( N )*EPS );
             }

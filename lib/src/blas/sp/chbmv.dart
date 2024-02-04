@@ -120,7 +120,7 @@
                       Y[I] = Y(I) + TEMP1*A(L+I,J);
                       TEMP2 = TEMP2 + CONJG(A(L+I,J))*X(I);
                   } // 50
-                  Y[J] = Y(J) + TEMP1*REAL(A(KPLUS1,J)) + ALPHA*TEMP2;
+                  Y[J] = Y(J) + TEMP1*double(A(KPLUS1,J)) + ALPHA*TEMP2;
               } // 60
           } else {
               JX = KX;
@@ -137,7 +137,7 @@
                       IX = IX + INCX;
                       IY = IY + INCY;
                   } // 70
-                  Y[JY] = Y(JY) + TEMP1*REAL(A(KPLUS1,J)) + ALPHA*TEMP2;
+                  Y[JY] = Y(JY) + TEMP1*double(A(KPLUS1,J)) + ALPHA*TEMP2;
                   JX = JX + INCX;
                   JY = JY + INCY;
                   if (J > K) {
@@ -154,7 +154,7 @@
               for (J = 1; J <= N; J++) { // 100
                   TEMP1 = ALPHA*X(J);
                   TEMP2 = ZERO;
-                  Y[J] = Y(J) + TEMP1*REAL(A(1,J));
+                  Y[J] = Y(J) + TEMP1*double(A(1,J));
                   L = 1 - J;
                   for (I = J + 1; I <= min(N,J+K); I++) { // 90
                       Y[I] = Y(I) + TEMP1*A(L+I,J);
@@ -168,7 +168,7 @@
               for (J = 1; J <= N; J++) { // 120
                   TEMP1 = ALPHA*X(JX);
                   TEMP2 = ZERO;
-                  Y[JY] = Y(JY) + TEMP1*REAL(A(1,J));
+                  Y[JY] = Y(JY) + TEMP1*double(A(1,J));
                   L = 1 - J;
                   IX = JX;
                   IY = JY;

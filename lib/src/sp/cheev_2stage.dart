@@ -11,14 +11,14 @@
       int                INFO, LDA, LWORK, N;
       // ..
       // .. Array Arguments ..
-      REAL               RWORK( * ), W( * );
+      double               RWORK( * ), W( * );
       Complex            A( LDA, * ), WORK( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       Complex            CONE;
       const              CONE = ( 1.0, 0.0 ) ;
@@ -26,7 +26,7 @@
       // .. Local Scalars ..
       bool               LOWER, LQUERY, WANTZ;
       int                IINFO, IMAX, INDE, INDTAU, INDWRK, ISCALE, LLWORK, LWMIN, LHTRD, LWTRD, KD, IB, INDHOUS;
-      REAL               ANRM, BIGNUM, EPS, RMAX, RMIN, SAFMIN, SIGMA, SMLNUM;
+      double               ANRM, BIGNUM, EPS, RMAX, RMIN, SAFMIN, SIGMA, SMLNUM;
       // ..
       // .. External Functions ..
       //- bool               lsame;
@@ -84,7 +84,7 @@
       }
 
       if ( N == 1 ) {
-         W[1] = REAL( A( 1, 1 ) );
+         W[1] = double( A( 1, 1 ) );
          WORK[1] = 1;
          if (WANTZ) A( 1, 1 ) = CONE;
          return;

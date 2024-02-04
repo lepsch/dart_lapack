@@ -15,7 +15,7 @@
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ONE;
+      double               ONE;
       const              ONE = 1.0 ;
       Complex            CONE, HALF;
       const              CONE = ( 1.0, 0.0 ), HALF = ( 0.5, 0.0 ) ;

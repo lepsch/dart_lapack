@@ -17,12 +17,12 @@
       // .. Parameters ..
       Complex            ZERO, ONE;
       const              ZERO = ( 0.0, 0.0 ), ONE = ( 1.0, 0.0 ) ;
-      REAL               RZERO, RONE;
+      double               RZERO, RONE;
       const              RZERO = 0.0, RONE = 1.0 ;
       // ..
       // .. Local Scalars ..
       Complex            ALPHA, BETA, CDUM, REFSUM, T1, T2, T3;
-      REAL               H11, H12, H21, H22, SAFMAX, SAFMIN, SCL, SMLNUM, TST1, TST2, ULP;
+      double               H11, H12, H21, H22, SAFMAX, SAFMIN, SCL, SMLNUM, TST1, TST2, ULP;
       int                I2, I4, INCOL, J, JBOT, JCOL, JLEN, JROW, JTOP, K, K1, KDU, KMS, KRCOL, M, M22, MBOT, MTOP, NBMPS, NDCOL, NS, NU;
       bool               ACCUM, BMP22;
       // ..
@@ -41,10 +41,10 @@
       // EXTERNAL CGEMM, CLACPY, CLAQR1, CLARFG, CLASET, CTRMM
       // ..
       // .. Statement Functions ..
-      REAL               CABS1;
+      double               CABS1;
       // ..
       // .. Statement Function definitions ..
-      CABS1[CDUM] = ( REAL( CDUM ) ).abs() + ( AIMAG( CDUM ) ).abs();
+      CABS1[CDUM] = ( double( CDUM ) ).abs() + ( AIMAG( CDUM ) ).abs();
       // ..
       // .. Executable Statements ..
 
@@ -67,7 +67,7 @@
       SAFMIN = SLAMCH( 'SAFE MINIMUM' );
       SAFMAX = RONE / SAFMIN;
       ULP = SLAMCH( 'PRECISION' );
-      SMLNUM = SAFMIN*( REAL( N ) / ULP );
+      SMLNUM = SAFMIN*( double( N ) / ULP );
 
       // ==== Use accumulated reflections to update far-from-diagonal
       // .    entries ? ====

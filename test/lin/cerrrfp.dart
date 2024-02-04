@@ -14,7 +14,7 @@
       // .. Local Scalars ..
       int                INFO;
       Complex            ALPHACMPLX;
-      REAL               ALPHA, BETA;
+      double               ALPHA, BETA;
       // ..
       // .. Local Arrays ..
       Complex            A( 1, 1), B( 1, 1);

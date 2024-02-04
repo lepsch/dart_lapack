@@ -7,21 +7,21 @@
       // .. Scalar Arguments ..
       String             EQUED;
       int                LDA, M, N;
-      REAL               AMAX, COLCND, ROWCND;
+      double               AMAX, COLCND, ROWCND;
       // ..
       // .. Array Arguments ..
-      REAL               A( LDA, * ), C( * ), R( * );
+      double               A( LDA, * ), C( * ), R( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ONE, THRESH;
+      double               ONE, THRESH;
       const              ONE = 1.0, THRESH = 0.1 ;
       // ..
       // .. Local Scalars ..
       int                I, J;
-      REAL               CJ, LARGE, SMALL;
+      double               CJ, LARGE, SMALL;
       // ..
       // .. External Functions ..
       //- REAL               SLAMCH;

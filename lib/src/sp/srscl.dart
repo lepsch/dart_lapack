@@ -6,21 +6,21 @@
 
       // .. Scalar Arguments ..
       int                INCX, N;
-      REAL               SA;
+      double               SA;
       // ..
       // .. Array Arguments ..
-      REAL               SX( * );
+      double               SX( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ONE, ZERO;
+      double               ONE, ZERO;
       const              ONE = 1.0, ZERO = 0.0 ;
       // ..
       // .. Local Scalars ..
       bool               DONE;
-      REAL               BIGNUM, CDEN, CDEN1, CNUM, CNUM1, MUL, SMLNUM;
+      double               BIGNUM, CDEN, CDEN1, CNUM, CNUM1, MUL, SMLNUM;
       // ..
       // .. External Functions ..
       //- REAL               SLAMCH;

@@ -9,19 +9,19 @@
       int                INFO, K, LDA, LDC, M, N;
       // ..
       // .. Array Arguments ..
-      REAL               A( LDA, * ), C( LDC, * ), TAU( * ), WORK( * );
+      double               A( LDA, * ), C( LDC, * ), TAU( * ), WORK( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ONE;
+      double               ONE;
       const              ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
       bool               LEFT, NOTRAN;
       int                I, I1, I2, I3, MI, NI, NQ;
-      REAL               AII;
+      double               AII;
       // ..
       // .. External Functions ..
       //- bool               lsame;

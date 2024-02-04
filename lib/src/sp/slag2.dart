@@ -6,24 +6,24 @@
 
       // .. Scalar Arguments ..
       int                LDA, LDB;
-      REAL               SAFMIN, SCALE1, SCALE2, WI, WR1, WR2;
+      double               SAFMIN, SCALE1, SCALE2, WI, WR1, WR2;
       // ..
       // .. Array Arguments ..
-      REAL               A( LDA, * ), B( LDB, * );
+      double               A( LDA, * ), B( LDB, * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE, TWO;
+      double               ZERO, ONE, TWO;
       const              ZERO = 0.0, ONE = 1.0, TWO = 2.0 ;
-      REAL               HALF;
+      double               HALF;
       const              HALF = ONE / TWO ;
-      REAL               FUZZY1;
+      double               FUZZY1;
       const              FUZZY1 = ONE+1.0e-5 ;
       // ..
       // .. Local Scalars ..
-      REAL               A11, A12, A21, A22, ABI22, ANORM, AS11, AS12, AS22, ASCALE, B11, B12, B22, BINV11, BINV22, BMIN, BNORM, BSCALE, BSIZE, C1, C2, C3, C4, C5, DIFF, DISCR, PP, QQ, R, RTMAX, RTMIN, S1, S2, SAFMAX, SHIFT, SS, SUM, WABS, WBIG, WDET, WSCALE, WSIZE, WSMALL;
+      double               A11, A12, A21, A22, ABI22, ANORM, AS11, AS12, AS22, ASCALE, B11, B12, B22, BINV11, BINV22, BMIN, BNORM, BSCALE, BSIZE, C1, C2, C3, C4, C5, DIFF, DISCR, PP, QQ, R, RTMAX, RTMIN, S1, S2, SAFMAX, SHIFT, SS, SUM, WABS, WBIG, WDET, WSCALE, WSIZE, WSMALL;
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, MIN, SIGN, SQRT

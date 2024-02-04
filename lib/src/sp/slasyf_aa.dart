@@ -12,17 +12,17 @@
       // ..
       // .. Array Arguments ..
       int                IPIV( * );
-      REAL               A( LDA, * ), H( LDH, * ), WORK( * );
+      double               A( LDA, * ), H( LDH, * ), WORK( * );
       // ..
 
 // =====================================================================
       // .. Parameters ..
-      REAL   ZERO, ONE;
+      double   ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
 
       // .. Local Scalars ..
       int                J, K, K1, I1, I2, MJ;
-      REAL               PIV, ALPHA;
+      double               PIV, ALPHA;
       // ..
       // .. External Functions ..
       //- bool               lsame;

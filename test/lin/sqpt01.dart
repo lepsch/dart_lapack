@@ -1,4 +1,4 @@
-      REAL sqpt01(M, N, K, A, AF, LDA, TAU, JPVT, WORK, LWORK ) {
+      double sqpt01(M, N, K, A, AF, LDA, TAU, JPVT, WORK, LWORK ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -9,21 +9,21 @@
       // ..
       // .. Array Arguments ..
       int                JPVT( * );
-      REAL               A( LDA, * ), AF( LDA, * ), TAU( * ), WORK( LWORK );
+      double               A( LDA, * ), AF( LDA, * ), TAU( * ), WORK( LWORK );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
       int                I, INFO, J;
-      REAL               NORMA;
+      double               NORMA;
       // ..
       // .. Local Arrays ..
-      REAL               RWORK( 1 );
+      double               RWORK( 1 );
       // ..
       // .. External Functions ..
       //- REAL               SLAMCH, SLANGE;

@@ -6,12 +6,12 @@
 
       // .. Scalar Arguments ..
       int                INFO, LDA, LDLRE, LDVL, LDVR, NOUNIT, NSIZES, NTYPES, NWORK;
-      REAL               THRESH;
+      double               THRESH;
       // ..
       // .. Array Arguments ..
       bool               DOTYPE( * );
       int                ISEED( 4 ), IWORK( * ), NN( * );
-      REAL               RESULT( 7 ), RWORK( * );
+      double               RESULT( 7 ), RWORK( * );
       Complex            A( LDA, * ), H( LDA, * ), LRE( LDLRE, * ), VL( LDVL, * ), VR( LDVR, * ), W( * ), W1( * ), WORK( * );
       // ..
 
@@ -22,9 +22,9 @@
       const              CZERO = ( 0.0, 0.0 ) ;
       Complex            CONE;
       const              CONE = ( 1.0, 0.0 ) ;
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
-      REAL               TWO;
+      double               TWO;
       const              TWO = 2.0 ;
       int                MAXTYP;
       const              MAXTYP = 21 ;
@@ -33,11 +33,11 @@
       bool               BADNN;
       String             PATH;
       int                IINFO, IMODE, ITYPE, IWK, J, JCOL, JJ, JSIZE, JTYPE, MTYPES, N, NERRS, NFAIL, NMAX, NNWORK, NTEST, NTESTF, NTESTT;
-      REAL               ANORM, COND, CONDS, OVFL, RTULP, RTULPI, TNRM, ULP, ULPINV, UNFL, VMX, VRMX, VTST;
+      double               ANORM, COND, CONDS, OVFL, RTULP, RTULPI, TNRM, ULP, ULPINV, UNFL, VMX, VRMX, VTST;
       // ..
       // .. Local Arrays ..
       int                IDUMMA( 1 ), IOLDSD( 4 ), KCONDS( MAXTYP ), KMAGN( MAXTYP ), KMODE( MAXTYP ), KTYPE( MAXTYP );
-      REAL               RES( 2 );
+      double               RES( 2 );
       Complex            DUM( 1 );
       // ..
       // .. External Functions ..
@@ -322,7 +322,7 @@
                   for (JJ = 1; JJ <= N; JJ++) { // 110
                      VTST = ( VR( JJ, J ) ).abs();
                      if (VTST > VMX) VMX = VTST;
-                     IF( AIMAG( VR( JJ, J ) ) == ZERO && ABS( REAL( VR( JJ, J ) ) ) > VRMX ) VRMX = ABS( REAL( VR( JJ, J ) ) );
+                     IF( AIMAG( VR( JJ, J ) ) == ZERO && ABS( REAL( VR( JJ, J ) ) ) > VRMX ) VRMX = ABS( double( VR( JJ, J ) ) );
                   } // 110
                   if (VRMX / VMX < ONE-TWO*ULP) RESULT( 3 ) = ULPINV;
                } // 120
@@ -337,7 +337,7 @@
                   for (JJ = 1; JJ <= N; JJ++) { // 130
                      VTST = ( VL( JJ, J ) ).abs();
                      if (VTST > VMX) VMX = VTST;
-                     IF( AIMAG( VL( JJ, J ) ) == ZERO && ABS( REAL( VL( JJ, J ) ) ) > VRMX ) VRMX = ABS( REAL( VL( JJ, J ) ) );
+                     IF( AIMAG( VL( JJ, J ) ) == ZERO && ABS( REAL( VL( JJ, J ) ) ) > VRMX ) VRMX = ABS( double( VL( JJ, J ) ) );
                   } // 130
                   if (VRMX / VMX < ONE-TWO*ULP) RESULT( 4 ) = ULPINV;
                } // 140

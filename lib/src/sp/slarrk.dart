@@ -6,21 +6,21 @@
 
       // .. Scalar Arguments ..
       int       INFO, IW, N;
-      REAL                PIVMIN, RELTOL, GL, GU, W, WERR;
+      double                PIVMIN, RELTOL, GL, GU, W, WERR;
       // ..
       // .. Array Arguments ..
-      REAL               D( * ), E2( * );
+      double               D( * ), E2( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               FUDGE, HALF, TWO, ZERO;
+      double               FUDGE, HALF, TWO, ZERO;
       const              HALF = 0.5, TWO = 2.0, FUDGE = TWO, ZERO = 0.0 ;
       // ..
       // .. Local Scalars ..
       int       I, IT, ITMAX, NEGCNT;
-      REAL               ATOLI, EPS, LEFT, MID, RIGHT, RTOLI, TMP1, TMP2, TNORM;
+      double               ATOLI, EPS, LEFT, MID, RIGHT, RTOLI, TMP1, TMP2, TNORM;
       // ..
       // .. External Functions ..
       //- REAL               SLAMCH;

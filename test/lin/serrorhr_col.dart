@@ -20,7 +20,7 @@
       int                I, INFO, J;
       // ..
       // .. Local Arrays ..
-      REAL               A( NMAX, NMAX ), T( NMAX, NMAX ), D(NMAX);
+      double               A( NMAX, NMAX ), T( NMAX, NMAX ), D(NMAX);
       // ..
       // .. External Subroutines ..
       // EXTERNAL ALAESM, CHKXER, SORHR_COL

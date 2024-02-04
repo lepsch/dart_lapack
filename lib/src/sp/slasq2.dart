@@ -8,21 +8,21 @@
       int                INFO, N;
       // ..
       // .. Array Arguments ..
-      REAL               Z( * );
+      double               Z( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               CBIAS;
+      double               CBIAS;
       const              CBIAS = 1.50 ;
-      REAL               ZERO, HALF, ONE, TWO, FOUR, HUNDRD;
+      double               ZERO, HALF, ONE, TWO, FOUR, HUNDRD;
       const              ZERO = 0.0, HALF = 0.5, ONE = 1.0, TWO = 2.0, FOUR = 4.0, HUNDRD = 100.0 ;
       // ..
       // .. Local Scalars ..
       bool               IEEE;
       int                I0, I4, IINFO, IPN4, ITER, IWHILA, IWHILB, K, KMIN, N0, NBIG, NDIV, NFAIL, PP, SPLT, TTYPE, I1, N1;
-      REAL               D, DEE, DEEMIN, DESIG, DMIN, DMIN1, DMIN2, DN, DN1, DN2, E, EMAX, EMIN, EPS, G, OLDEMN, QMAX, QMIN, S, SAFMIN, SIGMA, T, TAU, TEMP, TOL, TOL2, TRACE, ZMAX, TEMPE, TEMPQ;
+      double               D, DEE, DEEMIN, DESIG, DMIN, DMIN1, DMIN2, DN, DN1, DN2, E, EMAX, EMIN, EPS, G, OLDEMN, QMAX, QMIN, S, SAFMIN, SIGMA, T, TAU, TEMP, TOL, TOL2, TRACE, ZMAX, TEMPE, TEMPQ;
       // ..
       // .. External Subroutines ..
       // EXTERNAL SLASQ3, SLASRT, XERBLA
@@ -457,8 +457,8 @@
 
       Z[2*N+1] = TRACE;
       Z[2*N+2] = E;
-      Z[2*N+3] = REAL( ITER );
-      Z[2*N+4] = REAL( NDIV ) / REAL( N**2 );
+      Z[2*N+3] = double( ITER );
+      Z[2*N+4] = double( NDIV ) / REAL( N**2 );
       Z[2*N+5] = HUNDRD*NFAIL / REAL( ITER );
       return;
       }

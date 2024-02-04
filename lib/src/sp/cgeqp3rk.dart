@@ -7,11 +7,11 @@
 
       // .. Scalar Arguments ..
       int                INFO, K, KF, KMAX, LDA, LWORK, M, N, NRHS;
-      REAL               ABSTOL,  MAXC2NRMK, RELMAXC2NRMK, RELTOL;
+      double               ABSTOL,  MAXC2NRMK, RELMAXC2NRMK, RELTOL;
       // ..
       // .. Array Arguments ..
       int                IWORK( * ), JPIV( * );
-      REAL               RWORK( * );
+      double               RWORK( * );
       Complex            A( LDA, * ), TAU( * ), WORK( * );
       // ..
 
@@ -20,7 +20,7 @@
       // .. Parameters ..
       int                INB, INBMIN, IXOVER;
       const              INB = 1, INBMIN = 2, IXOVER = 3 ;
-      REAL               ZERO, ONE, TWO;
+      double               ZERO, ONE, TWO;
       const              ZERO = 0.0, ONE = 1.0, TWO = 2.0 ;
       Complex            CZERO;
       const              CZERO = ( 0.0, 0.0 ) ;
@@ -28,7 +28,7 @@
       // .. Local Scalars ..
       bool               LQUERY, DONE;
       int                IINFO, IOFFSET, IWS, J, JB, JBF, JMAXB, JMAX, JMAXC2NRM, KP1, LWKOPT, MINMN, N_SUB, NB, NBMIN, NX;
-      REAL               EPS, HUGEVAL, MAXC2NRM, SAFMIN;
+      double               EPS, HUGEVAL, MAXC2NRM, SAFMIN;
       // ..
       // .. External Subroutines ..
       // EXTERNAL CLAQP2RK, CLAQP3RK, XERBLA

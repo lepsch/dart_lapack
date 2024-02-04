@@ -10,7 +10,7 @@
       // ..
       // .. Array Arguments ..
       bool               BWORK( * );
-      REAL               RWORK( * );
+      double               RWORK( * );
       Complex            A( LDA, * ), VS( LDVS, * ), W( * ), WORK( * );
       // ..
       // .. Function Arguments ..
@@ -21,16 +21,16 @@
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
       bool               LQUERY, SCALEA, WANTST, WANTVS;
       int                HSWORK, I, IBAL, ICOND, IERR, IEVAL, IHI, ILO, ITAU, IWRK, MAXWRK, MINWRK;
-      REAL               ANRM, BIGNUM, CSCALE, EPS, S, SEP, SMLNUM;
+      double               ANRM, BIGNUM, CSCALE, EPS, S, SEP, SMLNUM;
       // ..
       // .. Local Arrays ..
-      REAL               DUM( 1 );
+      double               DUM( 1 );
       // ..
       // .. External Subroutines ..
       // EXTERNAL CCOPY, CGEBAK, CGEBAL, CGEHRD, CHSEQR, CLACPY, CLASCL, CTRSEN, CUNGHR, XERBLA

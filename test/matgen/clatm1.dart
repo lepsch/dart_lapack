@@ -6,7 +6,7 @@
 
       // .. Scalar Arguments ..
       int                IDIST, INFO, IRSIGN, MODE, N;
-      REAL               COND;
+      double               COND;
       // ..
       // .. Array Arguments ..
       int                ISEED( 4 );
@@ -16,12 +16,12 @@
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ONE;
+      double               ONE;
       const              ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
       int                I;
-      REAL               ALPHA, TEMP;
+      double               ALPHA, TEMP;
       Complex            CTEMP;
       // ..
       // .. External Functions ..
@@ -107,7 +107,7 @@
             TEMP = ONE / COND;
             ALPHA = ( ONE-TEMP ) / REAL( N-1 );
             for (I = 2; I <= N; I++) { // 80
-               D[I] = REAL( N-I )*ALPHA + TEMP;
+               D[I] = double( N-I )*ALPHA + TEMP;
             } // 80
          }
          GO TO 120;

@@ -11,19 +11,19 @@
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO;
+      double               ZERO;
       const              ZERO = 0.0 ;
       // ..
       // .. Local Scalars ..
       int                I;
-      REAL               RMIN, X;
+      double               RMIN, X;
       // ..
       // .. Scalars in Common ..
       int                SELDIM, SELOPT;
       // ..
       // .. Arrays in Common ..
       bool               SELVAL( 20 );
-      REAL               SELWI( 20 ), SELWR( 20 );
+      double               SELWI( 20 ), SELWR( 20 );
       // ..
       // .. Common blocks ..
       // COMMON / SSLCT / SELOPT, SELDIM, SELVAL, SELWR, SELWI
@@ -34,7 +34,7 @@
       // .. Executable Statements ..
 
       if ( SELOPT == 0 ) {
-         CSLECT = ( REAL( Z ) < ZERO );
+         CSLECT = ( double( Z ) < ZERO );
       } else {
          RMIN = ABS( Z-CMPLX( SELWR( 1 ), SELWI( 1 ) ) );
          CSLECT = SELVAL( 1 );

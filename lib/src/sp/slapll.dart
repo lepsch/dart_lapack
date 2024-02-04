@@ -6,20 +6,20 @@
 
       // .. Scalar Arguments ..
       int                INCX, INCY, N;
-      REAL               SSMIN;
+      double               SSMIN;
       // ..
       // .. Array Arguments ..
-      REAL               X( * ), Y( * );
+      double               X( * ), Y( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
-      REAL               A11, A12, A22, C, SSMAX, TAU;
+      double               A11, A12, A22, C, SSMAX, TAU;
       // ..
       // .. External Functions ..
       //- REAL               SDOT;

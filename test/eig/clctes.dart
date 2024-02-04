@@ -30,11 +30,11 @@ bool clctes(Z, D) {
     if (REAL(Z) == ZERO || REAL(D) == ZERO) {
       CLCTES = (SIGN(ONE, AIMAG(Z)) != SIGN(ONE, AIMAG(D)));
     } else if (AIMAG(Z) == ZERO || AIMAG(D) == ZERO) {
-      CLCTES = (SIGN(ONE, REAL(Z)) != SIGN(ONE, REAL(D)));
+      CLCTES = (SIGN(ONE, REAL(Z)) != SIGN(ONE, double(D)));
     } else {
-      ZMAX = max((REAL(Z)).abs(), (AIMAG(Z))).abs();
+      ZMAX = max((double(Z)).abs(), (AIMAG(Z))).abs();
       CLCTES =
-          ((REAL(Z) / ZMAX) * REAL(D) + (AIMAG(Z) / ZMAX) * AIMAG(D) < ZERO);
+          ((double(Z) / ZMAX) * REAL(D) + (AIMAG(Z) / ZMAX) * AIMAG(D) < ZERO);
     }
   }
 

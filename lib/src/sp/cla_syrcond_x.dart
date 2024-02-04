@@ -1,4 +1,4 @@
-      REAL cla_syrcond_x(UPLO, N, A, LDA, AF, LDAF, IPIV, X, INFO, WORK, RWORK ) {
+      double cla_syrcond_x(UPLO, N, A, LDA, AF, LDAF, IPIV, X, INFO, WORK, RWORK ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -11,14 +11,14 @@
       // .. Array Arguments ..
       int                IPIV( * );
       Complex            A( LDA, * ), AF( LDAF, * ), WORK( * ), X( * );
-      REAL               RWORK( * );
+      double               RWORK( * );
       // ..
 
 // =====================================================================
 
       // .. Local Scalars ..
       int                KASE;
-      REAL               AINVNM, ANORM, TMP;
+      double               AINVNM, ANORM, TMP;
       int                I, J;
       bool               UP, UPPER;
       Complex            ZDUM;
@@ -37,10 +37,10 @@
       // INTRINSIC ABS, MAX
       // ..
       // .. Statement Functions ..
-      REAL               CABS1;
+      double               CABS1;
       // ..
       // .. Statement Function Definitions ..
-      CABS1[ZDUM] = ( REAL( ZDUM ) ).abs() + ( AIMAG( ZDUM ) ).abs();
+      CABS1[ZDUM] = ( double( ZDUM ) ).abs() + ( AIMAG( ZDUM ) ).abs();
       // ..
       // .. Executable Statements ..
 

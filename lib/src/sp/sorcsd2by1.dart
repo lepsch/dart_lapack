@@ -9,15 +9,15 @@
       int                INFO, LDU1, LDU2, LDV1T, LWORK, LDX11, LDX21, M, P, Q;
       // ..
       // .. Array Arguments ..
-      REAL               THETA(*);
-      REAL               U1(LDU1,*), U2(LDU2,*), V1T(LDV1T,*), WORK(*), X11(LDX11,*), X21(LDX21,*);
+      double               THETA(*);
+      double               U1(LDU1,*), U2(LDU2,*), V1T(LDV1T,*), WORK(*), X11(LDX11,*), X21(LDX21,*);
       int                IWORK(*);
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ONE, ZERO;
+      double               ONE, ZERO;
       const              ONE = 1.0, ZERO = 0.0 ;
       // ..
       // .. Local Scalars ..
@@ -25,7 +25,7 @@
       bool               LQUERY, WANTU1, WANTU2, WANTV1T;
       // ..
       // .. Local Arrays ..
-      REAL               DUM1(1), DUM2(1,1);
+      double               DUM1(1), DUM2(1,1);
       // ..
       // .. External Subroutines ..
       // EXTERNAL SBBCSD, SCOPY, SLACPY, SLAPMR, SLAPMT, SORBDB1, SORBDB2, SORBDB3, SORBDB4, SORGLQ, SORGQR, XERBLA

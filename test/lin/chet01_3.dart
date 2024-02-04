@@ -7,25 +7,25 @@
       // .. Scalar Arguments ..
       String             UPLO;
       int                LDA, LDAFAC, LDC, N;
-      REAL               RESID;
+      double               RESID;
       // ..
       // .. Array Arguments ..
       int                IPIV( * );
-      REAL               RWORK( * );
+      double               RWORK( * );
       Complex            A( LDA, * ), AFAC( LDAFAC, * ), C( LDC, * ), E( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       Complex            CZERO, CONE;
       const              CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
       int                I, INFO, J;
-      REAL               ANORM, EPS;
+      double               ANORM, EPS;
       // ..
       // .. External Functions ..
       //- bool               lsame;
@@ -85,11 +85,11 @@
             for (I = 1; I <= J - 1; I++) {
                C[I, J] = C( I, J ) - A( I, J );
             }
-            C[J, J] = C( J, J ) - REAL( A( J, J ) );
+            C[J, J] = C( J, J ) - double( A( J, J ) );
          }
       } else {
          for (J = 1; J <= N; J++) {
-            C[J, J] = C( J, J ) - REAL( A( J, J ) );
+            C[J, J] = C( J, J ) - double( A( J, J ) );
             for (I = J + 1; I <= N; I++) {
                C[I, J] = C( I, J ) - A( I, J );
             }

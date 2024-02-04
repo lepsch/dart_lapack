@@ -7,25 +7,25 @@
       // .. Scalar Arguments ..
       bool               LREAL, LTRAN;
       int                INFO, LDT, N;
-      REAL               SCALE, W;
+      double               SCALE, W;
       // ..
       // .. Array Arguments ..
-      REAL               B( * ), T( LDT, * ), WORK( * ), X( * );
+      double               B( * ), T( LDT, * ), WORK( * ), X( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
       bool               NOTRAN;
       int                I, IERR, J, J1, J2, JNEXT, K, N1, N2;
-      REAL               BIGNUM, EPS, REC, SCALOC, SI, SMIN, SMINW, SMLNUM, SR, TJJ, TMP, XJ, XMAX, XNORM, Z;
+      double               BIGNUM, EPS, REC, SCALOC, SI, SMIN, SMINW, SMLNUM, SR, TJJ, TMP, XJ, XMAX, XNORM, Z;
       // ..
       // .. Local Arrays ..
-      REAL               D( 2, 2 ), V( 2, 2 );
+      double               D( 2, 2 ), V( 2, 2 );
       // ..
       // .. External Functions ..
       //- int                ISAMAX;

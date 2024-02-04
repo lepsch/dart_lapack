@@ -5,11 +5,11 @@
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
-      REAL SA;
+      double SA;
       int     INCX,N;
       // ..
       // .. Array Arguments ..
-      REAL SX(*);
+      double SX(*);
       // ..
 
 // =====================================================================
@@ -18,7 +18,7 @@
       int     I,M,MP1,NINCX;
       // ..
       // .. Parameters ..
-      REAL ONE;
+      double ONE;
       const     ONE=1.0;
       // ..
       // .. Intrinsic Functions ..

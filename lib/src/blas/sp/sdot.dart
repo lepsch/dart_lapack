@@ -1,4 +1,4 @@
-      REAL sdot(N,SX,INCX,SY,INCY) {
+      double sdot(N,SX,INCX,SY,INCY) {
 
 // -- Reference BLAS level1 routine --
 // -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
@@ -8,13 +8,13 @@
       int     INCX,INCY,N;
       // ..
       // .. Array Arguments ..
-      REAL SX(*),SY(*);
+      double SX(*),SY(*);
       // ..
 
 // =====================================================================
 
       // .. Local Scalars ..
-      REAL STEMP;
+      double STEMP;
       int     I,IX,IY,M,MP1;
       // ..
       // .. Intrinsic Functions ..

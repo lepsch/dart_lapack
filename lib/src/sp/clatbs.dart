@@ -7,23 +7,23 @@
       // .. Scalar Arguments ..
       String             DIAG, NORMIN, TRANS, UPLO;
       int                INFO, KD, LDAB, N;
-      REAL               SCALE;
+      double               SCALE;
       // ..
       // .. Array Arguments ..
-      REAL               CNORM( * );
+      double               CNORM( * );
       Complex            AB( LDAB, * ), X( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, HALF, ONE, TWO;
+      double               ZERO, HALF, ONE, TWO;
       const              ZERO = 0.0, HALF = 0.5, ONE = 1.0, TWO = 2.0 ;
       // ..
       // .. Local Scalars ..
       bool               NOTRAN, NOUNIT, UPPER;
       int                I, IMAX, J, JFIRST, JINC, JLAST, JLEN, MAIND;
-      REAL               BIGNUM, GROW, REC, SMLNUM, TJJ, TMAX, TSCAL, XBND, XJ, XMAX;
+      double               BIGNUM, GROW, REC, SMLNUM, TJJ, TMAX, TSCAL, XBND, XJ, XMAX;
       Complex            CSUMJ, TJJS, USCAL, ZDUM;
       // ..
       // .. External Functions ..
@@ -40,11 +40,11 @@
       // INTRINSIC ABS, AIMAG, CMPLX, CONJG, MAX, MIN, REAL
       // ..
       // .. Statement Functions ..
-      REAL               CABS1, CABS2;
+      double               CABS1, CABS2;
       // ..
       // .. Statement Function definitions ..
-      CABS1[ZDUM] = ( REAL( ZDUM ) ).abs() + ( AIMAG( ZDUM ) ).abs();
-      CABS2[ZDUM] = ABS( REAL( ZDUM ) / 2. ) + ABS( AIMAG( ZDUM ) / 2. );
+      CABS1[ZDUM] = ( double( ZDUM ) ).abs() + ( AIMAG( ZDUM ) ).abs();
+      CABS2[ZDUM] = ABS( double( ZDUM ) / 2. ) + ABS( AIMAG( ZDUM ) / 2. );
       // ..
       // .. Executable Statements ..
 

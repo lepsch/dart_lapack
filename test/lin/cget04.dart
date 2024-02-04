@@ -6,7 +6,7 @@
 
       // .. Scalar Arguments ..
       int                LDX, LDXACT, N, NRHS;
-      REAL               RCOND, RESID;
+      double               RCOND, RESID;
       // ..
       // .. Array Arguments ..
       Complex            X( LDX, * ), XACT( LDXACT, * );
@@ -15,12 +15,12 @@
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO;
+      double               ZERO;
       const              ZERO = 0.0 ;
       // ..
       // .. Local Scalars ..
       int                I, IX, J;
-      REAL               DIFFNM, EPS, XNORM;
+      double               DIFFNM, EPS, XNORM;
       Complex            ZDUM;
       // ..
       // .. External Functions ..
@@ -32,10 +32,10 @@
       // INTRINSIC ABS, AIMAG, MAX, REAL
       // ..
       // .. Statement Functions ..
-      REAL               CABS1;
+      double               CABS1;
       // ..
       // .. Statement Function definitions ..
-      CABS1[ZDUM] = ( REAL( ZDUM ) ).abs() + ( AIMAG( ZDUM ) ).abs();
+      CABS1[ZDUM] = ( double( ZDUM ) ).abs() + ( AIMAG( ZDUM ) ).abs();
       // ..
       // .. Executable Statements ..
 

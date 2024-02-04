@@ -9,18 +9,18 @@
       // ..
       // .. Array Arguments ..
       int                IPIV( * );
-      REAL               D( * ), DL( * ), DU( * ), DU2( * );
+      double               D( * ), DL( * ), DU( * ), DU2( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO;
+      double               ZERO;
       const              ZERO = 0.0 ;
       // ..
       // .. Local Scalars ..
       int                I;
-      REAL               FACT, TEMP;
+      double               FACT, TEMP;
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC ABS

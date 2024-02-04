@@ -9,19 +9,19 @@
       int                INFO, KD, LDAB, N;
       // ..
       // .. Array Arguments ..
-      REAL               AB( LDAB, * );
+      double               AB( LDAB, * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ONE, ZERO;
+      double               ONE, ZERO;
       const              ONE = 1.0, ZERO = 0.0 ;
       // ..
       // .. Local Scalars ..
       bool               UPPER;
       int                J, KLD, KM, M;
-      REAL               AJJ;
+      double               AJJ;
       // ..
       // .. External Functions ..
       //- bool               lsame;

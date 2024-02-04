@@ -5,24 +5,24 @@
       int         M, N, LDA, LDU, LDV, NUMRANK, LIWORK, LWORK, LRWORK, INFO;
       // ..
       // .. Array Arguments ..
-      REAL        A( LDA, * ), U( LDU, * ), V( LDV, * ), WORK( * );
-      REAL        S( * ), RWORK( * );
+      double        A( LDA, * ), U( LDU, * ), V( LDV, * ), WORK( * );
+      double        S( * ), RWORK( * );
       int         IWORK( * );
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL        ZERO,         ONE;
+      double        ZERO,         ONE;
       const     ZERO = 0.0, ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
       int         IERR, IWOFF, NR, N1, OPTRATIO, p, q;
       int         LWCON, LWQP3, LWRK_SGELQF, LWRK_SGESVD, LWRK_SGESVD2, LWRK_SGEQP3,  LWRK_SGEQRF, LWRK_SORMLQ, LWRK_SORMQR, LWRK_SORMQR2, LWLQF, LWQRF, LWSVD, LWSVD2, LWORQ, LWORQ2, LWUNLQ, MINWRK, MINWRK2, OPTWRK, OPTWRK2, IMINWRK, RMINWRK;
       bool        ACCLA,  ACCLM, ACCLH, ASCALED, CONDA, DNTWU,  DNTWV, LQUERY, LSVC0, LSVEC, ROWPRM,  RSVEC, RTRANS, WNTUA, WNTUF,  WNTUR, WNTUS, WNTVA,   WNTVR;
-      REAL        BIG, EPSLN, RTMP, SCONDA, SFMIN;
+      double        BIG, EPSLN, RTMP, SCONDA, SFMIN;
       // ..
       // .. Local Arrays
-      REAL        RDUMMY(1);
+      double        RDUMMY(1);
       // ..
       // .. External Subroutines (BLAS, LAPACK)
       // EXTERNAL SGELQF, SGEQP3, SGEQRF, SGESVD, SLACPY, SLAPMT, SLASCL, SLASET, SLASWP, SSCAL,  SPOCON, SORMLQ, SORMQR, XERBLA
@@ -358,7 +358,7 @@
             if ( RWORK(1) > BIG / sqrt(REAL(M)) ) {
                 // .. to prevent overflow in the QR factorization, scale the
                 // matrix by 1/sqrt(M) if too large entry detected
-                slascl('G',0,0,sqrt(REAL(M)),ONE, M,N, A,LDA, IERR);
+                slascl('G',0,0,sqrt(double(M)),ONE, M,N, A,LDA, IERR);
                 ASCALED = true;
             }
             slaswp(N, A, LDA, 1, M-1, IWORK(N+1), 1 );
@@ -379,7 +379,7 @@
           if ( RTMP > BIG / sqrt(REAL(M)) ) {
               // .. to prevent overflow in the QR factorization, scale the
               // matrix by 1/sqrt(M) if too large entry detected
-              slascl('G',0,0, sqrt(REAL(M)),ONE, M,N, A,LDA, IERR);
+              slascl('G',0,0, sqrt(double(M)),ONE, M,N, A,LDA, IERR);
               ASCALED = true;
           }
       }
@@ -411,7 +411,7 @@
          // aggressive enforcement of lower numerical rank by introducing a
          // backward error of the order of N*EPS*||A||_F.
          NR = 1;
-         RTMP = sqrt(REAL(N))*EPSLN;
+         RTMP = sqrt(double(N))*EPSLN;
          for (p = 2; p <= N; p++) { // 3001
             if ( (A(p,p)).abs() < (RTMP*(A(1,1))) ).abs() GO TO 3002;
                NR = NR + 1;
@@ -877,7 +877,7 @@
       if (NR < N) slaset( 'G', N-NR,1, ZERO,ZERO, S(NR+1), N );
       // .. undo scaling; this may cause overflow in the largest singular
       // values.
-      if (ASCALED) slascl( 'G',0,0, ONE,sqrt(REAL(M)), NR,1, S, N, IERR );
+      if (ASCALED) slascl( 'G',0,0, ONE,sqrt(double(M)), NR,1, S, N, IERR );
       if (CONDA) RWORK(1) = SCONDA;
       RWORK[2] = p - NR;
       // .. p-NR is the number of singular values that are computed as

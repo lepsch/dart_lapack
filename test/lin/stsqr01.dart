@@ -9,26 +9,26 @@
       String            TSSW;
       int               M, N, MB, NB;
       // .. Return values ..
-      REAL              RESULT(6);
+      double              RESULT(6);
 
 // =====================================================================
 
       // ..
       // .. Local allocatable arrays
-      REAL, ALLOCATABLE :: AF(:,:), Q(:,:), R(:,:), RWORK(:), WORK( : ), T(:), CF(:,:), DF(:,:), A(:,:), C(:,:), D(:,:), LQ(:,:);
+      double, ALLOCATABLE :: AF(:,:), Q(:,:), R(:,:), RWORK(:), WORK( : ), T(:), CF(:,:), DF(:,:), A(:,:), C(:,:), D(:,:), LQ(:,:);
 
       // .. Parameters ..
-      REAL     ONE, ZERO;
+      double     ONE, ZERO;
       const    ZERO = 0.0, ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
       bool    TESTZEROS, TS;
       int     INFO, J, K, L, LWORK, TSIZE, MNB;
-      REAL   ANORM, EPS, RESID, CNORM, DNORM;
+      double   ANORM, EPS, RESID, CNORM, DNORM;
       // ..
       // .. Local Arrays ..
       int                ISEED( 4 );
-      REAL               TQUERY( 5 ), WORKQUERY( 1 );
+      double               TQUERY( 5 ), WORKQUERY( 1 );
       // ..
       // .. External Functions ..
       //- REAL     SLAMCH, SLANGE, SLANSY;

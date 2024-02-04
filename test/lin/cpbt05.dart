@@ -9,20 +9,20 @@
       int                KD, LDAB, LDB, LDX, LDXACT, N, NRHS;
       // ..
       // .. Array Arguments ..
-      REAL               BERR( * ), FERR( * ), RESLTS( * );
+      double               BERR( * ), FERR( * ), RESLTS( * );
       Complex            AB( LDAB, * ), B( LDB, * ), X( LDX, * ), XACT( LDXACT, * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
       bool               UPPER;
       int                I, IMAX, J, K, NZ;
-      REAL               AXBI, DIFF, EPS, ERRBND, OVFL, TMP, UNFL, XNORM;
+      double               AXBI, DIFF, EPS, ERRBND, OVFL, TMP, UNFL, XNORM;
       Complex            ZDUM;
       // ..
       // .. External Functions ..
@@ -35,10 +35,10 @@
       // INTRINSIC ABS, AIMAG, MAX, MIN, REAL
       // ..
       // .. Statement Functions ..
-      REAL               CABS1;
+      double               CABS1;
       // ..
       // .. Statement Function definitions ..
-      CABS1[ZDUM] = ( REAL( ZDUM ) ).abs() + ( AIMAG( ZDUM ) ).abs();
+      CABS1[ZDUM] = ( double( ZDUM ) ).abs() + ( AIMAG( ZDUM ) ).abs();
       // ..
       // .. Executable Statements ..
 
@@ -97,7 +97,7 @@
                for (J = max( I-KD, 1 ); J <= I - 1; J++) { // 40
                   TMP = TMP + CABS1( AB( KD+1-I+J, I ) )* CABS1( X( J, K ) );
                } // 40
-               TMP = TMP + ABS( REAL( AB( KD+1, I ) ) )* CABS1( X( I, K ) );
+               TMP = TMP + ABS( double( AB( KD+1, I ) ) )* CABS1( X( I, K ) );
                for (J = I + 1; J <= min( I+KD, N ); J++) { // 50
                   TMP = TMP + CABS1( AB( KD+1+I-J, J ) )* CABS1( X( J, K ) );
                } // 50
@@ -105,7 +105,7 @@
                for (J = max( I-KD, 1 ); J <= I - 1; J++) { // 60
                   TMP = TMP + CABS1( AB( 1+I-J, J ) )*CABS1( X( J, K ) );
                } // 60
-               TMP = TMP + ABS( REAL( AB( 1, I ) ) )*CABS1( X( I, K ) );
+               TMP = TMP + ABS( double( AB( 1, I ) ) )*CABS1( X( I, K ) );
                for (J = I + 1; J <= min( I+KD, N ); J++) { // 70
                   TMP = TMP + CABS1( AB( 1+J-I, I ) )*CABS1( X( J, K ) );
                } // 70

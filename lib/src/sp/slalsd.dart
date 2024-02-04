@@ -7,22 +7,22 @@
       // .. Scalar Arguments ..
       String             UPLO;
       int                INFO, LDB, N, NRHS, RANK, SMLSIZ;
-      REAL               RCOND;
+      double               RCOND;
       // ..
       // .. Array Arguments ..
       int                IWORK( * );
-      REAL               B( LDB, * ), D( * ), E( * ), WORK( * );
+      double               B( LDB, * ), D( * ), E( * ), WORK( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE, TWO;
+      double               ZERO, ONE, TWO;
       const              ZERO = 0.0, ONE = 1.0, TWO = 2.0 ;
       // ..
       // .. Local Scalars ..
       int                BX, BXST, C, DIFL, DIFR, GIVCOL, GIVNUM, GIVPTR, I, ICMPQ1, ICMPQ2, IWK, J, K, NLVL, NM1, NSIZE, NSUB, NWORK, PERM, POLES, S, SIZEI, SMLSZP, SQRE, ST, ST1, U, VT, Z;
-      REAL               CS, EPS, ORGNRM, R, RCND, SN, TOL;
+      double               CS, EPS, ORGNRM, R, RCND, SN, TOL;
       // ..
       // .. External Functions ..
       //- int                ISAMAX;
@@ -151,7 +151,7 @@
 
       // Book-keeping and setting up some constants.
 
-      NLVL = INT( LOG( REAL( N ) / REAL( SMLSIZ+1 ) ) / LOG( TWO ) ) + 1;
+      NLVL = INT( LOG( double( N ) / REAL( SMLSIZ+1 ) ) / LOG( TWO ) ) + 1;
 
       SMLSZP = SMLSIZ + 1;
 

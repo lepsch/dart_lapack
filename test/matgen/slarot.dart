@@ -7,10 +7,10 @@
       // .. Scalar Arguments ..
       bool               LLEFT, LRIGHT, LROWS;
       int                LDA, NL;
-      REAL               C, S, XLEFT, XRIGHT;
+      double               C, S, XLEFT, XRIGHT;
       // ..
       // .. Array Arguments ..
-      REAL               A( * );
+      double               A( * );
       // ..
 
 // =====================================================================
@@ -19,7 +19,7 @@
       int                IINC, INEXT, IX, IY, IYT, NT;
       // ..
       // .. Local Arrays ..
-      REAL               XT( 2 ), YT( 2 );
+      double               XT( 2 ), YT( 2 );
       // ..
       // .. External Subroutines ..
       // EXTERNAL SROT, XERBLA

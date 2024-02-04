@@ -10,14 +10,14 @@
       // ..
       // .. Array Arguments ..
       int                ISEED( 4 );
-      REAL               RWORK( * );
+      double               RWORK( * );
       Complex            AP( * ), B( * ), WORK( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ONE, TWO, ZERO;
+      double               ONE, TWO, ZERO;
       const              ONE = 1.0, TWO = 2.0, ZERO = 0.0 ;
       // ..
       // .. Local Scalars ..
@@ -25,7 +25,7 @@
       String             DIST, PACKIT, TYPE;
       String             PATH;
       int                I, IY, J, JC, JCNEXT, JCOUNT, JJ, JL, JR, JX, KL, KU, MODE;
-      REAL               ANORM, BIGNUM, BNORM, BSCAL, C, CNDNUM, REXP, SFAC, SMLNUM, T, TEXP, TLEFT, TSCAL, ULP, UNFL, X, Y, Z;
+      double               ANORM, BIGNUM, BNORM, BSCAL, C, CNDNUM, REXP, SFAC, SMLNUM, T, TEXP, TLEFT, TSCAL, ULP, UNFL, X, Y, Z;
       Complex            CTEMP, PLUS1, PLUS2, RA, RB, S, STAR1;
       // ..
       // .. External Functions ..
@@ -198,7 +198,7 @@
                WORK[J+1] = PLUS2;
                WORK[N+J+1] = ZERO;
                PLUS1 = STAR1 / PLUS2;
-               REXP = REAL( CLARND( 2, ISEED ) );
+               REXP = double( CLARND( 2, ISEED ) );
                if ( REXP < ZERO ) {
                   STAR1 = -SFAC**( ONE-REXP )*CLARND( 5, ISEED );
                } else {
@@ -542,11 +542,11 @@
                JC = JC - J + 1;
                AP[JC] = -( TSCAL / REAL( N+1 ) ) / REAL( N+2 );
                AP[JC+J-2] = ONE;
-               B[J-1] = TEXP*REAL( N*N+N-1 );
+               B[J-1] = TEXP*double( N*N+N-1 );
                TEXP = TEXP*TWO;
                JC = JC - J + 2;
             } // 370
-            B[1] = ( REAL( N+1 ) / REAL( N+2 ) )*TSCAL;
+            B[1] = ( double( N+1 ) / REAL( N+2 ) )*TSCAL;
          } else {
             JC = 1;
             for (J = 1; 2 < 0 ? J >= N - 1 : J <= N - 1; J += 2) { // 380
@@ -556,11 +556,11 @@
                JC = JC + N - J + 1;
                AP[JC+N-J-1] = -( TSCAL / REAL( N+1 ) ) / REAL( N+2 );
                AP[JC] = ONE;
-               B[J+1] = TEXP*REAL( N*N+N-1 );
+               B[J+1] = TEXP*double( N*N+N-1 );
                TEXP = TEXP*TWO;
                JC = JC + N - J;
             } // 380
-            B[N] = ( REAL( N+1 ) / REAL( N+2 ) )*TSCAL;
+            B[N] = ( double( N+1 ) / REAL( N+2 ) )*TSCAL;
          }
 
       } else if ( IMAT == 18 ) {
@@ -601,7 +601,7 @@
          // 1/3/91:  CLATPS no longer can handle this case
 
          TLEFT = BIGNUM / max( ONE, REAL( N-1 ) );
-         TSCAL = BIGNUM*( REAL( N-1 ) / max( ONE, REAL( N ) ) );
+         TSCAL = BIGNUM*( double( N-1 ) / max( ONE, REAL( N ) ) );
          if ( UPPER ) {
             JC = 1;
             for (J = 1; J <= N; J++) { // 420
@@ -637,7 +637,7 @@
             for (J = 1; J <= N / 2; J++) { // 460
                JL = JJ;
                for (I = J; I <= N - J; I++) { // 450
-                  T = REAL( AP( JR-I+J ) );
+                  T = double( AP( JR-I+J ) );
                   AP[JR-I+J] = AP( JL );
                   AP[JL] = T;
                   JL = JL + I;
@@ -651,7 +651,7 @@
             for (J = 1; J <= N / 2; J++) { // 480
                JR = JJ;
                for (I = J; I <= N - J; I++) { // 470
-                  T = REAL( AP( JL+I-J ) );
+                  T = double( AP( JL+I-J ) );
                   AP[JL+I-J] = AP( JR );
                   AP[JR] = T;
                   JR = JR - I;

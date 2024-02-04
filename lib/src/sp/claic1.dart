@@ -6,7 +6,7 @@
 
       // .. Scalar Arguments ..
       int                J, JOB;
-      REAL               SEST, SESTPR;
+      double               SEST, SESTPR;
       Complex            C, GAMMA, S;
       // ..
       // .. Array Arguments ..
@@ -16,13 +16,13 @@
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE, TWO;
+      double               ZERO, ONE, TWO;
       const              ZERO = 0.0, ONE = 1.0, TWO = 2.0 ;
-      REAL               HALF, FOUR;
+      double               HALF, FOUR;
       const              HALF = 0.5, FOUR = 4.0 ;
       // ..
       // .. Local Scalars ..
-      REAL               ABSALP, ABSEST, ABSGAM, B, EPS, NORMA, S1, S2, SCL, T, TEST, TMP, ZETA1, ZETA2;
+      double               ABSALP, ABSEST, ABSGAM, B, EPS, NORMA, S1, S2, SCL, T, TEST, TMP, ZETA1, ZETA2;
       Complex            ALPHA, COSINE, SINE;
       // ..
       // .. Intrinsic Functions ..
@@ -57,7 +57,7 @@
             } else {
                S = ALPHA / S1;
                C = GAMMA / S1;
-               TMP = REAL( sqrt( S*CONJG( S )+C*CONJG( C ) ) );
+               TMP = double( sqrt( S*CONJG( S )+C*CONJG( C ) ) );
                S = S / TMP;
                C = C / TMP;
                SESTPR = S1*TMP;
@@ -111,14 +111,14 @@
             B = ( ONE-ZETA1*ZETA1-ZETA2*ZETA2 )*HALF;
             C = ZETA1*ZETA1;
             if ( B > ZERO ) {
-               T = REAL( C / ( B+sqrt( B*B+C ) ) );
+               T = double( C / ( B+sqrt( B*B+C ) ) );
             } else {
-               T = REAL( sqrt( B*B+C ) - B );
+               T = double( sqrt( B*B+C ) - B );
             }
 
             SINE = -( ALPHA / ABSEST ) / T;
             COSINE = -( GAMMA / ABSEST ) / ( ONE+T );
-            TMP = REAL( sqrt( SINE * CONJG( SINE ) + COSINE * CONJG( COSINE ) ) );
+            TMP = double( sqrt( SINE * CONJG( SINE ) + COSINE * CONJG( COSINE ) ) );
             S = SINE / TMP;
             C = COSINE / TMP;
             SESTPR = sqrt( T+ONE )*ABSEST;
@@ -143,7 +143,7 @@
             S1 = max( ( SINE ).abs(), ( COSINE ).abs() );
             S = SINE / S1;
             C = COSINE / S1;
-            TMP = REAL( sqrt( S*CONJG( S )+C*CONJG( C ) ) );
+            TMP = double( sqrt( S*CONJG( S )+C*CONJG( C ) ) );
             S = S / TMP;
             C = C / TMP;
             return;
@@ -200,7 +200,7 @@
 
                B = ( ZETA1*ZETA1+ZETA2*ZETA2+ONE )*HALF;
                C = ZETA2*ZETA2;
-               T = REAL( C / ( B+sqrt( ( B*B-C ).abs() ) ) );
+               T = double( C / ( B+sqrt( ( B*B-C ).abs() ) ) );
                SINE = ( ALPHA / ABSEST ) / ( ONE-T );
                COSINE = -( GAMMA / ABSEST ) / T;
                SESTPR = sqrt( T+FOUR*EPS*EPS*NORMA )*ABSEST;
@@ -211,15 +211,15 @@
                B = ( ZETA2*ZETA2+ZETA1*ZETA1-ONE )*HALF;
                C = ZETA1*ZETA1;
                if ( B >= ZERO ) {
-                  T = REAL( -C / ( B+sqrt( B*B+C ) ) );
+                  T = double( -C / ( B+sqrt( B*B+C ) ) );
                } else {
-                  T = REAL( B - sqrt( B*B+C ) );
+                  T = double( B - sqrt( B*B+C ) );
                }
                SINE = -( ALPHA / ABSEST ) / T;
                COSINE = -( GAMMA / ABSEST ) / ( ONE+T );
                SESTPR = sqrt( ONE+T+FOUR*EPS*EPS*NORMA )*ABSEST;
             }
-            TMP = REAL( sqrt( SINE * CONJG( SINE ) + COSINE * CONJG( COSINE ) ) );
+            TMP = double( sqrt( SINE * CONJG( SINE ) + COSINE * CONJG( COSINE ) ) );
             S = SINE / TMP;
             C = COSINE / TMP;
             return;

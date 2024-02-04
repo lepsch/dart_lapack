@@ -6,11 +6,11 @@
 
       // .. Scalar Arguments ..
       int                CUTPNT, INFO, LDQ, N;
-      REAL               RHO;
+      double               RHO;
       // ..
       // .. Array Arguments ..
       int                INDXQ( * ), IWORK( * );
-      REAL               D( * ), Q( LDQ, * ), WORK( * );
+      double               D( * ), Q( LDQ, * ), WORK( * );
       // ..
 
 // =====================================================================

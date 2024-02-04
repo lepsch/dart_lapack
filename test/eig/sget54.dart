@@ -6,23 +6,23 @@
 
       // .. Scalar Arguments ..
       int                LDA, LDB, LDS, LDT, LDU, LDV, N;
-      REAL               RESULT;
+      double               RESULT;
       // ..
       // .. Array Arguments ..
-      REAL               A( LDA, * ), B( LDB, * ), S( LDS, * ), T( LDT, * ), U( LDU, * ), V( LDV, * ), WORK( * );
+      double               A( LDA, * ), B( LDB, * ), S( LDS, * ), T( LDT, * ), U( LDU, * ), V( LDV, * ), WORK( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
-      REAL               ABNORM, ULP, UNFL, WNORM;
+      double               ABNORM, ULP, UNFL, WNORM;
       // ..
       // .. Local Arrays ..
-      REAL               DUM( 1 );
+      double               DUM( 1 );
       // ..
       // .. External Functions ..
       //- REAL               SLAMCH, SLANGE;

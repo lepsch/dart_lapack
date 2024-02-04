@@ -6,23 +6,23 @@
 
       // .. Scalar Arguments ..
       int                N, NUM;
-      REAL               SHIFT;
+      double               SHIFT;
       // ..
       // .. Array Arguments ..
-      REAL               E( * ), S( * );
+      double               E( * ), S( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ONE;
+      double               ONE;
       const              ONE = 1.0 ;
-      REAL               ZERO;
+      double               ZERO;
       const              ZERO = 0.0 ;
       // ..
       // .. Local Scalars ..
       int                I;
-      REAL               M1, M2, MX, OVFL, SOV, SSHIFT, SSUN, SUN, TMP, TOM, U, UNFL;
+      double               M1, M2, MX, OVFL, SOV, SSHIFT, SSUN, SUN, TMP, TOM, U, UNFL;
       // ..
       // .. External Functions ..
       //- REAL               SLAMCH;

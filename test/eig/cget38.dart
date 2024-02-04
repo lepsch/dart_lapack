@@ -9,7 +9,7 @@
       // ..
       // .. Array Arguments ..
       int                LMAX( 3 ), NINFO( 3 );
-      REAL               RMAX( 3 );
+      double               RMAX( 3 );
       // ..
 
 // =====================================================================
@@ -17,21 +17,21 @@
       // .. Parameters ..
       int                LDT, LWORK;
       const              LDT = 20, LWORK = 2*LDT*( 10+LDT ) ;
-      REAL               ZERO, ONE, TWO;
+      double               ZERO, ONE, TWO;
       const              ZERO = 0.0, ONE = 1.0, TWO = 2.0 ;
-      REAL               EPSIN;
+      double               EPSIN;
       const              EPSIN = 5.9605e-8 ;
       Complex            CZERO;
       const              CZERO = ( 0.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
       int                I, INFO, ISCL, ISRT, ITMP, J, KMIN, M, N, NDIM;
-      REAL               BIGNUM, EPS, S, SEP, SEPIN, SEPTMP, SIN, SMLNUM, STMP, TNRM, TOL, TOLIN, V, VMAX, VMIN, VMUL;
+      double               BIGNUM, EPS, S, SEP, SEPIN, SEPTMP, SIN, SMLNUM, STMP, TNRM, TOL, TOLIN, V, VMAX, VMIN, VMUL;
       // ..
       // .. Local Arrays ..
       bool               SELECT( LDT );
       int                IPNT( LDT ), ISELEC( LDT );
-      REAL               RESULT( 2 ), RWORK( LDT ), VAL( 3 ), WSRT( LDT )       Complex            Q( LDT, LDT ), QSAV( LDT, LDT ), QTMP( LDT, LDT ), T( LDT, LDT ), TMP( LDT, LDT ), TSAV( LDT, LDT ), TSAV1( LDT, LDT ), TTMP( LDT, LDT ), W( LDT ), WORK( LWORK ), WTMP( LDT );
+      double               RESULT( 2 ), RWORK( LDT ), VAL( 3 ), WSRT( LDT )       Complex            Q( LDT, LDT ), QSAV( LDT, LDT ), QTMP( LDT, LDT ), T( LDT, LDT ), TMP( LDT, LDT ), TSAV( LDT, LDT ), TSAV1( LDT, LDT ), TTMP( LDT, LDT ), W( LDT ), WORK( LWORK ), WTMP( LDT );
       // ..
       // .. External Functions ..
       //- REAL               CLANGE, SLAMCH;
@@ -129,7 +129,7 @@
          } // 60
          if ( ISRT == 0 ) {
             for (I = 1; I <= N; I++) { // 70
-               WSRT[I] = REAL( W( I ) );
+               WSRT[I] = double( W( I ) );
             } // 70
          } else {
             for (I = 1; I <= N; I++) { // 80
@@ -180,7 +180,7 @@
          // Compare condition number for eigenvalue cluster
          // taking its condition number into account
 
-         V = max( TWO*REAL( N )*EPS*TNRM, SMLNUM );
+         V = max( TWO*double( N )*EPS*TNRM, SMLNUM );
          if (TNRM == ZERO) V = ONE;
          if ( V > SEPTMP ) {
             TOL = ONE;
@@ -244,7 +244,7 @@
          // Compare condition number for eigenvalue cluster
          // without taking its condition number into account
 
-         if ( SIN <= REAL( 2*N )*EPS && STMP <= REAL( 2*N )*EPS ) {
+         if ( SIN <= REAL( 2*N )*EPS && STMP <= double( 2*N )*EPS ) {
             VMAX = ONE;
          } else if ( EPS*SIN > STMP ) {
             VMAX = ONE / EPS;

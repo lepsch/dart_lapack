@@ -9,7 +9,7 @@
       int                IHI, ILO, INFO, LDV, M, N;
       // ..
       // .. Array Arguments ..
-      REAL               LSCALE( * ), RSCALE( * );
+      double               LSCALE( * ), RSCALE( * );
       Complex            V( LDV, * );
       // ..
 

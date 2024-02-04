@@ -7,11 +7,11 @@
       // .. Scalar Arguments ..
       String             JOBVS, SENSE, SORT;
       int                INFO, LDA, LDVS, LWORK, N, SDIM;
-      REAL               RCONDE, RCONDV;
+      double               RCONDE, RCONDV;
       // ..
       // .. Array Arguments ..
       bool               BWORK( * );
-      REAL               RWORK( * );
+      double               RWORK( * );
       Complex            A( LDA, * ), VS( LDVS, * ), W( * ), WORK( * );
       // ..
       // .. Function Arguments ..
@@ -22,16 +22,16 @@
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
       bool               LQUERY, SCALEA, WANTSB, WANTSE, WANTSN, WANTST, WANTSV, WANTVS;
       int                HSWORK, I, IBAL, ICOND, IERR, IEVAL, IHI, ILO, ITAU, IWRK, LWRK, MAXWRK, MINWRK;
-      REAL               ANRM, BIGNUM, CSCALE, EPS, SMLNUM;
+      double               ANRM, BIGNUM, CSCALE, EPS, SMLNUM;
       // ..
       // .. Local Arrays ..
-      REAL               DUM( 1 );
+      double               DUM( 1 );
       // ..
       // .. External Subroutines ..
       // EXTERNAL CCOPY, CGEBAK, CGEBAL, CGEHRD, CHSEQR, CLACPY, CLASCL, CTRSEN, CUNGHR, SLASCL, XERBLA

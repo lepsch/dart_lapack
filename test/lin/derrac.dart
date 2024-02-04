@@ -20,7 +20,7 @@
       // .. Local Arrays ..
       double             A( NMAX, NMAX ), AF( NMAX, NMAX ), B( NMAX ), C( NMAX ), R( NMAX ), R1( NMAX ), R2( NMAX ), W( 2*NMAX ), X( NMAX );
       double             WORK(NMAX*NMAX);
-      REAL               SWORK(NMAX*NMAX);
+      double               SWORK(NMAX*NMAX);
       // ..
       // .. External Subroutines ..
       // EXTERNAL CHKXER, DSPOSV

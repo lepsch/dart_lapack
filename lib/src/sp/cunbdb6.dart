@@ -14,14 +14,14 @@
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ALPHA, REALONE, REALZERO;
+      double               ALPHA, REALONE, REALZERO;
       const              ALPHA = 0.83, REALONE = 1.0, REALZERO = 0.0 ;
       Complex            NEGONE, ONE, ZERO;
       const              NEGONE = (-1.0,0.0), ONE = (1.0,0.0), ZERO = (0.0,0.0) ;
       // ..
       // .. Local Scalars ..
       int                I, IX;
-      REAL               EPS, NORM, NORM_NEW, SCL, SSQ;
+      double               EPS, NORM, NORM_NEW, SCL, SSQ;
       // ..
       // .. External Functions ..
       //- REAL               SLAMCH;

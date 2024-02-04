@@ -9,7 +9,7 @@
       int         INFO, LDA, LDU, LDV, LWORK, M, N;
       // ..
       // .. Array Arguments ..
-      REAL        A( LDA, * ), SVA( N ), U( LDU, * ), V( LDV, * ), WORK( LWORK );
+      double        A( LDA, * ), SVA( N ), U( LDU, * ), V( LDV, * ), WORK( LWORK );
       int         IWORK( * );
       String      JOBA, JOBP, JOBR, JOBT, JOBU, JOBV;
       // ..
@@ -17,11 +17,11 @@
 // ===========================================================================
 
       // .. Local Parameters ..
-      REAL        ZERO,         ONE;
+      double        ZERO,         ONE;
       const     ZERO = 0.0, ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
-      REAL    AAPP,   AAQQ,   AATMAX, AATMIN, BIG,    BIG1,   COND_OK, CONDR1, CONDR2, ENTRA,  ENTRAT, EPSLN,  MAXPRJ, SCALEM, SCONDA, SFMIN,  SMALL,  TEMP1,  USCAL1, USCAL2, XSC;
+      double    AAPP,   AAQQ,   AATMAX, AATMIN, BIG,    BIG1,   COND_OK, CONDR1, CONDR2, ENTRA,  ENTRAT, EPSLN,  MAXPRJ, SCALEM, SCONDA, SFMIN,  SMALL,  TEMP1,  USCAL1, USCAL2, XSC;
       int     IERR,   N1,     NR,     NUMRANK,        p, q,   WARNING;
       bool    ALMORT, DEFR,   ERREST, GOSCAL, JRACC,  KILL,   LSVEC, L2ABER, L2KILL, L2PERT, L2RANK, L2TRAN, NOSCAL, ROWPIV, RSVEC,  TRANSP;
       // ..

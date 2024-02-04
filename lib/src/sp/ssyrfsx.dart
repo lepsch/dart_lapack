@@ -7,20 +7,20 @@
       // .. Scalar Arguments ..
       String             UPLO, EQUED;
       int                INFO, LDA, LDAF, LDB, LDX, N, NRHS, NPARAMS, N_ERR_BNDS;
-      REAL               RCOND;
+      double               RCOND;
       // ..
       // .. Array Arguments ..
       int                IPIV( * ), IWORK( * );
-      REAL               A( LDA, * ), AF( LDAF, * ), B( LDB, * ), X( LDX, * ), WORK( * )       REAL               S( * ), PARAMS( * ), BERR( * ), ERR_BNDS_NORM( NRHS, * ), ERR_BNDS_COMP( NRHS, * );
+      REAL               A( LDA, * ), AF( LDAF, * ), B( LDB, * ), X( LDX, * ), WORK( * )       double               S( * ), PARAMS( * ), BERR( * ), ERR_BNDS_NORM( NRHS, * ), ERR_BNDS_COMP( NRHS, * );
       // ..
 
 // ==================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
-      REAL               ITREF_DEFAULT, ITHRESH_DEFAULT, COMPONENTWISE_DEFAULT;
-      REAL               RTHRESH_DEFAULT, DZTHRESH_DEFAULT;
+      double               ITREF_DEFAULT, ITHRESH_DEFAULT, COMPONENTWISE_DEFAULT;
+      double               RTHRESH_DEFAULT, DZTHRESH_DEFAULT;
       const              ITREF_DEFAULT = 1.0 ;
       const              ITHRESH_DEFAULT = 10.0 ;
       const              COMPONENTWISE_DEFAULT = 1.0 ;
@@ -37,11 +37,11 @@
       String   (1)       NORM;
       bool               RCEQU;
       int                J, PREC_TYPE, REF_TYPE, N_NORMS;
-      REAL               ANORM, RCOND_TMP;
-      REAL               ILLRCOND_THRESH, ERR_LBND, CWISE_WRONG;
+      double               ANORM, RCOND_TMP;
+      double               ILLRCOND_THRESH, ERR_LBND, CWISE_WRONG;
       bool               IGNORE_CWISE;
       int                ITHRESH;
-      REAL               RTHRESH, UNSTABLE_THRESH;
+      double               RTHRESH, UNSTABLE_THRESH;
       // ..
       // .. External Subroutines ..
       // EXTERNAL XERBLA, SSYCON, SLA_SYRFSX_EXTENDED
@@ -52,7 +52,7 @@
       // .. External Functions ..
       // EXTERNAL lsame, ILAPREC
       // EXTERNAL SLAMCH, SLANSY, SLA_SYRCOND
-      REAL               SLAMCH, SLANSY, SLA_SYRCOND;
+      double               SLAMCH, SLANSY, SLA_SYRCOND;
       bool               lsame;
       int                ILAPREC;
       // ..
@@ -72,7 +72,7 @@
 
       // Set default parameters.
 
-      ILLRCOND_THRESH = REAL( N )*SLAMCH( 'Epsilon' );
+      ILLRCOND_THRESH = double( N )*SLAMCH( 'Epsilon' );
       ITHRESH = INT( ITHRESH_DEFAULT );
       RTHRESH = RTHRESH_DEFAULT;
       UNSTABLE_THRESH = DZTHRESH_DEFAULT;
@@ -186,7 +186,7 @@
           sla_syrfsx_extended(PREC_TYPE, UPLO,  N, NRHS, A, LDA, AF, LDAF, IPIV, RCEQU, S, B, LDB, X, LDX, BERR, N_NORMS, ERR_BNDS_NORM, ERR_BNDS_COMP, WORK( N+1 ), WORK( 1 ), WORK( 2*N+1 ), WORK( 1 ), RCOND, ITHRESH, RTHRESH, UNSTABLE_THRESH, IGNORE_CWISE, INFO );
       }
 
-      ERR_LBND = max( 10.0, sqrt( REAL( N ) ) )*SLAMCH( 'Epsilon' );
+      ERR_LBND = max( 10.0, sqrt( double( N ) ) )*SLAMCH( 'Epsilon' );
       if (N_ERR_BNDS >= 1 && N_NORMS >= 1) {
 
       // Compute scaled normwise condition number cond(A*C).

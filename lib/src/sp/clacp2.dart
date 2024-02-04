@@ -9,7 +9,7 @@
       int                LDA, LDB, M, N;
       // ..
       // .. Array Arguments ..
-      REAL               A( LDA, * );
+      double               A( LDA, * );
       Complex            B( LDB, * );
       // ..
 

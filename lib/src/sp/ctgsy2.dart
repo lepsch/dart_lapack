@@ -7,7 +7,7 @@
       // .. Scalar Arguments ..
       String             TRANS;
       int                IJOB, INFO, LDA, LDB, LDC, LDD, LDE, LDF, M, N;
-      REAL               RDSCAL, RDSUM, SCALE;
+      double               RDSCAL, RDSUM, SCALE;
       // ..
       // .. Array Arguments ..
       Complex            A( LDA, * ), B( LDB, * ), C( LDC, * ), D( LDD, * ), E( LDE, * ), F( LDF, * );
@@ -16,14 +16,14 @@
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       int                LDZ;
       const              ZERO = 0.0, ONE = 1.0, LDZ = 2 ;
       // ..
       // .. Local Scalars ..
       bool               NOTRAN;
       int                I, IERR, J, K;
-      REAL               SCALOC;
+      double               SCALOC;
       Complex            ALPHA;
       // ..
       // .. Local Arrays ..

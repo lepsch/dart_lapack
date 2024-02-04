@@ -6,23 +6,23 @@
 
       // .. Scalar Arguments ..
       int                LDA, LDX, LDY, N, TYPE;
-      REAL               ALPHA, BETA, WX, WY;
+      double               ALPHA, BETA, WX, WY;
       // ..
       // .. Array Arguments ..
-      REAL               A( LDA, * ), B( LDA, * ), DIF( * ), S( * ), X( LDX, * ), Y( LDY, * );
+      double               A( LDA, * ), B( LDA, * ), DIF( * ), S( * ), X( LDX, * ), Y( LDY, * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE, TWO, THREE;
+      double               ZERO, ONE, TWO, THREE;
       const              ZERO = 0.0, ONE = 1.0, TWO = 2.0, THREE = 3.0 ;
       // ..
       // .. Local Scalars ..
       int                I, INFO, J;
       // ..
       // .. Local Arrays ..
-      REAL               WORK( 100 ), Z( 12, 12 );
+      double               WORK( 100 ), Z( 12, 12 );
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC REAL, SQRT
@@ -39,7 +39,7 @@
          for (J = 1; J <= N; J++) { // 10
 
             if ( I == J ) {
-               A[I, I] = REAL( I ) + ALPHA;
+               A[I, I] = double( I ) + ALPHA;
                B[I, I] = ONE;
             } else {
                A[I, J] = ZERO;

@@ -85,7 +85,7 @@
       }
       IPIV[1] = 1;
       if ( N == 1 ) {
-         A[1, 1] = REAL( A( 1, 1 ) );
+         A[1, 1] = double( A( 1, 1 ) );
          return;
       }
 

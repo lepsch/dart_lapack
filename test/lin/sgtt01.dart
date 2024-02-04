@@ -6,22 +6,22 @@
 
       // .. Scalar Arguments ..
       int                LDWORK, N;
-      REAL               RESID;
+      double               RESID;
       // ..
       // .. Array Arguments ..
       int                IPIV( * );
-      REAL               D( * ), DF( * ), DL( * ), DLF( * ), DU( * ), DU2( * ), DUF( * ), RWORK( * ), WORK( LDWORK, * );
+      double               D( * ), DF( * ), DL( * ), DLF( * ), DU( * ), DU2( * ), DUF( * ), RWORK( * ), WORK( LDWORK, * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ONE, ZERO;
+      double               ONE, ZERO;
       const              ONE = 1.0, ZERO = 0.0 ;
       // ..
       // .. Local Scalars ..
       int                I, IP, J, LASTJ;
-      REAL               ANORM, EPS, LI;
+      double               ANORM, EPS, LI;
       // ..
       // .. External Functions ..
       //- REAL               SLAMCH, SLANGT, SLANHS;

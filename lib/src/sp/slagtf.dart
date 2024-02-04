@@ -6,22 +6,22 @@
 
       // .. Scalar Arguments ..
       int                INFO, N;
-      REAL               LAMBDA, TOL;
+      double               LAMBDA, TOL;
       // ..
       // .. Array Arguments ..
       int                IN( * );
-      REAL               A( * ), B( * ), C( * ), D( * );
+      double               A( * ), B( * ), C( * ), D( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO;
+      double               ZERO;
       const              ZERO = 0.0 ;
       // ..
       // .. Local Scalars ..
       int                K;
-      REAL               EPS, MULT, PIV1, PIV2, SCALE1, SCALE2, TEMP, TL;
+      double               EPS, MULT, PIV1, PIV2, SCALE1, SCALE2, TEMP, TL;
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX

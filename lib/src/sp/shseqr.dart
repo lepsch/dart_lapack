@@ -9,7 +9,7 @@
       String             COMPZ, JOB;
       // ..
       // .. Array Arguments ..
-      REAL               H( LDH, * ), WI( * ), WORK( * ), WR( * ), Z( LDZ, * );
+      double               H( LDH, * ), WI( * ), WORK( * ), WR( * ), Z( LDZ, * );
       // ..
 
 // =====================================================================
@@ -30,11 +30,11 @@
       // .    deflation window.  ====
       int                NL;
       const              NL = 49 ;
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       // ..
       // .. Local Arrays ..
-      REAL               HL( NL, NL ), WORKL( NL );
+      double               HL( NL, NL ), WORKL( NL );
       // ..
       // .. Local Scalars ..
       int                I, KBOT, NMIN;
@@ -101,7 +101,7 @@
          slaqr0(WANTT, WANTZ, N, ILO, IHI, H, LDH, WR, WI, ILO, IHI, Z, LDZ, WORK, LWORK, INFO );
          // ==== Ensure reported workspace size is backward-compatible with
          // .    previous LAPACK versions. ====
-         WORK[1] = max( REAL( max( 1, N ) ), WORK( 1 ) );
+         WORK[1] = max( double( max( 1, N ) ), WORK( 1 ) );
          return;
 
       } else {
@@ -180,7 +180,7 @@
          // ==== Ensure reported workspace size is backward-compatible with
          // .    previous LAPACK versions. ====
 
-         WORK[1] = max( REAL( max( 1, N ) ), WORK( 1 ) );
+         WORK[1] = max( double( max( 1, N ) ), WORK( 1 ) );
       }
 
       // ==== End of SHSEQR ====

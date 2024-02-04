@@ -8,7 +8,7 @@
       int                INFO, LDA, LWORK, M, N;
       // ..
       // .. Array Arguments ..
-      REAL               A( LDA, * ), TAU( * ), WORK( * );
+      double               A( LDA, * ), TAU( * ), WORK( * );
       // ..
 
 // =====================================================================
@@ -26,7 +26,7 @@
       // .. External Functions ..
       //- int                ILAENV;
       // EXTERNAL ILAENV
-      REAL               SROUNDUP_LWORK;
+      double               SROUNDUP_LWORK;
       // EXTERNAL SROUNDUP_LWORK
       // ..
       // .. Executable Statements ..

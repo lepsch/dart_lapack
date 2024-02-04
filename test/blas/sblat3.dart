@@ -10,21 +10,21 @@
       const              NIN = 5 ;
       int                NSUBS;
       const              NSUBS = 6 ;
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       int                NMAX;
       const              NMAX = 65 ;
       int                NIDMAX, NALMAX, NBEMAX;
       const              NIDMAX = 9, NALMAX = 7, NBEMAX = 7 ;
       // .. Local Scalars ..
-      REAL               EPS, ERR, THRESH;
+      double               EPS, ERR, THRESH;
       int                I, ISNUM, J, N, NALF, NBET, NIDIM, NOUT, NTRA;
       bool               FATAL, LTESTT, REWI, SAME, SFATAL, TRACE, TSTERR;
       String             TRANSA, TRANSB;
       String             SNAMET;
       String             SNAPS, SUMMRY;
       // .. Local Arrays ..
-      REAL               AA( NMAX*NMAX ), AB( NMAX, 2*NMAX ), ALF( NALMAX ), AS( NMAX*NMAX ), BB( NMAX*NMAX ), BET( NBEMAX ), BS( NMAX*NMAX ), C( NMAX, NMAX ), CC( NMAX*NMAX ), CS( NMAX*NMAX ), CT( NMAX ), G( NMAX ), W( 2*NMAX );
+      double               AA( NMAX*NMAX ), AB( NMAX, 2*NMAX ), ALF( NALMAX ), AS( NMAX*NMAX ), BB( NMAX*NMAX ), BET( NBEMAX ), BS( NMAX*NMAX ), C( NMAX, NMAX ), CC( NMAX*NMAX ), CS( NMAX*NMAX ), CT( NMAX ), G( NMAX ), W( 2*NMAX );
       int                IDIM( NIDMAX );
       bool               LTEST( NSUBS );
       String             SNAMES( NSUBS );
@@ -276,18 +276,18 @@
       // Sven Hammarling, Numerical Algorithms Group Ltd.
 
       // .. Parameters ..
-      REAL               ZERO;
+      double               ZERO;
       const              ZERO = 0.0 ;
       // .. Scalar Arguments ..
-      REAL               EPS, THRESH;
+      double               EPS, THRESH;
       int                NALF, NBET, NIDIM, NMAX, NOUT, NTRA;
       bool               FATAL, REWI, TRACE;
       String             SNAME;
       // .. Array Arguments ..
-      REAL               A( NMAX, NMAX ), AA( NMAX*NMAX ), ALF( NALF ), AS( NMAX*NMAX ), B( NMAX, NMAX ), BB( NMAX*NMAX ), BET( NBET ), BS( NMAX*NMAX ), C( NMAX, NMAX ), CC( NMAX*NMAX ), CS( NMAX*NMAX ), CT( NMAX ), G( NMAX );
+      double               A( NMAX, NMAX ), AA( NMAX*NMAX ), ALF( NALF ), AS( NMAX*NMAX ), B( NMAX, NMAX ), BB( NMAX*NMAX ), BET( NBET ), BS( NMAX*NMAX ), C( NMAX, NMAX ), CC( NMAX*NMAX ), CS( NMAX*NMAX ), CT( NMAX ), G( NMAX );
       int                IDIM( NIDIM );
       // .. Local Scalars ..
-      REAL               ALPHA, ALS, BETA, BLS, ERR, ERRMAX;
+      double               ALPHA, ALS, BETA, BLS, ERR, ERRMAX;
       int                I, IA, IB, ICA, ICB, IK, IM, IN, K, KS, LAA, LBB, LCC, LDA, LDAS, LDB, LDBS, LDC, LDCS, M, MA, MB, MS, N, NA, NARGS, NB, NC, NS;
       bool               NULL, RESET, SAME, TRANA, TRANB;
       String             TRANAS, TRANBS, TRANSA, TRANSB;
@@ -518,18 +518,18 @@
       // Sven Hammarling, Numerical Algorithms Group Ltd.
 
       // .. Parameters ..
-      REAL               ZERO;
+      double               ZERO;
       const              ZERO = 0.0 ;
       // .. Scalar Arguments ..
-      REAL               EPS, THRESH;
+      double               EPS, THRESH;
       int                NALF, NBET, NIDIM, NMAX, NOUT, NTRA;
       bool               FATAL, REWI, TRACE;
       String             SNAME;
       // .. Array Arguments ..
-      REAL               A( NMAX, NMAX ), AA( NMAX*NMAX ), ALF( NALF ), AS( NMAX*NMAX ), B( NMAX, NMAX ), BB( NMAX*NMAX ), BET( NBET ), BS( NMAX*NMAX ), C( NMAX, NMAX ), CC( NMAX*NMAX ), CS( NMAX*NMAX ), CT( NMAX ), G( NMAX );
+      double               A( NMAX, NMAX ), AA( NMAX*NMAX ), ALF( NALF ), AS( NMAX*NMAX ), B( NMAX, NMAX ), BB( NMAX*NMAX ), BET( NBET ), BS( NMAX*NMAX ), C( NMAX, NMAX ), CC( NMAX*NMAX ), CS( NMAX*NMAX ), CT( NMAX ), G( NMAX );
       int                IDIM( NIDIM );
       // .. Local Scalars ..
-      REAL               ALPHA, ALS, BETA, BLS, ERR, ERRMAX;
+      double               ALPHA, ALS, BETA, BLS, ERR, ERRMAX;
       int                I, IA, IB, ICS, ICU, IM, IN, LAA, LBB, LCC, LDA, LDAS, LDB, LDBS, LDC, LDCS, M, MS, N, NA, NARGS, NC, NS;
       bool               LEFT, NULL, RESET, SAME;
       String             SIDE, SIDES, UPLO, UPLOS;
@@ -747,18 +747,18 @@
       // Sven Hammarling, Numerical Algorithms Group Ltd.
 
       // .. Parameters ..
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       // .. Scalar Arguments ..
-      REAL               EPS, THRESH;
+      double               EPS, THRESH;
       int                NALF, NIDIM, NMAX, NOUT, NTRA;
       bool               FATAL, REWI, TRACE;
       String             SNAME;
       // .. Array Arguments ..
-      REAL               A( NMAX, NMAX ), AA( NMAX*NMAX ), ALF( NALF ), AS( NMAX*NMAX ), B( NMAX, NMAX ), BB( NMAX*NMAX ), BS( NMAX*NMAX ), C( NMAX, NMAX ), CT( NMAX ), G( NMAX );
+      double               A( NMAX, NMAX ), AA( NMAX*NMAX ), ALF( NALF ), AS( NMAX*NMAX ), B( NMAX, NMAX ), BB( NMAX*NMAX ), BS( NMAX*NMAX ), C( NMAX, NMAX ), CT( NMAX ), G( NMAX );
       int                IDIM( NIDIM );
       // .. Local Scalars ..
-      REAL               ALPHA, ALS, ERR, ERRMAX;
+      double               ALPHA, ALS, ERR, ERRMAX;
       int                I, IA, ICD, ICS, ICT, ICU, IM, IN, J, LAA, LBB, LDA, LDAS, LDB, LDBS, M, MS, N, NA, NARGS, NC, NS;
       bool               LEFT, NULL, RESET, SAME;
       String             DIAG, DIAGS, SIDE, SIDES, TRANAS, TRANSA, UPLO, UPLOS;
@@ -996,18 +996,18 @@
       // Sven Hammarling, Numerical Algorithms Group Ltd.
 
       // .. Parameters ..
-      REAL               ZERO;
+      double               ZERO;
       const              ZERO = 0.0 ;
       // .. Scalar Arguments ..
-      REAL               EPS, THRESH;
+      double               EPS, THRESH;
       int                NALF, NBET, NIDIM, NMAX, NOUT, NTRA;
       bool               FATAL, REWI, TRACE;
       String             SNAME;
       // .. Array Arguments ..
-      REAL               A( NMAX, NMAX ), AA( NMAX*NMAX ), ALF( NALF ), AS( NMAX*NMAX ), B( NMAX, NMAX ), BB( NMAX*NMAX ), BET( NBET ), BS( NMAX*NMAX ), C( NMAX, NMAX ), CC( NMAX*NMAX ), CS( NMAX*NMAX ), CT( NMAX ), G( NMAX );
+      double               A( NMAX, NMAX ), AA( NMAX*NMAX ), ALF( NALF ), AS( NMAX*NMAX ), B( NMAX, NMAX ), BB( NMAX*NMAX ), BET( NBET ), BS( NMAX*NMAX ), C( NMAX, NMAX ), CC( NMAX*NMAX ), CS( NMAX*NMAX ), CT( NMAX ), G( NMAX );
       int                IDIM( NIDIM );
       // .. Local Scalars ..
-      REAL               ALPHA, ALS, BETA, BETS, ERR, ERRMAX;
+      double               ALPHA, ALS, BETA, BETS, ERR, ERRMAX;
       int                I, IA, IB, ICT, ICU, IK, IN, J, JC, JJ, K, KS, LAA, LCC, LDA, LDAS, LDC, LDCS, LJ, MA, N, NA, NARGS, NC, NS;
       bool               NULL, RESET, SAME, TRAN, UPPER;
       String             TRANS, TRANSS, UPLO, UPLOS;
@@ -1229,18 +1229,18 @@
       // Sven Hammarling, Numerical Algorithms Group Ltd.
 
       // .. Parameters ..
-      REAL               ZERO;
+      double               ZERO;
       const              ZERO = 0.0 ;
       // .. Scalar Arguments ..
-      REAL               EPS, THRESH;
+      double               EPS, THRESH;
       int                NALF, NBET, NIDIM, NMAX, NOUT, NTRA;
       bool               FATAL, REWI, TRACE;
       String             SNAME;
       // .. Array Arguments ..
-      REAL               AA( NMAX*NMAX ), AB( 2*NMAX*NMAX ), ALF( NALF ), AS( NMAX*NMAX ), BB( NMAX*NMAX ), BET( NBET ), BS( NMAX*NMAX ), C( NMAX, NMAX ), CC( NMAX*NMAX ), CS( NMAX*NMAX ), CT( NMAX ), G( NMAX ), W( 2*NMAX );
+      double               AA( NMAX*NMAX ), AB( 2*NMAX*NMAX ), ALF( NALF ), AS( NMAX*NMAX ), BB( NMAX*NMAX ), BET( NBET ), BS( NMAX*NMAX ), C( NMAX, NMAX ), CC( NMAX*NMAX ), CS( NMAX*NMAX ), CT( NMAX ), G( NMAX ), W( 2*NMAX );
       int                IDIM( NIDIM );
       // .. Local Scalars ..
-      REAL               ALPHA, ALS, BETA, BETS, ERR, ERRMAX;
+      double               ALPHA, ALS, BETA, BETS, ERR, ERRMAX;
       int                I, IA, IB, ICT, ICU, IK, IN, J, JC, JJ, JJAB, K, KS, LAA, LBB, LCC, LDA, LDAS, LDB, LDBS, LDC, LDCS, LJ, MA, N, NA, NARGS, NC, NS;
       bool               NULL, RESET, SAME, TRAN, UPPER;
       String             TRANS, TRANSS, UPLO, UPLOS;
@@ -1501,12 +1501,12 @@
       int                INFOT, NOUTC;
       bool               LERR, OK;
       // .. Parameters ..
-      REAL               ONE, TWO;
+      double               ONE, TWO;
       const              ONE = 1.0, TWO = 2.0 ;
       // .. Local Scalars ..
-      REAL               ALPHA, BETA;
+      double               ALPHA, BETA;
       // .. Local Arrays ..
-      REAL               A( 2, 1 ), B( 2, 1 ), C( 2, 1 );
+      double               A( 2, 1 ), B( 2, 1 ), C( 2, 1 );
       // .. External Subroutines ..
       // EXTERNAL CHKXER, SGEMM, SSYMM, SSYR2K, SSYRK, STRMM, STRSM
       // .. Common blocks ..
@@ -2044,18 +2044,18 @@
       // Sven Hammarling, Numerical Algorithms Group Ltd.
 
       // .. Parameters ..
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
-      REAL               ROGUE;
+      double               ROGUE;
       const              ROGUE = -1.0e10 ;
       // .. Scalar Arguments ..
-      REAL               TRANSL;
+      double               TRANSL;
       int                LDA, M, N, NMAX;
       bool               RESET;
       String             DIAG, UPLO;
       String             TYPE;
       // .. Array Arguments ..
-      REAL               A( NMAX, * ), AA( * );
+      double               A( NMAX, * ), AA( * );
       // .. Local Scalars ..
       int                I, IBEG, IEND, J;
       bool               GEN, LOWER, SYM, TRI, UNIT, UPPER;
@@ -2145,17 +2145,17 @@
       // Sven Hammarling, Numerical Algorithms Group Ltd.
 
       // .. Parameters ..
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       // .. Scalar Arguments ..
-      REAL               ALPHA, BETA, EPS, ERR;
+      double               ALPHA, BETA, EPS, ERR;
       int                KK, LDA, LDB, LDC, LDCC, M, N, NOUT;
       bool               FATAL, MV;
       String             TRANSA, TRANSB;
       // .. Array Arguments ..
-      REAL               A( LDA, * ), B( LDB, * ), C( LDC, * ), CC( LDCC, * ), CT( * ), G( * );
+      double               A( LDA, * ), B( LDB, * ), C( LDC, * ), CC( LDCC, * ), CT( * ), G( * );
       // .. Local Scalars ..
-      REAL               ERRI;
+      double               ERRI;
       int                I, J, K;
       bool               TRANA, TRANB;
       // .. Intrinsic Functions ..
@@ -2258,7 +2258,7 @@
       // .. Scalar Arguments ..
       int                LR;
       // .. Array Arguments ..
-      REAL               RI( * ), RJ( * );
+      double               RI( * ), RJ( * );
       // .. Local Scalars ..
       int                I;
       // .. Executable Statements ..
@@ -2290,7 +2290,7 @@
       String             UPLO;
       String             TYPE;
       // .. Array Arguments ..
-      REAL               AA( LDA, * ), AS( LDA, * );
+      double               AA( LDA, * ), AS( LDA, * );
       // .. Local Scalars ..
       int                I, IBEG, IEND, J;
       bool               UPPER;
@@ -2326,7 +2326,7 @@
       LSERES = false;
    80 return;
       }
-      REAL sbeg(RESET ) {
+      double sbeg(RESET ) {
 
 // Generates random numbers uniformly distributed between -0.5 and 0.5.
 
@@ -2369,7 +2369,7 @@
       SBEG = ( I - 500 )/1001.0;
       return;
       }
-      REAL sdiff(X, Y ) {
+      double sdiff(X, Y ) {
 
 // Auxiliary routine for test program for Level 3 Blas.
 
@@ -2380,7 +2380,7 @@
       // Sven Hammarling, Numerical Algorithms Group Ltd.
 
       // .. Scalar Arguments ..
-      REAL               X, Y;
+      double               X, Y;
       // .. Executable Statements ..
       SDIFF = X - Y;
       return;

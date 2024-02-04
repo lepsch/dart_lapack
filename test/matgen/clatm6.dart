@@ -9,14 +9,14 @@
       Complex            ALPHA, BETA, WX, WY;
       // ..
       // .. Array Arguments ..
-      REAL               DIF( * ), S( * );
+      double               DIF( * ), S( * );
       Complex            A( LDA, * ), B( LDA, * ), X( LDX, * ), Y( LDY, * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               RONE, TWO, THREE;
+      double               RONE, TWO, THREE;
       const              RONE = 1.0, TWO = 2.0, THREE = 3.0 ;
       Complex            ZERO, ONE;
       const              ZERO = ( 0.0, 0.0 ), ONE = ( 1.0, 0.0 ) ;
@@ -25,7 +25,7 @@
       int                I, INFO, J;
       // ..
       // .. Local Arrays ..
-      REAL               RWORK( 50 );
+      double               RWORK( 50 );
       Complex            WORK( 26 ), Z( 8, 8 );
       // ..
       // .. Intrinsic Functions ..
@@ -56,7 +56,7 @@
          A[1, 1] = CMPLX( RONE, RONE );
          A[2, 2] = CONJG( A( 1, 1 ) );
          A[3, 3] = ONE;
-         A[4, 4] = CMPLX( REAL( ONE+ALPHA ), REAL( ONE+BETA ) );
+         A[4, 4] = CMPLX( REAL( ONE+ALPHA ), double( ONE+BETA ) );
          A[5, 5] = CONJG( A( 4, 4 ) );
       }
 

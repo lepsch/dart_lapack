@@ -1,4 +1,4 @@
-      REAL cla_syrpvgrw(UPLO, N, INFO, A, LDA, AF, LDAF, IPIV, WORK ) {
+      double cla_syrpvgrw(UPLO, N, INFO, A, LDA, AF, LDAF, IPIV, WORK ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -10,7 +10,7 @@
       // ..
       // .. Array Arguments ..
       Complex            A( LDA, * ), AF( LDAF, * );
-      REAL               WORK( * );
+      double               WORK( * );
       int                IPIV( * );
       // ..
 
@@ -18,7 +18,7 @@
 
       // .. Local Scalars ..
       int                NCOLS, I, J, K, KP;
-      REAL               AMAX, UMAX, RPVGRW, TMP;
+      double               AMAX, UMAX, RPVGRW, TMP;
       bool               UPPER;
       Complex            ZDUM;
       // ..
@@ -30,10 +30,10 @@
       bool               lsame;
       // ..
       // .. Statement Functions ..
-      REAL               CABS1;
+      double               CABS1;
       // ..
       // .. Statement Function Definitions ..
-      CABS1[ZDUM] = ( REAL ( ZDUM ) ).abs() + ( AIMAG ( ZDUM ) ).abs();
+      CABS1[ZDUM] = ( double ( ZDUM ) ).abs() + ( AIMAG ( ZDUM ) ).abs();
       // ..
       // .. Executable Statements ..
 

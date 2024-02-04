@@ -6,11 +6,11 @@
 
       // .. Scalar Arguments ..
       int                INFO, LDA, LDB, LWORK, M, N, NRHS, RANK;
-      REAL               RCOND;
+      double               RCOND;
       // ..
       // .. Array Arguments ..
       int                JPVT( * );
-      REAL               RWORK( * );
+      double               RWORK( * );
       Complex            A( LDA, * ), B( LDB, * ), WORK( * );
       // ..
 
@@ -19,7 +19,7 @@
       // .. Parameters ..
       int                IMAX, IMIN;
       const              IMAX = 1, IMIN = 2 ;
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       Complex            CZERO, CONE;
       const              CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
@@ -27,7 +27,7 @@
       // .. Local Scalars ..
       bool               LQUERY;
       int                I, IASCL, IBSCL, ISMAX, ISMIN, J, LWKOPT, MN, NB, NB1, NB2, NB3, NB4;
-      REAL               ANRM, BIGNUM, BNRM, SMAX, SMAXPR, SMIN, SMINPR, SMLNUM, WSIZE;
+      double               ANRM, BIGNUM, BNRM, SMAX, SMAXPR, SMIN, SMINPR, SMLNUM, WSIZE;
       Complex            C1, C2, S1, S2;
       // ..
       // .. External Subroutines ..
@@ -136,7 +136,7 @@
          // A * P = Q * R
 
       cgeqp3(M, N, A, LDA, JPVT, WORK( 1 ), WORK( MN+1 ), LWORK-MN, RWORK, INFO );
-      WSIZE = MN + REAL( WORK( MN+1 ) );
+      WSIZE = MN + double( WORK( MN+1 ) );
 
       // complex workspace: MN+NB*(N+1). real workspace 2*N.
       // Details of Householder rotations stored in WORK(1:MN).
@@ -191,7 +191,7 @@
       // B(1:M,1:NRHS) := Q**H * B(1:M,1:NRHS)
 
       cunmqr('Left', 'Conjugate transpose', M, NRHS, MN, A, LDA, WORK( 1 ), B, LDB, WORK( 2*MN+1 ), LWORK-2*MN, INFO );
-      WSIZE = max( WSIZE, 2*MN+REAL( WORK( 2*MN+1 ) ) );
+      WSIZE = max( WSIZE, 2*MN+double( WORK( 2*MN+1 ) ) );
 
       // complex workspace: 2*MN+NB*NRHS.
 

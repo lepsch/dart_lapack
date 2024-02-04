@@ -6,7 +6,7 @@
 
       // .. Scalar Arguments ..
       int                KNT, LMAX, NIN;
-      REAL               RMAX;
+      double               RMAX;
       // ..
       // .. Array Arguments ..
       int                NINFO( 2 );
@@ -15,17 +15,17 @@
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       int                LDT, LWORK;
       const              LDT = 10, LWORK = 100 + 4*LDT + 16 ;
       // ..
       // .. Local Scalars ..
       int                I, IFST, IFST1, IFST2, IFSTSV, ILST, ILST1, ILST2, ILSTSV, J, LOC, N;
-      REAL               EPS, RES;
+      double               EPS, RES;
       // ..
       // .. Local Arrays ..
-      REAL               Q( LDT, LDT ), Z( LDT, LDT ), RESULT( 4 ), T( LDT, LDT ), T1( LDT, LDT ), T2( LDT, LDT ), S( LDT, LDT ), S1( LDT, LDT ), S2( LDT, LDT ), TMP( LDT, LDT ), WORK( LWORK );
+      double               Q( LDT, LDT ), Z( LDT, LDT ), RESULT( 4 ), T( LDT, LDT ), T1( LDT, LDT ), T2( LDT, LDT ), S( LDT, LDT ), S1( LDT, LDT ), S2( LDT, LDT ), TMP( LDT, LDT ), WORK( LWORK );
       // ..
       // .. External Functions ..
       //- REAL               SLAMCH;

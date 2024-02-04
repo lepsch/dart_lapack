@@ -6,23 +6,23 @@
 
       // .. Scalar Arguments ..
       int                INFO, LDA, LDU, LIWORK, LRWORK, LWORK, NOUNIT, NSIZES, NTYPES;
-      REAL               THRESH;
+      double               THRESH;
       // ..
       // .. Array Arguments ..
       bool               DOTYPE( * );
       int                ISEED( 4 ), IWORK( * ), NN( * );
-      REAL               D1( * ), D2( * ), D3( * ), D4( * ), D5( * ), RESULT( * ), RWORK( * ), SD( * ), SE( * ), WA1( * ), WA2( * ), WA3( * ), WR( * );
+      double               D1( * ), D2( * ), D3( * ), D4( * ), D5( * ), RESULT( * ), RWORK( * ), SD( * ), SE( * ), WA1( * ), WA2( * ), WA3( * ), WR( * );
       Complex            A( LDA, * ), AP( * ), TAU( * ), U( LDU, * ), V( LDU, * ), VP( * ), WORK( * ), Z( LDU, * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE, TWO, EIGHT, TEN, HUN;
+      double               ZERO, ONE, TWO, EIGHT, TEN, HUN;
       const              ZERO = 0.0, ONE = 1.0, TWO = 2.0, EIGHT = 8.0, TEN = 10.0, HUN = 100.0 ;
       Complex            CZERO, CONE;
       const              CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
-      REAL               HALF;
+      double               HALF;
       const              HALF = ONE / TWO ;
       int                MAXTYP;
       const              MAXTYP = 21 ;
@@ -34,11 +34,11 @@
       // .. Local Scalars ..
       bool               BADNN, TRYRAC;
       int                I, IINFO, IL, IMODE, INDE, INDRWK, ITEMP, ITYPE, IU, J, JC, JR, JSIZE, JTYPE, LGN, LIWEDC, LOG2UI, LRWEDC, LWEDC, M, M2, M3, MTYPES, N, NAP, NBLOCK, NERRS, NMATS, NMAX, NSPLIT, NTEST, NTESTT;
-      REAL               ABSTOL, ANINV, ANORM, COND, OVFL, RTOVFL, RTUNFL, TEMP1, TEMP2, TEMP3, TEMP4, ULP, ULPINV, UNFL, VL, VU;
+      double               ABSTOL, ANINV, ANORM, COND, OVFL, RTOVFL, RTUNFL, TEMP1, TEMP2, TEMP3, TEMP4, ULP, ULPINV, UNFL, VL, VU;
       // ..
       // .. Local Arrays ..
       int                IDUMMA( 1 ), IOLDSD( 4 ), ISEED2( 4 ), KMAGN( MAXTYP ), KMODE( MAXTYP ), KTYPE( MAXTYP );
-      REAL               DUMMA( 1 );
+      double               DUMMA( 1 );
       // ..
       // .. External Functions ..
       //- int                ILAENV;
@@ -125,7 +125,7 @@
       for (JSIZE = 1; JSIZE <= NSIZES; JSIZE++) { // 310
          N = NN( JSIZE );
          if ( N > 0 ) {
-            LGN = INT( LOG( REAL( N ) ) / LOG( TWO ) );
+            LGN = INT( LOG( double( N ) ) / LOG( TWO ) );
             if (2**LGN < N) LGN = LGN + 1;
             IF( 2**LGN < N ) LGN = LGN + 1;
             LWEDC = 1 + 4*N + 2*N*LGN + 4*N**2;

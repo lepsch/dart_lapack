@@ -15,13 +15,13 @@
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ONE;
+      double               ONE;
       const              ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
       bool               UPPER;
       int                J, JC, JJ, JJN;
-      REAL               AJJ;
+      double               AJJ;
       // ..
       // .. External Functions ..
       //- bool               lsame;
@@ -67,7 +67,7 @@
             JC = JJ + 1;
             JJ = JJ + J;
             if (J > 1) chpr( 'Upper', J-1, ONE, AP( JC ), 1, AP );
-            AJJ = REAL( AP( JJ ) );
+            AJJ = double( AP( JJ ) );
             csscal(J, AJJ, AP( JC ), 1 );
          } // 10
 
@@ -78,7 +78,7 @@
          JJ = 1;
          for (J = 1; J <= N; J++) { // 20
             JJN = JJ + N - J + 1;
-            AP[JJ] = REAL( CDOTC( N-J+1, AP( JJ ), 1, AP( JJ ), 1 ) );
+            AP[JJ] = double( CDOTC( N-J+1, AP( JJ ), 1, AP( JJ ), 1 ) );
             if (J < N) ctpmv( 'Lower', 'Conjugate transpose', 'Non-unit', N-J, AP( JJN ), AP( JJ+1 ), 1 );
             JJ = JJN;
          } // 20

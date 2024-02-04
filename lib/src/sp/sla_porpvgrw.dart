@@ -1,4 +1,4 @@
-      REAL sla_porpvgrw(UPLO, NCOLS, A, LDA, AF, LDAF, WORK ) {
+      double sla_porpvgrw(UPLO, NCOLS, A, LDA, AF, LDAF, WORK ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -9,14 +9,14 @@
       int                NCOLS, LDA, LDAF;
       // ..
       // .. Array Arguments ..
-      REAL               A( LDA, * ), AF( LDAF, * ), WORK( * );
+      double               A( LDA, * ), AF( LDAF, * ), WORK( * );
       // ..
 
 // =====================================================================
 
       // .. Local Scalars ..
       int                I, J;
-      REAL               AMAX, UMAX, RPVGRW;
+      double               AMAX, UMAX, RPVGRW;
       bool               UPPER;
       // ..
       // .. Intrinsic Functions ..

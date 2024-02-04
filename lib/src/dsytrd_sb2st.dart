@@ -187,9 +187,9 @@
       THGRSIZ   = N;
       GRSIZ     = 1;
       SHIFT     = 3;
-      NBTILES   = CEILING( REAL(N)/REAL(KD) );
-      STEPERCOL = CEILING( REAL(SHIFT)/REAL(GRSIZ) );
-      THGRNB    = CEILING( REAL(N-1)/REAL(THGRSIZ) );
+      NBTILES   = CEILING( double(N)/REAL(KD) );
+      STEPERCOL = CEILING( double(SHIFT)/REAL(GRSIZ) );
+      THGRNB    = CEILING( double(N-1)/REAL(THGRSIZ) );
 
       dlacpy("A", KD+1, N, AB, LDAB, WORK( APOS ), LDA );
       dlaset("A", KD,   N, ZERO, ZERO, WORK( AWPOS ), LDA );

@@ -9,19 +9,19 @@
       int                INFO, KL, KU, LDAB, LDC, LDPT, LDQ, M, N, NCC;
       // ..
       // .. Array Arguments ..
-      REAL               AB( LDAB, * ), C( LDC, * ), D( * ), E( * ), PT( LDPT, * ), Q( LDQ, * ), WORK( * );
+      double               AB( LDAB, * ), C( LDC, * ), D( * ), E( * ), PT( LDPT, * ), Q( LDQ, * ), WORK( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
       bool               WANTB, WANTC, WANTPT, WANTQ;
       int                I, INCA, J, J1, J2, KB, KB1, KK, KLM, KLU1, KUN, L, MINMN, ML, ML0, MN, MU, MU0, NR, NRT;
-      REAL               RA, RB, RC, RS;
+      double               RA, RB, RC, RS;
       // ..
       // .. External Subroutines ..
       // EXTERNAL SLARGV, SLARTG, SLARTV, SLASET, SROT, XERBLA

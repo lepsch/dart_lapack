@@ -8,14 +8,14 @@
       int                N, NZ, NRHS;
       // ..
       // .. Array Arguments ..
-      REAL               AYB( N, NRHS ), BERR( NRHS );
-      REAL               RES( N, NRHS );
+      double               AYB( N, NRHS ), BERR( NRHS );
+      double               RES( N, NRHS );
       // ..
 
 // =====================================================================
 
       // .. Local Scalars ..
-      REAL               TMP;
+      double               TMP;
       int                I, J;
       // ..
       // .. Intrinsic Functions ..
@@ -23,8 +23,8 @@
       // ..
       // .. External Functions ..
       // EXTERNAL SLAMCH
-      REAL               SLAMCH;
-      REAL               SAFE1;
+      double               SLAMCH;
+      double               SAFE1;
       // ..
       // .. Executable Statements ..
 

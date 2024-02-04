@@ -6,22 +6,22 @@
 
       // .. Scalar Arguments ..
       int                INFO, LDA, N;
-      REAL               AMAX, SCOND;
+      double               AMAX, SCOND;
       // ..
       // .. Array Arguments ..
       Complex            A( LDA, * );
-      REAL               S( * );
+      double               S( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
       int                I;
-      REAL               SMIN, BASE, TMP;
+      double               SMIN, BASE, TMP;
       // ..
       // .. External Functions ..
       //- REAL               SLAMCH;
@@ -63,11 +63,11 @@
 
       // Find the minimum and maximum diagonal elements.
 
-      S[1] = REAL( A( 1, 1 ) );
+      S[1] = double( A( 1, 1 ) );
       SMIN = S( 1 );
       AMAX = S( 1 );
       for (I = 2; I <= N; I++) { // 10
-         S[I] = REAL( A( I, I ) );
+         S[I] = double( A( I, I ) );
          SMIN = min( SMIN, S( I ) );
          AMAX = max( AMAX, S( I ) );
       } // 10

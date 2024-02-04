@@ -1,4 +1,4 @@
-      REAL cla_gbrcond_c(TRANS, N, KL, KU, AB, LDAB, AFB, LDAFB, IPIV, C, CAPPLY, INFO, WORK, RWORK ) {
+      double cla_gbrcond_c(TRANS, N, KL, KU, AB, LDAB, AFB, LDAFB, IPIV, C, CAPPLY, INFO, WORK, RWORK ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -12,7 +12,7 @@
       // .. Array Arguments ..
       int                IPIV( * );
       Complex            AB( LDAB, * ), AFB( LDAFB, * ), WORK( * );
-      REAL               C( * ), RWORK( * );
+      double               C( * ), RWORK( * );
       // ..
 
 // =====================================================================
@@ -20,7 +20,7 @@
       // .. Local Scalars ..
       bool               NOTRANS;
       int                KASE, I, J;
-      REAL               AINVNM, ANORM, TMP;
+      double               AINVNM, ANORM, TMP;
       Complex            ZDUM;
       // ..
       // .. Local Arrays ..
@@ -37,10 +37,10 @@
       // INTRINSIC ABS, MAX
       // ..
       // .. Statement Functions ..
-      REAL               CABS1;
+      double               CABS1;
       // ..
       // .. Statement Function Definitions ..
-      CABS1[ZDUM] = ( REAL( ZDUM ) ).abs() + ( AIMAG( ZDUM ) ).abs();
+      CABS1[ZDUM] = ( double( ZDUM ) ).abs() + ( AIMAG( ZDUM ) ).abs();
       // ..
       // .. Executable Statements ..
       CLA_GBRCOND_C = 0.0;

@@ -6,17 +6,17 @@
 
       // .. Scalar Arguments ..
       int                INFO, K, LDQ, N, N1;
-      REAL               RHO;
+      double               RHO;
       // ..
       // .. Array Arguments ..
       int                COLTYP( * ), INDX( * ), INDXC( * ), INDXP( * ), INDXQ( * );
-      REAL               D( * ), DLAMBDA( * ), Q( LDQ, * ), Q2( * ), W( * ), Z( * );
+      double               D( * ), DLAMBDA( * ), Q( LDQ, * ), Q2( * ), W( * ), Z( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               MONE, ZERO, ONE, TWO, EIGHT;
+      double               MONE, ZERO, ONE, TWO, EIGHT;
       const              MONE = -1.0, ZERO = 0.0, ONE = 1.0, TWO = 2.0, EIGHT = 8.0 ;
       // ..
       // .. Local Arrays ..
@@ -24,7 +24,7 @@
       // ..
       // .. Local Scalars ..
       int                CT, I, IMAX, IQ1, IQ2, J, JMAX, JS, K2, N1P1, N2, NJ, PJ;
-      REAL               C, EPS, S, T, TAU, TOL;
+      double               C, EPS, S, T, TAU, TOL;
       // ..
       // .. External Functions ..
       //- int                ISAMAX;

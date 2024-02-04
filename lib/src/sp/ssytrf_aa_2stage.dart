@@ -12,19 +12,19 @@
       // ..
       // .. Array Arguments ..
       int                IPIV( * ), IPIV2( * );
-      REAL               A( LDA, * ), TB( * ), WORK( * );
+      double               A( LDA, * ), TB( * ), WORK( * );
       // ..
 
 // =====================================================================
       // .. Parameters ..
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
 
       // .. Local Scalars ..
       bool               UPPER, TQUERY, WQUERY;
       int                I, J, K, I1, I2, TD;
       int                LDTB, NB, KB, JB, NT, IINFO;
-      REAL               PIV;
+      double               PIV;
       // ..
       // .. External Functions ..
       //- bool               lsame;

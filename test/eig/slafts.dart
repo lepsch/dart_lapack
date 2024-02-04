@@ -7,11 +7,11 @@
       // .. Scalar Arguments ..
       String             TYPE;
       int                IE, IMAT, IOUNIT, M, N, NTESTS;
-      REAL               THRESH;
+      double               THRESH;
       // ..
       // .. Array Arguments ..
       int                ISEED( 4 );
-      REAL               RESULT( * );
+      double               RESULT( * );
       // ..
 
 // =====================================================================

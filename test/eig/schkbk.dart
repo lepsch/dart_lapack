@@ -13,16 +13,16 @@
       // .. Parameters ..
       int                LDE;
       const              LDE = 20 ;
-      REAL               ZERO;
+      double               ZERO;
       const              ZERO = 0.0 ;
       // ..
       // .. Local Scalars ..
       int                I, IHI, ILO, INFO, J, KNT, N, NINFO;
-      REAL               EPS, RMAX, SAFMIN, VMAX, X;
+      double               EPS, RMAX, SAFMIN, VMAX, X;
       // ..
       // .. Local Arrays ..
       int                LMAX( 2 );
-      REAL               E( LDE, LDE ), EIN( LDE, LDE ), SCALE( LDE );
+      double               E( LDE, LDE ), EIN( LDE, LDE ), SCALE( LDE );
       // ..
       // .. External Functions ..
       //- REAL               SLAMCH;

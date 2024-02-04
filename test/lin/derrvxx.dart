@@ -14,7 +14,7 @@
       // .. Parameters ..
       int                NMAX;
       const              NMAX = 4 ;
-      REAL               ONE;
+      double               ONE;
       const              ONE = 1.0 ;
       // ..
       // .. Local Scalars ..

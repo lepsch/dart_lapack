@@ -9,7 +9,7 @@
       // ..
       // .. Array Arguments ..
       int                NVAL( NN );
-      REAL               A( LDA, * ), ARF( * ), AP(*), ASAV( LDA, * );
+      double               A( LDA, * ), ARF( * ), AP(*), ASAV( LDA, * );
       // ..
 
 // =====================================================================

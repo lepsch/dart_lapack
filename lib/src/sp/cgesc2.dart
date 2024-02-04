@@ -6,7 +6,7 @@
 
       // .. Scalar Arguments ..
       int                LDA, N;
-      REAL               SCALE;
+      double               SCALE;
       // ..
       // .. Array Arguments ..
       int                IPIV( * ), JPIV( * );
@@ -16,12 +16,12 @@
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE, TWO;
+      double               ZERO, ONE, TWO;
       const              ZERO = 0.0, ONE = 1.0, TWO = 2.0 ;
       // ..
       // .. Local Scalars ..
       int                I, J;
-      REAL               BIGNUM, EPS, SMLNUM;
+      double               BIGNUM, EPS, SMLNUM;
       Complex            TEMP;
       // ..
       // .. External Subroutines ..
@@ -65,7 +65,7 @@
       if ( TWO*SMLNUM*( RHS( I ) ).abs() > ( A( N, N ) ) ).abs() {
          TEMP = CMPLX( ONE / TWO, ZERO ) / ( RHS( I ) ).abs();
          cscal(N, TEMP, RHS( 1 ), 1 );
-         SCALE = SCALE*REAL( TEMP );
+         SCALE = SCALE*double( TEMP );
       }
       for (I = N; I >= 1; I--) { // 40
          TEMP = CMPLX( ONE, ZERO ) / A( I, I );

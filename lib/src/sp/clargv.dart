@@ -8,14 +8,14 @@
       int                INCC, INCX, INCY, N;
       // ..
       // .. Array Arguments ..
-      REAL               C( * );
+      double               C( * );
       Complex            X( * ), Y( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               TWO, ONE, ZERO;
+      double               TWO, ONE, ZERO;
       const              TWO = 2.0, ONE = 1.0, ZERO = 0.0 ;
       Complex            CZERO;
       const              CZERO = ( 0.0, 0.0 ) ;
@@ -23,7 +23,7 @@
       // .. Local Scalars ..
       // LOGICAL            FIRST
       int                COUNT, I, IC, IX, IY, J;
-      REAL               CS, D, DI, DR, EPS, F2, F2S, G2, G2S, SAFMIN, SAFMN2, SAFMX2, SCALE;
+      double               CS, D, DI, DR, EPS, F2, F2S, G2, G2S, SAFMIN, SAFMN2, SAFMX2, SCALE;
       Complex            F, FF, FS, G, GS, R, SN;
       // ..
       // .. External Functions ..
@@ -34,7 +34,7 @@
       // INTRINSIC ABS, AIMAG, CMPLX, CONJG, INT, LOG, MAX, REAL, SQRT
       // ..
       // .. Statement Functions ..
-      REAL               ABS1, ABSSQ;
+      double               ABS1, ABSSQ;
       // ..
       // .. Save statement ..
       // SAVE               FIRST, SAFMX2, SAFMIN, SAFMN2
@@ -43,8 +43,8 @@
       // DATA               FIRST / true /
       // ..
       // .. Statement Function definitions ..
-      ABS1[FF] = max( ( REAL( FF ) ).abs(), ( AIMAG( FF ) ) ).abs();
-      ABSSQ[FF] = REAL( FF )**2 + AIMAG( FF )**2;
+      ABS1[FF] = max( ( double( FF ) ).abs(), ( AIMAG( FF ) ) ).abs();
+      ABSSQ[FF] = double( FF )**2 + AIMAG( FF )**2;
       // ..
       // .. Executable Statements ..
 
@@ -97,14 +97,14 @@
 
             if ( F == CZERO ) {
                CS = ZERO;
-               R = SLAPY2( REAL( G ), AIMAG( G ) );
+               R = SLAPY2( double( G ), AIMAG( G ) );
                // Do complex/real division explicitly with two real
                // divisions
-               D = SLAPY2( REAL( GS ), AIMAG( GS ) );
-               SN = CMPLX( REAL( GS ) / D, -AIMAG( GS ) / D );
+               D = SLAPY2( double( GS ), AIMAG( GS ) );
+               SN = CMPLX( double( GS ) / D, -AIMAG( GS ) / D );
                GO TO 50;
             }
-            F2S = SLAPY2( REAL( FS ), AIMAG( FS ) );
+            F2S = SLAPY2( double( FS ), AIMAG( FS ) );
             // G2 and G2S are accurate
             // G2 is at least SAFMIN, and G2S is at least SAFMN2
             G2S = sqrt( G2 );
@@ -119,15 +119,15 @@
             // Make sure abs(FF) = 1
             // Do complex/real division explicitly with 2 real divisions
             if ( ABS1( F ) > ONE ) {
-               D = SLAPY2( REAL( F ), AIMAG( F ) );
-               FF = CMPLX( REAL( F ) / D, AIMAG( F ) / D );
+               D = SLAPY2( double( F ), AIMAG( F ) );
+               FF = CMPLX( double( F ) / D, AIMAG( F ) / D );
             } else {
-               DR = SAFMX2*REAL( F );
+               DR = SAFMX2*double( F );
                DI = SAFMX2*AIMAG( F );
                D = SLAPY2( DR, DI );
                FF = CMPLX( DR / D, DI / D );
             }
-            SN = FF*CMPLX( REAL( GS ) / G2S, -AIMAG( GS ) / G2S );
+            SN = FF*CMPLX( double( GS ) / G2S, -AIMAG( GS ) / G2S );
             R = CS*F + SN*G;
          } else {
 
@@ -138,11 +138,11 @@
             F2S = sqrt( ONE+G2 / F2 );
             // Do the F2S(real)*FS(complex) multiply with two real
             // multiplies
-            R = CMPLX( F2S*REAL( FS ), F2S*AIMAG( FS ) );
+            R = CMPLX( F2S*double( FS ), F2S*AIMAG( FS ) );
             CS = ONE / F2S;
             D = F2 + G2;
             // Do complex/real division explicitly with two real divisions
-            SN = CMPLX( REAL( R ) / D, AIMAG( R ) / D );
+            SN = CMPLX( double( R ) / D, AIMAG( R ) / D );
             SN = SN*CONJG( GS );
             if ( COUNT != 0 ) {
                if ( COUNT > 0 ) {

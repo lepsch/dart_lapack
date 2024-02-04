@@ -7,20 +7,20 @@
       // .. Scalar Arguments ..
       String             DIAG, UPLO;
       int                N;
-      REAL               RAT, RCOND, RCONDC;
+      double               RAT, RCOND, RCONDC;
       // ..
       // .. Array Arguments ..
-      REAL               AP( * ), WORK( * );
+      double               AP( * ), WORK( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
-      REAL               ANORM, BIGNUM, EPS, RMAX, RMIN, SMLNUM;
+      double               ANORM, BIGNUM, EPS, RMAX, RMIN, SMLNUM;
       // ..
       // .. External Functions ..
       //- REAL               SLAMCH, SLANTP;

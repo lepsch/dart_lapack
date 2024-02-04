@@ -7,17 +7,17 @@
       // .. Scalar Arguments ..
       String             EQUED, FACT, TRANS;
       int                INFO, LDA, LDAF, LDB, LDX, N, NRHS, NPARAMS, N_ERR_BNDS;
-      REAL               RCOND, RPVGRW;
+      double               RCOND, RPVGRW;
       // ..
       // .. Array Arguments ..
       int                IPIV( * ), IWORK( * );
-      REAL               A( LDA, * ), AF( LDAF, * ), B( LDB, * ), X( LDX , * ),WORK( * )       REAL               R( * ), C( * ), PARAMS( * ), BERR( * ), ERR_BNDS_NORM( NRHS, * ), ERR_BNDS_COMP( NRHS, * );
+      REAL               A( LDA, * ), AF( LDAF, * ), B( LDB, * ), X( LDX , * ),WORK( * )       double               R( * ), C( * ), PARAMS( * ), BERR( * ), ERR_BNDS_NORM( NRHS, * ), ERR_BNDS_COMP( NRHS, * );
       // ..
 
 // ==================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       int                FINAL_NRM_ERR_I, FINAL_CMP_ERR_I, BERR_I;
       int                RCOND_I, NRM_RCOND_I, NRM_ERR_I, CMP_RCOND_I;
@@ -29,12 +29,12 @@
       // .. Local Scalars ..
       bool               COLEQU, EQUIL, NOFACT, NOTRAN, ROWEQU;
       int                INFEQU, J;
-      REAL               AMAX, BIGNUM, COLCND, RCMAX, RCMIN, ROWCND, SMLNUM;
+      double               AMAX, BIGNUM, COLCND, RCMAX, RCMIN, ROWCND, SMLNUM;
       // ..
       // .. External Functions ..
       // EXTERNAL lsame, SLAMCH, SLA_GERPVGRW
       bool               lsame;
-      REAL               SLAMCH, SLA_GERPVGRW;
+      double               SLAMCH, SLA_GERPVGRW;
       // ..
       // .. External Subroutines ..
       // EXTERNAL SGEEQUB, SGETRF, SGETRS, SLACPY, SLAQGE, XERBLA, SLASCL2, SGERFSX

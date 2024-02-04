@@ -6,18 +6,18 @@
 
       // .. Scalar Arguments ..
       int                INFO, LDA, LDAB, LDC, LDP, LDQ, LWORK, NOUNIT, NRHS, NSIZES, NTYPES, NWDTHS;
-      REAL               THRESH;
+      double               THRESH;
       // ..
       // .. Array Arguments ..
       bool               DOTYPE( * );
       int                ISEED( 4 ), KK( * ), MVAL( * ), NVAL( * );
-      REAL               A( LDA, * ), AB( LDAB, * ), BD( * ), BE( * ), C( LDC, * ), CC( LDC, * ), P( LDP, * ), Q( LDQ, * ), RESULT( * ), WORK( * );
+      double               A( LDA, * ), AB( LDAB, * ), BD( * ), BE( * ), C( LDC, * ), CC( LDC, * ), P( LDP, * ), Q( LDQ, * ), RESULT( * ), WORK( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       int                MAXTYP;
       const              MAXTYP = 15 ;
@@ -25,7 +25,7 @@
       // .. Local Scalars ..
       bool               BADMM, BADNN, BADNNB;
       int                I, IINFO, IMODE, ITYPE, J, JCOL, JR, JSIZE, JTYPE, JWIDTH, K, KL, KMAX, KU, M, MMAX, MNMAX, MNMIN, MTYPES, N, NERRS, NMATS, NMAX, NTEST, NTESTT;
-      REAL               AMNINV, ANORM, COND, OVFL, RTOVFL, RTUNFL, ULP, ULPINV, UNFL;
+      double               AMNINV, ANORM, COND, OVFL, RTOVFL, RTUNFL, ULP, ULPINV, UNFL;
       // ..
       // .. Local Arrays ..
       int                IDUMMA( 1 ), IOLDSD( 4 ), KMAGN( MAXTYP ), KMODE( MAXTYP ), KTYPE( MAXTYP );

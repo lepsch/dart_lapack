@@ -7,25 +7,25 @@
       // .. Scalar Arguments ..
       bool               WANTNC;
       int       B1, BN, N, NEGCNT, R;
-      REAL               GAPTOL, LAMBDA, MINGMA, NRMINV, PIVMIN, RESID, RQCORR, ZTZ;
+      double               GAPTOL, LAMBDA, MINGMA, NRMINV, PIVMIN, RESID, RQCORR, ZTZ;
       // ..
       // .. Array Arguments ..
       int                ISUPPZ( * );
-      REAL               D( * ), L( * ), LD( * ), LLD( * ), WORK( * );
-      REAL             Z( * );
+      double               D( * ), L( * ), LD( * ), LLD( * ), WORK( * );
+      double             Z( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
 
       // ..
       // .. Local Scalars ..
       bool               SAWNAN1, SAWNAN2;
       int                I, INDLPL, INDP, INDS, INDUMN, NEG1, NEG2, R1, R2;
-      REAL               DMINUS, DPLUS, EPS, S, TMP;
+      double               DMINUS, DPLUS, EPS, S, TMP;
       // ..
       // .. External Functions ..
       //- bool    SISNAN;

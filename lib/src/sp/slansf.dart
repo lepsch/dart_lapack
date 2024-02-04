@@ -1,4 +1,4 @@
-      REAL slansf(NORM, TRANSR, UPLO, N, A, WORK ) {
+      double slansf(NORM, TRANSR, UPLO, N, A, WORK ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -9,19 +9,19 @@
       int                N;
       // ..
       // .. Array Arguments ..
-      REAL               A( 0: * ), WORK( 0: * );
+      double               A( 0: * ), WORK( 0: * );
       // ..
 
 // =====================================================================
 
       // ..
       // .. Parameters ..
-      REAL               ONE, ZERO;
+      double               ONE, ZERO;
       const              ONE = 1.0, ZERO = 0.0 ;
       // ..
       // .. Local Scalars ..
       int                I, J, IFM, ILU, NOE, N1, K, L, LDA;
-      REAL               SCALE, S, VALUE, AA, TEMP;
+      double               SCALE, S, VALUE, AA, TEMP;
       // ..
       // .. External Functions ..
       //- bool               lsame, SISNAN;

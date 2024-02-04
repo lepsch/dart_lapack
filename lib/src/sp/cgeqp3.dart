@@ -9,7 +9,7 @@
       // ..
       // .. Array Arguments ..
       int                JPVT( * );
-      REAL               RWORK( * );
+      double               RWORK( * );
       Complex            A( LDA, * ), TAU( * ), WORK( * );
       // ..
 

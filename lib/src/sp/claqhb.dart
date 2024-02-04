@@ -7,22 +7,22 @@
       // .. Scalar Arguments ..
       String             EQUED, UPLO;
       int                KD, LDAB, N;
-      REAL               AMAX, SCOND;
+      double               AMAX, SCOND;
       // ..
       // .. Array Arguments ..
-      REAL               S( * );
+      double               S( * );
       Complex            AB( LDAB, * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ONE, THRESH;
+      double               ONE, THRESH;
       const              ONE = 1.0, THRESH = 0.1 ;
       // ..
       // .. Local Scalars ..
       int                I, J;
-      REAL               CJ, LARGE, SMALL;
+      double               CJ, LARGE, SMALL;
       // ..
       // .. External Functions ..
       //- bool               lsame;
@@ -64,7 +64,7 @@
                for (I = max( 1, J-KD ); I <= J - 1; I++) { // 10
                   AB[KD+1+I-J, J] = CJ*S( I )*AB( KD+1+I-J, J );
                } // 10
-               AB[KD+1, J] = CJ*CJ*REAL( AB( KD+1, J ) );
+               AB[KD+1, J] = CJ*CJ*double( AB( KD+1, J ) );
             } // 20
          } else {
 
@@ -72,7 +72,7 @@
 
             for (J = 1; J <= N; J++) { // 40
                CJ = S( J );
-               AB[1, J] = CJ*CJ*REAL( AB( 1, J ) );
+               AB[1, J] = CJ*CJ*double( AB( 1, J ) );
                for (I = J + 1; I <= min( N, J+KD ); I++) { // 30
                   AB[1+I-J, J] = CJ*S( I )*AB( 1+I-J, J );
                } // 30

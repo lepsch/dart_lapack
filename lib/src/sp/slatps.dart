@@ -7,22 +7,22 @@
       // .. Scalar Arguments ..
       String             DIAG, NORMIN, TRANS, UPLO;
       int                INFO, N;
-      REAL               SCALE;
+      double               SCALE;
       // ..
       // .. Array Arguments ..
-      REAL               AP( * ), CNORM( * ), X( * );
+      double               AP( * ), CNORM( * ), X( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, HALF, ONE;
+      double               ZERO, HALF, ONE;
       const              ZERO = 0.0, HALF = 0.5, ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
       bool               NOTRAN, NOUNIT, UPPER;
       int                I, IMAX, IP, J, JFIRST, JINC, JLAST, JLEN;
-      REAL               BIGNUM, GROW, REC, SMLNUM, SUMJ, TJJ, TJJS, TMAX, TSCAL, USCAL, XBND, XJ, XMAX;
+      double               BIGNUM, GROW, REC, SMLNUM, SUMJ, TJJ, TJJS, TMAX, TSCAL, USCAL, XBND, XJ, XMAX;
       // ..
       // .. External Functions ..
       //- bool               lsame;

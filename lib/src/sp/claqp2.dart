@@ -9,20 +9,20 @@
       // ..
       // .. Array Arguments ..
       int                JPVT( * );
-      REAL               VN1( * ), VN2( * );
+      double               VN1( * ), VN2( * );
       Complex            A( LDA, * ), TAU( * ), WORK( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       Complex            CONE;
       const              ZERO = 0.0, ONE = 1.0, CONE = ( 1.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
       int                I, ITEMP, J, MN, OFFPI, PVT;
-      REAL               TEMP, TEMP2, TOL3Z;
+      double               TEMP, TEMP2, TOL3Z;
       Complex            AII;
       // ..
       // .. External Subroutines ..

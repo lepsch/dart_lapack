@@ -10,8 +10,8 @@
       int                LRWORK, LRWORKMIN, LRWORKOPT;
       // ..
       // .. Array Arguments ..
-      REAL               RWORK(*);
-      REAL               THETA(*);
+      double               RWORK(*);
+      double               THETA(*);
       Complex            U1(LDU1,*), U2(LDU2,*), V1T(LDV1T,*), WORK(*), X11(LDX11,*), X21(LDX21,*);
       int                IWORK(*);
       // ..
@@ -27,7 +27,7 @@
       bool               LQUERY, WANTU1, WANTU2, WANTV1T;
       // ..
       // .. Local Arrays ..
-      REAL               DUM( 1 );
+      double               DUM( 1 );
       Complex            CDUM( 1, 1 );
       // ..
       // .. External Subroutines ..

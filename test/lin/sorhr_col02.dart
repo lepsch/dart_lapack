@@ -8,26 +8,26 @@
       // .. Scalar Arguments ..
       int               M, N, MB1, NB1, NB2;
       // .. Return values ..
-      REAL              RESULT(6);
+      double              RESULT(6);
 
 // =====================================================================
 
       // ..
       // .. Local allocatable arrays
-      REAL            , ALLOCATABLE ::  A(:,:), AF(:,:), Q(:,:), R(:,:), RWORK(:), WORK( : ), T1(:,:), T2(:,:), DIAG(:), C(:,:), CF(:,:), D(:,:), DF(:,:);
+      double            , ALLOCATABLE ::  A(:,:), AF(:,:), Q(:,:), R(:,:), RWORK(:), WORK( : ), T1(:,:), T2(:,:), DIAG(:), C(:,:), CF(:,:), D(:,:), DF(:,:);
 
       // .. Parameters ..
-      REAL               ONE, ZERO;
+      double               ONE, ZERO;
       const              ZERO = 0.0, ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
       bool               TESTZEROS;
       int                INFO, J, K, L, LWORK, NB2_UB, NRB;
-      REAL               ANORM, EPS, RESID, CNORM, DNORM;
+      double               ANORM, EPS, RESID, CNORM, DNORM;
       // ..
       // .. Local Arrays ..
       int                ISEED( 4 );
-      REAL               WORKQUERY( 1 );
+      double               WORKQUERY( 1 );
       // ..
       // .. External Functions ..
       //- REAL               SLAMCH, SLANGE, SLANSY;
@@ -76,7 +76,7 @@
 
       // Number of row blocks in SLATSQR
 
-      NRB = max( 1, CEILING( REAL( M - N ) / REAL( MB1 - N ) ) );
+      NRB = max( 1, CEILING( double( M - N ) / REAL( MB1 - N ) ) );
 
       ALLOCATE ( T1( NB1, N * NRB ) );
       ALLOCATE ( T2( NB2, N ) );

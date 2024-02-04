@@ -9,13 +9,13 @@
       int               INFO, LDA, LDT, LWORK, M, N, MB, NB;
       // ..
       // .. Array Arguments ..
-      REAL              A( LDA, * ), T( LDT, * ), WORK( * );
+      double              A( LDA, * ), T( LDT, * ), WORK( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ONE, ZERO;
+      double               ONE, ZERO;
       const              ONE = 1.0, ZERO = 0.0 ;
       // ..
       // .. Local Scalars ..
@@ -23,7 +23,7 @@
       int                NBLOCAL, MB2, M_PLUS_ONE, ITMP, IB_BOTTOM, LWORKOPT, NUM_ALL_ROW_BLOCKS, JB_T, IB, IMB, KB, KB_LAST, KNB, MB1;
       // ..
       // .. Local Arrays ..
-      REAL               DUMMY( 1, 1 );
+      double               DUMMY( 1, 1 );
       // ..
       // .. External Functions ..
       //- REAL               SROUNDUP_LWORK;

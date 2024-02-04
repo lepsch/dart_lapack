@@ -9,18 +9,18 @@
       // ..
       // .. Array Arguments ..
       int                CTOT( * ), IDXC( * );
-      REAL               D( * ), DSIGMA( * ), Q( LDQ, * ), U( LDU, * ), U2( LDU2, * ), VT( LDVT, * ), VT2( LDVT2, * ), Z( * );
+      double               D( * ), DSIGMA( * ), Q( LDQ, * ), U( LDU, * ), U2( LDU2, * ), VT( LDVT, * ), VT2( LDVT2, * ), Z( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ONE, ZERO, NEGONE;
+      double               ONE, ZERO, NEGONE;
       const              ONE = 1.0, ZERO = 0.0, NEGONE = -1.0 ;
       // ..
       // .. Local Scalars ..
       int                CTEMP, I, J, JC, KTEMP, M, N, NLP1, NLP2, NRP1;
-      REAL               RHO, TEMP;
+      double               RHO, TEMP;
       // ..
       // .. External Functions ..
       //- REAL               SNRM2;

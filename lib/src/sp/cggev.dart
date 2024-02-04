@@ -9,14 +9,14 @@
       int                INFO, LDA, LDB, LDVL, LDVR, LWORK, N;
       // ..
       // .. Array Arguments ..
-      REAL               RWORK( * );
+      double               RWORK( * );
       Complex            A( LDA, * ), ALPHA( * ), B( LDB, * ), BETA( * ), VL( LDVL, * ), VR( LDVR, * ), WORK( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       Complex            CZERO, CONE;
       const              CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
@@ -25,7 +25,7 @@
       bool               ILASCL, ILBSCL, ILV, ILVL, ILVR, LQUERY;
       String             CHTEMP;
       int                ICOLS, IERR, IHI, IJOBVL, IJOBVR, ILEFT, ILO, IN, IRIGHT, IROWS, IRWRK, ITAU, IWRK, JC, JR, LWKMIN, LWKOPT;
-      REAL               ANRM, ANRMTO, BIGNUM, BNRM, BNRMTO, EPS, SMLNUM, TEMP;
+      double               ANRM, ANRMTO, BIGNUM, BNRM, BNRMTO, EPS, SMLNUM, TEMP;
       Complex            X;
       // ..
       // .. Local Arrays ..
@@ -44,10 +44,10 @@
       // INTRINSIC ABS, AIMAG, MAX, REAL, SQRT
       // ..
       // .. Statement Functions ..
-      REAL               ABS1;
+      double               ABS1;
       // ..
       // .. Statement Function definitions ..
-      ABS1[X] = ( REAL( X ) ).abs() + ( AIMAG( X ) ).abs();
+      ABS1[X] = ( double( X ) ).abs() + ( AIMAG( X ) ).abs();
       // ..
       // .. Executable Statements ..
 

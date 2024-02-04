@@ -7,12 +7,12 @@
       // .. Scalar Arguments ..
       bool               TSTERR;
       int                NMAX, NN, NNS, NOUT;
-      REAL               THRESH;
+      double               THRESH;
       // ..
       // .. Array Arguments ..
       bool               DOTYPE( * );
       int                NSVAL( * ), NVAL( * );
-      REAL               RWORK( * );
+      double               RWORK( * );
       Complex            AB( * ), AINV( * ), B( * ), WORK( * ), X( * ), XACT( * );
       // ..
 
@@ -25,19 +25,19 @@
       const              NTESTS = 8 ;
       int                NTRAN;
       const              NTRAN = 3 ;
-      REAL               ONE, ZERO;
+      double               ONE, ZERO;
       const              ONE = 1.0, ZERO = 0.0 ;
       // ..
       // .. Local Scalars ..
       String             DIAG, NORM, TRANS, UPLO, XTYPE;
       String             PATH;
       int                I, IDIAG, IK, IMAT, IN, INFO, IRHS, ITRAN, IUPLO, J, K, KD, LDA, LDAB, N, NERRS, NFAIL, NIMAT, NIMAT2, NK, NRHS, NRUN;
-      REAL               AINVNM, ANORM, RCOND, RCONDC, RCONDI, RCONDO, SCALE;
+      double               AINVNM, ANORM, RCOND, RCONDC, RCONDI, RCONDO, SCALE;
       // ..
       // .. Local Arrays ..
       String             TRANSS( NTRAN ), UPLOS( 2 );
       int                ISEED( 4 ), ISEEDY( 4 );
-      REAL               RESULT( NTESTS );
+      double               RESULT( NTESTS );
       // ..
       // .. External Functions ..
       //- bool               lsame;

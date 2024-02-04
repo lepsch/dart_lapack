@@ -9,18 +9,18 @@
       // .. Scalar Arguments ..
       String             JOBZ, RANGE, UPLO;
       int                IL, INFO, IU, KD, LDAB, LDQ, LDZ, M, N, LWORK;
-      REAL               ABSTOL, VL, VU;
+      double               ABSTOL, VL, VU;
       // ..
       // .. Array Arguments ..
       int                IFAIL( * ), IWORK( * );
-      REAL               RWORK( * ), W( * );
+      double               RWORK( * ), W( * );
       Complex            AB( LDAB, * ), Q( LDQ, * ), WORK( * ), Z( LDZ, * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       Complex            CZERO, CONE;
       const              CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
@@ -29,7 +29,7 @@
       bool               ALLEIG, INDEIG, LOWER, TEST, VALEIG, WANTZ, LQUERY;
       String             ORDER;
       int                I, IINFO, IMAX, INDD, INDE, INDEE, INDIBL, INDISP, INDIWK, INDRWK, INDWRK, ISCALE, ITMP1, LLWORK, LWMIN, LHTRD, LWTRD, IB, INDHOUS, J, JJ, NSPLIT;
-      REAL               ABSTLL, ANRM, BIGNUM, EPS, RMAX, RMIN, SAFMIN, SIGMA, SMLNUM, TMP1, VLL, VUU;
+      double               ABSTLL, ANRM, BIGNUM, EPS, RMAX, RMIN, SAFMIN, SIGMA, SMLNUM, TMP1, VLL, VUU;
       Complex            CTMP1;
       // ..
       // .. External Functions ..
@@ -117,12 +117,12 @@
          } else {
             CTMP1 = AB( KD+1, 1 );
          }
-         TMP1 = REAL( CTMP1 );
+         TMP1 = double( CTMP1 );
          if ( VALEIG ) {
             if( !( VL < TMP1 && VU >= TMP1 ) ) M = 0;
          }
          if ( M == 1 ) {
-            W[1] = REAL( CTMP1 );
+            W[1] = double( CTMP1 );
             if (WANTZ) Z( 1, 1 ) = CONE;
          }
          return;

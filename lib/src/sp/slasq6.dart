@@ -6,24 +6,24 @@
 
       // .. Scalar Arguments ..
       int                I0, N0, PP;
-      REAL               DMIN, DMIN1, DMIN2, DN, DNM1, DNM2;
+      double               DMIN, DMIN1, DMIN2, DN, DNM1, DNM2;
       // ..
       // .. Array Arguments ..
-      REAL               Z( * );
+      double               Z( * );
       // ..
 
 // =====================================================================
 
       // .. Parameter ..
-      REAL               ZERO;
+      double               ZERO;
       const              ZERO = 0.0 ;
       // ..
       // .. Local Scalars ..
       int                J4, J4P2;
-      REAL               D, EMIN, SAFMIN, TEMP;
+      double               D, EMIN, SAFMIN, TEMP;
       // ..
       // .. External Function ..
-      REAL               SLAMCH;
+      double               SLAMCH;
       // EXTERNAL SLAMCH
       // ..
       // .. Intrinsic Functions ..

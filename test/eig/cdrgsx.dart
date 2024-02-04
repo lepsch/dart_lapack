@@ -6,19 +6,19 @@
 
       // .. Scalar Arguments ..
       int                INFO, LDA, LDC, LIWORK, LWORK, NCMAX, NIN, NOUT, NSIZE;
-      REAL               THRESH;
+      double               THRESH;
       // ..
       // .. Array Arguments ..
       bool               BWORK( * );
       int                IWORK( * );
-      REAL               RWORK( * ), S( * );
+      double               RWORK( * ), S( * );
       Complex            A( LDA, * ), AI( LDA, * ), ALPHA( * ), B( LDA, * ), BETA( * ), BI( LDA, * ), C( LDC, * ), Q( LDA, * ), WORK( * ), Z( LDA, * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE, TEN;
+      double               ZERO, ONE, TEN;
       const              ZERO = 0.0, ONE = 1.0, TEN = 1.0e+1 ;
       Complex            CZERO;
       const              CZERO = ( 0.0, 0.0 ) ;
@@ -27,11 +27,11 @@
       bool               ILABAD;
       String             SENSE;
       int                BDSPAC, I, IFUNC, J, LINFO, MAXWRK, MINWRK, MM, MN2, NERRS, NPTKNT, NTEST, NTESTT, PRTYPE, QBA, QBB;
-      REAL               ABNRM, BIGNUM, DIFTRU, PLTRU, SMLNUM, TEMP1, TEMP2, THRSH2, ULP, ULPINV, WEIGHT;
+      double               ABNRM, BIGNUM, DIFTRU, PLTRU, SMLNUM, TEMP1, TEMP2, THRSH2, ULP, ULPINV, WEIGHT;
       Complex            X;
       // ..
       // .. Local Arrays ..
-      REAL               DIFEST( 2 ), PL( 2 ), RESULT( 10 );
+      double               DIFEST( 2 ), PL( 2 ), RESULT( 10 );
       // ..
       // .. External Functions ..
       //- bool               CLCTSX;
@@ -53,10 +53,10 @@
       // INTRINSIC ABS, AIMAG, MAX, REAL, SQRT
       // ..
       // .. Statement Functions ..
-      REAL               ABS1;
+      double               ABS1;
       // ..
       // .. Statement Function definitions ..
-      ABS1[X] = ( REAL( X ) ).abs() + ( AIMAG( X ) ).abs();
+      ABS1[X] = ( double( X ) ).abs() + ( AIMAG( X ) ).abs();
       // ..
       // .. Executable Statements ..
 

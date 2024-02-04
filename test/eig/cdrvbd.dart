@@ -8,19 +8,19 @@
 
       // .. Scalar Arguments ..
       int                INFO, LDA, LDU, LDVT, LWORK, NOUNIT, NSIZES, NTYPES;
-      REAL               THRESH;
+      double               THRESH;
       // ..
       // .. Array Arguments ..
       bool               DOTYPE( * );
       int                ISEED( 4 ), IWORK( * ), MM( * ), NN( * );
-      REAL               E( * ), RWORK( * ), S( * ), SSAV( * );
+      double               E( * ), RWORK( * ), S( * ), SSAV( * );
       Complex            A( LDA, * ), ASAV( LDA, * ), U( LDU, * ), USAV( LDU, * ), VT( LDVT, * ), VTSAV( LDVT, * ), WORK( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE, TWO, HALF;
+      double               ZERO, ONE, TWO, HALF;
       const              ZERO = 0.0, ONE = 1.0, TWO = 2.0, HALF = 0.5 ;
       Complex            CZERO, CONE;
       const              CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
@@ -31,7 +31,7 @@
       bool               BADMM, BADNN;
       String             JOBQ, JOBU, JOBVT, RANGE;
       int                I, IINFO, IJQ, IJU, IJVT, IL, IU, ITEMP, IWSPC, IWTMP, J, JSIZE, JTYPE, LSWORK, M, MINWRK, MMAX, MNMAX, MNMIN, MTYPES, N, NERRS, NFAIL, NMAX, NS, NSI, NSV, NTEST, NTESTF, NTESTT, LRWORK;
-      REAL               ANORM, DIF, DIV, OVFL, RTUNFL, ULP, ULPINV, UNFL, VL, VU;
+      double               ANORM, DIF, DIV, OVFL, RTUNFL, ULP, ULPINV, UNFL, VL, VU;
       // ..
       // .. Local Scalars for CGESVDQ ..
       int                LIWORK, NUMRANK;
@@ -39,7 +39,7 @@
       // .. Local Arrays ..
       String             CJOB( 4 ), CJOBR( 3 ), CJOBV( 2 );
       int                IOLDSD( 4 ), ISEED2( 4 );
-      REAL               RESULT( 39 );
+      double               RESULT( 39 );
       // ..
       // .. External Functions ..
       //- REAL               SLAMCH, SLARND;
@@ -177,7 +177,7 @@
                if (JTYPE == 3) ANORM = ONE;
                if( JTYPE == 4 ) ANORM = UNFL / ULP;
                IF( JTYPE == 5 ) ANORM = OVFL*ULP;
-               clatms(M, N, 'U', ISEED, 'N', S, 4, REAL( MNMIN ), ANORM, M-1, N-1, 'N', A, LDA, WORK, IINFO );
+               clatms(M, N, 'U', ISEED, 'N', S, 4, double( MNMIN ), ANORM, M-1, N-1, 'N', A, LDA, WORK, IINFO );
                if ( IINFO != 0 ) {
                   WRITE( NOUNIT, FMT = 9996 )'Generator', IINFO, M, N, JTYPE, IOLDSD;
                   INFO = ( IINFO ).abs();
@@ -276,7 +276,7 @@
                      // Compare S
 
                      DIF = ZERO;
-                     DIV = max( REAL( MNMIN )*ULP*S( 1 ), SLAMCH( 'Safe minimum' ) );
+                     DIV = max( double( MNMIN )*ULP*S( 1 ), SLAMCH( 'Safe minimum' ) );
                      for (I = 1; I <= MNMIN - 1; I++) { // 80
                         if( SSAV( I ) < SSAV( I+1 ) ) DIF = ULPINV;
                         IF( SSAV( I ) < ZERO ) DIF = ULPINV;
@@ -367,7 +367,7 @@
                   // Compare S
 
                   DIF = ZERO;
-                  DIV = max( REAL( MNMIN )*ULP*S( 1 ), SLAMCH( 'Safe minimum' ) );
+                  DIV = max( double( MNMIN )*ULP*S( 1 ), SLAMCH( 'Safe minimum' ) );
                   for (I = 1; I <= MNMIN - 1; I++) { // 120
                      if( SSAV( I ) < SSAV( I+1 ) ) DIF = ULPINV;
                      IF( SSAV( I ) < ZERO ) DIF = ULPINV;
@@ -593,7 +593,7 @@
                      // Compare S
 
                      DIF = ZERO;
-                     DIV = max( REAL( MNMIN )*ULP*S( 1 ), SLAMCH( 'Safe minimum' ) );
+                     DIV = max( double( MNMIN )*ULP*S( 1 ), SLAMCH( 'Safe minimum' ) );
                      for (I = 1; I <= MNMIN - 1; I++) { // 150
                         if( SSAV( I ) < SSAV( I+1 ) ) DIF = ULPINV;
                         IF( SSAV( I ) < ZERO ) DIF = ULPINV;

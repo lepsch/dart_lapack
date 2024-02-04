@@ -14,7 +14,7 @@
 // =====================================================================
 
       // .. Local Scalars ..
-      REAL SMAX;
+      double SMAX;
       int     I,IX;
       // ..
       // .. External Functions ..

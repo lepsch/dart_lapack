@@ -1,7 +1,7 @@
       void cebchvxx(THRESH, PATH ) {
       // IMPLICIT NONE
       // .. Scalar Arguments ..
-      REAL               THRESH;
+      double               THRESH;
       String             PATH;
 
       int                NMAX, NPARAMS, NERRBND, NTESTS, KL, KU;
@@ -13,11 +13,11 @@
       String             C2;
       String   (3)       NGUAR, CGUAR;
       bool               printed_guide;
-      REAL               NCOND, CCOND, M, NORMDIF, NORMT, RCOND, RNORM, RINORM, SUMR, SUMRI, EPS, BERR(NMAX), RPVGRW, ORCOND, CWISE_ERR, NWISE_ERR, CWISE_BND, NWISE_BND, CWISE_RCOND, NWISE_RCOND, CONDTHRESH, ERRTHRESH;
+      double               NCOND, CCOND, M, NORMDIF, NORMT, RCOND, RNORM, RINORM, SUMR, SUMRI, EPS, BERR(NMAX), RPVGRW, ORCOND, CWISE_ERR, NWISE_ERR, CWISE_BND, NWISE_BND, CWISE_RCOND, NWISE_RCOND, CONDTHRESH, ERRTHRESH;
       Complex            ZDUM;
 
       // .. Local Arrays ..
-      REAL               TSTRAT(NTESTS), RINV(NMAX), PARAMS(NPARAMS), S(NMAX), R(NMAX),C(NMAX),RWORK(3*NMAX), DIFF(NMAX, NMAX), ERRBND_N(NMAX*3), ERRBND_C(NMAX*3);
+      double               TSTRAT(NTESTS), RINV(NMAX), PARAMS(NPARAMS), S(NMAX), R(NMAX),C(NMAX),RWORK(3*NMAX), DIFF(NMAX, NMAX), ERRBND_N(NMAX*3), ERRBND_C(NMAX*3);
       int                IPIV(NMAX);
       Complex            A(NMAX,NMAX),INVHILB(NMAX,NMAX),X(NMAX,NMAX), WORK(NMAX*3*5), AF(NMAX, NMAX),B(NMAX, NMAX), ACOPY(NMAX, NMAX), AB( (NMAX-1)+(NMAX-1)+1, NMAX ), ABCOPY( (NMAX-1)+(NMAX-1)+1, NMAX ), AFB( 2*(NMAX-1)+(NMAX-1)+1, NMAX );
 
@@ -32,10 +32,10 @@
       // INTRINSIC SQRT, MAX, ABS, REAL, AIMAG
 
       // .. Statement Functions ..
-      REAL               CABS1;
+      double               CABS1;
       // ..
       // .. Statement Function Definitions ..
-      CABS1[ZDUM] = ( REAL( ZDUM ) ).abs() + ( AIMAG( ZDUM ) ).abs();
+      CABS1[ZDUM] = ( double( ZDUM ) ).abs() + ( AIMAG( ZDUM ) ).abs();
 
       // .. Parameters ..
       int                NWISE_I, CWISE_I;
@@ -68,7 +68,7 @@
          KL = N-1;
          KU = N-1;
          NRHS = n;
-         M = max(sqrt(REAL(N)), 10.0);
+         M = max(sqrt(double(N)), 10.0);
 
          // Generate the Hilbert matrix, its inverse, and the
          // right hand side, all scaled by the LCM(1,..,2N-1).

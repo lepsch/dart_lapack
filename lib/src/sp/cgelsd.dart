@@ -6,18 +6,18 @@
 
       // .. Scalar Arguments ..
       int                INFO, LDA, LDB, LWORK, M, N, NRHS, RANK;
-      REAL               RCOND;
+      double               RCOND;
       // ..
       // .. Array Arguments ..
       int                IWORK( * );
-      REAL               RWORK( * ), S( * );
+      double               RWORK( * ), S( * );
       Complex            A( LDA, * ), B( LDB, * ), WORK( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE, TWO;
+      double               ZERO, ONE, TWO;
       const              ZERO = 0.0, ONE = 1.0, TWO = 2.0 ;
       Complex            CZERO;
       const              CZERO = ( 0.0, 0.0 ) ;
@@ -25,7 +25,7 @@
       // .. Local Scalars ..
       bool               LQUERY;
       int                IASCL, IBSCL, IE, IL, ITAU, ITAUP, ITAUQ, LDWORK, LIWORK, LRWORK, MAXMN, MAXWRK, MINMN, MINWRK, MM, MNTHR, NLVL, NRWORK, NWORK, SMLSIZ;
-      REAL               ANRM, BIGNUM, BNRM, EPS, SFMIN, SMLNUM;
+      double               ANRM, BIGNUM, BNRM, EPS, SFMIN, SMLNUM;
       // ..
       // .. External Subroutines ..
       // EXTERNAL CGEBRD, CGELQF, CGEQRF, CLACPY, CLALSD, CLASCL, CLASET, CUNMBR, CUNMLQ, CUNMQR, SLASCL, SLASET, XERBLA
@@ -73,7 +73,7 @@
          if ( MINMN > 0 ) {
             SMLSIZ = ILAENV( 9, 'CGELSD', ' ', 0, 0, 0, 0 );
             MNTHR = ILAENV( 6, 'CGELSD', ' ', M, N, NRHS, -1 );
-            NLVL = max( INT( LOG( REAL( MINMN ) / REAL( SMLSIZ + 1 ) ) / LOG( TWO ) ) + 1, 0 );
+            NLVL = max( INT( LOG( double( MINMN ) / REAL( SMLSIZ + 1 ) ) / LOG( TWO ) ) + 1, 0 );
             LIWORK = 3*MINMN*NLVL + 11*MINMN;
             MM = M;
             if ( M >= N && M >= MNTHR ) {

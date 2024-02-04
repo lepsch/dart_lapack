@@ -6,17 +6,17 @@
 
       // .. Scalar Arguments ..
       int                INFO, K, LDU, LDU2, LDVT, LDVT2, NL, NR, SQRE;
-      REAL               ALPHA, BETA;
+      double               ALPHA, BETA;
       // ..
       // .. Array Arguments ..
       int                COLTYP( * ), IDX( * ), IDXC( * ), IDXP( * ), IDXQ( * );
-      REAL               D( * ), DSIGMA( * ), U( LDU, * ), U2( LDU2, * ), VT( LDVT, * ), VT2( LDVT2, * ), Z( * );
+      double               D( * ), DSIGMA( * ), U( LDU, * ), U2( LDU2, * ), VT( LDVT, * ), VT2( LDVT2, * ), Z( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE, TWO, EIGHT;
+      double               ZERO, ONE, TWO, EIGHT;
       const              ZERO = 0.0, ONE = 1.0, TWO = 2.0, EIGHT = 8.0 ;
       // ..
       // .. Local Arrays ..
@@ -24,7 +24,7 @@
       // ..
       // .. Local Scalars ..
       int                CT, I, IDXI, IDXJ, IDXJP, J, JP, JPREV, K2, M, N, NLP1, NLP2;
-      REAL               C, EPS, HLFTOL, S, TAU, TOL, Z1;
+      double               C, EPS, HLFTOL, S, TAU, TOL, Z1;
       // ..
       // .. External Functions ..
       //- REAL               SLAMCH, SLAPY2;

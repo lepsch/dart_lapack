@@ -8,22 +8,22 @@
       // .. Scalar Arguments ..
       bool               DONE;
       int                INFO, IOFFSET, KB, KP1, LDA, LDF, M, N, NB, NRHS;
-      REAL               ABSTOL, MAXC2NRM, MAXC2NRMK, RELMAXC2NRMK, RELTOL;
+      double               ABSTOL, MAXC2NRM, MAXC2NRMK, RELMAXC2NRMK, RELTOL;
       // ..
       // .. Array Arguments ..
       int                IWORK( * ), JPIV( * );
-      REAL               A( LDA, * ), AUXV( * ), F( LDF, * ), TAU( * ), VN1( * ), VN2( * );
+      double               A( LDA, * ), AUXV( * ), F( LDF, * ), TAU( * ), VN1( * ), VN2( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
       int                ITEMP, J, K, MINMNFACT, MINMNUPDT, LSTICC, KP, I, IF;
-      REAL               AIK, HUGEVAL, TEMP, TEMP2, TOL3Z;
+      double               AIK, HUGEVAL, TEMP, TEMP2, TOL3Z;
       // ..
       // .. External Subroutines ..
       // EXTERNAL SGEMM, SGEMV, SLARFG, SSWAP

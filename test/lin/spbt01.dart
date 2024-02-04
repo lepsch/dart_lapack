@@ -7,22 +7,22 @@
       // .. Scalar Arguments ..
       String             UPLO;
       int                KD, LDA, LDAFAC, N;
-      REAL               RESID;
+      double               RESID;
       // ..
       // .. Array Arguments ..
-      REAL               A( LDA, * ), AFAC( LDAFAC, * ), RWORK( * );
+      double               A( LDA, * ), AFAC( LDAFAC, * ), RWORK( * );
       // ..
 
 // =====================================================================
 
 
       // .. Parameters ..
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
       int                I, J, K, KC, KLEN, ML, MU;
-      REAL               ANORM, EPS, T;
+      double               ANORM, EPS, T;
       // ..
       // .. External Functions ..
       //- bool               lsame;

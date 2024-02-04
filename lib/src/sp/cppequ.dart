@@ -7,23 +7,23 @@
       // .. Scalar Arguments ..
       String             UPLO;
       int                INFO, N;
-      REAL               AMAX, SCOND;
+      double               AMAX, SCOND;
       // ..
       // .. Array Arguments ..
-      REAL               S( * );
+      double               S( * );
       Complex            AP( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ONE, ZERO;
+      double               ONE, ZERO;
       const              ONE = 1.0, ZERO = 0.0 ;
       // ..
       // .. Local Scalars ..
       bool               UPPER;
       int                I, JJ;
-      REAL               SMIN;
+      double               SMIN;
       // ..
       // .. External Functions ..
       //- bool               lsame;
@@ -61,7 +61,7 @@
 
       // Initialize SMIN and AMAX.
 
-      S[1] = REAL( AP( 1 ) );
+      S[1] = double( AP( 1 ) );
       SMIN = S( 1 );
       AMAX = S( 1 );
 
@@ -73,7 +73,7 @@
          JJ = 1;
          for (I = 2; I <= N; I++) { // 10
             JJ = JJ + I;
-            S[I] = REAL( AP( JJ ) );
+            S[I] = double( AP( JJ ) );
             SMIN = min( SMIN, S( I ) );
             AMAX = max( AMAX, S( I ) );
          } // 10
@@ -86,7 +86,7 @@
          JJ = 1;
          for (I = 2; I <= N; I++) { // 20
             JJ = JJ + N - I + 2;
-            S[I] = REAL( AP( JJ ) );
+            S[I] = double( AP( JJ ) );
             SMIN = min( SMIN, S( I ) );
             AMAX = max( AMAX, S( I ) );
          } // 20

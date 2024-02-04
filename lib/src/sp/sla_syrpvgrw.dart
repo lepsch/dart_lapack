@@ -1,4 +1,4 @@
-      REAL sla_syrpvgrw(UPLO, N, INFO, A, LDA, AF, LDAF, IPIV, WORK ) {
+      double sla_syrpvgrw(UPLO, N, INFO, A, LDA, AF, LDAF, IPIV, WORK ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -10,14 +10,14 @@
       // ..
       // .. Array Arguments ..
       int                IPIV( * );
-      REAL               A( LDA, * ), AF( LDAF, * ), WORK( * );
+      double               A( LDA, * ), AF( LDAF, * ), WORK( * );
       // ..
 
 // =====================================================================
 
       // .. Local Scalars ..
       int                NCOLS, I, J, K, KP;
-      REAL               AMAX, UMAX, RPVGRW, TMP;
+      double               AMAX, UMAX, RPVGRW, TMP;
       bool               UPPER;
       // ..
       // .. Intrinsic Functions ..

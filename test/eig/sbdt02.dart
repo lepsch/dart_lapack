@@ -6,21 +6,21 @@
 
       // .. Scalar Arguments ..
       int                LDB, LDC, LDU, M, N;
-      REAL               RESID;
+      double               RESID;
       // ..
       // .. Array Arguments ..
-      REAL               B( LDB, * ), C( LDC, * ), U( LDU, * ), WORK( * );
+      double               B( LDB, * ), C( LDC, * ), U( LDU, * ), WORK( * );
       // ..
 
 // ======================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
       int                J;
-      REAL               BNORM, EPS, REALMN;
+      double               BNORM, EPS, REALMN;
       // ..
       // .. External Functions ..
       //- REAL               SASUM, SLAMCH, SLANGE;
@@ -38,7 +38,7 @@
 
       RESID = ZERO;
       if (M <= 0 || N <= 0) return;
-      REALMN = REAL( max( M, N ) );
+      REALMN = double( max( M, N ) );
       EPS = SLAMCH( 'Precision' );
 
       // Compute norm(B - U * C)

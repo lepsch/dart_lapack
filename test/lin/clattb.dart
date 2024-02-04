@@ -10,14 +10,14 @@
       // ..
       // .. Array Arguments ..
       int                ISEED( 4 );
-      REAL               RWORK( * );
+      double               RWORK( * );
       Complex            AB( LDAB, * ), B( * ), WORK( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ONE, TWO, ZERO;
+      double               ONE, TWO, ZERO;
       const              ONE = 1.0, TWO = 2.0, ZERO = 0.0 ;
       // ..
       // .. Local Scalars ..
@@ -25,7 +25,7 @@
       String             DIST, PACKIT, TYPE;
       String             PATH;
       int                I, IOFF, IY, J, JCOUNT, KL, KU, LENJ, MODE;
-      REAL               ANORM, BIGNUM, BNORM, BSCAL, CNDNUM, REXP, SFAC, SMLNUM, TEXP, TLEFT, TNORM, TSCAL, ULP, UNFL;
+      double               ANORM, BIGNUM, BNORM, BSCAL, CNDNUM, REXP, SFAC, SMLNUM, TEXP, TLEFT, TNORM, TSCAL, ULP, UNFL;
       Complex            PLUS1, PLUS2, STAR1;
       // ..
       // .. External Functions ..
@@ -119,14 +119,14 @@
                for (I = max( 1, KD+2-J ); I <= KD; I++) { // 50
                   AB[I, J] = ZERO;
                } // 50
-               AB[KD+1, J] = REAL( J );
+               AB[KD+1, J] = double( J );
             } // 60
          } else {
             for (J = 1; J <= N; J++) { // 80
                for (I = 2; I <= min( KD+1, N-J+1 ); I++) { // 70
                   AB[I, J] = ZERO;
                } // 70
-               AB[1, J] = REAL( J );
+               AB[1, J] = double( J );
             } // 80
          }
 
@@ -422,11 +422,11 @@
                      if ( I > max( 1, J-KD+1 ) ) {
                         AB[2+( J-I ), I-1] = -( TSCAL / REAL( KD+2 ) ) / REAL( KD+3 );
                         AB[KD+1, I-1] = ONE;
-                        B[I-1] = TEXP*REAL( ( KD+1 )*( KD+1 )+KD );
+                        B[I-1] = TEXP*double( ( KD+1 )*( KD+1 )+KD );
                      }
                      TEXP = TEXP*TWO;
                   } // 320
-                  B[max( 1, J-KD+1 )] = ( REAL( KD+2 ) / REAL( KD+3 ) )*TSCAL;
+                  B[max( 1, J-KD+1 )] = ( double( KD+2 ) / REAL( KD+3 ) )*TSCAL;
                } // 330
             } else {
                for (J = 1; KD < 0 ? J >= N : J <= N; J += KD) { // 350
@@ -439,11 +439,11 @@
                      if ( I < min( N, J+KD-1 ) ) {
                         AB[LENJ-( I-J+1 ), I+1] = -( TSCAL / REAL( KD+2 ) ) / REAL( KD+3 );
                         AB[1, I+1] = ONE;
-                        B[I+1] = TEXP*REAL( ( KD+1 )*( KD+1 )+KD );
+                        B[I+1] = TEXP*double( ( KD+1 )*( KD+1 )+KD );
                      }
                      TEXP = TEXP*TWO;
                   } // 340
-                  B[min( N, J+KD-1 )] = ( REAL( KD+2 ) / REAL( KD+3 ) )*TSCAL;
+                  B[min( N, J+KD-1 )] = ( double( KD+2 ) / REAL( KD+3 ) )*TSCAL;
                } // 350
             }
          }
@@ -458,13 +458,13 @@
             for (J = 1; J <= N; J++) { // 360
                LENJ = min( J-1, KD );
                clarnv(4, ISEED, LENJ, AB( KD+1-LENJ, J ) );
-               AB[KD+1, J] = REAL( J );
+               AB[KD+1, J] = double( J );
             } // 360
          } else {
             for (J = 1; J <= N; J++) { // 370
                LENJ = min( N-J, KD );
                if (LENJ > 0) clarnv( 4, ISEED, LENJ, AB( 2, J ) );
-               AB[1, J] = REAL( J );
+               AB[1, J] = double( J );
             } // 370
          }
 
@@ -484,7 +484,7 @@
          // 1/3/91:  CLATBS no longer can handle this case
 
          TLEFT = BIGNUM / REAL( KD+1 );
-         TSCAL = BIGNUM*( REAL( KD+1 ) / REAL( KD+2 ) );
+         TSCAL = BIGNUM*( double( KD+1 ) / REAL( KD+2 ) );
          if ( UPPER ) {
             for (J = 1; J <= N; J++) { // 390
                LENJ = min( J, KD+1 );

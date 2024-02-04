@@ -10,7 +10,7 @@
       // ..
       // .. Array Arguments ..
       int                IWORK( * );
-      REAL               A( LDA, * ), ALPHA( * ), B( LDB, * ), BETA( * ), Q( LDQ, * ), U( LDU, * ), V( LDV, * ), WORK( * );
+      double               A( LDA, * ), ALPHA( * ), B( LDB, * ), BETA( * ), Q( LDQ, * ), U( LDU, * ), V( LDV, * ), WORK( * );
       // ..
 
 // =====================================================================
@@ -18,7 +18,7 @@
       // .. Local Scalars ..
       bool               WANTQ, WANTU, WANTV, LQUERY;
       int                I, IBND, ISUB, J, NCYCLE, LWKOPT;
-      REAL               ANORM, BNORM, SMAX, TEMP, TOLA, TOLB, ULP, UNFL;
+      double               ANORM, BNORM, SMAX, TEMP, TOLA, TOLB, ULP, UNFL;
       // ..
       // .. External Functions ..
       //- bool               lsame;

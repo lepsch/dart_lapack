@@ -7,25 +7,25 @@
       // .. Scalar Arguments ..
       String             UPLO;
       int                INFO, LDB, N, NRHS, RANK, SMLSIZ;
-      REAL               RCOND;
+      double               RCOND;
       // ..
       // .. Array Arguments ..
       int                IWORK( * );
-      REAL               D( * ), E( * ), RWORK( * );
+      double               D( * ), E( * ), RWORK( * );
       Complex            B( LDB, * ), WORK( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE, TWO;
+      double               ZERO, ONE, TWO;
       const              ZERO = 0.0, ONE = 1.0, TWO = 2.0 ;
       Complex            CZERO;
       const              CZERO = ( 0.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
       int                BX, BXST, C, DIFL, DIFR, GIVCOL, GIVNUM, GIVPTR, I, ICMPQ1, ICMPQ2, IRWB, IRWIB, IRWRB, IRWU, IRWVT, IRWWRK, IWK, J, JCOL, JIMAG, JREAL, JROW, K, NLVL, NM1, NRWORK, NSIZE, NSUB, PERM, POLES, S, SIZEI, SMLSZP, SQRE, ST, ST1, U, VT, Z;
-      REAL               CS, EPS, ORGNRM, R, RCND, SN, TOL;
+      double               CS, EPS, ORGNRM, R, RCND, SN, TOL;
       // ..
       // .. External Functions ..
       //- int                ISAMAX;
@@ -146,7 +146,7 @@
          for (JCOL = 1; JCOL <= NRHS; JCOL++) { // 50
             for (JROW = 1; JROW <= N; JROW++) { // 40
                J = J + 1;
-               RWORK[J] = REAL( B( JROW, JCOL ) );
+               RWORK[J] = double( B( JROW, JCOL ) );
             } // 40
          } // 50
          sgemm('T', 'N', N, NRHS, N, ONE, RWORK( IRWU ), N, RWORK( IRWB ), N, ZERO, RWORK( IRWRB ), N );
@@ -189,7 +189,7 @@
          for (JCOL = 1; JCOL <= NRHS; JCOL++) { // 120
             for (JROW = 1; JROW <= N; JROW++) { // 110
                J = J + 1;
-               RWORK[J] = REAL( B( JROW, JCOL ) );
+               RWORK[J] = double( B( JROW, JCOL ) );
             } // 110
          } // 120
          sgemm('T', 'N', N, NRHS, N, ONE, RWORK( IRWVT ), N, RWORK( IRWB ), N, ZERO, RWORK( IRWRB ), N );
@@ -222,7 +222,7 @@
 
       // Book-keeping and setting up some constants.
 
-      NLVL = INT( LOG( REAL( N ) / REAL( SMLSIZ+1 ) ) / LOG( TWO ) ) + 1;
+      NLVL = INT( LOG( double( N ) / REAL( SMLSIZ+1 ) ) / LOG( TWO ) ) + 1;
 
       SMLSZP = SMLSIZ + 1;
 
@@ -320,7 +320,7 @@
                for (JCOL = 1; JCOL <= NRHS; JCOL++) { // 190
                   for (JROW = ST; JROW <= ST + NSIZE - 1; JROW++) { // 180
                      J = J + 1;
-                     RWORK[J] = REAL( B( JROW, JCOL ) );
+                     RWORK[J] = double( B( JROW, JCOL ) );
                   } // 180
                } // 190
                sgemm('T', 'N', NSIZE, NRHS, NSIZE, ONE, RWORK( U+ST1 ), N, RWORK( IRWB ), NSIZE, ZERO, RWORK( IRWRB ), NSIZE );
@@ -404,7 +404,7 @@
                J = J + N;
                for (JROW = 1; JROW <= NSIZE; JROW++) { // 260
                   JREAL = JREAL + 1;
-                  RWORK[JREAL] = REAL( WORK( J+JROW ) );
+                  RWORK[JREAL] = double( WORK( J+JROW ) );
                } // 260
             } // 270
             sgemm('T', 'N', NSIZE, NRHS, NSIZE, ONE, RWORK( VT+ST1 ), N, RWORK( IRWB ), NSIZE, ZERO, RWORK( IRWRB ), NSIZE );

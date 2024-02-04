@@ -7,11 +7,11 @@
       // .. Scalar Arguments ..
       int                INFO, LDA, LDAF, LDB, LDY, N, NRHS, PREC_TYPE, TRANS_TYPE, N_NORMS, ITHRESH;
       bool               COLEQU, IGNORE_CWISE;
-      REAL               RTHRESH, DZ_UB;
+      double               RTHRESH, DZ_UB;
       // ..
       // .. Array Arguments ..
       int                IPIV( * );
-      REAL               A( LDA, * ), AF( LDAF, * ), B( LDB, * ), Y( LDY, * ), RES( * ), DY( * ), Y_TAIL( * )       REAL               C( * ), AYB( * ), RCOND, BERR_OUT( * ), ERRS_N( NRHS, * ), ERRS_C( NRHS, * );
+      REAL               A( LDA, * ), AF( LDAF, * ), B( LDB, * ), Y( LDY, * ), RES( * ), DY( * ), Y_TAIL( * )       double               C( * ), AYB( * ), RCOND, BERR_OUT( * ), ERRS_N( NRHS, * ), ERRS_C( NRHS, * );
       // ..
 
 // =====================================================================
@@ -19,7 +19,7 @@
       // .. Local Scalars ..
       String             TRANS;
       int                CNT, I, J, X_STATE, Z_STATE, Y_PREC_STATE;
-      REAL               YK, DYK, YMIN, NORMY, NORMX, NORMDX, DXRAT, DZRAT, PREVNORMDX, PREV_DZ_Z, DXRATMAX, DZRATMAX, DX_X, DZ_Z, FINAL_DX_X, FINAL_DZ_Z, EPS, HUGEVAL, INCR_THRESH;
+      double               YK, DYK, YMIN, NORMY, NORMX, NORMDX, DXRAT, DZRAT, PREVNORMDX, PREV_DZ_Z, DXRATMAX, DZRATMAX, DX_X, DZ_Z, FINAL_DX_X, FINAL_DZ_Z, EPS, HUGEVAL, INCR_THRESH;
       bool               INCR_PREC;
       // ..
       // .. Parameters ..
@@ -41,7 +41,7 @@
       // ..
       // .. External Subroutines ..
       // EXTERNAL SAXPY, SCOPY, SGETRS, SGEMV, BLAS_SGEMV_X, BLAS_SGEMV2_X, SLA_GEAMV, SLA_WWADDW, SLAMCH, CHLA_TRANSTYPE, SLA_LIN_BERR
-      REAL               SLAMCH;
+      double               SLAMCH;
       String             CHLA_TRANSTYPE;
       // ..
       // .. Intrinsic Functions ..
@@ -56,7 +56,7 @@
       // Force HUGEVAL to Inf
       HUGEVAL = HUGEVAL * HUGEVAL;
       // Using HUGEVAL may lead to spurious underflows.
-      INCR_THRESH = REAL( N ) * EPS;
+      INCR_THRESH = double( N ) * EPS;
 
       for (J = 1; J <= NRHS; J++) {
          Y_PREC_STATE = EXTRA_RESIDUAL;

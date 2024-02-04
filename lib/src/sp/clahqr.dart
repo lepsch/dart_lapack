@@ -18,16 +18,16 @@
       // .. Parameters ..
       Complex            ZERO, ONE;
       const              ZERO = ( 0.0, 0.0 ), ONE = ( 1.0, 0.0 ) ;
-      REAL               RZERO, RONE, HALF;
+      double               RZERO, RONE, HALF;
       const              RZERO = 0.0, RONE = 1.0, HALF = 0.5 ;
-      REAL               DAT1;
+      double               DAT1;
       const              DAT1 = 3.0 / 4.0 ;
       int                KEXSH;
       const              KEXSH = 10 ;
       // ..
       // .. Local Scalars ..
       Complex            CDUM, H11, H11S, H22, SC, SUM, T, T1, TEMP, U, V2, X, Y;
-      REAL               AA, AB, BA, BB, H10, H21, RTEMP, S, SAFMAX, SAFMIN, SMLNUM, SX, T2, TST, ULP;
+      double               AA, AB, BA, BB, H10, H21, RTEMP, S, SAFMAX, SAFMIN, SMLNUM, SX, T2, TST, ULP;
       int                I, I1, I2, ITS, ITMAX, J, JHI, JLO, K, L, M, NH, NZ, KDEFL;
       // ..
       // .. Local Arrays ..
@@ -42,13 +42,13 @@
       // EXTERNAL CCOPY, CLARFG, CSCAL
       // ..
       // .. Statement Functions ..
-      REAL               CABS1;
+      double               CABS1;
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC ABS, AIMAG, CONJG, MAX, MIN, REAL, SQRT
       // ..
       // .. Statement Function definitions ..
-      CABS1[CDUM] = ( REAL( CDUM ) ).abs() + ( AIMAG( CDUM ) ).abs();
+      CABS1[CDUM] = ( double( CDUM ) ).abs() + ( AIMAG( CDUM ) ).abs();
       // ..
       // .. Executable Statements ..
 
@@ -97,7 +97,7 @@
       SAFMIN = SLAMCH( 'SAFE MINIMUM' );
       SAFMAX = RONE / SAFMIN;
       ULP = SLAMCH( 'PRECISION' );
-      SMLNUM = SAFMIN*( REAL( NH ) / ULP );
+      SMLNUM = SAFMIN*( double( NH ) / ULP );
 
       // I1 and I2 are the indices of the first row and last column of H
       // to which transformations must be applied. If eigenvalues only are
@@ -139,14 +139,14 @@
             if( CABS1( H( K, K-1 ) ) <= SMLNUM ) GO TO 50;
             TST = CABS1( H( K-1, K-1 ) ) + CABS1( H( K, K ) );
             if ( TST == ZERO ) {
-               if (K-2 >= ILO) TST = TST + ABS( REAL( H( K-1, K-2 ) ) );
-               IF( K+1 <= IHI ) TST = TST + ABS( REAL( H( K+1, K ) ) );
+               if (K-2 >= ILO) TST = TST + ABS( double( H( K-1, K-2 ) ) );
+               IF( K+1 <= IHI ) TST = TST + ABS( double( H( K+1, K ) ) );
             }
             // ==== The following is a conservative small subdiagonal
             // .    deflation criterion due to Ahues & Tisseur (LAWN 122,
             // .    1997). It has better mathematical foundation and
             // .    improves accuracy in some examples.  ====
-            if ( ABS( REAL( H( K, K-1 ) ) ) <= ULP*TST ) {
+            if ( ABS( double( H( K, K-1 ) ) ) <= ULP*TST ) {
                AB = max( CABS1( H( K, K-1 ) ), CABS1( H( K-1, K ) ) );
                BA = min( CABS1( H( K, K-1 ) ), CABS1( H( K-1, K ) ) );
                AA = max( CABS1( H( K, K ) ), CABS1( H( K-1, K-1 )-H( K, K ) ) )                BB = min( CABS1( H( K, K ) ), CABS1( H( K-1, K-1 )-H( K, K ) ) );
@@ -181,13 +181,13 @@
 
             // Exceptional shift.
 
-            S = DAT1*ABS( REAL( H( I, I-1 ) ) );
+            S = DAT1*ABS( double( H( I, I-1 ) ) );
             T = S + H( I, I );
          } else if ( (KDEFL % KEXSH) == 0 ) {
 
             // Exceptional shift.
 
-            S = DAT1*ABS( REAL( H( L+1, L ) ) );
+            S = DAT1*ABS( double( H( L+1, L ) ) );
             T = S + H( L, L );
          } else {
 
@@ -202,7 +202,7 @@
                S = max( S, CABS1( X ) );
                Y = S*sqrt( ( X / S )**2+( U / S )**2 );
                if ( SX > RZERO ) {
-                  if( REAL( X / SX )*REAL( Y )+AIMAG( X / SX )* AIMAG( Y ) < RZERO )Y = -Y;
+                  if( double( X / SX )*REAL( Y )+AIMAG( X / SX )* AIMAG( Y ) < RZERO )Y = -Y;
                }
                T = T - U*CLADIV( U, ( X+Y ) );
             }
@@ -219,19 +219,19 @@
             H11 = H( M, M );
             H22 = H( M+1, M+1 );
             H11S = H11 - T;
-            H21 = REAL( H( M+1, M ) );
+            H21 = double( H( M+1, M ) );
             S = CABS1( H11S ) + ( H21 ).abs();
             H11S = H11S / S;
             H21 = H21 / S;
             V[1] = H11S;
             V[2] = H21;
-            H10 = REAL( H( M, M-1 ) );
+            H10 = double( H( M, M-1 ) );
             if( ( H10 ).abs()*( H21 ).abs() <= ULP* ( CABS1( H11S )*( CABS1( H11 )+CABS1( H22 ) ) ) ) GO TO 70;
          } // 60
          H11 = H( L, L );
          H22 = H( L+1, L+1 );
          H11S = H11 - T;
-         H21 = REAL( H( L+1, L ) );
+         H21 = double( H( L+1, L ) );
          S = CABS1( H11S ) + ( H21 ).abs();
          H11S = H11S / S;
          H21 = H21 / S;
@@ -262,7 +262,7 @@
                H[K+1, K-1] = ZERO;
             }
             V2 = V( 2 );
-            T2 = REAL( T1*V2 );
+            T2 = double( T1*V2 );
 
             // Apply G from the left to transform the rows of the matrix
             // in columns K to I2.

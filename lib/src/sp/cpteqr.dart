@@ -9,7 +9,7 @@
       int                INFO, LDZ, N;
       // ..
       // .. Array Arguments ..
-      REAL               D( * ), E( * ), WORK( * );
+      double               D( * ), E( * ), WORK( * );
       Complex            Z( LDZ, * );
       // ..
 

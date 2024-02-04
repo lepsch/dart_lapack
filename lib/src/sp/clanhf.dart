@@ -1,4 +1,4 @@
-      REAL clanhf(NORM, TRANSR, UPLO, N, A, WORK ) {
+      double clanhf(NORM, TRANSR, UPLO, N, A, WORK ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -9,19 +9,19 @@
       int                N;
       // ..
       // .. Array Arguments ..
-      REAL               WORK( 0: * );
+      double               WORK( 0: * );
       Complex            A( 0: * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ONE, ZERO;
+      double               ONE, ZERO;
       const              ONE = 1.0, ZERO = 0.0 ;
       // ..
       // .. Local Scalars ..
       int                I, J, IFM, ILU, NOE, N1, K, L, LDA;
-      REAL               SCALE, S, VALUE, AA, TEMP;
+      double               SCALE, S, VALUE, AA, TEMP;
       // ..
       // .. External Functions ..
       //- bool               lsame, SISNAN;
@@ -39,7 +39,7 @@
          CLANHF = ZERO;
          return;
       } else if ( N == 1 ) {
-         CLANHF = ABS(REAL(A(0)));
+         CLANHF = ABS(double(A(0)));
          return;
       }
 
@@ -88,7 +88,7 @@
                   // uplo ='L'
                   J = 0;
                   // -> L(0,0)
-                  TEMP = ABS( REAL( A( J+J*LDA ) ) );
+                  TEMP = ABS( double( A( J+J*LDA ) ) );
                   if( VALUE < TEMP || SISNAN( TEMP ) ) VALUE = TEMP;
                   for (I = 1; I <= N - 1; I++) {
                      TEMP = ( A( I+J*LDA ) ).abs();
@@ -101,11 +101,11 @@
                      }
                      I = J - 1;
                      // L(k+j,k+j)
-                     TEMP = ABS( REAL( A( I+J*LDA ) ) );
+                     TEMP = ABS( double( A( I+J*LDA ) ) );
                      if( VALUE < TEMP || SISNAN( TEMP ) ) VALUE = TEMP;
                      I = J;
                      // -> L(j,j)
-                     TEMP = ABS( REAL( A( I+J*LDA ) ) );
+                     TEMP = ABS( double( A( I+J*LDA ) ) );
                      if( VALUE < TEMP || SISNAN( TEMP ) ) VALUE = TEMP;
                      for (I = J + 1; I <= N - 1; I++) {
                         TEMP = ( A( I+J*LDA ) ).abs();
@@ -121,11 +121,11 @@
                      }
                      I = K + J - 1;
                      // -> U(i,i)
-                     TEMP = ABS( REAL( A( I+J*LDA ) ) );
+                     TEMP = ABS( double( A( I+J*LDA ) ) );
                      if( VALUE < TEMP || SISNAN( TEMP ) ) VALUE = TEMP;
                      I = I + 1;
                      // =k+j; i -> U(j,j)
-                     TEMP = ABS( REAL( A( I+J*LDA ) ) );
+                     TEMP = ABS( double( A( I+J*LDA ) ) );
                      if( VALUE < TEMP || SISNAN( TEMP ) ) VALUE = TEMP;
                      for (I = K + J + 1; I <= N - 1; I++) {
                         TEMP = ( A( I+J*LDA ) ).abs();
@@ -138,7 +138,7 @@
                      // j=k-1
                   }
                   // i=n-1 -> U(n-1,n-1)
-                  TEMP = ABS( REAL( A( I+J*LDA ) ) );
+                  TEMP = ABS( double( A( I+J*LDA ) ) );
                   if( VALUE < TEMP || SISNAN( TEMP ) ) VALUE = TEMP;
                }
             } else {
@@ -152,11 +152,11 @@
                      }
                      I = J;
                      // L(i,i)
-                     TEMP = ABS( REAL( A( I+J*LDA ) ) );
+                     TEMP = ABS( double( A( I+J*LDA ) ) );
                      if( VALUE < TEMP || SISNAN( TEMP ) ) VALUE = TEMP;
                      I = J + 1;
                      // L(j+k,j+k)
-                     TEMP = ABS( REAL( A( I+J*LDA ) ) );
+                     TEMP = ABS( double( A( I+J*LDA ) ) );
                      if( VALUE < TEMP || SISNAN( TEMP ) ) VALUE = TEMP;
                      for (I = J + 2; I <= K - 1; I++) {
                         TEMP = ( A( I+J*LDA ) ).abs();
@@ -170,7 +170,7 @@
                   }
                   I = K - 1;
                   // -> L(i,i) is at A(i,j)
-                  TEMP = ABS( REAL( A( I+J*LDA ) ) );
+                  TEMP = ABS( double( A( I+J*LDA ) ) );
                      if( VALUE < TEMP || SISNAN( TEMP ) ) VALUE = TEMP;
                   for (J = K; J <= N - 1; J++) {
                      for (I = 0; I <= K - 1; I++) {
@@ -188,7 +188,7 @@
                   }
                   J = K - 1;
                   // -> U(j,j) is at A(0,j)
-                  TEMP = ABS( REAL( A( 0+J*LDA ) ) );
+                  TEMP = ABS( double( A( 0+J*LDA ) ) );
                   if( VALUE < TEMP || SISNAN( TEMP ) ) VALUE = TEMP;
                   for (I = 1; I <= K - 1; I++) {
                      TEMP = ( A( I+J*LDA ) ).abs();
@@ -201,11 +201,11 @@
                      }
                      I = J - K;
                      // -> U(i,i) at A(i,j)
-                     TEMP = ABS( REAL( A( I+J*LDA ) ) );
+                     TEMP = ABS( double( A( I+J*LDA ) ) );
                      if( VALUE < TEMP || SISNAN( TEMP ) ) VALUE = TEMP;
                      I = J - K + 1;
                      // U(j,j)
-                     TEMP = ABS( REAL( A( I+J*LDA ) ) );
+                     TEMP = ABS( double( A( I+J*LDA ) ) );
                      if( VALUE < TEMP || SISNAN( TEMP ) ) VALUE = TEMP;
                      for (I = J - K + 2; I <= K - 1; I++) {
                         TEMP = ( A( I+J*LDA ) ).abs();
@@ -222,9 +222,9 @@
                   // uplo ='L'
                   J = 0;
                   // -> L(k,k) & j=1 -> L(0,0)
-                  TEMP = ABS( REAL( A( J+J*LDA ) ) );
+                  TEMP = ABS( double( A( J+J*LDA ) ) );
                   if( VALUE < TEMP || SISNAN( TEMP ) ) VALUE = TEMP;
-                  TEMP = ABS( REAL( A( J+1+J*LDA ) ) );
+                  TEMP = ABS( double( A( J+1+J*LDA ) ) );
                   if( VALUE < TEMP || SISNAN( TEMP ) ) VALUE = TEMP;
                   for (I = 2; I <= N; I++) {
                      TEMP = ( A( I+J*LDA ) ).abs();
@@ -237,11 +237,11 @@
                      }
                      I = J;
                      // L(k+j,k+j)
-                     TEMP = ABS( REAL( A( I+J*LDA ) ) );
+                     TEMP = ABS( double( A( I+J*LDA ) ) );
                      if( VALUE < TEMP || SISNAN( TEMP ) ) VALUE = TEMP;
                      I = J + 1;
                      // -> L(j,j)
-                     TEMP = ABS( REAL( A( I+J*LDA ) ) );
+                     TEMP = ABS( double( A( I+J*LDA ) ) );
                      if( VALUE < TEMP || SISNAN( TEMP ) ) VALUE = TEMP;
                      for (I = J + 2; I <= N; I++) {
                         TEMP = ( A( I+J*LDA ) ).abs();
@@ -257,11 +257,11 @@
                      }
                      I = K + J;
                      // -> U(i,i)
-                     TEMP = ABS( REAL( A( I+J*LDA ) ) );
+                     TEMP = ABS( double( A( I+J*LDA ) ) );
                      if( VALUE < TEMP || SISNAN( TEMP ) ) VALUE = TEMP;
                      I = I + 1;
                      // =k+j+1; i -> U(j,j)
-                     TEMP = ABS( REAL( A( I+J*LDA ) ) );
+                     TEMP = ABS( double( A( I+J*LDA ) ) );
                      if( VALUE < TEMP || SISNAN( TEMP ) ) VALUE = TEMP;
                      for (I = K + J + 2; I <= N; I++) {
                         TEMP = ( A( I+J*LDA ) ).abs();
@@ -274,11 +274,11 @@
                   // j=k-1
                   }
                   // i=n-1 -> U(n-1,n-1)
-                  TEMP = ABS( REAL( A( I+J*LDA ) ) );
+                  TEMP = ABS( double( A( I+J*LDA ) ) );
                      if( VALUE < TEMP || SISNAN( TEMP ) ) VALUE = TEMP;
                   I = N;
                   // -> U(k-1,k-1)
-                  TEMP = ABS( REAL( A( I+J*LDA ) ) );
+                  TEMP = ABS( double( A( I+J*LDA ) ) );
                      if( VALUE < TEMP || SISNAN( TEMP ) ) VALUE = TEMP;
                }
             } else {
@@ -287,7 +287,7 @@
                   // uplo ='L'
                   J = 0;
                   // -> L(k,k) at A(0,0)
-                  TEMP = ABS( REAL( A( J+J*LDA ) ) );
+                  TEMP = ABS( double( A( J+J*LDA ) ) );
                   if( VALUE < TEMP || SISNAN( TEMP ) ) VALUE = TEMP;
                   for (I = 1; I <= K - 1; I++) {
                      TEMP = ( A( I+J*LDA ) ).abs();
@@ -300,11 +300,11 @@
                      }
                      I = J - 1;
                      // L(i,i)
-                     TEMP = ABS( REAL( A( I+J*LDA ) ) );
+                     TEMP = ABS( double( A( I+J*LDA ) ) );
                      if( VALUE < TEMP || SISNAN( TEMP ) ) VALUE = TEMP;
                      I = J;
                      // L(j+k,j+k)
-                     TEMP = ABS( REAL( A( I+J*LDA ) ) );
+                     TEMP = ABS( double( A( I+J*LDA ) ) );
                      if( VALUE < TEMP || SISNAN( TEMP ) ) VALUE = TEMP;
                      for (I = J + 1; I <= K - 1; I++) {
                         TEMP = ( A( I+J*LDA ) ).abs();
@@ -318,7 +318,7 @@
                   }
                   I = K - 1;
                   // -> L(i,i) is at A(i,j)
-                  TEMP = ABS( REAL( A( I+J*LDA ) ) );
+                  TEMP = ABS( double( A( I+J*LDA ) ) );
                   if( VALUE < TEMP || SISNAN( TEMP ) ) VALUE = TEMP;
                   for (J = K + 1; J <= N; J++) {
                      for (I = 0; I <= K - 1; I++) {
@@ -336,7 +336,7 @@
                   }
                   J = K;
                   // -> U(j,j) is at A(0,j)
-                  TEMP = ABS( REAL( A( 0+J*LDA ) ) );
+                  TEMP = ABS( double( A( 0+J*LDA ) ) );
                   if( VALUE < TEMP || SISNAN( TEMP ) ) VALUE = TEMP;
                   for (I = 1; I <= K - 1; I++) {
                      TEMP = ( A( I+J*LDA ) ).abs();
@@ -349,11 +349,11 @@
                      }
                      I = J - K - 1;
                      // -> U(i,i) at A(i,j)
-                     TEMP = ABS( REAL( A( I+J*LDA ) ) );
+                     TEMP = ABS( double( A( I+J*LDA ) ) );
                      if( VALUE < TEMP || SISNAN( TEMP ) ) VALUE = TEMP;
                      I = J - K;
                      // U(j,j)
-                     TEMP = ABS( REAL( A( I+J*LDA ) ) );
+                     TEMP = ABS( double( A( I+J*LDA ) ) );
                      if( VALUE < TEMP || SISNAN( TEMP ) ) VALUE = TEMP;
                      for (I = J - K + 1; I <= K - 1; I++) {
                         TEMP = ( A( I+J*LDA ) ).abs();
@@ -367,7 +367,7 @@
                   }
                   I = K - 1;
                   // U(k,k) at A(i,j)
-                  TEMP = ABS( REAL( A( I+J*LDA ) ) );
+                  TEMP = ABS( double( A( I+J*LDA ) ) );
                   if( VALUE < TEMP || SISNAN( TEMP ) ) VALUE = TEMP;
                }
             }
@@ -394,12 +394,12 @@
                         S = S + AA;
                         WORK[I] = WORK( I ) + AA;
                      }
-                     AA = ABS( REAL( A( I+J*LDA ) ) );
+                     AA = ABS( double( A( I+J*LDA ) ) );
                      // -> A(j+k,j+k)
                      WORK[J+K] = S + AA;
                      if (I == K+K) GO TO 10;
                      I = I + 1;
-                     AA = ABS( REAL( A( I+J*LDA ) ) );
+                     AA = ABS( double( A( I+J*LDA ) ) );
                      // -> A(j,j)
                      WORK[J] = WORK( J ) + AA;
                      S = ZERO;
@@ -434,14 +434,14 @@
                         WORK[I+K] = WORK( I+K ) + AA;
                      }
                      if ( J > 0 ) {
-                        AA = ABS( REAL( A( I+J*LDA ) ) );
+                        AA = ABS( double( A( I+J*LDA ) ) );
                         // -> A(j+k,j+k)
                         S = S + AA;
                         WORK[I+K] = WORK( I+K ) + S;
                         // i=j
                         I = I + 1;
                      }
-                     AA = ABS( REAL( A( I+J*LDA ) ) );
+                     AA = ABS( double( A( I+J*LDA ) ) );
                      // -> A(j,j)
                      WORK[J] = AA;
                      S = ZERO;
@@ -475,11 +475,11 @@
                         S = S + AA;
                         WORK[I] = WORK( I ) + AA;
                      }
-                     AA = ABS( REAL( A( I+J*LDA ) ) );
+                     AA = ABS( double( A( I+J*LDA ) ) );
                      // -> A(j+k,j+k)
                      WORK[J+K] = S + AA;
                      I = I + 1;
-                     AA = ABS( REAL( A( I+J*LDA ) ) );
+                     AA = ABS( double( A( I+J*LDA ) ) );
                      // -> A(j,j)
                      WORK[J] = WORK( J ) + AA;
                      S = ZERO;
@@ -510,13 +510,13 @@
                         S = S + AA;
                         WORK[I+K] = WORK( I+K ) + AA;
                      }
-                     AA = ABS( REAL( A( I+J*LDA ) ) );
+                     AA = ABS( double( A( I+J*LDA ) ) );
                      // -> A(j+k,j+k)
                      S = S + AA;
                      WORK[I+K] = WORK( I+K ) + S;
                      // i=j
                      I = I + 1;
-                     AA = ABS( REAL( A( I+J*LDA ) ) );
+                     AA = ABS( double( A( I+J*LDA ) ) );
                      // -> A(j,j)
                      WORK[J] = AA;
                      S = ZERO;
@@ -561,7 +561,7 @@
                      WORK[J] = S;
                   }
                   // j=n1=k-1 is special
-                  S = ABS( REAL( A( 0+J*LDA ) ) );
+                  S = ABS( double( A( 0+J*LDA ) ) );
                   // A(k-1,k-1)
                   for (I = 1; I <= K - 1; I++) {
                      AA = ( A( I+J*LDA ) ).abs();
@@ -579,12 +579,12 @@
                         S = S + AA;
                      }
                      // i=j-k
-                     AA = ABS( REAL( A( I+J*LDA ) ) );
+                     AA = ABS( double( A( I+J*LDA ) ) );
                      // A(j-k,j-k)
                      S = S + AA;
                      WORK[J-K] = WORK( J-K ) + S;
                      I = I + 1;
-                     S = ABS( REAL( A( I+J*LDA ) ) );
+                     S = ABS( double( A( I+J*LDA ) ) );
                      // A(j,j)
                      for (L = J + 1; L <= N - 1; L++) {
                         I = I + 1;
@@ -616,14 +616,14 @@
                         WORK[I] = WORK( I ) + AA;
                         S = S + AA;
                      }
-                     AA = ABS( REAL( A( I+J*LDA ) ) );
+                     AA = ABS( double( A( I+J*LDA ) ) );
                      // i=j so process of A(j,j)
                      S = S + AA;
                      WORK[J] = S;
                      // is initialised here
                      I = I + 1;
                      // i=j process A(j+k,j+k)
-                     AA = ABS( REAL( A( I+J*LDA ) ) );
+                     AA = ABS( double( A( I+J*LDA ) ) );
                      S = AA;
                      for (L = K + J + 1; L <= N - 1; L++) {
                         I = I + 1;
@@ -643,7 +643,7 @@
                      S = S + AA;
                   }
                   // i=k-1
-                  AA = ABS( REAL( A( I+J*LDA ) ) );
+                  AA = ABS( double( A( I+J*LDA ) ) );
                   // A(k-1,k-1)
                   S = S + AA;
                   WORK[I] = S;
@@ -683,7 +683,7 @@
                      WORK[J] = S;
                   }
                   // j=k
-                  AA = ABS( REAL( A( 0+J*LDA ) ) );
+                  AA = ABS( double( A( 0+J*LDA ) ) );
                   // A(k,k)
                   S = AA;
                   for (I = 1; I <= K - 1; I++) {
@@ -702,12 +702,12 @@
                         S = S + AA;
                      }
                      // i=j-1-k
-                     AA = ABS( REAL( A( I+J*LDA ) ) );
+                     AA = ABS( double( A( I+J*LDA ) ) );
                      // A(j-k-1,j-k-1)
                      S = S + AA;
                      WORK[J-K-1] = WORK( J-K-1 ) + S;
                      I = I + 1;
-                     AA = ABS( REAL( A( I+J*LDA ) ) );
+                     AA = ABS( double( A( I+J*LDA ) ) );
                      // A(j,j)
                      S = AA;
                      for (L = J + 1; L <= N - 1; L++) {
@@ -728,7 +728,7 @@
                      S = S + AA;
                   }
                   // i=k-1
-                  AA = ABS( REAL( A( I+J*LDA ) ) );
+                  AA = ABS( double( A( I+J*LDA ) ) );
                   // A(k-1,k-1)
                   S = S + AA;
                   WORK[I] = WORK( I ) + S;
@@ -743,7 +743,7 @@
                      WORK[I] = ZERO;
                   }
                   // j=0 is special :process col A(k:n-1,k)
-                  S = ABS( REAL( A( 0 ) ) );
+                  S = ABS( double( A( 0 ) ) );
                   // A(k,k)
                   for (I = 1; I <= K - 1; I++) {
                      AA = ( A( I ) ).abs();
@@ -761,14 +761,14 @@
                         WORK[I] = WORK( I ) + AA;
                         S = S + AA;
                      }
-                     AA = ABS( REAL( A( I+J*LDA ) ) );
+                     AA = ABS( double( A( I+J*LDA ) ) );
                      // i=j-1 so process of A(j-1,j-1)
                      S = S + AA;
                      WORK[J-1] = S;
                      // is initialised here
                      I = I + 1;
                      // i=j process A(j+k,j+k)
-                     AA = ABS( REAL( A( I+J*LDA ) ) );
+                     AA = ABS( double( A( I+J*LDA ) ) );
                      S = AA;
                      for (L = K + J + 1; L <= N - 1; L++) {
                         I = I + 1;
@@ -789,7 +789,7 @@
                   }
 
                   // i=k-1
-                  AA = ABS( REAL( A( I+J*LDA ) ) );
+                  AA = ABS( double( A( I+J*LDA ) ) );
                   // A(k-1,k-1)
                   S = S + AA;
                   WORK[I] = S;
@@ -840,7 +840,7 @@
                   L = K - 1;
                   // -> U(k,k) at A(k-1,0)
                   for (I = 0; I <= K - 2; I++) {
-                     AA = REAL( A( L ) );
+                     AA = double( A( L ) );
                      // U(k+i,k+i)
                      if ( AA != ZERO ) {
                         if ( SCALE < AA ) {
@@ -850,7 +850,7 @@
                            S = S + ( AA / SCALE )**2;
                         }
                      }
-                     AA = REAL( A( L+1 ) );
+                     AA = double( A( L+1 ) );
                      // U(i,i)
                      if ( AA != ZERO ) {
                         if ( SCALE < AA ) {
@@ -862,7 +862,7 @@
                      }
                      L = L + LDA + 1;
                   }
-                  AA = REAL( A( L ) );
+                  AA = double( A( L ) );
                   // U(n-1,n-1)
                   if ( AA != ZERO ) {
                      if ( SCALE < AA ) {
@@ -884,7 +884,7 @@
                   }
                   S = S + S;
                   // double s for the off diagonal elements
-                  AA = REAL( A( 0 ) );
+                  AA = double( A( 0 ) );
                   // L(0,0) at A(0,0)
                   if ( AA != ZERO ) {
                      if ( SCALE < AA ) {
@@ -897,7 +897,7 @@
                   L = LDA;
                   // -> L(k,k) at A(0,1)
                   for (I = 1; I <= K - 1; I++) {
-                     AA = REAL( A( L ) );
+                     AA = double( A( L ) );
                      // L(k-1+i,k-1+i)
                      if ( AA != ZERO ) {
                         if ( SCALE < AA ) {
@@ -907,7 +907,7 @@
                            S = S + ( AA / SCALE )**2;
                         }
                      }
-                     AA = REAL( A( L+1 ) );
+                     AA = double( A( L+1 ) );
                      // L(i,i)
                      if ( AA != ZERO ) {
                         if ( SCALE < AA ) {
@@ -940,7 +940,7 @@
                   // double s for the off diagonal elements
                   L = 0 + K*LDA - LDA;
                   // -> U(k-1,k-1) at A(0,k-1)
-                  AA = REAL( A( L ) );
+                  AA = double( A( L ) );
                   // U(k-1,k-1)
                   if ( AA != ZERO ) {
                      if ( SCALE < AA ) {
@@ -953,7 +953,7 @@
                   L = L + LDA;
                   // -> U(0,0) at A(0,k)
                   for (J = K; J <= N - 1; J++) {
-                     AA = REAL( A( L ) );
+                     AA = double( A( L ) );
                      // -> U(j-k,j-k)
                      if ( AA != ZERO ) {
                         if ( SCALE < AA ) {
@@ -963,7 +963,7 @@
                            S = S + ( AA / SCALE )**2;
                         }
                      }
-                     AA = REAL( A( L+1 ) );
+                     AA = double( A( L+1 ) );
                      // -> U(j,j)
                      if ( AA != ZERO ) {
                         if ( SCALE < AA ) {
@@ -994,7 +994,7 @@
                   L = 0;
                   // -> L(0,0) at A(0,0)
                   for (I = 0; I <= K - 2; I++) {
-                     AA = REAL( A( L ) );
+                     AA = double( A( L ) );
                      // L(i,i)
                      if ( AA != ZERO ) {
                         if ( SCALE < AA ) {
@@ -1004,7 +1004,7 @@
                            S = S + ( AA / SCALE )**2;
                         }
                      }
-                     AA = REAL( A( L+1 ) );
+                     AA = double( A( L+1 ) );
                      // L(k+i,k+i)
                      if ( AA != ZERO ) {
                         if ( SCALE < AA ) {
@@ -1017,7 +1017,7 @@
                      L = L + LDA + 1;
                   }
                   // L-> k-1 + (k-1)*lda or L(k-1,k-1) at A(k-1,k-1)
-                  AA = REAL( A( L ) );
+                  AA = double( A( L ) );
                   // L(k-1,k-1) at A(k-1,k-1)
                   if ( AA != ZERO ) {
                      if ( SCALE < AA ) {
@@ -1048,7 +1048,7 @@
                   L = K;
                   // -> U(k,k) at A(k,0)
                   for (I = 0; I <= K - 1; I++) {
-                     AA = REAL( A( L ) );
+                     AA = double( A( L ) );
                      // U(k+i,k+i)
                      if ( AA != ZERO ) {
                         if ( SCALE < AA ) {
@@ -1058,7 +1058,7 @@
                            S = S + ( AA / SCALE )**2;
                         }
                      }
-                     AA = REAL( A( L+1 ) );
+                     AA = double( A( L+1 ) );
                      // U(i,i)
                      if ( AA != ZERO ) {
                         if ( SCALE < AA ) {
@@ -1085,7 +1085,7 @@
                   L = 0;
                   // -> L(k,k) at A(0,0)
                   for (I = 0; I <= K - 1; I++) {
-                     AA = REAL( A( L ) );
+                     AA = double( A( L ) );
                      // L(k-1+i,k-1+i)
                      if ( AA != ZERO ) {
                         if ( SCALE < AA ) {
@@ -1095,7 +1095,7 @@
                            S = S + ( AA / SCALE )**2;
                         }
                      }
-                     AA = REAL( A( L+1 ) );
+                     AA = double( A( L+1 ) );
                      // L(i,i)
                      if ( AA != ZERO ) {
                         if ( SCALE < AA ) {
@@ -1128,7 +1128,7 @@
                   // double s for the off diagonal elements
                   L = 0 + K*LDA;
                   // -> U(k,k) at A(0,k)
-                  AA = REAL( A( L ) );
+                  AA = double( A( L ) );
                   // U(k,k)
                   if ( AA != ZERO ) {
                      if ( SCALE < AA ) {
@@ -1141,7 +1141,7 @@
                   L = L + LDA;
                   // -> U(0,0) at A(0,k+1)
                   for (J = K + 1; J <= N - 1; J++) {
-                     AA = REAL( A( L ) );
+                     AA = double( A( L ) );
                      // -> U(j-k-1,j-k-1)
                      if ( AA != ZERO ) {
                         if ( SCALE < AA ) {
@@ -1151,7 +1151,7 @@
                            S = S + ( AA / SCALE )**2;
                         }
                      }
-                     AA = REAL( A( L+1 ) );
+                     AA = double( A( L+1 ) );
                      // -> U(j,j)
                      if ( AA != ZERO ) {
                         if ( SCALE < AA ) {
@@ -1165,7 +1165,7 @@
                   }
                   // L=k-1+n*lda
                   // -> U(k-1,k-1) at A(k-1,n)
-                  AA = REAL( A( L ) );
+                  AA = double( A( L ) );
                   // U(k,k)
                   if ( AA != ZERO ) {
                      if ( SCALE < AA ) {
@@ -1193,7 +1193,7 @@
                   // double s for the off diagonal elements
                   L = 0;
                   // -> L(k,k) at A(0,0)
-                  AA = REAL( A( L ) );
+                  AA = double( A( L ) );
                   // L(k,k) at A(0,0)
                   if ( AA != ZERO ) {
                      if ( SCALE < AA ) {
@@ -1206,7 +1206,7 @@
                   L = LDA;
                   // -> L(0,0) at A(0,1)
                   for (I = 0; I <= K - 2; I++) {
-                     AA = REAL( A( L ) );
+                     AA = double( A( L ) );
                      // L(i,i)
                      if ( AA != ZERO ) {
                         if ( SCALE < AA ) {
@@ -1216,7 +1216,7 @@
                            S = S + ( AA / SCALE )**2;
                         }
                      }
-                     AA = REAL( A( L+1 ) );
+                     AA = double( A( L+1 ) );
                      // L(k+i+1,k+i+1)
                      if ( AA != ZERO ) {
                         if ( SCALE < AA ) {
@@ -1229,7 +1229,7 @@
                      L = L + LDA + 1;
                   }
                   // L-> k - 1 + k*lda or L(k-1,k-1) at A(k-1,k)
-                  AA = REAL( A( L ) );
+                  AA = double( A( L ) );
                   // L(k-1,k-1) at A(k-1,k)
                   if ( AA != ZERO ) {
                      if ( SCALE < AA ) {

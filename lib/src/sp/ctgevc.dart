@@ -10,7 +10,7 @@
       // ..
       // .. Array Arguments ..
       bool               SELECT( * );
-      REAL               RWORK( * );
+      double               RWORK( * );
       Complex            P( LDP, * ), S( LDS, * ), VL( LDVL, * ), VR( LDVR, * ), WORK( * );
       // ..
 
@@ -18,7 +18,7 @@
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       Complex            CZERO, CONE;
       const              CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
@@ -26,7 +26,7 @@
       // .. Local Scalars ..
       bool               COMPL, COMPR, ILALL, ILBACK, ILBBAD, ILCOMP, LSA, LSB;
       int                I, IBEG, IEIG, IEND, IHWMNY, IM, ISIDE, ISRC, J, JE, JR;
-      REAL               ACOEFA, ACOEFF, ANORM, ASCALE, BCOEFA, BIG, BIGNUM, BNORM, BSCALE, DMIN, SAFMIN, SBETA, SCALE, SMALL, TEMP, ULP, XMAX;
+      double               ACOEFA, ACOEFF, ANORM, ASCALE, BCOEFA, BIG, BIGNUM, BNORM, BSCALE, DMIN, SAFMIN, SBETA, SCALE, SMALL, TEMP, ULP, XMAX;
       Complex            BCOEFF, CA, CB, D, SALPHA, SUM, SUMA, SUMB, X;
       // ..
       // .. External Functions ..
@@ -42,10 +42,10 @@
       // INTRINSIC ABS, AIMAG, CMPLX, CONJG, MAX, MIN, REAL
       // ..
       // .. Statement Functions ..
-      REAL               ABS1;
+      double               ABS1;
       // ..
       // .. Statement Function definitions ..
-      ABS1[X] = ( REAL( X ) ).abs() + ( AIMAG( X ) ).abs();
+      ABS1[X] = ( double( X ) ).abs() + ( AIMAG( X ) ).abs();
       // ..
       // .. Executable Statements ..
 
@@ -184,7 +184,7 @@
             if ( ILCOMP ) {
                IEIG = IEIG + 1;
 
-               if ( ABS1( S( JE, JE ) ) <= SAFMIN && ABS( REAL( P( JE, JE ) ) ) <= SAFMIN ) {
+               if ( ABS1( S( JE, JE ) ) <= SAFMIN && ABS( double( P( JE, JE ) ) ) <= SAFMIN ) {
 
                   // Singular matrix pencil -- return unit eigenvector
 
@@ -202,7 +202,7 @@
 
                TEMP = ONE / max( ABS1( S( JE, JE ) )*ASCALE, ABS( REAL( P( JE, JE ) ) )*BSCALE, SAFMIN );
                SALPHA = ( TEMP*S( JE, JE ) )*ASCALE;
-               SBETA = ( TEMP*REAL( P( JE, JE ) ) )*BSCALE;
+               SBETA = ( TEMP*double( P( JE, JE ) ) )*BSCALE;
                ACOEFF = SBETA*ASCALE;
                BCOEFF = SALPHA*BSCALE;
 
@@ -339,7 +339,7 @@
             if ( ILCOMP ) {
                IEIG = IEIG - 1;
 
-               if ( ABS1( S( JE, JE ) ) <= SAFMIN && ABS( REAL( P( JE, JE ) ) ) <= SAFMIN ) {
+               if ( ABS1( S( JE, JE ) ) <= SAFMIN && ABS( double( P( JE, JE ) ) ) <= SAFMIN ) {
 
                   // Singular matrix pencil -- return unit eigenvector
 
@@ -357,7 +357,7 @@
 
                TEMP = ONE / max( ABS1( S( JE, JE ) )*ASCALE, ABS( REAL( P( JE, JE ) ) )*BSCALE, SAFMIN );
                SALPHA = ( TEMP*S( JE, JE ) )*ASCALE;
-               SBETA = ( TEMP*REAL( P( JE, JE ) ) )*BSCALE;
+               SBETA = ( TEMP*double( P( JE, JE ) ) )*BSCALE;
                ACOEFF = SBETA*ASCALE;
                BCOEFF = SALPHA*BSCALE;
 

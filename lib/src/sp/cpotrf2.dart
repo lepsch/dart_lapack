@@ -15,7 +15,7 @@
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ONE, ZERO;
+      double               ONE, ZERO;
       const              ONE = 1.0, ZERO = 0.0 ;
       Complex            CONE;
       const              CONE = (1.0, 0.0) ;
@@ -23,7 +23,7 @@
       // .. Local Scalars ..
       bool               UPPER;
       int                N1, N2, IINFO;
-      REAL               AJJ;
+      double               AJJ;
       // ..
       // .. External Functions ..
       //- bool               lsame, SISNAN;
@@ -63,7 +63,7 @@
 
          // Test for non-positive-definiteness
 
-         AJJ = REAL( A( 1, 1 ) );
+         AJJ = double( A( 1, 1 ) );
          if ( AJJ <= ZERO || SISNAN( AJJ ) ) {
             INFO = 1;
             return;

@@ -54,13 +54,13 @@
 
       // So here 4 x 4 is the last T stored in the workspace
 
-      NT = K-CEILING(REAL(K-NX)/REAL(NB))*NB;
+      NT = K-CEILING(double(K-NX)/REAL(NB))*NB;
 
 
       // optimal workspace = space for dlarfb + space for normal T's + space for the last T
 
       LLWORK = max(max((N-M)*K, (N-M)*NB), max(K*NB, NB*NB));
-      LLWORK = CEILING(REAL(LLWORK)/REAL(NB));
+      LLWORK = CEILING(double(LLWORK)/REAL(NB));
 
       if ( K == 0 ) {
 
@@ -79,7 +79,7 @@
 
       } else {
 
-          LBWORK = CEILING(REAL(K)/REAL(NB))*NB;
+          LBWORK = CEILING(double(K)/REAL(NB))*NB;
           LWKOPT = (LBWORK+LLWORK-NB)*NB;
           WORK[1] = DROUNDUP_LWORK(LWKOPT);
 

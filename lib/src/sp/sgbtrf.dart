@@ -9,23 +9,23 @@
       // ..
       // .. Array Arguments ..
       int                IPIV( * );
-      REAL               AB( LDAB, * );
+      double               AB( LDAB, * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ONE, ZERO;
+      double               ONE, ZERO;
       const              ONE = 1.0, ZERO = 0.0 ;
       int                NBMAX, LDWORK;
       const              NBMAX = 64, LDWORK = NBMAX+1 ;
       // ..
       // .. Local Scalars ..
       int                I, I2, I3, II, IP, J, J2, J3, JB, JJ, JM, JP, JU, K2, KM, KV, NB, NW;
-      REAL               TEMP;
+      double               TEMP;
       // ..
       // .. Local Arrays ..
-      REAL               WORK13( LDWORK, NBMAX ), WORK31( LDWORK, NBMAX );
+      double               WORK13( LDWORK, NBMAX ), WORK31( LDWORK, NBMAX );
       // ..
       // .. External Functions ..
       //- int                ILAENV, ISAMAX;

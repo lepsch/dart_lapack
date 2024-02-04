@@ -7,10 +7,10 @@
       // .. Scalar Arguments ..
       List<String>       RC;
       int                INFO, K, LDU, LDV, LWORK, MU, MV, N;
-      REAL               RESULT;
+      double               RESULT;
       // ..
       // .. Array Arguments ..
-      REAL               RWORK( * );
+      double               RWORK( * );
       Complex            U( LDU, * ), V( LDV, * ), WORK( * );
       // ..
 
@@ -18,12 +18,12 @@
 
 
       // .. Parameters ..
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
       int                I, IRC, J, LMX;
-      REAL               RES1, RES2, ULP;
+      double               RES1, RES2, ULP;
       Complex            S, SU, SV;
       // ..
       // .. External Functions ..

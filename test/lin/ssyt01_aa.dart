@@ -7,22 +7,22 @@
       // .. Scalar Arguments ..
       String             UPLO;
       int                LDA, LDAFAC, LDC, N;
-      REAL               RESID;
+      double               RESID;
       // ..
       // .. Array Arguments ..
       int                IPIV( * );
-      REAL               A( LDA, * ), AFAC( LDAFAC, * ), C( LDC, * ), RWORK( * );
+      double               A( LDA, * ), AFAC( LDAFAC, * ), C( LDC, * ), RWORK( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
       int                I, J;
-      REAL               ANORM, EPS;
+      double               ANORM, EPS;
       // ..
       // .. External Functions ..
       //- bool               lsame;

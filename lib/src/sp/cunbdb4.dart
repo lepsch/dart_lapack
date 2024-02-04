@@ -27,7 +27,7 @@
       int                INFO, LWORK, M, P, Q, LDX11, LDX21;
       // ..
       // .. Array Arguments ..
-      REAL               PHI(*), THETA(*);
+      double               PHI(*), THETA(*);
       Complex            PHANTOM(*), TAUP1(*), TAUP2(*), TAUQ1(*), WORK(*), X11(LDX11,*), X21(LDX21,*);
       // ..
 
@@ -38,7 +38,7 @@
       const              NEGONE = (-1.0,0.0), ONE = (1.0,0.0), ZERO = (0.0,0.0) ;
       // ..
       // .. Local Scalars ..
-      REAL               C, S;
+      double               C, S;
       int                CHILDINFO, I, ILARF, IORBDB5, J, LLARF, LORBDB5, LWORKMIN, LWORKOPT;
       bool               LQUERY;
       // ..
@@ -105,7 +105,7 @@
             cscal(P, NEGONE, PHANTOM(1), 1 );
             clarfgp(P, PHANTOM(1), PHANTOM(2), 1, TAUP1(1) );
             clarfgp(M-P, PHANTOM(P+1), PHANTOM(P+2), 1, TAUP2(1) );
-            THETA[I] = ATAN2( REAL( PHANTOM(1) ), REAL( PHANTOM(P+1) ) );
+            THETA[I] = ATAN2( REAL( PHANTOM(1) ), double( PHANTOM(P+1) ) );
             C = COS( THETA(I) );
             S = SIN( THETA(I) );
             PHANTOM[1] = ONE;
@@ -117,7 +117,7 @@
             cscal(P-I+1, NEGONE, X11(I,I-1), 1 );
             clarfgp(P-I+1, X11(I,I-1), X11(I+1,I-1), 1, TAUP1(I) );
             clarfgp(M-P-I+1, X21(I,I-1), X21(I+1,I-1), 1, TAUP2(I) );
-            THETA[I] = ATAN2( REAL( X11(I,I-1) ), REAL( X21(I,I-1) ) );
+            THETA[I] = ATAN2( REAL( X11(I,I-1) ), double( X21(I,I-1) ) );
             C = COS( THETA(I) );
             S = SIN( THETA(I) );
             X11[I,I-1] = ONE;
@@ -129,7 +129,7 @@
          csrot(Q-I+1, X11(I,I), LDX11, X21(I,I), LDX21, S, -C );
          clacgv(Q-I+1, X21(I,I), LDX21 );
          clarfgp(Q-I+1, X21(I,I), X21(I,I+1), LDX21, TAUQ1(I) );
-         C = REAL( X21(I,I) );
+         C = double( X21(I,I) );
          X21[I,I] = ONE;
          clarf('R', P-I, Q-I+1, X21(I,I), LDX21, TAUQ1(I), X11(I+1,I), LDX11, WORK(ILARF) );
          clarf('R', M-P-I, Q-I+1, X21(I,I), LDX21, TAUQ1(I), X21(I+1,I), LDX21, WORK(ILARF) );

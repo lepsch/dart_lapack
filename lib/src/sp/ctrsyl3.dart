@@ -4,14 +4,14 @@
       // .. Scalar Arguments ..
       String             TRANA, TRANB;
       int                INFO, ISGN, LDA, LDB, LDC, LDSWORK, M, N;
-      REAL               SCALE;
+      double               SCALE;
       // ..
       // .. Array Arguments ..
       Complex            A( LDA, * ), B( LDB, * ), C( LDC, * );
-      REAL               SWORK( LDSWORK, * );
+      double               SWORK( LDSWORK, * );
       // ..
       // .. Parameters ..
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       Complex            CONE;
       const              CONE = ( 1.0, 0.0 ) ;
@@ -19,11 +19,11 @@
       // .. Local Scalars ..
       bool               NOTRNA, NOTRNB, LQUERY;
       int                AWRK, BWRK, I, I1, I2, IINFO, J, J1, J2, JJ, K, K1, K2, L, L1, L2, LL, NBA, NB, NBB;
-      REAL               ANRM, BIGNUM, BNRM, CNRM, SCAL, SCALOC, SCAMIN, SGN, XNRM, BUF, SMLNUM;
+      double               ANRM, BIGNUM, BNRM, CNRM, SCAL, SCALOC, SCAMIN, SGN, XNRM, BUF, SMLNUM;
       Complex            CSGN;
       // ..
       // .. Local Arrays ..
-      REAL               WNRM( max( M, N ) );
+      double               WNRM( max( M, N ) );
       // ..
       // .. External Functions ..
       //- bool               lsame;
@@ -151,7 +151,7 @@
          }
       }
 
-      SGN = REAL( ISGN );
+      SGN = double( ISGN );
       CSGN = CMPLX( SGN, ZERO );
 
       if ( NOTRNA && NOTRNB ) {
@@ -895,10 +895,10 @@
 
          // How much can the normwise largest entry be upscaled?
 
-         SCAL = max( ABS( REAL( C( 1, 1 ) ) ), ABS( AIMAG( C ( 1, 1 ) ) ) );
+         SCAL = max( ABS( double( C( 1, 1 ) ) ), ABS( AIMAG( C ( 1, 1 ) ) ) );
          for (K = 1; K <= M; K++) {
             for (L = 1; L <= N; L++) {
-               SCAL = max( SCAL, ABS( REAL ( C( K, L ) ) ), ABS( AIMAG ( C( K, L ) ) ) );
+               SCAL = max( SCAL, ABS( double ( C( K, L ) ) ), ABS( AIMAG ( C( K, L ) ) ) );
             }
          }
 

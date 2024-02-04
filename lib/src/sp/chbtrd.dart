@@ -9,14 +9,14 @@
       int                INFO, KD, LDAB, LDQ, N;
       // ..
       // .. Array Arguments ..
-      REAL               D( * ), E( * );
+      double               D( * ), E( * );
       Complex            AB( LDAB, * ), Q( LDQ, * ), WORK( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO;
+      double               ZERO;
       const              ZERO = 0.0 ;
       Complex            CZERO, CONE;
       const              CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
@@ -24,7 +24,7 @@
       // .. Local Scalars ..
       bool               INITQ, UPPER, WANTQ;
       int                I, I2, IBL, INCA, INCX, IQAEND, IQB, IQEND, J, J1, J1END, J1INC, J2, JEND, JIN, JINC, K, KD1, KDM1, KDN, L, LAST, LEND, NQ, NR, NRT;
-      REAL               ABST;
+      double               ABST;
       Complex            T, TEMP;
       // ..
       // .. External Subroutines ..
@@ -95,7 +95,7 @@
             J1 = KDN + 2;
             J2 = 1;
 
-            AB[KD1, 1] = REAL( AB( KD1, 1 ) );
+            AB[KD1, 1] = double( AB( KD1, 1 ) );
             for (I = 1; I <= N - 2; I++) { // 90
 
                // Reduce i-th row of matrix to tridiagonal form
@@ -265,7 +265,7 @@
          // copy diagonal elements to D
 
          for (I = 1; I <= N; I++) { // 120
-            D[I] = REAL( AB( KD1, I ) );
+            D[I] = double( AB( KD1, I ) );
          } // 120
 
       } else {
@@ -279,7 +279,7 @@
             J1 = KDN + 2;
             J2 = 1;
 
-            AB[1, 1] = REAL( AB( 1, 1 ) );
+            AB[1, 1] = double( AB( 1, 1 ) );
             for (I = 1; I <= N - 2; I++) { // 210
 
                // Reduce i-th column of matrix to tridiagonal form
@@ -449,7 +449,7 @@
          // copy diagonal elements to D
 
          for (I = 1; I <= N; I++) { // 240
-            D[I] = REAL( AB( 1, I ) );
+            D[I] = double( AB( 1, I ) );
          } // 240
       }
 

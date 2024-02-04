@@ -10,13 +10,13 @@
       // ..
       // .. Array Arguments ..
       int                IPIV( * );
-      REAL               A( LDA, * ), WORK( N+NB+1,* );
+      double               A( LDA, * ), WORK( N+NB+1,* );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ONE, ZERO;
+      double               ONE, ZERO;
       const              ONE = 1.0, ZERO = 0.0 ;
       // ..
       // .. Local Scalars ..
@@ -25,9 +25,9 @@
       int                COUNT;
       int                J, U11, INVD;
 
-      REAL               AK, AKKP1, AKP1, D, T;
-      REAL               U01_I_J, U01_IP1_J;
-      REAL               U11_I_J, U11_IP1_J;
+      double               AK, AKKP1, AKP1, D, T;
+      double               U01_I_J, U01_IP1_J;
+      double               U11_I_J, U11_IP1_J;
       // ..
       // .. External Functions ..
       //- bool               lsame;

@@ -6,10 +6,10 @@
 
       // .. Scalar Arguments ..
       int                I, INFO, N;
-      REAL               DLAM, RHO;
+      double               DLAM, RHO;
       // ..
       // .. Array Arguments ..
-      REAL               D( * ), DELTA( * ), Z( * );
+      double               D( * ), DELTA( * ), Z( * );
       // ..
 
 // =====================================================================
@@ -17,16 +17,16 @@
       // .. Parameters ..
       int                MAXIT;
       const              MAXIT = 30 ;
-      REAL               ZERO, ONE, TWO, THREE, FOUR, EIGHT, TEN;
+      double               ZERO, ONE, TWO, THREE, FOUR, EIGHT, TEN;
       const              ZERO = 0.0, ONE = 1.0, TWO = 2.0, THREE = 3.0, FOUR = 4.0, EIGHT = 8.0, TEN = 10.0 ;
       // ..
       // .. Local Scalars ..
       bool               ORGATI, SWTCH, SWTCH3;
       int                II, IIM1, IIP1, IP1, ITER, J, NITER;
-      REAL               A, B, C, DEL, DLTLB, DLTUB, DPHI, DPSI, DW, EPS, ERRETM, ETA, MIDPT, PHI, PREW, PSI, RHOINV, TAU, TEMP, TEMP1, W;
+      double               A, B, C, DEL, DLTLB, DLTUB, DPHI, DPSI, DW, EPS, ERRETM, ETA, MIDPT, PHI, PREW, PSI, RHOINV, TAU, TEMP, TEMP1, W;
       // ..
       // .. Local Arrays ..
-      REAL               ZZ( 3 );
+      double               ZZ( 3 );
       // ..
       // .. External Functions ..
       //- REAL               SLAMCH;

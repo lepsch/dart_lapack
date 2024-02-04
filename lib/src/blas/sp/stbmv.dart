@@ -9,17 +9,17 @@
       String    DIAG,TRANS,UPLO;
       // ..
       // .. Array Arguments ..
-      REAL A(LDA,*),X(*);
+      double A(LDA,*),X(*);
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL ZERO;
+      double ZERO;
       const     ZERO=0.0;
       // ..
       // .. Local Scalars ..
-      REAL TEMP;
+      double TEMP;
       int     I,INFO,IX,J,JX,KPLUS1,KX,L;
       bool    NOUNIT;
       // ..

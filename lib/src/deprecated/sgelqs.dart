@@ -8,13 +8,13 @@
       int                INFO, LDA, LDB, LWORK, M, N, NRHS;
       // ..
       // .. Array Arguments ..
-      REAL               A( LDA, * ), B( LDB, * ), TAU( * ), WORK( LWORK );
+      double               A( LDA, * ), B( LDB, * ), TAU( * ), WORK( LWORK );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       // ..
       // .. External Subroutines ..

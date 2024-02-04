@@ -4,21 +4,21 @@
       // Function arguments
       bool   , INTENT( IN ) :: ILSCHUR, ILQ, ILZ;
       int    , INTENT( IN ) :: N, ILO, IHI, LDA, LDB, LDQ, LDZ, LWORK, NSHIFTS, NBLOCK_DESIRED, LDQC, LDZC;
-       REAL, INTENT( INOUT ) :: A( LDA, * ), B( LDB, * ), Q( LDQ, * ), Z( LDZ, * ), QC( LDQC, * ), ZC( LDZC, * ), WORK( * ), SR( * ), SI( * ), SS( * );
+       double, INTENT( INOUT ) :: A( LDA, * ), B( LDB, * ), Q( LDQ, * ), Z( LDZ, * ), QC( LDQC, * ), ZC( LDZC, * ), WORK( * ), SR( * ), SI( * ), SS( * );
 
       int    , INTENT( OUT ) :: INFO;
 
       // Parameters
-      REAL :: ZERO, ONE, HALF;
+      double :: ZERO, ONE, HALF;
       const    ZERO = 0.0, ONE = 1.0, HALF = 0.5 ;
 
       // Local scalars
       int     :: I, J, NS, ISTARTM, ISTOPM, SHEIGHT, SWIDTH, K, NP, ISTARTB, ISTOPB, ISHIFT, NBLOCK, NPOS;
-      REAL :: TEMP, V( 3 ), C1, S1, C2, S2, SWAP;
+      double :: TEMP, V( 3 ), C1, S1, C2, S2, SWAP;
 
       // External functions
       // EXTERNAL :: XERBLA, SGEMM, SLAQZ1, SLAQZ2, SLASET, SLARTG, SROT, SLACPY
-      REAL, EXTERNAL :: SROUNDUP_LWORK;
+      double, EXTERNAL :: SROUNDUP_LWORK;
 
       INFO = 0;
       if ( NBLOCK_DESIRED < NSHIFTS+1 ) {

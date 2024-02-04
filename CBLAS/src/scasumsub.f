@@ -1,7 +1,7 @@
       void scasumsub(n,x,incx,asum) {
 
       // external scasum
-      real scasum,asum;
+      double scasum,asum;
       int     n,incx;
       Complex x(*);
 

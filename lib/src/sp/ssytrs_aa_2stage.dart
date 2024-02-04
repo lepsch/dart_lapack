@@ -12,12 +12,12 @@
       // ..
       // .. Array Arguments ..
       int                IPIV( * ), IPIV2( * );
-      REAL               A( LDA, * ), TB( * ), B( LDB, * );
+      double               A( LDA, * ), TB( * ), B( LDB, * );
       // ..
 
 // =====================================================================
 
-      REAL               ONE;
+      double               ONE;
       const              ONE = 1.0 ;
       // ..
       // .. Local Scalars ..

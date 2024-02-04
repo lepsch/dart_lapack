@@ -8,18 +8,18 @@
       int                IHI, ILO, LDA, LDH, LDQ, LWORK, N;
       // ..
       // .. Array Arguments ..
-      REAL               A( LDA, * ), H( LDH, * ), Q( LDQ, * ), RESULT( 2 ), WORK( LWORK );
+      double               A( LDA, * ), H( LDH, * ), Q( LDQ, * ), RESULT( 2 ), WORK( LWORK );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ONE, ZERO;
+      double               ONE, ZERO;
       const              ONE = 1.0, ZERO = 0.0 ;
       // ..
       // .. Local Scalars ..
       int                LDWORK;
-      REAL               ANORM, EPS, OVFL, SMLNUM, UNFL, WNORM;
+      double               ANORM, EPS, OVFL, SMLNUM, UNFL, WNORM;
       // ..
       // .. External Functions ..
       //- REAL               SLAMCH, SLANGE;

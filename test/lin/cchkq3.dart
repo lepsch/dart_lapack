@@ -6,12 +6,12 @@
 
       // .. Scalar Arguments ..
       int                NM, NN, NNB, NOUT;
-      REAL               THRESH;
+      double               THRESH;
       // ..
       // .. Array Arguments ..
       bool               DOTYPE( * );
       int                IWORK( * ), MVAL( * ), NBVAL( * ), NVAL( * ), NXVAL( * );
-      REAL               S( * ), RWORK( * );
+      double               S( * ), RWORK( * );
       Complex            A( * ), COPYA( * ), TAU( * ), WORK( * );
       // ..
 
@@ -22,18 +22,18 @@
       const              NTYPES = 6 ;
       int                NTESTS;
       const              NTESTS = 3 ;
-      REAL               ONE, ZERO;
+      double               ONE, ZERO;
       Complex            CZERO;
       const              ONE = 1.0, ZERO = 0.0, CZERO = ( 0.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
       String             PATH;
       int                I, IHIGH, ILOW, IM, IMODE, IN, INB, INFO, ISTEP, K, LDA, LW, LWORK, M, MNMIN, MODE, N, NB, NERRS, NFAIL, NRUN, NX;
-      REAL               EPS;
+      double               EPS;
       // ..
       // .. Local Arrays ..
       int                ISEED( 4 ), ISEEDY( 4 );
-      REAL               RESULT( NTESTS );
+      double               RESULT( NTESTS );
       // ..
       // .. External Functions ..
       //- REAL               CQPT01, CQRT11, CQRT12, SLAMCH;

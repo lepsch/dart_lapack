@@ -10,13 +10,13 @@
       // ..
       // .. Array Arguments ..
       int                ISEED( 4 );
-      REAL               A( LDA, * ), B( * ), WORK( * );
+      double               A( LDA, * ), B( * ), WORK( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ONE, TWO, ZERO;
+      double               ONE, TWO, ZERO;
       const              ONE = 1.0, TWO = 2.0, ZERO = 0.0 ;
       // ..
       // .. Local Scalars ..
@@ -24,7 +24,7 @@
       String             DIST, TYPE;
       String             PATH;
       int                I, IY, J, JCOUNT, KL, KU, MODE;
-      REAL               ANORM, BIGNUM, BNORM, BSCAL, C, CNDNUM, PLUS1, PLUS2, RA, RB, REXP, S, SFAC, SMLNUM, STAR1, TEXP, TLEFT, TSCAL, ULP, UNFL, X, Y, Z;
+      double               ANORM, BIGNUM, BNORM, BSCAL, C, CNDNUM, PLUS1, PLUS2, RA, RB, REXP, S, SFAC, SMLNUM, STAR1, TEXP, TLEFT, TSCAL, ULP, UNFL, X, Y, Z;
       // ..
       // .. External Functions ..
       //- bool               lsame;
@@ -470,10 +470,10 @@
                B[J] = TEXP*( ONE-ULP );
                A[1, J-1] = -( TSCAL / REAL( N+1 ) ) / REAL( N+2 );
                A[J-1, J-1] = ONE;
-               B[J-1] = TEXP*REAL( N*N+N-1 );
+               B[J-1] = TEXP*double( N*N+N-1 );
                TEXP = TEXP*2.;
             } // 340
-            B[1] = ( REAL( N+1 ) / REAL( N+2 ) )*TSCAL;
+            B[1] = ( double( N+1 ) / REAL( N+2 ) )*TSCAL;
          } else {
             for (J = 1; 2 < 0 ? J >= N - 1 : J <= N - 1; J += 2) { // 350
                A[N, J] = -TSCAL / REAL( N+1 );
@@ -481,10 +481,10 @@
                B[J] = TEXP*( ONE-ULP );
                A[N, J+1] = -( TSCAL / REAL( N+1 ) ) / REAL( N+2 );
                A[J+1, J+1] = ONE;
-               B[J+1] = TEXP*REAL( N*N+N-1 );
+               B[J+1] = TEXP*double( N*N+N-1 );
                TEXP = TEXP*2.;
             } // 350
-            B[N] = ( REAL( N+1 ) / REAL( N+2 ) )*TSCAL;
+            B[N] = ( double( N+1 ) / REAL( N+2 ) )*TSCAL;
          }
 
       } else if ( IMAT == 18 ) {
@@ -521,7 +521,7 @@
          // 1/3/91:  SLATRS no longer can handle this case
 
          TLEFT = BIGNUM / max( ONE, REAL( N-1 ) );
-         TSCAL = BIGNUM*( REAL( N-1 ) / max( ONE, REAL( N ) ) );
+         TSCAL = BIGNUM*( double( N-1 ) / max( ONE, REAL( N ) ) );
          if ( UPPER ) {
             for (J = 1; J <= N; J++) { // 390
                slarnv(2, ISEED, J, A( 1, J ) );

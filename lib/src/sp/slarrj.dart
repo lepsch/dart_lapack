@@ -6,23 +6,23 @@
 
       // .. Scalar Arguments ..
       int                IFIRST, ILAST, INFO, N, OFFSET;
-      REAL               PIVMIN, RTOL, SPDIAM;
+      double               PIVMIN, RTOL, SPDIAM;
       // ..
       // .. Array Arguments ..
       int                IWORK( * );
-      REAL               D( * ), E2( * ), W( * ), WERR( * ), WORK( * );
+      double               D( * ), E2( * ), W( * ), WERR( * ), WORK( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE, TWO, HALF;
+      double               ZERO, ONE, TWO, HALF;
       const            ZERO = 0.0, ONE = 1.0, TWO = 2.0, HALF = 0.5 ;
       int       MAXITR;
       // ..
       // .. Local Scalars ..
       int                CNT, I, I1, I2, II, ITER, J, K, NEXT, NINT, OLNINT, P, PREV, SAVI1;
-      REAL               DPLUS, FAC, LEFT, MID, RIGHT, S, TMP, WIDTH;
+      double               DPLUS, FAC, LEFT, MID, RIGHT, S, TMP, WIDTH;
 
       // ..
       // .. Intrinsic Functions ..

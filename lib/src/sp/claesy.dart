@@ -11,19 +11,19 @@
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO;
+      double               ZERO;
       const              ZERO = 0.0 ;
-      REAL               ONE;
+      double               ONE;
       const              ONE = 1.0 ;
       Complex            CONE;
       const              CONE = ( 1.0, 0.0 ) ;
-      REAL               HALF;
+      double               HALF;
       const              HALF = 0.5 ;
-      REAL               THRESH;
+      double               THRESH;
       const              THRESH = 0.1 ;
       // ..
       // .. Local Scalars ..
-      REAL               BABS, EVNORM, TABS, Z;
+      double               BABS, EVNORM, TABS, Z;
       Complex            S, T, TMP;
       // ..
       // .. Intrinsic Functions ..

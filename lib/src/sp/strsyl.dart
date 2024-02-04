@@ -7,25 +7,25 @@
       // .. Scalar Arguments ..
       String             TRANA, TRANB;
       int                INFO, ISGN, LDA, LDB, LDC, M, N;
-      REAL               SCALE;
+      double               SCALE;
       // ..
       // .. Array Arguments ..
-      REAL               A( LDA, * ), B( LDB, * ), C( LDC, * );
+      double               A( LDA, * ), B( LDB, * ), C( LDC, * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
       bool               NOTRNA, NOTRNB;
       int                IERR, J, K, K1, K2, KNEXT, L, L1, L2, LNEXT;
-      REAL               A11, BIGNUM, DA11, DB, EPS, SCALOC, SGN, SMIN, SMLNUM, SUML, SUMR, XNORM;
+      double               A11, BIGNUM, DA11, DB, EPS, SCALOC, SGN, SMIN, SMLNUM, SUML, SUMR, XNORM;
       // ..
       // .. Local Arrays ..
-      REAL               DUM( 1 ), VEC( 2, 2 ), X( 2, 2 );
+      double               DUM( 1 ), VEC( 2, 2 ), X( 2, 2 );
       // ..
       // .. External Functions ..
       //- bool               lsame;
@@ -78,7 +78,7 @@
       EPS = SLAMCH( 'P' );
       SMLNUM = SLAMCH( 'S' );
       BIGNUM = ONE / SMLNUM;
-      SMLNUM = SMLNUM*REAL( M*N ) / EPS;
+      SMLNUM = SMLNUM*double( M*N ) / EPS;
       BIGNUM = ONE / SMLNUM;
 
       SMIN = max( SMLNUM, EPS*SLANGE( 'M', M, M, A, LDA, DUM ), EPS*SLANGE( 'M', N, N, B, LDB, DUM ) );

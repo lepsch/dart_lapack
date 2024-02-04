@@ -6,22 +6,22 @@
 
       // .. Scalar Arguments ..
       int                INFO, N, NSPLIT;
-      REAL                SPLTOL, TNRM;
+      double                SPLTOL, TNRM;
       // ..
       // .. Array Arguments ..
       int                ISPLIT( * );
-      REAL               D( * ), E( * ), E2( * );
+      double               D( * ), E( * ), E2( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO;
+      double               ZERO;
       const              ZERO = 0.0 ;
       // ..
       // .. Local Scalars ..
       int                I;
-      REAL               EABS, TMP1;
+      double               EABS, TMP1;
 
       // ..
       // .. Intrinsic Functions ..

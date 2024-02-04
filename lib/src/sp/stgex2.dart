@@ -9,7 +9,7 @@
       int                INFO, J1, LDA, LDB, LDQ, LDZ, LWORK, N, N1, N2;
       // ..
       // .. Array Arguments ..
-      REAL               A( LDA, * ), B( LDB, * ), Q( LDQ, * ), WORK( * ), Z( LDZ, * );
+      double               A( LDA, * ), B( LDB, * ), Q( LDQ, * ), WORK( * ), Z( LDZ, * );
       // ..
 
 // =====================================================================
@@ -17,9 +17,9 @@
 // loops. Sven Hammarling, 1/5/02.
 
       // .. Parameters ..
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
-      REAL               TWENTY;
+      double               TWENTY;
       const              TWENTY = 2.0e+01 ;
       int                LDST;
       const              LDST = 4 ;
@@ -29,11 +29,11 @@
       // .. Local Scalars ..
       bool               STRONG, WEAK;
       int                I, IDUM, LINFO, M;
-      REAL               BQRA21, BRQA21, DDUM, DNORMA, DNORMB, DSCALE, DSUM, EPS, F, G, SA, SB, SCALE, SMLNUM, THRESHA, THRESHB;
+      double               BQRA21, BRQA21, DDUM, DNORMA, DNORMB, DSCALE, DSUM, EPS, F, G, SA, SB, SCALE, SMLNUM, THRESHA, THRESHB;
       // ..
       // .. Local Arrays ..
       int                IWORK( LDST + 2 );
-      REAL               AI( 2 ), AR( 2 ), BE( 2 ), IR( LDST, LDST ), IRCOP( LDST, LDST ), LI( LDST, LDST ), LICOP( LDST, LDST ), S( LDST, LDST ), SCPY( LDST, LDST ), T( LDST, LDST ), TAUL( LDST ), TAUR( LDST ), TCPY( LDST, LDST );
+      double               AI( 2 ), AR( 2 ), BE( 2 ), IR( LDST, LDST ), IRCOP( LDST, LDST ), LI( LDST, LDST ), LICOP( LDST, LDST ), S( LDST, LDST ), SCPY( LDST, LDST ), T( LDST, LDST ), TAUL( LDST ), TAUR( LDST ), TCPY( LDST, LDST );
       // ..
       // .. External Functions ..
       //- REAL               SLAMCH;

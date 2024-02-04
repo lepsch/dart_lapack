@@ -7,22 +7,22 @@
       // .. Scalar Arguments ..
       String             UPLO;
       int                LDW, N;
-      REAL               RCOND, RESID;
+      double               RCOND, RESID;
       // ..
       // .. Array Arguments ..
-      REAL               RWORK( * );
+      double               RWORK( * );
       Complex            A( * ), AINV( * ), WORK( LDW, * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
       int                I, ICOL, J, JCOL, K, KCOL, NALL;
-      REAL               AINVNM, ANORM, EPS;
+      double               AINVNM, ANORM, EPS;
       Complex            T;
       // ..
       // .. External Functions ..

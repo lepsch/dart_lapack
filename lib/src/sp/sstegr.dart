@@ -7,12 +7,12 @@
       // .. Scalar Arguments ..
       String             JOBZ, RANGE;
       int                IL, INFO, IU, LDZ, LIWORK, LWORK, M, N;
-      REAL             ABSTOL, VL, VU;
+      double             ABSTOL, VL, VU;
       // ..
       // .. Array Arguments ..
       int                ISUPPZ( * ), IWORK( * );
-      REAL               D( * ), E( * ), W( * ), WORK( * );
-      REAL               Z( LDZ, * );
+      double               D( * ), E( * ), W( * ), WORK( * );
+      double               Z( LDZ, * );
       // ..
 
 // =====================================================================

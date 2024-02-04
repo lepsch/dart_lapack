@@ -411,7 +411,7 @@
                }
             } else if (ICASE == 13) {
                // .. DSDOT ..
-            testdsdot(REAL(DSDOT(N,REAL(SX),INCX,REAL(SY),INCY)), REAL(DT7(KN,KI)),REAL(SSIZE1(KN)), .3125E-1);
+            testdsdot(REAL(DSDOT(N,REAL(SX),INCX,REAL(SY),INCY)), REAL(DT7(KN,KI)),double(SSIZE1(KN)), .3125E-1);
             } else {
                WRITE (NOUT,*) ' Shouldn''t be here in CHECK2';
                STOP;
@@ -642,15 +642,15 @@
 
       // .. Parameters ..
       int              NOUT;
-      REAL             ZERO;
+      double             ZERO;
       const            NOUT=6, ZERO=0.0;
       // .. Scalar Arguments ..
-      REAL             SFAC, SCOMP, SSIZE, STRUE;
+      double             SFAC, SCOMP, SSIZE, STRUE;
       // .. Scalars in Common ..
       int              ICASE, INCX, INCY, N;
       bool             PASS;
       // .. Local Scalars ..
-      REAL             SD;
+      double             SD;
       // .. Intrinsic Functions ..
       // INTRINSIC ABS
       // .. Common blocks ..

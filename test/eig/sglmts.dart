@@ -6,20 +6,20 @@
 
       // .. Scalar Arguments ..
       int                LDA, LDB, LWORK, M, P, N;
-      REAL               RESULT;
+      double               RESULT;
       // ..
       // .. Array Arguments ..
-      REAL               A( LDA, * ), AF( LDA, * ), B( LDB, * ), BF( LDB, * ), RWORK( * ), D( * ), DF( * ), U( * ), WORK( LWORK ), X( * );
+      double               A( LDA, * ), AF( LDA, * ), B( LDB, * ), BF( LDB, * ), RWORK( * ), D( * ), DF( * ), U( * ), WORK( LWORK ), X( * );
 
 // ====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
       int                INFO;
-      REAL               ANORM, BNORM, EPS, XNORM, YNORM, DNORM, UNFL;
+      double               ANORM, BNORM, EPS, XNORM, YNORM, DNORM, UNFL;
       // ..
       // .. External Functions ..
       //- REAL               SASUM, SLAMCH, SLANGE;

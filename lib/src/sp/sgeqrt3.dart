@@ -8,13 +8,13 @@
       int       INFO, LDA, M, N, LDT;
       // ..
       // .. Array Arguments ..
-      REAL   A( LDA, * ), T( LDT, * );
+      double   A( LDA, * ), T( LDT, * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL   ONE;
+      double   ONE;
       const     ONE = 1.0 ;
       // ..
       // .. Local Scalars ..

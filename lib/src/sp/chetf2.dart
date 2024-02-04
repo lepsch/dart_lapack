@@ -16,15 +16,15 @@
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
-      REAL               EIGHT, SEVTEN;
+      double               EIGHT, SEVTEN;
       const              EIGHT = 8.0, SEVTEN = 17.0 ;
       // ..
       // .. Local Scalars ..
       bool               UPPER;
       int                I, IMAX, J, JMAX, K, KK, KP, KSTEP;
-      REAL               ABSAKK, ALPHA, COLMAX, D, D11, D22, R1, ROWMAX, TT;
+      double               ABSAKK, ALPHA, COLMAX, D, D11, D22, R1, ROWMAX, TT;
       Complex            D12, D21, T, WK, WKM1, WKP1, ZDUM;
       // ..
       // .. External Functions ..
@@ -40,10 +40,10 @@
       // INTRINSIC ABS, AIMAG, CMPLX, CONJG, MAX, REAL, SQRT
       // ..
       // .. Statement Functions ..
-      REAL               CABS1;
+      double               CABS1;
       // ..
       // .. Statement Function definitions ..
-      CABS1[ZDUM] = ( REAL( ZDUM ) ).abs() + ( AIMAG( ZDUM ) ).abs();
+      CABS1[ZDUM] = ( double( ZDUM ) ).abs() + ( AIMAG( ZDUM ) ).abs();
       // ..
       // .. Executable Statements ..
 
@@ -85,7 +85,7 @@
          // Determine rows and columns to be interchanged and whether
          // a 1-by-1 or 2-by-2 pivot block will be used
 
-         ABSAKK = ABS( REAL( A( K, K ) ) );
+         ABSAKK = ABS( double( A( K, K ) ) );
 
          // IMAX is the row-index of the largest off-diagonal element in
          // column K, and COLMAX is its absolute value.
@@ -105,7 +105,7 @@
 
             if (INFO == 0) INFO = K;
             KP = K;
-            A[K, K] = REAL( A( K, K ) );
+            A[K, K] = double( A( K, K ) );
          } else {
             if ( ABSAKK >= ALPHA*COLMAX ) {
 
@@ -129,7 +129,7 @@
                   // no interchange, use 1-by-1 pivot block
 
                   KP = K;
-               } else if ( ABS( REAL( A( IMAX, IMAX ) ) ) >= ALPHA*ROWMAX ) {
+               } else if ( ABS( double( A( IMAX, IMAX ) ) ) >= ALPHA*ROWMAX ) {
 
                   // interchange rows and columns K and IMAX, use 1-by-1
                   // pivot block
@@ -158,18 +158,18 @@
                   A[KP, J] = T;
                } // 20
                A[KP, KK] = CONJG( A( KP, KK ) );
-               R1 = REAL( A( KK, KK ) );
-               A[KK, KK] = REAL( A( KP, KP ) );
+               R1 = double( A( KK, KK ) );
+               A[KK, KK] = double( A( KP, KP ) );
                A[KP, KP] = R1;
                if ( KSTEP == 2 ) {
-                  A[K, K] = REAL( A( K, K ) );
+                  A[K, K] = double( A( K, K ) );
                   T = A( K-1, K );
                   A[K-1, K] = A( KP, K );
                   A[KP, K] = T;
                }
             } else {
-               A[K, K] = REAL( A( K, K ) );
-               if (KSTEP == 2) A( K-1, K-1 ) = REAL( A( K-1, K-1 ) );
+               A[K, K] = double( A( K, K ) );
+               if (KSTEP == 2) A( K-1, K-1 ) = double( A( K-1, K-1 ) );
             }
 
             // Update the leading submatrix
@@ -208,9 +208,9 @@
 
                if ( K > 2 ) {
 
-                  D = SLAPY2( REAL( A( K-1, K ) ), AIMAG( A( K-1, K ) ) );
-                  D22 = REAL( A( K-1, K-1 ) ) / D;
-                  D11 = REAL( A( K, K ) ) / D;
+                  D = SLAPY2( double( A( K-1, K ) ), AIMAG( A( K-1, K ) ) );
+                  D22 = double( A( K-1, K-1 ) ) / D;
+                  D11 = double( A( K, K ) ) / D;
                   TT = ONE / ( D11*D22-ONE );
                   D12 = A( K-1, K ) / D;
                   D = TT / D;
@@ -223,7 +223,7 @@
                      } // 30
                      A[J, K] = WK;
                      A[J, K-1] = WKM1;
-                     A[J, J] = CMPLX( REAL( A( J, J ) ), 0.0 );
+                     A[J, J] = CMPLX( double( A( J, J ) ), 0.0 );
                   } // 40
 
                }
@@ -263,7 +263,7 @@
          // Determine rows and columns to be interchanged and whether
          // a 1-by-1 or 2-by-2 pivot block will be used
 
-         ABSAKK = ABS( REAL( A( K, K ) ) );
+         ABSAKK = ABS( double( A( K, K ) ) );
 
          // IMAX is the row-index of the largest off-diagonal element in
          // column K, and COLMAX is its absolute value.
@@ -283,7 +283,7 @@
 
             if (INFO == 0) INFO = K;
             KP = K;
-            A[K, K] = REAL( A( K, K ) );
+            A[K, K] = double( A( K, K ) );
          } else {
             if ( ABSAKK >= ALPHA*COLMAX ) {
 
@@ -307,7 +307,7 @@
                   // no interchange, use 1-by-1 pivot block
 
                   KP = K;
-               } else if ( ABS( REAL( A( IMAX, IMAX ) ) ) >= ALPHA*ROWMAX ) {
+               } else if ( ABS( double( A( IMAX, IMAX ) ) ) >= ALPHA*ROWMAX ) {
 
                   // interchange rows and columns K and IMAX, use 1-by-1
                   // pivot block
@@ -336,18 +336,18 @@
                   A[KP, J] = T;
                } // 60
                A[KP, KK] = CONJG( A( KP, KK ) );
-               R1 = REAL( A( KK, KK ) );
-               A[KK, KK] = REAL( A( KP, KP ) );
+               R1 = double( A( KK, KK ) );
+               A[KK, KK] = double( A( KP, KP ) );
                A[KP, KP] = R1;
                if ( KSTEP == 2 ) {
-                  A[K, K] = REAL( A( K, K ) );
+                  A[K, K] = double( A( K, K ) );
                   T = A( K+1, K );
                   A[K+1, K] = A( KP, K );
                   A[KP, K] = T;
                }
             } else {
-               A[K, K] = REAL( A( K, K ) );
-               if (KSTEP == 2) A( K+1, K+1 ) = REAL( A( K+1, K+1 ) );
+               A[K, K] = double( A( K, K ) );
+               if (KSTEP == 2) A( K+1, K+1 ) = double( A( K+1, K+1 ) );
             }
 
             // Update the trailing submatrix
@@ -387,9 +387,9 @@
                   // where L(k) and L(k+1) are the k-th and (k+1)-th
                   // columns of L
 
-                  D = SLAPY2( REAL( A( K+1, K ) ), AIMAG( A( K+1, K ) ) );
-                  D11 = REAL( A( K+1, K+1 ) ) / D;
-                  D22 = REAL( A( K, K ) ) / D;
+                  D = SLAPY2( double( A( K+1, K ) ), AIMAG( A( K+1, K ) ) );
+                  D11 = double( A( K+1, K+1 ) ) / D;
+                  D22 = double( A( K, K ) ) / D;
                   TT = ONE / ( D11*D22-ONE );
                   D21 = A( K+1, K ) / D;
                   D =  TT / D;
@@ -402,7 +402,7 @@
                      } // 70
                      A[J, K] = WK;
                      A[J, K+1] = WKP1;
-                     A[J, J] = CMPLX( REAL( A( J, J ) ), 0.0 );
+                     A[J, J] = CMPLX( double( A( J, J ) ), 0.0 );
                   } // 80
                }
             }

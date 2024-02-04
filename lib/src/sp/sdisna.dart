@@ -9,19 +9,19 @@
       int                INFO, M, N;
       // ..
       // .. Array Arguments ..
-      REAL               D( * ), SEP( * );
+      double               D( * ), SEP( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO;
+      double               ZERO;
       const              ZERO = 0.0 ;
       // ..
       // .. Local Scalars ..
       bool               DECR, EIGEN, INCR, LEFT, RIGHT, SING;
       int                I, K;
-      REAL               ANORM, EPS, NEWGAP, OLDGAP, SAFMIN, THRESH;
+      double               ANORM, EPS, NEWGAP, OLDGAP, SAFMIN, THRESH;
       // ..
       // .. External Functions ..
       //- bool               lsame;

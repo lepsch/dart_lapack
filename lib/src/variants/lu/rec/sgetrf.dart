@@ -9,18 +9,18 @@
       // ..
       // .. Array Arguments ..
       int                IPIV( * );
-      REAL               A( LDA, * );
+      double               A( LDA, * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ONE, ZERO, NEGONE;
+      double               ONE, ZERO, NEGONE;
       const              ONE = 1.0, ZERO = 0.0 ;
       const              NEGONE = -1.0 ;
       // ..
       // .. Local Scalars ..
-      REAL               SFMIN, TMP;
+      double               SFMIN, TMP;
       int                I, J, JP, NSTEP, NTOPIV, NPIVED, KAHEAD;
       int                KSTART, IPIVSTART, JPIVSTART, KCOLS;
       // ..

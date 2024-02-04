@@ -9,18 +9,18 @@
       // ..
       // .. Array Arguments ..
       int                IWORK( * );
-      REAL               A( LDA, * ), AF( LDA, * ), ALPHA( * ), B( LDB, * ), BETA( * ), BF( LDB, * ), Q( LDQ, * ), R( LDR, * ), RESULT( 6 ), RWORK( * ), U( LDU, * ), V( LDV, * ), WORK( LWORK );
+      double               A( LDA, * ), AF( LDA, * ), ALPHA( * ), B( LDB, * ), BETA( * ), BF( LDB, * ), Q( LDQ, * ), R( LDR, * ), RESULT( 6 ), RWORK( * ), U( LDU, * ), V( LDV, * ), WORK( LWORK );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
       int                I, INFO, J, K, L;
-      REAL               ANORM, BNORM, RESID, TEMP, ULP, ULPINV, UNFL;
+      double               ANORM, BNORM, RESID, TEMP, ULP, ULPINV, UNFL;
       // ..
       // .. External Functions ..
       //- REAL               SLAMCH, SLANGE, SLANSY;

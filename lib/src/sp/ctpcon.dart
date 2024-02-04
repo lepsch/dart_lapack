@@ -7,24 +7,24 @@
       // .. Scalar Arguments ..
       String             DIAG, NORM, UPLO;
       int                INFO, N;
-      REAL               RCOND;
+      double               RCOND;
       // ..
       // .. Array Arguments ..
-      REAL               RWORK( * );
+      double               RWORK( * );
       Complex            AP( * ), WORK( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ONE, ZERO;
+      double               ONE, ZERO;
       const              ONE = 1.0, ZERO = 0.0 ;
       // ..
       // .. Local Scalars ..
       bool               NOUNIT, ONENRM, UPPER;
       String             NORMIN;
       int                IX, KASE, KASE1;
-      REAL               AINVNM, ANORM, SCALE, SMLNUM, XNORM;
+      double               AINVNM, ANORM, SCALE, SMLNUM, XNORM;
       Complex            ZDUM;
       // ..
       // .. Local Arrays ..
@@ -43,10 +43,10 @@
       // INTRINSIC ABS, AIMAG, MAX, REAL
       // ..
       // .. Statement Functions ..
-      REAL               CABS1;
+      double               CABS1;
       // ..
       // .. Statement Function definitions ..
-      CABS1[ZDUM] = ( REAL( ZDUM ) ).abs() + ( AIMAG( ZDUM ) ).abs();
+      CABS1[ZDUM] = ( double( ZDUM ) ).abs() + ( AIMAG( ZDUM ) ).abs();
       // ..
       // .. Executable Statements ..
 
@@ -79,7 +79,7 @@
       }
 
       RCOND = ZERO;
-      SMLNUM = SLAMCH( 'Safe minimum' )*REAL( max( 1, N ) );
+      SMLNUM = SLAMCH( 'Safe minimum' )*double( max( 1, N ) );
 
       // Compute the norm of the triangular matrix A.
 

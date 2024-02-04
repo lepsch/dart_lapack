@@ -7,20 +7,20 @@
       // .. Scalar Arguments ..
       String             TRANS, EQUED;
       int                INFO, LDA, LDAF, LDB, LDX, N, NRHS, NPARAMS, N_ERR_BNDS;
-      REAL               RCOND;
+      double               RCOND;
       // ..
       // .. Array Arguments ..
       int                IPIV( * ), IWORK( * );
-      REAL               A( LDA, * ), AF( LDAF, * ), B( LDB, * ), X( LDX , * ), WORK( * )       REAL               R( * ), C( * ), PARAMS( * ), BERR( * ), ERR_BNDS_NORM( NRHS, * ), ERR_BNDS_COMP( NRHS, * );
+      REAL               A( LDA, * ), AF( LDAF, * ), B( LDB, * ), X( LDX , * ), WORK( * )       double               R( * ), C( * ), PARAMS( * ), BERR( * ), ERR_BNDS_NORM( NRHS, * ), ERR_BNDS_COMP( NRHS, * );
       // ..
 
 // ==================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
-      REAL               ITREF_DEFAULT, ITHRESH_DEFAULT, COMPONENTWISE_DEFAULT;
-      REAL               RTHRESH_DEFAULT, DZTHRESH_DEFAULT;
+      double               ITREF_DEFAULT, ITHRESH_DEFAULT, COMPONENTWISE_DEFAULT;
+      double               RTHRESH_DEFAULT, DZTHRESH_DEFAULT;
       const              ITREF_DEFAULT = 1.0 ;
       const              ITHRESH_DEFAULT = 10.0 ;
       const              COMPONENTWISE_DEFAULT = 1.0 ;
@@ -38,11 +38,11 @@
       bool               ROWEQU, COLEQU, NOTRAN;
       int                J, TRANS_TYPE, PREC_TYPE, REF_TYPE;
       int                N_NORMS;
-      REAL               ANORM, RCOND_TMP;
-      REAL               ILLRCOND_THRESH, ERR_LBND, CWISE_WRONG;
+      double               ANORM, RCOND_TMP;
+      double               ILLRCOND_THRESH, ERR_LBND, CWISE_WRONG;
       bool               IGNORE_CWISE;
       int                ITHRESH;
-      REAL               RTHRESH, UNSTABLE_THRESH;
+      double               RTHRESH, UNSTABLE_THRESH;
       // ..
       // .. External Subroutines ..
       // EXTERNAL XERBLA, SGECON, SLA_GERFSX_EXTENDED
@@ -53,7 +53,7 @@
       // .. External Functions ..
       // EXTERNAL lsame, ILATRANS, ILAPREC
       // EXTERNAL SLAMCH, SLANGE, SLA_GERCOND
-      REAL               SLAMCH, SLANGE, SLA_GERCOND;
+      double               SLAMCH, SLANGE, SLA_GERCOND;
       bool               lsame;
       int                ILATRANS, ILAPREC;
       // ..
@@ -74,7 +74,7 @@
 
       // Set default parameters.
 
-      ILLRCOND_THRESH = REAL( N ) * SLAMCH( 'Epsilon' );
+      ILLRCOND_THRESH = double( N ) * SLAMCH( 'Epsilon' );
       ITHRESH = INT( ITHRESH_DEFAULT );
       RTHRESH = RTHRESH_DEFAULT;
       UNSTABLE_THRESH = DZTHRESH_DEFAULT;
@@ -199,7 +199,7 @@
          }
       }
 
-      ERR_LBND = max( 10.0, sqrt( REAL( N ) ) ) * SLAMCH( 'Epsilon' );
+      ERR_LBND = max( 10.0, sqrt( double( N ) ) ) * SLAMCH( 'Epsilon' );
       if ( N_ERR_BNDS >= 1 && N_NORMS >= 1 ) {
 
       // Compute scaled normwise condition number cond(A*C).

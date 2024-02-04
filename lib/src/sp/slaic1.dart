@@ -6,22 +6,22 @@
 
       // .. Scalar Arguments ..
       int                J, JOB;
-      REAL               C, GAMMA, S, SEST, SESTPR;
+      double               C, GAMMA, S, SEST, SESTPR;
       // ..
       // .. Array Arguments ..
-      REAL               W( J ), X( J );
+      double               W( J ), X( J );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE, TWO;
+      double               ZERO, ONE, TWO;
       const              ZERO = 0.0, ONE = 1.0, TWO = 2.0 ;
-      REAL               HALF, FOUR;
+      double               HALF, FOUR;
       const              HALF = 0.5, FOUR = 4.0 ;
       // ..
       // .. Local Scalars ..
-      REAL               ABSALP, ABSEST, ABSGAM, ALPHA, B, COSINE, EPS, NORMA, S1, S2, SINE, T, TEST, TMP, ZETA1, ZETA2;
+      double               ABSALP, ABSEST, ABSGAM, ALPHA, B, COSINE, EPS, NORMA, S1, S2, SINE, T, TEST, TMP, ZETA1, ZETA2;
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, SIGN, SQRT

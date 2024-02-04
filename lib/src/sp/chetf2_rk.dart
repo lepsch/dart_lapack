@@ -16,9 +16,9 @@
 // ======================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
-      REAL               EIGHT, SEVTEN;
+      double               EIGHT, SEVTEN;
       const              EIGHT = 8.0, SEVTEN = 17.0 ;
       Complex            CZERO;
       const              CZERO = ( 0.0, 0.0 ) ;
@@ -26,14 +26,14 @@
       // .. Local Scalars ..
       bool               DONE, UPPER;
       int                I, II, IMAX, ITEMP, J, JMAX, K, KK, KP, KSTEP, P;
-      REAL               ABSAKK, ALPHA, COLMAX, D, D11, D22, R1, STEMP, ROWMAX, TT, SFMIN;
+      double               ABSAKK, ALPHA, COLMAX, D, D11, D22, R1, STEMP, ROWMAX, TT, SFMIN;
       Complex            D12, D21, T, WK, WKM1, WKP1, Z;
       // ..
       // .. External Functions ..
 
       bool               lsame;
       int                ICAMAX;
-      REAL               SLAMCH, SLAPY2;
+      double               SLAMCH, SLAPY2;
       // EXTERNAL lsame, ICAMAX, SLAMCH, SLAPY2
       // ..
       // .. External Subroutines ..
@@ -43,10 +43,10 @@
       // INTRINSIC ABS, AIMAG, CMPLX, CONJG, MAX, REAL, SQRT
       // ..
       // .. Statement Functions ..
-      REAL               CABS1;
+      double               CABS1;
       // ..
       // .. Statement Function definitions ..
-      CABS1[Z] = ( REAL( Z ) ).abs() + ( AIMAG( Z ) ).abs();
+      CABS1[Z] = ( double( Z ) ).abs() + ( AIMAG( Z ) ).abs();
       // ..
       // .. Executable Statements ..
 
@@ -98,7 +98,7 @@
          // Determine rows and columns to be interchanged and whether
          // a 1-by-1 or 2-by-2 pivot block will be used
 
-         ABSAKK = ABS( REAL( A( K, K ) ) );
+         ABSAKK = ABS( double( A( K, K ) ) );
 
          // IMAX is the row-index of the largest off-diagonal element in
          // column K, and COLMAX is its absolute value.
@@ -117,7 +117,7 @@
 
             if (INFO == 0) INFO = K;
             KP = K;
-            A[K, K] = REAL( A( K, K ) );
+            A[K, K] = double( A( K, K ) );
 
             // Set E( K ) to zero
 
@@ -175,7 +175,7 @@
                   // ABS( REAL( W( IMAX,KW-1 ) ) ) >= ALPHA*ROWMAX
                   // (used to handle NaN and Inf)
 
-                  if ( !( ABS( REAL( A( IMAX, IMAX ) ) ) < ALPHA*ROWMAX ) ) {
+                  if ( !( ABS( double( A( IMAX, IMAX ) ) ) < ALPHA*ROWMAX ) ) {
 
                      // interchange rows and columns K and IMAX,
                      // use 1-by-1 pivot block
@@ -235,8 +235,8 @@
                // (3) Swap and conjugate corner elements at row-col intersection
                A[P, K] = CONJG( A( P, K ) );
                // (4) Swap diagonal elements at row-col intersection
-               R1 = REAL( A( K, K ) );
-               A[K, K] = REAL( A( P, P ) );
+               R1 = double( A( K, K ) );
+               A[K, K] = double( A( P, P ) );
                A[P, P] = R1;
 
                // Convert upper triangle of A into U form by applying
@@ -261,13 +261,13 @@
                // (3) Swap and conjugate corner elements at row-col intersection
                A[KP, KK] = CONJG( A( KP, KK ) );
                // (4) Swap diagonal elements at row-col intersection
-               R1 = REAL( A( KK, KK ) );
-               A[KK, KK] = REAL( A( KP, KP ) );
+               R1 = double( A( KK, KK ) );
+               A[KK, KK] = double( A( KP, KP ) );
                A[KP, KP] = R1;
 
                if ( KSTEP == 2 ) {
                   // (*) Make sure that diagonal element of pivot is real
-                  A[K, K] = REAL( A( K, K ) );
+                  A[K, K] = double( A( K, K ) );
                   // (5) Swap row elements
                   T = A( K-1, K );
                   A[K-1, K] = A( KP, K );
@@ -281,8 +281,8 @@
 
             } else {
                // (*) Make sure that diagonal element of pivot is real
-               A[K, K] = REAL( A( K, K ) );
-               if (KSTEP == 2) A( K-1, K-1 ) = REAL( A( K-1, K-1 ) );
+               A[K, K] = double( A( K, K ) );
+               if (KSTEP == 2) A( K-1, K-1 ) = double( A( K-1, K-1 ) );
             }
 
             // Update the leading submatrix
@@ -300,7 +300,7 @@
                   // Perform a rank-1 update of A(1:k-1,1:k-1) and
                   // store U(k) in column k
 
-                  if ( ABS( REAL( A( K, K ) ) ) >= SFMIN ) {
+                  if ( ABS( double( A( K, K ) ) ) >= SFMIN ) {
 
                      // Perform a rank-1 update of A(1:k-1,1:k-1) as
                      // A := A - U(k)*D(k)*U(k)**T
@@ -316,7 +316,7 @@
 
                      // Store L(k) in column K
 
-                     D11 = REAL( A( K, K ) );
+                     D11 = double( A( K, K ) );
                      for (II = 1; II <= K - 1; II++) { // 16
                         A[II, K] = A( II, K ) / D11;
                      } // 16
@@ -353,9 +353,9 @@
 
                if ( K > 2 ) {
                   // D = |A12|
-                  D = SLAPY2( REAL( A( K-1, K ) ), AIMAG( A( K-1, K ) ) );
-                  D11 = REAL( A( K, K ) / D );
-                  D22 = REAL( A( K-1, K-1 ) / D );
+                  D = SLAPY2( double( A( K-1, K ) ), AIMAG( A( K-1, K ) ) );
+                  D11 = double( A( K, K ) / D );
+                  D22 = double( A( K-1, K-1 ) / D );
                   D12 = A( K-1, K ) / D;
                   TT = ONE / ( D11*D22-ONE );
 
@@ -377,7 +377,7 @@
                      A[J, K] = WK / D;
                      A[J, K-1] = WKM1 / D;
                      // (*) Make sure that diagonal element of pivot is real
-                     A[J, J] = CMPLX( REAL( A( J, J ) ), ZERO );
+                     A[J, J] = CMPLX( double( A( J, J ) ), ZERO );
 
                   } // 30
 
@@ -435,7 +435,7 @@
          // Determine rows and columns to be interchanged and whether
          // a 1-by-1 or 2-by-2 pivot block will be used
 
-         ABSAKK = ABS( REAL( A( K, K ) ) );
+         ABSAKK = ABS( double( A( K, K ) ) );
 
          // IMAX is the row-index of the largest off-diagonal element in
          // column K, and COLMAX is its absolute value.
@@ -454,7 +454,7 @@
 
             if (INFO == 0) INFO = K;
             KP = K;
-            A[K, K] = REAL( A( K, K ) );
+            A[K, K] = double( A( K, K ) );
 
             // Set E( K ) to zero
 
@@ -512,7 +512,7 @@
                   // ABS( REAL( W( IMAX,KW-1 ) ) ) >= ALPHA*ROWMAX
                   // (used to handle NaN and Inf)
 
-                  if ( !( ABS( REAL( A( IMAX, IMAX ) ) ) < ALPHA*ROWMAX ) ) {
+                  if ( !( ABS( double( A( IMAX, IMAX ) ) ) < ALPHA*ROWMAX ) ) {
 
                      // interchange rows and columns K and IMAX,
                      // use 1-by-1 pivot block
@@ -573,8 +573,8 @@
                // (3) Swap and conjugate corner elements at row-col intersection
                A[P, K] = CONJG( A( P, K ) );
                // (4) Swap diagonal elements at row-col intersection
-               R1 = REAL( A( K, K ) );
-               A[K, K] = REAL( A( P, P ) );
+               R1 = double( A( K, K ) );
+               A[K, K] = double( A( P, P ) );
                A[P, P] = R1;
 
                // Convert lower triangle of A into L form by applying
@@ -599,13 +599,13 @@
                // (3) Swap and conjugate corner elements at row-col intersection
                A[KP, KK] = CONJG( A( KP, KK ) );
                // (4) Swap diagonal elements at row-col intersection
-               R1 = REAL( A( KK, KK ) );
-               A[KK, KK] = REAL( A( KP, KP ) );
+               R1 = double( A( KK, KK ) );
+               A[KK, KK] = double( A( KP, KP ) );
                A[KP, KP] = R1;
 
                if ( KSTEP == 2 ) {
                   // (*) Make sure that diagonal element of pivot is real
-                  A[K, K] = REAL( A( K, K ) );
+                  A[K, K] = double( A( K, K ) );
                   // (5) Swap row elements
                   T = A( K+1, K );
                   A[K+1, K] = A( KP, K );
@@ -619,8 +619,8 @@
 
             } else {
                // (*) Make sure that diagonal element of pivot is real
-               A[K, K] = REAL( A( K, K ) );
-               if (KSTEP == 2) A( K+1, K+1 ) = REAL( A( K+1, K+1 ) );
+               A[K, K] = double( A( K, K ) );
+               if (KSTEP == 2) A( K+1, K+1 ) = double( A( K+1, K+1 ) );
             }
 
             // Update the trailing submatrix
@@ -640,7 +640,7 @@
 
                   // Handle division by a small number
 
-                  if ( ABS( REAL( A( K, K ) ) ) >= SFMIN ) {
+                  if ( ABS( double( A( K, K ) ) ) >= SFMIN ) {
 
                      // Perform a rank-1 update of A(k+1:n,k+1:n) as
                      // A := A - L(k)*D(k)*L(k)**T
@@ -656,7 +656,7 @@
 
                      // Store L(k) in column k
 
-                     D11 = REAL( A( K, K ) );
+                     D11 = double( A( K, K ) );
                      for (II = K + 1; II <= N; II++) { // 46
                         A[II, K] = A( II, K ) / D11;
                      } // 46
@@ -694,9 +694,9 @@
 
                if ( K < N-1 ) {
                   // D = |A21|
-                  D = SLAPY2( REAL( A( K+1, K ) ), AIMAG( A( K+1, K ) ) );
-                  D11 = REAL( A( K+1, K+1 ) ) / D;
-                  D22 = REAL( A( K, K ) ) / D;
+                  D = SLAPY2( double( A( K+1, K ) ), AIMAG( A( K+1, K ) ) );
+                  D11 = double( A( K+1, K+1 ) ) / D;
+                  D22 = double( A( K, K ) ) / D;
                   D21 = A( K+1, K ) / D;
                   TT = ONE / ( D11*D22-ONE );
 
@@ -718,7 +718,7 @@
                      A[J, K] = WK / D;
                      A[J, K+1] = WKP1 / D;
                      // (*) Make sure that diagonal element of pivot is real
-                     A[J, J] = CMPLX( REAL( A( J, J ) ), ZERO );
+                     A[J, J] = CMPLX( double( A( J, J ) ), ZERO );
 
                   } // 60
 

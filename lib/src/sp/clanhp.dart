@@ -1,4 +1,4 @@
-      REAL clanhp(NORM, UPLO, N, AP, WORK ) {
+      double clanhp(NORM, UPLO, N, AP, WORK ) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -9,19 +9,19 @@
       int                N;
       // ..
       // .. Array Arguments ..
-      REAL               WORK( * );
+      double               WORK( * );
       Complex            AP( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ONE, ZERO;
+      double               ONE, ZERO;
       const              ONE = 1.0, ZERO = 0.0 ;
       // ..
       // .. Local Scalars ..
       int                I, J, K;
-      REAL               ABSA, SCALE, SUM, VALUE;
+      double               ABSA, SCALE, SUM, VALUE;
       // ..
       // .. External Functions ..
       //- bool               lsame, SISNAN;
@@ -50,13 +50,13 @@
                   if( VALUE < SUM || SISNAN( SUM ) ) VALUE = SUM;
                } // 10
                K = K + J;
-               SUM = ABS( REAL( AP( K ) ) );
+               SUM = ABS( double( AP( K ) ) );
                if( VALUE < SUM || SISNAN( SUM ) ) VALUE = SUM;
             } // 20
          } else {
             K = 1;
             for (J = 1; J <= N; J++) { // 40
-               SUM = ABS( REAL( AP( K ) ) );
+               SUM = ABS( double( AP( K ) ) );
                if( VALUE < SUM || SISNAN( SUM ) ) VALUE = SUM;
                for (I = K + 1; I <= K + N - J; I++) { // 30
                   SUM = ( AP( I ) ).abs();
@@ -80,7 +80,7 @@
                   WORK[I] = WORK( I ) + ABSA;
                   K = K + 1;
                } // 50
-               WORK[J] = SUM + ABS( REAL( AP( K ) ) );
+               WORK[J] = SUM + ABS( double( AP( K ) ) );
                K = K + 1;
             } // 60
             for (I = 1; I <= N; I++) { // 70
@@ -92,7 +92,7 @@
                WORK[I] = ZERO;
             } // 80
             for (J = 1; J <= N; J++) { // 100
-               SUM = WORK( J ) + ABS( REAL( AP( K ) ) );
+               SUM = WORK( J ) + ABS( double( AP( K ) ) );
                K = K + 1;
                for (I = J + 1; I <= N; I++) { // 90
                   ABSA = ( AP( K ) ).abs();
@@ -124,8 +124,8 @@
          SUM = 2*SUM;
          K = 1;
          for (I = 1; I <= N; I++) { // 130
-            if ( REAL( AP( K ) ) != ZERO ) {
-               ABSA = ABS( REAL( AP( K ) ) );
+            if ( double( AP( K ) ) != ZERO ) {
+               ABSA = ABS( double( AP( K ) ) );
                if ( SCALE < ABSA ) {
                   SUM = ONE + SUM*( SCALE / ABSA )**2;
                   SCALE = ABSA;

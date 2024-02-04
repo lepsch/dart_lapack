@@ -6,22 +6,22 @@
 
       // .. Scalar Arguments ..
       int                LDA, LDB, M, N;
-      REAL               RESULT;
+      double               RESULT;
       // ..
       // .. Array Arguments ..
-      REAL               RWORK( * );
+      double               RWORK( * );
       Complex            A( LDA, * ), B( LDB, * ), WORK( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ONE, ZERO;
+      double               ONE, ZERO;
       const              ONE = 1.0, ZERO = 0.0 ;
       // ..
       // .. Local Scalars ..
       int                J;
-      REAL               ANORM, EPS, UNFL, WNORM;
+      double               ANORM, EPS, UNFL, WNORM;
       // ..
       // .. External Functions ..
       //- REAL               SCASUM, SLAMCH, CLANGE;

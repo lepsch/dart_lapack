@@ -6,22 +6,22 @@
 
       // .. Scalar Arguments ..
       int                LDA, N;
-      REAL               SCALE;
+      double               SCALE;
       // ..
       // .. Array Arguments ..
       int                IPIV( * ), JPIV( * );
-      REAL               A( LDA, * ), RHS( * );
+      double               A( LDA, * ), RHS( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ONE, TWO;
+      double               ONE, TWO;
       const              ONE = 1.0, TWO = 2.0 ;
       // ..
       // .. Local Scalars ..
       int                I, J;
-      REAL               BIGNUM, EPS, SMLNUM, TEMP;
+      double               BIGNUM, EPS, SMLNUM, TEMP;
       // ..
       // .. External Subroutines ..
       // EXTERNAL SLASWP, SSCAL

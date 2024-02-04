@@ -9,14 +9,14 @@
       int                INFO, LDA, LWORK, N;
       // ..
       // .. Array Arguments ..
-      REAL               D( * ), E( * );
+      double               D( * ), E( * );
       Complex            A( LDA, * ), TAU( * ), WORK( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ONE;
+      double               ONE;
       const              ONE = 1.0 ;
       Complex            CONE;
       const              CONE = ( 1.0, 0.0 ) ;
@@ -132,7 +132,7 @@
 
             for (J = I; J <= I + NB - 1; J++) { // 10
                A[J-1, J] = E( J-1 );
-               D[J] = REAL( A( J, J ) );
+               D[J] = double( A( J, J ) );
             } // 10
          } // 20
 
@@ -161,7 +161,7 @@
 
             for (J = I; J <= I + NB - 1; J++) { // 30
                A[J+1, J] = E( J );
-               D[J] = REAL( A( J, J ) );
+               D[J] = double( A( J, J ) );
             } // 30
          } // 40
 

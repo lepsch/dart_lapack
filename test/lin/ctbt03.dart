@@ -7,10 +7,10 @@
       // .. Scalar Arguments ..
       String             DIAG, TRANS, UPLO;
       int                KD, LDAB, LDB, LDX, N, NRHS;
-      REAL               RESID, SCALE, TSCAL;
+      double               RESID, SCALE, TSCAL;
       // ..
       // .. Array Arguments ..
-      REAL               CNORM( * );
+      double               CNORM( * );
       Complex            AB( LDAB, * ), B( LDB, * ), WORK( * ), X( LDX, * );
       // ..
 
@@ -18,12 +18,12 @@
 
 
       // .. Parameters ..
-      REAL               ONE, ZERO;
+      double               ONE, ZERO;
       const              ONE = 1.0, ZERO = 0.0 ;
       // ..
       // .. Local Scalars ..
       int                IX, J;
-      REAL               EPS, ERR, SMLNUM, TNORM, XNORM, XSCAL;
+      double               EPS, ERR, SMLNUM, TNORM, XNORM, XSCAL;
       // ..
       // .. External Functions ..
       //- bool               lsame;

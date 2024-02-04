@@ -11,19 +11,19 @@
       // .. Array Arguments ..
       bool               SELECT( * );
       int                IFAILL( * ), IFAILR( * );
-      REAL               H( LDH, * ), VL( LDVL, * ), VR( LDVR, * ), WI( * ), WORK( * ), WR( * );
+      double               H( LDH, * ), VL( LDVL, * ), VR( LDVR, * ), WI( * ), WORK( * ), WR( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
       bool               BOTHV, FROMQR, LEFTV, NOINIT, PAIR, RIGHTV;
       int                I, IINFO, K, KL, KLN, KR, KSI, KSR, LDWORK;
-      REAL               BIGNUM, EPS3, HNORM, SMLNUM, ULP, UNFL, WKI, WKR;
+      double               BIGNUM, EPS3, HNORM, SMLNUM, ULP, UNFL, WKI, WKR;
       // ..
       // .. External Functions ..
       //- bool               lsame, SISNAN;

@@ -8,21 +8,21 @@
       int                KBAND, LDU, LDWORK, M, N;
       // ..
       // .. Array Arguments ..
-      REAL               AD( * ), AE( * ), RESULT( 2 ), RWORK( * ), SD( * ), SE( * );
+      double               AD( * ), AE( * ), RESULT( 2 ), RWORK( * ), SD( * ), SE( * );
       Complex            U( LDU, * ), WORK( LDWORK, * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       Complex            CZERO, CONE;
       const              CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
       int                I, J, K;
-      REAL               ANORM, ULP, UNFL, WNORM;
+      double               ANORM, ULP, UNFL, WNORM;
       Complex            AUKJ;
       // ..
       // .. External Functions ..
@@ -100,7 +100,7 @@
          WORK[J, J] = WORK( J, J ) - ONE;
       } // 50
 
-      RESULT[2] = min( REAL( M ), CLANGE( '1', M, M, WORK, M, RWORK ) ) / ( M*ULP );
+      RESULT[2] = min( double( M ), CLANGE( '1', M, M, WORK, M, RWORK ) ) / ( M*ULP );
 
       return;
       }

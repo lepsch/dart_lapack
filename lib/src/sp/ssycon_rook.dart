@@ -7,23 +7,23 @@
       // .. Scalar Arguments ..
       String             UPLO;
       int                INFO, LDA, N;
-      REAL               ANORM, RCOND;
+      double               ANORM, RCOND;
       // ..
       // .. Array Arguments ..
       int                IPIV( * ), IWORK( * );
-      REAL               A( LDA, * ), WORK( * );
+      double               A( LDA, * ), WORK( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ONE, ZERO;
+      double               ONE, ZERO;
       const              ONE = 1.0, ZERO = 0.0 ;
       // ..
       // .. Local Scalars ..
       bool               UPPER;
       int                I, KASE;
-      REAL               AINVNM;
+      double               AINVNM;
       // ..
       // .. Local Arrays ..
       int                ISAVE( 3 );

@@ -7,22 +7,22 @@
       // .. Scalar Arguments ..
       String             UPLO;
       int                KD, LDU, LDVT, N;
-      REAL               RESID;
+      double               RESID;
       // ..
       // .. Array Arguments ..
-      REAL               D( * ), E( * ), S( * );
+      double               D( * ), E( * ), S( * );
       Complex            U( LDU, * ), VT( LDVT, * ), WORK( * );
       // ..
 
 // ======================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
       int                I, J;
-      REAL               BNORM, EPS;
+      double               BNORM, EPS;
       // ..
       // .. External Functions ..
       //- bool               lsame;
@@ -114,7 +114,7 @@
             RESID = ( RESID / BNORM ) / ( REAL( N )*EPS );
          } else {
             if ( BNORM < ONE ) {
-               RESID = ( min( RESID, REAL( N )*BNORM ) / BNORM ) / ( REAL( N )*EPS );
+               RESID = ( min( RESID, double( N )*BNORM ) / BNORM ) / ( REAL( N )*EPS );
             } else {
                RESID = min( RESID / BNORM, REAL( N ) ) / ( REAL( N )*EPS );
             }

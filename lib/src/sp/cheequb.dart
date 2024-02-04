@@ -6,25 +6,25 @@
 
       // .. Scalar Arguments ..
       int                INFO, LDA, N;
-      REAL               AMAX, SCOND;
+      double               AMAX, SCOND;
       String             UPLO;
       // ..
       // .. Array Arguments ..
       Complex            A( LDA, * ), WORK( * );
-      REAL               S( * );
+      double               S( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ONE, ZERO;
+      double               ONE, ZERO;
       const              ONE = 1.0, ZERO = 0.0 ;
       int                MAX_ITER;
       const              MAX_ITER = 100 ;
       // ..
       // .. Local Scalars ..
       int                I, J, ITER;
-      REAL               AVG, STD, TOL, C0, C1, C2, T, U, SI, D, BASE, SMIN, SMAX, SMLNUM, BIGNUM, SCALE, SUMSQ;
+      double               AVG, STD, TOL, C0, C1, C2, T, U, SI, D, BASE, SMIN, SMAX, SMLNUM, BIGNUM, SCALE, SUMSQ;
       bool               UP;
       Complex            ZDUM;
       // ..
@@ -40,10 +40,10 @@
       // INTRINSIC ABS, AIMAG, INT, LOG, MAX, MIN, REAL, SQRT
       // ..
       // .. Statement Functions ..
-      REAL               CABS1;
+      double               CABS1;
       // ..
       // .. Statement Function Definitions ..
-      CABS1[ZDUM] = ( REAL( ZDUM ) ).abs() + ( AIMAG( ZDUM ) ).abs();
+      CABS1[ZDUM] = ( double( ZDUM ) ).abs() + ( AIMAG( ZDUM ) ).abs();
       // ..
       // .. Executable Statements ..
 
@@ -132,7 +132,7 @@
          // avg = s^T beta / n
          AVG = 0.0;
          for (I = 1; I <= N; I++) {
-            AVG = AVG + REAL( S( I )*WORK( I ) );
+            AVG = AVG + double( S( I )*WORK( I ) );
          }
          AVG = AVG / N;
 
@@ -149,8 +149,8 @@
             T = CABS1( A( I, I ) );
             SI = S( I );
             C2 = ( N-1 ) * T;
-            C1 = REAL( ( N-2 ) * ( WORK( I ) - T*SI ) );
-            C0 = REAL( -(T*SI)*SI + 2*WORK( I )*SI - N*AVG );
+            C1 = double( ( N-2 ) * ( WORK( I ) - T*SI ) );
+            C0 = double( -(T*SI)*SI + 2*WORK( I )*SI - N*AVG );
             D = C1*C1 - 4*C0*C2;
 
             if ( D <= 0 ) {
@@ -185,7 +185,7 @@
                }
             }
 
-            AVG = AVG + REAL( ( U + WORK( I ) ) * D / N );
+            AVG = AVG + double( ( U + WORK( I ) ) * D / N );
             S[I] = SI;
          }
       }

@@ -9,14 +9,14 @@
       int                INFO, LDX11, LDX12, LDX21, LDX22, LWORK, M, P, Q;
       // ..
       // .. Array Arguments ..
-      REAL               PHI( * ), THETA( * );
+      double               PHI( * ), THETA( * );
       Complex            TAUP1( * ), TAUP2( * ), TAUQ1( * ), TAUQ2( * ), WORK( * ), X11( LDX11, * ), X12( LDX12, * ), X21( LDX21, * ), X22( LDX22, * );
       // ..
 
 // ====================================================================
 
       // .. Parameters ..
-      REAL               REALONE;
+      double               REALONE;
       const              REALONE = 1.0 ;
       Complex            ONE;
       const              ONE = (1.0,0.0) ;
@@ -24,7 +24,7 @@
       // .. Local Scalars ..
       bool               COLMAJOR, LQUERY;
       int                I, LWORKMIN, LWORKOPT;
-      REAL               Z1, Z2, Z3, Z4;
+      double               Z1, Z2, Z3, Z4;
       // ..
       // .. External Subroutines ..
       // EXTERNAL CAXPY, CLARF, CLARFGP, CSCAL, XERBLA

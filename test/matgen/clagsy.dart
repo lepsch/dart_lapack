@@ -9,7 +9,7 @@
       // ..
       // .. Array Arguments ..
       int                ISEED( 4 );
-      REAL               D( * );
+      double               D( * );
       Complex            A( LDA, * ), WORK( * );
       // ..
 
@@ -21,7 +21,7 @@
       // ..
       // .. Local Scalars ..
       int                I, II, J, JJ;
-      REAL               WN;
+      double               WN;
       Complex            ALPHA, TAU, WA, WB;
       // ..
       // .. External Subroutines ..
@@ -78,7 +78,7 @@
             WB = WORK( 1 ) + WA;
             cscal(N-I, ONE / WB, WORK( 2 ), 1 );
             WORK[1] = ONE;
-            TAU = REAL( WB / WA );
+            TAU = double( WB / WA );
          }
 
          // apply random reflection to A(i:n,i:n) from the left
@@ -121,7 +121,7 @@
             WB = A( K+I, I ) + WA;
             cscal(N-K-I, ONE / WB, A( K+I+1, I ), 1 );
             A[K+I, I] = ONE;
-            TAU = REAL( WB / WA );
+            TAU = double( WB / WA );
          }
 
          // apply reflection to A(k+i:n,i+1:k+i-1) from the left

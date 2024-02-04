@@ -6,19 +6,19 @@
 
       // .. Scalar Arguments ..
       int                INFO, LDA, LDQ, LDQE, LWORK, NOUNIT, NSIZES, NTYPES;
-      REAL               THRESH;
+      double               THRESH;
       // ..
       // .. Array Arguments ..
       bool               DOTYPE( * );
       int                ISEED( 4 ), NN( * );
-      REAL               RESULT( * ), RWORK( * );
+      double               RESULT( * ), RWORK( * );
       Complex            A( LDA, * ), ALPHA( * ), ALPHA1( * ), B( LDA, * ), BETA( * ), BETA1( * ), Q( LDQ, * ), QE( LDQE, * ), S( LDA, * ), T( LDA, * ), WORK( * ), Z( LDQ, * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       Complex            CZERO, CONE;
       const              CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
@@ -28,13 +28,13 @@
       // .. Local Scalars ..
       bool               BADNN;
       int                I, IADD, IERR, IN, J, JC, JR, JSIZE, JTYPE, MAXWRK, MINWRK, MTYPES, N, N1, NB, NERRS, NMATS, NMAX, NTESTT;
-      REAL               SAFMAX, SAFMIN, ULP, ULPINV;
+      double               SAFMAX, SAFMIN, ULP, ULPINV;
       Complex            CTEMP;
       // ..
       // .. Local Arrays ..
       bool               LASIGN( MAXTYP ), LBSIGN( MAXTYP );
       int                IOLDSD( 4 ), KADD( 6 ), KAMAGN( MAXTYP ), KATYPE( MAXTYP ), KAZERO( MAXTYP ), KBMAGN( MAXTYP ), KBTYPE( MAXTYP ), KBZERO( MAXTYP ), KCLASS( MAXTYP ), KTRIAN( MAXTYP ), KZ1( 6 ), KZ2( 6 );
-      REAL               RMAGN( 0: 3 );
+      double               RMAGN( 0: 3 );
       // ..
       // .. External Functions ..
       //- int                ILAENV;
@@ -219,10 +219,10 @@
                         Z[JR, JC] = CLARND( 3, ISEED );
                      } // 30
                      clarfg(N+1-JC, Q( JC, JC ), Q( JC+1, JC ), 1, WORK( JC ) );
-                     WORK[2*N+JC] = SIGN( ONE, REAL( Q( JC, JC ) ) );
+                     WORK[2*N+JC] = SIGN( ONE, double( Q( JC, JC ) ) );
                      Q[JC, JC] = CONE;
                      clarfg(N+1-JC, Z( JC, JC ), Z( JC+1, JC ), 1, WORK( N+JC ) );
-                     WORK[3*N+JC] = SIGN( ONE, REAL( Z( JC, JC ) ) );
+                     WORK[3*N+JC] = SIGN( ONE, double( Z( JC, JC ) ) );
                      Z[JC, JC] = CONE;
                   } // 40
                   CTEMP = CLARND( 3, ISEED );

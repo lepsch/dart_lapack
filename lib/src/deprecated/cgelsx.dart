@@ -6,11 +6,11 @@
 
       // .. Scalar Arguments ..
       int                INFO, LDA, LDB, M, N, NRHS, RANK;
-      REAL               RCOND;
+      double               RCOND;
       // ..
       // .. Array Arguments ..
       int                JPVT( * );
-      REAL               RWORK( * );
+      double               RWORK( * );
       Complex            A( LDA, * ), B( LDB, * ), WORK( * );
       // ..
 
@@ -19,14 +19,14 @@
       // .. Parameters ..
       int                IMAX, IMIN;
       const              IMAX = 1, IMIN = 2 ;
-      REAL               ZERO, ONE, DONE, NTDONE;
+      double               ZERO, ONE, DONE, NTDONE;
       const              ZERO = 0.0, ONE = 1.0, DONE = ZERO, NTDONE = ONE ;
       Complex            CZERO, CONE;
       const              CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
       int                I, IASCL, IBSCL, ISMAX, ISMIN, J, K, MN;
-      REAL               ANRM, BIGNUM, BNRM, SMAX, SMAXPR, SMIN, SMINPR, SMLNUM;
+      double               ANRM, BIGNUM, BNRM, SMAX, SMAXPR, SMIN, SMINPR, SMLNUM;
       Complex            C1, C2, S1, S2, T1, T2;
       // ..
       // .. External Subroutines ..

@@ -16,7 +16,7 @@
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ONE;
+      double               ONE;
       const              ONE = 1.0 ;
       Complex            CONE, CZERO;
       const              CONE = ( 1.0, 0.0 ), CZERO = ( 0.0, 0.0 ) ;
@@ -24,7 +24,7 @@
       // .. Local Scalars ..
       bool               UPPER;
       int                CUT, I, ICOUNT, INVD, IP, K, NNB, J, U11;
-      REAL               AK, AKP1, T;
+      double               AK, AKP1, T;
       Complex            AKKP1, D, U01_I_J, U01_IP1_J, U11_I_J, U11_IP1_J;
       // ..
       // .. External Functions ..
@@ -117,8 +117,8 @@
             } else {
                // 2 x 2 diagonal NNB
                T = ( WORK( K+1, 1 ) ).abs();
-               AK = REAL( A( K, K ) ) / T;
-               AKP1 = REAL( A( K+1, K+1 ) ) / T;
+               AK = double( A( K, K ) ) / T;
+               AKP1 = double( A( K+1, K+1 ) ) / T;
                AKKP1 = WORK( K+1, 1 )  / T;
                D = T*( AK*AKP1-CONE );
                WORK[K, INVD] = AKP1 / D;
@@ -287,8 +287,8 @@
             } else {
                // 2 x 2 diagonal NNB
                T = ( WORK( K-1, 1 ) ).abs();
-               AK = REAL( A( K-1, K-1 ) ) / T;
-               AKP1 = REAL( A( K, K ) ) / T;
+               AK = double( A( K-1, K-1 ) ) / T;
+               AKP1 = double( A( K, K ) ) / T;
                AKKP1 = WORK( K-1, 1 ) / T;
                D = T*( AK*AKP1-CONE );
                WORK[K-1, INVD] = AKP1 / D;

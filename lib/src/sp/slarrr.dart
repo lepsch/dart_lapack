@@ -8,20 +8,20 @@
       int                N, INFO;
       // ..
       // .. Array Arguments ..
-      REAL               D( * ), E( * );
+      double               D( * ), E( * );
       // ..
 
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, RELCOND;
+      double               ZERO, RELCOND;
       const              ZERO = 0.0, RELCOND = 0.999 ;
       // ..
       // .. Local Scalars ..
       int                I;
       bool               YESREL;
-      REAL               EPS, SAFMIN, SMLNUM, RMIN, TMP, TMP2, OFFDIG, OFFDIG2;
+      double               EPS, SAFMIN, SMLNUM, RMIN, TMP, TMP2, OFFDIG, OFFDIG2;
 
       // ..
       // .. External Functions ..

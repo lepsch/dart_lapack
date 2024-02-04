@@ -7,7 +7,7 @@
       // .. Scalar Arguments ..
       String             TRANS;
       int                LDB, LDX, N, NRHS;
-      REAL               ALPHA, BETA;
+      double               ALPHA, BETA;
       // ..
       // .. Array Arguments ..
       Complex            B( LDB, * ), D( * ), DL( * ), DU( * ), X( LDX, * );
@@ -16,7 +16,7 @@
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ONE, ZERO;
+      double               ONE, ZERO;
       const              ONE = 1.0, ZERO = 0.0 ;
       // ..
       // .. Local Scalars ..

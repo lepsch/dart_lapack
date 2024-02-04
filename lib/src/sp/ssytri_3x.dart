@@ -10,19 +10,19 @@
       // ..
       // .. Array Arguments ..
       int                IPIV( * );
-      REAL              A( LDA, * ), E( * ), WORK( N+NB+1, * );
+      double              A( LDA, * ), E( * ), WORK( N+NB+1, * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ONE, ZERO;
+      double               ONE, ZERO;
       const              ONE = 1.0, ZERO = 0.0 ;
       // ..
       // .. Local Scalars ..
       bool               UPPER;
       int                CUT, I, ICOUNT, INVD, IP, K, NNB, J, U11;
-      REAL               AK, AKKP1, AKP1, D, T, U01_I_J, U01_IP1_J, U11_I_J, U11_IP1_J;
+      double               AK, AKKP1, AKP1, D, T, U01_I_J, U01_IP1_J, U11_I_J, U11_IP1_J;
       // ..
       // .. External Functions ..
       //- bool               lsame;

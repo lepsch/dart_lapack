@@ -15,18 +15,18 @@
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE, TWO;
+      double               ZERO, ONE, TWO;
       const              ZERO = 0.0, ONE = 1.0, TWO = 2.0 ;
       int                LV;
       const              LV = 128 ;
-      REAL               TWOPI;
+      double               TWOPI;
       const      TWOPI = 6.28318530717958647692528676655900576839 ;
       // ..
       // .. Local Scalars ..
       int                I, IL, IV;
       // ..
       // .. Local Arrays ..
-      REAL               U( LV );
+      double               U( LV );
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC CMPLX, EXP, LOG, MIN, SQRT

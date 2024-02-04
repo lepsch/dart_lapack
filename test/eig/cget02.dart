@@ -7,24 +7,24 @@
       // .. Scalar Arguments ..
       String             TRANS;
       int                LDA, LDB, LDX, M, N, NRHS;
-      REAL               RESID;
+      double               RESID;
       // ..
       // .. Array Arguments ..
-      REAL               RWORK( * );
+      double               RWORK( * );
       Complex            A( LDA, * ), B( LDB, * ), X( LDX, * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       Complex            CONE;
       const              CONE = ( 1.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
       int                J, N1, N2;
-      REAL               ANORM, BNORM, EPS, XNORM;
+      double               ANORM, BNORM, EPS, XNORM;
       // ..
       // .. External Functions ..
       //- bool               lsame;

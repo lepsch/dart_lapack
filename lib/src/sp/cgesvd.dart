@@ -9,7 +9,7 @@
       int                INFO, LDA, LDU, LDVT, LWORK, M, N;
       // ..
       // .. Array Arguments ..
-      REAL               RWORK( * ), S( * );
+      double               RWORK( * ), S( * );
       Complex            A( LDA, * ), U( LDU, * ), VT( LDVT, * ), WORK( * );
       // ..
 
@@ -18,17 +18,17 @@
       // .. Parameters ..
       Complex            CZERO, CONE;
       const              CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
       bool               LQUERY, WNTUA, WNTUAS, WNTUN, WNTUO, WNTUS, WNTVA, WNTVAS, WNTVN, WNTVO, WNTVS;
       int                BLK, CHUNK, I, IE, IERR, IR, IRWORK, ISCL, ITAU, ITAUP, ITAUQ, IU, IWORK, LDWRKR, LDWRKU, MAXWRK, MINMN, MINWRK, MNTHR, NCU, NCVT, NRU, NRVT, WRKBL;
       int                LWORK_CGEQRF, LWORK_CUNGQR_N, LWORK_CUNGQR_M, LWORK_CGEBRD, LWORK_CUNGBR_P, LWORK_CUNGBR_Q, LWORK_CGELQF, LWORK_CUNGLQ_N, LWORK_CUNGLQ_M;
-      REAL               ANRM, BIGNUM, EPS, SMLNUM;
+      double               ANRM, BIGNUM, EPS, SMLNUM;
       // ..
       // .. Local Arrays ..
-      REAL               DUM( 1 );
+      double               DUM( 1 );
       Complex            CDUM( 1 );
       // ..
       // .. External Subroutines ..

@@ -6,23 +6,23 @@
 
       // .. Scalar Arguments ..
       int                LDA, LDAFAC, M, N;
-      REAL               RESID;
+      double               RESID;
       // ..
       // .. Array Arguments ..
       int                IPIV( * );
-      REAL               A( LDA, * ), AFAC( LDAFAC, * ), RWORK( * );
+      double               A( LDA, * ), AFAC( LDAFAC, * ), RWORK( * );
       // ..
 
 // =====================================================================
 
 
       // .. Parameters ..
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
       int                I, J, K;
-      REAL               ANORM, EPS, T;
+      double               ANORM, EPS, T;
       // ..
       // .. External Functions ..
       //- REAL               SDOT, SLAMCH, SLANGE;

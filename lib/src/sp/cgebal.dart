@@ -9,24 +9,24 @@
       int                IHI, ILO, INFO, LDA, N;
       // ..
       // .. Array Arguments ..
-      REAL               SCALE( * );
+      double               SCALE( * );
       Complex            A( LDA, * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
-      REAL               SCLFAC;
+      double               SCLFAC;
       const              SCLFAC = 2.0 ;
-      REAL               FACTOR;
+      double               FACTOR;
       const              FACTOR = 0.95 ;
       // ..
       // .. Local Scalars ..
       bool               NOCONV, CANSWAP;
       int                I, ICA, IRA, J, K, L;
-      REAL               C, CA, F, G, R, RA, S, SFMAX1, SFMAX2, SFMIN1, SFMIN2;
+      double               C, CA, F, G, R, RA, S, SFMAX1, SFMAX2, SFMIN1, SFMIN2;
       // ..
       // .. External Functions ..
       //- bool               SISNAN, lsame;
@@ -90,7 +90,7 @@
             for (I = L; I >= 1; I--) {
                CANSWAP = true;
                for (J = 1; J <= L; J++) {
-                  if ( I != J && ( REAL( A( I, J ) ) != ZERO || AIMAG( A( I, J ) ) != ZERO ) ) {
+                  if ( I != J && ( double( A( I, J ) ) != ZERO || AIMAG( A( I, J ) ) != ZERO ) ) {
                      CANSWAP = false;
                      EXIT;
                   }
@@ -125,7 +125,7 @@
             for (J = K; J <= L; J++) {
                CANSWAP = true;
                for (I = K; I <= L; I++) {
-                  if ( I != J && ( REAL( A( I, J ) ) != ZERO || AIMAG( A( I, J ) ) != ZERO ) ) {
+                  if ( I != J && ( double( A( I, J ) ) != ZERO || AIMAG( A( I, J ) ) != ZERO ) ) {
                      CANSWAP = false;
                      EXIT;
                   }

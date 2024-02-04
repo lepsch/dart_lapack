@@ -7,24 +7,24 @@
       // .. Scalar Arguments ..
       String             RANGE;
       int                IL, INFO, IU, M, N, NSPLIT;
-      REAL               PIVMIN, RTOL1, RTOL2, SPLTOL, VL, VU;
+      double               PIVMIN, RTOL1, RTOL2, SPLTOL, VL, VU;
       // ..
       // .. Array Arguments ..
       int                IBLOCK( * ), ISPLIT( * ), IWORK( * ), INDEXW( * );
-      REAL               D( * ), E( * ), E2( * ), GERS( * ), W( * ),WERR( * ), WGAP( * ), WORK( * );
+      double               D( * ), E( * ), E2( * ), GERS( * ), W( * ),WERR( * ), WGAP( * ), WORK( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               FAC, FOUR, FOURTH, FUDGE, HALF, HNDRD, MAXGROWTH, ONE, PERT, TWO, ZERO       PARAMETER          ( ZERO = 0.0, ONE = 1.0, TWO = 2.0, FOUR=4.0, HNDRD = 100.0, PERT = 4.0, HALF = ONE/TWO, FOURTH = ONE/FOUR, FAC= HALF, MAXGROWTH = 64.0, FUDGE = 2.0 );
+      double               FAC, FOUR, FOURTH, FUDGE, HALF, HNDRD, MAXGROWTH, ONE, PERT, TWO, ZERO       PARAMETER          ( ZERO = 0.0, ONE = 1.0, TWO = 2.0, FOUR=4.0, HNDRD = 100.0, PERT = 4.0, HALF = ONE/TWO, FOURTH = ONE/FOUR, FAC= HALF, MAXGROWTH = 64.0, FUDGE = 2.0 );
       int                MAXTRY, ALLRNG, INDRNG, VALRNG;
       const              MAXTRY = 6, ALLRNG = 1, INDRNG = 2, VALRNG = 3 ;
       // ..
       // .. Local Scalars ..
       bool               FORCEB, NOREP, USEDQD;
       int                CNT, CNT1, CNT2, I, IBEGIN, IDUM, IEND, IINFO, IN, INDL, INDU, IRANGE, J, JBLK, MB, MM, WBEGIN, WEND;
-      REAL               AVGAP, BSRTOL, CLWDTH, DMAX, DPIVOT, EABS, EMAX, EOLD, EPS, GL, GU, ISLEFT, ISRGHT, RTL, RTOL, S1, S2, SAFMIN, SGNDEF, SIGMA, SPDIAM, TAU, TMP, TMP1;
+      double               AVGAP, BSRTOL, CLWDTH, DMAX, DPIVOT, EABS, EMAX, EOLD, EPS, GL, GU, ISLEFT, ISRGHT, RTL, RTOL, S1, S2, SAFMIN, SGNDEF, SIGMA, SPDIAM, TAU, TMP, TMP1;
 
 
       // ..
@@ -493,7 +493,7 @@
             // This is an ESTIMATED error, the worst case bound is 4*N*EPS
             // which is usually too large and requires unnecessary work to be
             // done by bisection when computing the eigenvectors
-            RTOL = LOG(REAL(IN)) * FOUR * EPS;
+            RTOL = LOG(double(IN)) * FOUR * EPS;
             J = IBEGIN;
             for (I = 1; I <= IN - 1; I++) { // 140
                WORK[2*I-1] = ( D( J ) ).abs();

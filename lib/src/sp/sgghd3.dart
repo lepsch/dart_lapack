@@ -11,20 +11,20 @@
       int                IHI, ILO, INFO, LDA, LDB, LDQ, LDZ, N, LWORK;
       // ..
       // .. Array Arguments ..
-      REAL               A( LDA, * ), B( LDB, * ), Q( LDQ, * ), Z( LDZ, * ), WORK( * );
+      double               A( LDA, * ), B( LDB, * ), Q( LDQ, * ), Z( LDZ, * ), WORK( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
       bool               BLK22, INITQ, INITZ, LQUERY, WANTQ, WANTZ;
       String             COMPQ2, COMPZ2;
       int                COLA, I, IERR, J, J0, JCOL, JJ, JROW, K, KACC22, LEN, LWKOPT, N2NB, NB, NBLST, NBMIN, NH, NNB, NX, PPW, PPWO, PW, TOP, TOPQ;
-      REAL               C, C1, C2, S, S1, S2, TEMP, TEMP1, TEMP2, TEMP3;
+      double               C, C1, C2, S, S1, S2, TEMP, TEMP1, TEMP2, TEMP3;
       // ..
       // .. External Functions ..
       //- bool               lsame;

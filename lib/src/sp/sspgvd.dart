@@ -10,7 +10,7 @@
       // ..
       // .. Array Arguments ..
       int                IWORK( * );
-      REAL               AP( * ), BP( * ), W( * ), WORK( * ), Z( LDZ, * );
+      double               AP( * ), BP( * ), W( * ), WORK( * ), Z( LDZ, * );
       // ..
 
 // =====================================================================
@@ -97,8 +97,8 @@
 
       sspgst(ITYPE, UPLO, N, AP, BP, INFO );
       sspevd(JOBZ, UPLO, N, AP, W, Z, LDZ, WORK, LWORK, IWORK, LIWORK, INFO );
-      LWMIN = INT( max( REAL( LWMIN ), REAL( WORK( 1 ) ) ) );
-      LIWMIN = INT( max( REAL( LIWMIN ), REAL( IWORK( 1 ) ) ) );
+      LWMIN = INT( max( REAL( LWMIN ), double( WORK( 1 ) ) ) );
+      LIWMIN = INT( max( REAL( LIWMIN ), double( IWORK( 1 ) ) ) );
 
       if ( WANTZ ) {
 

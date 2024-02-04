@@ -7,24 +7,24 @@
       // .. Scalar Arguments ..
       String             COMPQ, JOB;
       int                INFO, LDQ, LDT, LIWORK, LWORK, M, N;
-      REAL               S, SEP;
+      double               S, SEP;
       // ..
       // .. Array Arguments ..
       bool               SELECT( * );
       int                IWORK( * );
-      REAL               Q( LDQ, * ), T( LDT, * ), WI( * ), WORK( * ), WR( * );
+      double               Q( LDQ, * ), T( LDT, * ), WI( * ), WORK( * ), WR( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
       bool               LQUERY, PAIR, SWAP, WANTBH, WANTQ, WANTS, WANTSP;
       int                IERR, K, KASE, KK, KS, LIWMIN, LWMIN, N1, N2, NN;
-      REAL               EST, RNORM, SCALE;
+      double               EST, RNORM, SCALE;
       // ..
       // .. Local Arrays ..
       int                ISAVE( 3 );

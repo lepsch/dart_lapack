@@ -7,18 +7,18 @@
       // .. Scalar Arguments ..
       String             BALANC, JOBVL, JOBVR, SENSE;
       int                IHI, ILO, INFO, LDA, LDB, LDVL, LDVR, LWORK, N;
-      REAL               ABNRM, BBNRM;
+      double               ABNRM, BBNRM;
       // ..
       // .. Array Arguments ..
       bool               BWORK( * );
       int                IWORK( * );
-      REAL               LSCALE( * ), RCONDE( * ), RCONDV( * ), RSCALE( * ), RWORK( * )       Complex            A( LDA, * ), ALPHA( * ), B( LDB, * ), BETA( * ), VL( LDVL, * ), VR( LDVR, * ), WORK( * );
+      double               LSCALE( * ), RCONDE( * ), RCONDV( * ), RSCALE( * ), RWORK( * )       Complex            A( LDA, * ), ALPHA( * ), B( LDB, * ), BETA( * ), VL( LDVL, * ), VR( LDVR, * ), WORK( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       Complex            CZERO, CONE;
       const              CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
@@ -27,7 +27,7 @@
       bool               ILASCL, ILBSCL, ILV, ILVL, ILVR, LQUERY, NOSCL, WANTSB, WANTSE, WANTSN, WANTSV;
       String             CHTEMP;
       int                I, ICOLS, IERR, IJOBVL, IJOBVR, IN, IROWS, ITAU, IWRK, IWRK1, J, JC, JR, M, MAXWRK, MINWRK;
-      REAL               ANRM, ANRMTO, BIGNUM, BNRM, BNRMTO, EPS, SMLNUM, TEMP;
+      double               ANRM, ANRMTO, BIGNUM, BNRM, BNRMTO, EPS, SMLNUM, TEMP;
       Complex            X;
       // ..
       // .. Local Arrays ..
@@ -46,10 +46,10 @@
       // INTRINSIC ABS, AIMAG, MAX, REAL, SQRT
       // ..
       // .. Statement Functions ..
-      REAL               ABS1;
+      double               ABS1;
       // ..
       // .. Statement Function definitions ..
-      ABS1[X] = ( REAL( X ) ).abs() + ( AIMAG( X ) ).abs();
+      ABS1[X] = ( double( X ) ).abs() + ( AIMAG( X ) ).abs();
       // ..
       // .. Executable Statements ..
 

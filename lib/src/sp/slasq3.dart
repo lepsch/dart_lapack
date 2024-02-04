@@ -7,29 +7,29 @@
       // .. Scalar Arguments ..
       bool               IEEE;
       int                I0, ITER, N0, NDIV, NFAIL, PP;
-      REAL               DESIG, DMIN, DMIN1, DMIN2, DN, DN1, DN2, G, QMAX, SIGMA, TAU;
+      double               DESIG, DMIN, DMIN1, DMIN2, DN, DN1, DN2, G, QMAX, SIGMA, TAU;
       // ..
       // .. Array Arguments ..
-      REAL               Z( * );
+      double               Z( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               CBIAS;
+      double               CBIAS;
       const              CBIAS = 1.50 ;
-      REAL               ZERO, QURTR, HALF, ONE, TWO, HUNDRD;
+      double               ZERO, QURTR, HALF, ONE, TWO, HUNDRD;
       const              ZERO = 0.0, QURTR = 0.250, HALF = 0.5, ONE = 1.0, TWO = 2.0, HUNDRD = 100.0 ;
       // ..
       // .. Local Scalars ..
       int                IPN4, J4, N0IN, NN, TTYPE;
-      REAL               EPS, S, T, TEMP, TOL, TOL2;
+      double               EPS, S, T, TEMP, TOL, TOL2;
       // ..
       // .. External Subroutines ..
       // EXTERNAL SLASQ4, SLASQ5, SLASQ6
       // ..
       // .. External Function ..
-      REAL               SLAMCH;
+      double               SLAMCH;
       bool               SISNAN;
       // EXTERNAL SISNAN, SLAMCH
       // ..

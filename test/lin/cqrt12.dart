@@ -1,4 +1,4 @@
-      REAL cqrt12(M, N, A, LDA, S, WORK, LWORK, RWORK ) {
+      double cqrt12(M, N, A, LDA, S, WORK, LWORK, RWORK ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -8,22 +8,22 @@
       int                LDA, LWORK, M, N;
       // ..
       // .. Array Arguments ..
-      REAL               RWORK( * ), S( * );
+      double               RWORK( * ), S( * );
       Complex            A( LDA, * ), WORK( LWORK );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
       int                I, INFO, ISCL, J, MN;
-      REAL               ANRM, BIGNUM, NRMSVL, SMLNUM;
+      double               ANRM, BIGNUM, NRMSVL, SMLNUM;
       // ..
       // .. Local Arrays ..
-      REAL               DUMMY( 1 );
+      double               DUMMY( 1 );
       // ..
       // .. External Functions ..
       //- REAL               CLANGE, SASUM, SLAMCH, SNRM2;

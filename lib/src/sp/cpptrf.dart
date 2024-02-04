@@ -15,13 +15,13 @@
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
       bool               UPPER;
       int                J, JC, JJ;
-      REAL               AJJ;
+      double               AJJ;
       // ..
       // .. External Functions ..
       //- bool               lsame;
@@ -69,7 +69,7 @@
 
             // Compute U(J,J) and test for non-positive-definiteness.
 
-            AJJ = REAL( REAL( AP( JJ ) ) - CDOTC( J-1, AP( JC ), 1, AP( JC ), 1 ) );
+            AJJ = REAL( double( AP( JJ ) ) - CDOTC( J-1, AP( JC ), 1, AP( JC ), 1 ) );
             if ( AJJ <= ZERO ) {
                AP[JJ] = AJJ;
                GO TO 30;
@@ -85,7 +85,7 @@
 
             // Compute L(J,J) and test for non-positive-definiteness.
 
-            AJJ = REAL( AP( JJ ) );
+            AJJ = double( AP( JJ ) );
             if ( AJJ <= ZERO ) {
                AP[JJ] = AJJ;
                GO TO 30;

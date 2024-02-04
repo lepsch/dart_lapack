@@ -18,11 +18,11 @@
       // .. Local Scalars ..
       String             C2;
       int                INFO;
-      REAL               RCOND, SCALE, SCALES(0);
+      double               RCOND, SCALE, SCALES(0);
       // ..
       // .. Local Arrays ..
       int                IW( NMAX );
-      REAL               A( NMAX, NMAX ), B( NMAX ), R1( NMAX ), R2( NMAX ), W( NMAX ), X( NMAX );
+      double               A( NMAX, NMAX ), B( NMAX ), R1( NMAX ), R2( NMAX ), W( NMAX ), X( NMAX );
       // ..
       // .. External Functions ..
       //- bool               LSAMEN;

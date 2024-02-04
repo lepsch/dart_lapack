@@ -10,19 +10,19 @@
       // ..
       // .. Array Arguments ..
       int                IPIV( * );
-      REAL               AP( * ), WORK( * );
+      double               AP( * ), WORK( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ONE, ZERO;
+      double               ONE, ZERO;
       const              ONE = 1.0, ZERO = 0.0 ;
       // ..
       // .. Local Scalars ..
       bool               UPPER;
       int                J, K, KC, KCNEXT, KP, KPC, KSTEP, KX, NPP;
-      REAL               AK, AKKP1, AKP1, D, T, TEMP;
+      double               AK, AKKP1, AKP1, D, T, TEMP;
       // ..
       // .. External Functions ..
       //- bool               lsame;

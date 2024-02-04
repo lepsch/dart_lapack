@@ -15,12 +15,12 @@
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
       int                I, IP, IPV, J, JP, JPV;
-      REAL               BIGNUM, EPS, SMIN, SMLNUM, XMAX;
+      double               BIGNUM, EPS, SMIN, SMLNUM, XMAX;
       // ..
       // .. External Subroutines ..
       // EXTERNAL CGERU, CSWAP

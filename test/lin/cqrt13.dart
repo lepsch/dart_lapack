@@ -6,7 +6,7 @@
 
       // .. Scalar Arguments ..
       int                LDA, M, N, SCALE;
-      REAL               NORMA;
+      double               NORMA;
       // ..
       // .. Array Arguments ..
       int                ISEED( 4 );
@@ -16,12 +16,12 @@
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ONE;
+      double               ONE;
       const              ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
       int                INFO, J;
-      REAL               BIGNUM, SMLNUM;
+      double               BIGNUM, SMLNUM;
       // ..
       // .. External Functions ..
       //- REAL               CLANGE, SCASUM, SLAMCH;
@@ -34,7 +34,7 @@
       // INTRINSIC CMPLX, REAL, SIGN
       // ..
       // .. Local Arrays ..
-      REAL               DUMMY( 1 );
+      double               DUMMY( 1 );
       // ..
       // .. Executable Statements ..
 
@@ -45,7 +45,7 @@
       for (J = 1; J <= N; J++) { // 10
          clarnv(2, ISEED, M, A( 1, J ) );
          if ( J <= M ) {
-            A[J, J] = A( J, J ) + CMPLX( SIGN( SCASUM( M, A( 1, J ), 1 ), REAL( A( J, J ) ) ) );
+            A[J, J] = A( J, J ) + CMPLX( SIGN( SCASUM( M, A( 1, J ), 1 ), double( A( J, J ) ) ) );
          }
       } // 10
 

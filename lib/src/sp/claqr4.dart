@@ -37,16 +37,16 @@
 
       // ==== The constant WILK1 is used to form the exceptional
       // .    shifts. ====
-      REAL               WILK1;
+      double               WILK1;
       const              WILK1 = 0.75 ;
       Complex            ZERO, ONE;
       const              ZERO = ( 0.0, 0.0 ), ONE = ( 1.0, 0.0 ) ;
-      REAL               TWO;
+      double               TWO;
       const              TWO = 2.0 ;
       // ..
       // .. Local Scalars ..
       Complex            AA, BB, CC, CDUM, DD, DET, RTDISC, SWAP, TR2;
-      REAL               S;
+      double               S;
       int                I, INF, IT, ITMAX, K, KACC22, KBOT, KDU, KS, KT, KTOP, KU, KV, KWH, KWTOP, KWV, LD, LS, LWKOPT, NDEC, NDFL, NH, NHO, NIBBLE, NMIN, NS, NSMAX, NSR, NVE, NW, NWMAX, NWR, NWUPBD;
       bool               SORTED;
       String             JBCMPZ*2;
@@ -65,10 +65,10 @@
       // INTRINSIC ABS, AIMAG, CMPLX, INT, MAX, MIN, MOD, REAL, SQRT
       // ..
       // .. Statement Functions ..
-      REAL               CABS1;
+      double               CABS1;
       // ..
       // .. Statement Function definitions ..
-      CABS1[CDUM] = ( REAL( CDUM ) ).abs() + ( AIMAG( CDUM ) ).abs();
+      CABS1[CDUM] = ( double( CDUM ) ).abs() + ( AIMAG( CDUM ) ).abs();
       // ..
       // .. Executable Statements ..
       INFO = 0;

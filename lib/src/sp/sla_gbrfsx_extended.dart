@@ -7,11 +7,11 @@
       // .. Scalar Arguments ..
       int                INFO, LDAB, LDAFB, LDB, LDY, N, KL, KU, NRHS, PREC_TYPE, TRANS_TYPE, N_NORMS, ITHRESH;
       bool               COLEQU, IGNORE_CWISE;
-      REAL               RTHRESH, DZ_UB;
+      double               RTHRESH, DZ_UB;
       // ..
       // .. Array Arguments ..
       int                IPIV( * );
-      REAL               AB( LDAB, * ), AFB( LDAFB, * ), B( LDB, * ), Y( LDY, * ), RES(*), DY(*), Y_TAIL(*)       REAL               C( * ), AYB(*), RCOND, BERR_OUT(*), ERR_BNDS_NORM( NRHS, * ), ERR_BNDS_COMP( NRHS, * );
+      REAL               AB( LDAB, * ), AFB( LDAFB, * ), B( LDB, * ), Y( LDY, * ), RES(*), DY(*), Y_TAIL(*)       double               C( * ), AYB(*), RCOND, BERR_OUT(*), ERR_BNDS_NORM( NRHS, * ), ERR_BNDS_COMP( NRHS, * );
       // ..
 
 // =====================================================================
@@ -19,7 +19,7 @@
       // .. Local Scalars ..
       String             TRANS;
       int                CNT, I, J, M, X_STATE, Z_STATE, Y_PREC_STATE;
-      REAL               YK, DYK, YMIN, NORMY, NORMX, NORMDX, DXRAT, DZRAT, PREVNORMDX, PREV_DZ_Z, DXRATMAX, DZRATMAX, DX_X, DZ_Z, FINAL_DX_X, FINAL_DZ_Z, EPS, HUGEVAL, INCR_THRESH;
+      double               YK, DYK, YMIN, NORMY, NORMX, NORMDX, DXRAT, DZRAT, PREVNORMDX, PREV_DZ_Z, DXRATMAX, DZRATMAX, DX_X, DZ_Z, FINAL_DX_X, FINAL_DZ_Z, EPS, HUGEVAL, INCR_THRESH;
       bool               INCR_PREC;
       // ..
       // .. Parameters ..
@@ -41,7 +41,7 @@
       // ..
       // .. External Subroutines ..
       // EXTERNAL SAXPY, SCOPY, SGBTRS, SGBMV, BLAS_SGBMV_X, BLAS_SGBMV2_X, SLA_GBAMV, SLA_WWADDW, SLAMCH, CHLA_TRANSTYPE, SLA_LIN_BERR
-      REAL               SLAMCH;
+      double               SLAMCH;
       String             CHLA_TRANSTYPE;
       // ..
       // .. Intrinsic Functions ..
@@ -56,7 +56,7 @@
       // Force HUGEVAL to Inf
       HUGEVAL = HUGEVAL * HUGEVAL;
       // Using HUGEVAL may lead to spurious underflows.
-      INCR_THRESH = REAL( N ) * EPS;
+      INCR_THRESH = double( N ) * EPS;
       M = KL+KU+1;
 
       for (J = 1; J <= NRHS; J++) {

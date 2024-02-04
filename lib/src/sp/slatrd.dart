@@ -9,18 +9,18 @@
       int                LDA, LDW, N, NB;
       // ..
       // .. Array Arguments ..
-      REAL               A( LDA, * ), E( * ), TAU( * ), W( LDW, * );
+      double               A( LDA, * ), E( * ), TAU( * ), W( LDW, * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE, HALF;
+      double               ZERO, ONE, HALF;
       const              ZERO = 0.0, ONE = 1.0, HALF = 0.5 ;
       // ..
       // .. Local Scalars ..
       int                I, IW;
-      REAL               ALPHA;
+      double               ALPHA;
       // ..
       // .. External Subroutines ..
       // EXTERNAL SAXPY, SGEMV, SLARFG, SSCAL, SSYMV

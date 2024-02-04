@@ -7,21 +7,21 @@
       // .. Scalar Arguments ..
       String             DIAG, UPLO;
       int                LDA, N;
-      REAL               RAT, RCOND, RCONDC;
+      double               RAT, RCOND, RCONDC;
       // ..
       // .. Array Arguments ..
-      REAL               RWORK( * );
+      double               RWORK( * );
       Complex            A( LDA, * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
-      REAL               ANORM, BIGNUM, EPS, RMAX, RMIN;
+      double               ANORM, BIGNUM, EPS, RMAX, RMIN;
       // ..
       // .. External Functions ..
       //- REAL               CLANTR, SLAMCH;

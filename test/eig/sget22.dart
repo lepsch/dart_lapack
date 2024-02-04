@@ -9,22 +9,22 @@
       int                LDA, LDE, N;
       // ..
       // .. Array Arguments ..
-      REAL               A( LDA, * ), E( LDE, * ), RESULT( 2 ), WI( * ), WORK( * ), WR( * );
+      double               A( LDA, * ), E( LDE, * ), RESULT( 2 ), WI( * ), WORK( * ), WR( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
       String             NORMA, NORME;
       int                IECOL, IEROW, INCE, IPAIR, ITRNSE, J, JCOL, JVEC;
-      REAL               ANORM, ENORM, ENRMAX, ENRMIN, ERRNRM, TEMP1, ULP, UNFL;
+      double               ANORM, ENORM, ENRMAX, ENRMIN, ERRNRM, TEMP1, ULP, UNFL;
       // ..
       // .. Local Arrays ..
-      REAL               WMAT( 2, 2 );
+      double               WMAT( 2, 2 );
       // ..
       // .. External Functions ..
       //- bool               lsame;

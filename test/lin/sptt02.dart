@@ -6,21 +6,21 @@
 
       // .. Scalar Arguments ..
       int                LDB, LDX, N, NRHS;
-      REAL               RESID;
+      double               RESID;
       // ..
       // .. Array Arguments ..
-      REAL               B( LDB, * ), D( * ), E( * ), X( LDX, * );
+      double               B( LDB, * ), D( * ), E( * ), X( LDX, * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ONE, ZERO;
+      double               ONE, ZERO;
       const              ONE = 1.0, ZERO = 0.0 ;
       // ..
       // .. Local Scalars ..
       int                J;
-      REAL               ANORM, BNORM, EPS, XNORM;
+      double               ANORM, BNORM, EPS, XNORM;
       // ..
       // .. External Functions ..
       //- REAL               SASUM, SLAMCH, SLANST;

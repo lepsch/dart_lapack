@@ -12,19 +12,19 @@
       // ..
       // .. Array Arguments ..
       int                IPIV( * );
-      REAL               A( LDA, * ), WORK( * );
+      double               A( LDA, * ), WORK( * );
       // ..
 
 // =====================================================================
       // .. Parameters ..
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
 
       // .. Local Scalars ..
       bool               LQUERY, UPPER;
       int                J, LWKMIN, LWKOPT;
       int                NB, MJ, NJ, K1, K2, J1, J2, J3, JB;
-      REAL               ALPHA;
+      double               ALPHA;
       // ..
       // .. External Functions ..
       //- bool               lsame;

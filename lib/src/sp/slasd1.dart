@@ -6,23 +6,23 @@
 
       // .. Scalar Arguments ..
       int                INFO, LDU, LDVT, NL, NR, SQRE;
-      REAL               ALPHA, BETA;
+      double               ALPHA, BETA;
       // ..
       // .. Array Arguments ..
       int                IDXQ( * ), IWORK( * );
-      REAL               D( * ), U( LDU, * ), VT( LDVT, * ), WORK( * );
+      double               D( * ), U( LDU, * ), VT( LDVT, * ), WORK( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
 
-      REAL               ONE, ZERO;
+      double               ONE, ZERO;
       const              ONE = 1.0, ZERO = 0.0 ;
       // ..
       // .. Local Scalars ..
       int                COLTYP, I, IDX, IDXC, IDXP, IQ, ISIGMA, IU2, IVT2, IZ, K, LDQ, LDU2, LDVT2, M, N, N1, N2;
-      REAL               ORGNRM;
+      double               ORGNRM;
       // ..
       // .. External Subroutines ..
       // EXTERNAL SLAMRG, SLASCL, SLASD2, SLASD3, XERBLA

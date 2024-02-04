@@ -9,22 +9,22 @@
       int                INFO, LDA, LDB, LWORK, M, N, NRHS;
       // ..
       // .. Array Arguments ..
-      REAL               A( LDA, * ), B( LDB, * ), WORK( * );
+      double               A( LDA, * ), B( LDB, * ), WORK( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
       bool               LQUERY, TPSD;
       int                BROW, I, IASCL, IBSCL, J, MN, NB, SCLLEN, WSIZE;
-      REAL               ANRM, BIGNUM, BNRM, SMLNUM;
+      double               ANRM, BIGNUM, BNRM, SMLNUM;
       // ..
       // .. Local Arrays ..
-      REAL               RWORK( 1 );
+      double               RWORK( 1 );
       // ..
       // .. External Functions ..
       //- bool               lsame;

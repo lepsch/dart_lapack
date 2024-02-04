@@ -87,7 +87,7 @@
       // .. Scalar Arguments ..
       bool               TSTERR;
       int                NM, NN, NNB, NOUT;
-      REAL               THRESH;
+      double               THRESH;
       // ..
       // .. Array Arguments ..
       int                MVAL( * ), NBVAL( * ), NVAL( * );
@@ -103,7 +103,7 @@
       int                I, J, K, T, M, N, NB, NFAIL, NERRS, NRUN, MINMN;
       // ..
       // .. Local Arrays ..
-      REAL               RESULT( NTESTS );
+      double               RESULT( NTESTS );
       // ..
       // .. External Subroutines ..
       // EXTERNAL ALAERH, ALAHD, ALASUM, SERRQRT, SQRT04

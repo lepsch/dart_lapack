@@ -13,17 +13,17 @@
       // .. Parameters ..
       int                LDA;
       const              LDA = 20 ;
-      REAL               ZERO;
+      double               ZERO;
       const              ZERO = 0.0 ;
       // ..
       // .. Local Scalars ..
       int                I, IHI, IHIIN, ILO, ILOIN, INFO, J, KNT, N, NINFO;
-      REAL               ANORM, MEPS, RMAX, SFMIN, TEMP, VMAX;
+      double               ANORM, MEPS, RMAX, SFMIN, TEMP, VMAX;
       Complex            CDUM;
       // ..
       // .. Local Arrays ..
       int                LMAX( 3 );
-      REAL               DUMMY( 1 ), SCALE( LDA ), SCALIN( LDA );
+      double               DUMMY( 1 ), SCALE( LDA ), SCALIN( LDA );
       Complex            A( LDA, LDA ), AIN( LDA, LDA );
       // ..
       // .. External Functions ..
@@ -37,10 +37,10 @@
       // INTRINSIC ABS, AIMAG, MAX, REAL
       // ..
       // .. Statement Functions ..
-      REAL               CABS1;
+      double               CABS1;
       // ..
       // .. Statement Function definitions ..
-      CABS1[CDUM] = ( REAL( CDUM ) ).abs() + ( AIMAG( CDUM ) ).abs();
+      CABS1[CDUM] = ( double( CDUM ) ).abs() + ( AIMAG( CDUM ) ).abs();
       // ..
       // .. Executable Statements ..
 

@@ -8,20 +8,20 @@
       int                INCX1, INCX2, INFO, LDQ1, LDQ2, LWORK, M1, M2, N;
       // ..
       // .. Array Arguments ..
-      REAL               Q1(LDQ1,*), Q2(LDQ2,*), WORK(*), X1(*), X2(*);
+      double               Q1(LDQ1,*), Q2(LDQ2,*), WORK(*), X1(*), X2(*);
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ALPHA, REALONE, REALZERO;
+      double               ALPHA, REALONE, REALZERO;
       const              ALPHA = 0.83, REALONE = 1.0, REALZERO = 0.0 ;
-      REAL               NEGONE, ONE, ZERO;
+      double               NEGONE, ONE, ZERO;
       const              NEGONE = -1.0, ONE = 1.0, ZERO = 0.0 ;
       // ..
       // .. Local Scalars ..
       int                I, IX;
-      REAL               EPS, NORM, NORM_NEW, SCL, SSQ;
+      double               EPS, NORM, NORM_NEW, SCL, SSQ;
       // ..
       // .. External Functions ..
       //- REAL               SLAMCH;

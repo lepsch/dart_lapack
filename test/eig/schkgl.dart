@@ -13,16 +13,16 @@
       // .. Parameters ..
       int                LDA, LDB, LWORK;
       const              LDA = 20, LDB = 20, LWORK = 6*LDA ;
-      REAL               ZERO;
+      double               ZERO;
       const              ZERO = 0.0 ;
       // ..
       // .. Local Scalars ..
       int                I, IHI, IHIIN, ILO, ILOIN, INFO, J, KNT, N, NINFO;
-      REAL               ANORM, BNORM, EPS, RMAX, VMAX;
+      double               ANORM, BNORM, EPS, RMAX, VMAX;
       // ..
       // .. Local Arrays ..
       int                LMAX( 5 );
-      REAL               A( LDA, LDA ), AIN( LDA, LDA ), B( LDB, LDB ), BIN( LDB, LDB ), LSCALE( LDA ), LSCLIN( LDA ), RSCALE( LDA ), RSCLIN( LDA ), WORK( LWORK );
+      double               A( LDA, LDA ), AIN( LDA, LDA ), B( LDB, LDB ), BIN( LDB, LDB ), LSCALE( LDA ), LSCLIN( LDA ), RSCALE( LDA ), RSCLIN( LDA ), WORK( LWORK );
       // ..
       // .. External Functions ..
       //- REAL               SLAMCH, SLANGE;

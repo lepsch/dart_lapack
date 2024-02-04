@@ -7,22 +7,22 @@
       // .. Scalar Arguments ..
       String             UPLO;
       int                LDB, LDX, N, NRHS;
-      REAL               RESID;
+      double               RESID;
       // ..
       // .. Array Arguments ..
-      REAL               D( * );
+      double               D( * );
       Complex            B( LDB, * ), E( * ), X( LDX, * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ONE, ZERO;
+      double               ONE, ZERO;
       const              ONE = 1.0, ZERO = 0.0 ;
       // ..
       // .. Local Scalars ..
       int                J;
-      REAL               ANORM, BNORM, EPS, XNORM;
+      double               ANORM, BNORM, EPS, XNORM;
       // ..
       // .. External Functions ..
       //- REAL               CLANHT, SCASUM, SLAMCH;

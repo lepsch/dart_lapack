@@ -5,23 +5,23 @@
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
-      REAL               RESID;
+      double               RESID;
       int                LDA, LDAFAC, LDPERM, N, RANK;
       String             UPLO;
       // ..
       // .. Array Arguments ..
-      REAL               A( LDA, * ), AFAC( LDAFAC, * ), PERM( LDPERM, * ), RWORK( * );
+      double               A( LDA, * ), AFAC( LDAFAC, * ), PERM( LDPERM, * ), RWORK( * );
       int                PIV( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
-      REAL               ANORM, EPS, T;
+      double               ANORM, EPS, T;
       int                I, J, K;
       // ..
       // .. External Functions ..

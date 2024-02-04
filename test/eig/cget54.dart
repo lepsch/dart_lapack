@@ -6,7 +6,7 @@
 
       // .. Scalar Arguments ..
       int                LDA, LDB, LDS, LDT, LDU, LDV, N;
-      REAL               RESULT;
+      double               RESULT;
       // ..
       // .. Array Arguments ..
       Complex            A( LDA, * ), B( LDB, * ), S( LDS, * ), T( LDT, * ), U( LDU, * ), V( LDV, * ), WORK( * );
@@ -15,16 +15,16 @@
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       Complex            CZERO, CONE;
       const              CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
-      REAL               ABNORM, ULP, UNFL, WNORM;
+      double               ABNORM, ULP, UNFL, WNORM;
       // ..
       // .. Local Arrays ..
-      REAL               DUM( 1 );
+      double               DUM( 1 );
       // ..
       // .. External Functions ..
       //- REAL               CLANGE, SLAMCH;

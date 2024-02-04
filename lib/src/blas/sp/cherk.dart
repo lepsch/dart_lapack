@@ -5,7 +5,7 @@
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
-      REAL ALPHA,BETA;
+      double ALPHA,BETA;
       int     K,LDA,LDC,N;
       String    TRANS,UPLO;
       // ..
@@ -27,12 +27,12 @@
       // ..
       // .. Local Scalars ..
       Complex TEMP;
-      REAL RTEMP;
+      double RTEMP;
       int     I,INFO,J,L,NROWA;
       bool    UPPER;
       // ..
       // .. Parameters ..
-      REAL ONE,ZERO;
+      double ONE,ZERO;
       const     ONE=1.0,ZERO=0.0;
       // ..
 
@@ -83,7 +83,7 @@
                       for (I = 1; I <= J - 1; I++) { // 30
                           C[I,J] = BETA*C(I,J);
                       } // 30
-                      C[J,J] = BETA*REAL(C(J,J));
+                      C[J,J] = BETA*double(C(J,J));
                   } // 40
               }
           } else {
@@ -95,7 +95,7 @@
                   } // 60
               } else {
                   for (J = 1; J <= N; J++) { // 80
-                      C[J,J] = BETA*REAL(C(J,J));
+                      C[J,J] = BETA*double(C(J,J));
                       for (I = J + 1; I <= N; I++) { // 70
                           C[I,J] = BETA*C(I,J);
                       } // 70
@@ -121,9 +121,9 @@
                       for (I = 1; I <= J - 1; I++) { // 100
                           C[I,J] = BETA*C(I,J);
                       } // 100
-                      C[J,J] = BETA*REAL(C(J,J));
+                      C[J,J] = BETA*double(C(J,J));
                   } else {
-                      C[J,J] = REAL(C(J,J));
+                      C[J,J] = double(C(J,J));
                   }
                   for (L = 1; L <= K; L++) { // 120
                       if (A(J,L) != CMPLX(ZERO)) {
@@ -131,7 +131,7 @@
                           for (I = 1; I <= J - 1; I++) { // 110
                               C[I,J] = C(I,J) + TEMP*A(I,L);
                           } // 110
-                          C[J,J] = REAL(C(J,J)) + REAL(TEMP*A(I,L));
+                          C[J,J] = REAL(C(J,J)) + double(TEMP*A(I,L));
                       }
                   } // 120
               } // 130
@@ -142,17 +142,17 @@
                           C[I,J] = ZERO;
                       } // 140
                   } else if (BETA != ONE) {
-                      C[J,J] = BETA*REAL(C(J,J));
+                      C[J,J] = BETA*double(C(J,J));
                       for (I = J + 1; I <= N; I++) { // 150
                           C[I,J] = BETA*C(I,J);
                       } // 150
                   } else {
-                      C[J,J] = REAL(C(J,J));
+                      C[J,J] = double(C(J,J));
                   }
                   for (L = 1; L <= K; L++) { // 170
                       if (A(J,L) != CMPLX(ZERO)) {
                           TEMP = ALPHA*CONJG(A(J,L));
-                          C[J,J] = REAL(C(J,J)) + REAL(TEMP*A(J,L));
+                          C[J,J] = REAL(C(J,J)) + double(TEMP*A(J,L));
                           for (I = J + 1; I <= N; I++) { // 160
                               C[I,J] = C(I,J) + TEMP*A(I,L);
                           } // 160
@@ -179,24 +179,24 @@
                   } // 200
                   RTEMP = ZERO;
                   for (L = 1; L <= K; L++) { // 210
-                      RTEMP = RTEMP + REAL(CONJG(A(L,J))*A(L,J));
+                      RTEMP = RTEMP + double(CONJG(A(L,J))*A(L,J));
                   } // 210
                   if (BETA == ZERO) {
                       C[J,J] = ALPHA*RTEMP;
                   } else {
-                      C[J,J] = ALPHA*RTEMP + BETA*REAL(C(J,J));
+                      C[J,J] = ALPHA*RTEMP + BETA*double(C(J,J));
                   }
               } // 220
           } else {
               for (J = 1; J <= N; J++) { // 260
                   RTEMP = ZERO;
                   for (L = 1; L <= K; L++) { // 230
-                      RTEMP = RTEMP + REAL(CONJG(A(L,J))*A(L,J));
+                      RTEMP = RTEMP + double(CONJG(A(L,J))*A(L,J));
                   } // 230
                   if (BETA == ZERO) {
                       C[J,J] = ALPHA*RTEMP;
                   } else {
-                      C[J,J] = ALPHA*RTEMP + BETA*REAL(C(J,J));
+                      C[J,J] = ALPHA*RTEMP + BETA*double(C(J,J));
                   }
                   for (I = J + 1; I <= N; I++) { // 250
                       TEMP = ZERO;

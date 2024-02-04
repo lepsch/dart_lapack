@@ -5,11 +5,11 @@
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
-      REAL SA;
+      double SA;
       int     INCX,INCY,N;
       // ..
       // .. Array Arguments ..
-      REAL SX(*),SY(*);
+      double SX(*),SY(*);
       // ..
 
 // =====================================================================

@@ -7,12 +7,12 @@
 
       // .. Scalar Arguments ..
       int                NM, NN, NNB, NNS, NOUT;
-      REAL               THRESH;
+      double               THRESH;
       // ..
       // .. Array Arguments ..
       bool               DOTYPE( * );
       int                IWORK( * ), NBVAL( * ), MVAL( * ), NVAL( * ), NSVAL( * ), NXVAL( * );
-      REAL               A( * ), COPYA( * ), B( * ), COPYB( * ), S( * ), TAU( * ), WORK( * );
+      double               A( * ), COPYA( * ), B( * ), COPYB( * ), S( * ), TAU( * ), WORK( * );
       // ..
 
 // =====================================================================
@@ -22,18 +22,18 @@
       const              NTYPES = 19 ;
       int                NTESTS;
       const              NTESTS = 5 ;
-      REAL               ONE, ZERO, BIGNUM;
+      double               ONE, ZERO, BIGNUM;
       const              ONE = 1.0, ZERO = 0.0, BIGNUM = 1.0e+38 ;
       // ..
       // .. Local Scalars ..
       String             DIST, TYPE;
       String             PATH;
       int                I, IHIGH, ILOW, IM, IMAT, IN, INC_ZERO, INB, IND_OFFSET_GEN, IND_IN, IND_OUT, INS, INFO, ISTEP, J, J_INC, J_FIRST_NZ, JB_ZERO, KFACT, KL, KMAX, KU, LDA, LW, LWORK, LWORK_MQR, M, MINMN, MINMNB_GEN, MODE, N, NB, NB_ZERO, NERRS, NFAIL, NB_GEN, NRHS, NRUN, NX, T;
-      REAL               ANORM, CNDNUM, EPS, ABSTOL, RELTOL, DTEMP, MAXC2NRMK, RELMAXC2NRMK;
+      double               ANORM, CNDNUM, EPS, ABSTOL, RELTOL, DTEMP, MAXC2NRMK, RELMAXC2NRMK;
       // ..
       // .. Local Arrays ..
       int                ISEED( 4 ), ISEEDY( 4 );
-      REAL               RESULT( NTESTS ), RDUMMY( 1 );
+      double               RESULT( NTESTS ), RDUMMY( 1 );
       // ..
       // .. External Functions ..
       //- REAL               SLAMCH, SQPT01, SQRT11, SQRT12, SLANGE;

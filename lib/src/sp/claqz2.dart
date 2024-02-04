@@ -7,22 +7,22 @@
        Complex, INTENT( INOUT ) :: A( LDA, * ), B( LDB, * ), Q( LDQ, * ), Z( LDZ, * ), ALPHA( * ), BETA( * );
       int    , INTENT( OUT ) :: NS, ND, INFO;
       Complex :: QC( LDQC, * ), ZC( LDZC, * ), WORK( * );
-      REAL :: RWORK( * );
+      double :: RWORK( * );
 
       // Parameters
       Complex         CZERO, CONE;
       const              CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
-      REAL :: ZERO, ONE, HALF;
+      double :: ZERO, ONE, HALF;
       const    ZERO = 0.0, ONE = 1.0, HALF = 0.5 ;
 
       // Local Scalars
       int     :: JW, KWTOP, KWBOT, ISTOPM, ISTARTM, K, K2, CTGEXC_INFO, IFST, ILST, LWORKREQ, QZ_SMALL_INFO;
-      REAL :: SMLNUM, ULP, SAFMIN, SAFMAX, C1, TEMPR;
+      double :: SMLNUM, ULP, SAFMIN, SAFMAX, C1, TEMPR;
       Complex :: S, S1, TEMP;
 
       // External Functions
       // EXTERNAL :: XERBLA, CLAQZ0, CLAQZ1, CLACPY, CLASET, CGEMM, CTGEXC, CLARTG, CROT
-      REAL, EXTERNAL :: SLAMCH;
+      double, EXTERNAL :: SLAMCH;
 
       INFO = 0;
 
@@ -58,7 +58,7 @@
       SAFMIN = SLAMCH( 'SAFE MINIMUM' );
       SAFMAX = ONE/SAFMIN;
       ULP = SLAMCH( 'PRECISION' );
-      SMLNUM = SAFMIN*( REAL( N )/ULP );
+      SMLNUM = SAFMIN*( double( N )/ULP );
 
       if ( IHI == KWTOP ) {
          // 1 by 1 deflation window, just try a regular deflation

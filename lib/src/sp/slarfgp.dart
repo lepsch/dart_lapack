@@ -6,21 +6,21 @@
 
       // .. Scalar Arguments ..
       int                INCX, N;
-      REAL               ALPHA, TAU;
+      double               ALPHA, TAU;
       // ..
       // .. Array Arguments ..
-      REAL               X( * );
+      double               X( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               TWO, ONE, ZERO;
+      double               TWO, ONE, ZERO;
       const              TWO = 2.0, ONE = 1.0, ZERO = 0.0 ;
       // ..
       // .. Local Scalars ..
       int                J, KNT;
-      REAL               BETA, BIGNUM, EPS, SAVEALPHA, SMLNUM, XNORM;
+      double               BETA, BIGNUM, EPS, SAVEALPHA, SMLNUM, XNORM;
       // ..
       // .. External Functions ..
       //- REAL               SLAMCH, SLAPY2, SNRM2;

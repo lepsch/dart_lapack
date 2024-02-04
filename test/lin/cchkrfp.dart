@@ -21,7 +21,7 @@
       bool               FATAL, TSTERR;
       int                VERS_MAJOR, VERS_MINOR, VERS_PATCH;
       int                I, NN, NNS, NNT;
-      REAL               EPS, S1, S2, THRESH;
+      double               EPS, S1, S2, THRESH;
 
       // ..
       // .. Local Arrays ..
@@ -40,11 +40,11 @@
       Complex            C_WORK_CLATMS( 3 * NMAX );
       Complex            C_WORK_CPOT02( NMAX, MAXRHS );
       Complex            C_WORK_CPOT03( NMAX, NMAX );
-      REAL               S_WORK_CLATMS( NMAX );
-      REAL               S_WORK_CLANHE( NMAX );
-      REAL               S_WORK_CPOT01( NMAX );
-      REAL               S_WORK_CPOT02( NMAX );
-      REAL               S_WORK_CPOT03( NMAX );
+      double               S_WORK_CLATMS( NMAX );
+      double               S_WORK_CLANHE( NMAX );
+      double               S_WORK_CPOT01( NMAX );
+      double               S_WORK_CPOT02( NMAX );
+      double               S_WORK_CPOT03( NMAX );
       // ..
       // .. External Functions ..
       //- REAL               SLAMCH, SECOND;

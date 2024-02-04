@@ -5,7 +5,7 @@
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
-      REAL ALPHA;
+      double ALPHA;
       int     INCX,N;
       String    UPLO;
       // ..
@@ -51,7 +51,7 @@
 
       // Quick return if possible.
 
-      if ((N == 0) || (ALPHA == REAL(ZERO))) return;
+      if ((N == 0) || (ALPHA == double(ZERO))) return;
 
       // Set the start point in X if the increment is not unity.
 
@@ -78,9 +78,9 @@
                           AP[K] = AP(K) + X(I)*TEMP;
                           K = K + 1;
                       } // 10
-                      AP[KK+J-1] = REAL(AP(KK+J-1)) + REAL(X(J)*TEMP);
+                      AP[KK+J-1] = REAL(AP(KK+J-1)) + double(X(J)*TEMP);
                   } else {
-                      AP[KK+J-1] = REAL(AP(KK+J-1));
+                      AP[KK+J-1] = double(AP(KK+J-1));
                   }
                   KK = KK + J;
               } // 20
@@ -94,9 +94,9 @@
                           AP[K] = AP(K) + X(IX)*TEMP;
                           IX = IX + INCX;
                       } // 30
-                      AP[KK+J-1] = REAL(AP(KK+J-1)) + REAL(X(JX)*TEMP);
+                      AP[KK+J-1] = REAL(AP(KK+J-1)) + double(X(JX)*TEMP);
                   } else {
-                      AP[KK+J-1] = REAL(AP(KK+J-1));
+                      AP[KK+J-1] = double(AP(KK+J-1));
                   }
                   JX = JX + INCX;
                   KK = KK + J;
@@ -110,14 +110,14 @@
               for (J = 1; J <= N; J++) { // 60
                   if (X(J) != ZERO) {
                       TEMP = ALPHA*CONJG(X(J));
-                      AP[KK] = REAL(AP(KK)) + REAL(TEMP*X(J));
+                      AP[KK] = REAL(AP(KK)) + double(TEMP*X(J));
                       K = KK + 1;
                       for (I = J + 1; I <= N; I++) { // 50
                           AP[K] = AP(K) + X(I)*TEMP;
                           K = K + 1;
                       } // 50
                   } else {
-                      AP[KK] = REAL(AP(KK));
+                      AP[KK] = double(AP(KK));
                   }
                   KK = KK + N - J + 1;
               } // 60
@@ -126,14 +126,14 @@
               for (J = 1; J <= N; J++) { // 80
                   if (X(JX) != ZERO) {
                       TEMP = ALPHA*CONJG(X(JX));
-                      AP[KK] = REAL(AP(KK)) + REAL(TEMP*X(JX));
+                      AP[KK] = REAL(AP(KK)) + double(TEMP*X(JX));
                       IX = JX;
                       for (K = KK + 1; K <= KK + N - J; K++) { // 70
                           IX = IX + INCX;
                           AP[K] = AP(K) + X(IX)*TEMP;
                       } // 70
                   } else {
-                      AP[KK] = REAL(AP(KK));
+                      AP[KK] = double(AP(KK));
                   }
                   JX = JX + INCX;
                   KK = KK + N - J + 1;

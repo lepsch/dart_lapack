@@ -1,7 +1,7 @@
       void sebchvxx(THRESH, PATH ) {
       // IMPLICIT NONE
       // .. Scalar Arguments ..
-      REAL               THRESH;
+      double               THRESH;
       String             PATH;
 
       int                NMAX, NPARAMS, NERRBND, NTESTS, KL, KU;
@@ -13,10 +13,10 @@
       String             C2;
       String   (3)       NGUAR, CGUAR;
       bool               printed_guide;
-      REAL               NCOND, CCOND, M, NORMDIF, NORMT, RCOND, RNORM, RINORM, SUMR, SUMRI, EPS, BERR(NMAX), RPVGRW, ORCOND, CWISE_ERR, NWISE_ERR, CWISE_BND, NWISE_BND, CWISE_RCOND, NWISE_RCOND, CONDTHRESH, ERRTHRESH;
+      double               NCOND, CCOND, M, NORMDIF, NORMT, RCOND, RNORM, RINORM, SUMR, SUMRI, EPS, BERR(NMAX), RPVGRW, ORCOND, CWISE_ERR, NWISE_ERR, CWISE_BND, NWISE_BND, CWISE_RCOND, NWISE_RCOND, CONDTHRESH, ERRTHRESH;
 
       // .. Local Arrays ..
-      REAL               TSTRAT(NTESTS), RINV(NMAX), PARAMS(NPARAMS), A(NMAX, NMAX), ACOPY(NMAX, NMAX), INVHILB(NMAX, NMAX), R(NMAX), C(NMAX), S(NMAX), WORK(NMAX * 5), B(NMAX, NMAX), X(NMAX, NMAX), DIFF(NMAX, NMAX), AF(NMAX, NMAX), AB( (NMAX-1)+(NMAX-1)+1, NMAX ), ABCOPY( (NMAX-1)+(NMAX-1)+1, NMAX ), AFB( 2*(NMAX-1)+(NMAX-1)+1, NMAX ), ERRBND_N(NMAX*3), ERRBND_C(NMAX*3);
+      double               TSTRAT(NTESTS), RINV(NMAX), PARAMS(NPARAMS), A(NMAX, NMAX), ACOPY(NMAX, NMAX), INVHILB(NMAX, NMAX), R(NMAX), C(NMAX), S(NMAX), WORK(NMAX * 5), B(NMAX, NMAX), X(NMAX, NMAX), DIFF(NMAX, NMAX), AF(NMAX, NMAX), AB( (NMAX-1)+(NMAX-1)+1, NMAX ), ABCOPY( (NMAX-1)+(NMAX-1)+1, NMAX ), AFB( 2*(NMAX-1)+(NMAX-1)+1, NMAX ), ERRBND_N(NMAX*3), ERRBND_C(NMAX*3);
       int                IWORK(NMAX), IPIV(NMAX);
 
       // .. External Functions ..
@@ -60,7 +60,7 @@
          KL = N-1;
          KU = N-1;
          NRHS = n;
-         M = max(sqrt(REAL(N)), 10.0);
+         M = max(sqrt(double(N)), 10.0);
 
          // Generate the Hilbert matrix, its inverse, and the
          // right hand side, all scaled by the LCM(1,..,2N-1).

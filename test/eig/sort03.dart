@@ -7,21 +7,21 @@
       // .. Scalar Arguments ..
       List<String>       RC;
       int                INFO, K, LDU, LDV, LWORK, MU, MV, N;
-      REAL               RESULT;
+      double               RESULT;
       // ..
       // .. Array Arguments ..
-      REAL               U( LDU, * ), V( LDV, * ), WORK( * );
+      double               U( LDU, * ), V( LDV, * ), WORK( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
       int                I, IRC, J, LMX;
-      REAL               RES1, RES2, S, ULP;
+      double               RES1, RES2, S, ULP;
       // ..
       // .. External Functions ..
       //- bool               lsame;

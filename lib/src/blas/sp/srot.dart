@@ -5,17 +5,17 @@
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
-      REAL C,S;
+      double C,S;
       int     INCX,INCY,N;
       // ..
       // .. Array Arguments ..
-      REAL SX(*),SY(*);
+      double SX(*),SY(*);
       // ..
 
 // =====================================================================
 
       // .. Local Scalars ..
-      REAL STEMP;
+      double STEMP;
       int     I,IX,IY;
       // ..
       if (N <= 0) return;

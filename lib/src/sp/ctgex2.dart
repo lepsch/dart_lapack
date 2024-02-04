@@ -17,7 +17,7 @@
       // .. Parameters ..
       Complex            CZERO, CONE;
       const              CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
-      REAL               TWENTY;
+      double               TWENTY;
       const              TWENTY = 2.0e+1 ;
       int                LDST;
       const              LDST = 2 ;
@@ -27,7 +27,7 @@
       // .. Local Scalars ..
       bool               STRONG, WEAK;
       int                I, M;
-      REAL               CQ, CZ, EPS, SA, SB, SCALE, SMLNUM, SUM, THRESHA, THRESHB;
+      double               CQ, CZ, EPS, SA, SB, SCALE, SMLNUM, SUM, THRESHA, THRESHB;
       Complex            CDUM, F, G, SQ, SZ;
       // ..
       // .. Local Arrays ..
@@ -64,8 +64,8 @@
 
       EPS = SLAMCH( 'P' );
       SMLNUM = SLAMCH( 'S' ) / EPS;
-      SCALE = REAL( CZERO );
-      SUM = REAL( CONE );
+      SCALE = double( CZERO );
+      SUM = double( CONE );
       clacpy('Full', M, M, S, LDST, WORK, M );
       clacpy('Full', M, M, T, LDST, WORK( M*M+1 ), M );
       classq(M*M, WORK, 1, SCALE, SUM );

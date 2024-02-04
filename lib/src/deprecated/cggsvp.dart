@@ -7,11 +7,11 @@
       // .. Scalar Arguments ..
       String             JOBQ, JOBU, JOBV;
       int                INFO, K, L, LDA, LDB, LDQ, LDU, LDV, M, N, P;
-      REAL               TOLA, TOLB;
+      double               TOLA, TOLB;
       // ..
       // .. Array Arguments ..
       int                IWORK( * );
-      REAL               RWORK( * );
+      double               RWORK( * );
       Complex            A( LDA, * ), B( LDB, * ), Q( LDQ, * ), TAU( * ), U( LDU, * ), V( LDV, * ), WORK( * );
       // ..
 
@@ -37,10 +37,10 @@
       // INTRINSIC ABS, AIMAG, MAX, MIN, REAL
       // ..
       // .. Statement Functions ..
-      REAL               CABS1;
+      double               CABS1;
       // ..
       // .. Statement Function definitions ..
-      CABS1[T] = ( REAL( T ) ).abs() + ( AIMAG( T ) ).abs();
+      CABS1[T] = ( double( T ) ).abs() + ( AIMAG( T ) ).abs();
       // ..
       // .. Executable Statements ..
 

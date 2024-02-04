@@ -9,21 +9,21 @@
       int                ITYPE, LDA, LDB, LDZ, M, N;
       // ..
       // .. Array Arguments ..
-      REAL               D( * ), RESULT( * ), RWORK( * );
+      double               D( * ), RESULT( * ), RWORK( * );
       Complex            A( LDA, * ), B( LDB, * ), WORK( * ), Z( LDZ, * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       Complex            CZERO, CONE;
       const              CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
       int                I;
-      REAL               ANORM, ULP;
+      double               ANORM, ULP;
       // ..
       // .. External Functions ..
       //- REAL               CLANGE, CLANHE, SLAMCH;

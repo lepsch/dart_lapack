@@ -7,33 +7,33 @@
       // .. Scalar Arguments ..
       bool               COMP;
       int                INFO, JTYPE, LDA, LDVS, LWORK, N, NOUNIT, NSLCT;
-      REAL               RCDEIN, RCDVIN, THRESH;
+      double               RCDEIN, RCDVIN, THRESH;
       // ..
       // .. Array Arguments ..
       bool               BWORK( * );
       int                ISEED( 4 ), ISLCT( * ), IWORK( * );
-      REAL               A( LDA, * ), H( LDA, * ), HT( LDA, * ), RESULT( 17 ), VS( LDVS, * ), VS1( LDVS, * ), WI( * ), WIT( * ), WITMP( * ), WORK( * ), WR( * ), WRT( * ), WRTMP( * );
+      double               A( LDA, * ), H( LDA, * ), HT( LDA, * ), RESULT( 17 ), VS( LDVS, * ), VS1( LDVS, * ), WI( * ), WIT( * ), WITMP( * ), WORK( * ), WR( * ), WRT( * ), WRTMP( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
-      REAL               EPSIN;
+      double               EPSIN;
       const              EPSIN = 5.9605e-8 ;
       // ..
       // .. Local Scalars ..
       String             SORT;
       int                I, IINFO, ISORT, ITMP, J, KMIN, KNTEIG, LIWORK, RSUB, SDIM, SDIM1;
-      REAL               ANORM, EPS, RCNDE1, RCNDV1, RCONDE, RCONDV, SMLNUM, TMP, TOL, TOLIN, ULP, ULPINV, V, VIMIN, VRMIN, WNORM;
+      double               ANORM, EPS, RCNDE1, RCNDV1, RCONDE, RCONDV, SMLNUM, TMP, TOL, TOLIN, ULP, ULPINV, V, VIMIN, VRMIN, WNORM;
       // ..
       // .. Local Arrays ..
       int                IPNT( 20 );
       // ..
       // .. Arrays in Common ..
       bool               SELVAL( 20 );
-      REAL               SELWI( 20 ), SELWR( 20 );
+      double               SELWI( 20 ), SELWR( 20 );
       // ..
       // .. Scalars in Common ..
       int                SELDIM, SELOPT;
@@ -481,7 +481,7 @@
          // taking its condition number into account
 
          ANORM = SLANGE( '1', N, N, A, LDA, WORK );
-         V = max( REAL( N )*EPS*ANORM, SMLNUM );
+         V = max( double( N )*EPS*ANORM, SMLNUM );
          if (ANORM == ZERO) V = ONE;
          if ( V > RCONDV ) {
             TOL = ONE;

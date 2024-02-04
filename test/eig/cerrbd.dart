@@ -20,7 +20,7 @@
       int                I, INFO, J, NT;
       // ..
       // .. Local Arrays ..
-      REAL               D( NMAX ), E( NMAX ), RW( 4*NMAX );
+      double               D( NMAX ), E( NMAX ), RW( 4*NMAX );
       Complex            A( NMAX, NMAX ), TP( NMAX ), TQ( NMAX ), U( NMAX, NMAX ), V( NMAX, NMAX ), W( LW );
       // ..
       // .. External Functions ..

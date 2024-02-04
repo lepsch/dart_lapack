@@ -7,25 +7,25 @@
       // .. Scalar Arguments ..
       String             BALANC, JOBVL, JOBVR, SENSE;
       int                IHI, ILO, INFO, LDA, LDB, LDVL, LDVR, LWORK, N;
-      REAL               ABNRM, BBNRM;
+      double               ABNRM, BBNRM;
       // ..
       // .. Array Arguments ..
       bool               BWORK( * );
       int                IWORK( * );
-      REAL               A( LDA, * ), ALPHAI( * ), ALPHAR( * ), B( LDB, * ), BETA( * ), LSCALE( * ), RCONDE( * ), RCONDV( * ), RSCALE( * ), VL( LDVL, * ), VR( LDVR, * ), WORK( * );
+      double               A( LDA, * ), ALPHAI( * ), ALPHAR( * ), B( LDB, * ), BETA( * ), LSCALE( * ), RCONDE( * ), RCONDV( * ), RSCALE( * ), VL( LDVL, * ), VR( LDVR, * ), WORK( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
       bool               ILASCL, ILBSCL, ILV, ILVL, ILVR, LQUERY, NOSCL, PAIR, WANTSB, WANTSE, WANTSN, WANTSV;
       String             CHTEMP;
       int                I, ICOLS, IERR, IJOBVL, IJOBVR, IN, IROWS, ITAU, IWRK, IWRK1, J, JC, JR, M, MAXWRK, MINWRK, MM;
-      REAL               ANRM, ANRMTO, BIGNUM, BNRM, BNRMTO, EPS, SMLNUM, TEMP;
+      double               ANRM, ANRMTO, BIGNUM, BNRM, BNRMTO, EPS, SMLNUM, TEMP;
       // ..
       // .. Local Arrays ..
       bool               LDUMMA( 1 );

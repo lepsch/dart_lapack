@@ -1,4 +1,4 @@
-      REAL slanst(NORM, N, D, E ) {
+      double slanst(NORM, N, D, E ) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -9,18 +9,18 @@
       int                N;
       // ..
       // .. Array Arguments ..
-      REAL               D( * ), E( * );
+      double               D( * ), E( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ONE, ZERO;
+      double               ONE, ZERO;
       const              ONE = 1.0, ZERO = 0.0 ;
       // ..
       // .. Local Scalars ..
       int                I;
-      REAL               ANORM, SCALE, SUM;
+      double               ANORM, SCALE, SUM;
       // ..
       // .. External Functions ..
       //- bool               lsame, SISNAN;

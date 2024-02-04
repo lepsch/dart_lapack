@@ -14,12 +14,12 @@
 // =====================================================================
 
       // .. Parameters ..
-      REAL               TWO;
+      double               TWO;
       const              TWO = 2.0 ;
       // ..
       // .. Local Scalars ..
       int                I, IL, IR, LLST, MAXN, NCRNT, NLVL;
-      REAL               TEMP;
+      double               TEMP;
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC INT, LOG, MAX, REAL
@@ -29,7 +29,7 @@
       // Find the number of levels on the tree.
 
       MAXN = max( 1, N );
-      TEMP = LOG( REAL( MAXN ) / REAL( MSUB+1 ) ) / LOG( TWO );
+      TEMP = LOG( double( MAXN ) / REAL( MSUB+1 ) ) / LOG( TWO );
       LVL = INT( TEMP ) + 1;
 
       I = N / 2;

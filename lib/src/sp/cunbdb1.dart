@@ -27,7 +27,7 @@
       int                INFO, LWORK, M, P, Q, LDX11, LDX21;
       // ..
       // .. Array Arguments ..
-      REAL               PHI(*), THETA(*);
+      double               PHI(*), THETA(*);
       Complex            TAUP1(*), TAUP2(*), TAUQ1(*), WORK(*), X11(LDX11,*), X21(LDX21,*);
       // ..
 
@@ -38,7 +38,7 @@
       const              ONE = (1.0,0.0) ;
       // ..
       // .. Local Scalars ..
-      REAL               C, S;
+      double               C, S;
       int                CHILDINFO, I, ILARF, IORBDB5, LLARF, LORBDB5, LWORKMIN, LWORKOPT;
       bool               LQUERY;
       // ..
@@ -99,7 +99,7 @@
 
          clarfgp(P-I+1, X11(I,I), X11(I+1,I), 1, TAUP1(I) );
          clarfgp(M-P-I+1, X21(I,I), X21(I+1,I), 1, TAUP2(I) );
-         THETA[I] = ATAN2( REAL( X21(I,I) ), REAL( X11(I,I) ) );
+         THETA[I] = ATAN2( REAL( X21(I,I) ), double( X11(I,I) ) );
          C = COS( THETA(I) );
          S = SIN( THETA(I) );
          X11[I,I] = ONE;
@@ -111,7 +111,7 @@
             csrot(Q-I, X11(I,I+1), LDX11, X21(I,I+1), LDX21, C, S );
             clacgv(Q-I, X21(I,I+1), LDX21 );
             clarfgp(Q-I, X21(I,I+1), X21(I,I+2), LDX21, TAUQ1(I) );
-            S = REAL( X21(I,I+1) );
+            S = double( X21(I,I+1) );
             X21[I,I+1] = ONE;
             clarf('R', P-I, Q-I, X21(I,I+1), LDX21, TAUQ1(I), X11(I+1,I+1), LDX11, WORK(ILARF) );
             clarf('R', M-P-I, Q-I, X21(I,I+1), LDX21, TAUQ1(I), X21(I+1,I+1), LDX21, WORK(ILARF) );

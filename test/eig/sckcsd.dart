@@ -6,12 +6,12 @@
 
       // .. Scalar Arguments ..
       int                INFO, NIN, NM, NMATS, MMAX, NOUT;
-      REAL               THRESH;
+      double               THRESH;
       // ..
       // .. Array Arguments ..
       int                ISEED( 4 ), IWORK( * ), MVAL( * ), PVAL( * ), QVAL( * );
-      REAL               RWORK( * ), THETA( * );
-      REAL               U1( * ), U2( * ), V1T( * ), V2T( * ), WORK( * ), X( * ), XF( * );
+      double               RWORK( * ), THETA( * );
+      double               U1( * ), U2( * ), V1T( * ), V2T( * ), WORK( * ), X( * ), XF( * );
       // ..
 
 // =====================================================================
@@ -21,9 +21,9 @@
       const              NTESTS = 15 ;
       int                NTYPES;
       const              NTYPES = 4 ;
-      REAL               GAPDIGIT, ONE, ORTH, TEN, ZERO;
+      double               GAPDIGIT, ONE, ORTH, TEN, ZERO;
       const              GAPDIGIT = 10.0, ONE = 1.0, ORTH = 1.0e-4, TEN = 10.0, ZERO = 0.0 ;
-      REAL               PIOVER2;
+      double               PIOVER2;
       const     PIOVER2 = 1.57079632679489661923132169163975144210 ;
       // ..
       // .. Local Scalars ..
@@ -33,7 +33,7 @@
       // ..
       // .. Local Arrays ..
       bool               DOTYPE( NTYPES );
-      REAL               RESULT( NTESTS );
+      double               RESULT( NTESTS );
       // ..
       // .. External Subroutines ..
       // EXTERNAL ALAHDG, ALAREQ, ALASUM, SCSDTS, SLACSG, SLAROR, SLASET, SROT
@@ -154,10 +154,10 @@
 
       int                LDX, M, P, Q;
       int                ISEED( 4 );
-      REAL               THETA( * );
-      REAL               WORK( * ), X( LDX, * );
+      double               THETA( * );
+      double               WORK( * ), X( LDX, * );
 
-      REAL               ONE, ZERO;
+      double               ONE, ZERO;
       const              ONE = 1.0, ZERO = 0.0 ;
 
       int                I, INFO, R;

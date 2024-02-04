@@ -6,22 +6,22 @@
 
       // .. Scalar Arguments ..
       int                LDA, M, N, SCALE;
-      REAL               NORMA;
+      double               NORMA;
       // ..
       // .. Array Arguments ..
       int                ISEED( 4 );
-      REAL               A( LDA, * );
+      double               A( LDA, * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ONE;
+      double               ONE;
       const              ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
       int                INFO, J;
-      REAL               BIGNUM, SMLNUM;
+      double               BIGNUM, SMLNUM;
       // ..
       // .. External Functions ..
       //- REAL               SASUM, SLAMCH, SLANGE;
@@ -34,7 +34,7 @@
       // INTRINSIC SIGN
       // ..
       // .. Local Arrays ..
-      REAL               DUMMY( 1 );
+      double               DUMMY( 1 );
       // ..
       // .. Executable Statements ..
 

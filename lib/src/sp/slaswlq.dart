@@ -58,7 +58,7 @@
       int                INFO, LDA, M, N, MB, NB, LWORK, LDT;
       // ..
       // .. Array Arguments ..
-      REAL               A( LDA, * ), WORK( * ), T( LDT, * );
+      double               A( LDA, * ), WORK( * ), T( LDT, * );
       // ..
 
 // =====================================================================
@@ -71,7 +71,7 @@
       // .. EXTERNAL FUNCTIONS ..
       //- bool               lsame;
       // EXTERNAL lsame
-      REAL               SROUNDUP_LWORK;
+      double               SROUNDUP_LWORK;
       // EXTERNAL SROUNDUP_LWORK
       // ..
       // .. EXTERNAL SUBROUTINES ..

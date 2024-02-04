@@ -7,12 +7,12 @@
       // .. Scalar Arguments ..
       bool               TSTERR;
       int                NMAX, NN, NNB, NNS, NOUT;
-      REAL               THRESH;
+      double               THRESH;
       // ..
       // .. Array Arguments ..
       bool               DOTYPE( * );
       int                NBVAL( * ), NSVAL( * ), NVAL( * );
-      REAL               RWORK( * );
+      double               RWORK( * );
       Complex            A( * ), AINV( * ), B( * ), WORK( * ), X( * ), XACT( * );
       // ..
 
@@ -25,19 +25,19 @@
       const              NTESTS = 10 ;
       int                NTRAN;
       const              NTRAN = 3 ;
-      REAL               ONE, ZERO;
+      double               ONE, ZERO;
       const              ONE = 1.0, ZERO = 0.0 ;
       // ..
       // .. Local Scalars ..
       String             DIAG, NORM, TRANS, UPLO, XTYPE;
       String             PATH;
       int                I, IDIAG, IMAT, IN, INB, INFO, IRHS, ITRAN, IUPLO, K, LDA, N, NB, NERRS, NFAIL, NRHS, NRUN;
-      REAL               AINVNM, ANORM, BIGNUM, DUMMY, RCOND, RCONDC, RCONDI, RCONDO, RES, SCALE, SLAMCH;
+      double               AINVNM, ANORM, BIGNUM, DUMMY, RCOND, RCONDC, RCONDI, RCONDO, RES, SCALE, SLAMCH;
       // ..
       // .. Local Arrays ..
       String             TRANSS( NTRAN ), UPLOS( 2 );
       int                ISEED( 4 ), ISEEDY( 4 );
-      REAL               RESULT( NTESTS ), RWORK2( 2*NMAX ), SCALE3( 2 );
+      double               RESULT( NTESTS ), RWORK2( 2*NMAX ), SCALE3( 2 );
       // ..
       // .. External Functions ..
       //- bool               lsame;
@@ -195,7 +195,7 @@
 
                         // This line is needed on a Sun SPARCstation.
 
-                        if (N > 0) DUMMY = REAL( A( 1 ) );
+                        if (N > 0) DUMMY = double( A( 1 ) );
 
                         ctrt02(UPLO, TRANS, DIAG, N, NRHS, A, LDA, X, LDA, B, LDA, WORK, RWORK, RESULT( 2 ) );
 

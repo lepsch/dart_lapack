@@ -16,7 +16,7 @@
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ONE;
+      double               ONE;
       Complex            CONE, ZERO;
       const              ONE = 1.0, CONE = ( 1.0, 0.0 ), ZERO = ( 0.0, 0.0 ) ;
       // ..
@@ -116,8 +116,8 @@
          } else {
             // 2 x 2 diagonal NNB
              T = ( WORK(K+1,1) ).abs();
-             AK = REAL ( A( K, K ) ) / T;
-             AKP1 = REAL ( A( K+1, K+1 ) ) / T;
+             AK = double ( A( K, K ) ) / T;
+             AKP1 = double ( A( K+1, K+1 ) ) / T;
              AKKP1 = WORK(K+1,1)  / T;
              D = T*( AK*AKP1-ONE );
              WORK[K,INVD] = AKP1 / D;
@@ -282,8 +282,8 @@
          } else {
             // 2 x 2 diagonal NNB
              T = ( WORK(K-1,1) ).abs();
-             AK = REAL ( A( K-1, K-1 ) ) / T;
-             AKP1 = REAL ( A( K, K ) ) / T;
+             AK = double ( A( K-1, K-1 ) ) / T;
+             AKP1 = double ( A( K, K ) ) / T;
              AKKP1 = WORK(K-1,1) / T;
              D = T*( AK*AKP1-ONE );
              WORK[K-1,INVD] = AKP1 / D;

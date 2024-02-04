@@ -1,4 +1,4 @@
-      REAL cla_porpvgrw(UPLO, NCOLS, A, LDA, AF, LDAF, WORK ) {
+      double cla_porpvgrw(UPLO, NCOLS, A, LDA, AF, LDAF, WORK ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -10,14 +10,14 @@
       // ..
       // .. Array Arguments ..
       Complex            A( LDA, * ), AF( LDAF, * );
-      REAL               WORK( * );
+      double               WORK( * );
       // ..
 
 // =====================================================================
 
       // .. Local Scalars ..
       int                I, J;
-      REAL               AMAX, UMAX, RPVGRW;
+      double               AMAX, UMAX, RPVGRW;
       bool               UPPER;
       Complex            ZDUM;
       // ..
@@ -29,10 +29,10 @@
       // INTRINSIC ABS, MAX, MIN, REAL, AIMAG
       // ..
       // .. Statement Functions ..
-      REAL               CABS1;
+      double               CABS1;
       // ..
       // .. Statement Function Definitions ..
-      CABS1[ZDUM] = ( REAL( ZDUM ) ).abs() + ( AIMAG( ZDUM ) ).abs();
+      CABS1[ZDUM] = ( double( ZDUM ) ).abs() + ( AIMAG( ZDUM ) ).abs();
       // ..
       // .. Executable Statements ..
       UPPER = lsame( 'Upper', UPLO );

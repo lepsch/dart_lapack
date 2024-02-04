@@ -8,7 +8,7 @@
       int                INFO, LDA, LDSA, M, N;
       // ..
       // .. Array Arguments ..
-      REAL               SA( LDSA, * );
+      double               SA( LDSA, * );
       double             A( LDA, * );
       // ..
 
@@ -34,7 +34,7 @@
                INFO = 1;
                GO TO 30;
             }
-            SA[I, J] = REAL( A( I, J ) );
+            SA[I, J] = double( A( I, J ) );
          } // 10
       } // 20
       INFO = 0;

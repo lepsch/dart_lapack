@@ -9,16 +9,16 @@
       bool               WANTT, WANTZ;
       // ..
       // .. Array Arguments ..
-      REAL               H( LDH, * ), SI( * ), SR( * ), T( LDT, * ), V( LDV, * ), WORK( * ), WV( LDWV, * ), Z( LDZ, * );
+      double               H( LDH, * ), SI( * ), SR( * ), T( LDT, * ), V( LDV, * ), WORK( * ), WV( LDWV, * ), Z( LDZ, * );
       // ..
 
 // ================================================================
       // .. Parameters ..
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
-      REAL               AA, BB, BETA, CC, CS, DD, EVI, EVK, FOO, S, SAFMAX, SAFMIN, SMLNUM, SN, TAU, ULP;
+      double               AA, BB, BETA, CC, CS, DD, EVI, EVK, FOO, S, SAFMAX, SAFMIN, SMLNUM, SN, TAU, ULP;
       int                I, IFST, ILST, INFO, INFQR, J, JW, K, KCOL, KEND, KLN, KROW, KWTOP, LTOP, LWK1, LWK2, LWKOPT;
       bool               BULGE, SORTED;
       // ..
@@ -77,7 +77,7 @@
       SAFMIN = SLAMCH( 'SAFE MINIMUM' );
       SAFMAX = ONE / SAFMIN;
       ULP = SLAMCH( 'PRECISION' );
-      SMLNUM = SAFMIN*( REAL( N ) / ULP );
+      SMLNUM = SAFMIN*( double( N ) / ULP );
 
       // ==== Setup deflation window ====
 

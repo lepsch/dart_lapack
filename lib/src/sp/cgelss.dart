@@ -6,17 +6,17 @@
 
       // .. Scalar Arguments ..
       int                INFO, LDA, LDB, LWORK, M, N, NRHS, RANK;
-      REAL               RCOND;
+      double               RCOND;
       // ..
       // .. Array Arguments ..
-      REAL               RWORK( * ), S( * );
+      double               RWORK( * ), S( * );
       Complex            A( LDA, * ), B( LDB, * ), WORK( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       Complex            CZERO, CONE;
       const              CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
@@ -25,7 +25,7 @@
       bool               LQUERY;
       int                BL, CHUNK, I, IASCL, IBSCL, IE, IL, IRWORK, ITAU, ITAUP, ITAUQ, IWORK, LDWORK, MAXMN, MAXWRK, MINMN, MINWRK, MM, MNTHR;
       int                LWORK_CGEQRF, LWORK_CUNMQR, LWORK_CGEBRD, LWORK_CUNMBR, LWORK_CUNGBR, LWORK_CUNMLQ, LWORK_CGELQF;
-      REAL               ANRM, BIGNUM, BNRM, EPS, SFMIN, SMLNUM, THR;
+      double               ANRM, BIGNUM, BNRM, EPS, SFMIN, SMLNUM, THR;
       // ..
       // .. Local Arrays ..
       Complex            DUM( 1 );

@@ -1,4 +1,4 @@
-      REAL sasum(N,SX,INCX) {
+      double sasum(N,SX,INCX) {
 
 // -- Reference BLAS level1 routine --
 // -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
@@ -8,13 +8,13 @@
       int     INCX,N;
       // ..
       // .. Array Arguments ..
-      REAL SX(*);
+      double SX(*);
       // ..
 
 // =====================================================================
 
       // .. Local Scalars ..
-      REAL STEMP;
+      double STEMP;
       int     I,M,MP1,NINCX;
       // ..
       // .. Intrinsic Functions ..

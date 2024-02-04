@@ -8,21 +8,21 @@
       int                LDA, LWORK, M, N;
       // ..
       // .. Array Arguments ..
-      REAL               RESULT( * ), RWORK( * );
+      double               RESULT( * ), RWORK( * );
       Complex            A( LDA, * ), AF( LDA, * ), Q( LDA, * ), R( LDA, * ), TAU( * ), WORK( LWORK );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       Complex            ROGUE;
       const              ROGUE = ( -1.0e+10, -1.0e+10 ) ;
       // ..
       // .. Local Scalars ..
       int                INFO, MINMN;
-      REAL               ANORM, EPS, RESID;
+      double               ANORM, EPS, RESID;
       // ..
       // .. External Functions ..
       //- REAL               CLANGE, CLANSY, SLAMCH;

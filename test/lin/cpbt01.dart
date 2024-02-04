@@ -7,10 +7,10 @@
       // .. Scalar Arguments ..
       String             UPLO;
       int                KD, LDA, LDAFAC, N;
-      REAL               RESID;
+      double               RESID;
       // ..
       // .. Array Arguments ..
-      REAL               RWORK( * );
+      double               RWORK( * );
       Complex            A( LDA, * ), AFAC( LDAFAC, * );
       // ..
 
@@ -18,12 +18,12 @@
 
 
       // .. Parameters ..
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
       int                I, J, K, KC, KLEN, ML, MU;
-      REAL               AKK, ANORM, EPS;
+      double               AKK, ANORM, EPS;
       // ..
       // .. External Functions ..
       //- bool               lsame;
@@ -83,7 +83,7 @@
 
             // Compute the (K,K) element of the result.
 
-            AKK = REAL( CDOTC( KLEN+1, AFAC( KC, K ), 1, AFAC( KC, K ), 1 ) );
+            AKK = double( CDOTC( KLEN+1, AFAC( KC, K ), 1, AFAC( KC, K ), 1 ) );
             AFAC[KD+1, K] = AKK;
 
             // Compute the rest of column K.
@@ -105,7 +105,7 @@
 
             // Scale column K by the diagonal element.
 
-            AKK = REAL( AFAC( 1, K ) );
+            AKK = double( AFAC( 1, K ) );
             csscal(KLEN+1, AKK, AFAC( 1, K ), 1 );
 
          } // 40

@@ -10,14 +10,14 @@
       // ..
       // .. Array Arguments ..
       int                K( * );
-      REAL               X( LDX, * );
+      double               X( LDX, * );
       // ..
 
 // =====================================================================
 
       // .. Local Scalars ..
       int                I, II, J, IN;
-      REAL               TEMP;
+      double               TEMP;
       // ..
       // .. Executable Statements ..
 

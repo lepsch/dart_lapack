@@ -7,21 +7,21 @@
       // .. Scalar Arguments ..
       String             TRANS, EQUED;
       int                INFO, LDAB, LDAFB, LDB, LDX, N, KL, KU, NRHS, NPARAMS, N_ERR_BNDS;
-      REAL               RCOND;
+      double               RCOND;
       // ..
       // .. Array Arguments ..
       int                IPIV( * );
       Complex            AB( LDAB, * ), AFB( LDAFB, * ), B( LDB, * ), X( LDX , * ),WORK( * );
-      REAL               R( * ), C( * ), PARAMS( * ), BERR( * ), ERR_BNDS_NORM( NRHS, * ), ERR_BNDS_COMP( NRHS, * ), RWORK( * );
+      double               R( * ), C( * ), PARAMS( * ), BERR( * ), ERR_BNDS_NORM( NRHS, * ), ERR_BNDS_COMP( NRHS, * ), RWORK( * );
       // ..
 
 // ==================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
-      REAL               ITREF_DEFAULT, ITHRESH_DEFAULT, COMPONENTWISE_DEFAULT;
-      REAL               RTHRESH_DEFAULT, DZTHRESH_DEFAULT;
+      double               ITREF_DEFAULT, ITHRESH_DEFAULT, COMPONENTWISE_DEFAULT;
+      double               RTHRESH_DEFAULT, DZTHRESH_DEFAULT;
       const              ITREF_DEFAULT = 1.0 ;
       const              ITHRESH_DEFAULT = 10.0 ;
       const              COMPONENTWISE_DEFAULT = 1.0 ;
@@ -38,7 +38,7 @@
       String   (1)       NORM;
       bool               ROWEQU, COLEQU, NOTRAN, IGNORE_CWISE;
       int                J, TRANS_TYPE, PREC_TYPE, REF_TYPE, N_NORMS, ITHRESH;
-      REAL               ANORM, RCOND_TMP, ILLRCOND_THRESH, ERR_LBND, CWISE_WRONG, RTHRESH, UNSTABLE_THRESH;
+      double               ANORM, RCOND_TMP, ILLRCOND_THRESH, ERR_LBND, CWISE_WRONG, RTHRESH, UNSTABLE_THRESH;
       // ..
       // .. External Subroutines ..
       // EXTERNAL XERBLA, CGBCON, CLA_GBRFSX_EXTENDED
@@ -49,7 +49,7 @@
       // .. External Functions ..
       // EXTERNAL lsame, ILATRANS, ILAPREC
       // EXTERNAL SLAMCH, CLANGB, CLA_GBRCOND_X, CLA_GBRCOND_C
-      REAL               SLAMCH, CLANGB, CLA_GBRCOND_X, CLA_GBRCOND_C;
+      double               SLAMCH, CLANGB, CLA_GBRCOND_X, CLA_GBRCOND_C;
       bool               lsame;
       int                ILATRANS, ILAPREC;
       // ..
@@ -70,7 +70,7 @@
 
       // Set default parameters.
 
-      ILLRCOND_THRESH = REAL( N ) * SLAMCH( 'Epsilon' );
+      ILLRCOND_THRESH = double( N ) * SLAMCH( 'Epsilon' );
       ITHRESH = INT( ITHRESH_DEFAULT );
       RTHRESH = RTHRESH_DEFAULT;
       UNSTABLE_THRESH = DZTHRESH_DEFAULT;
@@ -199,7 +199,7 @@
          }
       }
 
-      ERR_LBND = max( 10.0, sqrt( REAL( N ) ) ) * SLAMCH( 'Epsilon' );
+      ERR_LBND = max( 10.0, sqrt( double( N ) ) ) * SLAMCH( 'Epsilon' );
       if (N_ERR_BNDS >= 1 && N_NORMS >= 1) {
 
       // Compute scaled normwise condition number cond(A*C).

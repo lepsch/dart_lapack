@@ -9,19 +9,19 @@
       int                INFO, KD, LDAB, LDZ, N;
       // ..
       // .. Array Arguments ..
-      REAL               AB( LDAB, * ), W( * ), WORK( * ), Z( LDZ, * );
+      double               AB( LDAB, * ), W( * ), WORK( * ), Z( LDZ, * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE;
+      double               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
       bool               LOWER, WANTZ;
       int                IINFO, IMAX, INDE, INDWRK, ISCALE;
-      REAL               ANRM, BIGNUM, EPS, RMAX, RMIN, SAFMIN, SIGMA, SMLNUM;
+      double               ANRM, BIGNUM, EPS, RMAX, RMIN, SAFMIN, SIGMA, SMLNUM;
       // ..
       // .. External Functions ..
       //- bool               lsame;

@@ -10,13 +10,13 @@
       // ..
       // .. Array Arguments ..
       int                IPIV( * );
-      REAL               AB( LDAB, * ), B( LDB, * );
+      double               AB( LDAB, * ), B( LDB, * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      REAL               ONE;
+      double               ONE;
       const              ONE = 1.0 ;
       // ..
       // .. Local Scalars ..

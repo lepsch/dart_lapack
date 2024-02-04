@@ -8,7 +8,7 @@
       int                INFO, LDA, LDB, LWORK, M, N, P;
       // ..
       // .. Array Arguments ..
-      REAL               A( LDA, * ), B( LDB, * ), TAUA( * ), TAUB( * ), WORK( * );
+      double               A( LDA, * ), B( LDB, * ), TAUA( * ), TAUB( * ), WORK( * );
       // ..
 
 // =====================================================================
@@ -23,7 +23,7 @@
       // .. External Functions ..
       //- int                ILAENV;
       // EXTERNAL ILAENV
-      REAL               SROUNDUP_LWORK;
+      double               SROUNDUP_LWORK;
       // EXTERNAL SROUNDUP_LWORK
       // ..
       // .. Intrinsic Functions ..
