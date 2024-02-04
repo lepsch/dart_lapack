@@ -250,7 +250,7 @@
                } // 40
                X[I] = ONE;
                dpttrs(N, 1, D( N+1 ), E( N+1 ), X, LDA, INFO );
-               AINVNM = max( AINVNM, DASUM( N, X, 1 ) );
+               AINVNM = max( AINVNM, dasum( N, X, 1 ) );
             } // 50
             RCONDC = ONE / max( ONE, ANORM*AINVNM );
 

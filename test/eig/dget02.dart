@@ -73,8 +73,8 @@
 
       RESID = ZERO;
       for (J = 1; J <= NRHS; J++) { // 10
-         BNORM = DASUM( N1, B( 1, J ), 1 );
-         XNORM = DASUM( N2, X( 1, J ), 1 );
+         BNORM = dasum( N1, B( 1, J ), 1 );
+         XNORM = dasum( N2, X( 1, J ), 1 );
          if ( XNORM <= ZERO ) {
             RESID = ONE / EPS;
          } else {

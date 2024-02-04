@@ -93,14 +93,14 @@ import 'package:lapack/src/xerbla.dart';
             // A is upper triangular.
 
             for (J = 1; J <= N; J++) { // 10
-               CNORM[J] = DASUM( J-1, A( 1, J ), 1 );
+               CNORM[J] = dasum( J-1, A( 1, J ), 1 );
             } // 10
          } else {
 
             // A is lower triangular.
 
             for (J = 1; J <= N - 1; J++) { // 20
-               CNORM[J] = DASUM( N-J, A( J+1, J ), 1 );
+               CNORM[J] = dasum( N-J, A( J+1, J ), 1 );
             } // 20
             CNORM[N] = ZERO;
          }

@@ -227,7 +227,7 @@
             } else if (ICASE == 8) {
                // .. DASUM ..
                STEMP[1] = DTRUE3(NP1);
-               stest1(DASUM(N,SX,INCX),STEMP(1),STEMP,SFAC);
+               stest1(dasum(N,SX,INCX),STEMP(1),STEMP,SFAC);
             } else if (ICASE == 9) {
                // .. DSCAL ..
                dscal(N,SA((INCX-1)*5+NP1),SX,INCX);

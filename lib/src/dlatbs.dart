@@ -93,7 +93,7 @@ import 'package:lapack/src/xerbla.dart';
 
             for (J = 1; J <= N; J++) { // 10
                JLEN = min( KD, J-1 );
-               CNORM[J] = DASUM( JLEN, AB( KD+1-JLEN, J ), 1 );
+               CNORM[J] = dasum( JLEN, AB( KD+1-JLEN, J ), 1 );
             } // 10
          } else {
 
@@ -102,7 +102,7 @@ import 'package:lapack/src/xerbla.dart';
             for (J = 1; J <= N; J++) { // 20
                JLEN = min( KD, N-J );
                if ( JLEN > 0 ) {
-                  CNORM[J] = DASUM( JLEN, AB( 2, J ), 1 );
+                  CNORM[J] = dasum( JLEN, AB( 2, J ), 1 );
                } else {
                   CNORM[J] = ZERO;
                }

@@ -555,7 +555,7 @@
 
                         if ( RANK > 0 ) {
                            daxpy(MNMIN, -ONE, COPYS, 1, S, 1 );
-                           RESULT[11] = DASUM( MNMIN, S, 1 ) / DASUM( MNMIN, COPYS, 1 ) / ( EPS*MNMIN.toDouble() );
+                           RESULT[11] = dasum( MNMIN, S, 1 ) / dasum( MNMIN, COPYS, 1 ) / ( EPS*MNMIN.toDouble() );
                         } else {
                            RESULT[11] = ZERO;
                         }
@@ -597,7 +597,7 @@
 
                         if ( RANK > 0 ) {
                            daxpy(MNMIN, -ONE, COPYS, 1, S, 1 );
-                           RESULT[15] = DASUM( MNMIN, S, 1 ) / DASUM( MNMIN, COPYS, 1 ) / ( EPS*MNMIN.toDouble() );
+                           RESULT[15] = dasum( MNMIN, S, 1 ) / dasum( MNMIN, COPYS, 1 ) / ( EPS*MNMIN.toDouble() );
                         } else {
                            RESULT[15] = ZERO;
                         }

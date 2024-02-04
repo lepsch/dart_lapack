@@ -72,7 +72,7 @@ import 'package:lapack/src/xerbla.dart';
 
       WORK[1] = ZERO;
       for (J = 2; J <= N; J++) { // 10
-         WORK[J] = DASUM( J-1, T( 1, J ), 1 );
+         WORK[J] = dasum( J-1, T( 1, J ), 1 );
       } // 10
 
       if ( !LREAL ) {

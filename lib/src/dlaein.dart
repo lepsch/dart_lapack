@@ -167,7 +167,7 @@ import 'package:lapack/src/xerbla.dart';
 
             // Test for sufficient growth in the norm of v.
 
-            VNORM = DASUM( N, VR, 1 );
+            VNORM = dasum( N, VR, 1 );
             if (VNORM >= GROWTO*SCALE) GO TO 120;
 
             // Choose new orthogonal starting vector and try again.
@@ -267,7 +267,7 @@ import 'package:lapack/src/xerbla.dart';
 
                // Compute 1-norm of offdiagonal elements of i-th row.
 
-               WORK[I] = DASUM( N-I, B( I, I+1 ), LDB ) + DASUM( N-I, B( I+2, I ), 1 );
+               WORK[I] = dasum( N-I, B( I, I+1 ), LDB ) + dasum( N-I, B( I+2, I ), 1 );
             } // 170
             if( B( N, N ) == ZERO && B( N+1, N ) == ZERO ) B( N, N ) = EPS3;
             WORK[N] = ZERO;
@@ -330,7 +330,7 @@ import 'package:lapack/src/xerbla.dart';
 
                // Compute 1-norm of offdiagonal elements of j-th column.
 
-               WORK[J] = DASUM( J-1, B( 1, J ), 1 ) + DASUM( J-1, B( J+1, 1 ), LDB );
+               WORK[J] = dasum( J-1, B( 1, J ), 1 ) + dasum( J-1, B( J+1, 1 ), LDB );
             } // 210
             if( B( 1, 1 ) == ZERO && B( 2, 1 ) == ZERO ) B( 1, 1 ) = EPS3;
             WORK[1] = ZERO;
@@ -409,7 +409,7 @@ import 'package:lapack/src/xerbla.dart';
 
             // Test for sufficient growth in the norm of (VR,VI).
 
-            VNORM = DASUM( N, VR, 1 ) + DASUM( N, VI, 1 );
+            VNORM = dasum( N, VR, 1 ) + dasum( N, VI, 1 );
             if (VNORM >= GROWTO*SCALE) GO TO 280;
 
             // Choose a new orthogonal starting vector and try again.

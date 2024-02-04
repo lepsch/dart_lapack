@@ -67,8 +67,8 @@
          dcopy(N, X( 1, J ), 1, WORK, 1 );
          dtbmv(UPLO, TRANS, DIAG, N, KD, AB, LDAB, WORK, 1 );
          daxpy(N, -ONE, B( 1, J ), 1, WORK, 1 );
-         BNORM = DASUM( N, WORK, 1 );
-         XNORM = DASUM( N, X( 1, J ), 1 );
+         BNORM = dasum( N, WORK, 1 );
+         XNORM = dasum( N, X( 1, J ), 1 );
          if ( XNORM <= ZERO ) {
             RESID = ONE / EPS;
          } else {

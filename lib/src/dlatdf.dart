@@ -141,7 +141,7 @@ import 'package:lapack/src/xerbla.dart';
          daxpy(N, -ONE, XM, 1, RHS, 1 );
          dgesc2(N, Z, LDZ, RHS, IPIV, JPIV, TEMP );
          dgesc2(N, Z, LDZ, XP, IPIV, JPIV, TEMP );
-         if( DASUM( N, XP, 1 ) > DASUM( N, RHS, 1 ) ) dcopy( N, XP, 1, RHS, 1 );
+         if( dasum( N, XP, 1 ) > dasum( N, RHS, 1 ) ) dcopy( N, XP, 1, RHS, 1 );
 
          // Compute the sum of squares
 

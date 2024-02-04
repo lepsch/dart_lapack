@@ -56,7 +56,7 @@
             I1 = max( KD+1-J, 1 );
             I2 = min( KD+M-J, KL+KD );
             if ( I2 >= I1 ) {
-               TEMP = DASUM( I2-I1+1, A( I1, J ), 1 );
+               TEMP = dasum( I2-I1+1, A( I1, J ), 1 );
                if( ANORM < TEMP || disnan( TEMP ) ) ANORM = TEMP;
             }
          } // 10
@@ -100,8 +100,8 @@
 
       RESID = ZERO;
       for (J = 1; J <= NRHS; J++) { // 30
-         BNORM = DASUM( N1, B( 1, J ), 1 );
-         XNORM = DASUM( N1, X( 1, J ), 1 );
+         BNORM = dasum( N1, B( 1, J ), 1 );
+         XNORM = dasum( N1, X( 1, J ), 1 );
          if ( XNORM <= ZERO ) {
             RESID = ONE / EPS;
          } else {

@@ -48,7 +48,7 @@
       for (J = 1; J <= N; J++) { // 10
          I1 = max( KD+1-J, 1 );
          I2 = min( KD+M-J, KL+KD );
-         if (I2 >= I1) ANORM = max( ANORM, DASUM( I2-I1+1, A( I1, J ), 1 ) );
+         if (I2 >= I1) ANORM = max( ANORM, dasum( I2-I1+1, A( I1, J ), 1 ) );
       } // 10
 
       // Compute one column at a time of L*U - A.
@@ -92,7 +92,7 @@
 
             // Compute the 1-norm of the column.
 
-            RESID = max( RESID, DASUM( JU+JL+1, WORK, 1 ) );
+            RESID = max( RESID, dasum( JU+JL+1, WORK, 1 ) );
          }
       } // 40
 

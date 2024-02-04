@@ -213,7 +213,7 @@
                      } // 30
                      X[I] = ONE;
                      dgttrs('No transpose', N, 1, AF, AF( M+1 ), AF( N+M+1 ), AF( N+2*M+1 ), IWORK, X, LDA, INFO );
-                     AINVNM = max( AINVNM, DASUM( N, X, 1 ) );
+                     AINVNM = max( AINVNM, dasum( N, X, 1 ) );
                   } // 40
 
                   // Compute the 1-norm condition number of A.
@@ -234,7 +234,7 @@
                      } // 50
                      X[I] = ONE;
                      dgttrs('Transpose', N, 1, AF, AF( M+1 ), AF( N+M+1 ), AF( N+2*M+1 ), IWORK, X, LDA, INFO );
-                     AINVNM = max( AINVNM, DASUM( N, X, 1 ) );
+                     AINVNM = max( AINVNM, dasum( N, X, 1 ) );
                   } // 60
 
                   // Compute the infinity-norm condition number of A.

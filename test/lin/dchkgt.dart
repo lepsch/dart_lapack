@@ -222,7 +222,7 @@
                      } // 30
                      X[I] = ONE;
                      dgttrs(TRANS, N, 1, AF, AF( M+1 ), AF( N+M+1 ), AF( N+2*M+1 ), IWORK, X, LDA, INFO );
-                     AINVNM = max( AINVNM, DASUM( N, X, 1 ) );
+                     AINVNM = max( AINVNM, dasum( N, X, 1 ) );
                   } // 40
 
                   // Compute RCONDC = 1 / (norm(A) * norm(inv(A))

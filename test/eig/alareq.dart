@@ -1,36 +1,23 @@
-      void alareq(PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT ) {
+import 'dart:async';
+import 'dart:math';
+
+import 'package:lapack/src/blas/lsame.dart';
+import 'package:lapack/src/box.dart';
+import 'package:lapack/src/ilaenv.dart';
+import 'package:lapack/src/matrix.dart';
+import 'package:lapack/src/xerbla.dart';
+
+      void alareq(final String PATH, final int NMATS, final Array<bool> DOTYPE, final int NTYPES, final Stream<List<int>> NIN, final StreamSink<List<int>> NOUT, ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
-
-      // .. Scalar Arguments ..
-      String             PATH;
-      int                NIN, NMATS, NOUT, NTYPES;
-      // ..
-      // .. Array Arguments ..
-      bool               DOTYPE( * );
-      // ..
-
-// =====================================================================
-
-      // .. Local Scalars ..
       bool               FIRSTT;
       String             C1;
-      String             INTSTR;
-      String             LINE;
+      String             LINE='';
       int                I, I1, IC, J, K, LENP, NT;
-      // ..
-      // .. Local Arrays ..
-      int                NREQ( 100 );
-      // ..
-      // .. Intrinsic Functions ..
-      // INTRINSIC LEN
-      // ..
-      // .. Data statements ..
+      final                NREQ = Array<int>( 100 );
       const INTSTR = '0123456789';
-      // ..
-      // .. Executable Statements ..
 
       if ( NMATS >= NTYPES ) {
 

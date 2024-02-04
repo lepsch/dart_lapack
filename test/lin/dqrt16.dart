@@ -64,8 +64,8 @@
 
       RESID = ZERO;
       for (J = 1; J <= NRHS; J++) { // 10
-         BNORM = DASUM( N1, B( 1, J ), 1 );
-         XNORM = DASUM( N2, X( 1, J ), 1 );
+         BNORM = dasum( N1, B( 1, J ), 1 );
+         XNORM = dasum( N2, X( 1, J ), 1 );
          if ( ANORM == ZERO && BNORM == ZERO ) {
             RESID = ZERO;
          } else if ( ANORM <= ZERO || XNORM <= ZERO ) {

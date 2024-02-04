@@ -67,7 +67,7 @@ import 'package:lapack/src/xerbla.dart';
          // ... QUIT
          GO TO 150;
       }
-      EST = DASUM( N, X, 1 );
+      EST = dasum( N, X, 1 );
 
       for (I = 1; I <= N; I++) { // 30
          if ( X(I) >= ZERO ) {
@@ -105,7 +105,7 @@ import 'package:lapack/src/xerbla.dart';
       } // 70
       dcopy(N, X, 1, V, 1 );
       ESTOLD = EST;
-      EST = DASUM( N, V, 1 );
+      EST = dasum( N, V, 1 );
       for (I = 1; I <= N; I++) { // 80
          if ( X(I) >= ZERO ) {
             XS = ONE;
@@ -160,7 +160,7 @@ import 'package:lapack/src/xerbla.dart';
       // X HAS BEEN OVERWRITTEN BY A*X.
 
       } // 140
-      TEMP = TWO*( DASUM( N, X, 1 ) / (3*N).toDouble() );
+      TEMP = TWO*( dasum( N, X, 1 ) / (3*N).toDouble() );
       if ( TEMP > EST ) {
          dcopy(N, X, 1, V, 1 );
          EST = TEMP;

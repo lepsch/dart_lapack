@@ -63,8 +63,8 @@
       dlagtm(TRANS, N, NRHS, -ONE, DL, D, DU, X, LDX, ONE, B, LDB );
 
       for (J = 1; J <= NRHS; J++) { // 10
-         BNORM = DASUM( N, B( 1, J ), 1 );
-         XNORM = DASUM( N, X( 1, J ), 1 );
+         BNORM = dasum( N, B( 1, J ), 1 );
+         XNORM = dasum( N, X( 1, J ), 1 );
          if ( XNORM <= ZERO ) {
             RESID = ONE / EPS;
          } else {

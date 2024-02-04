@@ -89,7 +89,7 @@ import 'package:lapack/src/xerbla.dart';
 
             IP = 1;
             for (J = 1; J <= N; J++) { // 10
-               CNORM[J] = DASUM( J-1, AP( IP ), 1 );
+               CNORM[J] = dasum( J-1, AP( IP ), 1 );
                IP = IP + J;
             } // 10
          } else {
@@ -98,7 +98,7 @@ import 'package:lapack/src/xerbla.dart';
 
             IP = 1;
             for (J = 1; J <= N - 1; J++) { // 20
-               CNORM[J] = DASUM( N-J, AP( IP+1 ), 1 );
+               CNORM[J] = dasum( N-J, AP( IP+1 ), 1 );
                IP = IP + N - J + 1;
             } // 20
             CNORM[N] = ZERO;

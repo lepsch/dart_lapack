@@ -62,8 +62,8 @@
 
       dgemv('No transpose', N, P, -ONE, B, LDB, U, 1, ONE, DF, 1 );
 
-      DNORM = DASUM( N, DF, 1 );
-      XNORM = DASUM( M, X, 1 ) + DASUM( P, U, 1 );
+      DNORM = dasum( N, DF, 1 );
+      XNORM = dasum( M, X, 1 ) + dasum( P, U, 1 );
       YNORM = ANORM + BNORM;
 
       if ( XNORM <= ZERO ) {

@@ -48,7 +48,7 @@
       for (J = 1; J <= N; J++) { // 10
          dcopy(M, A( 1, J ), 1, WORK, 1 );
          daxpy(M, -ONE, B( 1, J ), 1, WORK, 1 );
-         WNORM = max( WNORM, DASUM( N, WORK, 1 ) );
+         WNORM = max( WNORM, dasum( N, WORK, 1 ) );
       } // 10
 
       ANORM = max( DLANGE( '1', M, N, A, LDA, WORK ), UNFL );

@@ -124,8 +124,8 @@
 
                         dcopy(N, D, 1, Y, 1 );
                         dgemv('No transpose', N, N, ONE, T, LDT, X, 1, -SCALE, Y, 1 );
-                        XNORM = DASUM( N, X, 1 );
-                        RESID = DASUM( N, Y, 1 );
+                        XNORM = dasum( N, X, 1 );
+                        RESID = dasum( N, Y, 1 );
                         DOMIN = max( SMLNUM, ( SMLNUM / EPS )*NORM, ( NORM*EPS )*XNORM );
                         RESID = RESID / DOMIN;
                         if ( RESID > RMAX ) {
@@ -142,8 +142,8 @@
 
                         dcopy(N, D, 1, Y, 1 );
                         dgemv('Transpose', N, N, ONE, T, LDT, X, 1, -SCALE, Y, 1 );
-                        XNORM = DASUM( N, X, 1 );
-                        RESID = DASUM( N, Y, 1 );
+                        XNORM = dasum( N, X, 1 );
+                        RESID = dasum( N, Y, 1 );
                         DOMIN = max( SMLNUM, ( SMLNUM / EPS )*NORM, ( NORM*EPS )*XNORM );
                         RESID = RESID / DOMIN;
                         if ( RESID > RMAX ) {
@@ -173,8 +173,8 @@
                         } // 60
                         dgemv('No transpose', N, N, ONE, T, LDT, X( 1+N ), 1, ONE, Y( 1+N ), 1 );
 
-                        RESID = DASUM( 2*N, Y, 1 );
-                        DOMIN = max( SMLNUM, ( SMLNUM / EPS )*NORMTB, EPS*( NORMTB*DASUM( 2*N, X, 1 ) ) );
+                        RESID = dasum( 2*N, Y, 1 );
+                        DOMIN = max( SMLNUM, ( SMLNUM / EPS )*NORMTB, EPS*( NORMTB*dasum( 2*N, X, 1 ) ) );
                         RESID = RESID / DOMIN;
                         if ( RESID > RMAX ) {
                            RMAX = RESID;
@@ -202,8 +202,8 @@
                         } // 80
                         dgemv('Transpose', N, N, ONE, T, LDT, X( 1+N ), 1, -ONE, Y( 1+N ), 1 );
 
-                        RESID = DASUM( 2*N, Y, 1 );
-                        DOMIN = max( SMLNUM, ( SMLNUM / EPS )*NORMTB, EPS*( NORMTB*DASUM( 2*N, X, 1 ) ) );
+                        RESID = dasum( 2*N, Y, 1 );
+                        DOMIN = max( SMLNUM, ( SMLNUM / EPS )*NORMTB, EPS*( NORMTB*dasum( 2*N, X, 1 ) ) );
                         RESID = RESID / DOMIN;
                         if ( RESID > RMAX ) {
                            RMAX = RESID;

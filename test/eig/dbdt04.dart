@@ -91,7 +91,7 @@
       K = N*NS;
       for (I = 1; I <= NS; I++) { // 70
          WORK[K+I] = WORK( K+I ) + S( I );
-         RESID = max( RESID, DASUM( NS, WORK( K+1 ), 1 ) );
+         RESID = max( RESID, dasum( NS, WORK( K+1 ), 1 ) );
          K = K + NS;
       } // 70
 

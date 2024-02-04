@@ -65,7 +65,7 @@
                } else {
                   BNORM = max( BNORM, ( D( J ) ) ).abs();
                }
-               RESID = max( RESID, DASUM( N, WORK, 1 ) );
+               RESID = max( RESID, dasum( N, WORK, 1 ) );
             } // 20
          } else {
 
@@ -83,7 +83,7 @@
                } else {
                   BNORM = max( BNORM, ( D( J ) ) ).abs();
                }
-               RESID = max( RESID, DASUM( N, WORK, 1 ) );
+               RESID = max( RESID, dasum( N, WORK, 1 ) );
             } // 40
          }
       } else {
@@ -96,7 +96,7 @@
             } // 50
             dgemv('No transpose', N, N, -ONE, U, LDU, WORK( N+1 ), 1, ZERO, WORK, 1 );
             WORK[J] = WORK( J ) + D( J );
-            RESID = max( RESID, DASUM( N, WORK, 1 ) );
+            RESID = max( RESID, dasum( N, WORK, 1 ) );
          } // 60
          J = idamax( N, D, 1 );
          BNORM = ( D( J ) ).abs();
