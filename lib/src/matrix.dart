@@ -70,7 +70,7 @@ class Matrix<T> {
 
   Box<T> box(int i, int j) => this[i].box(j);
 
-  Array<T> asArray() => _entries(1);
+  Array<T> asArray() => _Array.fromSlice(_entries.toRawList(), offset: offset.x * dimension.m + offset.y);
 }
 
 class _Array<T> implements Array<T> {
